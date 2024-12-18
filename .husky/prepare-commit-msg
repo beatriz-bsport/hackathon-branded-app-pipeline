@@ -18,9 +18,13 @@ else
 	then
 		exit 0
 	else
-		exec < /dev/tty && git cz --hook || true
+		if [ "$ECOSYSTEM_SKIP_HOOKS" = "true" ]
+		then
+			exit 0
+		else
+			exec < /dev/tty && git cz --hook || true
+		fi
 	fi
-
 fi
 
 exit 0

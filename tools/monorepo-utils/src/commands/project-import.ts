@@ -9,26 +9,30 @@ import child_process from "child_process";
 
 const exec = util.promisify(child_process.exec);
 
+function getPrintFns({ quiet }: { quiet: boolean }) {
+  return {
+    print: (...msgs) => !quiet && console.log(...msgs),
+    printGroup: (...msgs) => !quiet && console.group(...msgs),
+    printGroupEnd: () => !quiet && console.groupEnd(),
+  };
+}
+
+type PrintFn = (...msg: string[]) => void;
+
 /**
  * @param {string} targetPath
  * @param {string} fsPath
- * @param {{ branch: string, remote: string, tempDir: string, quiet: boolean }} options
+ * @param {{ branch: string, remote: string, tempDir: string | undefined, quiet: boolean }} options
  */
 async function action(
   targetPath,
   fsPath,
-  {
-    branch,
-    quiet,
-    remote,
-    tempDir,
-    tempBranch,
-    tempRemote,
-    "no-clean-up": noCleanUp = false,
-  },
+  { branch, quiet, remote, tempDir, tempBranch, tempRemote, noCleanUp },
 ) {
   let error;
-  const print = (...msgs) => !quiet && console.log(...msgs);
+  const { print, printGroup, printGroupEnd } = getPrintFns({ quiet });
+
+  printGroup("\n\t🚀    Start importing project    🚀");
 
   const repoAbsolutePath = path.resolve(process.cwd(), fsPath);
 
@@ -39,22 +43,36 @@ async function action(
   }
 
   try {
-    await syncInitialRepository({ remote, branch, repoAbsolutePath, quiet });
+    print("\n---------------------------------------------------\n");
+
+    await syncInitialRepository({
+      quiet,
+      remote,
+      branch,
+      repoAbsolutePath,
+    });
+
+    print("\n---------------------------------------------------\n");
+
     await prepareRepoForMerge({
+      quiet,
       tempBranch,
       tempDir,
       repoAbsolutePath,
-      quiet,
-      fsPath,
       targetPath,
     });
+
+    print("\n---------------------------------------------------\n");
+
     await mergeToMonorepo({
+      quiet,
       repoAbsolutePath,
       targetPath,
       tempBranch,
       tempRemote,
-      quiet,
     });
+
+    print("\n---------------------------------------------------\n");
   } catch (e) {
     error = e;
     print("❌ An error occurred!");
@@ -81,21 +99,61 @@ async function action(
       console.error(error);
     }
   }
+  printGroupEnd();
 }
 
 async function syncInitialRepository({
+  quiet,
   remote,
   branch,
   repoAbsolutePath,
-  quiet,
 }: {
-  branch: string;
   quiet: boolean;
+  branch: string;
   remote: string;
   repoAbsolutePath: string;
 }) {
-  const print = (...msgs) => !quiet && console.log(...msgs);
-  print(`⏳ Syncing initial repository with ${remote}/${branch}`);
+  const { print, printGroup, printGroupEnd } = getPrintFns({ quiet });
+
+  printGroup(`⏳ Syncing initial repository with ${remote}/${branch}`);
+
+  printGroup("\n1️⃣  Check initial repository is a git repository");
+  await _checkRepositoryIsAGitRepository({ print, repoAbsolutePath });
+  printGroupEnd();
+
+  printGroup(`\n2️⃣  Check initial repository has no unstaged changes`);
+  await _checkRepositoryHasNotUnstagedChanges({
+    print,
+    repositoryLocalPath: repoAbsolutePath,
+    repositoryHint: "initial repository",
+  });
+  printGroupEnd();
+
+  printGroup(`\n3️⃣  Check monorepository has no unstaged changes`);
+  const monorepoBasePath = await getMonorepoBasePath();
+  await _checkRepositoryHasNotUnstagedChanges({
+    print,
+    repositoryLocalPath: monorepoBasePath,
+    repositoryHint: "monorepository",
+  });
+  printGroupEnd();
+
+  printGroup("\n4️⃣  Sync initial repository with its remote version");
+  await _syncInitialWithRemote({ print, repoAbsolutePath, branch, remote });
+  printGroupEnd();
+
+  print(`\n✅ Initial repository synced with ${remote}/${branch}`);
+
+  printGroupEnd();
+}
+
+async function _checkRepositoryIsAGitRepository({
+  print,
+  repoAbsolutePath,
+}: {
+  print: PrintFn;
+  repoAbsolutePath: string;
+}) {
   const isGitRepository =
     (
       await exec("git rev-parse --is-inside-work-tree", {
@@ -106,129 +164,290 @@ async function syncInitialRepository({
     throw new Error(
       `Invalid path: ${repoAbsolutePath} is not a valid git repository`,
     );
+  } else {
+    print(`¤ Git repository found at path ${repoAbsolutePath}`);
   }
-  print(`> Git repository found at path ${repoAbsolutePath}`);
-  try {
-    print("> git diff --name-only --exit-code");
-    await exec("git diff --name-only --exit-code", { cwd: repoAbsolutePath });
-  } catch (e) {
-    print("Changes not staged for commit:");
-    print(e.stdout);
-    throw new Error(
-      "Some local changes have not been staged in the repository",
-    );
-  }
+}
+
+async function _checkRepositoryHasNotUnstagedChanges({
+  print,
+  repositoryLocalPath,
+  repositoryHint,
+}: {
+  print: PrintFn;
+  repositoryLocalPath: string;
+  repositoryHint: string;
+}) {
   try {
     print("> git diff --name-only --exit-code");
     await exec("git diff --name-only --exit-code", {
-      cwd: await getMonorepoBasePath(),
+      cwd: repositoryLocalPath,
     });
+    print("¤ No local change has been found.");
   } catch (e) {
-    print("Changes not staged for commit:");
+    print("! Changes not staged for commit");
     print(e.stdout);
     throw new Error(
-      "Some local changes have not been staged in the monorepository",
+      `Some local changes have not been staged in the ${repositoryHint}`,
     );
   }
-  print("No local change has been found.");
+}
+
+async function _syncInitialWithRemote({
+  print,
+  repoAbsolutePath,
+  branch,
+  remote,
+}: {
+  print: PrintFn;
+  repoAbsolutePath: string;
+  branch: string;
+  remote: string;
+}) {
   print(`> git checkout ${branch}`);
   await exec(`git checkout --quiet ${branch}`, { cwd: repoAbsolutePath });
-  print(`> git pull ${remote} ${branch}`);
-  await exec(`git pull --quiet ${remote} ${branch}`, { cwd: repoAbsolutePath });
-  print(`✅ Initial repository synced with ${remote}/${branch}`);
+  print(`> git pull ${remote} ${branch} --rebase`);
+  await exec(`git pull --quiet ${remote} ${branch} --rebase`, {
+    cwd: repoAbsolutePath,
+  });
 }
+
 async function prepareRepoForMerge({
+  quiet,
   tempBranch,
   tempDir,
   repoAbsolutePath,
-  quiet,
-  fsPath,
   targetPath,
 }: {
-  fsPath: string;
   quiet: boolean;
   repoAbsolutePath: string;
   targetPath: string;
   tempBranch: string;
-  tempDir: string;
+  tempDir: string | undefined;
 }) {
-  const print = (...msgs) => !quiet && console.log(...msgs);
+  const { print, printGroup, printGroupEnd } = getPrintFns({ quiet });
 
-  const tempDirPath = path.resolve(await getMonorepoBasePath(), tempDir);
-  print("⏳ Preparing repository for merge");
+  printGroup("⏳ Preparing initial repository for merge");
+
+  printGroup(
+    "\n1️⃣  Define temporary directory to move files, based on --temp-dir option",
+  );
+  const tempDirPath = await _getTempDirPath({ print, tempDir });
+  printGroupEnd();
+
+  printGroup("\n2️⃣  Create a temporary branch to prepare transfer");
+  await _createTempBranch({ print, tempBranch, repoAbsolutePath });
+  printGroupEnd();
+
+  printGroup("\n3️⃣  Create cache folder in temp directory");
+  await _createCacheFolder({ print, tempDirPath });
+  printGroupEnd();
+
+  printGroup("\n4️⃣  Move files and folders (except .git) to cache folder");
+  await _moveFilesToCacheFolder({ print, repoAbsolutePath, tempDirPath });
+  printGroupEnd();
+
+  printGroup(
+    "\n5️⃣  Move files and folders to targetPath in initial repository",
+  );
+  _moveFilesToTargetPath({
+    print,
+    tempDirPath,
+    targetPath,
+    initialRepoPath: repoAbsolutePath,
+  });
+  printGroupEnd();
+
+  printGroup("\n6️⃣  Update pkg name to match monorepo structure");
+  await _updatePackageJsonName({ print, targetPath, repoAbsolutePath });
+  printGroupEnd();
+
+  printGroup("\n7️⃣  Add and commit changes in initial repository temp branch");
+  await _commitFileMovingToTempBranch({ print, repoAbsolutePath, targetPath });
+  printGroupEnd();
+
+  print("\n✅ Repository ready to be merged");
+
+  printGroupEnd();
+}
+
+/**
+ * Define a temporary folder path in monorepository to store files
+ */
+async function _getTempDirPath({
+  print,
+  tempDir,
+}: {
+  print: PrintFn;
+  tempDir: string | undefined;
+}) {
+  try {
+    const _tempDir =
+      tempDir ??
+      path.relative(
+        await getMonorepoBasePath(),
+        path.resolve(__dirname, "__tmp__"),
+      );
+    const tempDirPath = path.resolve(await getMonorepoBasePath(), _tempDir);
+    print(`¤ Temp directory path is ${tempDirPath}`);
+    return tempDirPath;
+  } catch (error) {
+    throw new Error("Fail to get tempDirPath");
+  }
+}
+
+/**
+ * Create a new branch in initial repository where to make merge preparation
+ */
+async function _createTempBranch({
+  print,
+  tempBranch,
+  repoAbsolutePath,
+}: {
+  print: PrintFn;
+  tempBranch: string;
+  repoAbsolutePath: string;
+}) {
   try {
     print(`> git checkout -b ${tempBranch}`);
     await exec(`git checkout --quiet -b ${tempBranch}`, {
       cwd: repoAbsolutePath,
     });
   } catch (e) {
-    print(`A branch named '${tempBranch}' already exists.`);
+    print(`! A branch named '${tempBranch}' already exists.`);
     print(`> git checkout ${tempBranch}`);
-    await exec(`git checkout --quiet ${tempBranch}`, { cwd: repoAbsolutePath });
+    await exec(`git checkout --quiet ${tempBranch}`, {
+      cwd: repoAbsolutePath,
+    });
   }
+}
 
+/**
+ * Create cache directory based on the monorepository tempory dir path
+ */
+async function _createCacheFolder({
+  print,
+  tempDirPath,
+}: {
+  print: PrintFn;
+  tempDirPath: string;
+}) {
   if (!fs.existsSync(tempDirPath)) {
-    print(`> Create cache folder: ${tempDirPath}`);
+    print(`¤ Create cache folder: ${tempDirPath}`);
     fs.mkdirSync(tempDirPath);
   } else {
-    print(`> Clear cache folder: ${tempDirPath}`);
+    print(`¤ Clear cache folder: ${tempDirPath}`);
     await exec(`rm -rf ${tempDirPath}/*`);
   }
+}
 
-  print("> Move files and folders (except .git) to cache folder");
-
-  const files = fs.readdirSync(repoAbsolutePath).filter((f) => f !== ".git");
-
+/**
+ * Move files from initial repository to cache folder
+ */
+function _moveFilesToCacheFolder({
+  print,
+  repoAbsolutePath,
+  tempDirPath,
+}: {
+  print: PrintFn;
+  repoAbsolutePath: string;
+  tempDirPath: string;
+}) {
+  const filesToFilterOut = [".git"];
+  const files = fs
+    .readdirSync(repoAbsolutePath)
+    .filter((f) => !filesToFilterOut.includes(f));
   files.forEach((file) => {
     fs.renameSync(`${repoAbsolutePath}/${file}`, `${tempDirPath}/${file}`);
   });
+  print("¤ All files have been moved successfully !");
+}
 
-  if (!fs.existsSync(path.resolve(fsPath, targetPath))) {
-    print(`> Create folder ${targetPath} in initial project`);
-    fs.mkdirSync(path.resolve(fsPath, targetPath), { recursive: true });
+function _moveFilesToTargetPath({
+  print,
+  tempDirPath,
+  targetPath,
+  initialRepoPath,
+}: {
+  print: PrintFn;
+  tempDirPath: string;
+  targetPath: string;
+  initialRepoPath: string;
+}) {
+  print("¤ Mirror the monorepository structure inside the initial repository");
+  const targetPathInInitialRepo = path.resolve(initialRepoPath, targetPath);
+  if (!fs.existsSync(targetPathInInitialRepo)) {
+    print(`¤ Create folder ${targetPath} in initial project`);
+    fs.mkdirSync(targetPathInInitialRepo, { recursive: true });
   }
+  print(`¤ Load files from cache to ${targetPath}`);
+  fs.renameSync(tempDirPath, targetPathInInitialRepo);
+}
 
-  print(`> Load files from cache to ${targetPath}`);
-  fs.renameSync(tempDirPath, path.resolve(fsPath, targetPath));
+async function _updatePackageJsonName({
+  print,
+  repoAbsolutePath,
+  targetPath,
+}: {
+  print: PrintFn;
+  repoAbsolutePath: string;
+  targetPath: string;
+}) {
+  const packageJsonPath = path.resolve(
+    repoAbsolutePath,
+    targetPath,
+    "package.json",
+  );
+  const applicationName = targetPath.split("/").pop();
 
-  const packageJsonPath = path.resolve(fsPath, targetPath, "package.json");
-
+  // Update package name
+  const newPackageName = `@bsport/${applicationName}`;
   if (!fs.existsSync(packageJsonPath)) {
     fs.writeJSONSync(packageJsonPath, {
-      name: `${targetPath}`,
+      name: newPackageName,
       version: "0.0.0",
       description: "",
     });
-    print("✅ Created base package.json with new name");
+    print(`¤ Create package.json with new name ${applicationName}`);
   } else {
     const packageJson = fs.readJSONSync(packageJsonPath);
-    packageJson.name = `${packageJson.name}`;
+    packageJson.name = newPackageName;
     fs.writeFileSync(
       packageJsonPath,
       JSON.stringify(packageJson, null, 2),
       "utf8",
     );
-    print("✅ Update package.json with new name");
+    print(`¤ Update package.json with new name ${applicationName}`);
   }
+}
 
+async function _commitFileMovingToTempBranch({
+  print,
+  repoAbsolutePath,
+  targetPath,
+}: {
+  print: PrintFn;
+  repoAbsolutePath: string;
+  targetPath: string;
+}) {
   print("> git add -A");
   await exec("git add -A", { cwd: repoAbsolutePath });
+  const oldRepositoryName = repoAbsolutePath.split("/").pop();
   print(
-    `> git commit -m "feature: migration to monorepo project ${targetPath}"`,
+    `> git commit -m "migrate(${oldRepositoryName}): migration to monorepo project ${targetPath}"`,
   );
   await exec(
-    `git commit -m "feature: migration to monorepo project ${targetPath}"`,
+    `git commit -m "migrate(${oldRepositoryName}): migration to monorepo project ${targetPath}"`,
     { cwd: repoAbsolutePath },
   );
-
-  print("✅ Repository ready to be merged");
 }
+
 async function mergeToMonorepo({
+  quiet,
   repoAbsolutePath,
   targetPath,
   tempBranch,
   tempRemote,
-  quiet,
 }: {
   quiet: boolean;
   repoAbsolutePath: string;
@@ -236,22 +455,89 @@ async function mergeToMonorepo({
   tempBranch: string;
   tempRemote: string;
 }) {
-  const monorepoBasePath = await getMonorepoBasePath();
-  const print = (...msgs) => !quiet && console.log(...msgs);
-  print("⏳ Merging to monorepository");
-  print(`> git remote add -f ${tempRemote} ${repoAbsolutePath}`);
-  await exec(`git remote add -f ${tempRemote} ${repoAbsolutePath}`, {
-    cwd: monorepoBasePath,
+  const { print, printGroup, printGroupEnd } = getPrintFns({ quiet });
+
+  printGroup("⏳ Merging to monorepository");
+
+  printGroup(
+    "\n1️⃣  Add temp remote to monorepo pointing to initial repository",
+  );
+  await _addInitialRepoTempBranchAsRemote({
+    print,
+    tempRemote,
+    repoAbsolutePath,
   });
+  printGroupEnd();
+
+  printGroup(
+    "\n2️⃣  Merge the initial repository history inside monorepository",
+  );
+  await _mergeRemoteInMonorepository({
+    print,
+    tempRemote,
+    tempBranch,
+    targetPath,
+  });
+  printGroupEnd();
+
+  print("\n✅ Merged to monorepository");
+
+  printGroupEnd();
+}
+
+async function _addInitialRepoTempBranchAsRemote({
+  print,
+  tempRemote,
+  repoAbsolutePath,
+}: {
+  print: PrintFn;
+  tempRemote: string;
+  repoAbsolutePath: string;
+}) {
+  const monorepoBasePath = await getMonorepoBasePath();
+  print(`> git remote add -f ${tempRemote} ${repoAbsolutePath}`);
+  try {
+    await exec(`git remote add -f ${tempRemote} ${repoAbsolutePath}`, {
+      cwd: monorepoBasePath,
+    });
+    print(`¤ Add remote.${tempRemote} pointing to ${repoAbsolutePath}`);
+  } catch (error) {
+    print(`! remote.${tempRemote} already exists`);
+    print(`¤ Update the remote destination to ${repoAbsolutePath}`);
+    print(
+      `> git remote set-url ${tempRemote} ${repoAbsolutePath} && git fetch ${tempRemote}`,
+    );
+    await exec(
+      `git remote set-url ${tempRemote} ${repoAbsolutePath} && git fetch ${tempRemote}`,
+      {
+        cwd: monorepoBasePath,
+      },
+    );
+  }
+}
+
+async function _mergeRemoteInMonorepository({
+  print,
+  tempRemote,
+  tempBranch,
+  targetPath,
+}: {
+  print: PrintFn;
+  tempRemote: string;
+  tempBranch: string;
+  targetPath: string;
+}) {
+  const monorepoBasePath = await getMonorepoBasePath();
+  print("¤ Set ECOSYSTEM_SKIP_HOOKS to true to skip commitizen");
   print(
     `> git merge -m "feature: imported ${targetPath}" ${tempRemote}/${tempBranch} --allow-unrelated-histories`,
   );
   await exec(
-    `git merge -m "feature: imported ${targetPath}" ${tempRemote}/${tempBranch} --allow-unrelated-histories`,
+    `export ECOSYSTEM_SKIP_HOOKS=true; git merge -m "feature: imported ${targetPath}" ${tempRemote}/${tempBranch} --allow-unrelated-histories`,
     { cwd: monorepoBasePath },
   );
-  print("✅ Merged to monorepository");
 }
+
 async function cleanup({
   quiet,
   error,
@@ -271,13 +557,15 @@ async function cleanup({
   fsPath: string;
   targetPath: string;
 }) {
-  const print = (...msgs) => !quiet && console.log(...msgs);
-  print("⏳ Clearing temp branches and remotes");
-  if (!error) print("> Clear cache folder");
+  const { print, printGroup, printGroupEnd } = getPrintFns({ quiet });
+
+  printGroup("⏳ Clearing temp branches and remotes");
+
+  if (!error) print("¤ Clear cache folder");
   await exec(`rm -rf ${tempBranch}`);
 
   if (fs.existsSync(path.resolve(fsPath, targetPath))) {
-    print("> Clear target folder");
+    print("¤ Clear target folder");
     await exec(`rm -rf ${path.resolve(fsPath, targetPath)}`);
   }
 
@@ -287,18 +575,30 @@ async function cleanup({
       cwd: await getMonorepoBasePath(),
     });
   } catch (e) {
-    if (!error) print(`remote ${tempRemote} already removed`);
+    if (!error) print(`! remote ${tempRemote} already removed`);
   }
-  if (!error) print(`> git checkout --force ${branch}`);
-  await exec(`git checkout --force ${branch}`, { cwd: repoAbsolutePath });
+
+  const initialRepoCurrentGitBranch = (
+    await exec("git rev-parse --abbrev-ref HEAD", { cwd: repoAbsolutePath })
+  ).stdout.trim();
+  if (initialRepoCurrentGitBranch === branch) {
+    print(
+      `! Manually handle or remove your changes on ${branch} from ${repoAbsolutePath}`,
+    );
+  } else {
+    if (!error) print(`> git checkout --force ${branch}`);
+    await exec(`git checkout --force ${branch}`, { cwd: repoAbsolutePath });
+  }
 
   try {
     if (!error) print(`> git branch -D ${tempBranch}`);
     await exec(`git branch -D ${tempBranch}`, { cwd: repoAbsolutePath });
   } catch (e) {
-    if (!error) print(`branch ${tempBranch} not found`);
+    if (!error) print(`! branch ${tempBranch} not found`);
   }
-  print("✅ Temp branches and remotes cleared");
+  print("\n✅ Temp branches and remotes cleared");
+
+  printGroupEnd();
 }
 
 export default async function importProject(program: Command) {
@@ -328,10 +628,7 @@ export default async function importProject(program: Command) {
     .option(
       "--tempDir <tempDir>",
       "temporary cache directory that will be used to copy files",
-      path.relative(
-        await getMonorepoBasePath(),
-        path.resolve(__dirname, "__tmp__"),
-      ),
+      undefined,
     )
     .option(
       "--tempBranch <tempBranch>",
@@ -344,7 +641,7 @@ export default async function importProject(program: Command) {
       "temp",
     )
     .option(
-      "--no-clean-up",
+      "-ncu, --noCleanUp",
       "disables the post script clean-up that removes temporary folders, remotes and branches.",
       false,
     )

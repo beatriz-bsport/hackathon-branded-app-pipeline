@@ -44,14 +44,14 @@ const icons = {
     async () => await import("./assets/refresh-cw-01.svg?react"),
   ),
   save: React.lazy(async () => await import("./assets/save.svg?react")),
-  "user-edit": React.lazy(
-    async () => await import("./assets/user-edit.svg?react"),
-  ),
   "upload-01": React.lazy(
     async () => await import("./assets/upload-01.svg?react"),
   ),
   "upload-cloud-02": React.lazy(
     async () => await import("./assets/upload-cloud-02.svg?react"),
+  ),
+  "user-edit": React.lazy(
+    async () => await import("./assets/user-edit.svg?react"),
   ),
   "x-close": React.lazy(async () => await import("./assets/x-close.svg?react")),
   x: React.lazy(async () => await import("./assets/x.svg?react")),

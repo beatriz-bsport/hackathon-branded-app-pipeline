@@ -1,0 +1,57 @@
+import React from 'react';
+
+import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+
+import Search from '#src/components/css-only/Search';
+import ClickableItem from '#src/components/css-only/ClickableItem';
+import { Contract } from '#src/libs/subscription/types';
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
+import { useMarketplaceSearchContractData } from '../hooks';
+import { BaseAdditionalData, SearchItemData } from '../Search.component';
+
+export type Props = {
+  contractList: Contract[];
+  isExcludingTax: boolean;
+  onPressEnter: (
+    searchResult: SearchItemData<BaseAdditionalData>[],
+    searchText: string,
+  ) => void;
+  onClearInput: () => void;
+
+  showContractDetail: (id: number) => void;
+  addContractToBasket: (contract: Contract) => void;
+};
+
+export const ContractSearch: React.FC<Props> = ({
+  contractList,
+  isExcludingTax,
+  onPressEnter,
+  onClearInput,
+  showContractDetail,
+  addContractToBasket,
+}) => {
+  const actionIcon = <ShoppingCartIcon className="bs-search__item__icon" />;
+
+  const { contractItems } = useMarketplaceSearchContractData({
+    contractList,
+    actionIcon,
+    isExcludingTax,
+    showContractDetail,
+    addContractToBasket,
+  });
+
+  return (
+    <Search
+      data={contractItems}
+      onClearInput={onClearInput}
+      onPressEnter={onPressEnter}
+      renderItem={(item: SearchItemData<BaseAdditionalData>) => (
+        <ClickableItem {...item.additionalData} />
+      )}
+    />
+  );
+};
+
+export const ContractSearchForStorybook = marketplaceCssHoc()(ContractSearch);
+
+export default React.memo(ContractSearch);

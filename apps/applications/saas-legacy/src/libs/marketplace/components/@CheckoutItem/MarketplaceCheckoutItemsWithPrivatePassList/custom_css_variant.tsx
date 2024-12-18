@@ -1,0 +1,97 @@
+import React from 'react';
+
+import { Alert } from '@material-ui/lab';
+import { useTranslation } from 'react-i18next';
+
+import { CssComponentsVariantIdentifiers } from '#src/libs/exportable-components/constants';
+import {
+  MarketplaceCSSComponentConfig,
+  MarketplacePage,
+  VariationConfigurationChoice,
+} from '#src/libs/exportable-components/types';
+
+import { checkoutItemsFactory } from '#src/libs/checkout/factories';
+import { privatePassListFactory } from '#src/libs/private-service/factory';
+import { BuyableItemOptions, CheckoutItem } from '#src/libs/checkout/types';
+// @ts-expect-error
+import MarketplaceCheckoutItemsWithPrivatePassListCss from './styles.css?raw';
+import MarketplaceCheckoutItemsWithPrivatePassList, { Props } from '.';
+
+const checkoutPrivatePassItems: CheckoutItem[] = checkoutItemsFactory(3, {
+  buyable_item_identifier: BuyableItemOptions.BUYABLE_ITEM_PRIVATE_PASS,
+});
+
+const privatePasses = privatePassListFactory(3);
+
+const privatePassById = checkoutPrivatePassItems
+  .map((checkoutItem, index) => ({
+    [checkoutItem.buyable_item_id]: privatePasses[index],
+  }))
+  .reduce((acc, curr) => ({ ...acc, ...curr }), {});
+
+const minimalPrivatePassCardRegistry = [
+  {
+    label: 'loading',
+    choices: [
+      {
+        label: 'true',
+        value: 'true',
+      },
+      {
+        label: 'false',
+        value: 'false',
+      },
+    ],
+    default: {
+      label: 'false',
+      value: 'false',
+    },
+  },
+];
+
+const usePropsFromVariation = (
+  variationsSelected: Record<string, VariationConfigurationChoice>,
+): Props => {
+  const isLoading = variationsSelected?.loading?.value === 'true';
+  return {
+    isLoading,
+    items: checkoutPrivatePassItems,
+    privatePassById,
+  };
+};
+
+export const MARKETPLACE_CHECKOUT_ITEMS_PRIVATE_PASS_LIST_CONFIGURATION: MarketplaceCSSComponentConfig =
+  {
+    label:
+      CssComponentsVariantIdentifiers.MARKETPLACE_CHECKOUT_ITEMS_PRIVATE_PASS_LIST,
+    css: MarketplaceCheckoutItemsWithPrivatePassListCss,
+    pages: [MarketplacePage.CHECKOUT_CONFIRMATION],
+    defaultState: {},
+    variations: minimalPrivatePassCardRegistry,
+  };
+
+export const MARKETPLACE_CHECKOUT_ITEMS_PRIVATE_PASS_LIST_PREVIEW: React.FC<{
+  variationsSelected: Record<string, VariationConfigurationChoice>;
+}> = React.memo(({ variationsSelected }) => {
+  const { t } = useTranslation('widget');
+  const componentProps = usePropsFromVariation(variationsSelected);
+  return (
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '20px',
+        justifyContent: 'center',
+        width: '100%',
+      }}
+    >
+      <Alert severity="info" style={{ alignItems: 'center' }}>
+        {t('widget.cssConfig.marketplaceCheckoutItemListPrivatePass', {
+          component_name: t('widget.components.minimal_private_pass_card'),
+          page: t('widget.page.pass'),
+        })}
+      </Alert>
+      <MarketplaceCheckoutItemsWithPrivatePassList {...componentProps} />
+    </div>
+  );
+});

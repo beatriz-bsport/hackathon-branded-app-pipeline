@@ -1,0 +1,98 @@
+.bs-fabrique-checkbox-root {
+  margin: 0;
+  padding: 0;
+
+  /* Remove default input styles like outline and box-shadow */
+  outline: none;
+  box-shadow: none;
+
+  /* Ensure the input behaves as an inline element */
+  display: inline-block;
+  position: relative;
+
+  /* Reset any default background, text, and cursor styles */
+  background: transparent;
+  cursor: pointer;
+
+  /* Apply 'appearance' resets to ensure cross-browser consistency */
+  -webkit-appearance: none; /* Webkit/Blink browsers */
+  -moz-appearance: none; /* Firefox */
+  appearance: none; /* W3C standard */
+  display: flex;
+  align-items: center;
+  gap: var(--bs-space-size-2);
+  width: fit-content;
+  height: fit-content;
+  min-height: 20px;
+}
+
+.bs-fabrique-checkbox__input {
+  display: none;
+}
+
+.bs-fabrique-checkbox__icon__svg {
+  height: var(--bs-icon-size-md);
+  width: var(--bs-icon-size-md);
+}
+
+.bs-fabrique-checkbox__icon--unchecked {
+  stroke: var(--bs-color-icon-weak);
+  transition: fill var(--bs-transition-duration-quick);
+}
+
+.bs-fabrique-checkbox__icon--checked,
+.bs-fabrique-checkbox__icon--multiple {
+  fill: var(--bs-color-icon-brand-main);
+  fill-rule: evenodd;
+  transition: fill var(--bs-transition-duration-quick);
+  stroke: transparent;
+}
+
+.bs-fabrique-checkbox__icon--inversed {
+  stroke: var(--bs-color-icon-inverse-default);
+}
+
+.bs-fabrique-checkbox__icon--inversed.bs-fabrique-checkbox__icon--checked,
+.bs-fabrique-checkbox__icon--inversed.bs-fabrique-checkbox__icon--multiple {
+  fill: var(--bs-color-icon-inverse-default);
+  stroke: transparent;
+}
+
+.bs-fabrique-checkbox__icon--disabled {
+  stroke: var(--bs-color-icon-on-button-disabled);
+}
+
+.bs-fabrique-checkbox__text-container {
+  width: fit-content;
+}
+
+.bs-fabrique-checkbox-label {
+  color: var(--bs-color-text-default);
+}
+
+.bs-fabrique-checkbox-label--inversed {
+  color: var(--bs-color-icon-inverse-default);
+}
+
+.bs-fabrique-checkbox-label--disabled {
+  color: var(--bs-color-icon-on-button-disabled);
+}
+
+.bs-fabrique-checkbox-label--disabled {
+  color: var(--bs-color-icon-on-button-disabled);
+}
+
+.bs-fabrique-checkbox-captiontext {
+  color: var(--bs-color-text-weaker);
+}
+
+.bs-fabrique-checkbox-captiontext--hidden {
+  display: none;
+}
+
+.bs-fabrique-checkbox-error-message {
+}
+
+.bs-fabrique-checkbox-error-message--hidden {
+  display: none;
+}

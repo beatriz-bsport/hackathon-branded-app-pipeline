@@ -1,0 +1,32 @@
+.bs-consumer-card-placeholder__root {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: fit-content;
+  padding: var(--bs-space-size-18) var(--bs-space-size-4);
+}
+
+.bs-consumer-card-placeholder__icon-container {
+  width: var(--bs-space-size-18);
+  height: var(--bs-space-size-18);
+  display: flex;
+  padding: var(--bs-space-size-3);
+  justify-content: center;
+  align-items: center;
+  border-radius: var(--bs-border-radius-pill);
+  background: var(--bs-color-background-grey-weak);
+  margin-bottom: var(--bs-space-size-6);
+}
+
+/* .bs-consumer-card-placeholder__icon-container__icon {} */
+
+.bs-consumer-card-placeholder__icon-container__icon__pointer {
+  fill: var(--bs-color-text-default);
+}
+
+.bs-consumer-card-placeholder__icon-container__icon__element {
+  fill: var(--bs-color-icon-brand-main-strong);
+}
+
+/* .bs-consumer-card-placeholder__text {} */

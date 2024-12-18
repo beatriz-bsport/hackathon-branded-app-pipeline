@@ -1,0 +1,61 @@
+// @flow
+
+import React, { Component } from 'react';
+import { withTranslation, TFunction } from 'react-i18next';
+import { compose } from 'recompose';
+import withStyles from '@material-ui/core/styles/withStyles';
+
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
+
+type Props = {
+  filter_data: any,
+  t: TFunction,
+  classes: Object,
+  onChange: (any) => void,
+  isNew: boolean,
+  setNotNullableData: (data: Array<string>) => void,
+};
+
+export class GenderFilter extends Component<Props, state> {
+  componentDidMount() {
+    this.props.setNotNullableData(['value']);
+
+    if (this.props.isNew) {
+      this.props.onChange({ value: null });
+    }
+  }
+
+  render() {
+    const { filter_data, t, classes, onChange } = this.props;
+    return (
+      <div>
+        {t(`filters.${filter_data.filter_identifier}.first`)}
+        <Select
+          className={classes.input}
+          onChange={(ev) => onChange({ value: ev.target.value })}
+          value={filter_data.value}
+        >
+          <MenuItem key="M" value="M">
+            {t(`filters.${filter_data.filter_identifier}.men`)}
+          </MenuItem>
+          <MenuItem key="F" value="F">
+            {t(`filters.${filter_data.filter_identifier}.women`)}
+          </MenuItem>
+        </Select>
+      </div>
+    );
+  }
+}
+
+const styles = (theme) => ({
+  input: {
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1),
+  },
+});
+
+export default compose(
+  withTranslation(['smartList']),
+  withStyles(styles),
+)(GenderFilter);

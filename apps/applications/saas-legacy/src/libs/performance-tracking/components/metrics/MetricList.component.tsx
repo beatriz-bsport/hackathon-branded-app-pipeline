@@ -1,0 +1,124 @@
+import React from 'react';
+import { Theme } from '@material-ui/core/styles';
+import { SortableContainer } from 'react-sortable-hoc';
+
+import { Paper, Typography } from '@material-ui/core';
+import { Warning } from '@material-ui/icons';
+import { makeStyles } from '@material-ui/styles';
+import { WithTranslation, withTranslation } from 'react-i18next';
+import { compose } from 'recompose';
+import Skeleton from '@material-ui/lab/Skeleton';
+import { FieldArrayRenderProps } from 'formik';
+import { PerformanceTrackingMetric } from '#src/libs/performance-tracking/types';
+import { organize_index } from '#src/libs/performance-tracking/utils';
+import MetricListItem from './MetricListItem.component';
+
+const Container = SortableContainer((props: any) => {
+  return <div>{props.children}</div>;
+});
+
+type OwnProps = {
+  metricList: Array<PerformanceTrackingMetric>;
+  onEdit?: (metric: PerformanceTrackingMetric) => void;
+  onDelete?: (metric: PerformanceTrackingMetric) => void;
+  sortable?: boolean;
+  loading?: boolean;
+
+  fieldArrayHelpers?: FieldArrayRenderProps;
+};
+type Props = OwnProps & WithTranslation;
+export const MetricList = (props: Props) => {
+  const classes = useStyles();
+  const {
+    metricList,
+    onEdit,
+    onDelete,
+    sortable,
+    t,
+    loading,
+    fieldArrayHelpers,
+  } = props;
+  if (loading) {
+    return (
+      <div className={classes.content}>
+        {[0, 0, 0].map(() => (
+          <Skeleton animation="wave" height={51} variant="rect" width="100%" />
+        ))}
+      </div>
+    );
+  }
+  if (sortable) {
+    return (
+      <>
+        <Container
+          useDragHandle
+          hideSortableGhost={false}
+          // @ts-expect-error
+          onSortEnd={(e) => {
+            const oldIndex = e.oldIndex;
+            const newIndex = e.newIndex;
+            organize_index(oldIndex, newIndex, metricList, fieldArrayHelpers);
+          }}
+          transitionDuration={500}
+        >
+          {metricList.map((metric) => (
+            <MetricListItem
+              key={metric.id}
+              sortable
+              metric={metric}
+              onDelete={onDelete}
+              onEdit={onEdit}
+            />
+          ))}
+        </Container>
+      </>
+    );
+  }
+
+  return (
+    <>
+      {metricList && metricList.length !== 0 ? (
+        metricList?.map((metric) => (
+          <MetricListItem metric={metric} onDelete={onDelete} onEdit={onEdit} />
+        ))
+      ) : (
+        <Paper className={classes.paper}>
+          <div className={classes.textAndIcon}>
+            <Warning className={classes.warning} />
+            <Typography className={classes.noMetric}>
+              {t('metric.form.noMetric')}
+            </Typography>
+          </div>
+        </Paper>
+      )}
+    </>
+  );
+};
+const useStyles = makeStyles<Theme>((theme) => ({
+  textAndIcon: {
+    display: 'flex',
+    gap: theme.spacing(2),
+    alignItems: 'center',
+  },
+
+  paper: {
+    padding: theme.spacing(4),
+    borderLeft: `3px solid ${theme.palette.error.main}`,
+  },
+  noMetric: {
+    fontWeight: 500,
+  },
+  warning: {
+    width: theme.spacing(4),
+    height: theme.spacing(4),
+    color: theme.palette.error.main,
+  },
+  content: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: theme.spacing(1),
+  },
+}));
+export default compose<any, OwnProps>(withTranslation('performanceTracking'))(
+  MetricList,
+);

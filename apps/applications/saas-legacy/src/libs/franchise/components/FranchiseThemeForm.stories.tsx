@@ -1,0 +1,35 @@
+import React from 'react';
+import FranchiseThemeForm, { OwnProps } from './FranchiseThemeForm.components';
+import FactoryBot from '../factories/Franchise';
+import chroma from 'chroma-js';
+
+const CustomTemplate = (args: OwnProps) => <FranchiseThemeForm {...args} />;
+
+export const CompleteDefaultState = CustomTemplate.bind({});
+
+const franchise = FactoryBot.Franchise.createOne();
+
+const RGBtoHex = (rgb: [number, number, number]) =>
+  chroma(rgb[0], rgb[1], rgb[2]).hex();
+
+CompleteDefaultState.args = {
+  id: franchise.id,
+  cover:
+    'https://blog.yogimag.fr/wp-content/uploads/2016/02/studio-yoga-yogimag.jpg',
+  primaryColor: RGBtoHex(franchise.primaryRGB),
+  secondaryColor: RGBtoHex(franchise.secondaryRGB),
+  submitIsDisabled: false,
+  handleCoverChange: () => {},
+  handleChange: () => () => {},
+  onSubmit: () => {},
+};
+
+export default {
+  title: 'Library/Franchise/Settings Theme',
+  component: FranchiseThemeForm,
+  parameters: {
+    docs: {
+      page: null,
+    },
+  },
+};

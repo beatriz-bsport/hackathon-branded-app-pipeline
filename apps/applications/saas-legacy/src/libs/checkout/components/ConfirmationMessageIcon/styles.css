@@ -1,0 +1,23 @@
+.bs-confirmation-checkout-message__container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-2);
+}
+
+.bs-confirmation-checkout-message__icon__container {
+  display: flex;
+  padding: var(--spacing-2);
+  gap: 10px;
+  border-radius: var(--spacing-1);
+}
+
+.bs-confirmation-checkout-message__icon__error {
+  background: var(--color-error-background);
+  color: var(--color-error-main);
+}
+
+.bs-confirmation-checkout-message__icon__default {
+  background: var(--color-primary-main-background);
+  color: var(--color-primary-main);
+}

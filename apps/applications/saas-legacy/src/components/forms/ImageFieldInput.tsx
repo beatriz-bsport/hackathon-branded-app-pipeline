@@ -1,0 +1,73 @@
+import React, { Component } from 'react';
+
+import { withTranslation } from 'react-i18next';
+import Typography from '@material-ui/core/Typography';
+
+import { Field, ErrorMessage } from 'formik';
+
+import withStyles from '@material-ui/core/styles/withStyles';
+import { MaterialStyleType } from '../../utils/types';
+
+// @ts-expect-error
+const styles = (theme) => ({
+  hide: {
+    display: 'none',
+  },
+  alertError: {
+    paddingTop: theme.spacing(1),
+    paddingBottom: theme.spacing(1),
+    color: theme.palette.error.dark,
+  },
+});
+
+type OwnProps = {
+  name: string;
+  // @ts-expect-error
+  onChange: (any) => void;
+  id: string;
+};
+
+type Props = OwnProps & MaterialStyleType<ReturnType<typeof styles>>;
+
+export class ImageFieldInput extends Component<Props> {
+  render() {
+    return (
+      <Field {...this.props}>
+        {/* @ts-expect-error  */}
+        {({ field, form: { setFieldValue } }) => (
+          <div>
+            <input
+              accept="image/*"
+              className={this.props.children ? this.props.classes.hide : ''}
+              id={this.props.id}
+              onChange={(e) => {
+                const { files } = e.target;
+                setFieldValue(field.name, files[0]);
+              }}
+              type="file"
+            />
+
+            {this.props.children && (
+              <label htmlFor={this.props.id}>{this.props.children}</label>
+            )}
+
+            <ErrorMessage {...this.props}>
+              {(message) => (
+                <Typography
+                  className={this.props.classes.alertError}
+                  variant="body2"
+                >
+                  {/* @ts-expect-error */}
+                  {this.props.t(message)}
+                </Typography>
+              )}
+            </ErrorMessage>
+          </div>
+        )}
+      </Field>
+    );
+  }
+}
+
+// @ts-expect-error
+export default withStyles(styles)(withTranslation([])(ImageFieldInput));

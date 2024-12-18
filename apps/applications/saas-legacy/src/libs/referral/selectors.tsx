@@ -1,0 +1,54 @@
+import { createSelector } from 'reselect';
+import type { RootState } from '../../reducers';
+import { getMembership } from '../membership/selectors';
+
+const _getState = (state: RootState) => state.referral;
+
+export const getReferralProgramsById = (state: RootState) =>
+  _getState(state).referralProgram.byId;
+
+export const getReferralProgramsLoading = (state: RootState) =>
+  _getState(state).referralProgram.loading;
+
+export const getReferralProgramsError = (state: RootState) =>
+  _getState(state).referralProgram.error;
+
+export const getTheReferralProgram = (state: RootState) =>
+  Object.values(getReferralProgramsById(state))[0] ?? null;
+
+export const getReferralMemberStatusByMemberId = (state: RootState) =>
+  _getState(state).referralMemberStatus.byId;
+
+const _selectedMemberId = (_: RootState, memberId: number) => memberId;
+
+export const getReferralMemberStatusWithMemberId = createSelector(
+  [getReferralMemberStatusByMemberId, _selectedMemberId],
+  (referalMemberStatusByMemberId, memberId) =>
+    referalMemberStatusByMemberId[memberId],
+);
+
+export const getReferralMemberStatusThroughMembership = createSelector(
+  [getReferralMemberStatusByMemberId, getMembership],
+  (referralMemberStatusByMemberId, membership) => {
+    if (!membership?.id) return null;
+    return referralMemberStatusByMemberId[membership.id];
+  },
+);
+
+export const getReferralMemberStatusLoading = (state: RootState) =>
+  _getState(state).referralMemberStatus.loading;
+
+export const getReferralMemberStatusError = (state: RootState) =>
+  _getState(state).referralMemberStatus.error;
+
+export const getReferralLinkStatusByReferringMemberId = (state: RootState) =>
+  _getState(state).referralLinkStatus.byId;
+
+export const getTheReferralLinkStatus = (state: RootState) =>
+  Object.values(getReferralLinkStatusByReferringMemberId(state))[0] ?? null;
+
+export const getReferralLinkStatusLoading = (state: RootState) =>
+  _getState(state).referralLinkStatus.loading;
+
+export const getReferralRegistrationErrorCode = (state: RootState) =>
+  _getState(state).referralException.registrationErrorCode;

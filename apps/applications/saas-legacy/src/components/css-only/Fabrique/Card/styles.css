@@ -1,0 +1,66 @@
+.bs-fabrique-card-root {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  vertical-align: middle;
+  box-sizing: border-box;
+  text-decoration: none;
+  margin: 0;
+  outline: 0;
+  border: 0px;
+  border-radius: var(--bs-border-radius-md);
+  padding: var(--bs-space-size-4);
+  color: inherit;
+  background-color: var(--bs-grey-0);
+  /*Following is made to reset button css value as card can be div or button*/
+  text-align: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+  letter-spacing: inherit;
+  word-spacing: inherit;
+  text-transform: none;
+  appearance: inherit;
+  writing-mode: horizontal-tb !important;
+  font-style: inherit;
+  font-variant-ligatures: inherit;
+  font-variant-caps: inherit;
+  font-variant-numeric: inherit;
+  font-variant-east-asian: inherit;
+  font-stretch: inherit;
+  font-family: inherit;
+  text-rendering: inherit;
+  text-indent: inherit;
+  text-shadow: inherit;
+}
+
+.bs-fabrique-card--rest {
+  -webkit-box-shadow: var(--bs-border-shadow) var(--bs-border-width-regular)
+    var(--bs-color-border-weak);
+  -moz-box-shadow: var(--bs-border-shadow) var(--bs-border-width-regular)
+    var(--bs-color-border-weak);
+  box-shadow: var(--bs-border-shadow) var(--bs-border-width-regular)
+    var(--bs-color-border-weak);
+}
+
+.bs-fabrique-card--elevated {
+  -webkit-box-shadow: var(--bs-border-shadow) var(--bs-border-width-regular)
+      var(--bs-color-border-strong),
+    var(--bs-shadow-m);
+  -moz-box-shadow: var(--bs-border-shadow) var(--bs-border-width-regular)
+      var(--bs-color-border-strong),
+    var(--bs-shadow-m);
+  box-shadow: var(--bs-border-shadow) var(--bs-border-width-regular)
+      var(--bs-color-border-strong),
+    var(--bs-shadow-m);
+}
+
+.bs-fabrique-card--square {
+  border-radius: 0px;
+}
+
+/* ----- MODAL DIALOG ----- */
+.bs-fabrique-modal-dialog__content [class*='bs-fabrique-card'] {
+  box-shadow: none;
+}

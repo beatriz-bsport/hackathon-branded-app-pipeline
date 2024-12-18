@@ -1,0 +1,99 @@
+/*  */
+/* Marketplace Page */
+/*  */
+.bs-calendar {
+  display: flex;
+  flex-direction: column;
+  margin-top: var(--spacing-6);
+  gap: var(--spacing-5);
+  background-color: transparent;
+  padding-right: var(--spacing-2);
+  padding-left: var(--spacing-2);
+  padding-bottom: var(--spacing-2);
+  min-height: 800px;
+}
+.bs-calendar__datePicker {
+  display: flex;
+  justify-content: center;
+}
+
+@media (max-width: 570px), (max-device-width: 570px) {
+  .bs-calendar {
+    padding-left: 0;
+    padding-right: 0;
+    margin-top: var(--spacing-2);
+    gap: var(--spacing-3);
+  }
+}
+
+.bs-calendar--loading {
+  padding: var(--spacing-4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bs-calendar--no-offer {
+  display: flex;
+  justify-content: center;
+  font-family: var(--body1-fontFamily);
+  font-weight: var(--body1-fontWeightRegular);
+  font-size: var(--body1-fontSize);
+  font-style: normal;
+}
+
+.bs-calendar--no-offer--no-next {
+  margin-top: var(--spacing-12);
+  align-items: center;
+  display: flex;
+  gap: var(--spacing-2);
+  background-color: var(--color-background-paper);
+  border-radius: var(--border-radius-7);
+  padding-right: var(--spacing-2);
+  padding-left: var(--spacing-2);
+  padding-top: var(--spacing-1);
+  padding-bottom: var(--spacing-1);
+}
+
+.bs-calendar--no-offer--yes-next {
+  margin-top: var(--spacing-12);
+  align-items: center;
+  display: flex;
+  gap: var(--spacing-2);
+  background-color: var(--color-primary-main);
+  color: var(--color-primary-contrastText);
+  border-radius: var(--border-radius-7);
+  padding: 0;
+  border: none;
+  cursor: pointer;
+  padding-right: var(--spacing-2);
+  padding-left: var(--spacing-2);
+  padding-top: var(--spacing-1);
+  padding-bottom: var(--spacing-1);
+  margin-left: var(--spacing-1);
+  margin-right: var(--spacing-1);
+}
+
+ul li {
+  list-style: none;
+}
+
+@media (max-height: 750px) {
+  .bs-calendar--no-offer--yes-next {
+    margin-top: var(--spacing-1);
+  }
+  .bs-calendar--no-offer--no-next {
+    margin-top: var(--spacing-1);
+  }
+}
+
+.bs-calendar--no-offer--yes-next__text {
+  color: var(--color-primary-contrastText);
+  font-family: var(--body1-fontFamily);
+  font-weight: var(--fontWeightMedium);
+  font-size: var(--body1-fontSize);
+}
+
+.bs-calendar--no-offer--yes-next:hover {
+  background-color: var(--color-primary-light);
+}

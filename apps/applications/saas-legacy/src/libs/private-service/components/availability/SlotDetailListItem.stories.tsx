@@ -1,0 +1,94 @@
+import React from 'react';
+
+import SlotDetailLisItem, { Props } from './SlotDetailListItem.component';
+import DEFAULT_PROFILE_PICTURE_URL from '../../../../assets/constants';
+
+const CustomTemplate = (args: Props) => <SlotDetailLisItem {...args} />;
+
+export const CoachListItem = CustomTemplate.bind({});
+export const EstablishmentListItem = CustomTemplate.bind({});
+export const ServiceListItem = CustomTemplate.bind({});
+
+CoachListItem.args = {
+  isFirst: true,
+  resourceType: 'associated_coach',
+  name: 'Uncle Ben',
+  photo: DEFAULT_PROFILE_PICTURE_URL,
+  slots: [
+    {
+      date_start: '2022-09-06T08:30:00+01:00',
+      date_end: '2022-09-06T13:00:00+01:00',
+      restriction_on_associated_establishments: [
+        'Etablissement 1',
+        'Etablissement 2',
+      ],
+    },
+    {
+      date_start: '2022-09-06T14:30:00+01:00',
+      date_end: '2022-09-06T15:00:00+01:00',
+      restriction_on_associated_establishments: [],
+    },
+    {
+      date_start: '2022-09-06T17:30:00+01:00',
+      date_end: '2022-09-06T19:00:00+01:00',
+      restriction_on_associated_establishments: [],
+    },
+  ],
+};
+
+EstablishmentListItem.args = {
+  isLast: true,
+  resourceType: 'associated_establishemnt',
+  name: 'Un établissement respectable',
+  photo: DEFAULT_PROFILE_PICTURE_URL,
+  slots: [
+    {
+      date_start: '2022-09-06T08:30:00+01:00',
+      date_end: '2022-09-06T13:00:00+01:00',
+      restriction_on_associated_establishments: [],
+    },
+    {
+      date_start: '2022-09-06T14:30:00+01:00',
+      date_end: '2022-09-06T15:00:00+01:00',
+      restriction_on_associated_establishments: [],
+    },
+    {
+      date_start: '2022-09-06T17:30:00+01:00',
+      date_end: '2022-09-06T19:00:00+01:00',
+      restriction_on_associated_establishments: [],
+    },
+  ],
+};
+
+ServiceListItem.args = {
+  isLast: true,
+  resourceType: 'private_service',
+  name: 'Séance massage à Gare du Nord',
+  photo: DEFAULT_PROFILE_PICTURE_URL,
+  slots: [
+    {
+      date_start: '2022-09-06T08:30:00+01:00',
+      date_end: '2022-09-06T13:00:00+01:00',
+      restriction_on_associated_establishments: [],
+    },
+    {
+      date_start: '2022-09-06T14:30:00+01:00',
+      date_end: '2022-09-06T15:00:00+01:00',
+      restriction_on_associated_establishments: [],
+    },
+    {
+      date_start: '2022-09-06T17:30:00+01:00',
+      date_end: '2022-09-06T19:00:00+01:00',
+      restriction_on_associated_establishments: [],
+    },
+  ],
+};
+export default {
+  title: 'Library/private-service/SlotDetailListItem',
+  component: SlotDetailLisItem,
+  parameters: {
+    docs: {
+      page: null,
+    },
+  },
+};

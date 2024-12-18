@@ -1,0 +1,360 @@
+import React from 'react';
+import { DateTime } from 'luxon';
+import amber from '@material-ui/core/colors/amber';
+import { useTranslation } from 'react-i18next';
+
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import TableCell from '@material-ui/core/TableCell';
+import Button from '@material-ui/core/Button';
+import AttachIcon from '@material-ui/icons/AttachFile';
+import Typography from '@material-ui/core/Typography';
+import { makeStyles } from '@material-ui/core/styles';
+import Chip from '@material-ui/core/Chip';
+import clx from 'classnames';
+import type { Coach } from '#src/libs/associated-coach/types';
+import ObjectLevelPermissionProviderComponent from '#src/libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+// @ts-expect-error
+import CoachPaymentRuleSelector from '../coach-payment-rule-selector/CoachPaymentRuleSelector.component';
+import type { CoachPaymentRule, CoachPerformance } from '../../types';
+import { downloadAsCsv } from '../../../../utils/downloader';
+import { getCurrencyDisplayWithPrice } from '../../../theme/selectors';
+import { formatMinutes } from '../../../../utils/datetime';
+
+type Props = {
+  performances: Array<CoachPerformance>;
+  coachPaymentRulesList: Array<CoachPaymentRule>;
+  updatePrivateBookingCoachPaymentRule: (params: {
+    associatedCoachId: number;
+    privateBookingId: number;
+    coachPaymentRuleId: number;
+  }) => void;
+  coach: Coach;
+  hideRuleSetter?: boolean;
+  asCoach?: boolean;
+  displayChip?: boolean;
+  handlePdfExportation?: () => void;
+  disablePdfButton?: boolean;
+  has_coach_access_to_compensation_downloading?: boolean;
+  isMultiLocalizationEnabled: boolean;
+  filtersApplied: boolean;
+};
+
+export function CoachPerformancePrivateServiceTable(props: Props) {
+  const {
+    coach,
+    coachPaymentRulesList,
+    updatePrivateBookingCoachPaymentRule,
+    performances,
+    handlePdfExportation,
+    disablePdfButton,
+    has_coach_access_to_compensation_downloading,
+    isMultiLocalizationEnabled,
+    filtersApplied,
+  } = props;
+  const { t } = useTranslation('coachPerformance');
+  const classes = useStyles(!!props.displayChip);
+  const coach_payment_error =
+    performances && performances.find((perf) => perf.error && !perf.is_unpaid);
+  const unpaid_private_booking_exists =
+    performances && performances.find((perf) => perf.is_unpaid);
+
+  return (
+    <div>
+      <div
+        className={clx([
+          classes.flexHeaderContainer,
+          props.asCoach && props.displayChip
+            ? classes.flexStartContainer
+            : null,
+        ])}
+      >
+        {props.displayChip && (
+          <Chip
+            color="primary"
+            label={
+              <Typography variant="subtitle2">
+                {t('paymentRules:tabs.appointment')}
+              </Typography>
+            }
+            style={{ marginTop: 15, marginLeft: 10 }}
+            variant="outlined"
+          />
+        )}
+        <ObjectLevelPermissionProviderComponent requiredPermission="export.allowed_actions.payroll">
+          {(hasPermission) =>
+            hasPermission &&
+            !(props.asCoach && !has_coach_access_to_compensation_downloading) &&
+            !props.displayChip && (
+              <div className={classes.downloadButtonsContainer}>
+                <Button
+                  className={classes.buttonCSV}
+                  color="primary"
+                  disabled={!performances}
+                  onClick={() =>
+                    downloadAsCsv(
+                      [
+                        t('fields.name'),
+                        t('fields.date'),
+                        t('fields.duration'),
+                        t('fields.establishment'),
+                        isMultiLocalizationEnabled && t('fields.location'),
+                        !props.asCoach && t('fields.confirmed_bookings'),
+                        !props.asCoach &&
+                          t('fields.noShowsAndLateCancellations'),
+                        !props.asCoach && t('fields.base'),
+                        !props.asCoach && t('fields.bonus'),
+                        t('fields.total'),
+                        !props.asCoach && t('fields.rule'),
+                      ],
+                      performances.map((session) => [
+                        session.private_service_name,
+                        DateTime.fromISO(session.date_start).toLocaleString(
+                          DateTime.DATETIME_SHORT,
+                        ),
+                        session.duration_minute,
+                        session.establishment_title,
+                        isMultiLocalizationEnabled &&
+                          session.establishment_group_names?.join(', '),
+                        !props.asCoach && session.confirmed_bookings,
+                        !props.asCoach && session.cancelled_bookings,
+                        !props.asCoach && session.base_remuneration,
+                        !props.asCoach && session.coach_bonus,
+                        session.coach_total_payment,
+                        !props.asCoach &&
+                          (
+                            coachPaymentRulesList.find(
+                              (coachPaymentRule) =>
+                                coachPaymentRule.id ===
+                                session.coach_payment_rule,
+                            ) || { name: 'default' }
+                          ).name,
+                      ]),
+                      `payroll${filtersApplied ? '-filtered' : ''}.csv`,
+                    )
+                  }
+                  variant="contained"
+                >
+                  <AttachIcon style={{ marginRight: 12 }} />
+                  {t('table.downloadCSV')}
+                </Button>
+                <Button
+                  className={classes.buttonPDF}
+                  color="secondary"
+                  disabled={!performances || disablePdfButton}
+                  onClick={handlePdfExportation}
+                  variant="contained"
+                >
+                  <AttachIcon style={{ marginRight: 12 }} />
+                  {t('table.downloadPDF')}
+                </Button>
+              </div>
+            )
+          }
+        </ObjectLevelPermissionProviderComponent>
+      </div>
+      <Table size="small">
+        <TableHead>
+          <TableRow>
+            <TableCell align="left">{t('fields.name')}</TableCell>
+            <TableCell align="right">{t('fields.date')}</TableCell>
+            <TableCell align="right">{t('fields.duration')}</TableCell>
+            <TableCell align="right">{t('fields.establishment')}</TableCell>
+            {isMultiLocalizationEnabled && (
+              <TableCell align="right">{t('fields.location')}</TableCell>
+            )}
+            {!props.asCoach && (
+              <>
+                <TableCell align="right">
+                  {t('fields.confirmed_bookings')}
+                </TableCell>
+                <TableCell align="right">
+                  {t('fields.noShowsAndLateCancellations')}
+                </TableCell>
+                <TableCell align="right">{t('fields.base')}</TableCell>
+                <TableCell align="right">{t('fields.bonus')}</TableCell>
+              </>
+            )}
+            <TableCell align="right"> {t('fields.total')}</TableCell>
+            {!props.asCoach && (
+              <>
+                <TableCell align="right">{t('fields.marginValue')}</TableCell>
+                <TableCell align="right">{t('fields.netGain')}</TableCell>
+              </>
+            )}
+            {!props.hideRuleSetter && (
+              <TableCell align="right">{t('fields.rule')}</TableCell>
+            )}
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {(coach_payment_error || unpaid_private_booking_exists) && (
+            <TableRow>
+              <TableCell colSpan={9}>
+                {!!coach_payment_error && (
+                  <Typography
+                    className={classes.tableRowErrorHelper}
+                    color="error"
+                  >
+                    {t('fields.error')}
+                  </Typography>
+                )}
+                {!!unpaid_private_booking_exists && (
+                  <Typography
+                    className={classes.tableRowUnpaidHelper}
+                    color="error"
+                  >
+                    {t('fields.unpaid_private_booking')}
+                  </Typography>
+                )}
+              </TableCell>
+            </TableRow>
+          )}
+          {performances &&
+            performances.map((private_service_perf) => (
+              <TableRow
+                key={private_service_perf.private_booking_id}
+                className={clx({
+                  [classes.tableRowError]:
+                    private_service_perf.error &&
+                    !private_service_perf.is_unpaid,
+                  [classes.tableRowErrorUnpaid]: private_service_perf.is_unpaid,
+                })}
+              >
+                <TableCell align="left">
+                  {private_service_perf.private_service_name}
+                </TableCell>
+                <TableCell align="right">
+                  {DateTime.fromISO(
+                    private_service_perf.date_start,
+                  ).toLocaleString(DateTime.DATETIME_SHORT)}
+                </TableCell>
+                <TableCell align="right">
+                  {formatMinutes(private_service_perf.duration_minute, t)}
+                </TableCell>
+                <TableCell align="right">
+                  {private_service_perf.establishment_title}
+                </TableCell>
+                {isMultiLocalizationEnabled && (
+                  <TableCell align="right">
+                    {private_service_perf.establishment_group_names?.join(', ')}
+                  </TableCell>
+                )}
+                {!props.asCoach && (
+                  <>
+                    <TableCell align="right">
+                      {private_service_perf.confirmed_bookings}
+                    </TableCell>
+                    <TableCell align="right">
+                      {private_service_perf.cancelled_bookings}
+                    </TableCell>
+                    <TableCell align="right">
+                      {getCurrencyDisplayWithPrice(
+                        private_service_perf.base_remuneration,
+                      )}
+                    </TableCell>
+                    <TableCell align="right">
+                      {getCurrencyDisplayWithPrice(
+                        private_service_perf.coach_bonus || 0,
+                      )}
+                    </TableCell>
+                  </>
+                )}
+                <TableCell align="right">
+                  {getCurrencyDisplayWithPrice(
+                    private_service_perf.coach_total_payment || 0,
+                  )}
+                </TableCell>
+                {!props.asCoach && (
+                  <>
+                    <TableCell align="right">
+                      {getCurrencyDisplayWithPrice(
+                        private_service_perf.total_margin_value || 0,
+                      )}
+                    </TableCell>
+                    <TableCell align="right">
+                      {getCurrencyDisplayWithPrice(
+                        (private_service_perf.total_margin_value || 0) -
+                          (private_service_perf.coach_total_payment || 0),
+                      )}
+                    </TableCell>
+                  </>
+                )}
+                {!props.hideRuleSetter && (
+                  <TableCell>
+                    <CoachPaymentRuleSelector
+                      enableReset
+                      isOverride
+                      coachPaymentRulesList={coachPaymentRulesList}
+                      id="payment_rule_per_private_service"
+                      onChange={({ value }: { value: number }) => {
+                        updatePrivateBookingCoachPaymentRule({
+                          privateBookingId:
+                            private_service_perf.private_booking_id,
+                          coachPaymentRuleId: value,
+                          associatedCoachId: coach.associated_coach_id,
+                        });
+                      }}
+                      selected={private_service_perf.coach_payment_rule}
+                    />
+                  </TableCell>
+                )}
+              </TableRow>
+            ))}
+        </TableBody>
+      </Table>
+    </div>
+  );
+}
+
+const useStyles = makeStyles((theme) => ({
+  flexHeaderContainer: {
+    display: 'flex',
+    width: '100%',
+    justifyContent: 'space-between',
+  },
+  flexStartContainer: {
+    justifyContent: 'flex-start',
+  },
+  tableRowError: {
+    backgroundColor: '#FFDDDD',
+    '&:hover': {
+      backgroundColor: '#FFC1C1',
+    },
+  },
+  tableRowErrorUnpaid: {
+    backgroundColor: amber[100],
+    '&:hover': {
+      backgroundColor: amber[200],
+    },
+  },
+  tableRowErrorHelper: {
+    '&::before': {
+      content: '"\u2022"',
+      paddingRight: theme.spacing(1),
+    },
+  },
+  tableRowUnpaidHelper: {
+    color: amber[900],
+    '&::before': {
+      content: '"\u2022"',
+      paddingRight: theme.spacing(1),
+    },
+  },
+  downloadButtonsContainer: {
+    display: 'flex',
+    flexDirection: (reverse) => (reverse ? 'row-reverse' : 'row'),
+  },
+  buttonCSV: {
+    margin: theme.spacing(1.5),
+    color: '#fff',
+  },
+  buttonPDF: {
+    margin: theme.spacing(1.5),
+    color: '#fff',
+  },
+}));
+
+export default CoachPerformancePrivateServiceTable;

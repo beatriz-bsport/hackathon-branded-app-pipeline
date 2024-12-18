@@ -1,0 +1,7 @@
+.bs-consumer-page-root__bookings__list__item {
+  width: 100%;
+}
+
+.bs-consumer-page-root__bookings__details-card--hidden {
+  display: none;
+}

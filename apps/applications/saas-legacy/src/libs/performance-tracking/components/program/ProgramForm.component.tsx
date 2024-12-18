@@ -1,0 +1,265 @@
+import React from 'react';
+import { compose } from 'recompose';
+import { WithTranslation, withTranslation } from 'react-i18next';
+import { Theme } from '@material-ui/core/styles';
+import makeStyles from '@material-ui/core/styles/makeStyles';
+import * as Yup from 'yup';
+import { FieldArray, Formik, FormikProps } from 'formik';
+import { useTheme } from '@material-ui/styles';
+import {
+  Button,
+  Divider,
+  Grid,
+  LinearProgress,
+  Typography,
+} from '@material-ui/core';
+import { Info } from '@material-ui/icons';
+import { MAX_LENGTH_FOR_LONG_ANSWER } from '@bsport/common/lib/master-data/custom-form';
+
+import {
+  PerformanceTrackingMetric,
+  PerformanceTrackingProgram,
+} from '#src/libs/performance-tracking/types';
+import { CheckboxField } from '#src/libs/custom-form/components/GenericFormik.input';
+import { SegmentAnalyticsFormObjectIdentifier } from '#src/components/analytics/segment';
+import { rudderStackFormTrackingFunctionsRegistry } from '#src/components/analytics/rudderstack/utils';
+import MetricConfigurationTable from '../metrics/MetricConfigurationTable.component';
+import {
+  TextFieldEnhancedLabelWithError,
+  ColorField,
+  IconField,
+  // @ts-expect-error
+} from '../../../../components/forms';
+import { OptionCallback } from '../../../../state/types';
+
+const { trackFormSubmitIntent, trackFormSuccess, trackFormCancel } =
+  rudderStackFormTrackingFunctionsRegistry(
+    SegmentAnalyticsFormObjectIdentifier.PerformanceTrackingProgram,
+  );
+
+type OwnProps = {
+  submit: (
+    program: PerformanceTrackingProgram,
+    options?: OptionCallback<PerformanceTrackingProgram>,
+  ) => void;
+  initial?: PerformanceTrackingProgram<PerformanceTrackingMetric>;
+  closeDialog?: () => void;
+  resetInitial?: () => void;
+  isTitleEnabled: boolean;
+  isInDrawer: boolean;
+};
+type Props = OwnProps & WithTranslation;
+
+export const ProgramForm = (props: Props) => {
+  const {
+    t,
+    initial,
+    closeDialog,
+    resetInitial,
+    submit,
+    isTitleEnabled,
+    isInDrawer,
+  } = props;
+
+  const classes = useStyles();
+  const theme: Theme = useTheme();
+
+  const initialValues = initial?.id
+    ? {
+        ...initial,
+        metric_list: initial?.metric_list ? [...initial?.metric_list] : [],
+      }
+    : {
+        name: '',
+        description: '',
+        color: theme.palette.primary.main,
+        is_disabled: false,
+        icon: '',
+        is_default: false,
+        metric_list: [],
+      };
+
+  return (
+    <div>
+      <Formik
+        enableReinitialize
+        initialValues={initialValues}
+        onSubmit={(values, actions) => {
+          submit(values, {
+            onSuccess: () => {
+              trackFormSuccess(initial?.id);
+              actions.setSubmitting(false);
+              closeDialog && closeDialog();
+              resetInitial && resetInitial();
+            },
+            onError: () => {
+              actions.setSubmitting(false);
+              closeDialog && closeDialog();
+              resetInitial && resetInitial();
+            },
+          });
+        }}
+        validationSchema={programSchema}
+      >
+        {(
+          formikProps: FormikProps<
+            PerformanceTrackingProgram<PerformanceTrackingMetric>
+          >,
+        ) => {
+          return (
+            <form onSubmit={formikProps.handleSubmit}>
+              <div className={classes.container}>
+                <div className={!isInDrawer ? classes.padding : null}>
+                  <Grid container spacing={4}>
+                    {isTitleEnabled && (
+                      <Grid item xs={12}>
+                        <Typography className={classes.title} variant="h4">
+                          {t('program.form.create')}
+                        </Typography>
+                      </Grid>
+                    )}
+                    <Grid item xs={12}>
+                      <div className={classes.row}>
+                        <div className={classes.icon}>
+                          <Info />
+                        </div>
+                        <Typography className={classes.subtitle} variant="h6">
+                          {t('program.form.generalInfo')}
+                        </Typography>
+                      </div>
+                    </Grid>
+                    <Grid item xs={12}>
+                      <TextFieldEnhancedLabelWithError
+                        fullWidth
+                        required
+                        id="name"
+                        label={t('program.form.name')}
+                        name="name"
+                      />
+                    </Grid>
+                    <Grid item xs={12}>
+                      <TextFieldEnhancedLabelWithError
+                        fullWidth
+                        multiline
+                        inputProps={{ maxlength: MAX_LENGTH_FOR_LONG_ANSWER }}
+                        label={t('program.form.description')}
+                        name="description"
+                        rows={4}
+                        variant="outlined"
+                      />
+                    </Grid>
+                    <Grid item xs={3}>
+                      <ColorField
+                        defaultCompanyThemeColor
+                        label={t('program.form.color')}
+                        name="color"
+                      />
+                    </Grid>
+                    <Grid item xs={3}>
+                      <IconField name="icon" />
+                    </Grid>
+                    <Grid item xs={12}>
+                      <div className={classes.checkbox}>
+                        <CheckboxField name="is_default" />
+                        <Typography className={classes.checkboxTypo}>
+                          {t('program.form.default')}
+                        </Typography>
+                      </div>
+                    </Grid>
+                  </Grid>
+                </div>
+                <Divider />
+                <div className={classes.padding}>
+                  <FieldArray name="metric_list">
+                    {(fieldArrayHelpers) => (
+                      <MetricConfigurationTable
+                        fieldArrayHelpers={fieldArrayHelpers}
+                        metricList={formikProps.values.metric_list.filter(
+                          (metric) => !metric?.is_disabled,
+                        )}
+                        values={formikProps.values}
+                      />
+                    )}
+                  </FieldArray>
+                </div>
+
+                <Divider />
+
+                <div className={classes.action}>
+                  <Button
+                    color="secondary"
+                    onClick={() => {
+                      trackFormCancel(initial?.id);
+                      closeDialog && closeDialog();
+                      resetInitial && resetInitial();
+                    }}
+                  >
+                    {t('form.cancel')}
+                  </Button>
+                  <Button
+                    color="primary"
+                    onClick={() => {
+                      trackFormSubmitIntent(initial?.id);
+                    }}
+                    type="submit"
+                    variant="contained"
+                  >
+                    {t('form.save')}
+                  </Button>
+                </div>
+              </div>
+              {formikProps.isSubmitting ? <LinearProgress /> : null}
+            </form>
+          );
+        }}
+      </Formik>
+    </div>
+  );
+};
+
+const useStyles = makeStyles<Theme>((theme) => ({
+  checkboxTypo: {
+    marginLeft: '-12px',
+  },
+  subtitle: { fontWeight: 500 },
+  icon: {
+    display: 'flex',
+    alignItems: 'center',
+    color: '#868686',
+  },
+  title: {
+    fontWeight: 500,
+  },
+  row: {
+    display: 'flex',
+    gap: theme.spacing(2),
+    alignItems: 'center',
+  },
+  checkbox: {
+    display: 'flex',
+
+    alignItems: 'center',
+  },
+  container: {
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  padding: {
+    padding: theme.spacing(4),
+  },
+  action: {
+    padding: theme.spacing(4),
+    display: 'flex',
+    justifyContent: 'flex-end',
+    gap: theme.spacing(1),
+  },
+}));
+export default compose<any, OwnProps>(withTranslation('performanceTracking'))(
+  ProgramForm,
+);
+const programSchema = Yup.object().shape({
+  name: Yup.string().required('performanceTracking:requiredField'),
+  description: Yup.string(),
+  icon: Yup.string(),
+  is_default: Yup.boolean(),
+});

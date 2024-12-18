@@ -1,0 +1,85 @@
+import { Meta, Canvas, Story, ArgsTable } from '@storybook/addon-docs';
+import {PaymentMethodList} from './PaymentMethodList.component';
+import { action } from '@storybook/addon-actions';
+import { payment_method_list_factory, payment_method_list_by_type} from '../../factory.ts';
+
+<Meta 
+    title="Components/Payment/PaymentMethodList"
+    component={PaymentMethodList}
+    argTypes={{}}
+/>
+
+export const actionsData = {
+    onSelect: action('onSelect'),
+};
+
+export const Template = (args) => {
+    const [selectedSavedPaymentMethodId, setselectedSavedPaymentMethodId] = React.useState(PaymentMethod[1][1].id)
+    const onSelect = (pmId) => setselectedSavedPaymentMethodId(pmId)
+    return(<PaymentMethodList {...args} selectedSavedPaymentMethodId={selectedSavedPaymentMethodId} onSelect={onSelect}/>)};
+
+export const NothingSelectedTemplate = (args) => {
+    const [selectedSavedPaymentMethodId, setselectedSavedPaymentMethodId] = React.useState("")
+    const onSelect = (pmId) => setselectedSavedPaymentMethodId(pmId)
+    return(<PaymentMethodList {...args} selectedSavedPaymentMethodId={selectedSavedPaymentMethodId} onSelect={onSelect}/>)};
+
+export const DisplayListTemplate = (args) => <PaymentMethodList {...args} />;
+
+
+
+export const PaymentMethod = payment_method_list_by_type(5);
+export const PaymentMethodListItems = payment_method_list_factory(3, 3);
+
+
+#SELECT FROM A PAYMENT METHOD LIST WITH NO METHOD SELECTED
+
+<Canvas>
+    <Story
+    name="select-with-default"
+    args={{
+        savedPaymentMethodList: PaymentMethod[1],
+        paymentMethodType: PaymentMethod[0],
+        onSelect: actionsData.onSelect,
+        disabled: false,
+        showEmpty: false,
+        companyId: 201,
+        memberId: 15210,
+    }}>
+    {NothingSelectedTemplate.bind({})}
+    </Story>
+</Canvas>
+
+#SELECT FROM A PAYMENT METHOD LIST WITH A SELECTED METHOD
+
+<Canvas>
+    <Story
+    name="select-with-selection"
+    args={{
+        savedPaymentMethodList: PaymentMethod[1],
+        paymentMethodType: PaymentMethod[0],
+        onSelect: actionsData.onSelect,
+        disabled: false,
+        showEmpty: false,
+        companyId: 201,
+        memberId: 15210,
+    }}>
+    {Template.bind({})}
+    </Story>
+</Canvas>
+
+#DISPLAY A LIST OF PAYMENT METHODS
+
+<Canvas>
+    <Story
+    name="display-list"
+    args={{
+        savedPaymentMethodList: PaymentMethodListItems,
+        disabled: false,
+        showEmpty: false,
+        companyId: 201,
+        memberId: 15210,
+        onSelect: null,
+    }}>
+    {DisplayListTemplate.bind({})}
+    </Story>
+</Canvas>

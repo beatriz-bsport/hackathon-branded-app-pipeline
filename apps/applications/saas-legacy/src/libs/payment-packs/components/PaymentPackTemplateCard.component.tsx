@@ -1,0 +1,560 @@
+import React, { memo, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
+import { makeStyles } from '@material-ui/core/styles';
+import Grid from '@material-ui/core/Grid';
+import Button from '@material-ui/core/Button';
+import AddIcon from '@material-ui/icons/Add';
+import Typography from '@material-ui/core/Typography';
+import Paper from '@material-ui/core/Paper';
+import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
+import StyleIcon from '@material-ui/icons/Style';
+import NotInterestedIcon from '@material-ui/icons/NotInterested';
+import OndemandVideoIcon from '@material-ui/icons/OndemandVideo';
+import classnames from 'classnames';
+import AccessTimeIcon from '@material-ui/icons/AccessTime';
+import { DateRange, Share, Star } from '@material-ui/icons';
+import RedButtonComponent from '#src/components/button/RedButton.component';
+import TypographyMultilineComponent from '#src/components/typo/TypographyMultiline.component';
+import {
+  PENALTY_KIND_BLOCK_CPP,
+  PENALTY_KIND_NEGATIVE_ACCOUNT,
+} from '#src/libs/payment-packs/constants';
+import { getCreditInfo, getValidityInfo } from '#src/libs/payment-packs/utils';
+import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
+import type { PaymentPackTemplate } from '#src/libs/payment-packs/types';
+import CompanyChip from '#src/components/franchise/CompanyChip.component';
+import OffPeakDisplayByDay from './OffPeakDisplayByDay.component';
+
+type Props = {
+  paymentPackTemplate: PaymentPackTemplate;
+  buyPaymentPackTemplateInstance?: () => void;
+  onCreatePaymentPackTemplateInstance?: () => void;
+  onDeleteCompany?: (id: number) => void;
+  isManager?: boolean;
+  editPaymentPackTemplate?: () => void;
+  deletePaymentPackTemplate?: () => void;
+};
+
+const RestrictionsSection: React.FC<{
+  paymentPackTemplate: PaymentPackTemplate;
+}> = memo(({ paymentPackTemplate }) => {
+  const { t } = useTranslation('paymentPack');
+  const classes = useStyles();
+
+  if (!paymentPackTemplate) {
+    return null;
+  }
+
+  const {
+    max_bookings_per_day,
+    max_bookings_per_week,
+    max_bookings_per_month,
+    max_purchase_per_member,
+    penalty_active,
+    penalty_kind,
+    // @ts-expect-error
+    penalty_nb_late_cancellations,
+    // @ts-expect-error
+    penalty_days_blocked,
+    // @ts-expect-error
+    penalty_account_value,
+    // @ts-expect-error
+    penalty_nb_days,
+  } = paymentPackTemplate;
+
+  if (
+    max_bookings_per_day ||
+    max_bookings_per_week ||
+    max_bookings_per_month ||
+    max_purchase_per_member
+  ) {
+    return (
+      <>
+        <div className={classes.detailInfo}>
+          <div className={classes.detailCategory}>
+            <NotInterestedIcon className={classes.leftIcon} />
+            <Typography variant="subtitle2">
+              {t('detailTitles.restrictions')}
+            </Typography>
+          </div>
+          <div className={classes.packInfo}>
+            <Typography color="textSecondary" variant="body1">
+              {max_bookings_per_day && (
+                <p className={classes.detailContent}>
+                  {t('cardDetails.maxBookingPerDay')}
+                  {max_bookings_per_day}
+                </p>
+              )}
+              {max_bookings_per_week && (
+                <p className={classes.detailContent}>
+                  {t('cardDetails.maxBookingPerWeek')}
+                  {max_bookings_per_week}
+                </p>
+              )}
+              {max_bookings_per_month && (
+                <p className={classes.detailContent}>
+                  {t('cardDetails.maxBookingPerMonth')}
+                  {max_bookings_per_month}
+                </p>
+              )}
+              {max_purchase_per_member && (
+                <p className={classes.detailContent}>
+                  {t('cardDetails.maxPurchasePerMember')}
+                  {max_purchase_per_member}
+                </p>
+              )}
+              {!!penalty_active && (
+                <>
+                  {penalty_kind === PENALTY_KIND_BLOCK_CPP && (
+                    <p className={classes.detailContent}>
+                      {t('penalty.block', {
+                        nb_cancellations: penalty_nb_late_cancellations,
+                        nb_days: penalty_nb_days,
+                        days_blocked: penalty_days_blocked,
+                      })}
+                    </p>
+                  )}
+                  {penalty_kind === PENALTY_KIND_NEGATIVE_ACCOUNT && (
+                    <p className={classes.detailContent}>
+                      {t('penalty.account', {
+                        nb_cancellations: penalty_nb_late_cancellations,
+                        nb_days: penalty_nb_days,
+                        account_value: getCurrencyDisplayWithPrice(
+                          penalty_account_value,
+                        ),
+                      })}
+                    </p>
+                  )}
+                </>
+              )}
+            </Typography>
+          </div>
+        </div>
+      </>
+    );
+  }
+  return null;
+});
+
+const VODSection: React.FC<{ paymentPackTemplate: PaymentPackTemplate }> = memo(
+  ({ paymentPackTemplate }) => {
+    const { t } = useTranslation('paymentPack');
+    const classes = useStyles();
+
+    if (!paymentPackTemplate) {
+      return null;
+    }
+
+    const { only_vod_access, full_vod_access } = paymentPackTemplate;
+
+    if (only_vod_access || full_vod_access) {
+      return (
+        <div className={classes.detailInfo}>
+          <div className={classes.detailCategory}>
+            <OndemandVideoIcon className={classes.leftIcon} />
+            <Typography variant="subtitle2">{t('detailTitles.vod')}</Typography>
+          </div>
+          <Typography
+            className={classes.packInfo}
+            color="textSecondary"
+            variant="body1"
+          >
+            {full_vod_access && !only_vod_access && (
+              <p className={classes.detailContent}>{t('full_vod')}</p>
+            )}
+            {only_vod_access && (
+              <p className={classes.detailContent}>{t('only_vod_access')}</p>
+            )}
+          </Typography>
+        </div>
+      );
+    }
+    return null;
+  },
+);
+
+const OffPeakSection: React.FC<{
+  paymentPackTemplate: PaymentPackTemplate;
+}> = memo(({ paymentPackTemplate }) => {
+  const { t } = useTranslation('paymentPack');
+  const classes = useStyles();
+
+  const off_peak_schedule = useMemo(() => {
+    return JSON.parse(
+      JSON.stringify(paymentPackTemplate?.off_peak_schedule ?? {}),
+    );
+  }, [paymentPackTemplate?.off_peak_schedule]);
+
+  const offPeakScheduleMemoized = useMemo(() => {
+    return Object.entries(off_peak_schedule);
+  }, [off_peak_schedule]);
+
+  if (!paymentPackTemplate) {
+    return null;
+  }
+
+  if (off_peak_schedule && offPeakScheduleMemoized.length > 0) {
+    return (
+      <div className={classes.detailInfo}>
+        <div className={classes.detailCategory}>
+          <AccessTimeIcon className={classes.leftIcon} />
+          <Typography variant="subtitle2">
+            {t('detailTitles.offPeak')}
+          </Typography>
+        </div>
+        <div className={classes.allSchedule}>
+          {offPeakScheduleMemoized.map(
+            ([isoWeekday, timeSlots]: [string, string[][]]) => {
+              return (
+                <OffPeakDisplayByDay
+                  isoWeekday={isoWeekday}
+                  timeSlots={timeSlots}
+                />
+              );
+            },
+          )}
+        </div>
+      </div>
+    );
+  }
+  return null;
+});
+
+const PaymentPackTemplateCard: React.FC<Props> = ({
+  paymentPackTemplate,
+  onCreatePaymentPackTemplateInstance,
+  buyPaymentPackTemplateInstance,
+  onDeleteCompany,
+  isManager,
+  editPaymentPackTemplate,
+  deletePaymentPackTemplate,
+}) => {
+  const { t } = useTranslation(['paymentPack']);
+  const classes = useStyles();
+
+  if (!paymentPackTemplate) {
+    return null;
+  }
+
+  return (
+    <Paper
+      className={classnames(
+        classes.paper,
+        paymentPackTemplate.disabled ? classes.disabled : null,
+      )}
+    >
+      <div className={classes.container}>
+        <div className={classes.horizontalBlock}>
+          {paymentPackTemplate.disabled ? (
+            <div className={classes.disabledLabel}>
+              <Typography color="error" variant="h6">
+                {t('disabled')}
+              </Typography>
+            </div>
+          ) : null}
+          <Grid
+            container
+            alignItems="flex-start"
+            direction="row"
+            justify="space-between"
+          >
+            <Grid item xs={8}>
+              <div>
+                <Typography className={classes.title} variant="h4">
+                  {paymentPackTemplate.name}
+                </Typography>
+              </div>
+              {/* @ts-expect-error */}
+              {paymentPackTemplate.description && (
+                <div>
+                  <TypographyMultilineComponent
+                    className={classes.description}
+                    variant="caption"
+                  >
+                    {/* @ts-expect-error */}
+                    {paymentPackTemplate.description}
+                  </TypographyMultilineComponent>
+                </div>
+              )}
+            </Grid>
+            <Grid item xs={4}>
+              <div className={classes.columnLeft}>
+                <Typography
+                  className={classes.price}
+                  color="primary"
+                  variant="h3"
+                >
+                  {getCurrencyDisplayWithPrice(
+                    paymentPackTemplate.price,
+                    false,
+                    paymentPackTemplate.tax,
+                  )}
+                </Typography>
+                <Typography
+                  className={classes.priceWithoutTax}
+                  variant="caption"
+                >
+                  {getCurrencyDisplayWithPrice(
+                    paymentPackTemplate.price,
+                    true,
+                    paymentPackTemplate.tax,
+                  )}
+                  {t('ht')}
+                </Typography>
+              </div>
+            </Grid>
+          </Grid>
+        </div>
+        <div className={classes.horizontalBlock}>
+          <div className={classes.row}>
+            <div className={`${classes.leftPart} ${classes.restrictionBlock}`}>
+              <div className={classes.detailInfo}>
+                <div className={classes.detailCategory}>
+                  <Star className={classes.leftIcon} />
+                  <Typography variant="subtitle2">
+                    {t('detailTitles.credit_quantity')}
+                  </Typography>
+                </div>
+                <Typography className={classes.packInfo} variant="body1">
+                  {getCreditInfo(paymentPackTemplate, t, isManager)}
+                </Typography>
+              </div>
+              <div className={classes.detailInfo}>
+                <div className={classes.detailCategory}>
+                  <DateRange className={classes.leftIcon} />
+                  <Typography variant="subtitle2">
+                    {t('detailTitles.validity')}
+                  </Typography>
+                </div>
+                <Typography className={classes.packInfo} variant="body1">
+                  {getValidityInfo(paymentPackTemplate, t, true)}
+                </Typography>
+              </div>
+            </div>
+            <div className={classes.rightPart}>
+              {editPaymentPackTemplate && (
+                <Button
+                  color="primary"
+                  onClick={() => editPaymentPackTemplate()}
+                >
+                  {t('actions.edit')}
+                </Button>
+              )}
+              {deletePaymentPackTemplate && (
+                <RedButtonComponent onClick={() => deletePaymentPackTemplate()}>
+                  {t('actions.delete')}
+                </RedButtonComponent>
+              )}
+            </div>
+          </div>
+          <RestrictionsSection paymentPackTemplate={paymentPackTemplate} />
+          <VODSection paymentPackTemplate={paymentPackTemplate} />
+          <OffPeakSection paymentPackTemplate={paymentPackTemplate} />
+
+          <div className={classes.restrictionBlock}>
+            <div className={classes.detailInfo}>
+              <div className={classes.detailCategory}>
+                <Share className={classes.leftIcon} />
+                <Typography variant="subtitle2">
+                  {t(
+                    'paymentPackTemplate.specification.companySharedWithTitle',
+                  )}
+                </Typography>
+              </div>
+              <div className={classes.companyInnerContainer}>
+                {!paymentPackTemplate.companies.length && (
+                  <div className={classes.emptyExplain}>
+                    <InfoOutlinedIcon className={classes.iconLeft} />
+                    <Typography color="textSecondary">
+                      {t('paymentPackTemplateInstance.companyEmpty')}
+                    </Typography>
+                  </div>
+                )}
+                <div className={classes.chipListContainer}>
+                  {paymentPackTemplate.companies.map((c) => (
+                    <div className={classes.chipContainer}>
+                      <CompanyChip
+                        key={c.id}
+                        // @ts-expect-error
+                        company={c}
+                        onDelete={
+                          onDeleteCompany && (() => onDeleteCompany(c.id))
+                        }
+                      />
+                    </div>
+                  ))}
+                </div>
+              </div>
+              {onCreatePaymentPackTemplateInstance && (
+                <div>
+                  <Button
+                    className={classes.button}
+                    color="primary"
+                    onClick={onCreatePaymentPackTemplateInstance}
+                    startIcon={<AddIcon />}
+                    variant="outlined"
+                  >
+                    {t('paymentPackTemplateInstance.actions.addCompany')}
+                  </Button>
+                </div>
+              )}
+            </div>
+            {paymentPackTemplate.is_universal_template && (
+              <div className={classes.detailInfo}>
+                <div className={classes.detailCategory}>
+                  <StyleIcon className={classes.leftIcon} />
+                  <Typography variant="subtitle2">
+                    {t('detailTitles.universalPass')}
+                  </Typography>
+                </div>
+                <Typography className={classes.packInfo} variant="body1">
+                  {t('cardDetails.universalPass')}
+                </Typography>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+
+      {buyPaymentPackTemplateInstance && (
+        <Button
+          fullWidth
+          color="primary"
+          onClick={() => buyPaymentPackTemplateInstance()}
+          startIcon={<AddIcon />}
+          variant="contained"
+        >
+          {t('paymentPackTemplateInstance.actions.buy')}
+        </Button>
+      )}
+    </Paper>
+  );
+};
+
+const useStyles = makeStyles((theme) => ({
+  leftPart: { width: '80%' },
+  rightPart: {
+    width: '20%',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'flex-end',
+  },
+  row: { display: 'flex' },
+  priceWithoutTax: {
+    color: 'rgba(0, 0, 0, 0.38)',
+  },
+  button: { marginLeft: theme.spacing(5) },
+  container: {
+    paddingBottom: theme.spacing(3),
+  },
+  detailInfo: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '4px',
+  },
+  leftIcon: {
+    marginRight: theme.spacing(2),
+  },
+  price: {
+    fontWeight: 700,
+  },
+  paper: {
+    paddingTop: theme.spacing(3),
+  },
+  emptyExplain: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: theme.spacing(3),
+    marginTop: theme.spacing(1),
+  },
+  companySectionTitle: {
+    marginBottom: theme.spacing(2),
+  },
+  title: {
+    paddingBottom: theme.spacing(2),
+  },
+  iconLeft: {
+    marginRight: theme.spacing(1),
+  },
+  disabled: {
+    backgroundColor: '#F8F8F8',
+  },
+  horizontalBlock: {
+    paddingLeft: theme.spacing(3),
+    paddingRight: theme.spacing(3),
+    display: 'flex',
+    flexDirection: 'column',
+    gap: theme.spacing(2),
+  },
+  columnLeft: {
+    paddingLeft: theme.spacing(2),
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'flex-end',
+  },
+  restrictionBlock: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: theme.spacing(2),
+  },
+  disabledLabel: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingBottom: theme.spacing(2),
+  },
+  companyContainer: {
+    marginBottom: theme.spacing(3),
+  },
+  companyInnerContainer: {
+    marginLeft: theme.spacing(5),
+    display: 'flex',
+    flexDirection: 'row',
+    '&>*': {
+      marginRight: theme.spacing(1),
+      marginBottom: theme.spacing(1),
+    },
+  },
+  chipListContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+  },
+  chipContainer: {
+    paddingBottom: theme.spacing(1),
+    paddingRight: theme.spacing(1),
+  },
+  detailCategory: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  packInfo: {
+    color: 'rgba(0, 0, 0, 0.6)',
+    marginLeft: theme.spacing(5),
+  },
+  detailContent: {
+    marginTop: 0,
+    marginBottom: theme.spacing(1),
+  },
+  description: {
+    color: theme.palette.text.secondary,
+    wordBreak: 'break-word',
+  },
+  scheduleInfo: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    flexWrap: 'wrap',
+    gap: theme.spacing(1),
+  },
+  allSchedule: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+    gap: theme.spacing(1),
+  },
+}));
+
+export default memo(PaymentPackTemplateCard);

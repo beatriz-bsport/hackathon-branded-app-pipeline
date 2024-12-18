@@ -1,0 +1,93 @@
+.bs-subscription__bottom__container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  gap: var(--spacing-2);
+  padding-top: 0;
+  padding-bottom: var(--spacing-2);
+  padding-left: var(--spacing-2);
+  padding-right: var(--spacing-2);
+  border-style: solid;
+  border-width: 1px;
+  border-bottom-left-radius: var(--border-radius-3);
+  border-bottom-right-radius: var(--border-radius-3);
+  border-color: var(--border-color);
+}
+
+.bs-subscription__bottom__submit-button {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-1) var(--spacing-2);
+  border-radius: var(--spacing-3);
+  border: none;
+  background-color: var(--color-primary-main);
+  color: var(--color-primary-contrastText);
+  width: 100%;
+  text-transform: uppercase;
+  font-family: var(--button-fontFamily);
+  font-size: var(--button-fontSize);
+  font-weight: var(--button-fontWeight);
+  line-height: var(--button-lineHeight);
+  cursor: pointer;
+  transition: all ease 0.3s;
+  max-width: 300px;
+}
+
+.bs-subcription--bottom__container__total {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-weight: 500;
+}
+
+.bs-subscription--bottom__container__total__title {
+  font-size: var(--subtitle1-fontSize);
+  font-weight: 500;
+  letter-spacing: var(--subtitle1-letterSpacing);
+  line-height: var(--subtitle1-lineHeight);
+}
+
+.bs-subscription__bottom__submit-button:hover {
+  background-color: var(--color-primary-dark);
+}
+
+.bs-subscription__bottom__submit-button:disabled {
+  background-color: var(--color-grey-light);
+  color: var(--color-scrollbar-thumb);
+}
+
+.bs-subscription__bottom__info-text {
+  font-size: 10px;
+  color: var(--color-text-secondary);
+  font-weight: var(--fontWeightMedium);
+}
+
+.bs-subscription__coupon_container {
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 0;
+  border-color: var(--border-color);
+}
+
+@media screen and (max-width: 850px) {
+  .bs-subscription__bottom__container {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: white;
+    width: 100%;
+    padding-top: var(--spacing-1);
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    border-color: var(--border-color);
+  }
+  .bs-subscription__coupon_container {
+    border: none;
+  }
+}

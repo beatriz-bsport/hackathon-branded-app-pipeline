@@ -1,0 +1,111 @@
+.bs-offer-booking-waiting-list__content__container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 1180px;
+  gap: var(--spacing-1);
+  margin: var(--spacing-4) 0;
+}
+
+.bs-offer-booking-waiting-list__header__container {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+}
+
+.bs-offer-booking-waiting-list__header__title {
+  font-family: var(--h5-fontFamily);
+  font-size: var(--h4-fontSize);
+  line-height: var(--h5-lineHeight);
+  color: var(--color-grey-dark);
+}
+
+.bs-offer-booking-waiting-list__header__arrow__icon {
+  color: var(--color-grey-main);
+}
+
+.bs-offer-booking-waiting-list__status__summary__container {
+  display: flex;
+  gap: var(--spacing-4);
+}
+
+.bs-offer-booking-waiting-list__status__container {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.bs-offer-booking-waiting-list__booking_container {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  gap: var(--spacing-2);
+}
+
+.bs-offer-booking-waiting-list__summary__container {
+  width: 375px;
+  padding: var(--spacing-2);
+  border-style: solid;
+  border-width: 1px;
+  border-radius: var(--border-radius-3);
+  border-color: var(--border-color);
+}
+
+.bs-offer-booking-waiting-list-status__container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-2);
+}
+
+.bs-offer-booking-waiting-list-status__icon__container {
+  display: flex;
+  padding: var(--spacing-2);
+  gap: 10px;
+  border-radius: var(--spacing-1);
+}
+
+.bs-offer-booking-waiting-list-status__icon__error {
+  background: var(--color-error-background);
+  color: var(--color-error-main);
+}
+
+.bs-offer-booking-waiting-list-status__icon__default {
+  background: var(--color-primary-main-background);
+  color: var(--color-primary-main);
+}
+
+.bs-status-message-with-icon__icon {
+  font-size: 40px;
+}
+
+@container bsOfferBookingPage (width < 750px) {
+  .bs-offer-booking-waiting-list__content__container {
+    padding: 0 var(--spacing-2);
+    margin: var(--spacing-2) 0;
+    min-height: calc(100% - var(--spacing-6) - var(--spacing-4));
+    flex: 1;
+  }
+
+  .bs-offer-booking-waiting-list__status__container {
+    width: 100%;
+  }
+
+  .bs-offer-booking-waiting-list__status__summary__container {
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+  }
+
+  .bs-offer-booking-waiting-list__summary__container {
+    width: 100%;
+    display: flex;
+    align-items: flex-end;
+    margin-bottom: var(--spacing-2);
+  }
+
+  .bs-offer-booking-waiting-list__summary__container > div {
+    max-width: inherit;
+    width: 100%;
+  }
+}

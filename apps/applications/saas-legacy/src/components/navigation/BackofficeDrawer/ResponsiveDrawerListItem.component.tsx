@@ -1,0 +1,188 @@
+import React from 'react';
+import { pure } from 'recompose';
+import { useTranslation } from 'react-i18next';
+import type { Theme } from '@material-ui/core/styles';
+import makeStyles from '@material-ui/styles/makeStyles';
+import classNames from 'classnames';
+import { colors } from '@bsport/common/lib/colors';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import IconButton from '@material-ui/core/IconButton';
+import ClearIcon from '@material-ui/icons/Clear';
+import { Alert } from '@material-ui/lab';
+import Popper from '@material-ui/core/Popper';
+import { Typography } from '@material-ui/core';
+import Hidden from '@material-ui/core/Hidden';
+import OpenInNewIcon from '@material-ui/icons/OpenInNew';
+import TutorialIconWithAlertings from '#src/libs/platform-tutorial/components/TutorialIconWithAlertings.component';
+import type {
+  DrawerItem,
+  DrawerItemDefault,
+} from './ResponsiveDrawer.component';
+import DrawerListItemIcon from './DrawerListItemIcon.component';
+
+type DrawerListItemProps = {
+  item: DrawerItem;
+  isNested?: boolean;
+  onMenuItemClick: () => void;
+  nbTutorialAlerting: number;
+  isActive: boolean;
+  toggledMenu: Record<number, boolean>;
+  userAcknowlegdePlatformTutorial: boolean | undefined;
+  updateUserAcknowlegdeTutorial?: () => void;
+  tutorialDialogOpen: boolean;
+  iconsOnly?: boolean;
+};
+const DrawerListItem: React.FC<DrawerListItemProps> = ({
+  item,
+  onMenuItemClick,
+  isNested,
+  nbTutorialAlerting,
+  isActive,
+  toggledMenu,
+  userAcknowlegdePlatformTutorial,
+  updateUserAcknowlegdeTutorial,
+  tutorialDialogOpen,
+  iconsOnly,
+}) => {
+  const { t } = useTranslation('navigation');
+  const classes = useStyles({ iconsOnly });
+  const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(
+    null,
+  );
+  const itemRef = React.useRef(null);
+  React.useEffect(() => {
+    setAnchorEl(itemRef.current);
+  }, [itemRef, toggledMenu, isActive]);
+  const openPop = Boolean(anchorEl);
+
+  const id = openPop ? 'simple-popover' : undefined;
+  const handleUpdateUserAcknowlegdeTutorial = (
+    ev: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+  ) => {
+    ev.stopPropagation();
+    updateUserAcknowlegdeTutorial();
+  };
+  return (
+    <div
+      className={classNames({
+        // @ts-expect-error
+        [classes.relativeDiv]: item.icon === TutorialIconWithAlertings,
+      })}
+    >
+      <ListItem
+        // @ts-expect-error
+        ref={item.icon === TutorialIconWithAlertings ? itemRef : null}
+        button
+        aria-describedby={id}
+        className={classNames({
+          [classes.nestedItem]: isNested,
+        })}
+        // @ts-expect-error
+        dense={item.dense || isNested}
+        onClick={() => {
+          // @ts-expect-error
+          item.action && item.action();
+          onMenuItemClick();
+        }}
+        selected={isActive}
+      >
+        <DrawerListItemIcon
+          iconsOnly={iconsOnly}
+          isNested={isNested}
+          item={item}
+          nbTutorialAlerting={nbTutorialAlerting}
+        />
+
+        {!iconsOnly && (
+          <ListItemText
+            // @ts-expect-error
+            id={item.id}
+            // @ts-expect-error
+            primary={item.text}
+            primaryTypographyProps={{
+              style: { color: 'initial' },
+            }}
+            // @ts-expect-error
+            secondary={item.subtext}
+            secondaryTypographyProps={{ style: { color: colors.primaryDark } }}
+          />
+        )}
+
+        {(item as DrawerItemDefault)?.openInNewTab && (
+          <OpenInNewIcon color="disabled" />
+        )}
+      </ListItem>
+      <Hidden smDown>
+        {/* @ts-expect-error */}
+        {item.icon === TutorialIconWithAlertings &&
+        updateUserAcknowlegdeTutorial &&
+        !tutorialDialogOpen ? (
+          <Popper
+            anchorEl={anchorEl}
+            className={classes.customPoper}
+            id={id}
+            open={!userAcknowlegdePlatformTutorial}
+            placement="right"
+          >
+            <Alert
+              className={classNames(classes.alert, classes.customPoper)}
+              severity="info"
+              variant="filled"
+            >
+              <div className={classes.alertContent}>
+                <Typography variant="body2">
+                  {t('backofficeMenu.tutorialInfo')}
+                </Typography>
+                <IconButton onClick={handleUpdateUserAcknowlegdeTutorial}>
+                  <ClearIcon className={classes.alertIcon} />
+                </IconButton>
+              </div>
+            </Alert>
+          </Popper>
+        ) : null}
+      </Hidden>
+    </div>
+  );
+};
+
+const useStyles = makeStyles<Theme, { iconsOnly: boolean }>((theme: Theme) => ({
+  toolbar: theme.mixins.toolbar,
+  nestedList: {
+    backgroundColor: '#F8F8F8',
+    borderLeft: `4px solid ${theme.palette.primary.main}`,
+  },
+  nestedItem: {
+    width: '100%',
+  },
+  nestedIcon: {
+    marginLeft: ({ iconsOnly }) =>
+      iconsOnly ? theme.spacing(0) : theme.spacing(2),
+  },
+  disabledIconPadding: {
+    marginTop: 0,
+    marginBottom: 0,
+    paddingTop: 0,
+    paddingBottom: 0,
+  },
+  relativeDiv: {
+    position: 'relative',
+  },
+  customPoper: {
+    zIndex: 100000,
+    paddingLeft: theme.spacing(2),
+  },
+  alert: {
+    alignItems: 'center',
+    width: '400px',
+  },
+  alertContent: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  alertIcon: {
+    color: 'white',
+  },
+}));
+export default pure(DrawerListItem);

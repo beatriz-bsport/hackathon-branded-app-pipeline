@@ -1,0 +1,422 @@
+import Paper from '@material-ui/core/Paper';
+import React, { Component } from 'react';
+import { withHandlers, withState } from 'recompose';
+import { withTranslation } from 'react-i18next';
+import { compose } from 'redux';
+import { connect } from 'react-redux';
+import { push } from 'connected-react-router';
+import { withStyles } from '@material-ui/styles';
+import Grid from '@material-ui/core/Grid';
+import Alert from '@material-ui/lab/Alert/Alert';
+
+import {
+  BUYABLE_ITEM_PASS,
+  BUYABLE_ITEM_PRIVATE_PASS,
+} from '@bsport/common/lib/master-data/buyable-items';
+import mapRouterParamsToProps from '../../hocs/router-params-to-props.hoc';
+import themeSelectors from '../../libs/theme/selectors';
+import { getMember } from '../../libs/member/selectors';
+
+import { getInvoice } from '../../libs/invoice/selectors';
+import { fetchByInvoiceItem as fetchInvoiceByInvoiceItem } from '../../libs/invoice/actions';
+import {
+  fetchUniqueVideoPurchaseByMember,
+  fetchNumberVideoPurchase,
+  fetchVideoBulk,
+  retrieveVideo,
+  fetchVideoAnalyticsbyMember,
+  retrieveVideoPurchase as retrieveVideoPurchaseAction,
+  fetchVideoPurchaseByMemberByVideo as fetchVideoPurchaseByMemberByVideoAction,
+} from '../../libs/video/actions';
+import {
+  retrieveConsumerPackBulk,
+  updateCredit as updateCreditAction,
+} from '../../libs/consumer-payment-pack/actions';
+import {
+  updatePrivateConsumerPassCredits,
+  fetchPrivateConsumerPassBulk as fetchPrivateConsumerPassBulkAction,
+} from '../../libs/private-service/actions';
+import {
+  withConsumerPass,
+  withVideoData,
+  getVideoPurchasedByMember,
+  getSelectedVideoPurchased,
+  getAssociatedVideoPurchasedByMember,
+} from '../../libs/video/selectors';
+import PaginatedListBase from '../../components/PaginatedListBase.component';
+import VideoItemForManager from '../../libs/video/components/VideoItemForManager.component';
+import VideoDetail from '../../libs/video/components/VideoDetail.component';
+import paymentPackSelectors from '../../libs/payment-packs/selectors';
+import type {
+  Video,
+  VideoPurchase,
+  VideoAnalyticsData,
+} from '../../libs/video/types';
+
+const VIDEO_PURCHASES_PAGE_SIZE = 5;
+type Props = {
+  classes: any,
+  vodId?: number,
+  id: number,
+  selectVideo: (memberId: number, videoId: number) => void,
+  unselectVideo: (memberId: number) => void,
+  onPageRequested: (page: number, page_size: number) => void,
+  onSelectVideoPurchase: () => void,
+  loading: boolean,
+  purchasedVideoList: Array<VideoPurchase>,
+  videoCurrentPage: number,
+  selectedPurchasedVideo?: VideoPurchase,
+  getPaymentPack: (id: number) => PaymentPack,
+  incrementCredit: (id: number) => void,
+  decrementCredit: (id: number) => void,
+  incrementPrivatePassCredit: (id: number) => void,
+  decrementPrivatePassCredit: (id: number) => void,
+  analyticsbyMember: {
+    data: VideoAnalyticsData,
+    loading: boolean,
+  },
+  goToConsumerPass: (memberId: number, consumerPassId: number) => void,
+  goToPrivatePass: (memberId: number, privatePassId: number) => void,
+  onInvoiceClick?: (uuid: string) => void,
+  privateConsumerPassInvoice?: Invoice,
+  videoPurchasedCount: number,
+  associatedVideoPurchase: Array<VideoPurchase>,
+  fetchVideoPurchaseInvoice: (videoPurchase: VideoPurchase) => void,
+};
+const ClickOnPurchaseVideo = withTranslation(['video'])(
+  (props: { classes: Object, t: TFunction }) => (
+    <div className={props.classes.container}>
+      <div className={props.classes.emptyMessageContainer}>
+        <Alert className={props.classes.alertInfo} color="grey" severity="info">
+          {props.t('details.pleaseSelectVod')}
+        </Alert>
+      </div>
+    </div>
+  ),
+);
+export class MemberDetailVod extends Component<Props, state> {
+  componentDidMount() {
+    if (this.props.vodId) {
+      this.props.onSelectVideoPurchase(this.props.vodId);
+    }
+  }
+
+  goToConsumerPass = (consumerPassId: number) => {
+    this.props.goToConsumerPass(this.props.id, consumerPassId);
+  };
+
+  goToPrivatePass = (privatePassId: number) => {
+    this.props.goToPrivatePass(this.props.id, privatePassId);
+  };
+
+  selectVideo = (video: Video) => {
+    if (this.props.vodId && this.props.vodId === video.id) {
+      this.props.unselectVideo(this.props.id);
+    } else {
+      this.props.selectVideo(this.props.id, video.id);
+    }
+  };
+
+  render() {
+    return (
+      <Grid container direction="row" spacing={3}>
+        <Grid
+          container
+          item
+          alignItems="stretch"
+          direction="column"
+          lg={6}
+          spacing={3}
+          xs={12}
+        >
+          <Grid item style={{ width: '100%' }}>
+            <Paper>
+              <PaginatedListBase
+                itemPerPage={VIDEO_PURCHASES_PAGE_SIZE}
+                items={this.props.purchasedVideoList}
+                listProps={{ disablePadding: true }}
+                loading={this.props.loading}
+                nbItems={this.props.videoPurchasedCount}
+                onPageRequested={(page, page_size) =>
+                  this.props.onPageRequested(page, page_size)
+                }
+                page={this.props.videoCurrentPage}
+                renderCustomPageFirst={!!this.props.vodId}
+                renderItem={(purchasedVideo) =>
+                  purchasedVideo.video && (
+                    <VideoItemForManager
+                      key={purchasedVideo.id}
+                      date_created={purchasedVideo.date_created}
+                      memberId={this.props.id}
+                      onClick={() => {
+                        this.props.onSelectVideoPurchase(purchasedVideo.id);
+                        this.selectVideo(purchasedVideo);
+                      }}
+                      selected={
+                        this.props.selectedPurchasedVideo &&
+                        this.props.selectedPurchasedVideo.id ===
+                          purchasedVideo.id
+                      }
+                      videoPurchase={purchasedVideo}
+                    />
+                  )
+                }
+              />
+            </Paper>
+          </Grid>
+        </Grid>
+        <Grid item lg={6} xs={12}>
+          {this.props.selectedPurchasedVideo ? (
+            <VideoDetail
+              analytics={this.props.analyticsbyMember}
+              decrementCredit={this.props.decrementCredit}
+              decrementPrivatePassCredit={this.props.decrementPrivatePassCredit}
+              fetchVideoPurchaseInvoice={this.props.fetchVideoPurchaseInvoice}
+              getPaymentPack={this.props.getPaymentPack}
+              incrementCredit={this.props.incrementCredit}
+              incrementPrivatePassCredit={this.props.incrementPrivatePassCredit}
+              invoice={this.props.privateConsumerPassInvoice}
+              loading={this.props.loading}
+              onConsumerPassSelected={this.goToConsumerPass}
+              onInvoiceClick={this.props.onInvoiceClick}
+              onPrivatePassSelected={this.goToPrivatePass}
+              relatedVideoPurchaseList={this.props.associatedVideoPurchase}
+              videoPurchase={this.props.selectedPurchasedVideo}
+            />
+          ) : (
+            <ClickOnPurchaseVideo classes={this.props.classes} />
+          )}
+        </Grid>
+      </Grid>
+    );
+  }
+}
+
+const styles = (theme) => ({
+  alertInfo: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+  containerRecurrentBooking: {
+    width: '100%',
+  },
+  bookButtonWideContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    flexWrap: 'noWrap',
+  },
+  recurrenceRuleContainer: {
+    marginTop: theme.spacing(3),
+  },
+  bookButtonWide: {
+    width: '30%',
+    alignItems: 'center',
+    marginRight: 'auto',
+    marginLeft: 'auto',
+  },
+  createRecurrentBooking: {
+    paddingTop: theme.spacing(3),
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'row',
+  },
+  graphContainer: {
+    padding: theme.spacing(2),
+  },
+  titleRow: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginRight: theme.spacing(2),
+  },
+  container: {
+    padding: theme.spacing(2),
+  },
+  emptyMessageContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: theme.spacing(4),
+  },
+  emptyMessageText: {
+    marginTop: theme.spacing(2),
+  },
+});
+export default compose(
+  mapRouterParamsToProps({
+    id: 'id:number',
+    vodId: 'vodId:number',
+  }),
+  withTranslation('booking'),
+  withStyles(styles),
+  withState('relatedInvoice', 'setRelatedInvoice', null),
+  connect(
+    (state, { id, vodId, relatedInvoice }) => ({
+      loading:
+        state.video.loading ||
+        state.video.purchase.loading ||
+        state.consumerPaymentPack.loading ||
+        state.video.analyticsbyMember.loading,
+      theme: themeSelectors.getTheme(state),
+      member: getMember(state, id),
+      purchasedVideoList: withConsumerPass(
+        withVideoData(getVideoPurchasedByMember),
+      )(state, id),
+      associatedVideoPurchase: withConsumerPass(
+        withVideoData(getAssociatedVideoPurchasedByMember),
+      )(state, id),
+      selectedPurchasedVideo: withConsumerPass(
+        withVideoData(getSelectedVideoPurchased),
+      )(state, vodId),
+      videoPurchasedCount: state.video.purchase.purchaseByMember,
+      videoCurrentPage: state.video.purchase.page,
+      getPaymentPack: (id_: number) => paymentPackSelectors.get(state, id_),
+      analyticsbyMember: {
+        data: state.video.analyticsbyMember.data,
+        loading: state.video.analyticsbyMember.loading,
+      },
+      privateConsumerPassInvoice: getInvoice(state, relatedInvoice),
+    }),
+    {
+      fetchVideoPurchaseAction: fetchUniqueVideoPurchaseByMember,
+      fetchVideoListBulkAction: fetchVideoBulk,
+      retrieveVideoAction: retrieveVideo,
+      retrieveConsumerPackBulkAction: retrieveConsumerPackBulk,
+      goToConsumerPass: (memberId, consumerPassId) =>
+        push(`/member/${memberId}/pass/${consumerPassId}/`),
+      goToPrivatePass: (memberId, privatePassId) =>
+        push(`/member/${memberId}/private-consumer-pass/${privatePassId}/`),
+      unselectVideo: (id) => push(`/member/${id}/vod`),
+      selectVideo: (id, vodId) => push(`/member/${id}/vod/${vodId}/`),
+      incrementCredit: (id_) => updateCreditAction(id_, 1),
+      decrementCredit: (id_) => updateCreditAction(id_, -1),
+      onInvoiceClick: (uuid: string) => push(`/invoice/${uuid}`),
+      fetchVideoAnalyticsbyMemberAction: fetchVideoAnalyticsbyMember,
+      fetchInvoiceByInvoiceItemAction: fetchInvoiceByInvoiceItem,
+      fetchNumberVideoPurchaseAction: fetchNumberVideoPurchase,
+      retrieveVideoPurchase: retrieveVideoPurchaseAction,
+      fetchPrivateConsumerPassBulk: fetchPrivateConsumerPassBulkAction,
+      fetchVideoPurchaseByMemberByVideo:
+        fetchVideoPurchaseByMemberByVideoAction,
+      incrementPrivatePassCredit: (id_) =>
+        updatePrivateConsumerPassCredits(id_, 1),
+      decrementPrivatePassCredit: (id_) =>
+        updatePrivateConsumerPassCredits(id_, -1),
+    },
+  ),
+
+  withHandlers({
+    onSelectVideoPurchase:
+      ({
+        setRelatedInvoice,
+        fetchInvoiceByInvoiceItemAction,
+        retrieveVideoPurchase,
+        retrieveVideoAction,
+        fetchVideoAnalyticsbyMemberAction,
+        id,
+        fetchVideoPurchaseByMemberByVideo,
+        retrieveConsumerPackBulkAction,
+        fetchPrivateConsumerPassBulk,
+      }) =>
+      (purchaseVideoId) => {
+        retrieveVideoPurchase(purchaseVideoId, {
+          onSuccess: (videoPurchase) => {
+            retrieveVideoAction(videoPurchase.video);
+            fetchVideoAnalyticsbyMemberAction(videoPurchase.video, {
+              member: id,
+            });
+            fetchVideoPurchaseByMemberByVideo(videoPurchase.video, id, {
+              onSuccess: (videoPurchases) => {
+                retrieveConsumerPackBulkAction(
+                  videoPurchases.map(
+                    (purchase) => purchase.consumer_payment_pack,
+                  ),
+                );
+                fetchPrivateConsumerPassBulk(
+                  videoPurchases.map(
+                    (purchase) => purchase.private_consumer_pass,
+                  ),
+                );
+              },
+            });
+            if (videoPurchase.consumer_payment_pack) {
+              fetchInvoiceByInvoiceItemAction(
+                BUYABLE_ITEM_PASS,
+                videoPurchase.consumer_payment_pack,
+                {
+                  onSuccess: (inv) => {
+                    setRelatedInvoice(inv.uuid);
+                  },
+                },
+              );
+            } else if (videoPurchase.private_consumer_pass) {
+              fetchInvoiceByInvoiceItemAction(
+                BUYABLE_ITEM_PRIVATE_PASS,
+                videoPurchase.private_consumer_pass,
+                {
+                  onSuccess: (inv) => {
+                    setRelatedInvoice(inv.uuid);
+                  },
+                },
+              );
+            }
+          },
+        });
+      },
+    fetchVideoPurchaseInvoice:
+      ({ setRelatedInvoice, fetchInvoiceByInvoiceItemAction }) =>
+      (videoPurchase: VideoPurchase) => {
+        if (videoPurchase.consumer_payment_pack) {
+          fetchInvoiceByInvoiceItemAction(
+            BUYABLE_ITEM_PASS,
+            videoPurchase.consumer_payment_pack.id,
+            {
+              onSuccess: (inv) => {
+                setRelatedInvoice(inv.uuid);
+              },
+            },
+          );
+        } else if (videoPurchase.private_consumer_pass?.id) {
+          fetchInvoiceByInvoiceItemAction(
+            BUYABLE_ITEM_PRIVATE_PASS,
+            videoPurchase.private_consumer_pass.id,
+            {
+              onSuccess: (inv) => {
+                setRelatedInvoice(inv.uuid);
+              },
+            },
+          );
+        }
+      },
+  }),
+  withHandlers({
+    onPageRequested:
+      ({
+        id,
+        vodId,
+        fetchVideoPurchaseAction,
+        fetchVideoListBulkAction,
+        retrieveConsumerPackBulkAction,
+        fetchNumberVideoPurchaseAction,
+        fetchPrivateConsumerPassBulk,
+      }) =>
+      (page, page_size) => {
+        fetchVideoPurchaseAction(id, page, page_size, !page ? vodId : null, {
+          onSuccess: (payload) => {
+            fetchVideoListBulkAction(payload.map((purVideo) => purVideo.video));
+            retrieveConsumerPackBulkAction(
+              payload.map((pv) => pv.consumer_payment_pack),
+            );
+            fetchPrivateConsumerPassBulk(
+              payload.map((pv) => pv.private_consumer_pass),
+            );
+            fetchNumberVideoPurchaseAction({ member_id: id });
+          },
+        });
+      },
+  }),
+)(MemberDetailVod);

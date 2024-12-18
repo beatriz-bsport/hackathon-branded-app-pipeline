@@ -1,0 +1,56 @@
+import { Meta, Canvas, Story, ArgsTable } from '@storybook/addon-docs';
+import InstalmentPaymentConfigurationList from "./InstalmentPaymentConfigurationList.component"
+import InstalmentPaymentFactory from "../factories";
+const randomInstalmentPaymentList=InstalmentPaymentFactory.InstalmentPayment.create(5)
+
+<Meta title='Library/InstalmentPaymentConfiguration/List'
+    component={InstalmentPaymentConfigurationList}
+    argTypes ={{
+    }}/>
+
+export const Template = (args) => <InstalmentPaymentConfigurationList {...args} />;
+
+#  Instalment Payment List
+
+<Canvas>
+    <Story 
+    name='InstalmentPaymentConfigurationList'
+    args={{
+      instalmentPaymentList:randomInstalmentPaymentList,
+      loading:false,
+    }}>
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+<ArgsTable story='InstalmentPaymentConfigurationList' />
+
+#  Instalment Payment List Undefined
+
+<Canvas>
+    <Story 
+    name='InstalmentPaymentConfigurationListUndefined'
+    args={{
+      instalmentPaymentList:undefined,
+    }}>
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+<ArgsTable story='InstalmentPaymentConfigurationListUndefined' />
+
+#  Instalment Payment List Loading
+
+<Canvas>
+    <Story 
+    name='InstalmentPaymentConfigurationListLoading'
+    args={{
+      instalmentPaymentList:undefined,
+      loading:true,
+    }}>
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+<ArgsTable story='InstalmentPaymentConfigurationListLoading' />
+

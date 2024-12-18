@@ -1,0 +1,45 @@
+.bs-pagination__root {
+  display: flex;
+  flex-direction: row;
+  gap: var(--bs-space-size-2);
+}
+
+.bs-pagination__button {
+  transition: background-color color var(--bs-transition-duration-quick) ease-in;
+}
+
+.bs-pagination__button--hidden {
+  display: none;
+}
+
+.bs-pagination__button:disabled.bs-pagination__button--selected {
+  color: var(--bs-color-text-on-strong);
+  background-color: var(--bs-color-action-brand-main);
+}
+
+.bs-pagination__button--selected:hover {
+}
+
+.bs-pagination__button--selected:focus-visible {
+}
+
+.bs-pagination__button:disabled {
+  color: var(--bs-color-text-disabled);
+  background: var(--bs-color-background-disabled);
+}
+
+.bs-pagination__button--default {
+  background: transparent;
+  color: var(--bs-color-text-default);
+}
+
+.bs-pagination__button--default:hover {
+  color: var(--bs-color-text-on-strong);
+}
+
+.bs-pagination__button--default:focus-visible {
+  background: transparent;
+}
+
+.bs-pagination__button-control {
+}

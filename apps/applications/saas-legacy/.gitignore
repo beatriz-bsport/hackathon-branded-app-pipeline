@@ -1,0 +1,73 @@
+# See https://help.github.com/ignore-files/ for more about ignoring files.
+.venv
+public/env.js
+./public/locales
+./src/i18n/en-US/*js
+.Rhistory
+
+# dependencies
+/node_modules
+
+# testing
+/coverage
+
+# production
+/build
+
+i18n/build/fr/translations.json
+# misc
+.DS_Store
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.prettierrc.yaml
+npm-debug.log*
+yarn-debug.log*
+todo
+yarn-error.log*
+build_prod.sh
+public/locales
+ctags.conf
+.idea
+
+# Created by https://www.gitignore.io/api/vim,linux
+
+### Linux ###
+*~
+
+# temporary files which can be created if a process still has a handle open of a deleted file
+.fuse_hidden*
+
+# KDE directory preferences
+.directory
+
+# Linux trash folder which might appear on any partition or disk
+.Trash-*
+
+# .nfs files are created when an open file is removed but is still being accessed
+.nfs*
+
+### Vim ###
+# swap
+.sw[a-p]
+.*.sw[a-p]
+# session
+Session.vim
+# temporary
+.netrwhist
+# auto-generated tag files
+tags
+
+.idea
+
+# End of https://www.gitignore.io/api/vim,linux
+
+.eslintcache
+
+#Vscode
+.vscode
+
+# cache folder
+.tmp/*
+!.tmp/.gitkeep

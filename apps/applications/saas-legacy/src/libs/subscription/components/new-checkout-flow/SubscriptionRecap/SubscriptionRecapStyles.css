@@ -1,0 +1,46 @@
+.bs-subscription-checkout__recap__container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.bs-subscription-checkout__recap__name-price {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  font-size: var(--subtitle2-fontSize);
+  line-height: var(--subtitle2-lineHeight);
+  font-weight: var(--fontWeightMedium);
+  color: var(--color-text-primary);
+}
+
+.bs-subscription-checkout__recap__content-recurrence {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  font-size: var(--caption-fontSize);
+  line-height: var(--caption-lineHeight);
+  color: var(--color-text-secondary);
+}
+
+.bs-subscription-checkout__recap__content {
+  margin: 0;
+  padding-left: 12px;
+}
+
+.bs-subscription-checkout__recap__content > li {
+  list-style-type: unset;
+}
+
+.bs-subscription-checkout__recap__start-date {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  font-size: var(--caption-fontSize);
+  color: var(--color-text-secondary);
+  margin-top: var(--spacing-1);
+}
+
+.bs-subscription-checkout__recap__starting {
+  color: var(--color-text-primary);
+}

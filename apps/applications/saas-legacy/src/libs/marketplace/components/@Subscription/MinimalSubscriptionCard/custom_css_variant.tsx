@@ -1,0 +1,60 @@
+import React from 'react';
+
+import { CssComponentsVariantIdentifiers } from '#src/libs/exportable-components/constants';
+import {
+  MarketplaceCSSComponentConfig,
+  MarketplacePage,
+  VariationConfigurationChoice,
+} from '#src/libs/exportable-components/types';
+import { subscriptionFactory } from '#src/libs/subscription/factory';
+// @ts-expect-error
+import MinimalSubscriptionCardCss from './styles.css?raw';
+import MinimalSubscriptionCard, { type Props } from '.';
+
+const SUBSCRIPTION = subscriptionFactory();
+
+const minimalSubscriptionCardVariationRegistry = [
+  {
+    label: 'loading',
+    choices: [
+      {
+        label: 'true',
+        value: 'true',
+      },
+      {
+        label: 'false',
+        value: 'false',
+      },
+    ],
+    default: {
+      label: 'false',
+      value: 'false',
+    },
+  },
+];
+
+const usePropsFromVariation = (
+  variationsSelected: Record<string, VariationConfigurationChoice>,
+): Props => {
+  const isLoading = variationsSelected?.loading?.value === 'true';
+  return {
+    isLoading,
+    subscription: SUBSCRIPTION,
+  };
+};
+
+export const MINIMAL_SUBSCRIPTION_CARD_CONFIGURATION: MarketplaceCSSComponentConfig =
+  {
+    label: CssComponentsVariantIdentifiers.MINIMAL_SUBSCRIPTION_CARD,
+    css: MinimalSubscriptionCardCss,
+    pages: [MarketplacePage.SUBSCRIPTION],
+    defaultState: {},
+    variations: minimalSubscriptionCardVariationRegistry,
+  };
+
+export const MINIMAL_SUBSCRIPTION_CARD_PREVIEW: React.FC<{
+  variationsSelected: Record<string, VariationConfigurationChoice>;
+}> = React.memo(({ variationsSelected }) => {
+  const componentProps = usePropsFromVariation(variationsSelected);
+  return <MinimalSubscriptionCard {...componentProps} />;
+});

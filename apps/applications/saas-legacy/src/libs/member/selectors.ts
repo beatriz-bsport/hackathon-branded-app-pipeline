@@ -1,0 +1,235 @@
+import memoize from 'lodash/memoize';
+import { createSelector } from 'reselect';
+
+import { getAllEstablishmentsDict } from '#src/libs/establishment/selectors';
+import {
+  getMemberProgramByMemberDict,
+  getMemberProgramDict,
+  getMetricDict,
+  getProgramDict,
+} from '#src/libs/performance-tracking/selector';
+import { getEventState } from '#src/libs/event/selectors';
+import type { RootState } from '../../reducers';
+import { getMembership } from '../membership/selectors';
+import type { Member } from './types';
+import { getTagGroupsDict, getTagsDict } from '../tag/selectors';
+
+export const getMemberDetailData = (state: RootState) =>
+  state.member.detailData;
+const _getMemberListIds = (state: RootState) => state.member.allIds;
+const _getSearchedMemberIds = (state: RootState) => state.member.search.allIds;
+const _getSearchedMemberArchivedIds = (state: RootState) =>
+  state.member.search.archived.allIds;
+const _getMemberHistoryIds = (state: RootState) => state.member.historyListIds;
+const _getMemberArchiveStatus = (state: RootState) =>
+  state.member.archive.interrogate.byId;
+export const getMemberListData = (state: RootState) => state.member.listData;
+export const getMemberArchivedData = (state: RootState) =>
+  state.member.search.archived.data;
+export const getAllMembers = createSelector(
+  [getMemberListData, _getMemberListIds],
+  (data, ids) => {
+    return ids.map((id) => data[id]).filter((m) => !!m);
+  },
+);
+
+export const getMembersBasedOnListData = createSelector(
+  [getMemberListData],
+  (memberListData) =>
+    Object.keys(memberListData).map((memberId) => memberListData[memberId]),
+);
+
+export const getSearchedMembers = createSelector(
+  [_getSearchedMemberIds, getMemberListData],
+  (ids, data) =>
+    ids.map((id) => data[id]).filter((member) => !!member && !member.is_pos),
+);
+
+export const getSearchMemberLoading = (state: RootState) =>
+  state.member.search.loading;
+
+export const getFilteredSearchedMembers = createSelector(
+  [getSearchedMembers, (_state, id) => id],
+  (searchedMembers, id) => searchedMembers.filter((m) => m.id !== id),
+);
+
+export const getSearchedMembersArchived = createSelector(
+  [_getSearchedMemberArchivedIds, getMemberArchivedData],
+  (ids, data) => ids.map((id) => data[id]).filter((m) => !!m),
+);
+
+export const getMember = createSelector(
+  [
+    getMemberDetailData,
+    (_state, memberId: number) => memberId,
+    getMemberListData,
+  ],
+  (memberDetailData, memberId, memberListData) => {
+    const detail = memberDetailData[memberId];
+    if (detail) return detail;
+    return memberListData[memberId];
+  },
+);
+
+export const getMemberDetail = createSelector(
+  [getMemberDetailData, (_state, id: number) => id],
+  (memberDetailData, id) => memberDetailData[id],
+);
+
+export const getMemberArchiveStatus = createSelector(
+  [_getMemberArchiveStatus, (_state, id: number) => id],
+  (memberArchiveStatus, id) => memberArchiveStatus[id],
+);
+
+export const getMemberThroughMembership = memoize(
+  (selector: (state: RootState) => any) =>
+    createSelector([selector, getMembership], (memberdetail, membership) => {
+      if (!memberdetail || !membership) return null;
+      return memberdetail[membership.id];
+    }),
+);
+
+export const withTags = memoize(
+  (selector: (state: RootState) => Array<Member>) =>
+    createSelector(
+      [selector, getMemberDetailData, getTagsDict, getTagGroupsDict],
+      (memberDetailsList, memberDetailData, tagDict, tagGroupData) => {
+        if (!memberDetailsList) return [];
+        if (Array.isArray(memberDetailsList)) {
+          return memberDetailsList.map((member: Member) => {
+            if (member?.tags?.length !== 0) {
+              return {
+                ...member,
+                tags: member?.tags?.map((tag_id: number) => ({
+                  ...tagDict[tag_id],
+                  group: tagGroupData[tagDict[tag_id]?.group],
+                })),
+              };
+            }
+            return {
+              ...member,
+              tags: memberDetailData[member?.id]?.tags?.map(
+                (tag_id: number) => ({
+                  ...tagDict[tag_id],
+                  group: tagGroupData[tagDict[tag_id]?.group],
+                }),
+              ),
+            };
+          });
+        }
+        return [];
+      },
+    ),
+);
+
+export const withMemberProgram = memoize(
+  (selector: (state: RootState) => Array<Member>) =>
+    createSelector(
+      [
+        selector,
+        getMemberProgramByMemberDict,
+        getMemberProgramDict,
+        getProgramDict,
+        getMetricDict,
+      ],
+      (
+        memberDetailsList,
+        memberProgramByMemberDict,
+        memberProgramDict,
+        programDict,
+        metricDict,
+      ) => {
+        if (!memberDetailsList) return [];
+        if (Array.isArray(memberDetailsList)) {
+          return memberDetailsList.map((member) => {
+            return {
+              ...member,
+              memberProgramList: memberProgramByMemberDict[member.id]
+                ?.map((id) => memberProgramDict[id])
+                ?.filter((mp) => !mp.is_disabled)
+                ?.filter((mp) => programDict[mp.program]?.is_disabled === false)
+                .map((memberProgram) => ({
+                  ...memberProgram,
+                  program: programDict[memberProgram.program],
+
+                  metric_record: {
+                    ...memberProgram.metric_record,
+                    general: {
+                      ...memberProgram?.metric_record?.general,
+                      metrics: memberProgram?.metric_record?.general?.metric_ids
+                        ?.filter((id) => metricDict[id])
+                        .map(
+                          (id) =>
+                            memberProgram?.metric_record?.general?.metrics[id],
+                        )
+                        .map((metricRecord) => ({
+                          ...metricRecord,
+                          metric: metricDict[metricRecord.metric_id],
+                        })),
+                    },
+                  },
+                })),
+            };
+          });
+        }
+        return null;
+      },
+    ),
+);
+
+export const withDefaultBillingEstablishment = memoize((selector) =>
+  createSelector(
+    [selector, getAllEstablishmentsDict],
+    (member, establishments) => {
+      if (!member) return undefined;
+      if (typeof member === 'number' || !member?.default_billing_establishment)
+        return member;
+      return {
+        ...member,
+        default_billing_establishment:
+          establishments[member.default_billing_establishment],
+      };
+    },
+  ),
+);
+
+export const getMemberHistory = createSelector(
+  [getMemberListData, _getMemberHistoryIds],
+  (data, ids) => ids.map((id) => data[id]).filter((m) => !!m),
+);
+
+export default { getAllMembers };
+export const getMemberDict = (state: RootState) => state.member.byId;
+
+export const getMemberListId = (state: RootState) =>
+  state.member.communication.allPageIds;
+
+export const getPaginatedMembers = createSelector(
+  [getMemberDict, getMemberListId],
+  (memberDict, IdList) => IdList.map((id) => memberDict[id]),
+);
+
+export const getListCountMembers = (state: RootState) => state.member.listCount;
+
+export const getCurrentChangeEmailRequest = (state: RootState) =>
+  state.member.change_email_request.current;
+export const getCurrentMinimalChangeEmailRequest = (state: RootState) =>
+  state.member.change_email_request.minimal;
+
+export const getCurrentChangeEmailRequestEmailChoices = createSelector(
+  [getCurrentMinimalChangeEmailRequest],
+  (cerMinimal) => [cerMinimal?.old_email, cerMinimal?.new_email],
+);
+
+const _getIncrementalSearchedMemberIds = (state: RootState) =>
+  state.member.search.incremental.allIds;
+
+export const getIncrementalSearchedMembers = createSelector(
+  [_getIncrementalSearchedMemberIds, getMemberDict],
+  (ids, data) => ids.map((id) => data[id]).filter((m) => !!m),
+);
+
+// Events
+export const getMemberEventState = (state: RootState) =>
+  // @ts-expect-error
+  getEventState(state.event, 'member');

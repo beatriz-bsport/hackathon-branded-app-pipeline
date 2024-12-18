@@ -1,0 +1,30 @@
+.bs-referral-dialog-container {
+  min-width: 600px;
+}
+
+.bs-referral-dialog-container__body {
+  padding: var(--spacing-3);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+}
+
+.bs-referral-dialog-container__body__title {
+  font-size: 20px;
+  color: var(--text-primary);
+}
+
+.bs-referral-dialog-container__body__description {
+  font-size: var(--spacing(2));
+  color: var(--text-primary);
+}
+
+.bs-referral-dialog-container__body__button {
+  color: var(--color-primary-main);
+  background-color: transparent;
+}
+
+.bs-referral-exception-block {
+  padding-top: var(--spacing-4);
+}

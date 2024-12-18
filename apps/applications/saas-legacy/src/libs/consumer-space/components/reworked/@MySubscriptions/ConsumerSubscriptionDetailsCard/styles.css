@@ -1,0 +1,150 @@
+.bs-consumer__subscription-details-card__root {
+  display: flex;
+  flex-direction: column;
+  align-self: flex-start;
+}
+
+.bs-consumer__subscription-details-card__root--mobile {
+  border-radius: 0;
+  margin-top: 0;
+}
+
+.bs-consumer__subscription-details-card__root--hidden {
+  display: none;
+}
+
+/* HEADER SECTION */
+.bs-consumer__subscription-details-card__header__section {
+  padding-bottom: var(--bs-space-size-4);
+}
+
+.bs-consumer__subscription-details-card__header__text-container {
+  padding-bottom: var(--bs-space-size-4);
+}
+
+.bs-consumer__subscription-details-card__header__list {
+  gap: var(--bs-space-size-4);
+}
+
+.bs-consumer__subscription-details-card__header__list-item--paused {
+  color: var(--bs-color-icon-status-warning-strong);
+  padding: 0;
+}
+
+.bs-consumer__subscription-details-card__header__list-item--paused--hidden {
+  display: none;
+}
+
+.bs-consumer__subscription-details-card__header__list-item__text--paused {
+  color: var(--bs-color-text-warning-strong);
+}
+
+.bs-consumer__subscription-details-card__header__list-item__text--auto-renewed {
+  color: var(--bs-color-text-info-weak);
+}
+
+.bs-consumer__subscription-details-card__header__list-item--auto-renewed {
+  color: var(--bs-color-icon-status-info-weak);
+  padding: 0;
+}
+
+.bs-consumer__subscription-details-card__header__list-item--hidden {
+  display: none;
+}
+
+.bs-consumer__subscription-details-card__header__list-item__status {
+  padding: 0;
+}
+
+.bs-consumer__subscription-details-card__header__list-item__price {
+  padding: 0;
+}
+
+.bs-consumer__subscription-details-card__header__list-item__price__caption-text {
+  white-space: pre-line;
+}
+
+.bs-consumer__subscription-details-card__header__list-item__joining-fees {
+  padding: 0;
+}
+
+/* FAILED PAYMENT SECTION */
+
+.bs-consumer__subscription-details-card__failed_payments__section {
+}
+
+.bs-consumer__subscription-details-card__failed_payments__section--hidden {
+  display: none;
+}
+
+.bs-consumer__subscription-details-card__failed_payments__section__list-item {
+  padding: var(--bs-space-size-2) 0;
+}
+
+.bs-consumer__subscription-details-card__failed_payments__section__list-item__title {
+  color: var(--bs-color-text-weak);
+}
+
+.bs-consumer__subscription-details-card__failed_payments__section__list-item__caption-text {
+  font-weight: var(--bs-font-weight-strong);
+  font-size: var(--bs-font-size-body-sm);
+  line-height: 1.25rem;
+}
+
+.bs-consumer__subscription-details-card__failed_payments__section__alert {
+  background: var(--bs-color-background-error-weak);
+}
+
+/* DESCRIPTION SECTION */
+
+.bs-consumer__subscription-details-card__description__section {
+}
+
+.bs-consumer__subscription-details-card__description__section--hidden {
+  display: none;
+}
+
+.bs-consumer__subscription-details-card__billing_history__load_button {
+  align-self: center;
+}
+
+.bs-consumer__subscription-details-card__billing_history__load_button--hidden {
+  display: none;
+}
+
+/* PAYMENT METHOD SECTION */
+
+.bs-consumer__subscription-details-card__payment-method__section {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.bs-consumer__subscription-details-card__payment-method__section--hidden {
+  display: none;
+}
+
+.bs-consumer__subscription-details-card__payment-method__button {
+  margin-left: var(--bs-space-size-2);
+}
+
+/* TERMS SECTION */
+
+.bs-consumer__subscription-details-card__terms__section {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.bs-consumer__subscription-details-card__terms__button {
+  margin-left: var(--bs-space-size-2);
+}
+
+/* MODAL DIALOG INTEGRATION */
+.bs-fabrique-modal-dialog__content
+  .bs-consumer__subscription-details-card__root {
+  padding: 0;
+  border: none;
+}

@@ -1,0 +1,149 @@
+.bs-text-field__container {
+  position: relative;
+}
+
+.bs-text-field-outlined__container {
+  height: 42px;
+  padding: calc(var(--spacing-1) * 1.25) calc(var(--spacing-1) * 1.5);
+}
+
+.bs-text-field-outlined__container {
+  border-radius: var(--border-radius-1);
+  border: 1px solid var(--border-color);
+}
+
+.bs-text-field-standard__container {
+  border-bottom: 1px solid var(--border-color);
+}
+
+.bs-text-field-standard__container {
+  height: 32px;
+  padding: calc(var(--spacing-1) / 2) 0;
+}
+
+.bs-text-field__container,
+.bs-text-field-helper-text__container {
+  max-width: 300px;
+}
+
+.bs-text-field__container--full,
+.bs-text-field-helper-text__container--full {
+  width: 100%;
+  max-width: inherit;
+}
+
+.bs-text-field__label {
+  color: var(--color-grey-500);
+  position: absolute;
+  top: 50%;
+  transform: translate(0, -50%);
+  display: inline-flex;
+  line-height: 1;
+  background: transparent;
+  height: min-content;
+  transition: top 125ms ease-in-out;
+}
+
+.bs-text-field__input__password-toggle {
+  color: var(--color-grey-700);
+  position: absolute;
+  right: 0;
+  top: 0;
+  padding: var(--spacing-1);
+  height: fit-content;
+  z-index: 2;
+}
+
+.bs-text-field-outlined__container .bs-text-field__label {
+  left: var(--spacing-1);
+  padding: 0 calc(var(--spacing-1) / 2);
+}
+
+.bs-text-field-outlined__container .bs-text-field__label--top {
+  top: 0;
+  background-color: var(--bs-grey-50);
+}
+
+.bs-text-field-outlined__container .bs-text-field__label--top-white {
+  top: 0;
+  background-color: var(--bs-color-background-light);
+}
+
+.bs-text-field-standard__container .bs-text-field__label--top {
+  top: calc(-1 * var(--spacing-1));
+}
+
+.bs-text-field__input {
+  font-family: var(--fontFamily);
+  font-size: var(--body1-fontSize);
+  line-height: var(--body1-lineHeight);
+  font-size: var(--body2-fontSize);
+  letter-spacing: var(--body1-letterSpacing);
+  line-height: var(--body1-lineHeight);
+  padding: 0;
+  border: none;
+  background: none;
+  width: 100%;
+  z-index: 2;
+  position: relative;
+  outline: none;
+}
+
+.bs-text-field__standard-input--with-password-toggle {
+  width: calc(100% - var(--spacing-5));
+}
+
+.bs-text-field__input--with-password-toggle {
+  width: calc(100% - var(--spacing-4));
+}
+
+.bs-text-field__container--small {
+  height: 28px;
+  padding: calc(var(--spacing-1) / 2) calc(var(--spacing-1) * 1.5);
+}
+
+.bs-text-field__label--small,
+.bs-text-field__input--small,
+.bs-text-field__helper-text {
+  font-size: var(--caption-fontSize);
+}
+
+.bs-text-field__helper-text {
+  padding: var(--spacing-1) calc(var(--spacing-1) * 1.5) 0;
+  margin: 0;
+}
+
+.bs-text-field__helper-text--error,
+.bs-text-field__label--error {
+  color: var(--color-error-main);
+}
+
+.bs-text-field__container--large {
+  height: 56px;
+  padding: var(--spacing-2) calc(var(--spacing-1) * 1.5);
+}
+
+.bs-text-field__label--large {
+  font-size: var(--h6-fontSize);
+}
+
+.bs-text-field__input--large {
+  font-size: var(--h6-fontSize);
+}
+
+.bs-text-field__container--disabled {
+  cursor: not-allowed;
+}
+
+.bs-text-field__label--disabled {
+  background: none;
+  color: var(--color-disabled);
+}
+
+.bs-text-field__label--disabled.bs-text-field__label--top {
+  background: #fff;
+}
+
+.bs-text-field__input--disabled {
+  cursor: inherit;
+}

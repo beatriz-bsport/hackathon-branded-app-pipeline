@@ -1,0 +1,20 @@
+// @flow
+
+import React from 'react';
+import { Route, Switch } from 'react-router';
+
+import InvoiceList from './InvoiceList.page';
+import InvoiceCreationPage from './InvoiceCreation.page';
+import InvoiceDetailRouter from './InvoiceDetail.router';
+
+export default () => (
+  <Switch>
+    <Route
+      exact
+      component={InvoiceCreationPage}
+      path="/invoice/bill-member/:memberId/"
+    />
+    <Route exact component={InvoiceDetailRouter} path="/invoice/:uuid/" />
+    <Route component={InvoiceList} path="/invoice" />
+  </Switch>
+);

@@ -1,0 +1,204 @@
+/* CONSUMER SUMMARY CARD */
+.bs-consumer-summary-card__container {
+  container: bsConsumerSummaryCard / inline-size;
+  max-width: 800px;
+  min-width: 300px;
+}
+
+.bs-consumer-summary-card__root {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto;
+  grid-template-areas:
+    'header header '
+    'info address'
+    'info spivi'
+    'notification .'
+    'membership .';
+  column-gap: var(--bs-space-size-4);
+}
+
+/* GENERAL */
+.bs-consumer-summary-card-section {
+  align-self: stretch;
+  min-width: 220px;
+}
+
+/* INFO SECTION */
+.bs-consumer-summary-card__info-section {
+  grid-area: info;
+  gap: var(--bs-space-size-4);
+}
+
+.bs-consumer-summary-card__info-item {
+}
+
+.bs-consumer-summary-card__info-item--hidden {
+  display: none;
+}
+
+/* ADDRESS SECTION */
+.bs-consumer-summary-card__address-section {
+  grid-area: address;
+  gap: var(--bs-space-size-1);
+  align-self: stretch;
+}
+
+/* ADDRESS SECTION */
+.bs-consumer-summary-card__address-section__address {
+  color: var(--bs-color-text-weak);
+}
+
+.bs-consumer-summary-card__address-section__address--address-line-1 {
+}
+
+.bs-consumer-summary-card__address-section__address--address-line-1--hidden {
+  display: none;
+}
+
+.bs-consumer-summary-card__address-section__address--address-line-2 {
+}
+
+.bs-consumer-summary-card__address-section__address--address-line-2--hidden {
+  display: none;
+}
+
+.bs-consumer-summary-card__address-section__address--city {
+}
+
+.bs-consumer-summary-card__address-section__address--city--hidden {
+  display: none;
+}
+
+.bs-consumer-summary-card__address-section__address--country {
+}
+
+.bs-consumer-summary-card__address-section__address--country--hidden {
+  display: none;
+}
+
+.bs-consumer-summary-card__address-section__address--state {
+}
+
+.bs-consumer-summary-card__address-section__address--state--hidden {
+  display: none;
+}
+
+.bs-consumer-summary-card__address-section__address--zipcode {
+}
+
+.bs-consumer-summary-card__address-section__address--zipcode--hidden {
+  display: none;
+}
+
+/* NOTIFICATION SECTION */
+
+.bs-consumer-summary-card__notification-section {
+  grid-area: notification;
+}
+
+.bs-consumer-summary-card__notification-section__accepted-notification {
+  color: var(--bs-color-text-success-weak);
+}
+
+.bs-consumer-summary-card__notification-section__refused-notification {
+  color: var(--bs-color-text-error-strong);
+}
+
+.bs-consumer-summary-card__notification-section:last-of-type {
+  border-bottom: none;
+  margin-bottom: unset;
+}
+
+/* SPIVI SECTION */
+.bs-consumer-summary-card__spivi-section {
+  grid-area: spivi;
+}
+
+/* HEADER SECTION */
+.bs-consumer-summary-card__header-section {
+  grid-area: header;
+  gap: var(--bs-space-size-4);
+}
+
+.bs-consumer-summary-card__profile-header {
+  display: flex;
+  align-items: center;
+  gap: var(--bs-space-size-4);
+  overflow: hidden;
+}
+
+.bs-consumer-summary-card__profile-header__title {
+  max-width: 70%;
+  width: auto;
+}
+
+.bs-consumer-summary-card__profile-header__username {
+  display: -webkit-box;
+  /* autoprefixer: off */
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.bs-consumer-summary-card__account-balance {
+  display: flex;
+  gap: var(--bs-space-size-1);
+  align-items: center;
+}
+
+.bs-consumer-summary-card__account-balance--hidden {
+  display: none;
+}
+
+.bs-consumer-summary-card__barcode-button {
+}
+
+.bs-consumer-summary-card__barcode-button--hidden {
+  display: none;
+}
+
+.bs-consumer-summary-card__pay-balance-debt-button {
+}
+
+.bs-consumer-summary-card__pay-balance-debt-button--hidden {
+  display: none;
+}
+
+/* MEMBERSHIP SECTION */
+.bs-consumer-summary-card__membership-section {
+  grid-area: membership;
+}
+.bs-consumer-summary-card__membership-section:last-of-type {
+  border-bottom: none;
+  margin-bottom: unset;
+}
+
+.bs-consumer-summary-card__membership-section--hidden {
+  display: none;
+}
+
+@container bsConsumerSummaryCard (width < 500px) {
+  .bs-consumer-summary-card__root {
+    display: flex;
+    flex-direction: column;
+    height: 100;
+  }
+}
+
+@container bsConsumerSummaryCard (width < 400px) {
+  .bs-consumer-summary-card__profile-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .bs-consumer-summary-card__account-balance {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .bs-consumer-summary-card__profile-header__title {
+    max-width: unset;
+  }
+}

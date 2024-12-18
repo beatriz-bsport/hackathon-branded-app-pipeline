@@ -1,0 +1,181 @@
+import { Meta, Canvas, Story, ArgsTable } from '@storybook/addon-docs';
+import CreditMemberBadge from './CreditMemberBadge.component';
+import { Avatar } from '@material-ui/core';
+import DEFAULT_PROFILE_PICTURE_URL from '../../../assets/constants';
+
+<Meta
+  title="Library/Member/CreditMemberBadge "
+  component={CreditMemberBadge}
+  argTypes={{/*
+    credit: {
+      description:
+        'The amount of money owned by the member, regardless of unpaid invoices',
+      table: {
+        type: {
+          summary: 'number',
+        },
+        defaultValue: {
+          summary: '0',
+        },
+      },
+    },
+    unpaidAmount: {
+      description: 'The sum of unpaid money',
+      table: {
+        type: {
+          summary: 'string',
+        },
+        defaultValue: {
+          summary: "'0'"",
+        },
+      },
+    },
+    bottomCredit: {
+      description: '',
+      table: {
+        type: {
+          summary: 'boolean',
+        },
+        defaultValue: {
+          summary: 'true',
+        },
+      },
+    },
+    children: {
+      description: 'Encapsuled element',
+      table: {
+        type: {
+          summary: 'React.ReactChild',
+        },
+        defaultValue: {
+          summary: 'None',
+        },
+      },
+    },
+    classes: {
+      description: 'Country for the phone number',
+      table: {
+        type: {
+          summary: '{ [classKey in BadgeClassKey]+?: string }',
+        },
+        defaultValue: {
+          summary: 'None',
+        },
+      },
+    },
+  */}}
+/>
+
+export const Template = (args) => <CreditMemberBadge {...args} />;
+
+# Credit Member Badge
+
+`CreditMemberBadge` with `BottomCredit` set to `true`
+
+<Canvas>
+  <Story
+    name="Credit Member Badge"
+    args={{
+      children: (
+        <Avatar src=DEFAULT_PROFILE_PICTURE_URL />
+      ),
+      credit: 1000000,
+      unpaidAmount: '0',
+      bottomCredit: true,
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+`CreditMemberBadge` with `BottomCredit` set to `false`
+
+<Canvas>
+  <Story
+    name="Credit top"
+    args={{
+      children: (
+        <Avatar src=DEFAULT_PROFILE_PICTURE_URL />
+      ),
+      credit: 1000000,
+      unpaidAmount: '0',
+      bottomCredit: false,
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+`CreditMemberBadge` with null balance
+
+<Canvas>
+  <Story
+    name="Credit null balance"
+    args={{
+      children: (
+        <Avatar src=DEFAULT_PROFILE_PICTURE_URL />
+      ),
+      credit: 1000000,
+      bottomCredit: false,
+      unpaidAmount: '0',
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+`CreditMemberBadge` with negative balance
+
+<Canvas>
+  <Story
+    name="Credit negative balance"
+    args={{
+      children: (
+        <Avatar src=DEFAULT_PROFILE_PICTURE_URL />
+      ),
+      credit: -1001,
+      unpaidAmount: '0',
+      bottomCredit: false,
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+`CreditMemberBadge` with positive balance
+
+<Canvas>
+  <Story
+    name="Credit unpaid invoice positive balance"
+    args={{
+      children: (
+        <Avatar src=DEFAULT_PROFILE_PICTURE_URL />
+      ),
+      credit: 1001,
+      unpaidAmount: '0',
+      bottomCredit: false,
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+`CreditMemberBadge` with positive balance but unpaid invoices
+
+<Canvas>
+  <Story
+    name="Credit unpaid invoice negative balance"
+    args={{
+      children: (
+        <Avatar src=DEFAULT_PROFILE_PICTURE_URL />
+      ),
+      credit: -1001,
+      unpaidAmount: '0',
+      bottomCredit: false,
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<ArgsTable story="Credit Member Badge" />

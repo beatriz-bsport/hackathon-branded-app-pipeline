@@ -1,0 +1,68 @@
+import { Meta, Canvas, Story, ArgsTable } from '@storybook/addon-docs';
+import CoachAvatar from './CoachAvatar.component';
+import { coachFactory, coachesFactory } from '../factories';
+
+<Meta
+  title="Library/Coach/CoachAvatar"
+  component={CoachAvatar}
+  argTypes={{
+    coach: {
+      description: 'Coach selected',
+      table: {
+        type: {
+          summary: 'Coach',
+        },
+        defaultValue: {
+          summary: 'None',
+        },
+      },
+    },
+    coach_override: {
+      description: 'Coach override',
+      table: {
+        type: {
+          summary: 'Coach',
+        },
+        defaultValue: {
+          summary: 'None',
+        },
+      },
+    },
+  }}
+/>
+
+export const Template = (args) => <CoachAvatar {...args} />;
+const coaches = coachesFactory(2);
+
+# Coach Avatar
+
+This `CoachAvatar` shows the avatar of a coach
+
+<Canvas>
+  <Story
+    name="Coach Avatar"
+    args={{
+      coach: coachFactory(),
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+# Coach Avatar Override
+
+While `CoachAvatar` has a coach_override property
+
+<Canvas>
+  <Story
+    name="Coach Avatar Override"
+    args={{
+      coach: coaches[0],
+      coach_override: coaches[1],
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<ArgsTable story="Coach Avatar" />

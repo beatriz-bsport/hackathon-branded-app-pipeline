@@ -1,0 +1,290 @@
+import { AxiosResponse } from 'axios';
+import {
+  API_URI,
+  getAuth,
+  patchAuth,
+  deleteAuth,
+  postAuth,
+  post,
+  putAuth,
+  API_V1_URI,
+  buildUrlParams,
+} from '../../http';
+import { GenericPaginationResults } from '../types';
+import type {
+  MemberMinimal,
+  MemberUploadedFile,
+  FetchRecipientsParams,
+  Member,
+  MemberSearchFilterParams,
+} from './types';
+
+const PAGE_SIZE = 300;
+
+export async function fetchMemberList(params: {
+  page?: number;
+  page_size?: number;
+  tags_excluded?: Array<number>;
+  tags_included?: Array<number>;
+  email_confirmed?: boolean;
+  barcode?: string;
+  offer?: string;
+  withNotes?: boolean;
+  id__in?: Array<number>;
+  company?: number;
+}): Promise<AxiosResponse<GenericPaginationResults<MemberMinimal>>> {
+  return getAuth(
+    `${API_V1_URI}/member/${buildUrlParams({
+      page_size: PAGE_SIZE,
+      ...params,
+    })}`,
+  );
+}
+
+export const fetchFilteredMembers = fetchMemberList;
+
+export async function search(
+  text: string,
+  params: MemberSearchFilterParams,
+): Promise<AxiosResponse<MemberMinimal[]>> {
+  return postAuth(`${API_V1_URI}/member/search/`, { text, params });
+}
+
+export async function paginatedSearch(
+  text: string,
+  pagination: any = {},
+  params: { [key: string]: boolean | string | number },
+) {
+  return postAuth(
+    `${API_V1_URI}/member/paginated_search/${buildUrlParams(pagination)}`,
+    {
+      text,
+      params,
+    },
+  );
+}
+
+export async function tag(memberId: number, tagId: number) {
+  return postAuth(`${API_V1_URI}/member/${memberId}/tag/`, {
+    tag: tagId,
+  });
+}
+
+export async function untag(memberId: number, tagId: number) {
+  return deleteAuth(`${API_V1_URI}/member/${memberId}/tag/`, {
+    tag: tagId,
+  });
+}
+
+export const tagAll = async (tagId: number) => {
+  return postAuth(`${API_V1_URI}/member/tag_all/`, {
+    tag: tagId,
+  });
+};
+
+export async function untagAll(tagId: number) {
+  return deleteAuth(`${API_V1_URI}/member/tag_all/`, {
+    tag: tagId,
+  });
+}
+
+export async function fetchMember(memberId: number, params?: { me: boolean }) {
+  return getAuth<Member>(
+    `${API_V1_URI}/member/${memberId}/${buildUrlParams(params)}`,
+  );
+}
+
+export async function fetchCountObject(
+  memberId: number,
+  params?: { me: boolean },
+) {
+  return getAuth(
+    `${API_V1_URI}/member/${memberId}/count_objects/${buildUrlParams(params)}`,
+  );
+}
+
+export async function getLatest(): Promise<AxiosResponse<number>> {
+  return getAuth(`${API_V1_URI}/member/latest/`);
+}
+
+export async function addMember(data: Object) {
+  return postAuth(`${API_URI}/saas/create-member/`, data);
+}
+
+export async function linkMeToCompany(data: any) {
+  return postAuth(`${API_V1_URI}/member/link_to_company/`, data);
+}
+
+export async function updateMember(data: any) {
+  return putAuth(`${API_V1_URI}/member/${data.get('id')}/`, data);
+}
+
+export async function fetchMyUserProfileAPI() {
+  return getAuth(`${API_V1_URI}/member/me/`);
+}
+
+export async function merge(src: number, dst: number) {
+  return postAuth(`${API_V1_URI}/member/merge/`, { src, dst });
+}
+
+export async function postUnsubscribe(unsubscribe_uuid: string) {
+  return post(`${API_V1_URI}/member/unsubscribe/`, { unsubscribe_uuid });
+}
+
+export async function regularizeDebt(memberId: number, data: any) {
+  return post(`${API_V1_URI}/member/${memberId}/regularize_debt/`, data);
+}
+
+export async function fetchCommunicationsPaginatedMembers(
+  params: FetchRecipientsParams,
+  id__in = [] as any[],
+) {
+  const urlParams = buildUrlParams(params);
+  return postAuth(
+    `${API_V1_URI}/member/members_for_communication/${urlParams}`,
+    { id__in },
+  );
+}
+
+export async function createNote(
+  id: number,
+  text: string,
+  memberId: number,
+  highlighted: boolean,
+  is_medical: boolean,
+) {
+  return postAuth(`${API_V1_URI}/member_note/${memberId}/`, {
+    text,
+    member: memberId,
+    highlighted,
+    is_medical,
+  });
+}
+export async function updateNote(
+  id: number,
+  text: string,
+  memberId: number,
+  highlighted: boolean,
+  is_medical: boolean,
+) {
+  return patchAuth(`${API_V1_URI}/member_note/${id}/`, {
+    text,
+    highlighted,
+    is_medical,
+  });
+}
+export async function deleteNote(id: number) {
+  return deleteAuth(`${API_V1_URI}/member_note/${id}/`);
+}
+
+export async function addFile(fileData: any) {
+  return postAuth(`${API_V1_URI}/member_file_upload/`, fileData);
+}
+
+export async function updateFile(fileData: MemberUploadedFile) {
+  return putAuth(`${API_V1_URI}/member_file_upload/${fileData.id}/`, fileData);
+}
+
+export async function removeFile(fileId: number) {
+  return deleteAuth(`${API_V1_URI}/member_file_upload/${fileId}`);
+}
+
+export async function adjustCreditWithoutPaymentNote(
+  memberId: number,
+  amount: number,
+) {
+  return postAuth(`${API_V1_URI}/member/${memberId}/adjust_credit/`, {
+    amount,
+  });
+}
+
+export async function archiveMember(memberId: number) {
+  return postAuth(`${API_V1_URI}/member/${memberId}/archive/`);
+}
+
+export async function unArchiveMember(memberId: number) {
+  return postAuth(`${API_V1_URI}/member/${memberId}/unarchive/`);
+}
+
+export async function interrogateMemberStatus(memberId: number) {
+  return getAuth(
+    `${API_V1_URI}/member/${memberId}/interrogate_member_before_archive/`,
+  );
+}
+
+export async function createChangeEmailRequest(data: {
+  member: number;
+  new_email: string;
+}) {
+  return postAuth(
+    `${API_V1_URI}/change_email_request/create_change_email_request/`,
+    data,
+  );
+}
+
+export async function retrieveChangeEmailRequest(uuid: string) {
+  return getAuth(`${API_V1_URI}/change_email_request/${uuid}/`);
+}
+export async function retrieveMinimalChangeEmailRequest(uuid: string) {
+  return getAuth(`${API_V1_URI}/change_email_request/${uuid}/minimal/`);
+}
+
+export async function answerChangeEmailRequest(
+  uuid: string,
+  data: {
+    accepted: boolean;
+    denied: boolean;
+    company: number;
+  },
+) {
+  return postAuth(
+    `${API_V1_URI}/change_email_request/${uuid}/answer_request/`,
+    data,
+  );
+}
+
+export async function retrievePendingEmail(memberId: number) {
+  return getAuth(`${API_V1_URI}/member/${memberId}/get_pending_email/`);
+}
+
+export async function updateSpiviPrivacySettings(
+  memberId: number,
+  settings_accepted: boolean,
+) {
+  return postAuth(
+    `${API_V1_URI}/member/${memberId}/update_spivi_privacy_settings/`,
+    { settings_accepted },
+  );
+}
+
+export function updateDefaultEstablishmentBillingGroup(
+  memberId: number,
+  payload: { default_establishment_billing_group: number },
+) {
+  return patchAuth<Member>(
+    `${API_V1_URI}/member/${memberId}/update_default_establishment_billing_group/`,
+    payload,
+  );
+}
+
+export function uploadLeadManagementFile(file: File) {
+  const formData = new FormData();
+  formData.append('file', file);
+  return postAuth(
+    `${API_V1_URI}/member/upload_lead_management_file/`,
+    formData,
+  );
+}
+
+export default {
+  updateMember,
+  fetchMember,
+  addMember,
+  createNote,
+  updateNote,
+  deleteNote,
+  getLatest,
+  linkMeToCompany,
+  addFile,
+  removeFile,
+};

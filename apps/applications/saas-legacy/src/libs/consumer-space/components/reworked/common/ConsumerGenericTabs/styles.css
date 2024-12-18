@@ -1,0 +1,12 @@
+.bs-consumer-generic-tabs {
+  width: fit-content;
+  background-color: var(--bs-color-action-light);
+  border-radius: var(--bs-border-radius-sm);
+  padding: var(--bs-space-size-1);
+  border: var(--bs-border-width-thin) solid var(--bs-color-border-weak);
+  display: flex;
+  gap: var(--bs-space-size-1);
+}
+
+.bs-consumer-generic-tabs__tab {
+}

@@ -1,0 +1,150 @@
+import {
+  PAYMENT_GROUP_METHOD_IDENTIFIER_BACS_DEBIT,
+  PAYMENT_GROUP_METHOD_IDENTIFIER_CB,
+  PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA,
+} from '@bsport/common/lib/master-data/payment-group';
+import { MarketplacePaymentMethods } from '#src/libs/marketplace/types';
+import {
+  EXPORTABLE_COMPONENTS,
+  EXPORTABLE_COMPONENT_TYPE_VOD,
+  EXPORTABLE_COMPONENT_TYPE_CALENDAR,
+  EXPORTABLE_COMPONENT_TYPE_WORKSHOP,
+  EXPORTABLE_COMPONENT_TYPE_PASS,
+  EXPORTABLE_COMPONENT_TYPE_PRIVATE_SERVICE,
+  EXPORTABLE_COMPONENT_TYPE_PLAYLIST,
+  EXPORTABLE_COMPONENT_TYPE_SHOP,
+  EXPORTABLE_COMPONENT_TYPE_SUBSCRIPTION,
+  EXPORTABLE_COMPONENT_TYPE_GIFTCARD,
+} from '../exportable-components/constants';
+
+export const MARKETPLACE_SUPPORTED_EXPORTABLE_COMPONENTS = [
+  EXPORTABLE_COMPONENT_TYPE_VOD,
+  EXPORTABLE_COMPONENT_TYPE_CALENDAR,
+  EXPORTABLE_COMPONENT_TYPE_WORKSHOP,
+  EXPORTABLE_COMPONENT_TYPE_PASS,
+  EXPORTABLE_COMPONENT_TYPE_PRIVATE_SERVICE,
+  EXPORTABLE_COMPONENT_TYPE_PLAYLIST,
+  EXPORTABLE_COMPONENT_TYPE_SHOP,
+  EXPORTABLE_COMPONENT_TYPE_SUBSCRIPTION,
+  EXPORTABLE_COMPONENT_TYPE_GIFTCARD,
+];
+
+export const MARKETPLACE_COMPONENTS = EXPORTABLE_COMPONENTS.filter((ec) =>
+  MARKETPLACE_SUPPORTED_EXPORTABLE_COMPONENTS.includes(ec.identifier),
+);
+
+export const MARKETPLACE_COMPONENT_TYPE_LIST = MARKETPLACE_COMPONENTS.map(
+  (mc) => mc.identifier,
+);
+
+export const getMarketplaceDefaultConfig = () =>
+  MARKETPLACE_COMPONENTS.map((mc, index) => ({
+    component_type: mc.identifier,
+    title: '',
+    config: { [mc.identifier]: mc.defaultConfig },
+    index,
+  }));
+
+export const MARKETPLACE_PATH_TAB_CALENDAR = 'calendar';
+export const MARKETPLACE_PATH_TAB_PASS = 'pass';
+export const MARKETPLACE_PATH_TAB_VOD = 'vod';
+export const MARKETPLACE_PATH_TAB_CONTRACT = 'subscription';
+export const MARKETPLACE_PATH_TAB_WORKSHOP = 'workshop';
+export const MARKETPLACE_PATH_TAB_PRIVATE_SERVICE = 'private-service';
+export const MARKETPLACE_PATH_TAB_SHOP = 'shop';
+export const MARKETPLACE_PATH_TAB_GIFTCARD = 'giftcard';
+
+export const MARKETPLACE_CLICKABLE_TITLE_IDENTIFIER =
+  'marketplace-offer-clickable-title';
+
+export const AVAILABLE_BOOKING_ELEMENTS_IDS = [
+  'book-button',
+  'book-button__icon',
+  'book-button__inner',
+  'book-button-card__inner',
+  'book-button__inner__text',
+  'book-button-offer-list-item',
+];
+
+export enum MARKETPLACE_COUPON_FORM_ERRORS {
+  COUPON_NOT_APPLICABLE = 'not_applicable',
+  COUPON_NOT_FOUND = 'not_found',
+  EMPTY = null,
+}
+
+export enum MARKETPLACE_BREAKPOINT {
+  XS = 425,
+  SM = 750,
+  MD = 1100,
+  LG = 1475,
+}
+
+export const SEPA_REQUIRED_BILLING_ADDRESS_COUNTRIES = [
+  'AD',
+  'PF',
+  'TF',
+  'GI',
+  'GB',
+  'GG',
+  'VA',
+  'IM',
+  'JE',
+  'MC',
+  'NC',
+  'BL',
+  'PM',
+  'SM',
+  'CH',
+  'WF',
+];
+
+export const CONTRACT_CHECKOUT_COOLDOWN_MODAL_SECONDS = 15;
+
+export const PAYMENT_PACK_BOOKING_FUNNEL_IDENTIFIER = 1;
+export const PAYMENT_COMBO_BOOKING_FUNNEL_IDENTIFIER = 10;
+export const CONTRACT_BOOKING_FUNNEL_IDENTIFIER = 20;
+
+export const PAYMENT_COMBO_BOOKING_FUNNEL_STRING_ID = 'COMBO';
+export const CONTRACT_BOOKING_FUNNEL_STRING_ID = 'CONTRACT';
+export const PAYMENT_PACK_BOOKING_FUNNEL_NO_CATEGORY_STRING_ID = 'NO_CATEGORY';
+
+export const CONSUMER_PAYMENT_PACK_IDENTIFIER = 30;
+export const MIXED_ITEMS_BOOKING_FUNNEL_IDENTIFIER = 99;
+export const RECOMMENDED_BUYABLE_CATEGORY_ID = 'RECOMMENDED';
+
+export enum CARD_VARIANTS {
+  MARKETPLACE = 'marketplace',
+  PRICING_PAGE = 'pricing_page',
+}
+
+export const MAP_MARKETPLACE_PAYMENT_METHOD_TO_IDENTIFIER = {
+  [MarketplacePaymentMethods.card]: PAYMENT_GROUP_METHOD_IDENTIFIER_CB,
+  [MarketplacePaymentMethods.sepa]: PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA,
+  [MarketplacePaymentMethods.bacs]: PAYMENT_GROUP_METHOD_IDENTIFIER_BACS_DEBIT,
+};
+
+/**
+ * hours - minutes
+ */
+export const OFFER_HOURS_SEPARATOR = ' - ';
+
+/**
+ * date • time
+ */
+export const OFFER_DATE_HOURS_SEPARATOR = ' • ';
+
+export enum NewsletterV2FieldsKind {
+  FULL_NAME_AND_EMAIL = 'fullNameAndEmail',
+  FIRST_NAME_AND_EMAIL = 'firstNameAndEmail',
+  EMAIL_ONLY = 'emailOnly',
+}
+
+/**
+ * Maximum length of the longest word in an offer name (name_override, activity name ...)
+ */
+export const OFFER_NAME_MAX_LENGTH = 21;
+
+/**
+ * Maximum length of the longest word in an offer name (name_override, activity name ...), if capitalized
+ */
+export const OFFER_NAME_CAPITALIZED_MAX_LENGTH = 18;

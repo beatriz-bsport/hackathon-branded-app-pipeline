@@ -1,0 +1,130 @@
+.bs-newsletter-form__container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.bs-newsletter-form__root {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+  background-color: var(--color-background-paper);
+  padding: var(--bs-space-size-4);
+  flex: 1;
+  max-width: 500px;
+  border-radius: var(--border-radius-2);
+  border: 2px solid var(--border-color);
+}
+
+.bs-newsletter-form__success__root {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  gap: var(--bs-space-size-4);
+}
+
+.bs-newsletter-form__success__text__root {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.bs-newsletter-form__success__title {
+  color: var(--bs-color-text-default);
+}
+
+.bs-newsletter-form__success__text {
+  color: var(--bs-color-text-weak);
+}
+
+/* .bs-newsletter-form__root__text {} */
+
+.bs-newsletter-form__root__text__title {
+  font-family: var(--fontFamily);
+  color: var(--color-grey-dark);
+}
+
+.bs-newsletter-form__root__text__subtitle {
+  font-family: var(--fontFamily);
+  color: var(--color-grey-main);
+}
+
+.bs-newsletter-form__root__form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+}
+
+.bs-newsletter-form__root__form-fields {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+}
+
+.bs-newsletter-form__root__form-fields .bs-fabrique-textfield__wrapper {
+  flex: 1;
+}
+
+.bs-newsletter-form__root__form__name-fields {
+  display: flex;
+  flex-direction: row;
+  gap: var(--spacing-2);
+}
+
+.bs-newsletter-form__root__form__field-label {
+  font-family: var(--fontFamily);
+  color: var(--color-grey-dark);
+}
+
+.bs-newsletter-form__root__form__field-input-container {
+  width: 100%;
+  border: 1px solid var(--border-color);
+}
+
+.bs-newsletter-form__root__form__field-input {
+  font-family: var(--fontFamily);
+  color: var(--color-grey-dark);
+}
+
+.bs-newsletter-form__root__form__submit {
+  width: 100%;
+  font-family: var(--fontFamily);
+  background-color: var(--color-primary-main);
+  color: var(--color-primary-contrastText);
+}
+
+@keyframes bellshake {
+  0% {
+    transform: rotate(0);
+  }
+  15% {
+    transform: rotate(5deg);
+  }
+  30% {
+    transform: rotate(-5deg);
+  }
+  45% {
+    transform: rotate(4deg);
+  }
+  60% {
+    transform: rotate(-4deg);
+  }
+  75% {
+    transform: rotate(2deg);
+  }
+  85% {
+    transform: rotate(-2deg);
+  }
+  92% {
+    transform: rotate(1deg);
+  }
+  100% {
+    transform: rotate(0);
+  }
+}
+
+.bs-newsletter-form__icon_bell_success {
+  animation: bellshake 1s cubic-bezier(0.36, 0.07, 0.19, 0.97) infinite;
+  backface-visibility: hidden;
+  transform-origin: top right;
+}

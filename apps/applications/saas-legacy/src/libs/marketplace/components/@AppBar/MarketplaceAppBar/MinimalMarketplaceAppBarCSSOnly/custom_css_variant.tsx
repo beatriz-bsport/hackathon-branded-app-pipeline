@@ -1,0 +1,72 @@
+import React from 'react';
+
+import { fakerEN as faker } from '@faker-js/faker';
+
+import { CssComponentsVariantIdentifiers } from '#src/libs/exportable-components/constants';
+
+import {
+  MarketplaceCSSComponentConfig,
+  MarketplacePage,
+  VariationConfigurationChoice,
+} from '#src/libs/exportable-components/types';
+import { CompanyTheme } from '#src/libs/theme/types';
+// @ts-expect-error
+import MarketplaceMinimalAppBarCss from './styles.css?raw';
+import MinimalMarketplaceAppBarCSSOnly from '.';
+
+const minimalMarketplaceAppBarVariationRegistry = [
+  {
+    label: 'isRegistered',
+    choices: [
+      { label: 'true', value: 'true' },
+      { label: 'false', value: 'false' },
+    ],
+    default: { label: 'true', value: 'true' },
+  },
+];
+
+const usePropsFromVariation = (
+  variationsSelected: Record<string, VariationConfigurationChoice>,
+) => {
+  const isRegisteredSelected =
+    variationsSelected?.isRegistered?.value === 'true';
+
+  const auth = isRegisteredSelected
+    ? {
+        name: 'Client Name',
+        username: 'client@email.io',
+        authenticated: isRegisteredSelected,
+      }
+    : {
+        name: '',
+        username: '',
+        authenticated: isRegisteredSelected,
+      };
+
+  const photo = isRegisteredSelected ? faker.image.urlPicsumPhotos() : '';
+
+  return { auth, photo };
+};
+
+export const MARKETPLACE_MINIMAL_APPBAR_CONFIGURATION: MarketplaceCSSComponentConfig =
+  {
+    label: CssComponentsVariantIdentifiers.MARKETPLACE_MINIMAL_APPBAR,
+    css: MarketplaceMinimalAppBarCss,
+    pages: [MarketplacePage.COMMON],
+    defaultState: {},
+    variations: minimalMarketplaceAppBarVariationRegistry,
+  };
+
+export const MARKETPLACE_MINIMAL_APPBAR_PREVIEW: React.FC<{
+  theme: CompanyTheme;
+  variationsSelected: Record<string, VariationConfigurationChoice>;
+}> = React.memo(({ variationsSelected }) => {
+  const componentProps = usePropsFromVariation(variationsSelected);
+
+  return (
+    <MinimalMarketplaceAppBarCSSOnly
+      auth={componentProps.auth}
+      photo={componentProps.photo}
+    />
+  );
+});

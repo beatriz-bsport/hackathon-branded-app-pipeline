@@ -1,0 +1,72 @@
+.bs-restrictions-modal__backdrop {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 3;
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+}
+
+.bs-restrictions-modal {
+  border: none;
+  background-color: var(--color-background-paper);
+  margin-right: var(--spacing-2);
+  margin-left: var(--spacing-2);
+  color: var(--color-grey-dark);
+}
+
+.bs-restriction-modal__title {
+  font-size: var(--h5-fontSize);
+  margin: var(--spacing-2);
+  font-weight: var(--h5-fontWeight);
+}
+
+.bs-restriction-modal__body {
+  border-top: var(--border-color) solid 2px;
+  border-bottom: var(--border-color) solid 2px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.bs-restriction-modal__list {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.bs-restriction-modal__list__item {
+  font-size: var(--body1-fontSize);
+  line-height: var(--body1-lineHeight);
+  font-weight: var(--body1-fontWeight);
+  margin-top: var(--spacing-2);
+  margin-bottom: var(--spacing-2);
+}
+
+.bs-restriction-modal__button {
+  height: 100%;
+  border: none;
+  padding: var(--spacing-3);
+  font-family: var(--body1-fontFamily);
+  font-size: var(--body1-fontSize);
+  font-weight: var(--h5-fontWeight);
+  color: var(--color-grey-main);
+  background: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: var(--spacing-5);
+  text-transform: uppercase;
+}
+
+.bs-restrictions-modal li {
+  list-style-type: none;
+}

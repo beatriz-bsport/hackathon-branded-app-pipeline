@@ -1,0 +1,152 @@
+import React, { useState } from 'react';
+import { Theme, Collapse, makeStyles } from '@material-ui/core';
+import Fuse, { FuseOptions } from 'fuse.js';
+
+import { FixedSizeGrid } from 'react-window';
+import FuzeSearch from '../FuzeSearch.component';
+import { NUMBER_OF_MUI_ICONS } from '../input/muiIcon/muiIconNames';
+
+export type Props<T> = {
+  // eslint-disable-next-line react/no-unused-prop-types
+  items: T[];
+  // eslint-disable-next-line react/no-unused-prop-types
+  placeholder: string;
+  // eslint-disable-next-line react/no-unused-prop-types
+  searchFields: (keyof T)[];
+  // eslint-disable-next-line react/no-unused-prop-types
+  itemRenderer: (item: T, search?: string) => React.ReactNode;
+  // eslint-disable-next-line react/no-unused-prop-types
+  startWithAll: boolean;
+  // eslint-disable-next-line react/no-unused-prop-types
+  customClasses?: { [className: string]: string };
+  // eslint-disable-next-line react/no-unused-prop-types
+  iconRender?: boolean;
+  numberOfColumns?: number;
+  gridHeight?: number; // in pixels
+  gridWidth?: number; // in pixels
+};
+
+const NUMBER_OF_COLUMNS = 5;
+const WIDTH = 400;
+const HEIGHT = 400;
+
+function FuzzySearchIcon<T>(props: Props<T>) {
+  const {
+    items,
+    placeholder,
+    searchFields,
+    itemRenderer,
+    startWithAll,
+    customClasses,
+    iconRender,
+    numberOfColumns,
+    gridHeight,
+    gridWidth,
+  } = {
+    ...props,
+    numberOfColumns: props.numberOfColumns ?? NUMBER_OF_COLUMNS,
+    gridHeight: props.gridHeight ?? HEIGHT,
+    gridWidth: props.gridWidth ?? WIDTH,
+  };
+
+  const [search, setSearch] = useState('');
+  const [searchResult, setSearchResult] = useState<T[]>([]);
+
+  const classes = useStyles();
+
+  const changeSearch =
+    (fuse: Fuse<T, FuseOptions<T>>) =>
+    (ev: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
+      setSearch(ev.target.value);
+      const result = fuse.search(ev.target.value) as T[];
+      setSearchResult(result);
+    };
+
+  // @ts-expect-error
+  const Cell = ({ columnIndex, rowIndex, style }) => (
+    <div className={classes.cell} style={style}>
+      {itemRenderer(searchResult[columnIndex + rowIndex * numberOfColumns])}
+    </div>
+  );
+
+  // @ts-expect-error
+  const CellEmptySearch = ({ columnIndex, rowIndex, style }) => (
+    <div className={classes.cell} style={style}>
+      <div>{itemRenderer(items[columnIndex + rowIndex * numberOfColumns])}</div>
+    </div>
+  );
+
+  return (
+    <div className={iconRender ? classes.wrapper : null}>
+      <div className={iconRender ? classes.searchBar : null}>
+        <FuzeSearch
+          changeSearch={changeSearch}
+          clearSearch={() => {
+            setSearch('');
+          }}
+          items={items}
+          placeholder={placeholder}
+          // @ts-expect-error
+          searchFields={searchFields}
+          searchText={search}
+        />
+      </div>
+      <div>
+        {startWithAll && search === '' ? (
+          <FixedSizeGrid
+            className={customClasses?.iconGrid}
+            columnCount={numberOfColumns}
+            columnWidth={gridWidth / numberOfColumns}
+            height={gridHeight}
+            rowCount={Math.floor(NUMBER_OF_MUI_ICONS / numberOfColumns) + 1}
+            rowHeight={80}
+            style={{ overflowX: 'hidden' }}
+            width={gridWidth}
+          >
+            {CellEmptySearch}
+          </FixedSizeGrid>
+        ) : (
+          <Collapse in={searchResult.length > 0 && search !== ''}>
+            <FixedSizeGrid
+              className={customClasses?.iconGrid}
+              columnCount={numberOfColumns}
+              columnWidth={gridWidth / numberOfColumns}
+              height={gridHeight}
+              rowCount={Math.floor(searchResult.length / numberOfColumns) + 1}
+              rowHeight={80}
+              style={{ overflowX: 'hidden' }}
+              width={gridWidth}
+            >
+              {Cell}
+            </FixedSizeGrid>
+          </Collapse>
+        )}
+      </div>
+    </div>
+  );
+}
+
+const useStyles = makeStyles((theme: Theme) => ({
+  searchList: {
+    display: 'flex',
+    justifyContent: 'space-evenly',
+    gap: theme.spacing(2),
+    flexWrap: 'wrap',
+  },
+  wrapper: {
+    position: 'relative',
+  },
+  searchBar: {
+    position: 'sticky',
+    top: '0',
+    backgroundColor: 'white',
+    zIndex: 9999,
+  },
+  cell: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+}));
+
+export default FuzzySearchIcon;

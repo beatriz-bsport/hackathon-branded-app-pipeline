@@ -1,0 +1,28 @@
+import { Meta, Canvas, Story, ArgsTable } from '@storybook/addon-docs';
+import MetricSlider from './MetricSlider.component'
+import PerformanceTrackingFactoryBot from "../../factories";
+const randomProgram=PerformanceTrackingFactoryBot.MemberProgram.createOne()
+const metricRecord=randomProgram.metric_record.general.metrics[0]
+
+<Meta title='Library/PerformanceTracking/MemberProgram/MetricSlider'
+    component={MetricSlider}
+    argTypes ={{
+    }}/>
+
+export const Template = (args) => <MetricSlider {...args} />;
+
+# MetricSlider 
+
+<Canvas>
+    <Story 
+    name='MetricSlider'
+    args={{
+        onChange: (value) => {console.log(value);},
+        metric:metricRecord.metric,
+        value:metricRecord.value,
+    }}>
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+<ArgsTable story='MetricSlider' />

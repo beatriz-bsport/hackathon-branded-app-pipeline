@@ -1,0 +1,13 @@
+.bs-confirm-email-header {
+  display: flex;
+  position: absolute;
+  padding: var(--spacing-5);
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 9;
+}
+
+.bs-confirm-email-header__logo {
+  height: 50px;
+}

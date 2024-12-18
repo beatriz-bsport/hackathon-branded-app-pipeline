@@ -1,0 +1,160 @@
+import { Theme, Typography, withStyles } from '@material-ui/core';
+import React from 'react';
+import Dropzone from 'react-dropzone';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import { WithTranslation, withTranslation } from 'react-i18next';
+import { compose, withProps } from 'recompose';
+import { MaterialStyleType } from '../../../utils/types';
+
+interface OwnProps {
+  fowardedRef: (ref: EbookProviderDropzone) => void;
+  processing: boolean;
+  setDropzoneFilled: (dropzoneFilled: boolean) => void;
+  file: File | null;
+  setFile: (file: File | null) => void;
+}
+
+type Props = OwnProps &
+  WithTranslation &
+  MaterialStyleType<ReturnType<typeof styles>>;
+
+class EbookProviderDropzone extends React.PureComponent<Props> {
+  onDropAccepted = async (files: Array<File>) => {
+    if (this.props.processing) return;
+    if (files.length === 1) {
+      this.props.setFile(files[0]);
+      this.props.setDropzoneFilled(true);
+    }
+  };
+
+  prepareBody = (params: { fields: any; bodyType: string }) => {
+    const { bodyType } = params;
+    let { fields } = params;
+
+    if (!this.props.file) {
+      return null;
+    }
+
+    if (!fields) {
+      fields = {};
+    }
+
+    if (bodyType === 'binary') {
+      return this.props.file;
+    }
+    if (bodyType === 'formData') {
+      const formData = new FormData();
+      for (const field of Object.keys(fields)) {
+        formData.append(field, fields[field]);
+      }
+      formData.append('file', this.props.file);
+      return formData;
+    }
+    return this.props.file;
+  };
+
+  render() {
+    const { classes } = this.props;
+
+    return (
+      <div className={classes.container}>
+        <div className={classes.dropZoneContainer}>
+          <Dropzone
+            accept={['image/png', 'image/jpeg', 'application/pdf']}
+            multiple={false}
+            onDropAccepted={this.onDropAccepted}
+          >
+            {({
+              getRootProps,
+              getInputProps,
+              isDragActive,
+              isDragAccept,
+              isDragReject,
+            }) => {
+              const styles = {
+                ...baseStyle,
+                ...(isDragActive ? activeStyle : {}),
+                ...(isDragAccept ? acceptStyle : {}),
+                ...(isDragReject ? rejectStyle : {}),
+              };
+              return (
+                <div style={styles} {...getRootProps()}>
+                  {this.props.processing && <CircularProgress />}
+                  <input {...getInputProps()} />
+                  <p>{this.props.t('video.upload.contentEbook')}</p>
+
+                  <Typography color="textSecondary" variant="caption">
+                    pdf, jpg, jpeg, png
+                  </Typography>
+                </div>
+              );
+            }}
+          </Dropzone>
+        </div>
+        {this.props.file && (
+          <Typography
+            className={this.props.classes.fileName}
+            variant="subtitle2"
+          >
+            {this.props.file.name}
+          </Typography>
+        )}
+      </div>
+    );
+  }
+}
+
+const baseStyle = {
+  flex: 1,
+  display: 'flex',
+  flexDirection: 'column' as 'column',
+  alignItems: 'center',
+  padding: '20px',
+  borderWidth: 2,
+  borderRadius: 2,
+  borderColor: '#eeeeee',
+  borderStyle: 'dashed',
+  backgroundColor: '#fafafa',
+  color: '#777777',
+  outline: 'none',
+  '&:hover': {
+    borderColor: '#00e676',
+    color: 'red',
+    backgroundColor: 'red',
+    borderStyle: 'solid',
+  },
+};
+const activeStyle = {
+  borderColor: '#2196f3',
+};
+const acceptStyle = {
+  borderColor: '#00e676',
+};
+const rejectStyle = {
+  borderColor: '#ff1744',
+};
+
+const styles = (theme: Theme) => ({
+  container: {
+    display: 'flex',
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: '100%',
+    flexDirection: 'column' as 'column',
+    marginTop: theme.spacing(2),
+  },
+  dropZoneContainer: {
+    width: '100%',
+  },
+  fileName: {
+    marginTop: theme.spacing(4),
+    textAlign: 'center' as 'center',
+  },
+});
+
+export default compose<any, OwnProps>(
+  withTranslation(['video']),
+  withStyles(styles),
+  withProps(({ fowardedRef }) => ({ ref: fowardedRef })),
+)(EbookProviderDropzone);

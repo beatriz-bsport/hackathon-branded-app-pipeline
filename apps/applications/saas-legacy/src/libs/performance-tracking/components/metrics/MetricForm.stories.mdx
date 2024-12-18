@@ -1,0 +1,41 @@
+import { Meta, Canvas, Story, ArgsTable } from '@storybook/addon-docs';
+import MetricForm from "./MetricForm.component"
+import PerformanceTrackingFactoryBot from "../../factories";
+const randomMetric=PerformanceTrackingFactoryBot.Metric.createOne()
+
+<Meta title='Library/PerformanceTracking/Metric/Form'
+    component={MetricForm}
+    argTypes ={{
+    }}/>
+
+export const Template = (args) => <MetricForm {...args} />;
+
+#  Metric Form
+
+<Canvas>
+    <Story 
+    name='MetricForm'
+    args={{
+        initial:null,
+        metricList:[],
+    }}>
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+<ArgsTable story='MetricForm' />
+
+#  Metric Form With Input
+
+<Canvas>
+    <Story 
+    name='MetricFormWithInput'
+    args={{
+        initial:randomMetric,
+        metricList:[],
+    }}>
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+<ArgsTable story='MetricFormWithInput' />

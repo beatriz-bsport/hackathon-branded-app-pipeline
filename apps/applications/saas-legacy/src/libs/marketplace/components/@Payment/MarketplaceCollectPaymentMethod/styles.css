@@ -1,0 +1,170 @@
+.bs-collect-payment-method__dialog__backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 999;
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bs-collect-payment-method__container {
+  width: 100%;
+}
+
+.bs-collect-payment-method__dialog__container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+  border: none;
+  border-radius: var(--border-radius-2);
+  background-color: var(--color-background-paper);
+  padding: var(--spacing-2) var(--spacing-3);
+  width: 700px;
+  max-width: calc(100vw - var(--spacing-4));
+  max-height: calc(100vh - var(--spacing-4));
+  overflow-y: auto;
+}
+
+.bs-collect-payment-method__dialog__container-not-dialog {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+  border: none;
+  width: '100%';
+  max-height: calc(100vh - var(--spacing-4));
+}
+
+.bs-collect-payment-method__dialog__container__fields {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+}
+
+.bs-collect-payment-method__dialog__title {
+  font-family: var(--h5-fontFamily);
+  font-size: var(--h5-fontSize);
+  font-weight: var(--h5-fontWeight);
+  letter-spacing: var(--h5-letterSpacing);
+  line-height: var(--h5-lineHeight);
+  margin: 0;
+}
+
+.bs-collect-payment-method__dialog__content {
+  font-family: var(--body1-fontFamily);
+  font-size: var(--body1-fontSize);
+  font-weight: var(--body1-fontWeight);
+  letter-spacing: var(--body1-letterSpacing);
+  line-height: var(--body1-lineHeight);
+  margin: 0;
+  color: var(--color-text-secondary);
+}
+
+.bs-collect-payment-method__dialog__sensitive__data__container {
+  background-color: #efefef;
+  width: 100%;
+  padding: var(--spacing-2);
+}
+
+.bs-collect-payment-method__info__container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-1);
+}
+
+.bs-collect-payment-method__icon {
+  width: 100px;
+  height: 100px;
+}
+
+.bs-primary-text {
+  color: var(--color-primary-main);
+}
+
+.bs-collect-payment-method__indicator {
+  font-family: var(--body1-fontFamily);
+  font-size: var(--body1-fontSize);
+  font-weight: var(--body1-fontWeight);
+  letter-spacing: var(--body1-letterSpacing);
+  line-height: var(--body1-lineHeight);
+}
+
+.bs-collect-payment-method__error__message {
+  font-family: var(--caption-fontFamily);
+  font-size: var(--caption-fontSize);
+  font-weight: var(--caption-fontWeight);
+  letter-spacing: var(--caption-letterSpacing);
+  line-height: var(--caption-lineHeight);
+  color: var(--color-error-main);
+}
+
+.bs-collect-payment-method__mandate__fields__container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-1);
+}
+
+.bs-collect-payment-method__mandate__field {
+  padding: var(--spacing-2);
+  font-family: var(--body1-fontFamily);
+  font-size: var(--body1-fontSize);
+  font-weight: var(--body1-fontWeight);
+  letter-spacing: var(--body1-letterSpacing);
+  border-radius: var(--border-radius-1);
+  border: 1px solid rgba(0, 0, 0, 0.23);
+}
+
+.bs-collect-payment-method__mandate__terms {
+  font-family: var(--body1-fontFamily);
+  font-size: var(--body1-fontSize);
+  font-weight: var(--body1-fontWeight);
+  letter-spacing: var(--body1-letterSpacing);
+  line-height: var(--body1-lineHeight);
+  text-align: justify;
+  color: var(--color-text-secondary);
+}
+
+.bs-collect-payment-method__mandate__field:focus {
+  border-color: var(--color-primary-main);
+}
+
+.bs-collect-payment-method__cancel__button,
+.bs-collect-payment-method__submit__button,
+.bs-collect-payment-method__try__again__button {
+  display: flex;
+  font-family: var(--button-fontFamily);
+  font-size: var(--button-fontSize);
+  font-weight: var(--button-fontWeight);
+  letter-spacing: var(--button-letterSpacing);
+  line-height: var(--button-lineHeight);
+  text-transform: uppercase;
+  border: none;
+  border-radius: var(--border-radius-6);
+  cursor: pointer;
+  padding: calc(var(--spacing-1) / 2) var(--spacing-2);
+  background: none;
+}
+
+.bs-collect-payment-method__button--disabled {
+  color: var(--color-text-disabled);
+}
+
+.bs-collect-payment-method__cancel__button,
+.bs-collect-payment-method__try__again__button {
+  color: var(--color-grey-dark);
+}
+
+.bs-collect-payment-method__submit__button {
+  color: var(--color-primary-main);
+}
+
+.bs-collect-payment-method__dialog__actions {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}

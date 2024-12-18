@@ -1,0 +1,14 @@
+.bs-payment-page-checkout-item__remove__item__modal
+  .bs-fabrique-modal-dialog__header {
+  display: none;
+}
+
+.bs-payment-page-checkout-item__remove__item__modal
+  .bs-fabrique-modal-dialog__footer {
+  display: none;
+}
+
+.bs-payment-page-checkout-item__remove__item__modal
+  .bs-fabrique-modal-dialog__content {
+  padding: 0px;
+}

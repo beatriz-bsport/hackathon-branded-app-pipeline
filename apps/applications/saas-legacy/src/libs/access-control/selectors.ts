@@ -1,0 +1,59 @@
+import { createSelector } from 'reselect';
+
+import type { RootState } from '../../reducers';
+
+const getMemberVisitIds = (state: RootState) =>
+  state.accessControl.memberVisit.allIds;
+
+const getMemberVisitData = (state: RootState) =>
+  state.accessControl.memberVisit.byId;
+
+export const getMemberVisit = createSelector(
+  [getMemberVisitData, (_, memberVisitId: number) => memberVisitId],
+  (memberVisitData, memberVisitId) => {
+    return memberVisitData?.[memberVisitId];
+  },
+);
+
+export const getAllMemberVisits = createSelector(
+  [getMemberVisitIds, getMemberVisitData],
+  (allIds, memberVisitData) => {
+    return allIds
+      ?.map((id) => memberVisitData?.[id])
+      ?.filter((memberVisit) => !!memberVisit);
+  },
+);
+
+export const getMemberVisitIsLoading = (state: RootState) =>
+  state.accessControl.memberVisit.loading ||
+  state.accessControl.nextBookingOrPrivateBooking.loading ||
+  state.accessControl.userPhotoUpdate.loading;
+
+export const getMemberVisitLiveHistoryIsLoading = (state: RootState) =>
+  state.accessControl.memberVisit.loading ||
+  state.establishment.loading ||
+  state.establishment.establishmentGroup.loading ||
+  getMemberVisitIsLoading(state);
+
+export const getAccessControlPolicy = (state: RootState) =>
+  state.accessControl.policy.policy;
+
+export const getMemberNextBookingOrPrivateBooking = (state: RootState) =>
+  state.accessControl.nextBookingOrPrivateBooking.bookingOrPrivateBooking;
+
+const getUserPhotoUpdateIds = (state: RootState) =>
+  state.accessControl.userPhotoUpdate.allIds;
+
+const getUserPhotoUpdateData = (state: RootState) =>
+  state.accessControl.userPhotoUpdate.byId;
+
+export const getUserPhotoUpdatesList = createSelector(
+  [getUserPhotoUpdateData, getUserPhotoUpdateIds],
+  (userPhotoUpdateData, userPhotoUpdateIds) => {
+    return (
+      userPhotoUpdateIds
+        ?.map((id) => userPhotoUpdateData?.[id])
+        ?.filter((userPhotoUpdate) => !!userPhotoUpdate) ?? []
+    );
+  },
+);

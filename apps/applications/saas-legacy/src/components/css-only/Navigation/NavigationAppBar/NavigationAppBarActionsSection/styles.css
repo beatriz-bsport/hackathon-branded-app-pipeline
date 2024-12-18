@@ -1,0 +1,9 @@
+.bs-navigation-app-bar__actions-section__root {
+  display: flex;
+  align-items: center;
+  gap: var(--bs-space-size-2);
+}
+
+.bs-navigation-app-bar__actions-section__root--hidden {
+  display: none;
+}

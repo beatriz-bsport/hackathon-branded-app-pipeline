@@ -1,0 +1,146 @@
+.bs-fabrique-text-form__root {
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  gap: var(--bs-space-size-1);
+}
+
+/* LABEL AND TEXT AREA CSS PROPERTY */
+.bs-fabrique-text-form__label__textarea__container {
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  gap: var(--bs-space-size-1);
+}
+
+/* LABEL CSS PROPERTIES */
+
+.bs-fabrique-text-form__label {
+  display: inline-flex;
+  gap: var(--bs-space-size-2);
+}
+
+.bs-fabrique-text-form__label--required {
+  color: var(--bs-color-text-error-strong);
+}
+
+.bs-fabrique-text-form__label--disabled {
+  color: var(--bs-color-text-disabled);
+}
+
+.bs-fabrique-text-form__label--empty {
+  display: none;
+}
+
+/* .bs-fabrique-text-form__label__container {
+} */
+
+/* TEXTAREA CONTAINER */
+.bs-fabrique-text-form__textarea__container {
+  display: flex;
+  /* TODO: SET A MAX WIDTH/HEIGHT */
+  min-width: 300px;
+  min-height: 150px;
+  padding: var(--bs-space-size-3) var(--bs-space-size-4);
+  flex-direction: column;
+  align-items: flex-start;
+  align-self: stretch;
+  border-radius: var(--bs-border-radius-md);
+  border: 0px;
+  -webkit-box-shadow: var(--bs-border-shadow) var(--bs-border-width-thin)
+    var(--bs-color-border-default);
+  -moz-box-shadow: var(--bs-border-shadow) var(--bs-border-width-thin)
+    var(--bs-color-border-default);
+  box-shadow: var(--bs-border-shadow) var(--bs-border-width-thin)
+    var(--bs-color-border-default);
+  background-color: var(--bs-color-background-light);
+}
+
+.bs-fabrique-text-form__textarea__container--draggable {
+  overflow: auto;
+  resize: both;
+}
+
+.bs-fabrique-text-form__textarea__container--disabled {
+  -webkit-box-shadow: var(--bs-border-shadow) var(--bs-border-width-thin)
+    var(--bs-color-border-disabled);
+  -moz-box-shadow: var(--bs-border-shadow) var(--bs-border-width-thin)
+    var(--bs-color-border-disabled);
+  box-shadow: var(--bs-border-shadow) var(--bs-border-width-thin)
+    var(--bs-color-border-disabled);
+  cursor: default;
+}
+
+.bs-fabrique-text-form__textarea__container--focused {
+  -webkit-box-shadow: var(--bs-border-shadow) var(--bs-border-width-thin)
+      var(--bs-color-border-strong),
+    var(--bs-shadow-input-field-focused);
+  -moz-box-shadow: var(--bs-border-shadow),
+    var(--bs-border-width-thin) var(--bs-color-border-strong),
+    var(--bs-shadow-input-field-focused);
+  box-shadow: var(--bs-border-shadow) var(--bs-border-width-thin)
+      var(--bs-color-border-strong),
+    var(--bs-shadow-input-field-focused);
+}
+
+.bs-fabrique-text-form__textarea__container--error {
+  -webkit-box-shadow: var(--bs-border-shadow) var(--bs-border-width-thin)
+      var(--bs-color-border-status-error-weak),
+    var(--bs-shadow-input-field-error);
+  -moz-box-shadow: var(--bs-border-shadow) var(--bs-border-width-thin)
+      var(--bs-color-border-status-error-weak),
+    var(--bs-shadow-input-field-error);
+  box-shadow: var(--bs-border-shadow) var(--bs-border-width-thin)
+      var(--bs-color-border-status-error-weak),
+    var(--bs-shadow-input-field-error);
+}
+
+.bs-fabrique-text-form__max-character__container {
+  display: flex;
+  justify-content: center;
+  gap: var(--bs-space-size-2);
+  align-self: flex-end;
+}
+
+/* TEXTAREA CSS PROPERTIES */
+
+.bs-fabrique-text-form__textarea {
+  font-family: var(--bs-font-family);
+  font-size: var(--bs-font-size-body-md);
+  font-style: normal;
+  font-weight: var(--bs-font-weight-weak);
+  border: 0 transparent var(--bs-color-border-default);
+  outline: none;
+  color: var(--bs-color-text-default);
+  width: 100%;
+  -webkit-user-select: text; /* Chrome, Opera, Safari */
+  -moz-user-select: text; /* Firefox 2+ */
+  -ms-user-select: text; /* IE 10+ */
+  user-select: text; /* Standard syntax */
+  background: inherit;
+  resize: none;
+  flex: 1;
+}
+
+[class*='bs-fabrique-text-form__textarea']:disabled {
+  color: var(--bs-color-text-disabled);
+}
+
+[class*='bs-fabrique-text-form__textarea']::placeholder {
+  color: var(--bs-color-text-weakest);
+}
+
+.bs-fabrique-text-form__max-character__container--disabled {
+  color: var(--bs-color-text-disabled);
+}
+
+.bs-fabrique-text-form__max-character__container--empty {
+  display: none;
+}
+
+/* .bs-fabrique-text-form__caption-text {
+} */
+
+.bs-fabrique-text-form__caption-text--empty {
+  display: none;
+}

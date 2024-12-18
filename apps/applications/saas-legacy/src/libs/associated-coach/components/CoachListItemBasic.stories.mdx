@@ -1,0 +1,128 @@
+import { Meta, Canvas, Story, ArgsTable } from '@storybook/addon-docs';
+import CoachListItemBasic from './CoachListItemBasic.component';
+import { coachFactory } from '../factories';
+
+<Meta
+  title="Library/Coach/CoachListItemBasic "
+  component={CoachListItemBasic}
+  argTypes={{
+    coach: {
+      description: 'Coach of the list item',
+      table: {
+        type: {
+          summary: 'boolean',
+        },
+        defaultValue: {
+          summary: 'false',
+        },
+      },
+    },
+    onClick: { action: 'clicked' },
+    onDelete: { action: 'clicked' },
+    clearIcon: {
+      description: 'Is the coach selected',
+      table: {
+        type: {
+          summary: 'boolean',
+        },
+        defaultValue: {
+          summary: 'false',
+        },
+      },
+    },
+    divider: {
+      description: 'Divider inside of the list item',
+      table: {
+        type: {
+          summary: 'boolean',
+        },
+        defaultValue: {
+          summary: 'false',
+        },
+      },
+    },
+  }}
+/>
+
+export const Template = (args) => <CoachListItemBasic {...args} />;
+
+# Coach List Item Basic
+
+This `CoachListItemBasic` is a basic list item for a coach
+
+<Canvas>
+  <Story
+    name="Coach List Item Basic"
+    args={{
+      coach: coachFactory(),
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+# Coach List Item Basic With Divider
+
+When `CoachListItemBasic` is followed by a divider line
+
+<Canvas>
+  <Story
+    name="Coach List Item Basic Divided"
+    args={{
+      coach: coachFactory(),
+      divider: true,
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+# Coach List Item Basic Clear Icon
+
+This `CoachListItemBasic` with a clear icon instead of a bin
+
+<Canvas>
+  <Story
+    name="Coach List Item Basic Selected"
+    args={{
+      coach: coachFactory(),
+      clearIcon: true,
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+# Coach List Item Basic Without On Click
+
+This `CoachListItemBasic` without on click
+
+<Canvas>
+  <Story
+    name="Coach List Item Without OnClick"
+    args={{
+      coach: coachFactory(),
+      onClick: null,
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+# Coach List Item Basic Without On Delete
+
+This `CoachListItemBasic` without on delete
+
+<Canvas>
+  <Story
+    name="Coach List Item Without OnDelete"
+    args={{
+      coach: coachFactory(),
+      onDelete: null,
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<ArgsTable story="Coach List Item Basic" />

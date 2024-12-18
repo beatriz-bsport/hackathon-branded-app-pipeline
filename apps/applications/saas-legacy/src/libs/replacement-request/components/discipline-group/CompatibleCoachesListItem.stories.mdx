@@ -1,0 +1,100 @@
+import { Meta, Canvas, Story, ArgsTable } from '@storybook/addon-docs';
+import CompatibleCoachesListItem from './CompatibleCoachesListItem.component';
+
+<Meta
+  title="Library/Replacement/CompatibleCoachesListItem"
+  component={CompatibleCoachesListItem}
+  argTypes={{
+    name: {
+      description: 'name',
+      table: {
+        type: {
+          summary: 'string',
+        },
+        defaultValue: {
+          summary: 'None',
+        },
+      },
+    },
+    compatibleTeachers: {
+      description: 'numbre of compatible teachers',
+      table: {
+        type: {
+          summary: 'number',
+        },
+        defaultValue: {
+          summary: 'None',
+        },
+      },
+    },
+    nextSlot: {
+      description: 'date of next slot',
+      table: {
+        type: {
+          summary: 'string',
+        },
+        defaultValue: {
+          summary: 'None',
+        },
+      },
+    },
+    logo: {
+      description: 'logo',
+      table: {
+        type: {
+          summary: 'string',
+        },
+        defaultValue: {
+          summary: '0',
+        },
+      },
+    },
+    color: {
+      description: 'color',
+      table: {
+        type: {
+          summary: 'string',
+        },
+        defaultValue: {
+          summary: 'None',
+        },
+      },
+    },
+    categoryId: {
+      description: 'id of category',
+      table: {
+        type: {
+          summary: 'number',
+        },
+        defaultValue: {
+          summary: 'None',
+        },
+      },
+    },
+  }}
+/>
+
+export const Template = (args) => <CompatibleCoachesListItem {...args} />;
+
+This `CompatibleCoachesListItem` is a list item showing number of compatible coaches of an item
+
+# Compatible Coaches List Item
+
+Here, `CompatibleCoachesListItem` of the Calendar Page
+
+<Canvas>
+  <Story
+    name="Compatible Coaches List Item Calendar Page"
+    args={{
+      name: 'Name',
+      compatibleTeachers: 5,
+      nextSlot: '2022-06-28T19:30:00+01:00',
+      color: '#fb8c00',
+      categoryId: '1519',
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<ArgsTable story="Compatible Coaches List Item" />

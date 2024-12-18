@@ -1,0 +1,36 @@
+import { Meta, Canvas, Story } from '@storybook/addon-docs';
+
+import {TitleStorybook as Title} from './Title.component'
+
+<Meta title="Fabrique/Title/Doc" component={Title} />
+
+# Title
+
+## Description
+
+The **`title`** component is used to display a title and a subtitle.
+
+## Properties:
+- **variant:** The variant of the title: `lg`, `md`, `sm` or `xs`.
+- **isCollapsable:** If `true`, the title div will be collapsable.
+- **title:** The title to be displayed.
+- **subtitle:** The subtitle to be displayed.
+- **childrenCollapsable:** The content to be displayed in the collapsable.
+
+### Size
+
+<Canvas isColumn>
+  <Story id="fabrique-title-stories--lg"/>  
+  <Story id="fabrique-title-stories--md"/>
+  <Story id="fabrique-title-stories--sm"/>
+  <Story id="fabrique-title-stories--xs"/>
+</Canvas>
+
+### Collapsable
+
+<Canvas isColumn> 
+  <Story id="fabrique-title-stories--collapsable-lg"/>
+  <Story id="fabrique-title-stories--collapsable-md"/>
+  <Story id="fabrique-title-stories--collapsable-sm"/>
+  <Story id="fabrique-title-stories--collapsable-xs"/>
+</Canvas>

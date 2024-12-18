@@ -1,0 +1,55 @@
+.bs-custom-form-title__root {
+  display: flex;
+  padding-bottom: var(--bs-space-size-8);
+  gap: var(--bs-space-size-4);
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.bs-custom-form-title--with-border {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.bs-custom-form-title {
+  padding-bottom: var(--bs-space-size-1);
+}
+
+.bs-custom-form-title__rectangle {
+  height: 5px;
+  width: 146px;
+  margin-bottom: var(--bs-space-size-6);
+}
+
+.bs-custom-form-title__rectangle--hidden {
+  display: none;
+}
+
+.bs-custom-form-title__rectangle__company-background {
+  background: linear-gradient(
+    90deg,
+    var(--bs-brand-main) 4.66%,
+    var(--bs-brand-main-strong) 88.6%
+  );
+}
+
+.bs-custom-form-title__rectangle__default-background {
+  background: linear-gradient(90deg, #499c7c 4.66%, #2d767f 88.6%);
+}
+
+.bs-custom-form-title__icon-button-wrapper {
+  position: absolute;
+  right: -38px;
+  top: 0px;
+}
+
+.bs-custom-form-title__icon-button {
+  border-radius: var(--bs-border-radius-circle);
+}
+
+.bs-custom-form-title__icon-button--hidden {
+  display: none;
+}

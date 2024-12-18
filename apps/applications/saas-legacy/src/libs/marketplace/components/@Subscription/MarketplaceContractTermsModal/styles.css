@@ -1,0 +1,56 @@
+.bs-contract-terms-dialog__backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 999;
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bs-contract-terms-dialog__container {
+  width: 600px;
+  background: var(--color-background-paper);
+  border-radius: var(--border-radius-2);
+  max-width: calc(100% - var(--spacing-4));
+}
+
+.bs-contract-terms-dialog__text {
+  font-size: var(--body1-fontSize);
+  font-weight: var(--body1-fontWeight);
+  letter-spacing: var(--body1-letterSpacing);
+  line-height: var(--body1-lineHeight);
+  color: var(--color-grey-main);
+  padding: var(--spacing-2) var(--spacing-3);
+  overflow-y: auto;
+  max-height: 500px;
+  white-space: pre-wrap;
+}
+
+.bs-contract-terms-dialog__actions {
+  border-top: 1px solid rgba(0, 0, 0, 0.12);
+  display: flex;
+  gap: var(--spacing-1);
+  padding: var(--spacing-1);
+  align-items: center;
+  width: 100%;
+  justify-content: flex-end;
+}
+
+.bs-contract-terms-dialog__button {
+  display: flex;
+  align-items: center;
+  height: 32px;
+  gap: var(--spacing-1);
+  transition: background-color var(--duration-shortest) var(--easing-easeInOut);
+  padding: var(--spacing-1) var(--spacing-2);
+  border-radius: var(--border-radius-10);
+}
+
+.bs-contract-terms-dialog__cancel {
+  color: var(--color-grey-main);
+}

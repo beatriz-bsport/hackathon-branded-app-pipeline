@@ -1,0 +1,110 @@
+.bs-off_peak-modal__backdrop {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 3;
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+}
+
+.bs-off_peak-modal {
+  border: none;
+  background-color: var(--color-background-paper);
+  color: var(--color-grey-dark);
+}
+
+.bs-off_peak-modal__title {
+  font-size: var(--h5-fontSize);
+  margin: var(--spacing-2);
+  font-weight: var(--h5-fontWeight);
+}
+
+.bs-off_peak-modal__body {
+  border-bottom: var(--border-color) solid 2px;
+  display: flex;
+  padding: 16px 24px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 24px;
+  align-self: stretch;
+}
+
+.bs-off_peak-days-body {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.bs-off_peak-timeSlots-body {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.bs-off_peak-timeSlot {
+  display: flex;
+  height: 24px;
+  padding: 0px 8px;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  background-color: var(--color-grey-light);
+  border-radius: 4px;
+}
+
+.bs-off_peak-all_day {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 0px 8px;
+  gap: 8px;
+  background-color: #209d821a;
+  color: #209d82;
+  border-radius: 4px;
+  font-weight: 500;
+}
+
+.bs-off_peak-clock-icon-background {
+  display: flex;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  top: 10%;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.bss-off_peak_clock-icon {
+  font-size: 48px;
+  color: var(--color-primary-main);
+  font-weight: 500;
+}
+
+.bs-restriction-modal__button {
+  height: 100%;
+  border: none;
+  padding: var(--spacing-3);
+  font-family: var(--body1-fontFamily);
+  font-size: var(--body1-fontSize);
+  font-weight: var(--h5-fontWeight);
+  color: var(--color-grey-main);
+  background: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: var(--spacing-5);
+  text-transform: uppercase;
+}

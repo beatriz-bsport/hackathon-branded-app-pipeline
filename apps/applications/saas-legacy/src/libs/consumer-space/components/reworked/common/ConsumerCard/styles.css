@@ -1,0 +1,63 @@
+/* CONSUMER GENERIC CARD HEADER */
+.bs-consumer__generic-card__header {
+  display: flex;
+  padding: 0;
+  gap: var(--bs-space-size-2);
+  justify-content: space-between;
+  align-self: stretch;
+  flex-wrap: wrap;
+  padding-bottom: var(--bs-space-size-4);
+}
+
+.bs-consumer__generic-card__header-title__container {
+  display: inline-flex;
+  flex-direction: column;
+}
+
+.bs-consumer__generic-card__header__title {
+  font-weight: 700;
+}
+
+.bs-consumer__generic-card__header__subtitle {
+  color: var(--bs-color-text-weak);
+}
+
+.bs-consumer__generic-card__header-description {
+  padding-top: var(--bs-space-size-2);
+}
+
+.bs-consumer__generic-card__header__chips-wrapper {
+  display: flex;
+  gap: var(--bs-space-size-2);
+  flex-wrap: wrap;
+}
+
+/* CONSUMER GENERIC CARD BODY */
+.bs-consumer__generic-card__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--bs-space-size-4);
+}
+
+/* CONSUMER GENERIC CARD FOOTER */
+/* Needs container-type defined at the parent card */
+@container (width > 400px) {
+  .bs-consumer__generic-card__footer {
+    display: flex;
+    padding-top: var(--bs-space-size-4);
+    gap: var(--bs-space-size-2);
+    border-top: var(--bs-border-width-regular) solid var(--bs-color-border-weak);
+    align-self: stretch;
+    align-items: flex-end;
+  }
+}
+
+@container (width < 400px) {
+  .bs-consumer__generic-card__footer {
+    display: flex;
+    padding-top: var(--bs-space-size-4);
+    gap: var(--bs-space-size-2);
+    border-top: var(--bs-border-width-regular) solid var(--bs-color-border-weak);
+    align-self: stretch;
+  }
+}

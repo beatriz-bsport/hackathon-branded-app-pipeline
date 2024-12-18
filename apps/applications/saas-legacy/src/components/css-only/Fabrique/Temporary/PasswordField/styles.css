@@ -1,0 +1,4 @@
+.bs-fabrique-password-field__wrapper {
+  display: flex;
+  gap: var(--bs-space-size-3);
+}

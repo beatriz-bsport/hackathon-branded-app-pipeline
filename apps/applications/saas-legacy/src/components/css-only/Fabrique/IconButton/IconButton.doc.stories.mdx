@@ -1,0 +1,74 @@
+import { Meta, Canvas, Story , Description, ArgsTable, Source} from '@storybook/addon-docs';
+
+import * as IconButtonStories from './IconButton.stories'
+
+import {IconButtonStorybook as IconButton} from './IconButton.component'
+
+import dedent from 'ts-dedent';
+
+<Meta title="Fabrique/IconButton/Doc" component={IconButton} />
+
+
+# IconButton
+
+## Description
+
+The **`icon button`** component allows users to trigger actions or navigate within the application. It comes with various styles and colour options to suit different contexts and visual requirements.
+
+### Contained
+
+#### Usage
+A solid icon button with a background colour, suitable for primary actions.
+
+<Canvas withSource='none' withToolbar>
+  <Story id="fabrique-iconbutton-stories--iconbuttoncontainedprimary"/>
+  <Story id="fabrique-iconbutton-stories--iconbuttoncontainedsecondary"/>
+  <Story id="fabrique-iconbutton-stories--iconbuttoncontainedinfo"/>
+  <Story id="fabrique-iconbutton-stories--iconbuttoncontainedwarning"/>
+  <Story id="fabrique-iconbutton-stories--iconbuttoncontainederror"/>
+  <Story id="fabrique-iconbutton-stories--iconbuttoncontainedgrey"/>
+  <Story id="fabrique-iconbutton-stories--iconbuttoncontainedwhite"/>
+</Canvas>
+
+#### Example
+
+<Source dark language='tsx' id="fabrique-iconbutton-stories--iconbuttoncontainedprimary" />
+
+### Outlined
+
+#### Usage
+An icon button with a transparent background and coloured border, acts as a secondary action on the page.
+
+<Canvas withSource='none' withToolbar>
+  <Story id="fabrique-iconbutton-stories--iconbuttonoutlinedprimary"/>
+  <Story id="fabrique-iconbutton-stories--iconbuttonoutlinedsecondary"/>
+  <Story id="fabrique-iconbutton-stories--iconbuttonoutlinedinfo"/>
+  <Story id="fabrique-iconbutton-stories--iconbuttonoutlinedwarning"/>
+  <Story id="fabrique-iconbutton-stories--iconbuttonoutlinederror"/>
+  <Story id="fabrique-iconbutton-stories--iconbuttonoutlinedgrey"/>
+  <Story id="fabrique-iconbutton-stories--iconbuttonoutlinedwhite"/>
+</Canvas>
+
+#### Example
+
+<Source dark language='tsx' id="fabrique-iconbutton-stories--iconbuttonoutlinedprimary" />
+
+### Text
+
+#### Usage
+An icon button with no background, suitable for tertiary actions.
+
+<Canvas withSource='none' withToolbar>
+  <Story id="fabrique-iconbutton-stories--iconbuttontextprimary"/>
+  <Story id="fabrique-iconbutton-stories--iconbuttontextsecondary"/>
+  <Story id="fabrique-iconbutton-stories--iconbuttontextinfo"/>
+  <Story id="fabrique-iconbutton-stories--iconbuttontextwarning"/>
+  <Story id="fabrique-iconbutton-stories--iconbuttontexterror"/>
+  <Story id="fabrique-iconbutton-stories--iconbuttontextgrey"/>
+  <Story id="fabrique-iconbutton-stories--iconbuttontextwhite"/>
+</Canvas>
+
+#### Example
+
+<Source dark language='tsx' id="fabrique-iconbutton-stories--iconbuttontextprimary" />
+

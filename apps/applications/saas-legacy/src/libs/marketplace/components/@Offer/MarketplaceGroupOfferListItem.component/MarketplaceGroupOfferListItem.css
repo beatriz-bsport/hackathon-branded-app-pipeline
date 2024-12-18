@@ -1,0 +1,332 @@
+/*  */
+/* Offer list Item for Group */
+/*  */
+.bs-offer-list-group-item {
+  display: flex;
+  align-items: stretch;
+  justify-content: space-between;
+  background: var(--color-background-paper);
+  outline-style: solid;
+  outline-color: var(--border-color);
+  outline-width: 1px;
+  padding: var(--spacing-3);
+  transition: all 0.2s;
+  border-style: solid;
+  border-color: var(--border-color);
+  border-bottom: none;
+  border-width: 1px;
+  font-family: var(--fontFamily);
+}
+
+.--hidden-book-button {
+  cursor: pointer;
+}
+
+.--hidden-book-button:hover {
+  filter: brightness(0.9);
+}
+
+.bs-offer-list-group-item--mobile {
+  padding: var(--spacing-2);
+}
+
+.bs-offer-list-group-item--without-color {
+  border-left-color: var(--border-color);
+}
+
+.bs-offer-list-group-item__left {
+  color: var(--color-grey-dark);
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: var(--spacing-1);
+  font-style: normal;
+}
+
+.bs-offer-list-group-item__offer__subtitle,
+.bs-offer-list-group-item__left__subtitle {
+  font-size: var(--body1-fontSize);
+  font-family: var(--fontFamily);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-1);
+  line-height: var(--body1-lineHeight);
+  font-weight: var(--fontWeightRegular);
+  text-align: left;
+
+  color: var(--color-grey-main);
+}
+
+.bs-offer-list-group-item__offer__coach {
+  color: var(--color-grey-main);
+  max-width: 24px;
+  max-height: 24px;
+  margin-left: calc(var(--spacing-1) / 2);
+}
+
+.bs-offer-list-group-item__left__icon {
+  margin-left: calc(var(--spacing-1) / 2);
+  color: var(--color-grey-main);
+}
+
+.bs-offer-list-group-item__left__offers {
+  font-weight: var(--fontWeightMedium);
+  font-size: var(--h6-fontSize);
+  line-height: var(--h6-lineHeight);
+  color: var(--color-grey-dark);
+}
+
+.bs-offer-list-group-item__left__offers__emphasis {
+  color: var(--color-primary-main);
+}
+
+.bs-offer-list-group-item__left__title {
+  font-weight: var(--fontWeightMedium);
+  font-size: var(--h5-fontSize);
+  color: var(--color-grey-dark);
+}
+
+.bs-offer-list-group-item__establishment {
+  align-items: center;
+  font-size: var(--body1-fontSize);
+  line-height: var(--body1-lineHeight);
+  font-weight: var(--fontWeightRegular);
+  text-align: left;
+  display: flex;
+  color: var(--color-grey-main);
+  overflow: visible;
+}
+
+.bs-offer-list-group-item__right__row {
+  display: flex;
+  gap: var(--spacing-2);
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.bs-offer-list-group-item__offer__filling__icon {
+  color: var(--color-text-secondary);
+  margin-right: var(--spacing-1);
+  height: var(--body1-fontSize);
+}
+
+.bs-offer-list-group-item__offer__filling {
+  color: var(--color-text-secondary);
+  display: flex;
+  font-size: var(--caption-fontSize);
+  font-weight: var(--fontWeightMedium);
+}
+
+.bs-offer-list-group-item__right {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.bs-offer-dialog__content__buttons__book {
+  cursor: pointer;
+  padding: calc(var(--spacing-1) / 2) var(--spacing-2);
+  text-transform: uppercase;
+  border: none;
+  background-color: var(--color-primary-main);
+  color: var(--color-primary-contrastText);
+  font-family: var(--button-fontFamily);
+  font-size: var(--button-fontSize);
+  font-weight: var(--button-fontWeight);
+  letter-spacing: var(--button-letterSpacing);
+  line-height: var(--button-lineHeight);
+  position: relative;
+  border-radius: var(--border-radius-5);
+}
+
+.bs-offer-list-group-item__right__row__button {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-1);
+  cursor: pointer;
+  border-radius: var(--border-radius-2);
+  padding-left: var(--spacing-1);
+  padding-right: var(--spacing-1);
+  padding-top: calc(var(--spacing-1) / 2);
+  padding-bottom: calc(var(--spacing-1) / 2);
+  text-transform: uppercase;
+  border: none;
+  background-color: inherit;
+  font-family: var(--button-fontFamily);
+  font-size: var(--button-fontSize);
+  font-weight: var(--button-fontWeight);
+  letter-spacing: var(--button-letterSpacing);
+  line-height: var(--button-lineHeight);
+  color: var(--color-primary-main);
+}
+
+.bs-offer-dialog__content__buttons__book:hover::before {
+  border-radius: var(--border-radius-5);
+  color: var(--color-primary-main);
+}
+.bs-offer-list-group-item__right__row__button:hover::before {
+  background-color: var(--color-primary-light);
+  border-radius: var(--border-radius-5);
+  color: var(--color-primary-main);
+}
+.bs-offer-dialog__content__buttons__book:hover {
+  background-color: var(--color-primary-light);
+}
+
+.bs-offer-list-group-item__right__row__button--disabled {
+  cursor: inherit;
+  color: var(--color-text-secondary);
+}
+
+.bs-offer-list-group-item__right__row__button--booked {
+  cursor: pointer;
+  color: var(--color-success-main);
+}
+
+.bs-offer-list-group-item__right__row__button--booked:hover::before {
+  background-color: var(--color-success-light);
+}
+
+.bs-offer-list-group-item__right__row__button--disabled::before {
+  display: none;
+}
+
+/*  */
+/* Modal for Group offer*/
+/*  */
+
+.bs-offer-dialog {
+  position: relative;
+  height: 100vh;
+  max-height: 100%;
+  min-width: 100vw;
+}
+
+/* Here not possible yet to use breakpoints from css var */
+@media (min-width: 600px) {
+  .bs-offer-dialog {
+    max-width: 80vw;
+    max-height: 80vh;
+    min-width: 60vw;
+  }
+}
+
+.bs-offer-dialog__content__inner__group {
+  font-size: var(--h5-fontSize);
+}
+
+.bs-offer-dialog__content__inner__title {
+  font-size: var(--h4-fontSize);
+  letter-spacing: 0.25;
+  margin-top: var(--spacing-2);
+  margin-bottom: var(--spacing-3);
+}
+
+.bs-offer-dialog__content__inner__book_title {
+  font-size: var(--h5-fontSize);
+  font-weight: var(--fontWeightMedium);
+  margin-top: var(--spacing-2);
+  margin-bottom: var(--spacing-2);
+}
+
+.bs-offer-dialog__content__media {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.bs-offer-dialog__content__buttons {
+  background: var(--color-background-paper);
+  position: sticky;
+  bottom: 0;
+  left: 0;
+  height: var(--spacing-8);
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--spacing-2);
+  padding: var(--spacing-2);
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #e0e5ec;
+}
+
+.bs-offer-dialog__content__buttons__cancel {
+  cursor: pointer;
+  border-radius: var(--border-radius-5);
+  padding-left: var(--spacing-1);
+  padding-right: var(--spacing-1);
+  padding-top: calc(var(--spacing-1) / 2);
+  padding-bottom: calc(var(--spacing-1) / 2);
+  text-transform: uppercase;
+  border: none;
+  background-color: inherit;
+  position: relative;
+  font-family: var(--button-fontFamily);
+  font-size: var(--button-fontSize);
+  font-weight: var(--button-fontWeight);
+  letter-spacing: var(--button-letterSpacing);
+  line-height: var(--button-lineHeight);
+  color: var(--color-text-primary);
+
+  padding-left: var(--spacing-2);
+  padding-right: var(--spacing-2);
+  color: var(--color-primary-main);
+  border-radius: var(--border-radius-5);
+  padding-top: calc(var(--spacing-1) / 2);
+  padding-bottom: calc(var(--spacing-1) / 2);
+}
+
+.bs-offer-dialog__content__buttons__book::before {
+  border-radius: var(--border-radius-5);
+  transition: 0.2s;
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.2;
+}
+
+.bs-offer-dialog__content__buttons__cancel::before {
+  border-radius: var(--border-radius-5);
+  transition: 0.2s background-color;
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.2;
+}
+
+.bs-offer-dialog__content__buttons__cancel:hover::before {
+  background-color: var(--color-grey-500);
+  border-radius: var(--border-radius-5);
+}
+
+.bs-offer-dialog__content__buttons__book--disabled {
+  cursor: inherit;
+  color: var(--color-text-secondary);
+}
+
+.bs-offer-dialog__content__buttons__book--disabled::before {
+  display: none;
+}
+
+.bs-offer-dialog__content__inner__book_list {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 50px;
+}
+
+.bs-offer-dialog__content {
+  padding-top: 0;
+  padding: 0;
+}
+
+.bs-offer-dialog__content__inner {
+  padding: var(--spacing-3);
+}

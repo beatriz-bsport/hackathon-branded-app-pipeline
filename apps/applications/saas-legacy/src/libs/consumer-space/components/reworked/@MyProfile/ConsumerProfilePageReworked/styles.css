@@ -1,0 +1,54 @@
+:root {
+  --bs-consumer-profile-page-footer-height: 88px;
+}
+
+.bs-consumer-profile-page__root {
+  container: bsConsumerInvoicePage / inline-size;
+  height: 100%;
+  overflow-y: auto;
+}
+
+.bs-consumer-profile-page__root--fab {
+  padding: var(--bs-space-size-8);
+}
+
+.bs-consumer-profile-page__body {
+  display: grid;
+  grid-template-areas: 'consumerSummary consumerSettings';
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto;
+  column-gap: var(--bs-space-size-4);
+}
+
+.bs-consumer-profile-page__body--mobile {
+  display: flex;
+  flex-direction: column;
+  gap: var(--bs-space-size-4);
+}
+
+.bs-consumer-profile-page__body__consumer-summary {
+  grid-area: consumerSummary;
+}
+
+.bs-consumer-profile-page__body__consumer-settings {
+  grid-area: consumerSettings;
+  display: flex;
+  min-width: 300px;
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--bs-space-size-4);
+}
+
+.bs-marketplace-page-content-root__children
+  > .bs-consumer-header-skeleton__root {
+  padding-bottom: var(--bs-space-size-4);
+}
+
+.bs-marketplace-page-content-root__children
+  > .bs-consumer-header-skeleton__root
+  > .bs-consumer-header-skeleton__tabs,
+.bs-marketplace-page-content-root__children
+  > .bs-consumer-header-skeleton__root
+  > .bs-consumer-header-skeleton__filter-tabs {
+  display: none;
+}

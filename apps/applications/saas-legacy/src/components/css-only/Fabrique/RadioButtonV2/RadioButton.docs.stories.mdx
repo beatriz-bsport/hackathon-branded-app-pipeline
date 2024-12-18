@@ -1,0 +1,32 @@
+import { Meta, Canvas, Story, Source } from '@storybook/addon-docs';
+import {RadioButtonStorybook as RadioButton} from '.'
+
+<Meta title="Fabrique/RadioButton/Doc" component={RadioButton} />
+
+# RadioButton
+
+## Description
+The radioButton component presents users with a list of options, allowing them to choose one option exclusively. 
+It is used when users need to select a single option from a set of mutually exclusive choices.
+
+### Color
+
+<Canvas withSource="none" withToolbar >
+  <Story id="fabrique-radiobutton-stories--radiodefault"/>
+  <Story id="fabrique-radiobutton-stories--radiochecked"/>
+  <Story id="fabrique-radiobutton-stories--radiocheckedinversed"/>
+  <Story id="fabrique-radiobutton-stories--radioinversed"/>
+</Canvas>
+
+#### Example
+<Source dark language='tsx' id="fabrique-radiobutton-stories--radiodefault" />
+
+### Different label size and with captionText
+<Canvas withSource="none" withToolbar>
+  <Story id="fabrique-radiobutton-stories--radiosm"/>
+  <Story id="fabrique-radiobutton-stories--radiolg"/>
+  <Story id="fabrique-radiobutton-stories--radiowithcaption"/>
+</Canvas>
+
+#### Example
+<Source dark language='tsx' id="fabrique-radiobutton-stories--radiosm" />

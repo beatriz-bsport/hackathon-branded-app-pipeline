@@ -1,0 +1,49 @@
+.bs-consumer-card__section {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.bs-consumer-card__section:not(:last-of-type) {
+  padding-bottom: var(--bs-space-size-4);
+  margin-bottom: var(--bs-space-size-4);
+  border-bottom: 1px solid var(--bs-color-border-weak);
+}
+
+.bs-consumer-card__section__text-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  align-self: stretch;
+  margin-bottom: var(--bs-space-size-1);
+}
+
+.bs-consumer-card__section__text-container--hidden {
+  display: none;
+}
+
+.bs-consumer-card__section__title {
+  width: 100%;
+  font-weight: 700;
+}
+
+.bs-consumer-card__section__title--hidden {
+  display: none;
+}
+
+.bs-consumer-card__section__subtitle {
+  width: 100%;
+  color: var(--bs-color-text-weak);
+}
+
+.bs-consumer-card__section__show-more {
+  text-decoration: underline;
+  padding: 0;
+}
+
+.bs-consumer-card__section__show-more:hover,
+.bs-consumer-card__section__show-more:focus-visible,
+.bs-consumer-card__section__show-more:hover:active {
+  background-color: transparent;
+}

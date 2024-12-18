@@ -1,0 +1,18 @@
+.bs-checkout-navigation__container {
+  width: 100vw;
+  max-height: 100vh;
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  container: bsCheckoutNavigation / inline-size;
+}
+
+.bs-checkout-navigation__content {
+  overflow-y: auto;
+}
+
+.bs-checkout-navigation__root {
+}
+
+.bs-checkout-navigation__root--relationship {
+}

@@ -1,0 +1,12 @@
+exports.default = {
+  input: 'Search...',
+  go_back: 'Return to results',
+  noResult: 'No matches',
+  member: {
+    sessions: { title: 'Sessions' },
+    packs: { title: 'Passes' },
+    closeMemberMatch: 'Are you looking for this member?',
+    archived: 'Archived members',
+  },
+  actions: { addMember: 'Add a member' },
+};

@@ -1,0 +1,32 @@
+.bs-navigation-app-bar__logo-section__root {
+  display: flex;
+  align-items: center;
+  gap: var(--bs-space-size-2);
+}
+
+.bs-navigation-app-bar__logo-section__menu-button {
+}
+
+.bs-navigation-app-bar__logo-section__menu-button--hidden {
+  display: none;
+}
+
+.bs-navigation-app-bar__logo-section__logo-container {
+}
+
+.bs-navigation-app-bar__logo-section__logo-container--hidden {
+  display: none;
+}
+
+.bs-navigation-app-bar__logo-section__logo-container__button {
+}
+
+.bs-navigation-app-bar__logo-section__logo-container__image {
+  height: var(--bs-navigation-app-bar-logo-height);
+}
+
+@container bsNavigationAppBar (width < 600px) {
+  .bs-navigation-app-bar__logo-section__logo-container__image {
+    height: var(--bs-navigation-app-bar-logo-height-mobile);
+  }
+}

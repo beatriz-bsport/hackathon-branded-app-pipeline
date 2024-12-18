@@ -1,0 +1,218 @@
+.bs-contract-buyable-item__card {
+  border-radius: var(--border-radius-2);
+}
+
+@keyframes clickAnimation {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(0.99);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.bs-contract-buyable-item__card:active {
+  animation: clickAnimation 0.5s ease;
+}
+
+.bs-contract-buyable-item__card__content {
+  container: bsContractBuyableItemContent / inline-size;
+}
+
+.bs-contract-buyable-item__card_content_grid {
+  display: grid;
+  grid-template:
+    'header'
+    'fees'
+    'pricing'
+    'description'
+    'footer'
+    'booking-confirm';
+  grid-template-columns: repeat(1, 1fr);
+  grid-gap: calc(var(--spacing-1) / 2);
+}
+
+.bs-contract-buyable-item__grid_item-title {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: row;
+  grid-area: header;
+  justify-content: space-between;
+  justify-self: stretch;
+}
+
+.bs-contract-buyable-item__grid_item-fees {
+  grid-area: fees;
+}
+
+.bs-contract-buyable-item__grid_item-pricing {
+  align-items: flex-end;
+  flex-direction: row;
+  grid-area: pricing;
+  justify-content: flex-start;
+  padding: var(--spacing-1) 0;
+}
+
+.bs-contract-buyable-item__grid_item-description {
+  grid-area: description;
+}
+
+.bs-contract-buyable-item__grid_item-description--hidden {
+  display: none;
+}
+
+.bs-contract-buyable-item__grid_item-footer {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  grid-area: footer;
+  justify-content: space-between;
+}
+
+.bs-contract-buyable-item__grid_item-booking-button {
+  grid-area: booking-confirm;
+}
+
+.bs-contract-buyable-item__title {
+  /* autoprefixer: off */
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  align-items: center;
+  color: var(--color-grey-dark);
+  display: -webkit-box;
+  flex-direction: row;
+  font-family: var(--fontFamily);
+  font-size: var(--subtitle1-fontSize);
+  font-weight: var(--h5-fontWeight);
+  line-height: var(--subtitle1-lineHeight);
+  overflow: hidden;
+  text-align: start;
+  text-overflow: ellipsis;
+  white-space: pre-line;
+}
+
+.bs-contract-buyable-item_title__icon {
+  margin-bottom: -5px;
+  margin-right: var(--spacing-1);
+}
+
+.bs-contract-buyable-item__description {
+  color: var(--color-grey-main);
+  font-size: var(--body2-fontSize);
+  font-weight: var(--body2-fontWeight);
+  letter-spacing: var(--body2-letterSpacing);
+  line-height: var(--body2-lineHeight);
+  text-align: left;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.bs-contract-buyable-item__description--short {
+  /* autoprefixer: off */
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  display: -webkit-box;
+  overflow: hidden;
+}
+
+.bs-contract-buyable-item__seemore_button {
+  background: none;
+  padding: 2px 0 0;
+  padding-top: var(--spacing-1);
+  width: fit-content;
+  z-index: 100;
+}
+
+.bs-contract-buyable-item__seemore_button:hover {
+  background: none;
+}
+
+.bs-contract-buyable-item__seemore_button--hidden {
+  visibility: hidden;
+}
+
+.bs-contract-buyable-item__seemore_button__text {
+  font-family: var(--body2-fontFamily);
+  font-size: var(--body2-fontSize);
+  font-weight: var(--button-fontWeight);
+  gap: calc(var(--spacing-1) / 2);
+  letter-spacing: var(--body2-letterSpacing);
+  line-height: var(--body2-lineHeight);
+  text-transform: inherit;
+}
+
+.bs-contract-buyable-item__pricing_container {
+  display: flex;
+  flex-direction: row;
+  gap: calc(var(--spacing-1) / 2);
+  align-items: center;
+}
+
+.bs-contract-buyable-item__price {
+  font-size: var(--h5-fontSize);
+  font-weight: var(--fontWeightMedium);
+}
+
+.bs-contract-buyable-item__flat-fee {
+  color: var(--color-grey-main);
+  display: flex;
+  font-family: var(--body2-fontFamily);
+  font-size: var(--body2-fontSize);
+  font-weight: var(--fontWeightMedium);
+  letter-spacing: var(--body2-letterSpacing);
+  line-height: var(--body2-lineHeight);
+}
+
+.bs-contract-buyable-item__flat-fee--hidden {
+  display: none;
+}
+
+.bs-contract-buyable-item__number_of_invoices {
+  background-color: var(--color-grey-light);
+  border-radius: var(--border-radius-1);
+  color: var(--color-grey-dark);
+  font-family: var(--body2-fontFamily);
+  font-size: var(--body2-fontSize);
+  font-weight: var(--body2-fontWeight);
+  letter-spacing: var(--body2-letterSpacing);
+  line-height: var(--body2-lineHeight);
+  margin-top: var(--spacing-1);
+  padding: 3px calc(var(--spacing-1) / 2);
+  text-align: center;
+  width: fit-content;
+}
+
+.bs-contract-buyable-item__recommended_icon_container--hidden {
+  display: none;
+}
+
+.bs-contract-buyable-item__recommended_icon {
+  padding-left: calc(var(--spacing-1) / 2);
+}
+
+@container bsOfferBookingPage (width < 600px) {
+}
+
+@container bsContractBuyableItemContent (width < 600px) {
+}
+
+.bs-contract-buyable-item__booking-confirm-button {
+  display: none;
+}
+
+@container bsOfferBookingPage (width < 950px) {
+  .bs-contract-buyable-item__booking-confirm-button {
+    display: block;
+  }
+}
+
+[id^='bs-contract-buyable-item__card']
+  .bs-contract-buyable-item__grid_item-booking-button
+  > [class*='makeStyles-container'],
+[id^='bs-contract-buyable-item__card'] .bs-booker-module-offer-summary-content,
+[id^='bs-contract-buyable-item__card'] .bs-booker-module-offer-summary-card {
+  background-color: transparent !important;
+}

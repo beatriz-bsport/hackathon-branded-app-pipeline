@@ -1,0 +1,223 @@
+import React, { useCallback, useMemo } from 'react';
+import isEqual from 'lodash/isEqual';
+import { useTranslation } from 'react-i18next';
+
+import MarketplacePaymentPackBuyableItem from '#src/libs/marketplace/components/@BuyableItem/MarketplacePaymentPackBuyableItem';
+import MarketplacePaymentComboBuyableItem from '#src/libs/marketplace/components/@BuyableItem/MarketplacePaymentComboBuyableItem';
+import MarketplaceContractBuyableItem from '#src/libs/marketplace/components/@Subscription/MarketplaceContractBuyableItem';
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
+import {
+  PAYMENT_PACK_BOOKING_FUNNEL_IDENTIFIER,
+  PAYMENT_COMBO_BOOKING_FUNNEL_IDENTIFIER,
+  CONTRACT_BOOKING_FUNNEL_IDENTIFIER,
+  MIXED_ITEMS_BOOKING_FUNNEL_IDENTIFIER,
+  RECOMMENDED_BUYABLE_CATEGORY_ID,
+} from '#src/libs/marketplace/constants';
+
+import type {
+  BookerModuleBuyableItem,
+  BuyableItemCategory,
+  RecommendedBuyableItem,
+} from '#src/libs/booker-module/types';
+import type { PaymentPack } from '#src/libs/payment-packs/types';
+import type { PaymentCombo } from '#src/libs/payment-combo/types';
+import type { ContractWithPaymentPack } from '#src/libs/subscription/types';
+
+import './styles.css';
+
+type Props = {
+  buyableItemCategory: BuyableItemCategory;
+  isExcludingTax: boolean;
+  selectedBuyableItem: BookerModuleBuyableItem;
+  excludeRecommendedItemsFromRegularCategories?: boolean;
+  hideCreditsForCustomers: boolean;
+  selectBuyableItem: (
+    buyableItem: BookerModuleBuyableItem,
+    identifier: number,
+  ) => void;
+  onClickAll?: () => void;
+  bookingConfirmButtonComponent?: React.ReactElement;
+};
+
+type CardProps = Omit<Props, 'buyableItemCategory' | 'selectBuyableItem'> & {
+  categoryIdentifier: number;
+  buyableItem: BookerModuleBuyableItem;
+  selectItem: (
+    buyableItem: BookerModuleBuyableItem,
+    identifier: number,
+  ) => void;
+  isExcludingTax: boolean;
+  selectedBuyableItem: BookerModuleBuyableItem;
+};
+
+const MarketplaceBuyableItemCard: React.FC<CardProps> = ({
+  buyableItem,
+  categoryIdentifier,
+  isExcludingTax,
+  selectedBuyableItem,
+  hideCreditsForCustomers,
+  selectItem,
+  bookingConfirmButtonComponent,
+}) => {
+  const onClick = useCallback(
+    () => selectItem(buyableItem, categoryIdentifier),
+    [selectItem, buyableItem, categoryIdentifier],
+  );
+
+  switch (categoryIdentifier) {
+    case PAYMENT_PACK_BOOKING_FUNNEL_IDENTIFIER:
+      return (
+        <div
+          aria-hidden="true"
+          className="bs-marketplace-buyable-item-category__card"
+          onClick={onClick}
+        >
+          <MarketplacePaymentPackBuyableItem
+            bookingConfirmButtonComponent={bookingConfirmButtonComponent}
+            hideCredits={hideCreditsForCustomers}
+            isExcludingTax={isExcludingTax}
+            isSelected={isEqual(selectedBuyableItem, buyableItem)}
+            paymentPack={buyableItem as PaymentPack}
+          />
+        </div>
+      );
+    case PAYMENT_COMBO_BOOKING_FUNNEL_IDENTIFIER:
+      return (
+        <div
+          aria-hidden="true"
+          className="bs-marketplace-buyable-item-category__card"
+          onClick={onClick}
+        >
+          <MarketplacePaymentComboBuyableItem
+            bookingConfirmButtonComponent={bookingConfirmButtonComponent}
+            isExcludingTax={isExcludingTax}
+            isSelected={isEqual(selectedBuyableItem, buyableItem)}
+            paymentCombo={buyableItem as PaymentCombo}
+          />
+        </div>
+      );
+    case CONTRACT_BOOKING_FUNNEL_IDENTIFIER:
+      return (
+        <div
+          aria-hidden="true"
+          className="bs-marketplace-buyable-item-category__card"
+          onClick={onClick}
+        >
+          <MarketplaceContractBuyableItem
+            bookingConfirmButtonComponent={bookingConfirmButtonComponent}
+            contract={buyableItem as ContractWithPaymentPack}
+            isExcludingTax={isExcludingTax}
+            isSelected={isEqual(selectedBuyableItem, buyableItem)}
+          />
+        </div>
+      );
+    default:
+      return <div />;
+  }
+};
+
+const MarketplaceBuyableItemCategoryList: React.FC<Props> = ({
+  buyableItemCategory,
+  isExcludingTax,
+  selectedBuyableItem,
+  hideCreditsForCustomers,
+  selectBuyableItem,
+  onClickAll,
+  excludeRecommendedItemsFromRegularCategories,
+  bookingConfirmButtonComponent,
+}) => {
+  const { t } = useTranslation('booking');
+
+  const isRecommendedCategory =
+    buyableItemCategory.id === RECOMMENDED_BUYABLE_CATEGORY_ID;
+
+  const itemsToDisplay = useMemo(() => {
+    if (excludeRecommendedItemsFromRegularCategories) {
+      // Here we want to filter out products highlighted as recommended
+      // for regular categories, i.e. passes, subscriptions and packs.
+
+      // Recommended products are already displayed in the recommended category above.
+      return buyableItemCategory.values.filter(
+        (item) =>
+          // @ts-expect-error
+          (isRecommendedCategory || !item.highlighted_as_recommended) &&
+          // @ts-expect-error
+          (item.exceedsBookingMaxout === false ||
+            // @ts-expect-error
+            item.value?.exceedsBookingMaxout === false),
+      );
+    }
+    return buyableItemCategory.values.filter(
+      (item) =>
+        // @ts-expect-error
+        item.exceedsBookingMaxout === false ||
+        // @ts-expect-error
+        item.value?.exceedsBookingMaxout === false,
+    );
+  }, [
+    buyableItemCategory,
+    isRecommendedCategory,
+    excludeRecommendedItemsFromRegularCategories,
+  ]);
+
+  if (itemsToDisplay.length === 0) return null;
+
+  return (
+    <div className="bs-marketplace-buyable-item-category">
+      <div className="bs-marketplace-buyable-item-category__title">
+        {buyableItemCategory.name}
+      </div>
+      {itemsToDisplay.map((buyableItem) => {
+        if (
+          buyableItemCategory.identifier ===
+          MIXED_ITEMS_BOOKING_FUNNEL_IDENTIFIER
+        ) {
+          const item = buyableItem as RecommendedBuyableItem;
+          return (
+            <MarketplaceBuyableItemCard
+              key={`${buyableItemCategory.identifier}${item.value.id}`}
+              bookingConfirmButtonComponent={bookingConfirmButtonComponent}
+              buyableItem={item.value}
+              categoryIdentifier={item.identifier}
+              hideCreditsForCustomers={hideCreditsForCustomers}
+              isExcludingTax={isExcludingTax}
+              selectedBuyableItem={selectedBuyableItem}
+              selectItem={selectBuyableItem}
+            />
+          );
+        }
+
+        const item = buyableItem as BookerModuleBuyableItem;
+        return (
+          <MarketplaceBuyableItemCard
+            key={`${buyableItemCategory.identifier}${item.id}`}
+            bookingConfirmButtonComponent={bookingConfirmButtonComponent}
+            buyableItem={item}
+            categoryIdentifier={buyableItemCategory.identifier}
+            hideCreditsForCustomers={hideCreditsForCustomers}
+            isExcludingTax={isExcludingTax}
+            selectedBuyableItem={selectedBuyableItem}
+            selectItem={selectBuyableItem}
+          />
+        );
+      })}
+
+      {isRecommendedCategory && onClickAll && (
+        <div className="bs-marketplace-buyable-item-category__button_container">
+          <button
+            className="bs-marketplace-buyable-item-category__button_container__button"
+            onClick={onClickAll}
+            type="button"
+          >
+            {t('newBookingModule.seeAllProducts')}
+          </button>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export const MarketplaceBuyableItemCategoryListForStorybook =
+  marketplaceCssHoc()(MarketplaceBuyableItemCategoryList);
+
+export default React.memo(MarketplaceBuyableItemCategoryList);

@@ -1,0 +1,24 @@
+/* Modal ID
+bs-activity--dialog
+*/
+
+#bs-activity--dialog__content {
+  padding: 0;
+  margin: 0;
+  overflow-x: hidden;
+}
+
+/* TARGETTING THE MUI MODAL ELEMENTS (use !important) */
+/* div[id^='bs-activity--dialog'] > [class*='MuiDialog-container'] {
+}
+
+div[id^='bs-activity--dialog']
+  > [class*='MuiDialog-container']
+  > [class*='MuiDialog-paper'] {
+}
+
+div[id^='bs-activity--dialog']
+  > [class*='MuiDialog-container']
+  > [class*='MuiDialog-paper']
+  > [class*='MuiDialogContent'] {
+} */

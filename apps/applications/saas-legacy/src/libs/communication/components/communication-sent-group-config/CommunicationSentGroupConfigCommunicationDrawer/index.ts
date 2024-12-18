@@ -1,0 +1,3 @@
+import CommunicationSentGroupConfigCommunicationDrawer from './CommunicationSentGroupConfigCommunicationDrawer.component';
+
+export default CommunicationSentGroupConfigCommunicationDrawer;

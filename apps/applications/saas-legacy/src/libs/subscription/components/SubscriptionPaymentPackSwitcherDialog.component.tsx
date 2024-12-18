@@ -1,0 +1,117 @@
+import React from 'react';
+import { compose } from 'recompose';
+import { useTranslation } from 'react-i18next';
+import { makeStyles } from '@material-ui/core';
+import Dialog from '@material-ui/core/Dialog';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogActions from '@material-ui/core/DialogActions';
+import Button from '@material-ui/core/Button';
+import { Form, withFormik } from 'formik';
+import Typography from '@material-ui/core/Typography';
+import WarningIcon from '@material-ui/icons/Warning';
+import LinearProgress from '@material-ui/core/LinearProgress';
+import * as Yup from 'yup';
+import type { PaymentPack } from '#src/libs/payment-packs/types';
+// @ts-expect-error
+import { Submit } from '../../../components/forms';
+// @ts-expect-error
+import PaymentPackSelectorField from '../../payment-packs/components/PaymentPackSelectorField.component';
+
+type Props = {
+  open: boolean;
+  onCancel: () => void;
+  isSubmitting: boolean;
+  paymentPackList: Array<PaymentPack>;
+  loading: boolean;
+};
+
+export const SubscriptionPaymentPackSwitcherDialog: React.FC<Props> = ({
+  open,
+  onCancel,
+  isSubmitting,
+  paymentPackList,
+  loading,
+}) => {
+  const { t } = useTranslation('subscription');
+  const classes = useStyles();
+  return (
+    <Dialog open={open}>
+      {loading && <LinearProgress />}
+      <Form>
+        <DialogTitle>{t('subscription.switchPack.form.title')}</DialogTitle>
+        <DialogContent>
+          <PaymentPackSelectorField
+            fullWidth
+            choices={paymentPackList}
+            name="payment_pack"
+          />
+          <Typography className={classes.explainText}>
+            {t('subscription.switchPack.form.explain')}
+          </Typography>
+          <div className={classes.row}>
+            <WarningIcon className={classes.leftIcon} color="error" />
+            <Typography className={classes.explainText}>
+              {t('subscription.switchPack.form.warning')}
+            </Typography>
+          </div>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={onCancel}>
+            {t('subscription.switchPack.form.cancel')}
+          </Button>
+          <Submit disabled={isSubmitting || loading}>
+            {t('subscription.switchPack.form.submit')}
+          </Submit>
+        </DialogActions>
+      </Form>
+    </Dialog>
+  );
+};
+
+const useStyles = makeStyles((theme) => ({
+  leftIcon: {
+    marginRight: theme.spacing(2),
+  },
+  row: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: theme.spacing(1),
+    backgroundColor: '#EFEFEF',
+    borderRadius: theme.spacing(1),
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(4),
+  },
+  explainText: {
+    marginBottom: theme.spacing(2),
+    marginTop: theme.spacing(2),
+  },
+}));
+
+export const PriceUpdaterSchema = Yup.object().shape({
+  subscription: Yup.number().required(),
+  payment_pack: Yup.number().required(),
+});
+
+export const SubscriptionPackSwitcherFormikHoc = withFormik({
+  // @ts-expect-error
+  mapPropsToValues: ({ subscription }) => ({
+    subscription: subscription.id,
+    payment_pack: subscription.payment_pack
+      ? subscription.payment_pack.id
+      : null,
+  }),
+  validationSchema: PriceUpdaterSchema,
+  // @ts-expect-error
+  handleSubmit: (values, { props: { onSubmit }, setSubmitting }) => {
+    onSubmit(values, {
+      onSuccess: () => setSubmitting(false),
+      onError: () => setSubmitting(false),
+    });
+  },
+});
+
+export default compose(SubscriptionPackSwitcherFormikHoc)(
+  SubscriptionPaymentPackSwitcherDialog,
+);

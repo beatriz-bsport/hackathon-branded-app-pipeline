@@ -1,0 +1,26 @@
+.bs-consumer-pass-page__content__list-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--bs-space-size-4);
+  width: 100%;
+}
+
+.bs-consumer-pass-page__content__list-container__list {
+  margin: 0;
+  padding: 0;
+}
+
+.bs-consumer-pass-page__content__list-container__list--hidden {
+  display: none;
+}
+
+.bs-consumer-pass-page__content__list-container__list__container {
+  display: flex;
+  flex-direction: column;
+}
+
+@container bsConsumerPassPage (width < 475px) {
+  .bs-consumer-pass-page__content__list-container {
+    grid-template-columns: 1fr;
+  }
+}

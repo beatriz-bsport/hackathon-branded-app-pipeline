@@ -1,0 +1,167 @@
+// @flow
+
+import React from 'react';
+import { Route, Switch, Redirect, withRouter } from 'react-router';
+import { compose, withProps, withHandlers } from 'recompose';
+import { connect } from 'react-redux';
+import { push, replace } from 'connected-react-router';
+import { DateTime } from 'luxon';
+import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '#src/libs/meta-activity/actions';
+import { fetchGroupsOfferList as fetchGroupsOfferListAction } from '#src/libs/group-offer/actions';
+import { withCustomLevel } from '#src/libs/level/selectors';
+import { withGroup } from '#src/libs/group-offer/selectors';
+import { TUTORIAL_WELCOME_DIALOG_OPEN_QUERY_PARAMS } from '#src/libs/platform-tutorial/constant';
+import { platformTutorialActivated } from '#src/libs/platform-tutorial/utils';
+import Planning from './Planning.page';
+import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
+
+import {
+  fetchOffersByDay as fetchOffersByDayAction,
+  listOffersWithPendingReplacementRequestIds as listOffersWithPendingReplacementRequestIdsAction,
+} from '../../libs/offer/actions';
+import {
+  getManagerOffersFiltered,
+  withMetaActivity,
+  withCoach,
+  withEstablishment,
+  withGender,
+  withTags,
+  getOfferHasPendingReplacementRequest,
+} from '../../libs/offer/selectors';
+
+import { fetchCoachBulk as fetchCoachBulkAction } from '../../libs/associated-coach/actions';
+import { fetchEstablishmentBulk as fetchEstablishmentBulkAction } from '../../libs/establishment/actions';
+
+const formatDate = (date: string) => {
+  const formattedDate = DateTime.fromFormat(date, 'yyyy-MM-dd');
+  return formattedDate.isValid ? formattedDate : DateTime.now();
+};
+
+export function PlanningRouter({ location }: { location: Location }) {
+  const now = DateTime.now();
+
+  const getfallBack = () => {
+    const base = `/calendar/${now.year}/${now.month}/${now.day}`;
+    if (!platformTutorialActivated()) {
+      return base;
+    }
+
+    if (
+      location.search.includes(`?${TUTORIAL_WELCOME_DIALOG_OPEN_QUERY_PARAMS}`)
+    ) {
+      return `${base}/?${TUTORIAL_WELCOME_DIALOG_OPEN_QUERY_PARAMS}`;
+    }
+
+    return base;
+  };
+  return (
+    <Switch>
+      <Route
+        component={PlanningWithDateAndOffer}
+        path="/calendar/:year/:month/:date/:offerId"
+      />
+      <Route
+        component={PlanningWithDateAndOffer}
+        path="/calendar/:year/:month/:date"
+      />
+      <Redirect from="/" to={getfallBack()} />
+    </Switch>
+  );
+}
+
+export default compose(withRouter)(PlanningRouter);
+const PlanningWithDateAndOffer = compose(
+  routerParamsToProps({
+    offerId: 'offerId:number',
+    date: 'day:number',
+    month: 'month:number',
+    year: 'year:number',
+  }),
+  connect(
+    (state) => ({
+      offers: withTags(
+        withMetaActivity(
+          withCustomLevel(
+            withEstablishment(
+              withGroup(withCoach(withGender(getManagerOffersFiltered))),
+            ),
+          ),
+        ),
+      )(state),
+      getHasPendingReplacementRequest:
+        getOfferHasPendingReplacementRequest(state),
+    }),
+
+    {
+      fetchOffersByDayActionDisptach: fetchOffersByDayAction,
+      fetchMetaActivityBulk: fetchMetaActivityBulkAction,
+      pushRouter: push,
+      replaceRouter: replace,
+      fetchCoachBulk: fetchCoachBulkAction,
+      fetchEstablishmentBulk: fetchEstablishmentBulkAction,
+      fetchGroupsOfferList: fetchGroupsOfferListAction,
+      listOffersWithPendingReplacementRequestIds:
+        listOffersWithPendingReplacementRequestIdsAction,
+    },
+  ),
+  withHandlers({
+    loadOfferData:
+      ({ day, month, year, pushRouter }) =>
+      (offer) =>
+        pushRouter(`/calendar/${year}/${month}/${day}/${offer.id}`),
+    fetchOffersByDay:
+      ({
+        fetchCoachBulk,
+        fetchEstablishmentBulk,
+        fetchOffersByDayActionDisptach,
+        fetchMetaActivityBulk,
+        fetchGroupsOfferList,
+        listOffersWithPendingReplacementRequestIds,
+      }) =>
+      (params) => {
+        fetchOffersByDayActionDisptach(params, {
+          onSuccess: (offers) => {
+            fetchMetaActivityBulk(offers.map((o) => o.meta_activity));
+            fetchCoachBulk([
+              ...offers.map((o) => o.coach),
+              ...offers.map((o) => o.coach_override),
+            ]);
+            fetchEstablishmentBulk([...offers.map((o) => o.establishment)]);
+            listOffersWithPendingReplacementRequestIds(
+              offers.map((o) => o.id),
+              true,
+            );
+            const groups = Array.from(new Set(offers?.map((o) => o.group)));
+            fetchGroupsOfferList({
+              id__in: groups,
+              page: 1,
+              page_size: groups.length,
+            });
+          },
+        });
+      },
+  }),
+  withProps(({ offers, day, month, year, offerId }) => {
+    const date = formatDate(
+      `${year}-${month < 10 ? `0${month}` : month}-${
+        day < 10 ? `0${day}` : day
+      }`,
+    );
+    const selectedOffer = offerId
+      ? offers.find((offer) => offer.id === offerId)
+      : null;
+
+    const hybridOfferLinkedToSelectedOffer =
+      offerId && selectedOffer
+        ? offers.find(
+            (offer) =>
+              offer && offer.linked_hybrid_offer_id === selectedOffer.id,
+          )
+        : null;
+    return {
+      date: date.toISODate(),
+      selectedOffer,
+      hybridOfferLinkedToSelectedOffer,
+    };
+  }),
+)(Planning);

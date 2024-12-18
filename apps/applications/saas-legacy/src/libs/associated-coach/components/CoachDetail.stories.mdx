@@ -1,0 +1,91 @@
+import { Meta, Canvas, Story, ArgsTable } from '@storybook/addon-docs';
+import CoachDetail from './CoachDetail.component';
+import { coachFactory } from '../factories';
+
+import {
+  coachPaymentRulesByKindFactory,
+  coachPaymentRuleGroupsFactory,
+} from '../../coach-payment-rules/factories';
+import { privateServiceListFactory } from '../../private-service/factory';
+
+<Meta
+  title="Library/Coach/CoachDetail "
+  component={CoachDetail}
+  argTypes={{
+    coach: {
+      description: 'Coach',
+      table: {
+        type: {
+          summary: 'Coach',
+        },
+        defaultValue: {
+          summary: 'None',
+        },
+      },
+    },
+    coachPaymentRulesByKind: {
+      description: 'Coach payment rules by kind',
+      table: {
+        type: {
+          summary: 'Array<CoachPaymentRule>',
+        },
+        defaultValue: {
+          summary: 'None',
+        },
+      },
+    },
+    coachPaymentRuleGroups: {
+      description: 'Coach payment rule groups',
+      table: {
+        type: {
+          summary: 'Array<CoachPaymentRuleGroup>',
+        },
+        defaultValue: {
+          summary: 'None',
+        },
+      },
+    },
+    setCoachPaymentRule: { action: 'clicked' },
+    setCoachWorkshopPaymentRule: { action: 'clicked' },
+    setCoachPrivatePaymentRule: { action: 'clicked' },
+    setCoachPaymentRuleGroup: { action: 'clicked' },
+    startUpdateCoach: { action: 'clicked' },
+    goToCoachPerformance: { action: 'clicked' },
+    upsertCoachPrivateSlotsPaymentRuleAction: { action: 'clicked' },
+    privateServices: {
+      description: 'Private services',
+      table: {
+        type: {
+          summary: 'Array<PrivateServiceWithSlots>',
+        },
+        defaultValue: {
+          summary: 'None',
+        },
+      },
+    },
+    editAccessToCoachSpace: { action: 'clicked' },
+  }}
+/>
+
+export const Template = (args) => <CoachDetail {...args} />;
+const coach_payment_rule_groups = coachPaymentRuleGroupsFactory(3);
+
+# Coach Detail
+
+This `CoachDetail` is a component that shows some details about the coach
+
+<Canvas>
+  <Story
+    name="Coach Detail"
+    args={{
+      coach: coachFactory(coach_payment_rule_groups[0].id),
+      coachPaymentRulesByKind: coachPaymentRulesByKindFactory(3),
+      coachPaymentRuleGroups: coach_payment_rule_groups,
+      privateServices: privateServiceListFactory(3),
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<ArgsTable story="Coach Detail" />

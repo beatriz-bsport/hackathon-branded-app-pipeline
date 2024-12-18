@@ -1,0 +1,42 @@
+import { RRule } from 'rrule';
+import { UserRole } from '#src/libs/role/types';
+import { ErrorAndLoading } from '../../state/types';
+
+export type Expense = {
+  id: number;
+  company: number;
+  date_due: string;
+  date_created: string;
+  assigned_staff: number;
+  category: string;
+  amount: number;
+  supplier: string;
+  description: string;
+  rrule: RRule;
+};
+
+export type ExpenseWithUser = Expense & {
+  assigned_staff: UserRole;
+};
+
+export type ExpenseFormValues = {
+  id?: number;
+  date_due: string;
+  assigned_staff?: number;
+  category?: string;
+  amount: number;
+  supplier: string;
+  description: string;
+  rrule?: RRule;
+};
+
+export type ExpenseState = {
+  expense: {
+    byId: { [id: number]: Expense };
+    allIds: Array<number>;
+    page: number;
+    count: number;
+    categories: Array<string>;
+    suppliers: Array<string>;
+  } & ErrorAndLoading;
+};

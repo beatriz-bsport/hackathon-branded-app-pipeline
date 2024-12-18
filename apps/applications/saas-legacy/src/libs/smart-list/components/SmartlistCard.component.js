@@ -1,0 +1,120 @@
+// @flow
+import React from 'react';
+
+import { compose } from 'recompose';
+import { withTranslation, TFunction } from 'react-i18next';
+import withStyles from '@material-ui/core/styles/withStyles';
+import Divider from '@material-ui/core/Divider';
+import Typography from '@material-ui/core/Typography';
+import EditIcon from '@material-ui/icons/Edit';
+import IconButton from '@material-ui/core/IconButton';
+import MailIcon from '@material-ui/icons/Mail';
+import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
+
+import Button from '@material-ui/core/Button';
+
+type Props = {
+  t: TFunction,
+  smartlist: ?SmartList,
+  classes: Object,
+  onEdit: ?() => void,
+  onClickConfigure: (id: number) => void,
+  onClickCampaign: (id: number) => void,
+};
+
+export const SmartlistCard = (props: Props) => {
+  if (!props.smartlist) {
+    return null;
+  }
+  return (
+    <div>
+      <div className={props.classes.paper}>
+        <div className={props.classes.row}>
+          <Typography className={props.classes.title} variant="h5">
+            {props.smartlist.name}
+          </Typography>
+          <IconButton color="primary" onClick={props.onEdit}>
+            <EditIcon />
+          </IconButton>
+        </div>
+        <Divider className={props.classes.divider} />
+        <Typography className={props.classes.title} variant="subtitle2">
+          {props.t('smart_list.description.label')}
+        </Typography>
+        <Typography className={props.classes.description} color="textSecondary">
+          {props.smartlist.description ||
+            props.t('smart_list.description.isEmpty')}
+        </Typography>
+      </div>
+      <div className={props.classes.configureButtonContainer}>
+        {!!props.onClickConfigure && (
+          <Button
+            className={props.classes.button}
+            color="primary"
+            onClick={() => props.onClickConfigure(props.smartlist.id)}
+            variant="contained"
+          >
+            <ArrowForwardIcon className={props.classes.leftIcon} />
+            {props.t('smart_list.actions.configure')}
+          </Button>
+        )}
+        {!!props.onClickCampaign && (
+          <Button
+            className={props.classes.button}
+            color="secondary"
+            onClick={() => props.onClickCampaign(props.smartlist.id)}
+            variant="contained"
+          >
+            <MailIcon className={props.classes.leftIcon} />
+            {props.t('smart_list.actions.campaign')}
+          </Button>
+        )}
+      </div>
+    </div>
+  );
+};
+
+const styles = (theme) => ({
+  divider: {
+    marginBottom: theme.spacing(2),
+  },
+  header: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingLeft: theme.spacing(2),
+  },
+  paper: {
+    padding: theme.spacing(2),
+  },
+  description: {
+    marginTop: theme.spacing(1),
+    padding: theme.spacing(2),
+    border: '1px solid rgba(0, 0, 0, 0.54)',
+    borderRadius: 8,
+  },
+  leftIcon: {
+    marginRight: theme.spacing(1),
+  },
+  configureButtonContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+  },
+  row: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  button: {
+    marginLeft: theme.spacing(2),
+  },
+});
+
+export default compose(
+  withTranslation(['smartList']),
+  withStyles(styles),
+)(SmartlistCard);

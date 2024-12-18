@@ -1,0 +1,225 @@
+import React, { useMemo, useCallback } from 'react';
+
+import Select from 'react-select';
+import { withFormik, Form, FormikProps } from 'formik';
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
+import InputLabel from '@material-ui/core/InputLabel';
+import Paper from '@material-ui/core/Paper';
+import LinearProgress from '@material-ui/core/LinearProgress';
+import { makeStyles } from '@material-ui/core/styles';
+import { useTranslation } from 'react-i18next';
+
+import { CompanyTheme, DefaultPageOption } from '#src/libs/theme/types';
+import type { OptionCallback } from '#src/state/types';
+import type { CustomAppNavigationTabsNames } from '#src/libs/settings/types';
+
+const DEFAULT_HOME_PAGE = DefaultPageOption.ACTIVITIES;
+
+interface FormikValues {
+  mobile_app_default_page: DefaultPageOption;
+}
+
+type MobileAppPersonalisationFormProps = FormikProps<FormikValues> & {
+  customNavigationTabsNames: CustomAppNavigationTabsNames;
+  loading: boolean;
+};
+
+type Props = {
+  customNavigationTabsNames: CustomAppNavigationTabsNames;
+  loading: boolean;
+  theme: CompanyTheme;
+  onSubmit: (id: number, data: FormData, options: OptionCallback) => void;
+};
+
+const MobileAppPersonalisationForm: React.FC<
+  MobileAppPersonalisationFormProps
+> = ({
+  isSubmitting,
+  isValid,
+  handleSubmit,
+  setFieldValue,
+  values,
+  initialValues,
+  customNavigationTabsNames,
+  loading,
+}) => {
+  const { t } = useTranslation('settings');
+  const classes = useStyles();
+
+  const mobileAppDefaultPageOptions = useMemo(
+    () => [
+      {
+        label:
+          customNavigationTabsNames?.schedule ||
+          t(
+            'mobilePersonalization.customize.defaultPage.pageContent.options.schedule',
+          ),
+        value: DefaultPageOption.SCHEDULE,
+      },
+      {
+        label:
+          customNavigationTabsNames?.bookings ||
+          t(
+            'mobilePersonalization.customize.defaultPage.pageContent.options.bookings',
+          ),
+        value: DefaultPageOption.BOOKINGS,
+      },
+      {
+        label:
+          customNavigationTabsNames?.activities ||
+          t(
+            'mobilePersonalization.customize.defaultPage.pageContent.options.activities',
+          ),
+        value: DefaultPageOption.ACTIVITIES,
+      },
+      {
+        label:
+          customNavigationTabsNames?.studio ||
+          t(
+            'mobilePersonalization.customize.defaultPage.pageContent.options.studio',
+          ),
+        value: DefaultPageOption.STUDIO,
+      },
+      {
+        label:
+          customNavigationTabsNames?.profile ||
+          t(
+            'mobilePersonalization.customize.defaultPage.pageContent.options.profile',
+          ),
+        value: DefaultPageOption.PROFILE,
+      },
+    ],
+    [customNavigationTabsNames, t],
+  );
+
+  const pageDisplayCurrent = React.useMemo(
+    () =>
+      mobileAppDefaultPageOptions.find(
+        (element) => element.value === values.mobile_app_default_page,
+      ),
+    [mobileAppDefaultPageOptions, values.mobile_app_default_page],
+  );
+
+  const handleOnChangeDefaultPage = useCallback(
+    (option: { label: string; value: DefaultPageOption }) => {
+      setFieldValue('mobile_app_default_page', option.value);
+    },
+    [setFieldValue],
+  );
+
+  const isSubmitButtonDisabled =
+    isSubmitting ||
+    !isValid ||
+    initialValues.mobile_app_default_page === values.mobile_app_default_page;
+
+  return (
+    <Form onSubmit={handleSubmit}>
+      <div className={classes.main}>
+        <Paper className={classes.paper}>
+          <Typography className={classes.namesHeader}>
+            {t('mobilePersonalization.customize.defaultPage.title')}
+          </Typography>
+          <InputLabel>
+            {t(
+              'mobilePersonalization.customize.defaultPage.pageContent.helperText',
+            )}
+          </InputLabel>
+          <div className={classes.selector}>
+            <div className={classes.selector}>
+              {loading ? (
+                <LinearProgress />
+              ) : (
+                <Select
+                  name="mobile_app_default_page"
+                  onChange={handleOnChangeDefaultPage}
+                  options={mobileAppDefaultPageOptions}
+                  placeholder={t(
+                    'mobilePersonalization.customize.defaultPage.pageContent.placeholder',
+                  )}
+                  value={pageDisplayCurrent}
+                  variant="outlined"
+                />
+              )}
+            </div>
+          </div>
+          <Button
+            className={classes.confirm}
+            color="primary"
+            disabled={isSubmitButtonDisabled}
+            type="submit"
+            variant="contained"
+          >
+            {t('common:save')}
+          </Button>
+        </Paper>
+      </div>
+    </Form>
+  );
+};
+
+const useStyles = makeStyles((theme) => ({
+  main: {
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  title: {
+    marginBottom: theme.spacing(3),
+  },
+  paper: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: theme.spacing(2),
+    padding: theme.spacing(2),
+  },
+  namesHeader: {
+    fontSize: 20,
+    fontWeight: 500,
+  },
+  confirm: {
+    width: '100%',
+    [theme.breakpoints.up('sm')]: {
+      width: 'fit-content',
+    },
+  },
+  selector: {
+    width: '100%',
+    [theme.breakpoints.up('sm')]: {
+      width: '50%',
+    },
+  },
+}));
+
+const MobileAppPersonalisationFormFormikHOC = withFormik<Props, FormikValues>({
+  mapPropsToValues: ({ theme, customNavigationTabsNames, loading }) => {
+    if (theme) {
+      return {
+        mobile_app_default_page: theme.mobile_app_default_page,
+        customNavigationTabsNames,
+        loading,
+      };
+    }
+    return {
+      mobile_app_default_page: DEFAULT_HOME_PAGE,
+      customNavigationTabsNames,
+      loading,
+    };
+  },
+  enableReinitialize: true,
+  handleSubmit: (values, { props: { onSubmit, theme }, setSubmitting }) => {
+    const data = new FormData();
+    data.append('mobile_app_default_page', values.mobile_app_default_page);
+    onSubmit(theme.company, data, {
+      onSuccess: () => {
+        setSubmitting(false);
+      },
+      onError: () => {
+        setSubmitting(false);
+      },
+    });
+  },
+});
+
+export default React.memo(
+  MobileAppPersonalisationFormFormikHOC(MobileAppPersonalisationForm),
+);

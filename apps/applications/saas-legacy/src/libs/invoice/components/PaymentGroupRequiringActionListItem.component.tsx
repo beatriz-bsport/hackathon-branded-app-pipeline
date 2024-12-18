@@ -1,0 +1,109 @@
+import React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import { useTranslation } from 'react-i18next';
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
+import WarningIcon from '@material-ui/icons/Warning';
+import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
+
+import { PaymentGroup } from '../types';
+import { formatAsDatetimeAdapted } from '../../../utils/datetime';
+
+type Props = {
+  paymentGroup: PaymentGroup;
+  // @ts-expect-error
+  onValidate: (PaymentGroup) => void;
+};
+
+export const PaymentGroupRequiringActionListItem = (props: Props) => {
+  const classes = useStyles();
+  const { t } = useTranslation(['invoice']);
+  const { paymentGroup } = props;
+  return (
+    <div className={classes.container}>
+      <div className={classes.innerContainer}>
+        <div className={classes.row}>
+          <WarningIcon color="error" />
+          <div className={classes.leftText}>
+            <Typography>
+              {`${t(
+                `paymentMethod.label.${paymentGroup.payment_method_identifier}`,
+              )}`}
+            </Typography>
+            <Typography color="textSecondary" variant="caption">
+              {/* @ts-expect-error */}
+              {formatAsDatetimeAdapted(paymentGroup.date_created, 'DDD')}
+            </Typography>
+            <Typography variant="caption">
+              {`${t(`paymentGroup.requiresAction`)}`}
+            </Typography>
+          </div>
+        </div>
+        <div className={classes.line} />
+        <div className={classes.secondaryAction}>
+          <div>
+            {getCurrencyDisplayWithPrice(
+              // @ts-expect-error
+              parseFloat(parseInt(paymentGroup.price_cts, 10) / 100).toFixed(2),
+            )}
+          </div>
+        </div>
+      </div>
+      <div>
+        <Button
+          color="primary"
+          onClick={() => props.onValidate(paymentGroup)}
+          variant="outlined"
+        >
+          {t('paymentGroup.validateRequiresAction')}
+        </Button>
+      </div>
+    </div>
+  );
+};
+
+const useStyles = makeStyles((theme) => ({
+  secondaryAction: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+  },
+  line: {
+    flexGrow: 1,
+    borderBottom: '1px dashed gray',
+    marginRight: theme.spacing(4),
+    marginLeft: theme.spacing(4),
+  },
+  alignRight: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+  },
+  container: {
+    width: '100%',
+  },
+  innerContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginRight: theme.spacing(3),
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(1),
+  },
+  row: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  leftText: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+    marginLeft: theme.spacing(1),
+  },
+  revert: {
+    textDecoration: 'line-through',
+  },
+}));
+
+export default PaymentGroupRequiringActionListItem;

@@ -1,0 +1,318 @@
+// @flow
+//
+// DEPRECATIO NOTICE
+// ----------------------------------------------
+//
+// This page / component is still used for old invoice (is_v2 === false)
+//
+// However no further improvements should be made inside it, as all
+// invoices are generated as v2, exception being old subscription v1
+// still running
+//
+// ------------------------------------------------
+
+import React, { Component } from 'react';
+
+import { connect } from 'react-redux';
+import { withTranslation } from 'react-i18next';
+import { goBack, push as pushRouter } from 'connected-react-router';
+import { compose, withHandlers, withProps } from 'recompose';
+import { withRouter } from 'react-router';
+import Grow from '@material-ui/core/Grow';
+import Hidden from '@material-ui/core/Hidden';
+import { withStyles } from '@material-ui/core/styles';
+import Fab from '@material-ui/core/Fab';
+import PersonIcon from '@material-ui/icons/Person';
+import ObjectLevelPermissionWrapper from '#src/libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
+import CreditMemberBadge from '../../libs/member/components/CreditMemberBadge.component';
+
+import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
+import {
+  createOrUpdateInvoice,
+  revertInvoice,
+  fetchSpecificInvoice,
+  returnPayment,
+  updatePaymentMethod as updatePaymentMethodActions,
+  fetchPaymentList,
+  fetchInvoiceItemList,
+  finalizeInvoice,
+  checkInvoiceInfo as checkInvoiceInfoActions,
+} from '../../libs/invoice/actions';
+import { requestSetupIntentSecret as requestSetupIntentSecretAPI } from '../../libs/payment/api';
+import { getBuyableItem } from '../../libs/invoice/selectors';
+import { fetchCompanyUserRoles } from '../../libs/role/actions';
+import withTitle from '../../hocs/with-title.hoc';
+import { formatAsDate } from '../../utils/datetime';
+import { fetchMember } from '../../libs/member/actions';
+import { fetchShopItemAsManager as fetchShopItems } from '../../libs/shop/actions/shopitem';
+import { fetchAllPaymentPacks } from '../../libs/payment-packs/actions';
+import { getSavedPaymentMethodList } from '../../libs/payment/selectors';
+import { fetchPaymentMethodList } from '../../libs/payment/actions';
+
+import { fetchPrivatePassList } from '../../libs/private-service/actions';
+
+import type { Invoice } from '../../api/types';
+import type { Member } from '../../libs/member/types';
+
+import InvoiceForm from '../../libs/invoice/components/InvoiceForm.component';
+import RevertInvoiceDialog from '../../libs/invoice/dialog/RevertInvoiceDialog.component';
+import ObjectLevelPermissionProvider from '../../libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+
+type Props = {
+  updatingInvoice: boolean,
+  uuid: string,
+
+  classes: Object,
+
+  isReturningPayment: boolean,
+  returnPayment: (paymentId: string, invoiceId: string) => void,
+
+  invoice: Invoice,
+  member: Member,
+
+  goBack: () => void,
+  fetchInvoice: (uuid: string, options: OptionCallback) => void,
+  fetchShopItems: () => void,
+  fetchAllPaymentPacks: () => void,
+  goToMemberPage: (id: number) => void,
+  finalizeInvoice: (uuid: string, options: OptionCallback) => void,
+  fetchMember: (id: number) => void,
+  updatePaymentMethod: (uuid: number, payment_method: number) => void,
+  goToSubscription: (id: number) => void,
+  updateInvoice: (invoiceData: InvoiceData) => void,
+  revertInvoice: (uuid: string) => void,
+
+  fetchCompanyUserRoles: () => void,
+
+  fetchPaymentList: (params: *) => void,
+  fetchInvoiceItemList: (params: *) => void,
+  availableBuyableItems: { [buyable_item_identifier: number]: Array<any> },
+  memberId: number,
+  fetchPaymentMethodList: (params: any) => void,
+  savedPaymentMethodList: Array<PaymentMethod>,
+  id: ?number,
+  requestSetupIntentSecret: () => void,
+};
+
+type State = {
+  revertDialogOpen: boolean,
+};
+
+export class DEPRECATEDInvoiceFormPage extends Component<Props, State> {
+  state = {
+    revertDialogOpen: false,
+  };
+
+  fetchData = () => {
+    if (this.props.uuid) {
+      this.props.fetchPaymentList({
+        invoice__uuid: this.props.uuid,
+        page_size: 100,
+      });
+      this.props.fetchInvoiceItemList({
+        invoice__uuid: this.props.uuid,
+        page_size: 100,
+      });
+      this.props.fetchInvoice(this.props.uuid, {
+        onSuccess: (invoice) => {
+          this.props.fetchMember(invoice.member);
+        },
+      });
+    }
+  };
+
+  componentDidMount() {
+    this.props.fetchShopItems();
+    this.props.fetchAllPaymentPacks();
+    this.fetchData();
+    this.props.fetchCompanyUserRoles();
+    if (this.props.memberId) {
+      this.props.fetchPaymentMethodList({ member: this.props.memberId });
+    }
+  }
+
+  componentDidUpdate(prevProps: Props) {
+    const { props } = this;
+    if (prevProps.uuid !== props.uuid && props.uuid) {
+      this.fetchData();
+    }
+    if (this.props.memberId && this.props.memberId !== prevProps.memberId) {
+      this.props.fetchPaymentMethodList({ member: this.props.memberId });
+    }
+  }
+
+  render() {
+    const { invoice, goToMemberPage, updatingInvoice } = this.props;
+
+    if (!invoice || !invoice.member) {
+      return <LinearProgress />;
+    }
+
+    return (
+      <div>
+        <ObjectLevelPermissionProvider requiredPermission="member.allowed_actions.accessProfile">
+          {(hasAccessMemberProfilePermission) => (
+            <InvoiceForm
+              availableBuyableItems={this.props.availableBuyableItems}
+              finalizeInvoice={(options) =>
+                this.props.finalizeInvoice(this.props.uuid, options)
+              }
+              goToMemberPage={
+                hasAccessMemberProfilePermission &&
+                (() => goToMemberPage(invoice.member.id))
+              }
+              goToSubscription={this.props.goToSubscription}
+              invoice={invoice}
+              invoiceItemList={this.props.invoice.invoice_items}
+              isReturningPayment={this.props.isReturningPayment}
+              member={invoice.member}
+              onCancel={this.props.goBack}
+              onSubmit={this.props.updateInvoice}
+              paymentItemList={this.props.invoice.payments}
+              processing={updatingInvoice}
+              refreshSavedPaymentMethodList={() => {
+                this.props.fetchPaymentMethodList({
+                  member: this.props.invoice.member.id,
+                });
+              }}
+              requestSetupIntentSecret={this.props.requestSetupIntentSecret}
+              returnPayment={(payment) =>
+                this.props.returnPayment(payment, this.props.uuid)
+              }
+              revertInvoice={() => this.setState({ revertDialogOpen: true })}
+              savedPaymentMethodList={this.props.savedPaymentMethodList}
+              updatePaymentMethod={this.props.updatePaymentMethod}
+            />
+          )}
+        </ObjectLevelPermissionProvider>
+        <ObjectLevelPermissionWrapper
+          forcedBehavior="hidden"
+          requiredPermission="member.allowed_actions.accessProfile"
+        >
+          <div className={this.props.classes.navigationButton}>
+            <Grow in={this.props.invoice && this.props.invoice.member}>
+              <CreditMemberBadge
+                credit={this.props.invoice.member.credit_account_balance}
+                unpaidAmount={this.props.invoice.member.total_unpaid_amount}
+              >
+                <Fab
+                  color="secondary"
+                  onClick={() =>
+                    this.props.goToMemberPage(this.props.invoice.member.id)
+                  }
+                  variant="contained"
+                >
+                  <PersonIcon />
+                  <Hidden xsDown>
+                    <span className={this.props.classes.rightText}>
+                      {this.props.invoice.member.name}
+                    </span>
+                  </Hidden>
+                </Fab>
+              </CreditMemberBadge>
+            </Grow>
+          </div>
+        </ObjectLevelPermissionWrapper>
+
+        <RevertInvoiceDialog
+          hasSubscription={!!invoice.plannedinvoice}
+          onClose={() => this.setState({ revertDialogOpen: false })}
+          onSubmit={() => {
+            this.props.revertInvoice(
+              this.props.uuid,
+              {},
+              {
+                onSuccess: this.fetchData,
+              },
+            );
+            this.setState({ revertDialogOpen: false });
+          }}
+          open={this.state.revertDialogOpen}
+        />
+      </div>
+    );
+  }
+}
+
+const styles = (theme) => ({
+  navigationButton: {
+    position: 'fixed',
+    bottom: theme.spacing(2),
+    right: theme.spacing(4),
+  },
+  rightText: {
+    marginRight: theme.spacing(1),
+  },
+});
+
+export default compose(
+  withTranslation(),
+  withStyles(styles),
+  withRouter,
+  connect(
+    (state) => ({
+      memberLoading: state.member.loading,
+      updatingInvoice: state.invoice.createOrUpdatePending,
+      isReturningPayment: state.invoice.returnPayment.loading,
+      availableBuyableItems: getBuyableItem(state),
+      savedPaymentMethodList: getSavedPaymentMethodList(state),
+    }),
+    {
+      fetchPaymentList,
+      fetchInvoiceItemList,
+      fetchMember,
+      fetchShopItems,
+      fetchCompanyUserRoles,
+      fetchAllPaymentPacks,
+      fetchPrivatePassList,
+      goBack,
+      goToMemberPage: (id) => pushRouter(`/member/${id}/`),
+      checkInvoiceInfo: checkInvoiceInfoActions,
+      goToSubscription: (id) => pushRouter(`/subscription/${id}/`),
+      updateInvoice: createOrUpdateInvoice,
+      revertInvoice,
+      finalizeInvoice,
+      fetchInvoice: fetchSpecificInvoice,
+      returnPayment,
+      updatePaymentMethod: updatePaymentMethodActions,
+      fetchPaymentMethodList,
+    },
+  ),
+  withProps(({ invoice }) => ({
+    memberId: invoice && invoice.member && invoice.member.id,
+  })),
+  withHandlers({
+    updatePaymentMethod:
+      ({ updatePaymentMethod }) =>
+      (paymentUuid, newMethod, options) =>
+        updatePaymentMethod(paymentUuid, newMethod, {
+          onSuccess: (payment) => {
+            if (options && options.onSuccess) options.onSuccess(payment);
+          },
+          onError: options && options.onError,
+        }),
+    requestSetupIntentSecret:
+      ({ memberId }) =>
+      () =>
+        requestSetupIntentSecretAPI(memberId),
+    updateInvoice:
+      ({ updateInvoice, uuid, checkInvoiceInfo, goToMemberPage }) =>
+      (invoiceData) => {
+        updateInvoice(
+          { ...invoiceData, uuid },
+          {
+            onSuccess: (invoice) => {
+              goToMemberPage(invoice.member);
+              checkInvoiceInfo(invoice.uuid);
+            },
+          },
+        );
+      },
+  }),
+  withTitle(
+    ({ t, uuid, invoice }) =>
+      `${t('titles:invoice.invoiceEdit')} - ${
+        uuid ? uuid.slice(0, 8).toUpperCase() : ''
+      } - ${invoice && invoice.date ? formatAsDate(invoice.date) : ''}`,
+  ),
+)(DEPRECATEDInvoiceFormPage);

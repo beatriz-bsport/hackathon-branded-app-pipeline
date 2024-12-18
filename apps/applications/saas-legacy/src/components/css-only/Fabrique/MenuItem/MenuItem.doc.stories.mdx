@@ -1,0 +1,65 @@
+import { Meta, Canvas, Story , Description, ArgsTable, Source} from '@storybook/addon-docs';
+
+import * as MenuItemStories from './MenuItem.stories'
+
+import {MenuItemStoryBook as MenuItem} from '.'
+
+import dedent from 'ts-dedent';
+
+<Meta title="Fabrique/MenuItem/Doc" component={MenuItem} />
+
+# MenuItem
+
+## Description
+
+The **`MenuItem`** item populates dropdown with actions. Items can be placed either inside a group or directly inside a **`Menu`** component.
+
+###
+
+## Usage
+
+Group **`MenuItem`** items into **`MenuItemList`** based on related categories.
+
+### Text/text with icon
+
+#### Usage
+
+- **Button** - does a desired function (ex.: cancels a session; confirms/cancels the dialog).
+- **Link** - redirects the user to another page.
+
+<Canvas withSource='none' withToolbar>
+  <Story id="fabrique-menuitem-stories--textmenuitem"/>  
+  <Story id="fabrique-menuitem-stories--textmenuitemwithicon"/>
+</Canvas>
+
+#### Example
+
+<Source dark language='tsx' id="fabrique-menuitem-stories--textmenuitem" />
+
+### Checkbox
+
+<Canvas withSource='none' withToolbar>
+  <Story id="fabrique-menuitem-stories--checkboxmenuitem"/>
+</Canvas>
+
+#### Example
+
+<Source dark language='tsx' id="fabrique-menuitem-stories--checkboxmenuitem" />
+
+### Radio
+
+<Canvas withSource='none' withToolbar>
+  <Story id="fabrique-menuitem-stories--radiomenuitem"/>  
+</Canvas>
+
+#### Example
+
+<Source dark language='tsx' id="fabrique-menuitem-stories--radiomenuitem" />
+
+## Css card specific variables
+
+<Source
+  language='css'
+  dark
+  format={false}
+/>

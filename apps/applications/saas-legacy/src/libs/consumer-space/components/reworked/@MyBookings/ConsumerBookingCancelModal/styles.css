@@ -1,0 +1,23 @@
+.bs-consumer-booking-cancel-modal__blanket {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* .bs-consumer-booking-cancel-modal__dialog {} */
+
+/* .bs-consumer-booking-cancel-modal__dialog__text {} */
+
+.bs-consumer-booking-cancel-modal__dialog__alert {
+  margin: var(--bs-space-size-4) 0;
+}
+
+.bs-consumer-booking-cancel-modal__dialog__list {
+  gap: 0;
+  margin-top: var(--bs-space-size-3);
+}
+
+.bs-consumer-booking-cancel-modal__dialog__list__item {
+  margin-bottom: var(--bs-space-size-3);
+  padding: 0;
+}

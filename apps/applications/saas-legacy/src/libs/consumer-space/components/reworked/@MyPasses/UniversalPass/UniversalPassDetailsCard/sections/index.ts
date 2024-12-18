@@ -1,0 +1,13 @@
+import UniversalPassDetailsCardCompatibilitySection from './UniversalPassDetailsCardCompatibilitySection.component';
+import UniversalPassDetailsCardCompatibleEstablishmentsSection from './UniversalPassDetailsCardCompatibleEstablishmentsSection.component';
+import UniversalPassDetailsCardDescriptionSection from './UniversalPassDetailsCardDescriptionSection.component';
+import UniversalPassDetailsCardHeader from './UniversalPassDetailsCardHeader.component';
+import UniversalPassDetailsCardSharedSection from './UniversalPassDetailsCardSharedSection.component';
+
+export {
+  UniversalPassDetailsCardCompatibilitySection,
+  UniversalPassDetailsCardCompatibleEstablishmentsSection,
+  UniversalPassDetailsCardDescriptionSection,
+  UniversalPassDetailsCardHeader,
+  UniversalPassDetailsCardSharedSection,
+};

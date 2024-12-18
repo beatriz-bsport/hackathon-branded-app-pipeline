@@ -1,0 +1,92 @@
+import React, { useCallback } from 'react';
+import { useTranslation } from 'react-i18next';
+import { makeStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import DialogActions from '@material-ui/core/DialogActions';
+import { Form } from 'formik';
+import GenericResponsiveDrawer from '#src/components/genericDrawer/GenericResponsiveDrawer.component';
+import PaymentPackTemplateEditConfirmationDialog from '#src/libs/payment-packs/components/PaymentPackTemplateEditConfirmationDialog.component';
+// @ts-expect-error
+import { Submit } from '#src/components/forms';
+import PaymentPackTemplateForm, {
+  PaymentPackTemplateFormikHOC,
+} from './PaymentPackTemplateForm.component';
+import type { PaymentPackTemplateAPI } from '#src/libs/payment-packs/types';
+import type { OptionCallback } from '#src/state/types';
+
+type Props = {
+  open?: boolean;
+  onClose: () => void;
+  onSubmit: (
+    data: PaymentPackTemplateAPI,
+    options: OptionCallback<PaymentPackTemplateAPI>,
+  ) => Promise<void>;
+  handleSubmit: () => void;
+  isSubmitting?: boolean;
+  setSubmitting: (isSubmitting: boolean) => void;
+  isEditConfirmationDialogOpen?: boolean;
+  setIsEditConfirmationDialogOpen?: (
+    isEditConfirmationDialogOpen: boolean,
+  ) => void;
+  isUniversal?: boolean;
+};
+
+const PaymentPackTemplateFormDrawer: React.FC<Props> = (props: Props) => {
+  const { t } = useTranslation(['paymentPack']);
+  const classes = useStyles();
+  const { isSubmitting } = props;
+
+  const handleCloseEditConfirmationDialog = useCallback(() => {
+    props.setIsEditConfirmationDialogOpen(false);
+    props.setSubmitting(false);
+  }, [props]);
+  return (
+    <GenericResponsiveDrawer
+      onClose={props.onClose}
+      open={props.open}
+      title={
+        props.isUniversal
+          ? t('paymentPackTemplate.form.universalPassTitle')
+          : t('paymentPackTemplate.form.title')
+      }
+    >
+      <Form>
+        <PaymentPackTemplateForm {...props} />
+        <DialogActions className={classes.actions}>
+          <Button disabled={isSubmitting} onClick={props.onClose}>
+            {t('paymentPackTemplate.form.actions.close')}
+          </Button>
+          <Submit disabled={isSubmitting}>
+            {isSubmitting && (
+              <CircularProgress
+                className={classes.progress}
+                color="inherit"
+                size={12}
+              />
+            )}
+            {t('paymentPackTemplate.form.actions.submit')}
+          </Submit>
+        </DialogActions>
+        <PaymentPackTemplateEditConfirmationDialog
+          onClose={handleCloseEditConfirmationDialog}
+          onSubmit={props.handleSubmit}
+          open={props.isEditConfirmationDialogOpen}
+        />
+      </Form>
+    </GenericResponsiveDrawer>
+  );
+};
+
+const useStyles = makeStyles((theme) => ({
+  progress: {
+    marginRight: theme.spacing(1),
+  },
+  actions: {
+    paddingBottom: theme.spacing(2),
+  },
+}));
+
+export default React.memo(
+  PaymentPackTemplateFormikHOC(PaymentPackTemplateFormDrawer),
+);

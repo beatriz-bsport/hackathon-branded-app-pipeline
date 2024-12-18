@@ -1,0 +1,23 @@
+.bs-consumer__subscription__blanket {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.bs-consumer__subscription__modal-dialog__content {
+  white-space: pre-wrap;
+}
+
+.bs-consumer__subscription__payment-dialog__alert {
+  background: var(--bs-color-background-warning-weak);
+}
+
+.bs-consumer__subscription__payment__confirmation-dialog__content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--bs-space-size-6);
+  align-items: center;
+}
+
+.bs-consumer__subscription__payment__confirmation-dialog__content__text {
+}

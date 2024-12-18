@@ -1,0 +1,17 @@
+.bs-fabrique-textfield {
+  margin-bottom: var(--bs-space-size-2);
+  width: 100%;
+}
+
+.bs-fabrique-textfield--layout-active {
+  margin-top: calc(var(--bs-space-size-4) * -1);
+}
+
+.bs-fabrique-textfield--space-field {
+  padding-top: var(--bs-space-size-4);
+  padding-bottom: var(--bs-space-size-4);
+}
+
+.bs-fabrique-textfield__input-container {
+  width: 100%;
+}

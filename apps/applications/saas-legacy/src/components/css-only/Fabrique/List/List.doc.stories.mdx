@@ -1,0 +1,36 @@
+import { Meta, Canvas, Story, Source } from '@storybook/addon-docs';
+
+import {ListStorybook as List} from './List.component'
+
+<Meta title="Fabrique/List&ListItem/ListDoc" component={List} />
+
+# List
+
+## Description
+List act as a container of the union of multiple ListItem and can contain a title.
+
+### Plain text 
+
+#### Usage 
+A "List" can organizes multiple "ListItem" elements, each featuring descriptive text, for structured presentation of information.
+<Canvas withSource='none' withToolbar isColumn >
+  <Story id="fabrique-list-listitem-liststories--listdefault"/>  
+</Canvas>
+
+#### Example
+
+<Source dark language='tsx' id="fabrique-list-listitem-liststories--listdefault" />
+
+### Actions
+
+#### Usage
+A "List" can organizes multiple "ListItem" elements, each featuring a checkbox or a radiobutton.
+<Canvas withSource='none' withToolbar isColumn >
+  <Story id="fabrique-list-listitem-liststories--listradio"/>
+  <Story id="fabrique-list-listitem-liststories--listcheckbox"/>
+</Canvas>
+
+#### Example
+
+<Source dark language='tsx' id="fabrique-list-listitem-liststories--listcheckbox" />
+

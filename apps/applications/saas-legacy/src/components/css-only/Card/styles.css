@@ -1,0 +1,43 @@
+.bs-generic-card {
+  border: 2px solid var(--border-color);
+  border-radius: var(--border-radius-2);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.bs-generic-card--selected {
+  border-color: var(--color-primary-main);
+  background-color: var(--color-primary-main-background);
+}
+
+.size-m {
+  width: 389px;
+}
+
+.size-s {
+  width: 190px;
+}
+
+.size-l {
+  width: 580px;
+}
+
+.size-ml {
+  width: 490px;
+}
+
+.size-xl {
+  width: 750px;
+}
+
+.size-auto {
+  width: auto;
+}
+
+@container (width < 599px) {
+  .bs-generic-card {
+    width: 100%;
+  }
+}

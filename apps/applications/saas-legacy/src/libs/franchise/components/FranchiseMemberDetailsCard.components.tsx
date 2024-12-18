@@ -1,0 +1,88 @@
+import React from 'react';
+import { useTranslation } from 'react-i18next';
+import { DateTime } from 'luxon';
+import {
+  Event as EventIcon,
+  Room as RoomIcon,
+  Phone as PhoneIcon,
+  AlternateEmail as AlternateEmailIcon,
+  LocalHospital as LocalHospitalIcon,
+} from '@material-ui/icons';
+import Avatar from '@material-ui/core/Avatar';
+import Typography from '@material-ui/core/Typography';
+
+import makeStyles from '@material-ui/core/styles/makeStyles';
+import type { FranchiseUser } from '#src/libs/franchise/types';
+import { addressToReadableAddress } from '#src/libs/franchise/utils';
+
+export type Props = {
+  user: FranchiseUser;
+};
+
+const FranchiseMemberDetailsCard: React.FC<Props> = ({ user }) => {
+  const { t } = useTranslation('franchise');
+  const classes = useStyles();
+
+  return (
+    <div className={classes.card}>
+      <div className={classes.header}>
+        <Avatar alt={user.name} className={classes.avatar} src={user.photo} />
+        <div className={classes.headerTitle}>
+          <Typography variant="h5">{user.name}</Typography>
+        </div>
+      </div>
+      <Typography className={classes.row} variant="body1">
+        <EventIcon className={classes.icon} />
+        {user.birthday
+          ? DateTime.fromISO(user.birthday).toLocaleString(DateTime.DATE_SHORT)
+          : '-'}
+      </Typography>
+      <Typography className={classes.row} variant="body1">
+        <RoomIcon className={classes.icon} />
+        {addressToReadableAddress(user.address)}
+      </Typography>
+      <Typography className={classes.row} variant="body1">
+        <PhoneIcon className={classes.icon} />
+        {user?.phone ?? '-'}
+      </Typography>
+      <Typography className={classes.row} variant="body1">
+        <AlternateEmailIcon className={classes.icon} />
+        {user?.email ?? '-'}
+      </Typography>
+      <Typography className={classes.row} variant="body1">
+        <LocalHospitalIcon className={classes.icon} color="error" />
+        {user.vaccination_status ? t('member.isVaccinated') : '-'}
+      </Typography>
+    </div>
+  );
+};
+
+const useStyles = makeStyles((theme) => ({
+  card: {
+    backgroundColor: theme.palette.common.white,
+    borderRadius: 5,
+    boxShadow: theme.shadows[2],
+    padding: theme.spacing(2),
+  },
+  header: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+  avatar: {
+    height: theme.spacing(8),
+    width: theme.spacing(8),
+  },
+  headerTitle: {
+    marginLeft: theme.spacing(2),
+  },
+  row: {
+    display: 'flex',
+    alignItems: 'center',
+    marginTop: theme.spacing(2),
+  },
+  icon: {
+    marginRight: theme.spacing(2),
+  },
+}));
+
+export default React.memo(FranchiseMemberDetailsCard);

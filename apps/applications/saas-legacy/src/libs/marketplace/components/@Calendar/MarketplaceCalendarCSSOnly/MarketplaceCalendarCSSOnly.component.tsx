@@ -1,0 +1,238 @@
+import React, { useMemo } from 'react';
+// @ts-expect-error
+import { withTranslation, TFunction } from 'react-i18next';
+import { DateTime, Interval } from 'luxon';
+
+import CircularProgress from '@material-ui/core/CircularProgress';
+import EventAvailableIcon from '@material-ui/icons/EventAvailable';
+import EventBusyIcon from '@material-ui/icons/EventBusy';
+import { pure } from 'recompose';
+import MarketplaceFilterComponent from '#src/libs/marketplace/components/@RessourceFilter/MarketplaceFilterCSSOnly/MarketplaceFilterCSSOnly.component';
+import { Level } from '#src/libs/level/types';
+import { MetaActivity } from '#src/libs/meta-activity/types';
+import { Offer } from '#src/libs/offer/types';
+import { Theme } from '#src/libs/theme/types';
+import MarketplaceDatePicker from '#src/libs/marketplace/components/@Date/MarketplaceDatePicker';
+import { Coach } from '#src/libs/associated-coach/types';
+import type { LuxonDateTime } from '#src/types';
+import type {
+  Establishment,
+  EstablishmentGroup,
+} from '../../../../establishment/types';
+import MarketplaceWeekTimetableV2 from '../MarketplaceWeekTimeTableCSSOnly/MarketplaceWeekTimeTableCSSOnly.component';
+
+import './MarketplaceCalendarCSSOnly.css';
+
+const LoadingIndicator = () => (
+  <div className="bs-calendar--loading">
+    <CircularProgress />
+  </div>
+);
+
+type Props = {
+  onSelectDate: (date: string) => void;
+  selectedDate: LuxonDateTime;
+  offers: Array<Offer>;
+  genderCount: Object;
+  group: Object;
+  loading: boolean;
+  onClickOffer: () => void;
+  coaches: Array<Coach>;
+  establishments: Array<Establishment>;
+  metaActivities: { [key: number]: MetaActivity };
+  // @ts-expect-error
+  setFilters: (any) => void;
+  filters: any;
+  forceDayDisplayOnly: boolean;
+  onClickBook: (offer: Offer) => void;
+  onClickBookOption: (offer: Offer) => void;
+  showOfferFilling: boolean;
+  hideCoach: boolean;
+  activityLoading: boolean;
+  coachLoading: boolean;
+  establishmentLoading: boolean;
+  showOfferGender?: boolean;
+  establishmentGroupList: Array<EstablishmentGroup>;
+  showMultiLocalization: boolean;
+  nextAvailableOffer: Offer;
+  goToFirstAvailableSession: () => void;
+  getLevel: { [id: number]: Level };
+  bookedOffers?: number[];
+  t: TFunction;
+  activeCustomLevels: Level[];
+  theme: Theme;
+  variant?: 'activityName' | 'coach' | 'time';
+  groupSessionByPeriod: boolean;
+  events: Array<Event>;
+  onSearch: (searchText: string) => void;
+  onClearInput: () => void;
+  searchedOffers: Offer[];
+  startWeekOnDaySelected?: boolean;
+  isCardModeDisplay: boolean;
+  refContainer: React.RefObject<HTMLDivElement>;
+};
+
+export const MarketplaceCalendar = (props: Props) => {
+  const {
+    onSelectDate,
+    selectedDate,
+    offers,
+    coaches,
+    metaActivities,
+    loading,
+    setFilters,
+    filters,
+    forceDayDisplayOnly,
+    isCardModeDisplay,
+    nextAvailableOffer,
+    groupSessionByPeriod,
+    onSearch,
+    onClearInput,
+    searchedOffers,
+    startWeekOnDaySelected,
+    refContainer,
+    theme,
+  } = props;
+
+  const weekOffers = useMemo(() => {
+    const interval = Interval.fromDateTimes(
+      selectedDate,
+      selectedDate.plus({ days: 7 }),
+    );
+
+    return (offers ?? []).filter((offer) =>
+      startWeekOnDaySelected
+        ? interval.contains(DateTime.fromISO(offer.date_start))
+        : DateTime.fromISO(offer.date_start)
+            .startOf('week', { useLocaleWeeks: true })
+            .toSeconds() ===
+          selectedDate.startOf('week', { useLocaleWeeks: true }).toSeconds(),
+    );
+  }, [offers, selectedDate, startWeekOnDaySelected]);
+
+  const showDayParts =
+    groupSessionByPeriod == null || groupSessionByPeriod === true;
+
+  const noOfferDisplayed = !loading && weekOffers.length === 0;
+
+  const renderNoOffer = () => {
+    const offerDateStart = nextAvailableOffer?.date_start
+      ? DateTime.fromISO(nextAvailableOffer?.date_start)
+      : DateTime.now();
+    const isOfferDateBeforeSelectedDate =
+      offerDateStart.toSeconds() < selectedDate.toSeconds();
+
+    return (
+      <div className="bs-calendar--no-offer">
+        {!nextAvailableOffer && (
+          <div className="bs-calendar--no-offer--no-next">
+            <EventBusyIcon className="bs-calendar--no-offer--no-next__icon" />
+            <div className="bs-calendar--no-offer--no-next__text">
+              {props.t('privateService:slotSearcher.emptyState')}
+            </div>
+          </div>
+        )}
+        {nextAvailableOffer && (
+          <button
+            className="bs-calendar--no-offer--yes-next"
+            onClick={props.goToFirstAvailableSession}
+            type="button"
+          >
+            <EventAvailableIcon className="bs-calendar--no-offer--yes-next__icon" />
+            <div className="bs-calendar--no-offer--yes-next__text">
+              {props.t(
+                isOfferDateBeforeSelectedDate
+                  ? 'privateService:slotSearcher.nextOffer'
+                  : 'privateService:slotSearcher.previousOffer',
+                {
+                  date: (nextAvailableOffer?.date_start
+                    ? DateTime.fromISO(nextAvailableOffer.date_start)
+                    : DateTime.now()
+                  ).toLocaleString(DateTime.DATE_SHORT),
+                  hour: (nextAvailableOffer?.date_start
+                    ? DateTime.fromISO(nextAvailableOffer.date_start)
+                    : DateTime.now()
+                  ).toLocaleString(DateTime.TIME_SIMPLE),
+                },
+              )}
+            </div>
+          </button>
+        )}
+      </div>
+    );
+  };
+
+  return (
+    <div ref={refContainer} className="bs-calendar">
+      {!forceDayDisplayOnly && (
+        <div className="bs-calendar__datePicker">
+          <MarketplaceDatePicker
+            dateSelected={selectedDate}
+            // @ts-expect-error
+            events={props.events}
+            offerFilters={filters}
+            onSelect={onSelectDate}
+            startWeekOnDaySelected={startWeekOnDaySelected}
+          />
+        </div>
+      )}
+      {!forceDayDisplayOnly && (
+        <MarketplaceFilterComponent
+          coachDisplay={theme?.coach_display}
+          coaches={coaches}
+          customLevels={props.activeCustomLevels}
+          establishmentGroupList={props.establishmentGroupList}
+          establishments={props.establishments}
+          filters={filters}
+          hideCoach={props.hideCoach}
+          metaActivities={metaActivities}
+          offers={offers}
+          onClearInput={onClearInput}
+          onSearch={onSearch}
+          // @ts-expect-error
+          setFilters={setFilters}
+          showMultiLocalization={props.showMultiLocalization}
+          variant="activity"
+        />
+      )}
+      {loading && <LoadingIndicator />}
+      {!loading && (
+        <>
+          <MarketplaceWeekTimetableV2
+            // @ts-expect-error
+            activityLoading={props.activityLoading}
+            bookedOffers={props.bookedOffers}
+            coaches={props.coaches}
+            coachLoading={props.coachLoading}
+            date={selectedDate}
+            establishmentLoading={props.establishmentLoading}
+            establishments={props.establishments}
+            forceDayDisplayOnly={forceDayDisplayOnly}
+            genderCount={props.genderCount}
+            getLevel={props.getLevel}
+            group={props.group}
+            hideCoach={props.hideCoach}
+            isCardModeDisplay={isCardModeDisplay}
+            metaActivities={metaActivities}
+            offers={offers}
+            onClickBook={props.onClickBook}
+            onClickBookOption={props.onClickBookOption}
+            onClickOffer={props.onClickOffer}
+            onSelectDate={props.onSelectDate}
+            searchedOffers={searchedOffers}
+            showDayParts={showDayParts}
+            showOfferFilling={props.showOfferFilling}
+            showOfferGender={props.showOfferGender}
+            startWeekOnDaySelected={startWeekOnDaySelected}
+            theme={props.theme}
+            variant={props.variant}
+          />
+          {noOfferDisplayed && renderNoOffer()}
+        </>
+      )}
+    </div>
+  );
+};
+
+// @ts-expect-error
+export default withTranslation('privateService')(pure(MarketplaceCalendar));

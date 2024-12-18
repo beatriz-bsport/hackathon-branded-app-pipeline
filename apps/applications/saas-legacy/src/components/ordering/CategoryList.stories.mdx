@@ -1,0 +1,224 @@
+import { CategoryList } from './CategoryList.component';
+import EmailListItem from '../../libs/email-editor/components/EmailListItem.components';
+import { categoryListFactory } from './factory';
+import { Meta, Canvas, Story, ArgsTable } from '@storybook/addon-docs';
+
+
+<Meta
+  title="Components/Ordering/CategoryList"
+  component={CategoryList}
+  argTypes={{
+    selectedItem: {
+      description: "indicates to ListItemComponent if it is selected"
+    },
+    onClickItem: {
+      description: "action when clicking on the ListItemComponent"
+    },
+    onEditItem: {
+      description: "action when clicking on editButton of the ListItemComponent"
+    },
+    onDeleteItem: {
+      description: "action when clicking on deleteButton of the ListItemComponent"
+    },
+    onDuplicateItem: {
+      description: "action when clicking on duplicateButton of the ListItemComponent"
+    },
+    itemLoading: {
+      description: "if items are loading, the divider under the category name becomes a Linearprogress"
+    },
+    updateItemOrder: {
+      description: "action when dropping a ListItemComponent at another position (api call), updates all components that changed position"
+    },
+    categoryWithItems: {
+      description: "all categories (including the no Category object) with their items"
+    },
+    editCategory: {
+      description: "action when clicking on editButton of the Category"
+    },
+    deleteCategory: {
+      description: "action when clicking on deleteButton of the Category"
+    },
+    updateCategoryOrder: {
+      description: "action when dropping a category at another position (api call), updates all components that changed position"
+    },
+    ListItemComponent: {
+      description: "the component to apply the ordering to"
+    },
+    width: {
+      description: "total width of the categories with the items, default is '100%' when not given"
+    },
+    noCategoryHelper: {
+      description: "questionmark icon with tooltip"
+    },
+    selectorItemOrder: {
+      description: "item order can be predefined, the drag and drop of items is disabled in that case"
+    },
+    filteredItems: {
+      description: "only filtered items are displayed, the drag and drop of items is disabled in that case"
+    },
+    filteredCategories: {
+      description: "only filtered categories are displayed, the drag and drop of categories is disabled in that case"
+    },
+  }}
+/>
+
+export const Template = (args) => <CategoryList {...args} />;
+
+export const categoriesWithItems = categoryListFactory(2);
+
+# Default State
+
+<Canvas>
+    <Story
+    name="DefaultState"
+    args={{
+      selectedItem: null,
+      onClickItem: () => {},
+      onEditItem: () => {},
+      onDeleteItem: () => {},
+      onDuplicateItem: () => {},
+      itemLoading: false,
+      updateItemOrder: () => {},
+      categoryWithItems: categoriesWithItems,
+      editCategory: () => {},
+      deleteCategory: () => {},
+      updateCategoryOrder: () => {},
+      ListItemComponent: EmailListItem,
+    }}>
+    {Template.bind({})}
+    </Story>
+</Canvas>
+
+<ArgsTable story="DefaultState" />
+
+# With No Category Helper
+
+<Canvas>
+  <Story
+    name="NoCategoryHelper"
+    args={{
+      selectedItem: null,
+      onClickItem: () => {},
+      onEditItem: () => {},
+      onDeleteItem: () => {},
+      onDuplicateItem: () => {},
+      itemLoading: false,
+      updateItemOrder: () => {},
+      categoryWithItems: categoriesWithItems,
+      editCategory: () => {},
+      deleteCategory: () => {},
+      updateCategoryOrder: () => {},
+      ListItemComponent: EmailListItem,
+      noCategoryHelper: "Only for giving information"
+    }}>
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<ArgsTable story="NoCategoryHelper" />
+
+# With Predefined Order
+
+<Canvas>
+  <Story
+    name="PredefinedItemOrder"
+    args={{
+      selectedItem: null,
+      onClickItem: () => {},
+      onEditItem: () => {},
+      onDeleteItem: () => {},
+      onDuplicateItem: () => {},
+      itemLoading: false,
+      updateItemOrder: () => {},
+      categoryWithItems: categoriesWithItems,
+      editCategory: () => {},
+      deleteCategory: () => {},
+      updateCategoryOrder: () => {},
+      ListItemComponent: EmailListItem,
+      noCategoryHelper: "Only for giving information",
+      selectorItemOrder: [...categoriesWithItems.map((cat) => cat.items).map((item) =>
+        ({ id: item.id, ordering_in_category: item.ordering_in_category }))],
+    }}>
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<ArgsTable story="PredefinedItemOrder" />
+
+# With Filtered Category
+
+<Canvas>
+  <Story
+    name="FilteredCategory"
+    args={{
+      selectedItem: null,
+      onClickItem: () => {},
+      onEditItem: () => {},
+      onDeleteItem: () => {},
+      onDuplicateItem: () => {},
+      itemLoading: false,
+      updateItemOrder: () => {},
+      categoryWithItems: categoriesWithItems,
+      editCategory: () => {},
+      deleteCategory: () => {},
+      updateCategoryOrder: () => {},
+      ListItemComponent: EmailListItem,
+      noCategoryHelper: "Only for giving information",
+      filteredCategories: [categoriesWithItems[0].id],
+    }}>
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<ArgsTable story="FilteredCategory" />
+
+# User Defined Width
+
+<Canvas>
+  <Story
+    name="DefinedWidth"
+    args={{
+      selectedItem: null,
+      onClickItem: () => {},
+      onEditItem: () => {},
+      onDeleteItem: () => {},
+      onDuplicateItem: () => {},
+      itemLoading: false,
+      updateItemOrder: () => {},
+      categoryWithItems: categoriesWithItems,
+      editCategory: () => {},
+      deleteCategory: () => {},
+      updateCategoryOrder: () => {},
+      ListItemComponent: EmailListItem,
+      width: '50%',
+    }}>
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<ArgsTable story="DefinedWidth" />
+
+# The items are loading
+
+<Canvas>
+  <Story
+    name="ItemLoading"
+    args={{
+      selectedItem: null,
+      onClickItem: () => {},
+      onEditItem: () => {},
+      onDeleteItem: () => {},
+      onDuplicateItem: () => {},
+      itemLoading: true,
+      updateItemOrder: () => {},
+      categoryWithItems: categoriesWithItems,
+      editCategory: () => {},
+      deleteCategory: () => {},
+      updateCategoryOrder: () => {},
+      ListItemComponent: EmailListItem,
+    }}>
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<ArgsTable story="ItemLoading" />

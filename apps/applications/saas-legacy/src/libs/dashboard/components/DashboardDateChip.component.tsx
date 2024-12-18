@@ -1,0 +1,56 @@
+import React from 'react';
+
+import DateRangeIcon from '@material-ui/icons/DateRange';
+import Chip from '@material-ui/core/Chip';
+import { makeStyles, Theme } from '@material-ui/core';
+
+import { useTranslation } from 'react-i18next';
+import { getDateRangeFromGraphFilter } from '#src/libs/dashboard/utils';
+import type { DataSourceDashboardGraph } from '../types';
+
+const useStyles = makeStyles((theme: Theme) => ({
+  chip: {
+    paddingLeft: theme.spacing(0.5),
+    borderRadius: theme.spacing(1),
+  },
+}));
+
+export type Props = {
+  graph: DataSourceDashboardGraph;
+  onClick?: () => void;
+  disabled?: boolean;
+};
+
+export const DashboardDateChip: React.FC<Props> = ({
+  graph,
+  onClick,
+  disabled,
+}) => {
+  const { t } = useTranslation('reporting');
+  const classes = useStyles();
+
+  const { timePeriod, start, end } = getDateRangeFromGraphFilter(graph);
+
+  let chipLabel = '';
+  if (timePeriod && timePeriod !== 'custom') {
+    chipLabel = t(`header.helper.${timePeriod}`);
+  } else if (timePeriod === 'custom') {
+    chipLabel = `${start.toFormat('D')} -> ${end.toFormat('D')}`;
+  }
+
+  return (
+    <Chip
+      className={classes.chip}
+      clickable={!!onClick}
+      color="primary"
+      disabled={!!disabled}
+      icon={<DateRangeIcon />}
+      label={chipLabel}
+      onClick={onClick}
+      size="small"
+      variant="outlined"
+    />
+  );
+};
+
+export default React.memo(DashboardDateChip);

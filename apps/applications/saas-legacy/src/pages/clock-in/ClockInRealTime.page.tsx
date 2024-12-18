@@ -1,0 +1,105 @@
+import React, { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
+import { makeStyles } from '@material-ui/core';
+import { connect, ConnectedProps } from 'react-redux';
+import { compose } from 'recompose';
+import { push as pushAction } from 'connected-react-router';
+
+import ClockInForOtherTable from '#src/libs/clock-in/components/ClockInForOtherTable.component';
+import { fetchCompanyUserRolesPaginated as fetchCompanyUserRolesPaginatedAction } from '#src/libs/role/actions';
+import { getPermissions } from '#src/libs/role/selectors';
+import {
+  clockIn as clockInAction,
+  clockOut as clockOutAction,
+  getStaffsAttendanceRealTime as getStaffsAttendanceRealTimeAction,
+} from '#src/libs/clock-in/actions';
+import { getUsersPaginatedWithRolesWithRealTimeAttendance } from '#src/libs/clock-in/selectors';
+import IsEmptyList from '#src/components/navigation/IsEmptyList.component';
+import { RootState } from '../../reducers';
+
+type Props = ConnectedProps<typeof connector>;
+
+const ClockInRealTime: React.FC<Props> = ({
+  permissions,
+  usersPaginatedWithRoles,
+  fetchCompanyUserRolesPaginated,
+  getStaffsAttendanceRealTime,
+  clockIn,
+  clockOut,
+  push,
+}) => {
+  const { t } = useTranslation(['clockIn']);
+  const classes = useStyles();
+
+  useEffect(() => {
+    fetchCompanyUserRolesPaginated(
+      {
+        page: 1,
+        page_size: 15,
+      },
+      {
+        onSuccess: (payload) => {
+          getStaffsAttendanceRealTime({
+            user_id__in: payload.results.map((u) => u.id),
+            page_size: 15,
+          });
+        },
+      },
+    );
+  }, [getStaffsAttendanceRealTime, fetchCompanyUserRolesPaginated]);
+
+  const canAccessStaff = permissions?.navigationMenu?.settings?.staffs;
+  return (
+    <div className={classes.container}>
+      {!usersPaginatedWithRoles.loading &&
+      usersPaginatedWithRoles.count === 0 ? (
+        <IsEmptyList
+          button={canAccessStaff && t('attendanceTable.createStaff')}
+          onCreate={
+            canAccessStaff
+              ? () => {
+                  push('/settings/role');
+                }
+              : undefined
+          }
+          onCreateLabel={canAccessStaff && t('attendanceTable.createStaff')}
+          text={t('attendanceTable.emptyState')}
+        />
+      ) : (
+        <ClockInForOtherTable
+          clockIn={clockIn}
+          clockOut={clockOut}
+          fetchAttendance={getStaffsAttendanceRealTime}
+          fetchCompanyUserRolesPaginated={fetchCompanyUserRolesPaginated}
+          // @ts-expect-error
+          value={usersPaginatedWithRoles}
+        />
+      )}
+    </div>
+  );
+};
+
+const useStyles = makeStyles(() => ({
+  container: {
+    display: 'flex',
+    flexDirection: 'column',
+    flex: '1 1 100%',
+  },
+}));
+
+const connector = connect(
+  (state: RootState) => ({
+    permissions: getPermissions(state),
+    usersPaginatedWithRoles:
+      getUsersPaginatedWithRolesWithRealTimeAttendance(state),
+  }),
+  {
+    fetchCompanyUserRolesPaginated: fetchCompanyUserRolesPaginatedAction,
+    getStaffsAttendanceRealTime: getStaffsAttendanceRealTimeAction,
+    clockIn: clockInAction,
+    clockOut: clockOutAction,
+    push: pushAction,
+  },
+);
+
+export default compose(connector)(ClockInRealTime);

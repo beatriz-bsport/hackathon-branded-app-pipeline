@@ -1,0 +1,162 @@
+import React from 'react';
+import { useTranslation } from 'react-i18next';
+
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
+import ValidationIcon from '#src/components/icons/ValidationIcon.component';
+
+import Card, { CardSize } from '#src/components/css-only/Card';
+import Content from '#src/components/css-only/Card/CardContent';
+import Grid from '#src/components/css-only/Grid';
+import Item, { Alignment } from '#src/components/css-only/Grid/GridItem';
+
+import type { PrivateServiceWithSlots } from '#src/libs/private-service/types';
+
+import './styles.css';
+
+export type Props = {
+  compatiblePrivateServices: PrivateServiceWithSlots[];
+  isOpen: boolean;
+  onDialogClose: () => void;
+};
+
+const AvailableSlots: React.FC<{
+  privateServiceWithSlots: PrivateServiceWithSlots;
+}> = React.memo(({ privateServiceWithSlots }) => {
+  const { t } = useTranslation('marketplace');
+
+  const availablePrivateSlots =
+    privateServiceWithSlots?.slots?.filter(
+      (privateSlot) => privateSlot?.available,
+    ) ?? [];
+
+  const areAllSlotsAvailable =
+    privateServiceWithSlots?.slots?.length === availablePrivateSlots?.length;
+
+  return (
+    <>
+      {availablePrivateSlots?.length > 0 && (
+        <div className="bs-pass-compatibility-dialog__compatibility">
+          <div className="bs-pass-compatibility-dialog__compatibility__title">
+            {privateServiceWithSlots.name}
+          </div>
+          <div className="bs-pass-compatibility-dialog__compatibility__itemList">
+            {areAllSlotsAvailable ? (
+              <div className="bs-pass-compatibility-dialog__compatibility__itemList__item --highlighted">
+                {t(
+                  'genericCardDetails.compatibility.allPrivateSlotsAvailables',
+                )}
+              </div>
+            ) : (
+              availablePrivateSlots.map((slotAvailable) => {
+                return (
+                  <div
+                    key={slotAvailable.id}
+                    className="bs-pass-compatibility-dialog__compatibility__itemList__item"
+                  >
+                    {slotAvailable.name}
+                  </div>
+                );
+              })
+            )}
+          </div>
+        </div>
+      )}
+    </>
+  );
+});
+
+const MarketplacePrivatePassCompatibilityModal: React.FC<Props> = ({
+  compatiblePrivateServices,
+  isOpen,
+  onDialogClose,
+}) => {
+  const { t } = useTranslation('marketplace');
+
+  const validationIconStyles = {
+    color: '#4CAF50',
+    circle: {
+      width: 64,
+      height: 64,
+    },
+    checkIcon: {
+      width: 56,
+      height: 45,
+    },
+  };
+
+  return (
+    <>
+      {isOpen && (
+        <div className="bs-pass-compatibility-dialog__backdrop">
+          <Card
+            classes={{
+              'bs-pass-compatibility-dialog': 'bs-pass-compatibility-dialog',
+            }}
+            size={CardSize.L}
+          >
+            <Content>
+              <Grid>
+                <Item alignment={Alignment.CENTER} rowStart={1}>
+                  <div className="bs-pass-compatibility-dialog__header__check-icon --is-desktop">
+                    <ValidationIcon
+                      color={validationIconStyles.color}
+                      heightCircle={validationIconStyles.circle.height}
+                      heightIcon={validationIconStyles.checkIcon.height}
+                      widthCircle={validationIconStyles.circle.width}
+                      widthIcon={validationIconStyles.checkIcon.width}
+                    />
+                  </div>
+                  <h3 className="bs-pass-compatibility-dialog__header__title --is-desktop">
+                    {t('genericCardDetails.compatibility.compatible', {
+                      count: compatiblePrivateServices?.length,
+                    })}
+                  </h3>
+                  <h3 className="bs-pass-compatibility-dialog__header__title --is-mobile">
+                    {t('genericCardDetails.compatibility.compatibilities')}
+                  </h3>
+                </Item>
+                <Item rowStart={2}>
+                  <div className="bs-pass-compatibility-dialog__body --is-desktop">
+                    {compatiblePrivateServices?.map((privateService) => (
+                      <AvailableSlots
+                        key={privateService?.id}
+                        privateServiceWithSlots={privateService}
+                      />
+                    ))}
+                  </div>
+                  <div className="bs-pass-compatibility-dialog__body --mobile-body">
+                    <div className="--mobile-subitle">
+                      {t('genericCardDetails.compatibility.compatible', {
+                        count: compatiblePrivateServices?.length,
+                      })}
+                    </div>
+                  </div>
+                </Item>
+                <Item
+                  classes={{
+                    'bs-pass-compatibility-dialog__footer':
+                      'bs-pass-compatibility-dialog__footer',
+                  }}
+                  rowStart={3}
+                >
+                  <button
+                    className="bs-pass-compatibility-dialog__footer__button"
+                    onClick={onDialogClose}
+                    type="button"
+                  >
+                    {t('genericCardDetails.compatibility.button.close')}
+                  </button>
+                </Item>
+              </Grid>
+            </Content>
+          </Card>
+        </div>
+      )}
+    </>
+  );
+};
+
+export const MarketplacePrivatePassCompatibilityModalForStorybook =
+  marketplaceCssHoc()(MarketplacePrivatePassCompatibilityModal);
+
+export default React.memo(MarketplacePrivatePassCompatibilityModal);

@@ -1,0 +1,175 @@
+// @flow
+import React from 'react';
+import withStyles from '@material-ui/core/styles/withStyles';
+import { compose, withState } from 'recompose';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import ButtonBase from '@material-ui/core/ButtonBase';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import ListSubheader from '@material-ui/core/ListSubheader';
+import Typography from '@material-ui/core/Typography';
+import Menu from '@material-ui/core/Menu';
+import SearchIcon from '@material-ui/icons/Search';
+import { withTranslation, TFunction } from 'react-i18next';
+
+type Props = {
+  t: TFunction,
+  setMenuAnchor: (e: ?HTMLElement) => void,
+  classes: Object,
+  privateServiceId: ?number,
+  privateSlotId: ?number,
+  privateServiceList: Array<PrivateService>,
+  menuAnchor: ?HTMLElement,
+  onSelect: (
+    serviceId: number,
+    slotId: number,
+    credit?: number,
+    slotDuration?: number,
+  ) => void,
+};
+
+export class PrivateServiceSelectorWithSlot extends React.Component<Props> {
+  render() {
+    return (
+      <div>
+        <ButtonBase
+          className={this.props.classes.button}
+          onClick={(ev) => this.props.setMenuAnchor(ev.currentTarget)}
+        >
+          <SearchIcon className={this.props.classes.leftIcon} />
+          {this.props.privateServiceId && this.props.privateSlotId ? (
+            (() => {
+              const p = this.props.privateServiceList.find(
+                (ps) => ps.id === this.props.privateServiceId,
+              );
+              if (!p) return <CircularProgress />;
+              const s = p.slots.find(
+                (s_) => s_.id === this.props.privateSlotId,
+              );
+              if (!s) return <CircularProgress />;
+              return (
+                <div
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'flex-start',
+                  }}
+                >
+                  <Typography align="left" color="textSecondary" variant="body">
+                    {p.name}
+                  </Typography>
+                  <Typography align="left" variant="body2">
+                    {s.name}
+                  </Typography>
+                </div>
+              );
+            })()
+          ) : (
+            <Typography align="left" color="textSecondary">
+              {this.props.t('service.selector.placeholder')}
+            </Typography>
+          )}
+        </ButtonBase>
+        <Menu
+          anchorEl={this.props.menuAnchor}
+          className={this.props.classes.menu}
+          onClose={() => this.props.setMenuAnchor(null)}
+          open={!!this.props.menuAnchor}
+        >
+          {this.props.privateServiceList &&
+          this.props.privateServiceList.length ? (
+            this.props.privateServiceList
+              .filter((ps) => ps.slots.length)
+              .map((ps) => (
+                <List
+                  key={ps.id}
+                  disablePadding
+                  className={this.props.classes.menu}
+                  subheader={
+                    <ListSubheader
+                      dense
+                      className={this.props.classes.subheader}
+                      component="div"
+                    >
+                      {ps.name}
+                    </ListSubheader>
+                  }
+                >
+                  <div
+                    style={{
+                      borderLeft: `4px solid ${ps.color || 'white'}`,
+                    }}
+                  >
+                    {ps.slots.map((s) => (
+                      <ListItem
+                        button
+                        dense
+                        disableGutters
+                        onClick={() => {
+                          this.props.onSelect(
+                            ps.id,
+                            s.id,
+                            s.credit,
+                            s.duration_minutes,
+                          );
+                          this.props.setMenuAnchor(null);
+                        }}
+                      >
+                        <ListItemText
+                          className={this.props.classes.listItemText}
+                          primary={s ? s.name : ' - '}
+                        />
+                      </ListItem>
+                    ))}
+                  </div>
+                </List>
+              ))
+          ) : (
+            <ListItem dense>
+              {this.props.t('service.selector.isEmpty')}
+            </ListItem>
+          )}
+        </Menu>
+      </div>
+    );
+  }
+}
+
+const styles = (theme) => ({
+  container: {},
+  button: {
+    padding: theme.spacing(2),
+    paddingTop: theme.spacing(1),
+    paddingBottom: theme.spacing(1),
+    border: `1px solid ${theme.palette.primary.main}`,
+    backgroundColor: '#F8F8F8',
+    borderRadius: theme.spacing(1),
+    minWidth: 200,
+    width: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    '&:hover': {
+      backgroundColor: '#E8E8E8',
+    },
+  },
+  leftIcon: {
+    marginRight: theme.spacing(2),
+  },
+  menu: {
+    minWidth: 200,
+  },
+  subheader: {
+    backgroundColor: '#F4F4F4',
+  },
+  listItemText: {
+    paddingLeft: theme.spacing(3),
+  },
+});
+
+export default compose(
+  withTranslation(['privateService']),
+  withStyles(styles),
+  withState('menuAnchor', 'setMenuAnchor', null),
+)(PrivateServiceSelectorWithSlot);

@@ -1,0 +1,27 @@
+import { Meta, Canvas, Story, ArgsTable } from '@storybook/addon-docs';
+import ProgramList from "./ProgramList.component"
+import PerformanceTrackingFactoryBot from "../../factories";
+const randomProgram=PerformanceTrackingFactoryBot.Program.create(5)
+
+<Meta title='Library/PerformanceTracking/Program/List'
+    component={ProgramList}
+    argTypes ={{
+    }}/>
+
+export const Template = (args) => <ProgramList {...args} />;
+
+#  Program List With Edit and Delete
+
+<Canvas>
+    <Story 
+    name='ProgramList'
+    args={{
+        programList:randomProgram,
+        onEdit:()=>{return;},
+        onDelete:()=>{return;}
+    }}>
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+<ArgsTable story='ProgramList' />

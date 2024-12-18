@@ -1,0 +1,11 @@
+.bs-fabrique-title-container {
+  padding-top: var(--bs-space-size-4);
+  padding-bottom: var(--bs-space-size-4);
+}
+
+.bs-fabrique-title-wrapper {
+  overflow-wrap: break-word;
+}
+
+.bs-fabrique-title {
+}

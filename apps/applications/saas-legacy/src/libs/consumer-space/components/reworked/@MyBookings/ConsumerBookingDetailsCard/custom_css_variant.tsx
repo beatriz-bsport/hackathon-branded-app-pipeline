@@ -1,0 +1,192 @@
+import React from 'react';
+import { fakerEN as faker } from '@faker-js/faker';
+
+import { DateTime } from 'luxon';
+
+import { CssComponentsVariantIdentifiers } from '#src/libs/exportable-components/constants';
+import { consumerPaymentPackFactory } from '#src/libs/consumer-payment-pack/factories';
+import { establishment_factory } from '#src/libs/establishment/factory';
+import { meta_activity_factory } from '#src/libs/meta-activity/factory';
+import { paymentPackFactory } from '#src/libs/payment-packs/factory';
+import { consumerBookingListFactory } from '#src/libs/booking/factories';
+
+import {
+  MarketplaceCSSComponentConfig,
+  MarketplacePage,
+  VariationConfigurationChoice,
+} from '#src/libs/exportable-components/types';
+import type { CompanyTheme } from '#src/libs/theme/types';
+import type { ConsumerBooking } from '#src/libs/booking/types';
+import { getUserZone } from '#src/utils/datetime';
+// @ts-expect-error
+import ConsumerBookingDetailsCardCss from './styles.css?raw';
+import {
+  ConsumerBookingDetailsCardStorybook,
+  Props as ConsumerBookingDetailsCard,
+} from '.';
+
+const DAYS_IN_FUTURE = 3;
+const offerDateStart = DateTime.now().plus({ days: DAYS_IN_FUTURE }).toISO();
+const OFFER_DATE_START = `${DateTime.fromISO(offerDateStart).toFormat(
+  'EEE dd MMMM',
+)} • ${DateTime.fromISO(offerDateStart).toFormat('HH:mm')}`;
+const LEVEL_NAME = faker.word.adjective({ length: { min: 5, max: 10 } });
+const RANDOM_URL = faker.internet.url();
+const COACH_PICTURE = faker.image.avatar();
+const COACH_NAME = faker.person.fullName();
+const COACH_OVERRIDE_PICTURE = faker.image.avatar();
+const COACH_OVERRIDE_NAME = faker.person.fullName();
+const META_ACTIVITY = meta_activity_factory(1)[0];
+const ESTABLISHMENT = establishment_factory(1)[0];
+const CONSUMER_PAYMENT_PACK = consumerPaymentPackFactory();
+const PAYMENT_PACK = paymentPackFactory({ isUnlimited: false });
+const CREDITS_TO_REFUND = faker.number.int({ min: 1, max: 3 });
+const CANCELLATION_DATE = DateTime.now()
+  .plus({ days: DAYS_IN_FUTURE - 1 })
+  .toFormat('D');
+const DESCRIPTION = faker.lorem.sentences(5);
+const WAITLIST_POSITION = faker.number.int({ min: 1, max: 5 });
+const TIMEZONE = getUserZone();
+// @ts-expect-error factories to refactor.
+const WORKSHOP_LINKED_OFFERS: ConsumerBooking[] = consumerBookingListFactory(5);
+
+const consumerBookingDetailsCardVariationRegistry = [
+  {
+    label: 'loading',
+    choices: [
+      { label: 'true', value: 'true' },
+      { label: 'false', value: 'false' },
+    ],
+    default: { label: 'false', value: 'false' },
+  },
+  {
+    label: 'isBookingCancelled',
+    choices: [
+      { label: 'true', value: 'true' },
+      { label: 'false', value: 'false' },
+    ],
+    default: { label: 'false', value: 'false' },
+  },
+  {
+    label: 'showEstablishmentRoom',
+    choices: [
+      { label: 'true', value: 'true' },
+      { label: 'false', value: 'false' },
+    ],
+    default: { label: 'false', value: 'false' },
+  },
+  {
+    label: 'showCancellationPolicy',
+    choices: [
+      { label: 'true', value: 'true' },
+      { label: 'false', value: 'false' },
+    ],
+    default: { label: 'false', value: 'false' },
+  },
+  {
+    label: 'showWaitlistPosition',
+    choices: [
+      { label: 'true', value: 'true' },
+      { label: 'false', value: 'false' },
+    ],
+    default: { label: 'false', value: 'false' },
+  },
+  {
+    label: 'hasCoachOverride',
+    choices: [
+      { label: 'true', value: 'true' },
+      { label: 'false', value: 'false' },
+    ],
+    default: { label: 'false', value: 'false' },
+  },
+  {
+    label: 'showWorkshopLinkedOffers',
+    choices: [
+      { label: 'true', value: 'true' },
+      { label: 'false', value: 'false' },
+    ],
+    default: { label: 'false', value: 'false' },
+  },
+];
+
+const usePropsFromVariation = (
+  variationsSelected: Record<string, VariationConfigurationChoice>,
+  theme?: CompanyTheme,
+): ConsumerBookingDetailsCard => {
+  const isLoadingSelected = variationsSelected?.loading?.value === 'true';
+  const isCancelledSelected =
+    variationsSelected?.isBookingCancelled?.value === 'true';
+  const showEstablishmentRoomSelected =
+    variationsSelected?.showEstablishmentRoom?.value === 'true';
+  const showWaitlistPositionSelected =
+    variationsSelected?.showWaitlistPosition?.value === 'true';
+  const showCancellationPolicySelected =
+    variationsSelected?.showCancellationPolicy?.value === 'true';
+  const hasCoachOverrideSelected =
+    variationsSelected?.hasCoachOverride?.value === 'true';
+  const showWorkshopLinkedOffersSelected =
+    variationsSelected?.showWorkshopLinkedOffers?.value === 'true';
+
+  return {
+    date: OFFER_DATE_START,
+    isLoading: isLoadingSelected,
+    isCancelled: isCancelledSelected,
+    creditsToRefund: CREDITS_TO_REFUND,
+    cancellationDate: CANCELLATION_DATE,
+    isCancelledFromManager: false,
+    establishmentTitle: showEstablishmentRoomSelected && 'Cycling Room',
+    establishmentAddress: ESTABLISHMENT.location.address,
+    sessionTimeDisplay: theme.session_time_display,
+    timezoneName: TIMEZONE,
+    levelName: LEVEL_NAME,
+    metaActivityPicture: META_ACTIVITY.cover_main,
+    metaActivityName: META_ACTIVITY.name,
+    description: DESCRIPTION,
+    waitlistPosition: showWaitlistPositionSelected && WAITLIST_POSITION,
+    coachDescription: DESCRIPTION,
+    metaActivityLastDiscardMinutes: showCancellationPolicySelected
+      ? META_ACTIVITY.last_discard_minutes
+      : 0,
+    coachPicture: COACH_PICTURE,
+    coachName: COACH_NAME,
+    coachOverrideDescription: hasCoachOverrideSelected && DESCRIPTION,
+    coachOverridePicture: hasCoachOverrideSelected && COACH_OVERRIDE_PICTURE,
+    coachOverrideName: hasCoachOverrideSelected && COACH_OVERRIDE_NAME,
+    coachInstagramURL: RANDOM_URL,
+    coachFacebookURL: RANDOM_URL,
+    paymentPackName: PAYMENT_PACK.name,
+    isConsumerPaymentPackDisabled: CONSUMER_PAYMENT_PACK.disabled,
+    consumerPaymentPackPenaltyDisabledFrom:
+      CONSUMER_PAYMENT_PACK.penalty_disabled_from,
+    consumerPaymentPackPenaltyDisabledUntil:
+      CONSUMER_PAYMENT_PACK.penalty_disabled_until,
+    consumerPaymentPackAvailableCredits:
+      CONSUMER_PAYMENT_PACK.available_credits,
+    consumerPaymentPackUsedCredits: CONSUMER_PAYMENT_PACK.used_credits,
+    paymentPackTotalCredits: PAYMENT_PACK.credits,
+    isPaymentPackUnlimited: PAYMENT_PACK.unlimited,
+    workshopLinkedOffers:
+      showWorkshopLinkedOffersSelected && WORKSHOP_LINKED_OFFERS,
+  };
+};
+
+export const CONSUMER_BOOKING_DETAILS_CARD_CONFIGURATION: MarketplaceCSSComponentConfig =
+  {
+    label: CssComponentsVariantIdentifiers.CONSUMER_BOOKING_DETAILS_CARD,
+    css: ConsumerBookingDetailsCardCss,
+    pages: [MarketplacePage.CONSUMER_SPACE],
+    defaultState: {},
+    variations: consumerBookingDetailsCardVariationRegistry,
+  };
+
+export const CONSUMER_BOOKING_DETAILS_CARD_PREVIEW: React.FC<{
+  theme: CompanyTheme;
+  variationsSelected: Record<string, VariationConfigurationChoice>;
+}> = React.memo(({ variationsSelected, theme }) => {
+  const componentProps = usePropsFromVariation(variationsSelected, theme);
+  return (
+    <div style={{ flex: 1 }}>
+      <ConsumerBookingDetailsCardStorybook {...componentProps} />
+    </div>
+  );
+});

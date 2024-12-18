@@ -1,0 +1,41 @@
+.bs-consumer-page-inner-content__root-layout {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--bs-space-size-4);
+  width: 100%;
+  flex: 1;
+}
+
+.bs-consumer-page-inner-content__root-layout__empty {
+}
+
+.bs-consumer-page-inner-content__root--left-component {
+  display: flex;
+  flex-direction: column;
+}
+
+.bs-consumer-page-inner-content__root--left-component__list {
+  flex: 1;
+  padding: 0;
+  margin: 0;
+}
+
+.bs-consumer-page-inner-content__root--left-component__pagination {
+  justify-content: center;
+  padding-top: var(--bs-space-size-2);
+}
+
+.bs-consumer-page-inner-content__root--right-component {
+  height: fit-content;
+}
+
+.bs-consumer-page-inner-content__root--right-component--hidden {
+  display: none;
+}
+
+@container bsConsumerPageContentContainer (width < 400px) {
+  .bs-consumer-page-root__bookings {
+    grid-template-columns: 1fr;
+    gap: var(--bs-space-size-4);
+  }
+}

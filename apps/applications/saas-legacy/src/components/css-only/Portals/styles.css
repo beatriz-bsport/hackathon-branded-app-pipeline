@@ -1,0 +1,47 @@
+.bs-portals-blanket,
+.bs-portals-modal__content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* BARCODE PORTAL*/
+.bs-barcode-drawer__root {
+}
+
+.bs-barcode-portal-container {
+}
+
+.bs-barcode-modal {
+}
+
+/* DETACH PAYMENT PORTAL */
+.bs-detach-payment-drawer__root {
+}
+
+.bs-detach-payment-portal-container {
+}
+
+.bs-detach-payment-modal {
+}
+
+.bs-detach-payment-modal__alert {
+}
+
+.bs-detach-payment-modal__alert--hidden {
+  display: none;
+}
+
+/* TERMS AND CONDITIONS PORTAL */
+.bs-terms-and-conditions-drawer__root {
+}
+
+.bs-terms-and-conditions-portal-container {
+}
+
+.bs-terms-and-conditions-modal {
+}
+
+.bs-terms-and-conditions-modal__content {
+  white-space: pre-line;
+}

@@ -1,0 +1,47 @@
+{
+  "compilerOptions": {
+    "skipLibCheck": true,
+    "allowJs": false,
+    "outDir": "build",
+    "sourceRoot": "src",
+    "noEmit": true,
+    "sourceMap": true,
+    "noImplicitAny": true,
+    "resolveJsonModule": true,
+    "module": "commonjs",
+    "target": "es6",
+    "jsx": "react-jsx",
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "lib": [
+      "es2015",
+      "es2016",
+      "es2018",
+      "es2017",
+      "dom",
+      "es2019",
+      "es2020",
+      "ESNext"
+    ],
+    "moduleResolution": "node",
+    "types": [
+      "react",
+      "node",
+      "jest",
+      "@testing-library/jest-dom"
+    ],
+    "baseUrl": ".", // This must be specified if paths is.
+    "paths": {
+      "#src/*": [
+        "./src/*"
+      ],
+      "#Fabrique/*": [
+        "./src/components/css-only/Fabrique/*"
+      ],
+    }
+  },
+  "include": [
+    "./src/**/*.ts*",
+    "src/i18n/index.js"
+  ]
+}

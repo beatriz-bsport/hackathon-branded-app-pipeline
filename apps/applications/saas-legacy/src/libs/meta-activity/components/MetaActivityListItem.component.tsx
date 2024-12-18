@@ -1,0 +1,201 @@
+import React from 'react';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import ListItemAvatar from '@material-ui/core/ListItemAvatar';
+import DeleteIcon from '@material-ui/icons/Delete';
+import RestoreFromTrashIcon from '@material-ui/icons/RestoreFromTrash';
+import FileCopyIcon from '@material-ui/icons/FileCopy';
+import Avatar from '@material-ui/core/Avatar';
+import Typography from '@material-ui/core/Typography';
+import Hidden from '@material-ui/core/Hidden';
+import EditIcon from '@material-ui/icons/Edit';
+import NotificationsIcon from '@material-ui/icons/Notifications';
+import IconButton from '@material-ui/core/IconButton';
+import SPORTS from '@bsport/common/lib/master-data/sports';
+
+import { DraggableSyntheticListeners } from '@dnd-kit/core';
+import DragHandleIcon from '@material-ui/icons/DragHandle';
+import { useTranslation } from 'react-i18next';
+import { makeStyles } from '@material-ui/core/styles';
+import ListItemResponsiveAction from '#src/components/button/ListItemResponsiveAction.component';
+import Tooltip from '#src/components/Tooltip.component';
+import { MetaActivity } from '../types';
+import { formatAsDatetime } from '../../../utils/datetime';
+
+type Props = {
+  metaActivity: MetaActivity;
+  item?: MetaActivity;
+  divider?: boolean;
+  dense?: boolean;
+  goToEdit?: (metaActivityId: number) => void;
+  onClick?: (metaActivityId?: number) => void;
+  onEdit?: (id: number) => void;
+  onDuplicate?: (id: number) => void;
+  onDelete?: (id: number) => void;
+  onRestore?: () => void;
+  selected?: boolean;
+
+  onClickCopy?: (id: number, suffix: string) => void;
+
+  deleteMetaActivity?: () => void;
+  restoreMetaActivity?: () => void;
+
+  draggable?: boolean;
+  listeners?: DraggableSyntheticListeners;
+  attributes?: {
+    role: string;
+    tabIndex: number;
+    'aria-pressed': boolean;
+    'aria-roledescription': string;
+    'aria-describedby': string;
+  };
+};
+
+const MetaActivityListItem: React.FC<Props> = (props) => {
+  const { t } = useTranslation('translation');
+  const classes = useStyles();
+
+  const metaActivity = props.metaActivity ? props.metaActivity : props.item;
+
+  let onEdit;
+  if (props.goToEdit) {
+    onEdit = () => props.goToEdit(metaActivity.id);
+  } else if (props.onEdit) {
+    onEdit = () => props.onEdit(metaActivity.id);
+  } else {
+    onEdit = undefined;
+  }
+
+  let onDelete;
+  if (props.deleteMetaActivity) {
+    onDelete = () => props.deleteMetaActivity();
+  } else if (props.onDelete) {
+    onDelete = () => props.onDelete(metaActivity.id);
+  } else {
+    onDelete = undefined;
+  }
+
+  let onDuplicate;
+  if (props.onClickCopy) {
+    onDuplicate = () =>
+      props.onClickCopy(metaActivity.id, t('common.copySuffix'));
+  } else if (props.onDuplicate) {
+    onDuplicate = () => props.onDuplicate(metaActivity.id);
+  } else {
+    onDuplicate = undefined;
+  }
+
+  const onClick = props.onClick
+    ? () => props.onClick(metaActivity.id)
+    : undefined;
+
+  const { next_slot } = metaActivity;
+  return (
+    <ListItem
+      alignItems="center"
+      // @ts-expect-error
+      button={!!onClick}
+      dense={props.dense}
+      divider={props.divider}
+      onClick={onClick}
+      style={{
+        borderLeft: metaActivity.color !== '' ? '5px solid' : '0px',
+        borderLeftColor: metaActivity.color,
+        borderRadius: 5,
+      }}
+    >
+      {props.draggable && (
+        <IconButton {...props.listeners} {...props.attributes}>
+          <DragHandleIcon />
+        </IconButton>
+      )}
+      <Hidden xsDown>
+        <ListItemAvatar>
+          <Avatar
+            alt=""
+            className={classes.avatar}
+            src={
+              metaActivity.cover_main
+                ? metaActivity.cover_main
+                : (getSportWithIcon(metaActivity.parent_category) || {}).icon
+            }
+          />
+        </ListItemAvatar>
+      </Hidden>
+      <ListItemText
+        primary={
+          <Typography component="span" variant="subtitle1">
+            {metaActivity.name}
+          </Typography>
+        }
+        secondary={
+          next_slot
+            ? `${t('activity.nextSlotAt')} ${formatAsDatetime(
+                metaActivity.next_slot,
+              )}`
+            : t('activity.noNextSlot')
+        }
+      />
+      {/* @ts-expect-error */}
+      {metaActivity.hasActiveNotification && (
+        <Tooltip
+          aria-label="info"
+          // @ts-expect-error
+          classes={classes}
+          title={
+            <Typography variant="subtitle2">
+              {t('metaActivityNotificationToolTip')}
+            </Typography>
+          }
+        >
+          <IconButton>
+            <NotificationsIcon />
+          </IconButton>
+        </Tooltip>
+      )}
+      <ListItemResponsiveAction
+        actions={[
+          metaActivity.customer_enabled &&
+            onDuplicate && {
+              icon: FileCopyIcon,
+              label: t('common.duplicate'),
+              color: 'primary',
+              onClick: onDuplicate,
+            },
+          metaActivity.customer_enabled &&
+            onEdit && {
+              icon: EditIcon,
+              label: t('common.edit'),
+              color: 'primary',
+              onClick: onEdit,
+            },
+          metaActivity.customer_enabled &&
+            onDelete && {
+              icon: DeleteIcon,
+              label: t('common.delete'),
+              onClick: onDelete,
+            },
+          !metaActivity.customer_enabled &&
+            !!props.restoreMetaActivity && {
+              icon: RestoreFromTrashIcon,
+              label: t('common.restore'),
+              onClick: props.restoreMetaActivity,
+            },
+        ]}
+      />
+    </ListItem>
+  );
+};
+
+const getSportWithIcon = (parentCategory: number) =>
+  SPORTS.find((s) => s.id === parentCategory);
+
+const useStyles = makeStyles((theme) => ({
+  avatar: {
+    width: theme.spacing(7),
+    height: theme.spacing(7),
+    marginRight: theme.spacing(2),
+  },
+}));
+
+export default React.memo(MetaActivityListItem);

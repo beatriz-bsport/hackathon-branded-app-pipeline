@@ -1,0 +1,153 @@
+import React from 'react';
+import { connect } from 'react-redux';
+import { compose } from 'recompose';
+import { WithTranslation, withTranslation } from 'react-i18next';
+import withStyles from '@material-ui/core/styles/withStyles';
+import { TFunction } from 'i18next';
+import { Backdrop, CircularProgress, Theme } from '@material-ui/core';
+import AddIcon from '@material-ui/icons/Add';
+import UserWithRoleList from '#src/libs/role/components/UserWithRoleList.component';
+import LinearProgress from '#src/components/navigation/BackofficeLinearProgress.component';
+import InfoBox from '#src/components/box/InfoBox.component';
+
+import {
+  fetchFranchiseUserRoles,
+  fetchFranchiseRoles,
+  updateFranchiseUserRole,
+  deleteStaffFranchiseUser,
+  createStaffFranchiseUser,
+  updateFranchiseUserCommission,
+} from '#src/libs/role/actions';
+import { fetchFranchise } from '#src/libs/franchise/actions';
+import {
+  getFranchiseUsersWithRole,
+  getAllFranchiseRoles,
+  hasFranchiseRoleUpsertPermission,
+} from '#src/libs/role/selectors';
+import withTitle from '#src/hocs/with-title.hoc';
+import { getFranchiseCompanies } from '#src/libs/franchise/selectors';
+import BottomActionsButtonCustom from '#src/components/button/BottomActionsButtonCustom.component';
+import { RootState } from '../../../reducers';
+import { MaterialStyleType } from '../../../utils/types';
+
+type Props = ReturnType<typeof mapStateToProps> &
+  typeof mapDispatchToProps &
+  WithTranslation &
+  MaterialStyleType<ReturnType<typeof styles>> &
+  State;
+
+type State = {
+  openCreateStaffDialog: boolean;
+};
+export class FranchiseStaffConfiguration extends React.Component<Props, State> {
+  state: State = {
+    openCreateStaffDialog: false,
+  };
+
+  setOpenCreateStaffDialog = (value: boolean) =>
+    this.setState({ openCreateStaffDialog: value });
+
+  handleOpenCreateStaffDialog = () => this.setOpenCreateStaffDialog(true);
+
+  componentDidMount() {
+    this.props.fetchFranchise();
+    this.props.fetchFranchiseUserRoles();
+    this.props.fetchFranchiseRoles();
+  }
+
+  render() {
+    if (this.props.loading) {
+      return <LinearProgress />;
+    }
+    const { t, users, franchiseRoles, classes, hasOwnerPermission } =
+      this.props;
+    return (
+      <div className={classes.container}>
+        <InfoBox
+          className={classes.infoBox}
+          content={t('staff.explainStaff')}
+        />
+        <UserWithRoleList
+          isFranchisor
+          createUserRole={this.props.createStaffFranchiseUser}
+          deleteUserRole={this.props.deleteStaffFranchiseUser}
+          // @ts-expect-error
+          franchiseeList={this.props.franchiseeList}
+          franchiseeListLoading={this.props.franchiseeListLoading}
+          franchiseRoles={franchiseRoles}
+          hasOwnerPermission={hasOwnerPermission}
+          openCreateStaffDialog={this.state.openCreateStaffDialog}
+          setOpenCreateStaffDialog={this.setOpenCreateStaffDialog}
+          updateCommission={this.props.updateFranchiseUserCommission}
+          updateUserRole={this.props.updateFranchiseUserRole}
+          // @ts-expect-error
+          users={users}
+        />
+        <BottomActionsButtonCustom
+          buttonsProperties={[
+            {
+              onClick: this.handleOpenCreateStaffDialog,
+              text: t('forms.user.create.buttonLabel', { ns: 'role' }),
+              icon: <AddIcon />,
+              color: 'primary',
+            },
+          ]}
+          // @ts-expect-error
+          openCreateStaffDialog={this.state.openCreateStaffDialog}
+          setOpenCreateStaffDialog={this.setOpenCreateStaffDialog}
+        />
+        <Backdrop className={classes.backdrop} open={this.props.updateLoading}>
+          <CircularProgress color="primary" />
+        </Backdrop>
+      </div>
+    );
+  }
+}
+
+const styles = (theme: Theme) => ({
+  infoBox: {
+    marginBottom: theme.spacing(2),
+  },
+  sectionTitle: {
+    marginBottom: theme.spacing(1),
+  },
+  divider: {
+    marginBottom: theme.spacing(2),
+  },
+  container: {
+    padding: theme.spacing(2),
+  },
+  leftIcon: {
+    marginRight: theme.spacing(2),
+  },
+  backdrop: {
+    zIndex: 999,
+  },
+});
+
+const mapStateToProps = (state: RootState) => ({
+  hasOwnerPermission: hasFranchiseRoleUpsertPermission(state),
+  loading: state.role.loading,
+  users: getFranchiseUsersWithRole(state),
+  franchiseRoles: getAllFranchiseRoles(state),
+  updateLoading: state.role.franchiseRole.createOrUpdate.loading,
+  franchiseeList: getFranchiseCompanies(state),
+  franchiseeListLoading: state.franchise.loading,
+});
+
+const mapDispatchToProps = {
+  fetchFranchise,
+  fetchFranchiseUserRoles,
+  fetchFranchiseRoles,
+  updateFranchiseUserRole,
+  createStaffFranchiseUser,
+  deleteStaffFranchiseUser,
+  updateFranchiseUserCommission,
+};
+
+export default compose(
+  withStyles(styles),
+  withTranslation(['franchise', 'role']),
+  withTitle(({ t }: { t: TFunction }) => t('navigation:franchiseMenu.staff')),
+  connect(mapStateToProps, mapDispatchToProps),
+)(FranchiseStaffConfiguration);

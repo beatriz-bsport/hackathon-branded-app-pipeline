@@ -1,0 +1,8 @@
+.bs-invite-booking-guest-modal__blanket {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.bs-invite-booking-guest-modal__modal-dialog {
+}

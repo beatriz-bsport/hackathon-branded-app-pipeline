@@ -1,0 +1,12 @@
+.bs-consumer-generic-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: var(--bs-space-size-4);
+}
+
+.bs-consumer-generic-header__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--bs-space-size-2);
+}

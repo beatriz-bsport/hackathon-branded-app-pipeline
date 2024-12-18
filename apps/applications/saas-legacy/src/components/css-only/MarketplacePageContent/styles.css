@@ -1,0 +1,12 @@
+.bs-marketplace-page-content-root {
+  width: 100%;
+  /* Take the full available space minus the app bar height */
+  height: calc(100dvh - 64px); /* TEMP FABRIQUE - SWITCH TO 48px later on */
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.bs-marketplace-page-content-root__children {
+  margin: 0 auto;
+  max-width: 1400px;
+}

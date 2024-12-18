@@ -1,0 +1,13 @@
+.bs-consumer__subscription-card__recurrence-label {
+  display: flex;
+  align-items: center;
+  gap: var(--bs-space-size-2);
+  align-self: stretch;
+}
+
+.bs-consumer__subscription-card__recurrence-label__price {
+}
+
+.bs-consumer__subscription-card__recurrence-label__recurrence {
+  color: var(--bs-color-text-weak);
+}

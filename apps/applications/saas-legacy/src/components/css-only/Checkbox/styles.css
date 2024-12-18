@@ -1,0 +1,22 @@
+.bs-checkbox__container {
+  width: fit-content;
+}
+
+.bs-checkbox__label {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-1);
+  cursor: pointer;
+}
+
+.bs-checkbox__input {
+  display: none;
+}
+
+.bs-checkbox__text {
+  font-family: var(--body1-fontFamily);
+  font-size: var(--body1-fontSize);
+  font-weight: var(--body1-fontWeight);
+  letter-spacing: var(--body1-letterSpacing);
+  line-height: var(--body1-lineHeight);
+}

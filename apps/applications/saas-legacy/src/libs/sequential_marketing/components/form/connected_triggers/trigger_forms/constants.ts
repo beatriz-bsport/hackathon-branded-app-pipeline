@@ -1,0 +1,1 @@
+export const DEFAULT_REACT_SELECT_MAX_HEIGHT = 300;

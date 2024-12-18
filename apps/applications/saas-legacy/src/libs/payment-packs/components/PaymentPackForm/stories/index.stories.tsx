@@ -1,0 +1,201 @@
+import React from 'react';
+import { ComponentStory, ComponentMeta } from '@storybook/react';
+import { action } from '@storybook/addon-actions';
+
+import { paymentPackCategoryListFactory } from '#src/libs/payment-packs/factory';
+import FactoryBotEstablishment from '#src/libs/establishment/factories/Establishments';
+import FactoryBotTag from '#src/libs/tag/factory';
+import { factory_scts } from '#src/libs/category/factory';
+import { meta_activity_factory } from '#src/libs/meta-activity/factory';
+import { privateServiceListFactory } from '#src/libs/private-service/factory';
+import { newStoryFromTemplate } from '../../../../../utils/storybookHelper';
+
+import PaymentPackForm from '#src/libs/payment-packs/components/PaymentPackForm/PaymentPackForm.component';
+
+import {
+  emptyFormRenderingTest,
+  generalSectionRenderingTest,
+  validitySectionRenderingTest,
+  restrictionsSectionRenderingTest,
+  advancedOptionsSectionRenderingTest,
+} from './rendering-tests';
+
+import {
+  generalSectionRenderingInteractionTests,
+  validitySectionRenderingInteractionTests,
+  restrictionsSectionRenderingInteractionTests,
+  advancedSectionRenderingInteractionTests,
+} from './rendering-interaction-tests';
+
+import {
+  generalSectionInteractionTests,
+  validitySectionInteractionTests,
+  restrictionsSectionInteractionTests,
+  advancedOptionsSectionInteractionTests,
+} from './interaction-tests';
+
+import { formValidationTests } from './validation-tests';
+
+import { Establishment } from '#src/libs/establishment/types';
+
+import {
+  generalSectionErrorsTests,
+  restrictionSectionErrorsTests,
+  validitySectionErrorsTests,
+} from './error-tests';
+
+const randomPaymentPackCategorieList = paymentPackCategoryListFactory(2);
+const randomSCT = factory_scts(5);
+const randomEstablishments: Establishment[] =
+  FactoryBotEstablishment.Establishment.create(5);
+const randomMetaActivity = meta_activity_factory(5);
+const randomTagList = FactoryBotTag.Tag.create(5);
+const privateServices = privateServiceListFactory(3, { withSlots: true });
+
+const actionsData = {
+  onSubmit: action('onSubmit'),
+  onCancel: action('onCancel'),
+};
+
+export default {
+  title: 'library/PaymentPack/Payment Pack Form',
+  component: PaymentPackForm,
+  argTypes: {
+    onSubmit: actionsData.onSubmit,
+    onCancel: actionsData.onCancel,
+  },
+  args: {
+    open: true,
+    paymentPackCategories: randomPaymentPackCategorieList,
+    categoryList: randomSCT,
+    availableEstablishmentList: randomEstablishments,
+    metaActivityList: randomMetaActivity,
+    tagList: randomTagList,
+    privateServices: privateServices,
+  },
+  decorators: [
+    (Story) => (
+      <div
+        style={{
+          display: 'flex',
+          width: '100%',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
+        <div style={{ width: '50%' }}>
+          <Story />
+        </div>
+      </div>
+    ),
+  ],
+} as ComponentMeta<typeof PaymentPackForm>;
+
+const PaymentPackFormTemplate: ComponentStory<typeof PaymentPackForm> = (
+  args,
+) => <PaymentPackForm {...args} />;
+
+export const EmptyForm = newStoryFromTemplate(PaymentPackFormTemplate);
+
+// The purpose of these tests is to check that all the elements of the form are rendered correctly
+export const EmptyFormRenderingTest = newStoryFromTemplate(
+  PaymentPackFormTemplate,
+);
+EmptyFormRenderingTest.play = emptyFormRenderingTest;
+
+export const GeneralSectionRenderingTest = newStoryFromTemplate(
+  PaymentPackFormTemplate,
+);
+GeneralSectionRenderingTest.play = generalSectionRenderingTest;
+
+export const ValiditySectionRenderingTest = newStoryFromTemplate(
+  PaymentPackFormTemplate,
+);
+ValiditySectionRenderingTest.play = validitySectionRenderingTest;
+
+export const RestrictionsSectionRenderingTest = newStoryFromTemplate(
+  PaymentPackFormTemplate,
+);
+RestrictionsSectionRenderingTest.play = restrictionsSectionRenderingTest;
+
+export const AdvancedOptionsSectionRenderingTest = newStoryFromTemplate(
+  PaymentPackFormTemplate,
+);
+AdvancedOptionsSectionRenderingTest.play = advancedOptionsSectionRenderingTest;
+
+// Rendering Interaction Tests
+// The purpose of these tests is to mimic user behavior and check that hidden fields / elements are rendered
+
+export const GeneralSectionRenderingInteractionTests = newStoryFromTemplate(
+  PaymentPackFormTemplate,
+);
+GeneralSectionRenderingInteractionTests.play =
+  generalSectionRenderingInteractionTests;
+
+export const ValiditySectionRenderingInteractionTests = newStoryFromTemplate(
+  PaymentPackFormTemplate,
+);
+ValiditySectionRenderingInteractionTests.play =
+  validitySectionRenderingInteractionTests;
+
+export const RestrictionsSectionRenderingInteractionTests =
+  newStoryFromTemplate(PaymentPackFormTemplate);
+RestrictionsSectionRenderingInteractionTests.play =
+  restrictionsSectionRenderingInteractionTests;
+
+export const AdvancedSectionRenderingInteractionTests = newStoryFromTemplate(
+  PaymentPackFormTemplate,
+);
+AdvancedSectionRenderingInteractionTests.play =
+  advancedSectionRenderingInteractionTests;
+
+// Interaction Tests
+// The purpose of these tests is to interact with the component and to check that
+// the input values are the ones received by the form
+
+export const GeneralSectionInteractionTests = newStoryFromTemplate(
+  PaymentPackFormTemplate,
+);
+GeneralSectionInteractionTests.play = generalSectionInteractionTests;
+
+export const ValiditySectionInteractionTests = newStoryFromTemplate(
+  PaymentPackFormTemplate,
+);
+ValiditySectionInteractionTests.play = validitySectionInteractionTests;
+
+export const RestrictionsSectionInteractionTests = newStoryFromTemplate(
+  PaymentPackFormTemplate,
+);
+RestrictionsSectionInteractionTests.play = restrictionsSectionInteractionTests;
+
+export const AdvancedOptionsSectionInteractionTests = newStoryFromTemplate(
+  PaymentPackFormTemplate,
+);
+AdvancedOptionsSectionInteractionTests.play =
+  advancedOptionsSectionInteractionTests;
+
+// Validation tests
+// The purpose is to test if the validation rules are respected
+
+export const FormValidationTests = newStoryFromTemplate(
+  PaymentPackFormTemplate,
+);
+FormValidationTests.play = formValidationTests;
+
+// Errors tests
+// The purpose is to test if errors are displayed properly. It should not be possible to submit the form in case of error
+
+export const GeneralSectionErrorsTests = newStoryFromTemplate(
+  PaymentPackFormTemplate,
+);
+GeneralSectionErrorsTests.play = generalSectionErrorsTests;
+
+export const ValiditySectionErrorsTests = newStoryFromTemplate(
+  PaymentPackFormTemplate,
+);
+ValiditySectionErrorsTests.play = validitySectionErrorsTests;
+
+export const RestrictionSectionErrorsTests = newStoryFromTemplate(
+  PaymentPackFormTemplate,
+);
+RestrictionSectionErrorsTests.play = restrictionSectionErrorsTests;

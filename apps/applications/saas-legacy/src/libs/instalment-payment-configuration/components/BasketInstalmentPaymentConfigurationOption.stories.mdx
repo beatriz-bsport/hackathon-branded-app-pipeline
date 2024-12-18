@@ -1,0 +1,31 @@
+import { Meta, Canvas, Story, ArgsTable } from '@storybook/addon-docs';
+import BasketInstalmentPaymentConfigurationOption from "./BasketInstalmentPaymentConfigurationOption.component"
+import InstalmentPaymentFactory from "../factories";
+const randomInstalmentPayment=InstalmentPaymentFactory.InstalmentPayment.createOne({
+  payment_pack_list:[{name:'hello'}],private_pass_list:[{name:'HEY'}],})
+
+<Meta title='Library/InstalmentPaymentConfiguration/BasketPaymentOption'
+    component={BasketInstalmentPaymentConfigurationOption}
+    argTypes ={{
+    }}/>
+
+export const Template = (args) => {
+  const [checked, setChecked] = React.useState(false)
+  const onSelect = () => setChecked(true)
+  return (<BasketInstalmentPaymentConfigurationOption {...args} checked={checked} onSelect={onSelect}/>)};
+
+#  Basket Option
+
+<Canvas>
+    <Story 
+    name='BasketInstalmentPaymentConfigurationOption'
+    args={{
+      instalmentPayment:randomInstalmentPayment,
+      basketPrice:100,
+    }}>
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+<ArgsTable story='BasketInstalmentPaymentConfigurationOption' />
+

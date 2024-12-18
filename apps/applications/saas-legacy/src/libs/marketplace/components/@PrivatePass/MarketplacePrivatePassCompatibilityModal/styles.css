@@ -1,0 +1,156 @@
+.bs-pass-compatibility-dialog__compatibility li {
+  list-style-type: none;
+}
+
+.bs-pass-compatibility-dialog__compatibility {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin: var(--spacing-2);
+}
+
+.bs-pass-compatibility-dialog__compatibility__title {
+  font-size: var(--subtitle2-fontSize);
+  line-height: var(--h6-lineHeight);
+  font-weight: var(--h5-fontWeight);
+}
+
+.bs-pass-compatibility-dialog__compatibility__itemList {
+  display: flex;
+  flex-flow: row wrap;
+}
+
+.bs-pass-compatibility-dialog__compatibility__itemList__item {
+  background-color: var(--color-grey-light);
+  padding: 1px 8px;
+  border-radius: 4px;
+  margin: var(--spacing-1);
+  margin-left: 0;
+  font-size: var(--subtitle2-fontSize);
+  line-height: var(--h6-lineHeight);
+  font-weight: var(--h5-fontWeight);
+}
+
+.bs-pass-compatibility-dialog__backdrop {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 999;
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.bs-pass-compatibility-dialog {
+  background-color: var(--color-background-paper);
+  border: none;
+  margin: var(--spacing-2);
+  color: var(--color-grey-dark);
+}
+
+.bs-pass-compatibility-dialog__header__check-icon {
+  margin: var(--spacing-2);
+  margin-bottom: 0;
+}
+
+.bs-pass-compatibility-dialog__header__title {
+  font-size: var(--h5-fontSize);
+  line-height: var(--h6-lineHeight);
+  margin-top: var(--spacing-2);
+  font-weight: var(--h5-fontWeight);
+}
+
+.bs-pass-compatibility-dialog__body {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: var(--spacing-2);
+  padding-top: 0px;
+  max-height: 50vh;
+  overflow-y: auto;
+}
+
+.bs-pass-compatibility-dialog__compatibility__titleWithIcon {
+  display: flex;
+  align-items: center;
+  margin-bottom: var(--spacing-2);
+}
+
+.bs-pass-compatibility-dialog__compatibility__titleWithIcon__icon {
+  margin-right: var(--spacing-1);
+}
+
+.bs-pass-compatibility-dialog__compatibility__titleWithIcon__title {
+  font-size: var(--h6-fontSize);
+  line-height: var(--h6-lineHeight);
+  font-weight: var(--h6-fontWeight);
+}
+
+.bs-pass-compatibility-dialog__footer {
+  border-top: var(--border-color) solid 1px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.bs-pass-compatibility-dialog__footer__button {
+  text-align: center;
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  padding: var(--spacing-3);
+  border: none;
+  background: none;
+  font-size: var(--button-fontSize);
+  line-height: var(--button-lineHeight);
+  font-weight: var(--button-fontWeight);
+  color: var(--color-grey-main);
+  text-transform: uppercase;
+}
+
+.--highlighted {
+  color: #ffa71d;
+  background: rgba(255, 167, 29, 0.1);
+}
+
+.--is-mobile {
+  display: none;
+}
+
+.--mobile-body {
+  border-top: var(--border-color) solid 1px;
+  width: 100%;
+  display: none;
+  padding: var(--spacing-2);
+}
+
+.--mobile-subitle {
+  color: var(--color-grey-medium);
+  font-size: var(--h6-fontSize);
+  line-height: var(--h6-lineHeight);
+  font-weight: var(--h6-fontWeight);
+}
+
+@media screen and (max-width: 570px) {
+  .--is-desktop {
+    display: none;
+  }
+
+  .--is-mobile {
+    display: block;
+  }
+
+  .--mobile-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}

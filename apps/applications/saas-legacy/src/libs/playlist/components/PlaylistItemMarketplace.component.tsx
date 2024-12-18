@@ -1,0 +1,139 @@
+import React from 'react';
+import VideoLibraryIcon from '@material-ui/icons/VideoLibrary';
+import Typography from '@material-ui/core/Typography';
+import ButtonBase from '@material-ui/core/ButtonBase';
+import makeStyles from '@material-ui/core/styles/makeStyles';
+
+type Props = {
+  title: string;
+  description: string;
+  imageUrl: string;
+  videoCountDescription: string;
+  onClick: () => void;
+};
+
+const PlaylistItemMarketplace: React.FC<Props> = (props) => {
+  const { title, description, imageUrl, videoCountDescription, onClick } =
+    props;
+  const classes = useStyles();
+
+  return (
+    <ButtonBase className={classes.container} onClick={onClick}>
+      <div className={classes.container2}>
+        <div className={classes.playlistItem__image_wrapper}>
+          <img alt="playlist" className={classes.img} src={imageUrl} />
+          <div className={classes.image_wrapper__count_wrapper}>
+            <Typography component="h3" variant="h6">
+              {videoCountDescription}
+            </Typography>
+            <VideoLibraryIcon
+              className={classes.image_wrapper__playlist_icon}
+              fontSize="large"
+            />
+          </div>
+        </div>
+
+        <div className={classes.playlist_item__content}>
+          <Typography
+            align="left"
+            className={classes.playlist_item_title}
+            component="h3"
+            variant="h6"
+          >
+            {title}
+          </Typography>
+
+          <Typography
+            align="left"
+            className={classes.playlist_item__description}
+            color="textSecondary"
+            variant="body2"
+          >
+            {description}
+          </Typography>
+        </div>
+      </div>
+    </ButtonBase>
+  );
+};
+
+const useStyles = makeStyles((theme) => ({
+  container: {
+    width: '100%',
+    cursor: 'pointer',
+    boxShadow: '0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24)',
+    transition: 'all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1)',
+  },
+  container2: {
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    minHeight: 260,
+  },
+  playlistItem__image_wrapper: {
+    position: 'relative',
+    width: '100%',
+    paddingBottom: '56.2%',
+    overflow: 'hidden',
+  },
+  img: {
+    objectFit: 'cover',
+    width: '100%',
+    height: '100%',
+    position: 'absolute',
+    left: 0,
+    top: 0,
+  },
+  image_wrapper__count_wrapper: {
+    position: 'absolute',
+    zIndex: 1,
+    paddingTop: '100%',
+    height: '100%',
+    width: '100%',
+    opacity: 0.5,
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    color: 'white',
+    transition: 'all 0.3s',
+    '&:hover': {
+      paddingTop: '0%',
+      backgroundColor: 'black',
+    },
+  },
+  image_wrapper__playlist_icon: {
+    marginLeft: 5,
+  },
+  playlist_item__content: {
+    display: 'flex',
+    flexDirection: 'column',
+    padding: theme.spacing(1),
+    width: '100%',
+    minHeight: 92,
+    boxSizing: 'border-box',
+  },
+  playlist_item_title: {
+    minHeight: 32,
+    maxHeight: 32,
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    display: '-webkit-box',
+    '-webkit-line-clamp': 1,
+    '-webkit-box-orient': 'vertical',
+    overflowWrap: 'anywhere',
+  },
+  playlist_item__description: {
+    minHeight: 60,
+    maxHeight: 60,
+    width: '100%',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    display: '-webkit-box',
+    '-webkit-line-clamp': 3,
+    '-webkit-box-orient': 'vertical',
+    overflowWrap: 'anywhere',
+  },
+}));
+
+export default React.memo(PlaylistItemMarketplace);

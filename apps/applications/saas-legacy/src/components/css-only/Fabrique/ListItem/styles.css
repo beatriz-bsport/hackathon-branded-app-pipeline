@@ -1,0 +1,129 @@
+.bs-fabrique-listitem__root {
+  list-style-type: none;
+  display: flex;
+  align-content: center;
+  margin: 0;
+  border-radius: var(--bs-border-radius-sm);
+  width: 100%;
+  align-items: center;
+}
+
+.bs-fabrique-listitem__container {
+  display: inline-flex;
+  align-items: center;
+  width: 100%;
+  gap: var(--bs-space-size-2);
+}
+
+.bs-fabrique-listitem__radio--selected,
+.bs-fabrique-listitem__root--selected {
+  background: var(--bs-color-action-brand-main);
+}
+
+/* ListItem spacing */
+.bs-fabrique-listitem__root--spacing--sm {
+  padding: var(--bs-space-size-2);
+}
+
+.bs-fabrique-listitem__root--spacing--lg {
+  padding: var(--bs-space-size-3) var(--bs-space-size-2);
+}
+
+/* ListItem button  */
+.bs-fabrique-listitem__button {
+  width: 100%;
+  justify-content: flex-start;
+  border-radius: var(--bs-border-radius-sm);
+}
+
+.bs-fabrique-listitem__button:hover,
+.bs-fabrique-listitem__button:focus-visible {
+  background: var(--bs-color-action-inverse-hovered);
+}
+
+.bs-fabrique-listitem__button:active {
+  background: var(--bs-color-action-inverse-pressed);
+}
+
+/* ListItem button for clickable text */
+
+.bs-fabrique-listitem__button-clickable-text {
+  flex: 1;
+}
+
+/* ListItem icon size */
+
+.bs-fabrique-listitem__icon {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+.bs-fabrique-listitem__icon--sm svg {
+  width: var(--bs-icon-size-sm);
+  height: var(--bs-icon-size-sm);
+}
+
+.bs-fabrique-listitem__icon--lg svg {
+  width: var(--bs-icon-size-lg);
+  height: var(--bs-icon-size-lg);
+}
+
+.bs-fabrique-listitem__icon--selected {
+  fill: var(--bs-color-icon-inverse-default);
+}
+
+.bs-fabrique-listitem__icon--hidden {
+  display: none;
+}
+
+/* TEXT STYLES */
+.bs-fabrique-listitem__radio__label--selected {
+  font-weight: var(--bs-font-weight-strong);
+  color: var(--bs-color-text-inverse-default);
+}
+
+.bs-fabrique-listitem__checkbox__label--selected {
+  font-weight: var(--bs-font-weight-strong);
+}
+
+.bs-fabrique-listitem__radio__captiontext--selected {
+  color: var(--bs-color-text-inverse-default);
+}
+
+.bs-fabrique-listitem__clickable-text__label {
+  text-decoration: underline;
+  font-weight: 700;
+}
+
+.bs-fabrique-listitem__clickable-text__label--selected {
+  color: var(--bs-color-text-inverse-default);
+}
+
+.bs-fabrique-listitem__root__right-slot {
+}
+
+.bs-fabrique-listitem__root__right-slot--hidden {
+  display: none;
+}
+
+/* .bs-fabrique-listitem__textwrapper {
+} */
+
+/* .bs-fabrique-listitem__captiontext {
+} */
+
+/* .bs-fabrique-listitem__label {
+} */
+
+/* RADIO STYLING */
+/* .bs-fabrique-listitem__radio {
+} */
+
+/* CHECKBOX STYLING */
+/* .bs-fabrique-listitem__checkbox {
+} */

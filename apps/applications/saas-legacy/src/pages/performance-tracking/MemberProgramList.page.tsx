@@ -1,0 +1,394 @@
+import React, { Component } from 'react';
+import { connect, ConnectedProps } from 'react-redux';
+import { compose, withHandlers, withState } from 'recompose';
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
+import { push as pushRouter } from 'connected-react-router';
+import {
+  WithStyles,
+  createStyles,
+  withStyles,
+  Theme,
+} from '@material-ui/core/styles';
+import { withTranslation, WithTranslation } from 'react-i18next';
+
+import { Add, Info } from '@material-ui/icons';
+
+import { Grid } from '@material-ui/core';
+import {
+  PerformanceTrackingMemberProgram,
+  PerformanceTrackingProgram,
+} from '#src/libs/performance-tracking/types';
+import ProgramSelectorDialog from '#src/libs/performance-tracking/components/program/ProgramSelectorDialog.component';
+import ProgramList from '#src/libs/performance-tracking/components/program/ProgramList.component';
+import MemberProgramDetail from '#src/libs/performance-tracking/components/member-program/MemberProgramDetail.component';
+import MaterialUISelector from '#src/components/Selector/MaterialUISelector.component';
+import ProgramMenuItem from '#src/libs/performance-tracking/components/program/ProgramMenuItem.component';
+import {
+  DialogActionEnum,
+  showActionDialog,
+} from '#src/components/genericDialog/CustomDialogs';
+import GenericDialog from '#src/components/genericDialog/GenericDialog';
+import {
+  getMemberProgramByMemberList,
+  composeMemberProgramWithProgram,
+  composeMemberProgramWithMetric,
+  getMemberProgram,
+  getProgramList,
+  composeProgramWithMetrics,
+} from '#src/libs/performance-tracking/selector';
+import {
+  fetchProgram as fetchProgramAction,
+  createMemberProgram as createMemberProgramAction,
+  fetchMemberProgram as fetchMemberProgramAction,
+  fetchMetric as fetchMetricAction,
+  disableMemberProgram as disableMemberProgramAction,
+  updateMemberMetricValue as updateMemberMetricValueAction,
+  retrieveMemberProgram as retrieveMemberProgramAction,
+} from '#src/libs/performance-tracking/actions';
+import BackofficeLinearProgressComponent from '#src/components/navigation/BackofficeLinearProgress.component';
+import { RootState } from '../../reducers';
+import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
+import { WithHandlerType } from '../../utils/types';
+
+type OwnProps = {
+  memberProgramList: Array<PerformanceTrackingMemberProgram>;
+  programList: Array<PerformanceTrackingProgram>;
+};
+type RouterProps = {
+  memberId: number;
+  memberProgramDetailedId: number;
+};
+type StateProps = {
+  isDialogChooseProgramOpen: boolean;
+  setIsDialogChooseProgramOpen: (bool: boolean) => void;
+};
+
+type Props = OwnProps &
+  RouterProps &
+  StateProps &
+  ConnectedProps<typeof connector> &
+  WithStyles<typeof styles> &
+  WithTranslation &
+  WithHandlerType<typeof mapWithHandlers>;
+
+export class MemberProgramList extends Component<Props> {
+  componentDidMount() {
+    this.props.fetchProgram({ is_disabled: false });
+    this.props.fetchMemberProgram(
+      { member: this.props.memberId },
+      {
+        onSuccess: () => {
+          this.props.fetchMetric();
+        },
+      },
+    );
+  }
+
+  render() {
+    const {
+      memberProgramList,
+      classes,
+      t,
+      isDialogChooseProgramOpen,
+      setIsDialogChooseProgramOpen,
+      programList,
+      memberProgramDetailed,
+      memberProgramDetailedId,
+      retrieveMemberProgram,
+      createMemberProgram,
+      memberId,
+      updateMemberMetricValue,
+      pushToRouter,
+      memberProgramLoading,
+      programLoading,
+      creationLoading,
+    } = this.props;
+
+    const alreadyRegisterdProgramIds = memberProgramList?.map(
+      (mp) => mp?.program?.id,
+    );
+    const memberAvailablePrograms =
+      // @ts-expect-error
+      programList?.filter((p) => !alreadyRegisterdProgramIds?.includes(p.id)) ||
+      [];
+    if (memberProgramLoading || programLoading) {
+      return <BackofficeLinearProgressComponent additionalMargin={1} />;
+    }
+    return (
+      <div className={classes.container}>
+        {!memberProgramList || memberProgramList.length === 0 ? (
+          <div className={classes.noProgram}>
+            <div className={classes.end}>
+              <div className={classes.infoAndText}>
+                <Info />
+                <Typography>{t('program.infoNoProgram')}</Typography>
+              </div>
+
+              <Button
+                color="primary"
+                onClick={() => setIsDialogChooseProgramOpen(true)}
+                variant="outlined"
+              >
+                {t('program.form.addProgram')}
+              </Button>
+            </div>
+          </div>
+        ) : (
+          <Grid container spacing={4}>
+            <Grid item md={6} xs={12}>
+              <div className={classes.programList}>
+                <ProgramList
+                  isLinkedToMemberProgram
+                  isSearchDisplayed
+                  noTitle
+                  creationLoading={creationLoading}
+                  onAddProgram={() => setIsDialogChooseProgramOpen(true)}
+                  onClickOnItem={(program) => {
+                    const memberProgramSelected = memberProgramList.find(
+                      (memberProgram) =>
+                        memberProgram.program.id === program.id,
+                    );
+                    pushToRouter(memberProgramSelected?.id);
+                    retrieveMemberProgram({
+                      memberProgramId: memberProgramSelected?.id,
+                    });
+                  }}
+                  onDelete={(program) => {
+                    const memberProgramToDelete = [...memberProgramList].find(
+                      (memberProgram) =>
+                        memberProgram.program.id === program.id,
+                    ).id;
+                    this.props.disableMemberProgram(memberProgramToDelete);
+                    if (memberProgramToDelete === memberProgramDetailed.id) {
+                      pushToRouter();
+                    }
+                  }}
+                  programList={memberProgramList?.map(
+                    (memberProgram) => memberProgram.program,
+                  )}
+                  programSelectedId={memberProgramDetailed?.program?.id}
+                />
+              </div>
+              <div className={classes.programSelector}>
+                <Button
+                  className={classes.button}
+                  color="primary"
+                  disabled={creationLoading}
+                  onClick={() => setIsDialogChooseProgramOpen(true)}
+                  variant="outlined"
+                >
+                  <div className={classes.row}>
+                    <Add />
+                    {t('program.form.addProgram')}
+                  </div>
+                </Button>
+                <MaterialUISelector
+                  isMenuListPaddingDisabled
+                  isMulti={false}
+                  itemRenderer={(itemProps) => {
+                    return (
+                      <ProgramMenuItem
+                        isInSelector
+                        isDisabled={itemProps.isDisabled}
+                        isSelected={itemProps.isSelected}
+                        onDelete={async (program) => {
+                          const shouldDelete = await showActionDialog(
+                            t('memberProgram.deleteHeader'),
+                            t('memberProgram.deleteContent'),
+                            DialogActionEnum.DELETE,
+                          );
+                          if (shouldDelete) {
+                            const memberProgramToDelete = [
+                              ...memberProgramList,
+                            ].find(
+                              (memberProgram) =>
+                                memberProgram.program.id === program.id,
+                            ).id;
+                            this.props.disableMemberProgram(
+                              memberProgramToDelete,
+                            );
+                            if (
+                              memberProgramToDelete === memberProgramDetailed.id
+                            ) {
+                              pushToRouter();
+                            }
+                          }
+                        }}
+                        program={
+                          [...memberProgramList].find(
+                            (memberProgram) =>
+                              memberProgram.program.id === itemProps.data.value,
+                          ).program
+                        }
+                      />
+                    );
+                  }}
+                  onChange={(values) => {
+                    const memberProgramSelected = memberProgramList.find(
+                      (memberProgram) =>
+                        // @ts-expect-error
+                        memberProgram.program.id === values.value,
+                    );
+                    pushToRouter(memberProgramSelected.id);
+                    retrieveMemberProgram({
+                      memberProgramId: memberProgramSelected?.id,
+                    });
+                  }}
+                  options={[...memberProgramList]?.map((memberProgram) => ({
+                    value: memberProgram.program?.id,
+                    label: memberProgram.program?.name,
+                  }))}
+                  value={{
+                    value: memberProgramDetailed?.id,
+                    label:
+                      memberProgramDetailed.program?.name ||
+                      t('program.selectProgram'),
+                  }}
+                />
+                <GenericDialog />
+              </div>
+            </Grid>
+            <Grid item md={6} xs={12}>
+              <MemberProgramDetail
+                withIcon
+                changeMemberMetricValue={(value, metric) => {
+                  updateMemberMetricValue({
+                    memberProgram: memberProgramDetailedId,
+                    metric,
+                    value,
+                  });
+                }}
+                memberProgram={memberProgramDetailed}
+              />
+            </Grid>
+          </Grid>
+        )}
+        <ProgramSelectorDialog
+          createMemberProgram={(id) =>
+            createMemberProgram(
+              { program: id, member: memberId },
+              {
+                onSuccess: (memberProgram) => {
+                  pushToRouter(memberProgram.id);
+                },
+              },
+            )
+          }
+          isDialogChooseProgramOpen={isDialogChooseProgramOpen}
+          programList={[...memberAvailablePrograms]}
+          setIsDialogChooseProgramOpen={setIsDialogChooseProgramOpen}
+        />
+      </div>
+    );
+  }
+}
+
+const connector = connect(
+  (state: RootState, props: RouterProps) => ({
+    creationLoading:
+      state.performanceTracking.memberProgram.createOrUpdate.loading,
+    memberProgramLoading: state.performanceTracking.memberProgram.loading,
+    programLoading: state.performanceTracking.program.loading,
+    memberProgramDetailed: composeMemberProgramWithMetric(
+      composeMemberProgramWithProgram(getMemberProgram),
+    )(state, props.memberProgramDetailedId) as PerformanceTrackingMemberProgram,
+    programList: composeProgramWithMetrics(getProgramList)(state),
+    memberProgramList: composeMemberProgramWithProgram(
+      getMemberProgramByMemberList,
+    )(state, props.memberId) as Array<PerformanceTrackingMemberProgram>,
+  }),
+  {
+    fetchProgram: fetchProgramAction,
+    createMemberProgram: createMemberProgramAction,
+    fetchMemberProgram: fetchMemberProgramAction,
+    retrieveMemberProgram: retrieveMemberProgramAction,
+    fetchMetric: fetchMetricAction,
+    disableMemberProgram: disableMemberProgramAction,
+    updateMemberMetricValue: updateMemberMetricValueAction,
+    pushRouter,
+  },
+);
+const mapWithHandlers = {
+  pushToRouter:
+    (props: ConnectedProps<typeof connector> & RouterProps & StateProps) =>
+    (id?: number) => {
+      if (id !== undefined) {
+        props.pushRouter(
+          `/member/${props.memberId}/performance-tracking/${id}`,
+        );
+      } else {
+        props.pushRouter(`/member/${props.memberId}/performance-tracking/`);
+      }
+    },
+};
+
+const styles = (theme: Theme) =>
+  createStyles({
+    row: {
+      display: 'flex',
+      flexDirection: 'row',
+      justifyContent: 'center',
+      alignItems: 'center',
+      gap: theme.spacing(1),
+    },
+    programList: {
+      [theme.breakpoints.down('sm')]: {
+        display: 'none',
+      },
+    },
+    programSelector: {
+      display: 'flex',
+      [theme.breakpoints.up('md')]: {
+        display: 'none',
+      },
+      flexDirection: 'column',
+      gap: theme.spacing(2),
+    },
+    noProgram: {
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      paddingTop: theme.spacing(10),
+      gap: theme.spacing(2),
+    },
+    infoAndText: {
+      display: 'flex',
+      gap: theme.spacing(2),
+    },
+    end: {
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'flex-end',
+      gap: theme.spacing(2),
+    },
+    menuItemStart: {
+      width: '50%',
+    },
+    menuItemEnd: {
+      width: '50%',
+      display: 'flex',
+      justifyContent: 'flex-end',
+    },
+    button: {
+      maxWidth: theme.spacing(32),
+    },
+    container: {
+      [theme.breakpoints.down('sm')]: {
+        padding: theme.spacing(2),
+        paddingBottom: theme.spacing(4),
+      },
+    },
+  });
+
+export default compose(
+  routerParamsToProps({
+    id: 'memberId:number',
+    memberProgramId: 'memberProgramDetailedId:number',
+  }),
+  withStyles(styles),
+  withTranslation('performanceTracking'),
+  connector,
+  withState('isDialogChooseProgramOpen', 'setIsDialogChooseProgramOpen', false),
+  withHandlers(mapWithHandlers),
+)(MemberProgramList);

@@ -1,0 +1,77 @@
+/*  */
+/* Login Page */
+/*  */
+
+.bs-login-container--webpage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: var(--spacing-1);
+  width: 100%;
+  max-width: 400px;
+}
+
+.bs-login-container--webpage--simplifyUI {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: var(--spacing-1);
+  height: 88vh;
+  margin-top: 12vh;
+}
+
+.bs-login-container--widget {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: var(--spacing-1);
+  overflow: auto;
+  width: 100%;
+  height: 100%;
+  margin-top: 0;
+  max-width: 400px;
+}
+
+.bs-login-container--widget--simplifyUI {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: var(--spacing-1);
+  height: 100%;
+  margin-top: 0;
+  max-width: 400px;
+}
+
+.bs-flex-column--default {
+  container-type: inline-size;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  overflow: auto;
+}
+
+.bs-flex-column--simplifyUI {
+  container-type: inline-size;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  overflow: auto;
+  min-height: 100vh;
+}
+
+@container (max-width: 599px) {
+  .bs-login-container--webpage {
+    margin-top: 0;
+    height: 100vh;
+    justify-content: center;
+    width: 100%;
+  }
+  .bs-login-container--webpage--simplifyUI {
+    margin-top: 0;
+    height: 100vh;
+    justify-content: center;
+    width: 100%;
+  }
+}

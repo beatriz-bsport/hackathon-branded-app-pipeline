@@ -1,0 +1,59 @@
+import { Meta, Canvas, Story, ArgsTable } from '@storybook/addon-docs';
+import ReplacementRequestClosingDateExtensionDialog from './ReplacementRequestClosingDateExtensionDialog.component';
+import { replacementRequestFactory } from '../../factories';
+
+<Meta
+  title="Library/Replacement/ReplacementRequestClosingDateExtensionDialog"
+  component={ReplacementRequestClosingDateExtensionDialog}
+  argTypes={{
+    open: {
+      description: 'Is the dialog opened',
+      table: {
+        type: {
+          summary: 'boolean',
+        },
+        defaultValue: {
+          summary: 'true',
+        },
+      },
+    },
+    open: {
+      description: 'Replacement request',
+      table: {
+        type: {
+          summary: 'ReplacementRequest',
+        },
+        defaultValue: {
+          summary: 'null',
+        },
+      },
+    },
+    onSend: { action: 'clicked' },
+    onClose: { action: 'clicked' },
+  }}
+/>
+
+export const Template = (args) => (
+  <ReplacementRequestClosingDateExtensionDialog {...args} />
+);
+
+This `ReplacementRequestClosingDateExtensionDialog` is a dialog where we can add an extension for the closing date of a replacement request
+
+# Replacement Request Closing Date Extension Dialog
+
+`ReplacementRequestClosingDateExtensionDialog`
+
+<Canvas>
+  <Story
+    name="Replacement Request Closing Date Extension Dialog"
+    args={{
+      open: true,
+      replacementRequest: replacementRequestFactory(),
+      timezoneName: 'Europe/Paris',
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<ArgsTable story="Replacement Request Closing Date Extension Dialog" />

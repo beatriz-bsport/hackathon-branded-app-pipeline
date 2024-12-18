@@ -1,0 +1,19 @@
+/*  */
+/* Level */
+/*  */
+.bs-level {
+  padding: 0px calc(var(--spacing-1) / 2);
+  border-radius: var(--border-radius-1);
+  background-color: var(--level-background-color);
+  color: var(--level-color);
+  align-items: center;
+  font-family: var(--fontFamily);
+  font-size: var(--body2-fontSize);
+  font-weight: var(--fontWeightMedium);
+  min-height: 24px;
+  display: flex;
+}
+
+.bs-level-content {
+  margin: 0;
+}

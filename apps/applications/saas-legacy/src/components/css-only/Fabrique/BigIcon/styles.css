@@ -1,0 +1,40 @@
+.bs-fabrique-big-icon__root {
+  display: inline-flex;
+  padding: var(--bs-space-size-4);
+  align-items: center;
+}
+
+.bs-fabrique-big-icon--size {
+  width: var(--bs-space-size-18);
+  height: var(--bs-space-size-18);
+}
+
+.bs-fabrique-big-icon--success {
+  border-radius: var(--bs-border-radius-circle);
+  background: var(--bs-color-background-success-weak);
+  color: var(--bs-color-icon-status-success-weak);
+}
+
+.bs-fabrique-big-icon--info {
+  border-radius: var(--bs-border-radius-circle);
+  background: var(--bs-color-background-info-weak);
+  color: var(--bs-color-icon-status-info-weak);
+}
+
+.bs-fabrique-big-icon--warning {
+  border-radius: var(--bs-border-radius-circle);
+  background: var(--bs-color-background-warning-weak);
+  color: var(--bs-color-icon-status-warning-weak);
+}
+
+.bs-fabrique-big-icon--error {
+  border-radius: var(--bs-border-radius-circle);
+  background: var(--bs-color-background-error-weak);
+  color: var(--bs-color-icon-status-error-weak);
+}
+
+.bs-fabrique-big-icon--grey {
+  border-radius: var(--bs-border-radius-circle);
+  background: var(--bs-color-background-grey-weak);
+  color: var(--bs-color-icon-weaker);
+}

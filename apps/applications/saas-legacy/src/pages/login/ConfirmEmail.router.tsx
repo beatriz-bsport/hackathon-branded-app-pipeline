@@ -1,0 +1,123 @@
+import React from 'react';
+import { compose, withProps } from 'recompose';
+
+import { connect, ConnectedProps } from 'react-redux';
+import { Route, Switch } from 'react-router-dom';
+import Hidden from '@material-ui/core/Hidden';
+import Fade from '@material-ui/core/Fade';
+import { useTranslation } from 'react-i18next';
+// @ts-expect-error
+import withQueryParams from '#src/hocs/with-query-params.hoc';
+import themeSelectors, { getIsUISimplified } from '#src/libs/theme/selectors';
+import { fetchCompanyTheme as fetchCompanyThemeAction } from '#src/libs/theme/actions';
+import LoginBackground from '#src/libs/login/components/LoginBackground.component';
+import { Theme } from '#src/libs/theme/types';
+import { refreshValidationEmailStatus as refreshValidationEmailStatusAction } from '#src/libs/login/actions';
+import withThemeProvider from '#src/hocs/company-themifier.hoc';
+import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
+import namespaces from '../../i18n/namespaces.json';
+import { RootState } from '../../reducers';
+// @ts-expect-error
+import LanguageButton from '../../components/button/LanguageButton.component';
+// @ts-expect-error
+import asyncComponent from '../../AsyncComponent';
+import useSaasRouterTracker from '../../hooks/useSaasRouterTracker';
+import { BsportRequestFromHeaderValue } from '../../constants';
+import './ConfirmEmailRouterStyles.css';
+
+const ConfirmingEmailPage = asyncComponent(
+  () => import('./ConfirmingEmail.page'),
+);
+const EmailConfirmationPage = asyncComponent(
+  () => import('./email-confirmation/EmailConfirmation.page'),
+);
+
+type Props = {
+  theme: Theme;
+  simplifyUI?: boolean;
+  refreshValidationEmailStatus: () => void;
+  companyId: number;
+} & ConnectedProps<typeof connector>;
+
+export const ConfirmEmailRouter: React.FC<Props> = ({
+  theme,
+  simplifyUI,
+  refreshValidationEmailStatus,
+  companyId,
+  fetchCompanyTheme,
+}) => {
+  useSaasRouterTracker(BsportRequestFromHeaderValue.SAAS_EMAIL_CONFIRMATION);
+
+  useTranslation(namespaces);
+
+  let src: string = 'https://cdn.bsport.io/bsport_logo_txt.png';
+  let alt: string = 'bsport-logo';
+
+  if (theme) {
+    src = theme.cover;
+    alt = `${theme.company_name} - logo`;
+  }
+
+  React.useEffect(() => {
+    refreshValidationEmailStatus();
+  }, [refreshValidationEmailStatus]);
+
+  React.useEffect(() => {
+    if (companyId) {
+      fetchCompanyTheme(companyId);
+    }
+  }, [fetchCompanyTheme, companyId]);
+
+  return (
+    <>
+      {!simplifyUI && (
+        <Hidden xsDown>
+          <LoginBackground company />
+          <Fade in>
+            <div className="bs-confirm-email-header">
+              <img
+                alt={alt}
+                className="bs-confirm-email-header__logo"
+                src={src}
+              />
+
+              <LanguageButton />
+            </div>
+          </Fade>
+        </Hidden>
+      )}
+      <Switch>
+        <Route
+          component={ConfirmingEmailPage}
+          path="/login/email_confirmation/:uuid/"
+        />
+        <Route
+          component={EmailConfirmationPage}
+          path="/login/email_confirmation/"
+        />
+      </Switch>
+    </>
+  );
+};
+
+const connector = connect(
+  (state: RootState, companyId: number) => ({
+    theme: themeSelectors.getTheme(state),
+    simplifyUI: !!companyId && getIsUISimplified(state),
+  }),
+  {
+    fetchCompanyTheme: fetchCompanyThemeAction,
+    refreshValidationEmailStatus: refreshValidationEmailStatusAction,
+  },
+);
+
+export default compose(
+  withQueryParams([['membership'], 'queryParams']),
+  withProps(({ queryParams }) => ({
+    companyId: parseInt(queryParams?.membership),
+  })),
+  connector,
+  React.memo,
+  withThemeProvider,
+  marketplaceCssHoc(),
+)(ConfirmEmailRouter);

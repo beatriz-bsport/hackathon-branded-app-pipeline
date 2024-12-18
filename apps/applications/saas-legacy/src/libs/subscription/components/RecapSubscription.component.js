@@ -1,0 +1,119 @@
+// @flow
+import React from 'react';
+import Typography from '@material-ui/core/Typography';
+import withStyle from '@material-ui/core/styles/withStyles';
+import { withTranslation, TFunction } from 'react-i18next';
+import { compose } from 'recompose';
+
+import { DateTime } from 'luxon';
+import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
+
+type RecapProps = {
+  member: ?Member,
+  price: ?number,
+  periodName: ?string,
+  nbPeriod: ?number,
+  subscriptionContentName: ?string,
+  recurrentVoucher: ?number,
+  dateStart: number,
+
+  classes: Object,
+  t: TFunction,
+};
+
+const RecapSubscription = (props: RecapProps) => (
+  <div style={{ width: '100%' }}>
+    <div className={props.classes.section}>
+      <Typography
+        inline
+        className={props.classes.highlightText}
+        color="primary"
+      >
+        {props.member ? props.member.name : ' -- '}
+      </Typography>
+      <Typography inline>{`${props.t('recap.willBecharged')}`}</Typography>
+      <Typography
+        inline
+        className={props.classes.highlightText}
+        color="primary"
+      >
+        {` ${
+          props.price
+            ? getCurrencyDisplayWithPrice(
+                parseFloat(props.price) - parseFloat(props.recurrentVoucher),
+              )
+            : '-- '
+        }`}
+      </Typography>
+      <Typography inline>{`${props.t('recap.every')}`}</Typography>
+      <Typography inline>{props.t(`recap.${props.periodName}`)}</Typography>
+      <Typography inline>{`${props.t('recap.forObject')}`}</Typography>
+      <Typography
+        inline
+        className={props.classes.highlightText}
+        color="primary"
+      >
+        {props.subscriptionContentName || '--'}
+      </Typography>
+    </div>
+    <div className={props.classes.section}>
+      <Typography inline>{`${props.t('recap.from')}`}</Typography>
+      <Typography
+        inline
+        className={props.classes.highlightText}
+        color="primary"
+      >
+        {DateTime.fromMillis(props.dateStart).toLocaleString(
+          DateTime.DATE_SHORT,
+        ) || '--/--/----'}
+      </Typography>
+      <Typography inline>{`${props.t('recap.to')}`}</Typography>
+      <Typography
+        inline
+        className={props.classes.highlightText}
+        color="primary"
+      >
+        {props.nbPeriod
+          ? DateTime.fromMillis(props.dateStart)
+              .plus({ months: props.nbPeriod })
+              .toLocaleString(DateTime.DATE_SHORT)
+          : '--/--/----'}
+      </Typography>
+    </div>
+    <div className={props.classes.section}>
+      <Typography inline>{props.t('recap.forATotalOf')}</Typography>
+      <Typography inline className={props.classes.highlightText} color="error">
+        {` ${
+          props.price && props.nbPeriod
+            ? getCurrencyDisplayWithPrice(
+                parseInt(props.nbPeriod, 10) *
+                  (parseFloat(props.price) -
+                    parseFloat(props.recurrentVoucher)),
+              )
+            : '--'
+        }`}
+      </Typography>
+    </div>
+  </div>
+);
+
+const styles = (theme) => ({
+  highlightText: {
+    fontSize: 16,
+  },
+  section: {
+    marginBottom: theme.spacing(1),
+    width: '100%',
+    flexDirection: 'row',
+    display: 'flex',
+    alignItems: 'center',
+    '&>*': {
+      marginRight: theme.spacing(1),
+    },
+  },
+});
+
+export default compose(
+  withStyle(styles),
+  withTranslation(['subscription']),
+)(RecapSubscription);

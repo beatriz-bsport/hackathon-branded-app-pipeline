@@ -1,0 +1,95 @@
+import React from 'react';
+import { useTranslation } from 'react-i18next';
+import classNames from 'classnames';
+
+import type { PaymentCombo } from '#src/libs/payment-combo/types';
+
+import './styles.css';
+
+export type Props = {
+  paymentCombo: PaymentCombo;
+  displayAllitems?: boolean;
+  numberOfItemsToDisplay?: number;
+  classes?: { [key: string]: string };
+  onOpenDetailDialog?: () => void;
+};
+
+const PaymentComboItemList: React.FC<Props> = ({
+  paymentCombo,
+  displayAllitems,
+  numberOfItemsToDisplay,
+  classes,
+  onOpenDetailDialog,
+}) => {
+  const { t } = useTranslation('marketplace');
+
+  const privatePassTotalQuantity =
+    paymentCombo?.private_passes.reduce(
+      (accumulator, currentValue) => currentValue.quantity + accumulator,
+      0,
+    ) ?? 0;
+
+  const paymentPackTotalQuantity =
+    paymentCombo?.payment_packs.reduce(
+      (accumulator, currentValue) => currentValue.quantity + accumulator,
+      0,
+    ) ?? 0;
+
+  const formatedComboItemsToShowInList = [
+    !!paymentPackTotalQuantity &&
+      t('packCard.comboItemList.paymentPackItem', {
+        count: paymentPackTotalQuantity,
+      }),
+    !!privatePassTotalQuantity &&
+      t('packCard.comboItemList.privatePassItem', {
+        count: privatePassTotalQuantity,
+      }),
+    ...paymentCombo.shop_items.map(
+      (shopItem) => `${shopItem.quantity} ${shopItem.name}`,
+    ),
+  ].filter((element) => !!element);
+
+  const formatedComboItemsToShowInReducedList =
+    formatedComboItemsToShowInList.slice(0, numberOfItemsToDisplay);
+
+  const countHiddenItems =
+    formatedComboItemsToShowInList.length - numberOfItemsToDisplay;
+
+  if (displayAllitems) {
+    return (
+      <ul className={classNames('bs-combo-item-list', { ...classes })}>
+        {formatedComboItemsToShowInList.map((comboItem, index) => (
+          <li key={index}>{comboItem}</li>
+        ))}
+      </ul>
+    );
+  }
+  return (
+    <ul className={classNames('bs-combo-item-list', { ...classes })}>
+      {formatedComboItemsToShowInReducedList.map((comboItem, index) => (
+        <li key={index} className="bs-combo-item-list__item">
+          {comboItem}
+        </li>
+      ))}
+      {countHiddenItems > 0 && (
+        <li className="bs-combo-item-list__item --hidden">
+          <button
+            className="bs-combo-item-list --button"
+            onClick={onOpenDetailDialog}
+            type="button"
+          >
+            {t('packCard.comboItemList.hiddenItem', {
+              count: countHiddenItems,
+            })}
+          </button>
+        </li>
+      )}
+    </ul>
+  );
+};
+
+PaymentComboItemList.defaultProps = {
+  numberOfItemsToDisplay: 3,
+};
+
+export default React.memo(PaymentComboItemList);

@@ -1,0 +1,146 @@
+import React from 'react';
+
+import {
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  withStyles,
+} from '@material-ui/core';
+import { MaterialStyleType } from '../../utils/types';
+import TimeoutButton from '../button/TimeoutButton.component';
+
+interface ButtonI {
+  label: string;
+  color?: 'inherit' | 'primary' | 'secondary' | 'default';
+  variant?: 'text' | 'outlined' | 'contained';
+  key?: string | number | boolean;
+  delayBeforeActivation?: number;
+}
+
+interface ParamsI {
+  title: string;
+  text: string;
+  buttons: ButtonI[];
+}
+
+interface StateI extends ParamsI {
+  open: boolean;
+}
+
+export const showGenericDialog = async (
+  title: string,
+  text: string,
+  buttons: ButtonI[],
+) => {
+  if (_showGenericDialog) {
+    return new Promise((resolve, reject) => {
+      try {
+        const callback = (res: any) => resolve(res);
+        _showGenericDialog(
+          {
+            title,
+            text,
+            buttons,
+          },
+          callback,
+        );
+      } catch (err) {
+        reject(err);
+      }
+    });
+  }
+  return undefined;
+};
+
+let _showGenericDialog: (
+  params: ParamsI,
+  callback: (res: any) => void,
+) => void | null = null;
+
+type Props = MaterialStyleType<ReturnType<typeof styles>>;
+
+class GenericDialog extends React.PureComponent<Props, StateI> {
+  state: StateI = {
+    open: false,
+    title: '',
+    text: '',
+    buttons: [],
+  };
+
+  callback: (res: any) => void = null;
+
+  constructor(props: any) {
+    super(props);
+    this.showDialog = this.showDialog.bind(this);
+    _showGenericDialog = this.showDialog;
+  }
+
+  showDialog = (params: ParamsI, callback: (res: any) => void) => {
+    this.callback = callback;
+    this.setState({
+      open: true,
+      ...params,
+    });
+  };
+
+  resetState = () => {
+    this.setState({
+      open: false,
+      title: '',
+      text: '',
+      buttons: [],
+    });
+  };
+
+  onClose = () => {
+    this.resetState();
+    this.callback(null);
+  };
+
+  onClickButton = (ev: any, button: ButtonI, i: number) => {
+    ev.stopPropagation();
+    this.resetState();
+    const res = button.key !== undefined ? button.key : i;
+    this.callback(res);
+  };
+
+  render() {
+    return (
+      <Dialog
+        className={this.props.classes.container}
+        onClose={this.onClose}
+        open={this.state.open}
+      >
+        <DialogTitle>{this.state.title}</DialogTitle>
+        <DialogContent className={this.props.classes.container}>
+          <DialogContentText>{this.state.text}</DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          {this.state.buttons.map((button, i) => {
+            return (
+              <TimeoutButton
+                key={i}
+                color={button.color}
+                delayBeforeActivation={button.delayBeforeActivation}
+                onClick={(ev) => this.onClickButton(ev, button, i)}
+                variant={button.variant}
+              >
+                {button.label}
+              </TimeoutButton>
+            );
+          })}
+        </DialogActions>
+      </Dialog>
+    );
+  }
+}
+
+const styles = () => ({
+  container: {
+    minWidth: 300,
+  },
+});
+
+export default withStyles(styles)(GenericDialog);

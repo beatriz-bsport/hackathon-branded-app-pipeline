@@ -1,0 +1,217 @@
+import React from 'react';
+import { useTranslation } from 'react-i18next';
+import classNames from 'classnames';
+
+import { Theme } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/styles';
+import Drawer from '@material-ui/core/Drawer';
+import IconButton from '@material-ui/core/IconButton';
+import Typography from '@material-ui/core/Typography';
+import HighlightOffIcon from '@material-ui/icons/HighlightOff';
+
+import Tooltip from '#src/components/Tooltip.component';
+import { SegmentAnalyticsFormObjectIdentifier } from '#src/components/analytics/segment';
+import { rudderStackFormTrackingFunctionsRegistry } from '#src/components/analytics/rudderstack/utils';
+
+type OwnProps = {
+  open: boolean;
+  anchor?: 'top' | 'bottom' | 'left' | 'right' | undefined;
+  onClose?: () => void;
+  onTransitionEnd?: () => void;
+  title?: string;
+  withoutPadding?: boolean;
+  subtitle?: string;
+  width?: string;
+  customClasses?: { [className: string]: string };
+  flexContent?: boolean;
+  mobileMinWidth?: string;
+  withoutHeaderContainer?: boolean;
+  trackingObjectIdentifier?: SegmentAnalyticsFormObjectIdentifier;
+  trackingObjectId?: number;
+  forwardedContainerRef?: React.RefObject<HTMLDivElement>;
+};
+type Props = OwnProps;
+
+export const GenericResponsiveDrawer: React.FC<Props> = ({
+  children,
+  open,
+  title,
+  subtitle,
+  width,
+  customClasses,
+  anchor = 'right',
+  withoutPadding = false,
+  flexContent,
+  mobileMinWidth,
+  withoutHeaderContainer,
+  onClose,
+  onTransitionEnd,
+  trackingObjectIdentifier,
+  trackingObjectId,
+  forwardedContainerRef,
+}) => {
+  const classes = useStyles({ width, subtitle, mobileMinWidth });
+  const { t } = useTranslation('common');
+
+  const close = React.useCallback(() => {
+    onClose && onClose();
+    if (trackingObjectIdentifier) {
+      const { trackFormCancel } = rudderStackFormTrackingFunctionsRegistry(
+        trackingObjectIdentifier,
+      );
+      trackFormCancel(trackingObjectId);
+    }
+  }, [trackingObjectIdentifier, trackingObjectId, onClose]);
+
+  return (
+    <Drawer
+      anchor={anchor}
+      classes={{ paper: classNames(classes.paper, customClasses?.drawer) }}
+      ModalProps={{
+        hideBackdrop: false,
+        disableEnforceFocus: true,
+      }}
+      onClose={close}
+      onTransitionEnd={onTransitionEnd}
+      open={open}
+    >
+      <div
+        ref={forwardedContainerRef}
+        className={classNames(classes.relative, customClasses?.container)}
+      >
+        {!withoutHeaderContainer && (
+          <div className={classNames(classes.firstRow, customClasses?.header)}>
+            {onClose && (
+              <div
+                className={classNames(
+                  classes.topCancel,
+                  customClasses?.topCancel,
+                  {
+                    [classes.topCancelLeft]: anchor === 'left',
+                    [classes.topCancelRight]: anchor === 'right',
+                  },
+                )}
+              >
+                <Tooltip title={t('cancel')}>
+                  <IconButton
+                    className={classNames(
+                      classes.cancelButton,
+                      customClasses?.cancelButton,
+                    )}
+                    onClick={close}
+                  >
+                    <HighlightOffIcon
+                      className={classNames(
+                        classes.cancelButtonIcon,
+                        customClasses?.cancelButtonIcon,
+                      )}
+                    />
+                  </IconButton>
+                </Tooltip>
+              </div>
+            )}
+            {title && (
+              <div
+                className={classNames(classes.title, customClasses?.title, {
+                  [classes.titleLeft]: anchor === 'right' && onClose,
+                })}
+              >
+                <Typography
+                  className={customClasses?.titleTypography}
+                  variant="h4"
+                >
+                  {title}
+                </Typography>
+                {subtitle && (
+                  <Typography
+                    className={customClasses?.subtitleTypography}
+                    variant="body1"
+                  >
+                    {subtitle}
+                  </Typography>
+                )}
+              </div>
+            )}
+          </div>
+        )}
+        <div
+          className={classNames(classes.content, customClasses?.content, {
+            [classes.padding]: !withoutPadding,
+            [classes.flex]: flexContent,
+            [classes.contentResized]: !!mobileMinWidth,
+          })}
+        >
+          {children}
+        </div>
+      </div>
+    </Drawer>
+  );
+};
+const useStyles = makeStyles<
+  Theme,
+  { width: string; subtitle?: string; mobileMinWidth: string }
+>((theme) => ({
+  paper: (props) => ({
+    width: props.width || '40%',
+    overflowX: 'hidden',
+    [theme.breakpoints.down('lg')]: {
+      width: props.width || '60%',
+    },
+    [theme.breakpoints.down('md')]: {
+      width: '100%',
+    },
+    backgroundColor: 'transparent',
+  }),
+  relative: {
+    position: 'relative',
+    height: '100vh',
+    display: 'flex',
+    flexDirection: 'column',
+    overflow: 'auto',
+    backgroundColor: 'white',
+  },
+  firstRow: (props) => ({
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyItems: 'flex-start',
+    marginTop: props.subtitle ? null : theme.spacing(3),
+  }),
+  topCancel: {
+    marginLeft: theme.spacing(2.75),
+  },
+  topCancelLeft: {
+    right: theme.spacing(2),
+  },
+  topCancelRight: {
+    left: theme.spacing(2),
+  },
+  cancelButtonIcon: {
+    height: theme.spacing(3),
+    width: theme.spacing(3),
+  },
+  titleLeft: (props) => ({
+    marginLeft: theme.spacing(0.75),
+    marginTop: props.subtitle ? theme.spacing(3) : null,
+  }),
+  content: {
+    flex: 1,
+    [theme.breakpoints.up('sm')]: {
+      minWidth: '500px',
+    },
+  },
+  flex: {
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  contentResized: (props) => ({
+    [theme.breakpoints.down('sm')]: {
+      minWidth: props.mobileMinWidth ?? '350px',
+    },
+  }),
+  padding: {
+    padding: theme.spacing(4),
+    paddingBottom: theme.spacing(2),
+  },
+}));
+export default GenericResponsiveDrawer;

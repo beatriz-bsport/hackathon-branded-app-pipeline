@@ -1,0 +1,32 @@
+import React from 'react';
+import { ComponentMeta, ComponentStory } from '@storybook/react';
+import withFormik from '@bbbtech/storybook-formik';
+// @ts-expect-error
+import PaymentComboSelectorField from './PaymentComboSelectorField.component';
+import { paymentComboListFactory } from '#src/libs/payment-combo/factory';
+
+const basicChoices = paymentComboListFactory(10);
+
+export default {
+  title: 'Library/PaymentCombo/Selector Field',
+  component: PaymentComboSelectorField,
+  decorators: [withFormik],
+  parameters: {
+    formik: {
+      initialValues: { payment_combo: null },
+    },
+  },
+} as ComponentMeta<typeof PaymentComboSelectorField>;
+
+const PaymentComboSelectorFieldTemplate: ComponentStory<
+  typeof PaymentComboSelectorField
+> = (args) => <PaymentComboSelectorField {...args} />;
+
+export const BasicPaymentComboSelectorField =
+  PaymentComboSelectorFieldTemplate.bind({});
+BasicPaymentComboSelectorField.args = {
+  fullWidth: true,
+  required: false,
+  choices: basicChoices,
+  name: 'payment_combo',
+};

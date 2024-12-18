@@ -1,0 +1,180 @@
+.bs-contract-payment-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  overflow-y: auto;
+  flex: 1;
+  padding: var(--spacing-2);
+  container: bsContractPaymentPage / inline-size;
+}
+
+.bs-contract-checkout__container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  background-color: var(--color-background);
+  container: bsContractCheckoutPage / inline-size;
+  padding-bottom: var(--spacing-6);
+  min-height: calc(100vh - var(--spacing-6));
+}
+
+.bs-contract-checkout--fixed-height-layout {
+  height: calc(100vh - var(--spacing-6));
+}
+
+.bs-contract-payment-page__carousel__container {
+  display: none;
+  margin: 0 auto;
+  max-width: 1652px;
+}
+
+.bs-contract-checkout__list__container {
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  padding: var(--spacing-4) var(--spacing-6);
+  background: #ffffff;
+  max-width: 500px;
+  scroll-behavior: smooth;
+  height: calc(100vh - var(--spacing-6));
+}
+
+.bs-contract-checkout__list__container .bs-contract-checkout {
+  min-height: fit-content; /* workaround height within scrollable 100vh list for Safari 12 */
+}
+
+.bs-contract-checkout__list__container .bs-contract-checkout:not(:last-child) {
+  margin-bottom: var(--spacing-2); /* workaround gap property for Safari 12 */
+}
+
+.bs-contract-checkout__list__container::-webkit-scrollbar {
+  width: 8px;
+  background: #ffffff;
+}
+
+.bs-contract-checkout__list__container::-webkit-scrollbar-thumb {
+  border-radius: var(--border-radius);
+  background: #687586;
+}
+
+.bs-contract-checkout__list__container::-webkit-scrollbar-track {
+  width: 8px;
+  margin: var(--spacing-1);
+  border-radius: var(--border-radius);
+  background: var(--color-grey-light);
+}
+
+.bs-contract-payment-page__direct__link__container
+  .bs-contract-details-dialog__card {
+  margin: inherit;
+}
+
+.bs-contract-payment-page__direct__link__container {
+  padding: var(--spacing-4);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: flex-start;
+  max-width: 1400px;
+}
+
+.bs-contract-payment-page .bs-contract-payment__container {
+  height: 100%;
+  width: 100%;
+  max-width: 800px;
+}
+
+.bs-contract-payment-page__flex__column {
+  flex-direction: column;
+}
+
+/* DONT DELETE - cannot target container itself in a container query */
+@media screen and (max-width: 750px) {
+  .bs-contract-checkout__container {
+    height: auto;
+  }
+}
+
+@container bsContractCheckoutPage (width < 1100px) {
+  .bs-contract-checkout__list__container {
+    display: none;
+    max-width: none;
+    padding: var(--spacing-4) var(--spacing-2);
+  }
+
+  .bs-contract-payment-page__carousel__container {
+    display: flex;
+    width: 100%;
+  }
+
+  .bs-carousel__items__container .bs-contract-checkout {
+    width: 100%;
+  }
+
+  .bs-contract-payment-page {
+    display: flex;
+    flex-direction: column; /* NOT WHEN WIDGET */
+    gap: var(--spacing-3);
+    padding: var(--spacing-3) var(--spacing-1);
+  }
+
+  .bs-contract-payment-page__carousel__container .bs-carousel__item {
+    height: 450px;
+  }
+
+  .bs-contract-payment-page__direct__link__container {
+    gap: var(--spacing-2);
+    padding: var(--spacing-2);
+  }
+}
+
+@container bsContractCheckoutPage (width < 750px) {
+  .bs-contract-checkout__container .bs-contract-details__card {
+    margin: 0;
+  }
+
+  .bs-contract-payment-page__direct__link__container {
+    grid-template-columns: 1fr;
+    padding: 0;
+  }
+
+  .bs-contract-payment__form {
+    max-height: max-content;
+  }
+}
+
+@container bsContractCheckoutPage (width < 570px) {
+  .bs-contract-payment-page .bs-contract-payment__container {
+    width: calc(100% - var(--spacing-2));
+    height: inherit;
+  }
+
+  .bs-contract-payment-page__direct__link__container {
+    margin-bottom: var(--spacing-10);
+    overflow-y: auto;
+  }
+
+  .bs-contract-payment-page .bs-contract-payment__form {
+    margin-bottom: var(--spacing-6);
+  }
+
+  .bs-contract-payment-page {
+    margin-bottom: var(--spacing-10);
+  }
+
+  .bs-carousel__items__container .bs-contract-checkout__right-button {
+    display: none;
+  }
+
+  .bs-contract-payment-page .bs-contract-payment__actions,
+  .bs-contract-payment-page__direct__link__container
+    .bs-contract-payment__actions {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: #fff;
+    padding: var(--spacing-2);
+    border-top: 2px solid var(--border-color);
+  }
+}

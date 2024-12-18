@@ -1,0 +1,50 @@
+.bs-consumer-navigation__root {
+  display: flex;
+  flex-direction: column;
+  container: bsConsumerNavigation / inline-size;
+  overflow: auto;
+  min-height: 100dvh;
+}
+
+.bs-consumer-navigation__layout {
+  display: flex;
+  background: var(--bs-grey-0);
+  flex: 1;
+}
+
+.bs-consumer-navigation__layout--relationship {
+  height: calc(
+    100cqh - var(--bs-navigation-app-bar-height) -
+      var(--bs-navigation-app-bar-banner-height)
+  );
+}
+
+.bs-consumer-navigation__content {
+  overflow-y: auto;
+  padding: var(--bs-space-size-8);
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.bs-consumer-navigation__content > .bs-setup-variable {
+  flex: 1;
+}
+
+.bs-consumer-navigation__content--mobile {
+  gap: unset;
+}
+
+.bs-navigation__logout-button__root {
+  color: var(--bs-color-text-error-strong);
+}
+
+.bs-widget-consumer-navigation__root {
+  background-color: var(--bs-grey-0);
+}
+
+@container bsConsumerNavigation (width < 930px) {
+  .bs-consumer-navigation__content {
+    padding: var(--bs-space-size-6) var(--bs-space-size-4);
+  }
+}

@@ -1,0 +1,142 @@
+import { AxiosResponse } from 'axios';
+import {
+  API_URI,
+  API_V1_URI,
+  postAuth,
+  getAuth,
+  putAuth,
+  deleteAuth,
+  buildUrlParams,
+} from '../../http';
+import type {
+  AssociatedEstablishment,
+  Establishment,
+  EstablishmentAddressInput,
+  EstablishmentBillingGroup,
+  EstablishmentGroup,
+  FetchEstablishmentParams,
+} from './types';
+
+export async function retrieveEstablishment(id: number) {
+  return getAuth<Establishment>(`${API_V1_URI}/establishment/${id}/`);
+}
+
+export async function addEstablishment(data: any) {
+  return postAuth(`${API_URI}/saas/establishments/add`, data);
+}
+
+export async function restoreEstablishment(id: number) {
+  return putAuth(`${API_V1_URI}/establishment/${id}/restore/`);
+}
+
+export async function updateEstablishment(data: any) {
+  return putAuth(`${API_URI}/saas/establishments/${data.get('id')}`, data);
+}
+
+export async function addEstablishmentV2(data: EstablishmentAddressInput) {
+  return postAuth(`${API_V1_URI}/establishment/`, data);
+}
+export async function updateEstablishmentV2(
+  id: number,
+  data: EstablishmentAddressInput,
+) {
+  return putAuth(`${API_V1_URI}/establishment/${id}/`, data);
+}
+export async function fetchEstablishment(id: number) {
+  return getAuth(`${API_URI}/saas/establishment/${id}/`);
+}
+
+export async function fetchEstablishmentList(params: FetchEstablishmentParams) {
+  return getAuth(`${API_V1_URI}/establishment/${buildUrlParams(params)}`);
+}
+
+export async function checkCanDeleteEstablishment(id: number) {
+  return getAuth(`${API_V1_URI}/establishment/${id}/can_destroy/`);
+}
+
+export async function deleteEstablishment(id: number) {
+  return deleteAuth(
+    `${API_V1_URI}/establishment/${id}/perform_destroy_with_side_effects/`,
+  );
+}
+
+export async function fetchAssociatedEstablishments(params: {
+  company: number;
+}): Promise<AxiosResponse<AssociatedEstablishment[]>> {
+  return getAuth(
+    `${API_V1_URI}/associated-establishment/${buildUrlParams(params)}`,
+  );
+}
+
+export async function fetchEstablishmentFavorite(company: number) {
+  return getAuth(
+    `${API_V1_URI}/establishment/favorite/${buildUrlParams({
+      company,
+    })}`,
+  );
+}
+
+export async function fetchAllEstablishmentGroup(companyId?: number) {
+  if (companyId) {
+    return getAuth(
+      `${API_V1_URI}/establishment-group/${buildUrlParams({ companyId })}`,
+    );
+  }
+  return getAuth(`${API_V1_URI}/establishment-group/`);
+}
+
+export async function createEstablishmentGroup(
+  establishmentGroup: EstablishmentGroup,
+) {
+  return postAuth(`${API_V1_URI}/establishment-group/`, establishmentGroup);
+}
+export async function updateEstablishmentGroup(
+  establishmentGroup: EstablishmentGroup,
+) {
+  return putAuth(
+    `${API_V1_URI}/establishment-group/${establishmentGroup.id}/`,
+    establishmentGroup,
+  );
+}
+export async function deleteEstablishmentGroup(establishmentGroupId: number) {
+  return deleteAuth(
+    `${API_V1_URI}/establishment-group/${establishmentGroupId}/perform_destroy_with_side_effects/`,
+  );
+}
+export function fetchAllEstablishmentBillingGroup(params: { company: number }) {
+  return getAuth<EstablishmentBillingGroup[]>(
+    `${API_V1_URI}/establishment-billing-group/${buildUrlParams({
+      ...params,
+    })}`,
+  );
+}
+
+export async function createEstablishmentBillingGroup(
+  establishmentGroup: EstablishmentBillingGroup,
+) {
+  return postAuth(
+    `${API_V1_URI}/establishment-billing-group/`,
+    establishmentGroup,
+  );
+}
+export async function updateEstablishmentBillingGroup(
+  establishmentGroup: EstablishmentBillingGroup,
+) {
+  return putAuth(
+    `${API_V1_URI}/establishment-billing-group/${establishmentGroup.id}/`,
+    establishmentGroup,
+  );
+}
+export async function deleteEstablishmentBillingGroup(
+  establishmentGroupId: number,
+) {
+  return deleteAuth(
+    `${API_V1_URI}/establishment-billing-group/${establishmentGroupId}`,
+  );
+}
+export default {
+  addEstablishment,
+  updateEstablishment,
+  fetchEstablishment,
+  fetchEstablishmentList,
+};

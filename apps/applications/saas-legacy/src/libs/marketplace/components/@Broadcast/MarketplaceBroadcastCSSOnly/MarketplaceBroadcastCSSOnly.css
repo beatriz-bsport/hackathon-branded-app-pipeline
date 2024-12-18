@@ -1,0 +1,27 @@
+/*  */
+/* Broadcast button */
+/*  */
+.bs-broadcast {
+  display: flex;
+  align-items: center;
+  padding: var(--spacing-0) var(--spacing-1);
+  gap: var(--spacing-1);
+  background-color: var(--broadcast-background-color);
+  border-radius: var(--border-radius-1);
+
+  font-size: var(--body2-fontSize);
+  font-weight: var(--fontWeightMedium);
+  font-family: var(--fontFamily);
+}
+.bs-broadcast--cardVariant {
+  padding: var(--spacing-0) calc(var(--spacing-1) / 2);
+}
+
+.bs-broadcast__text {
+  color: var(--broadcast-color);
+  order: 1;
+}
+
+.bs-broadcast__videocam {
+  color: var(--broadcast-color);
+}

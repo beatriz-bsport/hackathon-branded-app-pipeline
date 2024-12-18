@@ -1,0 +1,24 @@
+import { Meta, Canvas, Story, ArgsTable } from '@storybook/addon-docs';
+import ProgramListSkeleton from "./ProgramListSkeleton.component"
+
+<Meta title='Library/PerformanceTracking/Program/Skeleton'
+    component={ProgramListSkeleton}
+    argTypes ={{
+    }}/>
+
+export const Template = (args) => <ProgramListSkeleton {...args} />;
+
+#  Program Card
+
+<Canvas>
+    <Story 
+    name='ProgramListSkeleton'
+    args={{
+    }}>
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+<ArgsTable story='ProgramListSkeleton' />
+
+

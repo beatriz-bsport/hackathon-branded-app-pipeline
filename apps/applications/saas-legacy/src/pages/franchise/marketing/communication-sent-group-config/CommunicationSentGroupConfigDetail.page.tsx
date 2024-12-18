@@ -1,0 +1,96 @@
+import React from 'react';
+import Immutable from 'seamless-immutable';
+import { Route, Switch } from 'react-router-dom';
+import { compose } from 'recompose';
+import { connect } from 'react-redux';
+import { withTranslation } from 'react-i18next';
+import { push } from 'connected-react-router';
+import withPageHeightHOC from '#src/hocs/with-page-height.hoc';
+import ContentWithAppBar from '#src/components/generic-appbar-content/ContentWithAppBar.component';
+import routerParamsToProps from '#src/hocs/router-params-to-props.hoc';
+import withTitle from '#src/hocs/with-title.hoc';
+import { getCommunicationSentGroupConfig } from '#src/libs/communication/selectors';
+import { fetchCommunicationSentGroupConfigDetail as fetchCommunicationSentGroupConfigDetailAction } from '#src/libs/communication/actions';
+import { CommunicationSentGroupConfig } from '#src/libs/communication/types';
+import CommunicationSentGroupConfigDetailHistory from './CommunicationSentGroupConfigDetailHistory.page';
+import CommunicationSentGroupConfigDetailGeneral from './CommunicationSentGroupConfigDetailGeneral.page';
+import { RootState } from '../../../../reducers';
+import CommunicationSentGroupConfigDetailReport from './CommunicationSentGroupConfigDetailReport.page';
+
+type Props = {
+  pushToTab: (id: number, tab: string) => void;
+  tab: string;
+  campaignId: number;
+  fetchCommunicationSentGroupConfigDetail: (id: number) => void;
+  pageHeight: number;
+  // eslint-disable-next-line react/no-unused-prop-types
+  communicationSentGroupConfig: CommunicationSentGroupConfig;
+};
+
+const tabsData = Immutable([
+  { label: 'tab.communicationSentGroupConfig.general', value: 'general' },
+  { label: 'tab.communicationSentGroupConfig.campaigns', value: 'history' },
+]);
+
+export class CommunicationSentGroupConfigDetail extends React.PureComponent<Props> {
+  componentDidMount() {
+    this.props.fetchCommunicationSentGroupConfigDetail(this.props.campaignId);
+  }
+
+  onChange = (newTab: string) => {
+    this.props.pushToTab(this.props.campaignId, newTab);
+  };
+
+  render() {
+    const { tab, pageHeight } = this.props;
+    return (
+      <ContentWithAppBar
+        onChange={this.onChange}
+        pageHeight={pageHeight}
+        tab={tab}
+        tabsData={tabsData}
+      >
+        <Switch>
+          <Route
+            exact
+            component={CommunicationSentGroupConfigDetailGeneral}
+            path="/f/marketing/campaign/:campaignId/general/"
+          />
+          <Route
+            exact
+            component={CommunicationSentGroupConfigDetailReport}
+            path="/f/marketing/campaign/:campaignId/history/report/:communicationSentGroupId"
+          />
+          <Route
+            exact
+            component={CommunicationSentGroupConfigDetailHistory}
+            path="/f/marketing/campaign/:campaignId/history"
+          />
+        </Switch>
+      </ContentWithAppBar>
+    );
+  }
+}
+
+export default compose(
+  withTranslation(['campaign']),
+  routerParamsToProps({ tab: 'tab:string', campaignId: 'campaignId:number' }),
+  connect(
+    (state: RootState, { campaignId }: { campaignId: number }) => ({
+      communicationSentGroupConfig: getCommunicationSentGroupConfig(
+        state,
+        campaignId,
+      ),
+    }),
+    {
+      pushToTab: (campaignId: string, tab: string) =>
+        push(`/f/marketing/campaign/${campaignId}/${tab}`),
+      fetchCommunicationSentGroupConfigDetail:
+        fetchCommunicationSentGroupConfigDetailAction,
+    },
+  ),
+  withTitle(({ communicationSentGroupConfig }) =>
+    communicationSentGroupConfig ? communicationSentGroupConfig.name : '',
+  ),
+  withPageHeightHOC(),
+)(CommunicationSentGroupConfigDetail);

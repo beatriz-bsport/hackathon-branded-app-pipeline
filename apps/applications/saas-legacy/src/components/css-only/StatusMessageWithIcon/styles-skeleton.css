@@ -1,0 +1,55 @@
+.bs-status-message-with-icon__skeleton__centered-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-2);
+  width: fit-content;
+}
+
+.bs-status-message-with-icon__skeleton__icon,
+.bs-status-message-with-icon__skeleton__text {
+  display: flex;
+  padding: var(--spacing-2);
+  gap: 10px;
+  border-radius: var(--spacing-1);
+}
+
+.bs-status-message-with-icon__skeleton__icon {
+  width: 72px;
+  height: 72px;
+}
+
+.bs-status-message-with-icon__skeleton__title {
+  width: 150px;
+  height: 32px;
+}
+
+.bs-status-message-with-icon__skeleton__message {
+  width: 450px;
+  height: 24px;
+}
+
+.bs-status-message-with-icon__skeleton__actions-container {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-1);
+}
+
+.bs-status-message-with-icon__skeleton__actions__button {
+  width: 200px;
+  height: 36px;
+  border-radius: var(--border-radius-3);
+}
+
+@container (width < 600px) {
+  .bs-status-message-with-icon__skeleton__centered-container,
+  .bs-status-message-with-icon__skeleton__centered-container,
+  .bs-status-message-with-icon__skeleton__message,
+  .bs-status-message-with-icon__skeleton__actions-container {
+    width: 100%;
+  }
+
+  .bs-status-message-with-icon__skeleton__actions__button {
+    width: inherit;
+  }
+}

@@ -1,0 +1,30 @@
+import React from 'react';
+import { ElementsConsumer, Elements } from '@stripe/react-stripe-js';
+import { loadStripe } from '@stripe/stripe-js';
+import { Theme } from '../libs/theme/types';
+import { getStripePkKey } from '../libs/theme/selectors';
+
+type Props = {
+  theme: Theme;
+};
+
+export default <P extends object>(WrappedComponent: React.ComponentType<P>) => {
+  return class extends React.Component<Props & P> {
+    render() {
+      const stripePromise = loadStripe(getStripePkKey());
+      return (
+        <Elements stripe={stripePromise}>
+          <ElementsConsumer>
+            {({ stripe, elements }) => (
+              <WrappedComponent
+                elements={elements}
+                stripe={stripe}
+                {...(this.props as P)}
+              />
+            )}
+          </ElementsConsumer>
+        </Elements>
+      );
+    }
+  };
+};

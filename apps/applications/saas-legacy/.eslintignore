@@ -1,0 +1,21 @@
+**/FormField.component.js
+**/registerServiceWorker.js
+**/Marketing*js
+**/*stories*
+**/*story*
+
+**/RuleCard.component.js
+**/AvatarUploader.component.js
+**./jitsi_external_api.js
+**/env.js
+**/actions/utils.js
+**/boilerplate/**
+
+
+// packages not compiling to ES5 thus placed in src/
+**/external-modules/**
+
+**/*.test.ts
+src/**/__test__/**
+
+node_modules/

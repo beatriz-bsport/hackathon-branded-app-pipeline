@@ -1,0 +1,50 @@
+/* CONSUMER PASS CARD */
+
+.bs-consumer-pass-card__root {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.bs-consumer-pass-card__container {
+}
+
+/* HEADER STYLING */
+
+.bs-consumer__pass-card__header {
+}
+
+.bs-consumer__pass-card__header__chip {
+}
+
+.bs-consumer__pass-card__header__chips-wrapper {
+}
+
+/* CONSUMER PASS CARD BODY CLASSNAMES */
+
+.bs-consumer__pass-card__body__container {
+  display: flex;
+  gap: var(--bs-space-size-4);
+}
+
+.bs-consumer__pass-card__body__availability-info {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--bs-space-size-2);
+  flex-wrap: wrap;
+}
+
+.bs-consumer__pass-card__body__availability-info__label {
+}
+
+.bs-consumer__pass-card__body__availability-info__chip {
+}
+
+.bs-consumer-pass-card__body__button {
+  padding: var(--bs-space-size-2) 0;
+  width: fit-content;
+}
+
+.bs-consumer-pass-card__body__button {
+}

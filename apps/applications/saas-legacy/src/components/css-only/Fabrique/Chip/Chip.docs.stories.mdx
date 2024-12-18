@@ -1,0 +1,48 @@
+import { Meta, Canvas, Story, Source} from '@storybook/addon-docs';
+
+import {ChipStorybook as Chip} from './Chip.component'
+
+<Meta title="Fabrique/Chip/Doc" component={Chip} />
+
+
+# Chip
+
+## Description
+The **`chip`** component is a small container used to display contextual information. It is designed to be visually distinct and can be used for a variety of purposes, including tags, filters, or statuses.
+
+#### Usage
+The **`color`** property distinguishes different types of chips, providing visual cues to users. Removable chips typically include a close button, allowing users to remove selected items or preferences.
+
+### Strong
+
+<Canvas withSource='none' withToolbar>
+  <Story id="fabrique-chip-stories--disabled"/>
+  <Story id="fabrique-chip-stories--smallstrong"/>
+  <Story id="fabrique-chip-stories--strongmain"/>
+  <Story id="fabrique-chip-stories--stronggrey"/>
+  <Story id="fabrique-chip-stories--stronginfo"/>
+  <Story id="fabrique-chip-stories--strongsuccess"/>
+  <Story id="fabrique-chip-stories--strongwarning"/>
+  <Story id="fabrique-chip-stories--strongerror"/>
+</Canvas>
+
+#### Example
+
+<Source dark language='tsx' id="fabrique-chip-stories--stronginfo" />
+
+### Weak
+
+<Canvas withSource='none' withToolbar>
+  <Story id="fabrique-chip-stories--disabled"/>
+  <Story id="fabrique-chip-stories--smallweak"/>
+  <Story id="fabrique-chip-stories--weakmain"/>
+  <Story id="fabrique-chip-stories--weakgrey"/>
+  <Story id="fabrique-chip-stories--weakinfo"/>
+  <Story id="fabrique-chip-stories--weaksuccess"/>
+  <Story id="fabrique-chip-stories--weakwarning"/>
+  <Story id="fabrique-chip-stories--weakerror"/>
+</Canvas>
+
+#### Example
+
+<Source dark language='tsx' id="fabrique-chip-stories--weakwarning" />

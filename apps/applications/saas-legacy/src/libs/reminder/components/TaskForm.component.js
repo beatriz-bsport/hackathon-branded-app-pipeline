@@ -1,0 +1,130 @@
+// @flow
+import React from 'react';
+import withStyles from '@material-ui/core/styles/withStyles';
+import { compose } from 'recompose';
+
+import { withTranslation, TFunction } from 'react-i18next';
+import omit from 'lodash/omit';
+
+import * as Yup from 'yup';
+import { withFormik, FieldArray } from 'formik';
+
+import { DateTime } from 'luxon';
+import { TextField, DateField } from '../../../components/forms';
+
+import UserSelector from './UserSelector.component';
+import UserItem from './UserItem.component';
+
+type Props = {
+  t: TFunction,
+  classes: Object,
+  staffList: Array<User>,
+};
+
+export const TaskForm = (props: Props) => (
+  <div>
+    <TextField
+      fullWidth
+      required
+      label={props.t('task.form.name.label')}
+      name="name"
+    />
+    <FieldArray name="task_owner_ids">
+      {({
+        push,
+        remove,
+        form: {
+          values: { task_owner_ids },
+        },
+      }) => (
+        <div>
+          <UserSelector
+            multi
+            helperText={props.t('task.form.task_owner.helperText')}
+            onChange={(id) => {
+              if (id) push(id);
+            }}
+            userList={props.staffList.filter(
+              (s) => !task_owner_ids.includes(s.id),
+            )}
+          />
+          {task_owner_ids.map((id, i) => (
+            <UserItem
+              key={`${id}-${i}`}
+              dense
+              isFocused
+              onDelete={() => remove(i)}
+              user={props.staffList.find((u) => u.id === id)}
+            />
+          ))}
+        </div>
+      )}
+    </FieldArray>
+    <div className={props.classes.paddedField}>
+      <DateField label={props.t('task.form.date_due.label')} name="date_due" />
+    </div>
+    <div className={props.classes.paddedField}>
+      <TextField
+        fullWidth
+        multiline
+        required
+        label={props.t('task.form.description.label')}
+        name="description"
+        rows={10}
+        variant="outlined"
+      />
+    </div>
+  </div>
+);
+
+const styles = (theme) => ({
+  paddedField: {
+    marginTop: theme.spacing(2),
+  },
+});
+
+export const TaskFormFieldsSchema = Yup.object().shape({
+  name: Yup.string().required(),
+  description: Yup.string().required(),
+  task_owner_ids: Yup.array().of(Yup.number()).required(),
+  date_due: Yup.string().required(),
+});
+
+export const TaskFormFormikHOC = withFormik({
+  mapPropsToValues: ({ initial }) => {
+    if (initial) {
+      return {
+        ...initial,
+        task_owner_ids: [...initial.task_owners.map((to) => to.id)],
+      };
+    }
+    return {
+      name: null,
+      description: null,
+      task_owners: [],
+      date_due: DateTime.now().toISO(),
+      task_owner_ids: [],
+    };
+  },
+  validationSchema: TaskFormFieldsSchema,
+  handleSubmit: (values, { props: { onSubmit }, setSubmitting }) => {
+    onSubmit(
+      omit(
+        {
+          ...values,
+          date_due: DateTime.fromISO(values.date_due).toISODate(),
+        },
+        ['task_owners', 'author', 'member'],
+      ),
+      {
+        onSuccess: () => setSubmitting(false),
+        onError: () => setSubmitting(false),
+      },
+    );
+  },
+});
+
+export default compose(
+  withTranslation(['reminder']),
+  withStyles(styles),
+)(TaskForm);

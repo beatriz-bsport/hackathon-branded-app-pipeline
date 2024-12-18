@@ -1,0 +1,42 @@
+import { Meta, Canvas, Story, ArgsTable } from '@storybook/addon-docs';
+import ConsumerFormView from "./CustomFormView.form"
+
+<Meta title="library/custom-form/consumer-form/form"
+    component={ConsumerFormView}
+    argTypes ={{
+    }}
+/>
+
+
+export const Template = (args) => <ConsumerFormView {...args} />;
+
+#  Consumer Form
+
+<Canvas>
+    <Story 
+    name="ConsumerFormView"
+    args={{
+        initial:{
+            custom_form_field:[
+                {id: 66, custom_form_id: 12, kind: 0, label: "Bonjour Monsieur"},
+                {id: 67, custom_form_id: 12, kind: 1, label: "Comment allez vous ?"},
+                {id: 68, custom_form_id: 12, kind: 2, label: "Mettez la réponse ici"},
+                {id: 69, custom_form_id: 12, kind: 3, label: "Ou ici"},
+                {id: 70, custom_form_id: 12, kind: 9, label: "Renseignez votre mail ?"},
+                {id: 71, custom_form_id: 12, kind: 10, label: "Et votre numéro de téléphone ?"},
+                {id: 72, custom_form_id: 12, kind: 11, label: "Et un mot de passe ?"},
+                {id:73,custom_form_id: 12,kind:4, choices:["Curling","Basket"], label : "Tu préfère ?" },
+                {id:74,custom_form_id: 12,kind:8, label : "Joindre un document" },
+                {id:75,custom_form_id: 12,kind:12, label : "Adresse" },
+                {id:77,custom_form_id: 12,kind:13, label : "Complément d'adresse" },
+                {id:77,custom_form_id: 12,kind:14, label : "Ville" },
+                {id:77,custom_form_id: 12,kind:15, label : "Code Postale" },
+                {id:76,custom_form_id: 12,kind:16, label : "Pays" },
+            ]
+        },
+    }}>
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+<ArgsTable story="ConsumerFormView"/>

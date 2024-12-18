@@ -1,0 +1,117 @@
+import React from 'react';
+import { compose } from 'recompose';
+import { WithTranslation, withTranslation } from 'react-i18next';
+import { Theme } from '@material-ui/core/styles';
+import makeStyles from '@material-ui/core/styles/makeStyles';
+import { Divider, Typography } from '@material-ui/core';
+import { Info } from '@material-ui/icons';
+import { PerformanceTrackingMemberProgram } from '#src/libs/performance-tracking/types';
+import MuiIcon from '#src/components/MuiIcon.component';
+import TypographyMultilineComponent from '#src/components/typo/TypographyMultiline.component';
+import SliderForm from './SliderForm.component';
+
+type OwnProps = {
+  memberProgram: PerformanceTrackingMemberProgram;
+  withIcon?: boolean;
+  isPreventUpdateMetricValue?: boolean;
+  changeMemberMetricValue: (value: number, metric: number) => void;
+};
+type Props = OwnProps & WithTranslation;
+export const MemberProgramDetail = (props: Props) => {
+  const {
+    t,
+    memberProgram,
+    withIcon,
+    isPreventUpdateMetricValue,
+    changeMemberMetricValue,
+  } = props;
+  const classes = useStyles({ color: memberProgram?.program?.color });
+
+  return (
+    <>
+      {!memberProgram || !memberProgram.program ? (
+        <div className={classes.noProgram}>
+          <Info />
+          <Typography>{t('program.infoSelectProgram')}</Typography>
+        </div>
+      ) : (
+        <div className={classes.container}>
+          <div>
+            <div className={classes.title}>
+              {withIcon && (
+                <div className={classes.icon}>
+                  <MuiIcon icon={memberProgram?.program?.icon} />
+                </div>
+              )}
+              <Typography variant="h5">
+                {memberProgram.program?.name}
+              </Typography>
+            </div>
+
+            <Divider />
+          </div>
+          {memberProgram.program?.description && (
+            <div className={classes.multiline}>
+              <TypographyMultilineComponent>
+                {memberProgram.program?.description}
+              </TypographyMultilineComponent>
+            </div>
+          )}
+
+          <div className={classes.metricContainer}>
+            {memberProgram?.metric_record?.general?.metrics?.map(
+              (member_metric) => (
+                <SliderForm
+                  changeMemberMetricValue={changeMemberMetricValue}
+                  isPreventUpdateMetricValue={isPreventUpdateMetricValue}
+                  metric={member_metric?.metric}
+                  value={member_metric?.value}
+                />
+              ),
+            )}
+          </div>
+        </div>
+      )}
+    </>
+  );
+};
+const useStyles = makeStyles<Theme, { color: string }>((theme) => ({
+  multiline: {
+    marginTop: '-1em',
+    marginBottom: '-1em',
+  },
+  icon: (props) => ({
+    width: theme.spacing(3),
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    color: props.color,
+    marginRight: theme.spacing(2),
+  }),
+  container: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: theme.spacing(2),
+  },
+  title: {
+    marginBottom: theme.spacing(2),
+    display: 'flex',
+    alignItems: 'center',
+  },
+  metricContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    flexWrap: 'wrap',
+  },
+  noProgram: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    paddingTop: theme.spacing(10),
+    gap: theme.spacing(2),
+  },
+}));
+export default compose<any, OwnProps>(withTranslation('performanceTracking'))(
+  MemberProgramDetail,
+);

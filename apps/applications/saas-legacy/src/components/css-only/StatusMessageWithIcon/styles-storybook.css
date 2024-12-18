@@ -1,0 +1,24 @@
+.bs-status-message-with-icon-storybook__actions-container {
+  display: flex;
+  gap: var(--spacing-2);
+}
+
+.bs-status-message-with-icon-storybook__icon {
+  font-size: 40px !important;
+}
+
+.bs-status-message-with-icon-storybook__actions__button-cancel__container {
+  background: none;
+}
+
+.bs-status-message-with-icon-storybook__actions__button-cancel__text {
+  color: var(--color-primary-main);
+}
+
+.bs-status-message-with-icon-storybook__actions__button-submit__container {
+  background: var(--color-primary-main);
+}
+
+.bs-status-message-with-icon-storybook__actions__button-submit__text {
+  color: var(--color-primary-contrastText);
+}

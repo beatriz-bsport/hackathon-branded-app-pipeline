@@ -1,0 +1,8 @@
+/* Prevent elements overlap in storybook docs */
+.innerZoomElementWrapper .bs-reset-password-container {
+  position: inherit;
+  top: inherit;
+  left: inherit;
+  transform: inherit;
+  padding: inherit;
+}

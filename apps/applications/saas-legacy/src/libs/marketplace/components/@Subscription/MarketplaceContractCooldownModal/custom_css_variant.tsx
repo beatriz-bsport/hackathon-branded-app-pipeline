@@ -1,0 +1,32 @@
+import React from 'react';
+import { CssComponentsVariantIdentifiers } from '#src/libs/exportable-components/constants';
+import {
+  MarketplaceCSSComponentConfig,
+  MarketplacePage,
+} from '#src/libs/exportable-components/types';
+import MarketplaceContractCooldownModal, {
+  Props as MarketplaceContractCooldownModalProps,
+} from '.';
+// @ts-expect-error
+import MarketplaceContractCooldownModalCss from './styles.css?raw';
+
+const usePropsFromVariation = (): MarketplaceContractCooldownModalProps => {
+  return {
+    isOpen: true,
+    onDialogClose: () => {},
+  };
+};
+
+export const MARKETPLACE_CONTRACT_COOLDOWN_MODAL_CONFIGURATION: MarketplaceCSSComponentConfig =
+  {
+    label: CssComponentsVariantIdentifiers.MARKETPLACE_CONTRACT_COOLDOWN_MODAL,
+    css: MarketplaceContractCooldownModalCss,
+    pages: [MarketplacePage.SUBSCRIPTION],
+    defaultState: {},
+    variations: [],
+  };
+
+export const MARKETPLACE_CONTRACT_COOLDOWN_MODAL_PREVIEW: React.FC = () => {
+  const componentProps = usePropsFromVariation();
+  return <MarketplaceContractCooldownModal {...componentProps} />;
+};

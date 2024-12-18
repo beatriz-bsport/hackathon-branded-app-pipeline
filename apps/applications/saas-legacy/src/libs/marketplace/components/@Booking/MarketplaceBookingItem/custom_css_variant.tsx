@@ -1,0 +1,174 @@
+import React from 'react';
+
+import { fakerEN as faker } from '@faker-js/faker';
+
+import { CssComponentsVariantIdentifiers } from '#src/libs/exportable-components/constants';
+import {
+  MarketplaceCSSComponentConfig,
+  MarketplacePage,
+  VariationConfigurationChoice,
+} from '#src/libs/exportable-components/types';
+
+import themeFactoryBot from '#src/libs/theme/factories';
+import establishmentFactoryBot from '#src/libs/establishment/factories/Establishments';
+import { coachFactory } from '#src/libs/associated-coach/factories';
+import { levelFactory } from '#src/libs/level/factories';
+
+import type { CompanyTheme } from '#src/libs/theme/types';
+import type { Establishment } from '#src/libs/establishment/types';
+import type { Level } from '#src/libs/level/types';
+import type { Coach } from '#src/libs/associated-coach/types';
+import { generateRandomName } from '#src/utils/factories';
+// @ts-expect-error
+import MarketplaceBookingItemCss from './styles.css?raw';
+import MarketplaceBookingItem, { Props } from '.';
+
+const fakeCompanyTheme: CompanyTheme = themeFactoryBot.companyTheme.createOne();
+
+const fakeEstablishment: Establishment =
+  establishmentFactoryBot.Establishment.createOne();
+
+const fakeCoach: Coach = coachFactory();
+
+const fakeLevel: Partial<Level> = levelFactory();
+
+const title = generateRandomName(faker);
+
+const date = 'Wed 02 Aug • 09:30 AM - 10:30 AM';
+
+const guestName = generateRandomName(faker);
+
+const marketplaceBookingItemVariationRegistry = [
+  {
+    label: 'hideCoach',
+    choices: [
+      {
+        label: 'true',
+        value: 'true',
+      },
+      {
+        label: 'false',
+        value: 'false',
+      },
+    ],
+    default: {
+      label: 'false',
+      value: 'false',
+    },
+  },
+  {
+    label: 'shouldDisplayAddGuestButton',
+    choices: [
+      {
+        label: 'true',
+        value: 'true',
+      },
+      {
+        label: 'false',
+        value: 'false',
+      },
+    ],
+    default: {
+      label: 'false',
+      value: 'false',
+    },
+  },
+  {
+    label: 'isWaitingList',
+    choices: [
+      {
+        label: 'true',
+        value: 'true',
+      },
+      {
+        label: 'false',
+        value: 'false',
+      },
+    ],
+    default: {
+      label: 'false',
+      value: 'false',
+    },
+  },
+  {
+    label: 'displayGuestName',
+    choices: [
+      {
+        label: 'true',
+        value: 'true',
+      },
+      {
+        label: 'false',
+        value: 'false',
+      },
+    ],
+    default: {
+      label: 'false',
+      value: 'false',
+    },
+  },
+  {
+    label: 'withLevel',
+    choices: [
+      {
+        label: 'true',
+        value: 'true',
+      },
+      {
+        label: 'false',
+        value: 'false',
+      },
+    ],
+    default: {
+      label: 'false',
+      value: 'false',
+    },
+  },
+];
+
+const usePropsFromVariation = (
+  variationsSelected: Record<string, VariationConfigurationChoice>,
+): Props => {
+  const hideCoach = variationsSelected?.hideCoach?.value === 'true';
+  const shouldDisplayAddGuestButton =
+    variationsSelected?.shouldDisplayAddGuestButton?.value === 'true';
+  const isWaitingList = variationsSelected?.isWaitingList?.value === 'true';
+  const displayGuestName =
+    variationsSelected?.displayGuestName?.value === 'true';
+  const withLevel = variationsSelected?.withLevel?.value === 'true';
+  const positionInWaitingList = 1;
+
+  return {
+    hideCoach,
+    shouldDisplayAddGuestButton,
+    isWaitingList,
+    establishment: fakeEstablishment,
+    coach: fakeCoach,
+    level: withLevel && (fakeLevel as Level),
+    companyTheme: fakeCompanyTheme,
+    title,
+    date,
+    guestName: displayGuestName && guestName,
+    positionInWaitingList: positionInWaitingList,
+  };
+};
+
+export const MARKETPLACE_BOOKING_ITEM_CONFIGURATION: MarketplaceCSSComponentConfig =
+  {
+    label: CssComponentsVariantIdentifiers.MARKETPLACE_BOOKING_ITEM,
+    css: MarketplaceBookingItemCss,
+    pages: [MarketplacePage.CHECKOUT_CONFIRMATION],
+    defaultState: {},
+    variations: marketplaceBookingItemVariationRegistry,
+  };
+
+export const MARKETPLACE_BOOKING_ITEM_PREVIEW: React.FC<{
+  variationsSelected: Record<string, VariationConfigurationChoice>;
+}> = React.memo(({ variationsSelected }) => {
+  const componentProps = usePropsFromVariation(variationsSelected);
+  return (
+    <div style={{ width: '100%' }}>
+      <MarketplaceBookingItem {...componentProps} />
+    </div>
+  );
+});

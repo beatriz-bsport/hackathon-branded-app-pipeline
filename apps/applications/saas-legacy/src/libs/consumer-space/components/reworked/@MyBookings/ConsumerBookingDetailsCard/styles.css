@@ -1,0 +1,314 @@
+.bs-consumer-booking-details-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  height: fit-content;
+  container: bsConsumerBookingDetailsCard / inline-size;
+}
+
+.bs-consumer-booking-details-card__section {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.bs-consumer-booking-details-card__section--hidden {
+  display: none;
+}
+
+.bs-consumer-booking-details-card__section:not(:last-of-type) {
+  padding-bottom: var(--bs-space-size-4);
+  margin-bottom: var(--bs-space-size-4);
+  border-bottom: 1px solid var(--bs-color-border-weak);
+}
+
+.bs-consumer-booking-details-card__section__title {
+  width: 100%;
+  margin-bottom: var(--bs-space-size-1);
+  font-weight: 700;
+}
+
+.bs-consumer-booking-details-card__section__subtitle {
+  width: 100%;
+  color: var(--bs-color-text-weak);
+}
+
+.bs-consumer-booking-details-card__section__collapse-content {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  /* autoprefixer: off */
+  -webkit-box-orient: vertical;
+}
+
+.bs-consumer-booking-details-card__section__collapse-content--expanded {
+  display: inherit;
+  -webkit-line-clamp: inherit;
+  -webkit-box-orient: inherit;
+}
+
+.bs-consumer-booking-details-card__section__show-more {
+  text-decoration: underline;
+  padding: 0;
+}
+
+.bs-consumer-booking-details-card__section__show-more:hover,
+.bs-consumer-booking-details-card__section__show-more:focus-visible,
+.bs-consumer-booking-details-card__section__show-more:hover:active {
+  background-color: transparent;
+}
+
+/* ----- MODAL DIALOG INTEGRATION ----- */
+.bs-fabrique-modal-dialog__content .bs-consumer-booking-details-card {
+  padding: 0;
+  border-radius: 0;
+  border: none;
+}
+
+/* ----- HEADER SECTION ----- */
+.bs-consumer-booking-details-card__header-section {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  padding: var(--bs-space-size-4);
+  background-position: center;
+  background-size: cover;
+  border-radius: var(--bs-border-radius-sm);
+  background-repeat: no-repeat;
+  background-image: linear-gradient(
+      91deg,
+      rgba(0, 0, 0, 0.73) 0.35%,
+      rgba(0, 0, 0, 0.24) 99.51%
+    ),
+    var(--bs-consumer-booking-details-card__header-picture);
+  height: var(--bs-consumer-booking-details-card-header-height);
+  margin-bottom: var(--bs-space-size-4);
+  /*We need to set this property for the widget, as the default value set by the cleanslate is content-box*/
+  box-sizing: border-box;
+}
+
+.bs-consumer-booking-details-card__header-section__summary {
+  flex: 1;
+}
+
+.bs-consumer-booking-details-card__header-section__summary__date-time {
+  color: var(--bs-color-text-inverse-default);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  /* autoprefixer: off */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.bs-consumer-booking-details-card__header-section__summary__activity {
+  color: var(--bs-color-text-inverse-default);
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  /* autoprefixer: off */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.bs-consumer-booking-details-card__header-section__summary__activity--hidden {
+  display: none;
+}
+
+.bs-consumer-booking-details-card__header-section__level {
+  height: fit-content;
+  margin-left: var(--bs-space-size-4);
+  white-space: nowrap;
+  max-width: 200px;
+}
+
+.bs-consumer-booking-details-card__header-section__level__text {
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+/* ----- HEADER SECTION ----- */
+
+/* ----- CANCELLED SECTION ----- */
+/* .bs-consumer-booking-details-card__cancelled-section {} */
+
+/* .bs-consumer-booking-details-card__cancelled-section__heading {} */
+
+.bs-consumer-booking-details-card__cancelled-section__refund-info {
+  margin: var(--bs-space-size-1) 0;
+  color: var(--bs-color-text-weak);
+}
+
+.bs-consumer-booking-details-card__cancelled-section__cancelled-date {
+  color: var(--bs-color-text-error-strong);
+}
+/* ----- CANCELLED SECTION ----- */
+
+/* ----- PASS SECTION ----- */
+/* .bs-consumer-booking-details-card__pass-section {} */
+
+.bs-consumer-booking-details-card__pass-section__content {
+  display: flex;
+}
+
+.bs-consumer-booking-details-card__pass-section__content__pass-name {
+  display: flex;
+  height: fit-content;
+  width: fit-content;
+}
+
+.bs-consumer-booking-details-card__pass-section__content__credit-status {
+  display: flex;
+  height: fit-content;
+  width: fit-content;
+}
+/* ----- PASS SECTION ----- */
+
+/* ----- LOCATION SECTION ----- */
+/* .bs-consumer-booking-details-card__establishment-section {} */
+
+.bs-consumer-booking-details-card__location-section__list {
+  gap: 0;
+}
+
+.bs-consumer-booking-details-card__location-section__list__item {
+  padding: 0;
+}
+
+.bs-consumer-booking-details-card__location-section__list__item:not(
+    :last-of-type
+  ) {
+  margin-bottom: var(--bs-space-size-1);
+}
+
+.bs-consumer-booking-details-card__location-section__list__item--hidden {
+  display: none;
+}
+
+/* ----- LOCATION SECTION ----- */
+
+/* ----- DESCRIPTION SECTION ----- */
+/* .bs-consumer-booking-details-card__description-section {} */
+
+/* .bs-consumer-booking-details-card__description-section__description {} */
+/* ----- DESCRIPTION SECTION ----- */
+
+/* ----- WAITLIST SECTION ----- */
+/* .bs-consumer-booking-details-card__waitlist-section {} */
+
+/* .bs-consumer-booking-details-card__waitlist-section__list {} */
+
+.bs-consumer-booking-details-card__waitlist-section__list__item {
+  padding: 0;
+}
+/* ----- WAITLIST SECTION ----- */
+
+/* ----- POLICY SECTION ----- */
+/* .bs-consumer-booking-details-card__policy-section {} */
+
+/* .bs-consumer-booking-details-card__policy-section__policy {} */
+/* ----- POLICY SECTION ----- */
+
+/* ----- TEACHER SECTION ----- */
+/* .bs-consumer-booking-details-card__teacher-section {} */
+
+.bs-consumer-booking-details-card__teacher-section__list {
+  gap: 0;
+}
+
+/* .bs-consumer-booking-details-card__teacher-section__list__item {} */
+
+.bs-consumer-booking-details-card__teacher-section__avatar {
+  margin: var(--bs-space-size-1) 0;
+  padding: 0;
+}
+
+.bs-consumer-booking-details-card__teacher-section__avatar__icon,
+.bs-consumer-booking-details-card__teacher-section__avatar__icon img {
+  width: var(--bs-icon-size-lg);
+  height: var(--bs-icon-size-lg);
+}
+
+.bs-consumer-booking-details-card__teacher-section__avatar__icon--sm,
+.bs-consumer-booking-details-card__teacher-section__avatar__icon--sm img {
+  width: var(--bs-icon-size-md);
+  height: var(--bs-icon-size-md);
+}
+
+.bs-consumer-booking-details-card__teacher-section__avatar__icon__container {
+  display: flex;
+  overflow: hidden;
+  width: inherit;
+  height: inherit;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--bs-color-background-grey-weak);
+  color: var(--bs-color-text-weak);
+  border-radius: var(--bs-border-radius-circle);
+}
+
+.bs-consumer-booking-details-card__teacher-section__avatar__icon__container--empty {
+  padding: var(--bs-fabrique-avatar-padding);
+}
+
+/* .bs-consumer-booking-details-card__teacher-section__description {} */
+
+.bs-consumer-booking-details-card__teacher-section__description--hidden {
+  display: none;
+}
+
+.bs-consumer-booking-details-card__teacher-section__subtitute-section {
+  margin-top: var(--bs-space-size-2);
+}
+
+.bs-consumer-booking-details-card__teacher-section__social {
+  display: flex;
+  margin-top: var(--bs-space-size-2);
+}
+
+.bs-consumer-booking-details-card__teacher-section__social--hidden {
+  display: none;
+}
+
+/* .bs-consumer-booking-details-card__teacher-section__social__link {} */
+
+.bs-consumer-booking-details-card__teacher-section__social__link--hidden {
+  display: none;
+}
+
+.bs-consumer-booking-details-card__teacher-section__social__link__icon {
+  fill: currentColor;
+  stroke: none;
+}
+/* ----- TEACHER SECTION ----- */
+
+/* ----- WORKSHOP SECTION ----- */
+/* .bs-consumer-booking-details-card__workshop-section {} */
+
+.bs-consumer-booking-details-card__workshop-section__list {
+  gap: 0;
+  margin-top: var(--bs-space-size-1);
+}
+
+.bs-consumer-booking-details-card__workshop-section__list__item {
+  padding: 0;
+}
+
+.bs-consumer-booking-details-card__workshop-section__list__item:not(
+    :last-of-type
+  ) {
+  margin-bottom: var(--bs-space-size-2);
+}
+
+.bs-consumer-booking-details-card__workshop-section__list__item__label {
+  text-transform: capitalize;
+}
+/* ----- WORKSHOP SECTION ----- */
+
+@container bsConsumerBookingDetailsCard (width < 500px) {
+  .bs-consumer-booking-details-card__header-section {
+    flex-direction: column;
+  }
+
+  .bs-consumer-booking-details-card__header-section__level {
+    margin: 0;
+    max-width: 50cqw;
+  }
+}

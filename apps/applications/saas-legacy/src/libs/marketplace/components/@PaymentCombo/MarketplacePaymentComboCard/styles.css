@@ -1,0 +1,210 @@
+.bs-pack-card {
+  background: linear-gradient(
+    90deg,
+    var(--color-secondary-background-paper) 58%,
+    var(--color-background-paper) 42%
+  );
+  border-radius: var(--border-radius-4);
+  height: 260px;
+}
+
+.bs-pack-card .bs-generic-card__content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.bs-pack-card__grid {
+  grid-template-columns: 58% 42%;
+}
+
+.bs-pack-card .bs-generic-card__content__grid {
+  gap: 0;
+  flex: 1;
+}
+
+.bs-pack-card__item {
+  padding: var(--spacing-2);
+  padding-bottom: var(--spacing-0);
+}
+
+.bs-generic-card__content__grid__item .bs-pack-card__footer {
+  align-items: flex-end;
+}
+
+.--left {
+  padding-right: var(--spacing-1);
+}
+
+.bs-pack-card__text-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.bs-pack-card__title {
+  text-align: left;
+  max-width: 100%;
+  font-family: var(--h6-fontFamily);
+  font-style: normal;
+  font-size: var(--h5-fontSize);
+  font-weight: var(--h5-fontWeight);
+  line-height: var(--h6-lineHeight);
+  color: var(--color-grey-dark);
+  margin-bottom: var(--spacing-1);
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  /* autoprefixer: off */
+  -webkit-box-orient: vertical;
+}
+
+.bs-pack-card__description {
+  text-align: left;
+  font-size: var(--body2-fontSize);
+  font-weight: var(--body2-fontWeight);
+  letter-spacing: var(--body2-letterSpacing);
+  line-height: var(--body2-lineHeight);
+  color: var(--color-grey-main);
+  margin-top: var(--spacing-1);
+  margin-bottom: var(--spacing-2);
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  /* autoprefixer: off */
+  -webkit-box-orient: vertical;
+  white-space: pre-wrap;
+  max-width: 95%;
+  word-break: break-word;
+}
+
+.bs-pack-card__list {
+  margin-block-start: 0;
+  padding-inline-start: var(--spacing-3);
+  margin-bottom: var(--spacing-1);
+  padding-left: 0;
+  margin-left: var(--spacing-1);
+  color: var(--color-grey-dark);
+  font-size: var(--subtitle1-fontSize);
+  font-weight: var(--h5-fontWeight);
+  letter-spacing: var(--subtitle1-letterSpacing);
+  line-height: var(--subtitle1-lineHeight);
+}
+
+.bs-pack-card__prices-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.bs-pack-card__price__icon {
+  margin-left: var(--spacing-2);
+  color: var(--color-primary-main);
+  background: none;
+  border: none;
+  padding: 0;
+}
+
+.bs-pack-card__price__icon:hover {
+  background: none;
+  color: var(--color-primary-dark);
+}
+
+.bs-pack-card__footer {
+  padding: var(--spacing-1);
+  padding-top: 0;
+}
+
+.bs-pack-card__footer__button__left {
+  border-radius: var(--border-radius-10);
+  min-width: min-content;
+  margin-right: var(--spacing-2);
+}
+
+.bs-pack-card__footer__left__button__content {
+  color: var(--color-primary-main);
+  margin-right: var(--spacing-1);
+}
+
+.bs-pack-card__button__icon {
+  margin: var(--spacing-1);
+}
+
+.bs-pack-card__footer__button__right {
+  border-radius: var(--border-radius-10);
+  padding: var(--spacing-1) var(--spacing-2);
+}
+
+.bs-pack-card__footer__button__right:hover,
+.bs-pack-card__footer__button__right:focus {
+  background: var(--color-primary-dark);
+}
+
+/* Crop text for combo card buy button, same behavior than payment pack/private pass cards */
+.bs-pack-card__footer__button__right .bs-button__text {
+  display: block;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+@container bsPassPage (width > 750px) {
+  .bs-pack-card__price__icon {
+    display: none;
+  }
+}
+
+@container bsPassPage (width < 750px) {
+  .bs-pack-card__list {
+    margin-left: var(--spacing-3);
+  }
+
+  .bs-pack-card {
+    background: var(--color-background-paper);
+    height: 220px;
+  }
+
+  .bs-pack-card__grid {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .bs-pack-card__description {
+    display: none;
+  }
+
+  .bs-pack-card__footer {
+    display: none;
+  }
+
+  .bs-pack-card__prices-container {
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    margin-bottom: var(--spacing-1);
+  }
+
+  .bs-pack-card__price {
+    margin-left: var(--spacing-1);
+    font-size: var(--h4-fontSize);
+  }
+
+  .bs-pack-card__item {
+    align-items: initial;
+    height: fit-content;
+  }
+
+  .--rigth {
+    padding-top: 0px;
+    flex: 1;
+  }
+}
+
+@container bsPassPage (width < 750px) {
+  .bs-carousel__item .bs-pack-card {
+    height: 192px;
+  }
+}

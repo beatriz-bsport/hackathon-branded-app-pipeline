@@ -1,0 +1,139 @@
+// eslint-disable-next-line bsport/no-redux-in-component
+import { connect } from 'react-redux';
+import { compose } from 'redux';
+import withStyles from '@material-ui/core/styles/withStyles';
+import React, { Component } from 'react';
+import { withTranslation } from 'react-i18next';
+import Grid from '@material-ui/core/Grid';
+import ListItem from '@material-ui/core/ListItem';
+import Typography from '@material-ui/core/Typography';
+import ListItemText from '@material-ui/core/ListItemText';
+import { getStatusText, getHeading } from '../utils';
+import { VideoPurchase } from '../types';
+import { openNewBackOfficeWindow } from '#src/utils/windows';
+
+type Props = {
+  classes: any,
+  t: Tfunction,
+  id: number,
+  memberId: number,
+  videoPurchase: VideoPurchase,
+  redirectToMember?: boolean,
+  redirectToOffer?: boolean,
+  newTab?: boolean,
+  selected?: boolean,
+  date_created: String,
+  timezone?: string,
+
+  push: (path: string) => void,
+  onClick?: () => void,
+};
+export class VideoItemForManager extends Component<Props, State> {
+  handleListItemClick = (event: SyntheticEvent<any>) => {
+    event.preventDefault();
+    if (this.props.onClick) {
+      this.props.onClick(event);
+    }
+    const {
+      redirectToMember,
+      videoPurchase,
+      newTab,
+      redirectToOffer,
+      memberId,
+    } = this.props;
+    const url = `/member/${memberId}/`;
+    if (redirectToOffer) {
+      this.props.push(`/offer/${videoPurchase.id}`);
+    }
+    if (redirectToMember && newTab) {
+      openNewBackOfficeWindow(url);
+      return;
+    }
+    if (redirectToMember) {
+      this.props.push(`/member/${memberId}/`);
+    }
+  };
+
+  render() {
+    const { t } = this.props;
+    const videoStatus = getStatusText(this.props.videoPurchase, t);
+    return (
+      <ListItem
+        disableRipple
+        divider
+        onClick={this.handleListItemClick}
+        selected={!!this.props.selected}
+      >
+        <Grid
+          container
+          alignItems="center"
+          justify="space-between"
+          wrap="nowrap"
+        >
+          <Grid item>
+            <ListItemText
+              primary={
+                <div className={this.props.classes.rowPrimary}>
+                  <Typography variant="body2">
+                    {getHeading(
+                      this.props.date_created,
+                      this.props.videoPurchase,
+                      this.props.timezone,
+                    )}
+                  </Typography>
+                </div>
+              }
+              secondary={
+                <div>
+                  {videoStatus.map(([txt, color]) => {
+                    return (
+                      <Typography key={txt} color={color} variant="body2">
+                        {txt}
+                      </Typography>
+                    );
+                  })}
+                </div>
+              }
+            />
+          </Grid>
+        </Grid>
+      </ListItem>
+    );
+  }
+}
+
+const styles = (theme) => ({
+  iconButton: {
+    marginLeft: theme.spacing(1),
+  },
+  rightButton: {
+    marginLeft: theme.spacing(1),
+  },
+  badge: {
+    right: '0%',
+  },
+  disabled: {
+    background: 'linear-gradient(135deg, #FFDDDD, transparent)',
+
+    '&:hover': {
+      background: 'linear-gradient(135deg, #FFC1C1, transparent)',
+    },
+  },
+  cancelled: {
+    opacity: 0.5,
+    backgroundColor: '#F8F8F8',
+  },
+  rowPrimary: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    '&>*': {
+      marginRight: theme.spacing(0.5),
+    },
+  },
+});
+export default compose(
+  withTranslation(['booking']),
+  withStyles(styles),
+  connect(null, {}),
+)(VideoItemForManager);

@@ -1,0 +1,13 @@
+.bs-payment-method-icon__brand {
+  padding: 0 var(--bs-space-size-2);
+}
+
+.bs-payment-method-icon__tooltip__text {
+  font-size: var(--bs-font-size-body-xs);
+  font-weight: var(--bs-font-weight-weak);
+}
+
+.bs-payment-method-icon__tooltip__text strong {
+  font-size: var(--bs-font-size-body-xs);
+  font-weight: var(--bs-font-weight-strong);
+}

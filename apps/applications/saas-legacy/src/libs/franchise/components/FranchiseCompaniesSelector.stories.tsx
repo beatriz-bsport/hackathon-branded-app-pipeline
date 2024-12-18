@@ -1,0 +1,80 @@
+import React, { useState } from 'react';
+import FranchiseCompaniesSelector, {
+  OwnProps,
+} from './FranchiseCompaniesSelector.component';
+import { FranchiseCompanyListFactory } from '../factories/FranchiseCompanyFactory';
+
+import { FranchiseCompany } from '../../franchise/types';
+
+const CustomTemplate = (args: OwnProps) => {
+  const [selectedCompanies, setselectedCompanies] = useState(
+    args.selectedCompanies,
+  );
+  return (
+    <FranchiseCompaniesSelector
+      {...args}
+      selectedCompanies={selectedCompanies}
+      onChange={(companies) => {
+        setselectedCompanies(companies);
+      }}
+    />
+  );
+};
+
+const companiesFactory: FranchiseCompany[] = FranchiseCompanyListFactory(5);
+
+const companies = companiesFactory.map((company, index) => ({
+  ...company,
+  id: index,
+}));
+const companyDic = companies.reduce<Record<number, FranchiseCompany>>(
+  (dic, company) => {
+    dic[company.id] = company;
+    return dic;
+  },
+  {},
+);
+const defaultArgs: OwnProps = {
+  selectedCompanies: [],
+  companyDic,
+  companies: companies,
+  withAllCompaniesTag: false,
+  onChange: () => {},
+};
+
+export const ClassicUse = CustomTemplate.bind({});
+
+ClassicUse.args = {
+  ...defaultArgs,
+};
+
+export const WithDefaultValue = CustomTemplate.bind({});
+
+WithDefaultValue.args = {
+  ...defaultArgs,
+  selectedCompanies: [...companies].slice(0, 2).map((c) => ({
+    label: c.name,
+    value: `${c.id}`,
+  })),
+};
+
+export const WithAllCompaniesTagActivated = CustomTemplate.bind({});
+
+WithAllCompaniesTagActivated.args = {
+  ...defaultArgs,
+  selectedCompanies: [...companies].map((c) => ({
+    label: c.name,
+    value: `${c.id}`,
+  })),
+  withAllCompaniesTag: true,
+};
+
+export default {
+  title: 'Library/Franchise/Company Selector',
+  component: FranchiseCompaniesSelector,
+  parameters: {
+    docs: {
+      page: null,
+    },
+  },
+};

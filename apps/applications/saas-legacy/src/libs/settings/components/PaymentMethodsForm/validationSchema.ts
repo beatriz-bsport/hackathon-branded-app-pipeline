@@ -1,0 +1,39 @@
+import * as Yup from 'yup';
+import { MAX_DAYS_FIRST_WARNING_PAYMENT_METHOD_EXPIRATION } from './constants';
+
+export const validationSchema = Yup.object().shape({
+  payment_method_available: Yup.array().of(Yup.number()).required(),
+  payment_method_available_basket: Yup.array().of(Yup.number()).required(),
+  payment_method_available_subscription: Yup.array()
+    .of(Yup.number())
+    .required()
+    .min(1),
+  payment_method_available_recurringly: Yup.array().of(Yup.number()).required(),
+  cardBillingDetailsMandatory: Yup.boolean().required(),
+  first_warning_payment_method_expiration_days: Yup.number()
+    .max(
+      MAX_DAYS_FIRST_WARNING_PAYMENT_METHOD_EXPIRATION,
+      'paymentMethods.DaysBeforeNotificationInputs.errors.max',
+    )
+    .min(1, 'common:requiredField')
+    .required('common:requiredField'),
+  second_warning_payment_method_expiration_days: Yup.number()
+    .min(1, 'common:requiredField')
+    .required('common:requiredField')
+    .test({
+      name: 'isSecondWarningDayBiggerThanFirst',
+      test: function isSecondWarningDayBiggerThanFirst(value) {
+        if (value) {
+          const firstWarningDay =
+            this.parent.first_warning_payment_method_expiration_days;
+          if (value >= firstWarningDay) {
+            return this.createError({
+              message:
+                'paymentMethods.DaysBeforeNotificationInputs.errors.secondWarningDayBiggerThanFirst',
+            });
+          }
+        }
+        return true;
+      },
+    }),
+});

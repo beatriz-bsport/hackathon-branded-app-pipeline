@@ -1,0 +1,50 @@
+import { ErrorAndLoading, WithPagination } from '../types';
+
+export type Membership = {
+  id: number;
+  consumer: number;
+  company: number;
+  date_joined: string;
+  payment_pack_count: number;
+  consumer_payment_pack_count: number;
+  contract_count: number;
+  company_cover: string;
+  company_name: string;
+  company_primary_color: string;
+  company_secondary_color: string;
+  credit_account_balance: number;
+  basket: string;
+  invoice_count: number;
+  membership_ID: string;
+  name: string;
+  total_unpaid_amount: string;
+  vod: boolean;
+  websiteURL: string;
+  barcode: string;
+};
+
+export type MembershipState = {
+  byId: { [id: number]: Membership };
+  retrieve: ErrorAndLoading;
+  activeMembership?: number | null;
+  asConsumer: ErrorAndLoading &
+    WithPagination & {
+      allIds: Array<number>;
+    };
+  link: ErrorAndLoading;
+  memberShipValidation: ErrorAndLoading & {
+    missingInformation: {
+      validated: boolean;
+      fields: Array<string>;
+      status: number;
+    };
+  };
+  notifications: ErrorAndLoading & {
+    customForm: {
+      missingCustomFormInfos: Array<{
+        custom_form_id: number;
+        custom_form_display_rule_id: number;
+      }>;
+    };
+  };
+};

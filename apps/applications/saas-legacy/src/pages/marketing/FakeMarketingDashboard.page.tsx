@@ -1,0 +1,113 @@
+import React, { Component } from 'react';
+
+import { DateTime } from 'luxon';
+import Grid from '@material-ui/core/Grid';
+import { compose } from 'recompose';
+import { withStyles, WithStyles, Theme } from '@material-ui/core';
+import { withTranslation, WithTranslation } from 'react-i18next';
+import { TFunction } from 'i18next';
+
+// @ts-expect-error
+import RuleCard from '#src/components/marketing/RuleCard.component';
+
+import withTitle from '../../hocs/with-title.hoc';
+
+type Props = WithTranslation & WithStyles<typeof styles>;
+
+type State = {
+  rules: Array<any>;
+};
+
+const getRules = (t: TFunction) => [
+  {
+    id: 1,
+    name: `${t('strategy.strategy')} #1`,
+    date: DateTime.now(),
+    conversionRate: 0.04,
+    averageBuy: 70,
+    sales: 10,
+    totalBuy: 700,
+    SMSSent: 240,
+    EmailSent: 510,
+    notificationSent: 110,
+    clientReached: 521,
+    criterias: [
+      {
+        name: t('strategy.sport'),
+        value: t('strategy.yoga'),
+      },
+      {
+        name: t('strategy.gender'),
+        value: t('strategy.female'),
+      },
+      {
+        name: t('strategy.location'),
+        value: t('strategy.gym'),
+      },
+      {
+        name: t('strategy.gaveUp'),
+        value: `4 ${t('strategy.sessions')}`,
+      },
+    ],
+  },
+  {
+    id: 2,
+    name: `${t('strategy.strategy')} #2`,
+    date: DateTime.now(),
+    conversionRate: 0.12,
+    averageBuy: 20,
+    sales: 40,
+    totalBuy: 800,
+    SMSSent: 430,
+    EmailSent: 600,
+    clientReached: 1232,
+    notificationSent: 60,
+    criterias: [
+      {
+        name: t('strategy.sport'),
+        value: t('strategy.crossfit'),
+      },
+      {
+        name: t('strategy.membership'),
+        value: t('strategy.none'),
+      },
+      {
+        name: t('strategy.offersWithoutMembership'),
+        value: 5,
+      },
+    ],
+  },
+];
+
+export class MarketingDashboard extends Component<Props, State> {
+  state = {
+    rules: getRules(this.props.t),
+  };
+
+  render() {
+    const { rules } = this.state;
+    return (
+      <div>
+        <Grid container direction="row" spacing={4}>
+          {rules.map((r: any) => (
+            <RuleCard key={r.id} rule={r} />
+          ))}
+        </Grid>
+      </div>
+    );
+  }
+}
+
+const styles = (theme: Theme) => ({
+  title: {
+    marginBottom: theme.spacing(4),
+  },
+});
+
+export default compose(
+  withStyles(styles),
+  withTranslation(),
+  withTitle(({ t }: { t: TFunction }) =>
+    t('titles:marketing.marketingDashboard'),
+  ),
+)(MarketingDashboard);

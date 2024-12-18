@@ -1,0 +1,3 @@
+import FranchiseShopItemTemplateDetailInventoryBulkUpdateForm from './FranchiseShopItemTemplateDetailInventoryBulkUpdateForm.component';
+
+export default FranchiseShopItemTemplateDetailInventoryBulkUpdateForm;

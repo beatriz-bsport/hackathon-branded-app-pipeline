@@ -1,0 +1,92 @@
+import { Meta, Canvas, Story, Source } from '@storybook/addon-docs';
+import {AlertStorybook as Alert} from './Alert.component';
+
+<Meta title="Fabrique/Alert/Doc" component={Alert} />
+
+# Alert
+
+## Description
+
+The **`alert`** component informs users that something important has happened, notify them of a success or failure or to take action.
+We use this component when users need to be made aware of certain content.
+
+### Default
+
+<Canvas withSource="none" withToolbar>
+  <Story id="fabrique-alert-stories--default"/>
+</Canvas>
+
+### Strong
+
+#### Usage
+
+An alert with a strong, attention-grabbing appearance. This style is designed for important messages that require immediate user attention.
+It uses strong colours and high contrast to ensure the alert is noticed promptly.
+
+<Canvas withSource="none" withToolbar>
+  <Story id="fabrique-alert-stories--strong-light"/>
+  <Story id="fabrique-alert-stories--strong-grey"/>
+  <Story id="fabrique-alert-stories--strong-info"/>
+  <Story id="fabrique-alert-stories--strong-success"/>
+  <Story id="fabrique-alert-stories--strong-warning"/>
+  <Story id="fabrique-alert-stories--strong-error"/>
+</Canvas>
+
+#### Example
+
+<Source dark language='tsx' id="fabrique-alert-stories--strong-info" />
+
+### Weak
+
+#### Usage
+
+An alert with a weak, subtle appearance. This style is designed for less critical messages that need to be communicated without being overly prominent.
+It uses muted colors and softer contrast to provide a gentler visual impact.
+
+<Canvas withSource="none" withToolbar>
+  <Story id="fabrique-alert-stories--weak-grey"/>
+  <Story id="fabrique-alert-stories--weak-info"/>
+  <Story id="fabrique-alert-stories--weak-success"/>
+  <Story id="fabrique-alert-stories--weak-warning"/>
+  <Story id="fabrique-alert-stories--weak-error"/>
+</Canvas>
+
+#### Example
+
+<Source dark language='tsx' id="fabrique-alert-stories--weak-success" />
+
+### Outlined
+
+#### Usage
+
+An alert with an outlined style. This style emphasizes the alert through a border while maintaining a transparent or muted interior. It provides a clear boundary without overwhelming the content inside the alert.
+
+<Canvas withSource="none" withToolbar>
+  <Story id="fabrique-alert-stories--outlined-grey"/>
+  <Story id="fabrique-alert-stories--outlined-info"/>
+  <Story id="fabrique-alert-stories--outlined-success"/>
+  <Story id="fabrique-alert-stories--outlined-warning"/>
+  <Story id="fabrique-alert-stories--outlined-error"/>
+</Canvas>
+
+#### Example
+
+<Source dark language='tsx' id="fabrique-alert-stories--outlined-warning" />
+
+### Text
+
+#### Usage
+
+An alert styled like regular text. This style integrates the alert seamlessly into the surrounding text, making it appear as a natural part of the content. It avoids any additional visual cues that distinguish it as an alert.
+
+<Canvas withSource="none" withToolbar>
+  <Story id="fabrique-alert-stories--text-grey"/>
+  <Story id="fabrique-alert-stories--text-info"/>
+  <Story id="fabrique-alert-stories--text-success"/>
+  <Story id="fabrique-alert-stories--text-warning"/>
+  <Story id="fabrique-alert-stories--text-error"/>
+</Canvas>
+
+#### Example
+
+<Source dark language='tsx' id="fabrique-alert-stories--text-error" />

@@ -1,0 +1,186 @@
+// @flow
+import React, { useState } from 'react';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import ListItemAvatar from '@material-ui/core/ListItemAvatar';
+import { useTranslation } from 'react-i18next';
+import Avatar from '@material-ui/core/Avatar';
+import EditIcon from '@material-ui/icons/Edit';
+import Checkbox from '@material-ui/core/Checkbox';
+import FormGroup from '@material-ui/core/FormGroup';
+
+import Button from '@material-ui/core/Button';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import { IconButton, Typography } from '@material-ui/core';
+import CancelIcon from '@material-ui/icons/Cancel';
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+
+type Props = {
+  recurrenceRuleBooking: Array,
+  onDelete: (id: number) => void,
+  notShowMember: boolean,
+  onEdit: (id: number) => void,
+  onClick: ?() => void,
+};
+
+export const RecurrenceRuleBookingListItem = (props: Props) => {
+  const { t } = useTranslation(['booking', 'datetime']);
+  const { recurrenceRuleBooking, onDelete, onEdit, notShowMember } = props;
+  const { member, meta_activity, establishment } = recurrenceRuleBooking;
+
+  const [notifyIfCanceledChecked, setNotifyIfCanceledChecked] = useState(true);
+  const [cancelBookingsChecked, setCancelBookingsChecked] = useState(true);
+
+  const [dialogOpen, setDialogOpen] = useState(false);
+
+  const handleNotifyChangeChecked = (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    const { checked } = event.target;
+    setNotifyIfCanceledChecked(checked);
+  };
+
+  const handleCancelBookingChecked = React.useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      const { checked } = event.target;
+      setCancelBookingsChecked(checked);
+      if (!checked) {
+        setNotifyIfCanceledChecked(false);
+      }
+    },
+    [],
+  );
+
+  const getHeader = () => {
+    if (notShowMember) {
+      if (meta_activity) {
+        return (
+          <Typography color="primary" variant="body2">
+            {meta_activity.name}
+          </Typography>
+        );
+      }
+      return '';
+    }
+    return <div>{member && member.name ? member.name : '-'}</div>;
+  };
+
+  const DeleteDialog = () => {
+    return (
+      <Dialog
+        aria-describedby="alert-dialog-description"
+        aria-labelledby="alert-dialog-title"
+        open={dialogOpen}
+      >
+        <DialogTitle id="alert-dialog-title">
+          {t('booking:recurrenceRule.deleteModal.title')}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            {t('booking:recurrenceRule.deleteModal.content')}
+          </DialogContentText>
+          <FormGroup>
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={cancelBookingsChecked}
+                  id="cancel_bookings_checked"
+                  name="cancel_bookings_checked"
+                  onChange={handleCancelBookingChecked}
+                />
+              }
+              label={t('booking:recurrenceRule.cancelRelatedBookings')}
+            />
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={notifyIfCanceledChecked}
+                  disabled={!cancelBookingsChecked}
+                  id="notify_if_canceled"
+                  name="notify_if_canceled"
+                  onChange={handleNotifyChangeChecked}
+                />
+              }
+              label={t('booking:recurrenceRule.notifyIfCanceled')}
+            />
+          </FormGroup>
+        </DialogContent>
+        <DialogActions>
+          <Button autoFocus onClick={() => setDialogOpen(false)}>
+            {t('booking:recurrenceRule.deleteModal.cancel')}
+          </Button>
+          <Button
+            color="primary"
+            onClick={() => {
+              onDelete(recurrenceRuleBooking.id, {
+                notify_if_canceled: notifyIfCanceledChecked,
+                cancel_related_bookings: cancelBookingsChecked,
+              });
+              setDialogOpen(false);
+            }}
+          >
+            {t('booking:recurrenceRule.deleteModal.confirm')}
+          </Button>
+        </DialogActions>
+      </Dialog>
+    );
+  };
+  return (
+    <ListItem dense divider button={!!props.onClick} onClick={props.onClick}>
+      {member && member.photo && !notShowMember && (
+        <ListItemAvatar>
+          <Avatar alt="" src={member.photo} />
+        </ListItemAvatar>
+      )}
+      <ListItemText
+        primary={getHeader()}
+        primaryTypographyProps={{ variant: 'body2' }}
+        secondary={
+          <div>
+            {!notShowMember && !!meta_activity && (
+              <Typography color="primary" variant="body2">
+                {meta_activity.name}
+              </Typography>
+            )}
+            {!!establishment && (
+              <Typography color="secondary" variant="body2">
+                {establishment.title}
+              </Typography>
+            )}
+            <Typography variant="body2">
+              {t('booking:recurrenceRule.item.explain', {
+                dayOfWeek: t(
+                  `datetime:time.weekdayNumber.${recurrenceRuleBooking.day_of_week}`,
+                ),
+                hour: `${recurrenceRuleBooking.hour}`.padStart(2, '0'),
+                minute: `${recurrenceRuleBooking.minute}`.padStart(2, '0'),
+                delayWeek: recurrenceRuleBooking.delay_week,
+              })}
+            </Typography>
+          </div>
+        }
+      />
+      <ListItemSecondaryAction>
+        {onEdit && (
+          <IconButton color="primary" onClick={onEdit}>
+            <EditIcon />
+          </IconButton>
+        )}
+        {onDelete && (
+          <IconButton onClick={() => setDialogOpen(true)}>
+            <CancelIcon />
+          </IconButton>
+        )}
+      </ListItemSecondaryAction>
+      {DeleteDialog()}
+    </ListItem>
+  );
+};
+
+export default RecurrenceRuleBookingListItem;

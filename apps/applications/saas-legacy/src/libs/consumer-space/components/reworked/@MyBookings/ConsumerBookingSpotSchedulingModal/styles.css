@@ -1,0 +1,9 @@
+.bs-consumer-booking-spot-scheduling-modal__blanket {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.bs-consumer-booking-spot-scheduling-modal__dialog {
+  width: 100cqw;
+}

@@ -1,0 +1,3 @@
+import CommunicationSentGroupConfigListing from './CommunicationSentGroupConfigListing.component';
+
+export default CommunicationSentGroupConfigListing;

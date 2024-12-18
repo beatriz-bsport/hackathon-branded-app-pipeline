@@ -1,0 +1,138 @@
+.bs-generic-card__content__grid__item {
+  width: 100%;
+  display: flex;
+}
+
+.bs-grid-item__price {
+  order: 1;
+}
+
+/* Grid row start */
+.bs-grid-item-row-start-1 {
+  grid-row-start: 1;
+}
+
+.bs-grid-item-row-start-2 {
+  grid-row-start: 2;
+}
+.bs-grid-item-row-start-3 {
+  grid-row-start: 3;
+}
+.bs-grid-item-row-start-4 {
+  grid-row-start: 4;
+}
+.bs-grid-item-row-start-5 {
+  grid-row-start: 5;
+}
+.bs-grid-item-row-start-6 {
+  grid-row-start: 6;
+}
+
+/* Grid row end */
+.bs-grid-item-row-end-1 {
+  grid-row-end: 1;
+}
+.bs-grid-item-row-end-2 {
+  grid-row-end: 2;
+}
+.bs-grid-item-row-end-3 {
+  grid-row-end: 3;
+}
+.bs-grid-item-row-end-4 {
+  grid-row-end: 4;
+}
+.bs-grid-item-row-end-5 {
+  grid-row-end: 5;
+}
+
+/* Grid column start */
+.bs-grid-item-column-start-1 {
+  grid-column-start: 1;
+}
+.bs-grid-item-column-start-2 {
+  grid-column-start: 2;
+}
+.bs-grid-item-column-start-3 {
+  grid-column-start: 3;
+}
+.bs-grid-item-column-start-4 {
+  grid-column-start: 4;
+}
+
+/* Grid column end */
+.bs-grid-item-column-end-1 {
+  grid-column-end: 1;
+}
+
+.bs-grid-item-column-end-2 {
+  grid-column-end: 2;
+}
+
+.bs-grid-item-column-end-3 {
+  grid-column-end: 3;
+}
+
+.bs-grid-item-column-end-4 {
+  grid-column-end: 4;
+}
+
+/* Direction of the item content */
+.bs-grid-item-direction-row {
+  flex-direction: row;
+}
+.bs-grid-item-direction-column {
+  flex-direction: column;
+}
+.bs-grid-item-direction-row-reverse {
+  flex-direction: row-reverse;
+}
+.bs-grid-item-direction-column-reverse {
+  flex-direction: column-reverse;
+}
+
+/* Justification of the item content */
+.bs-grid-item-justification-center {
+  justify-content: center;
+}
+.bs-grid-item-justification-space-around {
+  justify-content: space-around;
+}
+.bs-grid-item-justification-space-between {
+  justify-content: space-between;
+}
+.bs-grid-item-justification-space-evenly {
+  justify-content: space-evenly;
+}
+.bs-grid-item-justification-flex-start {
+  justify-content: flex-start;
+}
+.bs-grid-item-justification-flex-end {
+  justify-content: flex-end;
+}
+.bs-grid-item-justification-stretch {
+  justify-content: stretch;
+}
+.bs-grid-item-justification-baseline {
+  justify-content: baseline;
+}
+
+/* Alignment of the item content */
+.bs-grid-item-alignment-center {
+  align-items: center;
+}
+
+.bs-grid-item-alignment-flex-start {
+  align-items: flex-start;
+}
+
+.bs-grid-item-alignment-flex-end {
+  align-items: flex-end;
+}
+
+.bs-grid-item-alignment-stretch {
+  align-items: stretch;
+}
+
+.bs-grid-item-alignment-baseline {
+  align-items: baseline;
+}

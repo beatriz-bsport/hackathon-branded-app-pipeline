@@ -1,0 +1,11 @@
+.bs-payment-method-icon__container {
+  display: inline-block;
+  position: relative;
+  width: var(--bs-space-size-6);
+  height: auto;
+}
+
+.bs-payment-method-icon__container svg {
+  width: var(--bs-space-size-4);
+  height: var(--bs-space-size-4);
+}

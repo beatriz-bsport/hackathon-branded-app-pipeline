@@ -1,0 +1,79 @@
+// @flow
+
+import { push, replace } from 'connected-react-router';
+
+import { search as searchMember } from '../libs/member/actions';
+import type { State, Dispatch } from '../state/types';
+
+import types from './search.types';
+
+function actionSearchTextStart(
+  text: string,
+  path: string,
+  changeLocation: boolean,
+) {
+  const path_ = changeLocation ? path : null;
+  return { type: types.SEARCH_TEXT_START, text, path_ };
+}
+
+function actionSearchTextError(error: ?Error) {
+  return { type: types.SEARCH_TEXT_ERROR, error };
+}
+
+export function searchText(
+  text: string,
+  path: string,
+  changeLocation: boolean,
+  params: { [key: string]: string | boolean | number },
+  options?: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(actionSearchTextStart(text, path, changeLocation));
+    dispatch(actionSearchTextError(null));
+    if (changeLocation) {
+      try {
+        const mustPush = path !== '/search/results';
+        const goto = mustPush ? push : replace;
+        dispatch(goto(`/search/results?q=${encodeURIComponent(text)}`));
+        dispatch(searchMember(text, params));
+        if (options && options.onSuccess) {
+          options.onSuccess();
+        }
+      } catch (error) {
+        dispatch(actionSearchTextError(error));
+        if (options && options.onError) {
+          options.onError();
+        }
+      }
+    }
+  };
+}
+
+export function clearSearch(changeLocation: boolean) {
+  return async (dispatch: Dispatch, getState: () => State) => {
+    if (changeLocation) {
+      dispatch(push(getState().search.path));
+    }
+  };
+}
+
+function actionSearchSelectEntityStart(entity: any) {
+  return { type: types.SEARCH_SELECT_ENTITY_START, entity };
+}
+
+function actionSearchSelectEntityError(error: ?Error) {
+  return { type: types.SEARCH_SELECT_ENTITY_ERROR, error };
+}
+
+export function selectEntity(entity: any) {
+  return async (dispatch: Dispatch) => {
+    dispatch(actionSearchSelectEntityStart(entity));
+    dispatch(actionSearchSelectEntityError(null));
+
+    try {
+      // TODO : Delete
+    } catch (error) {
+      dispatch(actionSearchSelectEntityError(error));
+    }
+  };
+}

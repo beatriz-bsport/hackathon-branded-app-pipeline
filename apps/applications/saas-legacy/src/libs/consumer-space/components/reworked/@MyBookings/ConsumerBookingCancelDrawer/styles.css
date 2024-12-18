@@ -1,0 +1,29 @@
+.bs-consumer-booking-cancel-drawer__alert {
+  margin: var(--bs-space-size-4) 0;
+}
+
+.bs-consumer-booking-cancel-drawer__related-bookings {
+  width: 100%;
+}
+
+.bs-consumer-booking-cancel-drawer__related-bookings--hidden {
+  display: none;
+}
+
+.bs-consumer-booking-cancel-drawer__list {
+  gap: 0;
+  margin-top: var(--bs-space-size-3);
+}
+
+.bs-consumer-booking-cancel-drawer__list__item {
+  margin-bottom: var(--bs-space-size-3);
+  padding: 0;
+}
+
+.bs-consumer-booking-cancel-modal__dialog__message {
+  width: 100%;
+}
+
+.bs-consumer-booking-cancel-modal__dialog__message--hidden {
+  display: none;
+}

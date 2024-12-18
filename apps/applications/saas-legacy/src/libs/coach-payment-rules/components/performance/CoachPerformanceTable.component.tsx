@@ -1,0 +1,566 @@
+import React from 'react';
+import {
+  COACH_PERFORMANCE_FOR_SESSION,
+  COACH_PERFORMANCE_FOR_APPOINTMENT,
+} from '@bsport/common/lib/master-data/coach_payment_rule';
+import { useTranslation } from 'react-i18next';
+import type { Theme } from '@material-ui/core/styles';
+import makeStyles from '@material-ui/styles/makeStyles';
+import Table from '@material-ui/core/Table';
+import TableCell from '@material-ui/core/TableCell';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableBody from '@material-ui/core/TableBody';
+import Paper from '@material-ui/core/Paper';
+import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
+import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
+import IconButton from '@material-ui/core/IconButton';
+import Collapse from '@material-ui/core/Collapse';
+import LinearProgress from '@material-ui/core/LinearProgress';
+import Typography from '@material-ui/core/Typography';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import Tooltip from '#src/components/Tooltip.component';
+import type {
+  CoachPaymentRuleGroup,
+  CoachPaymentRule,
+  CoachwithPerformance,
+} from '#src/libs/coach-payment-rules/types';
+import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
+import CoachPerformanceTabs from '#src/libs/coach-payment-rules/components/performance/CoachPerformanceTabs.component';
+import AllCoachPerformancePagination from '#src/libs/coach-payment-rules/components/performance/AllCoachPerformancePagination.component';
+// @ts-expect-error
+import { getFilteredAssociatedCoachWithPerformance } from '#src/libs/coach-payment-rules/utils';
+import type { OptionCallback } from '../../../../state/types';
+
+interface HeadersProps {
+  title: string;
+  align: 'inherit' | 'left' | 'center' | 'right' | 'justify';
+  colSpan?: number;
+  className?: string;
+}
+
+type CoachPaymentRuleActions = {
+  setSessionCoachPaymentRule: (params: {
+    associatedCoachId: number;
+    sessionId: number;
+    coachPaymentRuleId: number;
+  }) => void;
+  updatePrivateBookingCoachPaymentRule: (params: {
+    associatedCoachId: number;
+    privateBookingId: number;
+    coachPaymentRuleId: number;
+  }) => void;
+  setCoachPaymentRuleGroup: (
+    coachId: number,
+    coach_payment_rule_group_id: number,
+  ) => void;
+  setCoachPaymentRule: (
+    coachId: number,
+    coach_payment_rule_id: number,
+    associated_coach_id: number,
+  ) => void;
+  setCoachPrivatePaymentRule: (
+    coachId: number,
+    coach_payment_rule_id: number,
+    associated_coach_id: number,
+  ) => void;
+  setCoachWorkShopPaymentRule: (
+    coachId: number,
+    coach_payment_rule_id: number,
+    associated_coach_id: number,
+  ) => void;
+};
+
+type CoachPaymentRuleObjects = {
+  coachPaymentRuleGroups: Array<CoachPaymentRuleGroup>;
+  coachPaymentRuleGroupsDict: { [groupId: number]: CoachPaymentRuleGroup };
+  coachPaymentRulesByKind: { [kind: number]: Array<CoachPaymentRule> };
+};
+export type CoachPerformanceTableRowProps = {
+  previewMode?: boolean;
+  coachWithPerformance: CoachwithPerformance;
+  handlePdfExportation: (
+    associatedCoachId: number,
+    dataToExport: number,
+  ) => void;
+  isMultiLocalizationEnabled: boolean;
+  filtersApplied: boolean;
+} & CoachPaymentRuleObjects &
+  CoachPaymentRuleActions;
+
+export type CoachPerformanceTableRowState = {
+  openCollapse: boolean;
+};
+export const CoachPerformanceTableRow = (
+  props: CoachPerformanceTableRowProps,
+) => {
+  const {
+    coachWithPerformance,
+    coachPaymentRuleGroups,
+    coachPaymentRuleGroupsDict,
+    coachPaymentRulesByKind,
+    setSessionCoachPaymentRule,
+    updatePrivateBookingCoachPaymentRule,
+    setCoachPaymentRule,
+    setCoachPrivatePaymentRule,
+    setCoachWorkShopPaymentRule,
+    setCoachPaymentRuleGroup,
+    handlePdfExportation,
+    isMultiLocalizationEnabled,
+    filtersApplied,
+  } = props;
+  const [openCollapse, setOpenCollapse] = React.useState<boolean>(false);
+  const classes = useStyles();
+
+  // Summary on Bookings
+  const nbSessions = coachWithPerformance.performance[
+    COACH_PERFORMANCE_FOR_SESSION
+  ]
+    ? coachWithPerformance.performance[COACH_PERFORMANCE_FOR_SESSION].length
+    : null;
+  const nbBookings = coachWithPerformance.performance[
+    COACH_PERFORMANCE_FOR_SESSION
+  ]
+    ? coachWithPerformance.performance[COACH_PERFORMANCE_FOR_SESSION].reduce(
+        (a, b) => a + (b.confirmed_bookings || 0),
+        0,
+      )
+    : null;
+  const totalOnBookings = coachWithPerformance.performance[
+    COACH_PERFORMANCE_FOR_SESSION
+  ]
+    ? coachWithPerformance.performance[COACH_PERFORMANCE_FOR_SESSION].reduce(
+        // @ts-expect-error
+        (a, b) => a + (parseFloat(b.coach_total_payment) || 0),
+        0,
+      )
+    : null;
+
+  const totalMarginValuesOnBookings = coachWithPerformance.performance[
+    COACH_PERFORMANCE_FOR_SESSION
+  ]
+    ? coachWithPerformance.performance[COACH_PERFORMANCE_FOR_SESSION].reduce(
+        // @ts-expect-error
+        (a, b) => a + (parseFloat(b.total_margin_value) || 0),
+        0,
+      )
+    : null;
+  // Summary on Private Bookings
+  const nbPrivateServices = coachWithPerformance.performance[
+    COACH_PERFORMANCE_FOR_APPOINTMENT
+  ]
+    ? coachWithPerformance.performance[COACH_PERFORMANCE_FOR_APPOINTMENT].length
+    : null;
+
+  const nbPrivateServiceAttendants = coachWithPerformance.performance[
+    COACH_PERFORMANCE_FOR_APPOINTMENT
+  ]
+    ? coachWithPerformance.performance[
+        COACH_PERFORMANCE_FOR_APPOINTMENT
+      ].reduce((a, b) => a + (b.confirmed_bookings || 0), 0)
+    : null;
+
+  const totalOnPrivateServices = coachWithPerformance.performance[
+    COACH_PERFORMANCE_FOR_APPOINTMENT
+  ]
+    ? coachWithPerformance.performance[
+        COACH_PERFORMANCE_FOR_APPOINTMENT
+        // @ts-expect-error
+      ].reduce((a, b) => a + (parseFloat(b.coach_total_payment) || 0), 0)
+    : null;
+  const totalMarginValuePrivateBookings = coachWithPerformance.performance[
+    COACH_PERFORMANCE_FOR_APPOINTMENT
+  ]
+    ? coachWithPerformance.performance[
+        COACH_PERFORMANCE_FOR_APPOINTMENT
+        // @ts-expect-error
+      ].reduce((a, b) => a + (parseFloat(b.total_margin_value) || 0), 0)
+    : null;
+
+  // Overall
+
+  const totalNetGain =
+    (totalMarginValuesOnBookings || 0) -
+    (totalOnBookings || 0) +
+    (totalMarginValuePrivateBookings || 0) -
+    (totalOnPrivateServices || 0);
+  return (
+    <>
+      <TableRow>
+        <TableCell align="center">
+          <IconButton
+            aria-label="expand row"
+            disabled={props.previewMode}
+            onClick={() => setOpenCollapse(!openCollapse)}
+            size="small"
+          >
+            {openCollapse ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+          </IconButton>
+        </TableCell>
+        <TableCell align="left">{coachWithPerformance.name}</TableCell>
+        <TableCell align="right" className={classes.sessionSection}>
+          {nbSessions}
+        </TableCell>
+        <TableCell align="right" className={classes.sessionSection}>
+          {nbBookings}
+        </TableCell>
+        <TableCell align="right" className={classes.sessionSection}>
+          {totalOnBookings
+            ? `${getCurrencyDisplayWithPrice(
+                (totalOnBookings || 0).toFixed(2),
+              )}`
+            : '-'}
+        </TableCell>
+        <TableCell align="right" className={classes.sessionSection}>
+          {totalMarginValuesOnBookings
+            ? `${getCurrencyDisplayWithPrice(
+                (totalMarginValuesOnBookings || 0).toFixed(2),
+              )}`
+            : '-'}
+        </TableCell>
+
+        <TableCell align="right" className={classes.sessionSection}>
+          {getCurrencyDisplayWithPrice(
+            (
+              (totalMarginValuesOnBookings || 0) - (totalOnBookings || 0)
+            ).toFixed(2),
+          )}
+        </TableCell>
+        <TableCell align="right">{nbPrivateServices}</TableCell>
+        <TableCell align="right">{nbPrivateServiceAttendants}</TableCell>
+
+        <TableCell align="right">
+          {totalOnPrivateServices
+            ? `${getCurrencyDisplayWithPrice(
+                (totalOnPrivateServices || 0).toFixed(2),
+              )}`
+            : '-'}
+        </TableCell>
+
+        <TableCell align="right">
+          {totalMarginValuePrivateBookings
+            ? `${getCurrencyDisplayWithPrice(
+                (totalMarginValuePrivateBookings || 0).toFixed(2),
+              )}`
+            : '-'}
+        </TableCell>
+
+        <TableCell align="right">
+          {getCurrencyDisplayWithPrice(
+            (
+              (totalMarginValuePrivateBookings || 0) -
+              (totalOnPrivateServices || 0)
+            ).toFixed(2),
+          )}
+        </TableCell>
+        <TableCell align="right">
+          {totalOnBookings || totalOnPrivateServices
+            ? `${getCurrencyDisplayWithPrice(
+                (
+                  (totalOnBookings || 0) + (totalOnPrivateServices || 0)
+                ).toFixed(2),
+              )}`
+            : '-'}
+        </TableCell>
+        <TableCell align="right">
+          {totalOnBookings || totalOnPrivateServices
+            ? `${getCurrencyDisplayWithPrice(totalNetGain.toFixed(2))}`
+            : '-'}
+        </TableCell>
+      </TableRow>
+      <TableRow className={classes.root}>
+        <TableCell className={classes.denseCell} />
+        <TableCell className={classes.denseCell} colSpan={13}>
+          <Collapse
+            unmountOnExit
+            in={openCollapse && !props.previewMode}
+            timeout="auto"
+          >
+            <CoachPerformanceTabs
+              coachPaymentRuleGroups={coachPaymentRuleGroups}
+              coachPaymentRuleGroupsDict={coachPaymentRuleGroupsDict}
+              coachPaymentRulesByKind={coachPaymentRulesByKind}
+              coachWithPerformance={coachWithPerformance}
+              filtersApplied={filtersApplied}
+              handlePdfExportation={handlePdfExportation}
+              isMultiLocalizationEnabled={isMultiLocalizationEnabled}
+              setCoachPaymentRule={setCoachPaymentRule}
+              // @ts-expect-error
+              setCoachPaymentRuleGroup={setCoachPaymentRuleGroup}
+              setCoachPrivatePaymentRule={setCoachPrivatePaymentRule}
+              setCoachWorkShopPaymentRule={setCoachWorkShopPaymentRule}
+              setSessionCoachPaymentRule={setSessionCoachPaymentRule}
+              updatePrivateBookingCoachPaymentRule={
+                updatePrivateBookingCoachPaymentRule
+              }
+            />
+          </Collapse>
+        </TableCell>
+      </TableRow>
+    </>
+  );
+};
+
+type OwnProps = {
+  associatedCoachWithPerformance: Array<CoachwithPerformance>;
+  changePage: (page: number) => void;
+  pagination: {
+    page: number;
+    count: number;
+    next: number;
+    previous: number;
+  };
+  loading: boolean;
+  previewMode?: boolean;
+  leavePreviewMode: () => void;
+  exportPdfPerformance: (
+    params: {
+      start_timestamp?: number;
+      end_timestamp?: number;
+      score_timestamp?: number;
+      associated_coaches_in?: Array<number>;
+      data_to_export?: number;
+      establishmentFilterIds?: number[];
+      establismentGroupFilterNames?: string[];
+    },
+    options?: OptionCallback,
+  ) => void;
+  startTimestamp: number;
+  endTimestamp: number;
+  isMultiLocalizationEnabled: boolean;
+  selectedEstablishments: number[];
+  selectedEstablishmentGroupNames: string[];
+  selectedEstablishmentsNames: string[];
+} & CoachPaymentRuleObjects &
+  CoachPaymentRuleActions;
+
+export const CoachPerformanceTable = (props: OwnProps) => {
+  const {
+    associatedCoachWithPerformance,
+    loading,
+    coachPaymentRuleGroups,
+    coachPaymentRuleGroupsDict,
+    setSessionCoachPaymentRule,
+    updatePrivateBookingCoachPaymentRule,
+    setCoachPaymentRule,
+    setCoachPrivatePaymentRule,
+    setCoachWorkShopPaymentRule,
+    setCoachPaymentRuleGroup,
+    exportPdfPerformance,
+    isMultiLocalizationEnabled,
+    selectedEstablishments,
+    selectedEstablishmentGroupNames,
+    selectedEstablishmentsNames,
+  } = props;
+  const [oldestUpdate, setOldestUpdate] = React.useState<number | null>(null);
+  const { t } = useTranslation(['coachPerformance', 'coach', 'paymentRules']);
+  const classes = useStyles();
+
+  const handlePdfExportation = (
+    associatedCoachId: number,
+    dataToExport: number,
+  ) => {
+    const params = {
+      start_timestamp: props.startTimestamp,
+      end_timestamp: props.endTimestamp,
+      associated_coaches_in: [associatedCoachId],
+      data_to_export: dataToExport,
+      establishmentFilterIds: selectedEstablishments,
+      establismentGroupFilterNames: selectedEstablishmentGroupNames,
+      establishmentFilterNames: selectedEstablishmentsNames,
+    };
+    exportPdfPerformance(params);
+  };
+  const tableHeaders: Array<HeadersProps> = [
+    { title: '', align: 'center', colSpan: 1 },
+    { title: '', align: 'center', colSpan: 1 },
+    {
+      title: t('paymentRules:tabs.session'),
+      align: 'center',
+      colSpan: 5,
+    },
+    {
+      title: t('paymentRules:tabs.appointment'),
+      align: 'center',
+      colSpan: 5,
+    },
+    { title: '', align: 'center', colSpan: 2 },
+  ];
+  const tableSubHeaders: Array<HeadersProps> = [
+    { title: '', align: 'left' },
+    { title: t('coachPerformance:fields.coachName'), align: 'left' },
+    { title: t('coachPerformance:fields.nb_sessions'), align: 'right' },
+    { title: t('coachPerformance:fields.nb_bookings'), align: 'right' },
+    { title: t('coachPerformance:fields.total_on_sessions'), align: 'right' },
+    { title: t('coachPerformance:fields.marginValue'), align: 'right' },
+    { title: t('coachPerformance:fields.netGain'), align: 'right' },
+
+    { title: t('coachPerformance:fields.nb_sessions'), align: 'right' },
+    { title: t('coachPerformance:fields.nb_bookings'), align: 'right' },
+    {
+      title: t('coachPerformance:fields.total_on_appointments'),
+      align: 'right',
+    },
+    { title: t('coachPerformance:fields.marginValue'), align: 'right' },
+    { title: t('coachPerformance:fields.netGain'), align: 'right' },
+    {
+      title: t('coachPerformance:fields.total'),
+      align: 'right',
+      className: classes.primarySubheader,
+    },
+    {
+      title: t('coachPerformance:fields.totalNetGain'),
+      align: 'right',
+      className: classes.primarySubheader,
+    },
+  ];
+  React.useEffect(() => {
+    if (!loading && associatedCoachWithPerformance) {
+      const minUpdateTimeState = associatedCoachWithPerformance?.reduce(
+        (acc: number, coachesWithPerf) => {
+          const last_updated_date = coachesWithPerf?.performance[
+            COACH_PERFORMANCE_FOR_SESSION
+          ]?.map((coachPerf) => coachPerf.last_update);
+          const minForCoach = last_updated_date?.length
+            ? Math.min(...last_updated_date)
+            : null;
+          if (minForCoach && (acc === 0 || acc < minForCoach)) {
+            return minForCoach;
+          }
+          return acc;
+        },
+        0,
+      );
+      setOldestUpdate(minUpdateTimeState);
+    }
+  }, [associatedCoachWithPerformance, loading]);
+
+  const filteredAssociatedCoachWithPerformance = React.useMemo(() => {
+    if (selectedEstablishments?.length) {
+      return (
+        associatedCoachWithPerformance?.map((coachWithPerformance) => {
+          return getFilteredAssociatedCoachWithPerformance(
+            selectedEstablishments,
+            coachWithPerformance,
+          );
+        }) || []
+      );
+    }
+    return associatedCoachWithPerformance;
+  }, [associatedCoachWithPerformance, selectedEstablishments]);
+
+  return (
+    <TableContainer component={Paper}>
+      {props.loading && <LinearProgress />}
+      <Table size="small">
+        <TableHead>
+          <TableRow>
+            <TableCell colSpan={14}>
+              <Collapse unmountOnExit in={props.previewMode}>
+                <div className={classes.flexRow}>
+                  <Typography color="primary" variant="h6">
+                    {t('coachPerformance:cachedData.previewModeTitle')}
+                  </Typography>
+                  <Tooltip
+                    title={t('coachPerformance:cachedData.leavePreviewMode')}
+                  >
+                    <IconButton onClick={() => props.leavePreviewMode()}>
+                      <ExitToAppIcon />
+                    </IconButton>
+                  </Tooltip>
+                </div>
+              </Collapse>
+            </TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell colSpan={14}>
+              <AllCoachPerformancePagination
+                changePage={props.changePage}
+                loading={props.loading}
+                oldestUpdate={oldestUpdate}
+                pagination={props.pagination}
+              />
+            </TableCell>
+          </TableRow>
+          <TableRow>
+            {tableHeaders.map((header) => (
+              <TableCell align={header.align} colSpan={header.colSpan}>
+                {header.title}
+              </TableCell>
+            ))}
+          </TableRow>
+        </TableHead>
+        <TableHead>
+          <TableRow>
+            {tableSubHeaders.map((header) => (
+              <TableCell align={header.align} className={header.className}>
+                {header.title}
+              </TableCell>
+            ))}
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {filteredAssociatedCoachWithPerformance?.map((perf) => (
+            <CoachPerformanceTableRow
+              coachPaymentRuleGroups={coachPaymentRuleGroups}
+              coachPaymentRuleGroupsDict={coachPaymentRuleGroupsDict}
+              coachPaymentRulesByKind={props.coachPaymentRulesByKind}
+              coachWithPerformance={perf}
+              filtersApplied={!!selectedEstablishments?.length}
+              handlePdfExportation={handlePdfExportation}
+              isMultiLocalizationEnabled={isMultiLocalizationEnabled}
+              previewMode={props.previewMode}
+              setCoachPaymentRule={setCoachPaymentRule}
+              setCoachPaymentRuleGroup={setCoachPaymentRuleGroup}
+              setCoachPrivatePaymentRule={setCoachPrivatePaymentRule}
+              setCoachWorkShopPaymentRule={setCoachWorkShopPaymentRule}
+              setSessionCoachPaymentRule={setSessionCoachPaymentRule}
+              updatePrivateBookingCoachPaymentRule={
+                updatePrivateBookingCoachPaymentRule
+              }
+            />
+          ))}
+        </TableBody>
+        <TableHead>
+          <TableCell colSpan={14}>
+            <AllCoachPerformancePagination
+              changePage={props.changePage}
+              loading={props.loading}
+              oldestUpdate={oldestUpdate}
+              pagination={props.pagination}
+            />
+          </TableCell>
+        </TableHead>
+      </Table>
+    </TableContainer>
+  );
+};
+
+const useStyles = makeStyles((theme: Theme) => ({
+  root: {
+    '& > *': {
+      borderBottom: 'unset',
+    },
+  },
+  denseCell: {
+    paddingBottom: 0,
+    paddingTop: 0,
+    backgroundColor: theme.palette.grey[100],
+  },
+  sessionSection: {
+    backgroundColor: theme.palette.grey[50],
+  },
+  primarySubheader: {
+    color: theme.palette.primary.main,
+  },
+  flexRow: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '100%',
+    padding: theme.spacing(2),
+    gap: theme.spacing(2),
+  },
+}));
+export default CoachPerformanceTable;

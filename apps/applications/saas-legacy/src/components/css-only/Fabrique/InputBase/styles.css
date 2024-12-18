@@ -1,0 +1,21 @@
+.bs-fabrique-input-base {
+  color: 'currentColor';
+  /* Reset 23pxthe native input line-height */
+  height: '1.4375em';
+  /* Reset for Safari */
+  margin: 0;
+  /* Make the flex item shrink with Firefox */
+  min-width: 0;
+  /* Fix IE11 width issue */
+  width: '100%';
+}
+
+[class*='bs-fabrique-input-base']:invalid {
+  /* Reset Firefox invalid required input style */
+  box-shadow: 'none';
+}
+
+[class*='bs-fabrique-input-base']:disabled {
+  /* Reset iOs opacity */
+  opacity: 1;
+}

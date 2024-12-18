@@ -1,0 +1,36 @@
+.bs-skeleton-storybook__title {
+  width: 200px;
+  height: 20px;
+}
+
+.bs-skeleton-storybook__subtitle {
+  height: 14px;
+}
+
+.bs-skeleton-storybook__paragraph__row {
+  width: 100%;
+}
+
+.bs-skeleton-storybook-avatar__container {
+  display: flex;
+  gap: var(--spacing-1);
+}
+
+.bs-skeleton-storybook-avatar__container__text {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.bs-skeleton-storybook__paragraphs__container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+  width: 500px;
+}
+
+.bs-skeleton-storybook__paragraph__container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-1);
+}

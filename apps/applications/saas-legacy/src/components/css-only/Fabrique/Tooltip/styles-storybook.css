@@ -1,0 +1,11 @@
+.bs-setup-variable:has(.bs-tooltip-storybook) {
+  overflow: inherit !important;
+}
+
+.bs-tooltip-storybook-add-guest-button__container {
+  border-radius: var(--border-radius-2);
+}
+
+.bs-tooltip-storybook-add-guest-button__text {
+  color: var(--color-grey-main);
+}

@@ -1,0 +1,292 @@
+.bs-contract-payment__container {
+  width: 100%;
+  height: inherit;
+  background: var(--color-background-paper);
+  border-radius: var(--border-radius-2);
+  border: 2px solid var(--border-color);
+  padding: var(--spacing-2);
+  gap: var(--spacing-4);
+  display: flex;
+  flex-direction: column;
+}
+
+.bs-contract-payment__container__scroll {
+  height: inherit;
+  overflow-y: auto;
+}
+
+.bs-contract-payment__form {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  height: fit-content;
+  max-height: 100%;
+  overflow-y: auto;
+}
+
+.bs-contract-payment__general_conditions,
+.bs-contract-payment__pricing {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+}
+
+.bs-contract-payment__pricing {
+  color: var(--color-grey-main);
+}
+
+.bs-contract-payment__payment__methods {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+  border-top: solid 1px var(--border-color);
+}
+
+.bs-contract-payment__actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--spacing-1);
+}
+
+.bs-contract-payment__general_conditions__title {
+  font-family: var(--h6-fontFamily);
+  font-size: var(--h6-fontSize);
+  font-weight: var(--h6-fontWeight);
+  letter-spacing: var(--h6-letterSpacing);
+  line-height: var(--h6-lineHeight);
+  margin: 0;
+  color: var(--color-grey-dark);
+}
+
+.bs-contract-payment__contract__terms__label {
+  color: var(--color-grey-dark);
+}
+
+.bs-contract-payment__contract__terms {
+  background: none;
+  outline: none;
+  border: none;
+  color: var(--color-primary-main);
+  cursor: pointer;
+  font-family: var(--body1-fontFamily);
+  font-size: var(--body1-fontSize);
+  font-weight: var(--body1-fontWeight);
+  letter-spacing: var(--body1-letterSpacing);
+  line-height: var(--body1-lineHeight);
+  padding: 0;
+}
+
+.bs-contract-payment__start {
+  display: flex;
+  align-items: baseline;
+  font-family: var(--body1-fontFamily);
+  font-size: var(--body1-fontSize);
+  font-weight: var(--body1-fontWeight);
+  letter-spacing: var(--body1-letterSpacing);
+  line-height: var(--body1-lineHeight);
+  color: var(--color-grey-main);
+}
+
+.bs-contract-payment__datepicker__container {
+  margin: 0 calc(var(--spacing-1) / 2);
+}
+
+.bs-contract-payment__alert {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 14px 16px;
+  gap: calc(var(--spacing-1) * 1.5);
+  background: #eef7fe;
+  border-radius: var(--border-radius-1);
+  font-family: var(--fontFamily);
+  font-size: var(--body2-fontSize);
+  font-weight: var(--body2-fontWeight);
+  letter-spacing: var(--body2-letterSpacing);
+  line-height: var(--body2-lineHeight);
+}
+
+.bs-contract-payment__alert__icon {
+  color: var(--color-info-main);
+}
+
+.bs-contract-payment__alert__text {
+  color: var(--color-info-alert);
+}
+
+.bs-contract-payment__price__tax__container {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--spacing-1) / 2);
+}
+
+.bs-contract-payment__price__container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: var(--border-radius-4);
+  background: var(--color-grey-light);
+  gap: 5px;
+  padding: var(--spacing-2) 0;
+}
+
+.bs-contract-payment__tax__container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-1);
+}
+
+.bs-contract-payment__tax__info__row {
+  display: flex;
+  font-family: var(--body1-fontFamily);
+  font-size: var(--body1-fontSize);
+  font-weight: var(--body1-fontWeight);
+  letter-spacing: var(--body1-letterSpacing);
+  line-height: var(--body1-lineHeight);
+}
+
+.bs-contract-payment__tax__info__row__title {
+  flex: 1;
+}
+
+.bs-contract-payment__tax__total {
+  font-family: var(--h6-fontFamily);
+  font-size: var(--h6-fontSize);
+  font-weight: var(--h6-fontWeight);
+  letter-spacing: var(--h6-letterSpacing);
+  line-height: var(--h6-lineHeight);
+}
+
+.bs-contract-payment__price {
+  font-family: var(--h5-fontFamily);
+  font-size: var(--h5-fontSize);
+  font-weight: var(--h5-fontWeight);
+  letter-spacing: var(--h5-letterSpacing);
+  line-height: var(--h5-lineHeight);
+  width: fit-content;
+}
+
+.bs-contract-payment__price__fee {
+  font-family: var(--caption-fontFamily);
+  font-size: var(--caption-fontSize);
+  font-weight: var(--caption-fontWeight);
+  letter-spacing: var(--caption-letterSpacing);
+  line-height: var(--caption-lineHeight);
+  width: fit-content;
+}
+
+.bs-contract-payment__coupon__container {
+  display: flex;
+  justify-content: center;
+  align-self: flex-end;
+  align-items: center;
+  gap: var(--spacing-1);
+}
+
+.bs-contract-payment__coupon__info {
+  font-family: var(--body1-fontFamily);
+  font-size: var(--body1-fontSize);
+  font-weight: var(--body1-fontWeight);
+  letter-spacing: var(--body1-letterSpacing);
+  line-height: var(--body1-lineHeight);
+  height: fit-content;
+}
+
+.bs-contract-payment__coupon__delete {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  color: rgba(0, 0, 0, 0.54);
+  padding: calc(var(--spacing-1) * 1.5);
+  overflow: visible;
+  font-size: 1.5rem;
+  text-align: center;
+  transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  border-radius: 50%;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.bs-contract-payment__coupon__delete:hover {
+  background-color: rgba(0, 0, 0, 0.04);
+}
+
+.bs-contract-payment__payment__method__option {
+  flex: 1;
+}
+
+.bs-contract-payment__credit__text__helper {
+  padding: 0 var(--spacing-2);
+}
+
+.bs-contract-payment__pricing__promo__button,
+.bs-contract-payment__cancel__button,
+.bs-contract-payment__submit__button,
+.bs-contract-payment__payment__methods__add {
+  display: flex;
+  font-family: var(--button-fontFamily);
+  font-size: var(--button-fontSize);
+  font-weight: var(--button-fontWeight);
+  letter-spacing: var(--button-letterSpacing);
+  line-height: var(--button-lineHeight);
+  text-transform: uppercase;
+  border: none;
+  border-radius: var(--border-radius-6);
+  cursor: pointer;
+  padding: calc(var(--spacing-1) / 2) var(--spacing-2);
+  background: none;
+}
+
+.bs-contract-payment__payment__methods__add {
+  margin-top: var(--spacing-2);
+  color: (var(--color-grey-dark));
+  gap: var(--spacing-1);
+  width: fit-content;
+}
+
+.bs-contract-payment__payment__methods__add:disabled {
+  background: none;
+}
+
+.bs-contract-payment__pricing__promo__button:disabled {
+  color: var(--color-disabled);
+  background: none;
+}
+
+.bs-contract-payment__cancel__button {
+  color: var(--color-grey-main);
+}
+
+.bs-contract-payment__cancel__button:hover {
+  background: var(--color-hover);
+}
+
+.bs-contract-payment__pricing__promo__button {
+  align-self: flex-end;
+  color: var(--color-primary-main);
+}
+
+.bs-contract-payment__payment__method__switcher {
+  display: flex;
+  justify-content: space-around;
+}
+
+.bs-contract-payment__submit__button {
+  align-items: center;
+  background: var(--color-primary-main);
+  color: var(--color-primary-contrastText);
+}
+
+.bs-contract-payment__submit__button:hover {
+  background: var(--color-primary-dark);
+}
+
+.bs-contract-payment__container > button:disabled {
+  cursor: not-allowed;
+}
+
+.bs-contract-payment__submit__button:disabled {
+  color: #bdbdbd;
+  background: var(--color-grey-light);
+}

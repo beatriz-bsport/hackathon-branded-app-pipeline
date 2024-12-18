@@ -1,0 +1,30 @@
+// @flow
+import React, { Node } from 'react';
+
+import IconButton from '@material-ui/core/IconButton';
+import { createTheme, MuiThemeProvider } from '@material-ui/core/styles';
+
+import { colors } from '@bsport/common/lib/colors';
+
+const redTheme = createTheme({
+  palette: {
+    primary: {
+      main: colors.orange,
+    },
+  },
+  typography: {
+    useNextVariants: true,
+  },
+});
+
+type Props = {
+  children: Node,
+};
+
+export default (props: Props) => (
+  <MuiThemeProvider theme={redTheme}>
+    <IconButton color="primary" {...props}>
+      {props.children}
+    </IconButton>
+  </MuiThemeProvider>
+);

@@ -1,0 +1,83 @@
+.bs-marketplace-spot-selector {
+  container: bsSpotSelector / inline-size;
+  padding: 0 var(--spacing-2);
+}
+
+.bs-marketplace-spot-selector__header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.bs-marketplace-spot-selector__legend {
+  display: flex;
+  flex-direction: column;
+  margin-top: var(--spacing-2);
+}
+
+.bs-marketplace-spot-selector__legend--mobile {
+  padding-left: var(--spacing-2);
+}
+
+@container bsSpotSelector (width < 750px) {
+  .bs-marketplace-spot-selector__legend {
+    padding-bottom: var(--spacing-2);
+  }
+}
+
+.bs-marketplace-spot-selector__legend-text {
+  font-size: var(--subtitle2-fontSize);
+  font-family: var(--subtitle2-fontFamily);
+  font-weight: 500;
+}
+
+.bs-marketplace-spot-selector__legend__row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.bs-marketplace-spot-selector__legend__row-text {
+  font-family: var(--caption-fontFamily);
+  font-size: var(--caption-fontSize);
+  white-space: nowrap;
+}
+
+.bs-marketplace-spot-selector__legend__icon {
+  color: var(--color-grey-main);
+  margin-left: 10px;
+}
+
+.bs-marketplace-spot-selector__legend__icon-text {
+  color: var(--color-grey-main);
+  font-size: var(--body2-fontSize);
+  font-family: var(--body2-fontFamily);
+  margin-left: var(--spacing-1);
+}
+
+.bs-marketplace-spot-selector__select-other-spot {
+  padding-top: var(--spacing-2);
+}
+
+.bs-marketplace-spot-selector__select-other-spot__title {
+  font-size: var(--h6-fontSize);
+  font-weight: var(--h6-fontWeight);
+  letter-spacing: var(--h6-letterSpacing);
+  line-height: var(--h6-lineHeight);
+}
+
+.bs-marketplace-spot-selector__select-other-spot__message {
+  font-size: var(--body1-fontSize);
+  font-weight: var(--body1-fontWeight);
+  letter-spacing: var(--body1-letterSpacing);
+  line-height: var(--body1-lineHeight);
+}
+
+/* Reiterated Guidelines for Custom CSS Tool */
+.bs-new-offer-booking__spot-selector__go-back-container {
+}
+.bs-new-offer-booking__consumer-payment-packs__arrow {
+}
+.bs-new-offer-booking__consumer-payment-packs__arrow-icon {
+}
+.bs-new-offer-booking__spot-selector__header__text {
+}

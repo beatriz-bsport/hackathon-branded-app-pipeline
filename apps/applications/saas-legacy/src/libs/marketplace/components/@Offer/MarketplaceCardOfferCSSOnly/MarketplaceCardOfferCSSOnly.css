@@ -1,0 +1,355 @@
+/*  */
+/* Marketplace Card offer */
+/*  */
+.bs-card-offer {
+  background: var(--color-background-paper);
+  border-radius: var(--border-radius-3);
+  border-color: var(--border-color);
+  border-width: 2px;
+  border-style: solid;
+  cursor: pointer;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 1px;
+  padding: 0 !important;
+  font-family: var(--fontFamily);
+
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.bs-card-offer:hover:enabled {
+  box-shadow: var(--shadow-1);
+}
+
+.--disabled {
+  cursor: default;
+  opacity: 0.5;
+}
+
+.bs-card-offer__activity-indicator {
+  position: absolute;
+  right: -40px;
+  width: 0;
+  height: 0;
+  border-left: 40px solid transparent;
+  border-right: 40px solid transparent;
+  border-top: 40px solid;
+}
+
+.bs-card-offer__content {
+  padding-top: var(--spacing-1);
+  display: flex;
+  margin-left: var(--spacing-2);
+  margin-right: var(--spacing-2);
+  margin-bottom: var(--spacing-2);
+  flex-direction: column;
+  color: var(--color-grey-dark);
+  gap: var(--spacing-1);
+
+  flex-grow: 2;
+  width: stretch;
+}
+
+.bs-card-offer__content__top {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-1);
+  flex-grow: 2;
+  flex-basis: 100%;
+}
+
+.bs-card-offer__content__top__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 0.5fr 0.5fr;
+  grid-template-rows: 1fr auto;
+}
+
+.bs-card-offer__button__title {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  padding: 0;
+  color: var(--color-grey-dark);
+}
+
+.bs-card-offer__button__title:disabled {
+  background: transparent;
+}
+
+.bs-card-offer__content__title {
+  font-style: normal;
+  font-weight: var(--fontWeightMedium);
+  font-size: var(--subtitle1-fontSize);
+  line-height: var(--subtitle1-lineHeight);
+  text-align: left;
+  align-self: flex-start;
+  letter-spacing: 0.15px;
+  grid-column: 1 / last;
+  grid-row: 1 / 2;
+  font-family: var(--fontFamily);
+}
+
+.bs-card-offer__content__title--ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.bs-card-offer__content__title--time-highlighted {
+  padding-top: 0;
+  font-weight: var(--fontWeightRegular);
+  font-size: var(--subtitle1-fontSize);
+  line-height: var(--subtitle1-lineHeight);
+  grid-column: 1 / 4;
+  grid-row: 2 / 2;
+}
+
+.bs-card-offer__content__title--coach-highlighted {
+  padding-top: 0;
+  font-weight: var(--fontWeightRegular);
+  order: -1;
+  font-family: var(--body2-fontFamily);
+  font-size: var(--body2-fontSize);
+  line-height: var(--body2-lineHeight);
+}
+
+.bs-card-offer__content__time {
+  align-self: flex-start;
+  font-style: normal;
+  font-family: var(--body2-fontFamily);
+  font-weight: var(--fontWeightRegular);
+  font-size: var(--body2-fontSize);
+  line-height: var(--body2-lineHeight);
+  grid-column: 1 / 4;
+  grid-row: 2 / last;
+  text-align: left;
+  display: flex;
+  align-items: center;
+}
+
+.bs-card-offer__content__time__offer-hours {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-1);
+}
+
+.bs-card-offer__content__time__offer-hours__start-time {
+}
+
+.bs-card-offer__content__time__offer-hours__time-separator {
+}
+
+.bs-card-offer__content__time__offer-hours__end-time-duration {
+}
+
+.bs-card-offer__content__status-chip {
+  display: flex;
+  grid-column: 4 / last;
+  grid-row: 2 / 2;
+  justify-content: flex-end;
+}
+
+.bs-card-offer__content__time--time-highlighted {
+  font-weight: var(--fontWeightMedium);
+  font-size: var(--subtitle1-fontSize);
+  line-height: var(--subtitle1-lineHeight);
+  grid-column: 1 / last;
+  grid-row: 1 / 2;
+  gap: var(--spacing-1);
+}
+
+.bs-card-offer__content__time--coach-highlighted {
+  font-weight: var(--fontWeightMedium);
+  font-size: var(--body2-fontSize);
+  line-height: var(--body2-lineHeight);
+  order: -2;
+}
+
+.bs-card-offer__content__status {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  gap: var(--spacing-1);
+
+  width: 102%;
+}
+
+.bs-card-offer__content__status__level {
+  justify-content: center;
+  align-items: center;
+  padding: var(--spacing-0) var(--spacing-1);
+  display: flex;
+}
+
+.bs-card-offer__content__establishment {
+  font-family: var(--fontFamily);
+  font-style: normal;
+  font-weight: var(--fontWeightRegular);
+  line-height: var(--body2-lineHeight);
+  font-size: var(--body2-fontSize);
+  align-self: flex-start;
+  color: var(--color-grey-main);
+  text-align: left;
+}
+
+.bs-card-offer__content__coach {
+  font-family: var(--fontFamily);
+  font-style: normal;
+  font-weight: var(--fontWeightRegular);
+  font-size: var(--body2-fontSize);
+  line-height: var(--body2-lineHeight);
+  display: flex;
+  align-items: center;
+  letter-spacing: 0.4px;
+  gap: var(--spacing-1);
+  color: var(--color-grey-main);
+  justify-content: space-between;
+}
+
+.bs-card-offer__content__coach--coach-highlighted {
+  font-weight: var(--fontWeightMedium);
+  line-height: var(--body1-lineHeight);
+  color: var(--color-grey-dark);
+  font-size: var(--body1-fontSize);
+  justify-content: start;
+  order: -3;
+}
+
+.bs-card-offer__content__coach__name {
+  display: flex;
+  align-items: center;
+  text-align: left;
+}
+
+.bs-card-offer__content__coach__name--coach-highlighted {
+  order: 1;
+}
+
+.bs-card-offer__content__coach__avatar {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+}
+
+.bs-card-offer__bottom {
+  padding-bottom: 10px;
+  padding-top: 10px;
+  border-top: 2px solid var(--border-color);
+  width: 100%;
+}
+
+.bs-card-offer__bottom__content {
+  margin-left: var(--spacing-2);
+  margin-right: var(--spacing-2);
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  gap: var(--spacing-1);
+
+  flex-wrap: wrap;
+}
+
+.bs-card-offer__bottom__content--full {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  gap: calc(var(--spacing-1) / 2);
+}
+
+.bs-card-offer__content__bottom__left {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--spacing-1) / 2);
+  font-family: var(--subtitle1-fontFamily);
+  font-style: normal;
+
+  font-size: var(--subtitle2-fontSize);
+  line-height: var(--subtitle2-lineHeight);
+  font-weight: var(--fontWeightMedium);
+  color: var(--color-grey-main);
+}
+.bs-card-offer__content__bottom__left--full {
+  flex-direction: row;
+  gap: var(--spacing-2);
+}
+
+.bs-card-offer__content__bottom__left__gender {
+  display: flex;
+  gap: calc(var(--spacing-1) / 2);
+  align-items: center;
+}
+.bs-card-offer__content__bottom__left__gender__sex {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+}
+
+.bs-card-offer__content__bottom__left__gender__other {
+  display: flex;
+  align-items: center;
+}
+
+.bs-card-offer__content__bottom__left__group {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--spacing-1) / 2);
+
+  color: var(--color-grey-main);
+}
+
+.bs-card-offer__content__bottom__left__group__icon {
+  width: var(--spacing-2);
+  height: var(--spacing-2);
+}
+.bs-card-offer__content__bottom__buttonContainer {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.bs-card-offer__content__bottom__left__group__number {
+  height: var(--spacing-2);
+
+  align-items: center;
+  letter-spacing: -0.5px;
+
+  display: flex;
+}
+
+svg.bs-card-offer__icon {
+  width: 16px;
+  height: 16px;
+}
+
+.bs-card-offer__content__bottom__button {
+  font-family: var(--button-fontFamily);
+  font-style: normal;
+  font-weight: var(--button-fontWeight);
+  font-size: var(--button-fontSize);
+  line-height: var(--button-lineHeight);
+
+  align-items: center;
+  text-align: center;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+
+  color: var(--color-primary-main);
+  background: var(--color-grey-50);
+  border: none;
+}
+
+@media (max-width: 1700px) {
+  .bs-card-offer__content {
+    margin-left: var(--spacing-1);
+    margin-right: var(--spacing-1);
+  }
+  .bs-card-offer__bottom__content {
+    margin-left: var(--spacing-1);
+    margin-right: var(--spacing-1);
+  }
+}

@@ -1,0 +1,336 @@
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
+
+import { useTheme } from '@material-ui/core';
+import Avatar from '@material-ui/core/Avatar';
+import CardHeader from '@material-ui/core/CardHeader';
+import Checkbox from '@material-ui/core/Checkbox';
+import List from '@material-ui/core/List';
+import ListItemText from '@material-ui/core/ListItemText';
+import Typography from '@material-ui/core/Typography';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+import { makeStyles } from '@material-ui/core/styles';
+import Pagination from '@material-ui/lab/Pagination';
+import { useFormikContext } from 'formik';
+import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
+import { DateTime } from 'luxon';
+import classNames from 'classnames';
+
+import { Coach } from '#src/libs/associated-coach/types';
+import { SIMILAR_OFFERS_PAGE_SIZE } from '#src/libs/offer/constants';
+import { Offer, OfferFormValues } from '#src/libs/offer/types';
+import {
+  formatAsDatetimeAdapted,
+  formatISOStringAsTime,
+} from '../../../utils/datetime';
+import SimilarOffersListSkeleton from './SimilarOffersListSkeleton.component';
+
+type Props = {
+  similarOffers: Offer[];
+  similarOffersLoading: boolean;
+  coaches: Coach[];
+  offerCoach?: Coach;
+  offerId?: number;
+  isCoachOverrideWarning?: boolean;
+};
+
+type OfferItemProps = {
+  date: string;
+  coachName: string;
+  coachPicture?: string;
+  isAlignItemsEnd?: boolean;
+};
+
+type SimilarOfferCheckboxProps = {
+  similarOfferId: number;
+  isDisabled?: boolean;
+};
+
+const OfferItem = React.memo((props: OfferItemProps) => {
+  const classes = useStyles();
+  const { date, coachName, coachPicture, isAlignItemsEnd } = props;
+
+  return (
+    <ListItemText
+      className={classNames(classes.flexAuto, {
+        [classes.alignItemsEnd]: isAlignItemsEnd,
+      })}
+      primary={
+        <Typography className={classes.offerDate} variant="caption">
+          {date}
+        </Typography>
+      }
+      secondary={
+        <CardHeader
+          avatar={
+            <Avatar className={classes.avatarContainer} src={coachPicture} />
+          }
+          className={classes.noPadding}
+          title={<Typography variant="caption">{coachName}</Typography>}
+        />
+      }
+    />
+  );
+});
+
+const SimilarOfferCheckbox = (props: SimilarOfferCheckboxProps) => {
+  const classes = useStyles();
+  const { values, setFieldValue } = useFormikContext<OfferFormValues>();
+  const { selectedSimilarOffers } = values;
+  const { similarOfferId, isDisabled } = props;
+
+  const handleCheckSimilarOffer = useCallback(
+    (_: React.ChangeEvent<HTMLInputElement>, isChecked: boolean) => {
+      if (isChecked) {
+        return setFieldValue('selectedSimilarOffers', [
+          ...selectedSimilarOffers,
+          similarOfferId,
+        ]);
+      }
+      return setFieldValue(
+        'selectedSimilarOffers',
+        selectedSimilarOffers.filter((offer) => offer !== similarOfferId),
+      );
+    },
+    [selectedSimilarOffers, setFieldValue, similarOfferId],
+  );
+
+  const isOfferChecked = useMemo(
+    () => selectedSimilarOffers.includes(similarOfferId),
+    [selectedSimilarOffers, similarOfferId],
+  );
+
+  return (
+    <div className={classes.alignCenter}>
+      <Checkbox
+        checked={isOfferChecked}
+        disabled={isDisabled}
+        onChange={handleCheckSimilarOffer}
+      />
+    </div>
+  );
+};
+
+const SimilarOffersList = (props: Props) => {
+  const {
+    similarOffers,
+    similarOffersLoading,
+    coaches,
+    offerCoach,
+    offerId,
+    isCoachOverrideWarning,
+  } = props;
+  const [similarOffersList, setSimilarOffersList] = useState<Offer[]>([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const { values } = useFormikContext<OfferFormValues>();
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('xs'));
+  const { coach, coachOverride, dateIntervalStart } = values;
+  const classes = useStyles();
+
+  useEffect(() => {
+    if (similarOffers) {
+      return setSimilarOffersList(
+        similarOffers.slice(0, SIMILAR_OFFERS_PAGE_SIZE),
+      );
+    }
+    return () => {
+      setSimilarOffersList([]);
+    };
+  }, [similarOffers]);
+
+  const pageCount = useMemo(() => {
+    if (similarOffers?.length > 1) {
+      return Math.ceil((similarOffers.length - 1) / SIMILAR_OFFERS_PAGE_SIZE);
+    }
+    return 1;
+  }, [similarOffers?.length]);
+
+  const getCoachName = useCallback(
+    (coachId: number) => {
+      if (coachId && coaches) {
+        return coaches.find((coachValue) => coachValue.id === coachId)?.name;
+      }
+      return '';
+    },
+    [coaches],
+  );
+
+  const getCoachPhoto = useCallback(
+    (coachId: number) => {
+      if (coachId && coaches) {
+        return coaches.find((coachValue) => coachValue.id === coachId)?.photo;
+      }
+      return '';
+    },
+    [coaches],
+  );
+
+  const handlePageChange = useCallback(
+    (_: React.ChangeEvent<unknown>, page: number) => {
+      if (
+        similarOffersList &&
+        (page >= 1 || page <= similarOffersList?.length)
+      ) {
+        const a = similarOffers.slice(
+          page * SIMILAR_OFFERS_PAGE_SIZE - SIMILAR_OFFERS_PAGE_SIZE,
+          page * SIMILAR_OFFERS_PAGE_SIZE,
+        );
+        setSimilarOffersList(a);
+        setCurrentPage(page);
+      }
+    },
+    [similarOffers, similarOffersList],
+  );
+
+  const getInitialOfferDate = useCallback((date: string) => {
+    return `${formatAsDatetimeAdapted(date, 'EEE DD')} ${formatISOStringAsTime(
+      date,
+    )}`;
+  }, []);
+
+  const getNewOfferDate = useCallback(
+    (initialDate: string) => {
+      let newDate = DateTime.fromISO(initialDate);
+      if (!DateTime.fromISO(initialDate).equals(dateIntervalStart)) {
+        newDate = DateTime.fromISO(initialDate).set({
+          hour: dateIntervalStart.hour,
+          minute: dateIntervalStart.minute,
+        });
+      }
+      return `${newDate.toFormat('EEE d MMM yyyy')} ${formatISOStringAsTime(
+        newDate.toISO(),
+      )}`;
+    },
+    [dateIntervalStart],
+  );
+
+  return (
+    <>
+      {similarOffersLoading && <SimilarOffersListSkeleton />}
+
+      {!!similarOffersList.length && (
+        <>
+          <List className={classes.list} component="ul">
+            {similarOffersList.map((similarOffer) => (
+              <li
+                key={similarOffer.id}
+                className={classNames(classes.offerItem, {
+                  [classes.disabled]: similarOffer.id === offerId,
+                })}
+              >
+                {!isCoachOverrideWarning && (
+                  <SimilarOfferCheckbox
+                    isDisabled={similarOffer.id === offerId}
+                    similarOfferId={similarOffer.id}
+                  />
+                )}
+
+                <div className={classes.flexBetween}>
+                  <OfferItem
+                    coachName={
+                      isCoachOverrideWarning
+                        ? getCoachName(similarOffer.coach_override)
+                        : getCoachName(
+                            coach !== offerCoach.id ? coach : offerCoach.id,
+                          )
+                    }
+                    coachPicture={
+                      isCoachOverrideWarning
+                        ? getCoachPhoto(similarOffer.coach_override)
+                        : getCoachPhoto(
+                            coach !== offerCoach.id ? coach : offerCoach.id,
+                          )
+                    }
+                    date={getInitialOfferDate(similarOffer.date_start)}
+                  />
+
+                  {!isCoachOverrideWarning && !isMobile && (
+                    <>
+                      <ArrowForwardIcon className={classes.arrow} />
+
+                      <OfferItem
+                        isAlignItemsEnd
+                        coachName={getCoachName(coachOverride)}
+                        coachPicture={getCoachPhoto(coachOverride)}
+                        date={getNewOfferDate(similarOffer.date_start)}
+                      />
+                    </>
+                  )}
+                </div>
+              </li>
+            ))}
+          </List>
+
+          <div className={classes.paginationIndicator}>
+            <Pagination
+              count={pageCount}
+              disabled={similarOffersLoading}
+              onChange={handlePageChange}
+              page={currentPage}
+            />
+          </div>
+        </>
+      )}
+    </>
+  );
+};
+
+const useStyles = makeStyles((theme) => ({
+  list: {
+    padding: 0,
+    paddingInlineStart: 0,
+  },
+  offerItem: {
+    display: 'flex',
+    alignItems: 'center',
+    borderBottom: `1px solid ${theme.palette.grey[300]}`,
+    paddingLeft: 0,
+  },
+  paginationIndicator: {
+    display: 'flex',
+    justifyContent: 'center',
+    paddingTop: theme.spacing(2),
+    paddingBottom: theme.spacing(2),
+  },
+  avatarContainer: {
+    width: 20,
+    height: 20,
+  },
+  avatarSpacing: {
+    marginRight: theme.spacing(1),
+  },
+  noPadding: {
+    padding: 0,
+  },
+  offerDate: {
+    display: 'block',
+    marginBottom: theme.spacing(0.5),
+  },
+  flexBetween: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    flex: 1,
+    padding: theme.spacing(1),
+  },
+  alignCenter: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+  arrow: {
+    flexGrow: 1,
+  },
+  flexAuto: {
+    flex: 1,
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  alignItemsEnd: {
+    alignItems: 'flex-end',
+  },
+  disabled: {
+    opacity: 0.5,
+  },
+}));
+
+export default SimilarOffersList;

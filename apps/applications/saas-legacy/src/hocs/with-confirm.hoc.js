@@ -1,0 +1,51 @@
+// @flow
+
+import React from 'react';
+
+import ModalConfirm from '../components/ModalConfirm.component';
+
+type Props = {};
+
+export default function withConfirm<T>(
+  Component: React.Component<T>,
+  handler: string,
+  options: {},
+  wrapperStyle?: React.CSSProperties,
+): React.Component<T> {
+  return class extends React.Component<Props> {
+    state = {
+      dialogOpen: false,
+    };
+
+    handleConfirm = () => {
+      const { args } = this.state;
+      this.props[handler](...args);
+      this.setState({ dialogOpen: false, args: undefined });
+    };
+
+    handleCancel = () => {
+      this.setState({ dialogOpen: false, args: undefined });
+    };
+
+    render() {
+      const mergedProps = {
+        ...this.props,
+        [handler]: (...args) => {
+          this.setState({ dialogOpen: true, args });
+        },
+      };
+      return (
+        <div style={{ ...wrapperStyle, display: 'inline-block' }}>
+          <ModalConfirm
+            countDownConfirm={options.countDownConfirm}
+            handleCancel={this.handleCancel}
+            handleConfirm={this.handleConfirm}
+            open={this.state.dialogOpen}
+            options={options}
+          />
+          <Component {...mergedProps} />
+        </div>
+      );
+    }
+  };
+}

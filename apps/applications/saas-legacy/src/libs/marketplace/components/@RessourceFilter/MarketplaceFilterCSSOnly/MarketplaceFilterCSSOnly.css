@@ -1,0 +1,26 @@
+/*  */
+/* Filter list */
+/*  */
+.bs-marketplace-filters__list {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  justify-content: center;
+  overflow-x: auto;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 500px) {
+  .bs-marketplace-filters__list {
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    padding-right: calc(var(--spacing-1) / 2);
+    padding-left: calc(var(--spacing-1) / 2);
+  }
+}
+
+.bs-marketplace-filters__list::-webkit-scrollbar {
+  display: none;
+}

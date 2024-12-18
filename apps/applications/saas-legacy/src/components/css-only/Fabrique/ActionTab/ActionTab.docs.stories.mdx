@@ -1,0 +1,24 @@
+import { Meta, Canvas, Story, Source } from '@storybook/addon-docs';
+import {ActionTabStorybook as ActionTab} from '.'
+
+<Meta title="Fabrique/ActionTab/Doc" component={ActionTab} />
+
+# ActionTab
+
+## Description
+The **`action tab`** component that acts as filter or sub-tab and allows users to select different views, statuses or pages.
+It provides an interactive and visually appealing way to navigate and filter content.
+
+## Usage
+Use the **`action tab`** component to enable users to switch between different pages or filters while providing them with a clear visual indicator of the active selection.
+Ideal for navigation menus, filtering options, or any scenario where users need to choose specific categories or views.
+
+<Canvas withSource="none" withToolbar>
+  <Story id="fabrique-actiontab-stories--actiontabnobadge"/>
+  <Story id="fabrique-actiontab-stories--actiontabselected"/>
+  <Story id="fabrique-actiontab-stories--actiontabbigvalue"/>
+  <Story id="fabrique-actiontab-stories--actiontabbiglabel"/>
+</Canvas>
+
+#### Example
+<Source dark language='tsx' id="fabrique-actiontab-stories--actiontabselected" />

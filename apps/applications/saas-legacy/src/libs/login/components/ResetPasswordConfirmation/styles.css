@@ -1,0 +1,31 @@
+.bs-reset-password-confirmation__content__icon {
+  width: var(--bs-icon-size-xl);
+  height: var(--bs-icon-size-xl);
+  display: flex;
+}
+
+.bs-reset-password-confirmation__container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: var(--bs-space-size-4);
+  gap: var(--bs-space-size-6);
+}
+
+.bs-reset-password-confirmation__content__text-section__subtitle {
+  color: var(--bs-color-text-weak);
+}
+
+.bs-reset-password-confirmation__content__continue-button {
+  width: 100%;
+}
+
+.bs-reset-password-confirmation__content__text-section__title {
+}
+
+.bs-reset-password-confirmation__content__icon-container {
+  border-radius: var(--bs-border-radius-circle);
+  background: var(--bs-color-background-success-weak);
+  color: var(--bs-color-icon-status-success-weak);
+  padding: var(--bs-space-size-4);
+}

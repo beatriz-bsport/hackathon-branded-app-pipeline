@@ -1,0 +1,49 @@
+/* Tooltip container */
+.bs-fabrique-tooltip {
+  background-color: var(--bs-color-action-light);
+  color: var(--bs-color-text-default);
+  padding: var(--bs-space-size-2) var(--bs-space-size-4);
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  vertical-align: middle;
+  text-decoration: none;
+  border-color: var(--bs-color-border-weak);
+  border-radius: var(--bs-border-radius-md);
+  box-shadow: var(--bs-border-shadow-thin) var(--bs-color-border-weak) inset,
+    var(--bs-shadow-xl);
+  font-size: var(--bs-font-size-body-sm);
+  width: fit-content;
+  height: fit-content;
+  max-width: 300px;
+  background-color: var(--bs-color-action-light);
+  opacity: 0;
+  transition: opacity ease-in-out var(--bs-transition-duration-slow);
+  z-index: 1000;
+}
+
+.bs-fabrique-tooltip--children {
+  position: relative;
+  display: inline-block;
+  align-items: center;
+}
+
+.bs-fabrique-tooltip--positioned {
+  opacity: 1;
+  transition: opacity ease-in-out var(--bs-transition-duration-slow);
+}
+
+.bs-fabrique-tooltip--strong-color {
+  background-color: var(--bs-color-action-grey-default);
+  box-shadow: var(--bs-border-shadow-thin) var(--bs-color-border-stronger) inset,
+    var(--bs-shadow-xl);
+}
+
+.bs-fabrique-tooltip--weak-color-typography {
+  color: var(--bs-color-text-default);
+}
+
+.bs-fabrique-tooltip--strong-color-typography {
+  color: var(--bs-color-action-light);
+}

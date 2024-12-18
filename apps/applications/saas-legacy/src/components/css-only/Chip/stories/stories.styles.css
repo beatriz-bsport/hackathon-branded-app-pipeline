@@ -1,0 +1,34 @@
+.bs-chip {
+  width: fit-content;
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 18px;
+  display: flex;
+  align-items: center;
+  letter-spacing: 0.16px;
+  padding: 3px 4px 3px 4px;
+  border-radius: 4px;
+  min-height: 24px;
+  gap: 6px;
+}
+
+.bs-chip span {
+  display: flex;
+}
+
+.bs-chip-error {
+  color: rgb(227, 27, 12);
+  background-color: rgba(227, 27, 12, 0.1);
+}
+
+.bs-chip-primary {
+  color: rgb(80, 156, 48);
+  background-color: rgba(80, 156, 48, 0.1);
+}
+
+.bs-chip-info {
+  color: rgb(32, 117, 157);
+  background-color: rgba(32, 117, 157, 0.1);
+}

@@ -1,0 +1,108 @@
+import { Meta, Canvas, Story , Description, ArgsTable, Source} from '@storybook/addon-docs';
+
+import * as ButtonStories from './Button.stories'
+
+import {ButtonStorybook as Button} from './Button.component'
+
+import dedent from 'ts-dedent';
+
+<Meta title="Fabrique/Button/Doc" component={Button} />
+
+
+# Button
+
+## Description
+
+The **`button`** component allows users to trigger actions or navigate within the application. It comes with various styles and colour options to suit different contexts and visual requirements.
+
+### Contained
+
+#### Usage
+A solid button with a background colour, suitable for primary actions.
+
+<Canvas withSource='none' withToolbar>
+  <Story id="fabrique-button-stories--buttoncontainedprimary"/>  
+  <Story id="fabrique-button-stories--buttoncontainedsecondary"/>
+  <Story id="fabrique-button-stories--buttoncontainedinfo"/>  
+  <Story id="fabrique-button-stories--buttoncontainedwarning"/>  
+  <Story id="fabrique-button-stories--buttoncontainederror"/>  
+  <Story id="fabrique-button-stories--buttoncontainedgrey"/>
+  <Story id="fabrique-button-stories--buttoncontainedwhite"/>
+</Canvas>
+
+#### Example
+
+<Source dark language='tsx' id="fabrique-button-stories--buttoncontainedprimary" />
+
+### Outlined
+
+#### Usage
+A button with a transparent background and coloured border, acts as a secondary action on the page.
+
+<Canvas withSource='none' withToolbar>
+  <Story id="fabrique-button-stories--buttonoutlinedprimary"/>  
+  <Story id="fabrique-button-stories--buttonoutlinedsecondary"/>
+  <Story id="fabrique-button-stories--buttonoutlinedinfo"/>  
+  <Story id="fabrique-button-stories--buttonoutlinedwarning"/>  
+  <Story id="fabrique-button-stories--buttonoutlinederror"/>  
+  <Story id="fabrique-button-stories--buttonoutlinedgrey"/>
+  <Story id="fabrique-button-stories--buttonoutlinedwhite"/>
+</Canvas>
+
+#### Example
+
+<Source dark language='tsx' id="fabrique-button-stories--buttonoutlinedprimary" />
+
+### Text
+
+#### Usage
+A button with no background, suitable for tertiary actions.
+
+<Canvas withSource='none' withToolbar>
+  <Story id="fabrique-button-stories--buttontextprimary"/>  
+  <Story id="fabrique-button-stories--buttontextsecondary"/>
+  <Story id="fabrique-button-stories--buttontextinfo"/>  
+  <Story id="fabrique-button-stories--buttontextwarning"/>  
+  <Story id="fabrique-button-stories--buttontexterror"/>  
+  <Story id="fabrique-button-stories--buttontextgrey"/>
+  <Story id="fabrique-button-stories--buttontextwhite"/>
+</Canvas>
+
+#### Example
+
+<Source dark language='tsx' id="fabrique-button-stories--buttontextprimary" />
+
+### With icon
+
+#### Usage
+A button with an icon next to its label. Useful for users so they can see the context of the button.
+
+<Canvas withSource='none' withToolbar>
+  <Story id="fabrique-button-stories--buttonwithlefticon"/>  
+  <Story id="fabrique-button-stories--buttonwithrighticon"/>
+</Canvas>
+
+#### Example
+
+<Source dark language='tsx' id="fabrique-button-stories--buttonwithrighticon" />
+
+## Css button specific variables
+
+<Source
+  language='css'
+  dark
+  format={false}
+  code={dedent`
+      :root {
+        --bs-button-border-width: 1.5px;
+        --bs-font-size-action-lg: 1.125rem;
+        --bs-font-size-action-md: 1rem;
+        --bs-font-size-action-sm: 0.875rem;
+        --bs-font-weight-action-bold: 600;
+        --bs-font-weight-action-bolder: 700;
+        --bs-line-height-action-lg: 1.5rem;
+        --bs-line-height-action-md: 1.25rem;
+        --bs-line-height-action-sm: 1rem;
+      }
+  `}
+/>

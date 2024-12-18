@@ -1,0 +1,565 @@
+.bs-new-offer-booking-page {
+  max-width: 1180px;
+  width: 100%;
+  height: 100%;
+  /* APP BAR HEIHGT */
+  max-height: calc(100dvh - 48px);
+  container: bsOfferBookingPage / inline-size;
+  display: grid;
+  overflow: hidden;
+}
+
+.bs-new-offer-booking-page__pricing_container {
+  display: grid;
+  grid-template:
+    'header-left header-right'
+    'main-left main-right';
+  /* The available height is the DVH - size of apparbar - size of the first row*/
+  grid-template-columns: calc(1180px * 0.66) auto;
+  grid-template-rows: 5dvh calc(100dvh - 48px - 5dvh);
+  column-gap: var(--spacing-4);
+  row-gap: var(--spacing-1);
+  margin: 0;
+  overflow: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.bs-new-offer-booking-header {
+  grid-area: header-left;
+  display: flex;
+  height: fit-content;
+  flex-direction: row;
+  gap: var(--spacing-2);
+  width: 100%;
+  align-items: center;
+}
+
+.bs-new-offer-booking {
+  grid-area: main-left;
+  height: 100%;
+  padding-bottom: var(--spacing-6);
+  padding-right: var(--spacing-1);
+}
+
+.bs-new-offer-booking::-webkit-scrollbar {
+  display: none;
+}
+
+.bs-new-offer-booking__offer__summary__container {
+  grid-area: main-right;
+  gap: var(--spacing-2);
+  display: flex;
+  flex-direction: column;
+}
+
+.bs-new-offer-booking__offer-summary {
+  align-self: start;
+  padding: var(--spacing-2);
+  border-style: solid;
+  border-width: 1px;
+  border-radius: var(--border-radius-3);
+  border-color: var(--border-color);
+  background-color: white;
+}
+
+.bs-new-offer-booking__booking-for-another {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--bs-space-size-3);
+  align-self: stretch;
+  width: 100%;
+}
+
+.bs-new-offer-booking__booking-for-another-title {
+  font-size: var(--bs-font-size-title-sm);
+  font-style: normal;
+  line-height: calc(var(--bs-fabrique-line-height-action-sm) * 1.6);
+}
+
+.bs-new-offer-booking__booking-for-another-select {
+  height: var(--bs-component-height-textfield-sm);
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  background: var(--bs-grey-0);
+  padding: var(--bs-space-size-3) var(--bs-space-size-4) var(--bs-space-size-3)
+    var(--bs-space-size-4);
+  color: rgba(0, 0, 0, 0.54);
+  font-size: var(--bs-font-size-body-sm);
+  font-weight: var(--bs-font-weight-weak);
+  line-height: 140%;
+  flex-grow: 1;
+  text-transform: none;
+}
+
+@media screen and (max-width: 1180px) {
+  .bs-new-offer-booking__booking-for-another {
+    flex-direction: column;
+    padding: var(--spacing-2);
+    gap: var(--bs-space-size-3);
+    align-items: self-start;
+  }
+
+  .bs-new-offer-booking__booking-for-another-select {
+    width: inherit;
+    justify-content: space-between;
+  }
+
+  .bs-new-offer-booking__booking-for-another-drawer-header-container {
+    padding: var(--bs-space-size-6) var(--bs-space-size-4)
+      var(--bs-space-size-4) var(--bs-space-size-4);
+    gap: var(--bs-space-size-3);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .bs-new-offer-booking__booking-for-another-drawer-title-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .bs-new-offer-booking__booking-for-another-drawer-title {
+    font-size: var(--bs-font-size-title-md);
+    font-weight: var(--bs-font-weight-strong);
+    line-height: var(--bs-fabrique-line-height-action-md);
+  }
+
+  .bs-new-offer-booking__booking-for-another-drawer-subtitle {
+    color: var(--bs-color-text-weak);
+    font-size: var(----bs-font-size-body-md);
+    font-weight: var(--bs-font-weight-weak);
+    line-height: var(----bs-line-height-sm); /* 150% */
+  }
+
+  .bs-new-offer-booking__booking-for-another-mobile-relationship-card-container {
+    display: flex;
+    flex-direction: column;
+    gap: var(--bs-space-size-4);
+    padding: var(--bs-space-size-4);
+    color: var(--color-grey-dark);
+  }
+
+  .bs-new-offer-booking__booking-for-another-mobile-relationship-card {
+    padding: var(--bs-space-size-4);
+    border-radius: var(--bs-border-radius-md);
+    border-color: var(--color-grey-light);
+    border-width: var(--bs-border-width-regular);
+    border-style: solid;
+    justify-content: flex-start;
+  }
+
+  .bs-new-offer-booking__booking-for-another-mobile-relationship-card-active {
+    padding: var(--bs-space-size-4);
+    border-radius: var(--bs-border-radius-md);
+    border-color: var(--color-primary-main);
+    border-width: var(--bs-border-width-regular);
+    border-style: solid;
+    background-color: var(--color-primary-main-background);
+    justify-content: flex-start;
+  }
+
+  .bs-new-offer-booking__booking-for-another-drawer-button-container {
+    display: flex;
+    flex-direction: column;
+    gap: var(--bs-space-size-2);
+    padding: var(--bs-space-size-4);
+    font-size: var(--bs-font-size-body-md);
+    line-height: calc(var(--bs-fabrique-line-height-action-sm) * 1.625);
+  }
+
+  .bs-new-offer-booking__booking-for-another-drawer-button-confirm {
+    width: inherit;
+    color: var(--bs-grey-0);
+    background-color: var(--color-primary-main);
+    border-radius: calc(var(--bs-border-radius-lg) * 2);
+    padding: var(--bs-space-size-2) calc(var(--bs-space-size-1) * 5.5);
+  }
+
+  .bs-new-offer-booking__booking-for-another-drawer-button-back {
+    width: inherit;
+    border-color: var(--bs-grey-700);
+    color: var(--bs-grey-700);
+    background-color: var(--bs-grey-0);
+    border-radius: calc(var(--bs-border-radius-lg) * 2);
+    border-style: solid;
+    border-width: var(--bs-border-width-thin);
+    padding: var(--bs-space-size-2) calc(var(--bs-space-size-1) * 5.5);
+  }
+
+  .bs-new-offer-booking__booking-for-another-drawer-divider {
+    width: 90%;
+    border: var(--bs-border-width-thin) solid rgba(224, 224, 224, 0.4);
+    align-self: center;
+  }
+}
+
+/* SPOT SCHEDULING */
+
+.bs-new-offer-booking-page--spot-selector {
+  width: 100%;
+  height: 100%;
+  /* APP BAR HEIHGT */
+  max-height: calc(100dvh - 48px);
+  container: bsOfferBookingPageSpotSelector / inline-size;
+  display: flex;
+  overflow: auto;
+  align-items: center;
+  flex-direction: column;
+}
+
+.bs-new-offer-booking__spot-selector__container {
+  display: grid;
+  grid-template:
+    'header-left header-right'
+    'main main';
+  grid-template-rows: 5dvh calc(90dvh - 5dvh);
+  gap: var(--spacing-4);
+  min-height: 0;
+  width: 70%;
+}
+
+.bs-new-offer-booking__spot-selector__go-back-container {
+  grid-area: header-left;
+  display: flex;
+  flex-direction: row;
+  gap: var(--spacing-2);
+  width: 100%;
+  align-items: center;
+  padding: var(--spacing-4) var(--spacing-4);
+  height: fit-content;
+}
+
+.bs-new-offer-booking__spot-selector__blueprint {
+  grid-area: main;
+}
+
+.bs-new-offer-booking__spot-selector__confirm {
+  display: none;
+}
+
+.bs-new-offer-booking__spot-selector__confirm-button {
+  border-radius: var(--border-radius-6);
+  flex: 1;
+  width: 100%;
+  max-height: 48px;
+  /*Need to use 6px value instead of var to be aligned with MUI Button, used on the next screen*/
+  padding: 6px var(--spacing-2);
+}
+
+@container bsOfferBookingPageSpotSelector (width < 950px) {
+  .bs-new-offer-booking__spot-selector__container {
+    display: grid;
+    grid-template:
+      'header'
+      'main';
+    gap: var(--spacing-2);
+    width: 100%;
+  }
+  .bs-new-offer-booking__spot-selector__confirm {
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-1);
+    justify-content: flex-end;
+    padding: var(--spacing-1) var(--spacing-2);
+    width: 100%;
+    position: sticky;
+    bottom: 0;
+  }
+  .bs-new-offer-booking__spot-selector__go-back-container {
+    grid-area: header;
+    padding: 0 var(--spacing-2);
+  }
+  .bs-new-offer-booking__spot-selector__blueprint {
+    grid-area: main;
+    overflow: scroll;
+  }
+
+  .bs-new-offer-booking__spot-selector__go-to-checkout {
+    color: var(--color-primary-main);
+    border-radius: var(--border-radius-4);
+    flex: 1;
+  }
+}
+
+.bs-new-offer-booking__header--loading {
+  width: 350px;
+  max-width: 100%;
+  height: 30px;
+}
+
+.bs-new-offer-booking__consumer-payment-packs__arrow-icon {
+  color: var(--color-grey-main);
+}
+
+.bs-new-offer-booking__consumer-payment-packs__title,
+.bs-new-offer-booking__spot-selector__header__text {
+  font-family: var(--h5-fontFamily);
+  font-size: var(--h4-fontSize);
+  font-weight: var(--body1-fontWeight);
+  letter-spacing: var(--h5-letterSpacing);
+  line-height: var(--h5-lineHeight);
+}
+
+.bs-new-offer-booking__consumer-payment-packs__title--loading {
+  width: 250px !important;
+  height: 35px !important;
+}
+
+@media screen and (max-width: 1180px) {
+  .bs-new-offer-booking-page {
+    display: flex;
+    overflow: auto;
+    max-height: unset;
+    max-height: none;
+  }
+}
+
+@container bsOfferBookingPage (width < 1180px) {
+  .bs-new-offer-booking-page__pricing_container {
+    grid-template-columns: calc(1180px * 0.55) auto;
+  }
+  .bs-new-offer-booking-header {
+    padding-left: var(--spacing-2);
+  }
+  .bs-new-offer-booking,
+  .bs-offer-booking-waiting-list__status__container {
+    padding-left: var(--spacing-2);
+  }
+  .bs-new-offer-booking__offer-summary,
+  .bs-offer-booking-waiting-list__summary__container {
+    padding-right: var(--spacing-2);
+  }
+}
+
+@container bsOfferBookingPage (width < 950px) {
+  .bs-new-offer-booking-page__pricing_container {
+    height: 100%;
+    display: grid;
+    grid-template:
+      'header'
+      'bookingForAnother'
+      'passes';
+  }
+  .bs-new-offer-booking-header {
+    grid-area: header;
+    align-self: center;
+    padding: 0 var(--spacing-2);
+  }
+
+  .bs-new-offer-booking {
+    grid-area: passes;
+    align-self: start;
+    overflow: auto;
+    height: 100%;
+    padding-right: var(--spacing-2);
+  }
+
+  .bs-new-offer-booking__offer-summary {
+    display: none;
+  }
+
+  .bs-new-offer-booking__offer__summary__container {
+    grid-area: bookingForAnother;
+  }
+
+  .bs-new-offer-booking-fetch-more-similar-offers__button {
+    padding: var(--bs-space-size-3);
+    color: var(--color-primary-main);
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-transform: uppercase;
+  }
+
+  .bs-new-offer-booking-fetch-more-similar-offers__button__text__container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: var(--bs-space-size-2);
+  }
+}
+
+@container bsOfferBookingPage (width > 951px) {
+  .bs-new-offer-booking-fetch-more-similar-offers__button {
+    padding: var(--bs-space-size-3);
+    color: var(--color-primary-main);
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-transform: uppercase;
+  }
+
+  .bs-new-offer-booking-fetch-more-similar-offers__button__text__container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: var(--bs-space-size-2);
+  }
+}
+
+.bs-new-offer-booking__fetch-more-similar-offers-button {
+  padding: var(--bs-space-size-3);
+  background-color: var(--bs-grey-0);
+  border-radius: calc(var(--bs-border-radius-lg) * 2);
+  color: var(--bs-grey-700);
+  width: 100%;
+  border: 1px solid var(--bs-grey-700);
+}
+
+.bs-new-offer-booking__offer__card__summary--hidden {
+  display: none;
+}
+
+/* GROUPED OFFER MODAL */
+
+.bs-new-offer-booking-grouped-session__information__modal__container {
+  display: flex;
+  flex-direction: column;
+}
+
+.bs-new-offer-booking-grouped-session__information__modal__header {
+  padding: var(--spacing-2) var(--spacing-3);
+}
+
+.bs-new-offer-booking-grouped-session__information__modal__header__title {
+  color: var(--text-primary);
+  font-size: var(--bs-font-size-title-sm);
+  font-weight: 500;
+}
+
+.bs-new-offer-booking-grouped-session__information__modal__body__content {
+  color: var(--text-primary);
+  font-size: var(--bs-font-size-body-md);
+  font-weight: var(--bs-font-weight-weak);
+}
+
+.bs-new-offer-booking-grouped-session__information__modal__footer {
+  padding: var(--spacing-1);
+  display: flex;
+  gap: var(--spacing-1);
+}
+
+.bs-new-offer-booking-grouped-session__information__modal__footer__button__container {
+  display: flex;
+  padding: var(--bs-space-size-2);
+  justify-content: flex-end;
+  align-items: flex-end;
+  gap: var(--bs-space-size-2);
+}
+
+.bs-new-offer-booking-grouped-session__information__modal__footer__cancel__button {
+  padding: var(--spacing-1);
+  color: var(--color-grey-main);
+  font-size: var(--bs-font-size-body-sm);
+  line-height: var(--bs-fabrique-line-height-action-lg);
+  font-weight: 500;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+}
+
+.bs-new-offer-booking-grouped-session__information__modal__footer__confirm__button {
+  padding: var(--spacing-1);
+  color: var(--bs-color-text-brand-main);
+  font-size: var(--bs-font-size-body-sm);
+  font-weight: 500;
+  line-height: var(--bs-fabrique-line-height-action-lg);
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+}
+@media screen and (width >= 950px) {
+  .bs-new-offer-booking-grouped-session__information__modal__footer {
+    flex-direction: row;
+    align-self: flex-end;
+  }
+
+  .bs-new-offer-booking-grouped-session__information__modal__body {
+    padding: var(--spacing-1) var(--spacing-3);
+  }
+}
+
+@media screen and (width <= 949px) {
+  .bs-new-offer-booking-grouped-session__information__modal__container {
+    display: flex;
+    flex-direction: column;
+    gap: var(--bs-space-size-2);
+    width: 100%;
+    align-content: flex-start;
+    background-color: var(--bs-grey-0);
+    max-height: 650px;
+  }
+
+  .bs-new-offer-booking-grouped-session__information__modal__header__title {
+    color: var(--bs-color-text-default);
+    font-size: var(--bs-font-size-title-sm);
+    font-weight: var(--bs-font-weight-strong);
+  }
+
+  .bs-new-offer-booking-grouped-session__information__modal__body {
+    padding: var(--spacing-3) var(--spacing-3);
+  }
+
+  .bs-new-offer-booking-grouped-session__information__modal__footer {
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: flex-end;
+    align-items: flex-start;
+    gap: var(--bs-space-size-2);
+    padding: var(--bs-space-size-4);
+    border-top: var(--bs-border-thin) solid var(--bs-color-border-weak);
+  }
+
+  .bs-new-offer-booking-grouped-session__information__modal__footer__confirm__button {
+    display: flex;
+    padding: var(--bs-space-size-2) var(--bs-space-size-6);
+
+    justify-content: center;
+    align-items: center;
+    gap: var(--bs-space-size-2);
+
+    flex: 1 0 0;
+    border-radius: calc(var(--bs-border-radius-lg) * 2);
+
+    background-color: var(--color-primary-main);
+    color: var(--bs-grey-0);
+    width: 100%;
+    text-transform: uppercase;
+  }
+
+  .bs-new-offer-booking-grouped-session__information__modal__footer__cancel__button {
+    display: flex;
+    padding: var(--bs-space-size-2) var(--bs-space-size-6);
+
+    justify-content: center;
+    align-items: center;
+    gap: var(--bs-space-size-2);
+
+    flex: 1 0 0;
+    border-radius: calc(var(--bs-border-radius-lg) * 2);
+    border: 1px solid var(--bs-color-text-weak);
+    color: var(--bs-grey-700);
+    width: 100%;
+    text-transform: uppercase;
+  }
+}
+
+.bs-new-offer-booking-grouped-session__information__modal
+  .bs-fabrique-modal-dialog__header {
+  display: none;
+}
+
+.bs-new-offer-booking-grouped-session__information__modal
+  .bs-fabrique-modal-dialog__footer {
+  display: none;
+}
+
+.bs-new-offer-booking-grouped-session__information__modal
+  .bs-fabrique-modal-dialog__content {
+  padding: 0;
+  scrollbar-width: none;
+}

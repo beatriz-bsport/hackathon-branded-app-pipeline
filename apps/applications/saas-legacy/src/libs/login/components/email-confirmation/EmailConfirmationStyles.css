@@ -1,0 +1,104 @@
+.bs-email-confirmation-content {
+  container-type: inline-size;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.bs-email-confirmation-content__body1-text {
+  font-family: var(--body1-fontFamily);
+  font-size: var(--body1-fontSize);
+  font-weight: var(--body1-fontWeight);
+  letter-spacing: var(--body1-letterSpacing);
+  line-height: var(--body1-lineHeight);
+}
+
+.bs-email-confirmation-content__caption-text {
+  font-family: var(--caption-fontFamily);
+  font-size: var(--caption-fontSize);
+  font-weight: var(--caption-fontWeight);
+  letter-spacing: var(--caption-letterSpacing);
+  line-height: var(--caption-lineHeight);
+}
+
+.bs-email-confirmation-content__top-container {
+  max-width: 90%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-1);
+  justify-content: center;
+  align-items: center;
+}
+
+.bs-email-confirmation-content__icon-container {
+  display: flex;
+  margin-top: 10vh;
+  width: 110px;
+  height: 110px;
+  justify-content: center;
+  align-items: center;
+}
+
+.bs-email-confirmation-content__icon-container__background {
+  position: absolute;
+  width: 110px;
+  height: 110px;
+  background-color: var(--color-primary-light);
+  opacity: 0.5;
+  border-radius: 50%;
+}
+
+.bs-email-confirmation-content__icon-container__icon {
+  position: absolute;
+  color: var(--color-primary-main);
+}
+
+.bs-email-confirmation-content__text-explain {
+  margin-top: var(--spacing-6);
+  max-width: 600px;
+}
+
+.bs-email-confirmation-content__back-button {
+  color: var(--color-primary-main);
+  margin-top: var(--spacing-7);
+  padding: 5px;
+  border-radius: 4px;
+}
+
+.bs-email-confirmation-content__bottom-container {
+  display: flex;
+  flex-direction: column;
+  margin-top: 10vh;
+}
+
+.bs-email-confirmation-content__bottom-container__second-line {
+  display: flex;
+}
+
+.bs-email-confirmation-content__bottom-container__second-line__resend-email-button {
+  text-transform: none;
+  padding: 0px;
+  align-items: flex-start;
+  color: var(--color-primary-main);
+}
+
+.bs-email-confirmation-content__bottom-container__second-line__resend-email-button:hover {
+  background-color: inherit;
+}
+
+@container (max-width: 600px) {
+  .bs-email-confirmation-content__text-explain {
+    margin-top: var(--spacing-2);
+  }
+  .bs-email-confirmation-content__back-button {
+    margin-top: var(--spacing-2);
+  }
+  .bs-email-confirmation-content__bottom-container {
+    margin-top: var(--spacing-2);
+  }
+  .bs-email-confirmation-content__icon-container {
+    margin-top: 0;
+  }
+}

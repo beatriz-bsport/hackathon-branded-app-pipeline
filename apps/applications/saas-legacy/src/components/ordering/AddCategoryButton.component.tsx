@@ -1,0 +1,42 @@
+import { makeStyles, Theme } from '@material-ui/core/styles';
+import { useTranslation } from 'react-i18next';
+import Button from '@material-ui/core/Button';
+import AddIcon from '@material-ui/icons/Add';
+import React, { useCallback } from 'react';
+
+type Props = {
+  setShowCategoryDialog: (show: boolean) => void;
+  onClick: () => void;
+};
+
+export const AddCategoryButton = (props: Props) => {
+  const { t } = useTranslation(['ordering']);
+  const classes = useStyles();
+
+  const onClick = useCallback(() => {
+    if (props.onClick) props.onClick();
+    props.setShowCategoryDialog(true);
+  }, [props]);
+
+  return (
+    <div className={classes.buttonRow}>
+      <Button
+        color="primary"
+        onClick={onClick}
+        startIcon={<AddIcon color="primary" />}
+        variant="outlined"
+      >
+        {t('category.add')}
+      </Button>
+    </div>
+  );
+};
+
+const useStyles = makeStyles((theme: Theme) => ({
+  buttonRow: {
+    paddingTop: theme.spacing(0.5),
+    paddingBottom: theme.spacing(2),
+  },
+}));
+
+export default AddCategoryButton;

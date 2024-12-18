@@ -1,0 +1,15 @@
+import ConsumerPaymentPackDetailsCardCompatibilitySection from './ConsumerPaymentPackDetailsCardCompatibilitySection.component';
+import ConsumerPaymentPackDetailsCardCompatibleEstablishmentsSection from './ConsumerPaymentPackDetailsCardCompatibleEstablishmentsSection.component';
+import ConsumerPaymentPackDetailsCardDescriptionSection from './ConsumerPaymentPackDetailsCardDescriptionSection.component';
+import ConsumerPaymentPackDetailsCardHeader from './ConsumerPaymentPackDetailsCardHeader.component';
+import ConsumerPaymentPackDetailsCardRestrictionSection from './ConsumerPaymentPackDetailsCardRestrictionSection.component';
+import ConsumerPaymentPackDetailsCardSharedSection from './ConsumerPaymentPackDetailsCardSharedSection.component';
+
+export {
+  ConsumerPaymentPackDetailsCardCompatibilitySection,
+  ConsumerPaymentPackDetailsCardCompatibleEstablishmentsSection,
+  ConsumerPaymentPackDetailsCardDescriptionSection,
+  ConsumerPaymentPackDetailsCardHeader,
+  ConsumerPaymentPackDetailsCardRestrictionSection,
+  ConsumerPaymentPackDetailsCardSharedSection,
+};

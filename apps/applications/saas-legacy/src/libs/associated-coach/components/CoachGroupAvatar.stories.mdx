@@ -1,0 +1,136 @@
+import { Meta, Canvas, Story, ArgsTable } from '@storybook/addon-docs';
+import CoachGroupAvatar from './CoachGroupAvatar.component';
+import { coachesFactory } from '../factories';
+
+<Meta
+  title="Library/Coach/CoachGroupAvatar "
+  component={CoachGroupAvatar}
+  argTypes={{
+    hideCoach: {
+      description: 'If a coach has to be hidden',
+      table: {
+        type: {
+          summary: 'Boolean',
+        },
+        defaultValue: {
+          summary: 'false',
+        },
+      },
+    },
+    coaches: {
+      description: 'List of the coaches',
+      table: {
+        type: {
+          summary: 'Array<Coach>',
+        },
+        defaultValue: {
+          summary: 'None',
+        },
+      },
+    },
+    size: {
+      description: 'Value small to shrink it',
+      table: {
+        type: {
+          summary: 'string',
+        },
+        defaultValue: {
+          summary: 'None',
+        },
+      },
+    },
+    loading: {
+      description: 'Is the component loading',
+      table: {
+        type: {
+          summary: 'Boolean',
+        },
+        defaultValue: {
+          summary: 'false',
+        },
+      },
+    },
+  }}
+/>
+
+export const Template = (args) => <CoachGroupAvatar {...args} />;
+
+# Coach Group Avatar
+
+This `CoachGroupAvatar` is meant to be used to fill informations of a coach
+
+<Canvas>
+  <Story
+    name="Coach Group Avatar"
+    args={{
+      coaches: coachesFactory(5),
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+# Coach Group Avatar With Single Coach
+
+This `CoachGroupAvatar` is used with a single coach
+
+<Canvas>
+  <Story
+    name="Coach Group Avatar Single Coach"
+    args={{
+      coaches: coachesFactory(1),
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+# Coach Group Avatar Small
+
+When `CoachGroupAvatar` is shrunk
+
+<Canvas>
+  <Story
+    name="Coach Group Avatar Small"
+    args={{
+      coaches: coachesFactory(5),
+      size: 'small',
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+# Coach Group Avatar hidden
+
+When coaches are hidden in `CoachGroupAvatar`
+
+<Canvas>
+  <Story
+    name="Coach Group Avatar Hidden"
+    args={{
+      coaches: coachesFactory(5),
+      hideCoach: true,
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+# Coach Group Avatar Loading
+
+When `CoachGroupAvatar` is loading
+
+<Canvas>
+  <Story
+    name="Coach Group Avatar Loading"
+    args={{
+      coaches: coachesFactory(5),
+      loading: true,
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<ArgsTable story="Coach Group Avatar" />

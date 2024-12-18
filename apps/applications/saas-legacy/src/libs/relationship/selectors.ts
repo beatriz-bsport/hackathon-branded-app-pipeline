@@ -1,0 +1,170 @@
+import memoize from 'memoize-one';
+import { createSelector } from 'reselect';
+
+import type { RootState } from 'src/reducers';
+import {
+  getMemberDetailData,
+  getMemberListData,
+} from '#src/libs/member/selectors';
+import { getConsumerPacksWithPaymentPack } from '#src/libs/consumer-payment-pack/selectors';
+import { getPrivateConsumerPassList } from '#src/libs/private-service/selectors/private-consumer-pass';
+
+import type {
+  ConsumerPaymentPackLink,
+  ConsumerPaymentPackLinkWithRelatedMemberNames,
+  MemberRelation,
+  PrivateConsumerPassLink,
+} from './types';
+
+const _getMemberRelations = (state: RootState): Array<MemberRelation> =>
+  state.relationship.member_relation.items;
+
+export const getMemberControlable = createSelector(
+  [_getMemberRelations, (_: RootState, id: number) => id],
+  (memberRelations, id) =>
+    memberRelations.reduce((acc, memberRelation) => {
+      if (
+        memberRelation.dst_member === id &&
+        memberRelation.is_dst_autorized_to_control_src
+      ) {
+        acc.push(memberRelation.src_member);
+        return acc;
+      }
+      if (
+        memberRelation.src_member === id &&
+        memberRelation.is_src_autorized_to_control_dst
+      ) {
+        acc.push(memberRelation.dst_member);
+        return acc;
+      }
+      return acc;
+    }, []),
+);
+
+export const getMemberRelations = createSelector(
+  [getMemberListData, _getMemberRelations, getMemberDetailData],
+  (memberListData, relations, memberDetailData) =>
+    relations.map((r) => ({
+      ...r,
+      src_member: memberListData?.[r.src_member] ||
+        memberDetailData?.[r.src_member] || { id: r.src_member },
+      dst_member: memberListData?.[r.dst_member] ||
+        memberDetailData?.[r.dst_member] || { id: r.dst_member },
+    })),
+);
+
+export const getMemberRelationById = (state: RootState, id: number) =>
+  // @ts-expect-error
+  getMemberRelations(state).find((mr) => mr.id === id);
+
+const _getConsumerPackLinks = (state: RootState) =>
+  state.relationship.consumer_payment_pack_link.items;
+
+export const getAllSharedConsumerPaymentPacks = createSelector(
+  [_getConsumerPackLinks, getConsumerPacksWithPaymentPack],
+  (consumerPackLinks, consumerPacks) =>
+    consumerPackLinks
+      // @ts-expect-error
+      .map((link) => ({
+        ...link,
+        src: consumerPacks.find((cpp) => cpp.id === link.src),
+        dst: consumerPacks.find((cpp) => cpp.id === link.dst),
+      }))
+      .filter(
+        // @ts-expect-error
+        (cpp_link) =>
+          (cpp_link.src && cpp_link.src.id) ||
+          (cpp_link.dst && cpp_link.dst.id),
+      ),
+);
+
+const _getConsumerPackWithLinks = (
+  state: RootState,
+): Array<
+  ConsumerPaymentPackLink | ConsumerPaymentPackLinkWithRelatedMemberNames
+> => state.relationship.consumer_payment_pack_link.byId;
+
+export const withIsSharedActive = memoize((selector) =>
+  createSelector([selector, _getConsumerPackWithLinks], (cppList, links) =>
+    // @ts-expect-error
+    cppList.map((cpp) => ({
+      ...cpp,
+      isSharedActive:
+        // @ts-expect-error
+        links[cpp.id] && links[cpp.id].length
+          ? // @ts-expect-error
+            links[cpp.id].reduce((acc: number, e: ConsumerPaymentPackLink) => {
+              return acc || e.is_active;
+            }, 0)
+          : false,
+    })),
+  ),
+);
+
+export const getSharedConsumerPacksByRelation = (
+  state: RootState,
+  relationId: number,
+) =>
+  getAllSharedConsumerPaymentPacks(state).filter(
+    // @ts-expect-error
+    (scpp) => scpp.member_relation === relationId,
+  );
+
+const _getPrivateConsumerPassLinks = (state: RootState) =>
+  state.relationship.private_consumer_pass_link.items;
+
+export const getAllSharedPrivateConsumerPasses = createSelector(
+  [_getPrivateConsumerPassLinks, getPrivateConsumerPassList],
+  (privateConsumerPassLinks, privateConsumerPasses) =>
+    privateConsumerPassLinks
+      // @ts-expect-error
+      .map((link) => ({
+        ...link,
+        src: privateConsumerPasses.find((pcp) => pcp.id === link.src),
+        dst: privateConsumerPasses.find((pcp) => pcp.id === link.dst),
+      }))
+      .filter(
+        // @ts-expect-error
+        (pcp_link) =>
+          (pcp_link.src && pcp_link.src.id) ||
+          (pcp_link.dst && pcp_link.dst.id),
+      ),
+);
+
+export const getSharedPrivateConsumerPassesByRelation = (
+  state: RootState,
+  relationId: number,
+) =>
+  getAllSharedPrivateConsumerPasses(state).filter(
+    // @ts-expect-error
+    (spcp) => spcp.member_relation === relationId,
+  );
+
+export const getMyRelatedMemberList = (state: RootState) =>
+  state.relationship.my_related_members.list;
+
+export const getMyControlableMemberList = (state: RootState) =>
+  state.relationship.my_controlable_members.list;
+
+export const getConsumerPaymentPackLink = createSelector(
+  [_getConsumerPackWithLinks, (_: RootState, id: number) => id],
+  (consumerPackLinks, id) => consumerPackLinks[id],
+);
+
+const _getPrivateConsumerPassLinksById = (
+  state: RootState,
+): Array<PrivateConsumerPassLink> =>
+  state.relationship.private_consumer_pass_link.byId;
+
+export const getPrivateConsumerPassLink = createSelector(
+  [_getPrivateConsumerPassLinksById, (_: RootState, id: number) => id],
+  (privateConsumerPassLinks, id) => {
+    return privateConsumerPassLinks[id];
+  },
+);
+
+export const getConsumerPaymentPackLinkLoading = (state: RootState): boolean =>
+  state.relationship.consumer_payment_pack_link.loading;
+
+export const getPrivateConsumerPassLinkLoading = (state: RootState): boolean =>
+  state.relationship.private_consumer_pass_link.loading;

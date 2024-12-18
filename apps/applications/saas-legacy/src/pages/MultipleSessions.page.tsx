@@ -1,0 +1,103 @@
+import React, { useEffect } from 'react';
+import { compose } from 'recompose';
+import { connect, ConnectedProps } from 'react-redux';
+
+import { MuiThemeProvider } from '@material-ui/core';
+
+import { RootState } from '../reducers';
+// @ts-expect-error
+import { getTheme } from '../theme';
+import {
+  fetchAccessLevel as fetchAccessLevelAction,
+  fetchAccessLevelWithoutConnect as fetchAccessLevelWithoutConnectAction,
+  // @ts-expect-error
+} from '../actions/auth.actions';
+import MultipleSessionDetails from '../components/navigation/MultipleSessions.component';
+import { STORAGE_KEY_BSPORT_IMPERSONATED_ORIGIN_TOKEN } from '#src/actions/constants';
+import { setItemInStorage } from '#src/utils/storage';
+import type { AuthConnection } from '#src/libs/types';
+
+type OwnProps = {
+  newToken: string;
+};
+
+type Props = OwnProps & ConnectedProps<typeof connector>;
+
+export const MultipleSessions = (props: Props) => {
+  const {
+    previousConnexionRight,
+    currentConnexionRight,
+    storedToken,
+    fetchAccessLevel,
+    fetchAccessLevelWithoutConnect,
+    newToken,
+    previousTheme,
+  } = props;
+
+  useEffect(() => {
+    newToken &&
+      newToken !== 'null' &&
+      fetchAccessLevelWithoutConnect(newToken, 'current');
+    fetchAccessLevelWithoutConnect(storedToken, 'previous');
+  }, [fetchAccessLevelWithoutConnect, newToken, storedToken]);
+
+  const restoreSession = () => {
+    if (getStatus(currentConnexionRight) === 'franchisor') {
+      // Reset the franchise token as it was delete during rollback navigation
+      setItemInStorage(
+        'session',
+        STORAGE_KEY_BSPORT_IMPERSONATED_ORIGIN_TOKEN,
+        newToken,
+      );
+    }
+    fetchAccessLevel(storedToken);
+  };
+  const updateSession =
+    newToken && newToken !== 'null'
+      ? () => fetchAccessLevel(newToken)
+      : undefined;
+
+  return (
+    <MuiThemeProvider theme={getTheme(previousTheme)}>
+      <MultipleSessionDetails
+        // @ts-expect-error
+        currentName={currentConnexionRight?.username}
+        currentStatus={getStatus(currentConnexionRight)}
+        previousName={previousConnexionRight?.username}
+        previousStatus={getStatus(previousConnexionRight)}
+        restoreSession={restoreSession}
+        updateSession={updateSession}
+      />
+    </MuiThemeProvider>
+  );
+};
+
+const getStatus = (user: AuthConnection): 'franchisor' | 'manager' | '' => {
+  if (!user) return '';
+
+  if (user.is_franchisor) {
+    return 'franchisor';
+  }
+
+  if (user.is_manager) {
+    return 'manager';
+  }
+
+  return '';
+};
+
+const connector = connect(
+  (state: RootState) => ({
+    previousTheme: state.theme.theme,
+    storedToken: state.auth.token,
+    previousConnexionRight: state.auth.doubleConnexion.previous,
+    currentConnexionRight: state.auth.doubleConnexion.current,
+  }),
+  {
+    fetchAccessLevel: fetchAccessLevelAction,
+    fetchAccessLevelWithoutConnect: fetchAccessLevelWithoutConnectAction,
+  },
+);
+
+// @ts-expect-error
+export default compose(connector)(MultipleSessions);

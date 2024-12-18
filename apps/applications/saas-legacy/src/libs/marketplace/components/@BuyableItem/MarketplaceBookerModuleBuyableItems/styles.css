@@ -1,0 +1,86 @@
+.bs-new-offer-booking__buyable_items__header__container {
+  padding-top: var(--spacing-4);
+  padding-bottom: var(--spacing-2);
+}
+
+.bs-new-offer-booking__buyable_items__header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--spacing-1);
+}
+
+.bs-new-offer-booking__buyable_items__header__arrow {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--color-grey-main);
+  padding-left: 0;
+  transition-property: all;
+  transition-duration: 250ms;
+  transform: rotate(0);
+}
+.bs-new-offer-booking__buyable_items__header__arrow--rotate {
+  transform: rotate(90deg);
+}
+.bs-new-offer-booking__buyable_items__header__title {
+  font-size: var(--h5-fontSize);
+  font-family: var(--h5-fontFamily);
+  color: var(--color-grey-dark);
+}
+
+.bs-new-offer-booking__consumer-payment-packs__subtitle {
+  font-size: var(--h6-fontSize);
+  font-weight: 500;
+  font-family: var(--h6-fontFamily);
+  margin-bottom: var(--spacing-1);
+}
+
+.bs-booker-module-buyable-items__container .bs-alert__container {
+  margin-bottom: var(--spacing-2);
+}
+
+.bs-booker-module-buyable-items__container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-1);
+}
+
+.bs-booker-module-buyable-items__consumer-payment-packs__container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-1);
+}
+
+.bs-booker-module-buyable-items__consumer-payment-packs__title {
+  font-family: var(--h6-fontFamily);
+  font-size: var(--h5-fontSize);
+  font-weight: var(--h6-fontWeight);
+  letter-spacing: var(--h6-letterSpacing);
+  line-height: var(--h6-lineHeight);
+}
+
+.bs-booker-module-buyable-items__header {
+  display: grid;
+  align-items: center;
+  grid-template-columns: 24px 1fr;
+  gap: var(--spacing-1);
+}
+
+.bs-booker-module-buyable-items__header__title {
+  font-family: var(--h6-fontFamily);
+  font-size: var(--h4-fontSize);
+  font-weight: var(--body1-fontWeight);
+  letter-spacing: var(--h6-letterSpacing);
+  line-height: var(--h6-lineHeight);
+}
+
+.bs-booker-module-buyable-items__header__arrow {
+  width: 24px;
+  height: 24px;
+  line-height: 1;
+}
+
+.bs-booker-module-scroll_filler {
+  height: 20vh;
+}

@@ -1,0 +1,157 @@
+// @flow
+
+import React, { Component } from 'react';
+import { withTranslation, TFunction } from 'react-i18next';
+import { compose } from 'recompose';
+import withStyles from '@material-ui/core/styles/withStyles';
+
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
+import Switch from '@material-ui/core/Switch';
+import { DateTime } from 'luxon';
+import {
+  DURATION_COMPARATORS_DICT_BETWEEN,
+  BETWEEN_COMPARATOR,
+} from '@bsport/common/lib/master-data/smart-list';
+
+import CalendarPicker from '../CalendarPicker.component';
+
+import DelayedNumericInput from '../../../../components/DelayedNumericInput.component';
+import { getCurrencyDisplay } from '../../../theme/selectors';
+
+type Props = {
+  filter_data: any,
+  t: TFunction,
+  classes: Object,
+  onChange: (any) => void,
+  isNew: boolean,
+  setNotNullableData: (data: Array<string>) => void,
+};
+
+const DATE_BETWEEN = 2;
+
+export class BasketAbandonmentFilter extends Component<Props, state> {
+  componentDidMount() {
+    this.props.setNotNullableData(['basket_value', 'comparator']);
+
+    if (this.props.isNew) {
+      this.props.onChange({
+        basket_value: 1,
+        comparator: 2,
+        date: DateTime.now().toISODate(),
+        date_second: DateTime.now().toISODate(),
+        duration: 0,
+        duration_second: 0,
+        date_filter_type: DATE_BETWEEN,
+        date_filter_active: false,
+      });
+    }
+  }
+
+  render() {
+    const { filter_data, t, classes, onChange } = this.props;
+    return (
+      <div>
+        {t(`filters.${filter_data.filter_identifier}.first`)}
+        <Select
+          className={classes.input}
+          onChange={(ev) => onChange({ comparator: ev.target.value })}
+          value={filter_data.comparator}
+        >
+          {DURATION_COMPARATORS_DICT_BETWEEN.map((item) => (
+            <MenuItem key={item.key} value={item.value}>
+              {t(`filters.comparators.${item.value}`)}
+            </MenuItem>
+          ))}
+        </Select>
+        {filter_data.comparator === BETWEEN_COMPARATOR
+          ? null
+          : t(`filters.${filter_data.filter_identifier}.second`)}
+        <DelayedNumericInput
+          isPositive
+          classes={classes}
+          InputProps={{ inputProps: { min: 0 } }}
+          onChange={(ev) =>
+            onChange({
+              basket_value: ev.target.value === '' ? null : ev.target.value,
+            })
+          }
+          value={filter_data.basket_value}
+        />
+        {filter_data.comparator === BETWEEN_COMPARATOR
+          ? t(`filters.${filter_data.filter_identifier}.between`)
+          : null}
+        {filter_data.comparator === BETWEEN_COMPARATOR ? (
+          <DelayedNumericInput
+            isPositive
+            classes={classes}
+            onChange={(ev) =>
+              onChange({
+                basket_value_second:
+                  ev.target.value === '' ? null : ev.target.value,
+              })
+            }
+            value={filter_data.basket_value_second}
+          />
+        ) : null}
+        {t(`filters.${filter_data.filter_identifier}.third`, {
+          currencyDisplay: getCurrencyDisplay(),
+        })}
+        <div className={classes.inlineContainer}>
+          <Switch
+            checked={filter_data.date_filter_active}
+            inputProps={{ 'aria-label': 'secondary checkbox' }}
+            onChange={() =>
+              onChange({
+                date_filter_active: !filter_data.date_filter_active,
+              })
+            }
+            value="checkedA"
+          />{' '}
+          <div
+            className={
+              filter_data.date_filter_active
+                ? classes.inlineContainer
+                : classes.disabled
+            }
+          >
+            {this.props.t(
+              `filters.${filter_data.filter_identifier}.date.first`,
+            )}
+            <CalendarPicker
+              blockValidateOnClickAway
+              filter_data={filter_data}
+              onChange={onChange}
+            />
+          </div>
+        </div>
+      </div>
+    );
+  }
+}
+
+const styles = (theme) => ({
+  disabled: {
+    display: 'flex',
+    alignItems: 'center',
+    pointerEvents: 'none',
+    background: '#f1f1f1',
+    borderRadius: '7px',
+    paddingLeft: theme.spacing(1),
+  },
+  inlineContainer: { display: 'flex', alignItems: 'center' },
+  input: {
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1),
+  },
+  textInput: {
+    width: '70px',
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1),
+  },
+});
+
+export default compose(
+  withTranslation(['smartList']),
+  withStyles(styles),
+)(BasketAbandonmentFilter);

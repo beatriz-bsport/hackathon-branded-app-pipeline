@@ -1,0 +1,46 @@
+import React from 'react';
+import { makeStyles, Theme } from '@material-ui/core';
+import CustomMuiDialog from '#src/components/genericDialog/CustomMuiDialog.component';
+
+export type Props = {
+  content?: string;
+  countdownBeforeActivation?: number;
+  validateLabel?: string;
+  onValidate: () => void;
+  open: boolean;
+  title: string;
+};
+
+export const GenericDialogWithCountdownConfirm = (props: Props) => {
+  const classes = useStyles();
+  const button = [
+    {
+      variant: 'text',
+      onClick: props.onValidate,
+      delayBeforeActivation: props.countdownBeforeActivation ?? 5,
+      className: classes.button,
+      ...(props.validateLabel
+        ? { label: props.validateLabel }
+        : { commonLabel: 'ok' }),
+    },
+  ];
+  return (
+    <CustomMuiDialog
+      buttons={button}
+      content={props.content}
+      contentColor="textSecondary"
+      fullScreenBreakpoint="xs"
+      open={props.open}
+      title={props.title}
+    />
+  );
+};
+
+const useStyles = makeStyles<Theme>({
+  button: {
+    fontWeight: 'bold',
+    color: 'black',
+  },
+});
+
+export default GenericDialogWithCountdownConfirm;

@@ -1,0 +1,126 @@
+import React, { useState, useCallback } from 'react';
+import { makeStyles } from '@material-ui/core';
+import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
+import { useTranslation } from 'react-i18next';
+// @ts-expect-error
+import PaginatedListBase from '#src/components/PaginatedListBase.component';
+// @ts-expect-error
+import PaymentComboCard from '#src/libs/payment-combo/components/PaymentComboCard.component';
+import ObjectLevelPermissionProvider from '#src/libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+import PaymentComboPurchaseListItem from './PaymentComboPurchaseListItem.component';
+import { OptionCallback } from '../../../state/types';
+
+import type { PaymentCombo, PaymentComboPurchase } from '../types';
+
+type Props = {
+  paymentCombo: PaymentCombo;
+  onPaymentPackClick: (id: number) => void;
+  onShopItemClick: (id: number) => void;
+  onPrivatePassClick: (id: number) => void;
+
+  paymentComboPurchaseList: Array<PaymentComboPurchase>;
+  fetchPaymentComboPurchaseList: (
+    page: number,
+    options: OptionCallback,
+  ) => void;
+  paymentComboPurchaseLoading: boolean;
+  paymentComboPurchaseCount: number;
+
+  goToInvoiceUsingPaymentComboPurchaseId: (
+    buyable_item_identifier: number,
+    id: number,
+  ) => void;
+  snackbarSuccess: (message: string) => void;
+};
+
+const useStyles = makeStyles((theme) => ({
+  centerRight: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    paddingBottom: theme.spacing(1),
+  },
+}));
+
+export const PaymentComboDetail: React.FC<Props> = ({
+  paymentCombo,
+  onPaymentPackClick,
+  onShopItemClick,
+  onPrivatePassClick,
+  paymentComboPurchaseList,
+  fetchPaymentComboPurchaseList,
+  paymentComboPurchaseLoading,
+  paymentComboPurchaseCount,
+  goToInvoiceUsingPaymentComboPurchaseId,
+  snackbarSuccess,
+}) => {
+  const { t } = useTranslation('paymentCombo');
+  const classes = useStyles();
+
+  const [page, setPage] = useState(1);
+
+  const onPageRequestedHandler = useCallback(
+    (newPage: number) =>
+      fetchPaymentComboPurchaseList(newPage, {
+        onSuccess: () => setPage(newPage),
+      }),
+    [fetchPaymentComboPurchaseList],
+  );
+
+  const getItemRenderer = useCallback(
+    (hasReadInvoicePermission: boolean) =>
+      (item: PaymentComboPurchase<PaymentCombo>) =>
+        (
+          <PaymentComboPurchaseListItem
+            key={item.id}
+            divider
+            onClick={
+              hasReadInvoicePermission && goToInvoiceUsingPaymentComboPurchaseId
+            }
+            paymentComboPurchase={item}
+          />
+        ),
+    [goToInvoiceUsingPaymentComboPurchaseId],
+  );
+
+  return (
+    <ObjectLevelPermissionProvider requiredPermission="billing.allowed_actions.readInvoices">
+      {(hasReadInvoicePermission: boolean) => (
+        <Grid container spacing={2}>
+          <Grid item md={6} xs={12}>
+            <PaymentComboCard
+              onPaymentPackClick={onPaymentPackClick}
+              onPrivatePassClick={onPrivatePassClick}
+              onShopItemClick={onShopItemClick}
+              paymentCombo={paymentCombo}
+              snackbarSuccess={snackbarSuccess}
+            />
+          </Grid>
+          <Grid item md={6} xs={12}>
+            <div className={classes.centerRight}>
+              <Typography align="right" variant="h5">
+                {t('detail.purchases')}
+              </Typography>
+            </div>
+            <Paper>
+              <PaginatedListBase
+                itemPerPage={15}
+                items={paymentComboPurchaseList}
+                listProps={{ disablePadding: true }}
+                loading={paymentComboPurchaseLoading}
+                nbItems={paymentComboPurchaseCount}
+                onPageRequested={onPageRequestedHandler}
+                page={page}
+                renderItem={getItemRenderer(hasReadInvoicePermission)}
+              />
+            </Paper>
+          </Grid>
+        </Grid>
+      )}
+    </ObjectLevelPermissionProvider>
+  );
+};
+
+export default React.memo(PaymentComboDetail);

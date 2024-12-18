@@ -1,0 +1,51 @@
+.bs-navigation-app-bar__links-section--computed {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  opacity: 0;
+  visibility: hidden;
+  user-select: none;
+}
+
+.bs-navigation-app-bar__links-section__root {
+  gap: var(--bs-space-size-2);
+  display: inline-flex;
+  height: fit-content;
+  flex: 1;
+  justify-content: flex-end;
+  overflow: hidden;
+}
+
+.bs-navigation-app-bar__links-section__root--hidden {
+  display: none;
+}
+
+.bs-navigation-app-bar__links-section__visible-buttons {
+  display: inline-flex;
+  flex-wrap: nowrap;
+  flex: 1;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.bs-navigation-app-bar__links-section__visible-buttons__tab__text {
+  white-space: nowrap;
+}
+
+.bs-navigation-app-bar__links-section__hidden-buttons {
+  display: inline-flex;
+  border-left: 1px solid var(--bs-color-border-default);
+  padding-left: var(--bs-space-size-2);
+}
+
+.bs-navigation-app-bar__links-section__hidden-buttons--hidden {
+  display: none;
+}
+
+.bs-navigation-app-bar__links-section__more-button {
+  display: inline-flex;
+}
+
+.bs-navigation-app-bar__links-section__more-button__tab__text {
+  white-space: nowrap;
+}

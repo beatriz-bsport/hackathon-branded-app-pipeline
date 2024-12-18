@@ -1,0 +1,151 @@
+// @flow
+import React from 'react';
+
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import Icon from '@material-ui/core/Icon';
+import ListItemText from '@material-ui/core/ListItemText';
+import withStyles from '@material-ui/core/styles/withStyles';
+import Avatar from '@material-ui/core/Avatar';
+import { compose } from 'recompose';
+import { withTranslation, TFunction } from 'react-i18next';
+
+import FACEBOOK_PNG from '../../../../public/images/facebook.png';
+import INSTAGRAM_PNG from '../../../../public/images/instagram.png';
+
+import type { CoachDetailed } from '../../../../api/types';
+
+import EmailItem from '../../../communication/components/EmailItem.component';
+import PhoneItem from '../../../communication/components/PhoneItem.component';
+
+type Props = {
+  coach: CoachDetailed,
+  t: TFunction,
+  classes: Object,
+};
+
+class CoachSummaryCard extends React.Component<Props> {
+  renderPersonnalInfo = () => (
+    <List dense>
+      <ListItem>
+        <Icon color="primary">
+          <img
+            alt="Facebook"
+            src={FACEBOOK_PNG}
+            style={{ height: 24, width: 24 }}
+          />
+        </Icon>
+        <ListItemText primary={this.props.coach.facebook_url || '  -  '} />
+      </ListItem>
+      <ListItem>
+        <Icon color="primary">
+          <img
+            alt="Instagram"
+            src={INSTAGRAM_PNG}
+            style={{ height: 24, width: 24 }}
+          />
+        </Icon>
+        <ListItemText primary={this.props.coach.instagram_url || '  -  '} />
+      </ListItem>
+    </List>
+  );
+
+  renderContact = () => {
+    return (
+      <List dense>
+        <PhoneItem accept_contact phoneNumber={this.props.coach.phone} />
+        <EmailItem
+          accept_email
+          email={this.props.coach.email}
+          openMailDialog={() => {
+            window.location.href = 'mailto:'.concat(this.props.coach.email);
+          }}
+        />
+      </List>
+    );
+  };
+
+  renderAvatarNameAndPaymentRule = () => {
+    const { coach, classes, t } = this.props;
+    return (
+      <Grid container direction="column" spacing={3}>
+        <Grid container alignItems="center" direction="row" spacing={2}>
+          <Grid item>
+            <Avatar className={classes.bigAvatar} src={coach.photo} />
+          </Grid>
+          <Grid item>
+            <Grid
+              container
+              alignItems="flex-start"
+              direction="column"
+              justify="space-around"
+              spacing={1}
+            >
+              <Grid item>
+                <Typography>{coach.name.trim() || t('common.NA')}</Typography>
+              </Grid>
+            </Grid>
+          </Grid>
+        </Grid>
+      </Grid>
+    );
+  };
+
+  render() {
+    const { coach, classes } = this.props;
+    if (coach) {
+      return (
+        <div>
+          <Grid
+            container
+            alignItems="center"
+            className={classes.firstRow}
+            direction="row"
+            justify="space-between"
+            spacing={3}
+          >
+            <Grid item>
+              <Grid
+                container
+                item
+                alignItems="center"
+                direction="row"
+                spacing={2}
+              >
+                {this.renderAvatarNameAndPaymentRule()}
+              </Grid>
+            </Grid>
+            <Grid item>{this.renderPersonnalInfo()}</Grid>
+            <Grid item>{this.renderContact()}</Grid>
+          </Grid>
+        </div>
+      );
+    }
+    return null;
+  }
+}
+const styles = (theme) => ({
+  firstRow: {
+    padding: theme.spacing(2),
+  },
+  bigAvatar: {
+    margin: 10,
+    width: 60,
+    height: 60,
+  },
+  popoverNoPaymentRule: {
+    margin: theme.spacing(2),
+  },
+  flexPaymentSelector: {
+    display: 'flex',
+    justifyContent: 'start',
+    alignItems: 'center',
+  },
+});
+
+export default compose(
+  withTranslation(['translation', 'paymentRules']),
+  withStyles(styles),
+)(CoachSummaryCard);

@@ -1,0 +1,122 @@
+import React from 'react';
+import {
+  createStyles,
+  Avatar,
+  Theme,
+  Typography,
+  withStyles,
+  WithStyles,
+  Button,
+  ListItem,
+} from '@material-ui/core';
+import classNames from 'classnames';
+import { WithTranslation, withTranslation } from 'react-i18next';
+import { compose } from 'recompose';
+import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
+
+import { FranchiseCompany } from '../types';
+
+export type OwnProps = {
+  companies: FranchiseCompany[];
+  goToCompanyDetails: (companyId: number) => () => void;
+  goToFranchiseCompanyDetails: (companyId: number) => () => void;
+};
+
+type Props = OwnProps & WithStyles<typeof styles> & WithTranslation;
+
+const FranchiseMemberMembership = (props: Props) => {
+  const {
+    companies,
+    classes,
+    goToCompanyDetails,
+    goToFranchiseCompanyDetails,
+    t,
+  } = props;
+
+  return (
+    <div>
+      <Typography variant="h4">{t('member.franchises')}</Typography>
+      <div className={classes.companiesContainer}>
+        {companies.map((company, index) => {
+          if (!company) return null;
+          return (
+            <ListItem
+              key={company.id}
+              // @ts-expect-error
+              button={company?.isAllowed}
+              className={classNames(classes.row, {
+                [classes.isLast]: index === companies.length - 1,
+              })}
+              onClick={
+                company?.isAllowed && goToFranchiseCompanyDetails(company.id)
+              }
+            >
+              <div className={classes.rowTitle}>
+                <Avatar
+                  alt={company.name}
+                  className={classes.avatar}
+                  src={company.cover}
+                />
+                <div>
+                  <Typography variant="body1">{company.name}</Typography>
+                </div>
+              </div>
+              <Button
+                className={classes.leftNavigation}
+                disabled={!company?.isAllowed}
+                onClick={goToCompanyDetails(company.id)}
+              >
+                <ArrowForwardIcon className={classes.icon} />
+                <Typography variant="body1">
+                  {t('member.seeMembership').toUpperCase()}
+                </Typography>
+              </Button>
+            </ListItem>
+          );
+        })}
+      </div>
+    </div>
+  );
+};
+
+const styles = (theme: Theme) =>
+  createStyles({
+    companiesContainer: {
+      marginTop: theme.spacing(1),
+      backgroundColor: theme.palette.common.white,
+      borderRadius: 5,
+      boxShadow: theme.shadows[2],
+    },
+    row: {
+      padding: theme.spacing(2),
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      borderBottom: `1px solid #BEBEBE`,
+    },
+    isLast: {
+      borderBottom: 'none',
+    },
+    rowTitle: {
+      display: 'flex',
+      alignItems: 'center',
+    },
+    leftNavigation: {
+      color: theme.palette.primary.main,
+      display: 'flex',
+      alignItems: 'center',
+      cursor: 'pointer',
+    },
+    icon: {
+      marginRight: theme.spacing(2),
+    },
+    avatar: {
+      marginRight: theme.spacing(2),
+    },
+  });
+
+export default compose(
+  withStyles(styles),
+  withTranslation(['franchise']),
+  // @ts-expect-error
+)(FranchiseMemberMembership);

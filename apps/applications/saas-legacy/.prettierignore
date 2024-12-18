@@ -1,0 +1,16 @@
+# Ignore directories
+build
+coverage
+.gitlab
+.vscode
+node_modules
+src/public
+public
+flow
+
+# Ignore files
+**/*.mdx
+**/*.md
+
+# Generated JSON file
+src/i18n/utils/timezone-country/data.json

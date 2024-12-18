@@ -1,0 +1,26 @@
+import { Meta, Canvas, Story, ArgsTable } from '@storybook/addon-docs';
+import SCTChip from './SCTChip.component'
+import { factory_scts } from '../factory';
+const randomSCT=factory_scts(5)[0]
+
+<Meta title='Library/Category/Selector'
+    component={SCTChip}
+    argTypes ={{
+    }}/>
+
+export const Template = (args) => <SCTChip {...args} />;
+
+# Category Chip 
+
+<Canvas>
+    <Story 
+    name='SCTChip.component'
+    args={{
+        SCTName:randomSCT.name,
+        parentCategory:randomSCT.SCS.id,
+    }}>
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+<ArgsTable story='SCTChip.component' />

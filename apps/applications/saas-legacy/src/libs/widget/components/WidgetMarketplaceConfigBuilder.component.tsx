@@ -1,0 +1,114 @@
+import React from 'react';
+import { compose } from 'recompose';
+import ButtonBase from '@material-ui/core/ButtonBase';
+import Typography from '@material-ui/core/Typography';
+import Paper from '@material-ui/core/Paper';
+import FileCopyIcon from '@material-ui/icons/FileCopy';
+import { withTranslation, WithTranslation } from 'react-i18next';
+import { withStyles, Theme, createStyles } from '@material-ui/core/styles';
+import { MaterialStyleType } from '../../../utils/types';
+
+import { fromConfigToUrl } from '../../marketplace/routing-utils';
+import { urlToMarketplace } from '../../marketplace/utils';
+import Config from '../../../config';
+import { Theme as CompanyTheme } from '../../theme/types';
+
+type OwnProps = {
+  config: any;
+  configIndex?: number;
+  componentType: string;
+  theme: CompanyTheme;
+  copyToClipboard: (str: string) => void;
+  error: Error | null;
+  classes: any;
+};
+
+type Props = OwnProps &
+  MaterialStyleType<ReturnType<typeof styles>> &
+  WithTranslation;
+
+export class WidgetMarketplaceConfigBuilder extends React.PureComponent<Props> {
+  getUrl = () => {
+    let url = '';
+
+    const urlParams = fromConfigToUrl(
+      {
+        component_type: this.props.componentType,
+        config: this.props.config,
+        configIndex: this.props.configIndex,
+      },
+      { isPreview: true },
+    );
+
+    if (!urlParams || urlParams === '/') {
+      return '';
+    }
+
+    url = `${Config.PUBLIC_URL}${urlToMarketplace(
+      this.props.theme.company_name,
+      `${this.props.theme.company}`,
+    )}/${urlParams}`;
+
+    return url;
+  };
+
+  render() {
+    const url = this.getUrl();
+    if (!url) {
+      return null;
+    }
+    const { t, error, copyToClipboard, classes } = this.props;
+    return (
+      <div>
+        <Typography className={classes.marginTop}>
+          {t('widget.linkToConfig')}
+        </Typography>
+
+        <Paper className={classes.codeContainer} elevation={1}>
+          <Typography
+            className={classes.code}
+            color="textSecondary"
+            variant="caption"
+          >
+            {error ? t('widget.widgetPreviewError') : url}
+          </Typography>
+
+          {!error && (
+            <ButtonBase
+              className={classes.copyClipboardContainer}
+              onClick={() => copyToClipboard(url)}
+            >
+              <FileCopyIcon />
+            </ButtonBase>
+          )}
+        </Paper>
+      </div>
+    );
+  }
+}
+
+const styles = (theme: Theme) =>
+  createStyles({
+    marginTop: {
+      marginTop: theme.spacing(2),
+    },
+    codeContainer: {
+      marginTop: theme.spacing(2),
+      padding: theme.spacing(2),
+      position: 'relative',
+    },
+    code: {
+      whiteSpace: 'pre-wrap',
+      paddingRight: theme.spacing(4),
+    },
+    copyClipboardContainer: {
+      position: 'absolute',
+      top: theme.spacing(1),
+      right: theme.spacing(1),
+    },
+  });
+
+export default compose<any, Props>(
+  withTranslation(['widget']),
+  withStyles(styles),
+)(WidgetMarketplaceConfigBuilder);

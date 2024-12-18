@@ -1,0 +1,491 @@
+.bs-fabrique-button-root {
+  transition: background-color var(--bs-transition-duration-slow) ease-in-out,
+    color var(--bs-transition-duration-slow) ease-in-out,
+    border-color var(--bs-transition-duration-slow) ease-in-out;
+}
+
+.bs-fabrique-button-root__left-icon,
+.bs-fabrique-button-root__right-icon {
+  display: flex;
+}
+
+.bs-fabrique-button-root__left-icon {
+  padding-right: var(--bs-space-size-2);
+}
+
+.bs-fabrique-button-root__left-icon--hidden {
+  display: none;
+}
+
+.bs-fabrique-button-root__right-icon {
+  padding-left: var(--bs-space-size-2);
+}
+
+.bs-fabrique-button-root__right-icon--hidden {
+  display: none;
+}
+
+.bs-fabrique-button-root__right-icon svg,
+.bs-fabrique-button-root__left-icon svg {
+  stroke: currentColor;
+}
+
+.bs-fabrique-button-root__badge {
+  display: inline-flex;
+  padding-left: var(--bs-space-size-2);
+}
+
+.bs-fabrique-button-root__badge--hidden {
+  display: none;
+}
+
+/* BUTTON SIZES */
+.bs-fabrique-button-root-lg {
+  padding: var(--bs-space-size-3) var(--bs-space-size-4);
+  border-radius: var(--bs-border-radius-pill);
+  font-size: var(--bs-fabrique-font-size-action-lg);
+  font-weight: var(--bs-font-weight-strong);
+  line-height: var(--bs-fabrique-line-height-action-lg);
+  font-style: normal;
+  height: var(--bs-component-height-button-lg);
+}
+
+.bs-fabrique-button-root-lg .bs-fabrique-button-root__right-icon svg,
+.bs-fabrique-button-root-lg .bs-fabrique-button-root__left-icon svg {
+  width: var(--bs-icon-size-lg);
+  height: var(--bs-icon-size-lg);
+}
+
+.bs-fabrique-button-root-md {
+  padding: var(--bs-space-size-2) var(--bs-space-size-4);
+  border-radius: var(--bs-border-radius-pill);
+  font-size: var(--bs-fabrique-font-size-action-md);
+  font-family: var(--bs-font-family);
+  font-weight: var(--bs-font-weight-strong);
+  line-height: var(--bs-fabrique-line-height-action-md);
+  font-style: normal;
+  height: var(--bs-component-height-button-md);
+}
+
+.bs-fabrique-button-root-md .bs-fabrique-button-root__right-icon svg,
+.bs-fabrique-button-root-md .bs-fabrique-button-root__left-icon svg {
+  width: var(--bs-icon-size-md);
+  height: var(--bs-icon-size-md);
+}
+
+.bs-fabrique-button-root-sm {
+  padding: var(--bs-space-size-1) var(--bs-space-size-2);
+  border-radius: var(--bs-border-radius-pill);
+  font-size: var(--bs-fabrique-font-size-action-sm);
+  font-family: var(--bs-font-family);
+  font-weight: var(--bs-font-weight-strong);
+  line-height: var(--bs-fabrique-line-height-action-sm);
+  font-style: normal;
+  height: var(--bs-component-height-button-sm);
+}
+
+.bs-fabrique-button-root-sm .bs-fabrique-button-root__right-icon svg,
+.bs-fabrique-button-root-sm .bs-fabrique-button-root__left-icon svg {
+  width: var(--bs-icon-size-sm);
+  height: var(--bs-icon-size-sm);
+}
+
+/* CONTAINED BUTTON STYLES */
+
+/* ----- CONTAINED BRAND MAIN ----- */
+.bs-fabrique-button-root-contained--main {
+  color: var(--bs-color-text-on-strong);
+  background-color: var(--bs-color-action-brand-main);
+}
+
+.bs-fabrique-button-root-contained--main:hover,
+.bs-fabrique-button-root-contained--main:focus-visible {
+  background-color: var(--bs-color-action-brand-main-hovered);
+}
+
+.bs-fabrique-button-root-contained--main:active:hover {
+  transition: unset;
+  background-color: var(--bs-color-action-brand-main-pressed);
+}
+
+/* ----- CONTAINED BRAND SECONDARY ----- */
+.bs-fabrique-button-root-contained--secondary {
+  color: var(--bs-color-text-on-strong);
+  background-color: var(--bs-color-action-brand-secondary);
+}
+
+.bs-fabrique-button-root-contained--secondary:hover,
+.bs-fabrique-button-root-contained--secondary:focus-visible {
+  background-color: var(--bs-color-action-brand-secondary-hovered);
+}
+
+.bs-fabrique-button-root-contained--secondary:active:hover {
+  transition: unset;
+  background-color: var(--bs-color-action-brand-secondary-pressed);
+}
+
+/* ----- CONTAINED GREY ----- */
+.bs-fabrique-button-root-contained--grey {
+  color: var(--bs-color-text-on-strong);
+  background-color: var(--bs-color-action-grey-default);
+}
+
+.bs-fabrique-button-root-contained--grey:hover,
+.bs-fabrique-button-root-contained--grey:focus-visible {
+  background-color: var(--bs-color-action-grey-hovered);
+}
+
+.bs-fabrique-button-root-contained--grey:active:hover {
+  transition: unset;
+  background-color: var(--bs-color-action-grey-pressed);
+}
+
+/* ----- CONTAINED WHITE ----- */
+.bs-fabrique-button-root-contained--white {
+  color: var(--bs-color-text-default);
+  background-color: var(--bs-color-action-inverse-default);
+}
+
+.bs-fabrique-button-root-contained--white:hover,
+.bs-fabrique-button-root-contained--white:focus-visible {
+  background-color: var(--bs-color-action-inverse-hovered);
+}
+
+.bs-fabrique-button-root-contained--white:active:hover {
+  transition: unset;
+  background-color: var(--bs-color-action-inverse-pressed);
+}
+
+/* ----- CONTAINED INFO----- */
+.bs-fabrique-button-root-contained--info {
+  color: var(--bs-color-text-on-strong);
+  background-color: var(--bs-color-action-info-default);
+}
+
+.bs-fabrique-button-root-contained--info:hover,
+.bs-fabrique-button-root-contained--info:focus-visible {
+  background-color: var(--bs-color-action-info-hovered);
+}
+
+.bs-fabrique-button-root-contained--info:active:hover {
+  transition: unset;
+  background-color: var(--bs-color-action-info-pressed);
+}
+
+/* ----- CONTAINED WARNING----- */
+.bs-fabrique-button-root-contained--warning {
+  color: var(--bs-color-text-on-strong);
+  background-color: var(--bs-color-action-warning-default);
+}
+
+.bs-fabrique-button-root-contained--warning:hover,
+.bs-fabrique-button-root-contained--warning:focus-visible {
+  background-color: var(--bs-color-action-warning-hovered);
+}
+
+.bs-fabrique-button-root-contained--warning:active:hover {
+  transition: unset;
+  background-color: var(--bs-color-action-warning-pressed);
+}
+
+/* ----- CONTAINED ERROR----- */
+.bs-fabrique-button-root-contained--error {
+  color: var(--bs-color-text-on-strong);
+  background-color: var(--bs-color-action-error-default);
+}
+
+.bs-fabrique-button-root-contained--error:hover,
+.bs-fabrique-button-root-contained--error:focus-visible {
+  background-color: var(--bs-color-action-error-hovered);
+}
+
+.bs-fabrique-button-root-contained--error:active:hover {
+  transition: unset;
+  background-color: var(--bs-color-action-error-pressed);
+}
+
+/* ----- CONTAINED DISABLED----- */
+[class*='bs-fabrique-button-root-contained']:disabled {
+  color: var(--bs-color-text-disabled);
+  background-color: var(--bs-color-background-disabled);
+  border-color: var(--bs-color-border-disabled);
+}
+
+/* OUTLINED BUTTON STYLES */
+
+/* OUTLINED ROOT */
+.bs-fabrique-button-root-outlined {
+  border-width: var(--bs-border-width-regular);
+  background-color: var(--bs-color-action-light);
+  border-style: solid;
+}
+
+/* ----- OUTLINED BRAND MAIN----- */
+.bs-fabrique-button-root-outlined--main {
+  color: var(--bs-color-text-brand-main);
+  border-color: var(--bs-color-border-brand-main);
+}
+
+.bs-fabrique-button-root-outlined--main:hover,
+.bs-fabrique-button-root-outlined--main:focus-visible {
+  color: var(--bs-color-text-brand-main);
+  background-color: var(--bs-color-action-brand-weak-main-hovered);
+}
+
+.bs-fabrique-button-root-outlined--main:active:hover {
+  transition: unset;
+  color: var(--bs-color-text-brand-main-strong);
+  border-color: var(--bs-color-border-brand-main-strong);
+  background-color: var(--bs-color-action-brand-weak-main-pressed);
+}
+
+/* ----- OUTLINED BRAND SECONDARY----- */
+.bs-fabrique-button-root-outlined--secondary {
+  color: var(--bs-color-text-brand-secondary);
+  border-color: var(--bs-color-border-brand-secondary);
+}
+
+.bs-fabrique-button-root-outlined--secondary:hover,
+.bs-fabrique-button-root-outlined--secondary:focus-visible {
+  color: var(--bs-color-text-brand-secondary);
+  background-color: var(--bs-color-action-brand-weak-secondary-hovered);
+}
+
+.bs-fabrique-button-root-outlined--secondary:active:hover {
+  transition: unset;
+  color: var(--bs-color-text-brand-secondary-strong);
+  border-color: var(--bs-color-border-brand-secondary-strong);
+  background-color: var(--bs-color-action-brand-weak-secondary-pressed);
+}
+
+/* ----- OUTLINED GREY----- */
+.bs-fabrique-button-root-outlined--grey {
+  color: var(--bs-color-text-weak);
+  border-color: var(--bs-color-border-default);
+}
+
+.bs-fabrique-button-root-outlined--grey:hover,
+.bs-fabrique-button-root-outlined--grey:focus-visible {
+  color: var(--bs-color-text-default);
+  background-color: var(--bs-color-action-grey-weak-hovered);
+}
+
+.bs-fabrique-button-root-outlined--grey:active:hover {
+  transition: unset;
+  color: var(--bs-color-text-default);
+  border-color: var(--bs-color-border-strong);
+  background-color: var(--bs-color-action-grey-weak-pressed);
+}
+
+/* ----- OUTLINED WHITE----- */
+.bs-fabrique-button-root-outlined--white {
+  color: var(--bs-color-text-inverse-default);
+  border-color: var(--bs-color-border-inverse-default);
+  background-color: transparent;
+}
+
+.bs-fabrique-button-root-outlined--white:hover,
+.bs-fabrique-button-root-outlined--white:focus-visible {
+  color: var(--bs-color-text-weaker);
+  border-color: var(--bs-color-border-weak);
+  background-color: var(--bs-color-action-grey-weak-hovered);
+}
+
+.bs-fabrique-button-root-outlined--white:active:hover {
+  transition: unset;
+  color: var(--bs-color-text-weaker);
+  border-color: var(--bs-color-border-weak);
+  background-color: var(--bs-color-action-inverse-pressed);
+}
+
+/* ----- OUTLINED INFO----- */
+.bs-fabrique-button-root-outlined--info {
+  color: var(--bs-color-text-info-weak);
+  border-color: var(--bs-color-border-status-info-weak);
+  background-color: var(--bs-color-action-light);
+}
+
+.bs-fabrique-button-root-outlined--info:hover,
+.bs-fabrique-button-root-outlined--info:focus-visible {
+  background-color: var(--bs-color-action-info-weak-hovered);
+}
+
+.bs-fabrique-button-root-outlined--info:active:hover {
+  transition: unset;
+  color: var(--bs-color-text-info-strong);
+  border-color: var(--bs-color-border-status-info-strong);
+  background-color: var(--bs-color-action-info-weak-pressed);
+}
+
+/* ----- OUTLINED WARNING----- */
+.bs-fabrique-button-root-outlined--warning {
+  color: var(--bs-color-text-warning-weak);
+  border-color: var(--bs-color-border-status-warning-weak);
+}
+
+.bs-fabrique-button-root-outlined--warning:hover,
+.bs-fabrique-button-root-outlined--warning:focus-visible {
+  background-color: var(--bs-color-action-warning-weak-hovered);
+}
+
+.bs-fabrique-button-root-outlined--warning:active:hover {
+  transition: unset;
+  color: var(--bs-color-text-warning-strong);
+  border-color: var(--bs-color-border-status-warning-strong);
+  background-color: var(--bs-color-action-warning-weak-pressed);
+}
+
+/* ----- OUTLINED ERROR----- */
+.bs-fabrique-button-root-outlined--error {
+  color: var(--bs-color-text-error-weak);
+  border-color: var(--bs-color-border-status-error-weak);
+}
+
+.bs-fabrique-button-root-outlined--error:hover,
+.bs-fabrique-button-root-outlined--error:focus-visible {
+  background-color: var(--bs-color-action-error-weak-hovered);
+}
+
+.bs-fabrique-button-root-outlined--error:active:hover {
+  transition: unset;
+  color: var(--bs-color-text-error-strong);
+  border-color: var(--bs-color-border-status-error-strong);
+  background-color: var(--bs-color-action-error-weak-pressed);
+}
+
+/* ----- OUTLINED DISABLED----- */
+[class*='bs-fabrique-button-root-outlined']:disabled {
+  color: var(--bs-color-text-disabled);
+  background-color: var(--bs-color-background-disabled);
+  border-color: var(--bs-color-border-disabled);
+}
+
+/* TEXT BUTTON STYLES */
+
+/* ----- TEXT BUTTON ROOT ----- */
+
+/* ----- TEXT BUTTON BRAND MAIN ----- */
+.bs-fabrique-button-root-text--main {
+  color: var(--bs-color-text-brand-main);
+}
+
+.bs-fabrique-button-root-text--main:hover,
+.bs-fabrique-button-root-text--main:focus-visible {
+  color: var(--bs-color-text-brand-main);
+  background-color: var(--bs-color-action-brand-weak-main-hovered);
+}
+
+.bs-fabrique-button-root-text--main:active:hover {
+  transition: unset;
+  color: var(--bs-color-text-brand-main-strong);
+  background-color: var(--bs-color-action-brand-weak-main-pressed);
+}
+
+/* ----- TEXT BUTTON BRAND SECONDARY ----- */
+.bs-fabrique-button-root-text--secondary {
+  color: var(--bs-color-text-brand-secondary);
+}
+
+.bs-fabrique-button-root-text--secondary:hover,
+.bs-fabrique-button-root-text--secondary:focus-visible {
+  color: var(--bs-color-text-brand-secondary);
+  background-color: var(--bs-color-action-brand-weak-secondary-hovered);
+}
+
+.bs-fabrique-button-root-text--secondary:active:hover {
+  transition: unset;
+  color: var(--bs-color-text-brand-secondary-strong);
+  background-color: var(--bs-color-action-brand-weak-secondary-pressed);
+}
+
+/* ----- TEXT BUTTON GREY ----- */
+.bs-fabrique-button-root-text--grey {
+  color: var(--bs-color-text-weak);
+}
+
+.bs-fabrique-button-root-text--grey:hover,
+.bs-fabrique-button-root-text--grey:focus-visible {
+  color: var(--bs-color-text-default);
+  background-color: var(--bs-color-action-grey-weak-hovered);
+}
+
+.bs-fabrique-button-root-text--grey:active:hover {
+  transition: unset;
+  color: var(--bs-color-text-default);
+  background-color: var(--bs-color-action-grey-weak-pressed);
+}
+
+/* ----- TEXT BUTTON WHITE ----- */
+.bs-fabrique-button-root-text--white {
+  /* TODO : FIGMA GIVES AN ACTION TOKEN */
+  color: var(--bs-color-action-light);
+  background-color: transparent;
+}
+
+.bs-fabrique-button-root-text--white:hover,
+.bs-fabrique-button-root-text--white:focus-visible {
+  color: var(--bs-color-text-weaker);
+  background-color: var(--bs-color-action-grey-weak-hovered);
+}
+
+.bs-fabrique-button-root-text--white:active:hover {
+  transition: unset;
+  color: var(--bs-color-text-weaker);
+  background-color: var(--bs-color-action-inverse-pressed);
+}
+
+/* ----- TEXT BUTTON INFO ----- */
+.bs-fabrique-button-root-text--info {
+  color: var(--bs-color-text-info-weak);
+}
+
+.bs-fabrique-button-root-text--info:hover,
+.bs-fabrique-button-root-text--info:focus-visible {
+  background-color: var(--bs-color-action-info-weak-hovered);
+}
+
+.bs-fabrique-button-root-text--info:active:hover {
+  transition: unset;
+  color: var(--bs-color-text-info-strong);
+  background-color: var(--bs-color-action-info-weak-pressed);
+}
+
+/* ----- TEXT BUTTON WARNING----- */
+.bs-fabrique-button-root-text--warning {
+  color: var(--bs-color-text-warning-weak);
+}
+
+.bs-fabrique-button-root-text--warning:hover,
+.bs-fabrique-button-root-text--warning:focus-visible {
+  background-color: var(--bs-color-action-warning-weak-hovered);
+}
+
+.bs-fabrique-button-root-text--warning:active:hover {
+  transition: unset;
+  color: var(--bs-color-text-warning-strong);
+  background-color: var(--bs-color-action-warning-weak-pressed);
+}
+
+/* ----- TEXT BUTTON ERROR----- */
+
+.bs-fabrique-button-root-text--error {
+  color: var(--bs-color-text-error-weak);
+}
+
+.bs-fabrique-button-root-text--error:hover,
+.bs-fabrique-button-root-text--error:focus-visible {
+  background-color: var(--bs-color-action-error-weak-hovered);
+}
+
+.bs-fabrique-button-root-text--error:active:hover {
+  transition: unset;
+  color: var(--bs-color-text-error-strong);
+  background-color: var(--bs-color-action-error-weak-pressed);
+}
+
+/* ----- TEXT BUTTON DISABLED----- */
+[class*='bs-fabrique-button-root-text']:disabled {
+  color: var(--bs-color-text-disabled);
+  background-color: var(--bs-color-background-disabled);
+  border-color: var(--bs-color-border-disabled);
+}

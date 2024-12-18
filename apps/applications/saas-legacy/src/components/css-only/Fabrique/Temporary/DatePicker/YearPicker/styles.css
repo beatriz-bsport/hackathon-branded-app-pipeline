@@ -1,0 +1,14 @@
+.bs-fabrique-year-picker-root {
+  display: flex;
+  flex-flow: wrap;
+  overflow-y: auto;
+  height: 100%;
+  width: 100%;
+  max-height: 280px;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.bs-fabrique-year-picker-root--hidden {
+  display: none;
+}

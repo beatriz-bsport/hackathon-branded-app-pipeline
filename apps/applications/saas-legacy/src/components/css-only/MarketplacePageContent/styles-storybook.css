@@ -1,0 +1,6 @@
+/* Simulate an integration */
+.sb-show-main.sb-main-padded {
+  height: 100dvh;
+  padding: 0;
+  overflow: hidden;
+}

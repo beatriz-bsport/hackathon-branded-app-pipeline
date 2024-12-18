@@ -1,0 +1,7 @@
+.bs-consumer-pack-credit-status {
+  color: var(--color-grey-main);
+}
+
+.bs-consumer-pack-credit-status__error {
+  color: var(--color-error-main);
+}

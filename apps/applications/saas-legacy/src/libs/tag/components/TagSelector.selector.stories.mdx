@@ -1,0 +1,48 @@
+import { Meta, Canvas, Story, ArgsTable } from '@storybook/addon-docs';
+import TagSelector from './TagSelector.selector';
+import FactoryBot from '../factory';
+
+<Meta
+  title="Library/Tag/selector"
+  component={TagSelector}
+  argTypes={{
+    tag_groups: {
+      description: 'Array with all the tag groups and the tags they contain',
+      table: {
+        type: {
+          summary: 'TagGroup',
+        },
+        defaultValue: {
+          summary: 'None',
+        },
+      },
+    },
+    isDisabled: {
+      description: "If true, can't select anything",
+      table: {
+        type: {
+          summary: 'boolean',
+        },
+        defaultValue: {
+          summary: 'false',
+        },
+      },
+    },
+  }}
+/>
+
+export const Template = (args) => <TagSelector {...args} />;
+
+<Canvas>
+  <Story
+    name="TagSelector"
+    args={{
+      isDisabled: false,
+      allTagsWithTagGroup: FactoryBot.Tag.create(5),
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<ArgsTable story="TagSelector" />

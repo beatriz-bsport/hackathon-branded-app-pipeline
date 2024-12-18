@@ -1,0 +1,5 @@
+.bs-booking-add-guest-modal-storybook__container {
+  container: bsConfirmationPage / inline-size;
+  width: 100%;
+  height: 100vh;
+}

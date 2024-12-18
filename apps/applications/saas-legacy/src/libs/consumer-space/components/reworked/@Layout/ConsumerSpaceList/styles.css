@@ -1,0 +1,13 @@
+.bs-consumer-space-virtualized-list--skeleton {
+}
+
+.bs-consumer-space-virtualized-list__autosizer {
+}
+
+.bs-consumer-space-virtualized-list__root {
+}
+
+.bs-consumer-space-virtualized-list__item {
+  /* best way to add spacing since gap does not work correctly */
+  padding-bottom: var(--bs-space-size-4);
+}

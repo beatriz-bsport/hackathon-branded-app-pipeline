@@ -1,0 +1,24 @@
+import React from 'react';
+
+import CircularProgress from '@material-ui/core/CircularProgress';
+import IconButton from '@material-ui/core/IconButton';
+import RefreshIcon from '@material-ui/icons/Refresh';
+
+type Props = {
+  isRefreshing: boolean;
+  onRefresh: () => void;
+};
+
+export const RefreshButton = (props: Props) => {
+  return (
+    <IconButton name="refresh" onClick={props.onRefresh}>
+      {props.isRefreshing ? (
+        <CircularProgress size={24} />
+      ) : (
+        <RefreshIcon color="primary" />
+      )}
+    </IconButton>
+  );
+};
+
+export default RefreshButton;

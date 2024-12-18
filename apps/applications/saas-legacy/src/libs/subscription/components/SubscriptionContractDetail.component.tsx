@@ -1,0 +1,144 @@
+import React from 'react';
+
+import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
+import { useTranslation } from 'react-i18next';
+import { makeStyles } from '@material-ui/core/styles';
+import LinearProgress from '@material-ui/core/LinearProgress';
+import TypographyMultiline from '../../../components/typo/TypographyMultiline.component';
+import PaymentPackListItem from '../../payment-packs/components/PaymentPackListItem.component';
+import PrivatePassListItem from '../../private-service/components/pass/PrivatePassListItem.component';
+// @ts-expect-error
+import PaymentComboListItem from '../../payment-combo/components/PaymentComboListItem.component';
+import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
+import type { Contract } from '../types';
+
+type Props = {
+  contract: Contract;
+  isExcludingTax?: boolean;
+};
+
+const SubscriptionContractDetail = (props: Props) => {
+  const classes = useStyles();
+  const { t } = useTranslation(['subscription']);
+  if (!props.contract) {
+    return (
+      <Paper className={classes.paperContainerEmpty}>
+        <LinearProgress />
+      </Paper>
+    );
+  }
+  const {
+    name,
+    recurrent_price,
+    recurrence_basis,
+    interval,
+    flat_fee,
+    description,
+    contract,
+    payment_pack,
+    private_pass,
+    payment_combo,
+    tax,
+  } = props.contract;
+  return (
+    <div>
+      <Paper className={classes.paperContainer}>
+        <Typography className={classes.title} variant="h4">
+          {name}
+        </Typography>
+        <div className={classes.row}>
+          <div className={classes.pricesContainer}>
+            <Typography variant="h6">
+              {`${t(
+                'contract.form.recurrent_price.label',
+              )} : ${getCurrencyDisplayWithPrice(
+                recurrent_price,
+                props.isExcludingTax,
+                tax,
+              )}`}
+            </Typography>
+            <Typography align="left" color="textSecondary" variant="body1">
+              {t(`contract.item.intervalLabel.${interval}`, {
+                count: recurrence_basis,
+              })}
+            </Typography>
+            <Typography variant="body1">
+              {`${t('parameters.flat_fee')} : ${getCurrencyDisplayWithPrice(
+                flat_fee,
+                props.isExcludingTax,
+                tax,
+              )}`}
+            </Typography>
+          </div>
+        </div>
+        {!!payment_pack && (
+          <div className={classes.block}>
+            <Typography variant="h6">{t('contract.paymentPack')}</Typography>
+            <PaymentPackListItem
+              divider
+              hidePacksNumber
+              isExcludingTax={props.isExcludingTax}
+              // @ts-expect-error
+              pack={payment_pack}
+            />
+          </div>
+        )}
+        {!!private_pass && (
+          <div className={classes.block}>
+            <Typography variant="h6">{t('contract.privatePass')}</Typography>
+            {/* @ts-expect-error */}
+            <PrivatePassListItem divider pass={private_pass} />
+          </div>
+        )}
+        {!!payment_combo && (
+          <div className={classes.block}>
+            <Typography variant="h6">{t('contract.paymentCombo')}</Typography>
+            <PaymentComboListItem
+              divider
+              isExcludingTax={props.isExcludingTax}
+              paymentCombo={payment_combo}
+            />
+          </div>
+        )}
+        <div className={classes.block}>
+          <Typography variant="h6">{t('contract.description')}</Typography>
+          <TypographyMultiline>{description}</TypographyMultiline>
+        </div>
+        <div className={classes.block}>
+          <Typography variant="h6">{t('contract.legal')}</Typography>
+          <TypographyMultiline>{contract}</TypographyMultiline>
+        </div>
+      </Paper>
+    </div>
+  );
+};
+
+const useStyles = makeStyles((theme) => ({
+  paperContainerEmpty: {
+    padding: theme.spacing(8),
+    width: '100%',
+  },
+  paperContainer: {
+    padding: theme.spacing(3),
+  },
+  title: {
+    marginBottom: theme.spacing(3),
+  },
+  row: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: theme.spacing(3),
+  },
+  pricesContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+  },
+  block: {
+    marginBottom: theme.spacing(3),
+  },
+}));
+
+export default SubscriptionContractDetail;

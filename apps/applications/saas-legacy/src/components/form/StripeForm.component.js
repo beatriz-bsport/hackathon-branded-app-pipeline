@@ -1,0 +1,137 @@
+// @flow
+
+import React, { Component } from 'react';
+
+import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import withStyles from '@material-ui/core/styles/withStyles';
+import Button from '@material-ui/core/Button';
+import AddCircleIcon from '@material-ui/icons/AddCircle';
+import { withTranslation, TFunction } from 'react-i18next';
+import { CardElement, ElementsConsumer } from '@stripe/react-stripe-js';
+
+import { DateTime } from 'luxon';
+
+type Props = {
+  price: ?number,
+  onComplete: (token: Object) => void,
+  stripe: Object,
+  t: TFunction,
+  classes: Object,
+  showRecurring: ?boolean,
+  elements: any,
+};
+
+type State = {
+  completed: boolean,
+  loading: boolean,
+  isRecurring: boolean,
+  nb_interval: number,
+  billing_anchor: Object,
+};
+
+export class StripeForm extends Component<Props, State> {
+  state = {
+    loading: false,
+    isRecurring: false,
+    interval: 'month',
+    nb_interval: 3,
+    billing_anchor: DateTime.now().toISO(),
+  };
+
+  submit = async () => {
+    this.setState({ loading: true });
+    try {
+      const cardElement = this.props.elements.getElement(CardElement);
+
+      const { token } = await this.props.stripe.createToken(cardElement);
+      if (this.state.isRecurring && this.props.showRecurring) {
+        const recurringData = {
+          nb_interval: this.state.nb_interval,
+          billing_anchor: this.state.billing_anchor,
+          interval: this.state.interval,
+        };
+        this.onComplete(token, recurringData);
+      }
+      this.onComplete(token);
+    } catch (err) {
+      // eslint-disable-next-line
+      alert(`An error occured:\n${JSON.stringify(err)}`);
+      this.setState({ loading: false });
+    }
+  };
+
+  onComplete = (token, recurringData) => {
+    this.setState({ loading: false });
+    this.props.onComplete(token, recurringData);
+  };
+
+  render() {
+    const { classes, t, price } = this.props;
+    const { loading } = this.state;
+
+    return (
+      <Grid
+        container
+        className={classes.paymentContainer}
+        direction="column"
+        spacing={2}
+      >
+        <Grid item>
+          <div className={classes.cardContainer}>
+            <CardElement />
+          </div>
+          <Typography className={classes.caption} variant="caption">
+            {t('payment.stripePaymentWillBeCashedOutOnInvoiceValidation')}
+          </Typography>
+        </Grid>
+        <Grid container item direction="row" justify="flex-end">
+          <Grid item>
+            {loading ? (
+              <CircularProgress />
+            ) : (
+              <Button
+                color="primary"
+                disabled={!price}
+                onClick={this.submit}
+                variant="outlined"
+              >
+                <AddCircleIcon className={classes.leftIcon} />
+                {t('payment.addThisPaymentItem')}
+              </Button>
+            )}
+          </Grid>
+        </Grid>
+      </Grid>
+    );
+  }
+}
+
+const styles = (theme) => ({
+  cardContainer: {
+    padding: theme.spacing(2),
+    border: '1px solid rgba(0, 0, 0, 0.23)',
+    borderRadius: 5,
+  },
+  leftIcon: {
+    marginRight: theme.spacing(1),
+  },
+  caption: {
+    marginTop: theme.spacing(1),
+  },
+  labelAndSelectorItem: {
+    display: 'flex',
+    justifyContent: 'space-between',
+  },
+});
+
+export default withStyles(styles)(
+  withTranslation()((props) => (
+    <ElementsConsumer>
+      {({ stripe, elements }) => (
+        <StripeForm elements={elements} stripe={stripe} {...props} />
+      )}
+    </ElementsConsumer>
+  )),
+);

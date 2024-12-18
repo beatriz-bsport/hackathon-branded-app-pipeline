@@ -1,0 +1,20 @@
+.bs-consumer-page-root__subscription {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--bs-space-size-4);
+  width: 100%;
+  margin-top: var(--bs-space-size-6);
+}
+
+.bs-consumer-page-root__subscriptions_list {
+  padding: 0;
+  margin: 0;
+}
+
+.bs-consumer__subscription-details-card__root--hidden {
+  display: none;
+}
+
+.bs-consumer-page-root__subscriptions_list--hidden {
+  display: none;
+}

@@ -1,0 +1,8 @@
+.bs-recommended-chip {
+  background: var(--color-warning-background);
+  padding: calc(var(--spacing-1) / 2) var(--spacing-1);
+  border-radius: var(--border-radius-1);
+  color: var(--color-warning-main);
+  font-size: var(--body2-fontSize);
+  font-weight: var(--body2-fontWeight);
+}

@@ -1,0 +1,407 @@
+import React, { Component } from 'react';
+import { compose, withHandlers, withStateHandlers } from 'recompose';
+import { WithTranslation, withTranslation } from 'react-i18next';
+import { TFunction } from 'i18next';
+import { connect } from 'react-redux';
+import uniq from 'lodash/uniq';
+import { Theme } from '@material-ui/core/styles';
+import withStyles from '@material-ui/core/styles/withStyles';
+import Paper from '@material-ui/core/Paper';
+import {
+  COACH_PAYMENT_RULE_FOR_SESSION,
+  COACH_PAYMENT_RULE_FOR_APPOINTMENT,
+  COACH_PAYMENT_RULE_FOR_GROUP_ACTIVITY,
+  COACH_PAYMENT_RULE_FOR_WORKSHOP,
+} from '@bsport/common/lib/master-data/coach_payment_rule';
+import {
+  upsertCoachPaymentRule as upsertCoachPaymentRuleAction,
+  upsertCoachPaymentRuleGroup as upsertCoachPaymentRuleGroupAction,
+  fetchAllCoachPaymentRules as fetchAllCoachPaymentRulesAction,
+  deleteCoachPaymentRule as deleteCoachPaymentRuleAction,
+  runCoachPaymenrRuleSimulation as runCoachPaymenrRuleSimulationAction,
+  showDialog as showDialogAction,
+  showSimulationDialog as showSimulationDialogAction,
+  showGroupDialog as showGroupDialogAction,
+  coachPaymentSimulation as coachPaymentSimulationAction,
+  resetCoachPaymentSimulation as resetCoachPaymentSimulationAction,
+  fetchAllCoachPaymentRuleGroups as fetchAllCoachPaymentRuleGroupsAction,
+  deleteCoachPaymentRuleGroup as deleteCoachPaymentRuleGroupAction,
+} from '../../libs/coach-payment-rules/actions';
+import {
+  CoachPaymentRuleByKindSelector,
+  getCoachPaymentRuleGroupListCoaches,
+  getCoachPaymentRuleGroups,
+  getCoachPaymentRuleListCoaches,
+} from '../../libs/coach-payment-rules/selectors';
+import { fetchAssociatedCoachBulk } from '../../libs/associated-coach/actions';
+// @ts-expect-error
+import CoachPaymentRuleFormDrawer from '../../libs/coach-payment-rules/components/CoachPaymentRuleFormDrawer.component';
+import CoachPaymentRuleGroupFormDrawer from '../../libs/coach-payment-rules/components/CoachPaymentRuleGroupFormDrawer.component';
+// @ts-expect-error
+import CoachPaymentRuleTabs from '../../libs/coach-payment-rules/components/CoachPaymentRuleTabs.components';
+import CoachPaymentRuleSimulationDrawer from '../../libs/coach-payment-rules/components/CoachPaymentRuleSimulationDrawer.component';
+import type {
+  CoachPaymentRule,
+  CoachPaymentRuleGroup,
+  CoachPaymentRuleGroupAPI,
+} from '../../libs/coach-payment-rules/types';
+import {
+  getPaymentPack,
+  getEnabled as getEnabledPaymentPacks,
+} from '../../libs/payment-packs/selectors';
+import { fetchPaymentPackBulk } from '../../libs/payment-packs/actions';
+
+import FabWithItems from '../../components/button/FabWithItems';
+import withTitle from '../../hocs/with-title.hoc';
+import { RootState } from '../../reducers/index';
+import {
+  fetchAllPrivateSlots as fetchAllPrivateSlotsAction,
+  fetchAllPrivateServices,
+} from '../../libs/private-service/actions';
+import { getActiveCoaches } from '../../libs/associated-coach/selectors';
+import type { Coach } from '../../libs/associated-coach/types';
+import { MaterialStyleType, WithHandlerType } from '../../utils/types';
+import { OptionCallback } from '../../state/types';
+import { getAvailablePrivateServices } from '../../libs/private-service/selectors/private-service';
+import { PrivateServiceWithSlots } from '../../libs/private-service/types';
+
+type OwnProps = {
+  fetchAllCoachPaymentRules: () => void;
+  fetchAllCoachPaymentRuleGroups: () => void;
+  t: TFunction;
+  initial?: CoachPaymentRule;
+  ruleForSimulation?: CoachPaymentRule;
+  upsertCoachPaymentRule: (CoachPaymentRule: CoachPaymentRule) => void;
+  deleteCoachPaymentRuleGroup: (
+    CoachPaymentRuleGroup: CoachPaymentRuleGroup,
+    options: OptionCallback,
+  ) => void;
+  deleteCoachPaymentRule: (CoachPaymentRule: CoachPaymentRule) => void;
+  removeCoachPaymentGroup: (CoachPaymentRuleGroupId: number) => void;
+  setInitial: (CoachPaymentRule: CoachPaymentRule) => void;
+  setInitialGroup: (CoachPaymentRuleGroup: CoachPaymentRuleGroup) => void;
+  error?: Error;
+  rulesByKind: { [kind: number]: Array<CoachPaymentRule> };
+  coachPaymentRuleGroups: Array<CoachPaymentRuleGroup>;
+  fetchAllPrivateSlots: () => void;
+  fetchAllPrivateServices: () => void;
+  initialGroup: CoachPaymentRuleGroupAPI;
+  privateServices: Array<PrivateServiceWithSlots>;
+  associated_coaches: Array<Coach>;
+  loading: boolean;
+  fetchAssociatedCoachBulk: (associatedCoachIds: Array<number>) => void;
+};
+type StateHandlerInit = {
+  initial: CoachPaymentRule | null;
+  initialGroup: CoachPaymentRuleGroup | null;
+  ruleTypeCreation: number | null;
+  ruleForSimulation: CoachPaymentRule | null;
+};
+type StateHandlerType = typeof withStateHandlersInit &
+  WithHandlerType<typeof withStateHandlersSetter>;
+
+type ConnectedProps = ReturnType<typeof mapStateToProps> &
+  typeof mapDispatchToProps;
+type OwnAndConnectedProps = OwnProps & ConnectedProps & StateHandlerType;
+
+type Props = OwnAndConnectedProps &
+  WithHandlerType<typeof mapWithHandlers> &
+  MaterialStyleType<ReturnType<typeof styles>> &
+  WithTranslation;
+
+export class PaymentRulesDashboard extends Component<Props> {
+  componentDidMount() {
+    this.props.fetchAllCoachPaymentRules({
+      onSuccess: this.handleFetchCoachList,
+    });
+    this.props.fetchAllCoachPaymentRuleGroups({
+      onSuccess: this.handleFetchCoachList,
+    });
+    this.props.fetchAllPrivateServices();
+    this.props.fetchAllPrivateSlots();
+  }
+
+  handleOpenRuleDialogForm = (excludedPaymentPacks: Array<number>) => {
+    this.props.fetchPaymentPackBulk(excludedPaymentPacks);
+    this.props.handleOpen();
+  };
+
+  handleAddNewForSession = () => {
+    this.props.setRuleTypeCreation(COACH_PAYMENT_RULE_FOR_SESSION);
+    this.props.handleOpen();
+  };
+
+  handleAddNewForGroupActivity = () => {
+    this.props.setRuleTypeCreation(COACH_PAYMENT_RULE_FOR_GROUP_ACTIVITY);
+    this.props.handleOpen();
+  };
+
+  handleAddNewForWorkshop = () => {
+    this.props.setRuleTypeCreation(COACH_PAYMENT_RULE_FOR_WORKSHOP);
+    this.props.handleOpen();
+  };
+
+  handleAddNewForAppointment = () => {
+    this.props.setRuleTypeCreation(COACH_PAYMENT_RULE_FOR_APPOINTMENT);
+    this.props.handleOpen();
+  };
+
+  handleAddNewPaymentRuleGroup = () => {
+    this.props.setInitialGroup(null);
+    this.props.handleOpenGroup();
+  };
+
+  handleFetchCoachList = () => {
+    const coachList = uniq([
+      ...(this.props.coachPaymentRuleGroupListCoaches ?? []),
+      ...(this.props.coachPaymentRuleListCoaches ?? []),
+    ]);
+
+    !!coachList?.length && this.props.fetchAssociatedCoachBulk(coachList);
+  };
+
+  render() {
+    const { classes, t } = this.props;
+    return (
+      <div>
+        <FabWithItems
+          items={[
+            {
+              label: t('fabButton.addNewForSession'),
+              onClick: this.handleAddNewForSession,
+            },
+            {
+              label: t('fabButton.addNewForGroupActivity'),
+              onClick: this.handleAddNewForGroupActivity,
+            },
+            {
+              label: t('fabButton.addNewForWorkshop'),
+              onClick: this.handleAddNewForWorkshop,
+            },
+            {
+              label: t('fabButton.addNewForRDV'),
+              onClick: this.handleAddNewForAppointment,
+            },
+            {
+              label: t('fabButton.addNewPaymentRuleGroup'),
+              onClick: this.handleAddNewPaymentRuleGroup,
+            },
+          ]}
+        />
+        {this.props.ruleDialogFormOpen ? (
+          <CoachPaymentRuleFormDrawer
+            enabledPaymentPacks={this.props.enabledPaymentPacks}
+            error={this.props.error}
+            getPaymentPack={this.props.getPaymentPack}
+            handleClose={this.props.handleClose}
+            initial={
+              // @ts-expect-error
+              this.props.initial && this.props.initial.bonus_coach_payment
+                ? {
+                    ...this.props.initial,
+                    bonus_coach_payment: [
+                      // @ts-expect-error
+                      ...this.props.initial.bonus_coach_payment,
+                    ],
+                  }
+                : this.props.initial
+            }
+            onSubmit={this.props.upsertCoachPaymentRule}
+            open={this.props.ruleDialogFormOpen}
+            ruleTypeCreation={this.props.ruleTypeCreation}
+          />
+        ) : null}
+        {this.props.simulationOpen && this.props.ruleForSimulation ? (
+          // @ts-expect-error
+          <CoachPaymentRuleSimulationDrawer
+            coachPaymentRule={this.props.ruleForSimulation}
+            handleCloseSimulation={this.props.handleCloseSimulation}
+            handlePrevious={(payment_rule: CoachPaymentRule) => {
+              this.props.handlePrevious(payment_rule);
+            }}
+            onSubmit={this.props.runCoachPaymenrRuleSimulation}
+            open={this.props.simulationOpen}
+            simulationResult={this.props.simulationResult}
+          />
+        ) : null}
+        {this.props.groupDialogFormOpen ? (
+          <CoachPaymentRuleGroupFormDrawer
+            // @ts-expect-error
+            associated_coaches={this.props.associated_coaches}
+            error={this.props.error}
+            handleClose={this.props.handleCloseGroup}
+            initial={this.props.initialGroup}
+            onSubmit={(g) =>
+              this.props.upsertCoachPaymentRuleGroup(g, {
+                // @ts-expect-error
+                onSuccess: (group: CoachPaymentRuleGroup) => {
+                  const updateCoacheIds = this.props.associated_coaches
+                    .filter(
+                      (coach: Coach) =>
+                        coach.coach_payment_rule_group_id === group.id,
+                    )
+                    .map((coach: Coach) => coach.associated_coach_id);
+
+                  this.props.fetchAssociatedCoachBulk(
+                    updateCoacheIds.concat(g.associated_coach),
+                  );
+                  this.props.fetchAllCoachPaymentRules();
+                },
+              })
+            }
+            open={this.props.groupDialogFormOpen}
+            privateServices={this.props.privateServices}
+            rulesByKind={this.props.rulesByKind}
+          />
+        ) : null}
+        <Paper className={classes.table}>
+          <CoachPaymentRuleTabs
+            coachPaymentRuleGroups={this.props.coachPaymentRuleGroups}
+            items={this.props.rulesByKind}
+            loading={this.props.loading}
+            onChangeTab={this.handleFetchCoachList}
+            onDeletePaymentRule={this.props.deleteCoachPaymentRule}
+            onDeletePaymentRuleGroup={this.props.deleteCoachPaymentRuleGroup}
+            onEditPaymentRule={(paymentRule: CoachPaymentRule) => {
+              this.props.setInitial(paymentRule);
+              this.handleOpenRuleDialogForm(paymentRule.excluded_payment_packs);
+            }}
+            onEditPaymentRuleGroup={(
+              paymentRuleGroup: CoachPaymentRuleGroup,
+            ) => {
+              this.props.setInitialGroup(paymentRuleGroup);
+              this.props.handleOpenGroup();
+            }}
+          />
+        </Paper>
+      </div>
+    );
+  }
+}
+
+const styles = (theme: Theme) => ({
+  form: {
+    padding: theme.spacing(2),
+  },
+  table: {
+    margin: theme.spacing(2),
+  },
+  button: {
+    position: 'fixed',
+    bottom: theme.spacing(2),
+    right: theme.spacing(2),
+  },
+});
+
+const mapStateToProps = (state: RootState) => ({
+  loading: state.coachPaymentRules.loading,
+  ruleDialogFormOpen: state.coachPaymentRules.dialog,
+  simulationOpen: state.coachPaymentRules.simulationDialog,
+  groupDialogFormOpen: state.coachPaymentRules.groupDialog,
+  error: state.coachPaymentRules.upsert.error,
+  getPaymentPack: (paymentPackId: number) =>
+    getPaymentPack(state, paymentPackId),
+  enabledPaymentPacks: getEnabledPaymentPacks(state),
+  simulationResult: state.coachPaymentRules.simulation.result,
+  rulesByKind: CoachPaymentRuleByKindSelector(state),
+  coachPaymentRuleGroups: getCoachPaymentRuleGroups(state),
+  coachPaymentRuleGroupListCoaches: getCoachPaymentRuleGroupListCoaches(state),
+  coachPaymentRuleListCoaches: getCoachPaymentRuleListCoaches(state),
+  associated_coaches: getActiveCoaches(state),
+  privateServices: getAvailablePrivateServices(state),
+});
+
+const mapDispatchToProps = {
+  fetchAssociatedCoachBulk,
+  deleteCoachPaymentRule: deleteCoachPaymentRuleAction,
+  deleteCoachPaymentRuleGroup: deleteCoachPaymentRuleGroupAction,
+  showDialog: showDialogAction,
+  showGroupDialog: showGroupDialogAction,
+  showSimulationDialog: showSimulationDialogAction,
+  coachPaymentSimulation: coachPaymentSimulationAction,
+  resetCoachPaymentSimulation: resetCoachPaymentSimulationAction,
+  upsertCoachPaymentRule: upsertCoachPaymentRuleAction,
+  upsertCoachPaymentRuleGroup: upsertCoachPaymentRuleGroupAction,
+  runCoachPaymenrRuleSimulation: runCoachPaymenrRuleSimulationAction,
+  fetchAllCoachPaymentRules: fetchAllCoachPaymentRulesAction,
+  fetchAllCoachPaymentRuleGroups: fetchAllCoachPaymentRuleGroupsAction,
+  fetchAllPrivateSlots: fetchAllPrivateSlotsAction,
+  fetchAllPrivateServices,
+  fetchPaymentPackBulk,
+};
+
+const mapWithHandlers = {
+  handleOpen: (props: OwnAndConnectedProps) => () => props.showDialog(true),
+  handleClose: (props: OwnAndConnectedProps) => () => {
+    props.showDialog(false);
+    props.setInitial(null);
+  },
+  handleOpenGroup: (props: OwnAndConnectedProps) => () => {
+    props.showGroupDialog(true);
+  },
+  handleCloseGroup: (props: OwnAndConnectedProps) => () => {
+    props.showGroupDialog(false);
+    props.setInitialGroup(null);
+  },
+  handleCloseSimulation: (props: OwnAndConnectedProps) => () => {
+    props.showSimulationDialog(false);
+    props.setInitial(null);
+    props.resetCoachPaymentSimulation();
+  },
+  handlePrevious:
+    (props: OwnAndConnectedProps) => (payment_rule: CoachPaymentRule) => {
+      props.setInitial(payment_rule);
+      props.showDialog(true);
+      props.showSimulationDialog(false);
+      props.resetCoachPaymentSimulation();
+    },
+  upsertCoachPaymentRule:
+    (props: OwnAndConnectedProps) => (p: CoachPaymentRule) =>
+      props.upsertCoachPaymentRule(p, {
+        // @ts-expect-error
+        onSuccess: (payload: CoachPaymentRule) => {
+          props.showSimulationDialog(true);
+          props.setRuleForSimulation(payload);
+        },
+      }),
+  upsertCoachPaymentRuleGroup:
+    (props: OwnAndConnectedProps) =>
+    (g: CoachPaymentRuleGroup, options: OptionCallback) =>
+      // @ts-expect-error
+      props.upsertCoachPaymentRuleGroup(g, options),
+  runCoachPaymenrRuleSimulation:
+    (props: OwnAndConnectedProps) => (id: number, params: any) =>
+      props.runCoachPaymenrRuleSimulation(id, params),
+};
+
+const withStateHandlersInit: StateHandlerInit = {
+  initial: null,
+  initialGroup: null,
+  ruleTypeCreation: COACH_PAYMENT_RULE_FOR_SESSION,
+  ruleForSimulation: null,
+};
+
+const withStateHandlersSetter = {
+  setInitial: () => (initial: CoachPaymentRule | null) => {
+    return { initial };
+  },
+  setInitialGroup: () => (initialGroup: CoachPaymentRuleGroup | null) => {
+    return { initialGroup };
+  },
+  setRuleTypeCreation: () => (ruleTypeCreation: number) => {
+    return { ruleTypeCreation };
+  },
+  setRuleForSimulation: () => (ruleForSimulation: CoachPaymentRule | null) => {
+    return { ruleForSimulation };
+  },
+};
+export default compose<any, OwnProps>(
+  // @ts-expect-error
+  withStyles(styles),
+  withTranslation(['paymentRules']),
+  // @ts-expect-error
+  withTitle(({ t }: TFunction) => t('pageTitle')),
+  withStateHandlers(withStateHandlersInit, withStateHandlersSetter),
+  connect(mapStateToProps, mapDispatchToProps),
+  withHandlers(mapWithHandlers),
+)(PaymentRulesDashboard);

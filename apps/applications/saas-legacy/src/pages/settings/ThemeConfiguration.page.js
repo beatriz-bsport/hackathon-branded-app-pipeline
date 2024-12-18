@@ -1,0 +1,75 @@
+// @flow
+import React, { Component } from 'react';
+import Paper from '@material-ui/core/Paper';
+import { withTranslation } from 'react-i18next';
+import withStyles from '@material-ui/core/styles/withStyles';
+import { connect } from 'react-redux';
+import { compose } from 'recompose';
+
+import LinearProgress from '#src/components/navigation/BackofficeLinearProgress.component';
+
+import type { Theme } from '../../libs/theme/types';
+import ThemeForm from '../../libs/theme/components/ThemeForm.component';
+import {
+  updateCompanyTheme,
+  fetchCompanyTheme,
+} from '../../libs/theme/actions';
+import themeSelectors from '../../libs/theme/selectors';
+import withTitle from '../../hocs/with-title.hoc';
+
+type Props = {
+  theme: Theme,
+  loading: boolean,
+  processing: boolean,
+  submitTheme: (companyId: number, data: *) => void,
+  fetchCompanyTheme: () => void,
+  classes: any,
+};
+
+export class ThemeConfiguration extends Component<Props> {
+  componentDidMount() {
+    this.props.fetchCompanyTheme();
+  }
+
+  render() {
+    const { classes } = this.props;
+    if (this.props.loading) return <LinearProgress />;
+    return (
+      <div className={classes.container}>
+        <Paper className={classes.paperContainer}>
+          <ThemeForm
+            onSubmit={this.props.submitTheme}
+            processing={this.props.processing}
+            theme={this.props.theme}
+          />
+        </Paper>
+      </div>
+    );
+  }
+}
+
+const styles = (theme) => ({
+  container: {
+    padding: theme.spacing(2),
+  },
+  paperContainer: {
+    padding: theme.spacing(2),
+  },
+});
+
+export default compose(
+  connect(
+    (state) => ({
+      theme: themeSelectors.getTheme(state),
+      loading: state.theme.loading,
+      processing: state.theme.createOrUpdate.loading,
+    }),
+    {
+      fetchCompanyTheme,
+      submitTheme: updateCompanyTheme,
+    },
+  ),
+  withStyles(styles),
+  withTranslation(['theme']),
+  withTitle(({ t }) => t('pageTitles.theme')),
+)(ThemeConfiguration);

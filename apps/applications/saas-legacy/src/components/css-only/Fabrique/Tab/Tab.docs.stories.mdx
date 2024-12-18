@@ -1,0 +1,26 @@
+import { Meta, Canvas, Story, Source } from '@storybook/addon-docs';
+import {TabStorybook as Tab} from '.'
+
+<Meta title="Fabrique/Tab/Doc" component={Tab} />
+
+# Tab
+
+## Description
+The **`tab`** used for navigation, allowing users to switch between different sections or views within an application. 
+It can serve as a standard tab or a dropdown tab based on configuration.
+
+### Usage
+
+Use the tab component to enable users to navigate between different sections or views in an application.
+The **`isSelected`** property indicates the currently active tab, providing a clear visual indicator to users.
+When **`hasSelect`** is set to **`true`**, the tab can function as a dropdown, allowing users to select from additional options.
+
+<Canvas withSource="none" withToolbar isExpanded>
+  <Story id="fabrique-tab-stories--tabrest"/>
+  <Story id="fabrique-tab-stories--tabselectedgrey"/>
+  <Story id="fabrique-tab-stories--tabselectedmain"/>
+  <Story id="fabrique-tab-stories--tabwithselect"/>
+</Canvas>
+
+#### Example
+<Source dark language='tsx' id="fabrique-tab-stories--tabselectedgrey" />

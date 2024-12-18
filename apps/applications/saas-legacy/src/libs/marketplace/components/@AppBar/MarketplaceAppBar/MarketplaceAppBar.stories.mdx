@@ -1,0 +1,206 @@
+import { Meta, Canvas, Story, ArgsTable } from '@storybook/addon-docs';
+import MarketplaceAppBar from './MarketplaceAppBar.component';
+import { marketplaceSettingsFactory } from '../../../factories';
+import { basketFactory } from '../../../../checkout/factories';
+
+<Meta
+  title="Library/Marketplace/Marketplace App Bar"
+  component={MarketplaceAppBar}
+  argTypes={{
+    auth: {
+      description: 'Auth',
+      table: {
+        type: {
+          summary: 'Object',
+        },
+        defaultValue: {
+          summary: 'None',
+        },
+      },
+    },
+    title: {
+      description: 'Title',
+      table: {
+        type: {
+          summary: 'string',
+        },
+        defaultValue: {
+          summary: 'None',
+        },
+      },
+    },
+    logo: {
+      description: 'Logo',
+      table: {
+        type: {
+          summary: 'string',
+        },
+        defaultValue: {
+          summary: 'None',
+        },
+      },
+    },
+    title: {
+      description: 'Title',
+      table: {
+        type: {
+          summary: 'string',
+        },
+        defaultValue: {
+          summary: 'None',
+        },
+      },
+    },
+    currentBasket: {
+      description: 'Current basket',
+      table: {
+        type: {
+          summary: 'Basket',
+        },
+        defaultValue: {
+          summary: 'None',
+        },
+      },
+    },
+    openCurrentBasket: { action: 'clicked' },
+    disconnect: { action: 'clicked' },
+    goToUserSpace: { action: 'clicked' },
+    requestLogin: { action: 'clicked' },
+    websiteURL: {
+      description: 'Website URL',
+      table: {
+        type: {
+          summary: 'string',
+        },
+        defaultValue: {
+          summary: 'None',
+        },
+      },
+    },
+    isWidget: {
+      description: 'Is Widget',
+      table: {
+        type: {
+          summary: 'boolean',
+        },
+        defaultValue: {
+          summary: 'false',
+        },
+      },
+    },
+    controlableMemberList: {
+      description: 'Controlable Member List',
+      table: {
+        type: {
+          summary: 'Member[]',
+        },
+        defaultValue: {
+          summary: 'None',
+        },
+      },
+    },
+    navigateToRelationAccount: { action: 'clicked' },
+    isRelationNavigation: {
+      description: 'Current basket',
+      table: {
+        type: {
+          summary: 'Basket',
+        },
+        defaultValue: {
+          summary: 'None',
+        },
+      },
+    },
+    navigateBackToMasterRelation: { action: 'clicked' },
+    hideAppBar: {
+      description: 'Hide App Bar',
+      table: {
+        type: {
+          summary: 'boolean',
+        },
+        defaultValue: {
+          summary: 'false',
+        },
+      },
+    },
+    withNavigation: {
+      description: 'With Navigation',
+      table: {
+        type: {
+          summary: 'boolean',
+        },
+        defaultValue: {
+          summary: 'true',
+        },
+      },
+    },
+    handleTabChange: { action: 'clicked' },
+    tabSelected: {
+      description: 'Tab Selected',
+      table: {
+        type: {
+          summary: 'string',
+        },
+        defaultValue: {
+          summary: 'None',
+        },
+      },
+    },
+    settings: {
+      description: 'Settings',
+      table: {
+        type: {
+          summary: 'MarketplaceSettings',
+        },
+        defaultValue: {
+          summary: 'None',
+        },
+      },
+    },
+    theme: {
+      description: 'Theme',
+      table: {
+        type: {
+          summary: 'any',
+        },
+        defaultValue: {
+          summary: 'None',
+        },
+      },
+    },
+  }}
+/>
+
+export const Template = (args) => <MarketplaceAppBar {...args} />;
+const auth = {
+  authenticated: true,
+  username: 'user@bsport.io',
+  name: 'Jean Test',
+};
+const theme = { vod: false };
+
+# Marketplace App Bar
+
+This `Marketplace App Bar` is the app bar above the marketplace
+
+<Canvas>
+  <Story
+    name="Marketplace App Bar"
+    args={{
+      auth: auth,
+      controlableMemberList: [],
+      isRelationNavigation: false,
+      hideAppBar: false,
+      withNavigation: true,
+      settings: marketplaceSettingsFactory(10),
+      theme: theme,
+      tabSelected: '0',
+      logo: 'https://play-lh.googleusercontent.com/a6Z8ZNVyijwO-iFAAa4Uy0GBbkOOgNdFyT5FJUEodxNoisv1SCppMrHqW-sQXN3cPh8',
+      currentBasket: basketFactory(3),
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<ArgsTable story="Marketplace App Bar" />

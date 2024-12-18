@@ -1,0 +1,11 @@
+.bs-fabrique-datefield__input-container {
+  width: 100%;
+}
+
+.bs-fabrique-datefield__input-input::-webkit-calendar-picker-indicator {
+  display: none;
+}
+
+.bs-fabrique-datefield__input-input::-webkit-input-placeholder {
+  visibility: hidden !important;
+}

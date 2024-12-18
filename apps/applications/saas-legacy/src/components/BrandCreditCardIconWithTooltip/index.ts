@@ -1,0 +1,3 @@
+import BrandCreditCardIconWithTooltip from '#src/components/BrandCreditCardIconWithTooltip/BrandCreditCardIconWithTooltip.component';
+
+export default BrandCreditCardIconWithTooltip;

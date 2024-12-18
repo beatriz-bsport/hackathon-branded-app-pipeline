@@ -1,0 +1,148 @@
+import React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import { useTranslation } from 'react-i18next';
+import { compose, withState, withHandlers } from 'recompose';
+import Typography from '@material-ui/core/Typography';
+import { ElementsConsumer, Elements } from '@stripe/react-stripe-js';
+
+import { loadStripe } from '@stripe/stripe-js';
+import { getStripePkKey } from '#src/libs/theme/selectors';
+import { LOCALE_LIST } from '#src/components/input/LocaleSelector.component';
+import { OptionCallback } from '../../../state/types';
+// @ts-expect-error
+import { CompanySetup } from '../types';
+import BankAccountFormRegistry from './BankAccountFormRegistry';
+
+const stripePromise = loadStripe(getStripePkKey());
+
+type Props = {
+  company: CompanySetup;
+  onSubmit: (token: string, options?: OptionCallback<CompanySetup>) => void;
+  error?: Error | null;
+  loading?: boolean;
+  onClose: () => void;
+  currency: string;
+  labelOnClose: string;
+};
+
+export const BankAccountForm = (props: Props) => {
+  const classes = useStyles();
+  const { t } = useTranslation(['payment']);
+  let content = <Typography>{t('bankAccount.form.unknownCountry')}</Typography>;
+
+  if (
+    LOCALE_LIST.map((l) => l.locale.split('_')[1]).includes(
+      props.company.country,
+    )
+  ) {
+    const BankAccountFormBase =
+      // @ts-expect-error
+      BankAccountFormRegistry[props.currency] || BankAccountFormRegistry.eur;
+
+    content = (
+      <BankAccountFormBase
+        classes={classes}
+        currency={props.currency}
+        error={props.error}
+        labelOnClose={props.labelOnClose}
+        loading={props.loading}
+        onClose={props.onClose}
+        onSubmit={props.onSubmit}
+      />
+    );
+  }
+  return (
+    <div className={classes.container} id="bankAccountFormContainer">
+      {content}
+    </div>
+  );
+};
+
+const useStyles = makeStyles((theme) => ({
+  container: { padding: theme.spacing(2) },
+  title: {
+    marginBottom: theme.spacing(2),
+  },
+  content: {
+    marginBottom: theme.spacing(1),
+  },
+  actions: {
+    marginTop: theme.spacing(2),
+    display: 'flex',
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+  },
+  field: {
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(1),
+  },
+}));
+
+const BankAccountFormComposed = compose(
+  withState('error', 'setError', false),
+  withState('loading', 'setLoading', false),
+  withHandlers({
+    onSubmit:
+      ({
+        onSubmit,
+        country,
+        currency,
+        stripe,
+        setError,
+        setLoading,
+        onSuccess,
+      }) =>
+      (
+        account_holder_name: string,
+        account_number: string,
+        routing_number: string | null,
+        countryForm: string,
+      ) => {
+        setLoading(true);
+        stripe
+          .createToken('bank_account', {
+            account_number,
+            account_holder_name,
+            country: countryForm || country,
+            currency,
+            ...(routing_number ? { routing_number } : {}),
+          })
+          .then((r: any) => {
+            const { token } = r;
+
+            setLoading(true);
+            setError(false);
+            onSubmit(token.id, {
+              onSuccess: () => {
+                setLoading(false);
+                if (onSuccess) onSuccess();
+              },
+              onError: () => {
+                setLoading(false);
+                setError(true);
+              },
+            });
+          })
+          .catch(() => {
+            setError(true);
+            setLoading(false);
+          });
+      },
+  }),
+  // @ts-expect-error
+)(BankAccountForm);
+
+export default (props: Props) => (
+  <Elements stripe={stripePromise}>
+    <ElementsConsumer>
+      {({ stripe, elements }) => (
+        <BankAccountFormComposed
+          // @ts-expect-error
+          elements={elements}
+          stripe={stripe}
+          {...props}
+        />
+      )}
+    </ElementsConsumer>
+  </Elements>
+);

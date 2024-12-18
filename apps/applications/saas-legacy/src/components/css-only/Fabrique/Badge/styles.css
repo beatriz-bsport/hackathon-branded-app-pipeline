@@ -1,0 +1,43 @@
+.bs-fabrique-badge-root {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: var(--bs-border-radius-circle);
+  padding: 0 var(--bs-space-size-1);
+  min-width: var(--bs-space-size-4);
+  height: var(--bs-space-size-4);
+  box-sizing: border-box;
+}
+
+/* Badge background */
+.bs-fabrique-badge-root-onstrong {
+  background: var(--bs-color-background-light);
+}
+
+.bs-fabrique-badge-root-grey {
+  background: var(--bs-color-background-grey-default);
+}
+
+.bs-fabrique-badge-root-main {
+  background: var(--bs-color-background-brand-main);
+}
+
+.bs-fabrique-badge-root-warning {
+  background: var(--bs-color-background-error-default);
+}
+
+.bs-fabrique-badge-content-typography {
+  white-space: nowrap;
+  font-weight: var(--bs-font-weight-strong);
+}
+
+/* Badge content text color */
+.bs-fabrique-badge-root-onstrong .bs-fabrique-badge-content-onstrong {
+  color: var(--bs-color-text-default);
+}
+
+.bs-fabrique-badge-root-grey .bs-fabrique-badge-content-grey,
+.bs-fabrique-badge-root-main .bs-fabrique-badge-content-main,
+.bs-fabrique-badge-root-warning .bs-fabrique-badge-content-warning {
+  color: var(--bs-color-text-on-strong);
+}

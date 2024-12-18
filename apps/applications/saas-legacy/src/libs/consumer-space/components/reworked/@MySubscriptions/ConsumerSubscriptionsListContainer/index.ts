@@ -1,0 +1,3 @@
+import ConsumerSubscriptionsListContainer from './ConsumerSubscriptionsListContainer.component';
+
+export default ConsumerSubscriptionsListContainer;

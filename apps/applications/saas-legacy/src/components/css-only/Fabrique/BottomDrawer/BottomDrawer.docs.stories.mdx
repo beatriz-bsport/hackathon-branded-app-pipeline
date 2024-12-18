@@ -1,0 +1,21 @@
+import { Meta, Canvas, Story, Source} from '@storybook/addon-docs';
+import {BottomDrawerStorybook as BottomDrawer} from '.'
+
+<Meta title="Fabrique/BottomDrawer/Doc" component={BottomDrawer} />
+
+# Bottom Drawer
+
+## Description
+A **`bottomDrawer`** slides in from the bottom of the screen. 
+It provides an intuitive way to display additional content, options, or actions without taking up the entire screen space. 
+The Bottom Drawer is often used for supplementary tasks, contextual information, or modal interactions.
+
+### Demos
+<Canvas withSource="none" withToolbar>
+  <Story id="fabrique-bottomdrawer-stories--bottomdrawerscrollablecontent"/>
+  <Story id="fabrique-bottomdrawer-stories--bottomdrawererror"/>
+  <Story id="fabrique-bottomdrawer-stories--bottomdrawerexpanded"/>
+</Canvas>
+
+#### Example
+<Source dark language='tsx' id="fabrique-bottomdrawer-stories--bottomdrawererror" />

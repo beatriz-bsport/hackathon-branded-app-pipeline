@@ -1,0 +1,450 @@
+import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+
+import Button from '@material-ui/core/Button';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import ListItemAvatar from '@material-ui/core/ListItemAvatar';
+import Avatar from '@material-ui/core/Avatar';
+import makeStyles from '@material-ui/core/styles/makeStyles';
+import Typography from '@material-ui/core/Typography';
+import IconButton from '@material-ui/core/IconButton';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import ExposureNeg1Icon from '@material-ui/icons/ExposureNeg1';
+import ExposurePlus1Icon from '@material-ui/icons/ExposurePlus1';
+import Divider from '@material-ui/core/Divider';
+import withWidth, { isWidthDown } from '@material-ui/core/withWidth';
+import InfoIcon from '@material-ui/icons/Info';
+import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
+import type { Breakpoint } from '@material-ui/core/styles/createBreakpoints';
+
+import {
+  getPassDate,
+  getSpecificIncompatibilitiesReasons,
+} from '#src/libs/private-service/utils';
+import ConsumerPassSourceChip from '#src/components/chip/ConsumerPassSourceChip';
+import ObjectLevelPermissionProvider from '#src/libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+import RedButton from '#src/components/button/RedButton.component';
+
+import type { PrivateConsumerPass } from '#src/libs/private-service/types';
+import type { Member } from '#src/libs/member/types';
+import { getCreditsDividedDisplay } from '#src/libs/theme/utils';
+import type { OptionCallback } from '../../../../state/types';
+import ConsumerPrivatePassIncompatibilitiesReasons from './ConsumerPrivatePassIncompatibilitiesReasons.component';
+
+type Props = {
+  button?: Node;
+  disabled?: boolean;
+  divider?: boolean;
+  incompatibilitiesReasons: { [cpp_id: number]: number[] };
+  isNonCompatible: boolean;
+  private_consumer_pass: PrivateConsumerPass<Member>;
+  privateSlotId: number;
+  selected?: boolean;
+  showMember?: boolean;
+  showUniversalWarning?: boolean;
+  width: Breakpoint;
+  fetchIncompatibilitiesReasonsBySlotByConsumerPass: (
+    pcp_id: number,
+    slot_id: number,
+    options: OptionCallback,
+  ) => void;
+  goToPrivatePass: () => void;
+  onBook?: (options: OptionCallback) => void;
+  onClick?: () => void;
+  onUpdateCredit?: (
+    id: number,
+    credits: -1 | 1,
+    options: OptionCallback,
+  ) => void;
+};
+
+export const PrivateConsumerPassBookerListItem: React.FC<Props> = ({
+  button,
+  disabled,
+  divider,
+  incompatibilitiesReasons,
+  isNonCompatible,
+  private_consumer_pass,
+  privateSlotId,
+  selected,
+  showMember,
+  showUniversalWarning,
+  width,
+  fetchIncompatibilitiesReasonsBySlotByConsumerPass,
+  goToPrivatePass,
+  onBook,
+  onClick,
+  onUpdateCredit,
+}) => {
+  const { t } = useTranslation(['privateService', 'paymentPack']);
+  const classes = useStyles();
+
+  const { private_pass } = private_consumer_pass;
+
+  // [RelationShip] Determines if the consumer pass is shared from relationships
+  // This checks if the private_consumer_pass object has a destination private consumer pass
+  // (dst_private_consumer_pass) indicating that this pass has been shared from another entity.
+  const isFromShare =
+    private_consumer_pass &&
+    private_consumer_pass.dst_private_consumer_pass &&
+    private_consumer_pass.dst_private_consumer_pass.length;
+
+  // [RelationShip] Determines if the consumer pass is shared with relationships
+  // This checks if the private_consumer_pass object has a source private consumer pass
+  // (src_private_consumer_pass) indicating that this pass is being shared with other entities.
+  const isOwnerOfShares =
+    private_consumer_pass &&
+    private_consumer_pass.src_private_consumer_pass &&
+    private_consumer_pass.src_private_consumer_pass.length;
+
+  // [UniversalPass] Determines if the pass is universal
+  // This checks if the private_consumer_pass object is linked to a consumer payment pack,
+  // indicating that it is a universal pass.
+  const isUniversal =
+    private_consumer_pass && private_consumer_pass.linked_consumer_payment_pack;
+
+  // [Franchise] Determines if the pass was billed in another company
+  // This checks if the private_consumer_pass object has been billed in another company by:
+  // 1. Checking if there is a private_consumer_pass_source, which directly indicates synchronization from another company.
+  // 2. Checking if the private pass is linked to a payment pack template instance that is from a franchise,
+  // and whether the linked consumer payment pack has a source pass.
+  const wasBoughtInAnotherCompany =
+    private_consumer_pass.private_consumer_pass_source ||
+    (private_consumer_pass.private_pass
+      ?.linked_payment_pack_template_instance &&
+      private_consumer_pass.private_pass?.linked_payment_pack &&
+      private_consumer_pass.linked_consumer_payment_pack_source);
+
+  // [Franchise] Source company name & color
+  // These retrieve the source company’s name and primary color from the private_consumer_pass object.
+  const sourceCompanyName = private_consumer_pass.company_source_name;
+  const sourceCompanyColor = private_consumer_pass.company_source_primary_color;
+
+  const [processing, setProcessing] = useState(false);
+  const [creditProcessing, setCreditProcessing] = useState(false);
+
+  const [consumerPassHasBeenHovered, setConsumerPassHasBeenHovered] =
+    useState(false);
+  const [showIncompatibilities, setShowIncompatibilities] = useState(false);
+  const [incompatibilitiesAreLoading, setIncompatibilitiesAreLoading] =
+    useState(true);
+
+  const handleInfoIncompatibilitesHovering = React.useCallback(() => {
+    if (consumerPassHasBeenHovered) {
+      setShowIncompatibilities(true);
+      return;
+    }
+    fetchIncompatibilitiesReasonsBySlotByConsumerPass(
+      private_consumer_pass.id,
+      privateSlotId,
+      {
+        onSuccess: () => setIncompatibilitiesAreLoading(false),
+        onError: () => setIncompatibilitiesAreLoading(false),
+      },
+    );
+    setShowIncompatibilities(true);
+    setConsumerPassHasBeenHovered(true);
+  }, [
+    consumerPassHasBeenHovered,
+    fetchIncompatibilitiesReasonsBySlotByConsumerPass,
+    privateSlotId,
+    private_consumer_pass.id,
+  ]);
+
+  const handleInfoIncompatibilitesLeaving = React.useCallback(() => {
+    setShowIncompatibilities(false);
+  }, []);
+
+  const addCredit = React.useCallback(
+    (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+      event?.stopPropagation();
+      setCreditProcessing(true);
+      onUpdateCredit(private_consumer_pass.id, 1, {
+        onSuccess: () => setCreditProcessing(false),
+        onError: () => setCreditProcessing(false),
+      });
+    },
+    [onUpdateCredit, private_consumer_pass.id],
+  );
+
+  const removeCredit = React.useCallback(
+    (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+      event?.stopPropagation();
+      setCreditProcessing(true);
+      onUpdateCredit(private_consumer_pass.id, -1, {
+        onSuccess: () => setCreditProcessing(false),
+        onError: () => setCreditProcessing(false),
+      });
+    },
+    [onUpdateCredit, private_consumer_pass.id],
+  );
+
+  const handleBook = React.useCallback(() => {
+    setProcessing(true);
+    onBook?.({
+      onSuccess: () => setProcessing(false),
+      onError: () => setProcessing(false),
+    });
+  }, [onBook]);
+
+  const renderMemberName = () => (
+    <div style={{ display: 'flex', alignItems: 'center' }}>
+      <Typography>
+        {`${
+          (private_consumer_pass.member && private_consumer_pass.member.name) ||
+          ' - '
+        }`}
+      </Typography>
+      {private_consumer_pass.member &&
+        private_consumer_pass.member.archived && (
+          <Typography color="secondary" variant="caption">
+            {`${'\u00A0'}(${t('member:archived')})`}
+          </Typography>
+        )}
+    </div>
+  );
+
+  const renderButton = () => {
+    if (processing) {
+      return <CircularProgress />;
+    }
+
+    const isMobile = isWidthDown('sm', width);
+    const closeMobileIncompatibilities = isMobile
+      ? handleInfoIncompatibilitesLeaving
+      : null;
+
+    if (isNonCompatible) {
+      const specificIncompatibilitiesReasons =
+        getSpecificIncompatibilitiesReasons(
+          incompatibilitiesReasons,
+          privateSlotId,
+          private_consumer_pass?.id,
+        );
+
+      return (
+        <div>
+          <div className={classes.buttonsContainer}>
+            {isMobile ? (
+              <IconButton onClick={handleInfoIncompatibilitesHovering}>
+                <InfoIcon />
+              </IconButton>
+            ) : (
+              <InfoIcon
+                onMouseEnter={handleInfoIncompatibilitesHovering}
+                onMouseLeave={handleInfoIncompatibilitesLeaving}
+              />
+            )}
+
+            <IconButton color="secondary" onClick={goToPrivatePass}>
+              <ArrowForwardIcon />
+            </IconButton>
+          </div>
+          {showIncompatibilities &&
+            (incompatibilitiesAreLoading ? (
+              <div className={classes.container}>
+                <CircularProgress />
+              </div>
+            ) : (
+              <div className={classes.tooltipContainer}>
+                <ConsumerPrivatePassIncompatibilitiesReasons
+                  closeMobileIncompatibilities={closeMobileIncompatibilities}
+                  extraStartingDate={private_consumer_pass.date_bought}
+                  reasons={specificIncompatibilitiesReasons ?? []}
+                />
+              </div>
+            ))}
+        </div>
+      );
+    }
+
+    if (onBook) {
+      return (
+        <Button color="primary" onClick={handleBook} variant="outlined">
+          {t('bookerModule.useCredit')}
+        </Button>
+      );
+    }
+
+    if (private_consumer_pass.reverted) {
+      return (
+        <RedButton variant="outlined">{t('consumerPass.isReverted')}</RedButton>
+      );
+    }
+
+    if (
+      !onUpdateCredit ||
+      private_consumer_pass.dst_private_consumer_pass.length
+    ) {
+      return null;
+    }
+
+    if (creditProcessing) {
+      return <CircularProgress />;
+    }
+
+    return (
+      <div
+        style={{ alignItems: 'center', display: 'flex', flexDirection: 'row' }}
+      >
+        {!!wasBoughtInAnotherCompany && (
+          <ConsumerPassSourceChip
+            companySourceName={sourceCompanyName}
+            companySourcePrimaryColor={sourceCompanyColor}
+            tooltipText={t('consumerPass.isFromShareTooltip')}
+          />
+        )}
+        <IconButton
+          color="primary"
+          disabled={private_consumer_pass.used_credits === 0}
+          onClick={addCredit}
+        >
+          <ExposurePlus1Icon />
+        </IconButton>
+        <IconButton
+          color="secondary"
+          disabled={
+            private_consumer_pass.used_credits >=
+            private_consumer_pass.private_pass?.credits
+          }
+          onClick={removeCredit}
+        >
+          <ExposureNeg1Icon />
+        </IconButton>
+      </div>
+    );
+  };
+
+  return (
+    <ObjectLevelPermissionProvider requiredPermission="member.allowed_actions.accessProfile">
+      {(hasMemberProfileAccessPermission: boolean) => (
+        <>
+          <ListItem
+            dense
+            button={!!onClick && (hasMemberProfileAccessPermission as any)}
+            className={
+              private_consumer_pass.reverted ||
+              private_consumer_pass.disabled ||
+              isNonCompatible
+                ? classes.disabled
+                : null
+            }
+            disabled={!!disabled}
+            divider={!!divider}
+            onClick={
+              !!onClick && hasMemberProfileAccessPermission ? onClick : null
+            }
+            selected={!!selected}
+          >
+            {showMember &&
+              private_consumer_pass &&
+              private_consumer_pass.member && (
+                <ListItemAvatar>
+                  <Avatar src={private_consumer_pass.member.photo} />
+                </ListItemAvatar>
+              )}
+            <ListItemText
+              primary={
+                <div>
+                  {!showMember ? (
+                    <Typography>{private_pass.name}</Typography>
+                  ) : (
+                    renderMemberName()
+                  )}
+                  <Typography variant="caption">
+                    {t('consumerPass.current_credits', {
+                      credits: getCreditsDividedDisplay(private_pass.credits),
+                      current_credits: getCreditsDividedDisplay(
+                        private_pass.credits -
+                          private_consumer_pass.used_credits,
+                      ),
+                    })}
+                  </Typography>
+                </div>
+              }
+              secondary={
+                <div>
+                  <Typography color="textPrimary" variant="caption">
+                    {getPassDate(private_consumer_pass)[0]}
+                  </Typography>
+                </div>
+              }
+            />
+            {button || renderButton()}
+          </ListItem>
+          {isFromShare || isOwnerOfShares ? (
+            <React.Fragment>
+              <Typography
+                color="textSecondary"
+                style={{ paddingLeft: 16 }}
+                variant="caption"
+              >
+                {' '}
+                {isOwnerOfShares ? t('consumerPass.isOwnerOfShares') : ''}
+                {isFromShare && private_consumer_pass.disabled
+                  ? t('consumerPass.isFromDisabledShare')
+                  : ''}
+                {isFromShare && !private_consumer_pass.disabled
+                  ? t('consumerPass.isFromShare')
+                  : ''}
+              </Typography>
+              <Divider />
+            </React.Fragment>
+          ) : null}
+          {showUniversalWarning && isUniversal ? (
+            <React.Fragment>
+              <Typography
+                color="error"
+                style={{ paddingLeft: 16 }}
+                variant="caption"
+              >
+                {t('consumerPass.warningShareUniversal')}
+              </Typography>
+              <Divider />
+            </React.Fragment>
+          ) : null}
+        </>
+      )}
+    </ObjectLevelPermissionProvider>
+  );
+};
+
+const useStyles = makeStyles((theme) => ({
+  disabled: {
+    backgroundColor: '#FFF0EF',
+  },
+  container: {
+    width: '150px',
+    height: '150px',
+    position: 'absolute',
+    backgroundColor: 'white',
+    right: 0,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    boxShadow: theme.shadows[1],
+    zIndex: 1500,
+  },
+  buttonsContainer: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  tooltipContainer: {
+    position: 'absolute',
+    right: 0,
+    zIndex: 1500,
+    padding: theme.spacing(2),
+    borderRadius: theme.spacing(1),
+    maxWidth: '340px',
+    height: 'auto',
+    backgroundColor: 'white',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    boxShadow: theme.shadows[1],
+  },
+}));
+
+export default withWidth()(React.memo(PrivateConsumerPassBookerListItem));

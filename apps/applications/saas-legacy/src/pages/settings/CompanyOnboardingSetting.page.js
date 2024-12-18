@@ -1,0 +1,110 @@
+// @flow
+import React from 'react';
+import { withStyles } from '@material-ui/core/styles';
+import { ElementsConsumer, Elements } from '@stripe/react-stripe-js';
+import { withState, compose, withHandlers } from 'recompose';
+import { withTranslation } from 'react-i18next';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import WarningIcon from '@material-ui/icons/Warning';
+import Typography from '@material-ui/core/Typography';
+import { loadStripe } from '@stripe/stripe-js';
+import { getOnboardingLink as getOnboardingLinkAPI } from '../../libs/company/api';
+
+import { getStripePkKey } from '../../libs/theme/selectors';
+
+const stripePromise = loadStripe(getStripePkKey());
+
+type Props = {
+  stripe: Stripe,
+  getOnboardingLink: (tokenId: string) => Promise<any>,
+  setError: (err: ?Error) => void,
+  classes: any,
+  t: TFunction,
+  error: ?Error,
+};
+
+export class CompanyOnboardingSettingPage extends React.Component<Props> {
+  componentDidMount() {
+    if (this.props.stripe) {
+      this.doStripeStuff();
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+    if (!prevProps.stripe && !!this.props.stripe) {
+      this.doStripeStuff();
+    }
+  }
+
+  doStripeStuff = () => {
+    this.props.stripe
+      .createToken('account', { tos_shown_and_accepted: true })
+      .then(({ token }) => {
+        this.props.getOnboardingLink(token.id);
+      })
+      .catch((err) => {
+        console.error(err);
+        this.props.setError(err);
+      });
+  };
+
+  render() {
+    if (!this.props.error) {
+      return (
+        <div className={this.props.classes.container}>
+          <CircularProgress />
+        </div>
+      );
+    }
+    return (
+      <div className={this.props.classes.container}>
+        <WarningIcon fontSize="large" />
+        <Typography>{this.props.t('companyOnboarding.error')}</Typography>
+      </div>
+    );
+  }
+}
+
+const styles = (theme) => ({
+  container: {
+    width: '100%',
+    marginTop: theme.spacing(4),
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'row',
+    display: 'flex',
+  },
+});
+
+const CompanyOnboardingSettingPageComposed = compose(
+  withStyles(styles),
+  withTranslation(['settings']),
+  withState('error', 'setError', null),
+  withHandlers({
+    getOnboardingLink:
+      ({ setError }) =>
+      (tokenId) =>
+        getOnboardingLinkAPI({ account_token: tokenId })
+          .then((r) => {
+            window.location = r.data.url;
+          })
+          .catch((err) => {
+            console.error(err);
+            setError(err);
+          }),
+  }),
+)(CompanyOnboardingSettingPage);
+
+export default (props: Props) => (
+  <Elements stripe={stripePromise}>
+    <ElementsConsumer>
+      {({ stripe, elements }) => (
+        <CompanyOnboardingSettingPageComposed
+          elements={elements}
+          stripe={stripe}
+          {...props}
+        />
+      )}
+    </ElementsConsumer>
+  </Elements>
+);

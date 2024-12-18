@@ -1,0 +1,50 @@
+.bs-new-offer-booking__buyable_items__header__title--loading {
+  width: 200px;
+  height: 20px;
+  margin-bottom: var(--spacing-1);
+}
+
+.bs-marketplace-consumer-payment-pack-card__container--loading {
+  border-radius: var(--border-radius-4);
+  margin-bottom: var(--spacing-1);
+  width: 100%;
+  height: 80px;
+}
+
+.bs-new-offer-booking__buyable_items__header--loading {
+  margin-top: var(--spacing-4);
+  margin-bottom: var(--spacing-2);
+  width: 350px;
+  max-width: 100%;
+  height: 25px;
+}
+
+.bs-marketplace-filter-buyable-item-category__container--loading {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-2);
+}
+
+.bs-marketplace-filter-buyable-item-category__button--loading-all {
+  width: 50px;
+  height: 25px;
+}
+
+.bs-marketplace-filter-buyable-item-category__button--loading {
+  width: 150px;
+  height: 25px;
+}
+
+.bs-marketplace-buyable-item-category__title--loading {
+  width: 225px;
+  height: 20px;
+  margin-top: var(--spacing-4);
+  margin-bottom: var(--spacing-1);
+}
+
+.bs-marketplace-buyable-item-category__card--loading {
+  margin-bottom: var(--spacing-1);
+  width: 100%;
+  height: 150px;
+  border-radius: var(--border-radius-4);
+}

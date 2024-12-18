@@ -1,0 +1,52 @@
+/* Bottom Drawer */
+
+.bs-consumer-invoice-page__payment-portal__bottom-drawer {
+}
+
+.bs-consumer-invoice-page__payment-portal__bottom-drawer__content {
+  white-space: pre-line;
+}
+
+/* Modal */
+
+.bs-consumer-invoice-page__payment-portal__modal__portal-container {
+}
+
+.bs-consumer-invoice-page__payment-portal__modal__blanket {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.bs-consumer-invoice-page__payment-portal__modal--payment {
+  width: var(--bs-fabrique-modal-dialog-size--lg);
+}
+
+.bs-consumer-invoice-page__payment-portal__modal--success {
+  width: var(--bs-fabrique-modal-dialog-size--md);
+}
+
+/* Content */
+
+.bs-consumer-invoice-page__payment-portal__confirmation {
+  display: flex;
+  flex-direction: column;
+  gap: var(--bs-space-size-6);
+  align-items: center;
+}
+
+.bs-consumer-invoice-page__payment-portal__confirmation__text {
+  font-weight: var(--bs-font-weight-strong);
+}
+
+.bs-consumer-invoice-page__payment-portal__error {
+}
+
+.bs-consumer-invoice-page__payment-portal__loading {
+  display: flex;
+  justify-content: center;
+}
+
+.bs-consumer-invoice-page__payment-portal__processing {
+  padding-top: var(--bs-space-size-4);
+}

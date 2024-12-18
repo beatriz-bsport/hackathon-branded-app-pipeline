@@ -1,0 +1,128 @@
+import React, { useState } from 'react';
+import { compose } from 'recompose';
+import { WithTranslation, withTranslation } from 'react-i18next';
+import { Theme } from '@material-ui/core/styles';
+import makeStyles from '@material-ui/core/styles/makeStyles';
+import { Button, Paper, Typography } from '@material-ui/core';
+
+import {
+  PerformanceTrackingMetric,
+  PerformanceTrackingProgram,
+} from '#src/libs/performance-tracking/types';
+
+import MuiIcon from '#src/components/MuiIcon.component';
+import GenericMuiDialog from '#src/components/genericDialog/GenericMuiDIalog';
+import TypographyMultilineComponent from '#src/components/typo/TypographyMultiline.component';
+
+type OwnProps = {
+  program: PerformanceTrackingProgram<PerformanceTrackingMetric>;
+  onDelete: (program: PerformanceTrackingProgram) => void;
+  onEdit: (program: PerformanceTrackingProgram) => void;
+};
+type Props = OwnProps & WithTranslation;
+export const ProgramCard = (props: Props) => {
+  const { t, program, onEdit, onDelete } = props;
+  const classes = useStyles({ color: program?.color });
+  const [isOpenGenericMuiDialog, setIsOpenGenericMuiDialog] = useState(false);
+  return (
+    <>
+      <Paper square className={classes.paperItem}>
+        <div className={classes.nameAndDefault}>
+          <div className={classes.textAndIcon}>
+            <div className={classes.icon}>
+              <MuiIcon icon={program?.icon} />
+            </div>
+
+            <Typography className={classes.programName}>
+              {program?.name}
+            </Typography>
+          </div>
+          <Typography className={classes.default}>
+            {program?.is_default ? t('program.default') : null}
+          </Typography>
+        </div>
+        {program.description && (
+          <div className={classes.multiline}>
+            <TypographyMultilineComponent>
+              {program.description}
+            </TypographyMultilineComponent>
+          </div>
+        )}
+        <div className={classes.action}>
+          <Button
+            color="primary"
+            onClick={() => onEdit(program)}
+            variant="contained"
+          >
+            {t('program.form.modify')}
+          </Button>
+          <Button
+            color="primary"
+            onClick={() => setIsOpenGenericMuiDialog(true)}
+            variant="outlined"
+          >
+            {t('program.form.delete')}
+          </Button>
+        </div>
+      </Paper>
+      <GenericMuiDialog
+        confirmText={t('form.delete')}
+        content={t('program.deleteContent')}
+        onCancel={() => setIsOpenGenericMuiDialog(false)}
+        onConfirm={() => {
+          onDelete(program);
+          setIsOpenGenericMuiDialog(false);
+        }}
+        open={isOpenGenericMuiDialog}
+        title={t('program.deleteHeader')}
+      />
+    </>
+  );
+};
+const useStyles = makeStyles<Theme, { color: string }>((theme) => ({
+  multiline: {
+    marginTop: '-1em',
+    marginBottom: '-1em',
+  },
+  nameAndDefault: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: theme.spacing(1),
+  },
+  default: {
+    color: '#757575',
+  },
+  action: {
+    display: 'flex',
+    flexDirection: 'row',
+    gap: theme.spacing(3),
+  },
+  icon: (props) => ({
+    width: theme.spacing(3),
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    color: props.color,
+    marginRight: theme.spacing(2),
+  }),
+  textAndIcon: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+  paperItem: (props) => ({
+    width: '100%',
+    borderLeft: `3px solid`,
+    borderColor: props.color,
+    display: 'flex',
+    flexDirection: 'column',
+    gap: theme.spacing(3),
+    padding: theme.spacing(3),
+  }),
+  programName: {
+    color: '#000000',
+    fontWeight: 500,
+  },
+}));
+export default compose<any, OwnProps>(withTranslation('performanceTracking'))(
+  ProgramCard,
+);

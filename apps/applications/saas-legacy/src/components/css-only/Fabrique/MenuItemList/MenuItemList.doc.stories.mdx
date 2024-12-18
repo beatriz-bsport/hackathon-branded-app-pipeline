@@ -1,0 +1,80 @@
+import { Meta, Canvas, Story , Description, ArgsTable, Source} from '@storybook/addon-docs';
+
+import * as MenuItemListStories from './MenuItemList.stories'
+
+import {MenuItemListStorybook as MenuItemList} from '.'
+
+
+<Meta title="Fabrique/MenuItemList/Doc" component={MenuItemList} />
+
+# MenuItemList
+
+## Description
+
+The **`MenuItemList`** is a group of **`MenuItem`** components. Usually go inside a slot of **`Menu`** component.
+
+###
+
+## Usage
+
+Group **`MenuItem`** items into **`MenuItemList`** based on related categories.
+
+### Text
+
+<Canvas withSource='none' withToolbar>
+  <Story id="fabrique-menuitemlist-stories--withtextitems"/>  
+</Canvas>
+
+#### Example
+
+<Source dark language='tsx' id="fabrique-menuitemlist-stories--withtextitems" />
+
+### Checkbox
+
+<Canvas withSource='none' withToolbar>
+  <Story id="fabrique-menuitemlist-stories--withcheckboxes"/>
+</Canvas>
+
+#### Example
+
+<Source dark language='tsx' id="fabrique-menuitemlist-stories--withcheckboxes" />
+
+### Radio
+
+<Canvas withSource='none' withToolbar>
+  <Story id="fabrique-menuitemlist-stories--withradios"/>  
+</Canvas>
+
+#### Example
+
+<Source dark language='tsx' id="fabrique-menuitemlist-stories--withradios" />
+
+
+### With Group Title
+
+#### Usage
+
+Add a group title to the list
+
+<Canvas withSource='none' withToolbar>
+  <Story id="fabrique-menuitemlist-stories--withgrouptitle"/>  
+</Canvas>
+
+#### Example
+
+<Source dark language='tsx' id="fabrique-menuitemlist-stories--withgrouptitle" />
+
+### With divider
+
+#### Usage
+
+Add a divider to the list
+
+<Canvas withSource='none' withToolbar>
+  <Story id="fabrique-menuitemlist-stories--withdivider"/>  
+</Canvas>
+
+#### Example
+
+<Source dark language='tsx' id="fabrique-menuitemlist-stories--withdivider" />
+

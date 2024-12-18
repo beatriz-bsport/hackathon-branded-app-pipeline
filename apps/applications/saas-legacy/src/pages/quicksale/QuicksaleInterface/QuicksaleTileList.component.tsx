@@ -1,0 +1,123 @@
+import React from 'react';
+import { useTranslation } from 'react-i18next';
+
+import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid';
+
+import type {
+  QuicksaleCardInfo,
+  QuicksaleSection,
+} from '#src/libs/quicksale/types';
+import QuicksaleItemCard from '#src/libs/quicksale/components/QuicksaleItemCard';
+import QuicksaleConfigurationItemList from '#src/libs/quicksale/components/QuicksaleConfigurationItemList';
+import QuicksaleConfigurationSectionList from '#src/libs/quicksale/components/QuicksaleConfigurationSectionList';
+
+import MuiIcon from '#src/components/MuiIcon.component';
+
+import useStyles from './hooks/styles';
+
+type Props = {
+  sectionList?: QuicksaleSection[];
+  itemCardInfoList?: QuicksaleCardInfo[];
+  searchResults?: QuicksaleCardInfo[];
+  showResults?: boolean;
+  currentSection?: QuicksaleSection;
+  searchText?: string;
+  onSectionClick: (sectionId: string) => void;
+  onItemClick?: (item: QuicksaleCardInfo) => void;
+  loading?: boolean;
+  isExcludingTax?: boolean;
+};
+
+const QuicksaleTileList: React.FC<Props> = ({
+  sectionList,
+  itemCardInfoList,
+  searchResults,
+  showResults,
+  currentSection,
+  searchText,
+  onSectionClick,
+  onItemClick,
+  loading,
+  isExcludingTax,
+}) => {
+  const classes = useStyles();
+  const { t } = useTranslation('quicksale');
+
+  if (showResults) {
+    return (
+      <div className={classes.searchResultsContainer}>
+        <Typography variant="body1">
+          {t('interface.resultsForString', {
+            count: searchResults.length,
+            searchText,
+          })}
+        </Typography>
+
+        {sectionList?.map((section) => {
+          const resultsForThisSection = searchResults?.filter(
+            (result) => result.sectionId === section.section_id,
+          );
+          if (resultsForThisSection.length === 0) return <></>;
+          return (
+            <div
+              key={section.section_id}
+              className={classes.resultSectionContainer}
+            >
+              <div className={classes.resultSectionInfo}>
+                <MuiIcon icon={section.section_icon} />
+                <Typography className={classes.resultSectionTitle} variant="h6">
+                  {section.section_name}
+                </Typography>
+              </div>
+              <Grid container className={classes.noMargin} spacing={2}>
+                {resultsForThisSection.map((result) => (
+                  <Grid
+                    key={`${section.section_id}-${result.id}`}
+                    item
+                    className={classes.resultItem}
+                    lg={3}
+                    md={4}
+                    sm={6}
+                    xs={12}
+                  >
+                    <QuicksaleItemCard
+                      addToBasket={onItemClick}
+                      isExcludingTax={isExcludingTax}
+                      item={result}
+                      outOfStock={result.outOfStock}
+                      restrictedPurchase={result.restricted}
+                    />
+                  </Grid>
+                ))}
+              </Grid>
+            </div>
+          );
+        })}
+      </div>
+    );
+  }
+
+  if (currentSection) {
+    return (
+      <QuicksaleConfigurationItemList
+        isQuicksaleInterfaceView
+        isExcludingTax={isExcludingTax}
+        itemList={itemCardInfoList}
+        loading={loading}
+        onItemClick={onItemClick}
+      />
+    );
+  }
+
+  return (
+    <QuicksaleConfigurationSectionList
+      isQuicksaleInterfaceView
+      loading={loading}
+      onSectionClick={onSectionClick}
+      sectionList={sectionList}
+    />
+  );
+};
+
+export default React.memo(QuicksaleTileList);

@@ -1,0 +1,54 @@
+Lint and Compile:
+  image: ${REGISTRY_ENDPOINT}/bsport/bsport-saas-builder:${CI_COMMIT_REF_NAME}
+  stage: static-analysis
+  interruptible: true
+  tags:
+    - high-ram
+    - cluster:bsport-tooling
+  script:
+    - mv /app/node_modules .
+    - yarn install --frozen-lockfile # just to be sure
+    - echo "Format checking CSS files"
+    - yarn pretty
+    - echo "Type checking all files"
+    - yarn compile
+    - echo "Lint checking all files"
+    - NODE_OPTIONS=--max-old-space-size=7000 yarn lint
+
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "schedule"'
+      when: never
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+      when: never
+    - if: '$CI_COMMIT_REF_NAME == "master"'
+      when: never
+    - if: '$CI_COMMIT_REF_NAME == "production"'
+      when: never
+    - if: $CI_COMMIT_TAG =~ /deploy-/
+      when: never
+    - when: on_success
+
+Test:
+  image: ${REGISTRY_ENDPOINT}/bsport/bsport-saas-builder:${CI_COMMIT_REF_NAME}
+  interruptible: true
+  stage: static-analysis
+  tags:
+    - build
+    - cluster:bsport-tooling
+  script:
+    - mv /app/node_modules .
+    - yarn install --frozen-lockfile # just to be sure
+    - yarn test
+
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "schedule"'
+      when: never
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+      when: never
+    - if: '$CI_COMMIT_REF_NAME == "master"'
+      when: never
+    - if: '$CI_COMMIT_REF_NAME == "production"'
+      when: never
+    - if: $CI_COMMIT_TAG =~ /deploy-/
+      when: never
+    - when: on_success

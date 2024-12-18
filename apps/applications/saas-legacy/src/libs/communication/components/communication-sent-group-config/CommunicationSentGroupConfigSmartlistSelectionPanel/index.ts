@@ -1,0 +1,3 @@
+import CommunicationSentGroupConfigSmartlistSelectionPanel from './CommunicationSentGroupConfigSmartlistSelectionPanel.component';
+
+export default CommunicationSentGroupConfigSmartlistSelectionPanel;

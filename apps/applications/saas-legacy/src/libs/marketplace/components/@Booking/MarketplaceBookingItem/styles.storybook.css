@@ -1,0 +1,7 @@
+.bs-booking-item-storybook__container {
+  container: bsConfirmationPage / inline-size;
+}
+
+.bs-setup-variable {
+  overflow: inherit !important;
+}

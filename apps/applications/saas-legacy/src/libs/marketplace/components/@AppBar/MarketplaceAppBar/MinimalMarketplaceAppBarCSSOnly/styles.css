@@ -1,0 +1,134 @@
+/* ----- MINIMAL APPBAR CSS ----- */
+
+#bs-minimal-appbar--container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 48px;
+  z-index: 999;
+  box-shadow: var(--shadow-2);
+  background-color: rgb(239, 239, 239);
+  padding: 0px 24px;
+}
+
+#bs-minimal-appbar__left--container {
+}
+
+#bs-minimal-appbar__right--container {
+  display: flex;
+  height: 100%;
+  overflow: hidden;
+}
+
+.bs-minimal-appbar__right--container__button__base {
+  gap: var(--spacing-1);
+}
+
+#bs-minimal-appbar__right--profile__image__container {
+  display: inline-flex;
+  flex: 0 0 auto;
+  width: 40px;
+  height: 40px;
+  align-items: center;
+  user-select: none;
+  justify-content: center;
+}
+
+#bs-minimal-appbar__right--profile__image__avatar,
+#bs-minimal-appbar__right--profile__image__container .MuiAvatar-img {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--border-radius-8);
+}
+
+#bs-minimal-appbar__right--profile__image__default__avatar {
+}
+
+#bs-minimal-appbar__right--profile__image__container .MuiSvgIcon-root {
+  font-size: 38px;
+}
+
+@media (min-width: 960px) {
+  #bs-minimal-appbar__right--container:hover
+    #bs-minimal-appbar__right--profile__image__container {
+    border-color: white;
+    border-style: solid;
+    border-width: 4px;
+    border-radius: 50%;
+  }
+}
+
+@media (max-width: 960px) {
+  #bs-minimal-appbar__right--auth__name__container {
+    display: none;
+  }
+}
+
+#bs-minimal-appbar__right--auth__name__container {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: var(--subtitle2-fontSize);
+  font-weight: var(--subtitle2-fontWeight);
+  line-height: var(--subtitle2-lineHeight);
+  letter-spacing: var(--subtitle2-letterSpacing);
+  color: inherit;
+}
+
+/* Global button properties */
+
+#bs-minimal-appbar--container .bs-button_base__container {
+  color: inherit;
+  border: none;
+  cursor: pointer;
+  margin: 0;
+  display: inline-flex;
+  padding: 8px;
+  border-radius: var(--border-radius-8);
+  align-items: center;
+  vertical-align: middle;
+  justify-content: center;
+}
+
+#bs-minimal-appbar--container .bs-button_base__container:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+/* ----- MUI CSS SELECTORS BELOW ----- */
+
+.bs-button_base__container > [class*='MuiSvgIcon'] {
+}
+
+#marketplace-appbar-profile-menu {
+}
+
+#marketplace-appbar-profile-menu [class*='MuiPopover'] {
+}
+
+#marketplace-appbar-profile-menu
+  [class*='MuiPopover']
+  [class*='MuiSvgIcon-root'] {
+}
+
+#marketplace-appbar-profile-menu
+  [class*='MuiPopover']
+  [class*='MuiDivider-root'] {
+}
+
+#marketplace-appbar-profile-menu
+  [class*='MuiPopover']
+  [class*='MuiButtonBase-root'] {
+}
+
+#marketplace-appbar-profile-menu
+  [class*='MuiPopover']
+  [class*='MuiButtonBase-root']
+  [class*='MuiButton-label'] {
+}
+#marketplace-appbar-profile-menu
+  [class*='MuiPopover']
+  [class*='MuiButtonBase-root']
+  [class*='MuiTouchRipple-root'] {
+}

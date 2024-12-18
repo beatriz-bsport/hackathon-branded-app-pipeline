@@ -1,0 +1,199 @@
+/* 
+Certain CSS rules need to be overridden solely for the purpose of previewing.
+In order to maintain the integrity of the source CSS files
+these overrides will be overwritten within this file.
+*/
+
+/* --- MUI THINGS --- 
+We need to brutally override some things from MUI.
+*/
+[class*='MuiBackdrop'] {
+  display: none !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  position: relative !important;
+}
+
+/* ResetPasswordForm */
+.bs-custom-css__component__preview .bs-reset-password-container {
+  position: relative;
+  transform: inherit;
+  top: inherit;
+  left: inherit;
+  padding: 0;
+}
+
+/* ChangePasswordForm */
+.bs-custom-css__component__preview .bs-change-password-form__container {
+  position: relative;
+  transform: inherit;
+  top: inherit;
+  left: inherit;
+  padding: 0;
+  width: 100%;
+  max-width: 500px;
+}
+
+/* MarketPlaceContractCooldownModal */
+.bs-custom-css__component__preview .bs-contract-cooldown-dialog__backdrop {
+  position: relative;
+}
+
+/* MarketPlaceContractDetailModal */
+.bs-custom-css__component__preview .bs-contract-details-dialog {
+  position: relative;
+}
+
+/* MarketplaceContractTermsModal */
+.bs-custom-css__component__preview .bs-contract-terms-dialog__backdrop {
+  position: relative;
+}
+
+/* MarketplaceCouponFormModal */
+.bs-custom-css__component__preview .bs-coupon-form__backdrop {
+  position: relative;
+}
+
+/* MarketplacePaymentPackCompatibilityModal */
+.bs-custom-css__component__preview .bs-pack-compatibility-dialog__backdrop {
+  position: relative;
+}
+
+/* MarketplacePaymentPackRestrictionModal */
+.bs-custom-css__component__preview .bs-restrictions-modal__backdrop {
+  position: relative;
+}
+
+/* MarketplacePrivatePassCompatibilityModal */
+.bs-custom-css__component__preview .bs-pass-compatibility-dialog__backdrop {
+  position: relative;
+}
+
+/* paymentPackOffPeakRestrictionModal */
+.bs-custom-css__component__preview .bs-off_peak-modal__backdrop {
+  position: relative;
+}
+
+/* MarketplaceContractPayment */
+.bs-custom-css__component__preview
+  .bs-contract-payment__container
+  .bs-collect-payment-method__dialog__backdrop {
+  position: absolute;
+}
+
+/* MarketplaceCollectPaymentMethod */
+.bs-custom-css__component__preview
+  .bs-collect-payment-method__dialog__backdrop {
+  position: relative;
+}
+
+/*MarketPlaceActivityDialog */
+
+.bs-custom-css__component__preview #bs-activity--dialog {
+  position: relative !important;
+}
+
+/* MarketplaceBasketSummaryItemCssOnly */
+.bs-basket_summary_checkout_item--container {
+  width: 100%;
+}
+
+/* MarketplaceBasketSummaryListCssOnly */
+.bs-basket_summary_checkout_list--container {
+  width: 100%;
+}
+
+/* BasketSummaryCssOnly */
+.bs-basket_summary--container {
+  width: 100%;
+}
+
+.bs-custom-css__component__preview #bs-basket_summary--dialog {
+  position: relative !important;
+}
+
+#bs-custom-css__component__preview #bs-basket_summary--dialog {
+  position: relative !important;
+  width: 100%;
+}
+
+.bs-basket_summary_prepaid_line_item--container {
+  width: 100%;
+}
+
+.bs-basket_summary_prepaid_line_list--container {
+  width: 100%;
+}
+
+#bs-custom-css__component__preview
+  .bs-login-container__forgotten-password__link {
+  pointer-events: none;
+}
+
+#bs-custom-css__component__preview .bs-marketplace-spot-selector {
+  width: 100% !important;
+}
+
+#bs-custom-css__component__preview .bs-marketplace-spot-selector {
+  width: 100% !important;
+}
+
+#bs-custom-css__component__preview #unbound-asset-css-preview {
+  filter: blur(5px);
+}
+
+#bs-custom-css__component__preview #fake-spot-1 circle,
+#fake-spot-2 circle,
+#fake-spot-3 circle,
+#fake-spot-4 circle,
+#fake-spot-5 circle,
+#fake-spot-6 circle {
+  filter: drop-shadow(15px 15px 2px rgb(0 0 0 / 0.4));
+  transition: ease 0.3s;
+}
+
+#bs-custom-css__component__preview #fake-spot-1:hover circle,
+#fake-spot-2:hover circle,
+#fake-spot-3:hover circle,
+#fake-spot-4:hover circle,
+#fake-spot-5:hover circle,
+#fake-spot-6:hover circle {
+  transform: scale(1.1);
+}
+
+#bs-custom-css__component__preview #fake-spot-1 rect,
+#fake-spot-2 rect,
+#fake-spot-3 rect,
+#fake-spot-4 rect,
+#fake-spot-5 rect,
+#fake-spot-6 rect {
+  opacity: 0;
+}
+
+#bs-custom-css__component__preview .bs-fabrique-blanket-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bs-custom-css__component__preview .bs-payment-combo-buyable-item__card {
+  width: 100%;
+}
+
+.bs-custom-css__component__preview .bs-payment-pack-buyable-item__card {
+  width: 100%;
+}
+
+.bs-custom-css__component__preview .bs-contract-buyable-item__card {
+  width: 100%;
+}
+
+.bs-custom-css__component__preview .bs-fabrique-bottom-drawer__blanket {
+  position: absolute;
+  height: 900px;
+}
+
+.bs-custom-css__component__preview
+  .bs-fabrique-bottom-drawer__modal-dialog--expanded {
+  max-height: 100%;
+}

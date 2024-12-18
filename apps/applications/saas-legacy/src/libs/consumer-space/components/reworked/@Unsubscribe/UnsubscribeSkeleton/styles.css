@@ -1,0 +1,30 @@
+.bs-unsubscribe-skeleton__root {
+  display: flex;
+  flex-direction: column;
+  gap: var(--bs-space-size-6);
+  width: 80%;
+  align-items: center;
+}
+
+.bs-unsubscribe-skeleton__logo {
+  height: var(--bs-icon-size-3xl);
+  width: var(--bs-icon-size-3xl);
+}
+
+.bs-unsubscribe-skeleton__text__container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--bs-space-size-2);
+  width: 100%;
+  align-items: center;
+}
+
+.bs-unsubscribe-skeleton__text {
+  width: 60%;
+}
+
+.bs-unsubscribe-skeleton__button {
+  border-radius: var(--bs-border-radius-pill);
+  height: var(--bs-component-height-button-lg);
+  width: 150px;
+}

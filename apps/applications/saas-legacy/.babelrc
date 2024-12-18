@@ -1,0 +1,21 @@
+{
+  "presets": [
+    "@babel/preset-env",
+    "@babel/preset-react",
+    "@babel/preset-typescript"
+  ],
+  "sourceMaps": true,
+  "plugins": [
+    "@babel/plugin-transform-flow-strip-types",
+    [
+      "babel-plugin-module-resolver",
+      {
+        "alias": {
+          "#src": "./src",
+          "#marketplacecomponents": "./src/libs/marketplace/components",
+          "#Fabrique": "./src/components/css-only/Fabrique",
+        }
+      }
+    ]
+  ]
+}

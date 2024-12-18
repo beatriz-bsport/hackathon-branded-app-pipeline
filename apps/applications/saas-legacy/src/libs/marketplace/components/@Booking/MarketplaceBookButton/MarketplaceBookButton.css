@@ -1,0 +1,102 @@
+/*  */
+/* Book button */
+/*  */
+
+.bs-book-button-card {
+  cursor: pointer;
+  border-radius: var(--border-radius-2);
+  padding-left: var(--spacing-1);
+  padding-right: var(--spacing-1);
+  padding-top: calc(var(--spacing-1) / 2);
+  padding-bottom: calc(var(--spacing-1) / 2);
+  text-transform: uppercase;
+  border: none;
+  background-color: inherit;
+}
+
+.bs-book-button-card:hover {
+  background-color: var(--color-primary-light);
+  border-radius: var(--border-radius-5);
+}
+
+.bs-book-button-card--booked:hover {
+  background-color: var(--color-success-light);
+}
+
+.bs-book-button-card--disabled::before {
+  display: none;
+}
+
+.bs-book-button-card--disabled {
+  cursor: default;
+}
+
+.bs-book-button-card--disabled:hover {
+  background-color: var(--color-background-paper);
+}
+
+.bs-book-button-card__inner {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-1);
+}
+
+.bs-book-button-card__inner__icon__not-available {
+  color: var(--color-error-main);
+}
+
+.bs-book-button-card__inner__icon__past {
+  color: var(--color-text-secondary);
+}
+
+.bs-book-button-card__inner__icon__book {
+  color: var(--color-primary-main);
+}
+
+.bs-book-button-card__inner__icon__already-booked {
+  color: var(--color-success-main);
+}
+
+.bs-book-button-card__inner__text {
+  color: var(--color-primary-main);
+  font-family: var(--button-fontFamily);
+  font-size: var(--button-fontSize);
+  font-weight: var(--button-fontWeight);
+  letter-spacing: var(--button-letterSpacing);
+  line-height: var(--button-lineHeight);
+}
+
+.bs-book-button-card__inner__text--not-available {
+  color: var(--color-error-main);
+}
+
+.bs-book-button-card__inner__text--disabled {
+  color: var(--color-text-secondary);
+}
+
+.bs-book-button-card__inner__text--booked {
+  color: var(--color-success-main);
+}
+
+@media only screen and (min-width: 570px) {
+  .bs-book-button-card__inner__text {
+    display: block;
+  }
+
+  .bs-book-button-card__inner__icon__book {
+    display: none;
+  }
+}
+@media (max-width: 570px) {
+  .bs-book-button-card {
+    padding-bottom: 0;
+    padding-top: 0;
+  }
+
+  .bs-book-button-card__inner__icon__past,
+  .bs-book-button-card__inner__icon__already-booked,
+  .bs-book-button-card__inner__icon__not-available {
+    width: 17px;
+    height: 17px;
+  }
+}

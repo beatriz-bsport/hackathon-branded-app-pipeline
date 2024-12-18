@@ -1,0 +1,40 @@
+/*  */
+/* Book button */
+/*  */
+
+.bs-book-button {
+  cursor: pointer;
+  padding-left: var(--spacing-2);
+  padding-right: var(--spacing-2);
+  padding-top: calc(var(--spacing-1) / 2);
+  padding-bottom: calc(var(--spacing-1) / 2);
+  text-transform: uppercase;
+  border: none;
+  background-color: var(--color-primary-main);
+  color: var(--color-primary-contrastText);
+  font-family: var(--button-fontFamily);
+  font-size: var(--button-fontSize);
+  font-weight: var(--button-fontWeight);
+  letter-spacing: var(--button-letterSpacing);
+  line-height: var(--button-lineHeight);
+  position: relative;
+  border-radius: var(--border-radius-5);
+}
+
+.bs-book-button:hover {
+  background-color: var(--color-primary-light);
+  color: var(--color-primary-main);
+}
+
+.bs-book-button-card::before {
+  transition: 0.2s;
+  color: var(--color-primary-main);
+}
+
+.bs-book-button__inner__text {
+  color: var(--color-primary-contrastText);
+}
+
+.bs-book-button__inner__icon__already-booked {
+  color: var(--color-primary-contrastText);
+}

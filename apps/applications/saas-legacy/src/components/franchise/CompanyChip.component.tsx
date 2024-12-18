@@ -1,0 +1,48 @@
+import React from 'react';
+import { Chip, MuiThemeProvider } from '@material-ui/core';
+
+import chroma from 'chroma-js';
+import type { FranchiseCompany } from '../../libs/franchise/types';
+// @ts-expect-error
+import { getTheme } from '../../theme';
+
+export type OwnProps = {
+  company: FranchiseCompany;
+  onDelete?: () => void;
+  size?: 'medium' | 'small';
+  className?: string;
+};
+
+type Props = OwnProps;
+const CompanyChip = (props: Props) => {
+  const { company, className, onDelete, size } = props;
+
+  if (!company) return null;
+  return (
+    <MuiThemeProvider
+      theme={getTheme({
+        primary_color: chroma(
+          company?.primaryRGB?.[0],
+          company?.primaryRGB?.[1],
+          company?.primaryRGB?.[2],
+        ).hex(),
+        secondary_color: chroma(
+          company?.primaryRGB?.[0],
+          company?.primaryRGB?.[1],
+          company?.primaryRGB?.[2],
+        ).hex(),
+      })}
+    >
+      <Chip
+        className={className}
+        color={!(company.isAllowed === false) ? 'primary' : 'default'}
+        disabled={company.isAllowed === false}
+        label={company.name}
+        onDelete={company.isAllowed && onDelete}
+        size={size || 'medium'}
+      />
+    </MuiThemeProvider>
+  );
+};
+
+export default CompanyChip;

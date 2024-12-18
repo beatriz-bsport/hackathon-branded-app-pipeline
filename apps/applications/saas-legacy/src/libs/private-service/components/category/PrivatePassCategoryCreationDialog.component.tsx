@@ -1,0 +1,134 @@
+import { withTranslation, WithTranslation } from 'react-i18next';
+import React from 'react';
+import Dialog from '@material-ui/core/Dialog';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import DialogContent from '@material-ui/core/DialogContent';
+import TextField from '@material-ui/core/TextField';
+import InfoIcon from '@material-ui/icons/Info';
+import Typography from '@material-ui/core/Typography';
+import DialogActions from '@material-ui/core/DialogActions';
+import Button from '@material-ui/core/Button';
+import { Theme } from '@material-ui/core/styles';
+import { compose } from 'recompose';
+import withStyles from '@material-ui/core/styles/withStyles';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+import { useTheme } from '@material-ui/core';
+import { MaterialStyleType } from '../../../../utils/types';
+import { PrivatePassCategory } from '../../types';
+
+type OwnProps = {
+  open: boolean;
+  handleClose: () => void;
+  onSubmit: (data: any) => void;
+  privatePassCategorySelected: PrivatePassCategory | null;
+  trackIntent: () => void;
+};
+type Props = OwnProps &
+  WithTranslation &
+  MaterialStyleType<ReturnType<typeof styles>>;
+export const PrivatePassCategoryCreationDialogComponent = (props: Props) => {
+  const { t, classes, privatePassCategorySelected } = props;
+  const name = privatePassCategorySelected
+    ? privatePassCategorySelected.name
+    : '';
+  const [privatePassCategoryName, setPrivatePassCategoryName] =
+    React.useState(name);
+  React.useEffect(() => {
+    privatePassCategorySelected &&
+      setPrivatePassCategoryName(privatePassCategorySelected.name);
+  }, [privatePassCategorySelected]);
+  const handleSubmit = () => {
+    props.onSubmit({
+      ...(privatePassCategorySelected && privatePassCategorySelected),
+      name: privatePassCategoryName,
+    });
+  };
+  const theme = useTheme();
+  const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
+  return (
+    <Dialog
+      disableBackdropClick
+      disableEscapeKeyDown
+      fullWidth
+      fullScreen={fullScreen}
+      maxWidth="sm"
+      onClose={props.handleClose}
+      open={props.open}
+    >
+      <DialogTitle id="form-dialog-title">
+        {privatePassCategorySelected
+          ? t('category.form.dialog.titleEdit')
+          : t('category.form.dialog.titleNew')}
+      </DialogTitle>
+      <DialogContent>
+        <TextField
+          fullWidth
+          required
+          onChange={(ev) => setPrivatePassCategoryName(ev.target.value)}
+          placeholder={t('category.form.dialog.name')}
+          value={privatePassCategoryName}
+          variant="outlined"
+        />
+        {!privatePassCategorySelected && (
+          <div className={classes.textAndIcon}>
+            <InfoIcon className={classes.leftIcon} fontSize="small" />
+            <div className={classes.helperTextContainer}>
+              <Typography variant="caption">
+                {t('category.form.dialog.helper')}
+              </Typography>
+            </div>
+          </div>
+        )}
+      </DialogContent>
+      <DialogActions>
+        <Button color="secondary" onClick={props.handleClose}>
+          {t('cancel')}
+        </Button>
+        <Button
+          color="secondary"
+          disabled={!privatePassCategoryName}
+          onClick={() => {
+            props.trackIntent();
+            handleSubmit();
+          }}
+        >
+          {privatePassCategorySelected ? t('update') : t('create')}
+        </Button>
+      </DialogActions>
+    </Dialog>
+  );
+};
+const styles = (theme: Theme) => ({
+  paddingBottom: {
+    paddingBottom: theme.spacing(1),
+  },
+  textAndIcon: {
+    paddingTop: theme.spacing(2),
+    display: 'flex',
+    alignItems: 'center',
+  },
+  leftIcon: {
+    marginRight: theme.spacing(1),
+  },
+  helperTextContainer: {
+    backgroundColor: '#e0e0e0',
+    borderRadius: theme.spacing(0.5),
+    paddingRight: theme.spacing(1),
+    paddingLeft: theme.spacing(1),
+  },
+  optionButton: {
+    paddingTop: theme.spacing(2),
+  },
+  choicesWithTag: {
+    display: 'flex',
+    flexDirection: 'row',
+  },
+  paddingTop: {
+    paddingTop: theme.spacing(2),
+  },
+});
+export default compose<any, OwnProps>(
+  withTranslation('paymentPack'),
+  // @ts-expect-error
+  withStyles(styles),
+)(PrivatePassCategoryCreationDialogComponent);

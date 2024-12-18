@@ -1,0 +1,44 @@
+import React, { SVGProps } from 'react';
+
+export type CardRefusedIconProps = { color?: string } & SVGProps<SVGElement>;
+
+export const CardRefusedIcon: React.FC<CardRefusedIconProps> = ({
+  color,
+  width,
+  height,
+  viewBox,
+  xmlns,
+  fill,
+}) => {
+  return (
+    <svg
+      fill={fill}
+      height={height}
+      viewBox={viewBox}
+      width={width}
+      xmlns={xmlns}
+    >
+      <circle cx="55" cy="55" fill={color} fillOpacity=".08" r="55" />
+      <g clipPath="url(#a)" fill={color}>
+        <path d="M37.409 67.903c-.775 0-1.51-.348-2.052-.852A2.971 2.971 0 0 1 34.505 65c0-.774.31-1.548.852-2.09.542-.543 1.277-.813 2.052-.813h3.872c.735 0 1.51.27 2.052.812.542.543.852 1.317.852 2.091 0 .736-.31 1.51-.852 2.052-.542.504-1.317.852-2.052.852h-3.872Z" />
+        <path d="M32.685 36.73c-1.626.35-2.904 1.472-3.446 2.982h6.427l-2.981-2.981ZM52.78 48.62h28.38V45.52H49.683l3.098 3.098Zm28.031-8.907c-.658-1.82-2.4-3.098-4.491-3.137H40.738l3.137 3.137h36.937ZM77.366 73.21c2.169-.426 3.795-2.362 3.795-4.685V54.428H58.588l18.778 18.781ZM28.891 54.43v14.095a4.842 4.842 0 0 0 4.84 4.84h35.582L50.38 54.429H28.89Zm0-8.908v3.099h15.68l-3.096-3.099H28.89Zm-5.808-4.104c0-3.872 2.052-7.24 5.149-9.139l-4.299-4.298c-1.161-1.124-1.161-2.943 0-4.105 1.123-1.124 2.943-1.124 4.105 0l6.891 6.893h41.39a10.643 10.643 0 0 1 10.65 10.65v27.107c0 3.873-2.053 7.241-5.15 9.14l4.298 4.298c1.123 1.161 1.123 2.982 0 4.105-1.161 1.161-2.982 1.161-4.104 0l-6.892-6.893h-41.39a10.642 10.642 0 0 1-10.648-10.65V41.417Z" />
+      </g>
+      <defs>
+        <clipPath id="a">
+          <path d="M23 23h64v64H23z" fill="#fff" />
+        </clipPath>
+      </defs>
+    </svg>
+  );
+};
+
+CardRefusedIcon.defaultProps = {
+  color: '#F44336',
+  width: '110',
+  height: '110',
+  viewBox: '0 0 110 110',
+  fill: 'none',
+  xmlns: 'http://www.w3.org/2000/svg',
+};
+
+export default React.memo(CardRefusedIcon);

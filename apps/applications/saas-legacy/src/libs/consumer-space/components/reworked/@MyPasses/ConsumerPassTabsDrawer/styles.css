@@ -1,0 +1,9 @@
+/* .bs-consumer-pass-tab-drawer__root {} */
+
+.bs-consumer-pass-tab-drawer__list {
+  gap: 0;
+}
+
+.bs-consumer-pass-tab-drawer__list__item__label {
+  text-decoration: none;
+}

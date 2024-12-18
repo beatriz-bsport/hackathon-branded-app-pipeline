@@ -1,0 +1,68 @@
+import React from 'react';
+import { connect } from 'react-redux';
+import { compose } from 'recompose';
+import { withStyles } from '@material-ui/core/styles';
+import { WithTranslation, withTranslation } from 'react-i18next';
+import { LinearProgress } from '@material-ui/core';
+import { MaterialStyleType } from '../../utils/types';
+import { getMembership } from '../../libs/membership/selectors';
+import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
+// @ts-expect-error
+import ConsumerSubscription from '../consumer/ConsumerSubscription.page';
+import { RootState } from '../../reducers';
+
+type OwnProps = {
+  // eslint-disable-next-line react/no-unused-prop-types
+  companyId: number;
+  // eslint-disable-next-line react/no-unused-prop-types
+  companyName: string;
+};
+type OwnAndConnectedProps = OwnProps & ReturnType<typeof mapStateToProps>;
+
+type Props = OwnAndConnectedProps &
+  MaterialStyleType<ReturnType<typeof styles>> &
+  WithTranslation;
+
+class ConsumerSubscriptionPage extends React.PureComponent<Props> {
+  render() {
+    const { classes } = this.props;
+    if (!this.props.membership) {
+      return <LinearProgress />;
+    }
+    return (
+      <div className={classes.container}>
+        <ConsumerSubscription
+          hideButtonOnWidget
+          membership={this.props.membership}
+        />
+      </div>
+    );
+  }
+}
+
+// @ts-expect-error
+const styles = (theme) => ({
+  container: {
+    display: 'flex',
+    flexDirection: 'column',
+    flex: 1,
+    width: '100%',
+    padding: theme.spacing(2),
+  },
+});
+const mapStateToProps = (state: RootState, ownProps: OwnProps) => ({
+  auth: state.auth,
+  membership: getMembership(state, ownProps.companyId),
+});
+
+export default compose(
+  routerParamsToProps({
+    companyId: 'companyId:number',
+    // @ts-expect-error
+    companyName: 'companyName',
+  }),
+  // @ts-expect-error
+  withStyles(styles),
+  withTranslation(),
+  connect(mapStateToProps),
+)(ConsumerSubscriptionPage);

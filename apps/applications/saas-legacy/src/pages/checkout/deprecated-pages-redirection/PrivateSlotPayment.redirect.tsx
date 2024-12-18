@@ -1,0 +1,44 @@
+import React from 'react';
+
+import { replace } from 'connected-react-router';
+import { connect } from 'react-redux';
+import { compose } from 'recompose';
+import { fetchPrivateServiceBulk } from '#src/libs/private-service/actions';
+import { OptionCallback } from '#src/state/types';
+import routerParamsToProps from '#src/hocs/router-params-to-props.hoc';
+import RedirectionLoading from './RedirectionLoading.component';
+
+type Props = {
+  privateServiceId: number;
+  privateSlotId: number;
+  replace: (path: string) => void;
+  fetchPrivateServiceBulk: (ids: number[], options: OptionCallback) => void;
+};
+
+export class OfferBookerRedirect extends React.Component<Props> {
+  componentDidMount() {
+    this.props.fetchPrivateServiceBulk([this.props.privateServiceId], {
+      onSuccess: (serviceList: any) => {
+        const service = serviceList[0];
+        this.props.replace(
+          `/checkout/${service.company}/private-slot-booker/${this.props.privateServiceId}/private-slot/${this.props.privateSlotId}/${window.location.search}`,
+        );
+      },
+    });
+  }
+
+  render() {
+    return <RedirectionLoading />;
+  }
+}
+
+export default compose(
+  routerParamsToProps({
+    privateSlotId: 'privateSlotId:number',
+    privateServiceId: 'privateServiceId:number',
+  }),
+  connect(null, {
+    replace,
+    fetchPrivateServiceBulk,
+  }),
+)(OfferBookerRedirect);

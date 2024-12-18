@@ -1,0 +1,24 @@
+.bs-marketplace-navigation__root {
+  container: bsMarketplaceNavigation / inline-size;
+}
+
+.bs-marketplace-navigation__root--relationship {
+  grid-template-rows:
+    calc(
+      var(--bs-navigation-app-bar-height) +
+        var(--bs-navigation-app-bar-banner-height)
+    )
+    calc(100dvh - var(--bs-navigation-app-bar-height));
+}
+
+.bs-marketplace-navigation__content {
+  overflow-y: auto;
+}
+
+.bs-marketplace-navigation__content--mobile {
+}
+
+@container bsMarketplaceNavigation (width < 930px) {
+  .bs-marketplace-navigation__content {
+  }
+}

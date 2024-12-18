@@ -1,0 +1,128 @@
+import React from 'react';
+
+import { withTranslation, WithTranslation } from 'react-i18next';
+import withStyles, { WithStyles } from '@material-ui/core/styles/withStyles';
+import { compose } from 'recompose';
+import { Theme } from '@material-ui/core';
+import Dialog from '@material-ui/core/Dialog';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
+import { createStyles } from '@material-ui/styles';
+import type { Account } from '../types';
+
+type OuterProps = {
+  open: boolean;
+  account: Account;
+  updateAccount: (data: Pick<Account, 'token' | 'api_url'>) => void;
+  onCancel: () => void;
+};
+
+type InnerProps = WithStyles<typeof styles> & WithTranslation;
+
+type Props = OuterProps & InnerProps;
+
+type State = Pick<Account, 'token' | 'api_url'>;
+export class ActiveCampaignAccountForm extends React.Component<Props, State> {
+  constructor(props: Props) {
+    super(props);
+    this.state = {
+      token: this.props.account?.token || null,
+      api_url: this.props.account?.api_url || null,
+    };
+  }
+
+  onCancel = () => {
+    this.setState({
+      token: null,
+      api_url: null,
+    });
+    this.props.onCancel();
+  };
+
+  componentDidUpdate(prevProps: Props) {
+    if (this.props.open !== prevProps.open) {
+      this.setState({
+        token: this.props.account?.token || null,
+        api_url: this.props.account?.api_url || null,
+      });
+    }
+  }
+
+  render() {
+    const { open, t, classes, updateAccount } = this.props;
+    return (
+      <Dialog open={open}>
+        <DialogTitle id="dialog-title">
+          {t('active_campaign.account.dialogTitle')}
+        </DialogTitle>
+        <DialogContent>
+          <form
+            onSubmit={(ev) => {
+              ev.preventDefault();
+              updateAccount({
+                api_url: this.state.api_url,
+                token: this.state.token,
+              });
+              this.onCancel();
+            }}
+          >
+            <div className={classes.container}>
+              <TextField
+                helperText="API url"
+                onChange={(ev) =>
+                  this.setState({
+                    api_url: ev.target.value,
+                  })
+                }
+                placeholder="https://bsport-example.api-us1.com"
+                value={this.state.api_url}
+              />
+              <TextField
+                className={classes.textField}
+                helperText={t('active_campaign.account.token')}
+                onChange={(ev) =>
+                  this.setState({
+                    token: ev.target.value,
+                  })
+                }
+                placeholder="7b5709a81f9b78089f3fc9e0ee189332"
+                value={this.state.token}
+              />
+            </div>
+            <DialogActions>
+              <Button color="secondary" onClick={this.onCancel}>
+                {t('active_campaign.cancel')}
+              </Button>
+              <Button color="primary" type="submit">
+                {t('active_campaign.submit')}
+              </Button>
+            </DialogActions>
+          </form>
+        </DialogContent>
+      </Dialog>
+    );
+  }
+}
+
+const styles = (theme: Theme) =>
+  createStyles({
+    textField: {
+      marginTop: theme.spacing(2),
+    },
+    container: {
+      display: 'flex',
+      flexDirection: 'column',
+    },
+    formControl: {
+      marginTop: theme.spacing(1),
+      marginBottom: theme.spacing(1),
+    },
+  });
+
+export default compose<InnerProps, OuterProps>(
+  withStyles(styles),
+  withTranslation('settings'),
+)(ActiveCampaignAccountForm);

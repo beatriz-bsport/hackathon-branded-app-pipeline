@@ -1,0 +1,13 @@
+import PrivateConsumerPassDetailsCardCompatibilitySection from './PrivateConsumerPassDetailsCardCompatibilitySection.component';
+import PrivateConsumerPassDetailsCardCompatibleEstablishmentsSection from './PrivateConsumerPassDetailsCardCompatibleEstablishmentsSection.component';
+import PrivateConsumerPassDetailsCardDescriptionSection from './PrivateConsumerPassDetailsCardDescriptionSection.component';
+import PrivateConsumerPassDetailsCardHeader from './PrivateConsumerPassDetailsCardHeader.component';
+import PrivateConsumerPassDetailsCardSharedSection from './PrivateConsumerPassDetailsCardSharedSection.component';
+
+export {
+  PrivateConsumerPassDetailsCardCompatibilitySection,
+  PrivateConsumerPassDetailsCardCompatibleEstablishmentsSection,
+  PrivateConsumerPassDetailsCardDescriptionSection,
+  PrivateConsumerPassDetailsCardHeader,
+  PrivateConsumerPassDetailsCardSharedSection,
+};

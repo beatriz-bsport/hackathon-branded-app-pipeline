@@ -2,6 +2,8 @@ import type { Command } from "commander";
 
 import commandCreate from "./command-create";
 import commandList from "./command-list";
+import legacyMigrate from "./legacy-migrate";
+import openBranchList from "./open-branch-list";
 import projectClean from "./project-clean";
 import projectCreate from "./project-create";
 import projectImport from "./project-import";
@@ -14,6 +16,8 @@ const COMMANDS: ((program: Command) => Promise<Command> | Command)[] = [
   commandCreate,
   commandList,
   dbSync,
+  legacyMigrate,
+  openBranchList,
   projectClean,
   projectCreate,
   projectDependenciesList,

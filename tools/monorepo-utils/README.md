@@ -29,6 +29,8 @@ You can run any script from this folder using the following command: `pnpm exec 
 [command:create](#commandcreate)
 [command:list](#commandlist)
 [db:sync](#dbsync)
+[legacy:migrate](#legacymigrate)
+[open:branch:list](#openbranch-list)
 [project:clean](#projectclean)
 [project:create](#projectcreate)
 [project:dependencies:list](#projectdependencies-list)
@@ -76,6 +78,36 @@ __Usage:__ `@bsport/monorepo-utils-tools db:sync [env_name]`
 
 | Option | Description |
 |:----:|:----:|
+| `-h, --help` | display help for command |
+
+### `legacy:migrate`
+
+An interactive CLI to import legacy bsport projects : bsport-saas, bsport-widget
+
+__Usage:__ `@bsport/monorepo-utils-tools legacy:migrate [options]`
+
+| Option | Description |
+|:----:|:----:|
+| `-q, --quiet` | suppress all output, unless an error occurs. (default: false) |
+| `-b, --base-branch <string>` | The monorepository branch to use as base to create the new branches (default: "main") |
+| `-h, --help` | display help for command |
+
+### `open:branch:list`
+
+List open branches of a gitlab repo which have been created less than X months ago
+
+__Usage:__ `@bsport/monorepo-utils-tools open:branch:list [options] <initial-repository-path>`
+
+| Arg | Description |
+|:----:|:----:|
+| `initial-repository-path` | Filesystem path where the target repository is locally located |
+
+| Option | Description |
+|:----:|:----:|
+| `-gp, --gitlab-project <string>` | Name of the Gitlab Repository. Valid inputs : bsport-saas, bsport-widget |
+| `-gi, --gitlab-id <string>` | If you don't provide a gitlabProject, you must provide a valid gitlab project Id |
+| `-m, --month <string>` | The script will keep only branches created less than $month ago. (default: "4") |
+| `-q, --quiet` | suppress all output, unless an error occurs. (default: false) |
 | `-h, --help` | display help for command |
 
 ### `project:clean`

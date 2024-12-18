@@ -17,5 +17,5 @@ export const getMonorepoBasePath = async () => {
   if (!isPathValid) {
     throw new Error(`Invalid output for command "pnpm run -w pwd": ${stdout}`);
   }
-  return stdout;
+  return result;
 };

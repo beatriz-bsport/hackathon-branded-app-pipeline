@@ -130,6 +130,11 @@ __Usage:__ `@bsport/monorepo-utils-tools project:import [options] <target-path> 
 |:----:|:----:|
 | `-b, --branch <branch>` | branch from which the project will be imported. (default: "master") |
 | `-r, --remote <remote>` | remote from which the project will be imported. (default: "origin") |
+| `--tempDir <tempDir>` | temporary cache directory that will be used to copy files |
+| `--tempBranch <tempBranch>` | temporary branch used in the project's repository to make the migration. (default: "temp/prepare_monorepo") |
+| `--tempRemote <tempRemote>` | temporary remote added in the monorepo to import the project. (default: "temp") |
+| `-ncu, --noCleanUp` | disables the post script clean-up that removes temporary folders, remotes and branches. (default: false) |
+| `-q, --quiet` | suppress all output, unless an error occurs. (default: false) |
 | `-h, --help` | display help for command |
 
 ### `project:list`

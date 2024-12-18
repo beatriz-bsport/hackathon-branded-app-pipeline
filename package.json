@@ -64,12 +64,14 @@
     "lint:affected": "pnpm exec nx affected --target=lint --base=HEAD",
     "lint:fix": "pnpm exec nx run-many -t lint:fix",
     "lint:affected:fix": "pnpm exec nx affected --target=lint:fix --base=HEAD",
+    "preinstall": "npx only-allow pnpm",
+    "prepare": "husky",
     "project:create": "ts-node tools/monorepo-utils/src/index.ts project:create",
     "project:dependencies:list": "ts-node tools/monorepo-utils/src/index.ts project:dependencies:list",
+    "project:import": "ts-node tools/monorepo-utils/src/index.ts project:import",
     "project:list": "ts-node tools/monorepo-utils/src/index.ts project:list",
     "pwd": "pwd",
-    "utils": "ts-node tools/monorepo-utils/src/index.ts",
-    "prepare": "husky"
+    "utils": "ts-node tools/monorepo-utils/src/index.ts"
   },
   "config": {
     "commitizen": {

@@ -1,0 +1,15 @@
+[ignore]
+
+[include]
+
+[libs]
+flow/typed/
+flow-typed
+
+[lints]
+all=warn
+
+[options]
+module.name_mapper='.*\.scss$' -> '<PROJECT_ROOT>/flow/CSSFlowStub.flow.js'
+
+[strict]

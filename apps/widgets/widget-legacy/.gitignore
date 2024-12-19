@@ -1,0 +1,9 @@
+node_modules
+coverage
+/dist/*
+.DS_Store
+*.swp
+*~
+config.prod.js
+config.dev.js
+.idea

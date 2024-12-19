@@ -1,5 +1,5 @@
 {
-  "name": "bsport-widget",
+  "name": "@bsport/widget-legacy",
   "version": "0.1.0",
   "description": "Bsport widget",
   "private": true,

@@ -1,7 +1,7 @@
 import type {
   ConsumerPaymentPackLinkWithRelatedMemberNames,
   PrivateConsumerPassLink,
-} from 'bsport-saas/src/libs/relationship/types';
+} from '@bsport/saas-legacy/src/libs/relationship/types';
 import { createAction } from 'redux-actions';
 
 export const fetchRelatedMembersNamesByConsumerPaymentPackLinksActions = {

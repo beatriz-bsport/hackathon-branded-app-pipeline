@@ -9,8 +9,8 @@ import {
 } from '../actions';
 import { bridgeRequestLogout } from '../actions';
 
-import { resetConsumerState } from 'bsport-saas/src/libs/consumer-space/actions';
-import { fetchSCT } from 'bsport-saas/src/libs/category/actions';
+import { resetConsumerState } from '@bsport/saas-legacy/src/libs/consumer-space/actions';
+import { fetchSCT } from '@bsport/saas-legacy/src/libs/category/actions';
 
 /* COMMON */
 export const consumerSpaceCommonBridgeActions = {

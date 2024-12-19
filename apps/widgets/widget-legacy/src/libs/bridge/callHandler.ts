@@ -1,10 +1,10 @@
 import type {
   ApiCallActions,
   WidgetApiMessageType,
-} from 'bsport-saas/src/libs/widget/types';
-import type { OptionCallback } from 'bsport-saas/src/state/types';
+} from '@bsport/saas-legacy/src/libs/widget/types';
+import type { OptionCallback } from '@bsport/saas-legacy/src/state/types';
 import type { Dispatch } from 'react';
-import { BridgeAPIActionsRegistry } from 'bsport-saas/src/libs/widget/actionsRegistry';
+import { BridgeAPIActionsRegistry } from '@bsport/saas-legacy/src/libs/widget/actionsRegistry';
 import type { ActionOptions, QueryClientParams } from './types';
 import { defaultActionOptions } from './constants';
 

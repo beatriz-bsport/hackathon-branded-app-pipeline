@@ -6,25 +6,25 @@ import {
   CalendarDataContainer,
   FinalProps as MarketplaceCalendarFinalProps,
   OwnProps as MarketplaceCalendarOwnProps,
-} from 'bsport-saas/src/pages/marketplace/MarketplaceCalendarCSSOnly.page';
+} from '@bsport/saas-legacy/src/pages/marketplace/MarketplaceCalendarCSSOnly.page';
 import type {
   MarketplaceCalendarData,
   MarketplaceFilters,
-} from 'bsport-saas/src/libs/marketplace/types';
-import themify from 'bsport-saas/src/hocs/company-themifier.hoc';
-import withPostMessageOnPropsUpdate from 'bsport-saas/src/hocs/postMessages/with-post-message-on-props-update';
-import withPostMessageToUpdateProps from 'bsport-saas/src/hocs/postMessages/with-post-message-to-update-props';
+} from '@bsport/saas-legacy/src/libs/marketplace/types';
+import themify from '@bsport/saas-legacy/src/hocs/company-themifier.hoc';
+import withPostMessageOnPropsUpdate from '@bsport/saas-legacy/src/hocs/postMessages/with-post-message-on-props-update';
+import withPostMessageToUpdateProps from '@bsport/saas-legacy/src/hocs/postMessages/with-post-message-to-update-props';
 import {
   CalendarFilterValidationSchema,
   CalendarOnlineFilterValidationSchema,
-} from 'bsport-saas/src/libs/marketplace/utils';
+} from '@bsport/saas-legacy/src/libs/marketplace/utils';
 
-import { Theme } from 'bsport-saas/src/libs/theme/types';
+import { Theme } from '@bsport/saas-legacy/src/libs/theme/types';
 import {
   withStyles,
   createStyles,
   type WithStyles,
-} from 'bsport-saas/node_modules/@material-ui/core/styles';
+} from '@bsport/saas-legacy/node_modules/@material-ui/core/styles';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 import '../../vendor/map.css';

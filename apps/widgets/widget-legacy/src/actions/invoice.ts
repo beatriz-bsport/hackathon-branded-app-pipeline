@@ -1,12 +1,12 @@
 import { createAction } from 'redux-actions';
 
-import type { PaginatedResponse } from 'bsport-saas/src/state/types';
+import type { PaginatedResponse } from '@bsport/saas-legacy/src/state/types';
 import type {
   InvoiceV1Serializer,
   InvoiceConfigurationSerializer,
   InvoiceDetailsSerializer,
   InvoiceConfigurationMemberSerializer,
-} from 'bsport-saas/src/libs/invoice/types';
+} from '@bsport/saas-legacy/src/libs/invoice/types';
 
 type ListInvoiceResponse =
   | PaginatedResponse<InvoiceV1Serializer>

@@ -1,6 +1,6 @@
 import { createAction } from 'redux-actions';
 
-import type { Member, UserProfile } from 'bsport-saas/src/libs/member/types';
+import type { Member, UserProfile } from '@bsport/saas-legacy/src/libs/member/types';
 
 export const retrieveMemberAction = {
   success: createAction<Member>('HAS_FETCHED_MEMBER'),

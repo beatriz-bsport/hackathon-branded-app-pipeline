@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Theme } from '@material-ui/core';
-import themify from 'bsport-saas/src/hocs/company-themifier.hoc';
-import { MarketplaceContractBase } from 'bsport-saas/src/pages/marketplace/MarketplaceContract';
+import themify from '@bsport/saas-legacy/src/hocs/company-themifier.hoc';
+import { MarketplaceContractBase } from '@bsport/saas-legacy/src/pages/marketplace/MarketplaceContract';
 import { getEnv } from '../utils/env';
 
 const MarketplaceContractStyled = themify(MarketplaceContractBase);

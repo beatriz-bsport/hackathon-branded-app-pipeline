@@ -1,4 +1,4 @@
-import { RootState as SaasRootState} from "bsport-saas/src/reducers";
+import { RootState as SaasRootState} from "@bsport/saas-legacy/src/reducers";
 import { RootState as WidgetRootState } from "../reducers";
 
 export const extractPaginatedResponseDataResults = (data: any) => data.results;

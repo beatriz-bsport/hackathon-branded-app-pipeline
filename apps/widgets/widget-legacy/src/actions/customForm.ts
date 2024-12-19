@@ -1,6 +1,6 @@
 import { createAction } from 'redux-actions';
 
-import type { CustomForm, CustomFormFilledAPI } from 'bsport-saas/src/libs/custom-form/types';
+import type { CustomForm, CustomFormFilledAPI } from '@bsport/saas-legacy/src/libs/custom-form/types';
 
 export const fetchCompanyCustomMemberFormActions = {
   success: createAction<CustomForm>('CUSTOM_FORM_MEMBER/RETRIEVE/SUCCESS'),

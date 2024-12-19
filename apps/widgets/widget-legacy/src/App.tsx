@@ -7,9 +7,9 @@ import {
   MuiThemeProvider,
   withStyles,
   createStyles,
-} from 'bsport-saas/node_modules/@material-ui/core/styles';
+} from '@bsport/saas-legacy/node_modules/@material-ui/core/styles';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import i18n from 'bsport-saas/src/i18n';
+import i18n from '@bsport/saas-legacy/src/i18n';
 import {
   EXPORTABLE_COMPONENT_TYPE_LOGIN_BUTTON,
   EXPORTABLE_COMPONENT_TYPE_VOD,
@@ -25,36 +25,36 @@ import {
   EXPORTABLE_COMPONENT_TYPE_PAYMENT_PACK_TEMPLATE,
   EXPORTABLE_COMPONENT_TYPE_CALENDAR_V2,
   EXPORTABLE_COMPONENT_TYPE_NEWSLETTER_V2,
-} from 'bsport-saas/src/libs/exportable-components/constants';
+} from '@bsport/saas-legacy/src/libs/exportable-components/constants';
 
-import WidgetTracker from 'bsport-saas/src/components/WidgetTracker.component';
+import WidgetTracker from '@bsport/saas-legacy/src/components/WidgetTracker.component';
 
 // eslint-disable-next-line
-import { fetchCompanyTheme } from 'bsport-saas/src/libs/theme/actions';
-import { fetchSCT } from 'bsport-saas/src/libs/category/actions';
-import { retrieveFranchise } from 'bsport-saas/src/libs/franchise/actions';
-import { getFranchisor } from 'bsport-saas/src/libs/franchise/selectors';
-import { retrieveCompanyCssConfiguration as retrieveCompanyCssConfigurationAction } from 'bsport-saas/src/libs/exportable-components/actions';
+import { fetchCompanyTheme } from '@bsport/saas-legacy/src/libs/theme/actions';
+import { fetchSCT } from '@bsport/saas-legacy/src/libs/category/actions';
+import { retrieveFranchise } from '@bsport/saas-legacy/src/libs/franchise/actions';
+import { getFranchisor } from '@bsport/saas-legacy/src/libs/franchise/selectors';
+import { retrieveCompanyCssConfiguration as retrieveCompanyCssConfigurationAction } from '@bsport/saas-legacy/src/libs/exportable-components/actions';
 
 import {
   SnackbarDataProvider,
   SnackbarPile,
-} from 'bsport-saas/src/SnackbarPile.component';
-import { getTheme, getFranchiseTheme } from 'bsport-saas/src/theme';
-import themify from 'bsport-saas/src/hocs/company-themifier.hoc';
-import ApplyCustomCssStyles from 'bsport-saas/src/libs/widget/components/ApplyCustomCssStyles.component';
+} from '@bsport/saas-legacy/src/SnackbarPile.component';
+import { getTheme, getFranchiseTheme } from '@bsport/saas-legacy/src/theme';
+import themify from '@bsport/saas-legacy/src/hocs/company-themifier.hoc';
+import ApplyCustomCssStyles from '@bsport/saas-legacy/src/libs/widget/components/ApplyCustomCssStyles.component';
 
-import ApplyCustomTheme from 'bsport-saas/src/libs/exportable-components/ApplyCustomTheme.component';
-import { WidgetConfig } from 'bsport-saas/src/libs/marketplace/types';
-import { MaterialStyleType } from 'bsport-saas/src/utils/types';
+import ApplyCustomTheme from '@bsport/saas-legacy/src/libs/exportable-components/ApplyCustomTheme.component';
+import { WidgetConfig } from '@bsport/saas-legacy/src/libs/marketplace/types';
+import { MaterialStyleType } from '@bsport/saas-legacy/src/utils/types';
 import {
   EXPORTABLE_COMPONENT_TYPE_REFERRAL,
   EXPORTABLE_COMPONENT_TYPE_CONSUMER_SPACE,
-} from 'bsport-saas/src/libs/exportable-components/constants/widget_builder';
+} from '@bsport/saas-legacy/src/libs/exportable-components/constants/widget_builder';
 
 import { RootState } from './reducers';
 import BsportLogo from './components/BsportLogo.component';
-import 'bsport-saas/src/index.scss';
+import '@bsport/saas-legacy/src/index.scss';
 
 import asyncComponent from './components/AsyncComponent';
 import {
@@ -67,7 +67,7 @@ import {
   buildAnalyticsTrackingParamsFromCurrentUrl,
 } from './utils/http';
 import { SafeURI } from './widgets/utils';
-import { ConsumerSpaceContextEnum } from 'bsport-saas/src/libs/consumer-space/constants';
+import { ConsumerSpaceContextEnum } from '@bsport/saas-legacy/src/libs/consumer-space/constants';
 
 const ConsumerSpaceWidget = asyncComponent(
   () => import('./widgets/ConsumerSpace.widget'),

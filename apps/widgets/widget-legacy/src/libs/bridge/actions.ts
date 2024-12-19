@@ -2,14 +2,14 @@ import {
   WidgetApiMessageType,
   WidgetMessageType,
   widgetApiMessageTypes,
-} from 'bsport-saas/src/libs/widget/types';
+} from '@bsport/saas-legacy/src/libs/widget/types';
 
-import { snackbarSuccess } from 'bsport-saas/src/actions/snackbar.actions';
+import { snackbarSuccess } from '@bsport/saas-legacy/src/actions/snackbar.actions';
 import { createAction } from 'redux-actions';
 
 import { ThunkDispatch } from 'redux-thunk';
 import { Action } from 'redux';
-import type { OptionCallback } from 'bsport-saas/src/state/types';
+import type { OptionCallback } from '@bsport/saas-legacy/src/state/types';
 
 import { closeUserInteractionPortal } from '../modal/actions';
 

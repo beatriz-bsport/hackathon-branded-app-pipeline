@@ -28,13 +28,13 @@ echo "Current env is "
 cat ./config.production.js
 cat ./config.production.js | echo
 
-cd /bsport-saas
-yarn link
+cd /@bsport/saas-legacy
+pnpm run link
 cd -
-yarn link bsport-saas
+pnpm run link @bsport/saas-legacy
 
-yarn
-yarn build
+pnpm run
+pnpm run build
 cd dist/
 
 aws s3 sync ./ s3://$S3DESTINATION/ \

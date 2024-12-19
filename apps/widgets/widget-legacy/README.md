@@ -5,19 +5,19 @@
 
 ### Install dependencies
 
-The widget is bult with a link to bsport-saas, you need to :
+The widget is bult with a link to @bsport/saas-legacy, you need to :
 ```sh
-cd ../bsport-saas/ # got the saas repo
-yarn link
+cd ../@bsport/saas-legacy/ # got the saas repo
+pnpm run link
 cd -               # back to the widget repo
-yarn link bsport-saas
-yarn
+pnpm run link @bsport/saas-legacy
+pnpm run
 ```
 
 ### Running the widget
 
 ```sh
-yarn start
+pnpm run start
 ```
 
 ## Widget types
@@ -69,7 +69,7 @@ So how do we make a HTTP request from the widget to gather for e.g number of boo
 
 An iframe is a complete different website encapsulated into another. It does not share any cookie/localStorage/whatever.
 
-We leverage this feature to build a *bridge* between the widget and the bsport-saas project.
+We leverage this feature to build a *bridge* between the widget and the @bsport/saas-legacy project.
 
 ### The BackofficeDataBridge
 
@@ -79,7 +79,7 @@ This webpage has the following properties :
 
 * does not share any data by default with the main website (except browser compromised)
 * it is automatically authenticated to the bsport servers, as is the main backoffice
-* has the full redux store of bsport-saas (consumer-side)
+* has the full redux store of @bsport/saas-legacy (consumer-side)
 * it can receive message from the main website via `postMessage`
 * it can answer non privacy-sensitive messages with the widget (aka the whole website)
 
@@ -99,9 +99,9 @@ In `libs/bridge/actions`
 * has a few requestBridgeXXXXX methods to speak the backoffice
 * when dispatched it updates its reducer store to put some loading for instance 
 
-3. Handled by bsport-saas
+3. Handled by @bsport/saas-legacy
 
-In `bsport-saas: pages/widget/WidgetBridge.page`
+In `@bsport/saas-legacy: pages/widget/WidgetBridge.page`
 
 * has an eventListener and prepare the data based on each message type
 * send the postMessage containing what it needs to be transmitted

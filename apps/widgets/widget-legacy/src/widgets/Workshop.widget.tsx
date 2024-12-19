@@ -1,27 +1,27 @@
 import React, { Component } from 'react';
 import { compose } from 'recompose';
-import { withStyles } from 'bsport-saas/node_modules/@material-ui/core/styles';
+import { withStyles } from '@bsport/saas-legacy/node_modules/@material-ui/core/styles';
 import type {
   Theme,
   WithStyles,
-} from 'bsport-saas/node_modules/@material-ui/core/styles';
+} from '@bsport/saas-legacy/node_modules/@material-ui/core/styles';
 import { ConnectedProps, connect } from 'react-redux';
 
-import { MarketplaceWorkshopBase } from 'bsport-saas/src/pages/marketplace/MarketplaceWorkshop.page';
-import { OwnProps as MarketplaceWorkshopOwnProps } from 'bsport-saas/src/pages/marketplace/MarketplaceWorkshop.page';
+import { MarketplaceWorkshopBase } from '@bsport/saas-legacy/src/pages/marketplace/MarketplaceWorkshop.page';
+import { OwnProps as MarketplaceWorkshopOwnProps } from '@bsport/saas-legacy/src/pages/marketplace/MarketplaceWorkshop.page';
 import type {
   MarketplaceFilters,
   MarketplaceSetFilters,
   MarketplaceWorkshopData,
-} from 'bsport-saas/src/libs/marketplace/types';
-import type { CompanyTheme } from 'bsport-saas/src/libs/theme/types';
-import themify from 'bsport-saas/src/hocs/company-themifier.hoc';
-import withPostMessageOnPropsUpdate from 'bsport-saas/src/hocs/postMessages/with-post-message-on-props-update';
-import withPostMessageToUpdateProps from 'bsport-saas/src/hocs/postMessages/with-post-message-to-update-props';
+} from '@bsport/saas-legacy/src/libs/marketplace/types';
+import type { CompanyTheme } from '@bsport/saas-legacy/src/libs/theme/types';
+import themify from '@bsport/saas-legacy/src/hocs/company-themifier.hoc';
+import withPostMessageOnPropsUpdate from '@bsport/saas-legacy/src/hocs/postMessages/with-post-message-on-props-update';
+import withPostMessageToUpdateProps from '@bsport/saas-legacy/src/hocs/postMessages/with-post-message-to-update-props';
 import {
   CalendarFilterValidationSchema,
   CalendarOnlineFilterValidationSchema,
-} from 'bsport-saas/src/libs/marketplace/utils';
+} from '@bsport/saas-legacy/src/libs/marketplace/utils';
 
 import '../../vendor/map.css';
 

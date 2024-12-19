@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import { withStyles } from 'bsport-saas/node_modules/@material-ui/core/styles';
-import themify from 'bsport-saas/src/hocs/company-themifier.hoc';
-import { MarketplaceGiftcardBase } from 'bsport-saas/src/pages/marketplace/MarketplaceGiftcard.page';
-import { MarketplaceGiftcardData } from 'bsport-saas/src/libs/marketplace/types';
+import { withStyles } from '@bsport/saas-legacy/node_modules/@material-ui/core/styles';
+import themify from '@bsport/saas-legacy/src/hocs/company-themifier.hoc';
+import { MarketplaceGiftcardBase } from '@bsport/saas-legacy/src/pages/marketplace/MarketplaceGiftcard.page';
+import { MarketplaceGiftcardData } from '@bsport/saas-legacy/src/libs/marketplace/types';
 
 import type { WithStyles } from '@material-ui/styles';
-import type { CompanyTheme } from 'bsport-saas/src/libs/theme/types';
+import type { CompanyTheme } from '@bsport/saas-legacy/src/libs/theme/types';
 import { getEnv } from '../utils/env';
 
 const MarketplaceGiftcardThemed = themify(MarketplaceGiftcardBase);

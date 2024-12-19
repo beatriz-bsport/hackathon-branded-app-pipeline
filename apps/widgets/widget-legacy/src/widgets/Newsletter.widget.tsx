@@ -1,14 +1,14 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 
-import NewsletterFormComponent from 'bsport-saas/src/libs/marketing/components/NewsletterForm.component';
-import { createNewsletterMember } from 'bsport-saas/src/libs/marketing/api';
+import NewsletterFormComponent from '@bsport/saas-legacy/src/libs/marketing/components/NewsletterForm.component';
+import { createNewsletterMember } from '@bsport/saas-legacy/src/libs/marketing/api';
 import {
   snackbarSuccess,
   snackbarError,
-} from 'bsport-saas/src/libs/snackbar/actions';
-import themify from 'bsport-saas/src/hocs/company-themifier.hoc';
-import { CompanyTheme } from 'bsport-saas/src/libs/theme/types';
+} from '@bsport/saas-legacy/src/libs/snackbar/actions';
+import themify from '@bsport/saas-legacy/src/hocs/company-themifier.hoc';
+import { CompanyTheme } from '@bsport/saas-legacy/src/libs/theme/types';
 import makeStyles from '@material-ui/styles/makeStyles';
 
 const NewsletterFormComponentStyled = themify(NewsletterFormComponent);

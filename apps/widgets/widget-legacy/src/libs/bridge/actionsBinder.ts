@@ -1,4 +1,4 @@
-import { privateServiceBulkActions } from 'bsport-saas/src/libs/private-service/actions';
+import { privateServiceBulkActions } from '@bsport/saas-legacy/src/libs/private-service/actions';
 import { coachBulkRetrieveActions } from '../../actions/associatedCoach';
 import { retrieveConsumerPackBulkActions } from '../../actions/consumerPack';
 import {

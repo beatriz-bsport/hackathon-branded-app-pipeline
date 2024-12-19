@@ -1,18 +1,18 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 
-import { NewsletterFormBase } from 'bsport-saas/src/components/css-only/NewsletterFormV2';
-import { NewsletterV2FieldsKind } from 'bsport-saas/src/libs/marketplace/constants';
-import { createNewsletterMember } from 'bsport-saas/src/libs/marketing/api';
+import { NewsletterFormBase } from '@bsport/saas-legacy/src/components/css-only/NewsletterFormV2';
+import { NewsletterV2FieldsKind } from '@bsport/saas-legacy/src/libs/marketplace/constants';
+import { createNewsletterMember } from '@bsport/saas-legacy/src/libs/marketing/api';
 import {
   snackbarSuccess,
   snackbarError,
-} from 'bsport-saas/src/libs/snackbar/actions';
-import themify from 'bsport-saas/src/hocs/company-themifier.hoc';
+} from '@bsport/saas-legacy/src/libs/snackbar/actions';
+import themify from '@bsport/saas-legacy/src/hocs/company-themifier.hoc';
 
-import { MarketplaceNewsletterV2Data } from 'bsport-saas/src/libs/marketplace/types';
-import { OptionCallback } from 'bsport-saas/src/state/types';
-import { CompanyTheme } from 'bsport-saas/src/libs/theme/types';
+import { MarketplaceNewsletterV2Data } from '@bsport/saas-legacy/src/libs/marketplace/types';
+import { OptionCallback } from '@bsport/saas-legacy/src/state/types';
+import { CompanyTheme } from '@bsport/saas-legacy/src/libs/theme/types';
 
 const NewsletterFormV2Styled = themify(NewsletterFormBase);
 

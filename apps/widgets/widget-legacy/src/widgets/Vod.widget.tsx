@@ -6,28 +6,28 @@ import { ButtonBase } from '@material-ui/core';
 import {
   createStyles,
   withStyles,
-} from 'bsport-saas/node_modules/@material-ui/core/styles';
-import type { WithStyles } from 'bsport-saas/node_modules/@material-ui/core/styles';
+} from '@bsport/saas-legacy/node_modules/@material-ui/core/styles';
+import type { WithStyles } from '@bsport/saas-legacy/node_modules/@material-ui/core/styles';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 
 import {
   MarketplaceVideo,
   MarketplaceVideoDataProvider,
-} from 'bsport-saas/src/pages/marketplace/MarketplaceVideo.page';
+} from '@bsport/saas-legacy/src/pages/marketplace/MarketplaceVideo.page';
 import {
   MarketplaceVideoDetail,
   MarketplaceVideoDetailDataProvider,
-} from 'bsport-saas/src/pages/marketplace/MarketplaceVideoDetail.page';
+} from '@bsport/saas-legacy/src/pages/marketplace/MarketplaceVideoDetail.page';
 import {
   MarketplacePlaylistDetailPage,
   MarketplacePlaylistDetailDataProvider,
-} from 'bsport-saas/src/pages/marketplace/MarketplacePlaylistDetail.page';
+} from '@bsport/saas-legacy/src/pages/marketplace/MarketplacePlaylistDetail.page';
 import {
   MarketplacePlaylistData,
   MarketplaceVODData,
-} from 'bsport-saas/src/libs/marketplace/types';
-import themify from 'bsport-saas/src/hocs/company-themifier.hoc';
-import { CompanyTheme } from 'bsport-saas/src/libs/theme/types';
+} from '@bsport/saas-legacy/src/libs/marketplace/types';
+import themify from '@bsport/saas-legacy/src/hocs/company-themifier.hoc';
+import { CompanyTheme } from '@bsport/saas-legacy/src/libs/theme/types';
 import {
   bridgeRequestAuthenticationStatus,
   bridgeRequestVideoPlaybackUrl,

@@ -8,11 +8,11 @@ Lint:
   variables:
     ENVIRONMENT: dev
   script:
-    - cd /bsport-saas/
-    - yarn link
+    - cd /@bsport/saas-legacy/
+    - pnpm run link
     - cd /app/
-    - yarn link bsport-saas
-    - yarn lint
+    - pnpm run link @bsport/saas-legacy
+    - pnpm run lint
 
   rules:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'

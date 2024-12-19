@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
-import themify from 'bsport-saas/src/hocs/company-themifier.hoc';
-import WidgetPaymentPackTemplateListPage from 'bsport-saas/src/pages/franchise/payment-pack-template/WidgetPaymentPackTemplateList.page';
-import { Theme } from 'bsport-saas/src/libs/theme/types';
+import themify from '@bsport/saas-legacy/src/hocs/company-themifier.hoc';
+import WidgetPaymentPackTemplateListPage from '@bsport/saas-legacy/src/pages/franchise/payment-pack-template/WidgetPaymentPackTemplateList.page';
+import { Theme } from '@bsport/saas-legacy/src/libs/theme/types';
 
 import {
   MarketplacePaymentPackTemplateData,
   MarketplacePaymentPackTemplateParams,
-} from 'bsport-saas/src/libs/marketplace/types';
+} from '@bsport/saas-legacy/src/libs/marketplace/types';
 import { buildFranchiseSelectionThenCheckoutUrl } from './utils';
 
 const WidgetPaymentPackTemplateListPageStyled = themify(

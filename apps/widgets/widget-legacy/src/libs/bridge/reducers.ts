@@ -4,9 +4,9 @@ import { handleActions } from 'redux-actions';
 import type {
   ReferralMemberStatus,
   ReferralProgram,
-} from 'bsport-saas/src/libs/referral/types';
-import type { Member } from 'bsport-saas/src/libs/member/types';
-import type { Membership } from 'bsport-saas/src/libs/membership/types';
+} from '@bsport/saas-legacy/src/libs/referral/types';
+import type { Member } from '@bsport/saas-legacy/src/libs/member/types';
+import type { Membership } from '@bsport/saas-legacy/src/libs/membership/types';
 import {
   basketCountActions,
   bookingCountActions,

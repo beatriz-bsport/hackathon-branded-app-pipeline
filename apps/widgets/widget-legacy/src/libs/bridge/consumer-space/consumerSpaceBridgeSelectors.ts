@@ -41,8 +41,8 @@ import {
   getMyExpiredSubscriptionsList,
   getMySubscriptionsInvoicesDetailsState,
   getInvoicesComplementaryLoading,
-} from 'bsport-saas/src/libs/consumer-space/selectors';
-import { getWaitingListConfigurationData } from 'bsport-saas/src/libs/waiting-list/selectors';
+} from '@bsport/saas-legacy/src/libs/consumer-space/selectors';
+import { getWaitingListConfigurationData } from '@bsport/saas-legacy/src/libs/waiting-list/selectors';
 
 /* MY PASSES */
 import {
@@ -68,12 +68,12 @@ import {
   getMyFuturePrivateConsumerPassesState,
   getMyFutureUniversalPassesList,
   getMyFutureUniversalPassesState,
-} from 'bsport-saas/src/libs/consumer-space/selectors';
+} from '@bsport/saas-legacy/src/libs/consumer-space/selectors';
 import {
   getAssetByBlueprintByIdentifier,
   getAssetByIdentifier,
   getSpotTypesOfCompany,
-} from 'bsport-saas/src/libs/spot-scheduling/selector';
+} from '@bsport/saas-legacy/src/libs/spot-scheduling/selector';
 
 /* MY INVOICES */
 import {
@@ -90,20 +90,20 @@ import {
   getUnpaidInvoicesLoading,
   getUnpaidInvoicesNextPage,
   getUnpaidInvoicesPage,
-} from 'bsport-saas/src/libs/consumer-space/selectors';
-import { getInvoice } from 'bsport-saas/src/libs/invoice/selectors';
+} from '@bsport/saas-legacy/src/libs/consumer-space/selectors';
+import { getInvoice } from '@bsport/saas-legacy/src/libs/invoice/selectors';
 
 /* MY PROFILE */
-import { getSavedPaymentMethodList } from 'bsport-saas/src/libs/payment/selectors';
-import { getConsumerProfileCustomForm } from 'bsport-saas/src/libs/custom-form/selectors';
+import { getSavedPaymentMethodList } from '@bsport/saas-legacy/src/libs/payment/selectors';
+import { getConsumerProfileCustomForm } from '@bsport/saas-legacy/src/libs/custom-form/selectors';
 
-import type { CompanyTheme } from 'bsport-saas/src/libs/theme/types';
+import type { CompanyTheme } from '@bsport/saas-legacy/src/libs/theme/types';
 import type { RootState } from '../../../reducers';
 // @ts-expect-error
-import type { BookingTab } from 'bsport-saas/src/libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingTabs/types';
+import type { BookingTab } from '@bsport/saas-legacy/src/libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingTabs/types';
 // @ts-expect-error
-import type { BookingFilterTab } from 'bsport-saas/src/libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingFilters/types';
-import type { Membership } from 'bsport-saas/src/libs/membership/types';
+import type { BookingFilterTab } from '@bsport/saas-legacy/src/libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingFilters/types';
+import type { Membership } from '@bsport/saas-legacy/src/libs/membership/types';
 
 export type ConsumerSpaceWidgetProps = {
   companyId: number,

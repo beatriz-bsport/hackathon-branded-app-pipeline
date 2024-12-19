@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Theme } from '@material-ui/core';
-import themify from 'bsport-saas/src/hocs/company-themifier.hoc';
-import { MarketplaceShopBase } from 'bsport-saas/src/pages/marketplace/MarketplaceShop.page';
+import themify from '@bsport/saas-legacy/src/hocs/company-themifier.hoc';
+import { MarketplaceShopBase } from '@bsport/saas-legacy/src/pages/marketplace/MarketplaceShop.page';
 import { getEnv } from '../utils/env';
 
 const MarketplaceShopStyled = themify(MarketplaceShopBase);

@@ -1,20 +1,20 @@
 import { createAction } from 'redux-actions';
-import type { PaginatedResponse } from 'bsport-saas/src/state/types';
-import type { UniversalPassREST } from 'bsport-saas/src/libs/universal-pass/types';
-import type { PrivateConsumerPassREST } from 'bsport-saas/src/libs/private-service/types';
-import type { ConsumerPaymentPackREST } from 'bsport-saas/src/libs/consumer-payment-pack/types';
-import type { ConsumerPassesTabDisplay } from 'bsport-saas/src/libs/consumer-space/types';
-import type { OfferStatusWaitingListPosition } from 'bsport-saas/src/libs/offer/types';
-import type { WaitingListBookingOption } from 'bsport-saas/src/libs/waiting-list/types';
+import type { PaginatedResponse } from '@bsport/saas-legacy/src/state/types';
+import type { UniversalPassREST } from '@bsport/saas-legacy/src/libs/universal-pass/types';
+import type { PrivateConsumerPassREST } from '@bsport/saas-legacy/src/libs/private-service/types';
+import type { ConsumerPaymentPackREST } from '@bsport/saas-legacy/src/libs/consumer-payment-pack/types';
+import type { ConsumerPassesTabDisplay } from '@bsport/saas-legacy/src/libs/consumer-space/types';
+import type { OfferStatusWaitingListPosition } from '@bsport/saas-legacy/src/libs/offer/types';
+import type { WaitingListBookingOption } from '@bsport/saas-legacy/src/libs/waiting-list/types';
 import type {
   ConsumerInvoiceComplementary,
   ConsumerInvoiceREST,
-} from 'bsport-saas/src/libs/invoice/types';
+} from '@bsport/saas-legacy/src/libs/invoice/types';
 import type {
   SubscriptionREST,
   SubscriptionsInvoicesDetailsREST,
-} from 'bsport-saas/src/libs/subscription/types';
-import { SubscriptionFilterEnum } from 'bsport-saas/src/libs/consumer-space/components/reworked/@MySubscriptions/constants';
+} from '@bsport/saas-legacy/src/libs/subscription/types';
+import { SubscriptionFilterEnum } from '@bsport/saas-legacy/src/libs/consumer-space/components/reworked/@MySubscriptions/constants';
 
 export const fetchMyPastBookingAsMemberActions = {
   success: createAction('BOOKING/PAST/AS_MEMBER/SUCCESS'),

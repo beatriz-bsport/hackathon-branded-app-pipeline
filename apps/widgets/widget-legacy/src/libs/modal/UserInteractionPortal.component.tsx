@@ -5,16 +5,16 @@ import CloseIcon from '@material-ui/icons/Close';
 import IconButton from '@material-ui/core/IconButton';
 import { withStyles, Modal, createStyles, makeStyles } from '@material-ui/core';
 import { compose } from 'recompose';
-import { MaterialStyleType } from 'bsport-saas/src/utils/types';
-import ApplyCustomCssStyles from 'bsport-saas/src/libs/widget/components/ApplyCustomCssStyles.component';
+import { MaterialStyleType } from '@bsport/saas-legacy/src/utils/types';
+import ApplyCustomCssStyles from '@bsport/saas-legacy/src/libs/widget/components/ApplyCustomCssStyles.component';
 
-import ApplyCustomTheme from 'bsport-saas/src/libs/exportable-components/ApplyCustomTheme.component';
+import ApplyCustomTheme from '@bsport/saas-legacy/src/libs/exportable-components/ApplyCustomTheme.component';
 import {
   DIALOG_MODE_IFRAME,
   DIALOG_MODE_POPUP,
   DIALOG_MODE_TAB,
   DIALOG_MODE_DEACTIVATED,
-} from '@bsport/common/lib/master-data/widget-dialog-mode';
+} from '@bsport/common/lib/master-data/widget-dialog-mode.js';
 import WidgetPortalSlidingContainer from '../../components/PortalContainer';
 import type { DialogMode } from './types';
 

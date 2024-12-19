@@ -6,7 +6,7 @@ import { compose } from 'recompose';
 import Button from '@material-ui/core/Button';
 import PersonIcon from '@material-ui/icons/Person';
 import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
-// import themify from 'bsport-saas/src/hocs/company-themifier.hoc';
+// import themify from '@bsport/saas-legacy/src/hocs/company-themifier.hoc';
 
 import { getEnv } from '../utils/env';
 import { RootState } from '../reducers';
@@ -17,9 +17,9 @@ import {
 import { closeUserInteractionPortal as closeUserInteractionPortalAction } from '../libs/modal/actions';
 import { buildUrlParams } from '../utils/http';
 
-import type { MarketplaceLoginButtonWidgetConfig } from 'bsport-saas/src/libs/exportable-components/types';
-import { ConsumerSpaceContextEnum } from 'bsport-saas/src/libs/consumer-space/constants';
-import WidgetUtils from 'bsport-saas/src/libs/widget/WidgetUtils';
+import type { MarketplaceLoginButtonWidgetConfig } from '@bsport/saas-legacy/src/libs/exportable-components/types';
+import { ConsumerSpaceContextEnum } from '@bsport/saas-legacy/src/libs/consumer-space/constants';
+import WidgetUtils from '@bsport/saas-legacy/src/libs/widget/WidgetUtils';
 
 // const MarketplaceShopStyled = themify(MarketplaceShopBase);
 

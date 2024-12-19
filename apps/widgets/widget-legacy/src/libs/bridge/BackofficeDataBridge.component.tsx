@@ -2,8 +2,8 @@ import React from 'react';
 import { Portal, withStyles } from '@material-ui/core';
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
-import { MaterialStyleType } from 'bsport-saas/src/utils/types';
-import { snackbarSuccess } from 'bsport-saas/src/actions/snackbar.actions';
+import { MaterialStyleType } from '@bsport/saas-legacy/src/utils/types';
+import { snackbarSuccess } from '@bsport/saas-legacy/src/actions/snackbar.actions';
 
 import {
   setSaasAuthenticated,

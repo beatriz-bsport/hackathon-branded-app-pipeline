@@ -42,10 +42,10 @@ module.exports = {
     extensions: ['.js', '.jsx', '.ts', '.tsx'],
     alias: {
       react: path.resolve('./node_modules/react'),
-      '#src': path.resolve(__dirname, './node_modules/bsport-saas/src'),
+      '#src': path.resolve(__dirname, './node_modules/@bsport/saas-legacy/src'),
       '#Fabrique': path.resolve(
         __dirname,
-        './node_modules/bsport-saas/src/components/css-only/Fabrique',
+        './node_modules/@bsport/saas-legacy/src/components/css-only/Fabrique',
       ),
     },
   },

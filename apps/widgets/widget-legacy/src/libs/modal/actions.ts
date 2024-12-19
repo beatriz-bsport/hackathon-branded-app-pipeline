@@ -2,15 +2,15 @@ import { Dispatch } from 'redux';
 
 import { createAction } from 'redux-actions';
 
-import { Theme as CompanyTheme } from 'bsport-saas/src/libs/theme/types';
+import { Theme as CompanyTheme } from '@bsport/saas-legacy/src/libs/theme/types';
 
-import { DIALOG_MODE_IFRAME } from '@bsport/common/lib/master-data/widget-dialog-mode';
+import { DIALOG_MODE_IFRAME } from '@bsport/common/lib/master-data/widget-dialog-mode.js';
 import { getEnv } from '../../utils/env';
 import { buildUrlParams } from '../../utils/http';
 import { RootState } from '../../reducers';
 import { SafeURI } from '../../widgets/utils';
 import type { DialogMode } from './types';
-import { ConsumerSpaceContextEnum } from 'bsport-saas/src/libs/consumer-space/constants';
+import { ConsumerSpaceContextEnum } from '@bsport/saas-legacy/src/libs/consumer-space/constants';
 
 const buildWidgetUrl = (path: string, theme: CompanyTheme, params?: any) => {
   const { company, company_name } = theme;

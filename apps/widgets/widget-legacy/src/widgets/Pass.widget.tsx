@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import { compose } from 'recompose';
 import { ConnectedProps, connect } from 'react-redux';
-import { withStyles } from 'bsport-saas/node_modules/@material-ui/core/styles';
-import themify from 'bsport-saas/src/hocs/company-themifier.hoc';
-import { MarketplacePassBase } from 'bsport-saas/src/pages/marketplace/MarketplacePass';
+import { withStyles } from '@bsport/saas-legacy/node_modules/@material-ui/core/styles';
+import themify from '@bsport/saas-legacy/src/hocs/company-themifier.hoc';
+import { MarketplacePassBase } from '@bsport/saas-legacy/src/pages/marketplace/MarketplacePass';
 import type {
   MarketplacePassData,
   MarketplacePassParams,
-} from 'bsport-saas/src/libs/marketplace/types';
+} from '@bsport/saas-legacy/src/libs/marketplace/types';
 
-import type { CompanyTheme } from 'bsport-saas/src/libs/theme/types';
+import type { CompanyTheme } from '@bsport/saas-legacy/src/libs/theme/types';
 import type { WithStyles } from '@material-ui/styles';
 import { RootState } from '../reducers';
 import { getEnv } from '../utils/env';

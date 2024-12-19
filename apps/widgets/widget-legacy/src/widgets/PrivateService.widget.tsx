@@ -1,30 +1,30 @@
 import React, { useState } from 'react';
 
 import { ButtonBase } from '@material-ui/core';
-import { makeStyles } from 'bsport-saas/node_modules/@material-ui/core/styles';
+import { makeStyles } from '@bsport/saas-legacy/node_modules/@material-ui/core/styles';
 
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 
 import {
   PrivateServiceSelectorDataProvider,
   PrivateServiceSelectorPage,
-} from 'bsport-saas/src/pages/marketplace/PrivateService/PrivateServiceSelectorPage/PrivateServiceSelector.page';
+} from '@bsport/saas-legacy/src/pages/marketplace/PrivateService/PrivateServiceSelectorPage/PrivateServiceSelector.page';
 import {
   PrivateServiceDetailDataProvider,
   PrivateServiceDetailPage,
-} from 'bsport-saas/src/pages/marketplace/PrivateService/PrivateServiceDetailPage/PrivateServiceDetail.page';
+} from '@bsport/saas-legacy/src/pages/marketplace/PrivateService/PrivateServiceDetailPage/PrivateServiceDetail.page';
 import {
   PrivateService,
   PrivateSlot,
-} from 'bsport-saas/src/libs/private-service/types';
-import themify from 'bsport-saas/src/hocs/company-themifier.hoc';
+} from '@bsport/saas-legacy/src/libs/private-service/types';
+import themify from '@bsport/saas-legacy/src/hocs/company-themifier.hoc';
 import { getEnv } from '../utils/env';
-import { CompanyTheme } from 'bsport-saas/src/libs/theme/types';
+import { CompanyTheme } from '@bsport/saas-legacy/src/libs/theme/types';
 import {
   MarketplacePrivateServiceData,
   MarketplacePrivateServiceSessionData,
   MarketplacePrivateServiceTypeEnum,
-} from 'bsport-saas/src/libs/marketplace/types';
+} from '@bsport/saas-legacy/src/libs/marketplace/types';
 
 const PrivateServiceSelector = themify(
   PrivateServiceSelectorDataProvider(PrivateServiceSelectorPage),

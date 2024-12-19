@@ -85,7 +85,7 @@ Build Deploy Feature Branch:
     - export CDN_DOMAIN=cdn-${FEATURE_BRANCH_IDENTIFIER}.chaos.bsport.io
     - mv /app/node_modules .
     - echo "FAILED" > .job_status
-    - yarn install --frozen-lockfile # just to be sure (done in prepare-image)
+    - pnpm run install --frozen-lockfile # just to be sure (done in prepare-image)
     - ./build_prod.sh
     - echo "SUCCESS" > .job_status
 
@@ -98,7 +98,7 @@ Build Deploy Feature Branch:
   script:
     - mv /app/node_modules .
     - echo "FAILED" > .job_status
-    - yarn install --frozen-lockfile # just to be sure (done in prepare-image)
+    - pnpm run install --frozen-lockfile # just to be sure (done in prepare-image)
     - ./build_prod.sh
     - echo "SUCCESS" > .job_status
 

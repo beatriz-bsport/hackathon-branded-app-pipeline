@@ -3,10 +3,10 @@ import { connect, ConnectedProps } from 'react-redux';
 
 import LoginWithDisconnectedStatusSAAS, {
   Props as SaasProps,
-} from 'bsport-saas/src/pages/login/LoginWithDisconnectedStatus.page';
-import themify from 'bsport-saas/src/hocs/company-themifier.hoc';
+} from '@bsport/saas-legacy/src/pages/login/LoginWithDisconnectedStatus.page';
+import themify from '@bsport/saas-legacy/src/hocs/company-themifier.hoc';
 
-import { DisconnectedStatusWidgetConfig } from 'bsport-saas/src/libs/login/types';
+import { DisconnectedStatusWidgetConfig } from '@bsport/saas-legacy/src/libs/login/types';
 import {
   bridgeRequestAuthenticationStatus as bridgeRequestAuthenticationStatusAction,
   createAuthenticatedBridgeAction,
@@ -19,7 +19,7 @@ import {
 } from '../libs/modal/actions';
 import { getMembershipByCompanyId } from '../libs/bridge/selectors';
 import type { DialogMode } from '../libs/modal/types';
-import { DIALOG_MODE_IFRAME } from '@bsport/common/lib/master-data/widget-dialog-mode';
+import { DIALOG_MODE_IFRAME } from '@bsport/common/lib/master-data/widget-dialog-mode.js';
 
 const LoginWithDisconnectedStatusStyled = themify<SaasProps>(
   LoginWithDisconnectedStatusSAAS,

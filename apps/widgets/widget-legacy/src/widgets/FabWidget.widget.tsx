@@ -11,11 +11,11 @@ import {
 import {
   withStyles,
   createStyles,
-} from 'bsport-saas/node_modules/@material-ui/core/styles';
+} from '@bsport/saas-legacy/node_modules/@material-ui/core/styles';
 import type {
   WithStyles,
   Theme,
-} from 'bsport-saas/node_modules/@material-ui/core/styles';
+} from '@bsport/saas-legacy/node_modules/@material-ui/core/styles';
 import PersonIcon from '@material-ui/icons/Person';
 import CreditCard from '@material-ui/icons/CreditCard';
 import HomeIcon from '@material-ui/icons/Home';
@@ -42,8 +42,8 @@ import {
   bridgeRequestBookingCount,
 } from '../libs/bridge/actions';
 import { buildUrlParams } from '../utils/http';
-import { ConsumerSpaceContextEnum } from 'bsport-saas/src/libs/consumer-space/constants';
-import WidgetUtils from 'bsport-saas/src/libs/widget/WidgetUtils';
+import { ConsumerSpaceContextEnum } from '@bsport/saas-legacy/src/libs/consumer-space/constants';
+import WidgetUtils from '@bsport/saas-legacy/src/libs/widget/WidgetUtils';
 
 type OwnProps = {
   companyId: number,

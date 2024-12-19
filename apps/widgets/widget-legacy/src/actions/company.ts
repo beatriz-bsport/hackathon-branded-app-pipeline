@@ -1,6 +1,6 @@
 import { createAction } from 'redux-actions';
 
-import type { WaitingListConfiguration } from 'bsport-saas/src/libs/waiting-list/types';
+import type { WaitingListConfiguration } from '@bsport/saas-legacy/src/libs/waiting-list/types';
 
 export const configurationDetailActions = {
   error: createAction<Error | null>('WAITING_LIST_CONFIGURATION/DETAIL/ERROR'),

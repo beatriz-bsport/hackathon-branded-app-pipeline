@@ -3,7 +3,7 @@ import { createAction } from 'redux-actions';
 import type {
   DetachPaymentMethodResponse,
   PaymentMethod,
-} from 'bsport-saas/src/libs/payment/types';
+} from '@bsport/saas-legacy/src/libs/payment/types';
 
 export const fetchPaymentMethodListActions = {
   success: createAction<PaymentMethod[]>('PAYMENT_METHOD/LIST/SUCCESS'),

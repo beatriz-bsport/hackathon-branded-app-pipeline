@@ -4,10 +4,10 @@ import { connect } from 'react-redux';
 import { Store } from 'redux';
 import { compose } from 'recompose';
 
-import { withStyles } from 'bsport-saas/node_modules/@material-ui/core/styles';
-import themify from 'bsport-saas/src/hocs/company-themifier.hoc';
-import ConsumerReferralDetail from 'bsport-saas/src/pages/consumer/ConsumerReferralDetail.page';
-import type { Theme } from 'bsport-saas/src/libs/theme/types';
+import { withStyles } from '@bsport/saas-legacy/node_modules/@material-ui/core/styles';
+import themify from '@bsport/saas-legacy/src/hocs/company-themifier.hoc';
+import ConsumerReferralDetail from '@bsport/saas-legacy/src/pages/consumer/ConsumerReferralDetail.page';
+import type { Theme } from '@bsport/saas-legacy/src/libs/theme/types';
 
 import type { RootState } from '../reducers';
 import {

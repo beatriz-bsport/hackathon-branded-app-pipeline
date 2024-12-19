@@ -2,7 +2,7 @@ import type {
   PrivatePass,
   PrivateSlot,
   ServiceCompatibilityPass,
-} from 'bsport-saas/src/libs/private-service/types';
+} from '@bsport/saas-legacy/src/libs/private-service/types';
 import { createAction } from 'redux-actions';
 
 export const privateSlotBulkActions = {

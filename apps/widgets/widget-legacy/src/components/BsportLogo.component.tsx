@@ -1,9 +1,9 @@
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
-import { withStyles } from 'bsport-saas/node_modules/@material-ui/core/styles';
+import { withStyles } from '@bsport/saas-legacy/node_modules/@material-ui/core/styles';
 
-import { Theme } from 'bsport-saas/src/libs/theme/types';
-import { MaterialStyleType } from 'bsport-saas/src/utils/types';
+import { Theme } from '@bsport/saas-legacy/src/libs/theme/types';
+import { MaterialStyleType } from '@bsport/saas-legacy/src/utils/types';
 import { compose } from 'recompose';
 
 type OwnProps = {

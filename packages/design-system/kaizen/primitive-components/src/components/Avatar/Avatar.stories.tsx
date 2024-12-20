@@ -50,16 +50,6 @@ const meta: Meta<typeof Avatar> = {
         defaultValue: { summary: "undefined" },
       },
     },
-    children: {
-      options: ["empty", "icon", "initials"],
-      control: { type: "select" },
-      mapping: {
-        empty: [],
-        icon: <Icon icon="save" size="sm" />,
-        initials: "FR",
-      },
-      table: { type: { summary: "ReactNode" } },
-    },
   },
 };
 
@@ -72,6 +62,7 @@ export const AvatarWithImage: Story = {
   args: {
     src: "avatar image",
     alt: "Avatar default image",
+    initials: "BB",
     size: "md",
     shape: "squared",
     onClick: () => console.log("Avatar clicked"),
@@ -84,7 +75,9 @@ export const AvatarWithIcon: Story = {
   args: {
     size: "md",
     shape: "round",
+    initials: "BB",
     iconName: "filter-lines",
+    children: "empty",
   },
 };
 
@@ -102,6 +95,6 @@ export const AvatarWithChildrenInitials: Story = {
   args: {
     size: "md",
     shape: "squared",
-    children: "initials",
+    initials: "FR",
   },
 };

@@ -18,6 +18,7 @@ const defaultClasses = [
 
 const variants = {
   size: {
+    xs: ["h-md w-md", "border-stroke-thin", "text-[0.375rem]", "leading-2xs"],
     sm: ["h-lg w-lg", "border-stroke-thin", "text-body-xs", "leading-2xs"],
     md: [
       "h-xl w-xl",
@@ -48,26 +49,20 @@ export type AvatarProps = React.HTMLAttributes<HTMLDivElement> &
     shape: "squared" | "round";
     onClick?: () => void;
     iconName?: IconName;
+    initials?: string;
     actionableIconName?: IconName;
-  } & (
-    | {
-        src: string;
-        alt: string;
-      }
-    | {
-        children: React.ReactNode;
-        src?: never;
-        alt?: never;
-      }
-  );
+    src?: string;
+    alt?: string;
+  };
 
 const getSquaredCircle = (size: keyof typeof variants.size) => {
-  if (size === "sm") return "rounded-xs";
+  if (size === "sm" || size === "xs") return "rounded-xs";
   if (size === "md") return "rounded-sm";
   return "rounded-md";
 };
 
 const getIconSize = (size: keyof typeof variants.size) => {
+  if (size === "xs") return "xs";
   // md and sm variant have the same icon size
   return size === "lg" ? "lg" : "sm";
 };
@@ -83,7 +78,6 @@ const getIconSize = (size: keyof typeof variants.size) => {
  * @param props.onClick A callback function to call when the avatar is clicked.
  * @param props.iconName The name of the icon to display.
  * @param props.actionableIconName The name of the icon to display when hovering actionable Avatar.
- * @param props.children The icon to display when no image is provided through src and alt.
  * @link https://docs.infra.bsport.io/storybook/kaizen/main/index.html?path=/docs/components-avatar--docs
  */
 const Avatar: React.FC<AvatarProps> = ({
@@ -94,8 +88,8 @@ const Avatar: React.FC<AvatarProps> = ({
   shape,
   onClick,
   iconName,
+  initials,
   actionableIconName,
-  children,
   ...props
 }) => {
   const shapeStyle =
@@ -108,9 +102,14 @@ const Avatar: React.FC<AvatarProps> = ({
     // If src is not provided, check if an iconName exists, to render it easily
     if (iconName) return <Icon icon={iconName} size={getIconSize(size)} />;
 
-    // Else, render the provided children (string, other component, ...)
-    return children;
-  }, [src, alt, iconName, size, children]);
+    // If neither src nor iconName are provided, check if initials exist to render them instead.
+    if (initials) {
+      return initials.length > 3
+        ? initials.slice(0, 3).toUpperCase()
+        : initials.toUpperCase();
+    }
+    return null;
+  }, [src, alt, iconName, size]);
 
   // Whether an action can be performed
   const isActionable = !!onClick && src;

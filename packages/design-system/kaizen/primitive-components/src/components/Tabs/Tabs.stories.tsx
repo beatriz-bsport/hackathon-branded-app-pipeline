@@ -70,7 +70,7 @@ export const Primary: Story = {
         disabled: true,
       },
     ],
-    orientation: "vertical",
+    orientation: "horizontal",
     defaultValue: "Tab 2",
     value: "",
     onValueChange: undefined,

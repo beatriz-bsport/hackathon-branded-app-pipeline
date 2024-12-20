@@ -16,7 +16,7 @@ const defaultClasses = [
 const variants = {
   statusByType: {
     "weak:default": [
-      "bg-surface-default",
+      "bg-surface-default-weakest",
       "shadow-border-thin-default",
       "text-onsurface-default",
     ],
@@ -120,7 +120,14 @@ const Alert: React.FC<AlertProps> = ({
       {...props}
     >
       <div>
-        <Icon icon={iconByStatus[status]} size="md" />
+        <Icon
+          icon={iconByStatus[status]}
+          size="md"
+          className={classNames({
+            "text-onsurface-main-strong": status === "default" && type === "weak",
+            "text-onsurface-main-onstrong": status === "default" && type === "strong",
+          })}
+        />
       </div>
       <div className="flex-1 flex flex-col gap-2xs">
         {title && (

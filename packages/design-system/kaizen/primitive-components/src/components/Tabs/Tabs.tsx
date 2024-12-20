@@ -115,8 +115,10 @@ const Tabs: React.FC<TabsProps> = ({
         >
           <div
             className={classNames("flex px-xs py-2xs gap-xs rounded-sm", {
-              "hover:bg-surface-action-default-flat-hovered active:bg-surface-action-default-flat-pressed":
-                !disabled,
+              "hover:bg-surface-action-main-weak-hovered active:bg-surface-action-main-weak-pressed":
+                !disabled && activeTab === label,
+              "hover:bg-surface-action-default-weak-hovered active:bg-surface-action-default-weak-pressed":
+                !disabled && activeTab !== label,
             })}
           >
             {icon && <Icon icon={icon} size="sm" />}

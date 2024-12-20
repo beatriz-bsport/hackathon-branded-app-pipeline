@@ -71,7 +71,7 @@
   --colorKzBaseColorsBsportTurquoise1000: #000605;
   --colorKzColorShadowStrong: #5c676333;
   /* Subtle bsport colour for actions on a flat surface. */
-  --colorKzColorSurfaceActionMainWeakRest: #21837d00;
+  --colorKzColorSurfaceActionMainWeakRest: var(--colorKzBaseTransparentBsportTurquoise0);
   --colorKzColorShadowActionDefaultRest: #a3afae40;
   --colorKzColorShadowActionDefaultHovered: #a3afae40;
   --colorTest: #c900af80;

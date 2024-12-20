@@ -2,7 +2,7 @@ import type { Config } from "tailwindcss";
 import path from "path";
 import fs from "fs/promises";
 import { existsSync } from "fs";
-import { extractCSSVariables, hexToRGBA } from "#src/utils";
+import { extractCSSVariables } from "#src/utils";
 import { formatVariableName, formatVariableValue } from "#src/supernova.helper";
 
 /**
@@ -93,12 +93,12 @@ const importColors = async (folderPath: string): Promise<Output> => {
   const formatName = formatVariableName(["BaseColors", "color"]);
   const formatValue = formatVariableValue(formatName, {
     formatCSSVariable,
-    formatValue: (color) => {
+    /*formatValue: (color) => {
       const rgba = hexToRGBA(color);
       return rgba
         ? `${rgba.red}, ${rgba.green}, ${rgba.blue}, ${rgba.alpha === 1 ? 1 : Math.round(rgba.alpha / 2.55) / 100}`
         : "";
-    },
+    },*/
   });
 
   const tailwindOtherColors: Record<string, string> = {};
@@ -120,7 +120,7 @@ const importColors = async (folderPath: string): Promise<Output> => {
     const baseColorRegex = /(.+)-([0-9]+)/;
     const baseColorMatch = baseColorRegex.exec(name);
 
-    const tailwindValue = `rgba(var(--${formatCSSVariable(name)}))`;
+    const tailwindValue = `var(--${formatCSSVariable(name)})`;
 
     if (!baseColorMatch) {
       tailwindOtherColors[name] = tailwindValue;
@@ -479,6 +479,7 @@ const importShadows = async (folderPath: string): Promise<Output> => {
   const cssContent = await importFileContent(folderPath, "styles/shadows.css");
 
   const formatCSSVariable = (name: string) => `kz-shadow-${name}`;
+  const formatCSSVariableWithoutPrefix = (name: string) => `kz-${name}`;
   const formatName = formatVariableName([
     "shadowKaizen",
     "elevation",
@@ -486,7 +487,7 @@ const importShadows = async (folderPath: string): Promise<Output> => {
     "css",
   ]);
   const formatValue = formatVariableValue(formatName, {
-    formatCSSVariable,
+    formatCSSVariable: formatCSSVariableWithoutPrefix,
   });
   return Object.entries(cssContent).reduce(
     (acc: Output, [cssName, cssValue]) => {

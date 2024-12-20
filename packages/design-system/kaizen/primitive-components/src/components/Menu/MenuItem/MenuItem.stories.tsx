@@ -4,7 +4,7 @@ import AvatarImage from "#src/components/Avatar/assets/avatar.jpeg";
 import { icons } from "#src/components/Icon";
 import { menuItemTypes } from "./constants";
 import type { Meta, StoryObj } from "@storybook/react";
-import { MenuItemCheckBoxType, MenuItemRadioType } from "./types";
+import { CheckBoxType, RadioType } from "./types";
 
 /**
  * React component for a menu item element. <br>
@@ -99,7 +99,7 @@ export const ButtonMenuItem: Story = {
 
 export const MenuItemRadio = {
   name: "MenuItemRadio",
-  render: (args: MenuItemRadioType) => {
+  render: (args: RadioType) => {
     const [selected, setSelected] = useState(args.checked);
     useEffect(() => {
       setSelected(args.checked);
@@ -143,7 +143,7 @@ export const MenuItemCheckbox = {
     },
   },
   name: "MenuItemCheckbox",
-  render: (args: MenuItemCheckBoxType) => {
+  render: (args: CheckBoxType) => {
     const [value, setValue] = useState(args.value);
 
     useEffect(() => {

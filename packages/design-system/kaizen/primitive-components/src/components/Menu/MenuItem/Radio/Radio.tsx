@@ -1,15 +1,15 @@
 import React, { useMemo, useRef } from "react";
-import { MenuItemRadioType } from "#src/components/MenuItem/types";
+import { RadioType } from "#src/components/Menu/MenuItem/types";
 import {
   baseMenuItemClasses,
   menuItemVariants,
-} from "#src/components/MenuItem/constants";
+} from "#src/components/Menu/MenuItem/constants";
 import { cva } from "class-variance-authority";
 import Avatar from "#src/components/Avatar";
 import Icon from "#src/components/Icon";
-import MenuItemIndicator from "#src/components/MenuItem/MenuItemIndicator";
+import Indicator from "#src/components/Menu/MenuItem/Indicator";
 
-const menuItemRadio = cva(baseMenuItemClasses, {
+const radio = cva(baseMenuItemClasses, {
   variants: menuItemVariants,
 });
 
@@ -18,14 +18,14 @@ type RadioOptionsProps = {
   value: string;
 };
 
-export type MenuItemRadioProps = React.InputHTMLAttributes<HTMLInputElement> &
+export type RadioProps = React.InputHTMLAttributes<HTMLInputElement> &
   RadioOptionsProps &
-  Omit<MenuItemRadioType, "type">;
+  Omit<RadioType, "type">;
 
 /**
  * React component for a radio menu item.
  *
- * The `MenuItemRadio` component is a reusable and customizable component for creating radio-style
+ * The `Radio` component is a reusable and customizable component for creating radio-style
  * menu items. It provides functionality for selecting a single option from a group and can include
  * additional elements such as an avatar, an icon, and a label.
  *
@@ -48,7 +48,7 @@ export type MenuItemRadioProps = React.InputHTMLAttributes<HTMLInputElement> &
  * @param props.avatar (`string | undefined`): URL for an avatar image to display on the left side of the item.
  * @param props.iconLeft (`string | undefined`): Name of an icon to display on the left side of the item.
  */
-const MenuItemRadio: React.FC<MenuItemRadioProps> = ({
+const Radio: React.FC<RadioProps> = ({
   id,
   value,
   checked,
@@ -100,12 +100,12 @@ const MenuItemRadio: React.FC<MenuItemRadioProps> = ({
 
   return (
     <button
-      className={menuItemRadio({ disabled, checked: checked ?? false })}
+      className={radio({ disabled, checked: checked ?? false })}
       onClick={handleMenuItemClick}
       tabIndex={0}
       role="radio"
     >
-      <MenuItemIndicator disabled={disabled} />
+      <Indicator disabled={disabled} />
       <input
         ref={inputRef}
         className="sr-only"
@@ -129,6 +129,6 @@ const MenuItemRadio: React.FC<MenuItemRadioProps> = ({
   );
 };
 
-MenuItemRadio.displayName = "KaizenMenuItemRadio";
+Radio.displayName = "KaizenMenuItemRadio";
 
-export default MenuItemRadio;
+export default Radio;

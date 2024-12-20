@@ -5,25 +5,24 @@ import Icon from "#src/components/Icon";
 import {
   defaultMenuItemClasses,
   menuItemVariants,
-} from "#src/components/MenuItem/constants";
-import type { MenuItemButtonType } from "#src/components/MenuItem/types";
-import MenuItemIndicator from "#src/components/MenuItem/MenuItemIndicator";
+} from "#src/components/Menu/MenuItem/constants";
+import type { ButtonType } from "#src/components/Menu/MenuItem/types";
+import MenuItemIndicator from "#src/components/Menu/MenuItem/Indicator";
 
-const menuItemButton = cva(defaultMenuItemClasses, {
+const button = cva(defaultMenuItemClasses, {
   variants: menuItemVariants,
 });
 
-export type MenuItemButtonProps = Omit<
-  React.ButtonHTMLAttributes<HTMLButtonElement> &
-    VariantProps<typeof menuItemButton>,
+export type ButtonProps = Omit<
+  React.ButtonHTMLAttributes<HTMLButtonElement> & VariantProps<typeof button>,
   "children"
 > &
-  MenuItemButtonType;
+  ButtonType;
 
 /**
  * React component for a button menu item.
  *
- * The `MenuItemButton` component provides a versatile button element designed for use in menus or lists.
+ * The `Button` component provides a versatile button element designed for use in menus or lists.
  * It supports additional UI features such as avatars, icons, and right-aligned slots, allowing for rich
  * and interactive menu designs.
  *
@@ -42,7 +41,7 @@ export type MenuItemButtonProps = Omit<
  * @param props.rightSlot (`React.ReactNode | undefined`): Custom content to display on the right side of the button.
  * @param props.disabled (`boolean`): If `true`, disables the button and prevents interactions.
  */
-const MenuItemButton: React.FC<MenuItemButtonProps> = ({
+const Button: React.FC<ButtonProps> = ({
   avatar,
   className,
   iconLeft,
@@ -75,7 +74,7 @@ const MenuItemButton: React.FC<MenuItemButtonProps> = ({
   );
 
   return (
-    <button className={menuItemButton({ className, disabled })} {...props}>
+    <button className={button({ className, disabled })} {...props}>
       <MenuItemIndicator disabled={disabled} />
       {renderedAvatar ?? renderedIcon}
       {renderedLabel}
@@ -84,6 +83,6 @@ const MenuItemButton: React.FC<MenuItemButtonProps> = ({
   );
 };
 
-MenuItemButton.displayName = "KaizenMenuItemButton";
+Button.displayName = "KaizenMenuItemButton";
 
-export default MenuItemButton;
+export default Button;

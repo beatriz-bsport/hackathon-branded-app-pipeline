@@ -39,12 +39,12 @@ const indicator = cva(indicatorClasses, {
   variants: indicatorVariants,
 });
 
-export type MenuItemIndicatorProps = {
+export type IndicatorProps = {
   disabled?: boolean;
 };
 
-const MenuItemIndicator: React.FC<MenuItemIndicatorProps> = ({ disabled }) => {
+const Indicator: React.FC<IndicatorProps> = ({ disabled }) => {
   return <div className={indicator({ disabled })} />;
 };
 
-export default MenuItemIndicator;
+export default Indicator;

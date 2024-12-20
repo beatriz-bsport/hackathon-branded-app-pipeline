@@ -1,9 +1,8 @@
 import React from "react";
-import type { MenuItemTitleType } from "#src/components/MenuItem/types";
+import type { TitleType } from "#src/components/Menu/MenuItem/types";
 import Title from "#src/components/Title";
 
-export type MenuItemTitleProps = React.HTMLAttributes<HTMLDivElement> &
-  MenuItemTitleType;
+export type TitleProps = React.HTMLAttributes<HTMLDivElement> & TitleType;
 
 /**
  * React component for a title menu item.
@@ -22,7 +21,7 @@ export type MenuItemTitleProps = React.HTMLAttributes<HTMLDivElement> &
  * @param props.label (`string`): The text to display as the title.
  * @param props.className (`string | undefined`): Additional CSS classes to apply for custom styling.
  */
-const MenuItemTitle: React.FC<MenuItemTitleProps> = ({
+const MenuItemTitle: React.FC<TitleProps> = ({
   label,
   className,
   ...props

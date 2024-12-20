@@ -1,10 +1,10 @@
 import React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 
-import MenuItemButton from "./MenuItemButton";
-import MenuItemCheckbox from "./MenuItemCheckbox";
-import MenuItemRadio from "./MenuItemRadio";
-import MenuItemTitle from "./MenuItemTitle";
+import Button from "./Button";
+import Checkbox from "./Checkbox";
+import Radio from "./Radio";
+import Title from "./Title";
 import Divider from "#src/components/Divider";
 
 import type { MenuItemType } from "./types";
@@ -27,19 +27,19 @@ const MenuItem: React.FC<MenuItemProps> = ({
 
   const menuItemComponent = (() => {
     if (type === menuItemTypes.button) {
-      return <MenuItemButton {...props} />;
+      return <Button {...props} />;
     }
     if (type === menuItemTypes.radio) {
-      return <MenuItemRadio {...props} />;
+      return <Radio {...props} />;
     }
     if (type === menuItemTypes.checkbox) {
-      return <MenuItemCheckbox {...props} readOnly />;
+      return <Checkbox {...props} readOnly />;
     }
     if (type === menuItemTypes.divider) {
       return <Divider orientation="horizontal" weight="thin" {...props} />;
     }
     if (type === menuItemTypes.title) {
-      return <MenuItemTitle {...props} />;
+      return <Title {...props} />;
     }
   })();
 
@@ -54,4 +54,4 @@ const MenuItem: React.FC<MenuItemProps> = ({
   );
 };
 
-export default React.memo(MenuItem);
+export default MenuItem;

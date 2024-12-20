@@ -1,28 +1,27 @@
 import React, { useCallback, useEffect, useMemo, useRef } from "react";
 import { cva, type VariantProps } from "class-variance-authority";
-import { MenuItemCheckBoxType } from "#src/components/MenuItem/types";
+import { CheckBoxType } from "#src/components/Menu/MenuItem/types";
 import {
   defaultMenuItemClasses,
   menuItemVariants,
-} from "#src/components/MenuItem/constants";
+} from "#src/components/Menu/MenuItem/constants";
 import Avatar from "#src/components/Avatar";
 import Icon from "#src/components/Icon";
 import classNames from "classnames";
 import { CheckboxSVG } from "#src/components/Checkbox";
-import MenuItemIndicator from "#src/components/MenuItem/MenuItemIndicator";
+import Indicator from "#src/components/Menu/MenuItem/Indicator";
 
-const menuItemCheckbox = cva(defaultMenuItemClasses, {
+const checkbox = cva(defaultMenuItemClasses, {
   variants: menuItemVariants,
 });
 
-export type MenuItemCheckboxProps =
-  React.InputHTMLAttributes<HTMLInputElement> &
-    VariantProps<typeof menuItemCheckbox> &
-    Omit<MenuItemCheckBoxType, "type">;
+export type CheckboxProps = React.InputHTMLAttributes<HTMLInputElement> &
+  VariantProps<typeof checkbox> &
+  Omit<CheckBoxType, "type">;
 /**
  * React component for a checkbox menu item.
  *
- * The `MenuItemCheckbox` component provides a flexible and accessible checkbox element that can be used
+ * The `Checkbox` component provides a flexible and accessible checkbox element that can be used
  * within menus or lists. It supports multiple states (`checked`, `unchecked`, and `indeterminate`) and
  * includes additional customization options like avatars, icons, and labels.
  *
@@ -42,7 +41,7 @@ export type MenuItemCheckboxProps =
  * @param props.onChange (`(event: React.ChangeEvent<HTMLInputElement>) => void`): Callback function invoked when the checkbox state changes.
  * @param props.value (`"checked" | "unchecked" | "indeterminate"`): Current state of the checkbox.
  */
-const MenuItemCheckbox: React.FC<MenuItemCheckboxProps> = ({
+const Checkbox: React.FC<CheckboxProps> = ({
   avatar,
   disabled,
   iconLeft,
@@ -103,11 +102,11 @@ const MenuItemCheckbox: React.FC<MenuItemCheckboxProps> = ({
     <button
       role="check"
       aria-checked={value === "checked"}
-      className={menuItemCheckbox({ disabled })}
+      className={checkbox({ disabled })}
       onClick={handleCheckboxChange}
       tabIndex={0}
     >
-      <MenuItemIndicator disabled={disabled} />
+      <Indicator disabled={disabled} />
       <div
         className={classNames(
           "flex items-center relative text-onsurface-default text-body-md leading-sm",
@@ -177,6 +176,6 @@ const MenuItemCheckbox: React.FC<MenuItemCheckboxProps> = ({
   );
 };
 
-MenuItemCheckbox.displayName = "KaizenMenuItemCheckbox";
+Checkbox.displayName = "KaizenMenuItemCheckbox";
 
-export default MenuItemCheckbox;
+export default Checkbox;

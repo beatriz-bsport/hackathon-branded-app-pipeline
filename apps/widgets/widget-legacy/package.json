@@ -8,7 +8,7 @@
     "analyze": "source-map-explorer dist/widget.js",
     "build": "NODE_ENV=production NODE_OPTIONS=--max_old_space_size=8192 webpack-cli --mode production",
     "deploy": "npm run build && gh-pages -d dist",
-    "lint": "eslint --ext .js --ext .jsx --ext .ts --ext .tsx ./src",
+    "lint-old": "eslint ./src",
     "start": "NODE_ENV=development NODE_OPTIONS=--openssl-legacy-provider webpack serve --config webpack.config.js",
     "test": "jest",
     "test-update-snapshots": "jest --updateSnapshot"
@@ -118,7 +118,7 @@
     "eslint-plugin-jsx-a11y": "^6.8.0",
     "eslint-plugin-prettier": "^3.1.0",
     "eslint-plugin-react": "7.14.2",
-    "eslint-plugin-react-hooks": "^4.2.0",
+    "eslint-plugin-react-hooks": "^5.1.0",
     "file-loader": "6.2.0",
     "gh-pages": "2.0.1",
     "husky": "^6.0.0",

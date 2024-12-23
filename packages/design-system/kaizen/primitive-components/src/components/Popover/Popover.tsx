@@ -55,10 +55,19 @@ const Popover: React.FC<PopoverProps> & {
   Content: typeof Content;
 } = ({ children }) => {
   const [isPopoverOpened, setIsPopoverOpened] = useState(false);
+  const popoverRef = useRef(null);
+
+  const handleClose = () => setIsPopoverOpened(false);
+
+  // Close the popover when the escape key is pressed or when a click occurs outside
+  useEscapeKeydownListener(handleClose, isPopoverOpened);
+  useOutsideClickListener(popoverRef, handleClose, isPopoverOpened);
 
   return (
     <PopoverContext.Provider value={{ isPopoverOpened, setIsPopoverOpened }}>
-      <div className="relative">{children}</div>
+      <div className="relative w-fit" ref={popoverRef}>
+        {children}
+      </div>
     </PopoverContext.Provider>
   );
 };
@@ -98,7 +107,6 @@ const Content: React.FC<{
   const { isPopoverOpened, setIsPopoverOpened } = useContext(PopoverContext);
   const placementClasses = usePlacementClasses(placement);
 
-  const popoverRef = useRef<HTMLDivElement>(null);
   const [isMounted, setIsMounted] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
 
@@ -148,15 +156,10 @@ const Content: React.FC<{
   };
   const role = hasInteractiveContent(content) ? "dialog" : "tooltip";
 
-  // Close the popover when the escape key is pressed or when a click occurs outside
-  useEscapeKeydownListener(handleClose, isVisible);
-  useOutsideClickListener(popoverRef, handleClose, isVisible);
-
   if (!isMounted) return null;
 
   return (
     <div
-      ref={popoverRef}
       tabIndex={-1}
       className={classNames(defaultClasses, placementClasses, className, {
         "opacity-transparent scale-95": !isVisible,

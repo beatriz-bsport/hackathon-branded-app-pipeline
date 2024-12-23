@@ -82,6 +82,7 @@ export type TextFieldProps = Omit<
  * @param props.status The status of the textfield, which affects its styling.
  * @param props.value The current value of the textfield.
  * @param props.onChange Callback function to call when the value changes.
+ * @param props.onClear Callback function to call when the clear button is clicked.
  * @param props.label The text for the label associated with the textfield.
  * @param props.placeholder Placeholder text to display when the textfield is empty.
  * @param props.required Whether the textfield is required. Displays an asterisk (*) next to the label.
@@ -92,6 +93,9 @@ export type TextFieldProps = Omit<
  * @param props.iconRight Name of the icon to use on the right inside the textfield.
  * @param props.prefix Text, color, or icon to display on the left of the textfield.
  * @param props.suffix Text, color, or icon to display on the right of the textfield.
+ * @param props.type The type of the textfield.
+ * @param props.onBlur Callback function to call when the textfield loses focus.
+ * @param props.onFocus Callback function to call when the textfield gains focus.
  * @link https://docs.infra.bsport.io/storybook/kaizen/main/index.html?path=/docs/components-textfield--docs
  */
 const TextField: React.FC<TextFieldProps> = ({
@@ -144,9 +148,7 @@ const TextField: React.FC<TextFieldProps> = ({
             "before:shadow-border-thin-default": status === "default",
             "before:shadow-border-thin-positive": status === "positive",
             "before:shadow-border-thin-critical": status === "error",
-            "outline outline-2": isInputFocused,
-            "outline-shadow-action-brand-selected":
-              isInputFocused && status === "default",
+            "shadow-focused": isInputFocused && status === "default",
           },
         )}
       >
@@ -189,6 +191,10 @@ const TextField: React.FC<TextFieldProps> = ({
               onFocus?.(e);
             }}
             type={type}
+            disabled={disabled}
+            aria-required={required}
+            aria-invalid={status === "error"}
+            aria-describedby={helperText ? `${id}-helper-text` : undefined}
             {...props}
           />
           {type !== "number" && value && (

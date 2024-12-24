@@ -23,7 +23,7 @@ const variants = {
     [TYPOGRAPHY_COLORS.onstrong]: ["text-onsurface-default-onstrong"],
     [TYPOGRAPHY_COLORS.weak]: ["text-onsurface-weak"],
     [TYPOGRAPHY_COLORS.weaker]: ["text-onsurface-weaker"],
-    [TYPOGRAPHY_COLORS.disabled]: ["text-onsurface-disabled", "opacity-sm"],
+    [TYPOGRAPHY_COLORS.disabled]: ["text-onsurface-default", "opacity-sm"],
     [TYPOGRAPHY_COLORS.inherit]: ["text-inherit"],
   },
   weight: {

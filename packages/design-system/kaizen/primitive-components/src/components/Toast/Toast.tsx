@@ -115,7 +115,7 @@ const Toast: React.FC<ToastProps> = ({
             {title}
           </Title>
         )}
-        {description && <Body htmlVariant="p">{description}</Body>}
+        {description && <p className="text-onsurface-default-onstrong">{description}</p>}
       </div>
       {buttonLabel && (
         <div className="flex flex-row gap-sm">

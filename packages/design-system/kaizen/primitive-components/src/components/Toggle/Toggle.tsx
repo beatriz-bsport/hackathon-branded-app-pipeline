@@ -77,10 +77,10 @@ const Toggle: React.FC<ToggleProps> = ({
         <input
           className={classNames(
             "appearance-none w-xl h-md rounded-circle",
-            "bg-surface-default-weak",
+            "bg-surface-action-main-selected-rest",
             "cursor-pointer",
             "transition-colors duration-default ease-in-out",
-            "bg-surface-default-weak hover:bg-surface-action-main-weak-hovered active:bg-surface-action-main-weak-pressed",
+            "hover:bg-surface-action-main-selected-hovered active:bg-surface-action-main-selected-pressed",
             "checked:bg-surface-action-main-strong-rest checked:hover:bg-surface-action-main-strong-hovered checked:active:bg-surface-action-main-strong-pressed",
             {
               "shadow-critical bg-surface-status-critical-weak hover:bg-surface-status-critical-weak active:bg-surface-status-critical-weak checked:bg-surface-status-critical-strong checked:hover:bg-surface-status-critical-strong checked:active:bg-surface-status-critical-strong":

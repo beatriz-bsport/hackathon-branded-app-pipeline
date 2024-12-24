@@ -107,8 +107,8 @@ export const variants = {
     ],
     "flat-onstrong": [
       // Text
-      "text-onsurface-default-weak-onstrong",
-      "fill-onsurface-default-weak-onstrong",
+      "text-onsurface-action-weak-onstrong",
+      "fill-onsurface-action-weak-onstrong",
       // Background
       "bg-action-default-onstrong-rest",
       "active:bg-surface-action-default-onstrong-pressed",

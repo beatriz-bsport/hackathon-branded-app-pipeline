@@ -16,7 +16,7 @@ const meta: Meta<typeof Checkbox> = {
     value: {
       control: { type: "inline-radio" },
     },
-    labelText: {
+    label: {
       control: { type: "text" },
     },
     id: {
@@ -62,7 +62,7 @@ export const CheckboxCheckedUnchecked: Story = {
   },
   args: {
     value: "checked",
-    labelText: "Label placeholder",
+    label: "Label placeholder",
     id: "checkbox-1",
     required: false,
     disabled: false,
@@ -89,7 +89,7 @@ export const CheckboxIndeterminateUnchecked: Story = {
   },
   args: {
     value: "indeterminate",
-    labelText: "Label placeholder",
+    label: "Label placeholder",
     id: "checkbox-1",
     required: false,
     disabled: false,
@@ -116,7 +116,7 @@ export const CheckboxIndeterminateChecked: Story = {
   },
   args: {
     value: "indeterminate",
-    labelText: "Label placeholder",
+    label: "Label placeholder",
     id: "checkbox-1",
     required: false,
     disabled: false,

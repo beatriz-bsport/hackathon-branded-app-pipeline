@@ -64,7 +64,7 @@ const Body: React.FC<BodyProps> = ({
   className,
   htmlVariant,
   size,
-  color,
+  color = "default",
   weight,
   ...props
 }) => {

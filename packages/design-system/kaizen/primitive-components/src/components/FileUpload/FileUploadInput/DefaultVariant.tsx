@@ -31,6 +31,7 @@ const DefaultVariant: React.FC<DefaultVariantProps> = ({
         "flex flex-col items-center gap-xs p-md w-full",
         "transition-colors ease-out duration-default",
         "border-stroke-thin rounded-md border-dashed",
+        "text-onsurface-default",
         // rest
         "border-stroke-action-default-rest",
         "bg-surface-default",

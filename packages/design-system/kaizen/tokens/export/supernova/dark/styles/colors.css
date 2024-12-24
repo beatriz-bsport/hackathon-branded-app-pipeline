@@ -71,7 +71,7 @@
   --colorKzBaseColorsBsportTurquoise1000: #000605;
   --colorKzColorShadowStrong: #15231e14;
   /* Subtle bsport colour for actions on a flat surface. */
-  --colorKzColorSurfaceActionMainWeakRest: #21837d00;
+  --colorKzColorSurfaceActionMainWeakRest: var(--colorKzBaseTransparentBsportTurquoise0);
   --colorKzColorShadowActionDefaultRest: #242929e5;
   --colorKzColorShadowActionDefaultHovered: #24292940;
   --colorTest: #c900af80;
@@ -120,11 +120,11 @@
   /* Default colour for surface elements. */
   --colorKzColorSurfaceDefaultElevated: var(--colorKzBaseColorsLunaGrey800);
   /* Colour non-actionable elements used to create subtle background contrast and indicate hierarchy on a flat surface. */
-  --colorKzColorSurfaceDefaultWeak: var(--colorKzBaseColorsLunaGrey700);
+  --colorKzColorSurfaceDefaultWeak: var(--colorKzBaseColorsLunaGrey500);
   /* Lighter colour for non-actionable elements used for minimal contrast on a flat surface. */
   --colorKzColorSurfaceDefaultWeaker: var(--colorKzBaseColorsLunaGrey600);
   /* Default colour for surface elements. */
-  --colorKzColorSurfaceDefaultWeakest: var(--colorKzBaseColorsLunaGrey500);
+  --colorKzColorSurfaceDefaultWeakest: var(--colorKzBaseColorsLunaGrey700);
   /* Stronger colour for non-actionable elements, with strong contrast. Mainly used for callouts. */
   --colorKzColorSurfaceMainStrong: var(--colorKzBaseColorsBsportTurquoise200);
   /* Bsport light colour for non-actionable elements, maintaining brand identity with subtlety. */
@@ -171,7 +171,7 @@
   /* Default call-to-action colour for selected actionable elements. */
   --colorKzColorSurfaceActionMainStrongSelected: var(--colorKzBaseColorsBsportTurquoise600);
   /* Default colour for default actions across the platform, slightly elevated above a flat surface. */
-  --colorKzColorSurfaceActionDefaultElevatedRest: var(--colorKzBaseColorsLunaGrey700);
+  --colorKzColorSurfaceActionDefaultElevatedRest: var(--colorKzBaseColorsLunaGrey600);
   /* Critical colour for strong actionable elements like buttons in resting state. */
   --colorKzColorSurfaceActionCriticalStrongRest: var(--colorKzBaseColorsCupidRed200);
   /* Critical colour for strong actionable elements like buttons in hovered state. */
@@ -179,7 +179,7 @@
   /* Critical colour for strong actionable elements like buttons in pressed state. */
   --colorKzColorSurfaceActionCriticalStrongPressed: var(--colorKzBaseColorsCupidRed400);
   /* Default hovered colour for default actions across the platform, slightly elevated above a flat surface. */
-  --colorKzColorSurfaceActionDefaultElevatedHovered: var(--colorKzBaseColorsLunaGrey600);
+  --colorKzColorSurfaceActionDefaultElevatedHovered: var(--colorKzBaseColorsLunaGrey500);
   /* Default pressed colour for default actions across the platform, slightly elevated above a flat surface. */
   --colorKzColorSurfaceActionDefaultElevatedPressed: var(--colorKzBaseColorsLunaGrey700);
   /* Default selected colour for default actions across the platform, slightly elevated above a flat surface. */
@@ -260,7 +260,7 @@
   /* Default call-to-action colour for actionable elements like buttons. */
   --colorKzColorSurfaceActionDefaultOnstrongRest: var(--colorKzBaseTransparentLunaGrey0);
   /* Critical colour for strong actionable elements like buttons in resting state. */
-  --colorKzColorSurfaceActionCriticalWeakRest: var(--colorKzBaseColorsCupidRed100);
+  --colorKzColorSurfaceActionCriticalWeakRest: var(--colorKzBaseTransparentCupidRed0);
   /* Default colour of elements on default weak actions. */
   --colorKzColorOnsurfaceActionWeakOnstrong: var(--colorKzBaseColorsLunaGrey800);
   /* Default colour of elements on default weak actions. */
@@ -281,9 +281,9 @@
   /* Default call-to-action colour for actionable elements like buttons. */
   --colorKzColorSurfaceActionDefaultOnstrongPressed: var(--colorKzBaseTransparentLunaGrey350);
   /* Critical colour for strong actionable elements like buttons in resting state. */
-  --colorKzColorSurfaceActionCriticalWeakHovered: var(--colorKzBaseColorsCupidRed100);
+  --colorKzColorSurfaceActionCriticalWeakHovered: var(--colorKzBaseTransparentCupidRed150);
   /* Critical colour for strong actionable elements like buttons in resting state. */
-  --colorKzColorSurfaceActionCriticalWeakPressed: var(--colorKzBaseColorsCupidRed100);
+  --colorKzColorSurfaceActionCriticalWeakPressed: var(--colorKzBaseTransparentCupidRed350);
   /* Colour for non-actionable elements, used to create significant contrast. */
   --colorKzColorSurfaceDefaultOnstrong: var(--colorKzBaseColorsLunaGrey900);
 }

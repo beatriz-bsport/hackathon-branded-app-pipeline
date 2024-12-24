@@ -1,7 +1,7 @@
 export const FOCUS_CLASSES = [
   "focus:outline",
   "focus:outline-2",
-  "focus:outline-stroke-main",
+  "focus:outline-base-transparent-bsport-turquoise-750",
 ] as const;
 
 export const TYPOGRAPHY_COLORS = {

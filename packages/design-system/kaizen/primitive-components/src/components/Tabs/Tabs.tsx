@@ -3,7 +3,6 @@ import { cva, type VariantProps } from "class-variance-authority";
 import classNames from "classnames";
 import mapValues from "lodash/mapValues";
 import Icon, { IconName } from "#src/components/Icon";
-import Body from "#src/components/Body";
 
 const defaultClasses = [
   "flex",
@@ -93,11 +92,12 @@ const Tabs: React.FC<TabsProps> = ({
           className={classNames(
             "py-xs",
             {
-              "border-b-stroke-regular": orientation === "horizontal",
+              "border-b-stroke-regular border-b-stroke-action-main-selected":
+                orientation === "horizontal",
               "pr-sm border-r-stroke-regular": orientation === "vertical",
             },
             {
-              "text-onsurface-action-main-selected font-strong border-stroke-action-default-selected":
+              "text-onsurface-action-weak-main font-strong":
                 activeTab === label,
               "text-onsurface-action-main-rest border-none":
                 activeTab !== label,
@@ -115,14 +115,23 @@ const Tabs: React.FC<TabsProps> = ({
         >
           <div
             className={classNames("flex px-xs py-2xs gap-xs rounded-sm", {
-              "hover:bg-surface-action-default-flat-hovered active:bg-surface-action-default-flat-pressed":
-                !disabled,
+              "hover:bg-surface-action-main-weak-hovered active:bg-surface-action-main-weak-pressed":
+                !disabled && activeTab === label,
+              "hover:bg-surface-action-default-weak-hovered active:bg-surface-action-default-weak-pressed":
+                !disabled && activeTab !== label,
             })}
           >
-            {icon && <Icon icon={icon} size="sm" />}
-            <Body htmlVariant="span" className="flex-1 truncate">
-              {label}
-            </Body>
+            {icon && (
+              <Icon
+                icon={icon}
+                size="sm"
+                className={classNames({
+                  "text-onsurface-main-strong": activeTab === label,
+                  "text-onsurface-default": activeTab !== label,
+                })}
+              />
+            )}
+            <span className="flex-1 truncate">{label}</span>
           </div>
         </a>
       ))}

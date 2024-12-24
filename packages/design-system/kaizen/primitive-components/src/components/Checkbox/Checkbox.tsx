@@ -13,7 +13,7 @@ const checkbox = cva(defaultClasses);
 export type CheckboxProps = React.InputHTMLAttributes<HTMLInputElement> &
   VariantProps<typeof checkbox> & {
     value: "checked" | "unchecked" | "indeterminate";
-    labelText: string;
+    label?: string;
     id: string;
     required?: boolean;
     disabled?: boolean;
@@ -30,7 +30,7 @@ export type CheckboxProps = React.InputHTMLAttributes<HTMLInputElement> &
  * The change of state is managed outside the component.
  * @param props.className Classname to add to the checkbox.
  * @param props.value Defines the state of the checkbox. Can be "checked", "unchecked" or "indeterminate".
- * @param props.labelText Text label of the checkbox.
+ * @param props.label Text label of the checkbox.
  * @param props.id Id of the input.
  * @param props.required Defines if the checkbox is required or not.
  * @param props.disabled Defines if the checkbox is disabled or not.
@@ -43,7 +43,7 @@ export type CheckboxProps = React.InputHTMLAttributes<HTMLInputElement> &
 const Checkbox: React.FC<CheckboxProps> = ({
   className,
   value,
-  labelText,
+  label,
   id,
   required,
   disabled,
@@ -90,12 +90,12 @@ const Checkbox: React.FC<CheckboxProps> = ({
             "appearance-none w-md h-md rounded-xs",
             "cursor-pointer disabled:cursor-default",
             "transition-colors duration-default ease-in-out",
-            "border-stroke-thin indeterminate:border-none checked:border-none",
+            "shadow-action-default-rest active:shadow-action-default-pressed",
             {
               "bg-surface-status-critical-weak border-stroke-status-critical \
               indeterminate:bg-surface-status-critical-strong checked:bg-surface-status-critical-strong":
                 errorText,
-              "bg-surface-action-default-elevated-rest border-stroke-action-default-rest \
+              "bg-surface-action-default-elevated-rest shadow-action-default-rest \
               indeterminate:bg-surface-action-main-strong-rest checked:bg-surface-action-main-strong-rest":
                 !errorText,
               // Hovered state
@@ -106,10 +106,7 @@ const Checkbox: React.FC<CheckboxProps> = ({
               hover:active:shadow-action-call-to-action-pressed hover:active:bg-surface-action-main-strong-pressed":
                 !disabled && value !== "unchecked" && !errorText,
               // Disabled state
-              "border-stroke-action-default-pressed bg-surface-action-default-elevated-pressed":
-                disabled && value === "unchecked",
-              "bg-surface-action-main-strong-pressed":
-                disabled && value !== "unchecked",
+              "opacity-sm": disabled,
             },
           )}
           type="checkbox"
@@ -140,7 +137,7 @@ const Checkbox: React.FC<CheckboxProps> = ({
             "pr-xs": direction === "end",
           })}
         >
-          <span>{labelText}</span>
+          <span>{label}</span>
           {required && (
             <span className="text-onsurface-status-critical-strong text-body-sm leading-xs">
               *

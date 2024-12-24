@@ -105,7 +105,7 @@ const Indicator: React.FC<IndicatorProps> = ({
   const buttonType = value ? "text" : "dot";
 
   return (
-    <div className="relative inline-block align-top" {...props}>
+    <div className="relative inline-block align-top text-onsurface-default" {...props}>
       {children}
       <span
         className={`${indicator({

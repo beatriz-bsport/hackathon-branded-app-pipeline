@@ -43,14 +43,25 @@ export const formatVariableValue =
     },
   ) =>
   (value: string) => {
-    const VAR_REGEX = /var\((\s|\n)*--(.+)(\s|\n)*\)/;
+    const VAR_REGEX = /var\(\s*--([^)]+)\s*\)/; // Improved regex for capturing the full variable name
     const formatValue = options?.formatValue ?? ((name: string) => name);
     const formatCSSVariable = options.formatCSSVariable;
 
+    // Look for the variable match in the value
     const varMatch = VAR_REGEX.exec(value);
+
     if (varMatch) {
-      // Add a prefix kz- to color CSS Variables
-      return `var(--${formatCSSVariable(formatName(varMatch[2]))})`;
+      // This captures the variable name part inside var(--...)
+      const originalVariableName = varMatch[1];
+      // Apply formatting
+      const formattedVariableName = formatCSSVariable(
+        formatName(originalVariableName),
+      );
+
+      // Replace the original variable with the formatted version in the original string
+      return value.replace(varMatch[0], `var(--${formattedVariableName})`);
     }
+
+    // If no variable is found, return the value as-is
     return formatValue(value);
   };

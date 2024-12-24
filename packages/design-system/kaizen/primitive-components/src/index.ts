@@ -18,6 +18,7 @@ export { default as Media } from "./components/Media";
 export { default as Menu } from "./components/Menu";
 export { default as MenuItem } from "./components/Menu/MenuItem";
 export { default as Modal } from "./components/Modal";
+export { default as Pagination } from "./components/Pagination";
 export { default as Popover } from "./components/Popover";
 export { default as ProgressBar } from "./components/ProgressBar";
 export { default as RadioGroup } from "./components/RadioGroup";

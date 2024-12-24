@@ -4,7 +4,7 @@ import AvatarImage from "#src/components/Avatar/assets/avatar.jpeg";
 import { icons } from "#src/components/Icon";
 import { menuItemTypes } from "./constants";
 import type { Meta, StoryObj } from "@storybook/react";
-import { CheckBoxType, RadioType } from "./types";
+import { CheckBox as CheckBoxType, Radio as RadioType } from "./types";
 
 /**
  * React component for a menu item element. <br>
@@ -47,7 +47,7 @@ const meta: Meta<typeof MenuItem> = {
       control: { type: "inline-radio" },
       mapping: {
         none: undefined,
-        "avatar image": AvatarImage,
+        "avatar image": { src: AvatarImage },
       },
     },
     value: {
@@ -90,6 +90,25 @@ export const ButtonMenuItem: Story = {
   },
   argTypes: {
     type: {
+      table: {
+        disable: true,
+      },
+    },
+  },
+};
+
+export const MenuItemText: Story = {
+  name: "MenuItemText",
+  args: {
+    type: menuItemTypes.text,
+  },
+  argTypes: {
+    type: {
+      table: {
+        disable: true,
+      },
+    },
+    disabled: {
       table: {
         disable: true,
       },

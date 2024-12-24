@@ -4,6 +4,7 @@ export const menuItemTypes = {
   radio: "radio",
   checkbox: "checkbox",
   divider: "divider",
+  text: "text",
 } as const;
 
 export const baseMenuItemClasses = [

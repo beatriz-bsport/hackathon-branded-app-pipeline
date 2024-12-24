@@ -1,5 +1,5 @@
 import React from "react";
-import type { TitleType } from "#src/components/Menu/MenuItem/types";
+import type { Title as TitleType } from "#src/components/Menu/MenuItem/types";
 import Title from "#src/components/Title";
 
 export type TitleProps = React.HTMLAttributes<HTMLDivElement> & TitleType;

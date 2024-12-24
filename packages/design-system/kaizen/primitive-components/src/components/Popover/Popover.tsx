@@ -14,6 +14,7 @@ import usePlacementClasses, {
 } from "#src/hooks/placement-classes.hook";
 import useEscapeKeydownListener from "#src/hooks/escape-keydown-listener.hook";
 import useOutsideClickListener from "#src/hooks/outside-click-listener";
+import { cva } from "class-variance-authority";
 
 const defaultClasses = [
   "absolute",
@@ -29,6 +30,8 @@ const defaultClasses = [
   "transition ease-out duration-default",
 ] as const;
 
+const popoverClasses = cva("relative w-fit");
+
 export const PopoverContext = createContext<{
   isPopoverOpened: boolean;
   setIsPopoverOpened: (isOpen: boolean) => void;
@@ -39,6 +42,7 @@ export const PopoverContext = createContext<{
 
 export type PopoverProps = {
   children: ReactNode;
+  className?: string;
 };
 
 /**
@@ -53,7 +57,7 @@ export type PopoverProps = {
 const Popover: React.FC<PopoverProps> & {
   Anchor: typeof Anchor;
   Content: typeof Content;
-} = ({ children }) => {
+} = ({ children, className }) => {
   const [isPopoverOpened, setIsPopoverOpened] = useState(false);
   const popoverRef = useRef(null);
 
@@ -65,7 +69,7 @@ const Popover: React.FC<PopoverProps> & {
 
   return (
     <PopoverContext.Provider value={{ isPopoverOpened, setIsPopoverOpened }}>
-      <div className="relative w-fit" ref={popoverRef}>
+      <div className={popoverClasses({ className })} ref={popoverRef}>
         {children}
       </div>
     </PopoverContext.Provider>

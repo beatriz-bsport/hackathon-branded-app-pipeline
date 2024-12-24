@@ -6,7 +6,7 @@ import {
   defaultMenuItemClasses,
   menuItemVariants,
 } from "#src/components/Menu/MenuItem/constants";
-import type { ButtonType } from "#src/components/Menu/MenuItem/types";
+import type { Button as ButtonType } from "#src/components/Menu/MenuItem/types";
 import MenuItemIndicator from "#src/components/Menu/MenuItem/Indicator";
 
 const button = cva(defaultMenuItemClasses, {
@@ -53,7 +53,13 @@ const Button: React.FC<ButtonProps> = ({
   const renderedAvatar = useMemo(
     () =>
       avatar ? (
-        <Avatar src={avatar} alt="Avatar" shape="round" size="sm" />
+        <Avatar
+          src={avatar.src}
+          initials={avatar.initials}
+          alt="Avatar"
+          shape="round"
+          size="sm"
+        />
       ) : null,
     [avatar],
   );

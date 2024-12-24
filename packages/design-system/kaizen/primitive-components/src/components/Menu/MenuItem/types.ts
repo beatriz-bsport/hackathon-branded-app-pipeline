@@ -2,16 +2,19 @@ import { DividerProps } from "#src/components/Divider";
 import { IconName } from "#src/components/Icon";
 import { menuItemTypes } from "./constants";
 
-export type LeftSlot = { avatar?: string; iconLeft?: IconName }; // If `avatar` is provided, `iconLeft` must not be provided
+export type LeftSlot = {
+  avatar?: { src: string; initials: string };
+  iconLeft?: IconName;
+};
 
-export type TitleType = {
+export type Title = {
   label: string;
   type: typeof menuItemTypes.title;
 };
 
-export type ButtonType = {
+export type Button = {
   id: string;
-  subItems?: SubMenuType[];
+  subItems?: SubMenu[];
   disabled?: boolean;
   label: string;
   onClick: () => void;
@@ -19,7 +22,15 @@ export type ButtonType = {
   type: typeof menuItemTypes.button;
 } & LeftSlot;
 
-export type RadioType = {
+export type Text = {
+  id: string;
+  subItems?: SubMenu[];
+  label: string;
+  rightSlot?: React.ReactNode;
+  type: typeof menuItemTypes.text;
+} & LeftSlot;
+
+export type Radio = {
   checked: boolean;
   disabled: boolean;
   id: string;
@@ -30,7 +41,7 @@ export type RadioType = {
   value: string;
 } & LeftSlot;
 
-export type CheckBoxType = {
+export type CheckBox = {
   disabled: boolean;
   id: string;
   label: string;
@@ -40,15 +51,10 @@ export type CheckBoxType = {
   value: "checked" | "unchecked" | "indeterminate";
 } & LeftSlot;
 
-export type DividerType = {
+export type Divider = {
   type: typeof menuItemTypes.divider;
 } & DividerProps;
 
-export type MenuItemType =
-  | ButtonType
-  | CheckBoxType
-  | DividerType
-  | RadioType
-  | TitleType;
+export type MenuItem = Button | CheckBox | Divider | Radio | Title | Text;
 
-export type SubMenuType = ButtonType | RadioType | CheckBoxType;
+export type SubMenu = Button | Radio | CheckBox | Text;

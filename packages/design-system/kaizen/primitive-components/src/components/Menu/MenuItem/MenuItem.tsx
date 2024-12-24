@@ -5,9 +5,11 @@ import Button from "./Button";
 import Checkbox from "./Checkbox";
 import Radio from "./Radio";
 import Title from "./Title";
+import Text from "./Text";
+
 import Divider from "#src/components/Divider";
 
-import type { MenuItemType } from "./types";
+import type { MenuItem as MenuItemType } from "./types";
 
 import { menuItemTypes } from "./constants";
 
@@ -40,6 +42,9 @@ const MenuItem: React.FC<MenuItemProps> = ({
     }
     if (type === menuItemTypes.title) {
       return <Title {...props} />;
+    }
+    if (type === menuItemTypes.text) {
+      return <Text {...props} />;
     }
   })();
 

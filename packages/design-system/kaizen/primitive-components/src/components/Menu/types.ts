@@ -9,8 +9,17 @@ export type DividerItem = {
   type: "divider";
 };
 
+export type TextItem = {
+  id: string;
+  type: "text";
+  avatar?: { src: string; initials: string };
+  iconLeft?: IconName;
+  label: string;
+  rightSlot?: React.ReactNode;
+};
+
 export type MenuOption = {
-  avatar?: string;
+  avatar?: { src: string; initials: string };
   iconLeft?: IconName;
   id: string;
   label: string;
@@ -18,7 +27,7 @@ export type MenuOption = {
   type?: null;
 };
 
-export type Item = TitleItem | DividerItem | MenuOption;
+export type Item = TitleItem | DividerItem | TextItem | MenuOption;
 
 export type MenuType = {
   disabled: boolean;

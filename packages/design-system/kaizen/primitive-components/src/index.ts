@@ -1,6 +1,7 @@
 export { default as Alert } from "./components/Alert";
 export { default as Autocomplete } from "./components/Autocomplete";
 export { default as Avatar } from "./components/Avatar";
+export { default as AvatarGroup } from "./components/AvatarGroup";
 export { default as Badge } from "./components/Badge";
 export { default as Body } from "./components/Body";
 export { default as Breadcrumbs } from "./components/Breadcrumbs";

@@ -104,12 +104,10 @@ const Avatar: React.FC<AvatarProps> = ({
 
     // If neither src nor iconName are provided, check if initials exist to render them instead.
     if (initials) {
-      return initials.length > 3
-        ? initials.slice(0, 3).toUpperCase()
-        : initials.toUpperCase();
+      return initials.slice(0, 3).toUpperCase();
     }
     return null;
-  }, [src, alt, iconName, size]);
+  }, [src, alt, iconName, size, initials]);
 
   // Whether an action can be performed
   const isActionable = !!onClick && src;

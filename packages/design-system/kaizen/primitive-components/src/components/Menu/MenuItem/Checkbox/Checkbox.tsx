@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useRef } from "react";
 import { cva, type VariantProps } from "class-variance-authority";
-import { CheckBoxType } from "#src/components/Menu/MenuItem/types";
+import { CheckBox as CheckBoxType } from "#src/components/Menu/MenuItem/types";
 import {
   defaultMenuItemClasses,
   menuItemVariants,
@@ -64,7 +64,13 @@ const Checkbox: React.FC<CheckboxProps> = ({
   const renderedAvatar = useMemo(
     () =>
       avatar ? (
-        <Avatar src={avatar} alt="Avatar" shape="round" size="sm" />
+        <Avatar
+          src={avatar.src}
+          initials={avatar.initials}
+          alt="Avatar"
+          shape="round"
+          size="sm"
+        />
       ) : null,
     [avatar],
   );

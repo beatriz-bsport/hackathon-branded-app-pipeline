@@ -48,12 +48,26 @@ const Menu: React.FC<MenuProps> = ({
           />
         );
 
+      if (item.type === "text")
+        return (
+          <MenuItem
+            id={item.id}
+            type="text"
+            label={item.label}
+            key={item.id}
+            avatar={item.avatar}
+            iconLeft={item.iconLeft}
+            rightSlot={item.rightSlot}
+          />
+        );
+
       return multiSelect ? (
         <MenuItem
           type="checkbox"
           disabled={disabled}
           label={item.label}
           avatar={item.avatar}
+          rightSlot={item.rightSlot}
           iconLeft={item.iconLeft}
           value={selectedValues?.includes(item.id) ? "checked" : "unchecked"}
           id={item.id}
@@ -66,6 +80,7 @@ const Menu: React.FC<MenuProps> = ({
           disabled={disabled}
           label={item.label}
           avatar={item.avatar}
+          rightSlot={item.rightSlot}
           iconLeft={item.iconLeft}
           value={item.id}
           id={item.id}
@@ -79,7 +94,7 @@ const Menu: React.FC<MenuProps> = ({
 
   return (
     <div className={className} {...props}>
-      <ul role="menu" className="flex flex-col gap-xs pb-xs">
+      <ul role="menu" className="flex flex-col gap-xs">
         {menuItems}
       </ul>
     </div>

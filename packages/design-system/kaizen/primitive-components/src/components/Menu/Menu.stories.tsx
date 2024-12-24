@@ -43,17 +43,40 @@ const menuOptionsWithAvatar: Item[] = [
   {
     id: "1",
     label: "Option 1",
-    avatar: AvatarImage,
+    avatar: { src: AvatarImage, initials: "BB" },
   },
   {
     id: "2",
     label: "Option 2",
-    avatar: AvatarImage,
+    avatar: { src: AvatarImage, initials: "BB" },
   },
   {
     id: "3",
     label: "Option 3",
-    avatar: AvatarImage,
+    avatar: { src: AvatarImage, initials: "BB" },
+  },
+  { type: "divider" },
+];
+
+const menuOptionsTextWithAvatar: Item[] = [
+  { type: "title", label: "Menu with text items" },
+  {
+    id: "1",
+    type: "text",
+    label: "Option 1",
+    avatar: { src: AvatarImage, initials: "BB" },
+  },
+  {
+    id: "2",
+    type: "text",
+    label: "Option 2",
+    avatar: { src: AvatarImage, initials: "BB" },
+  },
+  {
+    id: "3",
+    type: "text",
+    label: "Option 3",
+    avatar: { src: AvatarImage, initials: "BB" },
   },
   { type: "divider" },
 ];
@@ -141,6 +164,7 @@ export const DefaultMenu: Story = {
           multiSelect={true}
           items={menuOptionsMulti}
         />
+        <Menu {...args} items={menuOptionsTextWithAvatar} />
       </div>
     );
   },

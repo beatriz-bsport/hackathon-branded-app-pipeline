@@ -1,5 +1,5 @@
 import React, { useMemo, useRef } from "react";
-import { RadioType } from "#src/components/Menu/MenuItem/types";
+import { Radio as RadioType } from "#src/components/Menu/MenuItem/types";
 import {
   baseMenuItemClasses,
   menuItemVariants,
@@ -65,7 +65,13 @@ const Radio: React.FC<RadioProps> = ({
   const renderedAvatar = useMemo(
     () =>
       avatar ? (
-        <Avatar src={avatar} alt="Avatar" shape="round" size="sm" />
+        <Avatar
+          src={avatar.src}
+          initials={avatar.initials}
+          alt="Avatar"
+          shape="round"
+          size="sm"
+        />
       ) : null,
     [avatar],
   );

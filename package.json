@@ -6,7 +6,7 @@
   "author": "",
   "license": "UNLICENSED",
   "engines": {
-    "pnpm": "9.13.0"
+    "pnpm": "9.15.1"
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^3.2.2",

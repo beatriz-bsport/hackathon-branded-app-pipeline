@@ -106,6 +106,8 @@ Full documentation [here](/tools/monorepo-utils/README.md#projectcreate).
 
 ### Maintainance
 
+#### Upgrade NX dependencies
+
 To upgrade all your NX depedencies, run the following command
 
 ```sh
@@ -114,6 +116,20 @@ pnpm dlx nx migrate latest
 
 You should do this regularly to ensure your dependencies are up-to-date.
 You can find more regarding upgrading NX here: https://nx.dev/features/automate-updating-dependencies/
+
+#### Upgrade pnpm
+
+pnpm version is controlled directly in the monorepository. To upgrade pnpm version you need to:
+
+1. Edit the version in [`./.npmrc](./.npmrc)
+2. Edit the version in the `engines` section in [`./package.json`](./package.json)
+3. Run the following command
+
+```sh
+pnpm i -g pnpm
+```
+
+**NB:** Do not run the command `pnpm self-update` as prompted by pnpm as it might install pnpm at a different path.
 
 ## Structure
 

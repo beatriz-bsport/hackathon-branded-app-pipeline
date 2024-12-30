@@ -11,6 +11,10 @@ Debug Deploy:
       when: "never"
     - when: always
 
+  variables:
+    TARGET_BRANCH: $BRANCH_DEV
+    ENV: $ENV_DEV
+
   script:
     - echo "Start deploying projects ..."
     - echo "List variables ~>"
@@ -18,6 +22,10 @@ Debug Deploy:
     - echo "CI_COMMIT_BRANCH ~> $CI_COMMIT_BRANCH"
     - echo "CI_COMMIT_REF_NAME ~> $CI_COMMIT_REF_NAME"
     - echo "CI_MERGE_REQUEST_ID ~> $CI_MERGE_REQUEST_ID"
+    - echo "BRANCH_DEV ~> $BRANCH_DEV"
+    - echo "ENV_DEV ~> $ENV_DEV"
+    - echo "TARGET_BRANCH ~> $TARGET_BRANCH"
+    - echo "ENV ~> $ENV"
 
 Deploy Base:
   image: node:22-alpine
@@ -32,9 +40,10 @@ Deploy Base:
       when: never
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
       when: "never"
-    - if: $CI_COMMIT_REF_NAME == $TARGET_BRANCH
+    - if: $CI_COMMIT_REF_NAME == "$TARGET_BRANCH"
       when: "on_success"
-    - when: "never"
+    - if: $CI_COMMIT_BRANCH == "$TARGET_BRANCH"
+      when: "on_success"
 
   script:
     - echo "Start deploying projects ..."
@@ -45,7 +54,6 @@ Deploy Base:
 
 Deploy Dev:
   extends: Deploy Base
-  interruptible: true
   variables:
     TARGET_BRANCH: $BRANCH_DEV
     ENV: $ENV_DEV

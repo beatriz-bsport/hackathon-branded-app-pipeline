@@ -18,13 +18,13 @@ import {
 import { userAcknowlegdePlatformTutorial } from '#src/libs/platform-tutorial/selectors';
 import type { DeleteAlert } from '#src/libs/alerting/types';
 import {
-  getLastClockin as getLastClockinAction,
+  fetchMyLastClockin as fetchMyLastClockinAction,
   clockIn as clockInAction,
   clockOut as clockOutAction,
   getStaffsAttendanceRealTime as getStaffsAttendanceRealTimeAction,
 } from '#src/libs/clock-in/actions';
 import {
-  getLastClockin,
+  getMyLastClockin,
   getUsersPaginatedWithRolesWithRealTimeAttendance,
 } from '#src/libs/clock-in/selectors';
 import {
@@ -346,7 +346,7 @@ type Props = {
     },
     options?: OptionCallback<void>,
   ) => Promise<void>,
-  getLastClockin: ({}) => Promise<void>,
+  fetchMyLastClockin: ({}) => void,
   retrieveStripeCompany: () => void,
   stripeCompany: StripeCompany,
   lastPlatformSubscriptionWarningDate: string,
@@ -500,8 +500,7 @@ export class Backoffice extends Component<Props, State> {
     this.props.fetchShop();
     this.props.fetchAllCoachPaymentRules();
     this.props.fetchAllCoachPaymentRuleGroups();
-    // this.props.fetchAssociatedCoaches();
-    this.props.getLastClockin({});
+    this.props.fetchMyLastClockin({});
     this.props.fetchAllPrivateSlots();
     this.props.fetchSignFormUpConfiguration();
     this.props.fetchTags();
@@ -814,7 +813,7 @@ export class Backoffice extends Component<Props, State> {
                 fetchOnSpotPaymentReport={this.props.fetchOnSpotPaymentReport}
                 fetchTempPassword={this.props.fetchTempPassword}
                 generateTempPassword={this.props.generateTempPassword}
-                getLastClockin={this.props.getLastClockin}
+                fetchMyLastClockin={this.props.fetchMyLastClockin}
                 getStaffsAttendanceRealTime={
                   this.props.getStaffsAttendanceRealTime
                 }
@@ -1033,7 +1032,7 @@ export default compose(
 
       usersPaginatedWithRoles:
         getUsersPaginatedWithRolesWithRealTimeAttendance(state),
-      lastClockin: getLastClockin(state),
+      lastClockin: getMyLastClockin(state),
       lastPlatformSubscriptionWarningDate:
         state.auth.lastPlatformSubscriptionWarningDate,
       lastPlatformSubscriptionDisputeWarningDate:
@@ -1094,7 +1093,7 @@ export default compose(
 
       getStaffsAttendanceRealTime: getStaffsAttendanceRealTimeAction,
       fetchCompanyUserRolesPaginated: fetchCompanyUserRolesPaginatedAction,
-      getLastClockin: getLastClockinAction,
+      fetchMyLastClockin: fetchMyLastClockinAction,
       clockOut: clockOutAction,
       clockIn: clockInAction,
 

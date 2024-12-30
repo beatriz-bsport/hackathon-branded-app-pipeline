@@ -2,7 +2,7 @@ import Immutable from 'seamless-immutable';
 import { handleActions } from 'redux-actions';
 
 import {
-  retrieveLastClockInActions,
+  retrieveMyLastClockInActions,
   clockInActions,
   editClockInActions,
   deleteClockInActions,
@@ -64,17 +64,16 @@ const initialState: Immutable.Immutable<ClockInState> = Immutable<ClockInState>(
 
 export default handleActions<Immutable.Immutable<ClockInState>, any>(
   {
-    [retrieveLastClockInActions.loading.toString()]: (state, { payload }) =>
+    [retrieveMyLastClockInActions.loading.toString()]: (state, { payload }) =>
       state.setIn(['lastClockIn', 'loading'], payload),
-    [retrieveLastClockInActions.error.toString()]: (state, { payload }) =>
+    [retrieveMyLastClockInActions.error.toString()]: (state, { payload }) =>
       state.setIn(['lastClockIn', 'error'], payload),
-    [retrieveLastClockInActions.success.toString()]: (state, { payload }) =>
+    [retrieveMyLastClockInActions.success.toString()]: (state, { payload }) =>
       state
         .setIn(['lastClockIn', 'dateStart'], payload?.date_start)
         .setIn(['lastClockIn', 'dateEnd'], payload?.date_end)
         .setIn(['lastClockIn', 'onGoing'], payload?.on_going)
         .setIn(['lastClockIn', 'id'], payload?.id),
-
     [clockInActions.loading.toString()]: (state, { payload }) =>
       state.set('loading', payload),
     [clockInActions.error.toString()]: (state, { payload }) =>

@@ -181,7 +181,7 @@ type Props = {
     },
     options?: OptionCallback<void>,
   ) => Promise<void>;
-  getLastClockin: () => Promise<void>;
+  fetchMyLastClockin: () => Promise<void>;
 } & ConnectedProps<typeof connector>;
 
 export const BackOfficeDrawer: React.FC<Props> = ({
@@ -226,7 +226,7 @@ export const BackOfficeDrawer: React.FC<Props> = ({
   clockIn,
   fetchCompanyUserRolesPaginated,
   clockOut,
-  getLastClockin,
+  fetchMyLastClockin,
   handleGoToTutorial,
   handleGoToInbox,
   userAcknowlegdePlatformTutorial,
@@ -1004,7 +1004,7 @@ export const BackOfficeDrawer: React.FC<Props> = ({
               email={email}
               fetchAttendance={getStaffsAttendanceRealTime}
               fetchCompanyUserRolesPaginated={fetchCompanyUserRolesPaginated}
-              getLastClockin={getLastClockin}
+              fetchMyLastClockin={fetchMyLastClockin}
               lastClockIn={lastClockIn}
               name={name}
               onClose={closeClockInDialog}

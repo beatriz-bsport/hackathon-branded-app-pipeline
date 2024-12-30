@@ -8,7 +8,7 @@ import { RootState } from '../../reducers';
 
 const _getClockinState = (state: RootState) => state.clockIn;
 
-export const getLastClockin = (state: RootState) =>
+export const getMyLastClockin = (state: RootState) =>
   _getClockinState(state).lastClockIn;
 
 const _getAttendanceClockinDataByUser = (state: RootState) =>

@@ -14,6 +14,7 @@ import {
   editClockIn as editClockInAPI,
   deleteClockIn as deleteClockInAPI,
   fetchLastClockInList as fetchLastClockInListAPI,
+  fetchMyLastClockInList as fetchMyLastClockInListAPI,
   getStaffsAttendanceHistory as getStaffsAttendanceHistoryAPI,
   exportStaffAttendanceHistory as exportStaffAttendanceHistoryAPI,
   fetchStaffWorkTimeSummary as fetchStaffWorkTimeSummaryAPI,
@@ -26,30 +27,34 @@ import type {
 import { displayBackgroundDialog } from '../background-dialog/actions';
 import { monitorBackgroundTask } from '../background-task/actions';
 
-export const retrieveLastClockInActions = {
-  error: createAction('CLOCKIN/GET_LAST/ERROR'),
-  loading: createAction('CLOCKIN/GET_LAST/IS_LOADING'),
-  success: createAction('CLOCKIN/GET_LAST/SUCCESS'),
+export const retrieveMyLastClockInActions = {
+  error: createAction('CLOCKIN/GET_MY_LAST/ERROR'),
+  loading: createAction('CLOCKIN/GET_MY_LAST/IS_LOADING'),
+  success: createAction('CLOCKIN/GET_MY_LAST/SUCCESS'),
 };
 
-export const getLastClockin = ({ options }: { options?: OptionCallback }) => {
+export const fetchMyLastClockin = ({
+  options,
+}: {
+  options?: OptionCallback;
+}) => {
   return async (dispatch: Dispatch) => {
-    dispatch(retrieveLastClockInActions.loading(true));
-    dispatch(retrieveLastClockInActions.error(null));
+    dispatch(retrieveMyLastClockInActions.loading(true));
+    dispatch(retrieveMyLastClockInActions.error(null));
     try {
-      const response = await fetchLastClockInListAPI({});
+      const response = await fetchMyLastClockInListAPI();
 
       dispatch(
         // @ts-expect-error
-        retrieveLastClockInActions.success(response.data?.results?.[0] ?? {}),
+        retrieveMyLastClockInActions.success(response.data?.results?.[0] ?? {}),
       );
       if (options && options.onSuccess) options.onSuccess();
     } catch (error) {
       console.error(error);
-      dispatch(retrieveLastClockInActions.error(error));
+      dispatch(retrieveMyLastClockInActions.error(error));
       if (options && options.onError) options.onError();
     }
-    dispatch(retrieveLastClockInActions.loading(false));
+    dispatch(retrieveMyLastClockInActions.loading(false));
   };
 };
 

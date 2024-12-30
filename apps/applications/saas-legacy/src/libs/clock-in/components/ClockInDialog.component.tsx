@@ -65,7 +65,7 @@ type Props = {
     options: OptionPaginatedCallback<Role>,
   ) => void;
   // eslint-disable-next-line no-empty-pattern
-  getLastClockin: ({}) => Promise<void>;
+  fetchMyLastClockin: ({}) => Promise<void>;
   onClose: () => void;
 };
 
@@ -77,7 +77,7 @@ const ClockInDialog: React.FC<Props> = ({
   value,
   lastClockIn: { dateStart = null, onGoing = false, id },
   fetchAttendance,
-  getLastClockin,
+  fetchMyLastClockin,
   fetchCompanyUserRolesPaginated,
   clockIn,
   clockOut,
@@ -103,7 +103,7 @@ const ClockInDialog: React.FC<Props> = ({
         {},
         {
           onSuccess: () => {
-            getLastClockin({});
+            fetchMyLastClockin({});
             setSelfProcessing(false);
           },
           onError: () => {
@@ -123,7 +123,7 @@ const ClockInDialog: React.FC<Props> = ({
               last_clock_out: data?.date_end,
             });
             setSelfProcessing(false);
-            getLastClockin({});
+            fetchMyLastClockin({});
 
             // @ts-expect-error
             if (data?.date_end) {

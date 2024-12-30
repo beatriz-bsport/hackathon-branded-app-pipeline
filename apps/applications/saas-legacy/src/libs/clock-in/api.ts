@@ -42,6 +42,13 @@ export const fetchLastClockInList = async (params: ClockInQueryParams) =>
     })}`,
   );
 
+export const fetchMyLastClockInList = () =>
+  getAuth(
+    `${API_V1_URI}/clockin/${buildUrlParams({
+      my_current: true,
+    })}`,
+  );
+
 export const getStaffsAttendanceHistory = async (params: ClockInQueryParams) =>
   getAuth(
     `${API_V1_URI}/clockin/${buildUrlParams({

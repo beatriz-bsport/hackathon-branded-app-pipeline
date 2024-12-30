@@ -11,11 +11,19 @@ Deploy Base:
       when: "never"
     - if: $CI_PIPELINE_SOURCE == "push"
       when: "never"
-    - if: $CI_COMMIT_BRANCH == $TARGET_BRANCH
+    - if: $CI_COMMIT_REF_NAME == $TARGET_BRANCH
       when: "on_success"
     - when: "never"
 
   script:
+    - echo "Start deploying projects ..."
+    - echo "List variables ~>"
+    - echo "TARGET_BRANCH ~> $TARGET_BRANCH"
+    - echo "ENV ~> $ENV"
+    - echo "CI_PIPELINE_SOURCE ~> $CI_PIPELINE_SOURCE"
+    - echo "CI_COMMIT_BRANCH ~> $CI_COMMIT_BRANCH"
+    - echo "CI_COMMIT_REF_NAME ~> $CI_COMMIT_REF_NAME"
+    - echo "CI_MERGE_REQUEST_ID ~> $CI_MERGE_REQUEST_ID"
     - git fetch origin $TARGET_BRANCH
     - pnpm exec nx affected --target=ci:deploy --base=origin/$TARGET_BRANCH~1 --head=HEAD $ENV
 

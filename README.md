@@ -54,10 +54,10 @@ The monorepository comes with a set of pre-defined commands that are run when a 
 
 In your project you can set-up the following pnpm scripts that will be ran by Gitlab's CI pipelines or husky git hooks:
 
-|      pnpm script       | When is it ran ?                                                                              |                              Use case                               | Diff based on |
-| :--------------------: | :-------------------------------------------------------------------------------------------- | :-----------------------------------------------------------------: | :-----------: |
-|      `pre-commit`      | Just before committing (don't forget to use `git add` if you'd like your changes to be added) | Allows to validate code before anything is committed on the project |    `HEAD`     |
-| `ci:deploy:production` | When a code is being pushed to `origin/main`                                                  |         This will be the deployment script of your project          | `origin/main` |
+| pnpm script  | When is it ran ?                                                                                                   |                              Use case                               |   Diff based on    |
+| :----------: | :----------------------------------------------------------------------------------------------------------------- | :-----------------------------------------------------------------: | :----------------: |
+| `pre-commit` | Just before committing (don't forget to use `git add` if you'd like your changes to be added)                      | Allows to validate code before anything is committed on the project |       `HEAD`       |
+| `ci:deploy`  | When a code is merged either on `dev`, `staging` or `main` (the environment is provided as first argument with $1) |         This will be the deployment script of your project          | `origin/$branch~1` |
 
 **❗️ WARNING:** These commands will only be executed if your project has been modified compared to the base.
 

@@ -4,30 +4,32 @@
 
 # Env variables
 ENV=$1
+echo "Start uploading Kaizen Storybook for environment : $ENV"
 
 # Common variables
 S3_BUCKET="s3://bsport-eu-docs"
 S3_KAIZEN_PATH="storybook/kaizen"
+S3_FINAL_PATH="$S3_BUCKET/$S3_KAIZEN_PATH/$CI_COMMIT_REF_NAME"
 
 if [ "$ENV" = "dev" ]; then
-    S3_FINAL_PATH="$S3_BUCKET/$S3_KAIZEN_PATH/$CI_COMMIT_REF_NAME"
-    echo "✅ Upload new version of Storybook at $S3_FINAL_PATH"
+    continue
 elif [ "$ENV" = "staging" ]; then
-    echo "⚠️ Storybook is only updated on dev !"
-    exit 0
+    continue
 elif [ "$ENV" = "production" ]; then
-    echo "⚠️ Storybook is only updated on dev !"
-    exit 0
+    continue
 elif [ "$ENV" = "feature-branch" ]; then
-    echo "⚠️ Storybook is only updated on dev !"
-    exit 0
+    continue
 else 
-    echo "⚠️ Environment $ENV is not recognized"
+    echo "⚠️  Environment $ENV is not recognized ! Stop script ..."
     exit 0
 fi
 
 # ===== Script =====
+
 # Build storybook
 NODE_OPTIONS=--max-old-space-size=8192 pnpm storybook:build --quiet --output-dir storybook
-# Upload build
+
+# Upload build on AWS S3 bucket
 aws s3 cp ./storybook/ $S3_FINAL_PATH --recursive --only-show-errors --acl public-read
+
+echo "✅ Upload successful at $S3_FINAL_PATH"

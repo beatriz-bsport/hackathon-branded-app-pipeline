@@ -1,4 +1,4 @@
-Deploy Base:
+Debug Deploy:
   image: node:22-alpine
   stage: deploy
 
@@ -9,7 +9,28 @@ Deploy Base:
   rules:
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
       when: "never"
-    - if: $CI_PIPELINE_SOURCE == "push"
+    - when: always
+
+  script:
+    - echo "Start deploying projects ..."
+    - echo "List variables ~>"
+    - echo "CI_PIPELINE_SOURCE ~> $CI_PIPELINE_SOURCE"
+    - echo "CI_COMMIT_BRANCH ~> $CI_COMMIT_BRANCH"
+    - echo "CI_COMMIT_REF_NAME ~> $CI_COMMIT_REF_NAME"
+    - echo "CI_MERGE_REQUEST_ID ~> $CI_MERGE_REQUEST_ID"
+
+Deploy Base:
+  image: node:22-alpine
+  stage: deploy
+
+  tags:
+    - build-frontend
+    - cluster:bsport-tooling
+
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
       when: "never"
     - if: $CI_COMMIT_REF_NAME == $TARGET_BRANCH
       when: "on_success"
@@ -17,13 +38,8 @@ Deploy Base:
 
   script:
     - echo "Start deploying projects ..."
-    - echo "List variables ~>"
     - echo "TARGET_BRANCH ~> $TARGET_BRANCH"
     - echo "ENV ~> $ENV"
-    - echo "CI_PIPELINE_SOURCE ~> $CI_PIPELINE_SOURCE"
-    - echo "CI_COMMIT_BRANCH ~> $CI_COMMIT_BRANCH"
-    - echo "CI_COMMIT_REF_NAME ~> $CI_COMMIT_REF_NAME"
-    - echo "CI_MERGE_REQUEST_ID ~> $CI_MERGE_REQUEST_ID"
     - git fetch origin $TARGET_BRANCH
     - pnpm exec nx affected --target=ci:deploy --base=origin/$TARGET_BRANCH~1 --head=HEAD $ENV
 

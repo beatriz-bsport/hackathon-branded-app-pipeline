@@ -9,9 +9,9 @@ Deploy Base:
       when: never
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
       when: "never"
-    - if: $CI_COMMIT_REF_NAME == "$TARGET_BRANCH"
+    - if: $CI_COMMIT_REF_NAME == $TARGET_BRANCH
       when: "on_success"
-    - if: $CI_COMMIT_BRANCH == "$TARGET_BRANCH"
+    - if: $CI_COMMIT_BRANCH == $TARGET_BRANCH
       when: "on_success"
   script:
     - echo "Start deploying projects ..."

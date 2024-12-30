@@ -1,40 +1,9 @@
-Debug Deploy:
-  image: node:22-alpine
-  stage: deploy
-
-  tags:
-    - build-frontend
-    - cluster:bsport-tooling
-
-  rules:
-    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
-      when: "never"
-    - when: always
-
-  variables:
-    TARGET_BRANCH: $BRANCH_DEV
-    ENV: $ENV_DEV
-
-  script:
-    - echo "Start deploying projects ..."
-    - echo "List variables ~>"
-    - echo "CI_PIPELINE_SOURCE ~> $CI_PIPELINE_SOURCE"
-    - echo "CI_COMMIT_BRANCH ~> $CI_COMMIT_BRANCH"
-    - echo "CI_COMMIT_REF_NAME ~> $CI_COMMIT_REF_NAME"
-    - echo "CI_MERGE_REQUEST_ID ~> $CI_MERGE_REQUEST_ID"
-    - echo "BRANCH_DEV ~> $BRANCH_DEV"
-    - echo "ENV_DEV ~> $ENV_DEV"
-    - echo "TARGET_BRANCH ~> $TARGET_BRANCH"
-    - echo "ENV ~> $ENV"
-
 Deploy Base:
   image: node:22-alpine
   stage: deploy
-
   tags:
     - build-frontend
     - cluster:bsport-tooling
-
   rules:
     - if: $CI_PIPELINE_SOURCE == "schedule"
       when: never
@@ -44,7 +13,6 @@ Deploy Base:
       when: "on_success"
     - if: $CI_COMMIT_BRANCH == "$TARGET_BRANCH"
       when: "on_success"
-
   script:
     - echo "Start deploying projects ..."
     - echo "TARGET_BRANCH ~> $TARGET_BRANCH"
@@ -55,17 +23,17 @@ Deploy Base:
 Deploy Dev:
   extends: Deploy Base
   variables:
-    TARGET_BRANCH: $BRANCH_DEV
-    ENV: $ENV_DEV
+    TARGET_BRANCH: "dev"
+    ENV: "dev"
 
 Deploy Staging:
   extends: Deploy Base
   variables:
-    TARGET_BRANCH: $BRANCH_STAGING
-    ENV: $ENV_STAGING
+    TARGET_BRANCH: "staging"
+    ENV: "staging"
 
 Deploy Production:
   extends: Deploy Base
   variables:
-    TARGET_BRANCH: $BRANCH_PRODUCTION
-    ENV: $ENV_PRODUCTION
+    TARGET_BRANCH: "main"
+    ENV: "production"

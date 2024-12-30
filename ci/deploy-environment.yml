@@ -1,0 +1,39 @@
+Deploy Base:
+  image: node:22-alpine
+  stage: deploy
+
+  tags:
+    - build-frontend
+    - cluster:bsport-tooling
+
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: "never"
+    - if: $CI_PIPELINE_SOURCE == "push"
+      when: "never"
+    - if: $CI_COMMIT_BRANCH == $TARGET_BRANCH
+      when: "on_success"
+    - when: "never"
+
+  script:
+    - git fetch origin $TARGET_BRANCH
+    - pnpm exec nx affected --target=ci:deploy --base=origin/$TARGET_BRANCH~1 --head=HEAD $ENV
+
+Deploy Dev:
+  extends: Deploy Base
+  interruptible: true
+  variables:
+    TARGET_BRANCH: $BRANCH_DEV
+    ENV: $ENV_DEV
+
+Deploy Staging:
+  extends: Deploy Base
+  variables:
+    TARGET_BRANCH: $BRANCH_STAGING
+    ENV: $ENV_STAGING
+
+Deploy Production:
+  extends: Deploy Base
+  variables:
+    TARGET_BRANCH: $BRANCH_PRODUCTION
+    ENV: $ENV_PRODUCTION

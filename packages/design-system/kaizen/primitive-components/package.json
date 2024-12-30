@@ -44,6 +44,7 @@
     "build": "tsc && vite build",
     "component:add": "pnpm exec hygen component new",
     "ci:deploy:production": "./scripts/ci-deploy-production.sh",
+    "ci:deploy": "./scripts/ci-deploy.sh $1",
     "dev": "pnpm run storybook:dev",
     "icon:generate": "tsx ./scripts/generate-icons.ts",
     "lint": "eslint .",

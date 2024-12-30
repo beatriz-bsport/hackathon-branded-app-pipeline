@@ -1,6 +1,6 @@
-Merge Request Open:
+Lint:
+  stage: lint
   image: node:22-alpine
-  stage: merge-request-open
   interruptible: true
 
   tags:
@@ -12,4 +12,4 @@ Merge Request Open:
 
   script:
     - git fetch origin $CI_MERGE_REQUEST_TARGET_BRANCH_NAME
-    - pnpm exec nx affected --target=ci:merge-request:open --base=origin/$CI_MERGE_REQUEST_TARGET_BRANCH_NAME
+    - pnpm exec nx affected --target=lint --base=origin/$CI_MERGE_REQUEST_TARGET_BRANCH_NAME

@@ -4,6 +4,15 @@ variables:
   AWS_REGION: eu-west-3
   REGISTRY_ENDPOINT: 672633452901.dkr.ecr.eu-west-3.amazonaws.com
   REGISTRY_NAME: bsport/bsport-saas-builder
+  # Hardcode env and branch variables only once at the top
+  ENV_DEV: "dev"
+  ENV_STAGING: "staging"
+  ENV_PRODUCTION: "production"
+  ENV_FEATURE_BRANCH: "feature-branch"
+  BRANCH_DEV: "dev"
+  BRANCH_STAGING: "staging"
+  BRANCH_PRODUCTION: "main"
+  BRANCH_FEATURE_BRANCH: "feature/*"
 
 before_script:
   - chmod +x ./ci/setup-ci.sh
@@ -11,8 +20,10 @@ before_script:
 
 stages:
   - merge-request-open
-  - deploy-production
+  - lint
+  - deploy
 
 include:
   - local: "/ci/merge-request-open.yml"
-  - local: "/ci/deploy-production.yml"
+  - local: "/ci/lint.yml"
+  - local: "/ci/deploy-environment.yml"

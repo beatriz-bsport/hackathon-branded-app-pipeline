@@ -100,18 +100,11 @@ export const PopoverOpeningOnHover: Story = {
               )}
             </Popover.Anchor>
             <Popover.Content placement={args.placement}>
-              {({ setIsPopoverOpened }) => (
+              {() => (
                 <div className="flex flex-col gap-sm">
                   <Body htmlVariant="p" size="sm" color="default">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                   </Body>
-                  <Button
-                    label="Close popover"
-                    intent="default"
-                    color="main"
-                    size="md"
-                    onClick={() => setIsPopoverOpened(false)}
-                  />
                 </div>
               )}
             </Popover.Content>

@@ -1,6 +1,8 @@
 import React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
+import classNames from "classnames";
 import mapValues from "lodash/mapValues";
+import Avatar, { type AvatarProps } from "#src/components/Avatar";
 import Icon, { type IconName } from "#src/components/Icon";
 
 const defaultClasses = [
@@ -19,10 +21,6 @@ const variants = {
       "hover:fill-onsurface-main-link-hovered",
     ],
   },
-  underline: {
-    none: ["hover:underline"],
-    default: ["underline"],
-  },
   weight: {
     weaker: ["font-weaker"],
     weak: ["font-weak"],
@@ -40,6 +38,7 @@ type LinkVariantProps = Omit<VariantProps<typeof link>, "underline">;
 export type LinkProps = React.AnchorHTMLAttributes<HTMLAnchorElement> &
   LinkVariantProps &
   React.PropsWithChildren<{
+    avatarProps?: AvatarProps;
     icon?: IconName;
     isUnderlined?: boolean;
   }>;
@@ -50,6 +49,7 @@ export type LinkProps = React.AnchorHTMLAttributes<HTMLAnchorElement> &
  * @param props.className Classname to add to the link.
  * @param props.color Color of the link text.
  * @param props.weight Weight of the link text. Can be "weak" or "strong".
+ * @param props.avatarProps Props to pass to the Avatar component, if needed. See Avatar component for more data
  * @param props.icon Name of the icon to use, as listed in the exported icons const.
  * @param props.isUnderlined Boolean to define if the link is underlined.
  * @param props.children Content of the link.
@@ -59,6 +59,7 @@ const Link: React.FC<LinkProps> = ({
   className,
   color,
   weight,
+  avatarProps,
   icon,
   isUnderlined,
   children,
@@ -66,17 +67,23 @@ const Link: React.FC<LinkProps> = ({
 }) => {
   return (
     <a
-      className={link({
-        className,
-        color,
-        underline: isUnderlined ? "default" : "none",
-        weight,
-      })}
-      style={{ textUnderlinePosition: "from-font" }}
+      className={classNames(link({ className, color, weight }), "group")}
       {...props}
     >
-      {!!icon && <Icon icon={icon} className="h-[1em] w-[1em]" />}
-      <span>{children}</span>
+      {avatarProps ? (
+        <Avatar {...avatarProps} />
+      ) : icon ? (
+        <Icon icon={icon} className="h-[1em] w-[1em]" />
+      ) : null}
+      <span
+        className={classNames({
+          underline: isUnderlined,
+          "group-hover:underline": !isUnderlined,
+        })}
+        style={{ textUnderlinePosition: "from-font" }}
+      >
+        {children}
+      </span>
     </a>
   );
 };

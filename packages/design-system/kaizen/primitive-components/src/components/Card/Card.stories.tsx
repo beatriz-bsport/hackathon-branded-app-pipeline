@@ -17,6 +17,12 @@ const meta: Meta<typeof Card> = {
     children: {
       table: { type: { summary: "ReactNode" } },
     },
+    padding: {
+      options: ["default", "sm", "none"],
+      control: { type: "inline-radio" },
+      table: { type: { summary: "string" } },
+      type: { name: "string", required: true },
+    },
     elevated: {
       table: {
         type: {
@@ -61,12 +67,7 @@ export const Primary: Story = {
     }, [args]);
 
     return (
-      <Card
-        elevated={args.elevated}
-        onClick={handleClick}
-        selected={args.selected}
-        type={args.type}
-      >
+      <Card {...args} onClick={handleClick}>
         <Body htmlVariant="p" size="sm" color="default" weight="weak">
           Lorem ipsum odor amet, consectetuer adipiscing elit. Iaculis tempus
           libero habitant ex potenti; aptent vel fringilla. Commodo himenaeos
@@ -78,6 +79,7 @@ export const Primary: Story = {
   },
   args: {
     type: "info",
+    padding: "default",
     onClick: () => console.log("clicken on card"),
     elevated: true,
     selected: false,
@@ -88,7 +90,7 @@ export const CompleteCardWithChildren: Story = {
   name: "Card with several children",
   render: (args) => {
     return (
-      <Card elevated={args.elevated} selected={args.selected} type={args.type}>
+      <Card {...args}>
         <Title htmlVariant="h2" weight="strong" color="default">
           This is the title of the card
         </Title>
@@ -101,6 +103,7 @@ export const CompleteCardWithChildren: Story = {
   },
   args: {
     type: "info",
+    padding: "default",
     elevated: true,
     selected: false,
   },
@@ -110,7 +113,7 @@ export const ActionCard: Story = {
   name: "Action Card with Text",
   render: (args) => {
     return (
-      <Card elevated={args.elevated} selected={args.selected} type={args.type}>
+      <Card {...args}>
         <Body htmlVariant="p" size="sm" color="default" weight="weak">
           You can interact with me, I like action !
         </Body>
@@ -119,6 +122,7 @@ export const ActionCard: Story = {
   },
   args: {
     type: "action",
+    padding: "default",
     elevated: true,
     selected: false,
   },
@@ -128,7 +132,7 @@ export const ShortText: Story = {
   name: "Short Text",
   render: (args) => {
     return (
-      <Card elevated={args.elevated} selected={args.selected} type={args.type}>
+      <Card {...args}>
         <Body htmlVariant="p" size="sm" color="default">
           Test
         </Body>
@@ -137,6 +141,7 @@ export const ShortText: Story = {
   },
   args: {
     type: "info",
+    padding: "default",
     elevated: true,
     selected: false,
   },
@@ -146,7 +151,7 @@ export const LongText: Story = {
   name: "Long Text",
   render: (args) => {
     return (
-      <Card elevated={args.elevated} selected={args.selected} type={args.type}>
+      <Card {...args}>
         <Body htmlVariant="p" size="sm" color="default">
           Lorem ipsum odor amet, consectetuer adipiscing elit. Iaculis tempus
           libero habitant ex potenti; aptent vel fringilla. Commodo himenaeos
@@ -174,6 +179,7 @@ export const LongText: Story = {
   },
   args: {
     type: "info",
+    padding: "default",
     elevated: true,
     selected: false,
   },

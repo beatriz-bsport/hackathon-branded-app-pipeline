@@ -3,7 +3,6 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { SetRequired } from "type-fest";
 
 const defaultClasses = [
-  "p-md",
   "rounded-md",
   "flex",
   "flex-col",
@@ -12,6 +11,11 @@ const defaultClasses = [
 ] as const;
 
 const variants = {
+  padding: {
+    default: "p-md",
+    sm: "p-2xs",
+    none: "p-[0]",
+  },
   elevated: {
     true: ["bg-surface-default-elevated", "border-stroke-thin"],
     false: [],
@@ -73,6 +77,7 @@ type VariantCardProps = SetRequired<
  * @param props.className Classname to add to the modal container.
  * @param props.children Content in the middle of the modal.
  * @param props.elevated boolean to use if we want the card to have a bg or not
+ * @param props.padding size of the padding of the card
  * @param props.onClick function provided to the card to apply an effect when the card is being clicked on
  * @param props.selected boolean to use if we want to show a selected state for the card, only works with item type
  * @param props.type type of the card to manage different behavior, can be "action", "info", "item"
@@ -81,6 +86,7 @@ type VariantCardProps = SetRequired<
 export type CardProps = React.HTMLAttributes<HTMLDivElement> &
   VariantCardProps & {
     elevated?: boolean;
+    padding?: "default" | "sm" | "none";
     onClick?: () => void;
     selected?: boolean;
     type: CardType;
@@ -90,6 +96,7 @@ const Card: React.FC<CardProps> = ({
   className,
   children,
   elevated = true,
+  padding = "default",
   onClick,
   selected,
   type,
@@ -115,6 +122,7 @@ const Card: React.FC<CardProps> = ({
       className={card({
         className,
         elevated,
+        padding,
         selectedByElevation:
           selectedByElevation as keyof typeof variants.selectedByElevation,
         interactibleByElevation:

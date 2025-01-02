@@ -21,11 +21,11 @@ const meta: Meta<typeof Link> = {
     icon: {
       options: [undefined, ...Object.keys(icons)],
       control: { type: "select" },
-      type: { name: "string", required: true },
+      type: { name: "string" },
     },
     isUnderlined: {
       control: { type: "boolean" },
-      type: { name: "boolean", required: true },
+      type: { name: "boolean" },
     },
     children: {
       control: { type: "text" },
@@ -49,6 +49,11 @@ export const Primary: Story = {
   args: {
     color: "main",
     weight: "strong",
+    avatarProps: {
+      size: "md",
+      shape: "round",
+      initials: "DD",
+    },
     icon: undefined,
     isUnderlined: true,
     children: "Link text here",

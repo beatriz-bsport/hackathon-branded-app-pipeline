@@ -1,11 +1,15 @@
 Merge Request Open:
-  image: node:22-alpine
+  # Temp : Prefix with monorepo as it is still store on bsport-saas-builder registry
+  image: ${REGISTRY_ENDPOINT}/${REGISTRY_NAME}:monorepo-${CI_COMMIT_REF_NAME}
   stage: merge-request-open
   interruptible: true
 
   tags:
     - build-frontend
     - cluster:bsport-tooling
+
+  extends:
+    - .before-script-install-node-modules
 
   rules:
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"

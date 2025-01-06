@@ -5,16 +5,26 @@ variables:
   REGISTRY_ENDPOINT: 672633452901.dkr.ecr.eu-west-3.amazonaws.com
   REGISTRY_NAME: bsport/bsport-saas-builder
 
-before_script:
-  - chmod +x ./ci/setup-ci.sh
-  - ./ci/setup-ci.sh
-
 stages:
+  - prepare-builder
   - merge-request-open
   - lint
   - deploy
 
 include:
+  - local: "/ci/utilities.yml"
+  - local: "/ci/prepare-builder.yml"
   - local: "/ci/merge-request-open.yml"
   - local: "/ci/lint.yml"
   - local: "/ci/deploy-environment.yml"
+
+workflow:
+  rules:
+    # Prevent that pushing on a MR creates dupplicate pipelines ("push" and "merge_request_event")
+    - if: $CI_COMMIT_BRANCH && $CI_OPEN_MERGE_REQUESTS && $CI_PIPELINE_SOURCE == "push"
+      when: never
+    # Skip pipelines for draft merge requests
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_TITLE =~ /^(\[Draft\]|\(Draft\)|Draft:)/
+      when: never
+    # Default behaviour : fallback to Job rules
+    - when: always

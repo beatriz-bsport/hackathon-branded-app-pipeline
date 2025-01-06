@@ -1,5 +1,7 @@
 #!/bin/sh
 
+set -e
+
 # Read pnpm version from .npmrc
 pnpm_version=$(grep pnpm_version .npmrc | cut -d '=' -f 2)
 
@@ -17,39 +19,28 @@ else
     echo "pnpm is already installed."
 fi
 
-set -e
+# Retrieve /storage folder from Docker Image fs
+echo "*"
+echo "1) Move /storage folder from Docker Image filesystem to runner local filesystem"
+mv /storage .
+echo "✅ Size of the folder : $(du -hs storage)"
 
-# Install specific dependencies
-echo "Installing required canvas dependencies ..."
-apk add --no-cache \
-    build-base \
-    cairo-dev \
-    pango-dev \
-    jpeg-dev \
-    giflib-dev \
-    librsvg-dev
-
-# Install python 3.12 bc node-gyp requires it
-echo "Installing python for node-gyp ..."
-apk add --no-cache python3 make g++ py3-pip
-
-# Manually link Python3 to Python if necessary
-if ! command -v python3 &>/dev/null; then
-    echo "Linking python3 to python..."
-    ln -sf /usr/bin/python3 /usr/bin/python
-fi
-
-# Verify Python installation
-echo "Python version installed:"
-python3 --version || { echo "Python3 not installed properly!"; exit 1; }
-python --version || { echo "Python not installed properly!"; exit 1; }
+# Tell pnpm to use /storage/pnpm-store as pnpm store
+echo "*"
+echo "2) Relocate pnpm store path to /storage/pnpm-store"
+PNPM_HOME="$(realpath .)/storage"
+PATH="$PNPM_HOME:$PATH"
+PNPM_STORE_PATH="$PNPM_HOME/pnpm-store"
+pnpm config set store-dir $PNPM_STORE_PATH
+echo "✅ Successfully configured pnpm store at : $(pnpm store path)"
 
 # Install project dependencies
-echo "Installing project dependencies..."
-pnpm install
+echo "*"
+echo "Install project dependencies by using the imported store..."
+pnpm install --frozen-lockfile --prefer-offline
 
-# Install git and aws-cli
-echo "Installing git and aws-cli..."
-apk add --no-cache git aws-cli
+echo "✅ Successfully installed node_modules !"
+echo "Store dir is : $(cat node_modules/.modules.yaml | grep 'storeDir')"
 
-echo "Setup completed successfully."
+echo "*"
+echo "✅ Setup finalized !"

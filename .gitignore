@@ -50,3 +50,7 @@ storybook-static
 
 # Rollup
 .rollup.cache
+
+# pnpm store, to prevent nx from reading it
+pnpm-store
+**/pnpm-store

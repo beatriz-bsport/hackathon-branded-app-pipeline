@@ -161,3 +161,13 @@ pnpm i -g pnpm
 ├── tsconfig.base.json
 └── tsconfig.json         // TS config used to run ts-node at a workspace level
 ```
+
+## Troubleshooting
+
+### Error: ENOSPC: System limit for number of file watchers reached
+
+If you face this error on Linux, you may need to increase the max number of watches:
+
+```
+echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
+```

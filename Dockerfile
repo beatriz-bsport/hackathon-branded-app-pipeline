@@ -35,13 +35,8 @@ WORKDIR /storage
 # Creates a src directory to temporarily store the source code
 RUN mkdir -p ./src
 
-# Copy root package.json and pnpm files
-COPY .npmrc pnpm-lock.yaml pnpm-workspace.yaml package.json ./src/
-
-# Copy folders containing package.json files, without copying the whole context (COPY . ./src) to prevent invalidation
-COPY apps ./src/apps
-COPY tools ./src/tools
-COPY packages ./src/packages
+# Copy pnpm files
+COPY .npmrc pnpm-lock.yaml pnpm-workspace.yaml ./src/
 
 # Install pnpm
 RUN cd src/ && export PNPM_VERSION=$(grep pnpm_version .npmrc | cut -d '=' -f 2) && \
@@ -51,8 +46,8 @@ RUN cd src/ && export PNPM_VERSION=$(grep pnpm_version .npmrc | cut -d '=' -f 2)
 RUN mkdir -p ./pnpm-store
 RUN pnpm config set store-dir /storage/pnpm-store
 
-# Install node_modules in the src directory
-RUN cd src/ && pnpm install --frozen-lockfile
+# Install node_modules in the src directory from the "pnpm-lock.yaml" file
+RUN cd src/ && pnpm fetch
 
 # =============================================================================
 

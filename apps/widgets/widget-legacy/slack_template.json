@@ -1,11 +1,11 @@
 {
-	"text": "Build: bsport-widget on ${ENVIRONMENT} - ${STATUS}",
+	"text": "Deployed @bsport/widget-legacy on $CI_COMMIT_REF_NAME - $STATUS",
 	"blocks": [
 		{
 			"type": "section",
 			"text": {
 				"type": "mrkdwn",
-				"text": "*Docker Image Build ${SUCCESS}*"
+				"text": "*Deployment @bsport/widget-legacy - $CI_COMMIT_REF_NAME : $STATUS*"
 			}
 		},
 		{
@@ -15,11 +15,11 @@
 			"type": "section",
 			"text": {
 				"type": "mrkdwn",
-				"text": "*Service*: bsport-widget \n*Docker Image*: ${TAG}\n*Author*: ${GITLAB_USER_NAME}\n"
+				"text": "*Service*: @bsport/widget-legacy \n*Docker Image*: $TAG\n*Author*: $GITLAB_USER_NAME\n"
 			},
 			"accessory": {
 				"type": "image",
-				"image_url": "${SUCCESS_ICON}",
+				"image_url": "$ICON",
 				"alt_text": "none"
 			}
 		},
@@ -27,8 +27,10 @@
 			"type": "section",
 			"text": {
 				"type": "mrkdwn",
-				"text": "*Version: ${VERSION}\n*Release*: ${CI_COMMIT_SHA}\n**${CI_COMMIT_MESSAGE}**"
-			},
+				"text": "*Version: $VERSION\n*Release*: $CI_COMMIT_SHA\n**$CI_COMMIT_MESSAGE**"
+			}
+		},
+		{
 			"type": "section",
 			"text": {
 				"type": "mrkdwn",

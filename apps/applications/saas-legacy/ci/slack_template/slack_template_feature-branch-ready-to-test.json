@@ -1,42 +1,41 @@
 {
-	"text": "Deployed bsport-saas on ${CI_COMMIT_REF_NAME} - ${STATUS}",
-	"blocks": [
-		{
-			"type": "section",
-			"text": {
-				"type": "mrkdwn",
-				"text": "*Deployment*"
-			}
-		},
-		{
-			"type": "divider"
-		},
-		{
-			"type": "section",
-			"text": {
-				"type": "mrkdwn",
-				"text": "*Service*: bsport-saas \n*Branch*: `${CI_COMMIT_REF_NAME}`\n*Author*: ${GITLAB_USER_NAME}\n*Commit:* `${CI_COMMIT_MESSAGE}`\n\n_To test this feature, please use dev environment logins._\n*Available at:* https://backoffice-${FEATURE_BRANCH_IDENTIFIER}.chaos.bsport.io"
-			},
-			"accessory": {
-				"type": "image",
-				"image_url": "${SUCCESS_ICON}",
-				"alt_text": "none"
-			}
-		},
-		{
-			"type": "context",
-			"elements": [
-				{
-					"type": "image",
-					"image_url": "https://gitlab.com/gitlab-com/gitlab-artwork/raw/master/logo/logo.png",
-					"alt_text": "none"
-				},
-				{
-					"type": "mrkdwn",
-					"text": "*Gitlab-CI*"
-				}
-			]
-		}
-	]
+  "text": "Deployed @bsport/saas-legacy on $CI_COMMIT_REF_NAME - $STATUS",
+  "blocks": [
+    {
+      "type": "section",
+      "text": {
+        "type": "mrkdwn",
+        "text": "*Deployment @bsport/saas-legacy - $CI_COMMIT_REF_NAME : $STATUS*"
+      }
+    },
+    {
+      "type": "divider"
+    },
+    {
+      "type": "section",
+      "text": {
+        "type": "mrkdwn",
+        "text": "*Service*: @bsport/saas-legacy \n*Branch*: `${CI_COMMIT_REF_NAME}`\n*Author*: ${GITLAB_USER_NAME}\n*Commit:* `${CI_COMMIT_MESSAGE}`\n\n_To test this feature, please use dev environment logins._\n*Available at:* https://backoffice-${FEATURE_BRANCH_IDENTIFIER}.chaos.bsport.io"
+      },
+      "accessory": {
+        "type": "image",
+        "image_url": "$ICON",
+        "alt_text": "none"
+      }
+    },
+    {
+      "type": "context",
+      "elements": [
+        {
+          "type": "image",
+          "image_url": "https://gitlab.com/gitlab-com/gitlab-artwork/raw/master/logo/logo.png",
+          "alt_text": "none"
+        },
+        {
+          "type": "mrkdwn",
+          "text": "*Gitlab-CI*"
+        }
+      ]
+    }
+  ]
 }
-

@@ -9,6 +9,7 @@ stages:
   - prepare-builder
   - merge-request-open
   - lint
+  - deploy-feature-branch
   - deploy
 
 include:
@@ -16,6 +17,7 @@ include:
   - local: "/ci/prepare-builder.yml"
   - local: "/ci/merge-request-open.yml"
   - local: "/ci/lint.yml"
+  - local: "/ci/deploy-feature-branch.yml"
   - local: "/ci/deploy-environment.yml"
 
 workflow:

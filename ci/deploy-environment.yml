@@ -1,4 +1,4 @@
-Deploy Base:
+.Deploy Base:
   # Temp : Prefix with monorepo as it is still store on bsport-saas-builder registry
   image: ${REGISTRY_ENDPOINT}/${REGISTRY_NAME}:monorepo-${CI_COMMIT_REF_NAME}
   stage: deploy
@@ -21,22 +21,29 @@ Deploy Base:
     - echo "TARGET_BRANCH ~> $TARGET_BRANCH"
     - echo "ENV ~> $ENV"
     - git fetch origin $TARGET_BRANCH
+    - echo "*"
+    - echo "⏳ Build affected projects and their dependencies"
+    - pnpm exec nx affected --target=ci:build --base=origin/$TARGET_BRANCH~1 --head=HEAD $ENV
+    - echo "✅ All affected projets have been rebuilt"
+    - echo "*"
+    - echo "⏳ Deploy affected projects builds"
     - pnpm exec nx affected --target=ci:deploy --base=origin/$TARGET_BRANCH~1 --head=HEAD $ENV
+    - echo "✅ All affected projets have been deployed"
 
 Deploy Dev:
-  extends: Deploy Base
+  extends: .Deploy Base
   variables:
     TARGET_BRANCH: "dev"
     ENV: "dev"
 
 Deploy Staging:
-  extends: Deploy Base
+  extends: .Deploy Base
   variables:
     TARGET_BRANCH: "staging"
     ENV: "staging"
 
 Deploy Production:
-  extends: Deploy Base
+  extends: .Deploy Base
   variables:
     TARGET_BRANCH: "main"
     ENV: "production"

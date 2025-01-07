@@ -2,6 +2,7 @@ const webpack = require('webpack');
 const autoprefixer = require('autoprefixer');
 const path = require('path');
 const paths = require('./paths');
+const { sentryWebpackPlugin } = require('@sentry/webpack-plugin');
 
 const publicPath = '/';
 
@@ -162,6 +163,11 @@ module.exports = {
   plugins: [
     new webpack.ProvidePlugin({
       process: 'process/browser.js',
+    }),
+    sentryWebpackPlugin({
+      org: process.env.SENTRY_ORG, // Gitlab CI/CD variable
+      project: process.env.SENTRY_PROJECT, // Gitlab CI/CD variable
+      authToken: process.env.SENTRY_AUTH_TOKEN, // Gitlab CI/CD variable
     }),
   ],
   performance: {

@@ -17,8 +17,6 @@ elif [ "$ENV" = "staging" ]; then
     continue
 elif [ "$ENV" = "production" ]; then
     continue
-elif [ "$ENV" = "feature-branch" ]; then
-    continue
 else 
     echo "⚠️  Environment $ENV is not recognized ! Stop script ..."
     exit 0

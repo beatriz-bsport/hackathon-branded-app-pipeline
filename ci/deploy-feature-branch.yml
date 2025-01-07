@@ -1,0 +1,45 @@
+.Deploy Feature Branch Base:
+  # Temp : Prefix with monorepo as it is still store on bsport-saas-builder registry
+  image: ${REGISTRY_ENDPOINT}/${REGISTRY_NAME}:monorepo-${CI_COMMIT_REF_NAME}
+  stage: deploy-feature-branch
+  interruptible: true
+  tags:
+    - build-frontend
+    - cluster:bsport-tooling
+  extends:
+    - .before-script-install-node-modules
+  script:
+    - echo "Start deploying feature branch ..."
+    - git fetch origin dev
+    - echo "*"
+    - echo "⏳ Build affected projects and their dependencies"
+    - pnpm exec nx affected --target=ci:build --base=origin/dev --head=HEAD "feature-branch" $FRONTEND_ONLY
+    - echo "✅ All affected projets have been rebuilt"
+    - echo "*"
+    - echo "⏳ Deploy affected projects builds"
+    - pnpm exec nx affected --target=ci:deploy --base=origin/dev --head=HEAD "feature-branch" $FRONTEND_ONLY
+    - echo "✅ All affected projets have been deployed"
+
+Deploy Feature Branch Frontend Only:
+  extends: .Deploy Feature Branch Base
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_COMMIT_TAG =~ /deploy-frontend-only-/
+      when: on_success
+    - when: never
+  variables:
+    FRONTEND_ONLY: true
+
+Deploy Feature Branch Frontend & Backend:
+  extends: .Deploy Feature Branch Base
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_COMMIT_TAG =~ /deploy-frontend-only-/
+      when: never
+    - if: $CI_COMMIT_TAG =~ /deploy-/
+      when: on_success
+    - when: never
+  variables:
+    FRONTEND_ONLY: false

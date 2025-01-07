@@ -8412,7 +8412,7 @@
                 "addCard": "Stripe-Terminal hinzufügen"
             },
             "explainInvoicePDFTitle": "Dieser Name wird als Name Ihres Studios auf allen erstellten Rechnungen erscheinen",
-            "invoicePDFEmail": "E-Mail Adresse der Rechnung",
+            "invoicePDFEmail": "Rechnungs-E-Mail-Adresse",
             "invoicePDFTitle": "Name des Abrechnungsunternehmens"
         },
         "returnPayment": {
@@ -8852,7 +8852,13 @@
                     "errorAmount": "Ungültiger Betrag."
                 },
                 "usedGiftcard": "Verwendeter Gutschein",
-                "amountToPay": "Mit Gutschein bezahlter Betrag"
+                "amountToPay": "Mit Gutschein bezahlter Betrag",
+                "expiresOn": "Verfällt am:{{- date }}",
+                "giftcardCode": "Gutschein-Code",
+                "addGiftcard": "Gutschein hinzufügen",
+                "addGiftcardError": "Der Gutschein-Code ist nicht korrekt. Bitte überprüfe den Code und versuche es erneut.",
+                "availableGiftcards": "Verfügbare(r) Gutschein(e)",
+                "title": "Bezahlung mit Gutschein"
             },
             "actions": {
                 "apply": "Zahlung mit Gutschein",
@@ -9685,9 +9691,9 @@
                 "1": "Montag"
             }
         },
-        "shortHourIdentifier": "Std",
-        "shortMinuteIdentifier": "Min",
-        "shortDayIdentifier": "t",
+        "shortHourIdentifier": "Std.",
+        "shortMinuteIdentifier": "Min.",
+        "shortDayIdentifier": "Tag(e)",
         "never": "Nie",
         "longHourIdentifier": "Stunden",
         "longDayIdentifer": "Tage",
@@ -11678,7 +11684,7 @@
                     "label": "Später Nachmittag"
                 },
                 "afternoon": {
-                    "interval": "15 - 18 Uhr",
+                    "interval": "14 - 18 Uhr",
                     "label": "Nachmittags"
                 },
                 "noon": {
@@ -11699,7 +11705,8 @@
             "searchFirstSlot": "Die nächste Verfügbarkeit finden",
             "emptyState": "Derzeit nicht verfügbar",
             "previousOffer": "Ein neuerer Kurs ist am {{- date }} verfügbar: {{ hour }}",
-            "nextOffer": "Erste Verfügbarkeit: {{- date }} um {{ hour }}"
+            "nextOffer": "Erste Verfügbarkeit: {{- date }} um {{ hour }}",
+            "pickASlot": "Wähle deine verfügbare Zeit"
         },
         "availabilitySlot": {
             "form": {
@@ -12065,7 +12072,10 @@
         },
         "selector": {
             "privateSlot": "Kurs",
-            "privateService": "Einen Termin auswählen"
+            "privateService": "Einen Termin auswählen",
+            "establishmentPlaceholder": "Alle Standorte",
+            "coachPlaceholder": "Alle Lehrkräfte",
+            "session": "Wähle deinen Sitzungstyp"
         },
         "calendar": {
             "form": {
@@ -13062,7 +13072,7 @@
                     "availability": {
                         "expiresToday": "Letzter Tag",
                         "expiresIn": "{{ daysRemaining }} Tag übrig",
-                        "expiresIn_plural": "{{ daysRemaining }} Tage verbleibend",
+                        "expiresIn_plural": "{{ daysRemaining }} Tage übrig",
                         "future": "Beginnt am: {{ startDate }}",
                         "expired": "Abgelaufen am: {{ expirationDate }}",
                         "active": "Läuft ab am: {{ expirationDate }}"
@@ -13127,7 +13137,7 @@
                         "expired": "Abgelaufen am {{ expirationDate }}",
                         "suspendedUntil": "Ausgesetzt bs zum {{ endDate }}",
                         "suspended": "Ausgesetzt",
-                        "active": "Gültig vom {{ startDate }} zum {{ expirationDate }}"
+                        "active": "Gültig vom {{ startDate }} bis {{ expirationDate }}"
                     },
                     "header": {
                         "unlimited": "Unbegrenzt",
@@ -17418,7 +17428,7 @@
             },
             "warnings": {
                 "exclusiveAssociatedCoaches": "Die Lehrkraft {{- coach_name }} wird nur benachrichtigt, wenn eine Vertretungsanfrage für eine Sitzung in dieser Einrichtung erfolgt. Wenn die Einrichtung gelöscht wird, erhält diese Lehrkraft daher Vertretungsanfragen von jeder Einrichtung.",
-                "exclusiveAssociatedCoaches_plural": "Deine Lehrer {{- coach_name }} werden nur benachrichtigt, wenn eine Vertretungsanfrage für eine Stunde in dieser Einrichtung gestellt wird. Durch das Löschen der Einrichtung erhalten sie jedoch Vertretungsanfragen von allen Studios.",
+                "exclusiveAssociatedCoaches_plural": "Deine Lehrkräfte {{- coach_name }} erhalten nur eine Benachrichtigung, wenn eine Vertretungsanfrage für eine Sitzung an diesem Standort eingeht. Wird der Standort gelöscht, erhalten sie Vertretungsanfragen für alle Standorte.",
                 "hasBillingGroup": "Diese Einrichtung wird auch aus der Rechnungsgruppe {{- establishment_billing_group_name }} entfernt.",
                 "exclusivePrivateServices_plural": "Diese Termine {{- private_service_name }} sind so konfiguriert, dass sie nur in dieser Einrichtung stattfinden können. Wenn diese Einrichtung gelöscht wird, können diese Termine überall stattfinden.",
                 "exclusivePrivateServices": "Der Termin {{- private_service_name }} ist so konfiguriert, dass er nur in dieser Einrichtung stattfinden kann. Wenn diese Einrichtung gelöscht wird, kann dieser Termin überall stattfinden.",
@@ -19854,7 +19864,7 @@
                     "label": "Von "
                 },
                 "message_is_for": {
-                    "label": "Zu Händen von "
+                    "label": "Für "
                 },
                 "name": {
                     "label": "Name des Geschenkgutscheins"
@@ -19864,7 +19874,8 @@
                 "hour_send": "Uhrzeit des Versands",
                 "activationDate": {
                     "helperText": "Der Empfänger kann die Geschenkkarte ab dem jeweiligen Datum verwenden",
-                    "label": "Aktivierungsdatum"
+                    "label": "Aktivierungsdatum",
+                    "errorMaxDate": "Bitte gebe ein gültiges Datum an"
                 },
                 "footerPhysicalUnlimited": "Sie erhalten per E-Mail die notwendigen Informationen zur Nutzung der Geschenkkarte sowie eine druckfertige Version Ihrer Karte im PDF-Format.",
                 "footerPhysical": "Die Geschenkkarte wird am {{- activation_date }} aktiviert und ist gültig bis {{- activation_date_until }} ({{ duration }} Tag(e)). Sie erhalten per E-Mail alle notwendigen Informationen zur Nutzung der Geschenkkarte sowie eine druckfertige Version Ihrer Karte als PDF-Datei",
@@ -19902,14 +19913,14 @@
                     "submit": "Senden",
                     "close": "Schließen"
                 },
-                "content": "Sie können die Empfänger des Gutscheins ändern. Beachten Sie, dass nur einer ihn verwenden kann. Wenn die E-Mail nicht angekommen ist, können Sie auch diesen Aktivierungslink weiterleiten:",
+                "content": "Sie können den Empfänger des Gutscheins ändern. Beachten Sie, dass nur ein Nutzer ihn verwenden kann. Wenn die E-Mail nicht angekommen ist, können Sie auch den folgenden Aktivierungslink weiterleiten:",
                 "title": "Senden Sie eine Einladungs-E-Mail",
                 "activationCodeLink": "Die Einladungs-E-Mail wurde versandt und kann nicht mehr geändert werden. Sollte sie nicht den richtigen Empfänger erreicht haben, können Sie diesen Aktivierungslink weiterleiten, um die Geschenkkarte anzubieten: "
             },
             "activation": {
                 "alreadyActivated": "Dieser Geschenkgutschein wurde bereits von einem anderen Benutzer verwendet.",
                 "activate": "Aktiviere meinen Geschenkgutschein",
-                "content3": "Wenn Sie nicht mit dem richtigen Konto angemeldet sind, melden Sie sich bitte ab und melden Sie sich mit dem richtigen Konto an. Wenn dieser Gutscheinn nicht für Sie bestimmt ist, lösen Sie ihn bitte nicht ein.",
+                "content3": "Wenn Sie nicht mit dem richtigen Konto angemeldet sind, melden Sie sich bitte ab und melden Sie sich mit dem richtigen Konto an. Wenn dieser Gutschein nicht für Sie bestimmt ist, lösen Sie ihn bitte nicht ein.",
                 "content2": "Der Gutschein wird automatisch als Zahlungsmethode zu Ihrem Warenkorb hinzugefügt. Alle Informationen zu Ihrem Gutschein finden Sie in Ihrem Profil.",
                 "content1": "Ihr Gutschein im Wert von {{price}} ist mit allen Produkten unseres Shops kompatibel und hat kein Verfallsdatum. Viel Spaß!",
                 "subtitle": "Es scheint, als wolle Sie jemand überraschen.",
@@ -19918,8 +19929,8 @@
             },
             "physicalDetails": {
                 "helperAlert": {
-                    "message": "Gib dem Mitglied den Gutschein-Code, damit er/sie das Guthaben bei der nächsten Buchung im einlösen kann.",
-                    "title": "wie nutze ich den Gutschein?"
+                    "message": "Gib dem Mitglied den Gutschein-Code, damit er/sie das Guthaben bei der nächsten Buchung einlösen kann.",
+                    "title": "Wie nutze ich den Gutschein?"
                 },
                 "validFrom": "Gültig vom {{- from }} bis {{- to }}",
                 "code": "Rabattcode:",
@@ -19959,8 +19970,8 @@
                 "deleteInstanceContent2": "Gutscheine, die in anderen Studios gekauft wurden, sind in dem deaktivierten Studio nicht mehr verwendbar, unabhängig davon, wann sie gekauft wurden.",
                 "validity": "{{count}} Tag gültig",
                 "validity_plural": "{{count}} Tage gültig",
-                "validityDetail": "Gültigkeit vor Ablauf : {{count}} Tag",
-                "validityDetail_plural": "Gültigkeit vor Ablauf : {{count}} Tage",
+                "validityDetail": "Verbleibende Gültigkeitsdauer: {{count}} Tag",
+                "validityDetail_plural": "Verbleibende Gültigkeitsdauer: {{count}} Tage",
                 "withoutTax": "Exkl. MwSt./Umsatzsteuer"
             },
             "sharedCard": "Von einem anderen Franchisenehmer geteilt",

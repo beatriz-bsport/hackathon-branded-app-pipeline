@@ -170,6 +170,7 @@ const getTranslations = async () => {
           'The gift card has been well associated to your account, but could not be activated because it is before the activation date',
         apply: 'Apply',
         label: 'Promo code & gift card',
+        couponOnlyLabel: 'Promo code',
         placeholder: 'PROMOTIONAL CODE',
         cancel: 'Cancel',
         submit: 'Apply',

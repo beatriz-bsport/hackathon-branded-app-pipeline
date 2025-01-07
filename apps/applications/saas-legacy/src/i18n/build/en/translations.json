@@ -2565,6 +2565,11 @@
                 "detailsCard": {
                     "paymentErrorWithReason": "This payment was unsuccessful. Reason: {{- reason }}"
                 }
+            },
+            "myProfile": {
+                "spivi": {
+                    "information": "If activated, your data (speed, calories burned, etc.) will be displayed in real-time during your session. In any case, you will receive a summary by e-mail at the end of the session."
+                }
             }
         }
     },
@@ -3449,7 +3454,7 @@
                     "label": "Evening"
                 },
                 "afternoon": {
-                    "interval": "3 PM - 6 PM",
+                    "interval": "2 PM - 6 PM",
                     "label": "Afternoon"
                 },
                 "noon": {
@@ -8376,7 +8381,7 @@
         }
     },
     "datetime": {
-        "shortDayIdentifier": "d",
+        "shortDayIdentifier": "day(s)",
         "shortMinuteIdentifier": "min",
         "shortHourIdentifier": "h",
         "never": "Never",
@@ -12258,7 +12263,7 @@
             "restrictionsHeader": "Custom restrictions",
             "autoDiscardHeader": "The session will be cancelled if",
             "lastBookingBeforeMinutesHeader": "Last possibility of booking before the start of the session",
-            "lastDiscardBeforeMinutesFull": "Cancellations possible until {{m}} before the start of the session",
+            "lastDiscardBeforeMinutesFull": "Cancellations are accepted up to {{m}} prior to the session start time",
             "lastBookingBeforeMinutesFull": "Last bookings possible until {{m}} before the start of the session"
         },
         "modal": {

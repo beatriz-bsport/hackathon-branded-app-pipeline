@@ -2263,7 +2263,7 @@
                 "membershipId": "Numéro d'adhérent",
                 "accountBalance": "Solde du compte",
                 "spivi": {
-                    "information": "Si vous l'activez, vos données (vitesse, calories brûlées, etc.) seront affichées en temps réel pendant votre séance. Sinon, vous recevrez un résumé par e-mail à la fin de la séance.",
+                    "information": "Si vous l'activez, vos données (vitesse, calories brûlées, etc.) seront affichées en temps réel pendant votre séance. Dans tous les cas, vous recevrez un résumé par e-mail à la fin de la séance.",
                     "drawerTitle": "Afficher les données",
                     "displayData": "Afficher mes données en temps réel",
                     "title": "Données de spinning"
@@ -2946,7 +2946,7 @@
         }
     },
     "datetime": {
-        "shortDayIdentifier": "j",
+        "shortDayIdentifier": "jour(s)",
         "never": "Jamais",
         "shortMinuteIdentifier": "min",
         "shortHourIdentifier": "h",
@@ -3747,7 +3747,7 @@
                     "label": "Nom de la carte"
                 },
                 "message_is_for": {
-                    "label": "A l'attention de "
+                    "label": "Pour "
                 },
                 "message_is_from": {
                     "label": "De la part de "
@@ -3772,7 +3772,8 @@
                 "footerPhysical": "La carte cadeau sera activée le {{- activation_date }} sera valable jusqu'au {{- activation_date_until }} ({{ duration }} jour(s)). Vous recevrez par e-mail les informations nécessaires à l'utilisation de la carte cadeau ainsi qu'une version de votre carte à imprimer au format PDF",
                 "activationDate": {
                     "helperText": "Le bénéficiaire peut utiliser la carte cadeau à partir de cette date",
-                    "label": "Date d'activation"
+                    "label": "Date d'activation",
+                    "errorMaxDate": "Veuillez saisir une date valide"
                 },
                 "footerPhysicalUnlimited": "Vous recevrez par e-mail les informations nécessaires à l'utilisation de la carte cadeau ainsi qu'une version de votre carte à imprimer au format PDF.",
                 "type": {
@@ -4498,7 +4499,13 @@
                 "usedGiftcard": "Carte cadeau utilisée",
                 "errors": {
                     "errorAmount": "Montant invalide."
-                }
+                },
+                "expiresOn": "Expire le : {{- date }}",
+                "giftcardCode": "Code de la carte cadeau",
+                "addGiftcard": "Ajouter une carte cadeau",
+                "addGiftcardError": "Ce code de carte cadeau est incorrect. Veuillez vérifier et réessayer.",
+                "availableGiftcards": "Carte(s) cadeau(x) disponible(s)",
+                "title": "Paiement par carte cadeau"
             },
             "actions": {
                 "apply": "Paiement carte cadeau",
@@ -6495,7 +6502,7 @@
             "lastDiscardBeforeMinutes": "Jusqu'à {{m}} avant le début de la séance",
             "firstBookingMinutesUntil": "Les réservations sont bloquées avant {{m}} du début de la séance",
             "autoDiscard": "La séance sera annulée s'il y a {{nb_bookings}} réservation(s) ou moins {{hours}}h avant le début de la séance",
-            "lastDiscardBeforeMinutesFull": "Annulations possibles jusqu'à {{m}} avant le début de la séance",
+            "lastDiscardBeforeMinutesFull": "Les annulations sont acceptées jusqu'à {{m}} avant le début de la séance",
             "lastBookingBeforeMinutesFull": "Dernières réservations possibles jusqu'à {{m}} avant le début de la séance",
             "lastBookingBeforeMinutesHeader": "Avant le début du cours, dernière réservation possible",
             "lastDiscardBeforeMinutesHeader": "Avant le début du cours, dernière annulation possible",
@@ -9996,7 +10003,10 @@
         },
         "selector": {
             "privateService": "Sélectionnez votre RDV",
-            "privateSlot": "Sélectionnez votre séance"
+            "privateSlot": "Sélectionnez votre séance",
+            "establishmentPlaceholder": "Tous les établissements",
+            "coachPlaceholder": "Tous les professeurs",
+            "session": "Choisissez votre type de séance"
         },
         "slotSearcher": {
             "title": "Rendez-vous",
@@ -10030,13 +10040,14 @@
                 },
                 "afternoon": {
                     "label": "Après-midi",
-                    "interval": "15h - 18h"
+                    "interval": "14h - 18h"
                 },
                 "evening": {
                     "label": "Fin d'après midi",
                     "interval": "Après 18h"
                 }
-            }
+            },
+            "pickASlot": "Sélectionnez votre créneau disponible"
         },
         "slot": {
             "parameters": {

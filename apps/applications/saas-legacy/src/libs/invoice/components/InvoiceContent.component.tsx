@@ -324,6 +324,7 @@ export const InvoiceContent: React.FC<Props> = ({
           {couponList && (
             <div className={classes.couponButton}>
               <CouponCodeForm
+                isOnlyCouponCodeAccepted
                 disabled={disableCoupon || couponLoading}
                 onSubmit={applyCoupon}
               />

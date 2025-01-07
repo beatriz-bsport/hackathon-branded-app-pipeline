@@ -2283,7 +2283,7 @@
                 "exclusiveEstablishmentGroups": "La ubicación {{- establishment_group_name }} sólo contiene el establecimiento que desea eliminar, actualice o elimine esta ubicación.",
                 "exclusiveEstablishmentGroups_plural": "Las ubicaciones {{- establishment_group_name }} sólo contienen el establecimiento que desea eliminar, actualice o elimine estas ubicaciones.",
                 "exclusivePaymentPacks": "El siguiente pase {{- pass_name }} sólo se puede utilizar en este establecimiento. Actualiza sus restricciones antes de eliminar el establecimiento.",
-                "exclusivePaymentPacks_plural": "Los siguientes pases {{- pass_name }} sólo se pueden utilizar en este establecimiento. Actualice sus restricciones antes de eliminar el establecimiento.",
+                "exclusivePaymentPacks_plural": "Los siguientes bonos {{- pass_name }} sólo se pueden utilizar en este establecimiento. Actualice sus restricciones antes de eliminar el establecimiento.",
                 "hasExclusiveBillingGroup": "Este establecimiento es el último de su grupo de facturación. Por favor, elimine o actualice este grupo de facturación antes de eliminar este establecimiento.",
                 "hasUpcomingPrivateBookings": "Algunas citas próximas tienen lugar en este establecimiento. Por favor, cancélelas y elimínelas antes de borrar este establecimiento.",
                 "hasUpcomingOffers": "Algunas sesiones próximas tienen lugar en este establecimiento. Cancélalas y elimínalas antes de borrar este establecimiento."
@@ -2777,7 +2777,7 @@
         }
     },
     "datetime": {
-        "shortDayIdentifier": "d",
+        "shortDayIdentifier": "dia(s)",
         "shortMinuteIdentifier": "min",
         "shortHourIdentifier": "h",
         "time": {
@@ -4020,7 +4020,13 @@
                 "usedGiftcard": "Tarjeta de regalo utilizada",
                 "errors": {
                     "errorAmount": "Importe no válido."
-                }
+                },
+                "expiresOn": "Expira el: {{- date }}",
+                "giftcardCode": "Código de tarjetas de regalo",
+                "addGiftcard": "Agregar",
+                "addGiftcardError": "Este código de tarjeta regalo es incorrecto. Compruébelo e inténtelo de nuevo.",
+                "availableGiftcards": "Tarjetas regalo disponibles",
+                "title": "Pago con tarjeta de regalo"
             },
             "actions": {
                 "cancel": "Cerrar",
@@ -9984,7 +9990,7 @@
                     "label": "Al final de la tarde"
                 },
                 "afternoon": {
-                    "interval": "15h-18h",
+                    "interval": "14hs - 18hs",
                     "label": "Por la tarde"
                 },
                 "noon": {
@@ -10005,7 +10011,8 @@
             "searchFirstSlot": "Buscar la primera ranura disponible",
             "nextOffer": "Primera ranura disponible en {{- date }}: {{ hour }}",
             "previousOffer": "Una sesión más reciente está disponible en {{-date }}: {{ hour }}",
-            "emptyState": "No hay disponibilidad en este momento"
+            "emptyState": "No hay disponibilidad en este momento",
+            "pickASlot": "Seleccione su tiempo disponible"
         },
         "privateEstablishment": {
             "delete": {
@@ -10148,7 +10155,10 @@
         },
         "selector": {
             "privateSlot": "Seleccionar la sesión",
-            "privateService": "Seleccionar la cita"
+            "privateService": "Seleccionar la cita",
+            "establishmentPlaceholder": "Todos los establecimientos",
+            "coachPlaceholder": "Todos los profesores",
+            "session": "Selecciona el tipo de sesión"
         },
         "privateService": {
             "delete": {
@@ -16213,7 +16223,7 @@
             "firstBookingMinutesUntilHeader": "Se pueden reservar sesiones futuras si empiezan en menos de",
             "lastDiscardBeforeMinutesHeader": "Seleccione hasta cuándo los miembros pueden cancelar gratuitamente antes del inicio de la sesión",
             "lastBookingBeforeMinutesHeader": "Seleccione hasta cuándo pueden reservar los miembros antes del inicio de la sesión",
-            "lastDiscardBeforeMinutesFull": "Las cancelaciones son posibles hasta {{m}} antes del inicio de la sesión",
+            "lastDiscardBeforeMinutesFull": "Se aceptan cancelaciones hasta {{m}} antes del inicio de la sesión",
             "lastBookingBeforeMinutesFull": "Últimas reservas posibles hasta {{m}} antes del inicio de la sesión"
         },
         "modal": {
@@ -20013,7 +20023,8 @@
                 "hour_send": "Hora de envío",
                 "activationDate": {
                     "helperText": "El destinatario puede utilizar la tarjeta regalo a partir de esta fecha",
-                    "label": "Fecha de activación"
+                    "label": "Fecha de activación",
+                    "errorMaxDate": "Introduzca una fecha válida"
                 },
                 "footerPhysicalUnlimited": "Recibirá por correo electrónico la información necesaria para utilizar la tarjeta regalo y una versión imprimible de su tarjeta en un archivo PDF.",
                 "footerPhysical": "La tarjeta regalo se activará el {{- activation_date }} y será válida hasta el {{- activation_date_until }} ({{ duration }} día(s)). Recibirá por correo electrónico la información necesaria para utilizar la tarjeta regalo y una versión imprimible de su tarjeta en un archivo PDF.",

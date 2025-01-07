@@ -22,6 +22,7 @@ type Props = {
   ) => void;
   loading?: boolean;
   disabled?: boolean;
+  isOnlyCouponCodeAccepted?: boolean;
 };
 
 enum ErrorType {
@@ -35,6 +36,7 @@ export const CouponCodeForm: React.FC<Props> = ({
   onSubmit,
   loading,
   disabled,
+  isOnlyCouponCodeAccepted,
 }) => {
   const classes = useStyles();
 
@@ -44,6 +46,10 @@ export const CouponCodeForm: React.FC<Props> = ({
   const [code, setCode] = React.useState('');
   const [modalLoading, setModalLoading] = React.useState(false);
   const [error, setError] = React.useState<ErrorType>(ErrorType.EMPTY);
+
+  const couponCodeFormLabel = isOnlyCouponCodeAccepted
+    ? t('code.addCoupon.couponOnlyLabel')
+    : t('code.addCoupon.label');
 
   const onCouponSubmit = () => {
     setModalLoading(true);
@@ -88,12 +94,12 @@ export const CouponCodeForm: React.FC<Props> = ({
         disabled={loading || disabled}
         onClick={() => setOpen(true)}
       >
-        {t('code.addCoupon.label')}
+        {couponCodeFormLabel}
       </Button>
       <Dialog open={open}>
         <DialogContent>
           <TextField
-            label={t('code.addCoupon.label')}
+            label={couponCodeFormLabel}
             onChange={(ev) => setCode(ev.target.value)}
             placeholder={t('code.addCoupon.placeholder')}
             value={code}

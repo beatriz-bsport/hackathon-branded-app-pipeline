@@ -11733,7 +11733,7 @@
                 },
                 "afternoon": {
                     "label": "Tarde",
-                    "interval": "15 - 18h"
+                    "interval": "14 - 18h"
                 },
                 "evening": {
                     "interval": "Depois das 18h",

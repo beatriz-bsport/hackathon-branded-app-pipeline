@@ -849,9 +849,57 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
       0,
       this.getIsGuestBooking(),
     );
-    this.setState({
-      offersConstraint: newOfferConstraints,
-    });
+    this.setState(
+      {
+        offersConstraint: newOfferConstraints,
+      },
+      this.unselectIncompatibleItem,
+    );
+  };
+
+  unselectIncompatibleItem = () => {
+    if (!this.state.selectedItem) return;
+
+    const selectedBuyableItemIdentifier =
+      this.state.selectedItem.itemIdentifier;
+
+    let getAvailableItemsFunction: () => Array<BookerItem['data']>;
+    const selectedOffers = this.state.selectedOffers
+      .map((selectedOffer) => selectedOffer.offer)
+      .filter((offer) => offer.id !== this.props.offerId);
+
+    if (selectedBuyableItemIdentifier === CONSUMER_PAYMENT_PACK_IDENTIFIER) {
+      getAvailableItemsFunction = this.getAvailableConsumerPack;
+    } else if (
+      selectedBuyableItemIdentifier === PAYMENT_PACK_BOOKING_FUNNEL_IDENTIFIER
+    ) {
+      getAvailableItemsFunction = () =>
+        this.getAvailablePaymentPacks(selectedOffers as OfferREST[]);
+    } else if (
+      selectedBuyableItemIdentifier === PAYMENT_COMBO_BOOKING_FUNNEL_IDENTIFIER
+    ) {
+      getAvailableItemsFunction = () =>
+        this.getAvailableComboPacks(selectedOffers as OfferREST[]);
+    } else if (
+      selectedBuyableItemIdentifier === CONTRACT_BOOKING_FUNNEL_IDENTIFIER
+    ) {
+      getAvailableItemsFunction = () =>
+        this.getAvailableContracts(selectedOffers as OfferREST[]);
+    }
+
+    const selectedItemId = this.state.selectedItem.data?.id;
+
+    if (!selectedItemId || !getAvailableItemsFunction) return;
+
+    const itemIsAvailable = getAvailableItemsFunction().some?.(
+      (item) => item.id === selectedItemId,
+    );
+
+    if (!itemIsAvailable) {
+      this.setState({
+        selectedItem: null,
+      });
+    }
   };
 
   goBackToCalendar = () => {
@@ -1389,12 +1437,15 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
     const formattedOffer = this.refineOffers(offer);
 
     analyticsUtils.onAddSessionToBookingList(formattedOffer);
-    this.setState((prevState: State) => ({
-      selectedOffers: [
-        ...prevState.selectedOffers,
-        { offer: formattedOffer, extra_data: {} },
-      ],
-    }));
+    this.setState(
+      (prevState: State) => ({
+        selectedOffers: [
+          ...prevState.selectedOffers,
+          { offer: formattedOffer, extra_data: {} },
+        ],
+      }),
+      this.updateOfferConstraints,
+    );
   };
 
   handleRemoveOffer = (offerId: number) => {

@@ -517,6 +517,10 @@ export class EmailEditorPanel extends Component<Props, State> {
                 designTags: {
                   business_name: this.props.company_name,
                 },
+                features: {
+                  preview: true,
+                },
+                version: '1.9.1',
               }}
               translations={{
                 'fr-FR': {

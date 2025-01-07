@@ -3,7 +3,7 @@ Lint:
   tags:
     - deployment
     - cluster:bsport-tooling
-  image: ${REGISTRY_ENDPOINT}/bsport/bsport-widget-builder:${CI_COMMIT_REF_NAME}
+  image: ${REGISTRY_ENDPOINT}/bsport/bsport-widget-builder:${CI_COMMIT_REF_SLUG}
   stage: static-analysis
   variables:
     ENVIRONMENT: dev

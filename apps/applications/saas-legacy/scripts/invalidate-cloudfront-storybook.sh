@@ -8,7 +8,7 @@ CLOUDFRONT_INVALIDATION_LAMBDA_URL=$3
 # to achieve this, we call a lambda function living there, which has the right permissions.
 #
 curl --get \
-   --data-urlencode paths='["/$CI_COMMIT_REF_NAME/index.html","/$CI_COMMIT_REF_NAME/locales"]' \
+   --data-urlencode paths='["/$CI_COMMIT_REF_SLUG/index.html","/$CI_COMMIT_REF_SLUG/locales"]' \
    --data-urlencode distribution_id=${CLOUDFRONT_ID} \
    --data-urlencode token=${CLOUDFRONT_INVALIDATION_TOKEN} \
    ${CLOUDFRONT_INVALIDATION_LAMBDA_URL}

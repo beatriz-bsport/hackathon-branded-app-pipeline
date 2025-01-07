@@ -9,8 +9,8 @@
   script:
     - aws ecr get-login-password --region ${AWS_REGION} | docker login --username AWS --password-stdin ${REGISTRY_ENDPOINT}
     - sleep 20 # because the docker service needs to be up'd cf https://gitlab.com/gitlab-org/charts/gitlab/-/issues/478
-    - docker build --no-cache --network host --build-arg TODAY=`date +%s` --build-arg ENVIRONMENT=$ENVIRONMENT --build-arg GIT_USERNAME=$GIT_USERNAME --build-arg GIT_PASSWORD=$GIT_PASSWORD --build-arg CI_COMMIT_REF_NAME=$CI_COMMIT_REF_NAME -t ${REGISTRY_ENDPOINT}/bsport/bsport-widget-builder:${CI_COMMIT_REF_NAME} .
-    - docker push ${REGISTRY_ENDPOINT}/bsport/bsport-widget-builder:${CI_COMMIT_REF_NAME}
+    - docker build --no-cache --network host --build-arg TODAY=`date +%s` --build-arg ENVIRONMENT=$ENVIRONMENT --build-arg GIT_USERNAME=$GIT_USERNAME --build-arg GIT_PASSWORD=$GIT_PASSWORD --build-arg CI_COMMIT_REF_SLUG=$CI_COMMIT_REF_SLUG -t ${REGISTRY_ENDPOINT}/bsport/bsport-widget-builder:${CI_COMMIT_REF_SLUG} .
+    - docker push ${REGISTRY_ENDPOINT}/bsport/bsport-widget-builder:${CI_COMMIT_REF_SLUG}
   variables:
     DOCKER_TLS_CERTDIR: ""
     DOCKER_DRIVER: overlay2
@@ -80,5 +80,5 @@ Prepare Docker Builder Image Feature Branch:
     - export FEATURE_BRANCH_IDENTIFIER=`echo $CI_COMMIT_TAG | sed -n 's/.*deploy-\(frontend-only-\)\{0,1\}\([[:alnum:]_-]\+\).*/\2/p'`
     - aws ecr get-login-password --region ${AWS_REGION} | docker login --username AWS --password-stdin ${REGISTRY_ENDPOINT}
     - sleep 20 # because the docker service needs to be up'd cf https://gitlab.com/gitlab-org/charts/gitlab/-/issues/478
-    - docker build --no-cache --network host --build-arg TODAY=`date +%s` --build-arg FEATURE_BRANCH_IDENTIFIER=$FEATURE_BRANCH_IDENTIFIER --build-arg ENVIRONMENT=$FEATURE_BRANCH_IDENTIFIER --build-arg GIT_USERNAME=$GIT_USERNAME --build-arg GIT_PASSWORD=$GIT_PASSWORD --build-arg CI_COMMIT_REF_NAME=$FEATURE_BRANCH_IDENTIFIER -t ${REGISTRY_ENDPOINT}/bsport/bsport-widget-builder:${CI_COMMIT_REF_NAME} .
-    - docker push ${REGISTRY_ENDPOINT}/bsport/bsport-widget-builder:${CI_COMMIT_REF_NAME}
+    - docker build --no-cache --network host --build-arg TODAY=`date +%s` --build-arg FEATURE_BRANCH_IDENTIFIER=$FEATURE_BRANCH_IDENTIFIER --build-arg ENVIRONMENT=$FEATURE_BRANCH_IDENTIFIER --build-arg GIT_USERNAME=$GIT_USERNAME --build-arg GIT_PASSWORD=$GIT_PASSWORD --build-arg CI_COMMIT_REF_SLUG=$FEATURE_BRANCH_IDENTIFIER -t ${REGISTRY_ENDPOINT}/bsport/bsport-widget-builder:${CI_COMMIT_REF_SLUG} .
+    - docker push ${REGISTRY_ENDPOINT}/bsport/bsport-widget-builder:${CI_COMMIT_REF_SLUG}

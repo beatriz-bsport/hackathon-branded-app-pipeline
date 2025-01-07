@@ -1,5 +1,5 @@
 Lint and Compile:
-  image: ${REGISTRY_ENDPOINT}/bsport/bsport-saas-builder:${CI_COMMIT_REF_NAME}
+  image: ${REGISTRY_ENDPOINT}/bsport/bsport-saas-builder:${CI_COMMIT_REF_SLUG}
   stage: static-analysis
   interruptible: true
   tags:
@@ -29,7 +29,7 @@ Lint and Compile:
     - when: on_success
 
 Test:
-  image: ${REGISTRY_ENDPOINT}/bsport/bsport-saas-builder:${CI_COMMIT_REF_NAME}
+  image: ${REGISTRY_ENDPOINT}/bsport/bsport-saas-builder:${CI_COMMIT_REF_SLUG}
   interruptible: true
   stage: static-analysis
   tags:

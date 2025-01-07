@@ -11,7 +11,7 @@
       when: on_success
     - when: never
 
-  image: ${REGISTRY_ENDPOINT}/bsport/bsport-saas-builder:${CI_COMMIT_REF_NAME}
+  image: ${REGISTRY_ENDPOINT}/bsport/bsport-saas-builder:${CI_COMMIT_REF_SLUG}
   stage: tag-releases
   script:
     - RETRO_IDENTIFIER="${RETRO_DURATION}${RETRO_DURATION_TYPE}"

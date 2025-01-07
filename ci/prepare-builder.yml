@@ -26,7 +26,7 @@ Prepare Builder:
     DOCKER_DRIVER: overlay2
     DOCKER_HOST: tcp://docker:2375
     # Temp : Prefix with monorepo to not override bsport-saas builder, while registry not created
-    TAG: "monorepo-$CI_COMMIT_REF_NAME"
+    TAG: "monorepo-$CI_COMMIT_REF_SLUG"
   script:
     # Wait for Docker service to be up and running
     - sleep 10 # Mitigates race condition with Docker service initialization (cf issue 478)

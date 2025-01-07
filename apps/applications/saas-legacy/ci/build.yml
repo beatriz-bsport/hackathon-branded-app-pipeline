@@ -1,5 +1,5 @@
 .Build and deploy Base:
-  image: ${REGISTRY_ENDPOINT}/bsport/bsport-saas-builder:${CI_COMMIT_REF_NAME}
+  image: ${REGISTRY_ENDPOINT}/bsport/bsport-saas-builder:${CI_COMMIT_REF_SLUG}
   stage: deploy
   retry:
     max: 2
@@ -144,7 +144,7 @@ Build Deploy Dev:
   retry:
     max: 2
 
-  image: ${REGISTRY_ENDPOINT}/bsport/bsport-saas-builder:${CI_COMMIT_REF_NAME}
+  image: ${REGISTRY_ENDPOINT}/bsport/bsport-saas-builder:${CI_COMMIT_REF_SLUG}
   stage: build-deploy-feature-branch
   script:
     - mv /app/node_modules .

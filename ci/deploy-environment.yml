@@ -1,6 +1,6 @@
 .Deploy Base:
   # Temp : Prefix with monorepo as it is still store on bsport-saas-builder registry
-  image: ${REGISTRY_ENDPOINT}/${REGISTRY_NAME}:monorepo-${CI_COMMIT_REF_NAME}
+  image: ${REGISTRY_ENDPOINT}/${REGISTRY_NAME}:monorepo-${CI_COMMIT_REF_SLUG}
   stage: deploy
   tags:
     - build-frontend

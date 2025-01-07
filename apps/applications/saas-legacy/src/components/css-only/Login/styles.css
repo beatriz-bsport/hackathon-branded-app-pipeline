@@ -110,6 +110,7 @@
 .bs-login-container__register-button {
   border-radius: var(--border-radius-6);
   color: var(--color-primary-main);
+  background-color: var(--bs-color-background-light);
   border: 1px solid var(--color-primary-main);
   min-width: 200px;
   min-height: 46px;

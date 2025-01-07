@@ -9,7 +9,7 @@ echo "Start uploading Kaizen Storybook for environment : $ENV"
 # Common variables
 S3_BUCKET="s3://bsport-eu-docs"
 S3_KAIZEN_PATH="storybook/kaizen"
-S3_FINAL_PATH="$S3_BUCKET/$S3_KAIZEN_PATH/$CI_COMMIT_REF_NAME"
+S3_FINAL_PATH="$S3_BUCKET/$S3_KAIZEN_PATH/$CI_COMMIT_REF_SLUG"
 
 if [ "$ENV" = "dev" ]; then
     continue

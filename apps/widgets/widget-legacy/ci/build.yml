@@ -90,7 +90,7 @@ Build Deploy Feature Branch:
     - echo "SUCCESS" > .job_status
 
 .Build and deploy Base:
-  image: ${REGISTRY_ENDPOINT}/bsport/bsport-widget-builder:${CI_COMMIT_REF_NAME}
+  image: ${REGISTRY_ENDPOINT}/bsport/bsport-widget-builder:${CI_COMMIT_REF_SLUG}
   stage: deploy 
   tags:
     - high-ram

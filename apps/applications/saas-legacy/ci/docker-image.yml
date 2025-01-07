@@ -15,7 +15,7 @@ Prepare Docker Builder Image:
     - '[ $USED_IMAGE_TAG = dev ] && docker pull ${REGISTRY_ENDPOINT}/${REGISTRY_NAME}:dev || true'
     - echo "Will try to reuse image $#USED_IMAGE_TAG}"
     - docker build
-      --build-arg BUILDKIT_INLINE_CACHE=1 
+      --build-arg BUILDKIT_INLINE_CACHE=1
       --cache-from ${REGISTRY_ENDPOINT}/${REGISTRY_NAME}:${USED_IMAGE_TAG}
       --network host
       -t ${REGISTRY_ENDPOINT}/${REGISTRY_NAME}:${TAG}
@@ -26,7 +26,7 @@ Prepare Docker Builder Image:
     DOCKER_DRIVER: overlay2
     DOCKER_HOST: tcp://docker:2375
     REGISTRY_NAME: bsport/bsport-saas-builder
-    TAG: $CI_COMMIT_REF_NAME
+    TAG: $CI_COMMIT_REF_SLUG
   services:
     - name: 672633452901.dkr.ecr.eu-west-3.amazonaws.com/bsport-infra/dind:1.0.2
       alias: docker
@@ -41,4 +41,3 @@ Prepare Docker Builder Image:
       interruptible: false
     - interruptible: true
       when: on_success
-

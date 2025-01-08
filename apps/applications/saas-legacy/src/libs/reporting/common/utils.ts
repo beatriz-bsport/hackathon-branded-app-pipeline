@@ -132,7 +132,7 @@ import type {
   ReportMetadataValueWithLabel,
 } from './types';
 import { BuyableItemOptions } from '#src/libs/checkout/types';
-import { ConsumerGiftcardKind } from '@bsport/common/lib/master-data/giftcard';
+import { ConsumerGiftcardKind } from '@bsport/common/master-data/giftcard.js';
 
 export const CATEGORIES: ReportCategory[] = [
   {

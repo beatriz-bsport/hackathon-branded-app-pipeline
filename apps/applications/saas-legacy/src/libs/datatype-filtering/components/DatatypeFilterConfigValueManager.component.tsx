@@ -93,7 +93,7 @@ import {
   FILTERABLE_PRODUCT_CATEGORY_OPTIONS,
   FILTERABLE_PRODUCT_TYPE_OPTIONS,
 } from '#src/libs/reporting/common/constants';
-import { ConsumerGiftcardKind } from '@bsport/common/lib/master-data/giftcard';
+import { ConsumerGiftcardKind } from '@bsport/common/master-data/giftcard.js';
 
 export type ItemProps = {
   children: string;

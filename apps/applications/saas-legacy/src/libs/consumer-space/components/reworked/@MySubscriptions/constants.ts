@@ -4,7 +4,7 @@ import {
   BILLING_PLAN_STATUS_STOPPED,
   BILLING_PLAN_STATUS_PAUSED,
   BILLING_PLAN_STATUS_ENDED,
-} from '@bsport/common/lib/master-data/subscription-status.js';
+} from '@bsport/common/master-data/subscription-status.js';
 
 export enum SubscriptionFilterEnum {
   ACTIVE = 'active',

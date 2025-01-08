@@ -8,18 +8,6 @@ import { commandCase } from "@bsport/typescript-string-utils";
 const template = (commandName: string) => `
 import type { Command } from 'commander'
 
-/**
- * Runs the command.
- */
-async function action({
-  quiet,
-  /* options here */
-}: { quiet: boolean }) {
-  const print = (...args) => !quiet && console.log(...args)
-
-  // Command's source code
-}
-
 export default function ${camelCase(commandName)}(program: Command) {
   program
     .command('${commandCase(commandName)}')
@@ -31,6 +19,18 @@ export default function ${camelCase(commandName)}(program: Command) {
     .option('-q, --quiet', 'suppress all output, unless an error occurs.', false)
     .action(action)
   return program
+}
+
+/**
+ * Runs the command.
+ */
+async function action({
+  quiet,
+  /* options here */
+}: { quiet: boolean }) {
+  const print = (...args) => !quiet && console.log(...args)
+
+  // Command's source code
 }
 `;
 
@@ -55,12 +55,12 @@ async function action(commandName: string, { quiet }: { quiet: boolean }) {
     .replace(
       /\/\/ DO NOT REMOVE THIS LINE: IMPORTS/,
       `import ${camelCase(
-        commandName
-      )} from './${fileName}'\n// DO NOT REMOVE THIS LINE: IMPORTS`
+        commandName,
+      )} from './${fileName}'\n// DO NOT REMOVE THIS LINE: IMPORTS`,
     )
     .replace(
       /\/\/ DO NOT REMOVE THIS LINE: COMMANDS/,
-      `${camelCase(commandName)},\n  // DO NOT REMOVE THIS LINE: COMMANDS`
+      `${camelCase(commandName)},\n  // DO NOT REMOVE THIS LINE: COMMANDS`,
     );
 
   fs.writeFileSync(indexFile, newContent);
@@ -69,7 +69,7 @@ async function action(commandName: string, { quiet }: { quiet: boolean }) {
   print("✅  All good!");
   print(`ℹ️  Open the file to start developing: "${fileFullPath}"`);
   print(
-    `ℹ️  Run from the following command form to test: pnpm run -w utils ${commandName} -h`
+    `ℹ️  Run from the following command form to test: pnpm run -w utils ${commandName} -h`,
   );
 }
 
@@ -79,16 +79,16 @@ export default function createCommand(program: Command) {
     .description("Creates a new command in the monorepo-utils project.")
     .argument(
       "<command-name>",
-      "Command name usually named as {namespace}:{action} (ex: project:create, command:delete...)"
+      "Command name usually named as {namespace}:{action} (ex: project:create, command:delete...)",
     )
     .option(
       "--dir <dirPath>",
-      "You can specify a custom target directory for the script (default: src/commands/commandName)."
+      "You can specify a custom target directory for the script (default: src/commands/commandName).",
     )
     .option(
       "-q, --quiet",
       "suppress all output, unless an error occurs.",
-      false
+      false,
     )
     .action(action);
   return program;

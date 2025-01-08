@@ -1,0 +1,24 @@
+{
+  "name": "@bsport/datetime-format-utils",
+  "version": "0.0.0",
+  "description": "Format Date util",
+  "author": "Marwan El Boussarghini <marwan@bsport.io>",
+  "private": true,
+  "main": "build/index.js",
+  "types": "build/index.d.ts",
+  "source": "src/index.ts",
+  "devDependencies": {
+    "@bsport/eslint-config-react": "workspace:*",
+    "@types/luxon": "^3.4.2"
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc -w",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix .",
+    "postinstall": "npm run build"
+  },
+  "dependencies": {
+    "luxon": "^3.4.4"
+  }
+}

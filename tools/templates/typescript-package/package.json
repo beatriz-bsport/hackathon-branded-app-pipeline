@@ -1,20 +1,32 @@
 {
   "name": "@bsport/template-typescript-package",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "TypeScript template package",
   "author": "Marwan El Boussarghini <marwan.elboussarghini@thirdbridge.com>",
+  "license": "UNLICENSED",
+  "type": "module",
   "private": true,
-  "main": "build/index.js",
-  "types": "build/index.d.ts",
-  "source": "src/index.ts",
+  "main": "build/lib.umd.cjs",
+  "module": "build/lib.es.js",
+  "types": "build/lib.d.ts",
+  "exports": {
+    ".": {
+      "import": "./build/lib.es.js",
+      "require": "./build/lib.umd.js"
+    }
+  },
+  "files": [
+    "build"
+  ],
+  "dependencies": {},
   "devDependencies": {
     "@bsport/eslint-config-react": "workspace:*"
   },
   "scripts": {
-    "build": "tsc",
-    "dev": "tsc -w",
+    "build": "vite build",
+    "dev": "vite build --watch",
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
-    "postinstall": "npm run build"
+    "postinstall": "pnpm run build"
   }
 }

@@ -1,0 +1,21 @@
+{
+  "name": "@bsport/template-simple-b2b-app",
+  "description": "Simple B2B application template",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "lint": "eslint .",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "react-router": "^7.1.1"
+  },
+  "devDependencies": {
+    "@bsport/eslint-config-react": "workspace:*",
+    "vite-plugin-dts": "^4.3.0",
+    "vite-plugin-svgr": "^4.3.0"
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "name": "@bsport/timezone-utils",
+  "version": "0.0.0",
+  "description": "Timezone utilities",
+  "author": "Marwan El Boussarghini <marwan@bsport.io>",
+  "license": "UNLICENSED",
+  "type": "module",
+  "private": true,
+  "main": "build/lib.umd.cjs",
+  "module": "build/lib.es.js",
+  "types": "build/lib.d.ts",
+  "exports": {
+    ".": {
+      "import": "./build/lib.es.js",
+      "require": "./build/lib.umd.js"
+    }
+  },
+  "files": [
+    "build"
+  ],
+  "dependencies": {
+    "luxon": "^3.4.4"
+  },
+  "devDependencies": {
+    "@bsport/eslint-config-react": "workspace:*",
+    "@types/luxon": "^3.4.2"
+  },
+  "scripts": {
+    "build": "vite build",
+    "dev": "vite build --watch",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix .",
+    "postinstall": "pnpm run build"
+  }
+}

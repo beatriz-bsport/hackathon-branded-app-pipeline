@@ -10,3 +10,6 @@ packages:
 
   # Ignore storybook builds
   - "!**/storybook-static/**"
+
+  # Ignore dist outputs
+  - "!**/dist/**"

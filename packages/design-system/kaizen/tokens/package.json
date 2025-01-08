@@ -17,12 +17,9 @@
     "pre-commit": "sh ./scripts/pre-commit.sh",
     "tokens:import": "ts-node -r tsconfig-paths/register ./scripts/import-tokens.ts"
   },
-  "dependencies": {
-    "lodash": "^4.17.21"
-  },
+  "dependencies": {},
   "devDependencies": {
     "@bsport/eslint-config-react": "workspace:*",
-    "@types/lodash": "^4.17.13",
     "@types/node": "^20",
     "tsconfig-paths": "^4.2.0"
   }

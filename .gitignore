@@ -1,9 +1,11 @@
-node_modules
-
+# Build folders
 **/build
-**/node_modules
-
 **/dist
+**/.next
+
+# node_modules
+node_modules
+**/node_modules
 
 **/.DS_Store
 
@@ -13,16 +15,14 @@ node_modules
 **/log
 *.log
 
+# env files
 **/.env.*.local
 **/.env.local
 
+# Code editors
 *.vscode
 */.vscode
-
 .idea
-
-# nextjs
-**/.next
 
 deployment-manifest
 
@@ -54,3 +54,7 @@ storybook-static
 # pnpm store, to prevent nx from reading it
 pnpm-store
 **/pnpm-store
+
+# Vite
+vite.config.*.timestamp*
+vitest.config.*.timestamp*

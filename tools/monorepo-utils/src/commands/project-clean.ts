@@ -56,7 +56,7 @@ async function action(
   printGroupEnd();
 
   printGroup("\n5️⃣  Fix all imports from @bsport/common with .js extension");
-  await useExtensionsWhenImportingBsportCommon({ print, projectAbsolutePath });
+  await addExtensionsWhenImportingBsportCommon({ print, projectAbsolutePath });
   printGroupEnd();
 
   printGroup("\n6️⃣  Remove useless and breaking storybook");
@@ -348,7 +348,7 @@ async function _installWidgetDependencies({
   });
 }
 
-async function useExtensionsWhenImportingBsportCommon({
+async function addExtensionsWhenImportingBsportCommon({
   print,
   projectAbsolutePath,
 }: {

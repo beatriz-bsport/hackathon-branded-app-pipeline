@@ -10068,7 +10068,8 @@
       "visit_reason": "Visit reason",
       "initial_status": "Authorization status",
       "updated_status": "Updated status",
-      "admission": "Admission"
+      "admission": "Admission",
+      "kind": "Type"
     },
     "groupedColumns": {
       "member": "Member",

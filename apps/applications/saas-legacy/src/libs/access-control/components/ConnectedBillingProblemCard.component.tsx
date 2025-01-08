@@ -187,6 +187,7 @@ const useBillingProblemHandlers = ({
           active: true,
           reverted: false,
           has_amount_left: true,
+          in_timeframe: true,
         },
         {
           onSuccess: (_consumerGiftcardList: ConsumerGiftcard[]) => {

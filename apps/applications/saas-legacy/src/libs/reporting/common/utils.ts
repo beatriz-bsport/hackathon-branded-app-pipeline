@@ -132,6 +132,7 @@ import type {
   ReportMetadataValueWithLabel,
 } from './types';
 import { BuyableItemOptions } from '#src/libs/checkout/types';
+import { ConsumerGiftcardKind } from '@bsport/common/lib/master-data/giftcard';
 
 export const CATEGORIES: ReportCategory[] = [
   {
@@ -415,6 +416,19 @@ export const getConverter = (
             ? (t(`payment:payout.status.${value}`) as string)
             : value,
       };
+    }
+
+    if (datatype === ReportFilterableDataType.CONSUMER_GIFTCARD_KIND) {
+      if (value === ConsumerGiftcardKind.PRINTABLE) {
+        return {
+          value: t('giftcard:consumerGiftcard.form.type.option.physical'),
+        };
+      }
+      if (value === ConsumerGiftcardKind.DIGITAL) {
+        return {
+          value: t('giftcard:consumerGiftcard.form.type.option.digital'),
+        };
+      }
     }
 
     return { value };
@@ -985,6 +999,17 @@ export const getSingleValueLabel = (
       return t(`accessControl:filters.accessStatus.${value}`);
     case ReportFilterableDataType.ACCESS_MONITORING_ADMISSION:
       return t(`accessControl:filters.entryStatus.${value}`);
+    case ReportFilterableDataType.CONSUMER_GIFTCARD_KIND:
+      if (Array.isArray(value) && value.length > 0) {
+        switch (value[0]) {
+          case ConsumerGiftcardKind.PRINTABLE:
+            return t('giftcard:consumerGiftcard.form.type.option.physical');
+          case ConsumerGiftcardKind.DIGITAL:
+            return t('giftcard:consumerGiftcard.form.type.option.digital');
+          default:
+            return value[0];
+        }
+      }
     case ReportFilterableDataType.PRODUCT_TYPE:
       if (Array.isArray(value)) {
         return t(

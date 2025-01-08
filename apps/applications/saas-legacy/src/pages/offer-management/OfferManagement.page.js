@@ -505,6 +505,7 @@ export default compose(
             active: true,
             reverted: false,
             member_id__in: memberIdsList,
+            in_timeframe: true,
           },
           {
             onSuccess: (consumerGiftcardList: Array<ConsumerGiftcard>) => {
@@ -840,7 +841,12 @@ export default compose(
         });
       },
     applyGiftcardOnInvoice:
-      ({ applyGiftcardOnInvoice, fetchInvoiceListUnpaid, bookings }) =>
+      ({
+        applyGiftcardOnInvoice,
+        fetchInvoiceListUnpaid,
+        fetchConsumerGiftcardList,
+        bookings,
+      }) =>
       (
         invoice_uuid: string,
         consumerGiftCardId: number,
@@ -854,6 +860,7 @@ export default compose(
               fetchInvoiceListUnpaid({
                 member__in: member_ids,
               });
+              fetchConsumerGiftcardList(member_ids);
             }
             if (options && options.onSuccess) options.onSuccess();
           },

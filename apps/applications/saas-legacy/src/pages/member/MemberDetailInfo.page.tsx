@@ -916,6 +916,7 @@ const mapWithHandler3 = {
           active: true,
           reverted: false,
           has_amount_left: true,
+          in_timeframe: true,
         },
         {
           onSuccess: (consumerGiftcardList: Array<ConsumerGiftcard>) => {

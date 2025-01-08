@@ -408,6 +408,7 @@ const getTranslations = async () => {
       initial_status: 'Authorization status',
       updated_status: 'Updated status',
       admission: 'Admission',
+      kind: 'Type',
     },
     groupedColumns: {
       member: 'Member',

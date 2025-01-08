@@ -93,6 +93,7 @@ import {
   FILTERABLE_PRODUCT_CATEGORY_OPTIONS,
   FILTERABLE_PRODUCT_TYPE_OPTIONS,
 } from '#src/libs/reporting/common/constants';
+import { ConsumerGiftcardKind } from '@bsport/common/lib/master-data/giftcard';
 
 export type ItemProps = {
   children: string;
@@ -776,6 +777,19 @@ const DatatypeFilterConfigValueList: React.FC<{
             {
               value: EntryStatus.UNKNOWN,
               label: t('accessControl:filters.entryStatus.unknown'),
+              columnName,
+            },
+          ];
+        case 'consumer_giftcard_kind':
+          return [
+            {
+              value: ConsumerGiftcardKind.PRINTABLE,
+              label: t('giftcard:consumerGiftcard.form.type.option.physical'),
+              columnName,
+            },
+            {
+              value: ConsumerGiftcardKind.DIGITAL,
+              label: t('giftcard:consumerGiftcard.form.type.option.digital'),
               columnName,
             },
           ];

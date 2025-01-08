@@ -294,15 +294,16 @@ export const UseConsumerGiftcardForm: React.FC<Props> = (props: Props) => {
                           </ButtonBase>
                         </div>
                       ))}
-                    {!isShowAddGiftcardForm && (
-                      <Button
-                        color="primary"
-                        onClick={handleShowAddGiftcardForm}
-                        startIcon={<AddIcon />}
-                      >
-                        {t('invoice:applyGiftcard.form.addGiftcard')}
-                      </Button>
-                    )}
+                    {!isShowAddGiftcardForm &&
+                      !!props?.handleAttributeByPrintableCode && (
+                        <Button
+                          color="primary"
+                          onClick={handleShowAddGiftcardForm}
+                          startIcon={<AddIcon />}
+                        >
+                          {t('invoice:applyGiftcard.form.addGiftcard')}
+                        </Button>
+                      )}
                     {isShowAddGiftcardForm &&
                       !!props.handleAttributeByPrintableCode && (
                         <div className={classes.addGiftcardContainer}>

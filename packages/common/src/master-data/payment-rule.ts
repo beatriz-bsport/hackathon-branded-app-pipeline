@@ -1,0 +1,2 @@
+export const PAYMENT_RULE_CALCULATION_BOOKINGS: number = 0;
+export const PAYMENT_RULE_CALCULATION_MARGIN_VALUE: number = 1;

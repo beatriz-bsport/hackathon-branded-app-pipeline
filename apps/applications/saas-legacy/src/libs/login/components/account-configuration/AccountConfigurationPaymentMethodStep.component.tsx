@@ -3,7 +3,7 @@ import { Theme } from '@material-ui/core/styles';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import { useTranslation } from 'react-i18next';
 import { Button, Typography } from '@material-ui/core';
-import { BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB } from '@bsport/common/lib/master-data/subscription-payment-methods.js';
+import { BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB } from '@bsport/common/master-data/subscription-payment-methods.js';
 import { AxiosResponse } from 'axios';
 import { Skeleton } from '@material-ui/lab';
 import AddPaymentMethod from '#src/libs/payment/components/AddPaymentMethod.component';

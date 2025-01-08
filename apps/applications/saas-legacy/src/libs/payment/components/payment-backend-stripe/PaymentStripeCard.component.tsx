@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import Immutable from 'seamless-immutable';
 import { useTranslation } from 'react-i18next';
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
-import { PAYMENT_GROUP_METHOD_IDENTIFIER_CB } from '@bsport/common/lib/master-data/payment-group.js';
+import { PAYMENT_GROUP_METHOD_IDENTIFIER_CB } from '@bsport/common/master-data/payment-group.js';
 
 import { isWidthDown, IconButton } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';

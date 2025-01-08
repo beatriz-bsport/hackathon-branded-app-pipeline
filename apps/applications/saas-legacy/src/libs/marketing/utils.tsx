@@ -1,4 +1,4 @@
-import { NOTIFICATION_KIND } from '@bsport/common/lib/master-data/notification-rule-events.js';
+import { NOTIFICATION_KIND } from '@bsport/common/master-data/notification-rule-events.js';
 import { TFunction } from 'i18next';
 import memoize from 'memoize-one';
 import type { MarketingNotification } from './types';

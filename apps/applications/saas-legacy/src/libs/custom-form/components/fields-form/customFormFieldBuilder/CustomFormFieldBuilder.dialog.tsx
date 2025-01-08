@@ -26,7 +26,7 @@ import {
   CUSTOM_FORM_FIELD_SIGNUP_QUESTION_OPTION,
   CUSTOM_FORM_FIELD_SIGN_UP_STATE,
   CUSTOM_FORM_FIELD_LOCATION_OPTION,
-} from '@bsport/common/lib/master-data/custom-form.js';
+} from '@bsport/common/master-data/custom-form.js';
 import { SegmentAnalyticsFormObjectIdentifier } from '#src/components/analytics/segment';
 import { rudderStackFormTrackingFunctionsRegistry } from '#src/components/analytics/rudderstack/utils';
 import {

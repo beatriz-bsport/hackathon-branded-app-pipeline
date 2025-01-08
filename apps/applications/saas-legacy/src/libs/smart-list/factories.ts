@@ -1,5 +1,5 @@
 import { fakerEN as faker } from '@faker-js/faker';
-import { COMMUNICATION_KIND_EMAIL } from '@bsport/common/lib/master-data/communication-kind.js';
+import { COMMUNICATION_KIND_EMAIL } from '@bsport/common/master-data/communication-kind.js';
 import { CommunicationScheduled } from '#src/libs/communication-v2/types';
 import type { SmartList } from './types';
 

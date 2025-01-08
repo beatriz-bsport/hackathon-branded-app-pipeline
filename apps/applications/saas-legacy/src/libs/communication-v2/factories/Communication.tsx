@@ -1,4 +1,4 @@
-import { COMMUNICATION_KIND_EMAIL } from '@bsport/common/lib/master-data/communication-kind.js';
+import { COMMUNICATION_KIND_EMAIL } from '@bsport/common/master-data/communication-kind.js';
 import { fakerEN as faker } from '@faker-js/faker';
 import type {
   Communication,

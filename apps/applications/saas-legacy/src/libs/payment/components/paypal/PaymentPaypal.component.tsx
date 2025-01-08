@@ -5,8 +5,8 @@ import { connect } from 'react-redux';
 
 import CircularProgress from '#src/components/css-only/CircularProgress';
 import type { AxiosError } from 'axios';
-import ALL_ERROR_CODES from '@bsport/common/lib/master-data/error-codes/buyable-item-can-not-be-bought.js';
-import { PAYMENT_EXECUTION_ERROR_CODES } from '@bsport/common/lib/master-data/error-codes/payment.js';
+import ALL_ERROR_CODES from '@bsport/common/master-data/error-codes/buyable-item-can-not-be-bought.js';
+import { PAYMENT_EXECUTION_ERROR_CODES } from '@bsport/common/master-data/error-codes/payment.js';
 import { makeStyles } from '@material-ui/core/styles';
 import classNames from 'classnames';
 import Button from '@material-ui/core/Button';

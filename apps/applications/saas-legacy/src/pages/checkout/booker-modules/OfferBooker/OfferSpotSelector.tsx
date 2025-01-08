@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { MarketPlaceCoachDisplay } from '@bsport/common/lib/master-data/personalization.js';
+import { MarketPlaceCoachDisplay } from '@bsport/common/master-data/personalization.js';
 import {
   DEFAULT_SPOT_TYPE_ID,
   getSpotIndexType,

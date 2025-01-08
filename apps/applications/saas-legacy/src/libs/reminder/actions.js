@@ -2,7 +2,7 @@
 
 import { createAction } from 'redux-actions';
 
-import { REMINDER_NOTE_ALERT_KIND } from '@bsport/common/lib/master-data/alerting_kind.js';
+import { REMINDER_NOTE_ALERT_KIND } from '@bsport/common/master-data/alerting_kind.js';
 import {
   fetchTaskList as fetchTaskListAPI,
   createOrUpdateTask as createOrUpdateTaskAPI,

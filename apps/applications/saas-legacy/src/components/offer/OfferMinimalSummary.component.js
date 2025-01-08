@@ -16,8 +16,8 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import LabelIcon from '@material-ui/icons/Label';
 import FolderIcon from '@material-ui/icons/Folder';
 
-import { MarketPlaceCoachDisplay } from '@bsport/common/lib/master-data/personalization.js';
-import { getCoachDisplayName } from '@bsport/common/lib/master-data/coach.js';
+import { MarketPlaceCoachDisplay } from '@bsport/common/master-data/personalization.js';
+import { getCoachDisplayName } from '@bsport/common/master-data/coach.js';
 import ReplacementRequestPendingChip from '#src/libs/replacement-request/components/replacement-request-table/ReplacementRequestPendingChip.component';
 import FreeOfferChip from '#src/libs/offer/components/FreeOfferChip.component';
 import type { Theme as CompanyTheme } from '#src/libs/theme/types';

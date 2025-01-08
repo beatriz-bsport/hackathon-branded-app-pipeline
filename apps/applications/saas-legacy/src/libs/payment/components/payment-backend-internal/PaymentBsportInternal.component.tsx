@@ -13,7 +13,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import Button from '@material-ui/core/Button';
 import { useTranslation } from 'react-i18next';
 
-import { PAYMENT_GROUP_METHOD_IDENTIFIER_CASH } from '@bsport/common/lib/master-data/payment-group.js';
+import { PAYMENT_GROUP_METHOD_IDENTIFIER_CASH } from '@bsport/common/master-data/payment-group.js';
 import PriceInput from '#src/components/input/PriceInput.component';
 import type { InternalPaymentPayload } from '#src/libs/payment/types';
 import DateInput from '../../../../components/input/DateInput.component';

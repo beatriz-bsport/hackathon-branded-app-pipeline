@@ -69,7 +69,7 @@ import type {
 } from '#src/libs/private-service/types';
 
 // Constants
-import { RESOURCE_ATTRIBUTION_AUTO } from '@bsport/common/lib/master-data/resource-attribution-methods.js';
+import { RESOURCE_ATTRIBUTION_AUTO } from '@bsport/common/master-data/resource-attribution-methods.js';
 import SlotSelectorStoreContextProvider from './context/SlotSelectorStore.context';
 import {
   getNextDateAvailableSlot,

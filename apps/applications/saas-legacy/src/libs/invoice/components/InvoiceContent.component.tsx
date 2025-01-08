@@ -20,7 +20,7 @@ import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import {
   INVOICE_TYPE_MIGRATION,
   INVOICE_TYPE_REVERSE,
-} from '@bsport/common/lib/master-data/invoice-type.js';
+} from '@bsport/common/master-data/invoice-type.js';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { ListItem } from '@material-ui/core';
 import Tooltip from '#src/components/Tooltip.component';

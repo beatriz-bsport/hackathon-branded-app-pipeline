@@ -7,7 +7,7 @@ import ButtonBase from '@material-ui/core/ButtonBase';
 import Typography from '@material-ui/core/Typography';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 
-import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-inbox.js';
+import { ChatThreadKinds } from '@bsport/common/master-data/communication-inbox.js';
 import type { Offer } from '#src/libs/offer/types';
 import type { Coach } from '#src/libs/associated-coach/types';
 import type { Establishment } from '#src/libs/establishment/types';

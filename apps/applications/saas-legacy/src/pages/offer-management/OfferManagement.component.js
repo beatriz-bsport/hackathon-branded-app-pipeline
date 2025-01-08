@@ -16,8 +16,8 @@ import { withTranslation, TFunction } from 'react-i18next';
 import {
   BOOKING_STATUS_CANCELLED_BY_CONSUMER,
   BOOKING_STATUS_OK,
-} from '@bsport/common/lib/master-data/booking_status_code.js';
-import { WAITING_LIST_DYNAMIC_ORDERED } from '@bsport/common/lib/master-data/waiting-list-dynamic.js';
+} from '@bsport/common/master-data/booking_status_code.js';
+import { WAITING_LIST_DYNAMIC_ORDERED } from '@bsport/common/master-data/waiting-list-dynamic.js';
 import RecurrenceRuleOfferFormDialog from '#src/libs/booking/components/RecurrenceRuleOfferFormDialog.component';
 
 import RevertBookingDialog from '#src/libs/booking/components/RevertBookingDialog.component';

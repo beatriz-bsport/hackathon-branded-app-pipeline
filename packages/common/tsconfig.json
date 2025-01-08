@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "allowJs": false,
+    "outDir": "dist",
+    "declaration": true,
+    "sourceRoot": "src",
+    "noEmit": false,
+    "sourceMap": true,
+    "noImplicitAny": true,
+    "module": "ES6",
+    "moduleResolution": "Node",
+    "target": "es6",
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "lib": ["es2017", "dom"],
+  },
+  "tsc-alias": {
+    "verbose": false,
+    "resolveFullPaths": true,
+  },
+  "include": ["./src/**/*.ts*"]
+}
+

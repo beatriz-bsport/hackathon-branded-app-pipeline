@@ -17,7 +17,7 @@ import CheckIcon from '@material-ui/icons/Check';
 import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 import PAYMENT_METHODS, {
   DISPUTE as PAYMENT_METHOD_DISPUTE,
-} from '@bsport/common/lib/master-data/payment-methods.js';
+} from '@bsport/common/master-data/payment-methods.js';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 import { formatAsDatetimeAdapted } from '../../../utils/datetime';
 

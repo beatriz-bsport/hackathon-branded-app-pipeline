@@ -14,7 +14,7 @@ import {
   DIALOG_MODE_POPUP,
   DIALOG_MODE_TAB,
   DIALOG_MODE_DEACTIVATED,
-} from '@bsport/common/lib/master-data/widget-dialog-mode.js';
+} from '@bsport/common/master-data/widget-dialog-mode.js';
 import WidgetPortalSlidingContainer from '../../components/PortalContainer';
 import type { DialogMode } from './types';
 

@@ -6,7 +6,7 @@ import {
   replace as replaceAction,
 } from 'connected-react-router';
 
-import ALL_ERROR_CODES from '@bsport/common/lib/master-data/error-codes/buyable-item-can-not-be-bought.js';
+import ALL_ERROR_CODES from '@bsport/common/master-data/error-codes/buyable-item-can-not-be-bought.js';
 
 import routerParamsToProps from '#src/hocs/router-params-to-props.hoc';
 

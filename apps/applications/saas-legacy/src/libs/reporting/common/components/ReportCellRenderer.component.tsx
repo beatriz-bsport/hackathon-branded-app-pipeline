@@ -5,7 +5,7 @@ import CustomChip from '#src/components/chip/CustomChip.component';
 import ReportStatusChip from '#src/libs/reporting/common/components/ReportChips/ReportStatusChip.component';
 import ReportConditionChip from '#src/libs/reporting/common/components/ReportChips/ReportConditionChip.component';
 import { isColumnChipsable } from '#src/libs/reporting/common/utils';
-import { ReportCategoryEnum } from '@bsport/common/lib/master-data/report-categories.js';
+import { ReportCategoryEnum } from '@bsport/common/master-data/report-categories.js';
 
 type ReportCellRendererProps = {
   reportCategory: ReportCategoryEnum;

@@ -3,7 +3,7 @@ import { createAction } from 'redux-actions';
 import {
   OFFER_WAITING_LIST_NO_USABLE_CONSUMER_PAYMENT_PACK,
   OFFER_WAITING_LIST_CAN_NOT_BOOK_TOO_MANY_FUTURE,
-} from '@bsport/common/lib/master-data/error-codes/waitinglist-can-not-be-joined.js';
+} from '@bsport/common/master-data/error-codes/waitinglist-can-not-be-joined.js';
 import { EXCEPTION_STAFF_ROLE_OVERBOOKING_IN_WAITING_LIST_NOT_ALLOWED } from '#src/libs/role/constants';
 import { OfferStatusWaitingListPosition } from '#src/libs/offer/types';
 import { monitorBackgroundTask } from '#src/libs/background-task/actions';

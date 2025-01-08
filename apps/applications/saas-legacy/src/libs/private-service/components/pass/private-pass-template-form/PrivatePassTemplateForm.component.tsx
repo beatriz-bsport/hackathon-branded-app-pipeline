@@ -20,7 +20,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import {
   START_ON_PURCHASE,
   START_ON_FIRST_BOOKING,
-} from '@bsport/common/lib/master-data/payment-pack.js';
+} from '@bsport/common/master-data/payment-pack.js';
 
 import ToolTip from '#src/components/Tooltip.component';
 import PrivatePassTemplateEditConfirmationDialog from '#src/libs/private-service/components/pass/PrivatePassTemplateEditConfirmationDialog.component';

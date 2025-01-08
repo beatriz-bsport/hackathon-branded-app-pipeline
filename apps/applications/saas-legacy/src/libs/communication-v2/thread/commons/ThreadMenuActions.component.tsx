@@ -15,7 +15,7 @@ import UnarchiveIcon from '@material-ui/icons/Unarchive';
 import InfoIcon from '@material-ui/icons/Info';
 import FilterListIcon from '@material-ui/icons/FilterList';
 import { useTranslation } from 'react-i18next';
-import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-inbox.js';
+import { ChatThreadKinds } from '@bsport/common/master-data/communication-inbox.js';
 import type { CommunicationThread } from '#src/libs/communication-v2/types';
 import CustomMuiDialog from '#src/components/genericDialog/CustomMuiDialog.component';
 import type { OptionCallback } from '../../../../state/types';

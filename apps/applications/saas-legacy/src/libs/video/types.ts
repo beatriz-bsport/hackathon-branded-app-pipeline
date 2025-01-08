@@ -1,4 +1,4 @@
-import { VideoProvider } from '@bsport/common/lib/master-data/video-provider.js';
+import { VideoProvider } from '@bsport/common/master-data/video-provider.js';
 import { ErrorAndLoading, WithPagination } from '../types';
 import { Coach } from '../associated-coach/types';
 import { SCT } from '../category/types';

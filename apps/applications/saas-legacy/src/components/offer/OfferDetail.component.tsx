@@ -11,8 +11,8 @@ import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import FolderIcon from '@material-ui/icons/Folder';
 
-import { MarketPlaceCoachDisplay } from '@bsport/common/lib/master-data/personalization.js';
-import { getCoachDisplayName } from '@bsport/common/lib/master-data/coach.js';
+import { MarketPlaceCoachDisplay } from '@bsport/common/master-data/personalization.js';
+import { getCoachDisplayName } from '@bsport/common/master-data/coach.js';
 import Tooltip from '#src/components/Tooltip.component';
 import type { Offer } from '#src/libs/offer/types';
 import { AdditionalCoachesTooltipTitle } from '#src/libs/associated-coach/components/CoachToolTip.component';

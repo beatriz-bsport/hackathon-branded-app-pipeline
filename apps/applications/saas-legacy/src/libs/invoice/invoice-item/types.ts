@@ -1,4 +1,4 @@
-import { ConsumerGiftcardKind } from '@bsport/common/lib/master-data/giftcard.js';
+import { ConsumerGiftcardKind } from '@bsport/common/master-data/giftcard.js';
 
 export type InvoiceItem = {
   id: number;

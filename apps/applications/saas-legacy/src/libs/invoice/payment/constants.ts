@@ -19,7 +19,7 @@ import {
   IDEAL as IDEAL_PM,
   SOFORT as SOFORT_PM,
   PAYMENT_PACK as PAYMENT_PACK_PM,
-} from '@bsport/common/lib/master-data/payment-methods.js';
+} from '@bsport/common/master-data/payment-methods.js';
 
 export enum PaymentMethodsEnum {
   BACS_DEBIT = BACS_DEBIT_PM.id,

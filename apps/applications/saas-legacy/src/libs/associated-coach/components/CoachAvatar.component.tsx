@@ -1,13 +1,13 @@
 import React from 'react';
-import { colors } from '@bsport/common/lib/colors.js';
+import { colors } from '@bsport/common/colors.js';
 
 import { useTranslation } from 'react-i18next';
 
 import Avatar from '@material-ui/core/Avatar';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 
-import { MarketPlaceCoachDisplay } from '@bsport/common/lib/master-data/personalization.js';
-import { getCoachDisplayName } from '@bsport/common/lib/master-data/coach.js';
+import { MarketPlaceCoachDisplay } from '@bsport/common/master-data/personalization.js';
+import { getCoachDisplayName } from '@bsport/common/master-data/coach.js';
 import Tooltip from '#src/components/Tooltip.component';
 import type { Coach } from '../types';
 

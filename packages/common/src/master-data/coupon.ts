@@ -1,0 +1,21 @@
+export const VOUCHER_TYPE_AMOUNT = 0;
+export const VOUCHER_TYPE_PERCENT = 1;
+
+export enum CouponKind {
+  COUPON_VIA_CODE = 0,
+  COUPON_REFERRED_GRANT = 1,
+  COUPON_REFERRING_GRANT = 2,
+  COUPON_VIA_UNIQUE_CODE_PER_USAGE = 3,
+}
+
+export enum CouponUniqueCodeEditModeOptions {
+  COUPON_UNIQUE_CODE_EDIT_MODE_APPEND = 0,
+  COUPON_UNIQUE_CODE_EDIT_MODE_REPLACE = 1,
+}
+
+export enum UniqueCodeStateStatus {
+  AVAILABLE = 'AVAILABLE',
+  LOCKED = 'LOCKED',
+  USED = 'USED',
+  REDEEMED = 'REDEEMED',
+}

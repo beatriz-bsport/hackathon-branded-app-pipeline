@@ -2,7 +2,7 @@ import {
   BONUS_COACH_PAYMENT_RULE_APPLICABILITY_CONFIRMED_BOOKING,
   BONUS_COACH_PAYMENT_RULE_APPLICABILITY_CANCELLED_BOOKING,
   BONUS_COACH_PAYMENT_RULE_MARGIN_VALUE,
-} from '@bsport/common/lib/master-data/coach_payment_rule.js';
+} from '@bsport/common/master-data/coach_payment_rule.js';
 
 export const mapInitalPropsToValues = (initial, ruleTypeCreation) => {
   if (initial) {

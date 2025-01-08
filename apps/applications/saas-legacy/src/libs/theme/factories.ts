@@ -2,12 +2,12 @@
 import FactoryBot from 'ya-factorybot';
 import { fakerEN as faker } from '@faker-js/faker';
 import { DateTime } from 'luxon';
-import { BOOKING_DATE_ORDER } from '@bsport/common/lib/master-data/settings.js';
+import { BOOKING_DATE_ORDER } from '@bsport/common/master-data/settings.js';
 import {
   MarketPlaceCoachDisplay,
   MarketPlaceDaysFormatDisplay,
   MarketPlaceSessionTimeDisplay,
-} from '@bsport/common/lib/master-data/personalization.js';
+} from '@bsport/common/master-data/personalization.js';
 
 const defaultScheduleBegin = DateTime.now().set({ hour: 6 }).toISO();
 

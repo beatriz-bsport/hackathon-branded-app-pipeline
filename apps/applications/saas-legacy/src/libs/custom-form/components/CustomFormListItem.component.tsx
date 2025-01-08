@@ -13,7 +13,7 @@ import {
   CUSTOM_FORM_DISPLAY_ON_CONNECTION,
   CUSTOM_FORM_FIELD_TITLE_OPTION,
   CUSTOM_FORM_FIELD_PARAGRAPH_OPTION,
-} from '@bsport/common/lib/master-data/custom-form.js';
+} from '@bsport/common/master-data/custom-form.js';
 import ListItemResponsiveAction from '../../../components/button/ListItemResponsiveAction.component';
 import type { CustomForm } from '../types';
 

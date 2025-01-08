@@ -7,7 +7,7 @@ import { withTranslation, TFunction } from 'react-i18next';
 import {
   CB,
   CREDIT_ACCOUNT,
-} from '@bsport/common/lib/master-data/payment-methods.js';
+} from '@bsport/common/master-data/payment-methods.js';
 
 import { MultipleCheckboxField } from '../../../components/forms';
 

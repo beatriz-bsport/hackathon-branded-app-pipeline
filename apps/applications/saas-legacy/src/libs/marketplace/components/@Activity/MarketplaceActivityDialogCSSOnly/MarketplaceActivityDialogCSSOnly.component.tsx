@@ -3,7 +3,7 @@ import withMobileDialog from '@material-ui/core/withMobileDialog';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 
-import { DIALOG_MODE_DEACTIVATED } from '@bsport/common/lib/master-data/widget-dialog-mode.js';
+import { DIALOG_MODE_DEACTIVATED } from '@bsport/common/master-data/widget-dialog-mode.js';
 import { Offer } from '#src/libs/offer/types';
 import { Theme as CompanyTheme } from '#src/libs/theme/types';
 import { MetaActivity } from '#src/libs/meta-activity/types';

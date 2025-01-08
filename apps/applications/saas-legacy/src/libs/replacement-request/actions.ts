@@ -1,6 +1,6 @@
 import { Dispatch } from 'redux';
 import { createAction } from 'redux-actions';
-import { REPLACEMENT_REQUEST_CANNOT_HAVE_ESTABLISHMENTS_AND_LOCATIONS_SET_AT_THE_SAME_TIME } from '@bsport/common/lib/master-data/error-codes/replacement.js';
+import { REPLACEMENT_REQUEST_CANNOT_HAVE_ESTABLISHMENTS_AND_LOCATIONS_SET_AT_THE_SAME_TIME } from '@bsport/common/master-data/error-codes/replacement.js';
 import { ReplacementRequestPaginationByStatus } from '#src/libs/replacement-request/constants';
 import { isErrorWithCustomCode } from '#src/libs/utils';
 import { OptionCallback } from '../../state/types';

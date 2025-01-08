@@ -3,7 +3,7 @@ import { createAction } from 'redux-actions';
 import {
   PAYPAL_ACCOUNT_ALREADY_LINKED_TO_OTHER_COMPANY,
   PAYPAL_API_EXCEPTION,
-} from '@bsport/common/lib/master-data/error-codes/payment.js';
+} from '@bsport/common/master-data/error-codes/payment.js';
 import {
   fetchCompanyList as fetchCompanyListAPI,
   createCompany as createCompanyAPI,

@@ -57,7 +57,7 @@ const getTranslations = async () => {
     GIFTCARD_CAN_NOT_BE_BOUGHT_MANAGER_ONLY,
     SHOP_ITEM_CAN_NOT_BE_BOUGHT_NOT_ENOUGH_STOCK,
   } = await import(
-    '@bsport/common/lib/master-data/error-codes/buyable-item-can-not-be-bought.js'
+    '@bsport/common/master-data/error-codes/buyable-item-can-not-be-bought.js'
   );
 
   const {
@@ -65,7 +65,7 @@ const getTranslations = async () => {
     LOCK_ACQUISITION_FAILURE_SPOT_SCHEDULING,
     BASKET_LOCK_ACQUISITION_FAILURE,
     BASKET_PROCESSING_PAYMENT_EXCEPTION,
-  } = await import('@bsport/common/lib/master-data/error-codes/lock.js');
+  } = await import('@bsport/common/master-data/error-codes/lock.js');
 
   const {
     PAYMENT_METHOD_NOT_DETACHABLE_PAYMENT_GROUP_ERROR_CODE,
@@ -73,23 +73,21 @@ const getTranslations = async () => {
     PAYMENT_METHOD_NOT_DETACHABLE_PLANNED_PAYMENT_EVENT_ERROR_CODE,
     PAYMENT_METHOD_NOT_DETACHABLE_BILLING_PLAN_ERROR_CODE,
     PAYMENT_METHOD_NOT_DETACHABLE_FUTURE_PAYMENT_ERROR_CODE,
-  } = await import(
-    '@bsport/common/lib/master-data/error-codes/payment-method.js'
-  );
+  } = await import('@bsport/common/master-data/error-codes/payment-method.js');
 
   const {
     ERROR_CUSTOM_FORM_ANSWER_IS_MANDATORY,
     ERROR_CUSTOM_FORM_ANSWER_SIGN_UP_EMAIL_ALREADY_EXISTS,
     ERROR_CUSTOM_FORM_ANSWER_SIGN_UP_GENDER_IS_INVALID,
     ERROR_CUSTOM_FORM_ANSWER_SIGN_UP_PHONE_NUMBER_IS_INVALID,
-  } = await import('@bsport/common/lib/master-data/error-codes/custom-form.js');
+  } = await import('@bsport/common/master-data/error-codes/custom-form.js');
 
   const {
     PENDING_PAYMENT_INTENT_OF_PAYMENT_GROUP_BLOCKS_OTHER_PAYMENT_GROUP_CREATION,
-  } = await import('@bsport/common/lib/master-data/payment-group.js');
+  } = await import('@bsport/common/master-data/payment-group.js');
 
   const { BOOKKEEPING_ACCOUNT_NAME_ALREADY_USED_ERROR_CODE } = await import(
-    '@bsport/common/lib/master-data/error-codes/bookkeeping_account.js'
+    '@bsport/common/master-data/error-codes/bookkeeping_account.js'
   );
 
   const {
@@ -98,7 +96,7 @@ const getTranslations = async () => {
     GIFTCARD_ACTIVATION_UNAUTHORIZED_WHEN_DISABLED,
     GIFTCARD_ACTIVATION_UNAUTHORIZED_WHEN_ALREADY_ACTIVATED,
     GIFTCARD_ACTIVATION_FAIL_WHEN_MISSING_RECIPIENT_MEMBER,
-  } = await import('@bsport/common/lib/master-data/error-codes/giftcard.js');
+  } = await import('@bsport/common/master-data/error-codes/giftcard.js');
   const {
     EXCEPTION_SMARTLIST_AUTOMATED_CAMPAIGN,
     EXCEPTION_SMARTLIST_AUTOMATED_CAMPAIGN_LIMIT_FOR_SMARTLIST_REACHED,
@@ -107,13 +105,11 @@ const getTranslations = async () => {
     EXCEPTION_SMARTLIST_AUTOMATED_CAMPAIGN_BY_SMS_WITH_NO_BODY,
     EXCEPTION_SMARTLIST_AUTOMATED_CAMPAIGN_BY_PUSH_NOTIFICATION_WITH_NO_TITLE,
     EXCEPTION_SMARTLIST_AUTOMATED_CAMPAIGN_BY_PUSH_NOTIFICATION_WITH_NO_BODY,
-  } = await import('@bsport/common/lib/master-data/smart-list.js');
+  } = await import('@bsport/common/master-data/smart-list.js');
 
   const {
     BILLING_PLAN_EXCEPTION_BLOCKING_SWITCHING_CONTENT_WITH_TEMPLATE_INSTANCE,
-  } = await import(
-    '@bsport/common/lib/master-data/error-codes/subscription.js'
-  );
+  } = await import('@bsport/common/master-data/error-codes/subscription.js');
 
   const {
     CANNOT_REQUEST_REPLACEMENT_OFFER_NOT_AVAILABLE,
@@ -131,7 +127,7 @@ const getTranslations = async () => {
     REPLACEMENT_REQUEST_DATES_EXCEPTION,
     REPLACEMENT_REQUEST_LIMITATION_EXCEPTION,
     REPLACEMENT_REQUEST_CANNOT_HAVE_ESTABLISHMENTS_AND_LOCATIONS_SET_AT_THE_SAME_TIME,
-  } = await import('@bsport/common/lib/master-data/error-codes/replacement.js');
+  } = await import('@bsport/common/master-data/error-codes/replacement.js');
 
   const {
     INVOICE_NO_REFUND_ON_INTERAC_PAYMENT_ERROR_CODE,
@@ -149,25 +145,25 @@ const getTranslations = async () => {
     PAYPAL_EXCEPTION,
     PAYPAL_API_EXCEPTION,
     PAYPAL_ACCOUNT_ALREADY_LINKED_TO_OTHER_COMPANY,
-  } = await import('@bsport/common/lib/master-data/error-codes/payment.js');
+  } = await import('@bsport/common/master-data/error-codes/payment.js');
   const {
     COACH_EDIT_EMAIL_ADDRESS_IS_STAFF_USER,
     COACH_EMAIL_ADDRESS_EXISTS,
     COACH_CREATE_EMAIL_ADDRESS_IS_FRANCHISOR_USER,
   } = await import(
-    '@bsport/common/lib/master-data/error-codes/associated-coach.js'
+    '@bsport/common/master-data/error-codes/associated-coach.js'
   );
 
   const {
     DST_CONSUMER_PAYMENT_PACK_CANNOT_BE_SHARED_AGAIN,
     DST_PRIVATE_CONSUMER_PASS_CANNOT_BE_SHARED_AGAIN,
-  } = await import('@bsport/common/lib/master-data/error-codes/shared-pass.js');
+  } = await import('@bsport/common/master-data/error-codes/shared-pass.js');
 
   const {
     OFFER_WAITING_LIST_NO_USABLE_CONSUMER_PAYMENT_PACK,
     OFFER_WAITING_LIST_CAN_NOT_BOOK_TOO_MANY_FUTURE,
   } = await import(
-    '@bsport/common/lib/master-data/error-codes/waitinglist-can-not-be-joined.js'
+    '@bsport/common/master-data/error-codes/waitinglist-can-not-be-joined.js'
   );
 
   const {
@@ -176,7 +172,7 @@ const getTranslations = async () => {
     INSTALMENT_PARTIAL_PAYMENT_REQUIRES_ONLY_ONE_BILLING_ERROR,
     INSTALMENT_CUSTOM_FIRST_INSTALMENT_REQUIRES_AT_LEAST_TWO_BILLINGS_ERROR,
   } = await import(
-    '@bsport/common/lib/master-data/error-codes/instalment-payment.js'
+    '@bsport/common/master-data/error-codes/instalment-payment.js'
   );
 
   const {
@@ -185,15 +181,15 @@ const getTranslations = async () => {
     NO_SPIVI_BOX_ID_FOR_ROOM_PLAN_EXCEPTION,
     SPIVI_EVENT_DURATION_EXCEPTION,
     SPIVI_DOUBLE_BOOKING_ACTIVATION_EXCEPTION,
-  } = await import('@bsport/common/lib/master-data/error-codes/spivi.js');
+  } = await import('@bsport/common/master-data/error-codes/spivi.js');
 
   const { BASKET_CANNOT_REMOVE_ITEM_BECAUSE_OF_PAYMENT_GROUP_STATUS } =
-    await import('@bsport/common/lib/master-data/error-codes/basket.js');
+    await import('@bsport/common/master-data/error-codes/basket.js');
 
   const {
     CANNOT_ADD_VARIANT_WHILE_SHOP_ITEM_IS_USED_IN_PAYMENT_COMBO,
     BASE_OR_VARIANT_SHOP_ITEMS_ARE_NOT_ALLOWED_IN_PAYMENT_COMBO,
-  } = await import('@bsport/common/lib/master-data/error-codes/shop.js');
+  } = await import('@bsport/common/master-data/error-codes/shop.js');
 
   return {
     bookkeeping_account: {

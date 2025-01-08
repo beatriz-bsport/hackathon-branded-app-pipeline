@@ -1,6 +1,6 @@
 const getTranslations = async () => {
   const { WAITING_LIST_DYNAMIC_UNORDERED, WAITING_LIST_DYNAMIC_ORDERED } =
-    await import('@bsport/common/lib/master-data/waiting-list-dynamic.js');
+    await import('@bsport/common/master-data/waiting-list-dynamic.js');
 
   return {
     switchToEnable: 'Reactivate waitlist',

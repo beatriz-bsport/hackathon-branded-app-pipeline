@@ -9,7 +9,7 @@ import CreditCardIcon from '@material-ui/icons/CreditCard';
 import {
   CB,
   CREDIT_ACCOUNT,
-} from '@bsport/common/lib/master-data/payment-methods.js';
+} from '@bsport/common/master-data/payment-methods.js';
 import ScheduleIcon from '@material-ui/icons/Schedule';
 
 type Props = {

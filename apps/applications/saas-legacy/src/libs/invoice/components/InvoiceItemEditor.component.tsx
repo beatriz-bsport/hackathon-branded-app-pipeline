@@ -19,7 +19,7 @@ import {
   BUYABLE_ITEM_GIFTCARD,
   BUYABLE_ITEM_CREDIT,
   QuicksaleBasketItem,
-} from '@bsport/common/lib/master-data/buyable-items.js';
+} from '@bsport/common/master-data/buyable-items.js';
 
 import ObjectLevelPermissionProvider from '#src/libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 import { getCurrencyDisplay } from '#src/libs/theme/selectors';

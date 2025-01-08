@@ -12,7 +12,7 @@ import {
   START_ON_PURCHASE,
   START_ON_FIRST_BOOKING,
   START_ON_FIRST_ATTENDANCE,
-} from '@bsport/common/lib/master-data/payment-pack.js';
+} from '@bsport/common/master-data/payment-pack.js';
 import type { PrivatePass } from '#src/libs/private-service/types';
 import { PaymentPack, PaymentPackFormValues } from '../../types';
 import {

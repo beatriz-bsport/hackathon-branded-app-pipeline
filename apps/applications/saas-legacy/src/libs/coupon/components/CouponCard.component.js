@@ -21,7 +21,7 @@ import { compose } from 'recompose';
 import {
   CouponKind,
   VOUCHER_TYPE_AMOUNT,
-} from '@bsport/common/lib/master-data/coupon.js';
+} from '@bsport/common/master-data/coupon.js';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 
 import { isCurrentlyActive } from '../utils';

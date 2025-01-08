@@ -18,7 +18,7 @@ import {
   INVOICE_TYPE_EMPTY_PAYMENT_CONTAINER,
   INVOICE_TYPE_REVERSE,
   INVOICE_TYPE_MIGRATION,
-} from '@bsport/common/lib/master-data/invoice-type.js';
+} from '@bsport/common/master-data/invoice-type.js';
 import { CircularProgress } from '@material-ui/core';
 
 import EstablishmentBillingGroupSelector from '#src/libs/establishment/components/EstablishmentBillingGroupSelector';

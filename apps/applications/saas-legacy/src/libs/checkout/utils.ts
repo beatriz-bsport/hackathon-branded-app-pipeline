@@ -2,15 +2,15 @@ import { TFunction } from 'i18next';
 import {
   BUYABLE_ITEM_FEE,
   BUYABLE_ITEM_COUPON,
-} from '@bsport/common/lib/master-data/buyable-items.js';
+} from '@bsport/common/master-data/buyable-items.js';
 import {
   OFFER_WAITING_LIST_NO_USABLE_CONSUMER_PAYMENT_PACK,
   OFFER_WAITING_LIST_CAN_NOT_BOOK_TOO_MANY_FUTURE,
-} from '@bsport/common/lib/master-data/error-codes/waitinglist-can-not-be-joined.js';
+} from '@bsport/common/master-data/error-codes/waitinglist-can-not-be-joined.js';
 import {
   LOCK_ACQUISITION_FAILURE_GENERIC,
   LOCK_ACQUISITION_FAILURE_SPOT_SCHEDULING,
-} from '@bsport/common/lib/master-data/error-codes/lock.js';
+} from '@bsport/common/master-data/error-codes/lock.js';
 import memoize from 'memoize-one';
 import { getPrice } from '#src/libs/theme/utils';
 import {

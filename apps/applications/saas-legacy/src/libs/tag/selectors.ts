@@ -1,5 +1,5 @@
 import memoize from 'memoize-one';
-import { TAG_KIND_MEMBER } from '@bsport/common/lib/master-data/tag.js';
+import { TAG_KIND_MEMBER } from '@bsport/common/master-data/tag.js';
 import { createSelector } from 'reselect';
 
 import type { TagGroup, Tag, TagGroupAPI } from './types';

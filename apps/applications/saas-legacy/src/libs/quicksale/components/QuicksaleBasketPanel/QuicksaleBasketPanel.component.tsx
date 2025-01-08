@@ -9,7 +9,7 @@ import Divider from '@material-ui/core/Divider';
 import Button from '@material-ui/core/Button';
 import Alert from '@material-ui/lab/Alert';
 
-import { BUYABLE_ITEM_FEE } from '@bsport/common/lib/master-data/buyable-items.js';
+import { BUYABLE_ITEM_FEE } from '@bsport/common/master-data/buyable-items.js';
 import CustomMuiIcon from '#src/components/icons/CustomMuiIcon.component';
 import { QuicksaleInterfaceModalColors } from '#src/libs/quicksale/constants';
 import { BasketSummary } from '#src/libs/checkout/components/new-checkout-flow/BasketSummary.component';

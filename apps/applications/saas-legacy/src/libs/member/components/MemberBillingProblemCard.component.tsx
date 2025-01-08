@@ -14,7 +14,7 @@ import {
   PAYMENT_INTENT_TYPE_DEBT,
   PAYMENT_GROUP_METHOD_IDENTIFIER_CB,
   PAYMENT_INTENT_STATUS_SUCCESS,
-} from '@bsport/common/lib/master-data/payment-group.js';
+} from '@bsport/common/master-data/payment-group.js';
 import type { Invoice } from '#src/libs/invoice/types';
 import type { ConsumerGiftcard, Giftcard } from '#src/libs/giftcard/types';
 import type { StripeReader } from '#src/libs/terminal/types';

@@ -11,7 +11,7 @@ import PlaylistAddIcon from '@material-ui/icons/PlaylistAdd';
 import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
 
-import { MarketPlaceCoachDisplay } from '@bsport/common/lib/master-data/personalization.js';
+import { MarketPlaceCoachDisplay } from '@bsport/common/master-data/personalization.js';
 import VideoThumbnail from './VideoThumbnail.component';
 
 import TypographyWithShowMore from '../../../components/typo/TypographyWithShowMore.component';

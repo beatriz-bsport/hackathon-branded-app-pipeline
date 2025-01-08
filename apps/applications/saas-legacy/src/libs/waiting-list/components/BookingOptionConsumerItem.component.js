@@ -11,7 +11,7 @@ import { withTheme } from '@material-ui/styles';
 import { withTranslation } from 'react-i18next';
 
 import { compose } from 'recompose';
-import { MarketPlaceCoachDisplay } from '@bsport/common/lib/master-data/personalization.js';
+import { MarketPlaceCoachDisplay } from '@bsport/common/master-data/personalization.js';
 import { CustomChip } from '#src/components/chip/CustomChip.component';
 import ActivityMinimalSummary from '../../../components/activity/ActivityMinimalSummary.component';
 import RedButton from '../../../components/button/RedButton.component';

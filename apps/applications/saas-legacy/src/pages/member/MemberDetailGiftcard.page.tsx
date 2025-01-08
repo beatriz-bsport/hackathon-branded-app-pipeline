@@ -10,7 +10,7 @@ import { withTranslation, WithTranslation } from 'react-i18next';
 import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
 import { push } from 'connected-react-router';
-import { BUYABLE_ITEM_GIFTCARD } from '@bsport/common/lib/master-data/buyable-items.js';
+import { BUYABLE_ITEM_GIFTCARD } from '@bsport/common/master-data/buyable-items.js';
 import uniq from 'lodash/uniq';
 import themeSelectors from '#src/libs/theme/selectors';
 import routerParamsToProps from '#src/hocs/router-params-to-props.hoc';
@@ -51,7 +51,7 @@ import { getMember } from '#src/libs/member/selectors';
 import { RootState } from '../../reducers';
 import { snackbarSuccess } from '../../libs/snackbar/actions';
 import { OptionCallback } from '../../state/types';
-import { ConsumerGiftcardKind } from '@bsport/common/lib/master-data/giftcard.js';
+import { ConsumerGiftcardKind } from '@bsport/common/master-data/giftcard.js';
 
 const styles = (theme: Theme) =>
   createStyles({

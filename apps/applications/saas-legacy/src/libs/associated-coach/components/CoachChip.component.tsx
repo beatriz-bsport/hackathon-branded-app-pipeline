@@ -8,8 +8,8 @@ import Archive from '@material-ui/icons/Archive';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import classnames from 'classnames';
 
-import { MarketPlaceCoachDisplay } from '@bsport/common/lib/master-data/personalization.js';
-import { getCoachDisplayName } from '@bsport/common/lib/master-data/coach.js';
+import { MarketPlaceCoachDisplay } from '@bsport/common/master-data/personalization.js';
+import { getCoachDisplayName } from '@bsport/common/master-data/coach.js';
 import { Coach } from '../types';
 
 type Props = {

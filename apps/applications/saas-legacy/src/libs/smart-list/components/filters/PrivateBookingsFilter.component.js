@@ -15,7 +15,7 @@ import TextField from '@material-ui/core/TextField';
 import {
   DURATION_COMPARATORS_DICT_BETWEEN,
   BETWEEN_COMPARATOR,
-} from '@bsport/common/lib/master-data/smart-list.js';
+} from '@bsport/common/master-data/smart-list.js';
 
 import DelayedNumericInput from '../../../../components/DelayedNumericInput.component';
 import Selector from '../MultiSelector.component';

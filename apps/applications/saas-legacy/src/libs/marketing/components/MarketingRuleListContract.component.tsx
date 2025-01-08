@@ -13,7 +13,7 @@ import EventIcon from '@material-ui/icons/Event';
 import TodayIcon from '@material-ui/icons/Today';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import { NOTIFICATION_KIND } from '@bsport/common/lib/master-data/notification-rule-events.js';
+import { NOTIFICATION_KIND } from '@bsport/common/master-data/notification-rule-events.js';
 
 // @ts-expect-error
 import { Contract } from '#src/libs/subscription/types.ts';

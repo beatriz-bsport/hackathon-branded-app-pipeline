@@ -1,6 +1,6 @@
 import { createAction } from 'redux-actions';
 
-import { SPIVI_DOUBLE_BOOKING_ACTIVATION_EXCEPTION } from '@bsport/common/lib/master-data/error-codes/spivi.js';
+import { SPIVI_DOUBLE_BOOKING_ACTIVATION_EXCEPTION } from '@bsport/common/master-data/error-codes/spivi.js';
 import { Settings } from 'luxon';
 import api from './api';
 import { Dispatch, OptionCallback } from '../../state/types';

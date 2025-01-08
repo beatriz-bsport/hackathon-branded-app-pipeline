@@ -11,7 +11,7 @@ import chroma from 'chroma-js';
 import Select, { GroupTypeBase, Styles, OptionTypeBase } from 'react-select';
 import Immutable from 'seamless-immutable';
 
-import { colors } from '@bsport/common/lib/colors.js';
+import { colors } from '@bsport/common/colors.js';
 
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';

@@ -13,7 +13,7 @@ import {
   BUYABLE_ITEM_PASS,
   BUYABLE_ITEM_PRIVATE_PASS,
   BUYABLE_ITEM_SHOP_ITEM,
-} from '@bsport/common/lib/master-data/buyable-items.js';
+} from '@bsport/common/master-data/buyable-items.js';
 import { formatAsDatetime } from '../../../utils/datetime';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 import type { PaymentCombo, PaymentComboPurchase } from '../types';

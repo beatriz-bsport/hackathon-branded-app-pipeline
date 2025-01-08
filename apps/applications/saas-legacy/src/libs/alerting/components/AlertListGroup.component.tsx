@@ -17,7 +17,7 @@ import { useTranslation } from 'react-i18next';
 import {
   NEW_TUTORIAL_SECTION_OR_LESSON,
   UNREAD_COMMUNICATION,
-} from '@bsport/common/lib/master-data/alerting_kind.js';
+} from '@bsport/common/master-data/alerting_kind.js';
 // @ts-expect-error
 import RedIconButton from '#src/components/button/RedIconButton.component';
 import { openIntercomHelp } from '../../../intercom';

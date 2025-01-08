@@ -8,7 +8,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Avatar from '@material-ui/core/Avatar';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import withStyles from '@material-ui/core/styles/withStyles';
-import { colors } from '@bsport/common/lib/colors.js';
+import { colors } from '@bsport/common/colors.js';
 import { createStyles, WithStyles } from '@material-ui/styles';
 import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
 

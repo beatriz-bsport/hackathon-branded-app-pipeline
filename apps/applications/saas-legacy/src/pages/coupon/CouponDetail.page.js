@@ -5,7 +5,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import { connect, ConnectedProps } from 'react-redux';
 import { push as pushRouter } from 'connected-react-router';
 import { compose, withState, withProps, withHandlers } from 'recompose';
-import { CouponKind } from '@bsport/common/lib/master-data/coupon.js';
+import { CouponKind } from '@bsport/common/master-data/coupon.js';
 
 import CouponFormDrawer from '#src/libs/coupon/components/CouponFormDrawer.component';
 import UniqueCodeCouponFormDrawer from '#src/libs/coupon/components/UniqueCodeCouponForm/UniqueCodeCouponForm.drawer';

@@ -6,7 +6,7 @@ import { replace } from 'connected-react-router';
 import { connect } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import Button from '@material-ui/core/Button';
-import { BUYABLE_ITEM_PRIVATE_PASS } from '@bsport/common/lib/master-data/buyable-items.js';
+import { BUYABLE_ITEM_PRIVATE_PASS } from '@bsport/common/master-data/buyable-items.js';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import ArrowForward from '@material-ui/icons/ArrowForward';
 import CircularProgress from '@material-ui/core/CircularProgress';

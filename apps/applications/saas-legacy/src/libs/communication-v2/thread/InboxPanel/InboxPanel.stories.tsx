@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 
-import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-inbox.js';
+import { ChatThreadKinds } from '@bsport/common/master-data/communication-inbox.js';
 import InboxPanel, { Props } from './InboxPanel.component';
 import { MemberFactory } from '#src/libs/member/factories/Member';
 import { smartlistFactory } from '#src/libs/smart-list/factories';
 import { generateRandomInt } from '../../../../utils/factories';
 import FactoryBotTag from '../../../tag/factory';
-import { FILTERS_ROOTS } from '@bsport/common/lib/master-data/smart-list.js';
+import { FILTERS_ROOTS } from '@bsport/common/master-data/smart-list.js';
 import { offerFactory } from '#src/libs/offer/factory';
 import { BookingListFactory } from '#src/libs/booking/factories';
 import {

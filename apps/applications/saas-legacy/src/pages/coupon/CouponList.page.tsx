@@ -7,7 +7,7 @@ import type { TFunction } from 'i18next';
 import { compose, withState, withProps, withHandlers } from 'recompose';
 import { Theme } from '@material-ui/core/styles';
 
-import { CouponKind } from '@bsport/common/lib/master-data/coupon.js';
+import { CouponKind } from '@bsport/common/master-data/coupon.js';
 import type { OptionPropsWithData } from '#src/libs/fuzzy-search/types';
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 import IsEmptyList from '../../components/navigation/IsEmptyList.component';

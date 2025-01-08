@@ -9,7 +9,7 @@ const getTranslations = async () => {
     UNPAID_PRIVATE_BOOKING_ALERT,
     NEW_TUTORIAL_SECTION_OR_LESSON,
     REPLACEMEMENT_REQUEST_LATE_ALERT_KIND,
-  } = await import('@bsport/common/lib/master-data/alerting_kind.js');
+  } = await import('@bsport/common/master-data/alerting_kind.js');
 
   return {
     list: {

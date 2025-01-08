@@ -1,0 +1,4 @@
+export const INVOICE_TYPE_REGULAR = 0;
+export const INVOICE_TYPE_REVERSE = 1;
+export const INVOICE_TYPE_EMPTY_PAYMENT_CONTAINER = 2;
+export const INVOICE_TYPE_MIGRATION = 3;

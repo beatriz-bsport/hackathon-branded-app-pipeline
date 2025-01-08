@@ -3,7 +3,7 @@ import {
   PAYMENT_ENGINE_BSPORT,
   PAYMENT_ENGINE_STRIPE,
   PAYMENT_INTENT_TYPE_BASKET,
-} from '@bsport/common/lib/master-data/payment-group.js';
+} from '@bsport/common/master-data/payment-group.js';
 
 import { QuicksalePaymentMethod } from '#src/libs/quicksale/constants';
 

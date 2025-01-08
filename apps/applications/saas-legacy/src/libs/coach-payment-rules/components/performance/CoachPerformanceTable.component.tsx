@@ -2,7 +2,7 @@ import React from 'react';
 import {
   COACH_PERFORMANCE_FOR_SESSION,
   COACH_PERFORMANCE_FOR_APPOINTMENT,
-} from '@bsport/common/lib/master-data/coach_payment_rule.js';
+} from '@bsport/common/master-data/coach_payment_rule.js';
 import { useTranslation } from 'react-i18next';
 import type { Theme } from '@material-ui/core/styles';
 import makeStyles from '@material-ui/styles/makeStyles';

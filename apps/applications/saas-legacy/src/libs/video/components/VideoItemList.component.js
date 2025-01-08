@@ -6,7 +6,7 @@ import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import { useTranslation } from 'react-i18next';
 import Typography from '@material-ui/core/Typography';
-import { MarketPlaceCoachDisplay } from '@bsport/common/lib/master-data/personalization.js';
+import { MarketPlaceCoachDisplay } from '@bsport/common/master-data/personalization.js';
 import VideoItem from './VideoItem.component';
 import { VideoPurchase, Video } from '../types';
 

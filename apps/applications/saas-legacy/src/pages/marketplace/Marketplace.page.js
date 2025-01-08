@@ -20,7 +20,7 @@ import { withTranslation, TFunction } from 'react-i18next';
 import {
   CUSTOM_FORM_FIELD_SIGN_UP_EMAIL,
   CUSTOM_FORM_FIELD_SIGN_UP_PASSWORD,
-} from '@bsport/common/lib/master-data/custom-form.js';
+} from '@bsport/common/master-data/custom-form.js';
 import chroma from 'chroma-js';
 import { retrieveCompanyCssConfiguration as retrieveCompanyCssConfigurationAction } from '#src/libs/exportable-components/actions';
 import { fetchCompanyTheme } from '#src/libs/theme/actions';

@@ -35,7 +35,7 @@ import {
   BOOKING_STATUS_CANCELLED_BY_MANAGER,
   BOOKING_STATUS_CANCELLED_BY_CONSUMER,
   BOOKING_STATUS_OK,
-} from '@bsport/common/lib/master-data/booking_status_code.js';
+} from '@bsport/common/master-data/booking_status_code.js';
 import { Cake, EventSeat, OfflineBolt } from '@material-ui/icons';
 import WarningIcon from '@material-ui/icons/Warning';
 import AvatarWithBadge from '#src/libs/member/components/AvatarWithBadge.component';

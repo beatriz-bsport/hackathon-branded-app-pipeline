@@ -7,7 +7,7 @@ import { withTranslation, WithTranslation } from 'react-i18next';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
-import { PENDING as PLANNED_INVOICE_PENDING } from '@bsport/common/lib/master-data/planned-invoice-status.js';
+import { PENDING as PLANNED_INVOICE_PENDING } from '@bsport/common/master-data/planned-invoice-status.js';
 
 import Divider from '@material-ui/core/Divider';
 import Paper from '@material-ui/core/Paper';

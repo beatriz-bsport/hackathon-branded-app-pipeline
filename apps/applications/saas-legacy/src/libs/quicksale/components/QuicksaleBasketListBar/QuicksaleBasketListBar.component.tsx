@@ -9,7 +9,7 @@ import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import Divider from '@material-ui/core/Divider';
 
-import { BUYABLE_ITEM_FEE } from '@bsport/common/lib/master-data/buyable-items.js';
+import { BUYABLE_ITEM_FEE } from '@bsport/common/master-data/buyable-items.js';
 import type { Basket } from '#src/libs/checkout/types';
 import type { Member } from '#src/libs/member/types';
 import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';

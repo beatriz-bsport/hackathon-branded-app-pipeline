@@ -2,10 +2,10 @@ import React from 'react';
 import { OfferSummaryForStorybook } from '.';
 import type { Props } from '.';
 import { offerFactory } from '#src/libs/offer/factory';
-import { OFFER_BOOKABLE_STATUS_BOOKABLE } from '@bsport/common/lib/master-data/bookable-status.js';
-import { OFFER_WAITING_LIST_STATUS_OPEN } from '@bsport/common/lib/master-data/waiting-list-status.js';
-import { OFFER_WAITING_LIST_STATUS_FULL } from '@bsport/common/lib/master-data/error-codes/buyable-item-can-not-be-bought.js';
-import { MarketPlaceCoachDisplay } from '@bsport/common/lib/master-data/personalization.js';
+import { OFFER_BOOKABLE_STATUS_BOOKABLE } from '@bsport/common/master-data/bookable-status.js';
+import { OFFER_WAITING_LIST_STATUS_OPEN } from '@bsport/common/master-data/waiting-list-status.js';
+import { OFFER_WAITING_LIST_STATUS_FULL } from '@bsport/common/master-data/error-codes/buyable-item-can-not-be-bought.js';
+import { MarketPlaceCoachDisplay } from '@bsport/common/master-data/personalization.js';
 
 const offer = offerFactory();
 const meta_activity = { name: offer.name };

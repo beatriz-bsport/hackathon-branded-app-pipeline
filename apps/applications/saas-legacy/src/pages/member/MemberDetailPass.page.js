@@ -20,7 +20,7 @@ import {
 } from 'recompose';
 import { connect } from 'react-redux';
 import { withTranslation, TFunction } from 'react-i18next';
-import { BUYABLE_ITEM_PRIVATE_PASS } from '@bsport/common/lib/master-data/buyable-items.js';
+import { BUYABLE_ITEM_PRIVATE_PASS } from '@bsport/common/master-data/buyable-items.js';
 import flatten from 'lodash/flatten';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';

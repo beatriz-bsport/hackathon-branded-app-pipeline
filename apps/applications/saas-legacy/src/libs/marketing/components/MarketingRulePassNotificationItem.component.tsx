@@ -2,7 +2,7 @@ import React from 'react';
 import { Typography, makeStyles } from '@material-ui/core';
 import type { Theme } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
-import { NOTIFICATION_KIND } from '@bsport/common/lib/master-data/notification-rule-events.js';
+import { NOTIFICATION_KIND } from '@bsport/common/master-data/notification-rule-events.js';
 import type { TFunction } from 'i18next';
 import { ImmutableObject } from 'seamless-immutable';
 import { CustomChip } from '#src/components/chip/CustomChip.component';

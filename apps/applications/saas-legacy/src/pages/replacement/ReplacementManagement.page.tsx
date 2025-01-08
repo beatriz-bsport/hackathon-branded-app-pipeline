@@ -8,7 +8,7 @@ import { useTranslation, Trans } from 'react-i18next';
 import Select, { GroupTypeBase, Styles } from 'react-select';
 import classNames from 'classnames';
 
-import { colors } from '@bsport/common/lib/colors.js';
+import { colors } from '@bsport/common/colors.js';
 
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import TableContainer from '@material-ui/core/TableContainer';
@@ -24,7 +24,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 import Alert from '@material-ui/lab/Alert';
 import AlertTitle from '@material-ui/lab/AlertTitle';
-import { REPLACEMEMENT_REQUEST_LATE_ALERT_KIND } from '@bsport/common/lib/master-data/alerting_kind.js';
+import { REPLACEMEMENT_REQUEST_LATE_ALERT_KIND } from '@bsport/common/master-data/alerting_kind.js';
 
 import { DateTime } from 'luxon';
 import ReplacementRequestFilters from '#src/libs/replacement-request/components/ReplacementRequestFilters.component';

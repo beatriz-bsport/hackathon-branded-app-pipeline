@@ -11,7 +11,7 @@ const {
 
 const getTranslations = async () => {
   const BUYABLE_ITEM = await import(
-    '@bsport/common/lib/master-data/buyable-items.js'
+    '@bsport/common/master-data/buyable-items.js'
   );
 
   const {
@@ -27,13 +27,9 @@ const getTranslations = async () => {
     COUPON_SUBSCRIPTION_MODE_FIRST_INVOICE,
     COUPON_SUBSCRIPTION_MODE_ALL_INVOICES,
     COUPON_SUBSCRIPTION_MODE_NONE,
-  } = await import(
-    '@bsport/common/lib/master-data/coupon-subscription-mode.js'
-  );
+  } = await import('@bsport/common/master-data/coupon-subscription-mode.js');
 
-  const { CouponKind } = await import(
-    '@bsport/common/lib/master-data/coupon.js'
-  );
+  const { CouponKind } = await import('@bsport/common/master-data/coupon.js');
 
   return {
     list: {

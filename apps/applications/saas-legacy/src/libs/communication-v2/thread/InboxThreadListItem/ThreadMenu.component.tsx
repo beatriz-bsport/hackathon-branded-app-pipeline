@@ -5,7 +5,7 @@ import type { CallHistoryMethodAction } from 'connected-react-router';
 import IconButton from '@material-ui/core/IconButton';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 
-import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-inbox.js';
+import { ChatThreadKinds } from '@bsport/common/master-data/communication-inbox.js';
 import type { CommunicationThread } from '#src/libs/communication-v2/types';
 import ThreadMenuActions from '#src/libs/communication-v2/thread/commons/ThreadMenuActions.component';
 import type { OptionCallback } from '../../../../state/types';

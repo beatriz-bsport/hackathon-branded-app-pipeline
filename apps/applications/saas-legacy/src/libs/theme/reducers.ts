@@ -1,7 +1,7 @@
 import Immutable from 'seamless-immutable';
 import { handleActions } from 'redux-actions';
 
-import { colors } from '@bsport/common/lib/colors.js';
+import { colors } from '@bsport/common/colors.js';
 import { themeDetail, themeUpdate } from './actions';
 import { ThemeState } from './types';
 import {

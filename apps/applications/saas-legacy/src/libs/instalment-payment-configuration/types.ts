@@ -1,4 +1,4 @@
-import { ShopItem } from '@bsport/common/lib/master-data/available-payment.type';
+import { ShopItem } from '@bsport/common/master-data/available-payment.type';
 import { Giftcard } from '#src/libs/giftcard/types';
 import { PaymentCombo } from '#src/libs/payment-combo/types';
 import { PaymentPack } from '#src/libs/payment-packs/types';

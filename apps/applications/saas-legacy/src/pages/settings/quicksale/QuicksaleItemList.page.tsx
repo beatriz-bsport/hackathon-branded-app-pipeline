@@ -15,7 +15,7 @@ import Close from '@material-ui/icons/Close';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { Theme, makeStyles, useMediaQuery } from '@material-ui/core';
 
-import { QuicksaleBasketItem } from '@bsport/common/lib/master-data/buyable-items.js';
+import { QuicksaleBasketItem } from '@bsport/common/master-data/buyable-items.js';
 import {
   QuicksaleCardInfo,
   QuicksaleItem,

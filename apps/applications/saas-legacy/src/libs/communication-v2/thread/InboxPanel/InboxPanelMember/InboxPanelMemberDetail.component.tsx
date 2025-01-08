@@ -21,7 +21,7 @@ import Typography from '@material-ui/core/Typography';
 import ViewWeekIcon from '@material-ui/icons/ViewWeek';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 
-import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-inbox.js';
+import { ChatThreadKinds } from '@bsport/common/master-data/communication-inbox.js';
 import { CustomChip } from '#src/components/chip/CustomChip.component';
 import { formatAsDate } from '#src/utils/datetime';
 import EmergencyContactItemComponent from '#src/libs/communication/components/EmergencyContactItem.component';

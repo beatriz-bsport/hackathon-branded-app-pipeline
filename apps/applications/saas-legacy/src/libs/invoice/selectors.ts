@@ -5,7 +5,7 @@ import {
   BUYABLE_ITEM_PRIVATE_PASS,
   BUYABLE_ITEM_COMBO_ITEM,
   BUYABLE_ITEM_GIFTCARD,
-} from '@bsport/common/lib/master-data/buyable-items.js';
+} from '@bsport/common/master-data/buyable-items.js';
 import { createSelector } from 'reselect';
 import SeamlessImmutable from 'seamless-immutable';
 

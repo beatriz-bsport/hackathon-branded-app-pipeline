@@ -3,7 +3,7 @@ import React from 'react';
 import Fab from '@material-ui/core/Fab';
 import { createTheme, MuiThemeProvider } from '@material-ui/core/styles';
 
-import { colors } from '@bsport/common/lib/colors.js';
+import { colors } from '@bsport/common/colors.js';
 
 const greenTheme = createTheme({
   palette: {

@@ -2,7 +2,7 @@ import {
   MarketPlaceCoachDisplay,
   MarketPlaceDaysFormatDisplay,
   MarketPlaceSessionTimeDisplay,
-} from '@bsport/common/lib/master-data/personalization.js';
+} from '@bsport/common/master-data/personalization.js';
 import { BOOKING_FOR_GUEST_FREQUENCY } from '#src/libs/offer/types';
 
 export enum DefaultPageOption {

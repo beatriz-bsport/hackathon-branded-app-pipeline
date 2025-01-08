@@ -13,7 +13,7 @@ import Typography from '@material-ui/core/Typography';
 import {
   CHANGE_EMAIL_REQUEST_LINK_ACCOUNT_KIND,
   CHANGE_EMAIL_REQUEST_SIMPLE_EMAIL_CONFIRMATION_KIND,
-} from '@bsport/common/lib/master-data/change-email-request.js';
+} from '@bsport/common/master-data/change-email-request.js';
 import { ChangeEmailRequest } from '#src/libs/member/types';
 import { CompanyTheme } from '#src/libs/theme/types';
 import { MaterialStyleType } from '../../../../utils/types';

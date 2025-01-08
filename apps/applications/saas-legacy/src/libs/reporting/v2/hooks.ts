@@ -3,7 +3,7 @@ import debounce from 'lodash/debounce';
 import { checkIsReportNameUsedAPI } from '#src/libs/reporting/v2/api';
 import { useFormikContext } from 'formik';
 import { useTranslation } from 'react-i18next';
-import { ReportCategoryEnum } from '@bsport/common/lib/master-data/report-categories.js';
+import { ReportCategoryEnum } from '@bsport/common/master-data/report-categories.js';
 
 export const useCheckIsNameAlreadyUsed = (
   fieldName: string,

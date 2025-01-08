@@ -2,7 +2,7 @@ import { DateTime } from 'luxon';
 import Immutable from 'seamless-immutable';
 import { createSelector } from 'reselect';
 import memoize from 'memoize-one';
-import { BOOKING_STATUS_OK } from '@bsport/common/lib/master-data/booking_status_code.js';
+import { BOOKING_STATUS_OK } from '@bsport/common/master-data/booking_status_code.js';
 import {
   getMemberProgramByMemberDict,
   getMemberProgramDict,

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { withFormik, Form } from 'formik';
 import * as Yup from 'yup';
-import { NOTIFICATION_KIND } from '@bsport/common/lib/master-data/notification-rule-events.js';
+import { NOTIFICATION_KIND } from '@bsport/common/master-data/notification-rule-events.js';
 
 import Button from '@material-ui/core/Button';
 

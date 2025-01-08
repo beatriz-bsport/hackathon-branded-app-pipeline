@@ -4,7 +4,7 @@ import { makeStyles, Theme } from '@material-ui/core/styles';
 import { withFormik, useFormikContext } from 'formik';
 import { ButtonBase } from '@material-ui/core';
 import * as Yup from 'yup';
-import { CB } from '@bsport/common/lib/master-data/payment-methods.js';
+import { CB } from '@bsport/common/master-data/payment-methods.js';
 import Collapse from '@material-ui/core/Collapse';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';

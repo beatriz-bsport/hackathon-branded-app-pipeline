@@ -16,7 +16,7 @@ import {
   COMMUNICATION_KIND_EMAIL,
   COMMUNICATION_KIND_PUSH_NOTIFICATION,
   COMMUNICATION_KIND_SMS,
-} from '@bsport/common/lib/master-data/communication-kind.js';
+} from '@bsport/common/master-data/communication-kind.js';
 
 import { formatAsDatetimeAdapted } from '#src/utils/datetime';
 import type {

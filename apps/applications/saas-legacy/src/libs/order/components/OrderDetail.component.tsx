@@ -18,7 +18,7 @@ import {
   ORDER_STATE_CANCELLED,
   ORDER_STATE_ONSITEDELIVERY,
   ORDER_STATE_SENT,
-} from '@bsport/common/lib/master-data/order-states.js';
+} from '@bsport/common/master-data/order-states.js';
 import RedButton from '#src/components/button/RedButton.component';
 import MemberSummaryCard from '#src/libs/member/components/MemberSummaryCard.component';
 import InvoiceSummary from '#src/libs/invoice/InvoiceListItem.component';

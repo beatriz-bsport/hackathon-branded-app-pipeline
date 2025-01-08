@@ -6,7 +6,7 @@ import Typography from '@material-ui/core/Typography/Typography';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 
 import CardSectionItem from '#src/components/CardSectionItem.component';
-import { ReportCategoryEnum } from '@bsport/common/lib/master-data/report-categories.js';
+import { ReportCategoryEnum } from '@bsport/common/master-data/report-categories.js';
 
 type Props = {
   globalCategoryData: GlobalCategoryData;

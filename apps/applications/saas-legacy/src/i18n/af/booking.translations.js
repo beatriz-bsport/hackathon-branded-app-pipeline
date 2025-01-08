@@ -5,17 +5,17 @@ const getTranslations = async () => {
     OFFER_WAITING_LIST_STATUS_ALREADY_BOOKED,
     OFFER_WAITING_LIST_STATUS_CONVERTIBLE,
     OFFER_WAITING_LIST_LOCKED_BY_PENDING_BOOKINGS,
-  } = await import('@bsport/common/lib/master-data/waiting-list-status.js');
+  } = await import('@bsport/common/master-data/waiting-list-status.js');
   const {
     OFFER_BOOKABLE_STATUS_BOOKABLE,
     OFFER_BOOKABLE_STATUS_CLOSE_TOO_SOON,
     OFFER_BOOKABLE_STATUS_CLOSE_TOO_LATE,
     OFFER_BOOKABLE_STATUS_LOCKED,
     OFFER_BOOKABLE_STATUS_FULL,
-  } = await import('@bsport/common/lib/master-data/bookable-status.js');
+  } = await import('@bsport/common/master-data/bookable-status.js');
 
   const ERROR_CODES = await import(
-    '@bsport/common/lib/master-data/error-codes/buyable-item-can-not-be-bought.js'
+    '@bsport/common/master-data/error-codes/buyable-item-can-not-be-bought.js'
   );
 
   return {

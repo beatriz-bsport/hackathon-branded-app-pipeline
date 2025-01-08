@@ -4,9 +4,9 @@ import { Divider, Theme } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
-import { CB } from '@bsport/common/lib/master-data/payment-methods.js';
+import { CB } from '@bsport/common/master-data/payment-methods.js';
 
-import { START_ON_PURCHASE } from '@bsport/common/lib/master-data/payment-pack.js';
+import { START_ON_PURCHASE } from '@bsport/common/master-data/payment-pack.js';
 
 import * as Yup from 'yup';
 

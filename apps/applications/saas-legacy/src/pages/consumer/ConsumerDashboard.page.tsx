@@ -8,7 +8,7 @@ import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import { push as pushRouter } from 'connected-react-router';
 import TodayIcon from '@material-ui/icons/Today';
-import { WAITING_LIST_DYNAMIC_ORDERED } from '@bsport/common/lib/master-data/waiting-list-dynamic.js';
+import { WAITING_LIST_DYNAMIC_ORDERED } from '@bsport/common/master-data/waiting-list-dynamic.js';
 
 import { Theme } from '@material-ui/core/styles';
 import flatten from 'lodash/flatten';

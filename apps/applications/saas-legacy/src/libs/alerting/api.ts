@@ -1,4 +1,4 @@
-import { StatusCode } from '@bsport/common/lib/master-data/planned-invoice-status.js';
+import { StatusCode } from '@bsport/common/master-data/planned-invoice-status.js';
 import type { PaginatedResponse } from 'src/state/types';
 import { API_URI, getAuth, postAuth } from '../../http';
 import { Alerting } from './types';

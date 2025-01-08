@@ -12,7 +12,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogActions from '@material-ui/core/DialogActions';
 import Typography from '@material-ui/core/Typography';
 
-import { BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB } from '@bsport/common/lib/master-data/subscription-payment-methods.js';
+import { BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB } from '@bsport/common/master-data/subscription-payment-methods.js';
 import { push } from 'connected-react-router';
 import { withTranslation, TFunction } from 'react-i18next';
 

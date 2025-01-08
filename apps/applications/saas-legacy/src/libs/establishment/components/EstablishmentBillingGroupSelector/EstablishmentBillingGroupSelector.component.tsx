@@ -1,7 +1,7 @@
 import React, { useCallback, useMemo } from 'react';
 import chroma from 'chroma-js';
 import { useTranslation } from 'react-i18next';
-import { colors } from '@bsport/common/lib/colors.js';
+import { colors } from '@bsport/common/colors.js';
 import Select, { components } from 'react-select';
 import { styleFn, StylesConfig } from 'react-select/lib/styles';
 import LocationOnIcon from '@material-ui/icons/LocationOn';

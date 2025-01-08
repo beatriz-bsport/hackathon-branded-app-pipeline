@@ -26,7 +26,7 @@ import PAYMENT_METHODS, {
   GIROPAY,
   SOFORT,
   IDEAL,
-} from '@bsport/common/lib/master-data/payment-methods.js';
+} from '@bsport/common/master-data/payment-methods.js';
 import { loadStripe } from '@stripe/stripe-js';
 import { Elements } from '@stripe/react-stripe-js';
 import { getStripePkKey } from '../../theme/selectors';

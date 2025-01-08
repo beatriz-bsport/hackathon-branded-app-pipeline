@@ -1,6 +1,6 @@
 import { fakerEN as faker } from '@faker-js/faker';
 
-import { BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB } from '@bsport/common/lib/master-data/subscription-payment-methods.js';
+import { BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB } from '@bsport/common/master-data/subscription-payment-methods.js';
 
 import { DateTime } from 'luxon';
 import { PlannedInvoiceFactoryOptions } from '#src/libs/subscription/types';

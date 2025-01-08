@@ -1,4 +1,4 @@
-import { QuicksaleBasketItem } from '@bsport/common/lib/master-data/buyable-items.js';
+import { QuicksaleBasketItem } from '@bsport/common/master-data/buyable-items.js';
 import { PaymentPack } from '#src/libs/payment-packs/types';
 import { PrivatePass } from '#src/libs/private-service/types';
 import { PaymentCombo } from '#src/libs/payment-combo/types';

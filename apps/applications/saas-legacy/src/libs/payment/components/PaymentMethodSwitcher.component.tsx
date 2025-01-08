@@ -8,13 +8,13 @@ import {
   BILLING_PLAN_PAYMENT_METHOD_STRIPE_BACS_DEBIT,
   BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,
   BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA,
-} from '@bsport/common/lib/master-data/subscription-payment-methods.js';
+} from '@bsport/common/master-data/subscription-payment-methods.js';
 import {
   PAYMENT_GROUP_METHOD_IDENTIFIER_BACS_DEBIT,
   PAYMENT_GROUP_METHOD_IDENTIFIER_CB,
   PAYMENT_GROUP_METHOD_IDENTIFIER_DEBT,
   PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA,
-} from '@bsport/common/lib/master-data/payment-group.js';
+} from '@bsport/common/master-data/payment-group.js';
 import { PAYMENT_STRIPE_TERMINAL_FAKE } from '#src/libs/payment/utils';
 import type { FeatureList } from '#src/libs/company/types';
 import { UPSELL_IDENTIFIER_STRIPE_TERMINAL } from '#src/libs/platform-billing/upsell-identifiers';

@@ -2,7 +2,7 @@ import React from 'react';
 
 import { ButtonBase } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
-import { OFFER_BOOKABLE_STATUS_BOOKABLE } from '@bsport/common/lib/master-data/bookable-status.js';
+import { OFFER_BOOKABLE_STATUS_BOOKABLE } from '@bsport/common/master-data/bookable-status.js';
 import { useTranslation } from 'react-i18next';
 import type { Offer_FULL, OfferREST, OfferStatus } from '#src/libs/offer/types';
 

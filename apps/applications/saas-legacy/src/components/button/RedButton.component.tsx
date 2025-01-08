@@ -3,7 +3,7 @@ import React from 'react';
 import Button from '@material-ui/core/Button';
 import { createTheme, MuiThemeProvider } from '@material-ui/core/styles';
 
-import { colors } from '@bsport/common/lib/colors.js';
+import { colors } from '@bsport/common/colors.js';
 
 const redTheme = createTheme({
   palette: {

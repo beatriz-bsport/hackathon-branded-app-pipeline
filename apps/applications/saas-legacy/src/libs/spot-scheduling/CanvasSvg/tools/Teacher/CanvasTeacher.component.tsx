@@ -1,6 +1,6 @@
 import React from 'react';
-import { MarketPlaceCoachDisplay } from '@bsport/common/lib/master-data/personalization.js';
-import { getCoachDisplayName } from '@bsport/common/lib/master-data/coach.js';
+import { MarketPlaceCoachDisplay } from '@bsport/common/master-data/personalization.js';
+import { getCoachDisplayName } from '@bsport/common/master-data/coach.js';
 import CanvasBaseComponent from '../BaseClasses/Base.component';
 import DEFAULT_PROFILE_PICTURE_URL from '../../../../../assets/constants';
 

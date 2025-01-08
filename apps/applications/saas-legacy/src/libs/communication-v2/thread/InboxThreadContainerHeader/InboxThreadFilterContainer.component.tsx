@@ -12,7 +12,7 @@ import Close from '@material-ui/icons/Close';
 import Tune from '@material-ui/icons/Tune';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import { useTranslation } from 'react-i18next';
-import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-inbox.js';
+import { ChatThreadKinds } from '@bsport/common/master-data/communication-inbox.js';
 import CommunicationFilterValuesGenericSummary from '#src/libs/communication-v2/components/Filter/CommunicationFilterValuesGenericSummary.component';
 import CommunicationFilterValuesPeriodSummary from '#src/libs/communication-v2/components/Filter/CommunicationFilterValuesPeriodSummary.component';
 import { getFiltersToEnableForThread } from '#src/libs/communication-v2/utils';

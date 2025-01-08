@@ -13,7 +13,7 @@ import ColorLens from '@material-ui/icons/ColorLens';
 import Alert from '@material-ui/lab/Alert';
 import Pagination from '@material-ui/lab/Pagination';
 
-import { QuicksaleBasketItem } from '@bsport/common/lib/master-data/buyable-items.js';
+import { QuicksaleBasketItem } from '@bsport/common/master-data/buyable-items.js';
 
 import GenericResponsiveDrawer from '#src/components/genericDrawer/GenericResponsiveDrawer.component';
 import FormSection from '#src/components/forms/FormSection';

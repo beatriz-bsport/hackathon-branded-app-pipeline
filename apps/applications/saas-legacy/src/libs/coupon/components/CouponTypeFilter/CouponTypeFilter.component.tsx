@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography } from '@material-ui/core';
-import { CouponKind } from '@bsport/common/lib/master-data/coupon.js';
+import { CouponKind } from '@bsport/common/master-data/coupon.js';
 import MaterialUISelector from '#src/components/Selector/MaterialUISelector.component';
 import { CouponFilterOptions } from '#src/libs/coupon/types';
 

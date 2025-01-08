@@ -2,7 +2,7 @@ import {
   PAYMENT_GROUP_METHOD_IDENTIFIER_BACS_DEBIT,
   PAYMENT_GROUP_METHOD_IDENTIFIER_CB,
   PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA,
-} from '@bsport/common/lib/master-data/payment-group.js';
+} from '@bsport/common/master-data/payment-group.js';
 import { MarketplacePaymentMethods } from '#src/libs/marketplace/types';
 import {
   EXPORTABLE_COMPONENTS,

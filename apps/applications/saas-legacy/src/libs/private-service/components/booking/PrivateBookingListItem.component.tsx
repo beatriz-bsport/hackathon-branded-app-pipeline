@@ -9,7 +9,7 @@ import UpdateIcon from '@material-ui/icons/Update';
 import Typography from '@material-ui/core/Typography';
 import { useTranslation } from 'react-i18next';
 
-import { BOOKING_STATUS_OK } from '@bsport/common/lib/master-data/booking_status_code.js';
+import { BOOKING_STATUS_OK } from '@bsport/common/master-data/booking_status_code.js';
 
 import { getCreditsDividedDisplay } from '#src/libs/theme/utils';
 import { PrivateBooking } from '#src/libs/private-service/types';

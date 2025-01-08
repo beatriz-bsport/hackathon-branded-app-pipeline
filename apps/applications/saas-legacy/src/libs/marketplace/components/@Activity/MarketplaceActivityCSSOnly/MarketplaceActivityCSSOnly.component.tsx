@@ -11,8 +11,8 @@ import CloseIcon from '@material-ui/icons/Close';
 
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
-import { MarketPlaceCoachDisplay } from '@bsport/common/lib/master-data/personalization.js';
-import { getCoachDisplayName } from '@bsport/common/lib/master-data/coach.js';
+import { MarketPlaceCoachDisplay } from '@bsport/common/master-data/personalization.js';
+import { getCoachDisplayName } from '@bsport/common/master-data/coach.js';
 import { Offer } from '#src/libs/offer/types';
 import MarketplaceLevel from '#src/libs/marketplace/components/@Offer/MarketplaceLevelCSSOnly/MarketplaceLevelCSSOnly.component';
 import MarketplaceBookButtonForDialog from '#src/libs/marketplace/components/@Booking/MarketplaceBookButton/MarketplaceBookButtonForDialog.component';

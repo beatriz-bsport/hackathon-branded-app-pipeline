@@ -12,7 +12,7 @@ import { Theme } from '@material-ui/core';
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import Divider from '@material-ui/core/Divider';
 
-import { MarketPlaceCoachDisplay } from '@bsport/common/lib/master-data/personalization.js';
+import { MarketPlaceCoachDisplay } from '@bsport/common/master-data/personalization.js';
 import BookingConsumerItem from '../../booking/components/BookingConsumerItem.component';
 import PrivateBookingConsumerItem from '../../private-service/components/booking/PrivateBookingConsumerItem.component';
 

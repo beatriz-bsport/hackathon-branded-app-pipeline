@@ -25,7 +25,7 @@ import { getLastVisitedReportV2 } from '#src/libs/user-preference/selectors';
 import { RootState } from '#src/reducers';
 import { OwnProps } from '#src/components/HighlightedText/HighlightedText.component';
 import ReportCategoryDashboard from '#src/libs/reporting/v2/components/ReportCategoryDashboard.component';
-import { ReportCategoryEnum } from '@bsport/common/lib/master-data/report-categories.js';
+import { ReportCategoryEnum } from '@bsport/common/master-data/report-categories.js';
 
 type Props = ConnectedProps<typeof connector> & WithTranslation;
 

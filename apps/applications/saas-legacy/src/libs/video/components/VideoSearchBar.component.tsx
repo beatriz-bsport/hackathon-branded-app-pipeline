@@ -7,7 +7,7 @@ import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
 import ClearIcon from '@material-ui/icons/Clear';
 
-import { MarketPlaceCoachDisplay } from '@bsport/common/lib/master-data/personalization.js';
+import { MarketPlaceCoachDisplay } from '@bsport/common/master-data/personalization.js';
 // @ts-expect-error
 import SCTSelector from '#src/libs/category/components/SCTSelectorBase.component';
 import CoachSelector from '#src/libs/associated-coach/components/coach-selector/CoachSelector.component';

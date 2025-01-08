@@ -14,7 +14,7 @@ import Button from '@material-ui/core/Button';
 import {
   PAYMENT_INTENT_STATUS_SUCCESS,
   PAYMENT_INTENT_TYPE_DEBT,
-} from '@bsport/common/lib/master-data/payment-group.js';
+} from '@bsport/common/master-data/payment-group.js';
 import * as Sentry from '@sentry/react';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 import PaymentDialog from '../../payment/components/PaymentDialog.component';

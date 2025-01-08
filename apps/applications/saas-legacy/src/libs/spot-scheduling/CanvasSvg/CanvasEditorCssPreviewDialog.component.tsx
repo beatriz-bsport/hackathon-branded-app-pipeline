@@ -9,7 +9,7 @@ import Typography from '@material-ui/core/Typography';
 import Draggable from 'react-draggable';
 import Paper, { PaperProps } from '@material-ui/core/Paper';
 import Dialog from '@material-ui/core/Dialog';
-import { MarketPlaceCoachDisplay } from '@bsport/common/lib/master-data/personalization.js';
+import { MarketPlaceCoachDisplay } from '@bsport/common/master-data/personalization.js';
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 import ApplyCustomCssStyles from '#src/libs/widget/components/ApplyCustomCssStyles.component';
 import type { Coach } from '#src/libs/associated-coach/types';

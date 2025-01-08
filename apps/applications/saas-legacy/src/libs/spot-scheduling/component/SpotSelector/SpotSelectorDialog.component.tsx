@@ -15,7 +15,7 @@ import { DateTime } from 'luxon';
 import { DialogContent, Dialog, Grid } from '@material-ui/core';
 import { withTheme } from '@material-ui/styles';
 import withWidth, { isWidthDown } from '@material-ui/core/withWidth';
-import { MarketPlaceCoachDisplay } from '@bsport/common/lib/master-data/personalization.js';
+import { MarketPlaceCoachDisplay } from '@bsport/common/master-data/personalization.js';
 import CanvasSpotComponent from '#src/libs/spot-scheduling/CanvasSvg/tools/Spot/CanvasSpot.component';
 import { DEFAULT_SPOT_TYPE_ID } from '#src/libs/spot-scheduling/utils';
 import { AssetForBlueprint, RoomBlueprint, SpotType } from '../../types';

@@ -1,5 +1,5 @@
 import { createAction } from 'redux-actions';
-import { NEW_ORDER_ALERT } from '@bsport/common/lib/master-data/alerting_kind.js';
+import { NEW_ORDER_ALERT } from '@bsport/common/master-data/alerting_kind.js';
 import type {
   DeliveryFee,
   DeliveryFeeCreationOrUpdatePayload,

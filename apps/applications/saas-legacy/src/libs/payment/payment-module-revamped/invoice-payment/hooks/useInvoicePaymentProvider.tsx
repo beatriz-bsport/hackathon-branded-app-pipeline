@@ -9,7 +9,7 @@ import {
   PAYMENT_GROUP_METHOD_BY_ENGINE,
   PAYMENT_GROUP_METHOD_IDENTIFIER_CB,
   PAYMENT_INTENT_STATUS_SUCCESS,
-} from '@bsport/common/lib/master-data/payment-group.js';
+} from '@bsport/common/master-data/payment-group.js';
 
 import {
   applyBalanceToInvoice as applyBalanceToInvoiceAction,

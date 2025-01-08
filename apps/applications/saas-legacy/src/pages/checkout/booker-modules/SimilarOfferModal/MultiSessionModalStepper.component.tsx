@@ -11,7 +11,7 @@ import MultiSessionSpotSelector, {
   MultiSessionSpotFinalProps,
   MultiSessionSpotSelectorProps,
 } from './MultiSessionSpotSelector.component';
-import { OFFER_BOOKABLE_STATUS_BOOKABLE } from '@bsport/common/lib/master-data/bookable-status.js';
+import { OFFER_BOOKABLE_STATUS_BOOKABLE } from '@bsport/common/master-data/bookable-status.js';
 
 import './styles.css';
 

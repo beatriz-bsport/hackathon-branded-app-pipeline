@@ -9,8 +9,8 @@ import { push } from 'connected-react-router';
 import {
   CUSTOM_FORM_FIELD_SIGN_UP_EMAIL,
   CUSTOM_FORM_FIELD_SIGN_UP_PASSWORD,
-} from '@bsport/common/lib/master-data/custom-form.js';
-import { DIALOG_MODE_DEACTIVATED } from '@bsport/common/lib/master-data/widget-dialog-mode.js';
+} from '@bsport/common/master-data/custom-form.js';
+import { DIALOG_MODE_DEACTIVATED } from '@bsport/common/master-data/widget-dialog-mode.js';
 
 import themeSelectors, { getIsUISimplified } from '#src/libs/theme/selectors';
 

@@ -16,11 +16,11 @@ import {
 } from '@material-ui/core';
 import InfoOutlineIcon from '@material-ui/icons/Info';
 import Skeleton from '@material-ui/lab/Skeleton';
-import { getOfferFeature } from '@bsport/common/lib/master-data/available-payment.js';
+import { getOfferFeature } from '@bsport/common/master-data/available-payment.js';
 
 import CloseIcon from '@material-ui/icons/Close';
 
-import { MarketPlaceCoachDisplay } from '@bsport/common/lib/master-data/personalization.js';
+import { MarketPlaceCoachDisplay } from '@bsport/common/master-data/personalization.js';
 import { MaterialStyleType } from '../../../utils/types';
 import { Offer, Offer_FULL, OfferStatus } from '../../offer/types';
 import { OfferData } from '../types';

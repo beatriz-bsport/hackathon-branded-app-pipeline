@@ -10,7 +10,7 @@ import {
 } from 'connected-react-router';
 import { Stripe, loadStripe } from '@stripe/stripe-js';
 import classNames from 'classnames';
-import { CONTRACT_IS_ALREADY_SUBSCRIBED } from '@bsport/common/lib/master-data/error-codes/subscription.js';
+import { CONTRACT_IS_ALREADY_SUBSCRIBED } from '@bsport/common/master-data/error-codes/subscription.js';
 import { DateTime } from 'luxon';
 
 import themeSelectors, { getStripePkKey } from '#src/libs/theme/selectors';

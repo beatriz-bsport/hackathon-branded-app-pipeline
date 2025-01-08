@@ -1,7 +1,7 @@
 // @flow
 import React from 'react';
 
-import { colors } from '@bsport/common/lib/colors.js';
+import { colors } from '@bsport/common/colors.js';
 
 import { compose } from 'recompose';
 import { withTranslation, TFunction } from 'react-i18next';
@@ -11,7 +11,7 @@ import StoreIcon from '@material-ui/icons/Store';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 import LanguageIcon from '@material-ui/icons/Language';
 import Typography from '@material-ui/core/Typography';
-import { CREDIT_ACCOUNT } from '@bsport/common/lib/master-data/payment-methods.js';
+import { CREDIT_ACCOUNT } from '@bsport/common/master-data/payment-methods.js';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 
 import type { ShopItem } from '../types';

@@ -5,8 +5,8 @@ import { useTranslation } from 'react-i18next';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import pick from 'lodash/pick';
-import { VideoProvider } from '@bsport/common/lib/master-data/video-provider.js';
-import { VideoStatus } from '@bsport/common/lib/master-data/video.js';
+import { VideoProvider } from '@bsport/common/master-data/video-provider.js';
+import { VideoStatus } from '@bsport/common/master-data/video.js';
 
 import { withFormik, FieldArray, ErrorMessage } from 'formik';
 import * as Yup from 'yup';

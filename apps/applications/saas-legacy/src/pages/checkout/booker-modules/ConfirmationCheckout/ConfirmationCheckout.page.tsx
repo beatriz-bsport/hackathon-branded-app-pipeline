@@ -10,8 +10,8 @@ import { WithTranslation, withTranslation } from 'react-i18next';
 import { connect, ConnectedProps } from 'react-redux';
 import classNames from 'classnames';
 import { RouterProps } from 'react-router';
-import { OFFER_BOOKABLE_STATUS_BOOKABLE } from '@bsport/common/lib/master-data/bookable-status.js';
-import { OFFER_BOOKABLE_STATUS_ALREADY_BOOKED } from '@bsport/common/lib/master-data/error-codes/buyable-item-can-not-be-bought.js';
+import { OFFER_BOOKABLE_STATUS_BOOKABLE } from '@bsport/common/master-data/bookable-status.js';
+import { OFFER_BOOKABLE_STATUS_ALREADY_BOOKED } from '@bsport/common/master-data/error-codes/buyable-item-can-not-be-bought.js';
 
 import routerParamsToProps from '#src/hocs/router-params-to-props.hoc';
 // @ts-expect-error

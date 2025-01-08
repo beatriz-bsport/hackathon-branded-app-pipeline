@@ -3,7 +3,7 @@ import InboxThreadLookup, {
   Props,
 } from '#src/libs/communication-v2/thread/InboxThreadLookup/InboxThreadLookup.component';
 import { INBOX_ALL_MESSAGES } from '#src/libs/communication-v2/constants';
-import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-inbox.js';
+import { ChatThreadKinds } from '@bsport/common/master-data/communication-inbox.js';
 
 const CustomTemplate = (args: Props) => {
   // following label harcoded to avoid using useTranslation because of

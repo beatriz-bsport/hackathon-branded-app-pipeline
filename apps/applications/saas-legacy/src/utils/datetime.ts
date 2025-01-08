@@ -1,6 +1,6 @@
 import { TFunction } from 'i18next';
 import { DateTime, Info, SystemZone } from 'luxon';
-import { MarketPlaceDaysFormatDisplay } from '@bsport/common/lib/master-data/personalization.js';
+import { MarketPlaceDaysFormatDisplay } from '@bsport/common/master-data/personalization.js';
 
 import type { Theme } from '#src/libs/theme/types';
 

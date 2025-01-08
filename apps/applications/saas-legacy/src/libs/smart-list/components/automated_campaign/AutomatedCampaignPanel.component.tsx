@@ -28,11 +28,11 @@ import {
   COMMUNICATION_KIND_EMAIL,
   COMMUNICATION_KIND_SMS,
   COMMUNICATION_KIND_PUSH_NOTIFICATION,
-} from '@bsport/common/lib/master-data/communication-kind.js';
+} from '@bsport/common/master-data/communication-kind.js';
 import {
   SEND_COMMUNICATION_ON_JOIN,
   SEND_COMMUNICATION_ON_LEFT,
-} from '@bsport/common/lib/master-data/smart-list.js';
+} from '@bsport/common/master-data/smart-list.js';
 import type { AutomatedCampaign as AutomatedCampaignType } from '#src/libs/smart-list/types';
 import { MaterialStyleType } from '../../../../utils/types';
 import { formatAsDate } from '../../../../utils/datetime';

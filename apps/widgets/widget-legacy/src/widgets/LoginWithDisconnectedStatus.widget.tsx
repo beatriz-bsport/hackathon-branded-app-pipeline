@@ -19,7 +19,7 @@ import {
 } from '../libs/modal/actions';
 import { getMembershipByCompanyId } from '../libs/bridge/selectors';
 import type { DialogMode } from '../libs/modal/types';
-import { DIALOG_MODE_IFRAME } from '@bsport/common/lib/master-data/widget-dialog-mode.js';
+import { DIALOG_MODE_IFRAME } from '@bsport/common/master-data/widget-dialog-mode.js';
 
 const LoginWithDisconnectedStatusStyled = themify<SaasProps>(
   LoginWithDisconnectedStatusSAAS,

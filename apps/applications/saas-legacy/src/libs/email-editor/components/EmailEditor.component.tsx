@@ -24,7 +24,7 @@ import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import { Alert } from '@material-ui/lab';
 import isEqual from 'lodash/isEqual';
 import { AxiosError } from 'axios';
-import { EMAIL_TEMPLATE_MISSING_REQUIRED_TAGS } from '@bsport/common/lib/master-data/error-codes/notification-rule.js';
+import { EMAIL_TEMPLATE_MISSING_REQUIRED_TAGS } from '@bsport/common/master-data/error-codes/notification-rule.js';
 import CategorySelector from '#src/components/ordering/CategorySelector.component';
 import { rudderStackFormTrackingFunctionsRegistry } from '#src/components/analytics/rudderstack/utils';
 import { SegmentAnalyticsFormObjectIdentifier } from '#src/components/analytics/segment';

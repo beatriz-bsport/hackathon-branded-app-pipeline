@@ -23,7 +23,7 @@ import {
   PAYMENT_ENGINE_BSPORT,
   PAYMENT_ENGINE_STRIPE,
   PAYMENT_GROUP_METHOD_IDENTIFIER_CASH,
-} from '@bsport/common/lib/master-data/payment-group.js';
+} from '@bsport/common/master-data/payment-group.js';
 import {
   InvoiceAllowedReverseMethods,
   Invoice,
@@ -32,7 +32,7 @@ import {
 
 import { fetchInvoiceAllowedReverseTypes as fetchInvoiceAllowedReverseTypesAPI } from '#src/libs/invoice/api';
 
-import { SEPA as PAYMENT_METHOD_SEPA } from '@bsport/common/lib/master-data/payment-methods.js';
+import { SEPA as PAYMENT_METHOD_SEPA } from '@bsport/common/master-data/payment-methods.js';
 
 import type { Payment } from '#src/libs/payment/types';
 import { getCurrencyDisplay } from '#src/libs/theme/selectors';

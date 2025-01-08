@@ -4,7 +4,7 @@ import { compose, withState } from 'recompose';
 import { makeStyles } from '@material-ui/core/styles';
 import { withFormik } from 'formik';
 import Divider from '@material-ui/core/Divider';
-import { START_ON_PURCHASE } from '@bsport/common/lib/master-data/payment-pack.js';
+import { START_ON_PURCHASE } from '@bsport/common/master-data/payment-pack.js';
 
 import { DateTime } from 'luxon';
 

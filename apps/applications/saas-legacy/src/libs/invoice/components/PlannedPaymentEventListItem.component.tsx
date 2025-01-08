@@ -24,7 +24,7 @@ import {
   PLANNED_PAYMENT_EVENT_STATUS_CANCELED,
   PLANNED_PAYMENT_EVENT_STATUS_ERROR,
   PLANNED_PAYMENT_EVENT_STATUS_PENDING,
-} from '@bsport/common/lib/master-data/planned-payment-event.js';
+} from '@bsport/common/master-data/planned-payment-event.js';
 import { DateTime } from 'luxon';
 import RedButton from '#src/components/button/RedButton.component';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';

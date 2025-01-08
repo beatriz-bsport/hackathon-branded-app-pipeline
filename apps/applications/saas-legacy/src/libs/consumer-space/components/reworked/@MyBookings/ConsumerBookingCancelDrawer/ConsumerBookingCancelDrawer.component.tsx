@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { DateTime } from 'luxon';
 import classNames from 'classnames';
 
-import { MarketPlaceSessionTimeDisplay } from '@bsport/common/lib/master-data/personalization.js';
+import { MarketPlaceSessionTimeDisplay } from '@bsport/common/master-data/personalization.js';
 
 import { getIsLateBookingCancellation } from '#src/utils/datetime';
 import useConsumerBookingDateTime from '#src/libs/consumer-space/components/reworked/@MyBookings/hooks/useConsumerBookingDateTime';

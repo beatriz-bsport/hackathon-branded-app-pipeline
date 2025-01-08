@@ -4,7 +4,7 @@ import {
   BETWEEN_COMPARATOR,
   COMPARATORS_DICT_BETWEEN,
   GTE_COMPARATOR,
-} from '@bsport/common/lib/master-data/smart-list.js';
+} from '@bsport/common/master-data/smart-list.js';
 import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core/styles';
 

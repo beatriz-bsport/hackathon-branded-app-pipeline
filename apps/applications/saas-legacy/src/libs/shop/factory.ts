@@ -1,4 +1,4 @@
-import { CB } from '@bsport/common/lib/master-data/payment-methods.js';
+import { CB } from '@bsport/common/master-data/payment-methods.js';
 import { fakerEN as faker } from '@faker-js/faker';
 import {
   generateRandomName,

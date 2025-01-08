@@ -1,7 +1,7 @@
 import { createSelector } from 'reselect';
 import Immutable from 'seamless-immutable';
 import memoize from 'memoize-one';
-import { filterUnaccessiblePaymentPack } from '@bsport/common/lib/master-data/payment-pack.js';
+import { filterUnaccessiblePaymentPack } from '@bsport/common/master-data/payment-pack.js';
 
 import type { SCT } from '#src/libs/category/types';
 import { getAvailablePrivatePasses } from '#src/libs/private-service/selectors/private-pass';

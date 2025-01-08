@@ -12,7 +12,7 @@ import {
   CartesianGrid,
 } from 'recharts';
 
-import { colors as bsportColors } from '@bsport/common/lib/colors.js';
+import { colors as bsportColors } from '@bsport/common/colors.js';
 
 type Props = {
   height: number,

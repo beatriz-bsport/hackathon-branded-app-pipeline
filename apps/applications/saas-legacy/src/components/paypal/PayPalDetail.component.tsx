@@ -3,7 +3,7 @@ import React, { useCallback, useState } from 'react';
 
 import { useTranslation } from 'react-i18next';
 
-import { PAYPAL_API_EXCEPTION } from '@bsport/common/lib/master-data/error-codes/payment.js';
+import { PAYPAL_API_EXCEPTION } from '@bsport/common/master-data/error-codes/payment.js';
 import { createStyles, makeStyles, Theme } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';

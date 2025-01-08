@@ -4,7 +4,7 @@ import { withTranslation, WithTranslation } from 'react-i18next';
 
 import { Theme, withStyles, Paper, WithStyles } from '@material-ui/core';
 
-import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-inbox.js';
+import { ChatThreadKinds } from '@bsport/common/master-data/communication-inbox.js';
 import HTMLPreviewDialog from '#src/components/html/HTMLPreviewDialog.component';
 import AutoResendConfigDialog from '#src/libs/communication-v2/components/AutoResendConfigDialog';
 

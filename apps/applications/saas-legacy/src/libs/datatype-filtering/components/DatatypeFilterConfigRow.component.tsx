@@ -32,7 +32,7 @@ import { MaterialUiSingleSelectorField } from '#src/libs/custom-form/components/
 import HoverableWarning from '#src/components/HoverableWarning.component';
 import DatatypeFilterConfigValueManager from './DatatypeFilterConfigValueManager.component';
 import type { handleGetDynamicDataForFiltersType } from '#src/libs/datatype-filtering/dynamic-data-hoc';
-import { ReportCategoryEnum } from '@bsport/common/lib/master-data/report-categories.js';
+import { ReportCategoryEnum } from '@bsport/common/master-data/report-categories.js';
 import {
   getColumnLabelTranslation,
   isReportColumnRemoved,

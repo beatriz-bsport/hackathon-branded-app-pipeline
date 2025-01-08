@@ -9,7 +9,7 @@ import {
 import {
   BUYABLE_ITEM_COUPON,
   BUYABLE_ITEM_PRIVATE_PASS,
-} from '@bsport/common/lib/master-data/buyable-items.js';
+} from '@bsport/common/master-data/buyable-items.js';
 import { CONTRACT_BOOKING_FUNNEL_IDENTIFIER } from '#src/libs/marketplace/constants';
 import { offerFactory } from '#src/libs/offer/factories';
 import { PrepaidLine } from '#src/libs/checkout/types';

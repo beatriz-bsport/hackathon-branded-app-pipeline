@@ -15,7 +15,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import {
   SUCCEEDED,
   FAILED,
-} from '@bsport/common/lib/master-data/planned-invoice-status.js';
+} from '@bsport/common/master-data/planned-invoice-status.js';
 
 import { DateTime } from 'luxon';
 import { PlannedInvoiceItem } from './SubscriptionSchedule.component';

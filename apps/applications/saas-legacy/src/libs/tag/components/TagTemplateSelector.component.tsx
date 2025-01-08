@@ -3,7 +3,7 @@ import React, { CSSProperties, useRef } from 'react';
 import Select, { components } from 'react-select';
 import { useTranslation } from 'react-i18next';
 import chroma from 'chroma-js';
-import { colors } from '@bsport/common/lib/colors.js';
+import { colors } from '@bsport/common/colors.js';
 import BlockIcon from '@material-ui/icons/Block';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import type { TagGroup, TagTemplate } from '#src/libs/tag/types';

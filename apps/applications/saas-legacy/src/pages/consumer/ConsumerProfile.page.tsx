@@ -8,7 +8,7 @@ import { connect, ConnectedProps } from 'react-redux';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import { createStyles, Theme } from '@material-ui/core';
-import { buildMemberReferralLink } from '@bsport/common/lib/referrals/utils.js';
+import { buildMemberReferralLink } from '@bsport/common/referrals/utils.js';
 import AddPaymentMethod from '#src/libs/payment/components/AddPaymentMethod.component';
 import { requestSetupIntentSecret as requestSetupIntentSecretAPI } from '#src/libs/payment/api';
 import PaymentModal from '#src/libs/payment/components/PaymentModal.component';

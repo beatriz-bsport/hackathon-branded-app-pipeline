@@ -4,7 +4,7 @@ import {
   SPIVI_UPSELL_NOT_ACTIVATED_EXCEPTION,
   NO_SPIVI_BOX_ID_FOR_ROOM_PLAN_EXCEPTION,
   NO_ROOM_PLAN_SELECTED_EXCEPTION,
-} from '@bsport/common/lib/master-data/error-codes/spivi.js';
+} from '@bsport/common/master-data/error-codes/spivi.js';
 import { Offer, OfferStatus } from '#src/libs/offer/types';
 import { monitorBackgroundTask } from '#src/libs/background-task/actions';
 import type {

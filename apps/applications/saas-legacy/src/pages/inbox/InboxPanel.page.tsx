@@ -4,7 +4,7 @@ import { connect, ConnectedProps } from 'react-redux';
 import { compose, withHandlers, withState } from 'recompose';
 import { push } from 'connected-react-router';
 
-import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-inbox.js';
+import { ChatThreadKinds } from '@bsport/common/master-data/communication-inbox.js';
 import InboxPanelComponent from '#src/libs/communication-v2/thread/InboxPanel';
 import type { CommunicationThread } from '#src/libs/communication-v2/types';
 import { getMember } from '#src/libs/member/selectors';

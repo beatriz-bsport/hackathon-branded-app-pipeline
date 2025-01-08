@@ -5,7 +5,7 @@ import flatten from 'lodash/flatten';
 import intersection from 'lodash/intersection';
 import { useTranslation } from 'react-i18next';
 
-import { MarketPlaceCoachDisplay } from '@bsport/common/lib/master-data/personalization.js';
+import { MarketPlaceCoachDisplay } from '@bsport/common/master-data/personalization.js';
 import SessionForCoachSelector from './SessionForCoachSelector.component';
 import {
   groupSessionsByDayMoment,

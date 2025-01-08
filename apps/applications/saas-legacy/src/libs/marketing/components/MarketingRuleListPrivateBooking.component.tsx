@@ -15,7 +15,7 @@ import { WithTranslation, withTranslation } from 'react-i18next';
 import {
   BOOKING_EVENT_RULES,
   PRIVATEBOOKING_EVENT_RULES,
-} from '@bsport/common/lib/master-data/notification-rule-events.js';
+} from '@bsport/common/master-data/notification-rule-events.js';
 
 import { SmartList } from '#src/libs/smart-list/types';
 import { DeepPartial, MaterialStyleType } from '../../../utils/types';

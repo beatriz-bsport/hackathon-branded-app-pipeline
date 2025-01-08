@@ -7,32 +7,32 @@ import {
   PAYOUT_STATUS_FAILED,
   PAYOUT_STATUS_SUCCESS,
   PAYOUT_STATUS_TRANSIT,
-} from '@bsport/common/lib/master-data/payout-status.js';
+} from '@bsport/common/master-data/payout-status.js';
 import {
   DISPUTE_STATUS_PENDING,
   DISPUTE_STATUS_WON,
   DISPUTE_STATUS_LOST,
-} from '@bsport/common/lib/master-data/dispute-status.js';
+} from '@bsport/common/master-data/dispute-status.js';
 import {
   BOOKING_STATUS_OK,
   BOOKING_STATUS_CANCELLED_BY_CONSUMER,
   BOOKING_STATUS_CANCELLED_BY_MANAGER,
   BOOKING_STATUS_CANCELLED_BY_OFFER,
-} from '@bsport/common/lib/master-data/booking_status_code.js';
+} from '@bsport/common/master-data/booking_status_code.js';
 import {
   SUCCEEDED as LAST_INVOICE_SUCCEEDED,
   FAILED as LAST_INVOICE_FAILED,
   PENDING as LAST_INVOICE_PENDING,
   CANCELED as LAST_INVOICE_CANCELLED,
   PROCESSING as LAST_INVOICE_PROCESSING,
-} from '@bsport/common/lib/master-data/planned-invoice-status.js';
+} from '@bsport/common/master-data/planned-invoice-status.js';
 import {
   BILLING_PLAN_STATUS_NOT_STARTED,
   BILLING_PLAN_STATUS_STARTED,
   BILLING_PLAN_STATUS_STOPPED,
   BILLING_PLAN_STATUS_PAUSED,
   BILLING_PLAN_STATUS_ENDED,
-} from '@bsport/common/lib/master-data/subscription-status.js';
+} from '@bsport/common/master-data/subscription-status.js';
 
 import CustomChip from '#src/components/chip/CustomChip.component';
 import { AccessStatus } from '#src/libs/access-control/constants';

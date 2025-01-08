@@ -18,7 +18,7 @@ import {
   COMPARATORS_DICT_BETWEEN,
   BETWEEN_COMPARATOR,
   GTE_COMPARATOR,
-} from '@bsport/common/lib/master-data/smart-list.js';
+} from '@bsport/common/master-data/smart-list.js';
 import DelayedNumericInput from '#src/components/DelayedNumericInput.component';
 
 import ToolTip from '#src/components/Tooltip.component';

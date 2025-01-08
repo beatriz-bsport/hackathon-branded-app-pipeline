@@ -11,7 +11,7 @@ import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import { REPORT_NAME_MAX_LENGTH } from '#src/libs/reporting/common/constants';
 import { useCheckIsNameAlreadyUsed } from '#src/libs/reporting/v2/hooks';
-import { ReportCategoryEnum } from '@bsport/common/lib/master-data/report-categories.js';
+import { ReportCategoryEnum } from '@bsport/common/master-data/report-categories.js';
 
 type Props = {
   categoryName: ReportCategoryEnum;

@@ -26,7 +26,7 @@ import StoreIcon from '@material-ui/icons/Store';
 import CashBookIcon from '@material-ui/icons/BusinessCenter';
 import VideoLibraryIcon from '@material-ui/icons/VideoLibrary';
 import HourglassEmptyIcon from '@material-ui/icons/HourglassEmpty';
-import { ReportCategoryEnum } from '@bsport/common/lib/master-data/report-categories.js';
+import { ReportCategoryEnum } from '@bsport/common/master-data/report-categories.js';
 import {
   BillingPlanMetadataIdentifierEnum,
   MemberMetadataIdentifierEnum,
@@ -64,14 +64,14 @@ import {
   PaymentSumupMetadataIdentifierEnum,
   ReferralGrantMetadataIdentifierEnum,
   AccessMonitoringMetadataIdentifierEnum,
-} from '@bsport/common/lib/master-data/metadata-identifiers.js';
+} from '@bsport/common/master-data/metadata-identifiers.js';
 import uniqBy from 'lodash/uniqBy';
 import {
   BOOKING_STATUS_CANCELLED_BY_CONSUMER,
   BOOKING_STATUS_CANCELLED_BY_MANAGER,
   BOOKING_STATUS_CANCELLED_BY_OFFER,
   BOOKING_STATUS_OK,
-} from '@bsport/common/lib/master-data/booking_status_code.js';
+} from '@bsport/common/master-data/booking_status_code.js';
 import type { SvgIconProps } from '@material-ui/core/SvgIcon';
 
 import {

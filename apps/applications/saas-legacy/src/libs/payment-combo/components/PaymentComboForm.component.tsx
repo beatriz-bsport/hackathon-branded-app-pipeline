@@ -11,7 +11,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 
 import { DateTime } from 'luxon';
 
-import { CB } from '@bsport/common/lib/master-data/payment-methods.js';
+import { CB } from '@bsport/common/master-data/payment-methods.js';
 import Typography from '@material-ui/core/Typography';
 import InputLabel from '@material-ui/core/InputLabel';
 import InfoIcon from '@material-ui/icons/Info';

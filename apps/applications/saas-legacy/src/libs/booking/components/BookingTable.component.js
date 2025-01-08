@@ -6,7 +6,7 @@ import List from '@material-ui/core/List';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { withTranslation, TFunction } from 'react-i18next';
 
-import { BOOKING_STATUS_OK } from '@bsport/common/lib/master-data/booking_status_code.js';
+import { BOOKING_STATUS_OK } from '@bsport/common/master-data/booking_status_code.js';
 import type { Booking } from '#src/libs/booking/types';
 
 import BookingItemForManagerV2 from '#src/libs/booking/components/BookingItemForManagerV2.component';

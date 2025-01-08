@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '@material-ui/core/styles';
-import { UniqueCodeStateStatus } from '@bsport/common/lib/master-data/coupon.js';
+import { UniqueCodeStateStatus } from '@bsport/common/master-data/coupon.js';
 import { CustomChip } from '#src/components/chip/CustomChip.component';
 import type { UniqueCodeState } from '#src/libs/coupon/types';
 

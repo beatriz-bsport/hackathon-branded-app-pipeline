@@ -14,12 +14,12 @@ import { establishment_factory } from '#src/libs/establishment/factory';
 import {
   OFFER_WAITING_LIST_STATUS_OPEN,
   OFFER_WAITING_LIST_LOCKED_BY_PENDING_BOOKINGS,
-} from '@bsport/common/lib/master-data/waiting-list-status.js';
+} from '@bsport/common/master-data/waiting-list-status.js';
 import {
   OFFER_WAITING_LIST_STATUS_FULL,
   OFFER_WAITING_LIST_STATUS_ALREADY_BOOKED,
   OFFER_WAITING_LIST_STATUS_CONVERTIBLE,
-} from '@bsport/common/lib/master-data/error-codes/buyable-item-can-not-be-bought.js';
+} from '@bsport/common/master-data/error-codes/buyable-item-can-not-be-bought.js';
 
 const offer = {
   ...offerFactory(),

@@ -3,7 +3,7 @@ import { DateTime } from 'luxon';
 import { ButtonBase, Typography } from '@material-ui/core';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 
-import { MarketPlaceCoachDisplay } from '@bsport/common/lib/master-data/personalization.js';
+import { MarketPlaceCoachDisplay } from '@bsport/common/master-data/personalization.js';
 import CoachChip from '#src/libs/associated-coach/components/CoachChip.component';
 import { Establishment } from '#src/libs/establishment/types';
 import { Coach } from '#src/libs/associated-coach/types';

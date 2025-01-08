@@ -56,7 +56,7 @@ import {
   deleteGiftcard as deleteGiftcardActions,
 } from '../../libs/giftcard/actions';
 import withTitle from '../../hocs/with-title.hoc';
-import { ConsumerGiftcardKind } from '@bsport/common/lib/master-data/giftcard.js';
+import { ConsumerGiftcardKind } from '@bsport/common/master-data/giftcard.js';
 import ConsumerPrintableGiftcardDetails from '#src/libs/giftcard/components/ConsumerPrintableGiftcardDetails.components';
 
 const styles = (theme: Theme) =>

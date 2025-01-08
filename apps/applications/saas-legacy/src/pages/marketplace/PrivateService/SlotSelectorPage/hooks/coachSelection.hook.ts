@@ -1,6 +1,6 @@
 import { useCallback, useContext, useMemo } from 'react';
 
-import { RESOURCE_ATTRIBUTION_CONSUMER } from '@bsport/common/lib/master-data/resource-attribution-methods.js';
+import { RESOURCE_ATTRIBUTION_CONSUMER } from '@bsport/common/master-data/resource-attribution-methods.js';
 
 import { SlotSelectorContext } from '#src/pages/marketplace/PrivateService/SlotSelectorPage/context/SlotSelector.context';
 import { SlotSelectorStoreContext } from '#src/pages/marketplace/PrivateService/SlotSelectorPage/context/SlotSelectorStore.context';

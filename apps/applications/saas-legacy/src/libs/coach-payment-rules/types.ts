@@ -1,7 +1,7 @@
 import {
   COACH_PERFORMANCE_FOR_APPOINTMENT,
   COACH_PERFORMANCE_FOR_SESSION,
-} from '@bsport/common/lib/master-data/coach_payment_rule.js';
+} from '@bsport/common/master-data/coach_payment_rule.js';
 import { ErrorAndLoading } from '#src/libs/types';
 import type { Coach } from '../associated-coach/types';
 

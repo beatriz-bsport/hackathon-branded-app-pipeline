@@ -14,7 +14,7 @@ import Typography from '@material-ui/core/Typography';
 import {
   WAITING_LIST_DYNAMIC_UNORDERED,
   WAITING_LIST_DYNAMIC_ORDERED,
-} from '@bsport/common/lib/master-data/waiting-list-dynamic.js';
+} from '@bsport/common/master-data/waiting-list-dynamic.js';
 import { withFormik, FormikProps, Form } from 'formik';
 import {
   SwitchField,

@@ -1,13 +1,13 @@
 import { createAction } from 'redux-actions';
 import { DateTime } from 'luxon';
 
-import { BOOKING_STATUS_OK } from '@bsport/common/lib/master-data/booking_status_code.js';
+import { BOOKING_STATUS_OK } from '@bsport/common/master-data/booking_status_code.js';
 
-import { SPOT_NOT_AVAILABLE } from '@bsport/common/lib/master-data/error-codes/buyable-item-can-not-be-bought.js';
+import { SPOT_NOT_AVAILABLE } from '@bsport/common/master-data/error-codes/buyable-item-can-not-be-bought.js';
 import {
   LOCK_ACQUISITION_FAILURE_GENERIC,
   LOCK_ACQUISITION_FAILURE_SPOT_SCHEDULING,
-} from '@bsport/common/lib/master-data/error-codes/lock.js';
+} from '@bsport/common/master-data/error-codes/lock.js';
 
 import { EXCEPTION_STAFF_ROLE_OVERBOOKING_NOT_ALLOWED } from '#src/libs/role/constants';
 import { isErrorWithCustomCode } from '#src/libs/utils';

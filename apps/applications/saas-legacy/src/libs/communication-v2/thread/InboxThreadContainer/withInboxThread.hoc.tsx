@@ -5,7 +5,7 @@ import { push } from 'connected-react-router';
 import uniq from 'lodash/uniq';
 import type { DateTime } from 'luxon';
 import { withTranslation, WithTranslation } from 'react-i18next';
-import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-inbox.js';
+import { ChatThreadKinds } from '@bsport/common/master-data/communication-inbox.js';
 
 // COMMUNICATION
 import {

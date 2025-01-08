@@ -13,11 +13,11 @@ import Collapse from '@material-ui/core/Collapse';
 import {
   CREDIT_ACCOUNT as PAYMENT_METHOD_CREDIT_ACCOUNT,
   CB as PAYMENT_METHOD_CB,
-} from '@bsport/common/lib/master-data/payment-methods.js';
+} from '@bsport/common/master-data/payment-methods.js';
 import {
   BUYABLE_ITEM_COUPON,
   BUYABLE_ITEM_FEE,
-} from '@bsport/common/lib/master-data/buyable-items.js';
+} from '@bsport/common/master-data/buyable-items.js';
 
 import type { InstalmentPaymentApiWithBasketId } from '#src/libs/instalment-payment-configuration/types';
 import PriceCount from '#src/libs/checkout/components/new-checkout-flow/PriceCount';

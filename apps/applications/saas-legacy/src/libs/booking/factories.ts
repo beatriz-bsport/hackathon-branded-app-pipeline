@@ -7,8 +7,8 @@ import {
   OFFER_BOOKABLE_STATUS_CLOSE_TOO_LATE,
   OFFER_BOOKABLE_STATUS_FULL,
   OFFER_BOOKABLE_STATUS_LOCKED,
-} from '@bsport/common/lib/master-data/bookable-status.js';
-import { BOOKING_SOURCE_SAAS } from '@bsport/common/lib/master-data/booking_source.js';
+} from '@bsport/common/master-data/bookable-status.js';
+import { BOOKING_SOURCE_SAAS } from '@bsport/common/master-data/booking_source.js';
 
 import { consumerPaymentPackFactory } from '#src/libs/consumer-payment-pack/factories';
 import { establishment_factory } from '#src/libs/establishment/factory';

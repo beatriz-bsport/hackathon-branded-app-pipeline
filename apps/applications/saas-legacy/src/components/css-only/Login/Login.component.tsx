@@ -7,7 +7,7 @@ import { withTranslation, WithTranslation } from 'react-i18next';
 import {
   DIALOG_MODE_DEACTIVATED,
   DIALOG_MODE_IFRAME,
-} from '@bsport/common/lib/master-data/widget-dialog-mode.js';
+} from '@bsport/common/master-data/widget-dialog-mode.js';
 import { CompanyTheme } from '#src/libs/theme/types';
 import Button, { ButtonVariant } from '#Fabrique/Button';
 import LoginForm from '#src/components/css-only/LoginForm';

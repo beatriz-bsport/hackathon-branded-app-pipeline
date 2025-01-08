@@ -4,7 +4,7 @@ import {
   CB,
   BACS_DEBIT,
   SEPA,
-} from '@bsport/common/lib/master-data/payment-methods.js';
+} from '@bsport/common/master-data/payment-methods.js';
 
 import { DateTime } from 'luxon';
 import { paymentPackFactory } from '#src/libs/payment-packs/factory';

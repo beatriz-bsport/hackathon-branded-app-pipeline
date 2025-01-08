@@ -10,7 +10,7 @@ import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 import { useTranslation } from 'react-i18next';
-import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-inbox.js';
+import { ChatThreadKinds } from '@bsport/common/master-data/communication-inbox.js';
 import InboxThreadLookup from '#src/libs/communication-v2/thread/InboxThreadLookup';
 
 import InboxThreadListRow from '#src/libs/communication-v2/thread/InboxThreadList/InboxThreadListRow.component';

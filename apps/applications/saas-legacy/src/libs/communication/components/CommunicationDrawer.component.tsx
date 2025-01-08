@@ -36,7 +36,7 @@ import {
   COMMUNICATION_KIND_EMAIL,
   COMMUNICATION_KIND_SMS,
   COMMUNICATION_KIND_PUSH_NOTIFICATION,
-} from '@bsport/common/lib/master-data/communication-kind.js';
+} from '@bsport/common/master-data/communication-kind.js';
 import { LocalizedLuxonUtils } from '#src/i18n/utils/luxon-picker-utils';
 
 import GenericResponsiveDialog from '#src/components/genericDialog/GenericResponsiveDialog';

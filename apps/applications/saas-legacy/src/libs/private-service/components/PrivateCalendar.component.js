@@ -33,7 +33,7 @@ import interactionPlugin from '@fullcalendar/interaction'; // needed for dayClic
 import resourceTimeGrid from '@fullcalendar/resource-timegrid';
 import dayGridPlugin from '@fullcalendar/daygrid';
 
-import { BOOKING_STATUS_OK } from '@bsport/common/lib/master-data/booking_status_code.js';
+import { BOOKING_STATUS_OK } from '@bsport/common/master-data/booking_status_code.js';
 import { LocalizedLuxonUtils } from '#src/i18n/utils/luxon-picker-utils';
 import ReplacementRequestPendingChip from '#src/libs/replacement-request/components/replacement-request-table/ReplacementRequestPendingChip.component';
 import SlotDetailDialog from '#src/libs/private-service/components/availability/SlotDetailDialog.component';

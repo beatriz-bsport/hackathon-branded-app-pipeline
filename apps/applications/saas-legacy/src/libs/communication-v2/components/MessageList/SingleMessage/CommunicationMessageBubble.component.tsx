@@ -17,11 +17,11 @@ import {
   COMMUNICATION_KIND_EMAIL,
   COMMUNICATION_KIND_PUSH_NOTIFICATION,
   COMMUNICATION_KIND_SMS,
-} from '@bsport/common/lib/master-data/communication-kind.js';
+} from '@bsport/common/master-data/communication-kind.js';
 import IconButton from '@material-ui/core/IconButton';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import Avatar from '@material-ui/core/Avatar';
-import { COMMUNICATION_CHANNEL_SMARTLIST } from '@bsport/common/lib/master-data/communication-filters.js';
+import { COMMUNICATION_CHANNEL_SMARTLIST } from '@bsport/common/master-data/communication-filters.js';
 import Tooltip from '#src/components/Tooltip.component';
 import type { CommunicationMessage } from '#src/libs/communication-v2/types';
 import TypographyMultiline from '#src/components/typo/TypographyMultiline.component';

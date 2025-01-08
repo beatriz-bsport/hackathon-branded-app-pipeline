@@ -57,13 +57,13 @@ module.exports = {
     {
       filter: /\.(ts|tsx)$/,
       message:
-        '😫 You are breaking the widget, why ? SyntaxError: /builds/bsport/bsport-widget/node_modules/bsport-saas/src/libs/offer/constants.ts: /builds/bsport/bsport-widget/node_modules/bsport-saas/src/libs/offer/constants.ts: \'const\' enums are not supported',
+        "😫 You are breaking the widget, why ? SyntaxError: /builds/bsport/bsport-widget/node_modules/bsport-saas/src/libs/offer/constants.ts: /builds/bsport/bsport-widget/node_modules/bsport-saas/src/libs/offer/constants.ts: 'const' enums are not supported",
       regex: /const enum/,
     },
     {
       filter: /\.(js|ts|tsx|jsx)$/,
-      message: '😫 Always import from @bsport/common/lib.js',
-      regex: /@bsport\/common\/src/,
+      message: '😫 Always import from @bsport/common/',
+      regex: /@bsport\/common/,
     },
     {
       filter: /\.(js|ts|tsx|jsx)$/,

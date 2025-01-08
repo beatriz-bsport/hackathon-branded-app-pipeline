@@ -32,7 +32,7 @@ import type { Member } from '#src/libs/member/types';
 import type { PaymentMethod } from '#src/libs/payment/types';
 import type { OptionCallback } from '#src/state/types';
 
-import { buildMemberReferralLink } from '@bsport/common/lib/referrals/utils.js';
+import { buildMemberReferralLink } from '@bsport/common/referrals/utils.js';
 import Config from '#src/config';
 import type {
   ReferralMemberStatus,

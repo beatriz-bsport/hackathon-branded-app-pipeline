@@ -14,12 +14,12 @@ import {
   PAYMENT_GROUP_METHOD_IDENTIFIER_BACS_DEBIT,
   PAYMENT_GROUP_METHOD_IDENTIFIER_CB,
   PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA,
-} from '@bsport/common/lib/master-data/payment-group.js';
+} from '@bsport/common/master-data/payment-group.js';
 import {
   BILLING_PLAN_PAYMENT_METHOD_STRIPE_BACS_DEBIT,
   BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,
   BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA,
-} from '@bsport/common/lib/master-data/subscription-payment-methods.js';
+} from '@bsport/common/master-data/subscription-payment-methods.js';
 import classNames from 'classnames';
 import { cloneDeep } from 'lodash';
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';

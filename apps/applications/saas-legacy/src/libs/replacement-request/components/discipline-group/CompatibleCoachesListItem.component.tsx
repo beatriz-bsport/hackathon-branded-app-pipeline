@@ -7,7 +7,7 @@ import makeStyles from '@material-ui/core/styles/makeStyles';
 import ListItemText from '@material-ui/core/ListItemText';
 import { alpha } from '@material-ui/core/styles';
 
-import SPORTS from '@bsport/common/lib/master-data/sports.js';
+import SPORTS from '@bsport/common/master-data/sports.js';
 import { DateTime } from 'luxon';
 import { formatISOStringAsTime } from '../../../../utils/datetime';
 

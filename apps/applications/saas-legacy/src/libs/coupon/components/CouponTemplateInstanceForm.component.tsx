@@ -5,7 +5,7 @@ import { withFormik, FormikProps } from 'formik';
 import {
   BUYABLE_ITEM_PASS,
   BUYABLE_ITEM_PRIVATE_PASS,
-} from '@bsport/common/lib/master-data/buyable-items.js';
+} from '@bsport/common/master-data/buyable-items.js';
 import * as Yup from 'yup';
 import Typography from '@material-ui/core/Typography';
 

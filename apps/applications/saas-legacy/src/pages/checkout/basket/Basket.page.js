@@ -16,7 +16,7 @@ import {
   BUYABLE_ITEM_SHOP_ITEM,
   BUYABLE_ITEM_PRIVATE_PASS,
   BUYABLE_ITEM_COMBO_ITEM,
-} from '@bsport/common/lib/master-data/buyable-items.js';
+} from '@bsport/common/master-data/buyable-items.js';
 import { withTranslation } from 'react-i18next';
 
 import {
@@ -24,8 +24,8 @@ import {
   PAYMENT_INTENT_TYPE_BASKET,
   PAYMENT_GROUP_METHOD_BY_ENGINE,
   PAYMENT_INTENT_STATUS_SUCCESS,
-} from '@bsport/common/lib/master-data/payment-group.js';
-import ALL_ERROR_CODES from '@bsport/common/lib/master-data/error-codes/buyable-item-can-not-be-bought.js';
+} from '@bsport/common/master-data/payment-group.js';
+import ALL_ERROR_CODES from '@bsport/common/master-data/error-codes/buyable-item-can-not-be-bought.js';
 import {
   fetchEstablishmentBulk as fetchEstablishmentBulkAction,
   fetchAllEstablishmentBillingGroup as fetchAllEstablishmentBillingGroupAction,

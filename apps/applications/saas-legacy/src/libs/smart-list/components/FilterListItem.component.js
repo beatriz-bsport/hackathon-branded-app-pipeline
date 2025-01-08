@@ -40,7 +40,7 @@ import {
   FIRST_PURCHASE_FILTER_IDENTIFIER,
   REFERRER_FILTER_IDENTIFIER,
   REFERRED_MEMBERS_FILTER_IDENTIFIER,
-} from '@bsport/common/lib/master-data/smart-list.js';
+} from '@bsport/common/master-data/smart-list.js';
 
 import CreditAccountFilter from './filters/CreditAccountFilter.component';
 import LastPreviousBookingFilter from './filters/LastPreviousBookingFilter.component';

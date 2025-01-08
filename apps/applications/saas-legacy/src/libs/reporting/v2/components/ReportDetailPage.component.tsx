@@ -14,7 +14,7 @@ import ReportDetailCreateModal from '#src/libs/reporting/v2/components/ReportDet
 import ReportDetailContent from '#src/libs/reporting/v2/components/ReportDetailContent';
 import ModalConfirm from '#src/components/ModalConfirm.component';
 
-import { ReportCategoryEnum } from '@bsport/common/lib/master-data/report-categories.js';
+import { ReportCategoryEnum } from '@bsport/common/master-data/report-categories.js';
 
 import { getReportObjectPermissionsBasedOnCategory } from '#src/libs/reporting/common/utils';
 

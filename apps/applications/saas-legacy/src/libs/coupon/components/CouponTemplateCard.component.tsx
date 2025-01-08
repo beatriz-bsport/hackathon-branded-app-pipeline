@@ -16,7 +16,7 @@ import ArrowRightIcon from '@material-ui/icons/ArrowRight';
 import Typography from '@material-ui/core/Typography';
 import AddIcon from '@material-ui/icons/Add';
 
-import { VOUCHER_TYPE_AMOUNT } from '@bsport/common/lib/master-data/coupon.js';
+import { VOUCHER_TYPE_AMOUNT } from '@bsport/common/master-data/coupon.js';
 import CompanyChip from '#src/components/franchise/CompanyChip.component';
 import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
 

@@ -2,7 +2,7 @@ import React from 'react';
 import { compose, withHandlers } from 'recompose';
 import { connect, ConnectedProps } from 'react-redux';
 import uniq from 'lodash/uniq';
-import { UNREAD_COMMUNICATION } from '@bsport/common/lib/master-data/alerting_kind.js';
+import { UNREAD_COMMUNICATION } from '@bsport/common/master-data/alerting_kind.js';
 
 // COMMUNICATION
 import { fetch as fetchAction } from '#src/libs/alerting/actions';

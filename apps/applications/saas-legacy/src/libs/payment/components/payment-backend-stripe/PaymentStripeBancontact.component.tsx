@@ -14,7 +14,7 @@ import {
   USER_REGISTRATION_RESPONSE_LOCAL_STORAGE_KEY,
 } from '#src/libs/payment/constants';
 
-import { PAYMENT_GROUP_METHOD_IDENTIFIER_BANCONTACT } from '@bsport/common/lib/master-data/payment-group.js';
+import { PAYMENT_GROUP_METHOD_IDENTIFIER_BANCONTACT } from '@bsport/common/master-data/payment-group.js';
 
 import {
   verifyPriceBasket as verifyPriceBasketAPI,

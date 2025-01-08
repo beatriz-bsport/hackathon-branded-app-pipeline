@@ -8,7 +8,7 @@ import {
   SortOption,
 } from '../payment-packs/components/PaymentPackFilterAndSortHeader.component';
 import { defaultFilters } from './selectors';
-import { ReportCategoryEnum } from '@bsport/common/lib/master-data/report-categories.js';
+import { ReportCategoryEnum } from '@bsport/common/master-data/report-categories.js';
 
 const initialState: Immutable.Immutable<UserPreference> =
   Immutable<UserPreference>({

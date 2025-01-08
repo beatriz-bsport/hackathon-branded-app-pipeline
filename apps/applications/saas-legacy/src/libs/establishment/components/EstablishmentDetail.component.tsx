@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Grid from '@material-ui/core/Grid';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Typography from '@material-ui/core/Typography';
-import SPORTS from '@bsport/common/lib/master-data/sports.js';
+import SPORTS from '@bsport/common/master-data/sports.js';
 import Paper from '@material-ui/core/Paper';
 import { WithTranslation, withTranslation } from 'react-i18next';
 

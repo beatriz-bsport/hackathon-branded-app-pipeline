@@ -2,7 +2,7 @@ import {
   CouponKind,
   UniqueCodeStateStatus,
   CouponUniqueCodeEditModeOptions,
-} from '@bsport/common/lib/master-data/coupon.js';
+} from '@bsport/common/master-data/coupon.js';
 import type { LuxonDateTime } from '#src/types';
 import { ErrorAndLoading } from '../types';
 import type { Company } from '#src/libs/company/types';

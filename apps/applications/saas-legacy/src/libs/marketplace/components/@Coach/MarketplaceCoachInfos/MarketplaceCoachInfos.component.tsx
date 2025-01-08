@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 
-import { MarketPlaceCoachDisplay } from '@bsport/common/lib/master-data/personalization.js';
+import { MarketPlaceCoachDisplay } from '@bsport/common/master-data/personalization.js';
 
 import type { Theme } from '#src/libs/theme/types';
 import type { Coach } from '#src/libs/associated-coach/types';

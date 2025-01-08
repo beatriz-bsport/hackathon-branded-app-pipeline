@@ -13,16 +13,16 @@ import clx from 'classnames';
 import {
   OFFER_WAITING_LIST_STATUS_FULL,
   OFFER_WAITING_LIST_STATUS_OPEN,
-} from '@bsport/common/lib/master-data/waiting-list-status.js';
+} from '@bsport/common/master-data/waiting-list-status.js';
 import {
   OFFER_BOOKABLE_STATUS_BOOKABLE,
   OFFER_BOOKABLE_STATUS_FULL,
   OFFER_BOOKABLE_STATUS_CLOSE_TOO_SOON,
   OFFER_BOOKABLE_STATUS_CLOSE_TOO_LATE,
   OFFER_BOOKABLE_STATUS_LOCKED,
-} from '@bsport/common/lib/master-data/bookable-status.js';
-import { MarketPlaceCoachDisplay } from '@bsport/common/lib/master-data/personalization.js';
-import { getCoachDisplayName } from '@bsport/common/lib/master-data/coach.js';
+} from '@bsport/common/master-data/bookable-status.js';
+import { MarketPlaceCoachDisplay } from '@bsport/common/master-data/personalization.js';
+import { getCoachDisplayName } from '@bsport/common/master-data/coach.js';
 import type {
   OfferStatus as OfferStatusType,
   Offer,

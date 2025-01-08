@@ -78,7 +78,11 @@ export const OfferNavigationHeader = (props: Props) => (
         )}
       </div>
       <Button
-        disabled={!props.offer || props.offer.id !== props.offerId}
+        disabled={
+          !props.offer ||
+          props.offer.id !== props.offerId ||
+          !props.offer.next_offer
+        }
         onClick={() => props.goToOffer(props.offer.next_offer)}
       >
         <Hidden xsDown>{props.t('translation:offer.nextOffer')}</Hidden>

@@ -189,6 +189,7 @@ export const CONSUMER_SUBSCRIPTION_DETAILS_CARD_PREVIEW: React.FC<{
       invoiceRetryNumber={0}
       isMobile={false}
       isPaymentMethodSectionHidden={false}
+      isSubscriptionStopped={false}
       joiningFee={SUBSCRIPTION.flat_fee}
       lastInvoiceDateBeforeRenewal={
         componentProps.hasAutoRenewal && LASTINVOICEDATEBEFORERENWAL

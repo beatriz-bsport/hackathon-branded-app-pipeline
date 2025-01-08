@@ -8,6 +8,7 @@ import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
 import {
   LIST_ITEM_HEIGHT,
   SubscriptionFilterEnum,
+  SubscriptionStatusEnum,
 } from '#src/libs/consumer-space/components/reworked/@MySubscriptions/constants';
 import type { SubscriptionFilter } from '#src/libs/consumer-space/components/reworked/@MySubscriptions/types';
 import { formatAsDate } from '#src/utils/datetime';
@@ -46,26 +47,30 @@ export const getSubtitleCardDetailsDate = (
   selectedSubscription: SubscriptionREST,
   t: TFunction,
 ) => {
+  const shouldDisplayExpirationDate =
+    !selectedSubscription?.auto_renewal ||
+    selectedSubscription?.status === SubscriptionStatusEnum.STOPPED;
+
   switch (selectedFilter) {
     case SubscriptionFilterEnum.ACTIVE:
       return `${t('reworked.mySubscriptions.dateLabel.active', {
         date: formatAsDate(selectedSubscription?.first_billing_date),
       })}${
-        selectedSubscription?.auto_renewal
-          ? ''
-          : t('reworked.mySubscriptions.dateLabel.until', {
+        shouldDisplayExpirationDate
+          ? t('reworked.mySubscriptions.dateLabel.until', {
               date: formatAsDate(selectedSubscription?.expiration_date),
             })
+          : ''
       }`;
     case SubscriptionFilterEnum.FUTURE:
       return `${t('reworked.mySubscriptions.dateLabel.future', {
         date: formatAsDate(selectedSubscription?.first_billing_date),
       })} ${
-        selectedSubscription?.auto_renewal
-          ? ''
-          : t('reworked.mySubscriptions.dateLabel.until', {
+        shouldDisplayExpirationDate
+          ? t('reworked.mySubscriptions.dateLabel.until', {
               date: formatAsDate(selectedSubscription?.expiration_date),
             })
+          : ''
       }`;
     case SubscriptionFilterEnum.EXPIRED:
       return t('reworked.mySubscriptions.dateLabel.expired', {

@@ -24,6 +24,7 @@ type Props = Pick<
   | 'autoRenewalDate'
   | 'hasAutoRenewal'
   | 'isPaused'
+  | 'isSubscriptionStopped'
   | 'joiningFee'
   | 'lastInvoiceDateBeforeRenewal'
   | 'pauseEndDate'
@@ -41,6 +42,7 @@ const ConsumerSubscriptionDetailsCardHeader: React.FC<Props> = ({
   autoRenewalDate,
   hasAutoRenewal,
   isPaused,
+  isSubscriptionStopped,
   joiningFee,
   lastInvoiceDateBeforeRenewal,
   pauseEndDate,
@@ -122,7 +124,7 @@ const ConsumerSubscriptionDetailsCardHeader: React.FC<Props> = ({
             'bs-consumer__subscription-details-card__header__list-item--auto-renewed',
             {
               'bs-consumer__subscription-details-card__header__list-item--hidden':
-                !hasAutoRenewal,
+                !hasAutoRenewal || isSubscriptionStopped,
             },
           )}
           icon={<ClockRefresh stroke="currentColor" />}

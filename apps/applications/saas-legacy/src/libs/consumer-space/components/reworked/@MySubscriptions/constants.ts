@@ -1,3 +1,11 @@
+import {
+  BILLING_PLAN_STATUS_NOT_STARTED,
+  BILLING_PLAN_STATUS_STARTED,
+  BILLING_PLAN_STATUS_STOPPED,
+  BILLING_PLAN_STATUS_PAUSED,
+  BILLING_PLAN_STATUS_ENDED,
+} from '@bsport/common/lib/master-data/subscription-status.js';
+
 export enum SubscriptionFilterEnum {
   ACTIVE = 'active',
   FUTURE = 'future',
@@ -5,3 +13,11 @@ export enum SubscriptionFilterEnum {
 }
 
 export const LIST_ITEM_HEIGHT = 60;
+
+export enum SubscriptionStatusEnum {
+  NOT_STARTED = BILLING_PLAN_STATUS_NOT_STARTED,
+  STARTED = BILLING_PLAN_STATUS_STARTED,
+  STOPPED = BILLING_PLAN_STATUS_STOPPED,
+  PAUSED = BILLING_PLAN_STATUS_PAUSED,
+  ENDED = BILLING_PLAN_STATUS_ENDED,
+}

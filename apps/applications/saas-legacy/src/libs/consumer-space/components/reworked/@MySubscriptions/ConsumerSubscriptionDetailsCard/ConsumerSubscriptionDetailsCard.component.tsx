@@ -46,6 +46,8 @@ type Props = {
   hasDetailsNextPage: boolean;
   /** If subscription has missing payment method */
   hasMissingPaymentMethod: boolean;
+  /** If subscription has been stopped */
+  isSubscriptionStopped: boolean;
   /** Number of retry after failed payment based on InvoiceConfiguration */
   invoiceRetryNumber: number;
   /** Loading indicator */
@@ -112,6 +114,7 @@ const ConsumerSubscriptionDetailsCard: React.FC<Props> = ({
   isMobile,
   isPaused,
   isPaymentMethodSectionHidden,
+  isSubscriptionStopped,
   joiningFee,
   lastInvoiceDateBeforeRenewal,
   onPaymentMethodActionClick,
@@ -160,6 +163,7 @@ const ConsumerSubscriptionDetailsCard: React.FC<Props> = ({
         autoRenewalDate={autoRenewalDate}
         hasAutoRenewal={hasAutoRenewal}
         isPaused={isPaused}
+        isSubscriptionStopped={isSubscriptionStopped}
         joiningFee={joiningFee}
         lastInvoiceDateBeforeRenewal={lastInvoiceDateBeforeRenewal}
         pauseEndDate={pauseEndDate}

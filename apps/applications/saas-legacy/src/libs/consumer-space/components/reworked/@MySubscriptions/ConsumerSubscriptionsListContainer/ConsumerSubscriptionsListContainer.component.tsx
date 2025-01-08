@@ -15,7 +15,10 @@ import type {
   SubscriptionsInvoicesDetailsREST,
 } from '#src/libs/subscription/types';
 import type { SubscriptionFilter } from '#src/libs/consumer-space/components/reworked/@MySubscriptions/types';
-import { SubscriptionFilterEnum } from '#src/libs/consumer-space/components/reworked/@MySubscriptions/constants';
+import {
+  SubscriptionFilterEnum,
+  SubscriptionStatusEnum,
+} from '#src/libs/consumer-space/components/reworked/@MySubscriptions/constants';
 import type { PaymentMethod } from '#src/libs/payment/types';
 
 import { isPaused } from '#src/libs/subscription/utils';
@@ -186,6 +189,9 @@ export const ConsumerSubscriptionsListContainer: React.FC<Props> = ({
           isPaused={isPaused(selectedSubscription?.pauses)}
           isPaymentMethodSectionHidden={
             selectedFilter === SubscriptionFilterEnum.EXPIRED
+          }
+          isSubscriptionStopped={
+            selectedSubscription?.status === SubscriptionStatusEnum.STOPPED
           }
           joiningFee={selectedSubscription?.flat_fee}
           lastInvoiceDateBeforeRenewal={informationBasedOnCouponApplied(

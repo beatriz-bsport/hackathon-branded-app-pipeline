@@ -1,6 +1,5 @@
 Merge Request Open:
-  # Temp : Prefix with monorepo as it is still store on bsport-saas-builder registry
-  image: ${REGISTRY_ENDPOINT}/${REGISTRY_NAME}:monorepo-${CI_COMMIT_REF_SLUG}
+  image: ${REGISTRY_ENDPOINT}/${REGISTRY_NAME}:${CI_COMMIT_REF_SLUG}
   stage: merge-request-open
   interruptible: true
 

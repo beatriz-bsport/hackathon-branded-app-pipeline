@@ -1,6 +1,6 @@
 # Create / Update a Docker Image store on an ECR to reuse it for other Jobs
 Prepare Builder:
-  image: 672633452901.dkr.ecr.eu-west-3.amazonaws.com/bsport-infra/gitlab-build-docker:v1.1.0
+  image: ${REGISTRY_ENDPOINT}/bsport-infra/gitlab-build-docker:v1.1.0
   stage: prepare-builder
   tags:
     - build-frontend
@@ -8,7 +8,7 @@ Prepare Builder:
   retry:
     max: 2
   services:
-    - name: 672633452901.dkr.ecr.eu-west-3.amazonaws.com/bsport-infra/dind:1.0.2
+    - name: ${REGISTRY_ENDPOINT}/bsport-infra/dind:1.0.2
       alias: docker
   rules:
     - if: $CI_PIPELINE_SOURCE == "schedule"
@@ -25,8 +25,7 @@ Prepare Builder:
     DOCKER_TLS_CERTDIR: ""
     DOCKER_DRIVER: overlay2
     DOCKER_HOST: tcp://docker:2375
-    # Temp : Prefix with monorepo to not override bsport-saas builder, while registry not created
-    TAG: "monorepo-$CI_COMMIT_REF_SLUG"
+    TAG: "$CI_COMMIT_REF_SLUG"
   script:
     # Wait for Docker service to be up and running
     - sleep 10 # Mitigates race condition with Docker service initialization (cf issue 478)
@@ -39,9 +38,9 @@ Prepare Builder:
       if docker pull "$REGISTRY_ENDPOINT/$REGISTRY_NAME:$TAG"; then
         USED_IMAGE_TAG=$TAG
       else
-        echo "Falling back to 'monorepo-dev' image if it exists."
-        USED_IMAGE_TAG=monorepo-dev
-        docker pull "${REGISTRY_ENDPOINT}/${REGISTRY_NAME}:monorepo-dev" || echo "No 'monorepo-dev' image found."
+        echo "Falling back to 'dev' image if it exists."
+        USED_IMAGE_TAG=dev
+        docker pull "${REGISTRY_ENDPOINT}/${REGISTRY_NAME}:dev" || echo "No 'dev' image found."
       fi
     - echo "Using image tag ~> $USED_IMAGE_TAG"
     - DOCKER_IMAGE_FULL_NAME="$REGISTRY_ENDPOINT/$REGISTRY_NAME:$TAG"

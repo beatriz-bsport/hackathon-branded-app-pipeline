@@ -1,28 +1,6 @@
-# STAGE 1 : Creating OS deps
-# [TEMP] WAITING FOR monorepo builder TO BE CREATED AND PUSHED TO ECR.
-# The following section replicates this MR : 
-# https://gitlab.com/bsport/bsport-tools/-/merge_requests/7/diffs
+# STAGE 1 : Installing node_modules and creating pnpm store
 
-FROM node:22-alpine AS gitlab-build-monorepo
-
-# Installing dependencies
-RUN apk add --no-cache \
-    curl git aws-cli openssh \
-    python3 py3-pip \
-    pango-dev cairo-dev build-base jpeg-dev giflib-dev librsvg-dev \
-    make g++
-
-# Add python for specific usages (node-gyp for instance)
-RUN python3 -m venv /opt/venv
-ENV PATH="/opt/venv/bin:$PATH"
-
-RUN npm add --global @sentry/cli
-
-# =============================================================================
-
-# STAGE 2 : Installing node_modules and creating pnpm store
-
-FROM gitlab-build-monorepo AS deps
+FROM 672633452901.dkr.ecr.eu-west-3.amazonaws.com/bsport-infra/gitlab-build-ichizen:v1.0.1 AS deps
 
 # Creates a directory /storage in the container's filesystem.
 # The -p flag ensures that no error occurs if the directory already exists
@@ -51,9 +29,9 @@ RUN cd src/ && pnpm fetch
 
 # =============================================================================
 
-# STAGE 3 : Keep final Image creation as clean as possible
+# STAGE 2 : Keep final Image creation as clean as possible
 
-FROM gitlab-build-monorepo AS final
+FROM 672633452901.dkr.ecr.eu-west-3.amazonaws.com/bsport-infra/gitlab-build-ichizen:v1.0.1 AS final
 
 RUN mkdir -p /storage
 

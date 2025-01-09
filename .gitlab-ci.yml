@@ -3,7 +3,7 @@ image: 672633452901.dkr.ecr.eu-west-3.amazonaws.com/bsport-infra/gitlab-build-fr
 variables:
   AWS_REGION: eu-west-3
   REGISTRY_ENDPOINT: 672633452901.dkr.ecr.eu-west-3.amazonaws.com
-  REGISTRY_NAME: bsport/bsport-saas-builder
+  REGISTRY_NAME: bsport/bsport-ichizen-builder
 
 stages:
   - prepare-builder

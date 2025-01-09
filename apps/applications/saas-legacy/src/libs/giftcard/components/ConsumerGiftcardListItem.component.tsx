@@ -27,7 +27,7 @@ import type {
 import type { FranchiseCompany } from '#src/libs/franchise/types';
 import type { Member } from '#src/libs/member/types';
 import CompanyChip from '#src/components/franchise/CompanyChip.component';
-import { ConsumerGiftcardKind } from '@bsport/common/master-data/giftcard.js';
+import { ConsumerGiftcardKind } from '@bsport/common/lib/master-data/giftcard.js';
 
 type SenderProps = {
   sourceFranchiseCompany: FranchiseCompany;

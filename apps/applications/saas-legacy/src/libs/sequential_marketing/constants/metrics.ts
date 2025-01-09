@@ -34,6 +34,7 @@ export enum CadenceStatus {
   ACTIVE = 'active',
   PAUSED = 'paused',
   NOT_LAUNCHED = 'not_launched',
+  INVALID = 'invalid',
 }
 
 export const CADENCE_METRICS_LIST_PAGINATION = 5;

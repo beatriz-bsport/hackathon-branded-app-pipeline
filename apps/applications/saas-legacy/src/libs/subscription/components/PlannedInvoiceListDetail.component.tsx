@@ -23,7 +23,7 @@ import {
   FAILED,
   PROCESSING,
   CANCELED,
-} from '@bsport/common/master-data/planned-invoice-status.js';
+} from '@bsport/common/lib/master-data/planned-invoice-status.js';
 import StopIcon from '@material-ui/icons/Stop';
 import RefreshIcon from '@material-ui/icons/Refresh';
 import Menu from '@material-ui/core/Menu';

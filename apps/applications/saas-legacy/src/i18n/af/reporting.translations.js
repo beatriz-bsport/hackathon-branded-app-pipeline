@@ -1,9 +1,9 @@
 const getTranslations = async () => {
   const BOOKING_SOURCES = await import(
-    '@bsport/common/master-data/booking_source.js'
+    '@bsport/common/lib/master-data/booking_source.js'
   );
   const BOOKING_STATUS_CODES = await import(
-    '@bsport/common/master-data/booking_status_code.js'
+    '@bsport/common/lib/master-data/booking_status_code.js'
   );
   const {
     CB,
@@ -26,7 +26,7 @@ const getTranslations = async () => {
     SOFORT,
     PAYMENT_PACK,
     BACS_DEBIT,
-  } = await import('@bsport/common/master-data/payment-methods.js');
+  } = await import('@bsport/common/lib/master-data/payment-methods.js');
 
   const {
     BOOKING_SOURCE_APP,
@@ -37,7 +37,7 @@ const getTranslations = async () => {
   } = BOOKING_SOURCES;
 
   const { PAYMENT_ENGINE_STRIPE, PAYMENT_ENGINE_BSPORT } = await import(
-    '@bsport/common/master-data/payment-group.js'
+    '@bsport/common/lib/master-data/payment-group.js'
   );
 
   const {
@@ -46,7 +46,7 @@ const getTranslations = async () => {
     BILLING_PLAN_STATUS_STOPPED,
     BILLING_PLAN_STATUS_PAUSED,
     BILLING_PLAN_STATUS_ENDED,
-  } = await import('@bsport/common/master-data/subscription-status.js');
+  } = await import('@bsport/common/lib/master-data/subscription-status.js');
 
   const {
     BOOKING_STATUS_OK,
@@ -71,7 +71,7 @@ const getTranslations = async () => {
   const FILTER_OPERAND_DATE_ID = 3;
 
   const PLANNED_INVOICE_STATUS = await import(
-    '@bsport/common/master-data/planned-invoice-status.js'
+    '@bsport/common/lib/master-data/planned-invoice-status.js'
   );
 
   return {

@@ -2,7 +2,7 @@ import {
   PLANNED_PAYMENT_EVENT_STATUS_REGISTERED,
   PLANNED_PAYMENT_EVENT_STATUS_PENDING,
   PLANNED_PAYMENT_EVENT_STATUS_ERROR,
-} from '@bsport/common/master-data/planned-payment-event.js';
+} from '@bsport/common/lib/master-data/planned-payment-event.js';
 import { PlannedInvoice } from '#src/libs/subscription/types';
 import { Invoice, PlannedPaymentEvent } from './types';
 

@@ -7,7 +7,7 @@ import {
   randomInt,
 } from '#src/libs/communication-v2/factories/CommunicationThread';
 import { INBOX_ALL_MESSAGES } from '#src/libs/communication-v2/constants';
-import { ChatThreadKinds } from '@bsport/common/master-data/communication-inbox.js';
+import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-inbox.js';
 
 const PAGE_SIZE = 15;
 const THREAD_NUMBER = randomInt(100) * PAGE_SIZE;

@@ -1,7 +1,7 @@
 import {
   WAITING_LIST_AUTO_CANCELLATION_DUMB,
   WAITING_LIST_AUTO_CANCELLATION_SMART,
-} from '@bsport/common/master-data/waiting-list-auto-cancellation.js';
+} from '@bsport/common/lib/master-data/waiting-list-auto-cancellation.js';
 import type { ErrorAndLoading } from '../types';
 import type {
   OfferBookingOption,

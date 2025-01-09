@@ -10,7 +10,7 @@ import Hidden from '@material-ui/core/Hidden';
 import EditIcon from '@material-ui/icons/Edit';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
-import { BOOKING_STATUS_OK } from '@bsport/common/master-data/booking_status_code.js';
+import { BOOKING_STATUS_OK } from '@bsport/common/lib/master-data/booking_status_code.js';
 import isEqual from 'lodash/isEqual';
 
 import Fade from '@material-ui/core/Fade';
@@ -19,7 +19,7 @@ import { Link } from 'react-router-dom';
 import Popover from '@material-ui/core/Popover';
 import { push } from 'connected-react-router';
 import DeleteIcon from '@material-ui/icons/Delete';
-import { PAYMENT_INTENT_TYPE_INVOICE } from '@bsport/common/master-data/payment-group.js';
+import { PAYMENT_INTENT_TYPE_INVOICE } from '@bsport/common/lib/master-data/payment-group.js';
 import uniq from 'lodash/uniq';
 import {
   retrieveOfferAsManager as retrieveOfferAsManagerAction,

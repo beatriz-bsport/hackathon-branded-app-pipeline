@@ -21,16 +21,16 @@ const getTranslations = async () => {
     SOFORT,
     PAYPAL_WALLET,
     PAYMENT_PACK,
-  } = await import('@bsport/common/master-data/payment-methods.js');
+  } = await import('@bsport/common/lib/master-data/payment-methods.js');
   const {
     PAYOUT_STATUS_PENDING,
     PAYOUT_STATUS_CANCELED,
     PAYOUT_STATUS_FAILED,
     PAYOUT_STATUS_SUCCESS,
     PAYOUT_STATUS_TRANSIT,
-  } = await import('@bsport/common/master-data/payout-status.js');
+  } = await import('@bsport/common/lib/master-data/payout-status.js');
   const { DISPUTE_STATUS_WON, DISPUTE_STATUS_LOST, DISPUTE_STATUS_PENDING } =
-    await import('@bsport/common/master-data/dispute-status.js');
+    await import('@bsport/common/lib/master-data/dispute-status.js');
 
   return {
     explainOption: 'You will be notified by email when a slot will be free',

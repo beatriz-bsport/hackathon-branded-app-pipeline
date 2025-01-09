@@ -1,5 +1,5 @@
 const getTranslations = async () => {
-  const TASK = await import('@bsport/common/master-data/tasks.js');
+  const TASK = await import('@bsport/common/lib/master-data/tasks.js');
 
   const { TASK_STATUS_UNSTARTED, TASK_STATUS_FINISHED, TASK_STATUS_CANCELLED } =
     TASK;

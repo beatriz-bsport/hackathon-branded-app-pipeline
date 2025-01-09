@@ -15,7 +15,7 @@ import {
   BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,
   BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA,
   BILLING_PLAN_PAYMENT_METHOD_STRIPE_BACS_DEBIT,
-} from '@bsport/common/master-data/subscription-payment-methods.js';
+} from '@bsport/common/lib/master-data/subscription-payment-methods.js';
 import RedButton from '../../../components/button/RedButton.component';
 
 import type { Subscription } from '../types';

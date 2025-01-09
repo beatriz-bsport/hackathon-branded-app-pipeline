@@ -13,7 +13,7 @@ import {
   BUYABLE_ITEM_PASS,
   BUYABLE_ITEM_COMBO_ITEM,
   BUYABLE_ITEM_PRIVATE_PASS,
-} from '@bsport/common/master-data/buyable-items.js';
+} from '@bsport/common/lib/master-data/buyable-items.js';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import routerParamsToProps from '#src/hocs/router-params-to-props.hoc';
 import themeSelectors from '#src/libs/theme/selectors';

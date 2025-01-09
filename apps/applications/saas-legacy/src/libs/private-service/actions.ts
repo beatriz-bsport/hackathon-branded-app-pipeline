@@ -1,7 +1,7 @@
 import { createAction } from 'redux-actions';
-import { PRIVATE_BOOKING_INCOMPLETE_ALERT } from '@bsport/common/master-data/alerting_kind.js';
-import { PRIVATE_SERVICE_NOT_COMPATIBLE_WITH_PARTNERSHIP } from '@bsport/common/master-data/error-codes/private-service.js';
-import { PRIVATE_SLOT_NOT_COMPATIBLE_WITH_PARTNERSHIP } from '@bsport/common/master-data/error-codes/private-slot.js';
+import { PRIVATE_BOOKING_INCOMPLETE_ALERT } from '@bsport/common/lib/master-data/alerting_kind.js';
+import { PRIVATE_SERVICE_NOT_COMPATIBLE_WITH_PARTNERSHIP } from '@bsport/common/lib/master-data/error-codes/private-service.js';
+import { PRIVATE_SLOT_NOT_COMPATIBLE_WITH_PARTNERSHIP } from '@bsport/common/lib/master-data/error-codes/private-slot.js';
 
 import { DateTime } from 'luxon';
 import uniq from 'lodash/uniq';

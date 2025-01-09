@@ -12,7 +12,7 @@ import {
   COACH_PAYMENT_RULE_FOR_GROUP_ACTIVITY,
   COACH_PAYMENT_RULE_FOR_WORKSHOP,
   COACH_PERFORMANCE_FOR_ALL,
-} from '@bsport/common/master-data/coach_payment_rule.js';
+} from '@bsport/common/lib/master-data/coach_payment_rule.js';
 import Typography from '@material-ui/core/Typography';
 import { DateTime } from 'luxon';
 import { makeStyles } from '@material-ui/core';

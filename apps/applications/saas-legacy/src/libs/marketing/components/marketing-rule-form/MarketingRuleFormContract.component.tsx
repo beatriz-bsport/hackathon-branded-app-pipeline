@@ -12,7 +12,7 @@ import EventIcon from '@material-ui/icons/Event';
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import NotificationsIcon from '@material-ui/icons/Notifications';
-import { NOTIFICATION_KIND } from '@bsport/common/master-data/notification-rule-events.js';
+import { NOTIFICATION_KIND } from '@bsport/common/lib/master-data/notification-rule-events.js';
 import GenericResponsiveDrawer from '#src/components/genericDrawer/GenericResponsiveDrawer.component';
 import {
   IntegerField,

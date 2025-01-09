@@ -13,7 +13,7 @@ import {
   USER_REGISTRATION_RESPONSE_LOCAL_STORAGE_KEY,
 } from '#src/libs/payment/constants';
 
-import { PAYMENT_GROUP_METHOD_IDENTIFIER_EPS } from '@bsport/common/master-data/payment-group.js';
+import { PAYMENT_GROUP_METHOD_IDENTIFIER_EPS } from '@bsport/common/lib/master-data/payment-group.js';
 import { CheckoutContext } from '#src/pages/checkout/basket/CheckoutContext';
 import {
   blockPendingBasket as blockPendingBasketAPI,

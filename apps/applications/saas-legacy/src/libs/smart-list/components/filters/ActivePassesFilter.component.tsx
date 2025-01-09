@@ -7,7 +7,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import {
   DURATION_COMPARATORS_DICT_BETWEEN,
   BETWEEN_COMPARATOR,
-} from '@bsport/common/master-data/smart-list.js';
+} from '@bsport/common/lib/master-data/smart-list.js';
 import IconButton from '@material-ui/core/IconButton';
 import InfoIcon from '@material-ui/icons/Info';
 import Typography from '@material-ui/core/Typography';

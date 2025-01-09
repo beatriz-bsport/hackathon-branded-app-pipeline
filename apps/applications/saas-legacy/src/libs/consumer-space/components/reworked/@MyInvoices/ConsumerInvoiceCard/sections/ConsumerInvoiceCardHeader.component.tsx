@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { PLANNED_PAYMENT_EVENT_STATUS_PENDING } from '@bsport/common/master-data/planned-payment-event.js';
+import { PLANNED_PAYMENT_EVENT_STATUS_PENDING } from '@bsport/common/lib/master-data/planned-payment-event.js';
 
 import {
   AlertCircle,

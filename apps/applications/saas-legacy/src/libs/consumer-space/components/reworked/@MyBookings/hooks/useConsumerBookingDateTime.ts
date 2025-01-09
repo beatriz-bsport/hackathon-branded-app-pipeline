@@ -2,7 +2,7 @@ import { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { DateTime } from 'luxon';
 
-import { MarketPlaceSessionTimeDisplay } from '@bsport/common/master-data/personalization.js';
+import { MarketPlaceSessionTimeDisplay } from '@bsport/common/lib/master-data/personalization.js';
 
 import {
   formatISOStringAsTime,

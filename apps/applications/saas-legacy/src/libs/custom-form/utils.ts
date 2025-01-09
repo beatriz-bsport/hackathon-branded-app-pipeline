@@ -31,7 +31,7 @@ import {
   CUSTOM_FORM_FIELD_SIGN_UP_WAIVER,
   CUSTOM_FORM_FIELD_SIGN_UP_OFFICIAL_DOCUMENT_ID,
   CUSTOM_FORM_FIELD_LOCATION_OPTION,
-} from '@bsport/common/master-data/custom-form.js';
+} from '@bsport/common/lib/master-data/custom-form.js';
 import omit from 'lodash/omit';
 
 // @ts-expect-error JS

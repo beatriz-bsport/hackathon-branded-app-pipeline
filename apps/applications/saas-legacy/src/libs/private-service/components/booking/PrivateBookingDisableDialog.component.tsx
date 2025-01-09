@@ -5,7 +5,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Checkbox from '@material-ui/core/Checkbox';
-import { BOOKING_STATUS_OK } from '@bsport/common/master-data/booking_status_code.js';
+import { BOOKING_STATUS_OK } from '@bsport/common/lib/master-data/booking_status_code.js';
 import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import Alert from '@material-ui/lab/Alert';

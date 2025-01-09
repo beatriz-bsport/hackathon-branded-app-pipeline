@@ -3,7 +3,7 @@ import { STEPS, SUBMIT_BUTTONS, SubmitButtonsCallbacks } from '../../types';
 import {
   PAYMENT_ENGINE_PAYPAL,
   PAYMENT_ENGINE_STRIPE,
-} from '@bsport/common/master-data/payment-group.js';
+} from '@bsport/common/lib/master-data/payment-group.js';
 
 export type UseSubmitButtonsDisplayableStateProps = {
   currentStepId: number;

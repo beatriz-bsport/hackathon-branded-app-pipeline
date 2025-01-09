@@ -1,4 +1,4 @@
-import { ReportCategoryEnum } from '@bsport/common/master-data/report-categories.js';
+import { ReportCategoryEnum } from '@bsport/common/lib/master-data/report-categories.js';
 
 import type { UpsellSumup } from '#src/libs/company/types';
 import { hasUpsellIdentifier } from '#src/libs/role/utils';

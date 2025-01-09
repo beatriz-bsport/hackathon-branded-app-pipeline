@@ -18,7 +18,7 @@ import { levelFactory } from '#src/libs/level/factories';
 import { Level } from '#src/libs/level/types';
 
 import i18n from 'i18next';
-import { OFFER_BOOKABLE_STATUS_BOOKABLE } from '@bsport/common/master-data/bookable-status.js';
+import { OFFER_BOOKABLE_STATUS_BOOKABLE } from '@bsport/common/lib/master-data/bookable-status.js';
 
 import './styles.storybook.css';
 

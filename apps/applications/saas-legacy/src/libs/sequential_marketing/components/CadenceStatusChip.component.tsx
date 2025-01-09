@@ -30,6 +30,12 @@ const getChipInfoFromAudienceStatus = (status: any, t: TFunction) => {
         icon: 'Stop',
         color: CadenceStatusColors.WARNING_DEFAULT_COLOR,
       };
+    case CadenceStatus.INVALID:
+      return {
+        label: t('audience.listItem.labels.invalid'),
+        icon: 'Warning',
+        color: CadenceStatusColors.ERROR_DEFAULT_COLOR,
+      };
     default:
       return {
         label: '',

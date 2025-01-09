@@ -9,7 +9,7 @@ import {
   COACH_PAYMENT_RULE_FOR_WORKSHOP,
   COACH_PERFORMANCE_FOR_SESSION,
   COACH_PERFORMANCE_FOR_APPOINTMENT,
-} from '@bsport/common/master-data/coach_payment_rule.js';
+} from '@bsport/common/lib/master-data/coach_payment_rule.js';
 import {
   associatedCoachSelector,
   getAllCoaches,

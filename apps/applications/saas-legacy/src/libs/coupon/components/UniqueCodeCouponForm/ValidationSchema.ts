@@ -3,9 +3,9 @@ import {
   BUYABLE_ITEM_PASS,
   BUYABLE_ITEM_PRIVATE_PASS,
   BUYABLE_ITEM_SHOP_ITEM,
-} from '@bsport/common/master-data/buyable-items.js';
+} from '@bsport/common/lib/master-data/buyable-items.js';
 
-import { CouponUniqueCodeEditModeOptions } from '@bsport/common/master-data/coupon.js';
+import { CouponUniqueCodeEditModeOptions } from '@bsport/common/lib/master-data/coupon.js';
 import { DateTime } from 'luxon';
 
 import * as Yup from 'yup';

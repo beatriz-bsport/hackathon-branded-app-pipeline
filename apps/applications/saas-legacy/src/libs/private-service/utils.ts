@@ -3,7 +3,7 @@ import { DateTime } from 'luxon';
 import Config from '#src/config';
 import uniq from 'lodash/uniq';
 import memoize from 'memoize-one';
-import { START_ON_PURCHASE } from '@bsport/common/master-data/payment-pack.js';
+import { START_ON_PURCHASE } from '@bsport/common/lib/master-data/payment-pack.js';
 
 import { Member } from '#src/libs/member/types';
 

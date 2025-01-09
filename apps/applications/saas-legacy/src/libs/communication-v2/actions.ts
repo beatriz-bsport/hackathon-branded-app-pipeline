@@ -2,7 +2,7 @@ import { createAction } from 'redux-actions';
 import type { AxiosResponse } from 'axios';
 import uniq from 'lodash/uniq';
 
-import { ChatThreadKinds } from '@bsport/common/master-data/communication-inbox.js';
+import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-inbox.js';
 import { monitorBackgroundTask } from '#src/libs/background-task/actions';
 import { snackbarSuccess, snackbarError } from '../snackbar/actions';
 import type {

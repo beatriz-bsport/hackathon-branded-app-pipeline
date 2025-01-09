@@ -36,7 +36,7 @@ import {
   CUSTOM_FORM_FIELD_SIGN_UP_WAIVER,
   CUSTOM_FORM_FIELD_SIGN_UP_GENERAL_TERMS_AND_CONDITIONS,
   CUSTOM_FORM_FIELD_SIGN_UP_OFFICIAL_DOCUMENT_ID,
-} from '@bsport/common/master-data/custom-form.js';
+} from '@bsport/common/lib/master-data/custom-form.js';
 import { TermsAndConditionType } from '#src/libs/payment/types';
 import { CUSTOM_FORM_FIELD_SIGN_UP_PREFIX } from '#src/libs/custom-form/constants';
 

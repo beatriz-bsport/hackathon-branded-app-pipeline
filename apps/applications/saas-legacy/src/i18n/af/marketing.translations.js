@@ -553,6 +553,10 @@ exports.default = {
         title: 'Triggers',
         event_or_smartlist_helper:
           'Members will have to match the event or be part of the smartlist to fit into the cadence',
+        finnerGrain: {
+          specifyItemsToggleLabel: 'Specify items',
+          purchaseLabelTitle: 'Item/s purchased',
+        },
       },
       win_step: 'Won',
       error: {
@@ -608,8 +612,10 @@ exports.default = {
         'private_booking-create': 'Appointments',
         'booking-attendance': 'Attendance at group activities',
         'booking-create': 'Group activities',
-        'private_consumer_pass-create': 'Appointment pass',
+        'private_consumer_pass-create': 'Private pass',
         'consumer_payment_pack-create': 'Pass',
+        'provision_update-create': 'Shop Item',
+        'consumer_giftcard-create': 'Gift Card',
       },
       exit: {
         exit_fail_label: 'Lost',
@@ -911,6 +917,8 @@ exports.default = {
         },
         event_or_smartlist_helper:
           'Members will have to match the event or be part of the smartlist to fit into the {{ workflowLowerCase }}',
+        oneOrMoreFinnerGrainDisabledText:
+          'A specified item currently does not exist in your Products List.',
       },
       audienceNameLabel: 'Name of the {{ workflowLowerCase }}',
       multipleVisit: {
@@ -971,6 +979,10 @@ exports.default = {
     howTo: {
       title: 'How to edit your {{ workflowLowerCase }}',
     },
+    workflow: {
+      finnerGrainIssues:
+        'One or several specified items are no longer available.',
+    },
     audienceIndexHelper:
       'The order of the {{ workflowPluralLowerCase }} sets the order of priority: if a member can enter 2 different {{ workflowPluralLowerCase }} at the same time, they will start with the highest in the list.',
     workflowMetrics: {
@@ -1019,6 +1031,7 @@ exports.default = {
         active: 'Active',
         paused: 'Paused',
         notLaunched: 'Not launched',
+        invalid: 'Issue',
         open: 'Open',
         archive: 'Archive {{ workflowLowerCase }}',
         edit: ' Edit {{ workflowLowerCase }} settings',

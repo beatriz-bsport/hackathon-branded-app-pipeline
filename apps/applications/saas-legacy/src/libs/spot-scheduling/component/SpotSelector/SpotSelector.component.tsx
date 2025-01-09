@@ -1,5 +1,5 @@
 import React from 'react';
-import { MarketPlaceCoachDisplay } from '@bsport/common/master-data/personalization.js';
+import { MarketPlaceCoachDisplay } from '@bsport/common/lib/master-data/personalization.js';
 import CanvasEditor from '../../CanvasSvg/CanvasEditor.component';
 import { CANVAS_SELECTABLE_TOOLS } from '../../CanvasSvg/tools/CanvasStrategy';
 import type { AssetForBlueprint, RoomBlueprint, SpotType } from '../../types';

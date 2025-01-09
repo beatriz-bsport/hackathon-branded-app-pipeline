@@ -2,7 +2,7 @@
 import chroma from 'chroma-js';
 import { responsiveFontSizes, createTheme } from '@material-ui/core/styles';
 
-import { colors } from '@bsport/common/colors.js';
+import { colors } from '@bsport/common/lib/colors.js';
 
 import { FranchiseTheme } from './libs/franchise/types';
 

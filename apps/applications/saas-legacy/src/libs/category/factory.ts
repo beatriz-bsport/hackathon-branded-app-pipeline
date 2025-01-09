@@ -1,4 +1,4 @@
-import AVAILABLE_CATEGORY from '@bsport/common/master-data/sports.js';
+import AVAILABLE_CATEGORY from '@bsport/common/lib/master-data/sports.js';
 import { SCT } from './types';
 import { generateRandomInt } from '../../utils/factories';
 

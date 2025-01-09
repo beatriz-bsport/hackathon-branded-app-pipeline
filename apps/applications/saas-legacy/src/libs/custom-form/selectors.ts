@@ -1,6 +1,6 @@
 import { createSelector } from 'reselect';
 import memoize from 'memoize-one';
-import { CUSTOM_FORM_FIELD_SIGN_UP_VACCINATION_STATUS } from '@bsport/common/master-data/custom-form.js';
+import { CUSTOM_FORM_FIELD_SIGN_UP_VACCINATION_STATUS } from '@bsport/common/lib/master-data/custom-form.js';
 import { RootState } from '../../reducers';
 import type {
   CustomForm,

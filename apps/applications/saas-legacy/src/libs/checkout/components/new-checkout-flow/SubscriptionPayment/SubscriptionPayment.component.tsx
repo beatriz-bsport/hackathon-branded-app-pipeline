@@ -6,12 +6,12 @@ import {
   PAYMENT_GROUP_METHOD_IDENTIFIER_BACS_DEBIT,
   PAYMENT_GROUP_METHOD_IDENTIFIER_CB,
   PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA,
-} from '@bsport/common/master-data/payment-group.js';
+} from '@bsport/common/lib/master-data/payment-group.js';
 import {
   BILLING_PLAN_PAYMENT_METHOD_STRIPE_BACS_DEBIT,
   BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,
   BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA,
-} from '@bsport/common/master-data/subscription-payment-methods.js';
+} from '@bsport/common/lib/master-data/subscription-payment-methods.js';
 
 import AddIcon from '@material-ui/icons/Add';
 import InfoIcon from '@material-ui/icons/Info';

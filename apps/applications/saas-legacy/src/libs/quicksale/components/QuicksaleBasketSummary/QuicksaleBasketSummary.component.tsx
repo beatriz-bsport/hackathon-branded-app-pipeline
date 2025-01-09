@@ -14,7 +14,7 @@ import Alert from '@material-ui/lab/Alert';
 import {
   BUYABLE_ITEM_COUPON,
   BUYABLE_ITEM_FEE,
-} from '@bsport/common/master-data/buyable-items.js';
+} from '@bsport/common/lib/master-data/buyable-items.js';
 
 import type { Basket, CheckoutItem } from '#src/libs/checkout/types';
 import type { Member } from '#src/libs/member/types';

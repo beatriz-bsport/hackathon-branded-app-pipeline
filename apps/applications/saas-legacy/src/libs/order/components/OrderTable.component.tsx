@@ -8,7 +8,7 @@ import { TFunction } from 'i18next';
 import {
   ORDER_STATE_CANCELLED,
   ORDER_STATE_ONSITEDELIVERY,
-} from '@bsport/common/master-data/order-states.js';
+} from '@bsport/common/lib/master-data/order-states.js';
 import type { OrderWithProducts } from '#src/libs/order/types';
 import { formatAsDatetime } from '../../../utils/datetime';
 

@@ -8,7 +8,7 @@ import { Breakpoint } from '@material-ui/core/styles/createBreakpoints';
 import { withStyles, createStyles, WithStyles, Theme } from '@material-ui/core';
 import Paper from '@material-ui/core/Paper';
 import { compose, withHandlers, withState } from 'recompose';
-import { ChatThreadKinds } from '@bsport/common/master-data/communication-inbox.js';
+import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-inbox.js';
 import { WithTranslation, withTranslation } from 'react-i18next';
 
 import routerParamsToProps from '#src/hocs/router-params-to-props.hoc';

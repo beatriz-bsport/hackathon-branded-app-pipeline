@@ -1,9 +1,9 @@
 const getTranslations = async () => {
   const BOOKING_SOURCES = await import(
-    '@bsport/common/master-data/booking_source.js'
+    '@bsport/common/lib/master-data/booking_source.js'
   );
   const BUYABLE_ITEM = await import(
-    '@bsport/common/master-data/buyable-items.js'
+    '@bsport/common/lib/master-data/buyable-items.js'
   );
   const {
     BOOKING_SOURCE_APP,

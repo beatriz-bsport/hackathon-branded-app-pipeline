@@ -7,7 +7,7 @@ import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import merge from 'lodash/merge';
 
-import { DIALOG_MODE_IFRAME } from '@bsport/common/master-data/widget-dialog-mode.js';
+import { DIALOG_MODE_IFRAME } from '@bsport/common/lib/master-data/widget-dialog-mode.js';
 import { getPrivatePassCategories } from '#src/libs/private-service/selectors/private-pass-category';
 import { getFranchiseId } from '#src/libs/franchise/selectors';
 import { fetchLevelList as fetchLevelListAction } from '#src/libs/level/actions';

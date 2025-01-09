@@ -5,7 +5,7 @@ import { withStyles } from '@material-ui/styles';
 import isEqual from 'lodash/isEqual';
 import classNames from 'classnames';
 import { withTheme } from '@storybook/theming';
-import { MarketPlaceCoachDisplay } from '@bsport/common/master-data/personalization.js';
+import { MarketPlaceCoachDisplay } from '@bsport/common/lib/master-data/personalization.js';
 import { CompanyTheme, Theme } from '#src/libs/theme/types';
 import { DeepPartial, MaterialStyleType } from '../../../utils/types';
 import CanvasToolsMenu from './CanvasToolsMenu.component';

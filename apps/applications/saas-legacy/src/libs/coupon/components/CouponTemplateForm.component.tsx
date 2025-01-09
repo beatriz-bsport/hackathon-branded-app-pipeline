@@ -15,19 +15,19 @@ import Button from '@material-ui/core/Button';
 import {
   VOUCHER_TYPE_PERCENT,
   VOUCHER_TYPE_AMOUNT,
-} from '@bsport/common/master-data/coupon.js';
+} from '@bsport/common/lib/master-data/coupon.js';
 import {
   COUPON_SUBSCRIPTION_MODE_RECURRENT_PRICE,
   COUPON_SUBSCRIPTION_MODE_FIRST_INVOICE,
   COUPON_SUBSCRIPTION_MODE_ALL_INVOICES,
   COUPON_SUBSCRIPTION_MODE_NONE,
-} from '@bsport/common/master-data/coupon-subscription-mode.js';
+} from '@bsport/common/lib/master-data/coupon-subscription-mode.js';
 import {
   BUYABLE_ITEM_PASS,
   BUYABLE_ITEM_FEE,
   BUYABLE_ITEM_PRIVATE_PASS,
   BUYABLE_ITEM_SHOP_ITEM,
-} from '@bsport/common/master-data/buyable-items.js';
+} from '@bsport/common/lib/master-data/buyable-items.js';
 import { CircularProgress } from '@material-ui/core';
 import CouponTemplateUpdateWarningDialog from '#src/libs/coupon/components/CouponTemplateUpdateWarningDialog.component';
 import type {

@@ -11,7 +11,7 @@ import { useTranslation } from 'react-i18next';
 import Alert from '@material-ui/lab/Alert';
 import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
 import { AxiosError } from 'axios';
-import { EMAIL_TEMPLATE_MISSING_REQUIRED_TAGS } from '@bsport/common/master-data/error-codes/notification-rule.js';
+import { EMAIL_TEMPLATE_MISSING_REQUIRED_TAGS } from '@bsport/common/lib/master-data/error-codes/notification-rule.js';
 import { EmailTemplateSummary } from '#src/libs/email-editor/types';
 // @ts-expect-error
 import FeatureListProvider from '#src/libs/company/hocs/feature-list-provider.hoc';

@@ -4,7 +4,7 @@ import {
   EXPORTABLE_COMPONENT_TYPE_PRIVATE_SERVICE,
 } from '@bsport/saas-legacy/src/libs/exportable-components/constants';
 import { WIDGET_SUPPORTED_EXPORTABLE_COMPONENTS } from '@bsport/saas-legacy/src/libs/widget/constants';
-import { DIALOG_MODE_TAB } from '@bsport/common/master-data/widget-dialog-mode.js';
+import { DIALOG_MODE_TAB } from '@bsport/common/lib/master-data/widget-dialog-mode.js';
 
 export type WidgetConfig = {
   widgetId: string,

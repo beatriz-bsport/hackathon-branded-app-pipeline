@@ -29,7 +29,7 @@ import {
 import {
   BUYABLE_ITEM_PASS,
   BUYABLE_ITEM_PRIVATE_PASS,
-} from '@bsport/common/master-data/buyable-items.js';
+} from '@bsport/common/lib/master-data/buyable-items.js';
 import type {
   CouponTemplateAPI,
   CouponTemplate,

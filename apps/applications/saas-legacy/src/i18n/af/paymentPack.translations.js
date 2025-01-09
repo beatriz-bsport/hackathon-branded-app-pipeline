@@ -17,7 +17,7 @@ const getTranslations = async () => {
     CONSUMER_PAYMENT_PACK_REFUND_CREDITS_EXCEED_PASS,
     CONSUMER_PAYMENT_PACK_REFUND_LOCK_ACQUISITION_ERROR,
   } = await import(
-    '@bsport/common/master-data/error-codes/buyable-item-can-not-be-bought.js'
+    '@bsport/common/lib/master-data/error-codes/buyable-item-can-not-be-bought.js'
   );
 
   return {

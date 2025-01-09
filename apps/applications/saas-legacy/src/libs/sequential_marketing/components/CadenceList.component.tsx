@@ -205,6 +205,7 @@ export const CadenceList: React.FC<Props> = ({
                 dense
                 withoutIndex
                 cadence={cadence}
+                hasInvalidPaths={cadence.has_disabled_finer_grained_items}
                 onRestore={onRestore && handleRestoreCadence}
               />
             ))}
@@ -233,6 +234,7 @@ export const CadenceList: React.FC<Props> = ({
               key={`cadence_enabled${cadence.id}`}
               sortable
               cadence={cadence}
+              hasInvalidPaths={cadence.has_disabled_finer_grained_items}
               onDelete={onDelete}
               onEdit={onEdit}
               onOpen={onOpen}

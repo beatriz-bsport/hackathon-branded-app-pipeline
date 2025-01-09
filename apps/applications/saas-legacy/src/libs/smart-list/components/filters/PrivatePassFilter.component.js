@@ -12,7 +12,7 @@ import { DateTime } from 'luxon';
 import {
   DURATION_COMPARATORS_DICT_BETWEEN,
   BETWEEN_COMPARATOR,
-} from '@bsport/common/master-data/smart-list.js';
+} from '@bsport/common/lib/master-data/smart-list.js';
 import DelayedNumericInput from '../../../../components/DelayedNumericInput.component';
 import type { PrivatePass } from '../../../private-service/types';
 import Selector from '../MultiSelector.component';

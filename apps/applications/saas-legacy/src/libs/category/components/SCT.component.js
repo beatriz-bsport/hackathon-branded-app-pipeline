@@ -3,7 +3,7 @@ import React from 'react';
 
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
-import SPORTS from '@bsport/common/master-data/sports.js';
+import SPORTS from '@bsport/common/lib/master-data/sports.js';
 import classnames from 'classnames';
 import CircularProgress from '@material-ui/core/CircularProgress';
 

@@ -22,7 +22,7 @@ import classNames from 'classnames';
 import {
   COMMUNICATION_KIND_EMAIL,
   COMMUNICATION_KIND_SMS,
-} from '@bsport/common/master-data/communication-kind.js';
+} from '@bsport/common/lib/master-data/communication-kind.js';
 import GenericResponsiveDrawer from '#src/components/genericDrawer/GenericResponsiveDrawer.component';
 import CommunicationHeader from './CommunicationHeader.component';
 import CommunicationFilterContainer from './Filter/CommunicationFilterContainer.component';

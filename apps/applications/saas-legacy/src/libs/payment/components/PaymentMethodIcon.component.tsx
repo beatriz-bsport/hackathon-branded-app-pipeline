@@ -15,7 +15,7 @@ import {
   PAYMENT_GROUP_METHOD_IDENTIFIER_SOFORT,
   PAYMENT_GROUP_METHOD_IDENTIFIER_BACS_DEBIT,
   PAYMENT_GROUP_METHOD_IDENTIFIER_PAYPAL_WALLET,
-} from '@bsport/common/master-data/payment-group.js';
+} from '@bsport/common/lib/master-data/payment-group.js';
 import { getCurrencyDisplay } from '../../theme/selectors';
 
 // import/no-unresolved

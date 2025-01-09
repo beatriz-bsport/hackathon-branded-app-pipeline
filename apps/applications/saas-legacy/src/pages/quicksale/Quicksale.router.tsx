@@ -4,7 +4,7 @@ import { Route, Switch, Redirect } from 'react-router-dom';
 import { compose } from 'recompose';
 import { ConnectedProps, connect } from 'react-redux';
 
-import { RoleType } from '@bsport/common/master-data/user-role.js';
+import { RoleType } from '@bsport/common/lib/master-data/user-role.js';
 import withThemeProvider from '#src/hocs/company-themifier.hoc';
 
 import { fetchCompanyTheme as fetchCompanyThemeAction } from '#src/libs/theme/actions';

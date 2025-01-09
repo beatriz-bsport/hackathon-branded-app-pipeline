@@ -7,7 +7,7 @@ import { Theme } from '@material-ui/core';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import { TFunction } from 'i18next';
 import { push } from 'connected-react-router';
-import { NOTIFICATION_KIND } from '@bsport/common/master-data/notification-rule-events.js';
+import { NOTIFICATION_KIND } from '@bsport/common/lib/master-data/notification-rule-events.js';
 
 import {
   getNotificationGrouped,

@@ -18,7 +18,7 @@ import SecondaryActionButton from '#src/components/button/SecondaryActionButton.
 
 import { getReportGlobalCategoryFromCategory } from '#src/libs/reporting/common/utils';
 
-import { ReportCategoryEnum } from '@bsport/common/master-data/report-categories.js';
+import { ReportCategoryEnum } from '@bsport/common/lib/master-data/report-categories.js';
 import type { SelectOption } from '#src/libs/types';
 import type { ReportFilterConfig } from '#src/libs/reporting/common/types';
 import { reportDetailHeaderTheme } from '#src/libs/reporting/v2/mui-theme-providers';

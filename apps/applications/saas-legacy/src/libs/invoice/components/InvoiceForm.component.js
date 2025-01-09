@@ -8,7 +8,7 @@ import Grid from '@material-ui/core/Grid';
 import {
   BUYABLE_ITEM_PRIVATE_PASS,
   BUYABLE_ITEM_CREDIT,
-} from '@bsport/common/master-data/buyable-items.js';
+} from '@bsport/common/lib/master-data/buyable-items.js';
 import { withTranslation, TFunction } from 'react-i18next';
 import InvoiceContent from './InvoiceContent.component';
 import UnevenInvoiceDialog from '../dialog/UnevenInvoiceDialog.component';

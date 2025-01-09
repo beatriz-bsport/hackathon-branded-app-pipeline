@@ -12,7 +12,7 @@ import {
   ManagerOnly,
   SortOption,
 } from '../payment-packs/components/PaymentPackFilterAndSortHeader.component';
-import { ReportCategoryEnum } from '@bsport/common/master-data/report-categories.js';
+import { ReportCategoryEnum } from '@bsport/common/lib/master-data/report-categories.js';
 
 export const userPreferenceActions = {
   setPaymentPackSort: createAction('USER_PREFERENCE/PAYMENT_PACK_SORT'),

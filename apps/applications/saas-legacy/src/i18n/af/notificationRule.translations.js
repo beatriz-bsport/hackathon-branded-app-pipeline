@@ -1,6 +1,6 @@
 const getTranslations = async () => {
   const NOTIFICATION_EVENTS = await import(
-    '@bsport/common/master-data/notification-rule-events.js'
+    '@bsport/common/lib/master-data/notification-rule-events.js'
   );
 
   const {

@@ -40,6 +40,7 @@ const CadenceListItemTemplate: ComponentStory<typeof CadenceListItem> = (
           dense={args.dense}
           sortable={args.sortable}
           archived={args.archived}
+          hasInvalidPaths={args.hasInvalidPaths}
           onDelete={args.onDelete}
           onEdit={args.onEdit}
           onOpen={args.onOpen}

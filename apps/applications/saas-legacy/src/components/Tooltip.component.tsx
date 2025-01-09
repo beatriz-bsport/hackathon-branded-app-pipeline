@@ -1,7 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Tooltip from '@material-ui/core/Tooltip';
-import { colors } from '@bsport/common/colors.js';
+import { colors } from '@bsport/common/lib/colors.js';
 import type { TooltipProps } from '@material-ui/core/Tooltip/Tooltip';
 
 type Props = TooltipProps & {

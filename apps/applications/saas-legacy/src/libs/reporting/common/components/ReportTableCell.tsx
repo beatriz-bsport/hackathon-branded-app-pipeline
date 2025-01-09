@@ -3,7 +3,7 @@ import React from 'react';
 import { TableCell } from '@material-ui/core';
 import { ClassNameMap } from '@material-ui/styles';
 
-import { ReportCategoryEnum } from '@bsport/common/master-data/report-categories.js';
+import { ReportCategoryEnum } from '@bsport/common/lib/master-data/report-categories.js';
 import type {
   CellConverter,
   CellData,

@@ -7,7 +7,7 @@ import Collapse from '@material-ui/core/Collapse';
 import Send from '@material-ui/icons/Send';
 import KeyboardArrowDown from '@material-ui/icons/KeyboardArrowDown';
 import { useTranslation } from 'react-i18next';
-import { ChatThreadKinds } from '@bsport/common/master-data/communication-inbox.js';
+import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-inbox.js';
 
 import CommunicationSendMessageContainer from '#src/libs/communication-v2/components/MessageSender/CommunicationSendMessageContainer.component';
 import {

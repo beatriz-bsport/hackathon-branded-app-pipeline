@@ -6,7 +6,7 @@ import Badge from '@material-ui/core/Badge';
 import { alpha } from '@material-ui/core/styles';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 
-import { BUYABLE_ITEM_COUPON } from '@bsport/common/master-data/buyable-items.js';
+import { BUYABLE_ITEM_COUPON } from '@bsport/common/lib/master-data/buyable-items.js';
 import { Basket } from '#src/libs/checkout/types';
 
 type BasketProps = {

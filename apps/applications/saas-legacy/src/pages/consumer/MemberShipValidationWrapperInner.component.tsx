@@ -9,7 +9,7 @@ import {
   CUSTOM_FORM_SUBMITTION_SNOOZED,
   CUSTOM_FORM_SUBMITTION_COMPLETED,
   CUSTOM_FORM_SUBMITTION_DRAFT,
-} from '@bsport/common/master-data/custom-form.js';
+} from '@bsport/common/lib/master-data/custom-form.js';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { isCustomFormCssVariantActivated } from '#src/libs/custom-form/utils';
 import { fetchCurrentBasket as fetchCurrentBasketAction } from '../../libs/checkout/actions';

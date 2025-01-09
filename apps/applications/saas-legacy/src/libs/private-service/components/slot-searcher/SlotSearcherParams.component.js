@@ -5,7 +5,7 @@ import { compose } from 'recompose';
 import Typography from '@material-ui/core/Typography';
 
 import { withTranslation, TFunction } from 'react-i18next';
-import { RESOURCE_ATTRIBUTION_CONSUMER } from '@bsport/common/master-data/resource-attribution-methods.js';
+import { RESOURCE_ATTRIBUTION_CONSUMER } from '@bsport/common/lib/master-data/resource-attribution-methods.js';
 import PrivateServiceSelectorWithSlot from '../service/PrivateServiceSelectorWithSlot.component';
 import CoachSelector from '../../../associated-coach/components/coach-selector/CoachSelector.component';
 import EstablishmentSelector from '../../../establishment/components/EstablishmentSelector.component';

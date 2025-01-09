@@ -8,7 +8,7 @@ import {
   UNPAID_PRIVATE_BOOKING_ALERT,
   NEW_TUTORIAL_SECTION_OR_LESSON as NEW_TUTORIAL_SECTION_OR_LESSON_ALERT,
   REPLACEMEMENT_REQUEST_LATE_ALERT_KIND,
-} from '@bsport/common/master-data/alerting_kind.js';
+} from '@bsport/common/lib/master-data/alerting_kind.js';
 
 export enum AlertKind {
   UNEVEN_INVOICE = UNEVEN_INVOICE_ALERT.alert_kind,

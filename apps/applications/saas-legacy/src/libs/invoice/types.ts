@@ -2,7 +2,7 @@ import {
   REVERSE_ON_PAYMENT_METHOD,
   REVERSE_ON_DEBT,
   REVERSE_ON_NEW_PAYMENT_METHOD,
-} from '@bsport/common/master-data/payment-group.js';
+} from '@bsport/common/lib/master-data/payment-group.js';
 import { PaymentEngine, PaymentItem } from '#src/libs/invoice/payment/types';
 import { ExportInvoiceErrorCode, ExportInvoiceStatus } from './constants';
 import type { InvoiceItem } from '#src/libs/invoice/invoice-item/types';

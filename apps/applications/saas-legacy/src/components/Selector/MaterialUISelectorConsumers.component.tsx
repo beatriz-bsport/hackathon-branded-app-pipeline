@@ -25,7 +25,7 @@ import type {
 } from '#src/libs/member/types';
 import type { ItemProps } from '#src/libs/datatype-filtering/components/DatatypeFilterConfigValueManager.component';
 import { Alert } from '@material-ui/lab';
-import { ReportCategoryEnum } from '@bsport/common/master-data/report-categories.js';
+import { ReportCategoryEnum } from '@bsport/common/lib/master-data/report-categories.js';
 import { REPORT_CATEGORIES_WITHOUT_ARCHIVED_MEMBERS } from '#src/libs/reporting/common/constants';
 
 type Props = {

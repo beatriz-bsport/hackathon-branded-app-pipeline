@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 
-import { MarketPlaceSessionTimeDisplay } from '@bsport/common/master-data/personalization.js';
+import { MarketPlaceSessionTimeDisplay } from '@bsport/common/lib/master-data/personalization.js';
 
 import { PortalContainer } from '#Fabrique/PortalContainer';
 import ConsumerBookingCancelModal from '#src/libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingCancelModal';

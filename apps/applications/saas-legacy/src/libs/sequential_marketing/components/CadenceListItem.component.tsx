@@ -17,7 +17,10 @@ import Typography from '@material-ui/core/Typography';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 
-import { SequentialMarketingColors } from '#src/libs/sequential_marketing/constants';
+import {
+  CadenceStatus,
+  SequentialMarketingColors,
+} from '#src/libs/sequential_marketing/constants';
 import CadenceStatusChip from '#src/libs/sequential_marketing/components/CadenceStatusChip.component';
 import NestedMenuSelectorIconButton from '#src/components/menu/nested';
 import SecondaryActionButton from '#src/components/button/SecondaryActionButton.component';
@@ -28,6 +31,7 @@ type Props = {
   cadence: Cadence;
   archived?: boolean;
   dense?: boolean;
+  hasInvalidPaths: boolean;
   selected?: boolean;
   sortable?: boolean;
   withoutIndex?: boolean;
@@ -42,6 +46,7 @@ export const CadenceListItem: React.FC<Props> = ({
   cadence,
   archived,
   dense,
+  hasInvalidPaths,
   selected,
   sortable,
   withoutIndex,
@@ -144,6 +149,9 @@ export const CadenceListItem: React.FC<Props> = ({
           )}
           {!archived && !!cadence?.cadence_status && (
             <CadenceStatusChip status={cadence.cadence_status} />
+          )}
+          {hasInvalidPaths && (
+            <CadenceStatusChip status={CadenceStatus.INVALID} />
           )}
           <Typography
             className={classes.textNoWrap}

@@ -10,8 +10,8 @@ import Hidden from '@material-ui/core/Hidden';
 import Fab from '@material-ui/core/Fab';
 import PersonIcon from '@material-ui/icons/Person';
 import { push as pushRouter } from 'connected-react-router';
-import { PAYMENT_INTENT_TYPE_INVOICE } from '@bsport/common/master-data/payment-group.js';
-import { INVOICE_TYPE_EMPTY_PAYMENT_CONTAINER } from '@bsport/common/master-data/invoice-type.js';
+import { PAYMENT_INTENT_TYPE_INVOICE } from '@bsport/common/lib/master-data/payment-group.js';
+import { INVOICE_TYPE_EMPTY_PAYMENT_CONTAINER } from '@bsport/common/lib/master-data/invoice-type.js';
 import withTitle from '#src/hocs/with-title.hoc';
 import {
   getInvoice,
@@ -125,7 +125,7 @@ import type {
 } from '#src/libs/invoice/types';
 import type { StripeReader } from '../../libs/terminal/types';
 import { TEMPORARY_AMOUNT_TO_FORCE_INTERNAL_PAYMENT_CTS } from '../../libs/invoice/constants';
-import { ConsumerGiftcardKind } from '@bsport/common/master-data/giftcard.js';
+import { ConsumerGiftcardKind } from '@bsport/common/lib/master-data/giftcard.js';
 
 import { formatAsDate } from '../../utils/datetime';
 import isEqual from 'lodash/isEqual';

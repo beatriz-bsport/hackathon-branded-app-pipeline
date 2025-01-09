@@ -47,6 +47,7 @@ function TriggerEventConfigFactory(): TriggerEventConfig {
     uuid: faker.string.uuid(),
     identifier: TriggerIdentifier.EVENT,
     event_type: faker.helpers.arrayElement(CADENCE_EVENT_ALL_CHOICES),
+    filtered_pks: [],
   };
 }
 
@@ -251,6 +252,7 @@ export function cadenceFactory({
   initialized,
   is_multiple_visit_allowed,
   cadence_status,
+  has_disabled_finer_grained_items,
 }: Partial<Cadence>): Cadence {
   return {
     id: id || faker.number.int(),
@@ -268,6 +270,7 @@ export function cadenceFactory({
     cadence_status:
       cadence_status ||
       faker.helpers.arrayElement(Object.values(CadenceStatus)),
+    has_disabled_finer_grained_items: has_disabled_finer_grained_items || false,
   };
 }
 

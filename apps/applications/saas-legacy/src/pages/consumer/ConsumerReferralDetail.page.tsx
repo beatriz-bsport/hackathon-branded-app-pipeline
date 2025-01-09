@@ -4,7 +4,7 @@ import { RouteComponentProps, withRouter } from 'react-router';
 
 import { compose } from 'recompose';
 
-import { buildMemberReferralLink } from '@bsport/common/referrals/utils.js';
+import { buildMemberReferralLink } from '@bsport/common/lib/referrals/utils.js';
 import routerParamsToProps from '#src/hocs/router-params-to-props.hoc';
 
 import themeSelectors from '#src/libs/theme/selectors';

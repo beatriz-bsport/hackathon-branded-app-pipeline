@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import {
   BILLING_PLAN_STATUS_ENDED,
   BILLING_PLAN_STATUS_PAUSED,
-} from '@bsport/common/master-data/subscription-status.js';
+} from '@bsport/common/lib/master-data/subscription-status.js';
 import '#src/components/css-only/Chip/stories/stories.styles.css';
 import { CustomMuiIcon } from '#src/components/icons/CustomMuiIcon.component';
 import ToolTip from '#src/components/Tooltip.component';

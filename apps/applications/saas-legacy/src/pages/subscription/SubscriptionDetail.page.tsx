@@ -3,7 +3,7 @@ import { compose, withState, withHandlers } from 'recompose';
 import { connect, ConnectedProps } from 'react-redux';
 import { push as pushRouter } from 'connected-react-router';
 import { createStyles, Theme } from '@material-ui/core';
-import { PAYMENT_ENGINE_STRIPE } from '@bsport/common/master-data/payment-group.js';
+import { PAYMENT_ENGINE_STRIPE } from '@bsport/common/lib/master-data/payment-group.js';
 import Fab from '@material-ui/core/Fab';
 import PersonIcon from '@material-ui/icons/Person';
 import withStyles from '@material-ui/core/styles/withStyles';

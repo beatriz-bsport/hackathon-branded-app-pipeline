@@ -37,11 +37,11 @@ import {
   INVOICE_TYPE_EMPTY_PAYMENT_CONTAINER,
   INVOICE_TYPE_MIGRATION,
   INVOICE_TYPE_REVERSE,
-} from '@bsport/common/master-data/invoice-type.js';
-import { colors } from '@bsport/common/colors.js';
+} from '@bsport/common/lib/master-data/invoice-type.js';
+import { colors } from '@bsport/common/lib/colors.js';
 import SendIcon from '@material-ui/icons/Send';
 import Avatar from '@material-ui/core/Avatar';
-import { DISPUTE as PAYMENT_METHOD_DISPUTE } from '@bsport/common/master-data/payment-methods.js';
+import { DISPUTE as PAYMENT_METHOD_DISPUTE } from '@bsport/common/lib/master-data/payment-methods.js';
 import uniqBy from 'lodash/uniqBy';
 import { DateTime } from 'luxon';
 import type { ConsumerGiftcard, Giftcard } from '#src/libs/giftcard/types';

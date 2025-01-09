@@ -5,7 +5,7 @@ import { compose } from 'recompose';
 import { CircularProgress } from '@material-ui/core';
 import { push } from 'connected-react-router';
 import { withTranslation } from 'react-i18next';
-import { ROOM_PLAN_NOT_EDITABLE_BECAUSE_AVAILABLE_OFFERS_SCHEDULED } from '@bsport/common/master-data/spot-scheduling.js';
+import { ROOM_PLAN_NOT_EDITABLE_BECAUSE_AVAILABLE_OFFERS_SCHEDULED } from '@bsport/common/lib/master-data/spot-scheduling.js';
 import { v4 as uuid4 } from 'uuid';
 import CanvasEditorComponent from '#src/libs/spot-scheduling/CanvasSvg/CanvasEditor.component';
 

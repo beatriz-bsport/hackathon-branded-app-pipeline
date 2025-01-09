@@ -1,13 +1,13 @@
 const getTranslations = async () => {
   const { MEMBER_EVENTS } = await import(
-    '@bsport/common/master-data/events.js'
+    '@bsport/common/lib/master-data/events.js'
   );
 
   const {
     LEAD_MANAGEMENT_IMPORT_LOCK_ACQUISITION_ERROR,
     LEAD_MANAGEMENT_IMPORT_WRONG_NUMBER_OF_COLUMNS_ERROR,
     LEAD_MANAGEMENT_IMPORT_MAXIMUM_NUMBER_OF_ROWS_ERROR,
-  } = await import('@bsport/common/master-data/error-codes/member.js');
+  } = await import('@bsport/common/lib/master-data/error-codes/member.js');
 
   return {
     date_joined: 'Sign up date',

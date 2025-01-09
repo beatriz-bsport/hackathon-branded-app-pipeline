@@ -46,6 +46,7 @@ export type ShopItemFilterParams = ShopAPIFilter & {
   is_standalone_item?: boolean | null;
   is_variant?: boolean;
   size?: string;
+  id__in?: number[];
 };
 
 export type ShopItemTemplateFilterParams = ShopItemFilterParams & {

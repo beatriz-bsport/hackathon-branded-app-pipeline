@@ -422,7 +422,7 @@ export default handleActions<ImmutableCadenceStepState, any>(
         state.byId[payload.source_id].exits.map((trigger) => {
           if (trigger.trigger_config.uuid === payload.connected_trigger_uuid) {
             const new_trigger: ConnectedTrigger = {
-              ...trigger,
+              ...(trigger as ConnectedTrigger),
               disabled: true,
             };
             return new_trigger;

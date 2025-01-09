@@ -2,7 +2,7 @@ import React from 'react';
 import { DateTime } from 'luxon';
 import omit from 'lodash/omit';
 
-import { ChatThreadKinds } from '@bsport/common/master-data/communication-inbox.js';
+import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-inbox.js';
 import { OfferFilter, Offer } from '#src/libs/offer/types';
 // @ts-expect-error
 import { omit_list } from '../../../pages/planning/Planning.page';

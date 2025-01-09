@@ -2,7 +2,7 @@ import { createAction } from 'redux-actions';
 import uniq from 'lodash/uniq';
 import { DateTime } from 'luxon';
 
-import ALL_ERROR_CODES from '@bsport/common/master-data/error-codes/buyable-item-can-not-be-bought.js';
+import ALL_ERROR_CODES from '@bsport/common/lib/master-data/error-codes/buyable-item-can-not-be-bought.js';
 
 import { UPSELL_IDENTIFIER_SUBTEACHER_TOOL } from '#src/libs/platform-billing/upsell-identifiers';
 import { isErrorWithCustomCode } from '#src/libs/utils';

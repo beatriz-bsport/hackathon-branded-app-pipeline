@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { MarketPlaceSessionTimeDisplay } from '@bsport/common/master-data/personalization.js';
+import { MarketPlaceSessionTimeDisplay } from '@bsport/common/lib/master-data/personalization.js';
 
 import { DateTime } from 'luxon';
 import useConsumerBookingDateTime from '#src/libs/consumer-space/components/reworked/@MyBookings/hooks/useConsumerBookingDateTime';

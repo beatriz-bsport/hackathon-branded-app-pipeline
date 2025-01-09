@@ -10,7 +10,7 @@ import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import { push, replace as replaceAction, goBack } from 'connected-react-router';
-import { BUYABLE_ITEM_COMBO_ITEM } from '@bsport/common/master-data/buyable-items.js';
+import { BUYABLE_ITEM_COMBO_ITEM } from '@bsport/common/lib/master-data/buyable-items.js';
 import InfoIcon from '@material-ui/icons/Info';
 import { getCheckoutUrl } from '#src/libs/marketplace/routing-utils';
 import withQueryParams from '../../../hocs/with-query-params.hoc';

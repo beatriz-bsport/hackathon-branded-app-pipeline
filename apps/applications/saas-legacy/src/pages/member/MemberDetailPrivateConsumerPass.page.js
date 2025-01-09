@@ -13,7 +13,7 @@ import {
   BUYABLE_ITEM_PRIVATE_PASS,
   BUYABLE_ITEM_PASS,
   BUYABLE_ITEM_COMBO_ITEM,
-} from '@bsport/common/master-data/buyable-items.js';
+} from '@bsport/common/lib/master-data/buyable-items.js';
 import { retrieveConsumerPackBulk } from '#src/libs/consumer-payment-pack/actions';
 import ObjectLevelPermissionProviderComponent from '#src/libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 import {

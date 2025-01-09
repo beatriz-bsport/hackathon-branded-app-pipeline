@@ -1,6 +1,6 @@
 const getTranslations = async () => {
   const PAYMENT_METHOD = await import(
-    '@bsport/common/master-data/subscription-payment-methods.js'
+    '@bsport/common/lib/master-data/subscription-payment-methods.js'
   );
 
   const {
@@ -15,15 +15,15 @@ const getTranslations = async () => {
     BILLING_PLAN_STATUS_STOPPED,
     BILLING_PLAN_STATUS_PAUSED,
     BILLING_PLAN_STATUS_ENDED,
-  } = await import('@bsport/common/master-data/subscription-status.js');
+  } = await import('@bsport/common/lib/master-data/subscription-status.js');
 
   const {
     PAYMENT_GROUP_METHOD_IDENTIFIER_CB,
     PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA,
-  } = await import('@bsport/common/master-data/payment-group.js');
+  } = await import('@bsport/common/lib/master-data/payment-group.js');
 
   const { BILLING_PLAN_EVENTS } = await import(
-    '@bsport/common/master-data/events.js'
+    '@bsport/common/lib/master-data/events.js'
   );
 
   return {

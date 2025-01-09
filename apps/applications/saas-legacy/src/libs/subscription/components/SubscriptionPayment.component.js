@@ -17,7 +17,7 @@ import { withTranslation, TFunction, Trans } from 'react-i18next';
 import {
   BILLING_PLAN_PAYMENT_METHOD_STRIPE_BACS_DEBIT,
   BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA,
-} from '@bsport/common/master-data/subscription-payment-methods.js';
+} from '@bsport/common/lib/master-data/subscription-payment-methods.js';
 import Select from '@material-ui/core/Select';
 import {
   PAYMENT_GROUP_METHOD_IDENTIFIER_BACS_DEBIT,
@@ -26,7 +26,7 @@ import {
   PAYMENT_ENGINE_BSPORT,
   PAYMENT_GROUP_METHOD_IDENTIFIER_CASH,
   PAYMENT_GROUP_METHOD_IDENTIFIER_DEBT,
-} from '@bsport/common/master-data/payment-group.js';
+} from '@bsport/common/lib/master-data/payment-group.js';
 
 import FormControl from '@material-ui/core/FormControl';
 import { Alert } from '@material-ui/lab';

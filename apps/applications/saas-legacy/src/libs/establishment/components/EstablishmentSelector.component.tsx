@@ -3,7 +3,7 @@ import chroma from 'chroma-js';
 import { compose } from 'recompose';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import Immutable from 'seamless-immutable';
-import { colors } from '@bsport/common/colors.js';
+import { colors } from '@bsport/common/lib/colors.js';
 import Select, { components } from 'react-select';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import { useTheme } from '@material-ui/core/styles';

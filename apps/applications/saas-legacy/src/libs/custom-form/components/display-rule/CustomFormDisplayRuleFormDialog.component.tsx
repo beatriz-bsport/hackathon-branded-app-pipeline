@@ -29,7 +29,7 @@ import FormGroup from '@material-ui/core/FormGroup';
 import {
   CUSTOM_FORM_DISPLAY_ON_CONNECTION,
   CUSTOM_FORM_DISPLAY_ON_SIGN_UP,
-} from '@bsport/common/master-data/custom-form.js';
+} from '@bsport/common/lib/master-data/custom-form.js';
 import { SegmentAnalyticsFormObjectIdentifier } from '#src/components/analytics/segment';
 import { rudderStackFormTrackingFunctionsRegistry } from '#src/components/analytics/rudderstack/utils';
 import type { CustomFormDisplayRule } from '../../types';

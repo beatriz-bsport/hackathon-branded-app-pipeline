@@ -6,7 +6,7 @@ import { withTranslation, TFunction } from 'react-i18next';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 
-import { MarketPlaceCoachDisplay } from '@bsport/common/master-data/personalization.js';
+import { MarketPlaceCoachDisplay } from '@bsport/common/lib/master-data/personalization.js';
 import { OfferStatusWaitingListPosition } from '#src/libs/offer/types';
 import BookingOptionConsumerItem from '../../waiting-list/components/BookingOptionConsumerItem.component';
 

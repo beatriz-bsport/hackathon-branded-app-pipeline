@@ -16,7 +16,7 @@ import {
 import OperandSelect from '#src/libs/datatype-filtering/components/OperandSelect.component';
 import DatatypeFilterConfigRow from './DatatypeFilterConfigRow.component';
 import type { handleGetDynamicDataForFiltersType } from '#src/libs/datatype-filtering/dynamic-data-hoc';
-import { ReportCategoryEnum } from '@bsport/common/master-data/report-categories.js';
+import { ReportCategoryEnum } from '@bsport/common/lib/master-data/report-categories.js';
 
 type Props = {
   filterGroup: DatatypeFilterConfigGroup;

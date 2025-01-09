@@ -21,7 +21,7 @@ import TooltipInfo from '#src/components/TooltipInfo.component';
 import {
   RESOURCE_ATTRIBUTION_CONSUMER,
   RESOURCE_ATTRIBUTION_AUTO,
-} from '@bsport/common/master-data/resource-attribution-methods.js';
+} from '@bsport/common/lib/master-data/resource-attribution-methods.js';
 import type { Coach } from '#src/libs/associated-coach/types';
 import type {
   AssociatedEstablishment,

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
 import VoucherCodesTable, { type Props } from '../VoucherCodesTable.component';
-import { UniqueCodeStateStatus } from '@bsport/common/master-data/coupon.js';
+import { UniqueCodeStateStatus } from '@bsport/common/lib/master-data/coupon.js';
 
 export default {
   title: 'Library/Coupon/VoucherCodesTable',

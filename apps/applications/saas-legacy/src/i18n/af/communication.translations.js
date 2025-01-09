@@ -3,10 +3,10 @@ const getTranslations = async () => {
     COMMUNICATION_KIND_EMAIL,
     COMMUNICATION_KIND_SMS,
     COMMUNICATION_KIND_PUSH_NOTIFICATION,
-  } = await import('@bsport/common/master-data/communication-kind.js');
+  } = await import('@bsport/common/lib/master-data/communication-kind.js');
 
   const RECIPIENT_STATUS = await import(
-    '@bsport/common/master-data/recipient-status.js'
+    '@bsport/common/lib/master-data/recipient-status.js'
   );
 
   const {
@@ -19,10 +19,10 @@ const getTranslations = async () => {
     EMAIL_RECIPIENT_BOUNCED,
   } = RECIPIENT_STATUS;
   const { SEND_COMMUNICATION_ON_LEFT, SEND_COMMUNICATION_ON_JOIN } =
-    await import('@bsport/common/master-data/smart-list.js');
+    await import('@bsport/common/lib/master-data/smart-list.js');
 
   const COMMUNICATION_FILTERS = await import(
-    '@bsport/common/master-data/communication-filters.js'
+    '@bsport/common/lib/master-data/communication-filters.js'
   );
 
   const {
@@ -43,7 +43,7 @@ const getTranslations = async () => {
   } = COMMUNICATION_FILTERS;
 
   const { ChatThreadKinds } = await import(
-    '@bsport/common/master-data/communication-inbox.js'
+    '@bsport/common/lib/master-data/communication-inbox.js'
   );
 
   return {

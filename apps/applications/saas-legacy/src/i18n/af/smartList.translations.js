@@ -1,5 +1,7 @@
 const getTranslations = async () => {
-  const SMARTLIST = await import('@bsport/common/master-data/smart-list.js');
+  const SMARTLIST = await import(
+    '@bsport/common/lib/master-data/smart-list.js'
+  );
 
   const {
     CREDIT_ACCOUNT_FILTER_IDENTIFIER,

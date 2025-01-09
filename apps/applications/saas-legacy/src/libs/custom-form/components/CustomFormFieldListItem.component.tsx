@@ -20,7 +20,7 @@ import {
   CUSTOM_FORM_FIELD_SIGN_UP_ACCEPT_EMAIL,
   CUSTOM_FORM_FIELD_SIGN_UP_VACCINATION_STATUS,
   CUSTOM_FORM_FIELD_SIGN_UP_PHOTO,
-} from '@bsport/common/master-data/custom-form.js';
+} from '@bsport/common/lib/master-data/custom-form.js';
 // @ts-expect-error
 import withConfirm from '../../../hocs/with-confirm.hoc';
 import ListItemResponsiveAction from '../../../components/button/ListItemResponsiveAction.component';

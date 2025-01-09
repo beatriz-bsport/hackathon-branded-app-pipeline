@@ -2,7 +2,7 @@ import type { PaginatedResponse } from 'src/state/types';
 import {
   PAYMENT_ENGINE_STRIPE,
   PAYMENT_ENGINE_PAYPAL,
-} from '@bsport/common/master-data/payment-group.js';
+} from '@bsport/common/lib/master-data/payment-group.js';
 import type { LanguageDict } from '#src/libs/platform-tutorial/types';
 import type { MemberMinimalNoPhoto } from '#src/libs/member/types';
 import {

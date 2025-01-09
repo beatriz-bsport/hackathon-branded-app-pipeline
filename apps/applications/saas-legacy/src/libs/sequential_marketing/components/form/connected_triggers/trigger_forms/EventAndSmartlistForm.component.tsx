@@ -1,16 +1,18 @@
 import React from 'react';
 import Immutable from 'seamless-immutable';
-import { ClickAwayListener, makeStyles } from '@material-ui/core';
+import ClickAwayListener from '@material-ui/core/ClickAwayListener';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Switch from '@material-ui/core/Switch';
+import { makeStyles } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import Select from 'react-select';
 
-import { CustomMuiIcon } from '#src/components/icons/CustomMuiIcon.component';
-import { SequentialMarketingColors } from '#src/libs/sequential_marketing/constants';
-
 import type {
+  CadenceFinnerGrainEventsSearchObjectTypes,
   ConnectedTrigger,
   TriggerEventConfig,
 } from '#src/libs/sequential_marketing/types';
+import type { SelectOption } from '#src/libs/types';
 import type { SmartList } from '#src/libs/smart-list/types';
 import useSmartlistContext, {
   type SmartlistOption,
@@ -18,17 +20,25 @@ import useSmartlistContext, {
 import useEventContext, {
   type EventOption,
 } from '../hooks/useEventContext.hook';
+
+import {
+  CADENCE_FINNER_GRAIN_ALLOWED_EVENTS_LIST,
+  Events,
+} from '#src/libs/sequential_marketing/constants/event';
 import { DEFAULT_REACT_SELECT_MAX_HEIGHT } from './constants';
 
+import { CustomMuiIcon } from '#src/components/icons/CustomMuiIcon.component';
+import { SequentialMarketingColors } from '#src/libs/sequential_marketing/constants';
+import FinnerGrainSpecificItemSelector from '#src/libs/sequential_marketing/components/form/connected_triggers/trigger_forms/FinnerGrainItemSelector.component';
+import useWhitelistFinnerGrainEvents from '#src/libs/sequential_marketing/components/graph/nodes/hooks/useWhitelistFinnerGrainEvents.hook';
+
 type Props = {
-  isFromMUIPopover: boolean;
   trigger: ConnectedTrigger;
   smartlists: Immutable.ImmutableArray<SmartList>;
   updateValue: (trigger: ConnectedTrigger) => void;
 };
 
 const EventAndSmartlistForm: React.FC<Props> = ({
-  isFromMUIPopover,
   trigger,
   smartlists,
   updateValue,
@@ -36,11 +46,18 @@ const EventAndSmartlistForm: React.FC<Props> = ({
   const { t } = useTranslation('marketing');
   const [isEventMenuOpen, setIsEventMenuOpen] = React.useState(false);
   const [isSmartlistMenuOpen, setIsSmartlistMenuOpen] = React.useState(false);
+  const [toggleSpecificItems, setToggleSpecificItems] = React.useState(false);
+  const [initialFinnerGrainItemIds, setInitialFinnerGrainItemIds] =
+    React.useState<number[]>([]);
+  const [searchedObjectType, setSearchedObjectType] =
+    React.useState<CadenceFinnerGrainEventsSearchObjectTypes | null>(null);
 
   const classes = useStyles();
 
   const { eventSelected, selectEvent, CADENCE_EVENT_GROUPED_OPTIONS } =
     useEventContext();
+  const { isAudienceFinnerGrainEventsActivated } =
+    useWhitelistFinnerGrainEvents();
 
   const {
     smartlistSelected,
@@ -48,6 +65,31 @@ const EventAndSmartlistForm: React.FC<Props> = ({
     getSmartlistName,
     SMARTLIST_OPTIONS,
   } = useSmartlistContext(smartlists);
+
+  const selectFinnerGrainEventSearchObject = React.useCallback(
+    (event: Events) => {
+      switch (event) {
+        case Events.CADENCE_EVENT_PURCHASE_PAYMENT_PACK:
+          setSearchedObjectType('payment_pack');
+          break;
+        case Events.CADENCE_EVENT_PURCHASE_PRIVATE_PACK:
+          setSearchedObjectType('private_pass');
+          break;
+        case Events.CADENCE_EVENT_PURCHASE_GIFT_CARD:
+          setSearchedObjectType('giftcard');
+          break;
+        case Events.CADENCE_EVENT_PURCHASE_SHOP_ITEM:
+          setSearchedObjectType('shop_item');
+          break;
+        case Events.CADENCE_EVENT_BILLING_PLAN_CREATED:
+          setSearchedObjectType('contract');
+          break;
+        default:
+          break;
+      }
+    },
+    [setSearchedObjectType],
+  );
 
   React.useEffect(() => {
     const event = (trigger?.trigger_config as TriggerEventConfig)?.event_type;
@@ -58,6 +100,17 @@ const EventAndSmartlistForm: React.FC<Props> = ({
         label: t(`cadence.form.event.${event}`),
         value: event,
       });
+      selectFinnerGrainEventSearchObject(event);
+      const filteredItemsIds = (trigger?.trigger_config as TriggerEventConfig)
+        ?.filtered_pks;
+      if (
+        filteredItemsIds &&
+        CADENCE_FINNER_GRAIN_ALLOWED_EVENTS_LIST.includes(event) &&
+        isAudienceFinnerGrainEventsActivated
+      ) {
+        setInitialFinnerGrainItemIds(filteredItemsIds);
+        setToggleSpecificItems(true);
+      }
     }
 
     if (smartlistId) {
@@ -66,7 +119,17 @@ const EventAndSmartlistForm: React.FC<Props> = ({
         value: smartlistId,
       });
     }
-  }, [getSmartlistName, selectEvent, selectSmartlist, t, trigger]);
+  }, [
+    getSmartlistName,
+    selectEvent,
+    selectSmartlist,
+    setToggleSpecificItems,
+    setInitialFinnerGrainItemIds,
+    selectFinnerGrainEventSearchObject,
+    t,
+    trigger,
+    isAudienceFinnerGrainEventsActivated,
+  ]);
 
   const handleSelectEvent = React.useCallback(
     (option: EventOption) => {
@@ -77,11 +140,38 @@ const EventAndSmartlistForm: React.FC<Props> = ({
           event_type: option?.value,
         },
       };
-      selectEvent(option);
+      selectFinnerGrainEventSearchObject(option?.value);
+      selectEvent?.(option);
+      updateValue?.(updatedTrigger);
+      setToggleSpecificItems(false);
+    },
+    [trigger, selectEvent, updateValue, selectFinnerGrainEventSearchObject],
+  );
+
+  const handleSpecificItemChange = React.useCallback(
+    (event: SelectOption<number>[]) => {
+      const specificItemsIdsList: number[] = event?.map(
+        (item: { label: string; value: number }) => item.value,
+      );
+      const updatedTriggerConfig = {
+        ...trigger?.trigger_config,
+        filtered_pks: specificItemsIdsList,
+      };
+      const updatedTrigger = {
+        ...trigger,
+        trigger_config: updatedTriggerConfig,
+      };
       updateValue?.(updatedTrigger);
     },
-    [selectEvent, updateValue, trigger],
+    [trigger, updateValue],
   );
+
+  const handleSpecificItemsToggle = React.useCallback(() => {
+    setToggleSpecificItems(!toggleSpecificItems);
+    if (toggleSpecificItems === true) {
+      handleSpecificItemChange(null);
+    }
+  }, [setToggleSpecificItems, handleSpecificItemChange, toggleSpecificItems]);
 
   const handleSelectSmartlist = React.useCallback(
     (option: SmartlistOption) => {
@@ -112,67 +202,52 @@ const EventAndSmartlistForm: React.FC<Props> = ({
   const handleSmartlistMenuClose = React.useCallback(() => {
     setIsSmartlistMenuOpen(false);
   }, []);
-  if (isFromMUIPopover) {
-    return (
-      <div
-        style={{ paddingLeft: 1 }} // needed to fully display the left border when selected
-      >
-        <Select
-          isClearable
-          menuPlacement="auto"
-          menuPosition="fixed"
-          minMenuHeight={DEFAULT_REACT_SELECT_MAX_HEIGHT}
-          onChange={handleSelectEvent}
-          options={CADENCE_EVENT_GROUPED_OPTIONS}
-          placeholder={t('cadence.form.trigger.selectEvent')}
-          value={eventSelected}
-        />
-        <div className={classes.filtering}>
-          <CustomMuiIcon
-            defaultBackGround
-            customColor={SequentialMarketingColors.GREY_FILTER_COLOR}
-            icon="Add"
-            withBackground={false}
-          />
-          <div className={classes.selector}>
-            <Select
-              isClearable
-              menuPlacement="auto"
-              menuPosition="fixed"
-              minMenuHeight={DEFAULT_REACT_SELECT_MAX_HEIGHT}
-              onChange={handleSelectSmartlist}
-              options={SMARTLIST_OPTIONS}
-              placeholder={t('cadence.form.trigger.selectSmartlist')}
-              value={smartlistSelected}
-            />
-          </div>
-        </div>
-      </div>
-    );
-  }
+
   return (
     <>
-      <ClickAwayListener onClickAway={handleEventMenuClose}>
-        <div
-          onClick={handleOnEventMenuClick}
-          onKeyDown={handleOnEventMenuClick}
-          role="button"
-          style={{ paddingLeft: 1 }} // needed to fully display the left border when selected
-          tabIndex={0}
-        >
-          <Select
-            menuIsOpen={isEventMenuOpen}
-            menuPlacement="auto"
-            menuPortalTarget={document.body}
-            minMenuHeight={DEFAULT_REACT_SELECT_MAX_HEIGHT}
-            onBlur={handleEventMenuClose}
-            onChange={handleSelectEvent}
-            options={CADENCE_EVENT_GROUPED_OPTIONS}
-            placeholder={t('cadence.form.trigger.selectEvent')}
-            value={eventSelected}
-          />
-        </div>
-      </ClickAwayListener>
+      <div>
+        <ClickAwayListener onClickAway={handleEventMenuClose}>
+          <div
+            onClick={handleOnEventMenuClick}
+            onKeyDown={handleOnEventMenuClick}
+            role="button"
+            style={{ paddingLeft: 1 }} // needed to fully display the left border when selected
+            tabIndex={0}
+          >
+            <Select
+              menuIsOpen={isEventMenuOpen}
+              menuPlacement="auto"
+              menuPortalTarget={document.body}
+              minMenuHeight={DEFAULT_REACT_SELECT_MAX_HEIGHT}
+              onBlur={handleEventMenuClose}
+              onChange={handleSelectEvent}
+              options={CADENCE_EVENT_GROUPED_OPTIONS}
+              placeholder={t('cadence.form.trigger.selectEvent')}
+              value={eventSelected}
+            />
+          </div>
+        </ClickAwayListener>
+        {eventSelected &&
+          CADENCE_FINNER_GRAIN_ALLOWED_EVENTS_LIST.includes(
+            eventSelected.value,
+          ) &&
+          isAudienceFinnerGrainEventsActivated && (
+            <FormControlLabel
+              control={<Switch checked={toggleSpecificItems} color="primary" />}
+              label={t(
+                'cadence.form.trigger.finnerGrain.specifyItemsToggleLabel',
+              )}
+              onClick={handleSpecificItemsToggle}
+            />
+          )}
+        <FinnerGrainSpecificItemSelector
+          defaultItemsIds={initialFinnerGrainItemIds}
+          handleSpecificItemChange={handleSpecificItemChange}
+          open={toggleSpecificItems}
+          searchedObjectType={searchedObjectType}
+        />
+      </div>
+
       <div className={classes.filtering}>
         <CustomMuiIcon
           defaultBackGround

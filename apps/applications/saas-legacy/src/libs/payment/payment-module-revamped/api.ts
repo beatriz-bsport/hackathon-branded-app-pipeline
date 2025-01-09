@@ -9,7 +9,7 @@ import {
   DetachPaymentMethodResponse,
   PaymentMethod,
 } from '#src/libs/payment/types';
-import { PAYMENT_INTENT_TYPE_INVOICE } from '@bsport/common/master-data/payment-group.js';
+import { PAYMENT_INTENT_TYPE_INVOICE } from '@bsport/common/lib/master-data/payment-group.js';
 
 export const applyBalanceToInvoice = (uuid: string) =>
   postAuth<string>(

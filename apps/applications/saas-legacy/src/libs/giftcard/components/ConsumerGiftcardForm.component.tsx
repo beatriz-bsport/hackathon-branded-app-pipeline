@@ -24,7 +24,7 @@ import {
   Radio,
   RadioGroup,
 } from '@material-ui/core';
-import { ConsumerGiftcardKind } from '@bsport/common/master-data/giftcard.js';
+import { ConsumerGiftcardKind } from '@bsport/common/lib/master-data/giftcard.js';
 import { Alert } from '@material-ui/lab';
 import { formatAsDate } from '#src/utils/datetime';
 

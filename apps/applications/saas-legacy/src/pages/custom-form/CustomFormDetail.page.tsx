@@ -13,7 +13,7 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import InfoIcon from '@material-ui/icons/Info';
 import Paper from '@material-ui/core/Paper';
-import { CUSTOM_FORM_DISPLAY_ON_SIGN_UP } from '@bsport/common/master-data/custom-form.js';
+import { CUSTOM_FORM_DISPLAY_ON_SIGN_UP } from '@bsport/common/lib/master-data/custom-form.js';
 import { TFunction } from 'i18next';
 import { CUSTOM_FORM_CSS_VARIANT_ACTIVATED } from '#src/libs/custom-form/constants';
 import { OptionCallback } from '../../state/types';

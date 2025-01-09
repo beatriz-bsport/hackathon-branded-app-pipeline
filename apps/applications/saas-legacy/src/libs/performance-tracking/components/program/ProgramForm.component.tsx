@@ -14,7 +14,7 @@ import {
   Typography,
 } from '@material-ui/core';
 import { Info } from '@material-ui/icons';
-import { MAX_LENGTH_FOR_LONG_ANSWER } from '@bsport/common/master-data/custom-form.js';
+import { MAX_LENGTH_FOR_LONG_ANSWER } from '@bsport/common/lib/master-data/custom-form.js';
 
 import {
   PerformanceTrackingMetric,

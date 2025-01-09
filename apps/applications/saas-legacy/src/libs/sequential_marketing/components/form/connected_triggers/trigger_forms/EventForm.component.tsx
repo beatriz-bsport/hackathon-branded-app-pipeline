@@ -3,33 +3,68 @@ import { useTranslation } from 'react-i18next';
 
 import Select from 'react-select';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
+import Switch from '@material-ui/core/Switch';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 
 import type {
+  CadenceFinnerGrainEventsSearchObjectTypes,
   ConnectedTrigger,
   TriggerEventConfig,
 } from '#src/libs/sequential_marketing/types';
+import { CADENCE_FINNER_GRAIN_ALLOWED_EVENTS_LIST } from '#src/libs/sequential_marketing/constants/event';
+import type { SelectOption } from '#src/libs/types';
 import { Events } from '#src/libs/sequential_marketing/constants';
+import { DEFAULT_REACT_SELECT_MAX_HEIGHT } from './constants';
 import useEventContext, {
   type EventOption,
 } from '../hooks/useEventContext.hook';
-import { DEFAULT_REACT_SELECT_MAX_HEIGHT } from './constants';
+
+import FinnerGrainSpecificItemSelector from '#src/libs/sequential_marketing/components/form/connected_triggers/trigger_forms/FinnerGrainItemSelector.component';
+import useWhitelistFinnerGrainEvents from '#src/libs/sequential_marketing/components/graph/nodes/hooks/useWhitelistFinnerGrainEvents.hook';
 
 type Props = {
-  isFromMUIPopover: boolean;
   trigger: ConnectedTrigger;
   updateValue: (value: ConnectedTrigger, event: Events) => void;
 };
 
-const EventForm: React.FC<Props> = ({
-  isFromMUIPopover,
-  trigger,
-  updateValue,
-}) => {
+const EventForm: React.FC<Props> = ({ trigger, updateValue }) => {
   const { t } = useTranslation('marketing');
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+  const [toggleSpecificItems, setToggleSpecificItems] = React.useState(false);
+  const [initialFinnerGrainItemIds, setInitialFinnerGrainItemIds] =
+    React.useState<number[]>([]);
+  const [searchedObjectType, setSearchedObjectType] =
+    React.useState<CadenceFinnerGrainEventsSearchObjectTypes | null>(null);
+  const { isAudienceFinnerGrainEventsActivated } =
+    useWhitelistFinnerGrainEvents();
 
   const { eventSelected, selectEvent, CADENCE_EVENT_GROUPED_OPTIONS } =
     useEventContext();
+
+  const selectFinnerGrainEventSearchObject = React.useCallback(
+    (event: Events) => {
+      switch (event) {
+        case Events.CADENCE_EVENT_PURCHASE_PAYMENT_PACK:
+          setSearchedObjectType('payment_pack');
+          break;
+        case Events.CADENCE_EVENT_PURCHASE_PRIVATE_PACK:
+          setSearchedObjectType('private_pass');
+          break;
+        case Events.CADENCE_EVENT_PURCHASE_GIFT_CARD:
+          setSearchedObjectType('giftcard');
+          break;
+        case Events.CADENCE_EVENT_PURCHASE_SHOP_ITEM:
+          setSearchedObjectType('shop_item');
+          break;
+        case Events.CADENCE_EVENT_BILLING_PLAN_CREATED:
+          setSearchedObjectType('contract');
+          break;
+        default:
+          break;
+      }
+    },
+    [setSearchedObjectType],
+  );
 
   React.useEffect(() => {
     const event = (trigger?.trigger_config as TriggerEventConfig)?.event_type;
@@ -39,8 +74,25 @@ const EventForm: React.FC<Props> = ({
         label: t(`cadence.form.event.${event}`),
         value: event,
       });
+      selectFinnerGrainEventSearchObject(event);
+      const filteredItemsIds = (trigger?.trigger_config as TriggerEventConfig)
+        ?.filtered_pks;
+      if (
+        filteredItemsIds &&
+        CADENCE_FINNER_GRAIN_ALLOWED_EVENTS_LIST.includes(event) &&
+        isAudienceFinnerGrainEventsActivated
+      ) {
+        setInitialFinnerGrainItemIds(filteredItemsIds);
+        setToggleSpecificItems(true);
+      }
     }
-  }, [selectEvent, t, trigger]);
+  }, [
+    selectEvent,
+    t,
+    trigger,
+    selectFinnerGrainEventSearchObject,
+    isAudienceFinnerGrainEventsActivated,
+  ]);
 
   const handleSelectEvent = React.useCallback(
     (option: EventOption) => {
@@ -51,11 +103,40 @@ const EventForm: React.FC<Props> = ({
           event_type: option?.value,
         },
       };
+      selectFinnerGrainEventSearchObject(option?.value);
       selectEvent?.(option);
       updateValue?.(updatedTrigger, option?.value);
+      setToggleSpecificItems(false);
     },
-    [trigger, selectEvent, updateValue],
+    [trigger, selectEvent, updateValue, selectFinnerGrainEventSearchObject],
   );
+
+  const handleSpecificItemChange = React.useCallback(
+    (event: SelectOption<number>[]) => {
+      const specificItemsIdsList: number[] = event?.map(
+        (item: { label: string; value: number }) => item.value,
+      );
+      const eventTriggerConfig = trigger.trigger_config as TriggerEventConfig;
+      const eventType = eventTriggerConfig.event_type;
+      const updatedTriggerConfig = {
+        ...trigger?.trigger_config,
+        filtered_pks: specificItemsIdsList,
+      };
+      const updatedTrigger = {
+        ...trigger,
+        trigger_config: updatedTriggerConfig,
+      };
+      updateValue?.(updatedTrigger, eventType);
+    },
+    [trigger, updateValue],
+  );
+
+  const handleSpecificItemsToggle = React.useCallback(() => {
+    setToggleSpecificItems(!toggleSpecificItems);
+    if (toggleSpecificItems === true) {
+      handleSpecificItemChange(null);
+    }
+  }, [setToggleSpecificItems, handleSpecificItemChange, toggleSpecificItems]);
 
   const handleCloseMenu = React.useCallback(() => {
     setIsMenuOpen(false);
@@ -64,46 +145,49 @@ const EventForm: React.FC<Props> = ({
   const handleOnMenuClick = React.useCallback(() => {
     setIsMenuOpen((prevState) => !prevState);
   }, []);
-  if (isFromMUIPopover) {
-    return (
-      <div
-        style={{ paddingLeft: 1 }} // needed to fully display the left border when selected
-      >
-        <Select
-          isClearable
-          menuPlacement="auto"
-          menuPosition="fixed"
-          minMenuHeight={DEFAULT_REACT_SELECT_MAX_HEIGHT}
-          onChange={handleSelectEvent}
-          options={CADENCE_EVENT_GROUPED_OPTIONS}
-          placeholder={t('cadence.form.trigger.selectEvent')}
-          value={eventSelected}
-        />
-      </div>
-    );
-  }
   return (
-    <ClickAwayListener onClickAway={handleCloseMenu}>
-      <div
-        onClick={handleOnMenuClick}
-        onKeyDown={handleOnMenuClick}
-        role="button"
-        style={{ paddingLeft: 1 }} // needed to fully display the left border when selected
-        tabIndex={0}
-      >
-        <Select
-          menuIsOpen={isMenuOpen}
-          menuPlacement="auto"
-          menuPortalTarget={document.body}
-          minMenuHeight={DEFAULT_REACT_SELECT_MAX_HEIGHT}
-          onBlur={handleCloseMenu}
-          onChange={handleSelectEvent}
-          options={CADENCE_EVENT_GROUPED_OPTIONS}
-          placeholder={t('cadence.form.trigger.selectEvent')}
-          value={eventSelected}
-        />
-      </div>
-    </ClickAwayListener>
+    <div>
+      <ClickAwayListener onClickAway={handleCloseMenu}>
+        <div
+          onClick={handleOnMenuClick}
+          onKeyDown={handleOnMenuClick}
+          role="button"
+          style={{ paddingLeft: 1 }} // needed to fully display the left border when selected
+          tabIndex={0}
+        >
+          <Select
+            menuIsOpen={isMenuOpen}
+            menuPlacement="auto"
+            menuPortalTarget={document.body}
+            minMenuHeight={DEFAULT_REACT_SELECT_MAX_HEIGHT}
+            onBlur={handleCloseMenu}
+            onChange={handleSelectEvent}
+            options={CADENCE_EVENT_GROUPED_OPTIONS}
+            placeholder={t('cadence.form.trigger.selectEvent')}
+            value={eventSelected}
+          />
+        </div>
+      </ClickAwayListener>
+      {eventSelected &&
+        CADENCE_FINNER_GRAIN_ALLOWED_EVENTS_LIST.includes(
+          eventSelected.value,
+        ) &&
+        isAudienceFinnerGrainEventsActivated && (
+          <FormControlLabel
+            control={<Switch checked={toggleSpecificItems} color="primary" />}
+            label={t(
+              'cadence.form.trigger.finnerGrain.specifyItemsToggleLabel',
+            )}
+            onClick={handleSpecificItemsToggle}
+          />
+        )}
+      <FinnerGrainSpecificItemSelector
+        defaultItemsIds={initialFinnerGrainItemIds}
+        handleSpecificItemChange={handleSpecificItemChange}
+        open={toggleSpecificItems}
+        searchedObjectType={searchedObjectType}
+      />
+    </div>
   );
 };
 

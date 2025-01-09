@@ -77,10 +77,10 @@ export const fetchShopItemBaseList = (
       dispatch(fetchShopItemBaseListActions.error(null));
 
       const result = await fetchAll({
+        is_variant: params?.is_variant || false,
+        is_base_item: params?.is_base_item || true,
+        is_standalone_item: params?.is_standalone_item || false,
         ...params,
-        is_variant: false,
-        is_base_item: true,
-        is_standalone_item: false,
       });
 
       dispatch(fetchShopItemBaseListActions.success(result.data));

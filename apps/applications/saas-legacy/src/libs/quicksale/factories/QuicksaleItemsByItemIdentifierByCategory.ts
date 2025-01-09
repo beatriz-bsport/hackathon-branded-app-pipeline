@@ -1,7 +1,7 @@
 // @ts-expect-error
 import FactoryBot from 'ya-factorybot';
 import { fakerEN as faker } from '@faker-js/faker';
-import { QuicksaleBasketItem } from '@bsport/common/master-data/buyable-items.js';
+import { QuicksaleBasketItem } from '@bsport/common/lib/master-data/buyable-items.js';
 import createQuicksaleCardInfo from './QuicksaleCardInfo';
 
 FactoryBot.define('QuicksaleItemsByItemIdentifierByCategory', {

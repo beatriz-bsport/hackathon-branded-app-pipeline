@@ -3,7 +3,7 @@ import {
   COACH_PERFORMANCE_FOR_SESSION,
   COACH_PERFORMANCE_FOR_APPOINTMENT,
   COACH_PERFORMANCE_FOR_WORKSHOP,
-} from '@bsport/common/master-data/coach_payment_rule.js';
+} from '@bsport/common/lib/master-data/coach_payment_rule.js';
 import * as Yup from 'yup';
 import { withFormik, Form, FormikProps, Field, FieldProps } from 'formik';
 

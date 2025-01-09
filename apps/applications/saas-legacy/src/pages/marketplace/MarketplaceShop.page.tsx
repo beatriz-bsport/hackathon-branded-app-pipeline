@@ -5,7 +5,7 @@ import { push } from 'connected-react-router';
 import { withTranslation } from 'react-i18next';
 import { TFunction } from 'i18next';
 
-import { BUYABLE_ITEM_SHOP_ITEM } from '@bsport/common/master-data/buyable-items.js';
+import { BUYABLE_ITEM_SHOP_ITEM } from '@bsport/common/lib/master-data/buyable-items.js';
 // @ts-expect-error
 import MarketplaceShopComponent from '#src/libs/marketplace/components/MarketplaceShop.component';
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';

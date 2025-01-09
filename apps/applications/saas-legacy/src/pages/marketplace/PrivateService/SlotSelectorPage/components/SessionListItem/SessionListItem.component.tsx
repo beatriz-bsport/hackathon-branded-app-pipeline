@@ -8,7 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import { SlotSelectorContext } from '#src/pages/marketplace/PrivateService/SlotSelectorPage/context/SlotSelector.context';
 import { chunkIntervalsByDuration } from '#src/libs/private-service/interval-utils';
 import type { Coach } from '#src/libs/associated-coach/types';
-import type { MarketPlaceCoachDisplay } from '@bsport/common/master-data/personalization.js';
+import type { MarketPlaceCoachDisplay } from '@bsport/common/lib/master-data/personalization.js';
 
 type Props = {
   coach?: Coach | null;

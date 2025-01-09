@@ -7,12 +7,12 @@ import { makeStyles } from '@material-ui/core';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Snackbar from '@material-ui/core/Snackbar';
 import Alert from '@material-ui/lab/Alert';
-import { ChatThreadKinds } from '@bsport/common/master-data/communication-inbox.js';
+import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-inbox.js';
 import { useTranslation } from 'react-i18next';
 import {
   COMMUNICATION_KIND_EMAIL,
   COMMUNICATION_KIND_SMS,
-} from '@bsport/common/master-data/communication-kind.js';
+} from '@bsport/common/lib/master-data/communication-kind.js';
 import InboxThreadContainerHeader from '#src/libs/communication-v2/thread/InboxThreadContainerHeader/InboxThreadContainerHeader.component';
 import CommunicationMessageListContainer from '#src/libs/communication-v2/components/MessageList/CommunicationMessageListContainer.component';
 import type {

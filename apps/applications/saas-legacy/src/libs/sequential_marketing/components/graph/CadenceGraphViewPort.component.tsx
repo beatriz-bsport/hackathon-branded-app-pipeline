@@ -25,6 +25,8 @@ import CadenceOutputCollapse from '#src/libs/sequential_marketing/components/gra
 import CadenceOutput from '#src/libs/sequential_marketing/components/graph/nodes/outputs/CadenceOutput.component';
 import OutputWonTriggerBubble from '#src/libs/sequential_marketing/components/graph/bubbles/OutputWonTriggerBubble.component';
 import OutputLostTriggerBubble from '#src/libs/sequential_marketing/components/graph/bubbles/OutputLostTriggerBubble.component';
+import useFinnerGrainEventsItemProvider from '#src/libs/sequential_marketing/components/graph/nodes/hooks/useFinnerGrainEventsItemProvider.hook';
+
 import {
   DestinationStatus,
   InitialConfigurationStep,
@@ -33,6 +35,7 @@ import {
 import type {
   ConnectedTrigger,
   CadenceInitialConfiguration,
+  FinnerGrainEventBaseSetup,
 } from '#src/libs/sequential_marketing/types';
 import type { SmartList } from '#src/libs/smart-list/types';
 import { CADENCE_DETAIL_MAIN_PANEL_ID } from '#src/libs/sequential_marketing/constants/keywords';
@@ -102,11 +105,16 @@ export const CadenceGraphViewPort: React.FC<Props> = ({
 
   const [showMap, setShowMap] = React.useState(false);
   const [collapsed, setCollapsed] = React.useState(true);
+  const [hasFinnerGrainItemsError, setHasFinnerGrainItemsError] =
+    React.useState(false);
 
   const [anchorWonTriggerBubble, setAnchorWonTriggerBubble] =
     React.useState<HTMLElement | null>(null);
   const [anchorLostTriggerBubble, setAnchorLostTriggerBubble] =
     React.useState<HTMLElement | null>(null);
+
+  const { handleFetchFinnerGrainEventsItem, getFinnerGrainEventsItem } =
+    useFinnerGrainEventsItemProvider();
 
   const openWonCriteriaBubble = React.useCallback((timeout?: number) => {
     const outputWon = document.getElementById('output_won');
@@ -290,6 +298,65 @@ export const CadenceGraphViewPort: React.FC<Props> = ({
     ],
   );
   // ========================================================
+
+  // ================= CHECK FINNER GRAIN ERRORS IN EXIT RULES =================
+
+  const checkIfExitRulesHaveFinnerGrainEventsErrors = React.useCallback(() => {
+    let numberOfValidEvents = 0;
+    let triggersFinnerGrainItem: FinnerGrainEventBaseSetup[] = [];
+    wonConnectedTriggers?.forEach((trigger) => {
+      if (
+        'event_type' in trigger.trigger_config &&
+        'filtered_pks' in trigger.trigger_config &&
+        trigger.trigger_config.filtered_pks.length > 0
+      )
+        triggersFinnerGrainItem.push({
+          eventType: trigger.trigger_config.event_type,
+          itemIds: trigger.trigger_config.filtered_pks,
+        });
+    });
+    lostConnectedTriggers?.forEach((trigger) => {
+      if (
+        'event_type' in trigger.trigger_config &&
+        'filtered_pks' in trigger.trigger_config &&
+        trigger.trigger_config.filtered_pks.length > 0
+      )
+        triggersFinnerGrainItem.push({
+          eventType: trigger.trigger_config.event_type,
+          itemIds: trigger.trigger_config.filtered_pks,
+        });
+    });
+
+    triggersFinnerGrainItem?.forEach((trigger) =>
+      handleFetchFinnerGrainEventsItem(trigger.eventType, trigger.itemIds),
+    );
+
+    triggersFinnerGrainItem.forEach((trigger) => {
+      const doesEventHaveItemsDisabled =
+        getFinnerGrainEventsItem(trigger.eventType, trigger.itemIds)?.filter(
+          (element) =>
+            ('private_services' in element && !element.available) ||
+            element.disabled,
+        )?.length > 0;
+      if (!doesEventHaveItemsDisabled) numberOfValidEvents += 1;
+    });
+
+    setHasFinnerGrainItemsError(
+      numberOfValidEvents !== triggersFinnerGrainItem?.length,
+    );
+  }, [
+    wonConnectedTriggers,
+    lostConnectedTriggers,
+    handleFetchFinnerGrainEventsItem,
+    getFinnerGrainEventsItem,
+  ]);
+
+  React.useEffect(() => {
+    checkIfExitRulesHaveFinnerGrainEventsErrors();
+  }, [checkIfExitRulesHaveFinnerGrainEventsErrors]);
+
+  // ========================================================
+
   const container = document.getElementById(CADENCE_DETAIL_MAIN_PANEL_ID);
 
   return (
@@ -324,7 +391,10 @@ export const CadenceGraphViewPort: React.FC<Props> = ({
         )}
 
         <div className={classes.outputSection}>
-          <CadenceOutputCollapse isOpen={creationMode}>
+          <CadenceOutputCollapse
+            hasFinnerGrainItemsError={hasFinnerGrainItemsError}
+            isOpen={creationMode}
+          >
             <div id="output_won">
               <CadenceOutput
                 disabled={creationMode && !anchorWonTriggerBubble}

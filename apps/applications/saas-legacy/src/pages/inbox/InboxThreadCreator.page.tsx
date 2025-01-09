@@ -10,7 +10,7 @@ import { useTranslation } from 'react-i18next';
 import RefreshIcon from '@material-ui/icons/Refresh';
 import Alert from '@material-ui/lab/Alert';
 
-import { ChatThreadKinds } from '@bsport/common/master-data/communication-inbox.js';
+import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-inbox.js';
 import { AxiosResponse } from 'axios';
 import type { CommunicationThread } from '#src/libs/communication-v2/types';
 import { withGroup } from '#src/libs/group-offer/selectors';

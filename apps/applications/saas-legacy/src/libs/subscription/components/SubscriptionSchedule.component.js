@@ -17,7 +17,7 @@ import {
   PROCESSING,
   CANCELED,
   StatusCode,
-} from '@bsport/common/master-data/planned-invoice-status.js';
+} from '@bsport/common/lib/master-data/planned-invoice-status.js';
 import RefreshIcon from '@material-ui/icons/Refresh';
 import HourglassEmptyIcon from '@material-ui/icons/HourglassEmpty';
 import CheckIcon from '@material-ui/icons/Check';

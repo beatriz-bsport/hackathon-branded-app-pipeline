@@ -19,8 +19,8 @@ import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import AdjustIcon from '@material-ui/icons/Adjust';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 
-import { MarketPlaceCoachDisplay } from '@bsport/common/master-data/personalization.js';
-import { getCoachDisplayName } from '@bsport/common/master-data/coach.js';
+import { MarketPlaceCoachDisplay } from '@bsport/common/lib/master-data/personalization.js';
+import { getCoachDisplayName } from '@bsport/common/lib/master-data/coach.js';
 import PlaceNumber from '#src/libs/spot-scheduling/component/PlaceNumber.component';
 import {
   formatAsDatetimeAdapted,

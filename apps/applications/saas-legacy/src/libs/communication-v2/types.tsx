@@ -1,6 +1,6 @@
 import type { DateTime } from 'luxon';
 import type { Immutable } from 'seamless-immutable';
-import { ChatThreadKinds } from '@bsport/common/master-data/communication-inbox.js';
+import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-inbox.js';
 import type {
   ErrorAndLoading,
   GenericListReducerI,

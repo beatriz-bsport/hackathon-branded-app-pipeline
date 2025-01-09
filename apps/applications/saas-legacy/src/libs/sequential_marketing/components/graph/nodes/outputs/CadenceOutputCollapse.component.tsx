@@ -2,7 +2,8 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import makeStyles from '@material-ui/core/styles/makeStyles';
-import type { Theme } from '@material-ui/core/styles';
+import WarningIcon from '@material-ui/icons/Warning';
+import { type Theme } from '@material-ui/core/styles';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import KeyboardArrowLeftIcon from '@material-ui/icons/KeyboardArrowLeft';
 import Typography from '@material-ui/core/Typography';
@@ -16,12 +17,14 @@ export type CadenceOutputCollapseProps = {
   children: React.ReactNode;
   isOpen?: boolean;
   disabled?: boolean;
+  hasFinnerGrainItemsError: boolean;
 };
 
 const CadenceOutputCollapse: React.FC<CadenceOutputCollapseProps> = ({
   children,
   isOpen,
   disabled,
+  hasFinnerGrainItemsError,
 }) => {
   const { t } = useTranslation('marketing');
 
@@ -63,6 +66,11 @@ const CadenceOutputCollapse: React.FC<CadenceOutputCollapseProps> = ({
               {t('cadence.cadenceCard.outputRules')}
             </Typography>
           </div>
+          {hasFinnerGrainItemsError && (
+            <div className={classes.errorBackground}>
+              <WarningIcon className={classes.errorIcon} color="error" />
+            </div>
+          )}
         </div>
       </ButtonBase>
     </div>
@@ -115,6 +123,19 @@ const useStyles = makeStyles<Theme, StylesProps>((theme) => ({
     paddingBottom: ({ textWidth }) => textWidth && `${textWidth}px`,
     transform: 'rotate(-90deg)',
     whiteSpace: 'nowrap',
+  },
+  errorBackground: {
+    display: 'flex',
+    width: '100%',
+    height: theme.spacing(3),
+    backgroundColor: '#FEE9E8',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: theme.spacing(0.5),
+  },
+  errorIcon: {
+    height: theme.spacing(2),
+    width: theme.spacing(2),
   },
 }));
 

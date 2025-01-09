@@ -24,24 +24,13 @@
       "ESNext"
     ],
     "moduleResolution": "node",
-    "types": [
-      "react",
-      "node",
-      "jest",
-      "@testing-library/jest-dom"
-    ],
+    "types": ["react", "node", "jest", "@testing-library/jest-dom"],
     "baseUrl": ".", // This must be specified if paths is.
     "paths": {
-      "#src/*": [
-        "./src/*"
-      ],
-      "#Fabrique/*": [
-        "./src/components/css-only/Fabrique/*"
-      ],
+      "#src/*": ["./src/*"],
+      "#Fabrique/*": ["./src/components/css-only/Fabrique/*"],
+      "react": ["./node_modules/@types/react"]
     }
   },
-  "include": [
-    "./src/**/*.ts*",
-    "src/i18n/index.js"
-  ]
+  "include": ["./src/**/*.ts*", "src/i18n/index.js"]
 }

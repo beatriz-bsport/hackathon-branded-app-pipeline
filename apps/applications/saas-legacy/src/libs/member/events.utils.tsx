@@ -12,7 +12,7 @@ import {
   Videocam as VODBoughtIcon,
 } from '@material-ui/icons';
 import { TFunction } from 'i18next';
-import { MEMBER_EVENTS } from '@bsport/common/master-data/events.js';
+import { MEMBER_EVENTS } from '@bsport/common/lib/master-data/events.js';
 import { GenericEvent, MemberEvent } from '#src/libs/event/types';
 import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
 

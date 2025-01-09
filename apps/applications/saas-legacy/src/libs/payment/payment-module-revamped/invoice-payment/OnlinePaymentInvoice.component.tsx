@@ -6,7 +6,7 @@ import {
   PAYMENT_INTENT_STATUS_CANCELED,
   PAYMENT_INTENT_STATUS_PROCESSING,
   PAYMENT_INTENT_STATUS_PLANNED,
-} from '@bsport/common/master-data/payment-group.js';
+} from '@bsport/common/lib/master-data/payment-group.js';
 
 import { makeStyles } from '@material-ui/core/styles';
 import PaymentStripeRevamped from '#src/libs/payment/payment-module-revamped/payment-backend-stripe/PaymentStripeRevamped.component';

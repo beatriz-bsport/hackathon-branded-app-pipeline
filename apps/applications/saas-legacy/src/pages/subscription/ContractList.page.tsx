@@ -16,7 +16,7 @@ import { Theme } from '@material-ui/core/styles';
 import type { ImmutableArray } from 'seamless-immutable';
 
 import { TFunction } from 'i18next';
-import { NOTIFICATION_KIND } from '@bsport/common/master-data/notification-rule-events.js';
+import { NOTIFICATION_KIND } from '@bsport/common/lib/master-data/notification-rule-events.js';
 import type { OptionPropsWithData } from '#src/libs/fuzzy-search/types';
 
 import { withContractNotification } from '#src/libs/marketing/selectors';

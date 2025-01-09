@@ -5,7 +5,7 @@ import { connect, ConnectedProps } from 'react-redux';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import { push } from 'connected-react-router';
 import { createStyles, Grid, Theme } from '@material-ui/core';
-import { EMAIL_TEMPLATE_MISSING_REQUIRED_TAGS } from '@bsport/common/master-data/error-codes/notification-rule.js';
+import { EMAIL_TEMPLATE_MISSING_REQUIRED_TAGS } from '@bsport/common/lib/master-data/error-codes/notification-rule.js';
 import LinearProgress from '#src/components/navigation/BackofficeLinearProgress.component';
 
 import routerParamsToProps from '#src/hocs/router-params-to-props.hoc';

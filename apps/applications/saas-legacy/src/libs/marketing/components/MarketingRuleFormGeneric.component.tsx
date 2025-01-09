@@ -1,7 +1,7 @@
 import React from 'react';
 import { compose } from 'recompose';
 import { WithTranslation, withTranslation } from 'react-i18next';
-import { NOTIFICATION_KIND } from '@bsport/common/master-data/notification-rule-events.js';
+import { NOTIFICATION_KIND } from '@bsport/common/lib/master-data/notification-rule-events.js';
 
 import { Contract } from '#src/libs/subscription/types';
 import { SmartList } from '#src/libs/smart-list/types';

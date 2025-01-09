@@ -8,7 +8,9 @@ const {
 } = require('../../libs/role/role-types');
 
 const getTranslations = async () => {
-  const { RoleType } = await import('@bsport/common/master-data/user-role.js');
+  const { RoleType } = await import(
+    '@bsport/common/lib/master-data/user-role.js'
+  );
 
   return {
     userRoles: 'Staff accounts',

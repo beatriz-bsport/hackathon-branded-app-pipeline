@@ -8,18 +8,18 @@ import {
   OFFER_BOOKABLE_STATUS_CLOSE_TOO_LATE,
   OFFER_BOOKABLE_STATUS_FULL,
   OFFER_BOOKABLE_STATUS_LOCKED,
-} from '@bsport/common/master-data/bookable-status.js';
+} from '@bsport/common/lib/master-data/bookable-status.js';
 import {
   OFFER_WAITING_LIST_STATUS_OPEN,
   OFFER_WAITING_LIST_LOCKED_BY_PENDING_BOOKINGS,
-} from '@bsport/common/master-data/waiting-list-status.js';
+} from '@bsport/common/lib/master-data/waiting-list-status.js';
 import {
   OFFER_WAITING_LIST_STATUS_FULL,
   OFFER_WAITING_LIST_STATUS_ALREADY_BOOKED,
   OFFER_WAITING_LIST_STATUS_CONVERTIBLE,
   OFFER_BOOKABLE_STATUS_ALREADY_BOOKED,
   OFFER_BOOKABLE_STATUS_TOO_MANY_IN_FUTURE,
-} from '@bsport/common/master-data/error-codes/buyable-item-can-not-be-bought.js';
+} from '@bsport/common/lib/master-data/error-codes/buyable-item-can-not-be-bought.js';
 import type { ImmutableArray } from 'seamless-immutable';
 import { OffersGroup } from '#src/libs/group-offer/types';
 import { SpotInformation } from '#src/libs/spot-scheduling/types';

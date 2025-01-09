@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 import {
   COACH_PERFORMANCE_FOR_SESSION,
   COACH_PERFORMANCE_FOR_APPOINTMENT,
-} from '@bsport/common/master-data/coach_payment_rule.js';
+} from '@bsport/common/lib/master-data/coach_payment_rule.js';
 import makeStyles from '@material-ui/styles/makeStyles';
 // @ts-expect-error
 import Figure from '../../../../components/graph/Figure.component';

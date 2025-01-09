@@ -15,7 +15,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import SettingsIcon from '@material-ui/icons/Settings';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { withTranslation, TFunction } from 'react-i18next';
-import { CB } from '@bsport/common/master-data/payment-methods.js';
+import { CB } from '@bsport/common/lib/master-data/payment-methods.js';
 import { Typography, ButtonBase } from '@material-ui/core';
 import Collapse from '@material-ui/core/Collapse';
 import { SegmentAnalyticsFormObjectIdentifier } from '#src/components/analytics/segment';

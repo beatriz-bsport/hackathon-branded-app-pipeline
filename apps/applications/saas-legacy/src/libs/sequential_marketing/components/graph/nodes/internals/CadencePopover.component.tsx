@@ -43,12 +43,18 @@ export const CadencePopover: React.FC<PropsWithChildren<Props>> = ({
     zIndex: 800, // because his sibling has a zIndex of 700 (cf react-flow__renderer className),
   };
 
+  const onClickAway = React.useCallback(() => {
+    if (clickAwayEnabled) {
+      handleOnClickAway?.();
+    }
+  }, [clickAwayEnabled, handleOnClickAway]);
+
   if (!wrapper || !isVisible) {
     return null;
   }
 
   return createPortal(
-    <ClickAwayListener onClickAway={clickAwayEnabled && handleOnClickAway}>
+    <ClickAwayListener onClickAway={onClickAway}>
       <div style={wrapperStyle}>{children}</div>
     </ClickAwayListener>,
     wrapper,

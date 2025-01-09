@@ -15,7 +15,7 @@ import type {
 } from '#src/libs/reporting/common/types';
 import type { ObjectLevelPermissions } from '#src/libs/role/types';
 
-import { ReportCategoryEnum } from '@bsport/common/master-data/report-categories.js';
+import { ReportCategoryEnum } from '@bsport/common/lib/master-data/report-categories.js';
 
 import {
   getReportObjectPermissionsBasedOnCategory,

@@ -3,12 +3,12 @@ import React, { useCallback } from 'react';
 import {
   MarketPlaceCoachDisplay,
   MarketPlaceSessionTimeDisplay,
-} from '@bsport/common/master-data/personalization.js';
+} from '@bsport/common/lib/master-data/personalization.js';
 
 import {
   getCoachDisplayName,
   getCoachDisplayPicture,
-} from '@bsport/common/master-data/coach.js';
+} from '@bsport/common/lib/master-data/coach.js';
 import { isDateInThePast } from '#src/utils/datetime';
 import useConsumerBookingDateTime from '#src/libs/consumer-space/components/reworked/@MyBookings/hooks/useConsumerBookingDateTime';
 import ConsumerBookingCard from '#src/libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingCard';

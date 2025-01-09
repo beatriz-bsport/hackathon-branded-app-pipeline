@@ -3,7 +3,7 @@ import React, { PureComponent } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import { push } from 'connected-react-router';
 import { withTranslation, WithTranslation } from 'react-i18next';
-import { ChatThreadKinds } from '@bsport/common/master-data/communication-inbox.js';
+import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-inbox.js';
 import { compose, withHandlers, withState } from 'recompose';
 import InboxThreadList from '#src/libs/communication-v2/thread/InboxThreadList';
 import {

@@ -13,10 +13,10 @@ import LocationOn from '@material-ui/icons/LocationOn';
 import Person from '@material-ui/icons/Person';
 import { DateTime } from 'luxon';
 
-import { OFFER_BOOKABLE_STATUS_BOOKABLE } from '@bsport/common/master-data/bookable-status.js';
-import { OFFER_WAITING_LIST_STATUS_OPEN } from '@bsport/common/master-data/waiting-list-status.js';
-import { OFFER_WAITING_LIST_STATUS_FULL } from '@bsport/common/master-data/error-codes/buyable-item-can-not-be-bought.js';
-import { MarketPlaceCoachDisplay } from '@bsport/common/master-data/personalization.js';
+import { OFFER_BOOKABLE_STATUS_BOOKABLE } from '@bsport/common/lib/master-data/bookable-status.js';
+import { OFFER_WAITING_LIST_STATUS_OPEN } from '@bsport/common/lib/master-data/waiting-list-status.js';
+import { OFFER_WAITING_LIST_STATUS_FULL } from '@bsport/common/lib/master-data/error-codes/buyable-item-can-not-be-bought.js';
+import { MarketPlaceCoachDisplay } from '@bsport/common/lib/master-data/personalization.js';
 
 import { ImmutableObject } from 'seamless-immutable';
 import PersonAdd from '@material-ui/icons/PersonAdd';

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
-import SPORTS from '@bsport/common/master-data/sports.js';
+import SPORTS from '@bsport/common/lib/master-data/sports.js';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { Chip } from '@material-ui/core';
 

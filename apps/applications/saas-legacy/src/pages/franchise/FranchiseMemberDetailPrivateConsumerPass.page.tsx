@@ -5,7 +5,7 @@ import Divider from '@material-ui/core/Divider';
 import { ConnectedProps, connect } from 'react-redux';
 import { replace } from 'connected-react-router';
 import { useTranslation } from 'react-i18next';
-import { BUYABLE_ITEM_PRIVATE_PASS } from '@bsport/common/master-data/buyable-items.js';
+import { BUYABLE_ITEM_PRIVATE_PASS } from '@bsport/common/lib/master-data/buyable-items.js';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';

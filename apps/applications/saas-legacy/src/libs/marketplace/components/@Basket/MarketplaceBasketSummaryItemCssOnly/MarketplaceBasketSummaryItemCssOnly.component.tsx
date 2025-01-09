@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import { BUYABLE_ITEM_COUPON } from '@bsport/common/master-data/buyable-items.js';
+import { BUYABLE_ITEM_COUPON } from '@bsport/common/lib/master-data/buyable-items.js';
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 import ItemQuantity from '#src/libs/marketplace/components/@Basket/MarketplaceBasketSummaryItemCssOnly/ItemQuantity';
 import { BuyableItemOptions, CheckoutItem } from '#src/libs/checkout/types';

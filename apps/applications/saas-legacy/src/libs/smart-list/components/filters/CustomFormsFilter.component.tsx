@@ -9,7 +9,7 @@ import {
   COMPARATORS_DICT_BETWEEN,
   GTE_COMPARATOR,
   BETWEEN_COMPARATOR,
-} from '@bsport/common/master-data/smart-list.js';
+} from '@bsport/common/lib/master-data/smart-list.js';
 import DelayedNumericInput from '#src/components/DelayedNumericInput.component';
 
 import CustomFormListItem from '#src/libs/custom-form/components/CustomFormListItem.component';

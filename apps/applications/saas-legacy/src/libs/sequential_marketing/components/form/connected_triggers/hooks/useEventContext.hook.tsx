@@ -6,6 +6,8 @@ import {
   CADENCE_EVENT_GROUPED_BY_CATEGORY,
   Events,
 } from '#src/libs/sequential_marketing/constants';
+import { CADENCE_EVENT_GROUPED_BY_CATEGORY_WITHOUT_NEW_PURCHASE_EVENTS } from '#src/libs/sequential_marketing/constants/event';
+import useWhitelistFinnerGrainEvents from '#src/libs/sequential_marketing/components/graph/nodes/hooks/useWhitelistFinnerGrainEvents.hook';
 
 export type EventOption = { label: string; value: Events };
 
@@ -16,6 +18,8 @@ type CategoryOption = {
 
 export const useEventContext = () => {
   const { t } = useTranslation('marketing');
+  const { isAudienceFinnerGrainEventsActivated } =
+    useWhitelistFinnerGrainEvents();
 
   const [eventSelected, setEventSelected] = React.useState<EventOption | null>(
     null,
@@ -31,11 +35,15 @@ export const useEventContext = () => {
   const CADENCE_EVENT_GROUPED_OPTIONS = React.useMemo(() => {
     return CADENCE_EVENT_CATEGORY_CHOICES.reduce<CategoryOption[]>(
       (previousValue, currentValue) => {
+        const cadenceEventGroupedByCategoryList =
+          isAudienceFinnerGrainEventsActivated
+            ? CADENCE_EVENT_GROUPED_BY_CATEGORY
+            : CADENCE_EVENT_GROUPED_BY_CATEGORY_WITHOUT_NEW_PURCHASE_EVENTS;
         return [
           ...previousValue,
           {
             label: t(`cadence.form.event.${currentValue}`),
-            options: CADENCE_EVENT_GROUPED_BY_CATEGORY[currentValue].map(
+            options: cadenceEventGroupedByCategoryList[currentValue].map(
               (child: Events) => ({
                 label: t(`cadence.form.event.${child}`),
                 value: child,
@@ -46,7 +54,7 @@ export const useEventContext = () => {
       },
       [] as CategoryOption[],
     );
-  }, [t]);
+  }, [t, isAudienceFinnerGrainEventsActivated]);
 
   return {
     eventSelected,

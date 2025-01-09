@@ -6,7 +6,7 @@ const getTranslations = async () => {
     PRIVATE_PASS_CAN_NOT_BOOK_HAS_EXPIRED,
     PRIVATE_PASS_CAN_NOT_BOOK_DATES_NOT_COMPATIBLE,
   } = await import(
-    '@bsport/common/master-data/error-codes/buyable-item-can-not-be-bought.js'
+    '@bsport/common/lib/master-data/error-codes/buyable-item-can-not-be-bought.js'
   );
 
   return {

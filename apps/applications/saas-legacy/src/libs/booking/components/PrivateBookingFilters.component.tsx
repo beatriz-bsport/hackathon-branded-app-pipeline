@@ -17,7 +17,7 @@ import {
   BOOKING_STATUS_CANCELLED_BY_CONSUMER,
   BOOKING_STATUS_CANCELLED_BY_OFFER,
   BOOKING_STATUS_OK,
-} from '@bsport/common/master-data/booking_status_code.js';
+} from '@bsport/common/lib/master-data/booking_status_code.js';
 
 import type { PrivateBookingFilterParams } from '#src/libs/private-service/types';
 import FilterMenu from '../../../components/button/FilterMenu.component';

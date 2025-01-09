@@ -9,7 +9,7 @@ import {
   RadioGroup,
   makeStyles,
 } from '@material-ui/core';
-import { CouponUniqueCodeEditModeOptions } from '@bsport/common/master-data/coupon.js';
+import { CouponUniqueCodeEditModeOptions } from '@bsport/common/lib/master-data/coupon.js';
 import { Alert } from '@material-ui/lab';
 import InfoIcon from '@material-ui/icons/Info';
 import FormSection from '#src/components/forms/FormSection';

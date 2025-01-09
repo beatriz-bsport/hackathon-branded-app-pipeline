@@ -2,7 +2,7 @@ import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import WidgetUtils from '#src/libs/widget/WidgetUtils';
-import { DIALOG_MODE_DEACTIVATED } from '@bsport/common/master-data/widget-dialog-mode.js';
+import { DIALOG_MODE_DEACTIVATED } from '@bsport/common/lib/master-data/widget-dialog-mode.js';
 
 import NavigationAppBar from '#src/components/css-only/Navigation/NavigationAppBar';
 import { Logout01 } from '#src/components/untitledui';

@@ -6,7 +6,7 @@ import {
   GIFTCARD_ACTIVATION_UNAUTHORIZED_WHEN_DISABLED,
   GIFTCARD_ACTIVATION_UNAUTHORIZED_WHEN_ALREADY_ACTIVATED,
   GIFTCARD_ACTIVATION_FAIL_WHEN_MISSING_RECIPIENT_MEMBER,
-} from '@bsport/common/master-data/error-codes/giftcard.js';
+} from '@bsport/common/lib/master-data/error-codes/giftcard.js';
 import { snackbarError } from '#src/libs/snackbar/actions';
 import { isErrorWithCustomCode } from '#src/libs/utils';
 import { monitorBackgroundTask } from '../background-task/actions';

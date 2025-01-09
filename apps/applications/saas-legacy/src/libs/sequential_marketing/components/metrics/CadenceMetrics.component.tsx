@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
+import Alert from '@material-ui/lab/Alert';
 import DateRangeSelector from '#src/components/date/DateRangeSelector.component';
 import SwitchHorizontalIcon from '#src/components/icons/SwitchHorizontalIcon.component';
 
@@ -236,6 +237,17 @@ const CadenceMetrics: React.FC<Props> = ({
         }}
         timePeriod="custom"
       />
+      {cadence?.has_disabled_finer_grained_items && (
+        <Alert
+          classes={{
+            root: classes.alert,
+          }}
+          severity="error"
+          variant="outlined"
+        >
+          {t('audience.workflow.finnerGrainIssues')}
+        </Alert>
+      )}
       <div className={classes.metrics}>
         <div className={classes.members}>
           <CadenceGlobalMetricsCard
@@ -375,6 +387,9 @@ const useStyles = makeStyles((theme) => ({
   historic: {
     gridColumn: '1/3',
     gridRow: '5',
+  },
+  alert: {
+    alignItems: 'center',
   },
 }));
 

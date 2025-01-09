@@ -8,17 +8,17 @@ import Skeleton from '@material-ui/lab/Skeleton';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import flatten from 'lodash/flatten';
 
-import { OFFER_WAITING_LIST_STATUS_CONVERTIBLE } from '@bsport/common/master-data/waiting-list-status.js';
+import { OFFER_WAITING_LIST_STATUS_CONVERTIBLE } from '@bsport/common/lib/master-data/waiting-list-status.js';
 import {
   OFFER_BOOKABLE_STATUS_BOOKABLE,
   OFFER_BOOKABLE_STATUS_FULL,
-} from '@bsport/common/master-data/bookable-status.js';
+} from '@bsport/common/lib/master-data/bookable-status.js';
 import {
   getAvailablePaymentPacks,
   getAvailableConsumerPack,
   getAvailableComboPacks,
   getAvailableContracts,
-} from '@bsport/common/master-data/available-payment.js';
+} from '@bsport/common/lib/master-data/available-payment.js';
 
 import { replace as replaceAction } from 'connected-react-router';
 import memoize from 'memoize-one';

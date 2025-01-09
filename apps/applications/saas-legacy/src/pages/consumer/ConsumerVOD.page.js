@@ -11,7 +11,7 @@ import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
 import VideoLibrary from '@material-ui/icons/VideoLibrary';
 import { withTranslation, TFunction } from 'react-i18next';
-import { MarketPlaceCoachDisplay } from '@bsport/common/master-data/personalization.js';
+import { MarketPlaceCoachDisplay } from '@bsport/common/lib/master-data/personalization.js';
 import themeSelectors from '../../libs/theme/selectors';
 
 import { WidgetUtils } from '../../libs/widget/WidgetUtils';

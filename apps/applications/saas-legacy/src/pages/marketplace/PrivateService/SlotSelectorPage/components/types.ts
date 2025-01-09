@@ -1,5 +1,5 @@
 import type { Coach } from '#src/libs/associated-coach/types';
-import type { MarketPlaceCoachDisplay } from '@bsport/common/master-data/personalization.js';
+import type { MarketPlaceCoachDisplay } from '@bsport/common/lib/master-data/personalization.js';
 import type { Duration } from 'luxon';
 
 export type SessionSelectorProps = {

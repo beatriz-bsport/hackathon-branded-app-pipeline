@@ -9,7 +9,7 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import {
   CB,
   CREDIT_ACCOUNT,
-} from '@bsport/common/master-data/payment-methods.js';
+} from '@bsport/common/lib/master-data/payment-methods.js';
 
 type Props = {
   disabled?: boolean;

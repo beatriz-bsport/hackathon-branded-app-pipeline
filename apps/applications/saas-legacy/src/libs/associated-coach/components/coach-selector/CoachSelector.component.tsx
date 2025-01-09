@@ -11,12 +11,12 @@ import Select, {
   // @ts-expect-error
   Styles,
 } from 'react-select';
-import { colors } from '@bsport/common/colors.js';
+import { colors } from '@bsport/common/lib/colors.js';
 import { Typography } from '@material-ui/core';
 import Immutable from 'seamless-immutable';
 
-import { MarketPlaceCoachDisplay } from '@bsport/common/master-data/personalization.js';
-import { getCoachDisplayName } from '@bsport/common/master-data/coach.js';
+import { MarketPlaceCoachDisplay } from '@bsport/common/lib/master-data/personalization.js';
+import { getCoachDisplayName } from '@bsport/common/lib/master-data/coach.js';
 import { MIN_HEIGHT_VIDEO_SEARCH_BAR_FIELDS } from '#src/libs/video/constant';
 import type { Coach } from '../../types';
 

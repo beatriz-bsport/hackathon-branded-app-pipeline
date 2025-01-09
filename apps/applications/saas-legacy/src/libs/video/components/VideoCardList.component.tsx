@@ -14,7 +14,7 @@ import VideoCardListItem from './VideoCardListItem.component';
 import { Video } from '../types';
 import { SCT } from '../../category/types';
 import { Coach } from '../../associated-coach/types';
-import { VideoProvider } from '@bsport/common/master-data/video-provider.js';
+import { VideoProvider } from '@bsport/common/lib/master-data/video-provider.js';
 
 type Props = {
   videoList: Array<Video<SCT, Coach>>;

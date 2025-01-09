@@ -114,11 +114,12 @@ export const useStepsAndTriggersRecorder = ({
           return acc.concat(
             (step?.exits || [])
               .filter((trigger) => displayDisabledTriggers || !trigger.disabled)
-              .map((trig) =>
-                Immutable({
-                  step: { ...omit(step, ['exits']) },
-                  trigger: Immutable(trig),
-                }),
+              .map(
+                (trig) =>
+                  Immutable({
+                    step: { ...omit(step, ['exits']) },
+                    trigger: Immutable(trig),
+                  }) as StoredTrigger,
               ),
           );
         }, []),
@@ -514,11 +515,18 @@ export const useNodeElementsRecorder = ({
             step: triggerNode?.step,
             trigger: triggerNode?.trigger,
             onCardClick: () =>
-              onClickConnectedTrigger(triggerNode?.step, triggerNode?.trigger),
-            onDelete: handleDeleteConnectedTrigger(triggerNode?.trigger),
+              onClickConnectedTrigger(
+                triggerNode?.step,
+                triggerNode?.trigger as ConnectedTrigger,
+              ),
+            onDelete: handleDeleteConnectedTrigger(
+              triggerNode?.trigger as ConnectedTrigger,
+            ),
             getSmartlist,
             disabled: !cadenceEditMode,
-            canBeDeleted: connectedTriggerCanBeDeleted(triggerNode),
+            canBeDeleted: connectedTriggerCanBeDeleted(
+              triggerNode as StoredTrigger,
+            ),
             bubble: {
               smartlists,
               onConfirm: handleConfirmTriggerBubble,
@@ -688,9 +696,15 @@ export const useNodeElementsRecorder = ({
         data: {
           disabled: !cadenceEditMode,
           status: triggerNode?.trigger?.destination_config?.status,
-          onDelete: handleDeleteConnectedTrigger(triggerNode?.trigger),
-          submitConvertIntoStep: handleConvertIntoStep(triggerNode?.trigger),
-          editCadenceExit: handleEditCadenceExit(triggerNode?.trigger),
+          onDelete: handleDeleteConnectedTrigger(
+            triggerNode?.trigger as ConnectedTrigger,
+          ),
+          submitConvertIntoStep: handleConvertIntoStep(
+            triggerNode?.trigger as ConnectedTrigger,
+          ),
+          editCadenceExit: handleEditCadenceExit(
+            triggerNode?.trigger as ConnectedTrigger,
+          ),
           ...(triggerNode?.trigger?.canvas?.position?.x &&
           triggerNode?.trigger?.canvas?.position?.y
             ? {

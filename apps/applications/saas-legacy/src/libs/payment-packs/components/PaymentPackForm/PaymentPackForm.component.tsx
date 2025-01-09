@@ -16,7 +16,7 @@ import {
   START_ON_PURCHASE,
   START_ON_FIRST_BOOKING,
   START_ON_FIRST_ATTENDANCE,
-} from '@bsport/common/master-data/payment-pack.js';
+} from '@bsport/common/lib/master-data/payment-pack.js';
 
 import { DateTime } from 'luxon';
 import { NotificationsActive, Settings } from '@material-ui/icons';

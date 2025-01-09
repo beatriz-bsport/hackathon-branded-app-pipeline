@@ -41,7 +41,7 @@ import type {
 import { computeProrataPriceForSubscription } from '#src/libs/subscription/utils';
 import type { AddGuestFormValues } from '../components/@Booking/MarketplaceBookingAddGuestModal';
 import type { OfferStatus } from '#src/libs/offer/types';
-import { getOfferFeature } from '@bsport/common/master-data/available-payment.js';
+import { getOfferFeature } from '@bsport/common/lib/master-data/available-payment.js';
 // pass page category filter - get all of the available categories
 export const getPassFilterAvailableCategories = (
   paymentPackByCategory: Immutable<PaymentPackCategoryWithPacks[]>,

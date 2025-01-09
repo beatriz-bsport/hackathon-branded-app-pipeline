@@ -35,6 +35,7 @@ export type Cadence = {
   initialized: boolean;
   is_multiple_visit_allowed: boolean;
   cadence_status: CadenceStatus;
+  has_disabled_finer_grained_items: boolean;
 };
 
 export type CadenceStep = {
@@ -72,6 +73,7 @@ export interface TriggerTimeoutConfig extends TriggerConfigBaseDict {
 export interface TriggerEventConfig extends TriggerConfigBaseDict {
   identifier: TriggerIdentifier.EVENT;
   event_type: Events;
+  filtered_pks?: number[];
 }
 
 export type TriggerConfig =
@@ -335,4 +337,16 @@ export type EntryStepFlowVersionData = {
     currentStepConfiguration: InitialConfigurationStep,
   ) => void;
   position: { x: number; y: number };
+};
+
+export type CadenceFinnerGrainEventsSearchObjectTypes =
+  | 'payment_pack'
+  | 'shop_item'
+  | 'giftcard'
+  | 'private_pass'
+  | 'contract';
+
+export type FinnerGrainEventBaseSetup = {
+  eventType: string;
+  itemIds: number[];
 };

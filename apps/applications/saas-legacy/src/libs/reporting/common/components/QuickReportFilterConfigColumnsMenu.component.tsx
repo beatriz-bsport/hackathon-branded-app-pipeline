@@ -13,7 +13,7 @@ import FilterIcon from '@material-ui/icons/FilterList';
 import Fuse, { FuseOptions } from 'fuse.js';
 import { useFormikContext } from 'formik';
 import uniqBy from 'lodash/uniqBy';
-import { ReportCategoryEnum } from '@bsport/common/master-data/report-categories.js';
+import { ReportCategoryEnum } from '@bsport/common/lib/master-data/report-categories.js';
 import FuzeSearch from '#src/components/FuzeSearch.component';
 import ObjectLevelPermissionWrapper from '#src/libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
 import type {

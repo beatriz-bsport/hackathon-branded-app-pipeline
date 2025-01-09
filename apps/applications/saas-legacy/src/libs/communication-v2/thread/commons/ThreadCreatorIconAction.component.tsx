@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core';
 import GroupAdd from '@material-ui/icons/GroupAdd';
 import { Link } from 'react-router-dom';
 
-import { ChatThreadKinds } from '@bsport/common/master-data/communication-inbox.js';
+import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-inbox.js';
 
 type InboxThreadCreatorActionProps = {
   threadType: ChatThreadKinds;

@@ -3,7 +3,7 @@ const getTranslations = async () => {
     LATE_REQUEST_LIMITATION_PERIOD_TYPE_WEEK,
     LATE_REQUEST_LIMITATION_PERIOD_TYPE_MONTH,
     LATE_REQUEST_LIMITATION_PERIOD_TYPE_YEAR,
-  } = await import('@bsport/common/master-data/replacement.js');
+  } = await import('@bsport/common/lib/master-data/replacement.js');
 
   return {
     forms: {

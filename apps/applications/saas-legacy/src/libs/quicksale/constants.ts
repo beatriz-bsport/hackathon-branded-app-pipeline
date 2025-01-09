@@ -1,8 +1,8 @@
 import {
   PAYMENT_GROUP_METHOD_IDENTIFIER_CB,
   PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA,
-} from '@bsport/common/master-data/payment-group.js';
-import { QuicksaleBasketItem } from '@bsport/common/master-data/buyable-items.js';
+} from '@bsport/common/lib/master-data/payment-group.js';
+import { QuicksaleBasketItem } from '@bsport/common/lib/master-data/buyable-items.js';
 
 import { PAYMENT_STRIPE_TERMINAL_FAKE } from '#src/libs/payment/utils';
 

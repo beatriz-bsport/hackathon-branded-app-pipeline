@@ -21,7 +21,7 @@ import {
   DIALOG_MODE_IFRAME,
   DIALOG_MODE_TAB,
   DIALOG_MODE_DEACTIVATED,
-} from '@bsport/common/master-data/widget-dialog-mode.js';
+} from '@bsport/common/lib/master-data/widget-dialog-mode.js';
 
 import { MaterialStyleType } from '../../../utils/types';
 // @ts-expect-error

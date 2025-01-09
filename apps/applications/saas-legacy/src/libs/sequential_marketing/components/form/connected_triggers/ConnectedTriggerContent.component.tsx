@@ -28,13 +28,7 @@ const ConnectedTriggerContent: React.FC<Props> = ({
 }) => {
   switch (kind) {
     case TriggerKind.ONLY_EVENT_TRIGGER:
-      return (
-        <EventForm
-          isFromMUIPopover={isFromMUIPopover}
-          trigger={trigger}
-          updateValue={updateValue}
-        />
-      );
+      return <EventForm trigger={trigger} updateValue={updateValue} />;
     case TriggerKind.ONLY_SMARTLIST_FILTERING:
       return (
         <SmartlistForm
@@ -47,7 +41,6 @@ const ConnectedTriggerContent: React.FC<Props> = ({
     case TriggerKind.EVENT_TRIGGER_AND_SMARTLIST_FILTERING:
       return (
         <EventAndSmartlistForm
-          isFromMUIPopover={isFromMUIPopover}
           smartlists={smartlists}
           trigger={trigger}
           updateValue={updateValue}

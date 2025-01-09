@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { Theme, makeStyles } from '@material-ui/core';
 
 import { DateTime } from 'luxon';
-import { GTE_COMPARATOR } from '@bsport/common/master-data/smart-list.js';
+import { GTE_COMPARATOR } from '@bsport/common/lib/master-data/smart-list.js';
 import { getCurrencyDisplay } from '#src/libs/theme/selectors';
 import CalendarPicker from '../CalendarPicker.component';
 import {

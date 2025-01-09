@@ -12,7 +12,7 @@ import NotificationsOffIcon from '@material-ui/icons/NotificationsOff';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import CloseIcon from '@material-ui/icons/Close';
 
-import { ChatThreadKinds } from '@bsport/common/master-data/communication-inbox.js';
+import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-inbox.js';
 import type { CommunicationThread } from '#src/libs/communication-v2/types';
 import ThreadMenu from '#src/libs/communication-v2/thread/InboxThreadListItem/ThreadMenu.component';
 import type { OptionCallback } from '../../../../state/types';

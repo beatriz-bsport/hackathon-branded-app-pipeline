@@ -8,7 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 
-import { ChatThreadKinds } from '@bsport/common/master-data/communication-inbox.js';
+import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-inbox.js';
 import type { SmartList } from '#src/libs/smart-list/types';
 import { CustomChip } from '#src/components/chip/CustomChip.component';
 import type { Tag, TagGroup } from '#src/libs/tag/types';

@@ -84,7 +84,7 @@
     "@babel/preset-flow": "^7.24.7",
     "@babel/preset-react": "^7.24.6",
     "@babel/preset-typescript": "^7.24.7",
-    "@bsport/common": "workspace:*",
+    "@bsport/common": "^4.0.4",
     "@digitalroute/cz-conventional-changelog-for-jira": "^8.0",
     "@types/history": "^4.7.8",
     "@types/react-dom": "^17.0.0",

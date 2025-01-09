@@ -7,7 +7,7 @@ import {
   CHANGE_EMAIL_BLOCKED_BY_SRC_MEMBER,
   CHANGE_EMAIL_BLOCKED_BY_NEW_USER_WITH_SAME_EMAIL,
   CHANGE_EMAIL_REQUEST_ACCEPTED,
-} from '@bsport/common/master-data/change-email-request.js';
+} from '@bsport/common/lib/master-data/change-email-request.js';
 import { CompanyTheme } from '#src/libs/theme/types';
 import { ChangeEmailRequest } from '#src/libs/member/types';
 import { Membership } from '#src/libs/membership/types';

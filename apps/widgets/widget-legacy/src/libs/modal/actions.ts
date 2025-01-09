@@ -4,7 +4,7 @@ import { createAction } from 'redux-actions';
 
 import { Theme as CompanyTheme } from '@bsport/saas-legacy/src/libs/theme/types';
 
-import { DIALOG_MODE_IFRAME } from '@bsport/common/master-data/widget-dialog-mode.js';
+import { DIALOG_MODE_IFRAME } from '@bsport/common/lib/master-data/widget-dialog-mode.js';
 import { getEnv } from '../../utils/env';
 import { buildUrlParams } from '../../utils/http';
 import { RootState } from '../../reducers';

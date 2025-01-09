@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { BOOKING_STATUS_CANCELLED_BY_MANAGER } from '@bsport/common/master-data/booking_status_code.js';
-import { MarketPlaceSessionTimeDisplay } from '@bsport/common/master-data/personalization.js';
+import { BOOKING_STATUS_CANCELLED_BY_MANAGER } from '@bsport/common/lib/master-data/booking_status_code.js';
+import { MarketPlaceSessionTimeDisplay } from '@bsport/common/lib/master-data/personalization.js';
 
 import { useTranslation } from 'react-i18next';
 import {

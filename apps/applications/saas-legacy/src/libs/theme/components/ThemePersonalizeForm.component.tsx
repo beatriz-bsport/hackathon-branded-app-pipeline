@@ -23,13 +23,13 @@ import {
   BOOKING_DATE_ORDER,
   BOOKING_FIRSTNAME_ORDER,
   BOOKING_LASTNAME_ORDER,
-} from '@bsport/common/master-data/settings.js';
+} from '@bsport/common/lib/master-data/settings.js';
 
 import {
   MarketPlaceCoachDisplay,
   MarketPlaceDaysFormatDisplay,
   MarketPlaceSessionTimeDisplay,
-} from '@bsport/common/master-data/personalization.js';
+} from '@bsport/common/lib/master-data/personalization.js';
 
 import classNames from 'classnames';
 import { Alert } from '@material-ui/lab';

@@ -17,7 +17,7 @@ import Typography from '@material-ui/core/Typography';
 
 import { withStyles } from '@material-ui/styles';
 import { withTranslation, WithTranslation } from 'react-i18next';
-import { VideoProvider } from '@bsport/common/master-data/video-provider.js';
+import { VideoProvider } from '@bsport/common/lib/master-data/video-provider.js';
 
 import EbookUploadForm from '#src/libs/video/components/EbookUploadForm.component';
 import VideoUploadFormYoutube from './VideoUploadFormYoutube.component';

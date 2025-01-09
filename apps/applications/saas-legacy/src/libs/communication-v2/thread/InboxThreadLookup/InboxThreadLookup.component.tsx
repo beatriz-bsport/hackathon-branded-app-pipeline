@@ -1,13 +1,13 @@
 import React, { memo } from 'react';
 
 import chroma from 'chroma-js';
-import { colors } from '@bsport/common/colors.js';
+import { colors } from '@bsport/common/lib/colors.js';
 import Select from 'react-select';
 import { IconButton, InputAdornment, makeStyles } from '@material-ui/core';
 import EditIcon from '@material-ui/icons/Edit';
 import SearchIcon from '@material-ui/icons/Search';
 import { useTranslation } from 'react-i18next';
-import { ChatThreadKinds } from '@bsport/common/master-data/communication-inbox.js';
+import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-inbox.js';
 import DelayedTextField from '#src/components/DelayedTextField.component';
 import InboxThreadContextSelector from '#src/libs/communication-v2/thread/InboxThreadLookup/InboxThreadContextSelector.component';
 import { threadFilteringChoices } from '#src/libs/communication-v2/utils';

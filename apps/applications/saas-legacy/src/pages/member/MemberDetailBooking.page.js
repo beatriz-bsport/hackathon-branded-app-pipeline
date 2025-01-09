@@ -23,8 +23,8 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import { WAITING_LIST_DYNAMIC_ORDERED } from '@bsport/common/master-data/waiting-list-dynamic.js';
-import { BOOKING_STATUS_CANCELLED_BY_CONSUMER } from '@bsport/common/master-data/booking_status_code.js';
+import { WAITING_LIST_DYNAMIC_ORDERED } from '@bsport/common/lib/master-data/waiting-list-dynamic.js';
+import { BOOKING_STATUS_CANCELLED_BY_CONSUMER } from '@bsport/common/lib/master-data/booking_status_code.js';
 import {
   getAssetByBlueprintByIdentifier,
   getSpotTypesOfCompany,

@@ -21,7 +21,7 @@ import { getItemInStorage } from '#src/utils/storage';
 import type { Theme } from '@material-ui/core/styles';
 import type { CallHistoryMethodAction } from 'connected-react-router';
 import type { ReportMetadataValue } from '#src/libs/reporting/common/types';
-import { ReportCategoryEnum } from '@bsport/common/master-data/report-categories.js';
+import { ReportCategoryEnum } from '@bsport/common/lib/master-data/report-categories.js';
 import {
   drawerSmallWidth,
   drawerWidth,

@@ -2,7 +2,7 @@ import {
   COMMUNICATION_KIND_EMAIL,
   COMMUNICATION_KIND_PUSH_NOTIFICATION,
   COMMUNICATION_KIND_SMS,
-} from '@bsport/common/master-data/communication-kind.js';
+} from '@bsport/common/lib/master-data/communication-kind.js';
 import {
   COMMUNICATION_RECIPIENT_BOOKINGS,
   COMMUNICATION_RECIPIENT_BOOKINGS_CANCELLED,
@@ -18,8 +18,8 @@ import {
   COMMUNICATION_SRC_OR_DST_RECEIVED,
   COMMUNICATION_CHANNEL_CADENCE,
   COMMUNICATION_CHANNEL_FRANCHISE,
-} from '@bsport/common/master-data/communication-filters.js';
-import { ChatThreadKinds } from '@bsport/common/master-data/communication-inbox.js';
+} from '@bsport/common/lib/master-data/communication-filters.js';
+import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-inbox.js';
 
 // CONTEXT
 // TODO: use an enum to store this

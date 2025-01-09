@@ -4,7 +4,7 @@ import { compose } from 'recompose';
 
 import { withTranslation, WithTranslation } from 'react-i18next';
 import withStyles from '@material-ui/core/styles/withStyles';
-import { colors } from '@bsport/common/colors.js';
+import { colors } from '@bsport/common/lib/colors.js';
 import Select, { components } from 'react-select';
 import chroma from 'chroma-js';
 import type { MaterialStyleType } from '../../../../utils/types';

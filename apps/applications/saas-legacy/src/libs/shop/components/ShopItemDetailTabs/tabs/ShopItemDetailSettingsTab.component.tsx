@@ -15,7 +15,7 @@ import RemoveRedEyeIcon from '@material-ui/icons/RemoveRedEye';
 import {
   CREDIT_ACCOUNT as PAYMENT_METHOD_CREDIT_ACCOUNT,
   CB as PAYMENT_METHOD_CB,
-} from '@bsport/common/master-data/payment-methods.js';
+} from '@bsport/common/lib/master-data/payment-methods.js';
 
 import CustomChip from '#src/components/chip/CustomChip.component';
 import GenericCustomBooleanChip from '#src/components/chip/GenericCustomBooleanChip';

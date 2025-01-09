@@ -2,7 +2,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import type { Theme } from '@material-ui/core/styles';
 import makeStyles from '@material-ui/styles/makeStyles';
-import { BOOKING_STATUS_OK } from '@bsport/common/master-data/booking_status_code.js';
+import { BOOKING_STATUS_OK } from '@bsport/common/lib/master-data/booking_status_code.js';
 import ApartmentIcon from '@material-ui/icons/Apartment';
 import VideocamIcon from '@material-ui/icons/Videocam';
 import { Offer } from '#src/libs/offer/types';

@@ -13,7 +13,7 @@ import {
   NO_FORM,
   ALL_FORMS,
   AT_LEAST_ONE_FORM,
-} from '@bsport/common/master-data/smart-list.js';
+} from '@bsport/common/lib/master-data/smart-list.js';
 import DelayedNumericInput from '#src/components/DelayedNumericInput.component';
 
 import CustomFormListItem from '#src/libs/custom-form/components/CustomFormListItem.component';

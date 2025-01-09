@@ -39,7 +39,7 @@ import {
   Autorenew,
 } from '@material-ui/icons';
 
-import { colors } from '@bsport/common/colors.js';
+import { colors } from '@bsport/common/lib/colors.js';
 
 // @ts-expect-error
 import LanguageButton from '#src/components/button/LanguageButton.component';

@@ -6,7 +6,7 @@ import AppBarMUI from '@material-ui/core/AppBar';
 import { Theme, withStyles } from '@material-ui/core/styles';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import { DateTime } from 'luxon';
-import { DIALOG_MODE_DEACTIVATED } from '@bsport/common/master-data/widget-dialog-mode.js';
+import { DIALOG_MODE_DEACTIVATED } from '@bsport/common/lib/master-data/widget-dialog-mode.js';
 
 import routerParamsToProps from '#src/hocs/router-params-to-props.hoc';
 import WidgetUtils from '#src/libs/widget/WidgetUtils';

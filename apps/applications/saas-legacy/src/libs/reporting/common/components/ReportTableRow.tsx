@@ -3,7 +3,7 @@ import React, { useCallback, useMemo } from 'react';
 import { TableRow } from '@material-ui/core';
 import { ClassNameMap } from '@material-ui/styles';
 
-import { ReportCategoryEnum } from '@bsport/common/master-data/report-categories.js';
+import { ReportCategoryEnum } from '@bsport/common/lib/master-data/report-categories.js';
 import { generateRowLink } from '#src/libs/reporting/common/utils';
 import { hasAccessToUrl } from '#src/libs/role/utils';
 import ReportTableCell from '#src/libs/reporting/common/components/ReportTableCell';

@@ -4,9 +4,9 @@ import {
   NEW_TUTORIAL_SECTION_OR_LESSON,
   UNEVEN_INVOICE_ALERT,
   UNREAD_COMMUNICATION,
-} from '@bsport/common/master-data/alerting_kind.js';
+} from '@bsport/common/lib/master-data/alerting_kind.js';
 import type { RootState } from 'src/reducers';
-import { PAYMENT_ENGINE_STRIPE } from '@bsport/common/master-data/payment-group.js';
+import { PAYMENT_ENGINE_STRIPE } from '@bsport/common/lib/master-data/payment-group.js';
 import { getObjectPermissions } from '#src/libs/role/selectors';
 import { hasObjectLevelPermission } from '#src/libs/role/permission-utils/utils';
 import type { AlertingState } from './types';

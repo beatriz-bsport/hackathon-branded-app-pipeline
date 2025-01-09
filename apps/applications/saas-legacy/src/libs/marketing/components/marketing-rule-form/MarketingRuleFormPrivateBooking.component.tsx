@@ -12,7 +12,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import Divider from '@material-ui/core/Divider';
 import EventIcon from '@material-ui/icons/Event';
-import { PRIVATEBOOKING_EVENT_RULES } from '@bsport/common/master-data/notification-rule-events.js';
+import { PRIVATEBOOKING_EVENT_RULES } from '@bsport/common/lib/master-data/notification-rule-events.js';
 import GenericResponsiveDrawer from '#src/components/genericDrawer/GenericResponsiveDrawer.component';
 
 // @ts-expect-error

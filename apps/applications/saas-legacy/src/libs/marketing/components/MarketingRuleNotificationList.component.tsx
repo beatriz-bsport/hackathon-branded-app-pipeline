@@ -9,7 +9,7 @@ import {
 import clx from 'classnames';
 import { compose } from 'recompose';
 import { WithTranslation, withTranslation } from 'react-i18next';
-import { NOTIFICATION_KIND } from '@bsport/common/master-data/notification-rule-events.js';
+import { NOTIFICATION_KIND } from '@bsport/common/lib/master-data/notification-rule-events.js';
 
 import ObjectLevelPermissionWrapper from '#src/libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
 import { MarketingNotification } from '../types';

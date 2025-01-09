@@ -20,7 +20,7 @@ import Divider from '@material-ui/core/Divider';
 import { Typography } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 
-import { BOOKING_STATUS_OK } from '@bsport/common/master-data/booking_status_code.js';
+import { BOOKING_STATUS_OK } from '@bsport/common/lib/master-data/booking_status_code.js';
 import PrivateBookingFilters from '#src/libs/booking/components/PrivateBookingFilters.component';
 import { fetchCompanyUserRoles } from '#src/libs/role/actions';
 import ObjectLevelPermissionWrapper from '#src/libs/role/permission-utils/ObjectLevelPermissionWrapper.component';

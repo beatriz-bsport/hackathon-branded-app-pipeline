@@ -10,7 +10,7 @@ import { useTranslation } from 'react-i18next';
 import {
   BONUS_COACH_PAYMENT_RULE_FIXED_VLAUE,
   BONUS_COACH_PAYMENT_RULE_EVERY_BOOKING,
-} from '@bsport/common/master-data/coach_payment_rule.js';
+} from '@bsport/common/lib/master-data/coach_payment_rule.js';
 import type { BonusCoachPaymentRule } from '../types';
 // @ts-expect-error
 import { bonusCoachPaymentRuleConstructor } from '../utils';

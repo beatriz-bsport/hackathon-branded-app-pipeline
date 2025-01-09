@@ -1,6 +1,6 @@
 const getTranslations = async () => {
   const PLANNED_INVOICE_STATUS = await import(
-    '@bsport/common/master-data/planned-invoice-status.js'
+    '@bsport/common/lib/master-data/planned-invoice-status.js'
   );
 
   const {
@@ -8,7 +8,7 @@ const getTranslations = async () => {
     INVOICE_NO_REFUND_ON_TYPE_EMPTY_CONTAINER,
     INVOICE_NO_REFUND_ON_SAME_PAYMENT_METHOD_IF_NO_ONLINE_PAYMENT,
     INVOICE_NO_REFUND_ON_SEPA_PAYMENT_OLDER_THAN_SIX_MONTHS,
-  } = await import('@bsport/common/master-data/error-codes/payment.js');
+  } = await import('@bsport/common/lib/master-data/error-codes/payment.js');
   const {
     BUYABLE_ITEM_PASS,
     BUYABLE_ITEM_SHOP_ITEM,
@@ -16,16 +16,16 @@ const getTranslations = async () => {
     BUYABLE_ITEM_COMBO_ITEM,
     BUYABLE_ITEM_GIFTCARD,
     BUYABLE_ITEM_CREDIT,
-  } = await import('@bsport/common/master-data/buyable-items.js');
+  } = await import('@bsport/common/lib/master-data/buyable-items.js');
   const { INVOICE_TYPE_MIGRATION, INVOICE_TYPE_EMPTY_PAYMENT_CONTAINER } =
-    await import('@bsport/common/master-data/invoice-type.js');
+    await import('@bsport/common/lib/master-data/invoice-type.js');
   const {
     SOURCE_APP,
     SOURCE_WEB,
     SOURCE_SAAS,
     SOURCE_OTHER,
     SOURCE_MIGRATION,
-  } = await import('@bsport/common/master-data/source-device.js');
+  } = await import('@bsport/common/lib/master-data/source-device.js');
   const {
     PAYMENT_GROUP_METHOD_IDENTIFIER_BACS_DEBIT,
     PAYMENT_GROUP_METHOD_IDENTIFIER_CB,
@@ -50,7 +50,7 @@ const getTranslations = async () => {
     REVERSE_ON_PAYMENT_METHOD,
     REVERSE_ON_DEBT,
     REVERSE_ON_NEW_PAYMENT_METHOD,
-  } = await import('@bsport/common/master-data/payment-group.js');
+  } = await import('@bsport/common/lib/master-data/payment-group.js');
 
   return {
     returnPayment: {

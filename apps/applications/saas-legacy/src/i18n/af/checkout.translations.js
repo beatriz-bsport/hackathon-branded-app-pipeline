@@ -1,6 +1,6 @@
 const getTranslations = async () => {
   const { BASKET_EVENTS } = await import(
-    '@bsport/common/master-data/events.js'
+    '@bsport/common/lib/master-data/events.js'
   );
 
   return {

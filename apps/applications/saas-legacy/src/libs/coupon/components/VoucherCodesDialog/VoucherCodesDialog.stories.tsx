@@ -5,7 +5,7 @@ import VoucherCodesDialog from './VoucherCodesDialog.component';
 import {
   CouponKind,
   UniqueCodeStateStatus,
-} from '@bsport/common/master-data/coupon.js';
+} from '@bsport/common/lib/master-data/coupon.js';
 import { Coupon } from '#src/libs/coupon/types';
 import { action } from '@storybook/addon-actions';
 

@@ -125,6 +125,7 @@ const MarketplaceOfferBookingItem: React.FC<Props> = ({
         }${offer.spot_information?.suffix}`
       }
       title={offer?.name_override || offer.meta_activity?.name}
+      errorMessage={errorMessage}
     />
   );
 };

@@ -26,7 +26,7 @@ echo "*"
 echo "⏳ Start building @bsport/saas-legacy for environment: $ENVIRONMENT $FEATURE_BRANCH_IDENTIFIER"
 
 # Build the application
-pnpm run updateTranslation
+pnpm run translation:update
 pnpm run build
 
 # Replace the env file

@@ -44,7 +44,7 @@ Add your key (argument of `t`) in the right i18n/af/ file (file ~ t namespace, s
 You now want to update the translation of other language (dont worry you dont have to translate it) with :
 
 ```sh
-pnpm run updateTranslation
+pnpm run translation:update
 ```
 
 It will add uncommited changes to some "built" files
@@ -52,7 +52,6 @@ It will add uncommited changes to some "built" files
 ### Important Note on Key Updates
 
 When changing a translation key's type (for example, from a string to an object or vice versa), it’s essential to also change the key name. If you keep the same key name, translations will be generated for other languages, but the original English version will remain unchanged. This can lead to inconsistencies and confusion in your translations.
-
 
 # Use the backoffice
 
@@ -381,7 +380,6 @@ To create a new alias you need to add them at multiple places
 ```
 
 ### config/webpack.config.dev.js and config/webpack.config.js
-
 
 the alias need to respect some convention use a # as a prefix to make it clear it's not a path and can't have a / inside to avoid resolving problems
 

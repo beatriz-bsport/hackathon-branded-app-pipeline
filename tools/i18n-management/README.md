@@ -51,7 +51,7 @@ exports.default = {
 
 You can have other files in the folder, to setup i18n for instance.
 
-### “updateTranslations” script
+### “translation:update” script
 
 The script that updates translations and creates the final translations files that are served to the frontend is defined in the new tool `i18n-management`.
 
@@ -59,7 +59,7 @@ Add the following script to your `package.json` application :
 
 ```tsx
 {
-	"updateTranslations": "pnpm exec nx updateTranslations @bsport/i18n-management"
+	"translation:update": "pnpm exec nx translation:update @bsport/i18n-management"
 }
 ```
 

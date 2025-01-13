@@ -6,9 +6,9 @@
 import path from "path";
 import { writeFileSync, readJsonSync } from "fs-extra";
 import beautify from "json-beautify";
-import { getProjectList } from "./utils";
-import { LOCALES } from "../src";
 import { getMonorepoBasePathSync } from "@bsport/typescript-monorepo-utils";
+import { getInternationalizedApplications } from "./utils";
+import { LOCALES } from "../src";
 
 type ProjectToImport = {
   name: string;
@@ -27,9 +27,9 @@ function main(projects: Array<ProjectToImport>) {
   const projectsMap = new Map<string, ProjectToImport>();
   projects.forEach((project) => projectsMap.set(project.name, project));
 
-  // Keep the same order as getProjectList
+  // Keep the same order as getInternationalizedApplications
   const projectsToImport = projects.map((project) => project.name);
-  const projectList = getProjectList()
+  const projectList = getInternationalizedApplications()
     .filter((project) => projectsToImport.includes(project.name))
     .map((project) => projectsMap.get(project.name))
     .filter((project) => !!project);

@@ -1,1 +1,1 @@
-export { LANGUAGES, AVAILABLE_LANGUAGES, LOCALES } from "./languages";
+export { LANGUAGES, LOCALES } from "./languages";

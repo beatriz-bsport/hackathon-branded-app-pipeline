@@ -7,12 +7,12 @@ import {
   removeSync,
 } from "fs-extra";
 import { mergeFiles } from "json-merger";
+import { getInternationalizedApplications, type ProjectConfig } from "./utils";
 import { LOCALES, LANGUAGES } from "../src";
-import { getProjectList, type ProjectConfig } from "./utils";
 
 function main() {
   // Step 1 : List all projects with i18n folder
-  const projectList = getProjectList();
+  const projectList = getInternationalizedApplications();
 
   // Step 2 : Iterate through locales to split the translations to each project
   console.group("> Build translations files for :");

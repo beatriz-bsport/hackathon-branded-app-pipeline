@@ -4,7 +4,7 @@
   "description": "Library to manage build translations and Weblate interaction",
   "author": "David Bretaud <david.bretaud@bsport.io>",
   "scripts": {
-    "updateTranslations": "./scripts/update-translations.sh"
+    "translation:update": "./scripts/update-translations.sh"
   },
   "dependencies": {
     "@bsport/typescript-monorepo-utils": "workspace:*",

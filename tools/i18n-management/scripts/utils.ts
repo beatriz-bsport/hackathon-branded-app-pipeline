@@ -1,7 +1,7 @@
 import { execSync } from "child_process";
 import { existsSync } from "fs-extra";
-import { getMonorepoBasePathSync } from "@bsport/typescript-monorepo-utils";
 import path from "path";
+import { getMonorepoBasePathSync } from "@bsport/typescript-monorepo-utils";
 
 export type ProjectConfig = {
   name: string;
@@ -9,11 +9,22 @@ export type ProjectConfig = {
   pathToPublicLocales: string;
 };
 
-export function getProjectList() {
+/**
+ * Retrieve all applications containing a right i18n configuration,
+ * Meaning a src/i18n folder containing a translations folder and a namespaces.json file,
+ * And return the adequate data to run the update script for translations.
+ */
+export function getInternationalizedApplications() {
   // Retrieve all projects names
   const cmd = "pnpm exec nx show projects --json";
   const jsonOutput = execSync(cmd).toString("utf-8").trim();
-  const projects = JSON.parse(jsonOutput);
+  let projects: string[] = [];
+  try {
+    projects = JSON.parse(jsonOutput);
+  } catch (error) {
+    console.error(`Failed to parse projects from ${jsonOutput}`);
+    return [];
+  }
 
   // Filter projects to keep only those with i18n
   const monorepoBasePath = getMonorepoBasePathSync();
@@ -48,6 +59,9 @@ export function getProjectList() {
   return filteredProjectList;
 }
 
+/**
+ * Given a project name, return the path to this project from the root
+ */
 function getProjectPath({ projectName }: { projectName: string }) {
   const cmd = `pnpm exec nx show project ${projectName} --json`;
   const jsonOutput = execSync(cmd).toString("utf-8").trim();

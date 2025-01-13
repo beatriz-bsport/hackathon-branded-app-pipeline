@@ -1,11 +1,11 @@
 import path from "path";
 import { readJSONSync, existsSync, writeFileSync, mkdirSync } from "fs-extra";
 import beautify from "json-beautify";
-import { getProjectList, type ProjectConfig } from "./utils";
+import { getInternationalizedApplications, type ProjectConfig } from "./utils";
 
 function main() {
   // Step 1 : List all projects with i18n folder
-  const projectList = getProjectList();
+  const projectList = getInternationalizedApplications();
 
   // Step 2 : Aggregate in a Js object all namespaces of all projects
   const projectsMap = projectList.reduce((acc, project) => {

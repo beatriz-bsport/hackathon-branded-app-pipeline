@@ -1477,6 +1477,25 @@ importers:
         specifier: ^8.18.1
         version: 8.18.1(eslint@9.17.0(jiti@1.21.6))(typescript@5.6.3)
 
+  tools/i18n-management:
+    dependencies:
+      '@bsport/typescript-monorepo-utils':
+        specifier: workspace:*
+        version: link:../../packages/utils/monorepo
+      fs-extra:
+        specifier: ^11.2.0
+        version: 11.2.0
+    devDependencies:
+      '@types/fs-extra':
+        specifier: ^11.0.1
+        version: 11.0.4
+      json-beautify:
+        specifier: ^1.1.1
+        version: 1.1.1
+      json-merger:
+        specifier: ^2.0.0
+        version: 2.0.0
+
   tools/monorepo-utils:
     dependencies:
       '@bsport/typescript-monorepo-utils':
@@ -7703,6 +7722,10 @@ packages:
     resolution: {integrity: sha512-y4Mg2tXshplEbSGzx7amzPwKKOCGuoSRP/CjEdwwk0FOGlUbq6lKuoyDZTNZkmxHdJtp54hdfY/JUrdL7Xfdug==}
     engines: {node: '>=14'}
 
+  commander@12.1.0:
+    resolution: {integrity: sha512-Vw8qHK3bZM9y/P10u3Vib8o/DdkvA2OtPtZvD871QKjy74Wj1WSKFILMPRPSdUSx5RFK1arlJzEtA4PkFgnbuA==}
+    engines: {node: '>=18'}
+
   commander@2.13.0:
     resolution: {integrity: sha512-MVuS359B+YzaWqjCL/c+22gfryv+mCBPHAv3zyVI2GN8EY6IRP8VwtasXn8jyyhvvq84R4ImN1OKRtcbIasjYA==}
 
@@ -11778,6 +11801,10 @@ packages:
 
   json-merger@1.1.10:
     resolution: {integrity: sha512-S2fLqKZKmCtJ87GQDcAM0gkw0Ep4a8KAXFTqGb2JOsduPj8mYzVwLFI5z8ZXtY7vJ8cjVXaUKNUh5wekoXjCUQ==}
+    hasBin: true
+
+  json-merger@2.0.0:
+    resolution: {integrity: sha512-CEAXlid1Q9X064q1oSPfFh9hq/kJg64DjXr46mjD76VKBIdqeNYbZXLHr+HcRioDke5I4XnZ3iVIl2ysRioayA==}
     hasBin: true
 
   json-parse-better-errors@1.0.2:
@@ -26305,6 +26332,8 @@ snapshots:
 
   commander@10.0.1: {}
 
+  commander@12.1.0: {}
+
   commander@2.13.0: {}
 
   commander@2.20.3: {}
@@ -27010,7 +27039,7 @@ snapshots:
   cz-conventional-changelog@3.3.0(@types/node@14.18.63)(typescript@4.9.5):
     dependencies:
       chalk: 2.4.2
-      commitizen: 4.3.1(@types/node@22.9.0)(typescript@5.6.3)
+      commitizen: 4.3.1(@types/node@14.18.63)(typescript@4.9.5)
       conventional-commit-types: 3.0.0
       lodash.map: 4.6.0
       longest: 2.0.1
@@ -27038,7 +27067,7 @@ snapshots:
   cz-conventional-changelog@3.3.0(@types/node@22.9.0)(typescript@5.6.3):
     dependencies:
       chalk: 2.4.2
-      commitizen: 4.3.1(@types/node@22.9.0)(typescript@5.6.3)
+      commitizen: 4.3.1(@types/node@14.18.63)(typescript@4.9.5)
       conventional-commit-types: 3.0.0
       lodash.map: 4.6.0
       longest: 2.0.1
@@ -32260,6 +32289,15 @@ snapshots:
       jsonpath: 1.1.1
       lodash.range: 3.2.0
       vm2: 3.9.19
+
+  json-merger@2.0.0:
+    dependencies:
+      commander: 12.1.0
+      fs-extra: 11.2.0
+      js-yaml: 4.1.0
+      json-ptr: 3.1.1
+      jsonpath: 1.1.1
+      lodash.range: 3.2.0
 
   json-parse-better-errors@1.0.2: {}
 

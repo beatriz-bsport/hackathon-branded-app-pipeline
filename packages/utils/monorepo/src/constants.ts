@@ -1,7 +1,7 @@
 import path from "path";
 import fs from "fs";
 import { promisify } from "node:util";
-import { exec as execCb } from "child_process";
+import { exec as execCb, execSync } from "child_process";
 
 const exec = promisify(execCb);
 
@@ -16,6 +16,18 @@ export const getMonorepoBasePath = async () => {
   const isPathValid = path.isAbsolute(result) && fs.existsSync(result);
   if (!isPathValid) {
     throw new Error(`Invalid output for command "pnpm run -w pwd": ${stdout}`);
+  }
+  return result;
+};
+
+/**
+ * Return synchronously the absolute path of the Monorepository root
+ */
+export const getMonorepoBasePathSync = () => {
+  const result = execSync("pnpm run -w --silent pwd").toString("utf-8").trim();
+  const isPathValid = path.isAbsolute(result) && fs.existsSync(result);
+  if (!isPathValid) {
+    throw new Error(`Invalid output for command "pnpm run -w pwd"`);
   }
   return result;
 };

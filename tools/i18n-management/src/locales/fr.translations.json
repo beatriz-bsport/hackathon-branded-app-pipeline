@@ -3342,9 +3342,9 @@
                     "exclusivePrivateServices_plural": "Les rendez-vous {{- private_service_name }} sont configurés pour avoir lieu uniquement dans cet établissement. En supprimant cet établissement, ces rendez-vous pourront avoir lieu n'importe où.",
                     "exclusivePrivateServices": "Le rendez-vous {{- private_service_name }} est configuré pour avoir lieu uniquement dans cet établissement. En supprimant cet établissement, ce rendez-vous pourra avoir lieu n'importe où.",
                     "exclusiveCoachAvailabilitySlots": "Le/la professeur(e) {{- coach_name }} est indiqué(e) comme étant disponible sur certaines plages horaires pour cet établissement uniquement. En supprimant l'établissement, ces plages horaires seront supprimées.",
-                    "exclusiveCoachAvailabilitySlots_plural": "Le(s) professeur(s) {{- coach_name }} sont indiqués comme étant disponibles pour cet établissement uniquement pour certaines plages horaires. En supprimant l'établissement, ces plages horaires seront supprimées.",
+                    "exclusiveCoachAvailabilitySlots_plural": "Les professeurs {{- coach_name }} sont indiqués comme étant disponibles pour cet établissement uniquement pour certaines plages horaires. En supprimant l'établissement, ces plages horaires seront supprimées.",
                     "exclusiveAssociatedCoaches": "Votre professeur(e) {{- coach_name }} est averti(e) lorsqu'une demande de substitution est faite pour une séance dans cet établissement uniquement. En supprimant l'établissement, il/elle recevra donc les demandes de substitution de tous les établissements.",
-                    "exclusiveAssociatedCoaches_plural": "Le(s) professeur(s) {{- coach_name }} ne sont avertis que lorsqu'une demande de remplacement est faite pour une séance dans cet établissement. En supprimant l'établissement, ils recevront donc les demandes de remplacement de tous les établissements.",
+                    "exclusiveAssociatedCoaches_plural": "Vos professeurs {{- coach_name }} ne sont avertis que lorsqu'une demande de remplacement est faite pour une session dans cet établissement. En supprimant l'établissement, ils recevront donc les demandes de remplacement de tous les établissements.",
                     "hasBillingGroup": "Cet établissement sera également retiré du groupe de facturation {{- establishment_billing_group_name }}.",
                     "hasExclusiveStaffConfigurations": "Certains membres du personnel sont configurés pour surveiller l'accès des membres pour cet établissement uniquement. En supprimant l'établissement sans en sélectionner un nouveau, ils ne pourront plus effectuer de contrôle d'accès.",
                     "hasRelatedStaffConfigurations": "Cet établissement sera retiré des établissements utilisés par les membres du personnel pour le contrôle d'accès.",
@@ -3370,7 +3370,7 @@
                     "warnings": {
                         "hasRelatedAssociatedCoaches": "Certains professeurs reçoivent une notification lorsqu'une demande de substitution est faite pour une séance dans cette localisation. En supprimant la localisation, ils ne recevront plus de notification à ce sujet.",
                         "exclusiveAssociatedCoaches": "Votre professeur(e) {{- coach_name }} est averti(e) que lorsqu'une demande de remplacement est faite pour une séance dans cette localisation uniquement. En supprimant la localisation, il/elle recevra donc les demandes de remplacement de toutes les localisations.",
-                        "exclusiveAssociatedCoaches_plural": "Le(s) professeur(s) {{- coach_name }} ne sont avertis que lorsqu'une demande de remplacement est faite pour une séance dans cette localisation. En supprimant la localisation, ils recevront donc les demandes de remplacement de toutes les localisations.",
+                        "exclusiveAssociatedCoaches_plural": "Vos professeurs {{- coach_name }} ne sont avertis que lorsqu'une demande de remplacement est faite pour une session dans cette localisation. En supprimant la localisation, ils recevront donc les demandes de remplacement de toutes les localisations.",
                         "hasRelatedStaffConfigurations": "Cette localisation est utilisée pour la surveillance des accès par un ou plusieurs membres du personnel. En supprimant la localisation sans en sélectionner une nouvelle, ils ne pourront plus effectuer de surveillance des accès.",
                         "hasRelatedMarketingNotifications": "Les notifications liées à cette localisation seront supprimées.",
                         "hasRelatedMarketplaceComponentConfigs": "Les onglets du calendrier et des ateliers configurés pour votre marketplace n'afficheront plus le calendrier cette localisation."
@@ -5356,7 +5356,11 @@
                         "triggerTimeoutDays_plural": "jours.",
                         "triggerTimeoutLabel": "Déclencher après",
                         "selectSmartlist": "Sélectionner une smartlist",
-                        "selectEvent": "Sélectionner un événement"
+                        "selectEvent": "Sélectionner un événement",
+                        "finnerGrain": {
+                            "purchaseLabelTitle": "Objet(s) acheté(s)",
+                            "specifyItemsToggleLabel": "Spécifier les objets"
+                        }
                     },
                     "exit": {
                         "title": "Sortie",
@@ -5396,7 +5400,9 @@
                         "billing_plan-create": "Création",
                         "billing_plan-pause": "Pause",
                         "billing_plan-stop": "Arrêt",
-                        "billing_plan-renew": "Renouvellement"
+                        "billing_plan-renew": "Renouvellement",
+                        "consumer_giftcard-create": "Carte cadeau",
+                        "provision_update-create": "Article du magasin"
                     },
                     "marketing_action": {
                         "1": "Ecrire un email",
@@ -5599,7 +5605,8 @@
                         "labels": {
                             "workflow": "L'entrée dans le {{ workflowLowerCase }} se fait via :"
                         },
-                        "event_or_smartlist_helper": "Les membres devront correspondre à l'événement ou faire partie de la smartlist pour s'intégrer au {{ workflowLowerCase }}"
+                        "event_or_smartlist_helper": "Les membres devront correspondre à l'événement ou faire partie de la smartlist pour s'intégrer au {{ workflowLowerCase }}",
+                        "oneOrMoreFinnerGrainDisabledText": "L'un des objets spécifiés n'existe pas dans votre liste de produits."
                     },
                     "audienceNameLabel": "Nom du {{ workflowLowerCase }}",
                     "audienceStepHelper": "Définissez le nom de l'étape : vous pourrez voir ici le positionnement des membres dans le {{ workflowLowerCase }}.",
@@ -5725,11 +5732,15 @@
                         "paused": "En pause",
                         "active": "Actif",
                         "unarchive": "Désarchiver",
-                        "metrics": "Métriques"
+                        "metrics": "Métriques",
+                        "invalid": "Problème"
                     },
                     "tooltip": {
                         "moreActions": "Plus d'actions"
                     }
+                },
+                "workflow": {
+                    "finnerGrainIssues": "Un ou plusieurs objets spécifiés ne sont plus disponibles."
                 }
             }
         },

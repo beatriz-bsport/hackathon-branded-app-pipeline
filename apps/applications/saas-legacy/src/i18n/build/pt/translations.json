@@ -2,14 +2,14 @@
     "alerting": {
         "alert_kind": {
             "1": "Faturação",
+            "2": "Pedidos",
+            "3": "Tarefa",
+            "4": "Marcação a completar",
+            "5": "Informações legais",
             "6": "aulas privadas não pagas",
             "7": "Tutoriais",
             "8": "Substituições tardias",
-            "9": "Caixa de entrada",
-            "3": "Tarefa",
-            "5": "Informações legais",
-            "2": "Pedidos",
-            "4": "Marcação a completar"
+            "9": "Caixa de entrada"
         },
         "list": {
             "emptyAlerting": "Nenhuma notificação nova.",
@@ -392,25 +392,25 @@
         "offer": {
             "offerStatus": {
                 "waiting_list_status": {
-                    "9": "Não é permitido exceder o valor máximo de reservas futuras",
                     "0": "Lista de espera",
                     "1": "Fechado",
-                    "3": "Completo",
                     "2": "Fechado",
+                    "3": "Completo",
                     "4": "Fechado",
                     "5": "Já registado",
+                    "6": "Rácio homem/mulher desequilibrado",
+                    "7": "Rácio homem/mulher desequilibrado",
+                    "9": "Não é permitido exceder o valor máximo de reservas futuras",
                     "6002": "Lista de espera completa",
                     "6003": "Lista de espera: inscrito",
-                    "6005": "Lista de espera",
-                    "6": "Rácio homem/mulher desequilibrado",
-                    "7": "Rácio homem/mulher desequilibrado"
+                    "6005": "Lista de espera"
                 },
                 "bookable_status": {
-                    "9": "Não é permitido exceder o montante máximo de reservas futuras",
                     "0": "Reservas abertas",
                     "1": "Reservas encerradas",
                     "2": "Reservas encerradas",
-                    "4": "Sessão indisponível"
+                    "4": "Sessão indisponível",
+                    "9": "Não é permitido exceder o montante máximo de reservas futuras"
                 },
                 "blockedByTags": "Etiquetas inválidas",
                 "book": "Inscrição",
@@ -430,12 +430,12 @@
                 "addGuestNumberLeftWeek": "Você pode convidar mais uma pessoa esta semana.",
                 "addGuestNumberLeftWeek_plural": "Você pode convidar {{count}} pessoas esta semana.",
                 "bookingStatus": {
-                    "guestNotAllowed": "A sessão não está aberta a convidados",
-                    "4": "A sessão está encerrada para reservas",
-                    "3": "A sessão está cheia",
-                    "2": "A sessão está encerrada para reservas",
+                    "0": "Convidar um amigo",
                     "1": "A sessão ainda não está aberta a reservas",
-                    "0": "Convidar um amigo"
+                    "2": "A sessão está encerrada para reservas",
+                    "3": "A sessão está cheia",
+                    "4": "A sessão está encerrada para reservas",
+                    "guestNotAllowed": "A sessão não está aberta a convidados"
                 },
                 "addGuestNumberLeftGeneric": "Pode convidar mais uma pessoa neste período.",
                 "addGuestNumberLeftGeneric_plural": "Ainda é possível convidar {{count}} pessoas neste período.",
@@ -931,8 +931,8 @@
                     "frequenceHelper": "Esta comunicação será enviada para {{ max }} {{ event_kind }} da lista inteligente para cada membro. Após {{ max }} {{ event_kind }} da lista inteligente para o mesmo membro, este deixará de receber esta comunicação. Pode alterar esta definição em 'Avançadas'.",
                     "submit": "Confirmar",
                     "maxCommunicationSentHelperText": {
-                        "1": "Por predefinição, a mensagem é enviada apenas aquando da primeira saída de cada membro da lista inteligente. Pode ajustar a definição para permitir mensagens subsequentes aquando da segunda ou terceira saída do membro.",
-                        "0": "Por predefiniçãoa mensagem é enviada sempre que um membro entra na lista inteligente. Se um membro sair e mais tarde voltar a entrar, a mensagem é enviada novamente. Ajuste a definição se pretender limitar o número de vezes que o mesmo membro pode receber a mensagem: uma, duas ou três vezes."
+                        "0": "Por predefiniçãoa mensagem é enviada sempre que um membro entra na lista inteligente. Se um membro sair e mais tarde voltar a entrar, a mensagem é enviada novamente. Ajuste a definição se pretender limitar o número de vezes que o mesmo membro pode receber a mensagem: uma, duas ou três vezes.",
+                        "1": "Por predefinição, a mensagem é enviada apenas aquando da primeira saída de cada membro da lista inteligente. Pode ajustar a definição para permitir mensagens subsequentes aquando da segunda ou terceira saída do membro."
                     },
                     "limitSection": "Limite",
                     "unlimited": "Sem limite"
@@ -989,12 +989,12 @@
             "showEmail": "Ver a mensagem de e-mail",
             "showSms": "Ver a mensagem de texto",
             "status": {
-                "2": "Recusado",
-                "3": "Em espera",
-                "5": "Erro",
                 "0": "Em curso",
                 "1": "Em curso",
-                "4": "Recebido"
+                "2": "Recusado",
+                "3": "Em espera",
+                "4": "Recebido",
+                "5": "Erro"
             },
             "table": {
                 "columns": {
@@ -1034,20 +1034,20 @@
                 "0": "Email",
                 "1": "SMS",
                 "2": "Notificação push",
-                "51": "Manuel",
-                "70": "Enviado para",
-                "71": "Receitas",
-                "14": "Email transacional",
-                "15": "{{ audienceCamelCase }}",
-                "13": "Notificação",
-                "30": "Agendamento",
-                "31": "Reservas canceladas",
-                "32": "Lista de espera",
                 "10": "Sessão",
                 "11": "Mensagem direta",
                 "12": "Lista inteligente",
+                "13": "Notificação",
+                "14": "Email transacional",
+                "15": "{{ audienceCamelCase }}",
+                "16": "Franquia",
+                "30": "Agendamento",
+                "31": "Reservas canceladas",
+                "32": "Lista de espera",
                 "50": "Automático",
-                "16": "Franquia"
+                "51": "Manuel",
+                "70": "Enviado para",
+                "71": "Receitas"
             },
             "applyFilter": "Aplicar",
             "filterAction": "Filtro",
@@ -1076,11 +1076,11 @@
             "headerStatus": "Estado",
             "headerOpen": "Aberto",
             "status": {
+                "1": "em espera",
                 "4": "recebido",
                 "notReceived": "não recebido",
                 "openYes": "sim",
-                "openNo": "não",
-                "1": "em espera"
+                "openNo": "não"
             }
         },
         "dialogRecipients": {
@@ -1705,11 +1705,11 @@
             "header": {
                 "sourceInvoice": "Cancelar fatura",
                 "source": {
+                    "0": "App móvel",
+                    "1": "Website",
                     "2": "Backoffice",
                     "3": "Outros",
-                    "label": "Canal : {{ source }}",
-                    "0": "App móvel",
-                    "1": "Website"
+                    "label": "Canal : {{ source }}"
                 },
                 "noEstablishment": "Nenhum estabelecimento",
                 "reverseInvoice": "Reembolsado através de ",
@@ -1727,8 +1727,8 @@
         },
         "paymentEngine": {
             "label": {
-                "1": "Pagamento pendente",
-                "0": "Pagamento manual"
+                "0": "Pagamento manual",
+                "1": "Pagamento pendente"
             }
         },
         "paymentMethod": {
@@ -1737,23 +1737,23 @@
             "inconsistent": "Método de pagamento não autorizado, por favor reconfigure. O membro pode ter pedido para não autorizar este método de pagamento ou pode ter fundido dois membros. Em ambos os casos, o método de pagamento já não pode ser utilizado.",
             "isInternalExplain": "Depósito do cliente (manual): todos os meses é criada automaticamente uma dívida na conta do membro.",
             "label": {
-                "11": "Sofort",
                 "0": "Dinheiro",
-                "14": "Depósito dos membros (dívida)",
-                "15": "Cartão (manual)",
-                "16": "Caixas de débito direto",
-                "8": "Diversos",
-                "9": "Bancontact",
-                "10": "iDEAL",
-                "5": "AMEX",
-                "7": "Transferência",
-                "12": "EPS",
-                "13": "Giropay",
                 "1": "Passe",
                 "2": "SEPA",
                 "3": "Cheque",
+                "4": "Controle de férias",
+                "5": "AMEX",
                 "6": "Conflito",
-                "4": "Controle de férias"
+                "7": "Transferência",
+                "8": "Diversos",
+                "9": "Bancontact",
+                "10": "iDEAL",
+                "11": "Sofort",
+                "12": "EPS",
+                "13": "Giropay",
+                "14": "Depósito dos membros (dívida)",
+                "15": "Cartão (manual)",
+                "16": "Caixas de débito direto"
             },
             "isInternalExplainFuturePayments": "A data de vencimento será deduzida automaticamente do depósito do cliente. Se este valor for insuficiente, será criado um depósito negativo.",
             "detach": {
@@ -1815,8 +1815,8 @@
             "address_line_2": "Linha de endereço 2"
         },
         "invoiceInfo": {
-            "3": "Esta fatura é o resultado de uma migração. Por motivos legais, não podemos fornecer um PDF ou anulá-lo.",
-            "2": "Este recibo de pagamento representa o ajuste do saldo do seu membro."
+            "2": "Este recibo de pagamento representa o ajuste do saldo do seu membro.",
+            "3": "Esta fatura é o resultado de uma migração. Por motivos legais, não podemos fornecer um PDF ou anulá-lo."
         },
         "invoiceType": {
             "credit_payment": "Recebido (saldo ajustado)",
@@ -2026,15 +2026,15 @@
             },
             "content": {
                 "explain": {
-                    "2": "Escolha o seu próprio método de reembolso. Utilize este método para um cheque / transferência manual / reembolso em numerário.",
+                    "0": "Os pagamentos por cartão / SEPA / etc... serão transferidos diretamente para a conta do cliente. Utilize este método para efetuar um reembolso direto na sequência de um erro.",
                     "1": "Uma nota de crédito será gerada e aumentará o saldo do cliente no mesmo valor. Utilize este método para gerar uma nota de crédito.",
-                    "0": "Os pagamentos por cartão / SEPA / etc... serão transferidos diretamente para a conta do cliente. Utilize este método para efetuar um reembolso direto na sequência de um erro."
+                    "2": "Escolha o seu próprio método de reembolso. Utilize este método para um cheque / transferência manual / reembolso em numerário."
                 },
                 "explainEmptyPayment": "Tem a certeza de que pretende cancelar esta fatura ?",
                 "label": {
-                    "2": "Reembolso manual",
+                    "0": "Reembolso direto",
                     "1": "Reembolso a crédito (saldo)",
-                    "0": "Reembolso direto"
+                    "2": "Reembolso manual"
                 }
             },
             "warning": {
@@ -2087,12 +2087,12 @@
         },
         "invoiceItem": {
             "buyableItemIdentifier": {
-                "11": "Cartões de presente",
-                "10": "Pack",
                 "1": "Passe de aulas",
-                "9": "Passe de Aula Privada",
+                "2": "Loja",
                 "3": "Crédito",
-                "2": "Loja"
+                "9": "Passe de Aula Privada",
+                "10": "Pack",
+                "11": "Cartões de presente"
             },
             "discount": "Desconto",
             "voucher": "Desconto: {{ voucher }}",
@@ -2105,29 +2105,29 @@
         "quickbooks": {
             "send": {
                 "errors": {
-                    "title": "Erro no envio da fatura",
-                    "934006": "Esta fatura já foi guardada no QuickBooks",
-                    "934005": "A sua fatura não pode ser enviada para o QuickBooks",
-                    "934004": "Não é possível enviar uma fatura não finalizada no QuickBooks",
-                    "934003": "Não é possível enviar uma fatura não finalizada no QuickBooks",
-                    "934002": "Não é possível enviar uma fatura cancelada no QuickBooks",
-                    "934001": "Impossível criar uma fatura sem itens associados",
-                    "934000": "A fatura não tem as informações mínimas necessárias para ser criada no Quickbooks",
-                    "933103": "A plataforma QuickBooks suporta várias moedas, por favor especifique o imposto a ser utilizado.",
-                    "933102": "Erro ao criar uma fatura no Quickbooks",
-                    "933100": "Não foi possível criar o cliente associado ao membro da fatura",
-                    "933101": "Não foi possível criar o cliente associado ao membro da fatura",
+                    "931000": "Erro ao autenticar no Quickbooks",
+                    "931001": "Erro ao autenticar no Quickbooks",
+                    "931002": "Chaves de autenticação expiradas",
+                    "931003": "Chaves de autenticação expiradas",
+                    "931004": "Não configurou a aplicação QuickBooks",
                     "931100": "Erro ao atualizar as chaves de autenticação",
                     "931101": "Quickbooks não consegue enviar os dados",
                     "932000": "A sua conta já não está autenticada na Bsport",
                     "932001": "A sua conta já não está autenticada na Bsport",
                     "932100": "Não é possível aceder às informações da sua conta Quickbooks",
                     "933000": "O membro associado à fatura não possui as informações necessárias para ser registado no QuickBooks",
-                    "931004": "Não configurou a aplicação QuickBooks",
-                    "931003": "Chaves de autenticação expiradas",
-                    "931002": "Chaves de autenticação expiradas",
-                    "931001": "Erro ao autenticar no Quickbooks",
-                    "931000": "Erro ao autenticar no Quickbooks"
+                    "933100": "Não foi possível criar o cliente associado ao membro da fatura",
+                    "933101": "Não foi possível criar o cliente associado ao membro da fatura",
+                    "933102": "Erro ao criar uma fatura no Quickbooks",
+                    "933103": "A plataforma QuickBooks suporta várias moedas, por favor especifique o imposto a ser utilizado.",
+                    "934000": "A fatura não tem as informações mínimas necessárias para ser criada no Quickbooks",
+                    "934001": "Impossível criar uma fatura sem itens associados",
+                    "934002": "Não é possível enviar uma fatura cancelada no QuickBooks",
+                    "934003": "Não é possível enviar uma fatura não finalizada no QuickBooks",
+                    "934004": "Não é possível enviar uma fatura não finalizada no QuickBooks",
+                    "934005": "A sua fatura não pode ser enviada para o QuickBooks",
+                    "934006": "Esta fatura já foi guardada no QuickBooks",
+                    "title": "Erro no envio da fatura"
                 }
             },
             "invoice": {
@@ -2136,11 +2136,11 @@
             }
         },
         "status": {
+            "0": "Sucesso",
             "1": "Falha",
-            "4": "Em curso",
-            "3": "Cancelado",
             "2": "Em espera",
-            "0": "Sucesso"
+            "3": "Cancelado",
+            "4": "Em curso"
         },
         "table": {
             "nested": {
@@ -2667,9 +2667,9 @@
                 "label": "Código"
             },
             "subscription_mode": {
-                "2": "Apenas na primeira fase de faturação (antes da renovação)",
                 "0": "Todas as facturas",
                 "1": "Apenas o primeiro mês",
+                "2": "Apenas na primeira fase de faturação (antes da renovação)",
                 "3": "Não utilizável"
             },
             "percent_off": {
@@ -2707,17 +2707,17 @@
             },
             "applies_to": {
                 "choicesFranchise": {
-                    "9": "Passes de Aula Privada partilhados",
-                    "1": "Passes de aulas partilhados"
+                    "1": "Passes de aulas partilhados",
+                    "9": "Passes de Aula Privada partilhados"
                 },
                 "choices": {
-                    "null": "Conjunto do carrinho",
-                    "all": "Conjunto do carrinho",
-                    "10": "Pack",
-                    "9": "Passes de Aula Privada",
-                    "6": "Despesas de envio",
+                    "1": "Passe de aulas",
                     "2": "Loja",
-                    "1": "Passe de aulas"
+                    "6": "Despesas de envio",
+                    "9": "Passes de Aula Privada",
+                    "10": "Pack",
+                    "null": "Conjunto do carrinho",
+                    "all": "Conjunto do carrinho"
                 }
             },
             "minimum_amount": {
@@ -2804,15 +2804,15 @@
         "search": "Procurar um código promocional",
         "code": {
             "addCoupon": {
+                "5004": "Este cupão só pode ser aplicado a um único artigo.",
+                "5006": "Este cupão já está associado a um carrinho",
                 "not_found": "Este código promocional não é válido.",
                 "not_applicable": "Este código promocional não é aplicável.",
                 "placeholder": "RESERVA_ESPECIAL",
                 "label": "Código promocional",
                 "cancel": "cancelar",
                 "submit": "Confirmar",
-                "apply": "Aplicar",
-                "5006": "Este cupão já está associado a um carrinho",
-                "5004": "Este cupão só pode ser aplicado a um único artigo."
+                "apply": "Aplicar"
             }
         },
         "createCoupon": "Adicionar um código",
@@ -2825,6 +2825,12 @@
                     "helperText": "Carregue um ficheiro CSV com todos os códigos de oferta na primeira coluna, um código por linha, sem cabeçalho."
                 },
                 "errors": {
+                    "5000": "Não é possível fornecer um código que já tenha sido utilizado noutro cupão.",
+                    "5001": "Alguns dos códigos são únicos e não podem ser adicionados porque já foram registados.",
+                    "5003": "Alguns códigos são únicos já estão registados noutro cupão.",
+                    "5004": "Este cupão só pode ser aplicado a um único artigo.",
+                    "5005": "Este código já foi utilizado ou está atualmente associado a um carrinho.",
+                    "5006": "Este cupão único já está associado a um carrinho (aberto)",
                     "expirationDate": {
                         "format": "Erro ao formatar a data",
                         "dateBeforeNow": "A data de expiração não pode ser anterior à data atual."
@@ -2838,13 +2844,7 @@
                     },
                     "only_on_objects": "É necessário escolher um objeto ao qual aplicar o desconto",
                     "applies_to": "O artigo a que se aplica o desconto deve ser um cartão de curso, um cartão de marcação, um pacote ou um artigo da loja",
-                    "5003": "Alguns códigos são únicos já estão registados noutro cupão.",
-                    "5001": "Alguns dos códigos são únicos e não podem ser adicionados porque já foram registados.",
-                    "5000": "Não é possível fornecer um código que já tenha sido utilizado noutro cupão.",
                     "update_mode": "Se desejar alterar os códigos registados para esta promoção, pode acrescentar aos existentes ou substituí-los",
-                    "5006": "Este cupão único já está associado a um carrinho (aberto)",
-                    "5005": "Este código já foi utilizado ou está atualmente associado a um carrinho.",
-                    "5004": "Este cupão só pode ser aplicado a um único artigo.",
                     "codes": {
                         "emptyArray": "É necessário acrescentar pelo menos um código",
                         "updateMode": "É necessário escolher entre acrescentar os códigos aos já existentes ou substituí-los"
@@ -2911,8 +2911,8 @@
             "voucherCodes": "Cupões"
         },
         "couponType": {
-            "3": "Vale de utilização única",
-            "0": "Código de desconto"
+            "0": "Código de desconto",
+            "3": "Vale de utilização única"
         }
     },
     "expense": {
@@ -3690,18 +3690,18 @@
                 "next": "Seguinte",
                 "updateSubmit": "Confirmar",
                 "marketing_action": {
+                    "1": "E-mail",
+                    "2": "SMS",
+                    "3": "Notificação push",
+                    "4": "Etiqueta",
+                    "5": "Modelo de Email",
                     "form": {
                         "reset": "Eliminar",
                         "helper": "Selecione uma ou mais ações a realizar quando um membro entra nesta fase. Esta opção é opcional.",
                         "submit": "Confirmar"
                     },
                     "defaultName": "Nome predefinido",
-                    "select_tag": "Selecionar uma etiqueta",
-                    "5": "Modelo de Email",
-                    "4": "Etiqueta",
-                    "3": "Notificação push",
-                    "2": "SMS",
-                    "1": "E-mail"
+                    "select_tag": "Selecionar uma etiqueta"
                 },
                 "error": {
                     "timeoutMustBeStrictPositive": "O prazo deve ser de, pelo menos, 1 dia.",
@@ -3710,6 +3710,25 @@
                     "minimumConnectedTrigger": "É necessário selecionar pelo menos um acionador."
                 },
                 "event": {
+                    "1": "Passe de aulas",
+                    "2": "Passes de Aulas Privadas",
+                    "3": "Aulas em grupo",
+                    "4": "Frequência das aulas em grupo",
+                    "5": "Aulas Privadas",
+                    "6": "Cancelamento de Aula Privada",
+                    "7": "Criar",
+                    "8": "Adicionar ao carrinho",
+                    "9": "Carrinho pago",
+                    "10": "Fatura criada",
+                    "11": "Criar",
+                    "12": "Pausa",
+                    "13": "Parar",
+                    "14": "Renovação",
+                    "100": "Comprar",
+                    "101": "Reserva",
+                    "102": "Carrinho",
+                    "103": "Faturação",
+                    "104": "Subscrição",
                     "billing_plan-renew": "Renovar",
                     "billing_plan-stop": "Parar",
                     "billing_plan-pause": "Pausa",
@@ -3722,25 +3741,6 @@
                     "booking-create": "Aulas de grupo",
                     "private_consumer_pass-create": "Passe de Aula Privada",
                     "consumer_payment_pack-create": "Passe de aulas",
-                    "104": "Subscrição",
-                    "103": "Faturação",
-                    "102": "Carrinho",
-                    "101": "Reserva",
-                    "100": "Comprar",
-                    "14": "Renovação",
-                    "13": "Parar",
-                    "12": "Pausa",
-                    "11": "Criar",
-                    "10": "Fatura criada",
-                    "9": "Carrinho pago",
-                    "8": "Adicionar ao carrinho",
-                    "7": "Criar",
-                    "6": "Cancelamento de Aula Privada",
-                    "5": "Aulas Privadas",
-                    "4": "Frequência das aulas em grupo",
-                    "3": "Aulas em grupo",
-                    "2": "Passes de Aulas Privadas",
-                    "1": "Passe de aulas",
                     "private_booking-cancel": "Cancelamento de Aula Privada",
                     "private_booking-create": "Aulas privadas"
                 },
@@ -3808,10 +3808,10 @@
                     "label": "Lista Inteligente"
                 },
                 "kinds": {
-                    "3": "Prazo",
-                    "2": "Evento &  Lista Inteligente",
+                    "0": "Evento",
                     "1": "Lista Inteligente",
-                    "0": "Evento"
+                    "2": "Evento &  Lista Inteligente",
+                    "3": "Prazo"
                 },
                 "events": {
                     "label": "Evento",
@@ -4834,13 +4834,13 @@
             "archivedMember": "Membro Arquivado : {{- name}}",
             "dialog": {
                 "warning": {
-                    "1": "Fatura(s) não paga(s)",
-                    "5": "Reserva(s) recorrente(s) registada(s)",
                     "0": "Saldo interno negativo",
-                    "6": "Futura(s) Marcação(ões)",
+                    "1": "Fatura(s) não paga(s)",
                     "2": "Subscrição atual",
-                    "4": "Reserva(s) futura(s)",
                     "3": "Subscrição com renovação automática ativa",
+                    "4": "Reserva(s) futura(s)",
+                    "5": "Reserva(s) recorrente(s) registada(s)",
+                    "6": "Futura(s) Marcação(ões)",
                     "general": "Identificámos os seguintes pontos e aconselhamo-lo a regularizar a conta deste membro antes de a arquivar:"
                 },
                 "title": "Arquivar membro",
@@ -5569,72 +5569,72 @@
             }
         },
         "eventType": {
-            "10": "O lugar na lista de espera expirou para esta ronda.",
-            "21": "Nova reserva (alunos)",
-            "26": "Subscrição em pausa",
+            "3": "Cancelar sessão (alunos)",
             "6": "Inscrição de membro (aluno)",
             "7": "Reserva por passe de oferta",
-            "12": "Inscrever-me na lista de espera",
-            "3": "Cancelar sessão (alunos)",
-            "17": "Reserva anulada : crédito não reembolsado (alunos)",
-            "18": "Reserva anulada : crédito reembolsado (alunos)",
             "8": "Reserva + compra de passe em simultâneo",
             "9": "Está disponível um lugar de reserva",
+            "10": "O lugar na lista de espera expirou para esta ronda.",
+            "12": "Inscrever-me na lista de espera",
             "13": "Um membro anulou a sua inscrição na lista de espera",
+            "14": "Retirar da lista de espera (manager)",
+            "16": "Sessão alterada (alunos)",
+            "17": "Reserva anulada : crédito não reembolsado (alunos)",
+            "18": "Reserva anulada : crédito reembolsado (alunos)",
             "19": "Inscrição de um aluno (manager)",
             "20": "Pedido para descarregar fatura",
+            "21": "Nova reserva (alunos)",
             "22": "Confirmação da fatura",
             "24": "Subscrição criada",
             "25": "Método de pagamento modificado",
+            "26": "Subscrição em pausa",
             "27": "A subscrição foi interrompida ou cancelada",
-            "14": "Retirar da lista de espera (manager)",
-            "16": "Sessão alterada (alunos)",
-            "902": "Pedido de substituição anulado (substituto)",
-            "904": "Novo pedido de substituição (substituto)",
-            "304": "Ativar o passe de oferta",
-            "515": "Passe de aulas e taxa de subscrição automaticamente desativados",
-            "302": "Validar o email do membro",
-            "801": "Grupo de aulas privadas cancelada",
-            "300": "Pontapé de saída (não validado a tempo demasiadas vezes)",
-            "305": "Alterar o email dos membros a partir do backoffice",
-            "400": "Marcação cancelada - fora de tempo (professor)",
-            "403": "Horário alterado (professor)",
-            "901": "Substituição encontrada (professor)",
-            "450": "Marcação - fora de prazo (aluno)",
-            "451": "Marcação anulada - reembolso  (aluno)",
+            "28": "Pagamento recebido",
+            "29": "Lembrete da aula online em 15 min (alunos)",
+            "30": "Reserva para um convidado (para membros convidados)",
+            "31": "Reserva para um convidado (para convidado)",
             "101": "Lembrete da aula online em 15 min (professores)",
             "102": "Cancelar sessão (professores)",
             "103": "Sessão alterada (professores)",
-            "602": "Demasiadas poucas reservas N horas antes do início da sessão (estudantes)",
-            "703": "Ausente : passe bloqueado (alunos)",
-            "704": "Ausente : conta de membro debitada (alunos)",
-            "1001": "Conta Spivi criada (alunos)",
-            "481": "Marcação anulada recorrentemente por falta de disponibilidade (alunos)",
-            "907": "Substituição encontrada (substituto)",
-            "520": "O pagamento de uma subscrição falhou, será tentado novamente",
-            "530": "Disputa sobre o pagamento de uma subscrição",
-            "903": "Foi encontrado outro substituto (substituição)",
-            "905": "Novo pedido tardio (substituto)",
-            "906": "Data de encerramento prorrogada (substituto)",
-            "29": "Lembrete da aula online em 15 min (alunos)",
-            "452": "Nova marcação (aluno)",
-            "453": "Horário alterado (aluno)",
-            "701": "Cancelamento após o prazo : passe bloqueado (alunos)",
-            "601": "Demasiadas poucas reservas N horas antes do início da sessão (professores)",
-            "702": "Cancelamento após o prazo : débito na conta do membro (alunos)",
-            "303": "Fusão de duas contas de estúdio",
-            "705": "Advertência de ausência",
+            "300": "Pontapé de saída (não validado a tempo demasiadas vezes)",
             "301": "Redefinir a palavra-passe do membro",
+            "302": "Validar o email do membro",
+            "303": "Fusão de duas contas de estúdio",
+            "304": "Ativar o passe de oferta",
+            "305": "Alterar o email dos membros a partir do backoffice",
+            "400": "Marcação cancelada - fora de tempo (professor)",
             "401": "Marcação cancelada - reembolsada (professor)",
             "402": "Nova marcação (professor)",
+            "403": "Horário alterado (professor)",
+            "450": "Marcação - fora de prazo (aluno)",
+            "451": "Marcação anulada - reembolso  (aluno)",
+            "452": "Nova marcação (aluno)",
+            "453": "Horário alterado (aluno)",
             "480": "Marcação anulada recorrentemente por falta de disponibilidade (professor)",
+            "481": "Marcação anulada recorrentemente por falta de disponibilidade (alunos)",
             "510": "O pagamento da subscrição falhou",
-            "1002": "Desempenho da sessão",
-            "28": "Pagamento recebido",
+            "515": "Passe de aulas e taxa de subscrição automaticamente desativados",
+            "520": "O pagamento de uma subscrição falhou, será tentado novamente",
+            "530": "Disputa sobre o pagamento de uma subscrição",
+            "601": "Demasiadas poucas reservas N horas antes do início da sessão (professores)",
+            "602": "Demasiadas poucas reservas N horas antes do início da sessão (estudantes)",
+            "701": "Cancelamento após o prazo : passe bloqueado (alunos)",
+            "702": "Cancelamento após o prazo : débito na conta do membro (alunos)",
+            "703": "Ausente : passe bloqueado (alunos)",
+            "704": "Ausente : conta de membro debitada (alunos)",
+            "705": "Advertência de ausência",
+            "801": "Grupo de aulas privadas cancelada",
+            "901": "Substituição encontrada (professor)",
+            "902": "Pedido de substituição anulado (substituto)",
+            "903": "Foi encontrado outro substituto (substituição)",
+            "904": "Novo pedido de substituição (substituto)",
+            "905": "Novo pedido tardio (substituto)",
+            "906": "Data de encerramento prorrogada (substituto)",
+            "907": "Substituição encontrada (substituto)",
             "987": "Tentativa de cobrança de pagamentos em prestações",
-            "1003": "Conta Spivi criada (professores)",
-            "31": "Reserva para um convidado (para convidado)",
-            "30": "Reserva para um convidado (para membros convidados)"
+            "1001": "Conta Spivi criada (alunos)",
+            "1002": "Desempenho da sessão",
+            "1003": "Conta Spivi criada (professores)"
         },
         "emailDesign": {
             "placeholder": "Criado por bsport",
@@ -5961,6 +5961,18 @@
         },
         "search": "Procurar um passe",
         "notification": {
+            "0": {
+                "second": "dias de validade do passe",
+                "first": "Notificar-nos quando "
+            },
+            "1": {
+                "second": "créditos",
+                "first": "Notificar-nos quando"
+            },
+            "2": {
+                "second": "dias",
+                "first": "Notificar-me quando o passe tiver expirado "
+            },
             "daysPast": {
                 "second": "dias",
                 "first": "Notificar quando o passe estiver expirado"
@@ -6026,18 +6038,6 @@
                     "title": "Eliminar a notificação"
                 },
                 "mail": "E-mail "
-            },
-            "2": {
-                "second": "dias",
-                "first": "Notificar-me quando o passe tiver expirado "
-            },
-            "1": {
-                "second": "créditos",
-                "first": "Notificar-nos quando"
-            },
-            "0": {
-                "second": "dias de validade do passe",
-                "first": "Notificar-nos quando "
             }
         },
         "notificationToolTip": "As notificações são definidas para este passe",
@@ -6305,17 +6305,17 @@
             "yearValidity": "Período de validade em anos"
         },
         "incompatibilities": {
-            "paymentPack": "Passe configurado como incompatível com a atividade em questão :",
-            "2023": "O passe expira a",
+            "2008": "Atividade não compatível",
+            "2009": "Categoria não compatível",
+            "2010": "Estabelecimento não compatível",
+            "2018": "Número de créditos insuficientes",
+            "2019": "O passe está bloqueado",
+            "2020": "As datas são incompatíveis",
             "2021": "O passe começa a partir da primeira reserva, a ",
             "2022": "O passe começa a partir da primeira presença, a ",
-            "2020": "As datas são incompatíveis",
-            "2019": "O passe está bloqueado",
-            "2018": "Número de créditos insuficientes",
-            "2010": "Estabelecimento não compatível",
-            "2009": "Categoria não compatível",
-            "2008": "Atividade não compatível",
-            "2027": "O horário é incompatível"
+            "2023": "O passe expira a",
+            "2027": "O horário é incompatível",
+            "paymentPack": "Passe configurado como incompatível com a atividade em questão :"
         },
         "maxoutInfo": {
             "month": "Passe limitado a {{count}} utilização por mês",
@@ -6708,27 +6708,27 @@
             "addThisPaymentItem": "Adicionar este método de pagamento"
         },
         "paymentMethod": {
-            "disputeWon": "Resolvido",
-            "label": "Meios de pagamento",
-            "13": "SEPA",
-            "12": "Conflito",
-            "11": "Vários",
-            "10": "Pagamento automático",
-            "9": "Conta interna (crédito)",
-            "4": "Cartão (manual)",
-            "2": "Cheque",
-            "1": "Dinheiro",
             "0": "Passe",
+            "1": "Dinheiro",
+            "2": "Cheque",
+            "4": "Cartão (manual)",
             "5": "Vouchers",
+            "6": "AMEX",
+            "7": "Transferência",
+            "8": "EventBrite",
+            "9": "Conta interna (crédito)",
+            "10": "Pagamento automático",
+            "11": "Vários",
+            "12": "Conflito",
+            "13": "SEPA",
+            "20": "Bancontact",
+            "30": "Sofort",
+            "40": "iDEAL",
+            "50": "EPS",
             "60": "Giropay",
             "70": "Débito Direto",
-            "40": "iDEAL",
-            "8": "EventBrite",
-            "20": "Bancontact",
-            "50": "EPS",
-            "30": "Sofort",
-            "6": "AMEX",
-            "7": "Transferência"
+            "disputeWon": "Resolvido",
+            "label": "Meios de pagamento"
         },
         "returnedAmount": "Reembolsado: ",
         "generalTermsAndConditions": {
@@ -6783,37 +6783,37 @@
             "cancelPayment": "Anterior"
         },
         "method": {
+            "0": "Passe",
+            "1": "Dinheiro",
+            "2": "Cheque",
+            "3": "Passe",
+            "4": "Cartão (manual)",
+            "5": "Vouchers",
+            "6": "AMEX",
+            "7": "Transferir",
+            "8": "Evento brite",
+            "9": "Crédito",
+            "10": "Débito direto",
+            "11": "Outro",
+            "12": "Conflito",
+            "13": "SEPA",
+            "20": "Bancontact",
+            "30": "Sofort",
+            "40": "iDEAL",
+            "50": "EPS",
+            "60": "Giropay",
+            "70": "Débito direto Bacs",
             "SEPA": "SEPA",
             "CHECK": "Cheque",
             "CASH": "Dinheiro",
             "CREDIT_ACCOUNT": "Crédito",
             "CB": "Cartão",
-            "13": "SEPA",
-            "12": "Conflito",
-            "11": "Outro",
-            "10": "Débito direto",
-            "9": "Crédito",
-            "7": "Transferir",
-            "5": "Vouchers",
-            "4": "Cartão (manual)",
-            "3": "Passe",
-            "2": "Cheque",
-            "1": "Dinheiro",
-            "0": "Passe",
-            "50": "EPS",
-            "60": "Giropay",
             "BANCONTACT": "Bancontact",
             "GIROPAY": "Giropay",
             "EPS": "EPS",
-            "70": "Débito direto Bacs",
             "BACS_DEBIT": "Débito direto Bacs",
-            "8": "Evento brite",
-            "6": "AMEX",
-            "20": "Bancontact",
-            "40": "iDEAL",
             "SOFORT": "Sofort",
-            "IDEAL": "iDEAL",
-            "30": "Sofort"
+            "IDEAL": "iDEAL"
         },
         "paymentComboSectionTitle": "Pack",
         "creditAccountBalance": {
@@ -6829,9 +6829,9 @@
         "bookAnOption": "Colocar-me na lista de espera",
         "bookAnotherOption": "Inscrever-me novamente na lista de espera",
         "disputeStatus": {
-            "3": "Disputa perdida",
+            "1": "Disputa em procedimento",
             "2": "Disputa resolvida",
-            "1": "Disputa em procedimento"
+            "3": "Disputa perdida"
         },
         "explainOption": "Será notificado por e-mail quando houver um lugar disponível.",
         "payment": {
@@ -6927,10 +6927,10 @@
             "seeMore": "Ver mais",
             "status": {
                 "0": "Em espera",
-                "2": "Bem sucedido",
-                "4": "Cancelar",
                 "1": "Em curso",
-                "3": "Detido"
+                "2": "Bem sucedido",
+                "3": "Detido",
+                "4": "Cancelar"
             },
             "invoice": "Fatura {{ uuid }}",
             "isEmpty": "Nenhuma recibo.",
@@ -7396,6 +7396,10 @@
                 "name": "Proprietária(o)",
                 "description": "O Proprietário tem sempre acesso a todas as funcionalidades, pode substituir sem quaisquer restrições e pode adicionar contas de Funcionários."
             },
+            "1": {
+                "name": "Check-in | Amplo",
+                "description": "Com o Check-in | Amplo, o pessoal pode editar sessões (hora, substituição, cancelamento, etc.), visualizar a base de dados de membros e efetuar o check-in de membros."
+            },
             "2": {
                 "description": "Com Check-in | Limitado, o seu Staff só poderá efetuar o check-in de membros.",
                 "name": "Check-in | Limitado"
@@ -7404,21 +7408,17 @@
                 "name": "Check-in | Tablet",
                 "description": "Conta para aplicação de auto-checkin (contacte o seu gestor de conta bsport)"
             },
-            "-1": {
-                "description": "Acesso apenas à interface de venda rápida",
-                "name": "Check-in para o interface de vendas"
-            },
-            "1": {
-                "name": "Check-in | Amplo",
-                "description": "Com o Check-in | Amplo, o pessoal pode editar sessões (hora, substituição, cancelamento, etc.), visualizar a base de dados de membros e efetuar o check-in de membros."
+            "4": {
+                "name": "Admin",
+                "description": "Admin, o mesmo acesso que o Proprietário mas pode ser eliminado/criado"
             },
             "5": {
                 "name": "Relatórios",
                 "description": "Acesso apenas a relatórios, útil para os contabilistas do espaço, por exemplo"
             },
-            "4": {
-                "name": "Admin",
-                "description": "Admin, o mesmo acesso que o Proprietário mas pode ser eliminado/criado"
+            "-1": {
+                "description": "Acesso apenas à interface de venda rápida",
+                "name": "Check-in para o interface de vendas"
             }
         },
         "objectLevelPermissions": {
@@ -8658,20 +8658,20 @@
             "payment_pack": "Passe de aulas"
         },
         "last_invoice_status": {
+            "0": "Bem-sucedido",
+            "1": "Falha",
+            "2": "Pendente",
+            "3": "Cancelado",
+            "4": "Processando",
             "": [
                 "Cancelar"
-            ],
-            "4": "Processando",
-            "3": "Cancelado",
-            "2": "Pendente",
-            "1": "Falha",
-            "0": "Bem-sucedido"
+            ]
         },
         "payment_method_with_credit_account": {
-            "70": "Débito Direto",
-            "13": "SEPA",
+            "0": "Cartão",
             "9": "Crédito do cliente",
-            "0": "Cartão"
+            "13": "SEPA",
+            "70": "Débito Direto"
         },
         "payment_method": {
             "debt": "Crédito interno",
@@ -8719,35 +8719,35 @@
                     "day": "Data"
                 },
                 "filterComparator": {
-                    "3": {
-                        "4": "No intervalo",
-                        "1": "No intervalo de",
-                        "0": "É o"
-                    },
-                    "2": {
-                        "1": "No intervalo",
-                        "0": "É"
+                    "0": {
+                        "4": "É",
+                        "5": "Não é"
                     },
                     "1": {
-                        "5": "Horas de intervalo",
-                        "4": "No intervalo",
-                        "3": "Superior ou igual a",
-                        "2": "Inferior ou igual a",
+                        "0": "Igual a",
                         "1": "Não é igual a",
-                        "0": "Igual a"
+                        "2": "Inferior ou igual a",
+                        "3": "Superior ou igual a",
+                        "4": "No intervalo",
+                        "5": "Horas de intervalo"
                     },
-                    "0": {
-                        "5": "Não é",
-                        "4": "É"
+                    "2": {
+                        "0": "É",
+                        "1": "No intervalo"
+                    },
+                    "3": {
+                        "0": "É o",
+                        "1": "No intervalo de",
+                        "4": "No intervalo"
                     }
                 },
                 "groupOperandHelperText": {
-                    "1": "Os elementos filtrados devem corresponder a todos os filtros.",
-                    "0": "Os elementos filtrados devem corresponder a pelo menos um filtro."
+                    "0": "Os elementos filtrados devem corresponder a pelo menos um filtro.",
+                    "1": "Os elementos filtrados devem corresponder a todos os filtros."
                 },
                 "groupOperand": {
-                    "1": "e",
-                    "0": "Ou"
+                    "0": "Ou",
+                    "1": "e"
                 },
                 "emptyState": "Nenhuma coluna deste relatório é filtrável",
                 "addFilter": "Adicionar um filtro",
@@ -9156,54 +9156,54 @@
         },
         "presetValuesByDatatype": {
             "payment_engine": {
-                "1": "Pagamento Online",
-                "0": "Pagamento manual"
+                "0": "Pagamento manual",
+                "1": "Pagamento Online"
             },
             "payment_method_with_credit_account": {
-                "13": "SEPA",
+                "0": "Passe",
                 "9": "Crédito do cliente",
-                "0": "Passe"
+                "13": "SEPA"
             },
             "payment_method": {
-                "60": "Giropay",
-                "50": "EPS",
-                "40": "iDEAL",
-                "30": "Sofort",
-                "20": "Bancontact",
-                "13": "SEPA",
-                "12": "Conflito",
-                "11": "Outro",
-                "10": "Pagamento automático",
-                "9": "Crédito do cliente",
-                "8": "Eventbrite",
-                "7": "Transferência",
-                "6": "AMEX",
-                "4": "Cartão (manual)",
-                "3": "Passe",
-                "2": "Passe",
-                "1": "Dinheiro",
                 "0": "Passe",
-                "5": "Verificação de férias"
+                "1": "Dinheiro",
+                "2": "Passe",
+                "3": "Passe",
+                "4": "Cartão (manual)",
+                "5": "Verificação de férias",
+                "6": "AMEX",
+                "7": "Transferência",
+                "8": "Eventbrite",
+                "9": "Crédito do cliente",
+                "10": "Pagamento automático",
+                "11": "Outro",
+                "12": "Conflito",
+                "13": "SEPA",
+                "20": "Bancontact",
+                "30": "Sofort",
+                "40": "iDEAL",
+                "50": "EPS",
+                "60": "Giropay"
             },
             "booking_status_code": {
-                "3": "Sessão cancelada",
-                "2": "Eliminar cliente",
+                "0": "Não cancelado",
                 "1": "Cancelamento por parte do gestor",
-                "0": "Não cancelado"
+                "2": "Eliminar cliente",
+                "3": "Sessão cancelada"
             },
             "billing_plan_status": {
-                "4": "Concluído",
-                "3": "Em pausa",
-                "2": "Interrompido",
+                "0": "Ainda não foi iniciado",
                 "1": "Em curso",
-                "0": "Ainda não foi iniciado"
+                "2": "Interrompido",
+                "3": "Em pausa",
+                "4": "Concluído"
             },
             "source_device": {
-                "4": "Migração de dados",
-                "3": "Autor",
-                "2": "Backoffice bsport",
+                "0": "Aplicação",
                 "1": "Site",
-                "0": "Aplicação"
+                "2": "Backoffice bsport",
+                "3": "Autor",
+                "4": "Migração de dados"
             }
         },
         "datatype": {
@@ -9330,13 +9330,13 @@
             }
         },
         "automatedCampaign": {
-            "170001": "Erro: Número limite inválido por membro",
-            "17105": "Erro: Conteúdo obrigatório da notificação",
-            "17104": "Erro: Título obrigatório da notificação",
-            "17103": "Erro: Conteúdo da SMS obrigatório",
-            "17102": "Erro: Conteúdo de e-mail necessário",
+            "17000": "Ocorreu um erro",
             "17101": "Erro: Título obrigatório",
-            "17000": "Ocorreu um erro"
+            "17102": "Erro: Conteúdo de e-mail necessário",
+            "17103": "Erro: Conteúdo da SMS obrigatório",
+            "17104": "Erro: Título obrigatório da notificação",
+            "17105": "Erro: Conteúdo obrigatório da notificação",
+            "170001": "Erro: Número limite inválido por membro"
         },
         "smartlist": {
             "tag_rules": {
@@ -9431,8 +9431,8 @@
                 },
                 "create": {
                     "error": {
-                        "generic": "Impossível de partilhar este passe",
-                        "90005": "Este passe é partilhado a partir de outra conta"
+                        "90005": "Este passe é partilhado a partir de outra conta",
+                        "generic": "Impossível de partilhar este passe"
                     },
                     "success": "Passe individual partilhado"
                 }
@@ -9448,8 +9448,8 @@
                 },
                 "create": {
                     "error": {
-                        "generic": "Impossível partilhar este passe",
-                        "90004": "Este passe é partilhado a partir de outra conta"
+                        "90004": "Este passe é partilhado a partir de outra conta",
+                        "generic": "Impossível partilhar este passe"
                     },
                     "success": "Passe partilhado"
                 }
@@ -9468,10 +9468,10 @@
                 "success": "Relacionamento modificado"
             },
             "error": {
-                "90003": "Ficha inválida",
-                "90002": "O membro não está definido",
+                "90000": "Direitos de acesso deste agregado recusados",
                 "90001": "Pedido inválido",
-                "90000": "Direitos de acesso deste agregado recusados"
+                "90002": "O membro não está definido",
+                "90003": "Ficha inválida"
             }
         },
         "communicationv2": {
@@ -9589,73 +9589,73 @@
             }
         },
         "canNotBuyErrorCode": {
-            "6003": "Já está na lista de espera",
-            "6002": "A lista de espera está completa",
-            "23001": "Nenhum passe de aulas permite-lhe ser adicionado à fila de espera para esta oferta",
-            "2017": "O seu passe de aulas já não lhe permite reservar este ano",
-            "2016": "O seu passe de aulas já não lhe permite reservar este mês",
-            "2015": "O seu passe de aulas já não lhe permite reservar esta semana",
-            "2014": "O seu passe de aulas já não permite efetuar reservas para este dia",
-            "2002": "Este passe de aulas só está disponível para os novos membros",
-            "2005": "Este passe não está disponível para venda",
-            "4": "A sessão não pode ser reservada",
-            "10001": "Stock insuficiente",
-            "2011": "Este passe não permite reservar sessões (apenas Vídeos de Demanda)",
-            "15002": "O artigo já está a ser adicionado ao carrinho, por favor aguarde",
-            "45005": "O passe de oferta já não está disponível para venda.",
+            "1": "A sessão ainda não está aberta a reservas",
             "2": "A sessão já não está aberta a reservas",
             "3": "A sessão está completa",
+            "4": "A sessão não pode ser reservada",
             "5": "Já se inscreveu para esta sessão",
+            "6": "O desequilíbrio entre homens e mulheres é demasiado grande, reserva impossível",
             "7": "O desequilíbrio entre homens e mulheres é demasiado grande, reserva impossível",
             "9": "Está a tentar marcar mais sessões futuras do que as permitidas pelo seu estabelecimento",
             "1113": "Este pacote só está disponível para novos membros",
-            "2004": "Este passe não está disponível para venda",
-            "2006": "Este passe não é compatível com a reserva na data escolhida",
-            "2007": "Este passe não é compatível com esta sessão",
-            "2010": "Este passe não é compatível com este local",
-            "2025": "Este passe já não pode ser adquirido porque a data de validade expirou",
-            "85000": "Já está a decorrer uma reserva, pedimos que aguarde um momento",
-            "85101": "Impossível reservar, este lugar está a ser reservado por outro membro. Por favor, tente novamente e selecione outro lugar.",
-            "6": "O desequilíbrio entre homens e mulheres é demasiado grande, reserva impossível",
-            "45004": "O passe de oferta já não está disponível para venda.",
-            "generic": "Impossível de reservar",
-            "2008": "Este passe não é compatível com esta atividade",
-            "11114": "Este passe de marcação já não pode ser adquirido porque a sua data de validade expirou",
-            "1": "A sessão ainda não está aberta a reservas",
             "1114": "Já não é possível comprar este pack",
             "1122": "Esta embalagem já não pode ser comprada porque a sua data de validade expirou",
+            "2002": "Este passe de aulas só está disponível para os novos membros",
             "2003": "Já não é possível comprar este passe",
-            "2012": "Este passe não é compatível com esta sessão",
-            "8001": "O lugar que escolheu já não está disponível",
+            "2004": "Este passe não está disponível para venda",
+            "2005": "Este passe não está disponível para venda",
+            "2006": "Este passe não é compatível com a reserva na data escolhida",
+            "2007": "Este passe não é compatível com esta sessão",
+            "2008": "Este passe não é compatível com esta atividade",
             "2009": "Este passe não é compatível com a atividade desta categoria",
-            "23002": "Atingiu o número máximo de reservas futuras / lista de espera, não é possível registar mais"
+            "2010": "Este passe não é compatível com este local",
+            "2011": "Este passe não permite reservar sessões (apenas Vídeos de Demanda)",
+            "2012": "Este passe não é compatível com esta sessão",
+            "2014": "O seu passe de aulas já não permite efetuar reservas para este dia",
+            "2015": "O seu passe de aulas já não lhe permite reservar esta semana",
+            "2016": "O seu passe de aulas já não lhe permite reservar este mês",
+            "2017": "O seu passe de aulas já não lhe permite reservar este ano",
+            "2025": "Este passe já não pode ser adquirido porque a data de validade expirou",
+            "6002": "A lista de espera está completa",
+            "6003": "Já está na lista de espera",
+            "8001": "O lugar que escolheu já não está disponível",
+            "10001": "Stock insuficiente",
+            "11114": "Este passe de marcação já não pode ser adquirido porque a sua data de validade expirou",
+            "15002": "O artigo já está a ser adicionado ao carrinho, por favor aguarde",
+            "23001": "Nenhum passe de aulas permite-lhe ser adicionado à fila de espera para esta oferta",
+            "23002": "Atingiu o número máximo de reservas futuras / lista de espera, não é possível registar mais",
+            "45004": "O passe de oferta já não está disponível para venda.",
+            "45005": "O passe de oferta já não está disponível para venda.",
+            "85000": "Já está a decorrer uma reserva, pedimos que aguarde um momento",
+            "85101": "Impossível reservar, este lugar está a ser reservado por outro membro. Por favor, tente novamente e selecione outro lugar.",
+            "generic": "Impossível de reservar"
         },
         "spivi": {
             "error": {
-                "21004": "A reserva dupla não é compatível com a integração do Spivi",
-                "21003": "As sessões de Spivi devem durar entre 20min e 4h",
-                "21002": "O plano de lugares selecionado tem de ter uma Box ID para que a sessão seja ligada ao Spivi",
+                "21000": "O upsell Spivi não está ativado.",
                 "21001": "Não foi selecionado nenhum plano de lugares",
-                "21000": "O upsell Spivi não está ativado."
+                "21002": "O plano de lugares selecionado tem de ter uma Box ID para que a sessão seja ligada ao Spivi",
+                "21003": "As sessões de Spivi devem durar entre 20min e 4h",
+                "21004": "A reserva dupla não é compatível com a integração do Spivi"
             }
         },
         "replacement": {
             "errors": {
-                "500001": "Já existe um pedido de substituição",
-                "50015": "Não pode responder ao seu próprio pedido de substituição",
-                "50013": "Já não é possível responder a este pedido de substituição.",
+                "50000": "Esta sessão já passou",
                 "50007": "Não é possível criar estes pedidos de substituição: não existem pedidos em atraso suficientes.",
-                "50020": "Este pedido de substituição foi recusado: não pode ser eliminado",
-                "500004": "Já é um substituto para esta sessão",
-                "80003": "Falta Configurações para os limites dos pedidos tardios.",
-                "80002": "O valor \"Número de dias de atraso de registo\" deve ser superior ao valor \"Número de dias de encerramento do registo\".",
-                "50021": "Não é possível especificar estabelecimentos e localizações ao mesmo tempo.",
-                "50012": "O professor respondeu que não queria ser suplente nessa sessão.",
-                "50011": "Já foi atribuído um professor a este pedido.",
-                "50010": "Não é possível anular este pedido porque já foi atribuído um professor.",
-                "50009": "Não pode recusar este pedido pelo facto de já ter sido atribuído um professor.",
                 "50008": "A data de encerramento não pode ser alterada após a data da sessão.",
-                "50000": "Esta sessão já passou"
+                "50009": "Não pode recusar este pedido pelo facto de já ter sido atribuído um professor.",
+                "50010": "Não é possível anular este pedido porque já foi atribuído um professor.",
+                "50011": "Já foi atribuído um professor a este pedido.",
+                "50012": "O professor respondeu que não queria ser suplente nessa sessão.",
+                "50013": "Já não é possível responder a este pedido de substituição.",
+                "50015": "Não pode responder ao seu próprio pedido de substituição",
+                "50020": "Este pedido de substituição foi recusado: não pode ser eliminado",
+                "50021": "Não é possível especificar estabelecimentos e localizações ao mesmo tempo.",
+                "80002": "O valor \"Número de dias de atraso de registo\" deve ser superior ao valor \"Número de dias de encerramento do registo\".",
+                "80003": "Falta Configurações para os limites dos pedidos tardios.",
+                "500001": "Já existe um pedido de substituição",
+                "500004": "Já é um substituto para esta sessão"
             },
             "cancelReplacementRequest": {
                 "success": "O pedido de substituição foi eliminado.",
@@ -9940,8 +9940,8 @@
                 "pm_associated_to_pi": "Impossível : Tem uma subscrição associada a este método de pagamento"
             },
             "errors": {
-                "13001": "Não foi possível eliminar este método de pagamento, tente novamente mais tarde",
                 "13000": "Não foi possível eliminar este método de pagamento, tente novamente mais tarde",
+                "13001": "Não foi possível eliminar este método de pagamento, tente novamente mais tarde",
                 "13002": "Os pagamentos futuros são programados utilizando este método de pagamento",
                 "13003": "Está programada uma subscrição com este método de pagamento",
                 "13004": "Os pagamentos futuros são programados utilizando este método de pagamento"
@@ -9953,9 +9953,9 @@
                 "success": "Professor eliminado"
             },
             "errors": {
-                "60004": "O e-mail indicado já está associado a uma conta de franquia do pessoal.",
+                "60002": "O e-mail indicado já está associado a uma conta que pertence ao staff.",
                 "60003": "Já existe um membro com este endereço de e-mail. Para os associar, utilize o pop-up anterior.",
-                "60002": "O e-mail indicado já está associado a uma conta que pertence ao staff."
+                "60004": "O e-mail indicado já está associado a uma conta de franquia do pessoal."
             },
             "create": {
                 "success": "Professor criado com sucesso"
@@ -9985,10 +9985,10 @@
             },
             "signupViaCustomForm": {
                 "errors": {
-                    "84104": "O número de telefone é inválido",
                     "84101": "Os campos obrigatórios não foram preenchidos",
                     "84102": "Este e-mail já está a ser utilizado",
-                    "84103": "O género especificado é inválido"
+                    "84103": "O género especificado é inválido",
+                    "84104": "O número de telefone é inválido"
                 },
                 "error": "Erro ao registar",
                 "success": "Inscrição válida"
@@ -10070,29 +10070,29 @@
             },
             "sendToQuickbooks": {
                 "errors": {
-                    "932100": "Não é possível aceder às informações da sua conta Quickbooks",
-                    "931101": "Quickbooks não consegue enviar-nos os seus dados",
-                    "931100": "Erro ao atualizar as chaves de autenticação",
-                    "933000": "O membro associado à fatura não possui as informações necessárias para ser registado no QuickBooks",
-                    "title": "Erro ao enviar a sua fatura",
-                    "932000": "A sua conta já não está autenticada na Bsport",
-                    "933100": "Não foi possível criar o cliente associado ao membro da fatura",
+                    "931000": "Erro ao autenticar no Quickbooks",
                     "931001": "Erro ao autenticar no Quickbooks",
+                    "931002": "Chaves de autenticação expiradas",
+                    "931003": "Chaves de autenticação expiradas",
                     "931004": "Não configurou a aplicação QuickBooks",
+                    "931100": "Erro ao atualizar as chaves de autenticação",
+                    "931101": "Quickbooks não consegue enviar-nos os seus dados",
+                    "932000": "A sua conta já não está autenticada na Bsport",
+                    "932001": "A sua conta já não está autenticada na Bsport",
+                    "932100": "Não é possível aceder às informações da sua conta Quickbooks",
+                    "933000": "O membro associado à fatura não possui as informações necessárias para ser registado no QuickBooks",
+                    "933100": "Não foi possível criar o cliente associado ao membro da fatura",
                     "933101": "Não foi possível criar o cliente associado ao membro da fatura",
                     "933102": "Erro ao criar uma fatura no Quickbooks",
-                    "934002": "Não é possível enviar uma fatura cancelada no QuickBooks",
-                    "934003": "Não é possível enviar uma fatura não finalizada no QuickBooks",
-                    "934004": "Não é possível enviar uma fatura não paga no QuickBooks",
-                    "934006": "Esta fatura já foi guardada no QuickBooks",
-                    "934005": "A sua fatura não pode ser enviada para o QuickBooks",
-                    "931000": "Erro ao autenticar no Quickbooks",
-                    "932001": "A sua conta já não está autenticada na Bsport",
-                    "931002": "Chaves de autenticação expiradas",
                     "933103": "A plataforma QuickBooks suporta várias moedas, por favor especifique o imposto a ser utilizado.",
                     "934000": "A fatura não tem as informações mínimas necessárias para ser criada no Quickbooks",
                     "934001": "Impossível criar uma fatura sem itens associados",
-                    "931003": "Chaves de autenticação expiradas"
+                    "934002": "Não é possível enviar uma fatura cancelada no QuickBooks",
+                    "934003": "Não é possível enviar uma fatura não finalizada no QuickBooks",
+                    "934004": "Não é possível enviar uma fatura não paga no QuickBooks",
+                    "934005": "A sua fatura não pode ser enviada para o QuickBooks",
+                    "934006": "Esta fatura já foi guardada no QuickBooks",
+                    "title": "Erro ao enviar a sua fatura"
                 },
                 "error": "Ocorreu um erro ao transferir a sua fatura para o Quickbooks",
                 "success": "A sua fatura foi transferida para o Quickbooks"
@@ -10107,8 +10107,8 @@
             "revert": {
                 "errors": {
                     "14100": "Não é possível cancelar uma fatura com pagamentos Interac.",
-                    "14102": "Não é possível reembolsar esta fatura.",
-                    "14101": "Impossível de reembolsar com uma fatura de regularização de saldos."
+                    "14101": "Impossível de reembolsar com uma fatura de regularização de saldos.",
+                    "14102": "Não é possível reembolsar esta fatura."
                 }
             },
             "create": {
@@ -10118,11 +10118,11 @@
                 "error": "Impossível pagar o montante solicitado com este passe de oferta",
                 "errors": {
                     "45000": "O código de ativação do passe não está correto.",
+                    "45001": "Impossível pagar esta conta com este passe de oferta",
                     "45003": "O passe de oferta foi desativado.",
                     "45006": "O passe de oferta já foi ativado",
                     "45007": "Não é possível reconhecer o membro que pretende ativar o passe.",
-                    "generic": "Não é possível ativar o passe de oferta",
-                    "45001": "Impossível pagar esta conta com este passe de oferta"
+                    "generic": "Não é possível ativar o passe de oferta"
                 },
                 "success": "Pagamento do passe de oferta validado"
             },
@@ -10149,10 +10149,10 @@
             }
         },
         "instalmentPayment": {
-            "16003": "O número de recibos de caixa deve ser superior a 2 para ativar a opção \"Personalizar o primeiro montante\"",
-            "16002": "O número de recibos deve ser igual a 1 para ativar a opção \"Pagamento parcial\"",
+            "16000": "O montante da primeira prestação deve ser positivo",
             "16001": "A percentagem do montante total deve estar compreendida entre 0 e 100",
-            "16000": "O montante da primeira prestação deve ser positivo"
+            "16002": "O número de recibos deve ser igual a 1 para ativar a opção \"Pagamento parcial\"",
+            "16003": "O número de recibos de caixa deve ser superior a 2 para ativar a opção \"Personalizar o primeiro montante\""
         },
         "communicationProviderSettings": {
             "update": {
@@ -10323,8 +10323,8 @@
         },
         "tag": {
             "error": {
-                "124004": "O nome da etiqueta principal já está em uso",
-                "124003": "O nome da subetiqueta já está em uso"
+                "124003": "O nome da subetiqueta já está em uso",
+                "124004": "O nome da etiqueta principal já está em uso"
             }
         },
         "mergeError": {
@@ -10402,8 +10402,8 @@
                         "helperText": "Número máximo de pedidos tardios",
                         "recap": {
                             "1": "Em cada {{nbPeriods}} semanas, os professores podem fazer um máximo de {{nbRequests}} pedidos tardios. Quando este número for ultrapassado, deixam de poder efetuar pedidos tardios até ao final do período.",
-                            "3": "Em cada {{nbPeriods}} anos, os professores poderão fazer um máximo de {{nbRequests}} pedidos tardios. Quando este número for ultrapassado, deixarão de poder fazer pedidos tardios até ao final do período.",
-                            "2": "Em cada {{{nbPeriods}} mês, os professores podem fazer um máximo de {{nbRequests}} pedidos tardios. Quando este número for ultrapassado, os professores deixam de poder efetuar pedidos tardios até ao final do período."
+                            "2": "Em cada {{{nbPeriods}} mês, os professores podem fazer um máximo de {{nbRequests}} pedidos tardios. Quando este número for ultrapassado, os professores deixam de poder efetuar pedidos tardios até ao final do período.",
+                            "3": "Em cada {{nbPeriods}} anos, os professores poderão fazer um máximo de {{nbRequests}} pedidos tardios. Quando este número for ultrapassado, deixarão de poder fazer pedidos tardios até ao final do período."
                         }
                     },
                     "errors": {
@@ -11467,13 +11467,13 @@
             },
             "managerAdd": {
                 "incompatibilities": {
-                    "11108": "Número de créditos insuficientes",
-                    "11110": "O passe está expirado",
-                    "11109": "O passe fica ativo com a primeira reserva, a ",
-                    "close": "Fechar",
-                    "privateService": "Passe configurado como incompatível com a marcação em causa :",
                     "11107": "Não compatível",
-                    "11111": "As datas não são compatíveis"
+                    "11108": "Número de créditos insuficientes",
+                    "11109": "O passe fica ativo com a primeira reserva, a ",
+                    "11110": "O passe está expirado",
+                    "11111": "As datas não são compatíveis",
+                    "close": "Fechar",
+                    "privateService": "Passe configurado como incompatível com a marcação em causa :"
                 },
                 "emptyPrivatePass": "Sem nenhum passe de marcação compatível",
                 "address": "Morada",
@@ -12265,9 +12265,9 @@
             "author": "Responsável",
             "owners": "Atribuído a ",
             "status": {
-                "20": "Cancelar",
+                "0": "Corrente",
                 "10": "Concluído",
-                "0": "Corrente"
+                "20": "Cancelar"
             },
             "sectionTitle": {
                 "past": "Tarefas arquivadas",
@@ -12477,170 +12477,83 @@
             "cancel": "Cancelar"
         },
         "filters": {
-            "durations_comparators": {
-                "6": "entre dois",
-                "5": "exatamente",
-                "2": "mais de (⩾)",
-                "1": "entre dois (⩽)"
+            "1": {
+                "name": "Débito",
+                "third": "{{ currencyDisplay }}",
+                "first": "O saldo do membro, menos as faturas não pagas, é de",
+                "second": " à   ",
+                "explanation": "A x {{ currencyDisplay }} na sua conta",
+                "between": "e"
             },
-            "comparators": {
-                "6": "entre dois",
-                "5": "igual",
-                "2": "superior (⩾)",
-                "1": "inferir (⩽)"
+            "5": {
+                "name": "Género",
+                "men": "homens",
+                "first": "Selecionar apenas os",
+                "explanation": "É uma mulher/um homem",
+                "women": "mulheres"
             },
-            "after": "após",
-            "before": "antes de",
-            "add": "Adicionar",
-            "add_filter": "Adicionar um filtro",
-            "active_filters": "Filtros activos na lista inteligente",
-            "all": "Todos",
-            "booking_status": {
-                "booked": "reservado",
-                "canceled": "cancelado"
+            "8": {
+                "explanation": "Possuí um passe de aulas X utilizável",
+                "first": "Possuí um passe de aulas",
+                "name": "Validade de um passe de aulas",
+                "second": "utilizável (com créditos ou ilimitado e não expirado)"
             },
-            "calendarPicker": {
-                "dateTitle": "Data",
-                "durationTitle": "Duração",
-                "duration": "dias",
-                "selectduration": {
-                    "selector": {
-                        "11": "Há mais de X dias e há menos de Y dias",
-                        "10": "X dias atrás",
-                        "9": "Há mais de X dias",
-                        "7": "Em mais de X dias e menos de Y dias",
-                        "6": "Em X dias",
-                        "4": "Em mais de X dias"
-                    },
-                    "11": {
-                        "third": "dias e menos de",
-                        "second": "dias",
-                        "first": "Existem mais de"
-                    },
-                    "10": {
-                        "second": "dias",
-                        "first": "Existem "
-                    },
-                    "9": {
-                        "second": "dias",
-                        "first": "Existem mais de"
-                    },
-                    "7": {
-                        "third": "dias e menos de",
-                        "second": "dias",
-                        "first": "Em mais de"
-                    },
-                    "6": {
-                        "second": "dias",
-                        "first": "Em"
-                    },
-                    "5": {
-                        "second": "dias",
-                        "first": "Em menos de"
-                    },
-                    "4": {
-                        "second": "dias",
-                        "first": "Em mais de"
-                    }
+            "11": {
+                "explanation": "Tem as etiquetas A e B",
+                "name": "Etiquetas",
+                "first": "Filtrar com base nas seguintes etiquetas"
+            },
+            "14": {
+                "workshop": "Passe de aulas especial workshop",
+                "pack": "Passe de aulas",
+                "explanation": "Produtos adquiridos A e B",
+                "third": "e a",
+                "first": "Despesa",
+                "fourth": "pelos produtos",
+                "combo": "Pack",
+                "private_pass": "Aulas privadas",
+                "name": "Despesas",
+                "second": "{{ currencyDisplay }} entre a",
+                "shop": "Loja",
+                "selector": "Escolher produtos"
+            },
+            "18": {
+                "first": "Aderiu ao estúdio   ",
+                "name": "Data da inscrição",
+                "explanation": "Aderiu ao estúdio em..."
+            },
+            "19": {
+                "infoIcon": "Os passes de aulas ilimitados serão sempre incluídos",
+                "first": "um dos passes de aulas",
+                "explanation": "Adquiriu um passe de aulas A na data Y, com X créditos",
+                "third": "à",
+                "name": "Passes de aulas",
+                "has_not": "Não possui",
+                "second": "e",
+                "credits": {
+                    "first": "créditos:",
+                    "second": "e"
                 },
-                "select": {
-                    "3": "A",
-                    "2": "Entre duas datas",
-                    "1": "Em ou antes de",
-                    "0": "Em ou após"
+                "date_bought": {
+                    "first": "data de compra"
                 },
-                "text": {
-                    "11": {
-                        "third": "dias",
-                        "second": "dias e menos de",
-                        "first": "existem mais de"
-                    },
-                    "10": {
-                        "second": "dias",
-                        "first": "existem "
-                    },
-                    "9": {
-                        "second": "dias",
-                        "first": "existem mais de"
-                    },
-                    "8": {
-                        "second": "dias",
-                        "first": "há menos"
-                    },
-                    "7": {
-                        "third": "dias",
-                        "second": "dias e menos de",
-                        "first": "em mais de"
-                    },
-                    "6": {
-                        "second": "dias",
-                        "first": "em "
-                    },
-                    "5": {
-                        "second": "dias",
-                        "first": "em menos de"
-                    },
-                    "4": {
-                        "second": "dias",
-                        "first": "em mais de"
-                    },
-                    "3": {
-                        "first": "a"
-                    },
-                    "2": {
-                        "second": "e o",
-                        "first": "entre os"
-                    },
-                    "1": {
-                        "first": "em ou antes de"
-                    },
-                    "0": {
-                        "first": "em ou após"
-                    }
-                }
+                "expiration": {
+                    "first_has_expire": "expirou",
+                    "first_will_expire": "expira"
+                },
+                "has": "Próprio"
             },
-            "attendanceWarning": "Selecionar um estado",
-            "attendanceFalse": "ausente",
-            "attendanceTrue": "presente",
-            "isEmpty": "Não foi configurado qualquer filtro, pelo que esta lista inteligente representa a totalidade da base de dados de membros",
-            "600": {
-                "expiryDateLabel": "Data de caducidade",
-                "owns": "Com pelo menos um método de pagamento salvo",
-                "does_not_own": "Não tem um método de pagamento salvo",
-                "labelFirst": "Apenas para membros com filtro",
-                "title": "Método de pagamento salvo",
-                "explanation": "Filtrar por método de pagamento guardado e data de caducidade",
-                "name": "Meios de pagamento"
-            },
-            "501": {
-                "explanation": "Marcou a sua última sessão...",
-                "second": "dias, e não tem reservas para o futuro.",
-                "first": "A última sessão reservada ocorreu há mais de",
-                "name": "Data da última sessão reservada"
-            },
-            "410": {
-                "name": "Isenção de responsabilidade",
-                "explanation": "Tendo aceite as declarações de exoneração de responsabilidade",
-                "explain": "que aceitaram as declarações de exoneração de responsabilidade"
-            },
-            "400": {
-                "explanation": "Tem uma palavra-passe na bsport",
-                "name": "Palavra-passe",
-                "explain": "tem uma palavra-passe na bsport"
-            },
-            "107": {
-                "explanation": "Aceitou os termos e condições gerais de utilização",
-                "first": "termos e condições gerais de utilização",
-                "false": "Não aceite",
-                "true": "Aceite",
-                "name": "Termos e condições de utilização"
-            },
-            "106": {
-                "explanation": "Introduziu um número de telefone",
-                "first": "um número de telefone",
-                "false": "Não preenchido",
-                "name": "Telemóvel",
-                "true": "A preencher"
+            "20": {
+                "date": {
+                    "second": "dias",
+                    "first": "Carrinho abandonado"
+                },
+                "name": "Carrinhos abandonados",
+                "explanation": "Abandonou um carrinho no valor de...",
+                "third": "{{ currencyDisplay }}",
+                "between": "e",
+                "first": "Abandonou um carrinho no valor de",
+                "second": "à"
             },
             "21": {
                 "payment_pack": {
@@ -12673,37 +12586,6 @@
                     "first": "com os professores"
                 }
             },
-            "20": {
-                "date": {
-                    "second": "dias",
-                    "first": "Carrinho abandonado"
-                },
-                "name": "Carrinhos abandonados",
-                "explanation": "Abandonou um carrinho no valor de...",
-                "third": "{{ currencyDisplay }}",
-                "between": "e",
-                "first": "Abandonou um carrinho no valor de",
-                "second": "à"
-            },
-            "24": {
-                "between": "e",
-                "combo": "Pack",
-                "pack": "Passe de aulas",
-                "shop": "Loja",
-                "explanation": "Produtos comprados A e B",
-                "workshop": "Passe de aulas especial workshop",
-                "private_pass": "Aulas particulares",
-                "name": "Despesas",
-                "first": "Despesa",
-                "second": "{{ currencyDisplay }} para produtos",
-                "date": {
-                    "first": "compras efetuadas"
-                }
-            },
-            "23": {
-                "explanation": "Reservou a primeira sessão em...",
-                "name": "Primeira reserva"
-            },
             "22": {
                 "level": {
                     "first": "de nível"
@@ -12734,6 +12616,189 @@
                 "first": "Reservado",
                 "explanation": "Reservou X sessões da atividade A, no espaço B, com o passe C...",
                 "name": "Número de reservas"
+            },
+            "23": {
+                "explanation": "Reservou a primeira sessão em...",
+                "name": "Primeira reserva"
+            },
+            "24": {
+                "between": "e",
+                "combo": "Pack",
+                "pack": "Passe de aulas",
+                "shop": "Loja",
+                "explanation": "Produtos comprados A e B",
+                "workshop": "Passe de aulas especial workshop",
+                "private_pass": "Aulas particulares",
+                "name": "Despesas",
+                "first": "Despesa",
+                "second": "{{ currencyDisplay }} para produtos",
+                "date": {
+                    "first": "compras efetuadas"
+                }
+            },
+            "25": {
+                "has_not": "Não possuí",
+                "first": "um dos passes de aula privada",
+                "second": "e",
+                "credits": {
+                    "second": "e",
+                    "first": "créditos:"
+                },
+                "date_bought": {
+                    "first": "data de compra"
+                },
+                "explanation": "Adquiriu o passe de marcação A na data Y, com X créditos",
+                "third": "à",
+                "expiration": {
+                    "first_will_expire": "expira",
+                    "first_has_expire": "expirou"
+                },
+                "name": "Passes de Marcação",
+                "has": "Possuí"
+            },
+            "26": {
+                "private_service": {
+                    "first": "para aulas privadas"
+                },
+                "name": "Número de aulas privadas",
+                "explanation": "Marcou X reservas com o professor A, no local B, com o passe de marcação C...",
+                "first": "Reservado",
+                "hour": {
+                    "second": "horas e",
+                    "first": "a partir de",
+                    "third": "horas"
+                },
+                "between": "e",
+                "establishment": {
+                    "first": "nas salas",
+                    "third": "ao domicílio",
+                    "second": "ou"
+                },
+                "date": {
+                    "first": "a decorrer"
+                },
+                "coach": {
+                    "first": "com os professores"
+                },
+                "second": "aulas privadas",
+                "private_pass": {
+                    "first": "com os passes de marcação"
+                }
+            },
+            "27": {
+                "info": "Os passes de aulas e os passes de aula privada bloqueados também são tidos em conta",
+                "second": "passes de aulas ou passes de aula privada válidos atualmente. Entre",
+                "explanation": "X número de passes de aulas o ou de passes de aula privada válidos",
+                "between": "e",
+                "third": "ou",
+                "name": "Passes válidos",
+                "fourth": "(combinado)",
+                "first": "Possuí"
+            },
+            "28": {
+                "numbersComparator": {
+                    "payment": {
+                        "after": "{{currency}}",
+                        "between": "e",
+                        "before": "O montante da primeira compra foi de"
+                    }
+                },
+                "filterByDate": {
+                    "before": "Filtrar por data"
+                },
+                "booleanChoice": {
+                    "is_not": "ainda não concluído",
+                    "is": "feito",
+                    "before": "A primeira compra é"
+                },
+                "explanation": "Filtra os membros com um primeiro cabaz finalizado/pago",
+                "name": "Primeira compra"
+            },
+            "29": {
+                "numbersComparator": {
+                    "money": {
+                        "after": "{{currency}} como referenciador",
+                        "between": "e",
+                        "before": "O membro obteve"
+                    },
+                    "referred": {
+                        "tooltip": "Podem também ser incluídos os deputados que não tenham indicado ninguém",
+                        "after": "membros",
+                        "between": "e",
+                        "before": "O membro referiu"
+                    },
+                    "reward": {
+                        "after": "recompensas como referenciador",
+                        "between": "e",
+                        "before": "O membro obteve"
+                    }
+                },
+                "explanation": "Filtra os membros que indicaram membros",
+                "name": "Referenciador"
+            },
+            "30": {
+                "numbersComparator": {
+                    "money": {
+                        "after": "{{currency}}como membro referenciado",
+                        "between": "e",
+                        "before": "O membro obteve"
+                    }
+                },
+                "booleanChoice": {
+                    "after": "um membro referido",
+                    "is_not": "não é",
+                    "is": "é",
+                    "before": "O membro"
+                },
+                "explanation": " Filtra os membros que utilizaram uma ligação de referência para se inscreverem",
+                "name": "Membro indicado"
+            },
+            "101": {
+                "first": "Tem idade",
+                "between": "e",
+                "to": "à",
+                "explanation": "É menos do que/mais do que/exatamente...",
+                "second": "anos (incluídos)",
+                "name": "Idade"
+            },
+            "102": {
+                "between": "e",
+                "to": "à",
+                "hasCompleted": "Completado",
+                "hasNotCompleted": "Não completou",
+                "hasCompletedNone": "Não concluiu",
+                "none": "nenhum formulário",
+                "third": "numa percentagem",
+                "second": "de",
+                "name": "Formulários",
+                "atLeastOne": "pelo menos um formulário",
+                "all": "todos os formulários",
+                "date": {
+                    "first": "concluído pela última vez"
+                },
+                "explanation": "Formulários X preenchidos em A% na data B "
+            },
+            "103": {
+                "name": "Notificações",
+                "email": "receber notificações por email",
+                "explanation": "Aceita notificações por SMS/Email",
+                "allNeeded": "Todas as condições ativadas devem ser cumpridas",
+                "true": "Aceitar",
+                "sms": "receber notificações por SMS",
+                "oneNeeded": "Pelo menos uma das condições ativadas deve ser satisfeita",
+                "false": "Não aceita"
+            },
+            "104": {
+                "first": "Possuí pelo menos uma nota",
+                "name": "Notas",
+                "nonMedical": "não médica",
+                "info": "As notas médicas correspondem às que constam da secção \"Informações essenciais\" no perfil do membro",
+                "date": {
+                    "first": "que foi criada"
+                },
+                "explanation": "Tem pelo menos uma nota médica (ou não)",
+                "medicalOrNot": "médica ou não médica",
+                "medical": "médica"
             },
             "105": {
                 "explanation": "Tem X relacionamentos e Y passes partilhados ou passes de aula privada ou reservas",
@@ -12775,236 +12840,171 @@
                     "true": "aceitar"
                 }
             },
-            "27": {
-                "info": "Os passes de aulas e os passes de aula privada bloqueados também são tidos em conta",
-                "second": "passes de aulas ou passes de aula privada válidos atualmente. Entre",
-                "explanation": "X número de passes de aulas o ou de passes de aula privada válidos",
-                "between": "e",
-                "third": "ou",
-                "name": "Passes válidos",
-                "fourth": "(combinado)",
-                "first": "Possuí"
+            "106": {
+                "explanation": "Introduziu um número de telefone",
+                "first": "um número de telefone",
+                "false": "Não preenchido",
+                "name": "Telemóvel",
+                "true": "A preencher"
             },
-            "19": {
-                "infoIcon": "Os passes de aulas ilimitados serão sempre incluídos",
-                "first": "um dos passes de aulas",
-                "explanation": "Adquiriu um passe de aulas A na data Y, com X créditos",
-                "third": "à",
-                "name": "Passes de aulas",
-                "has_not": "Não possui",
-                "second": "e",
-                "credits": {
-                    "first": "créditos:",
-                    "second": "e"
-                },
-                "date_bought": {
-                    "first": "data de compra"
-                },
-                "expiration": {
-                    "first_has_expire": "expirou",
-                    "first_will_expire": "expira"
-                },
-                "has": "Próprio"
+            "107": {
+                "explanation": "Aceitou os termos e condições gerais de utilização",
+                "first": "termos e condições gerais de utilização",
+                "false": "Não aceite",
+                "true": "Aceite",
+                "name": "Termos e condições de utilização"
             },
-            "14": {
-                "workshop": "Passe de aulas especial workshop",
-                "pack": "Passe de aulas",
-                "explanation": "Produtos adquiridos A e B",
-                "third": "e a",
-                "first": "Despesa",
-                "fourth": "pelos produtos",
-                "combo": "Pack",
-                "private_pass": "Aulas privadas",
-                "name": "Despesas",
-                "second": "{{ currencyDisplay }} entre a",
-                "shop": "Loja",
-                "selector": "Escolher produtos"
+            "400": {
+                "explanation": "Tem uma palavra-passe na bsport",
+                "name": "Palavra-passe",
+                "explain": "tem uma palavra-passe na bsport"
             },
-            "8": {
-                "explanation": "Possuí um passe de aulas X utilizável",
-                "first": "Possuí um passe de aulas",
-                "name": "Validade de um passe de aulas",
-                "second": "utilizável (com créditos ou ilimitado e não expirado)"
+            "410": {
+                "name": "Isenção de responsabilidade",
+                "explanation": "Tendo aceite as declarações de exoneração de responsabilidade",
+                "explain": "que aceitaram as declarações de exoneração de responsabilidade"
             },
-            "1": {
-                "name": "Débito",
-                "third": "{{ currencyDisplay }}",
-                "first": "O saldo do membro, menos as faturas não pagas, é de",
-                "second": " à   ",
-                "explanation": "A x {{ currencyDisplay }} na sua conta",
-                "between": "e"
+            "501": {
+                "explanation": "Marcou a sua última sessão...",
+                "second": "dias, e não tem reservas para o futuro.",
+                "first": "A última sessão reservada ocorreu há mais de",
+                "name": "Data da última sessão reservada"
             },
-            "5": {
-                "name": "Género",
-                "men": "homens",
-                "first": "Selecionar apenas os",
-                "explanation": "É uma mulher/um homem",
-                "women": "mulheres"
+            "600": {
+                "expiryDateLabel": "Data de caducidade",
+                "owns": "Com pelo menos um método de pagamento salvo",
+                "does_not_own": "Não tem um método de pagamento salvo",
+                "labelFirst": "Apenas para membros com filtro",
+                "title": "Método de pagamento salvo",
+                "explanation": "Filtrar por método de pagamento guardado e data de caducidade",
+                "name": "Meios de pagamento"
             },
-            "102": {
-                "between": "e",
-                "to": "à",
-                "hasCompleted": "Completado",
-                "hasNotCompleted": "Não completou",
-                "hasCompletedNone": "Não concluiu",
-                "none": "nenhum formulário",
-                "third": "numa percentagem",
-                "second": "de",
-                "name": "Formulários",
-                "atLeastOne": "pelo menos um formulário",
-                "all": "todos os formulários",
-                "date": {
-                    "first": "concluído pela última vez"
-                },
-                "explanation": "Formulários X preenchidos em A% na data B "
+            "durations_comparators": {
+                "1": "entre dois (⩽)",
+                "2": "mais de (⩾)",
+                "5": "exatamente",
+                "6": "entre dois"
             },
-            "103": {
-                "name": "Notificações",
-                "email": "receber notificações por email",
-                "explanation": "Aceita notificações por SMS/Email",
-                "allNeeded": "Todas as condições ativadas devem ser cumpridas",
-                "true": "Aceitar",
-                "sms": "receber notificações por SMS",
-                "oneNeeded": "Pelo menos uma das condições ativadas deve ser satisfeita",
-                "false": "Não aceita"
+            "comparators": {
+                "1": "inferir (⩽)",
+                "2": "superior (⩾)",
+                "5": "igual",
+                "6": "entre dois"
             },
-            "26": {
-                "private_service": {
-                    "first": "para aulas privadas"
+            "after": "após",
+            "before": "antes de",
+            "add": "Adicionar",
+            "add_filter": "Adicionar um filtro",
+            "active_filters": "Filtros activos na lista inteligente",
+            "all": "Todos",
+            "booking_status": {
+                "booked": "reservado",
+                "canceled": "cancelado"
+            },
+            "calendarPicker": {
+                "dateTitle": "Data",
+                "durationTitle": "Duração",
+                "duration": "dias",
+                "selectduration": {
+                    "4": {
+                        "second": "dias",
+                        "first": "Em mais de"
+                    },
+                    "5": {
+                        "second": "dias",
+                        "first": "Em menos de"
+                    },
+                    "6": {
+                        "second": "dias",
+                        "first": "Em"
+                    },
+                    "7": {
+                        "third": "dias e menos de",
+                        "second": "dias",
+                        "first": "Em mais de"
+                    },
+                    "9": {
+                        "second": "dias",
+                        "first": "Existem mais de"
+                    },
+                    "10": {
+                        "second": "dias",
+                        "first": "Existem "
+                    },
+                    "11": {
+                        "third": "dias e menos de",
+                        "second": "dias",
+                        "first": "Existem mais de"
+                    },
+                    "selector": {
+                        "4": "Em mais de X dias",
+                        "6": "Em X dias",
+                        "7": "Em mais de X dias e menos de Y dias",
+                        "9": "Há mais de X dias",
+                        "10": "X dias atrás",
+                        "11": "Há mais de X dias e há menos de Y dias"
+                    }
                 },
-                "name": "Número de aulas privadas",
-                "explanation": "Marcou X reservas com o professor A, no local B, com o passe de marcação C...",
-                "first": "Reservado",
-                "hour": {
-                    "second": "horas e",
-                    "first": "a partir de",
-                    "third": "horas"
+                "select": {
+                    "0": "Em ou após",
+                    "1": "Em ou antes de",
+                    "2": "Entre duas datas",
+                    "3": "A"
                 },
-                "between": "e",
-                "establishment": {
-                    "first": "nas salas",
-                    "third": "ao domicílio",
-                    "second": "ou"
-                },
-                "date": {
-                    "first": "a decorrer"
-                },
-                "coach": {
-                    "first": "com os professores"
-                },
-                "second": "aulas privadas",
-                "private_pass": {
-                    "first": "com os passes de marcação"
+                "text": {
+                    "0": {
+                        "first": "em ou após"
+                    },
+                    "1": {
+                        "first": "em ou antes de"
+                    },
+                    "2": {
+                        "second": "e o",
+                        "first": "entre os"
+                    },
+                    "3": {
+                        "first": "a"
+                    },
+                    "4": {
+                        "second": "dias",
+                        "first": "em mais de"
+                    },
+                    "5": {
+                        "second": "dias",
+                        "first": "em menos de"
+                    },
+                    "6": {
+                        "second": "dias",
+                        "first": "em "
+                    },
+                    "7": {
+                        "third": "dias",
+                        "second": "dias e menos de",
+                        "first": "em mais de"
+                    },
+                    "8": {
+                        "second": "dias",
+                        "first": "há menos"
+                    },
+                    "9": {
+                        "second": "dias",
+                        "first": "existem mais de"
+                    },
+                    "10": {
+                        "second": "dias",
+                        "first": "existem "
+                    },
+                    "11": {
+                        "third": "dias",
+                        "second": "dias e menos de",
+                        "first": "existem mais de"
+                    }
                 }
             },
-            "104": {
-                "first": "Possuí pelo menos uma nota",
-                "name": "Notas",
-                "nonMedical": "não médica",
-                "info": "As notas médicas correspondem às que constam da secção \"Informações essenciais\" no perfil do membro",
-                "date": {
-                    "first": "que foi criada"
-                },
-                "explanation": "Tem pelo menos uma nota médica (ou não)",
-                "medicalOrNot": "médica ou não médica",
-                "medical": "médica"
-            },
-            "11": {
-                "explanation": "Tem as etiquetas A e B",
-                "name": "Etiquetas",
-                "first": "Filtrar com base nas seguintes etiquetas"
-            },
-            "25": {
-                "has_not": "Não possuí",
-                "first": "um dos passes de aula privada",
-                "second": "e",
-                "credits": {
-                    "second": "e",
-                    "first": "créditos:"
-                },
-                "date_bought": {
-                    "first": "data de compra"
-                },
-                "explanation": "Adquiriu o passe de marcação A na data Y, com X créditos",
-                "third": "à",
-                "expiration": {
-                    "first_will_expire": "expira",
-                    "first_has_expire": "expirou"
-                },
-                "name": "Passes de Marcação",
-                "has": "Possuí"
-            },
-            "101": {
-                "first": "Tem idade",
-                "between": "e",
-                "to": "à",
-                "explanation": "É menos do que/mais do que/exatamente...",
-                "second": "anos (incluídos)",
-                "name": "Idade"
-            },
-            "18": {
-                "first": "Aderiu ao estúdio   ",
-                "name": "Data da inscrição",
-                "explanation": "Aderiu ao estúdio em..."
-            },
-            "30": {
-                "numbersComparator": {
-                    "money": {
-                        "after": "{{currency}}como membro referenciado",
-                        "between": "e",
-                        "before": "O membro obteve"
-                    }
-                },
-                "booleanChoice": {
-                    "after": "um membro referido",
-                    "is_not": "não é",
-                    "is": "é",
-                    "before": "O membro"
-                },
-                "explanation": " Filtra os membros que utilizaram uma ligação de referência para se inscreverem",
-                "name": "Membro indicado"
-            },
-            "29": {
-                "numbersComparator": {
-                    "money": {
-                        "after": "{{currency}} como referenciador",
-                        "between": "e",
-                        "before": "O membro obteve"
-                    },
-                    "referred": {
-                        "tooltip": "Podem também ser incluídos os deputados que não tenham indicado ninguém",
-                        "after": "membros",
-                        "between": "e",
-                        "before": "O membro referiu"
-                    },
-                    "reward": {
-                        "after": "recompensas como referenciador",
-                        "between": "e",
-                        "before": "O membro obteve"
-                    }
-                },
-                "explanation": "Filtra os membros que indicaram membros",
-                "name": "Referenciador"
-            },
-            "28": {
-                "numbersComparator": {
-                    "payment": {
-                        "after": "{{currency}}",
-                        "between": "e",
-                        "before": "O montante da primeira compra foi de"
-                    }
-                },
-                "filterByDate": {
-                    "before": "Filtrar por data"
-                },
-                "booleanChoice": {
-                    "is_not": "ainda não concluído",
-                    "is": "feito",
-                    "before": "A primeira compra é"
-                },
-                "explanation": "Filtra os membros com um primeiro cabaz finalizado/pago",
-                "name": "Primeira compra"
-            }
+            "attendanceWarning": "Selecionar um estado",
+            "attendanceFalse": "ausente",
+            "attendanceTrue": "presente",
+            "isEmpty": "Não foi configurado qualquer filtro, pelo que esta lista inteligente representa a totalidade da base de dados de membros"
         },
         "cannotBeDeletedDialog": {
             "content": "Não é possível eliminar esta lista inteligente desde que seja utilizada na sequência seguinte :",
@@ -13024,8 +13024,8 @@
         },
         "delete": "Eliminar",
         "filterCategory": {
-            "2": "Passes",
             "1": "Informações do membro",
+            "2": "Passes",
             "3": "Reservas",
             "4": "Compras"
         },
@@ -13114,10 +13114,10 @@
                     "second": "e o"
                 },
                 "label": {
-                    "2": "Média",
-                    "3": "Último quartil",
                     "0": "Nenhuma despesa",
-                    "1": "Primeiro quartil"
+                    "1": "Primeiro quartil",
+                    "2": "Média",
+                    "3": "Último quartil"
                 }
             },
             "bookingsSegments": {
@@ -13177,9 +13177,9 @@
         "generateExport": "Gerar exportação",
         "memberBase": {
             "options": {
-                "2": "Arquivado",
                 "0": "Não arquivado e arquivado",
-                "1": "Não arquivado"
+                "1": "Não arquivado",
+                "2": "Arquivado"
             },
             "helperText": "Esta lista inteligente aplica-se a todos os membros"
         },
@@ -13421,8 +13421,8 @@
                 },
                 "save": "Guardar alterações",
                 "memberType": {
-                    "2": "Licenciado",
-                    "1": "Básico"
+                    "1": "Básico",
+                    "2": "Licenciado"
                 },
                 "establishmentTable": {
                     "removeAction": "Remover",
@@ -13662,6 +13662,9 @@
         "widget": {
             "cssConfig": {
                 "option": {
+                    "1": "Um",
+                    "2": "Dois",
+                    "3": "três",
                     "waitingList": "Lista de espera",
                     "activityName": "Atividade",
                     "false": "Não",
@@ -13698,9 +13701,6 @@
                     "defaultPrepaidLine": "Predefinição",
                     "internalAccountPrepaidLine": "Pagamento através de conta interna",
                     "giftcardPrepaidLine": "Pagamento através de cartão de presente",
-                    "3": "três",
-                    "2": "Dois",
-                    "1": "Um",
                     "elevated": "Elevado",
                     "rest": "Descanso",
                     "warning": "Aviso",
@@ -14257,18 +14257,18 @@
                 "label": "Eliminar automaticamente a lista de espera"
             },
             "dynamic": {
-                "label": "Gerir as prioridades da lista de espera",
-                "1": {
-                    "explain": "A lista de espera não é ordenada. Quando um lugar fica disponível, todos os inscritos na lista recebem um e-mail ao mesmo tempo de convite.",
-                    "label": "Primeiro a chegar, primeiro a ser servido"
-                },
                 "0": {
                     "explain": "Quando um aluno inscreve-se na lista de espera é-lhe atribuído um lugar. Quando surgir uma vaga, o primeiro aluno da lista pode inscrever-se, enquanto os outros aguardam a sua vez",
                     "overallExplainSmart": "Se houver um lugar disponível, o aluno tem {{ autokick_delay }} lembretes em intervalos de {{ smart_delay_percentage }} do tempo restante antes do início da sessão para se registar. Por exemplo, se houver {{ example_hours_before }} h antes da sessão, tem {{ example_computed_delay_one }} minutos para se registar e depois {{ example_computed_delay_two }} minutos após o primeiro reinício, e assim sucessivamente, antes de dar lugar ao aluno seguinte.",
                     "overallExplainSimple": "Se houver um lugar disponível, o aluno tem {{ autokick_delay }} lembretes em intervalos de {{ dumb_delay_minutes }} minutos para se inscrever antes de ceder o seu lugar ao aluno seguinte.",
                     "settingsDelay": "Tempo entre lembretes",
                     "label": "Um por um"
-                }
+                },
+                "1": {
+                    "explain": "A lista de espera não é ordenada. Quando um lugar fica disponível, todos os inscritos na lista recebem um e-mail ao mesmo tempo de convite.",
+                    "label": "Primeiro a chegar, primeiro a ser servido"
+                },
+                "label": "Gerir as prioridades da lista de espera"
             },
             "check_credit": {
                 "helper": "Os clientes não podem ser colocados em fila de espera enquanto não dispuserem de um passe de aulas compatível com a oferta em causa e de crédito suficiente para efetuar a reserva",
@@ -17253,15 +17253,15 @@
             "subscribeAgain": "Subscrever novamente",
             "status": "Estado",
             "payment_method_group": {
-                "14": "Crédito",
+                "1": "Cartão",
                 "2": "SEPA",
-                "1": "Cartão"
+                "14": "Crédito"
             },
             "payment_method": {
-                "label": "Meios de pagamento",
-                "2": "Crédito",
-                "1": "Transferência SEPA",
                 "0": "Cartão",
+                "1": "Transferência SEPA",
+                "2": "Crédito",
+                "label": "Meios de pagamento",
                 "paymentOnline": "Pagamento Online"
             },
             "parameters": "Configurações",
@@ -17309,10 +17309,10 @@
         },
         "seeMore": "Ver mais",
         "billing_plan_status": {
-            "3": "Em pausa",
             "0": "Ainda não foi iniciada",
             "1": "Ativo",
             "2": "Interrompido",
+            "3": "Em pausa",
             "4": "Terminado"
         },
         "register": {
@@ -18054,10 +18054,10 @@
             "offeredAboveAmount": "Oferecido após a compra de {{ free_threshold, price }}"
         },
         "state": {
-            "1200": "A recolher no local",
-            "700": "Pago",
             "0": "Em espera",
+            "700": "Pago",
             "1100": "Cancelar",
+            "1200": "A recolher no local",
             "9000": "Expedido"
         },
         "form": {
@@ -18399,21 +18399,21 @@
         },
         "invoiceItemDropdown": {
             "contentType": {
-                "10": "Packs",
-                "9": "Passes de aula privada",
-                "7": "Promoção",
-                "6": "Despesas de envio",
+                "1": "Passes de aulas",
                 "2": "Produtos da loja",
-                "1": "Passes de aulas"
+                "6": "Despesas de envio",
+                "7": "Promoção",
+                "9": "Passes de aula privada",
+                "10": "Packs"
             }
         },
         "bookingDropdown": {
             "source": {
-                "4": "Migração de dados",
-                "3": "Outros",
-                "2": "Backoffice bsport",
+                "0": "Aplicação",
                 "1": "Web",
-                "0": "Aplicação"
+                "2": "Backoffice bsport",
+                "3": "Outros",
+                "4": "Migração de dados"
             }
         },
         "invoiceItems": {
@@ -18740,22 +18740,22 @@
                 "may": "Maio"
             },
             "isoWeekdayNumber": {
-                "7": "Domingo",
-                "6": "Sábado",
-                "5": "Sexta",
-                "4": "Quinta",
-                "3": "Quarta",
+                "1": "Segunda",
                 "2": "Terça",
-                "1": "Segunda"
+                "3": "Quarta",
+                "4": "Quinta",
+                "5": "Sexta",
+                "6": "Sábado",
+                "7": "Domingo"
             },
             "weekdayNumber": {
-                "6": "Domingo",
-                "5": "Sábado",
-                "4": "Sexta",
-                "3": "Quinta",
-                "2": "Quarta",
+                "0": "Segunda",
                 "1": "Terça",
-                "0": "Segunda"
+                "2": "Quarta",
+                "3": "Quinta",
+                "4": "Sexta",
+                "5": "Sábado",
+                "6": "Domingo"
             },
             "weekday": {
                 "satursday": "Sábado",
@@ -18897,15 +18897,15 @@
             "billRecurrent": "{{ price_cts }} / mês",
             "billOnce": "{{ price_cts }}",
             "lockDialog": {
-                "requestAccess": "Solicitar acesso",
+                "31": {
+                    "intro": "Desbloquear Audience acesso",
+                    "explain": "Esta funcionalidade é um add-on, contacte o seu gestor de conta para obter mais informações."
+                },
                 "33": {
                     "explain": "Você encontrará aqui todas as suas discussões diretas, bate-papos vinculados às suas sessões e suas campanhas de lista inteligente. O bate-papo é compatível com SMS, e-mail e notificações por push.",
                     "intro": "Descubra nossa nova interface de bate-papo direto com seus membros."
                 },
-                "31": {
-                    "intro": "Desbloquear Audience acesso",
-                    "explain": "Esta funcionalidade é um add-on, contacte o seu gestor de conta para obter mais informações."
-                }
+                "requestAccess": "Solicitar acesso"
             },
             "subscriptionForm": {
                 "commitmentMessage": "Nota: A subscrição implica um período de compromisso de 12 meses",
@@ -19023,6 +19023,10 @@
             "explain": "Solicitou a integração da bsport x Classpass. O seu gestor de conta entrará em contacto consigo para validar esta operação"
         },
         "configurationType": {
+            "1": {
+                "helperText": "Cada estabelecimento aparecerá como um local independente no ClassPass",
+                "label": "Estabelecimentos independentes"
+            },
             "2": {
                 "label": "Fusão de todos os estabelecimentos",
                 "helperText": "Todos os estabelecimentos aparecerão como um único estabelecimento"
@@ -19030,10 +19034,6 @@
             "3": {
                 "helperText": "Agrupar estabelecimentos semelhantes por endereço",
                 "label": "Avançado"
-            },
-            "1": {
-                "helperText": "Cada estabelecimento aparecerá como um local independente no ClassPass",
-                "label": "Estabelecimentos independentes"
             }
         }
     },

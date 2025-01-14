@@ -7,6 +7,7 @@ import {
   removeSync,
 } from "fs-extra";
 import { mergeFiles } from "json-merger";
+import beautify from "json-beautify";
 import { getInternationalizedApplications, type ProjectConfig } from "./utils";
 import { LOCALES, LANGUAGES } from "../src";
 
@@ -55,7 +56,7 @@ function splitLocaleTranslationsBetweenProjects({
 
   // Iterate through project name to get the associated strings
   for (const projectConfig of projectList) {
-    const { name, pathToPublicLocales } = projectConfig;
+    const { name, pathToPublicLocales, pathToI18n } = projectConfig;
     const projectTranslations = translations[name];
     if (!projectTranslations) {
       continue;
@@ -64,6 +65,7 @@ function splitLocaleTranslationsBetweenProjects({
       locale,
       translations: projectTranslations,
       pathToPublicLocales,
+      pathToI18n,
     });
   }
 }
@@ -76,11 +78,25 @@ function updateProjectTranslations({
   locale,
   translations,
   pathToPublicLocales,
+  pathToI18n,
 }: {
   locale: string;
   translations: object;
   pathToPublicLocales: string;
+  pathToI18n: string;
 }) {
+  // Write to the src/i18n/build folders so that Nx can track the changes
+  const pathToBuildDir = path.resolve(pathToI18n, "build", locale);
+  if (!existsSync(pathToBuildDir)) {
+    removeSync(pathToBuildDir);
+  }
+  mkdirSync(pathToBuildDir, { recursive: true });
+  const localeTranslationsPath = path.resolve(
+    pathToBuildDir,
+    "translations.json",
+  );
+  writeFileSync(localeTranslationsPath, beautify(translations, null as any, 4));
+
   // Recreate the public/locales/[locale] folder
   const pathToCurrentLocaleDir = path.resolve(pathToPublicLocales, locale);
   if (existsSync(pathToCurrentLocaleDir)) {

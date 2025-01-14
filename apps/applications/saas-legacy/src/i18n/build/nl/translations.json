@@ -52,9 +52,9 @@
             "author": "Auteur",
             "owners": "Toegewezen aan ",
             "status": {
-                "20": "Geannuleerd",
+                "0": "Bezig",
                 "10": "Voltooid",
-                "0": "Bezig"
+                "20": "Geannuleerd"
             },
             "sectionTitle": {
                 "past": "Gearchiveerde taken",
@@ -694,80 +694,80 @@
     },
     "notificationRule": {
         "eventType": {
-            "453": "Gewijzigde planning (voor leden)",
-            "452": "Nieuwe afspraak (voor leden)",
-            "451": "Kosteloze geannuleerde afspraken (voor leden)",
-            "450": "Te late geannuleerde afspraken (voor leden)",
-            "403": "Gewijzigde planning (voor medewerkers)",
-            "402": "Nieuwe afspraak (voor medewerkers)",
-            "401": "Kosteloze geannuleerde afspraken (voor medewerkers)",
-            "400": "Te laat geannuleerde afspraken (voor medewerkers)",
-            "29": "Herinnering 15 minuten voor de online les (leden)",
-            "28": "Ontvangen betalingen (voor leden)",
-            "27": "Wanneer het abonnementen van een lid is afgelopen of beëindigd (voor leden)",
-            "26": "Wanneer het abonnementen van een lid gepauzeerd is (voor leden)",
-            "25": "Gewijzigde betaalmethode (voor leden)",
-            "24": "Wanneer een lid een nieuw abonnement afsluit (voor leden)",
-            "21": "Nieuwe reserveringen (leden)",
-            "19": "Welkomsbericht (voor medewerkers)",
-            "18": "Kosteloze annuleringen (leden)",
-            "17": "Late-annulering (leden)",
-            "16": "Gewijzigde sessies (leden)",
-            "14": "Een lid is door de studio van de wachtlijst verwijderd (voor medewerkers)",
-            "13": "Een lid heeft zichzelf uitgeschreven van de wachtlijst (voor leden)",
-            "12": "Wanneer een lid zich op de wachtlijst inschrijft",
-            "10": "Verlopen plaats van een lid op de wachtlijst",
-            "9": "Een lid heeft zich uitgeschreven van de wachtlijst (boekingsplaats vrijgekomen)",
-            "8": "Reservering + aankoop via leskaart",
-            "7": "Reservering met leskaarten",
-            "6": "Welkomsbericht (voor nieuwe leden)",
             "3": "Geannuleerde sessies (leden)",
-            "22": "Factuurbevestiging",
-            "300": "Wanneer een lid niet tijdig op de wachtlijst antwoordt en hun plaats verliest",
-            "601": "Automatische annulering van onderbezette sessies (instructeurs)",
-            "702": "Sanctie: er is een boete opgelegd (leden)",
-            "701": "Te late annulering: geblokkeerde kaart (studenten)",
-            "530": "Wanneer een abonnementsbetaling gestorneerd wordt",
-            "520": "Wanneer een Smart Retry automatisch de abonnementsbetaling opnieuw gaat proberen de betaling te voltooien",
-            "515": "Wanneer de kaart van een abonnement automatisch gedeactiveerd wordt",
-            "510": "Wanneer een abonnementsbetaling mislukt",
-            "undefined": "Het systeem zal mislukte betalingen van abonnementen opnieuw proberen.",
-            "481": "Terugkerende afspraak is niet gelukt vanwege een gebrek aan beschikbaarheid (leden)",
-            "480": "Terugkerende afspraak is niet gelukt vanwege een gebrek aan beschikbaarheid (docent)",
-            "987": "Incasseringspoging voor een termijnbetaling",
-            "801": "Afgezegde afspraak groep",
-            "103": "Gewijzigde sessies (instructeurs)",
-            "102": "Geannuleerde sessies (instructeurs)",
-            "101": "Herinnering 15 minuten voor de online les (instructeurs)",
-            "602": "Automatische annulering van onderbezette sessies (leden)",
-            "906": "Uitgestelde sluitingsdatum (vervanger)",
-            "905": "Nieuw laattijdig verzoek (vervanger)",
-            "904": "Nieuw verzoek om vervanging (vervanger)",
-            "903": "Er is een andere vervanger gevonden (vervanger)",
-            "902": "Verzoek om vervanging geannuleerd (vervanger)",
-            "901": "Vervanging gevonden (instructeur)",
-            "907": "Vervanging gevonden (substituut)",
-            "705": "Waarschuwing voor afwezigheid",
-            "704": "Afwezigheid: klantenrekening gedebiteerd (leden)",
-            "703": "Afwezigheid: geblokkeerde kaart (leden)",
+            "6": "Welkomsbericht (voor nieuwe leden)",
+            "7": "Reservering met leskaarten",
+            "8": "Reservering + aankoop via leskaart",
+            "9": "Een lid heeft zich uitgeschreven van de wachtlijst (boekingsplaats vrijgekomen)",
+            "10": "Verlopen plaats van een lid op de wachtlijst",
+            "12": "Wanneer een lid zich op de wachtlijst inschrijft",
+            "13": "Een lid heeft zichzelf uitgeschreven van de wachtlijst (voor leden)",
+            "14": "Een lid is door de studio van de wachtlijst verwijderd (voor medewerkers)",
+            "16": "Gewijzigde sessies (leden)",
+            "17": "Late-annulering (leden)",
+            "18": "Kosteloze annuleringen (leden)",
+            "19": "Welkomsbericht (voor medewerkers)",
             "20": "Verzoek om factuur te downloaden",
+            "21": "Nieuwe reserveringen (leden)",
+            "22": "Factuurbevestiging",
+            "24": "Wanneer een lid een nieuw abonnement afsluit (voor leden)",
+            "25": "Gewijzigde betaalmethode (voor leden)",
+            "26": "Wanneer het abonnementen van een lid gepauzeerd is (voor leden)",
+            "27": "Wanneer het abonnementen van een lid is afgelopen of beëindigd (voor leden)",
+            "28": "Ontvangen betalingen (voor leden)",
+            "29": "Herinnering 15 minuten voor de online les (leden)",
+            "30": "Gastreserveringen (uitnodiger)",
+            "31": "Gastreserveringen (gast)",
+            "101": "Herinnering 15 minuten voor de online les (instructeurs)",
+            "102": "Geannuleerde sessies (instructeurs)",
+            "103": "Gewijzigde sessies (instructeurs)",
+            "200": "Verlopende betaalmethode voor een abonnement (1e waarschuwing)",
+            "201": "Verlopende betaalmethode voor een abonnement (2e waarschuwing)",
+            "300": "Wanneer een lid niet tijdig op de wachtlijst antwoordt en hun plaats verliest",
             "301": "Wachtwoord herstellen",
             "302": "Registratiebevestiging",
             "303": "Samenvoeging ledenaccounts",
             "304": "Digitale cadeaubon activering",
             "305": "Wijziging e-mailadres vanuit de BackOffice",
-            "1002": "Lesprestaties",
+            "308": "Fysieke cadeaubon activering",
+            "400": "Te laat geannuleerde afspraken (voor medewerkers)",
+            "401": "Kosteloze geannuleerde afspraken (voor medewerkers)",
+            "402": "Nieuwe afspraak (voor medewerkers)",
+            "403": "Gewijzigde planning (voor medewerkers)",
+            "450": "Te late geannuleerde afspraken (voor leden)",
+            "451": "Kosteloze geannuleerde afspraken (voor leden)",
+            "452": "Nieuwe afspraak (voor leden)",
+            "453": "Gewijzigde planning (voor leden)",
+            "480": "Terugkerende afspraak is niet gelukt vanwege een gebrek aan beschikbaarheid (docent)",
+            "481": "Terugkerende afspraak is niet gelukt vanwege een gebrek aan beschikbaarheid (leden)",
+            "510": "Wanneer een abonnementsbetaling mislukt",
+            "515": "Wanneer de kaart van een abonnement automatisch gedeactiveerd wordt",
+            "520": "Wanneer een Smart Retry automatisch de abonnementsbetaling opnieuw gaat proberen de betaling te voltooien",
+            "530": "Wanneer een abonnementsbetaling gestorneerd wordt",
+            "601": "Automatische annulering van onderbezette sessies (instructeurs)",
+            "602": "Automatische annulering van onderbezette sessies (leden)",
+            "701": "Te late annulering: geblokkeerde kaart (studenten)",
+            "702": "Sanctie: er is een boete opgelegd (leden)",
+            "703": "Afwezigheid: geblokkeerde kaart (leden)",
+            "704": "Afwezigheid: klantenrekening gedebiteerd (leden)",
+            "705": "Waarschuwing voor afwezigheid",
+            "801": "Afgezegde afspraak groep",
+            "901": "Vervanging gevonden (instructeur)",
+            "902": "Verzoek om vervanging geannuleerd (vervanger)",
+            "903": "Er is een andere vervanger gevonden (vervanger)",
+            "904": "Nieuw verzoek om vervanging (vervanger)",
+            "905": "Nieuw laattijdig verzoek (vervanger)",
+            "906": "Uitgestelde sluitingsdatum (vervanger)",
+            "907": "Vervanging gevonden (substituut)",
+            "987": "Incasseringspoging voor een termijnbetaling",
             "1001": "Spivi-account aangemaakt (leden)",
+            "1002": "Lesprestaties",
             "1003": "Spivi-account aangemaakt (instructeurs)",
-            "31": "Gastreserveringen (gast)",
-            "30": "Gastreserveringen (uitnodiger)",
-            "201": "Verlopende betaalmethode voor een abonnement (2e waarschuwing)",
-            "200": "Verlopende betaalmethode voor een abonnement (1e waarschuwing)",
-            "1102": "Verwijzingsbeloning beschikbaar (verwijzend lid)",
             "1101": "Verwijzingsbeloning beschikbaar (doorverwezen lid)",
-            "1201": "Betalingsmethode vervaldatum tweede herinnering voor betalingen op afbetaling",
+            "1102": "Verwijzingsbeloning beschikbaar (verwijzend lid)",
             "1200": "Betalingsmethode vervaldatum eerste herinnering voor betalingen op afbetaling",
-            "308": "Fysieke cadeaubon activering"
+            "1201": "Betalingsmethode vervaldatum tweede herinnering voor betalingen op afbetaling",
+            "undefined": "Het systeem zal mislukte betalingen van abonnementen opnieuw proberen."
         },
         "tag": {
             "BookingOption": {
@@ -1104,10 +1104,10 @@
             "sendNotification": "De melding verzenden"
         },
         "eventTypeHelperText": {
-            "1201": "U kunt het aantal dagen aanpassen waarmee rekening wordt gehouden bij het verzenden van deze melding in het gedeelte Betaalmethoden",
-            "1200": "U kunt het aantal dagen aanpassen waarmee rekening wordt gehouden bij het verzenden van deze melding in het gedeelte Betaalmethoden",
+            "200": "U kunt het aantal dagen aanpassen waarmee rekening wordt gehouden bij het verzenden van deze melding in het gedeelte Betaalmethoden",
             "201": "U kunt het aantal dagen aanpassen waarmee rekening wordt gehouden bij het verzenden van deze melding in het gedeelte Betaalmethoden",
-            "200": "U kunt het aantal dagen aanpassen waarmee rekening wordt gehouden bij het verzenden van deze melding in het gedeelte Betaalmethoden"
+            "1200": "U kunt het aantal dagen aanpassen waarmee rekening wordt gehouden bij het verzenden van deze melding in het gedeelte Betaalmethoden",
+            "1201": "U kunt het aantal dagen aanpassen waarmee rekening wordt gehouden bij het verzenden van deze melding in het gedeelte Betaalmethoden"
         }
     },
     "membership": {
@@ -1156,17 +1156,17 @@
         },
         "pageTitle": "Integraties",
         "configurationType": {
-            "3": {
-                "helperText": "Vergelijkbare vestigingen per adres samenvoegen.",
-                "label": "Geavanceerd"
+            "1": {
+                "helperText": "Elke vestiging verschijnt als een onafhankelijke vestiging op ClassPass.",
+                "label": "Zelfstandige vestigingen"
             },
             "2": {
                 "helperText": "Alle samengevoegde vestigingen worden als één vestiging getoond.",
                 "label": "Alle vestigingen samenvoegen"
             },
-            "1": {
-                "helperText": "Elke vestiging verschijnt als een onafhankelijke vestiging op ClassPass.",
-                "label": "Zelfstandige vestigingen"
+            "3": {
+                "helperText": "Vergelijkbare vestigingen per adres samenvoegen.",
+                "label": "Geavanceerd"
             }
         },
         "wellhub": {
@@ -2530,8 +2530,8 @@
             },
             "recipientCount": "Ontvanger(s): {{total_recipients}}",
             "kind": {
-                "1": "Sms",
                 "0": "E-mail",
+                "1": "Sms",
                 "2": "Push-notificatie"
             },
             "unavailableMail": "Er is geen voorvertoning om weer te geven.",
@@ -2565,16 +2565,16 @@
                     "advancedSection": "Geavanceerd",
                     "submit": "Bevestigen",
                     "maxCommunicationSentHelperText": {
-                        "1": "Standaard wordt het bericht verzonden telkens als een lid de smartlist verlaat. Als een lid opnieuw de smartlist betreedt en deze later weer verlaat, dan wordt het bericht opnieuw verstuurd. Pas de instelling aan als u wilt beperken hoe vaak hetzelfde lid het bericht kan ontvangen: één, twee of drie keer.",
-                        "0": "Standaard wordt het bericht verzonden telkens wanneer een lid de smartlist betreedt. Als een lid de smartlist verlaat en later weer betreedt, dan wordt het bericht opnieuw verstuurd. Pas de instelling aan als u wilt beperken hoe vaak hetzelfde lid het bericht kan ontvangen: één, twee of drie keer."
+                        "0": "Standaard wordt het bericht verzonden telkens wanneer een lid de smartlist betreedt. Als een lid de smartlist verlaat en later weer betreedt, dan wordt het bericht opnieuw verstuurd. Pas de instelling aan als u wilt beperken hoe vaak hetzelfde lid het bericht kan ontvangen: één, twee of drie keer.",
+                        "1": "Standaard wordt het bericht verzonden telkens als een lid de smartlist verlaat. Als een lid opnieuw de smartlist betreedt en deze later weer verlaat, dan wordt het bericht opnieuw verstuurd. Pas de instelling aan als u wilt beperken hoe vaak hetzelfde lid het bericht kan ontvangen: één, twee of drie keer."
                     },
                     "limitSection": "Limiet",
                     "unlimited": "Ongelimiteerd"
                 },
                 "activeSince": "Actief sinds: {{-date}}",
                 "eventKind": {
-                    "1": "Afmelding",
-                    "0": "Aanmelding"
+                    "0": "Aanmelding",
+                    "1": "Afmelding"
                 },
                 "create": "Toevoegen ",
                 "onLeft": "Wanneer een lid een Smartlist verlaat",
@@ -2637,30 +2637,30 @@
         },
         "filter": {
             "choicesLabels": {
-                "11": "Direct bericht",
-                "10": "Sessie",
-                "9": "Wachtlijst",
-                "8": "Annuleringen",
-                "7": "Reserveringen",
-                "6": "Direct bericht",
-                "5": "Smartlist",
-                "4": "Melding",
-                "3": "Sessie",
-                "2": "Push-notificatie",
-                "1": "Sms",
                 "0": "E-mail",
-                "51": "Handmatig",
-                "50": "Automatisch",
-                "32": "Wachtlijst",
-                "31": "Annuleringen",
-                "30": "Reserveringen",
-                "14": "Transactionele meldingen",
-                "13": "Melding",
+                "1": "Sms",
+                "2": "Push-notificatie",
+                "3": "Sessie",
+                "4": "Melding",
+                "5": "Smartlist",
+                "6": "Direct bericht",
+                "7": "Reserveringen",
+                "8": "Annuleringen",
+                "9": "Wachtlijst",
+                "10": "Sessie",
+                "11": "Direct bericht",
                 "12": "Smartlist",
-                "71": "Ontvangen",
-                "70": "Verzonden",
+                "13": "Melding",
+                "14": "Transactionele meldingen",
                 "15": "{{ audienceCamelCase }}",
-                "16": "Franchise"
+                "16": "Franchise",
+                "30": "Reserveringen",
+                "31": "Annuleringen",
+                "32": "Wachtlijst",
+                "50": "Automatisch",
+                "51": "Handmatig",
+                "70": "Verzonden",
+                "71": "Ontvangen"
             },
             "sendParameter": {
                 "placeholder": "Selecteer een instelling",
@@ -2695,9 +2695,9 @@
         },
         "dialogInformation": {
             "status": {
-                "notReceived": "Mislukt",
-                "4": "Ontvangen",
                 "1": "Bezig",
+                "4": "Ontvangen",
+                "notReceived": "Mislukt",
                 "openNo": "Nee",
                 "openYes": "Ja"
             },
@@ -3824,25 +3824,25 @@
                 },
                 "filterComparator": {
                     "0": {
-                        "5": "Is niet",
-                        "4": "Is"
+                        "4": "Is",
+                        "5": "Is niet"
                     },
                     "1": {
                         "0": "Staat gelijk aan",
                         "1": "Staat niet gelijk aan",
                         "2": "Kleiner dan of gelijk aan",
+                        "3": "Groter dan of gelijk aan",
                         "4": "Tussen",
-                        "5": "Buiten",
-                        "3": "Groter dan of gelijk aan"
-                    },
-                    "3": {
-                        "4": "Tussen",
-                        "0": "Is",
-                        "1": "Is niet"
+                        "5": "Buiten"
                     },
                     "2": {
                         "0": "Is",
                         "1": "Is niet"
+                    },
+                    "3": {
+                        "0": "Is",
+                        "1": "Is niet",
+                        "4": "Tussen"
                     }
                 },
                 "subDataType": {
@@ -3954,17 +3954,17 @@
                 "1": "Online betaling"
             },
             "payment_method_with_credit_account": {
-                "13": "SEPA",
-                "10": "Automatische betaling",
+                "0": "Kaart",
                 "9": "Interne rekening (Wallet)",
-                "0": "Kaart"
+                "10": "Automatische betaling",
+                "13": "SEPA"
             },
             "billing_plan_status": {
-                "4": "Afgerond",
-                "3": "In de pauze",
-                "2": "Gestopt",
+                "0": "Nog niet begonnen",
                 "1": "In uitvoering",
-                "0": "Nog niet begonnen"
+                "2": "Gestopt",
+                "3": "In de pauze",
+                "4": "Afgerond"
             }
         },
         "presetValuesByIdentifier": {
@@ -4036,6 +4036,11 @@
             "part1": "Door de grote hoeveelheid data kan het genereren van het rapport enkele minuten duren."
         },
         "last_invoice_status": {
+            "0": "Geslaagd",
+            "1": "Gefaald",
+            "2": "In behandeling",
+            "3": "Geannuleerd",
+            "4": "Verwerken",
             "": [
                 "Annuleren",
                 "Annuleren",
@@ -4078,18 +4083,13 @@
                 "Geannuleerd",
                 "Geannuleerd",
                 "Geannuleerd"
-            ],
-            "4": "Verwerken",
-            "3": "Geannuleerd",
-            "2": "In behandeling",
-            "1": "Gefaald",
-            "0": "Geslaagd"
+            ]
         },
         "payment_method_with_credit_account": {
-            "13": "SEPA",
-            "10": "Automatische betaling",
-            "9": "Interne rekening (Wallet)",
             "0": "Kaart",
+            "9": "Interne rekening (Wallet)",
+            "10": "Automatische betaling",
+            "13": "SEPA",
             "70": "BACS Direct Debit"
         },
         "readPermissionDenied": "Toegang geweigerd",
@@ -4253,8 +4253,8 @@
             "5": "Juridische kennisgeving",
             "6": "Onbetaalde afspraken",
             "7": "Handleiding",
-            "9": "Inbox",
-            "8": "Late plaatsvervangingen"
+            "8": "Late plaatsvervangingen",
+            "9": "Inbox"
         },
         "showMore": "Toon meer",
         "unevenInvoice": {
@@ -5164,17 +5164,17 @@
             "day_plural": "Deze kaart kan {{count}} keer per jaar gebruikt worden"
         },
         "incompatibilities": {
-            "paymentPack": "Deze leskaart is incompatibel met de volgende activiteit(en):",
-            "2023": "De leskaart is verlopen",
-            "2022": "De leskaart begint bij de eerste aanwezigheid, op ",
-            "2021": "De leskaart start bij de eerste boeking, op ",
-            "2020": "De data zijn niet compatibel",
-            "2019": "De leskaart is geblokkeerd",
-            "2018": "Onvoldoende credits",
-            "2010": "Incompatibele vestiging",
-            "2009": "Incompatibele categorie",
             "2008": "Incompatibele activiteit",
+            "2009": "Incompatibele categorie",
+            "2010": "Incompatibele vestiging",
+            "2018": "Onvoldoende credits",
+            "2019": "De leskaart is geblokkeerd",
+            "2020": "De data zijn niet compatibel",
+            "2021": "De leskaart start bij de eerste boeking, op ",
+            "2022": "De leskaart begint bij de eerste aanwezigheid, op ",
+            "2023": "De leskaart is verlopen",
             "2027": "Dit tijdslot is incompatibel",
+            "paymentPack": "Deze leskaart is incompatibel met de volgende activiteit(en):",
             "undefined": "Deze tijdsloten zijn incompatibel"
         },
         "listItem": {
@@ -5660,6 +5660,11 @@
                 "combo": "Pakketten",
                 "private_pass": "Afspraakkaart"
             },
+            "18": {
+                "name": "Inschrijfdatum",
+                "first": "Inschrijfdatum:   ",
+                "explanation": "Toon een overzicht van alle leden sinds een bepaalde periode staan ingeschreven"
+            },
             "19": {
                 "name": "Leskaarten",
                 "first": "een of meerdere van de volgende kaarten",
@@ -5759,173 +5764,9 @@
                     "first": "niveau"
                 }
             },
-            "isEmpty": "Deze Smartlist toont de volledige database, omdat er geen actieve filters zijn toegevoegd.",
-            "calendarPicker": {
-                "text": {
-                    "0": {
-                        "first": "op of na"
-                    },
-                    "1": {
-                        "first": "op of voor"
-                    },
-                    "2": {
-                        "first": "tussen",
-                        "second": "en"
-                    },
-                    "3": {
-                        "first": "de"
-                    },
-                    "4": {
-                        "first": "Over meer dan",
-                        "second": "dagen"
-                    },
-                    "7": {
-                        "first": "over",
-                        "second": "dagen en minder dan",
-                        "third": "dagen"
-                    },
-                    "8": {
-                        "first": "Minder dan",
-                        "second": "dagen"
-                    },
-                    "9": {
-                        "first": "voordat deze",
-                        "second": "dagen"
-                    },
-                    "10": {
-                        "second": "dagen",
-                        "first": "er zijn "
-                    },
-                    "11": {
-                        "first": "van",
-                        "second": "dagen en minder dan",
-                        "third": "dagen"
-                    },
-                    "5": {
-                        "first": "binnen",
-                        "second": "dagen"
-                    },
-                    "6": {
-                        "first": "binnen ",
-                        "second": "dagen"
-                    }
-                },
-                "selectduration": {
-                    "6": {
-                        "second": "dagen",
-                        "first": "Binnen"
-                    },
-                    "7": {
-                        "first": "Over",
-                        "second": "dagen",
-                        "third": "dagen en minder dan"
-                    },
-                    "8": {
-                        "first": "Er zijn minder",
-                        "second": "dagen"
-                    },
-                    "9": {
-                        "first": "Over",
-                        "second": "dagen"
-                    },
-                    "10": {
-                        "first": " ",
-                        "second": "dagen geleden"
-                    },
-                    "4": {
-                        "first": "Over",
-                        "second": "dagen"
-                    },
-                    "5": {
-                        "first": "Binnen",
-                        "second": "dagen"
-                    },
-                    "selector": {
-                        "6": "Binnen X dagen",
-                        "7": "Binnen X dagen, maar minder dan Y dagen",
-                        "8": "Minder dan X dagen geleden",
-                        "9": "Meer dan X dagen geleden",
-                        "11": "Er zijn meer dan X dagen, maar minder dan Y dagen verstreken",
-                        "10": "X dagen geleden",
-                        "4": "Over X dagen",
-                        "5": "In minder dan X dagen"
-                    },
-                    "11": {
-                        "first": "Over meer dan",
-                        "second": "dagen",
-                        "third": "dagen en minder dan"
-                    }
-                },
-                "durationTitle": "Duur",
-                "dateTitle": "Datum",
-                "select": {
-                    "2": "Tussen twee data",
-                    "3": "Op",
-                    "0": "Op of na",
-                    "1": "Op of voor"
-                },
-                "duration": "dagen"
-            },
-            "booking_status": {
-                "canceled": "geannuleerd",
-                "booked": "gereserveerd"
-            },
-            "all": "Alle",
-            "active_filters": "Actieve filters op deze Smartlist",
-            "add_filter": "Een filter toevoegen",
-            "add": "Toevoegen",
-            "before": "voor",
-            "after": "na",
-            "classic_comparators": {
-                "1": "lager dan (⩽)",
-                "3": "strikt inferieur",
-                "4": "strikt hoger",
-                "5": "gelijk aan",
-                "2": "hoger dan (⩾)"
-            },
-            "durations_comparators": {
-                "1": "minder dan (⩽)",
-                "2": "meer dan (⩾)",
-                "5": "gelijk aan (=)",
-                "6": "tussen"
-            },
             "23": {
                 "explanation": "Toon een overzicht van de eerste reservering van alle leden",
                 "name": "Eerste reservering"
-            },
-            "undefined": {
-                "name": "Aankoopdatum en tegoed per leskaart",
-                "infoIcon": "Onbeperkte leskaarten worden niet gefilterd op krediet",
-                "first": "Heeft de cursuskaart gekocht",
-                "second": "tussen de",
-                "third": "en de",
-                "fourth": "en bezit",
-                "fifth": "credits op",
-                "info": "Er wordt ook rekening gehouden met geblokkeerde leskaarten en geblokkeerde afspraakkaarten",
-                "between": "en",
-                "explanation": "Heeft X aantal geldige leskaarten of afspraakkaarten"
-            },
-            "18": {
-                "name": "Inschrijfdatum",
-                "first": "Inschrijfdatum:   ",
-                "explanation": "Toon een overzicht van alle leden sinds een bepaalde periode staan ingeschreven"
-            },
-            "comparators": {
-                "6": "tussen",
-                "5": "gelijk aan",
-                "2": "meer dan (⩾)",
-                "1": "minder dan (⩽)"
-            },
-            "501": {
-                "explanation": "Toon een overzicht van leden die voor het laatst hebben gereserveerd op",
-                "second": "dag(en) geleden en er zijn nog geen toekomstige reserveringen ingepland.",
-                "first": "De laatst reservering was meer dan",
-                "name": "Laatste reservering"
-            },
-            "400": {
-                "explanation": "Toon een overzicht van alle leden die een wachtwoord bij BSPORT hebben geregistreerd",
-                "name": "Wachtwoord",
-                "explain": "Toon een overzicht van alle leden die een wachtwoord bij BSPORT hebben geregistreerd"
             },
             "24": {
                 "date": {
@@ -5993,23 +5834,6 @@
                     "first": "Afspraken:"
                 }
             },
-            "attendanceTrue": "aanwezig",
-            "attendanceFalse": "afwezig",
-            "attendanceWarning": "Kies een status",
-            "410": {
-                "explanation": "Toon een overzicht van alle leden die de Waiver / Vrijstelling hebben geaccepteerd",
-                "name": "Waiver / Vrijstelling",
-                "explain": "Toon een overzicht van alle leden Waiver / Vrijstelling hebben geaccepteerd"
-            },
-            "600": {
-                "expiryDateLabel": "met een vervaldatum",
-                "owns": "Selecteer tenminste één opgeslagen betaalmethode",
-                "does_not_own": "Er zijn geen opgeslagen betaalmethoden om weer te geven",
-                "labelFirst": "Alleen op leden filteren",
-                "title": "Opgeslagen betaalmethoden",
-                "explanation": "Toon een overzicht van alle leden en de vervaldata van hun opgeslagen betaalmethoden",
-                "name": "Betaalmethode"
-            },
             "27": {
                 "info": "Er wordt ook rekening gehouden met geblokkeerde leskaarten en geblokkeerde afspraakkaarten",
                 "fourth": "(gecombineerd)",
@@ -6020,19 +5844,113 @@
                 "name": "Geldige leskaarten",
                 "explanation": "Heeft X aantal geldige leskaarten of afspraakkaarten"
             },
-            "107": {
-                "explanation": "De algemene gebruiksvoorwaarden heeft geaccepteerd",
-                "first": "uw gebruiksvoorwaarden",
-                "false": "Heeft niet geaccepteerd",
-                "true": "Geaccepteerd",
-                "name": "Gebruiksvoorwaarden"
+            "28": {
+                "numbersComparator": {
+                    "payment": {
+                        "after": "{{currency}}",
+                        "between": "en",
+                        "before": "De waarde van de eerste aankoop was"
+                    }
+                },
+                "filterByDate": {
+                    "before": "Filter op datum"
+                },
+                "booleanChoice": {
+                    "is_not": "nog niet voltooid",
+                    "is": "voltooid",
+                    "before": "De eerste aankoop is"
+                },
+                "explanation": "Filter op leden die hun eerste aankoop hebben gedaan",
+                "name": "Eerste aankoop"
             },
-            "106": {
-                "explanation": "Een telefoonnummer opgegeven",
-                "first": "een telefoonnummer",
-                "false": "Niet ingevuld",
-                "true": "Ingevuld",
-                "name": "Telefoon"
+            "29": {
+                "numbersComparator": {
+                    "money": {
+                        "after": "{{currency}} als doorverwijzer",
+                        "between": "en",
+                        "before": "Het lid kreeg"
+                    },
+                    "referred": {
+                        "tooltip": "Leden die niemand hebben doorverwezen kunnen ook worden toegevoegd",
+                        "after": "leden",
+                        "between": "en",
+                        "before": "Het lid verwees"
+                    },
+                    "reward": {
+                        "after": "beloningen als doorverwijzer",
+                        "between": "en",
+                        "before": "Het lid kreeg"
+                    }
+                },
+                "name": "Doorverwijzer",
+                "explanation": "Filtert de leden die leden hebben doorverwezen"
+            },
+            "30": {
+                "numbersComparator": {
+                    "money": {
+                        "after": "{{currency}} als een doorverwezen lid",
+                        "between": "en",
+                        "before": "Het lid kreeg"
+                    }
+                },
+                "booleanChoice": {
+                    "after": "een doorverwezen lid",
+                    "is_not": "is niet",
+                    "is": "is",
+                    "before": "Het lid"
+                },
+                "explanation": " Filtert de leden die een doorverwijslink hebben gebruikt om zich aan te melden",
+                "name": "Doorverwezen lid"
+            },
+            "101": {
+                "explanation": "Is minder/meer/precies...",
+                "second": "jaren (inclusief)",
+                "to": " ",
+                "between": "en",
+                "first": "Heeft een leeftijd",
+                "name": "Leeftijd"
+            },
+            "102": {
+                "date": {
+                    "first": "voor het laatst voltooid"
+                },
+                "explanation": "Heeft X formulieren ingevuld bij A% op datum B ",
+                "between": "en",
+                "to": " ",
+                "third": "met een percentage",
+                "second": "onder",
+                "none": "geen formulier",
+                "hasCompletedNone": "Heeft niet voltooid",
+                "all": "alle formulieren",
+                "atLeastOne": "ten minste één formulier",
+                "hasNotCompleted": "Heeft niet voltooid",
+                "hasCompleted": "Heeft voltooid",
+                "name": "Formulieren",
+                "first": "Heeft gecomplete"
+            },
+            "103": {
+                "explanation": "om meldingen per SMS/E-mail te ontvangen",
+                "email": "om meldingen per e-mail te ontvangen",
+                "sms": "om meldingen per SMS te ontvangen",
+                "false": "Accepteert niet",
+                "true": "Accepteer",
+                "oneNeeded": "Ten minste één van de geactiveerde voorwaarden moet ingevuld zijn",
+                "allNeeded": "Alle geactiveerde voorwaarden moeten ingevuld zijn",
+                "name": "Notificaties",
+                "or": "Of",
+                "and": "En"
+            },
+            "104": {
+                "explanation": "Heeft ten minste één medische notitie (of niet)",
+                "date": {
+                    "first": "die werd aangemaakt"
+                },
+                "info": "De zogenoemde medische notities komen overeen met de sectie \"waarschuwingen\" op het formulier van het lid",
+                "nonMedical": "niet-medisch",
+                "medical": "medisch",
+                "medicalOrNot": "medisch of niet",
+                "first": "Heeft ten minste één notitie",
+                "name": "Notities"
             },
             "105": {
                 "explanation": "Heeft X relaties en Y leskaarten, afspraakkaarten of reserveringen",
@@ -6074,114 +5992,196 @@
                 },
                 "name": "Relatie"
             },
-            "104": {
-                "explanation": "Heeft ten minste één medische notitie (of niet)",
-                "date": {
-                    "first": "die werd aangemaakt"
-                },
-                "info": "De zogenoemde medische notities komen overeen met de sectie \"waarschuwingen\" op het formulier van het lid",
-                "nonMedical": "niet-medisch",
-                "medical": "medisch",
-                "medicalOrNot": "medisch of niet",
-                "first": "Heeft ten minste één notitie",
-                "name": "Notities"
+            "106": {
+                "explanation": "Een telefoonnummer opgegeven",
+                "first": "een telefoonnummer",
+                "false": "Niet ingevuld",
+                "true": "Ingevuld",
+                "name": "Telefoon"
             },
-            "103": {
-                "explanation": "om meldingen per SMS/E-mail te ontvangen",
-                "email": "om meldingen per e-mail te ontvangen",
-                "sms": "om meldingen per SMS te ontvangen",
-                "false": "Accepteert niet",
-                "true": "Accepteer",
-                "oneNeeded": "Ten minste één van de geactiveerde voorwaarden moet ingevuld zijn",
-                "allNeeded": "Alle geactiveerde voorwaarden moeten ingevuld zijn",
-                "name": "Notificaties",
-                "or": "Of",
-                "and": "En"
+            "107": {
+                "explanation": "De algemene gebruiksvoorwaarden heeft geaccepteerd",
+                "first": "uw gebruiksvoorwaarden",
+                "false": "Heeft niet geaccepteerd",
+                "true": "Geaccepteerd",
+                "name": "Gebruiksvoorwaarden"
             },
-            "102": {
-                "date": {
-                    "first": "voor het laatst voltooid"
-                },
-                "explanation": "Heeft X formulieren ingevuld bij A% op datum B ",
-                "between": "en",
-                "to": " ",
-                "third": "met een percentage",
-                "second": "onder",
-                "none": "geen formulier",
-                "hasCompletedNone": "Heeft niet voltooid",
-                "all": "alle formulieren",
-                "atLeastOne": "ten minste één formulier",
-                "hasNotCompleted": "Heeft niet voltooid",
-                "hasCompleted": "Heeft voltooid",
-                "name": "Formulieren",
-                "first": "Heeft gecomplete"
+            "400": {
+                "explanation": "Toon een overzicht van alle leden die een wachtwoord bij BSPORT hebben geregistreerd",
+                "name": "Wachtwoord",
+                "explain": "Toon een overzicht van alle leden die een wachtwoord bij BSPORT hebben geregistreerd"
             },
-            "101": {
-                "explanation": "Is minder/meer/precies...",
-                "second": "jaren (inclusief)",
-                "to": " ",
-                "between": "en",
-                "first": "Heeft een leeftijd",
-                "name": "Leeftijd"
+            "410": {
+                "explanation": "Toon een overzicht van alle leden die de Waiver / Vrijstelling hebben geaccepteerd",
+                "name": "Waiver / Vrijstelling",
+                "explain": "Toon een overzicht van alle leden Waiver / Vrijstelling hebben geaccepteerd"
             },
-            "28": {
-                "numbersComparator": {
-                    "payment": {
-                        "after": "{{currency}}",
-                        "between": "en",
-                        "before": "De waarde van de eerste aankoop was"
-                    }
-                },
-                "filterByDate": {
-                    "before": "Filter op datum"
-                },
-                "booleanChoice": {
-                    "is_not": "nog niet voltooid",
-                    "is": "voltooid",
-                    "before": "De eerste aankoop is"
-                },
-                "explanation": "Filter op leden die hun eerste aankoop hebben gedaan",
-                "name": "Eerste aankoop"
+            "501": {
+                "explanation": "Toon een overzicht van leden die voor het laatst hebben gereserveerd op",
+                "second": "dag(en) geleden en er zijn nog geen toekomstige reserveringen ingepland.",
+                "first": "De laatst reservering was meer dan",
+                "name": "Laatste reservering"
             },
-            "30": {
-                "numbersComparator": {
-                    "money": {
-                        "after": "{{currency}} als een doorverwezen lid",
-                        "between": "en",
-                        "before": "Het lid kreeg"
-                    }
-                },
-                "booleanChoice": {
-                    "after": "een doorverwezen lid",
-                    "is_not": "is niet",
-                    "is": "is",
-                    "before": "Het lid"
-                },
-                "explanation": " Filtert de leden die een doorverwijslink hebben gebruikt om zich aan te melden",
-                "name": "Doorverwezen lid"
+            "600": {
+                "expiryDateLabel": "met een vervaldatum",
+                "owns": "Selecteer tenminste één opgeslagen betaalmethode",
+                "does_not_own": "Er zijn geen opgeslagen betaalmethoden om weer te geven",
+                "labelFirst": "Alleen op leden filteren",
+                "title": "Opgeslagen betaalmethoden",
+                "explanation": "Toon een overzicht van alle leden en de vervaldata van hun opgeslagen betaalmethoden",
+                "name": "Betaalmethode"
             },
-            "29": {
-                "numbersComparator": {
-                    "money": {
-                        "after": "{{currency}} als doorverwijzer",
-                        "between": "en",
-                        "before": "Het lid kreeg"
+            "isEmpty": "Deze Smartlist toont de volledige database, omdat er geen actieve filters zijn toegevoegd.",
+            "calendarPicker": {
+                "text": {
+                    "0": {
+                        "first": "op of na"
                     },
-                    "referred": {
-                        "tooltip": "Leden die niemand hebben doorverwezen kunnen ook worden toegevoegd",
-                        "after": "leden",
-                        "between": "en",
-                        "before": "Het lid verwees"
+                    "1": {
+                        "first": "op of voor"
                     },
-                    "reward": {
-                        "after": "beloningen als doorverwijzer",
-                        "between": "en",
-                        "before": "Het lid kreeg"
+                    "2": {
+                        "first": "tussen",
+                        "second": "en"
+                    },
+                    "3": {
+                        "first": "de"
+                    },
+                    "4": {
+                        "first": "Over meer dan",
+                        "second": "dagen"
+                    },
+                    "5": {
+                        "first": "binnen",
+                        "second": "dagen"
+                    },
+                    "6": {
+                        "first": "binnen ",
+                        "second": "dagen"
+                    },
+                    "7": {
+                        "first": "over",
+                        "second": "dagen en minder dan",
+                        "third": "dagen"
+                    },
+                    "8": {
+                        "first": "Minder dan",
+                        "second": "dagen"
+                    },
+                    "9": {
+                        "first": "voordat deze",
+                        "second": "dagen"
+                    },
+                    "10": {
+                        "second": "dagen",
+                        "first": "er zijn "
+                    },
+                    "11": {
+                        "first": "van",
+                        "second": "dagen en minder dan",
+                        "third": "dagen"
                     }
                 },
-                "name": "Doorverwijzer",
-                "explanation": "Filtert de leden die leden hebben doorverwezen"
-            }
+                "selectduration": {
+                    "4": {
+                        "first": "Over",
+                        "second": "dagen"
+                    },
+                    "5": {
+                        "first": "Binnen",
+                        "second": "dagen"
+                    },
+                    "6": {
+                        "second": "dagen",
+                        "first": "Binnen"
+                    },
+                    "7": {
+                        "first": "Over",
+                        "second": "dagen",
+                        "third": "dagen en minder dan"
+                    },
+                    "8": {
+                        "first": "Er zijn minder",
+                        "second": "dagen"
+                    },
+                    "9": {
+                        "first": "Over",
+                        "second": "dagen"
+                    },
+                    "10": {
+                        "first": " ",
+                        "second": "dagen geleden"
+                    },
+                    "11": {
+                        "first": "Over meer dan",
+                        "second": "dagen",
+                        "third": "dagen en minder dan"
+                    },
+                    "selector": {
+                        "4": "Over X dagen",
+                        "5": "In minder dan X dagen",
+                        "6": "Binnen X dagen",
+                        "7": "Binnen X dagen, maar minder dan Y dagen",
+                        "8": "Minder dan X dagen geleden",
+                        "9": "Meer dan X dagen geleden",
+                        "10": "X dagen geleden",
+                        "11": "Er zijn meer dan X dagen, maar minder dan Y dagen verstreken"
+                    }
+                },
+                "durationTitle": "Duur",
+                "dateTitle": "Datum",
+                "select": {
+                    "0": "Op of na",
+                    "1": "Op of voor",
+                    "2": "Tussen twee data",
+                    "3": "Op"
+                },
+                "duration": "dagen"
+            },
+            "booking_status": {
+                "canceled": "geannuleerd",
+                "booked": "gereserveerd"
+            },
+            "all": "Alle",
+            "active_filters": "Actieve filters op deze Smartlist",
+            "add_filter": "Een filter toevoegen",
+            "add": "Toevoegen",
+            "before": "voor",
+            "after": "na",
+            "classic_comparators": {
+                "1": "lager dan (⩽)",
+                "2": "hoger dan (⩾)",
+                "3": "strikt inferieur",
+                "4": "strikt hoger",
+                "5": "gelijk aan"
+            },
+            "durations_comparators": {
+                "1": "minder dan (⩽)",
+                "2": "meer dan (⩾)",
+                "5": "gelijk aan (=)",
+                "6": "tussen"
+            },
+            "undefined": {
+                "name": "Aankoopdatum en tegoed per leskaart",
+                "infoIcon": "Onbeperkte leskaarten worden niet gefilterd op krediet",
+                "first": "Heeft de cursuskaart gekocht",
+                "second": "tussen de",
+                "third": "en de",
+                "fourth": "en bezit",
+                "fifth": "credits op",
+                "info": "Er wordt ook rekening gehouden met geblokkeerde leskaarten en geblokkeerde afspraakkaarten",
+                "between": "en",
+                "explanation": "Heeft X aantal geldige leskaarten of afspraakkaarten"
+            },
+            "comparators": {
+                "1": "minder dan (⩽)",
+                "2": "meer dan (⩾)",
+                "5": "gelijk aan",
+                "6": "tussen"
+            },
+            "attendanceTrue": "aanwezig",
+            "attendanceFalse": "afwezig",
+            "attendanceWarning": "Kies een status"
         },
         "mails": "E-mails",
         "exportList": "Smartlist exporteren",
@@ -6218,9 +6218,9 @@
         },
         "memberBase": {
             "options": {
-                "2": "Gearchiveerde leden",
+                "0": "Gearchiveerde en geldige leden",
                 "1": "Geldige leden",
-                "0": "Gearchiveerde en geldige leden"
+                "2": "Gearchiveerde leden"
             },
             "helperText": "Selecteer voor welke leden deze Smartlist geldt."
         },
@@ -7129,14 +7129,14 @@
         "archive": {
             "dialog": {
                 "warning": {
-                    "general": "Op basis van de onderstaande punten raden we aan om de interne rekening (Wallet) van dit lid te vereffenen voordat het gearchiveerd wordt:",
-                    "6": "Geplande afspraken",
-                    "5": "Terugkerende reserveringen",
-                    "4": "Toekomstige reserveringen",
-                    "3": "Lopende abonnementen met automatische verlengingen",
-                    "2": "Actieve abonnementen",
+                    "0": "Negatieve interne rekening (Wallet)",
                     "1": "Onbetaalde facturen",
-                    "0": "Negatieve interne rekening (Wallet)"
+                    "2": "Actieve abonnementen",
+                    "3": "Lopende abonnementen met automatische verlengingen",
+                    "4": "Toekomstige reserveringen",
+                    "5": "Terugkerende reserveringen",
+                    "6": "Geplande afspraken",
+                    "general": "Op basis van de onderstaande punten raden we aan om de interne rekening (Wallet) van dit lid te vereffenen voordat het gearchiveerd wordt:"
                 },
                 "actions": {
                     "confirm": "Bevestigen",
@@ -7361,10 +7361,10 @@
         "leads": {
             "dialogs": {
                 "errors": {
-                    "title": "Helaas is het importproces mislukt omdat:",
-                    "71002": "Dit bestand heeft niet het vereiste aantal kolommen",
+                    "71000": "Gelieve te wachten totdat de huidige import is voltooid",
                     "71001": "Dit bestand heeft niet het vereiste aantal kolommen.",
-                    "71000": "Gelieve te wachten totdat de huidige import is voltooid"
+                    "71002": "Dit bestand heeft niet het vereiste aantal kolommen",
+                    "title": "Helaas is het importproces mislukt omdat:"
                 },
                 "partialSuccess": {
                     "successImportSubtext": "Aangemaakte leden",
@@ -7738,26 +7738,26 @@
             "packTitle": "Mijn reserveringsmethode",
             "offerStatus": {
                 "waiting_list_status": {
-                    "3": "Vol",
-                    "2": "Afgelopen",
-                    "1": "Gesloten",
                     "0": "Wachtlijst",
-                    "6003": "Ingeschreven op de wachtlijst",
-                    "6002": "Wachtlijst: vol",
-                    "7": "Onevenwichtige man/vrouw-verhouding",
-                    "6": "Onevenwichtige man/vrouw-verhouding",
-                    "5": "Heeft",
+                    "1": "Gesloten",
+                    "2": "Afgelopen",
+                    "3": "Vol",
                     "4": "Gesloten",
+                    "5": "Heeft",
+                    "6": "Onevenwichtige man/vrouw-verhouding",
+                    "7": "Onevenwichtige man/vrouw-verhouding",
                     "9": "Het is niet toegestaan om het maximaal aantal toekomstige reserveringen te overschrijden.",
+                    "6002": "Wachtlijst: vol",
+                    "6003": "Ingeschreven op de wachtlijst",
                     "6005": "Wachtlijst",
                     "displayWaitlistSize": "Je huidige positie op de wachtlijst is: {{waitlistPosition}}",
                     "displayPosition": "Je positie op de wachtlijst is: {{waitlistPosition}}"
                 },
                 "bookable_status": {
-                    "4": "Deze sessie is niet beschikbaar",
-                    "2": "Afgelopen",
-                    "1": "Gesloten",
                     "0": "Open",
+                    "1": "Gesloten",
+                    "2": "Afgelopen",
+                    "4": "Deze sessie is niet beschikbaar",
                     "9": "Het is niet toegestaan om het maximaal aantal toekomstige reserveringen te overschrijden."
                 },
                 "waiting_list": "Wachtlijst",
@@ -7784,12 +7784,12 @@
                 "frequencyGeneric": "deze periode.",
                 "warningCustomLeveledSession": "Er is een gepersonaliseerd niveau op deze sessie van toepassing. Houd er rekening mee dat je gast(en) ook aan dit niveau voldoen.",
                 "bookingStatus": {
-                    "guestNotAllowed": "De sessie is niet toegankelijk voor gasten",
-                    "4": "Reserveren is niet langer mogelijk",
-                    "3": "De sessie is vol",
-                    "2": "Reserveren is niet langer mogelijk",
+                    "0": "Nodig een vriend uit",
                     "1": "Reserveringen zijn voor alsnog gesloten",
-                    "0": "Nodig een vriend uit"
+                    "2": "Reserveren is niet langer mogelijk",
+                    "3": "De sessie is vol",
+                    "4": "Reserveren is niet langer mogelijk",
+                    "guestNotAllowed": "De sessie is niet toegankelijk voor gasten"
                 },
                 "addGuestNumberLeftGeneric": "Je kunt deze periode nog 1 persoon uitnodigen.",
                 "addGuestNumberLeftGeneric_plural": "Je kunt deze periode nog steeds {{count}} mensen uitnodigen.",
@@ -8952,9 +8952,9 @@
             "privatePass": "Afspraakkaart",
             "note": "Notitie",
             "payment_method_group": {
-                "14": "Interne rekening (Wallet)",
+                "1": "Betaalkaart",
                 "2": "SEPA",
-                "1": "Betaalkaart"
+                "14": "Interne rekening (Wallet)"
             },
             "paymentCombo": "Pakket",
             "payment_combo": "Pakket",
@@ -9264,11 +9264,11 @@
             }
         },
         "billing_plan_status": {
-            "4": "Afgerond",
-            "3": "Op pauze",
-            "2": "Gestopt",
+            "0": "Nog niet gestart",
             "1": "Aan de gang",
-            "0": "Nog niet gestart"
+            "2": "Gestopt",
+            "3": "Op pauze",
+            "4": "Afgerond"
         },
         "invisibleForStaffToolTip": "Onzichtbaar voor het personeel",
         "alreadySubscribed": {
@@ -10182,13 +10182,13 @@
                 "emptyPrivatePass": "Er zijn geen beschikbare afspraakkaarten om weer te geven.",
                 "privateConsumerPassNeedRefresh": "Verversen",
                 "incompatibilities": {
-                    "close": "Sluiten",
+                    "11107": "Niet compatibele afspraak",
+                    "11108": "Onvoldoende credits",
                     "11109": "De kaart begint met de eerste boeking, de ",
                     "11110": "De kaart is verlopen",
-                    "privateService": "Deze afspraakkaart is incompatibel met de volgende afspraken:",
                     "11111": "De data zijn niet compatibel",
-                    "11108": "Onvoldoende credits",
-                    "11107": "Niet compatibele afspraak"
+                    "close": "Sluiten",
+                    "privateService": "Deze afspraakkaart is incompatibel met de volgende afspraken:"
                 },
                 "noUncompatiblePassToDisplay": "Er zijn geen beschikbare afspraakkaarten om weer te geven.",
                 "nonCompatiblePrivateConsumerPass": "onbeschikbare afspraakkaarten"
@@ -11400,22 +11400,22 @@
                 "march": "Maart"
             },
             "weekdayNumber": {
-                "6": "Zondag",
-                "5": "Zaterdag",
-                "4": "Vrijdag",
-                "3": "Donderdag",
-                "2": "Woensdag",
+                "0": "Maandag",
                 "1": "Dinsdag",
-                "0": "Maandag"
+                "2": "Woensdag",
+                "3": "Donderdag",
+                "4": "Vrijdag",
+                "5": "Zaterdag",
+                "6": "Zondag"
             },
             "isoWeekdayNumber": {
-                "7": "Zondag",
-                "6": "Zaterdag",
-                "5": "Vrijdag",
-                "4": "Donderdag",
-                "3": "Woensdag",
+                "1": "Maandag",
                 "2": "Dinsdag",
-                "1": "Maandag"
+                "3": "Woensdag",
+                "4": "Donderdag",
+                "5": "Vrijdag",
+                "6": "Zaterdag",
+                "7": "Zondag"
             }
         },
         "shortDayIdentifier": "dag(en)",
@@ -11869,29 +11869,29 @@
             "waiver": "Waiver / Vrijstelling."
         },
         "paymentMethod": {
-            "2": "Cheque",
-            "10": "Automatische betaling",
             "0": "Betaalkaart",
             "1": "Contant geld",
+            "2": "Cheque",
+            "3": "Kaart",
             "4": "Betaalkaart (handmatig - pinapparaat)",
             "5": "Vakantiecheques",
             "6": "AMEX",
             "7": "Bankoverschrijving",
             "8": "EventBrite",
             "9": "Interne rekening (Wallet)",
+            "10": "Automatische betaling",
             "11": "Diverse",
-            "label": "Betaalmethode",
             "12": "Processen",
             "13": "SEPA",
-            "60": "Giropay",
-            "50": "EPS",
-            "40": "iDEAL",
-            "30": "Sofort",
             "20": "Bancontact",
-            "disputeWon": "Gewonnen",
+            "30": "Sofort",
+            "40": "iDEAL",
+            "50": "EPS",
+            "60": "Giropay",
             "70": "Bacs Automatische Incasso",
-            "3": "Kaart",
             "80": "PayPal",
+            "label": "Betaalmethode",
+            "disputeWon": "Gewonnen",
             "onlinePayments": "Online betalingen"
         },
         "explainOption": "Je ontvangt een e-mail wanneer er een plaats vrij komt",
@@ -11900,6 +11900,27 @@
         "hasOneOrMoreOption": "Je staat al op deze wachtlijst",
         "paymentComboSectionTitle": "Pakketten",
         "method": {
+            "0": "Betaalkaart",
+            "1": "Contant",
+            "2": "Cheque",
+            "3": "Pass",
+            "4": "Betaalkaart (handmatig - pinapparaat)",
+            "5": "Vakantiecheque",
+            "6": "AMEX",
+            "7": "Bankoverschrijving",
+            "8": "Eventbrite",
+            "9": "Klantenkrediet",
+            "10": "Automatische incasso",
+            "11": "Anders",
+            "12": "Stornering",
+            "13": "SEPA",
+            "20": "Bancontact",
+            "30": "Sofort",
+            "40": "iDEAL",
+            "50": "EPS",
+            "60": "Giropay",
+            "70": "Bacs Automatische Incasso",
+            "80": "PayPal",
             "CB": "Kaart",
             "CREDIT_ACCOUNT": "Interne rekening (Wallet)",
             "GIROPAY": "Giropay",
@@ -11910,28 +11931,7 @@
             "SEPA": "SEPA",
             "CHECK": "Cheque",
             "CASH": "Contant",
-            "1": "Contant",
-            "2": "Cheque",
-            "5": "Vakantiecheque",
-            "6": "AMEX",
-            "7": "Bankoverschrijving",
-            "9": "Klantenkrediet",
-            "10": "Automatische incasso",
-            "11": "Anders",
-            "12": "Stornering",
-            "13": "SEPA",
-            "30": "Sofort",
-            "8": "Eventbrite",
-            "50": "EPS",
-            "0": "Betaalkaart",
-            "4": "Betaalkaart (handmatig - pinapparaat)",
-            "20": "Bancontact",
-            "40": "iDEAL",
-            "60": "Giropay",
-            "3": "Pass",
-            "70": "Bacs Automatische Incasso",
-            "BACS_DEBIT": "Bacs Automatische Incasso",
-            "80": "PayPal"
+            "BACS_DEBIT": "Bacs Automatische Incasso"
         },
         "forms": {
             "cancelPayment": "Terug",
@@ -12047,11 +12047,11 @@
             "seeMore": "Toon meer",
             "paymentNb": "{{nb}} betaling(en)",
             "status": {
-                "4": "Geannuleerd",
-                "3": "Mislukt",
-                "2": "Succes",
+                "0": "Gepauzeerd",
                 "1": "Wordt verwerkt",
-                "0": "Gepauzeerd"
+                "2": "Succes",
+                "3": "Mislukt",
+                "4": "Geannuleerd"
             },
             "title": "Mijn uitbetalingen",
             "payoutAmountFromIncludedPayouts": "waarvan {{price}} van eerdere uitbetalingen",
@@ -12135,9 +12135,9 @@
             "title": "Een abonnement aanschaffen"
         },
         "disputeStatus": {
-            "3": "Geschil verloren",
+            "1": "Behandeling van geschillen",
             "2": "Geschil gewonnen",
-            "1": "Behandeling van geschillen"
+            "3": "Geschil verloren"
         },
         "stripeBalance": {
             "title": "Stripe saldo",
@@ -12178,8 +12178,8 @@
                 "error": "Fout bij het wijzigen van de toegangsrechten van de Instructeursweergave"
             },
             "errors": {
-                "60003": "Er bestaat al een lid met dit e-mailadres. Gebruik de vorige popup om ze te koppelen.",
                 "60002": "Het ingevulde e-mailadres is al gekoppeld aan een medewerkersaccount.",
+                "60003": "Er bestaat al een lid met dit e-mailadres. Gebruik de vorige popup om ze te koppelen.",
                 "60004": "De aangegeven e-mail is al gekoppeld aan een personeels franchise-account."
             }
         },
@@ -12192,8 +12192,8 @@
                 "create": {
                     "success": "Gedeelde leskaart",
                     "error": {
-                        "generic": "Kan deze kaart helaas niet delen",
-                        "90004": "Deze kaart wordt gedeeld van een andere rekening"
+                        "90004": "Deze kaart wordt gedeeld van een andere rekening",
+                        "generic": "Kan deze kaart helaas niet delen"
                     }
                 },
                 "relink": {
@@ -12221,8 +12221,8 @@
                 },
                 "create": {
                     "error": {
-                        "generic": "Kan deze afspraak kaart niet delen",
-                        "90005": "Deze afsprakenkaart wordt gedeeld vanuit een ander account"
+                        "90005": "Deze afsprakenkaart wordt gedeeld vanuit een ander account",
+                        "generic": "Kan deze afspraak kaart niet delen"
                     },
                     "success": "Gedeelde afspraakkaart"
                 }
@@ -12232,10 +12232,10 @@
                 "success": "Relatie verwijderd"
             },
             "error": {
-                "90003": "Ongeldige token",
-                "90002": "Ongeldig lid",
+                "90000": "Ongeldige toegangsrechten voor dit account",
                 "90001": "Ongeldig verzoek",
-                "90000": "Ongeldige toegangsrechten voor dit account"
+                "90002": "Ongeldig lid",
+                "90003": "Ongeldige token"
             }
         },
         "paymentPack": {
@@ -12397,29 +12397,29 @@
             },
             "sendToQuickbooks": {
                 "errors": {
-                    "title": "Error bij het versturen van je factuur",
-                    "934006": "Deze factuur staat al op QuickBooks",
-                    "934005": "Je factuur kan niet naar QuickBooks worden verstuurd",
-                    "934004": "Error bij het versturen van een onbetaalde factuur naar QuickBooks",
-                    "934003": "Error bij het versturen van een incomplete factuur naar QuickBooks",
-                    "934002": "Error bij het versturen van een geannuleerde factuur naar QuickBooks",
-                    "934001": "Error bij het aanmaken van een factuur zonder producten/items",
-                    "934000": "De factuur bevat niet genoeg informatie om op QuickBooks te kunnen worden opgeslagen",
-                    "933102": "Error bij het aanmaken van de factuur op QuickBooks",
-                    "933101": "Error bij het koppelen van dit lid aan de factuur",
-                    "933100": "Error bij het koppelen van dit lid aan de factuur",
-                    "933000": "Het lid dat aan deze factuur gekoppeld is beschikt niet over de benodigde informatie om bij QuickBooks te worden geregistreerd",
-                    "932100": "We hebben geen toegang tot je QuickBooks-gegevens",
-                    "932001": "Je account is niet langer bij BSPORT geverifieerd",
-                    "932000": "Je account is niet langer bij BSPORT geverifieerd",
-                    "931101": "QuickBooks kan ons niet je data opsturen",
-                    "931100": "Fout bij het bijwerken van de verificatie",
-                    "931004": "Je hebt je QuickBooks-applicatie nog niet ingesteld",
-                    "931003": "De verificatie is verlopen",
-                    "931002": "De verificatie is verlopen",
-                    "931001": "Fout bij de verificatie met QuickBooks",
                     "931000": "Fout bij het verifiëren met QuickBooks",
-                    "933103": "Uw QuickBooks-platform ondersteunt meerdere valuta, geef aan welke belasting u wilt gebruiken."
+                    "931001": "Fout bij de verificatie met QuickBooks",
+                    "931002": "De verificatie is verlopen",
+                    "931003": "De verificatie is verlopen",
+                    "931004": "Je hebt je QuickBooks-applicatie nog niet ingesteld",
+                    "931100": "Fout bij het bijwerken van de verificatie",
+                    "931101": "QuickBooks kan ons niet je data opsturen",
+                    "932000": "Je account is niet langer bij BSPORT geverifieerd",
+                    "932001": "Je account is niet langer bij BSPORT geverifieerd",
+                    "932100": "We hebben geen toegang tot je QuickBooks-gegevens",
+                    "933000": "Het lid dat aan deze factuur gekoppeld is beschikt niet over de benodigde informatie om bij QuickBooks te worden geregistreerd",
+                    "933100": "Error bij het koppelen van dit lid aan de factuur",
+                    "933101": "Error bij het koppelen van dit lid aan de factuur",
+                    "933102": "Error bij het aanmaken van de factuur op QuickBooks",
+                    "933103": "Uw QuickBooks-platform ondersteunt meerdere valuta, geef aan welke belasting u wilt gebruiken.",
+                    "934000": "De factuur bevat niet genoeg informatie om op QuickBooks te kunnen worden opgeslagen",
+                    "934001": "Error bij het aanmaken van een factuur zonder producten/items",
+                    "934002": "Error bij het versturen van een geannuleerde factuur naar QuickBooks",
+                    "934003": "Error bij het versturen van een incomplete factuur naar QuickBooks",
+                    "934004": "Error bij het versturen van een onbetaalde factuur naar QuickBooks",
+                    "934005": "Je factuur kan niet naar QuickBooks worden verstuurd",
+                    "934006": "Deze factuur staat al op QuickBooks",
+                    "title": "Error bij het versturen van je factuur"
                 },
                 "error": "Fout bij het overzetten van je facturen naar QuickBooks",
                 "success": "Je facturen zijn naar QuickBooks overgezet"
@@ -12427,13 +12427,13 @@
             "applyGiftcard": {
                 "errors": {
                     "12103": "Fout bij het bevestigen van deze betaling met de cadeaubon",
+                    "45000": "De activatiecode is fout.",
                     "45001": "Fout bij het bevestigen van deze betaling met de cadeaubon",
-                    "generic": "Niet mogelijk om de cadeaubon te activeren",
-                    "undefined": "Onmogelijk om het lid te herkennen dat de cadeaubon wil activeren.",
-                    "45007": "Onmogelijk om het lid te vinden die de cadeaubon wil activeren.",
-                    "45006": "De cadeaubon is al geactiveerd",
                     "45003": "De cadeaubon is gedeactiveerd.",
-                    "45000": "De activatiecode is fout."
+                    "45006": "De cadeaubon is al geactiveerd",
+                    "45007": "Onmogelijk om het lid te vinden die de cadeaubon wil activeren.",
+                    "generic": "Niet mogelijk om de cadeaubon te activeren",
+                    "undefined": "Onmogelijk om het lid te herkennen dat de cadeaubon wil activeren."
                 },
                 "error": "Fout bij het bevestigen van deze betaling met de cadeaubon",
                 "success": "De betaling met de cadeaubon is bevestigd"
@@ -12444,19 +12444,19 @@
             },
             "revert": {
                 "errors": {
-                    "14101": "Onmogelijk om terug te betalen door een rekening voor balansaanpassing.",
                     "14100": "Kan een factuur niet annuleren met Interac betalingen.",
+                    "14101": "Onmogelijk om terug te betalen door een rekening voor balansaanpassing.",
                     "14102": "Het is niet mogelijk om deze factuur terug te betalen."
                 }
             },
             "generateXml": {
                 "errors": {
-                    "default": "Er is een fout opgetreden tijdens het genereren van de XML-factuur",
-                    "14213": "Kan het .XML-document niet genereren vanwege wettelijke vereisten. Neem voor meer informatie of vragen contact op met uw bsport Account Manager.",
-                    "14212": "Het adres van het lid ontbreekt of is onvolledig",
-                    "14211": "Het officiële document ID van het lid ontbreekt of is onvolledig",
                     "14210": "Uw instellingen zijn niet geconfigureerd voor .XML-factuurexport. Neem contact op met uw bsport Account Manager.",
-                    "14214": "Het gegenereerde Zip-bestand is leeg omdat er geen facturen zijn gevonden die van vorige maand moeten worden geëxporteerd"
+                    "14211": "Het officiële document ID van het lid ontbreekt of is onvolledig",
+                    "14212": "Het adres van het lid ontbreekt of is onvolledig",
+                    "14213": "Kan het .XML-document niet genereren vanwege wettelijke vereisten. Neem voor meer informatie of vragen contact op met uw bsport Account Manager.",
+                    "14214": "Het gegenereerde Zip-bestand is leeg omdat er geen facturen zijn gevonden die van vorige maand moeten worden geëxporteerd",
+                    "default": "Er is een fout opgetreden tijdens het genereren van de XML-factuur"
                 },
                 "success": "XML-factuur succesvol gegenereerd"
             }
@@ -12644,8 +12644,8 @@
             },
             "variant": {
                 "error": {
-                    "11001": "Kan geen pakket maken met variantproducten",
-                    "11000": "Kan geen variant(en) maken op een product dat wordt gebruikt in een verpakking"
+                    "11000": "Kan geen variant(en) maken op een product dat wordt gebruikt in een verpakking",
+                    "11001": "Kan geen pakket maken met variantproducten"
                 }
             },
             "supplier": {
@@ -12902,11 +12902,11 @@
                 "pm_deleted": "Betaalmethode verwijderd"
             },
             "errors": {
-                "13004": "Deze betaalmethode is gekoppeld aan toekomstige betalingen",
-                "13003": "Er is een abonnement aan deze betaalmethode gekoppeld",
-                "13002": "Deze betaalmethode is gekoppeld aan toekomstige betalingen",
+                "13000": "Fout bij het verwijderen van de betaalmethode",
                 "13001": "Fout bij het verwijderen van deze betaalmethode",
-                "13000": "Fout bij het verwijderen van de betaalmethode"
+                "13002": "Deze betaalmethode is gekoppeld aan toekomstige betalingen",
+                "13003": "Er is een abonnement aan deze betaalmethode gekoppeld",
+                "13004": "Deze betaalmethode is gekoppeld aan toekomstige betalingen"
             }
         },
         "paymentRuleGroups": {
@@ -12927,47 +12927,47 @@
             }
         },
         "canNotBuyErrorCode": {
-            "generic": "Fout bij het reserveren",
-            "8001": "De plaats die je hebt gekozen is niet meer beschikbaar",
-            "6003": "Je staat al op deze wachtlijst",
-            "6002": "De wachtlijst is vol",
-            "2012": "Deze kaart is niet compatibel met deze sessie",
-            "2011": "Deze kaart is alleen compatibel met Video On Demand",
-            "2010": "Deze kaart is niet compatibel met deze vestiging",
-            "2009": "Deze kaart is niet compatibel met deze activiteitscategorie",
-            "2008": "Deze kaart is niet compatibel met deze activiteit",
-            "2007": "Deze kaart is niet compatibel met deze sessie",
-            "2006": "Deze kaart is niet geschikt voor een reservering op de gekozen datum",
-            "2005": "Het is niet mogelijk om deze kaart te kopen",
-            "2004": "Het is niet mogelijk om deze kaart te kopen",
-            "2003": "Het is niet langer mogelijk om deze kaart aan te schaffen",
-            "2002": "Deze leskaart kan alleen door nieuwe leden worden aangeschaft",
-            "1114": "Het is niet langer mogelijk om dit pakket te kopen",
-            "1113": "Dit pakket is alleen beschikbaar voor nieuwe leden",
-            "7": "Reserveren is niet mogelijk, omdat de man/vrouw-verhouding ongelijk is",
-            "6": "Reserveren is niet mogelijk, omdat de man/vrouw-verhouding ongelijk is",
-            "5": "Je hebt deze sessie al gereserveerd",
-            "4": "Het is niet mogelijk om je voor deze sessie in te schrijven",
-            "3": "De sessie is vol",
-            "2": "Het is niet meer mogelijk om je voor deze sessie in te schrijven",
             "1": "Reserveringen voor deze sessie zijn momenteel nog gesloten",
-            "undefined": "Het is niet toegestaan om het maximaal aantal toekomstige reserveringen te overschrijden",
+            "2": "Het is niet meer mogelijk om je voor deze sessie in te schrijven",
+            "3": "De sessie is vol",
+            "4": "Het is niet mogelijk om je voor deze sessie in te schrijven",
+            "5": "Je hebt deze sessie al gereserveerd",
+            "6": "Reserveren is niet mogelijk, omdat de man/vrouw-verhouding ongelijk is",
+            "7": "Reserveren is niet mogelijk, omdat de man/vrouw-verhouding ongelijk is",
             "9": "Het is niet toegestaan om het maximaal aantal toekomstige reserveringen te overschrijden",
-            "2015": "Je hebt het maximale aantal reserveringen met deze kaart voor deze week bereikt",
-            "2017": "Je hebt het maximale aantal reserveringen met deze kaart voor dit jaar bereikt",
-            "2016": "Je hebt het maximale aantal reserveringen met deze kaart voor deze maand bereikt",
+            "1113": "Dit pakket is alleen beschikbaar voor nieuwe leden",
+            "1114": "Het is niet langer mogelijk om dit pakket te kopen",
+            "1122": "Dit pakket kan niet meer worden gekocht omdat de houdbaarheidsdatum is verstreken",
+            "2002": "Deze leskaart kan alleen door nieuwe leden worden aangeschaft",
+            "2003": "Het is niet langer mogelijk om deze kaart aan te schaffen",
+            "2004": "Het is niet mogelijk om deze kaart te kopen",
+            "2005": "Het is niet mogelijk om deze kaart te kopen",
+            "2006": "Deze kaart is niet geschikt voor een reservering op de gekozen datum",
+            "2007": "Deze kaart is niet compatibel met deze sessie",
+            "2008": "Deze kaart is niet compatibel met deze activiteit",
+            "2009": "Deze kaart is niet compatibel met deze activiteitscategorie",
+            "2010": "Deze kaart is niet compatibel met deze vestiging",
+            "2011": "Deze kaart is alleen compatibel met Video On Demand",
+            "2012": "Deze kaart is niet compatibel met deze sessie",
             "2014": "Je hebt het maximale aantal reserveringen met deze kaart voor deze dag bereikt",
-            "45005": "De cadeaubon is niet meer beschikbaar voor verkoop.",
-            "45004": "De cadeaubon is niet meer beschikbaar voor verkoop.",
+            "2015": "Je hebt het maximale aantal reserveringen met deze kaart voor deze week bereikt",
+            "2016": "Je hebt het maximale aantal reserveringen met deze kaart voor deze maand bereikt",
+            "2017": "Je hebt het maximale aantal reserveringen met deze kaart voor dit jaar bereikt",
+            "2025": "Deze kaart kan niet meer worden gekocht omdat de vervaldatum is verstreken",
+            "6002": "De wachtlijst is vol",
+            "6003": "Je staat al op deze wachtlijst",
+            "8001": "De plaats die je hebt gekozen is niet meer beschikbaar",
             "10001": "Onvoldoende voorraad",
+            "11114": "Deze afsprakenkaart kan niet meer worden gekocht omdat de vervaldatum is verstreken",
+            "15002": "Het artikel is al toegevoegd aan het winkelmandje, even geduld a.u.b.",
+            "23001": "Zonder cursuskaart kunt u niet in de wachtrij voor deze activiteit worden geplaatst",
+            "23002": "U heeft het maximum aantal toekomstige boekingen / wachtlijsten bereikt, u kunt niet meer registreren",
+            "45004": "De cadeaubon is niet meer beschikbaar voor verkoop.",
+            "45005": "De cadeaubon is niet meer beschikbaar voor verkoop.",
             "85000": "Er is al een boeking in behandeling, even geduld a.u.b",
             "85101": "Onmogelijk om te boeken. Deze plek is gereserveerd door een ander lid. Probeer het opnieuw door een andere plek te kiezen.",
-            "15002": "Het artikel is al toegevoegd aan het winkelmandje, even geduld a.u.b.",
-            "1122": "Dit pakket kan niet meer worden gekocht omdat de houdbaarheidsdatum is verstreken",
-            "2025": "Deze kaart kan niet meer worden gekocht omdat de vervaldatum is verstreken",
-            "23001": "Zonder cursuskaart kunt u niet in de wachtrij voor deze activiteit worden geplaatst",
-            "11114": "Deze afsprakenkaart kan niet meer worden gekocht omdat de vervaldatum is verstreken",
-            "23002": "U heeft het maximum aantal toekomstige boekingen / wachtlijsten bereikt, u kunt niet meer registreren"
+            "generic": "Fout bij het reserveren",
+            "undefined": "Het is niet toegestaan om het maximaal aantal toekomstige reserveringen te overschrijden"
         },
         "signup": {
             "failedCreation": "Het is momenteel niet mogelijk om je account aan te maken, probeer het later opnieuw",
@@ -13007,10 +13007,10 @@
             },
             "signupViaCustomForm": {
                 "errors": {
-                    "84104": "Dit telefoonnummer is ongeldig",
-                    "84103": "Het opgegeven geslacht is niet geldig",
+                    "84101": "De verplichte velden moeten worden voltooid",
                     "84102": "Dit e-mailadres is al in gebruik.",
-                    "84101": "De verplichte velden moeten worden voltooid"
+                    "84103": "Het opgegeven geslacht is niet geldig",
+                    "84104": "Dit telefoonnummer is ongeldig"
                 },
                 "error": "Fout tijdens het inschrijven",
                 "success": "Je hebt je succesvol ingeschreven!"
@@ -13127,13 +13127,13 @@
             }
         },
         "automatedCampaign": {
-            "170001": "Ongeldig maximum aantal berichten per lid",
-            "17105": "Inhoud voor een push-notificatie is een vereiste",
-            "17104": "Een titel voor een push-notificatie is een vereiste",
-            "17103": "Inhoud voor een sms'je is een vereiste",
-            "17102": "Inhoud voor de e-mail is een vereiste",
+            "17000": "Er is een fout opgetreden",
             "17101": "Een titel is een vereiste",
-            "17000": "Er is een fout opgetreden"
+            "17102": "Inhoud voor de e-mail is een vereiste",
+            "17103": "Inhoud voor een sms'je is een vereiste",
+            "17104": "Een titel voor een push-notificatie is een vereiste",
+            "17105": "Inhoud voor een push-notificatie is een vereiste",
+            "170001": "Ongeldig maximum aantal berichten per lid"
         },
         "communicationv2": {
             "error": "Fout bij het versturen van dit bericht",
@@ -13141,22 +13141,22 @@
         },
         "replacement": {
             "errors": {
-                "500004": "Je bent al vervanger voor deze sessie",
-                "500001": "Er bestaat al een vervangingsverzoek.",
-                "80003": "Ontbrekende instellingen voor achterstallige aanvragen.",
-                "80002": "De waarde \"Aantal dagen verzoek te laat\" moet groter zijn dan de waarde \"Aantal dagen inschrijving gesloten\".",
-                "50020": "Dit vervangingsverzoek is afgewezen en kan niet worden verwijderd.",
-                "50015": "Het is niet mogelijk om op je eigen vervangingsverzoeken te reageren.",
-                "50013": "Het is niet langer mogelijk om op dit vervangingsverzoek te reageren.",
-                "50012": "Deze instructeur antwoordde dat hij geen vervanger wilde zijn voor deze zitting.",
-                "50011": "Er is al een instructeur toegewezen aan dit verzoek.",
-                "50010": "U kunt dit verzoek niet weigeren omdat er al een instructeur is aangewezen.",
-                "50009": "U kunt dit verzoek niet weigeren omdat er al een instructeur is aangewezen.",
-                "50008": "De sluitingsdatum kan niet worden verschoven na de datum van de sessie.",
-                "50007": "Je kunt geen vervangingsverzoeken meer aanmaken, omdat je je limiet hebt overschreden.",
                 "50000": "Deze sessie is al afgelopen",
-                "undefined": "Dit vervangingsverzoek is afgewezen: onmogelijk te verwijderen",
-                "50021": "U kunt niet tegelijkertijd instellingen en locaties opgeven."
+                "50007": "Je kunt geen vervangingsverzoeken meer aanmaken, omdat je je limiet hebt overschreden.",
+                "50008": "De sluitingsdatum kan niet worden verschoven na de datum van de sessie.",
+                "50009": "U kunt dit verzoek niet weigeren omdat er al een instructeur is aangewezen.",
+                "50010": "U kunt dit verzoek niet weigeren omdat er al een instructeur is aangewezen.",
+                "50011": "Er is al een instructeur toegewezen aan dit verzoek.",
+                "50012": "Deze instructeur antwoordde dat hij geen vervanger wilde zijn voor deze zitting.",
+                "50013": "Het is niet langer mogelijk om op dit vervangingsverzoek te reageren.",
+                "50015": "Het is niet mogelijk om op je eigen vervangingsverzoeken te reageren.",
+                "50020": "Dit vervangingsverzoek is afgewezen en kan niet worden verwijderd.",
+                "50021": "U kunt niet tegelijkertijd instellingen en locaties opgeven.",
+                "80002": "De waarde \"Aantal dagen verzoek te laat\" moet groter zijn dan de waarde \"Aantal dagen inschrijving gesloten\".",
+                "80003": "Ontbrekende instellingen voor achterstallige aanvragen.",
+                "500001": "Er bestaat al een vervangingsverzoek.",
+                "500004": "Je bent al vervanger voor deze sessie",
+                "undefined": "Dit vervangingsverzoek is afgewezen: onmogelijk te verwijderen"
             },
             "cancelReplacementRequest": {
                 "error": "Er is een fout opgetreden bij het verwijderen van het verzoek.",
@@ -13207,10 +13207,10 @@
             "15009": "Onmogelijk om dit item te verwijderen: uw mandje wordt nog verwerkt"
         },
         "instalmentPayment": {
-            "16002": "Het aantal kassabonnen moet gelijk zijn aan 1 om de optie \"Gedeeltelijke betaling\" te activeren",
-            "16003": "Het aantal kassabonnen moet groter zijn dan 2 om de optie \"Eerste bedrag aanpassen\" te activeren",
             "16000": "Het bedrag van de eerste tranche moet positief zijn",
-            "16001": "Het percentage van het totale bedrag moet tussen 0 en 100 liggen"
+            "16001": "Het percentage van het totale bedrag moet tussen 0 en 100 liggen",
+            "16002": "Het aantal kassabonnen moet gelijk zijn aan 1 om de optie \"Gedeeltelijke betaling\" te activeren",
+            "16003": "Het aantal kassabonnen moet groter zijn dan 2 om de optie \"Eerste bedrag aanpassen\" te activeren"
         },
         "smartListPopup": {
             "send": {
@@ -13240,11 +13240,11 @@
         },
         "spivi": {
             "error": {
-                "21001": "Er is geen Spot Scheduling-layout geselecteerd.",
                 "21000": "De Spivi-integratie is niet geactiveerd.",
-                "21004": "Dubbele reserveringen zijn niet mogelijk met de Spivi-integratie.",
+                "21001": "Er is geen Spot Scheduling-layout geselecteerd.",
+                "21002": "Het geselecteerde Spot Scheduling-layout moet een Box ID hebben voor de Spivi-sessie(s).",
                 "21003": "Spivi-sessies moeten ten minste 20 minuten en maximaal 4 uur duren.",
-                "21002": "Het geselecteerde Spot Scheduling-layout moet een Box ID hebben voor de Spivi-sessie(s)."
+                "21004": "Dubbele reserveringen zijn niet mogelijk met de Spivi-integratie."
             }
         },
         "smartlistGetMembers": {
@@ -13284,8 +13284,8 @@
         },
         "tag": {
             "error": {
-                "124004": "Deze hoofd-tag bestaat al",
-                "124003": "Deze sub-tag bestaat al"
+                "124003": "Deze sub-tag bestaat al",
+                "124004": "Deze hoofd-tag bestaat al"
             }
         },
         "mergeError": {
@@ -13315,26 +13315,26 @@
             }
         },
         "canNotExecutePaymentAttempt": {
-            "generic": "Je betaling is mislukt, probeer het opnieuw",
-            "failedLoadingPayPalScript": "Er is een fout opgetreden tijdens het laden van PayPal",
-            "35013": "Je betaling is mislukt. Selecteer een andere betaalmethode.",
-            "35012": "Je kaart is verlopen",
-            "35006": "Uw PayPal-rekening kan de betaling niet verwerken. Probeer het opnieuw met een andere rekening",
-            "35000": "Uw PayPal-betaling is mislukt. Probeer het opnieuw of gebruik een andere betaalmethode",
-            "12110": "Uw mandje kwam niet overeen met het bedrag dat u probeerde te betalen, we hebben uw mandje vernieuwd, probeer het opnieuw",
-            "12109": "Je betaling is mislukt, probeer het opnieuw.",
-            "12108": "Je betaling wordt verwerkt, even geduld a.u.b.",
-            "12107": "Je betaling is mislukt, probeer het opnieuw.",
             "12102": "Je betaling wordt verwerkt, even geduld a.u.b.",
-            "35015": "Uw PayPal-betaling is mislukt. Probeer het opnieuw of gebruik een andere betaalmethode"
+            "12107": "Je betaling is mislukt, probeer het opnieuw.",
+            "12108": "Je betaling wordt verwerkt, even geduld a.u.b.",
+            "12109": "Je betaling is mislukt, probeer het opnieuw.",
+            "12110": "Uw mandje kwam niet overeen met het bedrag dat u probeerde te betalen, we hebben uw mandje vernieuwd, probeer het opnieuw",
+            "35000": "Uw PayPal-betaling is mislukt. Probeer het opnieuw of gebruik een andere betaalmethode",
+            "35006": "Uw PayPal-rekening kan de betaling niet verwerken. Probeer het opnieuw met een andere rekening",
+            "35012": "Je kaart is verlopen",
+            "35013": "Je betaling is mislukt. Selecteer een andere betaalmethode.",
+            "35015": "Uw PayPal-betaling is mislukt. Probeer het opnieuw of gebruik een andere betaalmethode",
+            "generic": "Je betaling is mislukt, probeer het opnieuw",
+            "failedLoadingPayPalScript": "Er is een fout opgetreden tijdens het laden van PayPal"
         },
         "cancelPayPalPaymentAttempt": "Je betalingspoging is geannuleerd. Probeer het opnieuw.",
         "paypal": {
+            "35009": "Je kunt geen account gebruiken dat al gekoppeld is aan een ander bedrijf.",
             "onboardingUrlFetchFailed": "Er is een fout opgetreden tijdens het ophalen van de onboarding-link van PayPal",
             "couldNotReachPayPal": "We konden PayPal niet bereiken. Probeer het later nog eens.",
             "connectionAttemptSucceeded": "De PayPal-rekening is succesvol aangesloten",
-            "connectionAttemptFailed": "Er is een fout opgetreden tijdens het verbinden met PayPal",
-            "35009": "Je kunt geen account gebruiken dat al gekoppeld is aan een ander bedrijf."
+            "connectionAttemptFailed": "Er is een fout opgetreden tijdens het verbinden met PayPal"
         },
         "wellhub": {
             "configureWebhooks": {
@@ -13571,18 +13571,18 @@
         "form": {
             "applies_to": {
                 "choices": {
-                    "null": "Volledige winkelmand",
-                    "9": "Afspraakkaarten",
                     "1": "Leskaarten",
                     "2": "Webshop",
                     "6": "Verzendkosten",
-                    "all": "Volledige winkelmand",
-                    "10": "Pakketten"
+                    "9": "Afspraakkaarten",
+                    "10": "Pakketten",
+                    "null": "Volledige winkelmand",
+                    "all": "Volledige winkelmand"
                 },
                 "choicesFranchise": {
-                    "9": "Gedeelde afspraakkaarten",
                     "1": "Gedeelde leskaarten",
-                    "2": "Gedeelde webshopitems"
+                    "2": "Gedeelde webshopitems",
+                    "9": "Gedeelde afspraakkaarten"
                 }
             },
             "selectorPlaceholder": {
@@ -13655,10 +13655,10 @@
                 "label": "Gebruikslimiet per lid"
             },
             "subscription_mode": {
-                "3": "Deze promotiecode op geen enkele facturatie toepassen",
-                "2": "Alleen op de facturen die vóór de automatische verlenging plaatsvinden toepassen",
+                "0": "Op alle facturen toepassen",
                 "1": "Alleen op de 1e facturatie toepassen",
-                "0": "Op alle facturen toepassen"
+                "2": "Alleen op de facturen die vóór de automatische verlenging plaatsvinden toepassen",
+                "3": "Deze promotiecode op geen enkele facturatie toepassen"
             },
             "tag": {
                 "select": {
@@ -13703,17 +13703,17 @@
         },
         "code": {
             "addCoupon": {
+                "5004": "Deze promotiecode kan slechts voor één artikel worden gebruikt.",
+                "5006": "Deze unieke promotiecode is al aan een openstaand winkelmandje gekoppeld",
+                "45009": "Deze cadeaubon code kan niet worden toegepast op deze winkelmand.",
+                "45010": "De cadeaubon is succesvol gekoppeld aan je account, maar kon niet worden geactiveerd omdat het vóór de activatiedatum is.",
                 "label": "Promotiecode & cadeaubon",
                 "placeholder": "PROMOTIECODE",
                 "cancel": "annuleren",
                 "submit": "Bevestigen",
                 "not_applicable": "Deze promotiecode kan niet voor deze aankoop gebruikt worden.",
                 "not_found": "Deze promotiecode is ongeldig.",
-                "apply": "Toepassen",
-                "5006": "Deze unieke promotiecode is al aan een openstaand winkelmandje gekoppeld",
-                "5004": "Deze promotiecode kan slechts voor één artikel worden gebruikt.",
-                "45010": "De cadeaubon is succesvol gekoppeld aan je account, maar kon niet worden geactiveerd omdat het vóór de activatiedatum is.",
-                "45009": "Deze cadeaubon code kan niet worden toegepast op deze winkelmand."
+                "apply": "Toepassen"
             }
         },
         "search": "Zoek een promotiecode",
@@ -13748,6 +13748,12 @@
         "uniqueCodeCoupon": {
             "form": {
                 "errors": {
+                    "5000": "Het is niet mogelijk om een gebruikte promotiecode opnieuw toe te passen.",
+                    "5001": "Sommige unieke promotiecodes kunnen niet worden toegevoegd, omdat deze al geregistreerd zijn.",
+                    "5003": "Sommige unieke promotiecodes zijn al in gebruik.",
+                    "5004": "Deze promotiecode kan slechts voor één artikel worden gebruikt.",
+                    "5005": "Deze promotiecode is reeds al gebruikt of is aan een openstaand winkelmandje gekoppeld.",
+                    "5006": "Deze unieke promotiecode is reeds aan een openstaand winkelmandje gekoppeld",
                     "fileUploader": {
                         "fileTooLargeError": "Het bestand is te groot. Niet groter dan 1 MB a.u.b.",
                         "incorrectDataError": "Het bestand bevat niet de juiste gegevens.",
@@ -13761,12 +13767,6 @@
                     },
                     "only_on_objects": "Je moet een object kiezen waarop je de reductie wilt toepassen",
                     "applies_to": "Het artikel waarop de korting wordt toegepast moet een cursuskaart, een afsprakenkaart, een pakket of een artikel in de winkel zijn",
-                    "5006": "Deze unieke promotiecode is reeds aan een openstaand winkelmandje gekoppeld",
-                    "5005": "Deze promotiecode is reeds al gebruikt of is aan een openstaand winkelmandje gekoppeld.",
-                    "5004": "Deze promotiecode kan slechts voor één artikel worden gebruikt.",
-                    "5003": "Sommige unieke promotiecodes zijn al in gebruik.",
-                    "5001": "Sommige unieke promotiecodes kunnen niet worden toegevoegd, omdat deze al geregistreerd zijn.",
-                    "5000": "Het is niet mogelijk om een gebruikte promotiecode opnieuw toe te passen.",
                     "update_mode": "Indien je promotiecodes wenst te wijzigen kun je of bestaande promotiecodes toevoegen of vervangen.",
                     "codes": {
                         "updateMode": "Voeg nieuwe promotiecodes toe of vervang bestaande promotiecodes",
@@ -13979,20 +13979,20 @@
             "title": "Verkoop per product",
             "contentType": {
                 "1": "Cursuskaarten",
-                "6": "Verzendkosten",
-                "9": "Afspraakkaarten",
-                "10": "Pakketten",
                 "2": "Producten",
-                "7": "Promotie"
+                "6": "Verzendkosten",
+                "7": "Promotie",
+                "9": "Afspraakkaarten",
+                "10": "Pakketten"
             }
         },
         "bookingDropdown": {
             "source": {
                 "0": "App",
-                "4": "Gegevensoverdracht",
-                "3": "Andere",
+                "1": "Web",
                 "2": "[BSPORT] Back Office",
-                "1": "Web"
+                "3": "Andere",
+                "4": "Gegevensoverdracht"
             }
         },
         "resetModal": {
@@ -14003,12 +14003,12 @@
         },
         "invoiceItemDropdown": {
             "contentType": {
-                "7": "Promoties",
-                "10": "Pakketten",
-                "9": "Afspraakkaarten",
-                "6": "Verzendkosten",
+                "1": "Leskaarten",
                 "2": "Producten",
-                "1": "Leskaarten"
+                "6": "Verzendkosten",
+                "7": "Promoties",
+                "9": "Afspraakkaarten",
+                "10": "Pakketten"
             }
         },
         "save": "Opslaan",
@@ -14657,9 +14657,9 @@
                     },
                     "maxNbRequestPerPeriod": {
                         "recap": {
-                            "3": "Iedere {{nbPeriods}} jaar kunnen instructeurs maximaal {{nbRequests}} laattijdige vervangingsverzoek(en) indienen. Zodra dit aantal wordt overschreden is het niet langer mogelijk om gedurende deze periode nieuwe verzoeken in te dienen.",
+                            "1": "Iedere {{nbPeriods}} week/weken kunnen instructeurs maximaal {{nbRequests}} laattijdige vervangingsverzoek(en) indienen. Zodra dit aantal wordt overschreden is het niet langer mogelijk om gedurende deze periode nieuwe verzoeken in te dienen.",
                             "2": "Iedere {{nbPeriods}} maand(en) kunnen instructeurs maximaal {{nbRequests}} laattijdige vervangingsverzoek(en) indienen. Zodra dit aantal wordt overschreden is het niet langer mogelijk om gedurende deze periode nieuwe verzoeken in te dienen.",
-                            "1": "Iedere {{nbPeriods}} week/weken kunnen instructeurs maximaal {{nbRequests}} laattijdige vervangingsverzoek(en) indienen. Zodra dit aantal wordt overschreden is het niet langer mogelijk om gedurende deze periode nieuwe verzoeken in te dienen."
+                            "3": "Iedere {{nbPeriods}} jaar kunnen instructeurs maximaal {{nbRequests}} laattijdige vervangingsverzoek(en) indienen. Zodra dit aantal wordt overschreden is het niet langer mogelijk om gedurende deze periode nieuwe verzoeken in te dienen."
                         },
                         "helperText": "Maximum aantal late vervangingsverzoeken"
                     },
@@ -15411,13 +15411,13 @@
                 "label": "Credit(s)"
             },
             "buyableItemIdentifier": {
-                "10": "Pakketten",
-                "9": "Afspraakkaarten",
-                "3": "Credits",
-                "2": "Webshop",
                 "1": "Leskaarten",
-                "undefined": "Cadeaubon",
-                "11": "Cadeaubonnen"
+                "2": "Webshop",
+                "3": "Credits",
+                "9": "Afspraakkaarten",
+                "10": "Pakketten",
+                "11": "Cadeaubonnen",
+                "undefined": "Cadeaubon"
             },
             "discount": "Korting",
             "finalPricePreview": "Voorbeeld totaal"
@@ -15456,12 +15456,12 @@
         "invoice": {
             "header": {
                 "source": {
-                    "label": "Kanaal: {{ source }}",
-                    "3": "Andere",
-                    "2": "Back Office",
-                    "1": "Web",
                     "0": "App",
-                    "4": "Migratie"
+                    "1": "Web",
+                    "2": "Back Office",
+                    "3": "Andere",
+                    "4": "Migratie",
+                    "label": "Kanaal: {{ source }}"
                 },
                 "clientAuthor": "Lid",
                 "author": "Opgemaakt door: {{ name }}",
@@ -15578,13 +15578,13 @@
         "revert": {
             "content": {
                 "explain": {
-                    "1": "Er wordt een creditnota aangemaakt dat het saldo van het lid zal verhogen. Gebruik deze methode om een creditnota gelijk aan te maken.",
                     "0": "Card / SEPA / etc. betalingen worden direct naar de rekening van de klant overgemaakt. Gebruik deze methode om een directe terugbetaling te doen na een fout.",
+                    "1": "Er wordt een creditnota aangemaakt dat het saldo van het lid zal verhogen. Gebruik deze methode om een creditnota gelijk aan te maken.",
                     "2": "Kies hoe je de vergoeding wilt doen. Gebruik deze methode voor een handmatige terugbetaling, een bankoverschrijving of een cheque."
                 },
                 "label": {
-                    "1": "Terugstorten op interne rekening (Wallet)",
                     "0": "Directe terugbetaling",
+                    "1": "Terugstorten op interne rekening (Wallet)",
                     "2": "Handmatige terugbetaling"
                 },
                 "explainEmptyPayment": "Weet je zeker dat je deze factuur wilt annuleren?"
@@ -15597,11 +15597,11 @@
                 }
             },
             "warning": {
-                "interac": "Er is ten minste één betaling gedaan met een Interac-kaart op deze factuur. Directe terugbetalingen worden niet ondersteund voor Interac-kaarten.",
-                "debtAndNewPaymentMethodNotAllowed": "Er is ten minste één betaling in behandeling. Alleen een directe terugbetaling is beschikbaar.",
-                "14103": "Directe terugbetalingen zijn alleen beschikbaar als ten minste één van de betalingen via een online methode verloopt.",
+                "14100": "Er is ten minste één betaling gedaan met een Interac-kaart op deze factuur. Directe terugbetalingen worden niet ondersteund voor Interac-kaarten.",
                 "14101": "Opmerking: een aanpassing aan het rekeningsaldo kan niet worden terugbetaald met het rekeningsaldo",
-                "14100": "Er is ten minste één betaling gedaan met een Interac-kaart op deze factuur. Directe terugbetalingen worden niet ondersteund voor Interac-kaarten."
+                "14103": "Directe terugbetalingen zijn alleen beschikbaar als ten minste één van de betalingen via een online methode verloopt.",
+                "interac": "Er is ten minste één betaling gedaan met een Interac-kaart op deze factuur. Directe terugbetalingen worden niet ondersteund voor Interac-kaarten.",
+                "debtAndNewPaymentMethodNotAllowed": "Er is ten minste één betaling in behandeling. Alleen een directe terugbetaling is beschikbaar."
             },
             "autoDebitDialog": {
                 "helper": "Je studio is momenteel bezig met het sluiten van hun bsport-account\n\nDe factuur wordt terugbetaald als je op bevestigen klikt. Het resterende saldo op Stripe ter waarde van {{ currencyDisplay }}{{refundAmount}} zal worden teruggestort. Indien je je Stripe-saldo op {{ currencyDisplay }}0 wilt zetten zal het verschil rechtstreeks en automatisch van je betaalgegevens die onder Instellingen > Onderneming staan.\n\nAls je het limiet niet wilt overschrijden, kun je wachten tot je Stripe-saldo weer stijgt. Je kunt je Stripe-saldo live volgen via Instellingen > Abonnement.",
@@ -15673,22 +15673,22 @@
         },
         "paymentMethod": {
             "label": {
-                "15": "Betaalkaart (handmatig - pinapparaat)",
-                "8": "Diverse",
-                "13": "Giropay",
-                "12": "EPS",
-                "11": "Sofort",
-                "10": "iDEAL",
-                "9": "Bancontact",
-                "7": "Bankoverschrijving",
-                "6": "Geschillen",
-                "5": "AMEX",
-                "4": "Vakantiecheque",
-                "3": "Cheque",
-                "2": "SEPA",
-                "1": "Betaalkaart",
                 "0": "Contant",
+                "1": "Betaalkaart",
+                "2": "SEPA",
+                "3": "Cheque",
+                "4": "Vakantiecheque",
+                "5": "AMEX",
+                "6": "Geschillen",
+                "7": "Bankoverschrijving",
+                "8": "Diverse",
+                "9": "Bancontact",
+                "10": "iDEAL",
+                "11": "Sofort",
+                "12": "EPS",
+                "13": "Giropay",
                 "14": "Interne rekening (Wallet)",
+                "15": "Betaalkaart (handmatig - pinapparaat)",
                 "16": "Bacs Automatische Incasso",
                 "17": "PayPal"
             },
@@ -15716,13 +15716,13 @@
         },
         "paymentEngine": {
             "label": {
-                "1": "Online betaling",
-                "0": "Handmatige betaling"
+                "0": "Handmatige betaling",
+                "1": "Online betaling"
             }
         },
         "invoiceInfo": {
-            "3": "Deze factuur is afkomstig van een gegevensoverdracht. Wegens juridische redenen kunnen we geen PDF verstrekken of de factuur annuleren.",
-            "2": "Dit betalingsbewijs toont de wijzigingen in het balans van de interne rekening (Wallet) van dit lid."
+            "2": "Dit betalingsbewijs toont de wijzigingen in het balans van de interne rekening (Wallet) van dit lid.",
+            "3": "Deze factuur is afkomstig van een gegevensoverdracht. Wegens juridische redenen kunnen we geen PDF verstrekken of de factuur annuleren."
         },
         "invoiceType": {
             "reversed": "Factuur (geannuleerd)",
@@ -15781,29 +15781,29 @@
         "quickbooks": {
             "send": {
                 "errors": {
-                    "title": "Error bij het versturen van je factuur",
-                    "934006": "Deze factuur staat al op QuickBooks",
-                    "934005": "Je factuur kan niet naar QuickBooks worden verstuurd",
-                    "934004": "Error bij het versturen van een onbetaalde factuur naar QuickBooks",
-                    "934003": "Error bij het versturen van een incomplete factuur naar QuickBooks",
-                    "934002": "Error bij het versturen van een geannuleerde factuur naar QuickBooks",
-                    "934001": "Error bij het aanmaken van een factuur zonder producten/items",
-                    "934000": "De factuur bevat niet genoeg informatie om op QuickBooks te kunnen worden opgeslagen",
-                    "933102": "Error bij het aanmaken van de factuur op QuickBooks",
-                    "933101": "Error bij het koppelen van dit lid aan de factuur",
-                    "933100": "Error bij het koppelen van dit lid aan de factuur",
-                    "933000": "Het lid dat aan deze factuur gekoppeld is beschikt niet over de benodigde informatie om bij QuickBooks te worden geregistreerd",
-                    "932100": "We hebben geen toegang tot je QuickBooks-gegevens",
-                    "932001": "Je account is niet langer bij BSPORT geverifieerd",
-                    "932000": "Je account is niet langer bij BSPORT geverifieerd",
-                    "931101": "QuickBooks kan ons niet je data opsturen",
-                    "931100": "Error bij het bijwerken van de authenticatie",
-                    "931004": "Je hebt je QuickBooks applicatie nog niet ingesteld",
-                    "931003": "De authenticatie is verlopen",
-                    "931002": "De authenticatie is verlopen",
-                    "931001": "Error bij de authenticatie aan QuickBooks",
                     "931000": "Error bij de authenticatie aan QuickBooks",
-                    "933103": "Uw QuickBooks-platform ondersteunt meerdere valuta, geef aan welke belasting u wilt gebruiken."
+                    "931001": "Error bij de authenticatie aan QuickBooks",
+                    "931002": "De authenticatie is verlopen",
+                    "931003": "De authenticatie is verlopen",
+                    "931004": "Je hebt je QuickBooks applicatie nog niet ingesteld",
+                    "931100": "Error bij het bijwerken van de authenticatie",
+                    "931101": "QuickBooks kan ons niet je data opsturen",
+                    "932000": "Je account is niet langer bij BSPORT geverifieerd",
+                    "932001": "Je account is niet langer bij BSPORT geverifieerd",
+                    "932100": "We hebben geen toegang tot je QuickBooks-gegevens",
+                    "933000": "Het lid dat aan deze factuur gekoppeld is beschikt niet over de benodigde informatie om bij QuickBooks te worden geregistreerd",
+                    "933100": "Error bij het koppelen van dit lid aan de factuur",
+                    "933101": "Error bij het koppelen van dit lid aan de factuur",
+                    "933102": "Error bij het aanmaken van de factuur op QuickBooks",
+                    "933103": "Uw QuickBooks-platform ondersteunt meerdere valuta, geef aan welke belasting u wilt gebruiken.",
+                    "934000": "De factuur bevat niet genoeg informatie om op QuickBooks te kunnen worden opgeslagen",
+                    "934001": "Error bij het aanmaken van een factuur zonder producten/items",
+                    "934002": "Error bij het versturen van een geannuleerde factuur naar QuickBooks",
+                    "934003": "Error bij het versturen van een incomplete factuur naar QuickBooks",
+                    "934004": "Error bij het versturen van een onbetaalde factuur naar QuickBooks",
+                    "934005": "Je factuur kan niet naar QuickBooks worden verstuurd",
+                    "934006": "Deze factuur staat al op QuickBooks",
+                    "title": "Error bij het versturen van je factuur"
                 }
             },
             "invoice": {
@@ -15836,11 +15836,11 @@
             "applyForAllFuturePayments": "Toepassen op alle toekomstige betalingen"
         },
         "status": {
-            "4": "In uitvoering",
-            "3": "Annuleren",
-            "2": "In de wacht",
+            "0": "Succesvol",
             "1": "Storing",
-            "0": "Succesvol"
+            "2": "In de wacht",
+            "3": "Annuleren",
+            "4": "In uitvoering"
         },
         "anonymousMember": "Anoniem lid"
     },
@@ -15875,18 +15875,18 @@
                 "label": "Automatische afmelding van de wachtlijst"
             },
             "dynamic": {
-                "label": "Selecteer het type wachtlijst dat je wilt gebruiken",
-                "1": {
-                    "explain": "Dit is een ongesorteerde wachtlijst. Iedereen die zich op de wachtlijst heeft ingeschreven ontvangt tegelijk een bericht zodra er een plaats vrijkomt.",
-                    "label": "Wie het eerst komt, het eerst maalt"
-                },
                 "0": {
                     "explain": "Ieder lid dat zich op de wachtlijst krijgt een plaats. De eerstvolgende op de wachtlijst wordt geïnformeerd zodra er een plaats vrijkomt.",
                     "settingsDelay": "Tijd tussen terugroepacties",
                     "label": "Eén voor één",
                     "overallExplainSmart": "Als er een plaats vrijkomt, krijgen leden {{ autokick_delay }} herinnering(en) met een interval van {{ smart_delay_percentage }}% van de resterende tijd voordat de sessie begint om zich in te schrijven. Bijvoorbeeld, als er nog {{ example_hours_before }} uur over is voor de sessie, hebben leden {{ example_computed_delay_one }} minuten om zich te registreren, en vervolgens {{ example_computed_delay_two }} minuten na de eerste poging, enzovoort, voordat het volgende lid zich kan inschrijven.",
                     "overallExplainSimple": "Als er een plek vrijkomt, heeft de leerling {{ autokick_delay }} herinneringen met een tussenruimte van {{ dumb_delay_minutes }} minuten om te reserveren voordat hij zijn plek aan de volgende leerling geeft."
-                }
+                },
+                "1": {
+                    "explain": "Dit is een ongesorteerde wachtlijst. Iedereen die zich op de wachtlijst heeft ingeschreven ontvangt tegelijk een bericht zodra er een plaats vrijkomt.",
+                    "label": "Wie het eerst komt, het eerst maalt"
+                },
+                "label": "Selecteer het type wachtlijst dat je wilt gebruiken"
             },
             "last_delay_before_auto_consume": {
                 "helper": "Als er onvoldoende tijd is voordat de sessie begint wordt het lid niet ingeschreven, ook niet als de persoon een geldige leskaart bezit",
@@ -16106,25 +16106,25 @@
         "userRoles": "Medewerkersaccounts",
         "pageTitle": "Medewerkers",
         "roleDescription": {
-            "4": {
-                "description": "Systeembeheerders hebben dezelfde toegang als een Eigenaar, maar Systeembeheerders kunnen worden toegevoegd/verwijderd.",
-                "name": "Systeembeheerder"
-            },
-            "3": {
-                "description": "Gebruik deze Rol als je wilt dat leden zichzelf autonoom via je tablet(s) inchecken. Contacteer je contactpersoon bij BSPORT voor meer informatie.",
-                "name": "Check-in | Tablet"
-            },
-            "2": {
-                "description": "Met Check-in | Beperkt kunnen medewerkers alleen leden inchecken.",
-                "name": "Check-in | Beperkt"
+            "0": {
+                "name": "Eigenaar",
+                "description": "De Eigenaar heeft toegang tot alle functionaliteiten zonder beperkingen en kan Medewerkersaccount aanmaken."
             },
             "1": {
                 "description": "Met Check-in | Uitgebreid kunnen medewerkers sessies wijzigen (tijd, plaatsvervanger, annuleren, etc.), de ledengegevens bekijken en leden inchecken.",
                 "name": "Check-in | Uitgebreid"
             },
-            "0": {
-                "name": "Eigenaar",
-                "description": "De Eigenaar heeft toegang tot alle functionaliteiten zonder beperkingen en kan Medewerkersaccount aanmaken."
+            "2": {
+                "description": "Met Check-in | Beperkt kunnen medewerkers alleen leden inchecken.",
+                "name": "Check-in | Beperkt"
+            },
+            "3": {
+                "description": "Gebruik deze Rol als je wilt dat leden zichzelf autonoom via je tablet(s) inchecken. Contacteer je contactpersoon bij BSPORT voor meer informatie.",
+                "name": "Check-in | Tablet"
+            },
+            "4": {
+                "description": "Systeembeheerders hebben dezelfde toegang als een Eigenaar, maar Systeembeheerders kunnen worden toegevoegd/verwijderd.",
+                "name": "Systeembeheerder"
             },
             "5": {
                 "name": "Rapportages",
@@ -18046,6 +18046,9 @@
             },
             "cssConfig": {
                 "option": {
+                    "1": "Een",
+                    "2": "Twee",
+                    "3": "Drie",
                     "none": "Geen",
                     "nextWeek": "Volgende week",
                     "currentWeek": "Deze week",
@@ -18079,11 +18082,8 @@
                     "desktop": "Groot scherm",
                     "mobile": "Klein scherm",
                     "blockedByTags": "Onvoldoende rechten",
-                    "2": "Twee",
-                    "3": "Drie",
                     "internalAccountPrepaidLine": "Betaling via interne account",
                     "defaultPrepaidLine": "Standaard",
-                    "1": "Een",
                     "giftcardPrepaidLine": "Betaling via cadeaukaart",
                     "elevated": "Verhoogd",
                     "rest": "Pauze",
@@ -18563,15 +18563,15 @@
                 "explainBilling": "{{ price_cts }} per sms"
             },
             "lockDialog": {
-                "requestAccess": "Vraag om toegang",
+                "31": {
+                    "intro": "Toegang voor doelgroep ontgrendelen",
+                    "explain": "Deze functie is een add-on, neem contact op met je accountmanager voor meer informatie."
+                },
                 "33": {
                     "intro": "Ontdek de nieuwe live chatbox met leden!",
                     "explain": "Hier staan alle gesprekken met individuele personen, maar ook gesprekken uit Sessies en Smartlists. Deze Inbox is compatibel met e-mails, sms'jes en push-notificaties."
                 },
-                "31": {
-                    "intro": "Toegang voor doelgroep ontgrendelen",
-                    "explain": "Deze functie is een add-on, neem contact op met je accountmanager voor meer informatie."
-                }
+                "requestAccess": "Vraag om toegang"
             },
             "subscriptionForm": {
                 "commitmentMessage": "Houd rekening met het feit dat er een termijn van 12 maanden hierop van toepassing is.",
@@ -19100,12 +19100,12 @@
             },
             "form": {
                 "marketing_action": {
-                    "select_tag": "Selecteer een tag",
-                    "5": "E-mailsjabloon",
-                    "4": "Tags",
-                    "3": "Push-notificatie",
-                    "2": "Sms'je",
                     "1": "Nieuwe e-mail",
+                    "2": "Sms'je",
+                    "3": "Push-notificatie",
+                    "4": "Tags",
+                    "5": "E-mailsjabloon",
+                    "select_tag": "Selecteer een tag",
                     "form": {
                         "helper": "(Optioneel) Selecteer één of meer acties om aan te geven hoe je leden bij deze stap van de cadence wilt contacteren.",
                         "reset": "Verwijderen",
@@ -19114,6 +19114,25 @@
                     "defaultName": "Standaardnaam"
                 },
                 "event": {
+                    "1": "Leskaarten",
+                    "2": "Afspraakkaarten",
+                    "3": "Groepsactiviteiten",
+                    "4": "Aanwezigheid (groepsactiviteiten)",
+                    "5": "Afspraken",
+                    "6": "Geannuleerde afspraken",
+                    "7": "Aangemaakte winkelmadjes",
+                    "8": "Toevoegen aan winkelmandje",
+                    "9": "Betaalde winkelmandjes",
+                    "10": "Nieuwe facturen",
+                    "11": "Maken",
+                    "12": "Pauze",
+                    "13": "Gestopte abonnementen",
+                    "14": "Hernieuwde abonnementen",
+                    "100": "Aankoop",
+                    "101": "Reservering",
+                    "102": "Winkelmandjes",
+                    "103": "Facturatie",
+                    "104": "Abonnementen",
                     "billing_plan-renew": "Hernieuwde abonnementen",
                     "billing_plan-stop": "Gestopte abonnementen",
                     "billing_plan-pause": "Gepauzeerde abonnementen",
@@ -19127,26 +19146,7 @@
                     "booking-attendance": "Aanwezigheid (groepsactiviteiten)",
                     "booking-create": "Groepsactiviteiten",
                     "private_consumer_pass-create": "Afspraakkaarten",
-                    "consumer_payment_pack-create": "Leskaarten",
-                    "104": "Abonnementen",
-                    "103": "Facturatie",
-                    "102": "Winkelmandjes",
-                    "101": "Reservering",
-                    "100": "Aankoop",
-                    "14": "Hernieuwde abonnementen",
-                    "13": "Gestopte abonnementen",
-                    "12": "Pauze",
-                    "11": "Maken",
-                    "10": "Nieuwe facturen",
-                    "9": "Betaalde winkelmandjes",
-                    "8": "Toevoegen aan winkelmandje",
-                    "7": "Aangemaakte winkelmadjes",
-                    "6": "Geannuleerde afspraken",
-                    "5": "Afspraken",
-                    "4": "Aanwezigheid (groepsactiviteiten)",
-                    "3": "Groepsactiviteiten",
-                    "2": "Afspraakkaarten",
-                    "1": "Leskaarten"
+                    "consumer_payment_pack-create": "Leskaarten"
                 },
                 "trigger": {
                     "trigger_timeout_explain_value_selected": "Een lid wordt automatisch uit de cadence gezet, indien het lid na {{ days }} dag(en) zich nog steeds in de cadence bevindt.",
@@ -19257,10 +19257,10 @@
                 "start": "Begin",
                 "delete": "Verwijderen",
                 "kinds": {
-                    "3": "Tijdslimiet",
-                    "2": "Evenementen & Smartlists",
                     "0": "Evenementen",
-                    "1": "Smartlists"
+                    "1": "Smartlists",
+                    "2": "Evenementen & Smartlists",
+                    "3": "Tijdslimiet"
                 },
                 "changeKind": "Verander naar"
             },
@@ -21236,40 +21236,40 @@
             "nbUsesLeft": "Overige gebruiken:"
         },
         "referralErrors": {
-            "maxUsesReached": {
-                "description": "Het maximale gebruiksaantal voor de referral-link van {{ referringMemberFirstName }} is bereikt.",
-                "title": "Onbruikbare referral-link"
-            },
-            "33007": {
-                "description": "Deze referral-programma is niet langer beschikbaar.",
-                "title": "Referral verlopen"
-            },
-            "33006": {
-                "description": "Deze referral-programma is niet langer beschikbaar.",
-                "title": "Referral verlopen"
-            },
-            "33005": {
-                "description": "Fout tijdens het verwerken van deze referral.",
-                "title": "Fout bij referral"
-            },
-            "33004": {
-                "description": "Fout tijdens het verwerken van deze referral.",
-                "title": "Fout bij referral"
-            },
-            "33003": {
-                "description": "Deze referral-link is niet langer bruikbaar.",
-                "title": "Verlopen referral-link"
-            },
-            "33002": {
-                "description": "Je bent al lid bij deze studio",
+            "33000": {
+                "description": "Deze referral-link kan niet bij deze studio gebruikt worden.",
                 "title": "Onbruikbare referral-link"
             },
             "33001": {
                 "description": "Het gekoppelde lid aan deze referral-link is niet langer bij deze studio ingeschreven.",
                 "title": "Onbruikbare referral-link"
             },
-            "33000": {
-                "description": "Deze referral-link kan niet bij deze studio gebruikt worden.",
+            "33002": {
+                "description": "Je bent al lid bij deze studio",
+                "title": "Onbruikbare referral-link"
+            },
+            "33003": {
+                "description": "Deze referral-link is niet langer bruikbaar.",
+                "title": "Verlopen referral-link"
+            },
+            "33004": {
+                "description": "Fout tijdens het verwerken van deze referral.",
+                "title": "Fout bij referral"
+            },
+            "33005": {
+                "description": "Fout tijdens het verwerken van deze referral.",
+                "title": "Fout bij referral"
+            },
+            "33006": {
+                "description": "Deze referral-programma is niet langer beschikbaar.",
+                "title": "Referral verlopen"
+            },
+            "33007": {
+                "description": "Deze referral-programma is niet langer beschikbaar.",
+                "title": "Referral verlopen"
+            },
+            "maxUsesReached": {
+                "description": "Het maximale gebruiksaantal voor de referral-link van {{ referringMemberFirstName }} is bereikt.",
                 "title": "Onbruikbare referral-link"
             },
             "somethingWentWrong": "Er is een fout opgetreden en deze pagina kon niet worden geladen. Probeer het gelieve later opnieuw",

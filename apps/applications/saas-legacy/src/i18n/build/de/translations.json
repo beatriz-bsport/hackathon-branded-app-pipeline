@@ -131,9 +131,9 @@
             "voucher": "Besonderes Angebot",
             "payment_method": {
                 "0": "Kreditkarte",
-                "label": "Zahlungsmethode",
                 "1": "SEPA-Überweisung",
                 "2": "mit Guthaben",
+                "label": "Zahlungsmethode",
                 "paymentOnline": "Online-Bezahlung"
             },
             "parameters": "Einstellungen",
@@ -155,9 +155,9 @@
             "privatePass": "Terminpass",
             "note": "Anmerkung",
             "payment_method_group": {
-                "14": "Guthaben",
+                "1": "Kreditkarte",
                 "2": "SEPA",
-                "1": "Kreditkarte"
+                "14": "Guthaben"
             },
             "paymentCombo": "Pack",
             "payment_combo": "Paket",
@@ -901,11 +901,11 @@
         },
         "invisibleForStaffToolTip": "Unsichtbar für Mitarbeiter",
         "billing_plan_status": {
-            "3": "Pausiert",
-            "2": "Gestoppt",
             "0": "Noch nicht begonnen",
-            "4": "Abgeschlossen",
-            "1": "In Bearbeitung"
+            "1": "In Bearbeitung",
+            "2": "Gestoppt",
+            "3": "Pausiert",
+            "4": "Abgeschlossen"
         },
         "notificationToolTip": "Für dieses Abonnement werden Benachrichtigungen festgelegt",
         "notification": {
@@ -2212,25 +2212,6 @@
     },
     "smartList": {
         "filters": {
-            "8": {
-                "first": "Besitzt einen Kurspass",
-                "name": "Gültigkeit des Kurspasses",
-                "explanation": "Besitzt den Kurspass X, der verwendbar ist",
-                "second": "verwendbar (mit Credits oder unbegrenzt und nicht abgelaufen)"
-            },
-            "5": {
-                "women": "Frauen",
-                "explanation": "Ist eine Frau/ein Mann",
-                "men": "Männer",
-                "first": "Wähle nur die",
-                "name": "Geschlecht"
-            },
-            "2": {
-                "explanation": "Seine letzte Buchung war vor ...",
-                "second": "Tagen",
-                "first": "Der zuletzt gebuchte Kurs fand vor mehr als ... statt",
-                "name": "Datum des zuletzt gebuchten Kurses"
-            },
             "1": {
                 "explanation": "Anzeige einer Übersicht aller Mitglieder, deren Kontostand {{ currencyDisplay }}X beträgt",
                 "third": "{{currencyDisplay}}",
@@ -2239,147 +2220,83 @@
                 "second": " um   ",
                 "between": "und"
             },
-            "calendarPicker": {
-                "selectduration": {
-                    "7": {
-                        "third": "Tagen und weniger als",
-                        "second": "Tagen",
-                        "first": "In mehr als"
-                    },
-                    "6": {
-                        "second": "Tagen",
-                        "first": "In"
-                    },
-                    "5": {
-                        "second": "Tagen",
-                        "first": "In weniger als"
-                    },
-                    "4": {
-                        "second": "Tagen",
-                        "first": "In mehr als"
-                    },
-                    "selector": {
-                        "6": "In X Tagen",
-                        "5": "In weniger als X Tagen",
-                        "4": "In mehr als X Tagen",
-                        "11": "Vor mehr als X Tagen und weniger als Y Tagen",
-                        "10": "Vor X Tagen",
-                        "9": "Vor mehr als X Tagen",
-                        "8": "Vor weniger als X Tagen",
-                        "7": "In mehr als X Tagen und weniger als Y Tagen"
-                    },
-                    "11": {
-                        "third": "Tagen und weniger als",
-                        "second": "Tagen",
-                        "first": "Vor mehr als"
-                    },
-                    "10": {
-                        "second": "Tagen",
-                        "first": "Vor "
-                    },
-                    "9": {
-                        "second": "Tagen",
-                        "first": "Vor mehr als"
-                    },
-                    "8": {
-                        "second": "Tagen",
-                        "first": "Vor weniger als"
-                    }
-                },
-                "text": {
-                    "11": {
-                        "third": "Tagen",
-                        "second": "Tagen und weniger als",
-                        "first": "vor mehr als"
-                    },
-                    "10": {
-                        "second": "Tagen",
-                        "first": "vor "
-                    },
-                    "9": {
-                        "second": "Tagen",
-                        "first": "es gibt mehr als"
-                    },
-                    "8": {
-                        "second": "Tagen",
-                        "first": "vor weniger als"
-                    },
-                    "7": {
-                        "third": "Tagen",
-                        "second": "Tagen und weniger als",
-                        "first": "in mehr als"
-                    },
-                    "6": {
-                        "second": "Tagen",
-                        "first": "in "
-                    },
-                    "5": {
-                        "second": "Tagen",
-                        "first": "in weniger als"
-                    },
-                    "4": {
-                        "second": "Tagen",
-                        "first": "in mehr als"
-                    },
-                    "3": {
-                        "first": "am"
-                    },
-                    "2": {
-                        "second": "und",
-                        "first": "zwischen"
-                    },
-                    "1": {
-                        "first": "am oder vor dem"
-                    },
-                    "0": {
-                        "first": "am oder nach dem"
-                    }
-                },
-                "select": {
-                    "3": "Am",
-                    "2": "Zwischen",
-                    "1": "Am oder vor dem",
-                    "0": "Am oder nach dem"
-                },
-                "dateTitle": "Datum",
-                "durationTitle": "Dauer",
-                "duration": "Tagen"
+            "2": {
+                "explanation": "Seine letzte Buchung war vor ...",
+                "second": "Tagen",
+                "first": "Der zuletzt gebuchte Kurs fand vor mehr als ... statt",
+                "name": "Datum des zuletzt gebuchten Kurses"
             },
-            "isEmpty": "Kein Filter wurde eingerichtet. Diese Smartlist enthält also die gesamte Mitgliederdatenbank",
-            "23": {
-                "explanation": "Eine Übersicht über die erste Buchung aller Mitglieder anzeigen",
-                "name": "Erste Buchung"
+            "5": {
+                "women": "Frauen",
+                "explanation": "Ist eine Frau/ein Mann",
+                "men": "Männer",
+                "first": "Wähle nur die",
+                "name": "Geschlecht"
             },
-            "22": {
-                "hour": {
-                    "third": "Uhr",
-                    "first": "mit einem Kursbeginn zwischen",
-                    "second": "Uhr und"
+            "8": {
+                "first": "Besitzt einen Kurspass",
+                "name": "Gültigkeit des Kurspasses",
+                "explanation": "Besitzt den Kurspass X, der verwendbar ist",
+                "second": "verwendbar (mit Credits oder unbegrenzt und nicht abgelaufen)"
+            },
+            "11": {
+                "explanation": "Anzeige einer Übersicht über alle Mitglieder, die mit A und B gekennzeichnet sind",
+                "name": "Markierungen",
+                "first": "Nach folgenden Markierungen sortieren"
+            },
+            "14": {
+                "selector": "Produkte auswählen",
+                "fourth": "für die Produkte",
+                "third": "und",
+                "second": "{{ currencyDisplay }} ausgegeben zwischen",
+                "first": "Hat",
+                "name": "Ausgaben",
+                "workshop": "Kurspässe für Workshops",
+                "private_pass": "Privatkurse",
+                "combo": "Package",
+                "pack": "Kurspass",
+                "shop": "Webshop",
+                "explanation": "Hat die Produkte A und B gekauft"
+            },
+            "18": {
+                "explanation": "Eine Übersicht über alle Mitglieder anzeigen, die sich eingeschrieben haben am ...",
+                "first": "Ist dem Studio beigetreten   ",
+                "name": "Anmeldungsdatum"
+            },
+            "19": {
+                "infoIcon": "Unbegrenzte Kurspässe sind immer eingeschlossen",
+                "expiration": {
+                    "first_has_expire": "ist abgelaufen",
+                    "first_will_expire": "Ablaufdatum"
                 },
-                "first": "Buchte",
-                "explanation": "Anzeige einer Übersicht der Mitglieder, die X Klassen der Aktivität A in Betrieb X mit Ausweis Z gebucht haben",
-                "name": "Anzahl der Buchungen",
-                "coach": {
-                    "first": "mit den Lehrkräften"
+                "date_bought": {
+                    "first": "Kaufdatum"
                 },
-                "payment_pack": {
-                    "first": "mit den Pässen"
+                "credits": {
+                    "second": "und",
+                    "first": "Credits:",
+                    "helperText": "Gefiltert nach {{count}} Credit",
+                    "helperText_plural": "Gefiltert nach {{count}} Credits"
                 },
-                "establishment": {
-                    "first": "in den Einrichtungen"
-                },
-                "second": "Kurs(e)",
-                "activity": {
-                    "first": "von den Aktivitäten"
-                },
+                "second": "und",
+                "has_not": "Besitzt nicht",
+                "has": "Besitzt",
+                "first": "einer der Kurspässe",
+                "name": "Kurspässe",
+                "explanation": "Hat den Kurspass A gekauft an dem Datum Y mit X Credits",
+                "third": "um"
+            },
+            "20": {
                 "date": {
-                    "first": " "
+                    "second": "Tage",
+                    "first": "Der Warenkorb wurde aufgegeben"
                 },
-                "between": "und",
-                "attendance": "mit Status",
-                "level": {
-                    "first": "Niveau"
-                }
+                "third": "{{ currencyDisplay }}",
+                "first": "Der Gesamtwert der Artikel im Warenkorb beträgt",
+                "explanation": "Anzeige einer Übersicht der Mitglieder mit offenen Warenkörben, die noch nicht bezahlt haben",
+                "name": "Aufgegebene Warenkörbe",
+                "second": "um",
+                "between": "und"
             },
             "21": {
                 "hour": {
@@ -2414,107 +2331,40 @@
                 "second_singular_v2": "ter Kurs",
                 "first_v2": "Mitglieder, die ihren Kurs gebucht haben "
             },
-            "20": {
+            "22": {
+                "hour": {
+                    "third": "Uhr",
+                    "first": "mit einem Kursbeginn zwischen",
+                    "second": "Uhr und"
+                },
+                "first": "Buchte",
+                "explanation": "Anzeige einer Übersicht der Mitglieder, die X Klassen der Aktivität A in Betrieb X mit Ausweis Z gebucht haben",
+                "name": "Anzahl der Buchungen",
+                "coach": {
+                    "first": "mit den Lehrkräften"
+                },
+                "payment_pack": {
+                    "first": "mit den Pässen"
+                },
+                "establishment": {
+                    "first": "in den Einrichtungen"
+                },
+                "second": "Kurs(e)",
+                "activity": {
+                    "first": "von den Aktivitäten"
+                },
                 "date": {
-                    "second": "Tage",
-                    "first": "Der Warenkorb wurde aufgegeben"
+                    "first": " "
                 },
-                "third": "{{ currencyDisplay }}",
-                "first": "Der Gesamtwert der Artikel im Warenkorb beträgt",
-                "explanation": "Anzeige einer Übersicht der Mitglieder mit offenen Warenkörben, die noch nicht bezahlt haben",
-                "name": "Aufgegebene Warenkörbe",
-                "second": "um",
-                "between": "und"
+                "between": "und",
+                "attendance": "mit Status",
+                "level": {
+                    "first": "Niveau"
+                }
             },
-            "19": {
-                "infoIcon": "Unbegrenzte Kurspässe sind immer eingeschlossen",
-                "expiration": {
-                    "first_has_expire": "ist abgelaufen",
-                    "first_will_expire": "Ablaufdatum"
-                },
-                "date_bought": {
-                    "first": "Kaufdatum"
-                },
-                "credits": {
-                    "second": "und",
-                    "first": "Credits:",
-                    "helperText": "Gefiltert nach {{count}} Credit",
-                    "helperText_plural": "Gefiltert nach {{count}} Credits"
-                },
-                "second": "und",
-                "has_not": "Besitzt nicht",
-                "has": "Besitzt",
-                "first": "einer der Kurspässe",
-                "name": "Kurspässe",
-                "explanation": "Hat den Kurspass A gekauft an dem Datum Y mit X Credits",
-                "third": "um"
-            },
-            "undefined": {
-                "fifth": "Kreditpunkte",
-                "fourth": "und besitzt darauf",
-                "third": "und",
-                "second": "zwischen",
-                "first": "Hat die Kurskarte gekauft",
-                "infoIcon": "Unbegrenzte Kurskarten werden nicht nach Kreditpunkten sortiert",
-                "name": "Einkaufsdatum und Kreditpunkte pro Kurskarte"
-            },
-            "durations_comparators": {
-                "5": "genau",
-                "2": "mehr als (⩾)",
-                "1": "weniger als (⩽)",
-                "6": "zwischen"
-            },
-            "classic_comparators": {
-                "5": "gleich",
-                "4": "höher (ausgeschlossen)",
-                "3": "niedriger (ausgeschlossen)",
-                "2": "höher (⩾)",
-                "1": "niedriger (⩽)"
-            },
-            "before": "vor",
-            "after": "nach",
-            "add": "Hinzufügen",
-            "add_filter": "Einen Filter hinzufügen",
-            "active_filters": "Aktive Filter auf der Smartlist",
-            "all": "Alle",
-            "booking_status": {
-                "booked": "gebucht",
-                "canceled": "storniert"
-            },
-            "18": {
-                "explanation": "Eine Übersicht über alle Mitglieder anzeigen, die sich eingeschrieben haben am ...",
-                "first": "Ist dem Studio beigetreten   ",
-                "name": "Anmeldungsdatum"
-            },
-            "14": {
-                "selector": "Produkte auswählen",
-                "fourth": "für die Produkte",
-                "third": "und",
-                "second": "{{ currencyDisplay }} ausgegeben zwischen",
-                "first": "Hat",
-                "name": "Ausgaben",
-                "workshop": "Kurspässe für Workshops",
-                "private_pass": "Privatkurse",
-                "combo": "Package",
-                "pack": "Kurspass",
-                "shop": "Webshop",
-                "explanation": "Hat die Produkte A und B gekauft"
-            },
-            "11": {
-                "explanation": "Anzeige einer Übersicht über alle Mitglieder, die mit A und B gekennzeichnet sind",
-                "name": "Markierungen",
-                "first": "Nach folgenden Markierungen sortieren"
-            },
-            "400": {
-                "name": "Passwort",
-                "explanation": "Alle Mitglieder anzeigen, die ein Passwort für Ihr BSPORT-Konto registriert haben",
-                "explain": "Alle Mitglieder anzeigen, die ein Passwort für Ihr BSPORT-Konto registriert haben"
-            },
-            "comparators": {
-                "6": "zwischen",
-                "5": "gleich",
-                "2": "mehr als (⩾)",
-                "1": "weniger als (⩽)"
+            "23": {
+                "explanation": "Eine Übersicht über die erste Buchung aller Mitglieder anzeigen",
+                "name": "Erste Buchung"
             },
             "24": {
                 "first": "Gab",
@@ -2531,11 +2381,27 @@
                     "first": "durchgeführte Käufe"
                 }
             },
-            "501": {
-                "explanation": "Eine Übersicht über die letzte Buchung der Mitglieder anzeigen",
-                "second": "Tagen statt, und keine andere Buchung ist in der Zukunft geplant.",
-                "first": "Der letzte gebucht Kurs fand vor mehr als",
-                "name": "Datum des letzten gebuchten Kurses"
+            "25": {
+                "first": "einer der Terminpässe",
+                "name": "Terminpässe",
+                "date_bought": {
+                    "first": "Kaufdatum"
+                },
+                "credits": {
+                    "first": "Credits:",
+                    "second": "und",
+                    "helperText": "Gefiltert nach {{count}} Credit",
+                    "helperText_plural": "Gefiltert nach {{count}} Credits"
+                },
+                "expiration": {
+                    "first_has_expire": "ist abgelaufen",
+                    "first_will_expire": "läuft ab"
+                },
+                "third": "um",
+                "second": "und",
+                "has_not": "Verfügt nicht über",
+                "has": "Verfügt über",
+                "explanation": "Hat den Terminpass A gekauft an dem Datum Y mit X Credits"
             },
             "26": {
                 "private_pass": {
@@ -2566,45 +2432,6 @@
                     "first": "mit den Terminen"
                 }
             },
-            "25": {
-                "first": "einer der Terminpässe",
-                "name": "Terminpässe",
-                "date_bought": {
-                    "first": "Kaufdatum"
-                },
-                "credits": {
-                    "first": "Credits:",
-                    "second": "und",
-                    "helperText": "Gefiltert nach {{count}} Credit",
-                    "helperText_plural": "Gefiltert nach {{count}} Credits"
-                },
-                "expiration": {
-                    "first_has_expire": "ist abgelaufen",
-                    "first_will_expire": "läuft ab"
-                },
-                "third": "um",
-                "second": "und",
-                "has_not": "Verfügt nicht über",
-                "has": "Verfügt über",
-                "explanation": "Hat den Terminpass A gekauft an dem Datum Y mit X Credits"
-            },
-            "attendanceTrue": "Anwesend",
-            "attendanceFalse": "Abwesend",
-            "attendanceWarning": "Wähle einen Status",
-            "410": {
-                "explanation": "Nachdem Sie die Haftungsausschlüsse akzeptiert haben",
-                "name": "Haftungsfreistellung",
-                "explain": "nach Annahme der Haftungsfreistellung"
-            },
-            "600": {
-                "expiryDateLabel": "mit einem Ablaufdatum",
-                "owns": "Mit mindestens einer gespeicherten Zahlungsmethode",
-                "does_not_own": "Keine gesicherte Zahlungsmethode vorhanden",
-                "labelFirst": "Nur Teile filtern",
-                "title": "Verfahren zur gesicherten Bezahlung",
-                "explanation": "Übersicht über die gespeicherten Zahlungsmethoden der Mitglieder und deren Ablaufdatum anzeigen",
-                "name": "Zahlungsmittel"
-            },
             "27": {
                 "third": "oder",
                 "between": "und",
@@ -2614,6 +2441,90 @@
                 "second": "heute gültige Kurs- oder Terminpässe. Unter",
                 "info": "Blockierte Kurs- und Terminpässe werden ebenfalls berücksichtigt",
                 "fourth": "(zusammengefasst)"
+            },
+            "28": {
+                "numbersComparator": {
+                    "payment": {
+                        "after": "{{currency}}",
+                        "between": "und",
+                        "before": "Der Betrag des ersten Einkaufs betrug"
+                    }
+                },
+                "filterByDate": {
+                    "before": "Nach Datum filtern"
+                },
+                "booleanChoice": {
+                    "is_not": "noch nicht abgeschlossen",
+                    "is": "abgeschlossen",
+                    "before": "Der erste Kauf ist"
+                },
+                "explanation": "Filtert die Mitglieder mit einem ersten abgeschlossenen/bezahlten Warenkorb",
+                "name": "Erstmaliger Kauf"
+            },
+            "29": {
+                "numbersComparator": {
+                    "money": {
+                        "after": "{{currency}} als Empfehler",
+                        "between": "und",
+                        "before": "Das Mitglied erhielt"
+                    },
+                    "referred": {
+                        "tooltip": "Mitglieder, die niemanden empfohlen haben, können ebenfalls eingeschlossen werden.",
+                        "after": "Mitglieder",
+                        "between": "und",
+                        "before": "Das Mitglied empfahl"
+                    },
+                    "reward": {
+                        "after": "Belohnungen als Empfehler",
+                        "between": "und",
+                        "before": "Das Mitglied bekam"
+                    }
+                },
+                "name": "Empfehler",
+                "explanation": "Filtert die Mitglieder, die Mitglieder empfohlen haben"
+            },
+            "30": {
+                "numbersComparator": {
+                    "money": {
+                        "after": "{{currency}} als ein empfohlenes Mitglied",
+                        "between": "und",
+                        "before": "Das Mitglied erhielt"
+                    }
+                },
+                "booleanChoice": {
+                    "after": "ein empfohlenes Mitglied",
+                    "is_not": "ist nicht",
+                    "is": "ist",
+                    "before": "Das Mitglied"
+                },
+                "explanation": " Filtert die Mitglieder, die einen Empfehlungslink zur Anmeldung verwendet haben",
+                "name": "Empfohlenes Mitglied"
+            },
+            "101": {
+                "to": "zu",
+                "first": "Ist",
+                "between": "und",
+                "second": "Jahre (einschließlich)",
+                "explanation": "Ist weniger/mehr/genau alt...",
+                "name": "Alter"
+            },
+            "102": {
+                "hasCompleted": "abgeschlossen",
+                "to": "zu",
+                "date": {
+                    "first": "zuletzt abgeschlossen"
+                },
+                "second": "unter",
+                "atLeastOne": "mindestens ein Formular",
+                "none": "kein Formular",
+                "hasCompletedNone": "nicht abgeschlossen",
+                "third": "zu einem Prozentsatz",
+                "all": "alle Formulare",
+                "hasNotCompleted": "nicht abgeschlossen",
+                "between": "und",
+                "name": "Formulare",
+                "explanation": "Hat X Formulare zu A% am Tag B ausgefüllt ",
+                "first": "Hat beendet"
             },
             "103": {
                 "name": "Benachrichtigungen",
@@ -2626,6 +2537,18 @@
                 "false": "Nicht Akzeptieren",
                 "or": "Oder",
                 "and": "Und"
+            },
+            "104": {
+                "explanation": "Mindestens ein ärztliches Attest hat (oder auch nicht)",
+                "medicalOrNot": "medizinisch oder nicht",
+                "info": "Die so genannten medizinischen Hinweise entsprechen denen, die im Abschnitt \"Ausschreibungen\" auf dem Formular des Mitglieds aufgeführt sind",
+                "medical": "medizinisch",
+                "date": {
+                    "first": "die erstellt wurde"
+                },
+                "nonMedical": "nicht medizinisch",
+                "name": "Hinweise",
+                "first": "Hat mindestens einen Hinweis"
             },
             "105": {
                 "receiveCopyOfEmail": {
@@ -2667,31 +2590,6 @@
                     "consumerPrivatePasses": "\"gültig\" bedeutet, dass der Pass jetzt zur Buchung eines Termins verwendet werden kann"
                 }
             },
-            "107": {
-                "name": "Nutzungsbedingungen",
-                "explanation": "Hat die allgemeinen Nutzungsbedigungen akzeptiert",
-                "first": "Ihre Nutzungsbedingungen",
-                "true": "Hat akzeptiert",
-                "false": "Hat nicht akzeptiert"
-            },
-            "102": {
-                "hasCompleted": "abgeschlossen",
-                "to": "zu",
-                "date": {
-                    "first": "zuletzt abgeschlossen"
-                },
-                "second": "unter",
-                "atLeastOne": "mindestens ein Formular",
-                "none": "kein Formular",
-                "hasCompletedNone": "nicht abgeschlossen",
-                "third": "zu einem Prozentsatz",
-                "all": "alle Formulare",
-                "hasNotCompleted": "nicht abgeschlossen",
-                "between": "und",
-                "name": "Formulare",
-                "explanation": "Hat X Formulare zu A% am Tag B ausgefüllt ",
-                "first": "Hat beendet"
-            },
             "106": {
                 "true": "Ausgefüllt",
                 "first": "eine Telefonnummer",
@@ -2699,90 +2597,192 @@
                 "name": "Telefon",
                 "explanation": "Hat eine Telefonnummer angegeben"
             },
-            "101": {
-                "to": "zu",
-                "first": "Ist",
-                "between": "und",
-                "second": "Jahre (einschließlich)",
-                "explanation": "Ist weniger/mehr/genau alt...",
-                "name": "Alter"
+            "107": {
+                "name": "Nutzungsbedingungen",
+                "explanation": "Hat die allgemeinen Nutzungsbedigungen akzeptiert",
+                "first": "Ihre Nutzungsbedingungen",
+                "true": "Hat akzeptiert",
+                "false": "Hat nicht akzeptiert"
             },
-            "104": {
-                "explanation": "Mindestens ein ärztliches Attest hat (oder auch nicht)",
-                "medicalOrNot": "medizinisch oder nicht",
-                "info": "Die so genannten medizinischen Hinweise entsprechen denen, die im Abschnitt \"Ausschreibungen\" auf dem Formular des Mitglieds aufgeführt sind",
-                "medical": "medizinisch",
-                "date": {
-                    "first": "die erstellt wurde"
-                },
-                "nonMedical": "nicht medizinisch",
-                "name": "Hinweise",
-                "first": "Hat mindestens einen Hinweis"
+            "400": {
+                "name": "Passwort",
+                "explanation": "Alle Mitglieder anzeigen, die ein Passwort für Ihr BSPORT-Konto registriert haben",
+                "explain": "Alle Mitglieder anzeigen, die ein Passwort für Ihr BSPORT-Konto registriert haben"
             },
-            "30": {
-                "numbersComparator": {
-                    "money": {
-                        "after": "{{currency}} als ein empfohlenes Mitglied",
-                        "between": "und",
-                        "before": "Das Mitglied erhielt"
-                    }
-                },
-                "booleanChoice": {
-                    "after": "ein empfohlenes Mitglied",
-                    "is_not": "ist nicht",
-                    "is": "ist",
-                    "before": "Das Mitglied"
-                },
-                "explanation": " Filtert die Mitglieder, die einen Empfehlungslink zur Anmeldung verwendet haben",
-                "name": "Empfohlenes Mitglied"
+            "410": {
+                "explanation": "Nachdem Sie die Haftungsausschlüsse akzeptiert haben",
+                "name": "Haftungsfreistellung",
+                "explain": "nach Annahme der Haftungsfreistellung"
             },
-            "29": {
-                "numbersComparator": {
-                    "money": {
-                        "after": "{{currency}} als Empfehler",
-                        "between": "und",
-                        "before": "Das Mitglied erhielt"
+            "501": {
+                "explanation": "Eine Übersicht über die letzte Buchung der Mitglieder anzeigen",
+                "second": "Tagen statt, und keine andere Buchung ist in der Zukunft geplant.",
+                "first": "Der letzte gebucht Kurs fand vor mehr als",
+                "name": "Datum des letzten gebuchten Kurses"
+            },
+            "600": {
+                "expiryDateLabel": "mit einem Ablaufdatum",
+                "owns": "Mit mindestens einer gespeicherten Zahlungsmethode",
+                "does_not_own": "Keine gesicherte Zahlungsmethode vorhanden",
+                "labelFirst": "Nur Teile filtern",
+                "title": "Verfahren zur gesicherten Bezahlung",
+                "explanation": "Übersicht über die gespeicherten Zahlungsmethoden der Mitglieder und deren Ablaufdatum anzeigen",
+                "name": "Zahlungsmittel"
+            },
+            "calendarPicker": {
+                "selectduration": {
+                    "4": {
+                        "second": "Tagen",
+                        "first": "In mehr als"
                     },
-                    "referred": {
-                        "tooltip": "Mitglieder, die niemanden empfohlen haben, können ebenfalls eingeschlossen werden.",
-                        "after": "Mitglieder",
-                        "between": "und",
-                        "before": "Das Mitglied empfahl"
+                    "5": {
+                        "second": "Tagen",
+                        "first": "In weniger als"
                     },
-                    "reward": {
-                        "after": "Belohnungen als Empfehler",
-                        "between": "und",
-                        "before": "Das Mitglied bekam"
+                    "6": {
+                        "second": "Tagen",
+                        "first": "In"
+                    },
+                    "7": {
+                        "third": "Tagen und weniger als",
+                        "second": "Tagen",
+                        "first": "In mehr als"
+                    },
+                    "8": {
+                        "second": "Tagen",
+                        "first": "Vor weniger als"
+                    },
+                    "9": {
+                        "second": "Tagen",
+                        "first": "Vor mehr als"
+                    },
+                    "10": {
+                        "second": "Tagen",
+                        "first": "Vor "
+                    },
+                    "11": {
+                        "third": "Tagen und weniger als",
+                        "second": "Tagen",
+                        "first": "Vor mehr als"
+                    },
+                    "selector": {
+                        "4": "In mehr als X Tagen",
+                        "5": "In weniger als X Tagen",
+                        "6": "In X Tagen",
+                        "7": "In mehr als X Tagen und weniger als Y Tagen",
+                        "8": "Vor weniger als X Tagen",
+                        "9": "Vor mehr als X Tagen",
+                        "10": "Vor X Tagen",
+                        "11": "Vor mehr als X Tagen und weniger als Y Tagen"
                     }
                 },
-                "name": "Empfehler",
-                "explanation": "Filtert die Mitglieder, die Mitglieder empfohlen haben"
+                "text": {
+                    "0": {
+                        "first": "am oder nach dem"
+                    },
+                    "1": {
+                        "first": "am oder vor dem"
+                    },
+                    "2": {
+                        "second": "und",
+                        "first": "zwischen"
+                    },
+                    "3": {
+                        "first": "am"
+                    },
+                    "4": {
+                        "second": "Tagen",
+                        "first": "in mehr als"
+                    },
+                    "5": {
+                        "second": "Tagen",
+                        "first": "in weniger als"
+                    },
+                    "6": {
+                        "second": "Tagen",
+                        "first": "in "
+                    },
+                    "7": {
+                        "third": "Tagen",
+                        "second": "Tagen und weniger als",
+                        "first": "in mehr als"
+                    },
+                    "8": {
+                        "second": "Tagen",
+                        "first": "vor weniger als"
+                    },
+                    "9": {
+                        "second": "Tagen",
+                        "first": "es gibt mehr als"
+                    },
+                    "10": {
+                        "second": "Tagen",
+                        "first": "vor "
+                    },
+                    "11": {
+                        "third": "Tagen",
+                        "second": "Tagen und weniger als",
+                        "first": "vor mehr als"
+                    }
+                },
+                "select": {
+                    "0": "Am oder nach dem",
+                    "1": "Am oder vor dem",
+                    "2": "Zwischen",
+                    "3": "Am"
+                },
+                "dateTitle": "Datum",
+                "durationTitle": "Dauer",
+                "duration": "Tagen"
             },
-            "28": {
-                "numbersComparator": {
-                    "payment": {
-                        "after": "{{currency}}",
-                        "between": "und",
-                        "before": "Der Betrag des ersten Einkaufs betrug"
-                    }
-                },
-                "filterByDate": {
-                    "before": "Nach Datum filtern"
-                },
-                "booleanChoice": {
-                    "is_not": "noch nicht abgeschlossen",
-                    "is": "abgeschlossen",
-                    "before": "Der erste Kauf ist"
-                },
-                "explanation": "Filtert die Mitglieder mit einem ersten abgeschlossenen/bezahlten Warenkorb",
-                "name": "Erstmaliger Kauf"
-            }
+            "isEmpty": "Kein Filter wurde eingerichtet. Diese Smartlist enthält also die gesamte Mitgliederdatenbank",
+            "undefined": {
+                "fifth": "Kreditpunkte",
+                "fourth": "und besitzt darauf",
+                "third": "und",
+                "second": "zwischen",
+                "first": "Hat die Kurskarte gekauft",
+                "infoIcon": "Unbegrenzte Kurskarten werden nicht nach Kreditpunkten sortiert",
+                "name": "Einkaufsdatum und Kreditpunkte pro Kurskarte"
+            },
+            "durations_comparators": {
+                "1": "weniger als (⩽)",
+                "2": "mehr als (⩾)",
+                "5": "genau",
+                "6": "zwischen"
+            },
+            "classic_comparators": {
+                "1": "niedriger (⩽)",
+                "2": "höher (⩾)",
+                "3": "niedriger (ausgeschlossen)",
+                "4": "höher (ausgeschlossen)",
+                "5": "gleich"
+            },
+            "before": "vor",
+            "after": "nach",
+            "add": "Hinzufügen",
+            "add_filter": "Einen Filter hinzufügen",
+            "active_filters": "Aktive Filter auf der Smartlist",
+            "all": "Alle",
+            "booking_status": {
+                "booked": "gebucht",
+                "canceled": "storniert"
+            },
+            "comparators": {
+                "1": "weniger als (⩽)",
+                "2": "mehr als (⩾)",
+                "5": "gleich",
+                "6": "zwischen"
+            },
+            "attendanceTrue": "Anwesend",
+            "attendanceFalse": "Abwesend",
+            "attendanceWarning": "Wähle einen Status"
         },
         "filterCategory": {
-            "4": "Käufe",
-            "2": "Kurspässe",
             "1": "Informationen über das Mitglied",
-            "3": "Buchungen"
+            "2": "Kurspässe",
+            "3": "Buchungen",
+            "4": "Käufe"
         },
         "smart_list": {
             "createTitle": "Smartlist",
@@ -2824,18 +2824,18 @@
         "graphs": {
             "bookingsSegments": {
                 "label": {
-                    "2": "Mehr als ein Jahr",
                     "0": "Letzter Monat",
-                    "1": "Zwischen 1 und 12 Monate"
+                    "1": "Zwischen 1 und 12 Monate",
+                    "2": "Mehr als ein Jahr"
                 },
                 "title": "Letzte Buchung"
             },
             "expensesSegments": {
                 "label": {
-                    "3": "Letztes Quartil",
-                    "2": "Durchschnitt",
+                    "0": "Keine Ausgabe",
                     "1": "Erstes Quartil",
-                    "0": "Keine Ausgabe"
+                    "2": "Durchschnitt",
+                    "3": "Letztes Quartil"
                 },
                 "title": {
                     "second": "und",
@@ -2960,9 +2960,9 @@
         },
         "memberBase": {
             "options": {
-                "2": "Archiviert",
+                "0": "Nicht archiviert und archiviert",
                 "1": "Nicht archiviert",
-                "0": "Nicht archiviert und archiviert"
+                "2": "Archiviert"
             },
             "helperText": "Diese Smartlist gilt für alle Mitglieder"
         },
@@ -3173,9 +3173,9 @@
                     "enable": "Lehrkräftebereich standardmäßig aktivieren",
                     "maxNbRequestPerPeriod": {
                         "recap": {
-                            "3": "Alle {{nbPeriods}} Jahre können Ihre Lehrkräfte maximal {{nbRequests}} verspätete Anfragen stellen. Sobald diese Zahl überschritten ist, können sie bis zum Ende des Zeitraums keine verspäteten Anfragen mehr stellen.",
                             "1": "Jede {{nbPeriods}} Woche können Ihre Lehrkräfte maximal {{nbRequests}} verspätete Anfragen stellen. Sobald diese Zahl überschritten ist, können sie bis zum Ende der Periode keine verspäteten Anfragen mehr stellen.",
-                            "2": "In jedem {{nbPeriods}} Monat können Ihre Lehrkräfte maximal {{nbRequests}} verspätete Anfragen stellen. Sobald diese Zahl überschritten ist, können sie bis zum Ende des Zeitraums keine verspäteten Anfragen mehr stellen."
+                            "2": "In jedem {{nbPeriods}} Monat können Ihre Lehrkräfte maximal {{nbRequests}} verspätete Anfragen stellen. Sobald diese Zahl überschritten ist, können sie bis zum Ende des Zeitraums keine verspäteten Anfragen mehr stellen.",
+                            "3": "Alle {{nbPeriods}} Jahre können Ihre Lehrkräfte maximal {{nbRequests}} verspätete Anfragen stellen. Sobald diese Zahl überschritten ist, können sie bis zum Ende des Zeitraums keine verspäteten Anfragen mehr stellen."
                         },
                         "helperText": "Maximale Anzahl an verspäteten Anfragen"
                     },
@@ -3621,25 +3621,25 @@
         "userRoles": "Mitarbeiterkonten",
         "pageTitle": "Mitarbeiter",
         "roleDescription": {
-            "4": {
-                "description": "Administrator, gleicher Zugang wie der Leiter, kann aber gelöscht/erstellt werden",
-                "name": "Administrator"
-            },
-            "3": {
-                "description": "Verwenden Sie diese Rolle, wenn Sie möchten, dass die Mitglieder selbst über Ihr Tablet einchecken. Kontaktieren Sie Ihren Account Manager bei BSPORT für weitere Informationen.",
-                "name": "Tablett-Check-In"
-            },
-            "2": {
-                "description": "Zugang nur zum Check-In.",
-                "name": "Eingeschränktes Check-In"
+            "0": {
+                "name": "Leiter",
+                "description": "Zugang des Administrators, keine Einschränkung, kann Mitarbeiterkonten erstellen"
             },
             "1": {
                 "description": "Mit Check-in | Wide können Mitarbeiter Kurse bearbeiten (Zeit, Vetretung, Absage usw.), Ihre Mitgliederdatenbank einsehen und Mitglieder einchecken.",
                 "name": "Erweitertes Check-In"
             },
-            "0": {
-                "name": "Leiter",
-                "description": "Zugang des Administrators, keine Einschränkung, kann Mitarbeiterkonten erstellen"
+            "2": {
+                "description": "Zugang nur zum Check-In.",
+                "name": "Eingeschränktes Check-In"
+            },
+            "3": {
+                "description": "Verwenden Sie diese Rolle, wenn Sie möchten, dass die Mitglieder selbst über Ihr Tablet einchecken. Kontaktieren Sie Ihren Account Manager bei BSPORT für weitere Informationen.",
+                "name": "Tablett-Check-In"
+            },
+            "4": {
+                "description": "Administrator, gleicher Zugang wie der Leiter, kann aber gelöscht/erstellt werden",
+                "name": "Administrator"
             },
             "5": {
                 "name": "Berichte",
@@ -5214,6 +5214,18 @@
             "penaltyTitle": "Strafe angewendet"
         },
         "notification": {
+            "0": {
+                "first": "Benachrichtigen, wenn ",
+                "second": "verbleibende Gültigkeitsdauer des Kurspasses"
+            },
+            "1": {
+                "second": "Credits",
+                "first": "Benachrichtigen, wenn es"
+            },
+            "2": {
+                "first": "Benachrichtigen, wenn die Karte seit ",
+                "second": "Tagen abgelaufen ist"
+            },
             "form": {
                 "showMail": "E-Mail ansehen",
                 "selectToShowPreview": "Wähle eine E-Mail aus, um eine Vorschau davon zu sehen.",
@@ -5250,10 +5262,6 @@
                 "notificationNamePlaceholder": "Benachrichtigungsname",
                 "generalTitle": "Allgemein"
             },
-            "1": {
-                "second": "Credits",
-                "first": "Benachrichtigen, wenn es"
-            },
             "listItem": {
                 "deleteModal": {
                     "content": "Bist Du Dir sicher, dass Du diese Benachrichtigung löschen möchtest? Diese Aktion ist unwiderruflich",
@@ -5266,14 +5274,6 @@
                 "smartListInclude": "Eingeschlossene Listen"
             },
             "addButton": "Eine Benachrichtigung hinzufügen",
-            "0": {
-                "first": "Benachrichtigen, wenn ",
-                "second": "verbleibende Gültigkeitsdauer des Kurspasses"
-            },
-            "2": {
-                "first": "Benachrichtigen, wenn die Karte seit ",
-                "second": "Tagen abgelaufen ist"
-            },
             "daysPast": {
                 "second": "Tage",
                 "first": "Benachrichtigen, wenn die Karte abgelaufen ist"
@@ -6032,17 +6032,17 @@
             "month_plural": "Pass beschränkt auf {{count}} maximale Nutzungen pro Monat"
         },
         "incompatibilities": {
+            "2008": "Aktivität nicht kompatibel",
             "2009": "Kategorie nicht kompatibel",
             "2010": "Einrichtung nicht kompatibel",
             "2018": "Unzureichende Anzahl an Credits",
             "2019": "Die Karte ist gesperrt",
+            "2020": "Die Daten sind nicht kompatibel",
             "2021": "Die Karte beginnt bei der ersten Buchung, am ",
             "2022": "Die Karte beginnt bei der ersten Teilnahme, am ",
             "2023": "Die Karte ist abgelaufen",
-            "2008": "Aktivität nicht kompatibel",
-            "2020": "Die Daten sind nicht kompatibel",
-            "paymentPack": "Karte als inkompatibel mit der betreffenden Aktivität konfiguriert :",
-            "2027": "Das Zeitfenster ist nicht kompatibel"
+            "2027": "Das Zeitfenster ist nicht kompatibel",
+            "paymentPack": "Karte als inkompatibel mit der betreffenden Aktivität konfiguriert :"
         },
         "next": "Weiter",
         "orderingAlert": {
@@ -6066,14 +6066,14 @@
             "priceDue": "Fälliger Betrag: {{ price_due }}."
         },
         "alert_kind": {
-            "4": "Zu ergänzender Termin",
-            "3": "Aufträge",
-            "2": "Bestellungen",
             "1": "Rechnungsstellung",
+            "2": "Bestellungen",
+            "3": "Aufträge",
+            "4": "Zu ergänzender Termin",
             "5": "Rechtliche Informationen",
             "6": "Unbezahlte Termine",
-            "8": "Späte Vertretungen",
             "7": "Tutorials",
+            "8": "Späte Vertretungen",
             "9": "Empfangene Nachrichten"
         },
         "list": {
@@ -6639,10 +6639,6 @@
             "form": {
                 "information": "Allgemeine Informationen",
                 "filterComparator": {
-                    "2": {
-                        "0": "Ist",
-                        "1": "Ist nicht"
-                    },
                     "0": {
                         "4": "ist",
                         "5": "Ist nicht"
@@ -6655,10 +6651,14 @@
                         "4": "Zwischen",
                         "5": "Außerhalb"
                     },
-                    "3": {
-                        "4": "Zwischen",
+                    "2": {
                         "0": "Ist",
                         "1": "Ist nicht"
+                    },
+                    "3": {
+                        "0": "Ist",
+                        "1": "Ist nicht",
+                        "4": "Zwischen"
                     }
                 },
                 "error": {
@@ -6749,25 +6749,25 @@
         },
         "presetValuesByDatatype": {
             "payment_method": {
+                "0": "Karte",
+                "1": "Bargeld",
+                "2": "Check",
+                "3": "Pass",
+                "4": "Karte (manuell)",
+                "5": "Urlaubscheck",
+                "6": "AMEX",
+                "7": "Überweisung",
+                "8": "Veranstaltungshinweise",
+                "9": "Internes Konto",
                 "10": "Automatische Bezahlung",
                 "11": "Andere",
                 "12": "Streitfall",
                 "13": "SEPA",
                 "20": "Bankkontakt",
+                "30": "Sofort",
                 "40": "iDEAL",
                 "50": "EPS",
-                "60": "Giropay",
-                "6": "AMEX",
-                "7": "Überweisung",
-                "30": "Sofort",
-                "1": "Bargeld",
-                "0": "Karte",
-                "2": "Check",
-                "3": "Pass",
-                "4": "Karte (manuell)",
-                "5": "Urlaubscheck",
-                "8": "Veranstaltungshinweise",
-                "9": "Internes Konto"
+                "60": "Giropay"
             },
             "payment_method_with_credit_account": {
                 "0": "Karte",
@@ -6874,6 +6874,11 @@
             "70": "Bacs-Lastschriftverfahren"
         },
         "last_invoice_status": {
+            "0": "Erfolgreich",
+            "1": "Fehlgeschlagen",
+            "2": "Ausstehend",
+            "3": "Abgebrochen",
+            "4": "Wird bearbeitet",
             "": [
                 "Stornieren",
                 "Stornieren",
@@ -6905,12 +6910,7 @@
                 "Storniert",
                 "Storniert",
                 "Storniert"
-            ],
-            "4": "Wird bearbeitet",
-            "3": "Abgebrochen",
-            "2": "Ausstehend",
-            "1": "Fehlgeschlagen",
-            "0": "Erfolgreich"
+            ]
         },
         "readPermissionDenied": "Zutritt verweigert",
         "descriptions": {
@@ -7164,8 +7164,8 @@
             "consumer_payment_pack_links": {
                 "create": {
                     "error": {
-                        "generic": "Nicht möglich diesen Pass zu teilen",
-                        "90004": "Dieser Pass wird von einem anderen Konto geteilt"
+                        "90004": "Dieser Pass wird von einem anderen Konto geteilt",
+                        "generic": "Nicht möglich diesen Pass zu teilen"
                     },
                     "success": "Karte geteilt"
                 },
@@ -7239,9 +7239,9 @@
                 "error": "Fehler beim Ändern der Zugriffsrechte für den Lehrkräftebereich"
             },
             "errors": {
-                "60004": "Die angegebene E-Mail ist bereits mit einem Franchise-Konto für Mitarbeiter verknüpft.",
                 "60002": "Die angegebene E-Mail ist bereits mit einem Mitarbeiterkonto verknüpft.",
-                "60003": "Es existiert bereits ein Mitglied mit dieser E-Mail. Um sie zu verknüpfen, verwenden Sie das vorherige Pop-up."
+                "60003": "Es existiert bereits ein Mitglied mit dieser E-Mail. Um sie zu verknüpfen, verwenden Sie das vorherige Pop-up.",
+                "60004": "Die angegebene E-Mail ist bereits mit einem Franchise-Konto für Mitarbeiter verknüpft."
             }
         },
         "invoice": {
@@ -7260,41 +7260,41 @@
             },
             "sendToQuickbooks": {
                 "errors": {
-                    "title": "Fehler beim Versand Ihrer Rechnung",
-                    "934006": "Diese Rechnung ist bereits in QuickBooks registriert",
-                    "934005": "Ihre Rechnung kann nicht an QuickBooks gesendet werden",
-                    "934004": "Unmöglich, eine unbezahlte Rechnung in QuickBooks zu senden",
-                    "934003": "Nicht möglich, eine unfertige Rechnung in QuickBooks zu senden",
-                    "934002": "Stornierte Rechnungen können in QuickBooks nicht gesendet werden",
-                    "934001": "Es ist nicht möglich, eine Rechnung ohne zugehörige Artikel zu erstell",
-                    "934000": "Die Rechnung enthält nicht die Mindestangaben, um in Quickbooks erstellt zu werden",
-                    "933102": "Fehler beim Erstellen der Rechnung in Quickbooks",
-                    "933101": "Der Kunde, der mit dem Rechnungsmitglied verbunden ist, kann nicht erstellt werden",
-                    "933100": "Der Kunde, der mit dem Rechnungsmitglied verbunden ist, kann nicht erstellt werden",
-                    "933000": "Das Mitglied, das mit der Rechnung verbunden ist, verfügt nicht über die notwendigen Informationen, um in QuickBooks registriert zu werden",
-                    "932100": "Sie können nicht auf Ihre Quickbooks-Kontoinformationen zugreifen",
-                    "932001": "Ihr Konto ist bei Bsport nicht mehr authentifizie",
-                    "932000": "Ihr Konto ist bei Bsport nicht mehr authentifiziert",
-                    "931101": "Quickbooks ist nicht in der Lage, uns Ihre Daten zu senden",
-                    "931100": "Fehler beim Aktualisieren von Authentifizierungsschlüsseln",
-                    "931004": "Sie haben Ihre QuickBooks-Anwendung nicht konfiguriert",
-                    "931003": "Abgelaufene Authentifizierungsschlüssel",
-                    "931002": "Abgelaufene Authentifizierungsschlüssel",
-                    "931001": "Fehler bei der Authentifizierung in Quickbooks",
                     "931000": "Fehler bei der Authentifizierung in Quickbooks",
-                    "933103": "Ihre QuickBooks-Plattform unterstützt mehrere Währungen, bitte geben Sie an, welche Steuer Sie verwenden möchten."
+                    "931001": "Fehler bei der Authentifizierung in Quickbooks",
+                    "931002": "Abgelaufene Authentifizierungsschlüssel",
+                    "931003": "Abgelaufene Authentifizierungsschlüssel",
+                    "931004": "Sie haben Ihre QuickBooks-Anwendung nicht konfiguriert",
+                    "931100": "Fehler beim Aktualisieren von Authentifizierungsschlüsseln",
+                    "931101": "Quickbooks ist nicht in der Lage, uns Ihre Daten zu senden",
+                    "932000": "Ihr Konto ist bei Bsport nicht mehr authentifiziert",
+                    "932001": "Ihr Konto ist bei Bsport nicht mehr authentifizie",
+                    "932100": "Sie können nicht auf Ihre Quickbooks-Kontoinformationen zugreifen",
+                    "933000": "Das Mitglied, das mit der Rechnung verbunden ist, verfügt nicht über die notwendigen Informationen, um in QuickBooks registriert zu werden",
+                    "933100": "Der Kunde, der mit dem Rechnungsmitglied verbunden ist, kann nicht erstellt werden",
+                    "933101": "Der Kunde, der mit dem Rechnungsmitglied verbunden ist, kann nicht erstellt werden",
+                    "933102": "Fehler beim Erstellen der Rechnung in Quickbooks",
+                    "933103": "Ihre QuickBooks-Plattform unterstützt mehrere Währungen, bitte geben Sie an, welche Steuer Sie verwenden möchten.",
+                    "934000": "Die Rechnung enthält nicht die Mindestangaben, um in Quickbooks erstellt zu werden",
+                    "934001": "Es ist nicht möglich, eine Rechnung ohne zugehörige Artikel zu erstell",
+                    "934002": "Stornierte Rechnungen können in QuickBooks nicht gesendet werden",
+                    "934003": "Nicht möglich, eine unfertige Rechnung in QuickBooks zu senden",
+                    "934004": "Unmöglich, eine unbezahlte Rechnung in QuickBooks zu senden",
+                    "934005": "Ihre Rechnung kann nicht an QuickBooks gesendet werden",
+                    "934006": "Diese Rechnung ist bereits in QuickBooks registriert",
+                    "title": "Fehler beim Versand Ihrer Rechnung"
                 },
                 "error": "Beim Übertragen Ihrer Rechnung an Quickbooks ist ein Fehler aufgetreten",
                 "success": "Ihre Rechnung wurde an Quickbooks übertragen"
             },
             "applyGiftcard": {
                 "errors": {
-                    "45001": "Es ist nicht möglich, diese Rechnung mit diesem Gutschein zu begleichen",
-                    "45006": "Der Gutschein wurde bereits aktiviert",
-                    "45003": "Der Gutschein wurde deaktiviert.",
                     "45000": "Der Aktivierungscode ist falsch.",
-                    "generic": "Aktivierung des Gutscheins nicht möglich",
-                    "45007": "Nicht möglich, das Mitglied zu finden, das den Gutschein aktivieren möchte."
+                    "45001": "Es ist nicht möglich, diese Rechnung mit diesem Gutschein zu begleichen",
+                    "45003": "Der Gutschein wurde deaktiviert.",
+                    "45006": "Der Gutschein wurde bereits aktiviert",
+                    "45007": "Nicht möglich, das Mitglied zu finden, das den Gutschein aktivieren möchte.",
+                    "generic": "Aktivierung des Gutscheins nicht möglich"
                 },
                 "success": "Zahlung mit Gutschein bestätigt",
                 "error": "Es ist nicht möglich, den gewünschten Betrag mit diesem Gutschein zu bezahlen"
@@ -7305,19 +7305,19 @@
             },
             "revert": {
                 "errors": {
-                    "14101": "Sie können eine Restguthabenkorrektur nicht mit einer Gutschrift erstatten.",
                     "14100": "Es ist nicht möglich, eine Rechnung mit Interac-Zahlungen zu stornieren.",
+                    "14101": "Sie können eine Restguthabenkorrektur nicht mit einer Gutschrift erstatten.",
                     "14102": "Diese Rechnung kann nicht erstattet werden."
                 }
             },
             "generateXml": {
                 "errors": {
-                    "default": "Beim Generieren der XML-Rechnung ist ein Fehler aufgetreten",
-                    "14213": "Die Generierung des XML-Dokuments ist aufgrund gesetzlicher Vorgaben fehlgeschlagen. Für weitere Informationen oder bei Fragen wenden Sie sich bitte an Ihren bsport-Kundenbetreuer.",
-                    "14212": "Die Adresse des Mitglieds fehlt oder ist unvollständig",
-                    "14211": "Das offizielle Dokument ID des Mitglieds fehlt oder ist unvollständig",
                     "14210": "Ihre Einstellungen sind nicht für den Export von XML-Rechnungen konfiguriert. Bitte wenden Sie sich an Ihren bsport-Kundenbetreuer.",
-                    "14214": "Die generierte Zip-Datei ist leer, da keine zu exportierenden Rechnungen des letzten Monats gefunden wurden."
+                    "14211": "Das offizielle Dokument ID des Mitglieds fehlt oder ist unvollständig",
+                    "14212": "Die Adresse des Mitglieds fehlt oder ist unvollständig",
+                    "14213": "Die Generierung des XML-Dokuments ist aufgrund gesetzlicher Vorgaben fehlgeschlagen. Für weitere Informationen oder bei Fragen wenden Sie sich bitte an Ihren bsport-Kundenbetreuer.",
+                    "14214": "Die generierte Zip-Datei ist leer, da keine zu exportierenden Rechnungen des letzten Monats gefunden wurden.",
+                    "default": "Beim Generieren der XML-Rechnung ist ein Fehler aufgetreten"
                 },
                 "success": "XML-Rechnung erfolgreich generiert"
             }
@@ -7662,8 +7662,8 @@
             },
             "variant": {
                 "error": {
-                    "11001": "Kann kein Paket mit Variantenprodukten erstellen",
-                    "11000": "Kann keine Variante(n) für ein in einem Paket verwendeten Produkt erstellen"
+                    "11000": "Kann keine Variante(n) für ein in einem Paket verwendeten Produkt erstellen",
+                    "11001": "Kann kein Paket mit Variantenprodukten erstellen"
                 }
             },
             "supplier": {
@@ -7801,11 +7801,11 @@
                 "pm_deleted": "Gelöschte Zahlungsmethode"
             },
             "errors": {
-                "13003": "Mit dieser Zahlungsmethode ist ein Abonnement verbunden",
-                "13001": "Fehler beim Löschen der Zahlungsmethode",
-                "13004": "Diese Zahlungsmethode wird für zukünftige Zahlungen verwendet",
                 "13000": "Fehler beim Löschen der Zahlungsmethode",
-                "13002": "Diese Zahlungsmethode wird für zukünftige Zahlungen verwendet"
+                "13001": "Fehler beim Löschen der Zahlungsmethode",
+                "13002": "Diese Zahlungsmethode wird für zukünftige Zahlungen verwendet",
+                "13003": "Mit dieser Zahlungsmethode ist ein Abonnement verbunden",
+                "13004": "Diese Zahlungsmethode wird für zukünftige Zahlungen verwendet"
             }
         },
         "settings": {
@@ -7815,47 +7815,47 @@
             }
         },
         "canNotBuyErrorCode": {
+            "1": "Der Kurs ist noch nicht buchbar",
             "2": "Der Kurs ist nicht mehr buchbar",
             "3": "Der Kurs ist voll",
-            "1": "Der Kurs ist noch nicht buchbar",
             "4": "Der Kurs ist nicht buchbar",
             "5": "Sie haben sich bereits für diesen Kurs angemeldet",
             "6": "Das Ungleichgewicht zwischen den Geschlechtern ist zu groß, Buchung nicht möglich",
             "7": "Das Ungleichgewicht zwischen den Geschlechtern ist zu groß, Buchung nicht möglich",
+            "9": "Sie versuchen mehr Termine zu buchen, als Ihr Club zulässt",
+            "1113": "Dieses Paket ist nur für neue Mitglieder erhältlich",
             "1114": "Sie können diese Packung nicht mehr kaufen",
-            "2006": "Dieser Pass ist nicht kompatibel mit einer Buchung zum gewählten Datum",
-            "undefined": "Sie versuchen, mehr zukünftige Sitzungen zu buchen, als Ihr Club erlaubt",
+            "1122": "Dieses Paket kann nicht mehr gekauft werden, da das Gültigkeitsdatum abgelaufen ist",
             "2002": "Dieser Kurspass ist nur für neue Mitglieder erhältlich",
+            "2003": "Sie können diesen Pass nicht mehr einlösen",
             "2004": "Dieser Pass ist nicht zum Kauf verfügbar",
             "2005": "Dieser Pass steht nicht zum Verkauf",
-            "8001": "Der von Ihnen gewählte Platz ist nicht mehr verfügbar",
-            "generic": "Kann nicht gebucht werden",
-            "1113": "Dieses Paket ist nur für neue Mitglieder erhältlich",
-            "2003": "Sie können diesen Pass nicht mehr einlösen",
+            "2006": "Dieser Pass ist nicht kompatibel mit einer Buchung zum gewählten Datum",
             "2007": "Diese Karte ist mit diesem Kurs nicht kompatibel",
             "2008": "Dieser Pass ist nicht mit dieser Aktivität kompatibel",
             "2009": "Ce laissez-passer n'est pas compatible avec cette activité",
             "2010": "Dieser Pass ist mit diesem Ort nicht kompatibel",
             "2011": "Mit diesem Pass können Sie keine Kurse buchen (nur VOD)",
             "2012": "Diese Karte ist mit diesem Kurs nicht kompatibel",
+            "2014": "Sie haben die maximale Anzahl von Buchungen für diesen Tag erreicht",
+            "2015": "Sie haben die maximale Anzahl von Buchungen für diese Woche erreicht",
+            "2016": "Sie haben die maximale Anzahl von Buchungen für diesen Monat erreicht",
+            "2017": "Sie haben die maximale Anzahl von Buchungen für dieses Jahr erreicht",
+            "2025": "Dieser Pass kann nicht mehr gekauft werden, da sein Verfallsdatum überschritten wurde",
             "6002": "Die Warteliste ist voll",
             "6003": "Sie sind bereits auf der Warteliste",
-            "9": "Sie versuchen mehr Termine zu buchen, als Ihr Club zulässt",
-            "2017": "Sie haben die maximale Anzahl von Buchungen für dieses Jahr erreicht",
-            "2016": "Sie haben die maximale Anzahl von Buchungen für diesen Monat erreicht",
-            "2015": "Sie haben die maximale Anzahl von Buchungen für diese Woche erreicht",
-            "2014": "Sie haben die maximale Anzahl von Buchungen für diesen Tag erreicht",
-            "45004": "Der Gutschein ist nicht mehr zum Kauf verfügbar.",
-            "85000": "Eine Buchung ist bereits im Gange, bitte haben Sie einen Moment Geduld",
-            "45005": "Der Gutschein ist nicht mehr erhältlich.",
-            "85101": "Eine Buchung ist nicht möglich. Dieser Spot wurde bereits von einem anderen Mitglied gebucht. Bitte versuche es erneut, indem du einen anderen Spot auswählst.",
+            "8001": "Der von Ihnen gewählte Platz ist nicht mehr verfügbar",
             "10001": "Insuffizienter Bestand",
-            "15002": "Der Artikel wurde bereits in den Warenkorb hinzugefügt, bitte warten Sie",
-            "2025": "Dieser Pass kann nicht mehr gekauft werden, da sein Verfallsdatum überschritten wurde",
-            "1122": "Dieses Paket kann nicht mehr gekauft werden, da das Gültigkeitsdatum abgelaufen ist",
             "11114": "Dieser Terminpass kann nicht mehr gekauft werden, da sein Gültigkeitsdatum abgelaufen ist",
+            "15002": "Der Artikel wurde bereits in den Warenkorb hinzugefügt, bitte warten Sie",
             "23001": "Es ist kein Pass für die Eintragung in die Warteliste verfügbar",
-            "23002": "Sie haben die maximale Anzahl an zukünftigen Buchungen / Wartelistplätzen erreicht, Sie können nicht mehr registrieren"
+            "23002": "Sie haben die maximale Anzahl an zukünftigen Buchungen / Wartelistplätzen erreicht, Sie können nicht mehr registrieren",
+            "45004": "Der Gutschein ist nicht mehr zum Kauf verfügbar.",
+            "45005": "Der Gutschein ist nicht mehr erhältlich.",
+            "85000": "Eine Buchung ist bereits im Gange, bitte haben Sie einen Moment Geduld",
+            "85101": "Eine Buchung ist nicht möglich. Dieser Spot wurde bereits von einem anderen Mitglied gebucht. Bitte versuche es erneut, indem du einen anderen Spot auswählst.",
+            "undefined": "Sie versuchen, mehr zukünftige Sitzungen zu buchen, als Ihr Club erlaubt",
+            "generic": "Kann nicht gebucht werden"
         },
         "signup": {
             "emailAlreadyExists": "Diese E-Mail ist bereits in Gebrauch",
@@ -7912,10 +7912,10 @@
             },
             "signupViaCustomForm": {
                 "errors": {
-                    "84104": "Die Rufnummer ist ungültig",
-                    "84103": "Das angegebene Geschlecht ist nicht gültig",
+                    "84101": "Obligatorische Felder wurden nicht ausgefüllt",
                     "84102": "Diese E-Mail ist bereits in Gebrauch",
-                    "84101": "Obligatorische Felder wurden nicht ausgefüllt"
+                    "84103": "Das angegebene Geschlecht ist nicht gültig",
+                    "84104": "Die Rufnummer ist ungültig"
                 },
                 "error": "Fehler bei der Registrierung, bitte versuchen Sie es erneut",
                 "success": "Anmeldung validiert"
@@ -8010,31 +8010,31 @@
             }
         },
         "automatedCampaign": {
+            "17000": "Es ist ein Fehler aufgetreten",
+            "17101": "Fehler: Titel erforderlich",
+            "17102": "Fehler: Inhalt der E-Mail ist erforderlich",
+            "17103": "Fehler: SMS-Inhalt erforderlich",
             "17104": "Fehler: Titel der Meldung erforderlich",
             "17105": "Fehler: Inhalt der Benachrichtigung erforderlich",
-            "17103": "Fehler: SMS-Inhalt erforderlich",
-            "17102": "Fehler: Inhalt der E-Mail ist erforderlich",
-            "17101": "Fehler: Titel erforderlich",
-            "170001": "Fehler: Ungültige Höchstzahl an Sendungen pro Mitglied",
-            "17000": "Es ist ein Fehler aufgetreten"
+            "170001": "Fehler: Ungültige Höchstzahl an Sendungen pro Mitglied"
         },
         "replacement": {
             "errors": {
-                "500001": "Es liegt bereits eine Vertretungsanfrage vor",
-                "80003": "Fehlende Einstellungen für Grenzwerte für verspätete Anfragen.",
-                "50012": "Diese Lehrkraft antwortete, dass sie für diesen Kurs nicht einspringen wolle.",
-                "50009": "Sie können diesen Anfrage nicht ablehnen, da bereits eine Lehrkraft zugewiesen wurde.",
-                "50011": "Für diese Anfrage wurde bereits eine Lehrkraft zugewiesen.",
-                "50015": "Sie können nicht auf Ihre eigene Vertretungsanfrage reagieren",
-                "50013": "Sie können nicht mehr auf diese Vertretungsanfrage reagieren.",
-                "50010": "Sie können diese Anfrage nicht stornieren, da bereits eine Lehrkraft zugewiesen wurde.",
-                "80002": "Der Wert \"Anzahl der Tage, an denen die Anfrage verspätet ist\" muss größer sein als der Wert \"Anzahl der Tage, an denen die Anfrage geschlossen ist\".",
-                "500004": "Sie sind bereits Vertretungskraft diesen Kurs",
-                "50020": "Diese Vertretungsanfrage wurde abgelehnt: Löschen nicht möglich",
                 "50000": "Der Kurs ist bereits vorbei",
                 "50007": "Sie können diese Vertretungsanfragen nicht stellen, weil Sie nicht genügend ausstehende überfällige Anfragen haben.",
                 "50008": "Der Anmeldeschluss kann nicht über das Datum des Kurses hinaus verschoben werden.",
-                "50021": "Sie können nicht gleichzeitig Niederlassungen und Standorte angeben."
+                "50009": "Sie können diesen Anfrage nicht ablehnen, da bereits eine Lehrkraft zugewiesen wurde.",
+                "50010": "Sie können diese Anfrage nicht stornieren, da bereits eine Lehrkraft zugewiesen wurde.",
+                "50011": "Für diese Anfrage wurde bereits eine Lehrkraft zugewiesen.",
+                "50012": "Diese Lehrkraft antwortete, dass sie für diesen Kurs nicht einspringen wolle.",
+                "50013": "Sie können nicht mehr auf diese Vertretungsanfrage reagieren.",
+                "50015": "Sie können nicht auf Ihre eigene Vertretungsanfrage reagieren",
+                "50020": "Diese Vertretungsanfrage wurde abgelehnt: Löschen nicht möglich",
+                "50021": "Sie können nicht gleichzeitig Niederlassungen und Standorte angeben.",
+                "80002": "Der Wert \"Anzahl der Tage, an denen die Anfrage verspätet ist\" muss größer sein als der Wert \"Anzahl der Tage, an denen die Anfrage geschlossen ist\".",
+                "80003": "Fehlende Einstellungen für Grenzwerte für verspätete Anfragen.",
+                "500001": "Es liegt bereits eine Vertretungsanfrage vor",
+                "500004": "Sie sind bereits Vertretungskraft diesen Kurs"
             },
             "disciplineGroup": {
                 "create": {
@@ -8126,10 +8126,10 @@
             }
         },
         "instalmentPayment": {
-            "16002": "Die Anzahl der Ratenzahlungen muss gleich 1 sein, um die Option \"Teilzahlung\" zu aktivieren",
-            "16003": "Die Anzahl der Zahlungseingänge muss größer als 2 sein, um die Option 'Ersten Betrag anpassen' zu aktivieren",
             "16000": "Der Betrag der ersten Ratenzahlung muss größer als Null sein",
-            "16001": "Der Prozentsatz des Gesamtbetrags muss zwischen 0 und 100 festgelegt werden"
+            "16001": "Der Prozentsatz des Gesamtbetrags muss zwischen 0 und 100 festgelegt werden",
+            "16002": "Die Anzahl der Ratenzahlungen muss gleich 1 sein, um die Option \"Teilzahlung\" zu aktivieren",
+            "16003": "Die Anzahl der Zahlungseingänge muss größer als 2 sein, um die Option 'Ersten Betrag anpassen' zu aktivieren"
         },
         "giftCard": {
             "notFound": "Dieser Gutscheine wurde nicht gefunden. Er wurde möglicherweise archiviert."
@@ -8144,11 +8144,11 @@
         },
         "spivi": {
             "error": {
-                "21004": "Die Doppelbuchung ist nicht mit der Spivi-Integration kompatibel",
-                "21003": "Die mit Spivi verbundenen Kurse sollten zwischen 20min und 4h dauern",
-                "21002": "Der ausgewählte Raumplan muss eine Box-ID haben, damit der Kurs mit Spivi verknüpft werden kann",
+                "21000": "Der Spivi-Upsell ist nicht aktiviert.",
                 "21001": "Es wurde kein Raumplan ausgewählt",
-                "21000": "Der Spivi-Upsell ist nicht aktiviert."
+                "21002": "Der ausgewählte Raumplan muss eine Box-ID haben, damit der Kurs mit Spivi verknüpft werden kann",
+                "21003": "Die mit Spivi verbundenen Kurse sollten zwischen 20min und 4h dauern",
+                "21004": "Die Doppelbuchung ist nicht mit der Spivi-Integration kompatibel"
             }
         },
         "smartlistGetMembers": {
@@ -8188,8 +8188,8 @@
         },
         "tag": {
             "error": {
-                "124004": "Der Hauptname des Tags wird bereits verwendet",
-                "124003": "Der Name des Untertags wird bereits verwendet"
+                "124003": "Der Name des Untertags wird bereits verwendet",
+                "124004": "Der Hauptname des Tags wird bereits verwendet"
             }
         },
         "mergeError": {
@@ -8219,25 +8219,25 @@
             }
         },
         "paypal": {
+            "35009": "Sie können kein Konto verwenden, das bereits mit einem anderen Anbieter verbunden ist.",
             "onboardingUrlFetchFailed": "Beim Versuch, den Onboarding-Link von PayPal abzurufen, ist ein Fehler aufgetreten",
             "couldNotReachPayPal": "Wir konnten PayPal nicht erreichen. Bitte versuchen Sie es später noch einmal.",
             "connectionAttemptSucceeded": "Das PayPal-Konto wurde erfolgreich verbunden",
-            "connectionAttemptFailed": "Bei der Verbindung zu PayPal ist ein Fehler aufgetreten",
-            "35009": "Sie können kein Konto verwenden, das bereits mit einem anderen Anbieter verbunden ist."
+            "connectionAttemptFailed": "Bei der Verbindung zu PayPal ist ein Fehler aufgetreten"
         },
         "canNotExecutePaymentAttempt": {
-            "generic": "Ihre Zahlung ist fehlgeschlagen, bitte versuchen Sie es erneut",
-            "failedLoadingPayPalScript": "Beim Laden von PayPal ist ein Fehler aufgetreten",
-            "35015": "Ihre PayPal-Zahlung ist fehlgeschlagen. Bitte versuchen Sie es erneut oder verwenden Sie eine andere Zahlungsmethode",
-            "35013": "Ihre Zahlung ist fehlgeschlagen, bitte wählen Sie eine andere Zahlungsmethode.",
-            "35012": "Ihre Karte ist abgelaufen",
-            "35006": "Ihr PayPal-Konto kann die Zahlung nicht verarbeiten. Bitte versuchen Sie es erneut mit einem anderen Konto",
-            "35000": "Ihre PayPal-Zahlung ist fehlgeschlagen. Bitte versuchen Sie es erneut oder verwenden Sie eine andere Zahlungsmethode",
-            "12110": "Ihr Warenkorb stimmt nicht mit dem Betrag überein, den Sie zu bezahlen versucht haben. Wir haben Ihren Warenkorb aktualisiert, bitte versuchen Sie es erneut",
-            "12109": "Ihre Zahlung ist fehlgeschlagen, bitte versuchen Sie es erneut.",
-            "12108": "Ihre Zahlung wird bereits bearbeitet, bitte warten Sie",
+            "12102": "Ihre Zahlung wird bereits bearbeitet, bitte warten Sie",
             "12107": "Ihre Zahlung ist fehlgeschlagen, bitte versuchen Sie es erneut.",
-            "12102": "Ihre Zahlung wird bereits bearbeitet, bitte warten Sie"
+            "12108": "Ihre Zahlung wird bereits bearbeitet, bitte warten Sie",
+            "12109": "Ihre Zahlung ist fehlgeschlagen, bitte versuchen Sie es erneut.",
+            "12110": "Ihr Warenkorb stimmt nicht mit dem Betrag überein, den Sie zu bezahlen versucht haben. Wir haben Ihren Warenkorb aktualisiert, bitte versuchen Sie es erneut",
+            "35000": "Ihre PayPal-Zahlung ist fehlgeschlagen. Bitte versuchen Sie es erneut oder verwenden Sie eine andere Zahlungsmethode",
+            "35006": "Ihr PayPal-Konto kann die Zahlung nicht verarbeiten. Bitte versuchen Sie es erneut mit einem anderen Konto",
+            "35012": "Ihre Karte ist abgelaufen",
+            "35013": "Ihre Zahlung ist fehlgeschlagen, bitte wählen Sie eine andere Zahlungsmethode.",
+            "35015": "Ihre PayPal-Zahlung ist fehlgeschlagen. Bitte versuchen Sie es erneut oder verwenden Sie eine andere Zahlungsmethode",
+            "generic": "Ihre Zahlung ist fehlgeschlagen, bitte versuchen Sie es erneut",
+            "failedLoadingPayPalScript": "Beim Laden von PayPal ist ein Fehler aufgetreten"
         },
         "cancelPayPalPaymentAttempt": "Ihr Zahlungsversuch wurde abgebrochen. Bitte versuchen Sie es erneut.",
         "wellhub": {
@@ -8473,12 +8473,12 @@
             },
             "header": {
                 "source": {
-                    "label": "Kanal : {{ source }}",
-                    "3": "Divers",
-                    "2": "Backoffice",
-                    "1": "Web",
                     "0": "App",
-                    "4": "Migration"
+                    "1": "Web",
+                    "2": "Backoffice",
+                    "3": "Divers",
+                    "4": "Migration",
+                    "label": "Kanal : {{ source }}"
                 },
                 "clientAuthor": "Kunde",
                 "author": "Erstellt von : {{ name }}",
@@ -8502,13 +8502,13 @@
                 "label": "Credit"
             },
             "buyableItemIdentifier": {
-                "10": "Pakete",
-                "9": "Terminpass",
-                "3": "Credit",
-                "2": "Webshop",
                 "1": "Kurspässe",
-                "undefined": "Geschenkkarte",
-                "11": "Gutscheine"
+                "2": "Webshop",
+                "3": "Credit",
+                "9": "Terminpass",
+                "10": "Pakete",
+                "11": "Gutscheine",
+                "undefined": "Geschenkkarte"
             },
             "discount": "Rabatt",
             "finalPricePreview": "Vorschau zur Gesamtsumme"
@@ -8531,14 +8531,14 @@
         "revert": {
             "content": {
                 "label": {
-                    "2": "Manuelle Rückerstattung",
+                    "0": "Direkte Rückerstattung",
                     "1": "Rückerstattung von Credits (Restbetrag)",
-                    "0": "Direkte Rückerstattung"
+                    "2": "Manuelle Rückerstattung"
                 },
                 "explain": {
-                    "2": "Wählen Sie selbst die Erstattungsmethode. Verwenden Sie diese Methode für einen Scheck / eine manuelle Überweisung / eine Rückerstattung in bar.",
+                    "0": "Kartenzahlungen / SEPA / etc... werden direkt auf das Konto des Kunden überwiesen. Verwenden Sie diese Methode, um eine direkte Erstattung nach einem Fehler zu machen.",
                     "1": "Eine Gutschrift wird erstellt und dem Kundenguthaben entsprechend gutgeschrieben. Verwende diese Methode, um eine Gutschrift zu erstellen.",
-                    "0": "Kartenzahlungen / SEPA / etc... werden direkt auf das Konto des Kunden überwiesen. Verwenden Sie diese Methode, um eine direkte Erstattung nach einem Fehler zu machen."
+                    "2": "Wählen Sie selbst die Erstattungsmethode. Verwenden Sie diese Methode für einen Scheck / eine manuelle Überweisung / eine Rückerstattung in bar."
                 },
                 "explainEmptyPayment": "Möchten Sie diese Rechnung wirklich stornieren?"
             },
@@ -8550,11 +8550,11 @@
                 "title": "Rechnungsstornierung"
             },
             "warning": {
-                "interac": "Mindestens eine Zahlung auf dieser Rechnung wurde mit einer Interac Karte vorgenommen. Direkte Rückerstattungen werden für Interac Karten nicht unterstützt.",
-                "debtAndNewPaymentMethodNotAllowed": "Mindestens eine Zahlung ist noch nicht erfolgt. Es ist nur eine direkte Erstattung möglich.",
-                "14103": "Direkte Erstattungen sind nur möglich, wenn mindestens eine der Zahlungen über ein Online Verfahren erfolgt.",
+                "14100": "Mindestens eine Zahlung dieser Rechnung wurde mit einer Interac-Karte getätigt. Direkte Erstattungen sind für Interac-Karten nicht möglich.",
                 "14101": "Hinweis: Eine Anpassung des Kontosaldos kann nicht mit dem Kontosaldo erstattet werden",
-                "14100": "Mindestens eine Zahlung dieser Rechnung wurde mit einer Interac-Karte getätigt. Direkte Erstattungen sind für Interac-Karten nicht möglich."
+                "14103": "Direkte Erstattungen sind nur möglich, wenn mindestens eine der Zahlungen über ein Online Verfahren erfolgt.",
+                "interac": "Mindestens eine Zahlung auf dieser Rechnung wurde mit einer Interac Karte vorgenommen. Direkte Rückerstattungen werden für Interac Karten nicht unterstützt.",
+                "debtAndNewPaymentMethodNotAllowed": "Mindestens eine Zahlung ist noch nicht erfolgt. Es ist nur eine direkte Erstattung möglich."
             },
             "autoDebitDialog": {
                 "helper": "Ihr Studio ist gerade dabei, Ihr Bsport-Konto zu schließen.\n\nWenn Sie auf Bestätigen klicken, wird die Rechnung zurückerstattet. Ihr Stripe-Guthaben wird mit {{refundAmount}} belastet. {{ currencyDisplay }}. Um Ihr Stripe-Guthaben jedoch auf 0 {{ currencyDisplay }} zurückzusetzen, wird der Differenzbetrag automatisch direkt von Ihrem unter Einstellungen > Unternehmen angegebenen Bankkonto abgebucht.\n\nWenn Sie Ihr Überziehungslimit nicht überschreiten wollen, können Sie warten, bis Ihr Stripe-Saldo wieder steigt.",
@@ -8595,22 +8595,22 @@
         },
         "paymentMethod": {
             "label": {
-                "15": "Karte (manuell - Kartenmaschine)",
-                "13": "Giropay",
-                "12": "EPS",
-                "11": "SOFORT",
-                "10": "iDEAL",
-                "9": "Bancontact",
-                "8": "Andere",
-                "7": "Überweisung",
-                "6": "Streitfall",
-                "5": "AMEX",
-                "4": "Urlaubs-Check",
-                "3": "Scheck",
-                "2": "SEPA",
-                "1": "Karte",
                 "0": "Bargeld",
+                "1": "Karte",
+                "2": "SEPA",
+                "3": "Scheck",
+                "4": "Urlaubs-Check",
+                "5": "AMEX",
+                "6": "Streitfall",
+                "7": "Überweisung",
+                "8": "Andere",
+                "9": "Bancontact",
+                "10": "iDEAL",
+                "11": "SOFORT",
+                "12": "EPS",
+                "13": "Giropay",
                 "14": "Guthaben (debit)",
+                "15": "Karte (manuell - Kartenmaschine)",
                 "16": "Bacs-Lastschriftverfahren",
                 "17": "PayPal"
             },
@@ -8751,8 +8751,8 @@
         },
         "paymentEngine": {
             "label": {
-                "1": "Online-Zahlung",
-                "0": "Manuelle Zahlung"
+                "0": "Manuelle Zahlung",
+                "1": "Online-Zahlung"
             }
         },
         "invoiceType": {
@@ -8763,8 +8763,8 @@
             "regular": "Rechnung"
         },
         "invoiceInfo": {
-            "3": "Diese Rechnung ist das Ergebnis einer Migration. Wir können aus rechtlichen Gründen kein PDF davon bereitstellen oder sie stornieren.",
-            "2": "Dieser Zahlungsbeleg stellt die Kontostandkorrektur Ihres Mitglieds dar."
+            "2": "Dieser Zahlungsbeleg stellt die Kontostandkorrektur Ihres Mitglieds dar.",
+            "3": "Diese Rechnung ist das Ergebnis einer Migration. Wir können aus rechtlichen Gründen kein PDF davon bereitstellen oder sie stornieren."
         },
         "plannedPaymentEvent": {
             "actions": {
@@ -8810,29 +8810,29 @@
         "quickbooks": {
             "send": {
                 "errors": {
-                    "title": "Fehler beim Versand Ihrer Rechnung",
-                    "934006": "Diese Rechnung ist bereits in QuickBooks registriert",
-                    "934005": "Ihre Rechnung kann nicht an QuickBooks gesendet werden",
-                    "934004": "Es ist unmöglich, eine unbezahlte Rechnung an QuickBooks zu senden",
-                    "934003": "Unvollständige Rechnungen können nicht an QuickBooks gesendet werden",
-                    "934002": "Stornierte Rechnungen können nicht an QuickBooks gesendet werden",
-                    "934001": "Es ist nicht möglich, eine Rechnung ohne zugehörige Artikel zu erstellen",
-                    "934000": "Die Rechnung enthält nicht die Mindestangaben, um in QuickBooks erstellt zu werden",
-                    "933102": "Fehler beim Erstellen der Rechnung in QuickBooks",
-                    "933101": "Der Kunde, der mit dem Rechnungsmitglied verbunden ist, kann nicht erstellt werden",
-                    "933100": "Der Kunde, der mit dem Rechnungsmitglied verbunden ist, kann nicht erstellt werden",
-                    "933000": "Das Mitglied, das mit der Rechnung verbunden ist, verfügt nicht über die notwendigen Informationen, um in QuickBooks registriert zu werden",
-                    "932100": "Sie können nicht auf Ihre QuickBooks-Kontoinformationen zugreifen",
-                    "932001": "Ihr Konto ist nicht mehr bei BSPORT authentifiziert",
-                    "932000": "Ihr Konto ist nicht mehr bei BSPORT authentifiziert",
-                    "931101": "QuickBooks ist nicht in der Lage, uns Ihre Daten zu senden",
-                    "931100": "Fehler beim Aktualisieren von Authentifizierungsschlüsseln",
-                    "931004": "Sie haben Ihre QuickBooks-Anwendung nicht konfiguriert",
-                    "931003": "Abgelaufene Authentifizierungsschlüssel",
-                    "931002": "Abgelaufene Authentifizierungsschlüssel",
-                    "931001": "Fehler bei der Authentifizierung in Quickbooks",
                     "931000": "Fehler bei der Authentifizierung in QuickBooks",
-                    "933103": "Ihre QuickBooks-Plattform unterstützt mehrere Währungen. Bitte geben Sie an, welche Steuer Sie verwenden möchten."
+                    "931001": "Fehler bei der Authentifizierung in Quickbooks",
+                    "931002": "Abgelaufene Authentifizierungsschlüssel",
+                    "931003": "Abgelaufene Authentifizierungsschlüssel",
+                    "931004": "Sie haben Ihre QuickBooks-Anwendung nicht konfiguriert",
+                    "931100": "Fehler beim Aktualisieren von Authentifizierungsschlüsseln",
+                    "931101": "QuickBooks ist nicht in der Lage, uns Ihre Daten zu senden",
+                    "932000": "Ihr Konto ist nicht mehr bei BSPORT authentifiziert",
+                    "932001": "Ihr Konto ist nicht mehr bei BSPORT authentifiziert",
+                    "932100": "Sie können nicht auf Ihre QuickBooks-Kontoinformationen zugreifen",
+                    "933000": "Das Mitglied, das mit der Rechnung verbunden ist, verfügt nicht über die notwendigen Informationen, um in QuickBooks registriert zu werden",
+                    "933100": "Der Kunde, der mit dem Rechnungsmitglied verbunden ist, kann nicht erstellt werden",
+                    "933101": "Der Kunde, der mit dem Rechnungsmitglied verbunden ist, kann nicht erstellt werden",
+                    "933102": "Fehler beim Erstellen der Rechnung in QuickBooks",
+                    "933103": "Ihre QuickBooks-Plattform unterstützt mehrere Währungen. Bitte geben Sie an, welche Steuer Sie verwenden möchten.",
+                    "934000": "Die Rechnung enthält nicht die Mindestangaben, um in QuickBooks erstellt zu werden",
+                    "934001": "Es ist nicht möglich, eine Rechnung ohne zugehörige Artikel zu erstellen",
+                    "934002": "Stornierte Rechnungen können nicht an QuickBooks gesendet werden",
+                    "934003": "Unvollständige Rechnungen können nicht an QuickBooks gesendet werden",
+                    "934004": "Es ist unmöglich, eine unbezahlte Rechnung an QuickBooks zu senden",
+                    "934005": "Ihre Rechnung kann nicht an QuickBooks gesendet werden",
+                    "934006": "Diese Rechnung ist bereits in QuickBooks registriert",
+                    "title": "Fehler beim Versand Ihrer Rechnung"
                 }
             },
             "invoice": {
@@ -8871,39 +8871,39 @@
             "applyForAllFuturePayments": "Auf zukünftige Ratenzahlungen dieser Rechnung anwenden"
         },
         "status": {
+            "0": "Erfolgreich",
             "1": "Fehlgeschlagen",
             "2": "Ausstehend",
             "3": "Abgebrochen",
-            "4": "in Bearbeitung",
-            "0": "Erfolgreich"
+            "4": "in Bearbeitung"
         },
         "anonymousMember": "Anonymes Mitglied"
     },
     "payment": {
         "paymentMethod": {
-            "11": "Andere",
-            "10": "Automatische Zahlung",
-            "8": "EventBrite",
-            "7": "Überweisung",
-            "6": "AMEX",
-            "5": "Urlaubsgutscheine",
-            "4": "Kreditkarte (manuell)",
-            "2": "Scheck",
-            "1": "Bargeld",
             "0": "Kreditkarte",
+            "1": "Bargeld",
+            "2": "Scheck",
+            "3": "Pass",
+            "4": "Kreditkarte (manuell)",
+            "5": "Urlaubsgutscheine",
+            "6": "AMEX",
+            "7": "Überweisung",
+            "8": "EventBrite",
             "9": "Internes Konto (Guthaben)",
-            "label": "Zahlungsmethode",
+            "10": "Automatische Zahlung",
+            "11": "Andere",
             "12": "Streitfall",
             "13": "SEPA",
-            "60": "Giropay",
-            "50": "EPS",
-            "40": "iDEAL",
-            "30": "SOFORT",
             "20": "Bancontact",
-            "disputeWon": "Gewonnen",
+            "30": "SOFORT",
+            "40": "iDEAL",
+            "50": "EPS",
+            "60": "Giropay",
             "70": "Bacs-Lastschriftverfahren",
-            "3": "Pass",
             "80": "PayPal",
+            "label": "Zahlungsmethode",
+            "disputeWon": "Gewonnen",
             "onlinePayments": "Online-Zahlungen"
         },
         "generalTermsAndConditions": {
@@ -8958,6 +8958,27 @@
             }
         },
         "method": {
+            "0": "Karte",
+            "1": "Bargeld",
+            "2": "Check",
+            "3": "Pass",
+            "4": "Karte (manuell)",
+            "5": "Urlaubscheck",
+            "6": "AMEX",
+            "7": "Überweisung",
+            "8": "Eventbrite",
+            "9": "Internes Konto",
+            "10": "Lastschriftverfahren",
+            "11": "Andere",
+            "12": "Rückbuchung",
+            "13": "SEPA",
+            "20": "Bancontact",
+            "30": "Sofort",
+            "40": "iDEAL",
+            "50": "EPS",
+            "60": "Giropay",
+            "70": "Bacs-Lastschriftverfahren",
+            "80": "PayPal",
             "CREDIT_ACCOUNT": "Internes Konto",
             "CB": "Kreditkarte",
             "GIROPAY": "Giropay",
@@ -8968,28 +8989,7 @@
             "SEPA": "SEPA",
             "CHECK": "Siehe",
             "CASH": "Bargeld",
-            "60": "Giropay",
-            "10": "Lastschriftverfahren",
-            "1": "Bargeld",
-            "3": "Pass",
-            "4": "Karte (manuell)",
-            "5": "Urlaubscheck",
-            "2": "Check",
-            "6": "AMEX",
-            "7": "Überweisung",
-            "9": "Internes Konto",
-            "11": "Andere",
-            "12": "Rückbuchung",
-            "13": "SEPA",
-            "20": "Bancontact",
-            "30": "Sofort",
-            "40": "iDEAL",
-            "8": "Eventbrite",
-            "0": "Karte",
-            "50": "EPS",
-            "70": "Bacs-Lastschriftverfahren",
-            "BACS_DEBIT": "Bacs-Lastschriftverfahren",
-            "80": "PayPal"
+            "BACS_DEBIT": "Bacs-Lastschriftverfahren"
         },
         "paymentComboSectionTitle": "Paket",
         "hasOneOrMoreOption": "Sie sind bereits auf der Warteliste",
@@ -9066,11 +9066,11 @@
             "seeMore": "Mehr anzeigen",
             "paymentNb": "{{nb}} Zahlungen",
             "status": {
-                "4": "Abgebrochen",
-                "3": "Gescheitert",
-                "2": "Erfolgreich",
+                "0": "In Bearbeitung",
                 "1": "in Bearbeitung",
-                "0": "In Bearbeitung"
+                "2": "Erfolgreich",
+                "3": "Gescheitert",
+                "4": "Abgebrochen"
             },
             "payoutIsIncludedInOther": "Diese Überweisung wurde in die Überweisung vom {{date}} mit der Kennung {{readable_identifier}} aufgenommen",
             "payoutAmountFromIncludedPayouts": "davon {{price}} aus vorherigen Auszahlungen",
@@ -9673,22 +9673,22 @@
                 "november": "November"
             },
             "weekdayNumber": {
-                "6": "Sonntag",
-                "5": "Samstag",
-                "4": "Freitag",
-                "3": "Donnerstag",
-                "2": "Mittwoch",
+                "0": "Montag",
                 "1": "Dienstag",
-                "0": "Montag"
+                "2": "Mittwoch",
+                "3": "Donnerstag",
+                "4": "Freitag",
+                "5": "Samstag",
+                "6": "Sonntag"
             },
             "isoWeekdayNumber": {
-                "7": "Sonntag",
-                "6": "Samstag",
-                "5": "Freitag",
-                "4": "Donnerstag",
-                "3": "Mittwoch",
+                "1": "Montag",
                 "2": "Dienstag",
-                "1": "Montag"
+                "3": "Mittwoch",
+                "4": "Donnerstag",
+                "5": "Freitag",
+                "6": "Samstag",
+                "7": "Sonntag"
             }
         },
         "shortHourIdentifier": "Std.",
@@ -10222,26 +10222,26 @@
             "packTitle": "Meine Buchungsmethode",
             "offerStatus": {
                 "waiting_list_status": {
-                    "3": "Voll",
-                    "2": "Anmeldung abgeschlossen",
-                    "1": "Abgeschlossene Registrierungen",
                     "0": "Warteliste",
+                    "1": "Abgeschlossene Registrierungen",
+                    "2": "Anmeldung abgeschlossen",
+                    "3": "Voll",
                     "4": "Abgeschlossene Registrierungen",
                     "5": "Bereits registriert",
                     "6": "Unausgewogenes Verhältnis zwischen Männern und Frauen",
                     "7": "Unausgewogenes Verhältnis zwischen Männern und Frauen",
+                    "9": "Sie versuchen, mehr zukünftige Kurse zu buchen, als Ihr Studio erlaubt",
                     "6002": "Warteliste: voll",
                     "6003": "Warteliste: beigetreten",
-                    "9": "Sie versuchen, mehr zukünftige Kurse zu buchen, als Ihr Studio erlaubt",
                     "6005": "Warteliste",
                     "displayWaitlistSize": "Dein momentaner Platz in der Warteliste ist: {{waitlistPosition}}",
                     "displayPosition": "Dein Platz in der Warteliste ist: {{waitlistPosition}}"
                 },
                 "bookable_status": {
-                    "4": "Kurs nicht verfügbar",
-                    "2": "Anmeldungen geschlossen",
-                    "1": "Anmeldungen geschlossen",
                     "0": "Anmeldung offen",
+                    "1": "Anmeldungen geschlossen",
+                    "2": "Anmeldungen geschlossen",
+                    "4": "Kurs nicht verfügbar",
                     "9": "Sie versuchen, mehr zukünftige Kurse zu buchen, als Ihr Studio erlaubt"
                 },
                 "waiting_list": "Warteliste",
@@ -10268,12 +10268,12 @@
                 "warningCustomLeveledSession": "Dieser Kurs hat ein benutzerdefiniertes Niveau. Stellen Sie sicher, dass die Person, die Sie einladen, über das erwartete Niveau verfügt.",
                 "warningLeveledSession": "Dieser Kurs ist nur für Personen mit dem Niveau : {{level}}. Stellen Sie sicher, dass die Person, die Sie einladen, über das erwartete Niveau verfügt.",
                 "bookingStatus": {
-                    "guestNotAllowed": "Der Kurs ist nicht für Gäste zugänglich",
-                    "4": "Der Kurs ist nicht mehr buchbar",
-                    "3": "Der Kurs ist ausgebucht",
-                    "2": "Der Kurs ist nicht mehr buchbar",
+                    "0": "Laden Sie einen Freund ein",
                     "1": "Der Kurs ist noch nicht buchbar",
-                    "0": "Laden Sie einen Freund ein"
+                    "2": "Der Kurs ist nicht mehr buchbar",
+                    "3": "Der Kurs ist ausgebucht",
+                    "4": "Der Kurs ist nicht mehr buchbar",
+                    "guestNotAllowed": "Der Kurs ist nicht für Gäste zugänglich"
                 },
                 "addGuestNumberLeftGeneric": "Sie können noch eine wietere Person in diesem Zeitraum einladen.",
                 "addGuestNumberLeftGeneric_plural": "Sie können noch {{count}} weitere Personen in diesem Zeitraum einladen.",
@@ -10630,14 +10630,14 @@
                     "close": "Schließen"
                 },
                 "warning": {
-                    "general": "Anhand der folgenden Kriterien raten wir Ihnen, den internen Kontostand Ihres Mitglieds zu bereinigen, bevor das Mitglied archiviert wird:",
-                    "6": "Geplante(r) Termin(e)",
-                    "5": "Registrierte wiederkehrende Reservierung(en)",
-                    "4": "Geplante Buchung(en) in der Zukunft",
-                    "3": "Abonnement mit laufender automatischer Verlängerung",
-                    "2": "Aktuelles Abonnement",
+                    "0": "Negativer interner Kontostand",
                     "1": "Unbezahlte Rechnung(en)",
-                    "0": "Negativer interner Kontostand"
+                    "2": "Aktuelles Abonnement",
+                    "3": "Abonnement mit laufender automatischer Verlängerung",
+                    "4": "Geplante Buchung(en) in der Zukunft",
+                    "5": "Registrierte wiederkehrende Reservierung(en)",
+                    "6": "Geplante(r) Termin(e)",
+                    "general": "Anhand der folgenden Kriterien raten wir Ihnen, den internen Kontostand Ihres Mitglieds zu bereinigen, bevor das Mitglied archiviert wird:"
                 },
                 "helper_text_2": "Dieses Mitglied wird nicht mehr in Ihrer Datenbank aufgeführt.",
                 "helper_text_1": "Sind Sie sicher, dass Sie dieses Mitglied archivieren möchten?"
@@ -10860,10 +10860,10 @@
         "leads": {
             "dialogs": {
                 "errors": {
-                    "title": "Leider ist der Importvorgang fehlgeschlagen, da:",
-                    "71002": "Diese Datei überschreitet die maximale Größe",
+                    "71000": "Bitte warten Sie, bis der laufende Import abgeschlossen ist",
                     "71001": "Diese Datei hat nicht die erforderliche Anzahl von Spalten",
-                    "71000": "Bitte warten Sie, bis der laufende Import abgeschlossen ist"
+                    "71002": "Diese Datei überschreitet die maximale Größe",
+                    "title": "Leider ist der Importvorgang fehlgeschlagen, da:"
                 },
                 "partialSuccess": {
                     "successImportSubtext": "Erstellte Mitglieder",
@@ -11003,17 +11003,17 @@
         },
         "code": {
             "addCoupon": {
+                "5004": "Dieser Code kann nur auf einen Artikel angewendet werden.",
+                "5006": "Dieser einmalige Code ist bereits mit einem offenen Warenkorb verbunden",
+                "45009": "Dieser Rabattcode kann nicht auf den aktuellen Warenkorb angewendet werden",
+                "45010": "Die Geschenkkarte wurde deinem Konto hinzugefügt, ist jedoch noch nicht aktiv, da das Aktivierungsdatum noch aussteht",
                 "label": "Werbe-Code & Geschenkkarte",
                 "placeholder": "spezial für die Rückkehr",
                 "cancel": "Abbrechen",
                 "submit": "Bestätigen",
                 "not_found": "Dieser Gutscheincode ist ungültig.",
                 "not_applicable": "Dieser Gutscheincode ist nicht anwendbar.",
-                "apply": "Bewerben",
-                "5006": "Dieser einmalige Code ist bereits mit einem offenen Warenkorb verbunden",
-                "5004": "Dieser Code kann nur auf einen Artikel angewendet werden.",
-                "45010": "Die Geschenkkarte wurde deinem Konto hinzugefügt, ist jedoch noch nicht aktiv, da das Aktivierungsdatum noch aussteht",
-                "45009": "Dieser Rabattcode kann nicht auf den aktuellen Warenkorb angewendet werden"
+                "apply": "Bewerben"
             }
         },
         "createCoupon": "Einen Rabatt hinzufügen",
@@ -11024,18 +11024,18 @@
             },
             "applies_to": {
                 "choices": {
-                    "null": "Der ganze Warenkorb",
-                    "all": "Der ganze Warenkorb",
-                    "9": "Terminpass",
-                    "6": "Versandkosten",
-                    "2": "Webshop",
                     "1": "Kurspass",
-                    "10": "Pakete"
+                    "2": "Webshop",
+                    "6": "Versandkosten",
+                    "9": "Terminpass",
+                    "10": "Pakete",
+                    "null": "Der ganze Warenkorb",
+                    "all": "Der ganze Warenkorb"
                 },
                 "choicesFranchise": {
-                    "9": "Geteilte Terminpässe",
                     "1": "Geteilte Kurspässe",
-                    "2": "Geteilte Webshop-Artikel"
+                    "2": "Geteilte Webshop-Artikel",
+                    "9": "Geteilte Terminpässe"
                 }
             },
             "minimum_amount": {
@@ -11104,10 +11104,10 @@
                 "label": "Nutzungsbeschränkung für alle Mitglieder"
             },
             "subscription_mode": {
-                "3": "Unbrauchbar",
-                "2": "Nur erster Abrechnungszyklus (vor Verlängerung)",
+                "0": "Alle Abrechnungen",
                 "1": "Nur im ersten Monat",
-                "0": "Alle Abrechnungen"
+                "2": "Nur erster Abrechnungszyklus (vor Verlängerung)",
+                "3": "Unbrauchbar"
             },
             "tag": {
                 "select": {
@@ -11196,6 +11196,12 @@
                     "helperText": "Bitte laden Sie eine CSV-Datei mit allen Gutscheincodes in der ersten Spalte hoch, einen Code pro Zeile, ohne Kopfzeile."
                 },
                 "errors": {
+                    "5000": "Sie dürfen keinen Code angeben, der bereits in einem anderen Coupon verwendet wurde.",
+                    "5001": "Einige der einmaligen Codes können nicht hinzugefügt werden, da sie bereits registriert wurden.",
+                    "5003": "Einige einmalige Codes sind bereits in einem anderen Gutschein gespeichert.",
+                    "5004": "Dieser Code kann nur auf einen einzigen Artikel angewendet werden.",
+                    "5005": "Dieser Code wird bereits verwendet oder ist derzeit an einen Warenkorb angehängt.",
+                    "5006": "Dieser einmalige Code ist bereits mit einem offenen Warenkorb verknüpft",
                     "required": "Dieses Feld ist ein Pflichtfeld",
                     "positiveNumber": "Der Wert muss größer als 0 sein",
                     "expirationDate": {
@@ -11209,13 +11215,7 @@
                     },
                     "only_on_objects": "Sie müssen ein Objekt auswählen, auf das Sie die Reduzierung anwenden möchten",
                     "applies_to": "Der Artikel, auf den der Rabatt angewendet werden soll, muss ein Pass, ein Terminpass, ein Paket oder ein Webshop-Artikel sein",
-                    "5000": "Sie dürfen keinen Code angeben, der bereits in einem anderen Coupon verwendet wurde.",
-                    "5006": "Dieser einmalige Code ist bereits mit einem offenen Warenkorb verknüpft",
-                    "5003": "Einige einmalige Codes sind bereits in einem anderen Gutschein gespeichert.",
-                    "5004": "Dieser Code kann nur auf einen einzigen Artikel angewendet werden.",
-                    "5001": "Einige der einmaligen Codes können nicht hinzugefügt werden, da sie bereits registriert wurden.",
                     "update_mode": "Wenn Sie die für diese Aktion gespeicherten Codes ändern möchten, können Sie die Codes zu den bestehenden hinzufügen oder die bestehenden Codes ersetzen",
-                    "5005": "Dieser Code wird bereits verwendet oder ist derzeit an einen Warenkorb angehängt.",
                     "codes": {
                         "updateMode": "Sie müssen sich entscheiden, ob Sie die Codes zu den bestehenden hinzufügen oder sie ersetzen wollen",
                         "emptyArray": "Sie müssen mindestens einen Code hinzufügen"
@@ -11414,12 +11414,12 @@
                 "address": "Adresse",
                 "nonCompatiblePrivateConsumerPass": "Nicht kompatibel mit den folgenden Terminpässen:",
                 "incompatibilities": {
-                    "11108": "Unzureichende Anzahl von Credits",
-                    "privateService": "Terminpass als nicht kompatibel mit dem betreffenden Termin konfiguriert:",
                     "11107": "Nicht kompatibler Termin",
+                    "11108": "Unzureichende Anzahl von Credits",
                     "11109": "Die Karte beginnt mit der ersten Buchung, dem ",
                     "11110": "Die Karte ist abgelaufen",
                     "11111": "Die Daten sind nicht kompatibel",
+                    "privateService": "Terminpass als nicht kompatibel mit dem betreffenden Termin konfiguriert:",
                     "close": "Schließen"
                 },
                 "noUncompatiblePassToDisplay": "Kein Terminpass ist nicht kompatibel"
@@ -12469,12 +12469,12 @@
                 }
             },
             "status": {
+                "0": "Ausstehend",
+                "1": "Ausstehend",
+                "2": "Abgelehnt",
                 "3": "In Bearbeitung",
                 "4": "Empfangen",
                 "5": "Fehler",
-                "2": "Abgelehnt",
-                "1": "Ausstehend",
-                "0": "Ausstehend",
                 "-1": "Unbekannt"
             },
             "clicksCount": "Klicks",
@@ -12512,8 +12512,8 @@
             "showReport": "Berichte",
             "readCount": "Geöffnet",
             "kind": {
-                "1": "SMS",
                 "0": "E-Mail",
+                "1": "SMS",
                 "2": "Push-Benachrichtigung"
             },
             "unavailableMail": "Vorschau nicht verfügbar",
@@ -12543,8 +12543,8 @@
                     "submit": "Bestätigen",
                     "frequenceHelper": "Diese Benachrichtigung wird für {{ max }} {{ event_kind }} an jedes Mitglied der Smartlist gesendet. Nach {{ max }} {{ event_kind }} werden die Mitglieder keine Nachricht mehr erhalten. Sie können diese Einstellung unter 'Erweitert' ändern.",
                     "maxCommunicationSentHelperText": {
-                        "1": "Standardmäßig wird die Nachricht jedes mal wenn ein Mitglied die Smartlist verlässt gesendet. Wenn ein Mitglied wieder in die Smartlist eingetragen wird  oder erneut verlässt, wird die Nachricht wieder verschickt. Passen Sie die Einstellungen an, wenn Sie begränzen wollen, wie oft das gleiche Mitglied die Nachricht erhalten kann: einmal, zweimal oder dreimal.",
-                        "0": "Standardmäßig wird die Nachricht nur beim ersten Eintrag eines Mitglieds in die Smartlist gesendet. Wenn ein Mitglied die Smartliste verlässt oder erneut eingetragen wird, wird die Nachricht wieder verschickt. Passen Sie die Einstellungen an, wenn Sie begränzen wollen, wie oft das gleiche Mitglied die Nachricht erhalten kann: einmal, zweimal oder dreimal."
+                        "0": "Standardmäßig wird die Nachricht nur beim ersten Eintrag eines Mitglieds in die Smartlist gesendet. Wenn ein Mitglied die Smartliste verlässt oder erneut eingetragen wird, wird die Nachricht wieder verschickt. Passen Sie die Einstellungen an, wenn Sie begränzen wollen, wie oft das gleiche Mitglied die Nachricht erhalten kann: einmal, zweimal oder dreimal.",
+                        "1": "Standardmäßig wird die Nachricht jedes mal wenn ein Mitglied die Smartlist verlässt gesendet. Wenn ein Mitglied wieder in die Smartlist eingetragen wird  oder erneut verlässt, wird die Nachricht wieder verschickt. Passen Sie die Einstellungen an, wenn Sie begränzen wollen, wie oft das gleiche Mitglied die Nachricht erhalten kann: einmal, zweimal oder dreimal."
                     },
                     "limitSection": "Limit",
                     "unlimited": "Kein Limit"
@@ -12558,8 +12558,8 @@
                     "title": "Löschen"
                 },
                 "eventKind": {
-                    "1": "Ausgang",
-                    "0": "Eingang"
+                    "0": "Eingang",
+                    "1": "Ausgang"
                 }
             },
             "automatedTitle": "Automatische Sendungen",
@@ -12785,34 +12785,34 @@
         },
         "dialogInformation": {
             "status": {
+                "1": "Ausstehend",
+                "4": "Empfangen",
                 "openNo": "Nein",
                 "openYes": "Ja",
-                "notReceived": "Fehlgeschlagen",
-                "4": "Empfangen",
-                "1": "Ausstehend"
+                "notReceived": "Fehlgeschlagen"
             },
             "headerOpen": "Geöffnet",
             "headerStatus": "Status"
         },
         "filter": {
             "choicesLabels": {
-                "71": "Empfangen",
-                "70": "Gesendet",
-                "51": "Manuell",
-                "50": "Automatisch",
-                "32": "Warteliste",
-                "31": "Stornierte Buchungen",
-                "30": "Buchungen",
-                "14": "Transaktions-E-Mails",
-                "13": "Benachrichtigung",
-                "12": "Smartlist",
-                "11": "Direkte Nachricht",
-                "10": "Kurs",
-                "2": "Push-Benachrichtigung",
-                "1": "SMS",
                 "0": "E-Mail",
+                "1": "SMS",
+                "2": "Push-Benachrichtigung",
+                "10": "Kurs",
+                "11": "Direkte Nachricht",
+                "12": "Smartlist",
+                "13": "Benachrichtigung",
+                "14": "Transaktions-E-Mails",
                 "15": "{{ audienceCamelCase }}",
-                "16": "Franchise"
+                "16": "Franchise",
+                "30": "Buchungen",
+                "31": "Stornierte Buchungen",
+                "32": "Warteliste",
+                "50": "Automatisch",
+                "51": "Manuell",
+                "70": "Gesendet",
+                "71": "Empfangen"
             },
             "srcOrDst": {
                 "placeholder": "Wählen Sie einen Nachrichtentyp aus",
@@ -14032,9 +14032,9 @@
             },
             "author": "Autor",
             "status": {
-                "20": "Storniert",
+                "0": "In Bearbeitung",
                 "10": "Fertig",
-                "0": "In Bearbeitung"
+                "20": "Storniert"
             },
             "sectionTitle": {
                 "past": "Archivierte Aufgaben",
@@ -14046,80 +14046,80 @@
     },
     "notificationRule": {
         "eventType": {
-            "451": "Termin storniert - zurückgezahlt (Schüler)",
-            "450": "Termin storniert - nach Ablauf (Schüler)",
-            "401": "Termin storniert - zurückgezahlt (Lehrkraft)",
-            "400": "Termin storniert - nach Ablauf (Lehrkraft)",
-            "29": "Erinnerung für den Onlinekurs in 15 Minuten (für Mitglieder)",
-            "28": "Zahlung erhalten",
-            "27": "Abonnement gestoppt oder beendet",
-            "24": "Gekauftes Abonnement (für Mitglieder)",
-            "453": "Geänderter Wochenplan (Mitglieder)",
-            "452": "Neuer Termin (Schüler)",
-            "13": "Ein Mitglied hat sich selbst von der Warteliste gestrichen",
-            "6": "Anmeldung als Mitglied (Schüler)",
-            "18": "Buchung storniert : Credits zurückerstattet (für Mitglieder)",
-            "17": "Buchung storniert : Credits werden nicht zurückerstattet (für Mitglieder)",
-            "402": "Neuer Termin (Lehrkraft)",
-            "25": "Änderung der Zahlungsmethode",
-            "19": "Anmeldung als Mitglied (Mitarbeiter)",
-            "16": "Geänderter Kurs (für Mitglieder)",
-            "12": "Anmeldung zur Warteliste",
-            "8": "Buchung + Kauf von Kurspässen",
-            "7": "Buchung per Kurspass",
             "3": "Stornierung des Kurses",
-            "21": "Neue Buchung (für Mitglieder)",
-            "403": "Änderung des Wochenplans (Lehrkraft)",
-            "26": "Abonnement pausiert",
-            "14": "Ein Mitglied wurde vom Studio von der Warteliste gestrichen",
+            "6": "Anmeldung als Mitglied (Schüler)",
+            "7": "Buchung per Kurspass",
+            "8": "Buchung + Kauf von Kurspässen",
             "9": "Ein Buchungsplatz ist verfügbar",
             "10": "Der Wartelistenplatz ist abgelaufen",
-            "300": "Ein Mitglied, das nicht rechtzeitig geantwortet hat und von der Warteliste gestrichen wurde",
+            "12": "Anmeldung zur Warteliste",
+            "13": "Ein Mitglied hat sich selbst von der Warteliste gestrichen",
+            "14": "Ein Mitglied wurde vom Studio von der Warteliste gestrichen",
+            "16": "Geänderter Kurs (für Mitglieder)",
+            "17": "Buchung storniert : Credits werden nicht zurückerstattet (für Mitglieder)",
+            "18": "Buchung storniert : Credits zurückerstattet (für Mitglieder)",
+            "19": "Anmeldung als Mitglied (Mitarbeiter)",
+            "20": "Anfrage zum Herunterladen einer Rechnung",
+            "21": "Neue Buchung (für Mitglieder)",
             "22": "Rechnungsbestätigung",
-            "601": "Wenn unterbelegte Kurse automatisch abgesagt werden (Lehrer)",
-            "701": "Nicht fristgerechte Stornierung: Pass temporär gesperrt (für Mitglieder)",
-            "702": "Verspätete Stornierung: dem internen Kontostand wurde eine Geldstrafe hinzugefügt (für Mitglieder)",
-            "530": "Streit über die Zahlung eines Abonnements",
-            "520": "Die Zahlung eines fehlgeschlagenen Abonnements wird erneut versucht",
-            "515": "Kurspass des Abonnements automatisch deaktiviert",
-            "510": "Fehlgeschlagene Abonnement-Zahlung",
-            "481": "Wiederkehrender Termin war wegen mangelnder Verfügbarkeit nicht erfolgreich (Schüler/in)",
-            "480": "Wiederkehrender Termin war wegen mangelnder Verfügbarkeit nicht erfolgreich (Lehrer)",
-            "987": "Versuch, eine Ratenzahlung einzulösen",
+            "24": "Gekauftes Abonnement (für Mitglieder)",
+            "25": "Änderung der Zahlungsmethode",
+            "26": "Abonnement pausiert",
+            "27": "Abonnement gestoppt oder beendet",
+            "28": "Zahlung erhalten",
+            "29": "Erinnerung für den Onlinekurs in 15 Minuten (für Mitglieder)",
+            "30": "Buchung für einen Gast (für einladendes Mitglied)",
+            "31": "Buchung für einen Gast (für Gast)",
             "101": "Erinnerung daran, dass der Livestream in 15 Minuten beginnt (für Lehrkräfte)",
             "102": "Abgesagte Kurse (Lehrkräfte)",
             "103": "Geänderte Kurse (Lehrkräfte)",
-            "801": "Abgesagte Termingruppe",
-            "902": "Vertretungsantrag storniert (Vertretung)",
-            "602": "Wenn unterbelegte Kurse automatisch storniert werden (Mitglieder)",
-            "703": "Abwesenheit: Pass temporär gesperrt (Mitglied)",
-            "704": "Abwesenheit: dem internen Kontostand wurde eine Geldstrafe hinzugefügt (für Mitglieder)",
-            "705": "Benachrichtigung über Abwesenheit",
-            "901": "Vertretungslehrkraft gefunden (Lehrkraft)",
-            "904": "Neuer Vertretungsantrag (Vertretung)",
-            "905": "Neuer verspäteter Antrag (Vertretung)",
-            "906": "Abschlussdatum verschoben (Vertretung)",
-            "907": "Vertretung gefunden (Vertretung)",
-            "903": "Eine andere Vertretung wurde gefunden (Vertretung)",
-            "20": "Anfrage zum Herunterladen einer Rechnung",
+            "200": "Zahlungsmethode für das Abo läuft bald ab (erste Warnung)",
+            "201": "Zahlmethode für das Abo läuft bald ab (zweite Warnung)",
+            "300": "Ein Mitglied, das nicht rechtzeitig geantwortet hat und von der Warteliste gestrichen wurde",
             "301": "Passwort für Mitglied zurücksetzen",
             "302": "E-Mail-Überprüfung für Mitglieder",
             "303": "Zusammenlegung von zwei Studiokonten",
             "304": "Digitale Aktivierung des Gutscheins",
             "305": "Änderung der Mitglieds-E-Mail aus dem Backoffice",
-            "1002": "Leistung des Spinningkurses",
+            "308": "Aktivierung der physischen Geschenkkarte",
+            "400": "Termin storniert - nach Ablauf (Lehrkraft)",
+            "401": "Termin storniert - zurückgezahlt (Lehrkraft)",
+            "402": "Neuer Termin (Lehrkraft)",
+            "403": "Änderung des Wochenplans (Lehrkraft)",
+            "450": "Termin storniert - nach Ablauf (Schüler)",
+            "451": "Termin storniert - zurückgezahlt (Schüler)",
+            "452": "Neuer Termin (Schüler)",
+            "453": "Geänderter Wochenplan (Mitglieder)",
+            "480": "Wiederkehrender Termin war wegen mangelnder Verfügbarkeit nicht erfolgreich (Lehrer)",
+            "481": "Wiederkehrender Termin war wegen mangelnder Verfügbarkeit nicht erfolgreich (Schüler/in)",
+            "510": "Fehlgeschlagene Abonnement-Zahlung",
+            "515": "Kurspass des Abonnements automatisch deaktiviert",
+            "520": "Die Zahlung eines fehlgeschlagenen Abonnements wird erneut versucht",
+            "530": "Streit über die Zahlung eines Abonnements",
+            "601": "Wenn unterbelegte Kurse automatisch abgesagt werden (Lehrer)",
+            "602": "Wenn unterbelegte Kurse automatisch storniert werden (Mitglieder)",
+            "701": "Nicht fristgerechte Stornierung: Pass temporär gesperrt (für Mitglieder)",
+            "702": "Verspätete Stornierung: dem internen Kontostand wurde eine Geldstrafe hinzugefügt (für Mitglieder)",
+            "703": "Abwesenheit: Pass temporär gesperrt (Mitglied)",
+            "704": "Abwesenheit: dem internen Kontostand wurde eine Geldstrafe hinzugefügt (für Mitglieder)",
+            "705": "Benachrichtigung über Abwesenheit",
+            "801": "Abgesagte Termingruppe",
+            "901": "Vertretungslehrkraft gefunden (Lehrkraft)",
+            "902": "Vertretungsantrag storniert (Vertretung)",
+            "903": "Eine andere Vertretung wurde gefunden (Vertretung)",
+            "904": "Neuer Vertretungsantrag (Vertretung)",
+            "905": "Neuer verspäteter Antrag (Vertretung)",
+            "906": "Abschlussdatum verschoben (Vertretung)",
+            "907": "Vertretung gefunden (Vertretung)",
+            "987": "Versuch, eine Ratenzahlung einzulösen",
             "1001": "Spivi-Konto erstellt (für Mitglieder)",
+            "1002": "Leistung des Spinningkurses",
             "1003": "Spivi-Konto erstellt (Lehrkraft)",
-            "31": "Buchung für einen Gast (für Gast)",
-            "30": "Buchung für einen Gast (für einladendes Mitglied)",
-            "undefined": "Buchung für einen Gast (für Gast)",
-            "1102": "Empfehlungszuschuss verfügbar (empfehlendes Mitglied)",
             "1101": "Empfehlungszuschuss verfügbar (empfohlenes Mitglied)",
-            "201": "Zahlmethode für das Abo läuft bald ab (zweite Warnung)",
-            "200": "Zahlungsmethode für das Abo läuft bald ab (erste Warnung)",
-            "1201": "Zweiten Mahnung für den Zahlungsmethode Ablauf der Ratenzahlungen",
+            "1102": "Empfehlungszuschuss verfügbar (empfehlendes Mitglied)",
             "1200": "Zahlungsmethode Ablauf der ersten Mahnung für Ratenzahlungen",
-            "308": "Aktivierung der physischen Geschenkkarte"
+            "1201": "Zweiten Mahnung für den Zahlungsmethode Ablauf der Ratenzahlungen",
+            "undefined": "Buchung für einen Gast (für Gast)"
         },
         "tag": {
             "BookingOption": {
@@ -14456,10 +14456,10 @@
             "title": "Auslösendes Ereignis"
         },
         "eventTypeHelperText": {
-            "1201": "Sie können die Anzahl der Tage, die bei der Versendung dieser Benachrichtigung berücksichtigt werden, im Abschnitt Zahlungsarten anpassen",
-            "1200": "Sie können die Anzahl der Tage, die bei der Versendung dieser Benachrichtigung berücksichtigt werden, im Abschnitt Zahlungsarten anpassen",
+            "200": "Sie können die Anzahl der Tage, die bei der Versendung dieser Benachrichtigung berücksichtigt werden, im Abschnitt Zahlungsarten anpassen",
             "201": "Sie können die Anzahl der Tage, die bei der Versendung dieser Benachrichtigung berücksichtigt werden, im Abschnitt Zahlungsarten anpassen",
-            "200": "Sie können die Anzahl der Tage, die bei der Versendung dieser Benachrichtigung berücksichtigt werden, im Abschnitt Zahlungsarten anpassen"
+            "1200": "Sie können die Anzahl der Tage, die bei der Versendung dieser Benachrichtigung berücksichtigt werden, im Abschnitt Zahlungsarten anpassen",
+            "1201": "Sie können die Anzahl der Tage, die bei der Versendung dieser Benachrichtigung berücksichtigt werden, im Abschnitt Zahlungsarten anpassen"
         }
     },
     "membership": {
@@ -14539,11 +14539,11 @@
     },
     "order": {
         "state": {
-            "1200": "Abholung vor Ort",
-            "9000": "Versendet",
-            "1100": "Storniert",
+            "0": "In Bearbeitung",
             "700": "Zu bearbeiten",
-            "0": "In Bearbeitung"
+            "1100": "Storniert",
+            "1200": "Abholung vor Ort",
+            "9000": "Versendet"
         },
         "actions": {
             "flagAsSent": "Versendet",
@@ -14854,21 +14854,21 @@
         },
         "invoiceItemDropdown": {
             "contentType": {
-                "10": "Pakete",
-                "9": "Terminpässe",
-                "7": "Werbeaktionen",
-                "6": "Versandkosten",
+                "1": "Kurspässe",
                 "2": "Produkte",
-                "1": "Kurspässe"
+                "6": "Versandkosten",
+                "7": "Werbeaktionen",
+                "9": "Terminpässe",
+                "10": "Pakete"
             }
         },
         "bookingDropdown": {
             "source": {
-                "4": "Datenmigration",
-                "3": "Marketplaces",
-                "2": "Bsport Backoffice",
+                "0": "App",
                 "1": "Webseite",
-                "0": "App"
+                "2": "Bsport Backoffice",
+                "3": "Marketplaces",
+                "4": "Datenmigration"
             }
         },
         "resetModal": {
@@ -16208,6 +16208,10 @@
         },
         "pageTitle": "Partnerschaft",
         "configurationType": {
+            "1": {
+                "label": "Unabhängige Einrichtungen",
+                "helperText": "Jeder Standort wird in ClassPass als eigenständiger Ort angezeigt."
+            },
             "2": {
                 "label": "Alle Einrichtungen zusammenlegen",
                 "helperText": "Alle zusammengeführten EInrichtungen werden als ein einziger Standort erscheinen."
@@ -16215,10 +16219,6 @@
             "3": {
                 "label": "Fortgeschrittene",
                 "helperText": "Ähnliche Einrichtungen nach Adresse gruppieren."
-            },
-            "1": {
-                "label": "Unabhängige Einrichtungen",
-                "helperText": "Jeder Standort wird in ClassPass als eigenständiger Ort angezeigt."
             }
         },
         "wellhub": {
@@ -16814,8 +16814,8 @@
                 },
                 "save": "Änderungen speichern",
                 "memberType": {
-                    "2": "Lizensiert",
-                    "1": "Basic"
+                    "1": "Basic",
+                    "2": "Lizensiert"
                 },
                 "establishmentTable": {
                     "removeAction": "Entfernen",
@@ -17877,15 +17877,15 @@
                 "explainBilling": "{{ price_cts }} / SMS"
             },
             "lockDialog": {
+                "31": {
+                    "intro": "Audience Zugang freischalten",
+                    "explain": "Bei dieser Funktion handelt es sich um ein Add-on. Bitte wenden Sie sich an Ihren Account Manager, um weitere Informationen zu erhalten."
+                },
                 "33": {
                     "explain": "Hier finden Sie alle Ihre direkten Unterhaltungen, die mit Ihren Kursen verbundenen Chats sowie Ihre Smartlist-Kampagnen. Der Chat ist kompatibel mit SMS, E-Mails und Push-Benachrichtigungen.",
                     "intro": "Entdecken Sie unser neues Interface für den direkten Chat mit Ihren Mitgliedern."
                 },
-                "requestAccess": "Zugang beantragen",
-                "31": {
-                    "intro": "Audience Zugang freischalten",
-                    "explain": "Bei dieser Funktion handelt es sich um ein Add-on. Bitte wenden Sie sich an Ihren Account Manager, um weitere Informationen zu erhalten."
-                }
+                "requestAccess": "Zugang beantragen"
             },
             "subscriptionForm": {
                 "commitmentMessage": "Bitte beachten Sie: Ein Abonnement ist mit einer 12-monatigen Verpflichtung verbunden",
@@ -18344,6 +18344,9 @@
                     "hidePaginationControls": "Steuerelemente für die Paginierung ausblenden"
                 },
                 "option": {
+                    "1": "Eins",
+                    "2": "Zwei",
+                    "3": "Drei",
                     "activityName": "Aktivität",
                     "coach": "Der Lehrkraft",
                     "waitingList": "Warteliste",
@@ -18380,9 +18383,6 @@
                     "defaultPrepaidLine": "Standard",
                     "internalAccountPrepaidLine": "Mit internem Konto bezahlen",
                     "giftcardPrepaidLine": "Mit Gutschein bezahlen",
-                    "3": "Drei",
-                    "2": "Zwei",
-                    "1": "Eins",
                     "elevated": "Erweitert",
                     "rest": "Pause",
                     "warning": "Warnung",
@@ -18987,12 +18987,12 @@
                     "selectEvent": "Ein Event auswählen"
                 },
                 "marketing_action": {
-                    "select_tag": "Ein Tag wählen",
                     "1": "E-Mail schreiben",
                     "2": "SMS",
                     "3": "Push-Benachrichtigung",
                     "4": "Tag",
                     "5": "E-Mail-Vorlage auswählen",
+                    "select_tag": "Ein Tag wählen",
                     "defaultName": "Standardmäßige Bezeichnung",
                     "form": {
                         "submit": "Validieren",
@@ -19024,11 +19024,16 @@
                     "3": "Gruppenaktivitäten",
                     "4": "Teilnahme an Gruppenaktivitäten",
                     "5": "Termin",
+                    "6": "Absage eines Termins",
+                    "7": "Erstellung",
+                    "8": "Zum Warenkorb hinzufügen",
                     "9": "Bezahlter Warenkorb",
                     "10": "Rechnung erstellt",
                     "11": "Erstellung",
                     "12": "Pause",
                     "13": "Stoppen",
+                    "14": "Erneuerung",
+                    "100": "Kaufen",
                     "101": "Buchung",
                     "102": "Warenkorb",
                     "103": "Rechnung",
@@ -19046,12 +19051,7 @@
                     "billing_plan-create": "Erstellung",
                     "billing_plan-pause": "Pause",
                     "billing_plan-stop": "Stoppen",
-                    "billing_plan-renew": "Erneuerung",
-                    "6": "Absage eines Termins",
-                    "7": "Erstellung",
-                    "8": "Zum Warenkorb hinzufügen",
-                    "14": "Erneuerung",
-                    "100": "Kaufen"
+                    "billing_plan-renew": "Erneuerung"
                 },
                 "error": {
                     "triggerCannotBeEmpty": "Sie müssen eine Eingabeart auswählen.",
@@ -19141,10 +19141,10 @@
                 },
                 "delete": "Löschen",
                 "kinds": {
-                    "3": "Verzögerung",
-                    "2": "Event & Smartlist",
                     "0": "Event",
-                    "1": "Smartlist"
+                    "1": "Smartlist",
+                    "2": "Event & Smartlist",
+                    "3": "Verzögerung"
                 },
                 "changeKind": "Ändern zu"
             },
@@ -19211,7 +19211,7 @@
                     "title": "Eingangskriterium",
                     "addTrigger": "Einen Eingangs-Auslöser hinzufügen",
                     "helperText": "Legen Sie zunächst fest, wie Ihre Mitglieder den {{ workflowLowerCase }} betreten sollen. Wählen Sie ein oder mehrere Ereignisse oder Smartlists aus. Wenn das Mitglied einem dieser Ereignisse oder Smartlists entspricht, wird es den {{ workflowLowerCase }} betreten.",
-                    "creationHelper": "Legen Sie zunächst fest,  wann Mitglieder den {{ workflowLowerCase }} betreten sollen. Dazu müssen Sie einen Eintrittsauslöser auswählen.  Sind mehrere Auslöser ausgewählt, werden die Mitglieder, die einem dieser Auslöser entsprechen, in den {{ workflowLowerCase }} aufgenommen.",
+                    "creationHelper": "Legen Sie zunächst fest,  wann Mitglieder den {{ workflowLowerCase }} betreten sollen. Dazu müssen Sie einen Eintrittsauslöser auswählen. \u2028Sind mehrere Auslöser ausgewählt, werden die Mitglieder, die einem dieser Auslöser entsprechen, in den {{ workflowLowerCase }} aufgenommen.",
                     "editionHelper": "Kriterien der Mitglieder für den Beitritt zum {{ workflowLowerCase }} bearbeiten. Wenn ein Mitglied eines dieser Kriterien erfüllt, wird es dem {{ workflowLowerCase }} hinzugefügt."
                 },
                 "step": {
@@ -19255,7 +19255,7 @@
                 },
                 "wonTrigger": {
                     "title": "Erfolgreicher Austritt",
-                    "helperText": "Legen Sie das globale Ziel des {{ workflowLowerCase }} fest. Wenn ein Mitglied einen dieser Ausgangstrigger ausführt, ist das Ziel erreicht und das Mitglied verlässt erfolgreich den {{ workflowLowerCase }} (unabhängig davon, in welchem Schritt das Mitglied sich befindet). Dies hilft dabei Performance Indikatoren zu verfolgen.",
+                    "helperText": "Legen Sie das globale Ziel des {{ workflowLowerCase }} fest. Wenn ein Mitglied einen dieser Ausgangstrigger ausführt, ist das Ziel erreicht und das Mitglied verlässt erfolgreich den {{ workflowLowerCase }} (unabhängig davon, in welchem Schritt das Mitglied sich befindet).\u2028Dies hilft dabei Performance Indikatoren zu verfolgen.",
                     "addTrigger": "Ausgangsauslöser hinzufügen"
                 }
             },
@@ -21121,17 +21121,21 @@
             "title": "Empfehlung"
         },
         "referralErrors": {
-            "maxUsesReached": {
-                "description": "Die maximale Anzahl von Nutzungen wurde für diesen Link von {{ referringMemberFirstName }} erreicht.",
+            "33000": {
+                "description": "Dieser Empfehlungslink kann nicht für dieses Studio verwendet werden.",
+                "title": "Empfehlungslink kann nicht verwendet werden"
+            },
+            "33001": {
+                "description": "Das Mitglied, das mit diesem Empfehlungslink verbunden ist, ist nicht mehr im Studio registriert.",
                 "title": "Empfehlungslink unbrauchbar"
             },
-            "33007": {
-                "description": "Das Empfehlungsprogramm ist nicht mehr verfügbar.",
-                "title": "Empfehlung abgelaufen"
+            "33002": {
+                "description": "Sie sind bereits ein Mitglied in diesem Studio",
+                "title": "Empfehlungslink unbrauchbar"
             },
-            "33006": {
-                "description": "Das Empfehlungsprogramm ist nicht mehr verfügbar.",
-                "title": "Empfehlung abgelaufen"
+            "33003": {
+                "description": "Dieser Empfehlungslink ist nicht mehr verwendbar.",
+                "title": "Empfehlungslink abgelaufen"
             },
             "33004": {
                 "description": "Bei der Registrierung der Empfehlung ist ein Fehler aufgetreten.",
@@ -21141,21 +21145,17 @@
                 "description": "Bei der Registrierung der Überweisung ist ein Fehler aufgetreten.",
                 "title": "Empfehlungsfehler"
             },
-            "33003": {
-                "description": "Dieser Empfehlungslink ist nicht mehr verwendbar.",
-                "title": "Empfehlungslink abgelaufen"
+            "33006": {
+                "description": "Das Empfehlungsprogramm ist nicht mehr verfügbar.",
+                "title": "Empfehlung abgelaufen"
             },
-            "33002": {
-                "description": "Sie sind bereits ein Mitglied in diesem Studio",
+            "33007": {
+                "description": "Das Empfehlungsprogramm ist nicht mehr verfügbar.",
+                "title": "Empfehlung abgelaufen"
+            },
+            "maxUsesReached": {
+                "description": "Die maximale Anzahl von Nutzungen wurde für diesen Link von {{ referringMemberFirstName }} erreicht.",
                 "title": "Empfehlungslink unbrauchbar"
-            },
-            "33001": {
-                "description": "Das Mitglied, das mit diesem Empfehlungslink verbunden ist, ist nicht mehr im Studio registriert.",
-                "title": "Empfehlungslink unbrauchbar"
-            },
-            "33000": {
-                "description": "Dieser Empfehlungslink kann nicht für dieses Studio verwendet werden.",
-                "title": "Empfehlungslink kann nicht verwendet werden"
             },
             "somethingWentWrong": "Es ist etwas schief gelaufen, wir können diese Seite nicht laden. Bitte versuchen Sie es später noch einmal",
             "noProgramAvailable": "Ups, sieht so aus, als gäbe es kein Weiterempfehlungsprogramm"

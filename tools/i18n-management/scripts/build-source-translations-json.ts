@@ -3,21 +3,18 @@ import { readJSONSync, existsSync, writeFileSync, mkdirSync } from "fs-extra";
 import beautify from "json-beautify";
 import { getInternationalizedApplications, type ProjectConfig } from "./utils";
 
-function main() {
+async function main() {
   // Step 1 : List all projects with i18n folder
   const projectList = getInternationalizedApplications();
 
   // Step 2 : Aggregate in a Js object all namespaces of all projects
-  const projectsMap = projectList.reduce((acc, project) => {
-    const projectTranslations = generateProjectTranslations({
+  const projectsMap: { [namespace: string]: object } = {};
+  for (const project of projectList) {
+    const projectTranslations = await generateProjectTranslations({
       projectConfig: project,
     });
-
-    return {
-      ...acc,
-      [project.name]: projectTranslations,
-    };
-  }, {});
+    projectsMap[project.name] = projectTranslations;
+  }
 
   // Step 3 : Write output in JSON file
   const sourceDir = path.resolve(process.cwd(), "src/source");
@@ -31,7 +28,7 @@ function main() {
   );
 }
 
-function generateProjectTranslations({
+async function generateProjectTranslations({
   projectConfig,
 }: {
   projectConfig: ProjectConfig;
@@ -56,20 +53,22 @@ function generateProjectTranslations({
       projectConfig.pathToI18n,
       "translations",
     );
-    const aggregatedTranslations = namespaceList.reduce<{
-      [namespace: string]: object;
-    }>((acc, namespace) => {
+
+    const aggregatedTranslations: { [namespace: string]: object } = {};
+
+    for (const namespace of namespaceList) {
       const filePath = getNamespaceTranslationsPath({
         translationsFolder: translationsPath,
         namespace,
       });
-      if (!filePath) return acc;
-      const fileContent: object = require(filePath).default;
-      return {
-        ...acc,
-        [namespace]: fileContent,
-      };
-    }, {});
+      if (!filePath) {
+        continue; // Skip if no file path is found
+      }
+
+      const fileContent: object = await require(filePath).default;
+      aggregatedTranslations[namespace] = fileContent;
+    }
+
     return aggregatedTranslations;
   } catch (error) {
     console.error(errorMessage, "Fail to concat src/i18n/translations/ files");

@@ -64,15 +64,15 @@
         "readAll": "Označit jako přečtený",
         "showMore": "Zobrazit víc",
         "alert_kind": {
-            "9": "Přijaté zprávy",
-            "8": "Pozdní náhrady",
-            "7": "Tutoriály",
-            "6": "Nezaplacene indiv. termíny",
-            "5": "Legální informace",
-            "4": "Indiv. termín k dokončení",
-            "3": "Úkol",
+            "1": "Fakturace",
             "2": "Objednávka",
-            "1": "Fakturace"
+            "3": "Úkol",
+            "4": "Indiv. termín k dokončení",
+            "5": "Legální informace",
+            "6": "Nezaplacene indiv. termíny",
+            "7": "Tutoriály",
+            "8": "Pozdní náhrady",
+            "9": "Přijaté zprávy"
         },
         "list": {
             "emptyAlerting": "Žádné nové oznámení.",

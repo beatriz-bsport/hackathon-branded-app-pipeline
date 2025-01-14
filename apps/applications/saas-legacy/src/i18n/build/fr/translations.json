@@ -488,12 +488,12 @@
                 "frequencyYearly": "l'année en cours.",
                 "frequencyGeneric": "la période en cours.",
                 "bookingStatus": {
-                    "guestNotAllowed": "La séance n'est pas ouverte aux invités",
-                    "4": "La séance est fermée à la réservation",
-                    "3": "La séance est complète",
-                    "2": "La séance est fermée à la réservation",
+                    "0": "Inviter un(e) ami(e)",
                     "1": "La séance n'est pas encore ouverte aux réservations",
-                    "0": "Inviter un(e) ami(e)"
+                    "2": "La séance est fermée à la réservation",
+                    "3": "La séance est complète",
+                    "4": "La séance est fermée à la réservation",
+                    "guestNotAllowed": "La séance n'est pas ouverte aux invités"
                 },
                 "addGuestNumberLeftGeneric": "Vous pouvez inviter 1 personne supplémentaire pendant cette période.",
                 "addGuestNumberLeftGeneric_plural": "Vous pouvez encore inviter {{count}} personnes pendant cette période.",
@@ -1350,8 +1350,8 @@
                     },
                     "frequenceHelper": "Cette communication sera envoyée pour {{ max }} {{ event_kind }} de la smartlist pour chaque membre. Après {{ max }} {{ event_kind }} de la smartlist pour un même membre, il ne recevra plus cette communication. Vous pouvez changer ce paramètre dans 'Avancé'.",
                     "maxCommunicationSentHelperText": {
-                        "1": "Par défaut, le message est envoyé chaque fois qu'un membre quitte la smartlist. Si, à nouveau, un membre entre dans la smartlist et la quitte, le message est renvoyé. Vous pouvez ajuster le paramètre pour limiter à une, deux ou trois le nombre de fois qu'un même membre peut recevoir le message.",
-                        "0": "Par défaut, le message est envoyé chaque fois qu'un membre entre dans la smartlist. Si un membre quitte la smartlist et y revient plus tard, le message est envoyé à nouveau. Vous pouvez ajuster le paramètre pour limiter à une, deux ou trois le nombre de fois qu'un même membre peut recevoir le message."
+                        "0": "Par défaut, le message est envoyé chaque fois qu'un membre entre dans la smartlist. Si un membre quitte la smartlist et y revient plus tard, le message est envoyé à nouveau. Vous pouvez ajuster le paramètre pour limiter à une, deux ou trois le nombre de fois qu'un même membre peut recevoir le message.",
+                        "1": "Par défaut, le message est envoyé chaque fois qu'un membre quitte la smartlist. Si, à nouveau, un membre entre dans la smartlist et la quitte, le message est renvoyé. Vous pouvez ajuster le paramètre pour limiter à une, deux ou trois le nombre de fois qu'un même membre peut recevoir le message."
                     },
                     "limitSection": "Limite",
                     "unlimited": "Aucune limite"
@@ -1546,14 +1546,14 @@
                 "13": "Notification",
                 "14": "Emails transactionnels",
                 "15": "{{ audienceCamelCase }}",
+                "16": "Franchise",
                 "30": "Réservations",
                 "31": "Réservations annulées",
                 "32": "Liste d'attente",
                 "50": "Automatique",
                 "51": "Manuel",
                 "70": "Envoyés",
-                "71": "Reçus",
-                "16": "Franchise"
+                "71": "Reçus"
             }
         },
         "dialogInformation": {
@@ -2475,8 +2475,8 @@
                 },
                 "choicesFranchise": {
                     "1": "Cartes de cours partagées",
-                    "9": "Cartes de RDV partagées",
-                    "2": "Articles partagés de la boutique en ligne"
+                    "2": "Articles partagés de la boutique en ligne",
+                    "9": "Cartes de RDV partagées"
                 }
             },
             "actions": {
@@ -2500,15 +2500,15 @@
             "addCoupon": {
                 "5004": "Ce code ne peut être appliqué que sur un seul article.",
                 "5006": "Ce code unique est déjà lié à un panier ouvert",
+                "45009": "Ce code de carte cadeau ne peut pas être appliqué à ce panier",
+                "45010": "La carte cadeau a bien été associée à votre compte, mais n'a pas pu être activée car elle est antérieure à la date d'activation",
                 "submit": "Valider",
                 "cancel": "annuler",
                 "label": "Code promo & carte cadeau",
                 "placeholder": "SPECIAL_RENTREE",
                 "not_found": "Ce code promo n'est pas valide.",
                 "not_applicable": "Ce code promo n'est pas applicable.",
-                "apply": "Appliquer",
-                "45010": "La carte cadeau a bien été associée à votre compte, mais n'a pas pu être activée car elle est antérieure à la date d'activation",
-                "45009": "Ce code de carte cadeau ne peut pas être appliqué à ce panier"
+                "apply": "Appliquer"
             }
         },
         "search": "Rechercher un code promo",
@@ -3952,8 +3952,8 @@
                     "1": "Web",
                     "2": "Backoffice",
                     "3": "Autre",
-                    "label": "Canal : {{ source }}",
-                    "4": "Migration"
+                    "4": "Migration",
+                    "label": "Canal : {{ source }}"
                 },
                 "noBillingGroup": "Aucun groupe de facturation n'a été associé à cette facture",
                 "reverseInvoicePending": "Remboursement en cours via "
@@ -3994,8 +3994,8 @@
                 "14": "Acompte client (dette)",
                 "15": "Carte (manuel)",
                 "16": "Bacs Direct Debit",
-                "disputeWon": "Résolu",
-                "17": "PayPal"
+                "17": "PayPal",
+                "disputeWon": "Résolu"
             },
             "detach": {
                 "pm_deleted": "Moyen de paiement supprimé",
@@ -4444,11 +4444,11 @@
                 "helper": "Votre solde Stripe est insuffisant pour pouvoir procéder au remboursement. Merci de réessayer après quelques jours afin que des paiements soient encaissés."
             },
             "warning": {
-                "interac": "Au moins un paiement a été effectué avec une carte Interac sur cette facture. Les remboursements directs ne sont pas supportés pour les cartes Interac.",
-                "debtAndNewPaymentMethodNotAllowed": "Au moins un paiement est en attente. Seul un remboursement direct est possible.",
-                "14103": "Les remboursements directs ne sont possibles que si au moins un des paiements utilise une méthode en ligne.",
+                "14100": "Au moins un paiement a été effectué avec une carte Interac sur cette facture. Les remboursements directs ne sont pas pris en charge pour les cartes Interac.",
                 "14101": "Note : un ajustement au solde du compte ne peut pas être remboursé avec le solde du compte",
-                "14100": "Au moins un paiement a été effectué avec une carte Interac sur cette facture. Les remboursements directs ne sont pas pris en charge pour les cartes Interac."
+                "14103": "Les remboursements directs ne sont possibles que si au moins un des paiements utilise une méthode en ligne.",
+                "interac": "Au moins un paiement a été effectué avec une carte Interac sur cette facture. Les remboursements directs ne sont pas supportés pour les cartes Interac.",
+                "debtAndNewPaymentMethodNotAllowed": "Au moins un paiement est en attente. Seul un remboursement direct est possible."
             },
             "SEPARefundDialog": {
                 "actions": {
@@ -5249,7 +5249,7 @@
                     "title": "Critères d'entrée",
                     "addTrigger": "Ajouter un déclencheur d'entrée",
                     "helperText": "Tout d'abord, définissez la manière dont vos membres entrerons dans le {{ workflowLowerCase }}. Sélectionnez un ou plusieurs événements ou smartlists et si le membre correspond à l'un d'entre eux, il entrera dans le {{ workflowLowerCase }}.",
-                    "creationHelper": "Commençons par décider comment vos membres entrent dans le {{ workflowLowerCase }}. Pour ce faire, vous devez sélectionner un déclencheur d'entrée.  Si vous sélectionnez plusieurs déclencheurs, les membres qui correspondent à l'un d'entre eux entreront dans le {{ workflowLowerCase }}.",
+                    "creationHelper": "Commençons par décider comment vos membres entrent dans le {{ workflowLowerCase }}. Pour ce faire, vous devez sélectionner un déclencheur d'entrée. \u2028Si vous sélectionnez plusieurs déclencheurs, les membres qui correspondent à l'un d'entre eux entreront dans le {{ workflowLowerCase }}.",
                     "editionHelper": "Modifiez les critères d'entrée de vos membres dans le {{ workflowLowerCase }}. Si un membre correspond à l'un de ces critères, il rejoindra le {{ workflowLowerCase }}."
                 },
                 "convertIntoStep": {
@@ -5290,7 +5290,7 @@
                 },
                 "wonTrigger": {
                     "title": "Sortie réussie",
-                    "helperText": "Définissez l'objectif global de votre {{ workflowLowerCase }}. Si un membre effectue le (ou l'un des) déclencheur(s) de sortie sélectionné(s), il atteindra l'objectif et quittera le {{ workflowLowerCase }} avec succès (quelle que soit l'étape à laquelle il se trouve). Cela vous aidera à suivre vos indicateurs de performance.",
+                    "helperText": "Définissez l'objectif global de votre {{ workflowLowerCase }}. Si un membre effectue le (ou l'un des) déclencheur(s) de sortie sélectionné(s), il atteindra l'objectif et quittera le {{ workflowLowerCase }} avec succès (quelle que soit l'étape à laquelle il se trouve).\u2028Cela vous aidera à suivre vos indicateurs de performance.",
                     "addTrigger": "Ajouter un déclencheur de sortie"
                 }
             },
@@ -6394,10 +6394,10 @@
         "leads": {
             "dialogs": {
                 "errors": {
-                    "title": "Malheureusement, l'import a échoué pour les raisons suivantes:",
-                    "71002": "Ce fichier dépasse la taille maximale autorisée",
+                    "71000": "Veuillez attendre la fin de l'importation en cours",
                     "71001": "Ce fichier n'a pas le nombre de colonnes requis",
-                    "71000": "Veuillez attendre la fin de l'importation en cours"
+                    "71002": "Ce fichier dépasse la taille maximale autorisée",
+                    "title": "Malheureusement, l'import a échoué pour les raisons suivantes:"
                 },
                 "partialSuccess": {
                     "successImportSubtext": "Membres créés",
@@ -7197,15 +7197,20 @@
             "27": "Abonnement stoppé ou terminé",
             "28": "Paiement reçu",
             "29": "Rappel cours en ligne dans 15 min (élèves)",
+            "30": "Réservation pour un invité (pour un membre invitant)",
+            "31": "Réservation pour un invité (pour un membre invité)",
             "101": "Rappel cours en ligne dans 15 min (professeurs)",
             "102": "Annulation séance (professeurs)",
             "103": "Séance modifiée (professeurs)",
+            "200": "La méthode de paiement de l'abonnement est sur le point d'expirer (premier avertissement)",
+            "201": "La méthode de paiement de l'abonnement sur le point d'expirer (deuxième avertissement)",
             "300": "Kick (non-validé dans les temps trop de fois)",
             "301": "Réinitialisation mot de passe membre",
             "302": "Validation d'email membre",
             "303": "Fusion de deux comptes du studio",
             "304": "Activation de la carte cadeau numérique",
             "305": "Changement d'email membre depuis le backoffice",
+            "308": "Activation de la carte cadeau physique",
             "400": "Rendez-vous annulé - hors-délai (professeur)",
             "401": "Rendez-vous annulé - remboursé (professeur)",
             "402": "Nouveau rendez-vous (professeur)",
@@ -7239,15 +7244,10 @@
             "1001": "Compte Spivi créé (élèves)",
             "1002": "Performance de la séance de spinning",
             "1003": "Compte Spivi créé (professeurs)",
-            "31": "Réservation pour un invité (pour un membre invité)",
-            "30": "Réservation pour un invité (pour un membre invitant)",
-            "1102": "Récompense de parrainage disponible (parrain)",
             "1101": "Offre de parrainage disponible (membre parrainé)",
-            "201": "La méthode de paiement de l'abonnement sur le point d'expirer (deuxième avertissement)",
-            "200": "La méthode de paiement de l'abonnement est sur le point d'expirer (premier avertissement)",
-            "1201": "Second rappel d'expiration du mode de paiement pour les paiements échelonnés",
+            "1102": "Récompense de parrainage disponible (parrain)",
             "1200": "Premier rappel d'expiration du mode de paiement pour les paiements échelonnés",
-            "308": "Activation de la carte cadeau physique"
+            "1201": "Second rappel d'expiration du mode de paiement pour les paiements échelonnés"
         },
         "franchise": {
             "emptySelect": "Sélectionner un email transactionnel pour voir sur quel franchisé il est partagé et utilisé.",
@@ -7324,10 +7324,10 @@
             "title": "Événement déclencheur"
         },
         "eventTypeHelperText": {
-            "1201": "Vous pouvez personnaliser le nombre de jours pris en compte pour l'envoi de cette notification dans la section Moyens de paiement",
-            "1200": "Vous pouvez personnaliser le nombre de jours pris en compte pour l'envoi de cette notification dans la section Moyens de paiement",
+            "200": "Vous pouvez personnaliser le nombre de jours pris en compte pour l'envoi de cette notification dans la section Méthodes de paiement",
             "201": "Vous pouvez personnaliser le nombre de jours pris en compte pour l'envoi de cette notification dans la section Méthodes de paiement",
-            "200": "Vous pouvez personnaliser le nombre de jours pris en compte pour l'envoi de cette notification dans la section Méthodes de paiement"
+            "1200": "Vous pouvez personnaliser le nombre de jours pris en compte pour l'envoi de cette notification dans la section Moyens de paiement",
+            "1201": "Vous pouvez personnaliser le nombre de jours pris en compte pour l'envoi de cette notification dans la section Moyens de paiement"
         }
     },
     "offer": {
@@ -8067,6 +8067,7 @@
             "50": "EPS",
             "60": "Giropay",
             "70": "Bacs Direct Debit",
+            "80": "PayPal",
             "CB": "Carte",
             "CREDIT_ACCOUNT": "Crédit client",
             "CASH": "Espèces",
@@ -8077,8 +8078,7 @@
             "IDEAL": "iDEAL",
             "EPS": "EPS",
             "GIROPAY": "Giropay",
-            "BACS_DEBIT": "Bacs Direct Debit",
-            "80": "PayPal"
+            "BACS_DEBIT": "Bacs Direct Debit"
         },
         "forms": {
             "cancelPayment": "Précédent",
@@ -8136,6 +8136,7 @@
             "0": "Carte",
             "1": "Espèces",
             "2": "Chèque",
+            "3": "Carte de cours",
             "4": "Carte (manuel)",
             "5": "Chèque vacances",
             "6": "AMEX",
@@ -8152,10 +8153,9 @@
             "50": "EPS",
             "60": "Giropay",
             "70": "Bacs Direct Debit",
+            "80": "PayPal",
             "label": "Moyen de paiement",
             "disputeWon": "Résolu",
-            "3": "Carte de cours",
-            "80": "PayPal",
             "onlinePayments": "Paiement en ligne"
         },
         "actions": {
@@ -9559,15 +9559,15 @@
                 "explainBilling": "{{ price_cts }} / SMS"
             },
             "lockDialog": {
+                "31": {
+                    "intro": "Débloquer l'accès à Audience",
+                    "explain": "Cette fonction est un add-on, veuillez contacter votre gestionnaire de compte pour obtenir plus d'informations."
+                },
                 "33": {
                     "intro": "Découvrez notre nouvelle interface de chat direct avec vos membres.",
                     "explain": "Vous retrouverez ici toutes vos discussions directes, les chat liés à vos séances, ainsi que vos campagnes smartlists. Le chat est compatible avec les SMS, emails et push notification."
                 },
-                "requestAccess": "Demander un accès",
-                "31": {
-                    "intro": "Débloquer l'accès à Audience",
-                    "explain": "Cette fonction est un add-on, veuillez contacter votre gestionnaire de compte pour obtenir plus d'informations."
-                }
+                "requestAccess": "Demander un accès"
             },
             "subscriptionForm": {
                 "commitmentMessage": "Remarque : l'abonnement implique une période d'engagement de 12 mois",
@@ -10887,34 +10887,6 @@
             }
         },
         "referralErrors": {
-            "33002": {
-                "title": "Lien de parrainage inutilisable",
-                "description": "Vous êtes déjà membre de ce studio"
-            },
-            "maxUsesReached": {
-                "description": "{{ referringMemberFirstName }} a atteint le nombre maximum d'utilisations de ce lien.",
-                "title": "Lien de parrainage inutilisable"
-            },
-            "33007": {
-                "description": "Le programme de parrainage n'est plus disponible.",
-                "title": "Parrainage expiré"
-            },
-            "33006": {
-                "description": "Le programme de parrainage n'est plus disponible.",
-                "title": "Parrainage expiré"
-            },
-            "33005": {
-                "description": "Une erreur a été rencontrée lors de l'enregistrement du parrainage.",
-                "title": "Erreur parrainage"
-            },
-            "33004": {
-                "description": "Une erreur a été rencontrée lors de l'enregistrement du parrainage.",
-                "title": "Erreur parrainage"
-            },
-            "33003": {
-                "description": "Ce lien de parrainage n'est plus utilisable.",
-                "title": "Lien de parrainage expiré"
-            },
             "33000": {
                 "title": "Lien de parrainage inutilisable",
                 "description": "Ce lien de parrainage n'est pas disponible pour ce studio."
@@ -10922,6 +10894,34 @@
             "33001": {
                 "title": "Lien de parrainage inutilisable",
                 "description": "Le membre associé à ce lien de parrainage n'est plus inscrit au studio."
+            },
+            "33002": {
+                "title": "Lien de parrainage inutilisable",
+                "description": "Vous êtes déjà membre de ce studio"
+            },
+            "33003": {
+                "description": "Ce lien de parrainage n'est plus utilisable.",
+                "title": "Lien de parrainage expiré"
+            },
+            "33004": {
+                "description": "Une erreur a été rencontrée lors de l'enregistrement du parrainage.",
+                "title": "Erreur parrainage"
+            },
+            "33005": {
+                "description": "Une erreur a été rencontrée lors de l'enregistrement du parrainage.",
+                "title": "Erreur parrainage"
+            },
+            "33006": {
+                "description": "Le programme de parrainage n'est plus disponible.",
+                "title": "Parrainage expiré"
+            },
+            "33007": {
+                "description": "Le programme de parrainage n'est plus disponible.",
+                "title": "Parrainage expiré"
+            },
+            "maxUsesReached": {
+                "description": "{{ referringMemberFirstName }} a atteint le nombre maximum d'utilisations de ce lien.",
+                "title": "Lien de parrainage inutilisable"
             },
             "somethingWentWrong": "Un problème est survenu, nous ne sommes pas en mesure de charger cette page. Veuillez réessayer plus tard",
             "noProgramAvailable": "Oups, il semble qu'il n'y ait pas de programme de parrainage disponible"
@@ -11710,14 +11710,14 @@
             "coupon_type_excluding_referrals": "Type de promotion"
         },
         "last_invoice_status": {
+            "0": "Réussi",
+            "1": "Échec",
+            "2": "En attente",
+            "3": "Annulé",
+            "4": "Traitement",
             "": [
                 "Annulé"
-            ],
-            "4": "Traitement",
-            "3": "Annulé",
-            "2": "En attente",
-            "1": "Échec",
-            "0": "Réussi"
+            ]
         },
         "presetValuesByDatatype": {
             "source_device": {
@@ -14812,6 +14812,64 @@
                 "fourth": "(confondues)",
                 "info": "Les cartes de cours et cartes RDV bloquées sont aussi prises en comptes"
             },
+            "28": {
+                "numbersComparator": {
+                    "payment": {
+                        "after": "{{currency}}",
+                        "between": "et",
+                        "before": "Le montant du premier achat était de"
+                    }
+                },
+                "filterByDate": {
+                    "before": "Filtrer par date"
+                },
+                "booleanChoice": {
+                    "is_not": "Pas encore réalisé",
+                    "is": "réalisé",
+                    "before": "Le premier achat est"
+                },
+                "explanation": "Filtre les membres ayant un premier panier finalisé/payé",
+                "name": "Premier achat"
+            },
+            "29": {
+                "numbersComparator": {
+                    "money": {
+                        "after": "{{currency}} en tant que parrain",
+                        "between": "et",
+                        "before": "Le membre a obtenu"
+                    },
+                    "referred": {
+                        "tooltip": "Les membres qui n'ont parrainé personne peuvent également être inclus",
+                        "after": "membres",
+                        "between": "et",
+                        "before": "Le membre a parrainé"
+                    },
+                    "reward": {
+                        "after": "récompenses en tant que parrain",
+                        "between": "et",
+                        "before": "Le membre a obtenu"
+                    }
+                },
+                "explanation": "Filtre les membres qui ont parrainé d'autres membres",
+                "name": "Parrainage"
+            },
+            "30": {
+                "numbersComparator": {
+                    "money": {
+                        "after": "{{currency}} en tant que membre parrainé",
+                        "between": "et",
+                        "before": "Le membre a obtenu"
+                    }
+                },
+                "booleanChoice": {
+                    "after": "un membre parrainé",
+                    "is_not": "n'est pas",
+                    "is": "est",
+                    "before": "Le membre"
+                },
+                "explanation": " Filtre les membres qui ont utilisé un lien de parrainage pour s'inscrire",
+                "name": "Membre parrainé"
+            },
             "101": {
                 "name": "Âge",
                 "first": "Possède un âge",
@@ -15066,64 +15124,6 @@
                 "2": "plus de (⩾)",
                 "5": "exactement",
                 "6": "entre deux"
-            },
-            "30": {
-                "numbersComparator": {
-                    "money": {
-                        "after": "{{currency}} en tant que membre parrainé",
-                        "between": "et",
-                        "before": "Le membre a obtenu"
-                    }
-                },
-                "booleanChoice": {
-                    "after": "un membre parrainé",
-                    "is_not": "n'est pas",
-                    "is": "est",
-                    "before": "Le membre"
-                },
-                "explanation": " Filtre les membres qui ont utilisé un lien de parrainage pour s'inscrire",
-                "name": "Membre parrainé"
-            },
-            "29": {
-                "numbersComparator": {
-                    "money": {
-                        "after": "{{currency}} en tant que parrain",
-                        "between": "et",
-                        "before": "Le membre a obtenu"
-                    },
-                    "referred": {
-                        "tooltip": "Les membres qui n'ont parrainé personne peuvent également être inclus",
-                        "after": "membres",
-                        "between": "et",
-                        "before": "Le membre a parrainé"
-                    },
-                    "reward": {
-                        "after": "récompenses en tant que parrain",
-                        "between": "et",
-                        "before": "Le membre a obtenu"
-                    }
-                },
-                "explanation": "Filtre les membres qui ont parrainé d'autres membres",
-                "name": "Parrainage"
-            },
-            "28": {
-                "numbersComparator": {
-                    "payment": {
-                        "after": "{{currency}}",
-                        "between": "et",
-                        "before": "Le montant du premier achat était de"
-                    }
-                },
-                "filterByDate": {
-                    "before": "Filtrer par date"
-                },
-                "booleanChoice": {
-                    "is_not": "Pas encore réalisé",
-                    "is": "réalisé",
-                    "before": "Le premier achat est"
-                },
-                "explanation": "Filtre les membres ayant un premier panier finalisé/payé",
-                "name": "Premier achat"
             }
         },
         "tag_rules": {
@@ -15233,12 +15233,12 @@
             "11114": "Cette carte de rendez-vous ne peut plus être achetée car sa date d'expiration est dépassée",
             "15002": "L'objet est déjà en train d'être ajouté au panier, veuillez patienter",
             "23001": "Aucune carte de cours ne vous permet de vous ajouter à la file d'attente pour cette offre",
+            "23002": "Vous avez atteint le nombre maximum de futures réservations / place sur liste d'attente, vous ne pouvez plus vous inscrire",
             "45004": "La carte cadeau n'est plus disponible à la vente.",
             "45005": "La carte cadeau n'est plus disponible à la vente.",
             "85000": "Une réservation est déjà en cours, veuillez patienter quelques instants",
             "85101": "Impossible de réserver. Ce spot est en cours de réservation par un autre membre. Veuillez réessayer en choisissant un autre spot.",
-            "generic": "Impossible de réserver",
-            "23002": "Vous avez atteint le nombre maximum de futures réservations / place sur liste d'attente, vous ne pouvez plus vous inscrire"
+            "generic": "Impossible de réserver"
         },
         "offer": {
             "restore": {
@@ -15320,12 +15320,12 @@
             },
             "generateXml": {
                 "errors": {
-                    "default": "Une erreur s'est produite lors de la génération de la facture XML",
-                    "14213": "Échec de la génération du document .XML en raison d'exigences légales. Pour plus d'informations ou pour toute question, contactez votre gestionnaire de compte bsport.",
-                    "14212": "L'adresse du membre est manquante ou incomplète",
-                    "14211": "Le document d'identité officiel du membre est manquant ou incomplet",
                     "14210": "Vos paramètres ne sont pas configurés pour l'exportation de factures au format XML. Veuillez contacter votre gestionnaire de compte bsport.",
-                    "14214": "Le fichier Zip généré est vide car aucune facture à exporter du mois dernier n'a été trouvée"
+                    "14211": "Le document d'identité officiel du membre est manquant ou incomplet",
+                    "14212": "L'adresse du membre est manquante ou incomplète",
+                    "14213": "Échec de la génération du document .XML en raison d'exigences légales. Pour plus d'informations ou pour toute question, contactez votre gestionnaire de compte bsport.",
+                    "14214": "Le fichier Zip généré est vide car aucune facture à exporter du mois dernier n'a été trouvée",
+                    "default": "Une erreur s'est produite lors de la génération de la facture XML"
                 },
                 "success": "Facture XML générée avec succès"
             }
@@ -15746,8 +15746,8 @@
             },
             "variant": {
                 "error": {
-                    "11001": "Impossible de créer un pack avec des variantes de produits",
-                    "11000": "Impossible de créer des variantes sur un produit utilisé dans un pack"
+                    "11000": "Impossible de créer des variantes sur un produit utilisé dans un pack",
+                    "11001": "Impossible de créer un pack avec des variantes de produits"
                 }
             },
             "supplier": {
@@ -16323,8 +16323,8 @@
         },
         "tag": {
             "error": {
-                "124004": "Le nom du tag principal est déjà utilisé",
-                "124003": "Le nom du sous-tag est déjà utilisé"
+                "124003": "Le nom du sous-tag est déjà utilisé",
+                "124004": "Le nom du tag principal est déjà utilisé"
             }
         },
         "mergeError": {
@@ -16354,26 +16354,26 @@
             }
         },
         "canNotExecutePaymentAttempt": {
-            "generic": "Votre paiement a échoué, veuillez réessayer",
-            "failedLoadingPayPalScript": "Une erreur s'est produite lors du chargement de PayPal",
-            "35013": "Votre paiement a échoué, veuillez sélectionner une autre méthode de paiement.",
-            "35012": "Votre carte est expirée",
-            "35006": "Votre compte PayPal ne peut pas traiter le paiement, veuillez réessayer avec un autre compte",
-            "35000": "Votre paiement PayPal a échoué, veuillez réessayer ou utiliser un autre mode de paiement",
-            "12110": "Votre panier ne correspond pas au montant que vous avez essayé de payer, nous avons actualisé votre panier, veuillez réessayer",
-            "12109": "Votre paiement a échoué, veuillez réessayer.",
-            "12108": "Votre paiement est en cours de traitement, veuillez patienter",
-            "12107": "Votre paiement a échoué, veuillez réessayer.",
             "12102": "Votre paiement est en cours de traitement, veuillez patienter",
-            "35015": "Votre paiement PayPal a échoué, veuillez réessayer ou utiliser un autre mode de paiement"
+            "12107": "Votre paiement a échoué, veuillez réessayer.",
+            "12108": "Votre paiement est en cours de traitement, veuillez patienter",
+            "12109": "Votre paiement a échoué, veuillez réessayer.",
+            "12110": "Votre panier ne correspond pas au montant que vous avez essayé de payer, nous avons actualisé votre panier, veuillez réessayer",
+            "35000": "Votre paiement PayPal a échoué, veuillez réessayer ou utiliser un autre mode de paiement",
+            "35006": "Votre compte PayPal ne peut pas traiter le paiement, veuillez réessayer avec un autre compte",
+            "35012": "Votre carte est expirée",
+            "35013": "Votre paiement a échoué, veuillez sélectionner une autre méthode de paiement.",
+            "35015": "Votre paiement PayPal a échoué, veuillez réessayer ou utiliser un autre mode de paiement",
+            "generic": "Votre paiement a échoué, veuillez réessayer",
+            "failedLoadingPayPalScript": "Une erreur s'est produite lors du chargement de PayPal"
         },
         "cancelPayPalPaymentAttempt": "Votre tentative de paiement a été annulée. Veuillez recommencer.",
         "paypal": {
+            "35009": "Vous ne pouvez pas utiliser un compte qui est déjà lié à une autre entreprise.",
             "onboardingUrlFetchFailed": "Une erreur s'est produite lors de la récupération du lien d'onboarding de PayPal",
             "couldNotReachPayPal": "Nous n'avons pas pu joindre PayPal. Veuillez réessayer plus tard.",
             "connectionAttemptSucceeded": "Le compte PayPal a été connecté avec succès",
-            "connectionAttemptFailed": "Une erreur s'est produite lors de la connexion à PayPal",
-            "35009": "Vous ne pouvez pas utiliser un compte qui est déjà lié à une autre entreprise."
+            "connectionAttemptFailed": "Une erreur s'est produite lors de la connexion à PayPal"
         },
         "wellhub": {
             "configureWebhooks": {
@@ -20126,6 +20126,9 @@
                     "hidePaginationControls": "Masquer les commandes de pagination"
                 },
                 "option": {
+                    "1": "Un",
+                    "2": "Deux",
+                    "3": "Trois",
                     "true": "Oui",
                     "false": "Non",
                     "level": "Du niveau",
@@ -20162,9 +20165,6 @@
                     "defaultPrepaidLine": "Défaut",
                     "internalAccountPrepaidLine": "Paiement via un compte interne",
                     "giftcardPrepaidLine": "Paiement par carte cadeau",
-                    "3": "Trois",
-                    "2": "Deux",
-                    "1": "Un",
                     "elevated": "Elevé",
                     "rest": "Pause",
                     "onstrong": "Sur un fond intense",

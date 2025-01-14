@@ -77,10 +77,7 @@ function writeLocaleJsonBuild({
   );
 
   // Write the JSON object to the final destination
-  writeFileSync(
-    localeTranslationsPath,
-    beautify(projectsMap, null as any, 2, 80),
-  );
+  writeFileSync(localeTranslationsPath, beautify(projectsMap, null as any, 4));
 }
 
 main([SAAS_LEGACY_PROJECT]);

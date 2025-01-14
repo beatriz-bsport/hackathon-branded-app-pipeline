@@ -39,22 +39,8 @@ export const BasketInstalmentPaymentOption: React.FC<Props> = ({
     checked,
   });
 
-  const {
-    recurrency,
-    frequency,
-    number_of_billing,
-    custom_first_instalment_amount,
-    custom_first_instalment_enabled,
-    custom_first_instalment_percent,
-    custom_first_instalment_type,
-    partial_payment_enabled,
-  } = instalmentPayment;
-
-  // TODO: FIX TYPING, custom_first_instalment_amount is a string
-  const customFirstInstalmentAmountAsNumber = Number.parseFloat(
-    // @ts-expect-error
-    custom_first_instalment_amount,
-  );
+  const { recurrency, frequency, number_of_billing, partial_payment_enabled } =
+    instalmentPayment;
 
   const calculateInstallmentDate = useCallback(
     (quantityToAdd: number) => {
@@ -82,64 +68,32 @@ export const BasketInstalmentPaymentOption: React.FC<Props> = ({
       );
   }, [frequency, calculateInstallmentDate, number_of_billing]);
 
-  const firstInstalmentAmount = useMemo(() => {
-    const hasCustomfirstPayment =
-      custom_first_instalment_enabled || partial_payment_enabled;
-
-    if (!hasCustomfirstPayment)
-      return (basketPrice / number_of_billing).toFixed(2);
-    if (custom_first_instalment_type === 0)
-      return (customFirstInstalmentAmountAsNumber || 0).toFixed(2);
-    return (
-      ((custom_first_instalment_percent || 0) / 100) *
-      basketPrice
-    ).toFixed(2);
-  }, [
-    customFirstInstalmentAmountAsNumber,
-    custom_first_instalment_enabled,
-    custom_first_instalment_percent,
-    custom_first_instalment_type,
-    partial_payment_enabled,
-    basketPrice,
-    number_of_billing,
-  ]);
-
-  const otherInstalmentsAmount = useMemo(() => {
+  // Calculate the amount for each instalment except the last one, rounded down
+  const instalmentsAmount = useMemo(() => {
     if (number_of_billing === 1) return '0';
-    return (
-      Math.trunc(
-        ((basketPrice - parseFloat(firstInstalmentAmount)) /
-          (number_of_billing - 1)) *
-          100,
-      ) / 100
-    ).toFixed(2);
-  }, [number_of_billing, basketPrice, firstInstalmentAmount]);
 
+    return (Math.trunc((basketPrice / number_of_billing) * 100) / 100).toFixed(
+      2,
+    );
+  }, [basketPrice, number_of_billing]);
+
+  // Adjust the last instalment to cover the remaining balance
   const lastInstalmentAmount = useMemo(() => {
     if (number_of_billing === 1) return '0';
+
     return (
       basketPrice -
-      parseFloat(firstInstalmentAmount) -
-      parseFloat(otherInstalmentsAmount) * (number_of_billing - 2)
+      parseFloat(instalmentsAmount) * (number_of_billing - 1)
     ).toFixed(2);
-  }, [
-    basketPrice,
-    firstInstalmentAmount,
-    otherInstalmentsAmount,
-    number_of_billing,
-  ]);
+  }, [basketPrice, instalmentsAmount, number_of_billing]);
 
   const instalmentAmountList = new Array(number_of_billing)
     .fill(0)
-    .map((item, index) => {
-      switch (index) {
-        case 0:
-          return firstInstalmentAmount;
-        case number_of_billing - 1:
-          return lastInstalmentAmount;
-        default:
-          return otherInstalmentsAmount;
+    .map((_, index) => {
+      if (index === number_of_billing - 1) {
+        return lastInstalmentAmount;
       }
+      return instalmentsAmount;
     });
 
   const handleChange = useCallback(() => {
@@ -161,7 +115,7 @@ export const BasketInstalmentPaymentOption: React.FC<Props> = ({
         {partial_payment_enabled && (
           <Typography>
             {t('configurationOption.payLater', {
-              amount: getCurrencyDisplayWithPrice(firstInstalmentAmount),
+              amount: getCurrencyDisplayWithPrice(instalmentsAmount[0]),
             })}
           </Typography>
         )}
@@ -190,7 +144,7 @@ export const BasketInstalmentPaymentOption: React.FC<Props> = ({
             <Typography variant="caption">
               {t('configurationOption.payLaterRemainder', {
                 remainder: getCurrencyDisplayWithPrice(
-                  basketPrice - parseFloat(firstInstalmentAmount),
+                  basketPrice - parseFloat(instalmentsAmount[0]),
                 ),
               })}
             </Typography>

@@ -17429,7 +17429,7 @@
                 },
                 "warnings": {
                     "exclusiveAssociatedCoaches": "Die Lehrkraft {{- coach_name }} wird nur benachrichtigt, wenn eine Vertretungsanfrage für eine Sitzung in dieser Einrichtung erfolgt. Wenn die Einrichtung gelöscht wird, erhält diese Lehrkraft daher Vertretungsanfragen von jeder Einrichtung.",
-                    "exclusiveAssociatedCoaches_plural": "Deine Lehrkräfte {{- coach_name }} erhalten nur eine Benachrichtigung, wenn eine Vertretungsanfrage für eine Sitzung an diesem Standort eingeht. Wird der Standort gelöscht, erhalten sie Vertretungsanfragen für alle Standorte.",
+                    "exclusiveAssociatedCoaches_plural": "Deine Lehrer {{-coach_name}} werden nur benachrichtigt, wenn eine Vertretungsanfrage für eine Sitzung in dieser Einrichtung gestellt wird. Durch die Löschung des Betriebes erhalten sie somit von jedem Betrieb Ersatzanfragen.",
                     "hasBillingGroup": "Diese Einrichtung wird auch aus der Rechnungsgruppe {{- establishment_billing_group_name }} entfernt.",
                     "exclusivePrivateServices_plural": "Diese Termine {{- private_service_name }} sind so konfiguriert, dass sie nur in dieser Einrichtung stattfinden können. Wenn diese Einrichtung gelöscht wird, können diese Termine überall stattfinden.",
                     "exclusivePrivateServices": "Der Termin {{- private_service_name }} ist so konfiguriert, dass er nur in dieser Einrichtung stattfinden kann. Wenn diese Einrichtung gelöscht wird, kann dieser Termin überall stattfinden.",
@@ -18985,7 +18985,11 @@
                         "triggerTimeoutDays_plural": "Tagen.",
                         "triggerTimeoutLabel": "Auslösen nach",
                         "selectSmartlist": "Eine Smartlist auswählen",
-                        "selectEvent": "Ein Event auswählen"
+                        "selectEvent": "Ein Event auswählen",
+                        "finnerGrain": {
+                            "purchaseLabelTitle": "Erworbene Artikel",
+                            "specifyItemsToggleLabel": "Artikel angeben"
+                        }
                     },
                     "marketing_action": {
                         "1": "E-Mail schreiben",
@@ -19052,7 +19056,9 @@
                         "billing_plan-create": "Erstellung",
                         "billing_plan-pause": "Pause",
                         "billing_plan-stop": "Stoppen",
-                        "billing_plan-renew": "Erneuerung"
+                        "billing_plan-renew": "Erneuerung",
+                        "consumer_giftcard-create": "Gutschein",
+                        "provision_update-create": "Shop-Artikel"
                     },
                     "error": {
                         "triggerCannotBeEmpty": "Sie müssen eine Eingabeart auswählen.",
@@ -19336,7 +19342,8 @@
                         "labels": {
                             "workflow": "Der Eintrag in den {{ workflowLowerCase }} erfolgt über :"
                         },
-                        "event_or_smartlist_helper": "Die Mitglieder müssen dem Ereignis entsprechen oder Teil der Smartlist sein, um in den {{ workflowLowerCase }} zu passen"
+                        "event_or_smartlist_helper": "Die Mitglieder müssen dem Ereignis entsprechen oder Teil der Smartlist sein, um in den {{ workflowLowerCase }} zu passen",
+                        "oneOrMoreFinnerGrainDisabledText": "Der ausgewählte Artikel ist derzeit nicht in deiner Produktliste enthalten."
                     },
                     "audienceNameLabel": "Name des {{ workflowLowerCase }}",
                     "audienceStepHelper": "Legen Sie hier den Namen des Schritts fest: Hier können Sie sehen, wo sich die Mitglieder im {{ workflowLowerCase }} befinden.",
@@ -19462,11 +19469,15 @@
                         "paused": "Pausiert",
                         "active": "Aktiv",
                         "unarchive": "Archivieren rückgängig machen",
-                        "metrics": "Statistik"
+                        "metrics": "Statistik",
+                        "invalid": "Problem"
                     },
                     "tooltip": {
                         "moreActions": "Mehr {{ workflowLowerCase }}-Aktionen"
                     }
+                },
+                "workflow": {
+                    "finnerGrainIssues": "Einer oder mehrere angegebene Artikel sind nicht mehr verfügbar."
                 }
             }
         },

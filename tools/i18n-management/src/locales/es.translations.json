@@ -3723,7 +3723,8 @@
                     "14101": "Nota: un ajuste del saldo de la cuenta no puede reembolsarse con el saldo de la cuenta",
                     "14103": "Los reembolsos directos sólo están disponibles si al menos uno de los pagos utiliza un método en línea.",
                     "interac": "Se ha realizado al menos un pago con una tarjeta Interac en esta factura. No se admiten reembolsos directos para tarjetas Interac.",
-                    "debtAndNewPaymentMethodNotAllowed": "Hay al menos un pago pendiente. Solo está disponible un reembolso directo."
+                    "debtAndNewPaymentMethodNotAllowed": "Hay al menos un pago pendiente. Solo está disponible un reembolso directo.",
+                    "14106": "Las devoluciones directas no son posibles para los pagos SEPA con más de 180 días de antigüedad."
                 },
                 "blockedDialog": {
                     "helper": "Tu saldo de Stripe es insuficiente para procesar el reembolso. Vuelve a intentarlo pasados unos días para poder cobrar los pagos.",
@@ -5449,7 +5450,8 @@
                 "second_billing_plan": "Segundo plan de facturación",
                 "incremental_identifier": "Número",
                 "product_categories": "Categorías de productos",
-                "product_types": "Tipos de productos"
+                "product_types": "Tipos de productos",
+                "kind": "Tipo"
             },
             "payment_method": {
                 "cash": "Efectivo",
@@ -9038,7 +9040,8 @@
                     "submit": "Enviar",
                     "not_found": "Este código promocional no es válido.",
                     "not_applicable": "Este código promocional no es aplicable.",
-                    "apply": "Solicitar"
+                    "apply": "Solicitar",
+                    "couponOnlyLabel": "Código promocional"
                 }
             },
             "createCoupon": "Añadir un código",
@@ -15579,7 +15582,13 @@
                     "title": "Reembolso",
                     "warningSecond": "Si desea reembolsar al cliente por transferencia con el método de pago utilizado, cancele la facturación y no le reembolse a crédito!",
                     "warningFirst": "Advertencia, esta operación es irreversible (generación de factura).",
-                    "blockUnlimited": "Bloquear la tarjeta"
+                    "blockUnlimited": "Bloquear la tarjeta",
+                    "error": {
+                        "default": "Se ha producido un error. Por favor, inténtelo de nuevo.",
+                        "2031": "Se ha producido un error. Por favor, inténtelo de nuevo.",
+                        "2030": "El número de créditos a deducir excede el número de créditos del pase. Vuelva a intentarlo con un número inferior.",
+                        "2029": "El importe del reembolso supera el importe de la compra. Vuelve a intentarlo con un importe inferior."
+                    }
                 },
                 "addExtension": "Añadir una extensión",
                 "maxout": {

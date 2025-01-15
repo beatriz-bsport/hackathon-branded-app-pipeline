@@ -44,7 +44,6 @@ elif [ "$ENVIRONMENT" = "staging" ]; then
 
 elif [ "$ENVIRONMENT" = "production" ]; then
     echo "TEMPORARILY PROTECT PRODUCTION"
-    exit 1
     SLACK_WEBHOOK_URL=$SLACK_PRODUCTION_WEBHOOK_URL
     SLACK_TEMPLATE_FILE="./ci/slack_template/slack_template.json"
     S3_BUCKET="s3://bsport-eu-backoffice-production"

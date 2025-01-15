@@ -91,7 +91,15 @@ const importColors = async (folderPath: string): Promise<Output> => {
 
   const formatCSSVariable = (name: string) => `kz-color-${name}`;
   const formatName = formatVariableName(["BaseColors", "color"]);
-  const formatValue = formatVariableValue(formatName, { formatCSSVariable });
+  const formatValue = formatVariableValue(formatName, {
+    formatCSSVariable,
+    /*formatValue: (color) => {
+      const rgba = hexToRGBA(color);
+      return rgba
+        ? `${rgba.red}, ${rgba.green}, ${rgba.blue}, ${rgba.alpha === 1 ? 1 : Math.round(rgba.alpha / 2.55) / 100}`
+        : "";
+    },*/
+  });
 
   const tailwindOtherColors: Record<string, string> = {};
   const tailwindBaseColors: {

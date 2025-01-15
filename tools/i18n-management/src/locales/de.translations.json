@@ -5562,7 +5562,13 @@
                     },
                     "warningSecond": "Wenn Du den Kunden per Banküberweisung mit dem verwendeten Zahlungsmittel entschädigen möchtest, storniere die Rechnung und erstatten keine Guthaben-Rückerstattung!",
                     "warningFirst": "Achtung! Dieser Vorgang ist unwiderruflich (Erstellung einer Rechnung).",
-                    "blockUnlimited": "Blockiere die Karte"
+                    "blockUnlimited": "Blockiere die Karte",
+                    "error": {
+                        "default": "Ein Fehler ist aufgetreten. Bitte versuche es erneut.",
+                        "2031": "Ein Fehler ist aufgetreten. Bitte versuche es erneut.",
+                        "2030": "Es können nicht mehr Credits abgezogen werden, als auf dem Pass vorhanden sind. Bitte probiere es mit einer kleineren Anzahl erneut.",
+                        "2029": "Der angeforderte Erstattungsbetrag übersteigt den ursprünglichen Kaufbetrag. Bitte versuche es mit einem geringeren Betrag erneut."
+                    }
                 },
                 "addExtension": "Eine Verlängerung hinzufügen",
                 "details": {
@@ -6504,7 +6510,8 @@
                 "second_billing_plan": "Zweiter Rechnungsplan",
                 "incremental_identifier": "Nummer",
                 "product_categories": "Produktkategorien",
-                "product_types": "Produkttypen"
+                "product_types": "Produkttypen",
+                "kind": "Typ"
             },
             "no": "Nein",
             "yes": "Ja",
@@ -8555,7 +8562,8 @@
                     "14101": "Hinweis: Eine Anpassung des Kontosaldos kann nicht mit dem Kontosaldo erstattet werden",
                     "14103": "Direkte Erstattungen sind nur möglich, wenn mindestens eine der Zahlungen über ein Online Verfahren erfolgt.",
                     "interac": "Mindestens eine Zahlung auf dieser Rechnung wurde mit einer Interac Karte vorgenommen. Direkte Rückerstattungen werden für Interac Karten nicht unterstützt.",
-                    "debtAndNewPaymentMethodNotAllowed": "Mindestens eine Zahlung ist noch nicht erfolgt. Es ist nur eine direkte Erstattung möglich."
+                    "debtAndNewPaymentMethodNotAllowed": "Mindestens eine Zahlung ist noch nicht erfolgt. Es ist nur eine direkte Erstattung möglich.",
+                    "14106": "Direkte Rückerstattungen sind für SEPA-Zahlungen, die älter als 180 Tage sind, nicht möglich."
                 },
                 "autoDebitDialog": {
                     "helper": "Ihr Studio ist gerade dabei, Ihr Bsport-Konto zu schließen.\n\nWenn Sie auf Bestätigen klicken, wird die Rechnung zurückerstattet. Ihr Stripe-Guthaben wird mit {{refundAmount}} belastet. {{ currencyDisplay }}. Um Ihr Stripe-Guthaben jedoch auf 0 {{ currencyDisplay }} zurückzusetzen, wird der Differenzbetrag automatisch direkt von Ihrem unter Einstellungen > Unternehmen angegebenen Bankkonto abgebucht.\n\nWenn Sie Ihr Überziehungslimit nicht überschreiten wollen, können Sie warten, bis Ihr Stripe-Saldo wieder steigt.",
@@ -11014,7 +11022,8 @@
                     "submit": "Bestätigen",
                     "not_found": "Dieser Gutscheincode ist ungültig.",
                     "not_applicable": "Dieser Gutscheincode ist nicht anwendbar.",
-                    "apply": "Bewerben"
+                    "apply": "Bewerben",
+                    "couponOnlyLabel": "Rabattcode"
                 }
             },
             "createCoupon": "Einen Rabatt hinzufügen",
@@ -19044,7 +19053,7 @@
                         "103": "Rechnung",
                         "104": "Abonnement",
                         "consumer_payment_pack-create": "Kurspass",
-                        "private_consumer_pass-create": "Terminpass",
+                        "private_consumer_pass-create": "Privat-Pass",
                         "booking-create": "Gruppenaktivitäten",
                         "booking-attendance": "Teilnahme an Gruppenaktivitäten",
                         "private_booking-create": "Termine",

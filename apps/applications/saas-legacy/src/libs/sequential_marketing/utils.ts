@@ -5,8 +5,13 @@ import type {
   CadenceInitialConfigurationState,
   CadenceStep,
   ConnectedTrigger,
+  TriggerConfig,
+  TriggerEventConfig,
 } from '#src/libs/sequential_marketing/types';
-import { DestinationStatus } from '#src/libs/sequential_marketing/constants';
+import {
+  DestinationStatus,
+  TriggerIdentifier,
+} from '#src/libs/sequential_marketing/constants';
 import Config from '../../config';
 
 export const isCadenceInitialConfigurationCompleted = (
@@ -172,4 +177,23 @@ export function getNodeToolbarTransform(
   }
 
   return `translate(${pos[0]}px, ${pos[1]}px) translate(${shift[0]}%, ${shift[1]}%)`;
+}
+
+/** Clean the trigger config by removing the filtered_pks field out of it.
+ *  Used when changing the event type on the audience event selector node.
+ *  Allow to prevent issues where we could keep old filtered_pks values when switching
+ *  to other events that doesn't have finner graining and to not keep wrong data
+ *  between finner grainign events.
+ *
+ * @param {TriggerConfig} config - The base config we want to clean.
+ * @returns {TriggerConfig} Cleaned config without a filtered_pks field.
+ */
+export function removeFilteredPks(config: TriggerConfig): TriggerConfig {
+  // Check if the object is a TriggerEventConfig and so if he can have filtered_pks as a field
+  if (config?.identifier === TriggerIdentifier.EVENT) {
+    // destructure the object to extract filtered_pks value out of it
+    const { filtered_pks, ...cleanedConfig } = config as TriggerEventConfig;
+    return cleanedConfig; // returns the object without the filtered_pks field
+  }
+  return config; // returns the original object if not a TriggerEventConfig
 }

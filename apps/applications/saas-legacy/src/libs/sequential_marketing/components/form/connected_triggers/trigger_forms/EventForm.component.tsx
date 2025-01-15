@@ -18,6 +18,7 @@ import { DEFAULT_REACT_SELECT_MAX_HEIGHT } from './constants';
 import useEventContext, {
   type EventOption,
 } from '../hooks/useEventContext.hook';
+import { removeFilteredPks } from '#src/libs/sequential_marketing/utils';
 
 import FinnerGrainSpecificItemSelector from '#src/libs/sequential_marketing/components/form/connected_triggers/trigger_forms/FinnerGrainItemSelector.component';
 import useWhitelistFinnerGrainEvents from '#src/libs/sequential_marketing/components/graph/nodes/hooks/useWhitelistFinnerGrainEvents.hook';
@@ -99,7 +100,7 @@ const EventForm: React.FC<Props> = ({ trigger, updateValue }) => {
       const updatedTrigger = {
         ...trigger,
         trigger_config: {
-          ...trigger?.trigger_config,
+          ...removeFilteredPks(trigger?.trigger_config),
           event_type: option?.value,
         },
       };

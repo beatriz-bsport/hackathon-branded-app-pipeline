@@ -20,6 +20,7 @@ import useSmartlistContext, {
 import useEventContext, {
   type EventOption,
 } from '../hooks/useEventContext.hook';
+import { removeFilteredPks } from '#src/libs/sequential_marketing/utils';
 
 import {
   CADENCE_FINNER_GRAIN_ALLOWED_EVENTS_LIST,
@@ -136,7 +137,7 @@ const EventAndSmartlistForm: React.FC<Props> = ({
       const updatedTrigger = {
         ...trigger,
         trigger_config: {
-          ...trigger?.trigger_config,
+          ...removeFilteredPks(trigger?.trigger_config),
           event_type: option?.value,
         },
       };

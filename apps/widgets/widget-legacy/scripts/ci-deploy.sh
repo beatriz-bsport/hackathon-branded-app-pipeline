@@ -41,8 +41,6 @@ elif [ "$ENVIRONMENT" = "staging" ]; then
   ACL_PARAM="--acl public-read"
 
 elif [ "$ENVIRONMENT" = "production" ]; then
-  echo "TEMPORARILY PROTECT PRODUCTION"
-  exit 1
   S3_BUCKET="s3://bsport-cdn"
   CDN_DOMAIN="cdn.bsport.io"
   CLOUDFRONT_INVALIDATION_LAMBDA_URL="https://6pmc3n3l2yo5krr4v3jq6qud6i0fwkqj.lambda-url.eu-west-3.on.aws/"

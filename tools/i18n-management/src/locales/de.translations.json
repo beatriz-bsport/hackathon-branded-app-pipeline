@@ -9301,7 +9301,7 @@
                 "differentRemunerationForCancellation": "Anwendung unterschiedlicher Lohnabrechnungsregeln für abwesende Mitarbeiter und verspätete Stornierungen ",
                 "addRemunerationOnCancellation": "Bezahlung der Lehrkraft bei verspäteter Absage oder Abwesenheit",
                 "percentage_base": "Addieren Sie einen Prozentsatz des Grenzwerts von Reservierungen",
-                "base_remuneration_helper": "Dieser Betrag wird immer auf die Kurs-/Termingebühr aufgeschlagen",
+                "base_remuneration_helper": "Die Lehrkräfte erhalten dies immer als Vergütung für ihre Unterrichtseinheit.",
                 "base_remuneration": "Basis fixe",
                 "set_base_remuneration": "Definieren Sie eine feste Vergütungsbasis pro Kurs",
                 "forCancelledBookings": "Bei verspäteter Stornierung und Nichterscheinen",
@@ -10654,7 +10654,7 @@
             },
             "termsOfUse": "Die Allgemeinen Geschäftsbedingungen",
             "archived": "Archiviert",
-            "restoreMember": "Restaurieren",
+            "restoreMember": "Wiederherstellen",
             "noMember": "Derzeit gibt es keine Mitglieder, die angezeigt werden können.",
             "noData": "Es gibt keine Mitglieder in dieser Smartlist.",
             "changeEmailRequest": {

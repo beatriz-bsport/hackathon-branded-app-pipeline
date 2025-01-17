@@ -37,6 +37,7 @@ export const inputTypes = [
   "password",
   "tel",
   "text",
+  "search",
 ] as const;
 
 export type TextFieldPrefixSuffix =
@@ -54,8 +55,8 @@ const textField = cva(defaultClasses, {
 });
 
 export type TextFieldProps = Omit<
-  React.HTMLAttributes<HTMLInputElement>,
-  "prefix" | "suffix" | "type"
+  React.HTMLAttributes<HTMLDivElement>,
+  "prefix" | "suffix" | "type" | "onChange"
 > & {
   id: string;
   status?: keyof typeof statuses;
@@ -96,12 +97,11 @@ export type TextFieldProps = Omit<
  * @param props.type The type of the textfield.
  * @param props.onBlur Callback function to call when the textfield loses focus.
  * @param props.onFocus Callback function to call when the textfield gains focus.
- * @link https://docs.infra.bsport.io/storybook/kaizen/main/index.html?path=/docs/components-textfield--docs
  */
 const TextField: React.FC<TextFieldProps> = ({
   className,
   id,
-  status,
+  status = "default",
   value,
   onChange,
   onClear,
@@ -124,9 +124,13 @@ const TextField: React.FC<TextFieldProps> = ({
 
   return (
     <div
-      className={classNames("flex flex-col gap-2xs w-component-select", {
-        "opacity-sm pointer-events-none": disabled,
-      })}
+      className={classNames(
+        className,
+        "flex flex-col gap-2xs max-w-component-select",
+        {
+          "opacity-sm pointer-events-none": disabled,
+        },
+      )}
     >
       {label && (
         <label
@@ -152,6 +156,19 @@ const TextField: React.FC<TextFieldProps> = ({
           },
         )}
       >
+        {/* Input type search need this special custom style to hide clear button rendered by default in the different browsers */}
+        {type === "search" && (
+          <style>
+            {`
+              input[type="search"]::-ms-clear { display: none; width: 0; height: 0; }
+              input[type="search"]::-webkit-search-decoration,
+              input[type="search"]::-webkit-search-cancel-button,
+              input[type="search"]::-webkit-search-results-button,
+              input[type="search"]::-webkit-search-results-decoration { display: none !important; }
+              input[type="search"]::-moz-search-cancel-button { display: none !important; }
+            `}
+          </style>
+        )}
         {/* TODO: type country */}
         {prefix && Object.keys(prefix).length > 0 && (
           <div className="flex px-md items-center gap-xs border-r-stroke-thin border-r-stroke-default bg-surface-default-weak text-onsurface-weaker">
@@ -175,7 +192,7 @@ const TextField: React.FC<TextFieldProps> = ({
             </div>
           )}
           <input
-            className={textField({ className, status })}
+            className={textField({ status })}
             id={id}
             name={id}
             value={value}

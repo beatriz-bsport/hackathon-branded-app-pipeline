@@ -1,6 +1,6 @@
 import React, { ChangeEvent, useEffect, useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react";
-import TextField, { statuses, inputTypes } from "./TextField";
+import TextField, { inputTypes, statuses } from "./TextField";
 import { icons } from "#src/components/Icon";
 
 /**

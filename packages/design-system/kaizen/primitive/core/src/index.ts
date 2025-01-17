@@ -11,6 +11,7 @@ export { default as Checkbox } from "./components/Checkbox";
 export { default as Chip } from "./components/Chip";
 export { default as Collapse } from "./components/Collapse";
 export { default as Divider } from "./components/Divider";
+export { default as ExpandableSearchInput } from "./components/ExpandableSearchInput";
 export { default as FileUpload } from "./components/FileUpload";
 export { default as Filter } from "./components/Filter";
 export { default as Icon } from "./components/Icon";

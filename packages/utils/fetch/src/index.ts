@@ -1,6 +1,6 @@
 import { getTimezoneName } from "@bsport/timezone-utils";
-import { ENVS, type Env } from "#src/constants";
-import { initSentry } from "#src/sentry";
+import { type Env, ENVS } from "#src/constants";
+//import { initSentry } from "#src/sentry";
 import { getSessionId } from "#src/session";
 
 const ENV_URLS: {
@@ -20,7 +20,7 @@ export { ENVS };
 
 export default function getFetchers(config: BsportFetchConfig) {
   const sessionId = getSessionId();
-  initSentry(config);
+  //initSentry(config);
   return (
     uri: string,
     init: Parameters<typeof fetch>[1],

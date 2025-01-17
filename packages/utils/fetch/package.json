@@ -6,13 +6,15 @@
   "license": "UNLICENSED",
   "type": "module",
   "private": true,
-  "main": "build/lib.umd.cjs",
-  "module": "build/lib.js",
+  "main": "build/lib.umd.js",
+  "module": "build/lib.es.js",
   "types": "build/lib.d.ts",
   "exports": {
     ".": {
-      "import": "./build/lib.js",
-      "require": "./build/lib.umd.cjs"
+      "types": "./build/lib.d.ts",
+      "import": "./build/lib.es.js",
+      "require": "./build/lib.umd.cjs",
+      "default": "./build/lib.es.js"
     }
   },
   "files": [

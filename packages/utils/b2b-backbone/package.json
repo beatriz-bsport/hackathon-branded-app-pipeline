@@ -1,0 +1,28 @@
+{
+  "name": "@bsport/b2b-backbone",
+  "version": "0.0.0",
+  "description": "B2B Backbone",
+  "private": true,
+  "type": "module",
+  "main": "build/lib.umd.js",
+  "module": "build/lib.es.js",
+  "types": "build/lib.es.d.ts",
+  "exports": {
+    ".": {
+      "import": "./build/lib.es.js",
+      "require": "./build/lib.umd.js"
+    }
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "lint": "eslint .",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@bsport/fetch": "workspace:*"
+  },
+  "devDependencies": {
+    "@bsport/eslint-config-react": "workspace:*"
+  }
+}

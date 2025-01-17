@@ -26,7 +26,6 @@ const variants = {
       "active:bg-surface-action-main-selected-pressed",
     ],
     false: [
-      "bg-surface-default-weaker",
       "hover:bg-surface-action-default-weak-hovered",
       "active:bg-surface-action-default-weak-pressed",
     ],

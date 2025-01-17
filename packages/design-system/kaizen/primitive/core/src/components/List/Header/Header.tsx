@@ -54,6 +54,7 @@ const Header: React.FC<ListHeaderProps> = ({
     <div
       className={classNames(
         listItem({ className, selected: indeterminateState === "checked" }),
+        { "bg-surface-default-weaker": indeterminateState !== "checked" },
       )}
       {...props}
     >

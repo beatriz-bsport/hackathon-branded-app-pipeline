@@ -730,7 +730,6 @@ export class BookingItemForManager extends Component<Props, State> {
     return '';
   };
 
-  // eslint-disable-next-line
   getHasNoteIndicator = () =>
     this.props.member &&
     this.props.member.notes &&

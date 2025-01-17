@@ -270,6 +270,7 @@ export enum ConfirmationStatus {
   PURCHASE_WITH_PASSES_SUCCESS = 'purchaseWithPassesSuccess',
   PURCHASE_WITH_ITEMS_SUCCESS = 'purchaseWithItemsSuccess',
   PURCHASE_WITH_GIFTCARDS_SUCCESS = 'purchaseWithGiftcardsSuccess',
+  OFFERS_PARTIALLY_CONFIRMED = 'offersPartiallyConfirmed',
 }
 
 export type ExpiredItemRemovalStatusPayload = {

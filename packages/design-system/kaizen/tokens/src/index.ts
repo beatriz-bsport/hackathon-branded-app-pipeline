@@ -15,6 +15,24 @@ const CSS_VARIABLES_PATH = path.resolve(__dirname, "./index.css");
 const DEFAULT_THEME = "light";
 
 /**
+ * Some default helpers that are in the default Tailwind theme
+ * @see https://github.com/tailwindlabs/tailwindcss/blob/main/stubs/config.full.js
+ */
+const DEFAULT_TAILWIND_CONFIG: Partial<Config['theme']> = {
+  borderWidth: { '0': '0' },
+  borderRadius: { 'none': '0', 'full': '9999px' },
+  colors: {},
+  size: { '0': '0px' },
+  spacing: { '0': '0px' },
+  fontWeight: {},
+  fontSize: {},
+  lineHeight: {},
+  opacity: { '0': '0', '100': '1' },
+  boxShadow: { 'none': 'none' },
+  transitionDuration: { '0': '0s' },
+}
+
+/**
  * Converts a given theme into a shard of CSS and a Tailwind Theme config.
  * @param theme Supernova theme defined by the name of folder inside SOURCE_FOLDER.
  */
@@ -33,7 +51,7 @@ const convertThemeToCSS = async (
 }`;
   const tailwindConfig = adaptersOutput.reduce(
     (acc, { tailwindTheme }) => merge(acc, tailwindTheme),
-    {},
+    { ...DEFAULT_TAILWIND_CONFIG },
   );
   return { cssContent, tailwindConfig };
 };

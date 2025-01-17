@@ -67,7 +67,7 @@ export const offerFactory = memoize(
       offerStatus?: 'waitingList' | 'cancel' | 'past' | 'bookable' | 'future';
     },
     // Here a index to byPassMemoization in some cases
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+
     _memoizeOverride?: number,
   ) => {
     const {

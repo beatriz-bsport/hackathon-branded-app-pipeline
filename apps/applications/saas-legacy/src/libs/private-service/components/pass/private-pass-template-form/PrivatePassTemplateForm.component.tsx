@@ -36,9 +36,10 @@ import {
 } from '#src/components/forms';
 import { SegmentAnalyticsFormObjectIdentifier } from '#src/components/analytics/segment';
 import { rudderStackFormTrackingFunctionsRegistry } from '#src/components/analytics/rudderstack/utils';
-import { PrivatePassWithCompatibility } from '../../../types';
-import { getValidityInfo } from '../../../utils';
-import { ALMOST_100 } from '../../../../../constants';
+import type { PrivatePassWithCompatibility } from '#src/libs/private-service/types';
+import { getValidityInfo } from '#src/libs/private-service/utils';
+import { ALMOST_100 } from '#src/constants';
+import WarningIcon from '@material-ui/icons/Warning';
 
 const {
   trackFormAdd,
@@ -105,6 +106,14 @@ export const PrivatePassTemplateForm = (props: Props) => {
   return (
     <Form className={classes.container}>
       <div className={classes.categoryBlock}>
+        {props?.initial && props?.initial?.editable === false ? (
+          <div className={classes.flexRowCenter}>
+            <WarningIcon className={classes.iconLeftSpacing} color="error" />
+            <Typography color="error" variant="body1">
+              {t('privatePass.form.notEditable')}
+            </Typography>
+          </div>
+        ) : null}
         <div className={classes.flexRowCenter}>
           <InfoIcon className={classes.iconLeft} />
           <Typography variant="h6">
@@ -315,6 +324,9 @@ const useStyles = makeStyles((theme: Theme) => ({
   iconLeft: {
     marginRight: theme.spacing(2),
     color: '#868686',
+  },
+  iconLeftSpacing: {
+    marginRight: theme.spacing(2),
   },
   priceField: {
     marginRight: theme.spacing(1),

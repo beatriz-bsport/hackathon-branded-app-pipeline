@@ -188,8 +188,8 @@ const MemberVisitLiveHistoryTable: React.FC<Props> = ({
   const { count, page } = memberVisitState;
 
   const handlePaginationClick = useCallback(
-    (_: React.ChangeEvent<unknown>, page: number) => {
-      getMemberVisitList({ page });
+    (_: React.ChangeEvent<unknown>, _page: number) => {
+      getMemberVisitList({ page: _page });
     },
     [],
   );

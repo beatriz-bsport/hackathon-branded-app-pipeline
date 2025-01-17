@@ -44,13 +44,13 @@ export const PopoverOpeningOnClick: Story = {
         <div className="absolute flex flex-col gap-lg top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
           <Popover>
             <Popover.Anchor>
-              {({ isPopoverOpened, setIsPopoverOpened }) => (
+              {({ setIsPopoverOpened }) => (
                 <Button
                   label="Open popover"
                   intent="default"
                   color="main"
                   size="md"
-                  onClick={() => setIsPopoverOpened(!isPopoverOpened)}
+                  onClick={() => setIsPopoverOpened((prev) => !prev)}
                 />
               )}
             </Popover.Anchor>

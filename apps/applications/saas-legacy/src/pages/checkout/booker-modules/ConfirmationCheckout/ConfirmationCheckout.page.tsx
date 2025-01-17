@@ -374,9 +374,15 @@ export class ConfirmationCheckout extends React.PureComponent<Props, State> {
       paymentPackById,
       privatePassById,
       paymentComboById,
+      offerNotBookableIdWithErrorCodeList,
+      offerNotBookableList,
     } = this.props;
 
     const offers = [...(offerBookedList ?? []), ...(offerPreBookedList ?? [])];
+
+    const isPartiallyConfirmed =
+      !!offerNotBookableIdWithErrorCodeList?.length &&
+      !!offerBookedList?.length;
 
     const sortedOfferList = sortByDate(
       offers,
@@ -422,7 +428,7 @@ export class ConfirmationCheckout extends React.PureComponent<Props, State> {
 
     const isTwoColumnsDisplay = numberOfListToDisplay !== 1;
 
-    const errorCode = this.props.offerNotBookableIdWithErrorCodeList[0]?.[1];
+    const errorCode = offerNotBookableIdWithErrorCodeList[0]?.[1];
 
     const userRegistrationResponse = this.getParsedUserRegistrationResponse();
 
@@ -434,6 +440,7 @@ export class ConfirmationCheckout extends React.PureComponent<Props, State> {
       billingPlan,
       this.props.offerPreBookedIdList,
       userRegistrationResponse?.extra_data?.[0]?.booking_for_invitee_only,
+      isPartiallyConfirmed,
     );
 
     const isLoading = this.isLoading();
@@ -485,44 +492,80 @@ export class ConfirmationCheckout extends React.PureComponent<Props, State> {
             <div
               className={classNames(
                 'bs-confirmation-checkout-booking-list__container',
-                {
-                  'bs-confirmation-checkout-booking-list__container--hidden':
-                    !sortedOfferList?.length,
-                },
               )}
             >
-              <h5 className="bs-confirmation-checkout-booking-list__title">
-                {userRegistrationResponse?.extra_data?.[0]
-                  ?.booking_for_invitee_only
-                  ? t('validation.sections.offerGuestBooked', {
-                      count: sortedOfferList?.length,
-                    })
-                  : t('validation.sections.offerBooked', {
-                      count: sortedOfferList?.length,
-                    })}
-              </h5>
-              <MarketplaceOfferBookingList
-                bookingGuestFrequency={
-                  this.props.companyTheme.allow_guest_frequency
-                }
-                bookingGuestNumberLeft={this.props.bookingGuestRemainingCount}
-                classes={{
-                  'bs-confirmation-checkout-booking-list__list':
-                    'bs-confirmation-checkout-booking-list__list',
-                }}
-                companyTheme={companyTheme}
-                getBookableStatus={this.props.getOfferBookableStatus}
-                getGuestNameFromQueryParams={this.getGuestNameFromQueryParams}
-                getIsAddGuestDisabled={this.getIsAddGuestDisabled}
-                getOfferStatus={this.getOfferStatus}
-                getOfferWaitListPosition={
-                  this.props.getOfferStatusWaitingListPosition
-                }
-                hideCoach={hideCoach}
-                isLoading={isLoading}
-                offers={sortedOfferList}
-                onOpenAddGuestModal={this.handleOpenAddGuestDialog}
-              />
+              <div
+                className={classNames('bs-confirmation-checkout-booking-list', {
+                  'bs-confirmation-checkout-booking-list__confirmed-bookings--hidden':
+                    !sortedOfferList?.length,
+                })}
+              >
+                <h5 className="bs-confirmation-checkout-booking-list__title">
+                  {userRegistrationResponse?.extra_data?.[0]
+                    ?.booking_for_invitee_only
+                    ? t('validation.sections.offerGuestBooked', {
+                        count: sortedOfferList?.length,
+                      })
+                    : t('validation.sections.offerBooked', {
+                        count: sortedOfferList?.length,
+                      })}
+                </h5>
+                <MarketplaceOfferBookingList
+                  bookingGuestFrequency={
+                    this.props.companyTheme.allow_guest_frequency
+                  }
+                  bookingGuestNumberLeft={this.props.bookingGuestRemainingCount}
+                  classes={{
+                    'bs-confirmation-checkout-booking-list__list':
+                      'bs-confirmation-checkout-booking-list__list',
+                  }}
+                  companyTheme={companyTheme}
+                  getBookableStatus={this.props.getOfferBookableStatus}
+                  getGuestNameFromQueryParams={this.getGuestNameFromQueryParams}
+                  getIsAddGuestDisabled={this.getIsAddGuestDisabled}
+                  getOfferStatus={this.getOfferStatus}
+                  getOfferWaitListPosition={
+                    this.props.getOfferStatusWaitingListPosition
+                  }
+                  hideCoach={hideCoach}
+                  isLoading={isLoading}
+                  offers={sortedOfferList}
+                  onOpenAddGuestModal={this.handleOpenAddGuestDialog}
+                />
+              </div>
+              <div
+                className={classNames('bs-confirmation-checkout-booking-list', {
+                  'bs-confirmation-checkout-booking-list--hidden':
+                    !offerNotBookableList?.length,
+                })}
+              >
+                <h5 className="bs-confirmation-checkout-booking-list__title">
+                  {t('validation.sections.unableToBookSession', {
+                    count: offerNotBookableList?.length,
+                  })}
+                </h5>
+                <MarketplaceOfferBookingList
+                  classes={{
+                    'bs-confirmation-checkout-booking-list__list':
+                      'bs-confirmation-checkout-booking-list__list',
+                  }}
+                  companyTheme={companyTheme}
+                  getBookableStatus={this.props.getOfferBookableStatus}
+                  getGuestNameFromQueryParams={this.getGuestNameFromQueryParams}
+                  getIsAddGuestDisabled={this.getIsAddGuestDisabled}
+                  getOfferStatus={this.getOfferStatus}
+                  getOfferWaitListPosition={
+                    this.props.getOfferStatusWaitingListPosition
+                  }
+                  hideCoach={hideCoach}
+                  isLoading={isLoading}
+                  offerNotBookableIdWithErrorCodeList={
+                    offerNotBookableIdWithErrorCodeList
+                  }
+                  offers={offerNotBookableList}
+                  onOpenAddGuestModal={this.handleOpenAddGuestDialog}
+                />
+              </div>
             </div>
             <div
               className={classNames(

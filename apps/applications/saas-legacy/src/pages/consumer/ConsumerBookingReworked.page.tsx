@@ -515,20 +515,23 @@ const connector = connect(
     fetchPrivateConsumerPassBulk: fetchPrivateConsumerPassBulkAction,
     fetchPrivateSlotBulk: fetchPrivateSlotBulkAction,
     fetchPrivateServiceBulk: fetchPrivateServiceBulkAction,
-    // REWORKED
+    // GROUP ACTIVITIES BOOKINGS
     fetchMyPastBookingAsMember: fetchMyPastBookingAsMemberAction,
     fetchMyFutureBookingAsMember: fetchMyFutureBookingAsMemberAction,
     fetchMyBookingOptionAsMember: fetchMyBookingOptionAsMemberAction,
-    fetchMyBookingOptionWorkshopAsMember:
-      fetchMyBookingOptionWorkshopAsMemberAction,
-    resetConsumerState: resetConsumerStateAction,
-    fetchMyPastPrivateBookingAsMember: fetchMyPastPrivateBookingAsMemberAction,
-    fetchMyFuturePrivateBookingAsMember:
-      fetchMyFuturePrivateBookingAsMemberAction,
+    // WORSHOP BOOKINGS
     fetchMyPastBookingWorkshopAsMember:
       fetchMyPastBookingWorkshopAsMemberAction,
     fetchMyFutureBookingWorkshopAsMember:
       fetchMyFutureBookingWorkshopAsMemberAction,
+    fetchMyBookingOptionWorkshopAsMember:
+      fetchMyBookingOptionWorkshopAsMemberAction,
+    // PRIVATE BOOKINGS
+    fetchMyPastPrivateBookingAsMember: fetchMyPastPrivateBookingAsMemberAction,
+    fetchMyFuturePrivateBookingAsMember:
+      fetchMyFuturePrivateBookingAsMemberAction,
+
+    resetConsumerState: resetConsumerStateAction,
     cancelBookingAsMember: cancelBookingAsMemberAction,
     cancelPrivateBookingAsMember: cancelPrivateBookingAsMemberAction,
     cancelBookingOptionAsMember: cancelBookingOptionAsMemberAction,

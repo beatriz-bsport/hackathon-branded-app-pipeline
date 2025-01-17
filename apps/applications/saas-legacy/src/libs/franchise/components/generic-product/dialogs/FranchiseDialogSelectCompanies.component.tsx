@@ -38,7 +38,6 @@ export const FranchiseDialogSelectCompanies = (props: Props) => {
       [...(companyWithoutInstanceList || [])].reduce<
         Record<number, FranchiseCompany>
       >((dic, company) => {
-        // eslint-disable-next-line no-param-reassign
         dic[company.id] = company;
         return dic;
       }, {}),

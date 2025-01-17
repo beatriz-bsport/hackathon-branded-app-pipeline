@@ -85,8 +85,8 @@ function updateProjectTranslations({
   pathToPublicLocales: string;
   pathToI18n: string;
 }) {
-  // Write to the src/i18n/build folders so that Nx can track the changes
-  const pathToBuildDir = path.resolve(pathToI18n, "build", locale);
+  // Write to the src/i18n/locales folders so that Nx can track the changes
+  const pathToBuildDir = path.resolve(pathToI18n, "locales", locale);
   if (!existsSync(pathToBuildDir)) {
     removeSync(pathToBuildDir);
   }

@@ -1,10 +1,13 @@
 {
   "borderWidth": {
+    "0": "0",
     "stroke-thin": "var(--kz-border-width-stroke-thin)",
     "stroke-regular": "var(--kz-border-width-stroke-regular)",
     "stroke-bold": "var(--kz-border-width-stroke-bold)"
   },
   "borderRadius": {
+    "none": "0",
+    "full": "9999px",
     "xl": "var(--kz-border-radius-xl)",
     "lg": "var(--kz-border-radius-lg)",
     "md": "var(--kz-border-radius-md)",
@@ -240,6 +243,7 @@
     "surface-default-onstrong": "var(--kz-color-surface-default-onstrong)"
   },
   "size": {
+    "0": "0px",
     "element-2xs": "var(--kz-dimension-element-2xs)",
     "element-xs": "var(--kz-dimension-element-xs)",
     "element-sm": "var(--kz-dimension-element-sm)",
@@ -321,6 +325,7 @@
     "2xs": "var(--kz-sizing-2xs)"
   },
   "spacing": {
+    "0": "0px",
     "element-2xs": "var(--kz-dimension-element-2xs)",
     "element-xs": "var(--kz-dimension-element-xs)",
     "element-sm": "var(--kz-dimension-element-sm)",
@@ -429,6 +434,8 @@
     "2xs": "var(--kz-line-height-2xs)"
   },
   "opacity": {
+    "0": "0",
+    "100": "1",
     "xl": "var(--kz-opacity-xl)",
     "lg": "var(--kz-opacity-lg)",
     "md": "var(--kz-opacity-md)",
@@ -438,6 +445,7 @@
     "transparent": "var(--kz-opacity-transparent)"
   },
   "boxShadow": {
+    "none": "none",
     "action-default-rest": "var(--kz-shadow-action-default-rest)",
     "action-default-hovered": "var(--kz-shadow-action-default-hovered)",
     "action-default-pressed": "var(--kz-shadow-action-default-pressed)",
@@ -461,6 +469,7 @@
     "border-thin-critical": "var(--kz-shadow-border-thin-critical)"
   },
   "transitionDuration": {
+    "0": "0s",
     "default": "var(--kz-transition-duration-default)",
     "long": "var(--kz-transition-duration-long)",
     "short": "var(--kz-transition-duration-short)",

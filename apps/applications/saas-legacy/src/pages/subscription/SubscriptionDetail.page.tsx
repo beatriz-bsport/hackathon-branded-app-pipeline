@@ -591,6 +591,7 @@ const styles = (theme: Theme) =>
     },
   });
 
+/* eslint-disable-next-line */
 const stateHandlerInit = {
   switchPackDialogOpen: false,
   switchPrivatePassDialogOpen: false,
@@ -599,6 +600,8 @@ const stateHandlerInit = {
   switchPaymentMethodDialogOpen: false,
   scheduledStopDialogOpen: false,
 };
+
+/* eslint-disable-next-line */
 const stateHandlerSetter = {
   setSwitchPackDialogOpen: () => (switchPackDialogOpen: boolean) => {
     return { switchPackDialogOpen };

@@ -52,7 +52,7 @@ const globalMetrics = {
   push_notif_count: faker.number.int(10000),
 };
 
-const getGlobalMetrics = (cadenceId: number) => globalMetrics;
+const getGlobalMetrics = (_: number) => globalMetrics;
 
 export const Primary = Template.bind({});
 Primary.args = {

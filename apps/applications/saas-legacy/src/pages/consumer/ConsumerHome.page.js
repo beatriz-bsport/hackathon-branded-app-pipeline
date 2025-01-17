@@ -236,12 +236,12 @@ export class ConsumerHome extends React.Component<Props> {
   attachConsumerProps = (MyComponent: React.Component<*>) => (props: any) =>
     (
       <MyComponent
-        // eslint-disable-next-line react/no-this-in-sfc
+         
         companyId={this.props.companyId}
         {...props}
-        // eslint-disable-next-line react/no-this-in-sfc
+         
         membership={this.props.membership}
-        // eslint-disable-next-line react/no-this-in-sfc
+         
         push={this.buildPath}
       />
     );

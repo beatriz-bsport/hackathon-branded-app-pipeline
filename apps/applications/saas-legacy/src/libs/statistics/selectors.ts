@@ -1,57 +1,14 @@
 import { createSelector } from 'reselect';
-import { bindActionCreators } from 'redux';
 import Immutable from 'seamless-immutable';
 import { DateTime } from 'luxon';
 import { getDateRangeFromGraphFilter } from '#src/libs/dashboard/utils';
 import { discretizeByAndFillMissing as discretizeAndFillMissing } from '../../state/stats/utils';
-import { State, Dispatch } from '../../state/types';
-// @ts-expect-error
-import { Graph } from './types';
+import { State } from '../../state/types';
+
 import type {
   DataSourceDashboardGraph,
   DataSourceDashboardTab,
 } from '../dashboard/types';
-
-export const getGraphData = (
-  state: State,
-  graphList: Array<Graph>,
-  dateRangeByIdentifier: {
-    [key: string]: { start: string; end: string; kind: string };
-  },
-  graphRessources: any,
-) => {
-  const data = {};
-  graphList.forEach((graph) => {
-    const { timeSettings, selector } =
-      graphRessources[graph.ressourceIdentifier];
-    if (timeSettings !== 'none') {
-      // @ts-expect-error
-      data[graph.name] = selector(
-        state,
-        graph.name,
-        dateRangeByIdentifier[graph.name],
-        graph.aggregate,
-      );
-    } else {
-      // @ts-expect-errors
-      data[graph.name] = selector(state, graph.name);
-    }
-  });
-  return data;
-};
-
-export const getGraphActions = (
-  dispatch: Dispatch,
-  graphList: Array<Graph>,
-  graphRessources: any,
-) => {
-  const actions = {};
-  graphList.forEach((graph) => {
-    // @ts-expect-error
-    actions[graph.name] = graphRessources[graph.ressourceIdentifier].action;
-  });
-  return bindActionCreators(actions, dispatch);
-};
 
 export const getStatisticTemporal = (
   state: State,

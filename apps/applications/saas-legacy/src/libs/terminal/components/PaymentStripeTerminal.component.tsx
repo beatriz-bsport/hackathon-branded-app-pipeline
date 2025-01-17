@@ -170,7 +170,7 @@ const recursivePoll = async (
           ),
         );
     }
-  } catch (err) {
+  } catch (_err) {
     setPollingTimeoutId(
       setTimeout(
         () =>

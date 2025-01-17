@@ -12,6 +12,7 @@ import { ErrorAndLoading } from '../../state/types';
 import { Company } from '../company/types';
 import type { MarketingNotification } from '../marketing/types';
 
+/* eslint-disable-next-line */
 const startDateMethodsTypes = [
   `${START_ON_PURCHASE}`,
   `${START_ON_FIRST_BOOKING}`,

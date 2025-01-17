@@ -124,7 +124,7 @@ const RecursiveDeepCheckBox: React.FC<Props> = ({
     obj &&
       Object.keys(obj).forEach((_key) => {
         if (typeof obj[_key] === 'boolean') {
-          /* eslint-disable-next-line */
+           
           obj[_key] = _value;
         } else if (typeof obj[_key] === 'object') {
           setValuesDeep(obj[_key], _value);

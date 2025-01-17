@@ -256,7 +256,7 @@ export class MarketplaceSubscriptionPayment extends React.Component<
       await this.props.detachPaymentMethod(paymentMethodId.toString());
       this.props.fetchPaymentMethodList();
       options?.onSuccess?.();
-    } catch (err) {
+    } catch (_err) {
       options?.onError?.();
     }
   };

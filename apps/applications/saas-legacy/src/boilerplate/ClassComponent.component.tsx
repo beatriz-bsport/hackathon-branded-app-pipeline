@@ -7,12 +7,12 @@ import { compose } from 'recompose';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 
-import { WithStyles, createStyles, withStyles, Theme } from '@material-ui/core';
+import { WithStyles, createStyles, withStyles } from '@material-ui/core';
 import { withTranslation, WithTranslation } from 'react-i18next';
 
 import { RootState } from '../reducers';
 
-const styles = (theme: Theme) =>
+const styles = () =>
   createStyles({
     container: {},
   });

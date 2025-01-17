@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
-import Immutable from 'seamless-immutable';
 
 import UniqueCodeCouponFormWithFormik, {
   UniqueCodeCouponForm,
@@ -25,6 +24,7 @@ const fakePaymentPacks: PaymentPack[] = paymentPackListFactory(10, {
   isTemplate: false,
 });
 
+/* eslint-disable-next-line */
 const fakeAllPaymentPacksById = fakePaymentPacks.reduce(
   (result: { [key: number]: PaymentPack }, paymentPack) => {
     result[paymentPack.id] = paymentPack;
@@ -35,6 +35,7 @@ const fakeAllPaymentPacksById = fakePaymentPacks.reduce(
 
 const fakePrivatePasses: PrivatePass[] = privatePassListFactory(10);
 
+/* eslint-disable-next-line */
 const fakePrivatePassesById = fakePrivatePasses.reduce(
   (result: { [key: number]: PrivatePass }, privatePass) => {
     result[privatePass.id] = privatePass;
@@ -45,6 +46,7 @@ const fakePrivatePassesById = fakePrivatePasses.reduce(
 
 const fakePaymentCombos = paymentComboListFactory(10) as PaymentCombo[];
 
+/* eslint-disable-next-line */
 const fakePaymentCombosById = fakePaymentCombos.reduce(
   (result: { [key: number]: PaymentCombo }, paymentCombo) => {
     result[paymentCombo.id] = paymentCombo;

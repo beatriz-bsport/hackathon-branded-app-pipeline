@@ -24,8 +24,10 @@ h5 {
 /* .bs-confirmation-checkout-message__container{} 
 */
 
-/* .bs-confirmation-checkout-booking-list__container{}
-*/
+.bs-confirmation-checkout-booking-list__container {
+  display: flex;
+  gap: var(--spacing-4);
+}
 
 /* .bs-confirmation-checkout-booking-list__title{}
 */
@@ -45,7 +47,11 @@ h5 {
 /* .bs-confirmation-checkout-product-list__giftcard-list__container{}
 */
 
-.bs-confirmation-checkout-booking-list__container--hidden {
+.bs-confirmation-checkout-booking-list {
+  width: 100%;
+}
+
+.bs-confirmation-checkout-booking-list--hidden {
   display: none;
 }
 
@@ -122,5 +128,8 @@ h5 {
   .bs-confirmation-checkout-container--with-padding {
     width: 100%;
     padding: var(--spacing-2);
+  }
+  .bs-confirmation-checkout-booking-list__container {
+    flex-direction: column;
   }
 }

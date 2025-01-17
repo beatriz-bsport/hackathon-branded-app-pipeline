@@ -10,7 +10,7 @@
     "ci:build": "./scripts/ci-build.sh",
     "ci:deploy": "./scripts/ci-deploy.sh",
     "deploy": "npm run build && gh-pages -d dist",
-    "lint-old": "eslint ./src",
+    "lint-broken": "eslint ./src",
     "start": "NODE_ENV=development NODE_OPTIONS=--openssl-legacy-provider webpack serve --config webpack.config.js",
     "test": "jest",
     "test-update-snapshots": "jest --updateSnapshot"

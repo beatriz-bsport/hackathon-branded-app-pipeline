@@ -2,7 +2,6 @@ import React from 'react';
 import { TutorialLessonFactory, TutorialSectionFactory } from '../factories';
 
 import TutorialLessonHeader, { Props } from './TutorialLessonHeader.component';
-import { TutorialCompletion } from '../types';
 
 const section_completed = TutorialSectionFactory(1, 1, 5, true);
 const section_no_completed = TutorialSectionFactory(1, 1, 4, false);

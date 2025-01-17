@@ -219,7 +219,6 @@ const RecurrenceRuleBookingSchema = Yup.object().shape({
 });
 
 export const RecurrenceRuleBookingFormikHOC = withFormik({
-  // eslint-disable-next-line
   mapPropsToValues: ({ initial }) =>
     initial
       ? {

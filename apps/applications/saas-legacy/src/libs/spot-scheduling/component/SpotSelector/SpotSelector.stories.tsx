@@ -322,6 +322,7 @@ const RoomBlueprint2 = {
   disabled: false,
 };
 
+/* eslint-disable-next-line */
 const RoomBlueprint = {
   id: 197,
   company: 670,
@@ -382,6 +383,7 @@ const RoomBlueprint = {
   disabled: false,
 };
 
+/* eslint-disable-next-line */
 const spotType = {
   id: 14,
   name: 'gfdgdf',

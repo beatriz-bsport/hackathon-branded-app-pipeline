@@ -1,3 +1,4 @@
+/* eslint-disable-next-line */
 const PassTabTypes = [
   'consumerPaymentPack',
   'privateConsumerPass',
@@ -6,6 +7,7 @@ const PassTabTypes = [
 
 export type PassTab = (typeof PassTabTypes)[number];
 
+/* eslint-disable-next-line */
 const PassFilterTabTypes = ['active', 'future', 'expired'] as const;
 
 export type PassFilterTab = (typeof PassFilterTabTypes)[number];

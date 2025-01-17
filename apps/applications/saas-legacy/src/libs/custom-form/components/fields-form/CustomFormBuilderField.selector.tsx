@@ -56,7 +56,7 @@ const fieldStyles = {
   // @ts-expect-error
   option: (styles, { isDisabled, isFocused, isSelected }) => {
     const color = chroma(colors.secondary);
-    /* eslint-disable */
+
     return {
       ...styles,
       backgroundColor: isDisabled
@@ -82,7 +82,6 @@ const fieldStyles = {
           (isSelected ? colors.secondary : color.alpha(0.3).css()),
       },
     };
-    /* eslint-enable */
   },
   // @ts-expect-error
   multiValue: (styles) => {

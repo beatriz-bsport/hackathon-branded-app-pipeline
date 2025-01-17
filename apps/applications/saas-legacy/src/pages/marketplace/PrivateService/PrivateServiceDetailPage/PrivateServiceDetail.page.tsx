@@ -108,6 +108,10 @@ type OwnProps = {
 
 type Props = OwnProps & ConnectedProps<typeof connector>;
 
+/**
+ * @deprecated
+ * Use #src/pages/marketplace/PrivateService/SlotSelectorPage instead
+ */
 export const PrivateServiceDetailPage: React.FC<Props> = (props) => {
   const {
     onSessionSelect,

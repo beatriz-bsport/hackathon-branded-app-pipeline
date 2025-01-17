@@ -183,7 +183,7 @@ export const generalSectionInteractionTests = async ({
 
 export const validitySectionInteractionTests = async ({
   canvasElement,
-  args,
+  _args,
 }: StoryContext<
   ReactFramework,
   React.ComponentProps<typeof PaymentPackForm>

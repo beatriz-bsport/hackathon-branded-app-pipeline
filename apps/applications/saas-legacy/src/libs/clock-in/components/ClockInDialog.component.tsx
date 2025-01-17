@@ -64,7 +64,7 @@ type Props = {
     },
     options: OptionPaginatedCallback<Role>,
   ) => void;
-  // eslint-disable-next-line no-empty-pattern
+
   fetchMyLastClockin: ({}) => Promise<void>;
   onClose: () => void;
 };

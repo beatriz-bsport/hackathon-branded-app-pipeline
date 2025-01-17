@@ -20,6 +20,7 @@ import MarketplaceLevelCSSOnly from '#src/libs/marketplace/components/@Offer/Mar
 import Button, { ButtonVariant } from '#Fabrique/Button';
 import Tooltip from '#Fabrique/Tooltip';
 
+import Alert, { AlertSeverity } from '#src/components/css-only/Alert';
 import './styles.css';
 
 export type Props = {
@@ -39,6 +40,7 @@ export type Props = {
   onOpenAddGuestModal?: () => void;
   spotId?: string | number;
   positionInWaitingList: number;
+  errorMessage?: string;
 };
 
 const MarketplaceBookingItem: React.FC<Props> = ({
@@ -58,6 +60,7 @@ const MarketplaceBookingItem: React.FC<Props> = ({
   guestName,
   onOpenAddGuestModal,
   spotId,
+  errorMessage,
 }) => {
   const { t } = useTranslation(['checkout', 'booking']);
   const hasStatusChip = isWaitingList;
@@ -172,7 +175,7 @@ const MarketplaceBookingItem: React.FC<Props> = ({
               customLevel={level}
             />
           </GridItem>
-          {shouldDisplayAddGuestButton && (
+          {shouldDisplayAddGuestButton && !errorMessage && (
             <GridItem
               alignment={Alignment.FLEX_END}
               classes={{
@@ -203,6 +206,14 @@ const MarketplaceBookingItem: React.FC<Props> = ({
             </GridItem>
           )}
         </Grid>
+        {!!errorMessage && (
+          <Alert
+            className="bs-booking-item-alert"
+            severity={AlertSeverity.ERROR}
+          >
+            {errorMessage}
+          </Alert>
+        )}
       </CardContent>
     </Card>
   );

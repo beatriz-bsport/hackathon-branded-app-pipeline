@@ -25,7 +25,7 @@ import TimerIcon from '@material-ui/icons/Timer';
 import Typography from '@material-ui/core/Typography';
 import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
 
-import { memoize } from 'lodash';
+import memoize from 'lodash/memoize';
 import { UpsellPackage } from '#src/libs/company/types';
 import { getUpsellPriceString } from '#src/libs/platform-billing/utils';
 import {

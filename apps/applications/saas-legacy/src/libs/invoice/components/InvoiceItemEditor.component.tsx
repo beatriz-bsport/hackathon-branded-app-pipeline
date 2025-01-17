@@ -233,7 +233,7 @@ const InvoiceItemEditor: React.FC<Props> = ({
         // @ts-expect-error
         (bi) => bi.id === buyableItemId,
       );
-      // eslint-disable-next-line
+
       for (let i = 0; i < quantity; i++) {
         onAddBuyableItem(buyableItemIdentifier, {
           ...buyableItem,

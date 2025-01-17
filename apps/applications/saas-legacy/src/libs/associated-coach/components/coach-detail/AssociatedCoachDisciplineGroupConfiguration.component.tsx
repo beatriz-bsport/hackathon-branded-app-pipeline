@@ -650,7 +650,6 @@ const selectStyles: Partial<
       color = colors.secondary;
     }
 
-    /* eslint-disable */
     return {
       ...styles,
       backgroundColor,
@@ -664,7 +663,6 @@ const selectStyles: Partial<
           (isSelected ? colors.secondary : colorChroma.alpha(0.3).css()),
       },
     };
-    /* eslint-enable */
   },
   // @ts-expect-error
   multiValue: (styles) => {

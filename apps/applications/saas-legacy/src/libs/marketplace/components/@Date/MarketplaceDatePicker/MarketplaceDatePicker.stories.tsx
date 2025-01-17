@@ -8,7 +8,7 @@ import MarketplaceDatePicker, {
 const CustomTemplate = (args: Props) => {
   const { dateSelected, ...props } = args;
   const style = useMuiThemeToCssVars();
-  const [date, setDate] = useState(dateSelected);
+  const [date, _setDate] = useState(dateSelected);
 
   return (
     <div style={{ ...style, height: 400 }}>

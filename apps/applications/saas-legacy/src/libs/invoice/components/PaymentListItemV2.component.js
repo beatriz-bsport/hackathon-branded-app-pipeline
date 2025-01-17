@@ -47,13 +47,11 @@ export const PaymentItem = (props: Props) => {
             <WarningIcon color="error" />
           )}
         {!paymentItem.is_processing &&
-          // eslint-disable-next-line
           false === paymentItem.payment_received &&
           paymentItem.payment_method === PAYMENT_METHOD_DISPUTE.id && (
             <CheckCircleOutlineIcon color="primary" />
           )}
         {!paymentItem.is_processing &&
-          // eslint-disable-next-line
           false === paymentItem.payment_received &&
           paymentItem.payment_method !== PAYMENT_METHOD_DISPUTE.id && (
             <CancelIcon color="secondary" />
@@ -68,7 +66,6 @@ export const PaymentItem = (props: Props) => {
               className={
                 paymentItem.reverted ||
                 (!paymentItem.is_processing &&
-                  // eslint-disable-next-line
                   false === paymentItem.payment_received &&
                   paymentItem.payment_method === PAYMENT_METHOD_DISPUTE.id)
                   ? classes.revert
@@ -78,7 +75,6 @@ export const PaymentItem = (props: Props) => {
               {t(`paymentMethod.${paymentItem.payment_method}`)}
             </Typography>
             {!paymentItem.is_processing &&
-            // eslint-disable-next-line
             false === paymentItem.payment_received &&
             paymentItem.payment_method === PAYMENT_METHOD_DISPUTE.id ? (
               <Typography style={{ marginLeft: 4 }}>

@@ -2,10 +2,7 @@ import React from 'react';
 import { fakerEN as faker } from '@faker-js/faker';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
-import MarketplacePageContent, {
-  MarketplacePageContentStorybook,
-  Props,
-} from '.';
+import MarketplacePageContent, { MarketplacePageContentStorybook } from '.';
 import Typography from '#Fabrique/Typography';
 import MarketplaceAppBar from '#src/libs/marketplace/components/@AppBar/MarketplaceAppBar';
 import { marketplaceSettingsFactory } from '#src/libs/marketplace/factories';

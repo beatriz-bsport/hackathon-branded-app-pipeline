@@ -60,7 +60,6 @@ const getLimitation = (
     if (paymentPack.unlimited) {
       credits = 1000;
     } else {
-      // eslint-disable-next-line
       credits = paymentPack.credits;
     }
     const { start, end } = getPaymentPackTimeLimitation(paymentPack, baseDate);

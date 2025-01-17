@@ -3,9 +3,7 @@ import React from 'react';
 import { action } from '@storybook/addon-actions';
 import type { ComponentStory, ComponentMeta } from '@storybook/react';
 
-import CadenceGlobalMetricsProgressList, {
-  MetricsProgressList,
-} from './CadenceGlobalMetricsProgressList.component';
+import { MetricsProgressList } from './CadenceGlobalMetricsProgressList.component';
 
 const actionsData = {
   onClick: action('onClick'),

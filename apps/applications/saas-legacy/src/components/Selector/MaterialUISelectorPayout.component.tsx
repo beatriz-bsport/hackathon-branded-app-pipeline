@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useMemo } from 'react';
-// eslint-disable-next-line bsport/no-redux-in-component
+
 import { makeStyles } from '@material-ui/core';
 import uniqBy from 'lodash/uniqBy';
 

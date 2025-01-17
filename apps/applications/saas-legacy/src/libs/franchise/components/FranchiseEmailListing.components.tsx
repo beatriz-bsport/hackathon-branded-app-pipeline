@@ -57,7 +57,6 @@ const FranchiseEmailListing = (props: Props) => {
   const companyDic = useMemo(
     () =>
       companies?.reduce<Record<number, FranchiseCompany>>((dic, company) => {
-        // eslint-disable-next-line no-param-reassign
         dic[company.id] = company;
         return dic;
       }, {}),
@@ -68,7 +67,6 @@ const FranchiseEmailListing = (props: Props) => {
     () =>
       companiesEmails.reduce<Record<number, EmailTemplateSummary[]>>(
         (byCompanyId, email) => {
-          // eslint-disable-next-line no-param-reassign
           byCompanyId[email.company_id] = (
             byCompanyId?.[email.company_id] ?? []
           ).concat([email]);

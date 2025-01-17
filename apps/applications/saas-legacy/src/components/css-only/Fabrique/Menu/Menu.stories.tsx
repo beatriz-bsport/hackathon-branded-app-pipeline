@@ -97,7 +97,7 @@ const Template: ComponentStory<typeof Menu> = (
   const [anchorEl, setAnchorEl] = React.useState<HTMLElement>(null);
   const handleOnClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     const currentTarget = event.currentTarget;
-    const id = currentTarget.getAttribute('id');
+    const _id = currentTarget.getAttribute('id');
     setAnchorEl(currentTarget);
     setIsOpen(true);
   };

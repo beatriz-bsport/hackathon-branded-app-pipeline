@@ -2,7 +2,6 @@
 
 import React from 'react';
 
-/* eslint-disable */
 export default (pageName) =>
   function (WrappedComponent) {
     return class extends React.Component {
@@ -19,4 +18,3 @@ export default (pageName) =>
       }
     };
   };
-/* eslint-enable */

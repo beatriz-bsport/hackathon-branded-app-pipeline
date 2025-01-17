@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 
-import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-inbox.js';
 import InboxPanel, { Props } from './InboxPanel.component';
 import { MemberFactory } from '#src/libs/member/factories/Member';
 import { smartlistFactory } from '#src/libs/smart-list/factories';
@@ -33,7 +32,7 @@ const randomSmartlistFilters = filters.slice(0, generateRandomInt(5));
 
 const offer = offerFactory();
 const effectif = offer.effectif;
-const idList = Array.from(Array(effectif).keys()).map((item, index) =>
+const idList = Array.from(Array(effectif).keys()).map((_item, _index) =>
   generateRandomInt(1000),
 );
 const bookings = BookingListFactory(generateRandomInt(effectif), idList);

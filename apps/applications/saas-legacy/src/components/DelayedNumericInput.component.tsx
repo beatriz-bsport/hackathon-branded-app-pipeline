@@ -29,7 +29,6 @@ export class DelayedNumericInput extends Component<Props, State> {
 
   componentDidUpdate(prevProps: Props) {
     if (this.props.value !== prevProps.value) {
-      // eslint-disable-next-line
       this.setState({ value: this.props.value });
     }
   }

@@ -10,7 +10,10 @@ export const defaultClasses = [
 
 const checkbox = cva(defaultClasses);
 
-export type CheckboxProps = React.InputHTMLAttributes<HTMLInputElement> &
+export type CheckboxProps = Omit<
+  React.InputHTMLAttributes<HTMLInputElement>,
+  "onChange" | "value"
+> &
   VariantProps<typeof checkbox> & {
     value: "checked" | "unchecked" | "indeterminate";
     label?: string;

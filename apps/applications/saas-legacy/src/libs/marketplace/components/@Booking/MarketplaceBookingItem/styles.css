@@ -13,6 +13,10 @@
 /* .bs-booking-item-chip--level-mobile{} 
 */
 
+.bs-booking-item-alert {
+  margin-top: var(--spacing-3);
+}
+
 .bs-booking-item-grid {
   display: grid;
   grid-template-areas:

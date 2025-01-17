@@ -32,13 +32,13 @@ export function getTimezonesForCountry(
   includeOffset: true,
   options: OptionTimezonesForCountry,
 ): TimezoneAndOffset<true>[];
-// eslint-disable-next-line no-redeclare
+
 export function getTimezonesForCountry(
   countryCode: string,
   includeOffset: false,
   options?: OptionTimezonesForCountry,
 ): TimezoneAndOffset<false>[];
-// eslint-disable-next-line no-redeclare
+
 export function getTimezonesForCountry(
   countryCode: string,
   includeOffset?: boolean,

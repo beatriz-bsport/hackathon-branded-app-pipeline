@@ -533,7 +533,7 @@ export const fetchBatchUnreadAnswersCounts = (
       const response = await fetchBatchUnreadAnswersCountsAPI(params);
       dispatch(fetchUnreadAnswersCountsActions.batch(response.data));
       options?.onSuccess?.();
-    } catch (error) {
+    } catch (_error) {
       options?.onError?.();
     }
   };
@@ -552,7 +552,7 @@ export const getUnreadAnswersCountFromThread = (
       };
       dispatch(fetchUnreadAnswersCountsActions.detail(payload));
       options?.onSuccess?.();
-    } catch (error) {
+    } catch (_error) {
       options?.onError?.();
     }
   };

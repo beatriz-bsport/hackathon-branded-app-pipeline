@@ -1,6 +1,7 @@
 import type {
   Coach,
   CoachReplacementPreferencesData,
+  FetchCoachParams,
   UpdateCoachPrivateSlotsPaymentRuleData,
 } from '#src/libs/associated-coach/types';
 import {
@@ -18,10 +19,10 @@ import {
 // -----------------------
 //
 
-export async function fetchAssociatedCoaches(params?: {
-  [key: string]: boolean;
-}) {
-  return getAuth(`${API_V1_URI}/associated_coach/${buildUrlParams(params)}`);
+export async function fetchAssociatedCoaches(params?: FetchCoachParams) {
+  return getAuth<Coach[]>(
+    `${API_V1_URI}/associated_coach/${buildUrlParams(params)}`,
+  );
 }
 
 export async function fetchPaginatedAssociatedCoaches(params?: {

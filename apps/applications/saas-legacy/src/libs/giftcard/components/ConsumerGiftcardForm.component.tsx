@@ -297,7 +297,6 @@ export const ConsumerGiftcardSchema = Yup.object().shape({
 });
 
 export const ConsumerGiftcardFormFieldHOC = withFormik({
-  // eslint-disable-next-line
   // @ts-expect-error
   mapPropsToValues: ({ giftcard }) => ({
     ...{
@@ -320,7 +319,6 @@ export const ConsumerGiftcardFormFieldHOC = withFormik({
     // @ts-expect-error
     { props: { onSubmit, onSuccess, onError }, setSubmitting },
   ) => {
-    // eslint-disable-next-line
     const force = !!parseQueryString(location.search || '')?.force;
     onSubmit(
       { ...values, force },

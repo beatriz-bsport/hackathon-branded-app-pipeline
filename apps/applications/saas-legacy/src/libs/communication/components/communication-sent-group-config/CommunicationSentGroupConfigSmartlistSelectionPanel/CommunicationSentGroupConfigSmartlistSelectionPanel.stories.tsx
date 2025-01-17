@@ -1,7 +1,7 @@
 import React from 'react';
 
 import withFormik from '@bbbtech/storybook-formik';
-import { ComponentMeta, ComponentStory, Meta } from '@storybook/react';
+import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import CommunicationSentGroupConfigSmartlistSelectionPanel from '.';
 import { SmartList } from '#src/libs/smart-list/types';

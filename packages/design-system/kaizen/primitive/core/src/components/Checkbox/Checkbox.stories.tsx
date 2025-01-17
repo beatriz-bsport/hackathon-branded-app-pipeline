@@ -56,7 +56,7 @@ export const CheckboxCheckedUnchecked: Story = {
       <Checkbox
         {...args}
         value={value}
-        onChange={() => setValue(value === "checked" ? "unchecked" : "checked")}
+        onChange={(checked) => setValue(checked ? "checked" : "unchecked")}
       />
     );
   },
@@ -81,8 +81,8 @@ export const CheckboxIndeterminateUnchecked: Story = {
       <Checkbox
         {...args}
         value={value}
-        onChange={() =>
-          setValue(value === "indeterminate" ? "unchecked" : "indeterminate")
+        onChange={(checked) =>
+          setValue(checked ? "indeterminate" : "unchecked")
         }
       />
     );
@@ -90,7 +90,7 @@ export const CheckboxIndeterminateUnchecked: Story = {
   args: {
     value: "indeterminate",
     label: "Label placeholder",
-    id: "checkbox-1",
+    id: "checkbox-2",
     required: false,
     disabled: false,
     helperText: "",
@@ -117,7 +117,7 @@ export const CheckboxIndeterminateChecked: Story = {
   args: {
     value: "indeterminate",
     label: "Label placeholder",
-    id: "checkbox-1",
+    id: "checkbox-3",
     required: false,
     disabled: false,
     helperText: "",

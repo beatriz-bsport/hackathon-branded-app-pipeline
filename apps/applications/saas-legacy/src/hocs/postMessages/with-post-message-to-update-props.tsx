@@ -193,7 +193,6 @@ export function withPostMessageToUpdateProps<
             this.setState(
               keysToDeleteFromHOCState.reduce((newState, currentKey) => {
                 // Set the value to undefined to clear it from the state
-                // eslint-disable-next-line no-param-reassign
                 newState[currentKey] = undefined;
                 return newState;
               }, {} as Partial<WrappedComponentProps>),

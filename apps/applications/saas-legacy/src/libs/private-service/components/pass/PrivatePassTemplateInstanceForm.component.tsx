@@ -19,7 +19,7 @@ const PrivatePassTemplateInstanceForm = (props: Props) => {
   const companyDic = companies?.reduce<Record<number, FranchiseCompany>>(
     // @ts-expect-error
     (dic, company) => {
-      // eslint-disable-next-line no-param-reassign
+       
       dic[company.id] = company;
       return dic;
     },

@@ -37,6 +37,7 @@ export type Props = {
   getOfferWaitListPosition: (
     offerId: number,
   ) => OfferStatusWaitingListPosition | {};
+  errorMessage?: string;
 };
 
 const MarketplaceOfferBookingItem: React.FC<Props> = ({
@@ -52,6 +53,7 @@ const MarketplaceOfferBookingItem: React.FC<Props> = ({
   isRegistered,
   onOpenAddGuestModal,
   getOfferWaitListPosition,
+  errorMessage,
 }) => {
   const formattedDate = useOfferFormattedDate(
     offer,
@@ -99,6 +101,7 @@ const MarketplaceOfferBookingItem: React.FC<Props> = ({
       coach={offer.coach}
       companyTheme={companyTheme}
       date={date}
+      errorMessage={errorMessage}
       establishment={offer.establishment}
       guestName={guestName}
       hideCoach={hideCoach}

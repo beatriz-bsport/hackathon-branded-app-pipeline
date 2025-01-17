@@ -502,21 +502,21 @@ export class OfferManagement extends Component<Props, State> {
         data.country
       )
     ) {
-      // eslint-disable-next-line
+       
       delete data.address_line_1;
-      // eslint-disable-next-line
+       
       delete data.address_line_2;
-      // eslint-disable-next-line
+       
       delete data.city;
-      // eslint-disable-next-line
+       
       delete data.zipcode;
-      // eslint-disable-next-line
+       
       delete data.state;
-      // eslint-disable-next-line
+       
       delete data.country;
     }
     if (!data.birthday) {
-      // eslint-disable-next-line
+       
       delete data.birthday;
     }
 

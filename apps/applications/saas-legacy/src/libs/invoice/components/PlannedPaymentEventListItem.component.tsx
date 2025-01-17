@@ -62,7 +62,6 @@ const onlyIfFuture =
             .minutes,
         ) > 30
       ) {
-        // eslint-disable-next-line no-alert
         alert(t('plannedPaymentEvent.lockedToday'));
         return;
       }

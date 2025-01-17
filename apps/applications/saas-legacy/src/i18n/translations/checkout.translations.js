@@ -69,6 +69,8 @@ const getTranslations = async () => {
         offerPreBooked: "You've joined the waitlist for",
         offerBooked: 'My booking',
         offerBooked_plural: 'My bookings',
+        unableToBookSession: 'Unable to book session',
+        unableToBookSession_plural: 'Unable to book sessions',
         offerGuestBooked: 'My guest booking',
         offerGuestBooked_plural: 'My guest bookings',
         basket: 'My basket',
@@ -120,6 +122,8 @@ const getTranslations = async () => {
             'The booking has been made. You and your guest will shortly receive a confirmation e-mail with all the details.',
           offerOnlySuccess_plural:
             'The bookings have been made. You will soon receive a confirmation e-mail with all the details.',
+          offersPartiallyConfirmed:
+            'Some sessions could not be booked, possibly because they filled up or were canceled during checkout. You will receive a confirmation email shortly with details of the successful bookings.',
         },
         confirmationStatusTitle: {
           success: {
@@ -131,6 +135,9 @@ const getTranslations = async () => {
           errors: {
             genericOfferError: 'Oops! The booking failed.',
             generic: 'Oops! Payment failed.',
+          },
+          warning: {
+            offersPartiallyConfirmed: 'Your booking is partially confirmed',
           },
         },
       },

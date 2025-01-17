@@ -2,7 +2,6 @@
 
 import React from 'react';
 
-/* eslint-disable */
 export default (mapProps) => (WrappedComponent) => {
   return class extends React.Component {
     componentDidMount() {
@@ -16,4 +15,3 @@ export default (mapProps) => (WrappedComponent) => {
     }
   };
 };
-/* eslint-enable */

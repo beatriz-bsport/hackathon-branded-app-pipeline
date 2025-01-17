@@ -25,8 +25,8 @@ const CanvasSvgDisplayOnly: React.FC = ({
     height: 0,
     width: 0,
   });
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { width, height } = useParentSize(containerRef);
+
+  const { width } = useParentSize(containerRef);
 
   const [isPanningDisabled, setIsPanningDisabled] = React.useState(true);
   // CDM

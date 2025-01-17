@@ -102,7 +102,6 @@ export class EmailEditorPanel extends Component<Props, State> {
     this.companyDic = this.props?.companies?.reduce<
       Record<number, FranchiseCompany>
     >((dic, company) => {
-      // eslint-disable-next-line no-param-reassign
       dic[company.id] = company;
       return dic;
     }, {});

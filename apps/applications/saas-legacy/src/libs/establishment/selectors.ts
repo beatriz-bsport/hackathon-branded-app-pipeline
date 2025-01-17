@@ -243,3 +243,7 @@ export const getEstablishmentBulkRetrieveState = (state: RootState) =>
 export const getEstablishmentsSelectedInRole = (state: RootState): number[] => {
   return state.auth.establishments_selected_in_role;
 };
+
+export const getEstablishmentsByAssociatedId = (state: RootState) => {
+  return state.establishment.byAssociatedEstablishmentId;
+};

@@ -1,7 +1,6 @@
 import React from 'react';
 import FranchiseDrawer from './FranchiseDrawer.component';
 import type { TempPasswordState } from '../../libs/login/types';
-import FactoryBot from '../../libs/franchise/factories/Franchise';
 import { Theme } from '@material-ui/core';
 
 interface argTypes {
@@ -18,8 +17,6 @@ interface argTypes {
 const CustomTemplate = (args: argTypes) => <FranchiseDrawer {...args} />;
 
 export const CompleteInitialState = CustomTemplate.bind({});
-
-const franchise = FactoryBot.Franchise.createOne();
 
 CompleteInitialState.args = {
   children: <div>Content</div>,

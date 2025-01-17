@@ -32,8 +32,7 @@ const AvatarField: React.FC<Props> = ({
 }) => {
   const [previewUrl, setPreviewUrl] = useState('');
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [field, meta, form] = useField<Blob>(name);
+  const [field, _meta, form] = useField<Blob>(name);
   const { setValue } = form;
 
   React.useEffect(() => {

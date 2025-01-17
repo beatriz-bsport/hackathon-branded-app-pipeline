@@ -16,19 +16,17 @@ Have a look on our [Notion documentation](https://www.notion.so/bright-shovel-41
 }
 ```
 
-2. Include the global CSS at the root of your project
+2. Include the global CSS at the root of your project (App.ts)
 
 ```jsx
-import "@bsport/kaizen-primitive-core/build/index.css";
-import "@bsport/kaizen-primitive-core/build/variables.css";
+import "@bsport/kaizen-primitive-core/styles";
 ```
 
 3. Add any component in your React project as follows:
 
 ```jsx
 // MyComponent.tsx
-import "@bsport/kaizen-primitive-core/style.css";
-import Icon, { icons } from "@bsport/kaizen-primitive-core/build/Button";
+import { Icon } from "@bsport/kaizen-primitive-core";
 
 function MyComponent() {
   return <Icon icon="left-arrow" size="xs" />;

@@ -5,10 +5,7 @@ import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 // @ts-expect-error
 import { PaymentPackStorybookFactory } from '#src/libs/payment-packs/factory';
 import { PaymentPack } from '#src/libs/payment-packs/types';
-import Item, {
-  Props,
-  ItemForStorybook,
-} from '#src/components/css-only/Search/Item';
+import { Props, ItemForStorybook } from '#src/components/css-only/Search/Item';
 import ClickableItem from '#src/components/css-only/ClickableItem';
 import {
   getSearchItemIndicator,

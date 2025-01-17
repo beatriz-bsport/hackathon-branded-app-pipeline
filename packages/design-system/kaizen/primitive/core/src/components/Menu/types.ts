@@ -30,7 +30,7 @@ export type MenuOption = {
 export type Item = TitleItem | DividerItem | TextItem | MenuOption;
 
 export type MenuType = {
-  disabled: boolean;
+  disabled?: boolean;
   items: Item[];
   multiSelect?: boolean;
   onSelectOption?: (value: string) => void;

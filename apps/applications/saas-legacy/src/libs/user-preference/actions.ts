@@ -188,10 +188,10 @@ export function setWorkshopGroupFilter(filter: OffersGroupFilter) {
     Object.keys(filter)?.forEach((key) => {
       // @ts-expect-error
       if (filter[key] === null || filter[key] === undefined) {
-        /* eslint-disable no-param-reassign */
+         
         // @ts-expect-error
         delete filter[key];
-        /* eslint-disable no-param-reassign */
+         
       }
     });
 
@@ -204,10 +204,10 @@ export function setWorkshopDetailGroupFilter(filter: OffersGroupFilter) {
     Object.keys(filter)?.forEach((key) => {
       // @ts-expect-error
       if (filter[key] === null || filter[key] === undefined) {
-        /* eslint-disable no-param-reassign */
+         
         // @ts-expect-error
         delete filter[key];
-        /* eslint-disable no-param-reassign */
+         
       }
     });
 

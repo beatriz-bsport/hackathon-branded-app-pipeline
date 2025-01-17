@@ -215,6 +215,10 @@ export function SubscriptionContractFields(
     [props.initial?.contract_template],
   );
 
+  const isContractNotEditable =
+    isFromContractTemplate ||
+    (props.initial && props.initial?.editable === false);
+
   const updateShowNbIntervalAfterAutoRenewalInput = () =>
     setShowNbIntervalAfterAutoRenewalInput((prevState) => !prevState);
 
@@ -267,12 +271,14 @@ export function SubscriptionContractFields(
   });
   return (
     <div>
-      {isFromContractTemplate && (
+      {isContractNotEditable && (
         <FormSection>
           <div className={classes.row}>
             <WarningIcon color="error" />
             <Typography color="error" variant="body1">
-              {t('contractTemplate.backofficeEditWarning')}
+              {isFromContractTemplate
+                ? t('contractTemplate.backofficeEditWarning')
+                : t('contract.form.notEditable')}
             </Typography>
           </div>
         </FormSection>
@@ -322,7 +328,7 @@ export function SubscriptionContractFields(
               value: ObjectType.paymentCombo,
             },
           ]}
-          disabled={isFromContractTemplate}
+          disabled={isContractNotEditable}
           name="object_type"
         />
         <div>
@@ -331,7 +337,7 @@ export function SubscriptionContractFields(
               fullWidth
               choices={props.paymentPackList}
               classes={classes}
-              disabled={isFromContractTemplate}
+              disabled={isContractNotEditable}
               name="payment_pack"
             />
           </Collapse>
@@ -340,7 +346,7 @@ export function SubscriptionContractFields(
               fullWidth
               choices={props.privatePassList}
               classes={classes}
-              disabled={isFromContractTemplate}
+              disabled={isContractNotEditable}
               name="private_pass"
             />
           </Collapse>
@@ -349,7 +355,7 @@ export function SubscriptionContractFields(
               fullWidth
               choices={props.paymentComboList}
               classes={classes}
-              disabled={isFromContractTemplate}
+              disabled={isContractNotEditable}
               name="payment_combo"
             />
           </Collapse>
@@ -538,7 +544,7 @@ export function SubscriptionContractFields(
           </Alert>
         </Collapse>
         <SwitchField
-          disabled={isFromContractTemplate}
+          disabled={isContractNotEditable}
           label={t('contract.form.autoRenewal.label')}
           name="auto_renewal"
         />
@@ -561,6 +567,7 @@ export function SubscriptionContractFields(
                   onChange={updateShowNbIntervalAfterAutoRenewalInput}
                 />
               }
+              disabled={props.initial && props.initial?.editable === false}
               label={t('contract.form.nbIntervalAfterAutoRenewal.firstLabel')}
             />
           </div>
@@ -569,6 +576,7 @@ export function SubscriptionContractFields(
           <>
             <TextField
               fullWidth
+              disabled={props.initial && props.initial?.editable === false}
               helperText={t(errors.nb_interval_after_auto_renewal)}
               label={t('contract.form.nbIntervalAfterAutoRenewal.secondLabel')}
               name="nb_interval_after_auto_renewal"
@@ -877,7 +885,6 @@ export const SubscriptionContractFormHoc = withFormik<
         payment_combo: initial.payment_combo
           ? getIdOrObject<PaymentCombo>(initial.payment_combo)
           : null,
-        // eslint-disable-next-line
         object_type: initial.private_pass
           ? ObjectType.privatePass
           : initial.payment_pack
@@ -912,6 +919,7 @@ export const SubscriptionContractFormHoc = withFormik<
       tags_on_first_billing: [],
       nb_interval_after_auto_renewal: null,
       contract_template: null,
+      editable: true,
     };
   },
   enableReinitialize: true,

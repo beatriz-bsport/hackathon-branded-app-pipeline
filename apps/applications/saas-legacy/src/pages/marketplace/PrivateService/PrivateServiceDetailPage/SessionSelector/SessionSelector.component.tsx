@@ -38,6 +38,11 @@ type Props = {
   coachDisplay?: MarketPlaceCoachDisplay;
 };
 
+/**
+ * @deprecated
+ * Use SessionSelectorReworked instead :
+ * #src/pages/marketplace/PrivateService/SlotSelectorPage/components/SessionSelectorReworked/SessionSelectorReworked.component.tsx
+ */
 const SessionSelector: React.FC<Props> = (props) => {
   const getSessionsForCoachAndEstablishment = useCallback(
     (coach: Coach, establishment: Establishment) => {
@@ -98,9 +103,9 @@ const SessionSelector: React.FC<Props> = (props) => {
     let coaches: Array<Coach | null> = [null];
 
     if (props.showCoach) {
-      /* eslint-disable */
+       
       coaches = props.coaches;
-      /* eslint-enable */
+       
     }
 
     if (!props.establishments) {

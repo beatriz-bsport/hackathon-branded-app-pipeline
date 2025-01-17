@@ -85,7 +85,7 @@ const sctStyles = {
   menuPortal: (base) => ({ ...base, zIndex: 9999 }),
   option: (styles, { isDisabled, isFocused, isSelected }) => {
     const color = chroma(colors.secondary);
-    /* eslint-disable */
+
     return {
       ...styles,
       backgroundColor: isDisabled
@@ -111,7 +111,6 @@ const sctStyles = {
           (isSelected ? colors.secondary : color.alpha(0.3).css()),
       },
     };
-    /* eslint-enable */
   },
   multiValue: (styles) => {
     const color = chroma(colors.secondary);

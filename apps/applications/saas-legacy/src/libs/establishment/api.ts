@@ -17,6 +17,8 @@ import type {
   FetchEstablishmentParams,
 } from './types';
 
+import type { PaginatedResponse } from '#src/state/types';
+
 export async function retrieveEstablishment(id: number) {
   return getAuth<Establishment>(`${API_V1_URI}/establishment/${id}/`);
 }
@@ -47,7 +49,9 @@ export async function fetchEstablishment(id: number) {
 }
 
 export async function fetchEstablishmentList(params: FetchEstablishmentParams) {
-  return getAuth(`${API_V1_URI}/establishment/${buildUrlParams(params)}`);
+  return getAuth<PaginatedResponse<Establishment>>(
+    `${API_V1_URI}/establishment/${buildUrlParams(params)}`,
+  );
 }
 
 export async function checkCanDeleteEstablishment(id: number) {

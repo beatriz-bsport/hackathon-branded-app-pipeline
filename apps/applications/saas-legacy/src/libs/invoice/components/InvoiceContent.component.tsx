@@ -119,8 +119,8 @@ export const InvoiceContent: React.FC<Props> = ({
   );
 
   // Unused state field, but its setter is used to force component re-rendering
-  // eslint-disable-next-line
-  const [loading, setLoading] = React.useState(false);
+
+  const [_loading, setLoading] = React.useState(false);
 
   // partial refund invoices have no source_invoice
   const is_reverse =

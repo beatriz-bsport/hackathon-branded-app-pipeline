@@ -87,7 +87,7 @@ export const SelectorContext = createContext<{
   setDisplayMore: (value: boolean) => void;
 }>({
   displayMore: false,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+
   setDisplayMore: (_) => {},
 });
 

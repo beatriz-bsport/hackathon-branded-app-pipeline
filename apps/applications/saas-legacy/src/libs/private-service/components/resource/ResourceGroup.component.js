@@ -104,7 +104,7 @@ const ResourceGroup = (props: Props) => {
                   } else {
                     onEditResourceConfiguration({ data: resource, datatype });
                   }
-                  /* eslint-enable */
+                   
                 }}
                 onSelectResource={onSelectResource}
                 onUnselectResource={onUnselectResource}
@@ -136,7 +136,7 @@ const ResourceGroup = (props: Props) => {
                     } else {
                       onEditResourceConfiguration({ data: resource, datatype });
                     }
-                    /* eslint-enable */
+                     
                   }}
                   onSelectResource={onSelectResource}
                   onUnselectResource={onUnselectResource}

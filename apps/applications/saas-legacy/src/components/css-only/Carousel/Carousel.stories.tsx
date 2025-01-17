@@ -43,7 +43,7 @@ PictureCarousel.args = {
       link: 'https://www.adorama.com/alc/wp-content/uploads/2017/11/shutterstock_114802408.jpg',
     },
   ],
-  renderItem: (item: { link: string; id: number }, index: number) => {
+  renderItem: (item: { link: string; id: number }, _: number) => {
     return (
       <div
         key={item.id}

@@ -24,7 +24,7 @@ const MemberVisitLiveHistoryTableSkeleton: React.FC = () => {
             divider={index !== 2}
             className={classNames(classes.listItem, classes.padding2)}
           >
-            {Array.from({ length: 4 }).map((_, subIndex) => (
+            {Array.from({ length: 4 }).map((__, subIndex) => (
               <Skeleton
                 key={subIndex}
                 variant="rect"

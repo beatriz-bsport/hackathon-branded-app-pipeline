@@ -229,7 +229,6 @@ class CommunicationDrawer extends React.Component<Props, State> {
       });
     }
     if (prevProps.mailDefaultTitle !== this.props.mailDefaultTitle) {
-      // eslint-disable-next-line
       this.setState({
         mailContent: '',
         mailTitle: this.props.mailDefaultTitle,

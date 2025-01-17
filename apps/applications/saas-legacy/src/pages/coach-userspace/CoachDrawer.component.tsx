@@ -128,7 +128,7 @@ export const CoachDrawer = (props: Props) => {
       return <Divider key={i} />;
     }
 
-    // eslint-disable-next-line no-restricted-globals
+     
     const isActive = location?.pathname?.startsWith(item?.to);
     if (item?.type === 'nested') {
       return (

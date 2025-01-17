@@ -122,7 +122,6 @@ export class CommunicationDrawer extends Component<Props, State> {
       this.props.initMembers(1, this.state.page_size);
     }
     if (prevProps.mailDefaultTitle !== this.props.mailDefaultTitle) {
-      // eslint-disable-next-line
       this.setState({
         mailContent: '',
         mailTitle: this.props.mailDefaultTitle,

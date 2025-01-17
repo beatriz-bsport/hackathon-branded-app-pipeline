@@ -10,7 +10,7 @@ function randomInt(max: number) {
   return Math.floor(Math.random() * max);
 }
 
-const idList = Array.from(Array(5).keys()).map((item, index) =>
+const idList = Array.from(Array(5).keys()).map((_item, _errindex) =>
   randomInt(1000),
 );
 

@@ -54,7 +54,7 @@ type State = {
 };
 
 // prettier-ignore
-// eslint-disable-next-line no-useless-escape
+
 const emailRegexp = new RegExp('[A-z0-9-_]+@[A-z0-9-_]+\.[A-z]+$');
 
 export class FormField extends Component<Props, State> {

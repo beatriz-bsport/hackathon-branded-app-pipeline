@@ -1,12 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import { cva, type VariantProps } from "class-variance-authority";
+import Icon from "../Icon";
 
 const variants = {
   size: {
-    sm: "h-element-xl rounded-sm",
-    md: "h-element-2xl rounded-md",
-    lg: "h-element-3xl rounded-lg",
-    xl: "h-element-4xl rounded-lg",
+    sm: "max-h-element-xl rounded-sm",
+    md: "max-h-element-2xl rounded-md",
+    lg: "max-h-element-3xl rounded-lg",
+    xl: "max-h-element-4xl rounded-lg",
   },
   ratio: {
     "16:9": "aspect-video",
@@ -14,13 +15,17 @@ const variants = {
     "1:1": "aspect-square",
     "3:2": "aspect-[3/2]",
   },
+  isLoaded: {
+    true: "opacity-[100]",
+    false: "opacity-transparent",
+  },
 };
 
 export const sizes = variants.size;
 
 export const ratios = variants.ratio;
 
-const media = cva("object-cover", {
+const media = cva("object-cover transition-opacity duration-default", {
   variants,
   compoundVariants: [
     {
@@ -33,6 +38,23 @@ const media = cva("object-cover", {
     },
   ],
 });
+
+const placeholder = cva(
+  "bg-surface-default-weak flex justify-center items-center",
+  {
+    variants,
+    compoundVariants: [
+      {
+        size: undefined,
+        class: "rounded-xl",
+      },
+      {
+        ratio: undefined,
+        class: "aspect-square",
+      },
+    ],
+  },
+);
 
 export type MediaProps = React.HTMLAttributes<HTMLImageElement> &
   VariantProps<typeof media> & {
@@ -61,11 +83,34 @@ const Media: React.FC<MediaProps> = ({
   src,
   ...props
 }) => {
+  const [hasError, setHasError] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  const handleError = () => {
+    setHasError(true);
+  };
+
+  const handleLoad = () => {
+    setIsLoaded(true);
+  };
+
+  if (!src || hasError)
+    return (
+      <div className={placeholder({ className, size, ratio })}>
+        <Icon
+          icon={hasError ? "image-x" : "image-03"}
+          className="inset-0 h-1/3 w-1/3 max-h-icon-xl text-onsurface-weaker"
+        />
+      </div>
+    );
+
   return (
     <img
-      className={media({ className, size, ratio })}
+      className={media({ className, size, ratio, isLoaded })}
       alt={alt}
       src={src}
+      onError={handleError}
+      onLoad={handleLoad}
       {...props}
     />
   );

@@ -264,6 +264,15 @@ export type BookingFilterParams = {
   offer_is_workshop?: boolean;
   page: number;
   page_size: number;
+  ordering?:
+    | 'offer__date_start'
+    | 'date_created'
+    | 'member_first_name'
+    | 'member_last_name'
+    | '-offer__date_start'
+    | '-date_created'
+    | '-member_first_name'
+    | '-member_last_name';
 };
 
 export type CancelBookingParams = {

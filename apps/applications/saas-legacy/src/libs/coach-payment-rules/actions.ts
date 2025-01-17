@@ -111,7 +111,7 @@ export function deleteCoachPaymentRule(rule: CoachPaymentRule) {
       await deleteAuth(`${API_V1_URI}/coach_payment_rules/${rule.id}`);
       dispatch(coachPaymentRuleSetDelete.success(rule));
       dispatch(snackbarSuccess('paymentRules.delete.success'));
-    } catch (error) {
+    } catch (_error) {
       dispatch(coachPaymentRuleSetDelete.error(rule));
       dispatch(snackbarError('paymentRules.delete.error'));
     }
@@ -474,7 +474,7 @@ export function deleteCoachPaymentRuleGroup(group: CoachPaymentRuleGroup) {
       await deleteAuth(`${API_V1_URI}/coach_payment_rule_group/${group.id}/`);
       dispatch(coachPaymentRuleGroupDelete.success(group));
       dispatch(snackbarSuccess('paymentRuleGroups.delete.success'));
-    } catch (error) {
+    } catch (_error) {
       dispatch(coachPaymentRuleGroupDelete.error(group));
       dispatch(snackbarError('paymentRuleGroups.delete.error'));
     }

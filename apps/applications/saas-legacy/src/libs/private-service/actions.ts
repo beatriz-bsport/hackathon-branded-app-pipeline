@@ -178,7 +178,6 @@ export const listTaskByMemberActions = {
 };
 
 export const refreshIncompletePrivateBookingAlerting = () =>
-  // @ts-expect-error
   refreshAlertingByKind(PRIVATE_BOOKING_INCOMPLETE_ALERT);
 
 export function attachCoachToPrivateBooking(
@@ -2993,7 +2992,7 @@ export function deletePrivatePassCategory(
       dispatch(deletePrivatePassCategoryActions.success(category));
       dispatch(snackbarSuccess('paymentPack.category.delete.success'));
       if (options && options.onSuccess) options.onSuccess(category);
-    } catch (error) {
+    } catch (_error) {
       dispatch(deletePrivatePassCategoryActions.error(category));
       dispatch(snackbarError('paymentPack.category.delete.error'));
       if (options && options.onError) options.onError();

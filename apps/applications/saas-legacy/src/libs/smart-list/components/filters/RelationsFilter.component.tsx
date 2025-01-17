@@ -430,7 +430,7 @@ export class RelationsFilter extends Component<Props> {
                     defaultValue
                     required
                     className={classes.input}
-                    // eslint-disable-next-line
+                     
                     onChange={(ev: React.ChangeEvent<{ value: number }>) =>
                       onChange(
                         this.getBooleanValueRelationDictList(ev.target.value)[
@@ -446,7 +446,7 @@ export class RelationsFilter extends Component<Props> {
                         `filters.${filter_data?.filter_identifier}.${booleanNameList[index]}.true`,
                       )}
                     </MenuItem>
-                    {/* eslint-enable */}
+                    { }
                     <MenuItem
                       key={`${booleanNameList[index]}_false`}
                       // @ts-expect-error

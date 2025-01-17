@@ -23,7 +23,7 @@ import ErrorIcon from '@material-ui/icons/Error';
 import CheckIcon from '@material-ui/icons/Check';
 import classNames from 'classnames';
 
-import { cloneDeep } from 'lodash';
+import cloneDeep from 'lodash/cloneDeep';
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 import CircularProgress from '#src/components/css-only/CircularProgress';
 import Select from '#src/components/css-only/Select';

@@ -701,7 +701,7 @@ const mapWithHandlers = {
   createMember:
     (props: OwnAndConnectedProps) => (values: any, options: any) => {
       if (!values.birthday) {
-        // eslint-disable-next-line
+         
         delete values.birthday;
       }
       const formData = mapFormData(values, MemberMap);

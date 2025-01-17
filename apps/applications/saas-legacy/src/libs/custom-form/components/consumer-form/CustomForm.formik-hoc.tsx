@@ -53,7 +53,7 @@ const isWidget = WidgetUtils.isWidget();
 export const ConsumerFormFields = (props: Props) => {
   // Need to not pass classes in props otherwise
   // thousands of errors are raised by MUI
-  /* eslint-disable */
+
   const {
     // @ts-expect-error
     classes,
@@ -280,7 +280,6 @@ export const ConsumerFormFieldsHOC = withFormik({
     { props: { onSubmit, initial }, setSubmitting },
   ) => {
     const {
-      /* eslint-disable */
       // @ts-expect-error
       date_created,
       // @ts-expect-error
@@ -301,7 +300,7 @@ export const ConsumerFormFieldsHOC = withFormik({
       passwordConfirm,
       // @ts-expect-error
       layout_configuration,
-      /* eslint-disable */
+
       ...cleaned_values
     } = {
       ...values,

@@ -43,6 +43,7 @@ export const DEFAULT_CONTRACT_TEMPLATE_FORM_INITIAL_VALUES: ContractTemplateForm
     managerOnly: false,
     autoRenewal: false,
     unusableByStaff: false,
+    editable: true,
   };
 
 export const PAUSE_RESULT_FAIL_INCOMING_BILL = 63101;

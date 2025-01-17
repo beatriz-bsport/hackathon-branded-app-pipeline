@@ -3674,7 +3674,8 @@
             "second_billing_plan": "Tweede factureringsplan",
             "incremental_identifier": "Nummer",
             "product_categories": "Categorieën van producten",
-            "product_types": "Soorten producten"
+            "product_types": "Soorten producten",
+            "kind": "Type"
         },
         "report": {
             "delete_message": "Weet je zeker dat je \"{{- name }}\" wilt verwijderen?"
@@ -4352,7 +4353,13 @@
                 "title": "Terugbetaling",
                 "warningSecond": "Als je het lid wenst te vergoeden via een bankoverschrijving met de gebruikte betaalmethode, annuleer dan de factuur en betaal hem/haar niet in credits terug!",
                 "warningFirst": "Waarschuwing: deze actie is definitief en genereert een factuur.",
-                "blockUnlimited": "Leskaart blokkeren"
+                "blockUnlimited": "Leskaart blokkeren",
+                "error": {
+                    "2029": "Het restitutiebedrag overschrijdt het aankoopbedrag. Probeer het opnieuw met een lager bedrag.",
+                    "2030": "Het aantal af te trekken credits overschrijdt het aantal credits op de pas. Probeer het opnieuw met een lager aantal.",
+                    "2031": "Er is een fout opgetreden. Probeer het opnieuw.",
+                    "default": "Er is een fout opgetreden. Probeer het opnieuw."
+                }
             },
             "details": {
                 "actions": {
@@ -5400,9 +5407,9 @@
             "errors": {
                 "hasUpcomingPrivateBookings": "Sommige komende afspraken vinden plaats in deze vestiging. Annuleer en verwijder ze voordat je deze vestiging verwijdert.",
                 "exclusivePaymentPacks": "De volgende pas {{- pass_name }} is alleen bruikbaar in deze vestiging. Werk de beperkingen bij voordat u de vestiging verwijdert.",
-                "exclusivePaymentPacks_plural": "De volgende passen {{- pass_name }} zijn alleen geldig in deze vestiging. Update hun beperkingen eerst voordat je de vestiging verwijdert.",
+                "exclusivePaymentPacks_plural": "De volgende passen{{- pass_name }}zijn alleen bruikbaar in deze vestiging. Werk de beperkingen bij voordat u de vestiging verwijdert.",
                 "exclusiveEstablishmentGroups": "De locatie {{- establishment_group_name }} bevat alleen de vestiging die u wilt verwijderen. Werk deze locatie bij of verwijder deze.",
-                "exclusiveEstablishmentGroups_plural": "De locaties {{- establishment_group_name }} bevatten alleen de vestiging die je wilt verwijderen, bewerk of verwijder deze locaties eerst.",
+                "exclusiveEstablishmentGroups_plural": "De locaties {{- establishment_group_name }} bevatten alleen de vestiging die u wilt verwijderen. U kunt deze locaties bijwerken of verwijderen.",
                 "hasExclusiveMarketplaceComponentConfigs": "Een of meerdere tabbladen op de marktplaats zijn ingesteld om alleen de agenda en workshops van deze vestiging weer te geven.",
                 "hasUpcomingOffers": "Sommige komende sessies vinden plaats in deze vestiging. Annuleer en verwijder ze voordat je deze vestiging verwijdert.",
                 "hasExclusiveBillingGroup": "Deze vestiging is de laatste van zijn factureringsgroep. Verwijder deze factureringsgroep of werk deze bij voordat u deze vestiging verwijdert.",
@@ -5411,9 +5418,9 @@
             "warnings": {
                 "hasBillingGroup": "Deze vestiging wordt ook verwijderd uit de factureringsgroep {{- establishment_billing_group_name }}.",
                 "exclusivePrivateServices": "De afspraak {{- private_service_name }} is geconfigureerd om alleen in deze vestiging plaats te vinden. Door deze vestiging te verwijderen, kan deze afspraak overal plaatsvinden.",
-                "exclusivePrivateServices_plural": "De afspraken {{- private_service_name }} zijn alleen ingesteld om in deze vestiging plaats te vinden. Door deze instelling te verwijderen, kunnen deze afspraken overal plaatsvinden.",
+                "exclusivePrivateServices_plural": "De afspraken {{- private_service_name }} zijn zo ingesteld dat deze alleen in deze vestiging kunnen plaatsvinden. Door deze vestiging te verwijderen, kunnen deze afspraken overal plaatsvinden.",
                 "exclusiveCoachAvailabilitySlots": "De leraar {{- coach_name }} is aangegeven als beschikbaar voor deze vestiging voor slechts enkele tijdsloten. Door de vestiging te verwijderen, worden deze tijdslots verwijderd.",
-                "exclusiveCoachAvailabilitySlots_plural": "De instructeurs {{- coach_name }} zijn aangegeven als alleen beschikbaar voor deze vestiging in bepaalde tijdslots. Door de vestiging te verwijderen, worden deze tijdslots verwijderd.",
+                "exclusiveCoachAvailabilitySlots_plural": "De instructeurs {{- coach_name }} worden aangegeven als beschikbaar voor deze vestiging voor slechts enkele tijdsloten. Door de vestiging te verwijderen, worden deze tijdsloten verwijderd.",
                 "exclusiveAssociatedCoaches_plural": "Je leraren {{- coach_name }} krijgt alleen bericht als er een vervangingsverzoek wordt gedaan voor een sessie in deze vestiging. Door de vestiging te verwijderen, ontvangen ze dus vervangingsverzoeken van elke vestiging.",
                 "exclusiveAssociatedCoaches": "Je leraar {{- coach_name }} krijgt alleen bericht als er een vervangingsverzoek wordt gedaan voor een sessie in deze vestiging. Door de vestiging te verwijderen, ontvangen ze dus vervangingsverzoeken van elke vestiging.",
                 "hasExclusiveStaffConfigurations": "Sommige medewerkers zijn geconfigureerd om de toegang van leden alleen voor deze vestiging te controleren. Door de vestiging te verwijderen zonder een nieuwe te selecteren, kunnen ze geen toegangscontrole meer uitvoeren.",
@@ -13713,7 +13720,8 @@
                 "submit": "Bevestigen",
                 "not_applicable": "Deze promotiecode kan niet voor deze aankoop gebruikt worden.",
                 "not_found": "Deze promotiecode is ongeldig.",
-                "apply": "Toepassen"
+                "apply": "Toepassen",
+                "couponOnlyLabel": "Promotie code"
             }
         },
         "search": "Zoek een promotiecode",
@@ -15600,6 +15608,7 @@
                 "14100": "Er is ten minste één betaling gedaan met een Interac-kaart op deze factuur. Directe terugbetalingen worden niet ondersteund voor Interac-kaarten.",
                 "14101": "Opmerking: een aanpassing aan het rekeningsaldo kan niet worden terugbetaald met het rekeningsaldo",
                 "14103": "Directe terugbetalingen zijn alleen beschikbaar als ten minste één van de betalingen via een online methode verloopt.",
+                "14106": "Directe terugbetalingen zijn niet mogelijk voor SEPA-betalingen ouder dan 180 dagen.",
                 "interac": "Er is ten minste één betaling gedaan met een Interac-kaart op deze factuur. Directe terugbetalingen worden niet ondersteund voor Interac-kaarten.",
                 "debtAndNewPaymentMethodNotAllowed": "Er is ten minste één betaling in behandeling. Alleen een directe terugbetaling is beschikbaar."
             },
@@ -19146,7 +19155,9 @@
                     "booking-attendance": "Aanwezigheid (groepsactiviteiten)",
                     "booking-create": "Groepsactiviteiten",
                     "private_consumer_pass-create": "Afspraakkaarten",
-                    "consumer_payment_pack-create": "Leskaarten"
+                    "consumer_payment_pack-create": "Leskaarten",
+                    "consumer_giftcard-create": "Cadeaukaart",
+                    "provision_update-create": "Winkelartikel"
                 },
                 "trigger": {
                     "trigger_timeout_explain_value_selected": "Een lid wordt automatisch uit de cadence gezet, indien het lid na {{ days }} dag(en) zich nog steeds in de cadence bevindt.",
@@ -19179,7 +19190,11 @@
                     "triggerTimeoutDays_plural": "dagen.",
                     "triggerTimeoutLabel": "Trigger na",
                     "selectSmartlist": "Selecteer een smartlist",
-                    "selectEvent": "Selecteer een evenement"
+                    "selectEvent": "Selecteer een evenement",
+                    "finnerGrain": {
+                        "purchaseLabelTitle": "Aangekochte artikel(en)",
+                        "specifyItemsToggleLabel": "Artikelen specificeren"
+                    }
                 },
                 "exit": {
                     "exit_fail_label": "Verloren",
@@ -19448,7 +19463,8 @@
                     "labels": {
                         "workflow": "De invoer in de {{ workflowLowerCase }} wordt gedaan via :"
                     },
-                    "event_or_smartlist_helper": "Leden moeten overeenkomen met de gebeurtenis of deel uitmaken van de smartlist om in de {{ workflowLowerCase }}"
+                    "event_or_smartlist_helper": "Leden moeten overeenkomen met de gebeurtenis of deel uitmaken van de smartlist om in de {{ workflowLowerCase }}",
+                    "oneOrMoreFinnerGrainDisabledText": "Een bepaald artikel staat momenteel niet in uw productenlijst."
                 },
                 "audienceStepHelper": "Stel hier de naam van de stap in: hier kunt u zien waar de leden zich bevinden in de {{ workflowLowerCase }}.",
                 "createAudienceHelper": "Dankzij {{ workflowPluralLowerCase }} kun je de marketingacties die je naar je leden stuurt richten op basis van hun gedrag op het platform. Maak bijvoorbeeld een reeks acties die je leden moeten voltooien om bepaalde promoties of tags te krijgen.",
@@ -19575,11 +19591,15 @@
                     "paused": "Gepauzeerd",
                     "active": "Actief",
                     "unarchive": "Dearchiveren",
-                    "metrics": "Statistieken"
+                    "metrics": "Statistieken",
+                    "invalid": "Probleem"
                 },
                 "tooltip": {
                     "moreActions": "Meer {{ workflowLowerCase }} acties"
                 }
+            },
+            "workflow": {
+                "finnerGrainIssues": "Eén of meerdere opgegeven items zijn niet meer beschikbaar."
             }
         }
     },

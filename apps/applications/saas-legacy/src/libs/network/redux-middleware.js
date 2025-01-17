@@ -3,7 +3,7 @@ import { networkActions } from './reducers';
 
 const NETWORK_ERROR_MESSAGES = [
   'Network Error',
-  // eslint-disable-next-line
+  /* eslint-disable-next-line */
   "Cannot read property 'data' of undefined",
 ];
 

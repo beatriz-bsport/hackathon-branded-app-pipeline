@@ -20,7 +20,6 @@ const executeOnDeprecatedVersion = (onDeprecation: () => void) => {
           onDeprecation && onDeprecation();
           return;
         }
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         executeOnDeprecatedVersion(onDeprecation);
       });
   }, TIMING);

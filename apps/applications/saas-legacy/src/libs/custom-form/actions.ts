@@ -223,7 +223,7 @@ export function disableCustomForm(formId: number, options?: OptionCallback) {
       dispatch(snackbarSuccess('customForm.disable.success'));
       // @ts-expect-error
       if (options && options.onSuccess) options.onSuccess(response.data);
-    } catch (error) {
+    } catch (_error) {
       dispatch(disableCustomFormActions.error(formId));
       dispatch(snackbarError('customForm.disable.error'));
       if (options && options.onError) options.onError();
@@ -246,7 +246,7 @@ export function restoreCustomForm(formId: number) {
       const response = await restoreCustomFormAPI(formId);
       dispatch(restoreCustomFormactions.success(response.data));
       dispatch(snackbarSuccess('customForm.restore.success'));
-    } catch (error) {
+    } catch (_error) {
       dispatch(restoreCustomFormactions.error(formId));
       dispatch(snackbarError('customForm.restore.error'));
     }
@@ -270,7 +270,7 @@ export function disableCustomFormField(formId: number, fieldId: number) {
         disableCustomFormFieldActions.success({ formId, data: response.data }),
       );
       dispatch(snackbarSuccess('customForm.customFormField.disable.success'));
-    } catch (error) {
+    } catch (_error) {
       dispatch(disableCustomFormFieldActions.error(fieldId));
       dispatch(snackbarError('customForm.customFormFiald.disable.error'));
     }
@@ -294,7 +294,7 @@ export function restoreCustomFormField(formId: number, fieldId: number) {
         restoreCustomFormFieldActions.success({ formId, data: response.data }),
       );
       dispatch(snackbarSuccess('customForm.customFormField.restore.success'));
-    } catch (error) {
+    } catch (_error) {
       dispatch(restoreCustomFormFieldActions.error(fieldId));
       dispatch(snackbarError('customForm.customFormField.restore.error'));
     }
@@ -555,7 +555,7 @@ export function deleteCustomFormDisplayRule(
       dispatch(deleteCustomFormDisplayRuleActions.success(customFormDisplayId));
       dispatch(snackbarSuccess('customFormDisplayRule.delete.success'));
       if (options && options.onSuccess) options.onSuccess();
-    } catch (error) {
+    } catch (_error) {
       dispatch(deleteCustomFormDisplayRuleActions.error(customFormDisplayId));
       dispatch(snackbarError('customFormDisplayRule.delete.error'));
       if (options && options.onError) options.onError();

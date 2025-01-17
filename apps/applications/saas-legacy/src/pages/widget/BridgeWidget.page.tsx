@@ -148,11 +148,11 @@ import { RootState } from '../../reducers';
 import { fetchCompanyConfiguration as fetchCompanyConfigurationAction } from '#src/libs/waiting-list/actions';
 
 type OwnProps = {
-  // eslint-disable-next-line react/no-unused-prop-types
+   
   companyId: number;
   // eslint-disable-next-line react/no-unused-prop-types
   companyName: string;
-  // eslint-disable-next-line react/no-unused-prop-types
+   
   isBackofficePreview?: boolean;
 };
 

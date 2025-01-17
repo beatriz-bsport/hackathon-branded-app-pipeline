@@ -56,7 +56,6 @@ export class StripeForm extends Component<Props, State> {
       }
       this.onComplete(token);
     } catch (err) {
-      // eslint-disable-next-line
       alert(`An error occured:\n${JSON.stringify(err)}`);
       this.setState({ loading: false });
     }

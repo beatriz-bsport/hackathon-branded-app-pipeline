@@ -2,8 +2,6 @@ import { createSelector } from 'reselect';
 
 import type { RootState } from 'src/reducers';
 
-import { filterBookingListByOfferDate } from '#src/libs/booking/utils';
-
 import {
   getOfferDataList,
   withEstablishment,
@@ -259,13 +257,11 @@ const getMyPastBookingsById = (state: RootState) =>
 
 export const getMyPastBookingsList = createSelector(
   [getMyPastBookingsAllIds, getMyPastBookingsById, (state: RootState) => state],
-  (ids, data, state) => {
-    const bookings = _getConsumerBookingsList(
+  (ids, data, state) =>
+    _getConsumerBookingsList(
       state,
       ids.map((id) => data[id]),
-    );
-    return filterBookingListByOfferDate<ConsumerBooking>(bookings, 'desc');
-  },
+    ),
 );
 
 export const getMyFutureBookingsState = (state: RootState) =>
@@ -283,13 +279,11 @@ export const getMyFutureBookingsList = createSelector(
     getMyFutureBookingsById,
     (state: RootState) => state,
   ],
-  (ids, data, state) => {
-    const bookings = _getConsumerBookingsList(
+  (ids, data, state) =>
+    _getConsumerBookingsList(
       state,
       ids.map((id) => data[id]),
-    );
-    return filterBookingListByOfferDate<ConsumerBooking>(bookings, 'asc');
-  },
+    ),
 );
 
 export const getMyWaitlistBookingsState = (state: RootState) =>
@@ -307,16 +301,11 @@ export const getMyWaitlistBookingsList = createSelector(
     getMyWaitlistBookingsById,
     (state: RootState) => state,
   ],
-  (ids, data, state) => {
-    const bookingOptions = _getConsumerBookingOptionsList(
+  (ids, data, state) =>
+    _getConsumerBookingOptionsList(
       state,
       ids.map((id) => data[id]),
-    );
-    return filterBookingListByOfferDate<ConsumerBookingOption>(
-      bookingOptions,
-      'asc',
-    );
-  },
+    ),
 );
 
 export const getMyPastPrivateBookingsState = (state: RootState) =>
@@ -335,16 +324,11 @@ export const getMyPastPrivateBookingsList = createSelector(
     getMyPastPrivateBookingsById,
     (state: RootState) => state,
   ],
-  (ids, data, state) => {
-    const privateBookings = _getConsumerPrivateBookingsList(
+  (ids, data, state) =>
+    _getConsumerPrivateBookingsList(
       state,
       ids.map((id) => data[id]),
-    );
-    return filterBookingListByOfferDate<ConsumerPrivateBooking>(
-      privateBookings,
-      'desc',
-    );
-  },
+    ),
 );
 
 export const getMyFuturePrivateBookingsState = (state: RootState) =>
@@ -364,16 +348,11 @@ export const getMyFuturePrivateBookingsList = createSelector(
     getMyFuturePrivateBookingsById,
     (state: RootState) => state,
   ],
-  (ids, data, state) => {
-    const privateBookings = _getConsumerPrivateBookingsList(
+  (ids, data, state) =>
+    _getConsumerPrivateBookingsList(
       state,
       ids.map((id) => data[id]),
-    );
-    return filterBookingListByOfferDate<ConsumerPrivateBooking>(
-      privateBookings,
-      'asc',
-    );
-  },
+    ),
 );
 
 export const getMyPastBookingsWorkshopState = (state: RootState) =>
@@ -391,13 +370,11 @@ export const getMyPastBookingsWorkshopList = createSelector(
     getMyPastBookingsWorkshopById,
     (state: RootState) => state,
   ],
-  (ids, data, state) => {
-    const bookings = _getConsumerBookingsList(
+  (ids, data, state) =>
+    _getConsumerBookingsList(
       state,
       ids.map((id) => data[id]),
-    );
-    return filterBookingListByOfferDate<ConsumerBooking>(bookings, 'desc');
-  },
+    ),
 );
 
 export const getMyFutureBookingsWorkshopState = (state: RootState) =>
@@ -415,13 +392,11 @@ export const getMyFutureBookingsWorkshopList = createSelector(
     getMyFutureBookingsWorkshopById,
     (state: RootState) => state,
   ],
-  (ids, data, state) => {
-    const bookings = _getConsumerBookingsList(
+  (ids, data, state) =>
+    _getConsumerBookingsList(
       state,
       ids.map((id) => data[id]),
-    );
-    return filterBookingListByOfferDate<ConsumerBooking>(bookings, 'asc');
-  },
+    ),
 );
 
 export const getMyWaitlistBookingsWorkshopState = (state: RootState) =>
@@ -441,16 +416,11 @@ export const getMyWaitlistBookingsWorkshopList = createSelector(
     getMyWaitlistBookingsWorkshopById,
     (state: RootState) => state,
   ],
-  (ids, data, state) => {
-    const bookingOptions = _getConsumerBookingOptionsList(
+  (ids, data, state) =>
+    _getConsumerBookingOptionsList(
       state,
       ids.map((id) => data[id]),
-    );
-    return filterBookingListByOfferDate<ConsumerBookingOption>(
-      bookingOptions,
-      'asc',
-    );
-  },
+    ),
 );
 
 export const getRelatedConsumerBookingsInGroup = createSelector(

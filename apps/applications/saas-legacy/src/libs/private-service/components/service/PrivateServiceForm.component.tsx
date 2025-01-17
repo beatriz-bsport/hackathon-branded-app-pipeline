@@ -1100,7 +1100,7 @@ export const PrivateServiceFormikHOC = withFormik<
       return {
         ...initial,
         is_without_coach: !initial.coaches || !initial.coaches.length,
-        // eslint-disable-next-line
+         
         establishment_resource_type: initial.is_home_service
           ? IS_HOME_SERVICE
           : initial.establishments.length

@@ -203,7 +203,7 @@ const WellhubConfiguration: React.FC<Props> = ({
     setTimeout(() => setIsWarningUnlinkDialogInDOM(false), 300);
   }, []);
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+   
   const [configurationFormValues, setConfigurationFormValues] =
     React.useState<WellhubConfigurationFormValues | null>(null);
 

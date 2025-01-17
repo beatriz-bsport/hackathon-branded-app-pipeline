@@ -73,8 +73,8 @@ export function meta_activity_factory(num_el: number): Array<MetaActivity> {
       rating: random_choice(RATINGS),
       SCT: id,
       parent_category: random_choice(AVAILABLE_CATEGORY).id,
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      images: images_fac.filter((e) => generateRandomInt(6) === 1),
+
+      images: images_fac.filter((_e) => generateRandomInt(6) === 1),
       establishments: [],
       next_slot: random_choice(NEXT_SLOTS),
       company: id,

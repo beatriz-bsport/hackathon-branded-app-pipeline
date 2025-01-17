@@ -1,4 +1,6 @@
+/* eslint-disable-next-line */
 const ListItemSizeTypes = ['sm', 'lg'] as const;
+/* eslint-disable-next-line */
 const ListItemTypeTypes = [
   'text',
   'checkbox',

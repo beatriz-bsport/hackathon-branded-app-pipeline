@@ -44,8 +44,7 @@ const meta: Meta<typeof Select> = {
   parameters: {
     docs: {
       story: {
-        inline: false,
-        iframeHeight: 200,
+        height: "30vh",
       },
     },
   },

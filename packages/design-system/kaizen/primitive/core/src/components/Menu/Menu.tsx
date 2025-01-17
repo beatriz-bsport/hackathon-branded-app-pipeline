@@ -16,7 +16,7 @@ export type MenuProps = React.HTMLAttributes<HTMLDivElement> & MenuType;
  */
 const Menu: React.FC<MenuProps> = ({
   className,
-  disabled,
+  disabled = false,
   items = [],
   multiSelect,
   onSelectOption,

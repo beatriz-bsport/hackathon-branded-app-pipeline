@@ -511,44 +511,39 @@ const InvoiceRow: React.FC<Props> = React.memo((props) => {
                     </TableRow>
                   </TableHead>
                   <TableBody className={classes.tableBody}>
-                    {
-                      // eslint-disable-next-line
-                      invoice.invoice_items
-                        .filter((ii) => !!ii)
-                        .map((invoiceItem) => {
-                          return (
-                            // @ts-expect-error
-                            <TableRow key={invoiceItem.id}>
-                              <TableCell component="th" scope="row">
-                                {/* @ts-expect-error */}
-                                {invoiceItem.name}
-                              </TableCell>
-                              <TableCell>
-                                {getCurrencyDisplayWithPrice(
+                    {invoice.invoice_items
+                      .filter((ii) => !!ii)
+                      .map((invoiceItem) => {
+                        return (
+                          // @ts-expect-error
+                          <TableRow key={invoiceItem.id}>
+                            <TableCell component="th" scope="row">
+                              {/* @ts-expect-error */}
+                              {invoiceItem.name}
+                            </TableCell>
+                            <TableCell>
+                              {getCurrencyDisplayWithPrice(
+                                // @ts-expect-error
+                                parseFloat(invoiceItem.total_price).toFixed(2),
+                              )}
+                            </TableCell>
+                            <TableCell>
+                              {getCurrencyDisplayWithPrice(
+                                // @ts-expect-error
+                                parseFloat(invoiceItem.voucher).toFixed(2),
+                              )}
+                            </TableCell>
+                            <TableCell>
+                              {getCurrencyDisplayWithPrice(
+                                parseFloat(
                                   // @ts-expect-error
-                                  parseFloat(invoiceItem.total_price).toFixed(
-                                    2,
-                                  ),
-                                )}
-                              </TableCell>
-                              <TableCell>
-                                {getCurrencyDisplayWithPrice(
-                                  // @ts-expect-error
-                                  parseFloat(invoiceItem.voucher).toFixed(2),
-                                )}
-                              </TableCell>
-                              <TableCell>
-                                {getCurrencyDisplayWithPrice(
-                                  parseFloat(
-                                    // @ts-expect-error
-                                    invoiceItem.total_price_notax,
-                                  ).toFixed(2),
-                                )}
-                              </TableCell>
-                            </TableRow>
-                          );
-                        })
-                    }
+                                  invoiceItem.total_price_notax,
+                                ).toFixed(2),
+                              )}
+                            </TableCell>
+                          </TableRow>
+                        );
+                      })}
                     {/* @ts-expect-error */}
                     {!!invoice.invoice_items.length === 0 && (
                       <TableRow>
@@ -597,65 +592,62 @@ const InvoiceRow: React.FC<Props> = React.memo((props) => {
                         <TableCell />
                       </TableRow>
                     )}
-                    {
-                      // eslint-disable-next-line
-                      invoice.payments
-                        .filter((p) => !!p)
-                        .map(
-                          (payment) =>
-                            !!payment && (
-                              // @ts-expect-error
-                              <TableRow key={payment.id}>
-                                <TableCell component="th" scope="row">
-                                  {t(
+                    {invoice.payments
+                      .filter((p) => !!p)
+                      .map(
+                        (payment) =>
+                          !!payment && (
+                            // @ts-expect-error
+                            <TableRow key={payment.id}>
+                              <TableCell component="th" scope="row">
+                                {t(
+                                  // @ts-expect-error
+                                  `payment:paymentMethod.${payment.payment_method}`,
+                                )}
+                              </TableCell>
+                              <TableCell>
+                                {getCurrencyDisplayWithPrice(
+                                  // @ts-expect-error
+                                  parseFloat(payment.price).toFixed(2),
+                                )}
+                              </TableCell>
+                              <TableCell>
+                                {/* @ts-expect-error */}
+                                {DateTime.fromISO(payment.date).toFormat('D')}
+                              </TableCell>
+                              <TableCell>
+                                {/* @ts-expect-error */}
+                                {payment.payment_received === null && (
+                                  // @ts-expect-error
+                                  <HourglassEmptyIcon size="small" />
+                                )}
+                                {/* @ts-expect-error */}
+                                {!payment.payment_received &&
+                                  // @ts-expect-error
+                                  payment.payment_received !== null && (
                                     // @ts-expect-error
-                                    `payment:paymentMethod.${payment.payment_method}`,
+                                    <ErrorIcon color="error" size="small" />
                                   )}
-                                </TableCell>
-                                <TableCell>
-                                  {getCurrencyDisplayWithPrice(
+                                {/* @ts-expect-error */}
+                                {payment.payment_received &&
+                                  // @ts-expect-error
+                                  !payment.payment_method ===
+                                    PAYMENT_METHOD_DISPUTE.id && (
                                     // @ts-expect-error
-                                    parseFloat(payment.price).toFixed(2),
+                                    <CheckIcon color="primary" size="small" />
                                   )}
-                                </TableCell>
-                                <TableCell>
-                                  {/* @ts-expect-error */}
-                                  {DateTime.fromISO(payment.date).toFormat('D')}
-                                </TableCell>
-                                <TableCell>
-                                  {/* @ts-expect-error */}
-                                  {payment.payment_received === null && (
+                                {/* @ts-expect-error */}
+                                {payment.payment_received &&
+                                  // @ts-expect-error
+                                  payment.payment_method ===
+                                    PAYMENT_METHOD_DISPUTE.id && (
                                     // @ts-expect-error
-                                    <HourglassEmptyIcon size="small" />
+                                    <WarningIcon color="error" size="small" />
                                   )}
-                                  {/* @ts-expect-error */}
-                                  {!payment.payment_received &&
-                                    // @ts-expect-error
-                                    payment.payment_received !== null && (
-                                      // @ts-expect-error
-                                      <ErrorIcon color="error" size="small" />
-                                    )}
-                                  {/* @ts-expect-error */}
-                                  {payment.payment_received &&
-                                    // @ts-expect-error
-                                    !payment.payment_method ===
-                                      PAYMENT_METHOD_DISPUTE.id && (
-                                      // @ts-expect-error
-                                      <CheckIcon color="primary" size="small" />
-                                    )}
-                                  {/* @ts-expect-error */}
-                                  {payment.payment_received &&
-                                    // @ts-expect-error
-                                    payment.payment_method ===
-                                      PAYMENT_METHOD_DISPUTE.id && (
-                                      // @ts-expect-error
-                                      <WarningIcon color="error" size="small" />
-                                    )}
-                                </TableCell>
-                              </TableRow>
-                            ),
-                        )
-                    }
+                              </TableCell>
+                            </TableRow>
+                          ),
+                      )}
                   </TableBody>
                 </Table>
                 {!!props.nestedDataLoading && <LinearProgress />}

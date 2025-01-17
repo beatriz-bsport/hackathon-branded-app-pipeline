@@ -117,8 +117,7 @@ export const SwitchField = (props: SwitchFieldProps) => {
   const { name, disabled, label, switchColor, revertValue, id, onChange } =
     props;
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [field, meta, helpers] = useField<number>(name);
+  const [field, _meta, helpers] = useField<number>(name);
 
   const handleFieldOnChange = React.useCallback(
     (fieldValue) => () => {

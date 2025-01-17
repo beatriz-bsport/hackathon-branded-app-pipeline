@@ -18,6 +18,7 @@ import { cva } from "class-variance-authority";
 
 const defaultClasses = [
   "absolute",
+  "z-[999]",
   "min-w-component-popover-min",
   "max-w-component-popover-max",
   "rounded-sm",
@@ -30,11 +31,11 @@ const defaultClasses = [
   "transition ease-out duration-default",
 ] as const;
 
-const popoverClasses = cva("relative w-fit");
+const popoverClasses = cva("relative w-fit h-full");
 
 export const PopoverContext = createContext<{
   isPopoverOpened: boolean;
-  setIsPopoverOpened: (isOpen: boolean) => void;
+  setIsPopoverOpened: React.Dispatch<React.SetStateAction<boolean>>;
 }>({
   isPopoverOpened: false,
   setIsPopoverOpened: () => {},
@@ -43,6 +44,7 @@ export const PopoverContext = createContext<{
 export type PopoverProps = {
   children: ReactNode;
   className?: string;
+  opened?: boolean;
 };
 
 /**
@@ -57,8 +59,8 @@ export type PopoverProps = {
 const Popover: React.FC<PopoverProps> & {
   Anchor: typeof Anchor;
   Content: typeof Content;
-} = ({ children, className }: PopoverProps) => {
-  const [isPopoverOpened, setIsPopoverOpened] = useState(false);
+} = ({ children, className, opened = false }: PopoverProps) => {
+  const [isPopoverOpened, setIsPopoverOpened] = useState(opened);
   const popoverRef = useRef(null);
 
   const handleClose = () => setIsPopoverOpened(false);
@@ -86,7 +88,7 @@ const Popover: React.FC<PopoverProps> & {
 const Anchor: React.FC<{
   children: (props: {
     isPopoverOpened: boolean;
-    setIsPopoverOpened: (isOpen: boolean) => void;
+    setIsPopoverOpened: React.Dispatch<React.SetStateAction<boolean>>;
   }) => ReactNode;
 }> = ({ children }) => {
   const { isPopoverOpened, setIsPopoverOpened } = useContext(PopoverContext);
@@ -100,16 +102,18 @@ const Anchor: React.FC<{
  * content and handling its visibility state.
  * @param className Additional classes to apply to the Content.
  * @param children Node(s) to render inside the Content.
+ * @param placement The position of the Popover relative to the Anchor.
  */
 const Content: React.FC<{
   className?: string;
   children: (props: {
-    setIsPopoverOpened: (isOpen: boolean) => void;
+    setIsPopoverOpened: React.Dispatch<React.SetStateAction<boolean>>;
   }) => ReactNode;
   placement?: (typeof Placements)[number];
 }> = ({ className, children, placement = "bottom-left" }) => {
   const { isPopoverOpened, setIsPopoverOpened } = useContext(PopoverContext);
   const placementClasses = usePlacementClasses(placement);
+  const contentRef = useRef<HTMLDivElement>(null);
 
   const [isMounted, setIsMounted] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
@@ -132,6 +136,40 @@ const Content: React.FC<{
       handleClose();
     }
   }, [isPopoverOpened, handleClose]);
+
+  // Handle Tab key press and close popover when tabbing out of the last option
+  const handleKeyDown = useCallback(
+    (event: React.KeyboardEvent<HTMLDivElement>) => {
+      if (event.key === "Tab" && contentRef.current) {
+        // Get all focusable elements in the popover
+        const focusableElements = Array.from(
+          contentRef.current.querySelectorAll(
+            "button,[href],input,select,textarea",
+          ),
+        ).filter(
+          (el) =>
+            el.hasAttribute("tabindex") && el.getAttribute("tabindex") !== "-1",
+        );
+
+        // If there are no focusable elements, do nothing
+        if (focusableElements.length === 0) return;
+
+        const firstFocusable = focusableElements[0];
+        const lastFocusable = focusableElements[focusableElements.length - 1];
+
+        // If Shift + Tab on the first item, close popover
+        if (document.activeElement === firstFocusable && event.shiftKey) {
+          setIsPopoverOpened(false);
+        }
+
+        // If Tab on the last item, close popover
+        if (document.activeElement === lastFocusable && !event.shiftKey) {
+          setIsPopoverOpened(false);
+        }
+      }
+    },
+    [setIsPopoverOpened],
+  );
 
   // Use "dialog" role if content is interactive, "tooltip" otherwise.
   const content =
@@ -170,6 +208,8 @@ const Content: React.FC<{
       })}
       role={role}
       aria-hidden={!isVisible}
+      onKeyDown={handleKeyDown}
+      ref={contentRef}
     >
       {content}
     </div>

@@ -83,13 +83,13 @@ export const FranchiseNotificationRule = (props: Props) => {
     fetchMarketingNotificationList({
       kind: BIRTHDAY_NOTIFICATION.kind,
     });
-    /* eslint-disable */
+     
   }, [
     fetchEventTypeList,
     fetchEmailDesignList,
     fetchMarketingNotificationList,
   ]);
-  /* eslint-enable */
+   
 
   useEffect(() => {
     fetchNotificationRuleList();

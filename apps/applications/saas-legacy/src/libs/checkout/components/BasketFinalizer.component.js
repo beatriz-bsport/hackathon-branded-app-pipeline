@@ -170,7 +170,7 @@ export class BasketFinalizer extends React.Component<Props, State> {
                     this.props.basket.total_price_cts !== data
                   ) {
                     this.props.setProcessing(false);
-                    // eslint-disable-next-line
+
                     window.alert(
                       this.props.t('myBasket.error.inconsistentBasket'),
                     );
@@ -259,7 +259,7 @@ export class BasketFinalizer extends React.Component<Props, State> {
                       this.props.basket.total_price_cts !== data
                     ) {
                       this.props.setProcessing(false);
-                      // eslint-disable-next-line
+
                       window.alert(
                         this.props.t('myBasket.error.inconsistentBasket'),
                       );

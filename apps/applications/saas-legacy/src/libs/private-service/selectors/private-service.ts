@@ -4,10 +4,14 @@ import memoize from 'memoize-one';
 import { State } from '../../../state/types';
 
 import { PrivateService, PrivateSlot } from '../types';
-import { getAllCoachesDict } from '../../associated-coach/selectors';
+import {
+  getAllCoachesDict,
+  getCoachesByAssociatedCoachId,
+} from '../../associated-coach/selectors';
 import {
   getAllEstablishmentsWithAssociatedId,
   getAllEstablishmentsDict,
+  getEstablishmentsByAssociatedId,
 } from '../../establishment/selectors';
 import { getAllPrivateSlotsDict } from './private-slot';
 import { RootState } from '../../../reducers';
@@ -346,28 +350,26 @@ export const getPrivateServiceTagEligibleLoading = (state: RootState) => {
 export const getPrivateServiceWithDetails = createSelector(
   [
     getPrivateService,
-    getAllEstablishmentsDict,
+    getEstablishmentsByAssociatedId,
     getAllPrivateSlotsDict,
-    getAllCoachesDict,
+    getCoachesByAssociatedCoachId,
   ],
-  (privateService, establishmentsById, privateSlotsById, coachesById) => {
+  (
+    privateService,
+    establishmentsByAssociatedId,
+    privateSlotsById,
+    coachesByAssociatedId,
+  ) => {
     if (!privateService) return null;
     return {
       ...privateService,
       coaches: privateService.coaches
-        ?.map((associatedCoachId) =>
-          Object.values(coachesById)?.find(
-            (coach) => coach.associated_coach_id === associatedCoachId,
-          ),
-        )
+        ?.map((associatedCoachId) => coachesByAssociatedId?.[associatedCoachId])
         .filter(Boolean),
       establishments: privateService.establishments
-        ?.map((associatedEstablishmentId) =>
-          Object.values(establishmentsById)?.find(
-            (establishment) =>
-              establishment.associatedestablishment_set[0] ===
-              associatedEstablishmentId,
-          ),
+        ?.map(
+          (associatedEstablishmentId) =>
+            establishmentsByAssociatedId?.[associatedEstablishmentId],
         )
         .filter(Boolean),
       slots: privateService.slots

@@ -50,13 +50,11 @@ export const CalendarDay: React.FC<Props> = ({
 
   const isFirstDayOfRange =
     isDayInRange &&
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    ranges.some(([start, end]) => DateTime.fromISO(start).hasSame(day, 'day'));
+    ranges.some(([start, _end]) => DateTime.fromISO(start).hasSame(day, 'day'));
 
   const isLastDayOfRange =
     isDayInRange &&
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    ranges.some(([start, end]) => DateTime.fromISO(end).hasSame(day, 'day'));
+    ranges.some(([_start, end]) => DateTime.fromISO(end).hasSame(day, 'day'));
 
   if (previewOnly && wrapperStyle) {
     return (

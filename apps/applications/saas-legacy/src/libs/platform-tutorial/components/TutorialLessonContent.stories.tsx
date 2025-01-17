@@ -22,17 +22,6 @@ const options = {
     alert('Go to menu!');
   },
 };
-const goToPreviousLesson = (id: number) => {
-  if (id !== null) {
-    alert(`Go to lesson of id : ${id}`);
-  }
-};
-const goToNextLesson = (id: number) => {
-  alert(`Go to lesson of id : ${id}`);
-};
-const goToFinish = () => {
-  alert('End section!');
-};
 
 export const TutorialLessonHeaderMiddleOfSection = CustomTemplate.bind({});
 

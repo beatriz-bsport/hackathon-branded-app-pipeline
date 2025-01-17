@@ -33,10 +33,10 @@ import { getIsoWeekDay } from '#src/libs/offer/utils';
 import { DateTime } from 'luxon';
 
 const requiredFieldError = i18n.t('offer:form.errors.required');
-const positiveNumberError = i18n.t('offer:form.errors.positiveNumber');
+// const positiveNumberError = i18n.t('offer:form.errors.positiveNumber');
 const minZeroNumberError = i18n.t('offer:form.errors.minZero');
 const minTwoNumberError = i18n.t('offer:form.errors.minTwo');
-const broadcastLinkError = i18n.t('offer:form.errors.field.broadcastLink');
+// const broadcastLinkError = i18n.t('offer:form.errors.field.broadcastLink');
 const startDateTooFarError = i18n.t('offer:form.errors.dateTooFar');
 const endDateError = i18n.t('offer:form.errors.field.dateIntervalEnd');
 const partnerMaxBookingError = i18n.t(

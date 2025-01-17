@@ -4,6 +4,34 @@ import { OfferWithSpotInformation } from '#src/libs/offer/types';
 import { CheckoutItem, ConfirmationStatus } from './types';
 import ConfirmationMessageIcon from './components/ConfirmationMessageIcon';
 
+type ConfirmationAction = {
+  label: string;
+  onClick: () => void;
+};
+
+type ConfirmationAlert = {
+  message: string;
+  action: ConfirmationAction;
+};
+
+type ValidationsActions = {
+  cancel: ConfirmationAction;
+  confirm?: ConfirmationAction;
+};
+
+type ConfirmationMessage = {
+  actions: ValidationsActions;
+  icon: React.ReactElement;
+  message: string;
+  title: string;
+  withAlert?: ConfirmationAlert | null;
+  withSubScriptionActions?: ValidationsActions | null;
+};
+
+type ConfirmationMessages = {
+  [key in ConfirmationStatus]: ConfirmationMessage;
+};
+
 export const useConfirmationMessageData = (
   offers: OfferWithSpotInformation[],
   checkoutItems: CheckoutItem[],
@@ -16,7 +44,7 @@ export const useConfirmationMessageData = (
 ) => {
   const { t } = useTranslation('checkout');
 
-  const messageData = React.useMemo(() => {
+  const messageData: ConfirmationMessages = React.useMemo(() => {
     return {
       [ConfirmationStatus.GENERIC_ERROR]: {
         actions: {
@@ -364,6 +392,34 @@ export const useConfirmationMessageData = (
         ),
         title: t(
           'validation.sections.confirmationStatusTitle.success.paymentSuccess',
+        ),
+        withAlert: null,
+        withSubScriptionActions: null,
+      },
+      [ConfirmationStatus.OFFERS_PARTIALLY_CONFIRMED]: {
+        actions: {
+          cancel: {
+            label: t('validation.actions.goToCalendar'),
+            onClick: goToCalendar,
+          },
+          ...(goToMemberProfile
+            ? {
+                confirm: {
+                  label: t('validation.actions.myBookings'),
+                  onClick: goToMemberProfile,
+                },
+              }
+            : {}),
+        },
+        icon: React.createElement(ConfirmationMessageIcon, {
+          isError: false,
+          isWarning: true,
+        }),
+        message: t(
+          'validation.sections.confirmationStatusMessage.offersPartiallyConfirmed',
+        ),
+        title: t(
+          'validation.sections.confirmationStatusTitle.warning.offersPartiallyConfirmed',
         ),
         withAlert: null,
         withSubScriptionActions: null,

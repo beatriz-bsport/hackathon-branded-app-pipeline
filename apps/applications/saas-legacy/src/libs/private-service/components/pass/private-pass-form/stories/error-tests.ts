@@ -1,4 +1,4 @@
-import { userEvent, within } from '@storybook/testing-library';
+import { userEvent } from '@storybook/testing-library';
 import { expect } from '@storybook/jest';
 
 import PrivatePassForm from '../PrivatePassForm.component';
@@ -38,7 +38,7 @@ export const generalSectionErrorTests = async ({
   args: React.ComponentProps<typeof PrivatePassForm>;
   canvasElement: HTMLElement;
 }) => {
-  const { canvas, component } = await findByTestIdInCanvas(
+  const { component } = await findByTestIdInCanvas(
     canvasElement,
     'private-pass-form',
   );
@@ -73,7 +73,7 @@ export const validitySectionErrorTests = async ({
   args: React.ComponentProps<typeof PrivatePassForm>;
   canvasElement: HTMLElement;
 }) => {
-  const { canvas, component } = await findByTestIdInCanvas(
+  const { component } = await findByTestIdInCanvas(
     canvasElement,
     'private-pass-form',
   );

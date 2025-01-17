@@ -14,7 +14,8 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.es.js",
       "require": "./dist/index.umd.js"
-    }
+    },
+    "./styles": "./dist/style.css"
   },
   "dependencies": {
     "class-variance-authority": "^0.7.0",
@@ -39,6 +40,7 @@
     "vite-plugin-svgr": "^4.3.0"
   },
   "scripts": {
+    "postinstall": "pnpm build",
     "build": "tsc && vite build",
     "component:add": "pnpm exec hygen component new",
     "ci:deploy": "./scripts/ci-deploy.sh $1",

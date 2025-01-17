@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 
 import classNames from 'classnames';
 
+import WarningIcon from '@material-ui/icons/Warning';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
@@ -245,6 +246,14 @@ const ContractTemplateForm: React.FC<ContractTemplateFormProps> = ({
   return (
     <div>
       <div className={classes.sectionContainer}>
+        {values?.editable === false ? (
+          <div className={classes.sectionTitle}>
+            <WarningIcon color="error" />
+            <Typography color="error" variant="body1">
+              {t('contract.form.notEditable')}
+            </Typography>
+          </div>
+        ) : null}
         <div className={classes.sectionTitle}>
           <InfoIcon className={classes.icon} />
           <Typography variant="h6">
@@ -283,6 +292,7 @@ const ContractTemplateForm: React.FC<ContractTemplateFormProps> = ({
         <div>
           <RadioGroupField
             choices={passTypeRadioFieldOptions}
+            disabled={values?.editable === false}
             name="productType"
           />
           <div>
@@ -303,6 +313,7 @@ const ContractTemplateForm: React.FC<ContractTemplateFormProps> = ({
                         Option: PaymentPackTemplateSearchOption,
                       }}
                       initialValues={[values.paymentPackTemplate]}
+                      isDisabled={values?.editable === false}
                       optionsFormatter={formatPaymentPackTemplateSearchOptions}
                       searchedObjectType="payment_pack_template"
                       value={formatPaymentPackTemplateSelectedOption}
@@ -340,6 +351,7 @@ const ContractTemplateForm: React.FC<ContractTemplateFormProps> = ({
                         Option: PrivatePassTemplateSearchOption,
                       }}
                       initialValues={[values.privatePassTemplate]}
+                      isDisabled={values?.editable === false}
                       optionsFormatter={formatPrivatePassTemplateSearchOptions}
                       searchedObjectType="private_pass_template"
                       value={formatPrivatePassTemplateSelectedOption}
@@ -542,6 +554,7 @@ const ContractTemplateForm: React.FC<ContractTemplateFormProps> = ({
           </Collapse>
           <div className={classes.marginTopClass}>
             <SwitchField
+              disabled={values?.editable === false}
               label={t('contract.form.autoRenewal.label')}
               name="autoRenewal"
             />

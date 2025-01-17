@@ -562,7 +562,7 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
 
   handleContinueGroupPopup = () => {
     this.handleCloseGroupPopup();
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+     
     const { redirect, group, ...offer } = this.state.displayGroupPopup;
     if (redirect === 'book') {
       // @ts-expect-error

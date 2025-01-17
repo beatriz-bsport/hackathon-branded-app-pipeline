@@ -45,11 +45,9 @@ const convertToType = (data: string, type: SuportedConverter) => {
       if (data === 'false') return false;
       return null;
     case 'number':
-      // eslint-disable-next-line no-case-declarations
       const value = Number.parseFloat(data);
       return Number.isNaN(value) ? null : value;
     case 'arrayNumber':
-      // eslint-disable-next-line no-case-declarations
       const values = data.split(',');
       return values
         ?.filter((num) => Number.isNaN(Number.parseFloat(num)))

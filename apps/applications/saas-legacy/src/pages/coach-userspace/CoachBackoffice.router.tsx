@@ -64,7 +64,7 @@ const CoachBackoffice = (props: Props) => {
     fetchCompanyTheme(companyId);
   }, [fetchCompanyTheme, companyId]);
 
-  // eslint-disable-next-line consistent-return
+   
   const firstAvailableNavigableItem = useMemo(() => {
     if (theme.has_coach_access_to_calendar) return `/co/${companyId}/calendar/`;
     if (theme.has_coach_access_to_compensation)

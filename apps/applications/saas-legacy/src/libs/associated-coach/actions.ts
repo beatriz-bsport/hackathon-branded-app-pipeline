@@ -30,6 +30,7 @@ import type {
   CoachReplacementPreferencesData,
   CoachLateReplacementRequestStatus,
   UpdateCoachPrivateSlotsPaymentRuleData,
+  FetchCoachParams,
 } from '#src/libs/associated-coach/types';
 import { AssignAssociatedCoachDisciplineGroupParams } from '#src/libs/replacement-request/types';
 
@@ -151,7 +152,6 @@ export function fetchAssociatedCoachesList(
         }),
       );
       if (options && options.onSuccess) {
-        // @ts-expect-error
         options.onSuccess(response.data);
       }
     } catch (error) {
@@ -191,7 +191,6 @@ export function fetchAdditionalAssociatedCoachesList(
         }),
       );
       if (options && options.onSuccess) {
-        // @ts-expect-error
         options.onSuccess(response.data);
       }
     } catch (error) {
@@ -521,12 +520,15 @@ export function setCoachPaymentRuleGroup(
   };
 }
 export const bulkRetrieveActions = {
-  isLoading: createAction('COACH/BULK_RETRIEVE/IS_LOADING'),
-  error: createAction('COACH/BULK_RETRIEVE/ERROR'),
-  success: createAction('COACH/BULK_RETRIEVE/SUCCESS'),
+  isLoading: createAction<boolean>('COACH/BULK_RETRIEVE/IS_LOADING'),
+  error: createAction<Error | null>('COACH/BULK_RETRIEVE/ERROR'),
+  success: createAction<Coach[]>('COACH/BULK_RETRIEVE/SUCCESS'),
 };
 
-export function fetchCoachBulkBase(params: any = {}, options?: OptionCallback) {
+export function fetchCoachBulkBase(
+  params: FetchCoachParams = {},
+  options?: OptionCallback<Coach[]>,
+) {
   return async (dispatch: Dispatch) => {
     dispatch(bulkRetrieveActions.isLoading(true));
     dispatch(bulkRetrieveActions.error(null));
@@ -534,10 +536,10 @@ export function fetchCoachBulkBase(params: any = {}, options?: OptionCallback) {
     try {
       const response = await fetchAssociatedCoachesAPI({
         ...params,
+        // @ts-expect-error
         page_size: null,
       });
       dispatch(bulkRetrieveActions.success(response.data));
-      // @ts-expect-error
       if (options && options.onSuccess) options.onSuccess(response.data);
     } catch (error) {
       console.error(error);
@@ -561,7 +563,7 @@ export function fetchCoachBulkBase(params: any = {}, options?: OptionCallback) {
 export const fetchCoachBulkForCompany = (
   ids: Array<number>,
   company: number,
-  options?: OptionCallback,
+  options?: OptionCallback<Coach[]>,
 ) => {
   return async (
     dispatch: ThunkDispatch<any, any, any>,
@@ -583,7 +585,7 @@ export const fetchCoachBulkForCompany = (
 
 export const fetchCoachBulk = (
   ids: Array<number>,
-  options?: OptionCallback,
+  options?: OptionCallback<Coach[]>,
 ) => {
   return async (
     dispatch: ThunkDispatch<any, any, any>,
@@ -634,7 +636,7 @@ export const fetchAssociatedCoachBulkFromCoachIds = (
 
 export const fetchAssociatedCoachBulk = (
   ids: Array<number>,
-  options?: OptionCallback,
+  options?: OptionCallback<Coach[]>,
 ) => {
   return async (dispatch: ThunkDispatch<any, any, any>) => {
     const ids_uniq = uniq(ids.filter((id) => !!id));

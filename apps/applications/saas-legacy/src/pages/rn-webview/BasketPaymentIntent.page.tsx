@@ -405,7 +405,7 @@ export class BasketPaymentIntent extends React.Component<Props, State> {
         parseFloat(this.props.basket.total_price_cts) !== data
       ) {
         this.setState({ selfProcessing: false });
-        // eslint-disable-next-line
+         
         window.alert(this.props.t('myBasket.error.inconsistentBasket'));
         window.location.reload();
       } else {

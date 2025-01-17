@@ -44,13 +44,13 @@ export class UserMarketingNotificationsFilter extends Component<Props> {
           <Select
             defaultValue
             className={classes.input}
-            // eslint-disable-next-line
+             
             onChange={(ev) =>
               onChange({ all_filters_must_be_right: ev.target.value })
             }
             value={filter_data.all_filters_must_be_right}
           >
-            {/* eslint-disable-next-line */}
+            { }
             {/* @ts-expect-error */}
             <MenuItem key="true" value>
               {t(`filters.${filter_data.filter_identifier}.allNeeded`)}
@@ -89,11 +89,11 @@ export class UserMarketingNotificationsFilter extends Component<Props> {
             <Select
               defaultValue
               className={classes.input}
-              // eslint-disable-next-line
+               
               onChange={(ev) => onChange({ email_value: ev.target.value })}
               value={filter_data.email_value}
             >
-              {/* eslint-disable-next-line */}
+              { }
               {/* @ts-expect-error */}
               <MenuItem key="true" value>
                 {t(`filters.${filter_data.filter_identifier}.true`)}
@@ -127,11 +127,11 @@ export class UserMarketingNotificationsFilter extends Component<Props> {
             <Select
               defaultValue
               className={classes.input}
-              // eslint-disable-next-line
+               
               onChange={(ev) => onChange({ sms_value: ev.target.value })}
               value={filter_data.sms_value}
             >
-              {/* eslint-disable-next-line */}
+              { }
               {/* @ts-expect-error */}
               <MenuItem key="true" value>
                 {t(`filters.${filter_data.filter_identifier}.true`)}

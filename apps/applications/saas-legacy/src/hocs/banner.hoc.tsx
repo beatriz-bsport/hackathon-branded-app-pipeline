@@ -1,4 +1,3 @@
-// eslint-disable-next-line max-classes-per-file
 import React, { useEffect, useContext, useState, Component } from 'react';
 import { Member } from '../libs/member/types';
 import MemberArchiveBanner from '../libs/member/components/MemberArchiveBanner.component';

@@ -1,3 +1,4 @@
+/* eslint-disable-next-line */
 const MenuItemTypes = ['text', 'checkbox', 'radio'] as const;
 
 export type MenuItemType = (typeof MenuItemTypes)[number];

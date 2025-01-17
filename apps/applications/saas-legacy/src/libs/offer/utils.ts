@@ -87,7 +87,7 @@ export function _generateRecurrenceDates(
 
   while (dateIteration.startOf('day') <= end.startOf('day')) {
     if (recurrence === OFFER_RECURRENCE.WEEKLY) {
-      // eslint-disable-next-line
+       
       [0, 1, 2, 3, 4, 5, 6].forEach((i) => {
         const currentDateOfTheWeek = dateIteration.plus({ days: i });
         if (

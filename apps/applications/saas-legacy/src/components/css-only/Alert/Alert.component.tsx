@@ -15,6 +15,7 @@ export type Props = {
   severity: AlertSeverity;
   children: string;
   actionElement?: React.ReactElement;
+  className?: string;
 };
 
 type AlertIconProps = Pick<Props, 'severity'>;
@@ -34,14 +35,23 @@ const AlertIcon = ({ severity }: AlertIconProps) => {
   }
 };
 
-const Alert: React.FC<Props> = ({ severity, children, actionElement }) => (
+const Alert: React.FC<Props> = ({
+  severity,
+  children,
+  actionElement,
+  className,
+}) => (
   <div
-    className={classNames('bs-alert__container', {
-      'bs-alert__container__success': severity === AlertSeverity.SUCCESS,
-      'bs-alert__container__info': severity === AlertSeverity.INFO,
-      'bs-alert__container__warning': severity === AlertSeverity.WARNING,
-      'bs-alert__container__error': severity === AlertSeverity.ERROR,
-    })}
+    className={classNames(
+      'bs-alert__container',
+      {
+        'bs-alert__container__success': severity === AlertSeverity.SUCCESS,
+        'bs-alert__container__info': severity === AlertSeverity.INFO,
+        'bs-alert__container__warning': severity === AlertSeverity.WARNING,
+        'bs-alert__container__error': severity === AlertSeverity.ERROR,
+      },
+      className,
+    )}
   >
     {!!severity && (
       <div className="bs-alert__icon__container">

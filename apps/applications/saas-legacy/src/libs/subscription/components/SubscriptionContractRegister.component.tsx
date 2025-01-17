@@ -60,7 +60,7 @@ type OwnProps = {
   // the three next props are used in handler
   // eslint-disable-next-line
   onSuccess?: () => void;
-  // eslint-disable-next-line
+   
   onlinePaymentEnabled: boolean;
   // eslint-disable-next-line
   registerContractBackground: (

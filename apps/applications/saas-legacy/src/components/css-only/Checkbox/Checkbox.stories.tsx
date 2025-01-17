@@ -7,7 +7,6 @@ const CheckboxTemplate = (args: Props) => {
   const [isChecked, setIsChecked] = useState(false);
 
   const handleOnChange = () => setIsChecked((prevState) => !prevState);
-  const label = faker.hacker.phrase();
   return (
     //@ts-expect-error
     <CheckboxForStorybook

@@ -276,7 +276,6 @@ type WithFormikProps = {
 type MergedProps = WithFormikProps & Props;
 
 export const GiftcardFormFieldHOC = withFormik<MergedProps, any>({
-  // eslint-disable-next-line
   mapPropsToValues: ({ initial }) => {
     if (!initial) {
       return {

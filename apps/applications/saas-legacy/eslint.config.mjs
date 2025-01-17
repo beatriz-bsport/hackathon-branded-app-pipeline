@@ -3,8 +3,11 @@ import typescriptParser from '@typescript-eslint/parser';
 import reactPlugin from 'eslint-plugin-react';
 import i18nextPlugin from 'eslint-plugin-i18next';
 import reactHooksPlugin from 'eslint-plugin-react-hooks';
+import tseslint from 'typescript-eslint';
+import bsport from 'eslint-plugin-bsport';
 
-export default [
+export default tseslint.config(
+  tseslint.configs.base,
   {
     ignores: [
       // Replace .eslintignore
@@ -28,7 +31,6 @@ export default [
       '*.min.js',
       '*.bundle.js',
     ],
-
     settings: {
       react: {
         version: 'detect',
@@ -50,6 +52,7 @@ export default [
       react: reactPlugin,
       i18next: i18nextPlugin,
       'react-hooks': reactHooksPlugin,
+      bsport,
     },
     languageOptions: {
       parser: babelParser,
@@ -140,18 +143,19 @@ export default [
         },
       ],
     },
+    files: ['**/*.{js,mjs,cjs,ts,jsx,tsx}'],
   },
   {
     // Rules for JavaScript files
-    files: ['*.js'],
-    excludedFiles: ['**/*.translation*.js'],
+    files: ['**/*.js'],
+    ignores: ['**/*.translation*.js'],
     rules: {
       quotes: [2, 'single'],
     },
   },
   {
     // Rules for JavaScript and JSX files
-    files: ['*.js', '*.jsx'],
+    files: ['**/*.{js,jsx}'],
     rules: {
       'no-undef': 'off',
       'no-unused-vars': 'off',
@@ -159,8 +163,8 @@ export default [
   },
   {
     // Rules for TypeScript files
-    files: ['*.ts', '*.tsx'],
-    excludedFiles: ['**/*.test.ts', 'src/**/__test__/**'],
+    files: ['**/*.{ts,tsx}'],
+    ignores: ['**/*.test.ts', 'src/**/__test__/**'],
     languageOptions: {
       parser: typescriptParser,
       parserOptions: {
@@ -173,11 +177,22 @@ export default [
     },
     rules: {
       'no-await-in-loop': 0,
-      'no-unused-vars': 0,
+      'no-unused-vars': 0, // Disabled to enforce typescript-eslint rule
       'import/no-named-as-default-member': 0,
       'max-len': 0,
       'react/prop-types': 0,
-      '@typescript-eslint/no-unused-vars': ['error'],
+      '@typescript-eslint/no-unused-vars': [
+        'error',
+        {
+          args: 'after-used',
+          argsIgnorePattern: '^_',
+          caughtErrors: 'all',
+          caughtErrorsIgnorePattern: '^_',
+          destructuredArrayIgnorePattern: '^_',
+          varsIgnorePattern: '^_',
+          ignoreRestSiblings: true,
+        },
+      ],
       'prefer-destructuring': 0,
       'no-shadow': 0,
       '@typescript-eslint/no-shadow': 'error',
@@ -190,4 +205,4 @@ export default [
       ],
     },
   },
-];
+);

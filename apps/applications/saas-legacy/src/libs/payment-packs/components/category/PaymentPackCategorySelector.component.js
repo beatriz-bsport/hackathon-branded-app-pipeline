@@ -201,7 +201,7 @@ const packPackcategoryStyles = {
   menuPortal: (base) => ({ ...base, zIndex: 9999 }),
   option: (styles, { isDisabled, isFocused, isSelected }) => {
     const color = chroma(colors.secondary);
-    /* eslint-disable */ return {
+      return {
       ...styles,
       backgroundColor: isDisabled
         ? null
@@ -228,7 +228,7 @@ const packPackcategoryStyles = {
       groupHeading: (base) => ({ ...base, margin: 0 }),
     };
 
-    /* eslint-enable */
+     
   },
   multiValue: (styles) => {
     const color = chroma(colors.secondary);

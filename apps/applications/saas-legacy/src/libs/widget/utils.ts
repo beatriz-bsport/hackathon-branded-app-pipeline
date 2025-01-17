@@ -143,7 +143,7 @@ export const cleanCSSFileStyleSheet = (css: string): string => {
 
   const cssRulesList = Object.values(cssRules);
 
-  /* eslint-disable no-param-reassign */
+   
   const stringifyStyleSheet = cssRulesList.reduce(
     (stringifySheetAccumulator, currentCssRule) => {
       if (currentCssRule instanceof CSSStyleRule) {
@@ -168,17 +168,17 @@ export const cleanCSSFileStyleSheet = (css: string): string => {
     },
     '',
   );
-  /* eslint-enable no-param-reassign */
+   
   return stringifyStyleSheet;
 };
 
 const parseCSSRuleList = (ruleList: CSSRule[]) => {
-  /* eslint-disable no-param-reassign */
+   
   return ruleList.reduce((acc: string, cv: CSSStyleRule) => {
     acc += `\n ${cv.selectorText} {\n    \n } \n`;
     return acc;
   }, '');
-  /* eslint-disable no-param-reassign */
+   
 };
 
 /**

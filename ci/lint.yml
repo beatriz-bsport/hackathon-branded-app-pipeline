@@ -12,4 +12,11 @@ Lint:
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
   script:
     - git fetch origin $CI_MERGE_REQUEST_TARGET_BRANCH_NAME
+    - echo "*"
+    - echo "⏳ Lint ichizen affected projects"
     - pnpm exec nx affected --target=lint --base=origin/$CI_MERGE_REQUEST_TARGET_BRANCH_NAME
+    - echo "✅ All ichizen affected projects have been linted"
+    - echo "*"
+    - echo "⏳ Lint legacy affected projects"
+    - pnpm exec nx affected --target=lint-old --base=origin/$CI_MERGE_REQUEST_TARGET_BRANCH_NAME
+    - echo "✅ All legacy affected projetcs have been linted"

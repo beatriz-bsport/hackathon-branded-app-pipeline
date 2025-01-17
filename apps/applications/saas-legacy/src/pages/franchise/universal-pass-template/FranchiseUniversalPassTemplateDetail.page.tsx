@@ -99,7 +99,7 @@ const FranchiseUniversalPassTemplateDetail: React.FC<Props> = ({
 
   React.useEffect(() => {
     if (
-      // eslint-disable-next-line
+       
       parseQueryString(location.search || '').openTemplateInstanceForm
     ) {
       openCreateForm();

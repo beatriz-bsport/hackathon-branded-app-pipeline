@@ -84,12 +84,12 @@ const Select: React.FC<SelectProps> = ({
     <Popover>
       <Popover.Anchor>
         {({ isPopoverOpened, setIsPopoverOpened }) => {
-          const handleButtonClick = () => setIsPopoverOpened(!isPopoverOpened);
+          const handleButtonClick = () => setIsPopoverOpened((prev) => !prev);
 
           const handleKeyDown = (e: KeyboardEvent<HTMLButtonElement>) => {
             if (e.key === "ArrowDown" || e.key === "Enter" || e.key === " ") {
               e.preventDefault();
-              setIsPopoverOpened(!isPopoverOpened);
+              setIsPopoverOpened((prev) => !prev);
             }
           };
 

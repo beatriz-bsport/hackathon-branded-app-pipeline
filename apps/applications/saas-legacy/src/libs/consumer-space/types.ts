@@ -225,6 +225,7 @@ export type PrivateConsumerPassCompatibility = {
   sessions?: string[];
 };
 
+/* eslint-disable-next-line */
 const daysOfWeek = [0, 1, 2, 3, 4, 5, 6] as const;
 export type DayOfWeekNumber = (typeof daysOfWeek)[number];
 
@@ -234,6 +235,7 @@ export type TimeSlot = {
   to: `${number}:${number}`;
 };
 
+/* eslint-disable-next-line */
 const frequencyOptions = ['month', 'day', 'week'] as const;
 export type FrequencyOption = (typeof frequencyOptions)[number];
 

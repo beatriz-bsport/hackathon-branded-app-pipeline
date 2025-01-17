@@ -1,4 +1,3 @@
-import { faker } from '@faker-js/faker';
 import React from 'react';
 import FuzzySearch, { OwnProps } from './FuzzySearch.component';
 import FactoryBotUser from '../../libs/franchise/factories/FranchiseUserFactory';

@@ -17,6 +17,11 @@
   color: var(--color-error-main);
 }
 
+.bs-confirmation-checkout-message__icon__warning {
+  background: var(--color-warning-background);
+  color: var(--color-warning-light);
+}
+
 .bs-confirmation-checkout-message__icon__default {
   background: var(--color-primary-main-background);
   color: var(--color-primary-main);

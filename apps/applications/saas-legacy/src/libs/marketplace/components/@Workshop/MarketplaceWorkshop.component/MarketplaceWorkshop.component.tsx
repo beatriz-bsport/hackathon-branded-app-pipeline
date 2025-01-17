@@ -63,7 +63,6 @@ const MarketplaceWorkshop: React.FC<Props> = ({
   const { t } = useTranslation(['marketplace']);
   const refContainer = useRef<HTMLDivElement>();
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [_, currentElement] = useIsVisibleOnScreen<HTMLDivElement>(
     1000,
     500,

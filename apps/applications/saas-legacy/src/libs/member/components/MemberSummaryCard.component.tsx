@@ -252,9 +252,8 @@ export class MemberSummaryCard extends PureComponent<Props> {
                   (hasMemberReadInfoPermission && member.consumer.email) || ''
                 }
                 hideContactButton={hideContactButton}
-                openMailDialog={
-                  // eslint-disable-next-line
-                  () => this.setState({ displayMailDialog: true })
+                openMailDialog={() =>
+                  this.setState({ displayMailDialog: true })
                 }
                 pending_email={member.pending_email}
               />

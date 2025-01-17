@@ -114,7 +114,7 @@ export default compose(
   withProps(({ upsertMember, goBack }) => ({
     onSubmit: (values, options) => {
       if (!values.birthday) {
-        // eslint-disable-next-line
+         
         delete values.birthday;
       }
       const formData = mapFormData(values, MemberMap);

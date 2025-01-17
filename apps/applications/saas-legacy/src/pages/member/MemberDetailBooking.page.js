@@ -135,7 +135,6 @@ import RevertBookingDialog from '#src/libs/booking/components/RevertBookingDialo
 import RefundBookingDialog from '#src/libs/booking/components/RefundBookingDialog.component';
 import BookingFilters from '#src/libs/booking/components/BookingFilters.component';
 import RecurrenceRuleBookingListItem from '#src/libs/booking/components/RecurrenceRuleBookingListItem.component';
-import TemporalBarChart from '#src/components/graph/TemporalBarChart.component';
 import { getActivityWorkshopPermission } from '#src/libs/role/permission-utils/utils';
 import ObjectLevelPermissionProvider from '#src/libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 
@@ -157,10 +156,7 @@ import paymentPackSelectors, {
 } from '#src/libs/payment-packs/selectors';
 import { getConsumerPack } from '#src/libs/consumer-payment-pack/selectors';
 import themeSelectors from '#src/libs/theme/selectors';
-import { fetchBookingStatistics2 as fetchBookingStatisticsAction } from '#src/libs/statistics/actions';
 import { fetchCompanyUserRoles as fetchCompanyUserRolesAction } from '#src/libs/role/actions';
-import { getStatisticTemporal } from '#src/libs/statistics/selectors';
-import ChartRange from '#src/libs/dashboard/components/ChartRange.component';
 import { Theme } from '#src/libs/theme/types';
 import AsyncSpotSelector, {
   asyncSelectSpotForBlueprint,
@@ -259,11 +255,7 @@ type Props = {
   onSubmitRecurrentBooking: () => void,
   onSubmitRetryOfferWithCancelledBookings: (offerIds: number[]) => void,
 
-  graphData: { data: Array<{ d: string, v: number }>, loading: boolean },
   theme: Theme,
-  fetchMemberBookingStatistics: () => void,
-  chartRange: { start: string, end: string, kind: string },
-  setChartRange: ({ start: string, end: string, kind: string }) => void,
   recurrentBookingLoading: boolean,
   userFiltersLoading: boolean,
   setSpotForBooking: () => void,
@@ -353,7 +345,6 @@ export class MemberDetailBooking extends Component<Props, State> {
     this.props.fetchCompanyUserRoles();
     this.props.fetchActivitiesCompany(this.props.theme.company);
     this.props.fetchRecurrenceRuleBooking(1);
-    this.props.fetchMemberBookingStatistics();
     this.props.fetchAssociatedCoachesList();
     this.props.fetchLevelList({
       company: this.props.theme.company,
@@ -374,10 +365,6 @@ export class MemberDetailBooking extends Component<Props, State> {
   componentDidUpdate(prevProps: Props) {
     if (!isEqual(prevProps.filters, this.props.filters)) {
       this.fetchMemberBookings();
-      this.props.fetchMemberBookingStatistics();
-    }
-    if (prevProps.chartRange !== this.props.chartRange) {
-      this.props.fetchMemberBookingStatistics();
     }
     if (
       this.props.bookingId &&
@@ -523,52 +510,6 @@ export class MemberDetailBooking extends Component<Props, State> {
       this.props.recurrentBookingLoading ||
       this.props.userFiltersLoading;
 
-    if (!this.props.selectBooking && !this.props.selectedBookingOption) {
-      return (
-        <Paper className={this.props.classes.graphContainer}>
-          <div className={this.props.classes.titleRow}>
-            <Typography variant="h6">
-              {this.props.t('booking:memberGraph.title')}
-            </Typography>
-            <ChartRange
-              end_date={this.props.chartRange.end}
-              kind={this.props.chartRange.kind}
-              setRange={this.props.setChartRange}
-              start_date={this.props.chartRange.start}
-              timeSettings="range"
-            />
-          </div>
-          <BookingFilters
-            coaches={this.props.coaches}
-            filters={!dataLoading && this.props.filters}
-            open={this.props.open}
-            setFiltersValue={this.props.setFilterValue}
-            setOpenValue={this.props.setOpenValue}
-          />
-          {this.props.graphData.loading ? (
-            <Skeleton height={300} />
-          ) : (
-            <TemporalBarChart
-              tooltip
-              chartOptions={[
-                {
-                  dataKey: 'v',
-                  stroke: primary_color,
-                  fill: primary_color,
-                  caption: this.props.t('memberGraph.label'),
-                },
-              ]}
-              data={this.props.graphData.data}
-              height={300}
-              margin={{ top: 0, right: 20, bottom: 0, left: 20 }}
-              yLabel={this.props.t('memberGraph.label')}
-              yLabelOffset={-2}
-            />
-          )}
-        </Paper>
-      );
-    }
-
     if (this.props.selectedBookingOption) {
       return (
         <WaitingListDetail
@@ -584,34 +525,30 @@ export class MemberDetailBooking extends Component<Props, State> {
       );
     }
 
-    if (this.props.selectBooking) {
-      return (
-        <BookingDetail
-          booking={this.props.selectedBooking}
-          consumerPack={
-            this.props.selectedBooking &&
-            this.props.getPass(
-              parseInt(this.props.selectedBooking.consumer_payment_pack_id, 10),
-            )
-          }
-          decrementCredit={this.props.decrementCredit}
-          getPaymentPack={this.props.getPaymentPack}
-          incrementCredit={this.props.incrementCredit}
-          loading={this.props.consumerPackLoading || this.props.offerLoading}
-          member={this.props.member}
-          offer={this.props.offer}
-          offerLoading={
-            !this.props.selectedBooking ||
-            !this.props.offer ||
-            this.props.selectedBooking.offer !== this.props.offer.id
-          }
-          onConsumerPassSelected={this.goToConsumerPass}
-          onOfferClick={this.props.goToOffer}
-        />
-      );
-    }
-
-    return null;
+    return (
+      <BookingDetail
+        booking={this.props.selectedBooking}
+        consumerPack={
+          this.props.selectedBooking &&
+          this.props.getPass(
+            parseInt(this.props.selectedBooking.consumer_payment_pack_id, 10),
+          )
+        }
+        decrementCredit={this.props.decrementCredit}
+        getPaymentPack={this.props.getPaymentPack}
+        incrementCredit={this.props.incrementCredit}
+        loading={this.props.consumerPackLoading || this.props.offerLoading}
+        member={this.props.member}
+        offer={this.props.offer}
+        offerLoading={
+          !this.props.selectedBooking ||
+          !this.props.offer ||
+          this.props.selectedBooking.offer !== this.props.offer.id
+        }
+        onConsumerPassSelected={this.goToConsumerPass}
+        onOfferClick={this.props.goToOffer}
+      />
+    );
   };
 
   render() {
@@ -1162,9 +1099,6 @@ const styles = (theme) => ({
     alignItems: 'center',
     flexDirection: 'row',
   },
-  graphContainer: {
-    padding: theme.spacing(2),
-  },
   titleRow: {
     display: 'flex',
     justifyContent: 'space-between',
@@ -1189,13 +1123,8 @@ export default compose(
   withState('selectedBookingOption', 'setSelectedBookingOption', null),
   withState('discardBookingOption', 'setDiscardBookingOption', null),
   withState('selectedBookingForRefund', 'setSelectedBookingForRefund', null),
-  withState('chartRange', 'setChartRange', {
-    start: DateTime.now().minus({ years: 1 }).toISODate(),
-    end: DateTime.now().toISODate(),
-    kind: 'current_year',
-  }),
   connect(
-    (state, { id, bookingId, chartRange }) => ({
+    (state, { id, bookingId }) => ({
       theme: themeSelectors.getTheme(state),
       member: getMember(state, id),
       bookings: withStaffModificationHistory(
@@ -1224,7 +1153,6 @@ export default compose(
       getPass: (id_: number) => getConsumerPack(state, id_),
       timezone: state.theme.theme.timezone_name,
       establishmentList: getAvailableEstablishmentList(state),
-      graphData: getStatisticTemporal(state, 'memberBooking', chartRange),
       userFilters: state.dashboardSettings.managerFiltersSettings.data.filters,
       userFiltersLoading:
         state.dashboardSettings.managerFiltersSettings.loading,
@@ -1286,7 +1214,6 @@ export default compose(
       deleteBooking: cancelBookingAction,
       discardBookingAttendance: discardBookingAttendanceAction,
       confirmBookingAttendance: confirmBookingAttendanceAction,
-      fetchBookingStatistics: fetchBookingStatisticsAction,
       fetchCompanyWaitlistConfiguration:
         fetchCompanyWaitlistConfigurationAction,
       fetchOfferWaitingListPositionList:
@@ -1401,20 +1328,6 @@ export default compose(
       },
   }),
   withHandlers({
-    fetchMemberBookingStatistics:
-      ({ id, fetchBookingStatistics, chartRange, filters }) =>
-      () => {
-        fetchBookingStatistics('memberBooking', {
-          date_field: 'offer__date_start',
-          min_date: chartRange.start,
-          max_date: chartRange.end,
-          member: id,
-          aggregate_function: 'count',
-          aggregate_field: 'pk',
-          aggregate_period: 'day',
-          ...filters,
-        });
-      },
     onSubmitRecurrentBooking:
       ({
         id,

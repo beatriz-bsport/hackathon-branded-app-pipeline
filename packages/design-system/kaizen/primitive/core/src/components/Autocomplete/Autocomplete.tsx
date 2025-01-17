@@ -211,13 +211,7 @@ const Autocomplete: React.FC<AutocompleteProps> = ({
                 })
                 .filter((x) => x !== undefined) as Item[];
 
-              return (
-                <Menu
-                  items={flatItems}
-                  disabled={false}
-                  onSelectOption={handleSelect}
-                />
-              );
+              return <Menu items={flatItems} onSelectOption={handleSelect} />;
             }}
           </Popover.Content>
         )}

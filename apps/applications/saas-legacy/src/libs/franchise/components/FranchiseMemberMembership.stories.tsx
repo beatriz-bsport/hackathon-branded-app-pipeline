@@ -2,9 +2,7 @@ import React from 'react';
 import FranchiseMemberMembership, {
   OwnProps,
 } from './FranchiseMemberMembership.components';
-import FactoryBot, {
-  FranchiseCompanyListFactory,
-} from '../factories/FranchiseCompanyFactory';
+import { FranchiseCompanyListFactory } from '../factories/FranchiseCompanyFactory';
 
 const CustomTemplate = (args: OwnProps) => (
   <FranchiseMemberMembership {...args} />

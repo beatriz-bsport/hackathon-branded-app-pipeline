@@ -32,11 +32,11 @@ export class TermsAndConditionsFilter extends Component<Props> {
         <Select
           defaultValue
           className={classes.input}
-          // eslint-disable-next-line
+           
           onChange={(ev) => onChange({ value: ev.target.value })}
           value={filter_data.value}
         >
-          {/* eslint-disable-next-line */}
+          { }
           {/* @ts-expect-error */}
           <MenuItem key="true" value>
             {t(`filters.${filter_data.filter_identifier}.true`)}

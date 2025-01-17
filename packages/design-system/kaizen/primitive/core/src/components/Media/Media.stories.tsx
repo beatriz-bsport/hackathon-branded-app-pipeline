@@ -31,6 +31,24 @@ export const Primary: Story = {
   name: "Media",
   args: {
     src: MediaImage,
+    size: "md",
+    alt: "image",
+  },
+};
+
+export const EmptySource: Story = {
+  name: "Empty Source",
+  args: {
+    alt: "image",
+    size: "md",
+  },
+};
+
+export const BrokenSource: Story = {
+  name: "Broken Source",
+  args: {
+    src: "broken/link",
+    size: "md",
     alt: "image",
   },
 };

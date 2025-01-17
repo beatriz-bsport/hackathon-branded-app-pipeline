@@ -1,5 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
+import { useTranslation } from 'react-i18next';
+import BUYABLE_ITEM_CAN_NOT_BE_BOUGHT_ERROR_CODES from '@bsport/common/lib/master-data/error-codes/buyable-item-can-not-be-bought.js';
 
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 import MarketplaceOfferBookingItem from '#src/libs/marketplace/components/@Booking/MarketplaceOfferBookingItem';
@@ -30,6 +32,7 @@ export type Props = {
     offerId: number,
   ) => OfferStatusWaitingListPosition | {};
   getOfferStatus: (offerId: number) => OfferStatus;
+  offerNotBookableIdWithErrorCodeList?: number[][];
 };
 
 const MarketplaceOfferBookingList: React.FC<Props> = ({
@@ -46,8 +49,46 @@ const MarketplaceOfferBookingList: React.FC<Props> = ({
   getIsAddGuestDisabled,
   getOfferWaitListPosition,
   getOfferStatus,
+  offerNotBookableIdWithErrorCodeList,
 }) => {
+  const { t } = useTranslation('snackbar');
+
   const filteredOffers = offers.filter((offer) => !!offer);
+
+  const items = filteredOffers.map((offer, index) => {
+    const errorCode = offerNotBookableIdWithErrorCodeList?.length
+      ? offerNotBookableIdWithErrorCodeList?.find((offerNotBookable) =>
+          offerNotBookable.includes(offer.id),
+        )[1]
+      : null;
+
+    const errorMessage = (() => {
+      if (!errorCode) return null;
+      if (BUYABLE_ITEM_CAN_NOT_BE_BOUGHT_ERROR_CODES.includes(errorCode)) {
+        return t(`canNotBuyErrorCode.${errorCode}`);
+      }
+      return t('canNotBuyErrorCode.generic');
+    })();
+
+    return (
+      <MarketplaceOfferBookingItem
+        key={`offer-booking-item-id-${offer.id}`}
+        bookableStatus={getBookableStatus(offer.id)}
+        bookingGuestFrequency={bookingGuestFrequency}
+        bookingGuestNumberLeft={bookingGuestNumberLeft}
+        companyTheme={companyTheme}
+        errorMessage={errorMessage}
+        getOfferWaitListPosition={getOfferWaitListPosition}
+        guestName={getGuestNameFromQueryParams(index)}
+        hideCoach={hideCoach}
+        isAddGuestDisabled={getIsAddGuestDisabled(offer.id)}
+        isLoading={isLoading}
+        isRegistered={getOfferStatus(offer.id)?.is_registered}
+        offer={offer}
+        onOpenAddGuestModal={onOpenAddGuestModal}
+      />
+    );
+  });
 
   return (
     <div
@@ -55,25 +96,7 @@ const MarketplaceOfferBookingList: React.FC<Props> = ({
         ...classes,
       })}
     >
-      <ul className="bs-offer-booking-list">
-        {filteredOffers.map((offer, index) => (
-          <MarketplaceOfferBookingItem
-            key={`offer-booking-item-id-${offer.id}`}
-            bookableStatus={getBookableStatus(offer.id)}
-            bookingGuestFrequency={bookingGuestFrequency}
-            bookingGuestNumberLeft={bookingGuestNumberLeft}
-            companyTheme={companyTheme}
-            getOfferWaitListPosition={getOfferWaitListPosition}
-            guestName={getGuestNameFromQueryParams(index)}
-            hideCoach={hideCoach}
-            isAddGuestDisabled={getIsAddGuestDisabled(offer.id)}
-            isLoading={isLoading}
-            isRegistered={getOfferStatus(offer.id)?.is_registered}
-            offer={offer}
-            onOpenAddGuestModal={onOpenAddGuestModal}
-          />
-        ))}
-      </ul>
+      <ul className="bs-offer-booking-list">{items}</ul>
     </div>
   );
 };

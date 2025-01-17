@@ -946,7 +946,7 @@ export function deleteEmailTemplateCategory(
       dispatch(deleteEmailTemplateCategoryActions.success(category));
       dispatch(snackbarSuccess('paymentPack.category.delete.success'));
       if (options && options.onSuccess) options.onSuccess(category);
-    } catch (error) {
+    } catch (_error) {
       dispatch(deleteEmailTemplateCategoryActions.error(category));
       dispatch(snackbarError('paymentPack.category.delete.error'));
       if (options && options.onError) options.onError();

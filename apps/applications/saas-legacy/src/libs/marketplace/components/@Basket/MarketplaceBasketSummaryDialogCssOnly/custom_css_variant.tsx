@@ -47,11 +47,10 @@ const usePropsFromVariation = (
     // @ts-expect-error TODO : Update once following merge request for prepaidLine done.
     basket,
     loading,
-    // eslint-disable-next-line
-    onAddCheckoutItem: (data: HandleAddCheckoutItemData) => {},
+
+    onAddCheckoutItem: (_data: HandleAddCheckoutItemData) => {},
     onRemoveCheckoutItem: (
-      // eslint-disable-next-line
-      checkoutItemBeingRemoved: OnRemoveCheckoutItemData,
+      _checkoutItemBeingRemoved: OnRemoveCheckoutItemData,
     ) => {},
     open: true,
     goToCheckout: () => {},

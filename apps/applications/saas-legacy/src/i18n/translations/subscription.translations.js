@@ -308,6 +308,8 @@ const getTranslations = async () => {
 
           selectTags: 'Select tags',
         },
+        notEditable:
+          'This contract originates from a previously completed data migration. Some fields may not be editable to preserve the data.',
       },
       deleteForm: {
         actions: { confirm: 'Delete', cancel: 'Cancel' },

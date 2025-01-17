@@ -12,7 +12,7 @@ export const FunctionalComponentCssOnlyBoilerPlate: React.FC<Props> = ({
   return (
     <div className="container">
       {Array.from(Array(numberOfItems).keys()).map((item, index) => (
-        <div className="item" key={index}>
+        <div key={index} className="item">
           <p>{item}</p>
         </div>
       ))}

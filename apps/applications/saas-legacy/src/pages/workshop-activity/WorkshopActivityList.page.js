@@ -657,7 +657,7 @@ export default compose(
       (id, suffix) => {
         makeActivityCopy(id, suffix, {
           onSuccess: (data: MetaActivity) => {
-            // eslint-disable-next-line no-unused-expressions
+             
             data?.id && goToDetail(data.id);
           },
         });

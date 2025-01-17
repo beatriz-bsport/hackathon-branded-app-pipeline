@@ -3,23 +3,18 @@ import React from 'react';
 import { action } from '@storybook/addon-actions';
 import { ComponentStory, Meta } from '@storybook/react';
 import { DateTime } from 'luxon';
-import { within, screen, userEvent } from '@storybook/testing-library';
+import { within } from '@storybook/testing-library';
 import { Grid, Paper } from '@material-ui/core';
 import { expect } from '@storybook/jest';
-import i18n from 'i18next';
 
 import OfferEditFormWithFormik, {
   OfferEditForm,
 } from '#src/libs/offer/OfferEditForm.component';
-import {
-  OFFER_RECURRENCE,
-  PropagateCoachOverrideToSimilarOffers,
-} from '#src/libs/offer/constants';
+import { PropagateCoachOverrideToSimilarOffers } from '#src/libs/offer/constants';
 import {
   newStoryFromTemplate,
   querySelectedElementShouldBeHiddenInTheDocument,
   querySelectedElementShouldBeInTheDocument,
-  sleep,
 } from '../../utils/storybookHelper';
 import { meta_activity_factory } from '#src/libs/meta-activity/factory';
 import { tagListFactory } from '#src/libs/tag/factory';
@@ -31,20 +26,18 @@ import { coachesFactory } from '#src/libs/associated-coach/factories';
 import { levelListFactory } from '#src/libs/level/factories';
 import { roomBlueprintListFactory } from '#src/libs/spot-scheduling/factories';
 import { coachPaymentRulesByKindFactory } from '#src/libs/coach-payment-rules/factories';
-import SpotSchedulingHelper from '#src/libs/spot-scheduling/utils';
-import { RoomBlueprint } from '#src/libs/spot-scheduling/types';
 import { offerFactory, offersFactory } from './factory';
 
-const requiredFieldError = i18n.t('offer:form.errors.required');
-const positiveNumberError = i18n.t('offer:form.errors.positiveNumber');
-const minZeroNumberError = i18n.t('offer:form.errors.minZero');
-const minTwoNumberError = i18n.t('offer:form.errors.minTwo');
-const broadcastLinkError = i18n.t('offer:form.errors.field.broadcastLink');
-const startDateTooFarError = i18n.t('offer:form.errors.dateTooFar');
-const endDateError = i18n.t('offer:form.errors.field.dateIntervalEnd');
-const partnerMaxBookingError = i18n.t(
-  'offer:form.errors.field.partnerMaxBookingCount',
-);
+// const requiredFieldError = i18n.t('offer:form.errors.required');
+// const positiveNumberError = i18n.t('offer:form.errors.positiveNumber');
+// const minZeroNumberError = i18n.t('offer:form.errors.minZero');
+// const minTwoNumberError = i18n.t('offer:form.errors.minTwo');
+// const broadcastLinkError = i18n.t('offer:form.errors.field.broadcastLink');
+// const startDateTooFarError = i18n.t('offer:form.errors.dateTooFar');
+// const endDateError = i18n.t('offer:form.errors.field.dateIntervalEnd');
+// const partnerMaxBookingError = i18n.t(
+//   'offer:form.errors.field.partnerMaxBookingCount',
+// );
 
 const similarOffers = offersFactory(15);
 const metaActivity = meta_activity_factory(1, true)[0];

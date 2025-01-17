@@ -7324,6 +7324,7 @@
                 "14100": "Per questa ricevuta è stato effettuato almeno un pagamento con una carta Interac. I rimborsi diretti non sono supportati per le carte Interac.",
                 "14101": "Nota: una rettifica del saldo del conto non può essere rimborsata con il saldo del conto",
                 "14103": "I rimborsi diretti sono disponibili solo se almeno uno dei pagamenti utilizza un metodo online.",
+                "14106": "I rimborsi diretti non sono possibili per i pagamenti SEPA più vecchi di 180 giorni.",
                 "interac": "Almeno un pagamento per questa rucevuta è stato effettuato con una carta Interac. I rimborsi diretti non sono supportati per le carte Interac.",
                 "debtAndNewPaymentMethodNotAllowed": "Almeno un pagamento è in sospeso. È disponibile solo un rimborso diretto."
             },
@@ -8996,7 +8997,8 @@
             "second_billing_plan": "Secondo piano di pagamento",
             "incremental_identifier": "Numero",
             "product_categories": "Categorie di prodotti",
-            "product_types": "Tipi di prodotto"
+            "product_types": "Tipi di prodotto",
+            "kind": "Tipo"
         },
         "payment_method": {
             "dispute": "Contenzioso",
@@ -9717,7 +9719,13 @@
                 "explain": "Scegli il numero di crediti da rimborsare e il valore totale che verrà accreditato sul deposito del socio",
                 "warningSecond": "Se vuoi rimborsare il cliente tramite bonifico con il metodo di pagamento usato, annulla la contabilizzazione e non rimborsare il credito!",
                 "warningFirst": "Attenzione, questo operazione é irreversibile (generazione di ricevute).",
-                "blockUnlimited": "Bloccare il pacchetto"
+                "blockUnlimited": "Bloccare il pacchetto",
+                "error": {
+                    "2029": "L'importo del rimborso supera l'importo dell'acquisto. Si prega di riprovare con un importo inferiore.",
+                    "2030": "Il numero di crediti da detrarre supera il numero di crediti del pacchetto. Riprovare con un numero inferiore.",
+                    "2031": "Si è verificato un errore. Riprovare.",
+                    "default": "Si è verificato un errore. Riprovare."
+                }
             },
             "addExtension": "Aggiungi un'estensione",
             "details": {
@@ -12909,7 +12917,8 @@
                 "submit": "Confermare",
                 "not_found": "Questo codice promozionale non è valido.",
                 "not_applicable": "Questo codice promozionale non è applicabile.",
-                "apply": "Applica"
+                "apply": "Applica",
+                "couponOnlyLabel": "Codice promozionale"
             }
         },
         "search": "Cerca un codice promozionale",
@@ -13428,14 +13437,14 @@
                 "relatedPaymentPacks_plural": "I seguenti pacchetti {{- pass_name }} non saranno più utilizzabili per questo stabilimento, assicuratevi di informare i vostri clienti.",
                 "hasRelatedAssociatedCoaches": "Alcuni insegnanti ricevono una notifica quando viene presentata una richiesta di sostituzione per una sessione in questo stabilimento. Eliminando lo stabilimento, non riceveranno più la notifica relativa.",
                 "exclusiveAssociatedCoaches": "L'insegnante {{- coach_name }} viene avvisato solo quando viene fatta una richiesta di sostituzione per una sessione in questo stabilimento. Eliminando lo stabilimento, riceverà quindi le richieste di sostituzione da tutte lo stabilimento.",
-                "exclusiveAssociatedCoaches_plural": "Gli insegnanti {{- coach_name }} sono avvisati solo quando viene fatta una richiesta di sostituzione per una sessione in questo stabilimento. Eliminandolo, riceveranno quindi le richieste di sostituzione da tutti gli altri stabilimenti.",
+                "exclusiveAssociatedCoaches_plural": "Gli insegnanti {{- coach_name }} sono avvisati solo quando viene fatta una richiesta di sostituzione per una sessione in questo stabilimento. Eliminandolo, gli insegnanti riceveranno quindi le richieste di sostituzione da tutti gli stabilimenti.",
                 "hasRelatedCoachAvailabilitySlots": "Questo stabilimento verrà rimosso dall'elenco degli stabilimenti disponibili utilizzati nel calendario dei docenti.",
                 "exclusiveCoachAvailabilitySlots": "L'insegnante {{- coach_name }} è indicato come disponibile per questo stabilimento solo per alcune fasce orarie. Eliminando lo stabilimento , queste fasce orarie saranno eliminate.",
                 "exclusiveCoachAvailabilitySlots_plural": "Gli insegnanti {{- coach_name }} sono indicati come disponibili per questo stabilimento solo per alcune fasce orarie. Eliminando lo stabilimento, queste fasce orarie saranno eliminate.",
                 "hasRelatedStaffConfigurations": "Questo stabilimento sarà rimosso dagli stabilimenti utilizzati dgli utenti staff per il monitoraggio degli accessi.",
                 "hasExclusiveStaffConfigurations": "Alcuni utenti Staff sono configurati per monitorare l'accesso dei membri per questo stabilimento. Eliminando lo stabilimento senza selezionarne uno nuovo, non potranno più effettuare il monitoraggio degli accessi.",
                 "exclusivePrivateServices": "L'appuntamento {{- private_service_name }} è configurato per svolgersi solo in questo stabilimento. Eliminando questo stabilimento, l'appuntamento potrà svolgersi ovunque.",
-                "exclusivePrivateServices_plural": "Gli appuntamenti {{- private_service_name }} sono configurati per essere svolti solo in questo stabilimento. Eliminando questo stabilimento, gli appuntamenti potranno svolgersi ovunque.",
+                "exclusivePrivateServices_plural": "Gli appuntamenti {{- private_service_name }} sono configurati per essere svolti solo in questo stabilimento. Eliminandolo, gli appuntamenti potranno svolgersi ovunque.",
                 "hasBillingGroup": "Questo stabilimento sarà anche rimosso dal gruppo di fatturazione {{- establishment_billing_group_name }}."
             },
             "infos": {
@@ -19092,8 +19101,10 @@
                     "private_booking-create": "Appuntamenti",
                     "booking-attendance": "Partecipazione alle lezioni di gruppo",
                     "booking-create": "Lezione di gruppo",
-                    "private_consumer_pass-create": "Pacchetto per appuntamenti",
-                    "consumer_payment_pack-create": "Pacchetto"
+                    "private_consumer_pass-create": "Pacchetto privato",
+                    "consumer_payment_pack-create": "Pacchetto",
+                    "consumer_giftcard-create": "Gift Card",
+                    "provision_update-create": "Articolo dello shop"
                 },
                 "exit": {
                     "exit_fail_label": "No",
@@ -19131,7 +19142,11 @@
                     "triggerTimeoutLabel": "Attivare dopo",
                     "selectSmartlist": "Seleziona una smartlist",
                     "triggerTimeoutDays": "giorno.",
-                    "triggerTimeoutDays_plural": "giorni."
+                    "triggerTimeoutDays_plural": "giorni.",
+                    "finnerGrain": {
+                        "purchaseLabelTitle": "Articolo/i acquistato/i",
+                        "specifyItemsToggleLabel": "Specificare gli articoli"
+                    }
                 },
                 "next": "Seguente",
                 "previous": "Precedente",
@@ -19428,7 +19443,8 @@
                     "labels": {
                         "workflow": "L'inserimento nel {{ workflowLowerCase }} avviene tramite :"
                     },
-                    "event_or_smartlist_helper": "I membri dovranno corrispondere all'evento o far parte della smartlist per rientrare nel {{ workflowLowerCase }}"
+                    "event_or_smartlist_helper": "I membri dovranno corrispondere all'evento o far parte della smartlist per rientrare nel {{ workflowLowerCase }}",
+                    "oneOrMoreFinnerGrainDisabledText": "Un articolo specificato non è presente nell'elenco dei Tuoi Prodotti."
                 },
                 "createAudienceHelper": "Grazie al {{ workflowPluralLowerCase }} si possono indirizzare le azioni di marketing che inviate ai vostri membri in base al loro comportamento sulla piattaforma. Crea una sequenza di azioni che i membri devono completare per ottenere determinate promozioni o tag, ad esempio.",
                 "updateTitle": "Modifica il nome di {{ workflowLowerCase }}",
@@ -19555,11 +19571,15 @@
                     "paused": "Messo in pausa",
                     "active": "Attiva",
                     "unarchive": "Riattiva",
-                    "metrics": "Metriche"
+                    "metrics": "Metriche",
+                    "invalid": "Problema"
                 },
                 "tooltip": {
                     "moreActions": "Altre azioni {{ workflowLowerCase }}"
                 }
+            },
+            "workflow": {
+                "finnerGrainIssues": "Uno o più articoli specificati non sono più disponibili."
             }
         }
     },

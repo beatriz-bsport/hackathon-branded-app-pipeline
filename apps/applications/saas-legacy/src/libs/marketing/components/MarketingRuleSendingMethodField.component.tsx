@@ -202,7 +202,6 @@ const MarketingRuleSendingMethodField = (props: Props) => {
                 {email_design && !!emailDetails[email_design] ? (
                   <div>
                     <div
-                      // eslint-disable-next-line react/no-danger
                       dangerouslySetInnerHTML={{
                         __html: emailPreview || null,
                       }}

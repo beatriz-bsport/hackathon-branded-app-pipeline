@@ -188,6 +188,7 @@ export type DatatypeFilterConfigItemValueProducts = {
     | BuyableItemOptions.BUYABLE_ITEM_GIFTCARD;
 };
 
+/* eslint-disable-next-line */
 const BillingPlanDynamicForeignKey = [
   PAYMENT_PACK_DYNAMIC_FILTER,
   PRIVATE_PASS_DYNAMIC_FILTER,

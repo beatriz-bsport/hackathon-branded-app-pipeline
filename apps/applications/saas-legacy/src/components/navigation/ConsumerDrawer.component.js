@@ -364,7 +364,6 @@ class ConsumerDrawer extends React.Component<Props, State> {
       if (
         membership &&
         membership.credit_account_balance < 0 &&
-        // eslint-disable-next-line react/no-this-in-sfc
         this.props.showCredit
       ) {
         return (
@@ -382,11 +381,9 @@ class ConsumerDrawer extends React.Component<Props, State> {
     };
 
     const SubscriptionIconWithPendingAction = (props) => {
-      // eslint-disable-next-line react/no-this-in-sfc
       if (this.props.subscriptionPendingActionCount) {
         return (
           <Badge
-            // eslint-disable-next-line react/no-this-in-sfc
             badgeContent={this.props.subscriptionPendingActionCount}
             color="error"
           >

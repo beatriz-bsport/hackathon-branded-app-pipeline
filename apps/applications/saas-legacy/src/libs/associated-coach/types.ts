@@ -82,6 +82,7 @@ export type CoachState = {
   loading: boolean;
   error?: Error;
   byId: { [key: string]: Coach };
+  byAssociatedCoachId: { [key: number]: Coach };
   myAssociatedCoachProfile: {
     me: Coach | null;
   } & ErrorAndLoading;
@@ -154,4 +155,10 @@ export type CoachMinimal = {
   rating: string;
   age: number;
   photo: string | null;
+};
+
+export type FetchCoachParams = {
+  id__in?: number[];
+  associated_coach__in?: number[];
+  company?: number;
 };

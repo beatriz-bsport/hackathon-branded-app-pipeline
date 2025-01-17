@@ -228,12 +228,12 @@ const mapWithHandlers = {
   upsertMember:
     (props: OwnAndConnectedProps) =>
     (values: Member, options: OptionCallback) => {
-      delete values.pending_email; // eslint-disable-line no-param-reassign
+      delete values.pending_email;  
       if (!values.birthday) {
-        delete values.birthday; // eslint-disable-line no-param-reassign
+        delete values.birthday;  
       }
       if (props.emailExistsStatus?.exists) {
-        values.email = props.initial.email; // eslint-disable-line no-param-reassign
+        values.email = props.initial.email;  
       }
       const formData = mapFormData(values, MemberMap);
       if (props.initial) {
@@ -268,10 +268,10 @@ const mapWithHandlers = {
     (props: OwnAndConnectedProps) =>
     (values: Member, options: OptionCallback) => {
       if (!values.birthday) {
-        delete values.birthday; // eslint-disable-line no-param-reassign
+        delete values.birthday;  
       }
-      values.email = props.initial.email; // eslint-disable-line no-param-reassign
-      delete values.pending_email; // eslint-disable-line no-param-reassign
+      values.email = props.initial.email;  
+      delete values.pending_email;  
       const formData = mapFormData(values, MemberMap);
       if (props.initial) {
         formData.append('id', props.initial?.id);

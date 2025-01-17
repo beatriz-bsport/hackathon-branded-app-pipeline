@@ -2,7 +2,6 @@
 
 import React from 'react';
 
-/* eslint-disable */
 export default (eventName, secondToTrack) =>
   function (WrappedComponent) {
     return class extends React.Component {
@@ -36,4 +35,3 @@ export default (eventName, secondToTrack) =>
       }
     };
   };
-/* eslint-enable */

@@ -49,27 +49,35 @@ const initialState: Immutable.Immutable<CoachState> = Immutable<CoachState>({
     error: null,
     data: null,
   },
+  byAssociatedCoachId: {},
 });
 
-export default handleActions(
+type PayloadReduceType<T> = { [id: number]: T };
+
+export default handleActions<Immutable.Immutable<CoachState>, any>(
   {
     [bulkRetrieveActions.success.toString().toString()]: (
       state,
-      { payload },
+      { payload }: { payload: Coach[] },
     ) => {
       return state
         .setIn(
           ['allIds'],
-          // @ts-expect-error
           payload.map((coach) => coach.id),
         )
         .merge(
           {
-            // @ts-expect-error
-            byId: payload.reduce((acc, coach) => {
+            byId: payload.reduce<PayloadReduceType<Coach>>((acc, coach) => {
               acc[coach.id] = coach;
               return acc;
             }, {}),
+            byAssociatedCoachId: payload.reduce<PayloadReduceType<Coach>>(
+              (acc, coach) => {
+                acc[coach.associated_coach_id] = coach;
+                return acc;
+              },
+              {},
+            ),
           },
           { deep: true },
         );
@@ -81,13 +89,11 @@ export default handleActions(
       return state.set('error', payload);
     },
     [coachListAction.success.toString()]: (state, { payload }) => {
-      return (
-        state
-          // @ts-expect-error
-          .merge({ byId: payload.coachDict }, { deep: true })
-          // @ts-expect-error
-          .setIn(['allIds'], payload.coachIdList)
-      );
+      return state
+
+        .merge({ byId: payload.coachDict }, { deep: true })
+
+        .setIn(['allIds'], payload.coachIdList);
     },
     [coachListAction.isLoading.toString()]: (state, { payload }) => {
       return state.set('loading', payload);
@@ -96,15 +102,10 @@ export default handleActions(
       return state.set('error', payload);
     },
     [additionalCoachListActions.success.toString()]: (state, { payload }) => {
-      return (
-        state
-          // @ts-expect-error
-          .merge({ byId: payload.coachDict }, { deep: true })
-          .setIn(
-            ['allIds'],
-            // @ts-expect-error
-            uniq([...state.allIds, ...(payload?.coachIdList ?? [])]),
-          )
+      return state.merge({ byId: payload.coachDict }, { deep: true }).setIn(
+        ['allIds'],
+
+        uniq([...state.allIds, ...(payload?.coachIdList ?? [])]),
       );
     },
     [additionalCoachListActions.isLoading.toString()]: (state, { payload }) => {
@@ -115,13 +116,11 @@ export default handleActions(
     },
 
     [coachPaginatedListActions.success.toString()]: (state, { payload }) => {
-      return (
-        state
-          // @ts-expect-error
-          .merge({ byId: payload.coachDict }, { deep: true })
-          // @ts-expect-error
-          .setIn(['allIds'], uniq([...state.allIds, ...payload.coachIdList]))
-      );
+      return state
+
+        .merge({ byId: payload.coachDict }, { deep: true })
+
+        .setIn(['allIds'], uniq([...state.allIds, ...payload.coachIdList]));
     },
     [coachPaginatedListActions.isLoading.toString()]: (state, { payload }) => {
       return state.set('loading', payload);
@@ -158,14 +157,12 @@ export default handleActions(
       return state.setIn(['upsert', 'error'], payload);
     },
     [upsert.success.toString()]: (state, { payload }) => {
-      // @ts-expect-error
       return state.merge({ byId: payload }, { deep: true });
     },
     [setCoachPaymentRuleActions.success.toString()]: (state, { payload }) => {
       return state.setIn(
-        // @ts-expect-error
         ['byId', payload.coachId, 'coach_payment_rule_id'],
-        // @ts-expect-error
+
         payload.coach_payment_rule_id,
       );
     },
@@ -174,9 +171,8 @@ export default handleActions(
       { payload },
     ) => {
       return state.setIn(
-        // @ts-expect-error
         ['byId', payload.coachId, 'workshop_coach_payment_rule_id'],
-        // @ts-expect-error
+
         payload.workshop_coach_payment_rule_id,
       );
     },
@@ -185,9 +181,8 @@ export default handleActions(
       { payload },
     ) => {
       return state.setIn(
-        // @ts-expect-error
         ['byId', payload.coachId, 'private_coach_payment_rule_id'],
-        // @ts-expect-error
+
         payload.private_coach_payment_rule_id,
       );
     },
@@ -196,9 +191,8 @@ export default handleActions(
       { payload },
     ) => {
       return state.setIn(
-        // @ts-expect-error
         ['byId', payload.associated_coach.id],
-        // @ts-expect-error
+
         payload.associated_coach,
       );
     },
@@ -207,9 +201,8 @@ export default handleActions(
       { payload },
     ) => {
       return state.setIn(
-        // @ts-expect-error
         ['byId', payload.id, 'private_slots_coach_payment_rules'],
-        // @ts-expect-error
+
         payload.private_slots_coach_payment_rules,
       );
     },
@@ -230,9 +223,8 @@ export default handleActions(
       { payload },
     ) => {
       return state.setIn(
-        // @ts-expect-error
         ['byId', payload.id, 'has_access_to_coach_space'],
-        // @ts-expect-error
+
         payload.has_access_to_coach_space,
       );
     },
@@ -252,12 +244,10 @@ export default handleActions(
       state,
       { payload },
     ) => {
-      return (
-        state
-          .setIn(['myAssociatedCoachProfile', 'me'], payload)
-          // @ts-expect-error
-          .setIn(['byId', payload.id], payload)
-      );
+      return state
+        .setIn(['myAssociatedCoachProfile', 'me'], payload)
+
+        .setIn(['byId', payload.id], payload);
     },
     [assignDisciplineGroupActions.error.toString()]: (state, { payload }) =>
       state.setIn(['error'], payload),
@@ -265,9 +255,8 @@ export default handleActions(
       state.setIn(['loading'], payload),
     [assignDisciplineGroupActions.success.toString()]: (state, { payload }) =>
       state.setIn(
-        // @ts-expect-error
         ['byId', payload.associated_coach.id],
-        // @ts-expect-error
+
         payload.associated_coach,
       ),
     [retrieveLateReplacementRequestStatus.loading.toString()]: (
@@ -284,4 +273,4 @@ export default handleActions(
     ) => state.setIn(['lateReplacementRequestStatus', 'data'], payload),
   },
   initialState,
-) as () => CoachState;
+);

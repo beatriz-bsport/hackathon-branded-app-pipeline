@@ -110,6 +110,7 @@ export const initializeContractTemplateFormValues = (
     managerOnly: contractTemplate.manager_only,
     autoRenewal: contractTemplate.auto_renewal,
     unusableByStaff: !contractTemplate.is_usable_by_staff,
+    editable: contractTemplate?.editable,
   };
 
   setDrawerInitialValues(initialValues);

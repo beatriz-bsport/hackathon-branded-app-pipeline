@@ -2283,7 +2283,7 @@
                 "exclusiveEstablishmentGroups": "La ubicación {{- establishment_group_name }} sólo contiene el establecimiento que desea eliminar, actualice o elimine esta ubicación.",
                 "exclusiveEstablishmentGroups_plural": "Las ubicaciones {{- establishment_group_name }} sólo contienen el establecimiento que desea eliminar, actualice o elimine estas ubicaciones.",
                 "exclusivePaymentPacks": "El siguiente pase {{- pass_name }} sólo se puede utilizar en este establecimiento. Actualiza sus restricciones antes de eliminar el establecimiento.",
-                "exclusivePaymentPacks_plural": "Los siguientes bonos {{- pass_name }} sólo se pueden utilizar en este establecimiento. Actualice sus restricciones antes de eliminar el establecimiento.",
+                "exclusivePaymentPacks_plural": "Los siguientes pases {{- pass_name }} sólo se pueden utilizar en este establecimiento. Actualice sus restricciones antes de eliminar el establecimiento.",
                 "hasExclusiveBillingGroup": "Este establecimiento es el último de su grupo de facturación. Por favor, elimine o actualice este grupo de facturación antes de eliminar este establecimiento.",
                 "hasUpcomingPrivateBookings": "Algunas citas próximas tienen lugar en este establecimiento. Por favor, cancélelas y elimínelas antes de borrar este establecimiento.",
                 "hasUpcomingOffers": "Algunas sesiones próximas tienen lugar en este establecimiento. Cancélalas y elimínalas antes de borrar este establecimiento."
@@ -3721,6 +3721,7 @@
                 "14100": "Se ha realizado al menos un pago con una tarjeta Interac en esta factura. No se admiten reembolsos directos para tarjetas Interac.",
                 "14101": "Nota: un ajuste del saldo de la cuenta no puede reembolsarse con el saldo de la cuenta",
                 "14103": "Los reembolsos directos sólo están disponibles si al menos uno de los pagos utiliza un método en línea.",
+                "14106": "Las devoluciones directas no son posibles para los pagos SEPA con más de 180 días de antigüedad.",
                 "interac": "Se ha realizado al menos un pago con una tarjeta Interac en esta factura. No se admiten reembolsos directos para tarjetas Interac.",
                 "debtAndNewPaymentMethodNotAllowed": "Hay al menos un pago pendiente. Solo está disponible un reembolso directo."
             },
@@ -5448,7 +5449,8 @@
             "second_billing_plan": "Segundo plan de facturación",
             "incremental_identifier": "Número",
             "product_categories": "Categorías de productos",
-            "product_types": "Tipos de productos"
+            "product_types": "Tipos de productos",
+            "kind": "Tipo"
         },
         "payment_method": {
             "cash": "Efectivo",
@@ -9037,7 +9039,8 @@
                 "submit": "Enviar",
                 "not_found": "Este código promocional no es válido.",
                 "not_applicable": "Este código promocional no es aplicable.",
-                "apply": "Solicitar"
+                "apply": "Solicitar",
+                "couponOnlyLabel": "Código promocional"
             }
         },
         "createCoupon": "Añadir un código",
@@ -15578,7 +15581,13 @@
                 "title": "Reembolso",
                 "warningSecond": "Si desea reembolsar al cliente por transferencia con el método de pago utilizado, cancele la facturación y no le reembolse a crédito!",
                 "warningFirst": "Advertencia, esta operación es irreversible (generación de factura).",
-                "blockUnlimited": "Bloquear la tarjeta"
+                "blockUnlimited": "Bloquear la tarjeta",
+                "error": {
+                    "2029": "El importe del reembolso supera el importe de la compra. Vuelve a intentarlo con un importe inferior.",
+                    "2030": "El número de créditos a deducir excede el número de créditos del pase. Vuelva a intentarlo con un número inferior.",
+                    "2031": "Se ha producido un error. Por favor, inténtelo de nuevo.",
+                    "default": "Se ha producido un error. Por favor, inténtelo de nuevo."
+                }
             },
             "addExtension": "Añadir una extensión",
             "maxout": {
@@ -19133,8 +19142,10 @@
                     "private_booking-create": "Cita previa",
                     "booking-attendance": "Presencia Actividad",
                     "booking-create": "Actividad",
-                    "private_consumer_pass-create": "Tarjeta de cita",
-                    "consumer_payment_pack-create": "Bono"
+                    "private_consumer_pass-create": "Pase de cita",
+                    "consumer_payment_pack-create": "Bono",
+                    "consumer_giftcard-create": "Tarjeta de regalo",
+                    "provision_update-create": "Comprar Artículo"
                 },
                 "exit": {
                     "exit_fail_label": "No",
@@ -19172,7 +19183,11 @@
                     "triggerTimeoutDays_plural": "días",
                     "triggerTimeoutLabel": "Activar después de",
                     "selectSmartlist": "Seleccione una smartlist",
-                    "selectEvent": "Seleccione un evento"
+                    "selectEvent": "Seleccione un evento",
+                    "finnerGrain": {
+                        "purchaseLabelTitle": "Artículo/s comprado/s",
+                        "specifyItemsToggleLabel": "Especificar artículos"
+                    }
                 },
                 "previous": "Anterior",
                 "next": "Siguiente",
@@ -19483,7 +19498,8 @@
                     "event_and_smartlist_helper": "Los miembros tendrán que coincidir con el evento y ser parte de la lista inteligente para entrar en el {{ workflowLowerCase }}",
                     "labels": {
                         "workflow": "La entrada en el {{ workflowLowerCase }} se realiza a través de:"
-                    }
+                    },
+                    "oneOrMoreFinnerGrainDisabledText": "Un artículo especificado no existe actualmente en su Lista de Productos."
                 },
                 "createAudienceHelper": "Gracias al {{ workflowPluralLowerCase }}, dirija las acciones de marketing que envía a sus miembros en función de su comportamiento en la plataforma. Cree una secuencia de acciones que sus miembros deban completar para obtener determinadas promociones o etiquetas, por ejemplo.",
                 "updateTitle": "Editar el nombre del {{ workflowLowerCase }}",
@@ -19610,11 +19626,15 @@
                     "paused": "En pausa",
                     "active": "Activo",
                     "unarchive": "Desarchivar",
-                    "metrics": "Métricas"
+                    "metrics": "Métricas",
+                    "invalid": "Problema"
                 },
                 "tooltip": {
                     "moreActions": "Más acciones {{ workflowLowerCase }}"
                 }
+            },
+            "workflow": {
+                "finnerGrainIssues": "Uno o varios artículos especificados ya no están disponibles."
             }
         }
     },

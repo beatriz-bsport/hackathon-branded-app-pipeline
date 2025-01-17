@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { compose } from 'recompose';
 // eslint-disable-next-line bsport/no-redux-in-component
 import { connect, ConnectedProps } from 'react-redux';
-// eslint-disable-next-line bsport/no-redux-in-component
+
 import { goBack as goBackAction, push } from 'connected-react-router';
 
 import type { RootState } from 'src/reducers';
@@ -199,6 +199,7 @@ const connector = connect(
     fetchZoomApp,
   },
 );
+
 export default compose(
   routerParamsToProps({ id: 'id:number' }),
   withTranslation(),

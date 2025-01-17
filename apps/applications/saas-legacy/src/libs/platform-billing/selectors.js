@@ -1,5 +1,5 @@
 import { createSelector } from 'reselect';
-import { difference } from 'lodash';
+import difference from 'lodash/difference';
 
 const getPlatformInvoiceIdList = (state) =>
   state.platformBilling.platformInvoice.list.allIds;
@@ -200,7 +200,7 @@ export const getPlatformBillingPlan = (
   if (stageList.find((s) => s.id === minimal_platform_billing_stage)) {
     let analyzedStage = stageList.find((ps) => !ps.next_platform_billing_stage);
     if (analyzedStage) {
-      // eslint-disable-next-line
+       
       for (let i = 0; i < stageList.length; i++) {
         if (!analyzedStage) break;
         stageListFiltered = [analyzedStage, ...stageListFiltered];
@@ -209,7 +209,7 @@ export const getPlatformBillingPlan = (
         }
 
         analyzedStage = stageList.find(
-          // eslint-disable-next-line
+           
           (pl) =>
             pl.next_platform_billing_stage &&
             pl.next_platform_billing_stage.id === analyzedStage.id,
@@ -225,7 +225,7 @@ export const getPlatformBillingPlan = (
     stageListFiltered.find((s) => s.id === maximum_platform_billing_stage)
   ) {
     let stageListWithMax = [];
-    // eslint-disable-next-line
+     
     for (let i = 0; i < stageListFiltered.length; i++) {
       stageListWithMax = [...stageListWithMax, stageListFiltered[i]];
       if (stageListFiltered[i].id === maximum_platform_billing_stage) {
@@ -274,7 +274,7 @@ export const getPlatformBillingGroup = (
   if (minimal_platform_billing_stage) {
     let analyzedPlan = planList.find((pl) => !pl.next_platform_billing_plan);
 
-    // eslint-disable-next-line
+     
     for (let i = 0; i < planList.length; i++) {
       if (!analyzedPlan) break;
       planFilteredList = [analyzedPlan, ...planFilteredList];
@@ -287,7 +287,7 @@ export const getPlatformBillingGroup = (
         break;
       }
       analyzedPlan = planList.find(
-        // eslint-disable-next-line
+         
         (pl) =>
           pl.next_platform_billing_plan &&
           pl.next_platform_billing_plan.id === analyzedPlan.id,
@@ -306,7 +306,7 @@ export const getPlatformBillingGroup = (
       ),
     )
   ) {
-    // eslint-disable-next-line
+     
     for (let i = 0; planFilteredList.length; i++) {
       planFilteredWithMaxList = [
         ...planFilteredWithMaxList,

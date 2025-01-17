@@ -82,3 +82,6 @@ export const getInactiveCoachesSelectedInRole = createSelector(
 
 export const getCoachLateReplacementRequestStatus = (state: RootState) =>
   state.coach.lateReplacementRequestStatus.data;
+
+export const getCoachesByAssociatedCoachId = (state: RootState) =>
+  state.coach.byAssociatedCoachId;

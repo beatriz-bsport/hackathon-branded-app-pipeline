@@ -59,9 +59,9 @@ const usePropsFromVariation = (
     isExcludingTax: companyTheme?.is_tax_excluded_in_marketplace,
     checkoutItems: items,
     dense: isDense,
-    // eslint-disable-next-line
+
     onAddCheckoutItem: (_: CheckoutItem) => {},
-    // eslint-disable-next-line
+
     onRemoveCheckoutItem: (_: CheckoutItem) => {},
     isItemEditionDisabled,
   };

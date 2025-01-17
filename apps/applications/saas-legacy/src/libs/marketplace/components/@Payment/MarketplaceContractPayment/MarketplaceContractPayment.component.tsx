@@ -21,7 +21,7 @@ import {
   BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA,
 } from '@bsport/common/lib/master-data/subscription-payment-methods.js';
 import classNames from 'classnames';
-import { cloneDeep } from 'lodash';
+import cloneDeep from 'lodash/cloneDeep';
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 import { getCompanyCountry, getCurrencyCode } from '#src/libs/theme/selectors';
 import Radio from '#src/components/css-only/Radio';

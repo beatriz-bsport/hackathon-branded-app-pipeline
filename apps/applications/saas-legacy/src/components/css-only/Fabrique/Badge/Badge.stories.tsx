@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { ComponentStory, ComponentMeta, Meta } from '@storybook/react';
+import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { BadgeStorybook } from '.';
 import { fakerEN as faker } from '@faker-js/faker';
 import { BadgeColorEnum } from './constants';

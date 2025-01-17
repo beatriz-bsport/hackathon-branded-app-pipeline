@@ -81,7 +81,7 @@ export class FranchisePrivatePassTemplateDetail extends Component<
     this.props.retrievePrivatePassTemplate(this.props.privatePassTemplateId);
 
     if (
-      // eslint-disable-next-line
+       
       parseQueryString(location.search || '').openTemplateInstanceForm
     ) {
       this.openCreateForm();

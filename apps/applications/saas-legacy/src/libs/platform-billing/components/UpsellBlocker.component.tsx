@@ -112,7 +112,7 @@ export const UpsellBlockerDialog = React.memo(
 
     // Here we need to force the rerender of the component because the Dialog is
     // rendered before its parent which then makes the body his container
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+     
     const [_, setForceRerender] = React.useState(false);
     const location = useLocation();
 

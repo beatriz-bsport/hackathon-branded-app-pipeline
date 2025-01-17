@@ -134,7 +134,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default compose(
-  // eslint-disable-next-line
   withState('step', 'setStep', ({ step, invoice }) =>
     invoice ? STEP_PAYMENT : step || STEP_INVOICE_ITEM,
   ),

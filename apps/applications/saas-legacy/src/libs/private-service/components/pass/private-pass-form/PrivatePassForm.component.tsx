@@ -86,7 +86,7 @@ type Props = {
   compatibleServicePass?: Array<ServiceCompatibilityPass>;
 
   onCancel: (ev: MouseEvent) => void;
-  // eslint-disable-next-line react/no-unused-prop-types
+   
   onSubmit: (data: FormikValues, options?: OptionCallback) => void;
 
   categoryList: Array<SCT>;

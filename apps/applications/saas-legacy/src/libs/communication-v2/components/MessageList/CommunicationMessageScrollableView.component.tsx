@@ -27,7 +27,7 @@ const OFFSET = 5;
 const CommunicationMessageScrollableView = (props: Props) => {
   const { t } = useTranslation('communication');
   const classes = useStyles();
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+
   const [_, currentElement, scrollRef] = useIsVisibleOnScreen<HTMLDivElement>(
     OFFSET,
     400,

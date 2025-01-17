@@ -464,7 +464,6 @@ export const SelectorContext = createContext<{
   setDisplayMore: (value: boolean) => void;
 }>({
   displayMore: false,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   setDisplayMore: (_) => {},
 });
 
@@ -473,8 +472,7 @@ export const SelectorContext = createContext<{
 /* ***** */
 const SelectContext = createContext({
   selected: [],
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  onSelect: (data: any) => {},
+  onSelect: (_: any) => {},
 });
 
 function Menu<T extends OptionTypeBase>(props: MenuProps<T, boolean, any>) {
@@ -823,7 +821,6 @@ function MenuList<T extends OptionTypeBase>(
   headerListRenderer: (() => React.ReactChild) | null = null,
   onEndMenuListReach: () => void,
 ) {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [_, currentElement, scrollRef] = useIsVisibleOnScreen<HTMLDivElement>(
     60,
     500,

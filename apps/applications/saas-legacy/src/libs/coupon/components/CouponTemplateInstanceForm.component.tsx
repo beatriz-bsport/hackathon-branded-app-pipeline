@@ -103,7 +103,6 @@ const CouponTemplateInstanceForm = (props: Props) => {
   const companyDic = compatibleCompanies?.reduce<
     Record<number, FranchiseCompany>
   >((dic, company) => {
-    // eslint-disable-next-line no-param-reassign
     dic[company.id] = company;
     return dic;
   }, {});

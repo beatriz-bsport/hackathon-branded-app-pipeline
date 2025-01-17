@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArgTypes, ComponentMeta, ComponentStory } from '@storybook/react';
+import { ComponentMeta, ComponentStory } from '@storybook/react';
 import withFormik from '@bbbtech/storybook-formik';
 import CompatibilityFormComponent, {
   CompatibilityFormForStorybook,

@@ -13,7 +13,6 @@ export default function asyncComponent(importComponent) {
     async componentDidMount() {
       const { default: component } = await importComponent();
 
-      // eslint-disable-next-line
       this.setState({
         component,
       });

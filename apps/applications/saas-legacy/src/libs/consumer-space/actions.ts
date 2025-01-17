@@ -621,6 +621,7 @@ export function fetchMyPastBookingAsMember(
         mine_as_consumer: true,
         strictly_past_booking: true,
         offer_is_workshop: false,
+        ordering: '-offer__date_start',
       });
       dispatch(fetchMyPastBookingAsMemberActions.success(response.data));
       if (options && options.onSuccess) {
@@ -665,6 +666,7 @@ export function fetchMyFutureBookingAsMember(
         mine_as_consumer: true,
         strictly_future_booking: true,
         offer_is_workshop: false,
+        ordering: 'offer__date_start',
       });
       dispatch(fetchMyFutureBookingAsMemberActions.success(response.data));
       if (options && options.onSuccess) {
@@ -709,6 +711,7 @@ export function fetchMyPastBookingWorkshopAsMember(
         mine_as_consumer: true,
         strictly_past_booking: true,
         offer_is_workshop: true,
+        ordering: '-offer__date_start',
       });
       dispatch(
         fetchMyPastBookingWorkshopAsMemberActions.success(response.data),
@@ -756,6 +759,7 @@ export function fetchMyFutureBookingWorkshopAsMember(
         mine_as_consumer: true,
         strictly_future_booking: true,
         offer_is_workshop: true,
+        ordering: 'offer__date_start',
       });
       dispatch(
         fetchMyFutureBookingWorkshopAsMemberActions.success(response.data),
@@ -836,6 +840,7 @@ export function fetchMyPastPrivateBookingAsMember(
         page_size,
         company,
         strictly_past_booking: true,
+        ordering: '-date_start',
       });
       dispatch(fetchMyPastPrivateBookingAsMemberActions.success(response.data));
       if (options && options.onSuccess) {
@@ -879,6 +884,7 @@ export function fetchMyFuturePrivateBookingAsMember(
         page_size,
         company,
         strictly_future_booking: true,
+        ordering: 'date_start',
       });
       dispatch(
         fetchMyFuturePrivateBookingAsMemberActions.success(response.data),
@@ -956,6 +962,7 @@ export function fetchMyBookingOptionAsMember(
         page_size,
         mine: true,
         offer_is_workshop: false,
+        ordering: 'offer__date_start',
       });
       dispatch(fetchMyBookingOptionAsMemberActions.success(response.data));
       options?.onSuccess?.(response.data);
@@ -1039,6 +1046,7 @@ export function fetchMyBookingOptionWorkshopAsMember(
         page_size,
         mine: true,
         offer_is_workshop: true,
+        ordering: 'offer__date_start',
       });
       dispatch(
         fetchMyBookingOptionWorkshopAsMemberActions.success(response.data),

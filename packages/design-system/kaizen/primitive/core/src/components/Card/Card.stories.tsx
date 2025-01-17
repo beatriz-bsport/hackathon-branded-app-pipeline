@@ -1,56 +1,56 @@
 import React from "react";
 import type { Meta, StoryObj } from "@storybook/react";
-import Card, { CardTypeValues } from "./Card";
+import Card from "./Card";
 import Body from "#src/components/Body";
 import Button from "#src/components/Button";
 import Title from "#src/components/Title";
 
 /**
  * A card container that can be displayed with children in it so that you can show
- * important informations to user easily and efficiently within a container component.<br>
+ * important information to user easily and efficiently within a container component.<br>
  * <a href="https://www.figma.com/design/aQ73ihLayonUHVquF0QY2C/Kaizen-library?node-id=438-4638&node-type=canvas&t=NEPFgvjz71Ga8Syo-0" target="_blank">Figma</a><br>
  * <a href="https://bsport.supernova-docs.io/latest/components/card/component-overview-VMl5jQE3" target="_blank">Supernova docs</a>
  */
 const meta: Meta<typeof Card> = {
   component: Card,
   argTypes: {
+    actionable: {
+      type: { name: "boolean" },
+    },
     children: {
       table: { type: { summary: "ReactNode" } },
-    },
-    padding: {
-      options: ["default", "sm", "none"],
-      control: { type: "inline-radio" },
-      table: { type: { summary: "string" } },
-      type: { name: "string", required: true },
     },
     elevated: {
       table: {
         type: {
           summary: "boolean",
-          detail: "give border and background to a card if true",
+          detail: "give border and background to an actionable card if true",
         },
         defaultValue: { summary: "true" },
       },
+    },
+    padding: {
+      options: ["default", "sm", "none"],
+      control: { type: "inline-radio" },
+      table: { type: { summary: "string" } },
+      type: { name: "string" },
     },
     onClick: {
       table: {
         type: {
           summary: "function",
-          detail: "only usable with item and action type",
+          detail: "only usable with an actionable card",
         },
       },
     },
     selected: {
       table: {
-        type: { summary: "boolean", detail: "only usable with item type" },
+        type: {
+          summary: "boolean",
+          detail: "only usable with an actionable card",
+        },
       },
       type: { name: "boolean" },
-    },
-    type: {
-      table: { type: { summary: "string", detail: "action | item | info" } },
-      options: CardTypeValues,
-      control: { type: "inline-radio" },
-      type: { name: "string", required: true },
     },
   },
 };
@@ -78,10 +78,10 @@ export const Primary: Story = {
     );
   },
   args: {
-    type: "info",
+    actionable: true,
+    elevated: false,
+    onClick: () => console.log("clicked on card"),
     padding: "default",
-    onClick: () => console.log("clicken on card"),
-    elevated: true,
     selected: false,
   },
 };
@@ -102,9 +102,9 @@ export const CompleteCardWithChildren: Story = {
     );
   },
   args: {
-    type: "info",
+    actionable: false,
+    elevated: false,
     padding: "default",
-    elevated: true,
     selected: false,
   },
 };
@@ -121,9 +121,9 @@ export const ActionCard: Story = {
     );
   },
   args: {
-    type: "action",
+    actionable: true,
+    elevated: false,
     padding: "default",
-    elevated: true,
     selected: false,
   },
 };
@@ -140,9 +140,9 @@ export const ShortText: Story = {
     );
   },
   args: {
-    type: "info",
+    actionable: false,
+    elevated: false,
     padding: "default",
-    elevated: true,
     selected: false,
   },
 };
@@ -178,9 +178,9 @@ export const LongText: Story = {
     );
   },
   args: {
-    type: "info",
+    actionable: false,
+    elevated: false,
     padding: "default",
-    elevated: true,
     selected: false,
   },
 };

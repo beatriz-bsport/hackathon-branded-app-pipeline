@@ -47,12 +47,6 @@ describe('Testing App Navigation', () => {
         'EasyAccesses',
       );
       cy.route('GET', `${REACT_APP_URI}/saas/payment-pack/`).as('PaymentPack');
-      cy.route('GET', `${REACT_APP_URI}/statistics/bookings`).as('Bookings');
-      cy.route('GET', `${REACT_APP_URI}/statistics/new-members`).as(
-        'NewMembers',
-      );
-      cy.route('GET', `${REACT_APP_URI}/statistics/turnover`).as('Turnover');
-      cy.route('GET', `${BASE_URI}/shop/items`).as('ShopItems');
       cy.route('GET', `${REACT_APP_URI}/payment-rules/`).as('PaymentRules');
       cy.route('GET', `${REACT_APP_URI}/saas/workshop-activities/`).as(
         'WorkshopActivities',

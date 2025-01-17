@@ -9,12 +9,10 @@ import { getLocaleWeekdays } from '#src/utils/datetime';
  * See node_modules/@date-io/luxon/src/luxon-utils for reference
  */
 export class LocalizedLuxonUtils extends LuxonUtils {
-  // eslint-disable-next-line
   public getWeekdays() {
     return getLocaleWeekdays('narrow');
   }
 
-  // eslint-disable-next-line
   public getWeekArray(date: DateTime) {
     const dateWithProperLocale = date.setLocale(Settings.defaultLocale);
     const { days } = dateWithProperLocale

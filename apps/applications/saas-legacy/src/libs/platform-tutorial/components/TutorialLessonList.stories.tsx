@@ -1,5 +1,5 @@
 import React from 'react';
-import { TutorialLessonFactory, TutorialLessonsFactory } from '../factories';
+import { TutorialLessonsFactory } from '../factories';
 
 import TutorialLessonList, { Props } from './TutorialLessonList.component';
 

@@ -154,7 +154,7 @@ export class ResourceAllocationConfirmDialog extends React.Component<
           this.setState({ loading: false });
         },
       );
-    } catch (err) {
+    } catch (_err) {
       this.setState({ loading: false });
     }
   };

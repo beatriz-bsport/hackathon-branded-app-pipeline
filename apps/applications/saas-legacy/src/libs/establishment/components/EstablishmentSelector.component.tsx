@@ -182,7 +182,7 @@ const establishmentStyles = {
     }: { isDisabled: boolean; isFocused: boolean; isSelected: boolean },
   ) => {
     const color = chroma(colors.secondary);
-    /* eslint-disable */
+
     return {
       ...styles,
       backgroundColor: isDisabled
@@ -210,8 +210,6 @@ const establishmentStyles = {
       // @ts-expect-error
       groupHeading: (base) => ({ ...base, margin: 0 }),
     };
-
-    /* eslint-enable */
   },
   // @ts-expect-error
   multiValue: (styles) => {

@@ -114,13 +114,13 @@ const AvatarGroup: React.FC<AvatarGroupProps> = ({
       numberOfAvatarLeft >= 1 ? (
         <Popover className={popoverClasses({ size })}>
           <Popover.Anchor>
-            {({ setIsPopoverOpened, isPopoverOpened }) => (
+            {({ setIsPopoverOpened }) => (
               <Avatar
                 shape={shape}
                 size={size}
                 style={{ zIndex: NUMBER_AVATAR_TO_DISPLAY }}
                 className={"text-onsurface-weaker !bg-surface-default relative"}
-                onClick={() => setIsPopoverOpened(!isPopoverOpened)}
+                onClick={() => setIsPopoverOpened((prev) => !prev)}
                 initials={`+${Math.min(MAX_EXTRA_AVATARS, numberOfAvatarLeft)}`}
               />
             )}
@@ -129,7 +129,7 @@ const AvatarGroup: React.FC<AvatarGroupProps> = ({
             placement="bottom-left"
             className="max-h-component-popover-max overflow-auto"
           >
-            {() => <Menu disabled={false} items={avatarsLeft} />}
+            {() => <Menu items={avatarsLeft} />}
           </Popover.Content>
         </Popover>
       ) : null,

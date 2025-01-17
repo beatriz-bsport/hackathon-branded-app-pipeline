@@ -147,7 +147,7 @@ export const PaymentStep: React.FC<PaymentStepProps> = forwardRef(
         basket.total_price_cts !== data
       ) {
         setPaymentProcessing(false);
-        // eslint-disable-next-line
+
         window.alert(t('myBasket.error.inconsistentBasket'));
         window.location.reload();
         return;

@@ -4,10 +4,14 @@ import useMediaQuery from '@material-ui/core/useMediaQuery';
 export function useWidth() {
   const theme = useTheme();
   const keys = [...theme.breakpoints.keys].reverse();
-  return (
-    keys.reduce((output, key) => {
-      const matches = useMediaQuery(theme.breakpoints.up(key));
-      return !output && matches ? key : output;
-    }, null) || 'xs'
-  );
+  let finalBreakpoint = null;
+  for (const breakpoint of keys) {
+    /* eslint-disable-next-line react-hooks/rules-of-hooks  */
+    const breakpointMatches = useMediaQuery(theme.breakpoints.up(breakpoint));
+    if (!finalBreakpoint && breakpointMatches) {
+      finalBreakpoint = breakpoint;
+    }
+  }
+  // Return breakpoint after all hooks have been executed systematically in the same order
+  return finalBreakpoint || 'xs';
 }

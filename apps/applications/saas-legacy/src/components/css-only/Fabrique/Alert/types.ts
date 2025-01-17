@@ -1,3 +1,4 @@
+/* eslint-disable-next-line */
 const AlertColorTypes = [
   'light',
   'grey',
@@ -7,6 +8,7 @@ const AlertColorTypes = [
   'error',
 ] as const;
 
+/* eslint-disable-next-line */
 const AlertVariantTypes = ['strong', 'weak', 'outlined', 'text'] as const;
 
 export type AlertColor = (typeof AlertColorTypes)[number];

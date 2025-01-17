@@ -81,7 +81,6 @@ const TextFieldWithChildren: React.FC<Props> = ({
       <TextField
         fullWidth
         inputProps={inputProps}
-        // eslint-disable-next-line react/jsx-no-duplicate-props
         InputProps={{
           classes: {
             notchedOutline: classes.borderStyleOverride,

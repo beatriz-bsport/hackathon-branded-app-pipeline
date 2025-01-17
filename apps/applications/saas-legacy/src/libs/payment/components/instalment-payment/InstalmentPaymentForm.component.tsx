@@ -131,7 +131,7 @@ export const InstalmentPaymentSchema = Yup.object().shape({
 });
 
 export const InstalPaymentFormHOC = withFormik({
-  // eslint-disable-next-line
+   
   mapPropsToValues: () => ({
     nb_interval: '12',
     recurrence_basis: '1',

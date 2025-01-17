@@ -160,6 +160,7 @@ export const getConfirmationStatus = (
   billingPlan: Subscription,
   offersOnWaitingList: number[],
   isGuestBooking?: boolean,
+  isPartiallyConfirmed?: boolean,
 ) => {
   const checkoutItems =
     basket?.checkout_items?.filter((checkoutItem) => !!checkoutItem) ?? [];
@@ -201,6 +202,9 @@ export const getConfirmationStatus = (
       default:
         return ConfirmationStatus.GENERIC_OFFER_ERROR;
     }
+  }
+  if (isPartiallyConfirmed) {
+    return ConfirmationStatus.OFFERS_PARTIALLY_CONFIRMED;
   }
   if (!!offers?.length && !basket && !billingPlan && !isGuestBooking) {
     return ConfirmationStatus.OFFER_ONLY_SUCCESS;

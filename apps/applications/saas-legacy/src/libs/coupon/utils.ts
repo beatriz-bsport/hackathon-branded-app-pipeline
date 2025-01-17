@@ -58,7 +58,6 @@ export const parseCSVFileToGetVoucherCodes = async (csvFile: File) => {
     throw new Error(UNIQUE_CODE_PER_USAGE_COUPON_UPLOAD_NOT_CSV_FILE_ERROR);
   }
   const csvAsString = await csvFile.text();
-  //eslint-disable-next-line no-useless-catch
   try {
     const voucherCodes = extractVoucherCodesFromCSVString(csvAsString);
     return voucherCodes;

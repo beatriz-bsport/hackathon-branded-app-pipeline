@@ -142,7 +142,7 @@ export const paymentSectionInteractionsTests = async ({
 }: {
   canvasElement: HTMLElement;
 }) => {
-  const { canvas, component } = await findByTestIdInCanvas(
+  const { component } = await findByTestIdInCanvas(
     canvasElement,
     'private-pass-form',
   );
@@ -174,7 +174,7 @@ export const validitySectionInteractionsTests = async ({
 }: {
   canvasElement: HTMLElement;
 }) => {
-  const { canvas, component } = await findByTestIdInCanvas(
+  const { component } = await findByTestIdInCanvas(
     canvasElement,
     'private-pass-form',
   );
@@ -225,7 +225,7 @@ export const compatibilitySectionInteractionsTests = async ({
   args: React.ComponentProps<typeof PrivatePassForm>;
   canvasElement: HTMLElement;
 }) => {
-  const { canvas, component } = await findByTestIdInCanvas(
+  const { component } = await findByTestIdInCanvas(
     canvasElement,
     'private-pass-form',
   );

@@ -18,7 +18,7 @@ const Template: ComponentStory<typeof DatePicker> = (args: DatePickerProps) => {
 
   const handleOnClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     const currentTarget = event.currentTarget;
-    const id = currentTarget.getAttribute('id');
+    const _id = currentTarget.getAttribute('id');
     setAnchorEl(currentTarget);
     setIsOpen(true);
   };

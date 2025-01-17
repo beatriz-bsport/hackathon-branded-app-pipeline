@@ -77,7 +77,7 @@ export class ResourceAllocationChecker extends React.Component<Props, State> {
           );
         }),
       });
-    } catch (error) {
+    } catch (_error) {
       this.setState({ errorAllocation: true });
     }
   };

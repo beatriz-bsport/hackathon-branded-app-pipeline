@@ -67,7 +67,7 @@ export class FranchiseCouponTemplateDetail extends Component<Props> {
     });
 
     if (
-      // eslint-disable-next-line
+       
       parseQueryString(location.search || '')?.openTemplateInstanceForm
     ) {
       this.props.openCreateInstanceDialog();

@@ -65,7 +65,7 @@ export class FranchisePaymentPackTemplateDetail extends Component<Props> {
     this.props.retrievePaymentPackTemplate(this.props.paymentPackTemplateId);
 
     if (
-      // eslint-disable-next-line
+       
       parseQueryString(location.search || '').openTemplateInstanceForm
     ) {
       this.props.openCreateForm();

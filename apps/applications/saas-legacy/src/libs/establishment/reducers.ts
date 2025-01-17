@@ -29,6 +29,9 @@ import type {
   EstablishmentBillingGroup,
   EstablishmentState,
 } from './types';
+import { PaginatedResponse } from '#src/state/types';
+
+type PayloadReduceType<T> = { [id: number]: T };
 
 const initialState: Immutable.Immutable<EstablishmentState> =
   Immutable<EstablishmentState>({
@@ -82,9 +85,10 @@ const initialState: Immutable.Immutable<EstablishmentState> =
         error: null,
       },
     },
+    byAssociatedEstablishmentId: {},
   });
 
-export default handleActions<Immutable.Immutable<EstablishmentState, any>>(
+export default handleActions<Immutable.Immutable<EstablishmentState>, any>(
   {
     [retrieveEstablishmentActions.isLoading.toString()]: (
       state,
@@ -119,37 +123,41 @@ export default handleActions<Immutable.Immutable<EstablishmentState, any>>(
     },
     [favoriteActions.success.toString()]: (state, { payload }) => {
       if (payload) {
-        return (
-          state
-            // @ts-expect-error
-            .setIn(['favorite', 'id'], payload.id)
-            // @ts-expect-error
-            .setIn(['byId', payload.id], payload)
-        );
+        return state
+          .setIn(['favorite', 'id'], payload.id)
+          .setIn(['byId', payload.id], payload);
       }
       return state.setIn(['favorite', 'id'], null);
     },
     [establishmentBulkRetrieveActions.isLoading.toString()]: (
       state,
-      { payload },
+      { payload }: { payload: boolean },
     ) => {
       return state.setIn(['bulkRetrieve', 'loading'], payload);
     },
     [establishmentBulkRetrieveActions.error.toString()]: (
       state,
-      { payload },
+      { payload }: { payload: Error | null },
     ) => {
       return state.setIn(['bulkRetrieve', 'error'], payload);
     },
     [establishmentBulkRetrieveActions.success.toString()]: (
       state,
-      { payload },
+      { payload }: { payload: PaginatedResponse<Establishment> },
     ) => {
       return state.merge(
         {
-          // @ts-expect-error
-          byId: payload.results.reduce((acc, ps) => {
-            acc[ps.id] = ps;
+          byId: payload.results.reduce<PayloadReduceType<Establishment>>(
+            (acc, ps) => {
+              acc[ps.id] = ps;
+              return acc;
+            },
+            {},
+          ),
+          byAssociatedEstablishmentId: payload.results.reduce<
+            PayloadReduceType<Establishment>
+          >((acc, establishment) => {
+            acc[establishment.associatedestablishment_set[0]] = establishment;
             return acc;
           }, {}),
         },
@@ -169,7 +177,6 @@ export default handleActions<Immutable.Immutable<EstablishmentState, any>>(
       return state.set('loading', payload);
     },
     [detailActions.success.toString()]: (state, { payload }) => {
-      // @ts-expect-error
       return state.merge({ byId: payload }, { deep: true });
     },
     [detailActions.error.toString()]: (state, { payload }) => {
@@ -201,11 +208,9 @@ export default handleActions<Immutable.Immutable<EstablishmentState, any>>(
       return state.set('updated', payload);
     },
     [addImage.isLoading.toString()]: (state, { payload }) => {
-      // @ts-expect-error
       return state.setIn(['byId', payload.id, 'loading'], payload.loading);
     },
     [addImage.success.toString()]: (state, { payload }) => {
-      // @ts-expect-error
       const { id, image } = payload;
       // @ts-expect-error
       const { images } = state.byId[id];
@@ -249,7 +254,6 @@ export default handleActions<Immutable.Immutable<EstablishmentState, any>>(
       state,
       { payload },
     ) => {
-      // @ts-expect-error
       return state.setIn(['byId', payload.id], payload.data);
     },
     [fetchAllEstablishmentGroupActions.isLoading.toString()]: (
@@ -303,20 +307,17 @@ export default handleActions<Immutable.Immutable<EstablishmentState, any>>(
       state,
       { payload },
     ) => {
-      // @ts-expect-error
       if (!state.establishmentGroup.allIds.find((id) => id === payload.id)) {
-        return (
-          state
-            // @ts-expect-error
-            .setIn(['establishmentGroup', 'byId', payload.id], payload)
-            .setIn(
-              ['establishmentGroup', 'allIds'],
-              // @ts-expect-error
-              [...state.establishmentGroup.allIds, payload.id],
-            )
-        );
+        return state
+
+          .setIn(['establishmentGroup', 'byId', payload.id], payload)
+          .setIn(
+            ['establishmentGroup', 'allIds'],
+
+            [...state.establishmentGroup.allIds, payload.id],
+          );
       }
-      // @ts-expect-error
+
       return state.setIn(['establishmentGroup', 'byId', payload.id], payload);
     },
     [deleteEstablishmentGroupActions.isLoading.toString()]: (
@@ -359,7 +360,7 @@ export default handleActions<Immutable.Immutable<EstablishmentState, any>>(
       return state
         .setIn(
           ['establishmentBillingGroup', 'allIds'],
-          // @ts-expect-error
+
           payload.results.map(
             (billing_group: EstablishmentBillingGroup) => billing_group.id,
           ),
@@ -367,7 +368,6 @@ export default handleActions<Immutable.Immutable<EstablishmentState, any>>(
         .merge(
           {
             establishmentBillingGroup: {
-              // @ts-expect-error
               byId: payload.results.reduce(
                 (
                   acc: { [key: number]: EstablishmentBillingGroup },
@@ -406,22 +406,18 @@ export default handleActions<Immutable.Immutable<EstablishmentState, any>>(
       { payload },
     ) => {
       if (
-        // @ts-expect-error
         !state.establishmentBillingGroup.allIds.find((id) => id === payload.id)
       ) {
-        return (
-          state
-            // @ts-expect-error
-            .setIn(['establishmentBillingGroup', 'byId', payload.id], payload)
-            .setIn(
-              ['establishmentBillingGroup', 'allIds'],
-              // @ts-expect-error
-              [payload.id, ...state.establishmentBillingGroup.allIds],
-            )
-        );
+        return state
+
+          .setIn(['establishmentBillingGroup', 'byId', payload.id], payload)
+          .setIn(
+            ['establishmentBillingGroup', 'allIds'],
+
+            [payload.id, ...state.establishmentBillingGroup.allIds],
+          );
       }
       return state.setIn(
-        // @ts-expect-error
         ['establishmentBillingGroup', 'byId', payload.id],
         payload,
       );
@@ -451,7 +447,6 @@ export default handleActions<Immutable.Immutable<EstablishmentState, any>>(
       return state.setIn(
         ['establishmentBillingGroup', 'allIds'],
         state.establishmentBillingGroup.allIds.filter(
-          // @ts-expect-error
           (id: number) => id !== payload.id,
         ),
       );

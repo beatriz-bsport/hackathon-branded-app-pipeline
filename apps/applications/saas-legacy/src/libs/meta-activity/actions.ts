@@ -675,7 +675,7 @@ export function deleteMetaActivityCategory(
       dispatch(deleteMetaActivityCategoryActions.success(category));
       dispatch(snackbarSuccess('paymentPack.category.delete.success'));
       if (options && options.onSuccess) options.onSuccess(category);
-    } catch (error) {
+    } catch (_error) {
       dispatch(deleteMetaActivityCategoryActions.error(category));
       dispatch(snackbarError('paymentPack.category.delete.error'));
       if (options && options.onError) options.onError();

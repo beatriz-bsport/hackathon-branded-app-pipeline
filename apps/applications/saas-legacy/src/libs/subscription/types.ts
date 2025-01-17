@@ -152,6 +152,7 @@ export type Contract = {
   tags_on_first_billing: number[];
   nb_interval_after_auto_renewal: number | null;
   contract_template: number;
+  editable: boolean;
 };
 
 export type ContractWithPaymentPack<
@@ -181,6 +182,7 @@ export type ContractWithPaymentPack<
   tags_on_first_billing: Array<number>;
   nb_interval_after_auto_renewal: number | null;
   contract_template: number;
+  editable: boolean;
 };
 
 export type ContractInterval = 'month' | 'week';
@@ -481,6 +483,7 @@ export type ContractTemplate = {
   flat_fee: number;
   is_usable_by_staff: boolean;
   companies: number[];
+  editable?: boolean;
 };
 
 export type ContractTemplatePayload = Omit<
@@ -523,6 +526,7 @@ export type ContractTemplateFormValues = {
   managerOnly: boolean;
   autoRenewal: boolean;
   unusableByStaff: boolean;
+  editable?: boolean;
 };
 
 /** The payload type when adding or switching payment method for a Subscription */

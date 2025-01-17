@@ -276,13 +276,17 @@ export const ConsumerBookingPageReworkedComponent: React.FC<Props> = ({
       label: t('consumerSpace:reworked.myBookings.filter.past'),
       onClick: handleSetPastBookingClick,
     },
-    !(selectedTab === BookingTabEnum.APPOINTMENT) && {
-      hasBadge: waitlistItemsCount > 0,
-      type: BookingFilterTabEnum.WAITLIST,
-      label: t('consumerSpace:reworked.myBookings.filter.onWaitlist'),
-      onClick: handleSetWaitlistBookingClick,
-      value: waitlistItemsCount,
-    },
+    ...(selectedTab !== BookingTabEnum.APPOINTMENT
+      ? [
+          {
+            hasBadge: waitlistItemsCount > 0,
+            type: BookingFilterTabEnum.WAITLIST,
+            label: t('consumerSpace:reworked.myBookings.filter.onWaitlist'),
+            onClick: handleSetWaitlistBookingClick,
+            value: waitlistItemsCount,
+          },
+        ]
+      : []),
   ];
   const handleSetActivityBookingTab = React.useCallback(
     () => handleSetSelectedTab?.(BookingTabEnum.ACTIVITY),

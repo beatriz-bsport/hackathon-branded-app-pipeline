@@ -33,7 +33,7 @@ import { snackbarSuccess, snackbarError } from '../snackbar/actions';
 import { createDictionnaryById, createIdList } from '../../actions/utils';
 import { getFreshEstablishmentIds } from './selectors';
 import { RootState } from '../../reducers';
-import { OptionCallback, Dispatch } from '../../state/types';
+import { OptionCallback, Dispatch, PaginatedResponse } from '#src/state/types';
 
 import type {
   EstablishmentAddressInput,
@@ -150,9 +150,8 @@ export function fetchEstablishments(
       });
       dispatch(
         listLoaded({
-          // @ts-expect-error
           establishmentDict: createDictionnaryById(response.data.results),
-          // @ts-expect-error
+
           establishmentIdList: createIdList(response.data.results),
         }),
       );
@@ -349,16 +348,18 @@ export function fetchAssociatedEstablishments(
 }
 
 export const establishmentBulkRetrieveActions = {
-  isLoading: createAction('ESTABLISHMENT/BULK_RETRIEVE/IS_LOADING'),
-  error: createAction('ESTABLISHMENT/BULK_RETRIEVE/ERROR'),
-  success: createAction('ESTABLISHMENT/BULK_RETRIEVE/SUCCESS'),
+  isLoading: createAction<boolean>('ESTABLISHMENT/BULK_RETRIEVE/IS_LOADING'),
+  error: createAction<Error | null>('ESTABLISHMENT/BULK_RETRIEVE/ERROR'),
+  success: createAction<PaginatedResponse<Establishment>>(
+    'ESTABLISHMENT/BULK_RETRIEVE/SUCCESS',
+  ),
 };
 
 function fetchEstablishmentBulkBase(
-  params: any = {},
-  options?: OptionCallback,
+  params: FetchEstablishmentParams = {},
+  options?: OptionCallback<PaginatedResponse<Establishment>>,
 ) {
-  return async (dispatch: ThunkDispatch<any, any, any>) => {
+  return async (dispatch: Dispatch) => {
     dispatch(establishmentBulkRetrieveActions.isLoading(true));
     dispatch(establishmentBulkRetrieveActions.error(null));
     let promise = null;
@@ -369,7 +370,7 @@ function fetchEstablishmentBulkBase(
       });
       promise = response.data;
       dispatch(establishmentBulkRetrieveActions.success(response.data));
-      // @ts-expect-error
+
       if (options && options.onSuccess) options.onSuccess(response.data);
     } catch (error) {
       dispatch(establishmentBulkRetrieveActions.error(error));
@@ -382,7 +383,7 @@ function fetchEstablishmentBulkBase(
 
 export const fetchEstablishmentBulk = (
   ids: Array<number>,
-  options?: OptionCallback,
+  options?: OptionCallback<PaginatedResponse<Establishment>>,
 ) => {
   return async (
     dispatch: ThunkDispatch<any, any, any>,
@@ -412,14 +413,14 @@ export const fetchEstablishmentBulk = (
         options,
       ),
     );
-    /* eslint-disable-next-line */
+
     return res;
   };
 };
 
 export const fetchAssociatedEstablishmentBulk = (
   ids: Array<number>,
-  options?: OptionCallback,
+  options?: OptionCallback<PaginatedResponse<Establishment>>,
 ) => {
   return async (dispatch: ThunkDispatch<any, any, any>) => {
     const ids_uniq = uniq(ids.filter((id) => !!id));

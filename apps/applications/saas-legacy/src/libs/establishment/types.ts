@@ -118,6 +118,7 @@ export type EstablishmentState = {
       error?: Error;
     };
   };
+  byAssociatedEstablishmentId: { [key: number]: Establishment };
 };
 
 export type EstablishmentAddressInput = {

@@ -1,4 +1,3 @@
-// eslint-disable-next-line bsport/no-redux-in-component
 import React from 'react';
 import { useObjectSearch } from '#src/libs/fuzzy-search/hooks/useObjectSearch';
 import type { SearchObjectType } from '#src/libs/fuzzy-search/types';

@@ -33,7 +33,6 @@ export const InvoiceItem = (props: Props) => {
   );
 
   if (parseFloat(invoiceItem.voucher) !== 0) {
-    // eslint-disable-next-line
     voucher = invoiceItem.voucher;
   }
 

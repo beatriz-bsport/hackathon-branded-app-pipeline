@@ -63,7 +63,7 @@ const ruleStyles = {
   // @ts-expect-error
   option: (styles, { isDisabled, isFocused, isSelected }) => {
     const color = chroma(colors.secondary);
-    /* eslint-disable */
+
     return {
       ...styles,
       backgroundColor: isDisabled
@@ -89,7 +89,6 @@ const ruleStyles = {
           (isSelected ? colors.secondary : color.alpha(0.3).css()),
       },
     };
-    /* eslint-enable */
   },
   // @ts-expect-error
   multiValue: (styles) => {

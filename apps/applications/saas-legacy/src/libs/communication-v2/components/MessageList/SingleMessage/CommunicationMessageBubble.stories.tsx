@@ -96,7 +96,7 @@ const communicationSendingFail: Communication = CommunicationFactory(
 
 const options = {
   onShowInformationClick: () => {},
-  onShowEmailTemplate: (title: string, html: string) => {},
+  onShowEmailTemplate: (_title: string, _html: string) => {},
 };
 
 export const Email = CustomTemplate.bind({});

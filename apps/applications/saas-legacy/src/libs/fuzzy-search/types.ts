@@ -208,6 +208,7 @@ type ResultsTypes = {
   universal_payment_pack_template: PaymentPackTemplateAPI;
 };
 
+/* eslint-disable-next-line */
 const variantType = ['default', 'mui-selector', 'underlined'] as const;
 
 export type VariantType = (typeof variantType)[number];

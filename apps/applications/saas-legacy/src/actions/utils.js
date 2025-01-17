@@ -1,7 +1,6 @@
 // @flow
-/* eslint-disable */
-import { createAction, handleActions } from 'redux-actions';
 
+import { createAction, handleActions } from 'redux-actions';
 import type { Dispatch, Action, State } from '../state/types';
 
 export function createListHandler(
@@ -24,7 +23,6 @@ export function createListHandler(
 
       try {
         while (next) {
-          // eslint-disable-next-line
           const response = await listEndpoint({ page: next });
           const { results } = response.data;
           next = response.data.next_page;
@@ -49,7 +47,6 @@ export function createListHandler(
       let next = 1;
       try {
         while (next) {
-          // eslint-disable-next-line
           const response = await fetchFromEndpoint(
             all[all.length - 1].id,
             next,

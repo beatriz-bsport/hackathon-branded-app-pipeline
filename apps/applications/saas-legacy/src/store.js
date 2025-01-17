@@ -1,6 +1,5 @@
 // @flow
 
-/* eslint-disable no-underscore-dangle */
 import thunk from 'redux-thunk';
 // import * as Sentry from '@sentry/react';
 import { createStore, applyMiddleware, compose } from 'redux';
@@ -57,7 +56,7 @@ export default function initStore(initialState: Object = {}) {
   // $FlowFixMe
   if (module.hot) {
     module.hot.accept(() => {
-      const nextRootReducer = require('./reducers/index').default; // eslint-disable-line global-require
+      const nextRootReducer = require('./reducers/index').default;
       store.replaceReducer(nextRootReducer);
     });
   }

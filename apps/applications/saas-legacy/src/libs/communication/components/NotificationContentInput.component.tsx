@@ -22,7 +22,7 @@ const NotificationContentInput = (props: Props) => {
 
   const { t } = useTranslation(['booking']);
   const classes = useStyles();
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+
   const [field, _, helper] = useField(rest);
 
   const handleAddvariable = (data: OptionTypeBase) => {

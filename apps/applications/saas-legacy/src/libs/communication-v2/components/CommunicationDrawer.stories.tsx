@@ -145,8 +145,8 @@ const WrapperWithState = (args: DrawerProps) => {
   const fetchPageMessageList = (
     page: number,
     filters: number[],
-    dateStart: number,
-    dateEnd: number,
+    _dateStart: number,
+    _dateEnd: number,
   ) => {
     const allCommunicationFiltered = getFilteredCommunicationMessageList(
       DATABASE_COMMUNICATION_MESSAGE_LIST,
@@ -176,7 +176,7 @@ const WrapperWithState = (args: DrawerProps) => {
   const fetchPageInformationRecipientList = (
     communication: Communication,
     page: number,
-    memberSelectedCategories: [],
+    _memberSelectedCategories: [],
   ) => {
     const recipients =
       DATABASE_RECIPIENTS_WITH_MEMBERS_BY_COMMUNICATION_SENT.find(
@@ -225,7 +225,7 @@ const WrapperWithState = (args: DrawerProps) => {
     allMemberIds.length - allMemberIdsWithoutPhone.length;
   const fetchPaginatedAvailableRecipientMemberList = (
     page: number,
-    memberSelectedCategories?: number[],
+    _memberSelectedCategories?: number[],
   ) => {
     const indexEnd = Math.min(
       page * PAGINATION_SIZE_RECIPIENTS,

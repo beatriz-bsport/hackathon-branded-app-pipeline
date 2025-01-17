@@ -59,7 +59,7 @@ const Button: React.FC<Props> = ({
       isLoading={isLoading}
       onClick={onClick}
       // https://github.com/jsx-eslint/eslint-plugin-react/issues/1555
-      // eslint-disable-next-line react/button-has-type
+
       type={type}
     >
       <span

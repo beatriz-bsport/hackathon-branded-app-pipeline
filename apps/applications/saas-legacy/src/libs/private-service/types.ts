@@ -280,7 +280,8 @@ export type PrivateBooking<
   EstablishmentId = number,
   PrivateServiceId = number,
   MemberId = number,
-  RecurrenceRulePrivateBooking = number,
+  /* eslint-disable-next-line */
+  RecurrenceRulePrivateBooking = number, // RecurrenceRulePrivateBooking already declared line 353
   StaffHistory = Array<
     StaffModificationHistory<PrivateBookingModificationActionIdentifier>
   >,
@@ -476,6 +477,7 @@ export type PrivatePassTemplateAPI = {
   start_date_method: number;
   expiration_days_before_first_use: number;
   is_usable_by_staff: boolean;
+  editable: boolean;
 };
 
 export type PrivatePassTemplate = PrivatePassTemplateAPI & {
@@ -706,6 +708,7 @@ export type PrivateBookingFilterParams = {
   page?: number;
   strictly_past_booking?: boolean;
   was_refunded?: boolean;
+  ordering?: 'date_start' | '-date_start';
 };
 
 /** Transformed Private consumer pass for the consumer page by including full objects */

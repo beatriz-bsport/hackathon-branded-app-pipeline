@@ -68,7 +68,6 @@ export const FranchiseGenericProductDoubleList = (props: Props) => {
     const activeDictionary = activeItemList.reduce<
       Record<number, FranchiseCompany[]>
     >((_dic, item: GenericProductTemplate) => {
-      /* eslint-disable no-param-reassign */
       // @ts-expect-error
       _dic[item.id] = sortCompanyListByIsAllowedAndName(
         getItemFranchiseCompanies(item),
@@ -84,7 +83,7 @@ export const FranchiseGenericProductDoubleList = (props: Props) => {
       );
       return _dic;
     }, {});
-    /* eslint-enable no-param-reassign */
+
     return { ...activeDictionary, ...inactiveDictionary };
   }, [activeItemList, inactiveItemList, getItemFranchiseCompanies]);
 

@@ -233,10 +233,10 @@ export const useGraph = ({
 
   const onNodeDragStop = React.useCallback(
     (
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+       
       _: React.MouseEvent,
       node: CustomNode,
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+       
       __: CustomNode[],
     ) => {
       switch (node.type) {

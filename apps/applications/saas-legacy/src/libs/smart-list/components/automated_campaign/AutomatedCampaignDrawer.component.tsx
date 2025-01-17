@@ -96,7 +96,7 @@ const selectStyles = {
 };
 
 type Props = {
-  // eslint-disable-next-line react/no-unused-prop-types
+   
   initial: AutomatedCampaign;
   // eslint-disable-next-line react/no-unused-prop-types
   default_event_kind?: number;

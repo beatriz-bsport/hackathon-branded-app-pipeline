@@ -19,7 +19,7 @@ export const emptyFormRenderingTests = async ({
 }: {
   canvasElement: HTMLElement;
 }) => {
-  const { canvas, component } = await findByTestIdInCanvas(
+  const { component } = await findByTestIdInCanvas(
     canvasElement,
     'private-pass-form',
   );
@@ -68,7 +68,7 @@ export const generalSectionRenderingTests = async ({
 }: {
   canvasElement: HTMLElement;
 }) => {
-  const { canvas, component } = await findByTestIdInCanvas(
+  const { component } = await findByTestIdInCanvas(
     canvasElement,
     'private-pass-form',
   );
@@ -175,7 +175,7 @@ export const paymentSectionRenderingTests = async ({
 }: {
   canvasElement: HTMLElement;
 }) => {
-  const { canvas, component } = await findByTestIdInCanvas(
+  const { component } = await findByTestIdInCanvas(
     canvasElement,
     'private-pass-form',
   );
@@ -222,7 +222,7 @@ export const validitySectionRenderingTests = async ({
 }: {
   canvasElement: HTMLElement;
 }) => {
-  const { canvas, component } = await findByTestIdInCanvas(
+  const { component } = await findByTestIdInCanvas(
     canvasElement,
     'private-pass-form',
   );
@@ -279,7 +279,7 @@ export const compatibilitySectionRenderingTests = async ({
 }: {
   canvasElement: HTMLElement;
 }) => {
-  const { canvas, component } = await findByTestIdInCanvas(
+  const { component } = await findByTestIdInCanvas(
     canvasElement,
     'private-pass-form',
   );

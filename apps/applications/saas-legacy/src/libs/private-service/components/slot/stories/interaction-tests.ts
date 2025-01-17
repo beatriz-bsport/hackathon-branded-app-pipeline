@@ -10,12 +10,7 @@ import {
   querySelectedFieldShouldHaveTheExpectedValue,
 } from '../../../../../utils/storybookHelper';
 
-import {
-  initialData,
-  defaultValues,
-  expectedValues,
-  wrongInputValues,
-} from './constants';
+import { initialData, wrongInputValues } from './constants';
 
 // 🧪 Duration list - when clicking on an option, it should update the durations inputs
 const clickOnOptionShouldUpdateDurationInputs = async (

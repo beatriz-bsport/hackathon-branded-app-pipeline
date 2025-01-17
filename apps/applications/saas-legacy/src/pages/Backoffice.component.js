@@ -810,10 +810,10 @@ export class Backoffice extends Component<Props, State> {
                   this.props.fetchCompanyUserRolesPaginated
                 }
                 fetchMoreAlertingKind={this.props.fetchMoreAlertingKind}
+                fetchMyLastClockin={this.props.fetchMyLastClockin}
                 fetchOnSpotPaymentReport={this.props.fetchOnSpotPaymentReport}
                 fetchTempPassword={this.props.fetchTempPassword}
                 generateTempPassword={this.props.generateTempPassword}
-                fetchMyLastClockin={this.props.fetchMyLastClockin}
                 getStaffsAttendanceRealTime={
                   this.props.getStaffsAttendanceRealTime
                 }

@@ -108,7 +108,7 @@ export const PartnershipConfigurationMultipleEstablishmentForm: React.FC<
             />
           </div>
           {
-            // eslint-disable-next-line
+             
             !conf.reference_establishment ? (
               <div className={classes.rowAlert}>
                 <WarningIcon
@@ -259,7 +259,7 @@ export const PartnershipSchema = Yup.object().shape({
 });
 
 export const PartnershipFormHoc = withFormik({
-  // eslint-disable-next-line
+   
   mapPropsToValues: ({
     initial,
     establishmentList,

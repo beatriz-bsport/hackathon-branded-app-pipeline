@@ -174,7 +174,6 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
     // @ts-expect-error
     const maxLength = Math.max(...period.map((os) => os.length));
     for (let i = 0; i < maxLength; i += 1) {
-      // eslint-disable-next-line no-loop-func
       // @ts-expect-error
       rows[i] = period.map((os) => os[i]);
     }

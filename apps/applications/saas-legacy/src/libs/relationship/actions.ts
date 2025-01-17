@@ -213,7 +213,7 @@ export function unlinkConsumerPaymentPackLink(
         ),
       );
       if (options && options.onSuccess) options.onSuccess();
-    } catch (err) {
+    } catch (_err) {
       dispatch(
         snackbarError('relationship.consumer_payment_pack_links.unlink.error'),
       );
@@ -238,7 +238,7 @@ export function relinkConsumerPaymentPackLink(
         ),
       );
       if (options && options.onSuccess) options.onSuccess();
-    } catch (err) {
+    } catch (_err) {
       dispatch(
         snackbarError('relationship.consumer_payment_pack_links.relink.error'),
       );
@@ -346,7 +346,7 @@ export function unlinkPrivateConsumerPassLink(
         ),
       );
       if (options && options.onSuccess) options.onSuccess();
-    } catch (err) {
+    } catch (_err) {
       dispatch(
         snackbarError('relationship.private_consumer_pass_links.unlink.error'),
       );
@@ -370,7 +370,7 @@ export function relinkPrivateConsumerPassLink(
         ),
       );
       if (options && options.onSuccess) options.onSuccess();
-    } catch (err) {
+    } catch (_err) {
       dispatch(
         snackbarError('relationship.private_consumer_pass_links.relink.error'),
       );
@@ -393,7 +393,7 @@ export function deleteRelation(id: number, options: OptionCallback) {
       await deleteRelationAPI(id);
       dispatch(snackbarSuccess('relationship.delete.success'));
       if (options && options.onSuccess) options.onSuccess();
-    } catch (err) {
+    } catch (_err) {
       dispatch(snackbarError('relationship.delete.error'));
       if (options && options.onSuccess) options.onSuccess();
     }

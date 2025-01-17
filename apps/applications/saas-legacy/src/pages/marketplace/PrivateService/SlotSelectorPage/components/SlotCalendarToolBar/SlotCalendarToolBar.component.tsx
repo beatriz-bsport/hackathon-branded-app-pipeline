@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, memo } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -56,4 +56,4 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-export default React.memo(SlotCalendarToolBar);
+export default memo(SlotCalendarToolBar);

@@ -149,7 +149,7 @@ async function main() {
           );
         });
       }
-    } catch (e) {
+    } catch (_e) {
       console.log(
         `❌ Corrupted file content for ${path.relative(
           process.cwd(),

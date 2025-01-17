@@ -308,7 +308,7 @@ export const GroupedOfferPreviewForm: React.FC<
                     <ListItemText
                       primary={
                         <div className={classes.listItem}>
-                          {/* eslint-disable-next-line */}
+                          {}
                           <div
                             className={classes.listItemInner}
                             onClick={(ev) => {

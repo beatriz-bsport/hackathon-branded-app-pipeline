@@ -14,7 +14,6 @@ import withTitle from '../../hocs/with-title.hoc';
 import SmartListDetailMember from './SmartListDetailMember.page';
 import SmartListDetailCampaign from './SmartListDetailCampaign.page';
 import SmartListDetailCampaignReport from './SmartListDetailCampaignReport.page';
-import SmartListDetailStatistic from './SmartListDetailStatistic.page';
 
 import { getSmartList } from '../../libs/smart-list/selectors';
 import { fetchSmartListDetail } from '../../libs/smart-list/actions';
@@ -66,11 +65,6 @@ export class SmartListDetail extends React.Component<Props> {
             exact
             component={SmartListDetailCampaign}
             path="/smart-list/:id/campaign/"
-          />
-          <Route
-            exact
-            component={SmartListDetailStatistic}
-            path="/smart-list/:id/statistic/"
           />
         </Switch>
       </ContentWithAppBar>

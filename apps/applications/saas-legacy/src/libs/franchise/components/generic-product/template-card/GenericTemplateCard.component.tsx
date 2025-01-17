@@ -79,7 +79,6 @@ const FranchiseGenericProductTemplateCard = (props: Props) => {
     React.useState(false);
   const [openSelectCompaniesDialog, setOpenSelectCompaniesDialog] =
     React.useState(
-      // eslint-disable-next-line
       !!parseQueryString(location.search || '')?.openSelectCompaniesForm,
     );
   const companiesInTemplateIdList = (companiesInTemplate || []).map(

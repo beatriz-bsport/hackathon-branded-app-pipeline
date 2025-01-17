@@ -287,6 +287,7 @@ const mapStateToProps = (
   customConfiguration: state.exportableComponents.customCss,
 });
 
+/* eslint-disable-next-line */
 const connector = connect(null, properMapDispatchToProps);
 
 export default compose(

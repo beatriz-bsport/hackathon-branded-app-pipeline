@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { ComponentStory, ComponentMeta, Meta } from '@storybook/react';
+import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { TabStorybook } from '.';
 import { fakerEN as faker } from '@faker-js/faker';
 import { TabColorEnum } from './constants';

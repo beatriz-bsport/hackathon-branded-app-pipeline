@@ -501,7 +501,6 @@ export function fetchMarketplaceOfferList(
     const { filters } = params;
 
     try {
-      // eslint-disable-next-line
       delete params.filters;
       const response = await fetchOffersListAPI({
         ...params,
@@ -545,7 +544,6 @@ export function fetchNextAvailableOffer(
       dispatch(offerNextActions.isLoading(true));
       const { filters } = params;
 
-      // eslint-disable-next-line
       delete params.filters;
       const response = await fetchOffersListAPI({
         // @ts-expect-error
@@ -962,7 +960,7 @@ export function fetchBookedGender(params: any, options?: OptionCallback) {
           filterData.level__in = filters.levels;
         }
       }
-      // eslint-disable-next-line no-param-reassign
+
       delete params.filters;
       const response = await fetchBookedGenderAPI({
         ...params,
@@ -1092,7 +1090,6 @@ export function fetchMarketplaceOfferByMetaActivityList(
     const { filters } = params;
 
     try {
-      // eslint-disable-next-line
       delete params.filters;
       const response = await fetchOffersListAPI({
         ...params,

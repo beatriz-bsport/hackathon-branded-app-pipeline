@@ -85,6 +85,7 @@ export type WaitingListBookingOptionQueryParams = {
   no_related_field?: boolean;
   show_cancelled?: boolean;
   offer_is_workshop?: boolean;
+  ordering?: 'offer__date_start' | '-offer__date_start';
 };
 
 export type WaitingListBookingOptionPaginatedQueryParams =

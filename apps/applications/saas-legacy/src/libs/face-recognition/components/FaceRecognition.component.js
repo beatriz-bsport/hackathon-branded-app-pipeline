@@ -222,7 +222,6 @@ export class FaceRecognition extends React.Component<Props, State> {
     const buffer = new ArrayBuffer(byteString.length);
     const data = new DataView(buffer);
 
-    // eslint-disable-next-line
     for (let i = 0; i < byteString.length; i++) {
       data.setUint8(i, byteString.charCodeAt(i));
     }

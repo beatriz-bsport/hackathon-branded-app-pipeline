@@ -8,6 +8,9 @@ const icons = {
   "arrow-right": React.lazy(
     async () => await import("./assets/arrow-right.svg?react"),
   ),
+  "chevron-down": React.lazy(
+    async () => await import("./assets/chevron-down.svg?react"),
+  ),
   "chevron-left-double": React.lazy(
     async () => await import("./assets/chevron-left-double.svg?react"),
   ),
@@ -30,6 +33,10 @@ const icons = {
   "filter-lines": React.lazy(
     async () => await import("./assets/filter-lines.svg?react"),
   ),
+  "image-03": React.lazy(
+    async () => await import("./assets/image-03.svg?react"),
+  ),
+  "image-x": React.lazy(async () => await import("./assets/image-x.svg?react")),
   loading: React.lazy(async () => await import("./assets/loading.svg?react")),
   "message-alert-square": React.lazy(
     async () => await import("./assets/message-alert-square.svg?react"),

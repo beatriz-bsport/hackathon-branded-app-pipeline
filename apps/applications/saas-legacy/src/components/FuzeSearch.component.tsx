@@ -141,7 +141,6 @@ export class FuzeSearch extends React.Component<Props> {
               </div>
             ),
           }}
-          // eslint-disable-next-line react/jsx-no-duplicate-props
           inputProps={{
             'data-testid': 'input-fuze-search',
             className: this.props.inputPropsClassName,

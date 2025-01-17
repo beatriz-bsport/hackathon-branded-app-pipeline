@@ -3,8 +3,25 @@ const autoprefixer = require('autoprefixer');
 const path = require('path');
 const paths = require('./paths');
 const { sentryWebpackPlugin } = require('@sentry/webpack-plugin');
+const BundleAnalyzerPlugin =
+  require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 const publicPath = '/';
+
+const plugins = [
+  new webpack.ProvidePlugin({
+    process: 'process/browser.js',
+  }),
+  sentryWebpackPlugin({
+    org: process.env.SENTRY_ORG, // Gitlab CI/CD variable
+    project: process.env.SENTRY_PROJECT, // Gitlab CI/CD variable
+    authToken: process.env.SENTRY_AUTH_TOKEN, // Gitlab CI/CD variable
+  }),
+];
+
+if (process.env.ANALYZE === 'true') {
+  plugins.push(new BundleAnalyzerPlugin({ analyzerMode: 'static' }));
+}
 
 module.exports = {
   entry: [require.resolve('./polyfills'), paths.appIndexJs],
@@ -160,16 +177,7 @@ module.exports = {
       },
     ],
   },
-  plugins: [
-    new webpack.ProvidePlugin({
-      process: 'process/browser.js',
-    }),
-    sentryWebpackPlugin({
-      org: process.env.SENTRY_ORG, // Gitlab CI/CD variable
-      project: process.env.SENTRY_PROJECT, // Gitlab CI/CD variable
-      authToken: process.env.SENTRY_AUTH_TOKEN, // Gitlab CI/CD variable
-    }),
-  ],
+  plugins,
   performance: {
     hints: false,
   },

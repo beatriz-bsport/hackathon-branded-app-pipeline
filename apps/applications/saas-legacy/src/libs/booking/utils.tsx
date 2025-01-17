@@ -1,6 +1,4 @@
 import React from 'react';
-import orderBy from 'lodash/orderBy';
-import { DateTime } from 'luxon';
 import { useTranslation } from 'react-i18next';
 import { makeStyles, Theme } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
@@ -206,30 +204,3 @@ const useStyles = makeStyles((theme: Theme) => ({
     marginRight: theme.spacing(1),
   },
 }));
-
-/**
- * Filters the bookings by start date (most recent first)
- * @param bookingList The list of bookings
- * @param order Future bookings will need ASC sorting while Past need DESC
- * @example
- * const futureBookings = filterBookingListByOfferDate<ConsumerBooking>(bookings, 'asc');
- * const pastBookings = filterBookingListByOfferDate<ConsumerBooking>(bookings, 'desc');
- */
-export function filterBookingListByOfferDate<T>(
-  bookingList: T[],
-  order: 'asc' | 'desc',
-) {
-  return orderBy(
-    bookingList,
-    (booking) =>
-      DateTime.fromISO(
-        // @ts-expect-error
-        booking.offer_date_start ||
-          // @ts-expect-error
-          booking.date_start ||
-          // @ts-expect-error
-          booking.offer?.date_start,
-      ).toUnixInteger(),
-    order,
-  );
-}

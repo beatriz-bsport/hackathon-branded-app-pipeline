@@ -55,7 +55,6 @@ export default compose(
   withProps(({ onSubmit }) => ({
     onSubmit: (values: any, options: OptionCallback) => {
       if (!values.birthday) {
-        // eslint-disable-next-line
         delete values.birthday;
       }
       const formData = mapFormData(values, MemberMap);

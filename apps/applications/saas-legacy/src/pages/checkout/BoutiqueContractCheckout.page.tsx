@@ -315,7 +315,7 @@ export class BoutiqueContractCheckout extends React.Component<Props, State> {
       await this.props.detachPaymentMethod(paymentMethodId.toString());
       this.props.fetchPaymentMethodList();
       options.onSuccess && options.onSuccess();
-    } catch (err) {
+    } catch (_err) {
       options.onError && options.onError();
     }
   };

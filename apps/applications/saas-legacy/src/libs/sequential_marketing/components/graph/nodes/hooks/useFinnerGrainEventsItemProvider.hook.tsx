@@ -1,6 +1,7 @@
 import React from 'react';
 
 // Redux utils
+/* eslint-disable-next-line bsport/no-redux-in-component */
 import { useDispatch, useSelector } from 'react-redux';
 import { createSelector } from 'reselect';
 

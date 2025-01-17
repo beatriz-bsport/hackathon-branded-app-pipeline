@@ -1,0 +1,80 @@
+import type { Meta, StoryObj } from "@storybook/react";
+import Filter from "./Filter";
+
+/**
+ * Rendering a customizable list of filter items within an ordered list.<br>
+ * Provides a flexible way to display filters with optional left and right icons, labels,
+ * and dropdown menus for further filtering options.<br>
+ * The component maintains its visual state internally, while external state control
+ * is facilitated through props callbacks.<br>
+ * The number of filter elements is infinite.<br>
+ * <a href="https://www.figma.com/design/aQ73ihLayonUHVquF0QY2C/Kaizen-library?node-id=3200-14891" target="_blank">Figma</a>
+ */
+const meta: Meta<typeof Filter> = {
+  component: Filter,
+  argTypes: {
+    filters: {
+      control: { type: "object" },
+    },
+    fields: {
+      control: { type: "object" },
+    },
+    selectFieldLabel: {
+      control: { type: "text" },
+    },
+    onFilterChange: {
+      action: "onFilterChange",
+    },
+  },
+  parameters: {
+    docs: {
+      story: {
+        height: "30vh",
+      },
+    },
+  },
+};
+
+export default meta;
+
+type Story = StoryObj<typeof Filter>;
+
+export const Primary: Story = {
+  name: "Filter",
+  args: {
+    filters: [
+      { id: "is", label: "is" },
+      { id: "is-not", label: "is not" },
+    ],
+    fields: {
+      fruit: {
+        id: "fruit",
+        label: "Fruit",
+        availableFilters: ["is", "is-not"],
+        values: [
+          { id: "apple", label: "Apple" },
+          { id: "banana", label: "Banana" },
+          { id: "cherry", label: "Cherry" },
+          { id: "date", label: "Date" },
+          { id: "elderberry", label: "Elderberry" },
+        ],
+        multiSelect: true,
+      },
+      vegetable: {
+        id: "vegetable",
+        label: "Vegetable",
+        availableFilters: ["is", "is-not"],
+        values: [
+          { id: "carrot", label: "Carrot" },
+          { id: "broccoli", label: "Broccoli" },
+          { id: "spinach", label: "Spinach" },
+          { id: "potato", label: "Potato" },
+          { id: "onion", label: "Onion" },
+        ],
+        multiSelect: false,
+      },
+    },
+    selectFieldLabel: "Select field",
+    onFilterChange: (filters) => console.log("Filters changed:", filters),
+  },
+};

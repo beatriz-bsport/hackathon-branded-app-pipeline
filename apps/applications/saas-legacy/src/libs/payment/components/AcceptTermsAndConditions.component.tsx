@@ -2,7 +2,7 @@ import React from 'react';
 import { compose, withStateHandlers } from 'recompose';
 import { WithTranslation, withTranslation } from 'react-i18next';
 
-import { makeStyles, FormControlLabel, Theme } from '@material-ui/core';
+import { makeStyles, FormControlLabel } from '@material-ui/core';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import Dialog from '@material-ui/core/Dialog';
 import Typography from '@material-ui/core/Typography';
@@ -13,7 +13,6 @@ import Button from '@material-ui/core/Button';
 
 import TypographyMultiline from '../../../components/typo/TypographyMultiline.component';
 import { WithHandlerType } from '../../../utils/types';
-import { CheckoutContext } from '../../../pages/checkout/basket/CheckoutContext';
 import { TermsAndConditionType } from '../types';
 
 type OwnProps = {
@@ -32,8 +31,7 @@ type StateHandlerType = typeof withStateHandlersInit &
 type Props = OwnProps & StateHandlerType & WithTranslation;
 
 export const AcceptTermsAndConditions = (props: Props) => {
-  const isNewCheckoutFlow = React.useContext(CheckoutContext);
-  const classes = useStyles({ isNewCheckoutFlow });
+  const classes = useStyles();
 
   return (
     <div className={classes.container}>
@@ -48,20 +46,12 @@ export const AcceptTermsAndConditions = (props: Props) => {
           />
         }
         label={
-          <Typography
-            align="left"
-            component="div"
-            variant={isNewCheckoutFlow ? 'body1' : 'caption'}
-          >
+          <Typography align="left" component="div" variant="body1">
             {!props.label && (
               <span>{props.t('generalTermsAndConditions.iAccept')}</span>
             )}
             <ButtonBase onClick={() => props.setShowTermsAndConditions(true)}>
-              <Typography
-                align="left"
-                color={isNewCheckoutFlow ? 'primary' : 'secondary'}
-                variant={isNewCheckoutFlow ? 'body1' : 'caption'}
-              >
+              <Typography align="left" color="primary" variant="body1">
                 {props.label ||
                   props.t(`generalTermsAndConditions.${props.type}`)}
               </Typography>
@@ -85,20 +75,17 @@ export const AcceptTermsAndConditions = (props: Props) => {
     </div>
   );
 };
-type NewCheckoutFlowThemeProps = {
-  isNewCheckoutFlow?: boolean;
-};
 
-const useStyles = makeStyles<Theme, NewCheckoutFlowThemeProps>((theme) => ({
-  container: ({ isNewCheckoutFlow }) => ({
+const useStyles = makeStyles((theme) => ({
+  container: {
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'flex-start',
     width: '100%',
     // this value of padding left is to compensate for the root marginLeft of FormControlLabel
-    ...(isNewCheckoutFlow ? { paddingLeft: theme.spacing(1.375) } : {}),
-  }),
+    paddingLeft: theme.spacing(1.375),
+  },
   termsAndConditions: {
     display: 'flex',
     alignItems: 'flex-end',

@@ -84,13 +84,9 @@ import { getBasketBuyableItemsCount } from '../../libs/checkout/utils';
 import { ConsumerSpaceContextEnum } from '#src/libs/consumer-space/constants';
 import WidgetUtils from '../../libs/widget/WidgetUtils';
 
-const ConsumerDashboard = asyncComponent(() =>
-  import('./ConsumerDashboard.page'),
-);
 const ConsumerGiftcard = asyncComponent(() =>
   import('./ConsumerGiftcard.page'),
 );
-const ConsumerBooking = asyncComponent(() => import('./ConsumerBooking.page'));
 const ConsumerBookingReworked = asyncComponent(() =>
   import('./ConsumerBookingReworked.page'),
 );
@@ -98,21 +94,16 @@ const ConsumerVOD = asyncComponent(() => import('./ConsumerVOD.page'));
 const ConsumerBookingBroadcast = asyncComponent(() =>
   import('./ConsumerBookingBroadcast.page'),
 );
-const ConsumerPack = asyncComponent(() => import('./ConsumerPack.page'));
 const ConsumerPassReworked = asyncComponent(() =>
   import('./ConsumerPassReworked.page'),
 );
-const ConsumerInvoice = asyncComponent(() => import('./ConsumerInvoice.page'));
 const ConsumerInvoiceReworked = asyncComponent(() =>
   import('./ConsumerInvoiceReworked.page'),
 );
-const ConsumerSubscription = asyncComponent(() =>
-  import('./ConsumerSubscription.page'),
-);
+
 const ConsumerSubscriptionReworked = asyncComponent(() =>
   import('./ConsumerSubscriptionReworked.page'),
 );
-const ConsumerProfile = asyncComponent(() => import('./ConsumerProfile.page'));
 const ConsumerProfileReworked = asyncComponent(() =>
   import('./ConsumerProfileReworked.page'),
 );
@@ -375,9 +366,6 @@ export class ConsumerHome extends React.Component<Props> {
                 hasMultipleMembership={
                   this.props.membershipCount && this.props.membershipCount > 1
                 }
-                isNewCheckoutFlow={
-                  !!this.props.theme?.display_new_checkout_flow
-                }
                 memberName={
                   this.props.getMemberFirstName(this.props.membership?.id) ?? ''
                 }
@@ -453,15 +441,6 @@ export class ConsumerHome extends React.Component<Props> {
                   <Route
                     path="/c/:companyId/program/"
                     render={this.attachConsumerProps(ConsumerProgram)}
-                  />
-                  <Route
-                    path="/c/:companyId/home/"
-                    render={this.attachConsumerProps(ConsumerDashboard)}
-                  />
-
-                  <Route
-                    path="/c/:companyId/"
-                    render={this.attachConsumerProps(ConsumerDashboard)}
                   />
                 </Switch>
               </ConsumerNavigation>

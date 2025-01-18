@@ -339,9 +339,6 @@ export class SubscriptionList extends React.Component<Props, State> {
                       name: this.props.theme.company_name,
                     }}
                     contractList={this.props.contractListAvailableAll}
-                    displayNewCheckoutFlow={
-                      this.props.theme.display_new_checkout_flow
-                    }
                     loading={this.props.contractLoading}
                     onClick={this.onClickContract}
                     onDelete={hasDeletePermission && this.handleDeleteContract}
@@ -488,9 +485,6 @@ export class SubscriptionList extends React.Component<Props, State> {
               />
             ) : null}
             <SubscriptionContractFormDrawer
-              displayNewCheckoutFlow={
-                this.props.theme.display_new_checkout_flow
-              }
               initial={this.state.contractToEditFromSearch}
               onClose={
                 this.state.contractToEditFromSearch

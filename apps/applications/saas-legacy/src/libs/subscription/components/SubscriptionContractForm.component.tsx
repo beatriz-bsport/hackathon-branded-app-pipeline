@@ -156,7 +156,6 @@ export type SubscriptionContractFormDrawerPropsWithoutFormik = {
   paymentPackList: PaymentPack[];
   privatePassList: PrivatePass[];
   paymentComboList: PaymentCombo[];
-  displayNewCheckoutFlow: boolean;
   tagList?: Array<Tag<TagGroup>>;
 };
 
@@ -628,13 +627,11 @@ export function SubscriptionContractFields(
           name="unusable_by_staff"
         />
 
-        {props.displayNewCheckoutFlow && (
-          <SwitchField
-            helperText={t('contract.form.highlightedAsRecommended.helperText')}
-            label={t('contract.form.highlightedAsRecommended.label')}
-            name="highlighted_as_recommended"
-          />
-        )}
+        <SwitchField
+          helperText={t('contract.form.highlightedAsRecommended.helperText')}
+          label={t('contract.form.highlightedAsRecommended.label')}
+          name="highlighted_as_recommended"
+        />
       </FormSection>
 
       <FormSection

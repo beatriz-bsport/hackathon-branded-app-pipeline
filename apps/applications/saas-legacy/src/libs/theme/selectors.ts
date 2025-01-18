@@ -155,9 +155,4 @@ export const getThemeLoading = (state: RootState) => {
   return null;
 };
 
-export const getIsUISimplified = (state: RootState) => {
-  const theme = getTheme(state);
-  return theme?.display_new_checkout_flow || !theme?.display_bubble_background;
-};
-
 export default { getTheme };

@@ -4,7 +4,7 @@ import { connect, ConnectedProps } from 'react-redux';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import { push as pushRouter } from 'connected-react-router';
 import { withProps, compose } from 'recompose';
-import themeSelectors, { getIsUISimplified } from '#src/libs/theme/selectors';
+import themeSelectors from '#src/libs/theme/selectors';
 import type { Theme as CompanyTheme } from '#src/libs/theme/types';
 import WithCustomCssProvider from '#src/hocs/company-custom-css.hoc';
 import ResetPasswordConfirmation from '#src/libs/login/components/ResetPasswordConfirmation/';
@@ -191,7 +191,7 @@ export class ChangePassword extends Component<Props, State> {
 const connector = connect(
   (state: RootState, { membership }: { membership: number | null }) => ({
     theme: !!membership && themeSelectors.getTheme(state),
-    simplifyUI: !!membership && getIsUISimplified(state),
+    simplifyUI: !!membership,
     customConfiguration: state.exportableComponents.customCss,
   }),
 

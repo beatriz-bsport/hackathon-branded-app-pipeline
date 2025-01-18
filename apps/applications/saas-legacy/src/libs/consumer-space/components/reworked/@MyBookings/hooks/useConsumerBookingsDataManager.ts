@@ -50,7 +50,6 @@ import type { OptionCallback } from '../../../../../../state/types';
 
 /** Provides all of the necessary data and fetch handlers for consumer booking page */
 export default function useConsumerBookingsDataManager({
-  isNewCheckoutFlow,
   companyId,
   pastBookingsState,
   pastBookingsList,
@@ -85,7 +84,6 @@ export default function useConsumerBookingsDataManager({
   cancelBookingOption,
   isConsumerPacksLoading,
 }: {
-  isNewCheckoutFlow: boolean;
   companyId: number;
   pastBookingsState: ConsumerBookingReworked;
   pastBookingsList: ConsumerBooking[];
@@ -814,11 +812,7 @@ export default function useConsumerBookingsDataManager({
    */
   const handleBookSession = useCallback(
     (offerId: number) => {
-      const offerBookerUrl = getOfferBookerUrl(
-        companyId,
-        offerId,
-        isNewCheckoutFlow,
-      );
+      const offerBookerUrl = getOfferBookerUrl(companyId, offerId);
       if (
         ![ConsumerSpaceContextEnum.WEB, null].includes(
           WidgetUtils.getConsumerSpaceContext(),
@@ -828,7 +822,7 @@ export default function useConsumerBookingsDataManager({
       }
       history.push(offerBookerUrl);
     },
-    [companyId, history, isNewCheckoutFlow],
+    [companyId, history],
   );
 
   /**

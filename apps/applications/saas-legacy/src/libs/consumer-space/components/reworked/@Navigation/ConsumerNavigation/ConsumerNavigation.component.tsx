@@ -60,7 +60,6 @@ type Props = {
   companyLogo: string;
   companyWebsiteUrl?: string;
   companyId: number;
-  isNewCheckoutFlow: boolean;
   memberName: string;
   franchisorCompanyList?: Company[];
   /** A list of action buttons to display in the header */
@@ -81,7 +80,6 @@ const ConsumerNavigation: React.FC<CombinedProps> = ({
   companyWebsiteUrl,
   companyName,
   companyId,
-  isNewCheckoutFlow,
   memberName,
   franchisorCompanyList,
   children,
@@ -109,7 +107,7 @@ const ConsumerNavigation: React.FC<CombinedProps> = ({
     STORAGE_KEY_BSPORT_RELATED_MEMBER_TOKEN,
   );
 
-  const checkoutUrl = getCheckoutUrl(companyId, isNewCheckoutFlow);
+  const checkoutUrl = getCheckoutUrl(companyId);
 
   /** Compute the navigation display from widget config + context */
   const shouldHideNavigation = useMemo(() => {

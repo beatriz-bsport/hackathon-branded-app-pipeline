@@ -4,9 +4,7 @@ import '#src/components/css-only/Login/styles.css';
 import { useTranslation } from 'react-i18next';
 
 import { StylesProvider } from '@material-ui/styles';
-import { useTheme } from '@material-ui/core';
 import classNames from 'classnames';
-import EmailIcon from '#src/components/icons/EmailIcon.component';
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 import ResendEmailForConfirmationDialog from '../ResendEmailForConfirmationDialog.component';
 import LoginTitle from '../LoginTitle.component';
@@ -17,7 +15,6 @@ type Props = {
   goBackToLogin: () => void;
   sendEmailForConfirmation: (options: any) => void;
   lastTimeSentEmailConfirmation: string;
-  simplifyUI?: boolean;
   company?: boolean;
 };
 
@@ -25,11 +22,9 @@ export const EmailConfirmation: React.FC<Props> = ({
   goBackToLogin,
   sendEmailForConfirmation,
   lastTimeSentEmailConfirmation,
-  simplifyUI,
   company,
 }) => {
   const { t } = useTranslation('login');
-  const theme = useTheme();
 
   const [resendEmailForConfirmation, setResendEmailForConfirmation] =
     useState(false);
@@ -40,19 +35,9 @@ export const EmailConfirmation: React.FC<Props> = ({
         <div className="bs-email-confirmation-content__top-container">
           <LoginTitle
             isCompany={company}
-            simplifyUI={simplifyUI}
             title={t('emailConfirmation.title')}
           />
         </div>
-        {!simplifyUI && (
-          <div className="bs-email-confirmation-content__icon-container">
-            <div className="bs-email-confirmation-content__icon-container__background" />
-            <EmailIcon
-              className="bs-email-confirmation-content__icon-container__icon"
-              fill={theme.palette.primary.main}
-            />
-          </div>
-        )}
         <div
           className={classNames(
             'bs-email-confirmation-content__text-explain',

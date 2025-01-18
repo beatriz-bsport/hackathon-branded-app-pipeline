@@ -6,9 +6,8 @@ import { push, goBack as goBackRouter } from 'connected-react-router';
 import { withWidth } from '@material-ui/core';
 // @ts-expect-error
 import withQueryParams from '#src/hocs/with-query-params.hoc';
-import { EmailConfirmation } from '#src/libs/login/components/email-confirmation/EmailConfirmation.component';
+import EmailConfirmation from '#src/libs/login/components/email-confirmation/EmailConfirmation.component';
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
-import { getIsUISimplified } from '#src/libs/theme/selectors';
 import {
   sendEmailForConfirmation as sendEmailForConfirmationAction,
   disconnect as disconnectAction,
@@ -26,7 +25,6 @@ type Props = {
   companyId: number;
   goToCompanySignup: (companyId: number) => void;
   isAuthenticated: boolean;
-  simplifyUI?: boolean;
 };
 
 export const EmailConfirmationPage: React.FC<Props> = ({
@@ -37,7 +35,6 @@ export const EmailConfirmationPage: React.FC<Props> = ({
   companyId,
   goToCompanySignup,
   isAuthenticated,
-  simplifyUI,
 }) => {
   const goBackToSignup = () => {
     if (companyId) {
@@ -58,7 +55,6 @@ export const EmailConfirmationPage: React.FC<Props> = ({
           sendEmailForConfirmation={(options) =>
             sendEmailForConfirmation(companyId, options)
           }
-          simplifyUI={simplifyUI}
         />
       </div>
     </div>
@@ -74,7 +70,6 @@ export default compose(
         state.auth.emailConfirmation.last_time_sent_email_confirmation,
       email: state.auth.username,
       companyId: state.theme.theme.company,
-      simplifyUI: getIsUISimplified(state),
       isAuthenticated: state.auth.authenticated,
     }),
     {

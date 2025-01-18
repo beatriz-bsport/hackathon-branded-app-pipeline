@@ -476,10 +476,7 @@ class ConsumerDrawer extends React.Component<Props, State> {
         text: t('navigation.profile'),
       },
       {
-        to: getCheckoutUrl(
-          this.props.membership.company,
-          this.props.companyTheme?.display_new_checkout_flow,
-        ),
+        to: getCheckoutUrl(this.props.membership.company),
         icon: ShoppingCartIcon,
         text: t('Basket'),
       },

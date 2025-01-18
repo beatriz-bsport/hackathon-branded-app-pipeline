@@ -49,7 +49,6 @@ type OwnProps = {
   clearPaymentPackToEdit?: () => void;
   closeForm?: () => void;
   provincialTax: number;
-  displayNewCheckoutFlow?: boolean;
   privateServices: Array<PrivateServiceWithSlots>;
   compatibleServicePass: Array<ServiceCompatibilityPass>;
   allowGuestMaster?: boolean;
@@ -88,7 +87,6 @@ export const PaymentPackFormDrawer = (props: Props) => {
     privateServices,
     compatibleServicePass,
     allowGuestMaster,
-    displayNewCheckoutFlow,
     bookkeepingAccounts,
     bookkeepingAccountById,
     notifications,
@@ -124,7 +122,6 @@ export const PaymentPackFormDrawer = (props: Props) => {
         clearPaymentPackToEdit={clearPaymentPackToEdit}
         closeForm={closeForm}
         compatibleServicePass={compatibleServicePass}
-        displayNewCheckoutFlow={displayNewCheckoutFlow}
         emailDetailLoading={emailDetailLoading}
         emailDetails={emailDetails}
         emailSummariesById={emailSummariesById}

@@ -879,9 +879,6 @@ export class PaymentPackList extends React.Component<Props, State> {
                 }
                 closeForm={this.closePaymentPackFormDrawer}
                 compatibleServicePass={this.props.compatibleServicePass}
-                displayNewCheckoutFlow={
-                  this.props.theme.display_new_checkout_flow
-                }
                 emailDetailLoading={this.props.emailDetailLoading}
                 emailDetails={this.props.emailDetails}
                 emailSummariesById={this.props.emailSummariesById}

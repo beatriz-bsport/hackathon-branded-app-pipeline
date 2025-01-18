@@ -152,7 +152,7 @@ type Props = {
   currentBasketLoading: boolean,
   removeItemFromBasket: (basketId: string, data: any) => void,
   addItemToBasket: (basketId: string, data: any) => void,
-  goToCheckout: (companyId: number, isNewCheckoutFlow: boolean) => void,
+  goToCheckout: (companyId: number) => void,
   fetchProfile: () => void,
   doEmailLogin: (
     data: { email: string, password: string },
@@ -656,8 +656,7 @@ export default compose(
       // for signup/signin/profile
       fetchProfile,
       goToUserSpace: (companyId) => pushRouter(getUserSpaceUrl(companyId)),
-      goToCheckout: (companyId, isNewCheckoutFlow) =>
-        pushRouter(getCheckoutUrl(companyId, isNewCheckoutFlow)),
+      goToCheckout: (companyId) => pushRouter(getCheckoutUrl(companyId)),
 
       // DEPRECATED
       // signupAction: signupV2,

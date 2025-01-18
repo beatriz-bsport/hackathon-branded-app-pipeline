@@ -62,8 +62,7 @@ const usePropsFromVariation = (
       email: undefined,
       password: undefined,
     },
-    simplifyUI:
-      theme?.display_new_checkout_flow || !theme?.display_bubble_background,
+    simplifyUI: true,
     isPremium: theme.is_premium,
     company: !!theme.company,
     theme,

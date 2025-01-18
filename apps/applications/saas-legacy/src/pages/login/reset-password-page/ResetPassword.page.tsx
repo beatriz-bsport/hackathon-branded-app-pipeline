@@ -4,7 +4,7 @@ import { compose, withProps } from 'recompose';
 import { Redirect, RouterProps } from 'react-router-dom';
 import ResetPasswordForm from '#src/components/css-only/ResetPasswordForm';
 import WithCustomCssProvider from '#src/hocs/company-custom-css.hoc';
-import themeSelectors, { getIsUISimplified } from '#src/libs/theme/selectors';
+import themeSelectors from '#src/libs/theme/selectors';
 import { parseQueryString, buildUrlParams } from '../../../http';
 // @ts-expect-errors
 import { resetPassword } from '../../../actions/auth.actions';
@@ -141,7 +141,7 @@ const connector = connect(
         state.auth.resetPassword.loading && state.exportableComponents.loading,
       last_password_reset_request:
         state.auth.resetPassword.last_password_reset_request,
-      simplifyUI: !!membership && getIsUISimplified(state),
+      simplifyUI: !!membership,
       customConfiguration: state.exportableComponents.customCss,
       theme: !!membership && themeSelectors.getTheme(state),
     };

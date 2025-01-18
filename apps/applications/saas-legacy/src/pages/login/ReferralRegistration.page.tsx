@@ -13,7 +13,7 @@ import {
 } from '@bsport/common/lib/master-data/custom-form.js';
 
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
-import themeSelectors, { getIsUISimplified } from '#src/libs/theme/selectors';
+import themeSelectors from '#src/libs/theme/selectors';
 import { fetchCompanyTheme } from '#src/libs/theme/actions';
 import routerParamsToProps from '#src/hocs/router-params-to-props.hoc';
 
@@ -241,7 +241,6 @@ export class ReferralRegistration extends Component<Props, State> {
       t,
       authenticated,
       signUpCustomForm,
-      simplifyUI,
       memberCustomForm,
       theme,
       referralRegistrationErrorCode,
@@ -276,11 +275,7 @@ export class ReferralRegistration extends Component<Props, State> {
       <div className={containerClass}>
         <div className="bs-signup-container--margin-top">
           {!this.state.hasBeenRegistered && (
-            <CustomFormTitle
-              isCompany
-              simplifyUI={simplifyUI}
-              title={t('signup.title')}
-            />
+            <CustomFormTitle isCompany title={t('signup.title')} />
           )}
           <ReferralLinkRegistrationInfo
             companyName={theme.company_name}
@@ -288,7 +283,6 @@ export class ReferralRegistration extends Component<Props, State> {
             onConfirm={this.state.onFinish}
             referralExceptionCode={referralRegistrationErrorCode}
             referralLinkStatus={referralLinkStatus}
-            simplifyUI={theme.simplifyUI}
           />
           {!referralRegistrationErrorCode &&
             !this.state.hasBeenRegistered &&
@@ -299,13 +293,13 @@ export class ReferralRegistration extends Component<Props, State> {
                 <CustomFormView
                   hideBackButton
                   measureBeforeMount
+                  simplifyUI
                   general_terms_and_conditions={theme.general_terms_of_use}
                   initial={form}
                   isCssVariantActivated={CUSTOM_FORM_CSS_VARIANT_ACTIVATED}
                   layouts={form.layout}
                   onSubmit={this.submitCustomForm}
                   onSubmitDraft={this.props.setLoginInformations}
-                  simplifyUI={simplifyUI}
                   waiver={theme.waiver}
                 />
               </div>
@@ -341,7 +335,6 @@ const connector = connect(
     authenticated: state.auth.authenticated,
     referralLinkStatus: getTheReferralLinkStatus(state),
     referralLinkStatusLoading: getReferralLinkStatusLoading(state),
-    simplifyUI: getIsUISimplified(state),
     signUpCustomForm: getSignUpCustomFormWithEnabledField(state),
     theme: themeSelectors.getTheme(state),
     signUpCustomFormLoading: getSignUpCustomFormLoading(state),

@@ -21,9 +21,6 @@ const MarketplaceAsManager = asyncComponent(() =>
   import('../marketplace/MarketplaceAsManager.page'),
 );
 
-const OfferBooker = asyncComponent(() =>
-  import('./booker-modules/OfferBooker/OfferBooking.page'),
-);
 const PaymentPackPreCheckout = asyncComponent(() =>
   import('./pre-checkout/PaymentPackPreCheckout.page'),
 );
@@ -39,8 +36,6 @@ const PrivateSlotPaymentPage = asyncComponent(() =>
 const ValidationCheckout = asyncComponent(() =>
   import('./booker-modules/ValidationCheckout.page'),
 );
-
-const BasketPage = asyncComponent(() => import('./basket/Basket.page'));
 
 const PaymentComboPreCheckoutPage = asyncComponent(() =>
   import('./pre-checkout/PaymentComboPreCheckout.page'),
@@ -118,10 +113,6 @@ export class PaymentRouter extends React.Component<Props> {
             path="/(|customer/)checkout/:companyId/validation"
           />
           <Route
-            component={OfferBooker}
-            path="/(|customer/)checkout/:companyId/offer-booker/:id"
-          />
-          <Route
             component={ContractCheckoutValidation}
             path="/(|customer/)checkout/:companyId/subscription/:contractId/validation"
           />
@@ -166,10 +157,6 @@ export class PaymentRouter extends React.Component<Props> {
           <Route
             component={VideoCheckoutPage}
             path="/(|customer/)checkout/:companyId/vod/:id/"
-          />
-          <Route
-            component={BasketPage}
-            path="/(|customer/)checkout/:companyId/"
           />
         </Switch>
       </MuiThemeProvider>

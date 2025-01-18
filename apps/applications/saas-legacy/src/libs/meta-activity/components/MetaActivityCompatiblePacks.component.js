@@ -33,7 +33,6 @@ type Props = {
   metaActivityList: any,
   tagList: any,
   paymentPackCategories: any,
-  displayNewCheckoutFlow?: boolean,
   onSubmit: (data: any, options: any) => void,
   categoryList: any,
 };
@@ -121,7 +120,6 @@ export function CompatiblePaymentPacks(props: Props) {
         availableEstablishmentList={props.availableEstablishmentList}
         categoryList={props.categoryList}
         closeForm={closeDrawer}
-        displayNewCheckoutFlow={props.displayNewCheckoutFlow}
         metaActivityList={props.metaActivityList}
         onSubmit={props.onSubmit}
         open={openPaymentPackForm}

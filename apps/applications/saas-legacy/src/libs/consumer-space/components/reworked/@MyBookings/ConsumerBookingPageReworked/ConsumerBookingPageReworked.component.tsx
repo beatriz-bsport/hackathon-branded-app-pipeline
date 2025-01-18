@@ -226,7 +226,6 @@ export const ConsumerBookingPageReworkedComponent: React.FC<Props> = ({
     bookingOptionsWorkshopState,
     bookingOptionsWorkshopList,
     companyId: companyTheme.company,
-    isNewCheckoutFlow: companyTheme.display_new_checkout_flow,
     getIsBookingsLoading,
     fetchPastBookings,
     fetchFutureBookings,

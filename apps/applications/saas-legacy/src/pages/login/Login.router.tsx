@@ -8,7 +8,7 @@ import Hidden from '@material-ui/core/Hidden';
 import Fade from '@material-ui/core/Fade';
 import { withTranslation } from 'react-i18next';
 import { fetchCompanyTheme } from '#src/libs/theme/actions';
-import themeSelectors, { getIsUISimplified } from '#src/libs/theme/selectors';
+import themeSelectors from '#src/libs/theme/selectors';
 
 import { fetchFranchiseTheme } from '#src/libs/franchise/actions';
 
@@ -250,7 +250,7 @@ export default compose<any, Props>(
       company: state.theme.theme.company_name,
       franchiseTheme: !!franchisor && getFranchisor(state),
       franchiseThemeLoading: !!franchisor && getFranchiseThemeLoading(state),
-      simplifyUI: !!membership && getIsUISimplified(state),
+      simplifyUI: !!membership,
       // membershipThemeLoading: !!membership && getThemeLoading(state),
     }),
     {

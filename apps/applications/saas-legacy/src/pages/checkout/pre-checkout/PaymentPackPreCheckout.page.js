@@ -38,7 +38,7 @@ type Props = {
   push: (string) => void,
   fetchCurrentBasket: (companyId: number) => void,
   addItemToBasket: (basketId: number, data: any, option: *) => void,
-  goToCheckout: (companyId: number, isNewCheckoutFlow: boolean) => void,
+  goToCheckout: (companyId: number) => void,
   classes: Object,
   t: TFunction,
 };
@@ -81,7 +81,6 @@ export class PaymentPackPaymentPage extends Component<Props, State> {
                     onSuccess: () => {
                       this.props.goToCheckout(
                         paymentPack.company_id || paymentPack.company,
-                        this.props.theme?.display_new_checkout_flow,
                       );
                     },
                   },
@@ -194,9 +193,9 @@ export default compose(
   withHandlers({
     goToCheckout:
       ({ replace, queryParams }) =>
-      (companyId, isNewCheckoutFlow) => {
+      (companyId) => {
         replace(
-          getCheckoutUrl(companyId, isNewCheckoutFlow, {
+          getCheckoutUrl(companyId, {
             ...(queryParams?.context ? { context: queryParams.context } : {}),
             ...(queryParams?.onValidation
               ? { onValidation: queryParams.onValidation }

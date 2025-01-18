@@ -19,7 +19,6 @@ import {
   blockPendingBasket as blockPendingBasketAPI,
   verifyPriceBasket as verifyPriceBasketAPI,
 } from '#src/libs/payment/api';
-import { CheckoutContext } from '#src/pages/checkout/basket/CheckoutContext';
 
 type PaymentStripeGiropayProps = {
   basketId?: string;
@@ -68,8 +67,6 @@ export const PaymentStripeGiropay = forwardRef(
 
     const { t } = useTranslation(['invoice']);
     const classes = useStyles();
-
-    const isNewCheckoutFlow = React.useContext(CheckoutContext);
 
     const setPaymentPageProcessing = React.useCallback(
       (process) => {
@@ -217,7 +214,7 @@ export const PaymentStripeGiropay = forwardRef(
           </div>
         )}
         {children}
-        {!isNewCheckoutFlow && !forceHideConfirmPaymentButton && (
+        {!forceHideConfirmPaymentButton && (
           <div className={classes.actionRow}>
             {processing ? (
               <CircularProgress />

@@ -176,7 +176,6 @@ export class PaymentComboDetail extends React.Component<Props> {
           <PaymentComboFormDrawerContainer
             bookkeepingAccountById={this.props.bookkeepingAccountById}
             bookkeepingAccounts={this.props.bookkeepingAccounts}
-            displayNewCheckoutFlow={this.props.theme.display_new_checkout_flow}
             handleClose={() => this.props.setEditIsOpen(false)}
             initial={this.props.paymentCombo}
             onSubmit={(values, options) =>

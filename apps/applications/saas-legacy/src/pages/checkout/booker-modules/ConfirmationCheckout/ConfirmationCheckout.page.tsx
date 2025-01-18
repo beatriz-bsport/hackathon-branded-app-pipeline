@@ -704,7 +704,7 @@ const mapWithHandlers = {
     ({ push, companyId, offerBookedIdList }: RouterProps & Props) =>
     (values: AddGuestFormValues) => {
       push(
-        getOfferBookerUrl(companyId, offerBookedIdList[0], true) +
+        getOfferBookerUrl(companyId, offerBookedIdList[0]) +
           buildUrlParams({
             guest_first_name: encodeURIComponent(values.firstName),
             ...(values.lastName && {

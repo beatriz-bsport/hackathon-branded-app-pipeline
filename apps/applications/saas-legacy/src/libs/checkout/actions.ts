@@ -334,13 +334,11 @@ export function patchCurrentBasket(
  * Attach a promo code or a gift card code to the current basket
  * @param {string} basketId The current basket identifier
  * @param {string} code The code to apply to the basket
- * @param {boolean} hideSnackbar Hides the snackbar error if failed to attach to basket
  */
 export function attachCoupon(
   basketId: string,
   code: string,
   options?: OptionCallBackWithKeyedCallbacks<Basket>,
-  hideSnackbar?: boolean,
 ): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(currentBasket.isUpdating(true));
@@ -368,9 +366,6 @@ export function attachCoupon(
         options.onError();
       }
       dispatch(currentBasket.error(error));
-      if (!hideSnackbar) {
-        dispatch(snackbarError('coupon:message.attachToBasket.error'));
-      }
     }
 
     dispatch(currentBasket.isUpdating(false));

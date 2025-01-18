@@ -394,9 +394,6 @@ export class ContractDetailPage extends Component<Props> {
             </Grid>
 
             <SubscriptionContractFormDrawer
-              displayNewCheckoutFlow={
-                this.props.theme.display_new_checkout_flow
-              }
               initial={this.props.contract}
               onClose={this.closeContractFormDrawer}
               onSubmit={this.submitContractForm}

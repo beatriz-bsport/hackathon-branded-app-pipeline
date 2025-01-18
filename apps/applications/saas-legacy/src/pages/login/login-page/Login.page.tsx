@@ -6,7 +6,7 @@ import { Redirect } from 'react-router-dom';
 import { connect, type ConnectedProps } from 'react-redux';
 import { withTranslation, type WithTranslation } from 'react-i18next';
 import { push } from 'connected-react-router';
-import themeSelectors, { getIsUISimplified } from '#src/libs/theme/selectors';
+import themeSelectors from '#src/libs/theme/selectors';
 import { fetchCompanyTheme } from '#src/libs/theme/actions';
 import Login from '#src/components/css-only/Login/Login.component';
 // @ts-expect-error
@@ -282,8 +282,7 @@ const mapStateToProps = (
   is_premium: state.theme.theme.is_premium,
   franchisor: !!franchisorId && getFranchisor(state),
   franchiseThemeLoading: !!franchisorId && getFranchiseThemeLoading(state),
-  simplifyUI: !!membership && getIsUISimplified(state),
-  // membershipThemeLoading: !!membership && getThemeLoading(state),
+  simplifyUI: !!membership,
   customConfiguration: state.exportableComponents.customCss,
 });
 

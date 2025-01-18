@@ -246,25 +246,20 @@ export const getBoutiqueContractCheckoutUrl = (
 
 export const getCheckoutUrl = (
   companyId: number,
-  isNewCheckoutFlow: boolean,
   params?: { [key: string]: string | number },
 ) => {
   const utmParams = getUTMParamsFromURL();
-  const checkoutUrl = isNewCheckoutFlow
-    ? `/checkout-s/${companyId}`
-    : `/checkout/${companyId}`;
+  const checkoutUrl = `/checkout-s/${companyId}`;
+
   return buildFinalUrlWithParams(checkoutUrl, { ...params, ...utmParams });
 };
 
 export const getOfferBookerUrl = (
   companyId: number,
   offerId: number,
-  isNewCheckoutFlow: boolean,
   locationSearch?: string,
 ) => {
-  const pricingPageUrl = isNewCheckoutFlow
-    ? `/booker-module-s/${companyId}/${offerId}`
-    : `/checkout/${companyId}/offer-booker/${offerId}`;
+  const pricingPageUrl = `/booker-module-s/${companyId}/${offerId}`;
   if (locationSearch) {
     return `${pricingPageUrl}${locationSearch}`;
   }
@@ -273,12 +268,9 @@ export const getOfferBookerUrl = (
 
 export const getCheckoutValidationUrl = (
   companyId: number,
-  isNewCheckoutFlow: boolean,
   params?: { [key: string]: string | number },
 ) => {
-  const validationUrl = isNewCheckoutFlow
-    ? `/checkout-s/${companyId}/validation`
-    : `/checkout/${companyId}/validation`;
+  const validationUrl = `/checkout-s/${companyId}/validation`;
 
   return buildFinalUrlWithParams(validationUrl, params);
 };

@@ -1,6 +1,6 @@
 import React, { useImperativeHandle, forwardRef } from 'react';
 import classNames from 'classnames';
-import { makeStyles, Theme } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import AddIcon from '@material-ui/icons/Add';
 import Button from '@material-ui/core/Button';
@@ -21,7 +21,6 @@ import {
   verifyPriceBasket as verifyPriceBasketAPI,
   blockPendingBasket as blockPendingBasketAPI,
 } from '#src/libs/payment/api';
-import { CheckoutContext } from '#src/pages/checkout/basket/CheckoutContext';
 import PaymentMethodList from '#src/libs/payment/components/payment-method-list/PaymentMethodList.component';
 import PopOver from '#src/components/Popover';
 import StripeErrorCode from '#src/libs/payment/components/payment-backend-stripe/StripeErrorCode.component';
@@ -84,8 +83,7 @@ const IbanForm: React.FC<PropsIban> = ({
   setBillingDetails,
 }) => {
   const { t } = useTranslation(['invoice']);
-  const isNewCheckoutFlow = React.useContext(CheckoutContext);
-  const classes = useStyles({ isNewCheckoutFlow });
+  const classes = useStyles();
 
   return (
     <div>
@@ -238,8 +236,7 @@ export const PaymentStripeSEPARevamped = forwardRef(
     }: PaymentStripeSEPAProps,
     ref,
   ) => {
-    const isNewCheckoutFlow = React.useContext(CheckoutContext);
-    const classes = useStyles({ isNewCheckoutFlow });
+    const classes = useStyles();
     const { t } = useTranslation(['invoice', 'payment']);
 
     const stripe = useStripe();
@@ -399,7 +396,7 @@ export const PaymentStripeSEPARevamped = forwardRef(
             basketTotalPriceCts !== data
           ) {
             setPaymentPageProcessing(false);
-             
+
             window.alert(t('paymentPanel.actions.basketInconsistent'));
             window.location.reload();
             return;
@@ -560,9 +557,7 @@ export const PaymentStripeSEPARevamped = forwardRef(
                                 setSaveForLater(ev.target.checked)
                               }
                             />
-                            <Typography
-                              variant={isNewCheckoutFlow ? 'body1' : 'caption'}
-                            >
+                            <Typography variant="body1">
                               {t('paymentPanel.actions.saveForLater')}
                             </Typography>
                             <div
@@ -675,48 +670,47 @@ export const PaymentStripeSEPARevamped = forwardRef(
               </>
             )}
             {children ?? null}
-            {(!isNewCheckoutFlow || forceButtonDisplay) &&
-              !forceHideConfirmPaymentButton && (
-                <>
-                  {AcceptTermsAndConditionsComponent && (
-                    <div
-                      className={classNames(
-                        classes.conditions,
-                        customClasses?.conditions,
-                      )}
-                    >
-                      {AcceptTermsAndConditionsComponent}
-                    </div>
-                  )}
+            {forceButtonDisplay && !forceHideConfirmPaymentButton && (
+              <>
+                {AcceptTermsAndConditionsComponent && (
                   <div
                     className={classNames(
-                      classes.actionRow,
-                      customClasses?.actionRow,
+                      classes.conditions,
+                      customClasses?.conditions,
                     )}
                   >
-                    {processing ? (
-                      <CircularProgress />
-                    ) : (
-                      <React.Fragment>
-                        <Button
-                          color="primary"
-                          disabled={isSubmitButtonDisabled}
-                          type="submit"
-                          variant="contained"
-                        >
-                          {t('invoice:paymentPanel.actions.confirmPayment')}
-                        </Button>
-                        <Button
-                          disabled={loading || processing}
-                          onClick={onCancel}
-                        >
-                          {t('paymentPanel.actions.cancel')}
-                        </Button>
-                      </React.Fragment>
-                    )}
+                    {AcceptTermsAndConditionsComponent}
                   </div>
-                </>
-              )}
+                )}
+                <div
+                  className={classNames(
+                    classes.actionRow,
+                    customClasses?.actionRow,
+                  )}
+                >
+                  {processing ? (
+                    <CircularProgress />
+                  ) : (
+                    <React.Fragment>
+                      <Button
+                        color="primary"
+                        disabled={isSubmitButtonDisabled}
+                        type="submit"
+                        variant="contained"
+                      >
+                        {t('invoice:paymentPanel.actions.confirmPayment')}
+                      </Button>
+                      <Button
+                        disabled={loading || processing}
+                        onClick={onCancel}
+                      >
+                        {t('paymentPanel.actions.cancel')}
+                      </Button>
+                    </React.Fragment>
+                  )}
+                </div>
+              </>
+            )}
           </>
         )}
       </form>
@@ -724,42 +718,37 @@ export const PaymentStripeSEPARevamped = forwardRef(
   },
 );
 
-type NewCheckoutFlowThemeProps = {
-  isNewCheckoutFlow?: boolean;
-};
-
-const useStyles = makeStyles<Theme, NewCheckoutFlowThemeProps>((theme) => ({
-  sensitiveDataContainer: (isNewCheckoutFlow) => ({
+const useStyles = makeStyles((theme) => ({
+  sensitiveDataContainer: {
     alignItems: 'center',
     display: 'flex',
     flexDirection: 'column',
     margin: `${theme.spacing(2)}px ${theme.spacing(2)}px ${theme.spacing(
       2,
-    )}px ${isNewCheckoutFlow ? 0 : theme.spacing(2)}px`,
-  }),
-  sensitiveData: (isNewCheckoutFlow) => ({
+    )}px 0 px`,
+  },
+  sensitiveData: {
     backgroundColor: '#EFEFEF',
     padding: theme.spacing(2),
     minWidth: '30vw',
     width: '100%',
-    ...(isNewCheckoutFlow ? {} : { maxWidth: '80vw' }),
-  }),
-  nameAndEmailContainer: (isNewCheckoutFlow) => ({
+  },
+  nameAndEmailContainer: {
     flexDirection: 'column',
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
     margin: `${theme.spacing(2)}px ${theme.spacing(2)}px ${theme.spacing(
       2,
-    )}px ${isNewCheckoutFlow ? 0 : theme.spacing(2)}px`,
+    )}px 0 px`,
     gap: theme.spacing(2),
-  }),
-  mandate: (isNewCheckoutFlow) => ({
+  },
+  mandate: {
     padding: `${theme.spacing(2)}px ${theme.spacing(2)}px ${theme.spacing(
       2,
-    )}px ${isNewCheckoutFlow ? 0 : theme.spacing(2)}px`,
+    )}px 0 px`,
     maxWidth: 700,
-  }),
+  },
   conditions: {
     display: 'flex',
     flexDirection: 'row',

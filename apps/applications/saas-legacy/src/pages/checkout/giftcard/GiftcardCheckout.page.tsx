@@ -70,10 +70,7 @@ export class GiftcardCheckout extends React.Component<Props> {
             (checkoutItem) => checkoutItem.buyable_item_id === this.props.id,
           );
           analyticsUtils.addItemToCart(addedItem);
-          this.props.goToBasket(
-            this.props.giftcard.company,
-            this.props.theme?.display_new_checkout_flow,
-          );
+          this.props.goToBasket(this.props.giftcard.company);
         },
       },
     );
@@ -125,8 +122,7 @@ const connector = connect(
     fetchCompanyTheme,
     addItemToBasket,
     fetchCurrentBasket,
-    goToBasket: (companyId: number, isNewCheckoutFlow: boolean) =>
-      push(getCheckoutUrl(companyId, isNewCheckoutFlow)),
+    goToBasket: (companyId: number) => push(getCheckoutUrl(companyId)),
   },
 );
 

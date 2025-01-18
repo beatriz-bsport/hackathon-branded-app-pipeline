@@ -21,7 +21,6 @@ import {
   USER_REGISTRATION_RESPONSE_LOCAL_STORAGE_KEY,
 } from '#src/libs/payment/constants';
 
-import { CheckoutContext } from '#src/pages/checkout/basket/CheckoutContext';
 import PopOver from '#src/components/Popover';
 import {
   blockPendingBasket as blockPendingBasketAPI,
@@ -110,8 +109,6 @@ export const PaymentStripeIdeal = forwardRef(
     const [errorMessage, setErrorMessage] = React.useState(null);
 
     const [saveForLater, setSaveForLater] = React.useState(false);
-
-    const isNewCheckoutFlow = React.useContext(CheckoutContext);
 
     const { t } = useTranslation('invoice');
     const classes = useStyles();
@@ -302,13 +299,10 @@ export const PaymentStripeIdeal = forwardRef(
                 onChange={(ev) => setSaveForLater(ev.target.checked)}
               />
               <div className={classes.leftColumn}>
-                <Typography variant={isNewCheckoutFlow ? 'body1' : 'caption'}>
+                <Typography variant="body1">
                   {t('paymentPanel.actions.saveForLater')}
                 </Typography>
-                <Typography
-                  color="textSecondary"
-                  variant={isNewCheckoutFlow ? 'body1' : 'caption'}
-                >
+                <Typography color="textSecondary" variant="body1">
                   {t('paymentPanel.actions.saveForLaterAsSEPA')}
                 </Typography>
               </div>
@@ -326,7 +320,7 @@ export const PaymentStripeIdeal = forwardRef(
           </>
         )}
         {children}
-        {!isNewCheckoutFlow && !forceHideConfirmPaymentButton && (
+        {!forceHideConfirmPaymentButton && (
           <>
             <div className={classes.conditions}>
               {AcceptTermsAndConditionsComponent}

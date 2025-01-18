@@ -52,7 +52,6 @@ type Props = {
   initial?: PaymentPack<PrivatePass>;
   provincialTax: number;
   disabledUniversalPassFields: boolean;
-  displayNewCheckoutFlow: boolean;
   setDisableUniversalPassFields: (disable: boolean) => void;
   bookkeepingAccounts: BookkeepingAccount[];
   bookkeepingAccountById: Record<number, BookkeepingAccount>;
@@ -64,7 +63,6 @@ export const PaymentPackFormGeneral = (props: Props) => {
     provincialTax,
     disabledUniversalPassFields,
     setDisableUniversalPassFields,
-    displayNewCheckoutFlow,
     bookkeepingAccountById,
   } = props;
   const { t } = useTranslation('paymentPack');
@@ -262,23 +260,19 @@ export const PaymentPackFormGeneral = (props: Props) => {
           </Grid>
         </Grid>
 
-        {displayNewCheckoutFlow && (
-          <>
-            <Grid item md={12} xs={12}>
-              <Grid item md={12} xs={12}>
-                <SwitchField
-                  label={t('form.paymentPack.highlightedAsRecommended.label')}
-                  name="highlighted_as_recommended"
-                />
-              </Grid>
-              <Grid item md={12} xs={12}>
-                <Typography color="textSecondary" variant="caption">
-                  {t('form.paymentPack.highlightedAsRecommended.helperText')}
-                </Typography>
-              </Grid>
-            </Grid>
-          </>
-        )}
+        <Grid item md={12} xs={12}>
+          <Grid item md={12} xs={12}>
+            <SwitchField
+              label={t('form.paymentPack.highlightedAsRecommended.label')}
+              name="highlighted_as_recommended"
+            />
+          </Grid>
+          <Grid item md={12} xs={12}>
+            <Typography color="textSecondary" variant="caption">
+              {t('form.paymentPack.highlightedAsRecommended.helperText')}
+            </Typography>
+          </Grid>
+        </Grid>
 
         <Grid item xs={12}>
           <RadioGroup

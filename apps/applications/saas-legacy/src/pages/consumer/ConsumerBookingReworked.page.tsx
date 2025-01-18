@@ -383,7 +383,7 @@ export class ConsumerBooking extends React.Component<Props, State> {
     offerBookedId: number;
   }) => {
     const URL =
-      getOfferBookerUrl(this.props.companyId, offerBookedId, true) +
+      getOfferBookerUrl(this.props.companyId, offerBookedId) +
       buildUrlParams({
         guest_first_name: encodeURIComponent(guestFormValues.firstName),
         ...(guestFormValues.lastName && {

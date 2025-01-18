@@ -12,7 +12,7 @@ import {
 } from '@bsport/common/lib/master-data/custom-form.js';
 import { DIALOG_MODE_DEACTIVATED } from '@bsport/common/lib/master-data/widget-dialog-mode.js';
 
-import themeSelectors, { getIsUISimplified } from '#src/libs/theme/selectors';
+import themeSelectors from '#src/libs/theme/selectors';
 
 import { fetchCompanyTheme } from '#src/libs/theme/actions';
 
@@ -285,7 +285,7 @@ const mapStateToProps = (
   { membership }: { membership: string },
 ) => ({
   theme: !!membership && themeSelectors.getTheme(state),
-  simplifyUI: !!membership && getIsUISimplified(state),
+  simplifyUI: !!membership,
   authenticated: state.auth.authenticated,
   signUpCustomForm: getSignUpCustomFormWithEnabledField(state),
   signUpCustomFormLoading: getSignUpCustomFormLoading(state),

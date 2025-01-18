@@ -126,14 +126,12 @@ export const AUTHENTICATION_CHANGE_PASSWORD_FORM_PREVIEW: React.FC<{
       </Alert>
       <ChangePasswordForm
         {...componentProps}
+        simplifyUI
         companyTheme={theme}
         handlePassword1Change={updatePassword1}
         handlePassword2Change={updatePassword2}
         password1={password1}
         password2={password2}
-        simplifyUI={
-          theme?.display_new_checkout_flow || !theme?.display_bubble_background
-        }
       />
     </div>
   );

@@ -223,7 +223,6 @@ type Props = {
   provincialTax: number;
   isInDrawer: boolean;
   privateServices: PrivateServiceWithSlots[];
-  displayNewCheckoutFlow: boolean;
   compatibleServicePass: ServiceCompatibilityPass[];
   allowGuestMaster?: boolean;
   bookkeepingAccounts: BookkeepingAccount[];
@@ -275,7 +274,6 @@ export const PaymentPackForm: React.FC<Props> = ({
   privateServices,
   compatibleServicePass,
   allowGuestMaster,
-  displayNewCheckoutFlow,
   bookkeepingAccounts,
   bookkeepingAccountById,
 
@@ -649,7 +647,6 @@ export const PaymentPackForm: React.FC<Props> = ({
                     bookkeepingAccounts={bookkeepingAccounts}
                     categoryList={categoryList}
                     compatibleServicePass={compatibleServicePass}
-                    displayNewCheckoutFlow={displayNewCheckoutFlow}
                     initial={initial}
                     isInDrawer={isInDrawer}
                     metaActivityList={metaActivityList}

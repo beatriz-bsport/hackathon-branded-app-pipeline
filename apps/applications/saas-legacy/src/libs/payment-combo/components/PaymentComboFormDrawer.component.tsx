@@ -30,7 +30,6 @@ type Props = {
   handleClose: () => void;
   onSubmit: () => void;
   isSubmitting: boolean;
-  displayNewCheckoutFlow: boolean;
   initial: PaymentCombo;
   bookkeepingAccounts: BookkeepingAccount[];
   bookkeepingAccountById: Record<number, BookkeepingAccount>;

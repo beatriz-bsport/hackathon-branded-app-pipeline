@@ -20,7 +20,6 @@ import Typography from '@material-ui/core/Typography';
 import type { OptionCallback } from '#src/state/types';
 import type { BillingDetails } from '#src/libs/marketplace/types';
 
-import { CheckoutContext } from '#src/pages/checkout/basket/CheckoutContext';
 import { useWidth } from '#src/hooks/useWidth';
 import CardBillingDetailsForm from '#src/libs/payment/components/payment-backend-stripe/CardBillingDetailsForm';
 import PaymentMethodList from '#src/libs/payment/components/payment-method-list/PaymentMethodList.component';
@@ -207,8 +206,6 @@ const PaymentStripeCardRevamped = forwardRef(
     const [billingDetails, setBillingDetails] = React.useState<BillingDetails>(
       defaultBillingDetailsValues,
     );
-
-    const isNewCheckoutFlow = React.useContext(CheckoutContext);
 
     const setPaymentPageProcessing = React.useCallback(
       (process) => {
@@ -569,9 +566,7 @@ const PaymentStripeCardRevamped = forwardRef(
                               disabled={forceSave}
                               onChange={onSaveForLaterChange}
                             />
-                            <Typography
-                              variant={isNewCheckoutFlow ? 'body1' : 'caption'}
-                            >
+                            <Typography variant="body1">
                               {t('paymentPanel.actions.saveForLater')}
                             </Typography>
                             <div
@@ -708,49 +703,48 @@ const PaymentStripeCardRevamped = forwardRef(
               </>
             )}
             {children ?? null}
-            {(!isNewCheckoutFlow || forceButtonDisplay) &&
-              !forceHideConfirmPaymentButton && (
-                <>
-                  {AcceptTermsAndConditionsComponent && (
-                    <div
-                      className={classNames(
-                        classes.conditionRow,
-                        customClasses?.conditionRow,
-                      )}
-                    >
-                      {AcceptTermsAndConditionsComponent}
-                    </div>
-                  )}
+            {forceButtonDisplay && !forceHideConfirmPaymentButton && (
+              <>
+                {AcceptTermsAndConditionsComponent && (
                   <div
                     className={classNames(
-                      classes.actionRow,
-                      customClasses?.actionRow,
+                      classes.conditionRow,
+                      customClasses?.conditionRow,
                     )}
                   >
-                    {processing ? (
-                      <CircularProgress />
-                    ) : (
-                      <React.Fragment>
-                        <Button
-                          color="primary"
-                          disabled={isSubmitButtonDisabled}
-                          type="submit"
-                          variant="contained"
-                        >
-                          {t('paymentPanel.actions.confirmPayment')}
-                        </Button>
-                        {onCancel ? (
-                          <Button disabled={processing} onClick={onCancel}>
-                            {t('paymentPanel.actions.cancel')}
-                          </Button>
-                        ) : (
-                          <div />
-                        )}
-                      </React.Fragment>
-                    )}
+                    {AcceptTermsAndConditionsComponent}
                   </div>
-                </>
-              )}
+                )}
+                <div
+                  className={classNames(
+                    classes.actionRow,
+                    customClasses?.actionRow,
+                  )}
+                >
+                  {processing ? (
+                    <CircularProgress />
+                  ) : (
+                    <React.Fragment>
+                      <Button
+                        color="primary"
+                        disabled={isSubmitButtonDisabled}
+                        type="submit"
+                        variant="contained"
+                      >
+                        {t('paymentPanel.actions.confirmPayment')}
+                      </Button>
+                      {onCancel ? (
+                        <Button disabled={processing} onClick={onCancel}>
+                          {t('paymentPanel.actions.cancel')}
+                        </Button>
+                      ) : (
+                        <div />
+                      )}
+                    </React.Fragment>
+                  )}
+                </div>
+              </>
+            )}
           </>
         )}
       </form>

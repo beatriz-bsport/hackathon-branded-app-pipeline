@@ -90,7 +90,6 @@ export class PaymentPackTemplatePreCheckoutPage extends Component<
             this.props.goToCheckout(
               // @ts-expect-error
               paymentPack.company_id || paymentPack.company,
-              this.props.theme?.display_new_checkout_flow,
             );
           },
         },
@@ -177,9 +176,9 @@ const mapWithHandlers = {
 
 
       ({ replace, queryParams }: OwnProps & ConnectedProps<typeof connector>) =>
-      (companyId: number, isNewCheckoutFlow: boolean) => {
+      (companyId: number) => {
         replace(
-          getCheckoutUrl(companyId, isNewCheckoutFlow, {
+          getCheckoutUrl(companyId, {
             ...(queryParams?.context ? { context: queryParams.context } : {}),
             ...(queryParams?.onValidation
               ? { onValidation: queryParams.onValidation }

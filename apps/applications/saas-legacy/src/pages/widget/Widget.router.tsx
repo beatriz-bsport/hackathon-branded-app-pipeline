@@ -24,7 +24,6 @@ import { RootState } from '#src/reducers';
 import { ConsumerSpaceContextEnum } from '#src/libs/consumer-space/constants';
 
 const BridgeWidget = asyncComponent(() => import('./BridgeWidget.page'));
-const Basket = asyncComponent(() => import('./Basket.page'));
 
 type RouterProps = {
   companyId: number;
@@ -65,10 +64,7 @@ class WidgetRouter extends React.Component<Props> {
             component={BridgeWidget}
             path="/widget/:companyName/:companyId/bridge"
           />
-          <Route
-            component={Basket}
-            path="/widget/:companyName/:companyId/basket"
-          />
+
           <Route
             component={this.attachConsumerProps(ConsumerBookingReworked)}
             path="/widget/:companyName/:companyId/bookings/"

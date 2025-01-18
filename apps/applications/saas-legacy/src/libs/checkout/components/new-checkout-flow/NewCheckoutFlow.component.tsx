@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import Immutable, { ImmutableArray } from 'seamless-immutable';
 
-import { isWidthDown, makeStyles, Theme } from '@material-ui/core';
+import { isWidthDown, makeStyles } from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import ArrowBack from '@material-ui/icons/ArrowBack';
@@ -65,7 +65,7 @@ import { useWidth } from '../../../../hooks/useWidth';
 // These checkout item types are displayed in the bill after the basket summary
 const BILL_CHECKOUT_ITEMS = [BUYABLE_ITEM_COUPON, BUYABLE_ITEM_FEE];
 
-type NewCheckoutFlowProps = {
+type Props = {
   addItemToBasket: (
     basketId: string,
     data: CheckoutItemData,
@@ -139,7 +139,7 @@ type NewCheckoutFlowProps = {
   ) => void;
 };
 
-export const NewCheckoutFlow: React.FC<NewCheckoutFlowProps> = ({
+export const NewCheckoutFlow: React.FC<Props> = ({
   addItemToBasket,
   allowConsumerToUseInternalAccount,
   attachCoupon,
@@ -542,7 +542,7 @@ export const NewCheckoutFlow: React.FC<NewCheckoutFlowProps> = ({
   );
 };
 
-const useStyles = makeStyles((theme: Theme) => ({
+const useStyles = makeStyles((theme) => ({
   container: {
     width: '100%',
     display: 'flex',

@@ -34,6 +34,7 @@ type Props = {
  *
  */
 export class OfferBookerRedirect extends React.Component<Props> {
+  // TODO : DELETE THIS ?
   componentDidMount() {
     /*
      * If the current theme does not have a valid company attribute (nullable),
@@ -58,12 +59,7 @@ export class OfferBookerRedirect extends React.Component<Props> {
         onSuccess: (offerList) => {
           const offer = offerList[0];
           this.props.replace(
-            getOfferBookerUrl(
-              offer.company,
-              offer.id,
-              this.props.theme?.display_new_checkout_flow,
-              window.location.search,
-            ),
+            getOfferBookerUrl(offer.company, offer.id, window.location.search),
           );
         },
       });
@@ -81,12 +77,7 @@ export class OfferBookerRedirect extends React.Component<Props> {
         onSuccess: (offerList) => {
           const offer = offerList[0];
           this.props.replace(
-            getOfferBookerUrl(
-              offer.company,
-              offer.id,
-              this.props.theme?.display_new_checkout_flow,
-              window.location.search,
-            ),
+            getOfferBookerUrl(offer.company, offer.id, window.location.search),
           );
         },
       });

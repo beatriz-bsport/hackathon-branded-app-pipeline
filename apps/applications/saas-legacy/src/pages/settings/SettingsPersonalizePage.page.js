@@ -159,30 +159,26 @@ export class ThemePersonalize extends Component<Props> {
                   hide_credits_for_customers: theme.hide_credits_for_customers,
                 }}
               />
-              {theme.display_new_checkout_flow && (
-                <>
-                  <Divider className={classes.divider} />
-                  <ProductsOrderingPersonalizeForm
-                    companyId={theme?.company}
-                    contractNumberItems={contractNumberItems}
-                    currentPricingOptionOrdering={
-                      bookingFunnelConfiguration?.current_pricing_option_ordering ??
-                      []
-                    }
-                    customPricingOptionOrdering={
-                      bookingFunnelConfiguration?.custom_pricing_option_ordering ??
-                      []
-                    }
-                    customPricingOptionOrderingEnabled={
-                      bookingFunnelConfiguration?.custom_pricing_option_ordering_enabled
-                    }
-                    onSubmit={submitBookingFunnelConfiguration}
-                    paymentComboNumberItems={paymentComboNumberItems}
-                    paymentPackByCategorySummary={paymentPackByCategorySummary}
-                    paymentPackCategories={paymentPackCategories}
-                  />
-                </>
-              )}
+              <Divider className={classes.divider} />
+              <ProductsOrderingPersonalizeForm
+                companyId={theme?.company}
+                contractNumberItems={contractNumberItems}
+                currentPricingOptionOrdering={
+                  bookingFunnelConfiguration?.current_pricing_option_ordering ??
+                  []
+                }
+                customPricingOptionOrdering={
+                  bookingFunnelConfiguration?.custom_pricing_option_ordering ??
+                  []
+                }
+                customPricingOptionOrderingEnabled={
+                  bookingFunnelConfiguration?.custom_pricing_option_ordering_enabled
+                }
+                onSubmit={submitBookingFunnelConfiguration}
+                paymentComboNumberItems={paymentComboNumberItems}
+                paymentPackByCategorySummary={paymentPackByCategorySummary}
+                paymentPackCategories={paymentPackCategories}
+              />
             </div>
           </Paper>
           <Paper className={classes.paper}>

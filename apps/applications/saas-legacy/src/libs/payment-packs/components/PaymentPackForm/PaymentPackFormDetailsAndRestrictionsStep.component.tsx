@@ -29,7 +29,6 @@ type Props = {
   isInDrawer: boolean;
   bookkeepingAccountById: Record<number, BookkeepingAccount>;
   bookkeepingAccounts: BookkeepingAccount[];
-  displayNewCheckoutFlow: boolean;
   paymentPackCategories: PaymentPackCategory[];
   provincialTax: number;
   allowGuestMaster: boolean;
@@ -47,7 +46,6 @@ const PaymentPackFormDetailsAndRestrictionsStep = ({
   isInDrawer,
   bookkeepingAccountById,
   bookkeepingAccounts,
-  displayNewCheckoutFlow,
   paymentPackCategories,
   provincialTax,
   allowGuestMaster,
@@ -73,7 +71,6 @@ const PaymentPackFormDetailsAndRestrictionsStep = ({
           bookkeepingAccountById={bookkeepingAccountById}
           bookkeepingAccounts={bookkeepingAccounts}
           disabledUniversalPassFields={disabledUniversalPassFields}
-          displayNewCheckoutFlow={displayNewCheckoutFlow}
           initial={initial}
           paymentPackCategories={paymentPackCategories}
           provincialTax={provincialTax}

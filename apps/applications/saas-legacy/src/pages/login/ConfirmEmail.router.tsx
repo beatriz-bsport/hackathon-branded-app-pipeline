@@ -8,7 +8,7 @@ import Fade from '@material-ui/core/Fade';
 import { useTranslation } from 'react-i18next';
 // @ts-expect-error
 import withQueryParams from '#src/hocs/with-query-params.hoc';
-import themeSelectors, { getIsUISimplified } from '#src/libs/theme/selectors';
+import themeSelectors from '#src/libs/theme/selectors';
 import { fetchCompanyTheme as fetchCompanyThemeAction } from '#src/libs/theme/actions';
 import LoginBackground from '#src/libs/login/components/LoginBackground.component';
 import { Theme } from '#src/libs/theme/types';
@@ -103,7 +103,7 @@ export const ConfirmEmailRouter: React.FC<Props> = ({
 const connector = connect(
   (state: RootState, companyId: number) => ({
     theme: themeSelectors.getTheme(state),
-    simplifyUI: !!companyId && getIsUISimplified(state),
+    simplifyUI: !!companyId,
   }),
   {
     fetchCompanyTheme: fetchCompanyThemeAction,

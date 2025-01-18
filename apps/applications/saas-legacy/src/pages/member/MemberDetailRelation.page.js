@@ -69,7 +69,6 @@ import type {
 } from '../../libs/relationship/types';
 import type { PrivateConsumerPass } from '../../libs/private-service/types';
 import { getSignUpFormConfigurationDict } from '../../libs/sign-up-form/selectors';
-import { ConsumerPack } from '../consumer/ConsumerPack.page';
 
 type Props = {
   relationList: Array<MemberRelation>,

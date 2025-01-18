@@ -71,7 +71,6 @@ type Props = {
   values: PaymentCombo;
   privatePassListLoading: boolean;
   relatedPrivatePassList: Array<PrivatePass>;
-  displayNewCheckoutFlow: boolean;
   initial: PaymentCombo;
   tagList: Array<Tag<TagGroup>>;
   bookkeepingAccounts: BookkeepingAccount[];
@@ -97,7 +96,6 @@ export const PaymentComboForm: React.FC<Props> = ({
   privatePassListLoading,
   relatedPrivatePassList,
   initial,
-  displayNewCheckoutFlow,
   tagList,
   bookkeepingAccountById,
   bookkeepingAccounts,
@@ -400,18 +398,15 @@ export const PaymentComboForm: React.FC<Props> = ({
         />
       </div>
 
-      {displayNewCheckoutFlow && (
-        <div className={classNames(classes.fieldset, classes.container)}>
-          <SwitchField
-            label={t('form.highlightedAsRecommended.label')}
-            name="highlighted_as_recommended"
-          />
-          <Typography color="textSecondary" variant="caption">
-            {t('form.highlightedAsRecommended.helperText')}
-          </Typography>
-        </div>
-      )}
-
+      <div className={classNames(classes.fieldset, classes.container)}>
+        <SwitchField
+          label={t('form.highlightedAsRecommended.label')}
+          name="highlighted_as_recommended"
+        />
+        <Typography color="textSecondary" variant="caption">
+          {t('form.highlightedAsRecommended.helperText')}
+        </Typography>
+      </div>
       <CheckboxField
         // @ts-expect-error
         disabled={!!valuesFormik.bookkeeping_account}

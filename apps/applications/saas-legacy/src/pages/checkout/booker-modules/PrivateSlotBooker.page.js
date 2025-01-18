@@ -477,8 +477,7 @@ export default compose(
       addItemToBasket,
       removeItemFromBasket,
       fetchCurrentBasket,
-      goToCheckout: (companyId: number) =>
-        replace(getCheckoutUrl(companyId, false)),
+      goToCheckout: (companyId: number) => replace(getCheckoutUrl(companyId)),
       goToConsumerHome: (companyId: number) =>
         replace(getUserSpaceUrl(companyId)),
       checkPrivateSlotUnpaidBookingEligibility,

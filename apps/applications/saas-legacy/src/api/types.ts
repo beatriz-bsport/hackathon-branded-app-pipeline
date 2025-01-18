@@ -6,8 +6,6 @@ export type OfferPerformance = {
   price_coach: number;
 };
 
-export type Performance = Array<OfferPerformance>;
-
 export type Profile = {
   name: string;
   first_name: string;
@@ -15,16 +13,6 @@ export type Profile = {
   photo: string;
   email: string;
   phonenumber: { phone_number: string };
-};
-
-export type Review = {
-  comment: string;
-  rating: number;
-  user: {
-    name: string;
-    id: number;
-    photo: string;
-  };
 };
 
 export type Coach = {
@@ -37,20 +25,11 @@ export type CoachWithNotes = Coach & {
   notes?: string;
 };
 
-export type Stat = {
-  id: number;
-};
-
 export type SCS = {
   id: number;
   name: string;
 };
-export type SCT = {
-  id: number;
-  name: string;
-  SCS: SCS;
-  language: string;
-};
+
 export type ActivitySimplified = {
   id: number;
   parent_category: number;
@@ -60,12 +39,6 @@ export type ActivitySimplified = {
   etablissement: Establishment;
   next_slot: string;
   coach: Profile;
-};
-
-export type Activity = {
-  id: number;
-  name: string;
-  meta_activity_id: number;
 };
 
 export type Offer = {
@@ -152,14 +125,6 @@ export type Booking = {
   user: User;
 };
 
-export type BookingOption = {
-  id: number;
-  cancelled: boolean;
-  date_start: string;
-  is_convertible: boolean;
-  offer: Offer;
-};
-
 export type Consumer = {
   birthday: string;
   email: string;
@@ -175,30 +140,6 @@ export type Consumer = {
   photo?: string;
   situation?: Object;
   sports: Array<Object>;
-};
-
-export type Member = {
-  date_joined: string;
-  email: string;
-  emergency_contact: string | null;
-  general_terms_and_conditions_accepted: string;
-  general_terms_and_conditions_date_accepted: string;
-  id: number;
-  name: string;
-  nb_bookings: number;
-  nb_pass_active: number;
-  next_booking?: string;
-  phone_number: string;
-  previous_booking?: string;
-};
-
-export type MemberDetailed = {
-  consumer: Consumer;
-  next_bookings: Array<Booking>;
-  previous_bookings: Array<Booking>;
-  consumer_payment_packs: Array<ConsumerPaymentPackManagerView>;
-  date_joined: string;
-  id: number;
 };
 
 export type PaymentPack = {
@@ -219,41 +160,8 @@ export type PaymentPack = {
   bookkeeping_account?: number;
 };
 
-export type ConsumerPaymentPackConsumerView = {
-  available_credits: number;
-  id: number;
-  payment_pack: PaymentPack;
-  name: string;
-  used_credits: number;
-  bookings_this_week: number;
-  bookings_within_month: number;
-  ending_date: string;
-};
-
-export type ConsumerPaymentPackManagerView = {
-  id: number;
-  bookings_this_week: number;
-  bookings_within_month: number;
-  ending_date: string;
-};
-
 export type Category = {
   id: number;
-};
-
-export type PaymentPackManagerView = {
-  tax: number;
-  consumer_payment_packs: Array<ConsumerPaymentPackManagerView>;
-  unlimited: boolean;
-  base_price: number;
-  name: string;
-  credits: number;
-  categories: Array<Category>;
-  activities: Array<Object>;
-  max_bookings_per_week: number;
-  max_bookings_per_month: number;
-  validity_daterange?: { upper: string; lower: string };
-  duration_days?: number;
 };
 
 export type Location = {
@@ -284,12 +192,4 @@ export type CoachDetailed = {
   birthday: string;
   gender: string;
   description: string;
-};
-
-export type ConsumerAddress = {
-  route: string;
-  street_number: string;
-  city: string;
-  country: string;
-  zipcode: string;
 };

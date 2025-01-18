@@ -225,12 +225,7 @@ export class VideoCheckoutBase extends Component<Props, State> {
                   (checkoutItem) => checkoutItem.buyable_item_id === id,
                 );
                 analyticsUtils.addItemToCart(addedItem);
-                this.props.push(
-                  getCheckoutUrl(
-                    this.props.companyId,
-                    this.props.theme?.display_new_checkout_flow,
-                  ),
-                );
+                this.props.push(getCheckoutUrl(this.props.companyId));
               },
             },
           );

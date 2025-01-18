@@ -15,7 +15,6 @@ type Props = {
   hasBeenRegistered: boolean;
   onConfirm: () => void;
   companyName: string;
-  simplifyUI: boolean;
 };
 
 const ReferralLinkRegistrationInfo: React.FC<Props> = (props) => {
@@ -24,7 +23,6 @@ const ReferralLinkRegistrationInfo: React.FC<Props> = (props) => {
     referralExceptionCode,
     hasBeenRegistered,
     onConfirm,
-    simplifyUI,
     companyName,
   } = props;
 
@@ -51,11 +49,7 @@ const ReferralLinkRegistrationInfo: React.FC<Props> = (props) => {
     <div className="bs-referral-dialog-container__body">
       {hasBeenRegistered && (
         <>
-          <Welcome
-            companyName={companyName}
-            onConfirm={onConfirm}
-            simplifyUI={simplifyUI}
-          />
+          <Welcome companyName={companyName} onConfirm={onConfirm} />
         </>
       )}
       {referralExceptionCode && (

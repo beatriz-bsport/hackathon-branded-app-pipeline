@@ -830,7 +830,7 @@ const redirectionHandlers = {
   goToConfirmationPage:
     ({ push, companyId }: RouterProps & ConnectedProps) =>
     (billingPlanId: number, user_registration_response: unknown = null) => {
-      const validationUrl = getCheckoutValidationUrl(companyId, true, {
+      const validationUrl = getCheckoutValidationUrl(companyId, {
         billingPlanId,
         user_registration_response: encodeURIComponent(
           JSON.stringify(user_registration_response),
@@ -978,7 +978,7 @@ const handlers = {
       const guestLastNameParam = queryParams.guest_last_name;
       const guestEmailParam = queryParams.guest_email;
       push(
-        `${getOfferBookerUrl(companyId, offerId, true)}${buildUrlParams({
+        `${getOfferBookerUrl(companyId, offerId)}${buildUrlParams({
           ...(isGuestBooking && { guest_booking: isGuestBooking }),
           ...(guestFirstName && { guest_first_name: guestFirstName }),
           ...(guestLastNameParam && { guest_last_name: guestLastNameParam }),

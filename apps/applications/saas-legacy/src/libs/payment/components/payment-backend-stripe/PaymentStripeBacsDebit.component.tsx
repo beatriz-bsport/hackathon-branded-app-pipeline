@@ -31,7 +31,6 @@ import {
   verifyPriceBasket as verifyPriceBasketAPI,
 } from '#src/libs/payment/api';
 
-import { CheckoutContext } from '#src/pages/checkout/basket/CheckoutContext';
 import { MarketplacePaymentMethods } from '#src/libs/marketplace/types';
 import PaymentMethodList from '#src/libs/payment/components/payment-method-list';
 import PopOver from '#src/components/Popover';
@@ -107,8 +106,6 @@ const PaymentStripeBacsDebit = forwardRef(
     const [processing, setProcessing] = useState(false);
     const [errorMessage, setErrorMessage] = useState(null);
     const [addPaymentMethod, setAddPaymentMethod] = useState(true);
-
-    const isNewCheckoutFlow = React.useContext(CheckoutContext);
 
     const { t } = useTranslation(['invoice']);
     const classes = useStyles();
@@ -387,9 +384,7 @@ const PaymentStripeBacsDebit = forwardRef(
                       color="primary"
                       onChange={handleSaveForLater}
                     />
-                    <Typography
-                      variant={isNewCheckoutFlow ? 'body1' : 'caption'}
-                    >
+                    <Typography variant="body1">
                       {t('paymentPanel.actions.saveForLater')}
                     </Typography>
                     <div className={classes.securityInformationContainer}>
@@ -457,7 +452,7 @@ const PaymentStripeBacsDebit = forwardRef(
         )}
         {errorMessage && <Typography color="error">{errorMessage}</Typography>}
         {children}
-        {!isNewCheckoutFlow && !forceHideConfirmPaymentButton && (
+        {!forceHideConfirmPaymentButton && (
           <>
             <div className={classes.conditionRow}>
               {AcceptTermsAndConditionsComponent}

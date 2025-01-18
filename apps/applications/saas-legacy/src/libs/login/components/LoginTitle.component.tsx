@@ -1,6 +1,6 @@
 import React from 'react';
-import classNames from 'classnames';
 import { compose } from 'recompose';
+import clsx from 'clsx';
 
 import './LoginTitleStyles.css';
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
@@ -25,7 +25,7 @@ export const LoginTitle: React.FC<Props> = ({
       <div className="bs-signup-title__title">{title} </div>
       {!simplifyUI && (
         <div
-          className={classNames(
+          className={clsx(
             'bs-signup-title__rectangle',
             rectangleBackgroundClass,
           )}

@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { compose, withProps } from 'recompose';
 import { Fade, Hidden, Paper, makeStyles } from '@material-ui/core';
-import themeSelectors, { getIsUISimplified } from '#src/libs/theme/selectors';
+import themeSelectors from '#src/libs/theme/selectors';
 import routerParamsToProps from '#src/hocs/router-params-to-props.hoc';
 import Welcome from '#src/libs/login/components/Welcome.component';
 import { CompanyTheme } from '#src/libs/theme/types';
@@ -117,7 +117,7 @@ export default compose(
   connect(
     (state: RootState, companyId: string) => ({
       theme: themeSelectors.getTheme(state),
-      simplifyUI: !!companyId && getIsUISimplified(state),
+      simplifyUI: !!companyId,
     }),
     {
       fetchCompanyTheme: fetchCompanyThemeAction,

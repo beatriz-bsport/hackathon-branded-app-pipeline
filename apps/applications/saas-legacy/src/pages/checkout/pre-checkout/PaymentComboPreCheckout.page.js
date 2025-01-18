@@ -73,11 +73,7 @@ export class PaymentComboPreCheckout extends React.Component<Props, State> {
                 onError: () => {
                   this.setState({ error: true });
                 },
-                onSuccess: () =>
-                  this.props.goToCheckout(
-                    paymentCombo.company,
-                    this.props.theme?.display_new_checkout_flow,
-                  ),
+                onSuccess: () => this.props.goToCheckout(paymentCombo.company),
               },
             );
           },
@@ -186,9 +182,9 @@ export default compose(
   withHandlers({
     goToCheckout:
       ({ replace, queryParams }) =>
-      (companyId, isNewBookingFlow) =>
+      (companyId) =>
         replace(
-          getCheckoutUrl(companyId, isNewBookingFlow, {
+          getCheckoutUrl(companyId, {
             ...(queryParams?.context ? { context: queryParams.context } : {}),
             ...(queryParams?.onValidation
               ? { onValidation: queryParams.onValidation }

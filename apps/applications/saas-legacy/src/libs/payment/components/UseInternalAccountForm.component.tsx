@@ -17,7 +17,6 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import classNames from 'classnames';
 import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
 import type { Basket } from '#src/libs/checkout/types';
-import { CheckoutContext } from '../../../pages/checkout/basket/CheckoutContext';
 import type { OptionCallback } from '../../../state/types';
 // @ts-expect-error
 import { PriceField } from '../../../components/forms';
@@ -54,8 +53,7 @@ export const UseInternalAccountForm: React.FC<Props> = ({
 }) => {
   const [open, setOpen] = React.useState(false);
   const { t } = useTranslation('checkout');
-  const isNewCheckoutFlow = React.useContext(CheckoutContext);
-  const classes = useStyles({ isNewCheckoutFlow, open });
+  const classes = useStyles({ open });
   const [isUseInternalAccountProcessing, setIsUseInternalAccountProcessing] =
     React.useState(false);
 
@@ -107,11 +105,7 @@ export const UseInternalAccountForm: React.FC<Props> = ({
                     <AccountBalanceWalletIcon className={classes.iconButton} />
                     {asManager
                       ? t('internalAccount.useAsManager')
-                      : t(
-                          isNewCheckoutFlow
-                            ? 'internalAccount.use_minimal'
-                            : 'internalAccount.use',
-                        )}
+                      : t('internalAccount.use_minimal')}
                   </Button>
                 </div>
               </div>
@@ -204,10 +198,7 @@ export const UseInternalAccountForm: React.FC<Props> = ({
   );
 };
 
-const useStyles = makeStyles<
-  Theme,
-  { isNewCheckoutFlow: boolean; open: boolean }
->((theme) => ({
+const useStyles = makeStyles<Theme, { open: boolean }>((theme) => ({
   creditAccountBalance: {
     flex: 1,
     marginRight: theme.spacing(1),
@@ -229,7 +220,7 @@ const useStyles = makeStyles<
     justifyContent: 'center',
     alignItems: 'center',
     [theme.breakpoints.down('xs')]: {
-      width: ({ isNewCheckoutFlow }) => (isNewCheckoutFlow ? 'none' : '100%'),
+      width: 'none',
     },
   },
   accountBalanceContainer: {
@@ -250,22 +241,20 @@ const useStyles = makeStyles<
     paddingLeft: theme.spacing(2),
     paddingRight: theme.spacing(2),
     [theme.breakpoints.down('xs')]: {
-      flexWrap: ({ isNewCheckoutFlow }) =>
-        isNewCheckoutFlow ? 'none' : 'nowrap',
+      flexWrap: 'none',
     },
   },
   fullWidth: {
     [theme.breakpoints.down('xs')]: {
-      width: ({ isNewCheckoutFlow }) => (isNewCheckoutFlow ? 'none' : '100%'),
+      width: 'none',
     },
   },
   UseInternalAccountButton: {
     [theme.breakpoints.down('sm')]: {
-      borderRadius: ({ isNewCheckoutFlow }) =>
-        isNewCheckoutFlow ? '24px' : 'none',
+      borderRadius: '24px',
     },
     [theme.breakpoints.down('xs')]: {
-      width: ({ isNewCheckoutFlow }) => (isNewCheckoutFlow ? 'none' : '100%'),
+      width: 'none',
     },
   },
   flexCollaspe: {

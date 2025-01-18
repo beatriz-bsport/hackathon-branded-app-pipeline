@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { compose, withProps } from 'recompose';
+import { compose } from 'recompose';
 import { connect, ConnectedProps } from 'react-redux';
 import { Redirect, Switch, Route } from 'react-router';
 import { fetchCompanyTheme } from '#src/libs/theme/actions';
@@ -43,14 +43,10 @@ type Props = {
   location: { [key: string]: string };
   companyId: number;
   // eslint-disable-next-line react/no-unused-prop-types
-  isNewCheckoutFlow: boolean;
   // eslint-disable-next-line react/no-unused-prop-types
   theme: CompanyTheme;
 } & ConnectedProps<typeof connector>;
 
-const BoutiqueFlowBasketPage = withProps({ isNewCheckoutFlow: true })(
-  BasketPage,
-);
 export class NewBookingFlowRouter extends React.Component<Props> {
   componentDidMount() {
     !!this.props.companyId &&
@@ -97,10 +93,7 @@ export class NewBookingFlowRouter extends React.Component<Props> {
           component={ValidationCheckout}
           path="/checkout-s/:companyId/validation"
         />
-        <Route
-          component={BoutiqueFlowBasketPage}
-          path="/checkout-s/:companyId"
-        />
+        <Route component={BasketPage} path="/checkout-s/:companyId" />
         <Route
           component={BoutiqueContractCheckout}
           path="/contract-s/:companyId/:contractId"

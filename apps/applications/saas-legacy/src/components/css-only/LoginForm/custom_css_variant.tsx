@@ -61,8 +61,7 @@ const usePropsFromVariation = (
     hasError: isErrorSelected,
     errorMessage: faker.lorem.sentence(),
     hasCompany: !!theme.company,
-    simplifyUI:
-      theme?.display_new_checkout_flow || !theme?.display_bubble_background,
+    simplifyUI: true,
     requestResetPassword: () => {},
     onOpenIntercomHelp: () => {},
     onSubmit: () => {},

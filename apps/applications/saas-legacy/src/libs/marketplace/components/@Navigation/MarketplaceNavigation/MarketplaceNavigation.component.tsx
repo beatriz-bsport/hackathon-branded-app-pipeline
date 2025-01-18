@@ -134,12 +134,8 @@ const MarketplaceNavigation: React.FC<Props> = ({
   );
 
   const checkoutUrl = useMemo(
-    () =>
-      getCheckoutUrl(
-        companyTheme.company,
-        companyTheme.display_new_checkout_flow,
-      ),
-    [companyTheme.company, companyTheme.display_new_checkout_flow],
+    () => getCheckoutUrl(companyTheme.company),
+    [companyTheme.company],
   );
 
   const linksList: AppBarTab[] = useMemo(

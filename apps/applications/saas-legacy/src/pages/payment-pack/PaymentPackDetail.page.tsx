@@ -714,9 +714,6 @@ export class PaymentPackDetail extends Component<Props, State> {
               }
               closeForm={this.closePaymentPackFormDrawer}
               compatibleServicePass={this.props.compatibleServicePass}
-              displayNewCheckoutFlow={
-                this.props.theme.display_new_checkout_flow
-              }
               emailDetailLoading={this.props.emailDetailLoading}
               emailDetails={this.props.email_templates_details}
               emailSummariesById={this.props.emailSummariesById}

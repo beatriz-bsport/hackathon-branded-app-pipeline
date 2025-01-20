@@ -179,7 +179,11 @@ async function main(options: Partial<ActionParameters> & { quiet: boolean }) {
 
   // Copy the template at the target path
   {
-    fs.copySync(templateAbsPath, projectAbsPath);
+    fs.copySync(templateAbsPath, projectAbsPath, {
+      filter(src) {
+        return !src.split("/").includes("node_modules");
+      },
+    });
     print(`✅ Project created at ${projectAbsPath}`);
   }
 

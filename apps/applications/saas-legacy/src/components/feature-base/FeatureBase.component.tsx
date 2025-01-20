@@ -37,7 +37,6 @@ const FeatureBaseComponent: React.FC<Props> = ({
             {
               id: `${companyTheme?.company}`, // required
               name: companyTheme?.company_name, // required
-              monthlySpend: 500, // optional, but highly recommended
               customFields: {
                 language: isoLanguage,
                 currency: companyTheme.currency,

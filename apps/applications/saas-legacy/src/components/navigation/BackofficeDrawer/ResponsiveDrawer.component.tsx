@@ -696,7 +696,9 @@ const ResponsiveDrawer: React.FC<Props> = ({
             dense: true,
             text: t('backofficeMenu.settings.platform_billing'),
           } as DrawerItemDefault,
-          ...(hasUpsellIdentifier(UPSELL_IDENTIFIER_QUICKSALE, featureList)
+          /* TODO: Remove this when quicksale is fully deleted from the platform */
+          ...(hasUpsellIdentifier(UPSELL_IDENTIFIER_QUICKSALE, featureList) &&
+          Config.REACT_APP_SENTRY_ENVIRONMENT !== 'staging'
             ? [
                 {
                   to: '/settings/quicksale',

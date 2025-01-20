@@ -66,10 +66,7 @@ export class FranchiseCouponTemplateDetail extends Component<Props> {
       onSuccess: this.props.fetchCouponRelatedObjects,
     });
 
-    if (
-       
-      parseQueryString(location.search || '')?.openTemplateInstanceForm
-    ) {
+    if (parseQueryString(location.search || '')?.openTemplateInstanceForm) {
       this.props.openCreateInstanceDialog();
     }
   }

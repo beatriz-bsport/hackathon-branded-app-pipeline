@@ -233,10 +233,9 @@ export const useGraph = ({
 
   const onNodeDragStop = React.useCallback(
     (
-       
       _: React.MouseEvent,
       node: CustomNode,
-       
+
       __: CustomNode[],
     ) => {
       switch (node.type) {

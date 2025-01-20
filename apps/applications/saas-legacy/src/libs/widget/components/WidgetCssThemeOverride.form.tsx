@@ -33,7 +33,7 @@ type OuterProps = {
   // eslint-disable-next-line react/no-unused-prop-types
   initial: WidgetCustomCSS;
   theme: CompanyTheme;
-   
+
   onSubmit: (
     values: WidgetCustomCSS,
     setSubmitting?: (bool: boolean) => void,

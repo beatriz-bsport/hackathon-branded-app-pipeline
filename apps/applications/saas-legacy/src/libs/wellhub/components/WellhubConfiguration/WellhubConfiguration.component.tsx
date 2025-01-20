@@ -203,7 +203,6 @@ const WellhubConfiguration: React.FC<Props> = ({
     setTimeout(() => setIsWarningUnlinkDialogInDOM(false), 300);
   }, []);
 
-   
   const [configurationFormValues, setConfigurationFormValues] =
     React.useState<WellhubConfigurationFormValues | null>(null);
 

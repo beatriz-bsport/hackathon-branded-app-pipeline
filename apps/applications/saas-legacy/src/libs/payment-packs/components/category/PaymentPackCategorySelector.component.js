@@ -201,7 +201,7 @@ const packPackcategoryStyles = {
   menuPortal: (base) => ({ ...base, zIndex: 9999 }),
   option: (styles, { isDisabled, isFocused, isSelected }) => {
     const color = chroma(colors.secondary);
-      return {
+    return {
       ...styles,
       backgroundColor: isDisabled
         ? null
@@ -227,8 +227,6 @@ const packPackcategoryStyles = {
       },
       groupHeading: (base) => ({ ...base, margin: 0 }),
     };
-
-     
   },
   multiValue: (styles) => {
     const color = chroma(colors.secondary);

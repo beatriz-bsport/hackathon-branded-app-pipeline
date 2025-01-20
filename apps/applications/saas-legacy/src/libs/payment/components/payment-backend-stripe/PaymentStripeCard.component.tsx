@@ -389,7 +389,7 @@ const PaymentStripeCard = forwardRef(
             basketTotalPriceCts !== data
           ) {
             setPaymentPageProcessing(false);
-             
+
             window.alert(t('paymentPanel.actions.basketInconsistent'));
             window.location.reload();
             return;

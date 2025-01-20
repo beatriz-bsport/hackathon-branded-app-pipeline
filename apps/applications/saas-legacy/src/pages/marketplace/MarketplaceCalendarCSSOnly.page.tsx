@@ -562,7 +562,7 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
 
   handleContinueGroupPopup = () => {
     this.handleCloseGroupPopup();
-     
+
     const { redirect, group, ...offer } = this.state.displayGroupPopup;
     if (redirect === 'book') {
       // @ts-expect-error

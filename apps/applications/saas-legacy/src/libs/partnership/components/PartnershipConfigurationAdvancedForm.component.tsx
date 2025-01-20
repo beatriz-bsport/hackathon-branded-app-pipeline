@@ -107,43 +107,40 @@ export const PartnershipConfigurationMultipleEstablishmentForm: React.FC<
               }}
             />
           </div>
-          {
-             
-            !conf.reference_establishment ? (
-              <div className={classes.rowAlert}>
-                <WarningIcon
-                  className={classes.iconLeft}
-                  color="error"
-                  fontSize="large"
-                />
-                <Typography>
-                  {t('parameters.pleaseChoseEstablishment')}
-                </Typography>
-              </div>
-            ) : props.establishmentList.find((e) =>
+          {!conf.reference_establishment ? (
+            <div className={classes.rowAlert}>
+              <WarningIcon
+                className={classes.iconLeft}
+                color="error"
+                fontSize="large"
+              />
+              <Typography>
+                {t('parameters.pleaseChoseEstablishment')}
+              </Typography>
+            </div>
+          ) : props.establishmentList.find((e) =>
+              e.associatedestablishment_set.includes(
+                conf.reference_establishment,
+              ),
+            ) ? (
+            <EstablishmentListItem
+              establishment={props.establishmentList.find((e) =>
                 e.associatedestablishment_set.includes(
                   conf.reference_establishment,
                 ),
-              ) ? (
-              <EstablishmentListItem
-                establishment={props.establishmentList.find((e) =>
-                  e.associatedestablishment_set.includes(
+              )}
+              onClickDelete={() => {
+                const newConf = [...configuration].filter(
+                  (conf_) =>
+                    conf_.reference_establishment !==
                     conf.reference_establishment,
-                  ),
-                )}
-                onClickDelete={() => {
-                  const newConf = [...configuration].filter(
-                    (conf_) =>
-                      conf_.reference_establishment !==
-                      conf.reference_establishment,
-                  );
-                  setConfiguration(newConf?.length ? newConf : [emptyConf]);
-                }}
-              />
-            ) : (
-              <CircularProgress />
-            )
-          }
+                );
+                setConfiguration(newConf?.length ? newConf : [emptyConf]);
+              }}
+            />
+          ) : (
+            <CircularProgress />
+          )}
           <div className={classes.establishmentSelector}>
             <div className={classes.selector}>
               <EstablishmentSelector
@@ -259,7 +256,6 @@ export const PartnershipSchema = Yup.object().shape({
 });
 
 export const PartnershipFormHoc = withFormik({
-   
   mapPropsToValues: ({
     initial,
     establishmentList,

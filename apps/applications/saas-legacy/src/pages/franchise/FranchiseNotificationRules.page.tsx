@@ -83,13 +83,11 @@ export const FranchiseNotificationRule = (props: Props) => {
     fetchMarketingNotificationList({
       kind: BIRTHDAY_NOTIFICATION.kind,
     });
-     
   }, [
     fetchEventTypeList,
     fetchEmailDesignList,
     fetchMarketingNotificationList,
   ]);
-   
 
   useEffect(() => {
     fetchNotificationRuleList();

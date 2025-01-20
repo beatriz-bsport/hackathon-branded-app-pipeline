@@ -188,10 +188,8 @@ export function setWorkshopGroupFilter(filter: OffersGroupFilter) {
     Object.keys(filter)?.forEach((key) => {
       // @ts-expect-error
       if (filter[key] === null || filter[key] === undefined) {
-         
         // @ts-expect-error
         delete filter[key];
-         
       }
     });
 
@@ -204,10 +202,8 @@ export function setWorkshopDetailGroupFilter(filter: OffersGroupFilter) {
     Object.keys(filter)?.forEach((key) => {
       // @ts-expect-error
       if (filter[key] === null || filter[key] === undefined) {
-         
         // @ts-expect-error
         delete filter[key];
-         
       }
     });
 

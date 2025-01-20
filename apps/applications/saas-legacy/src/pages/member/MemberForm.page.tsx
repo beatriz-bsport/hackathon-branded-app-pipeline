@@ -228,12 +228,12 @@ const mapWithHandlers = {
   upsertMember:
     (props: OwnAndConnectedProps) =>
     (values: Member, options: OptionCallback) => {
-      delete values.pending_email;  
+      delete values.pending_email;
       if (!values.birthday) {
-        delete values.birthday;  
+        delete values.birthday;
       }
       if (props.emailExistsStatus?.exists) {
-        values.email = props.initial.email;  
+        values.email = props.initial.email;
       }
       const formData = mapFormData(values, MemberMap);
       if (props.initial) {
@@ -268,10 +268,10 @@ const mapWithHandlers = {
     (props: OwnAndConnectedProps) =>
     (values: Member, options: OptionCallback) => {
       if (!values.birthday) {
-        delete values.birthday;  
+        delete values.birthday;
       }
-      values.email = props.initial.email;  
-      delete values.pending_email;  
+      values.email = props.initial.email;
+      delete values.pending_email;
       const formData = mapFormData(values, MemberMap);
       if (props.initial) {
         formData.append('id', props.initial?.id);

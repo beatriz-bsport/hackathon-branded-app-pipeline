@@ -316,7 +316,7 @@ export function createPaymentAttempt(
   options?: OptionCallback<PaymentGroup>,
 ): ThunkAction {
   // Eslint is disabled because of the return pattern needed in the case of PayPal payments explained below
-   
+
   return async (dispatch: Dispatch) => {
     dispatch(createPaymentAttemptActions.isLoading(true));
     dispatch(createPaymentAttemptActions.error(null));

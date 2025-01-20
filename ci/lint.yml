@@ -11,12 +11,17 @@ Lint:
   rules:
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
   script:
-    - git fetch origin $CI_MERGE_REQUEST_TARGET_BRANCH_NAME
+    - NX_BASE=$CI_MERGE_REQUEST_TARGET_BRANCH_NAME
+    - git fetch origin $NX_BASE
     - echo "*"
     - echo "⏳ Lint ichizen affected projects"
-    - pnpm exec nx affected --target=lint --base=origin/$CI_MERGE_REQUEST_TARGET_BRANCH_NAME
+    - pnpm exec nx affected --target=lint --base=origin/$NX_BASE
     - echo "✅ All ichizen affected projects have been linted"
     - echo "*"
+    - echo "⏳ Check saas-legacy format"
+    - pnpm exec nx affected --target=pretty --base=origin/$NX_BASE
+    - echo "✅ Saas-legacy project is well formated"
+    - echo "*"
     - echo "⏳ Lint legacy affected projects"
-    - pnpm exec nx affected --target=lint-old --base=origin/$CI_MERGE_REQUEST_TARGET_BRANCH_NAME
+    - pnpm exec nx affected --target=lint-old --base=origin/$NX_BASE
     - echo "✅ All legacy affected projetcs have been linted"

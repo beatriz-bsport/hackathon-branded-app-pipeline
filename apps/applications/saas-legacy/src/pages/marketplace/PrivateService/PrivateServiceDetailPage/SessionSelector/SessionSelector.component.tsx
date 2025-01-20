@@ -103,9 +103,7 @@ const SessionSelector: React.FC<Props> = (props) => {
     let coaches: Array<Coach | null> = [null];
 
     if (props.showCoach) {
-       
       coaches = props.coaches;
-       
     }
 
     if (!props.establishments) {

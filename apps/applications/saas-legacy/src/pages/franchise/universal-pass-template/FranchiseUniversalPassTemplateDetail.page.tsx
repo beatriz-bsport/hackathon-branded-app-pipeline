@@ -98,10 +98,7 @@ const FranchiseUniversalPassTemplateDetail: React.FC<Props> = ({
   }, [paymentPackTemplateId, retrieveUniversalPaymentPackTemplate]);
 
   React.useEffect(() => {
-    if (
-       
-      parseQueryString(location.search || '').openTemplateInstanceForm
-    ) {
+    if (parseQueryString(location.search || '').openTemplateInstanceForm) {
       openCreateForm();
     }
   }, [openCreateForm]);

@@ -114,7 +114,6 @@ export default compose(
   withProps(({ upsertMember, goBack }) => ({
     onSubmit: (values, options) => {
       if (!values.birthday) {
-         
         delete values.birthday;
       }
       const formData = mapFormData(values, MemberMap);

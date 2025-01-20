@@ -32,11 +32,10 @@ export class TermsAndConditionsFilter extends Component<Props> {
         <Select
           defaultValue
           className={classes.input}
-           
           onChange={(ev) => onChange({ value: ev.target.value })}
           value={filter_data.value}
         >
-          { }
+          {}
           {/* @ts-expect-error */}
           <MenuItem key="true" value>
             {t(`filters.${filter_data.filter_identifier}.true`)}

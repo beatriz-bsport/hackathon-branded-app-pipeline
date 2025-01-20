@@ -86,7 +86,7 @@ type Props = {
   compatibleServicePass?: Array<ServiceCompatibilityPass>;
 
   onCancel: (ev: MouseEvent) => void;
-   
+
   onSubmit: (data: FormikValues, options?: OptionCallback) => void;
 
   categoryList: Array<SCT>;

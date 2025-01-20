@@ -200,7 +200,6 @@ export const getPlatformBillingPlan = (
   if (stageList.find((s) => s.id === minimal_platform_billing_stage)) {
     let analyzedStage = stageList.find((ps) => !ps.next_platform_billing_stage);
     if (analyzedStage) {
-       
       for (let i = 0; i < stageList.length; i++) {
         if (!analyzedStage) break;
         stageListFiltered = [analyzedStage, ...stageListFiltered];
@@ -209,7 +208,6 @@ export const getPlatformBillingPlan = (
         }
 
         analyzedStage = stageList.find(
-           
           (pl) =>
             pl.next_platform_billing_stage &&
             pl.next_platform_billing_stage.id === analyzedStage.id,
@@ -225,7 +223,7 @@ export const getPlatformBillingPlan = (
     stageListFiltered.find((s) => s.id === maximum_platform_billing_stage)
   ) {
     let stageListWithMax = [];
-     
+
     for (let i = 0; i < stageListFiltered.length; i++) {
       stageListWithMax = [...stageListWithMax, stageListFiltered[i]];
       if (stageListFiltered[i].id === maximum_platform_billing_stage) {
@@ -274,7 +272,6 @@ export const getPlatformBillingGroup = (
   if (minimal_platform_billing_stage) {
     let analyzedPlan = planList.find((pl) => !pl.next_platform_billing_plan);
 
-     
     for (let i = 0; i < planList.length; i++) {
       if (!analyzedPlan) break;
       planFilteredList = [analyzedPlan, ...planFilteredList];
@@ -287,7 +284,6 @@ export const getPlatformBillingGroup = (
         break;
       }
       analyzedPlan = planList.find(
-         
         (pl) =>
           pl.next_platform_billing_plan &&
           pl.next_platform_billing_plan.id === analyzedPlan.id,
@@ -306,7 +302,6 @@ export const getPlatformBillingGroup = (
       ),
     )
   ) {
-     
     for (let i = 0; planFilteredList.length; i++) {
       planFilteredWithMaxList = [
         ...planFilteredWithMaxList,

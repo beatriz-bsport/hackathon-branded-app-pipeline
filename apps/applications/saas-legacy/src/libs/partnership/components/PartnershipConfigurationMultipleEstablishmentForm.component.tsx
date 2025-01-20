@@ -104,7 +104,6 @@ export const PartnershipSchema = Yup.object().shape({
 });
 
 export const PartnershipFormHoc = withFormik({
-   
   mapPropsToValues: ({
     initial,
     establishmentList,

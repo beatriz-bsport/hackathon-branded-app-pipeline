@@ -227,12 +227,9 @@ export class ConsumerHome extends React.Component<Props> {
   attachConsumerProps = (MyComponent: React.Component<*>) => (props: any) =>
     (
       <MyComponent
-         
         companyId={this.props.companyId}
         {...props}
-         
         membership={this.props.membership}
-         
         push={this.buildPath}
       />
     );

@@ -657,7 +657,6 @@ export default compose(
       (id, suffix) => {
         makeActivityCopy(id, suffix, {
           onSuccess: (data: MetaActivity) => {
-             
             data?.id && goToDetail(data.id);
           },
         });

@@ -601,7 +601,6 @@ export const ReplacementManagement: React.FC<Props> = (props) => {
           onClose={handleCloseExtensionAction}
           // @ts-expect-error
           onSubmit={props.postponeReplacementRequestClosingDate}
-           
           open={extensionDialogOpen}
           replacementRequest={replacementRequestSelected}
           timezoneName={props.companyTheme.timezone_name}
@@ -780,7 +779,7 @@ const selectStyles: Partial<
   // @ts-expect-error
   option: (styles, { isDisabled, isFocused, isSelected }) => {
     const color = chroma(colors.secondary);
-     
+
     return {
       ...styles,
       backgroundColor: isDisabled
@@ -806,7 +805,6 @@ const selectStyles: Partial<
           (isSelected ? colors.secondary : color.alpha(0.3).css()),
       },
     };
-     
   },
   // @ts-expect-error
   multiValue: (styles) => {

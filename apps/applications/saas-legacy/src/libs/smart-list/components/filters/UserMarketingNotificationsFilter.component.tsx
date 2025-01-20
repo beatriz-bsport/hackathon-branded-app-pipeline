@@ -44,13 +44,12 @@ export class UserMarketingNotificationsFilter extends Component<Props> {
           <Select
             defaultValue
             className={classes.input}
-             
             onChange={(ev) =>
               onChange({ all_filters_must_be_right: ev.target.value })
             }
             value={filter_data.all_filters_must_be_right}
           >
-            { }
+            {}
             {/* @ts-expect-error */}
             <MenuItem key="true" value>
               {t(`filters.${filter_data.filter_identifier}.allNeeded`)}
@@ -89,11 +88,10 @@ export class UserMarketingNotificationsFilter extends Component<Props> {
             <Select
               defaultValue
               className={classes.input}
-               
               onChange={(ev) => onChange({ email_value: ev.target.value })}
               value={filter_data.email_value}
             >
-              { }
+              {}
               {/* @ts-expect-error */}
               <MenuItem key="true" value>
                 {t(`filters.${filter_data.filter_identifier}.true`)}
@@ -127,11 +125,10 @@ export class UserMarketingNotificationsFilter extends Component<Props> {
             <Select
               defaultValue
               className={classes.input}
-               
               onChange={(ev) => onChange({ sms_value: ev.target.value })}
               value={filter_data.sms_value}
             >
-              { }
+              {}
               {/* @ts-expect-error */}
               <MenuItem key="true" value>
                 {t(`filters.${filter_data.filter_identifier}.true`)}

@@ -19,7 +19,6 @@ const PrivatePassTemplateInstanceForm = (props: Props) => {
   const companyDic = companies?.reduce<Record<number, FranchiseCompany>>(
     // @ts-expect-error
     (dic, company) => {
-       
       dic[company.id] = company;
       return dic;
     },

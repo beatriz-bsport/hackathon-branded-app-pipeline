@@ -701,7 +701,6 @@ const mapWithHandlers = {
   createMember:
     (props: OwnAndConnectedProps) => (values: any, options: any) => {
       if (!values.birthday) {
-         
         delete values.birthday;
       }
       const formData = mapFormData(values, MemberMap);

@@ -794,7 +794,6 @@ const handlers = {
       makeActivityCopy(id, suffix, {
         // @ts-expect-error
         onSuccess: (data: MetaActivity) => {
-           
           data?.id && goToDetail(data.id);
         },
       });

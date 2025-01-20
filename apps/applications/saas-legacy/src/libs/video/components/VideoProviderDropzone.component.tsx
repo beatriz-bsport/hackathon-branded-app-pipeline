@@ -27,7 +27,6 @@ class VideoProviderDropzone extends React.PureComponent<Props> {
     // @ts-expect-error
     if (this.props.processing) return;
     if (files.length === 1) {
-       
       this.setState({ file: files[0] });
     }
   };

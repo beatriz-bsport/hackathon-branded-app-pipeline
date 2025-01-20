@@ -502,21 +502,19 @@ export class OfferManagement extends Component<Props, State> {
         data.country
       )
     ) {
-       
       delete data.address_line_1;
-       
+
       delete data.address_line_2;
-       
+
       delete data.city;
-       
+
       delete data.zipcode;
-       
+
       delete data.state;
-       
+
       delete data.country;
     }
     if (!data.birthday) {
-       
       delete data.birthday;
     }
 

@@ -80,10 +80,7 @@ export class FranchisePrivatePassTemplateDetail extends Component<
   componentDidMount() {
     this.props.retrievePrivatePassTemplate(this.props.privatePassTemplateId);
 
-    if (
-       
-      parseQueryString(location.search || '').openTemplateInstanceForm
-    ) {
+    if (parseQueryString(location.search || '').openTemplateInstanceForm) {
       this.openCreateForm();
     }
   }

@@ -143,7 +143,6 @@ export const cleanCSSFileStyleSheet = (css: string): string => {
 
   const cssRulesList = Object.values(cssRules);
 
-   
   const stringifyStyleSheet = cssRulesList.reduce(
     (stringifySheetAccumulator, currentCssRule) => {
       if (currentCssRule instanceof CSSStyleRule) {
@@ -168,17 +167,15 @@ export const cleanCSSFileStyleSheet = (css: string): string => {
     },
     '',
   );
-   
+
   return stringifyStyleSheet;
 };
 
 const parseCSSRuleList = (ruleList: CSSRule[]) => {
-   
   return ruleList.reduce((acc: string, cv: CSSStyleRule) => {
     acc += `\n ${cv.selectorText} {\n    \n } \n`;
     return acc;
   }, '');
-   
 };
 
 /**

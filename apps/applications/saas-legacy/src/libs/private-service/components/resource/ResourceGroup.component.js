@@ -104,7 +104,6 @@ const ResourceGroup = (props: Props) => {
                   } else {
                     onEditResourceConfiguration({ data: resource, datatype });
                   }
-                   
                 }}
                 onSelectResource={onSelectResource}
                 onUnselectResource={onUnselectResource}
@@ -136,7 +135,6 @@ const ResourceGroup = (props: Props) => {
                     } else {
                       onEditResourceConfiguration({ data: resource, datatype });
                     }
-                     
                   }}
                   onSelectResource={onSelectResource}
                   onUnselectResource={onUnselectResource}

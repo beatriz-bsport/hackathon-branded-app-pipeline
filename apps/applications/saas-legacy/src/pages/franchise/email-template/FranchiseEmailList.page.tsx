@@ -72,7 +72,6 @@ const FranchiseEmailList = (props: Props) => {
     fetchFranchise();
     emailTemplatesSummaries();
     fetchFranchisePageFilter();
-     
   }, [emailTemplatesSummaries, fetchFranchise, fetchFranchisePageFilter]);
 
   useEffect(() => {

@@ -64,10 +64,7 @@ export class FranchisePaymentPackTemplateDetail extends Component<Props> {
   componentDidMount() {
     this.props.retrievePaymentPackTemplate(this.props.paymentPackTemplateId);
 
-    if (
-       
-      parseQueryString(location.search || '').openTemplateInstanceForm
-    ) {
+    if (parseQueryString(location.search || '').openTemplateInstanceForm) {
       this.props.openCreateForm();
     }
   }

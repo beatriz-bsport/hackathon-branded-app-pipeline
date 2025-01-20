@@ -1,11 +1,10 @@
 {
-  "name": "@bsport/fetch",
-  "version": "0.0.0",
-  "description": "bsport API fetch",
-  "author": "Marwan El Boussarghini <marwan@bsport.io>",
-  "license": "UNLICENSED",
-  "type": "module",
+  "name": "@bsport/sentry",
+  "version": "0.1.0",
+  "description": "Library to init and configure Sentry",
+  "author": "David Bretaud <david.bretaud@bsport.io>",
   "private": true,
+  "type": "module",
   "main": "build/lib.umd.js",
   "module": "build/lib.es.js",
   "types": "build/lib.d.ts",
@@ -21,8 +20,8 @@
     "build"
   ],
   "dependencies": {
-    "@bsport/sentry": "workspace:*",
-    "@bsport/timezone-utils": "workspace:*"
+    "@bsport/random-utils": "workspace:*",
+    "@sentry/react": "^7.26.0"
   },
   "devDependencies": {
     "@bsport/eslint-config-react": "workspace:*"

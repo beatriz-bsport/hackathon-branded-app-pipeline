@@ -7,6 +7,7 @@ import {
   Title,
 } from "@bsport/kaizen-primitive-core";
 
+import OfferListExample from "#src/components/OfferListExample";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -51,7 +52,7 @@ function App() {
             <Body htmlVariant="p">
               Use our custom tailwind classes to edit style
             </Body>
-
+            <OfferListExample />
             {error && (
               <Body htmlVariant="p" color="critical">
                 {error}

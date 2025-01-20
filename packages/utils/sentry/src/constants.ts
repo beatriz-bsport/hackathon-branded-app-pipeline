@@ -1,7 +1,4 @@
-import * as Sentry from "@sentry/react";
-import { ENV_DSN, RELEASE_SHA, type Env } from "#src/constants";
-
-const exceptionMessagesToIgnore = [
+export const exceptionMessagesToIgnore = [
   /Loading chunk /i,
   /Loading CSS chunk /i,
   /Object Not Found Matching Id/i,
@@ -34,33 +31,8 @@ const exceptionMessagesToIgnore = [
   /Maximum call stack size exceeded/,
 ];
 
-export const initSentry = ({ env }: { env: Env }) => {
-  if (!ENV_DSN) {
-    throw new Error("ENV_DSN is not defined");
-  }
-  // Missing Sentry.configureScope with session_id and transaction_id
+export const ENV = import.meta.env.VITE_ENV;
 
-  Sentry.init({
-    release: RELEASE_SHA,
-    dsn: ENV_DSN,
-    environment: env,
-    replaysSessionSampleRate: env === "production" ? 0.1 : 1.0,
-    replaysOnErrorSampleRate: 1.0,
-    tracesSampleRate: 0.002,
-    beforeSend(event, hint) {
-      const error = hint.syntheticException;
-      if (
-        error &&
-        error.message &&
-        exceptionMessagesToIgnore.reduce(
-          (shouldBeIgnore, regexp) =>
-            shouldBeIgnore || !!error.message.match(regexp),
-          false,
-        )
-      ) {
-        return null;
-      }
-      return event;
-    },
-  });
-};
+export const ENV_DSN = import.meta.env.VITE_SENTRY_DSN;
+
+export const RELEASE_SHA = import.meta.env.RELEASE_SHA;

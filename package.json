@@ -53,7 +53,8 @@
     "type-fest": "^4.26.1",
     "typescript": "^5.6.3",
     "vite": "^6.0.5",
-    "vite-plugin-dts": "^4.3.0"
+    "vite-plugin-dts": "^4.3.0",
+    "vite-plugin-svgr": "^4.3.0"
   },
   "dependencies": {
     "lodash": "^4.17.21",
@@ -62,6 +63,7 @@
     "tailwindcss": "^3.4.14"
   },
   "scripts": {
+    "api-environment:set": "pnpm exec ts-node tools/monorepo-utils/src/index.ts api-environment:set",
     "build": "nx build",
     "build:all": "nx run-many --all --target=build",
     "lint": "pnpm exec nx run-many -t lint",

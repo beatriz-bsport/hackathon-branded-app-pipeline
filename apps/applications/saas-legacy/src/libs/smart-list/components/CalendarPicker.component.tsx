@@ -14,11 +14,10 @@ import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import Typography from '@material-ui/core/Typography';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItem from '@material-ui/core/ListItem';
-import SwipeableViews from 'react-swipeable-views';
+import GenericResponsiveDialog from '#src/components/genericDialog/GenericResponsiveDialog';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Button from '@material-ui/core/Button';
-import Dialog from '@material-ui/core/Dialog';
 
 import { createStyles } from '@material-ui/core';
 import { Theme } from '@material-ui/core/styles';
@@ -497,7 +496,7 @@ export class CalendarPicker extends Component<Props, State> {
           />
           <ArrowDropDownIcon style={{ color: '#757575' }} />
         </ListItem>
-        <Dialog
+        <GenericResponsiveDialog
           onClose={() =>
             this.closePopoverAndValidate(!this.props.blockValidateOnClickAway)
           }
@@ -519,23 +518,9 @@ export class CalendarPicker extends Component<Props, State> {
                 </Tabs>
               </div>
             )}
-            <SwipeableViews
-              animateHeight
-              ignoreNativeScroll
-              axis={
-                // @ts-expect-error
-                theme.direction === 'rtl' ? 'x-reverse' : 'x'
-              }
-              containerStyle={{
-                marginTop: '24px',
-                marginBottom: '24px',
-              }}
-              index={this.state.mode}
-              onChangeIndex={this.handleChangeIndex}
-            >
-              {this.renderDateTab()}
-              {this.renderDurationTab()}
-            </SwipeableViews>
+
+            {this.renderDateTab()}
+            {this.renderDurationTab()}
           </div>
           <div className={classes.buttonContainer}>
             <Button
@@ -554,7 +539,7 @@ export class CalendarPicker extends Component<Props, State> {
               {t('modal.validate')}
             </Button>
           </div>
-        </Dialog>
+        </GenericResponsiveDialog>
       </div>
     );
   }

@@ -25,7 +25,6 @@ import {
   PAYMENT_GROUP_METHOD_BY_ENGINE,
   PAYMENT_INTENT_STATUS_SUCCESS,
 } from '@bsport/common/lib/master-data/payment-group.js';
-s;
 import ALL_ERROR_CODES from '@bsport/common/lib/master-data/error-codes/buyable-item-can-not-be-bought.js';
 import {
   fetchEstablishmentBulk as fetchEstablishmentBulkAction,

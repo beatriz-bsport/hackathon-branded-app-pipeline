@@ -309,7 +309,8 @@
                     "nbIntervalAfterAutoRenewal": {
                         "secondLabel": "Anzahl der Rechnungen *",
                         "firstLabel": "Abonnementabrechnung für die nächsten Zyklen ändern"
-                    }
+                    },
+                    "notEditable": "Dieser Vertrag geht auf eine zuvor abgeschlossene Datenmigration zurück. Einige Felder können möglicherweise nicht bearbeitet werden, um die Daten beizubehalten."
                 },
                 "description": "Beschreibung",
                 "registerManager": {
@@ -11950,7 +11951,8 @@
                         "header": "Erweitert"
                     },
                     "notification": "Benachrichtigungen",
-                    "detailsAndRestrictions": "Details und Einschränkungen"
+                    "detailsAndRestrictions": "Details und Einschränkungen",
+                    "notEditable": "Dieser Terminpass stammt aus einer zuvor durchgeführten Datenmigration. Einige Felder können möglicherweise nicht bearbeitet werden, um die Daten beizubehalten."
                 },
                 "parameters": {
                     "nbCredits": "{{ credits }} Credit",
@@ -17438,7 +17440,7 @@
                 },
                 "warnings": {
                     "exclusiveAssociatedCoaches": "Die Lehrkraft {{- coach_name }} wird nur benachrichtigt, wenn eine Vertretungsanfrage für eine Sitzung in dieser Einrichtung erfolgt. Wenn die Einrichtung gelöscht wird, erhält diese Lehrkraft daher Vertretungsanfragen von jeder Einrichtung.",
-                    "exclusiveAssociatedCoaches_plural": "Deine Lehrer {{-coach_name}} werden nur benachrichtigt, wenn eine Vertretungsanfrage für eine Sitzung in dieser Einrichtung gestellt wird. Durch die Löschung des Betriebes erhalten sie somit von jedem Betrieb Ersatzanfragen.",
+                    "exclusiveAssociatedCoaches_plural": "Deine Lehrer{{-coach_name}}werden nur benachrichtigt, wenn eine Vertretungsanfrage für eine Sitzung in dieser Einrichtung gestellt wird. Durch die Löschung des Betriebes erhalten sie somit von jedem Betrieb Ersatzanfragen.",
                     "hasBillingGroup": "Diese Einrichtung wird auch aus der Rechnungsgruppe {{- establishment_billing_group_name }} entfernt.",
                     "exclusivePrivateServices_plural": "Diese Termine {{- private_service_name }} sind so konfiguriert, dass sie nur in dieser Einrichtung stattfinden können. Wenn diese Einrichtung gelöscht wird, können diese Termine überall stattfinden.",
                     "exclusivePrivateServices": "Der Termin {{- private_service_name }} ist so konfiguriert, dass er nur in dieser Einrichtung stattfinden kann. Wenn diese Einrichtung gelöscht wird, kann dieser Termin überall stattfinden.",
@@ -17606,7 +17608,8 @@
                         "paymentSuccess_plural": "Herzlichen Glückwunsch! Ihre Käufe wurden bestätigt!",
                         "offerOnlySuccess": "Die Buchung wurde erfolgreich abgeschlossen. Sie erhalten in Kürze eine Bestätigungs-E-Mail mit allen Details.",
                         "offerOnlySuccess_plural": "Die Buchungen wurden erfolgreich abgeschlossen. Sie erhalten in Kürze eine Bestätigungs-E-Mail mit allen Details.",
-                        "offerOnlyGuestSuccess": "Die Buchung wurde abgeschlossen. Sie und Ihr Gast werden in Kürze eine Bestätigungsmail mit allen Details erhalten."
+                        "offerOnlyGuestSuccess": "Die Buchung wurde abgeschlossen. Sie und Ihr Gast werden in Kürze eine Bestätigungsmail mit allen Details erhalten.",
+                        "offersPartiallyConfirmed": "Einige Sitzungen konnten nicht gebucht werden, möglicherweise weil sie ausgebucht wurden oder beim Auschecken abgesagt wurden. Sie erhalten in Kürze eine Bestätigungs-E-Mail mit Einzelheiten zu den erfolgreichen Buchungen."
                     },
                     "confirmationStatusTitle": {
                         "success": {
@@ -17618,10 +17621,15 @@
                         "errors": {
                             "genericOfferError": "Hoppla! Die Buchung ist fehlgeschlagen.",
                             "generic": "Hoppla! Die Zahlung ist fehlgeschlagen."
+                        },
+                        "warning": {
+                            "offersPartiallyConfirmed": "Ihre Buchung ist teilweise bestätigt"
                         }
                     },
                     "offerGuestBooked": "Meine Gastbuchung",
-                    "offerGuestBooked_plural": "Meine Gastbuchungen"
+                    "offerGuestBooked_plural": "Meine Gastbuchungen",
+                    "unableToBookSession": "Sitzung kann nicht gebucht werden",
+                    "unableToBookSession_plural": "Es können keine Sitzungen gebucht werden"
                 },
                 "actions": {
                     "continue": "Meinen Einkauf fortsetzen",

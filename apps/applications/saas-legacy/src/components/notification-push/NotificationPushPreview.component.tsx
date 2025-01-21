@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import { DateTime } from 'luxon';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { makeStyles, Paper, Theme, Typography } from '@material-ui/core';
 import { CompanyTheme } from '#src/libs/theme/types';
 import { replaceGenericTagsInTemplate } from '#src/libs/email-editor/utils';
@@ -45,7 +45,7 @@ const NotificationPushPreview = (props: Props) => {
             {hasUpsell(featureList, UPSELL_IDENTIFIER_PUSH_NOTIFICATION) &&
               notification.push_notification_title !== '' &&
               notification.push_notification_content !== '' && (
-                <div className={classNames(classes.greyBack, className)}>
+                <div className={clsx(classes.greyBack, className)}>
                   <Paper className={classes.notification}>
                     <div className={classes.notificationHeader}>
                       <div className={classes.notificationCompany}>

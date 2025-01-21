@@ -17,7 +17,7 @@ import {
   ThemeProvider,
 } from '@material-ui/core/styles';
 import blue from '@material-ui/core/colors/blue';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import Tooltip from '../../../components/Tooltip.component';
 
 import { MIN_HEIGHT_DURATION_SELECTOR } from '../constant';
@@ -32,8 +32,8 @@ function ValueLabelComponent(props: { children: any, value: string }) {
 }
 
 type Props = {
-  durationSecondRange: ?string,
-  onChange: (value: ?string) => void,
+  durationSecondRange?: string,
+  onChange: (value?: string) => void,
   shouldSetMinHeight?: boolean,
 };
 
@@ -65,7 +65,7 @@ const DurationSelector = (props: Props) => {
             fullWidth
             InputProps={{
               classes: {
-                input: classNames(classes.multilineColor, {
+                input: clsx(classes.multilineColor, {
                   [classes.inputMinHeight]: props.shouldSetMinHeight,
                 }),
               },

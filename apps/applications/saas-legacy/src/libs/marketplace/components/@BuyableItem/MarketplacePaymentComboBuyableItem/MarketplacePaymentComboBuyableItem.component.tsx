@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import KeyboardArrowDown from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardArrowUp from '@material-ui/icons/KeyboardArrowUp';
 
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { useMediaQuery, useTheme } from '@material-ui/core';
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
@@ -103,7 +103,7 @@ const MarketplacePaymentComboBuyableItem: React.FC<Props> = ({
               {paymentCombo?.name ?? ''}
             </div>
             <div
-              className={classNames({
+              className={clsx({
                 'bs-payment-combo-buyable-item__recommended_icon_container--hidden':
                   !isRecommended,
               })}
@@ -183,13 +183,10 @@ const MarketplacePaymentComboBuyableItem: React.FC<Props> = ({
             <Collapse collapsedHeight={40} isExpanded={showAllDescription}>
               <div
                 ref={descriptionText.ref}
-                className={classNames(
-                  'bs-payment-combo-buyable-item__description',
-                  {
-                    'bs-payment-combo-buyable-item__description--short':
-                      !showAllDescription,
-                  },
-                )}
+                className={clsx('bs-payment-combo-buyable-item__description', {
+                  'bs-payment-combo-buyable-item__description--short':
+                    !showAllDescription,
+                })}
               >
                 {paymentCombo?.description ?? ''}
               </div>
@@ -204,7 +201,7 @@ const MarketplacePaymentComboBuyableItem: React.FC<Props> = ({
             }}
           >
             <div
-              className={classNames({
+              className={clsx({
                 'bs-payment-combo-buyable-item__seemore_button--hidden':
                   !descriptionText.isExpandable,
               })}

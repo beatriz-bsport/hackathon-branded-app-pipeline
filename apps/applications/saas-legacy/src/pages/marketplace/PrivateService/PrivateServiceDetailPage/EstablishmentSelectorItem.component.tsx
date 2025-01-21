@@ -1,7 +1,7 @@
 import React from 'react';
 import { CardMedia, Typography, ButtonBase } from '@material-ui/core';
 import makeStyles from '@material-ui/core/styles/makeStyles';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import { PrivateSlot } from '../../../../libs/private-service/types';
 import { Establishment } from '../../../../libs/establishment/types';
@@ -22,7 +22,7 @@ const EstablishmentSelectorItem: React.FC<Props> = (props) => {
   return (
     <div className={classes.cardItemLayout}>
       <ButtonBase
-        className={classNames({
+        className={clsx({
           [classes.cardContainer]: true,
           [classes.selected]: isEstablishmentSelected(establishment),
         })}

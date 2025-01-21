@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { DateTime } from 'luxon';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import { MarketPlaceSessionTimeDisplay } from '@bsport/common/lib/master-data/personalization.js';
 
@@ -179,13 +179,10 @@ const ConsumerBookingCancelDrawer: React.FC<Props> = ({
       }}
     >
       <div
-        className={classNames(
-          'bs-consumer-booking-cancel-drawer__related-bookings',
-          {
-            'bs-consumer-booking-cancel-drawer__related-bookings--hidden':
-              !hasRelatedBookings,
-          },
-        )}
+        className={clsx('bs-consumer-booking-cancel-drawer__related-bookings', {
+          'bs-consumer-booking-cancel-drawer__related-bookings--hidden':
+            !hasRelatedBookings,
+        })}
       >
         <Typography
           className="bs-consumer-booking-cancel-drawer__text"
@@ -228,13 +225,10 @@ const ConsumerBookingCancelDrawer: React.FC<Props> = ({
       </div>
 
       <div
-        className={classNames(
-          'bs-consumer-booking-cancel-modal__dialog__message',
-          {
-            'bs-consumer-booking-cancel-modal__dialog__message--hidden':
-              !!relatedBookings,
-          },
-        )}
+        className={clsx('bs-consumer-booking-cancel-modal__dialog__message', {
+          'bs-consumer-booking-cancel-modal__dialog__message--hidden':
+            !!relatedBookings,
+        })}
       >
         <Typography
           className="bs-consumer-booking-cancel-modal__dialog__text"

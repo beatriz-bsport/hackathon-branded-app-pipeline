@@ -1,6 +1,6 @@
 // @flow
 import React from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Skeleton from '@material-ui/lab/Skeleton';
@@ -19,7 +19,7 @@ type Props = {
   coachDisplay?: MarketPlaceCoachDisplay,
 };
 
-export const VideoItem = (props: Props) => {
+const VideoItem = (props: Props) => {
   const classes = useStyles();
   const { t } = useTranslation(['video']);
 
@@ -33,7 +33,7 @@ export const VideoItem = (props: Props) => {
 
   return (
     <div
-      className={classNames(classes.container, 'bs-vod-item__container')}
+      className={clsx(classes.container, 'bs-vod-item__container')}
       onClick={() => {
         if (props.openVideo) props.openVideo(props.video.id);
       }}
@@ -44,10 +44,7 @@ export const VideoItem = (props: Props) => {
       tabIndex={props.video.id}
     >
       <div
-        className={classNames(
-          classes.imageWrapper,
-          'bs-vod-item__image-wrappper',
-        )}
+        className={clsx(classes.imageWrapper, 'bs-vod-item__image-wrappper')}
       >
         {props.loading ? (
           <Skeleton animatoin="wave" className={classes.media} />
@@ -59,13 +56,10 @@ export const VideoItem = (props: Props) => {
           />
         )}
         <div
-          className={classNames(
-            classes.mediaOverlay,
-            'bs-vod-item__media-overlay',
-          )}
+          className={clsx(classes.mediaOverlay, 'bs-vod-item__media-overlay')}
         />
       </div>
-      <div className={classNames(classes.footer, 'bs-vod-item__footer')}>
+      <div className={clsx(classes.footer, 'bs-vod-item__footer')}>
         {props.loading ? (
           <Skeleton
             animation="wave"
@@ -89,7 +83,7 @@ export const VideoItem = (props: Props) => {
       </div>
       {expiration_date && (
         <Typography
-          className={classNames(classes.typo, 'bs-vod-item__expiration-detail')}
+          className={clsx(classes.typo, 'bs-vod-item__expiration-detail')}
           color="textSecondary"
           variant="body2"
         >

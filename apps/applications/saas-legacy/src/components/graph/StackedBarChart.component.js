@@ -15,7 +15,7 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 
-import classNames from 'classnames';
+import clsx from 'clsx';
 import {
   parseRechartsDate,
   DAILY_DURATION_DISPLAY_LIMIT,
@@ -108,23 +108,17 @@ const CustomTooltip: React.FC<CustomTooltipProps> = React.memo(
           </Typography>
 
           <Typography className={classes.bookingsLabel} variant="body2">
-            <span
-              className={classNames(classes.square, classes.confirmedSquare)}
-            />
+            <span className={clsx(classes.square, classes.confirmedSquare)} />
             {getToolTipRowLabel(payload, 'confirmedBookings', t)}
           </Typography>
 
           <Typography className={classes.bookingsLabel} variant="body2">
-            <span
-              className={classNames(classes.square, classes.cancelledSquare)}
-            />
+            <span className={clsx(classes.square, classes.cancelledSquare)} />
             {getToolTipRowLabel(payload, 'cancelledBookings', t)}
           </Typography>
 
           <Typography className={classes.bookingsLabel} variant="body2">
-            <span
-              className={classNames(classes.square, classes.waitingListSquare)}
-            />
+            <span className={clsx(classes.square, classes.waitingListSquare)} />
             {getToolTipRowLabel(payload, 'waitingList', t)}
           </Typography>
         </Paper>

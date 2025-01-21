@@ -15,9 +15,9 @@ import Button from '@material-ui/core/Button';
 
 type Props = {
   t: TFunction,
-  smartlist: ?SmartList,
+  smartlist?: SmartList,
   classes: Object,
-  onEdit: ?() => void,
+  onEdit?: () => void,
   onClickConfigure: (id: number) => void,
   onClickCampaign: (id: number) => void,
 };

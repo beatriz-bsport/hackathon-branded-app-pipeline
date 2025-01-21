@@ -15,7 +15,7 @@ import {
 } from '@material-ui/core';
 
 import { Info } from '@material-ui/icons';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { OptionCallback } from '../../../state/types';
 // @ts-expect-error
 import { TextFieldEnhancedLabelWithError } from '../../../components/forms';
@@ -69,7 +69,7 @@ export const ProvincialTaxForm = (props: Props) => {
                     {t('forms.provincialTax.info')}
                   </Typography>
                 </div>
-                <div className={classNames(classes.row, classes.mid)}>
+                <div className={clsx(classes.row, classes.mid)}>
                   <TextFieldEnhancedLabelWithError
                     fullWidth
                     helperText={t('forms.provincialTax.taxHelperText')}

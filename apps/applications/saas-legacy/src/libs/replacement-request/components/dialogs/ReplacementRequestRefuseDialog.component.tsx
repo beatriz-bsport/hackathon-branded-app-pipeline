@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
@@ -58,7 +58,7 @@ export const ReplacementRequestRefuseDialog: React.FC<Props> = ({
         ) : (
           <>
             <Button
-              className={classNames(classes.buttons, classes.textSecondary)}
+              className={clsx(classes.buttons, classes.textSecondary)}
               onClick={onClose}
             >
               {t('coachAnswers.refuse.cancel')}

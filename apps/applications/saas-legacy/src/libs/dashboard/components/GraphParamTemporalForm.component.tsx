@@ -2,7 +2,7 @@ import React, { useMemo, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { makeStyles, Theme } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { DataSourceDashboardGraphMetadata } from '#src/libs/dashboard/types';
 import { MaterialUiSingleSelectorField } from '#src/libs/custom-form/components/GenericFormik.input';
 
@@ -130,7 +130,7 @@ const GraphParamTemporalForm: React.FC<Props> = ({
         aggregationFunctionNameChoices[0].value !== 'count' && (
           <>
             <Typography
-              className={classNames(
+              className={clsx(
                 classes.selectLabel,
                 classes.selectLabelWithMargin,
               )}

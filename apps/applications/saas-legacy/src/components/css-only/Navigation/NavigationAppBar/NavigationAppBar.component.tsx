@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 
@@ -47,7 +47,7 @@ const NavigationAppBar: React.FC<NavigationAppBarProps> = ({
       </div>
 
       <div
-        className={classNames('bs-navigation-app-bar__relationship-alert', {
+        className={clsx('bs-navigation-app-bar__relationship-alert', {
           'bs-navigation-app-bar__relationship-alert--hidden':
             !relationshipAuthMemberName || isMobile,
         })}

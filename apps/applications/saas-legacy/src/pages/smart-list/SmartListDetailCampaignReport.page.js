@@ -34,7 +34,7 @@ type Props = {
   fetchResolvedGenericTags: () => void,
   resolvedGenericTags: ResolvedGenericTags,
   fetchRecipientList: (page: number, params: any) => void,
-  campaign: ?Campaign,
+  campaign?: Campaign,
   goBack: () => void,
   recipientState: Object,
   campaignReport: CampaignReportType,

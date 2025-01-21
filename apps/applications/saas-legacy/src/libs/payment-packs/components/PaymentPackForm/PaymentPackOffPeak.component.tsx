@@ -7,7 +7,7 @@ import { Theme } from '@material-ui/core/styles';
 import CloseIcon from '@material-ui/icons/Close';
 import AddIcon from '@material-ui/icons/Add';
 import { ButtonBase, Collapse, alpha, Typography } from '@material-ui/core';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { ErrorMessage } from 'formik';
 import { DateTime } from 'luxon';
 import {
@@ -86,7 +86,7 @@ const OffPeakButtonDay: React.FC<WeekDayButtonProps> = memo(
         key={day}
         disableElevation
         disableRipple
-        className={classNames(
+        className={clsx(
           classes.buttonBase,
           {
             [classes.activeWeekDayButton]: recurrenceWeekDayState,
@@ -230,7 +230,7 @@ const OffPeaktimeSlotGroup = (props: Props) => {
     <div className={classes.container}>
       {hasMultipleGroups && (
         <ButtonBase
-          className={classNames(classes.deleteIcon, classes.groupDelete)}
+          className={clsx(classes.deleteIcon, classes.groupDelete)}
           color="primary"
           disabled={disabled}
           onClick={onGroupDelete}

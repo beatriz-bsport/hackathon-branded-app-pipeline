@@ -19,7 +19,7 @@ import BackofficeLinearProgress from '../../components/navigation/BackofficeLine
 
 type Props = {
   uuid: string,
-  invoice: ?Invoice,
+  invoice?: Invoice,
   fetchInvoice: (uuid: string) => void,
   invoiceLoading: boolean,
 };

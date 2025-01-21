@@ -82,7 +82,7 @@ type Props = {
   goToSelectedCampaign: (id: number) => void,
   smartListUpdate: (id: number) => void,
   onClickDuplicate: (id: number, options: any) => void,
-  smartlistSelected: ?SmartList,
+  smartlistSelected?: SmartList,
   loading: boolean,
   fetchCadencesUsingSmartlist: (
     id: number,

@@ -1,5 +1,5 @@
 import React from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 
@@ -52,7 +52,7 @@ const CheckboxIcon: React.FC<CheckboxIconProps> = React.memo(
         <MinusSquare01
           className="bs-fabrique-checkbox__icon__svg"
           pathProps={{
-            className: classNames('bs-fabrique-checkbox__icon--multiple', {
+            className: clsx('bs-fabrique-checkbox__icon--multiple', {
               'bs-fabrique-checkbox__icon--inversed': isInversed,
               'bs-fabrique-checkbox__icon--disabled': isDisabled,
             }),
@@ -66,7 +66,7 @@ const CheckboxIcon: React.FC<CheckboxIconProps> = React.memo(
           <CheckSquare01
             className="bs-fabrique-checkbox__icon__svg"
             pathProps={{
-              className: classNames('bs-fabrique-checkbox__icon--checked', {
+              className: clsx('bs-fabrique-checkbox__icon--checked', {
                 'bs-fabrique-checkbox__icon--inversed': isInversed,
                 'bs-fabrique-checkbox__icon--disabled': isDisabled,
               }),
@@ -76,7 +76,7 @@ const CheckboxIcon: React.FC<CheckboxIconProps> = React.memo(
           <Square
             className="bs-fabrique-checkbox__icon__svg"
             pathProps={{
-              className: classNames('bs-fabrique-checkbox__icon--unchecked', {
+              className: clsx('bs-fabrique-checkbox__icon--unchecked', {
                 'bs-fabrique-checkbox__icon--inversed': isInversed,
                 'bs-fabrique-checkbox__icon--disabled': isDisabled,
               }),
@@ -109,7 +109,7 @@ const Checkbox: React.FC<Props> = ({
   const isSmall = size === CheckboxSizeEnum.SM;
   return (
     <label
-      className={classNames('bs-fabrique-checkbox-root', className)}
+      className={clsx('bs-fabrique-checkbox-root', className)}
       htmlFor={id}
     >
       <InputBase
@@ -133,7 +133,7 @@ const Checkbox: React.FC<Props> = ({
       <div className="bs-fabrique-checkbox__text-container">
         <Typography
           align="left"
-          className={classNames(
+          className={clsx(
             'bs-fabrique-checkbox-label',
             {
               'bs-fabrique-checkbox-label--inversed': isInversed,
@@ -147,7 +147,7 @@ const Checkbox: React.FC<Props> = ({
         </Typography>
         <Typography
           align="left"
-          className={classNames(
+          className={clsx(
             'bs-fabrique-checkbox-captiontext',
             { 'bs-fabrique-checkbox-captiontext--hidden': !captionText },
             classes?.captionText,
@@ -158,7 +158,7 @@ const Checkbox: React.FC<Props> = ({
         </Typography>
         <Typography
           align="left"
-          className={classNames(
+          className={clsx(
             'bs-fabrique-checkbox-error-message',
             {
               'bs-fabrique-checkbox-error-message--hidden':

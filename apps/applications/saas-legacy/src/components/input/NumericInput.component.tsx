@@ -1,7 +1,7 @@
 import React, { FocusEventHandler, useCallback } from 'react';
 
 import TextField from '@material-ui/core/TextField';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 export type NumericInputProps = {
   value: number;
@@ -60,7 +60,7 @@ const NumericInput: React.FC<NumericInputProps> = ({
 
   return (
     <TextField
-      className={classNames(inputClass)}
+      className={clsx(inputClass)}
       disabled={disabled}
       error={error}
       fullWidth={fullWidth}

@@ -10,7 +10,7 @@ import VisibilityIcon from '@material-ui/icons/Visibility';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 import amber from '@material-ui/core/colors/amber';
 import { Theme, makeStyles } from '@material-ui/core';
-import clx from 'classnames';
+import clsx from 'clsx';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
 import HTMLPreviewDialog from '#src/components/html/HTMLPreviewDialog.component';
@@ -204,7 +204,7 @@ const CampaignStatistics = (props: CampaignStatisticsProps) => {
         ) : (
           <div className={classes.emailUnavailable}>
             <VisibilityOffIcon
-              className={clx({
+              className={clsx({
                 [classes.unAvailable]: true,
                 [classes.leftIcon]: true,
               })}

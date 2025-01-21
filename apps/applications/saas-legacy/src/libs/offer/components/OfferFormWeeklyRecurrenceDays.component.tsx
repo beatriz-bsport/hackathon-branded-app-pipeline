@@ -4,7 +4,7 @@ import { useFormikContext } from 'formik';
 import Button from '@material-ui/core/Button';
 import { DateTime } from 'luxon';
 import { makeStyles } from '@material-ui/styles';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import type { Theme } from '@material-ui/core';
 
@@ -67,7 +67,7 @@ const WeekDayButton: React.FC<WeekDayButtonProps> = React.memo(
         key={day}
         disableElevation
         disableRipple
-        className={classNames(
+        className={clsx(
           classes.buttonBase,
           {
             [classes.activeWeekDayButton]: recurrenceWeekDayState,

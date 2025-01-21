@@ -15,7 +15,7 @@ import type { RootState } from 'src/reducers';
 import { makeStyles } from '@material-ui/styles';
 import { push as pushRouter } from 'connected-react-router';
 
-import classNames from 'classnames';
+import clsx from 'clsx';
 import DelayedTextField from '#src/components/DelayedTextField.component';
 
 import { searchFranchiseUsers as searchFranchiseUsersAction } from '../actions';
@@ -68,7 +68,7 @@ export const SearchBar: React.FC<Props> = ({
   }, [location.pathname, clearSearch]);
 
   return (
-    <div className={classNames(classes.bar, className)}>
+    <div className={clsx(classes.bar, className)}>
       <DelayedTextField
         fullWidth
         className={classes.field}

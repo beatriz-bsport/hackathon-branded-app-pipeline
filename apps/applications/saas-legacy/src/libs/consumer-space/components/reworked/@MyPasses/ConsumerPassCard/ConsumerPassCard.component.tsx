@@ -1,5 +1,5 @@
 import React from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 
@@ -67,7 +67,7 @@ const ConsumerPassCard: React.FC<Props> = ({
 
   return (
     <Card
-      className={classNames('bs-consumer-pass-card__root')}
+      className={clsx('bs-consumer-pass-card__root')}
       variant={isSelected ? 'elevated' : 'rest'}
     >
       <ConsumerPassCardHeader

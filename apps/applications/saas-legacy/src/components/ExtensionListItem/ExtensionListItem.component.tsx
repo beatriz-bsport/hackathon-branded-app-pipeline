@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from 'react';
 
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
@@ -69,7 +69,7 @@ export const ExtensionListItem: React.FC<Props> = ({
         </Typography>
 
         <div
-          className={classNames(classes.collapseContainer, {
+          className={clsx(classes.collapseContainer, {
             [classes.flexColumn]: isExtensionNoteExpanded,
             [classes.widthFiftyChars]:
               isNoteExpandable && !isExtensionNoteExpanded,
@@ -80,7 +80,7 @@ export const ExtensionListItem: React.FC<Props> = ({
             <>
               {isNoteExpandable ? (
                 <Collapse
-                  className={classNames({
+                  className={clsx({
                     [classes.collapsedNote]: !isExtensionNoteExpanded,
                   })}
                   collapsedSize={EXTENSION_LIST_ITEM_COLLAPSED_SIZE}

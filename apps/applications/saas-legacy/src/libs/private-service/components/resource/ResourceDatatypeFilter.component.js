@@ -14,8 +14,8 @@ import { ScheduleFilter } from '../../../user-preference/types';
 type Props = {
   classes: Object,
   t: TFunction,
-  anchorEl: ?HTMLElement,
-  setAnchorEl: (e: ?HTMLElement) => void,
+  anchorEl?: HTMLElement,
+  setAnchorEl: (e?: HTMLElement) => void,
   resourcesByDatatype: Array<ResourceGroupType>,
   scheduleFilter: ScheduleFilter,
   setScheduleFilter: (scheduleFilter: ScheduleFilter) => void,

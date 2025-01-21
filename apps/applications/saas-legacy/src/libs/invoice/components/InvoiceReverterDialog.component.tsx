@@ -1,6 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import Button from '@material-ui/core/Button';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -313,7 +313,7 @@ export const InvoiceReverterDialog = ({
             reverseOnPaymentMethodAllowed={reverseOnPaymentMethodAllowed}
           />
           <div
-            className={classNames(classes.radioContainer, {
+            className={clsx(classes.radioContainer, {
               [classes.disabledContainer]: !reverseOnPaymentMethodAllowed,
             })}
           >
@@ -335,7 +335,7 @@ export const InvoiceReverterDialog = ({
             </Typography>
           </div>
           <div
-            className={classNames(classes.radioContainer, {
+            className={clsx(classes.radioContainer, {
               [classes.disabledContainer]: !reverseOnDebtAllowed,
             })}
           >
@@ -355,7 +355,7 @@ export const InvoiceReverterDialog = ({
             </Typography>
           </div>
           <div
-            className={classNames(classes.radioContainer, {
+            className={clsx(classes.radioContainer, {
               [classes.disabledContainer]: !reverseOnNewPaymentMethodAllowed,
             })}
           >

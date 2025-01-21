@@ -1,6 +1,6 @@
 import React from 'react';
 
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import CircularProgress from '#src/components/css-only/CircularProgress';
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
@@ -39,7 +39,7 @@ const Button: React.FC<Props> = ({
 }) => {
   return (
     <ButtonBase
-      classes={classNames(
+      classes={clsx(
         'bs-button__container',
         {
           'bs-button-icon__container': variant === ButtonVariant.ICON,
@@ -63,7 +63,7 @@ const Button: React.FC<Props> = ({
       type={type}
     >
       <span
-        className={classNames(
+        className={clsx(
           'bs-button__text',
           {
             'bs-button-primary__text':

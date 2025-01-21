@@ -7,7 +7,7 @@ import { Button, Typography, FormControl, Divider } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import Select from 'react-select';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import EventIcon from '@material-ui/icons/Event';
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
@@ -175,7 +175,7 @@ const MarketingRuleFormContract = (props: Props) => {
       title={t('notificationForm.title')}
     >
       <div
-        className={classNames({
+        className={clsx({
           [classes.paddingBottomEMailSelector]:
             send_email && !send_notification_push,
         })}
@@ -383,7 +383,7 @@ const MarketingRuleFormContract = (props: Props) => {
                   </div>
                   {periodScale === DAYS && (
                     <div
-                      className={classNames(
+                      className={clsx(
                         classes.warningContainer,
                         classes.spacingTop,
                       )}
@@ -401,7 +401,7 @@ const MarketingRuleFormContract = (props: Props) => {
                   )}
                   {periodScale === HOURS && (
                     <div
-                      className={classNames(
+                      className={clsx(
                         classes.warningContainer,
                         classes.spacingTop,
                       )}
@@ -410,7 +410,7 @@ const MarketingRuleFormContract = (props: Props) => {
                         <InfoOutlinedIcon color="inherit" />
                       </div>
                       <Typography
-                        className={classNames([classes.breakSpaces])}
+                        className={clsx([classes.breakSpaces])}
                         variant="body2"
                       >
                         {t(
@@ -500,7 +500,7 @@ const MarketingRuleFormContract = (props: Props) => {
                 </div>
                 {periodScale === DAYS && (
                   <div
-                    className={classNames(
+                    className={clsx(
                       classes.warningContainer,
                       classes.spacingTop,
                     )}
@@ -515,7 +515,7 @@ const MarketingRuleFormContract = (props: Props) => {
                 )}
                 {periodScale === HOURS && (
                   <div
-                    className={classNames(
+                    className={clsx(
                       classes.warningContainer,
                       classes.spacingTop,
                     )}
@@ -524,7 +524,7 @@ const MarketingRuleFormContract = (props: Props) => {
                       <InfoOutlinedIcon color="inherit" />
                     </div>
                     <Typography
-                      className={classNames([classes.breakSpaces])}
+                      className={clsx([classes.breakSpaces])}
                       variant="body2"
                     >
                       {t('notificationForm.notificationType.warningHourLast')}

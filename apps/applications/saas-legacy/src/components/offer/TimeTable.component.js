@@ -25,7 +25,7 @@ type Props = {
   selected: number,
   classes: Object,
   t: TFunction,
-  showTags: ?boolean,
+  showTags?: boolean,
   virtualized?: boolean,
   getHasPendingReplacementRequest: (offerId: number) => boolean,
   isRollCallMandatory?: boolean,

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 
@@ -26,13 +26,13 @@ const CircularProgress: React.FC<Props> = ({
     circularProgressSizeClasses[size] ?? 'bs-circular-progress__container';
 
   return (
-    <div className={classNames(circleContainerClass, className)}>
+    <div className={clsx(circleContainerClass, className)}>
       <svg
         className="bs-circular-progress__circle__container"
         viewBox="22 22 44 44"
       >
         <circle
-          className={classNames({
+          className={clsx({
             'bs-circular-progress__circle': !contrastStrokeColor,
             'bs-circular-progress__circle_contrast__color': contrastStrokeColor,
           })}

@@ -4,7 +4,7 @@ import { Theme } from '@material-ui/core/styles';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import { Typography } from '@material-ui/core';
 import { AccountBalance, CreditCard } from '@material-ui/icons';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import chroma from 'chroma-js';
 import { StepManager } from '#src/libs/login/types';
 import StripeIcon from '#src/components/icons/StripeIcon.component';
@@ -40,23 +40,23 @@ export const AccountConfigurationStepper: React.FC<Props> = ({
   );
 
   return (
-    <div className={classNames(classes.steps, className)}>
+    <div className={clsx(classes.steps, className)}>
       {stripeStep !== -1 && (
         <>
           <div
-            className={classNames(classes.box, {
+            className={clsx(classes.box, {
               [classes.primary]: steps[stripeStep].visited,
               [classes.grey]: !steps[stripeStep].visited,
             })}
           >
             <StripeIcon
-              className={classNames({
+              className={clsx({
                 [classes.iconPrimary]: steps[stripeStep].visited,
                 [classes.icon]: !steps[stripeStep].visited,
               })}
             />
             <Typography
-              className={classNames(classes.stepName, {
+              className={clsx(classes.stepName, {
                 [classes.opacity]: !noTitleGrey && !steps[stripeStep].visited,
               })}
               variant="subtitle2"
@@ -74,19 +74,19 @@ export const AccountConfigurationStepper: React.FC<Props> = ({
       {bankAccountStep !== -1 && (
         <>
           <div
-            className={classNames(classes.box, {
+            className={clsx(classes.box, {
               [classes.primary]: steps[bankAccountStep].visited,
               [classes.grey]: !steps[bankAccountStep].visited,
             })}
           >
             <AccountBalance
-              className={classNames({
+              className={clsx({
                 [classes.iconPrimary]: steps[bankAccountStep].visited,
                 [classes.icon]: !steps[bankAccountStep].visited,
               })}
             />
             <Typography
-              className={classNames(classes.stepName, {
+              className={clsx(classes.stepName, {
                 [classes.opacity]:
                   !noTitleGrey && !steps[bankAccountStep].visited,
               })}
@@ -104,19 +104,19 @@ export const AccountConfigurationStepper: React.FC<Props> = ({
       {paymentMethodStep !== -1 && (
         <>
           <div
-            className={classNames(classes.box, {
+            className={clsx(classes.box, {
               [classes.primary]: steps[paymentMethodStep].visited,
               [classes.grey]: !steps[paymentMethodStep].visited,
             })}
           >
             <CreditCard
-              className={classNames({
+              className={clsx({
                 [classes.iconPrimary]: steps[paymentMethodStep].visited,
                 [classes.icon]: !steps[paymentMethodStep].visited,
               })}
             />
             <Typography
-              className={classNames(classes.stepName, {
+              className={clsx(classes.stepName, {
                 [classes.opacity]:
                   !noTitleGrey && !steps[paymentMethodStep].visited,
               })}
@@ -132,19 +132,19 @@ export const AccountConfigurationStepper: React.FC<Props> = ({
       )}
       {finalStep !== -1 && (
         <div
-          className={classNames(classes.box, {
+          className={clsx(classes.box, {
             [classes.primary]: steps[finalStep].visited,
             [classes.grey]: !steps[finalStep].visited,
           })}
         >
           <SuccessIcon
-            className={classNames({
+            className={clsx({
               [classes.iconPrimary]: steps[finalStep].visited,
               [classes.icon]: !steps[finalStep].visited,
             })}
           />
           <Typography
-            className={classNames(classes.stepName, {
+            className={clsx(classes.stepName, {
               [classes.opacity]: !noTitleGrey && !steps[finalStep].visited,
             })}
             variant="subtitle2"

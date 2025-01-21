@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { SvgIconComponent } from '@material-ui/icons';
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 import StatusMessageWithIcon from '#src/components/css-only/StatusMessageWithIcon';
@@ -34,7 +34,7 @@ const MarketplaceBookingBlockedReason: React.FC<Props> = (props) => {
         }}
         icon={
           <div
-            className={classNames(
+            className={clsx(
               'bs-marketplace-booking-blocked-reason__icon-container',
               {
                 'bs-marketplace-booking-blocked-reason__icon-container--success':
@@ -47,7 +47,7 @@ const MarketplaceBookingBlockedReason: React.FC<Props> = (props) => {
             )}
           >
             <TheIcon
-              className={classNames({
+              className={clsx({
                 'bs-marketplace-booking-blocked-reason__icon--success':
                   props.bookingBlockedReason.color === 'success',
                 'bs-marketplace-booking-blocked-reason__icon--warning':

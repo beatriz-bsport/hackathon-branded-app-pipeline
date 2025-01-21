@@ -1,6 +1,6 @@
 import React, { useCallback, useMemo } from 'react';
 import { DateTime } from 'luxon';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import { useMediaQuery, useTheme } from '@material-ui/core';
@@ -262,7 +262,7 @@ const MarketplaceSpotSelector: React.FC<Props> = (props) => {
       />
       {isMobile && (
         <div
-          className={classNames(
+          className={clsx(
             'bs-marketplace-spot-selector__legend',
             'bs-marketplace-spot-selector__legend--mobile',
           )}

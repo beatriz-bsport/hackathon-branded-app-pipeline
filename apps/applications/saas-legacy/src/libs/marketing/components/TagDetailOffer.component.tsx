@@ -1,6 +1,6 @@
 import React from 'react';
 import { DateTime } from 'luxon';
-import clx from 'classnames';
+import clsx from 'clsx';
 
 import { useTranslation } from 'react-i18next';
 import green from '@material-ui/core/colors/green';
@@ -152,7 +152,7 @@ const TagDetailOffers = (props: Props) => {
                           {item?.whitelist_tags.includes(props.tag?.id) ? (
                             <>
                               <CheckIcon
-                                className={clx(
+                                className={clsx(
                                   classes.tagAuthorizationIcon,
                                   classes.greenIcon,
                                 )}
@@ -167,7 +167,7 @@ const TagDetailOffers = (props: Props) => {
                           ) : (
                             <>
                               <BlockIcon
-                                className={clx(
+                                className={clsx(
                                   classes.tagAuthorizationIcon,
                                   classes.redIcon,
                                 )}

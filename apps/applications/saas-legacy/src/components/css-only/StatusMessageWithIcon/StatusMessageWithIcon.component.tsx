@@ -1,5 +1,5 @@
 import React from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 import { StatusMessageWithIconSkeleton } from '.';
@@ -52,15 +52,12 @@ const StatusMessageWithIcon: React.FC<Props> = ({
 
       <div className="bs-status-message-with-icon__text__container">
         <div
-          className={classNames(
-            'bs-status-message-with-icon__title',
-            classes?.title,
-          )}
+          className={clsx('bs-status-message-with-icon__title', classes?.title)}
         >
           {title}
         </div>
         <div
-          className={classNames(
+          className={clsx(
             'bs-status-message-with-icon__message',
             classes?.message,
           )}

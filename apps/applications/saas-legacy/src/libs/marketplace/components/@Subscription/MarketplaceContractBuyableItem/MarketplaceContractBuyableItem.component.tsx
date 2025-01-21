@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import classNames from 'classnames';
+import clsx from 'clsx';
 import KeyboardArrowDown from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardArrowUp from '@material-ui/icons/KeyboardArrowUp';
 import UpdateIcon from '@material-ui/icons/Update';
@@ -96,7 +96,7 @@ const MarketplaceContractBuyableItem: React.FC<Props> = ({
               {contract?.name ?? ''}
             </div>
             <div
-              className={classNames({
+              className={clsx({
                 'bs-contract-buyable-item__recommended_icon_container--hidden':
                   !isRecommended,
               })}
@@ -169,7 +169,7 @@ const MarketplaceContractBuyableItem: React.FC<Props> = ({
             <Collapse collapsedHeight={40} isExpanded={showAllDescription}>
               <div
                 ref={descriptionText.ref}
-                className={classNames('bs-contract-buyable-item__description', {
+                className={clsx('bs-contract-buyable-item__description', {
                   'bs-contract-buyable-item__description--short':
                     !showAllDescription,
                 })}
@@ -188,7 +188,7 @@ const MarketplaceContractBuyableItem: React.FC<Props> = ({
             }}
           >
             <div
-              className={classNames({
+              className={clsx({
                 'bs-contract-buyable-item__seemore_button--hidden':
                   !descriptionText.isExpandable,
               })}

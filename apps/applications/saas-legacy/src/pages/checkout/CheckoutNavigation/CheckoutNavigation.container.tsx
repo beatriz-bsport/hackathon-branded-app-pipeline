@@ -1,7 +1,7 @@
 import React, { useMemo, useEffect, useCallback } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import { push as pushRouter } from 'connected-react-router';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { MuiThemeProvider } from '@material-ui/core';
 
 // Utils
@@ -159,7 +159,7 @@ const CheckoutNavigation: React.FC<Props> = ({
             />
           ) : (
             <div
-              className={classNames('bs-checkout-navigation__root', {
+              className={clsx('bs-checkout-navigation__root', {
                 'bs-checkout-navigation__root--relationship':
                   isRelationshipAuth,
               })}
@@ -190,7 +190,7 @@ const CheckoutNavigation: React.FC<Props> = ({
             </div>
           )}
           <main
-            className={classNames({
+            className={clsx({
               'bs-checkout-navigation__content': !classes?.content,
               [classes?.content]: !!classes?.content,
             })}

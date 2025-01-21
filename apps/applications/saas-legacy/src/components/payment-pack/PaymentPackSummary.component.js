@@ -15,7 +15,7 @@ type Props = {
   t: TFunction,
   paymentPack: Object,
   noDivider: boolean,
-  buyButton: ?Node,
+  buyButton?: Node,
   button: boolean,
   selected?: boolean,
   isFocused?: boolean,

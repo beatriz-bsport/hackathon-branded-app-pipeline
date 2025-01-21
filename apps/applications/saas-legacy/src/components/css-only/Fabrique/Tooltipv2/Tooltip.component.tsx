@@ -1,5 +1,5 @@
 import React from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 import type { Horizontal, Vertical } from '#Fabrique/Types';
 import { usePopoverPositioning } from '#Fabrique/hooks';
@@ -157,7 +157,7 @@ const Tooltip: React.FC<TooltipProps> = ({
   const tooltipInput =
     typeof text === 'string' ? (
       <Typography
-        className={classNames('bs-fabrique-tooltip--weak-color-typography', {
+        className={clsx('bs-fabrique-tooltip--weak-color-typography', {
           'bs-fabrique-tooltip--strong-color-typography':
             color === colorEnum.STRONG,
         })}
@@ -175,7 +175,7 @@ const Tooltip: React.FC<TooltipProps> = ({
       onMouseLeave={handleMouseLeave}
       onMouseOver={handleMouseEnter}
     >
-      <div className={classNames(classes, 'bs-fabrique-tooltip--children')}>
+      <div className={clsx(classes, 'bs-fabrique-tooltip--children')}>
         {children}
       </div>
       {isOpen && (
@@ -186,7 +186,7 @@ const Tooltip: React.FC<TooltipProps> = ({
         >
           <div
             ref={tooltipRef}
-            className={classNames(
+            className={clsx(
               'bs-fabrique-tooltip',
               {
                 'bs-fabrique-tooltip--positioned': isPositioned,

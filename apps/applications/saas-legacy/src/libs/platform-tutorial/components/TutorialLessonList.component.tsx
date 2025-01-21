@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
@@ -63,7 +63,7 @@ const TutorialLessonList: React.FC<Props> = (props: Props) => {
               }}
             >
               <CheckCircleOutlineIcon
-                className={classNames({
+                className={clsx({
                   [classes.iconGreen]: isLessonCompleted(
                     lesson,
                     tutorial_completion,
@@ -133,7 +133,7 @@ const TutorialLessonList: React.FC<Props> = (props: Props) => {
         open={Boolean(moreMenuOpen)}
       >
         <MenuItem
-          className={classNames(classes.menuItem, classes.primary)}
+          className={clsx(classes.menuItem, classes.primary)}
           onClick={(e) => {
             e.stopPropagation();
             setMoreMenuopen(null);
@@ -147,7 +147,7 @@ const TutorialLessonList: React.FC<Props> = (props: Props) => {
           <Typography>{t('lessonList.start')}</Typography>
         </MenuItem>
         <MenuItem
-          className={classNames(classes.menuItem, classes.secondary)}
+          className={clsx(classes.menuItem, classes.secondary)}
           onClick={(e) => {
             e.stopPropagation();
             setMoreMenuopen(null);

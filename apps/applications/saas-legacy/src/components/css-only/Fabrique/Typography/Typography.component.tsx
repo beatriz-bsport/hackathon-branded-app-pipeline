@@ -1,5 +1,5 @@
 import React from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 
 import {
@@ -85,7 +85,7 @@ export const Typography: React.FC<Props> = ({
 
   return (
     <Component
-      className={classNames(
+      className={clsx(
         ComponentClassName,
         TextAlignClassName,
         ColorClassName,

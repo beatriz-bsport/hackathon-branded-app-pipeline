@@ -24,7 +24,7 @@ const defaultThemeParams = {
   },
 };
 
-export const getTheme = (theme: ?CompanyTheme) => {
+export const getTheme = (theme?: CompanyTheme) => {
   if (theme) {
     return responsiveFontSizes(
       createTheme({

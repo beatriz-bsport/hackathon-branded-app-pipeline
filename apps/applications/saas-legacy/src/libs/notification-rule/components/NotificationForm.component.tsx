@@ -1,7 +1,7 @@
 import React from 'react';
 import { withFormik, Form } from 'formik';
 import * as Yup from 'yup';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
@@ -49,7 +49,7 @@ const NotificationForm = (props: Omit<Props, 'initial' | 'onSubmit'>) => {
           <div className={classes.fieldContainer}>
             <Typography
               // @ts-expect-error
-              className={classNames([classes.spacingTop], {
+              className={clsx([classes.spacingTop], {
                 [classes.errorText]:
                   errors.notificationTitle || errors.notificationContent,
               })}

@@ -1,5 +1,5 @@
 import React, { useCallback, useMemo } from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import IconButton from '#Fabrique/IconButton';
 import {
@@ -90,7 +90,7 @@ export const Pagination: React.FC<Props> = ({
   );
 
   return (
-    <div className={classNames('bs-pagination__root', className)}>
+    <div className={clsx('bs-pagination__root', className)}>
       {showFirstPageLink && (
         <IconButton
           className="bs-pagination__button bs-pagination__button-control bs-pagination__button--default"
@@ -114,7 +114,7 @@ export const Pagination: React.FC<Props> = ({
       {(pageLinkList ?? []).map((page) => (
         <IconButton
           key={page}
-          className={classNames(
+          className={clsx(
             'bs-pagination__button',
             {
               'bs-pagination__button--default': currentPage !== page,

@@ -1,5 +1,5 @@
 import React from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { Theme, makeStyles } from '@material-ui/core/styles';
 
 import Skeleton from '@material-ui/lab/Skeleton';
@@ -35,12 +35,12 @@ const MemberVisitDetailsCardSkeleton: React.FC = React.memo(() => {
           />
           <div className={classes.ctaButtonsContainer}>
             <Skeleton
-              className={classNames(classes.memberCtaButton, classes.skeleton)}
+              className={clsx(classes.memberCtaButton, classes.skeleton)}
               height={24}
               variant="rect"
             />
             <Skeleton
-              className={classNames(classes.memberCtaButton, classes.skeleton)}
+              className={clsx(classes.memberCtaButton, classes.skeleton)}
               height={24}
               variant="rect"
             />

@@ -13,7 +13,7 @@ import AttachIcon from '@material-ui/icons/AttachFile';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Chip from '@material-ui/core/Chip';
-import clx from 'classnames';
+import clsx from 'clsx';
 import type { Coach } from '#src/libs/associated-coach/types';
 import ObjectLevelPermissionProviderComponent from '#src/libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 // @ts-expect-error
@@ -64,7 +64,7 @@ export function CoachPerformancePrivateServiceTable(props: Props) {
   return (
     <div>
       <div
-        className={clx([
+        className={clsx([
           classes.flexHeaderContainer,
           props.asCoach && props.displayChip
             ? classes.flexStartContainer
@@ -216,7 +216,7 @@ export function CoachPerformancePrivateServiceTable(props: Props) {
             performances.map((private_service_perf) => (
               <TableRow
                 key={private_service_perf.private_booking_id}
-                className={clx({
+                className={clsx({
                   [classes.tableRowError]:
                     private_service_perf.error &&
                     !private_service_perf.is_unpaid,

@@ -2,7 +2,7 @@ import React from 'react';
 
 import { withTranslation } from 'react-i18next';
 
-import classNames from 'classnames';
+import clsx from 'clsx';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 
@@ -75,7 +75,7 @@ export function PrivatePassSelector(props: Props) {
     <Selector
       searchIcon
       autofocus={autofocus}
-      className={classNames(classes, selectorClass)}
+      className={clsx(classes, selectorClass)}
       components={{ Option: privatePassOption }}
       error={error}
       isDisabled={!!props.disabled}

@@ -1,6 +1,6 @@
 import React, { JSX } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 
 import './styles.css';
@@ -156,7 +156,7 @@ export const GenericInfiniteScrollEnhancedCssOnly = <T extends unknown>({
 
   return (
     <InfiniteScroll
-      className={classNames('scroll-component', className)}
+      className={clsx('scroll-component', className)}
       dataLength={items.length}
       endMessage={endMessage}
       hasMore={hasMore}

@@ -10,7 +10,7 @@ import {
   withWidth,
 } from '@material-ui/core';
 import { Breakpoint } from '@material-ui/core/styles/createBreakpoints';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import themeSelectors from '#src/libs/theme/selectors';
 import routerParamsToProps from '#src/hocs/router-params-to-props.hoc';
 // @ts-expect-error
@@ -61,7 +61,7 @@ export const ConfirmingEmailPage = (props: Props) => {
   const classes = useStyles();
   return (
     <div
-      className={classNames({
+      className={clsx({
         [classes.container]: !isMobile,
         [classes.containerMobile]: isMobile,
       })}

@@ -1,7 +1,7 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core';
 import { compose } from 'recompose';
-import clx from 'classnames';
+import clsx from 'clsx';
 import { WithTranslation, withTranslation } from 'react-i18next';
 
 import Popover from '@material-ui/core/Popover';
@@ -528,7 +528,7 @@ class CanvasViewController extends React.PureComponent<Props> {
 
     return (
       <div
-        className={clx(classes.relativeContainer, {
+        className={clsx(classes.relativeContainer, {
           [classes.noCursor]: this.tool && this.tool.hideNativeCursor,
         })}
       >

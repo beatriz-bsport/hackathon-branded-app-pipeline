@@ -4,7 +4,7 @@ import { compose } from 'recompose';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
-import clx from 'classnames';
+import clsx from 'clsx';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import withStyles from '@material-ui/styles/withStyles';
 import withMobileDialog from '@material-ui/core/withMobileDialog';
@@ -216,7 +216,7 @@ class SpotSelectorDialog extends React.PureComponent<Props, State> {
     return (
       this.props.roomBlueprint && (
         <div
-          className={clx({
+          className={clsx({
             [classes.content]: true,
             [classes.contentIsMobile]: isMobile,
           })}
@@ -237,7 +237,7 @@ class SpotSelectorDialog extends React.PureComponent<Props, State> {
             takenSpot={this.props.takenSpot}
           />
           <div
-            className={clx([
+            className={clsx([
               classes.selectMenu,
               isMobile ? classes.selectMenuIsMobile : null,
             ])}
@@ -288,7 +288,7 @@ class SpotSelectorDialog extends React.PureComponent<Props, State> {
             {!isMobile && (
               <div className={this.props.classes.buttonContainer}>
                 <button
-                  className={clx([
+                  className={clsx([
                     classes.submitButton,
                     // @ts-expect-error
                     this.props.selectedIndex && !this.state.takenSpotError
@@ -333,13 +333,13 @@ class SpotSelectorDialog extends React.PureComponent<Props, State> {
           </div>
           {isMobile && (
             <div
-              className={clx([
+              className={clsx([
                 this.props.classes.buttonContainer,
                 this.props.classes.buttonContainerMobile,
               ])}
             >
               <button
-                className={clx([
+                className={clsx([
                   classes.submitButton,
                   classes.submitButtonMobile,
                   // @ts-expect-error
@@ -371,7 +371,7 @@ class SpotSelectorDialog extends React.PureComponent<Props, State> {
               </button>
               {this.state.takenSpotError && (
                 <div
-                  className={clx(classes.errorContainer, {
+                  className={clsx(classes.errorContainer, {
                     [classes.errorContainerMobile]: isMobile,
                   })}
                 >
@@ -437,7 +437,7 @@ class SpotSelectorDialog extends React.PureComponent<Props, State> {
           </div>
         )}
         <DialogContent
-          className={clx(this.props.classes.dialogContent, {
+          className={clsx(this.props.classes.dialogContent, {
             [this.props.classes.dialogContentMobile]: isMobile,
           })}
         >

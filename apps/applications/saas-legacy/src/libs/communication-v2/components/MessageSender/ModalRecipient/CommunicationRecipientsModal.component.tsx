@@ -1,5 +1,5 @@
 import React from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { compose } from 'recompose';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import { withStyles, Theme, WithStyles } from '@material-ui/core';
@@ -390,7 +390,7 @@ export class CommunicationRecipientsModal extends React.Component<
         </TableCell>
         <Hidden xsDown>
           <TableCell
-            className={classNames(
+            className={clsx(
               classes.cellWithWarningIcon,
               classes.cellWithoutBorder,
             )}

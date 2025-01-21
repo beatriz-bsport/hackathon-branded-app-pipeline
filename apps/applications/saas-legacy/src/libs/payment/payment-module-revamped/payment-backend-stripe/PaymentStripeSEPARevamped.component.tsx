@@ -1,5 +1,5 @@
 import React, { useImperativeHandle, forwardRef } from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import AddIcon from '@material-ui/icons/Add';
@@ -539,14 +539,12 @@ export const PaymentStripeSEPARevamped = forwardRef(
                       withAddress={needBillingDetailAddress}
                     />
                     <div
-                      className={classNames(
+                      className={clsx(
                         classes.saveAndDisplay,
                         customClasses?.saveAndDisplay,
                       )}
                     >
-                      <div
-                        className={classNames(classes.row, customClasses?.row)}
-                      >
+                      <div className={clsx(classes.row, customClasses?.row)}>
                         {!hideSaveForLater && (
                           <>
                             <Checkbox
@@ -561,7 +559,7 @@ export const PaymentStripeSEPARevamped = forwardRef(
                               {t('paymentPanel.actions.saveForLater')}
                             </Typography>
                             <div
-                              className={classNames(
+                              className={clsx(
                                 classes.securityInformationContainer,
                                 customClasses?.securityInformationContainer,
                               )}
@@ -571,7 +569,7 @@ export const PaymentStripeSEPARevamped = forwardRef(
                                   vertical: 'bottom',
                                   horizontal: 'center',
                                 }}
-                                className={classNames(
+                                className={clsx(
                                   classes.securityInformationText,
                                   customClasses?.securityInformationText,
                                 )}
@@ -584,7 +582,7 @@ export const PaymentStripeSEPARevamped = forwardRef(
                                 }}
                               >
                                 <Info
-                                  className={classNames(
+                                  className={clsx(
                                     classes.infoIcon,
                                     customClasses?.infoIcon,
                                   )}
@@ -597,7 +595,7 @@ export const PaymentStripeSEPARevamped = forwardRef(
 
                       {!!paymentMethodList.length && (
                         <ButtonBase
-                          className={classNames(
+                          className={clsx(
                             classes.displayButton,
                             customClasses?.displayButton,
                           )}
@@ -635,7 +633,7 @@ export const PaymentStripeSEPARevamped = forwardRef(
 
                 {hasAddPaymentMethodPermission && (
                   <ButtonBase
-                    className={classNames(
+                    className={clsx(
                       classes.addButton,
                       customClasses?.addButton,
                     )}
@@ -643,7 +641,7 @@ export const PaymentStripeSEPARevamped = forwardRef(
                     onClick={() => setAddPaymentMethod(true)}
                   >
                     <AddIcon
-                      className={classNames(
+                      className={clsx(
                         classes.leftIcon,
                         customClasses?.leftIcon,
                       )}
@@ -674,7 +672,7 @@ export const PaymentStripeSEPARevamped = forwardRef(
               <>
                 {AcceptTermsAndConditionsComponent && (
                   <div
-                    className={classNames(
+                    className={clsx(
                       classes.conditions,
                       customClasses?.conditions,
                     )}
@@ -683,10 +681,7 @@ export const PaymentStripeSEPARevamped = forwardRef(
                   </div>
                 )}
                 <div
-                  className={classNames(
-                    classes.actionRow,
-                    customClasses?.actionRow,
-                  )}
+                  className={clsx(classes.actionRow, customClasses?.actionRow)}
                 >
                   {processing ? (
                     <CircularProgress />

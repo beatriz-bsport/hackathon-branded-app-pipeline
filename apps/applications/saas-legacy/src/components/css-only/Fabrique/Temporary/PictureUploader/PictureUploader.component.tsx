@@ -1,5 +1,5 @@
 import React, { useCallback, useRef } from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import IconButton from '#Fabrique/IconButton';
 import { Pencil02, Plus } from '#src/components/untitledui';
 import { ActionType, ActionTypeEnum } from '.';
@@ -35,7 +35,7 @@ const ActionButton: React.FC<ActionButtonProps> = ({
     case ActionTypeEnum.EDIT:
       return (
         <IconButton
-          className={classNames(
+          className={clsx(
             'bs-fabrique-picture-loader__button',
             'bs-fabrique-picture-loader__button--edit',
             classes?.editButton,
@@ -55,7 +55,7 @@ const ActionButton: React.FC<ActionButtonProps> = ({
     default:
       return (
         <IconButton
-          className={classNames(
+          className={clsx(
             'bs-fabrique-picture-loader__button',
             'bs-fabrique-picture-loader__button--add',
             classes?.addButton,
@@ -102,9 +102,7 @@ const PictureUploader: React.FC<Props> = ({
   }, []);
 
   return (
-    <div
-      className={classNames('bs-fabrique-picture-loader__wrapper', classeName)}
-    >
+    <div className={clsx('bs-fabrique-picture-loader__wrapper', classeName)}>
       <input
         ref={fileInputRef}
         accept="image/*"

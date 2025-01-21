@@ -1,5 +1,5 @@
 import React from 'react';
-import classnames from 'classnames';
+import clsx from 'clsx';
 import { compose } from 'recompose';
 import { Formik, FormikProps } from 'formik';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -241,9 +241,7 @@ export const CanvasSpotCreatorForm = (props: Props) => {
         return (
           <form onSubmit={formikProps.handleSubmit}>
             <div className={classes.headerWithIcon}>
-              <InfoIcon
-                className={classnames(classes.leftIcon, classes.greyIcon)}
-              />
+              <InfoIcon className={clsx(classes.leftIcon, classes.greyIcon)} />
               <Typography variant="h6">
                 {t('spotCreatorForm.generalInfo')}
               </Typography>
@@ -276,7 +274,7 @@ export const CanvasSpotCreatorForm = (props: Props) => {
             <div className={classes.field}>
               <div className={classes.headerWithIcon}>
                 <CreateIcon
-                  className={classnames(classes.leftIcon, classes.greyIcon)}
+                  className={clsx(classes.leftIcon, classes.greyIcon)}
                 />
                 <Typography variant="h6">
                   {t('spotCreatorForm.customization')}

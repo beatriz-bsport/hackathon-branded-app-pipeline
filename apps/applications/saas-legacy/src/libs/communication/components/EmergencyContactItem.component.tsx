@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { compose } from 'recompose';
-import classnames from 'classnames';
+import clsx from 'clsx';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import ListItem from '@material-ui/core/ListItem';
@@ -27,7 +27,7 @@ export const EmergencyContactItem = (props: Props) => {
   return (
     <div>
       <FormLabel
-        className={classnames(classes.label, {
+        className={clsx(classes.label, {
           [classes.labelWithMarginLeft]: !disableGutters,
         })}
         component="legend"

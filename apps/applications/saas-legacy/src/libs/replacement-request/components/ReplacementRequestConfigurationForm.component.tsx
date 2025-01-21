@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import chroma from 'chroma-js';
 import { withFormik, Form, FormikProps } from 'formik';
 import * as Yup from 'yup';
-import classnames from 'classnames';
+import clsx from 'clsx';
 
 import Button from '@material-ui/core/Button';
 
@@ -135,7 +135,7 @@ const ReplacementRequestConfigurationForm: React.FC<
                   variant="outlined"
                 />
                 <div
-                  className={classnames(
+                  className={clsx(
                     classes.everyContainer,
                     classes.periodContainer,
                   )}

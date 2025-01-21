@@ -49,7 +49,7 @@ type Props = {
   classes: Object,
   offer: Offer,
   linkedHybridSession?: Offer,
-  noHeader: ?boolean,
+  noHeader?: boolean,
   onEditButtonClick: () => void,
   onDeleteButtonClick: () => void,
   companyId: number,

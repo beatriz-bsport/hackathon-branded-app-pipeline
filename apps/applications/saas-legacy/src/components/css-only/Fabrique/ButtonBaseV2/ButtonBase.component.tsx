@@ -1,5 +1,5 @@
 import React, { memo } from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 
 import type { ButtonHTMLType } from './types';
@@ -35,7 +35,7 @@ export const ButtonBase: React.FC<Props> = ({
   if (href) {
     return (
       <a
-        className={classNames(
+        className={clsx(
           'bs-fabrique-button-base-root',
           {
             'bs-fabrique-button-base-ripple': isRippleEnabled,
@@ -54,7 +54,7 @@ export const ButtonBase: React.FC<Props> = ({
 
   return (
     <button
-      className={classNames(
+      className={clsx(
         'bs-fabrique-button-base-root',
         {
           'bs-fabrique-button-base-ripple': isRippleEnabled,

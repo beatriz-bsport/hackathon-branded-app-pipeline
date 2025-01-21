@@ -1,7 +1,7 @@
 import React, { useCallback, useMemo } from 'react';
 
 import { DateTime } from 'luxon';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 
@@ -38,7 +38,7 @@ const YearPicker: React.FC<Props> = ({ className, onSelectYear, isOpen }) => {
 
   return (
     <div
-      className={classNames(
+      className={clsx(
         {
           'bs-fabrique-year-picker-root': isOpen,
           'bs-fabrique-year-picker-root--hidden': !isOpen,

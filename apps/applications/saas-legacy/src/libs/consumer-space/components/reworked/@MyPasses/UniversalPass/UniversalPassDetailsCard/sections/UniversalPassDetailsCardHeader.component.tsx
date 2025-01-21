@@ -1,6 +1,6 @@
 import React from 'react';
 
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import ListItem from '#Fabrique/ListItem';
 import List from '#Fabrique/List';
@@ -67,14 +67,14 @@ const UniversalPassDetailsCardHeader: React.FC<Props> = ({
         />
       )}
       <List
-        className={classNames('bs-universal-pass-details-card__header__list', {
+        className={clsx('bs-universal-pass-details-card__header__list', {
           'bs-universal-pass-details-card__header__list--hidden': hideList,
         })}
       >
         <ListItem
           captionText={caption}
           classes={{ label: customClassName, icon: customIconClassName }}
-          className={classNames(
+          className={clsx(
             'bs-universal-pass-details-card__header__list__item',
             customClassName,
           )}

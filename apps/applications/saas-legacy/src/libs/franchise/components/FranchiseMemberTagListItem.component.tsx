@@ -2,7 +2,7 @@ import React from 'react';
 import ListItem from '@material-ui/core/ListItem';
 import type { FranchiseUserTag } from '#src/libs/franchise/types';
 import makeStyles from '@material-ui/core/styles/makeStyles';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import Typography from '@material-ui/core/Typography';
 import Chip from '@material-ui/core/Chip';
 import Avatar from '@material-ui/core/Avatar';
@@ -34,7 +34,7 @@ const FranchiseMemberTagListItem: React.FC<Props> = ({ tag, isLast }) => {
     <ListItem
       key={tag.id}
       disableGutters
-      className={classNames(classes.listItem, {
+      className={clsx(classes.listItem, {
         [classes.lastItem]: isLast,
       })}
     >

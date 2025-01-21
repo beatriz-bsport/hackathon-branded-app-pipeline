@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { useTranslation } from 'react-i18next';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { DateTime } from 'luxon';
 
 import type { PaymentPack } from '#src/libs/payment-packs/types';
@@ -41,9 +41,7 @@ const MarketplacePaymentPackCreditStatus: React.FC<Props> = ({
 
   if (paymentPack.unlimited) {
     return (
-      <span
-        className={classNames('bs-consumer-pack-credit-status', { ...classes })}
-      >
+      <span className={clsx('bs-consumer-pack-credit-status', { ...classes })}>
         {t('paymentPack:unlimitedCredits')}
       </span>
     );
@@ -52,7 +50,7 @@ const MarketplacePaymentPackCreditStatus: React.FC<Props> = ({
   if (consumerPackHasPenalty) {
     return (
       <span
-        className={classNames('bs-consumer-pack-credit-status__error', {
+        className={clsx('bs-consumer-pack-credit-status__error', {
           ...classes,
         })}
       >
@@ -70,7 +68,7 @@ const MarketplacePaymentPackCreditStatus: React.FC<Props> = ({
 
   return (
     <span
-      className={classNames('bs-consumer-pack-credit-status', {
+      className={clsx('bs-consumer-pack-credit-status', {
         'bs-consumer-pack-credit-status__error': isErrorStatus,
         ...classes,
       })}

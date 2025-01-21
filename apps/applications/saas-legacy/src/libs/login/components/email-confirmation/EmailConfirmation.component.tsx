@@ -4,7 +4,7 @@ import '#src/components/css-only/Login/styles.css';
 import { useTranslation } from 'react-i18next';
 
 import { StylesProvider } from '@material-ui/styles';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 import ResendEmailForConfirmationDialog from '../ResendEmailForConfirmationDialog.component';
 import LoginTitle from '../LoginTitle.component';
@@ -15,7 +15,7 @@ type Props = {
   goBackToLogin: () => void;
   sendEmailForConfirmation: (options: any) => void;
   lastTimeSentEmailConfirmation: string;
-  company?: boolean;
+  company: boolean;
 };
 
 export const EmailConfirmation: React.FC<Props> = ({
@@ -39,7 +39,7 @@ export const EmailConfirmation: React.FC<Props> = ({
           />
         </div>
         <div
-          className={classNames(
+          className={clsx(
             'bs-email-confirmation-content__text-explain',
             'bs-email-confirmation-content__body1-text',
           )}

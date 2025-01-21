@@ -1,5 +1,5 @@
 import React from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 import ButtonBase from '../ButtonBaseV2';
 import { CardVariant, CardType } from './types';
@@ -56,7 +56,7 @@ const Card: React.FC<CardProps> = ({
   square,
   variant = 'rest',
 }) => {
-  const classes = classNames(
+  const classes = clsx(
     'bs-fabrique-card-root',
     `bs-fabrique-card--${componentType}`,
     `bs-fabrique-card--${variant}`,

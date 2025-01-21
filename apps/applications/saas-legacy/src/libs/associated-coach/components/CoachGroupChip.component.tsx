@@ -5,7 +5,7 @@ import Chip from '@material-ui/core/Chip';
 import Skeleton from '@material-ui/lab/Skeleton';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import { Theme } from '@material-ui/core/styles';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import CoachChip from './CoachChip.component';
 import { Coach } from '../types';
@@ -70,7 +70,7 @@ export const CoachGroupChip: React.FC<Props> = ({
       {currentCoaches.map((c, index) => (
         <div>
           <div
-            className={classNames(classes.superpose, 'shiftable')}
+            className={clsx(classes.superpose, 'shiftable')}
             // @ts-expect-error
             style={{ '--index': index + 1 }}
           >

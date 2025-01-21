@@ -3,7 +3,7 @@ import { compose, withStateHandlers, withHandlers } from 'recompose';
 import { connect, ConnectedProps } from 'react-redux';
 import { push as pushRouter } from 'connected-react-router';
 import { withTranslation, WithTranslation } from 'react-i18next';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import createStyles from '@material-ui/core/styles/createStyles';
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -482,7 +482,7 @@ export class CadenceDetailPage extends Component<Props> {
             >
               <div className={classes.stickyTop}>
                 <div
-                  className={classNames(
+                  className={clsx(
                     classes.whiteGreyBorderContainer,
                     classes.header,
                   )}

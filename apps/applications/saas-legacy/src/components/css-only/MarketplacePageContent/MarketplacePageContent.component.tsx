@@ -1,5 +1,5 @@
 import React from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 
@@ -25,9 +25,9 @@ const MarketplacePageContent: React.FC<Props> = ({
   classes,
 }) => {
   return (
-    <div className={classNames('bs-marketplace-page-content-root', className)}>
+    <div className={clsx('bs-marketplace-page-content-root', className)}>
       <div
-        className={classNames(
+        className={clsx(
           'bs-marketplace-page-content-root__children',
           classes?.children,
         )}

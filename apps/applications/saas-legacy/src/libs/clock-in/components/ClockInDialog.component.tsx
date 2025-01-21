@@ -3,7 +3,7 @@ import { DateTime } from 'luxon';
 import { useTranslation } from 'react-i18next';
 
 import { makeStyles, Theme } from '@material-ui/core';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import Dialog from '@material-ui/core/Dialog';
 import Typography from '@material-ui/core/Typography';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -161,7 +161,7 @@ const ClockInDialog: React.FC<Props> = ({
   return (
     <Dialog
       classes={{
-        paper: classNames({ [classes.bigPaper]: mode === CLOCK_IN_FOR_OTHER }),
+        paper: clsx({ [classes.bigPaper]: mode === CLOCK_IN_FOR_OTHER }),
       }}
       onClose={onClose}
       open={open}

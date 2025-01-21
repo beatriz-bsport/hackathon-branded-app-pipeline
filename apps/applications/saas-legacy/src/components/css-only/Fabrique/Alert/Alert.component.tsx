@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 import Typography from '#Fabrique/Typography';
@@ -134,14 +134,14 @@ const Alert: React.FC<Props> = ({
 
   return (
     <div
-      className={classNames(
+      className={clsx(
         'bs-fabrique-alert__root',
         backgroundClassName,
         className,
       )}
     >
       <div
-        className={classNames(
+        className={clsx(
           'bs-fabrique-alert__left-icon',
           {
             'bs-fabrique-alert__left-icon--hidden':
@@ -155,7 +155,7 @@ const Alert: React.FC<Props> = ({
       <div className="bs-fabrique-alert__text">
         <Typography
           align={TypographyTextAlign.LEFT}
-          className={classNames(
+          className={clsx(
             'bs-fabrique-alert__text__title',
             {
               'bs-fabrique-alert__text__title--hidden': !title,
@@ -168,10 +168,7 @@ const Alert: React.FC<Props> = ({
         </Typography>
         <Typography
           align={TypographyTextAlign.LEFT}
-          className={classNames(
-            'bs-fabrique-alert__text__content',
-            classes?.content,
-          )}
+          className={clsx('bs-fabrique-alert__text__content', classes?.content)}
           variant={TypographyVariant.BODY_SM}
         >
           {children}
@@ -179,7 +176,7 @@ const Alert: React.FC<Props> = ({
       </div>
 
       <div
-        className={classNames(
+        className={clsx(
           'bs-fabrique-alert__actions',
           {
             'bs-fabrique-alert__actions--hidden':
@@ -189,7 +186,7 @@ const Alert: React.FC<Props> = ({
         )}
       >
         <Button
-          className={classNames(
+          className={clsx(
             'bs-fabrique-alert__actions__main',
             {
               'bs-fabrique-alert__actions__main--hidden':
@@ -206,7 +203,7 @@ const Alert: React.FC<Props> = ({
           {actionText}
         </Button>
         <IconButton
-          className={classNames(
+          className={clsx(
             'bs-fabrique-alert__actions__close',
             {
               'bs-fabrique-alert__actions--hidden': !onClose,

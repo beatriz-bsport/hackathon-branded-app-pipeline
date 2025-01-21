@@ -1,7 +1,7 @@
 import React, { ChangeEvent, useState, useCallback } from 'react';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import Visibility from '@material-ui/icons/Visibility';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 import { TextFieldSize } from '.';
@@ -89,13 +89,13 @@ const TextField: React.FC<Props> = ({
 
   return (
     <div
-      className={classNames('bs-text-field-helper-text__container', {
+      className={clsx('bs-text-field-helper-text__container', {
         'bs-text-field-helper-text__container--full': isFullWidth,
       })}
       id={id}
     >
       <div
-        className={classNames(
+        className={clsx(
           'bs-text-field__container',
           {
             'bs-text-field__container--disabled': isDisabled,
@@ -110,7 +110,7 @@ const TextField: React.FC<Props> = ({
       >
         {!!label && (
           <label
-            className={classNames(
+            className={clsx(
               'bs-text-field__label',
               {
                 'bs-text-field__label--disabled': isDisabled,
@@ -130,7 +130,7 @@ const TextField: React.FC<Props> = ({
           </label>
         )}
         <input
-          className={classNames(
+          className={clsx(
             'bs-text-field__input',
             {
               'bs-text-field__input--disabled': isDisabled,
@@ -173,7 +173,7 @@ const TextField: React.FC<Props> = ({
 
       {!!helperText && (
         <p
-          className={classNames(
+          className={clsx(
             'bs-text-field__helper-text',
             {
               'bs-text-field__helper-text--error': isError,

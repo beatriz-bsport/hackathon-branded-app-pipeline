@@ -1,5 +1,5 @@
 import React from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 import BUYABLE_ITEM_CAN_NOT_BE_BOUGHT_ERROR_CODES from '@bsport/common/lib/master-data/error-codes/buyable-item-can-not-be-bought.js';
 
@@ -92,7 +92,7 @@ const MarketplaceOfferBookingList: React.FC<Props> = ({
 
   return (
     <div
-      className={classNames('bs-offer-booking-list__container', {
+      className={clsx('bs-offer-booking-list__container', {
         ...classes,
       })}
     >

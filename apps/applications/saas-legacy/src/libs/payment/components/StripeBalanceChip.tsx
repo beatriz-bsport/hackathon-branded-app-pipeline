@@ -1,5 +1,5 @@
 import React from 'react';
-import classnames from 'classnames';
+import clsx from 'clsx';
 
 import Typography from '@material-ui/core/Typography';
 import makeStyles from '@material-ui/core/styles/makeStyles';
@@ -26,7 +26,7 @@ export const StripeBalanceChip: React.FC<Props> = ({
   return (
     <div className={classes.chipContainer}>
       <div
-        className={classnames(classes.chipStatus, {
+        className={clsx(classes.chipStatus, {
           [classes.pendingChip]:
             !isAvailableBalanceChip && isPendingBalanceNonNull,
           [classes.emptyChip]:

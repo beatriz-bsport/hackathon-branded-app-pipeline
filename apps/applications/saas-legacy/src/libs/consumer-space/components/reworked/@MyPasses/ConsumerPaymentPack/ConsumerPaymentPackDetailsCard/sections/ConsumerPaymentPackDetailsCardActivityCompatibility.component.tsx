@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 
 import { Trans, useTranslation } from 'react-i18next';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import { DateTime } from 'luxon';
 import List from '#Fabrique/List';
@@ -57,7 +57,7 @@ const CompatibilityMainList: React.FC<
     return (
       <List className="bs-consumer-payment-pack-details-card__compatibility-section__list">
         <ListItem
-          className={classNames(
+          className={clsx(
             'bs-consumer-payment-pack-details-card__compatibility-section__list__item',
             {
               'bs-consumer-payment-pack-details-card__compatibility-section__list__item--hidden':
@@ -71,7 +71,7 @@ const CompatibilityMainList: React.FC<
           size="sm"
         />
         <ListItem
-          className={classNames(
+          className={clsx(
             'bs-consumer-payment-pack-details-card__compatibility-section__list__item',
             {
               'bs-consumer-payment-pack-details-card__compatibility-section__list__item--hidden':
@@ -85,7 +85,7 @@ const CompatibilityMainList: React.FC<
           size="sm"
         />
         <ListItem
-          className={classNames(
+          className={clsx(
             'bs-consumer-payment-pack-details-card__compatibility-section__list__item',
             {
               'bs-consumer-payment-pack-details-card__compatibility-section__list__item--hidden':
@@ -102,7 +102,7 @@ const CompatibilityMainList: React.FC<
           size="sm"
         />
         <ListItem
-          className={classNames(
+          className={clsx(
             'bs-consumer-payment-pack-details-card__compatibility-section__list__item',
             {
               'bs-consumer-payment-pack-details-card__compatibility-section__list__item--hidden':
@@ -131,16 +131,16 @@ const CompatiblityChipList: React.FC<{
   <ConsumerCardChipList
     chipsDataList={chipsDataList}
     classes={{
-      title: classNames(
+      title: clsx(
         `bs-consumer-payment-pack-details-card__compatibility-section__subsection__chip-list__title--${variant}`,
         'bs-consumer-payment-pack-details-card__compatibility-section__subsection__chip-list__title',
       ),
-      list: classNames(
+      list: clsx(
         `bs-consumer-payment-pack-details-card__compatibility-section__subsection__chip-list__list--${variant}`,
         'bs-consumer-payment-pack-details-card__compatibility-section__subsection__chip-list__list',
       ),
     }}
-    className={classNames(
+    className={clsx(
       `bs-consumer-payment-pack-details-card__compatibility-section__subsection__chip-list--${variant}`,
       'bs-consumer-payment-pack-details-card__compatibility-section__subsection__chip-list',
     )}
@@ -172,7 +172,7 @@ const ConsumerPaymentPackDetailsCardActivityCompatibility: React.FC<Props> = ({
             {
               chipColor: 'grey',
               text: compatibility.label,
-              chipClassName: classNames(
+              chipClassName: clsx(
                 'bs-consumer-payment-pack-details-card__compatibility-section__subsection__chip',
                 `bs-consumer-payment-pack-details-card__compatibility-section__subsection__chip--${compatibility.type}`,
               ),
@@ -212,7 +212,7 @@ const ConsumerPaymentPackDetailsCardActivityCompatibility: React.FC<Props> = ({
               )} to ${DateTime.fromFormat(timeSlot.to, 'H:m').toLocaleString(
                 DateTime.TIME_SIMPLE,
               )}`,
-              chipClassName: classNames(
+              chipClassName: clsx(
                 'bs-consumer-payment-pack-details-card__compatibility-section__subsection__chip',
                 `bs-consumer-payment-pack-details-card__compatibility-section__subsection__chip--time-slot`,
               ),
@@ -241,7 +241,7 @@ const ConsumerPaymentPackDetailsCardActivityCompatibility: React.FC<Props> = ({
         timeSlots={timeSlots}
       />
       <ConsumerCardSection
-        className={classNames(
+        className={clsx(
           'bs-consumer-payment-pack-details-card__compatibility-section__subsection--activity',
           'bs-consumer-payment-pack-details-card__compatibility-section__subsection',
           {
@@ -255,7 +255,7 @@ const ConsumerPaymentPackDetailsCardActivityCompatibility: React.FC<Props> = ({
         titleVariant="body-md"
       >
         <div
-          className={classNames(
+          className={clsx(
             'bs-consumer-payment-pack-details-card__compatibility-section__subsection__container--activity',
             'bs-consumer-payment-pack-details-card__compatibility-section__subsection__container',
           )}
@@ -284,7 +284,7 @@ const ConsumerPaymentPackDetailsCardActivityCompatibility: React.FC<Props> = ({
         </div>
       </ConsumerCardSection>
       <ConsumerCardSection
-        className={classNames(
+        className={clsx(
           'bs-consumer-payment-pack-details-card__compatibility-section__subsection--time-slot',
           'bs-consumer-payment-pack-details-card__compatibility-section__subsection',
           {
@@ -298,7 +298,7 @@ const ConsumerPaymentPackDetailsCardActivityCompatibility: React.FC<Props> = ({
         titleVariant="body-md"
       >
         <div
-          className={classNames(
+          className={clsx(
             'bs-consumer-payment-pack-details-card__compatibility-section__subsection__container--activity',
             'bs-consumer-payment-pack-details-card__compatibility-section__subsection__container',
           )}

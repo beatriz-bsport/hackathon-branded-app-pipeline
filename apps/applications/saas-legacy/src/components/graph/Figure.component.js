@@ -14,7 +14,7 @@ type Props = {
   name: string,
   count: number,
   color: colors,
-  children: ?React.Node,
+  children?: React.Node,
   classes: { [colors]: string },
 };
 const styles = () => ({

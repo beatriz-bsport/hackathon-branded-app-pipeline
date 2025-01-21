@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
 
-import classNames from 'classnames';
+import clsx from 'clsx';
 import './styles.css';
 
 type Props = {
@@ -13,7 +13,7 @@ export const PageContentContainer: React.FC<Props> = ({
   contentClassName,
 }) => {
   return (
-    <div className={classNames('bs-consumer-page__root', contentClassName)}>
+    <div className={clsx('bs-consumer-page__root', contentClassName)}>
       {children}
     </div>
   );

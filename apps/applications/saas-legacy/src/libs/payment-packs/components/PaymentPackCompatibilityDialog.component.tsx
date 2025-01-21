@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import Button from '@material-ui/core/Button';
 import CategoryIcon from '@material-ui/icons/Category';
 import StarIcon from '@material-ui/icons/Star';
@@ -128,12 +128,12 @@ export const PaymentPackCompatibilityDialog = (props: Props) => {
         <div className={classes.allSteps}>
           <div className={classes.stepWithIcon}>
             <CategoryIcon
-              className={classNames(classes.topIcon, {
+              className={clsx(classes.topIcon, {
                 [classes.highligthed]: activeStep === 0,
               })}
             />
             <Typography
-              className={classNames({
+              className={clsx({
                 [classes.highligthed]: activeStep === 0,
               })}
               variant="h6"
@@ -143,12 +143,12 @@ export const PaymentPackCompatibilityDialog = (props: Props) => {
           </div>
           <div className={classes.stepWithIcon}>
             <StarIcon
-              className={classNames(classes.topIcon, {
+              className={clsx(classes.topIcon, {
                 [classes.highligthed]: activeStep === 1,
               })}
             />
             <Typography
-              className={classNames({
+              className={clsx({
                 [classes.highligthed]: activeStep === 1,
               })}
               variant="h6"
@@ -158,12 +158,12 @@ export const PaymentPackCompatibilityDialog = (props: Props) => {
           </div>
           <div className={classes.stepWithIcon}>
             <RoomIcon
-              className={classNames(classes.topIcon, {
+              className={clsx(classes.topIcon, {
                 [classes.highligthed]: activeStep === 2,
               })}
             />
             <Typography
-              className={classNames({
+              className={clsx({
                 [classes.highligthed]: activeStep === 2,
               })}
               variant="h6"

@@ -14,7 +14,7 @@ import * as Yup from 'yup';
 import AccountBalanceWalletIcon from '@material-ui/icons/AccountBalanceWallet';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
 import type { Basket } from '#src/libs/checkout/types';
 import type { OptionCallback } from '../../../state/types';
@@ -83,7 +83,7 @@ export const UseInternalAccountForm: React.FC<Props> = ({
             </Typography>
           )}
           <div
-            className={classNames(
+            className={clsx(
               classes.greyContainer,
               classes.accountBalanceContainer,
             )}
@@ -92,7 +92,7 @@ export const UseInternalAccountForm: React.FC<Props> = ({
               {getCurrencyDisplayWithPrice(creditAccountBalance)}
             </Typography>
             {!open && (
-              <div className={classNames(classes.container, classes.fullWidth)}>
+              <div className={clsx(classes.container, classes.fullWidth)}>
                 <div className={classes.outterButtonContainer}>
                   <Button
                     fullWidth

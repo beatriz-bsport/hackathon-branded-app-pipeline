@@ -2,7 +2,7 @@ import React, { useCallback } from 'react';
 
 import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
 import RadioButtonCheckedIcon from '@material-ui/icons/RadioButtonChecked';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 
@@ -39,7 +39,7 @@ const Checkbox: React.FC<Props> = React.memo(
       : 'bs-radio__label--default';
 
     return (
-      <div className={classNames('bs-radio__container', className)}>
+      <div className={clsx('bs-radio__container', className)}>
         <label className={labelClass} htmlFor={name}>
           <input
             checked={isChecked}
@@ -52,13 +52,13 @@ const Checkbox: React.FC<Props> = React.memo(
 
           {isChecked ? (
             <RadioButtonCheckedIcon
-              className={classNames('bs-radio--checked', {
+              className={clsx('bs-radio--checked', {
                 'bs-radio--disabled': disabled,
               })}
             />
           ) : (
             <RadioButtonUncheckedIcon
-              className={classNames('bs-radio--unchecked', {
+              className={clsx('bs-radio--unchecked', {
                 'bs-radio--disabled': disabled,
               })}
             />

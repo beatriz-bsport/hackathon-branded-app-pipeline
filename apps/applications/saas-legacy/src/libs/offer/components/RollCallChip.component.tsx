@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { PlaylistAddCheck } from '@material-ui/icons';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import { DateTime } from 'luxon';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { ButtonBase } from '@material-ui/core';
 import Tooltip from '#src/components/Tooltip.component';
 import { formatISOStringAsTime } from '../../../utils/datetime';
@@ -36,7 +36,7 @@ export const RollCallChip: React.FC<Props> = (props) => {
         }
       >
         <div
-          className={classNames(
+          className={clsx(
             classes.chipStatus,
             props.isValidated
               ? classes.validatedChipStatus

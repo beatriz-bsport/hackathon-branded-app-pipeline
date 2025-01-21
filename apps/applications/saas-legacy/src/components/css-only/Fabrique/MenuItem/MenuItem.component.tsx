@@ -1,5 +1,5 @@
 import React from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 
 import Typography from '#Fabrique/Typography';
@@ -67,12 +67,9 @@ const MenuItem: React.FC<MenuItemProps> = ({
 }) => {
   if (type === MenuItemTypeEnum.TEXT) {
     return (
-      <li className={classNames('bs-fabrique-menu-item-root', className)}>
+      <li className={clsx('bs-fabrique-menu-item-root', className)}>
         <ButtonBase
-          className={classNames(
-            'bs-fabrique-menu-item__button',
-            classes?.button,
-          )}
+          className={clsx('bs-fabrique-menu-item__button', classes?.button)}
           href={href}
           isRippleEnabled={isRippleEnabled}
           onClick={onClick}
@@ -80,7 +77,7 @@ const MenuItem: React.FC<MenuItemProps> = ({
         >
           {!!leftIcon && (
             <span
-              className={classNames(
+              className={clsx(
                 'bs-fabrique-menu-item__left-icon',
                 classes?.icon,
               )}
@@ -89,17 +86,14 @@ const MenuItem: React.FC<MenuItemProps> = ({
             </span>
           )}
           <Typography
-            className={classNames(
-              'bs-fabrique-menu-item__label',
-              classes?.label,
-            )}
+            className={clsx('bs-fabrique-menu-item__label', classes?.label)}
             variant="body-sm"
           >
             {label}
           </Typography>
 
           <div
-            className={classNames('bs-fabrique-menu-item__right-slot', {
+            className={clsx('bs-fabrique-menu-item__right-slot', {
               'bs-fabrique-menu-item__right-slot--hidden': !rightSlot,
             })}
           >
@@ -111,9 +105,9 @@ const MenuItem: React.FC<MenuItemProps> = ({
   }
 
   return (
-    <li className={classNames('bs-fabrique-menu-item-root', className)}>
+    <li className={clsx('bs-fabrique-menu-item-root', className)}>
       <ButtonBase
-        className={classNames(
+        className={clsx(
           'bs-fabrique-menu-item__button',
           { 'bs-fabrique-menu-item__button--selected': selected },
           classes?.button,

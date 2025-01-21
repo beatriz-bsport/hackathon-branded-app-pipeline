@@ -100,7 +100,7 @@ import { withIsSharedActive } from '../../libs/relationship/selectors';
 import { WithIsSharedActive } from '../../libs/relationship/types';
 
 type Props = {
-  member: ?Member,
+  member?: Member,
   id: number,
   fetchMember: (id: number) => void,
   fetchConsumerPacks: ({
@@ -123,7 +123,7 @@ type Props = {
   passExtensionsCount: number,
   consumerPackLoading: boolean,
   consumerPacks: Array<WithIsSharedActive<ConsumerPaymentPack>>,
-  selectedConsumerPass: ?ConsumerPaymentPack,
+  selectedConsumerPass?: ConsumerPaymentPack,
   onSelectConsumerPass: (memberId: number, consumerPassId: number) => void,
   consumerPackInvoice: Invoice,
   goToInvoice: (uuid: string) => void,
@@ -154,12 +154,12 @@ type Props = {
 
   requestRefund: (ConsumerPaymentPack) => void,
 
-  consumerPaymentPackToRefund: ?ConsumerPaymentPack,
+  consumerPaymentPackToRefund?: ConsumerPaymentPack,
   refundLoading: boolean,
   closeRefund: () => void,
   refundConsumerPaymentPack: (id: number, data: any) => void,
 
-  consumerPassId: ?number,
+  consumerPassId?: number,
   retrieveConsumerPackBulk: (
     consumerPaymentPacks: Array<number>,
     opt: OptionCallback,
@@ -170,7 +170,7 @@ type Props = {
   setOpenCreateExtension: (boolean) => void,
   deleteConsumerPaymentPackExtension: (
     id: number,
-    options: ?{ onSuccess: ?() => void, onError: ?() => void },
+    options?: { onSuccess?: () => void, onError?: () => void },
   ) => void,
   openCreateExtension: boolean,
   setOpenCreateExtension: (boolean) => void,
@@ -182,7 +182,7 @@ type Props = {
   classes: Object,
 
   fetchConsumerPaymentPackCreditRefundList: (id: number) => void,
-  consumerPassId: ?number,
+  consumerPassId?: number,
   fetchConsumerPaymentPackPenalty: (
     consumerPassId: number,
     page: number,
@@ -225,7 +225,7 @@ type Props = {
 };
 
 type State = {
-  bookingToRevert: ?Booking,
+  bookingToRevert?: Booking,
   noShowChipMessageDialogIsOpen: boolean,
   statusChangedDialogIsOpen: boolean,
 };

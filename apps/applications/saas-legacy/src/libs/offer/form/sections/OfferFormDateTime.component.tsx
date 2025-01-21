@@ -3,7 +3,7 @@ import { Settings, DateTime } from 'luxon';
 import { LocalizedLuxonUtils } from '#src/i18n/utils/luxon-picker-utils';
 import { useFormikContext } from 'formik';
 import { useTranslation } from 'react-i18next';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import {
   useTheme,
@@ -266,7 +266,7 @@ const OfferFormDateTime: React.FC<Props> = ({
               required
               adornmentPosition="start"
               ampm={isAmPmTimeFormat()}
-              className={classNames(classes.timeInput)}
+              className={clsx(classes.timeInput)}
               disabled={!!disabled}
               error={
                 typeof errors.dateIntervalStart === 'string' &&
@@ -465,12 +465,7 @@ const OfferFormDateTime: React.FC<Props> = ({
                 isError={!!errors.recurrence}
                 label={t('offer:form.section.dateTime.field.recurrence.title')}
               >
-                <div
-                  className={classNames(
-                    classes.bigWidth,
-                    classes.errorContainer,
-                  )}
-                >
+                <div className={clsx(classes.bigWidth, classes.errorContainer)}>
                   <OfferFormSelector
                     className={classes.bigWidth}
                     id="offer-form-recurrence-selector"

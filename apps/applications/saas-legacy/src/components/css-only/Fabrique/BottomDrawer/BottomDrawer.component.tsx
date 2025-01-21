@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 import Blanket, { Props as BlanketProps } from '#Fabrique/Blanket';
@@ -75,7 +75,7 @@ export const BottomDrawer: React.FC<Props> = ({
     <Blanket
       {...blanketProps}
       classes={{
-        content: classNames(
+        content: clsx(
           'bs-fabrique-bottom-drawer__blanket-content',
           {
             'bs-fabrique-bottom-drawer__blanket-content--expanded': isExpanded,
@@ -83,12 +83,12 @@ export const BottomDrawer: React.FC<Props> = ({
           blanketProps?.classes?.content,
         ),
       }}
-      className={classNames('bs-fabrique-bottom-drawer__blanket', className)}
+      className={clsx('bs-fabrique-bottom-drawer__blanket', className)}
     >
       <ModalDialog
         {...modalDialogProps}
         isFullWidth
-        className={classNames(
+        className={clsx(
           'bs-fabrique-bottom-drawer__modal-dialog',
           {
             'bs-fabrique-bottom-drawer__modal-dialog--expanded': isExpanded,

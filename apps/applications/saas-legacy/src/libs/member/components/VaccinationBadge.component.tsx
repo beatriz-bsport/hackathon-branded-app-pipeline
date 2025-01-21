@@ -1,7 +1,7 @@
 import React from 'react';
 import LocalHospitalIcon from '@material-ui/icons/LocalHospital';
 import { makeStyles } from '@material-ui/core/styles';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 type Props = {
   children: any;
@@ -16,7 +16,7 @@ export const VaccinationBadge = (props: Props) => {
       {props.children}
       {props.status && (
         <div
-          className={classNames(classes.badge, {
+          className={clsx(classes.badge, {
             [classes.topRightCorner]: props.topRightIcon,
           })}
         >
@@ -25,7 +25,7 @@ export const VaccinationBadge = (props: Props) => {
       )}
       {!props.status && props.status !== null && (
         <div
-          className={classNames(classes.badge, {
+          className={clsx(classes.badge, {
             [classes.topRightCorner]: props.topRightIcon,
           })}
         >

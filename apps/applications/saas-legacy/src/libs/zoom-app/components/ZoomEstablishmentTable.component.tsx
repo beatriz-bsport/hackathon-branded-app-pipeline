@@ -1,7 +1,7 @@
 import React, { useState, useCallback, useMemo, useRef } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import Select from 'react-select';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import isEqual from 'lodash/isEqual';
 import omit from 'lodash/omit';
 
@@ -303,7 +303,7 @@ export const ZoomEstablishmentTable: React.FC<Props> = ({
                 </TableCell>
                 <TableCell>
                   <Button
-                    className={classNames(classes.row, classes.textSecondary)}
+                    className={clsx(classes.row, classes.textSecondary)}
                     disabled={disabled}
                     onClick={getRemoveZoomEstablishmentEntryHandler(entry.id)}
                     variant="outlined"

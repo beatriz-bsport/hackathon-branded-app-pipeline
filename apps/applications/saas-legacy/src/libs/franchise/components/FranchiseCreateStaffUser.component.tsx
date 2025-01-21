@@ -10,7 +10,7 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 
 import { WithTranslation, withTranslation } from 'react-i18next';
 import { Divider, Typography } from '@material-ui/core';
-import classNames from 'classnames';
+import clsx from 'clsx';
 // @ts-expect-error
 import { Actions, Submit } from '#src/components/forms';
 import MaterialUISelector from '#src/components/Selector/MaterialUISelector.component';
@@ -271,7 +271,7 @@ export class FranchiseCreateStaffUser extends React.Component<Props, State> {
             <Alert className={classes.alertInfo} severity="info">
               {t('forms.user.create.franchisees.warning')}
             </Alert>
-            <div className={classNames(classes.field, classes.expandForm)}>
+            <div className={clsx(classes.field, classes.expandForm)}>
               <MaterialUISelector
                 isMulti
                 isDisabled={

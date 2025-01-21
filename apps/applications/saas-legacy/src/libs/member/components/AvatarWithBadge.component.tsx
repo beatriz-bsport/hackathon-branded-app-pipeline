@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core';
 import Avatar from '@material-ui/core/Avatar';
 import type { BadgeClassKey } from '@material-ui/core/Badge';
 
-import classNames from 'classnames';
+import clsx from 'clsx';
 import type { Member } from '#src/libs/member/types';
 import type { Tag, TagGroup } from '#src/libs/tag/types';
 import CreditMemberBadge from './CreditMemberBadge.component';
@@ -23,7 +23,7 @@ const AvatarWithBadge: React.FC<Props> = ({
   const classesStyle = useStyles();
   return (
     <div
-      className={classNames({
+      className={clsx({
         [classesStyle.hoverCredit]: member?.tags?.some(
           (tag) => !!tag?.icon && tag?.icon.length !== 0,
         ),

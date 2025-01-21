@@ -1,7 +1,7 @@
 import React, { memo, useMemo } from 'react';
 import { DateTime } from 'luxon';
 import chroma from 'chroma-js';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import Typography from '@material-ui/core/Typography';
 import {
   Info,
@@ -435,7 +435,7 @@ export const CommunicationMessageBubble = (props: Props) => {
           </div>
         </div>
         <div
-          className={classNames(
+          className={clsx(
             classes.flexEnd,
             'bs-communication__message__bubble__footer__container',
             {
@@ -455,7 +455,7 @@ export const CommunicationMessageBubble = (props: Props) => {
           {!reverse &&
             communication.status === COMMUNICATION_SENT_SENDING_FAIL && (
               <Typography
-                className={classNames(
+                className={clsx(
                   classes.statusContainer,
                   classes.statusFail,
                   'bs-communication__message__bubble__status__container',
@@ -469,7 +469,7 @@ export const CommunicationMessageBubble = (props: Props) => {
           {!reverse &&
             communication.status === COMMUNICATION_SENT_SENDING_PROCESSING && (
               <Typography
-                className={classNames(
+                className={clsx(
                   classes.statusContainer,
                   classes.statusProcessing,
                   'bs-communication__message__bubble__status__container',

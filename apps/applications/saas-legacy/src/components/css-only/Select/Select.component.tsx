@@ -6,7 +6,7 @@ import React, {
   useState,
 } from 'react';
 
-import classNames from 'classnames';
+import clsx from 'clsx';
 import KeyboardArrowDown from '@material-ui/icons/KeyboardArrowDown';
 import ClearIcon from '@material-ui/icons/Clear';
 
@@ -134,14 +134,14 @@ const Select: React.FC<Props> = React.memo(
     return (
       <div
         ref={selectContainer}
-        className={classNames('bs-select__container', {
+        className={clsx('bs-select__container', {
           'bs-select--idle-width': !fullWidth,
           'bs-select--full-width': fullWidth,
         })}
         {...(id ? { id } : {})}
       >
         <button
-          className={classNames(classes?.buttonContainer, {
+          className={clsx(classes?.buttonContainer, {
             'bs-select__button': !classes?.buttonContainer,
             'bs-select__focused': value && !classes?.buttonContainer,
             'bs-select__text__primary': value && !classes?.buttonContainer,
@@ -150,12 +150,12 @@ const Select: React.FC<Props> = React.memo(
           type="button"
         >
           <div
-            className={classNames('bs-select__input__container', {
+            className={clsx('bs-select__input__container', {
               'bs-select__text__primary': value && !classes?.buttonContainer,
             })}
           >
             <span
-              className={classNames('bs-select__input__container__text', {
+              className={clsx('bs-select__input__container__text', {
                 'bs-select__text__primary': value && !classes?.buttonContainer,
               })}
             >
@@ -163,7 +163,7 @@ const Select: React.FC<Props> = React.memo(
             </span>
 
             <div
-              className={classNames('bs-select__input__container__icons', {
+              className={clsx('bs-select__input__container__icons', {
                 'bs-select__text__primary': value && !classes?.buttonContainer,
                 'bs-select__idle__text': !value,
               })}
@@ -180,7 +180,7 @@ const Select: React.FC<Props> = React.memo(
 
         {isOptionListOpen && (
           <ul
-            className={classNames(
+            className={clsx(
               'bs-select__dropdown__list',
               'bs-select__idle__text',
               {

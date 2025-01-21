@@ -1,5 +1,5 @@
 import React from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import { MarketPlaceCoachDisplay } from '@bsport/common/lib/master-data/personalization.js';
 
@@ -47,7 +47,7 @@ const MarketplaceCoachInfos: React.FC<Props> = React.memo(
         case MarketPlaceCoachDisplay.FIRST_NAME_WITH_PICTURE:
           return (
             <div
-              className={classNames({
+              className={clsx({
                 ...classes,
               })}
             >
@@ -78,7 +78,7 @@ const MarketplaceCoachInfos: React.FC<Props> = React.memo(
         default:
           return (
             <div
-              className={classNames({
+              className={clsx({
                 ...classes,
               })}
             >

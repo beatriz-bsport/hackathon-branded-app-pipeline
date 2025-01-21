@@ -74,7 +74,7 @@ type Props = {
   onlinePaymentEnabled: boolean,
 };
 type State = {
-  tempSubscription: ?SubscriptionData,
+  tempSubscription?: SubscriptionData,
   processing: boolean,
 };
 
@@ -97,7 +97,7 @@ export class SubscriptionCreate extends Component<Props, State> {
     }
   }
 
-  storeTempSubscription = (tempSubscription: ?SubscriptionData) => {
+  storeTempSubscription = (tempSubscription?: SubscriptionData) => {
     this.setState({ tempSubscription });
   };
 

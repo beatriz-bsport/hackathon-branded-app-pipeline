@@ -13,7 +13,7 @@ import {
 import React from 'react';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import { compose } from 'recompose';
-import clx from 'classnames';
+import clsx from 'clsx';
 
 import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
 import CreateIcon from '@material-ui/icons/Create';
@@ -52,7 +52,7 @@ import PointerIcon from './tools/Pointer/Pointer.icon';
 import HandIcon from './tools/Hand/Hand.icon';
 import { SpotType } from '../types';
 
-import { Config } from '../../../config';
+import Config from '../../../config';
 type OwnProps = {
   selectedTool: CanvasSelectableToolsEnum;
   onSelectTool: (tool: CanvasSelectableToolsEnum, spotId?: number) => void;
@@ -110,7 +110,7 @@ class CanvasToolsMenu extends React.PureComponent<Props> {
           <Grid item xs={4}>
             <div className={classes.itemContainer}>
               <ButtonBase
-                className={clx({
+                className={clsx({
                   [classes.item]: true,
                   [classes.itemSelected]:
                     this.props.selectedTool === CANVAS_SELECTABLE_TOOLS.pointer,
@@ -127,7 +127,7 @@ class CanvasToolsMenu extends React.PureComponent<Props> {
           <Grid item xs={4}>
             <div className={classes.itemContainer}>
               <ButtonBase
-                className={clx({
+                className={clsx({
                   [classes.item]: true,
                   [classes.itemSelected]:
                     this.props.selectedTool === CANVAS_SELECTABLE_TOOLS.resizer,
@@ -142,7 +142,7 @@ class CanvasToolsMenu extends React.PureComponent<Props> {
           <Grid item xs={4}>
             <div className={classes.itemContainer}>
               <ButtonBase
-                className={clx({
+                className={clsx({
                   [classes.item]: true,
                   [classes.itemSelected]:
                     this.props.selectedTool === CANVAS_SELECTABLE_TOOLS.hand,
@@ -159,7 +159,7 @@ class CanvasToolsMenu extends React.PureComponent<Props> {
           <Grid item xs={4}>
             <div className={classes.itemContainer}>
               <ButtonBase
-                className={clx({
+                className={clsx({
                   [classes.item]: true,
                   [classes.itemSelected]:
                     this.props.selectedTool ===
@@ -177,7 +177,7 @@ class CanvasToolsMenu extends React.PureComponent<Props> {
           <Grid item xs={4}>
             <div className={classes.itemContainer}>
               <ButtonBase
-                className={clx({
+                className={clsx({
                   [classes.item]: true,
                   [classes.itemSelected]:
                     this.props.selectedTool === CANVAS_SELECTABLE_TOOLS.copier,
@@ -194,7 +194,7 @@ class CanvasToolsMenu extends React.PureComponent<Props> {
           <Grid item xs={4}>
             <div className={classes.itemContainer}>
               <ButtonBase
-                className={clx({
+                className={clsx({
                   [classes.item]: true,
                   [classes.itemSelected]:
                     this.props.selectedTool === CANVAS_SELECTABLE_TOOLS.eraser,
@@ -216,7 +216,7 @@ class CanvasToolsMenu extends React.PureComponent<Props> {
           <Grid item xs={4}>
             <div className={classes.itemContainer}>
               <ButtonBase
-                className={clx({
+                className={clsx({
                   [classes.item]: true,
                   [classes.itemSelected]:
                     this.props.selectedTool ===
@@ -277,7 +277,7 @@ class CanvasToolsMenu extends React.PureComponent<Props> {
           <Grid item xs={4}>
             <div className={classes.itemContainer}>
               <ButtonBase
-                className={clx({
+                className={clsx({
                   [classes.item]: true,
                   [classes.itemSelected]:
                     this.props.selectedTool === CANVAS_SELECTABLE_TOOLS.line,
@@ -294,7 +294,7 @@ class CanvasToolsMenu extends React.PureComponent<Props> {
           <Grid item xs={4}>
             <div className={classes.itemContainer}>
               <ButtonBase
-                className={clx({
+                className={clsx({
                   [classes.item]: true,
                   [classes.itemSelected]:
                     this.props.selectedTool === CANVAS_SELECTABLE_TOOLS.rect,
@@ -416,7 +416,7 @@ class CanvasToolsMenu extends React.PureComponent<Props> {
           <Grid item xs={4}>
             <div className={classes.itemContainer}>
               <ButtonBase
-                className={clx({
+                className={clsx({
                   [classes.item]: true,
                   [classes.itemSelected]:
                     this.props.selectedTool === CANVAS_SELECTABLE_TOOLS.teacher,
@@ -465,7 +465,7 @@ class CanvasToolsMenu extends React.PureComponent<Props> {
           <Grid item xs={4}>
             <div className={classes.itemContainer}>
               <ButtonBase
-                className={clx({
+                className={clsx({
                   [classes.item]: true,
                   [classes.itemSelected]:
                     this.props.selectedTool === CANVAS_SELECTABLE_TOOLS.screen,
@@ -483,7 +483,7 @@ class CanvasToolsMenu extends React.PureComponent<Props> {
           <Grid item xs={4}>
             <div className={classes.itemContainer}>
               <ButtonBase
-                className={clx({
+                className={clsx({
                   [classes.item]: true,
                   [classes.itemSelected]:
                     this.props.selectedTool === CANVAS_SELECTABLE_TOOLS.door,
@@ -543,7 +543,7 @@ class CanvasToolsMenu extends React.PureComponent<Props> {
               <Grid item xs={12}>
                 <div className={classes.itemContainer}>
                   <ButtonBase
-                    className={clx({
+                    className={clsx({
                       [classes.item]: true,
                       [classes.itemSelected]:
                         this.props.selectedTool ===

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import DEFAULT_PROFILE_PICTURE_URL from '../../../../../../assets/constants';
 
@@ -17,7 +17,7 @@ const OfferCoachPicture: React.FC<Props> = React.memo(
     return (
       <img
         alt="coach-avatar"
-        className={classNames('bs-card-offer__content__coach__avatar', {
+        className={clsx('bs-card-offer__content__coach__avatar', {
           'bs-card-offer__content__coach__avatar--reverse': reverse,
           ...classes,
         })}

@@ -5,7 +5,7 @@ import React, {
   useEffect,
   useMemo,
 } from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import throttle from 'lodash/throttle';
 import { DateTime } from 'luxon';
 
@@ -164,7 +164,7 @@ const MarketplaceDatePicker: React.FC<Props> = ({
     <>
       <div
         ref={anchorRef}
-        className={classNames({
+        className={clsx({
           'bs-marketplace-date-picker': !isInputButton,
           'bs-marketplace-date-picker--open': isOpen,
           'bs-marketplace-date-picker__input__button__container': isInputButton,
@@ -173,7 +173,7 @@ const MarketplaceDatePicker: React.FC<Props> = ({
         {!isInputButton && (
           <>
             <button
-              className={classNames('bs-marketplace-date-picker__left-button', {
+              className={clsx('bs-marketplace-date-picker__left-button', {
                 'bs-marketplace-date-picker___left-button--open': isOpen,
               })}
               onClick={handleFastSelect('subtract')}
@@ -182,7 +182,7 @@ const MarketplaceDatePicker: React.FC<Props> = ({
               <ChevronLeftIcon color="inherit" />
             </button>
             <button
-              className={classNames('bs-marketplace-date-picker__placeholder', {
+              className={clsx('bs-marketplace-date-picker__placeholder', {
                 'bs-marketplace-date-picker__placeholder--open': isOpen,
               })}
               onClick={handleOpenMenu}
@@ -191,12 +191,9 @@ const MarketplaceDatePicker: React.FC<Props> = ({
               {getDateDisplay()}
             </button>
             <button
-              className={classNames(
-                'bs-marketplace-date-picker__right-button',
-                {
-                  'bs-marketplace-date-picker__right-button--open': isOpen,
-                },
-              )}
+              className={clsx('bs-marketplace-date-picker__right-button', {
+                'bs-marketplace-date-picker__right-button--open': isOpen,
+              })}
               onClick={handleFastSelect('add')}
               type="button"
             >

@@ -75,12 +75,12 @@ const useStyles = makeStyles((theme) => ({
 
 export const PlannedInvoiceItem = (props: {
   invoice: PlannedInvoice,
-  onClick: (event: *) => void,
+  onClick: (event: any) => void,
   t: TFunction,
   showUpdatePriceButton: boolean,
-  requestUpdatePrice: ?() => void,
-  selected: ?boolean,
-  subscriptionHasEnded: ?boolean,
+  requestUpdatePrice?: () => void,
+  selected?: boolean,
+  subscriptionHasEnded?: boolean,
 }) => {
   const { statusText, statusIcon } = renderStatus(
     props.t,

@@ -118,7 +118,7 @@ import type {
   ConsumerGiftcard,
   Giftcard,
   GiftcardAttributePrintableCodePayload,
-} from '#../../ibs/giftcard/types';
+} from '../../libs/giftcard/types';
 import type {
   PlannedPaymentEvent,
   InvoiceV1Serializer,
@@ -251,7 +251,7 @@ type Props = {
 };
 
 type State = {
-  clientSecret: ?string,
+  clientSecret?: string,
   clientSecretLoading: boolean,
   coupon_list: Array<{ coupon_code: string, coupon_voucher: number }>,
   paymentGroupPriceCts: number,

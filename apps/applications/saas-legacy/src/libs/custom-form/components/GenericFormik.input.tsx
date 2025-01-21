@@ -1,5 +1,5 @@
 import React, { ReactNode, useCallback, useMemo } from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import MuiTextField from '@material-ui/core/TextField';
 import { makeStyles, Theme } from '@material-ui/core/styles';
@@ -202,7 +202,7 @@ export const MaterialUiSingleSelectorField: React.FC<
   );
 
   return (
-    <div className={classNames(classes.container, props.className)}>
+    <div className={clsx(classes.container, props.className)}>
       {!!props.title && props.title}
       <Field {...props}>
         {() => (
@@ -340,7 +340,7 @@ export const MaterialUiMultiSelectorField: React.FC<Props> = (props) => {
   );
 
   return (
-    <div className={classNames(classes.container, props.className)}>
+    <div className={clsx(classes.container, props.className)}>
       {!!props.title && props.title}
       <Field {...props}>
         {() => (

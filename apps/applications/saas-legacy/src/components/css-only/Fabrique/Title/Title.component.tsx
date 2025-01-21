@@ -1,5 +1,5 @@
 import React from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 import Typography from '#Fabrique/Typography';
 import Collapse from '#Fabrique/Collapse';
@@ -81,20 +81,20 @@ const Title: React.FC<Props> = ({
         >
           <div className="bs-fabrique-title__title-wrapper">
             <Typography
-              className={classNames('bs-fabrique-title__title')}
+              className={clsx('bs-fabrique-title__title')}
               variant={titleClassName}
             >
               {title}
             </Typography>
             <Typography
-              className={classNames('bs-fabrique-title__subtitle')}
+              className={clsx('bs-fabrique-title__subtitle')}
               variant={subtitleClassName}
             >
               {subtitle}
             </Typography>
           </div>
           <ChevronDown
-            className={classNames(arrowClassName, {
+            className={clsx(arrowClassName, {
               'bs-fabrique-title__arrow--rotate': isExpanded,
             })}
           />
@@ -111,15 +111,15 @@ const Title: React.FC<Props> = ({
   }
 
   return (
-    <div className={classNames('bs-fabrique-title__root', className)}>
+    <div className={clsx('bs-fabrique-title__root', className)}>
       <Typography
-        className={classNames('bs-fabrique-title__title', classes?.title)}
+        className={clsx('bs-fabrique-title__title', classes?.title)}
         variant={titleClassName}
       >
         {title}
       </Typography>
       <Typography
-        className={classNames('bs-fabrique-title__subtitle', classes?.subTitle)}
+        className={clsx('bs-fabrique-title__subtitle', classes?.subTitle)}
         variant={subtitleClassName}
       >
         {subtitle}

@@ -3,7 +3,7 @@ import { DateTime } from 'luxon';
 import { TFunction } from 'i18next';
 import MUIDataTable from 'mui-datatables';
 import { useTranslation } from 'react-i18next';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import TableFooter from '@material-ui/core/TableFooter';
 import TablePagination from '@material-ui/core/TablePagination';
@@ -226,7 +226,7 @@ const ClockInForOtherTable: React.FC<Props> = ({
             : '-',
           status: (
             <div
-              className={classNames(classes.attendanceIndicator, {
+              className={clsx(classes.attendanceIndicator, {
                 [classes.here]: !attendance?.on_going,
                 [classes.missing]: attendance?.on_going,
               })}

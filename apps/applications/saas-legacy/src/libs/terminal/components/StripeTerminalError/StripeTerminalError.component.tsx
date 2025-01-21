@@ -1,5 +1,5 @@
 import React from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import Typography from '@material-ui/core/Typography';
 
@@ -113,9 +113,7 @@ export const StripeTerminalError: React.FC<Props> = ({
               `configuration.stripeTerminal.paymentDialog.paymentFailed.title.${translationKey}`,
             )}
           </Typography>
-          <Typography
-            className={classNames(classes.errorMessage, classes.redText)}
-          >
+          <Typography className={clsx(classes.errorMessage, classes.redText)}>
             {t(
               `configuration.stripeTerminal.paymentDialog.paymentFailed.content.${translationKey}`,
             )}

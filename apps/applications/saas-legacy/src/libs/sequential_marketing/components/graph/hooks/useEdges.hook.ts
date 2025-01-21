@@ -16,7 +16,7 @@ type EdgesRendererProps = {
   edgesIdsToHighlight: string[];
 };
 
-export const useEdgesRenderer = ({
+const useEdgesRenderer = ({
   storedTriggers,
   edgesIdsToHighlight,
 }: EdgesRendererProps) => {

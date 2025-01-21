@@ -9,7 +9,7 @@ import LocationOnIcon from '@material-ui/icons/LocationOn';
 import { useTheme } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Checkbox from '@material-ui/core/Checkbox';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import type { SelectComponents } from 'react-select/lib/components';
 import type { Establishment, EstablishmentSelectOption } from '../types';
 
@@ -305,7 +305,7 @@ export function EstablishmentSelector(props: Props) {
   return (
     <>
       <Select
-        className={classNames(selectorClass)}
+        className={clsx(selectorClass)}
         closeMenuOnSelect={!!closeMenuOnSelect}
         components={{ GroupHeading, Group, Menu, ...selectComponents }}
         id={id}

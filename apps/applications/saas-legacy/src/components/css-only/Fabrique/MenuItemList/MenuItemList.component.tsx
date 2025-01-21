@@ -1,5 +1,5 @@
 import React from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 import MenuItem from '../MenuItem';
 import type { MenuItemListClasses } from '.';
@@ -37,18 +37,15 @@ const MenuItemList: React.FC<MenuItemListProps> = ({
   groupTitle,
 }) => {
   return (
-    <ul className={classNames('bs-fabrique-menu-item-list-root', className)}>
+    <ul className={clsx('bs-fabrique-menu-item-list-root', className)}>
       <li
-        className={classNames(
-          'bs-fabrique-menu-item-list__group-title__container',
-          {
-            'bs-fabrique-menu-item-list__group-title__container--hidden':
-              !groupTitle,
-          },
-        )}
+        className={clsx('bs-fabrique-menu-item-list__group-title__container', {
+          'bs-fabrique-menu-item-list__group-title__container--hidden':
+            !groupTitle,
+        })}
       >
         <Typography
-          className={classNames(
+          className={clsx(
             'bs-fabrique-menu-item-list__group-title',
             classes?.groupTitle,
           )}
@@ -59,7 +56,7 @@ const MenuItemList: React.FC<MenuItemListProps> = ({
       </li>
       {children}
       <li
-        className={classNames(
+        className={clsx(
           'bs-fabrique-menu-item-list__divider',
           { 'bs-fabrique-menu-item-list__divider--hidden': !hasDivider },
           classes?.divider,

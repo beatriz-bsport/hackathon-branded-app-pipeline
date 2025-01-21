@@ -1,7 +1,7 @@
 import React, { JSX } from 'react';
 
 import { DateTime } from 'luxon';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import Select from '@material-ui/core/Select';
 import TextField from '@material-ui/core/TextField';
@@ -146,12 +146,12 @@ export const PaymentBsportInternal: React.FC<Props> = ({
 
   return (
     <form
-      className={classNames(classes.container, customClasses?.contaier)}
+      className={clsx(classes.container, customClasses?.contaier)}
       onSubmit={onFormSubmit}
     >
       {!hideAmountToPay && (
         <div
-          className={classNames(
+          className={clsx(
             classes.priceContainer,
             customClasses?.priceContainer,
           )}
@@ -166,7 +166,7 @@ export const PaymentBsportInternal: React.FC<Props> = ({
           {!!amountToPay &&
             parseInt(amountToPay) / 100 <= modifiedAmountToPay - 1 && (
               <div
-                className={classNames(
+                className={clsx(
                   classes.priceTextHelper,
                   customClasses?.priceTextHelper,
                 )}
@@ -178,7 +178,7 @@ export const PaymentBsportInternal: React.FC<Props> = ({
             )}
         </div>
       )}
-      <FormControl className={classNames(classes.field, customClasses?.field)}>
+      <FormControl className={clsx(classes.field, customClasses?.field)}>
         <InputLabel id="payment-method-select-label">
           {t('paymentMethod.select.label')}
         </InputLabel>
@@ -196,7 +196,7 @@ export const PaymentBsportInternal: React.FC<Props> = ({
           ))}
         </Select>
       </FormControl>
-      <div className={classNames(classes.field, customClasses?.field)}>
+      <div className={clsx(classes.field, customClasses?.field)}>
         <DateInput
           required
           disabled={processing}
@@ -207,10 +207,7 @@ export const PaymentBsportInternal: React.FC<Props> = ({
         />
       </div>
       <div
-        className={classNames(
-          classes.innerContainer,
-          customClasses?.innerContainer,
-        )}
+        className={clsx(classes.innerContainer, customClasses?.innerContainer)}
       >
         <TextField
           fullWidth
@@ -222,9 +219,7 @@ export const PaymentBsportInternal: React.FC<Props> = ({
           variant="outlined"
         />
         {children ?? null}
-        <div
-          className={classNames(classes.actionRow, customClasses?.actionRow)}
-        >
+        <div className={clsx(classes.actionRow, customClasses?.actionRow)}>
           {processing ? (
             <CircularProgress />
           ) : (

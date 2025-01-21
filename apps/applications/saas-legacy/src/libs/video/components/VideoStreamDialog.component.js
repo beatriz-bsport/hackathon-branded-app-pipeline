@@ -6,7 +6,7 @@ import Backdrop from '@material-ui/core/Backdrop';
 import VideoPlayerBase from './VideoPlayerBase.component';
 import { getPlaybackUrl as getPlaybackUrlAPI } from '../api';
 
-export class VideoPlayerDialog extends React.Component<Props> {
+class VideoPlayerDialog extends React.Component<Props> {
   state = { playbackUrl: '' };
 
   componentDidMount() {

@@ -1,5 +1,5 @@
 import React from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import { useTranslation } from 'react-i18next';
 
@@ -96,10 +96,7 @@ const PrivateConsumerPassDetailsCard: React.FC<Props> = ({
   }
   return (
     <Card
-      className={classNames(
-        'bs-private-consumer-pass-details-card__root',
-        className,
-      )}
+      className={clsx('bs-private-consumer-pass-details-card__root', className)}
     >
       <PrivateConsumerPassDetailsCardHeader
         creditsLeft={creditsLeft}

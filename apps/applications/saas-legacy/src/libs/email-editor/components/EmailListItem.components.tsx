@@ -1,6 +1,6 @@
 import React from 'react';
 import { compose } from 'recompose';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import {
   Chip,
   ListItem,
@@ -84,15 +84,13 @@ class EmailListItem extends React.PureComponent<Props> {
         <div className={classes.innerList}>
           <div className={classes.textAndChipsContainer}>
             <Typography
-              className={classNames({ [classes.ellipsisStyle]: virtualized })}
+              className={clsx({ [classes.ellipsisStyle]: virtualized })}
               component="span"
               variant="subtitle1"
             >
               <HighlightedText highlight={search} text={email.title} />
             </Typography>
-            <span
-              className={classNames({ [classes.ellipsisStyle]: virtualized })}
-            >
+            <span className={clsx({ [classes.ellipsisStyle]: virtualized })}>
               <HighlightedText highlight={search} text={email.subject} />
             </span>
             {companies?.length > 0 && !allCompanies && (

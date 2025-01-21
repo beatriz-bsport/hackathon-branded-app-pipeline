@@ -1,5 +1,5 @@
 import React from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 import Typography from '#Fabrique/Typography';
@@ -115,7 +115,7 @@ const Chip: React.FC<Props> = ({
 
   return (
     <div
-      className={classNames(
+      className={clsx(
         'bs-fabrique-chip__root',
         backgroundClassName,
         sizeClassName,
@@ -126,7 +126,7 @@ const Chip: React.FC<Props> = ({
       )}
     >
       <div
-        className={classNames(
+        className={clsx(
           'bs-fabrique-chip__icon',
           iconSizeClassName,
           {
@@ -140,7 +140,7 @@ const Chip: React.FC<Props> = ({
       </div>
 
       <Typography
-        className={classNames(
+        className={clsx(
           'bs-fabrique-chip__content',
           {
             'bs-fabrique-chip__content--disabled': isDisabled,
@@ -153,12 +153,12 @@ const Chip: React.FC<Props> = ({
       </Typography>
 
       <div
-        className={classNames('bs-fabrique-chip__action-container', {
+        className={clsx('bs-fabrique-chip__action-container', {
           'bs-fabrique-chip__action-container--hidden': !onClose,
         })}
       >
         <IconButton
-          className={classNames(
+          className={clsx(
             'bs-fabrique-chip__action',
             {
               'bs-fabrique-chip__action--disabled': isDisabled,

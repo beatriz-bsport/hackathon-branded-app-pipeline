@@ -1,5 +1,5 @@
 import React, { useCallback, useMemo, useState } from 'react';
-import classnames from 'classnames';
+import clsx from 'clsx';
 import type { Theme } from '@material-ui/core/styles';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import createTheme from '@material-ui/core/styles/createTheme';
@@ -206,7 +206,7 @@ export const CustomChip: React.FC<CustomChipProps> = ({
           toolTipValue={toolTipValue}
         >
           <Chip
-            className={classnames(classes.chip, chipClass)}
+            className={clsx(classes.chip, chipClass)}
             color="primary"
             icon={
               icon ? <MuiIcon className={classes.icon} icon={icon} /> : null

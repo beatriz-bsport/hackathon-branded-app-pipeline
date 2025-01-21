@@ -1,7 +1,7 @@
 import React from 'react';
 import { DateTime } from 'luxon';
 import { useTranslation } from 'react-i18next';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import CountDown from '#src/components/time/CountDown.component';
 import Alert, { AlertSeverity } from '#src/components/css-only/Alert';
@@ -22,7 +22,7 @@ const SavedSpotCountDown: React.FC<Props> = ({
   const { t } = useTranslation('checkout');
 
   return (
-    <div className={classNames(classes)}>
+    <div className={clsx(classes)}>
       <CountDown
         onFinish={onFinish}
         timestamp={DateTime.fromISO(expirationDatetime).toSeconds()}

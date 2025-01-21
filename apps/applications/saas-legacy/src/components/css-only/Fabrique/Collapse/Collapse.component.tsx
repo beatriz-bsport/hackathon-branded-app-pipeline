@@ -1,5 +1,5 @@
 import React, { memo } from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 
@@ -47,14 +47,8 @@ export const Collapse: React.FC<Props> = ({
   }, [children, isExpanded, collapsedHeight]);
 
   return (
-    <div
-      ref={collapseRef}
-      className={classNames('bs-collapse', classes?.container)}
-    >
-      <div
-        ref={contentRef}
-        className={classNames('bs-content', classes?.content)}
-      >
+    <div ref={collapseRef} className={clsx('bs-collapse', classes?.container)}>
+      <div ref={contentRef} className={clsx('bs-content', classes?.content)}>
         {children}
       </div>
     </div>

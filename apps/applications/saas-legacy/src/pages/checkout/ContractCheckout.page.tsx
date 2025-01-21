@@ -9,7 +9,7 @@ import {
   push as pushRouter,
 } from 'connected-react-router';
 import { Stripe, loadStripe } from '@stripe/stripe-js';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { CONTRACT_IS_ALREADY_SUBSCRIBED } from '@bsport/common/lib/master-data/error-codes/subscription.js';
 import { DateTime } from 'luxon';
 
@@ -471,7 +471,7 @@ export class MarketplaceSubscriptionPayment extends React.Component<
       <MemberShipValidationWrapper companyId={this.props.companyId}>
         <ConsumerAppBar>
           <div
-            className={classNames('bs-contract-checkout__container', {
+            className={clsx('bs-contract-checkout__container', {
               'bs-contract-checkout--fixed-height-layout':
                 displayCarouselLayout,
             })}

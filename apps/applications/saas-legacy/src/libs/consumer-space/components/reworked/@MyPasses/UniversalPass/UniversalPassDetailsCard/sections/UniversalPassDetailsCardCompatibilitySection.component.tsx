@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { useTranslation } from 'react-i18next';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import ConsumerCardSection from '#src/libs/consumer-space/components/reworked/common/ConsumerCardSection';
 import UniversalPassDetailsCardActivityCompatibility from './UniversalPassDetailsCardActivityCompatibility.component';
@@ -32,7 +32,7 @@ const UniversalPassDetailsCardCompatibilitySection: React.FC<Props> = ({
   return (
     <>
       <ConsumerCardSection
-        className={classNames(
+        className={clsx(
           'bs-universal-pass-details-card__compatibility-section',
           'bs-universal-pass-details-card__compatibility-section--activity',
         )}
@@ -42,7 +42,7 @@ const UniversalPassDetailsCardCompatibilitySection: React.FC<Props> = ({
       >
         <UniversalPassDetailsCardActivityCompatibility
           activityCompatibilities={activityCompatibilities}
-          className={classNames(
+          className={clsx(
             'bs-universal-pass-details-card__compatibility-section__container',
             'bs-universal-pass-details-card__compatibility-section__container--activity',
           )}
@@ -52,7 +52,7 @@ const UniversalPassDetailsCardCompatibilitySection: React.FC<Props> = ({
         />
       </ConsumerCardSection>
       <ConsumerCardSection
-        className={classNames(
+        className={clsx(
           'bs-universal-pass-details-card__compatibility-section',
           'bs-universal-pass-details-card__compatibility-section--appointment',
         )}
@@ -62,7 +62,7 @@ const UniversalPassDetailsCardCompatibilitySection: React.FC<Props> = ({
       >
         <UniversalPassDetailsCardAppointmentCompatibility
           appointmentCompatibilities={appointmentCompatibilities}
-          className={classNames(
+          className={clsx(
             'bs-universal-pass-details-card__compatibility-section__container',
             'bs-universal-pass-details-card__compatibility-section__container--appointment',
           )}

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import Immutable from 'seamless-immutable';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import {
   useViewport,
   MiniMap,
@@ -422,7 +422,7 @@ export const CadenceGraphViewPort: React.FC<Props> = ({
       {showMap && <MiniMap />}
 
       <Controls
-        className={classNames('collapsable', 'react-flow__controls', {
+        className={clsx('collapsable', 'react-flow__controls', {
           collapsed,
           'react-flow__controls__forward': !creationMode,
         })}
@@ -456,7 +456,7 @@ export const CadenceGraphViewPort: React.FC<Props> = ({
         )}
       </Controls>
       <div
-        className={classNames('react-flow__controls_bottom_fab', {
+        className={clsx('react-flow__controls_bottom_fab', {
           'react-flow__controls__forward': !creationMode,
         })}
       >

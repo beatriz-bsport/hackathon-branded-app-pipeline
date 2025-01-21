@@ -9,13 +9,13 @@ import PlaylistEmpty from './PlaylistEmpty.component';
 
 type Props = {
   onAddVideo: (id: number, options: OptionCallback) => void,
-  selectedVideo: ?Video,
-  videoPlayingId: ?number,
+  selectedVideo?: Video,
+  videoPlayingId?: number,
   playlist: VideoPlaylist,
   onOpenVideo: (id: number) => void,
   onSubVideo: (id: number, options: OptionCallback) => void,
   authenticated: boolean,
-  requestVideoAccess: ?() => void,
+  requestVideoAccess?: () => void,
   playbackUrl: string,
   playbackUrlLoading: boolean,
   accessDenied: boolean,

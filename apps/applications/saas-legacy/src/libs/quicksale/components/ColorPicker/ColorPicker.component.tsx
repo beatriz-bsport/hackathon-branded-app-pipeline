@@ -1,7 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 type ColoredButtonProps = {
   color: string;
@@ -21,7 +21,7 @@ const ColoredButton: React.FC<ColoredButtonProps> = ({
   );
   return (
     <Button
-      className={classNames(classes.colorButton, {
+      className={clsx(classes.colorButton, {
         [classes.colorButtonActivated]: selectedColor === color,
       })}
       onClick={setColor}
@@ -50,7 +50,7 @@ const ColorPicker: React.FC<Props> = ({
   const classes = useStyle();
 
   return (
-    <div className={classNames(classes.colorContainer, className)}>
+    <div className={clsx(classes.colorContainer, className)}>
       {colorChoices.map((color) => (
         <ColoredButton
           key={color}

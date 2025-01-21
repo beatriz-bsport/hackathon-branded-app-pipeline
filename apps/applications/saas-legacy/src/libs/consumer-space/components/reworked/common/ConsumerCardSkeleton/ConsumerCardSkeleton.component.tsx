@@ -1,5 +1,5 @@
 import React from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import Skeleton from '#src/components/css-only/Skeleton';
 import Card from '#Fabrique/Card';
@@ -11,7 +11,7 @@ type Props = {
 };
 
 const ConsumerCardSkeleton: React.FC<Props> = ({ className }) => (
-  <Card className={classNames('bs-consumer-card-skeleton__root', className)}>
+  <Card className={clsx('bs-consumer-card-skeleton__root', className)}>
     <Skeleton
       className="bs-consumer-card-skeleton__title"
       variant="rectangle"

@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import InfoIcon from '@material-ui/icons/Info';
 import GroupIcon from '@material-ui/icons/Group';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { DateTime } from 'luxon';
 
 import Skeleton from '@material-ui/lab/Skeleton';
@@ -277,7 +277,7 @@ const MarketplaceOfferListItem: React.FC<Props> = ({
 
   return (
     <button
-      className={classNames('bs-offer-list-item', {
+      className={clsx('bs-offer-list-item', {
         'bs-offer-list-item--mobile': isMobile,
         'bs-offer-list-item--first': position.includes('first'),
         'bs-offer-list-item--last': position.includes('last'),
@@ -310,15 +310,12 @@ const MarketplaceOfferListItem: React.FC<Props> = ({
               <>
                 {isSessionNameClickable ? (
                   <button
-                    className={classNames(
-                      MARKETPLACE_CLICKABLE_TITLE_IDENTIFIER,
-                      {
-                        'bs-offer-list-item__content__offer__left__title':
-                          'bs-offer-list-item__content__offer__left__title',
-                        'bs-offer-list-item__button__title':
-                          'bs-offer-list-item__button__title',
-                      },
-                    )}
+                    className={clsx(MARKETPLACE_CLICKABLE_TITLE_IDENTIFIER, {
+                      'bs-offer-list-item__content__offer__left__title':
+                        'bs-offer-list-item__content__offer__left__title',
+                      'bs-offer-list-item__button__title':
+                        'bs-offer-list-item__button__title',
+                    })}
                     disabled={isBookingDisabled}
                     // @ts-expect-error
                     onClick={handleClick}
@@ -328,7 +325,7 @@ const MarketplaceOfferListItem: React.FC<Props> = ({
                   </button>
                 ) : (
                   <div
-                    className={classNames(
+                    className={clsx(
                       'bs-offer-list-item__content__offer__left__title',
                       {
                         'bs-offer-list-item__content__offer__left__title--time-highlighted':
@@ -354,7 +351,7 @@ const MarketplaceOfferListItem: React.FC<Props> = ({
             )}
             {isSessionTimeClickable ? (
               <button
-                className={classNames(MARKETPLACE_CLICKABLE_TITLE_IDENTIFIER, {
+                className={clsx(MARKETPLACE_CLICKABLE_TITLE_IDENTIFIER, {
                   'bs-offer-list-item__button__title':
                     'bs-offer-list-item__button__title',
                   'bs-offer-list-item__content__offer__left__time--time-highlighted':
@@ -376,7 +373,7 @@ const MarketplaceOfferListItem: React.FC<Props> = ({
               </button>
             ) : (
               <div
-                className={classNames({
+                className={clsx({
                   'bs-offer-list-item__content__offer__left__time--time-highlighted':
                     isVariantTimeHighlighted,
                   'bs-offer-list-item__content__offer__left__time--coach-highlighted':
@@ -402,7 +399,7 @@ const MarketplaceOfferListItem: React.FC<Props> = ({
             )}
             {isMobile && (
               <div
-                className={classNames(
+                className={clsx(
                   'bs-offer-list-item__content__offer__left__extra',
                   {
                     'bs-offer-list-item__content__offer__left__extra--not-displayed':
@@ -455,7 +452,7 @@ const MarketplaceOfferListItem: React.FC<Props> = ({
               <>
                 {isSessionCoachClickable ? (
                   <button
-                    className={classNames('bs-card-offer__button__title', {
+                    className={clsx('bs-card-offer__button__title', {
                       'bs-offer-list-item__content__offer__left__coach':
                         'bs-offer-list-item__content__offer__left__coach',
                       'bs-offer-list-item__content__offer__left__coach--coach-highlighted':
@@ -487,7 +484,7 @@ const MarketplaceOfferListItem: React.FC<Props> = ({
                   </button>
                 ) : (
                   <div
-                    className={classNames(
+                    className={clsx(
                       'bs-offer-list-item__content__offer__left__coach',
                       {
                         'bs-offer-list-item__content__offer__left__coach--coach-highlighted':
@@ -561,7 +558,7 @@ const MarketplaceOfferListItem: React.FC<Props> = ({
                   <div className="bs-offer-list-item__content__offer__left__coaches__row">
                     {isSessionCoachClickable ? (
                       <button
-                        className={classNames('bs-card-offer__button__title', {
+                        className={clsx('bs-card-offer__button__title', {
                           'bs-offer-list-item__content__offer__left__coach':
                             'bs-offer-list-item__content__offer__left__coach',
                           'bs-offer-list-item__content__offer__left__coach--coach-highlighted':
@@ -687,7 +684,7 @@ const MarketplaceOfferListItem: React.FC<Props> = ({
               </div>
               {!isWorkshop && !isMobile && (
                 <InfoIcon
-                  className={classNames({
+                  className={clsx({
                     'bs-offer-list-item__content__offer__right__top__icon--not-disabled':
                       !isBookingDisabled,
                     'bs-offer-list-item__content__offer__right__top__icon--disabled':

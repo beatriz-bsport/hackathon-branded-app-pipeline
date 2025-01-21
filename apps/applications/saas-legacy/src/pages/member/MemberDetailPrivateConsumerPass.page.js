@@ -62,7 +62,7 @@ type Props = {
   fetchPrivateConsumerPassList: (filters: any, params: any) => void,
   id: number,
   fetchMember: (id: number) => void,
-  privateConsumerPassId: ?number,
+  privateConsumerPassId?: number,
   fetchPrivateBookings: (params: any) => void,
   fetchPrivateConsumerPassExtensionList: (
     params: PrivateConsumerPassExtensionParams,
@@ -72,10 +72,10 @@ type Props = {
     object_id: number,
     options?: OptionCallback,
   ) => void,
-  privateConsumerPassInvoice: ?Invoice,
+  privateConsumerPassInvoice?: Invoice,
   onInvoiceClick: (uuid: string) => void,
   privateBookingsLoading: boolean,
-  privateConsumerPassSelected: ?PrivateConsumerPass,
+  privateConsumerPassSelected?: PrivateConsumerPass,
   setOpenCreateExtension: (boolean) => void,
   openCreateExtension: () => void,
   createPrivateConsumerPassExtension: (

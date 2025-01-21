@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import { Offer } from '#src/libs/offer/types';
 import { Coach } from '#src/libs/associated-coach/types';
@@ -18,7 +18,7 @@ const OfferCoachName: React.FC<Props> = React.memo(
     const { t } = useTranslation('translation');
     return (
       <div
-        className={classNames({
+        className={clsx({
           ...classes,
         })}
       >

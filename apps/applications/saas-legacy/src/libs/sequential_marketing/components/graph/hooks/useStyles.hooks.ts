@@ -3,7 +3,7 @@ import type { Theme } from '@material-ui/core/styles';
 
 type GraphStyles = { isFirstOutputConfiguration: boolean };
 
-export const useGraphStyles = makeStyles<Theme, GraphStyles>(() => ({
+const useGraphStyles = makeStyles<Theme, GraphStyles>(() => ({
   blurDisabledOverLay: {
     backgroundColor: 'rgba(0, 0, 0, 0.15)',
     backdropFilter: 'blur(1px)',

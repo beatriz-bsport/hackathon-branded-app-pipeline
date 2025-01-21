@@ -13,7 +13,7 @@ import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import MemberMinimalListItem from '../../libs/member/components/MemberMinimalListItem.component';
 
 type Props = {
-  items: *[],
+  items: any[],
   selectEntity: () => void,
   className: number,
   disableAccessMonitoringButton?: boolean,

@@ -1,5 +1,5 @@
 import React from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { WithTranslation, useTranslation } from 'react-i18next';
 import chroma from 'chroma-js';
 import type { Theme } from '@material-ui/core/styles';
@@ -215,14 +215,14 @@ export const AutomatedCampaignPanel = (props: Props) => {
       </ButtonBase>
       <Divider className={classes.divider} />
       <Collapse
-        className={classNames({ [classes.collapseInner]: openedSection })}
+        className={clsx({ [classes.collapseInner]: openedSection })}
         in={openedSection}
       >
         <Grid container spacing={2}>
           <Grid item md={6} xs={12}>
             <div className={classes.panelHeader}>
               <DoubleArrowIcon
-                className={classNames(classes.leftIcon, classes.joinIcon)}
+                className={clsx(classes.leftIcon, classes.joinIcon)}
               />
               <Typography variant="h6">
                 {t('campaign.automated.panel.subtitle.onJoin')}
@@ -258,7 +258,7 @@ export const AutomatedCampaignPanel = (props: Props) => {
           <Grid item md={6} xs={12}>
             <div className={classes.panelHeader}>
               <DoubleArrowIcon
-                className={classNames(classes.leftIcon, classes.leavingIcon)}
+                className={clsx(classes.leftIcon, classes.leavingIcon)}
               />
               <Typography variant="h6">
                 {t('campaign.automated.panel.subtitle.onLeft')}

@@ -7,7 +7,7 @@ import Paper from '@material-ui/core/Paper';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Typography from '@material-ui/core/Typography';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
-import classname from 'classnames';
+import clsx from 'clsx';
 
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 
@@ -16,7 +16,7 @@ import analyticsUtils from '../../../components/analytics/analytics';
 
 const ShopItemBuyableItemCard = (props: {
   shopitem: ShopItem,
-  addToOrder: ?(id: number) => void,
+  addToOrder?: (id: number) => void,
   classes: Object,
   fullHeight?: boolean,
   loading?: boolean,
@@ -32,7 +32,7 @@ const ShopItemBuyableItemCard = (props: {
   }
   return (
     <Paper
-      className={classname([
+      className={clsx([
         props.classes.container,
         props.fullHeight ? props.classes.fullHeight : null,
       ])}
@@ -49,7 +49,7 @@ const ShopItemBuyableItemCard = (props: {
         </div>
       ) : null}
       <div
-        className={classname([
+        className={clsx([
           props.classes.innerContainer,
           props.shopitem.cover
             ? props.classes.innerWithImage

@@ -1,5 +1,5 @@
 import React from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 
 import ConsumerCardSection from '#src/libs/consumer-space/components/reworked/common/ConsumerCardSection';
@@ -38,7 +38,7 @@ const ConsumerBookingDetailsCardPassSection: React.FC<Props> = ({
     >
       <div className="bs-consumer-booking-details-card__pass-section__content">
         <Typography
-          className={classNames(
+          className={clsx(
             'bs-consumer-booking-details-card__section__subtitle',
             'bs-consumer-booking-details-card__pass-section__content__pass-name',
           )}
@@ -48,7 +48,7 @@ const ConsumerBookingDetailsCardPassSection: React.FC<Props> = ({
         </Typography>
 
         <ConsumerPaymentPackCreditStatus
-          className={classNames(
+          className={clsx(
             'bs-consumer-booking-details-card__section__subtitle',
             'bs-consumer-booking-details-card__pass-section__content__credit-status',
           )}

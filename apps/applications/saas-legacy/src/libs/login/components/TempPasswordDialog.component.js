@@ -19,10 +19,10 @@ import RedButton from '../../../components/button/RedButton.component';
 import { formatAsDatetime } from '../../../utils/datetime';
 
 type Props = {
-  tempPassword: ?string,
+  tempPassword?: string,
   classes: Object,
   passwordCopied: boolean,
-  tempPasswordExpirationDate: ?string,
+  tempPasswordExpirationDate?: string,
   setPasswordCopied: (boolean) => void,
   resetAndClose: () => void,
   requestPassword: () => void,

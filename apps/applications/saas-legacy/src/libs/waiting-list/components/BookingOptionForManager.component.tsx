@@ -11,7 +11,7 @@ import Button from '@material-ui/core/Button';
 import { useTranslation } from 'react-i18next';
 
 import { Checkbox, Theme, makeStyles } from '@material-ui/core';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import ObjectLevelPermissionProvider from '#src/libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 
@@ -128,13 +128,13 @@ const BookingOptionForManager: React.FC<Props> = ({
         >
           <div className={classes.outerRow}>
             <div
-              className={classNames(classes.avatarWithCheckbox, {
+              className={clsx(classes.avatarWithCheckbox, {
                 [classes.avatarWithCheckboxAndSelection]:
                   !!selectedBookingOptionsIds?.length,
               })}
             >
               <div
-                className={classNames(classes.avatarContainer, {
+                className={clsx(classes.avatarContainer, {
                   [classes.avatarContainerWithHover]:
                     !disabled && !shouldHideBookButton,
                 })}

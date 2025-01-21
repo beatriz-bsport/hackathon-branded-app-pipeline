@@ -72,11 +72,11 @@ const SubShopComponent = (props: {
 
 type Props = {
   subShops: Array<SubShop>,
-  selectedShopItem: ?ShopItem,
+  selectedShopItem?: ShopItem,
   notExpandedSubshop: Array<number>,
   isExcludingTax: boolean,
   setNotExpandedSubshop: (subshops: Array<number>) => void,
-  selectShopItem: (shopitem: ?ShopItem) => void,
+  selectShopItem: (shopitem?: ShopItem) => void,
   addToOrder: (id: number) => void,
 
   t: TFunction,

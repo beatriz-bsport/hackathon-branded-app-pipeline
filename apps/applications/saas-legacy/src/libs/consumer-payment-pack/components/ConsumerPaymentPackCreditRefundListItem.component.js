@@ -18,7 +18,7 @@ type Props = {
   dense?: boolean,
   divider?: boolean,
 };
-export const ConsumerPaymentPackCreditRefundListItem = (props: Props) => {
+const ConsumerPaymentPackCreditRefundListItem = (props: Props) => {
   const { t } = useTranslation(['paymentPack']);
   const description = props.creditRefund.credits
     ? t('consumerPaymentPack.refund.description', {

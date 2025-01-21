@@ -23,7 +23,7 @@ import type { EstablishmentBillingGroup } from '../../establishment/types';
 
 type Props = {
   onlinePaymentEnabled: boolean,
-  subscriptionData: ?SubscriptionData,
+  subscriptionData?: SubscriptionData,
   processing: boolean,
   onSubmit: (token: string) => void,
   onCancel: () => void,

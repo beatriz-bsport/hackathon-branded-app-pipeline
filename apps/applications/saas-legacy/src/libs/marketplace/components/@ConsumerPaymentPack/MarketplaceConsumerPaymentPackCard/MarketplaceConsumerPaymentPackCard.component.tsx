@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 import Warning from '@material-ui/icons/Warning';
 
@@ -44,7 +44,7 @@ const MarketplaceConsumerPaymentPackCard: React.FC<Props> = ({
   return (
     <div
       aria-hidden="true"
-      className={classNames('consumer-payment-pack-card__container', {
+      className={clsx('consumer-payment-pack-card__container', {
         'consumer-payment-pack-card__container--selected': isSelected,
         'consumer-payment-pack-card__container--disabled': disabled,
       })}
@@ -52,12 +52,9 @@ const MarketplaceConsumerPaymentPackCard: React.FC<Props> = ({
       onClick={!disabled && onClick}
     >
       <div
-        className={classNames(
-          'consumer-payment-pack-card__container__subtitle',
-          {
-            'consumer-payment-pack-card__text__disabled': disabled,
-          },
-        )}
+        className={clsx('consumer-payment-pack-card__container__subtitle', {
+          'consumer-payment-pack-card__text__disabled': disabled,
+        })}
       >
         {consumerPaymentPack?.payment_pack?.name || ' - '}
       </div>
@@ -75,12 +72,9 @@ const MarketplaceConsumerPaymentPackCard: React.FC<Props> = ({
 
       <div className="consumer-payment-pack-card__container__validity">
         <div
-          className={classNames(
-            'consumer-payment-pack-card__validity__content',
-            {
-              'consumer-payment-pack-card__text__disabled': disabled,
-            },
-          )}
+          className={clsx('consumer-payment-pack-card__validity__content', {
+            'consumer-payment-pack-card__text__disabled': disabled,
+          })}
         >
           {expireDate}
         </div>

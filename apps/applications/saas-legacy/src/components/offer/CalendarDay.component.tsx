@@ -1,5 +1,5 @@
 import React from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { DateTime, Info } from 'luxon';
 import { pure } from 'recompose';
 import chroma from 'chroma-js';
@@ -61,7 +61,7 @@ export const CalendarDay: React.FC<Props> = ({
       <div className={classes.dayButtonPreview}>
         {!isDisabled && (
           <div
-            className={classNames(wrapperStyle, {
+            className={clsx(wrapperStyle, {
               [activeWrapperStyle]: events?.[day.startOf('day').toString()],
             })}
           >
@@ -80,7 +80,7 @@ export const CalendarDay: React.FC<Props> = ({
   return (
     <ButtonBase
       key={`calendar-day-${day.toISODate()}`}
-      className={classNames(classes.dayButton, {
+      className={clsx(classes.dayButton, {
         [classes.dayButtonSelected]: isSelected,
         [classes.dayButtonDisabled]: isDisabled,
         [classes.dayButonInRange]: isDayInRange,

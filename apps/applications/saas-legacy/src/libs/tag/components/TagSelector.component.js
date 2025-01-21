@@ -31,8 +31,8 @@ type Props = {
 
   t: TFunction,
   classes: Object,
-  menuAnchorEl: ?HTMLElement,
-  setMenuAnchor: (anchor: ?HTMLElement) => void,
+  menuAnchorEl?: HTMLElement,
+  setMenuAnchor: (anchor?: HTMLElement) => void,
   disabled: boolean,
 };
 

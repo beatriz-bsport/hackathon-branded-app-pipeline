@@ -11,8 +11,8 @@ import { withTranslation, TFunction } from 'react-i18next';
 
 type Props = {
   open: boolean,
-  onClose: ?() => void,
-  onCancel: ?() => void,
+  onClose?: () => void,
+  onCancel?: () => void,
   onSubmit: () => void,
   t: TFunction,
 };

@@ -1,5 +1,5 @@
 import React from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 
@@ -91,7 +91,7 @@ const ConsumerBookingCard: React.FC<Props> = ({
 
   return (
     <Card
-      className={classNames(
+      className={clsx(
         'bs-consumer-booking-card__root',
         'bs-consumer-page-root__bookings__list__item',
         {

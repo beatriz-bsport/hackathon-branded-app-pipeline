@@ -26,7 +26,7 @@ const randomContractInterval = faker.helpers.arrayElement<ContractInterval>([
  *  monthBillingDay: 5
  * })
  */
-export const contractFactory = (options?: ContractFactoryOptions) => {
+const contractFactory = (options?: ContractFactoryOptions) => {
   return {
     id: faker.number.int(10000),
     company: parseInt(faker.finance.accountNumber(4)),

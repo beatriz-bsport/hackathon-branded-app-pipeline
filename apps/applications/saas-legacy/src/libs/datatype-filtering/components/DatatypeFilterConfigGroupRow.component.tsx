@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import { ButtonBase, makeStyles, Typography } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
@@ -62,7 +62,7 @@ const DatatypeFilterConfigGroupRow: React.FC<Props> = ({
 
   return (
     <div className={classes.rowGroup}>
-      <div className={classNames(classes.groupRule, classes.center)}>
+      <div className={clsx(classes.groupRule, classes.center)}>
         {!hidePrefix && (
           <Typography color="textSecondary">
             {t(`filter.form.groupOperand.${groupOperand}`)}
@@ -70,7 +70,7 @@ const DatatypeFilterConfigGroupRow: React.FC<Props> = ({
         )}
       </div>
       <div
-        className={classNames(classes.flexOne, {
+        className={clsx(classes.flexOne, {
           [classes.groupContainer]: !filterGroup.display_has_single,
         })}
       >

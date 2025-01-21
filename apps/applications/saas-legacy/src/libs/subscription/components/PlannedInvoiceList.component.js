@@ -44,7 +44,7 @@ type Props = {
   onClick: (billingPlanId: number) => void,
 };
 
-export const PlannedInvoiceList = (props: Props) => {
+const PlannedInvoiceList = (props: Props) => {
   const classes = useStyles();
   return (
     <Paper>

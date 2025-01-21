@@ -4,7 +4,7 @@ import { Formik, FormikHelpers } from 'formik';
 import Select from 'react-select';
 import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core/styles';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import FranchiseShopItemTemplateDetailInventoryBulkUpdateForm from '#src/libs/franchise/components/FranchiseShopItemTemplateDetailInventoryBulkUpdateForm';
 import franchiseShopItemTemplateDetailInventoryBulkUpdateFormValidationSchema from '#src/libs/franchise/components/FranchiseShopItemTemplateDetailInventoryBulkUpdateForm/validationSchema';
@@ -76,7 +76,7 @@ const FranchiseShopItemTemplateDetailInventoryList: React.FC<Props> = ({
       }
     >
       <>
-        <div className={classNames(classes.flexGap, classes.filterContainer)}>
+        <div className={clsx(classes.flexGap, classes.filterContainer)}>
           <Select
             isClearable
             isMulti

@@ -10,7 +10,7 @@ import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
 import { createStyles } from '@material-ui/styles';
 import { Theme } from '@material-ui/core/styles';
 import Hidden from '@material-ui/core/Hidden';
-import clx from 'classnames';
+import clsx from 'clsx';
 import { Video } from '#src/libs/video/types';
 
 type OwnProps = {
@@ -29,8 +29,8 @@ export const EbookDownload = (props: Props) => {
         style={{ backgroundImage: `url(${props.video.cover_main})` }}
       >
         <Hidden xsDown>
-          <div className={clx([classes.container, classes.containerLarge])}>
-            <MenuBookIcon className={clx([classes.icon, classes.iconLarge])} />
+          <div className={clsx([classes.container, classes.containerLarge])}>
+            <MenuBookIcon className={clsx([classes.icon, classes.iconLarge])} />
             <Typography className={classes.helper}>
               {t('video.ebook.downloadHelper', { button: t('video.download') })}
             </Typography>
@@ -44,11 +44,11 @@ export const EbookDownload = (props: Props) => {
               {t('video.download')}
             </Button>
           </div>
-          <div className={clx([classes.overlay, classes.overlayLarge])} />
+          <div className={clsx([classes.overlay, classes.overlayLarge])} />
         </Hidden>
         <Hidden smUp>
-          <div className={clx([classes.container, classes.containerSmall])}>
-            <MenuBookIcon className={clx([classes.icon, classes.iconSmall])} />
+          <div className={clsx([classes.container, classes.containerSmall])}>
+            <MenuBookIcon className={clsx([classes.icon, classes.iconSmall])} />
             <Button
               className={classes.buttonSmall}
               color="primary"
@@ -58,7 +58,7 @@ export const EbookDownload = (props: Props) => {
               <CloudDownloadIcon />
             </Button>
           </div>
-          <div className={clx([classes.overlay, classes.overlaySmall])} />
+          <div className={clsx([classes.overlay, classes.overlaySmall])} />
         </Hidden>
       </div>
     </div>

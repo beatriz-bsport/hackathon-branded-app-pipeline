@@ -1,6 +1,6 @@
 import React, { forwardRef, useCallback } from 'react';
 
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 
@@ -111,18 +111,15 @@ const TextForm: React.FC<Props> = forwardRef(
     const handleTextFormRef = useMergeRef(textFormRef, textFormForwardedRef);
 
     return (
-      <div
-        className={classNames('bs-fabrique-text-form__root', className)}
-        id={id}
-      >
+      <div className={clsx('bs-fabrique-text-form__root', className)} id={id}>
         <div
-          className={classNames(
+          className={clsx(
             'bs-fabrique-text-form__label__textarea__container',
             classes?.container,
           )}
         >
           <label
-            className={classNames(
+            className={clsx(
               'bs-fabrique-text-form__label__container',
               {
                 'bs-fabrique-text-form__label--empty': !label,
@@ -132,7 +129,7 @@ const TextForm: React.FC<Props> = forwardRef(
             htmlFor={textFormId}
           >
             <Typography
-              className={classNames(
+              className={clsx(
                 'bs-fabrique-text-form__label',
                 {
                   'bs-fabrique-text-form__label--disabled': isDisabled,
@@ -143,20 +140,17 @@ const TextForm: React.FC<Props> = forwardRef(
             >
               {label}
               <span
-                className={classNames(
-                  'bs-fabrique-text-form__label--required',
-                  {
-                    'bs-fabrique-text-form__label--empty': !isRequired,
-                    'bs-fabrique-text-form__label--disabled': isDisabled,
-                  },
-                )}
+                className={clsx('bs-fabrique-text-form__label--required', {
+                  'bs-fabrique-text-form__label--empty': !isRequired,
+                  'bs-fabrique-text-form__label--disabled': isDisabled,
+                })}
               >
                 {REQUIRED_SYMBOL}
               </span>
             </Typography>
           </label>
           <div
-            className={classNames(
+            className={clsx(
               'bs-fabrique-text-form__textarea__container',
               {
                 'bs-fabrique-text-form__textarea__container--disabled':
@@ -173,7 +167,7 @@ const TextForm: React.FC<Props> = forwardRef(
             <textarea
               {...textAreaProps}
               ref={handleTextFormRef}
-              className={classNames(
+              className={clsx(
                 'bs-fabrique-text-form__textarea',
                 classes?.textArea,
               )}
@@ -190,7 +184,7 @@ const TextForm: React.FC<Props> = forwardRef(
               value={value}
             />
             <Typography
-              className={classNames(
+              className={clsx(
                 'bs-fabrique-text-form__max-character__container',
                 {
                   'bs-fabrique-text-form__max-character__container--disabled':
@@ -207,7 +201,7 @@ const TextForm: React.FC<Props> = forwardRef(
           </div>
         </div>
         <Typography
-          className={classNames(
+          className={clsx(
             'bs-fabrique-text-form__caption-text',
             { 'bs-fabrique-text-form__caption-text--empty': !captionText },
             classes?.captionText,

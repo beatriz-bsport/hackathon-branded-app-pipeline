@@ -9,7 +9,7 @@ import {
   Button,
   ListItem,
 } from '@material-ui/core';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import { compose } from 'recompose';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
@@ -44,7 +44,7 @@ const FranchiseMemberMembership = (props: Props) => {
               key={company.id}
               // @ts-expect-error
               button={company?.isAllowed}
-              className={classNames(classes.row, {
+              className={clsx(classes.row, {
                 [classes.isLast]: index === companies.length - 1,
               })}
               onClick={

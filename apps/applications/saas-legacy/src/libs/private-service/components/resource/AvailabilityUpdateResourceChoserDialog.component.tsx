@@ -2,7 +2,7 @@ import React from 'react';
 import isEqual from 'lodash/isEqual';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { compose } from 'recompose';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
@@ -270,13 +270,13 @@ export class AvailabilityUpdateResourceChoserDialog extends React.PureComponent<
                   onClick={this.toggleCollapse}
                 >
                   <div
-                    className={classNames(classes.collapseSection, {
+                    className={clsx(classes.collapseSection, {
                       [classes.opacity]: !atLeastOneCoachSelected,
                     })}
                   >
                     <div className={classes.collapseSectionLeft}>
                       <SettingsIcon
-                        className={classNames(classes.iconLeft, classes.icon)}
+                        className={clsx(classes.iconLeft, classes.icon)}
                       />
                       <Typography variant="subtitle2">
                         {t(

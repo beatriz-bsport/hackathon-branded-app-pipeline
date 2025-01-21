@@ -31,7 +31,7 @@ const DeleteWithConfirm = withConfirm(IconButton, 'onClick', {
   ),
 });
 
-export const PaylistCardItem = (props: Props) => {
+const PaylistCardItem = (props: Props) => {
   const { playlist } = props;
   const { t } = useTranslation(['video']);
   const classes = useStyles();

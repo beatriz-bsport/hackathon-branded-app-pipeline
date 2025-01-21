@@ -5,7 +5,7 @@ import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import Paper from '@material-ui/core/Paper';
 import { useTranslation } from 'react-i18next';
 import chroma from 'chroma-js';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import {
   PrivateService,
@@ -41,7 +41,7 @@ const PrivateSlotSelector: React.FC<Props> = (props) => {
               return (
                 <div key={slot.name} className={classes.itemContainerLayout}>
                   <Paper
-                    className={classNames({
+                    className={clsx({
                       [classes.itemContainer]: true,
                       [classes.selectedItem]: isSelected,
                     })}

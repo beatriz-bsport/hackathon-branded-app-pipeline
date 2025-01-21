@@ -29,18 +29,18 @@ type Props = {
   setOpenSlotForm: (boolean) => void,
   openSlotForm: boolean,
   editSlotForm: PrivatSlotData,
-  setEditSlotForm: (privateSlot: ?PrivateSlotData) => void,
+  setEditSlotForm: (privateSlot?: PrivateSlotData) => void,
   createPrivateSlot: (
     privateServiceId: number,
     data: PrivateSlotData,
-    id: ?number,
-    options: ?{ onSuccess?: () => void, onError?: () => void },
+    id?: number,
+    options?: { onSuccess?: () => void, onError?: () => void },
   ) => void,
   updatePrivateSlot: (
     privateServiceId: number,
     data: PrivateSlotData,
-    id: ?number,
-    options: ?{ onSuccess?: () => void, onError?: () => void },
+    id?: number,
+    options?: { onSuccess?: () => void, onError?: () => void },
   ) => void,
   deletePrivateSlot: (slotId: number) => void,
 

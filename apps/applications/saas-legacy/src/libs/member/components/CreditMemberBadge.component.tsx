@@ -2,7 +2,7 @@ import React from 'react';
 import Badge, { type BadgeClassKey } from '@material-ui/core/Badge';
 import ReceiptIcon from '@material-ui/icons/Receipt';
 import makeStyles from '@material-ui/core/styles/makeStyles';
-import classnames from 'classnames';
+import clsx from 'clsx';
 
 import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
 import ObjectLevelPermissionProvider from '#src/libs/role/permission-utils/ObjectLevelPermissionProvider.component';
@@ -78,7 +78,7 @@ export const CreditMemberBadge: React.FC<Props> = ({
             }
             classes={{
               ...classes,
-              badge: classnames(classes?.badge, {
+              badge: clsx(classes?.badge, {
                 [classesStyle.bottomCredit]: bottomCredit,
               }),
             }}

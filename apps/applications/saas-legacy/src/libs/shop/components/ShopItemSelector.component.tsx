@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 
 import { withTranslation } from 'react-i18next';
 
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { TFunction } from 'i18next';
 // @ts-expect-error
 import ShopItemListItem from './ShopItemListItem.component';
@@ -98,7 +98,7 @@ export function ShopItemSelector(props: Props) {
     <Selector
       searchIcon
       autofocus={autofocus}
-      className={classNames(classes, selectorClass)}
+      className={clsx(classes, selectorClass)}
       components={{ Option: shopItemOption }}
       filterOption={filterShopItem}
       isDisabled={!!props.disabled}

@@ -96,7 +96,7 @@ type Props = {
   emailExists: any,
   variant?: 'merge-form' | '',
   disabled?: boolean,
-  fromConsumerAccess: ?boolean,
+  fromConsumerAccess?: boolean,
   memberId: number,
   companyCountry: string,
   emailExistsError: boolean,

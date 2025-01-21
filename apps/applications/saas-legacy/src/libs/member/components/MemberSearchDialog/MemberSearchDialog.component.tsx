@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { AxiosResponse } from 'axios';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -237,7 +237,7 @@ const MemberAuthenticationDialog: React.FC<Props> = ({
               </Alert>
             )}
             <div
-              className={classNames(
+              className={clsx(
                 classes.searchBarAndNewMember,
                 elementClasses?.searchBarContainer,
               )}
@@ -252,14 +252,14 @@ const MemberAuthenticationDialog: React.FC<Props> = ({
                 searchedText={searchText}
               />
               <IconButton
-                className={classNames(
+                className={clsx(
                   classes.addMemberButton,
                   elementClasses?.addMemberButton,
                 )}
                 onClick={openMemberCreateForm}
               >
                 <PersonAdd
-                  className={classNames(
+                  className={clsx(
                     classes.addMemberIcon,
                     elementClasses?.addMemberIcon,
                   )}
@@ -302,7 +302,7 @@ const MemberAuthenticationDialog: React.FC<Props> = ({
 
       {!showMemberCreateForm && (
         <DialogActions
-          className={classNames(
+          className={clsx(
             classes.dialogActions,
             elementClasses?.actionsContainer,
           )}
@@ -313,10 +313,7 @@ const MemberAuthenticationDialog: React.FC<Props> = ({
             </Button>
           )}
           <Button
-            className={classNames(
-              elementClasses?.submit,
-              classes.confirmButton,
-            )}
+            className={clsx(elementClasses?.submit, classes.confirmButton)}
             color="primary"
             disabled={
               !selectedMemberId || selectedMemberId === preSelectedMemberId

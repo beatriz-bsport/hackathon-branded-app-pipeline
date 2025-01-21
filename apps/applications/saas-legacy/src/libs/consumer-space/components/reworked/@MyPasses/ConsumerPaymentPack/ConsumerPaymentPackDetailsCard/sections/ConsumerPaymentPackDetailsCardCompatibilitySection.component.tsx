@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { useTranslation } from 'react-i18next';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import ConsumerCardSection from '#src/libs/consumer-space/components/reworked/common/ConsumerCardSection';
 import ActivityCompatibility from './ConsumerPaymentPackDetailsCardActivityCompatibility.component';
@@ -28,7 +28,7 @@ const ConsumerPaymentPackDetailsCardCompatibilitySection: React.FC<Props> = ({
 
   return (
     <ConsumerCardSection
-      className={classNames(
+      className={clsx(
         'bs-consumer-payment-pack-details-card__compatibility-section',
       )}
       title={t(
@@ -37,7 +37,7 @@ const ConsumerPaymentPackDetailsCardCompatibilitySection: React.FC<Props> = ({
     >
       <ActivityCompatibility
         activityCompatibilities={activityCompatibilities}
-        className={classNames(
+        className={clsx(
           'bs-consumer-payment-pack-details-card__compatibility-section__container',
         )}
         isCompatibleWithBookingForGuest={isCompatibleWithBookingForGuest}

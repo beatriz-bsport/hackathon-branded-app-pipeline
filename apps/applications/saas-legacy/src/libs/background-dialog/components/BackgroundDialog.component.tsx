@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 
 // eslint-disable-next-line bsport/no-redux-in-component
@@ -120,9 +120,7 @@ export const BackgroundDialogComponent: React.FC<Props> = ({
               {dialog.displayMode ===
                 BackgroundDialogDisplayMode.ACCESS_DENIED && (
                 <div className={classes.contentWithIcon}>
-                  <BlockIcon
-                    className={classNames(classes.icon, classes.red)}
-                  />
+                  <BlockIcon className={clsx(classes.icon, classes.red)} />
                   <Typography
                     align="center"
                     className={classes.infoText}

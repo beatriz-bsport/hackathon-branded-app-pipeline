@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react';
 
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import Button from '@material-ui/core/Button';
@@ -96,7 +96,7 @@ const FranchiseShopItemDetailInventoryListMobile: React.FC<Props> = ({
   return (
     <>
       <div
-        className={classNames(
+        className={clsx(
           classes.filtersContainer,
           classes.flexColumn,
           classes.flexGap,
@@ -145,10 +145,7 @@ const FranchiseShopItemDetailInventoryListMobile: React.FC<Props> = ({
           {shopItemTemplateInstanceList.map((variant) => (
             <ListItem
               key={variant.id}
-              className={classNames(
-                classes.listItemContainer,
-                classes.flexColumn,
-              )}
+              className={clsx(classes.listItemContainer, classes.flexColumn)}
             >
               <Typography className={classes.listItemTitle}>
                 {getListItemTitle(variant.color, variant.size)}
@@ -181,10 +178,7 @@ const FranchiseShopItemDetailInventoryListMobile: React.FC<Props> = ({
           {(shopItemTemplateInstanceList ?? []).map((shopItem) => (
             <ListItem
               key={shopItem.id}
-              className={classNames(
-                classes.listItemContainer,
-                classes.flexColumn,
-              )}
+              className={clsx(classes.listItemContainer, classes.flexColumn)}
             >
               <Typography className={classes.listItemTitle}>
                 {shopItem.company_details.name}

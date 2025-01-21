@@ -38,7 +38,7 @@ type Props = {
   showCreateBookingWarning: boolean,
 };
 
-export const RecurrenceRuleBookingForm: React.FC<Props> = ({
+const RecurrenceRuleBookingForm: React.FC<Props> = ({
   initial,
   values,
   offerSet,

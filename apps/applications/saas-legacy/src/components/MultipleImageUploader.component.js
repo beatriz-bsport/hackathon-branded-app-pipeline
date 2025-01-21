@@ -4,7 +4,7 @@ import sum from 'lodash/sum';
 import React from 'react';
 
 import Dropzone from 'react-dropzone';
-import classnames from 'classnames';
+import clsx from 'clsx';
 
 import { withTranslation, TFunction } from 'react-i18next';
 
@@ -14,9 +14,9 @@ import Typography from '@material-ui/core/Typography';
 import { createUrl } from '../utils/createUrlHandlers';
 
 type ImageFile = {
-  id: ?number,
-  image: ?DOMString,
-  file: ?File,
+  id?: number,
+  image?: DOMString,
+  file?: File,
 };
 
 type Props = {
@@ -84,7 +84,7 @@ export class ImageUploader extends React.Component<Props, State> {
             <input {...getInputProps()} name={name} />
             <div className={classes.previews}>
               <div
-                className={classnames(classes.textContainer, {
+                className={clsx(classes.textContainer, {
                   [classes.textContainerActive]: isDragActive,
                 })}
               >

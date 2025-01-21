@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import { DateTime } from 'luxon';
 import { Calendar } from '#src/components/untitledui';
@@ -65,7 +65,7 @@ export const ConsumerGenericFilters = <TabType,>({
           ({ className, hasBadge, label, onClick, type, value }) => (
             <ActionTab
               key={`${className}-${type}`}
-              className={classNames(
+              className={clsx(
                 'bs-consumer-generic-filters__tabs__tab',
                 className,
               )}
@@ -80,7 +80,7 @@ export const ConsumerGenericFilters = <TabType,>({
       </div>
 
       <IconButton
-        className={classNames('bs-consumer-generic-filters__date-picker', {
+        className={clsx('bs-consumer-generic-filters__date-picker', {
           'bs-consumer-generic-filters__date-picker--hidden':
             isMobile || !onDatePickerClick,
         })}

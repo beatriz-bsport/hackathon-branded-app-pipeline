@@ -2,7 +2,7 @@ import React, { useCallback, useState } from 'react';
 import { DateTime, Duration } from 'luxon';
 import { TFunction } from 'i18next';
 import { useTranslation } from 'react-i18next';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import chroma from 'chroma-js';
 
 import Table from '@material-ui/core/Table';
@@ -238,7 +238,7 @@ const ClockInHistoryRow: React.FC<{
           <IconButton
             aria-expanded={isExpanded}
             aria-label="show more"
-            className={classNames(classes.icon, {
+            className={clsx(classes.icon, {
               [classes.inverseIcon]: isExpanded,
             })}
             onClick={toggleUserDetails}
@@ -259,7 +259,7 @@ const ClockInHistoryRow: React.FC<{
       </TableRow>
       <TableRow>
         <TableCell
-          className={classNames(classes.firstColumn, classes.innerTable)}
+          className={clsx(classes.firstColumn, classes.innerTable)}
           colSpan={1}
         />
         <TableCell className={classes.innerTable} colSpan={250}>
@@ -289,7 +289,7 @@ const ClockInHistoryRow: React.FC<{
               </ObjectLevelPermissionProviderComponent>
               <TableRow className={classes.root}>
                 <TableCell
-                  className={classNames(
+                  className={clsx(
                     classes.border,
                     classes.bold,
                     classes.subName,
@@ -298,7 +298,7 @@ const ClockInHistoryRow: React.FC<{
                   {t('historyTable.startingHour')}
                 </TableCell>
                 <TableCell
-                  className={classNames(
+                  className={clsx(
                     classes.border,
                     classes.bold,
                     classes.subName,
@@ -307,31 +307,23 @@ const ClockInHistoryRow: React.FC<{
                   {t('historyTable.endingHour')}
                 </TableCell>
                 <TableCell
-                  className={classNames(classes.border, classes.bold)}
+                  className={clsx(classes.border, classes.bold)}
                   colSpan={10}
                 >
                   {t('historyTable.durationHoursMinutes')}
                 </TableCell>
                 <TableCell
-                  className={classNames(classes.border, classes.bold)}
+                  className={clsx(classes.border, classes.bold)}
                   colSpan={10}
                 >
                   {t('historyTable.durationHours')}
                 </TableCell>
                 <TableCell
-                  className={classNames(
-                    classes.border,
-                    classes.bold,
-                    classes.email,
-                  )}
+                  className={clsx(classes.border, classes.bold, classes.email)}
                   colSpan={10}
                 />
                 <TableCell
-                  className={classNames(
-                    classes.border,
-                    classes.bold,
-                    classes.action,
-                  )}
+                  className={clsx(classes.border, classes.bold, classes.action)}
                   colSpan={10}
                 >
                   {t('historyTable.action')}
@@ -340,7 +332,7 @@ const ClockInHistoryRow: React.FC<{
               {row?.history?.map((detail, index) => (
                 <TableRow key={detail.id} className={classes.root}>
                   <TableCell
-                    className={classNames(classes.subName, {
+                    className={clsx(classes.subName, {
                       [classes.border]: index !== row.history.length - 1,
                     })}
                   >
@@ -351,7 +343,7 @@ const ClockInHistoryRow: React.FC<{
                     ).toLocaleString(DateTime.TIME_SIMPLE)}`}
                   </TableCell>
                   <TableCell
-                    className={classNames(classes.subName, {
+                    className={clsx(classes.subName, {
                       [classes.border]: index !== row.history.length - 1,
                     })}
                   >
@@ -362,7 +354,7 @@ const ClockInHistoryRow: React.FC<{
                     ).toLocaleString(DateTime.TIME_SIMPLE)}`}
                   </TableCell>
                   <TableCell
-                    className={classNames({
+                    className={clsx({
                       [classes.border]: index !== row.history.length - 1,
                     })}
                     colSpan={10}
@@ -370,7 +362,7 @@ const ClockInHistoryRow: React.FC<{
                     {getDurationTextInHour(detail.date_start, detail.date_end)}
                   </TableCell>
                   <TableCell
-                    className={classNames({
+                    className={clsx({
                       [classes.border]: index !== row.history.length - 1,
                     })}
                     colSpan={10}
@@ -381,13 +373,13 @@ const ClockInHistoryRow: React.FC<{
                     )}
                   </TableCell>
                   <TableCell
-                    className={classNames(classes.email, {
+                    className={clsx(classes.email, {
                       [classes.border]: index !== row.history.length - 1,
                     })}
                     colSpan={10}
                   />
                   <TableCell
-                    className={classNames(classes.action, {
+                    className={clsx(classes.action, {
                       [classes.border]: index !== row.history.length - 1,
                     })}
                     colSpan={10}

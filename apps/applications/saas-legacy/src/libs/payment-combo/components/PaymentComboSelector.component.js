@@ -3,7 +3,7 @@ import React from 'react';
 
 import { withTranslation } from 'react-i18next';
 
-import classNames from 'classnames';
+import clsx from 'clsx';
 import PaymentComboListItem from './PaymentComboListItem.component';
 
 import Selector from '../../../components/Selector.component';
@@ -13,10 +13,10 @@ import type { PaymentCombo } from '../types';
 type Props = {
   classes: any,
   paymentComboList: Array<PaymentCombo>,
-  onChange: (id: ?number) => void,
+  onChange: (id?: number) => void,
   helperText: string,
   nullCurrentValue?: boolean,
-  value: ?number,
+  value?: number,
   selectorClass: string,
   autofocus: boolean,
   disabled?: boolean,
@@ -67,7 +67,7 @@ export function PaymentComboSelector(props: Props) {
     <Selector
       searchIcon
       autofocus={autofocus}
-      className={classNames(classes, selectorClass)}
+      className={clsx(classes, selectorClass)}
       components={{ Option: paymentComboOption }}
       error={error}
       isDisabled={!!props.disabled}

@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import { DateTime, Interval } from 'luxon';
 import { useTranslation } from 'react-i18next';
@@ -167,7 +167,7 @@ export const ConsumerSubscriptionsListContainer: React.FC<Props> = ({
           autoRenewalDate={formatAsDate(
             selectedSubscription?.last_billing_date,
           )}
-          className={classNames({
+          className={clsx({
             'bs-consumer__subscription-details-card__root--hidden': isMobile,
           })}
           description={selectedSubscription?.description}

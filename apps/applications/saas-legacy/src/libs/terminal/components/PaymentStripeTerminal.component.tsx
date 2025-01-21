@@ -8,7 +8,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import Checkbox from '@material-ui/core/Checkbox';
 import { useTranslation } from 'react-i18next';
 import { makeStyles, Theme, Typography } from '@material-ui/core';
-import classnames from 'classnames';
+import clsx from 'clsx';
 import { captureException } from '@sentry/react';
 import StripeTerminalError from '#src/libs/terminal/components/StripeTerminalError';
 import StripeTerminalProcessing from '#src/libs/terminal/components/StripeTerminalProcessing';
@@ -438,7 +438,7 @@ export const PaymentStripeTerminal: React.FC<Props> = ({
   };
 
   return (
-    <div className={classnames(classes.container, customClasses?.container)}>
+    <div className={clsx(classes.container, customClasses?.container)}>
       {step === TerminalPaymentSteps.ERROR && (
         <StripeTerminalError
           error={error}
@@ -473,7 +473,7 @@ export const PaymentStripeTerminal: React.FC<Props> = ({
 
       {step === TerminalPaymentSteps.SETTINGS && (
         <div
-          className={classnames(
+          className={clsx(
             classes.stripeTerminalContainer,
             customClasses?.stripeTerminalContainer,
           )}
@@ -526,7 +526,7 @@ export const PaymentStripeTerminal: React.FC<Props> = ({
               {stripeReaders.map((reader) => (
                 <React.Fragment key={reader.id}>
                   <ButtonBase
-                    className={classnames(classes.readerItem, {
+                    className={clsx(classes.readerItem, {
                       [classes.selectedReader]: selectedReader === reader.id,
                     })}
                     onClick={() => setSelectedReader(reader.id)}
@@ -562,9 +562,7 @@ export const PaymentStripeTerminal: React.FC<Props> = ({
 
           {children || null}
 
-          <div
-            className={classnames(classes.actionRow, customClasses?.actionRow)}
-          >
+          <div className={clsx(classes.actionRow, customClasses?.actionRow)}>
             <Button
               color="primary"
               disabled={!clientSecret || !selectedReader}

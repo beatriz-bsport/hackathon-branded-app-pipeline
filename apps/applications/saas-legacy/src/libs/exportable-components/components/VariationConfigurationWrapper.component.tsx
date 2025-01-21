@@ -1,6 +1,6 @@
 import React, { useCallback, useMemo, useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import { makeStyles } from '@material-ui/core/styles';
 import {
@@ -156,7 +156,7 @@ const VariationConfigurationWrapper: React.FC<{
         </div>
       )}
       <div
-        className={classNames(
+        className={clsx(
           'bs-custom-css__component__preview',
           classes.preview,
           classes.centered,
@@ -171,7 +171,7 @@ const VariationConfigurationWrapper: React.FC<{
       >
         {/* Here injecting the new props to the children */}
         <div
-          className={classNames(classes.componentWrapper, {
+          className={clsx(classes.componentWrapper, {
             [classes.fullHeight]: isSelectedComponentModal,
           })}
         >

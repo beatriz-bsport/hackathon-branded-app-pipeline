@@ -1,5 +1,5 @@
 import React, { MouseEvent, useCallback } from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 
@@ -29,15 +29,12 @@ export const Blanket: React.FC<Props> = ({
   return (
     isOpen && (
       <div
-        className={classNames('bs-fabrique-blanket', className)}
+        className={clsx('bs-fabrique-blanket', className)}
         onClick={onClick}
         role="presentation"
       >
         <div
-          className={classNames(
-            'bs-fabrique-blanket-content',
-            classes?.content,
-          )}
+          className={clsx('bs-fabrique-blanket-content', classes?.content)}
           onClick={handleOnContentClick}
           role="presentation"
         >

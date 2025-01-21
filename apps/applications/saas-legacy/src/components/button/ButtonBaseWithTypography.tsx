@@ -1,7 +1,7 @@
 import React from 'react';
 import { ButtonBase, Typography } from '@material-ui/core';
 import { Variant } from '@material-ui/core/styles/createTypography';
-import classnames from 'classnames';
+import clsx from 'clsx';
 
 type Props = {
   children: any;
@@ -22,7 +22,7 @@ type Props = {
 const ButtonBaseWithTypography = (props: Props) => {
   return (
     <ButtonBase
-      className={classnames({ [props.className]: !!props.className })}
+      className={clsx({ [props.className]: !!props.className })}
       disableRipple={!!props.disableRipple}
       onClick={props.onClick}
     >

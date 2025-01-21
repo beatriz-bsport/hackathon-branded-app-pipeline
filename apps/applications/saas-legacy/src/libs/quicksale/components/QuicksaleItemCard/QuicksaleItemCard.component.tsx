@@ -1,5 +1,5 @@
 import React from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import { Theme, useMediaQuery } from '@material-ui/core';
 import DragIndicator from '@material-ui/icons/DragIndicator';
@@ -74,10 +74,7 @@ const QuicksaleItemCard: React.FC<Props> = (props) => {
 
   return (
     <div
-      className={classNames(
-        globalClasses.quicksaleCardContainer,
-        classes.container,
-      )}
+      className={clsx(globalClasses.quicksaleCardContainer, classes.container)}
       onClick={addItemToBasket}
       onKeyDown={stopPropagation}
       role="button"

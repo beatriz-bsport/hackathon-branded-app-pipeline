@@ -1,7 +1,7 @@
 import React from 'react';
 import { MarketPlaceSessionTimeDisplay } from '@bsport/common/lib/master-data/personalization.js';
 import { useTranslation } from 'react-i18next';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import useConsumerBookingsDataManager from '#src/libs/consumer-space/components/reworked/@MyBookings/hooks/useConsumerBookingsDataManager';
 import ConsumerBookingListContainer from '#src/libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingListContainer';
@@ -332,7 +332,7 @@ export const ConsumerBookingPageReworkedComponent: React.FC<Props> = ({
   );
   return (
     <PageContentContainer
-      contentClassName={classNames('bs-consumer-booking-page__root', {
+      contentClassName={clsx('bs-consumer-booking-page__root', {
         'bs-consumer-booking-page__root--fab':
           WidgetUtils.getConsumerSpaceContext() ===
           ConsumerSpaceContextEnum.FAB,

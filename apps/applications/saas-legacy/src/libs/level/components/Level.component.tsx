@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { pure } from 'recompose';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import chroma from 'chroma-js';
 
 import Typography from '@material-ui/core/Typography';
@@ -45,7 +45,7 @@ export const LevelComponent: React.FC<Props> = ({
     <Typography
       noWrap
       align={align}
-      className={classNames(
+      className={clsx(
         {
           [classes.level]: !noStyle,
           [classes.noStyle]: noStyle,

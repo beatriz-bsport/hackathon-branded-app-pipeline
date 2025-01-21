@@ -1,5 +1,5 @@
 import React from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { CheckoutItem } from '#src/libs/checkout/types';
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 import MarketplaceProductItem from '../MarketplaceProductItem';
@@ -20,7 +20,7 @@ const MarketplaceProductItemList: React.FC<Props> = ({
   if (items && items.length > 0) {
     return (
       <ul
-        className={classNames('bs-product-item-list', {
+        className={clsx('bs-product-item-list', {
           ...classes,
         })}
       >

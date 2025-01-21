@@ -5,7 +5,7 @@ import BankAccountForm from './BankAccountForm.component';
 
 type Props = { open: boolean };
 
-export const BankAccountDialog = (props: Props) => {
+const BankAccountDialog = (props: Props) => {
   if (!props.open) return null;
 
   return (

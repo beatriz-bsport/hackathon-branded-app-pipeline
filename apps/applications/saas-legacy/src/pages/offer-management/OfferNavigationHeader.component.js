@@ -29,7 +29,7 @@ type Props = {
   classes: Object,
   goToOffer: (offerId: number) => void,
   bookingLoading: boolean,
-  offer: ?Offer,
+  offer?: Offer,
   offerId: number,
   loading: boolean,
   offerLoading: boolean,

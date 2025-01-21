@@ -15,7 +15,7 @@ type Props = {
   onCancel: () => void,
 };
 
-export const PrivateSlotCompatibleServiceForm = (props: Props) => {
+const PrivateSlotCompatibleServiceForm = (props: Props) => {
   const classes = useStyles();
   const { t } = useTranslation(['privateService']);
   const { compatiblePassByService } = props;

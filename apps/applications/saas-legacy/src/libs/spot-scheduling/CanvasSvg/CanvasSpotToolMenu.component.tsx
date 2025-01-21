@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import CreateIcon from '@material-ui/icons/Create';
 import DeleteIcon from '@material-ui/icons/Delete';
 import AdjustIcon from '@material-ui/icons/Adjust';
-import clx from 'classnames';
+import clsx from 'clsx';
 import { SpotType } from '../types';
 import { CanvasSelectableToolsEnum } from './tools/CanvasStrategy';
 import {
@@ -40,7 +40,7 @@ export const CanvasSpotToolMenu = (props: Props) => {
     <div className={classes.itemContainer}>
       {/* @ts-expect-error */}
       <ButtonBase
-        className={clx({
+        className={clsx({
           [classes.spot]: true,
           [classes.itemSelected]: selected,
         })}

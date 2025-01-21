@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 
-import classNames from 'classnames';
+import clsx from 'clsx';
 import ClearIcon from '@material-ui/icons/Clear';
 import DoneAllIcon from '@material-ui/icons/DoneAll';
 import WarningIcon from '@material-ui/icons/Warning';
@@ -24,15 +24,12 @@ const ConfirmationMessageIcon: React.FC<Props> = ({ isError, isWarning }) => {
   return (
     <div className="bs-confirmation-checkout-message__container">
       <div
-        className={classNames(
-          'bs-confirmation-checkout-message__icon__container',
-          {
-            'bs-confirmation-checkout-message__icon__error': isError,
-            'bs-confirmation-checkout-message__icon__warning': isWarning,
-            'bs-confirmation-checkout-message__icon__default':
-              !isError && !isWarning,
-          },
-        )}
+        className={clsx('bs-confirmation-checkout-message__icon__container', {
+          'bs-confirmation-checkout-message__icon__error': isError,
+          'bs-confirmation-checkout-message__icon__warning': isWarning,
+          'bs-confirmation-checkout-message__icon__default':
+            !isError && !isWarning,
+        })}
       >
         {icon}
       </div>

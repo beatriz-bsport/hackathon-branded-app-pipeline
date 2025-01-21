@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import omit from 'lodash/omit';
 import { makeStyles } from '@material-ui/core';
 import InputLabel from '@material-ui/core/InputLabel';
@@ -238,7 +238,7 @@ const MarketplaceCalendarV2SettingsForm: React.FC<Props> = ({
         </Select>
       </FormControl>
 
-      <div className={classNames(classes.fieldContainer, classes.tagForm)}>
+      <div className={clsx(classes.fieldContainer, classes.tagForm)}>
         <Typography color="textSecondary" variant="caption">
           {t('widget:widget.newsletterV2.tagToApply')}
         </Typography>

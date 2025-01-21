@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 import TextField from '#Fabrique/TextField';
@@ -127,13 +127,10 @@ const ChangePasswordForm: React.FC<Props> = ({
             {!processing && !hasExpired && (
               <Button
                 classes={{
-                  root: classNames(
-                    'bs-change-password-form__form__actions__submit',
-                    {
-                      'bs-change-password-form__form__actions__submit--simplify-ui':
-                        simplifyUI,
-                    },
-                  ),
+                  root: clsx('bs-change-password-form__form__actions__submit', {
+                    'bs-change-password-form__form__actions__submit--simplify-ui':
+                      simplifyUI,
+                  }),
                 }}
                 color={ButtonColor.PRIMARY}
                 id="btn-new-password-confirm"
@@ -145,7 +142,7 @@ const ChangePasswordForm: React.FC<Props> = ({
             {hasExpired && (
               <Button
                 classes={{
-                  root: classNames(
+                  root: clsx(
                     'bs-change-password-form__form__actions__reset-again',
                   ),
                 }}

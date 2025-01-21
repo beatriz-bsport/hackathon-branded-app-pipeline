@@ -4,7 +4,7 @@ import makeStyles from '@material-ui/core/styles/makeStyles';
 import { useTranslation } from 'react-i18next';
 import { Button, Typography } from '@material-ui/core';
 import { InfoOutlined } from '@material-ui/icons';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import chroma from 'chroma-js';
 import SuccessIcon from '#src/components/icons/SuccessIcon.component';
 import { buildSteps } from './utils';
@@ -45,9 +45,7 @@ export const AccountConfigurationFinalStep: React.FC<Props> = ({
     <>
       <div className={classes.welcomeContent}>
         <div className={classes.row}>
-          <SuccessIcon
-            className={classNames(classes.iconLeft, classes.largeIcon)}
-          />
+          <SuccessIcon className={clsx(classes.iconLeft, classes.largeIcon)} />
           <Typography variant="h3">
             {t('accountConfiguration.congrats')}
           </Typography>
@@ -60,10 +58,8 @@ export const AccountConfigurationFinalStep: React.FC<Props> = ({
           steps={steps}
           variant="verticalOnMobile"
         />
-        <div className={classNames(classes.blueBox, classes.limitedWidth)}>
-          <InfoOutlined
-            className={classNames(classes.iconLeft, classes.blueIcon)}
-          />
+        <div className={clsx(classes.blueBox, classes.limitedWidth)}>
+          <InfoOutlined className={clsx(classes.iconLeft, classes.blueIcon)} />
           <Typography>{t('accountConfiguration.goToBackoffice')}</Typography>
         </div>
         <div className={classes.action}>

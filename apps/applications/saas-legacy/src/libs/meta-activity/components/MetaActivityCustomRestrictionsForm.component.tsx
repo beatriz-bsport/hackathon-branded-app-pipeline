@@ -1,6 +1,6 @@
 import React from 'react';
 import { WithTranslation, useTranslation } from 'react-i18next';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { Theme, useTheme } from '@material-ui/core/styles';
 import makeStyles from '@material-ui/styles/makeStyles';
 
@@ -144,7 +144,7 @@ export const MetaActivityCustomRestrictionsForms: React.FC<Props> = ({
               {custom_restriction_rule.map((crr, i: number) => (
                 <div
                   key={`custoom_restriction_${i}`}
-                  className={classNames(
+                  className={clsx(
                     classes.personnalizedRestrictionOutterContainer,
                     { [classes.hidden]: i !== activeStep },
                   )}

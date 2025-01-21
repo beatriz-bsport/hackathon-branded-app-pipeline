@@ -1,7 +1,7 @@
 import React from 'react';
 import { makeStyles, Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import StyleIcon from '@material-ui/icons/Style';
 import IconButton from '@material-ui/core/IconButton';
@@ -44,7 +44,7 @@ const PaymentPackItem = (props: Props) => {
     <div className={classes.itemContainer}>
       <div className={classes.row}>
         <div
-          className={classNames({
+          className={clsx({
             [classes.opacity]: !!props.paymentPack.exceedsBookingMaxout,
           })}
         >
@@ -79,7 +79,7 @@ const PaymentPackItem = (props: Props) => {
             <Tooltip title={t('form.paymentPack.universalPass.label')}>
               <IconButton onClick={null}>
                 <StyleIcon
-                  className={classNames({
+                  className={clsx({
                     [classes.opacity]: !!props.paymentPack.exceedsBookingMaxout,
                   })}
                   color="inherit"

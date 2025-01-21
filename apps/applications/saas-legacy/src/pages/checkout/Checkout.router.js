@@ -64,7 +64,7 @@ type Props = {
   fetchProfile: () => void,
   authenticated: boolean,
   location: Object,
-  is_manager: ?boolean,
+  is_manager?: boolean,
   companyId: number,
   theme: CompanyTheme,
   fetchCompanyTheme: (number) => void,

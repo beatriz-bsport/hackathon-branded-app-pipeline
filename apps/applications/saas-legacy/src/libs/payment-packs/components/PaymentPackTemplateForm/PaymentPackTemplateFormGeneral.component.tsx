@@ -14,7 +14,7 @@ import Divider from '@material-ui/core/Divider';
 import BlockIcon from '@material-ui/icons/Block';
 
 import { FormikProps, useFormikContext } from 'formik';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { CheckboxField } from '#src/libs/custom-form/components/GenericFormik.input';
 import {
   TextFieldEnhancedLabelWithError,
@@ -297,7 +297,7 @@ export const PaymentPackFormGeneral: React.FC<Props> = ({
           >
             <Grid item xs={12}>
               <Divider
-                className={classNames(classes.divider, {
+                className={clsx(classes.divider, {
                   [classes.displayNone]: !values.apply_penalties,
                 })}
               />

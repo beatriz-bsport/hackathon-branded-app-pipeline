@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { withTranslation, WithTranslation } from 'react-i18next';
-import classnames from 'classnames';
+import clsx from 'clsx';
 import { compose } from 'recompose';
 import {
   createStyles,
@@ -211,7 +211,7 @@ export class RelationsFilter extends Component<Props> {
 
     return (
       <div className={classes.wrapper}>
-        <div className={classnames(classes.inlineContainer, classes.marginTop)}>
+        <div className={clsx(classes.inlineContainer, classes.marginTop)}>
           <div className={classes.rowContainer}>
             {t(`filters.${filter_data?.filter_identifier}.first`)}
             <Select
@@ -256,7 +256,7 @@ export class RelationsFilter extends Component<Props> {
             {t(`filters.${filter_data?.filter_identifier}.second`)}
           </div>
         </div>
-        <div className={classnames(classes.marginLeft, classes.rowContainer)}>
+        <div className={clsx(classes.marginLeft, classes.rowContainer)}>
           <div className={classes.inlineContainer}>
             <Switch
               checked={filter_data.date_filter_active}

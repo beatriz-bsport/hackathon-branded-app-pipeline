@@ -1,7 +1,7 @@
 import React from 'react';
 import FormControl from '@material-ui/core/FormControl';
 import Paper from '@material-ui/core/Paper';
-import classnames from 'classnames';
+import clsx from 'clsx';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import { makeStyles } from '@material-ui/core/styles';
@@ -27,7 +27,7 @@ export const PaymentMethodMultiSelector = (props: Props) => {
             onClick={() => props.selectPaymentMethod(pm)}
           >
             <Paper
-              className={classnames(
+              className={clsx(
                 classes.paper,
                 props.paymentMethodsSelected.includes(pm)
                   ? classes.selected

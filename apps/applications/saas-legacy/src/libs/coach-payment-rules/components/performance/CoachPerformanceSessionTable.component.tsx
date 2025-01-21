@@ -13,7 +13,7 @@ import AttachIcon from '@material-ui/icons/AttachFile';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Chip from '@material-ui/core/Chip';
-import clx from 'classnames';
+import clsx from 'clsx';
 import type { Coach } from '#src/libs/associated-coach/types';
 import ObjectLevelPermissionProviderComponent from '#src/libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 // @ts-expect-error
@@ -65,7 +65,7 @@ export function CoachPerformanceSessionTable(props: Props) {
   return (
     <div>
       <div
-        className={clx([
+        className={clsx([
           classes.flexHeaderContainer,
           props.asCoach &&
           props.displayChip &&

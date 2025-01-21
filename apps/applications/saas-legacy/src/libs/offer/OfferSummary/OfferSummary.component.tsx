@@ -1,5 +1,5 @@
 import React from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 
 import { Theme, lighten, makeStyles } from '@material-ui/core';
@@ -213,7 +213,7 @@ const OfferSummary: React.FC<Props> = ({
             !theme?.hideCoach &&
             variant !== OfferSummaryVariant.BASKET && (
               <div
-                className={classNames(classes.itemWithIcon, {
+                className={clsx(classes.itemWithIcon, {
                   [classes.hiddenOnMobile]:
                     variant !== OfferSummaryVariant.DEFAULT,
                 })}
@@ -231,7 +231,7 @@ const OfferSummary: React.FC<Props> = ({
             )}
 
           {spotId !== undefined && spotId !== null && (
-            <div className={classNames(classes.itemWithIcon)}>
+            <div className={clsx(classes.itemWithIcon)}>
               <Adjust className={classes.icon} />
               <Typography>{`${t(`booking:place`)} ${spotId}`}</Typography>
             </div>
@@ -239,7 +239,7 @@ const OfferSummary: React.FC<Props> = ({
 
           {offer && variant !== OfferSummaryVariant.BOOKING && (
             <div
-              className={classNames(classes.itemWithIcon, {
+              className={clsx(classes.itemWithIcon, {
                 [classes.hiddenOnMobile]:
                   variant !== OfferSummaryVariant.DEFAULT,
               })}

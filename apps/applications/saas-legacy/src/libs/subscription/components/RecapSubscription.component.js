@@ -9,12 +9,12 @@ import { DateTime } from 'luxon';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 
 type RecapProps = {
-  member: ?Member,
-  price: ?number,
-  periodName: ?string,
-  nbPeriod: ?number,
-  subscriptionContentName: ?string,
-  recurrentVoucher: ?number,
+  member?: Member,
+  price?: number,
+  periodName?: string,
+  nbPeriod?: number,
+  subscriptionContentName?: string,
+  recurrentVoucher?: number,
   dateStart: number,
 
   classes: Object,

@@ -187,7 +187,7 @@ import type {
   OptionCallback,
   ReworkedPaginationResponse,
 } from '../../state/types';
-import type { Offer, Coach } from '#api/types';
+import type { Offer, Coach } from '#src/api/types';
 import {
   getBookingRelatedStatisticLoading,
   getStats,
@@ -276,7 +276,7 @@ type Props = {
   hybridOfferLinkedToSelectedOffer: Offer | null,
   offerId: number,
 
-  theme: ?CompanyTheme,
+  theme?: CompanyTheme,
 
   coachesLoading: boolean,
   establishmentsLoading: boolean,
@@ -338,13 +338,13 @@ type Props = {
   bookings: Array<Booking>,
   bookingsLoading: boolean,
 
-  massDisablerStartDate: ?string,
+  massDisablerStartDate?: string,
   disableMassOffers: (
     params: any,
     filters: OfferFilter & OfferTypeFilter,
     options: OptionCallback,
   ) => void,
-  setMassDisablerStartDate: (date: ?string) => void,
+  setMassDisablerStartDate: (date?: string) => void,
   setShowCancelledOffers: (boolean) => void,
   setOpenDeleteDialog: () => void,
   openDeleteDialog: boolean,
@@ -672,12 +672,12 @@ export class Planning extends PureComponent<Props, State> {
 
   onCancelOffer = (data: {
     offerId: number,
-    cashback: ?boolean,
-    notify: ?boolean,
-    deleteAll: ?boolean,
-    custom_selection: ?boolean,
-    custom_selection_ids: ?Array<number>,
-    cancel_linked_hybrid_offer: ?boolean,
+    cashback?: boolean,
+    notify?: boolean,
+    deleteAll?: boolean,
+    custom_selection?: boolean,
+    custom_selection_ids?: Array<number>,
+    cancel_linked_hybrid_offer?: boolean,
     force: boolean,
   }) => {
     this.props.disableOffer(data, {

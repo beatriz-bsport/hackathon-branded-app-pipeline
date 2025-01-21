@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 import { withRouter } from 'react-router';
 import { Location } from 'history';
 import { compose } from 'recompose';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { push as pushRouter } from 'connected-react-router';
 // eslint-disable-next-line bsport/no-redux-in-component
 import { connect, ConnectedProps } from 'react-redux';
@@ -447,7 +447,7 @@ export const FranchiseDrawer = (props: Props) => {
         <BannerContext.Consumer>
           {({ banner }: BannerContextValue) => (
             <div
-              className={classNames(classes.root, {
+              className={clsx(classes.root, {
                 [classes.rootFullWidth]: isMobileDevice || !displayLeftMenu,
               })}
             >
@@ -509,7 +509,7 @@ export const FranchiseDrawer = (props: Props) => {
                 tempPasswordExpirationDate={tempPasswordState.expiration_date}
               />
               <main
-                className={classNames({
+                className={clsx({
                   [classes.content]: !(
                     location.pathname.includes('/shop') ||
                     /^\/f\/reporting\/[^/]+\/[^/]+$/.test(location.pathname)

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 
@@ -30,7 +30,7 @@ const ReferralCard: React.FC<ReferralCardProps> = ({
   if (isLoading) return <ConsumerCardSkeleton />;
   return (
     <Card
-      className={classNames('bs-consumer-referral-card__root', {
+      className={clsx('bs-consumer-referral-card__root', {
         'bs-consumer-referral-card__root--hidden': hideCard,
       })}
     >

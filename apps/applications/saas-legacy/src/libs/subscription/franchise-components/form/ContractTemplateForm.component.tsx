@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useMemo } from 'react';
 
 import { useTranslation } from 'react-i18next';
 
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import WarningIcon from '@material-ui/icons/Warning';
 import makeStyles from '@material-ui/core/styles/makeStyles';
@@ -565,7 +565,7 @@ const ContractTemplateForm: React.FC<ContractTemplateFormProps> = ({
       <Divider />
 
       <div
-        className={classNames(
+        className={clsx(
           classes.sectionContainer,
           classes.sectionsTermsAndSettings,
         )}
@@ -591,7 +591,7 @@ const ContractTemplateForm: React.FC<ContractTemplateFormProps> = ({
       <Divider />
 
       <div
-        className={classNames(
+        className={clsx(
           classes.sectionContainer,
           classes.sectionsTermsAndSettings,
         )}

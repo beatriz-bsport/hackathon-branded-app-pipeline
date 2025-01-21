@@ -14,7 +14,7 @@ import { withTranslation, TFunction } from 'react-i18next';
 import { MarketPlaceCoachDisplay } from '@bsport/common/lib/master-data/personalization.js';
 import themeSelectors from '../../libs/theme/selectors';
 
-import { WidgetUtils } from '../../libs/widget/WidgetUtils';
+import WidgetUtils from '../../libs/widget/WidgetUtils';
 
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import {

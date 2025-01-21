@@ -37,12 +37,12 @@ const STEP_PASS: StepType = { id: 2, label: 'pass_list' };
 const STEPS: Array<StepType> = [STEP_ACTIVITY, STEP_OFFER, STEP_PASS];
 
 type Props = {
-  loading: ?boolean,
+  loading?: boolean,
   compatiblePacksLoading: boolean,
   compatiblePaymentPacks: Array<PaymentPack>,
   availableEstablishments: Array<Establishment>,
   fetchEstablishments: () => void,
-  SCTs: *[],
+  SCTs: any[],
 
   onSubmitMetaActivity: () => void,
   coaches: Array<Coach>,
@@ -50,9 +50,9 @@ type Props = {
   fetchAllActivities: () => void,
   setStep: (step: StepType) => void,
   step: StepType,
-  upsertedMetaActivity: ?MetaActivity,
+  upsertedMetaActivity?: MetaActivity,
   fetchPaymentPacks: (metaActvityId?: number) => void,
-  offerHadError: ?Error,
+  offerHadError?: Error,
   createMetaOffers: () => void,
   offerIsProcessing: boolean,
   goToMetaActivity: (id: number) => void,
@@ -85,7 +85,7 @@ type Props = {
   onSubmitWorkshopActivity: () => void,
   isWorkshop: boolean,
   createWorkshopOffers: () => void,
-  upsertedWorkshop: ?MetaActivity,
+  upsertedWorkshop?: MetaActivity,
   associatedCoaches: Array<Coach>,
   metaActivitiesAndWorkshops: any,
 };

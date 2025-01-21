@@ -15,13 +15,13 @@ import { createUrl } from '../../utils/createUrlHandlers';
 type Props = {
   classes: any,
   initial: string,
-  label: ?string,
-  helperText: ?string,
+  label?: string,
+  helperText?: string,
   onChange: (any) => void,
   name: string,
 };
 type State = {
-  previewURL: string | *,
+  previewURL?: string,
 };
 
 export class ImageUploader extends React.Component<Props, State> {

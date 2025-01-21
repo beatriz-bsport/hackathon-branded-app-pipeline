@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Typography from '@material-ui/core/Typography';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import { makeStyles, Theme } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
@@ -72,7 +72,7 @@ export const SlotDetailListItem: React.FC<Props> = ({
 
   return (
     <div
-      className={classNames(classes.container, classes.flexColumn, {
+      className={clsx(classes.container, classes.flexColumn, {
         [classes.first]: !!isFirst,
         [classes.last]: !!isLast,
       })}
@@ -91,7 +91,7 @@ export const SlotDetailListItem: React.FC<Props> = ({
                 }-${JSON.stringify(
                   slot.restriction_on_associated_establishments,
                 )}`}
-                className={classNames(classes.flexColumn, classes.slot)}
+                className={clsx(classes.flexColumn, classes.slot)}
               >
                 <Typography variant="body2">
                   {t('availabilitySlot.detail.slotBoundaries', {
@@ -119,7 +119,7 @@ export const SlotDetailListItem: React.FC<Props> = ({
           </>
         ) : (
           <>
-            <div className={classNames(classes.flexColumn, classes.slot)}>
+            <div className={clsx(classes.flexColumn, classes.slot)}>
               <Typography variant="body2">
                 {t('availabilitySlot.detail.openHours')}
               </Typography>

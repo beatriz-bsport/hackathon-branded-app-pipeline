@@ -1,5 +1,5 @@
 import React from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 import Typography from '#Fabrique/Typography';
@@ -29,7 +29,7 @@ export const ActionTab: React.FC<Props> = ({
 }) => {
   return (
     <ButtonBase
-      className={classNames(
+      className={clsx(
         'bs-fabrique-action-tab-container',
         {
           'bs-fabrique-action-tab-container--selected': isSelected,
@@ -40,7 +40,7 @@ export const ActionTab: React.FC<Props> = ({
       onClick={onClick}
     >
       <Typography
-        className={classNames(
+        className={clsx(
           'bs-fabrique-action-tab-text',
           {
             'bs-fabrique-action-tab-text-weak': !isSelected,

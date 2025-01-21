@@ -2,7 +2,7 @@ import React from 'react';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import { Button, Typography } from '@material-ui/core';
 import { HourglassEmpty } from '@material-ui/icons';
-import classnames from 'classnames';
+import clsx from 'clsx';
 import { compose } from 'recompose';
 import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
 
@@ -72,7 +72,7 @@ class BookButton extends React.PureComponent<Props, State> {
     return (
       <>
         <Button
-          className={classnames('bookingButton', {
+          className={clsx('bookingButton', {
             bookingButtonAnimation: animation,
           })}
           color="primary"

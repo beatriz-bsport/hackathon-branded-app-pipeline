@@ -26,10 +26,10 @@ import type { ShopItem } from '../types';
 
 const ShopItemCard = (props: {
   shopitem: ShopItem,
-  addToOrder: ?(id: number) => void,
-  onEdit: ?(shopitem: ShopItem) => void,
+  addToOrder?: (id: number) => void,
+  onEdit?: (shopitem: ShopItem) => void,
   showPaymentLink: boolean,
-  onDelete: ?() => void,
+  onDelete?: () => void,
   t: TFunction,
   classes: Object,
   snackbarSuccess: (string) => void,

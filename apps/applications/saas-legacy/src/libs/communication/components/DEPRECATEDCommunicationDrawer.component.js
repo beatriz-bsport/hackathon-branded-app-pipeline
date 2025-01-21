@@ -57,7 +57,7 @@ type Props = {
   emailDetailLoading: boolean,
   emailDetails: Array<any>,
   open: boolean,
-  mailDefaultTitle: ?string,
+  mailDefaultTitle?: string,
   mailDefaultTitle: string,
   hideTemplateMail: boolean,
   hideWrittenMail: boolean,

@@ -64,20 +64,20 @@ import analyticsUtils from '../components/analytics/analytics';
 
 export const initiateInterface = createAction('initiate');
 
-function networkError(error: ?Error) {
+function networkError(error?: Error) {
   return { type: 'LOGIN/NETWORK_ERROR', error };
 }
 
 export function fetchAccessLevel(
   token: string,
-  options: ?{
+  options?: {
     company: string,
     goNext?: (values: {
       is_manager: Boolean,
       is_consumer: Boolean,
       is_franchisor: Boolean,
     }) => ThunkAction,
-    onDone: ?() => void,
+    onDone?: () => void,
   },
 ) {
   return async (dispatch: Dispatch) => {
@@ -179,8 +179,8 @@ export function fetchAccessLevel(
 export function fetchAccessLevelWithoutConnect(
   token: string,
   storingKey: 'previous' | 'current',
-  options: ?{
-    next: ?ThunkAction,
+  options?: {
+    next?: ThunkAction,
   },
 ) {
   return async (dispatch: Dispatch) => {
@@ -289,7 +289,7 @@ function checkEmailExistsLoading(loading: boolean) {
   return { type: types.CHECK_EMAIL_EXISTS_LOADING, loading };
 }
 
-function checkEmailExistsError(error: ?Error) {
+function checkEmailExistsError(error?: Error) {
   return { type: types.CHECK_EMAIL_EXISTS_ERROR, error };
 }
 
@@ -502,9 +502,10 @@ export function requestConfirmationEmail(
   };
 }
 
-export function errorLogin(
-  invalidFields: ?{ email: ?string, password: ?string },
-) {
+export function errorLogin(invalidFields?: {
+  email?: string,
+  password?: string,
+}) {
   return { type: types.LOGIN_FAILED, invalidFields };
 }
 

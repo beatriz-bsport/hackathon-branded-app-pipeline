@@ -16,7 +16,7 @@ type Props = {
   rightAction?: React.Node,
 };
 
-export const OfferListItem = (props: Props) => {
+const OfferListItem = (props: Props) => {
   const { offer, t } = props;
 
   const offerNameDisplay = React.useMemo(

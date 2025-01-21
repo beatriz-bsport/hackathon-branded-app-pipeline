@@ -42,7 +42,7 @@ type Props = {
 };
 
 type State = {
-  error: ?Error,
+  error?: Error,
 };
 
 export class PaymentPackPaymentPage extends Component<Props, State> {

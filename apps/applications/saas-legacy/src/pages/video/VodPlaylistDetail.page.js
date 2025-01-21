@@ -58,9 +58,9 @@ type Props = {
 
   openVideoSearch: () => void,
   subVideoToPlaylist: (Video, OptionCallback) => void,
-  playlist: ?VideoPlaylist,
-  videoId: ?number,
-  selectedVideo: ?Video,
+  playlist?: VideoPlaylist,
+  videoId?: number,
+  selectedVideo?: Video,
 };
 
 export class VodPlaylistDetailPage extends React.Component<Props> {

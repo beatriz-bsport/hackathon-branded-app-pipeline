@@ -5,7 +5,7 @@ import { ConnectedProps, connect } from 'react-redux';
 import flatten from 'lodash/flatten';
 import { push as pushRouter } from 'connected-react-router';
 import { LinearProgress } from '@material-ui/core';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import {
   createStyles,
   withStyles,
@@ -113,7 +113,7 @@ export class MarketplaceVideoDetail extends React.Component<Props> {
   render() {
     return (
       <div
-        className={classNames(
+        className={clsx(
           this.props.classes.container,
           'bs-marketplace-vod-detail-page__main-container',
         )}
@@ -123,7 +123,7 @@ export class MarketplaceVideoDetail extends React.Component<Props> {
         )}
         <Grid
           container
-          className={classNames(
+          className={clsx(
             this.props.classes.gridContainer,
             'bs-marketplace-vod-detail-page__grid-container',
           )}

@@ -11,7 +11,7 @@ import Typography from '#Fabrique/Typography';
 import type { ConsumerInvoice } from '#src/libs/invoice/types';
 
 import '../styles.css';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 type Props = {
   consumerInvoice: ConsumerInvoice;
@@ -51,7 +51,7 @@ const ConsumerInvoiceCardBody: React.FC<Props> = ({
           )}
         </Typography>
         <Typography
-          className={classNames('bs-consumer-invoice-card__body__amount-due', {
+          className={clsx('bs-consumer-invoice-card__body__amount-due', {
             'bs-consumer-invoice-card__body__amount-due--hidden':
               !consumerInvoice?.amount_left_to_pay_cts,
           })}

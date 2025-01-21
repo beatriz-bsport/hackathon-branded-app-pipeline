@@ -5,7 +5,7 @@ import Typography from '@material-ui/core/Typography/Typography';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 
 import { Card, CardActionArea } from '@material-ui/core';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import type { ReportConfiguration } from '#src/libs/reporting/common/types';
 
@@ -24,7 +24,7 @@ const ReportCustomViewItem: React.FC<Props> = ({
   return (
     <Card className={classes.cardItem}>
       <CardActionArea
-        className={classNames(classes.withPadding, classes.cardActionArea)}
+        className={clsx(classes.withPadding, classes.cardActionArea)}
         onClick={handleGoToReport(reportCustomView)}
       >
         <div className={classes.titleContainer}>

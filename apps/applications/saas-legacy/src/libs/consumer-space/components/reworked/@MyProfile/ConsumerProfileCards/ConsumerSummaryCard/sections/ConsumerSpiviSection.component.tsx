@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import ConsumerCardSection from '#src/libs/consumer-space/components/reworked/common/ConsumerCardSection';
 import List from '#src/components/css-only/Fabrique/List';
@@ -34,7 +34,7 @@ const ConsumerSpiviSection: React.FC<Props> = ({
 
   return (
     <ConsumerCardSection
-      className={classNames(
+      className={clsx(
         'bs-consumer-summary-card-section',
         'bs-consumer-summary-card__spivi-section',
       )}

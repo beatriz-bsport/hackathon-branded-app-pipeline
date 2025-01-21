@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { DateTime } from 'luxon';
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 import Card from '#Fabrique/Card';
@@ -38,7 +38,7 @@ const TermsAndConditionsCard: React.FC<TermsAndConditionsCardProps> = ({
   if (isLoading) return <ConsumerCardSkeleton />;
 
   return (
-    <Card className={classNames('bs-consumer-payment-terms-card__root')}>
+    <Card className={clsx('bs-consumer-payment-terms-card__root')}>
       <Title
         className="bs-consumer-payment-terms-card__title"
         subtitle={t('reworked.myProfile.termsAndConditions.subtitle', {
@@ -56,7 +56,7 @@ const TermsAndConditionsCard: React.FC<TermsAndConditionsCardProps> = ({
             captionText:
               'bs-consumer-payment-terms-card__list-item__caption-text',
           }}
-          className={classNames('bs-consumer-payment-terms-card__list-item', {
+          className={clsx('bs-consumer-payment-terms-card__list-item', {
             'bs-consumer-payment-terms-card__list-item--hidden':
               !formattedGeneralTermsOfUseDateAccepted,
           })}
@@ -80,7 +80,7 @@ const TermsAndConditionsCard: React.FC<TermsAndConditionsCardProps> = ({
             captionText:
               'bs-consumer-payment-terms-card__list-item__caption-text',
           }}
-          className={classNames('bs-consumer-payment-terms-card__list-item', {
+          className={clsx('bs-consumer-payment-terms-card__list-item', {
             'bs-consumer-payment-terms-card__list-item--hidden':
               !formattedGeneralTermsAndConditionsDateAccepted,
           })}

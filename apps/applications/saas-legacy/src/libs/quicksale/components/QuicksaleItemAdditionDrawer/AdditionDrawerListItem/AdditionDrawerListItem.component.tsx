@@ -5,7 +5,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Divider from '@material-ui/core/Divider';
 import Delete from '@material-ui/icons/Delete';
 import { Theme, makeStyles } from '@material-ui/core';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
 import { QuicksaleCardInfo } from '../../../types';
 
@@ -81,7 +81,7 @@ const AdditionDrawerListItem: React.FC<Props> = ({
           <Typography variant="caption">{item.subtitle}</Typography>
         </div>
 
-        <div className={classNames(classes.flexCol, classes.justifySelfEnd)}>
+        <div className={clsx(classes.flexCol, classes.justifySelfEnd)}>
           <Typography variant="caption">
             {getCurrencyDisplayWithPrice(item.price.toFixed(2))}
           </Typography>
@@ -92,10 +92,7 @@ const AdditionDrawerListItem: React.FC<Props> = ({
 
         {displayBin && (
           <div
-            className={classNames(
-              classes.deleteItemButtonContainer,
-              classes.flexCol,
-            )}
+            className={clsx(classes.deleteItemButtonContainer, classes.flexCol)}
           >
             <IconButton onClick={deselectItem}>
               <Delete />

@@ -29,11 +29,11 @@ import { getEditableSCTs } from '../../libs/category/selectors';
 import MetaActivityForm from '../../libs/meta-activity/components/MetaActivityForm.component';
 
 type Props = {
-  id: ?number,
-  loading: ?boolean,
-  initial: ?MetaActivity,
+  id?: number,
+  loading?: boolean,
+  initial?: MetaActivity,
 
-  SCTs: *[],
+  SCTs: any[],
 
   fetchMetaActivities: () => void,
   removeImage: () => void,

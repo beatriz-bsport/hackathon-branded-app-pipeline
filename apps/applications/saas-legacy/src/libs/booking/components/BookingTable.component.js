@@ -20,12 +20,12 @@ type Props = {
   t: TFunction,
 
   loading: boolean,
-  redirectToMember: ?boolean,
-  redirectToOffer: ?boolean,
+  redirectToMember?: boolean,
+  redirectToOffer?: boolean,
   showRevertBookingButton: boolean,
   showQuickInvoiceButton: boolean,
-  heading: ?string,
-  newTab: ?boolean, // how to open member
+  heading?: string,
+  newTab?: boolean, // how to open member
   isMetaActivityLoading?: boolean,
 
   bookings: Array<Object>,

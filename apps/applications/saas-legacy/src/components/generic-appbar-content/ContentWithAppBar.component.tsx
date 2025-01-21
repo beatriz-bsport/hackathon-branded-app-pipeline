@@ -2,7 +2,7 @@ import React, { useMemo, useCallback, memo, useRef } from 'react';
 import Immutable from 'seamless-immutable';
 import { makeStyles, Theme } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import AppBar from '@material-ui/core/AppBar';
@@ -118,7 +118,7 @@ const ContentWithAppBar: React.FC<Props> = memo(
       return (
         <div
           ref={fieldRef}
-          className={classNames(classes.container, customClasses?.container)}
+          className={clsx(classes.container, customClasses?.container)}
         >
           <div className={classes.insideContent}>{children}</div>
         </div>
@@ -127,7 +127,7 @@ const ContentWithAppBar: React.FC<Props> = memo(
 
     const defaultTab = tabsData[0].value;
     return (
-      <div className={classNames(classes.container, customClasses?.container)}>
+      <div className={clsx(classes.container, customClasses?.container)}>
         <AppBar
           className={customClasses?.appBar}
           color="default"
@@ -144,10 +144,10 @@ const ContentWithAppBar: React.FC<Props> = memo(
         </AppBar>
         <div
           ref={fieldRef}
-          className={classNames(classes.content, customClasses?.content)}
+          className={clsx(classes.content, customClasses?.content)}
         >
           <div
-            className={classNames(
+            className={clsx(
               classes.insideContent,
               customClasses?.insideContent,
             )}

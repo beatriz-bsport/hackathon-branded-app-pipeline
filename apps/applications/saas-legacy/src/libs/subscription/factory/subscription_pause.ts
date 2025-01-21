@@ -4,7 +4,7 @@ import { DateTime } from 'luxon';
  * Generates a subscription pause with Faker.
  * @returns {SubscriptionPause}
  */
-export const subscriptionPauseFactory = () => {
+const subscriptionPauseFactory = () => {
   return {
     id: faker.number.int(10000),
     days: faker.number.int(10),

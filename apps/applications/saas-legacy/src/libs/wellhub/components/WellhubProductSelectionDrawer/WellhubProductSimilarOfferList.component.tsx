@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 import { useFormikContext } from 'formik';
 
@@ -111,7 +111,7 @@ const WellhubProductSimilarOfferList: React.FC<Props> = ({
             key={similarOffer.id}
             dense
             divider
-            className={classNames(classes.listItem, {
+            className={clsx(classes.listItem, {
               [classes.disabled]: similarOffer.id === offer.id,
             })}
           >

@@ -2,7 +2,7 @@ import React from 'react';
 import { Theme } from '@material-ui/core/styles';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import { CheckCircleOutline } from '@material-ui/icons';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { Typography } from '@material-ui/core';
 import chroma from 'chroma-js';
 
@@ -13,7 +13,7 @@ export const SuccessBox: React.FC<Props> = ({ content }) => {
   return (
     <div className={classes.primaryBox}>
       <CheckCircleOutline
-        className={classNames(classes.iconLeft, classes.succesIcon)}
+        className={clsx(classes.iconLeft, classes.succesIcon)}
       />
       <Typography className={classes.succesText} variant="body2">
         {content}

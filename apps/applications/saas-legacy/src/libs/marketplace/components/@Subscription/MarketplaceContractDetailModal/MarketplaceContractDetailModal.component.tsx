@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import StarIcon from '@material-ui/icons/Star';
 import ReceiptIcon from '@material-ui/icons/Receipt';
@@ -329,7 +329,7 @@ const MarketplaceContractDetailModal: React.FC<Props> = React.memo(
                       >
                         <div
                           ref={descriptionText.ref}
-                          className={classNames(
+                          className={clsx(
                             'bs-contract-details-dialog__body__text',
                             { '--hide': !showMoreDescription },
                           )}
@@ -368,7 +368,7 @@ const MarketplaceContractDetailModal: React.FC<Props> = React.memo(
                         >
                           <div
                             ref={legalContractText.ref}
-                            className={classNames(
+                            className={clsx(
                               'bs-contract-details-dialog__body__text',
                               { '--hide': !showMoreLegalContract },
                             )}

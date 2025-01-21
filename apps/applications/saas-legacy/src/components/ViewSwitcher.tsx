@@ -2,7 +2,7 @@ import React from 'react';
 import { ButtonBase, makeStyles, Theme } from '@material-ui/core';
 import ViewModuleIcon from '@material-ui/icons/ViewModule';
 import ListIcon from '@material-ui/icons/List';
-import clx from 'classnames';
+import clsx from 'clsx';
 
 interface Props {
   value: 'grid' | 'list';
@@ -15,7 +15,7 @@ export const ViewSwitcher: React.FC<Props> = (props: Props) => {
   return (
     <div className={classes.container}>
       <ButtonBase
-        className={clx({
+        className={clsx({
           [classes.item]: true,
           [classes.selected]: props.value === 'grid',
         })}
@@ -24,7 +24,7 @@ export const ViewSwitcher: React.FC<Props> = (props: Props) => {
         <ViewModuleIcon fontSize="large" />
       </ButtonBase>
       <ButtonBase
-        className={clx({
+        className={clsx({
           [classes.item]: true,
           [classes.selected]: props.value === 'list',
         })}

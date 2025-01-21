@@ -1,6 +1,6 @@
 import React from 'react';
 import { DateTime } from 'luxon';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 import ConsumerCardSection from '#src/libs/consumer-space/components/reworked/common/ConsumerCardSection';
 import Title from '#src/components/css-only/Fabrique/Title';
@@ -29,13 +29,13 @@ const ConsumerInfoSection: React.FC<Props> = ({
     : '';
   return (
     <ConsumerCardSection
-      className={classNames(
+      className={clsx(
         'bs-consumer-summary-card-section',
         'bs-consumer-summary-card__info-section',
       )}
     >
       <Title
-        className={classNames('bs-consumer-summary-card__info-item', {
+        className={clsx('bs-consumer-summary-card__info-item', {
           'bs-consumer-summary-card__info-item--hidden': !gender,
         })}
         subtitle={gender}
@@ -43,7 +43,7 @@ const ConsumerInfoSection: React.FC<Props> = ({
         variant="xs"
       />
       <Title
-        className={classNames('bs-consumer-summary-card__info-item', {
+        className={clsx('bs-consumer-summary-card__info-item', {
           'bs-consumer-summary-card__info-item--hidden': !consumerBirthDay,
         })}
         subtitle={consumerBirthDay}
@@ -51,7 +51,7 @@ const ConsumerInfoSection: React.FC<Props> = ({
         variant="xs"
       />
       <Title
-        className={classNames('bs-consumer-summary-card__info-item', {
+        className={clsx('bs-consumer-summary-card__info-item', {
           'bs-consumer-summary-card__info-item--hidden': !officialDocumentId,
         })}
         subtitle={officialDocumentId}
@@ -59,7 +59,7 @@ const ConsumerInfoSection: React.FC<Props> = ({
         variant="xs"
       />
       <Title
-        className={classNames('bs-consumer-summary-card__info-item', {
+        className={clsx('bs-consumer-summary-card__info-item', {
           'bs-consumer-summary-card__info-item--hidden': !phoneNumber,
         })}
         subtitle={phoneNumber}
@@ -67,7 +67,7 @@ const ConsumerInfoSection: React.FC<Props> = ({
         variant="xs"
       />
       <Title
-        className={classNames('bs-consumer-summary-card__info-item', {
+        className={clsx('bs-consumer-summary-card__info-item', {
           'bs-consumer-summary-card__info-item--hidden': !emergencyContact,
         })}
         subtitle={emergencyContact}

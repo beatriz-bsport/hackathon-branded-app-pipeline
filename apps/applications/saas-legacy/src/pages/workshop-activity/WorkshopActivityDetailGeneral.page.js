@@ -85,7 +85,7 @@ type Props = {
   goToList: () => void,
   deleteWorkshop: (
     id: number,
-    options: ?{ onSuccess: ?() => void, onError: ?() => void },
+    options?: { onSuccess?: () => void, onError?: () => void },
   ) => void,
   createActivityOffers: (id: number) => void,
   goToOffer: (offer: Offer) => void,

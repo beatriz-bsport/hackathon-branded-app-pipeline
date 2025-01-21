@@ -11,12 +11,12 @@ import TypographyMultiline from './TypographyMultiline.component';
 type Props = {
   t: TFunction,
   classes: Object,
-  multiline: ?boolean,
-  children: ?string,
+  multiline?: boolean,
+  children?: string,
   setShowFullText: (boolean) => void,
   showFullText: boolean,
   maxCharacterCount?: number,
-  alignButtonRight: ?boolean,
+  alignButtonRight?: boolean,
   whiteSpace?:
     | 'normal'
     | 'nowrap'

@@ -1,5 +1,5 @@
 import React from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 import { CheckoutItem } from '#src/libs/checkout/types';
 import { PaymentCombo } from '#src/libs/payment-combo/types';
@@ -23,7 +23,7 @@ const MarketplaceCheckoutItemsWithPaymentComboList: React.FC<Props> = ({
   if (items && items.length > 0 && !!paymentComboById) {
     return (
       <ul
-        className={classNames('bs-checkout-items-with-payment-combo-list', {
+        className={clsx('bs-checkout-items-with-payment-combo-list', {
           ...classes,
         })}
       >

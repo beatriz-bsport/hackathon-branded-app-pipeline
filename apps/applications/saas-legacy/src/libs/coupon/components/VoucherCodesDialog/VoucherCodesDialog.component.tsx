@@ -10,7 +10,7 @@ import {
 } from '@material-ui/core';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import type { Coupon } from '#src/libs/coupon/types';
 import type { OptionCallback } from '../../../../state/types';
 import VoucherCodesTable from './VoucherCodesList/VoucherCodesTable.component';
@@ -89,7 +89,7 @@ const VoucherCodesDialog: React.FC<Props> = ({
 
   return (
     <Dialog
-      classes={{ paper: classNames({ [classes.dialog]: !isListEmpty }) }}
+      classes={{ paper: clsx({ [classes.dialog]: !isListEmpty }) }}
       onClose={onClose}
       open={isOpen}
     >

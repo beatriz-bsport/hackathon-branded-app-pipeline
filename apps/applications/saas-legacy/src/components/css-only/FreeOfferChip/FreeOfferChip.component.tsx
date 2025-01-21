@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import './styles.css';
 
@@ -13,7 +13,7 @@ const FreeOfferChip: React.FC<Props> = ({ whiteText }) => {
 
   return (
     <div
-      className={classNames('bs-free-offer-chip', {
+      className={clsx('bs-free-offer-chip', {
         '--white-text': whiteText,
       })}
     >

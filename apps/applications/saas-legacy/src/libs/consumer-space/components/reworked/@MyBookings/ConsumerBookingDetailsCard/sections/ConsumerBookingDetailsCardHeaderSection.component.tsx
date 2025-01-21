@@ -1,5 +1,5 @@
 import React from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import Typography from '#Fabrique/Typography';
 import Chip from '#Fabrique/Chip';
@@ -34,7 +34,7 @@ const ConsumerBookingDetailsCardHeaderSection: React.FC<Props> = ({
           {date}
         </Typography>
         <Typography
-          className={classNames(
+          className={clsx(
             'bs-consumer-booking-details-card__header-section__summary__activity',
             {
               'bs-consumer-booking-details-card__header-section__summary__activity--hidden':

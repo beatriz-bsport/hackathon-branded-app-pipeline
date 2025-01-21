@@ -30,8 +30,8 @@ import { getShopItemName } from '../../shop/utils';
 
 type Props = {
   checkout_item: CheckoutItem,
-  dense: ?boolean,
-  hideExtraData: ?boolean,
+  dense?: boolean,
+  hideExtraData?: boolean,
   isExcludingTax?: boolean,
   loading?: boolean,
   onAddOne: () => void,

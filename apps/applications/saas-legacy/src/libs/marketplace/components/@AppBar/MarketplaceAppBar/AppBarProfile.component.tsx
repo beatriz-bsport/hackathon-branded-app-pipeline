@@ -7,7 +7,7 @@ import { alpha } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import AppBarAuth from './AppBarAuth.component';
 
@@ -33,7 +33,7 @@ const AppBarProfile: React.FC<ProfileProps> = ({
       {photo ? (
         <Avatar
           classes={{
-            root: classNames(classes.profilePicSmall, 'ppBorderOnHover'),
+            root: clsx(classes.profilePicSmall, 'ppBorderOnHover'),
           }}
           src={photo}
         />
@@ -41,7 +41,7 @@ const AppBarProfile: React.FC<ProfileProps> = ({
         <AccountCircleIcon
           aria-haspopup="true"
           aria-owns={isMenuOpen ? 'material-appbar' : undefined}
-          className={classNames(classes.noProfilePic, 'noPpBorderOnHover')}
+          className={clsx(classes.noProfilePic, 'noPpBorderOnHover')}
           color="disabled"
         />
       )}

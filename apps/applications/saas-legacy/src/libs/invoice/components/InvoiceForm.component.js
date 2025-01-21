@@ -20,7 +20,7 @@ import type { OptionCallback } from '../../../state/types';
 type Props = {
   classes: Object,
 
-  invoice: ?Invoice,
+  invoice?: Invoice,
   paymentItemList: Array<PaymentItem>,
   invoiceItemList: Array<InvoiceItem>,
 

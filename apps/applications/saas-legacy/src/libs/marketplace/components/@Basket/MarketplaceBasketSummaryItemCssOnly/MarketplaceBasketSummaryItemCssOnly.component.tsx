@@ -1,5 +1,5 @@
 import React from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { BUYABLE_ITEM_COUPON } from '@bsport/common/lib/master-data/buyable-items.js';
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 import ItemQuantity from '#src/libs/marketplace/components/@Basket/MarketplaceBasketSummaryItemCssOnly/ItemQuantity';
@@ -55,7 +55,7 @@ export const MarketplaceBasketSummaryItemCssOnly: React.FC<Props> = ({
 
   return (
     <div
-      className={classNames(
+      className={clsx(
         isReferralItem
           ? 'bs-basket_summary_referral_checkout_item--container'
           : 'bs-basket_summary_checkout_item--container',
@@ -66,7 +66,7 @@ export const MarketplaceBasketSummaryItemCssOnly: React.FC<Props> = ({
     >
       <div className="bs-basket_summary_checkout_item--title_container ">
         <p
-          className={classNames('bs-basket_summary_checkout_item--title', {
+          className={clsx('bs-basket_summary_checkout_item--title', {
             'bs-basket_summary_checkout_item--title_dense': dense,
           })}
         >

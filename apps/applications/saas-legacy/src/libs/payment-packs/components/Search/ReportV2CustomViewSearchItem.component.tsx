@@ -2,7 +2,7 @@ import React from 'react';
 
 import { makeStyles, Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import type { OptionPropsWithData } from '#src/libs/fuzzy-search/types';
 import type { ReportConfiguration } from '#src/libs/reporting/common/types';
@@ -26,7 +26,7 @@ const ReportV2CustomViewItem: React.FC<Props> = ({
 
   return (
     <a
-      className={classNames(classes.withPadding, classes.cardActionArea)}
+      className={clsx(classes.withPadding, classes.cardActionArea)}
       onClick={handleGoToReport(reportCustomView)}
     >
       <div className={classes.titleContainer}>

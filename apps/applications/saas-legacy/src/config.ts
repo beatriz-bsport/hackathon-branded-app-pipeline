@@ -23,7 +23,8 @@ type ConfigType = {
   REACT_APP_PAYPAL_CLIENT_ID: string;
   REACT_APP_PAYPAL_PARTNER_ATTRIBUTION_ID: string;
 };
-export const Config = {} as ConfigType;
+
+const Config = {} as ConfigType;
 
 function setConfigFrom(envConfig: any) {
   Object.keys(envConfig).forEach((k: keyof ConfigType) => {

@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Alert } from '@material-ui/lab';
 import { makeStyles, Typography, Collapse } from '@material-ui/core';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { useFormikContext } from 'formik';
 import {
   PriceField,
@@ -129,9 +129,7 @@ const EditReferralProgramSettingsFormReferredReduction: React.FC = () => {
         </Collapse>
       </div>
       <div className={classes.flexColumn}>
-        <div
-          className={classNames(classes.flexRow, classes.applicationTimeLimit)}
-        >
+        <div className={clsx(classes.flexRow, classes.applicationTimeLimit)}>
           <Typography className={classes.applicationTimeLimitLabel}>
             {t('form.applicationTimeLimit.title')}
           </Typography>

@@ -17,10 +17,10 @@ const stripePromise = loadStripe(getStripePkKey());
 type Props = {
   stripe: Stripe,
   getOnboardingLink: (tokenId: string) => Promise<any>,
-  setError: (err: ?Error) => void,
+  setError: (err?: Error) => void,
   classes: any,
   t: TFunction,
-  error: ?Error,
+  error?: Error,
 };
 
 export class CompanyOnboardingSettingPage extends React.Component<Props> {

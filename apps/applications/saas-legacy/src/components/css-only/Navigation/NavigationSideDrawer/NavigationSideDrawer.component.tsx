@@ -1,5 +1,5 @@
 import React from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 
 import Submenu from '#Fabrique/Submenu';
@@ -7,7 +7,7 @@ import Alert from '#Fabrique/Alert';
 import { PortalContainer } from '#Fabrique/PortalContainer';
 import Title from '#Fabrique/Title';
 import IconButton from '#Fabrique/IconButton';
-import { WidgetUtils } from '#src/libs/widget/WidgetUtils';
+import WidgetUtils from '#src/libs/widget/WidgetUtils';
 
 import type { SubmenuItem } from '#Fabrique/Submenu/types';
 
@@ -61,33 +61,30 @@ const NavigationSideDrawer: React.FC<Props> = ({
   return (
     <PortalContainer wrapperId="bs-navigation-side-drawer-portal-container">
       <div
-        className={classNames('bs-navigation-side-drawer__root', {
+        className={clsx('bs-navigation-side-drawer__root', {
           'bs-navigation-side-drawer__root--widget': isWidget,
           'bs-navigation-side-drawer__root--hidden': !isOpen,
         })}
       >
         <Alert
           hideLeftIcon
-          className={classNames(
-            'bs-navigation-side-drawer__relationship-alert',
-            {
-              'bs-navigation-side-drawer__relationship-alert--hidden':
-                !isRelationshipAuth,
-            },
-          )}
+          className={clsx('bs-navigation-side-drawer__relationship-alert', {
+            'bs-navigation-side-drawer__relationship-alert--hidden':
+              !isRelationshipAuth,
+          })}
           color="info"
           variant="strong"
         >
           {t('consumerSpace:reworked.navigation.loggedInAs')}
         </Alert>
         <div
-          className={classNames('bs-navigation-side-drawer__header', {
+          className={clsx('bs-navigation-side-drawer__header', {
             'bs-navigation-side-drawer__header--hidden':
               !headerTitle && !headerSubtitle,
           })}
         >
           <IconButton
-            className={classNames('bs-navigation-side-drawer__header__icon', {
+            className={clsx('bs-navigation-side-drawer__header__icon', {
               'bs-navigation-side-drawer__header__icon--hidden': !leftIcon,
             })}
             color="grey"
@@ -99,14 +96,11 @@ const NavigationSideDrawer: React.FC<Props> = ({
 
           <Title
             classes={{
-              title: classNames(
-                'bs-navigation-side-drawer__header__text__title',
-                {
-                  'bs-navigatiotn-side-drawer__header__text__title--hidden':
-                    !headerTitle,
-                },
-              ),
-              subTitle: classNames(
+              title: clsx('bs-navigation-side-drawer__header__text__title', {
+                'bs-navigatiotn-side-drawer__header__text__title--hidden':
+                  !headerTitle,
+              }),
+              subTitle: clsx(
                 'bs-navigation-side-drawer__header__text__subtitle',
                 {
                   'bs-navigatiotn-side-drawer__header__text__subtitle--hidden':

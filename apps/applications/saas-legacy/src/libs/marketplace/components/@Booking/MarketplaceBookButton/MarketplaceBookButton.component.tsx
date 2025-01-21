@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import classnames from 'classnames';
+import clsx from 'clsx';
 import { pure } from 'recompose';
 import { useTranslation } from 'react-i18next';
 
@@ -55,7 +55,7 @@ const MarketplaceBookButton: React.FC<Props> = ({
 
   return (
     <div
-      className={classnames(
+      className={clsx(
         'bs-book-button-card',
         {
           'bs-book-button-card--disabled': isDisabled,
@@ -84,7 +84,7 @@ const MarketplaceBookButton: React.FC<Props> = ({
             )}
         </>
         <div
-          className={classnames('bs-book-button-card__inner__text', {
+          className={clsx('bs-book-button-card__inner__text', {
             'bs-book-button-card__inner__text--not-available': isDisabled,
             'bs-book-button-card__inner__text--disabled':
               offer.available &&

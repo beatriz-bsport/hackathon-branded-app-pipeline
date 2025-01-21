@@ -2,7 +2,7 @@ import React from 'react';
 import { compose } from 'recompose';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import { withStyles, Theme, WithStyles } from '@material-ui/core';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import InfoGenericBox from '#src/components/box/InfoGenericBox.component';
 import type {
@@ -129,7 +129,7 @@ class CommunicationMessageListContainer extends React.PureComponent<
 
     return (
       <div
-        className={classNames(
+        className={clsx(
           classes.messageContainer,
           'bs-communication__message__list__container',
         )}

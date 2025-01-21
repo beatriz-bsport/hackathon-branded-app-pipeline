@@ -11,7 +11,7 @@ import Typography from '#Fabrique/Typography';
 import type { ConsumerSubscriptionDetailsCardProps } from '..';
 import CircularProgress from '#src/components/css-only/CircularProgress';
 import Button from '#Fabrique/ButtonV2';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import IconButton from '#src/components/css-only/Fabrique/IconButton';
 import { FileDownload02 } from '#src/components/untitledui';
 
@@ -88,7 +88,7 @@ const ConsumerSubscriptionDetailsCardBillingHistory: React.FC<Props> = ({
       )}
 
       <Button
-        className={classNames(
+        className={clsx(
           'bs-consumer__subscription-details-card__billing_history__load_button',
           {
             'bs-consumer__subscription-details-card__billing_history__load_button--hidden':

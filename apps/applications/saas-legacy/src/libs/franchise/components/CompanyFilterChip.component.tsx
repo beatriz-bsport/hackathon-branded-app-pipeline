@@ -3,7 +3,7 @@ import React from 'react';
 import Chip from '@material-ui/core/Chip';
 import Skeleton from '@material-ui/lab/Skeleton';
 import makeStyles from '@material-ui/core/styles/makeStyles';
-import classnames from 'classnames';
+import clsx from 'clsx';
 import type { Company } from '#src/libs/company/types';
 import type { CompanyGroup } from '../types';
 
@@ -24,7 +24,7 @@ export const CompanyFilterChip: React.FC<Props> = ({
 
   return (
     <Chip
-      className={classnames(classes.background)}
+      className={clsx(classes.background)}
       label={
         loading ? <Skeleton animation="wave" variant="text" /> : companyName
       }

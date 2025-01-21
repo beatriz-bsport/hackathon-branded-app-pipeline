@@ -8,7 +8,7 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { SketchPicker, ColorResult } from 'react-color';
 import Popover from '@material-ui/core/Popover';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { Theme, makeStyles } from '@material-ui/core';
 // @ts-expect-error
 import { getTheme } from '../../theme';
@@ -85,7 +85,7 @@ const ColorInput: React.FC<ColorInputProps> = ({
     <FormControl fullWidth={fullWidth}>
       <FormLabel>{label}</FormLabel>
       <ButtonBase
-        className={classNames(buttonStyle, classes.button)}
+        className={clsx(buttonStyle, classes.button)}
         onClick={togglePicker}
       >
         <div

@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import Chip from '@material-ui/core/Chip';
 import Skeleton from '@material-ui/lab/Skeleton';
 import makeStyles from '@material-ui/core/styles/makeStyles';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import CompanyFilterChip from './CompanyFilterChip.component';
 import type { CompanyGroup } from '../types';
 import type { Company } from '#src/libs/company/types';
@@ -77,7 +77,7 @@ export const CompanyFilterChipPreview: React.FC<Props> = ({
       />
       {companies.map((company, index) => (
         <div
-          className={classNames(classes.superpose, 'shiftable')}
+          className={clsx(classes.superpose, 'shiftable')}
           // @ts-expect-error: unrecognized because it's a variable
           style={{ '--index': index + 1 }}
         >

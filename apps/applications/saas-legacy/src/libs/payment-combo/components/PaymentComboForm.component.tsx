@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import omit from 'lodash/omit';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import * as Yup from 'yup';
 import { withFormik, FieldArray, useFormikContext } from 'formik';
 
@@ -398,7 +398,7 @@ export const PaymentComboForm: React.FC<Props> = ({
         />
       </div>
 
-      <div className={classNames(classes.fieldset, classes.container)}>
+      <div className={clsx(classes.fieldset, classes.container)}>
         <SwitchField
           label={t('form.highlightedAsRecommended.label')}
           name="highlighted_as_recommended"

@@ -19,7 +19,7 @@ const MARKER_ASSET = require('./marker-icon-2x.png');
 const CENTER = [5.25, 2.33];
 
 type Props = {
-  markers: ?Array<MarkerType>,
+  markers?: Array<MarkerType>,
   zoom: number,
   mapContainerClassName?: string,
 };

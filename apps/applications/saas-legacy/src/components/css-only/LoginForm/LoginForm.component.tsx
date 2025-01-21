@@ -1,5 +1,5 @@
 import React, { ChangeEvent, FormEvent, useCallback, useMemo } from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 import HelpIcon from '@material-ui/icons/Help';
 
@@ -94,7 +94,7 @@ const LoginForm: React.FC<Props> = ({
           <div id="email-choices">
             <>
               <div
-                className={classNames(
+                className={clsx(
                   'bs-login-container__email-choice-label',
                   'bs-login-container__text-body1',
                 )}
@@ -167,13 +167,13 @@ const LoginForm: React.FC<Props> = ({
       </div>
       {hasError ? (
         <div
-          className={classNames(
+          className={clsx(
             'bs-login-container__error-message',
             'bs-login-container__row-center',
           )}
         >
           <div
-            className={classNames(
+            className={clsx(
               'bs-login-container__error-text',
               'bs-login-container__text-body2',
             )}
@@ -192,7 +192,7 @@ const LoginForm: React.FC<Props> = ({
       ) : null}
       <Button
         classes={{
-          root: classNames(signinButtonClass, {
+          root: clsx(signinButtonClass, {
             'bs-login-container__signin-button--default': !signinButtonClass,
           }),
         }}
@@ -211,7 +211,7 @@ const LoginForm: React.FC<Props> = ({
         {t('actions.signin')}
       </Button>
       <div
-        className={classNames(
+        className={clsx(
           'bs-login-container__row-center',
           'bs-login-container__forgotten-password',
         )}
@@ -221,7 +221,7 @@ const LoginForm: React.FC<Props> = ({
           onClick={requestResetPassword}
         >
           <p
-            className={classNames(
+            className={clsx(
               'bs-login-container__forgotten-password__link__text',
               'bs-login-container__text-body2',
             )}

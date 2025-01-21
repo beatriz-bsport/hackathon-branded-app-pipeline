@@ -35,7 +35,7 @@ const styles = (theme) => ({
 type Props = {
   t: TFunction,
   classes: Object,
-  value: ?(number | string),
+  value?: number | string,
   onChange: (nbMinutes: number) => void,
   disallowedNullDuration: Object,
   durationError: Object,

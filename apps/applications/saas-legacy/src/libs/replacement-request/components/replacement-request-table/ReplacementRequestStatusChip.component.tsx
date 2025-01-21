@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import classnames from 'classnames';
+import clsx from 'clsx';
 
 import Typography from '@material-ui/core/Typography';
 import makeStyles from '@material-ui/core/styles/makeStyles';
@@ -33,13 +33,13 @@ export const ReplacementRequestStatusChip: React.FC<Props> = ({
 
   return (
     <div
-      className={classnames({
+      className={clsx({
         [classes.chipContainer]: !floatChip,
         [classes.floatChip]: floatChip,
       })}
     >
       <div
-        className={classnames(classes.chipStatus, {
+        className={clsx(classes.chipStatus, {
           [classes.pendingChip]:
             replacementRequestStatus ===
             ReplacementRequestStatus.REPLACEMENT_REQUEST_STATUS_WITH_NO_REPLACEMENT_PROPOSITIONS,
@@ -73,7 +73,7 @@ export const ReplacementRequestStatusChip: React.FC<Props> = ({
           />
         )}
 
-        <Typography className={classnames({ [classes.smallFont]: isMobile })}>
+        <Typography className={clsx({ [classes.smallFont]: isMobile })}>
           {t(
             // @ts-expect-error
             `replacementStatus.${REPLACEMENT_REQUEST_STATUS_LABELS[replacementRequestStatus]}`,

@@ -61,15 +61,15 @@ type Props = {
   classes: Object,
   loading: boolean,
 
-  subscription: ?Subscription,
+  subscription?: Subscription,
 
   fetchSubscription: () => void,
   goToInvoice: (uuid: string) => void,
   goToMember: (id: number) => void,
   goToSubscribe: (id: number) => void,
 
-  plannedInvoiceToUpdate: ?PlannedInvoice,
-  setPlannedInvoiceToUpdate: (pl: ?PlannedInvoice) => void,
+  plannedInvoiceToUpdate?: PlannedInvoice,
+  setPlannedInvoiceToUpdate: (pl?: PlannedInvoice) => void,
 
   setFreezeDialogOpen: (boolean) => void,
   freezeDialogOpen: boolean,

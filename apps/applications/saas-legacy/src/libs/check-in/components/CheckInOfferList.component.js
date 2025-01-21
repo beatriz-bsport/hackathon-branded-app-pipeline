@@ -28,7 +28,7 @@ const OFFERS_REFRESH_DURATION = 1000 * 60;
 
 type Props = {
   classes: any,
-  offers: *[],
+  offers: any[],
   t: TFunction,
   offersLoading: boolean,
   onOfferSelected: (offerId: number) => void,

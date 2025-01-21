@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Theme } from '@material-ui/core/styles';
 import makeStyles from '@material-ui/core/styles/makeStyles';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { amber, red, blue } from '@material-ui/core/colors';
 import Typography from '@material-ui/core/Typography';
 import {
@@ -74,7 +74,7 @@ export const InfoGenericBox = (props: OwnProps) => {
       onClick={onCollapseClick}
     >
       <div
-        className={classNames(classes.boxContainer, {
+        className={clsx(classes.boxContainer, {
           [classes.boxContainerError]:
             props.type === 'error' && props.variant === 'contained',
           [classes.boxContainerInfo]:
@@ -94,7 +94,7 @@ export const InfoGenericBox = (props: OwnProps) => {
       >
         {IconFromType(props.type, props.variantIcon)}
         <Typography
-          className={classNames(classes.content, {
+          className={clsx(classes.content, {
             [classes.contentWithCollapse]: !openCollapse,
           })}
           variant="body2"

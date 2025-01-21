@@ -8,7 +8,7 @@ import React, {
 } from 'react';
 import Immutable from 'seamless-immutable';
 import { FixedSizeList as VirtualizedList } from 'react-window';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 
 import Button from '@material-ui/core/Button';
@@ -385,7 +385,7 @@ function MaterialUISelector<T extends OptionTypeBase>(
             setContainerRef(ref);
           }
         }}
-        className={classNames(classes.relative, {
+        className={clsx(classes.relative, {
           [classes.error]: props.error,
         })}
       >
@@ -568,7 +568,7 @@ function Menu<T extends OptionTypeBase>(props: MenuProps<T, boolean, any>) {
             <div className={classes.footer}>
               {!props?.selectProps?.withoutSelectAll ? (
                 <Button
-                  className={classNames(classes.button, classes.selectButton)}
+                  className={clsx(classes.button, classes.selectButton)}
                   color="secondary"
                   onClick={handleGlobalSelect}
                   onTouchEnd={handleGlobalSelect} // for Compatibility with phones
@@ -806,10 +806,7 @@ export function Control<T extends OptionTypeBase>(
     <components.Control {...props}>
       <div
         ref={props.selectProps.controlRef}
-        className={classNames(
-          classes.control,
-          props?.selectProps?.classes?.control,
-        )}
+        className={clsx(classes.control, props?.selectProps?.classes?.control)}
       >
         {props.children}
       </div>
@@ -992,7 +989,7 @@ function ValueContainer<T extends OptionTypeBase>(leftIcon: React.ReactNode) {
         <div className={classes.relative}>
           {!props.selectProps?.inputValue && (
             <Typography
-              className={classNames(
+              className={clsx(
                 props?.selectProps?.classes?.placeholder,
                 classes.placeholderAbsolutePosition,
               )}

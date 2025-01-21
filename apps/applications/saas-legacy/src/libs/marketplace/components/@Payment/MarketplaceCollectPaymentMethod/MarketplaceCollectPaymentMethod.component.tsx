@@ -21,7 +21,7 @@ import {
 } from '@stripe/stripe-js';
 import ErrorIcon from '@material-ui/icons/Error';
 import CheckIcon from '@material-ui/icons/Check';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import cloneDeep from 'lodash/cloneDeep';
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
@@ -699,13 +699,10 @@ const MarketplaceCollectPaymentMethod: React.FC<Props> = React.memo(
                 {!error && !success && (
                   <Button
                     classes={{
-                      root: classNames(
-                        'bs-collect-payment-method__submit__button',
-                        {
-                          'bs-collect-payment-method__button--disabled':
-                            processing,
-                        },
-                      ),
+                      root: clsx('bs-collect-payment-method__submit__button', {
+                        'bs-collect-payment-method__button--disabled':
+                          processing,
+                      }),
                     }}
                     isDisabled={processing}
                     type={ButtonType.SUBMIT}

@@ -1,6 +1,6 @@
 // @flow
 import React from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import { withState, compose } from 'recompose';
 import { useTranslation } from 'react-i18next';
@@ -30,7 +30,7 @@ type Props = {
   onDeleteVideo: (id: number) => void,
   isPlaying: number,
   menuAchorEl: HTMLElement,
-  setMenuAnchorEl: (ev: ?HTMLElement) => void,
+  setMenuAnchorEl: (ev?: HTMLElement) => void,
   loading: boolean,
   coachDisplay?: MarketPlaceCoachDisplay,
 };
@@ -40,29 +40,26 @@ export const VideoThumbnail = (props: Props) => {
   const { video } = props;
   return (
     <div
-      className={classNames(
-        classes.container,
-        'bs-vod-thumbnail-item__container',
-      )}
+      className={clsx(classes.container, 'bs-vod-thumbnail-item__container')}
     >
       <ButtonBase
         disableRipple
         button={!!props.onClick}
-        className={classNames(
+        className={clsx(
           classes.buttonContainer,
           'bs-vod-thumbnail-item__button-container',
         )}
         onClick={props.onClick}
       >
         <div
-          className={classNames(
+          className={clsx(
             classes.mediaContainer,
             'bs-vod-thumbnail-item__media-container',
           )}
         >
           {!!props.isPlaying && (
             <div
-              className={classNames(
+              className={clsx(
                 classes.playIconContainer,
                 'bs-vod-thumbnail-item__play-icon-container',
               )}
@@ -73,7 +70,7 @@ export const VideoThumbnail = (props: Props) => {
           {props.loading ? (
             <Skeleton
               animation="wave"
-              className={classNames(
+              className={clsx(
                 classes.media,
                 'bs-vod-thumbnail-item__cover-loader',
               )}
@@ -82,16 +79,13 @@ export const VideoThumbnail = (props: Props) => {
           ) : (
             <img
               alt={video.name}
-              className={classNames(
-                classes.media,
-                'bs-vod-thumbnail-item__cover',
-              )}
+              className={clsx(classes.media, 'bs-vod-thumbnail-item__cover')}
               src={video.cover_main}
             />
           )}
         </div>
         <div
-          className={classNames(
+          className={clsx(
             classes.rightPanel,
             'bs-vod-thumbnail-item__details-container',
           )}
@@ -113,7 +107,7 @@ export const VideoThumbnail = (props: Props) => {
               <div className="bs-vod-thumbnail-item__details-inner__title-container">
                 <Typography
                   align="left"
-                  className={classNames(
+                  className={clsx(
                     classes.title,
                     'bs-vod-thumbnail-item__details-inner__title',
                   )}
@@ -128,13 +122,13 @@ export const VideoThumbnail = (props: Props) => {
                 {props.video.provider_identifier !==
                 VideoProvider.EBOOK_PROVIDER ? (
                   <div
-                    className={classNames(
+                    className={clsx(
                       classes.row,
                       'bs-vod-thumbnail-item__details-inner__duration-container',
                     )}
                   >
                     <AccessTimeIcon
-                      className={classNames(
+                      className={clsx(
                         classes.leftIcon,
                         'bs-vod-thumbnail-item__details-inner__duration-icon',
                       )}

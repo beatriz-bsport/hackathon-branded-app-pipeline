@@ -5,7 +5,7 @@ import { RouteChildrenProps, withRouter } from 'react-router-dom';
 import Divider from '@material-ui/core/Divider';
 import { push as pushRouter } from 'connected-react-router';
 import { WithTranslation, withTranslation } from 'react-i18next';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import {
   createStyles,
   withStyles,
@@ -98,25 +98,25 @@ export class MarketplaceVideo extends React.Component<Props> {
     const { classes } = this.props;
     return (
       <div
-        className={classNames(
+        className={clsx(
           classes.container,
           'bs-marketplace-vod-page__main-container',
         )}
       >
         <div
-          className={classNames(
+          className={clsx(
             classes.container2,
             'bs-marketplace-vod-page__sub-container',
           )}
         >
           <div
-            className={classNames(
+            className={clsx(
               classes.videoListContainer,
               'bs-marketplace-vod-page__vod-list-container',
             )}
           >
             <div
-              className={classNames(
+              className={clsx(
                 classes.searchContainer,
                 'bs-marketplace-vod-page__vod-search-container',
               )}
@@ -134,7 +134,7 @@ export class MarketplaceVideo extends React.Component<Props> {
               />
             </div>
             <Divider
-              className={classNames(
+              className={clsx(
                 classes.divider,
                 'bs-marketplace-vod-page__search-divider',
               )}

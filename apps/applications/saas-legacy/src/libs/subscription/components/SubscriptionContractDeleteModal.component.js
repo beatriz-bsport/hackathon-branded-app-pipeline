@@ -15,7 +15,7 @@ type Props = {
   deleteContract: (id: number) => void,
 };
 
-export const ContractDeleteDialog = (props: Props) => {
+const ContractDeleteDialog = (props: Props) => {
   const deleteObject = (id) => {
     props.deleteContract(id);
     props.onClose();

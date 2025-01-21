@@ -12,7 +12,7 @@ type Props = {
   size?: 'xs' | 'md',
 };
 
-export function EasyAccessStack(props: Props) {
+function EasyAccessStack(props: Props) {
   const { name, lines, size } = props;
   return (
     <div

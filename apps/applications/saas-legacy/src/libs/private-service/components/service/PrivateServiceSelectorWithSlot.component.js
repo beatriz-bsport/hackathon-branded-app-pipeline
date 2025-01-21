@@ -15,12 +15,12 @@ import { withTranslation, TFunction } from 'react-i18next';
 
 type Props = {
   t: TFunction,
-  setMenuAnchor: (e: ?HTMLElement) => void,
+  setMenuAnchor: (e?: HTMLElement) => void,
   classes: Object,
-  privateServiceId: ?number,
-  privateSlotId: ?number,
+  privateServiceId?: number,
+  privateSlotId?: number,
   privateServiceList: Array<PrivateService>,
-  menuAnchor: ?HTMLElement,
+  menuAnchor?: HTMLElement,
   onSelect: (
     serviceId: number,
     slotId: number,

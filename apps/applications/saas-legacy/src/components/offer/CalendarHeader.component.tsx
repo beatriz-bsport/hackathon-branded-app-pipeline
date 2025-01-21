@@ -16,7 +16,7 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import SettingsIcon from '@material-ui/icons/Settings';
 import FilterIcon from '@material-ui/icons/FilterList';
 import TodayIcon from '@material-ui/icons/Today';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { LocalizedLuxonUtils } from '#src/i18n/utils/luxon-picker-utils';
 import type { LuxonDateTime } from '#src/types';
 import { MONTHMODE } from './Calendar.component';
@@ -110,13 +110,13 @@ export const CalendarHeader = forwardRef(
           )}
         </div>
         <div
-          className={classNames(classes.dateRow, {
+          className={clsx(classes.dateRow, {
             [classes.dateRowBorderColor]: open,
           })}
         >
           <IconButton onClick={props.showPrevious}>
             <ChevronLeftIcon
-              className={classNames(classes.chevronColor, {
+              className={clsx(classes.chevronColor, {
                 [classes.chevronColorClickedButton]: open,
               })}
             />
@@ -136,7 +136,7 @@ export const CalendarHeader = forwardRef(
           </ButtonBase>
           <IconButton id="calendar-next-month" onClick={props.showNext}>
             <ChevronRightIcon
-              className={classNames(classes.chevronColor, {
+              className={clsx(classes.chevronColor, {
                 [classes.chevronColorClickedButton]: open,
               })}
             />

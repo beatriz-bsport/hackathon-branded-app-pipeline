@@ -2,7 +2,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import chroma from 'chroma-js';
 import Immutable from 'seamless-immutable';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import type { Theme } from '@material-ui/core/styles';
 import makeStyles from '@material-ui/core/styles/makeStyles';
@@ -121,7 +121,7 @@ export const CadenceListItem: React.FC<Props> = ({
   return (
     <div
       ref={setNodeRef}
-      className={classNames(classes.fullWidth, {
+      className={clsx(classes.fullWidth, {
         [classes.spacedItems]: !dense,
       })}
       style={{ transform: CSS.Translate.toString(transform), transition }}

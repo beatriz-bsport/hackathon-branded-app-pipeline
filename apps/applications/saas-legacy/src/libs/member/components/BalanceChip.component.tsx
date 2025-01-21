@@ -1,6 +1,6 @@
 import React from 'react';
 import Chip from '@material-ui/core/Chip';
-import classnames from 'classnames';
+import clsx from 'clsx';
 import { Theme } from '@material-ui/core/styles';
 import { makeStyles } from '@material-ui/styles';
 import ReceiptIcon from '@material-ui/icons/Receipt';
@@ -85,7 +85,7 @@ export const BalanceChip: React.FC<Props> = (props: Props) => {
 
   return (
     <Chip
-      className={classnames(classes.chip, {
+      className={clsx(classes.chip, {
         [classes.errorBackground]: chipColor === Color.COLOR_ERROR,
       })}
       // @ts-expect-error

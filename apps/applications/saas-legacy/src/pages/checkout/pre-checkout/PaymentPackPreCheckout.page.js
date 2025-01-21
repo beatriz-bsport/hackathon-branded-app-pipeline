@@ -44,7 +44,7 @@ type Props = {
 };
 
 type State = {
-  error: ?Error,
+  error?: Error,
   processing: boolean,
 };
 

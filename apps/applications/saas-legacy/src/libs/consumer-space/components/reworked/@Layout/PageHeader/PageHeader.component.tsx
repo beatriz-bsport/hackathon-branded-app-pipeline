@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
 
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import PageHeaderTitle from '#src/libs/consumer-space/components/reworked/@Layout/PageHeader/PageHeaderTitle';
 import PageHeaderTabs from '#src/libs/consumer-space/components/reworked/@Layout/PageHeader/PageHeaderTabs';
@@ -40,12 +40,7 @@ const PageHeader: React.FC<Props> = ({
   FilterProps,
 }) => {
   return (
-    <div
-      className={classNames(
-        'bs-consumer-page__header',
-        classes?.container ?? '',
-      )}
-    >
+    <div className={clsx('bs-consumer-page__header', classes?.container ?? '')}>
       <PageHeaderTitle
         buttonsData={TitleProps?.buttons ?? []}
         isMobile={!!isMobile}

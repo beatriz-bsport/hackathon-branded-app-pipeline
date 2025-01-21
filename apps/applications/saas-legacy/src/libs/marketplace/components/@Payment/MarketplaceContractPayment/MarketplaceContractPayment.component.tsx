@@ -20,7 +20,7 @@ import {
   BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,
   BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA,
 } from '@bsport/common/lib/master-data/subscription-payment-methods.js';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import cloneDeep from 'lodash/cloneDeep';
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 import { getCompanyCountry, getCurrencyCode } from '#src/libs/theme/selectors';
@@ -465,7 +465,7 @@ const MarketplaceContractPayment: React.FC<Props> = React.memo(
     return (
       <form className="bs-contract-payment__form" onSubmit={handleOnSubmit}>
         <div
-          className={classNames(
+          className={clsx(
             {
               'bs-contract-payment__container__scroll':
                 !areInitialBillingDetailsNecessary &&

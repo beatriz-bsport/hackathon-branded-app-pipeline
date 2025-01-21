@@ -33,7 +33,7 @@ const ConsumerFranchiseeSelector = asyncComponent(() =>
   import('./ConsumerFranchiseeSelector.page'),
 );
 type Props = {
-  companyId: ?string,
+  companyId?: string,
   isManager: boolean,
   authenticated: boolean,
   // franchisorId?: number,

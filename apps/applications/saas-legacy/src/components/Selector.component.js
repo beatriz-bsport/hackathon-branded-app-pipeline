@@ -213,7 +213,7 @@ const components = {
 export type Suggestion = { value: number, name: string };
 
 type IntegrationReactSelectProps = {
-  className: ?string,
+  className?: string,
   classes: { [string]: string },
   suggestions: Suggestion[],
   selected: number,

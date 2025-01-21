@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { useTranslation } from 'react-i18next';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import ListItem from '#Fabrique/ListItem';
 import Avatar from '#Fabrique/Temporary/Avatar';
@@ -21,7 +21,7 @@ const PrivateConsumerPassDetailsCardCompatibleEstablishmentsSection: React.FC<
 
   return (
     <ConsumerCardSection
-      className={classNames(
+      className={clsx(
         'bs-private-consumer-pass-details-card__establishment-section',
         {
           'bs-private-consumer-pass-details-card__establishment-section--hidden':

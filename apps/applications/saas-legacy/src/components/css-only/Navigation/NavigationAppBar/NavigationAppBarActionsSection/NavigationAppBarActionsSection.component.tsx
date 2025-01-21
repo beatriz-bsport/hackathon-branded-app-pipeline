@@ -1,5 +1,5 @@
 import React from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 import Button from '#src/components/css-only/Fabrique/ButtonV2';
@@ -14,7 +14,7 @@ const NavigationAppBarActionsSection: React.FC<
 > = ({ actions, isMobile }) => {
   return (
     <div
-      className={classNames('bs-navigation-app-bar__actions-section__root', {
+      className={clsx('bs-navigation-app-bar__actions-section__root', {
         'bs-navigation-app-bar__actions-section__root--hidden':
           !actions?.length,
       })}

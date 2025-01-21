@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Typography, makeStyles } from '@material-ui/core';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 type Props = {
   children: React.ReactNode;
@@ -26,13 +26,13 @@ const OfferFormField: React.FC<Props> = ({
 
   return (
     <div
-      className={classNames(classes.formFieldContainer, classes.flexColumn, {
+      className={clsx(classes.formFieldContainer, classes.flexColumn, {
         [classes.alignItemsBaseline]: isError,
       })}
       id={id}
     >
       <Typography
-        className={classNames({
+        className={clsx({
           [classes.label]: !icon,
           [classes.bold]: !!isBold,
         })}

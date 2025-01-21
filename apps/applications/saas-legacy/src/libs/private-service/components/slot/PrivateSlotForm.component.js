@@ -20,7 +20,7 @@ type PrivateSlotData = any;
 
 type Props = {
   availableOnPartnership: boolean,
-  initial: ?PrivateSlotData,
+  initial?: PrivateSlotData,
   onSubmit: (PrivateSlotData) => void,
   onCancel: () => void,
   t: TFunction,
@@ -165,7 +165,7 @@ export class PrivateSlotForm extends React.Component<Props, State> {
     );
   };
 
-  onFormFieldChange = (value: *) => {
+  onFormFieldChange = (value: any) => {
     const updatedValue =
       value <= MAX_DURATION_MINUTES ? value : MAX_DURATION_MINUTES;
     this.setState({ duration_minutes: updatedValue });

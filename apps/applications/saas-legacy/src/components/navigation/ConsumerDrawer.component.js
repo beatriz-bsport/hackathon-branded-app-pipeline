@@ -55,7 +55,7 @@ import LanguageButton from '../button/LanguageButton.component';
 import LOGO_ASSET from '../../public/images/banner_lowres.png';
 import { windowTitleToProps } from '../../hocs/with-title.hoc';
 
-import { WidgetUtils } from '../../libs/widget/WidgetUtils';
+import WidgetUtils from '../../libs/widget/WidgetUtils';
 import { getCurrencyDisplayWithPrice } from '../../libs/theme/selectors';
 import { urlToMarketplace } from '../../libs/marketplace/utils';
 import ConnectedAsDialog from '../../libs/relationship/components/ConnectedAs.dialog';
@@ -70,7 +70,7 @@ type Props = {
   theme: Object,
   classes: Object,
   disconnect: () => void,
-  logo: ?string,
+  logo?: string,
   showCredit?: boolean,
   hidden: boolean,
   hasMultipleMembership: boolean,
@@ -78,7 +78,7 @@ type Props = {
   location: Object,
   title: string,
   buildUrl: (path: string) => string,
-  membership: ?Membership,
+  membership?: Membership,
   subscriptionPendingActionCount: number,
   infosOfMember: dict,
   programList: Array<PerformanceTrackingProgram>,
@@ -95,7 +95,7 @@ type Props = {
 type State = {
   mobileOpen: boolean,
   open: {},
-  anchorEl: ?HTMLElement,
+  anchorEl?: HTMLElement,
   isConnectedAsDialogOpen: boolean,
 };
 

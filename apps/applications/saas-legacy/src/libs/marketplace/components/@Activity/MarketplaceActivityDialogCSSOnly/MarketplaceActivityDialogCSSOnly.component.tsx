@@ -11,7 +11,7 @@ import { Establishment } from '#src/libs/establishment/types';
 import { Coach } from '#src/libs/associated-coach/types';
 import { Level } from '#src/libs/level/types';
 import { OffersGroup } from '#src/libs/group-offer/types';
-import { WidgetUtils } from '#src/libs/widget/WidgetUtils';
+import WidgetUtils from '#src/libs/widget/WidgetUtils';
 import WidgetPortalSlidingContainer from '#src/libs/widget/components/PortalContainer';
 import MarketplaceActivityV2 from '../MarketplaceActivityCSSOnly';
 

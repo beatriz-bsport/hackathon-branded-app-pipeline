@@ -11,7 +11,7 @@ import type { VideoView, VideoPurchase } from '../types';
 
 type Props = {
   item: VideoView | VideoPurchase,
-  onClick: ?() => void,
+  onClick?: () => void,
   secondaryText: string,
 };
 

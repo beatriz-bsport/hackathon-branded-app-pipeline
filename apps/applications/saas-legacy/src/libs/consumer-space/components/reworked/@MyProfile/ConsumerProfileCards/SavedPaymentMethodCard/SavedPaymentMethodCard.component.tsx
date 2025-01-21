@@ -1,6 +1,6 @@
 import React, { useContext, useMemo } from 'react';
 import { Trans, useTranslation } from 'react-i18next';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import type { PaymentMethodsCardProps } from '#src/libs/consumer-space/components/reworked/@MyProfile/types';
 
@@ -54,14 +54,14 @@ const SavedPaymentMethodCard: React.FC<PaymentMethodsCardProps> = ({
   if (isLoading) return <ConsumerCardSkeleton />;
 
   return (
-    <Card className={classNames('bs-consumer-payment-methods-card__root')}>
+    <Card className={clsx('bs-consumer-payment-methods-card__root')}>
       <Title
         className="bs-consumer-payment-methods-card__title"
         title={t('reworked.myProfile.paymentMethods.title')}
         variant="md"
       />
       <Typography
-        className={classNames('bs-consumer-payment-methods-card__text', {
+        className={clsx('bs-consumer-payment-methods-card__text', {
           'bs-consumer-payment-methods-card__text--hidden':
             !isPaymentMethodsEmpty,
         })}
@@ -69,13 +69,10 @@ const SavedPaymentMethodCard: React.FC<PaymentMethodsCardProps> = ({
         {t('reworked.myProfile.paymentMethods.empty')}
       </Typography>
       <ConsumerCardSection
-        className={classNames(
-          'bs-consumer-payment-methods-card__card-section',
-          {
-            'bs-consumer-payment-methods-card__card-section--hidden':
-              !cards.length,
-          },
-        )}
+        className={clsx('bs-consumer-payment-methods-card__card-section', {
+          'bs-consumer-payment-methods-card__card-section--hidden':
+            !cards.length,
+        })}
         title={t('reworked.myProfile.paymentMethods.cards')}
       >
         <List className="bs-consumer-payment-methods-card__list">
@@ -131,7 +128,7 @@ const SavedPaymentMethodCard: React.FC<PaymentMethodsCardProps> = ({
         </List>
       </ConsumerCardSection>
       <ConsumerCardSection
-        className={classNames(
+        className={clsx(
           'bs-consumer-payment-methods-card__direct-payment-section',
           {
             'bs-consumer-payment-methods-card__direct-payment-section--hidden':

@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import FormControl from '@material-ui/core/FormControl';
 import { Theme, makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
-import classnames from 'classnames';
+import clsx from 'clsx';
 import Typography from '@material-ui/core/Typography';
 import ButtonBase from '@material-ui/core/ButtonBase';
 
@@ -38,16 +38,16 @@ export const PaymentMethodCardSelector = ({
   );
   return (
     <FormControl
-      className={classnames(classes.formControl, customClasses?.formControl)}
+      className={clsx(classes.formControl, customClasses?.formControl)}
     >
       <Typography
-        className={classnames(classes.title, customClasses?.title)}
+        className={clsx(classes.title, customClasses?.title)}
         id="payment-method-select-label"
         variant="h6"
       >
         {t('paymentMethod.select.label')}
       </Typography>
-      <div className={classnames(classes.row, customClasses?.row)}>
+      <div className={clsx(classes.row, customClasses?.row)}>
         {paymentMethodChoices.map((pm) => (
           <ButtonBase
             key={`${pm}`}
@@ -55,7 +55,7 @@ export const PaymentMethodCardSelector = ({
             onClick={() => handleClick(pm)}
           >
             <Paper
-              className={classnames(classes.paper, customClasses?.paper, {
+              className={clsx(classes.paper, customClasses?.paper, {
                 [classes.selected]: paymentMethodSelected === pm,
                 [customClasses?.selected]: paymentMethodSelected === pm,
               })}

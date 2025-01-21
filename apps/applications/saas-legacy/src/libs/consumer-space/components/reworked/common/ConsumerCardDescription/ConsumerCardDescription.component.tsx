@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 
 import { FABRIQUE_TYPOGRAPHY_BODY_MD_TWO_LINES_HEIGHT } from '#Fabrique/constants';
@@ -32,19 +32,16 @@ const ConsumerCardDescription: React.FC<Props> = ({ classes, description }) => {
     <>
       <Collapse
         classes={{
-          content: classNames(
-            'bs-consumer-card-description__collapse-content',
-            {
-              'bs-consumer-card-description__collapse-content--expanded':
-                isExpanded,
-            },
-          ),
+          content: clsx('bs-consumer-card-description__collapse-content', {
+            'bs-consumer-card-description__collapse-content--expanded':
+              isExpanded,
+          }),
         }}
         collapsedHeight={FABRIQUE_TYPOGRAPHY_BODY_MD_TWO_LINES_HEIGHT}
         isExpanded={isExpanded}
       >
         <Typography
-          className={classNames(
+          className={clsx(
             'bs-consumer-card-description__collapse__text',
             {
               'bs-consumer-card-description__collapse__text--hidden':
@@ -59,7 +56,7 @@ const ConsumerCardDescription: React.FC<Props> = ({ classes, description }) => {
       </Collapse>
 
       <Button
-        className={classNames(
+        className={clsx(
           'bs-consumer-card-description__show-more',
           classes?.button,
         )}

@@ -13,8 +13,7 @@ import { fetchEventList } from '#src/libs/event/actions';
 import { EventListParams } from '#src/libs/event/types';
 import { monitorBackgroundTask } from '#src/libs/background-task/actions';
 import { displayCustomBackgroundDialog } from '#src/libs/background-dialog/actions';
-// @ts-expect-error
-import type { RootState } from '../../reducers/types';
+import type { RootState } from '#src/reducers';
 import { snackbarError, snackbarSuccess } from '../snackbar/actions';
 import {
   fetchMyUserProfileAPI,

@@ -1,10 +1,9 @@
 import { createAction } from 'redux-actions';
 import { DateTime } from 'luxon';
 import type { DataSourceDashboardGraph } from '#src/libs/dashboard/types';
-// @ts-expect-error
+
 import type { WaitingListStatisticsParams } from '#src/libs/statistics/types';
-// @ts-expect-error
-import type { Dispatch, ThunkAction } from '../state/types';
+import type { Dispatch, ThunkAction } from '../../state/types';
 
 import {
   fetchBookingStatistics as fetchBookingStatisticsAPI,

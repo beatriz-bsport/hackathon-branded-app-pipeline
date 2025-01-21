@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import classnames from 'classnames';
+import clsx from 'clsx';
 
 import HelpIcon from '@material-ui/icons/Help';
 import { withTranslation, WithTranslation } from 'react-i18next';
@@ -150,16 +150,14 @@ export class ConsumerLogin extends Component<Props, State> {
           )}
           <div className="bs-flex-row">
             <div
-              className={classnames(
+              className={clsx(
                 'bs-flex-column--center',
                 'bs-login-container__connection-title',
               )}
             >
               <div className="bs-login-container__connection">{loginTitle}</div>
               {!simplifyUI && (
-                <div
-                  className={classnames(rectangleClass, 'rectangle-animated')}
-                />
+                <div className={clsx(rectangleClass, 'rectangle-animated')} />
               )}
               {!simplifyUI && (
                 <Button

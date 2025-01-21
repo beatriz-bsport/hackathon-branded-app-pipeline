@@ -16,12 +16,12 @@ import FirstPageIcon from '@material-ui/icons/FirstPage';
 import { withTranslation, TFunction } from 'react-i18next';
 
 type Props = {
-  additionalFilters: ?any,
+  additionalFilters?: any,
   classes: any,
   itemPerPage: number,
   items: any[],
   listProps: any,
-  loading: ?boolean,
+  loading?: boolean,
   nbItems: number,
   page: number,
   renderCustomPageFirst?: boolean,

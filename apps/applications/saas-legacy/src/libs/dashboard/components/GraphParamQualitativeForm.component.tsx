@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { makeStyles, Theme } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 import { DataSourceDashboardGraphMetadata } from '#src/libs/dashboard/types';
@@ -78,7 +78,7 @@ const GraphParamQualitativeForm: React.FC<Props> = ({
         <div>
           <MaterialUiSingleSelectorField
             inScrollBar
-            className={classNames(classes.selectInput)}
+            className={clsx(classes.selectInput)}
             isDisabled={groupByOptions.length === 1}
             name="graph_params.group_by"
             // @ts-expect-error
@@ -91,10 +91,7 @@ const GraphParamQualitativeForm: React.FC<Props> = ({
       </div>
 
       <Typography
-        className={classNames(
-          classes.selectLabel,
-          classes.selectLabelWithMargin,
-        )}
+        className={clsx(classes.selectLabel, classes.selectLabelWithMargin)}
         variant="body1"
       >
         {t('graphFormDrawer.labels.dataToDisplay')}

@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 import type {
   CustomFormFieldAnswer,
@@ -55,7 +55,7 @@ const CustomFormButtonsCSS: React.FC<Props> = ({
 
   return (
     <div
-      className={classNames(
+      className={clsx(
         {
           'bs-custom-form-buttons--submit-and-cancel': !!onCancel,
           'bs-custom-form-buttons--submit': !onCancel,
@@ -67,7 +67,7 @@ const CustomFormButtonsCSS: React.FC<Props> = ({
       id={id}
     >
       <Button
-        className={classNames('bs-custom-form-buttons__button_cancelled', {
+        className={clsx('bs-custom-form-buttons__button_cancelled', {
           'bs-custom-form-buttons__button--hidden': !onCancel,
         })}
         color="primary"
@@ -81,7 +81,7 @@ const CustomFormButtonsCSS: React.FC<Props> = ({
           : t('customForm.previous')}
       </Button>
       <Button
-        className={classNames('bs-custom-form-buttons__button_submit', {
+        className={clsx('bs-custom-form-buttons__button_submit', {
           'bs-custom-form-buttons__button--hidden':
             !handleSubmit && !onSubmitDraft,
         })}

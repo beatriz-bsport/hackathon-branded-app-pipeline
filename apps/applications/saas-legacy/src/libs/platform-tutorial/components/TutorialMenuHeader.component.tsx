@@ -11,7 +11,7 @@ import SchoolIcon from '@material-ui/icons/School';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import chroma from 'chroma-js';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import BookIcon from '#src/components/icons/BookIcon.component';
 
 export type Props = {
@@ -28,12 +28,12 @@ const TutorialMenuHeader: React.FC<Props> = (props: Props) => {
       <Grid container className={classes.container}>
         <Grid
           item
-          className={classNames(classes.gridItem, classes.responsiveGridItem)}
+          className={clsx(classes.gridItem, classes.responsiveGridItem)}
           md={8}
           sm={7}
           xs={12}
         >
-          <div className={classNames(classes.box, classes.primary)}>
+          <div className={clsx(classes.box, classes.primary)}>
             <BookIcon height="50%" width="65%" />
           </div>
 

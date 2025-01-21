@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
@@ -28,16 +28,10 @@ const QuicksaleItemListHeader: React.FC<Props> = ({
 
   return (
     <div
-      className={classNames(
-        classes.itemListHeader,
-        customClasses?.itemListHeader,
-      )}
+      className={clsx(classes.itemListHeader, customClasses?.itemListHeader)}
     >
       <Button
-        className={classNames(
-          classes.goBackButton,
-          customClasses?.goBackButton,
-        )}
+        className={clsx(classes.goBackButton, customClasses?.goBackButton)}
         color="default"
         onClick={goBack}
         startIcon={<ArrowBack />}
@@ -45,15 +39,10 @@ const QuicksaleItemListHeader: React.FC<Props> = ({
       >
         <Typography variant="subtitle2">{t('itemList.goBack')}</Typography>
       </Button>
-      <div
-        className={classNames(classes.sectionInfo, customClasses?.sectionInfo)}
-      >
+      <div className={clsx(classes.sectionInfo, customClasses?.sectionInfo)}>
         <MuiIcon icon={sectionIcon} />
         <Typography
-          className={classNames(
-            classes.sectionTitle,
-            customClasses?.sectionTitle,
-          )}
+          className={clsx(classes.sectionTitle, customClasses?.sectionTitle)}
           variant="h6"
         >
           {sectionName}

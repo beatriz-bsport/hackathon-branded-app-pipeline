@@ -2,7 +2,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Alert } from '@material-ui/lab';
 import { makeStyles, Typography } from '@material-ui/core';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { useFormikContext } from 'formik';
 // @ts-expect-error
 import { PriceField, IntegerField } from '#src/components/forms';
@@ -16,7 +16,7 @@ const EditReferralProgramSettingsFormGeneral: React.FC = () => {
   return (
     <FormSection noDivider noPadding>
       <div className={classes.flexRow}>
-        <div className={classNames(classes.flexColumn, classes.midWidth)}>
+        <div className={clsx(classes.flexColumn, classes.midWidth)}>
           <PriceField
             required
             id="minimum-basket-amount"
@@ -27,7 +27,7 @@ const EditReferralProgramSettingsFormGeneral: React.FC = () => {
             {t('form.minimumBasketAmount.description')}
           </Typography>
         </div>
-        <div className={classNames(classes.flexColumn, classes.midWidth)}>
+        <div className={clsx(classes.flexColumn, classes.midWidth)}>
           <IntegerField
             required
             id="maximum-referral-uses"

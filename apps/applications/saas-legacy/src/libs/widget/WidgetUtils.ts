@@ -8,7 +8,7 @@ import { ConsumerSpaceContextEnum } from '#src/libs/consumer-space/constants';
 
 import { WidgetApiMessageType, WidgetMessageType } from './types';
 
-export class WidgetUtils {
+class WidgetUtils {
   static setWidgetContext() {
     // @ts-expect-error
     window.env.APP_CONTEXT = 'widget';

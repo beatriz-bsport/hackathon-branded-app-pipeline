@@ -39,9 +39,8 @@ import {
 import PrivateSlotSelectorStyled from '#src/libs/coach-payment-rules/components/PrivateSlotSelectorStyled.component';
 import { PrivateServiceWithSlots } from '#src/libs/private-service/types';
 import CoachPaymentRuleSelectorStyled from '#src/libs/coach-payment-rules/components/coach-payment-rule-selector/CoachPaymentRuleSelectorStyled.component';
-import type { MaterialStyleType } from '../../../../utils/types';
-// @ts-expect-error
-import type { OptionCallback } from '../../../state/types';
+import type { MaterialStyleType } from '#src/utils/types';
+import type { OptionCallback } from '#src/state/types';
 
 type OwnProps = {
   coach: Coach;

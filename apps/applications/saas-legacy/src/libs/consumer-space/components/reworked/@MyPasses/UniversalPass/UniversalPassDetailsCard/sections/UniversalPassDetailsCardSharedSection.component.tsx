@@ -1,5 +1,5 @@
 import React from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import ListItem from '#Fabrique/ListItem';
 import List from '#Fabrique/List';
@@ -17,7 +17,7 @@ const UniversalPassDetailsCardSharedSection: React.FC<Props> = ({
   const membersFiltered = members?.filter((member) => !!member) || [];
   return (
     <ConsumerCardSection
-      className={classNames('bs-universal-pass-details-card__shared-section', {
+      className={clsx('bs-universal-pass-details-card__shared-section', {
         'bs-universal-pass-details-card__shared-section--hidden':
           !membersFiltered.length,
       })}

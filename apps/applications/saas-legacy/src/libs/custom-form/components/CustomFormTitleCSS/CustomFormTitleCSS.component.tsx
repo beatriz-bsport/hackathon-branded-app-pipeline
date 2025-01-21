@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 import Typography from '#Fabrique/Typography';
 import IconButton from '#Fabrique/IconButton';
@@ -29,14 +29,14 @@ const CustomFormTitleCSS: React.FC<Props> = ({
           {title}
         </Typography>
         <div
-          className={classNames('bs-custom-form-title__rectangle', {
+          className={clsx('bs-custom-form-title__rectangle', {
             'bs-custom-form-title__rectangle--hidden': !simplifyUI,
             'bs-custom-form-title__rectangle__company-background': isCompany,
             'bs-custom-form-title__rectangle__default-background': !isCompany,
           })}
         />
         <div
-          className={classNames('bs-custom-form-title__icon-button-wrapper', {
+          className={clsx('bs-custom-form-title__icon-button-wrapper', {
             'bs-custom-form-title__icon-button--hidden': !simplifyUI,
           })}
         >

@@ -1,6 +1,6 @@
 import React, { useCallback, useContext, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import type { AxiosResponse } from 'axios';
 
 import WidgetUtils from '#src/libs/widget/WidgetUtils';
@@ -259,7 +259,7 @@ const ConsumerProfilePageReworked: React.FC<Props> = ({
 
   return (
     <PageContentContainer
-      contentClassName={classNames('bs-consumer-profile-page__root', {
+      contentClassName={clsx('bs-consumer-profile-page__root', {
         'bs-consumer-profile-page__root--fab':
           WidgetUtils.getConsumerSpaceContext() ===
           ConsumerSpaceContextEnum.FAB,

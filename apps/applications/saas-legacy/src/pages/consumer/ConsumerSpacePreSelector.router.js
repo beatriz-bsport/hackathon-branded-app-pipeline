@@ -11,9 +11,9 @@ const WelcomePage = asyncComponent(() => import('../login/Welcome.page'));
 type Props = {
   authenticated: boolean,
   location: Object,
-  requestedMembership: ?string,
-  activeMembership: ?number,
-  // franchiseId: ?number,
+  requestedMembership?: string,
+  activeMembership?: number,
+  // franchiseId?: number,
 };
 
 export const ConsumerSpacePreSelector = (props: Props) => {

@@ -1,5 +1,5 @@
 import React, { ChangeEvent, useCallback, useMemo, useState } from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import Paper from '@material-ui/core/Paper';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
@@ -476,7 +476,7 @@ const InvoiceItemEditor: React.FC<Props> = ({
       <ObjectLevelPermissionProvider requiredPermission="billing.allowed_actions.createManualDiscount">
         {(hasCreateDiscountPermission: boolean) => (
           <div
-            className={classNames(classes.innerEditor, {
+            className={clsx(classes.innerEditor, {
               [classes.minHeight]: hasCreateDiscountPermission,
             })}
           >

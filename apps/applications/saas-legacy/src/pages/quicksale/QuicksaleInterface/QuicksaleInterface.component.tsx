@@ -1,7 +1,7 @@
 import React from 'react';
 import Fuse, { FuseOptions } from 'fuse.js';
 import { useTranslation } from 'react-i18next';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -249,7 +249,7 @@ const QuicksaleInterface: React.FC<Props> = ({
         />
 
         <div
-          className={classNames({
+          className={clsx({
             [classes.searchBarWithResults]: showResultsOnPage,
             [classes.searchBarWithCategoryName]:
               !showResultsOnPage && currentSection,
@@ -277,7 +277,7 @@ const QuicksaleInterface: React.FC<Props> = ({
             />
           )}
           <div
-            className={classNames(classes.widthFull, {
+            className={clsx(classes.widthFull, {
               [classes.width300px]: !showResultsOnPage && currentSection,
             })}
           >

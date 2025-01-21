@@ -1,5 +1,5 @@
 import React from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 import Menu from '#Fabrique/Menu';
 import MenuItem from '#Fabrique/MenuItem';
@@ -235,9 +235,9 @@ const Selector: React.FC<SelectorProps> = ({
   }
 
   return (
-    <div className={classNames('bs-fabrique-selector', className)} id={id}>
+    <div className={clsx('bs-fabrique-selector', className)} id={id}>
       <Typography
-        className={classNames(
+        className={clsx(
           'bs-fabrique-selector__label',
           {
             'bs-fabrique-selector__label--hidden': !label,
@@ -288,7 +288,7 @@ const Selector: React.FC<SelectorProps> = ({
         />
       </SelectorInput>
       <Typography
-        className={classNames(
+        className={clsx(
           'bs-fabrique-selector__caption-text',
           {
             'bs-fabrique-selector__caption-text--hidden': !captionText,
@@ -300,7 +300,7 @@ const Selector: React.FC<SelectorProps> = ({
         {captionText}
       </Typography>
       <Typography
-        className={classNames(
+        className={clsx(
           'bs-fabrique-selector__error-message',
           {
             'bs-fabrique-selector__error-message--hidden':

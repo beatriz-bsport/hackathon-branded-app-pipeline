@@ -1,6 +1,6 @@
 import React from 'react';
 
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import Typography from '#Fabrique/Typography';
 import Chip from '#Fabrique/Chip';
@@ -28,25 +28,16 @@ const ConsumerCardChipList: React.FC<Props> = ({
   }
 
   return (
-    <div className={classNames('bs-consumer-card-chip-list', className)}>
+    <div className={clsx('bs-consumer-card-chip-list', className)}>
       <Typography
-        className={classNames(
-          'bs-consumer-card-chip-list__title',
-          classes?.title,
-          {
-            'bs-consumer-card-chip-list__title--hidden': !title,
-          },
-        )}
+        className={clsx('bs-consumer-card-chip-list__title', classes?.title, {
+          'bs-consumer-card-chip-list__title--hidden': !title,
+        })}
         variant="body-md"
       >
         {title}
       </Typography>
-      <div
-        className={classNames(
-          'bs-consumer-card-chip-list__list',
-          classes?.list,
-        )}
-      >
+      <div className={clsx('bs-consumer-card-chip-list__list', classes?.list)}>
         {chipsDataList?.map(
           (
             {
@@ -61,7 +52,7 @@ const ConsumerCardChipList: React.FC<Props> = ({
           ) => (
             <Chip
               key={`${text}-${index}`}
-              className={classNames(
+              className={clsx(
                 'bs-consumer-card-chip-list__chip',
                 chipClassName,
                 {

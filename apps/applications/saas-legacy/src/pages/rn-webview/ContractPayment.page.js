@@ -52,7 +52,7 @@ type Props = {
   fetchPaymentMethodList: (params: any) => void,
   savedPaymentMethodList: Array<PaymentMethod>,
   requestSetupIntentSecret: () => void,
-  contract: ?Contract,
+  contract?: Contract,
   fetchContractDetail: (number) => void,
   companyTheme?: CompanyTheme,
   fetchCompanyTheme: (companyId: number) => void,

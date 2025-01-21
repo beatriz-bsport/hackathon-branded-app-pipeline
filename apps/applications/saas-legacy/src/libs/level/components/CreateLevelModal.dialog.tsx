@@ -15,7 +15,7 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
 import { DateRange } from '@material-ui/icons';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 // @ts-expect-error
 import { ColorField } from '#src/components/forms';
@@ -108,7 +108,7 @@ export const CreateLevelModal = (props: Props) => {
                   </Typography>
                   <TextField
                     required
-                    className={classNames({
+                    className={clsx({
                       [offerFormClasses.bigWidth]: !isMobile,
                     })}
                     inputProps={{ maxLength: NAME_MAX_LENGTH }}

@@ -4,7 +4,7 @@ import Card from '@material-ui/core/Card';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import Skeleton from '@material-ui/lab/Skeleton';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 const MemberVisitLiveHistoryTableSkeleton: React.FC = () => {
   const classes = useStyles();
@@ -22,13 +22,13 @@ const MemberVisitLiveHistoryTableSkeleton: React.FC = () => {
           <ListItem
             key={index}
             divider={index !== 2}
-            className={classNames(classes.listItem, classes.padding2)}
+            className={clsx(classes.listItem, classes.padding2)}
           >
             {Array.from({ length: 4 }).map((__, subIndex) => (
               <Skeleton
                 key={subIndex}
                 variant="rect"
-                className={classNames(classes.skeleton, classes.flex1)}
+                className={clsx(classes.skeleton, classes.flex1)}
               />
             ))}
             <Skeleton variant="rect" className={classes.skeleton} width={80} />

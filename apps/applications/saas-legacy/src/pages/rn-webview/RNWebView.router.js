@@ -11,7 +11,7 @@ import SubscriptionPaymentMethod from './SubscriptionPaymentMethod';
 import SpotSchedulingSelector from './SpotSchedulingSelector.page';
 import namespaces from '../../i18n/namespaces.json';
 
-export const RNWebView = () => {
+const RNWebView = () => {
   useTranslation(namespaces);
   useSaasRouterTracker(BsportRequestFromHeaderValue.SAAS_RN_WEBVIEW);
 

@@ -1,7 +1,7 @@
 // @flow
 import React from 'react';
 
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import Selector from '../../../components/Selector.component';
 import UserItem from './UserItem.component';
@@ -11,9 +11,9 @@ import type { User } from '../types';
 type Props = {
   classes: Object,
   userList: Array<User>,
-  onChange: (user: ?number) => void,
+  onChange: (user?: number) => void,
   helperText: string,
-  value: ?number,
+  value?: number,
   selectorClass: string,
 };
 
@@ -38,7 +38,7 @@ function UserItemOption(props: OptionProps) {
   );
 }
 
-export function UserSelector(props: Props) {
+function UserSelector(props: Props) {
   const { value, onChange, userList, classes, selectorClass, helperText } =
     props;
   const suggestions = userList
@@ -51,7 +51,7 @@ export function UserSelector(props: Props) {
     <Selector
       nullCurrentValue
       searchIcon
-      className={classNames(classes, selectorClass)}
+      className={clsx(classes, selectorClass)}
       components={{ Option: UserItemOption }}
       onChange={(event) => onChange(event.value)}
       placeholder={helperText}

@@ -5,7 +5,7 @@ import { compose } from 'recompose';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import { withTranslation, TFunction } from 'react-i18next';
-import { WidgetUtils } from '../../widget/WidgetUtils';
+import WidgetUtils from '../../widget/WidgetUtils';
 
 import MetaActivityListItem from '../../meta-activity/components/MetaActivityListItem.component';
 import EstablishmentListItem from '../../establishment/components/EstablishmentListItem.component';
@@ -13,8 +13,8 @@ import EstablishmentListItem from '../../establishment/components/EstablishmentL
 type Props = {
   t: TFunction,
   classes: Object,
-  favoriteMetaActivity: ?MetaActivity,
-  favoriteEstablishment: ?Establishment,
+  favoriteMetaActivity?: MetaActivity,
+  favoriteEstablishment?: Establishment,
   goToCalendar: (params: any) => void,
 };
 

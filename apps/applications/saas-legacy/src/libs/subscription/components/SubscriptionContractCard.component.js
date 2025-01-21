@@ -16,7 +16,7 @@ import TypographyMultiline from '../../../components/typo/TypographyMultiline.co
 
 type Props = {
   t: TFunction,
-  contract: ?Contract,
+  contract?: Contract,
   classes: Object,
   acceptContract: boolean,
   setAcceptContract: (boolean) => void,

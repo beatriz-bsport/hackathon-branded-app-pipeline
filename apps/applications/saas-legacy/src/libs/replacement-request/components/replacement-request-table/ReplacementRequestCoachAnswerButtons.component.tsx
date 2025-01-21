@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import classnames from 'classnames';
+import clsx from 'clsx';
 
 import Button from '@material-ui/core/Button';
 import makeStyles from '@material-ui/core/styles/makeStyles';
@@ -33,7 +33,7 @@ export const ReplacementRequestStatusChip: React.FC<Props> = ({
       <Button
         disableElevation
         classes={{
-          root: classnames(classes.successButton, classes.coachAnswerButton, {
+          root: clsx(classes.successButton, classes.coachAnswerButton, {
             [classes.smallFont]: smallFont,
           }),
           disabled: classes.successButtonDisabled,
@@ -61,7 +61,7 @@ export const ReplacementRequestStatusChip: React.FC<Props> = ({
       <Button
         disableElevation
         classes={{
-          root: classnames(classes.warningButton, classes.coachAnswerButton, {
+          root: clsx(classes.warningButton, classes.coachAnswerButton, {
             [classes.smallFont]: smallFont,
           }),
           disabled: classes.warningButtonDisabled,
@@ -89,7 +89,7 @@ export const ReplacementRequestStatusChip: React.FC<Props> = ({
       <Button
         disableElevation
         classes={{
-          root: classnames(classes.errorButton, classes.coachAnswerButton, {
+          root: clsx(classes.errorButton, classes.coachAnswerButton, {
             [classes.smallFont]: smallFont,
           }),
           disabled: classes.errorButtonDisabled,

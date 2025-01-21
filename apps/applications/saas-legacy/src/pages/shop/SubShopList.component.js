@@ -27,7 +27,7 @@ type Props = {
   t: TFunction,
   classes: Object,
   subShop: SubShop,
-  createOrUpdateSubShop: (data: [*]) => void,
+  createOrUpdateSubShop: (data: [any]) => void,
   onDelete: (id: number) => void,
   children: any,
 };
@@ -36,7 +36,7 @@ type State = {
   editMode: boolean,
   newItemFormDisplayed: boolean,
   itemInEditMode: Array<number>,
-  newName: ?string,
+  newName?: string,
 };
 
 export class SubShopList extends Component<Props, State> {

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import Typography from '#src/components/css-only/Fabrique/Typography';
 import ConsumerCardSection from '#src/libs/consumer-space/components/reworked/common/ConsumerCardSection';
 import type { ConsumerSummaryCardProps } from '#src/libs/consumer-space/components/reworked/@MyProfile/types';
@@ -19,14 +19,14 @@ const ConsumerAddressSection: React.FC<Props> = ({ address }) => {
 
   return (
     <ConsumerCardSection
-      className={classNames(
+      className={clsx(
         'bs-consumer-summary-card-section',
         'bs-consumer-summary-card__address-section',
       )}
     >
       <Title title={t('reworked.myProfile.address')} variant="xs" />
       <Typography
-        className={classNames(
+        className={clsx(
           'bs-consumer-summary-card__address-section__address',
           'bs-consumer-summary-card__address-section__address--address-line-1',
           {
@@ -39,7 +39,7 @@ const ConsumerAddressSection: React.FC<Props> = ({ address }) => {
         {address_line_1}
       </Typography>
       <Typography
-        className={classNames(
+        className={clsx(
           'bs-consumer-summary-card__address-section__address',
           'bs-consumer-summary-card__address-section__address--address-line-2',
           {
@@ -52,7 +52,7 @@ const ConsumerAddressSection: React.FC<Props> = ({ address }) => {
         {address_line_2}
       </Typography>
       <Typography
-        className={classNames(
+        className={clsx(
           'bs-consumer-summary-card__address-section__address',
           'bs-consumer-summary-card__address-section__address--city',
           {
@@ -65,7 +65,7 @@ const ConsumerAddressSection: React.FC<Props> = ({ address }) => {
         {city}
       </Typography>
       <Typography
-        className={classNames(
+        className={clsx(
           'bs-consumer-summary-card__address-section__address',
           'bs-consumer-summary-card__address-section__address--country',
           {
@@ -78,7 +78,7 @@ const ConsumerAddressSection: React.FC<Props> = ({ address }) => {
         {country}
       </Typography>
       <Typography
-        className={classNames(
+        className={clsx(
           'bs-consumer-summary-card__address-section__address',
           'bs-consumer-summary-card__address-section__address--state',
           {
@@ -91,7 +91,7 @@ const ConsumerAddressSection: React.FC<Props> = ({ address }) => {
         {state}
       </Typography>
       <Typography
-        className={classNames(
+        className={clsx(
           'bs-consumer-summary-card__address-section__address',
           'bs-consumer-summary-card__address-section__address--zipcode',
           {

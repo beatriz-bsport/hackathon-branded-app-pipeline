@@ -5,7 +5,7 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 
 import { useComputedAppBarLinks } from './useComputedAppBarLinks.hook';
@@ -63,7 +63,7 @@ const NavigationAppBarLinksSection: React.FC<Props> = ({ links, isHidden }) => {
 
   return (
     <div
-      className={classNames('bs-navigation-app-bar__links-section__root', {
+      className={clsx('bs-navigation-app-bar__links-section__root', {
         'bs-navigation-app-bar__links-section__root--hidden': isHidden,
       })}
     >
@@ -105,7 +105,7 @@ const NavigationAppBarLinksSection: React.FC<Props> = ({ links, isHidden }) => {
       </div>
 
       <div
-        className={classNames(
+        className={clsx(
           'bs-navigation-app-bar__links-section__hidden-buttons',
           {
             'bs-navigation-app-bar__links-section__hidden-buttons--hidden':

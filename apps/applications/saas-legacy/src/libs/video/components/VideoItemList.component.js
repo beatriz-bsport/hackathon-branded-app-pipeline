@@ -1,6 +1,6 @@
 // @flow
 import React, { memo } from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { makeStyles } from '@material-ui/styles';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
@@ -63,7 +63,7 @@ export const VideoCardList = (props: Props) => {
         ))}
       {!props.loading && !props.videoList.length && (
         <div
-          className={classNames(
+          className={clsx(
             classes.buttonContainer,
             'bs-vod-list__empty-container',
           )}
@@ -80,7 +80,7 @@ export const VideoCardList = (props: Props) => {
       )}
       {!props.loading && !!props.hasMoreVideo && !!props.onShowMore && (
         <div
-          className={classNames(
+          className={clsx(
             classes.buttonContainer,
             'bs-vod-list__show-more-button-container',
           )}

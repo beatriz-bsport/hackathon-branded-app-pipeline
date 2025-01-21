@@ -1,7 +1,7 @@
 import React from 'react';
 
 import chroma from 'chroma-js';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 
 import {
@@ -68,7 +68,7 @@ const TutorialLessonHeader: React.FC<Props> = ({
   if (!section) {
     return (
       <Paper className={classes.paper} elevation={0}>
-        <div className={classNames(classes.secondRow, classes.skeleton)}>
+        <div className={clsx(classes.secondRow, classes.skeleton)}>
           {[1, 2, 3, 4, 5, 6].map((idx) => (
             <div key={`skeleton_${idx}`} style={{ width: '100%' }}>
               <Skeleton
@@ -88,7 +88,7 @@ const TutorialLessonHeader: React.FC<Props> = ({
     <Paper className={classes.paper} elevation={0}>
       <div className={classes.firstRow}>
         <div
-          className={classNames(
+          className={clsx(
             classes.box,
             {
               [classes.boxPrimary]: sectionCompleted,
@@ -99,7 +99,7 @@ const TutorialLessonHeader: React.FC<Props> = ({
           )}
         >
           <MuiIcon
-            className={classNames(
+            className={clsx(
               {
                 [classes.iconPrimary]: sectionCompleted,
               },
@@ -128,7 +128,7 @@ const TutorialLessonHeader: React.FC<Props> = ({
               <Button
                 disableElevation
                 classes={{
-                  root: classNames(classes.rootButton, {
+                  root: clsx(classes.rootButton, {
                     [classes.overrideMuiLessonCompletedButtonRootHoverMobile]:
                       isLessonCompleted(lesson, tutorial_completion),
                     [classes.overrideMuiLessonSelectedButtonRootHoverMobile]:
@@ -136,7 +136,7 @@ const TutorialLessonHeader: React.FC<Props> = ({
                       !isLessonCompleted(lesson, tutorial_completion),
                   }),
                 }}
-                className={classNames(
+                className={clsx(
                   classes.lessonButton,
                   {
                     [classes.outlined]:

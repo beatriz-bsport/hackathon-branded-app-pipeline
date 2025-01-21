@@ -1,7 +1,7 @@
 import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { DateTime } from 'luxon';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import {
   DialogContent,
@@ -67,7 +67,7 @@ const ConsumerPrintableGiftcardDetails: React.FC<Props> = ({
         </Alert>
 
         <div className={classes.giftcardContainer}>
-          <div className={classNames(classes.flexColumn, classes.flexGrow)}>
+          <div className={clsx(classes.flexColumn, classes.flexGrow)}>
             <div className={classes.infoContainer}>
               <Typography color="textSecondary" variant="caption">
                 {t('giftcard:consumerGiftcard.physicalDetails.to')}
@@ -81,7 +81,7 @@ const ConsumerPrintableGiftcardDetails: React.FC<Props> = ({
                 {t('giftcard:consumerGiftcard.physicalDetails.code')}
               </Typography>
               <Typography
-                className={classNames(classes.infoData, classes.code)}
+                className={clsx(classes.infoData, classes.code)}
                 variant="body2"
               >
                 {consumerGiftcard.printable_code ?? ''}

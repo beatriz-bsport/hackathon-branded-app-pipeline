@@ -22,7 +22,7 @@ import ContractTermsDialog from './contract/ContractTermsDialog.component';
 import { isPaused } from '../utils';
 import { formatAsDatetimeAdapted } from '../../../utils/datetime';
 import GermanMarketSetSubscriptionAutoRenewalAlert from '../GermanMarketSetSubscriptionAutoRenewalAlert.component';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 type Props = {
   canEditPassBillingPlan: boolean;
@@ -211,7 +211,7 @@ export const SubscriptionSummary = (props: Props) => {
         </div>
         {!!subscription.payment_pack && (
           <div
-            className={classNames(classes.fieldNotPadded, {
+            className={clsx(classes.fieldNotPadded, {
               [classes.noEditAllowed]: isSharedFromFranchisor,
             })}
           >
@@ -238,7 +238,7 @@ export const SubscriptionSummary = (props: Props) => {
         )}
         {!!subscription.private_pass && (
           <div
-            className={classNames(classes.fieldNotPadded, {
+            className={clsx(classes.fieldNotPadded, {
               [classes.noEditAllowed]: isSharedFromFranchisor,
             })}
           >

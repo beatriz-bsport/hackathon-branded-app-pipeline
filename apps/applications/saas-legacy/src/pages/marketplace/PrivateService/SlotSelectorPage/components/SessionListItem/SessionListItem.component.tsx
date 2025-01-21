@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import CoachChip from '#src/libs/associated-coach/components/CoachChip.component';
 import { DateTime, Duration, Interval } from 'luxon';
 import ButtonBase from '@material-ui/core/ButtonBase';
@@ -43,7 +43,7 @@ const SessionListItem: React.FC<Props> = ({
   if (!chunkedSessions?.length) return null;
   return (
     <div
-      className={classNames(classes.container, {
+      className={clsx(classes.container, {
         [classes.containerWithCoach]: !!coach?.id,
       })}
     >

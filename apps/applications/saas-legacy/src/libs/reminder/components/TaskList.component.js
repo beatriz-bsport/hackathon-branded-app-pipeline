@@ -38,7 +38,7 @@ type Props = {
   taskModalOpen: boolean,
   closeTaskForm: () => void,
 
-  editTaskFormData: (task: ?Task) => void,
+  editTaskFormData: (task?: Task) => void,
   createOrUpdateTask: (data: TaskData, options: OptionCallback) => void,
 
   staffList: Array<User>,

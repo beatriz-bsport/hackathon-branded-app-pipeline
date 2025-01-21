@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import ConsumerCardSection from '#src/libs/consumer-space/components/reworked/common/ConsumerCardSection';
 
 import List from '#src/components/css-only/Fabrique/List';
@@ -27,7 +27,7 @@ const ConsumerNotificationsSection: React.FC<Props> = ({
 
   return (
     <ConsumerCardSection
-      className={classNames(
+      className={clsx(
         'bs-consumer-summary-card-section',
         'bs-consumer-summary-card__notification-section',
       )}
@@ -36,14 +36,14 @@ const ConsumerNotificationsSection: React.FC<Props> = ({
       <List>
         <ListItem
           classes={{
-            label: classNames({
+            label: clsx({
               'bs-consumer-summary-card__notification-section__accepted-notification':
                 acceptSms,
               'bs-consumer-summary-card__notification-section__refused-notification':
                 !acceptSms,
             }),
           }}
-          className={classNames({
+          className={clsx({
             'bs-consumer-summary-card__notification-section__accepted-notification':
               acceptSms,
             'bs-consumer-summary-card__notification-section__refused-notification':
@@ -55,14 +55,14 @@ const ConsumerNotificationsSection: React.FC<Props> = ({
         />
         <ListItem
           classes={{
-            label: classNames({
+            label: clsx({
               'bs-consumer-summary-card__notification-section__accepted-notification':
                 acceptEmail,
               'bs-consumer-summary-card__notification-section__refused-notification':
                 !acceptEmail,
             }),
           }}
-          className={classNames({
+          className={clsx({
             'bs-consumer-summary-card__notification-section__accepted-notification':
               acceptEmail,
             'bs-consumer-summary-card__notification-section__refused-notification':

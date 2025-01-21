@@ -3,7 +3,7 @@ import chroma from 'chroma-js';
 import { useTranslation } from 'react-i18next';
 
 import makeStyles from '@material-ui/core/styles/makeStyles';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import Hidden from '@material-ui/core/Hidden';
 import Popover from '@material-ui/core/Popover';
 import Typography from '@material-ui/core/Typography';
@@ -185,7 +185,7 @@ const TagBadge = (props: Props) => {
         <div ref={iconRef} className="hoverCircle" />
         {props.children}
         <div
-          className={classNames('tagBadgeContainer', {
+          className={clsx('tagBadgeContainer', {
             tagBadgeContainerAnimated: animation,
             tagBadgeContainerReverse: reverse,
           })}
@@ -194,7 +194,7 @@ const TagBadge = (props: Props) => {
             if (index < NUMBER_OF_TAGS_DISPLAYED) {
               return (
                 <div
-                  className={classNames('badge', {
+                  className={clsx('badge', {
                     topLeftCorner: topLeftIcons,
                   })}
                   style={{
@@ -208,7 +208,7 @@ const TagBadge = (props: Props) => {
 
             return (
               <div
-                className={classNames('remainingBadge', 'badge', {
+                className={clsx('remainingBadge', 'badge', {
                   topLeftCorner: topLeftIcons,
                 })}
                 style={{
@@ -221,7 +221,7 @@ const TagBadge = (props: Props) => {
           })}
           {(filteredTags?.length || 0) > NUMBER_OF_TAGS_DISPLAYED ? (
             <div
-              className={classNames(
+              className={clsx(
                 'countRemainingBadge',
                 'badge',
                 classes.counterBadge,

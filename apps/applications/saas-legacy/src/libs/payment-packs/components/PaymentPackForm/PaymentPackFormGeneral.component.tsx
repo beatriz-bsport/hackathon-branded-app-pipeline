@@ -5,7 +5,7 @@ import makeStyles from '@material-ui/core/styles/makeStyles';
 import InfoIcon from '@material-ui/icons/Info';
 import BlockIcon from '@material-ui/icons/Block';
 import Typography from '@material-ui/core/Typography';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import {
   Collapse,
@@ -384,7 +384,7 @@ export const PaymentPackFormGeneral = (props: Props) => {
         >
           <Grid item xs={12}>
             <Divider
-              className={classNames(classes.divider, {
+              className={clsx(classes.divider, {
                 [classes.displayNone]: !values.apply_penalties,
               })}
             />

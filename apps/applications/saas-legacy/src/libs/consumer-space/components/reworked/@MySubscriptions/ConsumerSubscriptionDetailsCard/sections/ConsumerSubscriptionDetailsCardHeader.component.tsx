@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-import classNames from 'classnames';
+import clsx from 'clsx';
 import ConsumerCardSection from '#src/libs/consumer-space/components/reworked/common/ConsumerCardSection';
 
 import ListItem from '#Fabrique/ListItem';
@@ -97,7 +97,7 @@ const ConsumerSubscriptionDetailsCardHeader: React.FC<Props> = ({
             captionText:
               'bs-consumer__subscription-details-card__header__list-item__text--paused',
           }}
-          className={classNames(
+          className={clsx(
             'bs-consumer__subscription-details-card__header__list-item--paused',
             {
               'bs-consumer__subscription-details-card__header__list-item--paused--hidden':
@@ -120,7 +120,7 @@ const ConsumerSubscriptionDetailsCardHeader: React.FC<Props> = ({
             captionText:
               'bs-consumer__subscription-details-card__header__list-item__text--auto-renewed',
           }}
-          className={classNames(
+          className={clsx(
             'bs-consumer__subscription-details-card__header__list-item--auto-renewed',
             {
               'bs-consumer__subscription-details-card__header__list-item--hidden':
@@ -138,7 +138,7 @@ const ConsumerSubscriptionDetailsCardHeader: React.FC<Props> = ({
               'reworked.mySubscriptions.consumerSubscriptionCardDetails.headerListItemLabels.nextPaymentDate',
               { subscriptionNextPaymentDate },
             )}
-            className={classNames(
+            className={clsx(
               'bs-consumer__subscription-details-card__header__list-item__status',
               {
                 'bs-consumer__subscription-details-card__header__list-item--hidden':
@@ -162,7 +162,7 @@ const ConsumerSubscriptionDetailsCardHeader: React.FC<Props> = ({
             )
           }`}
           classes={{
-            captionText: classNames(
+            captionText: clsx(
               'bs-consumer__subscription-details-card__header__list-item__price__caption-text',
               {
                 'bs-consumer__subscription-details-card__header__list-item--hidden':

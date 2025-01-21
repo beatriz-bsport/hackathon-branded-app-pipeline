@@ -20,7 +20,7 @@ import RedButton from '../../../components/button/RedButton.component';
 import { STEP_INVOICE_ITEM, STEP_PAYMENT } from './invoice-step-constants';
 
 type Props = {
-  invoice: ?Invoice,
+  invoice?: Invoice,
   onSubmit: () => void,
   onBackToInvoiceItem: () => void,
   setStep: (number) => void,

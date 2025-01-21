@@ -1,5 +1,5 @@
 import React from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { DateTime } from 'luxon';
 import { push as pushRouter } from 'connected-react-router';
 import { withTranslation, WithTranslation } from 'react-i18next';
@@ -356,12 +356,7 @@ export class CadenceListPage extends React.Component<Props> {
               )}
             </div>
           </div>
-          <div
-            className={classNames(
-              classes.pageColumn,
-              classes.hideOnSmallScreen,
-            )}
-          >
+          <div className={clsx(classes.pageColumn, classes.hideOnSmallScreen)}>
             <CadenceMetrics
               cadence={this.props.selectedCadence}
               changeMembersHistoricPage={

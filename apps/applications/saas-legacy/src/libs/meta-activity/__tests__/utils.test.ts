@@ -1,7 +1,6 @@
 import { MarketplaceFilters } from '#src/libs/marketplace/types';
 import { convertMarketplaceFilterForMetaActivityCall } from '../utils';
-// @ts-expect-error
-import { MetaActivityFilter } from './types';
+import { MetaActivityFilter } from '#src/libs/meta-activity/types';
 
 const defaultFilter: MetaActivityFilter = {
   company: 1,

@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import Radio from '@material-ui/core/Radio';
 import Typography from '@material-ui/core/Typography';
 import Collapse from '@material-ui/core/Collapse';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
 import { useBasketInstalmentPaymentOptionStyle } from '#src/libs/instalment-payment-configuration/hooks';
 import {
@@ -123,7 +123,7 @@ export const BasketInstalmentPaymentOption: React.FC<Props> = ({
         {!partial_payment_enabled && (
           <>
             <Typography
-              className={classNames({ [classes.disabledText]: unselectable })}
+              className={clsx({ [classes.disabledText]: unselectable })}
             >
               {instalmentPayment.name}
             </Typography>
@@ -136,7 +136,7 @@ export const BasketInstalmentPaymentOption: React.FC<Props> = ({
       </div>
       <Collapse in={checked}>
         <div
-          className={classNames(classes.column, {
+          className={clsx(classes.column, {
             [classes.paddingLeftMobile]: !!withPaddingLeft,
           })}
         >

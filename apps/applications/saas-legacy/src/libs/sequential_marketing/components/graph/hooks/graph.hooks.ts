@@ -106,7 +106,7 @@ type Props = {
   ) => void;
 };
 
-export const useGraph = ({
+const useGraph = ({
   cadence,
   steps,
   cadenceEditMode,

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import List from '#Fabrique/List';
 import ListItem from '#Fabrique/ListItem';
@@ -36,7 +36,7 @@ const ConsumerSubscriptionCardBody: React.FC<Props> = ({
     <ConsumerGenericCardBodyContainer className="bs-consumer__subscription-card__container">
       <List className="bs-consumer__subscription-card__list">
         <ListItem
-          className={classNames('bs-consumer__subscription-card__list-item', {
+          className={clsx('bs-consumer__subscription-card__list-item', {
             'bs-consumer__subscription-card__list-item--empty':
               !subscriptionNextPaymentDate,
           })}

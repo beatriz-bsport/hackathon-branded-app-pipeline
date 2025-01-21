@@ -1,6 +1,6 @@
 import React from 'react';
 
-import classNames from 'classnames';
+import clsx from 'clsx';
 import Block from '@material-ui/icons/Block';
 import HourglassFull from '@material-ui/icons/HourglassFull';
 
@@ -14,7 +14,7 @@ const OfferBookingWaitingListStatusIcon: React.FC<Props> = ({ isError }) => {
   return (
     <div className="bs-offer-booking-waiting-list-status__container">
       <div
-        className={classNames(
+        className={clsx(
           'bs-offer-booking-waiting-list-status__icon__container',
           {
             'bs-offer-booking-waiting-list-status__icon__error': isError,

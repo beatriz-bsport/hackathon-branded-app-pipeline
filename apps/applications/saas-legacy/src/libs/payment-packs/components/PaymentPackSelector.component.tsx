@@ -1,6 +1,6 @@
 import React from 'react';
 
-import classNames from 'classnames';
+import clsx from 'clsx';
 import type {
   PaymentPack,
   PaymentPackTemplate,
@@ -70,7 +70,7 @@ export function PaymentPackSelector(props: Props) {
     <Selector
       searchIcon
       autofocus={autofocus}
-      className={classNames(classes, selectorClass)}
+      className={clsx(classes, selectorClass)}
       components={{ Option: paymentPackOption }}
       error={error}
       isDisabled={!!props.disabled}

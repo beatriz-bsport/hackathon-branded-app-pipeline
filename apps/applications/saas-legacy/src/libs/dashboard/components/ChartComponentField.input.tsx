@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import ButtonBase from '@material-ui/core/ButtonBase';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import EqualizerIcon from '@material-ui/icons/Equalizer';
 import DonutLargeIcon from '@material-ui/icons/DonutLarge';
 import ShowChartIcon from '@material-ui/icons/ShowChart';
@@ -74,7 +74,7 @@ export const ChartComponentFieldInput = (
             return (
               <ButtonBase
                 key={option}
-                className={classNames(classes.buttonContainer, {
+                className={clsx(classes.buttonContainer, {
                   [classes.selected]: field.value === option,
                 })}
                 onClick={() => {

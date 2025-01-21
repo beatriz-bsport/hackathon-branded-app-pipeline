@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { useTranslation } from 'react-i18next';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import Typography from '#Fabrique/Typography';
 import ConsumerCardSection from '#src/libs/consumer-space/components/reworked/common/ConsumerCardSection';
@@ -38,7 +38,7 @@ const ConsumerPaymentPackDetailsCardRestrictionSection: React.FC<Props> = ({
 
   return (
     <ConsumerCardSection
-      className={classNames(
+      className={clsx(
         'bs-consumer-payment-pack-details-card__restriction-section',
         {
           'bs-consumer-payment-pack-details-card__restriction-section--hidden':

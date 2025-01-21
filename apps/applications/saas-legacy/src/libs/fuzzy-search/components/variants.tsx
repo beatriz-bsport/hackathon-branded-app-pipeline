@@ -32,7 +32,7 @@ import type { Props as SelectProps } from 'react-select/lib/Select';
 
 import type { OptionProps } from 'react-select/lib/components/Option';
 import type { MenuProps, NoticeProps } from 'react-select/lib/components/Menu';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 
 import type { SelectOption } from '#src/libs/types';
@@ -149,7 +149,7 @@ const MaterialUISelectorMenu = (props: MenuProps<SelectOption<number>>) => {
           {props.isMulti && (
             <div className={classes.footer}>
               <Button
-                className={classNames(classes.button, classes.selectButton)}
+                className={clsx(classes.button, classes.selectButton)}
                 color="secondary"
                 onClick={handleSelectAll}
                 onTouchEnd={handleSelectAll} // for compatibility with phones

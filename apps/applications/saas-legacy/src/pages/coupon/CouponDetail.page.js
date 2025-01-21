@@ -73,8 +73,8 @@ import BottomActionButtons from '../../components/button/BottomActionsButton.com
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import CouponDeleteModal from '../../libs/coupon/components/CouponDeleteModal.component';
-import type { PaymentCombo } from '#src/libs/payment_combo/types';
-import type { Tag, TagGroupAPI } from '../../tag/types';
+import type { PaymentCombo } from '#src/libs/payment-combo/types';
+import type { Tag, TagGroupAPI } from '#src/libs/tag/types';
 import type {
   OptionCallback,
   OptionCallBackWithKeyedCallbacks,
@@ -89,7 +89,7 @@ import { CouponErrorCodes } from '../../libs/coupon/constants';
 
 type Props = {
   id: number,
-  coupon: ?Coupon,
+  coupon?: Coupon,
   fetchCouponPage: (number, options?: OptionCallback<Coupon[]>) => void,
   fetchCouponDiscounts: (id: number) => void,
   setDeleteModalOpen: (open: boolean) => void,

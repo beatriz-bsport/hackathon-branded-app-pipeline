@@ -1,5 +1,5 @@
 import React from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import makeStyles from '@material-ui/core/styles/makeStyles';
@@ -29,7 +29,7 @@ const PlaylistListMarketPlace: React.FC<Props> = ({
   const { t } = useTranslation('video');
   return (
     <div
-      className={classNames(
+      className={clsx(
         classes.playlistListContainer,
         'bs-marketplace-vod__playlist-list-main-container',
       )}
@@ -42,7 +42,7 @@ const PlaylistListMarketPlace: React.FC<Props> = ({
         {t('playlist.playlist')}
       </Typography>
       <div
-        className={classNames(
+        className={clsx(
           classes.playlistItemsContainer,
           'bs-marketplace-vod__playlist-list-sub-container',
         )}
@@ -50,7 +50,7 @@ const PlaylistListMarketPlace: React.FC<Props> = ({
         {playlists.map((playlist) => (
           <div
             key={playlist.id}
-            className={classNames(
+            className={clsx(
               classes.playlistListItem,
               'bs-marketplace-vod__playlist-list-item',
             )}
@@ -69,7 +69,7 @@ const PlaylistListMarketPlace: React.FC<Props> = ({
       </div>
       {hasMorePlaylist && (
         <div
-          className={classNames(
+          className={clsx(
             classes.buttonContainer,
             'bs-marketplace-vod__playlist__show-more-button-container',
           )}

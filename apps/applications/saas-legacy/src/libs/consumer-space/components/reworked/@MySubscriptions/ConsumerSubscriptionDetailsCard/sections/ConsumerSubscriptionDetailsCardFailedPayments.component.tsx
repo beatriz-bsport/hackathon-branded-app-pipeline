@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-import classNames from 'classnames';
+import clsx from 'clsx';
 import ConsumerCardSection from '#src/libs/consumer-space/components/reworked/common/ConsumerCardSection';
 
 import List from '#Fabrique/List';
@@ -25,7 +25,7 @@ const ConsumerSubscriptionDetailsCardFailedPayments: React.FC<Props> = ({
 
   return (
     <ConsumerCardSection
-      className={classNames(
+      className={clsx(
         'bs-consumer__subscription-details-card__failed_payments__section',
         {
           'bs-consumer__subscription-details-card__failed_payments__section--hidden':

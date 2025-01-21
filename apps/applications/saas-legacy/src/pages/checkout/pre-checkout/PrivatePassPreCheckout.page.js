@@ -45,7 +45,7 @@ type Props = {
 };
 
 type State = {
-  error: ?boolean,
+  error?: boolean,
 };
 
 export class PaymentPrivatePassPage extends Component<Props, State> {

@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react';
 
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { push as routerPush } from 'connected-react-router';
 import { connect } from 'react-redux';
 import { withTranslation, TFunction } from 'react-i18next';
@@ -157,7 +157,7 @@ export class InvoiceList extends Component<Props, State> {
                       onClick={this.refreshQuickbooksApp}
                     >
                       <RefreshIcon
-                        className={classNames({
+                        className={clsx({
                           [this.props.classes.rotateIcon]:
                             this.props.quickbooksAppLoading,
                         })}

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import Typography from '@material-ui/core/Typography';
 import { makeStyles, Theme } from '@material-ui/core/styles';
@@ -29,7 +29,7 @@ const FreeOfferChip: React.FC<Props> = ({
   ) {
     return (
       <Typography
-        className={classNames(classes.chip, {
+        className={clsx(classes.chip, {
           [classes.largeChip]: size === 'large',
           [classes.smallChip]: size === 'small',
         })}

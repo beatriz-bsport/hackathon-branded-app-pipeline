@@ -28,7 +28,7 @@ import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 
 type Props = {
   paymentItem: PaymentItem,
-  onDelete: ?() => void,
+  onDelete?: () => void,
   returnPayment: (uuid: string) => void,
   isReturningPayment: boolean,
   handleChangeMethod: (uuid: string, paymentMethodId: number) => void,
@@ -42,7 +42,7 @@ const ButtonReturnPayment = withConfirm(Button, 'onClick', {
   ),
 });
 
-export const PaymentItem = (props: Props) => {
+const PaymentItem = (props: Props) => {
   const classes = useStyles();
   const { t } = useTranslation(['payment']);
   const { paymentItem } = props;

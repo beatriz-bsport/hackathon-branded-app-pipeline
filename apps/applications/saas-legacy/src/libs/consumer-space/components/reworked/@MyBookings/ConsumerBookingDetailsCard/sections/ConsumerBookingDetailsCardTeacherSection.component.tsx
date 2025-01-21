@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import {
   FacebookSquare,
@@ -49,7 +49,7 @@ const OriginalTeacherAvatar: React.FC<TeacherAvatarProps> = React.memo(
         )}
         <ListItem
           classes={{
-            icon: classNames(
+            icon: clsx(
               'bs-consumer-booking-details-card__teacher-section__avatar__icon',
               {
                 'bs-consumer-booking-details-card__teacher-section__avatar__icon--sm':
@@ -60,7 +60,7 @@ const OriginalTeacherAvatar: React.FC<TeacherAvatarProps> = React.memo(
           className="bs-consumer-booking-details-card__teacher-section__list__item bs-consumer-booking-details-card__teacher-section__avatar"
           icon={
             <div
-              className={classNames(
+              className={clsx(
                 'bs-consumer-booking-details-card__teacher-section__avatar__icon__container',
                 {
                   'bs-consumer-booking-details-card__teacher-section__avatar__icon__container--empty':
@@ -120,7 +120,7 @@ const ConsumerBookingDetailsCardTeacherSection: React.FC<Props> = ({
             className="bs-consumer-booking-details-card__teacher-section__list__item bs-consumer-booking-details-card__teacher-section__avatar"
             icon={
               <div
-                className={classNames(
+                className={clsx(
                   'bs-consumer-booking-details-card__teacher-section__avatar__icon__container',
                   {
                     'bs-consumer-booking-details-card__teacher-section__avatar__icon__container--empty':
@@ -172,7 +172,7 @@ const ConsumerBookingDetailsCardTeacherSection: React.FC<Props> = ({
       )}
 
       <div
-        className={classNames(
+        className={clsx(
           'bs-consumer-booking-details-card__teacher-section__social',
           {
             'bs-consumer-booking-details-card__teacher-section__social--hidden':
@@ -181,7 +181,7 @@ const ConsumerBookingDetailsCardTeacherSection: React.FC<Props> = ({
         )}
       >
         <IconButton
-          className={classNames(
+          className={clsx(
             'bs-consumer-booking-details-card__teacher-section__social__link',
             {
               'bs-consumer-booking-details-card__teacher-section__social__link--hidden':
@@ -198,7 +198,7 @@ const ConsumerBookingDetailsCardTeacherSection: React.FC<Props> = ({
         </IconButton>
 
         <IconButton
-          className={classNames(
+          className={clsx(
             'bs-consumer-booking-details-card__section__social__link',
             {
               'bs-consumer-booking-details-card__section__social__link--hidden':

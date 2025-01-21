@@ -13,7 +13,7 @@ import Pagination from '@material-ui/lab/Pagination';
 import { useFormikContext } from 'formik';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import { DateTime } from 'luxon';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import { Coach } from '#src/libs/associated-coach/types';
 import { SIMILAR_OFFERS_PAGE_SIZE } from '#src/libs/offer/constants';
@@ -51,7 +51,7 @@ const OfferItem = React.memo((props: OfferItemProps) => {
 
   return (
     <ListItemText
-      className={classNames(classes.flexAuto, {
+      className={clsx(classes.flexAuto, {
         [classes.alignItemsEnd]: isAlignItemsEnd,
       })}
       primary={
@@ -214,7 +214,7 @@ const SimilarOffersList = (props: Props) => {
             {similarOffersList.map((similarOffer) => (
               <li
                 key={similarOffer.id}
-                className={classNames(classes.offerItem, {
+                className={clsx(classes.offerItem, {
                   [classes.disabled]: similarOffer.id === offerId,
                 })}
               >

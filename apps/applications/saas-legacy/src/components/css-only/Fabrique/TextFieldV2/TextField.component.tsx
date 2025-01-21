@@ -1,6 +1,6 @@
 import React, { ChangeEvent } from 'react';
 
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 
@@ -97,19 +97,16 @@ const TextField: React.FC<Props> = ({
 
   return (
     <div
-      className={classNames('bs-fabrique-textfield__wrapper', classes?.root)}
+      className={clsx('bs-fabrique-textfield__wrapper', classes?.root)}
       id={id}
     >
       <div
-        className={classNames(
-          'bs-fabrique-textfield__container',
-          classes?.container,
-        )}
+        className={clsx('bs-fabrique-textfield__container', classes?.container)}
       >
         {!!label && (
           <label htmlFor={inputId}>
             <Typography
-              className={classNames(
+              className={clsx(
                 'bs-fabrique-textfield__label',
                 {
                   'bs-fabrique-textfield__label--disabled': isDisabled,
@@ -123,13 +120,10 @@ const TextField: React.FC<Props> = ({
             >
               {label}
               <span
-                className={classNames(
-                  'bs-fabrique-textfield__label--required',
-                  {
-                    'bs-fabrique-textfield__label--disabled': isDisabled,
-                    'bs-fabrique-textfield__label--empty': !isRequired,
-                  },
-                )}
+                className={clsx('bs-fabrique-textfield__label--required', {
+                  'bs-fabrique-textfield__label--disabled': isDisabled,
+                  'bs-fabrique-textfield__label--empty': !isRequired,
+                })}
               >
                 {REQUIRED_SYMBOL}
               </span>
@@ -137,7 +131,7 @@ const TextField: React.FC<Props> = ({
           </label>
         )}
         <div
-          className={classNames(
+          className={clsx(
             'bs-fabrique-textfield__input__container',
             {
               'bs-fabrique-textfield__input__container--disabled': isDisabled,
@@ -154,7 +148,7 @@ const TextField: React.FC<Props> = ({
         >
           {!!leftIcon && (
             <span
-              className={classNames(
+              className={clsx(
                 'bs-fabrique-textfield__icon--base',
                 {
                   'bs-fabrique-textfield__icon--small': isSmall,
@@ -171,10 +165,7 @@ const TextField: React.FC<Props> = ({
             variant="body-md"
           >
             <InputBase
-              className={classNames(
-                'bs-fabrique-textfield__input',
-                classes?.input,
-              )}
+              className={clsx('bs-fabrique-textfield__input', classes?.input)}
               id={inputId}
               isDisabled={isDisabled}
               isRequired={isRequired}
@@ -188,14 +179,10 @@ const TextField: React.FC<Props> = ({
               value={value}
             />
           </Typography>
-          <div
-            className={classNames(
-              'bs-fabrique-textfield__right-icons__wrapper',
-            )}
-          >
+          <div className={clsx('bs-fabrique-textfield__right-icons__wrapper')}>
             {!!value && !isDisabled && !!onClear && (
               <ButtonBase
-                className={classNames(
+                className={clsx(
                   'bs-fabrique-textfield__icon--base',
                   {
                     'bs-fabrique-textfield__icon--small': isSmall,
@@ -214,7 +201,7 @@ const TextField: React.FC<Props> = ({
             )}
             {!!rightIcon && (
               <span
-                className={classNames(
+                className={clsx(
                   'bs-fabrique-textfield__icon--base',
                   {
                     'bs-fabrique-textfield__icon--small': isSmall,

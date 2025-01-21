@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-import classNames from 'classnames';
+import clsx from 'clsx';
 import Button from '@material-ui/core/Button';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import IconButton from '@material-ui/core/IconButton';
@@ -99,7 +99,7 @@ const CouponCodeInput: React.FC<CouponCodeInputProps> = ({
 
   return (
     <div
-      className={classNames(classes.couponInputContainer, {
+      className={clsx(classes.couponInputContainer, {
         [classes.couponInputContainerError]: !!error,
       })}
     >

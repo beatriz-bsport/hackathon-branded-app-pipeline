@@ -11,7 +11,7 @@ import {
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import SendIcon from '@material-ui/icons/Send';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
@@ -137,16 +137,13 @@ const MarketingRuleSendingMethodField = (props: Props) => {
         {send_email && (
           <>
             <Typography
-              className={classNames(
-                [classes.spacingTop],
-                [classes.spacingBottom],
-              )}
+              className={clsx([classes.spacingTop], [classes.spacingBottom])}
               variant="subtitle2"
             >
               {t('notificationForm.emailNotification.parameters')}
             </Typography>
             <Typography
-              className={classNames({
+              className={clsx({
                 [classes.errorText]: errors.email_design,
               })}
               variant="caption"
@@ -229,13 +226,9 @@ const MarketingRuleSendingMethodField = (props: Props) => {
         {send_notification_push && (
           <div className={classes.fieldContainer}>
             <Typography
-              className={classNames(
-                [classes.spacingTop],
-                [classes.spacingBottom],
-                {
-                  [classes.errorText]: errors.notificationContent,
-                },
-              )}
+              className={clsx([classes.spacingTop], [classes.spacingBottom], {
+                [classes.errorText]: errors.notificationContent,
+              })}
               variant="subtitle2"
             >
               {t('paymentPack:notification.form.pushTitle')}

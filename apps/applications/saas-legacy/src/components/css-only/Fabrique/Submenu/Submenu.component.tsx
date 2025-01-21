@@ -1,5 +1,5 @@
 import React from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import { PortalContainer } from '#Fabrique/PortalContainer';
 import {
@@ -129,7 +129,7 @@ export const SubmenuContent = React.forwardRef<
     return (
       <ul
         ref={ref}
-        className={classNames('bs-fabrique-submenu__root', className, {
+        className={clsx('bs-fabrique-submenu__root', className, {
           'bs-fabrique-submenu__root--anchor': isAnchorMode,
           'bs-fabrique-submenu__root--unpositioned':
             isAnchorMode && !isPositioned && !anchorEl,

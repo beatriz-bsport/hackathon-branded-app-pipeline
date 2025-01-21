@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 
 import { useTranslation } from 'react-i18next';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 import { downloadDocument } from '#src/utils/downloader';
@@ -67,7 +67,7 @@ const MarketplaceContractTermsModal: React.FC<Props> = ({
               </Button>
               <Button
                 classes={{
-                  root: classNames('bs-contract-terms-dialog__button', {
+                  root: clsx('bs-contract-terms-dialog__button', {
                     'bs-contract-terms-dialog__download--disabled':
                       isContractTermsDownloadLoading,
                     'bs-contract-terms-dialog__download':

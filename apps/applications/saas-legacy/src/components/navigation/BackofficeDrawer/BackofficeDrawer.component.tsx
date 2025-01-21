@@ -7,7 +7,7 @@ import makeStyles from '@material-ui/core/styles/makeStyles';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { useLocation } from 'react-router';
-import classnames from 'classnames';
+import clsx from 'clsx';
 
 import { compose } from 'recompose';
 
@@ -1022,7 +1022,7 @@ export const BackOfficeDrawer: React.FC<Props> = ({
             />
           )}
           <main
-            className={classnames({
+            className={clsx({
               [classes.fullContent]:
                 location.pathname.includes('/spot-scheduling') ||
                 location.pathname.includes('/audience/'),

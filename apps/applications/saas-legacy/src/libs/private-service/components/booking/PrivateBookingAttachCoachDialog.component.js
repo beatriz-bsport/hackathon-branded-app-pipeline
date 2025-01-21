@@ -16,7 +16,7 @@ type Props = {
   onClose: () => void,
   open: boolean,
 };
-export const PrivateBookingAttachCoachDialog = (props: Props) => {
+const PrivateBookingAttachCoachDialog = (props: Props) => {
   const { t } = useTranslation(['privateService']);
   return (
     <Dialog open={props.open}>

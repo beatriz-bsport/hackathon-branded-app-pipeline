@@ -8,7 +8,7 @@ import Button from '@material-ui/core/Button';
 import Avatar from '@material-ui/core/Avatar';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import Chip from '@material-ui/core/Chip';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { compose } from 'recompose';
 // eslint-disable-next-line bsport/no-redux-in-component
 import { ConnectedProps, connect } from 'react-redux';
@@ -52,7 +52,7 @@ const FranchiseMemberRowItem: React.FC<Props> = ({
         key={company.id}
         disableGutters
         button={isAllowed(company.id) || undefined}
-        className={classNames(classes.listItem, {
+        className={clsx(classes.listItem, {
           [classes.lastItem]: isLast,
         })}
         disabled={!isAllowed(company.id)}

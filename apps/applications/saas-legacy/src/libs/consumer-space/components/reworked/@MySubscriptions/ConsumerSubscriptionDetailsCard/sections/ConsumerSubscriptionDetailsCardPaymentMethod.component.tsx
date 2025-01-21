@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import ConsumerCardSection from '#src/libs/consumer-space/components/reworked/common/ConsumerCardSection';
 import Button from '#Fabrique/ButtonV2';
@@ -44,7 +44,7 @@ const ConsumerSubscriptionDetailsCardPaymentMethod: React.FC<Props> = ({
   );
   return (
     <ConsumerCardSection
-      className={classNames(
+      className={clsx(
         'bs-consumer__subscription-details-card__payment-method__section',
         {
           'bs-consumer__subscription-details-card__payment-method__section--hidden':

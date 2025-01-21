@@ -26,7 +26,7 @@ import analyticsUtils from '../../../components/analytics/analytics';
 
 type Props = {
   t: TFunction,
-  contract: ?Contract,
+  contract?: Contract,
   fullScreen: boolean,
   onCancel: () => void,
   onSubmit: (contractId: number, success: boolean) => void,
@@ -47,7 +47,7 @@ type Props = {
 
 type State = {
   processing: boolean,
-  firstBillingTimestamp: ?number,
+  firstBillingTimestamp?: number,
   openGenericDialogWithCountdownConfirm: boolean,
 };
 

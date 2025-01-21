@@ -3,7 +3,7 @@ import React from 'react';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import Typography from '@material-ui/core/Typography';
 import makeStyles from '@material-ui/core/styles/makeStyles';
-import classnames from 'classnames';
+import clsx from 'clsx';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 
 import MenuItem from '@material-ui/core/MenuItem';
@@ -41,7 +41,7 @@ const AppBarLogo: React.FC<LogoProps> = ({
     return (
       <>
         <ButtonBase
-          className={classnames([classes.marginLeft, classes.selector])}
+          className={clsx([classes.marginLeft, classes.selector])}
           onClick={(ev: React.SyntheticEvent<HTMLButtonElement>) =>
             setOpenMenu(ev.currentTarget)
           }

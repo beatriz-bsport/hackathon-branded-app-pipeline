@@ -1,6 +1,6 @@
 import React from 'react';
 
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import '../styles.css';
 
@@ -11,7 +11,7 @@ export const ConsumerGenericCardBodyContainer: React.FC<Props> = ({
   className,
 }) => {
   return (
-    <div className={classNames('bs-consumer__generic-card__body', className)}>
+    <div className={clsx('bs-consumer__generic-card__body', className)}>
       {children}
     </div>
   );

@@ -3,7 +3,7 @@ import { Theme } from '@material-ui/core/styles';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import { useTranslation } from 'react-i18next';
 import { Button, Typography } from '@material-ui/core';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import BankAccountForm from '#src/libs/payment/components/BankAccountForm.component';
 import { CompanySetup } from '#src/libs/company/types';
 import { OptionCallback } from '../../../../state/types';
@@ -74,7 +74,7 @@ export const AccountConfigurationBankAccountStep: React.FC<Props> = ({
           steps={steps}
         />
         <div
-          className={classNames(
+          className={clsx(
             {
               [classes.successBankAccount]: success,
             },

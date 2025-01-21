@@ -1,6 +1,6 @@
 import React, { MouseEvent, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import DeleteIcon from '@material-ui/icons/Delete';
 import RadioButtonUncheckedOutlinedIcon from '@material-ui/icons/RadioButtonUncheckedOutlined';
@@ -69,15 +69,12 @@ const ContractPaymentMethod: React.FC<ContractPaymentMethodProps> = React.memo(
     return (
       <button
         key={paymentMethod.id}
-        className={classNames(
-          'bs-marketplace-contract-payment-method-list__item',
-          {
-            'bs-marketplace-contract-payment-method-list__item--disabled':
-              !isContractLegalTermsAccepted,
-            'bs-marketplace-contract-payment-method-list__item--active':
-              paymentMethod.id === selectedPaymentMethod,
-          },
-        )}
+        className={clsx('bs-marketplace-contract-payment-method-list__item', {
+          'bs-marketplace-contract-payment-method-list__item--disabled':
+            !isContractLegalTermsAccepted,
+          'bs-marketplace-contract-payment-method-list__item--active':
+            paymentMethod.id === selectedPaymentMethod,
+        })}
         disabled={!isContractLegalTermsAccepted}
         onClick={handleSelectPaymentMethod}
         type="button"

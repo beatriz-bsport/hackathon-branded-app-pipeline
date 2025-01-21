@@ -22,10 +22,10 @@ import type { Establishment } from '../../../api/types';
 
 type Props = {
   establishment: Establishment,
-  onClickEdit: ?() => void,
-  onClickDelete: ?() => void,
-  onClick: ?() => void,
-  divider: ?boolean,
+  onClickEdit?: () => void,
+  onClickDelete?: () => void,
+  onClick?: () => void,
+  divider?: boolean,
   clearIcon: boolean,
 
   classes: Object,

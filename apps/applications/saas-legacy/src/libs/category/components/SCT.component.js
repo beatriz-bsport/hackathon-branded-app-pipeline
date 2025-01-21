@@ -4,21 +4,21 @@ import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import SPORTS from '@bsport/common/lib/master-data/sports.js';
-import classnames from 'classnames';
+import clsx from 'clsx';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 type Props = {
   parentCategory: number,
   SCTName: string,
-  noname: ?boolean,
-  variant: ?string,
+  noname?: boolean,
+  variant?: string,
   isFocused?: boolean,
   isSelected?: boolean,
   paddingLeft?: boolean,
   size?: number,
 };
 
-export function Sport(props: Props) {
+function Sport(props: Props) {
   const {
     parentCategory,
     isSelected,
@@ -38,7 +38,7 @@ export function Sport(props: Props) {
   }
   return (
     <div
-      className={classnames(
+      className={clsx(
         classes.container,
         isSelected ? classes.selected : null,
         isFocused ? classes.focused : null,

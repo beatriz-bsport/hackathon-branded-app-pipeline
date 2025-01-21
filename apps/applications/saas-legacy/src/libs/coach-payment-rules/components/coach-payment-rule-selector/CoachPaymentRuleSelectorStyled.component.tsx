@@ -9,7 +9,7 @@ import chroma from 'chroma-js';
 import BlockIcon from '@material-ui/icons/Block';
 import GroupIcon from '@material-ui/icons/Group';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import type { CoachPaymentRule } from '#src/libs/coach-payment-rules/types';
 import { DISSOCIATED_COACH_PAYMENT_RULE } from '#src/libs/coach-payment-rules/constants';
 import type { MaterialStyleType } from '../../../../utils/types';
@@ -166,7 +166,7 @@ export function CoachPaymentRuleSelectorStyled(props: Props) {
   }
   return (
     <Select
-      className={classNames(selectorClass)}
+      className={clsx(selectorClass)}
       closeMenuOnSelect={closeMenuOnSelect}
       components={{ DropdownIndicator, SingleValue, Placeholder }}
       id={id}

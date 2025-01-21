@@ -5,7 +5,7 @@ import type { Immutable } from 'seamless-immutable';
 export type SearchState = Immutable<{
   text: string,
   path: string,
-  selectedId: ?number,
+  selectedId?: number,
   detail: any,
 }>;
 export type SearchAction =

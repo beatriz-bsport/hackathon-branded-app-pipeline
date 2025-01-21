@@ -2,7 +2,7 @@ import React, { useMemo, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import uniqBy from 'lodash/uniqBy';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import { makeStyles, Theme, Typography } from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton';
@@ -310,7 +310,7 @@ const DatatypeFilterConfigRow: React.FC<Props> = ({
     <div className={classes.maxWidth}>
       <div ref={rowRef} className={classes.filterRow}>
         {!displayAsFirstOrderRow && (
-          <div className={classNames(classes.groupRule, classes.center)}>
+          <div className={clsx(classes.groupRule, classes.center)}>
             {!hidePrefix && (
               <Typography color="textSecondary">
                 {t(`filter.form.groupOperand.${groupOperand}`)}
@@ -318,7 +318,7 @@ const DatatypeFilterConfigRow: React.FC<Props> = ({
             )}
           </div>
         )}
-        <div className={classNames(classes.flexOne, classes.relative)}>
+        <div className={clsx(classes.flexOne, classes.relative)}>
           <MaterialUiSingleSelectorField
             inScrollBar
             // @ts-expect-error
@@ -393,7 +393,7 @@ const DatatypeFilterConfigRow: React.FC<Props> = ({
           />
         </div>
         <div
-          className={classNames(classes.row, classes.flexTwo, {
+          className={clsx(classes.row, classes.flexTwo, {
             [classes.center]:
               filterItem.datatype === 'date' ||
               filterItem.sub_datatype === DATE_SUBDATA_TYPE,

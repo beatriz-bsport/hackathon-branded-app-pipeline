@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
@@ -75,7 +75,7 @@ const QuicksaleDeliveryForm: React.FC<Props> = ({
       {showDeliverySelector && (
         <div className={classes.deliverySelector}>
           <div
-            className={classNames(classes.selectorButton, {
+            className={clsx(classes.selectorButton, {
               [classes.selectorButtonSelected]:
                 deliveryType === QuicksaleDeliveryType.OnSpot,
             })}
@@ -89,7 +89,7 @@ const QuicksaleDeliveryForm: React.FC<Props> = ({
           </div>
 
           <div
-            className={classNames(classes.selectorButton, {
+            className={clsx(classes.selectorButton, {
               [classes.selectorButtonSelected]:
                 deliveryType === QuicksaleDeliveryType.HomeDelivery,
             })}

@@ -2,7 +2,7 @@ import React from 'react';
 import { DateTime } from 'luxon';
 
 import { useTranslation } from 'react-i18next';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 import Typography from '#Fabrique/Typography';
@@ -59,10 +59,7 @@ const ConsumerPaymentPackCreditStatus: React.FC<Props> = ({
   if (isPaymentPackUnlimited) {
     return (
       <Typography
-        className={classNames(
-          'bs-consumer-payment-pack-credit-status',
-          className,
-        )}
+        className={clsx('bs-consumer-payment-pack-credit-status', className)}
         variant="body-sm"
       >
         {t('paymentPack:unlimitedCredits')}
@@ -73,7 +70,7 @@ const ConsumerPaymentPackCreditStatus: React.FC<Props> = ({
   if (consumerPackHasPenalty) {
     return (
       <Typography
-        className={classNames(
+        className={clsx(
           'bs-consumer-payment-pack-credit-status--error',
           className,
         )}
@@ -93,7 +90,7 @@ const ConsumerPaymentPackCreditStatus: React.FC<Props> = ({
 
   return (
     <Typography
-      className={classNames(
+      className={clsx(
         'bs-consumer-payment-pack-credit-status',
         {
           'bs-consumer-payment-pack-credit-status--error': isErrorStatus,

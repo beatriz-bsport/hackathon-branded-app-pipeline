@@ -27,14 +27,14 @@ const styles = () => ({
 
 type Props = {
   activity: ActivitySimplified,
-  additionalInfo: ?string,
+  additionalInfo?: string,
   additionalInfoTypoProps: any,
   additionalInfoSecondary: string,
   date: string,
-  showCoach: ?boolean,
-  showCoachName: ?boolean,
+  showCoach?: boolean,
+  showCoachName?: boolean,
   overrideClickAction: () => void,
-  noDivider: ?boolean,
+  noDivider?: boolean,
   t: (x: string) => string,
   classes: Object,
   offer: Offer,

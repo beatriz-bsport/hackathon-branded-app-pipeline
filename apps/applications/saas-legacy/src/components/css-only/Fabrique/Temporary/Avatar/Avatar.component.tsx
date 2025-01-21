@@ -1,5 +1,5 @@
 import React from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 import { Building05, User01 } from '#src/components/untitledui';
 import type { AvatarSize, AvatarType } from './types';
@@ -53,15 +53,11 @@ const Avatar: React.FC<AvatarProps> = ({
   if (noPicture) {
     return (
       <div
-        className={classNames(
-          'bs-fabrique-avatar',
-          avatarSizeClassName,
-          className,
-        )}
+        className={clsx('bs-fabrique-avatar', avatarSizeClassName, className)}
       >
         {type === AvatarTypeEnum.PLACE ? (
           <Building05
-            className={classNames(
+            className={clsx(
               'bs-fabrique-avatar__icon',
               avatarIconClassName,
               classes?.icon,
@@ -69,7 +65,7 @@ const Avatar: React.FC<AvatarProps> = ({
           />
         ) : (
           <User01
-            className={classNames(
+            className={clsx(
               'bs-fabrique-avatar__icon',
               avatarIconClassName,
               classes?.icon,
@@ -83,11 +79,7 @@ const Avatar: React.FC<AvatarProps> = ({
   return (
     <img
       alt="user"
-      className={classNames(
-        'bs-fabrique-avatar',
-        avatarSizeClassName,
-        className,
-      )}
+      className={clsx('bs-fabrique-avatar', avatarSizeClassName, className)}
       src={picture}
     />
   );

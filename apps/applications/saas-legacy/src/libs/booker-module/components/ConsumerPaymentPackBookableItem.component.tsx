@@ -1,7 +1,7 @@
 import React from 'react';
 import { makeStyles, Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { PaymentPack, MaxoutData } from '../../payment-packs/types';
 import { formatAsDate } from '../../../utils/datetime';
 import CreditStatus from '../../consumer-payment-pack/components/CreditStatus.component';
@@ -21,7 +21,7 @@ const ConsumerPaymentPackItem = (props: Props) => {
 
   return (
     <div
-      className={classNames(classes.itemContainer, {
+      className={clsx(classes.itemContainer, {
         [classes.opacity]: props.consumerPaymentPack.exceedsBookingMaxout,
       })}
     >

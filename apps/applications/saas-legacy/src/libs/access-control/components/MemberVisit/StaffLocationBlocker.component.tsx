@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core/styles';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
@@ -20,7 +20,7 @@ const StaffLocationBlocker: React.FC<Props> = ({ open }) => {
 
   return (
     <div
-      className={classNames(
+      className={clsx(
         classes.blockerFrame,
         classes.blockerFrameForContentPages,
       )}

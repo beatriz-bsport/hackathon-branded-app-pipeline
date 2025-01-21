@@ -5,7 +5,7 @@ import React, {
   useEffect,
   CSSProperties,
 } from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { Checkbox } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import throttle from 'lodash/throttle';
@@ -116,7 +116,7 @@ const MarketplaceFilterCSSOnly: React.FC<Props> = ({
     <>
       <button
         ref={anchorRef}
-        className={classNames('bs-marketplace-filter', {
+        className={clsx('bs-marketplace-filter', {
           'bs-marketplace-filter--open': isOpen,
           'bs-marketplace-filter--selected': selectedOptions.length > 0,
         })}
@@ -125,7 +125,7 @@ const MarketplaceFilterCSSOnly: React.FC<Props> = ({
         {...(id ? { id } : {})}
       >
         <div
-          className={classNames('bs-marketplace-filter__placeholder', {
+          className={clsx('bs-marketplace-filter__placeholder', {
             'bs-marketplace-filter__placeholder--open': isOpen,
           })}
         >
@@ -140,13 +140,9 @@ const MarketplaceFilterCSSOnly: React.FC<Props> = ({
           )}
           <KeyboardArrowDownIcon
             classes={{
-              root: classNames(
-                'bs-marketplace-filter__right__placeholder-icon',
-                {
-                  'bs-marketplace-filter__right__placeholder-icon--open':
-                    isOpen,
-                },
-              ),
+              root: clsx('bs-marketplace-filter__right__placeholder-icon', {
+                'bs-marketplace-filter__right__placeholder-icon--open': isOpen,
+              }),
             }}
             color="inherit"
           />
@@ -174,7 +170,7 @@ const MarketplaceFilterCSSOnly: React.FC<Props> = ({
             <ClickAwayListener disableReactTree onClickAway={handleCloseMenu}>
               <div className="bs-marketplace-filter__menu">
                 <div
-                  className={classNames('bs-marketplace-filter__menu__list', {
+                  className={clsx('bs-marketplace-filter__menu__list', {
                     'bs-marketplace-filter__menu__list--level': levelVariant,
                   })}
                 >

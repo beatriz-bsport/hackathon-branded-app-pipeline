@@ -23,7 +23,7 @@ type Props = {
   loading: boolean,
   disabled: boolean,
   edit?: boolean,
-  color: ?string,
+  color?: string,
 
   message: string,
   listTitle: string,

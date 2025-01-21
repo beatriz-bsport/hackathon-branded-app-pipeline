@@ -19,7 +19,7 @@ import PaginatedListBase from '#src/components/PaginatedListBase.component';
 
 import PageContentContainer from '#src/libs/consumer-space/components/reworked/@Layout/PageContentContainer';
 
-import { WidgetUtils } from '#src/libs/widget/WidgetUtils';
+import WidgetUtils from '#src/libs/widget/WidgetUtils';
 
 import {
   fetchGiftcardBulk as fetchGiftcardBulkAction,

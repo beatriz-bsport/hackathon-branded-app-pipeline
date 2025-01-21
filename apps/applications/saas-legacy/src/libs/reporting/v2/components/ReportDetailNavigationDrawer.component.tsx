@@ -1,5 +1,5 @@
 import React from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import { useTranslation } from 'react-i18next';
@@ -156,9 +156,7 @@ const ReportDetailNavigationDrawer: React.FC<Props> = ({
                     )}
                   </ListItem>
                   <Collapse in={isCategoryExpanded[globalCategory.title]}>
-                    <List
-                      className={classNames(classes.categoryList, classes.list)}
-                    >
+                    <List className={clsx(classes.categoryList, classes.list)}>
                       {globalCategory.categories.map((category) => (
                         <ListItem
                           key={category.category}

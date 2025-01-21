@@ -1,5 +1,5 @@
 import React from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 
 import { ConsumerGenericCardFooter } from '#src/libs/consumer-space/components/reworked/common/ConsumerCard';
@@ -39,7 +39,7 @@ const ConsumerInvoiceDetailsCardFooter: React.FC<Props> = ({
         variant: 'contained' as ButtonVariant,
         isDisabled: !onPay,
         label: t('reworked.myInvoices.detailsCard.pay'),
-        buttonClassName: classNames(
+        buttonClassName: clsx(
           {
             'bs-consumer-invoice-details-card__footer__button': !isMobile,
             'bs-consumer-invoice-details-card__footer__button--mobile':
@@ -61,7 +61,7 @@ const ConsumerInvoiceDetailsCardFooter: React.FC<Props> = ({
           selectedFilter === InvoicesFiltersEnum.REFUNDED
             ? t('reworked.myInvoices.detailsCard.downloadOriginalInvoice')
             : t('reworked.myInvoices.detailsCard.download'),
-        buttonClassName: classNames(
+        buttonClassName: clsx(
           {
             'bs-consumer-invoice-details-card__footer__button': !isMobile,
             'bs-consumer-invoice-details-card__footer__button--mobile':
@@ -80,7 +80,7 @@ const ConsumerInvoiceDetailsCardFooter: React.FC<Props> = ({
         variant: 'outlined' as ButtonVariant,
         isDisabled: !onReceiptDownload,
         label: t('reworked.myInvoices.detailsCard.downloadReceipt'),
-        buttonClassName: classNames(
+        buttonClassName: clsx(
           {
             'bs-consumer-invoice-details-card__footer__button': !isMobile,
             'bs-consumer-invoice-details-card__footer__button--mobile':
@@ -101,7 +101,7 @@ const ConsumerInvoiceDetailsCardFooter: React.FC<Props> = ({
         variant: 'outlined' as ButtonVariant,
         isDisabled: !onRefundedInvoiceDownload,
         label: t('reworked.myInvoices.detailsCard.downloadRefundedInvoice'),
-        buttonClassName: classNames(
+        buttonClassName: clsx(
           {
             'bs-consumer-invoice-details-card__footer__button': !isMobile,
             'bs-consumer-invoice-details-card__footer__button--mobile':

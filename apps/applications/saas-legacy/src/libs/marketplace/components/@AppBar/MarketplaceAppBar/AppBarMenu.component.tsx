@@ -6,7 +6,7 @@ import Tab from '@material-ui/core/Tab';
 import Tabs from '@material-ui/core/Tabs';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { MarketplaceSettings } from '#src/libs/marketplace/types';
 import { EXPORTABLE_COMPONENT_TYPE_VOD } from '#src/libs/exportable-components/constants';
 import { getDefaultTitleForComponent } from '#src/libs/exportable-components/utils';
@@ -41,7 +41,7 @@ const AppBarMenu: React.FC<MenuProps> = ({
   return (
     <AppBar
       classes={{
-        root: classNames(classes.appbar, {
+        root: clsx(classes.appbar, {
           [classes.isFullWidth]: onlyNavigation,
         }),
       }}

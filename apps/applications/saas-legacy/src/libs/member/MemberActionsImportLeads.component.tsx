@@ -23,7 +23,7 @@ import {
   LEAD_MANAGEMENT_IMPORT_INTERCOM_URL,
 } from '#src/libs/member/constants';
 
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 export const MemberActionsImportLeadsSuccess: FC = () => {
   const { t } = useTranslation('member');
@@ -98,7 +98,7 @@ export const MemberActionsImportLeadsPartialSuccess: FC<
           {t('leads.dialogs.partialSuccess.lineTwoMessage')}
         </Typography>
         <div
-          className={classNames(classes.paperContainer, classes.errorFile)}
+          className={clsx(classes.paperContainer, classes.errorFile)}
           onClick={handleDownloadErrorFile}
         >
           <div className={classes.textContainer}>
@@ -113,7 +113,7 @@ export const MemberActionsImportLeadsPartialSuccess: FC<
         </div>
 
         <div
-          className={classNames(classes.paperContainer, classes.successFile)}
+          className={clsx(classes.paperContainer, classes.successFile)}
           onClick={handleDownloadSuccessFile}
         >
           <div className={classes.textContainer}>

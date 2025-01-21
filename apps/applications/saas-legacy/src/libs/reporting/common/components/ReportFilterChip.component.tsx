@@ -25,7 +25,7 @@ import Star from '@material-ui/icons/Star';
 import AccountBalanceWalletIcon from '@material-ui/icons/AccountBalanceWallet';
 
 import cloneDeep from 'lodash/cloneDeep';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { Error, Warning } from '@material-ui/icons';
 import chroma from 'chroma-js';
 import { useFormikContext } from 'formik';
@@ -418,7 +418,7 @@ const ReportFilterChip: React.FC<ReportFilterChipProps> = forwardRef(
           <Tooltip title={tooltipTitle}>
             <Chip
               key={label}
-              className={classNames({
+              className={clsx({
                 [classes.columnRemoved]: isColumnRemoved && !onlyDisplay,
                 [classes.isInvalid]:
                   isInvalid && !onlyDisplay && !isColumnRemoved,

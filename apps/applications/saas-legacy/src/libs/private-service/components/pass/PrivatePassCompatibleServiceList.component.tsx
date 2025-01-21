@@ -18,7 +18,7 @@ import ReportProblemIcon from '@material-ui/icons/ReportProblem';
 
 import { PrivateServiceListItem } from '../service/PrivateServiceListItem.component';
 // @ts-expect-error
-import { PrivateSlotCompatibleServiceForm } from '../slot/PrivateSlotCompatibleServiceForm.component';
+import PrivateSlotCompatibleServiceForm from '../slot/PrivateSlotCompatibleServiceForm.component';
 import { PrivateServiceSelector } from '../service/PrivateServiceSelector.component';
 import { filterPrivateService } from '../../utils';
 

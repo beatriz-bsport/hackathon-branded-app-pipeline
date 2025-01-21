@@ -1,6 +1,6 @@
 import React, { useLayoutEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import { ButtonBase, makeStyles, Theme } from '@material-ui/core';
 
@@ -64,7 +64,7 @@ const UnfoldableText: React.FC<{
       </div>
       {denseHeight < textRef?.scrollHeight && (
         <ButtonBase
-          className={classNames(buttonClassName, classes.showMore)}
+          className={clsx(buttonClassName, classes.showMore)}
           id={ids?.button}
           onClick={() => {
             setisOpen(!isOpen);

@@ -17,7 +17,7 @@ type Props = {
   isEbook: boolean,
 };
 
-export const VideoLockOverlay = (props: Props) => {
+const VideoLockOverlay = (props: Props) => {
   const { authenticated, accessDenied, requestVideoAccess } = props;
   const { t } = useTranslation(['video']);
   const classes = useStyles();

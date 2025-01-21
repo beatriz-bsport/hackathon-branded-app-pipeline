@@ -21,7 +21,7 @@ type Props = {
   goToDetail: () => void,
 };
 
-export const VideoStatus = (props: Props) => {
+const VideoStatus = (props: Props) => {
   const { status } = props.video;
   const classes = useStyles();
   const { t } = useTranslation(['video']);

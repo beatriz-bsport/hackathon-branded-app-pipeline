@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import FreeOfferChip from '#src/components/css-only/FreeOfferChip';
 
 import './styles.css';
@@ -46,7 +46,7 @@ export const CreditsChip: React.FC<CreditsChipProps> = ({
 
   return (
     <div
-      className={classNames('bs-offer-price-tag', {
+      className={clsx('bs-offer-price-tag', {
         'bs-offer-price-tag__in-details': colorVariant === 'in-details',
       })}
     >

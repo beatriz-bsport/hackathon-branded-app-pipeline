@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import IconButton from '@material-ui/core/IconButton';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import Paper from '@material-ui/core/Paper';
@@ -273,7 +273,7 @@ export const NotificationRuleListItem = (props: Props) => {
         );
 
         return (
-          <Paper className={classNames(classes.container, className)}>
+          <Paper className={clsx(classes.container, className)}>
             <Typography className={classes.title}>
               {t(`eventType.${event}`)}
               {ready &&

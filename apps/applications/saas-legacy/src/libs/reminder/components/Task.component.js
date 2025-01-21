@@ -2,7 +2,7 @@
 import React from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { compose } from 'recompose';
-import classnames from 'classnames';
+import clsx from 'clsx';
 
 import { withTranslation, TFunction } from 'react-i18next';
 
@@ -57,7 +57,7 @@ const TaskStatus = (props: {
   return (
     <div className={props.classes.statusContainer}>
       <div
-        className={classnames(
+        className={clsx(
           props.classes.statusBase,
           props.classes[`status_${props.status}`],
         )}

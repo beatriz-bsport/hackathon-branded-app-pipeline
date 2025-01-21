@@ -10,7 +10,7 @@ import { PAYMENT_INTENT_TYPE_INVOICE } from '@bsport/common/lib/master-data/paym
 import { Collapse, ButtonBase } from '@material-ui/core';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import type { EstablishmentBillingGroup } from '#src/libs/establishment/types';
 import type { Member } from '#src/libs/member/types';
 import type { Invoice } from '#src/libs/invoice/types';
@@ -37,7 +37,7 @@ type Props = {
   closeQuickInvoice: (memberId: number) => void,
   availableBuyableItems: { [buyable_item_identifier: number]: BuyableItem },
   invoiceToBill: Invoice,
-  setInvoiceToBill: (invoice: ?Invoice) => void,
+  setInvoiceToBill: (invoice?: Invoice) => void,
   refreshInvoice: (invoiceUuid: string) => void,
   availablePaymentMethodList: number[],
   className: {},
@@ -71,9 +71,9 @@ type Props = {
 
 type State = {
   clientSecretLoading: boolean,
-  clientSecret: ?string,
-  paymentGroupId: ?number,
-  paymentGroupPriceCts: ?number,
+  clientSecret?: string,
+  paymentGroupId?: number,
+  paymentGroupPriceCts?: number,
   isOpen: boolean,
 };
 
@@ -198,7 +198,7 @@ export class QuickInvoicePanel extends React.PureComponent<Props, State> {
     return (
       <ObjectLevelPermissionProvider requiredPermission="billing.allowed_actions.readInvoices">
         {(hasReadInvoicePermission) => (
-          <Paper className={classNames(classes.root, className)}>
+          <Paper className={clsx(classes.root, className)}>
             <ButtonBase
               className={classes.titleContainer}
               onClick={this.toggleIsOpen}

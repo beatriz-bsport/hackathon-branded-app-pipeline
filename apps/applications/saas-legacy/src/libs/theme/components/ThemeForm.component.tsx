@@ -13,7 +13,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogActions from '@material-ui/core/DialogActions';
 // @ts-expect-error
 import tinycolor from 'tinycolor2';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import RedButton from '#src/components/button/RedButton.component';
 // @ts-expect-error
 import ImageUploader169 from '../../../components/input/ImageUploader169.component';
@@ -222,9 +222,7 @@ export class ThemeForm extends Component<Props, State> {
           </ImageUploader169>
         </div>
         <div className={classes.inputContainer}>
-          <div
-            className={classNames(classes.horizontalInput, classes.alignItems)}
-          >
+          <div className={clsx(classes.horizontalInput, classes.alignItems)}>
             <ColorInput
               color={this.state.theme?.primary_color}
               helperText={t('forms.primary_color.helperText')}
@@ -244,9 +242,7 @@ export class ThemeForm extends Component<Props, State> {
               {t('forms.warningColorBrightness.example')}
             </Button>
           </div>
-          <div
-            className={classNames(classes.horizontalInput, classes.alignItems)}
-          >
+          <div className={clsx(classes.horizontalInput, classes.alignItems)}>
             <ColorInput
               color={this.state.theme?.secondary_color}
               helperText={t('forms.secondary_color.helperText')}

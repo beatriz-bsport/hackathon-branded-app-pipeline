@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import classnames from 'classnames';
+import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 import { TFunction } from 'i18next';
 
@@ -177,7 +177,7 @@ const CustomMobilePopupSettings: React.FC<Props> = ({
         </Table>
         {loading && <LinearProgress />}
       </Paper>
-      <div className={classnames(classes.row, classes.buttons)}>
+      <div className={clsx(classes.row, classes.buttons)}>
         <Button
           className={classes.leftButton}
           color="primary"

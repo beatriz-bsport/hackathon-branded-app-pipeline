@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react';
 import { useTranslation, Trans } from 'react-i18next';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import { Alert } from '@material-ui/lab';
 import Button from '@material-ui/core/Button';
@@ -88,7 +88,7 @@ export const ReplacementRequestReasonDialog: React.FC<Props> = ({
         </Typography>
         <div className={classes.alignMiddle}>
           <Button
-            className={classNames(classes.buttons, classes.textSecondary)}
+            className={clsx(classes.buttons, classes.textSecondary)}
             onClick={onCloseAfterSuccess}
           >
             {t('askForReplacement.close')}
@@ -173,7 +173,7 @@ export const ReplacementRequestReasonDialog: React.FC<Props> = ({
           ) : (
             <>
               <Button
-                className={classNames(classes.buttons, classes.textSecondary)}
+                className={clsx(classes.buttons, classes.textSecondary)}
                 onClick={onClose}
               >
                 {t('askForReplacement.cancel')}

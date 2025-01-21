@@ -3,7 +3,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import isEqual from 'lodash/isEqual';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import MarketplaceConsumerPaymentPackCard from '#src/libs/marketplace/components/@ConsumerPaymentPack/MarketplaceConsumerPaymentPackCard';
 import MarketplaceFilterBuyableItemCategory from '#src/libs/marketplace/components/@BuyableItem/MarketplaceFilterBuyableItemCategory';
 import MarketplaceBuyableItemCategoryList from '#src/libs/marketplace/components/@BuyableItem/MarketplaceBuyableItemCategoryList';
@@ -112,7 +112,7 @@ const MarketplaceBookerModuleBuyableItems: React.FC<Props> = ({
                 <ButtonBase onClick={onClickShowBuyableItems}>
                   <div className="bs-new-offer-booking__buyable_items__header">
                     <KeyboardArrowRight
-                      className={classNames(
+                      className={clsx(
                         'bs-new-offer-booking__buyable_items__header__arrow',
                         {
                           'bs-new-offer-booking__buyable_items__header__arrow--rotate':

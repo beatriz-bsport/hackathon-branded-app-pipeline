@@ -1,5 +1,5 @@
 import React from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import GridItem from './GridItem';
 
 import './styles.css';
@@ -16,9 +16,7 @@ export const Grid: React.FC<Props> = ({ children, classes }) => {
   );
 
   return (
-    <div
-      className={classNames('bs-generic-card__content__grid ', { ...classes })}
-    >
+    <div className={clsx('bs-generic-card__content__grid ', { ...classes })}>
       {GridItemComponents.length !== 0 &&
         GridItemComponents.map((ItemComponent) => ItemComponent)}
     </div>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import { Building01, MarkerPin04 } from '#src/components/untitledui';
 import ConsumerCardSection from '#src/libs/consumer-space/components/reworked/common/ConsumerCardSection';
@@ -25,7 +25,7 @@ const ConsumerBookingDetailsCardLocationSection: React.FC<Props> = ({
     >
       <List className="bs-consumer-booking-details-card__location-section__list">
         <ListItem
-          className={classNames(
+          className={clsx(
             'bs-consumer-booking-details-card__location-section__list__item',
             {
               'bs-consumer-booking-details-card__location-section__list__item--hidden':

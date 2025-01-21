@@ -8,7 +8,7 @@ import AddIcon from '@material-ui/icons/Add';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
-import classnames from 'classnames';
+import clsx from 'clsx';
 import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
 import CompanyChip from '#src/components/franchise/CompanyChip.component';
 import TypographyMultilineComponent from '#src/components/typo/TypographyMultiline.component';
@@ -27,7 +27,7 @@ const PrivatePassTemplateCard = (props: Props) => {
 
   return (
     <Paper
-      className={classnames(
+      className={clsx(
         classes.paper,
         template.disabled ? classes.disabled : null,
       )}

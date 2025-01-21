@@ -1,7 +1,7 @@
 import React, { useContext, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core/styles';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import Typography from '@material-ui/core/Typography';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
@@ -34,7 +34,7 @@ const DayTimeIntervalButton: React.FC<Props> = React.memo(
 
     return (
       <ButtonBase
-        className={classNames(classes.slotMoment, {
+        className={clsx(classes.slotMoment, {
           [classes.slotMomentSelected]: isDayTimeIntervalSelected,
         })}
         disabled={!selectedPrivateSlot}

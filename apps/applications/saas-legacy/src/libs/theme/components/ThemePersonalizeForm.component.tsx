@@ -31,7 +31,7 @@ import {
   MarketPlaceSessionTimeDisplay,
 } from '@bsport/common/lib/master-data/personalization.js';
 
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { Alert } from '@material-ui/lab';
 
 import {
@@ -863,7 +863,7 @@ const ThemePersonalizeForm: React.FC<FormikProps<FormikValues>> = ({
                 />
                 {errors?.confirm_email_url_redirection && (
                   <Typography
-                    className={classNames(classes.error, classes.helperText)}
+                    className={clsx(classes.error, classes.helperText)}
                   >
                     {t('forms.themePersonalization.signup.urlError')}
                   </Typography>
@@ -897,9 +897,7 @@ const ThemePersonalizeForm: React.FC<FormikProps<FormikValues>> = ({
                 variant="outlined"
               />
               {errors?.reset_password_url_redirection && (
-                <Typography
-                  className={classNames(classes.error, classes.helperText)}
-                >
+                <Typography className={clsx(classes.error, classes.helperText)}>
                   {t('forms.themePersonalization.resetPassword.urlError')}
                 </Typography>
               )}

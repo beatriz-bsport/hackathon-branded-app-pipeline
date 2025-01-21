@@ -1,6 +1,6 @@
 // @flow
 import React from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import Typography from '@material-ui/core/Typography';
@@ -33,19 +33,14 @@ type Props = {
   coachDisplay?: MarketPlaceCoachDisplay,
 };
 
-export const VideoThumbnailList = (props: Props) => {
+const VideoThumbnailList = (props: Props) => {
   const classes = useStyles();
   const { t } = useTranslation(['video']);
   return (
     <div
-      className={classNames(
-        classes.container,
-        'bs-vod-thumbnail-list__container',
-      )}
+      className={clsx(classes.container, 'bs-vod-thumbnail-list__container')}
     >
-      <div
-        className={classNames(classes.header, 'bs-vod-thumbnail-list__header')}
-      >
+      <div className={clsx(classes.header, 'bs-vod-thumbnail-list__header')}>
         <Typography
           className="bs-vod-thumbnail-list__title"
           component="h4"
@@ -78,7 +73,7 @@ export const VideoThumbnailList = (props: Props) => {
         <Divider className={classes.divider} />
       </div>
       <div
-        className={classNames(
+        className={clsx(
           classes.contentList,
           'bs-vod-thumbnail-list__vod-thumbnail-list-container',
         )}
@@ -88,7 +83,7 @@ export const VideoThumbnailList = (props: Props) => {
           .map((v) => (
             <div
               key={v.id}
-              className={classNames(
+              className={clsx(
                 classes.thumbnailContainer,
                 'bs-vod-thumbnail-list__vod-thumbnail-list-item',
               )}
@@ -106,7 +101,7 @@ export const VideoThumbnailList = (props: Props) => {
           ))}
         {!props.loading && !!props.hasMoreVideo && !!props.fetchMoreVideo && (
           <Button
-            className={classNames(
+            className={clsx(
               classes.fetchMoreButton,
               'bs-vod-thumbnail-list__show-more-button',
             )}

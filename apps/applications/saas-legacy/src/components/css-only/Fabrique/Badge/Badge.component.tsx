@@ -1,5 +1,5 @@
 import React from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 import Typography from '#Fabrique/Typography';
@@ -23,7 +23,7 @@ export const Badge: React.FC<Props> = ({
 }) => {
   return (
     <span
-      className={classNames(
+      className={clsx(
         'bs-fabrique-badge-root',
         {
           [`bs-fabrique-badge-root-${color}`]: color,
@@ -33,7 +33,7 @@ export const Badge: React.FC<Props> = ({
     >
       <Typography
         align="center"
-        className={classNames(
+        className={clsx(
           'bs-fabrique-badge-content-typography',
           {
             [`bs-fabrique-badge-content-${color}`]: color,

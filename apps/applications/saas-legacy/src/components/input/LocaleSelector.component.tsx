@@ -1,5 +1,5 @@
 import React from 'react';
-import classnames from 'classnames';
+import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import Select from '@material-ui/core/Select';
@@ -413,7 +413,7 @@ export const CountrySelector = (props: Props) => {
   );
   return (
     <FormControl
-      className={classnames(classes.formControl, {
+      className={clsx(classes.formControl, {
         [classes.formControlMargin]: !props.noMargin,
       })}
       fullWidth={props.fullWidth}

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import classNames from 'classnames';
+import clsx from 'clsx';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import makeStyles from '@material-ui/core/styles/makeStyles';
@@ -50,10 +50,10 @@ export const ReplacementRequestStatusChip: React.FC<Props> = ({
   const handleClick = () => onClick(replacementRequest);
 
   return (
-    <div className={classNames({ [classes.chipContainer]: !isMobile })}>
+    <div className={clsx({ [classes.chipContainer]: !isMobile })}>
       <div className={classes.chipStatus}>
         <Typography
-          className={classNames({
+          className={clsx({
             [classes.mobileSmallFont]: isMobile,
             [classes.grey]: isMobile,
           })}

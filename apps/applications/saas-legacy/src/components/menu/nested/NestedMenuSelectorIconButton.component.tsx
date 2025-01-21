@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from 'react';
 import chroma from 'chroma-js';
 import Immutable from 'seamless-immutable';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import type { Theme } from '@material-ui/core/styles';
@@ -150,7 +150,7 @@ const NestedMenuSelectorIconButton: React.FC<Props> = ({
                 withBackground={false}
               />
               <Typography
-                className={classNames(
+                className={clsx(
                   classes.label,
                   noTextWrap && classes.noTextWrap,
                 )}

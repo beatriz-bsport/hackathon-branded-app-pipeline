@@ -1,5 +1,5 @@
 import React from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import Fab from '@material-ui/core/Fab';
 import { Theme, makeStyles } from '@material-ui/core';
 import ExtendedFabBadge from '#src/components/ExtendedFabBadge.component';
@@ -53,7 +53,7 @@ export const BottomActionsButtonCustom: React.FC<Props> = (props: Props) => {
               {!!button.icon && button.icon}
               {button.text && (
                 <div
-                  className={classNames(classes.rightText, {
+                  className={clsx(classes.rightText, {
                     [classes.hiddenText]: !button.keepTextUnderSelectedMinWidth,
                   })}
                 >

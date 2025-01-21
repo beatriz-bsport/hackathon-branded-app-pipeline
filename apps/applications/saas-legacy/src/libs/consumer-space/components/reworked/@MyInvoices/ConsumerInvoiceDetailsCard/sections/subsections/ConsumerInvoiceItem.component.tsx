@@ -2,7 +2,7 @@ import React from 'react';
 
 import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
 import Typography from '#Fabrique/Typography';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import '../../styles.css';
 
@@ -29,7 +29,7 @@ const ConsumerInvoiceItem: React.FC<Props> = ({
           {name}
         </Typography>
         <Typography
-          className={classNames(
+          className={clsx(
             'bs-consumer-invoice-details-card__body__invoice-item-subtitle',
             {
               'bs-consumer-invoice-details-card__body__invoice-item-subtitle--hidden':

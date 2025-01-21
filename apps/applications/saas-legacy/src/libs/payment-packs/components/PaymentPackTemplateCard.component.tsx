@@ -10,7 +10,7 @@ import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import StyleIcon from '@material-ui/icons/Style';
 import NotInterestedIcon from '@material-ui/icons/NotInterested';
 import OndemandVideoIcon from '@material-ui/icons/OndemandVideo';
-import classnames from 'classnames';
+import clsx from 'clsx';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import { DateRange, Share, Star } from '@material-ui/icons';
 import RedButtonComponent from '#src/components/button/RedButton.component';
@@ -238,7 +238,7 @@ const PaymentPackTemplateCard: React.FC<Props> = ({
 
   return (
     <Paper
-      className={classnames(
+      className={clsx(
         classes.paper,
         paymentPackTemplate.disabled ? classes.disabled : null,
       )}

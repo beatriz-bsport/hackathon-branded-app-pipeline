@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 import makeStyles from '@material-ui/core/styles/makeStyles';
@@ -17,14 +17,14 @@ type Props = {
   coach: CoachDetailed,
 };
 
-export const CoachInformation = (props: Props) => {
+const CoachInformation = (props: Props) => {
   const { startUpdateCoach, coach } = props;
   const { t } = useTranslation(['translation', 'coach']);
   const classes = useStyles();
 
   return (
     <Paper>
-      <div className={classNames(classes.flexRow, classes.expansionTitle)}>
+      <div className={clsx(classes.flexRow, classes.expansionTitle)}>
         <Typography variant="h5">{t('common.information')}</Typography>
         <ObjectLevelPermissionWrapper
           forcedBehavior="hidden"
@@ -44,7 +44,7 @@ export const CoachInformation = (props: Props) => {
       <div className={classes.expansionTitle}>
         <Typography variant="h6">{t('common.description')}</Typography>
       </div>
-      <div className={classNames(classes.paperContent, classes.dateContainer)}>
+      <div className={clsx(classes.paperContent, classes.dateContainer)}>
         <TypographyMultiline>
           {coach.description || t('coach:emptyDescription')}
         </TypographyMultiline>

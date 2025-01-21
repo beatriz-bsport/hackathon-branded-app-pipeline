@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
@@ -128,7 +128,7 @@ export const ModalDialog: React.FC<Props> = ({
 
   return (
     <div
-      className={classNames(
+      className={clsx(
         'bs-fabrique-modal-dialog__root',
         { 'bs-fabrique-modal-dialog__root--full-width': isFullWidth },
         modalDialogColorClassName,
@@ -137,13 +137,10 @@ export const ModalDialog: React.FC<Props> = ({
       )}
     >
       <div
-        className={classNames(
-          'bs-fabrique-modal-dialog__header',
-          classes?.header,
-        )}
+        className={clsx('bs-fabrique-modal-dialog__header', classes?.header)}
       >
         <div
-          className={classNames(
+          className={clsx(
             'bs-fabrique-modal-dialog__header__left-icon',
             {
               'bs-fabrique-modal-dialog__header__left-icon--hidden':
@@ -155,7 +152,7 @@ export const ModalDialog: React.FC<Props> = ({
           {leftIcon || defaultLeftIcon}
         </div>
         <div
-          className={classNames(
+          className={clsx(
             'bs-fabrique-modal-dialog__header__text',
             {
               'bs-fabrique-modal-dialog__header--hidden':
@@ -165,7 +162,7 @@ export const ModalDialog: React.FC<Props> = ({
           )}
         >
           <Typography
-            className={classNames(
+            className={clsx(
               'bs-fabrique-modal-dialog__header__text__title',
               {
                 'bs-fabrique-modal-dialog__header__text__title--hidden': !title,
@@ -177,7 +174,7 @@ export const ModalDialog: React.FC<Props> = ({
             {title}
           </Typography>
           <Typography
-            className={classNames(
+            className={clsx(
               'bs-fabrique-modal-dialog__header__text__subtitle',
               {
                 'bs-fabrique-modal-dialog__header__text__subtitle--hidden':
@@ -192,7 +189,7 @@ export const ModalDialog: React.FC<Props> = ({
           {subtitleElement}
         </div>
         <IconButton
-          className={classNames(
+          className={clsx(
             'bs-fabrique-modal-dialog__header__close',
             {
               'bs-fabrique-modal-dialog__header__close--hidden': !onClose,
@@ -212,7 +209,7 @@ export const ModalDialog: React.FC<Props> = ({
       </div>
 
       <div
-        className={classNames(
+        className={clsx(
           'bs-fabrique-modal-dialog__content',
           {
             'bs-fabrique-modal-dialog__content--hidden': !children,
@@ -223,9 +220,9 @@ export const ModalDialog: React.FC<Props> = ({
         {children}
       </div>
 
-      <div className={classNames('bs-fabrique-modal-dialog__footer')}>
+      <div className={clsx('bs-fabrique-modal-dialog__footer')}>
         <div
-          className={classNames(
+          className={clsx(
             'bs-fabrique-modal-dialog__footer__actions',
             {
               'bs-fabrique-modal-dialog__footer__actions--hidden': !onClose,
@@ -234,7 +231,7 @@ export const ModalDialog: React.FC<Props> = ({
           )}
         >
           <Button
-            className={classNames(
+            className={clsx(
               {
                 'bs-fabrique-modal-dialog__footer__actions__cancel':
                   !isThereOnlyOneFooterButton,
@@ -254,7 +251,7 @@ export const ModalDialog: React.FC<Props> = ({
             {cancelLabel || t('common:cancel')}
           </Button>
           <Button
-            className={classNames(
+            className={clsx(
               {
                 'bs-fabrique-modal-dialog__footer__actions__confirm':
                   !isThereOnlyOneFooterButton,

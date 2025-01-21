@@ -4,7 +4,7 @@ import { push } from 'connected-react-router';
 import { withRouter } from 'react-router';
 import { connect, ConnectedProps } from 'react-redux';
 import { compose } from 'recompose';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import Grid from '@material-ui/core/Grid';
 
 import { WithStyles, createStyles, withStyles, Theme } from '@material-ui/core';
@@ -76,12 +76,7 @@ export class MarketplaceGiftcardList extends Component<Props> {
     }
 
     return (
-      <div
-        className={classNames(
-          'bs-marketplace-giftcard-page',
-          classes.container,
-        )}
-      >
+      <div className={clsx('bs-marketplace-giftcard-page', classes.container)}>
         <Grid
           container
           className="bs-marketplace-giftcard__container"

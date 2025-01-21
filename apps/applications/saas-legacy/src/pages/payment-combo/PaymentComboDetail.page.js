@@ -46,7 +46,7 @@ type Props = {
   id: number,
   loading: boolean,
   classes: Object,
-  paymentCombo: ?PaymentCombo,
+  paymentCombo?: PaymentCombo,
   paymentComboPurchaseList: Array<PaymentComboPurchase>,
   paymentComboPurchaseCount: number,
   paymentComboPurchaseLoading: boolean,

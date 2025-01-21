@@ -4,7 +4,7 @@ import ReportProblemOutlinedIcon from '@material-ui/icons/ReportProblemOutlined'
 import ErrorOutlineOutlinedIcon from '@material-ui/icons/ErrorOutlineOutlined';
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import CheckCircleOutlineOutlinedIcon from '@material-ui/icons/CheckCircleOutlineOutlined';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 import { AlertSeverity } from '.';
@@ -42,7 +42,7 @@ const Alert: React.FC<Props> = ({
   className,
 }) => (
   <div
-    className={classNames(
+    className={clsx(
       'bs-alert__container',
       {
         'bs-alert__container__success': severity === AlertSeverity.SUCCESS,

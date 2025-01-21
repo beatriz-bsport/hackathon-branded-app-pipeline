@@ -1,7 +1,7 @@
 import * as Yup from 'yup';
 import { TestBonusesIntervalConformity } from '../../utils';
 
-export const bonusCoachPaymentRuleSchema = Yup.object().shape({
+const bonusCoachPaymentRuleSchema = Yup.object().shape({
   coach_payment_rule: Yup.number().nullable(true),
   applicability: Yup.number(),
   kind: Yup.number(),

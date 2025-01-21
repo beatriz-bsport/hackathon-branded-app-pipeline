@@ -3,7 +3,7 @@ import { pure } from 'recompose';
 import { useTranslation } from 'react-i18next';
 import type { Theme } from '@material-ui/core/styles';
 import makeStyles from '@material-ui/styles/makeStyles';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { colors } from '@bsport/common/lib/colors.js';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -65,7 +65,7 @@ const DrawerListItem: React.FC<DrawerListItemProps> = ({
   };
   return (
     <div
-      className={classNames({
+      className={clsx({
         // @ts-expect-error
         [classes.relativeDiv]: item.icon === TutorialIconWithAlertings,
       })}
@@ -75,7 +75,7 @@ const DrawerListItem: React.FC<DrawerListItemProps> = ({
         ref={item.icon === TutorialIconWithAlertings ? itemRef : null}
         button
         aria-describedby={id}
-        className={classNames({
+        className={clsx({
           [classes.nestedItem]: isNested,
         })}
         // @ts-expect-error
@@ -126,7 +126,7 @@ const DrawerListItem: React.FC<DrawerListItemProps> = ({
             placement="right"
           >
             <Alert
-              className={classNames(classes.alert, classes.customPoper)}
+              className={clsx(classes.alert, classes.customPoper)}
               severity="info"
               variant="filled"
             >

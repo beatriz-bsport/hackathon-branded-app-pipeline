@@ -11,7 +11,7 @@ type Props = {
   payment: Payment,
 };
 
-export const PaymentInfoListItem = (props: Props) => {
+const PaymentInfoListItem = (props: Props) => {
   const { t } = useTranslation(['payment']);
   const { payment } = props;
   return (

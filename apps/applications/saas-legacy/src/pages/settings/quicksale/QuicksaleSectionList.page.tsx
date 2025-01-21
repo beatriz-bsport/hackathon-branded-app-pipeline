@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { compose } from 'recompose';
 import { ConnectedProps, connect } from 'react-redux';
 import { v4 as uuid } from 'uuid';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import isEqual from 'lodash/isEqual';
 import { push } from 'connected-react-router';
 
@@ -355,7 +355,7 @@ const QuicksaleSectionList: React.FC<Props> = ({
 
       {unsavedDisabledSectionList.length > 0 && (
         <div
-          className={classNames(
+          className={clsx(
             classes.sectionListContainer,
             classes.archivedCategories,
           )}

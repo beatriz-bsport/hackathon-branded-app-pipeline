@@ -10,7 +10,7 @@ import Typography from '@material-ui/core/Typography';
 import FolderOutlinedIcon from '@material-ui/icons/FolderOutlined';
 import { CSSProperties, createStyles } from '@material-ui/styles';
 import { makeStyles } from '@material-ui/core';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { Alert } from '@material-ui/lab';
 
 export type Props = {
@@ -170,7 +170,7 @@ const FileUploaderCustomized: React.FC<Props> = React.memo(
 
     return (
       <div
-        className={classNames('container', {
+        className={clsx('container', {
           [classes.fullWidth]: isFullWidth,
           [classes.containerWithHelperText]: !!helperText,
         })}

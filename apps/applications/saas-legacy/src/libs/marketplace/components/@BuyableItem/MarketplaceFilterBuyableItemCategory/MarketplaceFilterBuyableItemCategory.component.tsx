@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 import { RECOMMENDED_BUYABLE_CATEGORY_ID } from '#src/libs/marketplace/constants';
@@ -25,7 +25,7 @@ const MarketplaceFilterBuyableItemCategoryButton: React.FC<ButtonProps> = (
 
   return (
     <button
-      className={classNames(
+      className={clsx(
         'bs-marketplace-filter-buyable-item-category__button',
         'bs-marketplace-filter-buyable-item-category__ripple',
         `bs-marketplace-filter-buyable-item-category__button--identifier-${buyableItemCategory.identifier}`,
@@ -80,7 +80,7 @@ const MarketplaceFilterBuyableItemCategory: React.FC<Props> = (props) => {
 
       {/* Then in all cases, the 'All' button should be displayed */}
       <button
-        className={classNames(
+        className={clsx(
           'bs-marketplace-filter-buyable-item-category__button',
           'bs-marketplace-filter-buyable-item-category__ripple',
           'bs-marketplace-filter-buyable-item-category__button--all',

@@ -1,5 +1,5 @@
 import React from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import Skeleton from '#src/components/css-only/Skeleton';
 
@@ -11,7 +11,7 @@ type Props = {
 
 const ConsumerHeaderSkeleton: React.FC<Props> = ({ className }) => {
   return (
-    <div className={classNames('bs-consumer-header-skeleton__root', className)}>
+    <div className={clsx('bs-consumer-header-skeleton__root', className)}>
       <Skeleton className="bs-consumer-header-skeleton__title" />
       <div className="bs-consumer-header-skeleton__tabs">
         <Skeleton className="bs-consumer-header-skeleton__tabs__tab" />

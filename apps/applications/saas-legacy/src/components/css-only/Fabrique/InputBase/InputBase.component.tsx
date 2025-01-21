@@ -3,7 +3,7 @@ import React, {
   HTMLInputTypeAttribute,
   InputHTMLAttributes,
 } from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import useMergeRef from './utils';
 
 export type OwnProps = {
@@ -144,7 +144,7 @@ const InputBase: React.ForwardRefExoticComponent<
         {...inputProps}
         ref={handleInputRef}
         checked={isChecked}
-        className={classNames('bs-fabrique-input-base', className)}
+        className={clsx('bs-fabrique-input-base', className)}
         disabled={isDisabled}
         id={id}
         name={name}

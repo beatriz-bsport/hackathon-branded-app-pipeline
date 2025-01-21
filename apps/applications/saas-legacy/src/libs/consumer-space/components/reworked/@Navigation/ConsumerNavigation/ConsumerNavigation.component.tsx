@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 
 import { urlToMarketplace } from '#src/libs/marketplace/utils';
@@ -18,7 +18,7 @@ import {
   CONSUMER_SPACE_MOBILE_BREAKPOINT,
   ConsumerSpaceContextEnum,
 } from '#src/libs/consumer-space/constants';
-import { WidgetUtils } from '#src/libs/widget/WidgetUtils';
+import WidgetUtils from '#src/libs/widget/WidgetUtils';
 import { DIALOG_MODE_IFRAME } from '@bsport/common/lib/master-data/widget-dialog-mode.js';
 import {
   ArrowLeft,
@@ -262,7 +262,7 @@ const ConsumerNavigation: React.FC<CombinedProps> = ({
               />
             )}
             <main
-              className={classNames('bs-consumer-navigation__content', {
+              className={clsx('bs-consumer-navigation__content', {
                 'bs-consumer-navigation__content--mobile': isMobile,
               })}
             >
@@ -321,7 +321,7 @@ const ConsumerNavigation: React.FC<CombinedProps> = ({
         title={memberName && `${memberName},`}
       />
       <div
-        className={classNames('bs-consumer-navigation__layout', {
+        className={clsx('bs-consumer-navigation__layout', {
           'bs-consumer-navigation__layout--relationship': isRelationshipAuth,
         })}
       >
@@ -332,7 +332,7 @@ const ConsumerNavigation: React.FC<CombinedProps> = ({
           />
         )}
         <main
-          className={classNames('bs-consumer-navigation__content', {
+          className={clsx('bs-consumer-navigation__content', {
             'bs-consumer-navigation__content--mobile': isMobile,
           })}
         >

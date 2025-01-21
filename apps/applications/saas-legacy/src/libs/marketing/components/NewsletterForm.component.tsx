@@ -11,7 +11,7 @@ import {
 } from '@material-ui/core';
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import { compose } from 'recompose';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { withTranslation } from 'react-i18next';
 import { TFunction } from 'i18next';
 
@@ -54,7 +54,7 @@ class NewsletterFormComponent extends React.PureComponent<Props, State> {
         </Typography>
 
         <form
-          className={classNames([classes.marginTop, classes.fullWidth])}
+          className={clsx([classes.marginTop, classes.fullWidth])}
           onSubmit={this.onSubmit}
         >
           <TextField
@@ -70,7 +70,7 @@ class NewsletterFormComponent extends React.PureComponent<Props, State> {
 
           <TextField
             required
-            className={classNames([classes.marginTop, classes.fullWidth])}
+            className={clsx([classes.marginTop, classes.fullWidth])}
             label={t('newsletter.form.firstName')}
             onChange={(ev) => this.setState({ firstName: ev.target.value })}
             placeholder={t('')}
@@ -80,7 +80,7 @@ class NewsletterFormComponent extends React.PureComponent<Props, State> {
           />
 
           <TextField
-            className={classNames([classes.marginTop, classes.fullWidth])}
+            className={clsx([classes.marginTop, classes.fullWidth])}
             label={t('newsletter.form.lastName')}
             onChange={(ev) => this.setState({ lastName: ev.target.value })}
             placeholder={t('')}
@@ -90,7 +90,7 @@ class NewsletterFormComponent extends React.PureComponent<Props, State> {
           />
 
           <Button
-            className={classNames([
+            className={clsx([
               classes.marginTop,
               classes.fullWidth,
               classes.btnHeight,

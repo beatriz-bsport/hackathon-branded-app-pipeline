@@ -1,5 +1,5 @@
 import React from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import Typography from '#Fabrique/Typography';
 import Chip from '#Fabrique/Chip';
 import './selector-values-styles.css';
@@ -64,10 +64,7 @@ const SelectorValues: React.FC<SelectorValuesProps> = ({
   if (!multiple && !Array.isArray(selectedItems)) {
     return (
       <Typography
-        className={classNames(
-          'bs-fabrique-selector-values',
-          classes?.typography,
-        )}
+        className={clsx('bs-fabrique-selector-values', classes?.typography)}
         variant="body-md"
       >
         {getSelectedItemLabel?.(selectedItems)}
@@ -76,16 +73,14 @@ const SelectorValues: React.FC<SelectorValuesProps> = ({
   }
   if (Array.isArray(selectedItems)) {
     return (
-      <div
-        className={classNames('bs-fabrique-selector-values', classes?.values)}
-      >
+      <div className={clsx('bs-fabrique-selector-values', classes?.values)}>
         {selectedItems.map((item) => {
           const itemLabel = getSelectedItemLabel?.(item);
           const itemValue = getSelectedItemValue?.(item);
           return (
             <Chip
               key={itemValue}
-              className={classNames(
+              className={clsx(
                 'bs-fabrique-selector-values__chip',
                 classes?.chip,
               )}

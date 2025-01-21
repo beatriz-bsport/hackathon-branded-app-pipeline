@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from 'react';
 import { Form, Formik, FormikHelpers } from 'formik';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
@@ -93,7 +93,7 @@ const MarketplaceBookingAddGuestModal: React.FC<ComponentProps> = ({
           data-testid="add-guest-form"
         >
           <div
-            className={classNames('bs-booking-add-guest-modal__container', {
+            className={clsx('bs-booking-add-guest-modal__container', {
               'bs-booking-add-guest-modal-warning__container':
                 formStep === AddGuestFormStep.EMAIL_WARNING,
             })}

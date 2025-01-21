@@ -1,5 +1,5 @@
 import React from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import type { PrepaidLine } from '#src/libs/checkout/types';
 
 import MarketplaceBasketSummaryPrepaidLineItem from '#src/libs/marketplace/components/@Basket/MarketplaceBasketSummaryPrepaidLineItem';
@@ -19,7 +19,7 @@ const MarketplaceBasketSummaryPrepaidLineList: React.FC<Props> = ({
   }
   return (
     <div
-      className={classNames('bs-basket_summary_prepaid_line_list--container', {
+      className={clsx('bs-basket_summary_prepaid_line_list--container', {
         'bs-basket_summary_prepaid_line_list--dense': dense,
       })}
     >

@@ -1,5 +1,5 @@
 import React from 'react';
-import classnames from 'classnames';
+import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 import { LinearProgress, Typography, Divider, Paper } from '@material-ui/core';
 import { Theme, makeStyles } from '@material-ui/core/styles';
@@ -166,7 +166,7 @@ export const FranchiseGenericProductDoubleList = (props: Props) => {
         ) : null}
         {inactiveItemList.length ? (
           <div
-            className={classnames({
+            className={clsx({
               [classes.secondList]: activeItemList?.length,
             })}
           >

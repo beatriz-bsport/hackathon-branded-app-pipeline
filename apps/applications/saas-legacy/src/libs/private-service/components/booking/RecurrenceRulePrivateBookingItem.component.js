@@ -23,7 +23,7 @@ type Props = {
   notShowMember: boolean,
 };
 
-export const RecurrenceRulePrivateBookingItem = (props: Props) => {
+const RecurrenceRulePrivateBookingItem = (props: Props) => {
   const { t } = useTranslation(['privateService', 'datetime']);
   const { recurrentPrivateBooking, onDelete, onEdit, notShowMember } = props;
   const {

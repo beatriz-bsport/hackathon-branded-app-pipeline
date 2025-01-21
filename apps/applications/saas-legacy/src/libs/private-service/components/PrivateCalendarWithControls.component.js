@@ -47,7 +47,7 @@ type Props = {
   setResourceFiltered: (resources: Array<number>) => void,
   resourceDataLoading: boolean,
 
-  hideCancelledEvents: ?boolean,
+  hideCancelledEvents?: boolean,
 
   offerList: Array<Offer>,
   showOfferListToogle: boolean,
@@ -59,7 +59,7 @@ type Props = {
   closePrivateBooker: () => void,
 
   handleEventClick: (anchorEl: HTMLElement, extendedProps: any) => void,
-  popoverAnchor: ?HTMLElement,
+  popoverAnchor?: HTMLElement,
 
   privateBookings: Array<PrivateBooking>,
   onDateChange: ({
@@ -85,12 +85,12 @@ type Props = {
   fetchAvailabilitySlots: () => void,
 
   onRequestPrivateBooking: (date: string) => void,
-  privateBookingRequestedSlot: ?string,
+  privateBookingRequestedSlot?: string,
   resourcesByDatatype: Array<ResourceData>,
   resourceItemsFilter: Array<ResourceData>,
   resourceDatatypeFilter: any,
   collapsResourceSelector: any,
-  customEventId: ?number,
+  customEventId?: number,
   privateCalendarDateStart: string,
   setPrivateCalendarDateStart: () => void,
   toogleExand: () => void,

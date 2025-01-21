@@ -3,7 +3,7 @@ import { Switch, Route } from 'react-router';
 import { connect, ConnectedProps } from 'react-redux';
 import { getFranchisor } from '#src/libs/franchise/selectors';
 import type { RootState } from '#src/reducers';
-import { Config } from '#src/config';
+import Config from '#src/config';
 // @ts-expect-error
 import asyncComponent from '../../../AsyncComponent';
 import { useTranslation } from 'react-i18next';

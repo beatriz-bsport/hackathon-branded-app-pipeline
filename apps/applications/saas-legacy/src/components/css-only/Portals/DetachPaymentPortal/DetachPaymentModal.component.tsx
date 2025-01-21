@@ -1,5 +1,5 @@
 import React from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import { PortalContainer } from '#Fabrique/PortalContainer';
 import Blanket from '#Fabrique/Blanket';
@@ -36,7 +36,7 @@ const DetachPaymentModal: React.FC<ModalsAndDrawersProps> = ({
           title={title}
         >
           <Alert
-            className={classNames('bs-detach-payment-modal__alert', {
+            className={clsx('bs-detach-payment-modal__alert', {
               'bs-detach-payment-modal__alert--hidden': !errorMessage,
             })}
             color="error"

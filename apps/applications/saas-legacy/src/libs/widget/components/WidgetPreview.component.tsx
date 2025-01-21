@@ -2,7 +2,7 @@ import React from 'react';
 
 import Paper from '@material-ui/core/Paper';
 import SettingsIcon from '@material-ui/icons/Settings';
-import clx from 'classnames';
+import clsx from 'clsx';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
@@ -18,7 +18,7 @@ export const WidgetPreview = (props: Props) => {
   const { t } = useTranslation(['widget']);
   return (
     <div
-      className={clx(classes.iframeContainer, {
+      className={clsx(classes.iframeContainer, {
         [classes.iframeContainerCustomization]: props.customizationPreview,
       })}
     >

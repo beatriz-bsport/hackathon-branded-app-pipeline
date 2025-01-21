@@ -1,5 +1,5 @@
 import React, { memo } from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 
 import { joinWithSeparator } from '#Fabrique/utils/joinStringWithSpreadOperator';
@@ -143,7 +143,7 @@ const useButtonClassNames = (
     }
   }, [joinedVariantWithColor]);
 
-  return classNames(
+  return clsx(
     'bs-button-root',
     buttonSizeClassName,
     buttonVariantAndColorClassName,
@@ -170,7 +170,7 @@ export const Button: React.FC<Props> = ({
   const buttonClassNames = useButtonClassNames(size, color, variant);
   return (
     <ButtonBase
-      className={classNames(buttonClassNames, className)}
+      className={clsx(buttonClassNames, className)}
       href={href}
       isDisabled={isDisabled}
       isRippleEnabled={isRippleEnabled}
@@ -180,7 +180,7 @@ export const Button: React.FC<Props> = ({
       type={type}
     >
       <div
-        className={classNames(
+        className={clsx(
           'bs-fabrique-button-root__left-icon',
           { 'bs-fabrique-button-root__left-icon--hidden': !leftIcon },
           classes?.leftIcon,
@@ -192,7 +192,7 @@ export const Button: React.FC<Props> = ({
       {children}
 
       <div
-        className={classNames(
+        className={clsx(
           'bs-fabrique-button-root__right-icon',
           {
             'bs-fabrique-button-root__right-icon--hidden':
@@ -205,7 +205,7 @@ export const Button: React.FC<Props> = ({
       </div>
 
       <div
-        className={classNames('bs-fabrique-button-root__badge', {
+        className={clsx('bs-fabrique-button-root__badge', {
           'bs-fabrique-button-root__badge--hidden': !badgeValue,
         })}
       >

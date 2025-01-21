@@ -39,7 +39,7 @@ export const PAYMENT_STEP = {
 
 type Props = {
   basket: Basket,
-  companyCountry: ?string,
+  companyCountry?: string,
   loading: boolean,
   processing: boolean,
   backToCalendar: () => void,

@@ -18,7 +18,7 @@ type Props = {
   loading: boolean,
   processing: boolean,
   patchWaitingListConfiguration: (data: WaitingListConfiguration) => void,
-  configuration: ?{
+  configuration?: {
     auto_cancellation_type: number,
     dumb_delay_minutes: number,
     smart_delay_minutes: number,

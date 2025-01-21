@@ -38,7 +38,7 @@ const randomInterval = faker.helpers.arrayElement<SubscriptionInterval>([
  *  isAutoRenewal: true
  * })
  */
-export const subscriptionFactory = (options?: SubscriptionFactoryOptions) => {
+const subscriptionFactory = (options?: SubscriptionFactoryOptions) => {
   return {
     id: faker.number.int(10000),
     auto_renewal: options?.isAutoRenewal ?? faker.datatype.boolean(),

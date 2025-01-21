@@ -1,7 +1,7 @@
 // @flow
 import React, { useState } from 'react';
 import { pure } from 'recompose';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { withTranslation, TFunction } from 'react-i18next';
 
 import Grid from '@material-ui/core/Grid';
@@ -85,9 +85,9 @@ const styles = (theme) => ({
 });
 
 type Props = {
-  noDate: ?boolean,
+  noDate?: boolean,
   offer: Offer,
-  showCoachName: ?boolean,
+  showCoachName?: boolean,
   selected: boolean,
   overrideClickAction: () => void,
   onModifyTags: (offer: Offer) => void,
@@ -259,7 +259,7 @@ export function OfferMinimalSummary(props: Props) {
         dense
         divider
         button={!!overrideClickAction}
-        className={classNames(classes.listItem, {
+        className={clsx(classes.listItem, {
           [classes.disabled]: !available,
           [classes.noPadding]: !!withoutPadding,
         })}
@@ -369,7 +369,7 @@ export function OfferMinimalSummary(props: Props) {
                         <FolderIcon className={classes.videocamIcon} />
                       )}
                       <Typography
-                        className={classNames(textClasses?.primary, {
+                        className={clsx(textClasses?.primary, {
                           [classes.textMaxWidth]: fixedHeight,
                         })}
                         variant="inherit"
@@ -418,7 +418,7 @@ export function OfferMinimalSummary(props: Props) {
           </Grid>
           <Grid
             item
-            className={classNames({ [classes.hidden]: !!hideFillingInfo })}
+            className={clsx({ [classes.hidden]: !!hideFillingInfo })}
             xs={3}
           >
             <ListItemText

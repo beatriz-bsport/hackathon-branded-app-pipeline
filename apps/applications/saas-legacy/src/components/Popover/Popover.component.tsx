@@ -2,7 +2,7 @@ import React from 'react';
 import Popover, { PopoverProps } from '@material-ui/core/Popover';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 type Props = {
   children: React.ReactNode;
@@ -64,7 +64,7 @@ const PopOver = (props: Props) => {
           }
         }
         classes={{ paper: props.customClasses?.MUIPaperContainer }}
-        className={classNames(
+        className={clsx(
           classes.popover,
           props.customClasses?.MUIPopOverContainer,
         )}
@@ -82,7 +82,7 @@ const PopOver = (props: Props) => {
         }
       >
         <Typography
-          className={classNames(classes.popoverText, props.className)}
+          className={clsx(classes.popoverText, props.className)}
           data-testid="popoverid"
           id="popover"
         >

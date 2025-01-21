@@ -2,7 +2,7 @@ import React, { useCallback, useMemo, useState } from 'react';
 
 import { useFormikContext } from 'formik';
 import { useTranslation } from 'react-i18next';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import Alert from '@material-ui/lab/Alert';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -254,7 +254,7 @@ const OfferFormSettings: React.FC<Props> = ({
                 disabled={isOfferInGroup}
                 error={!!errors.partnerMaxBookingCount}
                 id="offer-form-partner-max-booking-input"
-                inputClass={classNames(classes.bigWidth, {
+                inputClass={clsx(classes.bigWidth, {
                   [classes.disabledInput]: isOfferInGroup,
                 })}
                 InputProps={{ inputProps: { min: 0 } }}

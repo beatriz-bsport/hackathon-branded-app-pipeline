@@ -1,5 +1,5 @@
 import React from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 import { MarketPlaceSessionTimeDisplay } from '@bsport/common/lib/master-data/personalization.js';
 
@@ -151,7 +151,7 @@ const ConsumerBookingDetailsCard: React.FC<Props> = ({
   }
 
   return (
-    <Card className={classNames('bs-consumer-booking-details-card', className)}>
+    <Card className={clsx('bs-consumer-booking-details-card', className)}>
       <ConsumerBookingDetailsCardHeaderSection
         date={date}
         levelName={levelName}

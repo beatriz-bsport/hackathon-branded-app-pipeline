@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { useField } from 'formik';
 import Checkbox from '#Fabrique/Checkbox';
 import Typography from '#Fabrique/Typography';
@@ -62,7 +62,7 @@ const MultipleCheckboxfield: React.FC<MultipleCheckboxfieldProps> = ({
   return (
     <div className="bs-fabrique-multiple-checkbox-field" id={id}>
       <Typography
-        className={classNames(
+        className={clsx(
           'bs-fabrique-multiple-checkbox-field__label',
           {
             'bs-fabrique-multiple-checkbox-field__label--disabled': disabled,
@@ -73,7 +73,7 @@ const MultipleCheckboxfield: React.FC<MultipleCheckboxfieldProps> = ({
       >
         {label}
         <span
-          className={classNames(
+          className={clsx(
             'bs-fabrique-multiple-checkbox-field__label--required',
             {
               'bs-fabrique-multiple-checkbox-field__label--disabled': disabled,
@@ -102,7 +102,7 @@ const MultipleCheckboxfield: React.FC<MultipleCheckboxfieldProps> = ({
         />
       ))}
       <Typography
-        className={classNames(
+        className={clsx(
           'bs-fabrique-multiple-checkbox-field__capion-text',
           {
             'bs-fabrique-multiple-checkbox-field__capion-text--hidden':
@@ -115,7 +115,7 @@ const MultipleCheckboxfield: React.FC<MultipleCheckboxfieldProps> = ({
         {captionText}
       </Typography>
       <Typography
-        className={classNames(
+        className={clsx(
           'bs-fabrique-multiple-checkbox-field__error-message',
           {
             'bs-fabrique-multiple-checkbox-field__error-message--hidden':

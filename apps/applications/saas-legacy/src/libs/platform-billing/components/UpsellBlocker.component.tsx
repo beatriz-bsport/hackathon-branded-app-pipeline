@@ -11,7 +11,7 @@ import Typography from '@material-ui/core/Typography';
 import Dialog from '@material-ui/core/Dialog';
 
 import { useTranslation } from 'react-i18next';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { BLOCKER_FRAME_ID } from '#src/libs/platform-billing/constant';
 import WelcomeIcon from '#src/components/icons/WelcomeIcon.component';
 import { hasUpsell } from '#src/libs/platform-billing/utils';
@@ -137,7 +137,7 @@ export const UpsellBlockerDialog = React.memo(
     return (
       <div
         ref={() => setForceRerender(true)}
-        className={classNames(classes.blockerFrame, {
+        className={clsx(classes.blockerFrame, {
           [classes.blockerFrameForContentPages]: isPageContent,
         })}
         id={BLOCKER_FRAME_ID}

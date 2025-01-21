@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import classnames from 'classnames';
+import clsx from 'clsx';
 
 import { useTranslation } from 'react-i18next';
 import makeStyles from '@material-ui/core/styles/makeStyles';
@@ -74,7 +74,7 @@ export const ReplacementRequestManagerActionButtons: React.FC<Props> = ({
       {!replacementRequest?.offer?.available && (
         <Tooltip title={t('tooltip.offerCancelled')}>
           <div
-            className={classnames(
+            className={clsx(
               classes.warningIcon,
               classes.managerActionButton,
               classes.paddings,
@@ -89,10 +89,7 @@ export const ReplacementRequestManagerActionButtons: React.FC<Props> = ({
       <Tooltip title={t('tooltip.seeAnswers')}>
         <IconButton
           classes={{
-            root: classnames(
-              classes.warningButton,
-              classes.managerActionButton,
-            ),
+            root: clsx(classes.warningButton, classes.managerActionButton),
           }}
           onClick={replaceButton}
           size="small"
@@ -102,7 +99,7 @@ export const ReplacementRequestManagerActionButtons: React.FC<Props> = ({
       </Tooltip>
       <IconButton
         classes={{
-          root: classnames(classes.errorButton, classes.managerActionButton),
+          root: clsx(classes.errorButton, classes.managerActionButton),
         }}
         onClick={refuseButton}
         size="small"

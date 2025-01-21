@@ -33,7 +33,7 @@ type Props = {
   deletePlaylist: (Playlist, OptionCallback) => void,
 
   openEditForm: (VideoPlaylist) => void,
-  editPlaylist: ?Playlist,
+  editPlaylist?: Playlist,
   openCreateForm: () => void,
   closeEditForm: () => void,
   closeCreateDialog: () => void,

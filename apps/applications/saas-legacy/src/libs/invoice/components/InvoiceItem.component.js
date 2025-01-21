@@ -10,7 +10,7 @@ import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 
 import { getShopItemName } from '../../shop/utils';
 
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { AttachFile } from '@material-ui/icons';
 import { ConsumerGiftcardKind } from '@bsport/common/lib/master-data/giftcard.js';
 
@@ -21,7 +21,7 @@ type Props = {
   handleShowPrintableGiftcardDetails?: (id: number) => () => void,
 };
 
-export const InvoiceItem = (props: Props) => {
+const InvoiceItem = (props: Props) => {
   const { onDelete, invoiceItem } = props;
   const classes = useStyles();
   const { t } = useTranslation(['invoice']);
@@ -48,7 +48,7 @@ export const InvoiceItem = (props: Props) => {
         </Typography>
         {/*Show the sequential giftcard identifier if it exists, if the invoice item content is a ConsumerGiftcard*/}
         <Typography
-          className={classNames({
+          className={clsx({
             [classes.subtitleNotDisplayed]: !subtitle,
             [classes.revert]: invoiceItem.reverted,
           })}
@@ -85,7 +85,7 @@ export const InvoiceItem = (props: Props) => {
       )}
 
       <div
-        className={classNames({
+        className={clsx({
           [classes.line]: !(
             invoiceItem?.consumer_giftcard_kind ===
             ConsumerGiftcardKind.PRINTABLE

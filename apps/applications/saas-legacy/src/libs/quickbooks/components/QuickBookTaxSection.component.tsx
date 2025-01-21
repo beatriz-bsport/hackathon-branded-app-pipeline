@@ -1,6 +1,6 @@
 import React from 'react';
 import chroma from 'chroma-js';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 import type { Theme } from '@material-ui/core/styles';
 import makeStyles from '@material-ui/styles/makeStyles';
@@ -79,7 +79,7 @@ export const QuickBooksTaxSection: React.FC<Props> = ({
             onClick={handleRefreshQuickBooksTaxData}
           >
             <RefreshIcon
-              className={classNames({
+              className={clsx({
                 [classes.rotateIcon]: upsertLoading || loading,
               })}
             />
@@ -139,7 +139,7 @@ export const QuickBooksTaxSection: React.FC<Props> = ({
                   onClick={handleRefreshQuickBooksTaxData}
                 >
                   <RefreshIcon
-                    className={classNames({
+                    className={clsx({
                       [classes.rotateIcon]: upsertLoading || loading,
                     })}
                   />

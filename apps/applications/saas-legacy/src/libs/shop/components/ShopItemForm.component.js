@@ -44,10 +44,10 @@ const {
   SegmentAnalyticsFormObjectIdentifier.ShopItem,
 );
 type Props = {
-  initial: ?ShopItem,
+  initial?: ShopItem,
   t: TFunction,
   classes: Object,
-  createOrUpdate: (data: [*], id: number, options: OptionCallback) => void,
+  createOrUpdate: (data: any, id: number, options: OptionCallback) => void,
   onCancel: () => void,
   loading: boolean,
   provincialTax: number,
@@ -56,13 +56,13 @@ type Props = {
   bookkeepingAccountById: Record<number, BookkeepingAccount>,
 };
 type State = {
-  name: ?string,
-  subtitle: ?string,
-  price: ?number,
-  supplier_price: ?number,
-  cover: ?string,
-  tva: ?number,
-  description: ?string,
+  name?: string,
+  subtitle?: string,
+  price?: number,
+  supplier_price?: number,
+  cover?: string,
+  tva?: number,
+  description?: string,
   barcode: string,
   marketplace_enabled: boolean,
   available_payment_method_identifiers: Array<number>,

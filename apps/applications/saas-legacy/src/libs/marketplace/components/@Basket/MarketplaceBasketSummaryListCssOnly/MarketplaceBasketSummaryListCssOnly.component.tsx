@@ -1,5 +1,5 @@
 import React from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { BUYABLE_ITEM_COUPON } from '@bsport/common/lib/master-data/buyable-items.js';
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 import MarketplaceBasketSummaryItemCssOnly from '#src/libs/marketplace/components/@Basket/MarketplaceBasketSummaryItemCssOnly';
@@ -48,7 +48,7 @@ export const MarketplaceBasketSummaryListItemCssOnly: React.FC<Props> = ({
     <>
       {!!checkoutItems?.length && (
         <div
-          className={classNames('bs-basket_summary_checkout_list--container', {
+          className={clsx('bs-basket_summary_checkout_list--container', {
             'bs-basket_summary_checkout_list--dense': dense,
           })}
         >

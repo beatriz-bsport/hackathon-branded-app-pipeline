@@ -8,7 +8,7 @@ import type { AxiosError } from 'axios';
 import ALL_ERROR_CODES from '@bsport/common/lib/master-data/error-codes/buyable-item-can-not-be-bought.js';
 import { PAYMENT_EXECUTION_ERROR_CODES } from '@bsport/common/lib/master-data/error-codes/payment.js';
 import { makeStyles } from '@material-ui/core/styles';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import Button from '@material-ui/core/Button';
 import { useTranslation } from 'react-i18next';
 import { isErrorWithCustomCode } from '#src/libs/utils';
@@ -223,7 +223,7 @@ const PaymentPaypal = forwardRef(
               <>
                 {acceptTermsAndConditionsElement && (
                   <div
-                    className={classNames(
+                    className={clsx(
                       classes.conditions,
                       customClasses?.conditions,
                     )}
@@ -232,10 +232,7 @@ const PaymentPaypal = forwardRef(
                   </div>
                 )}
                 <div
-                  className={classNames(
-                    classes.actionRow,
-                    customClasses?.actionRow,
-                  )}
+                  className={clsx(classes.actionRow, customClasses?.actionRow)}
                 >
                   {clientSecretLoading ? (
                     <CircularProgress />

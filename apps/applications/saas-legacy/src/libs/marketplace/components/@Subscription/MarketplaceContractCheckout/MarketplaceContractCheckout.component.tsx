@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 
 import UpdateIcon from '@material-ui/icons/Update';
 
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { KeyboardArrowDown, KeyboardArrowUp } from '@material-ui/icons';
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 
@@ -120,7 +120,7 @@ const MarketplaceContractCheckout: React.FC<Props> = ({
       size={CardSize.AUTO}
     >
       <div
-        className={classNames('bs-contract-checkout__header', {
+        className={clsx('bs-contract-checkout__header', {
           '--expanded-header': isExpanded,
         })}
       >
@@ -242,7 +242,7 @@ const MarketplaceContractCheckout: React.FC<Props> = ({
             <Collapse collapsedHeight={45} isExpanded={showMoreDescription}>
               <div
                 ref={descriptionText.ref}
-                className={classNames('bs-contract-checkout__body__text', {
+                className={clsx('bs-contract-checkout__body__text', {
                   '--hide': !showMoreDescription,
                 })}
               >
@@ -277,7 +277,7 @@ const MarketplaceContractCheckout: React.FC<Props> = ({
               <Collapse collapsedHeight={45} isExpanded={showMoreLegalContract}>
                 <div
                   ref={legalContractText.ref}
-                  className={classNames('bs-contract-checkout__body__text', {
+                  className={clsx('bs-contract-checkout__body__text', {
                     '--hide': !showMoreLegalContract,
                   })}
                 >

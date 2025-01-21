@@ -9,7 +9,7 @@ import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import { useTranslation } from 'react-i18next';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import Tooltip from '#src/components/Tooltip.component';
 
@@ -35,7 +35,7 @@ const OfferFormBanner = (props: Props) => {
 
   return (
     <div
-      className={classNames(classes.container, {
+      className={clsx(classes.container, {
         [classes.containerWithoutName]: !name,
       })}
       id="offer-form-banner"
@@ -44,7 +44,7 @@ const OfferFormBanner = (props: Props) => {
       {picture && <div className={classes.gradientContainer} />}
 
       <div
-        className={classNames(classes.titleContainer, {
+        className={clsx(classes.titleContainer, {
           [classes.whiteText]: picture,
         })}
       >
@@ -89,7 +89,7 @@ const OfferFormBanner = (props: Props) => {
         <div className={classes.buttonContainer}>
           <Button
             classes={{
-              root: classNames(classes.backButtonRoot, {
+              root: clsx(classes.backButtonRoot, {
                 [classes.whiteText]: picture,
               }),
               label: classes.backButtonLabel,
@@ -112,7 +112,7 @@ const OfferFormBanner = (props: Props) => {
         <div className={classes.colorIndicatorContainer}>
           <div className={classes.colorIndicator} />
           <Typography
-            className={classNames(classes.whiteText, classes.fontMedium)}
+            className={clsx(classes.whiteText, classes.fontMedium)}
             variant="subtitle1"
           >
             {name}

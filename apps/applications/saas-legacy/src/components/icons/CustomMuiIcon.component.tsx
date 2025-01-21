@@ -1,6 +1,6 @@
 import React from 'react';
 
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import chroma from 'chroma-js';
 
@@ -42,7 +42,7 @@ export const CustomMuiIcon: React.FC<Props> = ({
     fadeIcon,
   });
 
-  const className = classNames(
+  const className = clsx(
     {
       [classes.root]: !defaultBackGround,
       [classes.primary]: variant === 'primary',

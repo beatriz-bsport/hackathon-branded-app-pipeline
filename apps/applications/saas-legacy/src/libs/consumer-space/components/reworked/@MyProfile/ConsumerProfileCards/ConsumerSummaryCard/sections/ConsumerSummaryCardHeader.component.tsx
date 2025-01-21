@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import { ConsumerProfileContext } from '#src/libs/consumer-space/components/reworked/@MyProfile/ConsumerProfileContext';
 import ConsumerCardSection from '#src/libs/consumer-space/components/reworked/common/ConsumerCardSection';
@@ -70,13 +70,13 @@ const ConsumerSummaryCardHeader: React.FC<Props> = ({
 
   return (
     <ConsumerCardSection
-      className={classNames(
+      className={clsx(
         'bs-consumer-summary-card-section',
         'bs-consumer-summary-card__header-section',
       )}
     >
       <div
-        className={classNames('bs-consumer-summary-card__profile-header', {
+        className={clsx('bs-consumer-summary-card__profile-header', {
           'bs-consumer-summary-card__profile-header--mobile': isMobile,
         })}
       >
@@ -92,7 +92,7 @@ const ConsumerSummaryCardHeader: React.FC<Props> = ({
         />
       </div>
       <div
-        className={classNames('bs-consumer-summary-card__account-balance', {
+        className={clsx('bs-consumer-summary-card__account-balance', {
           'bs-consumer-summary-card__account-balance--hidden':
             !showAccountBalance,
         })}
@@ -102,15 +102,12 @@ const ConsumerSummaryCardHeader: React.FC<Props> = ({
           {accountBalance}
         </Typography>
         <Button
-          className={classNames(
-            'bs-consumer-summary-card__pay-balance-debt-button',
-            {
-              'bs-consumer-summary-card__pay-balance-debt-button--hidden':
-                consumerCreditAccountBalance >= 0 ||
-                isWidget ||
-                !regularizeBalanceAllowed,
-            },
-          )}
+          className={clsx('bs-consumer-summary-card__pay-balance-debt-button', {
+            'bs-consumer-summary-card__pay-balance-debt-button--hidden':
+              consumerCreditAccountBalance >= 0 ||
+              isWidget ||
+              !regularizeBalanceAllowed,
+          })}
           color="error"
           isDisabled={isWidget}
           onClick={toggleRegularizeBalancePortal}
@@ -121,7 +118,7 @@ const ConsumerSummaryCardHeader: React.FC<Props> = ({
         </Button>
       </div>
       <Button
-        className={classNames('bs-consumer-summary-card__barcode-button', {
+        className={clsx('bs-consumer-summary-card__barcode-button', {
           'bs-consumer-summary-card__barcode-button--isMobile': isMobile,
           'bs-consumer-summary-card__barcode-button--hidden':
             !showBarcodeButton,

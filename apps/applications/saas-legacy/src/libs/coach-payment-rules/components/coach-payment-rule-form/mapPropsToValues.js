@@ -4,7 +4,7 @@ import {
   BONUS_COACH_PAYMENT_RULE_MARGIN_VALUE,
 } from '@bsport/common/lib/master-data/coach_payment_rule.js';
 
-export const mapInitalPropsToValues = (initial, ruleTypeCreation) => {
+const mapInitalPropsToValues = (initial, ruleTypeCreation) => {
   if (initial) {
     const purcentage_base_exists_confirmed_bookings =
       initial.bonus_coach_payment.find(

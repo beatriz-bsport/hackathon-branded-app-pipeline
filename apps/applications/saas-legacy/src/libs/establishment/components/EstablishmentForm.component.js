@@ -50,7 +50,7 @@ type Props = {
   onCancel: () => void,
   t: TFunction,
   classes: Object,
-  imageUploader: ?{
+  imageUploader?: {
     onAddImage: (image: File) => void,
     onRemoveImage: (image: File) => void,
   },
@@ -71,7 +71,7 @@ type State = {
     geometry: any,
     geocoded_data: any,
   },
-  cover: ?string,
+  cover?: string,
   capacity: number,
 };
 

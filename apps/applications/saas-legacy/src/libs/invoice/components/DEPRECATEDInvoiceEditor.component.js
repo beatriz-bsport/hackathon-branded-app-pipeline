@@ -34,7 +34,7 @@ type Props = {
   revertInvoice: (uuid: string) => void,
 
   onSubmit: () => void,
-  invoice: ?Invoice,
+  invoice?: Invoice,
   member: Member,
 
   requestSetupIntentSecret: () => void,

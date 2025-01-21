@@ -15,7 +15,7 @@ import Typography from '@material-ui/core/Typography';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ButtonBase from '@material-ui/core/ButtonBase';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -72,7 +72,7 @@ import { getIsLateBookingCancellation } from '../../../utils/datetime';
 type Props = {
   t: TFunction,
   classes: Object,
-  heading: ?string,
+  heading?: string,
   booking: Booking,
   member: Member,
 
@@ -80,18 +80,18 @@ type Props = {
   isLoading?: boolean,
 
   disabled?: boolean,
-  showQuickInvoiceButton: ?boolean,
-  button: ?boolean,
-  showRevertBookingButton: ?boolean,
-  redirectToMember: ?boolean,
-  redirectToOffer: ?boolean,
-  newTab: ?boolean,
+  showQuickInvoiceButton?: boolean,
+  button?: boolean,
+  showRevertBookingButton?: boolean,
+  redirectToMember?: boolean,
+  redirectToOffer?: boolean,
+  newTab?: boolean,
   selected?: boolean,
 
   timezone?: string,
 
   push: (path: string) => void,
-  onClick: ?() => void,
+  onClick?: () => void,
   onQuickInvoiceClick: () => void,
   handleRevert: () => void,
   confirmBookingAttendance: () => void,
@@ -133,7 +133,7 @@ type AttendanceButtonProps = {
   discardBookingAttendance: () => void,
   attendance_date_updated: string | null,
   confirmBookingAttendance: () => void,
-  variant: ?string,
+  variant?: string,
   attendance: boolean,
   isNoShow: boolean,
 };
@@ -186,7 +186,7 @@ const AttendanceButton = (props: AttendanceButtonProps) => {
 };
 
 type State = {
-  menuAnchor: ?any,
+  menuAnchor?: any,
   isMemberProgramDetailDialogOpen?: boolean,
   indexMemberFocused: number,
 };
@@ -196,7 +196,7 @@ export class BookingItemForManager extends Component<Props, State> {
     menuAnchor: null,
   };
 
-  getStatusStyleProps = (status: ?boolean) => {
+  getStatusStyleProps = (status?: boolean) => {
     if (status) {
       return { color: 'primary' };
     }
@@ -756,7 +756,7 @@ export class BookingItemForManager extends Component<Props, State> {
 
         return (
           <ListItemAvatar
-            className={classNames(
+            className={clsx(
               {
                 [classes.hoverCredit]:
                   this.props.member?.tags && this.props.member.tags.length !== 0

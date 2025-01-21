@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
 
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 import Typography from '#Fabrique/Typography';
@@ -24,9 +24,9 @@ const RadioButtonIcon: React.FC<RadioButtonIconProps> = ({
 }) => {
   return isChecked ? (
     <Union
-      className={classNames('bs-fabrique-radio__icon', className)}
+      className={clsx('bs-fabrique-radio__icon', className)}
       pathProps={{
-        className: classNames('bs-fabrique-radio--checked--main', {
+        className: clsx('bs-fabrique-radio--checked--main', {
           'bs-fabrique-radio--checked--inversed': isInversed,
           'bs-fabrique-radio--disabled': isDisabled,
         }),
@@ -35,9 +35,9 @@ const RadioButtonIcon: React.FC<RadioButtonIconProps> = ({
     />
   ) : (
     <Circle
-      className={classNames('bs-fabrique-radio__icon', className)}
+      className={clsx('bs-fabrique-radio__icon', className)}
       pathProps={{
-        className: classNames('bs-fabrique-radio--unchecked', {
+        className: clsx('bs-fabrique-radio--unchecked', {
           'bs-fabrique-radio--unchecked--inversed': isInversed,
           'bs-fabrique-radio--disabled': isDisabled,
         }),
@@ -88,12 +88,9 @@ export const RadioButton: React.FC<Props> = ({
   const isSmall = size === RadioButtonSizeEnum.SM;
   return (
     // TODO: Use LabelBase instead of label tag
-    <label
-      className={classNames('bs-fabrique-radio--root', className)}
-      htmlFor={id}
-    >
+    <label className={clsx('bs-fabrique-radio--root', className)} htmlFor={id}>
       <InputBase
-        className={classNames('bs-fabrique-radio__input', classes?.input)}
+        className={clsx('bs-fabrique-radio__input', classes?.input)}
         id={id}
         isChecked={isChecked}
         isDisabled={isDisabled}
@@ -110,7 +107,7 @@ export const RadioButton: React.FC<Props> = ({
       <div className="bs-fabrique-radio__textwrapper">
         <Typography
           align="left"
-          className={classNames(
+          className={clsx(
             'bs-fabrique-radio__label',
             {
               'bs-fabrique-radio__text--inversed': isInversed,
@@ -124,7 +121,7 @@ export const RadioButton: React.FC<Props> = ({
         </Typography>
         <Typography
           align="left"
-          className={classNames(
+          className={clsx(
             'bs-fabrique-radio__captiontext',
             {
               'bs-fabrique-radio__text--inversed': isInversed,

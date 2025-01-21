@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import Style from '@material-ui/icons/Style';
 import KeyboardArrowDown from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardArrowUp from '@material-ui/icons/KeyboardArrowUp';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 import ToolTip from '#src/components/Tooltip.component';
@@ -111,7 +111,7 @@ const MarketplacePaymentPackBuyableItem: React.FC<Props> = ({
               {paymentPack?.name ?? ''}
             </div>
             <div
-              className={classNames({
+              className={clsx({
                 'bs-payment-pack-buyable-item__recommended_icon_container':
                   isRecommended,
                 'bs-payment-pack-buyable-item__recommended_icon_container--hidden':
@@ -176,13 +176,10 @@ const MarketplacePaymentPackBuyableItem: React.FC<Props> = ({
             <Collapse collapsedHeight={40} isExpanded={showAllDescription}>
               <div
                 ref={descriptionText.ref}
-                className={classNames(
-                  'bs-payment-pack-buyable-item__description',
-                  {
-                    'bs-payment-pack-buyable-item__description--short':
-                      !showAllDescription,
-                  },
-                )}
+                className={clsx('bs-payment-pack-buyable-item__description', {
+                  'bs-payment-pack-buyable-item__description--short':
+                    !showAllDescription,
+                })}
               >
                 {paymentPack?.description ?? ''}
               </div>
@@ -196,7 +193,7 @@ const MarketplacePaymentPackBuyableItem: React.FC<Props> = ({
             }}
           >
             <div
-              className={classNames({
+              className={clsx({
                 'bs-payment-pack-buyable-item__seemore_button--hidden':
                   !descriptionText.isExpandable,
               })}

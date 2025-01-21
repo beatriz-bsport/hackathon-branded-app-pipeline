@@ -39,7 +39,7 @@ import {
   getCurrentBasketItemRemovalStatusLoading,
 } from '#src/libs/checkout/selectors';
 import { withMetaActivity, withEstablishment } from '#src/libs/offer/selectors';
-import { WidgetUtils } from '#src/libs/widget/WidgetUtils';
+import WidgetUtils from '#src/libs/widget/WidgetUtils';
 import themeSelectors from '#src/libs/theme/selectors';
 import { fetchCompanyTheme } from '#src/libs/theme/actions';
 import {
@@ -131,7 +131,7 @@ import { BASKET_INCONSISTENT } from '#src/libs/checkout/constants';
 import { getBookedSessionListDataFromBasket } from '#src/components/analytics/utils';
 
 type Props = {
-  basket: ?Basket,
+  basket?: Basket,
   loading: boolean,
   processing: boolean,
   companyId: number,
@@ -139,8 +139,8 @@ type Props = {
   companyThemeLoading: boolean,
   fetchCompanyTheme: (companyId: number) => void,
   goBack: () => void,
-  theme: ?Theme,
-  companyCountry: ?string,
+  theme?: Theme,
+  companyCountry?: string,
   classes: Object,
 
   t: TFunction,

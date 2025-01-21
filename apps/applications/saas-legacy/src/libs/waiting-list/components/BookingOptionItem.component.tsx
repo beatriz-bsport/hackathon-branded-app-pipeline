@@ -8,7 +8,7 @@ import IconButton from '@material-ui/core/IconButton';
 import withStyles from '@material-ui/styles/withStyles';
 import CancelIcon from '@material-ui/icons/Cancel';
 import { withTranslation, WithTranslation } from 'react-i18next';
-import cls from 'classnames';
+import clsx from 'clsx';
 import { Theme } from '@material-ui/core/styles';
 import { BookingOptionWithActivity } from '../../booking/types';
 import { MaterialStyleType } from '../../../utils/types';
@@ -46,7 +46,7 @@ class BookingOptionItem extends React.PureComponent<Props> {
     return (
       <ListItem
         divider
-        className={cls({ [classes.expiredItem]: expired })}
+        className={clsx({ [classes.expiredItem]: expired })}
         disabled={expired}
         onClick={this.props.onClick}
         selected={selectedBookingOption?.id === bookingOption.id}

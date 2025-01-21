@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import classnames from 'classnames';
+import clsx from 'clsx';
 
 import Typography from '@material-ui/core/Typography';
 import makeStyles from '@material-ui/core/styles/makeStyles';
@@ -31,13 +31,13 @@ export const ReplacementRequestRegistrationsStatusChip: React.FC<Props> = ({
 
   return (
     <div
-      className={classnames({
+      className={clsx({
         [classes.chipContainer]: !floatChip,
         [classes.floatChip]: floatChip,
       })}
     >
       <div
-        className={classnames(classes.chipStatus, {
+        className={clsx(classes.chipStatus, {
           [classes.errorChip]: areClosed,
           [classes.successChip]: !areClosed,
         })}
@@ -49,9 +49,7 @@ export const ReplacementRequestRegistrationsStatusChip: React.FC<Props> = ({
                 classes={{ root: classes.error }}
                 fontSize={isMobile ? 'small' : 'medium'}
               />
-              <Typography
-                className={classnames({ [classes.smallFont]: isMobile })}
-              >
+              <Typography className={clsx({ [classes.smallFont]: isMobile })}>
                 {`${t(`registrationsStatus.areClosed`)}${
                   nbAnswers === undefined ? '' : ` (${nbAnswers})`
                 }`}
@@ -64,9 +62,7 @@ export const ReplacementRequestRegistrationsStatusChip: React.FC<Props> = ({
               classes={{ root: classes.success }}
               fontSize={isMobile ? 'small' : 'medium'}
             />
-            <Typography
-              className={classnames({ [classes.smallFont]: isMobile })}
-            >
+            <Typography className={clsx({ [classes.smallFont]: isMobile })}>
               {`${t(`registrationsStatus.areNotClosed`)}${
                 nbAnswers === undefined ? '' : ` (${nbAnswers})`
               }`}

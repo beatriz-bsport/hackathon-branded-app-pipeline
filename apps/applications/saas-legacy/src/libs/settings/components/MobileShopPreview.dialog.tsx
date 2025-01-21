@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import classnames from 'classnames';
+import clsx from 'clsx';
 
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
@@ -140,7 +140,7 @@ const MobileShopPreview: React.FC<Props> = ({
             </div>
 
             <div className={classes.bottomList}>
-              <Paper className={classnames(classes.card, classes.square)}>
+              <Paper className={clsx(classes.card, classes.square)}>
                 <CreditCardIcon className={classes.icon} />
                 <div className={classes.cardTitle}>
                   {t(
@@ -148,7 +148,7 @@ const MobileShopPreview: React.FC<Props> = ({
                   )}
                 </div>
               </Paper>
-              <Paper className={classnames(classes.card, classes.square)}>
+              <Paper className={clsx(classes.card, classes.square)}>
                 <LoyaltyIcon className={classes.icon} />
                 <div className={classes.cardTitle}>
                   {t(
@@ -156,7 +156,7 @@ const MobileShopPreview: React.FC<Props> = ({
                   )}
                 </div>
               </Paper>
-              <Paper className={classnames(classes.card, classes.square)}>
+              <Paper className={clsx(classes.card, classes.square)}>
                 <ReceiptIcon className={classes.icon} />
                 <div className={classes.cardTitle}>
                   {t(
@@ -165,9 +165,7 @@ const MobileShopPreview: React.FC<Props> = ({
                 </div>
               </Paper>
             </div>
-            <div
-              className={classnames(classes.verticalList, classes.marginTop)}
-            >
+            <div className={clsx(classes.verticalList, classes.marginTop)}>
               {subshopList?.map((subshop) => (
                 <MobileShopPreviewCard key={subshop.id} title={subshop.name} />
               ))}

@@ -7,7 +7,7 @@ import Alert from '@material-ui/lab/Alert';
 import Typography from '@material-ui/core/Typography';
 import Pagination from '@material-ui/lab/Pagination';
 import { QuicksaleBasketItem } from '@bsport/common/lib/master-data/buyable-items.js';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import GenericResponsiveDrawer from '#src/components/genericDrawer/GenericResponsiveDrawer.component';
 import FormSection from '#src/components/forms/FormSection';
 import Selector from '#src/components/Selector/MaterialUISelector.component';
@@ -283,7 +283,7 @@ const QuicksaleItemAdditionDrawer: React.FC<Props> = ({
             ) : (
               <div className={classes.noResultAlertContainer}>
                 <Alert
-                  className={classNames(
+                  className={clsx(
                     parentDrawerClasses.noResultAlert,
                     parentDrawerClasses.pagination,
                   )}

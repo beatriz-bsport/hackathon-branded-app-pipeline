@@ -20,7 +20,7 @@ import BusinessCenterIcon from '@material-ui/icons/BusinessCenter';
 import StoreMallDirectoryIcon from '@material-ui/icons/StoreMallDirectory';
 import { StepIconProps } from '@material-ui/core/StepIcon';
 import { compose } from 'recompose';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { Divider } from '@material-ui/core';
 import chroma from 'chroma-js';
 import GenericResponsiveDrawer from '#src/components/genericDrawer/GenericResponsiveDrawer.component';
@@ -67,14 +67,14 @@ function ColorStepIcon(props: StepIconProps) {
   const icons: { [index: string]: React.ReactElement } = {
     1: (
       <BusinessCenterIcon
-        className={classNames(classes.icon, {
+        className={clsx(classes.icon, {
           [classes.iconPrimary]: active || completed,
         })}
       />
     ),
     2: (
       <StoreMallDirectoryIcon
-        className={classNames(classes.icon, {
+        className={clsx(classes.icon, {
           [classes.iconPrimary]: active || completed,
         })}
       />
@@ -83,7 +83,7 @@ function ColorStepIcon(props: StepIconProps) {
 
   return (
     <div
-      className={classNames(classes.box, {
+      className={clsx(classes.box, {
         [classes.boxPrimary]: active || completed,
       })}
     >

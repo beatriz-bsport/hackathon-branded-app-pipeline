@@ -1,5 +1,5 @@
 import React from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 import Typography from '#Fabrique/Typography';
@@ -36,7 +36,7 @@ export const Tab: React.FC<Props> = ({
 }) => {
   return (
     <ButtonBase
-      className={classNames(
+      className={clsx(
         'bs-fabrique-tab-root',
         {
           'bs-fabrique-tab-root--selected': isSelected,
@@ -47,7 +47,7 @@ export const Tab: React.FC<Props> = ({
       onClick={onClick}
     >
       <Typography
-        className={classNames('bs-fabrique-tab-text', classes?.text)}
+        className={clsx('bs-fabrique-tab-text', classes?.text)}
         variant="body-md"
       >
         {children}

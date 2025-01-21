@@ -1,6 +1,6 @@
 import React from 'react';
 
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import {
   Card,
@@ -34,7 +34,7 @@ const CardSectionItem: React.FC<Props> = ({
   return (
     <Card className={classes.flex} variant="outlined">
       <CardActionArea
-        className={classNames(classes.withPadding, classes.cardActionArea)}
+        className={clsx(classes.withPadding, classes.cardActionArea)}
         onClick={onCardClick}
       >
         <Typography color="textPrimary" variant="body1">

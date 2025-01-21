@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 import Card from '#Fabrique/Card';
 import Title from '#Fabrique/Title';
@@ -45,7 +45,7 @@ const ConsumerSummaryCard: React.FC<ConsumerSummaryCardProps> = ({
 
   return (
     <div className="bs-consumer-summary-card__container">
-      <Card className={classNames('bs-consumer-summary-card__root')}>
+      <Card className={clsx('bs-consumer-summary-card__root')}>
         <ConsumerSummaryCardHeader
           creditAccountBalance={creditAccountBalance}
           email={email}
@@ -72,7 +72,7 @@ const ConsumerSummaryCard: React.FC<ConsumerSummaryCardProps> = ({
         />
         {showMembershipNumber && (
           <ConsumerCardSection
-            className={classNames(
+            className={clsx(
               'bs-consumer-summary-card-section',
               'bs-consumer-summary-card__membership-section',
             )}

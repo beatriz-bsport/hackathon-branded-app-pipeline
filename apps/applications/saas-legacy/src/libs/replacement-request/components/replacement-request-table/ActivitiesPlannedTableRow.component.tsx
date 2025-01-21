@@ -1,7 +1,7 @@
 import React, { useMemo, useCallback } from 'react';
 import { DateTime } from 'luxon';
 import { useTranslation } from 'react-i18next';
-import classnames from 'classnames';
+import clsx from 'clsx';
 
 import Typography from '@material-ui/core/Typography';
 import TableRow from '@material-ui/core/TableRow';
@@ -156,7 +156,7 @@ export const ActivitiesPlannedTableRow: React.FC<Props> = ({
   if (isMobile) {
     return (
       <div
-        className={classnames(classes.mobileContainer, {
+        className={clsx(classes.mobileContainer, {
           [classes.mobileListItemDivider]: !isLastItem,
         })}
       >
@@ -185,7 +185,7 @@ export const ActivitiesPlannedTableRow: React.FC<Props> = ({
           )}
 
           <div
-            className={classnames(
+            className={clsx(
               classes.mobileOfferColumn,
               classes.mobileColumnContainer,
               {
@@ -206,7 +206,7 @@ export const ActivitiesPlannedTableRow: React.FC<Props> = ({
                 )}
               </Typography>
               <Typography
-                className={classnames(classes.grey, classes.mobileSmallFont)}
+                className={clsx(classes.grey, classes.mobileSmallFont)}
               >
                 {`${formatISOStringAsTime(
                   offerDateStartAsDateTime.toISO(),
@@ -218,7 +218,7 @@ export const ActivitiesPlannedTableRow: React.FC<Props> = ({
               </Typography>
             </div>
             <Typography
-              className={classnames(classes.mobileSmallFont, classes.weight500)}
+              className={clsx(classes.mobileSmallFont, classes.weight500)}
             >
               {offer?.name_override || offer?.meta_activity?.name}
             </Typography>
@@ -236,7 +236,7 @@ export const ActivitiesPlannedTableRow: React.FC<Props> = ({
           </div>
 
           <div
-            className={classnames(
+            className={clsx(
               classes.mobileLevelColumn,
               classes.mobileColumnContainer,
               {
@@ -263,10 +263,7 @@ export const ActivitiesPlannedTableRow: React.FC<Props> = ({
           <div className={classes.mobileTeacherRow}>
             <div>
               <Typography
-                className={classnames(
-                  classes.mobileSmallFont,
-                  classes.weight500,
-                )}
+                className={clsx(classes.mobileSmallFont, classes.weight500)}
               >
                 {t('header.teacher')}
               </Typography>
@@ -276,10 +273,7 @@ export const ActivitiesPlannedTableRow: React.FC<Props> = ({
             </div>
             <div>
               <Typography
-                className={classnames(
-                  classes.mobileSmallFont,
-                  classes.weight500,
-                )}
+                className={clsx(classes.mobileSmallFont, classes.weight500)}
               >
                 {t('header.teacher_override')}
               </Typography>

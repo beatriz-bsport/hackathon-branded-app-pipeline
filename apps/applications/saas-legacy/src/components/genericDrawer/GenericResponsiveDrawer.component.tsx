@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import { Theme } from '@material-ui/core/styles';
 import { makeStyles } from '@material-ui/styles';
@@ -66,7 +66,7 @@ export const GenericResponsiveDrawer: React.FC<Props> = ({
   return (
     <Drawer
       anchor={anchor}
-      classes={{ paper: classNames(classes.paper, customClasses?.drawer) }}
+      classes={{ paper: clsx(classes.paper, customClasses?.drawer) }}
       ModalProps={{
         hideBackdrop: false,
         disableEnforceFocus: true,
@@ -77,31 +77,27 @@ export const GenericResponsiveDrawer: React.FC<Props> = ({
     >
       <div
         ref={forwardedContainerRef}
-        className={classNames(classes.relative, customClasses?.container)}
+        className={clsx(classes.relative, customClasses?.container)}
       >
         {!withoutHeaderContainer && (
-          <div className={classNames(classes.firstRow, customClasses?.header)}>
+          <div className={clsx(classes.firstRow, customClasses?.header)}>
             {onClose && (
               <div
-                className={classNames(
-                  classes.topCancel,
-                  customClasses?.topCancel,
-                  {
-                    [classes.topCancelLeft]: anchor === 'left',
-                    [classes.topCancelRight]: anchor === 'right',
-                  },
-                )}
+                className={clsx(classes.topCancel, customClasses?.topCancel, {
+                  [classes.topCancelLeft]: anchor === 'left',
+                  [classes.topCancelRight]: anchor === 'right',
+                })}
               >
                 <Tooltip title={t('cancel')}>
                   <IconButton
-                    className={classNames(
+                    className={clsx(
                       classes.cancelButton,
                       customClasses?.cancelButton,
                     )}
                     onClick={close}
                   >
                     <HighlightOffIcon
-                      className={classNames(
+                      className={clsx(
                         classes.cancelButtonIcon,
                         customClasses?.cancelButtonIcon,
                       )}
@@ -112,7 +108,7 @@ export const GenericResponsiveDrawer: React.FC<Props> = ({
             )}
             {title && (
               <div
-                className={classNames(classes.title, customClasses?.title, {
+                className={clsx(classes.title, customClasses?.title, {
                   [classes.titleLeft]: anchor === 'right' && onClose,
                 })}
               >
@@ -135,7 +131,7 @@ export const GenericResponsiveDrawer: React.FC<Props> = ({
           </div>
         )}
         <div
-          className={classNames(classes.content, customClasses?.content, {
+          className={clsx(classes.content, customClasses?.content, {
             [classes.padding]: !withoutPadding,
             [classes.flex]: flexContent,
             [classes.contentResized]: !!mobileMinWidth,

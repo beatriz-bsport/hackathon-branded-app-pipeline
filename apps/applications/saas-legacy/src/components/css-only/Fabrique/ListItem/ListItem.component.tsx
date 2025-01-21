@@ -1,5 +1,5 @@
 import React, { memo } from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 
 import Typography from '#Fabrique/Typography';
@@ -52,14 +52,9 @@ const ListItemTextContainer: React.FC<ListItemTextProps> = ({
   captionText,
   isSmall,
 }) => (
-  <div
-    className={classNames(
-      'bs-fabrique-listitem__container',
-      classes?.container,
-    )}
-  >
+  <div className={clsx('bs-fabrique-listitem__container', classes?.container)}>
     <span
-      className={classNames(
+      className={clsx(
         'bs-fabrique-listitem__icon',
         {
           'bs-fabrique-listitem__icon--sm': isSmall,
@@ -73,21 +68,21 @@ const ListItemTextContainer: React.FC<ListItemTextProps> = ({
     </span>
 
     <div
-      className={classNames(
+      className={clsx(
         'bs-fabrique-listitem__textwrapper',
         classes?.textWrapper,
       )}
     >
       <Typography
         align="left"
-        className={classNames('bs-fabrique-listitem__label', classes?.label)}
+        className={clsx('bs-fabrique-listitem__label', classes?.label)}
         variant={isSmall ? 'body-sm' : 'body-md'}
       >
         {label}
       </Typography>
       <Typography
         align="left"
-        className={classNames(
+        className={clsx(
           'bs-fabrique-listitem__captiontext',
           classes?.captionText,
         )}
@@ -119,7 +114,7 @@ export const ListItem: React.FC<Props> = ({
   if (type === ListItemTypeEnum.CLICKABLETEXT) {
     return (
       <li
-        className={classNames(
+        className={clsx(
           'bs-fabrique-listitem__root',
           {
             'bs-fabrique-listitem__root--selected': isSelected,
@@ -130,7 +125,7 @@ export const ListItem: React.FC<Props> = ({
         )}
       >
         <ButtonBase
-          className={classNames(
+          className={clsx(
             'bs-fabrique-listitem__button-clickable-text',
             classes?.button,
           )}
@@ -141,7 +136,7 @@ export const ListItem: React.FC<Props> = ({
             captionText={captionText}
             classes={{
               ...classes,
-              label: classNames(
+              label: clsx(
                 classes?.label,
                 'bs-fabrique-listitem__clickable-text__label',
                 {
@@ -162,7 +157,7 @@ export const ListItem: React.FC<Props> = ({
   if (type !== ListItemTypeEnum.TEXT) {
     return (
       <li
-        className={classNames(
+        className={clsx(
           'bs-fabrique-listitem__root',
           {
             'bs-fabrique-listitem__radio--selected':
@@ -172,7 +167,7 @@ export const ListItem: React.FC<Props> = ({
         )}
       >
         <ButtonBase
-          className={classNames(
+          className={clsx(
             'bs-fabrique-listitem__button',
             { 'bs-fabrique-listitem__root--spacing--sm': isSmall },
             { 'bs-fabrique-listitem__root--spacing--lg': !isSmall },
@@ -184,7 +179,7 @@ export const ListItem: React.FC<Props> = ({
           type="button"
         >
           <div
-            className={classNames(
+            className={clsx(
               'bs-fabrique-listitem__container',
               classes?.container,
             )}
@@ -193,19 +188,13 @@ export const ListItem: React.FC<Props> = ({
               <RadioButton
                 captionText={captionText}
                 classes={{
-                  label: classNames(
-                    'bs-fabrique-listitem__label',
-                    classes?.label,
-                  ),
-                  captionText: classNames(
+                  label: clsx('bs-fabrique-listitem__label', classes?.label),
+                  captionText: clsx(
                     'bs-fabrique-listitem__captiontext',
                     classes?.captionText,
                   ),
                 }}
-                className={classNames(
-                  'bs-fabrique-listitem__radio',
-                  classes?.radio,
-                )}
+                className={clsx('bs-fabrique-listitem__radio', classes?.radio)}
                 id={inputId}
                 isChecked={isSelected}
                 isDisabled={isDisabled}
@@ -219,7 +208,7 @@ export const ListItem: React.FC<Props> = ({
               <Checkbox
                 captionText={captionText}
                 classes={{
-                  label: classNames(
+                  label: clsx(
                     'bs-fabrique-listitem__label',
                     {
                       'bs-fabrique-listitem__checkbox__label--selected':
@@ -227,12 +216,12 @@ export const ListItem: React.FC<Props> = ({
                     },
                     classes?.label,
                   ),
-                  captionText: classNames(
+                  captionText: clsx(
                     'bs-fabrique-listitem__captiontext',
                     classes?.captionText,
                   ),
                 }}
-                className={classNames(
+                className={clsx(
                   'bs-fabrique-listitem__checkbox',
                   classes?.checkbox,
                 )}
@@ -247,7 +236,7 @@ export const ListItem: React.FC<Props> = ({
           </div>
         </ButtonBase>
         <div
-          className={classNames('bs-fabrique-listitem__root__right-slot', {
+          className={clsx('bs-fabrique-listitem__root__right-slot', {
             'bs-fabrique-listitem__root__right-slot--hidden': !rightSlot,
           })}
         >
@@ -258,7 +247,7 @@ export const ListItem: React.FC<Props> = ({
   }
   return (
     <li
-      className={classNames(
+      className={clsx(
         'bs-fabrique-listitem__root',
         { 'bs-fabrique-listitem__root--spacing--sm': isSmall },
         { 'bs-fabrique-listitem__root--spacing--lg': !isSmall },
@@ -273,7 +262,7 @@ export const ListItem: React.FC<Props> = ({
         label={label}
       />
       <div
-        className={classNames('bs-fabrique-listitem__root__right-slot', {
+        className={clsx('bs-fabrique-listitem__root__right-slot', {
           'bs-fabrique-listitem__root__right-slot--hidden': !rightSlot,
         })}
       >

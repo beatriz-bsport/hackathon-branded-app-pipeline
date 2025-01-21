@@ -6,7 +6,7 @@ import Skeleton from '@material-ui/lab/Skeleton';
 import Badge from '@material-ui/core/Badge';
 import Archive from '@material-ui/icons/Archive';
 import makeStyles from '@material-ui/core/styles/makeStyles';
-import classnames from 'classnames';
+import clsx from 'clsx';
 
 import { MarketPlaceCoachDisplay } from '@bsport/common/lib/master-data/personalization.js';
 import { getCoachDisplayName } from '@bsport/common/lib/master-data/coach.js';
@@ -55,7 +55,7 @@ export const CoachChip: React.FC<Props> = ({
           </Badge>
         )
       }
-      className={classnames(classes.background, {
+      className={clsx(classes.background, {
         [classes.disabled]: showDisabledIcon && coach.disabled,
       })}
       label={loading ? <Skeleton animation="wave" variant="text" /> : coachName}

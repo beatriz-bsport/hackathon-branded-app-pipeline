@@ -1,5 +1,5 @@
 import React, { useImperativeHandle, forwardRef } from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import AddIcon from '@material-ui/icons/Add';
@@ -504,12 +504,12 @@ export const PaymentStripeSEPA = forwardRef(
                   withAddress={needBillingDetailAddress}
                 />
                 <div
-                  className={classNames(
+                  className={clsx(
                     classes.saveAndDisplay,
                     customClasses?.saveAndDisplay,
                   )}
                 >
-                  <div className={classNames(classes.row, customClasses?.row)}>
+                  <div className={clsx(classes.row, customClasses?.row)}>
                     {!hideSaveForLater && (
                       <>
                         <Checkbox
@@ -522,7 +522,7 @@ export const PaymentStripeSEPA = forwardRef(
                           {t('paymentPanel.actions.saveForLater')}
                         </Typography>
                         <div
-                          className={classNames(
+                          className={clsx(
                             classes.securityInformationContainer,
                             customClasses?.securityInformationContainer,
                           )}
@@ -532,7 +532,7 @@ export const PaymentStripeSEPA = forwardRef(
                               vertical: 'bottom',
                               horizontal: 'center',
                             }}
-                            className={classNames(
+                            className={clsx(
                               classes.securityInformationText,
                               customClasses?.securityInformationText,
                             )}
@@ -545,7 +545,7 @@ export const PaymentStripeSEPA = forwardRef(
                             }}
                           >
                             <Info
-                              className={classNames(
+                              className={clsx(
                                 classes.infoIcon,
                                 customClasses?.infoIcon,
                               )}
@@ -558,7 +558,7 @@ export const PaymentStripeSEPA = forwardRef(
 
                   {!!paymentMethodList.length && (
                     <ButtonBase
-                      className={classNames(
+                      className={clsx(
                         classes.displayButton,
                         customClasses?.displayButton,
                       )}
@@ -593,18 +593,12 @@ export const PaymentStripeSEPA = forwardRef(
 
             {hasAddPaymentMethodPermission && (
               <ButtonBase
-                className={classNames(
-                  classes.addButton,
-                  customClasses?.addButton,
-                )}
+                className={clsx(classes.addButton, customClasses?.addButton)}
                 disabled={false}
                 onClick={() => setAddPaymentMethod(true)}
               >
                 <AddIcon
-                  className={classNames(
-                    classes.leftIcon,
-                    customClasses?.leftIcon,
-                  )}
+                  className={clsx(classes.leftIcon, customClasses?.leftIcon)}
                   color="primary"
                 />
                 <Typography align="left" color="primary" variant="body1">
@@ -630,20 +624,12 @@ export const PaymentStripeSEPA = forwardRef(
           <>
             {AcceptTermsAndConditionsComponent && (
               <div
-                className={classNames(
-                  classes.conditions,
-                  customClasses?.conditions,
-                )}
+                className={clsx(classes.conditions, customClasses?.conditions)}
               >
                 {AcceptTermsAndConditionsComponent}
               </div>
             )}
-            <div
-              className={classNames(
-                classes.actionRow,
-                customClasses?.actionRow,
-              )}
-            >
+            <div className={clsx(classes.actionRow, customClasses?.actionRow)}>
               {processing ? (
                 <CircularProgress />
               ) : (

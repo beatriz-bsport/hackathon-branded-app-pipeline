@@ -1,5 +1,5 @@
 import React from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import { withFormik, FormikProps, Form, ErrorMessage } from 'formik';
 import type { withDatatypeDynamicDataProps } from '#src/libs/datatype-filtering/dynamic-data-hoc';
@@ -272,7 +272,7 @@ const ReportDetailDrawer: React.FC<Props & FormikProps<InitialValues>> = ({
     >
       <Form className={classes.root} onSubmit={handleSubmit}>
         <div className={classes.root}>
-          <div className={classNames(classes.section, classes.directionColumn)}>
+          <div className={clsx(classes.section, classes.directionColumn)}>
             <TextField
               fullWidth
               required
@@ -287,12 +287,7 @@ const ReportDetailDrawer: React.FC<Props & FormikProps<InitialValues>> = ({
             <ErrorMessage name="name" render={handleMessageRendering} />
           </div>
           <Divider className={classes.sectionDivider} />
-          <div
-            className={classNames(
-              classes.section,
-              classes.advancedFilterSection,
-            )}
-          >
+          <div className={clsx(classes.section, classes.advancedFilterSection)}>
             <div>
               <div className={classes.sectionName}>
                 <FilterListIcon color="action" />
@@ -377,7 +372,7 @@ const ReportDetailDrawer: React.FC<Props & FormikProps<InitialValues>> = ({
             </Menu>
           </div>
           <Divider className={classes.sectionDivider} />
-          <div className={classNames(classes.section, classes.directionColumn)}>
+          <div className={clsx(classes.section, classes.directionColumn)}>
             <div>
               <div className={classes.sectionName}>
                 <ViewColumnIcon color="action" />

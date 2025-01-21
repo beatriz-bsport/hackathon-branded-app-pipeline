@@ -1,7 +1,7 @@
 // @flow
 
 import React from 'react';
-import classnames from 'classnames';
+import clsx from 'clsx';
 
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
@@ -66,12 +66,12 @@ const MetaActivitySchema = Yup.object().shape({
 });
 
 type Props = {
-  SCTs: *[],
+  SCTs: any[],
   classes: Object,
   t: TFunction,
   onCancel: () => void,
   isSubmitting: boolean,
-  variant: ?string,
+  variant?: string,
   is_broadcast_enabled: boolean,
   values: any,
   tags: number[],
@@ -121,7 +121,7 @@ export function MetaActivityForm(props: Props) {
         name="cover_main"
         subHelper={props.t('activity.explainImage')}
       />
-      <div className={classnames(classes.field, classes.altField)}>
+      <div className={clsx(classes.field, classes.altField)}>
         <TextField
           fullWidth
           inputProps={{ maxLength: 100 }}
@@ -131,9 +131,7 @@ export function MetaActivityForm(props: Props) {
       </div>
       <div className={classes.container}>
         <div className={classes.headerWithIcon}>
-          <InfoIcon
-            className={classnames(classes.leftIcon, classes.greyIcon)}
-          />
+          <InfoIcon className={clsx(classes.leftIcon, classes.greyIcon)} />
           <Typography variant="h6">{t('activity.generalInfo')}</Typography>
         </div>
         <TextField
@@ -192,15 +190,13 @@ export function MetaActivityForm(props: Props) {
         </div>
         <div className={classes.restrictionsSection}>
           <div className={classes.headerWithIcon}>
-            <TuneIcon
-              className={classnames(classes.leftIcon, classes.greyIcon)}
-            />
+            <TuneIcon className={clsx(classes.leftIcon, classes.greyIcon)} />
             <Typography variant="h6">{t('restrictions.header')}</Typography>
           </div>
           <div className={classes.restrictionSubSection}>
             <div className={classes.headerWithIcon}>
               <EventAvailableIcon
-                className={classnames(classes.leftIcon, classes.greyIcon)}
+                className={clsx(classes.leftIcon, classes.greyIcon)}
               />
               <Typography className={classes.subtitle1bold} variant="subtitle1">
                 {t('restrictions.lastBookingBeforeMinutes')}
@@ -236,7 +232,7 @@ export function MetaActivityForm(props: Props) {
           <div className={classes.restrictionSubSection}>
             <div className={classes.headerWithIcon}>
               <EventBusyIcon
-                className={classnames(classes.leftIcon, classes.greyIcon)}
+                className={clsx(classes.leftIcon, classes.greyIcon)}
               />
               <Typography className={classes.subtitle1bold} variant="subtitle1">
                 {t('restrictions.lastDiscardBeforeMinutes')}
@@ -258,7 +254,7 @@ export function MetaActivityForm(props: Props) {
           <div className={classes.restrictionSubSection}>
             <div className={classes.headerWithIcon}>
               <DateRangeIcon
-                className={classnames(classes.leftIcon, classes.greyIcon)}
+                className={clsx(classes.leftIcon, classes.greyIcon)}
               />
               <Typography className={classes.subtitle1bold} variant="subtitle1">
                 {t('restrictions.firstBookingMinutesUntil')}
@@ -295,9 +291,7 @@ export function MetaActivityForm(props: Props) {
         <MetaActivityCustomRestrictionsForm tags={tags} variant={variant} />
         <div className={classes.autoDiscardSection}>
           <div className={classes.headerWithIcon}>
-            <CancelIcon
-              className={classnames(classes.leftIcon, classes.greyIcon)}
-            />
+            <CancelIcon className={clsx(classes.leftIcon, classes.greyIcon)} />
             <Typography variant="h6">{t('activity.autoDiscard')}</Typography>
           </div>
           <div className={classes.autoDiscardInnerSection}>

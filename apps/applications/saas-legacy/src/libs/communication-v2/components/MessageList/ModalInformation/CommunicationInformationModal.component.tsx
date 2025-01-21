@@ -15,7 +15,7 @@ import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import Avatar from '@material-ui/core/Avatar';
 
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { COMMUNICATION_CHANNEL_SMARTLIST } from '@bsport/common/lib/master-data/communication-filters.js';
 import type {
   Recipient,
@@ -167,7 +167,7 @@ export class CommunicationInformationModal extends React.PureComponent<
                   className={classes.tableContainerWithoutBorderBottom}
                 >
                   <Typography
-                    className={classNames(
+                    className={clsx(
                       classes.boldTypo,
                       classes.textHeaderEllipsis,
                     )}

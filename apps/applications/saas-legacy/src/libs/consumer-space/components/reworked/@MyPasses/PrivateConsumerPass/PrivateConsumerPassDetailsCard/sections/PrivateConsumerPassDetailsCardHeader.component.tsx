@@ -1,6 +1,6 @@
 import React from 'react';
 
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import ListItem from '#Fabrique/ListItem';
 import List from '#Fabrique/List';
@@ -68,18 +68,15 @@ const PrivateConsumerPassDetailsCardHeader: React.FC<Props> = ({
         />
       )}
       <List
-        className={classNames(
-          'bs-private-consumer-pass-details-card__header__list',
-          {
-            'bs-private-consumer-pass-details-card__header__list--hidden':
-              hideList,
-          },
-        )}
+        className={clsx('bs-private-consumer-pass-details-card__header__list', {
+          'bs-private-consumer-pass-details-card__header__list--hidden':
+            hideList,
+        })}
       >
         <ListItem
           captionText={caption}
           classes={{ label: customClassName, icon: customIconClassName }}
-          className={classNames(
+          className={clsx(
             'bs-private-consumer-pass-details-card__header__list__item',
             customClassName,
           )}

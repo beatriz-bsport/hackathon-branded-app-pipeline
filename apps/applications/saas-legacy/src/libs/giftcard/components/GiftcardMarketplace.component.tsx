@@ -2,7 +2,7 @@ import React from 'react';
 import { Typography } from '@material-ui/core';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import ButtonBase from '@material-ui/core/ButtonBase';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { Giftcard } from '../types';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 
@@ -17,7 +17,7 @@ export function GiftcardMarketplace(props: Props) {
   return (
     <>
       <ButtonBase
-        className={classNames(
+        className={clsx(
           'bs-marketplace-giftcard__item__button',
           classes.imageWrapper,
         )}
@@ -26,7 +26,7 @@ export function GiftcardMarketplace(props: Props) {
         {giftcard.cover ? (
           <img
             alt="Giftcard"
-            className={classNames(
+            className={clsx(
               'bs-marketplace-giftcard__item__button__image',
               classes.image,
             )}
@@ -34,7 +34,7 @@ export function GiftcardMarketplace(props: Props) {
           />
         ) : (
           <div
-            className={classNames(
+            className={clsx(
               'bs-marketplace-giftcard__item__button__image',
               classes.image,
             )}

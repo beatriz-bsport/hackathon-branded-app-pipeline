@@ -1,5 +1,5 @@
 import React from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import {
   SkeletonAnimation,
@@ -22,7 +22,7 @@ const Skeleton: React.FC<Props> = ({
   className,
 }) => (
   <div
-    className={classNames(
+    className={clsx(
       'bs-skeleton__container',
       {
         'bs-skeleton__variant--text': variant === SkeletonVariantEnum.TEXT,

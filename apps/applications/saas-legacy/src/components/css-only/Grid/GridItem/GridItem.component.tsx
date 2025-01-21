@@ -1,5 +1,5 @@
 import React from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import { Alignment, Direction, Justification } from './types';
 
@@ -31,7 +31,7 @@ export const Item: React.FC<Props> = ({
 }) => {
   return (
     <div
-      className={classNames('bs-generic-card__content__grid__item', {
+      className={clsx('bs-generic-card__content__grid__item', {
         'bs-grid-item-row-start-1': !rowStart,
         'bs-grid-item-justification-center': !justification,
         'bs-grid-item-direction-column': !direction,

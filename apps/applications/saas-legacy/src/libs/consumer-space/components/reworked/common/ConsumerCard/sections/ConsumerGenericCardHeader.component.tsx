@@ -1,6 +1,6 @@
 import React from 'react';
 
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import Typography from '#Fabrique/Typography';
 import Chip from '#Fabrique/Chip';
@@ -27,7 +27,7 @@ const ConsumerGenericCardHeader: React.FC<Props> = ({
   chipsWrapperClassName,
 }) => {
   return (
-    <div className={classNames('bs-consumer__generic-card__header', className)}>
+    <div className={clsx('bs-consumer__generic-card__header', className)}>
       <div className="bs-consumer__generic-card__header-title__container">
         <Typography
           className="bs-consumer__generic-card__header__title"
@@ -51,7 +51,7 @@ const ConsumerGenericCardHeader: React.FC<Props> = ({
         )}
       </div>
       <div
-        className={classNames(
+        className={clsx(
           'bs-consumer__generic-card__header__chips-wrapper',
           chipsWrapperClassName,
         )}

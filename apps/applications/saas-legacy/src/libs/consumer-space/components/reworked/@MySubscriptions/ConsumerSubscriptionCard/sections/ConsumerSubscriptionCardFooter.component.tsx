@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { ConsumerGenericCardFooter } from '#src/libs/consumer-space/components/reworked/common/ConsumerCard';
 import { CalendarPlus01 } from '#src/components/untitledui';
 import type { ButtonColor, ButtonVariant } from '#Fabrique/ButtonV2/types';
@@ -46,7 +46,7 @@ const ConsumerSubscriptionCardFooter: React.FC<Props> = ({
   );
   return (
     <ConsumerGenericCardFooter
-      className={classNames('bs-consumer__subscription-card__footer', {
+      className={clsx('bs-consumer__subscription-card__footer', {
         'bs-consumer__subscription-card__footer--hidden':
           !hasMissingPaymentMethod,
       })}

@@ -9,7 +9,7 @@ import {
   DialogContentText,
   DialogTitle,
 } from '@material-ui/core';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import GenericResponsiveDialog from './GenericResponsiveDialog';
 
 type OwnProps = {
@@ -92,9 +92,7 @@ export const GenericDialogWithIconHeader: React.FC<Props> = (props) => {
     >
       <div className={classes.container}>
         <DialogTitle>
-          <div
-            className={classNames(classes.header, getAlignClasses(headerAlign))}
-          >
+          <div className={clsx(classes.header, getAlignClasses(headerAlign))}>
             {!!headerIcon && (
               <div className={classes.headerIcon}>{headerIcon}</div>
             )}
@@ -116,9 +114,7 @@ export const GenericDialogWithIconHeader: React.FC<Props> = (props) => {
           </DialogContent>
         )}
         {!withoutBottomActions && (
-          <div
-            className={classNames(classes.footer, getAlignClasses(footerAlign))}
-          >
+          <div className={clsx(classes.footer, getAlignClasses(footerAlign))}>
             <div>
               {onCancelClick && onCancelText && (
                 <Button

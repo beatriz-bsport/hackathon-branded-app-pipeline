@@ -11,7 +11,7 @@ import {
 } from '@material-ui/core';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import InfoIcon from '@material-ui/icons/Info';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { replaceGenericTagsInTemplate } from '#src/libs/email-editor/utils';
 import { ResolvedGenericTags } from '#src/libs/email-editor/types';
 
@@ -64,7 +64,7 @@ const HTMLPreview = (props: Props) => {
       )}
       {!!sanitizedHTML && !loading && (
         <Paper
-          className={classNames(classes.iframeContainer, {
+          className={clsx(classes.iframeContainer, {
             [classes.iframeFullHeight]: !props.inDialog,
             [classes.iframeDialogHeight]: props.inDialog,
           })}

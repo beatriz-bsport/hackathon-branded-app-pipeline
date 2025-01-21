@@ -7,7 +7,7 @@ import VodPlaylistListPage from './VodPlaylistList.page';
 import VodPlaylistDetailPage from './VodPlaylistDetail.page';
 import VodVideoDetailPage from './VodVideoDetail.page';
 
-export const VodRouter = () => {
+const VodRouter = () => {
   return (
     <Switch>
       <Route component={VodVideoDetailPage} path="/vod/video/:videoId" />

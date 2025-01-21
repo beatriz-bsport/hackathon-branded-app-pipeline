@@ -1,5 +1,5 @@
 import React from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
@@ -43,7 +43,7 @@ export const ShopItemListCard = (props: Props) => {
               src={shopitem.cover}
             />
           ) : (
-            <div className={classNames(classes.noImage, classes.media)}>
+            <div className={clsx(classes.noImage, classes.media)}>
               <PhotoLibraryIcon className={classes.photoIcon} />
             </div>
           )}

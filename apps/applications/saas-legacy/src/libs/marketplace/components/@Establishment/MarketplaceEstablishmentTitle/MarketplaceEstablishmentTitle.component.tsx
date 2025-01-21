@@ -1,6 +1,6 @@
 import React from 'react';
 
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import type { Theme } from '#src/libs/theme/types';
 import type { Establishment } from '#src/libs/establishment/types';
@@ -23,7 +23,7 @@ export const MarketplaceEstablishmentTitle: React.FC<Props> = React.memo(
         : `${establishment?.title}`;
       return (
         <div
-          className={classNames({
+          className={clsx({
             ...classes,
           })}
         >

@@ -2,7 +2,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import {
   Contract,
   ContractWithPaymentPack,
@@ -23,7 +23,7 @@ const ContractBookableItem = (props: Props) => {
   return (
     <div className={classes.container}>
       <div
-        className={classNames(classes.itemContainer, {
+        className={clsx(classes.itemContainer, {
           [classes.opacity]: !!contract.exceedsBookingMaxout,
         })}
       >

@@ -1,5 +1,5 @@
 import React, { memo } from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import Typography from '#Fabrique/Typography';
 import Pagination from '#Fabrique/Pagination';
@@ -34,7 +34,7 @@ const EmptyInnerContentPlaceholder: React.FC<EmptyInnerContentProps> = ({
 }) => {
   return (
     <div
-      className={classNames(
+      className={clsx(
         'bs-consumer-page-inner-content__root-layout__empty',
         classes?.emptyPlaceholder,
       )}
@@ -80,7 +80,7 @@ export const PageInnerContentLayout: React.FC<Props> = ({
   return (
     <div
       ref={computedRef}
-      className={classNames(
+      className={clsx(
         'bs-consumer-page-inner-content__root-layout',
         classes?.root,
       )}
@@ -99,7 +99,7 @@ export const PageInnerContentLayout: React.FC<Props> = ({
         />
       </div>
       <aside
-        className={classNames(
+        className={clsx(
           'bs-consumer-page-inner-content__root--right-component',
           {
             'bs-consumer-page-inner-content__root--right-component--hidden':

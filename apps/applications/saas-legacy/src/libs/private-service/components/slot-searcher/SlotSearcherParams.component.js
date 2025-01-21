@@ -40,12 +40,12 @@ type Props = {
 };
 
 type State = {
-  private_service: ?PrivateService,
-  privateSlotId: ?number,
-  privateServiceId: ?number,
+  private_service?: PrivateService,
+  privateSlotId?: number,
+  privateServiceId?: number,
   coaches_selected: Array<number>,
   establishment_selected: number,
-  privateSlotCredit: ?number,
+  privateSlotCredit?: number,
   privateSlotDuration?: number,
 };
 

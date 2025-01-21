@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { useHistory } from 'react-router';
 
 import { ChevronRight } from '#src/components/untitledui';
@@ -66,7 +66,7 @@ const SubmenuListItem: React.FC<Props> = ({ className, item }) => {
         classes={{
           label: 'bs-fabrique-submenu-list-item__label',
         }}
-        className={classNames(
+        className={clsx(
           'bs-fabrique-submenu-list-item__root',
           {
             'bs-fabrique-submenu-list-item__root--selected': isSelected,
@@ -86,7 +86,7 @@ const SubmenuListItem: React.FC<Props> = ({ className, item }) => {
           anchorEl={anchorEl}
           anchorOriginHorizontal="right"
           anchorOriginVertical="bottom"
-          className={classNames('bs-fabrique-submenu-list-item__nested__root', {
+          className={clsx('bs-fabrique-submenu-list-item__nested__root', {
             'bs-fabrique-submenu-list-item__nested__root--hidden': isMobile,
           })}
           items={items}

@@ -2,7 +2,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 import Button from '@material-ui/core/Button';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import Typography from '@material-ui/core/Typography';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -39,13 +39,13 @@ export const ReplacementRequestDeleteDialog: React.FC<Props> = ({
         ) : (
           <>
             <Button
-              className={classNames(classes.buttons, classes.textSecondary)}
+              className={clsx(classes.buttons, classes.textSecondary)}
               onClick={onClose}
             >
               {t('delete.cancel')}
             </Button>
             <Button
-              className={classNames(classes.buttons, classes.red)}
+              className={clsx(classes.buttons, classes.red)}
               onClick={onConfirm}
             >
               {t('delete.confirm')}

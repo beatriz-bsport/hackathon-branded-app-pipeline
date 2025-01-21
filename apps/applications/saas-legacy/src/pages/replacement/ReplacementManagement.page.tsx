@@ -6,7 +6,7 @@ import { connect, ConnectedProps } from 'react-redux';
 import { useTranslation, Trans } from 'react-i18next';
 // @ts-expect-error wierd imports
 import Select, { GroupTypeBase, Styles } from 'react-select';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import { colors } from '@bsport/common/lib/colors.js';
 
@@ -337,7 +337,7 @@ export const ReplacementManagement: React.FC<Props> = (props) => {
         </Typography>
         <div className={classes.flexRow}>
           <div
-            className={classNames(
+            className={clsx(
               classes.innerFlexContainer,
               classes.flexStart,
               classes.flexColumnOnSmallscreen,
@@ -346,10 +346,7 @@ export const ReplacementManagement: React.FC<Props> = (props) => {
             )}
           >
             <div
-              className={classNames(
-                classes.filtersPendingRequests,
-                classes.filters,
-              )}
+              className={clsx(classes.filtersPendingRequests, classes.filters)}
             >
               <Select
                 closeMenuOnSelect
@@ -370,10 +367,7 @@ export const ReplacementManagement: React.FC<Props> = (props) => {
               />
             </div>
             <div
-              className={classNames(
-                classes.filtersPendingRequests,
-                classes.filters,
-              )}
+              className={clsx(classes.filtersPendingRequests, classes.filters)}
             >
               <Select
                 closeMenuOnSelect
@@ -394,10 +388,7 @@ export const ReplacementManagement: React.FC<Props> = (props) => {
               />
             </div>
             <div
-              className={classNames(
-                classes.filtersPendingRequests,
-                classes.filters,
-              )}
+              className={clsx(classes.filtersPendingRequests, classes.filters)}
             >
               <DateRangeSelector
                 futureOnly
@@ -431,7 +422,7 @@ export const ReplacementManagement: React.FC<Props> = (props) => {
             </div>
           </div>
           <div
-            className={classNames(
+            className={clsx(
               classes.innerFlexContainer,
               classes.flexEnd,
               classes.flex1,

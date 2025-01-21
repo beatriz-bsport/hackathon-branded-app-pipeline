@@ -26,10 +26,10 @@ type Props = {
   onDelete: (id: number) => void,
   notShowMember: boolean,
   onEdit: (id: number) => void,
-  onClick: ?() => void,
+  onClick?: () => void,
 };
 
-export const RecurrenceRuleBookingListItem = (props: Props) => {
+const RecurrenceRuleBookingListItem = (props: Props) => {
   const { t } = useTranslation(['booking', 'datetime']);
   const { recurrenceRuleBooking, onDelete, onEdit, notShowMember } = props;
   const { member, meta_activity, establishment } = recurrenceRuleBooking;

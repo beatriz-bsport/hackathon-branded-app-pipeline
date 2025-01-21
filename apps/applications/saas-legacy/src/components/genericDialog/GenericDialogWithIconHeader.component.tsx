@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/styles';
 import { Breakpoint } from '@material-ui/core/styles/createBreakpoints';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import GenericResponsiveDialog from './GenericResponsiveDialog';
 
 type OwnProps = {
@@ -69,7 +69,7 @@ export const GenericDialogWithIconHeader: React.FC<Props> = (props) => {
     >
       <div className={classes.container}>
         <div
-          className={classNames(classes.header, {
+          className={clsx(classes.header, {
             [classes.alignLeft]: headerAlign === 'left',
             [classes.alignCenter]: headerAlign === 'center',
             [classes.alignRight]: headerAlign === 'right',
@@ -87,7 +87,7 @@ export const GenericDialogWithIconHeader: React.FC<Props> = (props) => {
         {children}
         {!withoutBottomActions && (
           <div
-            className={classNames(classes.footer, {
+            className={clsx(classes.footer, {
               [classes.alignLeft]: footerAlign === 'left',
               [classes.alignCenter]: footerAlign === 'center',
               [classes.alignRight]: footerAlign === 'right',

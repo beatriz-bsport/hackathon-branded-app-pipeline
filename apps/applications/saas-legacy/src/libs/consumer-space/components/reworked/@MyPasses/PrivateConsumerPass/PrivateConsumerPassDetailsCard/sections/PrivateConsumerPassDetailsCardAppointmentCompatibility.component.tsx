@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Trans, useTranslation } from 'react-i18next';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import { List } from '#Fabrique/List/List.component';
 import ListItem from '#Fabrique/ListItem';
@@ -25,7 +25,7 @@ const CompatibilityMainList: React.FC<
   const { t } = useTranslation('consumerSpace');
   return (
     <List
-      className={classNames(
+      className={clsx(
         'bs-private-consumer-pass-details-card__compatibility-section__list',
         {
           'bs-private-consumer-pass-details-card__compatibility-section__list--hidden':
@@ -34,7 +34,7 @@ const CompatibilityMainList: React.FC<
       )}
     >
       <ListItem
-        className={classNames(
+        className={clsx(
           'bs-private-consumer-pass-details-card__compatibility-section__list__item',
           {
             'bs-private-consumer-pass-details-card__compatibility-section__list__item--hidden':
@@ -51,7 +51,7 @@ const CompatibilityMainList: React.FC<
         size="sm"
       />
       <ListItem
-        className={classNames(
+        className={clsx(
           'bs-private-consumer-pass-details-card__compatibility-section__list__item',
           {
             'bs-private-consumer-pass-details-card__compatibility-section__list__item--hidden':
@@ -81,7 +81,7 @@ const AppointmentAndSessions: React.FC<{
 
   return (
     <div
-      className={classNames(
+      className={clsx(
         'bs-private-consumer-pass-details-card__compatibility-section__subsection__appointment-and-sessions',
         {
           'bs-private-consumer-pass-details-card__compatibility-section__subsection__appointment-and-sessions--hidden':
@@ -120,7 +120,7 @@ const PrivateConsumerPassDetailsCardAppointmentCompatibility: React.FC<
         noCompatibleAppointment={noCompatibleAppointment}
       />
       <ConsumerCardSection
-        className={classNames(
+        className={clsx(
           'bs-private-consumer-pass-details-card__compatibility-section__subsection--session',
           'bs-private-consumer-pass-details-card__compatibility-section__subsection',
           {
@@ -134,7 +134,7 @@ const PrivateConsumerPassDetailsCardAppointmentCompatibility: React.FC<
         titleVariant="body-md"
       >
         <div
-          className={classNames(
+          className={clsx(
             'bs-private-consumer-pass-details-card__compatibility-section__subsection__container--session',
             'bs-private-consumer-pass-details-card__compatibility-section__subsection__container',
           )}

@@ -2,7 +2,7 @@ import React, { ChangeEvent } from 'react';
 
 import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@material-ui/icons/CheckBox';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 
@@ -23,7 +23,7 @@ const Checkbox: React.FC<Props> = React.memo(
   ({ isChecked, label, name, classes, onChange }) => (
     <div className="bs-checkbox__container">
       <label
-        className={classNames(classes.label, 'bs-checkbox__label')}
+        className={clsx(classes.label, 'bs-checkbox__label')}
         htmlFor={name}
       >
         <input
@@ -35,9 +35,7 @@ const Checkbox: React.FC<Props> = React.memo(
         />
 
         {isChecked ? <CheckBoxIcon /> : <CheckBoxOutlineBlankIcon />}
-        <span className={classNames('bs-checkbox__text', classes.text)}>
-          {label}
-        </span>
+        <span className={clsx('bs-checkbox__text', classes.text)}>{label}</span>
       </label>
     </div>
   ),

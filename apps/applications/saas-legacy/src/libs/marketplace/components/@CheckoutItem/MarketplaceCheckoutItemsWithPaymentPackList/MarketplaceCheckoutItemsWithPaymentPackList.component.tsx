@@ -1,5 +1,5 @@
 import React from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 import { CheckoutItem } from '#src/libs/checkout/types';
 import { PaymentPack } from '#src/libs/payment-packs/types';
@@ -23,7 +23,7 @@ const MarketplaceCheckoutItemsWithPaymentPackList: React.FC<Props> = ({
   if (items && items.length > 0 && !!paymentPacksById) {
     return (
       <ul
-        className={classNames('bs-checkout-items-with-payment-pack-list', {
+        className={clsx('bs-checkout-items-with-payment-pack-list', {
           ...classes,
         })}
       >

@@ -20,8 +20,8 @@ type Props = {
   company?: { id: number, name: string },
   contractList: Array<Contract>,
   loading: boolean,
-  contractToEdit: ?Contract,
-  setContractToEdit: (contract: ?Contract) => void,
+  contractToEdit?: Contract,
+  setContractToEdit: (contract?: Contract) => void,
   createOpen: boolean,
   setCreateOpen: (boolean) => void,
   dense?: boolean,
@@ -30,7 +30,7 @@ type Props = {
   snackbar?: (string) => void,
   paymentComboList: Array<PaymentCombo>,
 
-  selectedContract: ?number,
+  selectedContract?: number,
   onClick: (id: number) => void,
 
   onRegister?: (Contract) => void,
@@ -40,7 +40,7 @@ type Props = {
   paymentPackList: Array<PaymentPack>,
   privatePassList: Array<PrivatePass>,
   onEdit?: (data: any, options: OptionCallback) => void,
-  onCreate: ?(data: any, options: OptionCallback) => void,
+  onCreate?: (data: any, options: OptionCallback) => void,
   onRestore?: (id: number, options?: OptionCallback) => void,
   tagList?: Array<Tag<number>>,
 };

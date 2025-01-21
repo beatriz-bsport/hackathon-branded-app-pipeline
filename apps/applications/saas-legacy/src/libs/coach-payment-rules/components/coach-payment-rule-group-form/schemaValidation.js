@@ -1,6 +1,6 @@
 import * as Yup from 'yup';
 
-export const CoachPaymentRuleGroupSchema = Yup.object().shape({
+const CoachPaymentRuleGroupSchema = Yup.object().shape({
   id: Yup.number().nullable(true),
   name: Yup.string().required(
     'paymentRules:coach_payment_rules.Errors.nameRequired',

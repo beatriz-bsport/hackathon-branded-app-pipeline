@@ -2,7 +2,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { FranchiseCompany } from '#src/libs/franchise/types';
 import GenericDeleteDialog from '#src/components/genericDialog/GenericDeleteDialog.component';
 import { sortCompanyListByIsAllowedAndName } from '#src/libs/franchise/utils';
@@ -168,7 +168,7 @@ const FranchiseGenericProductTemplateCard = (props: Props) => {
           (content: string, index: number) => (
             <Typography
               key={`${index}-${content.slice(0, 10)}`}
-              className={classNames({
+              className={clsx({
                 [classes.description]:
                   index < (deleteTemplateInstanceContents || []).length - 1,
               })}

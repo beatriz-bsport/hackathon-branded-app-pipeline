@@ -23,7 +23,7 @@ import { DraggableSyntheticListeners } from '@dnd-kit/core';
 import { compose } from 'recompose';
 import withStyles from '@material-ui/core/styles/withStyles';
 import StyleIcon from '@material-ui/icons/Style';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import Paper from '@material-ui/core/Paper';
 import Tooltip from '#src/components/Tooltip.component';
 import ConditionalWrapper from '#src/components/ConditionnalWrapper.component';
@@ -121,7 +121,7 @@ export class PaymentPackListItem extends React.PureComponent<Props> {
         <ListItem
           // @ts-expect-error
           button={!!this.props.onClick}
-          className={classNames({
+          className={clsx({
             [this.props.classes.container]: !this.props.dense,
             [this.props.classes.containerFlexOnMobile]:
               this.props.isFlexContainerOnMobile,
@@ -169,7 +169,7 @@ export class PaymentPackListItem extends React.PureComponent<Props> {
           />
 
           <div
-            className={classNames(this.props.classes.actionsContainer, {
+            className={clsx(this.props.classes.actionsContainer, {
               [this.props.classes.actionsContainerFlexOnMobile]:
                 this.props.isFlexContainerOnMobile,
             })}

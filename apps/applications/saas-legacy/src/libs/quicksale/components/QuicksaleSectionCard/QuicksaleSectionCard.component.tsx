@@ -5,7 +5,7 @@ import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Typography from '@material-ui/core/Typography';
 import { useTranslation } from 'react-i18next';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import MuiIcon from '#src/components/MuiIcon.component';
 import { QuicksaleSection } from '../../types';
 import useGlobalStyle from '../../globalStyleHook';
@@ -107,10 +107,7 @@ const QuicksaleSectionCard: React.FC<Props> = (props) => {
 
   return (
     <div
-      className={classNames(
-        globalClasses.quicksaleCardContainer,
-        classes.container,
-      )}
+      className={clsx(globalClasses.quicksaleCardContainer, classes.container)}
       data-testid="section-card-container"
       onClick={openCurrentSection}
       onKeyDown={stopEventPropagation}

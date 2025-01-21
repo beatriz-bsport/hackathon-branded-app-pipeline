@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import ReactMarkdown from 'react-markdown';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { compose } from 'recompose';
 
 import { Box, Typography } from '@material-ui/core/';
@@ -113,7 +113,7 @@ const CustomPrivacyPolicy: React.FC<Props> = ({ customAppConfigurationId }) => {
 
   return (
     // privacy-policy-page is a custom class to override the hidden bullet points defined in index.scss.
-    <Box className={classNames(classes.root, 'privacy-policy-page')}>
+    <Box className={clsx(classes.root, 'privacy-policy-page')}>
       <div className={classes.header}>
         <Typography variant="h2">Privacy policy</Typography>
         <Typography variant="h4">

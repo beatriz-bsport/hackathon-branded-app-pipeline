@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { useField } from 'formik';
 import Typography from '#Fabrique/Typography';
 import RadioButton from '#Fabrique/RadioButtonV2';
@@ -55,7 +55,7 @@ const RadioGroupfield: React.FC<RadioGroupfieldProps> = ({
   return (
     <div className="bs-fabrique-radio-group-field" id={id}>
       <Typography
-        className={classNames(
+        className={clsx(
           'bs-fabrique-radio-group-field__label',
           {
             'bs-fabrique-radio-group-field__label--disabled': disabled,
@@ -66,13 +66,10 @@ const RadioGroupfield: React.FC<RadioGroupfieldProps> = ({
       >
         {label}
         <span
-          className={classNames(
-            'bs-fabrique-radio-group-field__label--required',
-            {
-              'bs-fabrique-radio-group-field__label--disabled': disabled,
-              'bs-fabrique-radio-group-field__label--empty': !isRequired,
-            },
-          )}
+          className={clsx('bs-fabrique-radio-group-field__label--required', {
+            'bs-fabrique-radio-group-field__label--disabled': disabled,
+            'bs-fabrique-radio-group-field__label--empty': !isRequired,
+          })}
         >
           {REQUIRED_SYMBOL}
         </span>
@@ -89,7 +86,7 @@ const RadioGroupfield: React.FC<RadioGroupfieldProps> = ({
         />
       ))}
       <Typography
-        className={classNames(
+        className={clsx(
           'bs-fabrique-radio-group-field__capion-text',
           {
             'bs-fabrique-radio-group-field__capion-text--hidden': !captionText,
@@ -101,7 +98,7 @@ const RadioGroupfield: React.FC<RadioGroupfieldProps> = ({
         {captionText}
       </Typography>
       <Typography
-        className={classNames(
+        className={clsx(
           'bs-fabrique-radio-group-field__error-message',
           {
             'bs-fabrique-radio-group-field__error-message--hidden': !meta.error,

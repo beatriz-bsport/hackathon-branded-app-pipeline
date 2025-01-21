@@ -8,7 +8,7 @@ import { Theme } from '@material-ui/core/styles/createTheme';
 import FranchiseCompanySearchList from '#src/libs/franchise/components/FranchiseCompanySearchList.components';
 import { CompanyWithTheme } from '#src/libs/company/types';
 import { STEPS } from '#src/libs/login/utils';
-import { WidgetUtils } from '#src/libs/widget/WidgetUtils';
+import WidgetUtils from '#src/libs/widget/WidgetUtils';
 import RedButton from '#src/components/button/RedButton.component';
 
 export type OwnProps = {

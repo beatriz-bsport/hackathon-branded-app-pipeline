@@ -60,7 +60,7 @@ type Props = {
   loading: boolean,
   privateBookingList: Array<PrivateBooking>,
 
-  resourceData: ?ResourceData,
+  resourceData?: ResourceData,
   resourceFiltersArray: Array<string>,
   setResourceFiltersArray: (filters: Array<string>) => void,
   resourceDataLoading: boolean,
@@ -116,7 +116,7 @@ type Props = {
 };
 
 type State = {
-  updateAvailabilitySlotData: ?{
+  updateAvailabilitySlotData?: {
     kind: string,
     data: [any, OptionCallback],
   },

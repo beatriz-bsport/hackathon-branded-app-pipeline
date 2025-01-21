@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { useTranslation } from 'react-i18next';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 
 import Button from '@material-ui/core/Button';
@@ -38,10 +38,7 @@ const MemberVisitDetailsCardManualEntrySection: React.FC<
           {entry_status === EntryStatus.NOT_ENTERED ? (
             <Button
               disabled
-              className={classNames(
-                classes.manualEntryButton,
-                classes.refuseButton,
-              )}
+              className={clsx(classes.manualEntryButton, classes.refuseButton)}
               size="small"
               variant="contained"
             >
@@ -49,10 +46,7 @@ const MemberVisitDetailsCardManualEntrySection: React.FC<
             </Button>
           ) : (
             <Button
-              className={classNames(
-                classes.manualEntryButton,
-                classes.refuseButton,
-              )}
+              className={clsx(classes.manualEntryButton, classes.refuseButton)}
               onClick={onRefuseManualEntry}
               size="small"
               variant="outlined"
@@ -64,10 +58,7 @@ const MemberVisitDetailsCardManualEntrySection: React.FC<
           {entry_status === EntryStatus.ENTERED ? (
             <Button
               disabled
-              className={classNames(
-                classes.manualEntryButton,
-                classes.allowButton,
-              )}
+              className={clsx(classes.manualEntryButton, classes.allowButton)}
               size="small"
               variant="contained"
             >
@@ -75,10 +66,7 @@ const MemberVisitDetailsCardManualEntrySection: React.FC<
             </Button>
           ) : (
             <Button
-              className={classNames(
-                classes.manualEntryButton,
-                classes.allowButton,
-              )}
+              className={clsx(classes.manualEntryButton, classes.allowButton)}
               onClick={onAllowManualEntry}
               size="small"
               variant="outlined"

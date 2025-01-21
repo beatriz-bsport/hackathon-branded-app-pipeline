@@ -26,7 +26,7 @@ type Props = {
   classes: Object,
   t: TFunction,
   loading: boolean,
-  booking: ?Booking,
+  booking?: Booking,
   offer: Offer,
   onOfferClick: (offerId: number) => void,
   incrementCredit: (id: number) => void,

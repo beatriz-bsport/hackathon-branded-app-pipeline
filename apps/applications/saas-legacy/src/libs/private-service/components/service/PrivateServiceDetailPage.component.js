@@ -39,7 +39,7 @@ type Props = {
   tagList: Array<Tag<TagGroup>>,
 };
 
-export const PrivateServiceDetail = (props: Props) => {
+const PrivateServiceDetail = (props: Props) => {
   return (
     <Grid container direction="row" spacing={2}>
       <Grid item md={6} xs={12}>

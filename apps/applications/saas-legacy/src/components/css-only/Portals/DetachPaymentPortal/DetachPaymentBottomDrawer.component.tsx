@@ -1,5 +1,5 @@
 import React from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import type { ModalsAndDrawersProps } from '#src/components/css-only/Portals/types';
 import BottomDrawer from '#Fabrique/BottomDrawer';
@@ -36,7 +36,7 @@ const DetachPaymentBottomDrawer: React.FC<ModalsAndDrawersProps> = ({
         }}
       >
         <Alert
-          className={classNames('bs-detach-payment-modal__alert', {
+          className={clsx('bs-detach-payment-modal__alert', {
             'bs-detach-payment-modal__alert--hidden': !errorMessage,
           })}
           color="error"

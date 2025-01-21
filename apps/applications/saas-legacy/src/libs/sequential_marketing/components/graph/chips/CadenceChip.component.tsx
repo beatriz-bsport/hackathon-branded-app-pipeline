@@ -1,5 +1,5 @@
 import React from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import makeStyles from '@material-ui/styles/makeStyles';
 import { CustomChip } from '#src/components/chip/CustomChip.component';
 import { CADENCE_CHIP_MAX_SIZE } from '#src/libs/sequential_marketing/constants/steps';
@@ -30,7 +30,7 @@ export const CadenceChip: React.FC<CadenceChipProps> = ({
   return (
     <CustomChip
       blackText
-      chipClass={classNames(classes.customChip, {
+      chipClass={clsx(classes.customChip, {
         [classes.clickableChip]: isClickable,
       })}
       disabled={disabled}

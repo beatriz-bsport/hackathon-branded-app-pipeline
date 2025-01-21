@@ -1,7 +1,7 @@
 import React, { memo } from 'react';
 import { makeStyles } from '@material-ui/styles';
 import { Theme, Typography } from '@material-ui/core';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 import { CustomChip } from '#src/components/chip/CustomChip.component';
 
@@ -42,10 +42,7 @@ const OffPeakDisplayByDay = (props: OffPeakDisplayByDayProps) => {
   const { t } = useTranslation(['datetime']);
 
   return (
-    <div
-      key={isoWeekday}
-      className={classNames(classes.packInfo, classes.header)}
-    >
+    <div key={isoWeekday} className={clsx(classes.packInfo, classes.header)}>
       <Typography color="textSecondary" variant="caption">
         {t(`datetime:time.isoWeekdayNumber.${isoWeekday}`)}
       </Typography>

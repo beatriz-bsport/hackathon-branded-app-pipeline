@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-import classNames from 'classnames';
+import clsx from 'clsx';
 import ConsumerCardSection from '#src/libs/consumer-space/components/reworked/common/ConsumerCardSection';
 import ConsumerCardDescription from '#src/libs/consumer-space/components/reworked/common/ConsumerCardDescription';
 import type { ConsumerSubscriptionDetailsCardProps } from '..';
@@ -15,7 +15,7 @@ const ConsumerSubscriptionDetailsCardDescription: React.FC<Props> = ({
 
   return (
     <ConsumerCardSection
-      className={classNames(
+      className={clsx(
         'bs-consumer__subscription-details-card__description__section',
         {
           'bs-consumer__subscription-details-card__description__section--hidden':

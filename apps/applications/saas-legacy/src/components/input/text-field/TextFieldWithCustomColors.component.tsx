@@ -1,7 +1,7 @@
 import React from 'react';
 import { makeStyles, Theme } from '@material-ui/core';
 import TextField from '@material-ui/core/TextField';
-import classnames from 'classnames';
+import clsx from 'clsx';
 
 export type Props = {
   name: string;
@@ -37,7 +37,7 @@ const TextFieldWithCustomColors: React.FC<Props> = (props) => {
 
   return (
     <TextField
-      className={classnames([props.className, classes.overrideRoot])}
+      className={clsx([props.className, classes.overrideRoot])}
       error={props.error}
       fullWidth={props.fullWidth}
       helperText={props.helperText}

@@ -1,7 +1,7 @@
 import React, { ChangeEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useField } from 'formik';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import TextField, { Props as TextfieldProps } from '../../TextFieldV2';
 import './styles.css';
 
@@ -28,7 +28,7 @@ const Textfield: React.FC<Props> = (props: Props) => {
       {...field}
       {...props}
       classes={{
-        root: classNames('bs-fabrique-textfield', {
+        root: clsx('bs-fabrique-textfield', {
           'bs-fabrique-textfield--layout-active': props.layoutActive,
           'bs-fabrique-textfield--space-field': props.spaceField,
         }),

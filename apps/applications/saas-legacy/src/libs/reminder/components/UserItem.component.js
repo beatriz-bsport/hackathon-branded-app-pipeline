@@ -8,7 +8,7 @@ import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 
-export const UserItem = (props: {
+const UserItem = (props: {
   isFocused: boolean,
   isSelected: boolean,
   onDelete?: () => void,

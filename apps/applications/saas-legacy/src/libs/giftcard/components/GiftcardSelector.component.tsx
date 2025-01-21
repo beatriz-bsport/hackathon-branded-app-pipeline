@@ -1,6 +1,6 @@
 import React from 'react';
 
-import classNames from 'classnames';
+import clsx from 'clsx';
 import GiftcardListItem from './GiftcardListItem.component';
 // @ts-expect-error
 import Selector from '../../../components/Selector.component';
@@ -72,7 +72,7 @@ export function GiftcardSelector(props: Props) {
     <Selector
       searchIcon
       autofocus={autofocus}
-      className={classNames(classes, selectorClass)}
+      className={clsx(classes, selectorClass)}
       components={{ Option: paymentComboOption }}
       nullCurrentValue={nullCurrentValue}
       // @ts-expect-error

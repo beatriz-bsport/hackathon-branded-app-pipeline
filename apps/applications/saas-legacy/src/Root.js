@@ -13,7 +13,6 @@ import { isPendingEmailConfirmation } from '#src/libs/login/selectors';
 import asyncComponent from './AsyncComponent';
 import Banner from './components/navigation/Banner.component';
 import Config from './config';
-import IEMessage from './components/IEMessage.component';
 import { parseQueryString } from './http';
 import { fetchAccessLevel } from './actions/auth.actions';
 import WidgetUtils from './libs/widget/WidgetUtils';
@@ -205,8 +204,6 @@ export class Root extends Component<Props> {
     }
     return (
       <div className={classes.root}>
-        <IEMessage />
-
         {!WidgetUtils.isWidget() && (
           <Banner
             paymentMethodMissing

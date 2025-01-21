@@ -1,5 +1,5 @@
 import React, { useImperativeHandle, forwardRef } from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import Immutable from 'seamless-immutable';
 import { useTranslation } from 'react-i18next';
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
@@ -550,14 +550,12 @@ const PaymentStripeCardRevamped = forwardRef(
                   <div>
                     <CardSection error={error} />
                     <div
-                      className={classNames(
+                      className={clsx(
                         classes.saveAndDisplay,
                         customClasses?.saveAndDisplay,
                       )}
                     >
-                      <div
-                        className={classNames(classes.row, customClasses?.row)}
-                      >
+                      <div className={clsx(classes.row, customClasses?.row)}>
                         {!hideSaveForLater && (
                           <>
                             <Checkbox
@@ -570,7 +568,7 @@ const PaymentStripeCardRevamped = forwardRef(
                               {t('paymentPanel.actions.saveForLater')}
                             </Typography>
                             <div
-                              className={classNames(
+                              className={clsx(
                                 classes.securityInformationContainer,
                                 customClasses?.securityInformationContainer,
                               )}
@@ -585,7 +583,7 @@ const PaymentStripeCardRevamped = forwardRef(
                                     vertical: 'bottom',
                                     horizontal: 'center',
                                   }}
-                                  className={classNames(
+                                  className={clsx(
                                     classes.securityInformationText,
                                     customClasses?.securityInformationText,
                                   )}
@@ -598,7 +596,7 @@ const PaymentStripeCardRevamped = forwardRef(
                                   }}
                                 >
                                   <Info
-                                    className={classNames(
+                                    className={clsx(
                                       classes.infoIcon,
                                       customClasses?.infoIcon,
                                     )}
@@ -611,7 +609,7 @@ const PaymentStripeCardRevamped = forwardRef(
                       </div>
                       {!!paymentMethodList?.length && (
                         <ButtonBase
-                          className={classNames(
+                          className={clsx(
                             classes.displayButton,
                             customClasses?.displayButton,
                           )}
@@ -668,7 +666,7 @@ const PaymentStripeCardRevamped = forwardRef(
 
                 {hasAddPaymentMethodPermission && (
                   <ButtonBase
-                    className={classNames(
+                    className={clsx(
                       classes.addButton,
                       customClasses?.addButton,
                     )}
@@ -676,7 +674,7 @@ const PaymentStripeCardRevamped = forwardRef(
                     onClick={startAddingPaymentMethod}
                   >
                     <AddIcon
-                      className={classNames(
+                      className={clsx(
                         classes.leftIcon,
                         customClasses?.leftIcon,
                       )}
@@ -707,7 +705,7 @@ const PaymentStripeCardRevamped = forwardRef(
               <>
                 {AcceptTermsAndConditionsComponent && (
                   <div
-                    className={classNames(
+                    className={clsx(
                       classes.conditionRow,
                       customClasses?.conditionRow,
                     )}
@@ -716,10 +714,7 @@ const PaymentStripeCardRevamped = forwardRef(
                   </div>
                 )}
                 <div
-                  className={classNames(
-                    classes.actionRow,
-                    customClasses?.actionRow,
-                  )}
+                  className={clsx(classes.actionRow, customClasses?.actionRow)}
                 >
                   {processing ? (
                     <CircularProgress />

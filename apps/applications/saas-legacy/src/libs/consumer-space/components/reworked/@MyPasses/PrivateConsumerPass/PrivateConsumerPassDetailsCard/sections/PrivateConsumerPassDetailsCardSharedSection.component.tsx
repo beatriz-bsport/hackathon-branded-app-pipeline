@@ -1,5 +1,5 @@
 import React from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import ListItem from '#Fabrique/ListItem';
 import List from '#Fabrique/List';
@@ -17,13 +17,10 @@ const PrivateConsumerPassDetailsCardSharedSection: React.FC<Props> = ({
   const membersFiltered = members?.filter((member) => !!member) || [];
   return (
     <ConsumerCardSection
-      className={classNames(
-        'bs-private-consumer-pass-details-card__shared-section',
-        {
-          'bs-private-consumer-pass-details-card__shared-section--hidden':
-            !membersFiltered.length,
-        },
-      )}
+      className={clsx('bs-private-consumer-pass-details-card__shared-section', {
+        'bs-private-consumer-pass-details-card__shared-section--hidden':
+          !membersFiltered.length,
+      })}
       title={title}
     >
       <List className="bs-private-consumer-pass-details-card__shared-section__list">

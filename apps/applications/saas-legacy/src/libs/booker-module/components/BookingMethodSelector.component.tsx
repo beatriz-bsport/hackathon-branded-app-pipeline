@@ -8,7 +8,7 @@ import {
   Typography,
   withStyles,
 } from '@material-ui/core';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import BlockIcon from '@material-ui/icons/Block';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import Dialog from '@material-ui/core/Dialog';
@@ -312,7 +312,7 @@ class BookingMethodSelector extends React.PureComponent<Props, State> {
                 return (
                   <div
                     key={consumerPaymentPack.id}
-                    className={classNames(classes.item, classes.relative)}
+                    className={clsx(classes.item, classes.relative)}
                   >
                     <RadioItem
                       disabled={consumerPaymentPack.exceedsBookingMaxout}
@@ -370,26 +370,18 @@ class BookingMethodSelector extends React.PureComponent<Props, State> {
                     return (
                       <div
                         key={contract.id}
-                        className={classNames(classes.item, classes.relative)}
+                        className={clsx(classes.item, classes.relative)}
                       >
                         <ButtonBase
-                          className={classNames(
-                            classes.item,
-                            classes.fullWidth,
-                          )}
+                          className={clsx(classes.item, classes.fullWidth)}
                           disabled={contract.exceedsBookingMaxout}
                           onClick={() => {
                             this.props.onOpenSubscriptionModal(contract);
                           }}
                         >
-                          <div
-                            className={classNames(
-                              classes.row,
-                              classes.fullWidth,
-                            )}
-                          >
+                          <div className={clsx(classes.row, classes.fullWidth)}>
                             <VisibilityIcon
-                              className={classNames({
+                              className={clsx({
                                 [classes.opacity]:
                                   contract.exceedsBookingMaxout,
                               })}
@@ -450,7 +442,7 @@ class BookingMethodSelector extends React.PureComponent<Props, State> {
                       return (
                         <div
                           key={paymentPack.id}
-                          className={classNames(classes.item, classes.relative)}
+                          className={clsx(classes.item, classes.relative)}
                         >
                           <RadioItem
                             disabled={paymentPack.exceedsBookingMaxout}
@@ -515,7 +507,7 @@ class BookingMethodSelector extends React.PureComponent<Props, State> {
                       return (
                         <div
                           key={paymentPackCombo.id}
-                          className={classNames(classes.item, classes.relative)}
+                          className={clsx(classes.item, classes.relative)}
                         >
                           <RadioItem
                             disabled={paymentPackCombo.exceedsBookingMaxout}

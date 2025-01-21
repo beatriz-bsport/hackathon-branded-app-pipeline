@@ -20,7 +20,7 @@ import type { PrivateSlot } from '../../types';
 type Props = {
   onDelete?: (slotId: number) => void,
   onEdit?: (slot: PrivateSlot | null) => void,
-  onClick: ?() => void,
+  onClick?: () => void,
   slot: PrivateSlot,
   t: TFunction,
   divider?: boolean,

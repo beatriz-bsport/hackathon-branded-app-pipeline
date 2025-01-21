@@ -45,7 +45,7 @@ type Props = {
   deleteLevel: (id: number, options?: OptionCallback) => void,
   setFieldValue: (name: string, value: any) => void,
 };
-export const VideoForm = (props: Props) => {
+const VideoForm = (props: Props) => {
   const { t } = useTranslation(['video']);
   const classes = useStyles();
 

@@ -1,6 +1,6 @@
 import React, { useMemo, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { makeStyles, Theme } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 import { DataSourceDashboardGraphMetadata } from '#src/libs/dashboard/types';
@@ -79,7 +79,7 @@ const GraphParamTimeslotsForm: React.FC<Props> = ({
           <MaterialUiSingleSelectorField
             inScrollBar
             isDisabled
-            className={classNames(classes.selectInput)}
+            className={clsx(classes.selectInput)}
             name="graph_params.date_for_slots"
             options={[
               {

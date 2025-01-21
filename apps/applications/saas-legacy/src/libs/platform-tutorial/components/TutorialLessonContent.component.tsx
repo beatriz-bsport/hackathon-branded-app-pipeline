@@ -11,7 +11,7 @@ import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { useTranslation } from 'react-i18next';
 import chroma from 'chroma-js';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import SeamlessImmutable from 'seamless-immutable';
 import VimeoEmbedVideo from '#src/libs/video/components/VimeoEmbedVideo';
 import { TutorialCompletion, TutorialLesson } from '../types';
@@ -86,7 +86,7 @@ const TutorialLessonContent: React.FC<Props> = (props: Props) => {
         </ReactMarkdown>
         <div className={classes.buttons}>
           <Button
-            className={classNames(classes.previousButton, {
+            className={clsx(classes.previousButton, {
               [classes.previousButtonDisabled]:
                 previousLessonId === null || lesson_restricted,
             })}
@@ -98,7 +98,7 @@ const TutorialLessonContent: React.FC<Props> = (props: Props) => {
           </Button>
           <Button
             classes={{ root: classes.overrideMuiButtonRootHoverMobile }}
-            className={classNames(classes.nextButton)}
+            className={clsx(classes.nextButton)}
             disabled={lesson_restricted}
             endIcon={<ArrowForwardIcon />}
             onClick={onNextButtonClick}

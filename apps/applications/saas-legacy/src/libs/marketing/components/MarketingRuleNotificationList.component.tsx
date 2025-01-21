@@ -6,7 +6,7 @@ import {
   Theme,
   withStyles,
 } from '@material-ui/core';
-import clx from 'classnames';
+import clsx from 'clsx';
 import { compose } from 'recompose';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import { NOTIFICATION_KIND } from '@bsport/common/lib/master-data/notification-rule-events.js';
@@ -80,7 +80,7 @@ export class MarketingNotificationsList extends React.PureComponent<Props> {
           return (
             <div key={notif.id} className={classes.notificationListContainer}>
               <ButtonBase
-                className={clx({
+                className={clsx({
                   [classes.notificationListItem]: true,
                   [classes.notificationListItemBorder]:
                     i !== notifications.length - 1,

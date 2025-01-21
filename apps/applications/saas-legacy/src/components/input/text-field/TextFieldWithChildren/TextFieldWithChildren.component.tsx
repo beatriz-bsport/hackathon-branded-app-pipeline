@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { InputBaseComponentProps } from '@material-ui/core';
 import TextField from '@material-ui/core/TextField';
 import { useCustomOptions, useStyles } from './hooks';
@@ -73,7 +73,7 @@ const TextFieldWithChildren: React.FC<Props> = ({
 
   return (
     <div
-      className={classNames(classes.container, {
+      className={clsx(classes.container, {
         [classes.withMarginBottom]: withMarginBottom,
         [classes.withColumnDirection]: withColumnDirection,
       })}

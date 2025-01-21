@@ -1,5 +1,5 @@
 import React, { SVGProps } from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 import chroma from 'chroma-js';
 
@@ -44,7 +44,7 @@ const SubText: React.FC<SubTextsProps> = React.memo(
     if (subText?.length === 1) {
       return (
         <Typography
-          className={classNames(classes.subText, customClasses?.subText)}
+          className={clsx(classes.subText, customClasses?.subText)}
           variant="body1"
         >
           {typeof subText[0] === 'string'
@@ -58,13 +58,11 @@ const SubText: React.FC<SubTextsProps> = React.memo(
     }
 
     return (
-      <ul
-        className={classNames(classes.subTextList, customClasses?.subTextList)}
-      >
+      <ul className={clsx(classes.subTextList, customClasses?.subTextList)}>
         {subText?.map((line, subIndex) => (
           <li key={`${index}-${subIndex}-${line}`}>
             <Typography
-              className={classNames(
+              className={clsx(
                 classes.subTextListItem,
                 customClasses?.subTextListItem,
               )}
@@ -105,7 +103,7 @@ const Button: React.FC<ButtonComponentProps> = React.memo(
     return (
       <MUIButton
         {...buttonProps}
-        className={classNames(classes.button, customClasses?.button)}
+        className={clsx(classes.button, customClasses?.button)}
         style={{
           color: fontColor,
           backgroundColor:
@@ -152,7 +150,7 @@ const BottomActions: React.FC<BottomActionsProps> = React.memo(
 
         {!!buttons?.length && (
           <DialogActions
-            className={classNames(
+            className={clsx(
               classes.dialogActions,
               customClasses?.dialogActions,
             )}
@@ -223,10 +221,7 @@ const DialogWithBigIcon: React.FC<Props> = ({
     <Dialog
       BackdropProps={{
         ...BackdropProps,
-        className: classNames(
-          BackdropProps?.className,
-          customClasses?.backdrop,
-        ),
+        className: clsx(BackdropProps?.className, customClasses?.backdrop),
       }}
       classes={{
         root: customClasses?.root,
@@ -238,7 +233,7 @@ const DialogWithBigIcon: React.FC<Props> = ({
       open={open}
       PaperProps={{
         ...PaperProps,
-        className: classNames(
+        className: clsx(
           classes.dialogPaper,
           PaperProps?.className,
           customClasses?.dialogPaper,
@@ -248,36 +243,24 @@ const DialogWithBigIcon: React.FC<Props> = ({
     >
       {withCross && (
         <DialogTitle
-          className={classNames(
-            classes.dialogTitle,
-            customClasses?.dialogTitle,
-          )}
+          className={clsx(classes.dialogTitle, customClasses?.dialogTitle)}
         >
           <IconButton
-            className={classNames(
-              classes.closeButton,
-              customClasses?.closeButton,
-            )}
+            className={clsx(classes.closeButton, customClasses?.closeButton)}
             onClick={onClose}
           >
             <CloseIcon
-              className={classNames(
-                classes.closeIcon,
-                customClasses?.closeIcon,
-              )}
+              className={clsx(classes.closeIcon, customClasses?.closeIcon)}
             />
           </IconButton>
         </DialogTitle>
       )}
 
       <DialogContent
-        className={classNames(
-          classes.dialogContent,
-          customClasses?.dialogContent,
-        )}
+        className={clsx(classes.dialogContent, customClasses?.dialogContent)}
       >
         <div
-          className={classNames(
+          className={clsx(
             classes.largeIconContainer,
             customClasses?.largeIconContainer,
           )}
@@ -291,10 +274,7 @@ const DialogWithBigIcon: React.FC<Props> = ({
             />
           ) : (
             <MuiIconComponent
-              className={classNames(
-                classes.largeIcon,
-                customClasses?.largeIcon,
-              )}
+              className={clsx(classes.largeIcon, customClasses?.largeIcon)}
               defaultIcon="CheckCircle"
               icon={icon}
             />
@@ -303,7 +283,7 @@ const DialogWithBigIcon: React.FC<Props> = ({
 
         {title && (
           <Typography
-            className={classNames(classes.title, customClasses?.title)}
+            className={clsx(classes.title, customClasses?.title)}
             variant="h6"
           >
             {typeof title === 'string'

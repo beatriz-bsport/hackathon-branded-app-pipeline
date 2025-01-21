@@ -9,7 +9,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
 type Props = {
-  recurrentRuleId: ?number,
+  recurrentRuleId?: number,
   onClose: () => void,
   onChange: () => void,
 };

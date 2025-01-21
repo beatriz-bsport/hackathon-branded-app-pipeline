@@ -16,7 +16,7 @@ type Props = {
 
 class ErrorCatcher extends React.Component<
   {
-    theme: ?CompanyTheme,
+    theme?: CompanyTheme,
     children: any,
     classes: Object,
     t: TFunction,

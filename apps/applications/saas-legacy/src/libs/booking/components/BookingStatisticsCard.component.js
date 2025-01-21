@@ -1,6 +1,6 @@
 import React from 'react';
 
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { Trans, useTranslation } from 'react-i18next';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
@@ -146,10 +146,7 @@ export function BookingStatisticsCard(props: Props) {
                 variant="body1"
               >
                 <span
-                  className={classNames(
-                    classes.square,
-                    classes.confirmedSquare,
-                  )}
+                  className={clsx(classes.square, classes.confirmedSquare)}
                 />
                 {t('bookingStatistics.confirmedBookings', {
                   nb: allBookingsCount - cancelledBookingsCount,
@@ -161,10 +158,7 @@ export function BookingStatisticsCard(props: Props) {
                 variant="body1"
               >
                 <span
-                  className={classNames(
-                    classes.square,
-                    classes.cancelledSquare,
-                  )}
+                  className={clsx(classes.square, classes.cancelledSquare)}
                 />
                 {t('bookingStatistics.bookingsCancelled', {
                   nb: cancelledBookingsCount,
@@ -177,10 +171,7 @@ export function BookingStatisticsCard(props: Props) {
                   variant="body1"
                 >
                   <span
-                    className={classNames(
-                      classes.square,
-                      classes.waitingListSquare,
-                    )}
+                    className={clsx(classes.square, classes.waitingListSquare)}
                   />
                   {t('bookingStatistics.waitingListSize', {
                     nb: allWaitingListCount,
@@ -196,10 +187,7 @@ export function BookingStatisticsCard(props: Props) {
                   variant="body1"
                 >
                   <span
-                    className={classNames(
-                      classes.square,
-                      classes.waitingListSquare,
-                    )}
+                    className={clsx(classes.square, classes.waitingListSquare)}
                   />
                   {t('bookingStatistics.waitingListSize', {
                     nb: allWaitingListCount,

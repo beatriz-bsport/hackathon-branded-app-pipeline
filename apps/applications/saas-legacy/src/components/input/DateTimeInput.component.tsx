@@ -1,7 +1,7 @@
 import React from 'react';
 import { DatePicker, MuiPickersUtilsProvider } from 'material-ui-pickers';
 import makeStyles from '@material-ui/core/styles/makeStyles';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { Settings, DateTime } from 'luxon';
 
 import TextField from '@material-ui/core/TextField';
@@ -41,7 +41,7 @@ export function DateTimeForm(props: Props) {
   return (
     <div className={classes.container}>
       <div
-        className={classNames({
+        className={clsx({
           [classes.responsiveFlex]: !!props.separateInputs,
         })}
       >

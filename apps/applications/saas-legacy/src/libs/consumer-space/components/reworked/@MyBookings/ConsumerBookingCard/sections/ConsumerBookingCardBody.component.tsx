@@ -1,5 +1,5 @@
 import React from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 import List from '#Fabrique/List';
 import ListItem from '#Fabrique/ListItem';
@@ -49,7 +49,7 @@ const ConsumerBookingCardBody: React.FC<Props> = ({
   return (
     <ConsumerGenericCardBodyContainer className="bs-consumer-booking-card__container">
       <List
-        className={classNames('bs-consumer-booking-card__list', {
+        className={clsx('bs-consumer-booking-card__list', {
           'bs-consumer-booking-card__field--hidden': isBookingCancelled,
         })}
       >
@@ -57,7 +57,7 @@ const ConsumerBookingCardBody: React.FC<Props> = ({
           classes={{
             icon: 'bs-consumer-booking-card__icon--size',
           }}
-          className={classNames('bs-consumer-booking-card__list-item', {
+          className={clsx('bs-consumer-booking-card__list-item', {
             'bs-consumer-booking-card__field--hidden':
               !establishmentAddress || isBookingCancelled,
           })}
@@ -68,7 +68,7 @@ const ConsumerBookingCardBody: React.FC<Props> = ({
           classes={{
             icon: 'bs-consumer-booking-card__icon--size',
           }}
-          className={classNames('bs-consumer-booking-card__list-item', {
+          className={clsx('bs-consumer-booking-card__list-item', {
             'bs-consumer-booking-card__field--hidden': !coachName,
           })}
           // TODO: create Avatar component
@@ -85,7 +85,7 @@ const ConsumerBookingCardBody: React.FC<Props> = ({
           classes={{
             icon: 'bs-consumer-booking-card__icon--size',
           }}
-          className={classNames('bs-consumer-booking-card__list-item', {
+          className={clsx('bs-consumer-booking-card__list-item', {
             'bs-consumer-booking-card__field--hidden':
               !spotSchedulingPosition || isBookingCancelled,
           })}
@@ -103,7 +103,7 @@ const ConsumerBookingCardBody: React.FC<Props> = ({
           classes={{
             icon: 'bs-consumer-booking-card__icon--size',
           }}
-          className={classNames('bs-consumer-booking-card__list-item', {
+          className={clsx('bs-consumer-booking-card__list-item', {
             'bs-consumer-booking-card__field--hidden':
               !waitingListPosition ||
               isBookingCancelled ||

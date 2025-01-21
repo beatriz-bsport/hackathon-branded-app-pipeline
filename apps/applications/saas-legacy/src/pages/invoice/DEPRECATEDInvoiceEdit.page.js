@@ -90,7 +90,7 @@ type Props = {
   memberId: number,
   fetchPaymentMethodList: (params: any) => void,
   savedPaymentMethodList: Array<PaymentMethod>,
-  id: ?number,
+  id?: number,
   requestSetupIntentSecret: () => void,
 };
 

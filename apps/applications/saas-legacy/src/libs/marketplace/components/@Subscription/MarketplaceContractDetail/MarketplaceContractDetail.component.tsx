@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import StarIcon from '@material-ui/icons/Star';
 import ReceiptIcon from '@material-ui/icons/Receipt';
@@ -60,7 +60,7 @@ const ContractLegalNotice: React.FC<{
       <Collapse collapsedHeight={75} isExpanded={showMore}>
         <div
           ref={legalContractText.ref}
-          className={classNames('bs-contract-checkout__body__text', {
+          className={clsx('bs-contract-checkout__body__text', {
             '--hide': !showMore,
           })}
         >
@@ -292,7 +292,7 @@ const MarketplaceContractDetail: React.FC<Props> = React.memo(
                     </div>
                   )}
                 </div>
-                <div className={classNames('bs-contract-details__body__text')}>
+                <div className={clsx('bs-contract-details__body__text')}>
                   {contract?.description}
                 </div>
                 {!hideLegalNotice && (
@@ -300,9 +300,7 @@ const MarketplaceContractDetail: React.FC<Props> = React.memo(
                     <h4 className="bs-contract-card__subtitle --legal">
                       {t('contractCard.legalContract')}
                     </h4>
-                    <div
-                      className={classNames('bs-contract-details__body__text')}
-                    >
+                    <div className={clsx('bs-contract-details__body__text')}>
                       <ContractLegalNotice
                         collapsible
                         legalNotice={contract?.contract}

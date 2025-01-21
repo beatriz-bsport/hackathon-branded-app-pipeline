@@ -9,7 +9,7 @@ import { withTranslation } from 'react-i18next';
 import { TFunction } from 'i18next';
 import { withRouter } from 'react-router';
 
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { isWidthDown } from '@material-ui/core';
 import {
   fetchEstablishmentBulk as fetchEstablishmentBulkAction,
@@ -363,7 +363,7 @@ const MarketplaceWorkshopPage: React.FC<Props> = ({
 
   return (
     <div
-      className={classNames('bs-workshop-page', {
+      className={clsx('bs-workshop-page', {
         'bs-workshop-page--mobile': isMobile,
       })}
     >

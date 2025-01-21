@@ -35,7 +35,7 @@ import { InternalPaymentPayload } from '../types';
 import type {
   OptionCallback,
   OptionBackgroundCallback,
-} from '../../state/types';
+} from '../../../state/types';
 import OnlinePayment from './OnlinePayment.component';
 
 type Props = {
@@ -48,14 +48,14 @@ type Props = {
   memberId: number,
   onSuccess: (callback?: () => void) => void,
   amountToPay: string,
-  onlyInternal: ?boolean,
-  asConsumer: ?boolean,
+  onlyInternal?: boolean,
+  asConsumer?: boolean,
   paymentGroupId: number,
   paymentGroupPriceCts: number,
   termsAndConditionsAccepted: boolean,
-  clientSecretError: ?boolean,
+  clientSecretError?: boolean,
   clientSecretLoading: boolean,
-  availablePaymentMethodList: ?Array<number>,
+  availablePaymentMethodList?: Array<number>,
   updatePriceCts?: (priceCts: number, options: OptionCallback) => void,
   detachPaymentMethodLoading: boolean,
   detachPaymentMethod: (pm_id: string) => void,

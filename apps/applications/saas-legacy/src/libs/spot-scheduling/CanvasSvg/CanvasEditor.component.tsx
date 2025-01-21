@@ -3,7 +3,7 @@ import React from 'react';
 import { compose } from 'recompose';
 import { withStyles } from '@material-ui/styles';
 import isEqual from 'lodash/isEqual';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { withTheme } from '@storybook/theming';
 import { MarketPlaceCoachDisplay } from '@bsport/common/lib/master-data/personalization.js';
 import { CompanyTheme, Theme } from '#src/libs/theme/types';
@@ -287,7 +287,7 @@ class CanvasEditorComponent extends React.PureComponent<Props, State> {
     const { classes } = this.props;
     return (
       <div
-        className={classNames(classes.container, {
+        className={clsx(classes.container, {
           [classes.containerIsMobile]: this.props.isMobile,
           // In order to have a bigger conainer to zoom in we do not use this container on mobile adding extra padding
           [classes.containerSelecting]:

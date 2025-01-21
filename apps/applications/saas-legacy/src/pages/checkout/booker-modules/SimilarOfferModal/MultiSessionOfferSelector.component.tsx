@@ -20,7 +20,7 @@ import { Close } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
 
 import './styles.css';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 export type MultiSessionOfferSelectorProps = {
   companyTheme: CompanyTheme;
@@ -227,7 +227,7 @@ const MultiSessionOfferSelector: React.FC<MultiSessionOfferFinalProps> = ({
           )}
           {isAbleToFetchMoreSimilarSessions && (
             <ButtonBase
-              className={classNames(
+              className={clsx(
                 'bs-similar-offer-modal-container__fetch__button',
                 {
                   'bs-similar-offer-modal__button--disabled':

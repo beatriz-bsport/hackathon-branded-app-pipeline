@@ -1,5 +1,5 @@
 import React, { useCallback, useMemo } from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 import { makeStyles, MuiThemeProvider } from '@material-ui/core/styles';
 import { DialogContent, DialogTitle } from '@material-ui/core';
@@ -243,7 +243,7 @@ const MarketplaceNavigation: React.FC<Props> = ({
     <MuiThemeProvider theme={getTheme(companyTheme)}>
       <MemberShipValidationWrapper companyId={companyTheme.company}>
         <div
-          className={classNames('bs-marketplace-navigation__root', {
+          className={clsx('bs-marketplace-navigation__root', {
             'bs-marketplace-navigation__root--relationship': isRelationshipAuth,
           })}
         >
@@ -280,7 +280,7 @@ const MarketplaceNavigation: React.FC<Props> = ({
           />
 
           <main
-            className={classNames('bs-marketplace-navigation__content', {
+            className={clsx('bs-marketplace-navigation__content', {
               'bs-marketplace-navigation__content--mobile': isMobile,
             })}
           >

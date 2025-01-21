@@ -1,7 +1,7 @@
 import React, { CSSProperties } from 'react';
 import { useTranslation } from 'react-i18next';
 import { pure } from 'recompose';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import chroma from 'chroma-js';
 import { useTheme } from '@material-ui/core';
 
@@ -45,7 +45,7 @@ const MarketplaceLevelCSSOnly: React.FC<Props> = ({
         } as CSSProperties
       }
     >
-      <div className={classNames('bs-level', className)}>
+      <div className={clsx('bs-level', className)}>
         <p className="bs-level-content">
           {getLevelTranslation(customLevel?.id, customLevel?.name || '', t)}
         </p>

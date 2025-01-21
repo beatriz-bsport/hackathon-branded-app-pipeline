@@ -8,7 +8,7 @@ import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
 import FormLabel from '@material-ui/core/FormLabel';
 import AddIcon from '@material-ui/icons/Add';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import MaterialUISelector from '#src/components/Selector/MaterialUISelector.component';
 import ModalConfirm from '#src/components/ModalConfirm.component';
@@ -166,7 +166,7 @@ export const LevelSelector: React.FC<Props> = ({
 
   return (
     <>
-      <div className={classNames(containerStyle)}>
+      <div className={clsx(containerStyle)}>
         {!noLabel && (
           <FormLabel className={classes.label}>
             {`${t('offer:levels.select.title')} *`}
@@ -188,15 +188,12 @@ export const LevelSelector: React.FC<Props> = ({
               />
             );
           }}
-          className={classNames(selectorClass)}
+          className={clsx(selectorClass)}
           error={error}
           headerListRenderer={() => (
             <div className={classes.buttonSelectWrapper}>
               <Button
-                className={classNames(
-                  classes.buttonSelect,
-                  buttonContainerStyle,
-                )}
+                className={clsx(classes.buttonSelect, buttonContainerStyle)}
                 color="primary"
                 onClick={handleOpenModal}
                 size="small"
@@ -225,13 +222,9 @@ export const LevelSelector: React.FC<Props> = ({
         />
         {!isDisabled && (
           <Button
-            className={classNames(
-              buttonContainerStyle,
-              classes.fitContentOnMobile,
-              {
-                [classes.button]: !buttonContainerStyle,
-              },
-            )}
+            className={clsx(buttonContainerStyle, classes.fitContentOnMobile, {
+              [classes.button]: !buttonContainerStyle,
+            })}
             color="primary"
             onClick={handleOpenModal}
             size="small"

@@ -22,7 +22,7 @@ type Props = {
   onSubmit: (id: number) => void,
   onClose: () => void,
 };
-export const VideoSearchModal = (props: Props) => {
+const VideoSearchModal = (props: Props) => {
   const classes = useStyles();
   const { t } = useTranslation(['video']);
   return (

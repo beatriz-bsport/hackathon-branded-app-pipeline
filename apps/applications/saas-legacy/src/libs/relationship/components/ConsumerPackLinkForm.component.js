@@ -17,7 +17,7 @@ type Props = {
   consumerPacks: Array<WithIsSharedActive<ConsumerPassWithPack>>,
   onCancel: () => void,
   onSubmit: (consumerPackId: number) => void,
-  selectedConsumerPass: ?WithIsSharedActive<ConsumerPassWithPack>,
+  selectedConsumerPass?: WithIsSharedActive<ConsumerPassWithPack>,
   loading: boolean,
   classes: Object,
   setSelectedConsumerPass: (id: number) => void,

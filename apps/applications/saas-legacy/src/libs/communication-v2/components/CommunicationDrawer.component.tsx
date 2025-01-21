@@ -18,7 +18,7 @@ import { KeyboardArrowDown, Send } from '@material-ui/icons';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import Collapse from '@material-ui/core/Collapse';
 import isEqual from 'lodash/isEqual';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import {
   COMMUNICATION_KIND_EMAIL,
   COMMUNICATION_KIND_SMS,
@@ -348,7 +348,7 @@ export class CommunicationDrawer extends React.PureComponent<
         </div>
         {contextIdentifier !== CONTEXT_NOTIFICATION && (
           <div
-            className={classNames(classes.sendMessageContainer, {
+            className={clsx(classes.sendMessageContainer, {
               [classes.sendMessageContainerWithIntercom]:
                 !!theme && !theme.hide_intercom,
             })}

@@ -1,7 +1,7 @@
 import React, { useCallback, useMemo } from 'react';
 import { pure } from 'recompose';
 import GroupIcon from '@material-ui/icons/Group';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { ArrowLeft } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
 import MarketplaceBookButton from '#src/libs/marketplace/components/@Booking/MarketplaceBookButton';
@@ -251,7 +251,7 @@ const MarketPlaceCardOfferCSSOnly: React.FC<Props> = ({
 
   return (
     <button
-      className={classNames({
+      className={clsx({
         'bs-card-offer': true,
         '--disabled': isCardDisabled,
       })}
@@ -272,7 +272,7 @@ const MarketPlaceCardOfferCSSOnly: React.FC<Props> = ({
           <div className="bs-card-offer__content__top__grid">
             {isSessionNameClickable ? (
               <button
-                className={classNames(MARKETPLACE_CLICKABLE_TITLE_IDENTIFIER, {
+                className={clsx(MARKETPLACE_CLICKABLE_TITLE_IDENTIFIER, {
                   'bs-card-offer__content__title':
                     'bs-card-offer__content__title',
                   'bs-card-offer__button__title':
@@ -285,7 +285,7 @@ const MarketPlaceCardOfferCSSOnly: React.FC<Props> = ({
               >
                 <PopOver
                   customClasses={{
-                    hoveredText: classNames({
+                    hoveredText: clsx({
                       'bs-card-offer__content__title--ellipsis':
                         shouldApplyEllipsisOnOfferName,
                     }),
@@ -298,7 +298,7 @@ const MarketPlaceCardOfferCSSOnly: React.FC<Props> = ({
               </button>
             ) : (
               <div
-                className={classNames('bs-card-offer__content__title', {
+                className={clsx('bs-card-offer__content__title', {
                   'bs-card-offer__content__title--time-highlighted':
                     isVariantTimeHighlighted,
                   'bs-card-offer__content__title--coach-highlighted':
@@ -307,7 +307,7 @@ const MarketPlaceCardOfferCSSOnly: React.FC<Props> = ({
               >
                 <PopOver
                   customClasses={{
-                    hoveredText: classNames({
+                    hoveredText: clsx({
                       'bs-card-offer__content__title--ellipsis':
                         shouldApplyEllipsisOnOfferName,
                     }),
@@ -323,7 +323,7 @@ const MarketPlaceCardOfferCSSOnly: React.FC<Props> = ({
             )}
             {isSessionTimeClickable ? (
               <button
-                className={classNames(MARKETPLACE_CLICKABLE_TITLE_IDENTIFIER, {
+                className={clsx(MARKETPLACE_CLICKABLE_TITLE_IDENTIFIER, {
                   'bs-card-offer__content__title':
                     'bs-card-offer__content__title',
                   'bs-card-offer__content__time--time-highlighted':
@@ -340,7 +340,7 @@ const MarketPlaceCardOfferCSSOnly: React.FC<Props> = ({
               </button>
             ) : (
               <div
-                className={classNames('bs-card-offer__content__time', {
+                className={clsx('bs-card-offer__content__time', {
                   'bs-card-offer__content__time--time-highlighted':
                     isVariantTimeHighlighted,
                   'bs-card-offer__content__time--coach-highlighted':
@@ -388,7 +388,7 @@ const MarketPlaceCardOfferCSSOnly: React.FC<Props> = ({
           </div>
           {isSessionCoachClickable ? (
             <button
-              className={classNames('bs-card-offer__content__coach', {
+              className={clsx('bs-card-offer__content__coach', {
                 'bs-card-offer__content__coach--coach-highlighted':
                   'bs-card-offer__content__coach--coach-highlighted',
                 'bs-card-offer__button__title': 'bs-card-offer__button__title',
@@ -420,7 +420,7 @@ const MarketPlaceCardOfferCSSOnly: React.FC<Props> = ({
             </button>
           ) : (
             <div
-              className={classNames('bs-card-offer__content__coach', {
+              className={clsx('bs-card-offer__content__coach', {
                 'bs-card-offer__content__coach--coach-highlighted':
                   isVariantCoachHighlighted,
               })}
@@ -480,12 +480,12 @@ const MarketPlaceCardOfferCSSOnly: React.FC<Props> = ({
       {!hideBottomSection && (
         <div className="bs-card-offer__bottom">
           <div
-            className={classNames('bs-card-offer__bottom__content', {
+            className={clsx('bs-card-offer__bottom__content', {
               'bs-card-offer__bottom__content--full': isBottomInOneLine,
             })}
           >
             <div
-              className={classNames('bs-card-offer__content__bottom__left', {
+              className={clsx('bs-card-offer__content__bottom__left', {
                 'bs-card-offer__content__bottom__left--full': isBottomInOneLine,
               })}
             >

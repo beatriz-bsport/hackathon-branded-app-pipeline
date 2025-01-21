@@ -7,7 +7,7 @@ type Props = {
   items: Array<any>,
   renderItem: (any, number, number) => any,
   listProps: {},
-  loading: ?boolean,
+  loading?: boolean,
   itemPerPage: number,
 };
 

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 
@@ -31,7 +31,7 @@ const ButtonBase: React.FC<Props> = ({
 }) => {
   return (
     <button
-      className={classNames(
+      className={clsx(
         'bs-button_base__container',
         {
           ripple: !disableRipple,

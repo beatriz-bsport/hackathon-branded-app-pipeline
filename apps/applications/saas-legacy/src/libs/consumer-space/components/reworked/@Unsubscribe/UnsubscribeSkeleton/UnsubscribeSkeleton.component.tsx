@@ -1,5 +1,5 @@
 import React from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import Skeleton from '#src/components/css-only/Skeleton';
 
@@ -10,7 +10,7 @@ type Props = {
 };
 
 const UnsubscribeSkeleton: React.FC<Props> = ({ className }) => (
-  <div className={classNames('bs-unsubscribe-skeleton__root', className)}>
+  <div className={clsx('bs-unsubscribe-skeleton__root', className)}>
     <Skeleton className="bs-unsubscribe-skeleton__logo" variant="rectangle" />
     <div className="bs-unsubscribe-skeleton__text__container">
       <Skeleton className="bs-unsubscribe-skeleton__text" variant="rectangle" />

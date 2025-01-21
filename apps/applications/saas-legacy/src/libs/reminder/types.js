@@ -27,11 +27,11 @@ export type ReminderState = {
     byMember: {
       allIds: Array<number>,
       loading: boolean,
-      error: ?Error,
+      error?: Error,
     },
     createOrUpdate: {
       loading: boolean,
-      error: ?Error,
+      error?: Error,
     },
   },
 };

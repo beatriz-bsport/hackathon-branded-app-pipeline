@@ -1,6 +1,6 @@
 import React from 'react';
 
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import './styles.css';
 
@@ -15,7 +15,7 @@ const Chip: React.FC<Props> = ({ label, icon, classes }) => {
     return null;
   }
   return (
-    <div className={classNames('bs-chip', { ...classes })}>
+    <div className={clsx('bs-chip', { ...classes })}>
       {icon && <span className="bs-chip-icon">{icon}</span>}
       {label && <span>{label}</span>}
     </div>

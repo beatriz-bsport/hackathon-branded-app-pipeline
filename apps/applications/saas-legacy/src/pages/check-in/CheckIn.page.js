@@ -40,7 +40,7 @@ type Props = {
   fetchSCT: () => void,
   fetchPaymentPackList: (params: any) => void,
 
-  authError: ?boolean,
+  authError?: boolean,
   errorLogin: () => void,
   permission: RolePermission,
   setSignoutOpen: (boolean) => void,
@@ -58,7 +58,7 @@ type Props = {
 
 type State = {
   loading: boolean,
-  refreshInterval: ?Interval,
+  refreshInterval?: Interval,
 };
 
 export class CheckInPage extends React.Component<Props, State> {

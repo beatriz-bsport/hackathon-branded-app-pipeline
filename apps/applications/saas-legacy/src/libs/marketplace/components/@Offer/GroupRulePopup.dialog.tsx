@@ -1,5 +1,5 @@
 import React from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 
 import { makeStyles, Theme } from '@material-ui/core/styles';
@@ -71,7 +71,7 @@ export const GroupRulePopup: React.FC<Props> = ({
       {loading && <LinearProgress />}
       <DialogContent className={classes.fullWidth}>
         <div
-          className={classNames(
+          className={clsx(
             classes.paddedContainer,
             classes.flexContainer,
             classes.paddingBottom2,
@@ -81,9 +81,7 @@ export const GroupRulePopup: React.FC<Props> = ({
           <Typography variant="h6">{group.name}</Typography>
         </div>
         <Divider className={classes.divider} />
-        <div
-          className={classNames(classes.paddedContainer, classes.paddingTop2)}
-        >
+        <div className={clsx(classes.paddedContainer, classes.paddingTop2)}>
           <Typography>
             {t(
               group.full_booking_only

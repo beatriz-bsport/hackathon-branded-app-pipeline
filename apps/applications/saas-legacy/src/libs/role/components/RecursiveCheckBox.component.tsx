@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import set from 'lodash/set';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { makeStyles } from '@material-ui/styles';
 import cloneDeep from 'lodash/cloneDeep';
 
@@ -264,7 +264,7 @@ const RecursiveDeepCheckBox: React.FC<Props> = ({
       <Collapse unmountOnExit in={!isFolded || !displayCheckbox} timeout="auto">
         {typeof value === 'object' && (
           <div
-            className={classNames({
+            className={clsx({
               [classes.innerCheckBoxContainer]: displayCheckbox,
             })}
           >

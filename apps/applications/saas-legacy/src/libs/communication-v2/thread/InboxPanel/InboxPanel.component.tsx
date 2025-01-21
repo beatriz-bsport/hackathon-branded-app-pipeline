@@ -1,6 +1,6 @@
 import React, { memo, useCallback } from 'react';
 
-import classnames from 'classnames';
+import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 import type { CallHistoryMethodAction } from 'connected-react-router';
 import { Tooltip, alpha, makeStyles } from '@material-ui/core';
@@ -93,7 +93,7 @@ const InboxPanel: React.FC<Props> = ({
 
   return (
     <div
-      className={classnames(classes.panelContainer, {
+      className={clsx(classes.panelContainer, {
         [classes.openPanel]: isPanelOpen,
         [classes.closedPanel]: !isPanelOpen,
       })}
@@ -131,7 +131,7 @@ const InboxPanel: React.FC<Props> = ({
                   title={thread?.title}
                 />
               )}
-              <div className={classnames({ [classes.openPanel]: isMobile })}>
+              <div className={clsx({ [classes.openPanel]: isMobile })}>
                 <div className={classes.panelHeader}>
                   <Typography variant="h6">
                     {t('thread.panel.header')}

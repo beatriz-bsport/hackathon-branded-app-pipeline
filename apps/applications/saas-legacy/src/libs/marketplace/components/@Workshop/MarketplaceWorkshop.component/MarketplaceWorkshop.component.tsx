@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import classnames from 'classnames';
+import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 
 import Typography from '@material-ui/core/Typography';
@@ -109,7 +109,7 @@ const MarketplaceWorkshop: React.FC<Props> = ({
   return (
     <div ref={refContainer} className="bs-workshop-page__workshops">
       <div
-        className={classnames('bs-workshop-page__workshops__lists', {
+        className={clsx('bs-workshop-page__workshops__lists', {
           'bs-workshop-page__workshops__lists--column':
             refContainer?.current?.clientWidth < 600,
           'bs-workshop-page__workshops__lists--only-one':

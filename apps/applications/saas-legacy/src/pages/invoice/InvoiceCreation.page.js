@@ -18,7 +18,6 @@ import { fetchMember } from '../../libs/member/actions';
 
 import type { Member } from '../../libs/member/types';
 import { getMember } from '../../libs/member/selectors';
-import type { InvoiceDataFront } from '../../components/form/types';
 import withTitle from '../../hocs/with-title.hoc';
 import withQueryParams from '../../hocs/with-query-params.hoc';
 
@@ -49,7 +48,7 @@ import { EstablishmentBillingGroup } from '../../libs/establishment/types';
 import { Theme as CompanyThemeType } from '../../libs/theme/types';
 
 type Props = {
-  member: ?Member,
+  member?: Member,
   memberId: number,
   fetchMember: (id: number) => void,
 
@@ -65,7 +64,7 @@ type Props = {
   fetchPaymentComboList: () => void,
   fetchAllEstablishmentBillingGroup: (params: { company: number }) => void,
   fetchGiftcardBackgroundImageList: () => void,
-  initialItems: { withPrivatePass: ?string, withCredit: ?string },
+  initialItems: { withPrivatePass?: string, withCredit?: string },
 
   loading: boolean,
   availableBuyableItems: { [buyable_item_identifier: number]: Array<any> },
@@ -77,7 +76,7 @@ type Props = {
 
 type State = {
   dateDialogOpen: boolean,
-  invoiceData: ?InvoiceDataFront,
+  invoiceData?: any,
 };
 
 export class InvoiceCreation extends Component<Props, State> {
@@ -103,7 +102,7 @@ export class InvoiceCreation extends Component<Props, State> {
     );
   }
 
-  prepareCreate = (invoiceData: InvoiceDataFront) => {
+  prepareCreate = (invoiceData: any) => {
     this.setState({
       dateDialogOpen: true,
       invoiceData,

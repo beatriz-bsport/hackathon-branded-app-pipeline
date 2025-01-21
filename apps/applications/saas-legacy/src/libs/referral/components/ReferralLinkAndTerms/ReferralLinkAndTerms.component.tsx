@@ -2,7 +2,7 @@ import React, { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import CopyToClipboard from 'react-copy-to-clipboard';
 
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 
 import type { ReferralProgram } from '#src/libs/referral/types';
@@ -56,7 +56,7 @@ const ReferralLinkAndTerms: React.FC<Props> = ({
     return (
       <div className="bs-referral-loading">
         <Typography
-          className={classNames('bs-referral-loading__title', 'loading')}
+          className={clsx('bs-referral-loading__title', 'loading')}
           variant="title-sm"
         >
           {t('referral:memberInfo.referralLink')}
@@ -68,10 +68,10 @@ const ReferralLinkAndTerms: React.FC<Props> = ({
 
   if (hasUnknownError) {
     return (
-      <div className={classNames('bs-referral-error', 'unknown-error')}>
+      <div className={clsx('bs-referral-error', 'unknown-error')}>
         <Typography
           align="left"
-          className={classNames('bs-referral-error__title', 'unknown-error')}
+          className={clsx('bs-referral-error__title', 'unknown-error')}
           variant="title-sm"
         >
           {t('referral:referralErrors.somethingWentWrong')}
@@ -86,10 +86,10 @@ const ReferralLinkAndTerms: React.FC<Props> = ({
       (nbRemainingReferralUses === undefined || !referralLink))
   ) {
     return (
-      <div className={classNames('bs-referral-error', 'no-program')}>
+      <div className={clsx('bs-referral-error', 'no-program')}>
         <Typography
           align="left"
-          className={classNames('bs-referral-error__title', 'no-program')}
+          className={clsx('bs-referral-error__title', 'no-program')}
           variant="title-sm"
         >
           {t('referral:referralErrors.noProgramAvailable')}
@@ -147,7 +147,7 @@ const ReferralLinkAndTerms: React.FC<Props> = ({
           )}
         />
         <div
-          className={classNames(
+          className={clsx(
             'bs-referral-details__button-wrapper',
             'main-button',
             {
@@ -193,7 +193,7 @@ const ReferralLinkAndTerms: React.FC<Props> = ({
         <div className="bs-referral-details__footer">
           {isAuthenticated && (
             <div
-              className={classNames(
+              className={clsx(
                 'bs-referral-details__text-wrapper',
                 'number-of-uses-wrapper',
               )}
@@ -213,7 +213,7 @@ const ReferralLinkAndTerms: React.FC<Props> = ({
             </div>
           )}
           <div
-            className={classNames(
+            className={clsx(
               'bs-referral-details__button-wrapper',
               'program-info',
             )}
@@ -272,29 +272,20 @@ const RewardsColumn = React.memo(
       <div className="bs-money-section">
         {!hideReferringReduction && (
           <Card
-            className={classNames('bs-money-section__card', 'referring')}
+            className={clsx('bs-money-section__card', 'referring')}
             variant="elevated"
           >
             <div
-              className={classNames(
-                'bs-money-section__card-content',
-                'referring',
-              )}
+              className={clsx('bs-money-section__card-content', 'referring')}
             >
               <Typography
-                className={classNames(
-                  'bs-money-section__weaker-text',
-                  'referring',
-                )}
+                className={clsx('bs-money-section__weaker-text', 'referring')}
                 variant="body-md"
               >
                 {t('referral:memberInfo.youGet')}
               </Typography>
               <Typography
-                className={classNames(
-                  'bs-money-section__amount-text',
-                  'referring',
-                )}
+                className={clsx('bs-money-section__amount-text', 'referring')}
                 variant="title-sm"
               >
                 {`${referringReduction}`}
@@ -304,29 +295,18 @@ const RewardsColumn = React.memo(
         )}
         {!hideReferredReduction && (
           <Card
-            className={classNames('bs-money-section__card', 'referred')}
+            className={clsx('bs-money-section__card', 'referred')}
             variant="elevated"
           >
-            <div
-              className={classNames(
-                'bs-money-section__card-content',
-                'referred',
-              )}
-            >
+            <div className={clsx('bs-money-section__card-content', 'referred')}>
               <Typography
-                className={classNames(
-                  'bs-money-section__weaker-text',
-                  'referred',
-                )}
+                className={clsx('bs-money-section__weaker-text', 'referred')}
                 variant="body-md"
               >
                 {t('referral:memberInfo.yourFriendGets')}
               </Typography>
               <Typography
-                className={classNames(
-                  'bs-money-section__amount-text',
-                  'referring',
-                )}
+                className={clsx('bs-money-section__amount-text', 'referring')}
                 variant="title-sm"
               >
                 {`${referredReduction}`}

@@ -2,7 +2,7 @@ import React from 'react';
 import { pure } from 'recompose';
 import type { Theme } from '@material-ui/core/styles';
 import makeStyles from '@material-ui/styles/makeStyles';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ToolTip from '#src/components/Tooltip.component';
 import type { DrawerItem } from './ResponsiveDrawer.component';
@@ -26,7 +26,7 @@ const DrawerItemIcon: React.FC<ItemWithIconProps> = ({
     if (!iconsOnly) {
       return (
         <ListItemIcon
-          className={classNames({
+          className={clsx({
             [classes.nestedIcon]: isNested,
             [classes.disabledIconPadding]: iconsOnly,
           })}
@@ -40,7 +40,7 @@ const DrawerItemIcon: React.FC<ItemWithIconProps> = ({
       // @ts-expect-error
       <ToolTip placement="right-start" title={item.text}>
         <ListItemIcon
-          className={classNames(classes.disabledIconPadding, {
+          className={clsx(classes.disabledIconPadding, {
             [classes.nestedIcon]: isNested,
           })}
         >

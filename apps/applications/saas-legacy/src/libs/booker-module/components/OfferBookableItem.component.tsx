@@ -8,7 +8,7 @@ import BlockIcon from '@material-ui/icons/Block';
 import CloseIcon from '@material-ui/icons/Close';
 import IconButton from '@material-ui/core/IconButton';
 import { DateTime } from 'luxon';
-import clx from 'classnames';
+import clsx from 'clsx';
 
 import {
   OFFER_WAITING_LIST_STATUS_FULL,
@@ -141,7 +141,7 @@ export const OfferBookableItem = (props: OfferBookableItemProps) => {
   return (
     <>
       <ButtonBase
-        className={clx([
+        className={clsx([
           classes.container,
           props.disabled ? classes.disableContainer : null,
         ])}

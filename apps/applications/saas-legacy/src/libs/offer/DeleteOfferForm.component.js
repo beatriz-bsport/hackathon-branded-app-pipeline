@@ -26,8 +26,8 @@ import RedButton from '../../components/button/RedButton.component';
 type Props = {
   t: (x: string) => string,
   onCancel: () => void,
-  offerWasCancelled: ?boolean,
-  processing: ?boolean,
+  offerWasCancelled?: boolean,
+  processing?: boolean,
   onHardDelete: (data: any) => void,
   onCancelOffer: ({
     cashback: boolean,

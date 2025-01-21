@@ -1,5 +1,5 @@
 import React from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import type { SVGComponentProps } from '#src/components/untitledui/template';
 import {
   AlertTriangle,
@@ -48,10 +48,7 @@ const BigIcon: React.FC<Props> = ({ variant, id, IconComponent }) => {
 
   const IconDisplay = IconComponent ?? Icon;
   return (
-    <span
-      className={classNames('bs-fabrique-big-icon__root', className)}
-      id={id}
-    >
+    <span className={clsx('bs-fabrique-big-icon__root', className)} id={id}>
       <IconDisplay
         className="bs-fabrique-big-icon--size"
         stroke="currentColor"

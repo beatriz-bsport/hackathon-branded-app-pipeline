@@ -1,5 +1,5 @@
 import React, { ChangeEvent, FormEvent, useCallback } from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 import WarningIcon from '@material-ui/icons/HelpOutlined';
 import { Link } from 'react-router-dom';
@@ -86,7 +86,7 @@ const ResetPasswordForm: React.FC<Props> = ({
         )}
         {hasResetError && (
           <div
-            className={classNames(
+            className={clsx(
               'bs-reset-password-container__error-text',
               'bs-reset-password-container__caption-text',
             )}
@@ -133,7 +133,7 @@ const ResetPasswordForm: React.FC<Props> = ({
               <div className="bs-reset-password-container__div__back-to-login">
                 <Button
                   classes={{
-                    root: classNames(
+                    root: clsx(
                       buttonClass,
                       'bs-reset-password-container__back-to-login-button',
                     ),
@@ -154,7 +154,7 @@ const ResetPasswordForm: React.FC<Props> = ({
               >
                 <Button
                   classes={{
-                    root: classNames(
+                    root: clsx(
                       buttonClass,
                       'bs-reset-password-container__button-cancel',
                     ),
@@ -169,7 +169,7 @@ const ResetPasswordForm: React.FC<Props> = ({
               ) : (
                 <Button
                   classes={{
-                    root: classNames(
+                    root: clsx(
                       buttonClass,
                       'bs-reset-password-container__button-submit',
                     ),

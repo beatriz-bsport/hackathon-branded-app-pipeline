@@ -8,7 +8,7 @@ import flatten from 'lodash/flatten';
 import { compose, withHandlers, withProps } from 'recompose';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import { connect, ConnectedProps } from 'react-redux';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { RouterProps } from 'react-router';
 import { OFFER_BOOKABLE_STATUS_BOOKABLE } from '@bsport/common/lib/master-data/bookable-status.js';
 import { OFFER_BOOKABLE_STATUS_ALREADY_BOOKED } from '@bsport/common/lib/master-data/error-codes/buyable-item-can-not-be-bought.js';
@@ -490,12 +490,12 @@ export class ConfirmationCheckout extends React.PureComponent<Props, State> {
               />
             </div>
             <div
-              className={classNames(
+              className={clsx(
                 'bs-confirmation-checkout-booking-list__container',
               )}
             >
               <div
-                className={classNames('bs-confirmation-checkout-booking-list', {
+                className={clsx('bs-confirmation-checkout-booking-list', {
                   'bs-confirmation-checkout-booking-list__confirmed-bookings--hidden':
                     !sortedOfferList?.length,
                 })}
@@ -534,7 +534,7 @@ export class ConfirmationCheckout extends React.PureComponent<Props, State> {
                 />
               </div>
               <div
-                className={classNames('bs-confirmation-checkout-booking-list', {
+                className={clsx('bs-confirmation-checkout-booking-list', {
                   'bs-confirmation-checkout-booking-list--hidden':
                     !offerNotBookableList?.length,
                 })}
@@ -568,7 +568,7 @@ export class ConfirmationCheckout extends React.PureComponent<Props, State> {
               </div>
             </div>
             <div
-              className={classNames(
+              className={clsx(
                 'bs-confirmation-checkout-billing-plan__container',
                 {
                   'bs-confirmation-checkout-billing-plan__container--hidden':
@@ -585,7 +585,7 @@ export class ConfirmationCheckout extends React.PureComponent<Props, State> {
               />
             </div>
             <div
-              className={classNames(
+              className={clsx(
                 'bs-confirmation-checkout-product-list__container',
                 {
                   'bs-confirmation-checkout-product-list__container--two-columns':
@@ -596,7 +596,7 @@ export class ConfirmationCheckout extends React.PureComponent<Props, State> {
               )}
             >
               <div
-                className={classNames(
+                className={clsx(
                   'bs-confirmation-checkout-product-list__pass-list__container',
                   {
                     'bs-confirmation-checkout-product-list__pass-list__container--hidden':
@@ -633,7 +633,7 @@ export class ConfirmationCheckout extends React.PureComponent<Props, State> {
                 </div>
               </div>
               <div
-                className={classNames(
+                className={clsx(
                   'bs-confirmation-checkout-product-list__pack-list__container',
                   {
                     'bs-confirmation-checkout-product-list__pack-list__container--hidden':
@@ -653,7 +653,7 @@ export class ConfirmationCheckout extends React.PureComponent<Props, State> {
                 />
               </div>
               <div
-                className={classNames(
+                className={clsx(
                   'bs-confirmation-checkout-product-list__webshop-list__container',
                   {
                     'bs-confirmation-checkout-product-list__webshop-list__container--hidden':
@@ -673,7 +673,7 @@ export class ConfirmationCheckout extends React.PureComponent<Props, State> {
               </div>
 
               <div
-                className={classNames(
+                className={clsx(
                   'bs-confirmation-checkout-product-list__giftcard-list__container',
                   {
                     'bs-confirmation-checkout-product-list__giftcard-list__container--hidden':

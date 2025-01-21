@@ -15,7 +15,7 @@ import {
   Typography,
 } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import {
   AlertError,
   DateField,
@@ -143,7 +143,7 @@ const DatePickerSelector: React.FC<Props> = ({
 
   return (
     <Form
-      className={classNames({
+      className={clsx({
         [classes.formContainer]: isFullWidth,
       })}
     >

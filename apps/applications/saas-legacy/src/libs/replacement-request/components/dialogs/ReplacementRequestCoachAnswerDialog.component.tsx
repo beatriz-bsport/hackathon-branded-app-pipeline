@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { DateTime } from 'luxon';
-import classnames from 'classnames';
+import clsx from 'clsx';
 
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
@@ -96,19 +96,13 @@ export const ReplacementRequestCoachAnswerDialog: React.FC<Props> = ({
           <ValidationIcon color={theme.palette.success.main} />
         </div>
         <Typography
-          className={classnames(
-            classes.successTexts,
-            classes.confirmAndSuccess,
-          )}
+          className={clsx(classes.successTexts, classes.confirmAndSuccess)}
           variant="h6"
         >
           {t('coachAnswers.success.requestSent')}
         </Typography>
         <Typography
-          className={classnames(
-            classes.successTexts,
-            classes.confirmAndSuccess,
-          )}
+          className={clsx(classes.successTexts, classes.confirmAndSuccess)}
           variant="body1"
         >
           {t('coachAnswers.success.description', {
@@ -212,7 +206,7 @@ export const ReplacementRequestCoachAnswerDialog: React.FC<Props> = ({
               }
             />
           </div>
-          <Typography className={classnames(classes.grey)} variant="body2">
+          <Typography className={clsx(classes.grey)} variant="body2">
             {DateTime.fromISO(replacementRequest.closing_date).toLocaleString(
               DateTime.DATE_SHORT,
             )}
@@ -223,7 +217,7 @@ export const ReplacementRequestCoachAnswerDialog: React.FC<Props> = ({
           <Typography className={classes.weight500} variant="subtitle1">
             {t('coachAnswers.reason')}
           </Typography>
-          <Typography className={classnames(classes.grey)} variant="body2">
+          <Typography className={clsx(classes.grey)} variant="body2">
             {`"${replacementRequest.reason}"`}
           </Typography>
         </div>

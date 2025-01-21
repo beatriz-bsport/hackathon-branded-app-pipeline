@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 
 import ConsumerCardPlaceholder from '#src/libs/consumer-space/components/reworked/common/ConsumerCardPlaceholder';
@@ -151,7 +151,7 @@ const ConsumerSubscriptionDetailsCard: React.FC<Props> = ({
 
   return (
     <Card
-      className={classNames(
+      className={clsx(
         className,
         'bs-consumer__subscription-details-card__root',
         {

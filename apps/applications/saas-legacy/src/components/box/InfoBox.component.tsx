@@ -1,7 +1,7 @@
 import React from 'react';
 import { Theme } from '@material-ui/core/styles';
 import makeStyles from '@material-ui/core/styles/makeStyles';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { InfoOutlined } from '@material-ui/icons';
 import { Typography } from '@material-ui/core';
 import chroma from 'chroma-js';
@@ -15,10 +15,8 @@ type Props = OwnProps;
 export const InfoBox: React.FC<Props> = ({ content, variant, className }) => {
   const classes = useStyles({ variant });
   return (
-    <div className={classNames(classes.blueBox, { [className]: !!className })}>
-      <InfoOutlined
-        className={classNames(classes.iconLeft, classes.blueIcon)}
-      />
+    <div className={clsx(classes.blueBox, { [className]: !!className })}>
+      <InfoOutlined className={clsx(classes.iconLeft, classes.blueIcon)} />
       <Typography className={classes.info} variant="body2">
         {content}
       </Typography>

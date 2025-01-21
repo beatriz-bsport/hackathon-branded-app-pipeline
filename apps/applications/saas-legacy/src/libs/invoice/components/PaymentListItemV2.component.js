@@ -26,7 +26,7 @@ type Props = {
   handleChangeMethod: (uuid: string, paymentMethodId: number) => void,
 };
 
-export const PaymentItem = (props: Props) => {
+const PaymentItem = (props: Props) => {
   const classes = useStyles();
   const { t } = useTranslation(['payment']);
   const { paymentItem } = props;

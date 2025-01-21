@@ -8,7 +8,7 @@ import DeleteIcon from '@material-ui/icons/DeleteForever';
 
 type Props = {
   onRemoveImage: (number) => void,
-  images: *[],
+  images: any[],
 
   classes: Object,
 };

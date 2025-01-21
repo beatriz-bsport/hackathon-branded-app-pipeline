@@ -101,11 +101,11 @@ type Props = {
   deleteItem: (id: number) => void,
   deleteSubShop: (id: number) => void,
   goToShopItem: (id: number) => void,
-  createOrUpdateSubShop: (data: [*]) => void,
+  createOrUpdateSubShop: (data: any) => void,
   duplicateShopItem: (id: number, suffix: string) => void,
   createOrUpdateShopItem: (
-    shopItemData: [*],
-    id: ?number,
+    shopItemData: any,
+    id?: number,
     options: OptionCallback,
   ) => void,
   loading: boolean,
@@ -143,8 +143,8 @@ export class ShopItemList extends Component<Props, State> {
   }
 
   createOrUpdateShopItem = (
-    shopItemData: [*],
-    id: ?number,
+    shopItemData: any,
+    id?: number,
     options: OptionCallback,
   ) => {
     shopItemData.append('subshop', this.state.createItemFromSubShop);

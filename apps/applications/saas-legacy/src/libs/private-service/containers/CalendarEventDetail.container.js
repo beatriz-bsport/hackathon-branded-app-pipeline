@@ -161,15 +161,15 @@ import { ZoomApp } from '../../zoom-app/types';
 
 type Props = {
   offerId: number,
-  privateBookingId: ?number,
+  privateBookingId?: number,
   fetchOfferById: (id: number) => void,
   fetchPrivateBookingById: (number) => void,
-  openOfferEditModal: ?Offer,
+  openOfferEditModal?: Offer,
   t: TFunction,
   classes: Object,
-  privateBooking: ?PrivateBooking,
+  privateBooking?: PrivateBooking,
   offer: Offer,
-  selectedPrivateBooking: ?PrivateBooking,
+  selectedPrivateBooking?: PrivateBooking,
   isUpdateCoachFormOpen: boolean,
   setIsUpdateCoachFormOpen: (boolean) => void,
   fetchRoomBlueprints: () => void,
@@ -191,7 +191,7 @@ type Props = {
   closeOfferDeleteModal: () => void,
   onClose: () => void,
   offerDeleteModalOpen: boolean,
-  popoverAnchor: ?HTMLElement,
+  popoverAnchor?: HTMLElement,
   privateBookingDeleteModalOpen: boolean,
 
   editOffers: (id: number, data: Offer, option: OptionCallback) => void,
@@ -210,7 +210,7 @@ type Props = {
   restorePrivateBooking: (id: number) => void,
   closeDisablePrivateBookingModal: () => void,
 
-  theme: ?CompanyTheme,
+  theme?: CompanyTheme,
   goToMember: (id: number) => void,
   privateBookingLoading: boolean,
 
@@ -222,7 +222,7 @@ type Props = {
   fetchCompanyUserRoles: () => void,
   metaActivities: Array<MetaActivity>,
 
-  customEvent: ?CustomEvent,
+  customEvent?: CustomEvent,
   deleteCustomEvent: (number) => void,
   roomBlueprints: RoomBlueprint[],
   allRoomBlueprints: RoomBlueprint[],
@@ -239,7 +239,7 @@ type Props = {
   companyId: number,
   fetchMemberPaymentMethod: (memberId: number) => void,
   invoiceToBill: Invoice,
-  setInvoiceToBill: (invoice: ?Invoice) => void,
+  setInvoiceToBill: (invoice?: Invoice) => void,
   updateMemberMetricValue: (data: any, options: OptionCallback) => void,
   createMemberProgram: (data: any, options?: any) => void,
   programList: Array<PerformanceTrackingProgram>,
@@ -282,9 +282,9 @@ type Props = {
 
 type State = {
   clientSecretLoading: boolean,
-  clientSecret: ?string,
-  paymentGroupId: ?number,
-  paymentGroupPriceCts: ?number,
+  clientSecret?: string,
+  paymentGroupId?: number,
+  paymentGroupPriceCts?: number,
 };
 
 export class CalendarEventDetail extends React.Component<Props, State> {
@@ -587,9 +587,9 @@ export class CalendarEventDetail extends React.Component<Props, State> {
 
   onCancelOffer = async (data: {
     offerId: number,
-    cashback: ?boolean,
-    notify: ?boolean,
-    deleteAll: ?boolean,
+    cashback?: boolean,
+    notify?: boolean,
+    deleteAll?: boolean,
   }) => {
     this.props.setOfferProcessing(true);
     try {

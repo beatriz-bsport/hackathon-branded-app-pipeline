@@ -6,7 +6,7 @@ import { httpParser } from '#src/libs/marketplace/utils';
 import ButtonBase from '#src/components/css-only/Fabrique/ButtonBaseV2';
 import IconButton from '#src/components/css-only/Fabrique/IconButton';
 import { ArrowLeft, Menu03 } from '#src/components/untitledui';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import type { NavigationAppBarProps } from '#src/components/css-only/Navigation/NavigationAppBar/types';
 
@@ -44,12 +44,9 @@ const NavigationAppBarLogo: React.FC<
 
   return (
     <div
-      className={classNames(
-        'bs-navigation-app-bar__logo-section__logo-container',
-        {
-          'bs-navigation-app-bar__logo-section__logo-container--hidden': !logo,
-        },
-      )}
+      className={clsx('bs-navigation-app-bar__logo-section__logo-container', {
+        'bs-navigation-app-bar__logo-section__logo-container--hidden': !logo,
+      })}
     >
       {websiteUrl ? (
         <ButtonBase
@@ -78,9 +75,7 @@ const NavigationAppBarLogoSection: React.FC<Props> = ({
     return (
       <div className="bs-navigation-app-bar__logo-section__root">
         <IconButton
-          className={classNames(
-            'bs-navigation-app-bar__logo-section__menu-button',
-          )}
+          className={clsx('bs-navigation-app-bar__logo-section__menu-button')}
           color="grey"
           onClick={goBackNavigation}
           size="md"
@@ -94,13 +89,10 @@ const NavigationAppBarLogoSection: React.FC<Props> = ({
   return (
     <div className="bs-navigation-app-bar__logo-section__root">
       <IconButton
-        className={classNames(
-          'bs-navigation-app-bar__logo-section__menu-button',
-          {
-            'bs-navigation-app-bar__logo-section__menu-button--hidden':
-              !isMobile || hideMarketplaceMenuButton,
-          },
-        )}
+        className={clsx('bs-navigation-app-bar__logo-section__menu-button', {
+          'bs-navigation-app-bar__logo-section__menu-button--hidden':
+            !isMobile || hideMarketplaceMenuButton,
+        })}
         color="grey"
         onClick={onSideDrawerOpenClick}
         size="md"

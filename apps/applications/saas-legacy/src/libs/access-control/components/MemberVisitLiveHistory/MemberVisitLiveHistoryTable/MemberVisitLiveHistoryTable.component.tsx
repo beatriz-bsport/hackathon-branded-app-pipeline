@@ -24,7 +24,7 @@ import type {
   MemberVisitQueryParams,
   MemberVisitREST,
 } from '#src/libs/access-control/types';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 export type Props = {
   getMemberVisitList: (
@@ -101,7 +101,7 @@ const MemberVisitLiveHistoryRow: React.FC<RowProps> = ({
     return (
       <ListItemText
         primary={t('common:none')}
-        className={classNames(classes.flex1, classes.textSecondary)}
+        className={clsx(classes.flex1, classes.textSecondary)}
       />
     );
   }, [

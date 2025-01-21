@@ -34,7 +34,7 @@ type Props = {
 
   openEditModal: (DeliveryFee) => void,
   disableDeliveryFee: (DeliveryFee) => void,
-  openedFee: ?DeliveryFee,
+  openedFee?: DeliveryFee,
 
   patchConfiguration: (any) => void,
   fetchConfiguration: (any) => void,

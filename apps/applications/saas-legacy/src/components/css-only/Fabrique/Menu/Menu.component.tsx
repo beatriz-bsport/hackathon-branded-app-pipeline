@@ -1,5 +1,5 @@
 import React from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 import { PortalContainer } from '#Fabrique/PortalContainer';
 import { useCloseModal, usePopoverPositioning } from '#Fabrique/hooks';
@@ -195,7 +195,7 @@ const Menu: React.FC<MenuProps> = ({
       <div ref={modalRef} className="bs-fabrique-menu-container">
         <div
           ref={menuRef}
-          className={classNames(
+          className={clsx(
             'bs-fabrique-menu',
             {
               'bs-fabrique-menu--unpositioned': !isPositioned,
@@ -212,10 +212,7 @@ const Menu: React.FC<MenuProps> = ({
         >
           <div
             ref={contentRef}
-            className={classNames(
-              'bs-fabrique-menu-content',
-              classes?.menuContent,
-            )}
+            className={clsx('bs-fabrique-menu-content', classes?.menuContent)}
             onKeyDown={handleKeyDown}
             role="menu"
             tabIndex={0}

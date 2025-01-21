@@ -1,5 +1,5 @@
 import React from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 import { DateTime } from 'luxon';
 
@@ -199,10 +199,7 @@ const MemberVisitDetailsCard: React.FC<Props> = ({
               requiredPermission="member.allowed_actions.accessProfile"
             >
               <Button
-                className={classNames(
-                  classes.memberCtaButton,
-                  classes.profileButton,
-                )}
+                className={clsx(classes.memberCtaButton, classes.profileButton)}
                 onClick={onMemberProfileClick}
                 size="small"
                 startIcon={<PersonIcon />}

@@ -21,9 +21,7 @@ import { randomStatus } from './utils';
  *  isLastInvoiceBeforeScheduledStop: false
  * })
  */
-export const plannedInvoiceFactory = (
-  options?: PlannedInvoiceFactoryOptions,
-) => {
+const plannedInvoiceFactory = (options?: PlannedInvoiceFactoryOptions) => {
   return {
     id: faker.number.int(10000),
     date: DateTime.now().plus({ months: 1 }).toISO(),

@@ -1,7 +1,7 @@
 import React, { useState, useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import uniqBy from 'lodash/uniqBy';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import DoneAllIcon from '@material-ui/icons/DoneAll';
 import { CardMedia, Dialog, useMediaQuery, useTheme } from '@material-ui/core';
 import Skeleton from '@material-ui/lab/Skeleton';
@@ -255,7 +255,7 @@ const MarketplaceGroupOfferListItem: React.FC<Props> = ({
   return (
     <>
       <button
-        className={classNames('bs-offer-list-group-item', {
+        className={clsx('bs-offer-list-group-item', {
           'bs-offer-list-group-item--mobile': isMobile,
           'bs-offer-list-group-item--without-color':
             !theme?.show_activity_color || !metaActivity.color,
@@ -372,7 +372,7 @@ const MarketplaceGroupOfferListItem: React.FC<Props> = ({
                 />
               ) : (
                 <button
-                  className={classNames(
+                  className={clsx(
                     'bs-offer-list-group-item__right__row__button',
                     {
                       'bs-offer-list-group-item__right__row__button--disabled':
@@ -505,7 +505,7 @@ const MarketplaceGroupOfferListItem: React.FC<Props> = ({
               {t('marketplace.cancel')}
             </button>
             <button
-              className={classNames('bs-offer-dialog__content__buttons__book', {
+              className={clsx('bs-offer-dialog__content__buttons__book', {
                 'bs-offer-dialog__content__buttons__book--disabled':
                   getBookGroupButtonIsDisabled(),
               })}

@@ -15,8 +15,8 @@ import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import type { MemberNote as MemberNoteType } from '../types';
 
 type Props = {
-  editMode: ?boolean,
-  autoFocus: ?boolean,
+  editMode?: boolean,
+  autoFocus?: boolean,
   note: MemberNoteType,
   onSubmit: (text: string, highlighted: boolean) => void,
   onDelete: () => void,
@@ -26,7 +26,7 @@ type Props = {
 type State = {
   editMode: boolean,
   text: string,
-  date: ?Object,
+  date?: Object,
   highlighted: boolean,
 };
 

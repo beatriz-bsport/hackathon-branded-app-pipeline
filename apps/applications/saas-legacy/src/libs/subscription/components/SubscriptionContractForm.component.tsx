@@ -1,5 +1,5 @@
 import React from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import Collapse from '@material-ui/core/Collapse';
 import { useTranslation } from 'react-i18next';
 import omit from 'lodash/omit';
@@ -487,7 +487,7 @@ export function SubscriptionContractFields(
         </Collapse>
 
         <Collapse in={values.invoicing_type === InvoicingType.fixedDay}>
-          <div className={classNames(classes.row, classes.field)}>
+          <div className={clsx(classes.row, classes.field)}>
             <Typography variant="body2">
               {t('contract.form.month_billing_day.label1')}
             </Typography>
@@ -507,7 +507,7 @@ export function SubscriptionContractFields(
           {props.initial?.id &&
             props.initial?.month_billing_day !== values.month_billing_day && (
               <Alert
-                className={classNames(classes.alert, classes.field)}
+                className={clsx(classes.alert, classes.field)}
                 severity="info"
               >
                 {t(
@@ -520,7 +520,7 @@ export function SubscriptionContractFields(
             )}
           {props.values.month_billing_day >= 29 && (
             <Alert
-              className={classNames(classes.alert, classes.field)}
+              className={clsx(classes.alert, classes.field)}
               severity="warning"
             >
               {t(`contract.form.invoicing.fixed_day.end_of_month_explain`, {

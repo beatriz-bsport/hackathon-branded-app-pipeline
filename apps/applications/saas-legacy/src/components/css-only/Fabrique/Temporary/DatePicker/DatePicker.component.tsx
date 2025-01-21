@@ -1,6 +1,6 @@
 import React, { useCallback, useMemo, useState } from 'react';
 import { DateTime } from 'luxon';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 
@@ -134,7 +134,7 @@ const DatePicker: React.FC<DatePickerProps> = ({
               {dateDisplayed.toFormat('MMMM yyyy')}
             </Typography>
             <span
-              className={classNames(
+              className={clsx(
                 'bs-fabrique-date-picker__menu__header__date__icon',
                 {
                   'bs-fabrique-date-picker__menu__header__date__icon--year-picker-open':
@@ -152,13 +152,10 @@ const DatePicker: React.FC<DatePickerProps> = ({
             </span>
           </ButtonBase>
           <div
-            className={classNames(
-              'bs-fabrique-date-picker__menu__header__buttons',
-              {
-                'bs-fabrique-date-picker__menu__header__buttons--hidden':
-                  isYearPickerOpen,
-              },
-            )}
+            className={clsx('bs-fabrique-date-picker__menu__header__buttons', {
+              'bs-fabrique-date-picker__menu__header__buttons--hidden':
+                isYearPickerOpen,
+            })}
           >
             <button
               className="bs-fabrique-date-picker__menu__header__buttons__left"
@@ -178,7 +175,7 @@ const DatePicker: React.FC<DatePickerProps> = ({
         </div>
         <YearPicker isOpen={isYearPickerOpen} onSelectYear={handleSelectYear} />
         <div
-          className={classNames('bs-fabrique-date-picker__menu__calendar', {
+          className={clsx('bs-fabrique-date-picker__menu__calendar', {
             'bs-fabrique-date-picker__menu__calendar--hidden': isYearPickerOpen,
           })}
         >

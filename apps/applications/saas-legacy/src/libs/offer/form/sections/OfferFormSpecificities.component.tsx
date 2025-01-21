@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 import AddIcon from '@material-ui/icons/Add';
 import Alert from '@material-ui/lab/Alert';
 import Button from '@material-ui/core/Button';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import Info from '@material-ui/icons/Info';
 import People from '@material-ui/icons/People';
 import RemoveIcon from '@material-ui/icons/Remove';
@@ -321,7 +321,7 @@ const OfferFormSpecificities: React.FC<Props> = ({
         >
           <div className={classes.metaActivitySection}>
             <div
-              className={classNames({
+              className={clsx({
                 [classes.bigWidth]: !isMobile,
               })}
             >
@@ -412,7 +412,7 @@ const OfferFormSpecificities: React.FC<Props> = ({
               t(errors.waitingListMaxSize)
             }
             id="offer-form-waiting-list-input"
-            inputClass={classNames(classes.mediumWidth, {
+            inputClass={clsx(classes.mediumWidth, {
               [classes.disabledInput]: isOfferInGroup,
             })}
             InputProps={{ inputProps: { min: 0, max: 100 } }}
@@ -449,7 +449,7 @@ const OfferFormSpecificities: React.FC<Props> = ({
           onEditLevel={updateLevel}
           onSelect={handleSelectLevel}
           selectedLevel={level}
-          selectorClass={classNames({ [classes.bigWidth]: !isMobile })}
+          selectorClass={clsx({ [classes.bigWidth]: !isMobile })}
         />
       </OfferFormField>
 
@@ -610,7 +610,7 @@ const OfferFormSpecificities: React.FC<Props> = ({
         >
           <div className={classes.fieldWithTooltip}>
             <TextField
-              className={classNames(classes.bigWidth, {
+              className={clsx(classes.bigWidth, {
                 [classes.disabledInput]:
                   zoomAppEnabled && !zoomAppDetail?.is_disabled,
               })}

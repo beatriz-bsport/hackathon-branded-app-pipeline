@@ -1,6 +1,6 @@
 import React from 'react';
 
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import Button from '#Fabrique/ButtonV2';
 import Menu from '#Fabrique/Menu';
@@ -104,7 +104,7 @@ const ConsumerGenericCardFooter: React.FC<Props> = ({
   );
 
   return (
-    <div className={classNames('bs-consumer__generic-card__footer', className)}>
+    <div className={clsx('bs-consumer__generic-card__footer', className)}>
       {secondaryButtonsHidden && (
         <Button
           className={menuButtonClassName}
@@ -193,10 +193,7 @@ const ConsumerGenericCardFooter: React.FC<Props> = ({
       {!!menuId && !isMobile && (
         <Menu
           anchorEl={anchorEl}
-          className={classNames(
-            'bs-consumer-generic-card__menu',
-            menuClassName,
-          )}
+          className={clsx('bs-consumer-generic-card__menu', menuClassName)}
           id={menuId}
           isOpen={isButtonMenuOpened}
           onClose={handleOnMenuClose}
@@ -223,7 +220,7 @@ const ConsumerGenericCardFooter: React.FC<Props> = ({
               isOpen: isButtonMenuOpened,
               onClick: handleOnMenuClose,
             }}
-            className={classNames(
+            className={clsx(
               'bs-consumer-generic-card__bottom-drawer',
               menuClassName,
             )}

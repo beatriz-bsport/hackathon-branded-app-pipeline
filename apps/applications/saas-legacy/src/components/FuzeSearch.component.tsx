@@ -2,7 +2,7 @@ import React from 'react';
 import { compose } from 'recompose';
 import withStyles from '@material-ui/core/styles/withStyles';
 import type { ClassNameMap } from '@material-ui/styles';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import isEqual from 'lodash/isEqual';
 
 import Fuse from 'fuse.js';
@@ -72,12 +72,7 @@ export class FuzeSearch extends React.Component<Props> {
     const { onClickSearch } = this.props;
 
     return (
-      <div
-        className={classNames(
-          this.props.classes.container,
-          this.props.className,
-        )}
-      >
+      <div className={clsx(this.props.classes.container, this.props.className)}>
         <DelayedTextField
           fullWidth
           autoFocus={!this.props.disableAutoFocus}

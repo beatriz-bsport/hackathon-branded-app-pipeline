@@ -1,5 +1,5 @@
 import React from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import { useTranslation } from 'react-i18next';
 
@@ -111,10 +111,7 @@ const ConsumerPaymentPackDetailsCard: React.FC<Props> = ({
 
   return (
     <Card
-      className={classNames(
-        'bs-consumer-payment-pack-details-card__root',
-        className,
-      )}
+      className={clsx('bs-consumer-payment-pack-details-card__root', className)}
     >
       <>
         <ConsumerPaymentPackDetailsCardHeader

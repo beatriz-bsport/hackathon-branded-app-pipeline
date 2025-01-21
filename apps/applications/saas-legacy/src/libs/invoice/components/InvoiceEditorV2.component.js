@@ -19,7 +19,7 @@ type Props = {
   onAddBuyableItem: (InvoiceItem) => void,
 
   goToSubscription: (id: number) => void,
-  invoice: ?Invoice,
+  invoice?: Invoice,
   member: Member,
 };
 

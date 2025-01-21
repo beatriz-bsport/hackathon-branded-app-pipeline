@@ -16,7 +16,7 @@ function actionSearchTextStart(
   return { type: types.SEARCH_TEXT_START, text, path_ };
 }
 
-function actionSearchTextError(error: ?Error) {
+function actionSearchTextError(error?: Error) {
   return { type: types.SEARCH_TEXT_ERROR, error };
 }
 
@@ -61,7 +61,7 @@ function actionSearchSelectEntityStart(entity: any) {
   return { type: types.SEARCH_SELECT_ENTITY_START, entity };
 }
 
-function actionSearchSelectEntityError(error: ?Error) {
+function actionSearchSelectEntityError(error?: Error) {
   return { type: types.SEARCH_SELECT_ENTITY_ERROR, error };
 }
 

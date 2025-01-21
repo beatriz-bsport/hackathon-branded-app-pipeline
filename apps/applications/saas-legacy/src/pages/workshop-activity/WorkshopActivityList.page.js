@@ -124,7 +124,7 @@ type Props = {
 
   fetchMarketingNotificationList: (params: any) => void,
   setWorkshopToDelete: (number) => void,
-  workshopToDelete: ?number,
+  workshopToDelete?: number,
   deleteWorkshop: (number) => void,
   restoreMetaActivity: (id: number) => void,
   goToDetail: (metaActivityId: number) => void,
@@ -137,17 +137,17 @@ type Props = {
 
   t: TFunction,
   classes: Object,
-  loading: ?boolean,
+  loading?: boolean,
   classes: Object,
 
-  associatedCoaches: *[],
+  associatedCoaches: any[],
   availableEstablishments: Array<Establishment>,
-  SCTs: *[],
+  SCTs: any[],
 
   metaActivitiesAndWorkshops: Array<MetaActivity>,
-  upsertedWorkshop: ?MetaActivity,
+  upsertedWorkshop?: MetaActivity,
 
-  offerHadError: ?Error,
+  offerHadError?: Error,
   createOffers: () => void,
   offerIsProcessing: boolean,
   goToWorkshop: (id: number) => void,

@@ -46,7 +46,7 @@ type Props = {
 };
 
 type State = {
-  error: ?Error,
+  error?: Error,
 };
 
 export class PaymentComboPreCheckout extends React.Component<Props, State> {

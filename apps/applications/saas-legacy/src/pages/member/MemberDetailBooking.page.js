@@ -181,7 +181,7 @@ import {
   getMemberProgramIdsList,
 } from '#src/libs/performance-tracking/selector';
 
-import type { WaitingListConfiguration } from '#src/libs/waiting-list/type';
+import type { WaitingListConfiguration } from '#src/libs/waiting-list/types';
 
 const DEFAULT_SPOT_TYPE = { id: -1 };
 
@@ -189,7 +189,7 @@ type Props = {
   classes: any,
   t: TFunction,
   id: number,
-  bookingId: ?number,
+  bookingId?: number,
   retrieveBooking: (number, OptionCallback) => void,
   retrieveConsumerPackBulk: (cpps: Array<number>) => void,
   member: Member,
@@ -218,11 +218,11 @@ type Props = {
   fetchOffer: (id: number) => void,
   goToOffer: (id: number) => void,
   getPass: (id: number) => void,
-  selectedBooking: ?Booking,
+  selectedBooking?: Booking,
   getPaymentPack: (id: number) => PaymentPack,
   offerLoading: boolean,
   consumerPackLoading: boolean,
-  offer: ?Offer,
+  offer?: Offer,
 
   fetchRoomBlueprintDetail: (number) => void,
   fetchGroupOffer: (groupId: number) => void,
@@ -315,7 +315,7 @@ type Props = {
 };
 
 type State = {
-  bookingToRevert: ?Booking,
+  bookingToRevert?: Booking,
   isMemberProgramDetailDialogOpen: boolean,
   noShowChipMessageDialogIsOpen: boolean,
   warningDialogIsOpen: boolean,

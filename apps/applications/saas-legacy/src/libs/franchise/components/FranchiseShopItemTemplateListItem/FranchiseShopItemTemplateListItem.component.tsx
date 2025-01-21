@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import useTheme from '@material-ui/core/styles/useTheme';
@@ -70,7 +70,7 @@ const FranchiseShopItemTemplateListItem: React.FC<Props> = ({
   return (
     <ListItem
       button={!!onClick as any}
-      className={classNames(className)}
+      className={clsx(className)}
       onClick={onClick ? handleListItemClick : undefined}
     >
       {shopItemTemplate?.cover && (

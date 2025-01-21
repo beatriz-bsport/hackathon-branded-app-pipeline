@@ -111,7 +111,7 @@ const ConsumerProgram = asyncComponent(() =>
   import('../performance-tracking/ConsumerProgram.page'),
 );
 type Props = {
-  membership: ?Membership,
+  membership?: Membership,
   companyId: number,
   linkMeToCompany: ({ company: number }) => void,
   theme: Theme,
@@ -122,22 +122,22 @@ type Props = {
   buildUrl: (string) => string,
   fetchMembershipListAsConsumer: (params: any) => void,
   membershipList: Array<Membership>,
-  username: ?string,
+  username?: string,
   name: string,
   setActiveActions: (company: number) => void,
   classes: Object,
   disconnect: () => void,
 
-  from_basket: ?string,
+  from_basket?: string,
   fetchBasketGeneratedObjects: (basketId: string) => void,
   basketGeneratedObjects: BasketObjects,
   resetCongratulations: () => void,
   goToCalendar: (params: any) => void,
 
-  from_direct_booking: ?string,
-  from_basket: ?string,
-  offerBooked: ?Offer,
-  basketGeneratedObjects: ?BasketObjects,
+  from_direct_booking?: string,
+  from_basket?: string,
+  offerBooked?: Offer,
+  basketGeneratedObjects?: BasketObjects,
 
   fetchOfferBulk: (ids: Array<number>) => void,
   subscriptionPendingActionCount: number,

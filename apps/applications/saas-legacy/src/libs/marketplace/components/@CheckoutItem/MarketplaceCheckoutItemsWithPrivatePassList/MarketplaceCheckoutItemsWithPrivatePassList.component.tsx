@@ -1,6 +1,6 @@
 import React from 'react';
 import './styles.css';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 import type { CheckoutItem } from '#src/libs/checkout/types';
 import type { PrivatePass } from '#src/libs/private-service/types';
@@ -22,7 +22,7 @@ const MarketplaceCheckoutItemsWithPrivatePassList: React.FC<Props> = ({
   if (items && items.length > 0 && !!privatePassById) {
     return (
       <ul
-        className={classNames('bs-checkout-items-with-private-pass-list', {
+        className={clsx('bs-checkout-items-with-private-pass-list', {
           ...classes,
         })}
       >

@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import IconButton from '@material-ui/core/IconButton';
@@ -58,7 +58,7 @@ const MemberSearchBar: React.FC<Props> = ({
   );
 
   return (
-    <div className={classNames({ [classes.input]: fullWidth })}>
+    <div className={clsx({ [classes.input]: fullWidth })}>
       <Popover
         transition
         anchorEl={memberHistoryAnchor}

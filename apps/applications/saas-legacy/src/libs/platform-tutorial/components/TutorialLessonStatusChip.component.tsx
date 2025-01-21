@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import chroma from 'chroma-js';
 import { makeStyles } from '@material-ui/core';
 
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 // @ts-expect-error
 import FeatureListProvider from '#src/libs/company/hocs/feature-list-provider.hoc';
@@ -43,7 +43,7 @@ const LessonStatusChips: React.FC<Props> = ({
               {hasAddOnChip && (
                 <ToolTip title={t('lessonList.missingUpsell')}>
                   <div
-                    className={classNames(
+                    className={clsx(
                       classes.chipBase,
                       classes.colorInfo,
                       classes.contentCenter,
@@ -58,7 +58,7 @@ const LessonStatusChips: React.FC<Props> = ({
             <>
               {hasAddOnChip && (
                 <div
-                  className={classNames(
+                  className={clsx(
                     classes.chipBase,
                     classes.colorInfo,
                     classes.contentCenter,

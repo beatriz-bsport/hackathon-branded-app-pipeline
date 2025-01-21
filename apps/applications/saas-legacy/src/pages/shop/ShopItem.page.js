@@ -63,9 +63,9 @@ type Props = {
     page: number,
     page_size: number,
   ) => void,
-  createOrUpdateShopItem: (data: ShopItemData, id: ?string) => void,
+  createOrUpdateShopItem: (data: ShopItemData, id?: string) => void,
   createOrUpdateProvision: (data: *) => void,
-  shopitem: ?ShopItem,
+  shopitem?: ShopItem,
   provision: {
     items: Array<Provision>,
     count: number,

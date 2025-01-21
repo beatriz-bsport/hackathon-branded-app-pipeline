@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { KeyboardArrowDown, KeyboardArrowUp } from '@material-ui/icons';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import Card, { CardSize } from '#src/components/css-only/Card';
 import Content from '#src/components/css-only/Card/CardContent';
 import Grid from '#src/components/css-only/Grid';
@@ -159,13 +159,10 @@ const MinimalSubscriptionCard: React.FC<Props> = ({
             <Collapse collapsedHeight={40} isExpanded={showAllDescription}>
               <div
                 ref={descriptionText.ref}
-                className={classNames(
-                  'bs-minimal-subscription-card__description',
-                  {
-                    'bs-minimal-subscription-card__description--short':
-                      !showAllDescription,
-                  },
-                )}
+                className={clsx('bs-minimal-subscription-card__description', {
+                  'bs-minimal-subscription-card__description--short':
+                    !showAllDescription,
+                })}
               >
                 {subscription?.description ?? ''}
               </div>

@@ -15,7 +15,7 @@ type Props = {
   invoiceInfo: InvoiceInfo,
 };
 
-export const InvoiceInfoDialog = (props: Props) => {
+const InvoiceInfoDialog = (props: Props) => {
   const classes = useStyles();
   const { t } = useTranslation(['invoice']);
   return (

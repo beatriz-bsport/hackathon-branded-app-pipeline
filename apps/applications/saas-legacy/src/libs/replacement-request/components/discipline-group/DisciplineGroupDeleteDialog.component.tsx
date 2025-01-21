@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-import classNames from 'classnames';
+import clsx from 'clsx';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -45,13 +45,13 @@ export const DisciplineGroupDeleteDialog: React.FC<Props> = ({
         ) : (
           <>
             <Button
-              className={classNames(classes.buttons, classes.textSecondary)}
+              className={clsx(classes.buttons, classes.textSecondary)}
               onClick={onClose}
             >
               {t('disciplineGroup.delete.cancel')}
             </Button>
             <Button
-              className={classNames(classes.buttons, classes.redButton)}
+              className={clsx(classes.buttons, classes.redButton)}
               disabled={loading}
               onClick={onConfirm}
             >

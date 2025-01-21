@@ -1,5 +1,5 @@
 import React from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { withHandlers, compose } from 'recompose';
 import { withTranslation, WithTranslation } from 'react-i18next';
 
@@ -102,7 +102,7 @@ export class CheckInOfferDetail extends React.Component<Props> {
     return (
       <div className={this.props.classes.root}>
         <div
-          className={classNames([
+          className={clsx([
             this.props.classes.panelContainer,
             this.props.classes.offerSummary,
           ])}
@@ -115,7 +115,7 @@ export class CheckInOfferDetail extends React.Component<Props> {
           />
         </div>
         <div
-          className={classNames([
+          className={clsx([
             this.props.classes.panelContainer,
             this.props.classes.memberList,
           ])}

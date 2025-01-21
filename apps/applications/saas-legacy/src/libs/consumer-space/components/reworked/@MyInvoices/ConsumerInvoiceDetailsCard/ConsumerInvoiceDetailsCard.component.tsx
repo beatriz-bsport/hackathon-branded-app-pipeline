@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import {
   ConsumerInvoiceDetailsCardBody,
   ConsumerInvoiceDetailsCardFooter,
@@ -100,12 +100,7 @@ const ConsumerInvoiceDetailsCard: React.FC<Props> = ({
   }
 
   return (
-    <Card
-      className={classNames(
-        'bs-consumer-invoice-details-card__root',
-        className,
-      )}
-    >
+    <Card className={clsx('bs-consumer-invoice-details-card__root', className)}>
       <ConsumerInvoiceDetailsCardHeader
         consumerInvoice={consumerInvoice}
         isMultilocationEnabled={isMultilocationEnabled}

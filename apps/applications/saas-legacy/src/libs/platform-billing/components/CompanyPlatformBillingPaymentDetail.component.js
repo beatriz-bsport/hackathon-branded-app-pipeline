@@ -24,7 +24,7 @@ type Props = {
   setCollectPaymentMethodSepaIsOpen: (boolean) => void,
   requestSetupIntentSecret: () => void,
   refreshSavedPaymentMethodList: () => void,
-  onCollectPaymentMethodSuccess: ?() => void,
+  onCollectPaymentMethodSuccess?: () => void,
   sepaDefaultName?: string,
   sepaDefaultEmail?: string,
   payNowInvoice: (payment_backend_id: string) => void,

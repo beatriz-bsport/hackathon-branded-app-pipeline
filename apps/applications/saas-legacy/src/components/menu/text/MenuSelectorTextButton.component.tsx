@@ -1,7 +1,7 @@
 import React, { useCallback, useContext, useState } from 'react';
 import chroma from 'chroma-js';
 import Immutable from 'seamless-immutable';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import type { Theme } from '@material-ui/core/styles';
@@ -113,7 +113,7 @@ const MenuSelectorTextButton: React.FC<Props> = ({
             {actionList.map((action) => (
               <MenuItem
                 key={`${action.icon}_${action.label}`}
-                className={classNames(classes.menuItem, {
+                className={clsx(classes.menuItem, {
                   [classes.disabledAction]: !!action.isDisabled,
                 })}
                 disableRipple={!!action.isDisabled}

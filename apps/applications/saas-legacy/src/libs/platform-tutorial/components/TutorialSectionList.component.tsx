@@ -10,7 +10,7 @@ import chroma from 'chroma-js';
 import Collapse from '@material-ui/core/Collapse';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Typography from '@material-ui/core/Typography';
 import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
@@ -52,7 +52,7 @@ const LinearProgressFlexItem: React.FC<{
     <Grid
       container
       alignItems="center"
-      className={classNames(
+      className={clsx(
         classes.linearProgress,
         { [classes.xsDownHidden]: !mobile },
         classes.flex,
@@ -107,7 +107,7 @@ const SectionStatusChips: React.FC<{
               {hasUpsellLesson && (
                 <ToolTip title={t('sectionList.missingUpsell')}>
                   <div
-                    className={classNames(
+                    className={clsx(
                       classes.chipBase,
                       classes.contentCenter,
                       classes.colorInfo,
@@ -172,7 +172,7 @@ const TutorialSectionList: React.FC<Props> = (props: Props) => {
                 <div className={classes.row}>
                   <div className={classes.rowStart}>
                     <div
-                      className={classNames(
+                      className={clsx(
                         classes.box,
                         {
                           [classes.boxPrimary]: sectionStarted,
@@ -183,7 +183,7 @@ const TutorialSectionList: React.FC<Props> = (props: Props) => {
                       )}
                     >
                       <MuiIcon
-                        className={classNames(
+                        className={clsx(
                           {
                             [classes.iconPrimary]: sectionStarted,
                           },
@@ -207,7 +207,7 @@ const TutorialSectionList: React.FC<Props> = (props: Props) => {
                         {section?.translated_name}
                       </Typography>
                       <CheckCircleOutlineIcon
-                        className={classNames({
+                        className={clsx({
                           [classes.iconGreen]: sectionCompleted,
                         })}
                         color="disabled"
@@ -237,10 +237,7 @@ const TutorialSectionList: React.FC<Props> = (props: Props) => {
                     section_statistics={(statistics || {})[section.id]}
                   />
                   <div
-                    className={classNames(
-                      classes.shareIcon,
-                      classes.xsDownHidden,
-                    )}
+                    className={clsx(classes.shareIcon, classes.xsDownHidden)}
                   >
                     <IconButton
                       color="secondary"

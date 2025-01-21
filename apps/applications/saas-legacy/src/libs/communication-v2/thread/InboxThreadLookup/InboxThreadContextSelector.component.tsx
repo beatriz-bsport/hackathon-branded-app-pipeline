@@ -1,5 +1,5 @@
 import React, { memo, useCallback } from 'react';
-import classnames from 'classnames';
+import clsx from 'clsx';
 
 import { Button, Typography, makeStyles } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
@@ -39,9 +39,9 @@ const InboxThreadContextSelector: React.FC<Props> = ({
       <div className={classes.buttonsContainer}>
         <Button
           classes={{
-            root: classnames({ [classes.noHoverOnSelectd]: isMemberSelected }),
+            root: clsx({ [classes.noHoverOnSelectd]: isMemberSelected }),
           }}
-          className={classnames(classes.kindButton, {
+          className={clsx(classes.kindButton, {
             [classes.buttonActive]: isMemberSelected,
           })}
           disableRipple={isMemberSelected}
@@ -56,11 +56,11 @@ const InboxThreadContextSelector: React.FC<Props> = ({
         </Button>
         <Button
           classes={{
-            root: classnames({
+            root: clsx({
               [classes.noHoverOnSelectd]: isSmartlistSelected,
             }),
           }}
-          className={classnames(classes.kindButton, {
+          className={clsx(classes.kindButton, {
             [classes.buttonActive]: isSmartlistSelected,
           })}
           disableRipple={isSmartlistSelected}
@@ -75,9 +75,9 @@ const InboxThreadContextSelector: React.FC<Props> = ({
         </Button>
         <Button
           classes={{
-            root: classnames({ [classes.noHoverOnSelectd]: isOfferSelected }),
+            root: clsx({ [classes.noHoverOnSelectd]: isOfferSelected }),
           }}
-          className={classnames(classes.kindButton, {
+          className={clsx(classes.kindButton, {
             [classes.buttonActive]: isOfferSelected,
           })}
           disableRipple={isOfferSelected}

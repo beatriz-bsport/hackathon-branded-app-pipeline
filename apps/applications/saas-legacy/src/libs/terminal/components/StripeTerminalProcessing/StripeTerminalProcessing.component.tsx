@@ -5,7 +5,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
 import Alert from '@material-ui/lab/Alert';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import { makeStyles, Theme } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
@@ -104,10 +104,7 @@ export const StripeTerminalProcessing: React.FC<Props> = ({
         ) : (
           <>
             <CircularProgress
-              className={classNames(
-                classes.circularProgress,
-                classes.greyColor,
-              )}
+              className={clsx(classes.circularProgress, classes.greyColor)}
               size={24}
             />
             <Typography className={classes.title} variant="h4">

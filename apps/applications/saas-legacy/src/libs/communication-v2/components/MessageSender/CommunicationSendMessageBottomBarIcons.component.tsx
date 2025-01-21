@@ -2,7 +2,7 @@ import React, { memo, useState } from 'react';
 // eslint-disable-next-line bsport/no-redux-in-component
 import { connect, ConnectedProps } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { Theme, makeStyles } from '@material-ui/core';
 import Tooltip from '@material-ui/core/Tooltip';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -304,7 +304,7 @@ const BottomBarIcons: React.FC<Props & ConnectedProps<typeof connector>> = ({
           <div className={classes.bottomFlexContainer}>
             {!directMember && (
               <ButtonBase
-                className={classNames(
+                className={clsx(
                   classes.bottomRecipientSelector,
                   classes.bottomFlexContainer,
                 )}

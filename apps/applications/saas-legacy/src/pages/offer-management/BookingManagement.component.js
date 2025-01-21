@@ -57,7 +57,7 @@ import { OfferStatusWaitingListPosition } from '#src/libs/offer/types';
 import { MetaActivity } from '#src/libs/meta-activity/types';
 import OfferIconHybridIndicator from '../../libs/offer/components/OfferHybridIconIndicator.component';
 import { formatISOStringAsTime } from '../../utils/datetime';
-import type { PerformanceTrackingProgram } from '../../performance-tracking/types';
+import type { PerformanceTrackingProgram } from '../../libs/performance-tracking/types';
 import { OptionCallback } from '../../state/types';
 import WaitingListControlHeader from './WaitingListControlHeader.component';
 import MemberSearchBar from '../../libs/member/components/MemberSearchBar.component';
@@ -78,7 +78,7 @@ type Props = {
   bookingOptionsPending: Array<BookingOption>,
   openMailDialog: () => void,
   openCommunicationDrawer: () => void,
-  offer: ?Offer,
+  offer?: Offer,
 
   addToQuickInvoicePanel: (number) => void,
   bookingLoading: boolean,
@@ -159,8 +159,8 @@ type Props = {
 };
 
 type State = {
-  bookingToRevert: ?Booking,
-  memberHistoryAnchor: ?HTMLElement,
+  bookingToRevert?: Booking,
+  memberHistoryAnchor?: HTMLElement,
   lastValidatedRollCallDialogIsOpen: boolean,
   warningDialogIsOpen: boolean,
   hasSpiviWarning: boolean,

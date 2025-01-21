@@ -1,5 +1,5 @@
 import React from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import { CardSize } from './types';
 
@@ -21,7 +21,7 @@ export const Container: React.FC<Props> = React.memo(
       <div
         ref={customRef}
         aria-hidden="true"
-        className={classNames('bs-generic-card', {
+        className={clsx('bs-generic-card', {
           'bs-generic-card--selected': !!isSelected,
           'size-m': !size,
           [`size-${size}`]: size,

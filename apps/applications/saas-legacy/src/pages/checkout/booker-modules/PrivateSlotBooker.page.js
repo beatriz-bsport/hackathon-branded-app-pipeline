@@ -91,7 +91,7 @@ type Props = {
 
   fetchPrivateService: (privateServiceId: number) => void,
   fetchPrivateSlot: (privateServiceId: number, privateSlotId: number) => void,
-  privateSlot: ?PrivateSlot,
+  privateSlot?: PrivateSlot,
 
   fetchCurrentBasket: (company: number) => void,
 
@@ -102,7 +102,7 @@ type Props = {
   addItemToBasket: (
     basketId: string,
     data: any,
-    options: ?{ onSuccess: ?() => void, onError: ?() => void },
+    options?: { onSuccess?: () => void, onError?: () => void },
   ) => void,
   goToCheckout: (company: number) => void,
 
@@ -110,7 +110,7 @@ type Props = {
 
   registerPrivateBooking: (
     params: any,
-    options: ?{ onSuccess: ?() => void, onError: ?() => void },
+    options?: { onSuccess?: () => void, onError?: () => void },
     asConsumer: boolean,
   ) => void,
 
@@ -119,12 +119,12 @@ type Props = {
 
   goToConsumerHome: () => void,
   basket: Basket,
-  privateService: ?PrivateService,
+  privateService?: PrivateService,
 
   classes: Object,
 
   fetchCurrentBasket: (companyId: number) => void,
-  currentBasket: ?Basket,
+  currentBasket?: Basket,
   currentBasketLoading: boolean,
   removeItemFromBasket: (basketId: string, data: any) => void,
   addItemToBasket: (basketId: string, data: any) => void,
@@ -148,7 +148,7 @@ type Props = {
 };
 
 type State = {
-  address: ?string,
+  address?: string,
 };
 
 export class PrivateSlotPayment extends React.Component<Props, State> {

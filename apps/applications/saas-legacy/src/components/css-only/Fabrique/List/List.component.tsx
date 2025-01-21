@@ -1,5 +1,5 @@
 import React, { PropsWithChildren, memo } from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 import Typography from '#Fabrique/Typography';
 import './styles.css';
@@ -19,9 +19,9 @@ export const List: React.FC<Props> = ({
   className,
 }) => {
   return (
-    <ul className={classNames('bs-fabrique-list__root', className)}>
+    <ul className={clsx('bs-fabrique-list__root', className)}>
       <Typography
-        className={classNames(
+        className={clsx(
           'bs-fabrique-list__title',
           { 'bs-fabrique-list__field--empty': !listTitle },
           classes?.listTitle,

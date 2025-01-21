@@ -45,12 +45,12 @@ const styles = (theme) => ({
 
 type Props = {
   id: string,
-  value: ?Object,
+  value?: Object,
   onChange: () => void,
 };
 
 type State = {
-  value: ?Object,
+  value?: Object,
 };
 
 // prettier-ignore

@@ -14,12 +14,12 @@ import { CardElement, ElementsConsumer } from '@stripe/react-stripe-js';
 import { DateTime } from 'luxon';
 
 type Props = {
-  price: ?number,
+  price?: number,
   onComplete: (token: Object) => void,
   stripe: Object,
   t: TFunction,
   classes: Object,
-  showRecurring: ?boolean,
+  showRecurring?: boolean,
   elements: any,
 };
 

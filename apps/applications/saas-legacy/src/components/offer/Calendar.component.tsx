@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import { DateTime } from 'luxon';
 import { compose } from 'recompose';
 import { WithTranslation, withTranslation } from 'react-i18next';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import Grid from '@material-ui/core/Grid';
 import BlockIcon from '@material-ui/icons/Block';
@@ -247,7 +247,7 @@ class Calendar extends PureComponent<Props, State> {
   renderWeekFrom = (firstDayWeek: LuxonDateTime) => {
     return (
       <div
-        className={classNames(
+        className={clsx(
           this.props.weekRowContainerStyle,
           this.props.classes.weekRowContainer,
         )}

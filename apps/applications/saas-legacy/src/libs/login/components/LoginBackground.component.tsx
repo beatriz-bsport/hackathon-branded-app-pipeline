@@ -1,5 +1,5 @@
 import React, { ReactElement } from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { useTheme } from '@material-ui/core';
 import '#src/components/css-only/Login/LoginBackground.css';
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
@@ -41,7 +41,7 @@ export const LoginBackgroundComponent: React.FC<Props> = ({
     <div className={loginBackgroundClass}>
       {!!children && children}
       <div
-        className={classNames(
+        className={clsx(
           'bs-login-background__circle',
           darkClass,
           'bs-login-background__size-2',
@@ -49,7 +49,7 @@ export const LoginBackgroundComponent: React.FC<Props> = ({
         )}
       />
       <div
-        className={classNames(
+        className={clsx(
           'bs-login-background__circle',
           darkClass,
           'bs-login-background__size-3',
@@ -58,7 +58,7 @@ export const LoginBackgroundComponent: React.FC<Props> = ({
         )}
       />
       <div
-        className={classNames(
+        className={clsx(
           'bs-login-background__circle',
           lightClass,
           'bs-login-background__size-6',
@@ -66,14 +66,14 @@ export const LoginBackgroundComponent: React.FC<Props> = ({
         )}
       />
       <div
-        className={classNames(
+        className={clsx(
           'bs-login-background__circle',
           lightClass,
           'bs-login-background__size-1',
         )}
       />
       <div
-        className={classNames(
+        className={clsx(
           'bs-login-background__circle',
           lightClass,
           'bs-login-background__size-3',
@@ -81,7 +81,7 @@ export const LoginBackgroundComponent: React.FC<Props> = ({
         )}
       />
       <div
-        className={classNames(
+        className={clsx(
           'bs-login-background__circle',
           lightClass,
           'bs-login-background__size-4',
@@ -89,14 +89,14 @@ export const LoginBackgroundComponent: React.FC<Props> = ({
         )}
       />
       <div
-        className={classNames(
+        className={clsx(
           'bs-login-background__circle',
           darkClass,
           'bs-login-background__size-5',
           effectArray[3],
         )}
       />
-      <div className={classNames('bs-login-background__svg', 'svgMove')}>
+      <div className={clsx('bs-login-background__svg', 'svgMove')}>
         <svg
           fill="none"
           height="295"

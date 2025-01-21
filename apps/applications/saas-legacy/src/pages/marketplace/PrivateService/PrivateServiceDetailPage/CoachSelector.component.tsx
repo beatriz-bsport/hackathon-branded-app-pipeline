@@ -2,7 +2,7 @@ import React, { useCallback } from 'react';
 import { Avatar, Fade, Typography, ButtonBase } from '@material-ui/core';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import { useTranslation } from 'react-i18next';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import { MarketPlaceCoachDisplay } from '@bsport/common/lib/master-data/personalization.js';
 import { getCoachDisplayName } from '@bsport/common/lib/master-data/coach.js';
@@ -52,7 +52,7 @@ const CoachSelector: React.FC<Props> = (props) => {
             return (
               <ButtonBase
                 key={coach.id}
-                className={classNames({
+                className={clsx({
                   [classes.item]: true,
                   [classes.itemSelected]: isCoachSelected(coach),
                 })}

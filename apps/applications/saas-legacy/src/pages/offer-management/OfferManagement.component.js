@@ -91,7 +91,7 @@ import type {
   OptionBackgroundCallback,
 } from '../../state/types';
 import OfferManagementRoomBlueprint from './OfferManagementRoomBlueprint.component';
-import type { WaitingListConfiguration } from '#src/libs/waiting-list/type';
+import type { WaitingListConfiguration } from '#src/libs/waiting-list/types';
 import OfferBroadcastHelper from './OfferBroadcastHelper.component';
 import OfferNavigationHeader from './OfferNavigationHeader.component';
 import BookingManagement from './BookingManagement.component';
@@ -116,9 +116,9 @@ type Props = {
   t: TFunction,
   fullScreen: boolean,
   offerId: number,
-  offer: ?Offer,
+  offer?: Offer,
   offerLoading: boolean,
-  bookingLoading: ?boolean,
+  bookingLoading?: boolean,
 
   fetchInvoiceListUnpaid: () => void,
   registerToOffer: () => void,
@@ -175,7 +175,12 @@ type Props = {
   fetchOfferStatus: (number) => void,
   offerStatusById: { [number]: OfferStatus },
 
-  createMember: (id: ?number, data: [*], options: any, offerId: number) => void,
+  createMember: (
+    id?: number,
+    data: [any],
+    options: any,
+    offerId: number,
+  ) => void,
   createInvoice: ([any], number, number) => void,
   discardOption: (
     bookingOptionId: number,
@@ -199,25 +204,23 @@ type Props = {
   classes: Object,
   company_theme: Object,
 
-  setMemberToRegister: (
-    member: ?{
-      name: string,
-      photo: ?string,
-      id: number,
-    },
-  ) => void,
-  memberToRegister: ?{
+  setMemberToRegister: (member?: {
     name: string,
-    photo: ?string,
+    photo?: string,
+    id: number,
+  }) => void,
+  memberToRegister?: {
+    name: string,
+    photo?: string,
     id: number,
   },
-  bookingToRevert: ?Booking,
+  bookingToRevert?: Booking,
   closeRevertBookingDialog: () => void,
   booking_ordering: number,
   onChangeBookingOrdering: (number) => void,
   searchedText: string,
   optionToDiscard: number,
-  confirmOptionToDiscard: ?boolean,
+  confirmOptionToDiscard?: boolean,
   cancelDiscardOption: () => void,
   registerOption: (optionId: number, member: number) => void,
 

@@ -3,7 +3,7 @@ import React from 'react';
 
 import { withTranslation } from 'react-i18next';
 
-import classNames from 'classnames';
+import clsx from 'clsx';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Typography from '@material-ui/core/Typography';
@@ -15,7 +15,7 @@ type Props = {
   smartLists: Array<SmartList>,
   onChange: (number) => void,
   helperText: string,
-  values: ?Array<number>,
+  values?: Array<number>,
   selectorClass: string,
   nullCurrentValue?: boolean,
   noMulti?: boolean,
@@ -70,7 +70,7 @@ export function SmartListSelector(props: Props) {
   return (
     <Selector
       searchIcon
-      className={classNames(classes, selectorClass)}
+      className={clsx(classes, selectorClass)}
       components={{ Option: smartListOption }}
       isMulti={!noMulti}
       nullCurrentValue={nullCurrentValue}

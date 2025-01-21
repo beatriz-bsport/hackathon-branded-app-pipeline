@@ -4,7 +4,7 @@ import React from 'react';
 
 import Dropzone from 'react-dropzone';
 import { withTranslation, TFunction } from 'react-i18next';
-import classnames from 'classnames';
+import clsx from 'clsx';
 
 import withStyles from '@material-ui/core/styles/withStyles';
 import Typography from '@material-ui/core/Typography';
@@ -21,7 +21,7 @@ type Props = {
 };
 type State = {
   photo: any,
-  previewURL: string | *,
+  previewURL?: string,
 };
 
 export class ImageUploader extends React.Component<Props, State> {
@@ -77,7 +77,7 @@ export class ImageUploader extends React.Component<Props, State> {
                 </div>
               ) : null}
               <div
-                className={classnames(classes.textContainer, {
+                className={clsx(classes.textContainer, {
                   [classes.textContainerActive]: isDragActive,
                 })}
               >

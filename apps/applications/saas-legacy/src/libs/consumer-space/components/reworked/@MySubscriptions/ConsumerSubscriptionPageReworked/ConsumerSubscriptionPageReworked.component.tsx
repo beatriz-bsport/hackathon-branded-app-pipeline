@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import type { AxiosResponse } from 'axios';
 import { useTranslation } from 'react-i18next';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import ConsumerPageHeader from '#src/libs/consumer-space/components/reworked/@Layout/PageHeader';
 import ConsumerSubscriptionsListContainer from '#src/libs/consumer-space/components/reworked/@MySubscriptions/ConsumerSubscriptionsListContainer';
@@ -236,7 +236,7 @@ const ConsumerSubscriptionPageReworked: React.FC<Props> = ({
   );
   return (
     <PageContentContainer
-      contentClassName={classNames('bs-consumer__subscription-page__root', {
+      contentClassName={clsx('bs-consumer__subscription-page__root', {
         'bs-consumer__subscription-page__root--mobile':
           isMobile && !!selectedSubscription?.id,
         'bs-consumer__subscription-page__root--fab':

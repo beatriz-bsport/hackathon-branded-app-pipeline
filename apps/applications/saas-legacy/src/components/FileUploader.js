@@ -3,7 +3,7 @@
 import React from 'react';
 
 import Dropzone from 'react-dropzone';
-import classnames from 'classnames';
+import clsx from 'clsx';
 
 import { withTranslation, TFunction } from 'react-i18next';
 
@@ -42,7 +42,7 @@ export function FileUploader(props: Props) {
           <input {...getInputProps()} name={name} />
           <div className={classes.previews}>
             <div
-              className={classnames(classes.textContainer, {
+              className={clsx(classes.textContainer, {
                 [classes.textContainerActive]: isDragActive,
               })}
             >

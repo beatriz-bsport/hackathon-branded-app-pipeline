@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { useTranslation } from 'react-i18next';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import ConsumerCardDescription from '#src/libs/consumer-space/components/reworked/common/ConsumerCardDescription';
 import ConsumerCardSection from '#src/libs/consumer-space/components/reworked/common/ConsumerCardSection';
@@ -17,7 +17,7 @@ const UniversalPassDetailsCardDescriptionSection: React.FC<Props> = ({
 
   return (
     <ConsumerCardSection
-      className={classNames('bs-universal-pass-details-card__description', {
+      className={clsx('bs-universal-pass-details-card__description', {
         'bs-universal-pass-details-card__description--hidden': !description,
       })}
       title={t('reworked.myPasses.consumerPassDetailsCard.description.title')}

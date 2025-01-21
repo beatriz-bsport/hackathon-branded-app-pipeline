@@ -7,7 +7,7 @@ import { compose, withHandlers } from 'recompose';
 import { withStyles, MuiThemeProvider } from '@material-ui/core/styles';
 import { CircularProgress, Typography } from '@material-ui/core';
 import { withTranslation } from 'react-i18next';
-import clx from 'classnames';
+import clsx from 'clsx';
 import { DateTime } from 'luxon';
 import Intercom from '#src/components/intercom/Intercom.component';
 import {
@@ -876,7 +876,7 @@ export class Backoffice extends Component<Props, State> {
                 )}
 
                 <main
-                  className={clx({
+                  className={clsx({
                     [classes.content]: true,
                     [classes.fullContent]:
                       this.props.browserLocation.pathname.includes(

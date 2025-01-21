@@ -407,7 +407,7 @@ type State = {
 
   disableWithRecurrence: boolean,
   enableWithRecurrence: boolean,
-  eventSlotSelected: ?EventSlot,
+  eventSlotSelected?: EventSlot,
 };
 
 export class PrivateCalendar extends React.PureComponent<Props, State> {
@@ -519,7 +519,7 @@ export class PrivateCalendar extends React.PureComponent<Props, State> {
       availabilitySlots: Array<AvailabilitySlot>,
       privateBookings: Array<PrivateBooking>,
       offerList: Array<Offer>,
-      resourceDatatypeView: ?string,
+      resourceDatatypeView?: string,
       customEventList?: Array<CustomEvent>,
     ) => {
       const events = Immutable([

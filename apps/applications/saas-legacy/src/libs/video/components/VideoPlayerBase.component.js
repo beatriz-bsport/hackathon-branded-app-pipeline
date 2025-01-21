@@ -20,7 +20,7 @@ type State = {
   isVideoJSCSSReady: boolean,
 };
 
-export class VideoPlayerBase extends React.Component<Props, State> {
+class VideoPlayerBase extends React.Component<Props, State> {
   player: Object;
 
   videoNode: HTMLElement;

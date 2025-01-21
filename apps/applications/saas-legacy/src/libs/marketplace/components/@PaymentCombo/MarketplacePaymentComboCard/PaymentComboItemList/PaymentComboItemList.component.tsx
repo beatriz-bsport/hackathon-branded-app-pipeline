@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import type { PaymentCombo } from '#src/libs/payment-combo/types';
 
@@ -57,7 +57,7 @@ const PaymentComboItemList: React.FC<Props> = ({
 
   if (displayAllitems) {
     return (
-      <ul className={classNames('bs-combo-item-list', { ...classes })}>
+      <ul className={clsx('bs-combo-item-list', { ...classes })}>
         {formatedComboItemsToShowInList.map((comboItem, index) => (
           <li key={index}>{comboItem}</li>
         ))}
@@ -65,7 +65,7 @@ const PaymentComboItemList: React.FC<Props> = ({
     );
   }
   return (
-    <ul className={classNames('bs-combo-item-list', { ...classes })}>
+    <ul className={clsx('bs-combo-item-list', { ...classes })}>
       {formatedComboItemsToShowInReducedList.map((comboItem, index) => (
         <li key={index} className="bs-combo-item-list__item">
           {comboItem}

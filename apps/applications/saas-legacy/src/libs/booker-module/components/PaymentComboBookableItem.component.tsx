@@ -1,6 +1,6 @@
 import React from 'react';
 import { makeStyles, Typography } from '@material-ui/core';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 import { PaymentCombo } from '../../payment-combo/types';
 import { MaxoutData } from '../../payment-packs/types';
@@ -30,7 +30,7 @@ const PaymentPackComboItem = (props: Props) => {
   return (
     <div className={classes.rowContainer}>
       <div
-        className={classNames(classes.itemContainer, {
+        className={clsx(classes.itemContainer, {
           [classes.opacity]: !!props.paymentCombo.exceedsBookingMaxout,
         })}
       >

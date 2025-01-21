@@ -17,7 +17,7 @@ type Props = {
   coaches: Array<Coach>,
 };
 
-export const CustomEventForm = (props: Props) => {
+const CustomEventForm = (props: Props) => {
   const { t } = useTranslation(['privateService']);
   const classes = useStyles();
   return (

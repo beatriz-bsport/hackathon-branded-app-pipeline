@@ -4,7 +4,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import { compose } from 'recompose';
 import { withTranslation, TFunction } from 'react-i18next';
 import Typography from '@material-ui/core/Typography';
-import classname from 'classnames';
+import clsx from 'clsx';
 
 import ShopItemBuyableItemCard from '../../shop/components/ShopItemBuyableItemCard.component';
 
@@ -27,7 +27,7 @@ export const ShopItemFeaturedBanner = (props: Props) => {
         {props.shopItemList.map((si) => (
           <div
             key={si.id}
-            className={classname([
+            className={clsx([
               props.classes.shopItemContainer,
               props.shopItemList.filter((si_) => si_.cover).length
                 ? props.classes.shopItemContainerWithImage

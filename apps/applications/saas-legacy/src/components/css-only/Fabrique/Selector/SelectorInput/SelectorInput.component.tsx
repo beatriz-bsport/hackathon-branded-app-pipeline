@@ -1,5 +1,5 @@
 import React from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import ButtonBase from '#Fabrique/ButtonBaseV2';
 import { ChevronDown, ChevronUp, XClose } from '#src/components/untitledui';
 import Typography from '#Fabrique/Typography';
@@ -92,7 +92,7 @@ const SelectorInput: React.FC<SelectorInputProps> = ({
 
   return (
     <div
-      className={classNames(
+      className={clsx(
         'bs-fabrique-selector-input',
         {
           'bs-fabrique-selector-input--small': isSmall,
@@ -108,7 +108,7 @@ const SelectorInput: React.FC<SelectorInputProps> = ({
       ref={selectorRef}
     >
       <span
-        className={classNames(
+        className={clsx(
           'bs-fabrique-selector-input__icon--base',
           {
             'bs-fabrique-selector-input__icon--small': isSmall,
@@ -122,7 +122,7 @@ const SelectorInput: React.FC<SelectorInputProps> = ({
         {leftIcon}
       </span>
       <div
-        className={classNames(
+        className={clsx(
           'bs-fabrique-selector-input__values-container',
           classes?.valuesContainer,
         )}
@@ -131,7 +131,7 @@ const SelectorInput: React.FC<SelectorInputProps> = ({
           children
         ) : (
           <Typography
-            className={classNames(
+            className={clsx(
               'bs-fabrique-selector-input__placeholder',
               classes?.placeholder,
             )}
@@ -143,7 +143,7 @@ const SelectorInput: React.FC<SelectorInputProps> = ({
       </div>
       <div className="bs-fabrique-selector-input__right-icons-wrapper">
         <ButtonBase
-          className={classNames(
+          className={clsx(
             'bs-fabrique-selector-input__icon--base',
             {
               'bs-fabrique-selector-input__icon--small': isSmall,
@@ -161,13 +161,13 @@ const SelectorInput: React.FC<SelectorInputProps> = ({
           <XClose stroke="currentColor" />
         </ButtonBase>
         <span
-          className={classNames('bs-fabrique-selector-input__icon-separator', {
+          className={clsx('bs-fabrique-selector-input__icon-separator', {
             'bs-fabrique-selector-input__icon-separator--small': isSmall,
             'bs-fabrique-selector-input__icon-separator--large': isLarge,
           })}
         />
         <span
-          className={classNames(
+          className={clsx(
             'bs-fabrique-selector-input__icon--base',
             {
               'bs-fabrique-selector-input__icon--small': isSmall,

@@ -91,7 +91,7 @@ type Props = {
 
   goToConsumerPass: (memberId: number, consumerPassId: number) => void,
   fetchMember: (id: number, options: OptionCallBack) => void,
-  private_consumer_pass: ?PrivateConsumerPass,
+  private_consumer_pass?: PrivateConsumerPass,
   fetchPrivateBookingsList: (params: any) => void,
   private_booking_list: Array<PrivateBooking>,
   private_slot: PrivateSlot,
@@ -109,18 +109,18 @@ type Props = {
   closeAttachCoach: () => void,
 
   openAttachCoach: () => void,
-  private_consumer_pass: ?PrivateConsumerPass,
+  private_consumer_pass?: PrivateConsumerPass,
   onPrivateSlotClick: () => void,
 
-  private_booking: ?PrivateBooking,
-  privateBookingId: ?number,
+  private_booking?: PrivateBooking,
+  privateBookingId?: number,
   fetchPrivateBookingDetails: (options?: OptionCallBack) => void,
   fetchCompanyUserRoles: () => void,
   fetchPrivateConsumerPass: (id: number) => void,
   privateBookingsLoading: boolean,
   goToPrivateBooking: (memberId: number, privateBookingId: number) => void,
-  setBookingToDelete: (booking: ?PrivateBooking) => void,
-  bookingToDelete: ?PrivateBooking,
+  setBookingToDelete: (booking?: PrivateBooking) => void,
+  bookingToDelete?: PrivateBooking,
   disablePrivateBooking: (
     id: number,
     data: any,

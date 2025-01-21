@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import omit from 'lodash/omit';
 import { makeStyles } from '@material-ui/styles';
 import { Theme } from '@material-ui/core/styles';
@@ -804,7 +804,7 @@ const ResponsiveDrawer: React.FC<Props> = ({
                   }
                 >
                   <DoubleArrow
-                    className={classNames(classes.easeRotation, {
+                    className={clsx(classes.easeRotation, {
                       [classes.rotate]: !iconsOnly,
                     })}
                   />

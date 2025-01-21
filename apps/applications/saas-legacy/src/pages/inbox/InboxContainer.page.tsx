@@ -1,5 +1,5 @@
 import React from 'react';
-import classnames from 'classnames';
+import clsx from 'clsx';
 import { Route, Switch } from 'react-router';
 import { push } from 'connected-react-router';
 import { connect, ConnectedProps } from 'react-redux';
@@ -260,7 +260,7 @@ class InboxContainer extends React.PureComponent<Props, ComponentState> {
           thread={thread}
         />
         <Paper
-          className={classnames(classes.threadContainer, {
+          className={clsx(classes.threadContainer, {
             [classes.noThread]: !id,
           })}
           variant="outlined"
@@ -271,7 +271,7 @@ class InboxContainer extends React.PureComponent<Props, ComponentState> {
           />
         </Paper>
         <div
-          className={classnames(classes.inboxPanel, {
+          className={clsx(classes.inboxPanel, {
             [classes.noPanel]: !isLoadingThread && !id,
             [classes.openPanel]: isPanelOpen && !!id,
             [classes.closedPanel]: !isPanelOpen && !!id,

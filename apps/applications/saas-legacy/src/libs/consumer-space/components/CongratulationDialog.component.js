@@ -20,7 +20,7 @@ type Props = {
   onCancel: () => void,
 
   basketGeneratedObjects: BasketObjects,
-  offerBooked: ?Offer,
+  offerBooked?: Offer,
   goToCalendar: (params: any) => void,
 };
 export class CongratulationDialog extends React.PureComponent<Props> {

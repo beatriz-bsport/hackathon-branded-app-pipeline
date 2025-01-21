@@ -1,7 +1,7 @@
 import React from 'react';
 import chroma from 'chroma-js';
 import { DateTime } from 'luxon';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 
 import {
@@ -134,7 +134,7 @@ export const GroupCard: React.FC<Props> = ({
           return (
             <ButtonBase
               key={offer.id}
-              className={classNames(classes.offerItem, {
+              className={clsx(classes.offerItem, {
                 [classes.isSelected]: offerSelected === offer.id,
                 [classes.isDisabled]: !offer.available,
               })}

@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import {
   PAYMENT_GROUP_METHOD_IDENTIFIER_BACS_DEBIT,
@@ -302,13 +302,10 @@ const MarketplaceSubscriptionPayment: React.FC<Props> = ({
           {(filteredSavedPaymentMethodList?.length > 0 ||
             collectPaymentMethodIsOpen) && (
             <button
-              className={classNames(
-                'bs-contract-payment__payment__methods__add',
-                {
-                  'bs-contract-payment__payment_methods__add--disabled':
-                    collectPaymentMethodIsOpen,
-                },
-              )}
+              className={clsx('bs-contract-payment__payment__methods__add', {
+                'bs-contract-payment__payment_methods__add--disabled':
+                  collectPaymentMethodIsOpen,
+              })}
               disabled={collectPaymentMethodIsOpen}
               onClick={handleOpenCollectPaymentMethod}
               type="button"

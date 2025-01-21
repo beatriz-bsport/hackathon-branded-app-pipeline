@@ -1,5 +1,5 @@
 import React from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import Immutable from 'seamless-immutable';
 import ReactFlow, {
   addEdge,
@@ -319,7 +319,7 @@ export const CadenceGraphFlow: React.FC<Props> = ({
   return (
     <ReactFlowProvider>
       <div
-        className={classNames({
+        className={clsx({
           [classes.blurDisabledOverLay]: creationMode,
           [classes.clearDisabledOverLay]:
             !creationMode && (cadence.active || !cadenceEditMode),

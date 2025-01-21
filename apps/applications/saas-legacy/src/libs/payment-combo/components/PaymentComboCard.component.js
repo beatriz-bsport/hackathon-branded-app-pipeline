@@ -24,7 +24,7 @@ import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 import type { PaymentCombo } from '../types';
 
 type Props = {
-  paymentCombo: ?PaymentCombo,
+  paymentCombo?: PaymentCombo,
   onShopItemClick: (id: number) => void,
   onPaymentPackClick: (id: number) => void,
   onPrivatePassClick: (id: number) => void,

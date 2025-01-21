@@ -1,5 +1,5 @@
 import React, { memo } from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 
 import ButtonBase from '#Fabrique/ButtonBaseV2';
@@ -115,7 +115,7 @@ const useIconButtonClassNames = (
     }
   }, [joinedVariantWithColor]);
 
-  return classNames(
+  return clsx(
     'bs-fabrique-icon-button-root',
     iconButtonSizeClassName,
     iconButtonVariantAndColorClassName,
@@ -139,7 +139,7 @@ export const IconButton: React.FC<ButtonProps> = ({
   const iconButtonClassNames = useIconButtonClassNames(size, color, variant);
   return (
     <ButtonBase
-      className={classNames(iconButtonClassNames, className)}
+      className={clsx(iconButtonClassNames, className)}
       href={href}
       isDisabled={isDisabled}
       isRippleEnabled={isRippleEnabled}
@@ -149,7 +149,7 @@ export const IconButton: React.FC<ButtonProps> = ({
       type={type}
     >
       <span
-        className={classNames({
+        className={clsx({
           'bs-fabrique-icon-button__svg-container--sm': size === ButtonSize.SM,
           'bs-fabrique-icon-button__svg-container--md': size === ButtonSize.MD,
           'bs-fabrique-icon-button__svg-container--lg': size === ButtonSize.LG,
@@ -159,7 +159,7 @@ export const IconButton: React.FC<ButtonProps> = ({
       </span>
 
       <div
-        className={classNames('bs-fabrique-icon-button-root__badge', {
+        className={clsx('bs-fabrique-icon-button-root__badge', {
           'bs-fabrique-icon-button-root__badge--hidden': !badgeValue,
         })}
       >

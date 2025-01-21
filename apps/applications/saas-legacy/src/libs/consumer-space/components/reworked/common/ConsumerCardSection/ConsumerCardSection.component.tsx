@@ -1,6 +1,6 @@
 import React from 'react';
 
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import Typography from '#Fabrique/Typography';
 
@@ -31,16 +31,16 @@ const ConsumerCardSection: React.FC<Props> = ({
   titleVariant,
   subtitle,
 }) => (
-  <section className={classNames('bs-consumer-card__section', className)}>
+  <section className={clsx('bs-consumer-card__section', className)}>
     <div
-      className={classNames(
+      className={clsx(
         'bs-consumer-card__section__text-container',
         { 'bs-consumer-card__section__text-container--hidden': !title },
         classes?.textContainer,
       )}
     >
       <Typography
-        className={classNames(
+        className={clsx(
           'bs-consumer-card__section__title',
           {
             'bs-consumer-card__section__title--hidden': !title,

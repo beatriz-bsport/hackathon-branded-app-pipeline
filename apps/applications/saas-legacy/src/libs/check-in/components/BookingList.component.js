@@ -30,7 +30,7 @@ type Props = {
   getMember: (id: number) => Member,
 };
 
-export const BookingList: React.FC<Props> = ({
+const BookingList: React.FC<Props> = ({
   bookingLoading,
   offer,
   bookings,

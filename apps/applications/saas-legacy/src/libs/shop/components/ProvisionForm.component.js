@@ -9,7 +9,7 @@ import { withState, compose } from 'recompose';
 import NumericInput from '../../../components/input/NumericInput.component';
 
 type Props = {
-  quantity: ?number,
+  quantity?: number,
   setQuantity: (number) => void,
   onCancel: () => void,
   onSubmit: (data: { qty: number }) => void,

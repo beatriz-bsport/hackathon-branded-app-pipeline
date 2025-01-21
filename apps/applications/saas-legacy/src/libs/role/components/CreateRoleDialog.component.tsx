@@ -18,7 +18,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 
 import { WithTranslation, withTranslation } from 'react-i18next';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import GenericResponsiveDialog from '#src/components/genericDialog/GenericResponsiveDialog';
 import ConditionalWrapper from '#src/components/ConditionnalWrapper.component';
 // @ts-expect-error
@@ -546,7 +546,7 @@ export class CreateRoleDialog extends React.Component<Props, State> {
             <div className={classes.marginTop4} />
 
             <Divider
-              className={classNames({
+              className={clsx({
                 [classes.divider]: !this.props.isFranchisor,
                 [classes.dividerFranchisor]: this.props.isFranchisor,
               })}
@@ -650,7 +650,7 @@ export class CreateRoleDialog extends React.Component<Props, State> {
               </Collapse>
             </div>
             <Divider
-              className={classNames({
+              className={clsx({
                 [classes.divider]: !this.props.isFranchisor,
                 [classes.dividerFranchisor]: this.props.isFranchisor,
               })}

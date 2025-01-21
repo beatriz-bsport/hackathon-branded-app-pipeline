@@ -1,6 +1,6 @@
 import React from 'react';
 
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import { Color } from './types';
 
@@ -33,7 +33,7 @@ export const Price: React.FC<Props> = ({
 
   return (
     <div
-      className={classNames('bs-price__container', {
+      className={clsx('bs-price__container', {
         default: !color,
         [`${color}`]: color,
         ...classes,

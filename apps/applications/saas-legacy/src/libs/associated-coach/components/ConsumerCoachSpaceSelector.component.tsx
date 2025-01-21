@@ -2,7 +2,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import { Button, Typography } from '@material-ui/core';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import chroma from 'chroma-js';
 import { getTextColorFromRGB } from '../../../utils/color';
 
@@ -39,7 +39,7 @@ export const ConsumerCoachSpaceSelector: React.FC<Props> = ({
         <Typography className={classes.connection} variant="h4">
           {t('coachAccess.access')}
         </Typography>
-        <div className={classNames(classes.rectangle, 'reactangle-animated')} />
+        <div className={clsx(classes.rectangle, 'reactangle-animated')} />
       </div>
       <div className={classes.infoContainer}>
         <Typography className={classes.info} variant="body1">

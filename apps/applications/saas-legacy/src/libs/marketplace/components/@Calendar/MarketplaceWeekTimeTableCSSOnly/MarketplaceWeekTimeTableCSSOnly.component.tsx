@@ -3,7 +3,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 // @ts-expect-error
 import { withTranslation, TFunction } from 'react-i18next';
 import Collapse from '@material-ui/core/Collapse';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import IconButton from '@material-ui/core/IconButton';
 import flattenDeep from 'lodash/flattenDeep';
 import { DateTime } from 'luxon';
@@ -315,7 +315,7 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
     return (
       <div className="bs-week__listMode__content__day">
         <div
-          className={classNames('bs-week__listMode__content__day__date', {
+          className={clsx('bs-week__listMode__content__day__date', {
             'bs-week__listMode__content__day__date--is-today': isToday,
           })}
         >
@@ -449,7 +449,7 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
           useLocaleWeeks: true,
         });
     const main_date = date;
-    const bs_week = classNames({
+    const bs_week = clsx({
       'bs-week-card': isCardModeDisplay,
       'bs-week-list': !isCardModeDisplay,
     });
@@ -470,7 +470,7 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
               return (
                 <button
                   key={`weekDay-${i}`}
-                  className={classNames({
+                  className={clsx({
                     'bs-week__header__date--is-disabled': isCardModeDisplay,
                     'bs-week__header__date--is-abled': !isCardModeDisplay,
                   })}
@@ -481,7 +481,7 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
                   type="button"
                 >
                   <div
-                    className={classNames({
+                    className={clsx({
                       'bs-week__header__date__weekDay': true,
                       'bs-week__header__date__weekDay--is-today': isToday,
                       'bs-week__header__date__weekDay--is-selected':
@@ -496,7 +496,7 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
                         )}
                   </div>
                   <div
-                    className={classNames('bs-week__header__date__monthDay', {
+                    className={clsx('bs-week__header__date__monthDay', {
                       'bs-week__header__date__monthDay--is-today': isToday,
                       'bs-week__header__date__monthDay--is-selected':
                         isSelectedDate || (isToday && isCardModeDisplay),

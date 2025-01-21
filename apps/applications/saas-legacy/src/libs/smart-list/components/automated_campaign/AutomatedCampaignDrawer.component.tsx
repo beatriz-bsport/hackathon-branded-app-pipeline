@@ -29,7 +29,7 @@ import RemoveCircleIcon from '@material-ui/icons/RemoveCircle';
 import RepeatIcon from '@material-ui/icons/Repeat';
 import Alert from '@material-ui/lab/Alert';
 import { SEND_COMMUNICATION_ON_JOIN } from '@bsport/common/lib/master-data/smart-list.js';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import Select from 'react-select';
 import type { ValueType } from 'react-select/lib/types';
 import chroma from 'chroma-js';
@@ -517,7 +517,7 @@ export const AutomatedCommunicationDrawer: React.FC<
                   </div>
                   <>
                     <ExpandMoreIcon
-                      className={classNames(classes.expandIcon, {
+                      className={clsx(classes.expandIcon, {
                         [classes.rotate]: openedAdvancedSection,
                       })}
                     />

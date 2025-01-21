@@ -1,7 +1,7 @@
 import React, { CSSProperties } from 'react';
 import { useTranslation } from 'react-i18next';
 import { pure } from 'recompose';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { lighten } from '@material-ui/core/styles/colorManipulator';
 import { useTheme } from '@material-ui/styles';
 
@@ -41,11 +41,11 @@ const MarketplaceBroadcastCSSOnly: React.FC<Props> = ({
       }
     >
       <div
-        className={classNames('bs-broadcast', {
+        className={clsx('bs-broadcast', {
           'bs-broadcast--cardVariant': cardVariant,
         })}
       >
-        <div className={classNames('bs-broadcast__text', className)}>
+        <div className={clsx('bs-broadcast__text', className)}>
           {t('marketplace:calendar.broadcast')}
         </div>
         <VideocamIcon className="bs-broadcast__videocam" />

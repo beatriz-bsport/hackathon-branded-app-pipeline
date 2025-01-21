@@ -4,7 +4,7 @@ import { TFunction } from 'i18next';
 import * as Yup from 'yup';
 import { v4 as uuidv4 } from 'uuid';
 
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { compose } from 'recompose';
 import { withFormik, Form, FormikProps } from 'formik';
 
@@ -412,7 +412,7 @@ const DashboardGraphFormDrawer: React.FC<OuterProps & FormikProps<Values>> = ({
         <Form className={classes.form}>
           <div className={classes.container}>
             <div className={classes.innerContainer}>
-              <div className={classNames(classes.row, classes.formTitle)}>
+              <div className={clsx(classes.row, classes.formTitle)}>
                 <InfoIcon className={classes.sectionIcon} />
                 <Typography variant="h6">
                   {t('graphFormDrawer.sectionTitles.general')}
@@ -428,7 +428,7 @@ const DashboardGraphFormDrawer: React.FC<OuterProps & FormikProps<Values>> = ({
             <Divider className={classes.divider} />
 
             <div className={classes.innerContainer}>
-              <div className={classNames(classes.row, classes.formTitle)}>
+              <div className={clsx(classes.row, classes.formTitle)}>
                 <DataUsageIcon className={classes.sectionIcon} />
                 <Typography variant="h6">
                   {t('graphFormDrawer.sectionTitles.dashboardGraphIdentifier')}
@@ -453,7 +453,7 @@ const DashboardGraphFormDrawer: React.FC<OuterProps & FormikProps<Values>> = ({
             <Divider className={classes.divider} />
 
             <div className={classes.innerContainer}>
-              <div className={classNames(classes.row, classes.formTitle)}>
+              <div className={clsx(classes.row, classes.formTitle)}>
                 <ShowChartIcon className={classes.sectionIcon} />
                 <Typography variant="h6">
                   {t('graphFormDrawer.sectionTitles.graphFamily')}
@@ -503,7 +503,7 @@ const DashboardGraphFormDrawer: React.FC<OuterProps & FormikProps<Values>> = ({
             <Divider className={classes.divider} />
 
             <div className={classes.innerContainer}>
-              <div className={classNames(classes.row, classes.formTitle)}>
+              <div className={clsx(classes.row, classes.formTitle)}>
                 <MonetizationOnIcon className={classes.sectionIcon} />
                 <Typography variant="h6">
                   {t('graphFormDrawer.sectionTitles.graphParams')}
@@ -538,7 +538,7 @@ const DashboardGraphFormDrawer: React.FC<OuterProps & FormikProps<Values>> = ({
             <Divider className={classes.divider} />
 
             <div className={classes.innerContainer}>
-              <div className={classNames(classes.row, classes.formTitle)}>
+              <div className={clsx(classes.row, classes.formTitle)}>
                 <CalendarTodayIcon className={classes.sectionIcon} />
                 <Typography variant="h6">
                   {t('graphFormDrawer.sectionTitles.timePeriod')}
@@ -558,10 +558,7 @@ const DashboardGraphFormDrawer: React.FC<OuterProps & FormikProps<Values>> = ({
                 </div>
               </div>
               <Typography
-                className={classNames(
-                  classes.selectLabel,
-                  classes.selectLabelMargin,
-                )}
+                className={clsx(classes.selectLabel, classes.selectLabelMargin)}
                 variant="body1"
               >
                 {t('graphFormDrawer.labels.dateFilterField')}
@@ -593,7 +590,7 @@ const DashboardGraphFormDrawer: React.FC<OuterProps & FormikProps<Values>> = ({
             <Divider className={classes.divider} />
 
             <div className={classes.innerContainer}>
-              <div className={classNames(classes.row, classes.formTitle)}>
+              <div className={clsx(classes.row, classes.formTitle)}>
                 <FilterListIcon className={classes.sectionIcon} />
                 <Typography variant="h6">
                   {t('graphFormDrawer.sectionTitles.filterConfig')}

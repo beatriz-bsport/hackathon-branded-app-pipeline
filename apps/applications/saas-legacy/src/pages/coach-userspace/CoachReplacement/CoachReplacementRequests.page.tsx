@@ -3,7 +3,7 @@ import chroma from 'chroma-js';
 import { useTranslation } from 'react-i18next';
 import { connect, ConnectedProps } from 'react-redux';
 import { compose, withHandlers } from 'recompose';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import TableContainer from '@material-ui/core/TableContainer';
@@ -196,10 +196,7 @@ export const CochReplacementRequests: React.FC<Props> = (props: Props) => {
       </div>
       <Paper className={classes.paperContainer} elevation={0}>
         <Typography
-          className={classNames(
-            classes.buttonTitle,
-            classes.buttonTitleMarginBottom,
-          )}
+          className={clsx(classes.buttonTitle, classes.buttonTitleMarginBottom)}
           component="h2"
           variant="h5"
         >
@@ -231,7 +228,7 @@ export const CochReplacementRequests: React.FC<Props> = (props: Props) => {
       </Paper>
       <Paper className={classes.paperContainer} elevation={0}>
         <ButtonBase
-          className={classNames(classes.buttonTitle, {
+          className={clsx(classes.buttonTitle, {
             [classes.buttonTitleMarginBottom]: showReplacedRequests,
           })}
           onClick={onToggleCollapse}

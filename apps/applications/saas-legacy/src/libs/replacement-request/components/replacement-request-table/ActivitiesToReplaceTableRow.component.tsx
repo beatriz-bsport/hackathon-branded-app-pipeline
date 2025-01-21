@@ -1,7 +1,7 @@
 import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { DateTime } from 'luxon';
-import classnames from 'classnames';
+import clsx from 'clsx';
 
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
@@ -166,12 +166,12 @@ export const ActivitiesToReplaceTableRow: React.FC<Props> = ({
   if (isMobile) {
     return (
       <div
-        className={classnames(classes.mobileContainer, {
+        className={clsx(classes.mobileContainer, {
           [classes.mobileListItemDivider]: !isLastItem,
         })}
       >
         <div
-          className={classnames(
+          className={clsx(
             classes.mobileSubRow,
             classes.mobileHeader,
             classes.mobileLightDivider,
@@ -181,9 +181,7 @@ export const ActivitiesToReplaceTableRow: React.FC<Props> = ({
             <Typography className={classes.marginRight2} variant="body2">
               {offerDateStartAsDateTime.toFormat('EEE d MMM, yyyy')}
             </Typography>
-            <Typography
-              className={classnames(classes.grey, classes.mobileSmallFont)}
-            >
+            <Typography className={clsx(classes.grey, classes.mobileSmallFont)}>
               {`${formatISOStringAsTime(
                 offerDateStartAsDateTime.toISO(),
                 timezone,
@@ -240,10 +238,7 @@ export const ActivitiesToReplaceTableRow: React.FC<Props> = ({
           <div className={classes.mobileOfferInfoColumn}>
             <div className={classes.offerInfo}>
               <Typography
-                className={classnames(
-                  classes.mobileSmallFont,
-                  classes.weight500,
-                )}
+                className={clsx(classes.mobileSmallFont, classes.weight500)}
               >
                 {replacementRequest.offer?.name_override ||
                   replacementRequest.offer?.meta_activity?.name}
@@ -278,7 +273,7 @@ export const ActivitiesToReplaceTableRow: React.FC<Props> = ({
               {replacementDisplay ===
                 ReplacementDisplays.REPLACEMENT_DISPLAY_MARKETPLACE && (
                 <Typography
-                  className={classnames(classes.grey, classes.mobileSmallFont)}
+                  className={clsx(classes.grey, classes.mobileSmallFont)}
                 >
                   {t('marketplace.until', {
                     date: DateTime.fromISO(
@@ -290,7 +285,7 @@ export const ActivitiesToReplaceTableRow: React.FC<Props> = ({
               {replacementDisplay ===
                 ReplacementDisplays.REPLACEMENT_DISPLAY_REQUEST_PENDING && (
                 <Typography
-                  className={classnames(
+                  className={clsx(
                     classes.grey,
                     classes.mobileSmallFont,
                     classes.mobileRequestReason,
@@ -442,10 +437,7 @@ export const ActivitiesToReplaceTableRow: React.FC<Props> = ({
             ReplacementDisplays.REPLACEMENT_DISPLAY_REQUEST_TEACHER_FOUND) && (
           <React.Fragment>
             <TableCell
-              className={classnames(
-                classes.tableCell,
-                classes.responsiveReason,
-              )}
+              className={clsx(classes.tableCell, classes.responsiveReason)}
             >
               <Typography className={classes.grey} variant="body2">
                 {replacementRequest.reason}

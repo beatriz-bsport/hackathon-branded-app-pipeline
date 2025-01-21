@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import { RRule } from 'rrule';
-import classnames from 'classnames';
+import clsx from 'clsx';
 import { compose } from 'recompose';
 import { withStyles } from '@material-ui/core/styles';
 import Select from '@material-ui/core/Select';
@@ -292,12 +292,12 @@ export class ExpenseRecurrencySelector extends Component<Props> {
         )}
 
         {showRepeat && (
-          <div className={classnames(classes.field, classes.flexRow)}>
+          <div className={clsx(classes.field, classes.flexRow)}>
             <Typography className={initial?.rrule ? classes.disabled : ''}>
               {t('form.repeat.repeatEvery')}
             </Typography>
             <TextField
-              className={classnames(classes.integerField, classes.margin)}
+              className={clsx(classes.integerField, classes.margin)}
               disabled={!!initial?.rrule}
               InputProps={{
                 inputProps: { min: 0, step: 1, max: { maxInterval } },
@@ -370,7 +370,7 @@ export class ExpenseRecurrencySelector extends Component<Props> {
                       : t('form.repeat.repeatMonth')}
                   </Typography>
                   <TextField
-                    className={classnames(classes.integerField, classes.margin)}
+                    className={clsx(classes.integerField, classes.margin)}
                     disabled={radioValue !== 0 || !!initial?.rrule}
                     InputProps={{
                       inputProps: { min: 1, step: 1, max: 31 },
@@ -387,11 +387,7 @@ export class ExpenseRecurrencySelector extends Component<Props> {
                   />
                 </div>
                 <div
-                  className={classnames(
-                    classes.field,
-                    classes.flexRow,
-                    classes.wrap,
-                  )}
+                  className={clsx(classes.field, classes.flexRow, classes.wrap)}
                 >
                   <Radio disabled={!!initial?.rrule} value={1} />
                   <Typography>{t('form.repeat.repeatMonthDay')}</Typography>
@@ -441,14 +437,14 @@ export class ExpenseRecurrencySelector extends Component<Props> {
         )}
 
         {showRepeat && rrule.freq === RRule.YEARLY && (
-          <div className={classnames(classes.field, classes.flexRow)}>
+          <div className={clsx(classes.field, classes.flexRow)}>
             <Typography>
               {rrule.interval > 1
                 ? t('form.repeat.repeatYear_nb', { nb: rrule.interval })
                 : t('form.repeat.repeatYear')}
             </Typography>
             <TextField
-              className={classnames(classes.integerField, classes.margin)}
+              className={clsx(classes.integerField, classes.margin)}
               disabled={!!initial?.rrule}
               InputProps={{
                 inputProps: { min: 1, step: 1, max: 31 },
@@ -502,7 +498,7 @@ export class ExpenseRecurrencySelector extends Component<Props> {
                 <Radio disabled={!!initial?.rrule} value={0} />
                 <Typography>{t('form.repeat.count')}</Typography>
                 <TextField
-                  className={classnames(classes.integerField, classes.margin)}
+                  className={clsx(classes.integerField, classes.margin)}
                   disabled={radioRepeatValue !== 0 || !!initial?.rrule}
                   InputProps={{
                     inputProps: { min: 1, step: 1, max: { maxCount } },
@@ -535,11 +531,7 @@ export class ExpenseRecurrencySelector extends Component<Props> {
                 <InsertInvitationIcon className={classes.calendarIcon} />
               </div>
               <div
-                className={classnames(
-                  classes.field,
-                  classes.flexRow,
-                  classes.wrap,
-                )}
+                className={clsx(classes.field, classes.flexRow, classes.wrap)}
               >
                 <Radio disabled={!!initial?.rrule} value={1} />
                 <Typography>{t('form.repeat.from')}</Typography>

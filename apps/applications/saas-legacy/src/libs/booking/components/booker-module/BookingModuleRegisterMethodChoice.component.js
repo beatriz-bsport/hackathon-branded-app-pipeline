@@ -1,7 +1,7 @@
 // @flow
 import React, { useState } from 'react';
 
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
@@ -81,7 +81,7 @@ type Props = {
   containerHasFetchedNonCompatiblePasses: Boolean,
 };
 
-export const BookingModuleRegisterMethodChoice = (props: Props) => {
+const BookingModuleRegisterMethodChoice = (props: Props) => {
   const classes = useStyles();
   const { t } = useTranslation();
   const {
@@ -482,7 +482,7 @@ export const BookingModuleRegisterMethodChoice = (props: Props) => {
           <Collapse in={openBuyableCompatiblePassesCollapse}>
             {!props.compatiblePacks.length ? (
               <Alert
-                className={classNames(classes.alert, classes.paddingTop2)}
+                className={clsx(classes.alert, classes.paddingTop2)}
                 severity="warning"
               >
                 {t('offer.noPackAvailableForOfferPurchase')}
@@ -574,7 +574,7 @@ export const BookingModuleRegisterMethodChoice = (props: Props) => {
           <ObjectLevelPermissionProvider requiredPermission="billing.allowed_actions.createManualDiscount">
             {(hasCreateDiscountPermission) => (
               <div
-                className={classNames(classes.voucherField, {
+                className={clsx(classes.voucherField, {
                   [classes.alignCenter]: !hasCreateDiscountPermission,
                 })}
               >

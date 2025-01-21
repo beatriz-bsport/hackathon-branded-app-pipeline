@@ -55,7 +55,7 @@ import coachPaymentRuleFieldsSchema from './schemaValidation';
 import mapInitalPropsToValues from './mapPropsToValues';
 import { COACH_PAYMENT_RULE_FOR_ACTIVITIES } from '../../constants';
 
-type Props = { t: TFunction, classes: * } & CoachPaymentRule & {
+type Props = { t: TFunction, classes: any } & CoachPaymentRule & {
     onSubmit: (CoachPaymentRule) => void,
   };
 

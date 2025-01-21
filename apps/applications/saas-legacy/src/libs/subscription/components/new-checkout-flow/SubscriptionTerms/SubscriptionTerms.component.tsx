@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from 'react';
 import { useTranslation, Trans } from 'react-i18next';
 
-import classNames from 'classnames';
+import clsx from 'clsx';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 import Checkbox from '#src/components/css-only/Checkbox/';
@@ -47,7 +47,7 @@ export const SubscriptionTerms: React.FC<Props> = (props) => {
         <Collapse collapsedHeight={72} isExpanded={isTextExpanded}>
           <div
             ref={contractTermsText.ref}
-            className={classNames('bs-subscription-terms__text-content', {
+            className={clsx('bs-subscription-terms__text-content', {
               '--shrinked': !isTextExpanded,
               '--gradient': contractTermsText.isExpandable && !isTextExpanded,
               '--expanded': isTextExpanded,
@@ -64,7 +64,7 @@ export const SubscriptionTerms: React.FC<Props> = (props) => {
           >
             <>
               <KeyboardArrowDownIcon
-                className={classNames('bs-subscription-terms__arrow', {
+                className={clsx('bs-subscription-terms__arrow', {
                   'bs-subscription-terms__arrow--rotate': isTextExpanded,
                 })}
               />

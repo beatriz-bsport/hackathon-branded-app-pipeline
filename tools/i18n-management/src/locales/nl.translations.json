@@ -183,7 +183,7 @@
                         "availability": {
                             "expiresToday": "Laatste dag",
                             "expiresIn": "{{ daysRemaining }} dag(en) over",
-                            "expiresIn_plural": "{{ daysRemaining }} resterende dagen",
+                            "expiresIn_plural": "{{ daysRemaining }}dagen resterend",
                             "future": "Startdatum: {{ startDate }}",
                             "expired": "Verlopen op: {{ expirationDate }}",
                             "active": "Verloopdatum: {{ expirationDate }}"
@@ -5408,7 +5408,7 @@
                 "errors": {
                     "hasUpcomingPrivateBookings": "Sommige komende afspraken vinden plaats in deze vestiging. Annuleer en verwijder ze voordat je deze vestiging verwijdert.",
                     "exclusivePaymentPacks": "De volgende pas {{- pass_name }} is alleen bruikbaar in deze vestiging. Werk de beperkingen bij voordat u de vestiging verwijdert.",
-                    "exclusivePaymentPacks_plural": "De volgende passen{{- pass_name }}zijn alleen bruikbaar in deze vestiging. Werk de beperkingen bij voordat u de vestiging verwijdert.",
+                    "exclusivePaymentPacks_plural": "De volgende passen {{- pass_name }} zijn alleen bruikbaar in deze vestiging. Werk de beperkingen bij voordat u de vestiging verwijdert.",
                     "exclusiveEstablishmentGroups": "De locatie {{- establishment_group_name }} bevat alleen de vestiging die u wilt verwijderen. Werk deze locatie bij of verwijder deze.",
                     "exclusiveEstablishmentGroups_plural": "De locaties {{- establishment_group_name }} bevatten alleen de vestiging die u wilt verwijderen. U kunt deze locaties bijwerken of verwijderen.",
                     "hasExclusiveMarketplaceComponentConfigs": "Een of meerdere tabbladen op de marktplaats zijn ingesteld om alleen de agenda en workshops van deze vestiging weer te geven.",
@@ -5419,9 +5419,9 @@
                 "warnings": {
                     "hasBillingGroup": "Deze vestiging wordt ook verwijderd uit de factureringsgroep {{- establishment_billing_group_name }}.",
                     "exclusivePrivateServices": "De afspraak {{- private_service_name }} is geconfigureerd om alleen in deze vestiging plaats te vinden. Door deze vestiging te verwijderen, kan deze afspraak overal plaatsvinden.",
-                    "exclusivePrivateServices_plural": "De afspraken {{- private_service_name }} zijn zo ingesteld dat deze alleen in deze vestiging kunnen plaatsvinden. Door deze vestiging te verwijderen, kunnen deze afspraken overal plaatsvinden.",
+                    "exclusivePrivateServices_plural": "De afspraken {{- private_service_name }} zijn geconfigureerd om alleen in deze vestiging plaats te vinden. Door deze vestiging te verwijderen, kunnen deze afspraken overal plaatsvinden.",
                     "exclusiveCoachAvailabilitySlots": "De leraar {{- coach_name }} is aangegeven als beschikbaar voor deze vestiging voor slechts enkele tijdsloten. Door de vestiging te verwijderen, worden deze tijdslots verwijderd.",
-                    "exclusiveCoachAvailabilitySlots_plural": "De instructeurs {{- coach_name }} worden aangegeven als beschikbaar voor deze vestiging voor slechts enkele tijdsloten. Door de vestiging te verwijderen, worden deze tijdsloten verwijderd.",
+                    "exclusiveCoachAvailabilitySlots_plural": "De docenten{{- coach_name }}worden aangegeven als beschikbaar voor deze vestiging voor slechts enkele tijdsloten. Door de vestiging te verwijderen, worden deze tijdsloten verwijderd.",
                     "exclusiveAssociatedCoaches_plural": "Je leraren {{- coach_name }} krijgt alleen bericht als er een vervangingsverzoek wordt gedaan voor een sessie in deze vestiging. Door de vestiging te verwijderen, ontvangen ze dus vervangingsverzoeken van elke vestiging.",
                     "exclusiveAssociatedCoaches": "Je leraar {{- coach_name }} krijgt alleen bericht als er een vervangingsverzoek wordt gedaan voor een sessie in deze vestiging. Door de vestiging te verwijderen, ontvangen ze dus vervangingsverzoeken van elke vestiging.",
                     "hasExclusiveStaffConfigurations": "Sommige medewerkers zijn geconfigureerd om de toegang van leden alleen voor deze vestiging te controleren. Door de vestiging te verwijderen zonder een nieuwe te selecteren, kunnen ze geen toegangscontrole meer uitvoeren.",
@@ -8566,7 +8566,8 @@
                     "nbIntervalAfterAutoRenewal": {
                         "secondLabel": "Aantal rekeningen *",
                         "firstLabel": "Abonnementsfacturering voor volgende cycli wijzigen"
-                    }
+                    },
+                    "notEditable": "Dit contract is afkomstig van een eerder voltooide datamigratie. Sommige velden zijn mogelijk niet bewerkbaar om de data te behouden."
                 },
                 "registerManager": {
                     "explainChoseContract": "Selecteer een abonnement dat periodiek gefactureerd wordt.",
@@ -10691,7 +10692,8 @@
                         "header": "Geavanceerd"
                     },
                     "notification": "Meldingen",
-                    "detailsAndRestrictions": "Details en beperkingen"
+                    "detailsAndRestrictions": "Details en beperkingen",
+                    "notEditable": "Deze afspraakkaart is afkomstig van een eerder voltooide datamigratie. Sommige velden zijn mogelijk niet bewerkbaar om de gegevens te behouden."
                 },
                 "delete": {
                     "title": "Afspraakkaart verwijderen",
@@ -15125,7 +15127,8 @@
                         "paymentSuccess_plural": "Gefeliciteerd met uw aankopen! Uw aankopen zijn bevestigd!",
                         "offerOnlySuccess": "Je reservering is bevestigd. Binnenkort ontvang je een bevestigingsmail met alle details.",
                         "offerOnlySuccess_plural": "Je reserveringen zijn bevestigd. Binnenkort ontvang je een bevestigingsmail met alle details.",
-                        "offerOnlyGuestSuccess": "De reservering is gemaakt. Jij en je gast ontvangen binnenkort een bevestigingsmail met alle details."
+                        "offerOnlyGuestSuccess": "De reservering is gemaakt. Jij en je gast ontvangen binnenkort een bevestigingsmail met alle details.",
+                        "offersPartiallyConfirmed": "Sommige sessies konden niet worden geboekt, mogelijk omdat ze vol waren of werden geannuleerd tijdens het afrekenen. U ontvangt binnenkort een bevestigingsmail met details over de succesvolle boekingen."
                     },
                     "confirmationStatusTitle": {
                         "success": {
@@ -15137,10 +15140,15 @@
                         "errors": {
                             "genericOfferError": "Oeps! De boeking is mislukt.",
                             "generic": "Oeps! Betaling mislukt."
+                        },
+                        "warning": {
+                            "offersPartiallyConfirmed": "Uw boeking is gedeeltelijk bevestigd"
                         }
                     },
                     "offerGuestBooked": "Mijn gastreservering",
-                    "offerGuestBooked_plural": "Mijn gastreserveringen"
+                    "offerGuestBooked_plural": "Mijn gastreserveringen",
+                    "unableToBookSession": "Het is niet mogelijk om een sessie te boeken",
+                    "unableToBookSession_plural": "Het is niet mogelijk om sessies te boeken"
                 },
                 "actions": {
                     "back": "Terug",

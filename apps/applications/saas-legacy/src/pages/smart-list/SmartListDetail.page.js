@@ -29,7 +29,6 @@ type Props = {
 const tabsData = Immutable([
   { label: 'tab.smartList.member', value: 'member' },
   { label: 'tab.smartList.campaign', value: 'campaign' },
-  { label: 'tab.smartList.statistic', value: 'statistic' },
 ]);
 
 export class SmartListDetail extends React.Component<Props> {

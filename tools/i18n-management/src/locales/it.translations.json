@@ -15413,7 +15413,9 @@
                         }
                     },
                     "offerGuestBooked": "La mia prenotazione per gli ospiti",
-                    "offerGuestBooked_plural": "Le mie prenotazioni per gli ospiti"
+                    "offerGuestBooked_plural": "Le mie prenotazioni per gli ospiti",
+                    "unableToBookSession": "Impossibile prenotare la sessione",
+                    "unableToBookSession_plural": "Impossibile prenotare le sessioni"
                 },
                 "actions": {
                     "back": "Precedente",

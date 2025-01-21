@@ -519,8 +519,9 @@ export class CalendarPicker extends Component<Props, State> {
               </div>
             )}
 
-            {this.renderDateTab()}
-            {this.renderDurationTab()}
+            {this.state.mode === 0
+              ? this.renderDateTab()
+              : this.renderDurationTab()}
           </div>
           <div className={classes.buttonContainer}>
             <Button

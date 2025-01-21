@@ -817,6 +817,9 @@
                             "paymentSuccess": "Paiement confirmé !",
                             "waitingList": "Vous vous êtes inscrit sur la liste d'attente",
                             "offerOnlyGuestSuccess": "Profitez de la séance avec votre invité(e) !"
+                        },
+                        "warning": {
+                            "offersPartiallyConfirmed": "Votre réservation est partiellement confirmée"
                         }
                     },
                     "confirmationStatusMessage": {
@@ -825,7 +828,8 @@
                         "paymentSuccess": "Félicitations ! Votre achat est confirmé !",
                         "paymentSuccess_plural": "Félicitations ! Vos achats sont confirmés !",
                         "offerAndPurchaseSuccess": "Félicitations ! Vos achats et réservations sont confirmés. Vous recevrez sous peu un e-mail de confirmation contenant tous les détails.",
-                        "offerOnlyGuestSuccess": "La réservation a été effectuée. Votre invité(e) et vous allez recevoir sous peu un e-mail de confirmation contenant tous les détails."
+                        "offerOnlyGuestSuccess": "La réservation a été effectuée. Votre invité(e) et vous allez recevoir sous peu un e-mail de confirmation contenant tous les détails.",
+                        "offersPartiallyConfirmed": "Certaines séances n'ont pas pu être réservées, potentiellement car elles étaient complètes ou qu'elles ont été annulées pendant votre réservation. Vous recevrez sous peu un email de confirmation contenant les détails des réservations réussies."
                     },
                     "alert": "Oups ! La réservation a échoué.\n Nous avons rencontré un problème lors du traitement de votre réservation de séance. Veuillez réessayer ultérieurement ou réserver une séance différente.",
                     "myPass": "Ma carte de cours",
@@ -838,7 +842,9 @@
                     "myGiftcard": "Ma carte cadeau",
                     "myGiftcard_plural": "Mes cartes cadeaux",
                     "offerGuestBooked": "Réservation de mon invité",
-                    "offerGuestBooked_plural": "Réservations de mon invité"
+                    "offerGuestBooked_plural": "Réservations de mon invité",
+                    "unableToBookSession": "Impossible de réserver une séance",
+                    "unableToBookSession_plural": "Impossible de réserver des séances"
                 },
                 "bookingItem": {
                     "bookingItemStatus": {
@@ -3343,9 +3349,9 @@
                     "exclusivePrivateServices_plural": "Les rendez-vous {{- private_service_name }} sont configurés pour avoir lieu uniquement dans cet établissement. En supprimant cet établissement, ces rendez-vous pourront avoir lieu n'importe où.",
                     "exclusivePrivateServices": "Le rendez-vous {{- private_service_name }} est configuré pour avoir lieu uniquement dans cet établissement. En supprimant cet établissement, ce rendez-vous pourra avoir lieu n'importe où.",
                     "exclusiveCoachAvailabilitySlots": "Le/la professeur(e) {{- coach_name }} est indiqué(e) comme étant disponible sur certaines plages horaires pour cet établissement uniquement. En supprimant l'établissement, ces plages horaires seront supprimées.",
-                    "exclusiveCoachAvailabilitySlots_plural": "Les professeurs {{- coach_name }} sont indiqués comme étant disponibles pour cet établissement uniquement pour certaines créneaux horaires. En supprimant l'établissement, ces créneaux horaires seront supprimés.",
+                    "exclusiveCoachAvailabilitySlots_plural": "Les professeurs {{- coach_name }} sont indiqués comme étant disponibles pour cet établissement uniquement pour certaines plages horaires. En supprimant l'établissement, ces plages horaires seront supprimées.",
                     "exclusiveAssociatedCoaches": "Votre professeur(e) {{- coach_name }} est averti(e) lorsqu'une demande de substitution est faite pour une séance dans cet établissement uniquement. En supprimant l'établissement, il/elle recevra donc les demandes de substitution de tous les établissements.",
-                    "exclusiveAssociatedCoaches_plural": "Vos professeurs {{- coach_name }} ne sont notifiés que lorsqu'une demande de remplacement est effectuée pour une séance dans cet établissement. En supprimant l'établissement, ils recevront donc des demandes de remplacement de la part de tous les établissements.",
+                    "exclusiveAssociatedCoaches_plural": "Vos professeurs {{- coach_name }} ne sont avertis que lorsqu'une demande de remplacement est faite pour une session dans cet établissement. En supprimant l'établissement, ils recevront donc les demandes de remplacement de tous les établissements.",
                     "hasBillingGroup": "Cet établissement sera également retiré du groupe de facturation {{- establishment_billing_group_name }}.",
                     "hasExclusiveStaffConfigurations": "Certains membres du personnel sont configurés pour surveiller l'accès des membres pour cet établissement uniquement. En supprimant l'établissement sans en sélectionner un nouveau, ils ne pourront plus effectuer de contrôle d'accès.",
                     "hasRelatedStaffConfigurations": "Cet établissement sera retiré des établissements utilisés par les membres du personnel pour le contrôle d'accès.",
@@ -3371,7 +3377,7 @@
                     "warnings": {
                         "hasRelatedAssociatedCoaches": "Certains professeurs reçoivent une notification lorsqu'une demande de substitution est faite pour une séance dans cette localisation. En supprimant la localisation, ils ne recevront plus de notification à ce sujet.",
                         "exclusiveAssociatedCoaches": "Votre professeur(e) {{- coach_name }} est averti(e) que lorsqu'une demande de remplacement est faite pour une séance dans cette localisation uniquement. En supprimant la localisation, il/elle recevra donc les demandes de remplacement de toutes les localisations.",
-                        "exclusiveAssociatedCoaches_plural": "Vos professeurs {{- coach_name }} ne sont notifiés que lorsqu'une demande de remplacement est effectuée pour une séance dans cette localisation. En supprimant la localisation, ils recevront donc des demandes de remplacement de la part de toutes les localisations.",
+                        "exclusiveAssociatedCoaches_plural": "Vos professeurs {{- coach_name }} ne sont avertis que lorsqu'une demande de remplacement est faite pour une session dans cette localisation. En supprimant la localisation, ils recevront donc les demandes de remplacement de toutes les localisations.",
                         "hasRelatedStaffConfigurations": "Cette localisation est utilisée pour la surveillance des accès par un ou plusieurs membres du personnel. En supprimant la localisation sans en sélectionner une nouvelle, ils ne pourront plus effectuer de surveillance des accès.",
                         "hasRelatedMarketingNotifications": "Les notifications liées à cette localisation seront supprimées.",
                         "hasRelatedMarketplaceComponentConfigs": "Les onglets du calendrier et des ateliers configurés pour votre marketplace n'afficheront plus le calendrier cette localisation."
@@ -10409,7 +10415,8 @@
                         "header": "Avancé"
                     },
                     "notification": "Notifications",
-                    "detailsAndRestrictions": "Détails et restrictions"
+                    "detailsAndRestrictions": "Détails et restrictions",
+                    "notEditable": "Cette carte de rendez-vous provient d'une migration de données. Certains champs peuvent ne pas être modifiables afin de préserver les données."
                 },
                 "disabledTitle": "Cartes de RDV archivées",
                 "listItem": {
@@ -17011,7 +17018,8 @@
                     "nbIntervalAfterAutoRenewal": {
                         "firstLabel": "Modifier la facturation de l'abonnement pour les prochains renouvellements",
                         "secondLabel": "Nombre de factures *"
-                    }
+                    },
+                    "notEditable": "Ce contrat provient d'une migration de données. Certains champs peuvent ne pas être modifiables afin de préserver les données."
                 },
                 "deleteForm": {
                     "title": "Suppression contrat",

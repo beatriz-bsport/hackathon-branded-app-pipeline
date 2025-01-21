@@ -4394,7 +4394,8 @@
                     "nbIntervalAfterAutoRenewal": {
                         "secondLabel": "Número de facturas *",
                         "firstLabel": "Cambiar la facturación de la suscripción para los próximos ciclos"
-                    }
+                    },
+                    "notEditable": "Este contrato procede de una migración de datos realizada con anterioridad. Algunos campos pueden no ser editables para preservar los datos."
                 },
                 "list": {
                     "register": "Suscribir un miembro",
@@ -9654,7 +9655,8 @@
                         "header": "Avanzado"
                     },
                     "notification": "Notificaciones",
-                    "detailsAndRestrictions": "Detalles y restricciones"
+                    "detailsAndRestrictions": "Detalles y restricciones",
+                    "notEditable": "Este pase de citas procede de una migración de datos realizada anteriormente. Es posible que algunos campos no se puedan editar para conservar los datos."
                 },
                 "compatibleServices": {
                     "title": "Citas compatibles",
@@ -13632,7 +13634,8 @@
                         "paymentSuccess_plural": "¡Enhorabuena! Sus compras están confirmadas.",
                         "offerOnlySuccess": "La reserva se ha efectuada. En breve recibirá un correo electrónico de confirmación con todos los detalles.",
                         "offerOnlySuccess_plural": "Las reservas se han efectuado. En breve recibirá un correo electrónico de confirmación con todos los detalles.",
-                        "offerOnlyGuestSuccess": "La reserva ha sido efectuada. Usted y su invitado recibirán en breve un correo electrónico de confirmación con todos los detalles."
+                        "offerOnlyGuestSuccess": "La reserva ha sido efectuada. Usted y su invitado recibirán en breve un correo electrónico de confirmación con todos los detalles.",
+                        "offersPartiallyConfirmed": "Algunas sesiones no pudieron reservarse, posiblemente porque se llenaron o se cancelaron durante el proceso de pago. En breve recibirá un correo electrónico de confirmación con los detalles de las reservas realizadas."
                     },
                     "confirmationStatusTitle": {
                         "success": {
@@ -13644,10 +13647,15 @@
                         "errors": {
                             "genericOfferError": "¡Ups! La reserva ha fallado.",
                             "generic": "¡Ups! Pago fallido."
+                        },
+                        "warning": {
+                            "offersPartiallyConfirmed": "Su reserva está parcialmente confirmada"
                         }
                     },
                     "offerGuestBooked": "Mi reserva para invitados",
-                    "offerGuestBooked_plural": "Mis reservas para invitados"
+                    "offerGuestBooked_plural": "Mis reservas para invitados",
+                    "unableToBookSession": "No se puede reservar una sesión",
+                    "unableToBookSession_plural": "No se pueden reservar sesiones"
                 },
                 "actions": {
                     "back": "Anteriormente",

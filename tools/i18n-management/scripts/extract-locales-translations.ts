@@ -20,7 +20,7 @@ const SAAS_LEGACY_PROJECT: ProjectToImport = {
   translationsBuildFolder: "apps/applications/saas-legacy/src/i18n/build",
 };
 
-function main(projects: Array<ProjectToImport>) {
+async function main(projects: Array<ProjectToImport>) {
   console.log("⏳ Start building locales/[locale]/translations.json file");
 
   // Map name to translationsBuildFolder
@@ -29,7 +29,7 @@ function main(projects: Array<ProjectToImport>) {
 
   // Keep the same order as getInternationalizedApplications
   const projectsToImport = projects.map((project) => project.name);
-  const projectList = getInternationalizedApplications()
+  const projectList = (await getInternationalizedApplications())
     .filter((project) => projectsToImport.includes(project.name))
     .map((project) => projectsMap.get(project.name))
     .filter((project) => !!project);

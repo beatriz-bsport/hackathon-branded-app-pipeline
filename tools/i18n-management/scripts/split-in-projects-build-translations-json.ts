@@ -11,9 +11,9 @@ import beautify from "json-beautify";
 import { getInternationalizedApplications, type ProjectConfig } from "./utils";
 import { LOCALES, LANGUAGES } from "../src";
 
-function main() {
+async function main() {
   // Step 1 : List all projects with i18n folder
-  const projectList = getInternationalizedApplications();
+  const projectList = await getInternationalizedApplications();
 
   // Step 2 : Iterate through locales to split the translations to each project
   console.group("> Build translations files for :");

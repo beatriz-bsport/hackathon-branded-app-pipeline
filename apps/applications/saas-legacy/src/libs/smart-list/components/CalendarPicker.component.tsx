@@ -472,7 +472,7 @@ export class CalendarPicker extends Component<Props, State> {
   };
 
   render() {
-    const { classes, t, theme } = this.props;
+    const { classes, t  } = this.props;
     return (
       <div className={classes.selector}>
         <ListItem

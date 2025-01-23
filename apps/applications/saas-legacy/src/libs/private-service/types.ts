@@ -280,7 +280,6 @@ export type PrivateBooking<
   EstablishmentId = number,
   PrivateServiceId = number,
   MemberId = number,
-  /* eslint-disable-next-line */
   RecurrenceRulePrivateBooking = number, // RecurrenceRulePrivateBooking already declared line 353
   StaffHistory = Array<
     StaffModificationHistory<PrivateBookingModificationActionIdentifier>
@@ -709,6 +708,8 @@ export type PrivateBookingFilterParams = {
   strictly_past_booking?: boolean;
   was_refunded?: boolean;
   ordering?: 'date_start' | '-date_start';
+  future_booking?: boolean;
+  past_booking?: boolean;
 };
 
 /** Transformed Private consumer pass for the consumer page by including full objects */

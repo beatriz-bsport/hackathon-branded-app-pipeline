@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+
 import {
   withTranslation,
   // @ts-expect-error
@@ -472,7 +473,7 @@ export class CalendarPicker extends Component<Props, State> {
   };
 
   render() {
-    const { classes, t  } = this.props;
+    const { classes, t } = this.props;
     return (
       <div className={classes.selector}>
         <ListItem

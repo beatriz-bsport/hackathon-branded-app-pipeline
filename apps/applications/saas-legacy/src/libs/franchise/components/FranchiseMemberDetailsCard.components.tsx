@@ -1,12 +1,10 @@
 import React from 'react';
-import { useTranslation } from 'react-i18next';
 import { DateTime } from 'luxon';
 import {
   Event as EventIcon,
   Room as RoomIcon,
   Phone as PhoneIcon,
   AlternateEmail as AlternateEmailIcon,
-  LocalHospital as LocalHospitalIcon,
 } from '@material-ui/icons';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
@@ -20,7 +18,6 @@ export type Props = {
 };
 
 const FranchiseMemberDetailsCard: React.FC<Props> = ({ user }) => {
-  const { t } = useTranslation('franchise');
   const classes = useStyles();
 
   return (
@@ -48,10 +45,6 @@ const FranchiseMemberDetailsCard: React.FC<Props> = ({ user }) => {
       <Typography className={classes.row} variant="body1">
         <AlternateEmailIcon className={classes.icon} />
         {user?.email ?? '-'}
-      </Typography>
-      <Typography className={classes.row} variant="body1">
-        <LocalHospitalIcon className={classes.icon} color="error" />
-        {user.vaccination_status ? t('member.isVaccinated') : '-'}
       </Typography>
     </div>
   );

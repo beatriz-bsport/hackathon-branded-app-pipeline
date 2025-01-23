@@ -113,10 +113,7 @@ import {
   CUSTOM_FORM_DATATYPE_ESTABLISHMENT_GROUP,
   MODEL_BASED_QUESTION_FAVORITE,
 } from '#src/libs/custom-form/utils';
-import {
-  getFavoriteEstablishmentGroupList,
-  showVaccinationStatus,
-} from '#src/libs/custom-form/selectors';
+import { getFavoriteEstablishmentGroupList } from '#src/libs/custom-form/selectors';
 import { Tag } from '#src/libs/tag/types';
 import { MemberUploadedFile } from '#src/libs/member/types';
 import {
@@ -482,7 +479,6 @@ export class MemberDetailPage extends React.PureComponent<Props> {
             }
             resolvedGenericTags={this.props.resolvedGenericTags}
             sendCommunication={this.props.sendCommunication}
-            showVaccinationStatus={this.props.showVaccinationStatus}
           />
           {member && !member.is_pos && (
             <>
@@ -721,7 +717,6 @@ const connector = connect(
       state.paymentBackend.detachPaymentMethod.loading,
     establishmentList: getAvailableEstablishmentList(state),
     companyTheme: themeSelectors.getTheme(state),
-    showVaccinationStatus: showVaccinationStatus(state),
     consumerGiftcardList: withSender(
       withReceiver(onlyUsable(withGiftcard(getConsumerGiftcardReceivedList))),
     )(state),

@@ -61,7 +61,6 @@ type Props = {
   goToOfferManagement: (id: number) => void,
   onRestoreButtonClick: () => void,
   showOfferGender?: boolean,
-  showVaccinationStatus: boolean,
   onModifyTags?: (offer: Offer) => void,
   companyTheme?: CompanyTheme,
 };
@@ -177,7 +176,6 @@ export class OfferCard extends Component<Props, State> {
                       bottomCredit
                       firstBooking={b.first_in_company}
                       member={this.props.members.find((m) => m.id === b.member)}
-                      showVaccinationStatus={this.props.showVaccinationStatus}
                     />
                   ))}
               </List>

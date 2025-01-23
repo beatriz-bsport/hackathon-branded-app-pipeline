@@ -95,7 +95,6 @@ import type {
 } from '../../libs/consumer-payment-pack/types';
 import type { Invoice } from '../../libs/invoice/types';
 import type { Booking } from '../../libs/booking/types';
-import { showVaccinationStatus } from '../../libs/custom-form/selectors';
 import { withIsSharedActive } from '../../libs/relationship/selectors';
 import { WithIsSharedActive } from '../../libs/relationship/types';
 
@@ -205,7 +204,6 @@ type Props = {
     links: Array<number>,
     options: OptionCallBack,
   ) => void,
-  showVaccinationStatus: boolean,
   fetchInvoiceByInvoiceItem: (
     buyable_item_identifier: number,
     object_id: number,
@@ -625,7 +623,6 @@ export class MemberDetailPass extends Component<Props, State> {
                   penalties={this.props.consumerPackPenalties}
                   penaltyPageSize={PENALTY_PAGE_SIZE}
                   requestRefund={this.props.requestRefund}
-                  showVaccinationStatus={this.props.showVaccinationStatus}
                   timezone={this.props.timezone}
                 />
               ) : (
@@ -776,7 +773,6 @@ export default compose(
       userFilters: state.dashboardSettings.managerFiltersSettings.data.filters,
       userFiltersLoading:
         state.dashboardSettings.managerFiltersSettings.loading,
-      showVaccinationStatus: showVaccinationStatus(state),
       getBookingOffer: (offerId: number) => getOfferById(state, offerId),
     }),
     {

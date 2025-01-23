@@ -34,7 +34,6 @@ import SearchBar from '#src/components/SearchBar.component';
 import { MemberMinimal, Member } from '#src/libs/member/types';
 
 import withTitle from '#src/hocs/with-title.hoc';
-import { showVaccinationStatus } from '#src/libs/custom-form/selectors';
 import MemberMinimalListItem from '#src/libs/member/components/MemberMinimalListItem.component';
 import { searchArchived as searchArchivedMembers } from '#src/libs/member/actions';
 import { checkMemberInEstablishment as checkMemberInEstablishmentAction } from '#src/libs/access-control/actions';
@@ -77,7 +76,6 @@ type Props = {
   t: TFunction;
   loading: boolean;
   openCreateMember: () => void;
-  showVaccinationStatus: boolean;
   membersArchived: { [key: number]: Member };
   archivedSearchLoading: boolean;
   searchText: string;
@@ -293,7 +291,6 @@ export class SearchResults extends React.Component<Props, State> {
                       this.state.memberArchivedCloseMatch.id,
                     );
                   }}
-                  showVaccinationStatus={this.props.showVaccinationStatus}
                 />
               </div>
             </Paper>
@@ -323,7 +320,6 @@ export class SearchResults extends React.Component<Props, State> {
                 }
                 selected={selected}
                 selectEntity={this.selectEntity}
-                showVaccinationStatus={this.props.showVaccinationStatus}
               />
             </Paper>
             <Paper className={classes.contentInner}>
@@ -344,7 +340,6 @@ export class SearchResults extends React.Component<Props, State> {
                   loading={this.props.archivedSearchLoading}
                   selected={selected}
                   selectEntity={this.selectEntity}
-                  showVaccinationStatus={this.props.showVaccinationStatus}
                 />
               </Collapse>
             </Paper>
@@ -369,7 +364,6 @@ export class SearchResults extends React.Component<Props, State> {
                         this.state.memberArchivedCloseMatch.id,
                       );
                     }}
-                    showVaccinationStatus={this.props.showVaccinationStatus}
                   />
                 </div>
               </Paper>
@@ -394,7 +388,6 @@ function mapStateToProps(state) {
     searchText: state.search.text,
     member: member && member.id === selectedId ? member : null,
     membersLoading: state.member.search.loading,
-    showVaccinationStatus: showVaccinationStatus(state),
     permissions: getPermissions(state),
     featureList: state.company.feature.data,
     establishmentsSelectedInRole: getEstablishmentsSelectedInRole(state),

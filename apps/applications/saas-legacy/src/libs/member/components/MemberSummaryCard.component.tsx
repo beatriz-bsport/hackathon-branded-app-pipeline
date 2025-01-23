@@ -63,7 +63,6 @@ import TypographyMultiline from '../../../components/typo/TypographyMultiline.co
 // @ts-expect-error
 import DEPRECATEDCommunicationDrawer from '../../communication/components/DEPRECATEDCommunicationDrawer.component';
 import EmergencyContactItemComponent from '../../communication/components/EmergencyContactItem.component';
-import VaccinationStatus from './VaccinationStatus.component';
 import { EstablishmentGroup } from '../../establishment/types';
 import FavouriteEstablishmentGroupItemComponent from '../../establishment/components/FavouriteEstablishmentGroupItem.component';
 
@@ -91,7 +90,6 @@ type OwnProps = {
   emailDetails?: Record<string, EmailTemplateDetail>;
   sendCommunication?: (com: any) => void;
 
-  showVaccinationStatus: boolean;
   favoriteEstablishmentGroupList?: Array<EstablishmentGroup>;
   resolvedGenericTags?: ResolvedGenericTags;
   handleOpenResetPasswordDialog?: () => void;
@@ -270,11 +268,6 @@ export class MemberSummaryCard extends PureComponent<Props> {
                     }
                   />
                 )}
-              {this.props.showVaccinationStatus && (
-                <VaccinationStatus
-                  vaccinationStatus={member.vaccination_status}
-                />
-              )}
               {this.state.displayMailDialog && (
                 <DEPRECATEDCommunicationDrawer
                   fullscreen

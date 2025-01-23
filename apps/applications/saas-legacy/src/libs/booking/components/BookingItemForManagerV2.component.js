@@ -98,7 +98,6 @@ type Props = {
   discardBookingAttendance: () => void,
   spotSchedulingEnabled?: boolean,
   onClickChangeSpot: (booking: Booking) => void,
-  showVaccinationStatus: boolean,
   programList: Array<PerformanceTrackingProgram>,
   onProgramDetailsClick: (member?: Member, booking?: Booking) => void,
   displayNoShowChip?: boolean,
@@ -746,14 +745,6 @@ export class BookingItemForManager extends Component<Props, State> {
       case 'date_start':
         return null;
       default: {
-        let Wrapper = (p) => <div>{p.children}</div>;
-        if (this.props.showVaccinationStatus)
-          Wrapper = (p) => (
-            <VaccinationBadge topRightIcon status={member?.vaccination_status}>
-              {p.children}
-            </VaccinationBadge>
-          );
-
         return (
           <ListItemAvatar
             className={clsx(
@@ -770,13 +761,11 @@ export class BookingItemForManager extends Component<Props, State> {
               classes.avatar,
             )}
           >
-            <Wrapper>
-              <AvatarWithBadge
-                bottomCredit
-                classes={{ badge: classes.badge }}
-                member={member}
-              />
-            </Wrapper>
+            <AvatarWithBadge
+              bottomCredit
+              classes={{ badge: classes.badge }}
+              member={member}
+            />
           </ListItemAvatar>
         );
       }

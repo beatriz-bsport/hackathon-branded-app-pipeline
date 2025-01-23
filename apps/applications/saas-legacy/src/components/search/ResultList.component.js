@@ -21,7 +21,6 @@ type Props = {
   t: TFunction,
   renderListComponent: () => Node,
   classes: Object,
-  showVaccinationStatus: boolean,
   onMemberCheckin?: (member: Member) => void,
 };
 
@@ -56,7 +55,6 @@ export class ResultList extends Component<Props> {
         onClick={() => {
           this.props.selectEntity({ data: item, type: 'member' });
         }}
-        showVaccinationStatus={this.props.showVaccinationStatus}
       />
     ));
   };

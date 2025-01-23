@@ -170,7 +170,6 @@ import {
   updateMemberMetricValue as updateMemberMetricValueAction,
   createMemberProgram as createMemberProgramAction,
 } from '#src/libs/performance-tracking/actions';
-import { showVaccinationStatus } from '#src/libs/custom-form/selectors';
 import { fetchVideoPurchase } from '#src/libs/video/actions';
 import {
   getProgramList,
@@ -278,7 +277,6 @@ export default compose(
       offerStatusById: state.offer.offerStatus.byId,
       managerFormConfig: getSignUpFormConfigurationDict(state),
       companyId: state.theme.theme.company,
-      showVaccinationStatus: showVaccinationStatus(state),
       programList: getProgramList(state),
       memberProgramIdsList: getMemberProgramIdsList(state),
       programDataLoading:

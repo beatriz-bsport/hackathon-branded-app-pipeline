@@ -37,7 +37,6 @@ type Props = {
   confirmBookingAttendance: (id: number) => void,
   spotSchedulingEnabled?: boolean,
   onClickChangeSpot: (booking: Booking) => void,
-  showVaccinationStatus: boolean,
   programList: Array<PerformanceTrackingProgram>,
   refresh: () => void,
   onProgramDetailsClick: (member?: Member, booking?: Booking) => void,
@@ -144,7 +143,6 @@ export class BookingTable extends PureComponent<Props> {
                   hasCreateInvoicePermission && showQuickInvoiceButton
                 }
                 showRevertBookingButton={showRevertBookingButton}
-                showVaccinationStatus={this.props.showVaccinationStatus}
                 spotSchedulingEnabled={this.props.spotSchedulingEnabled}
               />
             ))}

@@ -49,8 +49,6 @@ type Props = {
   emailDetailLoading: boolean;
   emails: Array<any>;
   emailDetails: Record<string, EmailTemplateDetail>;
-
-  showVaccinationStatus: boolean;
 };
 
 export const OrderDetail: React.FC<Props> = ({
@@ -67,7 +65,6 @@ export const OrderDetail: React.FC<Props> = ({
   emailDetailLoading,
   emails,
   emailDetails,
-  showVaccinationStatus,
 }) => {
   const { t } = useTranslation('order');
   const classes = useStyles();
@@ -207,7 +204,6 @@ export const OrderDetail: React.FC<Props> = ({
               goToMember={() => goToMember(order.member.id)}
               member={order.member}
               sendCommunication={sendCommunication}
-              showVaccinationStatus={showVaccinationStatus}
             />
           ) : null}
         </Grid>

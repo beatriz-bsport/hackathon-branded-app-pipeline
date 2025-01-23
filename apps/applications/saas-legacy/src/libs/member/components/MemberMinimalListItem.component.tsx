@@ -21,7 +21,6 @@ import type { PerformanceTrackingProgram } from '#src/libs/performance-tracking/
 import ObjectLevelPermissionProvider from '#src/libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 import CheckPermission from '#src/libs/role/components/CheckPermission.component';
 import CheckInButton from '#src/libs/access-control/components/CheckInButton.component';
-import VaccinationBadge from './VaccinationBadge.component';
 import AvatarWithBadge from './AvatarWithBadge.component';
 import MemberProgramDetailDialog from '../../performance-tracking/components/member-program/MemberProgramDetail.dialog';
 
@@ -35,7 +34,6 @@ type Props = {
   memberLoading?: boolean;
   programDataLoading: boolean;
   programList: PerformanceTrackingProgram[];
-  showVaccinationStatus: boolean;
   createMemberProgram?: (data: any, options?: any) => void;
   fetchPerformanceTrackingData: (member: number) => void;
   onClick?: (memberId: number) => void;
@@ -54,7 +52,6 @@ export const MemberMinimalListItem: React.FC<Props> = ({
   memberLoading,
   programDataLoading,
   programList,
-  showVaccinationStatus,
   createMemberProgram,
   fetchPerformanceTrackingData,
   onClick,
@@ -104,17 +101,6 @@ export const MemberMinimalListItem: React.FC<Props> = ({
   }
 
   const secondaryInfo = [member.phone, member.email].filter(Boolean).join(' ');
-
-  let Wrapper = (props: { children: React.ReactNode }) => (
-    <div>{props.children}</div>
-  );
-  if (showVaccinationStatus)
-    Wrapper = (props) => (
-      <VaccinationBadge topRightIcon status={member.vaccination_status}>
-        {props.children}
-      </VaccinationBadge>
-    );
-
   const isBirthday = member?.birthday
     ? DateTime.now().day === DateTime.fromISO(member.birthday).day &&
       DateTime.now().month === DateTime.fromISO(member.birthday).month
@@ -143,13 +129,11 @@ export const MemberMinimalListItem: React.FC<Props> = ({
             onClick={hasMemberProfileAccessPermission ? handleOnClick : null}
           >
             <ListItemAvatar className={classes.avatar}>
-              <Wrapper>
-                <AvatarWithBadge
-                  bottomCredit={bottomCredit}
-                  classes={{ badge: 'currencyBadge' }}
-                  member={member}
-                />
-              </Wrapper>
+              <AvatarWithBadge
+                bottomCredit={bottomCredit}
+                classes={{ badge: 'currencyBadge' }}
+                member={member}
+              />
             </ListItemAvatar>
             {member?.name ? (
               <ListItemText

@@ -122,7 +122,6 @@ type Props = {
   recurrentBookingItemPerPage: number,
   recurrentBookingCount: number,
   onClickChangeSpot: (booking: Booking) => void,
-  showVaccinationStatus: boolean,
 
   fetchBookingsByConsumerPack: (
     consumer_payment_pack: number,
@@ -767,7 +766,6 @@ export class BookingManagement extends React.PureComponent<Props, State> {
                       items={this.props.searchedMembers}
                       loading={this.props.memberSearchLoading}
                       renderListComponent={this.renderSearchedMember}
-                      showVaccinationStatus={this.props.showVaccinationStatus}
                     />
                   </div>
                   <Divider />
@@ -827,7 +825,6 @@ export class BookingManagement extends React.PureComponent<Props, State> {
                       programList={this.props.programList}
                       redirectToMember={hasMemberProfileAccessPermission}
                       refresh={this.props.refresh}
-                      showVaccinationStatus={this.props.showVaccinationStatus}
                       spotSchedulingEnabled={!!this.props.offer.room_blueprint}
                     />
                   )}

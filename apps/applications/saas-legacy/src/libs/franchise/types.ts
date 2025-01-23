@@ -140,7 +140,6 @@ export type FranchiseUser = {
   name: string;
   phone: number;
   photo: string;
-  vaccination_status?: boolean;
   address?: {
     address_line_1: string;
     address_line_2: string;

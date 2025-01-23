@@ -281,14 +281,6 @@ export const insertUserProfileDataToAnswer = (
       return true;
     case CUSTOM_FORM_FIELD_SIGN_UP_ACCEPT_SMS:
       return true;
-    case CUSTOM_FORM_FIELD_SIGN_UP_VACCINATION_STATUS:
-      if (UserProfileData?.vaccination_status === true) {
-        return 1;
-      }
-      if (UserProfileData?.vaccination_status === false) {
-        return 2;
-      }
-      return 0;
     case CUSTOM_FORM_FIELD_SIGN_UP_OFFICIAL_DOCUMENT_ID:
       return UserProfileData?.official_document_id;
     case CUSTOM_FORM_FIELD_SIGN_UP_GENERAL_TERMS_AND_CONDITIONS:
@@ -344,14 +336,6 @@ export const insertMemberProfileDataToAnswer = (
       return memberProfileData?.accept_sms;
     case CUSTOM_FORM_FIELD_SIGN_UP_OFFICIAL_DOCUMENT_ID:
       return memberProfileData?.official_document_id;
-    case CUSTOM_FORM_FIELD_SIGN_UP_VACCINATION_STATUS:
-      if (memberProfileData?.vaccination_status === true) {
-        return 1;
-      }
-      if (memberProfileData?.vaccination_status === false) {
-        return 2;
-      }
-      return 0;
     case CUSTOM_FORM_FIELD_SIGN_UP_GENERAL_TERMS_AND_CONDITIONS:
       return (
         memberProfileData &&

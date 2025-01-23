@@ -70,7 +70,6 @@ type Props = {
   updateTime: (string, OptionCallback) => void,
   setUpdateTimeForm: () => void,
   setIsUpdateCoachFormOpen: (boolean) => void,
-  showVaccinationStatus: boolean,
   fetchInvoiceListUnpaid: (memberId: number) => void,
   unpaidInvoiceList: Array<Invoice>,
   companyId: number,
@@ -354,7 +353,6 @@ export const PrivateBookingCard = (props: Props) => {
                   }
                   programDataLoading={props.programDataLoading}
                   programList={props.programList}
-                  showVaccinationStatus={props.showVaccinationStatus}
                   updateMemberMetricValue={props.updateMemberMetricValue}
                 />
               )}

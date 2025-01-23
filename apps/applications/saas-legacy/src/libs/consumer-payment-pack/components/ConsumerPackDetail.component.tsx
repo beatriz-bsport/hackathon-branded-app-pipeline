@@ -72,7 +72,6 @@ type Props = {
     showCredit: boolean,
   ) => void;
   timezone?: string;
-  showVaccinationStatus: boolean;
   onClickNoShowChip: () => void;
   isRollCallMandatory: boolean;
   onClickWarningIcon: () => void;
@@ -196,7 +195,6 @@ export const ConsumerPaymentPackDetail: React.FC<Props> = (props) => {
               onClickNoShowChip={props.onClickNoShowChip}
               onClickWarningIcon={props.onClickWarningIcon}
               paymentPacks={[props.paymentPack]}
-              showVaccinationStatus={props.showVaccinationStatus}
             />
           )}
         />

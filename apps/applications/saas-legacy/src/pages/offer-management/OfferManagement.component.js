@@ -255,7 +255,6 @@ type Props = {
   waiver: string,
   general_terms_and_conditions: string,
   companyId: number,
-  showVaccinationStatus: boolean,
 
   fetchBookingsByConsumerPack: (
     consumer_payment_pack: number,
@@ -1224,7 +1223,6 @@ export class OfferManagement extends Component<Props, State> {
             selectedBookingOptionsIds={
               this.props.unregisteredSelectedBookingOptions
             }
-            showVaccinationStatus={this.props.showVaccinationStatus}
             switchWaitingListFreeze={this.props.switchWaitingListFreeze}
           />
         </Grid>

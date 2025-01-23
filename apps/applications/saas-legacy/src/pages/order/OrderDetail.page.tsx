@@ -30,7 +30,6 @@ import {
   emailTemplatesSummaries as fetchEmailTemplatesSummaries,
 } from '#src/libs/email-editor/actions';
 
-import { showVaccinationStatus } from '#src/libs/custom-form/selectors';
 import withTitle from '../../hocs/with-title.hoc';
 import { WithHandlerType } from '../../utils/types';
 import type { RootState } from '../../reducers';
@@ -89,7 +88,6 @@ export class OrderDetail extends Component<Props> {
           // @ts-expect-error
           order={order}
           sendCommunication={this.props.sendCommunication}
-          showVaccinationStatus={this.props.showVaccinationStatus}
           updateOrderState={(state) =>
             this.props.patchOrder(
               // @ts-expect-error
@@ -118,7 +116,6 @@ const connector = connect(
     email_templates_details: getEmailTemplatesDetail(state),
     emailListLoading: state.emailTemplate.loading,
     emailDetailLoading: state.emailTemplate.detail.loading,
-    showVaccinationStatus: showVaccinationStatus(state),
     companyCountry: state.theme.theme.locale.split('_')[1],
   }),
   {

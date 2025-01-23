@@ -74,7 +74,6 @@ import { PrivateService } from '../types';
 import { MaterialStyleType, WithHandlerType } from '../../../utils/types';
 import { Member } from '../../member/types';
 import { OptionCallback } from '../../../state/types';
-import { showVaccinationStatus } from '../../custom-form/selectors';
 import { formatAsDatetimeAdapted } from '../../../utils/datetime';
 import { openNewBackOfficeWindow } from '#src/utils/windows';
 import PrivateBookingWarningTagDialog from './PrivateBookingWarningTagDialog';
@@ -393,7 +392,6 @@ export class PrivateBookingBooker extends React.Component<Props, State> {
             bottomCredit
             // @ts-expect-error
             member={this.state.member}
-            showVaccinationStatus={this.props.showVaccinationStatus}
           />
           <DateTimeForm
             onChange={(date_start: DateTime) =>
@@ -587,7 +585,6 @@ const mapStateToProps = (
   processing: state.privateService.privateBooking.createOrUpdate.loading,
   country: state.theme.theme.locale.split('_')[1],
   searchedMembers: getSearchedMembers(state),
-  showVaccinationStatus: showVaccinationStatus(state),
   compatibleWithUnpaidBooking: getUnPaidBookingAvailabilityForPrivateslot(
     state,
     requestedPrivateSlot,

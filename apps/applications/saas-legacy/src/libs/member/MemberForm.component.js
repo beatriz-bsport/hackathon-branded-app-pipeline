@@ -525,16 +525,6 @@ export function MemberForm(props: Props) {
                     />
                   </Grid>
                   <Grid item className={classes.gridItem} xs={12}>
-                    <VaccinationStatusField
-                      fullWidth
-                      disabled={disabled || !asManager}
-                      label={t('translation:common.vaccination_status')}
-                      name="vaccination_status"
-                      required={!asManager}
-                    />
-                  </Grid>
-
-                  <Grid item className={classes.gridItem} xs={12}>
                     <TextFieldEnhancedLabelWithError
                       fullWidth
                       disabled={disabled || !asManager}
@@ -750,7 +740,6 @@ export default compose(
         state: '',
         country: '',
         zipcode: '',
-        vaccination_status: 'null',
         official_document_id: '',
       },
     enableReinitialize: true,

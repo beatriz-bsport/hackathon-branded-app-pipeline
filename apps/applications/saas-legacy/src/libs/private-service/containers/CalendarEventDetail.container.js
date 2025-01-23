@@ -154,7 +154,6 @@ import {
 import { fetchAllCoachPaymentRules } from '../../coach-payment-rules/actions';
 import { CoachPaymentRuleByKindSelector } from '../../coach-payment-rules/selectors';
 import type { CoachPaymentRule } from '../../coach-payment-rules/types';
-import { showVaccinationStatus } from '../../custom-form/selectors';
 import type { OptionCallback } from '../../../state/types';
 
 import { ZoomApp } from '../../zoom-app/types';
@@ -229,7 +228,6 @@ type Props = {
   fetchRoomBlueprints: () => void,
   fetchAllCoachPaymentRules: () => void,
   coachPaymentRulesByKind: { [kind: number]: Array<CoachPaymentRule> },
-  showVaccinationStatus: boolean,
   fetchMember: (memberId: number) => void,
   fetchInvoiceListUnpaid: (memberId: number) => void,
   unpaidInvoiceList: Array<Invoice>,
@@ -463,7 +461,6 @@ export class CalendarEventDetail extends React.Component<Props, State> {
           requestClientSecret={this.requestClientSecret}
           setInvoiceToBill={this.props.setInvoiceToBill}
           setIsUpdateCoachFormOpen={this.props.setIsUpdateCoachFormOpen}
-          showVaccinationStatus={this.props.showVaccinationStatus}
           snackbarSuccess={this.props.snackbarSuccess}
           stripeId={this.props.theme?.stripe_id}
           unpaidInvoiceList={this.props.unpaidInvoiceList}
@@ -815,7 +812,6 @@ const OfferEditorContainer = compose(
       metaActivities: getEnabledMetaActivities(state),
       roomBlueprints: getRoomBlueprints(state),
       coachPaymentRulesByKind: CoachPaymentRuleByKindSelector(state),
-      showVaccinationStatus: showVaccinationStatus(state),
       allTagsWithTagGroup: getAllTagsWithTagGroup(state),
       activeCustomLevels: getActiveCustomLevels(state),
       allCustomLevels: getAllCustomLevels(state),
@@ -989,7 +985,6 @@ export default compose(
       getHasPendingReplacementRequest:
         getOfferHasPendingReplacementRequest(state),
       customEvent: withAssociatedCoach(getCustomEvent)(state, customEventId),
-      showVaccinationStatus: showVaccinationStatus(state),
       unpaidInvoiceList: withInvoiceItem(getInvoiceList)(state),
       payment_method_available_manager:
         state.theme.theme.payment_method_available_manager,

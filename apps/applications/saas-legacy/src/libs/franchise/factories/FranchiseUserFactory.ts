@@ -22,7 +22,6 @@ FactoryBot.define('FranchiseUser', {
   birthday: faker.date.past(),
   photo: faker.image.avatar(),
   id: Math.floor(Math.random() * 100000),
-  vaccination_status: true,
 });
 
 export const FranchiseUserFactory = (nbUsers: number): Array<FranchiseUser> => {
@@ -48,7 +47,6 @@ export const FranchiseUserFactory = (nbUsers: number): Array<FranchiseUser> => {
       },
       birthday: faker.date.past(),
       photo: faker.image.avatar(),
-      vaccination_status: true,
     };
   });
 };

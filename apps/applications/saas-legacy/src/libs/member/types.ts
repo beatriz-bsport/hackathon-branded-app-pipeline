@@ -35,7 +35,6 @@ export type UserProfile = {
     state: string;
     zipcode: string;
   };
-  vaccination_status: boolean | null;
   official_document_id: string;
 };
 
@@ -77,7 +76,6 @@ export type MemberMinimal<Tag = number, CA = number> = {
   tags: Array<Tag>;
   total_unpaid_amount: string;
   user_id: number;
-  vaccination_status?: boolean;
 };
 
 export type MemberMinimalNoPhoto = Omit<MemberMinimal, 'photo'>;
@@ -93,7 +91,6 @@ export type Member<Tag = number, CA = number> = {
   barcode: string;
   date_joined: string;
   membership_ID: string;
-  vaccination_status?: boolean;
   accept_email: boolean;
   accept_sms: boolean;
   email: string;
@@ -264,7 +261,6 @@ export type MemberFormData = {
   membership_ID: string;
   phone: string;
   state: string;
-  vaccination_status: string;
   waiver: boolean;
   zipcode: string;
 };

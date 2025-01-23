@@ -162,7 +162,6 @@ import { RoomBlueprint } from '#src/libs/spot-scheduling/types';
 import { fetchAllCoachPaymentRules } from '#src/libs/coach-payment-rules/actions';
 import { CoachPaymentRuleByKindSelector } from '#src/libs/coach-payment-rules/selectors';
 import type { CoachPaymentRule } from '#src/libs/coach-payment-rules/types';
-import { showVaccinationStatus } from '#src/libs/custom-form/selectors';
 import GenericResponsiveDrawer from '#src/components/genericDrawer/GenericResponsiveDrawer.component';
 import { getAllTagsWithTagGroup } from '#src/libs/tag/selectors';
 import type { Tag, TagGroup } from '#src/libs/tag/types';
@@ -354,7 +353,6 @@ type Props = {
   allRoomBlueprints: Array<RoomBlueprint>,
   fetchAllCoachPaymentRules: () => void,
   coachPaymentRulesByKind: { [kind: number]: Array<CoachPaymentRule> },
-  showVaccinationStatus: boolean,
   showPartnership: boolean,
   numberOfMassDisabledOffer: number,
   retrieveNumberOfMassDisabledOffer: (
@@ -1447,7 +1445,6 @@ export class Planning extends PureComponent<Props, State> {
                           this.props.theme &&
                           this.props.theme.show_booked_gender_offer
                         }
-                        showVaccinationStatus={this.props.showVaccinationStatus}
                         snackbarSuccess={this.props.snackbarSuccess}
                       />
                     </div>
@@ -1635,7 +1632,6 @@ export default compose(
       allRoomBlueprints: getRoomBlueprints(state),
       coachPaymentRulesByKind: CoachPaymentRuleByKindSelector(state),
       showPartnership: state.theme.theme.has_partnership,
-      showVaccinationStatus: showVaccinationStatus(state),
       allTagsWithTagGroup: getAllTagsWithTagGroup(state),
       activeCustomLevels: getActiveCustomLevels(state),
       allCustomLevels: getAllCustomLevels(state),

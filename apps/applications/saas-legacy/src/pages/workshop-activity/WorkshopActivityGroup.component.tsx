@@ -82,7 +82,6 @@ const WorkshopActivityGroup: React.FC<Props> = ({
   customLevels,
   companyId,
   selectedOffer,
-  showVaccinationStatus,
   bookings,
   bookingsLoading,
   members,
@@ -603,7 +602,6 @@ const WorkshopActivityGroup: React.FC<Props> = ({
                         onModifyTags={handleOpenOfferEditModal}
                         onRestoreButtonClick={handleOpenOfferRestoreModal}
                         showOfferGender={theme?.show_booked_gender_offer}
-                        showVaccinationStatus={showVaccinationStatus}
                         snackbarSuccess={snackbarSuccess}
                       />
                     </div>

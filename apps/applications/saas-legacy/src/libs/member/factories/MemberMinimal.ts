@@ -19,7 +19,6 @@ FactoryBot.define('MemberMinimal', {
   photo: () => faker.image.avatar(),
   tags: tagListFactory(faker.number.int({ min: 1, max: 5 })),
   total_unpaid_amount: () => `${faker.finance.amount()}`,
-  vaccination_status: faker.datatype.boolean(),
 });
 
 export default FactoryBot;

@@ -92,7 +92,6 @@ export type PaymentComboPurchase<PC = number> = {
     phone: string;
     photo: string;
     tags: number[];
-    vaccination_status: boolean;
   };
   payment_combo: PC;
   price: string;

@@ -26,6 +26,7 @@ import {
   CUSTOM_FORM_FIELD_SIGNUP_QUESTION_OPTION,
   CUSTOM_FORM_FIELD_SIGN_UP_STATE,
   CUSTOM_FORM_FIELD_LOCATION_OPTION,
+  CUSTOM_FORM_FIELD_SIGN_UP_VACCINATION_STATUS,
 } from '@bsport/common/lib/master-data/custom-form.js';
 import { SegmentAnalyticsFormObjectIdentifier } from '#src/components/analytics/segment';
 import { rudderStackFormTrackingFunctionsRegistry } from '#src/components/analytics/rudderstack/utils';
@@ -133,7 +134,8 @@ export function CustomFormFieldBuilderDialog(props: Props) {
       (choice: { value: number; label: string }) =>
         !props?.registeredSignUpQuestions?.includes(choice.value) &&
         !(
-          choice.value === CUSTOM_FORM_FIELD_SIGN_UP_STATE &&
+          (choice.value === CUSTOM_FORM_FIELD_SIGN_UP_STATE ||
+            choice.value === CUSTOM_FORM_FIELD_SIGN_UP_VACCINATION_STATUS) &&
           !ALLOWED_COUNTRIES_FOR_STATES.includes(
             props.companyTheme.locale.split('_')[1],
           )

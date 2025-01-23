@@ -86,7 +86,6 @@ import {
   getSimilars as getSimilarsOffers,
 } from '#src/libs/offer/selectors';
 import { getEnabledWorkshops } from '#src/libs/meta-activity/selectors';
-import { showVaccinationStatus as showVaccinationStatusSelector } from '#src/libs/custom-form/selectors';
 import {
   getAllMembers,
   withTags as withMemberTag,
@@ -153,7 +152,6 @@ export const workshopActivityGroupConnector = connect(
     groupPreview: getGroupPreview(state),
     customLevels: getActiveCustomLevels(state),
     companyId: state.theme.theme.company,
-    showVaccinationStatus: showVaccinationStatusSelector(state),
     zoomAppDetail: zoomAppSelectors.getZoomApp(state),
   }),
   {

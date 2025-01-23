@@ -258,9 +258,9 @@ export type BookingFilterParams = {
   id__in?: number[];
   ids_in?: number[];
   future_booking?: boolean;
-  strictly_future_booking?: boolean;
+  before_date_end?: boolean;
   past_booking?: boolean;
-  strictly_past_booking?: boolean;
+  after_date_end?: boolean;
   offer_is_workshop?: boolean;
   page: number;
   page_size: number;

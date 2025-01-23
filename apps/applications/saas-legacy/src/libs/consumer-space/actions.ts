@@ -598,7 +598,7 @@ export function fetchMyPastBookingAsMember(
         page: page ?? 1,
         page_size,
         mine_as_consumer: true,
-        strictly_past_booking: true,
+        after_date_end: true,
         offer_is_workshop: false,
         ordering: '-offer__date_start',
       });
@@ -643,7 +643,7 @@ export function fetchMyFutureBookingAsMember(
         page: page ?? 1,
         page_size,
         mine_as_consumer: true,
-        strictly_future_booking: true,
+        before_date_end: true,
         offer_is_workshop: false,
         ordering: 'offer__date_start',
       });
@@ -688,7 +688,7 @@ export function fetchMyPastBookingWorkshopAsMember(
         page: page ?? 1,
         page_size,
         mine_as_consumer: true,
-        strictly_past_booking: true,
+        after_date_end: true,
         offer_is_workshop: true,
         ordering: '-offer__date_start',
       });
@@ -736,7 +736,7 @@ export function fetchMyFutureBookingWorkshopAsMember(
         page: page ?? 1,
         page_size,
         mine_as_consumer: true,
-        strictly_future_booking: true,
+        before_date_end: true,
         offer_is_workshop: true,
         ordering: 'offer__date_start',
       });

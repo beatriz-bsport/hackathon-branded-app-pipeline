@@ -215,10 +215,6 @@ export function cancelBookingOption(optionId: number) {
   };
 }
 
-export function startFetchConsumerPaymentPacks() {
-  return { type: actionsType.CONSUMER_START_FETCH_PAYMENT_PACKS };
-}
-
 export function errorFetchingConsumerPaymentPacks(error?: Error) {
   return { type: actionsType.CONSUMER_ERROR_FETCHING_PAYMENT_PACKS, error };
 }
@@ -229,23 +225,6 @@ export function fetchedConsumerPaymentPacks(
   return {
     type: actionsType.CONSUMER_HAS_FETCHED_PAYMENT_PACKS,
     consumerPaymentPacks,
-  };
-}
-
-export function fetchConsumerPaymentPacks() {
-  return async (dispatch: Dispatch) => {
-    dispatch(startFetchConsumerPaymentPacks());
-    dispatch(errorFetchingConsumerPaymentPacks(null));
-
-    try {
-      const response = await api.fetchConsumerPaymentPacks();
-      const consumerPaymentPacks = response.data;
-
-      // @ts-expect-error
-      dispatch(fetchedConsumerPaymentPacks(consumerPaymentPacks));
-    } catch (err) {
-      dispatch(errorFetchingConsumerPaymentPacks(err));
-    }
   };
 }
 

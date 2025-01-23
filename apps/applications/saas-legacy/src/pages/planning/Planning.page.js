@@ -292,7 +292,6 @@ type Props = {
   fetchFilteredMembers: (params: any, OptionCallback) => void,
   fetchBookingsByOffer: (params: any, options?: OptionCallback) => void,
   fetchBookingStatsOfTheWeek: () => void,
-  fetchBookingInOfferStats: () => void,
   metaActivities: Array<MetaActivity>,
   offers: Array<Offer>,
   similarOffers: Array<OfferREST>,
@@ -573,7 +572,6 @@ export class Planning extends PureComponent<Props, State> {
         withNotes: true,
       });
       this.props.fetchBookingsByOffer(this.props.selectedOffer.id);
-      this.props.fetchBookingInOfferStats();
     }
     if (prevProps.selectedOffer && !this.props.selectedOffer) {
       this.props.fetchBookingStatsOfTheWeek();
@@ -1738,26 +1736,6 @@ export default compose(
             ...omit(offerFilters || {}, omit_list(offerFilters, true)),
           });
         }
-      },
-    fetchBookingInOfferStats:
-      ({ selectedOffer, fetchBookingStatistics }) =>
-      () => {
-        fetchBookingStatistics('createdBookings', {
-          offer: selectedOffer.id,
-          date_field: 'date_created',
-          kind: 'count',
-        });
-        fetchBookingStatistics('cancelledBookings', {
-          offer: selectedOffer.id,
-          booking_status_code__in: [
-            BOOKING_STATUS_CANCELLED_BY_MANAGER.id,
-            BOOKING_STATUS_CANCELLED_BY_CONSUMER.id,
-            BOOKING_STATUS_CANCELLED_BY_OFFER.id,
-          ],
-          date_field: 'date_updated',
-          // date_field: 'date_canceled',
-          kind: 'count',
-        });
       },
     fetchBookingStatsOfTheWeek:
       ({

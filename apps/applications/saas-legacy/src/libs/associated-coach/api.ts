@@ -5,7 +5,6 @@ import type {
   UpdateCoachPrivateSlotsPaymentRuleData,
 } from '#src/libs/associated-coach/types';
 import {
-  API_URI,
   API_V1_URI,
   getAuth,
   postAuth,
@@ -29,7 +28,7 @@ export async function fetchPaginatedAssociatedCoaches(params?: {
   [key: string]: boolean | number;
 }) {
   return getAuth(
-    `${API_URI}/saas/associated-coach/${buildUrlParams({
+    `${API_V1_URI}/associated_coach/${buildUrlParams({
       ...params,
       paginated: true,
     })}`,

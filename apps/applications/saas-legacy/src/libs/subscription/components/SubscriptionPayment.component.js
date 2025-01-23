@@ -629,6 +629,7 @@ export class SubscriptionPayment extends React.Component<Props, State> {
               </div>
             )}
             <CouponCodeForm
+              isOnlyCouponCodeAccepted
               disabled={this.props.disabled}
               onSubmit={this.applyCoupon}
             />

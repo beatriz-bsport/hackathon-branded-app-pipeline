@@ -47,6 +47,7 @@ const MarketplaceContractPaymentCoupon: React.FC<Props> = React.memo(
       <>
         {!voucher && (
           <CouponCodeInput
+            isOnlyCouponCodeAccepted
             isBasketModificationDisabled={
               isLoading || !isContractLegalTermsAccepted
             }

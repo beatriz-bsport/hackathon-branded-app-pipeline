@@ -26,16 +26,19 @@ type CouponCodeInputProps = {
     options?: OptionCallBackWithKeyedCallbacks<Coupon, CouponErrorCodes>,
   ) => void;
   isBasketModificationDisabled: boolean;
+  isOnlyCouponCodeAccepted?: boolean;
 };
 
 /**
  * Coupon code input - A text field to insert either a valid promo code or giftcard
  * @param onSubmit The action to perform once applying the code
  * @param isBasketModificationDisabled If true, disables the submit button
+ * @param isOnlyCouponCodeAccepted If true, only accepts coupon codes and not printable giftcard codes
  */
 const CouponCodeInput: React.FC<CouponCodeInputProps> = ({
   onSubmit,
   isBasketModificationDisabled,
+  isOnlyCouponCodeAccepted,
 }) => {
   const classes = useStyles();
   const theme = useTheme();
@@ -97,6 +100,10 @@ const CouponCodeInput: React.FC<CouponCodeInputProps> = ({
     [theme.palette.grey],
   );
 
+  const couponCodeFormLabel = isOnlyCouponCodeAccepted
+    ? t('code.addCoupon.couponOnlyLabel')
+    : t('code.addCoupon.label');
+
   return (
     <div
       className={clsx(classes.couponInputContainer, {
@@ -117,10 +124,10 @@ const CouponCodeInput: React.FC<CouponCodeInputProps> = ({
         }
         error={!!error}
         helperText={error ? t(`code.addCoupon.${error}`) : null}
-        label={t('code.addCoupon.label')}
+        label={couponCodeFormLabel}
         name="coupon_code-input"
         onChange={handleCouponCodeChange}
-        placeholder={t('code.addCoupon.label')}
+        placeholder={couponCodeFormLabel}
         value={couponCode}
         variant="outlined"
       />

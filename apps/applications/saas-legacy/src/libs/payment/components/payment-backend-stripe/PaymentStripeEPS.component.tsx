@@ -14,6 +14,7 @@ import {
 } from '#src/libs/payment/constants';
 
 import { PAYMENT_GROUP_METHOD_IDENTIFIER_EPS } from '@bsport/common/lib/master-data/payment-group.js';
+import CheckoutContext from '#src/pages/checkout/basket/CheckoutContext';
 import {
   blockPendingBasket as blockPendingBasketAPI,
   verifyPriceBasket as verifyPriceBasketAPI,
@@ -64,6 +65,8 @@ export const PaymentStripeEPS = forwardRef(
 
     const { t } = useTranslation('invoice');
     const classes = useStyles();
+
+    const isCheckoutContext = React.useContext(CheckoutContext);
 
     const setPaymentPageProcessing = React.useCallback(
       (process) => {
@@ -224,7 +227,7 @@ export const PaymentStripeEPS = forwardRef(
           </div>
         )}
         {children}
-        {!forceHideConfirmPaymentButton && (
+        {!isCheckoutContext && !forceHideConfirmPaymentButton && (
           <div className={classes.actionRow}>
             {processing ? (
               <CircularProgress />

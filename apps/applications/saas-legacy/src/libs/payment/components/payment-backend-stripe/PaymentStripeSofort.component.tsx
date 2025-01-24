@@ -21,6 +21,7 @@ import {
   blockPendingBasket as blockPendingBasketAPI,
   verifyPriceBasket as verifyPriceBasketAPI,
 } from '#src/libs/payment/api';
+import CheckoutContext from '#src/pages/checkout/basket/CheckoutContext';
 import CountrySelector from '#src/components/input/CountrySelector.component';
 import PopOver from '#src/components/Popover';
 
@@ -84,6 +85,8 @@ export const PaymentStripeSofort = forwardRef(
     const { t } = useTranslation(['invoice']);
     const classes = useStyles();
     const [saveForLater, setSaveForLater] = React.useState(false);
+
+    const isCheckoutContext = React.useContext(CheckoutContext);
 
     const setPaymentPageProcessing = React.useCallback(
       (process) => {
@@ -272,10 +275,13 @@ export const PaymentStripeSofort = forwardRef(
                 onChange={(ev) => setSaveForLater(ev.target.checked)}
               />
               <div className={classes.leftColumn}>
-                <Typography variant="body1">
+                <Typography variant={isCheckoutContext ? 'body1' : 'caption'}>
                   {t('paymentPanel.actions.saveForLater')}
                 </Typography>
-                <Typography color="textSecondary" variant="body1">
+                <Typography
+                  color="textSecondary"
+                  variant={isCheckoutContext ? 'body1' : 'caption'}
+                >
                   {t('paymentPanel.actions.saveForLaterAsSEPA')}
                 </Typography>
               </div>
@@ -293,7 +299,7 @@ export const PaymentStripeSofort = forwardRef(
           </>
         )}
         {children}
-        {!forceHideConfirmPaymentButton && (
+        {!isCheckoutContext && !forceHideConfirmPaymentButton && (
           <>
             <div className={classes.conditions}>
               {AcceptTermsAndConditionsComponent}

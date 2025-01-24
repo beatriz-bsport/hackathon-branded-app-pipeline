@@ -11,7 +11,7 @@ import {
 } from '#src/libs/checkout/types';
 
 import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
-
+import CheckoutContext from '#src/pages/checkout/basket/CheckoutContext';
 import './styles.css';
 
 export type Props = {
@@ -53,13 +53,15 @@ export const SubscriptionBillingInfo: React.FC<Props> = React.memo(
             />
           </div>
         )}
-        <PriceCount
-          hideTotal
-          basket={subscriptionPseudoBasket}
-          isDeleteButtonDisabled={false}
-          isExcludingTax={isExcludingTax}
-          onRemoveCheckoutItem={onRemoveCoupon}
-        />
+        <CheckoutContext.Provider value>
+          <PriceCount
+            hideTotal
+            basket={subscriptionPseudoBasket}
+            isDeleteButtonDisabled={false}
+            isExcludingTax={isExcludingTax}
+            onRemoveCheckoutItem={onRemoveCoupon}
+          />
+        </CheckoutContext.Provider>
         <div className="bs-subscription__bottom__container">
           <div className="bs-subcription--bottom__container__total">
             <span className="bs-subscription--bottom__container__total__title">

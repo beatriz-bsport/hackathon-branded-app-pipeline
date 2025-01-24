@@ -1,6 +1,6 @@
 import React, { useImperativeHandle, forwardRef } from 'react';
 import clsx from 'clsx';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, Theme } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import AddIcon from '@material-ui/icons/Add';
 import Button from '@material-ui/core/Button';
@@ -21,6 +21,7 @@ import {
   verifyPriceBasket as verifyPriceBasketAPI,
   blockPendingBasket as blockPendingBasketAPI,
 } from '#src/libs/payment/api';
+import CheckoutContext from '#src/pages/checkout/basket/CheckoutContext';
 import PaymentMethodList from '#src/libs/payment/components/payment-method-list/PaymentMethodList.component';
 import PopOver from '#src/components/Popover';
 import StripeErrorCode from '#src/libs/payment/components/payment-backend-stripe/StripeErrorCode.component';
@@ -83,7 +84,8 @@ const IbanForm: React.FC<PropsIban> = ({
   setBillingDetails,
 }) => {
   const { t } = useTranslation(['invoice']);
-  const classes = useStyles();
+  const isCheckoutContext = React.useContext(CheckoutContext);
+  const classes = useStyles({ isCheckoutContext });
 
   return (
     <div>
@@ -236,7 +238,8 @@ export const PaymentStripeSEPARevamped = forwardRef(
     }: PaymentStripeSEPAProps,
     ref,
   ) => {
-    const classes = useStyles();
+    const isCheckoutContext = React.useContext(CheckoutContext);
+    const classes = useStyles({ isCheckoutContext });
     const { t } = useTranslation(['invoice', 'payment']);
 
     const stripe = useStripe();
@@ -555,7 +558,9 @@ export const PaymentStripeSEPARevamped = forwardRef(
                                 setSaveForLater(ev.target.checked)
                               }
                             />
-                            <Typography variant="body1">
+                            <Typography
+                              variant={isCheckoutContext ? 'body1' : 'caption'}
+                            >
                               {t('paymentPanel.actions.saveForLater')}
                             </Typography>
                             <div
@@ -668,44 +673,48 @@ export const PaymentStripeSEPARevamped = forwardRef(
               </>
             )}
             {children ?? null}
-            {forceButtonDisplay && !forceHideConfirmPaymentButton && (
-              <>
-                {AcceptTermsAndConditionsComponent && (
+            {(!isCheckoutContext || forceButtonDisplay) &&
+              !forceHideConfirmPaymentButton && (
+                <>
+                  {AcceptTermsAndConditionsComponent && (
+                    <div
+                      className={clsx(
+                        classes.conditions,
+                        customClasses?.conditions,
+                      )}
+                    >
+                      {AcceptTermsAndConditionsComponent}
+                    </div>
+                  )}
                   <div
                     className={clsx(
-                      classes.conditions,
-                      customClasses?.conditions,
+                      classes.actionRow,
+                      customClasses?.actionRow,
                     )}
                   >
-                    {AcceptTermsAndConditionsComponent}
+                    {processing ? (
+                      <CircularProgress />
+                    ) : (
+                      <React.Fragment>
+                        <Button
+                          color="primary"
+                          disabled={isSubmitButtonDisabled}
+                          type="submit"
+                          variant="contained"
+                        >
+                          {t('invoice:paymentPanel.actions.confirmPayment')}
+                        </Button>
+                        <Button
+                          disabled={loading || processing}
+                          onClick={onCancel}
+                        >
+                          {t('paymentPanel.actions.cancel')}
+                        </Button>
+                      </React.Fragment>
+                    )}
                   </div>
-                )}
-                <div
-                  className={clsx(classes.actionRow, customClasses?.actionRow)}
-                >
-                  {processing ? (
-                    <CircularProgress />
-                  ) : (
-                    <React.Fragment>
-                      <Button
-                        color="primary"
-                        disabled={isSubmitButtonDisabled}
-                        type="submit"
-                        variant="contained"
-                      >
-                        {t('invoice:paymentPanel.actions.confirmPayment')}
-                      </Button>
-                      <Button
-                        disabled={loading || processing}
-                        onClick={onCancel}
-                      >
-                        {t('paymentPanel.actions.cancel')}
-                      </Button>
-                    </React.Fragment>
-                  )}
-                </div>
-              </>
-            )}
+                </>
+              )}
           </>
         )}
       </form>
@@ -713,37 +722,42 @@ export const PaymentStripeSEPARevamped = forwardRef(
   },
 );
 
-const useStyles = makeStyles((theme) => ({
-  sensitiveDataContainer: {
+type CheckoutContextThemeProps = {
+  isCheckoutContext?: boolean;
+};
+
+const useStyles = makeStyles<Theme, CheckoutContextThemeProps>((theme) => ({
+  sensitiveDataContainer: (isCheckoutContext) => ({
     alignItems: 'center',
     display: 'flex',
     flexDirection: 'column',
     margin: `${theme.spacing(2)}px ${theme.spacing(2)}px ${theme.spacing(
       2,
-    )}px 0 px`,
-  },
-  sensitiveData: {
+    )}px ${isCheckoutContext ? 0 : theme.spacing(2)}px`,
+  }),
+  sensitiveData: (isCheckoutContext) => ({
     backgroundColor: '#EFEFEF',
     padding: theme.spacing(2),
     minWidth: '30vw',
     width: '100%',
-  },
-  nameAndEmailContainer: {
+    ...(isCheckoutContext ? {} : { maxWidth: '80vw' }),
+  }),
+  nameAndEmailContainer: (isCheckoutContext) => ({
     flexDirection: 'column',
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
     margin: `${theme.spacing(2)}px ${theme.spacing(2)}px ${theme.spacing(
       2,
-    )}px 0 px`,
+    )}px ${isCheckoutContext ? 0 : theme.spacing(2)}px`,
     gap: theme.spacing(2),
-  },
-  mandate: {
+  }),
+  mandate: (isCheckoutContext) => ({
     padding: `${theme.spacing(2)}px ${theme.spacing(2)}px ${theme.spacing(
       2,
-    )}px 0 px`,
+    )}px ${isCheckoutContext ? 0 : theme.spacing(2)}px`,
     maxWidth: 700,
-  },
+  }),
   conditions: {
     display: 'flex',
     flexDirection: 'row',

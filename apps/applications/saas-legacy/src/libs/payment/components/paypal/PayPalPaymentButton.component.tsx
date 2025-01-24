@@ -2,6 +2,7 @@ import React from 'react';
 import { PayPalButtons, usePayPalScriptReducer } from '@paypal/react-paypal-js';
 import CircularProgress from '#src/components/css-only/CircularProgress';
 import { snackbarError } from '#src/libs/snackbar/actions';
+import CheckoutContext from '#src/pages/checkout/basket/CheckoutContext';
 import { makeStyles } from '@material-ui/core';
 
 type Props = {
@@ -27,6 +28,7 @@ const PayPalPaymentButton: React.FC<Props> = ({
       snackbarError('canNotExecutePaymentAttempt.failedLoadingPayPalScript');
   }, [isRejected]);
 
+  const isCheckoutContext = React.useContext(CheckoutContext);
   if (isRejected) return <></>;
 
   return (
@@ -46,7 +48,7 @@ const PayPalPaymentButton: React.FC<Props> = ({
             shape: 'pill',
             color: 'gold',
             disableMaxWidth: true,
-            height: 40,
+            ...(isCheckoutContext ? { height: 40 } : {}),
           }}
         />
       )}

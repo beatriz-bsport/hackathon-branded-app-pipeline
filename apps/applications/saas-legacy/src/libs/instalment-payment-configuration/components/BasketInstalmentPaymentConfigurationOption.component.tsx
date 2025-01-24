@@ -7,6 +7,7 @@ import Collapse from '@material-ui/core/Collapse';
 import clsx from 'clsx';
 import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
 import { useBasketInstalmentPaymentOptionStyle } from '#src/libs/instalment-payment-configuration/hooks';
+import CheckoutContext from '#src/pages/checkout/basket/CheckoutContext';
 import {
   DAILY,
   MONTHLY,
@@ -34,11 +35,13 @@ export const BasketInstalmentPaymentOption: React.FC<Props> = ({
   onSelect,
   unselectable,
 }) => {
+  const isCheckoutContext = React.useContext(CheckoutContext);
+
   const { t } = useTranslation(['instalmentPayment']);
   const classes = useBasketInstalmentPaymentOptionStyle({
     checked,
+    isCheckoutContext,
   });
-
   const { recurrency, frequency, number_of_billing, partial_payment_enabled } =
     instalmentPayment;
 

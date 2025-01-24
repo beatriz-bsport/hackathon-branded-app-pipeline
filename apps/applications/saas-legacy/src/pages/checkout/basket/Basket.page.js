@@ -32,6 +32,7 @@ import {
 } from '#src/libs/establishment/actions';
 import { fetchInstalmentPaymentByBasket as fetchInstalmentPaymentByBasketAction } from '#src/libs/instalment-payment-configuration/actions';
 import { getInstalmentForBasketList } from '#src/libs/instalment-payment-configuration/selectors';
+import CheckoutFlow from '#src/libs/checkout/components/CheckoutFlow.component';
 import NewCheckoutFlow from '#src/libs/checkout/components/new-checkout-flow/NewCheckoutFlow.component';
 import {
   getCurrentBasket,
@@ -115,6 +116,7 @@ import type {
   OptionCallBackWithKeyedCallbacks,
   APIPollOptionCallback,
 } from '../../../state/types';
+import CheckoutContext from './CheckoutContext';
 import {
   getCheckoutValidationUrl,
   getUserSpaceUrl,
@@ -131,7 +133,7 @@ import { BASKET_INCONSISTENT } from '#src/libs/checkout/constants';
 import { getBookedSessionListDataFromBasket } from '#src/components/analytics/utils';
 
 type Props = {
-  basket?: Basket,
+  basket: ?Basket,
   loading: boolean,
   processing: boolean,
   companyId: number,
@@ -139,8 +141,8 @@ type Props = {
   companyThemeLoading: boolean,
   fetchCompanyTheme: (companyId: number) => void,
   goBack: () => void,
-  theme?: Theme,
-  companyCountry?: string,
+  theme: ?Theme,
+  companyCountry: ?string,
   classes: Object,
 
   t: TFunction,
@@ -154,6 +156,7 @@ type Props = {
     basketId: string,
     code: string,
     options?: OptionCallBackWithKeyedCallbacks<Coupon, CouponErrorCodes>,
+    hideSnackBar?: boolean,
   ) => void,
 
   shopItemList: Array<ShopItem>,
@@ -203,6 +206,7 @@ type Props = {
     options: OptionCallback<Basket>,
   ) => void,
   basketOffers: Array<Offer<number, Establishment, MetaActivity>>,
+  isCheckoutContext?: boolean,
   fetchInstalmentPaymentByBasket: (basketId: string) => void,
   goToMarketplace: () => void,
   goToCalendar: () => void,
@@ -447,42 +451,47 @@ export class BasketPage extends React.Component<Props> {
     code: string,
     options: OptionCallBackWithKeyedCallbacks<Coupon, CouponErrorCodes>,
   ) => {
-    this.props.attachCoupon(this.props.basket.id, code, {
-      onSuccess: () => {
-        this.props.refreshBasket();
-        options?.onSuccess?.();
-      },
-      onError: () => {
-        if (options?.onError) {
-          options.onError();
-        }
-      },
-      [CouponErrorCodes.COUPON_UNIQUE_CODE_CANNOT_BE_APPLIED_SEVERAL_ITEMS]:
-        () => {
+    this.props.attachCoupon(
+      this.props.basket.id,
+      code,
+      {
+        onSuccess: () => {
+          this.props.refreshBasket();
+          options?.onSuccess?.();
+        },
+        onError: () => {
+          if (options?.onError) {
+            options.onError();
+          }
+        },
+        [CouponErrorCodes.COUPON_UNIQUE_CODE_CANNOT_BE_APPLIED_SEVERAL_ITEMS]:
+          () => {
+            if (
+              options &&
+              options[
+                CouponErrorCodes
+                  .COUPON_UNIQUE_CODE_CANNOT_BE_APPLIED_SEVERAL_ITEMS
+              ]
+            )
+              options[
+                CouponErrorCodes
+                  .COUPON_UNIQUE_CODE_CANNOT_BE_APPLIED_SEVERAL_ITEMS
+              ]();
+          },
+        [CouponErrorCodes.GIFTCARD_EXCEPTION]: () => {
+          if (options && options[CouponErrorCodes.GIFTCARD_EXCEPTION])
+            options[CouponErrorCodes.GIFTCARD_EXCEPTION]();
+        },
+        [CouponErrorCodes.GIFTCARD_INVALID_ACTIVATION_DATE]: () => {
           if (
             options &&
-            options[
-              CouponErrorCodes
-                .COUPON_UNIQUE_CODE_CANNOT_BE_APPLIED_SEVERAL_ITEMS
-            ]
+            options[CouponErrorCodes.GIFTCARD_INVALID_ACTIVATION_DATE]
           )
-            options[
-              CouponErrorCodes
-                .COUPON_UNIQUE_CODE_CANNOT_BE_APPLIED_SEVERAL_ITEMS
-            ]();
+            options[CouponErrorCodes.GIFTCARD_INVALID_ACTIVATION_DATE]();
         },
-      [CouponErrorCodes.GIFTCARD_EXCEPTION]: () => {
-        if (options && options[CouponErrorCodes.GIFTCARD_EXCEPTION])
-          options[CouponErrorCodes.GIFTCARD_EXCEPTION]();
       },
-      [CouponErrorCodes.GIFTCARD_INVALID_ACTIVATION_DATE]: () => {
-        if (
-          options &&
-          options[CouponErrorCodes.GIFTCARD_INVALID_ACTIVATION_DATE]
-        )
-          options[CouponErrorCodes.GIFTCARD_INVALID_ACTIVATION_DATE]();
-      },
-    });
+      this.props.isCheckoutContext,
+    );
   };
 
   setTermsAndConditionsAccepted = (termsAndConditionsAccepted) =>
@@ -559,88 +568,239 @@ export class BasketPage extends React.Component<Props> {
       !this.props.theme.general_terms_and_conditions;
 
     return (
-      <ConsumerAppBarContainer backgroundColor="white">
-        <div className={this.props.classes.container}>
-          <div className={this.props.classes.checkoutFlow}>
-            <NewCheckoutFlow
-              addItemToBasket={this.props.addItemToBasket}
-              allowConsumerToUseInternalAccount={
-                this.props.theme.allow_consumer_to_use_internal_account
-              }
-              attachCoupon={this.attachCoupon}
-              auth={this.props.auth}
-              basket={this.props.basket}
-              basketItemRemovalStatusLoading={
-                this.props.basketItemRemovalStatusLoading
-              }
-              basketLoading={this.props.loading || this.props.processing}
-              basketOffers={this.props.basketOffers}
-              cardBillingDetailsMandatory={
-                this.props.theme.force_billing_details_on_cards
-              }
-              checkItemsBasket={this.props.checkItemsBasket}
-              clientSecret={this.state.clientSecret}
-              clientSecretLoading={this.state.clientSecretLoading}
-              companyId={this.props.companyId}
-              createPendingBookingsIfNecessary={
-                this.createPendingBookingsIfNecessary
-              }
-              creditAccountBalance={this.props.creditAccountBalance}
-              detachPaymentMethod={this.props.detachPaymentMethod}
-              detachPaymentMethodLoading={this.props.detachPaymentMethodLoading}
-              enableMultiLocalization={
-                this.props.theme?.enable_multi_localization
-              }
-              establishmentBillingGroups={this.props.establishmentBillingGroups}
-              goBack={this.handleGoBack}
-              goToCalendar={this.props.goToCalendar}
-              goToMarketplace={this.props.goToMarketplace}
-              goToMyProfile={this.props.goToMyProfile}
-              instalmentPaymentConfigurationList={this.props.instalmentPaymentConfigurationList.filter(
-                (ipc) => ipc.basketId === this.props.basket?.id,
+      <CheckoutContext.Provider value={true}>
+        <ConsumerAppBarContainer
+          backgroundColor={this.props.isCheckoutContext ? 'white' : null}
+        >
+          <div className={this.props.classes.container}>
+            <div className={this.props.classes.checkoutFlow}>
+              {!this.props.isCheckoutContext ? (
+                <CheckoutFlow
+                  addItemToBasket={this.props.addItemToBasket}
+                  addShopItemToBasket={this.props.addShopItemToBasket}
+                  attachCoupon={this.attachCoupon}
+                  backToCalendar={this.backToCalendar}
+                  basket={this.props.basket}
+                  checkItemsBasket={this.props.checkItemsBasket}
+                  companyCountry={this.props.companyCountry}
+                  enableMultiLocalization={
+                    this.props.theme?.enable_multi_localization
+                  }
+                  establishmentBillingGroups={
+                    this.props.establishmentBillingGroups
+                  }
+                  isEstablishmentBillingGroupSelected={
+                    this.state.isEstablishmentBillingGroupSelected
+                  }
+                  isExcludingTax={
+                    this.props.theme.is_tax_excluded_in_marketplace
+                  }
+                  loading={this.props.loading || this.props.paymentProcessing}
+                  onItemExpire={this.onItemExpire}
+                  onRemoveInternalAccountPrepaidLine={
+                    this.props.onRemoveInternalAccountPrepaidLine
+                  }
+                  patchBasket={this.props.patchCurrentBasket}
+                  paymentModule={
+                    <OnlinePayment
+                      allowConsumerToUseInternalAccount={
+                        this.props.theme.allow_consumer_to_use_internal_account
+                      }
+                      basketId={this.props.basket.id}
+                      basketTotalPriceCts={this.props.basket?.total_price_cts}
+                      basketTotalPricePrepaidLines={
+                        this.props.basket?.total_price_prepaid_lines_cts
+                      }
+                      cardBillingDetailsMandatory={
+                        this.props.theme.force_billing_details_on_cards
+                      }
+                      checkItemsBasket={this.props.checkItemsBasket}
+                      clientSecret={this.state.clientSecret}
+                      clientSecretLoading={this.state.clientSecretLoading}
+                      companyId={this.props.companyId}
+                      createPendingBookingsIfNecessary={
+                        this.createPendingBookingsIfNecessary
+                      }
+                      creditAccountBalance={this.props.creditAccountBalance}
+                      detachPaymentMethod={this.props.detachPaymentMethod}
+                      detachPaymentMethodLoading={
+                        this.props.detachPaymentMethodLoading
+                      }
+                      enableMultiLocalization={
+                        this.props.theme?.enable_multi_localization
+                      }
+                      establishmentBillingGroups={
+                        this.props.establishmentBillingGroups
+                      }
+                      instalmentPaymentConfigurationList={this.props.instalmentPaymentConfigurationList.filter(
+                        (ipc) => ipc.basketId === this.props.basket?.id,
+                      )}
+                      instalmentPaymentSelectedId={
+                        this.props.basket?.instalment_payment
+                      }
+                      isEstablishmentBillingGroupSelected={
+                        this.state.isEstablishmentBillingGroupSelected
+                      }
+                      loading={
+                        this.props.loading ||
+                        this.props.processing ||
+                        this.props.paymentProcessing
+                      }
+                      memberId={this.props.basket.member}
+                      onCancel={this.backToCalendar}
+                      onError={this.props.refreshBasket}
+                      onSelectInstalmentPayment={this.onSelectInstalmentPayment}
+                      onSuccess={this.onSuccess}
+                      paymentEngine={this.state.paymentEngine}
+                      paymentGroupId={this.state.paymentGroupId}
+                      paymentMethodChoices={
+                        this.props.theme.payment_method_available_basket || []
+                      }
+                      paymentProcessing={this.props.paymentProcessing}
+                      selectedEstablishmentBillingGroup={
+                        this.state.selectedEstablishmentBillingGroup
+                      }
+                      sepaDefaultEmail={this.props.auth.username}
+                      sepaDefaultName={this.props.auth.name}
+                      setIsEstablishmentBillingGroupSelected={
+                        this.setIsEstablishmentBillingGroupSelected
+                      }
+                      setPaymentEngine={this.handlePaymentEngineUpdate}
+                      setPaymentProcessing={this.props.setPaymentProcessing}
+                      setSelectedEstablishmentBillingGroup={
+                        this.setSelectedEstablishmentBillingGroup
+                      }
+                      setTermsAndConditionsAccepted={
+                        this.setTermsAndConditionsAccepted
+                      }
+                      snackbarErrorMsg={this.props.snackbarErrorMsg}
+                      snackbarSuccessMsg={this.props.snackbarSuccessMsg}
+                      stripeId={this.props.theme.stripe_id}
+                      termsAndConditions={
+                        this.props.theme.general_terms_and_conditions
+                      }
+                      termsAndConditionsAccepted={termsAndConditionsAccepted}
+                      updateMemberBillingGroup={
+                        this.props.updateMemberBillingGroup
+                      }
+                      useInternalAccount={this.props.useInternalAccount}
+                    />
+                  }
+                  processing={this.props.processing}
+                  removeItemFromBasket={this.props.removeItemFromBasket}
+                  savedPaymentMethodList={this.props.savedPaymentMethodList}
+                  selectedEstablishmentBillingGroup={
+                    this.state.selectedEstablishmentBillingGroup
+                  }
+                  setIsEstablishmentBillingGroupSelected={
+                    this.setIsEstablishmentBillingGroupSelected
+                  }
+                  setSelectedEstablishmentBillingGroup={
+                    this.setSelectedEstablishmentBillingGroup
+                  }
+                  setTermsAndConditionsAccepted={
+                    this.setTermsAndConditionsAccepted
+                  }
+                  shopItemList={this.props.shopItemList}
+                  termsAndConditions={
+                    this.props.theme.general_terms_and_conditions
+                  }
+                  termsAndConditionsAccepted={termsAndConditionsAccepted}
+                  updateMemberBillingGroup={this.props.updateMemberBillingGroup}
+                  validateUnpaid={this.validateUnpaid}
+                />
+              ) : (
+                <NewCheckoutFlow
+                  addItemToBasket={this.props.addItemToBasket}
+                  allowConsumerToUseInternalAccount={
+                    this.props.theme.allow_consumer_to_use_internal_account
+                  }
+                  attachCoupon={this.attachCoupon}
+                  auth={this.props.auth}
+                  basket={this.props.basket}
+                  basketItemRemovalStatusLoading={
+                    this.props.basketItemRemovalStatusLoading
+                  }
+                  basketLoading={this.props.loading || this.props.processing}
+                  basketOffers={this.props.basketOffers}
+                  cardBillingDetailsMandatory={
+                    this.props.theme.force_billing_details_on_cards
+                  }
+                  checkItemsBasket={this.props.checkItemsBasket}
+                  clientSecret={this.state.clientSecret}
+                  clientSecretLoading={this.state.clientSecretLoading}
+                  companyId={this.props.companyId}
+                  createPendingBookingsIfNecessary={
+                    this.createPendingBookingsIfNecessary
+                  }
+                  creditAccountBalance={this.props.creditAccountBalance}
+                  detachPaymentMethod={this.props.detachPaymentMethod}
+                  detachPaymentMethodLoading={
+                    this.props.detachPaymentMethodLoading
+                  }
+                  enableMultiLocalization={
+                    this.props.theme?.enable_multi_localization
+                  }
+                  establishmentBillingGroups={
+                    this.props.establishmentBillingGroups
+                  }
+                  goBack={this.handleGoBack}
+                  goToCalendar={this.props.goToCalendar}
+                  goToMarketplace={this.props.goToMarketplace}
+                  goToMyProfile={this.props.goToMyProfile}
+                  instalmentPaymentConfigurationList={this.props.instalmentPaymentConfigurationList.filter(
+                    (ipc) => ipc.basketId === this.props.basket?.id,
+                  )}
+                  isEstablishmentBillingGroupSelected={
+                    this.state.isEstablishmentBillingGroupSelected
+                  }
+                  isExcludingTax={
+                    this.props.theme.is_tax_excluded_in_marketplace
+                  }
+                  monitorExpiredItemRemoval={
+                    this.props.monitorExpiredItemRemoval
+                  }
+                  onPaymentSuccess={this.onSuccess}
+                  onRemoveInternalAccountPrepaidLine={
+                    this.props.onRemoveInternalAccountPrepaidLine
+                  }
+                  onSelectInstalmentPayment={this.onSelectInstalmentPayment}
+                  patchBasket={this.props.patchCurrentBasket}
+                  paymentEngine={this.state.paymentEngine}
+                  paymentGroupId={this.state.paymentGroupId}
+                  paymentMethodChoices={
+                    this.props.theme.payment_method_available_basket || []
+                  }
+                  paymentProcessing={this.props.paymentProcessing}
+                  refreshBasket={this.props.refreshBasket}
+                  removeItemFromBasket={this.props.removeItemFromBasket}
+                  selectedEstablishmentBillingGroup={
+                    this.state.selectedEstablishmentBillingGroup
+                  }
+                  setIsEstablishmentBillingGroupSelected={
+                    this.setIsEstablishmentBillingGroupSelected
+                  }
+                  setPaymentEngine={this.handlePaymentEngineUpdate}
+                  setPaymentProcessing={this.props.setPaymentProcessing}
+                  setSelectedEstablishmentBillingGroup={
+                    this.setSelectedEstablishmentBillingGroup
+                  }
+                  setTermsAndConditionsAccepted={
+                    this.setTermsAndConditionsAccepted
+                  }
+                  snackbarErrorMsg={this.props.snackbarErrorMsg}
+                  snackbarSuccessMsg={this.props.snackbarSuccessMsg}
+                  termsAndConditionsAccepted={termsAndConditionsAccepted}
+                  theme={this.props.theme}
+                  updateMemberBillingGroup={this.props.updateMemberBillingGroup}
+                  useInternalAccount={this.props.useInternalAccount}
+                  validateUnpaid={this.validateUnpaid}
+                />
               )}
-              isEstablishmentBillingGroupSelected={
-                this.state.isEstablishmentBillingGroupSelected
-              }
-              isExcludingTax={this.props.theme.is_tax_excluded_in_marketplace}
-              monitorExpiredItemRemoval={this.props.monitorExpiredItemRemoval}
-              onPaymentSuccess={this.onSuccess}
-              onRemoveInternalAccountPrepaidLine={
-                this.props.onRemoveInternalAccountPrepaidLine
-              }
-              onSelectInstalmentPayment={this.onSelectInstalmentPayment}
-              patchBasket={this.props.patchCurrentBasket}
-              paymentEngine={this.state.paymentEngine}
-              paymentGroupId={this.state.paymentGroupId}
-              paymentMethodChoices={
-                this.props.theme.payment_method_available_basket || []
-              }
-              paymentProcessing={this.props.paymentProcessing}
-              refreshBasket={this.props.refreshBasket}
-              removeItemFromBasket={this.props.removeItemFromBasket}
-              selectedEstablishmentBillingGroup={
-                this.state.selectedEstablishmentBillingGroup
-              }
-              setIsEstablishmentBillingGroupSelected={
-                this.setIsEstablishmentBillingGroupSelected
-              }
-              setPaymentEngine={this.handlePaymentEngineUpdate}
-              setPaymentProcessing={this.props.setPaymentProcessing}
-              setSelectedEstablishmentBillingGroup={
-                this.setSelectedEstablishmentBillingGroup
-              }
-              setTermsAndConditionsAccepted={this.setTermsAndConditionsAccepted}
-              snackbarErrorMsg={this.props.snackbarErrorMsg}
-              snackbarSuccessMsg={this.props.snackbarSuccessMsg}
-              termsAndConditionsAccepted={termsAndConditionsAccepted}
-              theme={this.props.theme}
-              updateMemberBillingGroup={this.props.updateMemberBillingGroup}
-              useInternalAccount={this.props.useInternalAccount}
-              validateUnpaid={this.validateUnpaid}
-            />
+            </div>
           </div>
-        </div>
-      </ConsumerAppBarContainer>
+        </ConsumerAppBarContainer>
+      </CheckoutContext.Provider>
     );
   }
 }
@@ -648,15 +808,16 @@ export class BasketPage extends React.Component<Props> {
 const styles = (theme) => ({
   container: {
     width: '100%',
-    maxWidth: '1180px',
+    maxWidth: (props) => (props?.isCheckoutContext ? '1180px' : 920),
     height: '100%',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'flex-start',
     flexDirection: 'column',
-    paddingTop: theme.spacing(4),
+    paddingTop: (props) =>
+      props?.isCheckoutContext ? theme.spacing(4) : theme.spacing(8),
     [theme.breakpoints.down('sm')]: {
-      paddingTop: 0,
+      paddingTop: (props) => (props?.isCheckoutContext ? 0 : theme.spacing(8)),
     },
   },
   loader: {
@@ -855,7 +1016,14 @@ export default compose(
           extra_data: {},
         }),
     onSuccess:
-      ({ replace, basket, queryParams, theme, basketOffers }) =>
+      ({
+        replace,
+        basket,
+        isCheckoutContext,
+        queryParams,
+        theme,
+        basketOffers,
+      }) =>
       () => {
         if (basket) {
           if (basketOffers?.length > 0) {
@@ -884,7 +1052,9 @@ export default compose(
         if (queryParams?.onValidation) {
           urlParams.onValidation = queryParams.onValidation;
         }
-        replace(getCheckoutValidationUrl(theme.company, urlParams));
+        replace(
+          getCheckoutValidationUrl(theme.company, isCheckoutContext, urlParams),
+        );
       },
     checkItemsBasket:
       ({ snackbarErrorMsg, refreshBasket }) =>
@@ -999,5 +1169,6 @@ export default compose(
   withState('paymentProcessing', 'setPaymentProcessing', false),
   withStyles(styles),
   marketplaceCssHoc(),
+
   WithCustomCssProvider,
 )(BasketPage);

@@ -1,12 +1,13 @@
 import React from 'react';
 import LinearProgress from '@material-ui/core/LinearProgress';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, Theme } from '@material-ui/core/styles';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import BasketInstalmentEmptyPlaceholder from '#src/libs/instalment-payment-configuration/components/BasketInstalmentEmptyPlaceholder.component';
 import type { Basket } from '#src/libs/checkout/types';
 import BasketInstalmentPaymentOption from './BasketInstalmentPaymentConfigurationOption.component';
 import type { InstalmentPaymentApiWithBasketId } from '../types';
 import type { OptionCallback } from '../../../state/types';
+import CheckoutContext from '../../../pages/checkout/basket/CheckoutContext';
 
 type Props = {
   instalmentPaymentConfigurationList: null | InstalmentPaymentApiWithBasketId[];
@@ -33,7 +34,8 @@ const InstalmentPaymentSelector: React.FC<Props> = ({
   instalmentPaymentConfigurationSelectedId,
   onlyInstantPayment,
 }) => {
-  const classes = useStyles();
+  const isCheckoutContext = React.useContext(CheckoutContext);
+  const classes = useStyles({ isCheckoutContext });
   const [processing, setProcessing] = React.useState(false);
   const isLoadingMain =
     instalmentPaymentConfigurationSelectedId &&
@@ -107,7 +109,11 @@ const InstalmentPaymentSelector: React.FC<Props> = ({
   );
 };
 
-const useStyles = makeStyles((theme) => ({
+type CheckoutContextThemeProps = {
+  isCheckoutContext?: boolean;
+};
+
+const useStyles = makeStyles<Theme, CheckoutContextThemeProps>((theme) => ({
   center: {
     width: '100%',
     alignItems: 'center',
@@ -116,14 +122,14 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(1),
     marginBottom: theme.spacing(1),
   },
-  row: {
-    display: 'flex',
+  row: ({ isCheckoutContext }) => ({
+    displayt: 'flex',
     flexDirection: 'column',
-    marginLeft: 0,
+    marginLeft: isCheckoutContext ? 0 : theme.spacing(1),
     '&>*': {
       marginBottom: theme.spacing(2),
     },
-  },
+  }),
 }));
 
 export default React.memo(InstalmentPaymentSelector);

@@ -21,6 +21,7 @@ import type { OptionCallback } from '#src/state/types';
 import type { BillingDetails } from '#src/libs/marketplace/types';
 import type { PaymentMethod } from '#src/libs/payment/types';
 
+import CheckoutContext from '#src/pages/checkout/basket/CheckoutContext';
 import { useWidth } from '#src/hooks/useWidth';
 import CardBillingDetailsForm from '#src/libs/payment/components/payment-backend-stripe/CardBillingDetailsForm';
 import PaymentMethodList from '#src/libs/payment/components/payment-method-list/PaymentMethodList.component';
@@ -194,6 +195,8 @@ const PaymentStripeCard = forwardRef(
     const [billingDetails, setBillingDetails] = React.useState<BillingDetails>(
       defaultBillingDetailsValues,
     );
+
+    const isCheckoutContext = React.useContext(CheckoutContext);
 
     const setPaymentPageProcessing = React.useCallback(
       (process) => {
@@ -574,7 +577,9 @@ const PaymentStripeCard = forwardRef(
                               disabled={forceSave}
                               onChange={onSaveForLaterChange}
                             />
-                            <Typography variant="body1">
+                            <Typography
+                              variant={isCheckoutContext ? 'body1' : 'caption'}
+                            >
                               {t('paymentPanel.actions.saveForLater')}
                             </Typography>
                             <div
@@ -712,45 +717,49 @@ const PaymentStripeCard = forwardRef(
               </>
             )}
             {children ?? null}
-            {forceButtonDisplay && !forceHideConfirmPaymentButton && (
-              <>
-                {AcceptTermsAndConditionsComponent && (
+            {(!isCheckoutContext || forceButtonDisplay) &&
+              !forceHideConfirmPaymentButton && (
+                <>
+                  {AcceptTermsAndConditionsComponent && (
+                    <div
+                      className={clsx(
+                        classes.conditionRow,
+                        customClasses?.conditionRow,
+                      )}
+                    >
+                      {AcceptTermsAndConditionsComponent}
+                    </div>
+                  )}
                   <div
                     className={clsx(
-                      classes.conditionRow,
-                      customClasses?.conditionRow,
+                      classes.actionRow,
+                      customClasses?.actionRow,
                     )}
                   >
-                    {AcceptTermsAndConditionsComponent}
-                  </div>
-                )}
-                <div
-                  className={clsx(classes.actionRow, customClasses?.actionRow)}
-                >
-                  {processing ? (
-                    <CircularProgress />
-                  ) : (
-                    <React.Fragment>
-                      <Button
-                        color="primary"
-                        disabled={isSubmitButtonDisabled}
-                        type="submit"
-                        variant="contained"
-                      >
-                        {t('paymentPanel.actions.confirmPayment')}
-                      </Button>
-                      {onCancel ? (
-                        <Button disabled={processing} onClick={onCancel}>
-                          {t('paymentPanel.actions.cancel')}
+                    {processing ? (
+                      <CircularProgress />
+                    ) : (
+                      <React.Fragment>
+                        <Button
+                          color="primary"
+                          disabled={isSubmitButtonDisabled}
+                          type="submit"
+                          variant="contained"
+                        >
+                          {t('paymentPanel.actions.confirmPayment')}
                         </Button>
-                      ) : (
-                        <div />
-                      )}
-                    </React.Fragment>
-                  )}
-                </div>
-              </>
-            )}
+                        {onCancel ? (
+                          <Button disabled={processing} onClick={onCancel}>
+                            {t('paymentPanel.actions.cancel')}
+                          </Button>
+                        ) : (
+                          <div />
+                        )}
+                      </React.Fragment>
+                    )}
+                  </div>
+                </>
+              )}
           </>
         )}
       </form>

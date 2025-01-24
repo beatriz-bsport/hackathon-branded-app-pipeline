@@ -6,6 +6,7 @@ import Paper from '@material-ui/core/Paper';
 import clsx from 'clsx';
 import Typography from '@material-ui/core/Typography';
 import ButtonBase from '@material-ui/core/ButtonBase';
+import CheckoutContext from '../../../pages/checkout/basket/CheckoutContext';
 
 import PaymentMethodIcon from './PaymentMethodIcon.component';
 
@@ -28,7 +29,8 @@ export const PaymentMethodCardSelector = ({
 }: Props) => {
   const { t } = useTranslation('invoice');
 
-  const classes = useStyles({ withoutPaymentMethodPadding });
+  const isCheckoutContext = React.useContext(CheckoutContext);
+  const classes = useStyles({ isCheckoutContext, withoutPaymentMethodPadding });
 
   const handleClick = useCallback(
     (pm: number) => {
@@ -68,11 +70,12 @@ export const PaymentMethodCardSelector = ({
     </FormControl>
   );
 };
-type NewCheckoutFlowThemeProps = {
+type CheckoutContextThemeProps = {
+  isCheckoutContext?: boolean;
   withoutPaymentMethodPadding?: boolean;
 };
 
-const useStyles = makeStyles<Theme, NewCheckoutFlowThemeProps>((theme) => ({
+const useStyles = makeStyles<Theme, CheckoutContextThemeProps>((theme) => ({
   formControl: {
     display: 'flex',
     flexDirection: 'column',
@@ -87,13 +90,15 @@ const useStyles = makeStyles<Theme, NewCheckoutFlowThemeProps>((theme) => ({
     border: `1px solid ${theme.palette.primary.main}`,
     borderRadius: 4,
   },
-  row: ({ withoutPaymentMethodPadding }) => ({
+  row: ({ isCheckoutContext, withoutPaymentMethodPadding }) => ({
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
     padding: `${theme.spacing(1)}px ${theme.spacing(1)}px ${theme.spacing(
       1,
-    )}px ${withoutPaymentMethodPadding ? 0 : theme.spacing(1)}px`,
+    )}px ${
+      isCheckoutContext || withoutPaymentMethodPadding ? 0 : theme.spacing(1)
+    }px`,
     '&>*': {
       marginRight: theme.spacing(1),
     },

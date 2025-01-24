@@ -1,21 +1,27 @@
 import React, { useImperativeHandle, forwardRef } from 'react';
 import TextField from '@material-ui/core/TextField';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import AddressForm from '../../../components/form/AddressForm.component';
 import type { Basket, BasketAddress, PrepaidLine } from '../types';
+import CheckoutContext from '../../../pages/checkout/basket/CheckoutContext';
 
 type BasketDeliveryProps = {
   basket: Basket | Basket<string, PrepaidLine>;
   companyCountry: string;
   onSubmit: (data: BasketAddress) => void;
+  loading?: boolean;
+  onCancel?: () => void;
   ref?: React.Ref<any>;
 };
 
 const BasketDeliveryForm: React.FC<BasketDeliveryProps> = forwardRef(
-  ({ basket, companyCountry, onSubmit }, ref) => {
+  ({ basket, companyCountry, onSubmit, loading, onCancel }, ref) => {
     const classes = useStyles();
     const { t } = useTranslation('checkout');
+    const isCheckoutContext = React.useContext(CheckoutContext);
 
     const [basketAddress, setBasketAddress] = React.useState<BasketAddress>({
       first_name: basket.first_name,
@@ -89,6 +95,26 @@ const BasketDeliveryForm: React.FC<BasketDeliveryProps> = forwardRef(
           state={basketAddress.state}
           zipcode={basketAddress.zipcode}
         />
+        {!isCheckoutContext && (
+          <div className={classes.buttonContainer}>
+            {loading ? (
+              <CircularProgress />
+            ) : (
+              <React.Fragment>
+                <Button onClick={onCancel}>
+                  {t('forms.delivery.actions.cancel')}
+                </Button>
+                <Button
+                  color="primary"
+                  onClick={onAddressSubmit}
+                  variant="contained"
+                >
+                  {t('forms.delivery.actions.submit')}
+                </Button>
+              </React.Fragment>
+            )}
+          </div>
+        )}
       </div>
     );
   },

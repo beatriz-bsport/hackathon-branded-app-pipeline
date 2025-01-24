@@ -2,7 +2,9 @@ import React, { useImperativeHandle, forwardRef } from 'react';
 import { useStripe, useElements } from '@stripe/react-stripe-js';
 import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
 import Checkbox from '@material-ui/core/Checkbox';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import Info from '@material-ui/icons/Info';
 import TextInput from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
@@ -18,14 +20,17 @@ import {
   verifyPriceBasket as verifyPriceBasketAPI,
   blockPendingBasket as blockPendingBasketAPI,
 } from '#src/libs/payment/api';
+import CheckoutContext from '#src/pages/checkout/basket/CheckoutContext';
 import PopOver from '#src/components/Popover';
 
 type PaymentStripeBanContactProps = {
+  AcceptTermsAndConditionsComponent: React.Component;
   basketId?: string;
   basketTotalPriceCts?: number;
   children?: React.ReactNode;
   clientSecret: string;
   forceDisabled?: boolean;
+  forceHideConfirmPaymentButton?: boolean;
   forceSave?: boolean;
   hasAddPaymentMethodPermission?: boolean;
   isEstablishmentBillingGroupSelected?: boolean;
@@ -37,6 +42,7 @@ type PaymentStripeBanContactProps = {
   createPendingBookingsIfNecessary?: (data?: {
     payment_group_method_identifier?: number;
   }) => void;
+  onCancel: () => void;
   setIsOnlinePaymentDisabled: (isLoading: boolean) => void;
   setPaymentProcessing: (processing: boolean) => void;
 };
@@ -44,11 +50,13 @@ type PaymentStripeBanContactProps = {
 export const PaymentStripeBancontact = forwardRef(
   (
     {
+      AcceptTermsAndConditionsComponent,
       basketId,
       basketTotalPriceCts,
       children,
       clientSecret,
       forceDisabled,
+      forceHideConfirmPaymentButton,
       forceSave,
       hasAddPaymentMethodPermission = true,
       isEstablishmentBillingGroupSelected,
@@ -58,6 +66,7 @@ export const PaymentStripeBancontact = forwardRef(
       userDefaultName,
       checkItemsBasket,
       createPendingBookingsIfNecessary,
+      onCancel,
       setIsOnlinePaymentDisabled,
       setPaymentProcessing,
     }: PaymentStripeBanContactProps,
@@ -75,6 +84,8 @@ export const PaymentStripeBancontact = forwardRef(
     const classes = useStyles();
 
     const [saveForLater, setSaveForLater] = React.useState(false);
+
+    const isCheckoutContext = React.useContext(CheckoutContext);
 
     const setPaymentPageProcessing = React.useCallback(
       (process) => {
@@ -267,10 +278,13 @@ export const PaymentStripeBancontact = forwardRef(
                 onChange={(ev) => setSaveForLater(ev.target.checked)}
               />
               <div className={classes.leftColumn}>
-                <Typography variant="body1">
+                <Typography variant={isCheckoutContext ? 'body1' : 'caption'}>
                   {t('paymentPanel.actions.saveForLater')}
                 </Typography>
-                <Typography color="textSecondary" variant="body1">
+                <Typography
+                  color="textSecondary"
+                  variant={isCheckoutContext ? 'body1' : 'caption'}
+                >
                   {t('paymentPanel.actions.saveForLaterAsSEPA')}
                 </Typography>
               </div>
@@ -288,6 +302,30 @@ export const PaymentStripeBancontact = forwardRef(
           </>
         )}
         {children}
+        {!isCheckoutContext && !forceHideConfirmPaymentButton && (
+          <>
+            <div className={classes.conditions}>
+              {AcceptTermsAndConditionsComponent}
+            </div>
+            <div className={classes.actionRow}>
+              {processing ? (
+                <CircularProgress />
+              ) : (
+                <Button
+                  color="primary"
+                  disabled={isSubmitButtonDisabled}
+                  type="submit"
+                  variant="contained"
+                >
+                  {t('paymentPanel.actions.confirmPayment')}
+                </Button>
+              )}
+              <Button disabled={processing} onClick={onCancel}>
+                {t('paymentPanel.actions.cancel')}
+              </Button>
+            </div>
+          </>
+        )}
       </form>
     );
   },

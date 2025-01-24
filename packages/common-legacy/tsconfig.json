@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "allowJs": false,
-    "outDir": "dist",
+    "outDir": "lib",
     "declaration": true,
     "sourceRoot": "src",
     "noEmit": false,

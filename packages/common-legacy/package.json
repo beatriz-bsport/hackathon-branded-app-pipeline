@@ -5,20 +5,25 @@
   "author": "Sofian Medbouhi <sofian@bsport.io>",
   "license": "UNLICENSED",
   "type": "module",
-  "main": "./dist/index.umd.js",
-  "module": "./dist/index.es.js",
-  "types": "./dist/index.d.ts",
+  "main": "./lib/index.js",
+  "module": "./lib/index.js",
+  "types": "./lib/index.d.ts",
   "files": [
-    "dist"
+    "lib"
   ],
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.es.js",
-      "require": "./dist/index.umd.js",
-      "default": "./dist/index.es.js"
+      "types": "./lib/index.d.ts",
+      "import": "./lib/index.js",
+      "require": "./lib/index.js",
+      "default": "./lib/index.js"
     },
-    "./*": "./dist/*"
+    "./*":{
+      "types": "./*.d.ts",
+      "import": "./*",
+      "require": "./*",
+      "default": "./*"
+    }
   },
   "devDependencies": {
     "@bsport/eslint-config-react": "workspace:*",

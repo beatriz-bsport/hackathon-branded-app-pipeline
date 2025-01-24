@@ -67,7 +67,7 @@ const SessionListItem: React.FC<Props> = ({
               onClick={onSessionSelect(
                 session.start.toISO(),
                 activeEstablishment?.id,
-                coach?.id,
+                coach?.associated_coach_id,
               )}
             >
               <div className={classes.sessionItemContent}>

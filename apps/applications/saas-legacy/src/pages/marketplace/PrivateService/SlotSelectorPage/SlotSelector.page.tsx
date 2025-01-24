@@ -219,7 +219,7 @@ const SlotSelectorPage: React.FC<PageProps> = ({
     (
         sessionDateStart: string,
         establishmentId?: number,
-        coachId?: number,
+        associatedCoachId?: number,
       ): (() => Promise<void>) =>
       async () => {
         if (!privateService) return null;
@@ -227,7 +227,7 @@ const SlotSelectorPage: React.FC<PageProps> = ({
         const data = {
           date: sessionDateStart,
           establishment: establishmentId,
-          associated_coach: coachId,
+          associated_coach: associatedCoachId,
         };
         if (
           privateService.establishment_attribution ===
@@ -237,7 +237,7 @@ const SlotSelectorPage: React.FC<PageProps> = ({
           const establishment_found = await findAvailableEstablishment(
             selectedPrivateSlot.id,
             {
-              associated_coach: coachId,
+              associated_coach: associatedCoachId,
               date_start: sessionDateStart,
             },
           );

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { compose, withProps } from 'recompose';
+import { compose } from 'recompose';
 import { connect, ConnectedProps } from 'react-redux';
 import { Redirect, Switch, Route } from 'react-router';
 import { fetchCompanyTheme } from '#src/libs/theme/actions';
@@ -28,9 +28,6 @@ const BoutiqueBookerModule = asyncComponent(
 
 // @ts-expect-error
 const BasketPage = asyncComponent(() => import('./basket/Basket.page'));
-const BasketPageWithCheckoutContext = withProps({ isCheckoutContext: true })(
-  BasketPage,
-);
 const BoutiqueContractCheckout = asyncComponent(
   () => import('./BoutiqueContractCheckout.page'),
 );
@@ -95,10 +92,7 @@ export class NewBookingFlowRouter extends React.Component<Props> {
           component={ValidationCheckout}
           path="/checkout-s/:companyId/validation"
         />
-        <Route
-          component={BasketPageWithCheckoutContext}
-          path="/checkout-s/:companyId"
-        />
+        <Route component={BasketPage} path="/checkout-s/:companyId" />
         <Route
           component={BoutiqueContractCheckout}
           path="/contract-s/:companyId/:contractId"

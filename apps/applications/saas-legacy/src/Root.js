@@ -242,6 +242,11 @@ export class Root extends Component<Props> {
             <Route component={CoachBackoffice} path="/co/:companyId" />
             <Route component={ConsumerRouter} path="/c/" />
             <Route component={NewWindowHandler} path="/new-window" />
+            {/* @debt(5, 3, 3): This router is duplicated to avoid triggering side effects when no path matches */}
+            <Route
+              component={BoutiqueFlowRouter}
+              path="/one-click-booking/:companyId/:offerId"
+            />
             <Route
               component={BoutiqueFlowRouter}
               path="/booker-module-s/:companyId/:offerId"

@@ -500,4 +500,5 @@ export type PaymentPackQueryParams = {
   manager_only?: boolean;
   disabled?: boolean;
   as_consumer?: boolean;
+  new_member_only?: boolean;
 };

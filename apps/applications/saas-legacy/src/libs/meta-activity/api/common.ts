@@ -1,4 +1,8 @@
-import { MetaActivityCategory } from '#src/libs/meta-activity/types';
+import type {
+  MetaActivity,
+  MetaActivityCategory,
+} from '#src/libs/meta-activity/types';
+
 import {
   API_V1_URI,
   deleteAuth,
@@ -8,13 +12,16 @@ import {
   putAuth,
   buildUrlParams,
 } from '../../../http';
+import type { PaginatedResponse } from '#src/state/types';
 
 export async function fetchAllActivities(params: any) {
-  return getAuth(`${API_V1_URI}/meta-activity/${buildUrlParams(params)}`);
+  return getAuth<PaginatedResponse<MetaActivity>>(
+    `${API_V1_URI}/meta-activity/${buildUrlParams(params)}`,
+  );
 }
 
 export async function fetchMetaActivityDetails(id: number) {
-  return getAuth(`${API_V1_URI}/meta-activity/${id}/`);
+  return getAuth<MetaActivity>(`${API_V1_URI}/meta-activity/${id}/`);
 }
 
 export async function addMetaActivity(data: any) {

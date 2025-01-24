@@ -1,4 +1,12 @@
 #!/usr/bin/env sh
 if [ "$COSYSTEM_SKIP_HOOKS" != "true" ] && [ -z "$CI" ]; then
+    exec < /dev/tty
+    echo "Would you like to reinstall all dependencies? (y/N) "
+    read REPLY
+    if [ "$REPLY" != "y" ] && [ "$REPLY" != "Y" ]; then
+        echo "Skipping dependency reinstallation"
+        exit 0
+    fi
+
     pnpm install --no-lockfile
 fi

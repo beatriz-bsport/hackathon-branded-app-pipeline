@@ -91,7 +91,7 @@ export async function disableConsumerPack(id: number) {
 }
 
 export async function fetchPaymentPackList(params: PaymentPackQueryParams) {
-  return getAuthDeprecated(
+  return getAuth<PaginatedResponse<PaymentPack>>(
     `${API_V1_URI}/payment-pack/payment-pack/${buildUrlParams(params)}`,
   );
 }

@@ -899,7 +899,7 @@ export default compose(
         if (queryParams?.onValidation) {
           urlParams.onValidation = queryParams.onValidation;
         }
-        replace(getCheckoutValidationUrl(theme.company, true, urlParams));
+        replace(getCheckoutValidationUrl(theme.company, urlParams));
       },
     checkItemsBasket:
       ({ snackbarErrorMsg, refreshBasket }) =>

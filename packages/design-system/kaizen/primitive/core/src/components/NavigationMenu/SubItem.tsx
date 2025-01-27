@@ -1,7 +1,7 @@
 import React, { MouseEvent, useCallback, useMemo } from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 import classNames from "classnames";
-import type { BaseItem } from "#src/components/NavigationMenu/type";
+import type { BaseItem } from "#src/components/NavigationMenu/types";
 import { useNavigationMenuContext } from "#src/components/NavigationMenu/Context";
 
 const navigationMenuSubItem = cva([
@@ -67,7 +67,7 @@ const SubItem: React.FC<SubItemProps> = ({ className, subItem, ...props }) => {
   const handleOnClick = useCallback(
     (e: MouseEvent) => {
       setSelectedItemId(subItem.id);
-      return onItemClick(subItem)(e);
+      return onItemClick?.(subItem)(e);
     },
     [setSelectedItemId, onItemClick, subItem.id],
   );

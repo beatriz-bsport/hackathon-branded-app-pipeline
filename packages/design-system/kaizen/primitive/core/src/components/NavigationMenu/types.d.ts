@@ -16,5 +16,5 @@ export type Item = BaseItem & {
 
 export type NavigationMenuType = {
   items: Item[];
-  onItemClick: (item: BaseItem | Item) => (e: MouseEvent) => void;
+  onItemClick?: (item: BaseItem | Item) => (e: MouseEvent) => void;
 };

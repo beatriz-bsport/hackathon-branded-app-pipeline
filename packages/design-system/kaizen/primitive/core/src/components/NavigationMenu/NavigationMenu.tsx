@@ -2,7 +2,7 @@ import React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 import Item from "#src/components/NavigationMenu/Item";
 import { NavigationMenuProvider } from "#src/components/NavigationMenu/Context";
-import type { NavigationMenuType } from "#src/components/NavigationMenu/type";
+import type { NavigationMenuType } from "#src/components/NavigationMenu/types";
 
 const navigationMenu = cva();
 
@@ -17,7 +17,7 @@ export type NavigationMenuProps = React.HTMLAttributes<HTMLDivElement> &
  *
  * @param props.className - Additional CSS classes for custom styling of the navigation menu.
  * @param props.items - Array of items to render in the navigation menu. Each item can have optional sub-items and right-side content.
- * @param props.onClick - Callback function triggered when a menu item is clicked.
+ * @param props.onItemClick - Callback function triggered when a menu item is clicked.
  */
 const NavigationMenu: React.FC<NavigationMenuProps> = ({
   className,

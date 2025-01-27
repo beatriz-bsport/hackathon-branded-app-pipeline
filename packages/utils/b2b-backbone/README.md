@@ -7,7 +7,6 @@ authentication, permissions management, and module federation.
 
 - **Authentication**: Integrate user authentication into your app.
 - **Permissions**: Manage user roles and permissions with ease.
-- **Module Federation**: Enable micro-frontend architecture for scalable development.
 
 ## Installation
 

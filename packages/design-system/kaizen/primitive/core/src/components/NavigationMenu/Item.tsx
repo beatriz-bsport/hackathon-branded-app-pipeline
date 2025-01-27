@@ -125,7 +125,7 @@ const Item: React.FC<ItemProps> = ({ id, selected }) => {
             (e: MouseEvent) => {
               setOpenItemId((prevState) => (prevState === id ? "" : id));
               if (!subItems?.length) setSelectedItemId(id);
-              return onItemClick(item)(e);
+              return onItemClick?.(item)(e);
             },
             [setOpenItemId, id, onItemClick],
           );

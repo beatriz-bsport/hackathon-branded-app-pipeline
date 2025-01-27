@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import Badge from "#src/components/Badge";
 import NavigationMenu from "#src/components/NavigationMenu";
-import type { Item } from "#src/components/NavigationMenu/type";
+import type { Item } from "#src/components/NavigationMenu/types";
 
 const items: Item[] = [
   {

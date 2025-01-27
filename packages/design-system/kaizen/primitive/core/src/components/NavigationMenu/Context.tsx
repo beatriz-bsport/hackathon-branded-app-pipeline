@@ -6,11 +6,11 @@ import React, {
   useContext,
 } from "react";
 import keyBy from "lodash/keyBy";
-import type { BaseItem, Item } from "./type";
+import type { BaseItem, Item } from "./types";
 
 const Context = createContext<{
   itemsById: { [id: string]: Item };
-  onItemClick: (item: BaseItem) => (e: MouseEvent) => void;
+  onItemClick?: (item: BaseItem) => (e: MouseEvent) => void;
   openItemId: string;
   setSelectedItemId: React.Dispatch<React.SetStateAction<string>>;
   selectedItemId: string;
@@ -45,7 +45,7 @@ export const useNavigationMenuContext = () => {
 
 export const NavigationMenuProvider: React.FC<{
   children?: ReactNode | undefined;
-  onItemClick: (item: BaseItem) => (e: MouseEvent) => void;
+  onItemClick?: (item: BaseItem) => (e: MouseEvent) => void;
   items: Item[];
 }> = ({ children, onItemClick, items }) => {
   const [selectedItemId, setSelectedItemId] = useState("");

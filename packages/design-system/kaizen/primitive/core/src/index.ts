@@ -42,6 +42,6 @@ export { ThemeProvider, themes, useTheme } from "./components/ThemeProvider";
 
 // ----- CSS -----
 // Export tailwind theme (map a className to a token)
-export { default as TAILWIND_THEME } from "@bsport/kaizen-tokens/src/tailwind.theme.json";
+export { tailwindConfig } from "./tailwind";
 // Export css variables (map a token to a css variable)
 import "@bsport/kaizen-tokens/src/index.css";

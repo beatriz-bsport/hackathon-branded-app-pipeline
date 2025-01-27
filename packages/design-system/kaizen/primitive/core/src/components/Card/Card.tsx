@@ -1,6 +1,5 @@
 import React, { useCallback, useMemo } from "react";
 import { cva, type VariantProps } from "class-variance-authority";
-import { SetRequired } from "type-fest";
 
 const defaultClasses = [
   "rounded-md",
@@ -70,12 +69,15 @@ const card = cva(defaultClasses, {
 });
 
 type InternalVariants = "selectedByElevation" | "interactibleByElevation";
+type VariantCardProps = Omit<VariantProps<typeof card>, InternalVariants>;
 
-type VariantCardProps = SetRequired<
-  Omit<VariantProps<typeof card>, InternalVariants>,
-  // Required variants
-  "padding" | "actionable"
->;
+export type CardProps = React.HTMLAttributes<HTMLDivElement> &
+  VariantCardProps & {
+    actionable?: boolean;
+    elevated?: boolean;
+    onClick?: () => void;
+    selected?: boolean;
+  };
 
 /**
  * A card container that can be displayed with children in it so that you can show
@@ -89,15 +91,6 @@ type VariantCardProps = SetRequired<
  * @param props.selected Boolean to use if we want to show a selected state for the card, only works with item type
  * @link https://docs.infra.bsport.io/storybook/kaizen/main/index.html?path=/docs/components-card--docs
  */
-export type CardProps = React.HTMLAttributes<HTMLDivElement> &
-  VariantCardProps & {
-    actionable?: boolean;
-    elevated?: boolean;
-    onClick?: () => void;
-    padding?: "default" | "sm" | "none";
-    selected?: boolean;
-  };
-
 const Card: React.FC<CardProps> = ({
   className,
   actionable,
@@ -109,9 +102,9 @@ const Card: React.FC<CardProps> = ({
   ...props
 }) => {
   const selectedByElevation = useMemo(() => {
-    const elevatedState = actionable && elevated ? "elevated" : "not-elevated";
-    return `${elevatedState}-${actionable && selected ? "selected" : "not-selected"}`;
-  }, [actionable, elevated, selected]);
+    const elevatedState = elevated ? "elevated" : "not-elevated";
+    return `${elevatedState}-${selected ? "selected" : "not-selected"}`;
+  }, [elevated, selected]);
 
   const handleClick = useCallback(() => {
     if (onClick && actionable) onClick();
@@ -125,7 +118,7 @@ const Card: React.FC<CardProps> = ({
         padding,
         actionable,
         selectedByElevation:
-          selectedByElevation as keyof typeof variants.selectedByElevation,
+          actionable ? selectedByElevation as keyof typeof variants.selectedByElevation : null,
       })}
       {...props}
     >

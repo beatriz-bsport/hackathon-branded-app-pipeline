@@ -47,7 +47,6 @@ type Props = {
   location: { [key: string]: string };
   companyId: number;
 
-  // eslint-disable-next-line react/no-unused-prop-types
   theme: CompanyTheme;
 } & ConnectedProps<typeof connector>;
 
@@ -93,8 +92,7 @@ export const NewBookingFlowRouter: React.FC<Props> = ({
     /* NOTE: The marketplaceCssHoc will look at its parents to search for a Themeprovider. 
       Some pages (like the contract checkout) are wraped into the marketplaceCssHoc but don't have parent 
       that provide a theme. That's why we need to wrap the router into a MuiThemeProvider
-       */
-    <Switch>
+       */ <>
       {['local', 'dev'].includes(Config.REACT_APP_SENTRY_ENVIRONMENT) && (
         <Route
           component={OneClickBookingModule}
@@ -106,21 +104,23 @@ export const NewBookingFlowRouter: React.FC<Props> = ({
         isAuthenticated={authenticated}
         location={location}
       >
-        <Route
-          component={BoutiqueBookerModule}
-          path="/booker-module-s/:companyId/:offerId"
-        />
-        <Route
-          component={ConfirmationCheckout}
-          path="/checkout-s/:companyId/validation"
-        />
-        <Route component={BasketPage} path="/checkout-s/:companyId" />
-        <Route
-          component={BoutiqueContractCheckout}
-          path="/contract-s/:companyId/:contractId"
-        />
+        <Switch>
+          <Route
+            component={BoutiqueBookerModule}
+            path="/booker-module-s/:companyId/:offerId"
+          />
+          <Route
+            component={ConfirmationCheckout}
+            path="/checkout-s/:companyId/validation"
+          />
+          <Route component={BasketPage} path="/checkout-s/:companyId" />
+          <Route
+            component={BoutiqueContractCheckout}
+            path="/contract-s/:companyId/:contractId"
+          />
+        </Switch>
       </Authenticated>
-    </Switch>
+    </>
   );
 };
 

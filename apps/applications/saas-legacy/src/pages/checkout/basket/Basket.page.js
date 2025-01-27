@@ -205,7 +205,6 @@ type Props = {
     options: OptionCallback<Basket>,
   ) => void,
   basketOffers: Array<Offer<number, Establishment, MetaActivity>>,
-  isCheckoutContext?: boolean,
   fetchInstalmentPaymentByBasket: (basketId: string) => void,
   goToMarketplace: () => void,
   goToCalendar: () => void,
@@ -489,7 +488,7 @@ export class BasketPage extends React.Component<Props> {
             options[CouponErrorCodes.GIFTCARD_INVALID_ACTIVATION_DATE]();
         },
       },
-      this.props.isCheckoutContext,
+      true,
     );
   };
 
@@ -568,9 +567,7 @@ export class BasketPage extends React.Component<Props> {
 
     return (
       <CheckoutContext.Provider value={true}>
-        <ConsumerAppBarContainer
-          backgroundColor={this.props.isCheckoutContext ? 'white' : null}
-        >
+        <ConsumerAppBarContainer backgroundColor="white">
           <div className={this.props.classes.container}>
             <div className={this.props.classes.checkoutFlow}>
               <NewCheckoutFlow
@@ -666,16 +663,15 @@ export class BasketPage extends React.Component<Props> {
 const styles = (theme) => ({
   container: {
     width: '100%',
-    maxWidth: (props) => (props?.isCheckoutContext ? '1180px' : 920),
+    maxWidth: 1180,
     height: '100%',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'flex-start',
     flexDirection: 'column',
-    paddingTop: (props) =>
-      props?.isCheckoutContext ? theme.spacing(4) : theme.spacing(8),
+    paddingTop: theme.spacing(4),
     [theme.breakpoints.down('sm')]: {
-      paddingTop: (props) => (props?.isCheckoutContext ? 0 : theme.spacing(8)),
+      paddingTop: 0,
     },
   },
   loader: {
@@ -874,14 +870,7 @@ export default compose(
           extra_data: {},
         }),
     onSuccess:
-      ({
-        replace,
-        basket,
-        isCheckoutContext,
-        queryParams,
-        theme,
-        basketOffers,
-      }) =>
+      ({ replace, basket, queryParams, theme, basketOffers }) =>
       () => {
         if (basket) {
           if (basketOffers?.length > 0) {
@@ -910,9 +899,7 @@ export default compose(
         if (queryParams?.onValidation) {
           urlParams.onValidation = queryParams.onValidation;
         }
-        replace(
-          getCheckoutValidationUrl(theme.company, isCheckoutContext, urlParams),
-        );
+        replace(getCheckoutValidationUrl(theme.company, true, urlParams));
       },
     checkItemsBasket:
       ({ snackbarErrorMsg, refreshBasket }) =>

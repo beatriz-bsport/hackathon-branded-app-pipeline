@@ -9,10 +9,12 @@ import {
   PrivateServiceSelectorDataProvider,
   PrivateServiceSelectorPage,
 } from '@bsport/saas-legacy/src/pages/marketplace/PrivateService/PrivateServiceSelectorPage/PrivateServiceSelector.page';
+
 import {
-  PrivateServiceDetailDataProvider,
-  PrivateServiceDetailPage,
-} from '@bsport/saas-legacy/src/pages/marketplace/PrivateService/PrivateServiceDetailPage/PrivateServiceDetail.page';
+  SlotSelectorDataProvider,
+  SlotSelectorPageWithContext,
+} from '@bsport/saas-legacy/src/pages/marketplace/PrivateService/SlotSelectorPage/SlotSelector.page';
+
 import {
   PrivateService,
   PrivateSlot,
@@ -29,8 +31,8 @@ import {
 const PrivateServiceSelector = themify(
   PrivateServiceSelectorDataProvider(PrivateServiceSelectorPage),
 );
-const PrivateServiceDetailBase = themify(
-  PrivateServiceDetailDataProvider(PrivateServiceDetailPage),
+const SlotSelector = themify(
+  SlotSelectorDataProvider(SlotSelectorPageWithContext),
 );
 
 type Props = {
@@ -99,7 +101,7 @@ const PrivateServiceWidget: React.FC<Props> = ({
               <ChevronLeftIcon className={classes.icon} fontSize="large" />
             </ButtonBase>
           )}
-          <PrivateServiceDetailBase
+          <SlotSelector
             companyId={companyId.toString()}
             serviceId={serviceId.toString()}
             onSessionSelect={onSessionSelect}

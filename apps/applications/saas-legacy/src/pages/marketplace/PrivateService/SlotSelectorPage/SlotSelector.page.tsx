@@ -551,7 +551,7 @@ const mapDispatchToProps = {
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
 
-export { connector as PrivateServiceDetailDataProvider };
+export { connector as SlotSelectorDataProvider };
 
 export default compose<PropsFromWidget, Props>(
   React.memo,

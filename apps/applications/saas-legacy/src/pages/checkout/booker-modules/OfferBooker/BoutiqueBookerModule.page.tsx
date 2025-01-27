@@ -288,11 +288,8 @@ type OwnProps = {
     guest_last_name?: 'true';
     guest_email?: 'true';
   };
-  // eslint-disable-next-line react/no-unused-prop-types
   memberTagList: number[];
-  // eslint-disable-next-line react/no-unused-prop-types
   authenticated: boolean;
-  // eslint-disable-next-line react/no-unused-prop-types
   goBack: () => void;
   containerRef: React.MutableRefObject<any>;
   metaActivities: { [key: number]: MetaActivity };
@@ -849,9 +846,53 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
       0,
       this.getIsGuestBooking(),
     );
-    this.setState({
-      offersConstraint: newOfferConstraints,
-    });
+    this.setState(
+      {
+        offersConstraint: newOfferConstraints,
+      },
+      this.unselectIncompatibleItem,
+    );
+  };
+
+  unselectIncompatibleItem = () => {
+    if (!this.state.selectedItem) return;
+
+    const selectedBuyableItemIdentifier =
+      this.state.selectedItem.itemIdentifier;
+
+    type AvailableFunctionType = (
+      offers: OfferREST[],
+    ) => Array<BookerItem['data']>;
+
+    const mapIdentifierToFunction: {
+      [identifier: string]: AvailableFunctionType;
+    } = {
+      [CONSUMER_PAYMENT_PACK_IDENTIFIER]: this.getAvailableConsumerPack,
+      [PAYMENT_PACK_BOOKING_FUNNEL_IDENTIFIER]: this.getAvailablePaymentPacks,
+      [PAYMENT_COMBO_BOOKING_FUNNEL_IDENTIFIER]: this.getAvailableComboPacks,
+      [CONTRACT_BOOKING_FUNNEL_IDENTIFIER]: this.getAvailableContracts,
+    };
+
+    const getAvailableItemsFunction =
+      mapIdentifierToFunction[selectedBuyableItemIdentifier];
+
+    const selectedItemId = this.state.selectedItem.data?.id;
+
+    if (!selectedItemId || !getAvailableItemsFunction) return;
+
+    const selectedOffers = this.state.selectedOffers
+      .map((selectedOffer) => selectedOffer.offer)
+      .filter((offer) => offer.id !== this.props.offerId);
+
+    const itemIsAvailable = getAvailableItemsFunction(
+      selectedOffers as OfferREST[],
+    ).some?.((item) => item.id === selectedItemId);
+
+    if (!itemIsAvailable) {
+      this.setState({
+        selectedItem: null,
+      });
+    }
   };
 
   goBackToCalendar = () => {
@@ -1389,12 +1430,15 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
     const formattedOffer = this.refineOffers(offer);
 
     analyticsUtils.onAddSessionToBookingList(formattedOffer);
-    this.setState((prevState: State) => ({
-      selectedOffers: [
-        ...prevState.selectedOffers,
-        { offer: formattedOffer, extra_data: {} },
-      ],
-    }));
+    this.setState(
+      (prevState: State) => ({
+        selectedOffers: [
+          ...prevState.selectedOffers,
+          { offer: formattedOffer, extra_data: {} },
+        ],
+      }),
+      this.updateOfferConstraints,
+    );
   };
 
   handleRemoveOffer = (offerId: number) => {

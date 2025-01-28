@@ -4,7 +4,11 @@ import React from 'react';
 import { coachPaymentRuleFactory } from '#src/libs/coach-payment-rules/factories';
 import { couponFactory } from '#src/libs/coupon/factories';
 import type { ObjectSearchPaginated } from '#src/libs/fuzzy-search/types';
-import { API_V1_URI } from '../../../http';
+
+import Config from '../../../config';
+
+const API_V1_URI_FS = Config.REACT_APP_BASE_URI_FINANCIAL_SERVICES_V1;
+const API_V1_URI_BUYABLE = Config.REACT_APP_BASE_URI_BUYABLE_V1;
 
 const generateFakeCoupons = (length: number): ObjectSearchPaginated => ({
   count: length,
@@ -41,27 +45,29 @@ const MockObjectSearchWrapper = ({
   const mock = new MockAdapter(axios);
 
   mock
-    .onGet(new RegExp(`^${API_V1_URI}/coupon/search/.{1,10}$`))
+    .onGet(new RegExp(`^${API_V1_URI_BUYABLE}/coupon/search/.{1,10}$`))
     .reply(200, generateFakeCoupons(10));
 
   mock
-    .onGet(new RegExp(`^${API_V1_URI}/coupon/search/.{11,20}$`))
+    .onGet(new RegExp(`^${API_V1_URI_BUYABLE}/coupon/search/.{11,20}$`))
     .reply(200, generateFakeCoupons(5));
 
   mock
-    .onGet(new RegExp(`^${API_V1_URI}/coupon/search/.{21,120}$`))
+    .onGet(new RegExp(`^${API_V1_URI_BUYABLE}/coupon/search/.{21,120}$`))
     .reply(200, generateFakeCoupons(2));
 
   mock
-    .onGet(new RegExp(`^${API_V1_URI}/coach_payment_rules/search/.{1,10}$`))
+    .onGet(new RegExp(`^${API_V1_URI_FS}/coach_payment_rules/search/.{1,10}$`))
     .reply(200, generateFakePaymentRules(10));
 
   mock
-    .onGet(new RegExp(`^${API_V1_URI}/coach_payment_rules/search/.{11,20}$`))
+    .onGet(new RegExp(`^${API_V1_URI_FS}/coach_payment_rules/search/.{11,20}$`))
     .reply(200, generateFakePaymentRules(5));
 
   mock
-    .onGet(new RegExp(`^${API_V1_URI}/coach_payment_rules/search/.{21,120}$`))
+    .onGet(
+      new RegExp(`^${API_V1_URI_FS}/coach_payment_rules/search/.{21,120}$`),
+    )
     .reply(200, generateFakePaymentRules(2));
 
   return <>{children}</>;

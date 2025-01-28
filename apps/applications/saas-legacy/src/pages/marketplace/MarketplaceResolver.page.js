@@ -10,7 +10,6 @@ import { replace } from 'connected-react-router';
 
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import { getMarketplaceRoute } from '../../libs/marketplace/routing-utils';
-import { getIdByName as getIdByNameAPI } from '../../libs/marketplace/api';
 
 type Props = {
   companyName: string,
@@ -18,30 +17,6 @@ type Props = {
 };
 
 export class MarketplaceResolver extends Component<Props> {
-  resolveMarketplaceURL = () => {
-    getIdByNameAPI(this.props.companyName)
-      .then((res) => {
-        if (res.status !== 200) {
-          throw new Error(res);
-        }
-        const companyId = res.data;
-        this.props.goToMarketplace(this.props.companyName, companyId);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  };
-
-  componentDidMount() {
-    this.resolveMarketplaceURL();
-  }
-
-  componentDidUpdate(prevProps: Props) {
-    if (prevProps.companyName !== this.props.companyName) {
-      this.resolveMarketplaceURL();
-    }
-  }
-
   render() {
     return <LinearProgress />;
   }

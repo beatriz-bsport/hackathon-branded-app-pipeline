@@ -1,7 +1,5 @@
 import { AxiosResponse } from 'axios';
 import {
-  API_URI,
-  API_V1_URI,
   buildUrlParams,
   get,
   getAuth,
@@ -14,6 +12,14 @@ import type {
   PricingOptionOrdering,
 } from './types';
 
+import Config from '../../config';
+
+const API_V1_URI_BOOK = Config.REACT_APP_BASE_URI_BOOK_V1;
+const API_V1_URI_BUYABLE = Config.REACT_APP_BASE_URI_BUYABLE_V1;
+const API_V1_URI_CORE = Config.REACT_APP_BASE_URI_CORE_V1;
+const API_V1_URI_MEMBER_EXPERIENCE =
+  Config.REACT_APP_BASE_URI_MEMBER_EXPERIENCE_V1;
+
 const fetchCompanyMetaActivities = async ({
   companyId,
   page,
@@ -24,7 +30,7 @@ const fetchCompanyMetaActivities = async ({
   page_size: number;
 }) => {
   return get(
-    `${API_V1_URI}/meta-activity/?company=${companyId}&page_size=${page_size}&page=${page}`,
+    `${API_V1_URI_BOOK}/meta-activity/?company=${companyId}&page_size=${page_size}&page=${page}`,
   );
 };
 
@@ -36,7 +42,7 @@ const fetchPaymentPacksAsConsumer = async ({
   page: number;
 }) => {
   return getAuth(
-    `${API_V1_URI}/payment-pack/payment-pack/${buildUrlParams({
+    `${API_V1_URI_BUYABLE}/payment-pack/payment-pack/${buildUrlParams({
       company: companyId,
       page,
       manager_only: false,
@@ -53,7 +59,9 @@ const fetchCompanyEstablishments = async ({
   companyId: string;
   page: number;
 }) => {
-  return get(`${API_V1_URI}/establishment/?company=${companyId}&page=${page}`);
+  return get(
+    `${API_V1_URI_CORE}/establishment/?company=${companyId}&page=${page}`,
+  );
 };
 
 const fetchCompanyCoaches = async ({
@@ -64,7 +72,7 @@ const fetchCompanyCoaches = async ({
   page: number;
 }) => {
   return get(
-    `${API_V1_URI}/coach/?company=${companyId}&page=${page}&disabled=false`,
+    `${API_V1_URI_CORE}/coach/?company=${companyId}&page=${page}&disabled=false`,
   );
 };
 const fetchCompanyOffers = async ({
@@ -83,17 +91,13 @@ const fetchCompanyOffers = async ({
   page_size: number;
 }) => {
   return get(
-    `${API_V1_URI}/offer/?company=${companyId}&min_date=${min_date}&is_workshop=${is_workshop}&max_date=${max_date}&page=${page}&page_size=${page_size}`,
+    `${API_V1_URI_BOOK}/offer/?company=${companyId}&min_date=${min_date}&is_workshop=${is_workshop}&max_date=${max_date}&page=${page}&page_size=${page_size}`,
   );
-};
-
-const fetchCompany = async (companyId: string) => {
-  return get(`${API_URI}/marketplace/company/${companyId}/summary`);
 };
 
 export const fetchMarketplaceSettings = (companyId: string) => {
   return getAuth<MarketplaceSettings>(
-    `${API_V1_URI}/marketplace_settings/configuration/${companyId}/`,
+    `${API_V1_URI_MEMBER_EXPERIENCE}/marketplace_settings/configuration/${companyId}/`,
   );
 };
 
@@ -102,20 +106,16 @@ export const updateMarketplaceSettings = async (
   data: any,
 ) => {
   return patchAuthDeprecated(
-    `${API_V1_URI}/marketplace_settings/configuration/${companyId}/`,
+    `${API_V1_URI_MEMBER_EXPERIENCE}/marketplace_settings/configuration/${companyId}/`,
     data,
   );
-};
-
-export const getIdByName = async (companyName: string) => {
-  return get(`${API_URI}/marketplace/${companyName}`);
 };
 
 export const fetchBookingFunnelConfiguration: (
   companyId: number,
 ) => Promise<AxiosResponse<BookingFunnelConfiguration>> = (companyId) => {
   return getAuth(
-    `${API_V1_URI}/marketplace_settings/booking_funnel_configuration/company/${companyId}/`,
+    `${API_V1_URI_MEMBER_EXPERIENCE}/marketplace_settings/booking_funnel_configuration/company/${companyId}/`,
   );
 };
 
@@ -127,7 +127,7 @@ export const updateBookingFunnelConfiguration: (
   },
 ) => Promise<AxiosResponse<BookingFunnelConfiguration>> = (companyId, data) => {
   return patchAuth(
-    `${API_V1_URI}/marketplace_settings/booking_funnel_configuration/company/${companyId}/`,
+    `${API_V1_URI_MEMBER_EXPERIENCE}/marketplace_settings/booking_funnel_configuration/company/${companyId}/`,
     data,
   );
 };
@@ -137,6 +137,5 @@ export default {
   fetchCompanyEstablishments,
   fetchCompanyCoaches,
   fetchCompanyOffers,
-  fetchCompany,
   fetchPaymentPacksAsConsumer,
 };

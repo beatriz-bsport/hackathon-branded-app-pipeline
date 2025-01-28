@@ -28,13 +28,16 @@ import themeSelectors from '#src/libs/theme/selectors';
 import { mapFormData, unmap } from '#src/pages/form.utils';
 import withTitle from '#src/hocs/with-title.hoc';
 import { withMemberBannerHOC } from '#src/hocs/banner.hoc';
-import { getAuth, API_URI } from '#src/http';
+import { getAuth } from '#src/http';
 import MemberChangeEmailDialog from '#src/libs/member/components/MemberChangeEmailDialog.component';
 import { getCompanyCountry } from '#src/libs/company/selectors';
 import type { WithHandlerType } from '#src/utils/types';
 import type { Member } from '#src/libs/member/types';
 import { getObjectPermissions } from '#src/libs/role/selectors';
 import { checkRequiredPermissions } from '#src/libs/role/utils';
+import Config from '../../config';
+
+const API_URI_CORE = Config.REACT_APP_BASE_URI_CORE_V0;
 
 type OwnProps = {
   id: number;
@@ -285,7 +288,7 @@ const mapWithHandlers = {
       if (updated_email) {
         const q = `email=${updated_email}`;
         try {
-          await getAuth(`${API_URI}/saas/members/members/exists/?${q}`);
+          await getAuth(`${API_URI_CORE}/saas/members/members/exists/?${q}`);
         } catch (error) {
           const { status, data } = error.response || {};
           if (status !== 404) {

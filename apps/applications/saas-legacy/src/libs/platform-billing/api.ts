@@ -2,7 +2,11 @@ import {
   UpsellPackage,
   UpsellPackageSubscribedAPI,
 } from '#src/libs/company/types';
-import { getAuth, postAuth, buildUrlParams, API_V1_URI } from '../../http';
+import { getAuth, postAuth, buildUrlParams } from '../../http';
+
+import Config from '../../config';
+
+const API_V1_URI = Config.REACT_APP_BASE_URI_FINANCIAL_SERVICES_V1;
 
 export const fetchPlatformInvoiceList = (params: any = {}) => {
   return getAuth(

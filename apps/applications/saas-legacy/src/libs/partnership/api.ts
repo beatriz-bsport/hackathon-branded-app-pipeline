@@ -1,4 +1,8 @@
-import { getAuth, postAuth, patchAuth, API_V1_URI } from '../../http';
+import { getAuth, postAuth, patchAuth } from '../../http';
+
+import Config from '../../config';
+
+const API_V1_URI = Config.REACT_APP_BASE_URI_BOOK_V1;
 
 const PARTNERSHIP_ENDPOINT = `${API_V1_URI}/partnership`;
 

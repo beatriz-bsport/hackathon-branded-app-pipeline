@@ -19,14 +19,10 @@ import type {
 } from '#src/libs/invoice/types';
 import type { InvoiceItem } from '#src/libs/invoice/invoice-item/types';
 import type { Payment } from '#src/libs/payment/types';
-import {
-  API_V1_URI,
-  getAuth,
-  post,
-  postAuth,
-  patchAuth,
-  buildUrlParams,
-} from '../../http';
+import { getAuth, post, postAuth, patchAuth, buildUrlParams } from '../../http';
+import Config from '../../config';
+
+const API_V1_URI = Config.REACT_APP_BASE_URI_FINANCIAL_SERVICES_V1;
 
 export async function fetchByQuery(
   params: InvoiceFilter & {

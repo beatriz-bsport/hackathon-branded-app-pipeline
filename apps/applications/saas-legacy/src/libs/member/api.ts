@@ -1,13 +1,11 @@
 import { AxiosResponse } from 'axios';
 import {
-  API_URI,
   getAuth,
   patchAuth,
   deleteAuth,
   postAuth,
   post,
   putAuth,
-  API_V1_URI,
   buildUrlParams,
 } from '../../http';
 import { GenericPaginationResults } from '../types';
@@ -18,6 +16,10 @@ import type {
   Member,
   MemberSearchFilterParams,
 } from './types';
+import Config from '../../config';
+
+const API_URI = Config.REACT_APP_BASE_URI_CORE_V1;
+const API_V1_URI = Config.REACT_APP_BASE_URI_CORE_V1;
 
 const PAGE_SIZE = 300;
 

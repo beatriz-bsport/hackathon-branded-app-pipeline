@@ -1,9 +1,12 @@
-import { API_V1_URI, buildUrlParams, getAuth, postAuth } from '../../http';
+import { buildUrlParams, getAuth, postAuth } from '../../http';
 import type {
   TutorialSectionQueryParams,
   TutorialLessonQueryParams,
   TutorialLessonUserStatusQueryParams,
 } from './types';
+import Config from '../../config';
+
+const API_V1_URI = Config.REACT_APP_BASE_URI_STAFF_MANAGEMENT_V1;
 
 // SECTION
 export const fetchListTutorialSections = async (

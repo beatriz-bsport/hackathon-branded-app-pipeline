@@ -5,21 +5,23 @@ import {
   deleteAuth,
   buildUrlParams,
   patchAuth,
-  API_V1_URI,
   post,
 } from '../../http';
 import type { MarketingNotification } from '#src/libs/marketing/types';
+import Config from '../../config';
+
+const API_V1_URI = Config.REACT_APP_BASE_URI_CDP_V1;
 
 const MARKETING_ENDPOINT = `${API_V1_URI}/marketing`;
 
 export const fetchMarketingNotificationList = async (params: any = {}) => {
   return getAuth(
-    `${API_V1_URI}/marketing/marketing_notification/${buildUrlParams(params)}`,
+    `${MARKETING_ENDPOINT}/marketing_notification/${buildUrlParams(params)}`,
   );
 };
 
 export const fetchMarketingNotification = async (id: number) => {
-  return getAuth(`${API_V1_URI}/marketing/marketing_notification/${id}`);
+  return getAuth(`${MARKETING_ENDPOINT}/marketing_notification/${id}`);
 };
 
 export const createOrUpdateMarketingNotification = (data: any) => {

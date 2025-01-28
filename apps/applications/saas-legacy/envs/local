@@ -8,6 +8,28 @@ env.REACT_APP_STRIPE_PK_KEY_US = 'pk_test_f40unREf611uut2oTtz4Qqfl00UCO6tZr5';
 env.REACT_APP_GOOGLE_MAPS_API_KEY = 'AIzaSyAbzA85WpiYY6qyYE9NkNwQbFGiLITvIZI';
 
 env.REACT_APP_BASE_URI = 'http://localhost:8000'
+
+env.REACT_APP_BASE_URI_BUSINESS_INSIGHTS_V0 = 'http://localhost:8000/api-v0'
+env.REACT_APP_BASE_URI_BUSINESS_INSIGHTS_V1 = 'http://localhost:8000/api/v1'
+env.REACT_APP_BASE_URI_BUYABLE_V0 = 'http://localhost:8000/api-v0'
+env.REACT_APP_BASE_URI_BUYABLE_V1 = 'http://localhost:8000/api/v1'
+env.REACT_APP_BASE_URI_BOOK_V0 = 'http://localhost:8000/api-v0'
+env.REACT_APP_BASE_URI_BOOK_V1 = 'http://localhost:8000/api/v1'
+env.REACT_APP_BASE_URI_COMMUNICATE_V0 = 'http://localhost:8000/api-v0'
+env.REACT_APP_BASE_URI_COMMUNICATE_V1 = 'http://localhost:8000/api/v1'
+env.REACT_APP_BASE_URI_CORE_V0 = 'http://localhost:8000/api-v0'
+env.REACT_APP_BASE_URI_CORE_V1 = 'http://localhost:8000/api/v1'
+env.REACT_APP_BASE_URI_FINANCIAL_SERVICES_V0 = 'http://localhost:8000/api-v0'
+env.REACT_APP_BASE_URI_FINANCIAL_SERVICES_V1 = 'http://localhost:8000/api/v1'
+env.REACT_APP_BASE_URI_CDP_V0 = 'http://localhost:8000/api-v0'
+env.REACT_APP_BASE_URI_CDP_V1 = 'http://localhost:8000/api/v1'
+env.REACT_APP_BASE_URI_MEMBER_EXPERIENCE_V0 = 'http://localhost:8000/api-v0'
+env.REACT_APP_BASE_URI_MEMBER_EXPERIENCE_V1 = 'http://localhost:8000/api/v1'
+env.REACT_APP_BASE_URI_PLATFORM_V0 = 'http://localhost:8000/api-v0'
+env.REACT_APP_BASE_URI_PLATFORM_V1 = 'http://localhost:8000/api/v1'
+env.REACT_APP_BASE_URI_STAFF_MANAGEMENT_V0 = 'http://localhost:8000/api-v0'
+env.REACT_APP_BASE_URI_STAFF_MANAGEMENT_V1 = 'http://localhost:8000/api/v1'
+
 env.REACT_APP_API_URI='http://localhost:8000/api-v0'
 env.REACT_APP_ZOOM_CLIENT_ID='ayAjSMV0SiOR383VkR3I4Q';
 env.REACT_APP_PAYPAL_CLIENT_ID='ATa5xeGsb_BcK-5GLJiX4T99DL0k0P6D1oigrlPccXjuqF4yMyV7vJWlPhlRkfR1rkEIebfemhKst-7n';

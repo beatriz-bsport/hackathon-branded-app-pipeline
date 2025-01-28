@@ -21,8 +21,9 @@ import ToolTip from '#src/components/Tooltip.component';
 import { SegmentAnalyticsFormObjectIdentifier } from '#src/components/analytics/segment';
 import { rudderStackFormTrackingFunctionsRegistry } from '#src/components/analytics/rudderstack/utils';
 import { browserCountryCode } from '../../i18n';
-import { getAuth, postAuth, API_URI } from '../../http';
+import { getAuth, postAuth } from '../../http';
 import AvatarFieldWithButton from '../../components/forms/AvatarFieldWithButton.component';
+import Config from '../../config';
 
 import {
   CheckboxField,
@@ -40,6 +41,7 @@ import AlertExistingUser from './AlertExistingUser.component';
 import withConfirm from '../../hocs/with-confirm.hoc';
 
 import { ALLOWED_COUNTRIES_FOR_STATES } from './constants';
+const API_URI_CORE = Config.REACT_APP_BASE_URI_CORE_V0;
 
 const {
   trackFormAdd,
@@ -672,7 +674,7 @@ export default compose(
             const q = email
               ? `email=${encodeURIComponent(email.toLowerCase())}`
               : `phonenumber=${encodeURIComponent(phonenumber)}`;
-            getAuth(`${API_URI}/saas/members/members/exists/?${q}`).catch(
+            getAuth(`${API_URI_CORE}/saas/members/members/exists/?${q}`).catch(
               (error) => {
                 const { status, data } = error.response || {};
                 if (status !== 404) {
@@ -696,7 +698,7 @@ export default compose(
   withProps(({ emailExists, goToMemberList, goToMember, snackbarSuccess }) => ({
     linkMember: () => {
       const { email, phonenumber } = emailExists;
-      postAuth(`${API_URI}/saas/members/members/link/`, {
+      postAuth(`${API_URI_CORE}/saas/members/members/link/`, {
         email: email?.toLowerCase() || '',
         phonenumber,
       })

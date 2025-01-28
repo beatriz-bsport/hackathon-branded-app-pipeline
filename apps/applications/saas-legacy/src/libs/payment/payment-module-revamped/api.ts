@@ -1,4 +1,4 @@
-import { API_V1_URI, buildUrlParams, postAuth, getAuth } from '#src/http';
+import { buildUrlParams, postAuth, getAuth } from '#src/http';
 
 import type {
   PaymentGroupStatus,
@@ -10,6 +10,9 @@ import {
   PaymentMethod,
 } from '#src/libs/payment/types';
 import { PAYMENT_INTENT_TYPE_INVOICE } from '@bsport/common/lib/master-data/payment-group.js';
+import Config from '../../../config';
+
+const API_V1_URI = Config.REACT_APP_BASE_URI_FINANCIAL_SERVICES_V1;
 
 export const applyBalanceToInvoice = (uuid: string) =>
   postAuth<string>(

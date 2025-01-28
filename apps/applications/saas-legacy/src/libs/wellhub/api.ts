@@ -1,5 +1,4 @@
 import {
-  API_V1_URI,
   buildUrlParams,
   deleteAuth,
   getAuth,
@@ -21,6 +20,9 @@ import type {
   WellhubGymUpsert,
   WellhubGymUpsertPayload,
 } from '#src/libs/wellhub/types';
+import Config from '../../config';
+
+const API_V1_URI = Config.REACT_APP_BASE_URI_BOOK_V1;
 
 export const getGymAvailability = (params: GymAvailabilityQueryParams) => {
   return getAuth<GymAvailabilityResponse>(

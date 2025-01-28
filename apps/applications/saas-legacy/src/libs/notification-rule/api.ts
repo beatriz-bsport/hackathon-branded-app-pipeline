@@ -4,11 +4,13 @@ import {
   putAuth,
   patchAuth,
   deleteAuth,
-  API_V1_URI,
   buildUrlParams,
 } from '../../http';
 // @ts-expect-error
 import { FranchiseCompleteNotificationRule } from './types';
+import Config from '../../config';
+
+const API_V1_URI = Config.REACT_APP_BASE_URI_CDP_V1;
 
 const NOTIFICATION_RULE_ENDPOINT = `${API_V1_URI}/notification`;
 

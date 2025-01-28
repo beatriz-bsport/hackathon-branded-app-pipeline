@@ -7,7 +7,11 @@ import type {
   OrderWithProducts,
 } from '#src/libs/order/types';
 import { PaginatedResponse } from '../../state/types';
-import { API_V1_URI, postAuth, getAuth, patchAuth } from '../../http';
+import { postAuth, getAuth, patchAuth } from '../../http';
+
+import Config from '../../config';
+
+const API_V1_URI = Config.REACT_APP_BASE_URI_BUYABLE_V1;
 
 export async function fetchOrders(
   page: number,

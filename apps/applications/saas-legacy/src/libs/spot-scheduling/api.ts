@@ -5,7 +5,6 @@ import type {
   RoomBlueprintFilters,
 } from '#src/libs/spot-scheduling/types';
 import {
-  API_V1_URI,
   getAuth,
   buildUrlParams,
   postAuth,
@@ -13,6 +12,9 @@ import {
   deleteAuth,
 } from '../../http';
 import type { DeepPartial } from '../../utils/types';
+import Config from '../../config';
+
+const API_V1_URI = Config.REACT_APP_BASE_URI_BOOK_V1;
 
 const API = `${API_V1_URI}/spot-scheduling`;
 

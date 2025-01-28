@@ -1,6 +1,5 @@
 import {
   buildUrlParams,
-  API_V1_URI,
   getAuth,
   patchAuth,
   postAuth,
@@ -11,6 +10,9 @@ import type {
   ConsumerPaymentPackLinkWithRelatedMemberNames,
   PrivateConsumerPassLink,
 } from './types';
+import Config from '../../config';
+
+const API_V1_URI = Config.REACT_APP_BASE_URI_CORE_V1;
 
 export async function fetchMemberRelations(memberId: number) {
   return getAuth(`${API_V1_URI}/member/${memberId}/relations/`);

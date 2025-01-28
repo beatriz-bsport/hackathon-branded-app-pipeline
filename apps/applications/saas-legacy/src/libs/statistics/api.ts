@@ -1,5 +1,9 @@
 import type { DataSourceDashboardGraph } from '#src/libs/dashboard/types';
-import { API_V1_URI, postAuth } from '../../http';
+import { postAuth } from '../../http';
+
+import Config from '../../config';
+
+const API_V1_URI = Config.REACT_APP_BASE_URI_BUSINESS_INSIGHTS_V1;
 
 export async function fetchDataSourceDashboardStatistics(
   graph: DataSourceDashboardGraph,

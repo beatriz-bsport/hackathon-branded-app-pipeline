@@ -1,10 +1,4 @@
-import {
-  API_V1_URI,
-  postAuth,
-  deleteAuth,
-  getAuth,
-  buildUrlParams,
-} from '../../http';
+import { postAuth, deleteAuth, getAuth, buildUrlParams } from '../../http';
 import { cleanParams } from '../../utils/createUrlHandlers';
 import type { PaginatedResponse } from '../../state/types';
 import type {
@@ -14,6 +8,9 @@ import type {
   ConsumerPaymentPackExtensionParams,
   ConsumerPaymentPackREST,
 } from './types';
+import Config from '../../config';
+
+const API_V1_URI = Config.REACT_APP_BASE_URI_BUYABLE_V1;
 
 export async function fetchByOfferByMember(offer: any, data: any = {}) {
   return postAuth(

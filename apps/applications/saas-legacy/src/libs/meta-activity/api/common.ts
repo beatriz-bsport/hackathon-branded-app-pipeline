@@ -4,7 +4,6 @@ import type {
 } from '#src/libs/meta-activity/types';
 
 import {
-  API_V1_URI,
   deleteAuth,
   postAuth,
   getAuth,
@@ -13,6 +12,9 @@ import {
   buildUrlParams,
 } from '../../../http';
 import type { PaginatedResponse } from '#src/state/types';
+import Config from '../../../config';
+
+const API_V1_URI = Config.REACT_APP_BASE_URI_BOOK_V1;
 
 export async function fetchAllActivities(params: any) {
   return getAuth<PaginatedResponse<MetaActivity>>(

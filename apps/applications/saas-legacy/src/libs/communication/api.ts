@@ -1,6 +1,5 @@
 import type { PaginatedResponse } from '../../state/types';
 import {
-  API_V1_URI,
   postAuth,
   getAuth,
   buildUrlParams,
@@ -19,6 +18,9 @@ import type {
   CampaignExportStartEndDates,
   CampaignListParams,
 } from './types';
+import Config from '../../config';
+
+const API_V1_URI = Config.REACT_APP_BASE_URI_COMMUNICATE_V1;
 
 export const sendCommunication = (data: any) => {
   return postAuth(

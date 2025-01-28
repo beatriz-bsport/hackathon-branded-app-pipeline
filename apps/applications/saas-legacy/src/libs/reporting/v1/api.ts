@@ -1,4 +1,7 @@
-import { API_URI, buildUrlParams, getAuth } from '#src/http';
+import { buildUrlParams, getAuth } from '#src/http';
+import Config from '../../../config';
+
+const API_URI = Config.REACT_APP_BASE_URI_BUSINESS_INSIGHTS_V0;
 
 // TODO Fix the endpoint as it seems to not work properly
 export const fetchReportOfferManagement = async (params: {

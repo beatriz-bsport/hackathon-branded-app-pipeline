@@ -1,16 +1,13 @@
-import {
-  API_V1_URI,
-  getAuth,
-  postAuth,
-  patchAuth,
-  deleteAuth,
-} from '../../http';
+import { getAuth, postAuth, patchAuth, deleteAuth } from '../../http';
 import type {
   ActiveCampaignWebhook,
   Account,
   LinkApi,
   ActiveCampaignList,
 } from './types';
+import Config from '../../config';
+
+const API_V1_URI = `${Config.REACT_APP_BASE_URI_CDP_V1}`;
 
 const ACTIVE_CAMPAIGN_URI = `${API_V1_URI}/active_campaign/`;
 

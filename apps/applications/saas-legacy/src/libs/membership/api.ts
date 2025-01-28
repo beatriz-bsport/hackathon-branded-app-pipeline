@@ -1,6 +1,9 @@
 import { LinkToCompanyWithReferralPayload } from '#src/libs/referral/types';
-import { getAuth, postAuth, API_V1_URI, buildUrlParams } from '../../http';
+import { getAuth, postAuth, buildUrlParams } from '../../http';
 import { Membership } from './types';
+import Config from '../../config';
+
+const API_V1_URI = Config.REACT_APP_BASE_URI_CORE_V1;
 
 export const fetchMembershipList = async (params: any = {}) => {
   return getAuth(`${API_V1_URI}/membership/${buildUrlParams(params)}`);

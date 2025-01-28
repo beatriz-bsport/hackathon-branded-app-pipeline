@@ -3,7 +3,6 @@ import type { AxiosResponse } from 'axios';
 import type { PaginationFilterParams } from '#src/libs/types';
 
 import {
-  API_V1_URI,
   postAuth,
   getAuth,
   patchAuth,
@@ -38,6 +37,9 @@ import type {
   ShopItemBarcodeUnicity,
 } from './types';
 
+import Config from '../../config';
+
+const API_V1_URI = Config.REACT_APP_BASE_URI_BUYABLE_V1;
 /**
  * @deprecated LEGACY - use the reworked API Fn
  * @see {@link fetchShopItemList} */

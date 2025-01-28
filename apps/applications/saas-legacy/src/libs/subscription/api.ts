@@ -1,8 +1,6 @@
 import { AxiosResponse } from 'axios';
 import type { SubscriptionFilter } from '#src/libs/consumer-space/components/reworked/@MySubscriptions/types';
 import {
-  API_URI,
-  API_V1_URI,
   buildUrlParams,
   deleteAuth,
   getAuth,
@@ -28,6 +26,11 @@ import type {
 import type { PaginationFilterParams } from '#src/libs/types';
 import type { PaginatedResponse } from '#src/state/types';
 import { cleanParams } from '#src/utils/createUrlHandlers';
+import Config from '../../config';
+
+const API_V1_URI_FS = Config.REACT_APP_BASE_URI_FINANCIAL_SERVICES_V1;
+
+const API_URI = Config.REACT_APP_BASE_URI_BUYABLE_V0;
 
 const fetchAll = async (params: SubscriptionQueryParams) => {
   return getAuth(
@@ -75,7 +78,7 @@ export const fetchConsumerSubscriptionInvoicesDetails = (
   params: SubscriptionDetailsQueryParams,
 ) => {
   return getAuth<PaginatedResponse<SubscriptionsInvoicesDetailsREST>>(
-    `${API_V1_URI}/payment/consumer-billing-plan-invoices/${buildUrlParams(
+    `${API_V1_URI_FS}/payment/consumer-billing-plan-invoices/${buildUrlParams(
       params,
     )}`,
   );

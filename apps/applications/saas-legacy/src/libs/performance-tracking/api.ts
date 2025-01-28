@@ -4,9 +4,12 @@ import {
   postAuth,
   putAuth,
   buildUrlParams,
-  API_V1_URI,
 } from '../../http';
 import { PerformanceTrackingMetric, PerformanceTrackingProgram } from './types';
+
+import Config from '../../config';
+
+const API_V1_URI = Config.REACT_APP_BASE_URI_CORE_V1;
 
 export const createProgramAndMetric = async (data: {
   program: PerformanceTrackingProgram;

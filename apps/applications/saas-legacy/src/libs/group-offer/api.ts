@@ -2,14 +2,11 @@ import { AxiosResponse } from 'axios';
 
 import { GenericPaginationResults } from '#src/libs/types';
 import { Offer, OfferStatus } from '#src/libs/offer/types';
-import {
-  API_V1_URI,
-  postAuth,
-  deleteAuth,
-  getAuth,
-  buildUrlParams,
-} from '../../http';
+import { postAuth, deleteAuth, getAuth, buildUrlParams } from '../../http';
 import { OffersGroupFilter, GroupPreviewData, OffersGroup } from './types';
+import Config from '../../config';
+
+const API_V1_URI = Config.REACT_APP_BASE_URI_BOOK_V1;
 
 export const fetchGroupsOfferList = async (
   params: OffersGroupFilter & {

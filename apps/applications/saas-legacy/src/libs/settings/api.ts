@@ -1,5 +1,4 @@
 import {
-  API_V1_URI,
   getAuth,
   postAuth,
   putAuth,
@@ -12,6 +11,9 @@ import type {
   CustomMobilePopup,
   CustomShopRedirection,
 } from './types';
+import Config from '../../config';
+
+const API_V1_URI = Config.REACT_APP_BASE_URI_MEMBER_EXPERIENCE_V1;
 
 export const fetchCustomShopRedirections = async () =>
   getAuth(`${API_V1_URI}/mobile_app/custom_shop_redirection/`);

@@ -1,12 +1,9 @@
 import type { PaginatedResponse } from '#src/state/types';
-import {
-  buildUrlParams,
-  API_V1_URI,
-  getAuth,
-  postAuth,
-  patchAuth,
-} from '../../http';
+import { buildUrlParams, getAuth, postAuth, patchAuth } from '../../http';
 import { EntryStatus } from './constants';
+import Config from '../../config';
+
+const API_V1_URI = `${Config.REACT_APP_BASE_URI_CORE_V1}`;
 
 import type {
   AccessControlBookingOrPrivateBooking,

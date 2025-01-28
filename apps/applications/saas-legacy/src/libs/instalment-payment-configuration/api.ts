@@ -1,5 +1,4 @@
 import {
-  API_V1_URI,
   buildUrlParams,
   deleteAuth,
   getAuth,
@@ -7,6 +6,9 @@ import {
   putAuth,
 } from '../../http';
 import { InstalmentPaymentApi } from './types';
+import Config from '../../config';
+
+const API_V1_URI = Config.REACT_APP_BASE_URI_FINANCIAL_SERVICES_V1;
 
 export const createInstalmentPayment = async (data: InstalmentPaymentApi) => {
   return postAuth(`${API_V1_URI}/payment/instalment-payment/`, data);

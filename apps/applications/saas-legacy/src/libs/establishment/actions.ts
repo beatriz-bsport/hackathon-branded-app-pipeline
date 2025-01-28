@@ -26,7 +26,7 @@ import {
   updateEstablishmentBillingGroup as updateEstablishmentBillingGroupAPI,
   deleteEstablishmentBillingGroup as deleteEstablishmentBillingGroupAPI,
 } from './api';
-import { API_URI, postAuth, deleteAuth } from '../../http';
+import { postAuth, deleteAuth } from '../../http';
 import { snackbarSuccess, snackbarError } from '../snackbar/actions';
 
 // @ts-expect-error
@@ -43,6 +43,9 @@ import type {
   FetchEstablishmentParams,
   Establishment,
 } from './types';
+import Config from '../../config';
+
+const API_URI = Config.REACT_APP_BASE_URI_CORE_V0;
 
 export const retrieveEstablishmentActions = {
   isLoading: createAction<boolean>('ESTABLISHMENT/RETRIEVE/IS_LOADING'),

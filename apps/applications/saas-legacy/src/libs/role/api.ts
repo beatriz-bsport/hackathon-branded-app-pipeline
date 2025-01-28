@@ -1,6 +1,5 @@
 import { AxiosResponse } from 'axios';
 import {
-  API_V1_URI,
   getAuth,
   postAuth,
   patchAuth,
@@ -17,6 +16,9 @@ import {
   UserRole,
 } from './types';
 import { DeepPartial } from '../../utils/types';
+import Config from '../../config';
+
+const API_V1_URI = Config.REACT_APP_BASE_URI_STAFF_MANAGEMENT_V1;
 
 export const fetchCompanyUserRoles = async (params?: {
   paginated?: boolean;

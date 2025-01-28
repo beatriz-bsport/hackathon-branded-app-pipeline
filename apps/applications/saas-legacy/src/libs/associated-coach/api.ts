@@ -5,7 +5,6 @@ import type {
   UpdateCoachPrivateSlotsPaymentRuleData,
 } from '#src/libs/associated-coach/types';
 import {
-  API_V1_URI,
   getAuth,
   postAuth,
   putAuth,
@@ -17,6 +16,9 @@ import {
 // TO UPDATE TO V1 API
 // -----------------------
 //
+import Config from '../../config';
+
+const API_V1_URI = Config.REACT_APP_BASE_URI_CORE_V1;
 
 export async function fetchAssociatedCoaches(params?: FetchCoachParams) {
   return getAuth<Coach[]>(

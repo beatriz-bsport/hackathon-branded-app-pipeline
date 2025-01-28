@@ -22,11 +22,15 @@ import type {
   CoachPerformance,
 } from './types';
 import { snackbarError, snackbarSuccess } from '../snackbar/actions';
-import { postBaseAuth, putAuth, API_V1_URI, deleteAuth } from '../../http';
+import { postBaseAuth, putAuth, deleteAuth } from '../../http';
 import { displayBackgroundDialog } from '../background-dialog/actions';
 import { monitorBackgroundTask } from '../background-task/actions';
 // @ts-expect-error
 import { openPdfDocument } from './utils';
+
+import Config from '../../config';
+
+const API_V1_URI = Config.REACT_APP_BASE_URI_FINANCIAL_SERVICES_V1;
 
 export const fetchAllPaymentRules = {
   success: createAction('COACH-PAYMENT/LIST/SUCCESS'),

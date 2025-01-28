@@ -22,7 +22,6 @@ import type {
 import { InitialConfigurationStep, DestinationStatus } from './constants';
 
 import {
-  API_V1_URI,
   getAuth,
   putAuth,
   postAuth,
@@ -30,6 +29,9 @@ import {
   patchAuth,
   buildUrlParams,
 } from '../../http';
+import Config from '../../config';
+
+const API_V1_URI = Config.REACT_APP_BASE_URI_CDP_V1;
 
 // CADENCE
 

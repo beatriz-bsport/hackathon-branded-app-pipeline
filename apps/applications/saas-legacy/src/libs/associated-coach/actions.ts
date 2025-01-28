@@ -43,7 +43,10 @@ import {
 } from '../../state/types';
 // @ts-expect-error
 import { createDictionnaryById, createIdList } from '../../actions/utils';
-import { putAuth, API_V1_URI, buildUrlParams } from '../../http';
+import { putAuth, buildUrlParams } from '../../http';
+import Config from '../../config';
+
+const API_V1_URI = Config.REACT_APP_BASE_URI_FINANCIAL_SERVICES_V1;
 
 export const associated = {
   isLoading: createAction('COACH/ASSOCIATED/IS_LOADING'),

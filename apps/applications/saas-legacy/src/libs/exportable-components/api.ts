@@ -1,13 +1,10 @@
 import { AxiosResponse } from 'axios';
-import {
-  getAuth,
-  buildUrlParams,
-  postAuth,
-  patchAuth,
-  API_V1_URI,
-} from '../../http';
+import { getAuth, buildUrlParams, postAuth, patchAuth } from '../../http';
 
 import { MarketplaceCSSConfiguration } from './types';
+import Config from '../../config';
+
+const API_V1_URI = Config.REACT_APP_BASE_URI_CORE_V1;
 
 export const fetchManagerCssWidgetConfiguration = (): Promise<
   AxiosResponse<MarketplaceCSSConfiguration>

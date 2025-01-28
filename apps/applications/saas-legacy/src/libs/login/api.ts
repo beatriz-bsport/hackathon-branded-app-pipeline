@@ -1,13 +1,10 @@
 import axios from 'axios';
-import {
-  BASE_URI,
-  API_URI,
-  API_V1_URI,
-  getAuth,
-  postAuth,
-  post,
-  buildUrlParams,
-} from '../../http';
+import { getAuth, postAuth, post, buildUrlParams } from '../../http';
+import Config from '../../config';
+
+const API_V1_URI = Config.REACT_APP_BASE_URI_PLATFORM_V1;
+const API_URI = Config.REACT_APP_BASE_URI_PLATFORM_V0;
+const API_V1_URI_CORE = Config.REACT_APP_BASE_URI_CORE_V1;
 
 export const fetchTempPassword = () =>
   getAuth(`${API_V1_URI}/authentication/temp-password/`);
@@ -49,10 +46,12 @@ export const resetPassword = async (
   franchisorId?: number | null,
 ) => {
   return axios.get(
-    `${BASE_URI}/authentication/password_reset_email/${email}${buildUrlParams({
-      ...(membership ? { company: membership } : {}),
-      ...(franchisorId ? { franchisor: franchisorId } : {}),
-    })}`,
+    `${API_V1_URI}/authentication/password_reset_email/${email}${buildUrlParams(
+      {
+        ...(membership ? { company: membership } : {}),
+        ...(franchisorId ? { franchisor: franchisorId } : {}),
+      },
+    )}`,
   );
 };
 
@@ -114,7 +113,7 @@ export async function getRelationToken(params: {
   company: number;
 }) {
   return postAuth(
-    `${API_V1_URI}/relationship/member/get_related_member_token/`,
+    `${API_V1_URI_CORE}/relationship/member/get_related_member_token/`,
     {
       relatedMemberId: params.relatedMemberId,
       company: params.company,

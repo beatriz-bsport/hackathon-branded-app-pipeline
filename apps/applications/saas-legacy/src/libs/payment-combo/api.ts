@@ -2,7 +2,6 @@ import { AxiosResponse } from 'axios';
 import { PaginatedResponse } from '../../state/types';
 
 import {
-  API_V1_URI,
   putAuth,
   postAuth,
   getAuth,
@@ -17,6 +16,9 @@ import type {
   PaymentCombo,
   PaymentComboPurchase,
 } from './types';
+import Config from '../../config';
+
+const API_V1_URI = Config.REACT_APP_BASE_URI_BUYABLE_V1;
 
 const PAYMENT_COMBO_ENDOINT = `${API_V1_URI}/payment_combo/`;
 const PAYMENT_COMBO_PURCHASE_ENDOINT = `${API_V1_URI}/payment_combo_purchase/`;

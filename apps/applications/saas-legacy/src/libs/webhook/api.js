@@ -1,13 +1,15 @@
 // @flow
 
 import {
-  API_V1_URI,
   getAuth,
   buildUrlParams,
   postAuth,
   patchAuth,
   deleteAuth,
 } from '../../http';
+import Config from '../../config';
+
+const API_V1_URI = Config.REACT_APP_BASE_URI_COMMUNICATE_V1;
 
 const WEBHOOK_URI = `${API_V1_URI}/webhook/`;
 

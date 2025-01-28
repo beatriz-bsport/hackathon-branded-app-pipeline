@@ -1,5 +1,4 @@
 import {
-  API_V1_URI,
   getAuth,
   putAuth,
   postAuth,
@@ -7,6 +6,9 @@ import {
   buildUrlParams,
 } from '../../http';
 import type { CoachPaymentRule, CoachPaymentRuleGroup } from './types';
+import Config from '../../config';
+
+const API_V1_URI = Config.REACT_APP_BASE_URI_FINANCIAL_SERVICES_V1;
 
 const COACH_PERFORMANCE_EXPORT_PDF = 0;
 const COACH_PERFORMANCE_EXPORT_EXCEL = 1;

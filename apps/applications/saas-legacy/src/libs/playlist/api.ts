@@ -4,8 +4,11 @@ import {
   postAuth,
   patchAuth,
   deleteAuth,
-  API_V1_URI,
 } from '../../http';
+
+import Config from '../../config';
+
+const API_V1_URI = Config.REACT_APP_BASE_URI_BUYABLE_V1;
 
 export const fetchPlaylistList = async (params: any = {}) => {
   return getAuth(`${API_V1_URI}/vod/playlist/${buildUrlParams(params)}`);

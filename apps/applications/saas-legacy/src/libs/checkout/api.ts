@@ -1,7 +1,6 @@
 import { AxiosResponse } from 'axios';
 import {
   buildUrlParams,
-  API_V1_URI,
   post,
   get,
   postAuth,
@@ -22,6 +21,9 @@ import type {
   ExpiredItemRemovalStatusPayload,
   ExpiredItemRemovalStatusResponse,
 } from './types';
+import Config from '../../config';
+
+const API_V1_URI = Config.REACT_APP_BASE_URI_FINANCIAL_SERVICES_V1;
 
 export const fetchCurrentBasket = (
   companyId: number,

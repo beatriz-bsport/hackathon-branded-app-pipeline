@@ -1,6 +1,5 @@
 import { AxiosResponse } from 'axios';
 import {
-  API_V1_URI,
   getAuth,
   postAuth,
   patchAuth,
@@ -18,6 +17,9 @@ import type {
 } from '#src/libs/email-editor/types';
 
 import type { PaginatedResponse } from '#src/state/types';
+import Config from '../../config';
+
+const API_V1_URI = Config.REACT_APP_BASE_URI_CDP_V1;
 
 const MARKETING_EMAIL_URI = `${API_V1_URI}/email_design/`;
 

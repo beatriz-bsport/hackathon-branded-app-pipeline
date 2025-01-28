@@ -1,9 +1,12 @@
-import { API_V1_URI, getAuth, patchAuth } from '#src/http';
+import { getAuth, patchAuth } from '#src/http';
 import type {
   DataSourceDashboardSettings,
   MyResourceFilters,
   MyRessourceScheduleFilters,
 } from '#src/libs/dashboard/types';
+import Config from '../../config';
+
+const API_V1_URI = Config.REACT_APP_BASE_URI_BUSINESS_INSIGHTS_V1;
 
 export function fetchDashboardSettings() {
   return getAuth(`${API_V1_URI}/dashboard/settings/me/`);

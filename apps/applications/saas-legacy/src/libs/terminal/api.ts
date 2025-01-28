@@ -1,10 +1,13 @@
-import { API_V1_URI, postAuth, getAuth, deleteAuth, putAuth } from '../../http';
+import { postAuth, getAuth, deleteAuth, putAuth } from '../../http';
 import type {
   ConnectionToken,
   ProcessPaymentIntentPayload,
   ProcessSetupIntentPayload,
   ReaderActionSumup,
 } from './types';
+import Config from '../../config';
+
+const API_V1_URI = Config.REACT_APP_BASE_URI_FINANCIAL_SERVICES_V1;
 
 export const fetchStripeReaders = async () => {
   return getAuth(`${API_V1_URI}/terminal/reader`);

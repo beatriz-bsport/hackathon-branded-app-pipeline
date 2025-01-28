@@ -1,14 +1,17 @@
-import { getJSONAuth, buildUrlParams, API_V1_URI } from '../../http';
+import { getJSONAuth, buildUrlParams } from '../../http';
+import Config from '../../config';
+
+const API_URI = Config.REACT_APP_BASE_URI_BOOK_V1;
 
 export async function fetchBookingStatistics(params) {
   return getJSONAuth(
-    `${API_V1_URI}/booking/booking_statistics/${buildUrlParams(params)}`,
+    `${API_URI}/booking/booking_statistics/${buildUrlParams(params)}`,
   );
 }
 
 export async function fetchOffersWaitingListStatistics(params) {
   return getJSONAuth(
-    `${API_V1_URI}/waiting-list/booking_option_statistics/${buildUrlParams(
+    `${API_URI}/waiting-list/booking_option_statistics/${buildUrlParams(
       params,
     )}`,
   );

@@ -21,6 +21,26 @@ env.REACT_APP_CDN_DOMAIN = 'cdn-FEATURE_BRANCH_IDENTIFIER.chaos.bsport.io';
 env.PUBLIC_URL = 'https://backoffice-FEATURE_BRANCH_IDENTIFIER.chaos.bsport.io';
 env.I18N_TRANSLATION_DOMAIN = 'https://backoffice-FEATURE_BRANCH_IDENTIFIER.chaos.bsport.io';
 
+env.REACT_APP_BASE_URI_BUSINESS_INSIGHTS_V0 = 'https://api.dev.bsport.io/api-v0';
+env.REACT_APP_BASE_URI_BUSINESS_INSIGHTS_V1 = 'https://api.dev.bsport.io/api/v1';
+env.REACT_APP_BASE_URI_BOOK_V0 = 'https://api.dev.bsport.io/api-v0';
+env.REACT_APP_BASE_URI_BOOK_V1 = 'https://api.dev.bsport.io/api/v1';
+env.REACT_APP_BASE_URI_BUYABLE_V0 = 'https://api.dev.bsport.io/api-v0';
+env.REACT_APP_BASE_URI_BUYABLE_V1 = 'https://api.dev.bsport.io/api/v1';
+env.REACT_APP_BASE_URI_COMMUNICATE_V0 = 'https://api.dev.bsport.io/api-v0';
+env.REACT_APP_BASE_URI_COMMUNICATE_V1 = 'https://api.dev.bsport.io/api/v1';
+env.REACT_APP_BASE_URI_CORE_V0 = 'https://api.dev.bsport.io/api-v0';
+env.REACT_APP_BASE_URI_CORE_V1 = 'https://api.dev.bsport.io/api/v1';
+env.REACT_APP_BASE_URI_FINANCIAL_SERVICES_V0 = 'https://api.dev.bsport.io/api-v0';
+env.REACT_APP_BASE_URI_FINANCIAL_SERVICES_V1 = 'https://api.dev.bsport.io/api/v1';
+env.REACT_APP_BASE_URI_CDP_V0 = 'https://api.dev.bsport.io/api-v0';
+env.REACT_APP_BASE_URI_CDP_V1 = 'https://api.dev.bsport.io/api/v1';
+env.REACT_APP_BASE_URI_MEMBER_EXPERIENCE_V0 = 'https://api.dev.bsport.io/api-v0';
+env.REACT_APP_BASE_URI_MEMBER_EXPERIENCE_V1 = 'https://api.dev.bsport.io/api/v1';
+env.REACT_APP_BASE_URI_PLATFORM_V0 = 'https://api.dev.bsport.io/api-v0';
+env.REACT_APP_BASE_URI_PLATFORM_V1 = 'https://api.dev.bsport.io/api/v1';
+env.REACT_APP_BASE_URI_STAFF_MANAGEMENT_V0 = 'https://api.dev.bsport.io/api-v0';
+env.REACT_APP_BASE_URI_STAFF_MANAGEMENT_V1 = 'https://api.dev.bsport.io/api/v1';
 
 env.REACT_APP_QUICKBOOKS_CLIENT_ID='ABuHQoP5mP22ZN6teCzIcZykd2w8MqtKXmAdj444TLIm9UX3ax';
 env.REACT_APP_SEGMENT_API_KEY='yH7opuCLYbkx3SmUBi2zE3qltVkiTfL7'

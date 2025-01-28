@@ -13,15 +13,18 @@ import type {
 } from '#src/libs/payment/types';
 import type { BillingDetails } from '#src/libs/marketplace/types';
 import {
-  API_V1_URI,
   getAuth,
   post,
-  API_URI,
   postAuth,
   buildUrlParams,
   deleteAuth,
   patchAuth,
 } from '../../http';
+import Config from '../../config';
+
+const API_V1_URI = Config.REACT_APP_BASE_URI_FINANCIAL_SERVICES_V1;
+const API_URI_BUSINESS_INSIGHTS =
+  Config.REACT_APP_BASE_URI_BUSINESS_INSIGHTS_V0;
 
 export const fetchPaymentMethodList = async (
   params: any = {},
@@ -61,7 +64,9 @@ export const detachPaymentMethod = async (
 
 export const fetchOnSpotPaymentReport = async (params: any = {}) => {
   return getAuth(
-    `${API_URI}/reporting/on-spot-payment/${buildUrlParams(params)}`,
+    `${API_URI_BUSINESS_INSIGHTS}/reporting/on-spot-payment/${buildUrlParams(
+      params,
+    )}`,
   );
 };
 

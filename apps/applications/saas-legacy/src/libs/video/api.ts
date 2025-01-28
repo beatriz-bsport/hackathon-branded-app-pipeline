@@ -5,10 +5,12 @@ import {
   postAuth,
   patchAuth,
   deleteAuth,
-  API_V1_URI,
   postAuthDeprecated,
   getAuthDeprecated,
 } from '../../http';
+import Config from '../../config';
+
+const API_V1_URI = Config.REACT_APP_BASE_URI_BUYABLE_V1;
 
 export const fetchVideoList = async (params: any = {}) => {
   return getAuthDeprecated(`${API_V1_URI}/vod/video/${buildUrlParams(params)}`);

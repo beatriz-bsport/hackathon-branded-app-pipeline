@@ -3,12 +3,10 @@ import {
   FranchiseProductTemplatePaginatedQueryParams,
 } from '#src/libs/franchise/types';
 import {
-  API_URI,
   getAuth,
   postAuth,
   patchAuth,
   deleteAuth,
-  API_V1_URI,
   postBaseAuthDeprecated,
   buildUrlParams,
   getAuthDeprecated,
@@ -30,6 +28,10 @@ import type {
   PaymentPackTemplateAPI,
   PaymentPackTemplate,
 } from './types';
+import Config from '../../config';
+
+const API_V1_URI = Config.REACT_APP_BASE_URI_BUYABLE_V1;
+const API_URI = Config.REACT_APP_BASE_URI_BUYABLE_V0;
 
 export async function fetchAllPaymentPacks() {
   return getAuthDeprecated(

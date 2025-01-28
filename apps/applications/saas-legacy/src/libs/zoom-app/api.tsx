@@ -4,13 +4,10 @@ import type {
   ZoomEstablishment,
   ZoomEstablishmentBulkEditData,
 } from '#src/libs/zoom-app/types';
-import {
-  API_V1_URI,
-  getAuth,
-  deleteAuth,
-  patchAuth,
-  postAuth,
-} from '../../http';
+import { getAuth, deleteAuth, patchAuth, postAuth } from '../../http';
+import Config from '../../config';
+
+const API_V1_URI = Config.REACT_APP_BASE_URI_BOOK_V1;
 
 export const fetchZoomApp = (companyId: number) => {
   return getAuth<ZoomApp>(`${API_V1_URI}/zoom_app/company/${companyId}/`);

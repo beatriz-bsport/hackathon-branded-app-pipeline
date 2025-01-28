@@ -1,7 +1,6 @@
 import { AxiosResponse } from 'axios';
 import { cleanParams } from '../../utils/createUrlHandlers';
 import {
-  API_V1_URI,
   getAuth,
   postAuth,
   patchAuth,
@@ -18,6 +17,9 @@ import {
   ConsumerGiftcardFilterParams,
 } from './types';
 import { PaginatedResponse } from '#src/state/types';
+import Config from '../../config';
+
+const API_V1_URI = Config.REACT_APP_BASE_URI_BUYABLE_V1;
 
 export const fetchGiftcardList = (
   params: any,

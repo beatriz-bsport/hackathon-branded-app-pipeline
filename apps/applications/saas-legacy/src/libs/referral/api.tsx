@@ -1,9 +1,12 @@
-import { getAuth, patchAuth, API_V1_URI, postAuth } from '../../http';
+import { getAuth, patchAuth, postAuth } from '../../http';
 import type {
   ReferralProgram,
   ReferralMemberStatus,
   ReferralLinkStatus,
 } from './types';
+import Config from '../../config';
+
+const API_V1_URI = Config.REACT_APP_BASE_URI_CDP_V1;
 
 export const retrieveReferralProgram = () => {
   return getAuth<ReferralProgram>(

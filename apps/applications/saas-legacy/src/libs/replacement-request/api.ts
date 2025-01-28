@@ -7,7 +7,6 @@ import {
   ReplacementRequestCoachAnswerAPIData,
 } from './types';
 import {
-  API_V1_URI,
   getAuth,
   postAuth,
   deleteAuth,
@@ -15,6 +14,9 @@ import {
   buildUrlParams,
   patchAuth,
 } from '../../http';
+import Config from '../../config';
+
+const API_V1_URI = Config.REACT_APP_BASE_URI_BOOK_V1;
 
 export async function fetchAllReplacementRequests(
   params: ReplacementRequestFilter,

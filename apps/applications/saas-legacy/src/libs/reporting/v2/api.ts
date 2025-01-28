@@ -14,7 +14,6 @@ import type {
   ReportV2QueryParams,
 } from '#src/libs/reporting/common/types';
 import {
-  API_URI,
   buildUrlParams,
   deleteAuth,
   getAuth,
@@ -23,6 +22,9 @@ import {
 } from '#src/http';
 import type { PaginatedResponse } from '#src/state/types';
 import { cleanParams } from '#src/utils/createUrlHandlers';
+import Config from '../../../config';
+
+const API_URI = Config.REACT_APP_BASE_URI_BUSINESS_INSIGHTS_V0;
 
 export const fetchDefaultReports = () => {
   return getAuth<ReportConfiguration[]>(

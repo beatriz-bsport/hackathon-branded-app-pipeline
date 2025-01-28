@@ -1,5 +1,4 @@
 import {
-  API_URI,
   deleteAuth,
   getAuth,
   postAuth,
@@ -7,6 +6,9 @@ import {
   buildUrlParams,
 } from '../../http';
 import type { Tag, TagGroupAPI, TagGroupTemplate, TagTemplate } from './types';
+import Config from '../../config';
+
+const API_URI = Config.REACT_APP_BASE_URI_CDP_V0;
 
 const TAG_URI = `${API_URI}/tagging/tag/`;
 const TAG_GROUP_URI = `${API_URI}/tagging/tag-group/`;

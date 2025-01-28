@@ -1,13 +1,7 @@
 import { AxiosResponse } from 'axios';
 import { OfferStatusWaitingListPosition } from '#src/libs/offer/types';
 import { PaginatedResponse } from '../../state/types';
-import {
-  API_V1_URI,
-  postAuth,
-  getAuth,
-  patchAuth,
-  buildUrlParams,
-} from '../../http';
+import { postAuth, getAuth, patchAuth, buildUrlParams } from '../../http';
 import type {
   WaitingListConfiguration,
   WaitingListBookingOption,
@@ -15,6 +9,9 @@ import type {
   WaitingListBookingOptionPaginatedQueryParams,
   DiscardBookingOptionParams,
 } from './types';
+import Config from '../../config';
+
+const API_V1_URI = Config.REACT_APP_BASE_URI_BOOK_V1;
 
 export const fetchConfiguration = async (): Promise<
   AxiosResponse<WaitingListConfiguration>

@@ -1,6 +1,9 @@
 import { AxiosResponse } from 'axios';
-import { getAuth, patchAuth, API_V1_URI } from '../../http';
+import { getAuth, patchAuth } from '../../http';
 import { QuicksaleConfiguration, QuicksaleSection } from './types';
+import Config from '../../config';
+
+const API_V1_URI = Config.REACT_APP_BASE_URI_BUYABLE_V1;
 
 export const fetchQuicksaleConfiguration = async (): Promise<
   AxiosResponse<QuicksaleConfiguration>

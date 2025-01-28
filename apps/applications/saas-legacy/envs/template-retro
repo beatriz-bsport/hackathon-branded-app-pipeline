@@ -12,6 +12,27 @@ env.REACT_APP_RECAPTCHA_V3='6LeC6rIZAAAAAJSN0DVqzOF3cYXwQcXgp8rKX9cf';
 env.REACT_APP_RECAPTCHA_V2='6Lds67IZAAAAAFaPGpfl_ALgtV2t6Re63MBtCshi';
 env.REACT_APP_ZOOM_CLIENT_ID='ayAjSMV0SiOR383VkR3I4Q';
 
+env.REACT_APP_BASE_URI_BUSINESS_INSIGHTS_V0 = 'https://api-RETRO_IDENTIFIER.retro.bsport.io/api-v0';
+env.REACT_APP_BASE_URI_BUSINESS_INSIGHTS_V1 = 'https://api-RETRO_IDENTIFIER.retro.bsport.io/api/v1';
+env.REACT_APP_BASE_URI_BOOK_V0 = 'https://api-RETRO_IDENTIFIER.retro.bsport.io/api-v0';
+env.REACT_APP_BASE_URI_BOOK_V1 = 'https://api-RETRO_IDENTIFIER.retro.bsport.io/api/v1';
+env.REACT_APP_BASE_URI_BUYABLE_V0 = 'https://api-RETRO_IDENTIFIER.retro.bsport.io/api-v0';
+env.REACT_APP_BASE_URI_BUYABLE_V1 = 'https://api-RETRO_IDENTIFIER.retro.bsport.io/api/v1';
+env.REACT_APP_BASE_URI_COMMUNICATE_V0 = 'https://api-RETRO_IDENTIFIER.retro.bsport.io/api-v0';
+env.REACT_APP_BASE_URI_COMMUNICATE_V1 = 'https://api-RETRO_IDENTIFIER.retro.bsport.io/api/v1';
+env.REACT_APP_BASE_URI_CORE_V0 = 'https://api-RETRO_IDENTIFIER.retro.bsport.io/api-v0';
+env.REACT_APP_BASE_URI_CORE_V1 = 'https://api-RETRO_IDENTIFIER.retro.bsport.io/api/v1';
+env.REACT_APP_BASE_URI_FINANCIAL_SERVICES_V0 = 'https://api-RETRO_IDENTIFIER.retro.bsport.io/api-v0';
+env.REACT_APP_BASE_URI_FINANCIAL_SERVICES_V1 = 'https://api-RETRO_IDENTIFIER.retro.bsport.io/api/v1';
+env.REACT_APP_BASE_URI_CDP_V0 = 'https://api-RETRO_IDENTIFIER.retro.bsport.io/api-v0';
+env.REACT_APP_BASE_URI_CDP_V1 = 'https://api-RETRO_IDENTIFIER.retro.bsport.io/api/v1';
+env.REACT_APP_BASE_URI_MEMBER_EXPERIENCE_V0 = 'https://api-RETRO_IDENTIFIER.retro.bsport.io/api-v0';
+env.REACT_APP_BASE_URI_MEMBER_EXPERIENCE_V1 = 'https://api-RETRO_IDENTIFIER.retro.bsport.io/api/v1';
+env.REACT_APP_BASE_URI_PLATFORM_V0 = 'https://api-RETRO_IDENTIFIER.retro.bsport.io/api-v0';
+env.REACT_APP_BASE_URI_PLATFORM_V1 = 'https://api-RETRO_IDENTIFIER.retro.bsport.io/api/v1';
+env.REACT_APP_BASE_URI_STAFF_MANAGEMENT_V0 = 'https://api-RETRO_IDENTIFIER.retro.bsport.io/api-v0';
+env.REACT_APP_BASE_URI_STAFF_MANAGEMENT_V1 = 'https://api-RETRO_IDENTIFIER.retro.bsport.io/api/v1';
+
 env.REACT_APP_SENTRY_ENVIRONMENT = 'RETRO_IDENTIFIER';
 env.NODE_ENV='production'
 env.REACT_APP_INTERCOM_APP_ID = 'q6foivp2';

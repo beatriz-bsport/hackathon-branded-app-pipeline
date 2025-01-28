@@ -1,5 +1,8 @@
-import { API_V1_URI, getAuth, patchAuth, postAuth } from '../../http';
+import { getAuth, patchAuth, postAuth } from '../../http';
 import type { QuickbooksApp } from './types';
+import Config from '../../config';
+
+const API_V1_URI = Config.REACT_APP_BASE_URI_FINANCIAL_SERVICES_V1;
 
 export const fetchQuickbooksApp = async (companyId: number) => {
   return getAuth(

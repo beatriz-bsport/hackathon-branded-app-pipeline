@@ -3,7 +3,6 @@ import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-in
 import type { FetchRecipientsParams } from '#src/libs/member/types';
 import type { GenericPaginationResults } from '#src/libs/types';
 import {
-  API_V1_URI,
   buildUrlParams,
   deleteAuth,
   getAuth,
@@ -28,6 +27,10 @@ import type {
   UnreadAnswersCount,
 } from './types';
 import type { PaginatedResponse } from '../../state/types';
+
+import Config from '../../config';
+
+const API_V1_URI = Config.REACT_APP_BASE_URI_COMMUNICATE_V1;
 
 export const sendCommunication = async (data: MessageParams) => {
   return postAuthDeprecated(

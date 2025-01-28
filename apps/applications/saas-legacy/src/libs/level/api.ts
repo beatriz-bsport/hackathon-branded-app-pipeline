@@ -1,7 +1,6 @@
 import { AxiosResponse } from 'axios';
 
 import {
-  API_V1_URI,
   getAuth,
   putAuth,
   postAuth,
@@ -9,6 +8,9 @@ import {
   buildUrlParams,
 } from '../../http';
 import { Level, LevelFilterSet } from './types';
+import Config from '../../config';
+
+const API_V1_URI = Config.REACT_APP_BASE_URI_CORE_V1;
 
 export const fetchLevelList = (params: LevelFilterSet) => {
   return getAuth<Level[]>(

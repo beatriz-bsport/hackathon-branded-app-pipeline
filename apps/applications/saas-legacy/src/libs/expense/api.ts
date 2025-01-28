@@ -4,9 +4,11 @@ import {
   postAuth,
   patchAuth,
   deleteAuth,
-  API_V1_URI,
   buildUrlParams,
 } from '../../http';
+import Config from '../../config';
+
+const API_V1_URI = Config.REACT_APP_BASE_URI_FINANCIAL_SERVICES_V1;
 
 export async function fetchExpenseList(params: any) {
   const cleanedParams = cleanParams(params);

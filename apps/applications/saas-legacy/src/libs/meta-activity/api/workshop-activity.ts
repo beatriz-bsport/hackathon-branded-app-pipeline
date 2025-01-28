@@ -1,4 +1,7 @@
-import { API_V1_URI, buildUrlParams, getAuth } from '../../../http';
+import { buildUrlParams, getAuth } from '../../../http';
+import Config from '../../../config';
+
+const API_V1_URI = Config.REACT_APP_BASE_URI_BOOK_V1;
 
 export async function fetchMetaActivities(params?: {
   company: number;

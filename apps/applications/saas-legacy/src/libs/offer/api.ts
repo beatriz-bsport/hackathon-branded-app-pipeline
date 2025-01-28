@@ -1,7 +1,5 @@
 import { Offer as OfferAPI } from '../../api/types';
 import {
-  API_URI,
-  API_V1_URI,
   getAuth,
   postAuth,
   putAuth,
@@ -22,6 +20,10 @@ import type {
 
 import { PaginatedResponse } from '../../state/types';
 import type { PaginationFilterParams } from '../types';
+import Config from '../../config';
+
+const API_V1_URI = Config.REACT_APP_BASE_URI_BOOK_V1;
+const API_URI = Config.REACT_APP_BASE_URI_BOOK_V0;
 
 export async function createOffers(data: OfferCreate) {
   return postAuth(`${API_V1_URI}/offer/create_similar_offers/`, data);

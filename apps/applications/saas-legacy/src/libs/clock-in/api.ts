@@ -1,6 +1,5 @@
 import type { PaginatedResponse } from '#src/state/types';
 import {
-  API_V1_URI,
   getAuth,
   putAuth,
   deleteAuth,
@@ -13,6 +12,9 @@ import type {
   ClockInQueryParams,
   UserTotalAttendance,
 } from './types';
+import Config from '../../config';
+
+const API_V1_URI = Config.REACT_APP_BASE_URI_STAFF_MANAGEMENT_V1;
 
 export const clockIn = async ({ userId }: { userId?: number }) =>
   postBaseAuth(`${API_V1_URI}/clockin/`, { user: userId });

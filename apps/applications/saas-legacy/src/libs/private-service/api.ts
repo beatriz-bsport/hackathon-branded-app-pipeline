@@ -8,7 +8,6 @@ import {
   patchAuth,
   deleteAuth,
   buildUrlParams,
-  API_V1_URI,
   postBaseAuth,
 } from '../../http';
 import type {
@@ -28,6 +27,9 @@ import type {
 } from './types';
 import type { PaginatedResponse } from '../../state/types';
 import type { AssociatedEstablishment } from '#src/libs/establishment/types';
+import Config from '../../config';
+
+const API_V1_URI = Config.REACT_APP_BASE_URI_BOOK_V1;
 
 export const fetchAvailabilitySlots = (params: any = {}) => {
   return getAuth(

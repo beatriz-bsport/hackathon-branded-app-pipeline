@@ -1,13 +1,6 @@
 import type { Member } from '#src/libs/member/types';
 import { AxiosResponse } from 'axios';
-import {
-  getAuth,
-  postAuth,
-  putAuth,
-  post,
-  buildUrlParams,
-  API_V1_URI,
-} from '../../http';
+import { getAuth, postAuth, putAuth, post, buildUrlParams } from '../../http';
 import type {
   AccountConfigurationStep,
   Company,
@@ -21,6 +14,10 @@ import type {
   PayPalCompany,
   GetPayPalOnboardingLinkParams,
 } from './types';
+import Config from '../../config';
+
+const API_V1_URI = Config.REACT_APP_BASE_URI_CORE_V1;
+const API_V1_URI_FS = Config.REACT_APP_BASE_URI_FINANCIAL_SERVICES_V1;
 
 export const fetchCompanyList = (params: FetchCompanyListParams) => {
   return getAuth<Company[]>(
@@ -34,7 +31,7 @@ export const createCompany = (data: CompanyCreationParams) => {
 
 export const getOnboardingLink = (data: GetOnboardingLinkParams) => {
   return postAuth<string>(
-    `${API_V1_URI}/payment_backend/stripe/company/get_onboarding_link/`,
+    `${API_V1_URI_FS}/payment_backend/stripe/company/get_onboarding_link/`,
     data,
   );
 };
@@ -43,26 +40,26 @@ export const getPayPalOnboardingLink = (
   data?: GetPayPalOnboardingLinkParams,
 ): Promise<AxiosResponse<{ onboarding_url: string }>> => {
   return postAuth<{ onboarding_url: string }>(
-    `${API_V1_URI}/paypal/paypal-company/get_onboarding_link/`,
+    `${API_V1_URI_FS}/paypal/paypal-company/get_onboarding_link/`,
     data,
   );
 };
 
 export const retrieveStripeCompanyRefreshedAPI = () => {
   return getAuth<StripeCompany>(
-    `${API_V1_URI}/payment_backend/stripe/company/get_stripe_company_refreshed/`,
+    `${API_V1_URI_FS}/payment_backend/stripe/company/get_stripe_company_refreshed/`,
   );
 };
 
 export const retrieveStripeCompanyAPI = () => {
   return getAuth<StripeCompany>(
-    `${API_V1_URI}/payment_backend/stripe/company/me/`,
+    `${API_V1_URI_FS}/payment_backend/stripe/company/me/`,
   );
 };
 
 export const attachExternalAccount = (token: string) => {
   return postAuth<StripeCompany>(
-    `${API_V1_URI}/payment_backend/stripe/company/attach_external_account/`,
+    `${API_V1_URI_FS}/payment_backend/stripe/company/attach_external_account/`,
     { external_account: token },
   );
 };
@@ -81,7 +78,7 @@ export const checkNoOtherCompanyWithSamePayPalAccount = ({
   merchantId: string;
 }): Promise<AxiosResponse<void>> => {
   return postAuth<void>(
-    `${API_V1_URI}/paypal/paypal-company/check_no_other_company_with_same_account/`,
+    `${API_V1_URI_FS}/paypal/paypal-company/check_no_other_company_with_same_account/`,
     { merchant_id: merchantId },
   );
 };
@@ -90,7 +87,7 @@ export const retrievePayPalAccountStatusAPI = (): Promise<
   AxiosResponse<PayPalCompany>
 > => {
   return getAuth<PayPalCompany>(
-    `${API_V1_URI}/paypal/paypal-company/validate_merchant_account_configuration/`,
+    `${API_V1_URI_FS}/paypal/paypal-company/validate_merchant_account_configuration/`,
   );
 };
 
@@ -100,7 +97,7 @@ export const validateAccountConfigurationStepAPI = ({
   step: AccountConfigurationStep;
 }) => {
   return putAuth<void>(
-    `${API_V1_URI}/payment_backend/stripe/company/validate_step/`,
+    `${API_V1_URI_FS}/payment_backend/stripe/company/validate_step/`,
     {
       step,
     },
@@ -109,7 +106,7 @@ export const validateAccountConfigurationStepAPI = ({
 
 export const retrieveStripeAccountStatusAPI = async () => {
   return getAuth<StripeAccountStatus>(
-    `${API_V1_URI}/payment_backend/stripe/company/retrieve_stripe_account_status/`,
+    `${API_V1_URI_FS}/payment_backend/stripe/company/retrieve_stripe_account_status/`,
   );
 };
 

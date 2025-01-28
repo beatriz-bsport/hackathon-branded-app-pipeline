@@ -3,7 +3,6 @@ import { PaginatedResponse } from '../../state/types';
 import { cleanParams } from '../../utils/createUrlHandlers';
 import {
   buildUrlParams,
-  API_V1_URI,
   getAuth,
   postAuth,
   deleteAuth,
@@ -15,6 +14,11 @@ import {
   BookingFilterParams,
   CancelBookingParams,
 } from './types';
+
+import Config from '../../config';
+
+const API_V1_URI = Config.REACT_APP_BASE_URI_BOOK_V1;
+const API_V1_URI_BUYABLE = Config.REACT_APP_BASE_URI_BUYABLE_V1;
 
 export const fetchFilteredBookingOptions = (params: any) => {
   return getAuth(
@@ -93,7 +97,7 @@ export const registerBooking = (
   },
 ) => {
   return postAuth(
-    `${API_V1_URI}/payment-pack/consumer-payment-pack/${consumer_payment_pack}/register_booking/`,
+    `${API_V1_URI_BUYABLE}/payment-pack/consumer-payment-pack/${consumer_payment_pack}/register_booking/`,
     data,
   );
 };

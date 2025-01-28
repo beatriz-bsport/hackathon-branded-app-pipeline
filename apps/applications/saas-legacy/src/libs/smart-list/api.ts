@@ -2,7 +2,6 @@ import { FILTERS_ROOTS } from '@bsport/common/lib/master-data/smart-list.js';
 import { AxiosResponse } from 'axios';
 
 import {
-  API_V1_URI,
   getAuth,
   buildUrlParams,
   postAuth,
@@ -15,6 +14,9 @@ import type {
   AutomatedCampaign,
   FetchSmartlistMembersQueryParams,
 } from './types';
+import Config from '../../config';
+
+const API_V1_URI = Config.REACT_APP_BASE_URI_CDP_V1;
 
 const SMART_LIST_URI = `${API_V1_URI}/smartlist/group/`;
 

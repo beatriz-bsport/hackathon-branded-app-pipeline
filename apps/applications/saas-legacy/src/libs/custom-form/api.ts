@@ -1,5 +1,4 @@
 import {
-  API_V1_URI,
   getAuth,
   putAuth,
   postAuth,
@@ -15,6 +14,10 @@ import type {
   CustomFormFilledAPI,
   CustomFormFieldAnswer,
 } from './types';
+
+import Config from '../../config';
+
+const API_V1_URI = Config.REACT_APP_BASE_URI_CDP_V1;
 
 export async function fetchAllCustomForm(companyId?: number) {
   if (companyId) {

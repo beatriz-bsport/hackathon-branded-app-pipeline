@@ -1,0 +1,36 @@
+#!/usr/bin/env sh
+echo "⏳ Starting pre-push hook"
+
+# Run translations checks when pushing directly to deployed envs
+RUN_TRANSLATIONS_CHECK="false"
+GIT_BRANCH=$(git branch --show-current)
+if [ "$GIT_BRANCH" = "dev" ]; then
+    RUN_TRANSLATIONS_CHECK="true"
+elif [ "$GIT_BRANCH" = "staging" ]; then
+    RUN_TRANSLATIONS_CHECK="true"
+elif [ "$GIT_BRANCH" = "main" ]; then
+    RUN_TRANSLATIONS_CHECK="true"
+else
+    continue
+fi
+
+if [ "$ECOSYSTEM_SKIP_HOOKS" != "true" ] && [ "$RUN_TRANSLATIONS_CHECK" = "true" ]; then
+    echo "Check whether JSON translations have been edited"
+    git fetch origin $GIT_BRANCH
+    NB_LOCALES_DIFF=$(git diff origin/$GIT_BRANCH --name-only | grep '/locales' | wc -l)
+    if [ "$NB_LOCALES_DIFF" = "0" ]; then
+        echo "✅ No changes detected in **/locales/ files"
+        continue
+    else
+        echo "❗ Changes detected in **/locales/ files"
+        echo "❗ Build final translations files in the applications"
+        pnpm run -w translation:update
+        echo "❗ Add (stage) translations files that have been changed"
+        git diff HEAD --name-only | grep '/locales/' | xargs git add
+        export ECOSYSTEM_SKIP_HOOKS=true
+        git commit -m "chore(translations): Commit translation:update diff (translation builds)" --no-verify
+        echo "✅ Commit updated translations files"
+    fi
+fi
+
+echo "✅ Finished pre-push hook"

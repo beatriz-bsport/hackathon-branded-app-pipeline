@@ -135,6 +135,7 @@
     "compile": "npx tsc -p .",
     "format": "find src -name \"*.js\" | xargs pnpm exec prettier --write",
     "generate-all-css-marketplace": "cat  **/Marketplace*.css > ./Marketplace.css",
+    "knip": "NODE_ENV=development knip",
     "lint-old": "eslint ./src --max-warnings 250",
     "lint-old:cache": "eslint ./src --cache",
     "lint-old:fix": "eslint ./src --fix",
@@ -148,8 +149,7 @@
     "start-dev": "export NODE_OPTIONS=--openssl-legacy-provider NODE_ENV=development && pnpm run translation:update && cp envs/dev-api-only public/env.js && BROWSER=none webpack serve --config config/webpack.dev.js",
     "start-staging": "export NODE_OPTIONS=--openssl-legacy-provider NODE_ENV=development && pnpm run translation:update && cp envs/staging-api-only public/env.js && BROWSER=none webpack serve --config config/webpack.dev.js",
     "test": "export NODE_OPTIONS=--openssl-legacy-provider && pnpm exec jest --logHeapUsage",
-    "translation:update": "pnpm exec nx translation:update @bsport/i18n-management",
-    "knip": "NODE_ENV=development knip"
+    "translation:update": "pnpm run -w translation:update"
   },
   "browserslist": "> 0.25%",
   "eslintConfig": {

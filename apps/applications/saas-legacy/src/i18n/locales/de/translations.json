@@ -3361,7 +3361,7 @@
                     "itemNumberCaption_plural": "{{count}} Produkte",
                     "description": "Organisieren Sie Ihre Produkte so, dass sie für Ihre Kunden sichtbar sind, wenn sie eine Aktivität buchen und Pässe, Pakete oder Abonnements benötigen.",
                     "reset": "Zurücksetzen",
-                    "label": "Persönlicher Auftrag",
+                    "label": "Personalisierte Anordnung",
                     "subTitle": "Reihenfolge der Produkte"
                 }
             },

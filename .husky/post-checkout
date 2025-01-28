@@ -1,5 +1,5 @@
 #!/usr/bin/env sh
-if [ "$COSYSTEM_SKIP_HOOKS" != "true" ] && [ -z "$CI" ]; then
+if [ "$ECOSYSTEM_SKIP_HOOKS" != "true" ] && [ -z "$CI" ]; then
     exec < /dev/tty
     echo "Would you like to reinstall all dependencies? (y/N) "
     read REPLY

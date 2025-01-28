@@ -59,7 +59,7 @@ Add the following script to your `package.json` application :
 
 ```tsx
 {
-	"translation:update": "pnpm exec nx translation:update @bsport/i18n-management"
+	"translation:update": "pnpm run -w translation:update"
 }
 ```
 

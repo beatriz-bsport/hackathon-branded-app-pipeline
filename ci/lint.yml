@@ -1,4 +1,4 @@
-Lint:
+Analyze:
   image: ${REGISTRY_ENDPOINT}/${REGISTRY_NAME}:${CI_COMMIT_REF_SLUG}
   stage: lint
   interruptible: true
@@ -24,3 +24,13 @@ Lint:
     - echo "⏳ Lint legacy affected projects"
     - pnpm exec nx affected --target=lint-old --base=origin/$NX_BASE
     - echo "✅ All legacy affected projetcs have been linted"
+    - echo "*"
+    - echo "⏳ Check translations files have been commited"
+    - pnpm run -w translation:update
+    - NB_LOCALES_DIFF=$(echo $(git diff HEAD --name-only | grep '/locales' | wc -l))
+    - |
+      if [ "$NB_LOCALES_DIFF" != "0" ]; then
+        echo "❗ Detected changes in **/locales files that have not been commited ❗"
+        exit 1
+      fi
+    - echo "✅ All translations have been managed as expected"

@@ -11,6 +11,10 @@
     - echo "Start deploying feature branch ..."
     - git fetch origin dev
     - echo "*"
+    - echo "⏳ Build translations"
+    - pnpm run -w translation:update
+    - echo "✅ Translations have been updated"
+    - echo "*"
     - echo "⏳ Build affected projects and their dependencies"
     - pnpm exec nx affected --target=ci:build --base=origin/dev --head=HEAD "feature-branch" $FRONTEND_ONLY
     - echo "✅ All affected projets have been rebuilt"

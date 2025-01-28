@@ -21,6 +21,10 @@
     - echo "ENV ~> $ENV"
     - git fetch origin $TARGET_BRANCH
     - echo "*"
+    - echo "⏳ Build translations"
+    - pnpm run -w translation:update
+    - echo "✅ Translations have been updated"
+    - echo "*"
     - echo "⏳ Build affected projects and their dependencies"
     - pnpm exec nx affected --target=ci:build --base=origin/$TARGET_BRANCH~1 --head=HEAD $ENV
     - echo "✅ All affected projets have been rebuilt"

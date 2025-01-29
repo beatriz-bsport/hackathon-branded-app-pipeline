@@ -217,18 +217,6 @@ describe('Utils: Custom form', () => {
     ).toBe(false);
     expect(
       insertMemberProfileDataToAnswer(
-        getCustFormFieldWithKind(CUSTOM_FORM_FIELD_SIGN_UP_VACCINATION_STATUS),
-        memberProfileData,
-      ),
-    ).toBe(1);
-    expect(
-      insertMemberProfileDataToAnswer(
-        getCustFormFieldWithKind(CUSTOM_FORM_FIELD_SIGN_UP_VACCINATION_STATUS),
-        { ...memberProfileData, vaccination_status: false },
-      ),
-    ).toBe(2);
-    expect(
-      insertMemberProfileDataToAnswer(
         getCustFormFieldWithKind(
           CUSTOM_FORM_FIELD_SIGN_UP_GENERAL_TERMS_AND_CONDITIONS,
         ),

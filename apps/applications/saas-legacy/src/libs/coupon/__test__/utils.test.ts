@@ -1,5 +1,4 @@
 import 'regenerator-runtime/runtime';
-import { JSDOM } from 'jsdom';
 import {
   extractVoucherCodesFromCSVString,
   parseCSVFileToGetVoucherCodes,
@@ -139,13 +138,10 @@ class MockFile {
   }
 }
 
-// Set up the JSDOM environment
-const dom = new JSDOM();
 // @ts-expect-error
 global.File = MockFile;
-// @ts-expect-error
-global.window = dom.window;
-global.document = dom.window.document;
+global.window = window;
+global.document = window.document;
 
 //Mock the navigator
 const fakeUserAgent =

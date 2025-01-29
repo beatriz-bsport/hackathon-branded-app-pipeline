@@ -14,8 +14,8 @@ import RefreshIcon from '@material-ui/icons/Refresh';
 import Tooltip from '@material-ui/core/Tooltip';
 import ErrorIcon from '@material-ui/icons/Error';
 
-import { getCustomCurrencyDisplayWithPrice } from '../../theme/utils';
-import { OptionCallback } from '../../../state/types';
+import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
+import { OptionCallback } from '#src/state/types';
 import { PlatformInvoice } from '../type';
 
 type Props = {
@@ -60,8 +60,10 @@ export const PlatformInvoiceListItem = (props: Props) => {
   const secondaryText = (
     <div className={classes.row}>
       <Typography color="textSecondary" variant="caption">
-        {getCustomCurrencyDisplayWithPrice(
+        {getCurrencyDisplayWithPrice(
           total_price_cts / 100,
+          false,
+          undefined,
           // @ts-expect-error
           defaultCurrencyDisplay,
         )}

@@ -48,32 +48,6 @@ export const getTaxPrice = (price: any, tax: any) => {
   return res?.toFixed(2);
 };
 
-export const getCustomCurrencyDisplayWithPrice = (
-  price: any,
-  currencyDisplay: string,
-  isExcludingTax?: boolean,
-  tax?: any,
-) => {
-  if (isNil(price)) {
-    return '';
-  }
-  const priceTakingAccountOfTax = getPrice(price, isExcludingTax, tax);
-
-  switch (currencyDisplay) {
-    case '€':
-    case 'kr.':
-    case 'chf':
-    case 'sek':
-    case 'nok':
-    case 'dkk':
-    case 'лв.':
-    case 'RON':
-      return `${priceTakingAccountOfTax}${'\u00A0'}${currencyDisplay}`;
-    default:
-      return `${currencyDisplay}${priceTakingAccountOfTax}`;
-  }
-};
-
 export const MAX_COLOR_BRIGHTNESS = 210;
 
 export const minsToHrMins = (minutesToConvert: number) => {
@@ -161,4 +135,42 @@ export const getDecimalCreditHelperText = (
   return t(translationTextKey, {
     count: Number(dividedDisplayCreditPrice),
   });
+};
+
+/**
+ * Formats a price with its corresponding currency symbol, properly handling negative values.
+ *
+ * @param {number} price - The price to format.
+ * @param {string} symbol - The currency symbol.
+ * @param {boolean} [isNegative=false] - Indicates if the price is negative. Negative prices will be prefixed with a minus sign.
+ * @returns {string} The formatted price with currency.
+ * @example
+ * formatPriceWithCurrency(10, '€')
+ * // => "10.00 €"
+ *
+ * formatPriceWithCurrency(10, '$', true)
+ * // => "-$10.00"
+ */
+export const formatPriceWithCurrency = (
+  price: number,
+  symbol: string,
+  isNegative: boolean = false,
+): string => {
+  const absolutePrice = Math.abs(price).toFixed(2);
+
+  const negativeSign = price < 0 || isNegative ? '-' : '';
+
+  switch (symbol) {
+    case '€':
+    case 'kr.':
+    case 'chf':
+    case 'sek':
+    case 'nok':
+    case 'dkk':
+    case 'лв.':
+    case 'RON':
+      return `${negativeSign}${absolutePrice}${'\u00A0'}${symbol}`;
+    default:
+      return `${negativeSign}${symbol}${absolutePrice}`;
+  }
 };

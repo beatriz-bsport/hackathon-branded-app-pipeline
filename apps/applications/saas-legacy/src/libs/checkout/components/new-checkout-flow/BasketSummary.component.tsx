@@ -9,7 +9,7 @@ import {
   HandleAddCheckoutItemData,
   OnRemoveCheckoutItemData,
 } from '#src/libs/checkout/types';
-import { getCurrencyDisplayWithPriceAndQuantity } from '#src/libs/theme/selectors';
+import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
 import { NewCheckoutItemListItem } from './NewCheckoutItemListItem.component';
 
 type BasketSummaryProps = {
@@ -65,9 +65,8 @@ export const BasketSummary: React.FC<BasketSummaryProps> = ({
               <NewCheckoutItemListItem
                 key={`checkout-item-${checkoutItem.id}`}
                 checkoutItem={checkoutItem}
-                checkoutItemPrice={getCurrencyDisplayWithPriceAndQuantity(
-                  checkoutItem.unit_price,
-                  checkoutItem.quantity,
+                checkoutItemPrice={getCurrencyDisplayWithPrice(
+                  checkoutItem.unit_price * checkoutItem.quantity,
                   isExcludingTax,
                   checkoutItem.tax,
                 )}

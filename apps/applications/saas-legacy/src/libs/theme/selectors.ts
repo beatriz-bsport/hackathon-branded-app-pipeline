@@ -1,5 +1,5 @@
 import isNil from 'lodash/isNil';
-import { RootState } from '../../reducers';
+import { RootState } from '#src/reducers';
 import Config from '../../config';
 import { getPrice } from './utils';
 import {
@@ -11,6 +11,7 @@ import {
   STORAGE_KEY_BSPORT_STRIPE_PK_KEY,
 } from './constants';
 import { getItemInStorage } from '#src/utils/storage';
+import { formatPriceWithCurrency } from '#src/libs/theme/utils';
 
 export const getTheme = (state: RootState) => state.theme.theme;
 
@@ -77,75 +78,37 @@ export const getCreditFactor = () => {
 };
 
 /**
- * @returns the price of the product, possibly excluded from tax, with its currency.
- * @param  {any} price mandatory - the including tax price of the product
- * @param  {boolean} isExcludingTax optional - whether the product price must exclude tax
- * @param  {string} tax optional - the tax of the product
+ * Returns the price of the product, possibly excluding tax, with its currency.
+ * Negative prices are properly formatted with a minus sign before the currency symbol.
+ *
+ * @param {number|string} price - The mandatory including-tax price of the product.
+ * @param {boolean} [isExcludingTax] - Optional flag to exclude tax from the product price.
+ * @param {number} [tax] - Optional tax percentage of the product.
+ * @param {string} [currencyDisplay] - Optional currency symbol.
+ * @returns {string} The formatted price with its currency.
  * @example
  * getCurrencyDisplayWithPrice(10)
- * // => 10$ (or € or ... depending on the currency of the studio)
+ * // => "10.00 €" (depending on the studio currency)
  *
- * getCurrencyDisplay(10,true,50)
- * // => 6.66$
- *
- * getCurrencyDisplay(10,false,50)
- * // => 10$
- *
+ * getCurrencyDisplayWithPrice(-10)
+ * // => "-10.00 €"
  */
 export const getCurrencyDisplayWithPrice = (
   price: any,
   isExcludingTax?: boolean,
   tax?: any,
-) => {
+  currencyDisplay?: string,
+): string => {
   if (isNil(price)) {
     return '';
   }
+
   const priceTakingAccountOfTax = getPrice(price, isExcludingTax, tax);
+  const symbol = currencyDisplay || getCurrencyDisplay();
+  const isNegative = priceTakingAccountOfTax.startsWith('-');
+  const priceNumber = parseFloat(priceTakingAccountOfTax);
 
-  const symbol = getCurrencyDisplay();
-
-  switch (symbol) {
-    case '€':
-    case 'kr.':
-    case 'chf':
-    case 'sek':
-    case 'nok':
-    case 'dkk':
-    case 'лв.':
-    case 'RON':
-      return `${priceTakingAccountOfTax}${'\u00A0'}${symbol}`;
-    default:
-      return `${symbol}${priceTakingAccountOfTax}`;
-  }
-};
-
-export const getCurrencyDisplayWithPriceAndQuantity = (
-  price: number,
-  quantity?: number,
-  isExcludingTax?: boolean,
-  tax?: number,
-) => {
-  if (isNil(price)) {
-    return '';
-  }
-  const priceTakingAccountOfTax =
-    parseFloat(getPrice(price, isExcludingTax, tax)) * quantity;
-
-  const symbol = getCurrencyDisplay();
-
-  switch (symbol) {
-    case '€':
-    case 'kr.':
-    case 'chf':
-    case 'sek':
-    case 'nok':
-    case 'dkk':
-    case 'лв.':
-    case 'RON':
-      return `${priceTakingAccountOfTax.toFixed(2)}${'\u00A0'}${symbol}`;
-    default:
-      return `${symbol}${priceTakingAccountOfTax}`;
-  }
+  return formatPriceWithCurrency(priceNumber, symbol, isNegative);
 };
 
 export const getThemeLoading = (state: RootState) => {

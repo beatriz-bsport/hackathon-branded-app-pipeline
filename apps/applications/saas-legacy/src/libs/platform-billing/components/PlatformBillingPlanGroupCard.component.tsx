@@ -6,7 +6,7 @@ import Divider from '@material-ui/core/Divider';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { makeStyles } from '@material-ui/core/styles';
 import TypographyMultiline from '#src/components/typo/TypographyMultiline.component';
-import { getCustomCurrencyDisplayWithPrice } from '#src/libs/theme/utils';
+import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
 import type {
   PlatformBillingGroup,
   PlatformBillingPlan,
@@ -32,8 +32,10 @@ const PlatformBillingStageCard = React.memo(
             variant="h6"
           >
             {t('platformBillingStage.monthlyPrice', {
-              price: getCustomCurrencyDisplayWithPrice(
+              price: getCurrencyDisplayWithPrice(
                 price_cts / 100,
+                false,
+                undefined,
                 props.defaultCurrencyDisplay,
               ),
             })}
@@ -41,8 +43,10 @@ const PlatformBillingStageCard = React.memo(
         )}
         <Typography noWrap variant="h6">
           {t('platformBillingStage.monthlyPrice', {
-            price: getCustomCurrencyDisplayWithPrice(
+            price: getCurrencyDisplayWithPrice(
               (price_cts - props.couponCts) / 100,
+              false,
+              undefined,
               props.defaultCurrencyDisplay,
             ),
           })}

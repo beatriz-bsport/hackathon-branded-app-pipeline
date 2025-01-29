@@ -7,7 +7,7 @@ const defaultClasses = ["border-stroke-divider", "flex"] as const;
 const variants = {
   orientation: {
     horizontal: ["w-full", "h-[1px]", "flex-row"],
-    vertical: ["h-full", "w-[1px]", "flex-col"],
+    vertical: ["min-h-full", "w-[1px]", "flex-col"],
   },
   weight: {
     thin: ["border-stroke-thin"],

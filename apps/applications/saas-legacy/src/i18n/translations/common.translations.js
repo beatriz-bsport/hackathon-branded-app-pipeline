@@ -37,6 +37,7 @@ exports.default = {
   numberRequired: 'This field must be a number',
   monthly: 'Monthly',
   weekly: 'Weekly',
+  biweekly: 'Bi-weekly',
   showLess: 'Show less',
   showMore: 'Show more ({{count}})',
   start: 'Start',

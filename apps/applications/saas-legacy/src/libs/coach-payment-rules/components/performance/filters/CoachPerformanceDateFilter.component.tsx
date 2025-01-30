@@ -37,9 +37,15 @@ import type { OptionCallback } from '../../../../../state/types';
 
 type InitialValues = {
   dateStart: DateTime;
-  frequency: 'w' | 'M';
+  frequency: Frequency;
   establishmentsSelected: number[];
 };
+
+enum Frequency {
+  WEEKLY = 'weekly',
+  MONTHLY = 'monthly',
+  BIWEEKLY = 'biweekly',
+}
 
 type OwnProps = {
   disabled?: boolean;
@@ -90,6 +96,18 @@ type OwnProps = {
 
 type Props = OwnProps & FormikProps<InitialValues>;
 
+const getDateEndFromStartDate = (startDate: DateTime, frequency: Frequency) => {
+  const frequencyMapping: Record<
+    Frequency,
+    { weeks?: number; months?: number }
+  > = {
+    [Frequency.WEEKLY]: { weeks: 1 },
+    [Frequency.BIWEEKLY]: { weeks: 2 },
+    [Frequency.MONTHLY]: { months: 1 },
+  };
+  return startDate.plus(frequencyMapping[frequency]);
+};
+
 export function CoachPerformanceForm(props: Props) {
   const {
     isSubmitting,
@@ -113,6 +131,7 @@ export function CoachPerformanceForm(props: Props) {
     'coachPerformance',
     'translation',
   ]);
+
   const handleExcelExportation = () => {
     setOpenExportDialog(false);
     const backgroundDialog = {
@@ -143,12 +162,16 @@ export function CoachPerformanceForm(props: Props) {
       }
       setSubmitting(true);
       setPreviousValues(values);
+
+      const dateEnd = getDateEndFromStartDate(
+        values.dateStart,
+        values.frequency,
+      );
+
       handleDateFiltersChange(
         {
           ...values,
-          dateEnd: values.dateStart.plus({
-            [values.frequency === 'M' ? 'months' : 'weeks']: 1,
-          }),
+          dateEnd: dateEnd,
         },
         {
           onSuccess: () => setSubmitting(false),
@@ -157,11 +180,7 @@ export function CoachPerformanceForm(props: Props) {
       );
       updateStateDate(
         values.dateStart.toUnixInteger(),
-        values.dateStart
-          .plus({
-            [values.frequency === 'M' ? 'months' : 'weeks']: 1,
-          })
-          .toUnixInteger(),
+        dateEnd.toUnixInteger(),
       );
     }
   }, [
@@ -209,12 +228,17 @@ export function CoachPerformanceForm(props: Props) {
                 <FormControlLabel
                   control={<Radio disabled={isSubmitting || loading} />}
                   label={t('common:weekly')}
-                  value="w"
+                  value={Frequency.WEEKLY}
+                />
+                <FormControlLabel
+                  control={<Radio disabled={isSubmitting || loading} />}
+                  label={t('common:biweekly')}
+                  value={Frequency.BIWEEKLY}
                 />
                 <FormControlLabel
                   control={<Radio disabled={isSubmitting || loading} />}
                   label={t('common:monthly')}
-                  value="M"
+                  value={Frequency.MONTHLY}
                 />
               </RadioGroup>
             )}
@@ -323,7 +347,7 @@ export default compose<any, OwnProps>(
   withFormik<Props, InitialValues>({
     mapPropsToValues: () => ({
       dateStart: DateTime.now().startOf('month'),
-      frequency: 'M',
+      frequency: Frequency.MONTHLY,
       establishmentsSelected: [],
     }),
     validationSchema: CoachPerformanceSchema,
@@ -338,11 +362,14 @@ export default compose<any, OwnProps>(
         setSubmitting,
       },
     ) => {
+      const dateEnd = getDateEndFromStartDate(
+        values.dateStart,
+        values.frequency,
+      );
+
       const timeIntervalValue = {
         ...values,
-        dateEnd: values.dateStart.plus({
-          [values.frequency === 'M' ? 'months' : 'weeks']: 1,
-        }),
+        dateEnd: dateEnd,
       };
       if (isEstablishmentFilterEmbedded) {
         setSelectedEstablishmentFilter(values.establishmentsSelected, []);

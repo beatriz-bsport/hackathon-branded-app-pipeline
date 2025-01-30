@@ -10,10 +10,10 @@ import {
 
 import { useTranslation } from 'react-i18next';
 import Typography from '@material-ui/core/Typography';
-import VideoCardListItem from './VideoCardListItem.component';
-import { Video } from '../types';
-import { SCT } from '../../category/types';
-import { Coach } from '../../associated-coach/types';
+import VideoCardListItem from '#src/libs/video/components/VideoCardListItem.component';
+import { type Video, VideoStatusEnum } from '#src/libs/video/types';
+import type { SCT } from '#src/libs/category/types';
+import type { Coach } from '#src/libs/associated-coach/types';
 import { VideoProvider } from '@bsport/common/lib/master-data/video-provider.js';
 
 type Props = {
@@ -40,8 +40,14 @@ export const VideoCardList = (props: Props) => {
           {props.videoList
             .filter(
               (videoItem) =>
-                videoItem?.provider_identifier !== VideoProvider.MUX_PROVIDER ||
-                videoItem?.provider_identifier_defined_by_user === false,
+                // We hide videos still in draft that the user chose to be from MUX because this feature isn't supported anymore
+                // TODO: This filtering should be removed once this case disappears in production because it shouldn't exist anymore
+                !(
+                  videoItem?.provider_identifier ===
+                    VideoProvider.MUX_PROVIDER &&
+                  !!videoItem?.provider_identifier_defined_by_user &&
+                  videoItem?.status === VideoStatusEnum.created
+                ),
             )
             .map((videoItem) => (
               <VideoCardListItem

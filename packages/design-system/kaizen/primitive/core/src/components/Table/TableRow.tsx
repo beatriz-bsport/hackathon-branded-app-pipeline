@@ -98,7 +98,7 @@ const TableRow = <RowType extends { id: string }>({
               alt={
                 typeof value !== "string" ? (value as { alt: string })?.alt : ""
               }
-              size="sm"
+              size={col.size}
             />
           ) : null;
 
@@ -107,6 +107,7 @@ const TableRow = <RowType extends { id: string }>({
             key={col.id}
             withVerticalBorders={withVerticalBorders}
             rowHeight={rowHeight}
+            align={col.align}
           >
             {content}
           </TableCell>

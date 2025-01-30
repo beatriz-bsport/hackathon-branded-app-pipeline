@@ -92,6 +92,7 @@ const columns: Column<DataRow>[] = [
     keyPath: "avatar",
     header: "Avatar",
     type: "avatar",
+    size: "sm",
   },
   {
     id: "name",
@@ -129,12 +130,14 @@ const columns: Column<DataRow>[] = [
     keyPath: "amount",
     header: "Amount",
     type: "number",
+    align: "center",
   },
   {
     id: "actions",
     keyPath: "actions",
     header: "Actions",
     type: "custom",
+    align: "end",
     render: (row: DataRow) => (
       <div className="flex gap-sm">
         {row.actions.map((action, index) => (
@@ -155,6 +158,7 @@ const columns: Column<DataRow>[] = [
     keyPath: "profile.link",
     header: "Profile Link",
     type: "link",
+    align: "end",
     target: "_blank",
     label: (row: DataRow) => row.profile.link.label,
   },

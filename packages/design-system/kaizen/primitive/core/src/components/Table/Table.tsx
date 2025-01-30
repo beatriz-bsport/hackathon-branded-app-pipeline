@@ -3,6 +3,7 @@ import { cva } from "class-variance-authority";
 import { CheckboxProvider, useCheckboxContext } from "./CheckboxContext";
 import TableHeader from "./TableHeader";
 import TableRow from "./TableRow";
+import { sizes as avatarSizes } from "#src/components/Avatar";
 
 const defaultClasses = ["table-auto", "w-full", "text-left"] as const;
 const table = cva(defaultClasses);
@@ -28,6 +29,7 @@ export type Column<RowType extends { id: string }> = {
   header: React.ReactNode | string;
   type: ColumnType;
   sortable?: boolean;
+  align?: "start" | "center" | "end";
 } & (
   | {
       type: "custom";
@@ -38,7 +40,11 @@ export type Column<RowType extends { id: string }> = {
       target?: "_blank" | "_self" | "_parent" | "_top";
       label?: (row: RowType) => string;
     }
-  | { type: Exclude<ColumnType, "custom" | "link"> }
+  | {
+      type: "avatar";
+      size?: keyof typeof avatarSizes;
+    }
+  | { type: Exclude<ColumnType, "custom" | "link" | "avatar"> }
 );
 
 export type TableProps<RowType extends { id: string }> =

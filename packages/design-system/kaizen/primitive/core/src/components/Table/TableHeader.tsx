@@ -55,6 +55,7 @@ const TableHeader = <RowType extends { id: string }>({
             isHeader
             withVerticalBorders={withVerticalBorders}
             rowHeight={rowHeight}
+            align={col.align}
           >
             <Body htmlVariant="span">{col.header}</Body>
           </TableCell>

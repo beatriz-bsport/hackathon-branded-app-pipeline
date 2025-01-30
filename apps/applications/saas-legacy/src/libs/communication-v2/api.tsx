@@ -31,6 +31,7 @@ import type { PaginatedResponse } from '../../state/types';
 import Config from '../../config';
 
 const API_V1_URI = Config.REACT_APP_BASE_URI_COMMUNICATE_V1;
+const API_V1_URI_CORE_DATA = Config.REACT_APP_BASE_URI_CORE_V1;
 
 export const sendCommunication = async (data: MessageParams) => {
   return postAuthDeprecated(
@@ -85,7 +86,7 @@ export const fetchFirstSelectedRecipientsForChatAllKinds = async (
   } & FetchRecipientsParams,
 ) => {
   return getAuthDeprecated(
-    `${API_V1_URI}/member/selected_members_for_communication_chat_all_kinds/${buildUrlParams(
+    `${API_V1_URI_CORE_DATA}/member/selected_members_for_communication_chat_all_kinds/${buildUrlParams(
       params,
     )}`,
   );

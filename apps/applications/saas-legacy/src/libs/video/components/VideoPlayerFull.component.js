@@ -74,7 +74,7 @@ const VideoPlayerFull = (props: Props) => {
             />
           )}
           {props.video.rental_days > 0 && (
-            <div className={clx([classes.row, classes.rental])}>
+            <div className={clsx([classes.row, classes.rental])}>
               <PlayCircleOutlineIcon />
               <Typography
                 className={clsx(

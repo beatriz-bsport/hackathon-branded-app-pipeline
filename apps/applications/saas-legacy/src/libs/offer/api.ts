@@ -24,6 +24,7 @@ import Config from '../../config';
 
 const API_V1_URI = Config.REACT_APP_BASE_URI_BOOK_V1;
 const API_URI = Config.REACT_APP_BASE_URI_BOOK_V0;
+const API_URI_BUYABLE = Config.REACT_APP_BASE_URI_BUYABLE_V0;
 
 export async function createOffers(data: OfferCreate) {
   return postAuth(`${API_V1_URI}/offer/create_similar_offers/`, data);
@@ -145,7 +146,7 @@ export async function postUserRegistration(
 }
 
 export async function fetchCompatiblePacks(offerId: number) {
-  return getAuth(`${API_URI}/saas/offer/${offerId}/compatible-packs/`);
+  return getAuth(`${API_URI_BUYABLE}/saas/offer/${offerId}/compatible-packs/`);
 }
 
 export async function fetchById(offerId: number) {

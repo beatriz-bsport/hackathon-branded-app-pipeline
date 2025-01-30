@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-// @ts-expect-error Could not find type even if types is installed
 import memoize from 'memoize-one';
 import { DateTime } from 'luxon';
 import {
@@ -77,6 +75,7 @@ export const getPaymentPackTimeLimitation = (
  */
 export const getOfferContraints = (
   baseOffer: Offer_FULL,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   selectedOffers: Array<{ offer: Offer_FULL, extra_data: any }>,
   offerStatusById: { [id: number]: OfferStatus },
   additionalGuestCount: number = 0,
@@ -130,6 +129,7 @@ export const getOfferContraints = (
 export const getCanIBook = (
   offerStatusById: { [id: number]: OfferStatus },
   baseOffer: Offer_FULL,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   selectedOffers: Array<{ offer: Offer_FULL, extra_data: any }>,
   selectedPack: SelectedPack,
   acceptDoubleBooking: boolean,
@@ -171,6 +171,7 @@ export const getCanIBook = (
  */
 export const getOfferFeature = (
   offer: Offer_FULL,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   offerStatusById: any,
   acceptDoubleBooking: boolean,
   acceptDoubleBookingWorkshop: boolean,
@@ -243,6 +244,7 @@ export const getMainOfferNotBookableReason = (
     isRegisteredWaitingList: boolean,
     blockedByTags: boolean,
   },
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   t: (x: string, data?: any) => string,
 ) => {
   let message = t('booking:bookingModule.offer.locked');
@@ -325,6 +327,7 @@ export const getMainOfferNotBookableReasonWithTitle = (
     isRegisteredWaitingList: boolean,
     blockedByTags: boolean,
   },
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   t: (x: string, data?: any) => string,
 ) => {
   let title = t('booking:newBookingModule.blockedReasons.default.title');

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 import { MarketPlaceSessionTimeDisplay } from '@bsport/common/lib/master-data/personalization.js';
@@ -20,8 +20,40 @@ import ConsumerBookingDetailsCardTeacherSection from './sections/ConsumerBooking
 import ConsumerBookingDetailsCardWorkshopSection from './sections/ConsumerBookingDetailsCardWorkshopSection.component';
 
 import './styles.css';
+import Button from '#Fabrique/ButtonV2';
 
-export type Props = {
+type CollpsableSectionProps = {
+  /** The time display configuration retrieved from the company offer */
+  sessionTimeDisplay: MarketPlaceSessionTimeDisplay;
+  /** The name of the timezone retrieved from the company offer */
+  timezoneName: string;
+  /** The description related to the offer's activity */
+  description: string;
+  /** Optional member position in the waitlist if any */
+  waitlistPosition?: number;
+  /** The policy for cancellations related to the offer's activity (duration in minutes) */
+  metaActivityLastDiscardMinutes: number;
+  /** Optional picture of the original teacher */
+  coachPicture?: string;
+  /** Name of the original teacher */
+  coachName?: string;
+  /** Optional description of the original teacher */
+  coachDescription?: string;
+  /** Optional picture of the substitute teacher */
+  coachOverridePicture?: string;
+  /** Optional name of the substitute teacher */
+  coachOverrideName?: string;
+  /** Optional description of the substitute teacher */
+  coachOverrideDescription?: string;
+  /** Optional URL of the teacher's facebook profile */
+  coachFacebookURL?: string;
+  /** Optional URL of the teacher's instagram profile */
+  coachInstagramURL?: string;
+  /** If the offer's meta activity is from a workshop, these are the similar offers from the same workshop */
+  workshopLinkedOffers?: ConsumerBooking[];
+};
+
+export type Props = CollpsableSectionProps & {
   /**  Optional CSS class name to pass to the root element */
   className?: string;
   /** If `true` the placeholder will be displayed instead */
@@ -30,10 +62,6 @@ export type Props = {
   isLoading?: boolean;
   /** The formatted date of the offer */
   date: string;
-  /** The time display configuration retrieved from the company offer */
-  sessionTimeDisplay: MarketPlaceSessionTimeDisplay;
-  /** The name of the timezone retrieved from the company offer */
-  timezoneName: string;
   /** Optional picture from the offer's activity */
   metaActivityPicture: string;
   /** The name of the activity related to the offer */
@@ -71,71 +99,94 @@ export type Props = {
   establishmentTitle?: string;
   /** The address of the establishment related to the offer */
   establishmentAddress?: string;
-  /** The description related to the offer's activity */
-  description: string;
-  /** Optional member position in the waitlist if any */
-  waitlistPosition?: number;
-  /** The policy for cancellations related to the offer's activity (duration in minutes) */
-  metaActivityLastDiscardMinutes: number;
-  /** Optional picture of the original teacher */
-  coachPicture?: string;
-  /** Name of the original teacher */
-  coachName?: string;
-  /** Optional description of the original teacher */
-  coachDescription?: string;
-  /** Optional picture of the substitute teacher */
-  coachOverridePicture?: string;
-  /** Optional name of the substitute teacher */
-  coachOverrideName?: string;
-  /** Optional description of the substitute teacher */
-  coachOverrideDescription?: string;
-  /** Optional URL of the teacher's facebook profile */
-  coachFacebookURL?: string;
-  /** Optional URL of the teacher's instagram profile */
-  coachInstagramURL?: string;
-  /** If the offer's meta activity is from a workshop, these are the similar offers from the same workshop */
-  workshopLinkedOffers?: ConsumerBooking[];
+
+  /** Whether the card is collapsable or not */
+  collapsable?: boolean;
 };
 
-const ConsumerBookingDetailsCard: React.FC<Props> = ({
-  className,
-  showPlaceholder,
-  isLoading,
-  date,
-  sessionTimeDisplay,
-  timezoneName,
-  metaActivityPicture,
-  metaActivityName,
-  levelName,
-  isCancelled,
-  creditsToRefund,
-  cancellationDate,
-  isCancelledFromManager,
-  isLateCancellation,
-  paymentPackName,
-  isConsumerPaymentPackDisabled,
-  consumerPaymentPackPenaltyDisabledFrom,
-  consumerPaymentPackPenaltyDisabledUntil,
-  consumerPaymentPackAvailableCredits,
-  consumerPaymentPackUsedCredits,
-  isPaymentPackUnlimited,
-  paymentPackTotalCredits,
-  establishmentTitle,
-  establishmentAddress,
-  description,
-  waitlistPosition,
-  metaActivityLastDiscardMinutes,
-  coachPicture,
-  coachName,
-  coachDescription,
-  coachOverridePicture,
-  coachOverrideName,
-  coachOverrideDescription,
-  coachFacebookURL,
-  coachInstagramURL,
-  workshopLinkedOffers,
-}) => {
+const CollpsableSection: React.FC<CollpsableSectionProps> = (props) => {
+  const {
+    sessionTimeDisplay,
+    timezoneName,
+    description,
+    waitlistPosition,
+    metaActivityLastDiscardMinutes,
+    coachPicture,
+    coachName,
+    coachDescription,
+    coachOverridePicture,
+    coachOverrideName,
+    coachOverrideDescription,
+    coachFacebookURL,
+    coachInstagramURL,
+    workshopLinkedOffers,
+  } = props;
+  return (
+    <>
+      <ConsumerBookingDetailsCardDescriptionSection description={description} />
+
+      {!!waitlistPosition && (
+        <ConsumerBookingDetailsCardWaitlistSection
+          waitlistPosition={waitlistPosition}
+        />
+      )}
+
+      <ConsumerBookingDetailsCardPolicySection
+        metaActivityLastDiscardMinutes={metaActivityLastDiscardMinutes}
+      />
+
+      {(!!coachName || !!coachOverrideName) && (
+        <ConsumerBookingDetailsCardTeacherSection
+          coachDescription={coachDescription}
+          coachFacebookURL={coachFacebookURL}
+          coachInstagramURL={coachInstagramURL}
+          coachName={coachName}
+          coachOverrideDescription={coachOverrideDescription}
+          coachOverrideName={coachOverrideName}
+          coachOverridePicture={coachOverridePicture}
+          coachPicture={coachPicture}
+        />
+      )}
+
+      {workshopLinkedOffers?.length > 0 && (
+        <ConsumerBookingDetailsCardWorkshopSection
+          sessionTimeDisplay={sessionTimeDisplay}
+          timezoneName={timezoneName}
+          workshopLinkedOffers={workshopLinkedOffers}
+        />
+      )}
+    </>
+  );
+};
+
+const ConsumerBookingDetailsCard: React.FC<Props> = (props) => {
+  const {
+    className,
+    showPlaceholder,
+    isLoading,
+    date,
+    metaActivityPicture,
+    metaActivityName,
+    levelName,
+    isCancelled,
+    creditsToRefund,
+    cancellationDate,
+    isCancelledFromManager,
+    isLateCancellation,
+    paymentPackName,
+    isConsumerPaymentPackDisabled,
+    consumerPaymentPackPenaltyDisabledFrom,
+    consumerPaymentPackPenaltyDisabledUntil,
+    consumerPaymentPackAvailableCredits,
+    consumerPaymentPackUsedCredits,
+    isPaymentPackUnlimited,
+    paymentPackTotalCredits,
+    establishmentTitle,
+    establishmentAddress,
+    collapsable,
+  } = props;
   const { t } = useTranslation('consumerSpace');
+  const [isCollapsed, setIsCollapsed] = useState(collapsable);
 
   if (showPlaceholder && !isLoading) {
     return (
@@ -149,6 +200,8 @@ const ConsumerBookingDetailsCard: React.FC<Props> = ({
   if (isLoading) {
     return <ConsumerDetailsCardSkeleton className={className} />;
   }
+
+  const showCollapsableSection = !collapsable || !isCollapsed;
 
   return (
     <Card className={clsx('bs-consumer-booking-details-card', className)}>
@@ -194,37 +247,20 @@ const ConsumerBookingDetailsCard: React.FC<Props> = ({
         />
       )}
 
-      <ConsumerBookingDetailsCardDescriptionSection description={description} />
+      {showCollapsableSection && <CollpsableSection {...props} />}
 
-      {!!waitlistPosition && (
-        <ConsumerBookingDetailsCardWaitlistSection
-          waitlistPosition={waitlistPosition}
-        />
-      )}
-
-      <ConsumerBookingDetailsCardPolicySection
-        metaActivityLastDiscardMinutes={metaActivityLastDiscardMinutes}
-      />
-
-      {(!!coachName || !!coachOverrideName) && (
-        <ConsumerBookingDetailsCardTeacherSection
-          coachDescription={coachDescription}
-          coachFacebookURL={coachFacebookURL}
-          coachInstagramURL={coachInstagramURL}
-          coachName={coachName}
-          coachOverrideDescription={coachOverrideDescription}
-          coachOverrideName={coachOverrideName}
-          coachOverridePicture={coachOverridePicture}
-          coachPicture={coachPicture}
-        />
-      )}
-
-      {workshopLinkedOffers?.length > 0 && (
-        <ConsumerBookingDetailsCardWorkshopSection
-          sessionTimeDisplay={sessionTimeDisplay}
-          timezoneName={timezoneName}
-          workshopLinkedOffers={workshopLinkedOffers}
-        />
+      {collapsable && (
+        <Button
+          className={clsx('bs-consumer-booking-details-card__collapse-button')}
+          color="grey"
+          onClick={() => setIsCollapsed((state) => !state)}
+          size="sm"
+          variant="text"
+        >
+          {isCollapsed
+            ? t('consumerSpace:reworked.showMore')
+            : t('consumerSpace:reworked.showLess')}
+        </Button>
       )}
     </Card>
   );

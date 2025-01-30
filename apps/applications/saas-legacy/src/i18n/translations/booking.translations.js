@@ -623,6 +623,13 @@ const getTranslations = async () => {
         },
       },
     },
+    oneClickBooking: {
+      checkoutTitle: 'Checkout',
+      alreadyMember: 'Already have an account?',
+      goToLogin: 'Log in',
+      yourBooking: 'Your booking',
+      seeMoreWithLogin: 'Log in to explore packs and subscriptions!',
+    },
   };
 };
 

@@ -88,6 +88,9 @@ exports.default = {
       availableCredit: '{{credits}} credit',
       availableCredit_plural: '{{credits}} credits',
     },
+    price: {
+      free: 'Free',
+    },
     title: {
       universalPassMessage:
         'Universal card, can be used for group activities and appointments',

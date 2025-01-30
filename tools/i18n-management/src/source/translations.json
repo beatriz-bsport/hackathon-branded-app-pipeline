@@ -746,6 +746,13 @@
           "message": "If you remove the pass from the basket, the related bookings will also be removed.",
           "buttons": { "cancel": "CANCEL", "confirm": "REMOVE" }
         }
+      },
+      "oneClickBooking": {
+        "checkoutTitle": "Checkout",
+        "alreadyMember": "Already have an account?",
+        "goToLogin": "Log in",
+        "yourBooking": "Your booking",
+        "seeMoreWithLogin": "Log in to explore packs and subscriptions!"
       }
     },
     "campaign": {
@@ -5481,6 +5488,7 @@
           "availableCredit": "{{credits}} credit",
           "availableCredit_plural": "{{credits}} credits"
         },
+        "price": { "free": "Free" },
         "title": {
           "universalPassMessage": "Universal card, can be used for group activities and appointments",
           "autoRenewal": "Automatic renewal"

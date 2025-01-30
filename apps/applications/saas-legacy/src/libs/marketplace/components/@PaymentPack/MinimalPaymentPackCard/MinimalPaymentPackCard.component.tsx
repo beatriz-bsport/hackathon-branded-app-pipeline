@@ -15,8 +15,9 @@ import GridItem, {
   Direction,
   Justification,
 } from '#src/components/css-only/Grid/GridItem';
-import Price from '#src/components/css-only/Price';
 import type { PaymentPack } from '#src/libs/payment-packs/types';
+import Typography from '#src/components/css-only/Fabrique/Typography/Typography.component';
+import { TypographyVariant } from '#src/components/css-only/Fabrique/Typography/constants';
 
 import MinimalCardSkeleton from '#src/libs/marketplace/components/MinimalCardSkeleton';
 
@@ -27,6 +28,7 @@ export type Props = {
   quantity?: number;
   isExcludingTax?: boolean;
   isLoading: boolean;
+  isFocused?: boolean;
 };
 
 const MinimalPaymentPackCard: React.FC<Props> = ({
@@ -34,6 +36,7 @@ const MinimalPaymentPackCard: React.FC<Props> = ({
   quantity,
   isExcludingTax,
   isLoading,
+  isFocused = false,
 }) => {
   const { t } = useTranslation('marketplace');
 
@@ -56,6 +59,8 @@ const MinimalPaymentPackCard: React.FC<Props> = ({
     <Card
       classes={{
         'bs-minimal-payment-pack-card': 'bs-minimal-payment-pack-card',
+        'bs-minimal-payment-pack-card--focused':
+          isFocused && 'bs-minimal-payment-pack-card--focused',
       }}
       size={CardSize.AUTO}
     >
@@ -83,14 +88,17 @@ const MinimalPaymentPackCard: React.FC<Props> = ({
             justification={Justification.FLEX_START}
             rowStart={1}
           >
-            {formattedQuantity && (
-              <span className="bs-minimal-payment-pack-card__title-item__quantity">
-                {formattedQuantity}
-              </span>
-            )}
-            <div className="bs-minimal-payment-pack-card__title-item__name">
+            <Typography
+              className="bs-minimal-payment-pack-card__title-item__name"
+              variant={TypographyVariant.TITLE_SM}
+            >
+              {formattedQuantity && (
+                <span className="bs-minimal-payment-pack-card__title-item__quantity">
+                  {formattedQuantity}
+                </span>
+              )}
               {paymentPack.name}
-            </div>
+            </Typography>
           </GridItem>
 
           <GridItem
@@ -103,16 +111,18 @@ const MinimalPaymentPackCard: React.FC<Props> = ({
             justification={Justification.FLEX_END}
             rowStart={1}
           >
-            <Price
-              amount={paymentPack.price}
-              classes={{
-                'bs-minimal-payment-pack-card__price-item__price':
-                  'bs-minimal-payment-pack-card__price-item__price',
-              }}
-              formatPriceWithCurrency={getCurrencyDisplayWithPrice}
-              isExcludingTax={isExcludingTax}
-              tax={paymentPack.tax}
-            />
+            <Typography
+              className="bs-minimal-payment-pack-card__price-item__price"
+              variant={TypographyVariant.TITLE_SM}
+            >
+              {paymentPack.price === 0
+                ? t('genericCard.price.free')
+                : getCurrencyDisplayWithPrice(
+                    paymentPack.price,
+                    isExcludingTax,
+                    paymentPack.tax,
+                  )}
+            </Typography>
           </GridItem>
           <GridItem
             classes={{
@@ -123,9 +133,9 @@ const MinimalPaymentPackCard: React.FC<Props> = ({
             justification={Justification.FLEX_START}
             rowStart={2}
           >
-            <div className="bs-minimal-payment-pack-card__credit-item__credits">
+            <Typography variant={TypographyVariant.BODY_SM}>
               {formattedCredits}
-            </div>
+            </Typography>
           </GridItem>
         </Grid>
       </CardContent>

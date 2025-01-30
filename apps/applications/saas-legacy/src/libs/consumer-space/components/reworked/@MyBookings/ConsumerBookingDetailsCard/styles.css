@@ -58,6 +58,10 @@
   background-color: transparent;
 }
 
+.bs-consumer-booking-details-card__collapse-button {
+  margin-top: var(--bs-space-size-4);
+}
+
 /* ----- MODAL DIALOG INTEGRATION ----- */
 .bs-fabrique-modal-dialog__content .bs-consumer-booking-details-card {
   padding: 0;

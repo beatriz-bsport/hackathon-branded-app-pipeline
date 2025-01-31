@@ -18,7 +18,9 @@ export async function getInternationalizedApplications() {
 
   // Filter projects to keep only those with i18n
   const filteredProjectList: Array<ProjectConfig> = [];
-  for (const projectConfig of Object.values(projects)) {
+  for (const projectConfig of Object.values(projects).sort((a, b) =>
+    a.name.localeCompare(b.name),
+  )) {
     const { name: projectName, path: projectPath } = projectConfig;
     const i18nPath = path.join(projectPath, "/src/i18n");
     const publicLocalesPath = path.join(projectPath, "/public/locales");

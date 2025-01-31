@@ -23,6 +23,7 @@ To be read by the tool, an application must have the following file structure.
 └── src
     └── i18n
         ├── namespaces.json
+        ├── locales // will contain the JSON builds
         └── translations
             ├── namespace1.translations.ts // or .js
             └── namespace2.translations.ts // or .js
@@ -49,6 +50,23 @@ exports.default = {
 }
 ```
 
+You can use async export as well if you need to add scripting :
+
+```tsx
+const getTranslations = async () => {
+  // Do something
+
+  return {
+    key1: {
+        ...
+    },
+    ...
+  };
+};
+
+exports.default = getTranslations();
+```
+
 You can have other files in the folder, to setup i18n for instance.
 
 ### “translation:update” script
@@ -63,20 +81,26 @@ Add the following script to your `package.json` application :
 }
 ```
 
-### Define `public/locales/` as source dir to serve translations files
+### Use `public/locales/` as source dir to serve translations files
 
-For each locale, translations files are chunked like this :
+Except for `saas-legacy`, namespaces are prefixed with the application name, to prevent any conflict when loading the files. Indeed, if multiple micro-frontends are running simultanously with their own namespaces, and some have the same naming, we don't want one to override the others.
+
+Thus, for each locale, translations files are chunked like this :
 
 ```tsx
 └── public
     └── locales
         ├── en
-        │   ├── namespace1.json
-        │   └── namespace2.json
+        │   ├── project-name_namespace1.json
+        │   └── project-name_namespace2.json
         ├── fr
-        │   ├── namespace1.json
-        │   └── namespace2.json
+        │   ├── project-name_namespace1.json
+        │   └── project-name_namespace2.json
         └── [locale]
-            ├── namespace1.json
-            └── namespace2.json
+            ├── project-name_namespace1.json
+            └── project-name_namespace2.json
 ```
+
+### Complementary tool
+
+Use [@bsport/i18n](../../packages/utils/i18n/README.md) package to manage i18n. It will automatically handle prefix.

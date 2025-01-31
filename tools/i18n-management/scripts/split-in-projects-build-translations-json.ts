@@ -66,6 +66,7 @@ function splitLocaleTranslationsBetweenProjects({
       translations: projectTranslations,
       pathToPublicLocales,
       pathToI18n,
+      name,
     });
   }
 }
@@ -79,11 +80,13 @@ function updateProjectTranslations({
   translations,
   pathToPublicLocales,
   pathToI18n,
+  name,
 }: {
   locale: string;
   translations: object;
   pathToPublicLocales: string;
   pathToI18n: string;
+  name: string;
 }) {
   // Write to the src/i18n/locales folders so that Nx can track the changes
   const pathToBuildDir = path.resolve(pathToI18n, "locales", locale);
@@ -106,9 +109,13 @@ function updateProjectTranslations({
 
   // Populate dir with namespaced translations file
   Object.entries(translations).map(([namespaceName, namespaceTranslations]) => {
+    // Add package name as prefix to translation files
+    // to prevent conflict when loading chunks from backend
+    const prefix =
+      name === "@bsport/saas-legacy" ? `` : `${name.split("@bsport/")[1]}_`;
     const namespaceTranslationsPath = path.resolve(
       pathToCurrentLocaleDir,
-      `${namespaceName}.json`,
+      `${prefix}${namespaceName}.json`,
     );
     writeFileSync(
       namespaceTranslationsPath,

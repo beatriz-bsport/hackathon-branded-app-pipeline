@@ -1,14 +1,16 @@
 import { useState, useEffect } from "react";
+
 import { buildUrlParams } from "@bsport/fetch";
-import fetch from "#src/utils/fetch";
 import { Card, Title, Body } from "@bsport/kaizen-primitive-core";
+
+import fetch from "#src/utils/fetch";
 
 type OfferMinimal = {
   id: number | undefined;
   activity: number | undefined;
 };
 
-function OfferListExample() {
+const OfferListExample: React.FC = () => {
   const [offers, setOffers] = useState<OfferMinimal[]>([]);
 
   const urlParams = buildUrlParams({
@@ -37,13 +39,13 @@ function OfferListExample() {
   return (
     <div className="flex flex-row mt-xl gap-md flex-wrap">
       {offers.map((offer) => (
-        <Card elevated type="info" key={offer.id}>
+        <Card elevated actionable={false} padding="sm" key={offer.id}>
           <Title htmlVariant="h3">Offer n°{offer.id}</Title>
           <Body htmlVariant="p">Related activity : {offer.activity}</Body>
         </Card>
       ))}
     </div>
   );
-}
+};
 
 export default OfferListExample;

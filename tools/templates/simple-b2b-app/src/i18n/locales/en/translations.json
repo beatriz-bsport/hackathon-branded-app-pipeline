@@ -1,0 +1,12 @@
+{
+    "namespaceAlpha": {
+        "helloWorld": "Hello world !"
+    },
+    "namespaceBeta": {
+        "goodbye": "Goodbye world",
+        "nested": {
+            "item1": "I'm the first item !",
+            "item2": "I'm the second item !"
+        }
+    }
+}

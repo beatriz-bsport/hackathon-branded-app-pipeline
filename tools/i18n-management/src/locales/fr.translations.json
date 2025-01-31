@@ -21252,5 +21252,14 @@
             },
             "broadcastChannelWarning": "La version de votre navigateur ne nous permet pas d'exécuter cette fonctionnalité correctement. Veuillez mettre à jour votre navigateur."
         }
+    },
+    "@bsport/template-simple-b2b-app": {
+        "namespaceAlpha": { "helloWorld": "Bonjour le monde !" },
+        "namespaceBeta": {
+            "nested": {
+                "item1": "Je suis le premier item !",
+                "item2": "Je suis le second item !"
+            }
+        }
     }
 }

@@ -1,6 +1,6 @@
-declare module 'navigation/Navigation' {
-    import { VFC } from 'react'
+declare module "navigation-sidebar/Navigation" {
+  import { VFC } from "react";
 
-    const Navigation: VFC<>
-    export default Navigation
+  const Navigation: VFC<>;
+  export default Navigation;
 }

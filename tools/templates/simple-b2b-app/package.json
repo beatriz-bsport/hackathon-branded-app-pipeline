@@ -5,14 +5,17 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
     "build": "tsc && vite build",
+    "dev": "vite",
+    "federation:navigation": "pnpm exec nx build @bsport/navigation-sidebar && pnpm exec nx preview @bsport/navigation-sidebar",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "translation:update": "pnpm run -w translation:update"
   },
   "dependencies": {
     "@bsport/b2b-backbone": "workspace:*",
     "@bsport/fetch": "workspace:*",
+    "@bsport/i18n": "workspace:*",
     "@bsport/kaizen-primitive-core": "workspace:*",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",

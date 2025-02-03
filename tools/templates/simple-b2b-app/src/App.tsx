@@ -1,14 +1,16 @@
-import { StrictMode } from "react";
-import { createRoot } from "react-dom/client";
-import { BrowserRouter } from "react-router";
-import AppRouter from "#src/Routes";
-import "./index.css";
-import "@bsport/kaizen-primitive-core/styles";
+import { i18nInstance, I18nextProvider } from "#src/utils/i18n";
+import AppRoutes from "./Routes";
 
-createRoot(document.getElementById("root")!).render(
-  <StrictMode>
-    <BrowserRouter>
-      <AppRouter />
-    </BrowserRouter>
-  </StrictMode>,
-);
+/**
+ * Core of the application, without wrapper.
+ * This is what is built and federated.
+ */
+const App: React.FC = () => {
+  return (
+    <I18nextProvider i18n={i18nInstance}>
+      <AppRoutes />
+    </I18nextProvider>
+  );
+};
+
+export default App;

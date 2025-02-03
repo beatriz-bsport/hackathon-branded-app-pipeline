@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
 
-import { Body, Title } from "@bsport/kaizen-primitive-core";
+import { Body, Title, Link } from "@bsport/kaizen-primitive-core";
 import { fetchWithAuth } from "@bsport/b2b-backbone";
 
-import OfferListExample from "./OfferListExample";
 import TranslationExample from "./TranslationExample";
 
 const HomeExample: React.FC = () => {
@@ -48,7 +47,7 @@ const HomeExample: React.FC = () => {
           </div>
         )}
         <TranslationExample />
-        <OfferListExample />
+        <Link href="/list-example">Go to Offer list example</Link>
       </div>
     </div>
   );

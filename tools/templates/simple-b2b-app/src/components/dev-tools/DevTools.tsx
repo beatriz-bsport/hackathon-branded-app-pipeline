@@ -6,7 +6,7 @@ import Logout from "./Logout";
 
 const DevTools: React.FC = () => {
   return (
-    <div className="fixed left-0 top-0 m-xs flex flex-col gap-xs">
+    <div className="fixed left-0 top-0 m-xs flex flex-col gap-xs z-50">
       <Popover>
         <Popover.Anchor>
           {({ setIsPopoverOpened }) => (

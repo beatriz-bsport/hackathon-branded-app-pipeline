@@ -37,7 +37,7 @@ const OfferListExample: React.FC = () => {
   }
 
   return (
-    <div className="flex flex-row mt-xl gap-md flex-wrap">
+    <div className="flex flex-row p-md gap-md flex-wrap">
       {offers.map((offer) => (
         <Card elevated actionable={false} padding="sm" key={offer.id}>
           <Title htmlVariant="h3">Offer n°{offer.id}</Title>

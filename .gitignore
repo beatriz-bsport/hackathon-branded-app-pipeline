@@ -58,3 +58,6 @@ pnpm-store
 # Vite
 vite.config.*.timestamp*
 vitest.config.*.timestamp*
+
+# Translation files
+**/public/locales

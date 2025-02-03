@@ -5,12 +5,16 @@ import dts from "vite-plugin-dts";
 import federation from "@originjs/vite-plugin-federation";
 import { resolve } from "path";
 import { nxViteTsPaths } from "@nx/vite/plugins/nx-tsconfig-paths.plugin";
-import { getAppPort, getLocalFederationRemotes, type APPLICATION } from '@bsport/config-federation';
+import {
+  getAppPort,
+  getLocalFederationRemotes,
+  type APPLICATION,
+} from "@bsport/config-federation";
 
 /**
  * Application name used for federation. Must also be present in @bsport/config-federation to work.
  */
-const APP_NAME: APPLICATION = 'simple-b2b-app';
+const APP_NAME: APPLICATION = "simple-b2b-app";
 
 // https://vite.dev/config/
 const config: UserConfig = {
@@ -37,7 +41,7 @@ const config: UserConfig = {
   ],
   esbuild: {
     supported: {
-      'top-level-await': true,
+      "top-level-await": true,
     },
   },
   build: {
@@ -51,6 +55,7 @@ const config: UserConfig = {
         },
       },
     },
+    cssCodeSplit: false,
     sourcemap: true,
     emptyOutDir: true,
   },

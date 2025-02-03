@@ -3,7 +3,8 @@ echo "⏳ Starting pre-push hook"
 
 # Run translations checks when pushing directly to deployed envs
 RUN_TRANSLATIONS_CHECK="false"
-GIT_BRANCH=$(git branch --show-current)
+# Do not use git branch --show-current as it appeared on git 2.22 and weblate is 2.20
+GIT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
 if [ "$GIT_BRANCH" = "dev" ]; then
     RUN_TRANSLATIONS_CHECK="true"
 elif [ "$GIT_BRANCH" = "staging" ]; then

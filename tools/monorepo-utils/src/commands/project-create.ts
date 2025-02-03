@@ -3,12 +3,13 @@ import type { DistinctQuestion } from "inquirer";
 import type { PackageJson } from "@bsport/typescript-monorepo-utils";
 import { spawn } from "child_process";
 import path from "path";
-import fs from "fs-extra";
+import fs, { existsSync } from "fs-extra";
 import inquirer from "inquirer";
 import kebabCase from "lodash/kebabCase";
 import {
   getMonorepoBasePath,
   getProjectsPackageJsons,
+  declareEnvVariable,
 } from "@bsport/typescript-monorepo-utils";
 
 const bsportName = "bsport";
@@ -260,7 +261,6 @@ async function main(options: Partial<ActionParameters> & { quiet: boolean }) {
     );
 
     if (!isInMonorepo) {
-      const monorepoBasePath = await getMonorepoBasePath();
       throw new Error(`❌ The package is not recognised by the monorepo.
 Please edit the following file to include it: ${path.resolve(
         monorepoBasePath,
@@ -268,6 +268,27 @@ Please edit the following file to include it: ${path.resolve(
       )}`);
     }
     print("✅ The package has been successfully declared in the monorepo.");
+  }
+
+  // Populate env variables
+  {
+    print("⏳ Populating env variables...");
+    // Read the env variables from the .env file
+    const envFile = path.resolve(projectAbsPath, ".env");
+    if (existsSync(envFile)) {
+      // Override or create specific variables with the right value
+
+      // Override VITE_I18N_NAMESPACE_PREFIX if it exists with the app name
+      declareEnvVariable({
+        filename: envFile,
+        name: "VITE_I18N_NAMESPACE_PREFIX",
+        value: params.name,
+        overrideOnly: true,
+      });
+    }
+    print(
+      "✅ The env variables has been successfully setup in the new project !",
+    );
   }
 
   // Runs the setup script if it exists.

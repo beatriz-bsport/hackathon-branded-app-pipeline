@@ -6,6 +6,7 @@ import util from "node:util";
 import {
   getMonorepoBasePathSync,
   getProjectPath,
+  declareEnvVariable,
 } from "@bsport/typescript-monorepo-utils";
 import child_process from "child_process";
 
@@ -136,7 +137,7 @@ async function action(
       );
     }
     print(`> Set variable ${variableName} to : ${variableValue}`);
-    await declareVariable({
+    declareEnvVariable({
       filename: envFilePath,
       name: variableName,
       value: variableValue,
@@ -154,24 +155,6 @@ async function action(
   print(
     `🚀 API Environment variables successfully set with environment ${env}`,
   );
-}
-
-/**
- * Create or replace environement variable in specified file
- */
-async function declareVariable({
-  filename,
-  name,
-  value,
-}: {
-  filename: string;
-  name: string;
-  value: string;
-}) {
-  // Drop line containing the variable if it exists
-  await exec(`sed -i '/${name}/d' ${filename}`);
-  // Write new line mapping name to value
-  await exec(`echo "${name}=${value}" >> ${filename}`);
 }
 
 export default function setApiEnvironment(program: Command) {

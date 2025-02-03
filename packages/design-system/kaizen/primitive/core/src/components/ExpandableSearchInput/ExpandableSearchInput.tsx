@@ -6,16 +6,17 @@ import TextField from "#src/components/TextField";
 const DEFAULT_EXPANDED_WIDTH = 200;
 const COLLAPSED_WIDTH = 32;
 
-export type ExpandableSearchInputProps = React.HTMLAttributes<HTMLDivElement> & {
-  id: string;
-  placeholder?: string;
-  position?: "left" | "right";
-  maxWidth?: number;
-  inputValue?: string;
-  onInputValueChange?: (value: string) => void;
-  onButtonClick?: () => void;
-  onClear?: () => void;
-};
+export type ExpandableSearchInputProps =
+  React.HTMLAttributes<HTMLDivElement> & {
+    id: string;
+    placeholder?: string;
+    position?: "left" | "right";
+    maxWidth?: number;
+    inputValue?: string;
+    onInputValueChange?: (value: string) => void;
+    onButtonClick?: () => void;
+    onClear?: () => void;
+  };
 
 /**
  * The ExpandableSearchInput component provides interactive search functionality by utilizing a TextField.
@@ -105,11 +106,10 @@ const ExpandableSearchInput: React.FC<ExpandableSearchInputProps> = ({
       )}
       {isInputVisible && (
         <TextField
-          className={classNames("transition-all duration-long ease-out", {
-            [`!max-w-[${maxWidth}px]`]: maxWidth,
-            [`w-[${maxWidth}px]`]: isOpened,
-            [`w-[${COLLAPSED_WIDTH}px]`]: !isOpened,
-          })}
+          style={{
+            width: isOpened ? `${maxWidth}px` : `${COLLAPSED_WIDTH}px`,
+            transition: "width 300ms ease-out",
+          }}
           id={id}
           type="search"
           value={value}

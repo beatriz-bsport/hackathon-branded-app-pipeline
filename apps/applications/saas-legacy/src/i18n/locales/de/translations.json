@@ -9928,7 +9928,7 @@
             "recurrent": {
                 "backToRegistererChoice": "Zurück",
                 "bookMultiple": "Buchen",
-                "title": "Nächste Kurse"
+                "title": "Nächsten Kurse"
             },
             "isLoading": "Kurse werden gesucht...",
             "book": {
@@ -10950,7 +10950,7 @@
         "finish": "Beenden",
         "letsGo": "Los geht's!",
         "previous": "Vorherige",
-        "next": "Nächste",
+        "next": "weiter",
         "start": "Beginnen",
         "card": {
             "categoryNames": {

@@ -10,10 +10,7 @@ const defaultClasses = [
   "min-h-2xl",
   "py-xs",
   "px-md",
-  "justify-between",
-  "items-center",
   "gap-xs",
-  "self-stretch",
   "border-b-stroke-thin",
   "border-b-stroke-divider",
 ] as const;
@@ -29,6 +26,10 @@ const variants = {
       "hover:bg-surface-action-default-weak-hovered",
       "active:bg-surface-action-default-weak-pressed",
     ],
+  },
+  isLink: {
+    true: "",
+    false: "flex w-full justify-between items-center gap-xs self-stretch",
   },
 } as const;
 

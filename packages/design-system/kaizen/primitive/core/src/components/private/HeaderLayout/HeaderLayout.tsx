@@ -40,7 +40,7 @@ export type HeaderLayoutProps = React.HTMLAttributes<HTMLDivElement> &
  * @param props.pageTitle Title of the page.
  * @param props.searchConfig Optional. Configuration for search input.
  * @param props.startGroupActions Optional. Array of ReactNode to align with the CTA Button with a Divider separation.
- * @link https://docs.infra.bsport.io/storybook/kaizen/dev/index.html?path=/docs/components-layoutheader--docs
+ * @link https://docs.infra.bsport.io/storybook/kaizen/dev/index.html?path=/docs/components-private-headerlayout--docs
  */
 const LayoutHeader: React.FC<HeaderLayoutProps> = ({
   breadcrumbsItems,

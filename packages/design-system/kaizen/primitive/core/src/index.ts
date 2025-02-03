@@ -19,6 +19,7 @@ export { default as Icon } from "./components/Icon";
 export { default as Indicator } from "./components/Indicator";
 export { default as Link } from "./components/Link";
 export { default as List } from "./components/List";
+export { default as ListLayout } from "./components/ListLayout";
 export { default as Media } from "./components/Media";
 export { default as Menu } from "./components/Menu";
 export { default as MenuItem } from "./components/Menu/MenuItem";

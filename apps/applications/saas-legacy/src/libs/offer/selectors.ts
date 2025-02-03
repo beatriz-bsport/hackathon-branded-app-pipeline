@@ -575,8 +575,17 @@ export const getOfferForAnalytics = createSelector(
 const getSimilarOffersState = (state: RootState) =>
   state.offer.similarOffersReworked;
 
+/**
+ * The similar offers endpoint includes the reference offer in the response.
+ * `${API_V1_URI}/offer/${referenceOfferId}/similars/
+ * However this selector returns the count of similar offers that are different
+ * from the reference offer, hence the -1.
+ *
+ * @param {RootState} state - The Redux root state.
+ * @returns {number} - The number of similar offers, distinct from the reference one.
+ */
 export const getSimilarOffersReworkedCount = (state: RootState) =>
-  getSimilarOffersState(state).count;
+  Math.max(getSimilarOffersState(state).count - 1, 0);
 
 export const getSimilarOffersReworkedIsLoading = (state: RootState) =>
   getSimilarOffersState(state).loading;

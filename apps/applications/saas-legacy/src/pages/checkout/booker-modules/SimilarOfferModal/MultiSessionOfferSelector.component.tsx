@@ -93,7 +93,7 @@ const OfferSessionCard: React.FC<OfferSessionCardProps<Offer_FULL>> = ({
       onClick={handleClick}
     >
       <Typography className="bs-similar-offer-modal__card__title">
-        {metaActivity.name}
+        {offer.name_override ?? metaActivity.name}
       </Typography>
       <Typography className="bs-similar-offer-modal__card__subtitle">
         {date}
@@ -144,13 +144,19 @@ const MultiSessionOfferSelector: React.FC<MultiSessionOfferFinalProps> = ({
 
   useEffect(() => {
     if (
+      isAbleToFetchMoreSimilarSessions &&
       similarOffers?.length &&
       preSelectedOffers?.length &&
       similarOffers.length === preSelectedOffers.length
     ) {
       fetchMoreSessions();
     }
-  }, [similarOffers?.length, preSelectedOffers?.length, fetchMoreSessions]);
+  }, [
+    isAbleToFetchMoreSimilarSessions,
+    similarOffers?.length,
+    preSelectedOffers?.length,
+    fetchMoreSessions,
+  ]);
 
   const areAllSessionsSelected =
     !isAbleToFetchMoreSimilarSessions &&

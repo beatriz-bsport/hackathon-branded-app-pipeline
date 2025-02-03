@@ -850,7 +850,10 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
       {
         offersConstraint: newOfferConstraints,
       },
-      this.unselectIncompatibleItem,
+      () => {
+        this.getBuyableItemCategories();
+        this.unselectIncompatibleItem();
+      },
     );
   };
 
@@ -1175,10 +1178,13 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
   };
 
   getIsLoading: () => boolean = () => {
+    const mainOfferStatusNotLoadedYet =
+      !this.props.offerStatusById[this.props.offerId];
+
     return (
       !this.state.offerWasRetrieved ||
       !this.props.offer ||
-      this.props.offerStatusLoading ||
+      mainOfferStatusNotLoadedYet ||
       this.props.consumerPaymentPackLoading ||
       this.props.consumerPaymentPackMaxoutLoading ||
       this.props.paymentPackLoading ||
@@ -1493,19 +1499,9 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
   };
 
   toggleSimilarOfferModal = () => {
-    this.setState(
-      (prevState: State) => ({
-        isSimilarOfferModalOpened: !prevState.isSimilarOfferModalOpened,
-      }),
-      () => {
-        this.fetchOfferStatusList(
-          this.state.selectedOffers.map(
-            (selectedOffer) => selectedOffer.offer.id,
-          ),
-        );
-        this.updateOfferConstraints();
-      },
-    );
+    this.setState((prevState: State) => ({
+      isSimilarOfferModalOpened: !prevState.isSimilarOfferModalOpened,
+    }));
   };
 
   toggleDisplayHiddenGroupedSessions = () => {

@@ -87,6 +87,7 @@ const MultiSessionModalStepper: React.FC<Props> = ({
       preSelectedOffers.forEach((preSelectedOffer) =>
         onConfirmSessionToAdd(preSelectedOffer),
       );
+      setPreSelectedOffers([]);
       onClose();
     }
   }, [

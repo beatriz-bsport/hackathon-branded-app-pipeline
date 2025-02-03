@@ -169,6 +169,55 @@ importers:
         specifier: ^4.3.0
         version: 4.3.0(rollup@4.30.1)(typescript@5.6.3)(vite@6.0.7(@types/node@22.9.0)(jiti@2.4.2)(less@4.1.3)(sass@1.77.8)(stylus@0.64.0)(terser@5.31.3)(tsx@4.19.2)(yaml@2.7.0))
 
+  apps/applications/b2b/booking/group-activity:
+    dependencies:
+      '@bsport/b2b-backbone':
+        specifier: workspace:*
+        version: link:../../../../../packages/utils/b2b-backbone
+      '@bsport/fetch':
+        specifier: workspace:*
+        version: link:../../../../../packages/utils/fetch
+      '@bsport/i18n':
+        specifier: workspace:*
+        version: link:../../../../../packages/utils/i18n
+      '@bsport/kaizen-primitive-core':
+        specifier: workspace:*
+        version: link:../../../../../packages/design-system/kaizen/primitive/core
+      react:
+        specifier: ^19.0.0
+        version: 19.0.0
+      react-dom:
+        specifier: ^19.0.0
+        version: 19.0.0(react@19.0.0)
+      react-router:
+        specifier: ^7.1.1
+        version: 7.1.5(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+    devDependencies:
+      '@bsport/config-federation':
+        specifier: workspace:*
+        version: link:../../../../../tools/config/federation
+      '@bsport/eslint-config-react':
+        specifier: workspace:*
+        version: link:../../../../../tools/config/eslint
+      '@originjs/vite-plugin-federation':
+        specifier: ^1.3.9
+        version: 1.3.9
+      autoprefixer:
+        specifier: ^10.4.20
+        version: 10.4.20(postcss@8.4.49)
+      postcss:
+        specifier: ^8.4.49
+        version: 8.4.49
+      tailwindcss:
+        specifier: ^3.4.14
+        version: 3.4.14(ts-node@10.9.2(@swc/core@1.9.2(@swc/helpers@0.5.15))(@types/node@22.9.0)(typescript@5.6.3))
+      vite:
+        specifier: ^5.4.11
+        version: 5.4.11(@types/node@22.9.0)(less@4.1.3)(sass@1.77.8)(stylus@0.64.0)(terser@5.31.3)
+      vite-plugin-svgr:
+        specifier: ^4.3.0
+        version: 4.3.0(rollup@4.30.1)(typescript@5.6.3)(vite@5.4.11(@types/node@22.9.0)(less@4.1.3)(sass@1.77.8)(stylus@0.64.0)(terser@5.31.3))
+
   apps/applications/b2b/core-data/member/member-list:
     dependencies:
       '@bsport/b2b-backbone':
@@ -19826,9 +19875,7 @@ snapshots:
       source-map: 0.6.1
       string-length: 2.0.0
     transitivePeerDependencies:
-      - bufferutil
       - supports-color
-      - utf-8-validate
 
   '@jest/reporters@28.1.3(node-notifier@8.0.2)':
     dependencies:
@@ -27042,7 +27089,7 @@ snapshots:
   cz-conventional-changelog@3.3.0(@types/node@14.18.63)(typescript@4.9.5):
     dependencies:
       chalk: 2.4.2
-      commitizen: 4.3.1(@types/node@20.12.12)(typescript@5.6.3)
+      commitizen: 4.3.1(@types/node@22.9.0)(typescript@5.6.3)
       conventional-commit-types: 3.0.0
       lodash.map: 4.6.0
       longest: 2.0.1
@@ -31302,9 +31349,7 @@ snapshots:
       pretty-format: 24.9.0
       throat: 4.1.0
     transitivePeerDependencies:
-      - bufferutil
       - supports-color
-      - utf-8-validate
 
   jest-junit@14.0.1:
     dependencies:

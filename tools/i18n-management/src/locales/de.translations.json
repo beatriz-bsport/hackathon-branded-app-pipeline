@@ -16142,6 +16142,9 @@
                 "title": {
                     "universalPassMessage": "Universalpässe, können für Gruppenaktivitäten und Termine verwendet werden",
                     "autoRenewal": "Automatische Verlängerung"
+                },
+                "price": {
+                    "free": "Kostenlos"
                 }
             },
             "packCard": {

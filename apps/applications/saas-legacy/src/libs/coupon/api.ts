@@ -29,7 +29,7 @@ import type {
 } from './types';
 import Config from '../../config';
 
-const COUPON_URI = Config.REACT_APP_BASE_URI_FINANCIAL_SERVICES_V1;
+const COUPON_URI = `${Config.REACT_APP_BASE_URI_FINANCIAL_SERVICES_V1}/coupon/`;
 
 export const fetchCouponPage: (
   page: number,
@@ -130,47 +130,47 @@ export const fetchCouponTemplateList = (
   params?: FetchCouponTemplateQueryParams,
 ) =>
   getAuth<PaginatedResponse<CouponTemplate>>(
-    `${COUPON_URI}/coupon_template/${buildUrlParams(params)}`,
+    `${COUPON_URI}coupon_template/${buildUrlParams(params)}`,
   );
 
 export const fetchCouponTemplatePaginetedList = (
   params: FetchCouponTemplatePaginatedQueryParams,
 ) =>
   getAuth<PaginatedResponse<CouponTemplateAPI>>(
-    `${COUPON_URI}/coupon_template/${buildUrlParams(params)}`,
+    `${COUPON_URI}coupon_template/${buildUrlParams(params)}`,
   );
 
 export const retrieveCouponTemplate: (
   id: number,
 ) => Promise<AxiosResponse<CouponTemplate>> = async (id) => {
-  return getAuth(`${COUPON_URI}/coupon_template/${id}/`);
+  return getAuth(`${COUPON_URI}coupon_template/${id}/`);
 };
 
 export const createOrUpdateCouponTemplate: (
   data: CouponTemplate,
 ) => Promise<AxiosResponse<CouponTemplate>> = async (data) => {
   if (!data.id) {
-    return postAuth(`${COUPON_URI}/coupon_template/`, data);
+    return postAuth(`${COUPON_URI}coupon_template/`, data);
   }
-  return putAuth(`${COUPON_URI}/coupon_template/${data.id}/`, data);
+  return putAuth(`${COUPON_URI}coupon_template/${data.id}/`, data);
 };
 
 export const deleteCouponTemplate: (
   id: number,
 ) => Promise<AxiosResponse<null>> = async (id) => {
-  return deleteAuth(`${COUPON_URI}/coupon_template/${id}/`);
+  return deleteAuth(`${COUPON_URI}coupon_template/${id}/`);
 };
 
 export const createCouponTemplateInstance: (
   data: CouponTemplateParams,
 ) => Promise<AxiosResponse<CouponTemplateInstance>> = async (data) => {
-  return postAuth(`${COUPON_URI}/coupon_template_instance/multi_create/`, data);
+  return postAuth(`${COUPON_URI}coupon_template_instance/multi_create/`, data);
 };
 
 export const deleteCouponTemplateInstance: (
   id: number,
 ) => Promise<AxiosResponse<null>> = async (id) => {
-  return deleteAuth(`${COUPON_URI}/coupon_template_instance/${id}/`);
+  return deleteAuth(`${COUPON_URI}coupon_template_instance/${id}/`);
 };
 
 export const createUniqueCodeCoupon: (

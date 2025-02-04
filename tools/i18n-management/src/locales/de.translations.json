@@ -10447,7 +10447,14 @@
                 "content": "Diese Buchung wurde zu spät storniert, um automatisch erstattet zu werden. Klicke auf „Erstattung“, um eine einmalige Rückerstattung für diese Buchung vorzunehmen.",
                 "title": "Erstattung bei verspäteter Stornierung"
             },
-            "refund": "Erstattung"
+            "refund": "Erstattung",
+            "oneClickBooking": {
+                "seeMoreWithLogin": "Melde dich an um Pakete und Mitlgliedschaften zu entdecken!",
+                "yourBooking": "Deine Buchung",
+                "goToLogin": "Anmeldung",
+                "alreadyMember": "Sie haben bereits einen Account?",
+                "checkoutTitle": "Bezahlen"
+            }
         },
         "member": {
             "exists": {
@@ -10994,7 +11001,8 @@
                 "X": "Nicht-binär",
                 "M": "Männlich",
                 "F": "Weiblich"
-            }
+            },
+            "biweekly": "Zweimal wöchentlich"
         },
         "coupon": {
             "detail": {

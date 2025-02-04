@@ -25,3 +25,44 @@ window.runtimeBsport.env.REACT_APP_SENTRY_DSN = '';
 window.runtimeBsport.env.I18N_TRANSLATION_DOMAIN =
   'https://backoffice.bsport.io';
 window.runtimeBsport.env.PUBLIC_URL = 'https://backoffice.bsport.io';
+
+window.runtime.env.REACT_APP_BASE_URI_BUSINESS_INSIGHTS_V0 =
+  'https://api.production.bsport.io/business-insights/v0';
+window.runtime.env.REACT_APP_BASE_URI_BUSINESS_INSIGHTS_V1 =
+  'https://api.production.bsport.io/business-insights/v1';
+window.runtime.env.REACT_APP_BASE_URI_BOOK_V0 =
+  'https://api.production.bsport.io/book/v0';
+window.runtime.env.REACT_APP_BASE_URI_BOOK_V1 =
+  'https://api.production.bsport.io/book/v1';
+window.runtime.env.REACT_APP_BASE_URI_BUYABLE_V0 =
+  'https://api.production.bsport.io/buyable/v0';
+window.runtime.env.REACT_APP_BASE_URI_BUYABLE_V1 =
+  'https://api.production.bsport.io/buyable/v1';
+window.runtime.env.REACT_APP_BASE_URI_COMMUNICATE_V0 =
+  'https://api.production.bsport.io/communicate/v0';
+window.runtime.env.REACT_APP_BASE_URI_COMMUNICATE_V1 =
+  'https://api.production.bsport.io/communicate/v1';
+window.runtime.env.REACT_APP_BASE_URI_CORE_V0 =
+  'https://api.production.bsport.io/core-data/v0';
+window.runtime.env.REACT_APP_BASE_URI_CORE_V1 =
+  'https://api.production.bsport.io/core-data/v1';
+window.runtime.env.REACT_APP_BASE_URI_FINANCIAL_SERVICES_V0 =
+  'https://api.production.bsport.io/financial-services/v0';
+window.runtime.env.REACT_APP_BASE_URI_FINANCIAL_SERVICES_V1 =
+  'https://api.production.bsport.io/financial-services/v1';
+window.runtime.env.REACT_APP_BASE_URI_CDP_V0 =
+  'https://api.production.bsport.io/customer-data-platform/v0';
+window.runtime.env.REACT_APP_BASE_URI_CDP_V1 =
+  'https://api.production.bsport.io/customer-data-platform/v1';
+window.runtime.env.REACT_APP_BASE_URI_MEMBER_EXPERIENCE_V0 =
+  'https://api.production.bsport.io/member-experience/v0';
+window.runtime.env.REACT_APP_BASE_URI_MEMBER_EXPERIENCE_V1 =
+  'https://api.production.bsport.io/member-experience/v1';
+window.runtime.env.REACT_APP_BASE_URI_PLATFORM_V0 =
+  'https://api.production.bsport.io/platform/v0';
+window.runtime.env.REACT_APP_BASE_URI_PLATFORM_V1 =
+  'https://api.production.bsport.io/platform/v1';
+window.runtime.env.REACT_APP_BASE_URI_STAFF_MANAGEMENT_V0 =
+  'https://api.production.bsport.io/staff-management/v0';
+window.runtime.env.REACT_APP_BASE_URI_STAFF_MANAGEMENT_V1 =
+  'https://api.production.bsport.io/staff-management/v1';

@@ -119,9 +119,9 @@ const TableRow = <RowType extends { id: string }>({
   return (
     <tr
       className={classNames({
-        "bg-surface-default hover:bg-surface-action-default-weak-hovered":
+        "bg-surface-default hover:bg-surface-action-default-weak-hovered active:bg-surface-action-default-weak-pressed":
           !selected,
-        "bg-surface-action-main-selected-rest hover:bg-surface-action-main-selected-hovered":
+        "bg-surface-action-main-selected-rest hover:bg-surface-action-main-selected-hovered active:bg-surface-action-main-selected-pressed":
           selected,
       })}
     >

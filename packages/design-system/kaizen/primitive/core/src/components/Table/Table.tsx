@@ -1,9 +1,14 @@
-import React, { TableHTMLAttributes, useCallback, useMemo } from "react";
+import React, { TableHTMLAttributes, useCallback } from "react";
 import { cva } from "class-variance-authority";
-import { CheckboxProvider, useCheckboxContext } from "./CheckboxContext";
 import TableHeader from "./TableHeader";
 import TableRow from "./TableRow";
 import { sizes as avatarSizes } from "#src/components/Avatar";
+import { type PaginationProps } from "#src/components/private/Pagination";
+import {
+  CheckboxProvider,
+  useCheckboxContext,
+} from "#src/contexts/CheckboxContext";
+import { usePagination } from "#src/hooks/use-pagination";
 
 const defaultClasses = ["table-auto", "w-full", "text-left"] as const;
 const table = cva(defaultClasses);
@@ -54,6 +59,7 @@ export type TableProps<RowType extends { id: string }> =
     rowHeight?: "sm" | "lg";
     selectable?: boolean;
     withVerticalBorders?: boolean;
+    paginationProps?: PaginationProps;
   };
 
 /**
@@ -74,13 +80,16 @@ const Table = <RowType extends { id: string }>({
   rowHeight = "sm",
   selectable = false,
   withVerticalBorders = false,
+  paginationProps,
   ...props
 }: TableProps<RowType>) => {
-  const InnerTableComponent = selectable ? InnerTableWithContext : InnerTable;
+  const valueIds = rows?.map((row) => row.id) ?? [];
+
+  const renderedPagination = usePagination(paginationProps);
 
   return (
-    <CheckboxProvider>
-      <InnerTableComponent
+    <CheckboxProvider valueIds={valueIds}>
+      <InnerTableWithContext
         columns={columns}
         rows={rows}
         rowHeight={rowHeight}
@@ -89,6 +98,7 @@ const Table = <RowType extends { id: string }>({
         className={className}
         {...props}
       />
+      {renderedPagination}
     </CheckboxProvider>
   );
 };
@@ -102,18 +112,13 @@ const InnerTableWithContext = <RowType extends { id: string }>({
   withVerticalBorders,
   ...props
 }: TableProps<RowType>) => {
-  const { selectedValues, toggleCheckbox, setSelectedValues } =
-    useCheckboxContext();
-
-  const areAllSelected = useMemo(
-    () => rows.length > 0 && selectedValues.length === rows.length,
-    [rows, selectedValues],
-  );
-
-  const areSomeSelected = useMemo(
-    () => selectedValues.length > 0 && selectedValues.length < rows.length,
-    [rows, selectedValues],
-  );
+  const {
+    areAllSelected,
+    areSomeSelected,
+    selectedValues,
+    toggleCheckbox,
+    setSelectedValues,
+  } = useCheckboxContext();
 
   const handleSelectAllChange = useCallback(() => {
     setSelectedValues(
@@ -161,17 +166,6 @@ const InnerTableWithContext = <RowType extends { id: string }>({
   );
 };
 
-const InnerTable = <RowType extends { id: string }>({
-  columns,
-  rows,
-  ...props
-}: TableProps<RowType>) => (
-  <InnerTableWithContext
-    {...props}
-    columns={columns}
-    rows={rows}
-    selectable={false}
-  />
-);
+Table.displayName = "KaizenTable";
 
 export default Table;

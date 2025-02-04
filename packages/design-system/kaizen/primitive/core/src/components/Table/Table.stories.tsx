@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Meta, StoryObj } from "@storybook/react";
 import Table, { Column } from "./Table";
 import Button from "#src/components/Button";
@@ -29,62 +29,30 @@ type DataRow = {
   };
 };
 
-const rows: DataRow[] = [
-  {
-    id: "row-1",
-    avatar: AvatarImage,
-    name: "John Doe",
-    registeredDate: new Date("2024-01-15T14:30:00Z"),
-    status: [
-      { label: "Active", color: "positive" },
-      { label: "Verified", color: "warning" },
-    ],
-    amount: 120000,
-    actions: ["Edit", "Delete"],
-    profile: {
-      link: {
-        href: "/profile/johndoe",
-        label: "View Profile",
-      },
+const rows: DataRow[] = Array.from({ length: 100 }, (_, index) => ({
+  id: `row-${index}`,
+  avatar: {
+    src: AvatarImage,
+    alt: `Avatar ${index}`,
+  },
+  name: `Name ${index}`,
+  registeredDate: new Date("2022-12-18T15:00:00Z"),
+  status: [
+    {
+      label: `Status ${index % 3}`,
+      color:
+        index % 3 === 0 ? "positive" : index % 3 === 1 ? "warning" : "critical",
+    },
+  ],
+  amount: index * 100,
+  actions: ["Edit", "Delete"],
+  profile: {
+    link: {
+      href: `/profile/user-${index}`,
+      label: `View Profile ${index}`,
     },
   },
-  {
-    id: "row-2",
-    avatar: {
-      src: AvatarImage,
-      alt: "Jane Smith",
-    },
-    name: "Jane Smith",
-    registeredDate: new Date("2023-08-20T09:00:00Z"),
-    status: [{ label: "Inactive", color: "critical" }],
-    amount: 98000,
-    actions: ["Edit"],
-    profile: {
-      link: {
-        href: "/profile/janesmith",
-        label: "View Profile",
-      },
-    },
-  },
-  {
-    id: "row-3",
-    avatar: {
-      src: AvatarImage,
-      alt: "Alice Brown",
-    },
-    name: "Alice Brown",
-    registeredDate: new Date("2024-03-10T10:15:00Z"),
-    status: [],
-    amount: 75000,
-    actions: ["Edit", "View"],
-    profile: {
-      link: {
-        href: "/profile/alicebrown",
-        label: "View Profile",
-      },
-    },
-  },
-];
+}));
 
 const columns: Column<DataRow>[] = [
   {
@@ -167,9 +135,53 @@ const columns: Column<DataRow>[] = [
 export const Primary: StoryObj<typeof Table> = {
   args: {
     columns: columns as Column<{ id: string }>[],
+    rows: rows.slice(0, 5),
+    rowHeight: "sm",
+    selectable: true,
+    withVerticalBorders: true,
+  },
+};
+
+const updateRows = (page: number, nbRows: number) => {
+  const start = (page - 1) * nbRows;
+  const end = start + nbRows;
+  return rows.slice(start, end);
+};
+
+export const WithPagination: StoryObj<typeof Table> = {
+  args: {
+    columns: columns as Column<{ id: string }>[],
     rows,
     rowHeight: "sm",
     selectable: true,
     withVerticalBorders: true,
+    paginationProps: {
+      currentPage: 1,
+      rowsPerPage: 10,
+      totalItems: 100,
+      showRowsPerPageSelector: true,
+    },
+  },
+  render: (args) => {
+    const { paginationProps } = args;
+    const [tableRows, setTableRows] = useState(updateRows(1, 10));
+
+    const handlePaginationSettingsChange = (page: number, rows: number) => {
+      setTableRows(updateRows(page, rows));
+    };
+
+    return (
+      <Table
+        {...args}
+        rows={tableRows}
+        paginationProps={{
+          ...paginationProps,
+          currentPage: paginationProps?.currentPage || 1,
+          rowsPerPage: paginationProps?.rowsPerPage || 10,
+          totalItems: paginationProps?.totalItems || 100,
+          onPageSettingsChange: handlePaginationSettingsChange,
+        }}
+      />
+    );
   },
 };

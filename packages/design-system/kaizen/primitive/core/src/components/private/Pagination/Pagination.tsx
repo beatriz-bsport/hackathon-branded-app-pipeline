@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { cva, type VariantProps } from "class-variance-authority";
+import classNames from "classnames";
 import Body from "#src/components/Body";
 import Button from "#src/components/Button";
 import Divider from "#src/components/Divider";
@@ -10,7 +11,6 @@ const defaultClasses = [
   "flex-wrap",
   "w-full",
   "h-lg",
-  "justify-between",
   "items-center",
   "content-center",
   "gap-y-sm",
@@ -37,6 +37,10 @@ const buttonVariants = {
     ],
     false: ["bg-surface-action-default-weak-rest"],
   },
+  disabled: {
+    true: ["pointer-events-none", "opacity-md"],
+    false: [],
+  }
 } as const;
 
 const pagination = cva(defaultClasses);
@@ -51,6 +55,8 @@ export type PaginationProps = React.HTMLAttributes<HTMLDivElement> &
     rowsPerPage: number | undefined;
     totalItems: number;
     showRowsPerPageSelector?: boolean;
+    disabled?: boolean;
+    onPageSettingsChange?: (page: number, rowsPerPage: number) => void;
     onPageChange?: (page: number) => void;
     onRowsPerPageChange?: (rowsPerPage: number) => void;
   };
@@ -64,6 +70,8 @@ export type PaginationProps = React.HTMLAttributes<HTMLDivElement> &
  * @param props.rowsPerPage The number of rows per page. Defaults to 10.
  * @param props.totalItems The total number of items in the dataset.
  * @param props.showRowsPerPageSelector Whether to display a selector for rows per page.
+ * @param props.disabled Whether the pagination buttons are disabled.
+ * @param props.onPageSettingsChange Callback for handling changes to both the page number and the rows selector.
  * @param props.onPageChange Callback for handling page changes. Receives the new page number as an argument.
  * @param props.onRowsPerPageChange Callback for handling rows per page changes. Receives the new rowsPerPage value as an argument.
  */
@@ -73,14 +81,18 @@ const Pagination: React.FC<PaginationProps> = ({
   rowsPerPage = 10,
   totalItems,
   showRowsPerPageSelector = false,
+  disabled = false,
+  onPageSettingsChange,
   onPageChange,
   onRowsPerPageChange,
   ...props
 }) => {
-  const [localRowsPerPage, setLocalRowsPerPage] = useState(0);
+  const [localRowsPerPage, setLocalRowsPerPage] = useState(rowsPerPage);
 
   useEffect(() => {
-    setLocalRowsPerPage(rowsPerPage);
+    if (rowsPerPage != localRowsPerPage) {
+      setLocalRowsPerPage(rowsPerPage);
+    }
   }, [rowsPerPage]);
 
   const totalPages = useMemo(
@@ -107,6 +119,7 @@ const Pagination: React.FC<PaginationProps> = ({
         `Current page ${currentPage} is out of range. Adjusting to valid range.`,
       );
       onPageChange?.(validPage);
+      onPageSettingsChange?.(validPage, rowsPerPage);
     }
   }, [currentPage, totalPages, onPageChange]);
 
@@ -114,6 +127,7 @@ const Pagination: React.FC<PaginationProps> = ({
     (page: number) => {
       if (!isNaN(page) && page >= 1 && page <= totalPages) {
         onPageChange?.(page);
+        onPageSettingsChange?.(page, rowsPerPage);
       }
     },
     [onPageChange, totalPages],
@@ -124,6 +138,7 @@ const Pagination: React.FC<PaginationProps> = ({
   ) => {
     setLocalRowsPerPage(Number(event.target.value));
     onRowsPerPageChange?.(Number(event.target.value));
+    onPageSettingsChange?.(1, Number(event.target.value));
   };
 
   const getPages = useCallback((): string[] => {
@@ -173,27 +188,36 @@ const Pagination: React.FC<PaginationProps> = ({
   }
 
   return (
-    <div className={pagination({ className })} {...props}>
-      {showRowsPerPageSelector && (
-        <div className="flex items-center gap-2xs">
-          <Body htmlVariant="span" size="sm" color="weak" weight="weak">
-            {/* TODO: Translation */}
-            Rows
-          </Body>
-          {/* TODO: use <Select> component here instead */}
-          <select
-            value={currentItems}
-            onChange={handleRowsPerPageChange}
-            className="rounded-sm bg-surface-action-default-elevated-rest shadow-action-default-rest text-onsurface-action-weak-default text-body-md leading-xs"
-          >
-            {rowsPerPageOptions.map((option) => (
-              <option key={option} value={option}>
-                {option}
-              </option>
-            ))}
-          </select>
-        </div>
-      )}
+    <div
+      className={classNames(pagination({ className }), {
+        "justify-between": showRowsPerPageSelector,
+        "justify-center": !showRowsPerPageSelector,
+      })}
+      {...props}
+    >
+      <div className="flex items-center gap-2xs">
+        {rowsPerPageOptions.length > 1 && showRowsPerPageSelector && (
+          <>
+            <Body htmlVariant="span" size="sm" color="weak" weight="weak">
+              {/* TODO: Translation */}
+              Rows
+            </Body>
+            {/* TODO: use <Select> component here instead */}
+            <select
+              value={currentItems}
+              onChange={handleRowsPerPageChange}
+              className="rounded-sm bg-surface-action-default-elevated-rest shadow-action-default-rest text-onsurface-action-weak-default text-body-md leading-xs"
+              disabled={disabled}
+            >
+              {rowsPerPageOptions.map((option) => (
+                <option key={option} value={option}>
+                  {option}
+                </option>
+              ))}
+            </select>
+          </>
+        )}
+      </div>
       <div className="flex items-center gap-xs h-full">
         {showRowsPerPageSelector && (
           <>
@@ -201,59 +225,64 @@ const Pagination: React.FC<PaginationProps> = ({
               {/* TODO: Translation */}
               {`Showing ${currentItemsRendered} of ${totalItems}`}
             </Body>
-            <Divider orientation="vertical" weight="thin" />
+            {totalPages > 1 && <Divider orientation="vertical" weight="thin" />}
           </>
         )}
-        <Button
-          intent="flat"
-          color="default"
-          size="sm"
-          iconLeft="chevron-left-double"
-          aria-label="First page"
-          onClick={() => handlePageChange(1)}
-          disabled={currentPage === 1}
-        />
-        <Button
-          intent="flat"
-          color="default"
-          size="sm"
-          iconLeft="chevron-left"
-          aria-label="Previous page"
-          onClick={() => handlePageChange(currentPage - 1)}
-          disabled={currentPage === 1}
-        />
-        <div className="flex gap-2xs">
-          {pages.map((page, index) => (
-            <button
-              className={button({ active: currentPage === parseInt(page) })}
-              key={index}
-              aria-label={`Page ${page}`}
-              onClick={() => handlePageChange(parseInt(page))}
-            >
-              <span className="flex w-element-sm justify-center items-center shrink-0 text-onsurface-default text-body-sm font-weak leading-xs">
-                {page}
-              </span>
-            </button>
-          ))}
-        </div>
-        <Button
-          intent="flat"
-          color="default"
-          size="sm"
-          iconLeft="chevron-right"
-          aria-label="Next page"
-          onClick={() => handlePageChange(currentPage + 1)}
-          disabled={currentPage === totalPages}
-        />
-        <Button
-          intent="flat"
-          color="default"
-          size="sm"
-          iconLeft="chevron-right-double"
-          aria-label="Last page"
-          onClick={() => handlePageChange(totalPages)}
-          disabled={currentPage === totalPages}
-        />
+        {totalPages > 1 && (
+          <>
+            <Button
+              intent="flat"
+              color="default"
+              size="sm"
+              iconLeft="chevron-left-double"
+              aria-label="First page"
+              onClick={() => handlePageChange(1)}
+              disabled={currentPage === 1 || disabled}
+            />
+            <Button
+              intent="flat"
+              color="default"
+              size="sm"
+              iconLeft="chevron-left"
+              aria-label="Previous page"
+              onClick={() => handlePageChange(currentPage - 1)}
+              disabled={currentPage === 1 || disabled}
+            />
+            <div className="flex gap-2xs">
+              {pages.map((page, index) => (
+                <button
+                  className={button({ active: currentPage === parseInt(page), disabled })}
+                  key={index}
+                  aria-label={`Page ${page}`}
+                  disabled={disabled}
+                  onClick={() => handlePageChange(parseInt(page))}
+                >
+                  <span className="flex w-element-sm justify-center items-center shrink-0 text-onsurface-default text-body-sm font-weak leading-xs">
+                    {page}
+                  </span>
+                </button>
+              ))}
+            </div>
+            <Button
+              intent="flat"
+              color="default"
+              size="sm"
+              iconLeft="chevron-right"
+              aria-label="Next page"
+              onClick={() => handlePageChange(currentPage + 1)}
+              disabled={currentPage === totalPages || disabled}
+            />
+            <Button
+              intent="flat"
+              color="default"
+              size="sm"
+              iconLeft="chevron-right-double"
+              aria-label="Last page"
+              onClick={() => handlePageChange(totalPages)}
+              disabled={currentPage === totalPages || disabled}
+            />
+          </>
+        )}
       </div>
     </div>
   );

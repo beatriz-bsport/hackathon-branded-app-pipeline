@@ -3,6 +3,8 @@ import Pagination from "./Pagination";
 import { useEffect, useState } from "react";
 
 /**
+ * **This component is an internal component. It should not be used directly in your apps !**<br>
+ * Please refer to Table or List components for proper usage.<br><br>
  * Pagination component for navigating through large sets of data, allowing navigation between pages
  * and the option to adjust the number of rows displayed per page. It includes support for boundary
  * and range-based page selection as well as a rows-per-page selector.<br>
@@ -56,5 +58,6 @@ export const Primary: Story = {
     rowsPerPage: 40,
     totalItems: 1000,
     showRowsPerPageSelector: true,
+    disabled: false,
   },
 };

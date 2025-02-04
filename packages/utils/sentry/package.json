@@ -1,13 +1,10 @@
 {
   "name": "@bsport/sentry",
   "version": "0.1.0",
+  "private": true,
   "description": "Library to init and configure Sentry",
   "author": "David Bretaud <david.bretaud@bsport.io>",
-  "private": true,
   "type": "module",
-  "main": "build/lib.umd.js",
-  "module": "build/lib.es.js",
-  "types": "build/lib.d.ts",
   "exports": {
     ".": {
       "types": "./build/lib.d.ts",
@@ -16,22 +13,27 @@
       "default": "./build/lib.es.js"
     }
   },
+  "main": "build/lib.umd.js",
+  "module": "build/lib.es.js",
+  "types": "build/lib.d.ts",
   "files": [
     "build"
   ],
+  "scripts": {
+    "build": "vite build",
+    "clean": "rm -rf build",
+    "dev": "vite build --watch",
+    "format": "prettier --write '**/*.{ts,tsx,js,jsx,cjs,mjs,scss,css,json,md,mdx,html,svg}'",
+    "format:check": "prettier --check '**/*.{ts,tsx,js,jsx,cjs,mjs}'",
+    "postinstall": "pnpm run build",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix ."
+  },
   "dependencies": {
     "@bsport/random-utils": "workspace:*",
     "@sentry/react": "^7.26.0"
   },
   "devDependencies": {
     "@bsport/eslint-config-react": "workspace:*"
-  },
-  "scripts": {
-    "clean": "rm -rf build",
-    "build": "vite build",
-    "dev": "vite build --watch",
-    "lint": "eslint .",
-    "lint:fix": "eslint --fix .",
-    "postinstall": "pnpm run build"
   }
 }

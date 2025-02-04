@@ -43,6 +43,6 @@ export async function getAffectedProjectsPackageJsons(options?: {
         name: string;
         packageJson: PackageJson;
       };
-    }
+    },
   );
 }

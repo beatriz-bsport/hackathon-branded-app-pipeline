@@ -1,32 +1,34 @@
 {
   "name": "@bsport/config-federation",
   "version": "1.0.0",
-  "description": "Configuration for module federation",
-  "author": "Pierre Bondoerffer <pierre.bondoerffer@bsport.io>",
-  "license": "UNLICENSED",
-  "type": "module",
   "private": true,
-  "main": "build/lib.umd.cjs",
-  "module": "build/lib.es.js",
-  "types": "build/lib.d.ts",
+  "description": "Configuration for module federation",
+  "license": "UNLICENSED",
+  "author": "Pierre Bondoerffer <pierre.bondoerffer@bsport.io>",
+  "type": "module",
   "exports": {
     ".": {
       "import": "./build/lib.es.js",
       "require": "./build/lib.umd.js"
     }
   },
+  "main": "build/lib.umd.cjs",
+  "module": "build/lib.es.js",
+  "types": "build/lib.d.ts",
   "files": [
     "build"
   ],
-  "dependencies": {},
-  "devDependencies": {
-    "@bsport/eslint-config-react": "workspace:*"
-  },
   "scripts": {
     "build": "vite build",
     "dev": "vite build --watch",
+    "format": "prettier --write '**/*.{ts,tsx,js,jsx,cjs,mjs,scss,css,json,md,mdx,html,svg}'",
+    "format:check": "prettier --check '**/*.{ts,tsx,js,jsx,cjs,mjs}'",
+    "postinstall": "pnpm run build",
     "lint": "eslint .",
-    "lint:fix": "eslint --fix .",
-    "postinstall": "pnpm run build"
+    "lint:fix": "eslint --fix ."
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@bsport/eslint-config-react": "workspace:*"
   }
 }

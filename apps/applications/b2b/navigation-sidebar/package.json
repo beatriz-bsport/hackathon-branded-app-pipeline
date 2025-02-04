@@ -1,12 +1,15 @@
 {
   "name": "@bsport/navigation-sidebar",
-  "description": "Navigation sidebar",
-  "private": true,
   "version": "0.0.0",
+  "private": true,
+  "description": "Navigation sidebar",
+  "author": "Pierre Bondoerffer <pierre.bondoerffer@bsport.io>",
   "type": "module",
   "scripts": {
-    "dev": "vite",
     "build": "tsc && vite build",
+    "dev": "vite",
+    "format": "prettier --write '**/*.{ts,tsx,js,jsx,cjs,mjs,scss,css,json,md,mdx,html,svg}'",
+    "format:check": "prettier --check '**/*.{ts,tsx,js,jsx,cjs,mjs}'",
     "lint": "eslint .",
     "preview": "vite preview"
   },
@@ -25,6 +28,5 @@
     "vite": "^5.4.11",
     "vite-plugin-dts": "^4.3.0",
     "vite-plugin-svgr": "^4.3.0"
-  },
-  "author": "Pierre Bondoerffer <pierre.bondoerffer@bsport.io>"
+  }
 }

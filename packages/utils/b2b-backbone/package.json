@@ -1,21 +1,23 @@
 {
   "name": "@bsport/b2b-backbone",
   "version": "0.0.0",
-  "description": "B2B Backbone",
   "private": true,
+  "description": "B2B Backbone",
   "type": "module",
-  "main": "build/lib.umd.js",
-  "module": "build/lib.es.js",
-  "types": "build/lib.es.d.ts",
   "exports": {
     ".": {
       "import": "./build/lib.es.js",
       "require": "./build/lib.umd.js"
     }
   },
+  "main": "build/lib.umd.js",
+  "module": "build/lib.es.js",
+  "types": "build/lib.es.d.ts",
   "scripts": {
-    "dev": "vite",
     "build": "tsc && vite build",
+    "dev": "vite",
+    "format": "prettier --write '**/*.{ts,tsx,js,jsx,cjs,mjs,scss,css,json,md,mdx,html,svg}'",
+    "format:check": "prettier --check '**/*.{ts,tsx,js,jsx,cjs,mjs}'",
     "postinstall": "pnpm run build",
     "lint": "eslint .",
     "preview": "vite preview"

@@ -1,13 +1,15 @@
 {
   "name": "@bsport/template-simple-b2b-app",
-  "description": "Simple B2B application template",
-  "private": true,
   "version": "0.0.0",
+  "private": true,
+  "description": "Simple B2B application template",
   "type": "module",
   "scripts": {
     "build": "tsc && vite build",
     "dev": "vite",
     "federation:navigation": "pnpm exec nx build @bsport/navigation-sidebar && pnpm exec nx preview @bsport/navigation-sidebar",
+    "format": "prettier --write '**/*.{ts,tsx,js,jsx,cjs,mjs,scss,css,json,md,mdx,html,svg}'",
+    "format:check": "prettier --check '**/*.{ts,tsx,js,jsx,cjs,mjs}'",
     "lint": "eslint .",
     "preview": "vite preview",
     "translation:update": "pnpm run -w translation:update"

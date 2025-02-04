@@ -36,7 +36,7 @@ async function action(envName) {
   try {
     const result = spawnSync(
       `gcloud sql import sql ${database.instance} gs://innovation_mysql_backups/latest.sql --project ${database.project} --async --quiet`,
-      { stdio: "inherit", shell: true }
+      { stdio: "inherit", shell: true },
     );
 
     if (result.status === 0) {
@@ -58,8 +58,8 @@ export default function dbImport(program: Command) {
     .argument(
       "[env_name]",
       `Environement name to feed data to. Valid inputs: ${Object.keys(
-        DATABASES
-      ).join(", ")}`
+        DATABASES,
+      ).join(", ")}`,
     )
     .action(action);
   return program;

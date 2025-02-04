@@ -1,8 +1,10 @@
 {
   "name": "@bsport/widget-legacy",
   "version": "0.1.0",
-  "description": "Bsport widget",
   "private": true,
+  "description": "Bsport widget",
+  "license": "UNLICENCED",
+  "author": "Sofian Medbouhi",
   "main": "index.js",
   "scripts": {
     "analyze": "source-map-explorer dist/widget.js",
@@ -15,13 +17,15 @@
     "test": "jest",
     "test-update-snapshots": "jest --updateSnapshot"
   },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/@digitalroute/cz-conventional-changelog-for-jira",
+      "skipScope": false,
+      "jiraOptional": true,
+      "jiraLocation": "post-body"
+    }
+  },
   "babel": {
-    "presets": [
-      "@babel/preset-env",
-      "@babel/preset-react",
-      "@babel/preset-typescript",
-      "@babel/preset-flow"
-    ],
     "plugins": [
       "@babel/plugin-syntax-dynamic-import",
       "@babel/plugin-syntax-import-meta",
@@ -32,41 +36,71 @@
       "@babel/plugin-proposal-throw-expressions",
       "@babel/plugin-proposal-optional-chaining",
       "@babel/plugin-proposal-nullish-coalescing-operator"
+    ],
+    "presets": [
+      "@babel/preset-env",
+      "@babel/preset-react",
+      "@babel/preset-typescript",
+      "@babel/preset-flow"
     ]
   },
   "eslintConfig": {
     "extends": "react-app"
   },
   "jest": {
-    "coverageDirectory": "./coverage/",
     "collectCoverage": true,
     "collectCoverageFrom": [
       "<rootDir>/src/**/*.js?(x)"
     ],
+    "coverageDirectory": "./coverage/",
     "coveragePathIgnorePatterns": [
       "/node_modules/",
       "/test-helpers/"
     ],
-    "transform": {
-      "^.+\\.(js|jsx|mjs)$": "<rootDir>/node_modules/babel-jest",
-      "^.+\\.(css|scss)$": "<rootDir>/jest/cssTransform.js",
-      "^(?!.*\\.(js|jsx|css|json)$)": "<rootDir>/jest/fileTransform.js"
-    },
     "setupFiles": [
       "<rootDir>/jest/setup.js"
     ],
     "snapshotSerializers": [
       "enzyme-to-json/serializer"
-    ]
+    ],
+    "transform": {
+      "^.+\\.(js|jsx|mjs)$": "<rootDir>/node_modules/babel-jest",
+      "^.+\\.(css|scss)$": "<rootDir>/jest/cssTransform.js",
+      "^(?!.*\\.(js|jsx|css|json)$)": "<rootDir>/jest/fileTransform.js"
+    }
   },
-  "serve": {
-    "content": [
-      "./dist",
-      "./public"
-    ]
+  "dependencies": {
+    "@bsport/saas-legacy": "workspace:*",
+    "@material-ui/core": "^4.9.13",
+    "@material-ui/icons": "^4.11.2",
+    "@material-ui/styles": "^4.9.13",
+    "axios": "^0.19.0",
+    "connected-react-router": "^6",
+    "history": "^4.9.0",
+    "i18next": "^19.8.7",
+    "i18next-browser-languagedetector": "^6.0.1",
+    "i18next-http-backend": "^1.1.0",
+    "prop-types": "^15.6.2",
+    "react": "16.10.2",
+    "react-dom": "16.10.2",
+    "react-i18next": "^11.8.5",
+    "react-phone-number-input": "^3.1.10",
+    "react-redux": "^7.2.0",
+    "react-router": "^5",
+    "react-router-dom": "^5",
+    "react-transition-group": "^4.0.0",
+    "recompose": "^0.30.0",
+    "redux": "^4.0.4",
+    "redux-actions": "^2.6.5",
+    "redux-persist": "^6.0.0",
+    "redux-persist-seamless-immutable": "^2.0.0",
+    "redux-persist-transform-compress": "^4.2.0",
+    "redux-thunk": "^2.3.0",
+    "sass": "^1.77.4",
+    "sass-loader": "^14.2.1",
+    "seamless-immutable": "^7.1.4",
+    "urijs": "^1.19.6"
   },
-  "author": "Sofian Medbouhi",
-  "license": "UNLICENCED",
   "devDependencies": {
     "@babel/core": "^7.6.2",
     "@babel/plugin-proposal-function-sent": "^7.24.7",
@@ -143,47 +177,13 @@
     "webpack-dev-server": "^5.0.4",
     "webpack-obfuscator": "^3.5.1"
   },
-  "dependencies": {
-    "@bsport/saas-legacy": "workspace:*",
-    "@material-ui/core": "^4.9.13",
-    "@material-ui/icons": "^4.11.2",
-    "@material-ui/styles": "^4.9.13",
-    "axios": "^0.19.0",
-    "connected-react-router": "^6",
-    "history": "^4.9.0",
-    "i18next": "^19.8.7",
-    "i18next-browser-languagedetector": "^6.0.1",
-    "i18next-http-backend": "^1.1.0",
-    "prop-types": "^15.6.2",
-    "react": "16.10.2",
-    "react-dom": "16.10.2",
-    "react-i18next": "^11.8.5",
-    "react-phone-number-input": "^3.1.10",
-    "react-redux": "^7.2.0",
-    "react-router": "^5",
-    "react-router-dom": "^5",
-    "react-transition-group": "^4.0.0",
-    "recompose": "^0.30.0",
-    "redux": "^4.0.4",
-    "redux-actions": "^2.6.5",
-    "redux-persist": "^6.0.0",
-    "redux-persist-seamless-immutable": "^2.0.0",
-    "redux-persist-transform-compress": "^4.2.0",
-    "redux-thunk": "^2.3.0",
-    "sass": "^1.77.4",
-    "sass-loader": "^14.2.1",
-    "seamless-immutable": "^7.1.4",
-    "urijs": "^1.19.6"
-  },
-  "config": {
-    "commitizen": {
-      "path": "./node_modules/@digitalroute/cz-conventional-changelog-for-jira",
-      "skipScope": false,
-      "jiraOptional": true,
-      "jiraLocation": "post-body"
-    }
-  },
   "engines": {
     "node": ">=22"
+  },
+  "serve": {
+    "content": [
+      "./dist",
+      "./public"
+    ]
   }
 }

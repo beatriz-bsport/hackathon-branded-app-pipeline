@@ -1,4 +1,4 @@
-import kebabCase from 'lodash/kebabCase'
+import kebabCase from "lodash/kebabCase";
 
 /**
  * Returns the byte size of a string.
@@ -6,7 +6,7 @@ import kebabCase from 'lodash/kebabCase'
  * @example
  * getByteSize('Hello World') // 11
  */
-export const getByteSize = (str: string): number => new Blob([str]).size
+export const getByteSize = (str: string): number => new Blob([str]).size;
 
 /**
  * Converts string to command case (lower case and column separated string).
@@ -19,7 +19,7 @@ export const getByteSize = (str: string): number => new Blob([str]).size
  * @param str String to convert.
  * @returns String as command case.
  */
-export const commandCase = (str: string) => kebabCase(str).replace(/-/g, ':')
+export const commandCase = (str: string) => kebabCase(str).replace(/-/g, ":");
 
 /**
  * Converts string to slug used in URLs.
@@ -32,11 +32,12 @@ export const commandCase = (str: string) => kebabCase(str).replace(/-/g, ':')
  * slugify('helloWorld')  // 'helloworld'
  * ```
  */
-export const slugify = (str: string) => str
-  .toString()
-  .toLowerCase()
-  .replace(/\s+/g, '-')
-  .replace(/[^\w-]+/g, '')
-  .replace(/--+/g, '-')
-  .replace(/^-+/, '')
-  .replace(/-+$/, '')
+export const slugify = (str: string) =>
+  str
+    .toString()
+    .toLowerCase()
+    .replace(/\s+/g, "-")
+    .replace(/[^\w-]+/g, "")
+    .replace(/--+/g, "-")
+    .replace(/^-+/, "")
+    .replace(/-+$/, "");

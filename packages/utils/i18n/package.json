@@ -1,14 +1,11 @@
 {
   "name": "@bsport/i18n",
   "version": "0.0.0",
-  "description": "Package to easily setup i18n in a project",
-  "author": "David Bretaud <david.bretaud@bsport.io>",
-  "license": "UNLICENSED",
-  "type": "module",
   "private": true,
-  "main": "build/lib.umd.cjs",
-  "module": "build/lib.es.js",
-  "types": "build/lib.d.ts",
+  "description": "Package to easily setup i18n in a project",
+  "license": "UNLICENSED",
+  "author": "David Bretaud <david.bretaud@bsport.io>",
+  "type": "module",
   "exports": {
     ".": {
       "types": "./build/lib.d.ts",
@@ -17,9 +14,21 @@
       "default": "./build/lib.es.js"
     }
   },
+  "main": "build/lib.umd.cjs",
+  "module": "build/lib.es.js",
+  "types": "build/lib.d.ts",
   "files": [
     "build"
   ],
+  "scripts": {
+    "build": "vite build",
+    "dev": "vite build --watch",
+    "format": "prettier --write '**/*.{ts,tsx,js,jsx,cjs,mjs,scss,css,json,md,mdx,html,svg}'",
+    "format:check": "prettier --check '**/*.{ts,tsx,js,jsx,cjs,mjs}'",
+    "postinstall": "pnpm run build",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix ."
+  },
   "dependencies": {
     "i18next": "^24.2.1",
     "i18next-browser-languagedetector": "^8.0.2",
@@ -30,12 +39,5 @@
   "devDependencies": {
     "@bsport/eslint-config-react": "workspace:*",
     "@types/luxon": "^3.4.2"
-  },
-  "scripts": {
-    "build": "vite build",
-    "dev": "vite build --watch",
-    "lint": "eslint .",
-    "lint:fix": "eslint --fix .",
-    "postinstall": "pnpm run build"
   }
 }

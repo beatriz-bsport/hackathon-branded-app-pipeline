@@ -84,7 +84,9 @@ async function action({
 
       if (readmeCommandsStart === -1 || readmeCommandsEnd === -1) {
         throw new Error(
-          `README.md does not contain the command list start / end markers.\nPlease add the following to the README.md file:\n${README_START_MARKER}\n${README_END_MARKER}`
+          "README.md does not contain the command list start / end markers.\n" +
+            "Please add the following to the README.md file:\n" +
+            `${README_START_MARKER}\n${README_END_MARKER}`,
         );
       }
 
@@ -95,7 +97,7 @@ async function action({
       readmeContent += result;
       readmeContent += `${README_END_MARKER}\n`;
       readmeContent += readme.slice(
-        readmeCommandsEnd + README_END_MARKER.length + 1
+        readmeCommandsEnd + README_END_MARKER.length + 1,
       );
 
       await fs.writeFile(readmePath, readmeContent);
@@ -114,15 +116,15 @@ function validateInput(...args: Parameters<typeof action>) {
   if (!Object.values(OutputType).includes(args[0].output)) {
     throw new Error(
       `Error in the output type. Please use one of the following: ${Object.values(
-        OutputType
-      ).join(", ")}`
+        OutputType,
+      ).join(", ")}`,
     );
   }
   if (!Object.values(FormatType).includes(args[0].format)) {
     throw new Error(
       `Error in the format type. Please use one of the following: ${Object.values(
-        FormatType
-      ).join(", ")}`
+        FormatType,
+      ).join(", ")}`,
     );
   }
   if (
@@ -130,14 +132,14 @@ function validateInput(...args: Parameters<typeof action>) {
     args[0].format !== FormatType.MARKDOWN
   ) {
     throw new Error(
-      `Please set format to ${FormatType.MARKDOWN} if you want to output to README.md.`
+      `Please set format to ${FormatType.MARKDOWN} if you want to output to README.md.`,
     );
   }
 }
 
 function getCommandsAsText(
   commands: CommandJSON[],
-  format: FormatType
+  format: FormatType,
 ): string {
   let result = "";
 
@@ -178,10 +180,10 @@ function getCommandsAsText(
               [...cmd.args, ...cmd.options].reduce(
                 (accOptions, option) =>
                   Math.max(accOptions, option.term.length),
-                0
-              )
+                0,
+              ),
             ),
-          0
+          0,
         ) + 2;
 
       result = "";
@@ -223,17 +225,17 @@ export default function commandList(program: Command) {
     .option(
       "-q, --quiet",
       "suppress all output, unless an error occurs.",
-      false
+      false,
     )
     .option(
       "-o, --output <output>",
       "output the list of commands in a file.",
-      OutputType.CLI
+      OutputType.CLI,
     )
     .option(
       "-f, --format <format>",
       "output the list of commands in a file.",
-      FormatType.TEXT
+      FormatType.TEXT,
     )
     .action(action);
   return program;

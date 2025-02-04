@@ -10,22 +10,25 @@ export type TableCellProps = {
   align?: "start" | "center" | "end";
 };
 
-const tableCell = cva("whitespace-nowrap p-xs border-b-stroke-thin border-b-stroke-weak", {
-  variants: {
-    rowHeight: {
-      sm: "h-component-list-item-min",
-      lg: "h-2xl",
+const tableCell = cva(
+  "whitespace-nowrap p-xs border-b-stroke-thin border-b-stroke-weak",
+  {
+    variants: {
+      rowHeight: {
+        sm: "h-component-list-item-min",
+        lg: "h-2xl",
+      },
+      withVerticalBorders: {
+        true: "border-r-stroke-thin border-r-stroke-weak",
+        false: "",
+      },
     },
-    withVerticalBorders: {
-      true: "border-r-stroke-thin border-r-stroke-weak",
-      false: "",
+    defaultVariants: {
+      rowHeight: "sm",
+      withVerticalBorders: false,
     },
   },
-  defaultVariants: {
-    rowHeight: "sm",
-    withVerticalBorders: false,
-  },
-});
+);
 
 const TableCell: React.FC<TableCellProps> = ({
   children,

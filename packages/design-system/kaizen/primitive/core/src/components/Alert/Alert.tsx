@@ -124,8 +124,10 @@ const Alert: React.FC<AlertProps> = ({
           icon={iconByStatus[status]}
           size="md"
           className={classNames({
-            "text-onsurface-main-strong": status === "default" && type === "weak",
-            "text-onsurface-main-onstrong": status === "default" && type === "strong",
+            "text-onsurface-main-strong":
+              status === "default" && type === "weak",
+            "text-onsurface-main-onstrong":
+              status === "default" && type === "strong",
           })}
         />
       </div>

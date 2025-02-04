@@ -3,10 +3,36 @@
   "version": "1.0.0",
   "description": "",
   "keywords": [],
-  "author": "",
   "license": "UNLICENSED",
-  "engines": {
-    "pnpm": "9.15.1"
+  "author": "",
+  "scripts": {
+    "api-environment:set": "pnpm exec ts-node tools/monorepo-utils/src/index.ts api-environment:set",
+    "build": "nx build",
+    "build:all": "nx run-many --all --target=build",
+    "preinstall": "npx only-allow pnpm",
+    "lint": "pnpm exec nx run-many -t lint",
+    "lint:affected": "pnpm exec nx affected --target=lint --base=HEAD",
+    "lint:affected:fix": "pnpm exec nx affected --target=lint:fix --base=HEAD",
+    "lint:fix": "pnpm exec nx run-many -t lint:fix",
+    "prepare": "husky",
+    "project:create": "ts-node tools/monorepo-utils/src/index.ts project:create",
+    "project:dependencies:list": "ts-node tools/monorepo-utils/src/index.ts project:dependencies:list",
+    "project:import": "ts-node tools/monorepo-utils/src/index.ts project:import",
+    "project:list": "ts-node tools/monorepo-utils/src/index.ts project:list",
+    "pwd": "pwd",
+    "translation:update": "pnpm exec nx translation:update @bsport/i18n-management",
+    "utils": "ts-node tools/monorepo-utils/src/index.ts"
+  },
+  "config": {
+    "commitizen": {
+      "path": "cz-conventional-changelog"
+    }
+  },
+  "dependencies": {
+    "lodash": "^4.17.21",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "tailwindcss": "^3.4.14"
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^3.2.2",
@@ -44,8 +70,10 @@
     "eslint": "~9.17.0",
     "husky": "^9.1.6",
     "hygen": "^6.2.11",
+    "lint-staged": "^15.4.3",
     "nx": "20.3.0",
     "prettier": "^3.3.3",
+    "sort-package-json": "^2.14.0",
     "storybook": "^8.4.7",
     "storybook:configuration.@latest": "link:@nx/storybook:configuration.@latest",
     "ts-node": "^10.9.2",
@@ -56,38 +84,7 @@
     "vite-plugin-dts": "^4.3.0",
     "vite-plugin-svgr": "^4.3.0"
   },
-  "dependencies": {
-    "lodash": "^4.17.21",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "tailwindcss": "^3.4.14"
-  },
-  "scripts": {
-    "api-environment:set": "pnpm exec ts-node tools/monorepo-utils/src/index.ts api-environment:set",
-    "build": "nx build",
-    "build:all": "nx run-many --all --target=build",
-    "lint": "pnpm exec nx run-many -t lint",
-    "lint:affected": "pnpm exec nx affected --target=lint --base=HEAD",
-    "lint:fix": "pnpm exec nx run-many -t lint:fix",
-    "lint:affected:fix": "pnpm exec nx affected --target=lint:fix --base=HEAD",
-    "preinstall": "npx only-allow pnpm",
-    "prepare": "husky",
-    "project:create": "ts-node tools/monorepo-utils/src/index.ts project:create",
-    "project:dependencies:list": "ts-node tools/monorepo-utils/src/index.ts project:dependencies:list",
-    "project:import": "ts-node tools/monorepo-utils/src/index.ts project:import",
-    "project:list": "ts-node tools/monorepo-utils/src/index.ts project:list",
-    "pwd": "pwd",
-    "translation:update": "pnpm exec nx translation:update @bsport/i18n-management",
-    "utils": "ts-node tools/monorepo-utils/src/index.ts"
-  },
-  "config": {
-    "commitizen": {
-      "path": "cz-conventional-changelog"
-    }
-  },
-  "husky": {
-    "hooks": {
-      "prepare-commit-msg": "exec < /dev/tty && npx cz --hook || true"
-    }
+  "engines": {
+    "pnpm": "9.15.1"
   }
 }

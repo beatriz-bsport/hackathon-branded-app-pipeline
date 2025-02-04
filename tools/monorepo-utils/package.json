@@ -1,10 +1,20 @@
 {
   "name": "@bsport/monorepo-utils-tools",
   "version": "1.0.0",
+  "private": true,
   "description": "Monorepository utils library",
   "author": "Marwan El Boussarghini <marwan@bsport.io>",
-  "private": true,
   "main": "src/index.ts",
+  "scripts": {
+    "command:create": "ts-node src/index.ts command:create",
+    "command:list": "ts-node src/index.ts command:list",
+    "command:run": "ts-node src/index.ts",
+    "format": "prettier --write '**/*.{ts,tsx,js,jsx,cjs,mjs,scss,css,json,md,mdx,html,svg}'",
+    "format:check": "prettier --check '**/*.{ts,tsx,js,jsx,cjs,mjs}'",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix .",
+    "pre-commit": "sh scripts/pre-commit"
+  },
   "dependencies": {
     "@bsport/typescript-monorepo-utils": "workspace:*",
     "@bsport/typescript-string-utils": "workspace:*",
@@ -17,13 +27,5 @@
     "@bsport/eslint-config-react": "workspace:*",
     "@types/fs-extra": "^11.0.1",
     "@types/inquirer": "^9.0.3"
-  },
-  "scripts": {
-    "command:create": "ts-node src/index.ts command:create",
-    "command:list": "ts-node src/index.ts command:list",
-    "command:run": "ts-node src/index.ts",
-    "lint": "eslint .",
-    "lint:fix": "eslint --fix .",
-    "pre-commit": "sh scripts/pre-commit"
   }
 }

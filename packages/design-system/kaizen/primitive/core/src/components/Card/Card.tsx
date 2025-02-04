@@ -117,8 +117,9 @@ const Card: React.FC<CardProps> = ({
         className,
         padding,
         actionable,
-        selectedByElevation:
-          actionable ? selectedByElevation as keyof typeof variants.selectedByElevation : null,
+        selectedByElevation: actionable
+          ? (selectedByElevation as keyof typeof variants.selectedByElevation)
+          : null,
       })}
       {...props}
     >

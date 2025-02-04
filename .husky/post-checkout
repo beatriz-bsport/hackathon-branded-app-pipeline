@@ -1,4 +1,12 @@
 #!/usr/bin/env sh
+
+# 3rd argument is a flag to indicate if we are checking out a branch
+# https://git-scm.com/docs/githooks.html#_post_checkout
+if [ "$3" -eq 0 ]; then
+    # Not checking out a branch, so we can skip this hook
+    exit 0
+fi
+
 if [ "$ECOSYSTEM_SKIP_HOOKS" != "true" ] && [ -z "$CI" ]; then
     exec < /dev/tty
     echo "Would you like to reinstall all dependencies? (y/N) "

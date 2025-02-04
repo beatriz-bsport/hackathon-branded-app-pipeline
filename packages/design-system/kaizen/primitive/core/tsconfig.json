@@ -1,11 +1,7 @@
 {
   "compilerOptions": {
     "target": "ESNext",
-    "lib": [
-      "DOM",
-      "DOM.Iterable",
-      "ESNext"
-    ],
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
     "jsx": "react-jsx",
     "module": "ESNext",
     "moduleResolution": "node",
@@ -20,14 +16,10 @@
     "skipLibCheck": true,
     "outDir": "dist",
     "paths": {
-      "#src/*": [
-        "./src/*"
-      ]
+      "#src/*": ["./src/*"]
     }
   },
-  "include": [
-    "src"
-  ],
+  "include": ["src"],
   "references": [
     {
       "path": "./tsconfig.node.json"

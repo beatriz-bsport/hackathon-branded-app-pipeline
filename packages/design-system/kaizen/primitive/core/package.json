@@ -1,14 +1,8 @@
 {
   "name": "@bsport/kaizen-primitive-core",
-  "private": true,
   "version": "0.0.0",
+  "private": true,
   "type": "module",
-  "main": "./dist/index.umd.js",
-  "module": "./dist/index.es.js",
-  "types": "./dist/index.d.ts",
-  "files": [
-    "dist"
-  ],
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
@@ -16,6 +10,27 @@
       "require": "./dist/index.umd.js"
     },
     "./styles": "./dist/style.css"
+  },
+  "main": "./dist/index.umd.js",
+  "module": "./dist/index.es.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc && vite build",
+    "ci:deploy": "./scripts/ci-deploy.sh $1",
+    "component:add": "pnpm exec hygen component new",
+    "dev": "pnpm run storybook:dev",
+    "format": "prettier --write '**/*.{ts,tsx,js,jsx,cjs,mjs,scss,css,json,md,mdx,html,svg}'",
+    "format:check": "prettier --check '**/*.{ts,tsx,js,jsx,cjs,mjs}'",
+    "icon:generate": "tsx ./scripts/generate-icons.ts",
+    "postinstall": "pnpm build",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix .",
+    "pre-commit": "sh ./scripts/pre-commit.sh",
+    "storybook:build": "sb build",
+    "storybook:dev": "sb dev"
   },
   "dependencies": {
     "class-variance-authority": "^0.7.0",
@@ -38,18 +53,5 @@
     "vite": "^5.4.11",
     "vite-plugin-dts": "^4.3.0",
     "vite-plugin-svgr": "^4.3.0"
-  },
-  "scripts": {
-    "postinstall": "pnpm build",
-    "build": "tsc && vite build",
-    "component:add": "pnpm exec hygen component new",
-    "ci:deploy": "./scripts/ci-deploy.sh $1",
-    "dev": "pnpm run storybook:dev",
-    "icon:generate": "tsx ./scripts/generate-icons.ts",
-    "lint": "eslint .",
-    "lint:fix": "eslint --fix .",
-    "pre-commit": "sh ./scripts/pre-commit.sh",
-    "storybook:build": "sb build",
-    "storybook:dev": "sb dev"
   }
 }

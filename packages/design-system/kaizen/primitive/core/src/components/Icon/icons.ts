@@ -2,6 +2,9 @@
 import React from "react";
 
 const icons = {
+  "align-justify": React.lazy(
+    async () => await import("./assets/align-justify.svg?react"),
+  ),
   "announcement-01": React.lazy(
     async () => await import("./assets/announcement-01.svg?react"),
   ),

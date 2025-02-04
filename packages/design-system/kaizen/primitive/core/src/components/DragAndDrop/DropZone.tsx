@@ -14,6 +14,7 @@ const DropZone: React.FC<
     children: (props: {
       isHovered: boolean;
       isValidDropTarget: boolean;
+      activeDropTarget: string | null;
     }) => ReactNode;
     className?: string;
     id: string;
@@ -54,7 +55,7 @@ const DropZone: React.FC<
     event.stopPropagation();
     onDragLeave?.(event.currentTarget.id)(event);
     setIsHovered(false);
-    setIsValidDropTarget(false);
+    if (isDropAllowed) setIsValidDropTarget(false);
   };
 
   const handleDrop = (event: DragEvent) => {
@@ -63,7 +64,7 @@ const DropZone: React.FC<
       onDrop?.(draggedId!, dropTargetId!)(event);
     }
     setIsHovered(false);
-    setIsValidDropTarget(false);
+    if (isDropAllowed) setIsValidDropTarget(false);
     setDraggedId(null);
     setDropTargetId(null);
   };
@@ -71,16 +72,20 @@ const DropZone: React.FC<
   return (
     <div
       id={id}
-      className={classNames("relative", className)}
+      className={classNames(className)}
       onDragEnter={handleDragEnter}
       onDragOver={handleDragOver}
       onDragLeave={handleDragLeave}
       onDrop={handleDrop}
       {...props}
     >
-      {children({ isHovered, isValidDropTarget })}
+      {children({
+        isHovered,
+        isValidDropTarget,
+        activeDropTarget: dropTargetId,
+      })}
     </div>
   );
 };
 
-export default DropZone;
+export default React.memo(DropZone);

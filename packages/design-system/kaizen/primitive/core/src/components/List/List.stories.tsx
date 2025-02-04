@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import List from "#src/components/List";
+import { useState } from "react";
 
 /**
  * A list component that can contain multiple `Item` components and one `Header` component.<br>
@@ -21,6 +22,13 @@ const meta: Meta<typeof List> = {
 export default meta;
 
 type Story = StoryObj<typeof List>;
+
+const items = Array.from({ length: 100 }, (_, index) => ({
+  id: `item${index}`,
+  title: `Item ${index}`,
+  rightTitle: "Right title",
+  description: "Playing with fonts is fun",
+}));
 
 export const Primary: Story = {
   name: "List",
@@ -168,5 +176,49 @@ export const Checkboxes: Story = {
       },
     ],
     isSelectable: true,
+  },
+};
+
+const updateRows = (page: number, nbRows: number) => {
+  const start = (page - 1) * nbRows;
+  const end = start + nbRows;
+  return items.slice(start, end);
+};
+
+export const PaginatedList: Story = {
+  name: "Paginated List",
+  args: {
+    header: {
+      title: "Paginated List",
+      description: "Helpful description",
+      id: "list-header-3",
+    },
+    paginationProps: {
+      currentPage: 1,
+      rowsPerPage: 10,
+      totalItems: items.length,
+      showRowsPerPageSelector: true,
+    },
+  },
+  render: (args) => {
+    const [shownItems, setShownItems] = useState(updateRows(1, 10));
+
+    const handlePaginationSettingsChange = (page: number, rows: number) => {
+      setShownItems(updateRows(page, rows));
+    };
+
+    return (
+      <List
+        {...args}
+        items={shownItems}
+        paginationProps={{
+          ...args.paginationProps,
+          currentPage: args.paginationProps?.currentPage || 1,
+          rowsPerPage: args.paginationProps?.rowsPerPage || 10,
+          totalItems: args.paginationProps?.totalItems || 100,
+          onPageSettingsChange: handlePaginationSettingsChange,
+        }}
+      />
+    );
   },
 };

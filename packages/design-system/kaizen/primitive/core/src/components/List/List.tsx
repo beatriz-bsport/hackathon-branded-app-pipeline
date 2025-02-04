@@ -4,6 +4,8 @@ import Header, { ListHeaderProps } from "./Header";
 import Item, { ListItemProps } from "./Item";
 import { ChipProps } from "#src/components/Chip";
 import { CheckboxProvider } from "#src/contexts/CheckboxContext";
+import type { PaginationProps } from "#src/components/private/Pagination";
+import { usePagination } from "#src/hooks/use-pagination";
 
 const defaultClasses = [
   "flex",
@@ -46,6 +48,7 @@ export type ListProps = {
   header?: ListHeaderProps;
   items?: ListItemProps[];
   isSelectable?: boolean;
+  paginationProps?: PaginationProps;
 };
 
 /**
@@ -55,6 +58,8 @@ export type ListProps = {
  * @param id Optional ID for the list.
  * @param header Optional header component to display at the top of the list.
  * @param items An array of `Item` components to display in the list.
+ * @param paginationProps An object gathering all properties passed to Pagination component.
+ * If undefined, the Pagination will not be rendered and therefore the list will not be paginated.
  * @link https://docs.infra.bsport.io/storybook/kaizen/main/index.html?path=/docs/components-list--docs
  */
 const List: React.FC<ListProps> = ({
@@ -63,8 +68,12 @@ const List: React.FC<ListProps> = ({
   header,
   items,
   isSelectable = false,
+  paginationProps,
 }: ListProps) => {
   const valueIds = items?.map((item) => item.id) ?? [];
+
+  const pagination = usePagination(paginationProps);
+
   return (
     <CheckboxProvider valueIds={valueIds}>
       <div className={className} id={id}>
@@ -72,6 +81,7 @@ const List: React.FC<ListProps> = ({
         {items?.map((item) => (
           <Item {...item} key={item.id} isSelectable={isSelectable} />
         ))}
+        {pagination}
       </div>
     </CheckboxProvider>
   );

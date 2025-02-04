@@ -3,7 +3,7 @@ import type { DistinctQuestion } from "inquirer";
 import type { PackageJson } from "@bsport/typescript-monorepo-utils";
 import { spawn } from "child_process";
 import path from "path";
-import fs, { existsSync } from "fs-extra";
+import fs from "fs-extra";
 import inquirer from "inquirer";
 import kebabCase from "lodash/kebabCase";
 import {
@@ -275,7 +275,7 @@ Please edit the following file to include it: ${path.resolve(
     print("⏳ Populating env variables...");
     // Read the env variables from the .env file
     const envFile = path.resolve(projectAbsPath, ".env");
-    if (existsSync(envFile)) {
+    if (fs.existsSync(envFile)) {
       // Override or create specific variables with the right value
 
       // Override VITE_I18N_NAMESPACE_PREFIX if it exists with the app name
@@ -289,6 +289,28 @@ Please edit the following file to include it: ${path.resolve(
     print(
       "✅ The env variables has been successfully setup in the new project !",
     );
+  }
+
+  // Symlink .prettierignore configuration
+  {
+    const ignoreFile = path.resolve(projectAbsPath, ".prettierignore");
+
+    if (fs.readlinkSync(ignoreFile)) {
+      print("⏳ Found .prettierignore - fixing symlink...");
+
+      try {
+        fs.removeSync(ignoreFile);
+
+        const target = path.relative(
+          projectAbsPath,
+          path.join(monorepoBasePath, ".prettierignore"),
+        );
+
+        fs.symlinkSync(target, ignoreFile);
+      } catch (e) {
+        throw new Error(`❌ Error while symlinking: ${e.message}`);
+      }
+    }
   }
 
   // Runs the setup script if it exists.

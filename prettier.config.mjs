@@ -4,4 +4,12 @@
  */
 export default {
   singleQuote: false,
+  overrides: [
+    {
+      files: "*.svg",
+      options: {
+        parser: "html",
+      },
+    },
+  ],
 };

@@ -11851,7 +11851,14 @@
                 "content": "Questa prenotazione è stata cancellata troppo tardi per essere rimborsata automaticamente. Fare clic su “Rimborso” per elaborare un rimborso una tantum per questa prenotazione.",
                 "title": "Rimborso per cancellazione tardiva"
             },
-            "refund": "Rimborso"
+            "refund": "Rimborso",
+            "oneClickBooking": {
+                "seeMoreWithLogin": "Accedi per esplorare i pacchetti combinati e gli abbonamenti!",
+                "yourBooking": "Le tue Prenotazioni",
+                "goToLogin": "Login",
+                "alreadyMember": "Hai già un account?",
+                "checkoutTitle": "Checkout"
+            }
         },
         "smartList": {
             "mail": {
@@ -13416,7 +13423,7 @@
                         "hasRelatedMarketplaceComponentConfigs": "Le schede calendario e workshop configurate per il vostro marketplace non visualizzeranno più il calendario della sede.",
                         "hasRelatedMarketingNotifications": "Le notifiche relative a questa sede saranno eliminate.",
                         "exclusiveAssociatedCoaches": "L'insegnante {{- coach_name }} viene avvisato solo quando viene fatta una richiesta di sostituzione per una sessione in questa sede. Eliminando la sede, riceverà quindi le richieste di sostituzione da tutte le sedi.",
-                        "exclusiveAssociatedCoaches_plural": "Gli insegnanti {{- coach_name }} vengono avvisati solo quando viene fatta una richiesta di sostituzione per una sessione in questa sede. Eliminandola, riceveranno quindi le richieste di sostituzione da ogni sede.",
+                        "exclusiveAssociatedCoaches_plural": "Gli insegnanti {{- coach_name }} vengono avvisati solo quando viene fatta una richiesta di sostituzione per una sessione in questa sede. Eliminandola, riceveranno quindi le richieste di sostituzione da tutte le sedi.",
                         "hasRelatedAssociatedCoaches": "Alcuni insegnanti ricevono una notifica quando viene fatta una richiesta di sostituzione per una sessione in questa sede. Eliminando la sede, non riceveranno più la relativa notifica.",
                         "hasRelatedStaffConfigurations": "Questa sede è utilizzata per il monitoraggio degli accessi da parte di uno o più utenti staff. Eliminando la sede senza selezionarne una nuova, questi non potranno più effettuare il monitoraggio degli accessi."
                     },
@@ -13462,7 +13469,7 @@
                     "exclusiveEstablishmentGroups": "La sede {{- establishment_group_name }} contiene solo lo stabilimento che si desidera eliminare; si prega di aggiornare o eliminare questa sede.",
                     "exclusiveEstablishmentGroups_plural": "Le sedi {{- establishment_group_name }} contengono solo lo stabilimento che si desidera eliminare; aggiornare o eliminare queste sedi.",
                     "exclusivePaymentPacks": "Il seguente pacchetto {{- pass_name }} è utilizzabile esclusivamente in questo stabilimento. Si prega di aggiornare le restrizioni prima di cancellare lo stabilimento.",
-                    "exclusivePaymentPacks_plural": "I seguenti pacchetti {{- pass_name }} sono utilizzabili solo in questo stabilimento. Aggiornare le restrizioni prima di cancellare lo stabilimento.",
+                    "exclusivePaymentPacks_plural": "I seguenti pacchetti {{- pass_name }} sono utilizzabili solo in questo stabilimento. Si prega di aggiornare le restrizioni prima di cancellare lo stabilimento.",
                     "hasExclusiveBillingGroup": "Questo stabilimento è l'ultimo del suo gruppo di fatturazione. Si prega di cancellare o aggiornare il gruppo di fatturazione in questione prima di cancellare questo stabilimento.",
                     "hasUpcomingPrivateBookings": "Alcuni appuntamenti in programma avranno luogo in questo stabilimento. Ti preghiamo di eliminare gli appuntamenti in questione prima di eliminare questo stabilimento.",
                     "hasUpcomingOffers": "Alcune sessioni in programma avranno luogo in questo stabilimento. Ti preghiamo di eliminare le sessioni in questione prima di eliminare questo stabilimento."
@@ -14864,7 +14871,8 @@
                 "X": "Non binario",
                 "M": "Maschio",
                 "F": "Femmina"
-            }
+            },
+            "biweekly": "Bisettimanale"
         },
         "titles": {
             "metaActivity": {
@@ -15639,6 +15647,9 @@
                 "title": {
                     "universalPassMessage": "Pacchetto universale, utilizzabile per lezioni di gruppo e appuntamenti",
                     "autoRenewal": "Rinnovo automatico"
+                },
+                "price": {
+                    "free": "Gratis"
                 }
             },
             "genericCardDetails": {

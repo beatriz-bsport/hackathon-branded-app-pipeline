@@ -43,8 +43,3 @@ export const LOCALES_WITH_FIRST_WEEKDAY_BEING_SUNDAY = ["en-US", "en-CA"];
 export type InitConfig = {
   applicationName: string;
 };
-
-export type TFunction = (
-  i18nKey: string | string[],
-  options?: { ns?: string },
-) => string;

@@ -1,6 +1,7 @@
 import { lazy, Suspense } from "react";
 import { Route } from "react-router";
 import { RoutesWrapper } from "@bsport/b2b-backbone";
+import GroupActivitiesList from "#src/pages/GroupActivitiesList/GroupActivitiesList";
 
 const Navigation = lazy(() => import("navigation-sidebar/Navigation"));
 const IS_LOCAL_DEVELOPMENT = import.meta.env.DEV;
@@ -16,7 +17,7 @@ const AppRoutes = () => {
       }
     >
       <Route index />
-      <Route path="list-example" />
+      <Route element={<GroupActivitiesList />} path="list-example" />
     </RoutesWrapper>
   );
 };

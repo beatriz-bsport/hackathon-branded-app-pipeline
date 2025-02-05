@@ -28,6 +28,9 @@ const icons = {
     async () => await import("./assets/bar-line-chart.svg?react"),
   ),
   "bell-03": React.lazy(async () => await import("./assets/bell-03.svg?react")),
+  "bell-ringing-04": React.lazy(
+    async () => await import("./assets/bell-ringing-04.svg?react"),
+  ),
   "book-closed": React.lazy(
     async () => await import("./assets/book-closed.svg?react"),
   ),
@@ -55,6 +58,7 @@ const icons = {
     async () => await import("./assets/chevron-selector-vertical.svg?react"),
   ),
   clock: React.lazy(async () => await import("./assets/clock.svg?react")),
+  "copy-03": React.lazy(async () => await import("./assets/copy-03.svg?react")),
   "dots-horizontal": React.lazy(
     async () => await import("./assets/dots-horizontal.svg?react"),
   ),
@@ -139,6 +143,9 @@ const icons = {
   "user-01": React.lazy(async () => await import("./assets/user-01.svg?react")),
   "user-edit": React.lazy(
     async () => await import("./assets/user-edit.svg?react"),
+  ),
+  "video-recorder": React.lazy(
+    async () => await import("./assets/video-recorder.svg?react"),
   ),
   "x-close": React.lazy(async () => await import("./assets/x-close.svg?react")),
   x: React.lazy(async () => await import("./assets/x.svg?react")),

@@ -1,11 +1,13 @@
 import React, { useEffect, useMemo } from "react";
 import { ListLayout, Button, List } from "@bsport/kaizen-primitive-core";
 import { useTranslation } from "#src/utils/i18n";
+import usePaginatedGroupActivities from "#src/hooks/usePaginatedGroupActivities";
 
 import type { ListItemProps } from "@bsport/kaizen-primitive-core/dist/components/List/Item";
 import type { ListItemChipsProps } from "@bsport/kaizen-primitive-core/dist/components/List";
 import type { WithTooltip } from "@bsport/kaizen-primitive-core/dist/components/Tooltip";
-import usePaginatedGroupActivities from "#src/hooks/usePaginatedGroupActivities";
+
+import { ARCHIVED_GROUP_ACTIVITIES_PATH } from "#src/constants";
 
 const GroupActivitiesList: React.FC = () => {
   const { t } = useTranslation("groupActivity");
@@ -108,32 +110,26 @@ const GroupActivitiesList: React.FC = () => {
   return (
     <ListLayout className="w-full">
       <ListLayout.Header
-        breadcrumbsItems={[
-          {
-            text: "Back to home",
-            href: "/",
-            id: "back-to-home",
-          },
-        ]}
         callToActionButton={
-          <Button
-            iconLeft="bell-03"
-            intent="call-to-action"
-            color="main"
-            size="md"
-            label="CTA Button"
-          />
+          <div className="flex gap-2xs">
+            <a href={ARCHIVED_GROUP_ACTIVITIES_PATH}>
+              <Button
+                iconLeft="archive"
+                intent="default"
+                color="main"
+                size="md"
+              />
+            </a>
+            <Button
+              iconLeft="plus"
+              intent="call-to-action"
+              color="main"
+              size="md"
+              label={t("list.header.add")}
+            />
+          </div>
         }
-        pageTabs={{
-          tabs: [
-            {
-              label: "Some tab",
-              icon: "user-edit",
-            },
-          ],
-          orientation: "horizontal",
-        }}
-        pageTitle="Offer list example"
+        pageTitle={t("list.header.groupActivities")}
       />
       <ListLayout.Content className="hide-scrollbar w-full">
         <List

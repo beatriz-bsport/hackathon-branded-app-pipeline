@@ -13,7 +13,10 @@ import {
   MONTHLY,
   WEEKLY,
 } from '#src/libs/instalment-payment-configuration/constants';
-import type { InstalmentPaymentApiWithBasketId } from '#src/libs/instalment-payment-configuration/types';
+import {
+  CustomFirstInstalmentType,
+  InstalmentPaymentApiWithBasketId,
+} from '#src/libs/instalment-payment-configuration/types';
 import InstalmentPaymentMultiplyIcon from './InstalmentPaymentConfigurationMultiplyIcon.component';
 
 type Props = {
@@ -42,8 +45,22 @@ export const BasketInstalmentPaymentOption: React.FC<Props> = ({
     checked,
     isCheckoutContext,
   });
-  const { recurrency, frequency, number_of_billing, partial_payment_enabled } =
-    instalmentPayment;
+  const {
+    recurrency,
+    frequency,
+    number_of_billing,
+    custom_first_instalment_amount,
+    custom_first_instalment_enabled,
+    custom_first_instalment_percent,
+    custom_first_instalment_type,
+    partial_payment_enabled,
+  } = instalmentPayment;
+
+  // TODO: FIX TYPING, custom_first_instalment_amount is a string
+  const customFirstInstalmentAmountAsNumber = Number.parseFloat(
+    // @ts-expect-error
+    custom_first_instalment_amount,
+  );
 
   const calculateInstallmentDate = useCallback(
     (quantityToAdd: number) => {
@@ -71,14 +88,31 @@ export const BasketInstalmentPaymentOption: React.FC<Props> = ({
       );
   }, [frequency, calculateInstallmentDate, number_of_billing]);
 
+  // @debt(4, 2, 3): Potential side effects in the installment calculation logic if business rules change
   // Calculate the amount for each instalment except the last one, rounded down
-  const instalmentsAmount = useMemo(() => {
-    if (number_of_billing === 1) return '0';
+  const firstInstalmentAmount = useMemo(() => {
+    const hasCustomfirstPayment =
+      custom_first_instalment_enabled || partial_payment_enabled;
 
-    return (Math.trunc((basketPrice / number_of_billing) * 100) / 100).toFixed(
-      2,
-    );
-  }, [basketPrice, number_of_billing]);
+    if (!hasCustomfirstPayment)
+      return (
+        Math.trunc((basketPrice / number_of_billing) * 100) / 100
+      ).toFixed(2);
+    if (custom_first_instalment_type === CustomFirstInstalmentType.AMOUNT)
+      return (customFirstInstalmentAmountAsNumber || 0).toFixed(2);
+    return (
+      ((custom_first_instalment_percent || 0) / 100) *
+      basketPrice
+    ).toFixed(2);
+  }, [
+    customFirstInstalmentAmountAsNumber,
+    custom_first_instalment_enabled,
+    custom_first_instalment_percent,
+    custom_first_instalment_type,
+    partial_payment_enabled,
+    basketPrice,
+    number_of_billing,
+  ]);
 
   // Adjust the last instalment to cover the remaining balance
   const lastInstalmentAmount = useMemo(() => {
@@ -86,9 +120,9 @@ export const BasketInstalmentPaymentOption: React.FC<Props> = ({
 
     return (
       basketPrice -
-      parseFloat(instalmentsAmount) * (number_of_billing - 1)
+      parseFloat(firstInstalmentAmount) * (number_of_billing - 1)
     ).toFixed(2);
-  }, [basketPrice, instalmentsAmount, number_of_billing]);
+  }, [basketPrice, firstInstalmentAmount, number_of_billing]);
 
   const instalmentAmountList = new Array(number_of_billing)
     .fill(0)
@@ -96,7 +130,7 @@ export const BasketInstalmentPaymentOption: React.FC<Props> = ({
       if (index === number_of_billing - 1) {
         return lastInstalmentAmount;
       }
-      return instalmentsAmount;
+      return firstInstalmentAmount;
     });
 
   const handleChange = useCallback(() => {
@@ -118,7 +152,7 @@ export const BasketInstalmentPaymentOption: React.FC<Props> = ({
         {partial_payment_enabled && (
           <Typography>
             {t('configurationOption.payLater', {
-              amount: getCurrencyDisplayWithPrice(instalmentsAmount[0]),
+              amount: getCurrencyDisplayWithPrice(firstInstalmentAmount),
             })}
           </Typography>
         )}
@@ -147,7 +181,7 @@ export const BasketInstalmentPaymentOption: React.FC<Props> = ({
             <Typography variant="caption">
               {t('configurationOption.payLaterRemainder', {
                 remainder: getCurrencyDisplayWithPrice(
-                  basketPrice - parseFloat(instalmentsAmount[0]),
+                  basketPrice - parseFloat(firstInstalmentAmount),
                 ),
               })}
             </Typography>

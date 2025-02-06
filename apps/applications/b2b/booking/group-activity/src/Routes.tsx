@@ -2,6 +2,8 @@ import { lazy, Suspense } from "react";
 import { Route } from "react-router";
 import { RoutesWrapper } from "@bsport/b2b-backbone";
 import GroupActivitiesList from "#src/pages/GroupActivitiesList/GroupActivitiesList";
+import ArchivedGroupActivitiesList from "#src/pages/ArchivedGroupActivitiesList/ArchivedGroupActivitiesList";
+
 import {
   ARCHIVED_GROUP_ACTIVITIES_PATH,
   GROUP_ACTIVITIES_PATH,
@@ -20,7 +22,10 @@ const AppRoutes = () => {
         </Suspense>
       }
     >
-      <Route path={ARCHIVED_GROUP_ACTIVITIES_PATH} />
+      <Route
+        path={ARCHIVED_GROUP_ACTIVITIES_PATH}
+        element={<ArchivedGroupActivitiesList />}
+      />
       <Route element={<GroupActivitiesList />} path={GROUP_ACTIVITIES_PATH} />
     </RoutesWrapper>
   );

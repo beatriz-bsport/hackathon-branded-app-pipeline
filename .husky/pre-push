@@ -9,7 +9,7 @@ if [ "$GIT_BRANCH" = "dev" ]; then
     RUN_TRANSLATIONS_CHECK="true"
 elif [ "$GIT_BRANCH" = "staging" ]; then
     RUN_TRANSLATIONS_CHECK="true"
-elif [ "$GIT_BRANCH" = "main" ]; then
+elif [ "$GIT_BRANCH" = "production" ]; then
     RUN_TRANSLATIONS_CHECK="true"
 else
     continue

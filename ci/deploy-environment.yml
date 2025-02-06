@@ -48,5 +48,5 @@ Deploy Staging:
 Deploy Production:
   extends: .Deploy Base
   variables:
-    TARGET_BRANCH: "main"
+    TARGET_BRANCH: "production"
     ENV: "production"

@@ -14,7 +14,7 @@ Prepare Builder:
     - if: $CI_PIPELINE_SOURCE == "schedule"
       when: "never"
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
-    - if: $CI_COMMIT_REF_NAME == "main"
+    - if: $CI_COMMIT_REF_NAME == "production"
       interruptible: false
     - if: $CI_COMMIT_REF_NAME == "staging"
       interruptible: false

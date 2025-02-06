@@ -1,41 +1,34 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import { compose } from 'recompose';
 import { useTranslation } from 'react-i18next';
-import first from 'lodash/first';
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 import routerParamsToProps from '#src/hocs/router-params-to-props.hoc';
 import { retrieveCompanyCssConfiguration as retrieveCompanyCssConfigurationAction } from '#src/libs/exportable-components/actions';
 import WithCustomCssProvider from '#src/hocs/company-custom-css.hoc';
-import useAsyncFn from '#src/hooks/useAsyncFn';
 import { snackbarError } from '#src/libs/snackbar/actions';
 import themeSelectors from '#src/libs/theme/selectors';
-import { retrieveOffer } from '#src/libs/offer/api';
-import { fetchPaymentPackList } from '#src/libs/payment-packs/api';
-import { fetchMetaActivityDetails } from '#src/libs/meta-activity/api/common';
-import { retrieveEstablishment } from '#src/libs/establishment/api';
-import { fetchAssociatedCoaches } from '#src/libs/associated-coach/api';
 import type { RootState } from '#src/reducers';
 import { Redirect } from 'react-router-dom';
 import {
   getLoginUrl,
   getOfferBookerUrl,
 } from '#src/libs/marketplace/routing-utils';
-import type { Coach } from '#src/libs/associated-coach/types';
-import type { MetaActivity } from '#src/libs/meta-activity/types';
-import type { Establishment } from '#src/libs/establishment/types';
 import ConsumerBookingDetailsCard from '#src/libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingDetailsCard';
 import { getLevelTranslation } from '#src/libs/level/utils';
 import useConsumerBookingDateTime from '#src/libs/consumer-space/components/reworked/@MyBookings/hooks/useConsumerBookingDateTime';
 import Skeleton from '#src/components/css-only/Skeleton';
-
 import Typography from '#src/components/css-only/Fabrique/Typography/Typography.component';
 import { TypographyVariant } from '#src/components/css-only/Fabrique/Typography/constants';
 import ButtonV2 from '#src/components/css-only/Fabrique/ButtonV2';
 import MinimalPaymentPackCard from '#src/libs/marketplace/components/@PaymentPack/MinimalPaymentPackCard';
 import { LinkExternal01 } from '#src/components/untitledui';
-
 import './index.css';
+import LightSignupForm, {
+  LightSignupFormValues,
+} from './_components/LightSignupForm';
+import useFetchOfferInformation from './_hooks/useFetchOfferInformation';
+import useBookInOneClick from './_hooks/useBookInOneClick';
 
 type OwnProps = {
   companyId: number;
@@ -54,81 +47,49 @@ const OneClickBookingModule: React.FC<Props> = ({
     number | null
   >(null);
 
-  const fetchOfferInformation = async () => {
-    const { data: offer } = await retrieveOffer(offerId);
-
-    // Here, we are not calling getAvailablePaymentPacks because One Click Booking
-    // target only the simple case of bookings for new members
-    const {
-      data: { results: paymentPacks },
-    } = await fetchPaymentPackList({
-      offer: offer.id,
-      company: companyId,
-      manager_only: false,
-      disabled: false,
-      as_consumer: true,
-      page: 1,
-      page_size: 2,
-      include_expired: false,
-      new_member_only: true,
-    });
-    let metaActivity: MetaActivity | undefined;
-    let establishment: Establishment | undefined;
-    let coach: Coach | undefined;
-    try {
-      metaActivity = (await fetchMetaActivityDetails(offer.meta_activity)).data;
-      establishment = (await retrieveEstablishment(offer.establishment)).data;
-
-      coach = first(
-        (await fetchAssociatedCoaches({ id__in: [offer.coach] })).data,
-      );
-    } catch (error) {
-      console.error(error);
-    }
-
-    if (paymentPacks.length > 0) {
-      setSelectedPaymentPackId(paymentPacks[0].id);
-    }
-
-    return {
-      offer,
-      paymentPacks,
-      metaActivity,
-      establishment,
-      coach,
-    };
-  };
-
-  const [state, doFetchOffer] = useAsyncFn(fetchOfferInformation, [
-    offerId,
-    companyId,
-  ]);
+  const [state, fetchOffer] = useFetchOfferInformation();
+  const [bookingState, bookInOneClick] = useBookInOneClick();
 
   const { t } = useTranslation('booking');
-
-  // TODO: Add a method to create the member and fetch the current basket right after
-  // TODO: Add a method to add the offer to the basket based on postUserRegistration
 
   useEffect(() => {
     (async () => {
       if (companyId) {
         retrieveCompanyCssConfigurationAction(companyId);
       }
-      await doFetchOffer();
+      const { paymentPacks } = await fetchOffer(offerId, companyId);
+      if (paymentPacks.length > 0) {
+        setSelectedPaymentPackId(paymentPacks[0].id);
+      }
     })();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [companyId, offerId]);
 
   useEffect(() => {
-    if (state.error) {
+    if (state.error || bookingState.error) {
       snackbarError('booking.fetch.error');
     }
-  }, [state.error]);
+  }, [state.error, bookingState.error]);
 
   const offer = state.value?.offer;
   const metaActivity = state.value?.metaActivity;
   const establishment = state.value?.establishment;
   const coach = state.value?.coach;
+
+  const onSubmitLightSignupForm = useCallback(
+    async (formValues: LightSignupFormValues) => {
+      await bookInOneClick({
+        companyId,
+        selectedPaymentPackId,
+        offer,
+        firstName: formValues.firstName,
+        lastName: formValues.lastName,
+        email: formValues.email,
+        phone: formValues.phone,
+      });
+    },
+    [companyId, selectedPaymentPackId, offer, bookInOneClick],
+  );
 
   const offerDate = useConsumerBookingDateTime({
     dateStart: offer?.date_start,
@@ -146,6 +107,8 @@ const OneClickBookingModule: React.FC<Props> = ({
     window.location.search,
   );
 
+  // @debt(4, 2, 2) This works because we do not set the authenticated state in the redux store
+  // when we are on the one click booking page (we are just storing the token in the local storage)
   if (authenticated) {
     return <Redirect to={offerBookerUrl} />;
   }
@@ -231,6 +194,9 @@ const OneClickBookingModule: React.FC<Props> = ({
                 <LinkExternal01 size="16px" />
               </div>
             </ButtonV2>
+          </div>
+          <div className="bs-oneclick-booking__light-signup-form">
+            <LightSignupForm submitValidatedForm={onSubmitLightSignupForm} />
           </div>
         </div>
       )}

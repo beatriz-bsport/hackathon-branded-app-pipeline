@@ -1,7 +1,6 @@
 const webpack = require('webpack');
 const { merge } = require('webpack-merge');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const ESLintPlugin = require('eslint-webpack-plugin');
 const common = require('./webpack.common.js');
 const paths = require('./paths');
 const getClientEnvironment = require('./env');
@@ -13,7 +12,7 @@ const publicPath = '/';
 
 module.exports = merge(common, {
   mode: 'development',
-  devtool: 'eval',
+  devtool: 'eval-source-map',
   devServer: {
     historyApiFallback: true,
     allowedHosts: 'all',
@@ -31,6 +30,11 @@ module.exports = merge(common, {
       directory: paths.appPublic,
       publicPath,
     },
+  },
+  output: {
+    filename: 'static/js/[name].js',
+    chunkFilename: 'static/js/[name].chunk.js',
+    publicPath,
   },
   plugins: [
     new HtmlWebpackPlugin({

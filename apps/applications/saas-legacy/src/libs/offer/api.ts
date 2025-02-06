@@ -20,7 +20,8 @@ import type {
 
 import { PaginatedResponse } from '../../state/types';
 import type { PaginationFilterParams } from '../types';
-import Config from '../../config';
+import Config from '#src/config';
+import { UserRegistrationResponse } from '#src/libs/booker-module/types';
 
 const API_V1_URI = Config.REACT_APP_BASE_URI_BOOK_V1;
 const API_URI = Config.REACT_APP_BASE_URI_BOOK_V0;
@@ -139,7 +140,7 @@ export async function postUserRegistration(
   },
   params?: UserRegistrationParams,
 ) {
-  return postAuth(
+  return postAuth<UserRegistrationResponse>(
     ` ${API_V1_URI}/offer/user_registration/${buildUrlParams(params)}`,
     data,
   );

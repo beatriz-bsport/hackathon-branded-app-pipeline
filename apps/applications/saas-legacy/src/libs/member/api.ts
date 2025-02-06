@@ -113,6 +113,13 @@ export async function addMember(data: Object) {
   return postAuth(`${API_URI}/saas/create-member/`, data);
 }
 
+export async function lightSignup(data: Object) {
+  return post<{ member_id: number; user_id: number; token: string }>(
+    `${API_V1_URI}/member/light_signup/`,
+    data,
+  );
+}
+
 export async function linkMeToCompany(data: any) {
   return postAuth(`${API_V1_URI}/member/link_to_company/`, data);
 }

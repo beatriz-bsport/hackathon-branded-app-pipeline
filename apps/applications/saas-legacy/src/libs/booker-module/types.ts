@@ -39,6 +39,14 @@ export type AdditionalGuest = {
   email: string;
 };
 
+export type UserRegistrationResponse = {
+  offer_on_waiting_list: number[];
+  error_codes: number[];
+  extra_data: ExtraDataFromQueryParams;
+  offers_booked: Offer_FULL[];
+  buyable_item_error_code: number | null;
+};
+
 export type ExtraDataFromQueryParams = Array<{
   offer_id: number;
   spot_id?: number;

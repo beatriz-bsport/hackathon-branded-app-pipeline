@@ -89,6 +89,7 @@
     "i18next-http-backend": "1.0.21",
     "intl": "^1.2.5",
     "leaflet": "^1.3.3",
+    "libphonenumber-js": "1.11.17",
     "lodash": "^4.17.10",
     "luxon": "^3.4.4",
     "material-ui-pickers": "^2",

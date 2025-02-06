@@ -54,11 +54,11 @@ import { urlToMarketplace } from '#src/libs/marketplace/utils';
 import { withExtraDataFromQueryParams } from '#src/libs/booker-module/utils';
 
 import type { CompanyTheme } from '#src/libs/theme/types';
+import type { OfferWithSpotInformation } from '#src/libs/offer/types';
 import type {
-  OfferWithSpotInformation,
-  Offer_FULL,
-} from '#src/libs/offer/types';
-import type { ExtraDataFromQueryParams } from '#src/libs/booker-module/types';
+  ExtraDataFromQueryParams,
+  UserRegistrationResponse,
+} from '#src/libs/booker-module/types';
 import { BuyableItemOptions, type Basket } from '#src/libs/checkout/types';
 
 import MarketplaceOfferBookingList from '#src/libs/marketplace/components/@Booking/MarketplaceOfferBookingList';
@@ -95,14 +95,6 @@ import { sortByDate } from '../../../../utils/datetime';
 import { buildUrlParams } from '../../../../http';
 
 import './styles.css';
-
-type UserRegistrationResponse = {
-  offer_on_waiting_list: number[];
-  error_codes: number[];
-  extra_data: ExtraDataFromQueryParams;
-  offers_booked: Offer_FULL[];
-  buyable_item_error_code: number | null;
-};
 
 type QueryParams = {
   basket: string;
@@ -154,6 +146,12 @@ export class ConfirmationCheckout extends React.PureComponent<Props, State> {
     this.state = {
       isAddGuestDialogOpen: false,
     };
+  }
+
+  componentDidUpdate(prevProps: Readonly<Props>): void {
+    if (prevProps.offerBookedIdList !== this.props.offerBookedIdList) {
+      this.fetchOfferData();
+    }
   }
 
   componentDidMount() {

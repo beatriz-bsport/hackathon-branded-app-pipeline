@@ -10,12 +10,12 @@ import themeSelectors from '#src/libs/theme/selectors';
 import { getLoginUrl } from '#src/libs/marketplace/routing-utils';
 
 import { fetchProfile as fetchProfileAction } from '#src/libs/consumer-space/actions';
-import { CompanyTheme } from '#src/libs/theme/types';
 import withThemeProvider from '#src/hocs/company-themifier.hoc';
 // @ts-expect-error
 import asyncComponent from '../../AsyncComponent.js';
 import { RootState } from '../../reducers';
 import Config from '#src/config';
+import { matchPath } from 'react-router-dom';
 
 const MarketplaceAsManager = asyncComponent(
   () =>
@@ -46,17 +46,21 @@ const ConfirmationCheckout = asyncComponent(
 type Props = {
   location: { [key: string]: string };
   companyId: number;
-
-  theme: CompanyTheme;
 } & ConnectedProps<typeof connector>;
 
-const Authenticated: React.FC<{
+const AuthenticatedSwitch: React.FC<{
   isAuthenticated: boolean;
-  children: React.ReactNode;
   companyId: Props['companyId'];
   location: Props['location'];
-}> = ({ isAuthenticated, children, companyId, location }) => {
-  if (!isAuthenticated) {
+  routes: {
+    component: React.ComponentType<any>;
+    path: string;
+  }[];
+}> = ({ isAuthenticated, companyId, location, routes }) => {
+  const matchesProtectedRoute = routes.some((route) =>
+    matchPath(location.pathname, { path: route.path, exact: true }),
+  );
+  if (!isAuthenticated && matchesProtectedRoute) {
     return (
       <Redirect
         to={getLoginUrl(companyId, location.pathname, window.location.search)}
@@ -64,7 +68,13 @@ const Authenticated: React.FC<{
     );
   }
 
-  return <>{children}</>;
+  return (
+    <Switch>
+      {routes.map((route) => (
+        <Route key={route.path} {...route} />
+      ))}
+    </Switch>
+  );
 };
 
 export const NewBookingFlowRouter: React.FC<Props> = ({
@@ -92,35 +102,40 @@ export const NewBookingFlowRouter: React.FC<Props> = ({
     /* NOTE: The marketplaceCssHoc will look at its parents to search for a Themeprovider. 
       Some pages (like the contract checkout) are wraped into the marketplaceCssHoc but don't have parent 
       that provide a theme. That's why we need to wrap the router into a MuiThemeProvider
-       */ <>
-      {['local', 'dev'].includes(Config.REACT_APP_SENTRY_ENVIRONMENT) && (
+       */ <Switch>
+      {/* TODO: Remove this once the feature flag on one click booking is ready */}
+      {['local', 'dev', 'football'].includes(
+        Config.REACT_APP_SENTRY_ENVIRONMENT,
+      ) && (
         <Route
           component={OneClickBookingModule}
           path="/one-click-booking/:companyId/:offerId"
         />
       )}
-      <Authenticated
+      <Route
+        component={ConfirmationCheckout}
+        path={'/checkout-s/:companyId/validation'}
+      />
+      <AuthenticatedSwitch
         companyId={companyId}
         isAuthenticated={authenticated}
         location={location}
-      >
-        <Switch>
-          <Route
-            component={BoutiqueBookerModule}
-            path="/booker-module-s/:companyId/:offerId"
-          />
-          <Route
-            component={ConfirmationCheckout}
-            path="/checkout-s/:companyId/validation"
-          />
-          <Route component={BasketPage} path="/checkout-s/:companyId" />
-          <Route
-            component={BoutiqueContractCheckout}
-            path="/contract-s/:companyId/:contractId"
-          />
-        </Switch>
-      </Authenticated>
-    </>
+        routes={[
+          {
+            component: BoutiqueBookerModule,
+            path: '/booker-module-s/:companyId/:offerId',
+          },
+          {
+            component: BasketPage,
+            path: '/checkout-s/:companyId',
+          },
+          {
+            component: BoutiqueContractCheckout,
+            path: '/contract-s/:companyId/:contractId',
+          },
+        ]}
+      />
+    </Switch>
   );
 };
 

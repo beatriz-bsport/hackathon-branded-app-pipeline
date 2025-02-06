@@ -798,6 +798,7 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
         this.props.consumerPaymentPackLoading ||
         this.props.consumerPaymentPackMaxoutLoading ||
         this.props.paymentPackLoading ||
+        this.props.paymentComboForContractLoading ||
         this.props.paymentComboLoading ||
         this.props.contractLoading ||
         this.props.paymentPackCategoryLoading ||
@@ -810,6 +811,7 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
           prevProps.consumerPaymentPackLoading ||
           prevProps.consumerPaymentPackMaxoutLoading ||
           prevProps.paymentPackLoading ||
+          prevProps.paymentComboForContractLoading ||
           prevProps.paymentComboLoading ||
           prevProps.contractLoading ||
           prevProps.paymentPackCategoryLoading ||
@@ -1187,6 +1189,7 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
       mainOfferStatusNotLoadedYet ||
       this.props.consumerPaymentPackLoading ||
       this.props.consumerPaymentPackMaxoutLoading ||
+      this.props.paymentComboForContractLoading ||
       this.props.paymentPackLoading ||
       this.props.paymentComboLoading ||
       this.props.contractLoading ||
@@ -2179,6 +2182,7 @@ const mapStateToProps = (state: RootState, props: OwnProps) => {
     paymentComboLoading: state.paymentCombo.forBooking.loading,
     contractLoading: state.subscription.contract.forBooking.loading,
     paymentPackCategoryLoading: state.paymentPack.paymentPackCategory.loading,
+    paymentComboForContractLoading: state.paymentCombo.forContracts.loading,
     bookingFunnelLoading: state.marketplace.bookingFunnel.loading,
     roomBlueprintLoading: state.spotScheduling.roomBlueprint.loading,
     assetForBlueprintLoading: state.spotScheduling.assetForBlueprint.loading,

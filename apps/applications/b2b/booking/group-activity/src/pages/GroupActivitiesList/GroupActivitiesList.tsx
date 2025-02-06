@@ -1,7 +1,17 @@
 import React, { useEffect, useMemo } from "react";
-import { ListLayout, Button, List } from "@bsport/kaizen-primitive-core";
+import {
+  ListLayout,
+  Button,
+  List,
+  Title,
+  Body,
+  Loader,
+} from "@bsport/kaizen-primitive-core";
+
 import { useTranslation } from "#src/utils/i18n";
 import usePaginatedGroupActivities from "#src/hooks/usePaginatedGroupActivities";
+
+import EmptyIllustration from "#src/components/EmptyIllustration";
 
 import type { ListItemProps } from "@bsport/kaizen-primitive-core/dist/components/List/Item";
 import type { ListItemChipsProps } from "@bsport/kaizen-primitive-core/dist/components/List";
@@ -18,6 +28,7 @@ const GroupActivitiesList: React.FC = () => {
     groupActivities,
     paginationProps,
     rowsPerPage,
+    isLoading,
   } = usePaginatedGroupActivities(true);
 
   const getGroupActivityDetailLink = (groupActivityId: string) =>
@@ -131,14 +142,45 @@ const GroupActivitiesList: React.FC = () => {
         }
         pageTitle={t("list.header.groupActivities")}
       />
-      <ListLayout.Content className="hide-scrollbar w-full">
-        <List
-          id="enabled-group-activities-list"
-          items={renderedGroupActivities}
-          className="w-full"
-          paginationProps={paginationProps}
-        />
-      </ListLayout.Content>
+      {isLoading ? (
+        <Loader className="w-full h-full" size="xl" />
+      ) : (
+        <ListLayout.Content className="hide-scrollbar w-full h-full">
+          {renderedGroupActivities.length ? (
+            <List
+              id="enabled-group-activities-list"
+              items={renderedGroupActivities}
+              className="w-full"
+              paginationProps={paginationProps}
+            />
+          ) : (
+            <div className="flex flex-col gap-sm w-full items-center justify-center">
+              <div className="flex flex-col gap-xs items-center">
+                <EmptyIllustration />
+                <Title htmlVariant="h3" color="weak" weight="strong">
+                  {t("list.enabled.emptyState.title")}
+                </Title>
+                <Body
+                  htmlVariant="p"
+                  weight="weak"
+                  color="weak"
+                  size="lg"
+                  className="max-w-xs text-center"
+                >
+                  {t("list.enabled.emptyState.body")}
+                </Body>
+              </div>
+              <Button
+                iconLeft="plus"
+                intent="call-to-action"
+                color="main"
+                size="md"
+                label={t("list.header.add")}
+              />
+            </div>
+          )}
+        </ListLayout.Content>
+      )}
     </ListLayout>
   );
 };

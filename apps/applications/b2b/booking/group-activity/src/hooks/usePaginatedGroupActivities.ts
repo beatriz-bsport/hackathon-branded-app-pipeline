@@ -75,6 +75,7 @@ const usePaginatedGroupActivities = (customerEnabled: boolean) => {
     currentPage,
     rowsPerPage,
     paginationProps,
+    isLoading,
   };
 };
 

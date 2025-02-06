@@ -128,7 +128,11 @@ import {
 } from '../../../libs/payment/constants';
 
 import { type EstablishmentBillingGroup } from '../../../libs/establishment/types';
-import { BASKET_INCONSISTENT } from '#src/libs/checkout/constants';
+import {
+  BASKET_INCONSISTENT,
+  PAYMENT_PACK_CAN_NOT_BOOK_ALL_OFFERS,
+  PAYMENT_COMBO_CAN_NOT_BOOK_ALL_OFFERS,
+} from '#src/libs/checkout/constants';
 import { getBookedSessionListDataFromBasket } from '#src/components/analytics/utils';
 
 type Props = {
@@ -197,6 +201,9 @@ type Props = {
 
   paymentProcessing: boolean,
   setPaymentProcessing: (process: boolean) => void,
+
+  paymentPackOrComboCanNotBookAllOffers: boolean,
+  setPaymentPackOrComboCanNotBookAllOffers: (value: boolean) => void,
 
   instalmentPaymentConfigurationList: Array<InstalmentPayment>,
   assignInstalmentPayment: (
@@ -627,6 +634,9 @@ export class BasketPage extends React.Component<Props> {
                 paymentMethodChoices={
                   this.props.theme.payment_method_available_basket || []
                 }
+                paymentPackOrComboCanNotBookAllOffers={
+                  this.props.paymentPackOrComboCanNotBookAllOffers
+                }
                 paymentProcessing={this.props.paymentProcessing}
                 refreshBasket={this.props.refreshBasket}
                 removeItemFromBasket={this.props.removeItemFromBasket}
@@ -859,6 +869,11 @@ export default compose(
           },
         }),
   }),
+  withState(
+    'paymentPackOrComboCanNotBookAllOffers',
+    'setPaymentPackOrComboCanNotBookAllOffers',
+    false,
+  ),
   withHandlers({
     addShopItemToBasket:
       ({ addItemToBasket, basket }) =>
@@ -902,7 +917,11 @@ export default compose(
         replace(getCheckoutValidationUrl(theme.company, urlParams));
       },
     checkItemsBasket:
-      ({ snackbarErrorMsg, refreshBasket }) =>
+      ({
+        snackbarErrorMsg,
+        refreshBasket,
+        setPaymentPackOrComboCanNotBookAllOffers,
+      }) =>
       async (basketId: string) => {
         try {
           await checkItemsBasketAPI(basketId);
@@ -910,9 +929,18 @@ export default compose(
           if (isErrorWithCustomCode(error) && error.response.data) {
             error.response.data.forEach((e) => {
               const { error_code } = e;
-              if (ALL_ERROR_CODES.includes(error_code)) {
+              if (
+                [
+                  PAYMENT_PACK_CAN_NOT_BOOK_ALL_OFFERS,
+                  PAYMENT_COMBO_CAN_NOT_BOOK_ALL_OFFERS,
+                ].includes(error_code)
+              ) {
+                setPaymentPackOrComboCanNotBookAllOffers(true);
+              } else if (ALL_ERROR_CODES.includes(error_code)) {
+                setPaymentPackOrComboCanNotBookAllOffers(false);
                 snackbarErrorMsg(`canNotBuyErrorCode.${error_code}`);
               } else {
+                setPaymentPackOrComboCanNotBookAllOffers(false);
                 snackbarErrorMsg('canNotBuyErrorCode.generic');
               }
             });

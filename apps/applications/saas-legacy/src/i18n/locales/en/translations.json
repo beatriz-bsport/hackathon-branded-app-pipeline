@@ -905,7 +905,8 @@
             "featured": "Featured",
             "error": {
                 "invalidBasket": "Your basket contained items which are no longer available. No payment has been processed.",
-                "inconsistentBasket": "Your basket has been modified, please refresh your page before validating your payment.\nYou have not been charged."
+                "inconsistentBasket": "Your basket has been modified, please refresh your page before validating your payment.\nYou have not been charged.",
+                "unavailableSessions": "Some sessions in your basket are no longer available, so we couldn't complete your reservation. We've removed the unavailable ones. Please review your basket and try again."
             },
             "actions": {
                 "closeBasket": "Continue shopping",

@@ -96,7 +96,12 @@ import {
   USER_REGISTRATION_RESPONSE_QUERY_PARAM,
   USER_REGISTRATION_RESPONSE_LOCAL_STORAGE_KEY,
 } from '#src/libs/payment/constants';
-import { BASKET_INCONSISTENT } from '#src/libs/checkout/constants';
+import {
+  BASKET_INCONSISTENT,
+  PAYMENT_PACK_CAN_NOT_BOOK_ALL_OFFERS,
+  PAYMENT_COMBO_CAN_NOT_BOOK_ALL_OFFERS,
+} from '#src/libs/checkout/constants';
+import Alert from '@material-ui/lab/Alert';
 
 const OnlinePayment = asyncComponent(
   () => import('../../libs/payment/components/OnlinePayment.component'),
@@ -130,6 +135,8 @@ type Props = {
   paymentProcessing: boolean;
   setPaymentProcessing: (process: boolean) => void;
   cardBillingDetailsMandatory: boolean;
+  paymentPackOrComboCanNotBookAllOffers: boolean;
+  setPaymentPackOrComboCanNotBookAllOffers: (value: boolean) => void;
 } & ConnectedProps<typeof connector> &
   MaterialStyleType<ReturnType<typeof styles>> &
   WithTranslation;
@@ -492,6 +499,11 @@ export class BasketPaymentIntent extends React.Component<Props, State> {
 
     return (
       <div className={classes.container}>
+        {this.props.paymentPackOrComboCanNotBookAllOffers && (
+          <Alert className={classes.basketAlert} severity="error">
+            {t('myBasket.error.unavailableSessions')}
+          </Alert>
+        )}
         {this.state.theme.is_tax_excluded_in_marketplace && (
           <BasketTaxInfo
             excludingTaxPrice={basketPriceExcludingTax}
@@ -691,6 +703,10 @@ const styles = (theme: Theme) => ({
   circularProgress: {
     marginLeft: theme.spacing(2),
   },
+  basketAlert: {
+    alignItems: 'center',
+    marginBottom: theme.spacing(2),
+  },
 });
 
 const connectUsablecreditAccount = connect(
@@ -754,6 +770,11 @@ export default compose(
   // @ts-expect-error
   routerParamsToProps({ basketId: 'basketId' }),
   withState('basketError', 'setBasketError', null),
+  withState(
+    'paymentPackOrComboCanNotBookAllOffers',
+    'setPaymentPackOrComboCanNotBookAllOffers',
+    false,
+  ),
   withState('paymentProcessing', 'setPaymentProcessing', false),
   connector,
 
@@ -832,7 +853,11 @@ export default compose(
   }),
   withHandlers({
     checkItemsBasket:
-      ({ snackbarErrorMsg, refreshBasket }) =>
+      ({
+        snackbarErrorMsg,
+        refreshBasket,
+        setPaymentPackOrComboCanNotBookAllOffers,
+      }) =>
       async (basketId: string) => {
         try {
           await checkItemsBasketAPI(basketId);
@@ -840,9 +865,18 @@ export default compose(
           if (isErrorWithCustomCode(error) && error.response.data) {
             error.response.data.forEach((exc: { error_code: number }) => {
               const { error_code } = exc;
-              if (ALL_ERROR_CODES.includes(error_code)) {
+              if (
+                [
+                  PAYMENT_PACK_CAN_NOT_BOOK_ALL_OFFERS,
+                  PAYMENT_COMBO_CAN_NOT_BOOK_ALL_OFFERS,
+                ].includes(error_code)
+              ) {
+                setPaymentPackOrComboCanNotBookAllOffers(true);
+              } else if (ALL_ERROR_CODES.includes(error_code)) {
+                setPaymentPackOrComboCanNotBookAllOffers(false);
                 snackbarErrorMsg(`canNotBuyErrorCode.${error_code}`);
               } else {
+                setPaymentPackOrComboCanNotBookAllOffers(false);
                 snackbarErrorMsg('canNotBuyErrorCode.generic');
               }
             });

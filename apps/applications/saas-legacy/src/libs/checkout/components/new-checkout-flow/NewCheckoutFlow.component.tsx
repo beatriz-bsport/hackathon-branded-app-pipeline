@@ -33,6 +33,8 @@ import ExpiredSpotDialog from '#src/libs/checkout/components/new-checkout-flow/E
 
 import type { Coupon } from '#src/libs/coupon/types';
 import { CouponErrorCodes } from '#src/libs/coupon/constants';
+import Alert from '@material-ui/lab/Alert';
+
 import {
   useHandleSubmitButtonsCallbacks,
   useSubmitButtonsDisabledState,
@@ -137,6 +139,7 @@ type Props = {
   setSelectedEstablishmentBillingGroup: (
     establishmentBillingGroup: EstablishmentBillingGroup,
   ) => void;
+  paymentPackOrComboCanNotBookAllOffers: boolean;
 };
 
 export const NewCheckoutFlow: React.FC<Props> = ({
@@ -188,6 +191,7 @@ export const NewCheckoutFlow: React.FC<Props> = ({
   selectedEstablishmentBillingGroup,
   setSelectedEstablishmentBillingGroup,
   setPaymentEngine,
+  paymentPackOrComboCanNotBookAllOffers,
 }) => {
   const { t } = useTranslation('checkout');
   const classes = useStyles();
@@ -465,7 +469,13 @@ export const NewCheckoutFlow: React.FC<Props> = ({
               validateUnpaid={validateUnpaid}
             />
           </div>
+
           <div className={classes.scrollableItems}>
+            {paymentPackOrComboCanNotBookAllOffers && (
+              <Alert className={classes.basketAlert} severity="error">
+                {t('myBasket.error.unavailableSessions')}
+              </Alert>
+            )}
             <CheckoutItemList
               activitySummaryCheckoutItems={activitySummaryCheckoutItems}
               connectedToOtherComponents={
@@ -565,11 +575,11 @@ const useStyles = makeStyles((theme) => ({
                         "payment summary"
                         "payment none"
     `,
-    // gridTemplateColumns: '2fr 1fr',
-    // gridTemplateRows: 'auto 1fr auto',
+    gridTemplateColumns: '2fr 1fr',
     columnGap: theme.spacing(3),
     rowGap: theme.spacing(2),
     [theme.breakpoints.down('sm')]: {
+      gridTemplateColumns: '1fr',
       gridTemplateAreas: `"basket"
                           "summary"
                           "payment"
@@ -586,6 +596,10 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down('sm')]: {
       gridRowStart: '3',
     },
+  },
+  basketAlert: {
+    alignItems: 'center',
+    marginBottom: theme.spacing(2),
   },
   scrollableItems: {
     gridArea: 'basket',

@@ -29,7 +29,7 @@ import type {
 } from './types';
 import Config from '../../config';
 
-const COUPON_URI = `${Config.REACT_APP_BASE_URI_FINANCIAL_SERVICES_V1}/coupon/`;
+const COUPON_URI = `${Config.REACT_APP_BASE_URI_BUYABLE_V1}/coupon/`;
 
 export const fetchCouponPage: (
   page: number,

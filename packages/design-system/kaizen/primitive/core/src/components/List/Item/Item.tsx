@@ -46,10 +46,10 @@ const BaseItem: React.FC<
     title,
     rightTitle,
     description,
-    isSelectable = false,
+    isSelectable,
     icon,
     avatar,
-    chipsDirection = "start",
+    chipsDirection,
     buttons,
     id,
     checkboxState,
@@ -141,6 +141,15 @@ const Item: React.FC<ListItemProps> = ({
   className,
   onCheckboxChange,
   link,
+  title,
+  rightTitle,
+  description,
+  isSelectable = false,
+  icon,
+  avatar,
+  chipsDirection = "start",
+  buttons,
+  chips,
   ...props
 }) => {
   const { toggleCheckbox, getCheckboxState } = useCheckboxContext();
@@ -172,7 +181,15 @@ const Item: React.FC<ListItemProps> = ({
         checkboxState={checkboxState}
         className="flex w-full justify-between items-center gap-xs self-stretch"
         id={id}
-        {...props}
+        title={title}
+        rightTitle={rightTitle}
+        description={description}
+        isSelectable={isSelectable}
+        icon={icon}
+        avatar={avatar}
+        chipsDirection={chipsDirection}
+        buttons={buttons}
+        chips={chips}
       />
     </li>
   );

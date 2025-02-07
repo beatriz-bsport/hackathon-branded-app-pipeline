@@ -9,9 +9,9 @@
   /* Text size for secondary content. (Eg: descriptions or extended captions) */
   --fontSizeKzBodyMd: 0.875rem;
   /* Used punctually to give prominence to a page. */
-  --fontSizeKzTitleXl: 2rem;
+  --fontSizeKzTitleXl: 1.75rem;
   /* Used as default for page headers or important text that stands out within the content. */
-  --fontSizeKzTitleLg: 1.75rem;
+  --fontSizeKzTitleLg: 1.5rem;
   /* Used for most headings inside containers (Eg: card, drawer, modal). */
   --fontSizeKzTitleSm: 1.1rem;
   /* Used for sections headings on the page. */

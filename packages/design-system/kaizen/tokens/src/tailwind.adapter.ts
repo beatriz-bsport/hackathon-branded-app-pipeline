@@ -486,7 +486,9 @@ const importShadows = async (folderPath: string): Promise<Output> => {
     "shadow",
     "css",
   ]);
-  const formatValue = formatVariableValue(formatName, {
+  const formatCSSName = formatVariableName(["color"], true);
+
+  const formatValue = formatVariableValue(formatCSSName, {
     formatCSSVariable: formatCSSVariableWithoutPrefix,
   });
   return Object.entries(cssContent).reduce(
@@ -495,6 +497,7 @@ const importShadows = async (folderPath: string): Promise<Output> => {
 
       const name = formatName(cssName);
       const value = formatValue(cssValue);
+      console.log(value);
       return {
         cssVariables: [
           ...acc.cssVariables,

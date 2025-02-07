@@ -240,7 +240,9 @@
     "surface-action-default-onstrong-pressed": "var(--kz-color-surface-action-default-onstrong-pressed)",
     "surface-action-critical-weak-hovered": "var(--kz-color-surface-action-critical-weak-hovered)",
     "surface-action-critical-weak-pressed": "var(--kz-color-surface-action-critical-weak-pressed)",
-    "surface-default-onstrong": "var(--kz-color-surface-default-onstrong)"
+    "surface-default-onstrong": "var(--kz-color-surface-default-onstrong)",
+    "surface-page-top-navigation": "var(--kz-color-surface-page-top-navigation)",
+    "stroke-page-layout": "var(--kz-color-stroke-page-layout)"
   },
   "size": {
     "0": "0px",

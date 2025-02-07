@@ -21,7 +21,7 @@
   --kz-color-luna-grey-400: #a6afae;
   --kz-color-luna-grey-500: #7f8786;
   --kz-color-luna-grey-600: #565e5d;
-  --kz-color-luna-grey-700: #353c3c;
+  --kz-color-luna-grey-700: #2b3030;
   --kz-color-luna-grey-800: #1e2323;
   --kz-color-luna-grey-900: #121313;
   --kz-color-luna-grey-1000: #0c0d0d;
@@ -29,7 +29,7 @@
   --kz-color-terra-green-100: #c3f7c8;
   --kz-color-terra-green-200: #9ae9a0;
   --kz-color-terra-green-300: #6fd177;
-  --kz-color-terra-green-400: #47af4f;
+  --kz-color-terra-green-400: #54bf5c;
   --kz-color-terra-green-500: #27842f;
   --kz-color-terra-green-600: #125818;
   --kz-color-terra-green-700: #07330b;
@@ -289,6 +289,8 @@
   --kz-color-surface-default-onstrong: var(
     --kz-color-base-transparent-nix-white-250
   );
+  --kz-color-surface-page-top-navigation: var(--kz-color-luna-grey-0);
+  --kz-color-stroke-page-layout: var(--kz-color-luna-grey-300);
   --kz-dimension-element-2xs: 4px;
   --kz-dimension-element-xs: 8px;
   --kz-dimension-element-sm: 16px;
@@ -319,8 +321,8 @@
   --kz-dimension-component-modal-min-lg: 1000px;
   --kz-dimension-font-size-display-lg: 72px;
   --kz-dimension-font-size-display-md: 40px;
-  --kz-dimension-font-size-title-xl: 32px;
-  --kz-dimension-font-size-title-lg: 28px;
+  --kz-dimension-font-size-title-xl: 28px;
+  --kz-dimension-font-size-title-lg: 24px;
   --kz-dimension-font-size-title-md: 20px;
   --kz-dimension-font-size-title-sm: 18px;
   --kz-dimension-font-size-title-xs: 16px;
@@ -330,8 +332,8 @@
   --kz-dimension-font-size-body-xs: 10px;
   --kz-dimension-font-line-height-display-lg: 86px;
   --kz-dimension-font-line-height-display-sm: 48px;
-  --kz-dimension-font-line-height-xl: 42px;
-  --kz-dimension-font-line-height-lg: 32px;
+  --kz-dimension-font-line-height-xl: 32px;
+  --kz-dimension-font-line-height-lg: 28px;
   --kz-dimension-font-line-height-md: 24px;
   --kz-dimension-font-line-height-sm: 20px;
   --kz-dimension-font-line-height-xs: 16px;
@@ -384,16 +386,16 @@
   --kz-font-size-body-lg: 1rem;
   --kz-font-size-body-sm: 0.75rem;
   --kz-font-size-body-md: 0.875rem;
-  --kz-font-size-title-xl: 2rem;
-  --kz-font-size-title-lg: 1.75rem;
+  --kz-font-size-title-xl: 1.75rem;
+  --kz-font-size-title-lg: 1.5rem;
   --kz-font-size-title-sm: 1.1rem;
   --kz-font-size-title-md: 1.25rem;
   --kz-font-size-title-xs: 1rem;
   --kz-font-size-display-lg: 5.375rem;
   --kz-font-size-display-sm: 2.5rem;
-  --kz-line-height-xl: 2.625rem;
+  --kz-line-height-xl: 2rem;
   --kz-line-height-display: 120%;
-  --kz-line-height-lg: 2rem;
+  --kz-line-height-lg: 1.75rem;
   --kz-line-height-md: 1.5rem;
   --kz-line-height-sm: 1.25rem;
   --kz-line-height-xs: 1rem;
@@ -405,30 +407,41 @@
   --kz-opacity-xs: 0.75;
   --kz-opacity-2xs: 0.9;
   --kz-opacity-transparent: 0;
-  --kz-shadow-action-default-rest: 0px 1px 2px 0px #a3afae40,
-    inset 0px 0px 0px 1px #353c3c26;
-  --kz-shadow-action-default-hovered: 0px 2px 6px 0px #a3afae40,
-    inset 0px 0px 0px 1px #353c3c40;
-  --kz-shadow-action-default-pressed: 0px 1px 4px -4px #353c3c59,
-    inset 0px 0px 0px 1px #353c3c59;
-  --kz-shadow-action-default-selected: inset 0px 3px 8px 0px #25948d40;
+  --kz-shadow-action-default-rest: 0px 1px 2px 0px
+      var(--kz-color-shadow-action-default-rest),
+    inset 0px 0px 0px 1px var(--kz-color-stroke-action-default-rest);
+  --kz-shadow-action-default-hovered: 0px 2px 6px 0px
+      var(--kz-color-shadow-action-default-hovered),
+    inset 0px 0px 0px 1px var(--kz-color-stroke-action-default-hovered);
+  --kz-shadow-action-default-pressed: 0px 1px 4px -4px var(--kz-color-shadow-action-default-pressed),
+    inset 0px 0px 0px 1px var(--kz-color-stroke-action-default-pressed);
+  --kz-shadow-action-default-selected: inset 0px 3px 8px 0px
+    var(--kz-color-shadow-action-default-selected);
   --kz-shadow-action-call-to-action-rest: 0px 1px 2px 0px #365a5840;
   --kz-shadow-action-call-to-action-hovered: 0px 2px 6px 0px #2a8b8580;
   --kz-shadow-action-call-to-action-pressed: 0px 1px 8px -2px #50505014;
-  --kz-shadow-focused: inset 0px 0px 0px 2px #21837d, 0px 0px 0px 4px #25948d80;
-  --kz-shadow-xl: 0px 20px 36px 12px #5c676333;
-  --kz-shadow-sm: 0px 2px 8px 0px #3d4d471a;
-  --kz-shadow-md: 0px 8px 16px 4px #3d4d471a;
-  --kz-shadow-lg: 0px 12px 20px 2px #5c676333;
+  --kz-shadow-focused: inset 0px 0px 0px 2px
+      var(--kz-color-stroke-action-main-selected),
+    0px 0px 0px 4px #25948d80;
+  --kz-shadow-xl: 0px 20px 36px 12px var(--kz-color-shadow-strong);
+  --kz-shadow-sm: 0px 2px 8px 0px var(--kz-color-shadow-weak);
+  --kz-shadow-md: 0px 8px 16px 4px var(--kz-color-shadow-weak);
+  --kz-shadow-lg: 0px 12px 20px 2px var(--kz-color-shadow-strong);
   --kz-shadow-action-call-to-action-critical-rest: 0px 1px 2px 0px #59363d40;
   --kz-shadow-action-call-to-action-critical-hovered: 0px 2px 6px 0px #8b465580;
   --kz-shadow-action-call-to-action-critical-pressed: 0px 1px 8px -2px #50505014;
-  --kz-shadow-border-thin-default: inset 0px 0px 0px 1px #353c3c26;
-  --kz-shadow-border-thin-main: inset 0px 0px 0px 1px #25948d;
-  --kz-shadow-border-thin-info: inset 0px 0px 0px 1px #447ba9;
-  --kz-shadow-border-thin-positive: inset 0px 0px 0px 1px #54bf5c;
-  --kz-shadow-border-thin-warning: inset 0px 0px 0px 1px #f59e0b;
-  --kz-shadow-border-thin-critical: inset 0px 0px 0px 1px #d16f84;
+  --kz-shadow-border-thin-default: inset 0px 0px 0px 1px
+    var(--kz-color-stroke-default);
+  --kz-shadow-border-thin-main: inset 0px 0px 0px 1px
+    var(--kz-color-stroke-main);
+  --kz-shadow-border-thin-info: inset 0px 0px 0px 1px
+    var(--kz-color-stroke-status-info);
+  --kz-shadow-border-thin-positive: inset 0px 0px 0px 1px
+    var(--kz-color-stroke-status-positive);
+  --kz-shadow-border-thin-warning: inset 0px 0px 0px 1px
+    var(--kz-color-stroke-status-warning);
+  --kz-shadow-border-thin-critical: inset 0px 0px 0px 1px
+    var(--kz-color-stroke-status-critical);
   --kz-transition-duration-default: 200ms;
   --kz-transition-duration-long: 300ms;
   --kz-transition-duration-short: 100ms;
@@ -454,7 +467,7 @@
   --kz-color-luna-grey-400: #a6afae;
   --kz-color-luna-grey-500: #7f8786;
   --kz-color-luna-grey-600: #565e5d;
-  --kz-color-luna-grey-700: #353c3c;
+  --kz-color-luna-grey-700: #2b3030;
   --kz-color-luna-grey-800: #1e2323;
   --kz-color-luna-grey-900: #121313;
   --kz-color-luna-grey-1000: #0c0d0d;
@@ -462,7 +475,7 @@
   --kz-color-terra-green-100: #c3f7c8;
   --kz-color-terra-green-200: #9ae9a0;
   --kz-color-terra-green-300: #6fd177;
-  --kz-color-terra-green-400: #47af4f;
+  --kz-color-terra-green-400: #54bf5c;
   --kz-color-terra-green-500: #27842f;
   --kz-color-terra-green-600: #125818;
   --kz-color-terra-green-700: #07330b;
@@ -558,10 +571,10 @@
   --kz-color-base-transparent-cupid-red-500: #84273b80;
   --kz-color-base-transparent-cupid-red-750: #84273bbf;
   --kz-color-base-transparent-cupid-red-900: #84273be5;
-  --kz-color-surface-page: var(--kz-color-luna-grey-800);
-  --kz-color-surface-page-navigation: var(--kz-color-luna-grey-1000);
+  --kz-color-surface-page: var(--kz-color-luna-grey-900);
+  --kz-color-surface-page-navigation: var(--kz-color-luna-grey-800);
   --kz-color-surface-default: var(--kz-color-luna-grey-800);
-  --kz-color-surface-default-elevated: var(--kz-color-luna-grey-800);
+  --kz-color-surface-default-elevated: var(--kz-color-luna-grey-700);
   --kz-color-surface-default-weak: var(--kz-color-luna-grey-500);
   --kz-color-surface-default-weaker: var(--kz-color-luna-grey-600);
   --kz-color-surface-default-weakest: var(--kz-color-luna-grey-700);
@@ -578,9 +591,9 @@
   --kz-color-surface-blanket: var(--kz-color-base-transparent-nix-white-750);
   --kz-color-surface-status-warning-weak: var(--kz-color-aurora-orange-1000);
   --kz-color-stroke-main: var(--kz-color-bsport-turquoise-300);
-  --kz-color-stroke-default: var(--kz-color-base-transparent-nix-white-150);
-  --kz-color-stroke-strong: var(--kz-color-base-transparent-nix-white-500);
-  --kz-color-stroke-divider: var(--kz-color-base-transparent-nix-white-150);
+  --kz-color-stroke-default: var(--kz-color-base-transparent-nix-white-80);
+  --kz-color-stroke-strong: var(--kz-color-base-transparent-nix-white-350);
+  --kz-color-stroke-divider: var(--kz-color-base-transparent-nix-white-80);
   --kz-color-stroke-action-default-rest: var(
     --kz-color-base-transparent-nix-white-80
   );
@@ -624,7 +637,7 @@
     --kz-color-luna-grey-700
   );
   --kz-color-surface-action-default-elevated-selected-rest: var(
-    --kz-color-bsport-turquoise-700
+    --kz-color-bsport-turquoise-800
   );
   --kz-color-onsurface-default-onstrong: var(--kz-color-luna-grey-900);
   --kz-color-onsurface-default: var(--kz-color-bsport-turquoise-0);
@@ -638,20 +651,20 @@
   );
   --kz-color-onsurface-action-main-disabled: #ffffff40;
   --kz-color-onsurface-weak: var(--kz-color-luna-grey-300);
-  --kz-color-onsurface-weaker: var(--kz-color-luna-grey-500);
+  --kz-color-onsurface-weaker: var(--kz-color-bsport-turquoise-100);
   --kz-color-onsurface-link-rest: var(--kz-color-bsport-turquoise-300);
   --kz-color-onsurface-link-hovered: var(--kz-color-bsport-turquoise-200);
   --kz-color-onsurface-link-pressed: var(--kz-color-bsport-turquoise-400);
-  --kz-color-onsurface-status-info-strong: var(--kz-color-neptune-blue-0);
+  --kz-color-onsurface-status-info-strong: var(--kz-color-neptune-blue-100);
   --kz-color-onsurface-status-info-weak: var(--kz-color-neptune-blue-100);
   --kz-color-onsurface-status-info-onstrong: var(--kz-color-neptune-blue-600);
-  --kz-color-onsurface-status-positive-strong: var(--kz-color-terra-green-0);
+  --kz-color-onsurface-status-positive-strong: var(--kz-color-terra-green-100);
   --kz-color-onsurface-status-positive-weak: var(--kz-color-terra-green-100);
   --kz-color-onsurface-status-positive-onstrong: var(
     --kz-color-terra-green-700
   );
-  --kz-color-onsurface-status-warning-strong: var(--kz-color-aurora-orange-0);
-  --kz-color-onsurface-status-critical-strong: var(--kz-color-cupid-red-0);
+  --kz-color-onsurface-status-warning-strong: var(--kz-color-aurora-orange-100);
+  --kz-color-onsurface-status-critical-strong: var(--kz-color-cupid-red-100);
   --kz-color-onsurface-status-critical-weak: var(--kz-color-cupid-red-100);
   --kz-color-onsurface-status-critical-onstrong: var(--kz-color-cupid-red-700);
   --kz-color-onsurface-status-warning-weak: var(--kz-color-aurora-orange-200);
@@ -676,8 +689,8 @@
   --kz-color-surface-action-main-weak-pressed: var(
     --kz-color-base-transparent-bsport-turquoise-500
   );
-  --kz-color-stroke-weak: var(--kz-color-base-transparent-nix-white-80);
-  --kz-color-onsurface-main-onweak: var(--kz-color-bsport-turquoise-500);
+  --kz-color-stroke-weak: var(--kz-color-base-transparent-nix-white-40);
+  --kz-color-onsurface-main-onweak: var(--kz-color-bsport-turquoise-300);
   --kz-color-onsurface-main-onstrong: var(--kz-color-bsport-turquoise-700);
   --kz-color-surface-action-default-onstrong-rest: var(
     --kz-color-base-transparent-luna-grey-0
@@ -689,10 +702,10 @@
   --kz-color-onsurface-action-weak-main: var(--kz-color-bsport-turquoise-300);
   --kz-color-shadow-action-default-pressed: #24292940;
   --kz-color-surface-action-default-elevated-selected-hovered: var(
-    --kz-color-bsport-turquoise-600
+    --kz-color-bsport-turquoise-800
   );
   --kz-color-surface-action-default-elevated-selected-pressed: var(
-    --kz-color-bsport-turquoise-800
+    --kz-color-bsport-turquoise-900
   );
   --kz-color-surface-action-default-weak-rest: var(
     --kz-color-base-transparent-nix-white-0
@@ -715,7 +728,11 @@
   --kz-color-surface-action-critical-weak-pressed: var(
     --kz-color-base-transparent-cupid-red-350
   );
-  --kz-color-surface-default-onstrong: var(--kz-color-luna-grey-900);
+  --kz-color-surface-default-onstrong: var(
+    --kz-color-base-transparent-nix-white-750
+  );
+  --kz-color-surface-page-top-navigation: var(--kz-color-luna-grey-800);
+  --kz-color-stroke-page-layout: var(--kz-color-luna-grey-700);
   --kz-dimension-element-2xs: 4px;
   --kz-dimension-element-xs: 8px;
   --kz-dimension-element-sm: 16px;
@@ -746,8 +763,8 @@
   --kz-dimension-component-modal-min-lg: 1000px;
   --kz-dimension-font-size-display-lg: 72px;
   --kz-dimension-font-size-display-md: 40px;
-  --kz-dimension-font-size-title-xl: 32px;
-  --kz-dimension-font-size-title-lg: 28px;
+  --kz-dimension-font-size-title-xl: 28px;
+  --kz-dimension-font-size-title-lg: 24px;
   --kz-dimension-font-size-title-md: 20px;
   --kz-dimension-font-size-title-sm: 18px;
   --kz-dimension-font-size-title-xs: 16px;
@@ -757,8 +774,8 @@
   --kz-dimension-font-size-body-xs: 10px;
   --kz-dimension-font-line-height-display-lg: 86px;
   --kz-dimension-font-line-height-display-sm: 48px;
-  --kz-dimension-font-line-height-xl: 42px;
-  --kz-dimension-font-line-height-lg: 32px;
+  --kz-dimension-font-line-height-xl: 32px;
+  --kz-dimension-font-line-height-lg: 28px;
   --kz-dimension-font-line-height-md: 24px;
   --kz-dimension-font-line-height-sm: 20px;
   --kz-dimension-font-line-height-xs: 16px;
@@ -811,16 +828,16 @@
   --kz-font-size-body-lg: 1rem;
   --kz-font-size-body-sm: 0.75rem;
   --kz-font-size-body-md: 0.875rem;
-  --kz-font-size-title-xl: 2rem;
-  --kz-font-size-title-lg: 1.75rem;
+  --kz-font-size-title-xl: 1.75rem;
+  --kz-font-size-title-lg: 1.5rem;
   --kz-font-size-title-sm: 1.1rem;
   --kz-font-size-title-md: 1.25rem;
   --kz-font-size-title-xs: 1rem;
   --kz-font-size-display-lg: 5.375rem;
   --kz-font-size-display-sm: 2.5rem;
-  --kz-line-height-xl: 2.625rem;
+  --kz-line-height-xl: 2rem;
   --kz-line-height-display: 120%;
-  --kz-line-height-lg: 2rem;
+  --kz-line-height-lg: 1.75rem;
   --kz-line-height-md: 1.5rem;
   --kz-line-height-sm: 1.25rem;
   --kz-line-height-xs: 1rem;
@@ -832,31 +849,41 @@
   --kz-opacity-xs: 0.75;
   --kz-opacity-2xs: 0.9;
   --kz-opacity-transparent: 0;
-  --kz-shadow-action-default-rest: 0px 1px 2px 0px #a3afae40,
-    inset 0px 0px 0px 1px #353c3c26;
-  --kz-shadow-action-default-hovered: 0px 2px 6px 0px #a3afae40,
-    inset 0px 0px 0px 1px #353c3c40;
-  --kz-shadow-action-default-pressed: 0px 1px 4px -4px #353c3c59,
-    inset 0px 0px 0px 1px #353c3c59;
-  --kz-shadow-action-default-selected: inset 0px 3px 8px 0px #25948d40;
+  --kz-shadow-action-default-rest: 0px 1px 2px 0px
+      var(--kz-color-shadow-action-default-rest),
+    inset 0px 0px 0px 1px var(--kz-color-stroke-action-default-rest);
+  --kz-shadow-action-default-hovered: 0px 2px 6px 0px
+      var(--kz-color-shadow-action-default-hovered),
+    inset 0px 0px 0px 1px var(--kz-color-stroke-action-default-hovered);
+  --kz-shadow-action-default-pressed: 0px 1px 4px -4px var(--kz-color-shadow-action-default-pressed),
+    inset 0px 0px 0px 1px var(--kz-color-stroke-action-default-pressed);
+  --kz-shadow-action-default-selected: inset 0px 3px 8px 0px
+    var(--kz-color-shadow-action-default-selected);
   --kz-shadow-action-call-to-action-rest: 0px 1px 2px 0px #365a5840;
   --kz-shadow-action-call-to-action-hovered: 0px 2px 6px 0px #2a8b8580;
   --kz-shadow-action-call-to-action-pressed: 0px 1px 8px -2px #50505014;
-  --kz-shadow-focused: inset 0px 0px 0px 2px #21837d, 0px 0px 0px 4px #25948d80;
-  --kz-shadow-xl: 0px 20px 36px 12px #5c676333;
-  --kz-shadow-sm: 0px 2px 8px 0px #3d4d471a;
-  --kz-shadow-md: 0px 8px 16px 4px #3d4d471a;
-  --kz-shadow-lg: 0px 12px 20px 2px #5c676333;
+  --kz-shadow-focused: inset 0px 0px 0px 2px
+      var(--kz-color-stroke-action-main-selected),
+    0px 0px 0px 4px #25948d80;
+  --kz-shadow-xl: 0px 20px 36px 12px var(--kz-color-shadow-strong);
+  --kz-shadow-sm: 0px 2px 8px 0px var(--kz-color-shadow-weak);
+  --kz-shadow-md: 0px 8px 16px 4px var(--kz-color-shadow-weak);
+  --kz-shadow-lg: 0px 12px 20px 2px var(--kz-color-shadow-strong);
   --kz-shadow-action-call-to-action-critical-rest: 0px 1px 2px 0px #59363d40;
   --kz-shadow-action-call-to-action-critical-hovered: 0px 2px 6px 0px #8b465580;
   --kz-shadow-action-call-to-action-critical-pressed: 0px 1px 8px -2px #50505014;
   --kz-shadow-border-thin-default: inset 0px 0px 0px 1px
-    var(--kz-color-base-transparent-nix-white-150);
-  --kz-shadow-border-thin-main: inset 0px 0px 0px 1px #25948d;
-  --kz-shadow-border-thin-info: inset 0px 0px 0px 1px #447ba9;
-  --kz-shadow-border-thin-positive: inset 0px 0px 0px 1px #54bf5c;
-  --kz-shadow-border-thin-warning: inset 0px 0px 0px 1px #f59e0b;
-  --kz-shadow-border-thin-critical: inset 0px 0px 0px 1px #d16f84;
+    var(--kz-color-stroke-default);
+  --kz-shadow-border-thin-main: inset 0px 0px 0px 1px
+    var(--kz-color-stroke-main);
+  --kz-shadow-border-thin-info: inset 0px 0px 0px 1px
+    var(--kz-color-stroke-status-info);
+  --kz-shadow-border-thin-positive: inset 0px 0px 0px 1px
+    var(--kz-color-stroke-status-positive);
+  --kz-shadow-border-thin-warning: inset 0px 0px 0px 1px
+    var(--kz-color-stroke-status-warning);
+  --kz-shadow-border-thin-critical: inset 0px 0px 0px 1px
+    var(--kz-color-stroke-status-critical);
   --kz-transition-duration-default: 200ms;
   --kz-transition-duration-long: 300ms;
   --kz-transition-duration-short: 100ms;

@@ -3,7 +3,7 @@ import kebabCase from "lodash/kebabCase";
 /**
  * Clean variables from Supernova
  * @param superNovaPrefixes Prefixes added by Designers on supernova that need to be stripped out.
- * @param name Name of the css variable as exported by Supernova.
+ * @param removeFirstOccurence If true, only the first occurence of the prefixes will be removed.
  * @example
  * ```ts
  * formatVariableName(['color', 'baseColors'])('colorKaizenBaseColorsBsportTurquoiseAlpha600')
@@ -11,15 +11,25 @@ import kebabCase from "lodash/kebabCase";
  * ```
  */
 export const formatVariableName =
-  (superNovaPrefixes: string[] = []) =>
+  (superNovaPrefixes: string[] = [], removeFirstOccurence: boolean = false) =>
   (name: string): string => {
     const defaultStringsToRemove = ["kz", "kaizen"];
-    const nameAsKebab = kebabCase(
-      superNovaPrefixes
-        .concat(...defaultStringsToRemove)
-        .map((pattern) => new RegExp(pattern, "ig"))
-        .reduce((acc, prefix) => acc.replace(prefix, ""), name),
-    );
+    const patterns = superNovaPrefixes
+      .concat(...defaultStringsToRemove)
+      .map((pattern) => new RegExp(pattern, "i"));
+
+    let formattedName = name;
+    if (removeFirstOccurence) {
+      patterns.forEach((pattern) => {
+        formattedName = formattedName.replace(pattern, "");
+      });
+    } else {
+      patterns.forEach((pattern) => {
+        formattedName = formattedName.replace(new RegExp(pattern, "ig"), "");
+      });
+    }
+
+    const nameAsKebab = kebabCase(formattedName);
 
     // Specific case: 10-xl => 10xl or 2-xs => 2xs
     return nameAsKebab.replace(/([0-9]+)-/, "$1");
@@ -29,10 +39,9 @@ export const formatVariableName =
  * Clean the value of a color variable and make sure that variable's reference are coherent
  * after variable name cleaning and based
  * @param formatName Function formatting the raw Supernova name into a clean name use in Tailwind.
+ * @param options Object containing the formatting functions
  * @param options.formatValue Function formatting the value exported by Supernova
  * @param options.formatCSSVariable Function formatting the name cleaned by `formatName` to a clean CSS variable name used by Tailwind
- * @param value Value of the CSS Variable
- * @param
  */
 export const formatVariableValue =
   (
@@ -43,25 +52,18 @@ export const formatVariableValue =
     },
   ) =>
   (value: string) => {
-    const VAR_REGEX = /var\(\s*--([^)]+)\s*\)/; // Improved regex for capturing the full variable name
+    const VAR_REGEX = /var\(\s*--([^)]+)\s*\)/g; // Improved regex for capturing the full variable name
     const formatValue = options?.formatValue ?? ((name: string) => name);
     const formatCSSVariable = options.formatCSSVariable;
 
-    // Look for the variable match in the value
-    const varMatch = VAR_REGEX.exec(value);
-
-    if (varMatch) {
-      // This captures the variable name part inside var(--...)
-      const originalVariableName = varMatch[1];
-      // Apply formatting
+    // Replace all occurrences of var(--...) with formatted variable names
+    const formattedValue = value.replace(VAR_REGEX, (match, p1) => {
+      const originalVariableName = p1;
       const formattedVariableName = formatCSSVariable(
         formatName(originalVariableName),
       );
+      return `var(--${formattedVariableName})`;
+    });
 
-      // Replace the original variable with the formatted version in the original string
-      return value.replace(varMatch[0], `var(--${formattedVariableName})`);
-    }
-
-    // If no variable is found, return the value as-is
-    return formatValue(value);
+    return formatValue(formattedValue);
   };

@@ -8,7 +8,7 @@
   --colorKzBaseColorsLunaGrey400: #a6afae;
   --colorKzBaseColorsLunaGrey500: #7f8786;
   --colorKzBaseColorsLunaGrey600: #565e5d;
-  --colorKzBaseColorsLunaGrey700: #353c3c;
+  --colorKzBaseColorsLunaGrey700: #2b3030;
   --colorKzBaseColorsLunaGrey800: #1e2323;
   --colorKzBaseColorsLunaGrey900: #121313;
   --colorKzBaseColorsLunaGrey1000: #0c0d0d;
@@ -16,7 +16,7 @@
   --colorKzBaseColorsTerraGreen100: #c3f7c8;
   --colorKzBaseColorsTerraGreen200: #9ae9a0;
   --colorKzBaseColorsTerraGreen300: #6fd177;
-  --colorKzBaseColorsTerraGreen400: #47af4f;
+  --colorKzBaseColorsTerraGreen400: #54bf5c;
   --colorKzBaseColorsTerraGreen500: #27842f;
   --colorKzBaseColorsTerraGreen600: #125818;
   --colorKzBaseColorsTerraGreen700: #07330b;
@@ -71,7 +71,7 @@
   --colorKzBaseColorsBsportTurquoise1000: #000605;
   --colorKzColorShadowStrong: #5c676333;
   /* Subtle bsport colour for actions on a flat surface. */
-  --colorKzColorSurfaceActionMainWeakRest: var(--colorKzBaseTransparentBsportTurquoise0);
+  --colorKzColorSurfaceActionMainWeakRest: #21837d00;
   --colorKzColorShadowActionDefaultRest: #a3afae40;
   --colorKzColorShadowActionDefaultHovered: #a3afae40;
   --colorTest: #c900af80;
@@ -286,4 +286,8 @@
   --colorKzColorSurfaceActionCriticalWeakPressed: var(--colorKzBaseTransparentCupidRed150);
   /* Colour for non-actionable elements, used to create significant contrast. */
   --colorKzColorSurfaceDefaultOnstrong: var(--colorKzBaseTransparentNixWhite250);
+  /* Default page side and top navigation. */
+  --colorKzColorSurfacePageTopNavigation: var(--colorKzBaseColorsLunaGrey0);
+  /* Default colour for borders across the platform. */
+  --colorKzColorStrokePageLayout: var(--colorKzBaseColorsLunaGrey300);
 }

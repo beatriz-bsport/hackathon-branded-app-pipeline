@@ -2,6 +2,7 @@ import type { SetRequired } from "type-fest";
 import React, { useMemo } from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 import Icon, { type IconName } from "#src/components/Icon";
+import Loader from "#src/components/Loader";
 import {
   colorsByIntent,
   defaultClasses,
@@ -79,15 +80,12 @@ const IconToRender = (props: {
   if (!props.size) {
     return null;
   }
-  const defaultProps = {
-    size: props.size === "lg" ? ("md" as const) : ("sm" as const),
-    className: `${props.loading ? "animate-spin" : ""}`,
-  };
+  const iconSize = props.size === "lg" ? ("md" as const) : ("sm" as const);
   if (props.loading) {
-    return <Icon icon="loading" {...defaultProps} />;
+    return <Loader size={iconSize} />;
   }
   if (props.icon) {
-    return <Icon icon={props.icon} {...defaultProps} />;
+    return <Icon icon={props.icon} size={iconSize} />;
   }
   return null;
 };

@@ -22,6 +22,8 @@ exports.default = {
         title: "Archive activity",
         modalContent:
           "Do you want to archive <strong>{{groupActivityName}}</strong> activity? The sessions and past bookings won't be modified.<br/> You can unarchive the activity at any time.",
+        cantArchive:
+          "There are upcoming sessions planned for this activity. Check if they have been cancelled.",
         cancel: "Cancel",
         confirm: "Archive",
       },

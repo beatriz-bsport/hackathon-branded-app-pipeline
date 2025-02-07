@@ -20,6 +20,7 @@ const defaultClasses = [
   "z-[999]",
   "transform",
   "transition ease-in duration-default",
+  "border-stroke-thin border-stroke-weak",
 ] as const;
 
 const tooltip = cva(defaultClasses);

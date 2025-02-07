@@ -9,6 +9,7 @@ import Icon, { IconName } from "#src/components/Icon";
 import withLink from "#src/components/private/withLink";
 import { listItem, ListItemChipsProps } from "#src/components/List";
 import { useCheckboxContext } from "#src/contexts/CheckboxContext";
+import Tooltip, { type WithTooltip } from "#src/components/Tooltip";
 
 type Props = {
   id: string;
@@ -18,16 +19,18 @@ type Props = {
   isSelectable?: boolean;
   onCheckboxChange?: (value: boolean) => void;
   icon?: IconName;
-  avatar?: AvatarProps;
-  chips?:
+  avatar?: WithTooltip<AvatarProps>;
+  chips?: WithTooltip<
     | [ListItemChipsProps]
     | [ListItemChipsProps, ListItemChipsProps]
-    | [ListItemChipsProps, ListItemChipsProps, ListItemChipsProps];
+    | [ListItemChipsProps, ListItemChipsProps, ListItemChipsProps]
+  >;
   chipsDirection?: "start" | "end";
-  buttons?:
+  buttons?: WithTooltip<
     | [ButtonProps]
     | [ButtonProps, ButtonProps]
-    | [ButtonProps, ButtonProps, ButtonProps];
+    | [ButtonProps, ButtonProps, ButtonProps]
+  >;
   link?: string;
   className?: string;
 };
@@ -35,6 +38,38 @@ type Props = {
 export type ListItemProps = React.LiHTMLAttributes<HTMLLIElement> &
   VariantProps<typeof listItem> &
   Props;
+
+/**
+ * A higher-order component (HOC) that wraps a given component with optional tooltip functionality.
+ *
+ * This HOC enhances the provided React component by allowing it to accept an additional
+ * `tooltipProps` property. When `tooltipProps` is provided, the component is rendered within
+ * a `<Tooltip>` wrapper; otherwise, it is rendered normally.
+ */
+const withTooltip = <P extends object>(Component: React.FC<P>) => {
+  const WrappedComponent: React.FC<WithTooltip<P>> = ({
+    tooltipProps,
+    ...rest
+  }) => {
+    if (tooltipProps) {
+      return (
+        <Tooltip {...tooltipProps}>
+          <Component {...(rest as P)} />
+        </Tooltip>
+      );
+    }
+
+    return <Component {...(rest as P)} />;
+  };
+
+  return WrappedComponent;
+};
+
+const ChipWithTooltip = withTooltip<WithTooltip<ListItemChipsProps>>(Chip);
+
+const ButtonWithTooltip = withTooltip<WithTooltip<ButtonProps>>(Button);
+
+const AvatarWithTooltip = withTooltip<WithTooltip<AvatarProps>>(Avatar);
 
 const BaseItem: React.FC<
   Props & {
@@ -61,19 +96,20 @@ const BaseItem: React.FC<
         chips ? (
           <div className="flex items-center gap-2xs">
             {chips.map((chip) => (
-              <Chip key={chip.label} {...chip} />
+              <ChipWithTooltip key={chip.label} {...chip} />
             ))}
           </div>
         ) : null,
       [chips],
     );
+
     return (
       <>
         <div className="flex items-center gap-xs text-onsurface-default">
           {isSelectable && (
             <Checkbox id={id} value={checkboxState} onChange={handleChange} />
           )}
-          {(avatar && <Avatar {...avatar} />) ||
+          {(avatar && <AvatarWithTooltip {...avatar} />) ||
             (icon && <Icon icon={icon} size="md" />) ||
             null}
           <div className="flex flex-col items-start gap-2xs max-w-[500px]">
@@ -98,7 +134,7 @@ const BaseItem: React.FC<
           {buttons && (
             <div className="flex items-center gap-sm">
               {buttons.map((button, index) => (
-                <Button
+                <ButtonWithTooltip
                   key={index}
                   {...button}
                   onClick={(e) => {
@@ -106,9 +142,8 @@ const BaseItem: React.FC<
                     e.preventDefault(); // Prevents the link from triggering if needed
                     button.onClick?.(e);
                   }}
-                >
-                  {button?.label}
-                </Button>
+                  label={button?.label}
+                />
               ))}
             </div>
           )}
@@ -173,6 +208,7 @@ const Item: React.FC<ListItemProps> = ({
           isLink: !!link,
         }),
       )}
+      tabIndex={0}
       {...props}
     >
       <BaseItem

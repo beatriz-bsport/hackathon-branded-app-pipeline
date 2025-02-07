@@ -31,6 +31,15 @@ export type TooltipProps = React.HTMLAttributes<HTMLDivElement> & {
 };
 
 /**
+ * Returns the passed type with `tooltipProps` added, recursively if an `Array` is provided.
+ */
+export type WithTooltip<T> = T extends object
+  ? { tooltipProps?: TooltipProps } & T
+  : T extends Array<unknown>
+    ? { [K in keyof T]: WithTooltip<T[K]> }
+    : never;
+
+/**
  * React component for a tooltip element. It is a compact component that can be used to
  * represent a small piece of information, such as a hint or a description.
  * @param props.className Classname to add to the tooltip.

@@ -18,6 +18,7 @@ import type { ListItemChipsProps } from "@bsport/kaizen-primitive-core/dist/comp
 import type { WithTooltip } from "@bsport/kaizen-primitive-core/dist/components/Tooltip";
 
 import { ARCHIVED_GROUP_ACTIVITIES_PATH } from "#src/constants";
+import { useGroupActivityModals } from "#src/hooks/useGroupActivityModals";
 
 const GroupActivitiesList: React.FC = () => {
   const { t } = useTranslation("groupActivity");
@@ -33,6 +34,9 @@ const GroupActivitiesList: React.FC = () => {
 
   const getGroupActivityDetailLink = (groupActivityId: string) =>
     `/activity/${groupActivityId}/general`;
+
+  const { archiveModal, duplicateModal, onClickArchive, onClickDuplicate } =
+    useGroupActivityModals({ currentPage, fetchData, rowsPerPage });
 
   const renderedGroupActivities: ListItemProps[] = useMemo(
     () =>
@@ -95,6 +99,7 @@ const GroupActivitiesList: React.FC = () => {
                   label: t("list.enabled.duplicate.title"),
                   placement: "bottom",
                 },
+                onClick: onClickDuplicate(id, name),
               },
               {
                 color: "default",
@@ -105,6 +110,7 @@ const GroupActivitiesList: React.FC = () => {
                   label: t("list.enabled.archive.title"),
                   placement: "bottom-right",
                 },
+                onClick: onClickArchive(id, name),
               },
             ],
             link: getGroupActivityDetailLink(id.toString()),
@@ -179,6 +185,8 @@ const GroupActivitiesList: React.FC = () => {
               />
             </div>
           )}
+          {archiveModal}
+          {duplicateModal}
         </ListLayout.Content>
       )}
     </ListLayout>

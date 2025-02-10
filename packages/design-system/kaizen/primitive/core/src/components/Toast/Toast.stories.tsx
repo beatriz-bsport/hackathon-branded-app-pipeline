@@ -3,11 +3,24 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { icons } from "#src/components/Icon";
 import Button from "#src/components/Button";
 import Toast, { statuses } from "./Toast";
-import { toast, ToastProvider } from "./ToastProvider";
+import { toast } from "./ToastManager";
 
 /**
- * A component that renders a toast notification.<br>
+ * Renders a toast notification.<br>
  * A toast is a short message that appears and disappears automatically after a certain duration.<br>
+ *
+ * <b>How?<b><br>
+ * Use the `toast` function to display a toast notification.
+ * This component is used by the `ToastManager` to render multiple stacked toast notifications.
+ *
+ * <b>Why?<b><br>
+ * The ToastManager component handles showing, hiding, and managing toasts.
+ * It is responsible for animating in and out new toasts and removing them when
+ * the user clicks the close button or the toast is dismissed after a certain
+ * duration. The component also manages the hover state of the toast group,
+ * which causes the toasts to scale up and down when the user hovers over the
+ * group.
+ *
  * <a href="https://www.figma.com/design/aQ73ihLayonUHVquF0QY2C/Kaizen-library?node-id=1144-13311" target="_blank">Figma</a>
  */
 const meta: Meta<typeof Toast> = {
@@ -39,6 +52,32 @@ const meta: Meta<typeof Toast> = {
       control: { type: "number" },
     },
   },
+  parameters: {
+    docs: {
+      source: {
+        code: `
+import Button from "#src/components/Button";
+import { toast } from "#src/components/Toast";
+
+<Button
+  label="Show Toast"
+  size="md"
+  intent="default"
+  color="main"
+  onClick={() => toast({
+    status: "default",
+    title: "This is a nice title here.",
+    description: "This is a beautiful toast.",
+    icon: "message-alert-square",
+    buttonLabel: "Undo",
+    onButtonClick: () => console.log("Button clicked!"),
+    onDismiss: () => null,
+    duration: 5000
+  })}
+/>;`,
+      },
+    },
+  },
 };
 
 export default meta;
@@ -57,7 +96,6 @@ export const Primary: Story = {
           color="main"
           onClick={() => toast(args)}
         />
-        <ToastProvider />
       </div>
     );
   },

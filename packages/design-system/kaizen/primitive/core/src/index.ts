@@ -35,7 +35,7 @@ export { default as Tabs } from "./components/Tabs";
 export { default as TextArea } from "./components/TextArea";
 export { default as TextField } from "./components/TextField";
 export { default as Title } from "./components/Title";
-export { default as Toast } from "./components/Toast";
+export { toast } from "./components/Toast";
 export { default as Toggle } from "./components/Toggle";
 export { default as Tooltip } from "./components/Tooltip";
 export { ThemeProvider, themes, useTheme } from "./components/ThemeProvider";

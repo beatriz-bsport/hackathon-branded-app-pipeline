@@ -45,12 +45,12 @@ export type ToastProps = React.HTMLAttributes<HTMLLIElement> &
   };
 
 /**
- * A component that renders a toast notification.
+ * Renders a toast notification.
  * A toast is a short message that appears and disappears automatically after a certain duration.
  *
  * @remarks
- * The Toasts need to be called via the toast function. Check the ToastProvider.tsx file.
- * With the ToastProvider called, it enables you to call the toast function anywhere in your app.
+ * Use the `toast` function to display a toast notification.
+ * This component is used by the `ToastManager` to render multiple stacked toast notifications.
  *
  * @param props.status The status of the toast. Can be one of "default", "positive", "critical".
  * @param props.title Title of the toast.

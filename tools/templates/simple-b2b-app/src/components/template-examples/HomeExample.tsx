@@ -1,6 +1,5 @@
-import { useEffect, useState } from "react";
-
-import { Body, Title, Link } from "@bsport/kaizen-primitive-core";
+import React, { useEffect, useState } from "react";
+import { Body, Link, Title, toast } from "@bsport/kaizen-primitive-core";
 import { fetchWithAuth } from "@bsport/b2b-backbone";
 
 import TranslationExample from "./TranslationExample";
@@ -16,8 +15,20 @@ const HomeExample: React.FC = () => {
         const response = await fetchWithAuth("api/v1/company/theme/me/");
         const data = await response.json();
         setThemeData(data);
+        toast({
+          status: "positive",
+          title: "Success",
+          description: "Theme data loaded successfully",
+          duration: 5000,
+        });
       } catch (err) {
         setError("Failed to fetch theme data");
+        toast({
+          status: "critical",
+          title: "Error",
+          description: "Failed to fetch theme data",
+          duration: 5000,
+        });
       }
     };
 

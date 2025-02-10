@@ -1,10 +1,12 @@
 import React, {
+  createRef,
   forwardRef,
   useCallback,
   useImperativeHandle,
   useState,
 } from "react";
-import ReactDOM from "react-dom";
+import { createPortal } from "react-dom";
+import { createRoot } from "react-dom/client";
 import { v4 as uuid } from "uuid";
 import classNames from "classnames";
 import Toast, { ToastProps } from "./Toast";
@@ -27,6 +29,34 @@ interface ToastItem extends ToastProps {
   id: string;
   mounted: boolean;
 }
+
+// Reference to manage toasts without needing context
+const toastManagerRef = createRef<ToastManagerHandles>();
+
+/**
+ * Function to show a toast notification.
+ * This function creates a ToastManager if it doesn't exist and adds the toast to the manager.
+ * @param toastProps The properties of the toast to show.
+ */
+export const toast = (toastProps: ToastProps) => {
+  if (!toastManagerRef.current) {
+    // Create a div to hold the ToastManager
+    const toastManagerContainer = document.createElement("div");
+    document.body.appendChild(toastManagerContainer);
+
+    // Create a root and render the ToastManager into the div
+    const root = createRoot(toastManagerContainer);
+    root.render(<ToastManager ref={toastManagerRef} />);
+
+    // Use setTimeout to ensure the ToastManager is initialized before adding the toast
+    setTimeout(() => {
+      toastManagerRef.current?.addToast(toastProps);
+    }, 10);
+  } else {
+    // Add the toast if ToastManager is already initialized
+    toastManagerRef.current.addToast(toastProps);
+  }
+};
 
 /**
  * The ToastManager component handles showing, hiding, and managing toasts.
@@ -97,9 +127,9 @@ const ToastManager = forwardRef<ToastManagerHandles, object>((_, ref) => {
   const handleMouseLeave = useCallback(() => setIsHovered(false), []);
 
   // Render the toasts as a portal to avoid stacking issues with other elements
-  return ReactDOM.createPortal(
+  return createPortal(
     <ol
-      className="flex flex-col-reverse fixed w-component-toast bottom-xl left-1/2 -translate-x-1/2 transition-all duration-long"
+      className="flex flex-col-reverse fixed w-component-toast z-[1000] bottom-xl left-1/2 -translate-x-1/2 transition-all duration-long"
       role="alert"
       aria-live="assertive"
       aria-relevant="additions"

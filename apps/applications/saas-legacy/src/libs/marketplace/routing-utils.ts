@@ -254,6 +254,18 @@ export const getCheckoutUrl = (
   return buildFinalUrlWithParams(checkoutUrl, { ...params, ...utmParams });
 };
 
+export const getOneClickBookingUrl = (
+  companyId: number,
+  offerId: number,
+  locationSearch?: string,
+) => {
+  const oneClickBookingUrl = `/one-click-booking/${companyId}/${offerId}`;
+  if (locationSearch) {
+    return `${oneClickBookingUrl}${locationSearch}`;
+  }
+  return oneClickBookingUrl;
+};
+
 export const getOfferBookerUrl = (
   companyId: number,
   offerId: number,

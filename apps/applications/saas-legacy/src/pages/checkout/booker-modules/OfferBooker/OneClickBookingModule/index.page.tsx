@@ -19,7 +19,10 @@ import { getLevelTranslation } from '#src/libs/level/utils';
 import useConsumerBookingDateTime from '#src/libs/consumer-space/components/reworked/@MyBookings/hooks/useConsumerBookingDateTime';
 import Skeleton from '#src/components/css-only/Skeleton';
 import Typography from '#src/components/css-only/Fabrique/Typography/Typography.component';
-import { TypographyVariant } from '#src/components/css-only/Fabrique/Typography/constants';
+import {
+  TypographyColor,
+  TypographyVariant,
+} from '#src/components/css-only/Fabrique/Typography/constants';
 import ButtonV2 from '#src/components/css-only/Fabrique/ButtonV2';
 import MinimalPaymentPackCard from '#src/libs/marketplace/components/@PaymentPack/MinimalPaymentPackCard';
 import { LinkExternal01 } from '#src/components/untitledui';
@@ -29,6 +32,8 @@ import LightSignupForm, {
 } from './_components/LightSignupForm';
 import useFetchOfferInformation from './_hooks/useFetchOfferInformation';
 import useBookInOneClick from './_hooks/useBookInOneClick';
+import useCheckBookableStatus from './_hooks/useCheckBookableStatus';
+import Loader from './_components/Loader';
 
 type OwnProps = {
   companyId: number;
@@ -47,19 +52,24 @@ const OneClickBookingModule: React.FC<Props> = ({
     number | null
   >(null);
 
+  const [bookableStatusState, checkBookableStatus] = useCheckBookableStatus();
   const [state, fetchOffer] = useFetchOfferInformation();
   const [bookingState, bookInOneClick] = useBookInOneClick();
 
   const { t } = useTranslation('booking');
 
   useEffect(() => {
+    checkBookableStatus(offerId);
+  }, [offerId, checkBookableStatus]);
+
+  useEffect(() => {
     (async () => {
       if (companyId) {
         retrieveCompanyCssConfigurationAction(companyId);
       }
-      const { paymentPacks } = await fetchOffer(offerId, companyId);
-      if (paymentPacks.length > 0) {
-        setSelectedPaymentPackId(paymentPacks[0].id);
+      const response = await fetchOffer(offerId, companyId);
+      if (response?.paymentPacks && response?.paymentPacks.length > 0) {
+        setSelectedPaymentPackId(response.paymentPacks[0].id);
       }
     })();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -110,6 +120,34 @@ const OneClickBookingModule: React.FC<Props> = ({
   // @debt(4, 2, 2) This works because we do not set the authenticated state in the redux store
   // when we are on the one click booking page (we are just storing the token in the local storage)
   if (authenticated) {
+    return <Redirect to={offerBookerUrl} />;
+  }
+
+  if (bookableStatusState.loading || !bookableStatusState.value) {
+    return (
+      <div className="bs-oneclick-booking__container--loading">
+        <Loader />
+      </div>
+    );
+  }
+
+  if (
+    bookableStatusState.error ||
+    bookableStatusState.value.shouldDisplayErrorPage
+  ) {
+    // TODO: Create a nice Oops component
+    return (
+      <Typography color={TypographyColor.ERROR}>
+        {t('oneClickBooking.bookableStatus.error')}
+      </Typography>
+    );
+  }
+
+  if (bookableStatusState.value.shouldRedirect) {
+    return <Redirect to={offerBookerUrl} />;
+  }
+
+  if (state.value?.paymentPacks && state.value?.paymentPacks.length === 0) {
     return <Redirect to={offerBookerUrl} />;
   }
 
@@ -222,4 +260,5 @@ export default compose(
   connector,
   marketplaceCssHoc(),
   WithCustomCssProvider,
+  consumerAppBarHOC(),
 )(OneClickBookingModule);

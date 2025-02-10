@@ -34,6 +34,12 @@
   padding: var(--bs-space-size-4);
 }
 
+.bs-oneclick-booking__container--loading {
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
 .bs-oneclick-booking__checkout-header__title {
   font-family: var(--h5-fontFamily);
   font-size: var(--h5-fontSize);
@@ -82,22 +88,11 @@
   align-self: flex-start;
 }
 
-.bs-light-signup-form__global-error-message {
-  color: var();
-}
-
 .bs-light-signup-form__submit-button-loader {
   margin: 0 var(--bs-space-size-2);
 }
 
 .bs-light-signup-form__submit-button-loader svg {
-  animation: spinning 0.7s infinite linear;
   stroke: white;
   fill: white;
-}
-
-@keyframes spinning {
-  100% {
-    transform: rotate(360deg);
-  }
 }

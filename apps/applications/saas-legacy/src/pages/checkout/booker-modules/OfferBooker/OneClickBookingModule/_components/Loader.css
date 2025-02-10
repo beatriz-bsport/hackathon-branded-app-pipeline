@@ -1,0 +1,9 @@
+.bs-loader__container {
+  animation: spinning 0.7s infinite linear;
+}
+
+@keyframes spinning {
+  100% {
+    transform: rotate(360deg);
+  }
+}

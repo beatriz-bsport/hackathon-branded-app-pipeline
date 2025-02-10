@@ -6,6 +6,7 @@ import {
   deleteAuth,
   patchAuth,
   buildUrlParams,
+  get,
 } from '../../http';
 import type {
   OfferCreate,
@@ -92,6 +93,17 @@ export async function fetchOfferStatus(
 ) {
   return getAuth<OfferStatus>(
     `${API_V1_URI}/offer/${offerId}/bookable_status/${buildUrlParams(params)}`,
+  );
+}
+
+export async function fetchOfferStatusPublic(
+  offerId: number,
+  params: OfferStatusParams = {},
+) {
+  return get<OfferStatus>(
+    `${API_V1_URI}/offer/${offerId}/public_bookable_status/${buildUrlParams(
+      params,
+    )}`,
   );
 }
 

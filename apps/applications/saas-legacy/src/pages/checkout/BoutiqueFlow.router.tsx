@@ -7,7 +7,10 @@ import { fetchCompanyTheme } from '#src/libs/theme/actions';
 import routerParamsToProps from '#src/hocs/router-params-to-props.hoc';
 
 import themeSelectors from '#src/libs/theme/selectors';
-import { getLoginUrl } from '#src/libs/marketplace/routing-utils';
+import {
+  getLoginUrl,
+  getOneClickBookingUrl,
+} from '#src/libs/marketplace/routing-utils';
 
 import { fetchProfile as fetchProfileAction } from '#src/libs/consumer-space/actions';
 import withThemeProvider from '#src/hocs/company-themifier.hoc';
@@ -15,7 +18,7 @@ import withThemeProvider from '#src/hocs/company-themifier.hoc';
 import asyncComponent from '../../AsyncComponent.js';
 import { RootState } from '../../reducers';
 import Config from '#src/config';
-import { matchPath } from 'react-router-dom';
+import { match as MatchType, matchPath } from 'react-router-dom';
 
 const MarketplaceAsManager = asyncComponent(
   () =>
@@ -55,17 +58,31 @@ const AuthenticatedSwitch: React.FC<{
   routes: {
     component: React.ComponentType<any>;
     path: string;
+    redirectTo?: <P extends { [key: string]: string }>(
+      match: MatchType<P>,
+    ) => string;
   }[];
 }> = ({ isAuthenticated, companyId, location, routes }) => {
-  const matchesProtectedRoute = routes.some((route) =>
-    matchPath(location.pathname, { path: route.path, exact: true }),
-  );
-  if (!isAuthenticated && matchesProtectedRoute) {
-    return (
-      <Redirect
-        to={getLoginUrl(companyId, location.pathname, window.location.search)}
-      />
-    );
+  const matches = routes.map((route) => ({
+    route,
+    match: matchPath(location.pathname, { path: route.path }),
+  }));
+  for (const { route, match } of matches) {
+    if (!isAuthenticated && match.isExact) {
+      return (
+        <Redirect
+          to={
+            route.redirectTo
+              ? route.redirectTo(match)
+              : getLoginUrl(
+                  companyId,
+                  location.pathname,
+                  window.location.search,
+                )
+          }
+        />
+      );
+    }
   }
 
   return (
@@ -83,6 +100,7 @@ export const NewBookingFlowRouter: React.FC<Props> = ({
   fetchProfile,
   is_manager,
   location,
+  theme,
 }) => {
   useEffect(() => {
     !!companyId && fetchCompanyTheme(companyId);
@@ -124,6 +142,14 @@ export const NewBookingFlowRouter: React.FC<Props> = ({
           {
             component: BoutiqueBookerModule,
             path: '/booker-module-s/:companyId/:offerId',
+            redirectTo: theme.one_click_checkout_enabled
+              ? ({ params }) =>
+                  getOneClickBookingUrl(
+                    Number(params.companyId),
+                    Number(params.offerId),
+                    window.location.search,
+                  )
+              : undefined,
           },
           {
             component: BasketPage,

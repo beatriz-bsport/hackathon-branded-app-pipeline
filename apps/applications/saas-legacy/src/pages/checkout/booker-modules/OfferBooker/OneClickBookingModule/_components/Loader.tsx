@@ -1,8 +1,10 @@
 import React from 'react';
+import './Loader.css';
 
 const Loader = () => {
   return (
     <svg
+      className="bs-loader__container"
       height="24"
       viewBox="0 0 24 24"
       width="24"

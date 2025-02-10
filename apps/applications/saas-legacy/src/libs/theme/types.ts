@@ -146,6 +146,7 @@ export type Theme = {
   show_membership_number: boolean;
   display_new_webshop: boolean;
   zoho_member_import_enabled: boolean;
+  one_click_checkout_enabled: boolean;
 };
 
 export type ThemeState = {

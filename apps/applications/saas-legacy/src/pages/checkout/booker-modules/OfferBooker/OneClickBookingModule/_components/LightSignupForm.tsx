@@ -8,6 +8,10 @@ import { isValidPhoneNumber } from 'libphonenumber-js';
 import Typography from '#Fabrique/Typography';
 import ButtonV2 from '#src/components/css-only/Fabrique/ButtonV2';
 import Loader from './Loader';
+import {
+  TypographyColor,
+  TypographyVariant,
+} from '#src/components/css-only/Fabrique/Typography/constants';
 
 export type LightSignupFormValues = {
   firstName: string;
@@ -119,7 +123,10 @@ const LightSignupForm = ({ submitValidatedForm }: PropsType) => {
             value={values.phone}
           />
           {submitError && (
-            <Typography color="error" variant="body-sm">
+            <Typography
+              color={TypographyColor.ERROR}
+              variant={TypographyVariant.BODY_SM}
+            >
               {submitError}
             </Typography>
           )}

@@ -6,6 +6,8 @@ set -e
 
 ENVIRONMENT=$1
 BUILD_ENV_FILE="build/env.js"
+VERSION=$(cat ./VERSION)
+VERSION_SHA="$VERSION-$CI_COMMIT_SHORT_SHA"
 
 # Define the env file to use to replace the build env file
 if [ "$ENVIRONMENT" = "feature-branch" ]; then
@@ -24,6 +26,14 @@ fi
 
 echo "*"
 echo "⏳ Start building @bsport/saas-legacy for environment: $ENVIRONMENT $FEATURE_BRANCH_IDENTIFIER"
+
+# Update release files
+echo "*"
+echo "Update version files"
+echo "\"$VERSION\"" > public/version.json
+echo "export default '`date +%F+%H+%M`';" > src/release-date.js
+echo "export default '$VERSION';" > src/release.js
+echo "export default '$VERSION_SHA';" > src/release-sha.js
 
 # Build the application
 pnpm run build

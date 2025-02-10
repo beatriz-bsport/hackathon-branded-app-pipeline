@@ -96,39 +96,31 @@ trap handle_error EXIT
 echo "*"
 echo "⏳ Start deploying @bsport/saas-legacy for environment: $ENVIRONMENT $FEATURE_BRANCH_IDENTIFIER"
 
-# Update release files
-echo "*"
-echo "1) Update version files"
-echo "\"$VERSION\"" > public/version.json
-echo "export default '`date +%F+%H+%M`';" > src/release-date.js
-echo "export default '$VERSION';" > src/release.js
-echo "export default '$VERSION_SHA';" > src/release-sha.js
-
 # Prepare sentry release
 echo "*"
-echo "2) Prepare sentry release"
+echo "1) Prepare sentry release"
 export SENTRY_NO_PROGRESS_BAR=1
 ./scripts/prepare-sentry-release.sh $VERSION_SHA $FRONTEND_URL
 
 # # Last preparation
 echo "*"
-echo "3) Remove maps after having uploaded them to sentry, to prevent leaks"
+echo "2) Remove maps after having uploaded them to sentry, to prevent leaks"
 rm ./build/static/js/*.js.map
 
 # Upload to S3 Bucket the build output
 echo "*"
-echo "4) Upload build to S3 $S3_BUCKET"
+echo "3) Upload build to S3 $S3_BUCKET"
 aws s3 cp ./build/ $S3_BUCKET --recursive --only-show-errors $ACL_PARAM
 
 # Update Cloudfront distribution
 # CLOUDFRONT_INVALIDATION_TOKEN is a Gitlab CI/CD variable
 echo "*"
-echo "5) Invalidate cloudfront distribution"
+echo "4) Invalidate cloudfront distribution"
 ./scripts/invalidate-cloudfront.sh $CLOUDFRONT_ID $CLOUDFRONT_INVALIDATION_TOKEN $CLOUDFRONT_INVALIDATION_LAMBDA_URL
 
 # Deploy sentry release
 echo "*"
-echo "6) Prepare sentry deploy"
+echo "5) Prepare sentry deploy"
 ./scripts/prepare-sentry-deploy.sh $VERSION_SHA $SENTRY_ENVIRONMENT
 
 # Send notification to Slack

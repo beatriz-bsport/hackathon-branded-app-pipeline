@@ -1517,6 +1517,22 @@ importers:
         specifier: workspace:*
         version: link:../../../tools/config/eslint
 
+  packages/stores/booking/group-activity:
+    dependencies:
+      '@bsport/b2b-backbone':
+        specifier: workspace:*
+        version: link:../../../utils/b2b-backbone
+      '@bsport/fetch':
+        specifier: workspace:*
+        version: link:../../../utils/fetch
+      '@bsport/store-base':
+        specifier: workspace:*
+        version: link:../../base
+    devDependencies:
+      '@bsport/eslint-config-react':
+        specifier: workspace:*
+        version: link:../../../../tools/config/eslint
+
   packages/utils/b2b-backbone:
     dependencies:
       '@bsport/fetch':

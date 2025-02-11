@@ -34,6 +34,7 @@ import useFetchOfferInformation from './_hooks/useFetchOfferInformation';
 import useBookInOneClick from './_hooks/useBookInOneClick';
 import useCheckBookableStatus from './_hooks/useCheckBookableStatus';
 import Loader from './_components/Loader';
+import { consumerAppBarHOC } from '#src/hocs/consumer-app-bar.hoc';
 
 type OwnProps = {
   companyId: number;

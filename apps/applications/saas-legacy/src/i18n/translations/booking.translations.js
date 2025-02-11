@@ -629,6 +629,9 @@ const getTranslations = async () => {
       goToLogin: 'Log in',
       yourBooking: 'Your booking',
       seeMoreWithLogin: 'Log in to explore packs and subscriptions!',
+      bookableStatus: {
+        error: 'Oops, it seems this booking is not available',
+      },
     },
     lightSignup: {
       form: {

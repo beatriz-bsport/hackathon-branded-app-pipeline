@@ -21,6 +21,7 @@ import type {
 import Config from '../../config';
 
 const API_V1_URI = Config.REACT_APP_BASE_URI_COMMUNICATE_V1;
+const API_V1_URI_CDP = Config.REACT_APP_BASE_URI_CDP_V1;
 
 export const sendCommunication = (data: any) => {
   return postAuth(
@@ -182,7 +183,7 @@ export const fetchRecipientsNumberAllCampaignsIncluded = ({
   dates: CampaignExportStartEndDates;
 }) => {
   return getAuth<RecipientsNumberAndExportable>(
-    `${API_V1_URI}/smartlist/group/${smartlistId}/recipient-count/${buildUrlParams(
+    `${API_V1_URI_CDP}/smartlist/group/${smartlistId}/recipient-count/${buildUrlParams(
       dates,
     )}`,
   );
@@ -196,7 +197,7 @@ export const exportSmartlistCampaignsBackgroundTask = ({
   dates: CampaignExportStartEndDates;
 }) => {
   return postAuth(
-    `${API_V1_URI}/smartlist/group/${smartlistId}/export-campaigns-background/${buildUrlParams(
+    `${API_V1_URI_CDP}/smartlist/group/${smartlistId}/export-campaigns-background/${buildUrlParams(
       dates,
     )}`,
   );
@@ -204,6 +205,6 @@ export const exportSmartlistCampaignsBackgroundTask = ({
 
 export const fetchLatestCampaignExportLink = (smartlistId: number) => {
   return getAuth<string>(
-    `${API_V1_URI}/smartlist/group/${smartlistId}/latest_campaign_export_link/`,
+    `${API_V1_URI_CDP}/smartlist/group/${smartlistId}/latest_campaign_export_link/`,
   );
 };

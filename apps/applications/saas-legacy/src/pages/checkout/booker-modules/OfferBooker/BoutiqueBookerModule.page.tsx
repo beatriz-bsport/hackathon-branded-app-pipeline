@@ -18,6 +18,7 @@ import {
   getOfferFeature,
   getMainOfferNotBookableReasonWithTitle,
 } from '@bsport/common/lib/master-data/available-payment.js';
+
 import { OFFER_WAITING_LIST_STATUS_CONVERTIBLE } from '@bsport/common/lib/master-data/error-codes/buyable-item-can-not-be-bought.js';
 import { DateTime } from 'luxon';
 import ArrowBack from '@material-ui/icons/ArrowBack';
@@ -1272,7 +1273,11 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
       availableConsumerPacks,
     });
 
-    if (availableConsumerPacks.length >= 1 && !isBookingBlocked) {
+    if (
+      availableConsumerPacks.length >= 1 &&
+      !isBookingBlocked &&
+      !this.state.selectedItem
+    ) {
       this.setState({
         selectedItem: {
           data: availableConsumerPacks[0],

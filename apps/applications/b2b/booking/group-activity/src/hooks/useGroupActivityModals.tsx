@@ -4,8 +4,9 @@ import {
   archiveGroupActivity,
   duplicateGroupActivity,
   checkCanArchiveGroupActivity,
+  unarchiveGroupActivity,
 } from "@bsport/store-booking-group-activity";
-import { Modal } from "@bsport/kaizen-primitive-core";
+import { Modal, toast } from "@bsport/kaizen-primitive-core";
 
 import fetch from "#src/utils/fetch";
 
@@ -65,17 +66,40 @@ export const useGroupActivityModals = ({
     setGroupActivityToDuplicate(null);
   };
 
+  const revertArchiveGroupActivity = (groupActivityId: number) => () => {
+    unarchiveGroupActivity(fetch, groupActivityId.toString()).then(
+      (response) => {
+        response.fold(
+          () => fetchData(currentPage, rowsPerPage),
+          (error) => console.error(error),
+        );
+      },
+    );
+  };
+
   const handleArchiveGroupActivity = () => {
     if (!groupActivityToArchive?.id) return;
     archiveGroupActivity(fetch, groupActivityToArchive.id.toString()).then(
       (response) => {
         response.fold(
-          () => {
-            fetchData(currentPage, rowsPerPage);
-            onCloseArchiveModal();
+          ({ name }) => {
+            toast({
+              status: "default",
+              icon: "archive",
+              description: t("list.toasts.archive", {
+                groupActivityName: name,
+              }),
+              duration: 5000,
+              buttonLabel: t("list.toasts.undo"),
+              onButtonClick: revertArchiveGroupActivity(
+                groupActivityToArchive.id,
+              ),
+            });
           },
           (error) => console.error(error),
         );
+        fetchData(currentPage, rowsPerPage);
+        onCloseArchiveModal();
       },
     );
   };
@@ -85,12 +109,21 @@ export const useGroupActivityModals = ({
     duplicateGroupActivity(fetch, groupActivityToDuplicate.id.toString()).then(
       (response) => {
         response.fold(
-          () => {
-            fetchData(currentPage, rowsPerPage);
-            onCloseDuplicateModal();
+          ({ name }) => {
+            toast({
+              status: "default",
+              icon: "copy-03",
+              description: t("list.toasts.duplication", {
+                groupActivityName: name,
+              }),
+              duration: 5000,
+              buttonLabel: t("list.toasts.open"),
+            });
           },
           (error) => console.error(error),
         );
+        fetchData(currentPage, rowsPerPage);
+        onCloseDuplicateModal();
       },
     );
   };

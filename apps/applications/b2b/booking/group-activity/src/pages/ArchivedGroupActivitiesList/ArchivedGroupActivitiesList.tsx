@@ -1,5 +1,11 @@
 import React, { useEffect, useMemo } from "react";
-import { ListLayout, List, Title, Loader } from "@bsport/kaizen-primitive-core";
+import {
+  ListLayout,
+  List,
+  Title,
+  Loader,
+  toast,
+} from "@bsport/kaizen-primitive-core";
 
 import { useTranslation } from "#src/utils/i18n";
 import usePaginatedGroupActivities from "#src/hooks/usePaginatedGroupActivities";
@@ -8,7 +14,10 @@ import type { ListItemProps } from "@bsport/kaizen-primitive-core/dist/component
 
 import { GROUP_ACTIVITIES_PATH } from "#src/constants";
 import EmptyIllustration from "#src/components/EmptyIllustration";
-import { unarchiveGroupActivity } from "@bsport/store-booking-group-activity";
+import {
+  unarchiveGroupActivity,
+  archiveGroupActivity,
+} from "@bsport/store-booking-group-activity";
 
 import fetch from "#src/utils/fetch";
 
@@ -24,11 +33,37 @@ const ArchivedGroupActivitiesList: React.FC = () => {
     isLoading,
   } = usePaginatedGroupActivities(false);
 
+  const revertUnarchiveGroupActivity = (groupActivityId: number) => () => {
+    archiveGroupActivity(fetch, groupActivityId.toString()).then((response) => {
+      response.fold(
+        () => fetchData(currentPage, rowsPerPage),
+        (error) => console.error(error),
+      );
+    });
+  };
+
   const handleUnarchiveGroupActivity = (groupActivityId: number) => () => {
     if (!groupActivityId) return;
-    unarchiveGroupActivity(fetch, groupActivityId.toString()).then(() => {
-      fetchData(currentPage, rowsPerPage);
-    });
+    unarchiveGroupActivity(fetch, groupActivityId.toString()).then(
+      (response) => {
+        response.fold(
+          ({ name }) => {
+            toast({
+              status: "default",
+              icon: "unarchive",
+              description: t("list.toasts.unarchive", {
+                groupActivityName: name,
+              }),
+              duration: 5000,
+              buttonLabel: t("list.toasts.undo"),
+              onButtonClick: revertUnarchiveGroupActivity(groupActivityId),
+            });
+            fetchData(currentPage, rowsPerPage);
+          },
+          (error) => console.error(error),
+        );
+      },
+    );
   };
 
   const renderedArchivedGroupActivities: ListItemProps[] = useMemo(

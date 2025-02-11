@@ -87,7 +87,6 @@ const initialValues: OfferFormValues = {
   isCoachOverridePropagate: true,
   isShowPartnership: false,
   is_hybrid: false,
-  additionalCoaches: [],
 };
 
 const OfferEditFormMeta: Meta<typeof OfferEditForm> = {

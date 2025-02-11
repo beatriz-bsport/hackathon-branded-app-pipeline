@@ -19,7 +19,6 @@ import CoachPaymentRuleSelectorStyled from '#src/libs/coach-payment-rules/compon
 import { OfferFormValues } from '#src/libs/offer/types';
 import { Coach } from '#src/libs/associated-coach/types';
 import { CoachPaymentRule } from '#src/libs/coach-payment-rules/types';
-import Config from '../../../../config';
 
 type Props = {
   coaches: Coach[];
@@ -43,7 +42,7 @@ const OfferFormCoach = (props: Props) => {
   const { t } = useTranslation('offer');
   const { values, touched, errors, setFieldValue, handleBlur } =
     useFormikContext<OfferFormValues>();
-  const { coach, additionalCoaches, coachPaymentRule, coachOverride } = values;
+  const { coach, coachPaymentRule, coachOverride } = values;
 
   const handleSelectCoach = useCallback(
     (newCoach: { value: number; label: string }) => {
@@ -57,18 +56,6 @@ const OfferFormCoach = (props: Props) => {
       }
     },
     [setFieldValue, coachOverride],
-  );
-
-  const handleMultiSelectCoach = useCallback(
-    (newCoaches: { value: number; label: string }[]) => {
-      setFieldValue(
-        'additionalCoaches',
-        newCoaches
-          .map((coachData) => coachData?.value ?? null)
-          .filter((_coach) => !!_coach),
-      );
-    },
-    [setFieldValue],
   );
 
   const handleSelectCoachOverride = useCallback(
@@ -91,24 +78,6 @@ const OfferFormCoach = (props: Props) => {
     }
     return null;
   }, [coach, coaches]);
-
-  const availableMainCoaches = useMemo(() => {
-    return coaches.filter((_coach) => !additionalCoaches.includes(_coach.id));
-  }, [coaches, additionalCoaches]);
-
-  const availableAdditionalCoaches = useMemo(() => {
-    return coaches.filter((_coach) => _coach.id !== coach);
-  }, [coaches, coach]);
-
-  const selectedAdditionalCoaches = useMemo(() => {
-    if (additionalCoaches && coaches) {
-      return additionalCoaches.map(
-        (coachId) =>
-          coaches.find((coachValue) => coachValue.id === coachId)?.id,
-      );
-    }
-    return null;
-  }, [coaches, additionalCoaches]);
 
   const availableCoachOverride = useMemo(
     () =>
@@ -175,7 +144,7 @@ const OfferFormCoach = (props: Props) => {
           <CoachSelector
             closeMenuOnSelect
             noMulti
-            coaches={availableMainCoaches}
+            coaches={coaches}
             id="offer-form-coach-selector"
             isDisabled={!!disabled}
             isError={!!errors.coach && touched.coach}
@@ -193,36 +162,6 @@ const OfferFormCoach = (props: Props) => {
           )}
         </div>
       </OfferFormField>
-      {!!coach && Config.REACT_APP_SENTRY_ENVIRONMENT !== 'production' && (
-        <OfferFormField
-          id="offer-form-coach-field"
-          isError={!!errors.coach}
-          label={t('form.section.coach.additionalCoaches.title')}
-        >
-          <div className={classes.errorContainer}>
-            <CoachSelector
-              closeMenuOnSelect
-              coaches={availableAdditionalCoaches}
-              id="offer-form-coach-selector"
-              isDisabled={!!disabled}
-              isError={!!errors.coach && touched.coach}
-              onBlur={handleBlur}
-              placeholder={t(
-                'form.section.coach.additionalCoaches.field.placeHolder',
-              )}
-              selectedCoaches={selectedAdditionalCoaches}
-              selectOption={handleMultiSelectCoach}
-              selectorClass={classes.xBigWidth}
-            />
-
-            {!!errors.coach && touched.coach && (
-              <Typography color="error" variant="caption">
-                {t(errors.coach)}
-              </Typography>
-            )}
-          </div>
-        </OfferFormField>
-      )}
 
       {isEditOffer && (
         <OfferFormField

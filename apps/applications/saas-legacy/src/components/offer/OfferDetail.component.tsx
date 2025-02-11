@@ -13,14 +13,10 @@ import FolderIcon from '@material-ui/icons/Folder';
 
 import { MarketPlaceCoachDisplay } from '@bsport/common/lib/master-data/personalization.js';
 import { getCoachDisplayName } from '@bsport/common/lib/master-data/coach.js';
-import Tooltip from '#src/components/Tooltip.component';
 import type { Offer } from '#src/libs/offer/types';
-import { AdditionalCoachesTooltipTitle } from '#src/libs/associated-coach/components/CoachToolTip.component';
-import CustomAvatarGroup from '#src/components/CustomAvatarGroup.component';
 import type { Coach } from '#src/libs/associated-coach/types';
 import type { Establishment } from '#src/libs/establishment/types';
 import type { OffersGroup } from '#src/libs/group-offer/types';
-import { ADDITIONAL_COACHES_MAX_DISPLAY } from '#src/libs/offer/constants';
 import type { Level } from '#src/libs/level/types';
 import { CustomChip } from '#src/components/chip/CustomChip.component';
 import { getLevelTranslation } from '#src/libs/level/utils';
@@ -56,13 +52,6 @@ const OfferDetail: React.FC<Props> = ({ offer, coachDisplay }) => {
   const areDisplayedChips = !!offer.customLevel || isBroadcast;
 
   const coach = offer.coach_override || offer.coach || null;
-  const allImageLinks =
-    offer?.additional_coaches?.map((offerCoach) => offerCoach?.photo ?? '') ||
-    [];
-  const slicedImageLinks =
-    allImageLinks.length > ADDITIONAL_COACHES_MAX_DISPLAY
-      ? allImageLinks.slice(0, ADDITIONAL_COACHES_MAX_DISPLAY)
-      : allImageLinks;
 
   const coachName = getCoachDisplayName(
     coachDisplay,
@@ -121,31 +110,6 @@ const OfferDetail: React.FC<Props> = ({ offer, coachDisplay }) => {
               <Avatar src={coach.photo} />
             </ListItemAvatar>
             <ListItemText primary={coachName} />
-          </ListItem>
-        </div>
-      )}
-      {!!offer?.additional_coaches?.length && (
-        <div className={classes.sectionContainer}>
-          <ListItem disableGutters classes={{ root: classes.denseListItem }}>
-            <Tooltip
-              title={
-                <AdditionalCoachesTooltipTitle
-                  coaches={offer.additional_coaches}
-                />
-              }
-            >
-              <ListItemAvatar className={classes.additionalCoachAvatarList}>
-                <CustomAvatarGroup
-                  imgLinks={slicedImageLinks}
-                  imgStyle={classes.additionalCoachAvatar}
-                />
-              </ListItemAvatar>
-            </Tooltip>
-            <ListItemText
-              primary={t('additionalCoaches', {
-                count: offer.additional_coaches?.length,
-              })}
-            />
           </ListItem>
         </div>
       )}

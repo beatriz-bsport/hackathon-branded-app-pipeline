@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import memoize from 'lodash/memoize';
-import uniq from 'lodash/uniq';
 import { compose } from 'recompose';
 import { connect, ConnectedProps } from 'react-redux';
 import { push } from 'connected-react-router';
@@ -163,7 +162,6 @@ const MarketplaceWorkshopPage: React.FC<Props> = ({
   goToBook: bookWidget,
   fetchOfferRegisteredIds,
   fetchAssociatedCoachesList,
-  fetchAdditionalAssociatedCoachesList,
   resetEstablishments,
   resetLevels,
 }) => {
@@ -234,26 +232,12 @@ const MarketplaceWorkshopPage: React.FC<Props> = ({
                 },
               );
             }
-            // Handling Coach in additional coaches that are not teaching workshop in the future.
-            const additionalCoachIds = offers.results.flatMap(
-              (_offer) => _offer.additional_coaches,
-            );
-            const uniqIds = uniq(additionalCoachIds);
-
-            if (uniqIds.length > 0) {
-              fetchAdditionalAssociatedCoachesList({
-                company: companyId,
-                page_size: null,
-                id__in: uniqIds,
-              });
-            }
           },
         },
       );
     },
     [
       companyId,
-      fetchAdditionalAssociatedCoachesList,
       fetchGroupsOfferBulk,
       fetchMarketplaceOfferByMetaActivityList,
       fetchOfferBulkBatched,

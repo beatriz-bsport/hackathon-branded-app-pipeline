@@ -68,8 +68,6 @@ import ManagerOnlyToggle from '#src/libs/offer/form/ManagerOnlyToggle.component'
 import BlackWhiteListing from '#src/libs/offer/BlackWhiteListing.component';
 import FormToggle from '#src/components/forms/FormToggle.component';
 import { ZoomApp } from '#src/libs/zoom-app/types';
-import Tooltip from '#src/components/Tooltip.component';
-import { AdditionalCoachesTooltipTitle } from '#src/libs/associated-coach/components/CoachToolTip.component';
 import { OptionCallback } from '../../../state/types';
 
 type OuterProps = {
@@ -785,7 +783,6 @@ const OffersList: React.FC<{
   level,
   syncEditOnSpivi,
 }) => {
-  const { t } = useTranslation('metaActivity');
   const classes = useStyles();
 
   return (
@@ -799,9 +796,6 @@ const OffersList: React.FC<{
           establishment,
           timezone_name: establishment?.tzname,
           coach: coaches?.find((c) => c.id === o.coach),
-          additional_coaches: o?.additional_coaches
-            ?.map((coachId) => coaches?.find((c) => c.id === coachId) ?? null)
-            ?.filter((c) => c !== null),
           coach_override: coaches?.find((c) => c.id === o.coach_override),
           // @ts-expect-error
           credit_price_override: o.credits,
@@ -859,27 +853,7 @@ const OffersList: React.FC<{
             />
             <ListItemText
               primary={offer.establishment?.title}
-              secondary={
-                offer?.additional_coaches?.length > 0 ? (
-                  <Tooltip
-                    placement="bottom-start"
-                    title={
-                      <AdditionalCoachesTooltipTitle
-                        coaches={offer?.additional_coaches}
-                        mainCoachName={offer.coach?.name}
-                      />
-                    }
-                  >
-                    <div>
-                      {t('offer:allCoaches', {
-                        count: offer?.additional_coaches?.length + 1,
-                      })}
-                    </div>
-                  </Tooltip>
-                ) : (
-                  offer.coach?.name
-                )
-              }
+              secondary={offer.coach?.name}
             />
             <ListItemSecondaryAction>
               <IconButton

@@ -50,7 +50,6 @@ FactoryBot.define('Offer', {
   establishment: 1,
   meta_activity: 1,
   group: null,
-  additional_coaches: [],
   tot_slots: faker.number.int(100),
 });
 

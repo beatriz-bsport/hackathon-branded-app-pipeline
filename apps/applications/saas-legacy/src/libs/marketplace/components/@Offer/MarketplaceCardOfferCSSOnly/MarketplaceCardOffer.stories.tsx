@@ -72,7 +72,6 @@ const offer = {
   other: 3,
   meta_activity: 36497,
   coach: fakeCoach.id,
-  additional_coaches: [1, 2],
   partner_max_booking_count: 6,
   establishment: fakeEstablishment.id,
   credit_price_override: 1,

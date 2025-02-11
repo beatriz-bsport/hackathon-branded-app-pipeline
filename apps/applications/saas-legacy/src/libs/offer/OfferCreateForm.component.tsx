@@ -269,7 +269,6 @@ const formikFormWrapper = withFormik<
 
     const recurrenceIsoWeekDay = dateIntervalStart.weekday;
     return {
-      additionalCoaches: [],
       allowGuestOffer: true,
       availableOnPartnership: !props.isOfferInGroup,
       broadcastLink: '',
@@ -321,7 +320,6 @@ const formikFormWrapper = withFormik<
   validateOnBlur: false,
   handleSubmit: (values, { props: { timezone, onSubmit, metaActivity } }) => {
     const {
-      additionalCoaches,
       allowGuestOffer,
       availableOnPartnership,
       broadcastLink,
@@ -359,7 +357,6 @@ const formikFormWrapper = withFormik<
       : '';
 
     const offer: OfferCreate = {
-      additional_coaches: additionalCoaches,
       allow_guest_offer: allowGuestOffer,
       available_on_partnership: availableOnPartnership,
       blacklist_tags: selectedBlacklistTags,

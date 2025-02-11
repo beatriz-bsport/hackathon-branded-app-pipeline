@@ -34,9 +34,7 @@ import type { Offer } from '../../api/types';
 import DEFAULT_PROFILE_PICTURE_URL from '../../assets/constants';
 import RollCallChip from '../../libs/offer/components/RollCallChip.component';
 import OfferIconHybridIndicator from '../../libs/offer/components/OfferHybridIconIndicator.component';
-import CoachToolTip, {
-  AdditionalCoachesTooltipTitle,
-} from '../../libs/associated-coach/components/CoachToolTip.component';
+import CoachToolTip from '../../libs/associated-coach/components/CoachToolTip.component';
 
 const styles = (theme) => ({
   relativeContainer: { position: 'relative' },
@@ -191,7 +189,6 @@ export function OfferMinimalSummary(props: Props) {
     establishment,
     duration_minute,
     coach,
-    additional_coaches,
     coach_override,
     available,
     date_start,
@@ -429,42 +426,15 @@ export function OfferMinimalSummary(props: Props) {
             />
           </Grid>
           <Grid item className={classes.relativeContainer} xs={2}>
-            {additional_coaches?.length > 0 ? (
-              <ListItemText
-                classes={textClasses}
-                primary={
-                  showCoachName
-                    ? actualCoachName
-                    : (currentEstablishment || {}).title
-                }
-                secondary={
-                  <Tooltip
-                    title={
-                      <AdditionalCoachesTooltipTitle
-                        coaches={additional_coaches}
-                        mainCoachName={actualCoachName}
-                      />
-                    }
-                  >
-                    <div>
-                      {t('offer:allCoaches', {
-                        count: additional_coaches?.length + 1,
-                      })}
-                    </div>
-                  </Tooltip>
-                }
-              />
-            ) : (
-              <ListItemText
-                classes={textClasses}
-                primary={
-                  showCoachName
-                    ? actualCoachName
-                    : (currentEstablishment || {}).title
-                }
-                secondary={actualCoachName}
-              />
-            )}
+            <ListItemText
+              classes={textClasses}
+              primary={
+                showCoachName
+                  ? actualCoachName
+                  : (currentEstablishment || {}).title
+              }
+              secondary={actualCoachName}
+            />
           </Grid>
           {(hasPendingReplacementRequest || props.isRollCallMandatory) && (
             <Grid item className={classes.chipContainer} xs={1}>

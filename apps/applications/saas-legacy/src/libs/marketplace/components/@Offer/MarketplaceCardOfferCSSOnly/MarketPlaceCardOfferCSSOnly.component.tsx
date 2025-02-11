@@ -218,14 +218,6 @@ const MarketPlaceCardOfferCSSOnly: React.FC<Props> = ({
     [coaches, offerCoachId],
   );
 
-  const additionalCoaches = useMemo(
-    () =>
-      (offer?.additional_coaches || []).map((coachId) =>
-        coaches?.find((c) => c.id === coachId),
-      ),
-    [coaches, offer?.additional_coaches],
-  );
-
   // @ts-expect-error
   const genderCountOffer = genderCount ? genderCount[offer?.id] : undefined;
 
@@ -449,24 +441,6 @@ const MarketPlaceCardOfferCSSOnly: React.FC<Props> = ({
               </PopOver>
             </div>
           )}
-          {additionalCoaches?.length > 0 &&
-            additionalCoaches?.map((additionalCoach) => (
-              <MarketplaceCoachInfos
-                reverse
-                classes={{
-                  'bs-card-offer__content__coach':
-                    'bs-card-offer__content__coach',
-                  // @ts-expect-error
-                  'bs-card-offer__content__coach--coach-highlighted':
-                    isVariantCoachHighlighted,
-                }}
-                coach={additionalCoach}
-                hideCoach={hideCoach}
-                // @ts-expect-error
-                offer={offer}
-                theme={theme}
-              />
-            ))}
           <MarketplaceEstablishmentTitle
             classes={{
               'bs-card-offer__content__establishment':

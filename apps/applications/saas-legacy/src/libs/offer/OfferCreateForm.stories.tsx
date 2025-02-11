@@ -86,7 +86,6 @@ const initialValues: OfferFormValues = {
   calendarSelectedDate: DateTime.now().toISO(),
   isRecurrenceWeekDayDialogOpen: false,
   coach: null,
-  additionalCoaches: [],
   coachPaymentRule: null,
   isManagerOnly: false,
   allowGuestOffer: true,

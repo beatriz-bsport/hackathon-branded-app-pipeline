@@ -204,10 +204,6 @@ export const MarketplaceWorkshopCard: React.FC<Props> = ({
               key={offer.id}
               isWorkshop
               showDate
-              additionalCoaches={offer.additional_coaches.map((coachId) =>
-                // @ts-expect-error
-                getCoach(coachId),
-              )}
               // @ts-expect-error
               coach={getCoach(offer.coach_override || offer.coach)}
               customLevel={getLevel[offer.custom_level]}

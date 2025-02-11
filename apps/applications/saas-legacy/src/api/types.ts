@@ -44,7 +44,6 @@ export type ActivitySimplified = {
 export type Offer = {
   activity_id: number;
   activity: ActivitySimplified;
-  additionalCoaches: Coach[];
   allow_guest_offer: boolean;
   available: boolean;
   blacklist_tags: Array<number>;

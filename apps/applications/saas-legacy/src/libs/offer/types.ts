@@ -118,7 +118,6 @@ export type Offer<
 > = {
   activity_id: number;
   activity: A;
-  additional_coaches: C[];
   allow_guest_offer: boolean;
   available: boolean;
   blacklist_tags: T[];
@@ -173,7 +172,6 @@ export type Offer<
  */
 export type OfferREST = {
   activity: number;
-  additional_coaches: number[];
   allow_guest_offer: boolean;
   available_on_partnership: boolean;
   available: boolean;
@@ -420,7 +418,6 @@ export type OfferState = ErrorAndLoading & {
 };
 
 export type OfferFormValues = {
-  additionalCoaches: number[];
   allowGuestOffer: boolean;
   availableOnPartnership: boolean;
   broadcastLink: string | null;
@@ -492,7 +489,6 @@ export type OfferFormRecurrenceWeekDay =
   | '7';
 
 export type OfferCreate = {
-  additional_coaches: number[];
   allow_guest_offer: boolean;
   available_on_partnership: boolean;
   blacklist_tags: number[];
@@ -519,7 +515,6 @@ export type OfferCreate = {
 };
 
 export type OfferEdit = Omit<OfferCreate, 'dates' | 'credits' | 'is_hybrid'> & {
-  additional_coaches: number[];
   allow_guest_offer: boolean;
   available_on_partnership: boolean;
   coach_override: number | null;

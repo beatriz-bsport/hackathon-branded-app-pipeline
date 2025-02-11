@@ -62,7 +62,6 @@ export type Props = {
   onBook: (id: number) => void;
   establishment: Establishment;
   coach: Coach;
-  additionalCoaches?: Coach[];
   withoutCTA: boolean;
   isRegistered?: boolean;
   showOfferGender: boolean;
@@ -134,7 +133,6 @@ const MarketplaceOfferListItem: React.FC<Props> = ({
   // onBookOption,
   onBook,
   coach,
-  additionalCoaches,
   genderCount,
   establishment,
   metaActivity,
@@ -448,27 +446,59 @@ const MarketplaceOfferListItem: React.FC<Props> = ({
                 theme={theme}
               />
             </div>
-            {!!additionalCoaches && additionalCoaches?.length < 1 ? (
-              <>
-                {isSessionCoachClickable ? (
-                  <button
-                    className={clsx('bs-card-offer__button__title', {
+            <>
+              {isSessionCoachClickable ? (
+                <button
+                  className={clsx('bs-card-offer__button__title', {
+                    'bs-offer-list-item__content__offer__left__coach':
+                      'bs-offer-list-item__content__offer__left__coach',
+                    'bs-offer-list-item__content__offer__left__coach--coach-highlighted':
+                      'bs-offer-list-item__content__offer__left__coach--coach-highlighted',
+                  })}
+                  disabled={isBookingDisabled}
+                  // @ts-expect-error
+                  onClick={handleClick}
+                  type="button"
+                >
+                  <MarketplaceCoachInfos
+                    classes={{
+                      // @ts-expect-error
+                      [MARKETPLACE_CLICKABLE_TITLE_IDENTIFIER]: [
+                        MARKETPLACE_CLICKABLE_TITLE_IDENTIFIER,
+                      ],
                       'bs-offer-list-item__content__offer__left__coach':
                         'bs-offer-list-item__content__offer__left__coach',
+                      // @ts-expect-error
                       'bs-offer-list-item__content__offer__left__coach--coach-highlighted':
-                        'bs-offer-list-item__content__offer__left__coach--coach-highlighted',
-                    })}
-                    disabled={isBookingDisabled}
+                        isVariantCoachHighlighted,
+                    }}
+                    coach={coach}
+                    hideCoach={hideCoach}
                     // @ts-expect-error
-                    onClick={handleClick}
-                    type="button"
+                    offer={offer}
+                    theme={theme}
+                  />
+                </button>
+              ) : (
+                <div
+                  className={clsx(
+                    'bs-offer-list-item__content__offer__left__coach',
+                    {
+                      'bs-offer-list-item__content__offer__left__coach--coach-highlighted':
+                        isVariantCoachHighlighted,
+                    },
+                  )}
+                >
+                  <PopOver
+                    title={
+                      isPopoverOnSessionCoach &&
+                      t(
+                        'translation:marketplace.bookButton.popOverTitle.isPast',
+                      )
+                    }
                   >
                     <MarketplaceCoachInfos
                       classes={{
-                        // @ts-expect-error
-                        [MARKETPLACE_CLICKABLE_TITLE_IDENTIFIER]: [
-                          MARKETPLACE_CLICKABLE_TITLE_IDENTIFIER,
-                        ],
                         'bs-offer-list-item__content__offer__left__coach':
                           'bs-offer-list-item__content__offer__left__coach',
                         // @ts-expect-error
@@ -481,162 +511,10 @@ const MarketplaceOfferListItem: React.FC<Props> = ({
                       offer={offer}
                       theme={theme}
                     />
-                  </button>
-                ) : (
-                  <div
-                    className={clsx(
-                      'bs-offer-list-item__content__offer__left__coach',
-                      {
-                        'bs-offer-list-item__content__offer__left__coach--coach-highlighted':
-                          isVariantCoachHighlighted,
-                      },
-                    )}
-                  >
-                    <PopOver
-                      title={
-                        isPopoverOnSessionCoach &&
-                        t(
-                          'translation:marketplace.bookButton.popOverTitle.isPast',
-                        )
-                      }
-                    >
-                      <MarketplaceCoachInfos
-                        classes={{
-                          'bs-offer-list-item__content__offer__left__coach':
-                            'bs-offer-list-item__content__offer__left__coach',
-                          // @ts-expect-error
-                          'bs-offer-list-item__content__offer__left__coach--coach-highlighted':
-                            isVariantCoachHighlighted,
-                        }}
-                        coach={coach}
-                        hideCoach={hideCoach}
-                        // @ts-expect-error
-                        offer={offer}
-                        theme={theme}
-                      />
-                    </PopOver>
-                  </div>
-                )}
-              </>
-            ) : (
-              <div>
-                {isWorkshop ? (
-                  <div>
-                    <MarketplaceCoachInfos
-                      classes={{
-                        'bs-offer-list-item__content__offer__left__coach':
-                          'bs-offer-list-item__content__offer__left__coach',
-                        'bs-offer-list-item__content__offer__left__coach--time-highlighted':
-                          isVariantTimeHighlighted &&
-                          'bs-offer-list-item__content__offer__left__coach--time-highlighted',
-                        'bs-offer-list-item__content__offer__left__coach--coach-highlighted':
-                          isVariantCoachHighlighted &&
-                          'bs-offer-list-item__content__offer__left__coach--coach-highlighted',
-                      }}
-                      coach={coach}
-                      hideCoach={hideCoach}
-                      // @ts-expect-error
-                      offer={offer}
-                      theme={theme}
-                    />
-                    {additionalCoaches?.map((additionalCoach) => (
-                      <MarketplaceCoachInfos
-                        key={`addtional_coach${additionalCoach?.id}`}
-                        classes={{
-                          'bs-offer-list-item__content__offer__left__coach':
-                            'bs-offer-list-item__content__offer__left__coach',
-                        }}
-                        coach={additionalCoach}
-                        hideCoach={hideCoach}
-                        // @ts-expect-error
-                        offer={offer}
-                        theme={theme}
-                      />
-                    ))}
-                  </div>
-                ) : (
-                  <div className="bs-offer-list-item__content__offer__left__coaches__row">
-                    {isSessionCoachClickable ? (
-                      <button
-                        className={clsx('bs-card-offer__button__title', {
-                          'bs-offer-list-item__content__offer__left__coach':
-                            'bs-offer-list-item__content__offer__left__coach',
-                          'bs-offer-list-item__content__offer__left__coach--coach-highlighted':
-                            'bs-offer-list-item__content__offer__left__coach--coach-highlighted',
-                        })}
-                        disabled={isBookingDisabled}
-                        // @ts-expect-error
-                        onClick={handleClick}
-                        type="button"
-                      >
-                        <MarketplaceCoachInfos
-                          classes={{
-                            // @ts-expect-error
-                            [MARKETPLACE_CLICKABLE_TITLE_IDENTIFIER]: [
-                              MARKETPLACE_CLICKABLE_TITLE_IDENTIFIER,
-                            ],
-                          }}
-                          coach={coach}
-                          hideCoach={hideCoach}
-                          // @ts-expect-error
-                          offer={offer}
-                          theme={theme}
-                        />
-                      </button>
-                    ) : (
-                      <MarketplaceCoachInfos
-                        classes={{
-                          'bs-offer-list-item__content__offer__left__coach':
-                            'bs-offer-list-item__content__offer__left__coach',
-                          'bs-offer-list-item__content__offer__left__coach--time-highlighted':
-                            isVariantTimeHighlighted &&
-                            'bs-offer-list-item__content__offer__left__coach--time-highlighted',
-                          'bs-offer-list-item__content__offer__left__coach--coach-highlighted':
-                            isVariantCoachHighlighted &&
-                            'bs-offer-list-item__content__offer__left__coach--coach-highlighted',
-                        }}
-                        coach={coach}
-                        hideCoach={hideCoach}
-                        // @ts-expect-error
-                        offer={offer}
-                        theme={theme}
-                      />
-                    )}
-                    <PopOver
-                      // @ts-expect-error
-                      title={
-                        <div className="bs-offer-list-item__popover__coach">
-                          {additionalCoaches?.map((additionalCoach) => (
-                            <MarketplaceCoachInfos
-                              key={`addtional_coach${additionalCoach?.id}`}
-                              classes={{
-                                'bs-offer-list-item__content__offer__left__coach':
-                                  'bs-offer-list-item__content__offer__left__coach',
-                                'bs-offer-list-item__content__offer__left__coach--time-highlighted':
-                                  isVariantTimeHighlighted &&
-                                  'bs-offer-list-item__content__offer__left__coach--time-highlighted',
-                                'bs-offer-list-item__content__offer__left__coach--coach-highlighted':
-                                  isVariantCoachHighlighted &&
-                                  'bs-offer-list-item__content__offer__left__coach--coach-highlighted',
-                              }}
-                              coach={additionalCoach}
-                              hideCoach={hideCoach}
-                              // @ts-expect-error
-                              offer={offer}
-                              theme={theme}
-                            />
-                          ))}
-                        </div>
-                      }
-                    >
-                      <div className="bs-offer-list-item__content__offer__left__coaches__number">
-                        +{additionalCoaches?.length}
-                      </div>
-                    </PopOver>
-                  </div>
-                )}
-              </div>
-            )}
+                  </PopOver>
+                </div>
+              )}
+            </>
           </div>
           <div className="bs-offer-list-item__content__offer__right">
             <div className="bs-offer-list-item__content__offer__right__top">

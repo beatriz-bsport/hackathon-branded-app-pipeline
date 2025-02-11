@@ -39,7 +39,6 @@ type Props = {
   hasActivityGroup?: boolean;
   isEditOffer?: boolean;
   isOfferInGroup?: boolean;
-  isWorkshop?: boolean;
   roomBlueprints: RoomBlueprint[];
   showPartnership: boolean;
 };
@@ -50,7 +49,6 @@ const OfferFormSettings: React.FC<Props> = ({
   hasActivityGroup,
   isEditOffer,
   isOfferInGroup,
-  isWorkshop,
   roomBlueprints,
   showPartnership,
 }) => {
@@ -207,15 +205,6 @@ const OfferFormSettings: React.FC<Props> = ({
                 featureList,
                 UPSELL_URBAN_SPORTS_CLUB_IDENTIFIER,
               );
-
-              if (hasUscUpsell && availableOnPartnership && isWorkshop)
-                return (
-                  <Alert className={classes.centerAlert} severity="warning">
-                    {t(
-                      'form.section.settings.field.partnership.uscIntegrationWorkshopWarning',
-                    )}
-                  </Alert>
-                );
 
               return (
                 <>

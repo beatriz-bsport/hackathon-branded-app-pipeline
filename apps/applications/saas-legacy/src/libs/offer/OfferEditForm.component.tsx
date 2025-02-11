@@ -380,7 +380,6 @@ export const OfferEditForm = (props: Props) => {
             availableEstablishments={availableEstablishments}
             hasActivityGroup={!!props.offer?.group}
             isOfferInGroup={isOfferInGroup}
-            isWorkshop={metaActivity?.is_workshop}
             roomBlueprints={roomBlueprints}
             showPartnership={showPartnership}
           />

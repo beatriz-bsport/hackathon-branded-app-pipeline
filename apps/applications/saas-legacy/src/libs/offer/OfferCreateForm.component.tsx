@@ -231,7 +231,6 @@ export const OfferCreateForm = (props: Props) => {
           allowGuestMaster={allowGuestMaster}
           availableEstablishments={availableEstablishments}
           isOfferInGroup={isOfferInGroup}
-          isWorkshop={metaActivity?.is_workshop}
           roomBlueprints={roomBlueprints}
           showPartnership={showPartnership}
         />

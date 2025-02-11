@@ -8,7 +8,7 @@ import React, {
 
 type CheckboxContextType = {
   selectedValues: string[];
-  setSelectedValues: React.Dispatch<React.SetStateAction<string[]>>;
+  setSelectedValues: (newSelectedValues: string[]) => void;
   toggleCheckbox: (valueId: string) => void;
   areAllSelected: boolean;
   areSomeSelected: boolean;
@@ -26,43 +26,51 @@ export const CheckboxProvider = ({
   children: ReactNode;
   valueIds: string[];
 }) => {
-  const [selectedValues, setSelectedValues] = useState<string[]>([]);
+  const [selectedValues, setSelectedValues] = useState<Set<string>>(new Set());
 
   const toggleCheckbox = useCallback((valueId: string) => {
-    setSelectedValues((prev) => {
-      const isSelected = prev.includes(valueId);
-      return isSelected
-        ? prev.filter((id) => id !== valueId)
-        : [...prev, valueId];
+    setSelectedValues((values) => {
+      if (values.has(valueId)) {
+        values.delete(valueId);
+      } else {
+        values.add(valueId);
+      }
+      return new Set(values);
     });
   }, []);
 
-  const areAllSelected = valueIds.every((id) => selectedValues.includes(id));
+  const areAllSelected = selectedValues.size === valueIds.length;
 
   const areSomeSelected =
-    selectedValues.length > 0 && selectedValues.length < valueIds.length;
+    selectedValues.size > 0 && selectedValues.size < valueIds.length;
 
   const selectAll = () => {
-    setSelectedValues(indeterminateState === "unchecked" ? valueIds : []);
+    setSelectedValues(
+      indeterminateState === "unchecked" ? new Set(valueIds) : new Set(),
+    );
   };
 
-  const indeterminateState = (() => {
-    if (areAllSelected) return "checked";
-    if (areSomeSelected) return "indeterminate";
-    return "unchecked";
-  })();
+  const indeterminateState = areAllSelected
+    ? "checked"
+    : areSomeSelected
+      ? "indeterminate"
+      : "unchecked";
 
   const getCheckboxState = useCallback(
-    (id: string) => (selectedValues.includes(id) ? "checked" : "unchecked"),
+    (id: string) => (selectedValues.has(id) ? "checked" : "unchecked"),
     [selectedValues],
   );
+
+  const setSelectedValuesArray = useCallback((newSelectedValues: string[]) => {
+    setSelectedValues(new Set(newSelectedValues));
+  }, []);
 
   return (
     <CheckboxContext.Provider
       value={{
-        selectedValues,
+        selectedValues: Array.from(selectedValues),
         toggleCheckbox,
-        setSelectedValues,
+        setSelectedValues: setSelectedValuesArray,
         areAllSelected,
         areSomeSelected,
         selectAll,

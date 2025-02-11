@@ -11,7 +11,7 @@ export type TableCellProps = {
 };
 
 const tableCell = cva(
-  "whitespace-nowrap p-xs border-b-stroke-thin border-b-stroke-weak",
+  "table-cell align-middle whitespace-nowrap p-xs border-b-stroke-thin border-b-stroke-weak",
   {
     variants: {
       rowHeight: {
@@ -20,6 +20,10 @@ const tableCell = cva(
       },
       withVerticalBorders: {
         true: "border-r-stroke-thin border-r-stroke-weak",
+        false: "",
+      },
+      isHeader: {
+        true: "font-[700]",
         false: "",
       },
     },
@@ -37,10 +41,8 @@ const TableCell: React.FC<TableCellProps> = ({
   isHeader = false,
   align = "start",
 }) => {
-  const Element = isHeader ? "th" : "td";
-
   return (
-    <Element className={tableCell({ rowHeight, withVerticalBorders })}>
+    <div className={tableCell({ rowHeight, withVerticalBorders, isHeader })}>
       <div
         className={classNames("flex", {
           "justify-start": align === "start",
@@ -50,7 +52,7 @@ const TableCell: React.FC<TableCellProps> = ({
       >
         {children}
       </div>
-    </Element>
+    </div>
   );
 };
 

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Meta, StoryObj } from "@storybook/react";
-import Table, { Column } from "./Table";
+import Table, { BaseRowType, Column } from "./Table";
 import Button from "#src/components/Button";
 import Chip from "#src/components/Chip";
 import AvatarImage from "#src/components/Avatar/assets/avatar.jpeg";
@@ -18,15 +18,13 @@ export default meta;
 
 type DataRow = {
   id: string;
+  link?: string;
   avatar: { src: string; alt: string } | string;
   name: string;
   registeredDate: Date;
   status: Array<{ label: string; color: "positive" | "critical" | "warning" }>;
   amount: number;
   actions: string[];
-  profile: {
-    link: { href: string; label: string };
-  };
 };
 
 const rows: DataRow[] = Array.from({ length: 100 }, (_, index) => ({
@@ -46,12 +44,6 @@ const rows: DataRow[] = Array.from({ length: 100 }, (_, index) => ({
   ],
   amount: index * 100,
   actions: ["Edit", "Delete"],
-  profile: {
-    link: {
-      href: `/profile/user-${index}`,
-      label: `View Profile ${index}`,
-    },
-  },
 }));
 
 const columns: Column<DataRow>[] = [
@@ -114,27 +106,23 @@ const columns: Column<DataRow>[] = [
             intent="call-to-action"
             color="main"
             size="sm"
-            onClick={() => console.log(`${action} clicked for ${row.name}`)}
+            onClick={(e) => {
+              // Prevent the row from being selected when clicking the button
+              e.stopPropagation();
+              e.preventDefault();
+              console.log(`${action} clicked for ${row.name}`);
+            }}
             label={action}
           />
         ))}
       </div>
     ),
   },
-  {
-    id: "profileLink",
-    keyPath: "profile.link",
-    header: "Profile Link",
-    type: "link",
-    align: "end",
-    target: "_blank",
-    label: (row: DataRow) => row.profile.link.label,
-  },
 ];
 
 export const Primary: StoryObj<typeof Table> = {
   args: {
-    columns: columns as Column<{ id: string }>[],
+    columns: columns as Column<BaseRowType>[],
     rows: rows.slice(0, 5),
     rowHeight: "sm",
     selectable: true,
@@ -148,9 +136,12 @@ const updateRows = (page: number, nbRows: number) => {
   return rows.slice(start, end);
 };
 
+/**
+ * The Table component can be paginated by providing the `paginationProps` prop.
+ */
 export const WithPagination: StoryObj<typeof Table> = {
   args: {
-    columns: columns as Column<{ id: string }>[],
+    columns: columns as Column<BaseRowType>[],
     rows,
     rowHeight: "sm",
     selectable: true,
@@ -183,5 +174,22 @@ export const WithPagination: StoryObj<typeof Table> = {
         }}
       />
     );
+  },
+};
+
+/**
+ * When a link is provided on a row-level, the row wrapped inside a <a> tag.<br>
+ * This allows the user to click anywhere on the row to navigate to the link.
+ */
+export const WithRowLink: StoryObj<typeof Table> = {
+  args: {
+    columns: columns as Column<BaseRowType>[],
+    rows: rows.slice(0, 3).map((row) => ({
+      ...row,
+      link: "https://example.com",
+    })),
+    rowHeight: "sm",
+    selectable: true,
+    withVerticalBorders: true,
   },
 };

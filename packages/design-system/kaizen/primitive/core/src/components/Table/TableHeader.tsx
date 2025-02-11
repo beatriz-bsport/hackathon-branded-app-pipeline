@@ -1,10 +1,10 @@
 import React, { useMemo } from "react";
 import Body from "#src/components/Body";
 import Checkbox from "#src/components/Checkbox";
-import { Column } from "./Table";
+import { BaseRowType, Column } from "./Table";
 import TableCell from "./TableCell";
 
-type TableHeaderProps<RowType extends { id: string }> = {
+type TableHeaderProps<RowType extends BaseRowType> = {
   columns: Column<RowType>[];
   selectable?: boolean;
   areAllSelected?: boolean;
@@ -14,7 +14,7 @@ type TableHeaderProps<RowType extends { id: string }> = {
   withVerticalBorders?: boolean;
 };
 
-const TableHeader = <RowType extends { id: string }>({
+const TableHeader = <RowType extends BaseRowType>({
   columns,
   selectable = false,
   areAllSelected = false,
@@ -34,8 +34,8 @@ const TableHeader = <RowType extends { id: string }>({
   );
 
   return (
-    <thead>
-      <tr className="bg-surface-default-weaker">
+    <div className="table-header-group">
+      <div className="table-row bg-surface-default-weaker">
         {selectable && (
           <TableCell
             isHeader
@@ -60,8 +60,8 @@ const TableHeader = <RowType extends { id: string }>({
             <Body htmlVariant="span">{col.header}</Body>
           </TableCell>
         ))}
-      </tr>
-    </thead>
+      </div>
+    </div>
   );
 };
 

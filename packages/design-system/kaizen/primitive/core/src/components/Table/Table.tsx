@@ -10,7 +10,7 @@ import {
 } from "#src/contexts/CheckboxContext";
 import { usePagination } from "#src/hooks/use-pagination";
 
-const defaultClasses = ["table-auto", "w-full", "text-left"] as const;
+const defaultClasses = ["table", "table-auto", "w-full", "text-left"] as const;
 const table = cva(defaultClasses);
 
 type ColumnType =
@@ -20,7 +20,6 @@ type ColumnType =
   | "date"
   | "datetime"
   | "time"
-  | "link"
   | "avatar";
 
 /**
@@ -28,7 +27,7 @@ type ColumnType =
  * You can add new column types here, such as "date", "time", etc.,
  * to extend the functionality of the Table component.
  */
-export type Column<RowType extends { id: string }> = {
+export type Column<RowType extends BaseRowType> = {
   id: string;
   keyPath: string;
   header: React.ReactNode | string;
@@ -52,7 +51,9 @@ export type Column<RowType extends { id: string }> = {
   | { type: Exclude<ColumnType, "custom" | "link" | "avatar"> }
 );
 
-export type TableProps<RowType extends { id: string }> =
+export type BaseRowType = { id: string; link?: string; className?: string };
+
+export type TableProps<RowType extends BaseRowType> =
   TableHTMLAttributes<HTMLTableElement> & {
     columns: Column<RowType>[];
     rows: RowType[];
@@ -73,7 +74,7 @@ export type TableProps<RowType extends { id: string }> =
  * @param props.withVerticalBorders Boolean to define if the table has vertical borders.
  * @link https://docs.infra.bsport.io/storybook/kaizen/main/index.html?path=/docs/components-table--docs
  */
-const Table = <RowType extends { id: string }>({
+const Table = <RowType extends BaseRowType>({
   className,
   columns,
   rows,
@@ -103,7 +104,7 @@ const Table = <RowType extends { id: string }>({
   );
 };
 
-const InnerTableWithContext = <RowType extends { id: string }>({
+const InnerTableWithContext = <RowType extends BaseRowType>({
   className,
   columns,
   rows,
@@ -132,7 +133,7 @@ const InnerTableWithContext = <RowType extends { id: string }>({
   );
 
   return (
-    <table
+    <div
       className={table({ className })}
       {...props}
       aria-labelledby="table"
@@ -147,22 +148,24 @@ const InnerTableWithContext = <RowType extends { id: string }>({
         rowHeight={rowHeight}
         withVerticalBorders={withVerticalBorders}
       />
-      <tbody role="rowgroup">
+      <div className="table-row-group" role="rowgroup">
         {rows.map((row) => (
           <TableRow
             key={row.id}
             row={row}
             rowId={row.id}
-            columns={columns}
+            columns={columns as Column<BaseRowType>[]}
             selectable={selectable}
             handleCheckboxChange={handleCheckboxChange}
             selected={selectedValues.includes(row.id)}
             rowHeight={rowHeight}
             withVerticalBorders={withVerticalBorders}
+            link={row.link}
+            className="contents"
           />
         ))}
-      </tbody>
-    </table>
+      </div>
+    </div>
   );
 };
 

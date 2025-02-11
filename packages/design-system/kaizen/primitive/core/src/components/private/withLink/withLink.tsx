@@ -1,18 +1,22 @@
 import React from "react";
 
-const withLink = <P extends { link?: string; className?: string }>(
-  Component: React.FC<Omit<P, "link" | "className">>,
-) => {
-  return function WrappedComponent({ link, className, ...rest }: P) {
+type WithLinkProps = {
+  link?: string;
+  className?: string;
+};
+
+const withLink = <P extends object>(
+  Component: React.ComponentType<P>,
+): React.FC<P & WithLinkProps> => {
+  return ({ link, className, ...props }: WithLinkProps & P) => {
     if (link) {
       return (
         <a className={className} href={link}>
-          <Component {...rest} />
+          <Component {...(props as P)} />
         </a>
       );
     }
-
-    return <Component {...rest} />;
+    return <Component {...(props as P)} />;
   };
 };
 

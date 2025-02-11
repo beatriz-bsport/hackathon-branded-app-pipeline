@@ -8,6 +8,9 @@ import type { ListItemProps } from "@bsport/kaizen-primitive-core/dist/component
 
 import { GROUP_ACTIVITIES_PATH } from "#src/constants";
 import EmptyIllustration from "#src/components/EmptyIllustration";
+import { unarchiveGroupActivity } from "@bsport/store-booking-group-activity";
+
+import fetch from "#src/utils/fetch";
 
 const ArchivedGroupActivitiesList: React.FC = () => {
   const { t } = useTranslation("groupActivity");
@@ -20,6 +23,13 @@ const ArchivedGroupActivitiesList: React.FC = () => {
     rowsPerPage,
     isLoading,
   } = usePaginatedGroupActivities(false);
+
+  const handleUnarchiveGroupActivity = (groupActivityId: number) => () => {
+    if (!groupActivityId) return;
+    unarchiveGroupActivity(fetch, groupActivityId.toString()).then(() => {
+      fetchData(currentPage, rowsPerPage);
+    });
+  };
 
   const renderedArchivedGroupActivities: ListItemProps[] = useMemo(
     () =>
@@ -36,6 +46,7 @@ const ArchivedGroupActivitiesList: React.FC = () => {
               label: t("list.archived.unarchive"),
               placement: "bottom-right",
             },
+            onClick: handleUnarchiveGroupActivity(id),
           },
         ],
       })),

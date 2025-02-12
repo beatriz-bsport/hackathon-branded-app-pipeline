@@ -15577,7 +15577,7 @@
                 },
                 "amountRemaining": "Resterend bedrag: {{ amount }}",
                 "billingMoreThanNeeded": "Als je meer dan het factuurbedrag incasseert, wordt het saldo van het lid met het verschil verhoogd",
-                "errorSecretExplain2": "Neem contact op met dev+payment-intent@bsport.io als het probleem aanhoudt.",
+                "errorSecretExplain2": "",
                 "errorSecretExplain1": "Deze betaalmethode is momenteel onbeschikbaar.",
                 "plannedPaymentEvent": {
                     "title": "Geplande betaling",

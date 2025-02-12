@@ -8752,7 +8752,7 @@
                 },
                 "amountRemaining": "Ausstehender Betrag: {{amount}}",
                 "billingMoreThanNeeded": "Wenn mehr als der Rechnungsbetrag eingezogen wird, erhöht sich das Guthaben des Mitglieds um die Differenz",
-                "errorSecretExplain2": "Wenn das Problem weiterhin besteht, wenden Sie sich bitte an dev+payment-intent@bsport.io",
+                "errorSecretExplain2": "",
                 "errorSecretExplain1": "Diese Zahlungsmethode ist derzeit nicht verfügbar",
                 "plannedPaymentEvent": {
                     "title": "Geplante Zahlung",

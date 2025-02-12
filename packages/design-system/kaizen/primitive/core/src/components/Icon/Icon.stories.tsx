@@ -4,6 +4,7 @@ import Icon, { icons, sizes, type IconName } from "./Icon";
 
 /**
  * Generic Icon React component allowing to render any<br>
+ * The Icon inherit the color from its parent component, but it can also be defined directly inside the Icon classname. <a href="https://docs.infra.bsport.io/storybook/kaizen/main/index.html?path=/docs/components-icon--docs#custom%20color%20icons">Example</a><br>
  * Tutorial <a href="https://medium.com/@mateuszpalka/creating-your-custom-svg-icon-library-in-react-a5ff1c4c704a" target="_blank">here</a>
  */
 const meta: Meta<typeof Icon> = {
@@ -67,6 +68,45 @@ export const AllIcons: Story = {
             <span className="text-xs text-center">{name}</span>
           </button>
         ))}
+      </div>
+    );
+  },
+};
+
+export const CustomColorIcons: Story = {
+  name: "Custom color icons",
+  args: {
+    size: "lg",
+  },
+  parameters: {
+    docs: {
+      source: {
+        code: `
+      <div className="flex flex-row items-start flex-wrap gap-md">
+        <Icon
+          size={args.size}
+          icon="image-03"
+          className="text-neptune-blue-400"
+        />
+        <div className="text-cupid-red-400">
+          <Icon size={args.size} icon="announcement-01" />
+        </div>
+      </div>`,
+      },
+    },
+  },
+
+  render: (args) => {
+    return (
+      <div className="flex flex-row items-start flex-wrap gap-md">
+        <Icon
+          size={args.size}
+          icon="image-03"
+          className="text-neptune-blue-400"
+        />
+        <div className="text-cupid-red-400">
+          <Icon size={args.size} icon="announcement-01" />
+        </div>
       </div>
     );
   },

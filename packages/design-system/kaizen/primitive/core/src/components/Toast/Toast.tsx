@@ -7,7 +7,7 @@ import Button from "#src/components/Button";
 
 const defaultClasses = [
   "flex",
-  "w-component-toast",
+  "w-full",
   "p-md",
   "items-start",
   "gap-xs",

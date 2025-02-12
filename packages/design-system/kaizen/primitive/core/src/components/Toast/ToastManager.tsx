@@ -129,7 +129,7 @@ const ToastManager = forwardRef<ToastManagerHandles, object>((_, ref) => {
   // Render the toasts as a portal to avoid stacking issues with other elements
   return createPortal(
     <ol
-      className="flex flex-col-reverse fixed w-component-toast z-[1000] bottom-xl left-1/2 -translate-x-1/2 transition-all duration-long"
+      className="flex flex-col-reverse fixed z-[1000] bottom-xl left-1/2 -translate-x-1/2 transition-all duration-long w-[75%] max-w-[600px]"
       role="alert"
       aria-live="assertive"
       aria-relevant="additions"

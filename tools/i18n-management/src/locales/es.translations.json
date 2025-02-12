@@ -3869,7 +3869,7 @@
                 },
                 "amountRemaining": "El resto a pagar: {{ amount }}",
                 "billingMoreThanNeeded": "Si cobra más que el importe de la factura, el exceso se pondrá en el saldo del cliente",
-                "errorSecretExplain2": "Si el problema no se resuelve por favor contáctenos en dev+payment-intent@bsport.io",
+                "errorSecretExplain2": "",
                 "errorSecretExplain1": "Este método de pago no está disponible en este momento",
                 "plannedPaymentEvent": {
                     "title": "Pago planificado",

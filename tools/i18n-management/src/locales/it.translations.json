@@ -7472,7 +7472,7 @@
                     "label": "Cifra da ottenere"
                 },
                 "billingMoreThanNeeded": "Se ottieni più dell'importo della ricevuta, l'eccedenza sarà messa nel saldo del cliente",
-                "errorSecretExplain2": "Se il problema non è risolto, contattaci al dev+payment-intent@bsport.io",
+                "errorSecretExplain2": "",
                 "errorSecretExplain1": "Questo metodo di pagamento non è al momento disponibile",
                 "amountRemaining": "Resto da pagare: {{ amount }}",
                 "plannedPaymentEvent": {

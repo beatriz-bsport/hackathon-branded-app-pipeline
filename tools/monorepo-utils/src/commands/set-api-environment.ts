@@ -5,7 +5,7 @@ import path from "path";
 import util from "node:util";
 import {
   getMonorepoBasePathSync,
-  getProjectPath,
+  getProjectsPackageJsons,
   declareEnvVariable,
 } from "@bsport/typescript-monorepo-utils";
 import child_process from "child_process";
@@ -26,7 +26,7 @@ const ENV_API_BASE_URLS: {
   [env in Env]: string;
 } = {
   [ENVS.DEV]: "https://api.dev.bsport.io",
-  [ENVS.LOCAL]: "http://localhost:3000",
+  [ENVS.LOCAL]: "http://localhost:8000",
   [ENVS.STAGING]: "https://api.staging.bsport.io",
   [ENVS.PRODUCTION]: "https://api.bsport.io",
   [ENVS.FEATURE_BRANCH]:
@@ -90,7 +90,8 @@ async function action(
   );
 
   const ichizenRootPath = getMonorepoBasePathSync();
-  const fetchPath = getProjectPath({ projectName: "@bsport/fetch" });
+  const projects = await getProjectsPackageJsons();
+  const fetchPath = projects["@bsport/fetch"].path;
   const fetchAbsolutePath = path.resolve(ichizenRootPath, fetchPath);
   const envFileName = ".env.local";
   const envFilePath = path.resolve(fetchPath, envFileName);
@@ -144,12 +145,18 @@ async function action(
     });
   }
 
-  // Update the build of @bsport/fetch to reflect variable changes
+  // Update the build of @bsport/fetch and @bsport/b2b-backbone to reflect variable changes
   {
     print("> Rebuild the @bsport/fetch library");
     await exec("pnpm run build", {
       cwd: fetchAbsolutePath,
     });
+    print("> Rebuild the @bsport/b2b-backbone library");
+    const b2bBackboneAbsolutePath = path.resolve(
+      ichizenRootPath,
+      projects["@bsport/b2b-backbone"].path,
+    );
+    await exec("pnpm run build", { cwd: b2bBackboneAbsolutePath });
   }
 
   print(

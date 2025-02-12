@@ -1,8 +1,5 @@
-import { getFetch } from "@bsport/fetch";
-import { EXCLUDED_URLS, LOGIN_URL } from "#src/auth/constants";
+import { EXCLUDED_URLS, LOGIN_URL, fetch } from "#src/auth/constants";
 import { getAuthToken, logout } from "#src/auth/tokenUtils";
-
-const fetch = getFetch();
 
 /**
  * A wrapper around the fetch API that adds the Authorization header if a token is present.

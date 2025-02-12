@@ -1,4 +1,4 @@
-import { BSPORT_AUTH_TOKEN_KEY, LOGIN_URL } from "#src/auth/constants";
+import { BSPORT_AUTH_TOKEN_KEY, LOGIN_URL, fetch } from "#src/auth/constants";
 
 /**
  * Set the authentication token in localStorage.
@@ -31,19 +31,13 @@ export const removeAuthToken = () => {
  */
 export const login = async (email: string, password: string) => {
   // Hardcoded on dev API for now
-  const response = await fetch(
-    "https://api.dev.bsport.io/api/v1/authentication/signin/with-login/",
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email,
-        password,
-      }),
-    },
-  );
+  const response = await fetch("api/v1/authentication/signin/with-login/", {
+    method: "POST",
+    body: JSON.stringify({
+      email,
+      password,
+    }),
+  });
 
   if (response.ok) {
     const data = await response.json();

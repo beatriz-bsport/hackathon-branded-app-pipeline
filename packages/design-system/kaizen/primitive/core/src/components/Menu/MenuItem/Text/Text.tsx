@@ -50,20 +50,17 @@ const Text: React.FC<TextProps> = ({
     [label],
   );
 
-  const renderedRightSlot = useMemo(
-    () => (rightSlot ? <div className="flex">{rightSlot}</div> : null),
-    [rightSlot],
-  );
-
   return (
     <div className={menuItemText({ className })} {...props}>
-      {renderedAvatar ?? renderedIcon}
-      {renderedLabel}
-      {renderedRightSlot}
+      <div className="flex items-center justify-between w-full">
+        <div className="flex gap-xs">
+          {renderedAvatar ?? renderedIcon}
+          {renderedLabel}
+        </div>
+        {rightSlot ?? null}
+      </div>
     </div>
   );
 };
-
-Text.displayName = "KaizenMenuItemText";
 
 export default Text;

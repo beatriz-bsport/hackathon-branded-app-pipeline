@@ -3,6 +3,9 @@ import Menu from ".";
 import type { Meta, StoryObj } from "@storybook/react";
 import AvatarImage from "#src/components/Avatar/assets/avatar.jpeg";
 import { Item } from "#src/components/Menu/types";
+import Badge from "#src/components/Badge";
+import Chip from "#src/components/Chip";
+import Icon from "#src/components/Icon";
 
 const menuOptions: Item[] = [
   { type: "title", label: "Menu title" },
@@ -97,6 +100,34 @@ const menuOptionsWithIcon: Item[] = [
     id: "3",
     label: "Option 3",
     iconLeft: "user-edit",
+  },
+  { type: "divider" },
+];
+
+const menuOptionsWithRightSlot: Item[] = [
+  { type: "title", label: "Menu items with right slots" },
+  {
+    id: "1",
+    label: "Option 1",
+    iconLeft: "user-edit",
+    rightSlot: <Badge color="default" size="sm" text="I'm a badge" />,
+  },
+  {
+    id: "2",
+    label: "Option 2",
+    iconLeft: "user-edit",
+    rightSlot: <Chip color="info" label="I'm a chip" size="sm" type="strong" />,
+  },
+  {
+    id: "3",
+    label: "Option 3",
+    iconLeft: "user-edit",
+    rightSlot: (
+      <div className="flex gap-xs">
+        <Badge color="default" size="sm" text="I'm a badge with an icon" />
+        <Icon icon="chevron-right" size="sm" />
+      </div>
+    ),
   },
   { type: "divider" },
 ];
@@ -210,6 +241,42 @@ export const MenuWithIcons: Story = {
   name: "Menu with Icons",
   args: {
     items: menuOptionsWithIcon,
+    multiSelect: false,
+  },
+  render: (args) => {
+    const [selectedValues, setSelectedValues] = useState<string[]>([]);
+
+    const handleSelect = (itemId: string) => {
+      if (args.multiSelect) {
+        setSelectedValues((prevState) => {
+          const isSelected = prevState.includes(itemId);
+          return isSelected
+            ? prevState.filter((selected) => selected !== itemId)
+            : [...prevState, itemId];
+        });
+      } else {
+        setSelectedValues([itemId]);
+      }
+    };
+
+    useEffect(() => {
+      setSelectedValues([]);
+    }, [args.multiSelect]);
+
+    return (
+      <Menu
+        {...args}
+        onSelectOption={handleSelect}
+        selectedValues={selectedValues}
+      />
+    );
+  },
+};
+
+export const MenuWithRightSlots: Story = {
+  name: "Menu Items with right slot",
+  args: {
+    items: menuOptionsWithRightSlot,
     multiSelect: false,
   },
   render: (args) => {

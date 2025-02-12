@@ -40,6 +40,7 @@ export type CheckboxProps = React.InputHTMLAttributes<HTMLInputElement> &
  * @param props.label (`string`): Text to display as the label for the checkbox item.
  * @param props.onChange (`(event: React.ChangeEvent<HTMLInputElement>) => void`): Callback function invoked when the checkbox state changes.
  * @param props.value (`"checked" | "unchecked" | "indeterminate"`): Current state of the checkbox.
+ * @param props.rightSlot (`React.ReactNode`): Additional content to render on the right side of the item.
  */
 const Checkbox: React.FC<CheckboxProps> = ({
   avatar,
@@ -99,11 +100,6 @@ const Checkbox: React.FC<CheckboxProps> = ({
     [disabled],
   );
 
-  const renderedRightSlot = useMemo(
-    () => (rightSlot ? <div className="flex">{rightSlot}</div> : null),
-    [rightSlot],
-  );
-
   return (
     <button
       role="check"
@@ -160,23 +156,23 @@ const Checkbox: React.FC<CheckboxProps> = ({
         />
         <CheckboxSVG value={value} />
       </div>
-      <div className="flex">
+      <div className="flex items-center justify-between w-full">
         <label
           onClick={handleOnClick}
           htmlFor={id}
           className={classNames(
-            "flex items-center justify-between cursor-pointer w-full",
+            "flex items-center justify-between cursor-pointer",
             {
               "cursor-default": disabled,
             },
           )}
         >
-          <div className="flex gap-2xs">
+          <div className="flex gap-xs">
             {renderedAvatar ?? renderedIcon}
             <span>{label}</span>
           </div>
-          {renderedRightSlot}
         </label>
+        {rightSlot ?? null}
       </div>
     </button>
   );

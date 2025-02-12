@@ -74,17 +74,16 @@ const Button: React.FC<ButtonProps> = ({
     [label],
   );
 
-  const renderedRightSlot = useMemo(
-    () => (rightSlot ? <div className="flex">{rightSlot}</div> : null),
-    [rightSlot],
-  );
-
   return (
     <button className={button({ className, disabled })} {...props}>
       <MenuItemIndicator disabled={disabled} />
-      {renderedAvatar ?? renderedIcon}
-      {renderedLabel}
-      {renderedRightSlot}
+      <div className="flex items-center justify-between w-full">
+        <div className="flex gap-xs">
+          {renderedAvatar ?? renderedIcon}
+          {renderedLabel}
+        </div>
+        {rightSlot ?? null}
+      </div>
     </button>
   );
 };

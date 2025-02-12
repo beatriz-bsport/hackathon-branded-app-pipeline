@@ -91,11 +91,6 @@ const Radio: React.FC<RadioProps> = ({
     [label, value, id],
   );
 
-  const renderedRightSlot = useMemo(
-    () => (rightSlot ? <div className="flex">{rightSlot}</div> : null),
-    [label],
-  );
-
   const handleMenuItemClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     if (!disabled) {
       event.stopPropagation();
@@ -128,13 +123,15 @@ const Radio: React.FC<RadioProps> = ({
         tabIndex={-1}
         {...props}
       />
-      {renderedAvatar ?? renderedIcon}
-      {renderedLabel}
-      {renderedRightSlot}
+      <div className="flex items-center justify-between w-full">
+        <div className="flex items-center gap-xs">
+          {renderedAvatar ?? renderedIcon}
+          {renderedLabel}
+        </div>
+        {rightSlot ?? null}
+      </div>
     </button>
   );
 };
-
-Radio.displayName = "KaizenMenuItemRadio";
 
 export default Radio;

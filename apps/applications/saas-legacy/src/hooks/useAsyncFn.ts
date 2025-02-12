@@ -17,7 +17,7 @@ export default function useAsyncFn<ArgsType extends any[], ReturnType>(
   },
   (...args: ArgsType) => Promise<ReturnType>,
 ] {
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState();
   const [value, setValue] = useState<ReturnType>();
 

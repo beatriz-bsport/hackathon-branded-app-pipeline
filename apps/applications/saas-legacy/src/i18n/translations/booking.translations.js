@@ -632,6 +632,7 @@ const getTranslations = async () => {
       bookableStatus: {
         error: 'Oops, it seems this booking is not available',
       },
+      bookButtonLabel: 'Book now',
     },
     lightSignup: {
       form: {

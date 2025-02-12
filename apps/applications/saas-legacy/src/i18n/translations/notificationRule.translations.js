@@ -20,6 +20,7 @@ const getTranslations = async () => {
     NOTIFICATION_BOOKING_NOT_REFUNDED,
     NOTIFICATION_BOOKING_REFUNDED,
     NOTIFICATION_MEMBERSHIP_CREATION_SAAS,
+    NOTIFICATION_MEMBERSHIP_CREATION_LIGHT_SIGNUP,
     NOTIFICATION_SUBSCRIPTION_CREATE,
     NOTIFICATION_SUBSCRIPTION_UPDATE_PAYMENT_METHOD,
     NOTIFICATION_SUBSCRIPTION_PAUSE,
@@ -369,6 +370,8 @@ const getTranslations = async () => {
         'Booking cancelled: credit refunded (for members)',
       [NOTIFICATION_MEMBERSHIP_CREATION_SAAS]:
         'For newly enrolled members (for staff)',
+      [NOTIFICATION_MEMBERSHIP_CREATION_LIGHT_SIGNUP]:
+        'For members enrolled via one-click booking (for members)',
       [NOTIFICATION_SUBSCRIPTION_CREATE]:
         'Purchased subscription (for members)',
       [NOTIFICATION_SUBSCRIPTION_UPDATE_PAYMENT_METHOD]:

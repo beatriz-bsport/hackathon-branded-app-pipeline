@@ -144,6 +144,7 @@ export async function fetchOfferWaitingListPositionList(
 
 export async function postUserRegistration(
   data: {
+    extra_data?: { one_click_checkout?: boolean };
     consumer_payment_pack?: number;
     payment_pack?: number;
     payment_combo?: number;

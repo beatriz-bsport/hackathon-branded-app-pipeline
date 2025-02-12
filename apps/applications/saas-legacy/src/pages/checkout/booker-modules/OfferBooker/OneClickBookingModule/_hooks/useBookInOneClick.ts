@@ -16,6 +16,8 @@ import { useDispatch } from 'react-redux';
 import { push } from 'connected-react-router';
 import useAsyncFn from '#src/hooks/useAsyncFn';
 import { Basket } from '#src/libs/checkout/types';
+import { removeItemInStorage } from '#src/utils/storage';
+import { STORAGE_KEY_LIGHT_SIGNUP_FORM_VALUES } from '#src/actions/constants';
 
 const redirectToConfirmationPage = (
   offer: OfferREST,
@@ -90,6 +92,9 @@ const bookInOneClick =
     setAuthToken(data.token);
 
     const { data: userRegistrationResponse } = await postUserRegistration({
+      extra_data: {
+        one_click_checkout: true,
+      },
       payment_pack: selectedPaymentPackId,
       offers: [{ offer_id: offer.id, extra_data: {} }],
       email,
@@ -103,6 +108,8 @@ const bookInOneClick =
     const { data: basket } = await fetchCurrentBasket(companyId);
 
     await validateBasket(basket);
+
+    removeItemInStorage('local', STORAGE_KEY_LIGHT_SIGNUP_FORM_VALUES);
 
     redirectToConfirmationPage(
       offer,

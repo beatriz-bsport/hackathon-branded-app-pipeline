@@ -812,7 +812,8 @@
             "seeMoreWithLogin": "Log in to explore packs and subscriptions!",
             "bookableStatus": {
                 "error": "Oops, it seems this booking is not available"
-            }
+            },
+            "bookButtonLabel": "Book now"
         },
         "lightSignup": {
             "form": {
@@ -7545,6 +7546,7 @@
             "29": "Reminder that the livestream starts in 15 minutes (for members)",
             "30": "Booking for a guest (for inviting member)",
             "31": "Booking for a guest (for guest)",
+            "32": "For members enrolled via one-click booking (for members)",
             "101": "Reminder that the livestream starts in 15 minutes (for teachers)",
             "102": "Cancelled session (for teachers)",
             "103": "Modified session (for teachers)",

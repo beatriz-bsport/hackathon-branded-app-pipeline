@@ -96,3 +96,12 @@
   stroke: white;
   fill: white;
 }
+
+.bs-oneclick-booking__book-button-container,
+.bs-oneclick-booking__book-button {
+  width: 100%;
+}
+
+.bs-oneclick-booking__book-button-container {
+  margin: var(--bs-space-size-4) 0;
+}

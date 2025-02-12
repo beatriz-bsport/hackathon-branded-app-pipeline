@@ -29,12 +29,19 @@ import { LinkExternal01 } from '#src/components/untitledui';
 import './index.css';
 import LightSignupForm, {
   LightSignupFormValues,
+  lightSignupFormWrapper,
 } from './_components/LightSignupForm';
 import useFetchOfferInformation from './_hooks/useFetchOfferInformation';
 import useBookInOneClick from './_hooks/useBookInOneClick';
 import useCheckBookableStatus from './_hooks/useCheckBookableStatus';
 import Loader from './_components/Loader';
 import { consumerAppBarHOC } from '#src/hocs/consumer-app-bar.hoc';
+import {
+  ButtonColor,
+  ButtonSize,
+  ButtonVariant,
+} from '#src/components/css-only/Fabrique/ButtonV2/constants';
+import { useFormikContext } from 'formik';
 
 type OwnProps = {
   companyId: number;
@@ -48,7 +55,13 @@ const OneClickBookingModule: React.FC<Props> = ({
   offerId,
   authenticated,
   theme,
+  retrieveCompanyCssConfiguration,
 }) => {
+  const {
+    values: lightSignupValues,
+    submitForm: submitLightSignupForm,
+    validateForm: validateLightSignupForm,
+  } = useFormikContext<LightSignupFormValues>();
   const [selectedPaymentPackId, setSelectedPaymentPackId] = useState<
     number | null
   >(null);
@@ -66,7 +79,7 @@ const OneClickBookingModule: React.FC<Props> = ({
   useEffect(() => {
     (async () => {
       if (companyId) {
-        retrieveCompanyCssConfigurationAction(companyId);
+        retrieveCompanyCssConfiguration(companyId);
       }
       const response = await fetchOffer(offerId, companyId);
       if (response?.paymentPacks && response?.paymentPacks.length > 0) {
@@ -87,20 +100,34 @@ const OneClickBookingModule: React.FC<Props> = ({
   const establishment = state.value?.establishment;
   const coach = state.value?.coach;
 
-  const onSubmitLightSignupForm = useCallback(
-    async (formValues: LightSignupFormValues) => {
-      await bookInOneClick({
-        companyId,
-        selectedPaymentPackId,
-        offer,
-        firstName: formValues.firstName,
-        lastName: formValues.lastName,
-        email: formValues.email,
-        phone: formValues.phone,
-      });
-    },
-    [companyId, selectedPaymentPackId, offer, bookInOneClick],
-  );
+  const onBook = useCallback(async () => {
+    const formErrors = await validateLightSignupForm();
+    const isFormValid = Object.values(formErrors).length === 0;
+    if (!isFormValid) {
+      return;
+    }
+    await submitLightSignupForm();
+    await bookInOneClick({
+      companyId,
+      selectedPaymentPackId,
+      offer,
+      firstName: lightSignupValues.firstName,
+      lastName: lightSignupValues.lastName,
+      email: lightSignupValues.email,
+      phone: lightSignupValues.phone,
+    });
+  }, [
+    validateLightSignupForm,
+    submitLightSignupForm,
+    bookInOneClick,
+    companyId,
+    selectedPaymentPackId,
+    offer,
+    lightSignupValues.firstName,
+    lightSignupValues.lastName,
+    lightSignupValues.email,
+    lightSignupValues.phone,
+  ]);
 
   const offerDate = useConsumerBookingDateTime({
     dateStart: offer?.date_start,
@@ -186,7 +213,6 @@ const OneClickBookingModule: React.FC<Props> = ({
           </Typography>
           <div className="bs-oneclick-booking__booking-details__card">
             <ConsumerBookingDetailsCard
-              collapsable
               coachName={coach?.name}
               coachPicture={coach?.photo}
               consumerPaymentPackAvailableCredits={0}
@@ -223,10 +249,10 @@ const OneClickBookingModule: React.FC<Props> = ({
               </div>
             ))}
             <ButtonV2
-              color="secondary"
+              color={ButtonColor.SECONDARY}
               href={loginToBookerUrl}
-              size="small"
-              variant="text"
+              size={ButtonSize.SM}
+              variant={ButtonVariant.TEXT}
             >
               <div className="bs-oneclick-booking__see-more-with-login">
                 {t('oneClickBooking.seeMoreWithLogin')}
@@ -235,7 +261,24 @@ const OneClickBookingModule: React.FC<Props> = ({
             </ButtonV2>
           </div>
           <div className="bs-oneclick-booking__light-signup-form">
-            <LightSignupForm submitValidatedForm={onSubmitLightSignupForm} />
+            <LightSignupForm />
+          </div>
+          <div className="bs-oneclick-booking__book-button-container">
+            <ButtonV2
+              className="bs-oneclick-booking__book-button"
+              color={ButtonColor.PRIMARY}
+              onClick={onBook}
+              size={ButtonSize.LG}
+              variant={ButtonVariant.CONTAINED}
+            >
+              {bookingState.loading ? (
+                <div className="bs-light-signup-form__submit-button-loader">
+                  <Loader />
+                </div>
+              ) : (
+                t('oneClickBooking.bookButtonLabel')
+              )}
+            </ButtonV2>
           </div>
         </div>
       )}
@@ -250,6 +293,7 @@ const connector = connect(
   }),
   {
     snackbarError,
+    retrieveCompanyCssConfiguration: retrieveCompanyCssConfigurationAction,
   },
 );
 
@@ -262,4 +306,5 @@ export default compose(
   marketplaceCssHoc(),
   WithCustomCssProvider,
   consumerAppBarHOC(),
+  lightSignupFormWrapper,
 )(OneClickBookingModule);

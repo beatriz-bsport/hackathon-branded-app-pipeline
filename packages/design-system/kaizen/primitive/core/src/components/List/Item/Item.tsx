@@ -79,26 +79,26 @@ const BaseItem: React.FC<
 
     return (
       <>
-        <div className="flex items-center gap-xs text-onsurface-default">
+        <div className="flex items-center gap-xs text-onsurface-default w-[70%]">
           {isSelectable && (
             <Checkbox id={id} value={checkboxState} onChange={handleChange} />
           )}
           {(avatar && <AvatarWithTooltip {...avatar} />) ||
             (icon && <Icon icon={icon} size="md" />) ||
             null}
-          <div className="flex flex-col items-start gap-2xs max-w-[500px]">
-            <span className="text-onsurface-default text-body-lg leading-md">
+          <div className="flex flex-col items-start gap-2xs overflow-hidden">
+            <span className="text-onsurface-default text-body-lg leading-md truncate w-full">
               {title}
             </span>
             {description && (
-              <span className="text-onsurface-weak text-body-md leading-sm">
+              <span className="text-onsurface-weak text-body-md leading-sm truncate w-full">
                 {description}
               </span>
             )}
           </div>
           {chipsDirection === "start" && renderedChips}
         </div>
-        <div className="flex items-center gap-sm">
+        <div className="flex items-center justify-end gap-sm w-[30%]">
           {rightTitle && (
             <span className="text-onsurface-default text-body-lg leading-md">
               {rightTitle}

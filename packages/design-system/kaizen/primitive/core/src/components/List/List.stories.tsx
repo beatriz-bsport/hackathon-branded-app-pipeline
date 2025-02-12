@@ -93,9 +93,11 @@ export const Checkboxes: Story = {
     items: [
       {
         id: "list-item-4",
-        title: "Playing with fonts is fun",
+        title:
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin eget urna a justo dictum tincidunt. Duis elementum non felis sit amet tristique. Aenean lorem dolor, eleifend in justo ornare, facilisis condimentum felis. Vestibulum eu ipsum ipsum. Aliquam viverra quis arcu et imperdiet. Sed nec ipsum quis dolor sagittis accumsan. Sed commodo velit et lacus convallis viverra. Maecenas eu ligula a sapien varius vulputate quis at sem.",
         rightTitle: "Right title",
-        description: "Playing with fonts is fun",
+        description:
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin eget urna a justo dictum tincidunt. Duis elementum non felis sit amet tristique. Aenean lorem dolor, eleifend in justo ornare, facilisis condimentum felis. Vestibulum eu ipsum ipsum. Aliquam viverra quis arcu et imperdiet. Sed nec ipsum quis dolor sagittis accumsan. Sed commodo velit et lacus convallis viverra. Maecenas eu ligula a sapien varius vulputate quis at sem.",
         chips: [
           {
             label: "Chip 1",

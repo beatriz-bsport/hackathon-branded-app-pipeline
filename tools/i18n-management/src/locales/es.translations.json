@@ -7861,7 +7861,7 @@
             },
             "eventType": {
                 "3": "Cancelación sesión (miembros)",
-                "6": "Registro miembro (estudiante)",
+                "6": "Cuenta creada por el miembro",
                 "7": "Reserva a través del bono",
                 "8": "Reserva + compra simultánea de un bono",
                 "9": "Una plaza disponible: reserva posible",
@@ -7872,7 +7872,7 @@
                 "16": "Sesión modificada (miembros)",
                 "17": "Reserva cancelada: crédito no reembolsado (miembros)",
                 "18": "Reserva cancelada: crédito reembolsado (miembros)",
-                "19": "Registro miembro (mánager)",
+                "19": "Cuenta de miembro creada por el personal",
                 "20": "Solicitud de descarga de facturas",
                 "21": "Nueva reserva (miembros)",
                 "22": "Confirmación de factura",

@@ -1402,7 +1402,7 @@
             },
             "eventType": {
                 "3": "Annulla sessione",
-                "6": "Registrazione membro (membro)",
+                "6": "Account membro creato dal membro",
                 "7": "Prenotazione tramite pacchetto",
                 "8": "Prenotazione + acquisto del pacchetto",
                 "9": "Un posto si è liberato",
@@ -1413,7 +1413,7 @@
                 "16": "Sessione modificata",
                 "17": "Prenotazione annullata: credito non rimborsato",
                 "18": "Prenotazione annullata: credito rimborsato",
-                "19": "Registrazione membro (manager)",
+                "19": "Account membro creato dallo staff",
                 "20": "Richiesta di download della ricevuta",
                 "21": "Nuova prenotazione",
                 "22": "Conferma della ricevuta",

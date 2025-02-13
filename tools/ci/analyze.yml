@@ -1,6 +1,6 @@
 Analyze:
   image: ${REGISTRY_ENDPOINT}/${REGISTRY_NAME}:${CI_COMMIT_REF_SLUG}
-  stage: lint
+  stage: analyze
   interruptible: true
   tags:
     - build-frontend

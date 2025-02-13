@@ -1,4 +1,4 @@
-image: 672633452901.dkr.ecr.eu-west-3.amazonaws.com/bsport-infra/gitlab-build-frontend:14
+image: 672633452901.dkr.ecr.eu-west-3.amazonaws.com/bsport-infra/gitlab-build-ichizen:v1.0.1
 
 variables:
   AWS_REGION: eu-west-3
@@ -8,17 +8,17 @@ variables:
 stages:
   - prepare-builder
   - merge-request-open
-  - lint
+  - analyze
   - deploy-feature-branch
   - deploy
 
 include:
-  - local: "/ci/utilities.yml"
-  - local: "/ci/prepare-builder.yml"
-  - local: "/ci/merge-request-open.yml"
-  - local: "/ci/lint.yml"
-  - local: "/ci/deploy-feature-branch.yml"
-  - local: "/ci/deploy-environment.yml"
+  - local: "/tools/ci/utilities.yml"
+  - local: "/tools/ci/prepare-builder.yml"
+  - local: "/tools/ci/merge-request-open.yml"
+  - local: "/tools/ci/analyze.yml"
+  - local: "/tools/ci/deploy-feature-branch.yml"
+  - local: "/tools/ci/deploy-environment.yml"
 
 workflow:
   rules:

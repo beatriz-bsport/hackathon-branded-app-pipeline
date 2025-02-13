@@ -696,7 +696,7 @@
         "notificationRule": {
             "eventType": {
                 "3": "Geannuleerde sessies (leden)",
-                "6": "Welkomsbericht (voor nieuwe leden)",
+                "6": "Ledenaccount aangemaakt door lid",
                 "7": "Reservering met leskaarten",
                 "8": "Reservering + aankoop via leskaart",
                 "9": "Een lid heeft zich uitgeschreven van de wachtlijst (boekingsplaats vrijgekomen)",
@@ -707,7 +707,7 @@
                 "16": "Gewijzigde sessies (leden)",
                 "17": "Late-annulering (leden)",
                 "18": "Kosteloze annuleringen (leden)",
-                "19": "Welkomsbericht (voor medewerkers)",
+                "19": "Ledenaccount aangemaakt door medewerkers",
                 "20": "Verzoek om factuur te downloaden",
                 "21": "Nieuwe reserveringen (leden)",
                 "22": "Factuurbevestiging",

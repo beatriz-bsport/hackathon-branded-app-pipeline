@@ -1,16 +1,15 @@
-import React from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-inbox.js';
 
-import { SmartListSelectOption } from '../types';
+import { SmartListSelectOption } from '#src/libs/communication-v2/types';
 
 export const useSmartlistHandler = (
   contextSelected: ChatThreadKinds,
   fetchAllSmartLists: () => void,
 ) => {
-  const [smartlistSelected, setSmartlistSelected] =
-    React.useState<number>(null);
+  const [smartlistSelected, setSmartlistSelected] = useState<number>(null);
 
-  const handleSmartlistSelect = React.useCallback(
+  const handleSmartlistSelect = useCallback(
     (smartlist: SmartListSelectOption) => {
       if (!smartlist) {
         return;
@@ -20,7 +19,7 @@ export const useSmartlistHandler = (
     [],
   );
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (contextSelected === ChatThreadKinds.Smartlist) {
       fetchAllSmartLists();
     }

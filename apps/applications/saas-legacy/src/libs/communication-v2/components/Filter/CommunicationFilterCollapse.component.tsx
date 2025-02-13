@@ -14,8 +14,8 @@ import {
 } from '#src/libs/communication-v2/constants';
 import { getFieldChoicesByIdentifier } from '#src/libs/communication-v2/utils';
 import { SelectFieldItem } from '#src/libs/communication-v2/types';
-import CommunicationFilterDateField from './CommunicationFilterDateField.component';
-import CommunicationFilterGenericField from './CommunicationFilterGenericField.component';
+import CommunicationFilterDateField from '#src/libs/communication-v2/components/Filter/CommunicationFilterDateField.component';
+import CommunicationFilterGenericField from '#src/libs/communication-v2/components/Filter/CommunicationFilterGenericField.component';
 
 type FilterModalProps = {
   hasKindFilter?: boolean;

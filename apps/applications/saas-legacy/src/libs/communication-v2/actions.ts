@@ -4,14 +4,14 @@ import uniq from 'lodash/uniq';
 
 import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-inbox.js';
 import { monitorBackgroundTask } from '#src/libs/background-task/actions';
-import { snackbarSuccess, snackbarError } from '../snackbar/actions';
+import { snackbarSuccess, snackbarError } from '#src/libs/snackbar/actions';
 import type {
   Dispatch,
   ThunkAction,
   OptionCallback,
   OptionBackgroundCallback,
   PaginatedResponse,
-} from '../../state/types';
+} from '#src/state/types';
 
 import {
   fetchCommunicationSentList as fetchCommunicationSentListAPI,
@@ -42,7 +42,7 @@ import {
   updateCommunicationScheduled as updateCommunicationScheduledAPI,
   sendNowCommunicationScheduled as sendNowCommunicationScheduledAPI,
   retrieveCommunicationSMSProviderVerification as retrieveCommunicationSMSProviderVerificationAPI,
-} from './api';
+} from '#src/libs/communication-v2/api';
 import type {
   FetchCommunicationParams,
   MessageParams,
@@ -59,8 +59,8 @@ import type {
   CommunicationScheduledFilters,
   CommunicationScheduledCreate,
   CommunicationScheduledFiltersForUniqueSmartlist,
-} from './types';
-import { COMMUNICATION_SENT_SENDING_PROCESSING } from './constants';
+} from '#src/libs/communication-v2/types';
+import { COMMUNICATION_SENT_SENDING_PROCESSING } from '#src/libs/communication-v2/constants';
 
 // --------- SEND COMMUNICATION ---------
 

@@ -2,7 +2,7 @@ import React from 'react';
 import {
   CommunicationMessageBubble,
   Props,
-} from './CommunicationMessageBubble.component';
+} from '#src/libs/communication-v2/components/MessageList/SingleMessage/CommunicationMessageBubble.component';
 import {
   COMMUNICATION_KIND_EMAIL,
   COMMUNICATION_KIND_SMS,

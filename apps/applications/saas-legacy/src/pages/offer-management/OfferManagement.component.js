@@ -1417,9 +1417,7 @@ export class OfferManagement extends Component<Props, State> {
         )}
         {!!this.props.offer &&
           !!this.props.communicationDrawerIsOpen &&
-          (Config.REACT_APP_SENTRY_ENVIRONMENT === 'dev' ||
-            Config.REACT_APP_SENTRY_ENVIRONMENT === 'local' ||
-            Config.REACT_APP_SENTRY_ENVIRONMENT === 'staging' ||
+          (Config.REACT_APP_SENTRY_ENVIRONMENT !== 'production' ||
             this.props.companyId === 498) && (
             <CommunicationDrawer
               allMemberCategoryList={getOfferCategories(

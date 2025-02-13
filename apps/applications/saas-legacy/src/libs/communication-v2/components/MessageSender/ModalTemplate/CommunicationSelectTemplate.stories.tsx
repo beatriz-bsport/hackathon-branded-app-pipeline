@@ -3,7 +3,7 @@ import { ComponentStory, ComponentMeta } from '@storybook/react';
 
 import CommunicationSelectTemplate, {
   Props as CommunicationSelectTemplateProps,
-} from './CommunicationSelectTemplate.component';
+} from '#src/libs/communication-v2/components/MessageSender/ModalTemplate/CommunicationSelectTemplate.component';
 
 export default {
   title: 'Library/Communication-V2/TemplateSelector',

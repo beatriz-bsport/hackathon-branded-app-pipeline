@@ -1,6 +1,6 @@
 import AutoResendConfigDialog, {
   Props,
-} from './AutoResendConfigDialog.component';
+} from '#src/libs/communication-v2/components/AutoResendConfigDialog/AutoResendConfigDialog.component';
 
 export type { Props };
 export default AutoResendConfigDialog;

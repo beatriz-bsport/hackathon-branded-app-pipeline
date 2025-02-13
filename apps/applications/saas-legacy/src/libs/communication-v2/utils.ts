@@ -30,7 +30,7 @@ import { Booking, BookingOption } from '#src/libs/booking/types';
 import { Member } from '#src/libs/member/types';
 import { WaitingListBookingOption } from '#src/libs/waiting-list/types';
 import { Tag, TagGroupAPI } from '#src/libs/tag/types';
-import { OptionCallback } from '../../state/types';
+import { OptionCallback } from '#src/state/types';
 import {
   SelectFieldItem,
   CommunicationFilterParams,
@@ -41,7 +41,7 @@ import {
   CommunicationThread,
   CommunicationThreadWithUnreadAnswersCount,
   CommunicationContext,
-} from './types';
+} from '#src/libs/communication-v2/types';
 import {
   COMMUNICATION_FILTER_IDENTIFIER_CHANNEL,
   COMMUNICATION_FILTER_IDENTIFIER_KIND,
@@ -68,7 +68,7 @@ import {
   INBOX_DISABLED_MESSAGES,
   INBOX_THREAD_PAGE_SIZE,
   CONTEXT_CADENCE,
-} from './constants';
+} from '#src/libs/communication-v2/constants';
 
 // #region FILTER CONTAINER
 
@@ -315,73 +315,72 @@ export const getConsentWarning = memoize(
  *
  * return true if the communication should not be displayed (filtered out)
  */
-export const needToFilterOutReceivedCommunicationSentWithActiveFilters =
-  memoize(
-    (
-      communication: Communication,
-      filters: {
-        numberFilters: number[];
-        dateStartFilter: number;
-        dateEndFilter: number;
-      },
-    ) => {
-      const { numberFilters, dateStartFilter, dateEndFilter } = filters;
-      // Filter by kind
-      const formatedFilters = getFormatedFiltersToFetchCommunicationSent(
-        numberFilters,
-        dateStartFilter,
-        dateEndFilter,
-      );
-      if (
-        !!formatedFilters.filter_kind &&
-        !formatedFilters.filter_kind.includes(communication.kind)
-      )
-        return true;
-      // Filter by channel
-      const channel =
-        COMMUNICATION_FILTER_CHANNELS[
-          getChannelFromMetadata(communication.metadata)
-        ];
-      if (
-        !!formatedFilters.filter_channel &&
-        // @ts-expect-error
-        !formatedFilters.filter_channel.includes(channel)
-      )
-        return true;
-      // Filter by smartlist : we can only send manual messages => only need to filter out if Automatic campaign is selected
-      if (
-        !!formatedFilters.filter_send_parameter &&
-        formatedFilters.filter_send_parameter ===
-          COMMUNICATION_SEND_PARAMETER_AUTO
-      )
-        return true;
-      // Filter out if Received messages is selected
-      if (
-        !!formatedFilters.filter_src_or_dst &&
-        formatedFilters.filter_src_or_dst === COMMUNICATION_SRC_OR_DST_RECEIVED
-      )
-        return true;
-      // Filter by dates
-      const today = DateTime.now().toISO();
-      if (dateStartFilter) {
-        const dateStart = DateTime.fromSeconds(dateStartFilter);
-        const diffDaysStart = Math.floor(
-          DateTime.fromISO(today).diff(dateStart, 'days').as('days'),
-        );
-
-        if (diffDaysStart < 0) return true;
-      }
-      if (dateEndFilter) {
-        const dateEnd = DateTime.fromSeconds(dateEndFilter);
-        const diffDaysEnd = Math.floor(
-          DateTime.fromISO(today).diff(dateEnd, 'days').as('days'),
-        );
-
-        if (diffDaysEnd > 0) return true;
-      }
-      return false;
+export const filterCommunicationThread = memoize(
+  (
+    communication: Communication,
+    filters: {
+      numberFilters: number[];
+      dateStartFilter: number;
+      dateEndFilter: number;
     },
-  );
+  ) => {
+    const { numberFilters, dateStartFilter, dateEndFilter } = filters;
+    // Filter by kind
+    const formatedFilters = getFormatedFiltersToFetchCommunicationSent(
+      numberFilters,
+      dateStartFilter,
+      dateEndFilter,
+    );
+    if (
+      !!formatedFilters.filter_kind &&
+      !formatedFilters.filter_kind.includes(communication.kind)
+    )
+      return true;
+    // Filter by channel
+    const channel =
+      COMMUNICATION_FILTER_CHANNELS[
+        getChannelFromMetadata(communication.metadata)
+      ];
+    if (
+      !!formatedFilters.filter_channel &&
+      // @ts-expect-error
+      !formatedFilters.filter_channel.includes(channel)
+    )
+      return true;
+    // Filter by smartlist : we can only send manual messages => only need to filter out if Automatic campaign is selected
+    if (
+      !!formatedFilters.filter_send_parameter &&
+      formatedFilters.filter_send_parameter ===
+        COMMUNICATION_SEND_PARAMETER_AUTO
+    )
+      return true;
+    // Filter out if Received messages is selected
+    if (
+      !!formatedFilters.filter_src_or_dst &&
+      formatedFilters.filter_src_or_dst === COMMUNICATION_SRC_OR_DST_RECEIVED
+    )
+      return true;
+    // Filter by dates
+    const today = DateTime.now().toISO();
+    if (dateStartFilter) {
+      const dateStart = DateTime.fromSeconds(dateStartFilter);
+      const diffDaysStart = Math.floor(
+        DateTime.fromISO(today).diff(dateStart, 'days').as('days'),
+      );
+
+      if (diffDaysStart < 0) return true;
+    }
+    if (dateEndFilter) {
+      const dateEnd = DateTime.fromSeconds(dateEndFilter);
+      const diffDaysEnd = Math.floor(
+        DateTime.fromISO(today).diff(dateEnd, 'days').as('days'),
+      );
+
+      if (diffDaysEnd > 0) return true;
+    }
+    return false;
+  },
+);
 
 // #endregion
 

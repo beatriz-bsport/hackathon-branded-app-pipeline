@@ -830,9 +830,7 @@ export class SmartListDetailMember extends React.Component<Props, State> {
           sendNow={this.openCommunicationScheduledSendNowDialog}
           timezone={this.props.timezone}
         />
-        {(['dev', 'local', 'staging'].includes(
-          Config.REACT_APP_SENTRY_ENVIRONMENT,
-        ) ||
+        {(Config.REACT_APP_SENTRY_ENVIRONMENT !== 'production' ||
           this.props.companyId === 498) && (
           <ObjectLevelPermissionWrapper
             forcedBehavior="hidden"

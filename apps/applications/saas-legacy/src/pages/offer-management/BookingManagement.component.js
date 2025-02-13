@@ -591,14 +591,8 @@ export class BookingManagement extends React.PureComponent<Props, State> {
                                 >
                                   <MailIcon />
                                 </IconButton>
-                                {(Config.REACT_APP_SENTRY_ENVIRONMENT ===
-                                  'dev' ||
-                                  Config.REACT_APP_SENTRY_ENVIRONMENT ===
-                                    'local' ||
-                                  Config.REACT_APP_SENTRY_ENVIRONMENT ===
-                                    'staging' ||
-                                  Config.REACT_APP_SENTRY_ENVIRONMENT ===
-                                    'pool' ||
+                                {(Config.REACT_APP_SENTRY_ENVIRONMENT !==
+                                  'production' ||
                                   this.props.companyId === 498) && (
                                   <BottomActionsButtonCustom
                                     buttonsProperties={[

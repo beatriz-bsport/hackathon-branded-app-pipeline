@@ -414,9 +414,7 @@ class MarketingRuleDetail extends React.PureComponent<Props, State> {
     } = this.props;
     return (
       <React.Fragment>
-        {(Config.REACT_APP_SENTRY_ENVIRONMENT === 'dev' ||
-          Config.REACT_APP_SENTRY_ENVIRONMENT === 'local' ||
-          Config.REACT_APP_SENTRY_ENVIRONMENT === 'staging' ||
+        {(Config.REACT_APP_SENTRY_ENVIRONMENT !== 'production' ||
           this.props.theme?.company === 498) &&
           !!this.props.selectedNotification && (
             <CommunicationDrawer

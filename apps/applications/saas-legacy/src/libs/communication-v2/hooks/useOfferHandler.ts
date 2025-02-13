@@ -1,13 +1,13 @@
-import React from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { DateTime } from 'luxon';
 import omit from 'lodash/omit';
 
 import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-inbox.js';
 import { OfferFilter, Offer } from '#src/libs/offer/types';
 // @ts-expect-error
-import { omit_list } from '../../../pages/planning/Planning.page';
+import { omit_list } from '#src/pages/planning/Planning.page';
 
-import { OptionCallback } from '../../../state/types';
+import { OptionCallback } from '#src/state/types';
 
 type OfferHandlerHookProps = {
   contextSelected: ChatThreadKinds;
@@ -37,9 +37,9 @@ export const useOfferHandler = ({
   fetchCoachBulk,
   fetchEstablishmentBulk,
 }: OfferHandlerHookProps) => {
-  const [date, setDate] = React.useState(DateTime.now().toISODate());
+  const [date, setDate] = useState(DateTime.now().toISODate());
 
-  const fetchRelevantOffers = React.useCallback(() => {
+  const fetchRelevantOffers = useCallback(() => {
     fetchAllOffers({
       min_date: DateTime.fromISO(date)
         .startOf('month')
@@ -53,7 +53,7 @@ export const useOfferHandler = ({
     });
   }, [fetchAllOffers, offerFilters, date]);
 
-  const fetchOffersByDay = React.useCallback(() => {
+  const fetchOffersByDay = useCallback(() => {
     const momentDate = DateTime.fromISO(date);
     fetchOffersByDayActionDisptach(
       {
@@ -84,15 +84,15 @@ export const useOfferHandler = ({
     offerFilters,
   ]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (contextSelected === ChatThreadKinds.Offer) {
       fetchRelevantOffers();
       fetchOffersByDay();
     }
   }, [contextSelected, fetchRelevantOffers, fetchOffersByDay]);
 
-  const [offerSelected, setOfferSelected] = React.useState<number>(null);
-  const handleOfferSelected = React.useCallback(
+  const [offerSelected, setOfferSelected] = useState<number>(null);
+  const handleOfferSelected = useCallback(
     (offer: Offer) => setOfferSelected(offer.id),
     [setOfferSelected],
   );

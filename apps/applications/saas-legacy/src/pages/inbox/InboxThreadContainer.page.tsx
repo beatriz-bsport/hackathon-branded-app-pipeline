@@ -5,7 +5,7 @@ import { connect, type ConnectedProps } from 'react-redux';
 import InboxThreadContainer from '#src/libs/communication-v2/thread/InboxThreadContainer/InboxThreadContainer.component';
 
 import {
-  needToFilterOutReceivedCommunicationSentWithActiveFilters,
+  filterCommunicationThread,
   getOfferCategories,
 } from '#src/libs/communication-v2/utils';
 import type {
@@ -304,11 +304,10 @@ class InboxThreadContainerPage extends PureComponent<Props> {
         dateStartFilter: this.props.inboxContainerState.filterDateStart,
         dateEndFilter: this.props.inboxContainerState.filterDateEnd,
       };
-      const filterOutNewCommunication =
-        needToFilterOutReceivedCommunicationSentWithActiveFilters(
-          communicationResponse,
-          filters,
-        );
+      const filterOutNewCommunication = filterCommunicationThread(
+        communicationResponse,
+        filters,
+      );
       if (filterOutNewCommunication) {
         this.props.setInboxContainerState({
           ...this.props.inboxContainerState,

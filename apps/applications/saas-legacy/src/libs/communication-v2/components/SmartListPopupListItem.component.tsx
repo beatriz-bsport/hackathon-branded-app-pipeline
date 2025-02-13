@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { DateTime } from 'luxon';
 
@@ -10,7 +10,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core';
 
-import { SmartListPopupSending } from '../types';
+import { SmartListPopupSending } from '#src/libs/communication-v2/types';
 
 export const MEMBER_PAGE_SIZE = 10;
 
@@ -30,12 +30,12 @@ const SmartListPopupListItem: React.FC<Props> = ({
   const classes = useStyle();
   const { t } = useTranslation(['communication']);
 
-  const openPreviewDialog = React.useCallback(
+  const openPreviewDialog = useCallback(
     () => openPreview(smartListPopup),
     [openPreview, smartListPopup],
   );
 
-  const openMemberListDialog = React.useCallback(
+  const openMemberListDialog = useCallback(
     () => openMemberList(smartListPopup),
     [openMemberList, smartListPopup],
   );

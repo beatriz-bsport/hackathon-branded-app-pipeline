@@ -2,7 +2,7 @@ import { faker } from '@faker-js/faker';
 
 import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-inbox.js';
 import { CommunicationThreadWithUnreadAnswersCount } from '#src/libs/communication-v2/types';
-import DEFAULT_PROFILE_PICTURE_URL from '../../../assets/constants';
+import DEFAULT_PROFILE_PICTURE_URL from '#src/assets/constants';
 
 const OFFER_COVERS: Array<string> = [
   'https://assets.staging.bsport.io/activity/boxethai.jpg',

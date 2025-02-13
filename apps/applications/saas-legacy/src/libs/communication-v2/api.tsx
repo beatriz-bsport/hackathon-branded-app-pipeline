@@ -11,7 +11,7 @@ import {
   postAuth,
   postAuthDeprecated,
   putAuth,
-} from '../../http';
+} from '#src/http';
 import type {
   CommunicationContext,
   CommunicationProvider,
@@ -25,10 +25,10 @@ import type {
   MessageParams,
   SmartListPopupSending,
   UnreadAnswersCount,
-} from './types';
-import type { PaginatedResponse } from '../../state/types';
+} from '#src/libs/communication-v2/types';
+import type { PaginatedResponse } from '#src/state/types';
 
-import Config from '../../config';
+import Config from '#src/config';
 
 const API_V1_URI = Config.REACT_APP_BASE_URI_COMMUNICATE_V1;
 const API_V1_URI_CORE_DATA = Config.REACT_APP_BASE_URI_CORE_V1;

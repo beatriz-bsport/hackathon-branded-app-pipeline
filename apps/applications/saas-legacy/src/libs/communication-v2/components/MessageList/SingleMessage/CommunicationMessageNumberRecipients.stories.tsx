@@ -2,7 +2,7 @@ import React from 'react';
 
 import CommunicationMessageNumberRecipients, {
   Props,
-} from './CommunicationMessageNumberRecipients.component';
+} from '#src/libs/communication-v2/components/MessageList/SingleMessage/CommunicationMessageNumberRecipients.component';
 import MembersFactory from '#src/libs/member/factories/Member';
 
 const CustomTemplate = (args: Props) => (

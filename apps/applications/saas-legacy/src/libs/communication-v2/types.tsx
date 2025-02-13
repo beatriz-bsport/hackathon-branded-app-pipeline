@@ -6,7 +6,11 @@ import type {
   GenericListReducerI,
   GenericPaginationResults,
 } from '#src/libs/types';
-import type { Member, MemberFilter } from '#src/libs/member/types';
+import type {
+  Member,
+  MemberFilter,
+  MemberMinimal,
+} from '#src/libs/member/types';
 import type { CustomMobilePopup } from '#src/libs/settings/types';
 import type { SmartList } from '#src/libs/smart-list/types';
 
@@ -337,4 +341,16 @@ export type CommunicationScheduledFilters = {
 export type CommunicationScheduledFiltersForUniqueSmartlist = {
   smartlistId: number;
   page?: number;
+};
+
+export type MemberListIdsByCommunicationKind = {
+  email: number[];
+  phone: number[];
+  notification: number[];
+};
+
+export type MemberListDataByCommunicationKind = {
+  email: MemberMinimal[];
+  phone: MemberMinimal[];
+  notification: MemberMinimal[];
 };

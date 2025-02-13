@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import CommunicationRecipientsModal, {
   Props,
 } from './CommunicationRecipientsModal.component';
@@ -7,12 +7,12 @@ import { getMemberIdListsFromMemberList } from '#src/libs/communication-v2/utils
 import { PAGINATION_SIZE_RECIPIENTS } from '#src/libs/communication-v2/constants';
 
 const CustomTemplate = (args: Props) => {
-  const [unchecked, setUnchecked] = React.useState({
+  const [unchecked, setUnchecked] = useState({
     email: [],
     phone: [],
     notification: [],
   });
-  const [checkedFilters, setCheckedFilters] = React.useState([1]);
+  const [checkedFilters, setCheckedFilters] = useState([1]);
 
   return (
     <CommunicationRecipientsModal

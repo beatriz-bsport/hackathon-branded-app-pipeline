@@ -1,15 +1,19 @@
 import React, { useState } from 'react';
-import { CommunicationDrawerWithStyles as CommunicationDrawer } from './CommunicationDrawer.component';
+import { CommunicationDrawerWithStyles as CommunicationDrawer } from '#src/libs/communication-v2/components/CommunicationDrawer.component';
 import MembersFactory, {
   MemberFactory,
 } from '#src/libs/member/factories/Member';
-import CommunicationMessageListFactory from '../factories/Communication';
-import { RecipientWithMemberFromCommunicationMessageFactory } from '../factories/RecipientWithMember';
+import CommunicationMessageListFactory from '#src/libs/communication-v2/factories/Communication';
+import { RecipientWithMemberFromCommunicationMessageFactory } from '#src/libs/communication-v2/factories/RecipientWithMember';
 import EmailTemplateDetailSummaryListsFactory from '#src/libs/email-editor/factories/Emails';
 
-import { getMemberIdListsFromMemberList } from '../utils';
+import { getMemberIdListsFromMemberList } from '#src/libs/communication-v2/utils';
 
-import { CommunicationMessage, DrawerProps, Communication } from '../types';
+import {
+  CommunicationMessage,
+  DrawerProps,
+  Communication,
+} from '#src/libs/communication-v2/types';
 import { Member } from '#src/libs/member/types';
 import { tagCategories, tagListFactory } from '#src/libs/tag/factory';
 
@@ -27,7 +31,7 @@ import {
   COMMUNICATION_FILTER_KINDS,
   COMMUNICATION_FILTER_RECIPIENTS,
   COMMUNICATION_FILTER_SEND_PARAMETERS,
-} from '../constants';
+} from '#src/libs/communication-v2/constants';
 import { useMediaQuery, useTheme } from '@material-ui/core';
 
 // UTILS JUST FOR STORYBOOK

@@ -1,7 +1,7 @@
 import React from 'react';
 import CommunicationSendMessageContainer, {
   Props,
-} from './CommunicationSendMessageContainer.component';
+} from '#src/libs/communication-v2/components/MessageSender/CommunicationSendMessageContainer.component';
 import MembersFactory from '#src/libs/member/factories/Member';
 import {
   PAGINATION_SIZE_RECIPIENTS,

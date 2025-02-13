@@ -1,4 +1,4 @@
-import React, { memo, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 // eslint-disable-next-line bsport/no-redux-in-component
 import { connect, ConnectedProps } from 'react-redux';
 import { useTranslation } from 'react-i18next';
@@ -56,8 +56,8 @@ import {
 import { hasUpsell } from '#src/libs/platform-billing/utils';
 import CommunicationSMSCostReminderModal from '#src/libs/communication-v2/CommunicationSMSCostReminderModal.component';
 import ObjectLevelPermissionProvider from '#src/libs/role/permission-utils/ObjectLevelPermissionProvider.component';
-import CommunicationMessageNumberRecipients from '../MessageList/SingleMessage/CommunicationMessageNumberRecipients.component';
-import Config from '../../../../config';
+import CommunicationMessageNumberRecipients from '#src/libs/communication-v2/components/MessageList/SingleMessage/CommunicationMessageNumberRecipients.component';
+import Config from '#src/config';
 
 type Props = {
   actionType: number;
@@ -103,15 +103,15 @@ const BottomBarIcons: React.FC<Props & ConnectedProps<typeof connector>> = ({
     useState(false);
   const handleCloseMenu = () => setMenuAnchorEl(null);
   const handleCloseMenuBalises = () => setMenuBalisesAnchorEl(null);
-  const handleCostReminderModalOnClose = React.useCallback(
+  const handleCostReminderModalOnClose = useCallback(
     () => setIsSmsCostReminderModalOpen(false),
     [],
   );
-  const handleCostReminderModalOpen = React.useCallback(
+  const handleCostReminderModalOpen = useCallback(
     () => setIsSmsCostReminderModalOpen(true),
     [],
   );
-  const handleSendSmsOnClick = React.useCallback(() => {
+  const handleSendSmsOnClick = useCallback(() => {
     sendMessage();
     setIsSmsCostReminderModalOpen(false);
   }, [sendMessage]);
@@ -466,4 +466,4 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-export default memo(connector(BottomBarIcons));
+export default React.memo(connector(BottomBarIcons));

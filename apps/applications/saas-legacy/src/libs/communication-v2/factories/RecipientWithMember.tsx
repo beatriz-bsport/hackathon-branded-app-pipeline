@@ -4,7 +4,7 @@ import type {
   Recipient,
   CommunicationMessage,
   RecipientCompact,
-} from '../types';
+} from '#src/libs/communication-v2/types';
 
 function randomInt(max: number) {
   return Math.floor(Math.random() * max);

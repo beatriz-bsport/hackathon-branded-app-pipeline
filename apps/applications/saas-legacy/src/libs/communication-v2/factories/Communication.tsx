@@ -7,12 +7,12 @@ import type {
 import type { Member } from '#src/libs/member/types';
 import MembersFactory from '#src/libs/member/factories/Member';
 import fakerHTML from '#src/components/html/fakerHTML';
-import { RecipientCompactListFactory } from './RecipientWithMember';
+import { RecipientCompactListFactory } from '#src/libs/communication-v2/factories/RecipientWithMember';
 import {
   COMMUNICATION_SENT_SENDING_SUCCESS,
   COMMUNICATION_FILTER_CHANNELS,
   COMMUNICATION_FILTER_KINDS,
-} from '../constants';
+} from '#src/libs/communication-v2/constants';
 
 function randomInt(max: number) {
   return Math.floor(Math.random() * max - 0.00001);

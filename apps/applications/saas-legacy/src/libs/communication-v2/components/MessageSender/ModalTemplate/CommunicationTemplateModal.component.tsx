@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import CommunicationWrapperDialog from '#src/libs/communication-v2/components/CommunicationWrapperDialog.component';
@@ -7,7 +7,7 @@ import type {
   EmailTemplateSummary,
   ResolvedGenericTags,
 } from '#src/libs/email-editor/types';
-import CommunicationSelectTemplate from './CommunicationSelectTemplate.component';
+import CommunicationSelectTemplate from '#src/libs/communication-v2/components/MessageSender/ModalTemplate/CommunicationSelectTemplate.component';
 
 export type Props = {
   emailDetailList: Record<number, EmailTemplateDetail>;
@@ -43,40 +43,39 @@ export const CommunicationTemplateModal: React.FC<Props> = ({
   setTitle,
 }) => {
   const { t } = useTranslation('communication');
-  const [selectedTemplateId, setSelectedTemplateId] =
-    React.useState<number>(null);
-  const [currentTitle, setCurrentTitle] = React.useState('');
+  const [selectedTemplateId, setSelectedTemplateId] = useState<number>(null);
+  const [currentTitle, setCurrentTitle] = useState('');
 
-  React.useEffect(() => {
+  useEffect(() => {
     selectedTitle && setCurrentTitle(selectedTitle);
     return () => {
       setCurrentTitle('');
     };
   }, [selectedTitle]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     selectedTemplate && setSelectedTemplateId(selectedTemplate);
   }, [selectedTemplate]);
 
   // CDM
-  React.useEffect(() => {
+  useEffect(() => {
     if (!emailSummaryList?.length) {
       fetchEmailSummaryList();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [fetchEmailSummaryList]);
 
-  const onConfirm = React.useCallback(() => {
+  const onConfirm = useCallback(() => {
     setTemplate(selectedTemplateId);
     setTitle(currentTitle);
     closeDialog?.();
   }, [setTemplate, setTitle, closeDialog, selectedTemplateId, currentTitle]);
 
-  const updateCurrentTitle = React.useCallback((title: string) => {
+  const updateCurrentTitle = useCallback((title: string) => {
     setCurrentTitle(title);
   }, []);
 
-  const updateSelectedTemplate = React.useCallback((templateId: number) => {
+  const updateSelectedTemplate = useCallback((templateId: number) => {
     setSelectedTemplateId(templateId);
   }, []);
 

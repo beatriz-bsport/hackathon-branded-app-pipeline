@@ -1,253 +1,267 @@
-import React from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { DateTime } from 'luxon';
-import { compose } from 'recompose';
 import {
   Collapse,
   Typography,
   ButtonBase,
   IconButton,
-  Theme,
   Hidden,
   Chip,
-  WithStyles,
+  makeStyles,
 } from '@material-ui/core';
 import Close from '@material-ui/icons/Close';
 import { Tune, KeyboardArrowDown, KeyboardArrowUp } from '@material-ui/icons';
-import { withTranslation, WithTranslation } from 'react-i18next';
-import { withStyles } from '@material-ui/styles';
-import type {
-  SelectFieldItem,
-  FilterState,
-} from '#src/libs/communication-v2/types';
+import { useTranslation } from 'react-i18next';
+import type { SelectFieldItem } from '#src/libs/communication-v2/types';
 import {
   getFiltersToEnable,
   getFilterOptionsOverride,
 } from '#src/libs/communication-v2/utils';
-import CommunicationFilterCollapse from './CommunicationFilterCollapse.component';
-import CommunicationFilterValuesGenericSummary from './CommunicationFilterValuesGenericSummary.component';
-import CommunicationFilterValuesPeriodSummary from './CommunicationFilterValuesPeriodSummary.component';
+import CommunicationFilterCollapse from '#src/libs/communication-v2/components/Filter/CommunicationFilterCollapse.component';
+import CommunicationFilterValuesGenericSummary from '#src/libs/communication-v2/components/Filter/CommunicationFilterValuesGenericSummary.component';
+import CommunicationFilterValuesPeriodSummary from '#src/libs/communication-v2/components/Filter/CommunicationFilterValuesPeriodSummary.component';
 
-type OwnProps = {
+export type Props = {
   contextIdentifier: number;
-  handleFilters: (
-    filters: number[],
-    dateStart: number,
-    dateEnd: number,
-  ) => void;
+  handleFilters: ({
+    filters,
+    dateStart,
+    dateEnd,
+  }: {
+    filters: number[];
+    dateStart: number;
+    dateEnd: number;
+  }) => void;
 };
 
-export type Props = OwnProps & WithTranslation & WithStyles;
-export class CommunicationFilterContainer extends React.Component<
-  Props,
-  FilterState
-> {
-  constructor(props: Props) {
-    super(props);
-    this.state = {
-      dateStart: null,
-      dateEnd: null,
-      kindFilterValues: [],
-      recipientFilterValues: [],
-      channelFilterValues: [],
-      sendParameterFilterValues: [],
-      srcOrDstFilterValues: [],
-      showFilterModal: false,
-      allPreviousFilters: { filters: [], dateStart: null, dateEnd: null },
-    };
-  }
+export const CommunicationFilterContainer: React.FC<Props> = ({
+  contextIdentifier,
+  handleFilters,
+}: Props) => {
+  const [dateStart, setDateStart] = useState<DateTime | null>(null);
+  const [dateEnd, setDateEnd] = useState<DateTime | null>(null);
+  const [kindFilterValues, setKindFilterValues] = useState<SelectFieldItem[]>(
+    [],
+  );
+  const [recipientFilterValues, setRecipientFilterValues] = useState<
+    SelectFieldItem[]
+  >([]);
+  const [channelFilterValues, setChannelFilterValues] = useState<
+    SelectFieldItem[]
+  >([]);
+  const [sendParameterFilterValues, setSendParameterFilterValues] = useState<
+    SelectFieldItem[]
+  >([]);
+  const [srcOrDstFilterValues, setSrcOrDstFilterValues] = useState<
+    SelectFieldItem[]
+  >([]);
+  const [showFilterModal, setShowFilterModal] = useState<boolean>(false);
+  const [allPreviousFilters, setAllPreviousFilters] = useState<{
+    filters: number[];
+    dateStart: number | null;
+    dateEnd: number | null;
+  }>({ filters: [], dateStart: null, dateEnd: null });
+  const [shouldSubmitFilters, setShouldSubmitFilters] = useState(false);
+  const { t } = useTranslation('communication');
+  const classes = useStyles();
 
-  onCollapseClick = () => {
-    this.setState((prevState: FilterState) => ({
-      showFilterModal: !prevState.showFilterModal,
-    }));
+  const popFilterValue = ({
+    index,
+    setFilter,
+  }: {
+    setFilter: React.Dispatch<React.SetStateAction<SelectFieldItem[]>>;
+    index: number;
+  }) => {
+    setFilter((prevValues) => {
+      const newFilterValues = [...prevValues];
+      newFilterValues.splice(index, 1);
+      return newFilterValues;
+    });
+    setShouldSubmitFilters(true);
   };
 
-  handleFiltersSubmit = () => {
-    const filtersNumbers: number[] = [];
+  const handleFiltersSubmit = useCallback(() => {
+    const filtersIdentifiers: number[] = [];
     const {
       hasKindFilter,
       hasChannelFilter,
       hasRecipientFilter,
       hasSendParameterFilter,
       hasSrcOrDstFilter,
-    } = getFiltersToEnable(this.props.contextIdentifier);
-    if (hasKindFilter && this.state.kindFilterValues.length > 0) {
-      this.state.kindFilterValues.forEach((item: SelectFieldItem) =>
-        filtersNumbers.push(item.value),
-      );
-    }
-    if (hasRecipientFilter && this.state.recipientFilterValues.length > 0) {
-      this.state.recipientFilterValues.forEach((item: SelectFieldItem) =>
-        filtersNumbers.push(item.value),
-      );
-    }
-    if (hasChannelFilter && this.state.channelFilterValues.length > 0) {
-      this.state.channelFilterValues.forEach((item: SelectFieldItem) =>
-        filtersNumbers.push(item.value),
-      );
-    }
-    if (
-      hasSendParameterFilter &&
-      this.state.sendParameterFilterValues.length > 0
-    ) {
-      this.state.sendParameterFilterValues.forEach((item: SelectFieldItem) =>
-        filtersNumbers.push(item.value),
-      );
-    }
+    } = getFiltersToEnable(contextIdentifier);
 
-    if (hasSrcOrDstFilter && this.state.srcOrDstFilterValues.length > 0) {
-      this.state.srcOrDstFilterValues.forEach((item: SelectFieldItem) =>
-        filtersNumbers.push(item.value),
+    if (hasKindFilter && kindFilterValues.length > 0) {
+      kindFilterValues.forEach((item) => filtersIdentifiers.push(item.value));
+    }
+    if (hasRecipientFilter && recipientFilterValues.length > 0) {
+      recipientFilterValues.forEach((item) =>
+        filtersIdentifiers.push(item.value),
+      );
+    }
+    if (hasChannelFilter && channelFilterValues.length > 0) {
+      channelFilterValues.forEach((item) =>
+        filtersIdentifiers.push(item.value),
+      );
+    }
+    if (hasSendParameterFilter && sendParameterFilterValues.length > 0) {
+      sendParameterFilterValues.forEach((item) =>
+        filtersIdentifiers.push(item.value),
+      );
+    }
+    if (hasSrcOrDstFilter && srcOrDstFilterValues.length > 0) {
+      srcOrDstFilterValues.forEach((item) =>
+        filtersIdentifiers.push(item.value),
       );
     }
 
-    this.setState((previousState: FilterState) => ({
-      showFilterModal: false,
-      allPreviousFilters: {
-        filters: filtersNumbers,
-        dateStart: previousState.dateStart?.toUnixInteger() ?? null,
-        dateEnd: previousState.dateEnd?.toUnixInteger() ?? null,
-      },
-    }));
-    this.props.handleFilters(
-      filtersNumbers,
-      this.state.dateStart?.toUnixInteger() ?? null,
-      this.state.dateEnd?.toUnixInteger() ?? null,
-    );
+    setShowFilterModal(false);
+    setAllPreviousFilters({
+      filters: filtersIdentifiers,
+      dateStart: dateStart?.toUnixInteger() ?? null,
+      dateEnd: dateEnd?.toUnixInteger() ?? null,
+    });
+
+    handleFilters({
+      filters: filtersIdentifiers,
+      dateStart: dateStart?.toUnixInteger() ?? null,
+      dateEnd: dateEnd?.toUnixInteger() ?? null,
+    });
+  }, [
+    kindFilterValues,
+    recipientFilterValues,
+    channelFilterValues,
+    sendParameterFilterValues,
+    srcOrDstFilterValues,
+    dateStart,
+    dateEnd,
+    contextIdentifier,
+    handleFilters,
+  ]);
+
+  const resetFilters = useCallback(() => {
+    setKindFilterValues([]);
+    setRecipientFilterValues([]);
+    setChannelFilterValues([]);
+    setSendParameterFilterValues([]);
+    setSrcOrDstFilterValues([]);
+    setDateStart(null);
+    setDateEnd(null);
+    setShouldSubmitFilters(true);
+  }, [
+    setKindFilterValues,
+    setRecipientFilterValues,
+    setChannelFilterValues,
+    setSendParameterFilterValues,
+    setSrcOrDstFilterValues,
+    setDateStart,
+    setDateEnd,
+    setShouldSubmitFilters,
+  ]);
+
+  const onCollapseClick = () => {
+    setShowFilterModal((current) => !current);
   };
 
-  resetFilters = () => {
-    this.setState(
-      {
-        kindFilterValues: [],
-        recipientFilterValues: [],
-        channelFilterValues: [],
-        sendParameterFilterValues: [],
-        srcOrDstFilterValues: [],
-        dateStart: null,
-        dateEnd: null,
-      },
-      this.handleFiltersSubmit,
-    );
-  };
+  const resetPeriodFilter = useCallback(() => {
+    setDateStart(null);
+    setDateEnd(null);
+    setShouldSubmitFilters(true);
+  }, [setDateEnd, setDateStart]);
 
-  resetPeriodFilter = () => {
-    this.setState(
-      () => ({
-        dateStart: null,
-        dateEnd: null,
-      }),
-      this.handleFiltersSubmit,
-    );
-  };
+  const popKindFilterValue = useCallback(
+    (index: number) => {
+      popFilterValue({ setFilter: setKindFilterValues, index });
+    },
+    [setKindFilterValues],
+  );
 
-  popKindFilterValue = (index: number) => {
-    const newFilterValues = [...this.state.kindFilterValues];
-    newFilterValues.splice(index, 1);
-    this.setState(
-      () => ({
-        kindFilterValues: newFilterValues,
-      }),
-      this.handleFiltersSubmit,
-    );
-  };
+  const popChannelFilterValue = useCallback(
+    (index: number) => {
+      popFilterValue({ setFilter: setChannelFilterValues, index });
+    },
+    [setChannelFilterValues],
+  );
 
-  popChannelFilterValue = (index: number) => {
-    const newFilterValues = [...this.state.channelFilterValues];
-    newFilterValues.splice(index, 1);
-    this.setState(
-      () => ({
-        channelFilterValues: newFilterValues,
-      }),
-      this.handleFiltersSubmit,
-    );
-  };
+  const popRecipientFilterValue = useCallback(
+    (index: number) => {
+      popFilterValue({ setFilter: setRecipientFilterValues, index });
+    },
+    [setRecipientFilterValues],
+  );
 
-  popRecipientFilterValue = (index: number) => {
-    const newFilterValues = [...this.state.recipientFilterValues];
-    newFilterValues.splice(index, 1);
-    this.setState(
-      () => ({
-        recipientFilterValues: newFilterValues,
-      }),
-      this.handleFiltersSubmit,
-    );
-  };
+  const popSendParameterFilterValue = useCallback(
+    (index: number) => {
+      popFilterValue({ setFilter: setSendParameterFilterValues, index });
+    },
+    [setSendParameterFilterValues],
+  );
 
-  popSendParameterFilterValue = (index: number) => {
-    const newFilterValues = [...this.state.sendParameterFilterValues];
-    newFilterValues.splice(index, 1);
-    this.setState(
-      () => ({
-        sendParameterFilterValues: newFilterValues,
-      }),
-      this.handleFiltersSubmit,
-    );
-  };
+  const popSrcOrDstFilterValue = useCallback(
+    (index: number) => {
+      popFilterValue({ setFilter: setSrcOrDstFilterValues, index });
+    },
+    [setSrcOrDstFilterValues],
+  );
 
-  popSrcOrDstFilterValue = (index: number) => {
-    const newFilterValues = [...this.state.srcOrDstFilterValues];
-    newFilterValues.splice(index, 1);
-    this.setState(
-      () => ({
-        srcOrDstFilterValues: newFilterValues,
-      }),
-      this.handleFiltersSubmit,
-    );
-  };
+  useEffect(() => {
+    if (shouldSubmitFilters) {
+      handleFiltersSubmit();
+      setShouldSubmitFilters(false);
+    }
+  }, [shouldSubmitFilters, handleFiltersSubmit, setShouldSubmitFilters]);
 
-  renderFilterValuesContainer = (periodHasChanged: boolean) => {
-    const { classes, t } = this.props;
+  // Todo : remove Anti Pattern
+  const renderFilterValuesContainer = (periodHasChanged: boolean) => {
     const countFilter =
-      this.state.kindFilterValues.length +
-      this.state.channelFilterValues.length +
-      this.state.recipientFilterValues.length +
-      this.state.sendParameterFilterValues.length +
-      this.state.srcOrDstFilterValues.length +
+      kindFilterValues.length +
+      channelFilterValues.length +
+      recipientFilterValues.length +
+      sendParameterFilterValues.length +
+      srcOrDstFilterValues.length +
       (periodHasChanged ? 1 : 0);
     return (
       <div className={classes.filterValuesContainer}>
         <Hidden xsDown>
-          {this.state.kindFilterValues.length > 0 && (
+          {kindFilterValues.length > 0 && (
             <CommunicationFilterValuesGenericSummary
-              filterValues={this.state.kindFilterValues}
-              popFilterValue={this.popKindFilterValue}
+              filterValues={kindFilterValues}
+              popFilterValue={popKindFilterValue}
               title={t(`filter.kind.title`)}
             />
           )}
           {periodHasChanged && (
             <CommunicationFilterValuesPeriodSummary
-              dateEnd={this.state.dateEnd}
-              dateStart={this.state.dateStart}
-              resetDates={this.resetPeriodFilter}
+              dateEnd={dateEnd}
+              dateStart={dateStart}
+              resetDates={resetPeriodFilter}
               title={t('filter.dateFilter.period')}
             />
           )}
-          {this.state.channelFilterValues.length > 0 && (
+          {channelFilterValues.length > 0 && (
             <CommunicationFilterValuesGenericSummary
-              filterValues={this.state.channelFilterValues}
-              popFilterValue={this.popChannelFilterValue}
+              filterValues={channelFilterValues}
+              popFilterValue={popChannelFilterValue}
               title={t(`filter.channel.title`)}
             />
           )}
-          {this.state.recipientFilterValues.length > 0 && (
+          {recipientFilterValues.length > 0 && (
             <CommunicationFilterValuesGenericSummary
-              filterValues={this.state.recipientFilterValues}
-              popFilterValue={this.popRecipientFilterValue}
+              filterValues={recipientFilterValues}
+              popFilterValue={popRecipientFilterValue}
               title={t(`filter.recipient.title`)}
             />
           )}
-          {this.state.sendParameterFilterValues.length > 0 && (
+          {sendParameterFilterValues.length > 0 && (
             <CommunicationFilterValuesGenericSummary
-              filterValues={this.state.sendParameterFilterValues}
-              popFilterValue={this.popSendParameterFilterValue}
+              filterValues={sendParameterFilterValues}
+              popFilterValue={popSendParameterFilterValue}
               title={t(`filter.sendParameter.title`)}
             />
           )}
-          {this.state.srcOrDstFilterValues.length > 0 && (
+          {srcOrDstFilterValues.length > 0 && (
             <CommunicationFilterValuesGenericSummary
-              filterValues={this.state.srcOrDstFilterValues}
-              popFilterValue={this.popSrcOrDstFilterValue}
+              filterValues={srcOrDstFilterValues}
+              popFilterValue={popSrcOrDstFilterValue}
               title={t(`filter.srcOrDst.title`)}
             />
           )}
@@ -259,7 +273,7 @@ export class CommunicationFilterContainer extends React.Component<
             deleteIcon={<Close />}
             label={t('filter.numberFilter', { count: countFilter })}
             onDelete={() => {
-              this.resetFilters();
+              resetFilters();
             }}
             size="small"
           />
@@ -268,8 +282,8 @@ export class CommunicationFilterContainer extends React.Component<
     );
   };
 
-  renderCollapseRightIcon = (hasFilters: boolean) => {
-    if (this.state.showFilterModal) {
+  const renderCollapseRightIcon = (hasFilters: boolean) => {
+    if (showFilterModal) {
       return (
         <IconButton aria-label="expand row" size="small">
           <KeyboardArrowUp />
@@ -278,11 +292,7 @@ export class CommunicationFilterContainer extends React.Component<
     }
     if (hasFilters) {
       return (
-        <IconButton
-          aria-label="expand row"
-          onClick={this.resetFilters}
-          size="small"
-        >
+        <IconButton aria-label="expand row" onClick={resetFilters} size="small">
           <Close />
         </IconButton>
       );
@@ -294,105 +304,86 @@ export class CommunicationFilterContainer extends React.Component<
     );
   };
 
-  render() {
-    const { classes, t, contextIdentifier } = this.props;
-    const periodHasChanged = !!this.state.dateStart || !!this.state.dateEnd;
-    const hasSetSomeFilters =
-      this.state.kindFilterValues.length > 0 ||
-      this.state.recipientFilterValues.length > 0 ||
-      this.state.channelFilterValues.length > 0 ||
-      this.state.sendParameterFilterValues.length > 0 ||
-      this.state.srcOrDstFilterValues.length > 0;
+  const periodHasChanged = !!dateStart || !!dateEnd;
+  const hasSetSomeFilters =
+    kindFilterValues.length > 0 ||
+    recipientFilterValues.length > 0 ||
+    channelFilterValues.length > 0 ||
+    sendParameterFilterValues.length > 0 ||
+    srcOrDstFilterValues.length > 0;
 
-    const {
-      hasKindFilter,
-      hasChannelFilter,
-      hasDatesFilter,
-      hasRecipientFilter,
-      hasSendParameterFilter,
-      hasSrcOrDstFilter,
-    } = getFiltersToEnable(contextIdentifier);
-    const {
-      kindFilterOptionsOverride,
-      recipientFilterOptionsOverride,
-      channelFilterOptionsOverride,
-      sendParameterFilterOptionsOverride,
-      srcOrDstFilterOptionsOverride,
-    } = getFilterOptionsOverride(contextIdentifier, this.props.t);
+  const {
+    hasKindFilter,
+    hasChannelFilter,
+    hasDatesFilter,
+    hasRecipientFilter,
+    hasSendParameterFilter,
+    hasSrcOrDstFilter,
+  } = getFiltersToEnable(contextIdentifier);
+  const {
+    kindFilterOptionsOverride,
+    recipientFilterOptionsOverride,
+    channelFilterOptionsOverride,
+    sendParameterFilterOptionsOverride,
+    srcOrDstFilterOptionsOverride,
+  } = getFilterOptionsOverride(contextIdentifier, t);
 
-    const updateKindFilterValues = (newValues: SelectFieldItem[]) =>
-      this.setState({ kindFilterValues: newValues });
-    const updateChannelFilterValues = (newValues: SelectFieldItem[]) =>
-      this.setState({ channelFilterValues: newValues });
-    const updateRecipientFilterValues = (newValues: SelectFieldItem[]) =>
-      this.setState({ recipientFilterValues: newValues });
-    const updateSendParameterFilterValues = (newValues: SelectFieldItem[]) =>
-      this.setState({ sendParameterFilterValues: newValues });
-    const updateSrcOrDstFilterValues = (newValues: SelectFieldItem[]) =>
-      this.setState({ srcOrDstFilterValues: newValues });
-    const updateDateStartValue = (newDate: DateTime) =>
-      this.setState({ dateStart: newDate });
-    const updateDateEndValue = (newDate: DateTime) =>
-      this.setState({ dateEnd: newDate });
-    return (
-      <div className={classes.container}>
-        <ButtonBase
-          className={classes.filterDisplayer}
-          disableRipple={hasSetSomeFilters || periodHasChanged}
-          onClick={this.onCollapseClick}
-        >
-          <div className={classes.filterTitleContainer}>
-            <Tune className={classes.filterIcon} />
-            <Typography className={classes.filterTitle} variant="body1">
-              {t('filter.filterAction')}
-            </Typography>
-          </div>
-          {(hasSetSomeFilters || periodHasChanged) &&
-            !this.state.showFilterModal &&
-            this.renderFilterValuesContainer(periodHasChanged)}
-          {this.renderCollapseRightIcon(hasSetSomeFilters || periodHasChanged)}
-        </ButtonBase>
-        <Collapse in={this.state.showFilterModal}>
-          <CommunicationFilterCollapse
-            allPreviousFilter={this.state.allPreviousFilters}
-            channelFilterOptionsOverride={channelFilterOptionsOverride}
-            channelFilterSetter={updateChannelFilterValues}
-            channelFilterValues={this.state.channelFilterValues}
-            dateEndSetter={updateDateEndValue}
-            dateEndValue={this.state.dateEnd}
-            dateStartSetter={updateDateStartValue}
-            dateStartValue={this.state.dateStart}
-            handleFiltersSubmit={this.handleFiltersSubmit}
-            hasChannelFilter={hasChannelFilter}
-            hasDatesFilter={hasDatesFilter}
-            hasKindFilter={hasKindFilter}
-            hasRecipientFilter={hasRecipientFilter}
-            hasSendParameterFilter={hasSendParameterFilter}
-            hasSrcOrDstFilter={hasSrcOrDstFilter}
-            kindFilterOptionsOverride={kindFilterOptionsOverride}
-            kindFilterSetter={updateKindFilterValues}
-            kindFilterValues={this.state.kindFilterValues}
-            // @ts-expect-error
-            periodHasChanged={periodHasChanged}
-            recipientFilterOptionsOverride={recipientFilterOptionsOverride}
-            recipientFilterSetter={updateRecipientFilterValues}
-            recipientFilterValues={this.state.recipientFilterValues}
-            sendParameterFilterOptionsOverride={
-              sendParameterFilterOptionsOverride
-            }
-            sendParameterFilterSetter={updateSendParameterFilterValues}
-            sendParameterFilterValues={this.state.sendParameterFilterValues}
-            srcOrDstFilterOptionsOverride={srcOrDstFilterOptionsOverride}
-            srcOrDstFilterSetter={updateSrcOrDstFilterValues}
-            srcOrDstFilterValues={this.state.srcOrDstFilterValues}
-          />
-        </Collapse>
-      </div>
-    );
-  }
-}
+  return (
+    <div className={classes.container}>
+      <ButtonBase
+        className={classes.filterDisplayer}
+        disableRipple={hasSetSomeFilters || periodHasChanged}
+        onClick={onCollapseClick}
+      >
+        <div className={classes.filterTitleContainer}>
+          <Tune className={classes.filterIcon} />
+          <Typography className={classes.filterTitle} variant="body1">
+            {t('filter.filterAction')}
+          </Typography>
+        </div>
+        {(hasSetSomeFilters || periodHasChanged) &&
+          !showFilterModal &&
+          renderFilterValuesContainer(periodHasChanged)}
+        {renderCollapseRightIcon(hasSetSomeFilters || periodHasChanged)}
+      </ButtonBase>
+      <Collapse in={showFilterModal}>
+        <CommunicationFilterCollapse
+          allPreviousFilter={allPreviousFilters}
+          channelFilterOptionsOverride={channelFilterOptionsOverride}
+          channelFilterSetter={setChannelFilterValues}
+          channelFilterValues={channelFilterValues}
+          dateEndSetter={setDateEnd}
+          dateEndValue={dateEnd}
+          dateStartSetter={setDateStart}
+          dateStartValue={dateStart}
+          handleFiltersSubmit={handleFiltersSubmit}
+          hasChannelFilter={hasChannelFilter}
+          hasDatesFilter={hasDatesFilter}
+          hasKindFilter={hasKindFilter}
+          hasRecipientFilter={hasRecipientFilter}
+          hasSendParameterFilter={hasSendParameterFilter}
+          hasSrcOrDstFilter={hasSrcOrDstFilter}
+          kindFilterOptionsOverride={kindFilterOptionsOverride}
+          kindFilterSetter={setKindFilterValues}
+          kindFilterValues={kindFilterValues}
+          recipientFilterOptionsOverride={recipientFilterOptionsOverride}
+          recipientFilterSetter={setRecipientFilterValues}
+          recipientFilterValues={recipientFilterValues}
+          sendParameterFilterOptionsOverride={
+            sendParameterFilterOptionsOverride
+          }
+          sendParameterFilterSetter={setSendParameterFilterValues}
+          sendParameterFilterValues={sendParameterFilterValues}
+          srcOrDstFilterOptionsOverride={srcOrDstFilterOptionsOverride}
+          srcOrDstFilterSetter={setSrcOrDstFilterValues}
+          srcOrDstFilterValues={srcOrDstFilterValues}
+        />
+      </Collapse>
+    </div>
+  );
+};
 
-const styles: any = (theme: Theme) => ({
+const useStyles = makeStyles((theme) => ({
   arrowIconRotation: {
     transform: 'rotate(180deg)',
   },
@@ -446,9 +437,6 @@ const styles: any = (theme: Theme) => ({
     flexWrap: 'wrap',
     height: '100%',
   },
-});
+}));
 
-export default compose<any, OwnProps>(
-  withStyles(styles),
-  withTranslation(['communication']),
-)(CommunicationFilterContainer);
+export default React.memo(CommunicationFilterContainer);

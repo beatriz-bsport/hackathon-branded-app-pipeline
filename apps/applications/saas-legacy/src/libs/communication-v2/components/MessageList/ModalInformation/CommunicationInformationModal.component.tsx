@@ -1,9 +1,7 @@
-import React from 'react';
+import React, { ChangeEvent, useCallback, useEffect, useState } from 'react';
 import { DateTime } from 'luxon';
-import { compose } from 'recompose';
-import { withTranslation, WithTranslation } from 'react-i18next';
-import { withStyles } from '@material-ui/styles';
-import { Theme, WithStyles } from '@material-ui/core';
+import { useTranslation } from 'react-i18next';
+import { makeStyles } from '@material-ui/core';
 
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Pagination from '@material-ui/lab/Pagination';
@@ -24,12 +22,12 @@ import type {
   FilteringMemberIdsByGenericCategories,
 } from '#src/libs/communication-v2/types';
 import type { Member } from '#src/libs/member/types';
-import CommunicationInformationStatusChip from './CommunicationInformationStatusChip.component';
-import CommunicationInformationOpenChip from './CommunicationInformationOpenChip.component';
-import CommunicationWrapperDialog from '../../CommunicationWrapperDialog.component';
-import CommunicationInformationModalFilter from './CommunicationInformationModalFilter.component';
+import CommunicationWrapperDialog from '#src/libs/communication-v2/components/CommunicationWrapperDialog.component';
+import CommunicationInformationStatusChip from '#src/libs/communication-v2/components/MessageList/ModalInformation/CommunicationInformationStatusChip.component';
+import CommunicationInformationOpenChip from '#src/libs/communication-v2/components/MessageList/ModalInformation/CommunicationInformationOpenChip.component';
+import CommunicationInformationModalFilter from '#src/libs/communication-v2/components/MessageList/ModalInformation/CommunicationInformationModalFilter.component';
 
-type OwnProps = {
+export type Props = {
   allMemberCategoryList?: FilteringMemberIdsByGenericCategories;
   contextInformation?: string;
   contextMember?: Member;
@@ -49,222 +47,206 @@ type OwnProps = {
   selectedCommunication: CommunicationMessage;
 };
 
-type State = {
-  checkedCategoryFilters: number[];
-  currentPage: number;
-};
+export const CommunicationInformationModal: React.FC<Props> = ({
+  allMemberCategoryList,
+  contextInformation,
+  contextMember,
+  contextTitle,
+  fetchRecipientPaginatedList,
+  fullScreen,
+  handleCloseDialog,
+  loadingRecipientList,
+  open,
+  paginationSize,
+  recipientList,
+  recipientListCount,
+  selectedCommunication,
+}: Props) => {
+  const [checkedCategoryFilters, setCheckedCategoryFilters] = useState<
+    number[]
+  >(
+    allMemberCategoryList?.categories.map((cat) => cat.categoryIdentifier) ||
+      [],
+  );
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const { communication } = selectedCommunication;
+  const { t } = useTranslation('communication');
+  const classes = useStyles();
 
-export type Props = OwnProps & WithTranslation & WithStyles;
+  const fetchRecipientPaginatedListCallback = useCallback(() => {
+    if (communication) {
+      fetchRecipientPaginatedList(
+        communication,
+        currentPage,
+        checkedCategoryFilters,
+      );
+    }
+  }, [
+    fetchRecipientPaginatedList,
+    communication,
+    currentPage,
+    checkedCategoryFilters,
+  ]);
 
-export class CommunicationInformationModal extends React.PureComponent<
-  Props,
-  State
-> {
-  constructor(props: Props) {
-    super(props);
-    this.state = {
-      checkedCategoryFilters:
-        props.allMemberCategoryList?.categories.map(
-          (cat) => cat.categoryIdentifier,
-        ) || [],
-      currentPage: 1,
-    };
-  }
+  const handleChangePage = useCallback(
+    (event: ChangeEvent, page: number = 1) => {
+      setCurrentPage(page);
+    },
+    [],
+  );
 
-  componentDidMount(): void {
-    this.fetchRecipientPaginatedList();
-  }
-
-  fetchRecipientPaginatedList = () => {
-    this.props.fetchRecipientPaginatedList(
-      this.props.selectedCommunication?.communication,
-      this.state.currentPage,
-      this.state.checkedCategoryFilters,
+  const onClose = useCallback(() => {
+    setCheckedCategoryFilters(
+      allMemberCategoryList?.categories.map((cat) => cat.categoryIdentifier) ||
+        [],
     );
-  };
+    setCurrentPage(1);
+    handleCloseDialog();
+  }, [allMemberCategoryList, setCheckedCategoryFilters, handleCloseDialog]);
 
-  handleChangePage = (
-    event: React.ChangeEvent<unknown> | null,
-    page: number = 1,
-  ) => {
-    this.setState({ currentPage: page }, this.fetchRecipientPaginatedList);
-  };
+  useEffect(() => {
+    fetchRecipientPaginatedListCallback();
+  }, [
+    fetchRecipientPaginatedListCallback,
+    checkedCategoryFilters,
+    currentPage,
+  ]);
 
-  onClose = () => {
-    this.setState(
-      {
-        checkedCategoryFilters:
-          this.props.allMemberCategoryList?.categories.map(
-            (cat) => cat.categoryIdentifier,
-          ) || [],
-        currentPage: 1,
-      },
-      this.props.handleCloseDialog,
-    );
-  };
+  const recipientsCount = recipientListCount || 0;
+  const { kind, date_created } = selectedCommunication.communication;
+  const pageCount = contextMember
+    ? 1
+    : Math.ceil(recipientsCount / paginationSize);
+  const title = `${t(`campaign.kind.${kind}`)} -  ${DateTime.fromISO(
+    date_created,
+  ).toFormat('D - t')}`;
 
-  setCheckedCategoryFilters = (nextCheckedList: number[]) => {
-    this.setState(
-      { checkedCategoryFilters: nextCheckedList },
-      this.fetchRecipientPaginatedList,
-    );
-  };
-
-  render() {
-    const {
-      fullScreen,
-      open,
-      loadingRecipientList,
-      recipientList,
-      recipientListCount,
-      paginationSize,
-      selectedCommunication,
-      t,
-      classes,
-    } = this.props;
-    const recipientsCount = recipientListCount || 0;
-    const { kind, date_created } = selectedCommunication.communication;
-    const pageCount = this.props.contextMember
-      ? 1
-      : Math.ceil(recipientsCount / paginationSize);
-    const title = `${t(`campaign.kind.${kind}`)} -  ${DateTime.fromISO(
-      date_created,
-    ).toFormat('D - t')}`;
-
-    return (
-      <CommunicationWrapperDialog
-        buttonCancelText={t('common.close')}
-        closeDialog={this.onClose}
-        fullScreen={fullScreen}
-        onCancel={this.onClose}
-        open={open}
-        title={title}
-      >
-        <>
-          {!!this.props.contextTitle &&
-            selectedCommunication?.channel !==
-              COMMUNICATION_CHANNEL_SMARTLIST && (
-              <div className={classes.contextContainer}>
-                <Typography className={classes.boldTypo} variant="h6">
-                  {this.props.contextTitle}
-                </Typography>
-                <Typography variant="body2">
-                  {this.props.contextInformation}
-                </Typography>
-              </div>
-            )}
-          {!!this.props.allMemberCategoryList && (
-            <CommunicationInformationModalFilter
-              checkedFilters={this.state.checkedCategoryFilters}
-              genericMemberCategories={this.props.allMemberCategoryList}
-              setCheckedFilters={this.setCheckedCategoryFilters}
-            />
-          )}
-          <Table aria-label="simple table" padding="normal" size="small">
-            <TableHead>
-              <TableRow>
-                <TableCell
-                  className={classes.tableContainerWithoutBorderBottom}
-                >
-                  <Typography
-                    className={clsx(
-                      classes.boldTypo,
-                      classes.textHeaderEllipsis,
-                    )}
-                    variant="body1"
-                  >
-                    {recipientsCount}{' '}
-                    {t('common.recipient', {
-                      count: recipientsCount,
-                    })}
-                  </Typography>
-                </TableCell>
-                <TableCell
-                  align="center"
-                  className={classes.tableContainerWithoutBorderBottom}
-                >
-                  <Typography className={classes.boldTypo} variant="body1">
-                    {t('dialogInformation.headerStatus')}
-                  </Typography>
-                </TableCell>
-                <TableCell
-                  align="center"
-                  className={classes.tableContainerWithoutBorderBottom}
-                >
-                  <Typography className={classes.boldTypo} variant="body1">
-                    {t('dialogInformation.headerOpen')}
-                  </Typography>
-                </TableCell>
-              </TableRow>
-            </TableHead>
-            {!loadingRecipientList && (
-              <TableBody>
-                {recipientList.length === 0 ? (
-                  <div className={classes.emptyTableBody} />
-                ) : (
-                  recipientList.map((recipient: Recipient<Member>) => (
-                    <TableRow key={recipient.id}>
-                      <TableCell
-                        className={classes.tableContainerWithoutBorderBottom}
-                        component="th"
-                        scope="row"
-                      >
-                        <div className={classes.tableCellRecipient}>
-                          <Avatar
-                            alt={recipient.member?.name}
-                            className={classes.avatar}
-                            src={recipient.member?.photo}
-                          />
-                          <Typography
-                            className={classes.recipientName}
-                            variant="body1"
-                          >
-                            {recipient.member?.name}
-                          </Typography>
-                        </div>
-                      </TableCell>
-                      <TableCell
-                        align="center"
-                        className={classes.tableContainerWithoutBorderBottom}
-                      >
-                        <CommunicationInformationStatusChip
-                          statusNumber={recipient.status}
-                        />
-                      </TableCell>
-                      <TableCell
-                        align="center"
-                        className={classes.tableContainerWithoutBorderBottom}
-                      >
-                        <CommunicationInformationOpenChip
-                          openStatus={recipient.read_count > 0}
-                        />
-                      </TableCell>
-                    </TableRow>
-                  ))
-                )}
-              </TableBody>
-            )}
-          </Table>
-          {loadingRecipientList && (
-            <div className={classes.circularProgressContainer}>
-              <CircularProgress />
+  return (
+    <CommunicationWrapperDialog
+      buttonCancelText={t('common.close')}
+      closeDialog={onClose}
+      fullScreen={fullScreen}
+      onCancel={onClose}
+      open={open}
+      title={title}
+    >
+      <>
+        {!!contextTitle &&
+          selectedCommunication?.channel !==
+            COMMUNICATION_CHANNEL_SMARTLIST && (
+            <div className={classes.contextContainer}>
+              <Typography className={classes.boldTypo} variant="h6">
+                {contextTitle}
+              </Typography>
+              <Typography variant="body2">{contextInformation}</Typography>
             </div>
           )}
-          {pageCount > 1 && (
-            <Pagination
-              className={classes.paginationContainer}
-              count={pageCount}
-              onChange={this.handleChangePage}
-              page={this.state.currentPage}
-            />
+        {!!allMemberCategoryList && (
+          <CommunicationInformationModalFilter
+            checkedFilters={checkedCategoryFilters}
+            genericMemberCategories={allMemberCategoryList}
+            setCheckedFilters={setCheckedCategoryFilters}
+          />
+        )}
+        <Table aria-label="simple table" padding="normal" size="small">
+          <TableHead>
+            <TableRow>
+              <TableCell className={classes.tableContainerWithoutBorderBottom}>
+                <Typography
+                  className={clsx(classes.boldTypo, classes.textHeaderEllipsis)}
+                  variant="body1"
+                >
+                  {recipientsCount}{' '}
+                  {t('common.recipient', {
+                    count: recipientsCount,
+                  })}
+                </Typography>
+              </TableCell>
+              <TableCell
+                align="center"
+                className={classes.tableContainerWithoutBorderBottom}
+              >
+                <Typography className={classes.boldTypo} variant="body1">
+                  {t('dialogInformation.headerStatus')}
+                </Typography>
+              </TableCell>
+              <TableCell
+                align="center"
+                className={classes.tableContainerWithoutBorderBottom}
+              >
+                <Typography className={classes.boldTypo} variant="body1">
+                  {t('dialogInformation.headerOpen')}
+                </Typography>
+              </TableCell>
+            </TableRow>
+          </TableHead>
+          {!loadingRecipientList && (
+            <TableBody>
+              {recipientList.length === 0 ? (
+                <div className={classes.emptyTableBody} />
+              ) : (
+                recipientList.map((recipient: Recipient<Member>) => (
+                  <TableRow key={recipient.id}>
+                    <TableCell
+                      className={classes.tableContainerWithoutBorderBottom}
+                      component="th"
+                      scope="row"
+                    >
+                      <div className={classes.tableCellRecipient}>
+                        <Avatar
+                          alt={recipient.member?.name}
+                          className={classes.avatar}
+                          src={recipient.member?.photo}
+                        />
+                        <Typography
+                          className={classes.recipientName}
+                          variant="body1"
+                        >
+                          {recipient.member?.name}
+                        </Typography>
+                      </div>
+                    </TableCell>
+                    <TableCell
+                      align="center"
+                      className={classes.tableContainerWithoutBorderBottom}
+                    >
+                      <CommunicationInformationStatusChip
+                        statusNumber={recipient.status}
+                      />
+                    </TableCell>
+                    <TableCell
+                      align="center"
+                      className={classes.tableContainerWithoutBorderBottom}
+                    >
+                      <CommunicationInformationOpenChip
+                        openStatus={recipient.read_count > 0}
+                      />
+                    </TableCell>
+                  </TableRow>
+                ))
+              )}
+            </TableBody>
           )}
-        </>
-      </CommunicationWrapperDialog>
-    );
-  }
-}
+        </Table>
+        {loadingRecipientList && (
+          <div className={classes.circularProgressContainer}>
+            <CircularProgress />
+          </div>
+        )}
+        {pageCount > 1 && (
+          <Pagination
+            className={classes.paginationContainer}
+            count={pageCount}
+            onChange={handleChangePage}
+            page={currentPage}
+          />
+        )}
+      </>
+    </CommunicationWrapperDialog>
+  );
+};
 
-const styles: any = (theme: Theme) => ({
+const useStyles = makeStyles((theme) => ({
   avatar: {
     width: theme.spacing(4),
     height: theme.spacing(4),
@@ -311,9 +293,6 @@ const styles: any = (theme: Theme) => ({
     fontWeight: 'bold',
     fontSize: theme.spacing(2.5),
   },
-});
+}));
 
-export default compose<any, OwnProps>(
-  withTranslation(['communication']),
-  withStyles(styles),
-)(CommunicationInformationModal);
+export default React.memo(CommunicationInformationModal);

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import clsx from 'clsx';
 
@@ -39,12 +39,12 @@ const CommunicationWriteNotification: React.FC<Props> = ({
 
   const classes = useStyles();
 
-  const onTitleFocus = React.useCallback(
+  const onTitleFocus = useCallback(
     () => onFocus?.(TEXTFIELD_NOTIFICATION_TITLE),
     [onFocus],
   );
 
-  const onContentFocus = React.useCallback(
+  const onContentFocus = useCallback(
     () => onFocus?.(TEXTFIELD_NOTIFICATION_CONTENT),
     [onFocus],
   );

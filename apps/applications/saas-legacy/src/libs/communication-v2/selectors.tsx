@@ -4,10 +4,10 @@ import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-in
 import { createSelector } from 'reselect';
 import { getMemberListData } from '#src/libs/member/selectors';
 import type { Member } from '#src/libs/member/types';
-import { getChannelFromMetadata } from './utils';
-import { MAX_DISPLAY } from './constants';
-import type { RootState } from '../../reducers';
-import type { Communication } from './types';
+import { getChannelFromMetadata } from '#src/libs/communication-v2/utils';
+import { MAX_DISPLAY } from '#src/libs/communication-v2/constants';
+import type { RootState } from '#src/reducers';
+import type { Communication } from '#src/libs/communication-v2/types';
 
 // ---------- COMMUNICATION RECIPIENT ----------
 

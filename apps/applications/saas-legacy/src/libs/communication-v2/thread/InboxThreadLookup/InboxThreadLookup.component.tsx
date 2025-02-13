@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React, { memo, useCallback } from 'react';
 
 import chroma from 'chroma-js';
 import { colors } from '@bsport/common/lib/colors.js';
@@ -43,7 +43,7 @@ const InboxThreadLookup: React.FC<Props> = ({
 
   const classes = useStyles();
 
-  const useSearch = React.useCallback(
+  const useSearch = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
       if (searchThread) {
         searchThread(event.target.value);

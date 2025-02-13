@@ -1,7 +1,7 @@
 import React from 'react';
 import CommunicationTemplateModal, {
   Props,
-} from './CommunicationTemplateModal.component';
+} from '#src/libs/communication-v2/components/MessageSender/ModalTemplate/CommunicationTemplateModal.component';
 import EmailTemplateDetailSummaryListsFactory from '#src/libs/email-editor/factories/Emails';
 
 const [emailTemplateDetailList, emailTemplateSummaryList] =

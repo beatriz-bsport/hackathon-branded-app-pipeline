@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -57,11 +57,10 @@ const CommunicationSelectTemplate: React.FC<Props> = ({
   const classes = useStyles();
   const { t } = useTranslation('communication');
 
-  const [displayTemplatePreview, setDisplayTemplatePreview] =
-    React.useState(false);
-  const [displayRefreshAlert, setDisplayRefreshAlert] = React.useState(false);
+  const [displayTemplatePreview, setDisplayTemplatePreview] = useState(false);
+  const [displayRefreshAlert, setDisplayRefreshAlert] = useState(false);
 
-  const onChangeTemplate = React.useCallback(
+  const onChangeTemplate = useCallback(
     (templateId: number) => {
       updateSelectedTemplate(templateId);
       updateCurrentTitle(
@@ -73,7 +72,7 @@ const CommunicationSelectTemplate: React.FC<Props> = ({
     [emailSummaryList, updateCurrentTitle, updateSelectedTemplate],
   );
 
-  const onSelectTemplate = React.useCallback(
+  const onSelectTemplate = useCallback(
     (eventValue: number) => {
       if (eventValue) {
         onChangeTemplate(eventValue);
@@ -85,7 +84,7 @@ const CommunicationSelectTemplate: React.FC<Props> = ({
     [getEmailDetail, onChangeTemplate],
   );
 
-  const onTitleChange = React.useCallback(
+  const onTitleChange = useCallback(
     (e: React.ChangeEvent) => {
       const target = e.target as HTMLInputElement;
       updateCurrentTitle(target.value);
@@ -93,25 +92,25 @@ const CommunicationSelectTemplate: React.FC<Props> = ({
     [updateCurrentTitle],
   );
 
-  const onCreateClick = React.useCallback(() => {
+  const onCreateClick = useCallback(() => {
     setDisplayRefreshAlert(true);
     const url = '/email-template/create';
     openNewBackOfficeWindow(url);
   }, []);
 
-  const onEditClick = React.useCallback(() => {
+  const onEditClick = useCallback(() => {
     setDisplayRefreshAlert(true);
     const url = `/email-template/${selectedTemplate}/edit`;
     openNewBackOfficeWindow(url);
   }, [selectedTemplate]);
 
-  const onRefreshClick = React.useCallback(() => {
+  const onRefreshClick = useCallback(() => {
     fetchEmailSummaryList();
     getEmailDetail(selectedTemplate);
     setDisplayRefreshAlert(false);
   }, [fetchEmailSummaryList, getEmailDetail, selectedTemplate]);
 
-  const onShowTemplateClick = React.useCallback(
+  const onShowTemplateClick = useCallback(
     () => setDisplayTemplatePreview((prevState) => !prevState),
     [],
   );
@@ -119,7 +118,7 @@ const CommunicationSelectTemplate: React.FC<Props> = ({
   const html =
     !emailDetailListLoading && emailDetailList?.[selectedTemplate]?.html;
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (selectedTemplate) {
       getEmailDetail(selectedTemplate);
     }

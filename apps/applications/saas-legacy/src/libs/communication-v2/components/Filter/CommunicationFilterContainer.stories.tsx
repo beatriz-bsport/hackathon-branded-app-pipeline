@@ -1,7 +1,7 @@
 import React from 'react';
 import CommunicationFilterContainer, {
   Props,
-} from './CommunicationFilterContainer.component';
+} from '#src/libs/communication-v2/components/Filter/CommunicationFilterContainer.component';
 import {
   CONTEXT_MEMBER,
   CONTEXT_NOTIFICATION,

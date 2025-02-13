@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import { DateTime } from 'luxon';
 import { useTranslation } from 'react-i18next';
 
@@ -18,10 +18,10 @@ import { SmartListPopupSending } from '#src/libs/communication-v2/types';
 import GenericResponsiveDrawer from '#src/components/genericDrawer/GenericResponsiveDrawer.component';
 import { FetchRecipientsParams, Member } from '#src/libs/member/types';
 import GenericResponsiveDialog from '#src/components/genericDialog/GenericResponsiveDialog';
-import { createUrl } from '../../../utils/createUrlHandlers';
+import { createUrl } from '#src/utils/createUrlHandlers';
 import SmartListPopupListItem, {
   MEMBER_PAGE_SIZE,
-} from './SmartListPopupListItem.component';
+} from '#src/libs/communication-v2/components/SmartListPopupListItem.component';
 
 const getUrl = (value: string | any) => {
   if (typeof value === 'string') {
@@ -61,18 +61,15 @@ const SmartListPopupSendingDrawer: React.FC<Props> = ({
 
   // Pop-up preview
   const [smartListPopupToPreview, setSmartListPopupToPreview] =
-    React.useState<SmartListPopupSending | null>(null);
+    useState<SmartListPopupSending | null>(null);
 
-  const closePreview = React.useCallback(
-    () => setSmartListPopupToPreview(null),
-    [],
-  );
+  const closePreview = useCallback(() => setSmartListPopupToPreview(null), []);
 
   // Pop-up member list
   const [smartListPopupToShowMembers, setSmartListPopupToShowMembers] =
-    React.useState<SmartListPopupSending | null>(null);
+    useState<SmartListPopupSending | null>(null);
 
-  const openMemberList = React.useCallback(
+  const openMemberList = useCallback(
     (smartListPopup: SmartListPopupSending) => {
       fetchMembers({
         id__in: (smartListPopup?.member_ids ?? []).slice(0, MEMBER_PAGE_SIZE),
@@ -83,9 +80,9 @@ const SmartListPopupSendingDrawer: React.FC<Props> = ({
     [fetchMembers],
   );
 
-  const [memberListPage, setMemberListPage] = React.useState(1);
+  const [memberListPage, setMemberListPage] = useState(1);
 
-  const handleChangePage = React.useCallback(
+  const handleChangePage = useCallback(
     (_: React.ChangeEvent<unknown> | null, page: number = 1) => {
       fetchMembers({
         id__in:
@@ -100,12 +97,12 @@ const SmartListPopupSendingDrawer: React.FC<Props> = ({
     [fetchMembers, smartListPopupToShowMembers?.member_ids],
   );
 
-  const closeMemberList = React.useCallback(
+  const closeMemberList = useCallback(
     () => setSmartListPopupToShowMembers(null),
     [],
   );
 
-  const filteredMembersToDisplay = React.useMemo(
+  const filteredMembersToDisplay = useMemo(
     () =>
       (membersToDisplay ?? []).filter((member) =>
         (smartListPopupToShowMembers?.member_ids ?? []).includes(member.id),
@@ -113,7 +110,7 @@ const SmartListPopupSendingDrawer: React.FC<Props> = ({
     [membersToDisplay, smartListPopupToShowMembers?.member_ids],
   );
 
-  const smartListPopupsToDisplay = React.useMemo(
+  const smartListPopupsToDisplay = useMemo(
     () =>
       (smartListPopupList ?? []).filter(
         (smartListPopup) => smartListPopup?.smartlist === smartListId,

@@ -43,28 +43,28 @@ import {
   MAX_DISPLAY,
   PAGINATION_SIZE_RECIPIENTS,
   REFRESH_THREAD_PAGINATION_SIZE,
-} from './constants';
+} from '#src/libs/communication-v2/constants';
 
 import {
   getFormatedFiltersToFetchCommunicationSent,
   getFormatedQueryParamsFromContext,
   getFormatedQueryParamsToFetchRecipientPaginatedList,
-} from './utils';
+} from '#src/libs/communication-v2/utils';
 import {
   getRecipientWithMemberPaginatedList,
   getCommunicationMessageList,
   getCommunicationMessageListHasNextPage,
   getCommunicationMessageListLoading,
-} from './selectors';
+} from '#src/libs/communication-v2/selectors';
 import {
   fetchCommunicationRecipientList as fetchCommunicationRecipientListAction,
   fetchCommunicationSentList as fetchCommunicationSentListAction,
   sendCommunication,
   flagAllUnreadCommunicationsAsReadInContext as flagAllUnreadCommunicationsAsReadInContextAction,
   getUnreadAnswersCount as getUnreadAnswersCountAction,
-} from './actions';
-import type { RootState } from '../../reducers';
-import { OptionCallback } from '../../state/types';
+} from '#src/libs/communication-v2/actions';
+import type { RootState } from '#src/reducers';
+import { OptionCallback } from '#src/state/types';
 
 type CommunicationConnectedProps = ConnectedProps<typeof connector> &
   DrawerProps;

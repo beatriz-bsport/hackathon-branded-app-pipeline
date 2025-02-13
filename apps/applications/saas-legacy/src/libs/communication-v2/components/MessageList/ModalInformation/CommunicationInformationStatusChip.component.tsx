@@ -1,5 +1,4 @@
 import React from 'react';
-import { pure } from 'recompose';
 import { useTranslation } from 'react-i18next';
 import { makeStyles, Theme } from '@material-ui/core';
 import Chip from '@material-ui/core/Chip';
@@ -83,4 +82,4 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-export default pure(CommunicationInformationStatusChip);
+export default React.memo(CommunicationInformationStatusChip);

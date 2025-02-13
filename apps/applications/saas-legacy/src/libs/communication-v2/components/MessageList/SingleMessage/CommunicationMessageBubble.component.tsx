@@ -38,8 +38,8 @@ import {
   COMMUNICATION_SENT_SENDING_SUCCESS,
 } from '#src/libs/communication-v2/constants';
 import { getSmartlistChannelFromMetadata } from '#src/libs/communication-v2/utils';
-import CommunicationMessageNumberRecipients from './CommunicationMessageNumberRecipients.component';
-import { getTextColorFromRGB } from '../../../../../utils/color';
+import CommunicationMessageNumberRecipients from '#src/libs/communication-v2/components/MessageList/SingleMessage/CommunicationMessageNumberRecipients.component';
+import { getTextColorFromRGB } from '#src/utils/color';
 
 import '../styles.css';
 

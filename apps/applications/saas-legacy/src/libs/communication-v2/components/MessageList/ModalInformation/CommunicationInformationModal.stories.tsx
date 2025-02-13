@@ -1,7 +1,7 @@
 import React from 'react';
 import CommunicationInformationModal, {
   Props,
-} from './CommunicationInformationModal.component';
+} from '#src/libs/communication-v2/components/MessageList/ModalInformation/CommunicationInformationModal.component';
 import RecipientsWithMemberFactory from '#src/libs/communication-v2/factories/RecipientWithMember';
 import { CommunicationMessageFactory } from '#src/libs/communication-v2/factories/Communication';
 import { PAGINATION_SIZE_RECIPIENTS } from '#src/libs/communication-v2/constants';

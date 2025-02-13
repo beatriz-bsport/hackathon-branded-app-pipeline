@@ -28,7 +28,7 @@ import {
   sendNowCommunicationScheduledActions,
   fetchCommunicationScheduledListForSmartlistActions,
   retrieveCommunicationSMSProviderVerificationActions,
-} from './actions';
+} from '#src/libs/communication-v2/actions';
 
 import type {
   CommunicationState,
@@ -38,8 +38,8 @@ import type {
   CommunicationThread,
   UnreadAnswersCount,
   CommunicationScheduled,
-} from './types';
-import type { PaginatedResponse } from '../../state/types';
+} from '#src/libs/communication-v2/types';
+import type { PaginatedResponse } from '#src/state/types';
 
 const initialState: Immutable.Immutable<CommunicationState> =
   Immutable<CommunicationState>({

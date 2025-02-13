@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import clsx from 'clsx';
 
@@ -12,12 +12,13 @@ import { util } from '#src/libs/communication-v2/components/convertEncode.utils'
 import {
   MAX_LENGTH_SMS,
   MAX_LENGTH_AUTOMATIC_SMS,
+  TEXTFIELD_SMS_CONTENT,
 } from '#src/libs/communication-v2/constants';
 
 type Props = {
   children: React.ReactNode;
   handleChangeContent: (event: React.ChangeEvent) => void;
-  onFocus?: () => void;
+  onFocus?: (identifier: number) => void;
   isMobileSize?: boolean;
   minimalBottom?: boolean; // for specific use such as sequential marketing
   smsContent: string;
@@ -42,6 +43,11 @@ const CommunicationWriteSMS: React.FC<Props> = ({
 
   const nbSmsToSend = Math.ceil(smsContent?.length / smsMaxLength);
 
+  const onSMSFocus = useCallback(
+    () => onFocus?.(TEXTFIELD_SMS_CONTENT),
+    [onFocus],
+  );
+
   return (
     <React.Fragment>
       <TextFieldWithChildren
@@ -52,7 +58,7 @@ const CommunicationWriteSMS: React.FC<Props> = ({
             minRows: isMobileSize ? 2 : 6,
           },
           focus: {
-            onFocus,
+            onFocus: onSMSFocus,
           },
         }}
         name="Sms content"
@@ -132,4 +138,4 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default CommunicationWriteSMS;
+export default React.memo(CommunicationWriteSMS);

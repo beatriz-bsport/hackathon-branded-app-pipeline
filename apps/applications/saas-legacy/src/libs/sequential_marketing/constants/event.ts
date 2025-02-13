@@ -182,6 +182,8 @@ export const CADENCE_FINNER_GRAIN_ALLOWED_COMPANY_LIST = [
   498,
   // Core Yoga Paris
   591,
+  // Everybody Pilates Locks Heath
+  1600,
   // The House of Yoga
   2409,
 ];

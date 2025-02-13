@@ -32,6 +32,8 @@ import Config from '../../config';
 
 const API_V1_URI = Config.REACT_APP_BASE_URI_COMMUNICATE_V1;
 const API_V1_URI_CORE_DATA = Config.REACT_APP_BASE_URI_CORE_V1;
+const API_V1_URI_MEMBER_EXPERIENCE =
+  Config.REACT_APP_BASE_URI_MEMBER_EXPERIENCE_V1;
 
 export const sendCommunication = async (data: MessageParams) => {
   return postAuthDeprecated(
@@ -130,7 +132,7 @@ export const fetchSmartListPopupSendings = async (params: {
   smartlist_id: number;
 }): Promise<AxiosResponse<Array<SmartListPopupSending>>> =>
   getAuth(
-    `${API_V1_URI}/mobile_app/smartlist_popup_sending/${buildUrlParams(
+    `${API_V1_URI_MEMBER_EXPERIENCE}/mobile_app/smartlist_popup_sending/${buildUrlParams(
       params,
     )}`,
   );
@@ -139,7 +141,7 @@ export const sendSmartListPopup = async (
   data: FormData,
 ): Promise<AxiosResponse<SmartListPopupSending>> =>
   postAuth(
-    `${API_V1_URI}/mobile_app/smartlist_popup_sending/send_smartlist_popup/`,
+    `${API_V1_URI_MEMBER_EXPERIENCE}/mobile_app/smartlist_popup_sending/send_smartlist_popup/`,
     data,
   );
 

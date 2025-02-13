@@ -1,7 +1,6 @@
 const globals = require("globals");
 const pluginJs = require("@eslint/js");
 const tseslint = require("typescript-eslint");
-const pluginReact = require("eslint-plugin-react");
 const js = require("@eslint/js");
 const react = require("eslint-plugin-react");
 const reactRefresh = require("eslint-plugin-react-refresh");
@@ -10,10 +9,15 @@ module.exports = [
   {
     files: ["**/*.{js,mjs,cjs,ts,jsx,tsx}"],
     plugins: {
-      pluginReact,
+      react,
     },
   },
   {
+    settings: {
+      react: {
+        version: "detect",
+      },
+    },
     languageOptions: {
       ecmaVersion: 2020,
       globals: globals.browser,

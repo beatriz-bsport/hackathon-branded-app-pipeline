@@ -3,10 +3,7 @@ import { getFullUri, getHeaders } from "./utils";
 // TODO : Add inputs for getFetch to personalize the fetch method
 // depending on the consuming application
 export function getFetch() {
-  return (
-    uri: string,
-    init?: Parameters<typeof fetch>[1],
-  ): ReturnType<typeof fetch> => {
+  return (uri: string, init?: RequestInit): Promise<Response> => {
     return fetch(getFullUri(uri), {
       ...init,
       headers: {
@@ -17,3 +14,5 @@ export function getFetch() {
     });
   };
 }
+
+export type Fetch = ReturnType<typeof getFetch>;

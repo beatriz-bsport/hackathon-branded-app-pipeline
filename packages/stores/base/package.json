@@ -1,0 +1,37 @@
+{
+  "name": "@bsport/store-base",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Base store package",
+  "license": "UNLICENSED",
+  "author": "Pierre Bondoerffer <pierre.bondoerffer@bsport.io>",
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": "./build/lib.es.js",
+      "require": "./build/lib.umd.js"
+    }
+  },
+  "main": "build/lib.umd.cjs",
+  "module": "build/lib.es.js",
+  "types": "build/lib.d.ts",
+  "files": [
+    "build"
+  ],
+  "scripts": {
+    "build": "vite build",
+    "dev": "vite build --watch",
+    "format": "prettier --write '**/*.{ts,tsx,js,jsx,cjs,mjs,scss,css,json,md,mdx,html,svg}'",
+    "format:check": "prettier --check '**/*.{ts,tsx,js,jsx,cjs,mjs}'",
+    "postinstall": "pnpm run build",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix ."
+  },
+  "dependencies": {
+    "typescript-result": "^3.1.1",
+    "zustand": "^5.0.3"
+  },
+  "devDependencies": {
+    "@bsport/eslint-config-react": "workspace:*"
+  }
+}

@@ -1,0 +1,15 @@
+import { Result } from "typescript-result";
+import { Fetch } from "@bsport/fetch";
+
+/**
+ * A stateful action that can modify state.
+ */
+export type Action<P, R extends Result<unknown, unknown>> = (
+  fetch: Fetch,
+  params: P,
+) => Promise<R>;
+
+/**
+ * Type describing a complete API call, which can be passed to `fetch`.
+ */
+export type ApiConfig = Parameters<Fetch>;

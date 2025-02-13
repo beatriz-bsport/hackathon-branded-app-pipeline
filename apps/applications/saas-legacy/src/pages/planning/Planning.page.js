@@ -378,10 +378,7 @@ type Props = {
   creatingOffers: boolean,
   editOfferProcessing: boolean,
 
-  editOffers: ({
-    offerId: number,
-    data: Offer,
-  }) => void,
+  editOffers: ({ offerId: number, data: Offer }) => void,
 
   activeCustomLevels: Level[],
   allCustomLevels: Level[],
@@ -773,7 +770,25 @@ export class Planning extends PureComponent<Props, State> {
   getShowSubTeacherFilter = () =>
     hasUpsell(this.props.featureList, UPSELL_IDENTIFIER_SUBTEACHER_TOOL);
 
-  renderEditModal = () => {
+  getMetaActivitiesForPermissions = (
+    canCreateActivitySessions: boolean,
+    canCreateWorkshopSessions: boolean,
+  ) =>
+    (this.props.metaActivities ?? []).filter((metaActivity) => {
+      let canSeeActivity = true;
+      if (!canCreateActivitySessions) {
+        canSeeActivity = metaActivity.is_workshop;
+      }
+      if (!canCreateWorkshopSessions) {
+        canSeeActivity = !metaActivity.is_workshop;
+      }
+      return canSeeActivity;
+    });
+
+  renderEditModal = (
+    canCreateActivitySessions: boolean,
+    canCreateWorkshopSessions: boolean,
+  ) => {
     const {
       coaches,
       availableEstablishments,
@@ -787,6 +802,10 @@ export class Planning extends PureComponent<Props, State> {
     } = this.props;
     const { editModalOpened } = this.state;
     const { selectedOffer } = this.props;
+    const metaActivitiesForPermissions = this.getMetaActivitiesForPermissions(
+      canCreateActivitySessions,
+      canCreateWorkshopSessions,
+    );
     if (selectedOffer) {
       return (
         <GenericResponsiveDrawer
@@ -814,7 +833,7 @@ export class Planning extends PureComponent<Props, State> {
             isLoading={this.getEditFormLoading()}
             isOfferInGroup={!!selectedOffer?.group}
             isWherebyIntegrationEnabled={this.getIsWherebyIntegrationEnabled()}
-            metaActivities={this.props.metaActivities}
+            metaActivities={metaActivitiesForPermissions}
             metaActivity={selectedOffer.meta_activity}
             offer={selectedOffer}
             onCancel={this.onCancelModal}
@@ -838,24 +857,13 @@ export class Planning extends PureComponent<Props, State> {
     canCreateActivitySessions: boolean,
     canCreateWorkshopSessions: boolean,
   ) => {
-    const {
-      metaActivities,
-      coaches,
-      availableEstablishments,
-      allTagsWithTagGroup,
-      classes,
-    } = this.props;
+    const { coaches, availableEstablishments, allTagsWithTagGroup, classes } =
+      this.props;
     const { createOfferModalOpened } = this.state;
-    const metaActivitiesFiltered = metaActivities.filter((metaActivity) => {
-      let canSeeActivity = true;
-      if (!canCreateActivitySessions) {
-        canSeeActivity = metaActivity.is_workshop;
-      }
-      if (!canCreateWorkshopSessions) {
-        canSeeActivity = !metaActivity.is_workshop;
-      }
-      return canSeeActivity;
-    });
+    const metaActivitiesForPermissions = this.getMetaActivitiesForPermissions(
+      canCreateActivitySessions,
+      canCreateWorkshopSessions,
+    );
     return (
       <GenericResponsiveDrawer
         withoutHeaderContainer
@@ -880,7 +888,7 @@ export class Planning extends PureComponent<Props, State> {
             establishmentsLoading={this.props.establishmentsLoading}
             fetchLevelList={this.handleFetchLevel}
             is_whereby_integration_enabled={this.getIsWherebyIntegrationEnabled()}
-            metaActivities={metaActivitiesFiltered}
+            metaActivities={metaActivitiesForPermissions}
             onCancel={this.closeCreateOffersModal}
             onSubmit={this.createOffers}
             processing={this.props.creatingOffers}
@@ -1486,7 +1494,10 @@ export class Planning extends PureComponent<Props, State> {
                     </Button>
                   </DialogActions>
                 </Dialog>
-                {this.renderEditModal()}
+                {this.renderEditModal(
+                  hasCreateActivityPermission,
+                  hasCreateWorkshopPermission,
+                )}
                 {this.renderDeleteModal()}
                 {this.renderCreateModal(
                   hasCreateActivityPermission,

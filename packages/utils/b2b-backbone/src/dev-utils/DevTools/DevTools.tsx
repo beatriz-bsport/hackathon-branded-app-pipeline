@@ -7,7 +7,7 @@ import LanguageSelector, {
 import ThemeSelector from "./ThemeSelector";
 import Logout from "./Logout";
 
-type DevToolsProps = LanguageSelectorProps;
+export type DevToolsProps = LanguageSelectorProps;
 
 const DevTools: React.FC<DevToolsProps> = ({ i18nInstance }) => {
   const isLogged = !!getAuthToken();

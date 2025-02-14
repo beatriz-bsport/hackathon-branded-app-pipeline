@@ -1,12 +1,21 @@
+import React from "react";
 import { Button, Popover, Tooltip } from "@bsport/kaizen-primitive-core";
-
-import LanguageSelector from "./LanguageSelector";
+import { getAuthToken } from "#src/auth/tokenUtils";
+import LanguageSelector, {
+  type LanguageSelectorProps,
+} from "./LanguageSelector";
 import ThemeSelector from "./ThemeSelector";
 import Logout from "./Logout";
 
-const DevTools: React.FC = () => {
+type DevToolsProps = LanguageSelectorProps;
+
+const DevTools: React.FC<DevToolsProps> = ({ i18nInstance }) => {
+  const isLogged = !!getAuthToken();
   return (
-    <div className="fixed left-0 top-0 m-xs flex flex-col gap-xs z-50">
+    <div
+      className="fixed left-0 top-0 m-xs flex flex-col gap-xs"
+      style={{ zIndex: 1200 }}
+    >
       <Popover>
         <Popover.Anchor>
           {({ setIsPopoverOpened }) => (
@@ -26,9 +35,8 @@ const DevTools: React.FC = () => {
           {() => (
             <div className="gap-xs flex flex-col">
               <ThemeSelector />
-              <LanguageSelector />
-              {/* TODO : Add check to see if authenticated before rendering Logout button */}
-              <Logout />
+              <LanguageSelector i18nInstance={i18nInstance} />
+              {isLogged && <Logout />}
             </div>
           )}
         </Popover.Content>

@@ -1446,6 +1446,12 @@ importers:
       '@bsport/fetch':
         specifier: workspace:*
         version: link:../fetch
+      '@bsport/i18n':
+        specifier: workspace:*
+        version: link:../i18n
+      '@bsport/kaizen-primitive-core':
+        specifier: workspace:*
+        version: link:../../design-system/kaizen/primitive/core
     devDependencies:
       '@bsport/eslint-config-react':
         specifier: workspace:*

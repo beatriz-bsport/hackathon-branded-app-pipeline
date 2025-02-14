@@ -22,10 +22,12 @@ export default defineConfig({
     },
     rollupOptions: {
       // External dependencies that shouldn't be bundled
-      external: ["react"],
+      external: ["react", "@bsport/kaizen-primitive-core", "@bsport/i18n"],
       output: {
         globals: {
           react: "React",
+          "@bsport/kaizen-primitive-core": "KaizenPrimitiveCore",
+          "@bsport/i18n": "I18n",
         },
       },
     },

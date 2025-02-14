@@ -1,13 +1,14 @@
 import React, { ChangeEvent, useState } from "react";
 import { Button, TextField } from "@bsport/kaizen-primitive-core";
-import { login } from "@bsport/b2b-backbone";
+import { login } from "#src/auth/tokenUtils";
 
-function Login() {
+function DevLoginPage() {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
   const handleLogin = async () => {
-    // call login with email and password, they are throwing errors if it fails so try catch may not be useful. when it succeeds redirect to "/"
+    // call login with email and password, they are throwing errors if it fails
+    // so try catch may not be useful. when it succeeds redirect to "/"
     try {
       await login(email, password);
       window.location.href = "/";
@@ -56,4 +57,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default DevLoginPage;

@@ -1,7 +1,7 @@
 import { Route, Routes } from "react-router";
+import { DevLoginPage } from "@bsport/b2b-backbone";
 import App from "#src/pages/Home";
 import ListPage from "#src/pages/ListPage";
-import Login from "#src/pages/Login";
 import { AuthenticatedAppWrapper } from "./AppWrapper";
 
 const AppRoutes = () => {
@@ -19,7 +19,7 @@ const AppRoutes = () => {
         <Route element={<ListPage />} path="list-example" />
       </Route>
       {/* Unauthenticated routes */}
-      {isLocalDevelopment && <Route element={<Login />} path="login" />}
+      {isLocalDevelopment && <Route element={<DevLoginPage />} path="login" />}
     </Routes>
   );
 };

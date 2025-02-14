@@ -23,7 +23,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@bsport/fetch": "workspace:*"
+    "@bsport/fetch": "workspace:*",
+    "@bsport/i18n": "workspace:*",
+    "@bsport/kaizen-primitive-core": "workspace:*"
   },
   "devDependencies": {
     "@bsport/eslint-config-react": "workspace:*"

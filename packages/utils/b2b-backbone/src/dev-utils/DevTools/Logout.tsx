@@ -1,4 +1,4 @@
-import { logout } from "@bsport/b2b-backbone";
+import { logout } from "#src/auth/tokenUtils";
 import { Button } from "@bsport/kaizen-primitive-core";
 
 const Logout: React.FC = () => {

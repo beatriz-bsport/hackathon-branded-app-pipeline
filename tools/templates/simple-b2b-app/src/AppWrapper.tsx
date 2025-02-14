@@ -1,8 +1,9 @@
 import React, { lazy, ReactNode, Suspense } from "react";
 import { Outlet } from "react-router";
 import { ThemeProvider } from "@bsport/kaizen-primitive-core";
-import DevTools from "#src/components/dev-tools/DevTools";
+import { DevTools } from "@bsport/b2b-backbone";
 import { AuthWrapper } from "@bsport/b2b-backbone";
+import { i18nInstance } from "#src/utils/i18n";
 
 const Navigation = lazy(() => import("navigation-sidebar/Navigation"));
 
@@ -14,7 +15,7 @@ export const AppWrapper: React.FC<{ children: ReactNode }> = ({ children }) => {
   return (
     <ThemeProvider>
       <div className="bg-surface-page min-h-screen">
-        <DevTools />
+        <DevTools i18nInstance={i18nInstance} />
         {children}
       </div>
     </ThemeProvider>

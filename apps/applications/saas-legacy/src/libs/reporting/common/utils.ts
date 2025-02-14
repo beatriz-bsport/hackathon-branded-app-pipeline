@@ -442,11 +442,15 @@ const dateConverterToLink = (date: string): string => {
 type GenerateRowLinkProps = {
   reportCategory: ReportCategoryEnum;
   rowExtraData: { [key: string]: string | number | null };
+  // For the new webshop page, the link is /shop/products/{shopItemPk} instead of /shop/{shopItemPk}
+  // So we are forced to get this information from the companyTheme, to be deleted asap
+  displayNewWebshop?: boolean;
 };
 
 export const generateRowLink = ({
   reportCategory,
   rowExtraData,
+  displayNewWebshop,
 }: GenerateRowLinkProps) => {
   switch (reportCategory) {
     case ReportCategoryEnum.BILLING_PLAN:
@@ -765,10 +769,15 @@ export const generateRowLink = ({
       break;
 
     case ReportCategoryEnum.SHOP:
-      if (rowExtraData[ShopItemMetadataIdentifierEnum.SHOPITEM_PK])
+      if (rowExtraData[ShopItemMetadataIdentifierEnum.SHOPITEM_PK]) {
+        if (displayNewWebshop)
+          return `/shop/products/${
+            rowExtraData[ShopItemMetadataIdentifierEnum.SHOPITEM_PK]
+          }`;
         return `/shop/${
           rowExtraData[ShopItemMetadataIdentifierEnum.SHOPITEM_PK]
         }`;
+      }
       break;
 
     case ReportCategoryEnum.DISCOUNT:
@@ -911,6 +920,7 @@ export const getSingleValueLabel = (
     case ReportFilterableDataType.PRIVATE_SERVICE:
     case ReportFilterableDataType.PRIVATE_SLOT:
     case ReportFilterableDataType.SUBSHOP:
+    case ReportFilterableDataType.SUPPLIER:
     case ReportFilterableDataType.VIDEO:
     case ReportFilterableDataType.STAFF:
     case ReportFilterableDataType.USER:

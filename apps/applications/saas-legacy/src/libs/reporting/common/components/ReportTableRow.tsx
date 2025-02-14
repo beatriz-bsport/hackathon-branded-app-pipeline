@@ -36,6 +36,7 @@ type ReportTableRowsProps = {
   reportCategory: ReportCategoryEnum;
   userPermissions: RolePermission;
   objectLevelPermissions: ObjectLevelPermissions;
+  displayNewWebshop?: boolean;
 };
 
 const ReportTableRow: React.FC<ReportTableRowsProps> = ({
@@ -49,10 +50,12 @@ const ReportTableRow: React.FC<ReportTableRowsProps> = ({
   reportCategory,
   userPermissions,
   objectLevelPermissions,
+  displayNewWebshop,
 }: ReportTableRowsProps) => {
   const link = generateRowLink({
     reportCategory,
     rowExtraData: serializedRow.row_extra_data,
+    displayNewWebshop,
   });
   const hasAccessToLink = hasAccessToUrl({
     url: link,

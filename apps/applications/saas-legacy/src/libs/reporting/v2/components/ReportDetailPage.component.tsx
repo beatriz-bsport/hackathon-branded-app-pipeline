@@ -94,6 +94,7 @@ type Props = {
     options?: OptionCallback<ReportConfiguration>,
   ) => Promise<void>;
   userPermissions: RolePermission;
+  displayNewWebshop?: boolean;
 } & Pick<withDatatypeDynamicDataProps, 'handleGetDynamicDataForFilters'>;
 
 const ReportDetailPage: React.FC<Props> = ({
@@ -125,6 +126,7 @@ const ReportDetailPage: React.FC<Props> = ({
   reportId,
   updateReport,
   userPermissions,
+  displayNewWebshop,
 }) => {
   const classes = useStyles({ isNavigationDrawerExpanded });
   const { t } = useTranslation('reporting');
@@ -340,6 +342,7 @@ const ReportDetailPage: React.FC<Props> = ({
         />
         <ReportDetailContent
           categoryName={categoryName}
+          displayNewWebshop={displayNewWebshop}
           dynamicDataHasBeenLoaded={dynamicDataHasBeenLoaded}
           editReportFilterConfig={editReportFilterConfig}
           excelExportLoading={excelExportLoading}

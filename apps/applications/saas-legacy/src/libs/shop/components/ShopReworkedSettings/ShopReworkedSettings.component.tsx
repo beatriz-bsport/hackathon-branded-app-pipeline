@@ -59,6 +59,7 @@ type Props = {
   disableDeliveryFee: (deliveryFee: DeliveryFee) => void;
   changeSupplierPage: (
     page: number,
+    page_size?: number,
     options?: OptionCallback<ShopSupplier[]>,
   ) => void;
 };

@@ -24,6 +24,7 @@ import { getAvailableContractList } from '#src/libs/subscription/selectors';
 import { getTheme } from '#src/libs/theme/selectors';
 import {
   getShopItemStandaloneList,
+  getShopSupplierState,
   getSubShopsByCompany,
 } from '#src/libs/shop/selectors';
 import { getUsersWithRole } from '#src/libs/role/selectors';
@@ -58,6 +59,7 @@ import { fetchCoupons as fetchCouponsAction } from '#src/libs/coupon/actions';
 import { fetchVideoList as fetchVideoListAction } from '#src/libs/video/actions';
 import { fetchContractList as fetchContractListAction } from '#src/libs/subscription/actions';
 import { fetchAllSubShop as fetchAllSubShopAction } from '#src/libs/shop/actions/subshop';
+import { fetchShopSupplierList as fetchShopSupplierListAction } from '#src/libs/shop/actions/supplier';
 import { fetchFranchise as fetchFranchiseAction } from '#src/libs/franchise/actions';
 import { fetchBookkeepingAccountList as fetchBookkeepingAccountListAction } from '#src/libs/payment/actions';
 import {
@@ -117,6 +119,7 @@ const connector = connect(
     // @ts-expect-error
     contracts: getAvailableContractList(state),
     subshops: getSubShopsByCompany(state, getTheme(state).company),
+    suppliers: getShopSupplierState(state).suppliers,
     staffs: getUsersWithRole(state),
     franchiseCompanies: getFranchiseCompanies(state),
     paymentPackCategories: getAllPaymentPackCategory(state),
@@ -143,6 +146,7 @@ const connector = connect(
     fetchVideoList: fetchVideoListAction,
     fetchContractList: fetchContractListAction,
     fetchAllSubShop: fetchAllSubShopAction,
+    fetchShopSupplierList: fetchShopSupplierListAction,
     fetchCompanyUserRoles: fetchCompanyUserRolesAction,
     fetchFranchise: fetchFranchiseAction,
     fetchAllPaymentPackCategory: fetchAllPaymentPackCategoryAction,
@@ -348,6 +352,13 @@ export default function withDatatypeDynamicData(
                   },
                 });
                 break;
+              case ReportFilterableDataType.SUPPLIER:
+                props.fetchShopSupplierList(null, 1000, {
+                  onSuccess: () => {
+                    props.setDynamicDataHasBeenLoaded('supplier');
+                  },
+                });
+                break;
               case ReportFilterableDataType.STAFF:
                 props.fetchCompanyUserRoles(
                   {},
@@ -545,6 +556,11 @@ export default function withDatatypeDynamicData(
                   (subshop) => subshop.id.toString() === stringifiedValue,
                 )?.name;
 
+              case ReportFilterableDataType.SUPPLIER:
+                return props.suppliers.find(
+                  (supplier) => supplier.id.toString() === stringifiedValue,
+                )?.name;
+
               case ReportFilterableDataType.STAFF: {
                 const staff = props.staffs.find(
                   (staffUser) => staffUser.id.toString() === stringifiedValue,
@@ -704,6 +720,14 @@ export default function withDatatypeDynamicData(
                 props.subshops?.map((subshop) => ({
                   label: subshop.name,
                   value: subshop.id,
+                  columnName,
+                })) ?? []
+              );
+            case ReportFilterableDataType.SUPPLIER:
+              return (
+                props.suppliers?.map((supplier) => ({
+                  label: supplier.name,
+                  value: supplier.id,
                   columnName,
                 })) ?? []
               );

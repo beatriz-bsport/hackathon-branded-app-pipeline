@@ -68,6 +68,7 @@ type Props = {
   reportGeneratedRows: SerializedReport & ErrorAndLoading;
   reportHeaders: { results: ReportHeader } & ErrorAndLoading;
   userPermissions: RolePermission;
+  displayNewWebshop?: boolean;
 } & Pick<withDatatypeDynamicDataProps, 'handleGetDynamicDataForFilters'>;
 
 const ReportDetailContent: React.FC<Props> = ({
@@ -91,6 +92,7 @@ const ReportDetailContent: React.FC<Props> = ({
   reportGeneratedRows,
   reportHeaders,
   userPermissions,
+  displayNewWebshop,
 }) => {
   const classes = useStyles();
   const { t } = useTranslation('reporting');
@@ -225,6 +227,7 @@ const ReportDetailContent: React.FC<Props> = ({
           )}
           <ReportTable
             v2
+            displayNewWebshop={displayNewWebshop}
             handleGenerateNextPage={handleGenerateNextPage}
             handleGeneratePreviousPage={handleGeneratePreviousPage}
             hasReportBeenGenerated={hasReportBeenGenerated}

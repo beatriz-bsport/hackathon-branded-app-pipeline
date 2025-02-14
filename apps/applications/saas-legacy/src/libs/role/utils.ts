@@ -369,6 +369,11 @@ export const matchUrlToRelevantPermissionKey = (url: string) => {
       return ['navigationMenu', 'products', 'shop'];
     }
 
+    // Will match any string with the form : /shop/products/{only numbers} with potentially a last '/'
+    if (new RegExp(/^\/shop\/products\/[0-9]+\/?$/).test(cleanedUrl)) {
+      return ['navigationMenu', 'products', 'shopReworked'];
+    }
+
     // Will match any string with the form : /coupon/{only numbers} with potentially a last '/'
     if (new RegExp(/^\/coupon\/[0-9]+\/?$/).test(cleanedUrl)) {
       return ['navigationMenu', 'products', 'promotions'];

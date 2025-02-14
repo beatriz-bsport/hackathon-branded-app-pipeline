@@ -618,6 +618,15 @@ export enum ShopItemMetadataIdentifierEnum {
   MARKETPLACE_ENABLED = 'marketplace_enabled',
   DESCRIPTION = 'description',
   COMPANY_NAME = 'company_name',
+  SUBTITLE = 'subtitle',
+  COLOR = 'color',
+  SIZE = 'size',
+  SKU = 'stock_keeping_unit',
+  BARCODE = 'barcode',
+  SUPPLIER_NAME = 'supplier_name',
+  COST_OF_STOCK = 'cost_of_stock',
+  COST_OF_SALE = 'cost_of_sale',
+  GROSS_PROFIT = 'gross_profit',
 }
 export enum UnpaidPrivateBookingMetadataIdentifierEnum {
   MEMBER_PK = 'member_pk',

@@ -326,6 +326,7 @@ const ReportFilterChip: React.FC<ReportFilterChipProps> = forwardRef(
           return <ScheduleIcon />;
         case ReportFilterableDataType.SUBSHOP:
           return <ShoppingCartIcon />;
+        case ReportFilterableDataType.SUPPLIER:
         case ReportFilterableDataType.BILLING_ESTABLISHMENT:
         case ReportFilterableDataType.BILLING_GROUP:
         case ReportFilterableDataType.BILLING_GROUP_ADDRESS:

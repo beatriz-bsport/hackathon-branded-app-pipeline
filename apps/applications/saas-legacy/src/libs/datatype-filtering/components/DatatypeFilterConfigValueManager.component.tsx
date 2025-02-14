@@ -499,6 +499,7 @@ const DatatypeFilterConfigValueList: React.FC<{
         case 'private_service':
         case 'private_slot':
         case 'subshop':
+        case 'supplier':
         case 'video':
         case 'staff':
         case 'bookkeeping_account':
@@ -874,6 +875,8 @@ const DatatypeFilterConfigValueList: React.FC<{
       'products',
       'product_category',
       'billing_plan_product',
+      'subshop',
+      'supplier',
     ].includes(datatype) &&
     getOptions(false) === null
   ) {

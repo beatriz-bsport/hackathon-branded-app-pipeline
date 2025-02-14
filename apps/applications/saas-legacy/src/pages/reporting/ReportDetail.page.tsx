@@ -57,6 +57,7 @@ import type {
 import { getObjectPermissions, getPermissions } from '#src/libs/role/selectors';
 import { getReportObjectPermissionsBasedOnCategory } from '#src/libs/reporting/common/utils';
 import { filter_reports_by_upsells } from '#src/libs/reporting/common/permissions';
+import themeSelectors from '#src/libs/theme/selectors';
 
 type OwnProps = {
   isFranchisor?: boolean;
@@ -105,6 +106,7 @@ const ReportingDetail: React.FC<Props> = ({
   updateReport,
   userPermissions,
   setLastVisitedReportV2,
+  displayNewWebshop,
 }) => {
   React.useEffect(() => {
     resetDynamicDataHasBeenLoaded();
@@ -363,6 +365,7 @@ const ReportingDetail: React.FC<Props> = ({
         createReportFilterConfig={createReportFilterConfig}
         defaultCategoryReportId={defaultCategoryReportId}
         deleteReport={deleteReport}
+        displayNewWebshop={displayNewWebshop}
         dynamicDataHasBeenLoaded={dynamicDataHasBeenLoaded}
         editReportFilterConfig={editReportFilterConfig}
         excelExportLoading={excelExportLoading}
@@ -405,6 +408,7 @@ const connector = connect(
     subscribedUpsells: getCompanyUpsellData(state),
     userPermissions: getPermissions(state),
     lastVisitedReportV2: getLastVisitedReportV2(state),
+    displayNewWebshop: themeSelectors.getTheme(state)?.display_new_webshop,
   }),
   {
     createReport: createReportAction,

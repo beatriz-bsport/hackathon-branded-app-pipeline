@@ -72,9 +72,10 @@ export class ShopReworkedSettingsPage extends PureComponent<Props> {
 
   handleChangeSupplierPage = (
     page: number,
+    page_size?: number,
     options?: OptionCallback<ShopSupplier[]>,
   ) => {
-    this.props.fetchShopSupplierList(page, options);
+    this.props.fetchShopSupplierList(page, page_size, options);
   };
 
   handleFetchShopSupplierList = (page?: number) => {

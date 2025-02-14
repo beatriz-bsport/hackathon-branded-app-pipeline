@@ -52,6 +52,7 @@ type TableProps = {
   v2?: boolean;
   hasReportBeenGenerated?: boolean;
   totalElements: number;
+  displayNewWebshop?: boolean;
 };
 
 type PaginationProps = {
@@ -167,6 +168,7 @@ const ReportTable: React.FC<TableProps> = ({
   v2,
   hasReportBeenGenerated,
   totalElements,
+  displayNewWebshop,
 }) => {
   const classes = useStyles();
   const { t } = useTranslation('reporting');
@@ -271,6 +273,7 @@ const ReportTable: React.FC<TableProps> = ({
                   columns={columns}
                   columnsConfigs={columnsConfigs}
                   converters={converters}
+                  displayNewWebshop={displayNewWebshop}
                   index={index}
                   objectLevelPermissions={objectLevelPermissions}
                   reportCategory={report.category}
@@ -291,6 +294,7 @@ const ReportTable: React.FC<TableProps> = ({
                   columns={columns}
                   columnsConfigs={columnsConfigs}
                   converters={converters}
+                  displayNewWebshop={displayNewWebshop}
                   index={index}
                   objectLevelPermissions={objectLevelPermissions}
                   reportCategory={report.category}

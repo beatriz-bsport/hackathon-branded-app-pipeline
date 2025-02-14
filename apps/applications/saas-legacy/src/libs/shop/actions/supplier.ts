@@ -77,6 +77,7 @@ export const fetchShopSupplierListActions = {
  */
 export const fetchShopSupplierList = (
   page?: number,
+  page_size?: number,
   options?: OptionCallback<ShopSupplier[]>,
 ) => {
   return async (dispatch: Dispatch, getState: () => RootState) => {
@@ -87,7 +88,7 @@ export const fetchShopSupplierList = (
       dispatch(fetchShopSupplierListActions.error(null));
 
       const result = await retrieveShopSupplierListAPI({
-        page_size: SHOP_SUPPLIER_PAGE_SIZE,
+        page_size: page_size ?? SHOP_SUPPLIER_PAGE_SIZE,
         page: page ?? supplierStatePage,
       });
 

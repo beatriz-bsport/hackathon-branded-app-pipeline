@@ -117,3 +117,54 @@ export const PopoverOpeningOnHover: Story = {
     placement: "bottom-left",
   },
 };
+
+/**
+ * This can test the behavior of the Popover component when it is placed inside a scrollable container.
+ * It's possible to test the resizing aswell.
+ *
+ * TODO: Move automatically the Popover when it's about to be hidden by the scroll or resize.<br>
+ * To be defined, could just shift (https://ant.design/components/popover#popover-demo-shift) or move even when scrolling if the anchor is not visible.
+ */
+export const PopoverInAScrollableContainer: Story = {
+  name: "Popover in a scrollable container",
+  render: (args) => {
+    return (
+      <div className="relative h-[200vh]">
+        <div className="absolute flex flex-col gap-lg top-[20vh] left-0">
+          <Popover>
+            <Popover.Anchor>
+              {({ setIsPopoverOpened }) => (
+                <Button
+                  label="Open popover"
+                  intent="default"
+                  color="main"
+                  size="md"
+                  onClick={() => setIsPopoverOpened((prev) => !prev)}
+                />
+              )}
+            </Popover.Anchor>
+            <Popover.Content placement={args.placement}>
+              {({ setIsPopoverOpened }) => (
+                <div className="flex flex-col gap-sm">
+                  <Body htmlVariant="p" size="sm" color="default">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                  </Body>
+                  <Button
+                    label="Close popover"
+                    intent="default"
+                    color="main"
+                    size="md"
+                    onClick={() => setIsPopoverOpened(false)}
+                  />
+                </div>
+              )}
+            </Popover.Content>
+          </Popover>
+        </div>
+      </div>
+    );
+  },
+  args: {
+    placement: "bottom-left",
+  },
+};

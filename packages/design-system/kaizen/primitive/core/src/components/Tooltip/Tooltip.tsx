@@ -2,8 +2,9 @@ import React, { useCallback, useMemo, useState } from "react";
 import { cva } from "class-variance-authority";
 import classNames from "classnames";
 import Chip, { ChipProps } from "#src/components/Chip";
-import usePlacementClasses, {
+import {
   Placements,
+  useRelativePlacementClasses,
 } from "#src/hooks/placement-classes.hook";
 
 const defaultClasses = [
@@ -60,7 +61,7 @@ const Tooltip: React.FC<TooltipProps> = ({
     }
   }, []);
 
-  const placementClasses = usePlacementClasses(placement);
+  const placementClasses = useRelativePlacementClasses(placement);
 
   return (
     <div className="relative" {...props}>

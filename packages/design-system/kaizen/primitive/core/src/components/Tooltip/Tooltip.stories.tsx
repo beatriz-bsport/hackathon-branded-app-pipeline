@@ -40,6 +40,7 @@ export const TooltipWithChip: Story = {
   name: "Tooltip with chip",
   args: {
     label: "This is a tooltip",
+    placement: "top",
     chip: {
       label: "Chip",
       type: "weak",

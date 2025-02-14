@@ -8,16 +8,18 @@ import React, {
   useRef,
   useState,
 } from "react";
+import ReactDOM from "react-dom";
 import classNames from "classnames";
-import usePlacementClasses, {
+import {
   Placements,
+  useAbsolutePlacementStyles,
 } from "#src/hooks/placement-classes.hook";
 import useEscapeKeydownListener from "#src/hooks/escape-keydown-listener.hook";
 import useOutsideClickListener from "#src/hooks/outside-click-listener";
 import { cva } from "class-variance-authority";
 
 const defaultClasses = [
-  "absolute",
+  "fixed",
   "z-[999]",
   "min-w-component-popover-min",
   "max-w-component-popover-max",
@@ -36,9 +38,11 @@ const popoverClasses = cva("relative w-fit h-full");
 export const PopoverContext = createContext<{
   isPopoverOpened: boolean;
   setIsPopoverOpened: React.Dispatch<React.SetStateAction<boolean>>;
+  anchorRef: React.RefObject<HTMLDivElement> | null;
 }>({
   isPopoverOpened: false,
   setIsPopoverOpened: () => {},
+  anchorRef: null,
 });
 
 export type PopoverProps = {
@@ -62,15 +66,17 @@ const Popover: React.FC<PopoverProps> & {
 } = ({ children, className, opened = false }: PopoverProps) => {
   const [isPopoverOpened, setIsPopoverOpened] = useState(opened);
   const popoverRef = useRef(null);
+  const anchorRef = useRef(null);
 
   const handleClose = () => setIsPopoverOpened(false);
 
-  // Close the popover when the escape key is pressed or when a click occurs outside
+  // Close the popover when the escape key is pressed
   useEscapeKeydownListener(handleClose, isPopoverOpened);
-  useOutsideClickListener(popoverRef, handleClose, isPopoverOpened);
 
   return (
-    <PopoverContext.Provider value={{ isPopoverOpened, setIsPopoverOpened }}>
+    <PopoverContext.Provider
+      value={{ isPopoverOpened, setIsPopoverOpened, anchorRef }}
+    >
       <div className={popoverClasses({ className })} ref={popoverRef}>
         {children}
       </div>
@@ -91,9 +97,14 @@ const Anchor: React.FC<{
     setIsPopoverOpened: React.Dispatch<React.SetStateAction<boolean>>;
   }) => ReactNode;
 }> = ({ children }) => {
-  const { isPopoverOpened, setIsPopoverOpened } = useContext(PopoverContext);
+  const { isPopoverOpened, setIsPopoverOpened, anchorRef } =
+    useContext(PopoverContext);
 
-  return <>{children({ isPopoverOpened, setIsPopoverOpened })}</>;
+  return (
+    <div ref={anchorRef}>
+      {children({ isPopoverOpened, setIsPopoverOpened })}
+    </div>
+  );
 };
 
 /**
@@ -111,12 +122,20 @@ const Content: React.FC<{
   }) => ReactNode;
   placement?: (typeof Placements)[number];
 }> = ({ className, children, placement = "bottom-left" }) => {
-  const { isPopoverOpened, setIsPopoverOpened } = useContext(PopoverContext);
-  const placementClasses = usePlacementClasses(placement);
+  const { isPopoverOpened, setIsPopoverOpened, anchorRef } =
+    useContext(PopoverContext);
+
   const contentRef = useRef<HTMLDivElement>(null);
 
   const [isMounted, setIsMounted] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
+
+  const placementStyles = useAbsolutePlacementStyles(
+    placement,
+    anchorRef,
+    contentRef,
+    isVisible,
+  );
 
   const handleClose = useCallback(() => {
     setIsVisible(false);
@@ -198,21 +217,26 @@ const Content: React.FC<{
   };
   const role = hasInteractiveContent(content) ? "dialog" : "tooltip";
 
+  // Close the popover when clicking outside of it
+  useOutsideClickListener(contentRef, handleClose, isPopoverOpened);
+
   if (!isMounted) return null;
 
-  return (
+  return ReactDOM.createPortal(
     <div
       tabIndex={-1}
-      className={classNames(defaultClasses, placementClasses, className, {
-        "opacity-transparent scale-95": !isVisible,
+      className={classNames(defaultClasses, className, {
+        "top-0 left-0 opacity-transparent": !isVisible,
       })}
       role={role}
       aria-hidden={!isVisible}
       onKeyDown={handleKeyDown}
       ref={contentRef}
+      style={placementStyles}
     >
       {content}
-    </div>
+    </div>,
+    document.body,
   );
 };
 

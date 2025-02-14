@@ -9,10 +9,10 @@ const defaultClasses = [] as const;
 const variants = {
   htmlVariant: {
     h1: ["text-title-xl", "leading-xl"],
-    h2: ["text-title-lg", "leading-lg"],
+    h2: ["text-title-lg", "leading-xl"],
     h3: ["text-title-md", "leading-md"],
-    h4: ["text-title-sm", "leading-sm"],
-    h5: ["text-title-xs", "leading-xs"],
+    h4: ["text-title-sm", "leading-md"],
+    h5: ["text-title-xs", "leading-sm"],
   },
   color: {
     [TYPOGRAPHY_COLORS.default]: ["text-onsurface-default"],

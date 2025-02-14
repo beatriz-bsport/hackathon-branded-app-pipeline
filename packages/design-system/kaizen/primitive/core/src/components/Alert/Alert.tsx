@@ -133,11 +133,15 @@ const Alert: React.FC<AlertProps> = ({
       </div>
       <div className="flex-1 flex flex-col gap-2xs">
         {title && (
-          <Title htmlVariant="h4" weight="strong">
+          <Title htmlVariant="h4" weight="stronger">
             {title}
           </Title>
         )}
-        {children && <Body htmlVariant="p">{children}</Body>}
+        {children && (
+          <Body htmlVariant="p" size="md" weight="weak">
+            {children}
+          </Body>
+        )}
       </div>
       {isDisplayingActions && (
         <div className="flex flex-row items-center gap-sm">

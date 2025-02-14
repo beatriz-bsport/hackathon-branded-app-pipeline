@@ -181,16 +181,11 @@ const Modal: React.FC<ModalProps> = ({
       >
         <div className="flex justify-between p-md gap-xs border-b-stroke-divider border-b-stroke-thin border-opacity-md">
           <div className="flex flex-col gap-2xs text-onsurface-default">
-            <Title
-              htmlVariant="h2"
-              weight="strong"
-              id="modal-title"
-              className="text-title-sm"
-            >
+            <Title htmlVariant="h4" weight="stronger" id="modal-title">
               {title}
             </Title>
             {description && (
-              <Body htmlVariant="p" size="md">
+              <Body htmlVariant="p" size="md" weight="weak">
                 {description}
               </Body>
             )}

@@ -3,6 +3,7 @@ import { cva, type VariantProps } from "class-variance-authority";
 import mapValues from "lodash/mapValues";
 import Icon, { IconName } from "#src/components/Icon";
 import Title from "#src/components/Title";
+import Body from "#src/components/Body";
 import Button from "#src/components/Button";
 
 const defaultClasses = [
@@ -115,7 +116,9 @@ const Toast: React.FC<ToastProps> = ({
           </Title>
         )}
         {description && (
-          <p className="text-onsurface-default-onstrong">{description}</p>
+          <Body htmlVariant="p" weight="weak" size="lg">
+            {description}
+          </Body>
         )}
       </div>
       {buttonLabel && (

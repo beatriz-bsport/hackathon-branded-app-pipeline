@@ -7,6 +7,7 @@ import Breadcrumbs, {
 import Button from "#src/components/Button";
 import Chip, { type ChipProps } from "#src/components/Chip";
 import Tabs, { type TabsProps } from "#src/components/Tabs";
+import Title from "#src/components/Title";
 import CustomActionsSection, {
   type CustomActionsSectionProps,
 } from "./CustomActionsSection";
@@ -46,9 +47,9 @@ const PageActionsSection: React.FC<PageActionsSectionProps> = ({
         )}
         <div className="flex flex-row justify-between items-center">
           <div className="flex flex-row gap-xs items-center justify-start">
-            <h1 className="font-stronger text-onsurface-default text-title-md leading-lg">
+            <Title htmlVariant="h1" weight="stronger">
               {pageTitle}
-            </h1>
+            </Title>
             {onEditTitleClick && (
               <Button
                 onClick={onEditTitleClick}

@@ -1667,7 +1667,7 @@
                 }
             },
             "amountRemaining": "Ainda por pagar: {{ amount }}",
-            "errorSecretExplain2": "Se o problema persistir, contactar dev+payment-intent@bsport.io",
+            "errorSecretExplain2": "",
             "errorSecretExplain1": "Este método de pagamento não está atualmente disponível.",
             "billingMoreThanNeeded": "Se o montante cobrado for superior ao montante da fatura, o saldo do membro será acrescido na diferença",
             "amount": {

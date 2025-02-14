@@ -2237,7 +2237,7 @@
                     "hasRelatedMarketplaceComponentConfigs": "Las pestañas de calendario y taller configuradas para su mercado ya no mostrarán este calendario de ubicación.",
                     "hasRelatedMarketingNotifications": "Las notificaciones vinculadas a esta ubicación se eliminarán.",
                     "exclusiveAssociatedCoaches": "Su profesor {{- coach_name }} sólo recibe una notificación cuando se realiza una solicitud de sustitución para una sesión en esta ubicación. Por lo tanto, al eliminar la ubicación, recibirán solicitudes de sustitución de todas las ubicaciones.",
-                    "exclusiveAssociatedCoaches_plural": "Sus profesores {{- coach_name }} sólo reciben una notificación cuando se realiza una solicitud de sustitución para una sesión en esta ubicación. Al eliminar la ubicación, recibirán por tanto solicitudes de sustitución de todas las ubicaciones.",
+                    "exclusiveAssociatedCoaches_plural": "Sus profesores {{- coach_name }} sólo reciben una notificación cuando se realiza una solicitud de sustitución para una sesión en esta ubicación. Por lo tanto, al eliminar la ubicación, recibirán solicitudes de sustitución de todas las ubicaciones.",
                     "hasRelatedAssociatedCoaches": "Algunos profesores reciben una notificación cuando se realiza una solicitud de sustitución para una sesión en esta ubicación. Al eliminar la ubicación, dejarán de recibir la notificación correspondiente.",
                     "hasRelatedStaffConfigurations": "Esta ubicación se utiliza para la supervisión de accesos por uno o varios miembros del personal. Al eliminar la ubicación sin seleccionar una nueva, ya no podrán realizar la supervisión de accesos."
                 },
@@ -3868,7 +3868,7 @@
             },
             "amountRemaining": "El resto a pagar: {{ amount }}",
             "billingMoreThanNeeded": "Si cobra más que el importe de la factura, el exceso se pondrá en el saldo del cliente",
-            "errorSecretExplain2": "Si el problema no se resuelve por favor contáctenos en dev+payment-intent@bsport.io",
+            "errorSecretExplain2": "",
             "errorSecretExplain1": "Este método de pago no está disponible en este momento",
             "plannedPaymentEvent": {
                 "title": "Pago planificado",
@@ -7557,7 +7557,14 @@
             "content": "Esta reserva se canceló demasiado tarde para ser reembolsada automáticamente. Haga clic en «Reembolsar» para procesar un reembolso de crédito único para esta reserva.",
             "title": "Reembolso por cancelación tardía"
         },
-        "refund": "Reembolso"
+        "refund": "Reembolso",
+        "oneClickBooking": {
+            "seeMoreWithLogin": "Inicie sesión para explorar los packs y las suscripciones.",
+            "yourBooking": "Su reserva",
+            "goToLogin": "Iniciar sesión",
+            "alreadyMember": "¿Ya tiene una cuenta?",
+            "checkoutTitle": "Pago"
+        }
     },
     "marketplace": {
         "selector": {
@@ -7646,6 +7653,9 @@
             "title": {
                 "universalPassMessage": "Tarjeta universal, puede utilizarse para actividades de grupo y citas",
                 "autoRenewal": "Renovación automática"
+            },
+            "price": {
+                "free": "Gratis"
             }
         },
         "genericCardDetails": {
@@ -14008,7 +14018,8 @@
             "X": "No binario",
             "M": "Masculino",
             "F": "Femenino"
-        }
+        },
+        "biweekly": "Cada dos semanas"
     },
     "snackbar": {
         "invoice": {

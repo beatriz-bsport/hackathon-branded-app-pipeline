@@ -4654,7 +4654,7 @@
             },
             "amountRemaining": "Outstanding amount: {{ amount }}",
             "billingMoreThanNeeded": "If you charge more than the amount of the invoice, the difference in cost will be added to the client account balance",
-            "errorSecretExplain2": "If the issue is not resolved please contact us at dev+payment-intent@bsport.io",
+            "errorSecretExplain2": "",
             "errorSecretExplain1": "This payment method is not available at the moment",
             "plannedPaymentEvent": {
                 "title": "Planned payment",

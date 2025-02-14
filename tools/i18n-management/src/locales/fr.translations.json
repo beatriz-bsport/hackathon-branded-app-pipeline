@@ -657,6 +657,28 @@
                 "goToLogin": "Se connecter",
                 "alreadyMember": "Vous avez déjà un compte ?",
                 "checkoutTitle": "Checkout"
+            },
+            "lightSignup": {
+                "form": {
+                    "phone": {
+                        "placeholder": "+33612345678",
+                        "label": "Téléphone"
+                    },
+                    "errors": {
+                        "global": "Une erreur s'est produite lors de l'inscription",
+                        "email": "Veuillez saisir une adresse électronique valide",
+                        "requiredField": "Ce champ est obligatoire"
+                    },
+                    "email": {
+                        "label": "Email"
+                    },
+                    "lastName": {
+                        "label": "Nom"
+                    },
+                    "firstName": {
+                        "label": "Prénom"
+                    }
+                }
             }
         },
         "category": {
@@ -21265,7 +21287,9 @@
         }
     },
     "@bsport/template-simple-b2b-app": {
-        "namespaceAlpha": { "helloWorld": "Bonjour le monde !" },
+        "namespaceAlpha": {
+            "helloWorld": "Bonjour le monde !"
+        },
         "namespaceBeta": {
             "nested": {
                 "item1": "Je suis le premier item !",

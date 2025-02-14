@@ -4,6 +4,7 @@ import React, {
   useState,
   createContext,
   useContext,
+  useEffect,
 } from "react";
 
 export const themes = {
@@ -40,14 +41,24 @@ const ThemeContext = createContext<{
  * }
  * ```
  *
- * This will wrap all your components within a div element with className `"kz-${theme}"`
+ * This will add a className `"kz-${theme}"` to the page body
  * that you can then control with the React hook `useTheme`.
  */
 export const ThemeProvider: FC<PropsWithChildren> = ({ children }) => {
   const [theme, setTheme] = useState<Theme>(themes.light);
+  useEffect(() => {
+    const body = document.querySelector("body");
+    if (body) {
+      // Remove className of previous theme
+      const previousTheme = theme === themes.light ? themes.dark : themes.light;
+      body.classList.remove(`kz-${previousTheme}`);
+      // Add new className
+      body.classList.add(`kz-${theme}`);
+    }
+  }, [theme]);
   return (
     <ThemeContext.Provider value={{ theme, setTheme, availableThemes: themes }}>
-      <div className={`kz-${theme}`}>{children}</div>
+      {children}
     </ThemeContext.Provider>
   );
 };

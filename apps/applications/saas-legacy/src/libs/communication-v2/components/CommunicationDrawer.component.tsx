@@ -1,7 +1,4 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { compose } from 'recompose';
-// eslint-disable-next-line bsport/no-redux-in-component
-import { connect, ConnectedProps } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import {
   Typography,
@@ -25,21 +22,18 @@ import CommunicationHeader from '#src/libs/communication-v2/components/Communica
 import CommunicationFilterContainer from '#src/libs/communication-v2/components/Filter/CommunicationFilterContainer.component';
 import CommunicationMessageListContainer from '#src/libs/communication-v2/components/MessageList/CommunicationMessageListContainer.component';
 import CommunicationSendMessageContainer from '#src/libs/communication-v2/components/MessageSender/CommunicationSendMessageContainer.component';
-import withCommunicationData, {
-  WithCommunicationDataProps,
-} from '#src/libs/communication-v2/communication-drawer-hoc';
 
 import {
   getConsentWarning,
   filterCommunicationThread,
 } from '#src/libs/communication-v2/utils';
 
-import {
-  DrawerProps,
+import type {
   Communication,
+  DrawerProps,
   MessageData,
 } from '#src/libs/communication-v2/types';
-import { OptionCallback } from '#src/state/types';
+import type { OptionCallback } from '#src/state/types';
 
 import {
   CONTEXT_NOTIFICATION,
@@ -48,14 +42,24 @@ import {
   WRITE_EMAIL,
   REFRESH_THREAD_TIMEOUT,
 } from '#src/libs/communication-v2/constants';
-import { getCommunicationSMSProviderVerificationState } from '#src/libs/communication-v2/selectors';
-import type { RootState } from '#src/reducers';
+import {
+  useSMSVerification,
+  useTagsAndCategories,
+  useTheme,
+} from '#src/libs/communication-v2/hooks/useCommunicationsTools.hooks';
+import {
+  useMessageList,
+  FetchMessageListParams,
+} from '#src/libs/communication-v2/hooks/useMessageList.hooks';
+import { useAvailableRecipients } from '#src/libs/communication-v2/hooks/useAvailableRecipients.hooks';
+import {
+  SendCommunicationParams,
+  useCommunicationActions,
+} from '#src/libs/communication-v2/hooks/useCommunicationsActions.hooks';
 
 type NullableTimeout = ReturnType<typeof setTimeout> | null;
 
-export type Props = WithCommunicationDataProps &
-  WithMobileDialog &
-  ConnectedProps<typeof connector>;
+export type Props = DrawerProps & WithMobileDialog;
 
 export type CommunicationListFilters = {
   filters: number[];
@@ -72,36 +76,7 @@ export const CommunicationDrawer: React.FC<Props> = ({
   contextTitle,
   openDrawer,
   onDrawerClose,
-  fetchPageInformationRecipientList,
-  informationRecipientList,
-  informationRecipientListCount,
-  loadingInformationRecipientList,
-  loadingMessageList,
-  messageList,
-  emailTemplateDetailList,
-  emailTemplateSummaryList,
-  fetchEmailDetail,
-  loadingRecipientsModalMemberList,
-  loadingEmailTemplateDetailList,
-  loadingEmailTemplateSummaryList,
-  recipientsModalMemberList,
-  resolvedGenericTags,
-  theme,
-  tagCategories,
-  fetchPaginatedAvailableRecipientMemberList,
-  fetchResolvedGenericTags,
-  fetchTagList,
-  flagAllUnreadCommunicationsAsRead,
-  fetchPageMessageList,
-  messageListHasNextPage,
-  sendCommunication,
   allMemberCategoryList,
-  countAvailableRecipientsTotal,
-  countAvailableRecipientsWithEmail,
-  countAvailableRecipientsWithPhone,
-  fetchEmailSummaryList,
-  resetPaginatedAvailableRecipientMemberList,
-  communicationSMSProviderVerificationState,
 }: Props) => {
   const [messagePage, setMessagePage] = useState(1);
   const [communicationListFilters, setCommunicationListFilters] =
@@ -118,30 +93,66 @@ export const CommunicationDrawer: React.FC<Props> = ({
   const [intervalTimeoutId, setIntervalTimeoutId] =
     useState<NullableTimeout>(null);
 
+  const {
+    fetchMessages,
+    messageList,
+    loadingMessageList,
+    hasNextMessageListPage,
+  } = useMessageList();
+  const { fetchAvailableRecipients } = useAvailableRecipients({
+    contextIdentifier,
+    contextObjectId,
+  });
+  const { sendCommunication, flagAllUnreadCommunicationsAsRead } =
+    useCommunicationActions({
+      contextIdentifier,
+      contextObjectId,
+    });
+  const { fetchTags } = useTagsAndCategories();
+  const { theme } = useTheme();
+  const { smsVerificationProvider } = useSMSVerification();
+
   const fetchMessageList = useCallback(() => {
-    fetchPageMessageList(
-      messagePage,
-      communicationListFilters?.filters,
-      communicationListFilters?.dateStart,
-      communicationListFilters?.dateEnd,
-    );
-  }, [messagePage, communicationListFilters, fetchPageMessageList]);
+    const params: FetchMessageListParams = {
+      contextIdentifier,
+      contextObjectId,
+      page: messagePage,
+      filters: communicationListFilters?.filters,
+      dateStart: communicationListFilters?.dateStart,
+      dateEnd: communicationListFilters?.dateEnd,
+    };
+    fetchMessages(params);
+  }, [
+    messagePage,
+    communicationListFilters,
+    fetchMessages,
+    contextObjectId,
+    contextIdentifier,
+  ]);
 
   const fetchMoreMessages = useCallback(() => {
-    if (messageListHasNextPage) {
+    if (hasNextMessageListPage) {
       setMessagePage((current) => current + 1);
     }
-  }, [messageListHasNextPage]);
+  }, [hasNextMessageListPage]);
 
   const refreshMessageList = useCallback(() => {
-    fetchPageMessageList(
-      1,
-      communicationListFilters.filters,
-      communicationListFilters.dateStart,
-      communicationListFilters.dateEnd,
-      true,
-    );
-  }, [communicationListFilters, fetchPageMessageList]);
+    const params: FetchMessageListParams = {
+      contextIdentifier,
+      contextObjectId,
+      page: 1,
+      filters: communicationListFilters?.filters,
+      dateStart: communicationListFilters?.dateStart,
+      dateEnd: communicationListFilters?.dateEnd,
+      isRefreshing: true,
+    };
+    fetchMessages(params);
+  }, [
+    communicationListFilters,
+    fetchMessages,
+    contextObjectId,
+    contextIdentifier,
+  ]);
 
   const scheduleRefreshMessageList = useCallback(
     (forceRefresh?: boolean) => {
@@ -213,27 +224,18 @@ export const CommunicationDrawer: React.FC<Props> = ({
         }
         return filterOutNewCommunication;
       };
-      sendCommunication(data, memberSelectedCategories, {
-        ...options,
-        storeInCallback,
-      });
+      const params: SendCommunicationParams = {
+        data,
+        memberSelectedCategories,
+        options: {
+          ...options,
+          storeInCallback,
+        },
+      };
+      sendCommunication(params);
     },
     [communicationListFilters, sendCommunication],
   );
-
-  useEffect(() => {
-    fetchPaginatedAvailableRecipientMemberList(1);
-    fetchMessageList();
-    fetchResolvedGenericTags();
-    fetchTagList();
-    flagAllUnreadCommunicationsAsRead();
-  }, [
-    fetchMessageList,
-    flagAllUnreadCommunicationsAsRead,
-    fetchPaginatedAvailableRecipientMemberList,
-    fetchResolvedGenericTags,
-    fetchTagList,
-  ]);
 
   useEffect(() => {
     scheduleRefreshMessageList();
@@ -245,23 +247,23 @@ export const CommunicationDrawer: React.FC<Props> = ({
   }, [scheduleRefreshMessageList, intervalTimeoutId]);
 
   useEffect(() => {
+    fetchTags();
+    flagAllUnreadCommunicationsAsRead();
+  }, [fetchTags, flagAllUnreadCommunicationsAsRead]);
+
+  useEffect(() => {
+    const fetchAvailableRecipientsParams = {
+      page: 1,
+    };
+
     fetchMessageList();
-    fetchPaginatedAvailableRecipientMemberList(1);
+    fetchAvailableRecipients(fetchAvailableRecipientsParams);
   }, [
+    communicationListFilters,
     messagePage,
     contextObjectId,
     fetchMessageList,
-    fetchPaginatedAvailableRecipientMemberList,
-  ]);
-
-  useEffect(() => {
-    refreshMessageList();
-  }, [communicationListFilters, refreshMessageList]);
-
-  useEffect(() => {
-    fetchPaginatedAvailableRecipientMemberList(1);
-  }, [
-    fetchPaginatedAvailableRecipientMemberList,
+    fetchAvailableRecipients,
     propToListenToReloadRecipients,
   ]);
 
@@ -278,7 +280,7 @@ export const CommunicationDrawer: React.FC<Props> = ({
     !theme.is_two_way_email_activated;
 
   const showCommunicationSmsProviderNotVerifiedWarning =
-    !communicationSMSProviderVerificationState.isVerified &&
+    !smsVerificationProvider?.isVerified &&
     communicationKindBeingWritten === COMMUNICATION_KIND_SMS;
 
   return (
@@ -318,7 +320,6 @@ export const CommunicationDrawer: React.FC<Props> = ({
           contextMember={contextMember}
           currentPage={messagePage}
           fetchMoreCommunicationMessages={fetchMoreMessages}
-          fetchRecipientPaginatedList={fetchPageInformationRecipientList}
           fullScreen={fullScreen}
           hasActiveFilters={
             !!communicationListFilters.dateStart ||
@@ -326,12 +327,8 @@ export const CommunicationDrawer: React.FC<Props> = ({
             !!communicationListFilters.filters.length
           }
           loadingCommunicationMessageDataList={loadingMessageList}
-          loadingRecipientList={loadingInformationRecipientList}
           messageList={messageList}
           paginationSize={PAGINATION_SIZE_RECIPIENTS}
-          recipientList={informationRecipientList}
-          recipientListCount={informationRecipientListCount}
-          resolvedGenericTags={resolvedGenericTags}
           scrollToBottomFlag={scrollToBottomFlag}
           showCommunicationSmsProviderNotVerifiedWarning={
             showCommunicationSmsProviderNotVerifiedWarning
@@ -375,36 +372,13 @@ export const CommunicationDrawer: React.FC<Props> = ({
               communicationKind={communicationKindBeingWritten}
               contextIdentifier={contextIdentifier}
               contextObjectId={contextObjectId}
-              countAvailableRecipientsTotal={countAvailableRecipientsTotal}
-              countAvailableRecipientsWithEmail={
-                countAvailableRecipientsWithEmail
-              }
-              countAvailableRecipientsWithPhone={
-                countAvailableRecipientsWithPhone
-              }
               directMember={
                 contextIdentifier === CONTEXT_MEMBER && contextMember
               }
-              emailTemplateDetailList={emailTemplateDetailList}
-              emailTemplateSummaryList={emailTemplateSummaryList}
-              fetchEmailSummaryList={fetchEmailSummaryList}
-              fetchPaginatedAvailableRecipientMemberList={
-                fetchPaginatedAvailableRecipientMemberList
-              }
               fullScreen={fullScreen}
-              getEmailDetail={fetchEmailDetail}
-              loadingPaginatedMemberList={loadingRecipientsModalMemberList}
-              loadingTemplateDetailList={loadingEmailTemplateDetailList}
-              loadingTemplateSummaryList={loadingEmailTemplateSummaryList}
               pageSize={PAGINATION_SIZE_RECIPIENTS}
-              paginatedMemberList={recipientsModalMemberList}
-              resetPaginatedAvailableRecipientMemberList={
-                resetPaginatedAvailableRecipientMemberList
-              }
-              resolvedGenericTags={resolvedGenericTags}
               sendCommunication={sendCommunicationCallback}
               setCommunicationKind={setCommunicationKindBeingWritten}
-              tagCategories={tagCategories}
             />
           </Collapse>
         </div>
@@ -413,13 +387,6 @@ export const CommunicationDrawer: React.FC<Props> = ({
   );
 };
 
-const connector = connect(
-  (state: RootState) => ({
-    communicationSMSProviderVerificationState:
-      getCommunicationSMSProviderVerificationState(state),
-  }),
-  null,
-);
 const useStyles = makeStyles((theme) => ({
   buttonMessageWriter: {
     width: '100%',
@@ -485,8 +452,4 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default compose<any, DrawerProps>(
-  withMobileDialog(),
-  connector,
-  withCommunicationData,
-)(CommunicationDrawer);
+export default withMobileDialog()(CommunicationDrawer);

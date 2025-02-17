@@ -7,11 +7,6 @@ import HTMLPreviewDialog from '#src/components/html/HTMLPreviewDialog.component'
 import AutoResendConfigDialog from '#src/libs/communication-v2/components/AutoResendConfigDialog';
 
 import type { Member } from '#src/libs/member/types';
-import type {
-  EmailTemplateDetail,
-  EmailTemplateSummary,
-  ResolvedGenericTags,
-} from '#src/libs/email-editor/types';
 
 import {
   getFormatedQueryParamsFromContext,
@@ -46,6 +41,13 @@ import CommunicationRecipientsModal from '#src/libs/communication-v2/components/
 import EmailTemplateSelector from '#src/libs/communication-v2/components/MessageSender/Writers/EmailTemplateSelector.component';
 import MessageWriterByKind from '#src/libs/communication-v2/components/MessageSender/Writers/MessageWriterByKind.component';
 import SendMessageContainerBottomIcons from '#src/libs/communication-v2/components/MessageSender/Writers/SendMessageContainerBottomIcons.component';
+import { useTagsAndCategories } from '#src/libs/communication-v2/hooks/useCommunicationsTools.hooks';
+import {
+  FetchAvailableRecipientsParams,
+  ResetRecipientsParams,
+  useAvailableRecipients,
+} from '#src/libs/communication-v2/hooks/useAvailableRecipients.hooks';
+import { useEmailTemplates } from '#src/libs/communication-v2/hooks/useEmailTemplates.hooks';
 
 export type Props = {
   allMemberCategoryList?: FilteringMemberIdsByGenericCategories;
@@ -54,23 +56,8 @@ export type Props = {
   contextObjectId?: number;
   relatedObjectKind?: ChatThreadKinds;
   relatedObjectId?: number;
-  countAvailableRecipientsTotal: number;
-  countAvailableRecipientsWithEmail: number;
-  countAvailableRecipientsWithPhone: number;
   directMember?: Member;
-  emailTemplateDetailList: Record<number, EmailTemplateDetail>;
-  emailTemplateSummaryList: Array<EmailTemplateSummary>;
-  fetchEmailSummaryList: () => void;
-  fetchPaginatedAvailableRecipientMemberList: (
-    page: number,
-    memberSelectedCategories?: number[],
-  ) => void;
   fullScreen?: boolean;
-  getEmailDetail: (templateId: number) => void;
-  loadingPaginatedMemberList: boolean;
-  loadingTemplateSummaryList: boolean;
-  loadingTemplateDetailList: boolean;
-  paginatedMemberList: Member[];
   pageSize: number;
   sendCommunication: (
     data: MessageData,
@@ -78,9 +65,6 @@ export type Props = {
     options?: OptionCallback<void>,
   ) => void;
   setCommunicationKind: (kind: number, callback?: () => void) => void;
-  resetPaginatedAvailableRecipientMemberList: (options: OptionCallback) => void;
-  resolvedGenericTags: ResolvedGenericTags;
-  tagCategories: { [tag_name: string]: string[] };
   hideAutoResend?: boolean;
 };
 
@@ -91,26 +75,11 @@ export const CommunicationSendMessageContainer: React.FC<Props> = ({
   contextObjectId,
   relatedObjectKind,
   relatedObjectId,
-  countAvailableRecipientsTotal,
-  countAvailableRecipientsWithEmail,
-  countAvailableRecipientsWithPhone,
   directMember,
-  emailTemplateDetailList,
-  emailTemplateSummaryList,
-  fetchEmailSummaryList,
-  fetchPaginatedAvailableRecipientMemberList,
   fullScreen,
-  getEmailDetail,
-  loadingPaginatedMemberList,
-  loadingTemplateSummaryList,
-  loadingTemplateDetailList,
-  paginatedMemberList,
   pageSize,
   sendCommunication,
   setCommunicationKind,
-  resetPaginatedAvailableRecipientMemberList,
-  resolvedGenericTags,
-  tagCategories,
   hideAutoResend,
 }) => {
   const [uncheckedMembers, setUncheckedMembers] =
@@ -147,6 +116,18 @@ export const CommunicationSendMessageContainer: React.FC<Props> = ({
     useState(false);
   const [resendCount, setResendCount] = useState(0);
   const [resendDelay, setResendDelay] = useState(0);
+  const {
+    availableRecipientsList,
+    availableRecipientsTotalCount,
+    availableRecipientsWithEmailCount,
+    availableRecipientsWithPhoneCount,
+    loadingAvailableRecipients,
+    fetchAvailableRecipients,
+    resetRecipients,
+  } = useAvailableRecipients({ contextIdentifier, contextObjectId });
+  const { loadingTemplateDetails, templateDetailList, fetchTemplateDetails } =
+    useEmailTemplates();
+  const { resolvedGenericTags, tagCategories } = useTagsAndCategories();
   const classes = useStyles();
 
   const openResendConfigDialog = useCallback(() => {
@@ -170,24 +151,24 @@ export const CommunicationSendMessageContainer: React.FC<Props> = ({
     switch (communicationKind) {
       case WRITE_EMAIL:
         return (
-          countAvailableRecipientsWithEmail - uncheckedMembers.email.length
+          availableRecipientsWithEmailCount - uncheckedMembers.email.length
         );
       case WRITE_SMS:
         return (
-          countAvailableRecipientsWithPhone - uncheckedMembers.phone.length
+          availableRecipientsWithPhoneCount - uncheckedMembers.phone.length
         );
       case WRITE_PUSH_NOTIFICATION:
         return (
-          countAvailableRecipientsTotal - uncheckedMembers.notification.length
+          availableRecipientsTotalCount - uncheckedMembers.notification.length
         );
       default:
         return 0;
     }
   }, [
     communicationKind,
-    countAvailableRecipientsWithEmail,
-    countAvailableRecipientsWithPhone,
-    countAvailableRecipientsTotal,
+    availableRecipientsWithEmailCount,
+    availableRecipientsWithPhoneCount,
+    availableRecipientsTotalCount,
     uncheckedMembers,
   ]);
 
@@ -238,12 +219,13 @@ export const CommunicationSendMessageContainer: React.FC<Props> = ({
 
   const handleFetchPaginatedAvailableRecipientMemberList = useCallback(
     (page: number) => {
-      fetchPaginatedAvailableRecipientMemberList(
+      const params: FetchAvailableRecipientsParams = {
         page,
-        checkedMemberCategoryFilter || [],
-      );
+        memberSelectedCategories: checkedMemberCategoryFilter || [],
+      };
+      fetchAvailableRecipients(params);
     },
-    [fetchPaginatedAvailableRecipientMemberList, checkedMemberCategoryFilter],
+    [fetchAvailableRecipients, checkedMemberCategoryFilter],
   );
 
   const getRecipientBlacklist = useCallback((): Array<number> => {
@@ -342,10 +324,13 @@ export const CommunicationSendMessageContainer: React.FC<Props> = ({
 
   const flushEditAndRefreshCallbackWithReset = useCallback(() => {
     // We reset to an initial state with no selected category and no selected members
-    resetPaginatedAvailableRecipientMemberList({
-      onSuccess: flushEditAndRefreshCallback,
-    });
-  }, [resetPaginatedAvailableRecipientMemberList, flushEditAndRefreshCallback]);
+    const params: ResetRecipientsParams = {
+      options: {
+        onSuccess: flushEditAndRefreshCallback,
+      },
+    };
+    resetRecipients(params);
+  }, [resetRecipients, flushEditAndRefreshCallback]);
 
   const sendMessageWithFlushEditAndRefreshCallback = useCallback(
     (data: MessageData) => {
@@ -465,36 +450,28 @@ export const CommunicationSendMessageContainer: React.FC<Props> = ({
   ]);
 
   useEffect(() => {
-    const fetchSelectedRecipients = async () => {
-      const contextParams = buildContextParams();
+    const contextParams = buildContextParams();
 
-      const params = {
-        ...contextParams,
-        blacklist_email: uncheckedMembers.email,
-        blacklist_phone: uncheckedMembers.phone,
-        blacklist_notification: uncheckedMembers.notification,
-      };
+    const params = {
+      ...contextParams,
+      blacklist_email: uncheckedMembers.email,
+      blacklist_phone: uncheckedMembers.phone,
+      blacklist_notification: uncheckedMembers.notification,
+    };
 
-      try {
-        setSelectedMemberDetailListLoading(true);
-
-        const response = await fetchFirstSelectedRecipientsForChatAllKindsAPI(
-          params,
-        );
-
+    fetchFirstSelectedRecipientsForChatAllKindsAPI(params)
+      .then((response) => {
+        setSelectedMemberDetailListLoading(false);
         setSelectedMemberDetailListAllKinds({
           email: response.data.email || [],
           phone: response.data.phone || [],
           notification: response.data.notification || [],
         });
-      } catch (error) {
-        console.error(error);
-      } finally {
+      })
+      .catch((error) => {
         setSelectedMemberDetailListLoading(false);
-      }
-    };
-
-    fetchSelectedRecipients();
+        console.error(error);
+      });
   }, [
     buildContextParams,
     uncheckedMembers.email,
@@ -503,8 +480,7 @@ export const CommunicationSendMessageContainer: React.FC<Props> = ({
   ]);
 
   const html =
-    !loadingTemplateDetailList &&
-    emailTemplateDetailList?.[mailTemplateSelected]?.html;
+    !loadingTemplateDetails && templateDetailList?.[mailTemplateSelected]?.html;
 
   return (
     <>
@@ -512,16 +488,15 @@ export const CommunicationSendMessageContainer: React.FC<Props> = ({
         <MessageWriterByKind
           checkAndSetValidity={checkAndSetValidity}
           communicationKind={communicationKind}
-          emailTemplateDetailList={emailTemplateDetailList}
+          emailTemplateDetailList={templateDetailList}
           emailTemplateSelected={mailTemplateSelected}
           emailTitle={mailTitle}
           fullScreen={fullScreen}
-          getEmailDetail={getEmailDetail}
-          loadingTemplateDetailList={loadingTemplateDetailList}
+          getEmailDetail={fetchTemplateDetails}
+          loadingTemplateDetailList={loadingTemplateDetails}
           mailContent={mailContent}
           notificationContent={notificationContent}
           notificationTitle={notificationTitle}
-          resolvedGenericTags={resolvedGenericTags}
           setFocusTextField={setFocusTextField}
           setMailContent={setMailContent}
           setMailTemplateSelected={setMailTemplateSelected}
@@ -556,19 +531,19 @@ export const CommunicationSendMessageContainer: React.FC<Props> = ({
         <CommunicationRecipientsModal
           allMemberCategoryList={allMemberCategoryList}
           checkedMemberCategoriesFilters={checkedMemberCategoryFilter}
-          countAvailableRecipientsTotal={countAvailableRecipientsTotal}
-          countAvailableRecipientsWithEmail={countAvailableRecipientsWithEmail}
-          countAvailableRecipientsWithPhone={countAvailableRecipientsWithPhone}
+          countAvailableRecipientsTotal={availableRecipientsTotalCount}
+          countAvailableRecipientsWithEmail={availableRecipientsWithEmailCount}
+          countAvailableRecipientsWithPhone={availableRecipientsWithPhoneCount}
           fetchPaginatedAvailableRecipientMemberList={
             handleFetchPaginatedAvailableRecipientMemberList
           }
           fullScreen={fullScreen}
           handleCloseDialog={handleCloseRecipientModal}
           kind={communicationKind}
-          loadingPaginatedMemberList={loadingPaginatedMemberList}
+          loadingPaginatedMemberList={loadingAvailableRecipients}
           open={openRecipientSelector}
           pageSize={pageSize}
-          paginatedMemberList={paginatedMemberList}
+          paginatedMemberList={availableRecipientsList}
           setCheckedMemberCategoriesFilters={handleCheckMemberCategoryFilter}
           setUncheckedMembers={handleSetUncheckedMembers}
           uncheckedMembers={uncheckedMembers}
@@ -576,17 +551,10 @@ export const CommunicationSendMessageContainer: React.FC<Props> = ({
         {openTemplateSelector && communicationKind === WRITE_EMAIL && (
           <EmailTemplateSelector
             checkAndSetValidity={checkAndSetValidity}
-            emailTemplateDetailList={emailTemplateDetailList}
-            emailTemplateSummaryList={emailTemplateSummaryList}
-            fetchEmailSummaryList={fetchEmailSummaryList}
             fullScreen={fullScreen}
-            getEmailDetail={getEmailDetail}
-            loadingTemplateDetailList={loadingTemplateDetailList}
-            loadingTemplateSummaryList={loadingTemplateSummaryList}
             mailTemplateSelected={mailTemplateSelected}
             mailTitle={mailTitle}
             openTemplateSelector={openTemplateSelector}
-            resolvedGenericTags={resolvedGenericTags}
             setMailTemplateSelected={setMailTemplateSelected}
             setMailTitle={setMailTitle}
             setOpenTemplateSelector={setOpenTemplateSelector}

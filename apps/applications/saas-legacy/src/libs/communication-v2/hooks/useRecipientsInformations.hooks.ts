@@ -17,7 +17,7 @@ import { getRecipientWithMemberPaginatedList } from '#src/libs/communication-v2/
 
 import { getFormatedQueryParamsToFetchRecipientPaginatedList } from '#src/libs/communication-v2/utils';
 
-type FetchRecipientsParams = {
+export type FetchRecipientsParams = {
   communication: Communication;
   page: number;
   memberSelectedCategories?: number[];

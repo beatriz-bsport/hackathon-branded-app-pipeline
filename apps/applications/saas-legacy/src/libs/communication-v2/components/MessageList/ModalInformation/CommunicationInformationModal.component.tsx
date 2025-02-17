@@ -18,7 +18,6 @@ import { COMMUNICATION_CHANNEL_SMARTLIST } from '@bsport/common/lib/master-data/
 import type {
   Recipient,
   CommunicationMessage,
-  Communication,
   FilteringMemberIdsByGenericCategories,
 } from '#src/libs/communication-v2/types';
 import type { Member } from '#src/libs/member/types';
@@ -26,24 +25,20 @@ import CommunicationWrapperDialog from '#src/libs/communication-v2/components/Co
 import CommunicationInformationStatusChip from '#src/libs/communication-v2/components/MessageList/ModalInformation/CommunicationInformationStatusChip.component';
 import CommunicationInformationOpenChip from '#src/libs/communication-v2/components/MessageList/ModalInformation/CommunicationInformationOpenChip.component';
 import CommunicationInformationModalFilter from '#src/libs/communication-v2/components/MessageList/ModalInformation/CommunicationInformationModalFilter.component';
+import {
+  FetchRecipientsParams,
+  useRecipientInformation,
+} from '#src/libs/communication-v2/hooks/useRecipientsInformations.hooks';
 
 export type Props = {
   allMemberCategoryList?: FilteringMemberIdsByGenericCategories;
   contextInformation?: string;
   contextMember?: Member;
   contextTitle?: string;
-  fetchRecipientPaginatedList: (
-    communication: Communication,
-    page: number,
-    memberSelectedCategories: number[],
-  ) => void;
   fullScreen?: boolean;
   handleCloseDialog: () => void;
-  loadingRecipientList: boolean;
   open?: boolean;
   paginationSize: number;
-  recipientList: Recipient<Member>[];
-  recipientListCount: number;
   selectedCommunication: CommunicationMessage;
 };
 
@@ -52,14 +47,10 @@ export const CommunicationInformationModal: React.FC<Props> = ({
   contextInformation,
   contextMember,
   contextTitle,
-  fetchRecipientPaginatedList,
   fullScreen,
   handleCloseDialog,
-  loadingRecipientList,
   open,
   paginationSize,
-  recipientList,
-  recipientListCount,
   selectedCommunication,
 }: Props) => {
   const [checkedCategoryFilters, setCheckedCategoryFilters] = useState<
@@ -70,23 +61,25 @@ export const CommunicationInformationModal: React.FC<Props> = ({
   );
   const [currentPage, setCurrentPage] = useState<number>(1);
   const { communication } = selectedCommunication;
+  const {
+    recipientList,
+    loadingRecipientList,
+    recipientListCount,
+    fetchRecipients,
+  } = useRecipientInformation(contextMember);
   const { t } = useTranslation('communication');
   const classes = useStyles();
 
   const fetchRecipientPaginatedListCallback = useCallback(() => {
     if (communication) {
-      fetchRecipientPaginatedList(
+      const params: FetchRecipientsParams = {
         communication,
-        currentPage,
-        checkedCategoryFilters,
-      );
+        page: currentPage,
+        memberSelectedCategories: checkedCategoryFilters,
+      };
+      fetchRecipients(params);
     }
-  }, [
-    fetchRecipientPaginatedList,
-    communication,
-    currentPage,
-    checkedCategoryFilters,
-  ]);
+  }, [fetchRecipients, communication, currentPage, checkedCategoryFilters]);
 
   const handleChangePage = useCallback(
     (event: ChangeEvent, page: number = 1) => {

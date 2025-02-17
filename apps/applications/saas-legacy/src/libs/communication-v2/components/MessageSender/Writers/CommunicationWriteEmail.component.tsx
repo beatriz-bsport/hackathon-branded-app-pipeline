@@ -11,10 +11,8 @@ import {
 } from '@material-ui/icons';
 
 import TextFieldWithChildren from '#src/components/input/text-field/TextFieldWithChildren';
-import {
-  EmailTemplateDetail,
-  ResolvedGenericTags,
-} from '#src/libs/email-editor/types';
+import type { EmailTemplateDetail } from '#src/libs/email-editor/types';
+import type { FetchTemplateDetailsParams } from '#src/libs/communication-v2/hooks/useEmailTemplates.hooks';
 import HTMLPreview from '#src/components/html/HTMLPreview.component';
 
 import {
@@ -22,6 +20,7 @@ import {
   TEXTFIELD_MAIL_CONTENT,
 } from '#src/libs/communication-v2/constants';
 import CommunicationWrapperDialog from '../../CommunicationWrapperDialog.component';
+import { useTagsAndCategories } from '#src/libs/communication-v2/hooks/useCommunicationsTools.hooks';
 
 type Props = {
   children: React.ReactNode;
@@ -37,8 +36,7 @@ type Props = {
   onFocus?: (identifier: number) => void;
   onSeeTemplate?: () => void;
   onRemoveTemplate?: () => void;
-  refreshTemplateData?: (templateId: number) => void;
-  resolvedGenericTags?: ResolvedGenericTags;
+  refreshTemplateData?: ({ templateId }: FetchTemplateDetailsParams) => void;
 };
 
 const CommunicationWriteEmail: React.FC<Props> = ({
@@ -56,7 +54,6 @@ const CommunicationWriteEmail: React.FC<Props> = ({
   onEditTemplate,
   onSeeTemplate,
   refreshTemplateData,
-  resolvedGenericTags,
 }) => {
   const { t } = useTranslation('communication');
 
@@ -73,8 +70,11 @@ const CommunicationWriteEmail: React.FC<Props> = ({
   );
 
   const onRefreshTemplateData = useCallback(() => {
+    const refreshTemplateDaraParams: FetchTemplateDetailsParams = {
+      templateId: emailTemplateSelected,
+    };
     setShowRefreshDialog(false);
-    refreshTemplateData(emailTemplateSelected);
+    refreshTemplateData(refreshTemplateDaraParams);
   }, [emailTemplateSelected, refreshTemplateData]);
 
   const handleEditTemplate = useCallback(() => {
@@ -103,7 +103,6 @@ const CommunicationWriteEmail: React.FC<Props> = ({
           onEditTemplate={handleEditTemplate}
           onRemoveTemplate={onRemoveTemplate}
           onSeeTemplate={onSeeTemplate}
-          resolvedGenericTags={resolvedGenericTags}
         >
           {children}
         </EmailPreview>
@@ -144,7 +143,6 @@ type PreviewProps = {
   onSeeTemplate: () => void;
   onEditTemplate: () => void;
   onRemoveTemplate: () => void;
-  resolvedGenericTags?: ResolvedGenericTags;
 };
 
 const EmailPreview: React.FC<PreviewProps> = React.memo(
@@ -156,8 +154,8 @@ const EmailPreview: React.FC<PreviewProps> = React.memo(
     onSeeTemplate,
     onEditTemplate,
     onRemoveTemplate,
-    resolvedGenericTags,
   }) => {
+    const { resolvedGenericTags } = useTagsAndCategories();
     const classes = useStyles();
 
     return (

@@ -1,21 +1,9 @@
 import React, { useCallback } from 'react';
 
-import type {
-  EmailTemplateDetail,
-  EmailTemplateSummary,
-  ResolvedGenericTags,
-} from '#src/libs/email-editor/types';
 import CommunicationTemplateModal from '#src/libs/communication-v2/components/MessageSender/ModalTemplate/CommunicationTemplateModal.component';
 
 type EmailTemplateSelectorProps = {
-  emailTemplateDetailList: Record<number, EmailTemplateDetail>;
-  loadingTemplateDetailList: boolean;
-  emailTemplateSummaryList: Array<EmailTemplateSummary>;
-  loadingTemplateSummaryList: boolean;
-  fetchEmailSummaryList: () => void;
   fullScreen?: boolean;
-  getEmailDetail: (templateId: number) => void;
-  resolvedGenericTags: ResolvedGenericTags;
   setOpenTemplateSelector: (open: boolean) => void;
   setMailTemplateSelected: (templateId: number | null) => void;
   setMailTitle: (title: string) => void;
@@ -26,14 +14,7 @@ type EmailTemplateSelectorProps = {
 };
 
 const EmailTemplateSelector: React.FC<EmailTemplateSelectorProps> = ({
-  emailTemplateDetailList,
-  loadingTemplateDetailList,
-  emailTemplateSummaryList,
-  loadingTemplateSummaryList,
-  fetchEmailSummaryList,
   fullScreen,
-  getEmailDetail,
-  resolvedGenericTags,
   setOpenTemplateSelector,
   setMailTemplateSelected,
   setMailTitle,
@@ -61,15 +42,8 @@ const EmailTemplateSelector: React.FC<EmailTemplateSelectorProps> = ({
   return (
     <CommunicationTemplateModal
       closeDialog={onClose}
-      emailDetailList={emailTemplateDetailList}
-      emailDetailListLoading={loadingTemplateDetailList}
-      emailSummaryList={emailTemplateSummaryList}
-      emailSummaryListLoading={loadingTemplateSummaryList}
-      fetchEmailSummaryList={fetchEmailSummaryList}
       fullScreen={fullScreen}
-      getEmailDetail={getEmailDetail}
       open={openTemplateSelector}
-      resolvedGenericTags={resolvedGenericTags}
       selectedTemplate={mailTemplateSelected}
       selectedTitle={mailTitle}
       setTemplate={setTemplate}

@@ -1,8 +1,6 @@
 import React, { useCallback } from 'react';
-import type {
-  EmailTemplateDetail,
-  ResolvedGenericTags,
-} from '#src/libs/email-editor/types';
+import type { EmailTemplateDetail } from '#src/libs/email-editor/types';
+import type { FetchTemplateDetailsParams } from '#src/libs/communication-v2/hooks/useEmailTemplates.hooks';
 import {
   WRITE_EMAIL,
   WRITE_SMS,
@@ -24,9 +22,8 @@ type MessageWriterByKindProps = {
   mailContent: string;
   notificationContent: string;
   notificationTitle: string;
-  resolvedGenericTags: ResolvedGenericTags;
   smsContent: string;
-  getEmailDetail: (templateId: number) => void;
+  getEmailDetail: ({ templateId }: FetchTemplateDetailsParams) => void;
   setOpenTemplateVisualizer: (open: boolean) => void;
   setMailTemplateSelected: (templateId: number | null) => void;
   setMailTitle: (title: string) => void;
@@ -49,7 +46,6 @@ const MessageWriterByKind: React.FC<MessageWriterByKindProps> = ({
   mailContent,
   notificationContent,
   notificationTitle,
-  resolvedGenericTags,
   smsContent,
   getEmailDetail,
   setOpenTemplateVisualizer,
@@ -143,7 +139,6 @@ const MessageWriterByKind: React.FC<MessageWriterByKindProps> = ({
           onRemoveTemplate={onRemoveTemplate}
           onSeeTemplate={onSeeTemplate}
           refreshTemplateData={getEmailDetail}
-          resolvedGenericTags={resolvedGenericTags}
         >
           {children}
         </CommunicationWriteEmail>

@@ -353,3 +353,8 @@ export type MemberListDataByCommunicationKind = {
   phone: MemberMinimal[];
   notification: MemberMinimal[];
 };
+
+export type CommunicationIdentifiers = {
+  contextIdentifier: number;
+  contextObjectId: number;
+};

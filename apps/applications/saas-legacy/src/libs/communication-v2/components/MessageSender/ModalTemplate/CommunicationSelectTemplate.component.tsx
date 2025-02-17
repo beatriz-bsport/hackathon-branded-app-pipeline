@@ -20,23 +20,19 @@ import {
 
 import EmailSelector from '#src/libs/email-editor/components/EmailSelector.component';
 import HTMLPreview from '#src/components/html/HTMLPreview.component';
-import type {
-  EmailTemplateDetail,
-  EmailTemplateSummary,
-  ResolvedGenericTags,
-} from '#src/libs/email-editor/types';
+import type { EmailTemplateDetail } from '#src/libs/email-editor/types';
 import { openNewBackOfficeWindow } from '#src/utils/windows';
+import { useTagsAndCategories } from '#src/libs/communication-v2/hooks/useCommunicationsTools.hooks';
+import {
+  FetchTemplateDetailsParams,
+  useEmailTemplates,
+} from '#src/libs/communication-v2/hooks/useEmailTemplates.hooks';
 
 export type Props = {
   currentTitle: string;
   emailDetailList: Record<number, EmailTemplateDetail>;
-  emailDetailListLoading: boolean;
-  emailSummaryList: EmailTemplateSummary[];
-  emailSummaryListLoading: boolean;
-  resolvedGenericTags: ResolvedGenericTags;
   selectedTemplate: number;
   fetchEmailSummaryList: () => void;
-  getEmailDetail: (id: number) => void;
   updateCurrentTitle: (title: string) => void;
   updateSelectedTemplate: (templateId: number) => void;
 };
@@ -44,13 +40,8 @@ export type Props = {
 const CommunicationSelectTemplate: React.FC<Props> = ({
   currentTitle,
   emailDetailList,
-  emailDetailListLoading,
-  emailSummaryList,
-  emailSummaryListLoading,
-  resolvedGenericTags,
   selectedTemplate,
   fetchEmailSummaryList,
-  getEmailDetail,
   updateCurrentTitle,
   updateSelectedTemplate,
 }) => {
@@ -59,29 +50,39 @@ const CommunicationSelectTemplate: React.FC<Props> = ({
 
   const [displayTemplatePreview, setDisplayTemplatePreview] = useState(false);
   const [displayRefreshAlert, setDisplayRefreshAlert] = useState(false);
+  const {
+    templateSummaryList,
+    loadingTemplateDetails,
+    loadingTemplateSummaries,
+    fetchTemplateDetails,
+  } = useEmailTemplates();
+  const { resolvedGenericTags } = useTagsAndCategories();
 
   const onChangeTemplate = useCallback(
     (templateId: number) => {
       updateSelectedTemplate(templateId);
       updateCurrentTitle(
         templateId
-          ? emailSummaryList.find((email) => email.id === templateId).subject
+          ? templateSummaryList.find((email) => email.id === templateId).subject
           : '',
       );
     },
-    [emailSummaryList, updateCurrentTitle, updateSelectedTemplate],
+    [templateSummaryList, updateCurrentTitle, updateSelectedTemplate],
   );
 
   const onSelectTemplate = useCallback(
     (eventValue: number) => {
       if (eventValue) {
+        const params: FetchTemplateDetailsParams = {
+          templateId: eventValue,
+        };
         onChangeTemplate(eventValue);
-        getEmailDetail(eventValue);
+        fetchTemplateDetails(params);
       } else {
         onChangeTemplate(null);
       }
     },
-    [getEmailDetail, onChangeTemplate],
+    [fetchTemplateDetails, onChangeTemplate],
   );
 
   const onTitleChange = useCallback(
@@ -105,10 +106,13 @@ const CommunicationSelectTemplate: React.FC<Props> = ({
   }, [selectedTemplate]);
 
   const onRefreshClick = useCallback(() => {
+    const params: FetchTemplateDetailsParams = {
+      templateId: selectedTemplate,
+    };
     fetchEmailSummaryList();
-    getEmailDetail(selectedTemplate);
+    fetchTemplateDetails(params);
     setDisplayRefreshAlert(false);
-  }, [fetchEmailSummaryList, getEmailDetail, selectedTemplate]);
+  }, [fetchEmailSummaryList, fetchTemplateDetails, selectedTemplate]);
 
   const onShowTemplateClick = useCallback(
     () => setDisplayTemplatePreview((prevState) => !prevState),
@@ -116,13 +120,7 @@ const CommunicationSelectTemplate: React.FC<Props> = ({
   );
 
   const html =
-    !emailDetailListLoading && emailDetailList?.[selectedTemplate]?.html;
-
-  useEffect(() => {
-    if (selectedTemplate) {
-      getEmailDetail(selectedTemplate);
-    }
-  }, [getEmailDetail, selectedTemplate]);
+    !loadingTemplateDetails && emailDetailList?.[selectedTemplate]?.html;
 
   return (
     <div className={classes.contentContainer}>
@@ -135,13 +133,13 @@ const CommunicationSelectTemplate: React.FC<Props> = ({
         placeholder={t('mail.title')}
         value={currentTitle}
       />
-      {emailSummaryListLoading ? (
+      {loadingTemplateSummaries ? (
         <LinearProgress className={classes.selectorContainer} />
       ) : (
         <div className={classes.selectorContainer}>
           <div className={classes.emailSelectorContainer}>
             <EmailSelector
-              emails={emailSummaryList}
+              emails={templateSummaryList}
               helperText={t('mail.mailSelection')}
               onChange={onSelectTemplate}
               value={selectedTemplate}
@@ -193,7 +191,7 @@ const CommunicationSelectTemplate: React.FC<Props> = ({
           </Button>
         </div>
         <Collapse className={classes.collapse} in={displayTemplatePreview}>
-          {selectedTemplate && !emailDetailListLoading ? (
+          {selectedTemplate && !loadingTemplateDetails ? (
             <div className={classes.editIcon}>
               <Fab
                 className={classes.advancedIndex}
@@ -207,7 +205,7 @@ const CommunicationSelectTemplate: React.FC<Props> = ({
             </div>
           ) : null}
           <div className={classes.mailPreview}>
-            {selectedTemplate && !emailDetailListLoading && !!html ? (
+            {selectedTemplate && !loadingTemplateDetails && !!html ? (
               <HTMLPreview
                 scrolling
                 html={html}
@@ -215,12 +213,12 @@ const CommunicationSelectTemplate: React.FC<Props> = ({
               />
             ) : (
               <>
-                {emailDetailListLoading && !!html ? (
+                {loadingTemplateDetails && !!html ? (
                   <CircularProgress />
                 ) : (
                   <div className={classes.previewEmpty}>
                     <Alert className={classes.alertInfo} severity="info">
-                      {emailSummaryList?.length > 0
+                      {templateSummaryList?.length > 0
                         ? t('mail.selectToShowPreview')
                         : t('mail.noMailAvailable')}
                     </Alert>

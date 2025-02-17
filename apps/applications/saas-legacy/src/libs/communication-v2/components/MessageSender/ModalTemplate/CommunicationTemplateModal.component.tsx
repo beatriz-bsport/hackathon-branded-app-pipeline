@@ -2,49 +2,32 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import CommunicationWrapperDialog from '#src/libs/communication-v2/components/CommunicationWrapperDialog.component';
-import type {
-  EmailTemplateDetail,
-  EmailTemplateSummary,
-  ResolvedGenericTags,
-} from '#src/libs/email-editor/types';
-import CommunicationSelectTemplate from '#src/libs/communication-v2/components/MessageSender/ModalTemplate/CommunicationSelectTemplate.component';
+import CommunicationSelectTemplate from './CommunicationSelectTemplate.component';
+import { useEmailTemplates } from '#src/libs/communication-v2/hooks/useEmailTemplates.hooks';
 
 export type Props = {
-  emailDetailList: Record<number, EmailTemplateDetail>;
-  emailDetailListLoading: boolean;
-  emailSummaryList: EmailTemplateSummary[];
-  emailSummaryListLoading: boolean;
   fullScreen?: boolean;
   open: boolean;
-  resolvedGenericTags: ResolvedGenericTags;
   selectedTemplate: number;
   selectedTitle: string;
   closeDialog: () => void;
-  fetchEmailSummaryList: () => void;
-  getEmailDetail: (id: number) => void;
   setTemplate: (id: number) => void;
   setTitle: (title: string) => void;
 };
 
 export const CommunicationTemplateModal: React.FC<Props> = ({
-  emailDetailList,
-  emailDetailListLoading,
-  emailSummaryList,
-  emailSummaryListLoading,
   fullScreen,
   open,
-  resolvedGenericTags,
   selectedTemplate,
   selectedTitle,
   closeDialog,
-  fetchEmailSummaryList,
-  getEmailDetail,
   setTemplate,
   setTitle,
 }) => {
   const { t } = useTranslation('communication');
   const [selectedTemplateId, setSelectedTemplateId] = useState<number>(null);
   const [currentTitle, setCurrentTitle] = useState('');
+  const { templateDetailList, fetchTemplateSummaries } = useEmailTemplates();
 
   useEffect(() => {
     selectedTitle && setCurrentTitle(selectedTitle);
@@ -59,11 +42,10 @@ export const CommunicationTemplateModal: React.FC<Props> = ({
 
   // CDM
   useEffect(() => {
-    if (!emailSummaryList?.length) {
-      fetchEmailSummaryList();
+    if (!templateDetailList?.length) {
+      fetchTemplateSummaries();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [fetchEmailSummaryList]);
+  }, [fetchTemplateSummaries, templateDetailList]);
 
   const onConfirm = useCallback(() => {
     setTemplate(selectedTemplateId);
@@ -92,13 +74,8 @@ export const CommunicationTemplateModal: React.FC<Props> = ({
     >
       <CommunicationSelectTemplate
         currentTitle={currentTitle}
-        emailDetailList={emailDetailList}
-        emailDetailListLoading={emailDetailListLoading}
-        emailSummaryList={emailSummaryList}
-        emailSummaryListLoading={emailSummaryListLoading}
-        fetchEmailSummaryList={fetchEmailSummaryList}
-        getEmailDetail={getEmailDetail}
-        resolvedGenericTags={resolvedGenericTags}
+        emailDetailList={templateDetailList}
+        fetchEmailSummaryList={fetchTemplateSummaries}
         selectedTemplate={selectedTemplateId}
         updateCurrentTitle={updateCurrentTitle}
         updateSelectedTemplate={updateSelectedTemplate}

@@ -71,7 +71,10 @@ const InboxPanelSmartlist: React.FC<Props> = ({
         </div>
         <div className={classes.filterContainer}>
           {filters.map((filter: any) => (
-            <div className={classes.chipContainer}>
+            <div
+              key={filter.filter_identifier}
+              className={classes.chipContainer}
+            >
               <CustomChip
                 displayedValue={t(`filters.${filter.filter_identifier}.name`)}
                 mainColor={theme.palette.common.black}

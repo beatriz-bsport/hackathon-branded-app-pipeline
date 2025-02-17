@@ -25,7 +25,7 @@ const InboxMemberTags: React.FC<Props> = ({ memberTags, tags }) => {
       <Typography variant="body1">{t('thread.panel.tags')}</Typography>
       <div className={classes.tagContainer}>
         {getMemberTagsWithData?.map((tag) => (
-          <div className={classes.chipContainer}>
+          <div key={tag?.id} className={classes.chipContainer}>
             <TagChip tag={tag} />
           </div>
         ))}

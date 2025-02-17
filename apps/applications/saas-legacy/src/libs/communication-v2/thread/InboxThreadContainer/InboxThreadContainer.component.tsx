@@ -126,12 +126,6 @@ export type Props = {
   scrollToBottomFlag: boolean;
   fetchMoreCommunicationMessages: () => void;
   loadingCommunicationMessageDataList: boolean;
-  loadingInformationRecipientList: boolean;
-  fetchPageInformationRecipientList: (
-    communication: Communication,
-    page: number,
-    memberSelectedCategories: number[],
-  ) => void;
 
   // --- Send Message ---
   communicationKindBeingWritten: number;
@@ -273,14 +267,10 @@ const InboxThreadContainer: React.FC<
                   fetchMoreCommunicationMessages={
                     props.fetchMoreCommunicationMessages
                   }
-                  fetchRecipientPaginatedList={
-                    props.fetchPageInformationRecipientList
-                  }
                   hasActiveFilters={hasActiveFilters}
                   loadingCommunicationMessageDataList={
                     props.loadingCommunicationMessageDataList
                   }
-                  loadingRecipientList={props.loadingInformationRecipientList}
                   messageList={props.messageList}
                   //@ts-expect-error
                   onCloseSnackbar={props.onCloseSnackbar}

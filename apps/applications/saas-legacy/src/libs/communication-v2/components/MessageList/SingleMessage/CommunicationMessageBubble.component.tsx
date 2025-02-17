@@ -31,13 +31,13 @@ import {
   findMemberAssociatedTagsInTagsGroups,
 } from '#src/components/html/utils';
 import type { Member } from '#src/libs/member/types';
-import type { ResolvedGenericTags } from '#src/libs/email-editor/types';
 import {
   COMMUNICATION_SENT_SENDING_FAIL,
   COMMUNICATION_SENT_SENDING_PROCESSING,
   COMMUNICATION_SENT_SENDING_SUCCESS,
 } from '#src/libs/communication-v2/constants';
 import { getSmartlistChannelFromMetadata } from '#src/libs/communication-v2/utils';
+import { useTagsAndCategories } from '#src/libs/communication-v2/hooks/useCommunicationsTools.hooks';
 import CommunicationMessageNumberRecipients from '#src/libs/communication-v2/components/MessageList/SingleMessage/CommunicationMessageNumberRecipients.component';
 import { getTextColorFromRGB } from '#src/utils/color';
 
@@ -223,7 +223,6 @@ type OwnProps = {
   oneToOneMessageMember: Member;
   onShowInformationClick: () => void;
   onShowEmailTemplate: (title: string, html: string) => void;
-  resolvedGenericTags: ResolvedGenericTags;
   communicationMessage: CommunicationMessage;
 };
 
@@ -247,11 +246,11 @@ export const CommunicationMessageBubble = (props: Props) => {
     oneToOneMessageMember,
     onShowInformationClick,
     onShowEmailTemplate,
-    resolvedGenericTags,
     communicationMessage,
   } = props;
   const { communication, channel, photos, answerSourceMember } =
     communicationMessage;
+  const { resolvedGenericTags } = useTagsAndCategories();
 
   const reverse = !!communication.is_answer;
   const withChannel =

@@ -5,7 +5,6 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import Typography from '@material-ui/core/Typography';
 import type { CommunicationMessage } from '#src/libs/communication-v2/types';
 import type { Member } from '#src/libs/member/types';
-import type { ResolvedGenericTags } from '#src/libs/email-editor/types';
 import CommunicationMessageBubble from '#src/libs/communication-v2/components/MessageList/SingleMessage/CommunicationMessageBubble.component';
 import useIsVisibleOnScreen from '#src/hooks/useIsVisibleOnScreen';
 
@@ -17,7 +16,6 @@ type Props = {
   showCommunicationInformation: (communication?: CommunicationMessage) => void;
   showEmailTemplate: (title?: string, html?: string) => void;
   currentPage: number;
-  resolvedGenericTags: ResolvedGenericTags;
   scrollToBottomFlag: boolean;
   hasActiveFilters: boolean;
 };
@@ -97,7 +95,6 @@ const CommunicationMessageScrollableView = (props: Props) => {
             onShowInformationClick={() =>
               props.showCommunicationInformation(threadCommunication)
             }
-            resolvedGenericTags={props.resolvedGenericTags}
           />
         ))
       )}

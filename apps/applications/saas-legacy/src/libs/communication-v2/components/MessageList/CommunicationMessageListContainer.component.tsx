@@ -6,13 +6,10 @@ import clsx from 'clsx';
 import InfoGenericBox from '#src/components/box/InfoGenericBox.component';
 import type {
   CommunicationMessage,
-  Communication,
-  Recipient,
   FilteringMemberIdsByGenericCategories,
 } from '#src/libs/communication-v2/types';
 import type { Member } from '#src/libs/member/types';
 import HTMLPreviewDialog from '#src/components/html/HTMLPreviewDialog.component';
-import type { ResolvedGenericTags } from '#src/libs/email-editor/types';
 import CommunicationMessageScrollableView from '#src/libs/communication-v2/components/MessageList/CommunicationMessageScrollableView.component';
 import CommunicationInformationModal from '#src/libs/communication-v2/components/MessageList/ModalInformation/CommunicationInformationModal.component';
 import AlertSmsProviderSmsNotVerified from '#src/libs/communication-v2/components/AlertSmsProviderNotVerified.component';
@@ -24,20 +21,11 @@ export type Props = {
   contextMember?: Member;
   currentPage: number;
   messageList: CommunicationMessage[];
-  fetchRecipientPaginatedList: (
-    communication: Communication,
-    page: number,
-    memberSelectedCategories: number[],
-  ) => void;
   fetchMoreCommunicationMessages: () => void;
   fullScreen?: boolean;
   hasActiveFilters: boolean;
   loadingCommunicationMessageDataList: boolean;
-  loadingRecipientList: boolean;
   paginationSize: number;
-  recipientList: Recipient<Member>[];
-  recipientListCount: number;
-  resolvedGenericTags: ResolvedGenericTags;
   scrollToBottomFlag: boolean;
   showMailProviderWarningContent: boolean;
   showCommunicationSmsProviderNotVerifiedWarning: boolean;
@@ -48,17 +36,12 @@ const CommunicationMessageListContainer: React.FC<Props> = ({
   contextMember,
   messageList,
   fetchMoreCommunicationMessages,
-  fetchRecipientPaginatedList,
   fullScreen,
   hasActiveFilters,
   loadingCommunicationMessageDataList,
-  loadingRecipientList,
   paginationSize,
-  recipientList,
-  recipientListCount,
   showMailProviderWarningContent,
   currentPage,
-  resolvedGenericTags,
   scrollToBottomFlag,
   showCommunicationSmsProviderNotVerifiedWarning,
   allMemberCategoryList,
@@ -158,7 +141,6 @@ const CommunicationMessageListContainer: React.FC<Props> = ({
         }
         messageList={messageList}
         oneToOneMessageMember={contextMember}
-        resolvedGenericTags={resolvedGenericTags}
         scrollToBottomFlag={scrollToBottomFlag}
         showCommunicationInformation={showCommunicationInformation}
         showEmailTemplate={showEmailTemplate}
@@ -168,7 +150,6 @@ const CommunicationMessageListContainer: React.FC<Props> = ({
           html={selectedMailBody}
           onClose={closeEmailView}
           open={openEmailView}
-          resolvedGenericTags={resolvedGenericTags}
           title={selectedMailTitle}
         />
       )}
@@ -178,14 +159,10 @@ const CommunicationMessageListContainer: React.FC<Props> = ({
           contextInformation={modalContextInformation}
           contextMember={contextMember}
           contextTitle={modalContextTitle}
-          fetchRecipientPaginatedList={fetchRecipientPaginatedList}
           fullScreen={fullScreen}
           handleCloseDialog={closeInformationModal}
-          loadingRecipientList={loadingRecipientList}
           open={openInformationModal}
           paginationSize={paginationSize}
-          recipientList={recipientList}
-          recipientListCount={recipientListCount}
           selectedCommunication={selectedCommunication}
         />
       )}

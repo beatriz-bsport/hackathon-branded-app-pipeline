@@ -4,6 +4,7 @@ import type {
   ShopItemTemplate,
   ShopItemVariantCombination,
 } from '#src/libs/shop/types';
+import Config from '#src/config';
 
 type ShopItemVariantComputedCombination = { color: string; size: string };
 
@@ -50,11 +51,11 @@ export const getShopItemName = ({
 
   // base item
   if (variantCount) {
-    return [name, variantCount, price].filter((text) => !!text).join(' - ');
+    return [name, price, variantCount].filter((text) => !!text).join(' - ');
   }
 
   // standalone/variant item
-  return [name, color, size, price].filter((text) => !!text).join(' - ');
+  return [name, price, color, size].filter((text) => !!text).join(' - ');
 };
 
 /**
@@ -177,4 +178,19 @@ export const doesBaseItemMutationAffectsVariants = (
     shopItemFormData?.marketplace_enabled !==
       shopItemOrShopItemTemplate?.marketplace_enabled
   );
+};
+
+/**
+ * Returns the payment link for a shop item, be it a standalone item or a variant
+ * @param shopItemId The id of the shop item
+ * @param companyId The id of the company
+ * @example
+ * const shopItemPaymentLink = getShopItemPaymentLink(142, 2)
+ * // http://localhost:3000/customer/payment/shop-item/142/?membership=2 -> with local config
+ */
+export const getShopItemPaymentLink = (
+  shopItemId: number,
+  companyId: number,
+) => {
+  return `${Config.PUBLIC_URL}/customer/payment/shop-item/${shopItemId}/?membership=${companyId}`;
 };

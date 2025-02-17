@@ -171,8 +171,9 @@ export class ShopReworkedProductListPage extends PureComponent<Props> {
    */
   checkBarcodeUnicity = (
     barcode: string,
+    companyIds?: number[],
     options?: OptionCallback<ShopItemBarcodeUnicity>,
-  ) => this.props.retrieveShopItemBarcodeUnicity(barcode, options);
+  ) => this.props.retrieveShopItemBarcodeUnicity(barcode, companyIds, options);
 
   render() {
     return (

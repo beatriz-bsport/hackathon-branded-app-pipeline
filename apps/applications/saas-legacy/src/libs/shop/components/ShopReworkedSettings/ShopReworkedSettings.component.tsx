@@ -135,7 +135,8 @@ const ShopReworkedSettings: React.FC<Props> = ({
 
   const handleCloseSupplierModal = useCallback(() => {
     setIsSupplierModalOpen(false);
-    handleUnsetSupplier();
+    // We delay the unsetting of the supplier so that the title of the modal doesn't change when the modal fades out
+    setTimeout(() => handleUnsetSupplier(), 150);
   }, [handleUnsetSupplier]);
 
   const handleSupplierSubmit = useCallback(

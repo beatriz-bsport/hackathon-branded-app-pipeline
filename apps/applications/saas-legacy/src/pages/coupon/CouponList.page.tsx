@@ -92,6 +92,7 @@ import {
 } from '#src/libs/fuzzy-search/components/ObjectSearch.hoc';
 import { MaterialStyleType, WithHandlerType } from '../../utils/types';
 import withTitle from '../../hocs/with-title.hoc';
+import { getTheme } from '#src/libs/theme/selectors';
 
 type OwnProps = {
   couponToDelete: number;
@@ -420,6 +421,7 @@ export class CouponList extends React.PureComponent<Props, State> {
           allPrivatePassesById={this.props.allPrivatePassesById}
           // @ts-expect-error
           allShopItemsById={this.props.shopItemBaseAndStandaloneById}
+          displayNewWebshop={!!this.props.displayNewWebshop}
           fetchSelectedPaymentCombos={this.props.fetchSelectedPaymentCombos}
           fetchSelectedPaymentPacks={this.props.fetchSelectedPaymentPacks}
           fetchSelectedPrivatePasses={this.props.fetchSelectedPrivatePasses}
@@ -439,6 +441,7 @@ export class CouponList extends React.PureComponent<Props, State> {
           tagsLoading={this.props.tagsLoading}
         />
         <UniqueCodeCouponFormDrawer
+          displayNewWebshop={!!this.props.displayNewWebshop}
           isLoading={this.props.loading}
           isProcessing={this.props.createOrUpdateLoading}
           onCancel={this.onCloseUniqueCodeCouponFormDrawer}
@@ -506,6 +509,7 @@ const connector = connect(
     privatePasses: getPrivatePass(state),
     allPrivatePassesById: getPrivatePassById(state),
     tagList: getAllTagsWithTagGroup(state),
+    displayNewWebshop: getTheme(state)?.display_new_webshop,
   }),
   {
     fetchCouponPage,

@@ -75,6 +75,10 @@ import { shopItemOption } from '#src/libs/shop/components/ShopItemSelector.compo
 import { privatePassOption } from '#src/libs/private-service/components/pass/PrivatePassSelector.component';
 // @ts-expect-error
 import { paymentComboOption } from '#src/libs/payment-combo/components/PaymentComboSelector.component';
+import {
+  FUZZY_SEARCH_BAR_PAGE_ADDITIONAL_PARAMS_OLD_WEBSHOP,
+  FUZZY_SEARCH_BAR_PAGE_ADDITIONAL_PARAMS_WEBSHOP_REWORKED,
+} from '#src/libs/shop/components/ShopReworkedProductList/constants';
 
 const {
   trackFormAdd,
@@ -100,6 +104,7 @@ type Props = {
   paymentCombos: Array<PaymentCombo>;
   tagList: Array<Tag<TagGroupAPI>>;
   tagsLoading: boolean;
+  displayNewWebshop: boolean;
 } & WithObjectSearch;
 
 type State = {
@@ -482,7 +487,11 @@ export class CouponForm extends React.Component<Props, State> {
       t,
       classes,
       initial,
+      displayNewWebshop,
     } = this.props;
+    const webshopSearchParams = displayNewWebshop
+      ? FUZZY_SEARCH_BAR_PAGE_ADDITIONAL_PARAMS_WEBSHOP_REWORKED
+      : FUZZY_SEARCH_BAR_PAGE_ADDITIONAL_PARAMS_OLD_WEBSHOP;
     return (
       <div className={classes.fullWidth}>
         <RadioGroup
@@ -570,7 +579,7 @@ export class CouponForm extends React.Component<Props, State> {
             <ObjectSearchComponent
               hideSelectedOptions
               additionalParams={{
-                disabled: false,
+                ...webshopSearchParams,
                 id__not_in:
                   this.state.applies_to === BUYABLE_ITEM_SHOP_ITEM
                     ? this.state.only_on_objects

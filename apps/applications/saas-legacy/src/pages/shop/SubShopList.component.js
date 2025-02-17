@@ -109,30 +109,32 @@ export class SubShopList extends Component<Props, State> {
             {subShop.name}
           </Typography>
         </Grid>
-        <Grid item>
-          <Grid container direction="row" spacing={2}>
-            <ObjectLevelPermissionWrapper
-              forcedBehavior="hidden"
-              requiredPermission="product.shopReworked.allowed_actions.edit"
-            >
-              <Grid item>
-                <IconButton onClick={this.toogleEditMode}>
-                  <EditIcon />
-                </IconButton>
-              </Grid>
-            </ObjectLevelPermissionWrapper>
-            <ObjectLevelPermissionWrapper
-              forcedBehavior="hidden"
-              requiredPermission="product.shopReworked.allowed_actions.delete"
-            >
-              <Grid item>
-                <IconButton onClick={this.showSubShopDeleteDialog}>
-                  <DeleteIcon />
-                </IconButton>
-              </Grid>
-            </ObjectLevelPermissionWrapper>
+        {!subShop?.sub_shop_template && (
+          <Grid item>
+            <Grid container direction="row" spacing={2}>
+              <ObjectLevelPermissionWrapper
+                forcedBehavior="hidden"
+                requiredPermission="product.shopReworked.allowed_actions.edit"
+              >
+                <Grid item>
+                  <IconButton onClick={this.toogleEditMode}>
+                    <EditIcon />
+                  </IconButton>
+                </Grid>
+              </ObjectLevelPermissionWrapper>
+              <ObjectLevelPermissionWrapper
+                forcedBehavior="hidden"
+                requiredPermission="product.shopReworked.allowed_actions.delete"
+              >
+                <Grid item>
+                  <IconButton onClick={this.showSubShopDeleteDialog}>
+                    <DeleteIcon />
+                  </IconButton>
+                </Grid>
+              </ObjectLevelPermissionWrapper>
+            </Grid>
           </Grid>
-        </Grid>
+        )}
       </Grid>
     );
   };

@@ -129,7 +129,7 @@ exports.default = {
               },
             },
             detailsModal: {
-              title: 'Supplier: {{name}}',
+              title: 'Supplier: ',
             },
             deleteModal: {
               title: 'Supplier: {{- supplierName }}',

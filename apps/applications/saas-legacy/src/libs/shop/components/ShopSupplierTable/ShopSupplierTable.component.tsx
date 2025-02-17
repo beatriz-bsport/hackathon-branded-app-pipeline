@@ -101,31 +101,33 @@ const ShopSupplierListItem: React.FC<ShopSupplierListItemProps> = React.memo(
               <VisibilityIcon />
             </IconButton>
           </Tooltip>
-          <ObjectLevelPermissionWrapper
-            forcedBehavior="hidden"
-            requiredPermission="product.shopReworked.allowed_actions.editSettings"
-          >
-            <>
-              <Tooltip
-                title={t(
-                  'shopList.tab.settings.section.suppliers.table.action.edit',
-                )}
-              >
-                <IconButton color="primary" onClick={onEditSupplier}>
-                  <EditIcon />
-                </IconButton>
-              </Tooltip>
-              <Tooltip
-                title={t(
-                  'shopList.tab.settings.section.suppliers.table.action.delete',
-                )}
-              >
-                <IconButton onClick={onDeleteSupplier}>
-                  <DeleteIcon />
-                </IconButton>
-              </Tooltip>
-            </>
-          </ObjectLevelPermissionWrapper>
+          {!supplier?.supplier_template && (
+            <ObjectLevelPermissionWrapper
+              forcedBehavior="hidden"
+              requiredPermission="product.shopReworked.allowed_actions.editSettings"
+            >
+              <>
+                <Tooltip
+                  title={t(
+                    'shopList.tab.settings.section.suppliers.table.action.edit',
+                  )}
+                >
+                  <IconButton color="primary" onClick={onEditSupplier}>
+                    <EditIcon />
+                  </IconButton>
+                </Tooltip>
+                <Tooltip
+                  title={t(
+                    'shopList.tab.settings.section.suppliers.table.action.delete',
+                  )}
+                >
+                  <IconButton onClick={onDeleteSupplier}>
+                    <DeleteIcon />
+                  </IconButton>
+                </Tooltip>
+              </>
+            </ObjectLevelPermissionWrapper>
+          )}
         </TableCell>
       </TableRow>
     );
@@ -137,6 +139,8 @@ const ShopSupplierTable: React.FC<Props> = ({
   handleEditSupplier,
   handleSelectSupplierForDeletion,
 }) => {
+  const classes = useStyles();
+
   const [selectedSupplier, setSelectedSupplier] = useState<ShopSupplier | null>(
     null,
   );
@@ -163,14 +167,12 @@ const ShopSupplierTable: React.FC<Props> = ({
         open={!!selectedSupplier && isSupplierDetailsModalOpen}
       >
         <DialogTitle>
-          {t(
-            'shop:shopList.tab.settings.section.suppliers.detailsModal.title',
-            {
-              name: selectedSupplier?.name,
-            },
-          )}
+          {t('shop:shopList.tab.settings.section.suppliers.detailsModal.title')}
+          {selectedSupplier?.name}
         </DialogTitle>
-        <DialogContent>{selectedSupplier?.description}</DialogContent>
+        <DialogContent className={classes.descriptionDialog}>
+          {selectedSupplier?.description}
+        </DialogContent>
         <DialogActions>
           <Button onClick={closeSupplierDetailsModal}>
             {t('common:close')}
@@ -228,6 +230,9 @@ const useStyles = makeStyles(() => ({
   },
   hidden: {
     visibility: 'hidden',
+  },
+  descriptionDialog: {
+    whiteSpace: 'pre-wrap',
   },
 }));
 

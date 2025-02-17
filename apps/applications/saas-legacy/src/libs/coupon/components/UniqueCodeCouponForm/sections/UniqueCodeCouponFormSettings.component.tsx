@@ -33,12 +33,20 @@ import { shopItemOption } from '#src/libs/shop/components/ShopItemSelector.compo
 import { privatePassOption } from '#src/libs/private-service/components/pass/PrivatePassSelector.component';
 //@ts-expect-error
 import { paymentComboOption } from '#src/libs/payment-combo/components/PaymentComboSelector.component';
+import {
+  FUZZY_SEARCH_BAR_PAGE_ADDITIONAL_PARAMS_OLD_WEBSHOP,
+  FUZZY_SEARCH_BAR_PAGE_ADDITIONAL_PARAMS_WEBSHOP_REWORKED,
+} from '#src/libs/shop/components/ShopReworkedProductList/constants';
 
 type Props = {
   isProcessing: boolean;
+  displayNewWebshop: boolean;
 };
 
-const UniqueCodeCouponFormSettings: React.FC<Props> = ({ isProcessing }) => {
+const UniqueCodeCouponFormSettings: React.FC<Props> = ({
+  isProcessing,
+  displayNewWebshop,
+}) => {
   const { t } = useTranslation('coupon');
 
   const classes = useStyles();
@@ -138,6 +146,10 @@ const UniqueCodeCouponFormSettings: React.FC<Props> = ({ isProcessing }) => {
 
   const doesApplyToPack = values?.applies_to === BUYABLE_ITEM_COMBO_ITEM;
 
+  const webshopSearchParams = displayNewWebshop
+    ? FUZZY_SEARCH_BAR_PAGE_ADDITIONAL_PARAMS_WEBSHOP_REWORKED
+    : FUZZY_SEARCH_BAR_PAGE_ADDITIONAL_PARAMS_OLD_WEBSHOP;
+
   return (
     <FormSection
       id="unique-code-coupon-form-settings"
@@ -214,7 +226,7 @@ const UniqueCodeCouponFormSettings: React.FC<Props> = ({ isProcessing }) => {
           >
             <ObjectSearchComponent
               additionalParams={{
-                disabled: false,
+                ...webshopSearchParams,
                 ...(doesApplyToShopItem &&
                   values?.only_on_objects && {
                     id__not_in: values.only_on_objects,

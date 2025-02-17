@@ -60,6 +60,12 @@ type Props = {
     event: React.ChangeEvent<HTMLInputElement>,
     hideShopSupplierPriceForFranchisees: boolean,
   ) => void;
+  duplicateShopItemTemplate: (
+    id: number,
+    subshopTemplateId: number,
+    suffix: string,
+    options?: OptionCallback,
+  ) => void;
 };
 
 const FranchiseShopListTabs: React.FC<Props> = ({
@@ -83,6 +89,7 @@ const FranchiseShopListTabs: React.FC<Props> = ({
   handleSetShopItemTemplateToDelete,
   goToShopItemTemplate,
   changeHideShopSupplierPrice,
+  duplicateShopItemTemplate,
 }) => {
   const { t } = useTranslation('shop');
 
@@ -119,6 +126,7 @@ const FranchiseShopListTabs: React.FC<Props> = ({
       <FranchiseShopListProductsTab
         createSubshopTemplate={createSubshopTemplate}
         deleteSubshopTemplate={deleteSubshopTemplate}
+        duplicateShopItemTemplate={duplicateShopItemTemplate}
         fetchShopItemTemplateList={fetchShopItemTemplateList}
         getShopItemTemplateState={getShopItemTemplateState}
         goToShopItemTemplate={goToShopItemTemplate}

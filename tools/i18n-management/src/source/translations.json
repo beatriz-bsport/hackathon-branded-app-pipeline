@@ -13032,7 +13032,7 @@
                   "titleUpdate": "Edit supplier",
                   "field": { "name": "Name *", "description": "Notes" }
                 },
-                "detailsModal": { "title": "Supplier: {{name}}" },
+                "detailsModal": { "title": "Supplier: " },
                 "deleteModal": {
                   "title": "Supplier: {{- supplierName }}",
                   "message": "Are you sure you want to delete this supplier ?"

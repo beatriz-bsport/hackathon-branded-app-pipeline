@@ -18,19 +18,29 @@ import { CustomChip } from '#src/components/chip/CustomChip.component';
 import { getShopItemName } from '#src/libs/shop/utils';
 import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
 
+import FileCopyIcon from '@material-ui/icons/FileCopy';
+
 import type { ShopItemTemplate } from '#src/libs/shop/types';
+import type { OptionCallback } from '#src/state/types';
 
 type Props = {
   className?: string;
   shopItemTemplate: ShopItemTemplate;
   handleDelete?: (shopItemTemplateId: number) => void;
   onClick?: (shopItemTemplate: ShopItemTemplate) => void;
+  duplicateShopItemTemplate?: (
+    id: number,
+    subshopTemplateId: number,
+    suffix: string,
+    options?: OptionCallback,
+  ) => void;
 };
 
 const FranchiseShopItemTemplateListItem: React.FC<Props> = ({
   className,
   shopItemTemplate,
   handleDelete,
+  duplicateShopItemTemplate,
   onClick,
 }) => {
   const { t } = useTranslation(['common', 'shop']);
@@ -42,6 +52,17 @@ const FranchiseShopItemTemplateListItem: React.FC<Props> = ({
   const handleDeleteShopItemTemplate = useCallback(() => {
     handleDelete?.(shopItemTemplate?.id);
   }, [handleDelete, shopItemTemplate?.id]);
+
+  const handleDuplicateShopItemTemplate = useCallback(
+    (subshopId: number, subshopTemplateId: number) => () => {
+      duplicateShopItemTemplate?.(
+        subshopId,
+        subshopTemplateId,
+        t('translation:common.copySuffix'),
+      );
+    },
+    [duplicateShopItemTemplate, t],
+  );
 
   const handleListItemClick = useCallback(() => {
     onClick?.(shopItemTemplate);
@@ -108,6 +129,20 @@ const FranchiseShopItemTemplateListItem: React.FC<Props> = ({
             mainColor={theme.palette.info.main}
           />
         )}
+
+        {!!duplicateShopItemTemplate &&
+          shopItemTemplate?.is_standalone_item && (
+            <Tooltip title={t('common:duplicate')}>
+              <IconButton
+                onClick={handleDuplicateShopItemTemplate(
+                  shopItemTemplate?.id,
+                  shopItemTemplate?.sub_shop_template,
+                )}
+              >
+                <FileCopyIcon />
+              </IconButton>
+            </Tooltip>
+          )}
 
         {!!handleDelete && (
           <Tooltip title={t('common:delete')}>

@@ -155,6 +155,7 @@ export class InvoiceCreation extends Component<Props, State> {
       <div>
         <InvoiceFormV2
           availableBuyableItems={this.props.availableBuyableItems}
+          displayNewWebshop={!!this.props.companyTheme?.display_new_webshop}
           enableMultiLocalization={
             this.props.companyTheme.enable_multi_localization
           }

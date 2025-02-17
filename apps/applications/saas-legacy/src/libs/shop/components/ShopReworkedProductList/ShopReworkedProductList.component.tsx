@@ -78,6 +78,7 @@ type Props = {
   bookkeepingAccountById: Record<number, BookkeepingAccount>;
   checkBarcodeUnicity: (
     barcode: string,
+    companyIds?: number[],
     options?: OptionCallback<ShopItemBarcodeUnicity>,
   ) => void;
   getShopItemBarcodeUnicity: (barcode: string) => boolean;
@@ -296,54 +297,60 @@ const ShopReworkedProductList: React.FC<Props> = ({
                           </Tooltip>
                         )}
                       </IconButton>
-                      {shopItem.is_standalone_item && (
-                        <ObjectLevelPermissionWrapper
-                          forcedBehavior="hidden"
-                          requiredPermission="product.shopReworked.allowed_actions.create"
-                        >
-                          <Tooltip title={t('common:duplicate')}>
-                            <IconButton
-                              onClick={handleDuplicateShopItem(shopItem.id)}
+                      {!shopItem.shop_item_template && (
+                        <>
+                          {shopItem.is_standalone_item && (
+                            <ObjectLevelPermissionWrapper
+                              forcedBehavior="hidden"
+                              requiredPermission="product.shopReworked.allowed_actions.create"
                             >
-                              <FileCopyIcon />
+                              <Tooltip title={t('common:duplicate')}>
+                                <IconButton
+                                  onClick={handleDuplicateShopItem(shopItem.id)}
+                                >
+                                  <FileCopyIcon />
+                                </IconButton>
+                              </Tooltip>
+                            </ObjectLevelPermissionWrapper>
+                          )}
+                          <ObjectLevelPermissionWrapper
+                            forcedBehavior="hidden"
+                            requiredPermission="product.shopReworked.allowed_actions.delete"
+                          >
+                            <IconButton
+                              onClick={handleOpenDeleteShopItemDialog(shopItem)}
+                            >
+                              <DeleteIcon />
                             </IconButton>
-                          </Tooltip>
-                        </ObjectLevelPermissionWrapper>
+                          </ObjectLevelPermissionWrapper>
+                        </>
                       )}
-                      <ObjectLevelPermissionWrapper
-                        forcedBehavior="hidden"
-                        requiredPermission="product.shopReworked.allowed_actions.delete"
-                      >
-                        <IconButton
-                          onClick={handleOpenDeleteShopItemDialog(shopItem)}
-                        >
-                          <DeleteIcon />
-                        </IconButton>
-                      </ObjectLevelPermissionWrapper>
                     </ListItemSecondaryAction>
                   }
                   onClick={handleGoToShopItem(shopItem.id)}
                   shopitem={shopItem}
                 />
               ))}
-              <ObjectLevelPermissionWrapper
-                forcedBehavior="hidden"
-                requiredPermission="product.shopReworked.allowed_actions.create"
-              >
-                <ListItem
-                  button
-                  onClick={handleOpenShopItemCreationDrawer(subshop.id)}
+              {!subshop?.sub_shop_template && (
+                <ObjectLevelPermissionWrapper
+                  forcedBehavior="hidden"
+                  requiredPermission="product.shopReworked.allowed_actions.create"
                 >
-                  <ListItemAvatar>
-                    <Avatar>
-                      <AddIcon />
-                    </Avatar>
-                  </ListItemAvatar>
-                  <ListItemText
-                    primary={t('translation:form.shop.item.create')}
-                  />
-                </ListItem>
-              </ObjectLevelPermissionWrapper>
+                  <ListItem
+                    button
+                    onClick={handleOpenShopItemCreationDrawer(subshop.id)}
+                  >
+                    <ListItemAvatar>
+                      <Avatar>
+                        <AddIcon />
+                      </Avatar>
+                    </ListItemAvatar>
+                    <ListItemText
+                      primary={t('translation:form.shop.item.create')}
+                    />
+                  </ListItem>
+                </ObjectLevelPermissionWrapper>
+              )}
             </List>
           </Paper>
         </SubShopList>

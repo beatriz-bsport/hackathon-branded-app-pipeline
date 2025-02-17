@@ -37,7 +37,7 @@ import type {
 } from '#src/libs/shop/components/ShopItemVariantBulkUpdateForm/types';
 import type { OptionCallback } from '#src/state/types';
 
-import Config from '#src/config';
+import { getShopItemPaymentLink } from '#src/libs/shop/utils';
 import { SHOP_TABLE_ERROR_CONTAINER_HEIGHT } from '#src/libs/shop/constants';
 import ObjectLevelPermissionWrapper from '#src/libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
 
@@ -53,6 +53,7 @@ type Props = {
   onDeleteShopItemVariant: (id: number) => void;
   shopItemVariantList: ShopItem[];
   isSupplierPriceHidden?: boolean;
+  isShopItemFromFranchisor?: boolean;
   checkBarcodeUnicity: (
     barcode: string,
     options?: OptionCallback<ShopItemBarcodeUnicity>,
@@ -69,6 +70,7 @@ type TableRowItemProps = Pick<
 > & {
   item: ShopItem;
   onShowBarcode: (barcode: string) => void;
+  isShopItemFromFranchisor?: boolean;
 };
 
 const TableRowItem: React.FC<TableRowItemProps> = React.memo(
@@ -77,6 +79,7 @@ const TableRowItem: React.FC<TableRowItemProps> = React.memo(
     item,
     isDeletingVariant,
     isSupplierPriceHidden,
+    isShopItemFromFranchisor,
     onShowBarcode,
     onDeleteShopItemVariant,
   }) => {
@@ -109,7 +112,7 @@ const TableRowItem: React.FC<TableRowItemProps> = React.memo(
       handleCloseExtraActionMenu();
     }, [onDeleteShopItemVariant, item.id, handleCloseExtraActionMenu]);
 
-    const shopItemPaymentPageLink = `${Config.PUBLIC_URL}/customer/payment/shop-item/${item.id}/?membership=${companyId}`;
+    const shopItemPaymentPageLink = getShopItemPaymentLink(item.id, companyId);
 
     return (
       <TableRow key={item.id}>
@@ -181,19 +184,24 @@ const TableRowItem: React.FC<TableRowItemProps> = React.memo(
                 {t('shopItemDetail.viewBarcode')}
               </Typography>
             </MenuItem>
-            <ObjectLevelPermissionWrapper
-              forcedBehavior="hidden"
-              requiredPermission="product.shopReworked.allowed_actions.delete"
-            >
-              <MenuItem disabled={isDeletingVariant} onClick={onDeleteVariant}>
-                <ListItemIcon>
-                  <DeleteIcon fontSize="small" />
-                </ListItemIcon>
-                <Typography variant="inherit">
-                  {t('shopItemDetail.deleteVariant')}
-                </Typography>
-              </MenuItem>
-            </ObjectLevelPermissionWrapper>
+            {!isShopItemFromFranchisor && (
+              <ObjectLevelPermissionWrapper
+                forcedBehavior="hidden"
+                requiredPermission="product.shopReworked.allowed_actions.delete"
+              >
+                <MenuItem
+                  disabled={isDeletingVariant}
+                  onClick={onDeleteVariant}
+                >
+                  <ListItemIcon>
+                    <DeleteIcon fontSize="small" />
+                  </ListItemIcon>
+                  <Typography variant="inherit">
+                    {t('shopItemDetail.deleteVariant')}
+                  </Typography>
+                </MenuItem>
+              </ObjectLevelPermissionWrapper>
+            )}
           </Menu>
         </TableCell>
       </TableRow>
@@ -213,6 +221,7 @@ const ShopItemDetailVariantList: React.FC<Props> = ({
   onDeleteShopItemVariant,
   shopItemVariantList,
   isSupplierPriceHidden,
+  isShopItemFromFranchisor,
   checkBarcodeUnicity,
   getShopItemBarcodeListUnicity,
 }) => {
@@ -293,7 +302,7 @@ const ShopItemDetailVariantList: React.FC<Props> = ({
                 </div>
               </>
             )}
-            {!isVariantEditMode && (
+            {!isVariantEditMode && !isShopItemFromFranchisor && (
               <div className={classes.tableEditActions}>
                 <ObjectLevelPermissionWrapper
                   forcedBehavior="hidden"
@@ -362,6 +371,7 @@ const ShopItemDetailVariantList: React.FC<Props> = ({
                       key={row.id}
                       companyId={companyId}
                       isDeletingVariant={isDeletingVariant}
+                      isShopItemFromFranchisor={isShopItemFromFranchisor}
                       isSupplierPriceHidden={isSupplierPriceHidden}
                       item={row}
                       onDeleteShopItemVariant={onDeleteShopItemVariant}

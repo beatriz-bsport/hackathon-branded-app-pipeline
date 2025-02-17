@@ -92,6 +92,7 @@ type Props = {
   showBarcodeUnicityWarning?: boolean;
   checkBarcodeUnicity?: (
     barcode: string,
+    companyIds?: number[],
     options?: OptionCallback<ShopItemBarcodeUnicity>,
   ) => void;
 };
@@ -192,10 +193,17 @@ const ShopItemFormProductStep: React.FC<Props> = ({
     (event: React.FocusEvent<HTMLInputElement>) => {
       const target = event.target;
       if (target.value && target.value !== initialValues?.barcode) {
-        checkBarcodeUnicity?.(target.value);
+        if (!values?.franchiseCompanyList) {
+          checkBarcodeUnicity?.(target.value);
+          return;
+        }
+        const companyIds = values?.franchiseCompanyList.map(
+          (company) => company.value,
+        );
+        checkBarcodeUnicity?.(target.value, companyIds);
       }
     },
-    [checkBarcodeUnicity, initialValues?.barcode],
+    [checkBarcodeUnicity, initialValues?.barcode, values?.franchiseCompanyList],
   );
 
   const provincialTaxText = provincialTaxHelperText(

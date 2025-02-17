@@ -29,6 +29,7 @@ import {
 
 import { retrieveFranchise as retrieveFranchiseAction } from '#src/libs/franchise/actions';
 import { fetchTags as fetchTagsAction } from '#src/libs/tag/actions';
+import { snackbarSuccess } from '#src/libs/snackbar/actions';
 
 // --- SELECTORS ---
 import { getTheme } from '#src/libs/theme/selectors';
@@ -362,8 +363,9 @@ export class ShopReworkedProductDetailPage extends Component<Props> {
    */
   checkBarcodeUnicity = (
     barcode: string,
+    companyIds?: number[],
     options?: OptionCallback<ShopItemBarcodeUnicity>,
-  ) => this.props.retrieveShopItemBarcodeUnicity(barcode, options);
+  ) => this.props.retrieveShopItemBarcodeUnicity(barcode, companyIds, options);
 
   render() {
     return (
@@ -399,6 +401,7 @@ export class ShopReworkedProductDetailPage extends Component<Props> {
           this.props.shopItemVariantFilterOptionList
         }
         shopItemVariantFilterOptionValues={this.getVariantFilterOptionValues()}
+        snackbarSuccess={this.props.snackbarSuccess}
         supplierList={this.props.supplierState.suppliers}
         tab={this.props.queryParams.tab}
         tagList={this.props.allTagsWithTagGroup}
@@ -461,6 +464,7 @@ const connector = connect(
     fetchBookkeepingAccountList: fetchBookkeepingAccountListAction,
     retrieveFranchise: retrieveFranchiseAction,
     push: (path: string) => (dispatch: Dispatch) => dispatch(pushRouter(path)),
+    snackbarSuccess,
   },
 );
 

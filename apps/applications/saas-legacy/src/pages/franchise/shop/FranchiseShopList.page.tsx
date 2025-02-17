@@ -17,6 +17,7 @@ import {
   createShopItemTemplate as createShopItemTemplateAction,
   updateShopItemTemplate as updateShopItemTemplateAction,
   deleteShopItemTemplate as deleteShopItemTemplateAction,
+  duplicateShopItemTemplate as duplicateShopItemTemplateAction,
   retrieveShopItemBarcodeUnicity as retrieveShopItemBarcodeUnicityAction,
 } from '#src/libs/shop/actions/shopItemReworked';
 
@@ -149,7 +150,7 @@ export class FranchiseShopListPage extends PureComponent<Props> {
 
     this.props.createShopItemTemplate(formData, {
       ...options,
-      onSuccess: () => {
+      onBackgroundSuccess: () => {
         this.handleFetchShopItemTemplateList(subshopTemplateId);
         options?.onSuccess?.();
       },
@@ -190,6 +191,20 @@ export class FranchiseShopListPage extends PureComponent<Props> {
       { sub_shop_template: subshopTemplateId, page },
       options,
     );
+  };
+
+  handleDuplicateShopItemTemplate = (
+    id: number,
+    subshopTemplateId: number,
+    suffix: string,
+    options?: OptionCallback,
+  ) => {
+    this.props.duplicateShopItemTemplate(id, suffix, {
+      onBackgroundSuccess: () => {
+        this.handleFetchShopItemTemplateList(subshopTemplateId);
+      },
+      onBackgroundError: options?.onError,
+    });
   };
 
   handleFetchShopSupplierTemplateList = (page?: number) => {
@@ -272,8 +287,9 @@ export class FranchiseShopListPage extends PureComponent<Props> {
    */
   checkBarcodeUnicity = (
     barcode: string,
+    company_ids: number[],
     options?: OptionCallback<ShopItemBarcodeUnicity>,
-  ) => this.props.retrieveShopItemBarcodeUnicity(barcode, options);
+  ) => this.props.retrieveShopItemBarcodeUnicity(barcode, company_ids, options);
 
   render() {
     return (
@@ -287,6 +303,7 @@ export class FranchiseShopListPage extends PureComponent<Props> {
         deleteShopItemTemplate={this.handleDeleteShopItemTemplate}
         deleteSubshopTemplate={this.handleDeleteSubshopTemplate}
         deleteSupplierTemplate={this.handleDeleteSupplierTemplate}
+        duplicateShopItemTemplate={this.handleDuplicateShopItemTemplate}
         fetchShopItemTemplateList={this.handleFetchShopItemTemplateList}
         franchiseCompanyListOptions={this.getFranchiseCompanyListOptions()}
         getShopItemBarcodeUnicity={this.props.getShopItemBarcodeUnicity}
@@ -356,6 +373,7 @@ const connector = connect(
     createShopItemTemplate: createShopItemTemplateAction,
     updateShopItemTemplate: updateShopItemTemplateAction,
     deleteShopItemTemplate: deleteShopItemTemplateAction,
+    duplicateShopItemTemplate: duplicateShopItemTemplateAction,
     retrieveShopItemBarcodeUnicity: retrieveShopItemBarcodeUnicityAction,
     // shop supplier template actions
     fetchShopSupplierTemplateList: fetchShopSupplierTemplateListAction,

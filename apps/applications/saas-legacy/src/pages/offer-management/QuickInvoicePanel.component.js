@@ -67,6 +67,7 @@ type Props = {
       { paymentGroupId: number, invoiceUuid: string },
     >,
   ) => void,
+  displayNewWebshop: boolean,
 };
 
 type State = {
@@ -223,6 +224,7 @@ export class QuickInvoicePanel extends React.PureComponent<Props, State> {
                       createInvoice={
                         this.handleCreateInvoiceAndOpenBillingModal
                       }
+                      displayNewWebshop={!!this.props?.displayNewWebshop}
                       enableMultiLocalization={
                         this.props.enableMultiLocalization
                       }

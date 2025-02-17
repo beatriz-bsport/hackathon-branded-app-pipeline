@@ -45,6 +45,8 @@ export type ShopItemFilterParams = ShopAPIFilter & {
   // and baseItems, this can be bypassed by setting is_standalone_item to null
   is_standalone_item?: boolean | null;
   is_variant?: boolean;
+  // This parameter allows us to fetch both the standalone Items and the variant Items
+  buyable_shop_item?: boolean;
   size?: string;
   id__in?: number[];
 };
@@ -57,6 +59,7 @@ export type ShopSupplier = {
   description: string;
   id: number;
   name: string;
+  supplier_template: number | null;
 };
 
 /** Represents a shop supplier at the franchise context */
@@ -100,6 +103,7 @@ export type SubShop = {
   name: string;
   company: number;
   shopItems: ShopItem[];
+  sub_shop_template?: number | null;
 };
 
 export type SubshopTemplate = {

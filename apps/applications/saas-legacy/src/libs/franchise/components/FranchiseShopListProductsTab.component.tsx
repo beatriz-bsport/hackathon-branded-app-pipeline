@@ -47,6 +47,12 @@ type Props = {
     shopItemTemplate: ShopItemTemplate,
     subshopTemplateId: number,
   ) => void;
+  duplicateShopItemTemplate: (
+    id: number,
+    subshopTemplateId: number,
+    suffix: string,
+    options?: OptionCallback,
+  ) => void;
 };
 
 const FranchiseShopListProductsTabSearchListItem = React.memo(
@@ -72,6 +78,7 @@ const FranchiseShopListProductsTab: React.FC<Props> = ({
   fetchShopItemTemplateList,
   handleOpenShopItemTemplateForm,
   handleSetShopItemTemplateToDelete,
+  duplicateShopItemTemplate,
 }) => {
   const { t } = useTranslation(['shop', 'common']);
 
@@ -215,6 +222,7 @@ const FranchiseShopListProductsTab: React.FC<Props> = ({
       </div>
 
       <FranchiseSubshopTemplateList
+        duplicateShopItemTemplate={duplicateShopItemTemplate}
         fetchShopItemTemplateList={fetchShopItemTemplateList}
         getShopItemTemplateState={getShopItemTemplateState}
         goToShopItemTemplate={goToShopItemTemplate}

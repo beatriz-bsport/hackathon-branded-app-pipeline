@@ -40,6 +40,7 @@ type OwnProps = {
     params: { company: Number; id__in?: Number[] },
     options?: OptionCallback<PaymentCombo[]>,
   ) => void;
+  displayNewWebshop: boolean;
 };
 type Props = OwnProps;
 

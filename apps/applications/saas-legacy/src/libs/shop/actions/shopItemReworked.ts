@@ -52,6 +52,7 @@ import {
   createShopItemTemplate as createShopItemTemplateAPI,
   updateShopItemTemplate as updateShopItemTemplateAPI,
   deleteShopItemTemplate as deleteShopItemTemplateAPI,
+  duplicateShopItemTemplate as duplicateShopItemTemplateAPI,
   fetchAll,
 } from '../api';
 import { monitorBackgroundTask } from '#src/libs/background-task/actions';
@@ -148,6 +149,7 @@ export const retrieveShopItemBarcodeUnicityActions = {
  */
 export const retrieveShopItemBarcodeUnicity = (
   barcode: string,
+  companyIds?: number[],
   options?: OptionCallback<ShopItemBarcodeUnicity>,
 ) => {
   return async (dispatch: Dispatch) => {
@@ -155,7 +157,10 @@ export const retrieveShopItemBarcodeUnicity = (
       dispatch(retrieveShopItemBarcodeUnicityActions.isLoading(true));
       dispatch(retrieveShopItemBarcodeUnicityActions.error(null));
 
-      const result = await retrieveShopItemBarcodeUnicityAPI(barcode);
+      const result = await retrieveShopItemBarcodeUnicityAPI(
+        barcode,
+        companyIds,
+      );
 
       dispatch(
         retrieveShopItemBarcodeUnicityActions.success({
@@ -407,7 +412,7 @@ export const createShopItemTemplateVariants = ({
 }: {
   id: number;
   data: ShopItemVariantAttributes;
-  options?: OptionCallback;
+  options?: OptionBackgroundCallback;
 }) => {
   return async (dispatch: Dispatch) => {
     try {
@@ -416,7 +421,24 @@ export const createShopItemTemplateVariants = ({
 
       const result = await createShopItemTemplateVariantsAPI(id, data);
 
-      dispatch(createShopItemTemplateVariantsActions.success(result.data));
+      const backgroundTaskUuid = result.headers['x-background-task-uuid'];
+
+      dispatch(
+        monitorBackgroundTask(backgroundTaskUuid, {
+          onError: (err) => {
+            console.error(err);
+            dispatch(createShopItemTemplateVariantsActions.error(err));
+            options?.onBackgroundError?.(err);
+          },
+          onSuccess: () => {
+            dispatch(
+              createShopItemTemplateVariantsActions.success(result.data),
+            );
+            options?.onBackgroundSuccess?.();
+          },
+        }),
+      );
+
       options?.onSuccess?.();
     } catch (error) {
       dispatch(createShopItemTemplateVariantsActions.error(error));
@@ -531,16 +553,31 @@ export const updateShopItemTemplateVariantBulk = ({
 }: {
   id: number;
   data: FormData;
-  options: OptionCallback;
+  options: OptionBackgroundCallback;
 }) => {
   return async (dispatch: Dispatch) => {
     try {
       dispatch(updateShopItemTemplateVariantBulkActions.isLoading(true));
       dispatch(updateShopItemTemplateVariantBulkActions.error(null));
 
-      await updateShopItemTemplateVariantBulkAPI(id, data);
+      const response = await updateShopItemTemplateVariantBulkAPI(id, data);
 
-      dispatch(updateShopItemTemplateVariantBulkActions.success());
+      const backgroundTaskUuid = response.headers['x-background-task-uuid'];
+
+      dispatch(
+        monitorBackgroundTask(backgroundTaskUuid, {
+          onError: (err) => {
+            console.error(err);
+            dispatch(updateShopItemTemplateVariantBulkActions.error(err));
+            options?.onBackgroundError?.(err);
+          },
+          onSuccess: () => {
+            dispatch(updateShopItemTemplateVariantBulkActions.success());
+            options?.onBackgroundSuccess?.();
+          },
+        }),
+      );
+
       options?.onSuccess?.();
     } catch (error) {
       dispatch(updateShopItemTemplateVariantBulkActions.error(error));
@@ -935,14 +972,29 @@ export const createShopItemTemplateActions = {
  */
 export const createShopItemTemplate = (
   data: FormData,
-  options?: OptionCallback,
+  options?: OptionBackgroundCallback,
 ) => {
   return async (dispatch: Dispatch) => {
     try {
       dispatch(createShopItemTemplateActions.isLoading(true));
       dispatch(createShopItemTemplateActions.error(null));
 
-      await createShopItemTemplateAPI(data);
+      const response = await createShopItemTemplateAPI(data);
+
+      const backgroundTaskUuid = response.headers['x-background-task-uuid'];
+
+      dispatch(
+        monitorBackgroundTask(backgroundTaskUuid, {
+          onError: (err) => {
+            console.error(err);
+            dispatch(createShopItemTemplateActions.error(err));
+            options?.onBackgroundError?.(err);
+          },
+          onSuccess: () => {
+            options?.onBackgroundSuccess?.();
+          },
+        }),
+      );
 
       options?.onSuccess?.();
     } catch (error) {
@@ -1154,6 +1206,54 @@ export const fetchShopItemTemplateVariantList = ({
       options?.onError?.();
     } finally {
       dispatch(fetchShopItemTemplateVariantListActions.isLoading(false));
+    }
+  };
+};
+
+export const duplicateShopItemTemplateActions = {
+  isLoading: createAction<boolean>('SHOP_ITEM_TEMPLATE/DUPLICATE/LOADING'),
+  error: createAction<Error | null>('SHOP_ITEM_TEMPLATE/DUPLICATE/ERROR'),
+};
+
+/**
+ * Duplicates an existing shop item template, ONLY FOR STANDALONE ITEMS
+ * @param id The ID of the shop item to duplicate
+ * @param suffix The string to concat at the end of the name of the duplicated item
+ * @param options Callbacks for success, error and background task
+ */
+export const duplicateShopItemTemplate = (
+  id: number,
+  suffix: string,
+  options?: OptionBackgroundCallback<ShopItem>,
+) => {
+  return async (dispatch: Dispatch) => {
+    try {
+      dispatch(duplicateShopItemTemplateActions.isLoading(true));
+      dispatch(duplicateShopItemTemplateActions.error(null));
+
+      const response = await duplicateShopItemTemplateAPI(id, suffix);
+
+      const backgroundTaskUuid = response.headers['x-background-task-uuid'];
+
+      dispatch(
+        monitorBackgroundTask(backgroundTaskUuid, {
+          onError: (err) => {
+            console.error(err);
+            dispatch(duplicateShopItemTemplateActions.error(err));
+            options?.onBackgroundError?.(err);
+          },
+          onSuccess: () => {
+            dispatch(snackbarSuccess('shop.item.duplicate.success'));
+            options?.onBackgroundSuccess?.();
+          },
+        }),
+      );
+    } catch (error) {
+      dispatch(duplicateShopItemTemplateActions.error(error));
+      console.error(error);
+      options?.onError?.();
+    } finally {
+      dispatch(duplicateShopItemTemplateActions.isLoading(false));
     }
   };
 };

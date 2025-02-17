@@ -53,6 +53,7 @@ type OwnProps = {
   enableMultiLocalization: boolean;
   imageCarouselChangeable: boolean;
   giftcardBackgroundImageList: Array<GiftcardBackgroundImage>;
+  displayNewWebshop: boolean;
 };
 
 type Props = OwnProps & WithStyles & WithTranslation;
@@ -326,6 +327,7 @@ export class InvoiceForm extends React.Component<Props, State> {
             isEquilibrated
             amountInvoiceItem={invoiceItemAmount}
             availableBuyableItems={this.props.availableBuyableItems}
+            displayNewWebshop={this.props.displayNewWebshop}
             invoiceHasChanged={this.state.invoiceItemList.length}
             invoiceItemIsEmpty={this.invoiceItemIsEmpty()}
             member={this.props.member}

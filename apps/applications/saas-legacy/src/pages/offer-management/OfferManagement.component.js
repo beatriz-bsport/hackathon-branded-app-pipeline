@@ -1269,6 +1269,7 @@ export class OfferManagement extends Component<Props, State> {
             companyId={this.props.companyId}
             consumerGiftcardList={this.props.consumerGiftcardList}
             createInvoice={this.createInvoice}
+            displayNewWebshop={!!this.props.company_theme?.display_new_webshop}
             enableMultiLocalization={
               this.props.company_theme.enable_multi_localization
             }

@@ -42,6 +42,7 @@ type Props = {
   establishmentLoading: boolean,
   enableMultiLocalization: boolean,
   memberDetails: { [id: number]: Member },
+  displayNewWebshop: boolean,
 };
 
 type State = {
@@ -243,6 +244,7 @@ export class QuickInvoice extends PureComponent<Props, State> {
           <div>
             <InvoiceItemEditor
               availableBuyableItems={this.props.availableBuyableItems}
+              displayNewWebshop={!!this.props?.displayNewWebshop}
               member={this.getMemberDetail(quickInvoice)}
               onAddBuyableItem={this.addBuyableItem}
             />

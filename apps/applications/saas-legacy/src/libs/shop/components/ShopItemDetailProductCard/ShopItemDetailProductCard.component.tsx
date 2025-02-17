@@ -24,12 +24,16 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
 
 import ObjectLevelPermissionWrapper from '#src/libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
+import CopyToClipboard from 'react-copy-to-clipboard';
+import { getShopItemPaymentLink } from '#src/libs/shop/utils';
 
 type Props = {
   isLoading?: boolean;
   isDeleting?: boolean;
   cover?: string;
+  companyId?: number;
   name: string;
+  shopItemId?: number;
   subtitle?: string;
   description?: string;
   price?: string;
@@ -37,8 +41,10 @@ type Props = {
   allVariantsHaveSamePrice?: boolean;
   productHasVariants?: boolean;
   hideCopyPaymentPageLink?: boolean;
+  isShopItemFromFranchisor?: boolean;
   onEditShopItem: () => void;
   onDeleteShopItem: () => void;
+  snackbarSuccess?: (text: string) => void;
 };
 
 const ShopItemDetailProductCardSkeleton: React.FC<{
@@ -81,7 +87,9 @@ const ShopItemDetailProductCard: React.FC<Props> = ({
   isLoading,
   isDeleting,
   cover,
+  companyId,
   name,
+  shopItemId,
   subtitle,
   description,
   price,
@@ -89,8 +97,10 @@ const ShopItemDetailProductCard: React.FC<Props> = ({
   allVariantsHaveSamePrice,
   productHasVariants,
   hideCopyPaymentPageLink,
+  isShopItemFromFranchisor,
   onEditShopItem,
   onDeleteShopItem,
+  snackbarSuccess,
 }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
@@ -112,6 +122,11 @@ const ShopItemDetailProductCard: React.FC<Props> = ({
     setMenuAnchorElement(null);
   }, []);
 
+  const handleCopyPaymentPageLink = useCallback(() => {
+    snackbarSuccess('link.copied');
+    handleCloseMenu();
+  }, [handleCloseMenu, snackbarSuccess]);
+
   const handleClickDeleteShopItem = useCallback(() => {
     onDeleteShopItem();
     handleCloseMenu();
@@ -122,6 +137,15 @@ const ShopItemDetailProductCard: React.FC<Props> = ({
       ? lowestVariantPrice
       : price,
   );
+
+  const shopItemPaymentPageLink =
+    hideCopyPaymentPageLink || !shopItemId || !companyId
+      ? ''
+      : getShopItemPaymentLink(shopItemId, companyId);
+
+  const displayProductDetailActionMenu =
+    (!productHasVariants && !hideCopyPaymentPageLink) ||
+    !isShopItemFromFranchisor;
 
   if (isLoading) {
     return <ShopItemDetailProductCardSkeleton isMobile={isMobile} />;
@@ -135,26 +159,30 @@ const ShopItemDetailProductCard: React.FC<Props> = ({
         <div className={classes.cardHeader}>
           <Typography variant="h6">{t('shop:shopItemDetail.title')}</Typography>
           <div>
-            <ObjectLevelPermissionWrapper
-              forcedBehavior="hidden"
-              requiredPermission="product.shopReworked.allowed_actions.edit"
-            >
-              <Button
-                color="primary"
-                onClick={onEditShopItem}
-                startIcon={<EditIcon />}
-                variant="contained"
+            {!isShopItemFromFranchisor && (
+              <ObjectLevelPermissionWrapper
+                forcedBehavior="hidden"
+                requiredPermission="product.shopReworked.allowed_actions.edit"
               >
-                {t('shop:shopitem.action.edit')}
-              </Button>
-            </ObjectLevelPermissionWrapper>
-            <IconButton
-              className={classes.cardHeaderMoreActionsButton}
-              color="secondary"
-              onClick={handleOpenExtraActionMenu}
-            >
-              <MoreVertIcon />
-            </IconButton>
+                <Button
+                  color="primary"
+                  onClick={onEditShopItem}
+                  startIcon={<EditIcon />}
+                  variant="contained"
+                >
+                  {t('shop:shopitem.action.edit')}
+                </Button>
+              </ObjectLevelPermissionWrapper>
+            )}
+            {displayProductDetailActionMenu && (
+              <IconButton
+                className={classes.cardHeaderMoreActionsButton}
+                color="secondary"
+                onClick={handleOpenExtraActionMenu}
+              >
+                <MoreVertIcon />
+              </IconButton>
+            )}
             <Menu
               keepMounted
               anchorEl={menuAnchorElement}
@@ -163,18 +191,22 @@ const ShopItemDetailProductCard: React.FC<Props> = ({
               open={!!menuAnchorElement}
             >
               {!productHasVariants && !hideCopyPaymentPageLink && (
-                <MenuItem onClick={handleCloseMenu}>
-                  {t('shop:shopItemDetail.copyPaymentPageLink')}
-                </MenuItem>
+                <CopyToClipboard text={shopItemPaymentPageLink}>
+                  <MenuItem onClick={handleCopyPaymentPageLink}>
+                    {t('shop:shopItemDetail.copyPaymentPageLink')}
+                  </MenuItem>
+                </CopyToClipboard>
               )}
-              <ObjectLevelPermissionWrapper
-                forcedBehavior="hidden"
-                requiredPermission="product.shopReworked.allowed_actions.delete"
-              >
-                <MenuItem onClick={handleClickDeleteShopItem}>
-                  {t('common:delete')}
-                </MenuItem>
-              </ObjectLevelPermissionWrapper>
+              {!isShopItemFromFranchisor && (
+                <ObjectLevelPermissionWrapper
+                  forcedBehavior="hidden"
+                  requiredPermission="product.shopReworked.allowed_actions.delete"
+                >
+                  <MenuItem onClick={handleClickDeleteShopItem}>
+                    {t('common:delete')}
+                  </MenuItem>
+                </ObjectLevelPermissionWrapper>
+              )}
             </Menu>
           </div>
         </div>

@@ -28,6 +28,7 @@ type Props = {
   count: number;
   isVariantEditMode?: boolean;
   isSupplierPriceHidden?: boolean;
+  isShopItemFromFranchisor?: boolean;
   handleOpenBarcodeModal: (barcode: string) => void;
   handleOpenVariantDrawer: () => void;
   onDeleteShopItemVariant: (id: number) => void;
@@ -53,6 +54,7 @@ const ShopItemDetailVariantsTab: React.FC<Props> = ({
   count,
   isVariantEditMode,
   isSupplierPriceHidden,
+  isShopItemFromFranchisor,
   handleOpenBarcodeModal,
   handleOpenVariantDrawer,
   onDeleteShopItemVariant,
@@ -140,19 +142,21 @@ const ShopItemDetailVariantsTab: React.FC<Props> = ({
             {t('shop:shopItemDetail.table.variants.placeholder')}
           </Typography>
 
-          <ObjectLevelPermissionWrapper
-            forcedBehavior="hidden"
-            requiredPermission="product.shopReworked.allowed_actions.create"
-          >
-            <Button
-              color="primary"
-              onClick={handleOpenVariantDrawer}
-              startIcon={<AddIcon />}
-              variant="outlined"
+          {!isShopItemFromFranchisor && (
+            <ObjectLevelPermissionWrapper
+              forcedBehavior="hidden"
+              requiredPermission="product.shopReworked.allowed_actions.create"
             >
-              {t('shop:shopItemDetail.table.variants.action.add')}
-            </Button>
-          </ObjectLevelPermissionWrapper>
+              <Button
+                color="primary"
+                onClick={handleOpenVariantDrawer}
+                startIcon={<AddIcon />}
+                variant="outlined"
+              >
+                {t('shop:shopItemDetail.table.variants.action.add')}
+              </Button>
+            </ObjectLevelPermissionWrapper>
+          )}
         </div>
       </TabPanel>
     );
@@ -179,6 +183,7 @@ const ShopItemDetailVariantsTab: React.FC<Props> = ({
           handleShowBarcode={handleShowBarcode}
           handleSubmit={handleSubmit}
           isDeletingVariant={isDeletingVariant}
+          isShopItemFromFranchisor={isShopItemFromFranchisor}
           isSupplierPriceHidden={isSupplierPriceHidden}
           isVariantEditMode={isVariantEditMode}
           onDeleteShopItemVariant={onDeleteShopItemVariant}

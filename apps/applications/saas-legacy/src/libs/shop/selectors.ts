@@ -28,7 +28,8 @@ export const _getAllShopItems = createSelector(
 
 /**
  * Retrieves all shop items available for member billing etc\
- * Here we also want to return variants (not linked to any subshop)
+ * Here we also want to return the shopItem not linked to any subshop
+ * This selector is used in the scope of the old webshop
  */
 export const getShopItemsAvailable = createSelector(
   _getAllShopItems,

@@ -9,9 +9,9 @@ import ShopItemListItem from './ShopItemListItem.component';
 // @ts-expect-error
 import Selector from '../../../components/Selector.component';
 
-import { getShopItemName } from '../utils';
+import { getShopItemName } from '#src/libs/shop/utils';
 
-import type { ShopItem } from '../types';
+import type { ShopItem } from '#src/libs/shop/types';
 
 type Props = {
   classes: Object;

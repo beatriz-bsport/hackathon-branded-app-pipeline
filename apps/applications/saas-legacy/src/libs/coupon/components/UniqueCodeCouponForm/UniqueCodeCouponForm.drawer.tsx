@@ -19,6 +19,7 @@ type Props = {
   ) => void;
   isLoading: boolean;
   isProcessing: boolean;
+  displayNewWebshop: boolean;
 };
 
 const UniqueCodeCouponFormDrawer: React.FC<Props> = ({
@@ -28,6 +29,7 @@ const UniqueCodeCouponFormDrawer: React.FC<Props> = ({
   onSubmit,
   isLoading,
   isProcessing,
+  displayNewWebshop,
 }) => {
   const { t } = useTranslation('coupon');
 
@@ -62,6 +64,7 @@ const UniqueCodeCouponFormDrawer: React.FC<Props> = ({
       title={t('fabLabels.voucherCodes')}
     >
       <UniqueCodeCouponForm
+        displayNewWebshop={displayNewWebshop}
         errorMessages={errorMessages}
         isLoading={isLoading}
         isProcessing={isProcessing}

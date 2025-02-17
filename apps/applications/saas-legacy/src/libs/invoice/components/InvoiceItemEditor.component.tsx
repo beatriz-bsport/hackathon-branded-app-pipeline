@@ -23,28 +23,61 @@ import {
 
 import ObjectLevelPermissionProvider from '#src/libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 import { getCurrencyDisplay } from '#src/libs/theme/selectors';
-import NumericInput from '../../../components/input/NumericInput.component';
-import PaymentPackSelector from '../../payment-packs/components/PaymentPackSelector.component';
-import PrivatePassSelector from '../../private-service/components/pass/PrivatePassSelector.component';
+import NumericInput from '#src/components/input/NumericInput.component';
+import PaymentPackSelector from '#src/libs/payment-packs/components/PaymentPackSelector.component';
+import PrivatePassSelector from '#src/libs/private-service/components/pass/PrivatePassSelector.component';
 // @ts-expect-error
 import PaymentComboSelector from '../../payment-combo/components/PaymentComboSelector.component';
-import GiftcardSelector from '../../giftcard/components/GiftcardSelector.component';
-import ShopItemSelector from '../../shop/components/ShopItemSelector.component';
+import GiftcardSelector from '#src/libs/giftcard/components/GiftcardSelector.component';
+import ShopItemSelector, {
+  shopItemOption,
+} from '#src/libs/shop/components/ShopItemSelector.component';
 // @ts-expect-error
 import withConfirm from '../../../hocs/with-confirm.hoc';
-import { paymentPackTagsAndMemberTagsCompatibilty } from '../../payment-packs/utils';
+import { paymentPackTagsAndMemberTagsCompatibilty } from '#src/libs/payment-packs/utils';
 // @ts-expect-error
 import { BuyableItemTypes } from '../types';
+import ObjectSearchComponent from '#src/libs/fuzzy-search/components/ObjectSearch.component';
+import { FUZZY_SEARCH_BAR_BUYABLE_ITEMS_ADDITIONAL_PARAMS_WEBSHOP_REWORKED } from '#src/libs/shop/components/ShopReworkedProductList/constants';
+import type { ShopItem } from '#src/libs/shop/types';
+import type { SelectOption } from '#src/libs/types';
 
 type BuyableItemProps = {
   buyableItemIdentifier: number;
   value?: number;
   availableBuyableItems: { [key: string]: BuyableItemTypes };
-  onSelect?: (id: number) => void;
+  onSelect?: (id: number, buyableItem?: ShopItem) => void;
+  displayNewWebshop?: boolean;
 };
 
 const BuyableItemSelector: React.FC<BuyableItemProps> = React.memo(
-  ({ buyableItemIdentifier, value, availableBuyableItems, onSelect }) => {
+  ({
+    buyableItemIdentifier,
+    value,
+    availableBuyableItems,
+    onSelect,
+    displayNewWebshop,
+  }) => {
+    const { t } = useTranslation('shop');
+    const [selectedShopItemName, setSelectedShopItemName] = useState('');
+
+    const formatSearchOptions = useCallback((searchResults: ShopItem[]) => {
+      return searchResults.map((result) => ({
+        label: result.name,
+        value: result.id,
+        pp: result,
+      }));
+    }, []);
+
+    const handleOnChangeShopItem = useCallback(
+      (selectedOption: SelectOption<number>) => {
+        // @ts-expect-error: onChange is typed as (SelectOption<number>) => void
+        onSelect(selectedOption.value, selectedOption?.pp);
+        setSelectedShopItemName(selectedOption.label);
+      },
+      [onSelect],
+    );
+
     switch (buyableItemIdentifier) {
       case BUYABLE_ITEM_PASS:
         return (
@@ -57,6 +90,23 @@ const BuyableItemSelector: React.FC<BuyableItemProps> = React.memo(
           />
         );
       case BUYABLE_ITEM_SHOP_ITEM:
+        if (displayNewWebshop)
+          return (
+            <ObjectSearchComponent
+              additionalParams={
+                FUZZY_SEARCH_BAR_BUYABLE_ITEMS_ADDITIONAL_PARAMS_WEBSHOP_REWORKED
+              }
+              components={{ Option: shopItemOption }}
+              onChange={handleOnChangeShopItem}
+              optionsFormatter={formatSearchOptions}
+              placeholder={
+                selectedShopItemName || t('shopitem.selector.placeholder')
+              }
+              searchedObjectType="shop_item"
+              value={[]}
+            />
+          );
+
         return (
           <ShopItemSelector
             // @ts-expect-error
@@ -111,6 +161,7 @@ type Props = {
     [buyableItemIdentifier: QuicksaleBasketItem]: BuyableItemTypes[];
   };
   member: { credit_account_balance: number };
+  displayNewWebshop?: boolean;
 };
 
 const getPriceForItem = (
@@ -148,6 +199,7 @@ const InvoiceItemEditor: React.FC<Props> = ({
   onAddBuyableItem,
   availableBuyableItems,
   member,
+  displayNewWebshop,
 }) => {
   const classes = useStyles();
 
@@ -158,6 +210,15 @@ const InvoiceItemEditor: React.FC<Props> = ({
 
   const [buyableItemId, setBuyableItemId] = useState<number | null>(null);
 
+  /**
+   * buyableItem is an optional parameter that is used in the scope of the new webshop
+   * It is used to send the information given by the selected ObjectSearchComponent
+   * to the parent component as long as this component doesn't rely on the redux store
+   * TODO: Add all buyable items type in the state type and remove the unpaginated call
+   */
+  const [selectedBuyableItem, setSelectedBuyableItem] =
+    useState<ShopItem | null>(null);
+
   const [quantity, setQuantity] = useState(1);
 
   const [voucher, setVoucher] = useState<string | null>(null);
@@ -165,6 +226,9 @@ const InvoiceItemEditor: React.FC<Props> = ({
   const [voucherPercent, setVoucherPercent] = useState<string | null>(null);
 
   const [warnMamangerOnInvoice, setWarnManagerOnInvoice] = useState(false);
+
+  const isBuyableShopItemFromNewWebshop =
+    buyableItemIdentifier === BUYABLE_ITEM_SHOP_ITEM && displayNewWebshop;
 
   const buyableItemPrice: string = useMemo(() => {
     // @ts-expect-error
@@ -182,6 +246,7 @@ const InvoiceItemEditor: React.FC<Props> = ({
   const handleChangeTab = useCallback(
     (_: React.SyntheticEvent, value: string) => {
       setBuyableItemId(null);
+      setSelectedBuyableItem(null);
       setVoucher(null);
       setVoucherPercent(null);
       setErrors(false);
@@ -192,20 +257,29 @@ const InvoiceItemEditor: React.FC<Props> = ({
   );
 
   const handleSelectBuyableItem = useCallback(
-    (item_id: number) => {
-      setBuyableItemId(item_id);
+    (item_id: number, newSelectedBuyableItem?: ShopItem) => {
       setVoucher(null);
       setVoucherPercent(null);
       setErrors(false);
-      setFinalPricePreview(
-        // @ts-expect-error
-        availableBuyableItems[buyableItemIdentifier].find(
+      setBuyableItemId(item_id);
+      if (isBuyableShopItemFromNewWebshop) {
+        setSelectedBuyableItem(newSelectedBuyableItem);
+        setFinalPricePreview(newSelectedBuyableItem?.price || '0.00');
+      } else {
+        setFinalPricePreview(
           // @ts-expect-error
-          (buyableItem) => buyableItem.id === item_id,
-        )?.price || '0.00',
-      );
+          availableBuyableItems[buyableItemIdentifier].find(
+            // @ts-expect-error
+            (buyableItem) => buyableItem.id === item_id,
+          )?.price || '0.00',
+        );
+      }
     },
-    [buyableItemIdentifier, availableBuyableItems],
+    [
+      isBuyableShopItemFromNewWebshop,
+      availableBuyableItems,
+      buyableItemIdentifier,
+    ],
   );
 
   const handleSetQuantity = useCallback(
@@ -228,11 +302,18 @@ const InvoiceItemEditor: React.FC<Props> = ({
       // @ts-expect-error
       onAddBuyableItem(buyableItemIdentifier, data);
     } else {
-      // @ts-expect-error
-      const buyableItem = availableBuyableItems[buyableItemIdentifier].find(
-        // @ts-expect-error
-        (bi) => bi.id === buyableItemId,
-      );
+      /**
+       * For the new webshop, we use the selectedBuyableItem to add the item to the basket
+       * The shopItem aren't stored anymore in the redux store so we need to use the selectedBuyableItem state
+       * TODO: Get rid of the availableBuyableItems variable and use the selectedBuyableItem state for all tabs
+       */
+      const buyableItem = isBuyableShopItemFromNewWebshop
+        ? selectedBuyableItem
+        : // @ts-expect-error
+          availableBuyableItems[buyableItemIdentifier].find(
+            // @ts-expect-error
+            (bi) => bi.id === buyableItemId,
+          );
 
       for (let i = 0; i < quantity; i++) {
         onAddBuyableItem(buyableItemIdentifier, {
@@ -244,13 +325,15 @@ const InvoiceItemEditor: React.FC<Props> = ({
       }
     }
   }, [
-    buyableItemId,
     buyableItemIdentifier,
-    quantity,
+    buyableItemId,
     voucher,
-    availableBuyableItems,
-    onAddBuyableItem,
     t,
+    onAddBuyableItem,
+    isBuyableShopItemFromNewWebshop,
+    selectedBuyableItem,
+    availableBuyableItems,
+    quantity,
   ]);
 
   const onChangeVoucherCredit = useCallback(
@@ -484,6 +567,7 @@ const InvoiceItemEditor: React.FC<Props> = ({
               <BuyableItemSelector
                 availableBuyableItems={availableBuyableItems}
                 buyableItemIdentifier={buyableItemIdentifier}
+                displayNewWebshop={displayNewWebshop}
                 // @ts-expect-error
                 member={member}
                 onSelect={handleSelectBuyableItem}

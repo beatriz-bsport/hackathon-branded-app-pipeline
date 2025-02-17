@@ -30,6 +30,7 @@ type ComponentProps = {
   isUsagePerMemberLimited: boolean;
   setIsUsagePerMemberLimited: React.Dispatch<React.SetStateAction<boolean>>;
   errorMessages: { [errorCode: number]: string };
+  displayNewWebshop: boolean;
 };
 
 type UniqueCodeCouponPayload = UniqueCodeCouponUpdatePayload;
@@ -62,6 +63,7 @@ export const UniqueCodeCouponForm: React.FC<Props> = React.memo(
     isUsagePerMemberLimited,
     setIsUsagePerMemberLimited,
     uniqueCodeCoupon,
+    displayNewWebshop,
   }) => {
     const { t } = useTranslation('coupon');
 
@@ -85,7 +87,10 @@ export const UniqueCodeCouponForm: React.FC<Props> = React.memo(
       >
         <UniqueCodeCouponFormGeneral isProcessing={isProcessing} />
 
-        <UniqueCodeCouponFormSettings isProcessing={isProcessing} />
+        <UniqueCodeCouponFormSettings
+          displayNewWebshop={displayNewWebshop}
+          isProcessing={isProcessing}
+        />
 
         <UniqueCodeCouponFormAvailability
           isProcessing={isProcessing}

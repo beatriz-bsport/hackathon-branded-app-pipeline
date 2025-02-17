@@ -21,6 +21,8 @@ type Props = {
   goToSubscription: (id: number) => void,
   invoice?: Invoice,
   member: Member,
+
+  displayNewWebshop: boolean,
 };
 
 const NonEditableMessage = ({
@@ -97,6 +99,7 @@ export const InvoiceEditor = (props: Props) => {
             {!props.invoice && props.step === STEP_INVOICE_ITEM && (
               <InvoiceItemEditor
                 availableBuyableItems={props.availableBuyableItems}
+                displayNewWebshop={props.displayNewWebshop}
                 member={props.member}
                 onAddBuyableItem={props.onAddBuyableItem}
               />

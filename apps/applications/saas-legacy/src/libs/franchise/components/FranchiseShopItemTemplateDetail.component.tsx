@@ -99,6 +99,7 @@ type Props = {
   setQueryParam: (queryParam: string) => (value: string) => void;
   checkBarcodeUnicity: (
     barcode: string,
+    companyIds: number[],
     options?: OptionCallback<ShopItemBarcodeUnicity>,
   ) => void;
   getShopItemBarcodeListUnicity: (barcodeList: string[]) => boolean;
@@ -247,6 +248,28 @@ const FranchiseShopItemTemplateDetail: React.FC<Props> = ({
     setShowVariantDeleteConfirmationModal(true);
   }, []);
 
+  const handleDeleteShopItemVariant = useCallback(
+    (id: number) => {
+      const shopItem = shopItemTemplateInstanceList.find(
+        (instance) => instance?.shop_item_template === id,
+      );
+      // We display the modal to confirm the deletion of a variant only if the variant has an inventory history
+      // Meaning: it has been sold at least once or it has a stock
+      const shouldDisplayDeleteModal =
+        !!shopItem?.current_stock || !!shopItem?.total_sales;
+      if (shouldDisplayDeleteModal) {
+        handleOpenDeleteVariantConfirmationModal(id);
+      } else {
+        deleteShopItemTemplateVariant(id);
+      }
+    },
+    [
+      deleteShopItemTemplateVariant,
+      handleOpenDeleteVariantConfirmationModal,
+      shopItemTemplateInstanceList,
+    ],
+  );
+
   const handleCloseDeleteVariantConfirmationModal = useCallback(() => {
     setShowVariantDeleteConfirmationModal(false);
   }, []);
@@ -299,6 +322,19 @@ const FranchiseShopItemTemplateDetail: React.FC<Props> = ({
     [isVariantEditMode],
   );
 
+  const companyIds = useMemo(
+    () =>
+      shopItemTemplate?.synced_companies?.map((company) => company.id) ?? [],
+    [shopItemTemplate?.synced_companies],
+  );
+
+  const handleCheckBarcodeUnicityForVariant = useCallback(
+    (barcode: string) => {
+      checkBarcodeUnicity(barcode, companyIds);
+    },
+    [checkBarcodeUnicity, companyIds],
+  );
+
   return (
     <div className={classes.container}>
       <ShopItemDetailProductCard
@@ -331,7 +367,7 @@ const FranchiseShopItemTemplateDetail: React.FC<Props> = ({
         <FranchiseShopItemTemplateDetailTabs
           availableTabListOptions={availableTabListOptions}
           changeInventoryVariantFilter={changeInventoryVariantFilter}
-          checkBarcodeUnicity={checkBarcodeUnicity}
+          checkBarcodeUnicity={handleCheckBarcodeUnicityForVariant}
           createShopItemProvision={createShopItemProvision}
           createShopItemProvisionBulk={createShopItemProvisionBulk}
           getShopItemBarcodeListUnicity={getShopItemBarcodeListUnicity}
@@ -342,7 +378,7 @@ const FranchiseShopItemTemplateDetail: React.FC<Props> = ({
           isUpdatingVariant={isUpdatingVariant}
           isVariantEditMode={isVariantEditMode}
           isVariantListLoading={isVariantListLoading}
-          onDeleteShopItemVariant={handleOpenDeleteVariantConfirmationModal}
+          onDeleteShopItemVariant={handleDeleteShopItemVariant}
           selectedTab={selectedTab}
           setIsVariantEditMode={setIsVariantEditMode}
           setQueryParam={setQueryParam}

@@ -203,6 +203,7 @@ const ShopItemDetailTabs: React.FC<Props> = ({
               handleOpenBarcodeModal={handleOpenBarcodeModal}
               handleOpenVariantDrawer={handleOpenVariantDrawer}
               isDeletingVariant={isDeletingVariant}
+              isShopItemFromFranchisor={!!shopItem?.shop_item_template}
               isSupplierPriceHidden={isSupplierPriceHidden}
               isVariantEditMode={isVariantEditMode}
               onDeleteShopItemVariant={onDeleteShopItemVariant}

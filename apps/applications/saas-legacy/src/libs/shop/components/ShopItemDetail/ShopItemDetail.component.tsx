@@ -99,10 +99,12 @@ type Props = {
   ) => (options: SelectOption[]) => void;
   checkBarcodeUnicity: (
     barcode: string,
+    companyIds?: number[],
     options?: OptionCallback<ShopItemBarcodeUnicity>,
   ) => void;
   getShopItemBarcodeListUnicity: (barcodeList: string[]) => boolean;
   getShopItemBarcodeUnicity: (barcode: string) => boolean;
+  snackbarSuccess: (text: string) => void;
 };
 
 const ShopItemDetail: React.FC<Props> = ({
@@ -140,6 +142,7 @@ const ShopItemDetail: React.FC<Props> = ({
   checkBarcodeUnicity,
   getShopItemBarcodeListUnicity,
   getShopItemBarcodeUnicity,
+  snackbarSuccess,
 }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('xs'));
@@ -213,6 +216,28 @@ const ShopItemDetail: React.FC<Props> = ({
     setSelectedVariantIdToDelete(id);
     setShowVariantDeleteConfirmationModal(true);
   }, []);
+
+  const handleDeleteShopItemVariant = useCallback(
+    (id: number) => {
+      const shopItemVariant = variantList.find(
+        (instance) => instance?.id === id,
+      );
+      // We display the modal to confirm the deletion of a variant only if the variant has an inventory history
+      // Meaning: it has been sold at least once or it has a stock
+      const shouldDisplayDeleteModal =
+        !!shopItemVariant?.current_stock || !!shopItemVariant?.total_sales;
+      if (shouldDisplayDeleteModal) {
+        handleOpenDeleteVariantConfirmationModal(id);
+      } else {
+        deleteShopItemVariant(id);
+      }
+    },
+    [
+      deleteShopItemVariant,
+      handleOpenDeleteVariantConfirmationModal,
+      variantList,
+    ],
+  );
 
   const handleCloseDeleteVariantConfirmationModal = useCallback(() => {
     setShowVariantDeleteConfirmationModal(false);
@@ -305,6 +330,13 @@ const ShopItemDetail: React.FC<Props> = ({
     [createShopItemVariants, handleCloseCreateVariantDrawer, shopItem?.id],
   );
 
+  const handleCheckVariantBarcodeUnicity = useCallback(
+    (barcode: string, options?: OptionCallback<ShopItemBarcodeUnicity>) => {
+      checkBarcodeUnicity(barcode, undefined, options);
+    },
+    [checkBarcodeUnicity],
+  );
+
   const allVariantsHaveSamePrice = useMemo(() => {
     const initialPrice = shopItem?.price;
     return variantList.every((variant) => variant.price === initialPrice);
@@ -314,16 +346,20 @@ const ShopItemDetail: React.FC<Props> = ({
     <div className={classes.container}>
       <ShopItemDetailProductCard
         allVariantsHaveSamePrice={allVariantsHaveSamePrice}
+        companyId={companyId}
         cover={shopItem?.cover}
         description={shopItem?.description}
         isDeleting={isDeleting}
         isLoading={isLoading}
+        isShopItemFromFranchisor={!!shopItem?.shop_item_template}
         lowestVariantPrice={shopItem?.lowest_variant_price}
         name={shopItem?.name}
         onDeleteShopItem={handleOpenDeleteConfirmationModal}
         onEditShopItem={handleOpenEditShopItemDrawer}
         price={shopItem?.price}
         productHasVariants={count > 0}
+        shopItemId={shopItem?.id}
+        snackbarSuccess={snackbarSuccess}
         subtitle={shopItem?.subtitle}
       />
 
@@ -340,7 +376,7 @@ const ShopItemDetail: React.FC<Props> = ({
         <ShopItemDetailTabs
           availableTabListOptions={availableTabListOptions}
           changeInventoryVariantFilter={changeInventoryVariantFilter}
-          checkBarcodeUnicity={checkBarcodeUnicity}
+          checkBarcodeUnicity={handleCheckVariantBarcodeUnicity}
           companyId={companyId}
           count={count}
           createShopItemProvision={createShopItemProvision}
@@ -354,7 +390,7 @@ const ShopItemDetail: React.FC<Props> = ({
           isUpdatingVariant={isUpdatingVariant}
           isVariantEditMode={isVariantEditMode}
           isVariantListLoading={isVariantListLoading}
-          onDeleteShopItemVariant={handleOpenDeleteVariantConfirmationModal}
+          onDeleteShopItemVariant={handleDeleteShopItemVariant}
           page={page}
           selectedTab={selectedTab}
           setIsVariantEditMode={setIsVariantEditMode}

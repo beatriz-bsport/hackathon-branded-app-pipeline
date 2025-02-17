@@ -86,6 +86,7 @@ import type {
   ExportCodesAsCsvResponse,
 } from '../../libs/coupon/types';
 import { CouponErrorCodes } from '../../libs/coupon/constants';
+import { getTheme } from '#src/libs/theme/selectors';
 
 type Props = {
   id: number,
@@ -332,6 +333,7 @@ export class CouponCreate extends Component<Props, State> {
           allPaymentPacksById={this.props.allPaymentPacksById}
           allPrivatePassesById={this.props.allPrivatePassesById}
           allShopItemsById={this.props.shopItemBaseAndStandaloneById}
+          displayNewWebshop={!!this.props?.displayNewWebshop}
           fetchSelectedPaymentCombos={this.props.fetchSelectedPaymentCombos}
           fetchSelectedPaymentPacks={this.props.fetchSelectedPaymentPacks}
           fetchSelectedPrivatePasses={this.props.fetchSelectedPrivatePasses}
@@ -352,6 +354,7 @@ export class CouponCreate extends Component<Props, State> {
 
         <>
           <UniqueCodeCouponFormDrawer
+            displayNewWebshop={!!this.props?.displayNewWebshop}
             isLoading={this.props.loading}
             isProcessing={this.props.createOrUpdateLoading}
             onCancel={this.onCloseUniqueCodeCouponFormDrawer}
@@ -492,6 +495,7 @@ const connector = connect(
     tagList: getAllTagsWithTagGroup(state),
     shopItemBaseAndStandaloneById: getShopItemBaseAndStandaloneById(state),
     shopItemBaseAndStandaloneList: getShopItemBaseAndStandaloneList(state),
+    displayNewWebshop: getTheme(state)?.display_new_webshop,
   }),
   {
     goToCouponList: () => pushRouter('/coupon'),

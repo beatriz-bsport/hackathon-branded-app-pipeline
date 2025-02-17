@@ -63,6 +63,7 @@ type Props = {
   franchiseCompanyListOptions?: SelectOption[];
   checkBarcodeUnicity?: (
     barcode: string,
+    companyIds?: number[],
     options?: OptionCallback<ShopItemBarcodeUnicity>,
   ) => void;
   getShopItemBarcodeUnicity?: (barcode: string) => boolean;

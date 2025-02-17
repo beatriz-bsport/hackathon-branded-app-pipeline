@@ -80,9 +80,16 @@ type Props = {
   ) => void;
   checkBarcodeUnicity: (
     barcode: string,
+    companyIds: number[],
     options?: OptionCallback<ShopItemBarcodeUnicity>,
   ) => void;
   getShopItemBarcodeUnicity: (barcode: string) => boolean;
+  duplicateShopItemTemplate: (
+    id: number,
+    subshopTemplateId: number,
+    suffix: string,
+    options?: OptionCallback,
+  ) => void;
 };
 
 const FranchiseShopList: React.FC<Props> = ({
@@ -110,6 +117,7 @@ const FranchiseShopList: React.FC<Props> = ({
   changeHideShopSupplierPrice,
   checkBarcodeUnicity,
   getShopItemBarcodeUnicity,
+  duplicateShopItemTemplate,
 }) => {
   const { t } = useTranslation('shop');
 
@@ -148,7 +156,8 @@ const FranchiseShopList: React.FC<Props> = ({
 
   const handleCloseSupplierTemplateModal = useCallback(() => {
     setIsSupplierTemplateModalOpen(false);
-    handleUnsetSupplierTemplate();
+    // We delay the unsetting of the supplier so that the title of the modal doesn't change when the modal fades out
+    setTimeout(() => handleUnsetSupplierTemplate(), 150);
   }, [handleUnsetSupplierTemplate]);
 
   const handleCloseSupplierTemplateDeleteModal = useCallback(() => {
@@ -273,6 +282,7 @@ const FranchiseShopList: React.FC<Props> = ({
         changeSupplierTemplatePage={changeSupplierTemplatePage}
         createSubshopTemplate={createSubshopTemplate}
         deleteSubshopTemplate={deleteSubshopTemplate}
+        duplicateShopItemTemplate={duplicateShopItemTemplate}
         fetchShopItemTemplateList={fetchShopItemTemplateList}
         getShopItemTemplateState={getShopItemTemplateState}
         goToShopItemTemplate={goToShopItemTemplate}

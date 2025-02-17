@@ -204,9 +204,17 @@ export const retrieveShopItemDetails = (id: number) => {
  * Check if a provided shop item barcode is unique (not used by another shop item)
  * @param barcode The barcode to check
  */
-export const retrieveShopItemBarcodeUnicity = (barcode: string) => {
+export const retrieveShopItemBarcodeUnicity = (
+  barcode: string,
+  company_ids?: number[],
+) => {
+  const params = {
+    barcode,
+    ...(company_ids && !!company_ids?.length && { company_ids }),
+  };
+
   return getAuth<ShopItemBarcodeUnicity>(
-    `${API_V1_URI}/shop/item/barcode-unicity/${buildUrlParams({ barcode })}`,
+    `${API_V1_URI}/shop/item/barcode-unicity/${buildUrlParams(params)}`,
   );
 };
 
@@ -572,4 +580,18 @@ export const updateShopItemTemplate = (id: number, formData: FormData) => {
  */
 export const deleteShopItemTemplate = (id: number) => {
   return deleteAuth(`${API_V1_URI}/shop/shopitemtemplate/${id}/`);
+};
+
+/**
+ * Duplicates an existing standalone shop item template
+ * @param id The ID of the shop item template to duplicate
+ * @param suffix The string to concat at the end of the name of the duplicated item
+ */
+export const duplicateShopItemTemplate = (id: number, suffix: string) => {
+  return postAuth<ShopItem>(
+    `${API_V1_URI}/shop/shopitemtemplate/${id}/duplicate/`,
+    {
+      suffix,
+    },
+  );
 };

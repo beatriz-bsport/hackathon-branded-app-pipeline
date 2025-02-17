@@ -49,6 +49,12 @@ type Props = {
     shopItemTemplate: ShopItemTemplate,
     subshopTemplateId: number,
   ) => void;
+  duplicateShopItemTemplate: (
+    id: number,
+    subshopTemplateId: number,
+    suffix: string,
+    options?: OptionCallback,
+  ) => void;
 };
 
 type FranchiseSubshopTemplateListItemProps = Omit<
@@ -69,6 +75,7 @@ const FranchiseSubshopTemplateListItem: React.FC<FranchiseSubshopTemplateListIte
       handleOpenShopItemTemplateForm,
       handleSetShopItemTemplateToDelete,
       goToShopItemTemplate,
+      duplicateShopItemTemplate,
     }) => {
       const { t } = useTranslation(['common', 'shop']);
 
@@ -220,6 +227,7 @@ const FranchiseSubshopTemplateListItem: React.FC<FranchiseSubshopTemplateListIte
                   <FranchiseShopItemTemplateListItem
                     key={shopItemTemplate.id}
                     className={classes.shopItemTemplateListItem}
+                    duplicateShopItemTemplate={duplicateShopItemTemplate}
                     handleDelete={handleDeleteShopItemTemplate(
                       shopItemTemplate,
                     )}
@@ -260,12 +268,14 @@ const FranchiseSubshopTemplateList: React.FC<Props> = ({
   handleOpenShopItemTemplateForm,
   handleSetShopItemTemplateToDelete,
   goToShopItemTemplate,
+  duplicateShopItemTemplate,
 }) => {
   return (
     <>
       {(subshopTemplateList ?? []).map((subshopTemplate) => (
         <FranchiseSubshopTemplateListItem
           key={subshopTemplate.id}
+          duplicateShopItemTemplate={duplicateShopItemTemplate}
           fetchShopItemTemplateList={fetchShopItemTemplateList}
           goToShopItemTemplate={goToShopItemTemplate}
           handleOpenShopItemTemplateForm={handleOpenShopItemTemplateForm}

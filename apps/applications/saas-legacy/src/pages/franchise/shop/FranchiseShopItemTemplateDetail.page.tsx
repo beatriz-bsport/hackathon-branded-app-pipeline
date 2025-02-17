@@ -185,7 +185,7 @@ export class FranchiseShopItemTemplateDetailPage extends Component<Props> {
       id: baseItemId,
       data,
       options: {
-        onSuccess: () => {
+        onBackgroundSuccess: () => {
           this.fetchShopItemTemplateVariantList();
           // If the number of variant changes, which is the case when we create some
           // We need to refetch the subshop again
@@ -289,7 +289,7 @@ export class FranchiseShopItemTemplateDetailPage extends Component<Props> {
       data,
       id: this.props.id,
       options: {
-        onSuccess: () => {
+        onBackgroundSuccess: () => {
           this.fetchShopItemTemplateVariantList();
           if (needToRefetchShopItemDetailsAndSubshop) {
             this.retrieveShopItemTemplateDetails();
@@ -442,8 +442,9 @@ export class FranchiseShopItemTemplateDetailPage extends Component<Props> {
    */
   checkBarcodeUnicity = (
     barcode: string,
+    companyIds?: number[],
     options?: OptionCallback<ShopItemBarcodeUnicity>,
-  ) => this.props.retrieveShopItemBarcodeUnicity(barcode, options);
+  ) => this.props.retrieveShopItemBarcodeUnicity(barcode, companyIds, options);
 
   render() {
     return (

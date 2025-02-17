@@ -17,6 +17,12 @@ const getRecipients = (state: RootState) =>
 const getRecipientIdPaginatedList = (state: RootState) =>
   state.communicationV2.recipient.allPageIds;
 
+export const getFirstReachedRecipientsListByKind = (state: RootState) =>
+  state.communicationV2.firstReachedRecipients.byKind;
+
+export const getFirstReachedRecipientsListLoading = (state: RootState) =>
+  state.communicationV2.firstReachedRecipients.loading;
+
 export const getRecipientWithMemberPaginatedList = createSelector(
   [getRecipients, getRecipientIdPaginatedList, getMemberListData],
   (recipients, recipientIdList, members) =>

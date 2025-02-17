@@ -42,6 +42,7 @@ import {
   updateCommunicationScheduled as updateCommunicationScheduledAPI,
   sendNowCommunicationScheduled as sendNowCommunicationScheduledAPI,
   retrieveCommunicationSMSProviderVerification as retrieveCommunicationSMSProviderVerificationAPI,
+  fetchFirstSelectedRecipientsForChatAllKinds as fetchFirstSelectedRecipientsForChatAllKindsAPI,
 } from '#src/libs/communication-v2/api';
 import type {
   FetchCommunicationParams,
@@ -59,6 +60,8 @@ import type {
   CommunicationScheduledFilters,
   CommunicationScheduledCreate,
   CommunicationScheduledFiltersForUniqueSmartlist,
+  FetchFirstReachedRecipientsParams,
+  MemberListDataByCommunicationKind,
 } from '#src/libs/communication-v2/types';
 import { COMMUNICATION_SENT_SENDING_PROCESSING } from '#src/libs/communication-v2/constants';
 
@@ -208,6 +211,38 @@ export function fetchCommunicationRecipientList(
       dispatch(recipientAction.error(error));
     }
     dispatch(recipientAction.isLoading(false));
+  };
+}
+
+export const firstReachedRecipientsAction = {
+  error: createAction('COMMUNICATION_RECIPIENT/FIRST_REACHED/LIST/ERROR'),
+  isLoading: createAction(
+    'COMMUNICATION_RECIPIENT/FIRST_REACHED/LIST/IS_LOADING',
+  ),
+  success: createAction('COMMUNICATION_RECIPIENT/FIRST_REACHED/LIST/SUCCESS'),
+};
+
+export function fetchFirstReachedRecipientsList({
+  params,
+  options,
+}: {
+  params: FetchFirstReachedRecipientsParams;
+  options?: OptionCallback<MemberListDataByCommunicationKind>;
+}): ThunkAction {
+  return async (dispatch: Dispatch) => {
+    dispatch(firstReachedRecipientsAction.isLoading(true));
+    dispatch(firstReachedRecipientsAction.error(null));
+    try {
+      const response = await fetchFirstSelectedRecipientsForChatAllKindsAPI(
+        params,
+      );
+      dispatch(firstReachedRecipientsAction.success(response.data));
+      if (options?.onSuccess) options.onSuccess(response.data);
+    } catch (error) {
+      dispatch(firstReachedRecipientsAction.error(error));
+      if (options?.onError) options.onError(error);
+    }
+    dispatch(firstReachedRecipientsAction.isLoading(false));
   };
 }
 

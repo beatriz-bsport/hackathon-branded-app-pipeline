@@ -28,6 +28,7 @@ import {
   sendNowCommunicationScheduledActions,
   fetchCommunicationScheduledListForSmartlistActions,
   retrieveCommunicationSMSProviderVerificationActions,
+  firstReachedRecipientsAction,
 } from '#src/libs/communication-v2/actions';
 
 import type {
@@ -38,6 +39,7 @@ import type {
   CommunicationThread,
   UnreadAnswersCount,
   CommunicationScheduled,
+  MemberListDataByCommunicationKind,
 } from '#src/libs/communication-v2/types';
 import type { PaginatedResponse } from '#src/state/types';
 
@@ -160,6 +162,15 @@ const initialState: Immutable.Immutable<CommunicationState> =
       loading: false,
       error: null,
     },
+    firstReachedRecipients: {
+      byKind: {
+        email: [],
+        phone: [],
+        notification: [],
+      },
+      loading: false,
+      error: null,
+    },
   });
 
 export default handleActions<Immutable.Immutable<CommunicationState>, any>(
@@ -215,6 +226,24 @@ export default handleActions<Immutable.Immutable<CommunicationState>, any>(
           payload.results.map((recipient: Recipient<number>) => recipient.id),
         )
         .setIn(['recipient', 'count'], payload.count);
+    },
+    [firstReachedRecipientsAction.isLoading.toString()]: (
+      state,
+      { payload }: any,
+    ) => {
+      return state.setIn(['firstReachedRecipients', 'loading'], payload);
+    },
+    [firstReachedRecipientsAction.error.toString()]: (
+      state,
+      { payload }: any,
+    ) => {
+      return state.setIn(['firstReachedRecipients', 'error'], payload);
+    },
+    [firstReachedRecipientsAction.success.toString()]: (
+      state,
+      { payload }: { payload: MemberListDataByCommunicationKind },
+    ) => {
+      return state.setIn(['firstReachedRecipients', 'byKind'], payload);
     },
     [communicationSentAction.isLoading.toString()]: (
       state,

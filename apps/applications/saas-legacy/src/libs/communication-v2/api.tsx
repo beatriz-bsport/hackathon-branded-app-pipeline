@@ -1,6 +1,5 @@
 import type { AxiosResponse } from 'axios';
 import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-inbox.js';
-import type { FetchRecipientsParams } from '#src/libs/member/types';
 import type { GenericPaginationResults } from '#src/libs/types';
 import {
   buildUrlParams,
@@ -21,7 +20,9 @@ import type {
   CommunicationScheduledFilters,
   CommunicationThread,
   FetchCommunicationParams,
+  FetchFirstReachedRecipientsParams,
   InboxThreadListParams,
+  MemberListDataByCommunicationKind,
   MessageParams,
   SmartListPopupSending,
   UnreadAnswersCount,
@@ -81,13 +82,9 @@ export const fetchCommunicationRecipientList = async (params: {
 };
 
 export const fetchFirstSelectedRecipientsForChatAllKinds = async (
-  params: {
-    blacklist_email: number[];
-    blacklist_phone: number[];
-    blacklist_notification: number[];
-  } & FetchRecipientsParams,
+  params: FetchFirstReachedRecipientsParams,
 ) => {
-  return getAuthDeprecated(
+  return getAuth<MemberListDataByCommunicationKind>(
     `${API_V1_URI_CORE_DATA}/member/selected_members_for_communication_chat_all_kinds/${buildUrlParams(
       params,
     )}`,

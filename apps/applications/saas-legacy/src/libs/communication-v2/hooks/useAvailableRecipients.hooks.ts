@@ -4,7 +4,10 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import type { RootState } from '#src/reducers/index';
 import type { OptionCallback } from '#src/state/types';
-import type { CommunicationIdentifiers } from '#src/libs/communication-v2/types';
+import type {
+  FetchFirstReachedRecipientsParams,
+  CommunicationIdentifiers,
+} from '#src/libs/communication-v2/types';
 
 import { PAGINATION_SIZE_RECIPIENTS } from '#src/libs/communication-v2/constants';
 
@@ -12,6 +15,11 @@ import { fetchCommunicationsPaginatedMembers as fetchCommunicationsPaginatedMemb
 import { getPaginatedMembers } from '#src/libs/member/selectors';
 
 import { getFormatedQueryParamsFromContext } from '#src/libs/communication-v2/utils';
+import { fetchFirstReachedRecipientsList } from '../actions';
+import {
+  getFirstReachedRecipientsListByKind,
+  getFirstReachedRecipientsListLoading,
+} from '../selectors';
 
 export type FetchAvailableRecipientsParams = {
   page: number;
@@ -41,6 +49,13 @@ export const useAvailableRecipients = ({
   const availableRecipientsWithPhoneCount = useSelector(
     (state: RootState) => state.member.communication.countWithPhone,
   );
+  const firstReachedRecipientsList = useSelector(
+    getFirstReachedRecipientsListByKind,
+  );
+
+  const firstReachedRecipientsLoading = useSelector(
+    getFirstReachedRecipientsListLoading,
+  );
 
   const fetchAvailableRecipients = useCallback(
     ({
@@ -63,6 +78,13 @@ export const useAvailableRecipients = ({
     [dispatch, contextIdentifier, contextObjectId],
   );
 
+  const fetchFirstReachedRecipients = useCallback(
+    (params: FetchFirstReachedRecipientsParams) => {
+      return dispatch(fetchFirstReachedRecipientsList({ params }));
+    },
+    [dispatch],
+  );
+
   const resetRecipients = useCallback(
     ({ options }: ResetRecipientsParams) => {
       dispatch(
@@ -78,7 +100,10 @@ export const useAvailableRecipients = ({
     availableRecipientsTotalCount,
     availableRecipientsWithEmailCount,
     availableRecipientsWithPhoneCount,
+    firstReachedRecipientsList,
+    firstReachedRecipientsLoading,
     fetchAvailableRecipients,
+    fetchFirstReachedRecipients,
     resetRecipients,
   };
 };

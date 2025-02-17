@@ -41,6 +41,7 @@ import {
   CommunicationThread,
   CommunicationThreadWithUnreadAnswersCount,
   CommunicationContext,
+  CommunicationContextQueryParams,
 } from '#src/libs/communication-v2/types';
 import {
   COMMUNICATION_FILTER_IDENTIFIER_CHANNEL,
@@ -635,7 +636,7 @@ export const getFormatedQueryParamsFromContext = memoize(
     contextIdentifier: number,
     contextObjectId: number,
     memberSelectedCategories: number[],
-  ) => {
+  ): CommunicationContextQueryParams => {
     switch (contextIdentifier) {
       case CONTEXT_MEMBER:
         return { id__in: [contextObjectId] };

@@ -32,11 +32,10 @@ import {
 import type {
   MessageData,
   FilteringMemberIdsByGenericCategories,
-  MemberListDataByCommunicationKind,
   MemberListIdsByCommunicationKind,
+  FetchFirstReachedRecipientsParams,
 } from '#src/libs/communication-v2/types';
 import type { OptionCallback } from '#src/state/types';
-import { fetchFirstSelectedRecipientsForChatAllKinds as fetchFirstSelectedRecipientsForChatAllKindsAPI } from '#src/libs/communication-v2/api';
 import CommunicationRecipientsModal from '#src/libs/communication-v2/components/MessageSender/ModalRecipient/CommunicationRecipientsModal.component';
 import EmailTemplateSelector from '#src/libs/communication-v2/components/MessageSender/Writers/EmailTemplateSelector.component';
 import MessageWriterByKind from '#src/libs/communication-v2/components/MessageSender/Writers/MessageWriterByKind.component';
@@ -102,16 +101,6 @@ export const CommunicationSendMessageContainer: React.FC<Props> = ({
   const [validity, setValidity] = useState<number | null>(null);
   const [checkedMemberCategoryFilter, setCheckedMemberCategoryFilter] =
     useState<number[]>([]);
-  const [
-    selectedMemberDetailListAllKinds,
-    setSelectedMemberDetailListAllKinds,
-  ] = useState<MemberListDataByCommunicationKind>({
-    email: [],
-    phone: [],
-    notification: [],
-  });
-  const [selectedMemberDetailListLoading, setSelectedMemberDetailListLoading] =
-    useState(false);
   const [autoResendConfigDialogOpen, setAutoResendConfigDialogOpen] =
     useState(false);
   const [resendCount, setResendCount] = useState(0);
@@ -122,7 +111,10 @@ export const CommunicationSendMessageContainer: React.FC<Props> = ({
     availableRecipientsWithEmailCount,
     availableRecipientsWithPhoneCount,
     loadingAvailableRecipients,
+    firstReachedRecipientsList,
+    firstReachedRecipientsLoading,
     fetchAvailableRecipients,
+    fetchFirstReachedRecipients,
     resetRecipients,
   } = useAvailableRecipients({ contextIdentifier, contextObjectId });
   const { loadingTemplateDetails, templateDetailList, fetchTemplateDetails } =
@@ -452,28 +444,17 @@ export const CommunicationSendMessageContainer: React.FC<Props> = ({
   useEffect(() => {
     const contextParams = buildContextParams();
 
-    const params = {
+    const params: FetchFirstReachedRecipientsParams = {
       ...contextParams,
       blacklist_email: uncheckedMembers.email,
       blacklist_phone: uncheckedMembers.phone,
       blacklist_notification: uncheckedMembers.notification,
     };
 
-    fetchFirstSelectedRecipientsForChatAllKindsAPI(params)
-      .then((response) => {
-        setSelectedMemberDetailListLoading(false);
-        setSelectedMemberDetailListAllKinds({
-          email: response.data.email || [],
-          phone: response.data.phone || [],
-          notification: response.data.notification || [],
-        });
-      })
-      .catch((error) => {
-        setSelectedMemberDetailListLoading(false);
-        console.error(error);
-      });
+    fetchFirstReachedRecipients(params);
   }, [
     buildContextParams,
+    fetchFirstReachedRecipients,
     uncheckedMembers.email,
     uncheckedMembers.phone,
     uncheckedMembers.notification,
@@ -518,8 +499,8 @@ export const CommunicationSendMessageContainer: React.FC<Props> = ({
             onBaliseItemClick={onBaliseItemClick}
             openResendConfigDialog={openResendConfigDialog}
             relatedObjectKind={relatedObjectKind}
-            selectedMemberDetailListAllKinds={selectedMemberDetailListAllKinds}
-            selectedMemberDetailListLoading={selectedMemberDetailListLoading}
+            selectedMemberDetailListAllKinds={firstReachedRecipientsList}
+            selectedMemberDetailListLoading={firstReachedRecipientsLoading}
             sendMessage={sendMessage}
             setCommunicationKind={setCommunicationKind}
             setOpenRecipientSelector={setOpenRecipientSelector}

@@ -77,6 +77,9 @@ export type CommunicationState = {
   communicationSMSProviderVerification: {
     isVerified: boolean;
   } & ErrorAndLoading;
+  firstReachedRecipients: {
+    byKind: MemberListDataByCommunicationKind;
+  } & ErrorAndLoading;
 };
 
 export type Recipient<MemberType = number> = {
@@ -358,3 +361,15 @@ export type CommunicationIdentifiers = {
   contextIdentifier: number;
   contextObjectId: number;
 };
+
+export type CommunicationContextQueryParams = {
+  id__in?: number[];
+  offer_with_selected_categories?: string;
+  smartlist?: number;
+};
+
+export type FetchFirstReachedRecipientsParams = {
+  blacklist_email: number[];
+  blacklist_phone: number[];
+  blacklist_notification: number[];
+} & CommunicationContextQueryParams;

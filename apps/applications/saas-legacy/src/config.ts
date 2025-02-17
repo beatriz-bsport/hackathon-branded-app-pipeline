@@ -42,6 +42,7 @@ type ConfigType = {
   REACT_APP_ZOOM_CLIENT_ID: string;
   REACT_APP_PAYPAL_CLIENT_ID: string;
   REACT_APP_PAYPAL_PARTNER_ATTRIBUTION_ID: string;
+  REACT_APP_MIXPANEL_TOKEN: string;
 };
 
 const Config = {} as ConfigType;

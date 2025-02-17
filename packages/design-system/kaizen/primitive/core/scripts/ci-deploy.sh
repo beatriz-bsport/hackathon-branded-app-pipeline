@@ -3,22 +3,24 @@
 # ===== Variables =====
 
 # Env variables
-ENV=$1
-echo "Start uploading Kaizen Storybook for environment : $ENV"
+ENVIRONMENT=$1
+echo "Start uploading Kaizen Storybook for Environment : $ENVIRONMENT"
 
 # Common variables
 S3_BUCKET="s3://bsport-eu-docs"
 S3_KAIZEN_PATH="storybook/kaizen"
-S3_FINAL_PATH="$S3_BUCKET/$S3_KAIZEN_PATH/$CI_COMMIT_REF_SLUG"
 
-if [ "$ENV" = "dev" ]; then
-    continue
-elif [ "$ENV" = "staging" ]; then
-    continue
-elif [ "$ENV" = "production" ]; then
-    continue
+if [ "$ENVIRONMENT" = "dev" ]; then
+    S3_FINAL_PATH="$S3_BUCKET/$S3_KAIZEN_PATH/dev"
+elif [ "$ENVIRONMENT" = "staging" ]; then
+    S3_FINAL_PATH="$S3_BUCKET/$S3_KAIZEN_PATH/staging"
+elif [ "$ENVIRONMENT" = "production" ]; then
+    S3_FINAL_PATH="$S3_BUCKET/$S3_KAIZEN_PATH/production"
+elif [ "$ENVIRONMENT" = "feature-branch" ]; then
+    FEATURE_BRANCH_IDENTIFIER=$(echo $CI_COMMIT_TAG | sed -n 's/.*deploy-\(frontend-only-\)\{0,1\}\([[:alnum:]_-]\+\).*/\2/p')
+    S3_FINAL_PATH="$S3_BUCKET/$S3_KAIZEN_PATH/$FEATURE_BRANCH_IDENTIFIER"
 else 
-    echo "⚠️  Environment $ENV is not recognized ! Stop script ..."
+    echo "⚠️  Environment $ENVIRONMENT is not recognized ! Stop script ..."
     exit 0
 fi
 

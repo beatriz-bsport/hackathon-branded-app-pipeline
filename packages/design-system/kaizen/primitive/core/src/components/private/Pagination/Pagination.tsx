@@ -40,7 +40,7 @@ const buttonVariants = {
   disabled: {
     true: ["pointer-events-none", "opacity-md"],
     false: [],
-  }
+  },
 } as const;
 
 const pagination = cva(defaultClasses);
@@ -251,7 +251,10 @@ const Pagination: React.FC<PaginationProps> = ({
             <div className="flex gap-2xs">
               {pages.map((page, index) => (
                 <button
-                  className={button({ active: currentPage === parseInt(page), disabled })}
+                  className={button({
+                    active: currentPage === parseInt(page),
+                    disabled,
+                  })}
                   key={index}
                   aria-label={`Page ${page}`}
                   disabled={disabled}

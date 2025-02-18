@@ -8752,7 +8752,7 @@
                 },
                 "amountRemaining": "Ausstehender Betrag: {{amount}}",
                 "billingMoreThanNeeded": "Wenn mehr als der Rechnungsbetrag eingezogen wird, erhöht sich das Guthaben des Mitglieds um die Differenz",
-                "errorSecretExplain2": "",
+                "errorSecretExplain2": "Wenn das Problem nicht behoben werden kann, kontaktieren Sie uns bitte unter dev+payment-intent@bsport.io",
                 "errorSecretExplain1": "Diese Zahlungsmethode ist derzeit nicht verfügbar",
                 "plannedPaymentEvent": {
                     "title": "Geplante Zahlung",
@@ -10375,7 +10375,7 @@
                     },
                     "isAlreadyRegistered": {
                         "message": "Sie sind bereit für diesen Kurs angemeldet.",
-                        "title": "Kurs bereits reserviert"
+                        "title": "Kurs bereits gebucht"
                     },
                     "blockedByTags": {
                         "message": "Du verfügst nicht über die erforderliche Mitgliedschaft oder den passenden Zugang, um diese Sitzung zu buchen.",
@@ -10453,7 +10453,37 @@
                 "yourBooking": "Deine Buchung",
                 "goToLogin": "Anmeldung",
                 "alreadyMember": "Sie haben bereits einen Account?",
-                "checkoutTitle": "Bezahlen"
+                "checkoutTitle": "Bezahlen",
+                "bookButtonLabel": "Jetzt buchen",
+                "bookableStatus": {
+                    "error": "Hoppla, diese Buchung ist anscheinend nicht verfügbar"
+                }
+            },
+            "lightSignup": {
+                "form": {
+                    "errors": {
+                        "global": "Bei der Anmeldung ist ein Fehler aufgetreten",
+                        "phone": "Bitte geben Sie eine gültige Telefonnummer ein",
+                        "email": "Bitte geben Sie eine gültige E-Mail-Adresse ein",
+                        "requiredField": "Dieses Feld ist erforderlich"
+                    },
+                    "button": {
+                        "label": "Anmelden"
+                    },
+                    "phone": {
+                        "placeholder": "+49612345678",
+                        "label": "Telefon"
+                    },
+                    "email": {
+                        "label": "E-mail"
+                    },
+                    "lastName": {
+                        "label": "Nachname"
+                    },
+                    "firstName": {
+                        "label": "Vorname"
+                    }
+                }
             }
         },
         "member": {
@@ -12932,7 +12962,7 @@
                 },
                 "nighttimeLimit": "Die Nachricht wird in der Nacht gesendet. Um bessere Resultate zu erzielen, empfehlen wir, die Marketingnachrichten tagsüber zu versenden.",
                 "datetimeLimit": "Die Nachrichten müssen mindestens 5 Minuten im Voraus geplant werden.",
-                "schedule": "Zeitplan",
+                "schedule": "Kursplan",
                 "at": "an",
                 "when": "Wann",
                 "scheduleForLater": "Für später planen",
@@ -13092,7 +13122,7 @@
                         "availability": {
                             "expiresToday": "Letzter Tag",
                             "expiresIn": "{{ daysRemaining }} Tag übrig",
-                            "expiresIn_plural": "{{ daysRemaining }} Tage übrig",
+                            "expiresIn_plural": "{{ daysRemaining }}Tage übrig",
                             "future": "Beginnt am: {{ startDate }}",
                             "expired": "Abgelaufen am: {{ expirationDate }}",
                             "active": "Läuft ab am: {{ expirationDate }}"
@@ -14139,7 +14169,8 @@
                 "1102": "Empfehlungszuschuss verfügbar (empfehlendes Mitglied)",
                 "1200": "Zahlungsmethode Ablauf der ersten Mahnung für Ratenzahlungen",
                 "1201": "Zweiten Mahnung für den Zahlungsmethode Ablauf der Ratenzahlungen",
-                "undefined": "Buchung für einen Gast (für Gast)"
+                "undefined": "Buchung für einen Gast (für Gast)",
+                "32": "Für Mitglieder, die sich per One-Click-Buchung angemeldet haben (für Mitglieder)"
             },
             "tag": {
                 "BookingOption": {
@@ -17451,7 +17482,7 @@
                 },
                 "warnings": {
                     "exclusiveAssociatedCoaches": "Die Lehrkraft {{- coach_name }} wird nur benachrichtigt, wenn eine Vertretungsanfrage für eine Sitzung in dieser Einrichtung erfolgt. Wenn die Einrichtung gelöscht wird, erhält diese Lehrkraft daher Vertretungsanfragen von jeder Einrichtung.",
-                    "exclusiveAssociatedCoaches_plural": "Deine Lehrer{{-coach_name}}werden nur benachrichtigt, wenn eine Vertretungsanfrage für eine Sitzung in dieser Einrichtung gestellt wird. Durch die Löschung des Betriebes erhalten sie somit von jedem Betrieb Ersatzanfragen.",
+                    "exclusiveAssociatedCoaches_plural": "Deine Lehrer{{- Trainername }}werden nur benachrichtigt, wenn für eine Sitzung in dieser Einrichtung ein Vertretungswunsch vorliegt. Durch die Löschung des Betriebes erhalten Sie daher von allen Betrieben Ersatzanfragen.",
                     "hasBillingGroup": "Diese Einrichtung wird auch aus der Rechnungsgruppe {{- establishment_billing_group_name }} entfernt.",
                     "exclusivePrivateServices_plural": "Diese Termine {{- private_service_name }} sind so konfiguriert, dass sie nur in dieser Einrichtung stattfinden können. Wenn diese Einrichtung gelöscht wird, können diese Termine überall stattfinden.",
                     "exclusivePrivateServices": "Der Termin {{- private_service_name }} ist so konfiguriert, dass er nur in dieser Einrichtung stattfinden kann. Wenn diese Einrichtung gelöscht wird, kann dieser Termin überall stattfinden.",
@@ -17529,7 +17560,8 @@
                 "featured": "Wir empfehlen",
                 "error": {
                     "invalidBasket": "Dein Warenkorb enthielt Produkte, die nicht mehr zum Verkauf stehen. Es wurde keine Zahlung verzeichnet.",
-                    "inconsistentBasket": "Ihr Warenkorb wurde geändert. Bitte aktualisieren Sie Ihre Seite, bevor Sie Ihre Zahlung bestätigen.\nIhnen wurde nichts in Rechnung gestellt."
+                    "inconsistentBasket": "Ihr Warenkorb wurde geändert. Bitte aktualisieren Sie Ihre Seite, bevor Sie Ihre Zahlung bestätigen.\nIhnen wurde nichts in Rechnung gestellt.",
+                    "unavailableSessions": "Einige Sitzungen in Ihrem Warenkorb sind nicht mehr verfügbar, daher konnten wir Ihre Reservierung nicht abschließen. Alle nicht-verfügbaren wurden entfernt. Bitte überprüfen Sie Ihren Einkaufswagen und versuchen Sie es erneut."
                 },
                 "isFinalized": "Ihr Warenkorb wurde validiert",
                 "checkingPaymentStatus": "Bitte warten Sie, wir prüfen den Status Ihrer Zahlung.",
@@ -19555,7 +19587,7 @@
             "errorLessSpotThanEffectif": "Sparen ist nicht möglich. Der Platzplan muss mehr Platz bieten als die Anzahl der Teilnehmer des Kurses, zu der er gehört",
             "saveError": "Fehler",
             "spotImageDialog": {
-                "taken": "Reserviert",
+                "taken": "gebucht",
                 "helper": "Sie können die Form der Steckplätze anpassen, indem Sie Ihre eigenen Bilder importieren. Hierfür benötigen wir 2 verschiedene Symbole. Eine, um anzuzeigen, dass der Ort verfügbar ist, eine weitere, wenn er reserviert ist. Achten Sie darauf, dass sie die gleiche Größe haben, und fügen Sie bitte keine Zahlen auf Ihren Symbolen ein.",
                 "takenImageLabel": "Reservierter Platz",
                 "imageUploadButton": "Ein Bild hochladen",
@@ -21406,6 +21438,18 @@
                 }
             },
             "broadcastChannelWarning": "Die Browserversion verhindert, dass diese Funktion korrekt ausführen werden kann. Bitte aktualisieren Sie Ihren Browser."
+        }
+    },
+    "@bsport/template-simple-b2b-app": {
+        "namespaceBeta": {
+            "nested": {
+                "item2": "Ich bin der zweite Artikel!",
+                "item1": "Ich bin der erste Artikel!"
+            },
+            "goodbye": "Goodbye world"
+        },
+        "namespaceAlpha": {
+            "helloWorld": "Hello world!"
         }
     }
 }

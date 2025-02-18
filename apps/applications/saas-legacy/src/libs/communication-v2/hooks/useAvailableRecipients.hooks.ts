@@ -12,14 +12,15 @@ import type {
 import { PAGINATION_SIZE_RECIPIENTS } from '#src/libs/communication-v2/constants';
 
 import { fetchCommunicationsPaginatedMembers as fetchCommunicationsPaginatedMembersAction } from '#src/libs/member/actions';
-import { getPaginatedMembers } from '#src/libs/member/selectors';
+import { fetchFirstReachedRecipientsList as fetchFirstReachedRecipientsListAction } from '#src/libs/communication-v2/actions';
 
-import { getFormattedQueryParamsFromContext } from '#src/libs/communication-v2/utils';
-import { fetchFirstReachedRecipientsList } from '../actions';
+import { getPaginatedMembers } from '#src/libs/member/selectors';
 import {
   getFirstReachedRecipientsListByKind,
   getFirstReachedRecipientsListLoading,
-} from '../selectors';
+} from '#src/libs/communication-v2/selectors';
+
+import { getFormattedQueryParamsFromContext } from '#src/libs/communication-v2/utils';
 
 export type FetchAvailableRecipientsParams = {
   page: number;
@@ -62,25 +63,26 @@ export const useAvailableRecipients = ({
       page,
       memberSelectedCategories = [],
     }: FetchAvailableRecipientsParams) => {
-      return dispatch(
-        fetchCommunicationsPaginatedMembersAction({
-          ...getFormattedQueryParamsFromContext(
-            contextIdentifier,
-            contextObjectId,
-            memberSelectedCategories,
-          ),
-          page_size: PAGINATION_SIZE_RECIPIENTS,
-          page,
-          ignore_ids: true,
-        }),
+      const formattedQueryParams = getFormattedQueryParamsFromContext(
+        contextIdentifier,
+        contextObjectId,
+        memberSelectedCategories,
       );
+      const params = {
+        ...formattedQueryParams,
+        page_size: PAGINATION_SIZE_RECIPIENTS,
+        page,
+        ignore_ids: true,
+      };
+
+      return dispatch(fetchCommunicationsPaginatedMembersAction(params));
     },
     [dispatch, contextIdentifier, contextObjectId],
   );
 
   const fetchFirstReachedRecipients = useCallback(
     (params: FetchFirstReachedRecipientsParams) => {
-      return dispatch(fetchFirstReachedRecipientsList({ params }));
+      return dispatch(fetchFirstReachedRecipientsListAction({ params }));
     },
     [dispatch],
   );

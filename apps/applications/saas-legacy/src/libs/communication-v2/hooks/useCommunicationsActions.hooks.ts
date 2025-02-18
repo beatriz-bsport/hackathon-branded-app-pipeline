@@ -36,17 +36,17 @@ export const useCommunicationActions = ({
 
   const sendCommunication = useCallback(
     ({ data, memberSelectedCategories, options }: SendCommunicationParams) => {
+      const formattedQueryParams = getFormattedQueryParamsFromContext(
+        contextIdentifier,
+        contextObjectId,
+        memberSelectedCategories,
+      );
+
       const dataWithContext = {
         ...data,
         context_identifier: contextIdentifier,
         context_object_id: contextObjectId,
-        member_filters: {
-          ...getFormattedQueryParamsFromContext(
-            contextIdentifier,
-            contextObjectId,
-            memberSelectedCategories,
-          ),
-        },
+        member_filters: { ...formattedQueryParams },
       };
       return dispatch(sendCommunicationAction(dataWithContext, options));
     },

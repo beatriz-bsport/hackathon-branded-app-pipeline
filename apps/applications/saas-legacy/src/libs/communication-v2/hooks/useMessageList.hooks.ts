@@ -68,15 +68,18 @@ export const useMessageList = () => {
         fetchCommunicationSentListAction(params, !!isRefreshing, {
           onSuccess: (responseData: Communication[]) => {
             const memberIds = uniq(
-              responseData
-                .map((sent: Communication) =>
-                  sent.recipient_member_id_list?.slice(
-                    0,
-                    Math.min(MAX_DISPLAY, sent.recipient_member_id_list.length),
-                  ),
-                )
-                .flat(1)
-                .filter((id: number) => !!id),
+              responseData.flatMap(
+                (sent: Communication) =>
+                  sent.recipient_member_id_list
+                    ?.slice(
+                      0,
+                      Math.min(
+                        MAX_DISPLAY,
+                        sent.recipient_member_id_list.length,
+                      ),
+                    )
+                    .filter((id: number) => !!id) || [],
+              ),
             );
             dispatch(fetchMemberBulkByIdAction(memberIds));
           },

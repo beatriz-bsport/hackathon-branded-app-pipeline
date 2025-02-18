@@ -40,13 +40,15 @@ export const useRecipientInformation = (contextMember?: { id: number }) => {
       page,
       memberSelectedCategories,
     }: FetchRecipientsParams) => {
+      const memberFilter = contextMember
+        ? { member_id__in: [contextMember.id] }
+        : getFormatedQueryParamsToFetchRecipientPaginatedList(
+            communication,
+            memberSelectedCategories,
+          );
+
       const params = {
-        ...(contextMember
-          ? { member_id__in: [contextMember.id] }
-          : getFormatedQueryParamsToFetchRecipientPaginatedList(
-              communication,
-              memberSelectedCategories,
-            )),
+        ...memberFilter,
         page_size: PAGINATION_SIZE_RECIPIENTS,
         page,
         communication_sent: communication.id,

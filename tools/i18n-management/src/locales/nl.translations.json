@@ -183,7 +183,7 @@
                         "availability": {
                             "expiresToday": "Laatste dag",
                             "expiresIn": "{{ daysRemaining }} dag(en) over",
-                            "expiresIn_plural": "{{ daysRemaining }}dagen resterend",
+                            "expiresIn_plural": "{{ daysRemaining }} resterende dagen",
                             "future": "Startdatum: {{ startDate }}",
                             "expired": "Verlopen op: {{ expirationDate }}",
                             "active": "Verloopdatum: {{ expirationDate }}"
@@ -768,7 +768,8 @@
                 "1102": "Verwijzingsbeloning beschikbaar (verwijzend lid)",
                 "1200": "Betalingsmethode vervaldatum eerste herinnering voor betalingen op afbetaling",
                 "1201": "Betalingsmethode vervaldatum tweede herinnering voor betalingen op afbetaling",
-                "undefined": "Het systeem zal mislukte betalingen van abonnementen opnieuw proberen."
+                "undefined": "Het systeem zal mislukte betalingen van abonnementen opnieuw proberen.",
+                "32": "Voor leden ingeschreven via één-klik-boeking (voor leden)"
             },
             "tag": {
                 "BookingOption": {
@@ -5408,9 +5409,9 @@
                 "errors": {
                     "hasUpcomingPrivateBookings": "Sommige komende afspraken vinden plaats in deze vestiging. Annuleer en verwijder ze voordat je deze vestiging verwijdert.",
                     "exclusivePaymentPacks": "De volgende pas {{- pass_name }} is alleen bruikbaar in deze vestiging. Werk de beperkingen bij voordat u de vestiging verwijdert.",
-                    "exclusivePaymentPacks_plural": "De volgende passen {{- pass_name }} zijn alleen bruikbaar in deze vestiging. Werk de beperkingen bij voordat u de vestiging verwijdert.",
+                    "exclusivePaymentPacks_plural": "De volgende leskaarten {{- pass_name }} zijn alleen te gebruiken in deze vestiging. Pas hun beperkingen aan voordat je de vestiging verwijdert.",
                     "exclusiveEstablishmentGroups": "De locatie {{- establishment_group_name }} bevat alleen de vestiging die u wilt verwijderen. Werk deze locatie bij of verwijder deze.",
-                    "exclusiveEstablishmentGroups_plural": "De locaties{{- establishment_group_name }} bevatten alleen de vestiging die u wilt verwijderen. Werk deze locaties bij of verwijder ze.",
+                    "exclusiveEstablishmentGroups_plural": "De locaties {{- establishment_group_name }} bevatten alleen de vestiging die je wilt verwijderen. Werk deze locaties bij of verwijder ze.",
                     "hasExclusiveMarketplaceComponentConfigs": "Een of meerdere tabbladen op de marktplaats zijn ingesteld om alleen de agenda en workshops van deze vestiging weer te geven.",
                     "hasUpcomingOffers": "Sommige komende sessies vinden plaats in deze vestiging. Annuleer en verwijder ze voordat je deze vestiging verwijdert.",
                     "hasExclusiveBillingGroup": "Deze vestiging is de laatste van zijn factureringsgroep. Verwijder deze factureringsgroep of werk deze bij voordat u deze vestiging verwijdert.",
@@ -5419,9 +5420,9 @@
                 "warnings": {
                     "hasBillingGroup": "Deze vestiging wordt ook verwijderd uit de factureringsgroep {{- establishment_billing_group_name }}.",
                     "exclusivePrivateServices": "De afspraak {{- private_service_name }} is geconfigureerd om alleen in deze vestiging plaats te vinden. Door deze vestiging te verwijderen, kan deze afspraak overal plaatsvinden.",
-                    "exclusivePrivateServices_plural": "De afspraken{{- private_service_name }}zijn geconfigureerd om alleen in deze vestiging plaats te vinden. Door deze vestiging te verwijderen, kunnen deze afspraken overal plaatsvinden.",
+                    "exclusivePrivateServices_plural": "De afspraken {{- private_service_name }} zijn geconfigureerd om alleen in deze vestiging plaats te vinden. Door deze vestiging te verwijderen, kunnen deze afspraken overal plaatsvinden.",
                     "exclusiveCoachAvailabilitySlots": "De leraar {{- coach_name }} is aangegeven als beschikbaar voor deze vestiging voor slechts enkele tijdsloten. Door de vestiging te verwijderen, worden deze tijdslots verwijderd.",
-                    "exclusiveCoachAvailabilitySlots_plural": "De docenten{{- coach_name }}worden aangegeven als beschikbaar voor deze vestiging voor slechts enkele tijdsloten. Door de vestiging te verwijderen, worden deze tijdsloten verwijderd.",
+                    "exclusiveCoachAvailabilitySlots_plural": "De instructeurs {{- coach_name }} zijn aangegeven als beschikbaar voor deze vestiging voor slechts enkele tijdslots. Door de vestiging te verwijderen, worden deze tijdslots verwijderd.",
                     "exclusiveAssociatedCoaches_plural": "Je leraren {{- coach_name }} krijgt alleen bericht als er een vervangingsverzoek wordt gedaan voor een sessie in deze vestiging. Door de vestiging te verwijderen, ontvangen ze dus vervangingsverzoeken van elke vestiging.",
                     "exclusiveAssociatedCoaches": "Je leraar {{- coach_name }} krijgt alleen bericht als er een vervangingsverzoek wordt gedaan voor een sessie in deze vestiging. Door de vestiging te verwijderen, ontvangen ze dus vervangingsverzoeken van elke vestiging.",
                     "hasExclusiveStaffConfigurations": "Sommige medewerkers zijn geconfigureerd om de toegang van leden alleen voor deze vestiging te controleren. Door de vestiging te verwijderen zonder een nieuwe te selecteren, kunnen ze geen toegangscontrole meer uitvoeren.",
@@ -7967,7 +7968,37 @@
                 "seeMoreWithLogin": "Meld u aan om pakketten en abonnementen te bekijken!",
                 "yourBooking": "Uw reservering",
                 "goToLogin": "Inloggen",
-                "alreadyMember": "Heeft u al een account?"
+                "alreadyMember": "Heeft u al een account?",
+                "bookButtonLabel": "Boek nu",
+                "bookableStatus": {
+                    "error": "Oeps, het lijkt erop dat deze boeking niet beschikbaar is"
+                }
+            },
+            "lightSignup": {
+                "form": {
+                    "errors": {
+                        "global": "Er is een fout opgetreden bij het aanmelden",
+                        "phone": "Vul een geldig telefoonnummer in",
+                        "email": "Vul een geldig e-mailadres in",
+                        "requiredField": "Dit veld is verplicht"
+                    },
+                    "button": {
+                        "label": "Inschrijven"
+                    },
+                    "phone": {
+                        "placeholder": "+31612345678",
+                        "label": "Telefoonnummer"
+                    },
+                    "email": {
+                        "label": "Email"
+                    },
+                    "lastName": {
+                        "label": "Achternaam"
+                    },
+                    "firstName": {
+                        "label": "Voornaam"
+                    }
+                }
             }
         },
         "marketplace": {
@@ -15063,7 +15094,8 @@
                 "featured": "Aanbevelingen",
                 "error": {
                     "invalidBasket": "Je winkelmandje bevatte artikelen die niet meer beschikbaar zijn. Er is geen betaling uitgevoerd.",
-                    "inconsistentBasket": "Uw winkelmandje is gewijzigd, vernieuw uw pagina voordat u uw betaling bevestigt. \nU bent niet in rekening gebracht."
+                    "inconsistentBasket": "Uw winkelmandje is gewijzigd, vernieuw uw pagina voordat u uw betaling bevestigt. \nU bent niet in rekening gebracht.",
+                    "unavailableSessions": "Sommige sessies in je winkelmandje zijn niet langer beschikbaar, dus we konden je reservering niet voltooien. We hebben de onbeschikbare sessies verwijderd. Controleer je winkelmandje en probeer het opnieuw."
                 },
                 "actions": {
                     "closeBasket": "Doorgaan",
@@ -15577,7 +15609,7 @@
                 },
                 "amountRemaining": "Resterend bedrag: {{ amount }}",
                 "billingMoreThanNeeded": "Als je meer dan het factuurbedrag incasseert, wordt het saldo van het lid met het verschil verhoogd",
-                "errorSecretExplain2": "",
+                "errorSecretExplain2": "Als het probleem niet is opgelost, neem dan contact met ons op via dev+payment-intent@bsport.io",
                 "errorSecretExplain1": "Deze betaalmethode is momenteel onbeschikbaar.",
                 "plannedPaymentEvent": {
                     "title": "Geplande betaling",
@@ -21521,6 +21553,18 @@
                 }
             },
             "broadcastChannelWarning": "Door uw browserversie kunnen we deze functie niet correct uitvoeren. Upgrade uw browser."
+        }
+    },
+    "@bsport/template-simple-b2b-app": {
+        "namespaceBeta": {
+            "nested": {
+                "item2": "Ik ben het tweede item!",
+                "item1": "Ik ben het eerste item!"
+            },
+            "goodbye": "Doei wereld"
+        },
+        "namespaceAlpha": {
+            "helloWorld": "Hallo wereld!"
         }
     }
 }

@@ -6678,7 +6678,7 @@
                     "basket_expiration_days": {
                         "alert": "Add the amount of days before abandoned baskets gets emptied.",
                         "placeholder": "Days",
-                        "helperText": "This is the number of days before an abandoned basket is automatically emptied.",
+                        "helperText": "The number of days after which abandoned baskets will be emptied.",
                         "label": "Basket expiration date"
                     },
                     "cancelledOffersManager": "By default show cancelled sessions on the manager calendar",

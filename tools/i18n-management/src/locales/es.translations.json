@@ -2238,7 +2238,7 @@
                         "hasRelatedMarketplaceComponentConfigs": "Las pestañas de calendario y taller configuradas para su mercado ya no mostrarán este calendario de ubicación.",
                         "hasRelatedMarketingNotifications": "Las notificaciones vinculadas a esta ubicación se eliminarán.",
                         "exclusiveAssociatedCoaches": "Su profesor {{- coach_name }} sólo recibe una notificación cuando se realiza una solicitud de sustitución para una sesión en esta ubicación. Por lo tanto, al eliminar la ubicación, recibirán solicitudes de sustitución de todas las ubicaciones.",
-                        "exclusiveAssociatedCoaches_plural": "Sus profesores {{- coach_name }} sólo reciben una notificación cuando se realiza una solicitud de sustitución para una sesión en esta ubicación. Por lo tanto, al eliminar la ubicación, recibirán solicitudes de sustitución de todas las ubicaciones.",
+                        "exclusiveAssociatedCoaches_plural": "Sus profesores {{- coach_name }} sólo reciben una notificación cuando se realiza una solicitud de sustitución para una sesión en esta ubicación. Al eliminar la ubicación, recibirán las solicitudes de sustitución de todas las ubicaciones.",
                         "hasRelatedAssociatedCoaches": "Algunos profesores reciben una notificación cuando se realiza una solicitud de sustitución para una sesión en esta ubicación. Al eliminar la ubicación, dejarán de recibir la notificación correspondiente.",
                         "hasRelatedStaffConfigurations": "Esta ubicación se utiliza para la supervisión de accesos por uno o varios miembros del personal. Al eliminar la ubicación sin seleccionar una nueva, ya no podrán realizar la supervisión de accesos."
                     },
@@ -3869,7 +3869,7 @@
                 },
                 "amountRemaining": "El resto a pagar: {{ amount }}",
                 "billingMoreThanNeeded": "Si cobra más que el importe de la factura, el exceso se pondrá en el saldo del cliente",
-                "errorSecretExplain2": "",
+                "errorSecretExplain2": "Si el problema no se resuelve, póngase en contacto con nosotros en dev+payment-intent@bsport.io",
                 "errorSecretExplain1": "Este método de pago no está disponible en este momento",
                 "plannedPaymentEvent": {
                     "title": "Pago planificado",
@@ -7564,7 +7564,37 @@
                 "yourBooking": "Su reserva",
                 "goToLogin": "Iniciar sesión",
                 "alreadyMember": "¿Ya tiene una cuenta?",
-                "checkoutTitle": "Pago"
+                "checkoutTitle": "Pago",
+                "bookButtonLabel": "Reserve ahora",
+                "bookableStatus": {
+                    "error": "Uy, parece que esta reserva no está disponible"
+                }
+            },
+            "lightSignup": {
+                "form": {
+                    "errors": {
+                        "global": "Se ha producido un error al inscribirse",
+                        "phone": "Introduzca un número de teléfono válido",
+                        "email": "Introduzca una dirección de email válida",
+                        "requiredField": "Este campo es obligatorio"
+                    },
+                    "button": {
+                        "label": "Inscríbete"
+                    },
+                    "phone": {
+                        "placeholder": "+34612345678",
+                        "label": "Teléfono"
+                    },
+                    "email": {
+                        "label": "Email"
+                    },
+                    "lastName": {
+                        "label": "Apellido"
+                    },
+                    "firstName": {
+                        "label": "Nombre"
+                    }
+                }
             }
         },
         "marketplace": {
@@ -7933,7 +7963,8 @@
                 "1102": "Bonificación por referencia ( miembro referente)",
                 "1200": "Primer recordatorio de vencimiento del método de pago para los pagos a plazos",
                 "1201": "Segundo recordatorio de vencimiento del método de pago para los pagos a plazos",
-                "undefined": "Reserva para un invitado (para invitado)"
+                "undefined": "Reserva para un invitado (para invitado)",
+                "32": "Para miembros inscritos mediante reserva con un clic (para miembros)"
             },
             "tag": {
                 "BookingOption": {
@@ -11218,7 +11249,7 @@
                     "basket_expiration_days": {
                         "alert": "Añada los días de caducidad de la cesta de la compra!",
                         "placeholder": "Días antes de la expiración",
-                        "helperText": "Número de días antes de que el carro de compras de un cliente se vacíe automáticamente",
+                        "helperText": "Número de días tras los cuales se vaciarán las cestas abandonadas.",
                         "label": "Caducidad de la cesta de la compra"
                     },
                     "cancelledOffersManager": "Por defecto, mostrar las sesiones canceladas en el calendario del administrador",
@@ -13545,7 +13576,8 @@
                 },
                 "error": {
                     "invalidBasket": "Tu cesta contenía artículos que ya no están disponibles para la venta. No se ha registrado ningún pago",
-                    "inconsistentBasket": "Tu cesta ha sido modificada, por favor actualiza tu página antes de validar tu pago.\nNo ha sido acusado."
+                    "inconsistentBasket": "Tu cesta ha sido modificada, por favor actualiza tu página antes de validar tu pago.\nNo ha sido acusado.",
+                    "unavailableSessions": "Algunas sesiones de tu cesta ya no están disponibles, por lo que no hemos podido completar tu reserva. Hemos eliminado las no disponibles. Por favor, revisa tu cesta e inténtalo de nuevo."
                 },
                 "featured": "Nosotros te recomendamos",
                 "isEmpty": "Su cesta está vacía",
@@ -21556,6 +21588,18 @@
                 }
             },
             "broadcastChannelWarning": "La versión de su navegador nos impide ejecutar esta función correctamente. Por favor, actualice su navegador."
+        }
+    },
+    "@bsport/template-simple-b2b-app": {
+        "namespaceBeta": {
+            "nested": {
+                "item2": "¡Soy el segundo artículo!",
+                "item1": "¡Soy el primer artículo!"
+            },
+            "goodbye": "Adiós mundo"
+        },
+        "namespaceAlpha": {
+            "helloWorld": "¡Hola, mundo!"
         }
     }
 }

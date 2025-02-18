@@ -656,7 +656,11 @@
                 "yourBooking": "Votre réservation",
                 "goToLogin": "Se connecter",
                 "alreadyMember": "Vous avez déjà un compte ?",
-                "checkoutTitle": "Checkout"
+                "checkoutTitle": "Checkout",
+                "bookButtonLabel": "Réservez maintenant",
+                "bookableStatus": {
+                    "error": "Oups, il semble que cette réservation ne soit pas disponible"
+                }
             },
             "lightSignup": {
                 "form": {
@@ -667,7 +671,8 @@
                     "errors": {
                         "global": "Une erreur s'est produite lors de l'inscription",
                         "email": "Veuillez saisir une adresse électronique valide",
-                        "requiredField": "Ce champ est obligatoire"
+                        "requiredField": "Ce champ est obligatoire",
+                        "phone": "Veuillez saisir un numéro de téléphone valide"
                     },
                     "email": {
                         "label": "Email"
@@ -677,6 +682,9 @@
                     },
                     "firstName": {
                         "label": "Prénom"
+                    },
+                    "button": {
+                        "label": "S'inscrire"
                     }
                 }
             }
@@ -753,7 +761,8 @@
                 "featured": "Nous vous recommandons",
                 "error": {
                     "invalidBasket": "Votre panier contenait des éléments qui ne sont plus disponibles à la vente. Aucun paiement n'a été enregistré",
-                    "inconsistentBasket": "Votre panier a été modifié, veuillez rafraichir votre page avant de valider votre paiement.\nVous n'avez pas été débité."
+                    "inconsistentBasket": "Votre panier a été modifié, veuillez rafraichir votre page avant de valider votre paiement.\nVous n'avez pas été débité.",
+                    "unavailableSessions": "Certaines séances de votre panier n'étant plus disponibles, nous n'avons pas pu terminer votre réservation. Nous avons supprimé celles qui n'étaient pas disponibles. Veuillez revoir votre panier et réessayer."
                 },
                 "totalQuantity": "Contient {{ qty }} éléments",
                 "actions": {
@@ -4073,7 +4082,7 @@
             "paymentPanel": {
                 "amountRemaining": "Reste à payer : {{ amount }}",
                 "errorSecretExplain1": "Ce mode de paiement est indisponible pour le moment",
-                "errorSecretExplain2": "",
+                "errorSecretExplain2": "Si le problème n'est pas résolu, veuillez nous contacter à l'adresse suivante : dev+payment-intent@bsport.io",
                 "billingMoreThanNeeded": "En encaissant plus que le montant de la facture, le solde du membre sera augmenté de la différence",
                 "amount": {
                     "label": "Montant à encaisser"
@@ -7300,7 +7309,8 @@
                 "1101": "Offre de parrainage disponible (membre parrainé)",
                 "1102": "Récompense de parrainage disponible (parrain)",
                 "1200": "Premier rappel d'expiration du mode de paiement pour les paiements échelonnés",
-                "1201": "Second rappel d'expiration du mode de paiement pour les paiements échelonnés"
+                "1201": "Second rappel d'expiration du mode de paiement pour les paiements échelonnés",
+                "32": "Pour les membres inscrits via la réservation en un clic (pour les membres)"
             },
             "franchise": {
                 "emptySelect": "Sélectionner un email transactionnel pour voir sur quel franchisé il est partagé et utilisé.",
@@ -21294,7 +21304,8 @@
             "nested": {
                 "item1": "Je suis le premier item !",
                 "item2": "Je suis le second item !"
-            }
+            },
+            "goodbye": "Adieu le monde"
         }
     }
 }

@@ -1473,7 +1473,8 @@
                 "1101": "Contributo per il referral disponibile (membro riferito)",
                 "1102": "Contributo per il referral disponibile (membro referente)",
                 "1200": "Modalità di pagamento, primo sollecito per la scadenza dei pagamenti rateali",
-                "1201": "Modalità di pagamento, secondo sollecito per la scadenza dei pagamenti rateali"
+                "1201": "Modalità di pagamento, secondo sollecito per la scadenza dei pagamenti rateali",
+                "32": "Per i membri iscritti tramite prenotazione con un clic (per i membri)"
             },
             "ruleGroup": {
                 "private_booking": "Appuntamento",
@@ -4943,7 +4944,7 @@
                     "basket_expiration_days": {
                         "alert": "Compila i giorni di scadenza del carrello!",
                         "placeholder": "Giorni",
-                        "helperText": "Numero di giorni prima che il carrello di un cliente venga svuotato automaticamente",
+                        "helperText": "Numero di giorni dopo i quali i carrelli abbandonati saranno svuotati.",
                         "label": "Scadenza del carrello"
                     },
                     "cancelledOffersManager": "Per impostazione predefinita mostra le sessioni annullate sul calendario del manager",
@@ -7472,7 +7473,7 @@
                     "label": "Cifra da ottenere"
                 },
                 "billingMoreThanNeeded": "Se ottieni più dell'importo della ricevuta, l'eccedenza sarà messa nel saldo del cliente",
-                "errorSecretExplain2": "",
+                "errorSecretExplain2": "Se il problema non si risolve, contattateci all'indirizzo dev+payment-intent@bsport.io",
                 "errorSecretExplain1": "Questo metodo di pagamento non è al momento disponibile",
                 "amountRemaining": "Resto da pagare: {{ amount }}",
                 "plannedPaymentEvent": {
@@ -11857,7 +11858,37 @@
                 "yourBooking": "Le tue Prenotazioni",
                 "goToLogin": "Login",
                 "alreadyMember": "Hai già un account?",
-                "checkoutTitle": "Checkout"
+                "checkoutTitle": "Checkout",
+                "bookButtonLabel": "Prenota ora",
+                "bookableStatus": {
+                    "error": "Oops, sembra che questa prenotazione non sia disponibile"
+                }
+            },
+            "lightSignup": {
+                "form": {
+                    "errors": {
+                        "global": "Si è verificato un errore durante la registrazione",
+                        "phone": "Inserire un numero di telefono valido",
+                        "email": "Inserire un indirizzo e-mail valido",
+                        "requiredField": "Questo campo è obbligatorio"
+                    },
+                    "button": {
+                        "label": "Iscriviti"
+                    },
+                    "phone": {
+                        "placeholder": "+393461234567",
+                        "label": "Telefono"
+                    },
+                    "email": {
+                        "label": "Email"
+                    },
+                    "lastName": {
+                        "label": "Cognome"
+                    },
+                    "firstName": {
+                        "label": "Nome"
+                    }
+                }
             }
         },
         "smartList": {
@@ -13444,13 +13475,13 @@
                     "hasRelatedZoomEstablishment": "Questo stabilimento verrà rimosso dall'elenco degli stabilimenti utilizzati per lo streaming in diretta con l'integrazione di Zoom.",
                     "hasRelatedAvailabilitySlots": "Le fasce orarie disponibili dell'orario di questo stabilimento saranno cancellate.",
                     "relatedPaymentPacks": "Il seguente pass {{- pass_name }} non sarà più utilizzabile per questo stabilimento, assicuratevi di informare i vostri clienti.",
-                    "relatedPaymentPacks_plural": "I seguenti pacchetti {{- pass_name }} non saranno più utilizzabili per questo stabilimento, assicuratevi di informare i vostri clienti.",
+                    "relatedPaymentPacks_plural": "I seguenti pachetti {{- pass_name }} non saranno più utilizzabili per questo stabilimento, assicuratevi di informare i vostri clienti.",
                     "hasRelatedAssociatedCoaches": "Alcuni insegnanti ricevono una notifica quando viene presentata una richiesta di sostituzione per una sessione in questo stabilimento. Eliminando lo stabilimento, non riceveranno più la notifica relativa.",
                     "exclusiveAssociatedCoaches": "L'insegnante {{- coach_name }} viene avvisato solo quando viene fatta una richiesta di sostituzione per una sessione in questo stabilimento. Eliminando lo stabilimento, riceverà quindi le richieste di sostituzione da tutte lo stabilimento.",
-                    "exclusiveAssociatedCoaches_plural": "Gli insegnanti {{- coach_name }} sono avvisati solo quando viene fatta una richiesta di sostituzione per una sessione in questo stabilimento. Eliminandolo, riceveranno quindi le richieste di sostituzione da tutti gli stabilimenti.",
+                    "exclusiveAssociatedCoaches_plural": "I vostri insegnanti {{- coach_name }} sono avvisati solo quando viene fatta una richiesta di sostituzione per una sessione in questo stabilimento. Eliminandola, riceveranno quindi le richieste di sostituzione da tutti gli stabilimenti.",
                     "hasRelatedCoachAvailabilitySlots": "Questo stabilimento verrà rimosso dall'elenco degli stabilimenti disponibili utilizzati nel calendario dei docenti.",
                     "exclusiveCoachAvailabilitySlots": "L'insegnante {{- coach_name }} è indicato come disponibile per questo stabilimento solo per alcune fasce orarie. Eliminando lo stabilimento , queste fasce orarie saranno eliminate.",
-                    "exclusiveCoachAvailabilitySlots_plural": "Gli insegnanti {{- coach_name }} sono indicati come disponibili per questo stabilimento solo per alcune fasce orarie. Eliminando lo stabilimento, queste fasce orarie saranno eliminate.",
+                    "exclusiveCoachAvailabilitySlots_plural": "Gli insegnanti {{- coach_name }} sono indicati come disponibili per questo stabilimento solo per alcune fasce orarie. Eliminandolo, queste fasce orarie saranno eliminate.",
                     "hasRelatedStaffConfigurations": "Questo stabilimento sarà rimosso dagli stabilimenti utilizzati dgli utenti staff per il monitoraggio degli accessi.",
                     "hasExclusiveStaffConfigurations": "Alcuni utenti Staff sono configurati per monitorare l'accesso dei membri per questo stabilimento. Eliminando lo stabilimento senza selezionarne uno nuovo, non potranno più effettuare il monitoraggio degli accessi.",
                     "exclusivePrivateServices": "L'appuntamento {{- private_service_name }} è configurato per svolgersi solo in questo stabilimento. Eliminando questo stabilimento, l'appuntamento potrà svolgersi ovunque.",
@@ -13469,7 +13500,7 @@
                     "exclusiveEstablishmentGroups": "La sede {{- establishment_group_name }} contiene solo lo stabilimento che si desidera eliminare; si prega di aggiornare o eliminare questa sede.",
                     "exclusiveEstablishmentGroups_plural": "Le sedi {{- establishment_group_name }} contengono solo lo stabilimento che si desidera eliminare; aggiornare o eliminare queste sedi.",
                     "exclusivePaymentPacks": "Il seguente pacchetto {{- pass_name }} è utilizzabile esclusivamente in questo stabilimento. Si prega di aggiornare le restrizioni prima di cancellare lo stabilimento.",
-                    "exclusivePaymentPacks_plural": "I seguenti pacchetti {{- pass_name }} sono utilizzabili solo in questo stabilimento. Si prega di aggiornare le restrizioni prima di cancellare lo stabilimento.",
+                    "exclusivePaymentPacks_plural": "I seguenti pacchetti {{- pass_name }} sono utilizzabili solo in questo stabilimento. Aggiornare le restrizioni prima di cancellare lo stabilimento.",
                     "hasExclusiveBillingGroup": "Questo stabilimento è l'ultimo del suo gruppo di fatturazione. Si prega di cancellare o aggiornare il gruppo di fatturazione in questione prima di cancellare questo stabilimento.",
                     "hasUpcomingPrivateBookings": "Alcuni appuntamenti in programma avranno luogo in questo stabilimento. Ti preghiamo di eliminare gli appuntamenti in questione prima di eliminare questo stabilimento.",
                     "hasUpcomingOffers": "Alcune sessioni in programma avranno luogo in questo stabilimento. Ti preghiamo di eliminare le sessioni in questione prima di eliminare questo stabilimento."
@@ -15318,7 +15349,8 @@
                 },
                 "error": {
                     "invalidBasket": "Il tuo carrello conteneva articoli che non sono più disponibili per la vendita. Nessun pagamento è stato registrato",
-                    "inconsistentBasket": "Il tuo carrello è stato modificato, aggiorna la pagina prima di convalidare il pagamento.\nIl pagamento non ti è stato addebitato."
+                    "inconsistentBasket": "Il tuo carrello è stato modificato, aggiorna la pagina prima di convalidare il pagamento.\nIl pagamento non ti è stato addebitato.",
+                    "unavailableSessions": "Alcune sessioni nel vostro carrello non sono più disponibili, quindi non abbiamo potuto completare la prenotazione. Abbiamo rimosso quelle non disponibili. Si prega di rivedere il carrello e riprovare."
                 },
                 "isFinalized": "Il tuo carrello è stato convalidato",
                 "checkingPaymentStatus": "Attendi per favore, stiamo controllando lo stato del tuo pagamento",
@@ -21500,6 +21532,18 @@
                 }
             },
             "broadcastChannelWarning": "La versione del browser non ci consente di eseguire correttamente questa funzione. Si prega di aggiornare il browser."
+        }
+    },
+    "@bsport/template-simple-b2b-app": {
+        "namespaceBeta": {
+            "nested": {
+                "item2": "Sono il secondo articolo!",
+                "item1": "Sono il primo articolo!"
+            },
+            "goodbye": "Addio mondo"
+        },
+        "namespaceAlpha": {
+            "helloWorld": "Ciao mondo!"
         }
     }
 }

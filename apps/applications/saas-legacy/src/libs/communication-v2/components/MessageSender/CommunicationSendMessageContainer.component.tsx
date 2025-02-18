@@ -9,8 +9,8 @@ import AutoResendConfigDialog from '#src/libs/communication-v2/components/AutoRe
 import type { Member } from '#src/libs/member/types';
 
 import {
-  getFormatedQueryParamsFromContext,
-  getFormatedQueryParamsFromThread,
+  getFormattedQueryParamsFromContext,
+  getFormattedQueryParamsFromThread,
 } from '#src/libs/communication-v2/utils';
 import {
   MAX_LENGTH_PUSH_CONTENT,
@@ -417,7 +417,7 @@ export const CommunicationSendMessageContainer: React.FC<Props> = ({
 
   const buildContextParams = useCallback(() => {
     if (relatedObjectKind && relatedObjectId) {
-      return getFormatedQueryParamsFromThread(
+      return getFormattedQueryParamsFromThread(
         relatedObjectKind,
         relatedObjectId,
         checkedMemberCategoryFilter,
@@ -425,7 +425,7 @@ export const CommunicationSendMessageContainer: React.FC<Props> = ({
     }
 
     if (contextIdentifier && contextObjectId) {
-      return getFormatedQueryParamsFromContext(
+      return getFormattedQueryParamsFromContext(
         contextIdentifier,
         contextObjectId,
         checkedMemberCategoryFilter,

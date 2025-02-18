@@ -631,7 +631,7 @@ export const getFormatedFiltersToFetchCommunicationSent = memoize(
 To use the Member Viewset, we use already existings filter : offer, smartlist
 So we need to format differently our query params for the related endpoints
 */
-export const getFormatedQueryParamsFromContext = memoize(
+export const getFormattedQueryParamsFromContext = memoize(
   (
     contextIdentifier: number,
     contextObjectId: number,
@@ -654,7 +654,7 @@ export const getFormatedQueryParamsFromContext = memoize(
   },
 );
 
-export const getFormatedQueryParamsFromThread = memoize(
+export const getFormattedQueryParamsFromThread = memoize(
   (
     relatedObjectKind: ChatThreadKinds,
     relatedObjectId: number,
@@ -696,7 +696,7 @@ export const getFormatedQueryParamsToFetchRecipientPaginatedList = (
 ) => {
   const offer_id = communication?.metadata?.offer_id;
   if (offer_id) {
-    return getFormatedQueryParamsFromContext(
+    return getFormattedQueryParamsFromContext(
       CONTEXT_OFFER,
       offer_id,
       memberSelectedCategories,

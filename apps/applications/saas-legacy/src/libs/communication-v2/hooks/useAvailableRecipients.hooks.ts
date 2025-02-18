@@ -14,7 +14,7 @@ import { PAGINATION_SIZE_RECIPIENTS } from '#src/libs/communication-v2/constants
 import { fetchCommunicationsPaginatedMembers as fetchCommunicationsPaginatedMembersAction } from '#src/libs/member/actions';
 import { getPaginatedMembers } from '#src/libs/member/selectors';
 
-import { getFormatedQueryParamsFromContext } from '#src/libs/communication-v2/utils';
+import { getFormattedQueryParamsFromContext } from '#src/libs/communication-v2/utils';
 import { fetchFirstReachedRecipientsList } from '../actions';
 import {
   getFirstReachedRecipientsListByKind,
@@ -64,7 +64,7 @@ export const useAvailableRecipients = ({
     }: FetchAvailableRecipientsParams) => {
       return dispatch(
         fetchCommunicationsPaginatedMembersAction({
-          ...getFormatedQueryParamsFromContext(
+          ...getFormattedQueryParamsFromContext(
             contextIdentifier,
             contextObjectId,
             memberSelectedCategories,

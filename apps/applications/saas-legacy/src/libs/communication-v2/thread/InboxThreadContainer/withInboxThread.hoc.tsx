@@ -29,7 +29,7 @@ import {
 } from '#src/libs/communication-v2/selectors';
 import {
   getFormatedFiltersToFetchCommunicationSent,
-  getFormatedQueryParamsFromThread,
+  getFormattedQueryParamsFromThread,
   getFormatedQueryParamsToFetchRecipientPaginatedList,
   getFiltersToEnableForThread,
   getCommunicationContextFromThread,
@@ -338,7 +338,7 @@ export default function withInboxThreadData(
         (page: number, memberSelectedCategories?: number[]) => {
           const contextFormatedQueryParams =
             props.thread &&
-            getFormatedQueryParamsFromThread(
+            getFormattedQueryParamsFromThread(
               props.thread.related_object_kind,
               props.thread.related_object_id,
               memberSelectedCategories || [],
@@ -369,7 +369,7 @@ export default function withInboxThreadData(
             storeInCallback: (communication: Communication) => boolean;
           },
         ): void => {
-          const member_filters = getFormatedQueryParamsFromThread(
+          const member_filters = getFormattedQueryParamsFromThread(
             props.thread.related_object_kind,
             props.thread.related_object_id,
             memberSelectedCategories || [],

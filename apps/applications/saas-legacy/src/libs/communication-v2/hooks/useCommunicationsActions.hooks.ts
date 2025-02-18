@@ -18,7 +18,7 @@ import {
 } from '#src/libs/communication-v2/actions';
 import { fetch as fetchAction } from '#src/libs/alerting/actions';
 
-import { getFormatedQueryParamsFromContext } from '#src/libs/communication-v2/utils';
+import { getFormattedQueryParamsFromContext } from '#src/libs/communication-v2/utils';
 
 export type SendCommunicationParams = {
   data: MessageData;
@@ -41,7 +41,7 @@ export const useCommunicationActions = ({
         context_identifier: contextIdentifier,
         context_object_id: contextObjectId,
         member_filters: {
-          ...getFormatedQueryParamsFromContext(
+          ...getFormattedQueryParamsFromContext(
             contextIdentifier,
             contextObjectId,
             memberSelectedCategories,

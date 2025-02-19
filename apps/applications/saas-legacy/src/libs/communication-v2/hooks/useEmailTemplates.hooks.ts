@@ -2,9 +2,10 @@ import { useCallback } from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
 
-import type { RootState } from '#src/reducers/index';
 import {
   getAllEmailTemplatesSummaries,
+  getEmailTemplatesSummariesLoading,
+  getEmailTemplateDetailsLoading,
   getEmailTemplatesDetail,
 } from '#src/libs/email-editor/selectors';
 import {
@@ -21,11 +22,9 @@ export const useEmailTemplates = () => {
 
   const templateDetailList = useSelector(getEmailTemplatesDetail);
   const templateSummaryList = useSelector(getAllEmailTemplatesSummaries);
-  const loadingTemplateDetails = useSelector(
-    (state: RootState) => state.emailTemplate.detail.loading,
-  );
+  const loadingTemplateDetails = useSelector(getEmailTemplateDetailsLoading);
   const loadingTemplateSummaries = useSelector(
-    (state: RootState) => state.emailTemplate.loading,
+    getEmailTemplatesSummariesLoading,
   );
 
   const fetchTemplateDetails = useCallback(

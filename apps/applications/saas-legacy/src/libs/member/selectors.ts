@@ -209,6 +209,18 @@ export const getPaginatedMembers = createSelector(
   (memberDict, IdList) => IdList.map((id) => memberDict[id]),
 );
 
+export const getAvailableRecipientsLoading = (state: RootState) =>
+  state.member.communication.loading;
+
+export const getAvailableRecipientsTotalCount = (state: RootState) =>
+  state.member.communication.countTotal;
+
+export const getAvailableRecipientsWithEmailCount = (state: RootState) =>
+  state.member.communication.countWithEmail;
+
+export const getAvailableRecipientsWithPhoneCount = (state: RootState) =>
+  state.member.communication.countWithPhone;
+
 export const getListCountMembers = (state: RootState) => state.member.listCount;
 
 export const getCurrentChangeEmailRequest = (state: RootState) =>

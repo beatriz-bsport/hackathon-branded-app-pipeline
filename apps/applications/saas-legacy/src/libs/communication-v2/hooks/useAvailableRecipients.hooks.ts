@@ -2,7 +2,6 @@ import { useCallback } from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
 
-import type { RootState } from '#src/reducers/index';
 import type { OptionCallback } from '#src/state/types';
 import type {
   FetchFirstReachedRecipientsParams,
@@ -14,7 +13,13 @@ import { PAGINATION_SIZE_RECIPIENTS } from '#src/libs/communication-v2/constants
 import { fetchCommunicationsPaginatedMembers as fetchCommunicationsPaginatedMembersAction } from '#src/libs/member/actions';
 import { fetchFirstReachedRecipientsList as fetchFirstReachedRecipientsListAction } from '#src/libs/communication-v2/actions';
 
-import { getPaginatedMembers } from '#src/libs/member/selectors';
+import {
+  getAvailableRecipientsLoading,
+  getAvailableRecipientsTotalCount,
+  getAvailableRecipientsWithEmailCount,
+  getAvailableRecipientsWithPhoneCount,
+  getPaginatedMembers,
+} from '#src/libs/member/selectors';
 import {
   getFirstReachedRecipientsListByKind,
   getFirstReachedRecipientsListLoading,
@@ -38,17 +43,15 @@ export const useAvailableRecipients = ({
   const dispatch = useDispatch();
 
   const availableRecipientsList = useSelector(getPaginatedMembers);
-  const loadingAvailableRecipients = useSelector(
-    (state: RootState) => state.member.communication.loading,
-  );
+  const loadingAvailableRecipients = useSelector(getAvailableRecipientsLoading);
   const availableRecipientsTotalCount = useSelector(
-    (state: RootState) => state.member.communication.countTotal,
+    getAvailableRecipientsTotalCount,
   );
   const availableRecipientsWithEmailCount = useSelector(
-    (state: RootState) => state.member.communication.countWithEmail,
+    getAvailableRecipientsWithEmailCount,
   );
   const availableRecipientsWithPhoneCount = useSelector(
-    (state: RootState) => state.member.communication.countWithPhone,
+    getAvailableRecipientsWithPhoneCount,
   );
   const firstReachedRecipientsList = useSelector(
     getFirstReachedRecipientsListByKind,

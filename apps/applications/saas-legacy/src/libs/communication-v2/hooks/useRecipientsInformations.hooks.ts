@@ -2,7 +2,6 @@ import { useCallback } from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
 
-import type { RootState } from '#src/reducers/index';
 import type {
   Communication,
   Recipient,
@@ -13,7 +12,11 @@ import { PAGINATION_SIZE_RECIPIENTS } from '#src/libs/communication-v2/constants
 import { fetchCommunicationRecipientList as fetchCommunicationRecipientListAction } from '#src/libs/communication-v2/actions';
 import { fetchMemberBulkById as fetchMemberBulkByIdAction } from '#src/libs/member/actions';
 
-import { getRecipientWithMemberPaginatedList } from '#src/libs/communication-v2/selectors';
+import {
+  getRecipientsCount,
+  getRecipientsLoading,
+  getRecipientWithMemberPaginatedList,
+} from '#src/libs/communication-v2/selectors';
 
 import { getFormatedQueryParamsToFetchRecipientPaginatedList } from '#src/libs/communication-v2/utils';
 
@@ -27,12 +30,8 @@ export const useRecipientInformation = (contextMember?: { id: number }) => {
   const dispatch = useDispatch();
 
   const recipientList = useSelector(getRecipientWithMemberPaginatedList);
-  const loadingRecipientList = useSelector(
-    (state: RootState) => state.communicationV2.recipient.loading,
-  );
-  const recipientListCount = useSelector(
-    (state: RootState) => state.communicationV2.recipient.count,
-  );
+  const loadingRecipientList = useSelector(getRecipientsLoading);
+  const recipientListCount = useSelector(getRecipientsCount);
 
   const fetchRecipients = useCallback(
     ({

@@ -237,10 +237,10 @@ export function fetchFirstReachedRecipientsList({
         params,
       );
       dispatch(firstReachedRecipientsAction.success(response.data));
-      if (options?.onSuccess) options.onSuccess(response.data);
+      options?.onSuccess?.(response.data);
     } catch (error) {
       dispatch(firstReachedRecipientsAction.error(error));
-      if (options?.onError) options.onError(error);
+      options?.onError?.(error);
     }
     dispatch(firstReachedRecipientsAction.isLoading(false));
   };

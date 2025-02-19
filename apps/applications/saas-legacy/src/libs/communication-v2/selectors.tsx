@@ -17,6 +17,12 @@ const getRecipients = (state: RootState) =>
 const getRecipientIdPaginatedList = (state: RootState) =>
   state.communicationV2.recipient.allPageIds;
 
+export const getRecipientsLoading = (state: RootState) =>
+  state.communicationV2.recipient.loading;
+
+export const getRecipientsCount = (state: RootState) =>
+  state.communicationV2.recipient.count;
+
 export const getFirstReachedRecipientsListByKind = (state: RootState) =>
   state.communicationV2.firstReachedRecipients.byKind;
 

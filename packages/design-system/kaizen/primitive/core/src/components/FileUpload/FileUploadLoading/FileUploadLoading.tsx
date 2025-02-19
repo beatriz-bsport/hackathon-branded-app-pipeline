@@ -7,15 +7,15 @@ import LoaderProgressBar from "./LoaderProgressBar";
 
 const defaultClasses = [
   "rounded-md",
-  "border-stroke-thin",
   "p-md",
   "flex flex-col items-center gap-xs",
 ] as const;
 
 const variants = {
   inline: {
-    true: "border-stroke-default/transparent",
+    true: "",
     false: [
+      "border-stroke-thin",
       "border-dashed",
       "border-stroke-action-default-rest/md",
       "bg-surface-default",
@@ -23,11 +23,12 @@ const variants = {
   },
 } as const;
 
-const fileUpload = cva(defaultClasses, {
+const fileUploadLoading = cva(defaultClasses, {
   variants,
 });
 
 type FileUploadLoadingProps = {
+  className?: string;
   fileUploadTrackerList: FileUploadTracker[];
   handleAbortUpload: (fileUploadTracker: FileUploadTracker) => void;
   handleRemoveFileFromList: (fileUploadTracker: FileUploadTracker) => void;
@@ -44,6 +45,7 @@ type FileUploadLoadingProps = {
  * @param props.inline Whether to display the component in an inline style.
  */
 const FileUploadLoading = ({
+  className,
   fileUploadTrackerList,
   handleAbortUpload,
   handleRemoveFileFromList,
@@ -55,7 +57,7 @@ const FileUploadLoading = ({
     (item) => item.status === UPLOAD_STATUSES.loading,
   );
   return (
-    <div className={fileUpload({ inline })}>
+    <div className={fileUploadLoading({ className, inline })}>
       {!inline && <LoadingIcon isUploading={isUploading} />}
       {_fileUploadTrackerList.map((fileUploadTracker) => (
         <LoaderProgressBar

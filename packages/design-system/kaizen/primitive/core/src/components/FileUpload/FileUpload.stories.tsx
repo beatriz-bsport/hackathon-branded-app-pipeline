@@ -28,9 +28,6 @@ const meta: Meta<typeof FileUpload> = {
     fileExtensionList: {
       control: { type: "object", include: FILE_TYPES },
     },
-    fileExtensionListHint: {
-      control: { type: "text" },
-    },
     inline: {
       control: { type: "boolean" },
       table: { defaultValue: { summary: "false" } },
@@ -51,8 +48,12 @@ export const FileUploadStory: Story = {
   args: {
     autoUpload: true,
     className: "w-fit",
+    customTexts: {
+      dragAndDropFileCTA: "Or drag and drop the core of your desire here",
+      uploadFileCTA: "Upload something you desire",
+      fileExtensionList: "JPG, PNG, all kinds of images",
+    },
     disabled: false,
-    fileExtensionListHint: "JPG, PNG, all kinds of images",
     fileExtensionList: ["png", "jpg", "image/*"] as FileType[],
     fileUploadTrackerList: undefined,
     handleUploadFile: simulateUploadToBackend,
@@ -70,19 +71,14 @@ export const FileUploadStory: Story = {
 export const FileUploadHandy: Story = {
   name: "FileUpload Handy",
   render: (args) => {
-    return (
-      <FileUpload
-        autoUpload
-        className="w-fit"
-        fileExtensionListHint="All documents accepted !"
-        multiple
-        {...args}
-      />
-    );
+    return <FileUpload autoUpload className="w-fit" multiple {...args} />;
   },
   args: {
     handleUploadFile: simulateUploadToBackend,
     inputId: "file-upload-handy",
+    customTexts: {
+      fileExtensionList: "All documents accepted !",
+    },
   },
 };
 
@@ -98,8 +94,8 @@ export const FileUploadFullyControlled: Story = {
         <FileUpload
           autoUpload={triggerUpload}
           className="w-fit"
+          customTexts={{ fileExtensionList: "All images !" }}
           fileExtensionList={["image/*"]}
-          fileExtensionListHint="All images"
           fileUploadTrackerList={fileUploadTrackerList}
           onFileDrop={({ fileList, newItems }) => {
             console.log(

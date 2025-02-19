@@ -6,22 +6,29 @@ import Body from "#src/components/Body";
 import FileDropzone from "./FileDropzone";
 
 type DefaultVariantProps = {
+  dragAndDropFileCTAText?: string;
+  fileExtensionListText?: string;
   handleDropFiles: (files: FileList) => void;
-  fileExtensionListHint?: string;
+  uploadFileCTAText?: string;
 };
 
 /**
  * Default variant for FileUploadInput, with a dropzone and a nice UI container.
+ * @param props.dragAndDropFileCTAText [Optional] Hint to call for drag and drop action
  * @param props.handleDropFiles Function to handle the FileList retrieved from a drop event.
- * @param props.fileExtensionListHint Text to provide information about the expected kinds of files.
+ * @param props.fileExtensionListText [Optional] Hint about the expected kinds of files.
+ * @param props.uploadFileCTAText [Optional] Hint to call for click action on the input.
  */
 const DefaultVariant = ({
+  dragAndDropFileCTAText,
+  fileExtensionListText,
   handleDropFiles,
-  fileExtensionListHint,
+  uploadFileCTAText,
 }: DefaultVariantProps) => {
   // ##### TODO : internationalization
-  const uploadFileLabel = "Upload a file";
-  const dragAndDropFileLabel = "or drag and drop it here";
+  const uploadFileLabel = uploadFileCTAText || "Upload a file";
+  const dragAndDropFileLabel =
+    dragAndDropFileCTAText || "or drag and drop it here";
 
   return (
     <FileDropzone
@@ -76,14 +83,14 @@ const DefaultVariant = ({
           >
             {dragAndDropFileLabel}
           </Body>
-          {fileExtensionListHint && (
+          {fileExtensionListText && (
             <Body
               htmlVariant="span"
               color="weaker"
               size="sm"
               className="text-center"
             >
-              {fileExtensionListHint}
+              {fileExtensionListText}
             </Body>
           )}
         </div>

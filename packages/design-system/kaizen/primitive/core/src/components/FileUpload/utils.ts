@@ -140,9 +140,11 @@ export const getFormattedExtensionForInput = (
 export function getProgressInformation({
   status,
   uploadProgressValue,
+  customMessage,
 }: {
   status: FileUploadStatus;
   uploadProgressValue?: number;
+  customMessage?: string;
 }): {
   progressBarStatus: ProgressBarStatuses;
   progressBarValue: number;
@@ -153,7 +155,7 @@ export function getProgressInformation({
     return {
       progressBarStatus: "positive",
       progressBarValue: 100,
-      progressMessage: "Uploaded successfully.",
+      progressMessage: customMessage || "Uploaded successfully.",
     };
   }
 
@@ -162,13 +164,13 @@ export function getProgressInformation({
     return {
       progressBarStatus: "critical",
       progressBarValue: 100,
-      progressMessage: "Could not upload this file.",
+      progressMessage: customMessage || "Could not upload this file.",
     };
   }
 
   return {
     progressBarStatus: "main",
     progressBarValue: uploadProgressValue ?? 0,
-    progressMessage: "",
+    progressMessage: customMessage || "",
   };
 }

@@ -1,13 +1,13 @@
 // ----- Status to track the upload process -----
 
-export type FileUploadStatus = "default" | "loading" | "success" | "error";
+export enum UPLOAD_STATUSES {
+  default = "default",
+  loading = "loading",
+  success = "success",
+  error = "error",
+}
 
-export const UPLOAD_STATUSES: Record<string, FileUploadStatus> = {
-  default: "default",
-  loading: "loading",
-  success: "success",
-  error: "error",
-};
+export type FileUploadStatus = UPLOAD_STATUSES;
 
 // ----- Files extensions and MIME types accepted by the file input -----
 
@@ -69,4 +69,5 @@ export type FileUploadTracker = {
   status: FileUploadStatus;
   progressValue: number;
   controller: AbortController;
+  customMessage?: string;
 };

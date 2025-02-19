@@ -1,4 +1,4 @@
-import type { FileUploadStatus } from "./constants";
+import { UPLOAD_STATUSES, type FileUploadStatus } from "./constants";
 
 /**
  * This functions aims to replicate axios post request with signal and onUploadProgress params.
@@ -68,7 +68,7 @@ export async function simulateUploadToBackend(
   file: File,
   signal: AbortSignal,
   onUploadProgress: (progressEvent: ProgressEvent) => void,
-): Promise<FileUploadStatus> {
+): Promise<{ status: FileUploadStatus; customMessage?: string }> {
   try {
     // Need to authenticate to retrieve a token
     const authResponse = await fetch(
@@ -110,17 +110,30 @@ export async function simulateUploadToBackend(
         onUploadProgress,
       );
       // If no issues, return success
-      return "success";
+      return {
+        status: UPLOAD_STATUSES.success,
+        customMessage: `Great, it worked ! ${Math.random()}`,
+      };
     } catch (error) {
       console.error(error);
       if (signal.aborted) {
         // Log a signal to highlight that the upload error has been triggered by the user.
         console.log("Upload aborted successfully by the user");
+        return {
+          status: UPLOAD_STATUSES.error,
+          customMessage: `Aborted by the user ! ${Math.random()}`,
+        };
       }
-      return "error";
+      return {
+        status: UPLOAD_STATUSES.error,
+        customMessage: `An error happened during the upload ! ${Math.random()}`,
+      };
     }
   } catch (error) {
     console.error(error);
-    return "error";
+    return {
+      status: UPLOAD_STATUSES.error,
+      customMessage: `An error happened in the global action ! ${Math.random()}`,
+    };
   }
 }

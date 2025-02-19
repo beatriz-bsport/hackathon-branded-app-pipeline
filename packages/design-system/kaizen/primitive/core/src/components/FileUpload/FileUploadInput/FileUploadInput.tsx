@@ -1,5 +1,5 @@
 import React, { useMemo } from "react";
-import classNames from "classnames";
+import { cva } from "class-variance-authority";
 
 import type { FileType, FileUploadTracker } from "../constants";
 import { getFormattedExtensionForInput } from "../utils";
@@ -7,10 +7,28 @@ import { getFormattedExtensionForInput } from "../utils";
 import InlineVariant from "./InlineVariant";
 import DefaultVariant from "./DefaultVariant";
 
+const defaultClasses = ["h-fit", "inline-block"] as const;
+
+const variants = {
+  disabled: {
+    true: ["pointer-events-none", "opacity-sm"],
+    false: "",
+  },
+} as const;
+
+const fileUploadInput = cva(defaultClasses, {
+  variants,
+});
+
 type FileUploadInputProps = {
+  className?: string;
+  customTexts: {
+    uploadFileCTA?: string;
+    dragAndDropFileCTA?: string;
+    fileExtensionList?: string;
+  };
   disabled?: boolean;
   fileExtensionList?: FileType[];
-  fileExtensionListHint?: string;
   handleAddFiles: (fileList: FileList | null) => FileUploadTracker[];
   inline?: boolean;
   inputId: string;
@@ -28,9 +46,10 @@ type FileUploadInputProps = {
 
 /**
  * React component to input and store Files in state, matching expected files extensions.
+ * @param props.className
+ * @param props.customTexts Dictionnary of custom hints to customize texts in the UI.
  * @param props.disabled Whether the file input should be disabled.
  * @param props.fileExtensionList Array of allowed file extensions. If omitted, all file types are accepted.
- * @param props.fileExtensionListHint Text hint displayed to inform users about the accepted file types.
  * @param props.handleAddFiles Function that add FileUploadTracker to state management.
  * @param props.inputId Unique identifier of the input.
  * @param props.inputName Name to pass to the underlying `<input>` element.
@@ -40,8 +59,9 @@ type FileUploadInputProps = {
  * @param props.onInputChange Callback function invoked after a FileList is added to the file input.
  */
 const FileUploadInput: React.FC<FileUploadInputProps> = ({
+  className,
+  customTexts,
   disabled,
-  fileExtensionListHint,
   fileExtensionList,
   handleAddFiles,
   inline,
@@ -64,23 +84,22 @@ const FileUploadInput: React.FC<FileUploadInputProps> = ({
       const newFileUploadTrackerItems = handleAddFiles(fileList);
       onFileDrop?.({ newItems: newFileUploadTrackerItems, fileList });
     };
+    const { uploadFileCTA, dragAndDropFileCTA, fileExtensionList } =
+      customTexts;
     return inline ? (
-      <InlineVariant />
+      <InlineVariant buttonTitle={uploadFileCTA} />
     ) : (
       <DefaultVariant
-        fileExtensionListHint={fileExtensionListHint}
+        dragAndDropFileCTAText={dragAndDropFileCTA}
+        fileExtensionListText={fileExtensionList}
         handleDropFiles={handleAddFilesFromDropzone}
+        uploadFileCTAText={uploadFileCTA}
       />
     );
-  }, [inline, fileExtensionList, handleAddFiles, onFileDrop]);
+  }, [inline, customTexts, fileExtensionList, handleAddFiles, onFileDrop]);
 
   return (
-    <label
-      htmlFor={inputId}
-      className={classNames("w-full h-fit", {
-        "pointer-events-none opacity-sm": disabled,
-      })}
-    >
+    <label htmlFor={inputId} className={fileUploadInput({ className })}>
       <input
         className="hidden"
         type="file"
@@ -90,7 +109,7 @@ const FileUploadInput: React.FC<FileUploadInputProps> = ({
         onChange={handleAddFilesFromInput}
         multiple={multiple}
         accept={acceptedExtensions}
-        aria-describedby={fileExtensionListHint}
+        aria-describedby={customTexts.fileExtensionList}
         name={inputName || inputId}
       />
       {fileUploadContent}

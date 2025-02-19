@@ -1,12 +1,14 @@
+import React from "react";
 import classNames from "classnames";
 import Icon from "#src/components/Icon";
 
 /**
  * Inline variant for FileUploadInput, mirroring the aspect of a Button.
+ * @param props.buttonTitle Optional. Text to override the default title of the button.
  */
-const InlineVariant: React.FC = () => {
+const InlineVariant: React.FC<{ buttonTitle?: string }> = ({ buttonTitle }) => {
   // ##### TODO : internationalization
-  const uploadFileLabel = "Upload file";
+  const uploadFileLabel = buttonTitle || "Upload file";
 
   return (
     <div

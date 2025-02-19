@@ -16,17 +16,22 @@ import { getNewFileUploadTrackerItems } from "./utils";
 import FileUploadInput from "./FileUploadInput";
 import FileUploadLoading from "./FileUploadLoading";
 
-export type FileUploadProps = React.HTMLAttributes<HTMLDivElement> & {
+export type FileUploadProps = {
   autoUpload?: boolean;
+  className?: string;
+  customTexts?: {
+    uploadFileCTA?: string;
+    dragAndDropFileCTA?: string;
+    fileExtensionList?: string;
+  };
   disabled?: boolean;
   fileExtensionList?: FileType[];
-  fileExtensionListHint?: string;
   fileUploadTrackerList?: FileUploadTracker[];
   handleUploadFile: (
     file: File,
     signal: AbortSignal,
     onUploadProgress: (progressEvent: ProgressEvent) => void,
-  ) => Promise<FileUploadStatus>;
+  ) => Promise<{ status: FileUploadStatus; customMessage?: string }>;
   inline?: boolean;
   inputId: string;
   inputName?: string;
@@ -51,9 +56,12 @@ export type FileUploadProps = React.HTMLAttributes<HTMLDivElement> & {
  *
  * @param props.autoUpload Whether to automatically start the upload when files are selected.
  * @param props.className Additional CSS classes to apply to the main container.
+ * @param props.customTexts [Optional] Dictionary of custom hints :
+ * - uploadFileCTA: Button title in inline variant or main CTA in default variant;
+ * - dragAndDropFileCTA: Text to call for drag and drop file on the input (default variant);
+ * - fileExtensionList: Inform about the accepted file types (default variant);
  * @param props.disabled Whether the file input should be disabled.
  * @param props.fileExtensionList Array of allowed file extensions. If omitted, all file types are accepted.
- * @param props.fileExtensionListHint Text hint displayed to inform users about the accepted file types.
  * @param props.fileUploadTrackerList State value to track the list of upload processes.
  * @param props.handleUploadFile Function to handle file uploads. Receives a `File` object as an argument.
  * @param props.inline Whether to display the component in an inline style.
@@ -69,9 +77,9 @@ export type FileUploadProps = React.HTMLAttributes<HTMLDivElement> & {
 const FileUpload: React.FC<FileUploadProps> = ({
   autoUpload,
   className,
+  customTexts = {},
   disabled,
   fileExtensionList = [],
-  fileExtensionListHint,
   fileUploadTrackerList,
   handleUploadFile,
   inline,
@@ -82,7 +90,6 @@ const FileUpload: React.FC<FileUploadProps> = ({
   onInputChange,
   setFileUploadTrackerList,
   uploadCallback,
-  ...props
 }) => {
   // ----- State -----
 
@@ -150,11 +157,17 @@ const FileUpload: React.FC<FileUploadProps> = ({
     ]);
   };
 
-  const handleUpdateFileTracker = (
-    file: File,
-    newStatus: FileUploadStatus,
-    newProgressValue: number,
-  ) => {
+  const handleUpdateFileTracker = ({
+    file,
+    newStatus,
+    newProgressValue,
+    newCustomMessage,
+  }: {
+    file: File;
+    newStatus: FileUploadStatus;
+    newProgressValue: number;
+    newCustomMessage?: string;
+  }) => {
     // Make a check on the status to be sure the upload progress has not finished yet
     const previousStatus = currentFileUploadTrackerList.find(
       (item) => item.file.name === file.name,
@@ -165,7 +178,12 @@ const FileUpload: React.FC<FileUploadProps> = ({
     setCurrentFileUploadTrackerList((prev) =>
       prev.map((tracker) =>
         tracker.file === file
-          ? { ...tracker, status: newStatus, progressValue: newProgressValue }
+          ? {
+              ...tracker,
+              status: newStatus,
+              progressValue: newProgressValue,
+              customMessage: newCustomMessage || tracker.customMessage,
+            }
           : tracker,
       ),
     );
@@ -175,7 +193,12 @@ const FileUpload: React.FC<FileUploadProps> = ({
 
   const makeFileUpload = async (fileUploadTracker: FileUploadTracker) => {
     // Update the status to "loading"
-    handleUpdateFileTracker(fileUploadTracker.file, UPLOAD_STATUSES.loading, 0);
+    handleUpdateFileTracker({
+      file: fileUploadTracker.file,
+      newStatus: UPLOAD_STATUSES.loading,
+      newProgressValue: 0,
+      newCustomMessage: "",
+    });
 
     try {
       const signal = fileUploadTracker.controller.signal;
@@ -183,30 +206,35 @@ const FileUpload: React.FC<FileUploadProps> = ({
         const percentCompleted = Math.round(
           (progressEvent.loaded * 100) / progressEvent.total,
         );
-        handleUpdateFileTracker(
-          fileUploadTracker.file,
-          UPLOAD_STATUSES.loading,
-          percentCompleted,
-        );
+        handleUpdateFileTracker({
+          file: fileUploadTracker.file,
+          newStatus: UPLOAD_STATUSES.loading,
+          newProgressValue: percentCompleted,
+        });
       };
       // Await the backend call and provide
       // - a signal (AbortSignal) to abort the request when clicking on the abort icon
       // - a function that retrieves the progress directly on the pending request and update the state in consequence
-      const newStatus = await handleUploadFile(
+      const { status, customMessage } = await handleUploadFile(
         fileUploadTracker.file,
         signal,
         onUploadProgress,
       );
 
       // Update the status after backend response
-      handleUpdateFileTracker(fileUploadTracker.file, newStatus, 100);
+      handleUpdateFileTracker({
+        file: fileUploadTracker.file,
+        newStatus: status,
+        newProgressValue: 100,
+        newCustomMessage: customMessage,
+      });
     } catch (error) {
       // Set progress to 100% and update status to "error"
-      handleUpdateFileTracker(
-        fileUploadTracker.file,
-        UPLOAD_STATUSES.error,
-        100,
-      );
+      handleUpdateFileTracker({
+        file: fileUploadTracker.file,
+        newStatus: UPLOAD_STATUSES.error,
+        newProgressValue: 100,
+      });
     }
   };
 
@@ -247,13 +275,14 @@ const FileUpload: React.FC<FileUploadProps> = ({
   }, [currentFileUploadTrackerList, autoUpload, uploadCallback]);
 
   return (
-    <div className={className || ""} {...props}>
+    <>
       {renderFileUploadInput ? (
         <FileUploadInput
+          className={className}
+          customTexts={customTexts}
           disabled={disabled}
           handleAddFiles={handleAddFiles}
           fileExtensionList={fileExtensionList}
-          fileExtensionListHint={fileExtensionListHint}
           inline={inline}
           inputId={inputId}
           inputName={inputName}
@@ -263,6 +292,7 @@ const FileUpload: React.FC<FileUploadProps> = ({
         />
       ) : (
         <FileUploadLoading
+          className={className}
           fileUploadTrackerList={currentFileUploadTrackerList}
           inline={inline}
           handleAbortUpload={handleAbortUpload}
@@ -270,7 +300,7 @@ const FileUpload: React.FC<FileUploadProps> = ({
           handleRetryUpload={makeFileUpload}
         />
       )}
-    </div>
+    </>
   );
 };
 

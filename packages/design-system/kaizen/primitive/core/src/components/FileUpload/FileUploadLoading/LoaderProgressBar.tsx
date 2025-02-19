@@ -31,12 +31,13 @@ const LoaderProgressBar = ({
 }: LoaderProgressBarProps) => {
   const [displayUploadProgress, setDisplayUploadProgress] = useState(true);
 
-  const { status, file, progressValue } = fileUploadTracker;
+  const { status, file, progressValue, customMessage } = fileUploadTracker;
   const { progressBarStatus, progressBarValue, progressMessage } = useMemo(
     () =>
       getProgressInformation({
         status: status,
         uploadProgressValue: progressValue,
+        customMessage: customMessage,
       }),
     [status, progressValue],
   );
@@ -59,7 +60,7 @@ const LoaderProgressBar = ({
   return (
     <TransitionWrapper
       isVisible={displayUploadProgress}
-      classNameVisibility="max-h-[80px]"
+      classNameVisibility="max-h-[80px] w-full"
     >
       <div className="flex flex-row justify-start items-start w-full gap-xs">
         <ProgressBar

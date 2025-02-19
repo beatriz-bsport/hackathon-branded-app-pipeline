@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import compact from 'lodash/compact';
 import { compose } from 'recompose';
 import { withTranslation, WithTranslation } from 'react-i18next';
@@ -34,17 +34,22 @@ import { TextField, AlertError } from '../../../../components/forms';
 
 // @ts-expect-error
 import CoachPaymentRuleGroupSchema from './schemaValidation';
-import CoachSelector from '../../../associated-coach/components/coach-selector/CoachSelector.component';
 import CoachListItem from '../../../associated-coach/components/CoachListItem.component';
 import type { Coach } from '../../../associated-coach/types';
-import type { CoachPaymentRule } from '../../types';
+import type {
+  CoachPaymentRule,
+  CoachPaymentRuleGroup,
+  CoachPaymentRuleGroupAPI,
+} from '../../types';
 import type { MaterialStyleType } from '../../../../utils/types';
-import { PrivateServiceWithSlots } from '../../../private-service/types';
+import type { PrivateServiceWithSlots } from '../../../private-service/types';
 import CoachPaymentRuleSelectorStyled from '../coach-payment-rule-selector/CoachPaymentRuleSelectorStyled.component';
 import PrivateSlotSelectorStyled from '../PrivateSlotSelectorStyled.component';
+import ObjectSearchComponent from '#src/libs/fuzzy-search/components/ObjectSearch.component';
+import type { OptionPropsWithData } from '#src/libs/fuzzy-search/types';
 
 type OwnProps = {
-  associated_coaches: Array<Coach>;
+  initial: CoachPaymentRuleGroupAPI & CoachPaymentRuleGroup;
   privateServices: Array<PrivateServiceWithSlots>;
   rulesByKind: { [kind: number]: Array<CoachPaymentRule> };
   setFieldValue: (key: string, value: any) => void;
@@ -55,17 +60,115 @@ type Props = OwnProps &
   WithTranslation &
   MaterialStyleType<ReturnType<typeof styles>>;
 
-export function CoachPaymentRuleGroupFormFields(props: Props) {
-  const { t, classes } = props;
-  const { rulesByKind, setFieldValue, privateServices, associated_coaches } =
-    props;
+type CoachOption = {
+  label: string;
+  onCoachSelected?: (coachId: number) => void;
+  coach: Coach;
+  value: number;
+};
 
-  const [openPrivateSlotSection, setOpenPrivateSlotSection] =
-    React.useState(false);
-  const [openCoachSection, setOpenCoachSection] = React.useState(false);
-  const tooglePrivateSlotSection = () =>
-    setOpenPrivateSlotSection(!openPrivateSlotSection);
-  const toogleCoachSection = () => setOpenCoachSection(!openCoachSection);
+const CoachOptionItem: React.FC<OptionPropsWithData<CoachOption>> = (props) => (
+  <CoachListItem divider {...props.data} />
+);
+
+export function CoachPaymentRuleGroupFormFields({
+  t,
+  classes,
+  errors,
+  rulesByKind,
+  setFieldValue,
+  privateServices,
+  initial,
+}: Props) {
+  const initialAssociatedCoaches = useMemo(
+    () => initial?.associated_coach?.flat() ?? [],
+    [initial?.associated_coach],
+  );
+
+  const [associatedCoachesState, setAssociatedCoaches] = useState(
+    initialAssociatedCoaches,
+  );
+  const [archivedCoachesState, setArchivedCoaches] = useState([]);
+  // Used to close the menu on selection
+  const [isCoachMenuOpen, setIsCoachMenuOpen] = useState(false);
+  const [openPrivateSlotSection, setOpenPrivateSlotSection] = useState(false);
+  const [openCoachSection, setOpenCoachSection] = useState(false);
+
+  const tooglePrivateSlotSection = useCallback(
+    () => setOpenPrivateSlotSection(!openPrivateSlotSection),
+    [openPrivateSlotSection],
+  );
+  const toogleCoachSection = useCallback(
+    () => setOpenCoachSection(!openCoachSection),
+    [openCoachSection],
+  );
+  const closeCoachMenu = useCallback(() => {
+    setIsCoachMenuOpen(false);
+  }, []);
+  const openCoachMenu = useCallback(() => {
+    setIsCoachMenuOpen(true);
+  }, []);
+
+  const removeCoaches = useCallback(
+    (
+        removeFromForm: (index: number) => void,
+        associatedCoach: Coach,
+        index: number,
+      ) =>
+      () => {
+        removeFromForm(index);
+        setArchivedCoaches((previousCoaches) => {
+          return [...previousCoaches, associatedCoach];
+        });
+        setAssociatedCoaches((previousCoaches) =>
+          previousCoaches.filter(
+            (coach: Coach) =>
+              coach.associated_coach_id !== associatedCoach.associated_coach_id,
+          ),
+        );
+      },
+    [],
+  );
+
+  const restoreCoaches = useCallback(
+    (pushIntoForm: (archivedCoachId: number) => void, archivedCoach: Coach) =>
+      () => {
+        pushIntoForm(archivedCoach.associated_coach_id);
+        setAssociatedCoaches((previousCoaches) => {
+          return [...previousCoaches, archivedCoach];
+        });
+        setArchivedCoaches((previousCoaches) =>
+          previousCoaches.filter(
+            (coach: Coach) =>
+              coach.associated_coach_id !== archivedCoach.associated_coach_id,
+          ),
+        );
+      },
+    [],
+  );
+
+  const onCoachSelected = useCallback(
+    (coach: Coach, pushIntoForm: (associatedCoachId: number) => void) => () => {
+      setAssociatedCoaches((previousCoaches) => [...previousCoaches, coach]);
+      pushIntoForm(coach.associated_coach_id);
+      setIsCoachMenuOpen(false);
+    },
+    [],
+  );
+
+  const coachOptionsFormatter = useCallback(
+    (pushIntoForm: (associatedCoachId: number) => void) =>
+      (coaches: Coach[]): CoachOption[] =>
+        coaches.map((coach) => {
+          return {
+            label: coach.name,
+            coach,
+            onCoachSelected: onCoachSelected(coach, pushIntoForm),
+            value: coach.id,
+          };
+        }),
+    [onCoachSelected],
+  );
   return (
     <>
       <Grid container spacing={2}>
@@ -330,35 +433,28 @@ export function CoachPaymentRuleGroupFormFields(props: Props) {
                                   </TableCell>
                                 </TableRow>
 
-                                {props.errors &&
-                                  (props.errors
-                                    .private_slots_coach_payment_rules ||
-                                    (props.errors.private_slot_unicity &&
-                                      props.errors.private_slot_unicity[
-                                        i
-                                      ])) && (
+                                {errors &&
+                                  (errors.private_slots_coach_payment_rules ||
+                                    (errors.private_slot_unicity &&
+                                      errors.private_slot_unicity[i])) && (
                                     <TableRow>
                                       <TableCell>
-                                        {!props.errors.private_slot_unicity && (
+                                        {!errors.private_slot_unicity && (
                                           <AlertError
                                             name={`private_slots_coach_payment_rules.${i}.private_slot`}
                                           />
                                         )}
-                                        {props.errors.private_slot_unicity && (
+                                        {errors.private_slot_unicity && (
                                           <Typography
                                             color="error"
                                             variant="caption"
                                           >
-                                            {t(
-                                              props.errors.private_slot_unicity[
-                                                i
-                                              ],
-                                            )}
+                                            {t(errors.private_slot_unicity[i])}
                                           </Typography>
                                         )}
                                       </TableCell>
                                       <TableCell>
-                                        {!props.errors.private_slot_unicity && (
+                                        {!errors.private_slot_unicity && (
                                           <AlertError
                                             name={`private_slots_coach_payment_rules.${i}.coach_payment_rule`}
                                           />
@@ -410,45 +506,73 @@ export function CoachPaymentRuleGroupFormFields(props: Props) {
             </div>
             <Collapse in={openCoachSection}>
               <FieldArray name="associated_coach">
-                {({
-                  push,
-                  remove,
-                  form: {
-                    values: { associated_coach },
-                  },
-                }) => (
+                {({ push, remove }) => (
                   <>
-                    <CoachSelector
-                      associatedCoachOutput
-                      isClearable
-                      // @ts-expect-error
-                      isMulti
-                      nullCurrentValue
-                      coaches={associated_coaches.filter(
-                        (coach) =>
-                          !associated_coach.includes(
-                            coach.associated_coach_id,
-                          ) && !coach.coach_payment_rule_group_id,
-                      )}
-                      selectedCoaches={[]}
-                      selectOption={(ev) => {
-                        if (ev.length) push(ev[0].value);
+                    <ObjectSearchComponent
+                      additionalParams={{
+                        disabled: false,
+                        id__not_in: associatedCoachesState
+                          .map((coach) => coach.associated_coach_id)
+                          .concat(
+                            archivedCoachesState.map(
+                              (coach) => coach.associated_coach_id,
+                            ),
+                          ),
+                        has_coach_payment_rule_group: false,
                       }}
+                      components={{
+                        Option: CoachOptionItem,
+                      }}
+                      menuIsOpen={isCoachMenuOpen}
+                      onMenuClose={closeCoachMenu}
+                      onMenuOpen={openCoachMenu}
+                      optionsFormatter={coachOptionsFormatter(push)}
+                      placeholder={t('coach:search')}
+                      searchedObjectType="associated_coach"
+                      variant="default"
                     />
                     <List>
-                      {associated_coach.map(
-                        (associatedCoachId: number, i: number) => (
+                      {associatedCoachesState.map(
+                        (associatedCoach: Coach, index: number) => (
                           <CoachListItem
+                            key={associatedCoach.id}
                             divider
-                            coach={associated_coaches.find(
-                              (coach: Coach) =>
-                                coach.associated_coach_id === associatedCoachId,
+                            coach={associatedCoach}
+                            deleteCoach={removeCoaches(
+                              remove,
+                              associatedCoach,
+                              index,
                             )}
-                            deleteCoach={() => remove(i)}
                           />
                         ),
                       )}
                     </List>
+
+                    {(archivedCoachesState || []).length ? (
+                      <List>
+                        <Typography variant="h6">
+                          {t(
+                            'coach_payment_rule_groups.subtitle.removed_coaches',
+                          )}
+                        </Typography>
+                        <List>
+                          {archivedCoachesState.map((archivedCoach: Coach) => {
+                            return (
+                              <CoachListItem
+                                key={archivedCoach.id}
+                                divider
+                                coach={archivedCoach}
+                                isDisable={true}
+                                restoreCoach={restoreCoaches(
+                                  push,
+                                  archivedCoach,
+                                )}
+                              />
+                            );
+                          })}
+                        </List>
+                      </List>
+                    ) : null}
                   </>
                 )}
               </FieldArray>

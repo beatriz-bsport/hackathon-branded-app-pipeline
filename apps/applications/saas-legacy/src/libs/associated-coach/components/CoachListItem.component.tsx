@@ -37,6 +37,7 @@ type Props = {
   onEditCoach?: (id: number) => void;
   selected?: boolean;
   hasEditPermission?: boolean;
+  isDisable?: boolean;
   // eslint-disable-next-line
   index?: number;
 };
@@ -106,6 +107,7 @@ export const CoachListItem: React.FC<Props> = ({
   onEditCoach,
   selected,
   hasEditPermission,
+  isDisable,
 }) => {
   const classes = useStyles();
 
@@ -130,7 +132,7 @@ export const CoachListItem: React.FC<Props> = ({
   }, [restoreCoach, coach.id]);
 
   const handleClick = React.useCallback(
-    () => onCoachSelected(coach.id),
+    () => onCoachSelected?.(coach.id),
     [onCoachSelected, coach.id],
   );
 
@@ -147,7 +149,7 @@ export const CoachListItem: React.FC<Props> = ({
   const actionsList = React.useMemo(
     () =>
       Immutable([
-        !coach.disabled &&
+        !(isDisable || coach.disabled) &&
           handleEdit &&
           hasEditPermission && {
             icon: EditIcon,
@@ -155,13 +157,13 @@ export const CoachListItem: React.FC<Props> = ({
             color: 'primary',
             onClick: handleEdit,
           },
-        !coach.disabled &&
+        !(isDisable || coach.disabled) &&
           handleDelete && {
             icon: DeleteIcon,
             label: t('common.delete'),
             onClick: handleDelete,
           },
-        coach.disabled && {
+        (isDisable || coach.disabled) && {
           icon: RestoreFromTrashIcon,
           label: t('common.restore'),
           onClick: handleRestore,
@@ -169,11 +171,12 @@ export const CoachListItem: React.FC<Props> = ({
       ]),
     [
       coach.disabled,
-      hasEditPermission,
-      handleRestore,
-      handleDelete,
       handleEdit,
+      hasEditPermission,
       t,
+      handleDelete,
+      isDisable,
+      handleRestore,
     ],
   ) as Immutable.ImmutableArray<ActionOption>;
 

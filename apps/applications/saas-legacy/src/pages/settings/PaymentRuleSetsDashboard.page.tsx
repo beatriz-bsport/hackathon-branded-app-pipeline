@@ -58,8 +58,6 @@ import {
   fetchAllPrivateSlots as fetchAllPrivateSlotsAction,
   fetchAllPrivateServices,
 } from '../../libs/private-service/actions';
-import { getActiveCoaches } from '../../libs/associated-coach/selectors';
-import type { Coach } from '../../libs/associated-coach/types';
 import { MaterialStyleType, WithHandlerType } from '../../utils/types';
 import { OptionCallback } from '../../state/types';
 import { getAvailablePrivateServices } from '../../libs/private-service/selectors/private-service';
@@ -77,7 +75,6 @@ type OwnProps = {
     options: OptionCallback,
   ) => void;
   deleteCoachPaymentRule: (CoachPaymentRule: CoachPaymentRule) => void;
-  removeCoachPaymentGroup: (CoachPaymentRuleGroupId: number) => void;
   setInitial: (CoachPaymentRule: CoachPaymentRule) => void;
   setInitialGroup: (CoachPaymentRuleGroup: CoachPaymentRuleGroup) => void;
   error?: Error;
@@ -87,7 +84,6 @@ type OwnProps = {
   fetchAllPrivateServices: () => void;
   initialGroup: CoachPaymentRuleGroupAPI;
   privateServices: Array<PrivateServiceWithSlots>;
-  associated_coaches: Array<Coach>;
   loading: boolean;
   fetchAssociatedCoachBulk: (associatedCoachIds: Array<number>) => void;
 };
@@ -156,7 +152,6 @@ export class PaymentRulesDashboard extends Component<Props> {
       ...(this.props.coachPaymentRuleGroupListCoaches ?? []),
       ...(this.props.coachPaymentRuleListCoaches ?? []),
     ]);
-
     !!coachList?.length && this.props.fetchAssociatedCoachBulk(coachList);
   };
 
@@ -227,28 +222,17 @@ export class PaymentRulesDashboard extends Component<Props> {
         {this.props.groupDialogFormOpen ? (
           <CoachPaymentRuleGroupFormDrawer
             // @ts-expect-error
-            associated_coaches={this.props.associated_coaches}
             error={this.props.error}
             handleClose={this.props.handleCloseGroup}
             initial={this.props.initialGroup}
-            onSubmit={(g) =>
+            onSubmit={(g) => {
               this.props.upsertCoachPaymentRuleGroup(g, {
-                // @ts-expect-error
-                onSuccess: (group: CoachPaymentRuleGroup) => {
-                  const updateCoacheIds = this.props.associated_coaches
-                    .filter(
-                      (coach: Coach) =>
-                        coach.coach_payment_rule_group_id === group.id,
-                    )
-                    .map((coach: Coach) => coach.associated_coach_id);
-
-                  this.props.fetchAssociatedCoachBulk(
-                    updateCoacheIds.concat(g.associated_coach),
-                  );
+                onSuccess: () => {
+                  this.handleFetchCoachList();
                   this.props.fetchAllCoachPaymentRules();
                 },
-              })
-            }
+              });
+            }}
             open={this.props.groupDialogFormOpen}
             privateServices={this.props.privateServices}
             rulesByKind={this.props.rulesByKind}
@@ -307,7 +291,6 @@ const mapStateToProps = (state: RootState) => ({
   coachPaymentRuleGroups: getCoachPaymentRuleGroups(state),
   coachPaymentRuleGroupListCoaches: getCoachPaymentRuleGroupListCoaches(state),
   coachPaymentRuleListCoaches: getCoachPaymentRuleListCoaches(state),
-  associated_coaches: getActiveCoaches(state),
   privateServices: getAvailablePrivateServices(state),
 });
 

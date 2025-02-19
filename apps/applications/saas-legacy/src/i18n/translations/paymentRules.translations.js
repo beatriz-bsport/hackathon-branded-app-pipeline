@@ -172,6 +172,7 @@ exports.default = {
       helper:
         "You can group together your compensation rules for activities, workshops and appointments. By adding a teacher to a group, all of the group's compensation rules automatically apply to the teacher. Any change to the group will also be made to all the teachers in the group.",
       coaches: 'Associated teachers',
+      removed_coaches: 'Removed teachers',
       specfic_private_slot: 'Appointments',
       default: 'Default',
     },

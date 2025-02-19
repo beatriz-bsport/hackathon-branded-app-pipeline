@@ -59,7 +59,7 @@ const Item: React.FC<ListItemProps> = ({
         <Icon
           icon="align-justify"
           size="sm"
-          className={classNames("cursor-grab")}
+          className="cursor-grab text-onsurface-weaker"
         />
         {(avatar && <Avatar {...avatar} />) ||
           (icon && <Icon icon={icon} size="md" />) ||

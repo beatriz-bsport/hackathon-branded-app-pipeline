@@ -1,14 +1,21 @@
 import React from "react";
 import classNames from "classnames";
-import Button from "#src/components/Button";
+import Button, { ButtonProps } from "#src/components/Button";
 import { sortableListItem } from "#src/components/SortableList/SortableList";
 import Icon from "#src/components/Icon";
-import type { ListHeader } from "./types";
 
 export type ListHeaderProps = React.HTMLAttributes<HTMLDivElement> & {
   collapseController?: () => void;
   isCollapseOpen: boolean;
-} & ListHeader;
+} & {
+  id: string;
+  title: string;
+  description?: string;
+  buttons?:
+    | [ButtonProps]
+    | [ButtonProps, ButtonProps]
+    | [ButtonProps, ButtonProps, ButtonProps];
+};
 
 /**
  * A header component for rendering the top section of a Sortable list.
@@ -35,7 +42,10 @@ const Header: React.FC<ListHeaderProps> = ({
   return (
     <div
       id={id}
-      className={classNames(sortableListItem({ className }))}
+      className={classNames(
+        "bg-surface-default-weaker",
+        sortableListItem({ className }),
+      )}
       draggable
       {...props}
     >

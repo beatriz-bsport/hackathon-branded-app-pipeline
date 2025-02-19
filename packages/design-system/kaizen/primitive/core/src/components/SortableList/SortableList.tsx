@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { cva } from "class-variance-authority";
 import Collapse from "#src/components/Collapse";
-import Header from "./Header";
+import Header, { type ListHeaderProps } from "./Header";
 import DragAndDrop from "#src/components/DragAndDrop";
 import Item from "./Item";
 import classNames from "classnames";
-import type { ListHeader, Sortable } from "./types";
+import type { Sortable } from "./types";
 
 const defaultClasses = [
   "flex",
@@ -37,7 +37,7 @@ export type SortableListProps = React.HTMLAttributes<HTMLDivElement> & {
   isCollapsible: boolean;
   onSortChange: (items: Sortable[]) => void;
   items: Sortable[];
-  header: ListHeader;
+  header: Omit<ListHeaderProps, "isCollapseOpen" | "collapseController">;
 };
 
 /**

@@ -20,13 +20,3 @@ export type Sortable = {
     | [ButtonProps, ButtonProps]
     | [ButtonProps, ButtonProps, ButtonProps];
 };
-
-export type ListHeader = {
-  id: string;
-  title: string;
-  description?: string;
-  buttons?:
-    | [ButtonProps]
-    | [ButtonProps, ButtonProps]
-    | [ButtonProps, ButtonProps, ButtonProps];
-};

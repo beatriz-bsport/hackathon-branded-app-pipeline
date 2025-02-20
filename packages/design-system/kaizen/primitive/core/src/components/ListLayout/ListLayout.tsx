@@ -6,7 +6,15 @@ export type ListLayoutProps = React.HTMLAttributes<HTMLDivElement> & {
   children: ReactNode;
 };
 
-const listLayout = cva(["h-screen", "flex flex-col"]);
+const listLayout = cva([
+  "h-screen",
+  "w-full",
+  "flex",
+  "flex-col",
+  "border-stroke-page-layout",
+  "border-l-stroke-thin",
+  "shadow-sm",
+]);
 
 /**
  * Define Layout for List pages, with two subcomponents:

@@ -9,7 +9,7 @@ const defaultClasses = [
   "flex",
   "flex-row",
   "flex-wrap",
-  "w-full",
+  "w-auto",
   "h-lg",
   "items-center",
   "content-center",

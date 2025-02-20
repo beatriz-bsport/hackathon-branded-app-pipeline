@@ -32,7 +32,6 @@ export const Primary: Story = {
   args: {
     icon: "arrow-right",
     size: "xl",
-    className: "onsurface-default",
   },
 };
 

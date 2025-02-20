@@ -138,7 +138,12 @@ const Alert: React.FC<AlertProps> = ({
           </Title>
         )}
         {children && (
-          <Body htmlVariant="p" size="md" weight="weak">
+          <Body
+            htmlVariant="p"
+            size="md"
+            weight="weak"
+            color={type === "weak" ? status : "onstrong"}
+          >
             {children}
           </Body>
         )}

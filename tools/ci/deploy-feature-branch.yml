@@ -15,6 +15,11 @@
     - pnpm run -w translation:update
     - echo "✅ Translations have been updated"
     - echo "*"
+    # Feature branches updates should be compared with dev
+    # As feature branches can be used for multiple features that makes no sense to compare
+    - echo "🔱 These are the affected projects :"
+    - pnpm exec nx show projects --affected --base=origin/dev --head=HEAD
+    - echo "*"
     - echo "⏳ Build affected projects and their dependencies"
     - pnpm exec nx affected --target=ci:build --base=origin/dev --head=HEAD "feature-branch" $FRONTEND_ONLY
     - echo "✅ All affected projets have been rebuilt"

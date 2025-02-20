@@ -159,6 +159,11 @@ const OneClickBookingModule: React.FC<Props> = ({
     replace(urlToMarketplace(theme?.company_name, companyId.toString()));
   };
 
+  const selectPaymentPack = useCallback(
+    (paymentPackId: number) => () => setSelectedPaymentPackId(paymentPackId),
+    [],
+  );
+
   // @debt(4, 2, 2) This works because we do not set the authenticated state in the redux store
   // when we are on the one click booking page (we are just storing the token in the local storage)
   if (authenticated) {
@@ -200,106 +205,110 @@ const OneClickBookingModule: React.FC<Props> = ({
   const offerLevelTranslation = getLevelTranslation(offer?.level, ' ', t);
 
   return (
-    <div className="bs-oneclick-booking__container">
-      <Typography variant={TypographyVariant.TITLE_LG}>
-        {t('oneClickBooking.checkoutTitle')}
-      </Typography>
-      <div className="bs-oneclick-booking__already-member">
-        {t('oneClickBooking.alreadyMember')}
-        <ButtonV2
-          color="primary"
-          href={loginToBookerUrl}
-          size="small"
-          variant="text"
-        >
-          {t('oneClickBooking.goToLogin')}
-        </ButtonV2>
-      </div>
-      {state.loading && (
-        <>
-          <Skeleton className="bs-oneclick-booking__skeleton--tiny" />
-          <Skeleton className="bs-oneclick-booking__skeleton" />
-          <Skeleton className="bs-oneclick-booking__skeleton--small" />
-          <Skeleton className="bs-oneclick-booking__skeleton--small" />
-          <Skeleton className="bs-oneclick-booking__skeleton" />
-        </>
-      )}
-      {offer && (
-        <div className="bs-oneclick-booking__booking-details">
-          <Typography variant={TypographyVariant.TITLE_SM}>
-            {t('oneClickBooking.yourBooking')}
-          </Typography>
-          <div className="bs-oneclick-booking__booking-details__card">
-            <ConsumerBookingDetailsCard
-              coachName={coach?.name}
-              coachPicture={coach?.photo}
-              consumerPaymentPackAvailableCredits={0}
-              consumerPaymentPackUsedCredits={0}
-              date={offerDate}
-              description={metaActivity?.description}
-              establishmentAddress={establishment?.location.address}
-              establishmentTitle={establishment?.title}
-              isLoading={state.loading}
-              levelName={offerLevelTranslation}
-              metaActivityLastDiscardMinutes={
-                metaActivity?.last_discard_minutes
-              }
-              metaActivityName={metaActivity?.name}
-              metaActivityPicture={metaActivity?.cover_main}
-              paymentPackTotalCredits={0}
-              sessionTimeDisplay={offer?.duration_minute}
-              showPlaceholder={false}
-              timezoneName={offer?.timezone_name}
-            />
-          </div>
-          <div className="bs-oneclick-booking__payment-packs">
-            {state.value?.paymentPacks.map((paymentPack) => (
-              <div
-                key={paymentPack.id}
-                className="bs-oneclick-booking__payment-pack-item"
-                onClick={() => setSelectedPaymentPackId(paymentPack.id)}
-              >
-                <MinimalPaymentPackCard
-                  isFocused={paymentPack.id === selectedPaymentPackId}
+    <div className="bs-oneclick-booking__root">
+      <div className="bs-oneclick-booking__container">
+        <Typography variant={TypographyVariant.TITLE_LG}>
+          {t('oneClickBooking.checkoutTitle')}
+        </Typography>
+        <div className="bs-oneclick-booking__already-member">
+          {t('oneClickBooking.alreadyMember')}
+          <ButtonV2
+            color="primary"
+            href={loginToBookerUrl}
+            size="small"
+            variant="text"
+          >
+            {t('oneClickBooking.goToLogin')}
+          </ButtonV2>
+        </div>
+        {state.loading && (
+          <>
+            <Skeleton className="bs-oneclick-booking__skeleton--tiny" />
+            <Skeleton className="bs-oneclick-booking__skeleton" />
+            <Skeleton className="bs-oneclick-booking__skeleton--small" />
+            <Skeleton className="bs-oneclick-booking__skeleton--small" />
+            <Skeleton className="bs-oneclick-booking__skeleton" />
+          </>
+        )}
+        {offer && (
+          <div className="bs-oneclick-booking__content">
+            <div className="bs-oneclick-booking__booking-details">
+              <Typography variant={TypographyVariant.TITLE_SM}>
+                {t('oneClickBooking.yourBooking')}
+              </Typography>
+              <div className="bs-oneclick-booking__booking-details__card">
+                <ConsumerBookingDetailsCard
+                  coachName={coach?.name}
+                  coachPicture={coach?.photo}
+                  consumerPaymentPackAvailableCredits={0}
+                  consumerPaymentPackUsedCredits={0}
+                  date={offerDate}
+                  description={metaActivity?.description}
+                  establishmentAddress={establishment?.location?.address}
+                  establishmentTitle={establishment?.title}
                   isLoading={state.loading}
-                  paymentPack={paymentPack}
+                  levelName={offerLevelTranslation}
+                  metaActivityLastDiscardMinutes={
+                    metaActivity?.last_discard_minutes
+                  }
+                  metaActivityName={metaActivity?.name}
+                  metaActivityPicture={metaActivity?.cover_main}
+                  paymentPackTotalCredits={0}
+                  sessionTimeDisplay={offer?.duration_minute}
+                  showPlaceholder={false}
+                  timezoneName={offer?.timezone_name}
                 />
               </div>
-            ))}
-            <ButtonV2
-              color={ButtonColor.SECONDARY}
-              href={loginToBookerUrl}
-              size={ButtonSize.SM}
-              variant={ButtonVariant.TEXT}
-            >
-              <div className="bs-oneclick-booking__see-more-with-login">
-                {t('oneClickBooking.seeMoreWithLogin')}
-                <LinkExternal01 size="16px" />
+              <div className="bs-oneclick-booking__payment-packs">
+                {state.value?.paymentPacks.map((paymentPack) => (
+                  <div
+                    key={paymentPack.id}
+                    className="bs-oneclick-booking__payment-pack-item"
+                    onClick={selectPaymentPack(paymentPack.id)}
+                  >
+                    <MinimalPaymentPackCard
+                      isFocused={paymentPack.id === selectedPaymentPackId}
+                      isLoading={state.loading}
+                      paymentPack={paymentPack}
+                    />
+                  </div>
+                ))}
+                <ButtonV2
+                  color={ButtonColor.SECONDARY}
+                  href={loginToBookerUrl}
+                  size={ButtonSize.SM}
+                  variant={ButtonVariant.TEXT}
+                >
+                  <div className="bs-oneclick-booking__see-more-with-login">
+                    {t('oneClickBooking.seeMoreWithLogin')}
+                    <LinkExternal01 size="16px" />
+                  </div>
+                </ButtonV2>
               </div>
-            </ButtonV2>
+            </div>
+            <div className="bs-oneclick-booking__light-signup-form">
+              <LightSignupForm />
+              <div className="bs-oneclick-booking__book-button-container">
+                <ButtonV2
+                  className="bs-oneclick-booking__book-button"
+                  color={ButtonColor.PRIMARY}
+                  onClick={onBook}
+                  size={ButtonSize.LG}
+                  variant={ButtonVariant.CONTAINED}
+                >
+                  {bookingState.loading ? (
+                    <div className="bs-light-signup-form__submit-button-loader">
+                      <Loader />
+                    </div>
+                  ) : (
+                    t('oneClickBooking.bookButtonLabel')
+                  )}
+                </ButtonV2>
+              </div>
+            </div>
           </div>
-          <div className="bs-oneclick-booking__light-signup-form">
-            <LightSignupForm />
-          </div>
-          <div className="bs-oneclick-booking__book-button-container">
-            <ButtonV2
-              className="bs-oneclick-booking__book-button"
-              color={ButtonColor.PRIMARY}
-              onClick={onBook}
-              size={ButtonSize.LG}
-              variant={ButtonVariant.CONTAINED}
-            >
-              {bookingState.loading ? (
-                <div className="bs-light-signup-form__submit-button-loader">
-                  <Loader />
-                </div>
-              ) : (
-                t('oneClickBooking.bookButtonLabel')
-              )}
-            </ButtonV2>
-          </div>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 };

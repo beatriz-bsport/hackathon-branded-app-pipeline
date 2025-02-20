@@ -1,3 +1,8 @@
+.bs-oneclick-booking__root {
+  container: bsOneClickBooking / inline-size;
+  width: 100%;
+}
+
 .bs-oneclick-booking__skeleton--tiny {
   height: 30px;
 }
@@ -15,7 +20,7 @@
   height: 100px;
 }
 
-.bs-oneclick-booking__booking-details,
+.bs-oneclick-booking__content,
 .bs-oneclick-booking__payment-packs,
 .bs-oneclick-booking__container {
   display: flex;
@@ -54,8 +59,8 @@
   gap: var(--bs-space-size-1);
 }
 
-.bs-oneclick-booking__booking-details {
-  gap: var(--bs-space-size-1);
+.bs-oneclick-booking__content {
+  gap: var(--bs-space-size-4);
 }
 
 .bs-oneclick-booking__payment-packs {
@@ -75,7 +80,6 @@
 
 .bs-oneclick-booking__light-signup-form {
   width: 100%;
-  margin-top: var(--bs-space-size-3);
 }
 
 .bs-light-signup-form__container {
@@ -104,4 +108,11 @@
 
 .bs-oneclick-booking__book-button-container {
   margin: var(--bs-space-size-4) 0;
+}
+
+.bs-oneclick-booking__booking-details {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: var(--bs-space-size-1);
 }

@@ -6,6 +6,7 @@
         "nested": {
             "item1": "Je suis le premier item !",
             "item2": "Je suis le second item !"
-        }
+        },
+        "goodbye": "Adieu le monde"
     }
 }

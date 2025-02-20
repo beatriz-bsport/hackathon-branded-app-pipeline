@@ -7523,7 +7523,7 @@
         },
         "eventType": {
             "3": "Cancelled session (for members)",
-            "6": "For newly enrolled members (for members)",
+            "6": "Member account created by member",
             "7": "Booking with pass",
             "8": "Booking + pass purchase",
             "9": "A booking spot is available",
@@ -7534,7 +7534,7 @@
             "16": "Modified session (for members)",
             "17": "Booking cancelled: credit not refunded (for members)",
             "18": "Booking cancelled: credit refunded (for members)",
-            "19": "For newly enrolled members (for staff)",
+            "19": "Member account created by staff",
             "20": "Request for invoice download",
             "21": "New booking (for members)",
             "22": "Invoice confirmation",
@@ -18833,7 +18833,7 @@
                 "basket_expiration_days": {
                     "alert": "Add the amount of days before abandoned baskets gets emptied.",
                     "placeholder": "Days",
-                    "helperText": "This is the number of days before an abandoned basket is automatically emptied.",
+                    "helperText": "The number of days after which abandoned baskets will be emptied.",
                     "label": "Basket expiration date"
                 },
                 "bookingLimitation": "Global booking restrictions",

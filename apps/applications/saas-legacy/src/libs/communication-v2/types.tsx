@@ -81,7 +81,6 @@ export type CommunicationState = {
 
 export type Recipient<MemberType = number> = {
   member: MemberType;
-  email_sent: number;
   campaign: string;
   communication_sent: string;
   read_count: number;

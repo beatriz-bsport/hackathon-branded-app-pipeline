@@ -23,7 +23,6 @@ export type MarketingNotificationMailStat = {
 
 export type Recipient = {
   member: number;
-  email_sent: number;
   campaign: string;
   communication_sent: string;
   read_count: number;

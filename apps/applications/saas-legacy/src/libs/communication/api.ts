@@ -31,38 +31,46 @@ export const sendCommunication = (data: any) => {
 };
 
 export const fetchCampaignList = (params: CampaignListParams) => {
-  return getAuth(`${API_V1_URI}/communication/email/${buildUrlParams(params)}`);
+  return getAuth(
+    `${API_V1_URI}/communication/communication_sent/${buildUrlParams(params)}`,
+  );
 };
 
 export const fetchCampaignReport = (id: number) => {
-  return getAuth(`${API_V1_URI}/communication/email/${id}/report/`);
+  return getAuth(
+    `${API_V1_URI}/communication/communication_sent/${id}/report/`,
+  );
 };
 
 export const fetchCampaignSummary = (params: { id: number }) => {
   return postAuth(
-    `${API_V1_URI}/communication/email/campaign_summary/`,
+    `${API_V1_URI}/communication/communication_sent/campaign_summary/`,
     params,
   );
 };
 
 export const fetchCampaign = (id: number) => {
-  return getAuth(`${API_V1_URI}/communication/email/${id}/`);
+  return getAuth(`${API_V1_URI}/communication/communication_sent/${id}/`);
 };
 
 export const fetchRecipientList = (params: any) => {
   return getAuth(
-    `${API_V1_URI}/communication/recipient/${buildUrlParams(params)}`,
+    `${API_V1_URI}/communication/communication_recipient/${buildUrlParams(
+      params,
+    )}`,
   );
 };
 
 export const fetchRecipientListExport = (id: string) => {
   return postAuth(
-    `${API_V1_URI}/communication/email/${id}/export-campaign-async/`,
+    `${API_V1_URI}/communication/communication_sent/${id}/export-campaign-async/`,
   );
 };
 
 export const fetchRecipientListExportLink = (id: string) => {
-  return getAuth(`${API_V1_URI}/communication/email/${id}/get-export/`);
+  return getAuth(
+    `${API_V1_URI}/communication/communication_sent/${id}/get-export/`,
+  );
 };
 
 export const createCommunicationSentGroupConfig = (
@@ -139,7 +147,9 @@ export const fetchRecipientListByCommunicationSentGroup = (
   },
 ) => {
   return getAuth<PaginatedResponse<Recipient>>(
-    `${API_V1_URI}/communication/recipient/${buildUrlParams(params)}`,
+    `${API_V1_URI}/communication/communication_recipient/${buildUrlParams(
+      params,
+    )}`,
   );
 };
 

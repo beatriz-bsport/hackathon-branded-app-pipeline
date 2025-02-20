@@ -59,7 +59,6 @@ export function RecipientWithMemberFactory(member?: Member): Recipient<Member> {
         },
         true,
       ),
-    email_sent: randomInt(1000),
     campaign: 'My campaign',
     communication_sent: 'My communication sent',
     read_count: randomInt(4),

@@ -472,3 +472,6 @@ export const getFranchiseUserBillingPlansList = createSelector(
       .map((billingPlanId) => billingPlansData[billingPlanId])
       .filter((billingPlan) => !!billingPlan),
 );
+
+export const getFranchiseDisplayNewWebshopForFranchisees = (state: RootState) =>
+  getState(state)?.franchisor?.display_new_webshop_for_franchisees;

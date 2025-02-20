@@ -40,6 +40,7 @@ import { buildUrlParams } from '#src/http';
 import type { OptionCallback } from '#src/state/types';
 import type { RootState } from '#src/reducers';
 import PaginatedListBaseReworked from '#src/components/PaginatedListBaseReworked.component';
+import { getFranchiseDisplayNewWebshopForFranchisees } from '#src/libs/franchise/selectors';
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -73,6 +74,7 @@ const FranchiseCouponTemplateListReworked: React.FC<Props> = ({
   inactiveCouponTemplatesListPaginated,
   paymentPackTemplateList,
   privatePassTemplateList,
+  displayNewWebshopForFranchisees,
 }) => {
   const classes = useStyles();
   const { t } = useTranslation('coupon');
@@ -378,6 +380,7 @@ const FranchiseCouponTemplateListReworked: React.FC<Props> = ({
       {!!openCreationDrawer && (
         <CouponTemplateFormDrawer
           open
+          displayNewWebshopForFranchisees={displayNewWebshopForFranchisees}
           fetchPaymentPackTemplateBulk={fetchPaymentPackTemplateBulk}
           fetchPrivatePassTemplateBulk={fetchPrivatePassTemplateBulk}
           onClose={handleCloseCreationDialog}
@@ -389,6 +392,7 @@ const FranchiseCouponTemplateListReworked: React.FC<Props> = ({
       {!!couponTemplateForEdit && (
         <CouponTemplateFormDrawer
           open
+          displayNewWebshopForFranchisees={displayNewWebshopForFranchisees}
           fetchPaymentPackTemplateBulk={fetchPaymentPackTemplateBulk}
           fetchPrivatePassTemplateBulk={fetchPrivatePassTemplateBulk}
           initial={couponTemplateForEdit}
@@ -416,6 +420,8 @@ const connector = connect(
       getInActiveCouponTemplatePaginated(state),
     privatePassTemplateList: getPrivatePassTemplateList(state),
     paymentPackTemplateList: getPaymentPackTemplateList(state),
+    displayNewWebshopForFranchisees:
+      getFranchiseDisplayNewWebshopForFranchisees(state),
   }),
   {
     fetchActiveCouponTemplateListPaginated:

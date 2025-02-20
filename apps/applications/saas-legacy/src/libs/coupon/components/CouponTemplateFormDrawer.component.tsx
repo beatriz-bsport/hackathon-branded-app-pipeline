@@ -21,6 +21,7 @@ type OwnProps = {
   paymentPackTemplateList: Array<PaymentPackTemplate>;
   fetchPaymentPackTemplateBulk: (params: { id__in: number[] }) => void;
   fetchPrivatePassTemplateBulk: (params: { id__in: number[] }) => void;
+  displayNewWebshopForFranchisees: boolean;
 };
 type Props = OwnProps;
 

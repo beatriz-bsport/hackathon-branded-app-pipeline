@@ -37,7 +37,8 @@ import routerParamsToProps from '../../../hocs/router-params-to-props.hoc';
 import {
   getFranchiseCompanies,
   getAllowedFranchisees,
-} from '../../../libs/franchise/selectors';
+  getFranchiseDisplayNewWebshopForFranchisees,
+} from '#src/libs/franchise/selectors';
 import { openNewWindowToImpersonate } from '#src/utils/windows';
 import { OptionCallback } from '../../../state/types';
 import { WithHandlerType } from '../../../utils/types';
@@ -145,6 +146,9 @@ export class FranchiseCouponTemplateDetail extends Component<Props> {
         {this.props.editTemplateDialogOpen && (
           <CouponTemplateFormDrawer
             open
+            displayNewWebshopForFranchisees={
+              this.props.displayNewWebshopForFranchisees
+            }
             fetchPaymentPackTemplateBulk={
               this.props.fetchPaymentPackTemplateBulk
             }
@@ -208,6 +212,8 @@ const connector = connect(
       page: state.coupon.discount.page,
       items: state.coupon.discount.items,
     },
+    displayNewWebshopForFranchisees:
+      getFranchiseDisplayNewWebshopForFranchisees(state),
   }),
   {
     retrieveCouponTemplate: retrieveCouponTemplateAction,

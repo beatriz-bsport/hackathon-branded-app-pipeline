@@ -88,6 +88,7 @@ type OwnProps = {
   fetchPrivatePassTemplateBulk: (params: { id__in: number[] }) => void;
   onClose: () => void;
   onSubmit: (data: any, options?: OptionCallback) => void;
+  displayNewWebshopForFranchisees: boolean;
 };
 type Props = OwnProps & FormikProps<InitialValues> & WithStateProps;
 
@@ -174,6 +175,7 @@ export const CouponTemplateForm = (props: Props) => {
     setFieldValue,
     fetchPaymentPackTemplateBulk,
     fetchPrivatePassTemplateBulk,
+    displayNewWebshopForFranchisees,
   } = props;
   const { t } = useTranslation('coupon');
   const classes = useStyles();
@@ -476,48 +478,52 @@ export const CouponTemplateForm = (props: Props) => {
                     ))
                   : null}
               </div>
-              <FormControlLabel
-                className={classes.radioField}
-                control={
-                  <Radio
-                    checked={
-                      values.applies_to === BUYABLE_ITEM_SHOP_ITEM.toString()
-                    }
-                  />
-                }
-                label={t(
-                  `form.applies_to.choicesFranchise.${BUYABLE_ITEM_SHOP_ITEM}`,
-                )}
-                name="applies_to"
-                onChange={handleChange}
-                value={BUYABLE_ITEM_SHOP_ITEM.toString()}
-              />
-              <div className={classes.fullWidth}>
-                <ObjectSearchComponent
-                  closeMenuOnSelect
-                  additionalParams={{
-                    is_variant: false,
-                  }}
-                  components={{
-                    Option: ShopItemSearchOption,
-                  }}
-                  optionsFormatter={shopItemTemplateOptionFormatter}
-                  placeholder={t('form.selectorPlaceholder.shopitem')}
-                  searchedObjectType="shop_item_template"
-                  variant="underlined"
-                />
-                {values.applies_to === BUYABLE_ITEM_SHOP_ITEM.toString() &&
-                  values.only_on_objects.length > 0 &&
-                  values.only_on_objects.map((id: number) => (
-                    <FranchiseShopItemTemplateListItem
-                      key={id}
-                      handleDelete={handleRemoveSelectShopItemTemplate}
-                      shopItemTemplate={
-                        getResultsById('shop_item_template')[id]
+              {displayNewWebshopForFranchisees && (
+                <FormControlLabel
+                  className={classes.radioField}
+                  control={
+                    <Radio
+                      checked={
+                        values.applies_to === BUYABLE_ITEM_SHOP_ITEM.toString()
                       }
                     />
-                  ))}
-              </div>
+                  }
+                  label={t(
+                    `form.applies_to.choicesFranchise.${BUYABLE_ITEM_SHOP_ITEM}`,
+                  )}
+                  name="applies_to"
+                  onChange={handleChange}
+                  value={BUYABLE_ITEM_SHOP_ITEM.toString()}
+                />
+              )}
+              {displayNewWebshopForFranchisees && (
+                <div className={classes.fullWidth}>
+                  <ObjectSearchComponent
+                    closeMenuOnSelect
+                    additionalParams={{
+                      is_variant: false,
+                    }}
+                    components={{
+                      Option: ShopItemSearchOption,
+                    }}
+                    optionsFormatter={shopItemTemplateOptionFormatter}
+                    placeholder={t('form.selectorPlaceholder.shopitem')}
+                    searchedObjectType="shop_item_template"
+                    variant="underlined"
+                  />
+                  {values.applies_to === BUYABLE_ITEM_SHOP_ITEM.toString() &&
+                    values?.only_on_objects.length > 0 &&
+                    values.only_on_objects.map((id: number) => (
+                      <FranchiseShopItemTemplateListItem
+                        key={id}
+                        handleDelete={handleRemoveSelectShopItemTemplate}
+                        shopItemTemplate={
+                          getResultsById('shop_item_template')?.[id]
+                        }
+                      />
+                    ))}
+                </div>
+              )}
               <FormControlLabel
                 className={classes.radioField}
                 control={

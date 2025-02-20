@@ -1,10 +1,17 @@
 {
-  "name": "bsport",
+  "name": "@bsport/ichizen",
   "version": "1.0.0",
-  "description": "",
-  "keywords": [],
+  "description": "Source code of all bsport's web interfaces, including the interface for our clients, their members and the widget that our client integrate of their own websites.",
+  "keywords": [
+    "monorepository",
+    "nx",
+    "react",
+    "vite",
+    "storybook",
+    "tailwindcss"
+  ],
   "license": "UNLICENSED",
-  "author": "",
+  "author": "bsport<tech@bsport.io>",
   "scripts": {
     "api-environment:set": "pnpm exec ts-node tools/monorepo-utils/src/index.ts api-environment:set",
     "build": "nx build",

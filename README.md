@@ -1,8 +1,16 @@
-# Monorepository Example
-
-This project is a simple implementation of how a Monorepository can be configured with [pnpm workspaces](https://pnpm.io/fr/workspaces) and [NxJS](https://nx.dev/).
+# Ichizen - bsport Web interfaces
 
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
+
+This repository contains the source code of all bsport's web interfaces, including the interface for our clients, their members and the widget that our client integrate of their own websites.
+
+> Ichizen (一全) can be interpreted as:
+>
+> 一 (Ichi): "One" or "Unified."
+> 全 (Zen): "Whole," "Complete," or "Entire."
+> Together, Ichizen conveys the idea of "complete unity" or "wholeness in one"—a perfect reflection of a central place or a unified repository. It suggests harmony, integrity, and completeness
+
+This project is configured with [pnpm workspaces](https://pnpm.io/fr/workspaces) and [NxJS](https://nx.dev/).
 
 ## How to use
 
@@ -38,6 +46,12 @@ or
 
 ```sh
 pnpm exec nx start @bsport/[application]
+```
+
+**NB:** This applies as well to any script of any project in the pnpm workspace. To run the script `[script]` in the project `@bsport/[application]`, just run
+
+```sh
+pnpm exec nx [script] @bsport/[application]
 ```
 
 ### Run Kaizen primitive components library
@@ -131,35 +145,159 @@ pnpm i -g pnpm
 
 **NB:** Do not run the command `pnpm self-update` as prompted by pnpm as it might install pnpm at a different path.
 
-## Structure
+## Project Structure
+
+### Structure high level
+
+Ichizen is divided in 3 main root folders:
+
+- `apps` containing all deployables projects that will be used by end users (web applications, widgets ...). It is divided in:
+- `packages` exposing all libraries that will be used by `apps`, `tools` or externally
+- `tools` exposing tools to enable Software Engineers in their work: Development experience tools, deployment scritps, CLIs...
+
+**Note 1:** Within a folder holding business logic we want as much as possible to follow as much as possible bsport's team organization and have a split similar to what is happening in [`bsport-django`](https://gitlab.com/bsport/bsport-django/-/tree/dev/apps?ref_type=heads).
+
+#### `apps`
+
+Here are the current folders in apps:
+
+- `apps/applications` which is exposing all web applications. Within this folder, each folder represent a user persona that will be using the application. ⚠️ We should try as much as possible to have applications used by different personnas and behave differently as it makes overall documentation, maintenance and testing harder.
+  - `apps/applications/b2b`: Studio managers. The content of this folder follows the **Note 1**.
+  - `apps/applications/b2c`: Studio members.
+  - `apps/applications/saas-legacy`: bsport legacy monolith.
+- `apps/widgets` which is exposing all widgets. These are codes that can be pasted in client's source code and that allows them to display pieces of bsport code and interact with our infrastructure.
+
+#### `packages`
+
+Packages are organized as follows:
+
+- `common-legacy` which is the legacy package holding the business logic shared by `saas-legacy`, `widget-legacy` and [`bpsort-mobile`](https://gitlab.com/bsport/bsport-mobile).
+- `ui-components` which is holding all UI components shared accross different apps. These are split by the audience and the design system that is used:
+  - `fabrique` for Studio members,
+  - `kaizen` for Studio managers.
+- `stores` which holding all the shared business logic of the differents apps (API calls, Zustand stores, helpers ...). The content of this folder follows the **Note 1**.
+- `utils` which expose common libraries exposing functions or utilities that are not holding any Product specific or business logic. It can include time/timezone management, observability tools ...
+
+#### `tools`
+
+TODO
+
+### Tree structure
+
+Here is a visual representation of what the project tree structure looks like.
 
 ```tree
-├── README.md
-├── apps                  // End-user applications
-│   ├── applications
-│   │   ├── micro-frontend-1
-│   │   ├── ...
-│   │   └── saas
-│   └── widgets
-│       ├── widget-1
-│       ├── ...
-│       └── widget
-├── node_modules
-├── nx.json               // NX config file
-├── package.json          // Workspace package.json
-├── packages
-│   ├── common
-│   ├── design-system
-│   │   └── kaizen
-│   ├── types
-│   └── utils
-├── pnpm-lock.yaml        // Dependencies lock file
-├── pnpm-workspace.yaml   // Pnpm workspace configuration
-├── tools
-│   ├── monorepo-utils    // Custom made TS CLI tool to admin the monorepo
-│   └── templates
-├── tsconfig.base.json
-└── tsconfig.json         // TS config used to run ts-node at a workspace level
+apps/
+├──applications
+  ├── b2b
+    ├── book
+      ├── ...
+    ├── business-insights
+      ├── ...
+    ├── buyables
+      ├── ...
+    ├── communication
+      ├── ...
+    ├── core-data
+      ├── ...
+    ├── customer-data-platform
+      ├── ...
+    ├── financial-services
+      ├── ...
+    └── staff_management
+      ├── ...
+  ├── b2c
+  ├── global
+  └── internal
+└── widgets
+
+packages
+├── stores
+  ├── book
+    └── group-activity
+  ├── business-insights
+    └── report
+  ├── buyables
+    └── giftcard
+  ├── communication
+    └── email-template
+  ├── core-data
+  ├── customer-data-platform
+  ├── financial-services
+    └── invoice
+  └── staff_management
+├── ui-components
+  ├── fabrique
+  ├── global
+  └── kaizen
+    ├── business-components
+      ├── book
+        ├── ...
+      ├── business-insights
+        ├── ...
+      ├── buyables
+        ├── ...
+      ├── communication
+        ├── ...
+      ├── core-data
+        ├── ...
+      ├── customer-data-platform
+        ├── ...
+      ├── financial-services
+        ├── ...
+      └── staff_management
+        ├── ...
+    ├── primitives
+    └── tokens
+└── utils
+  ├── b2b-backbone
+  ├── datetime
+  ...
+
+tools/
+├── ci
+├── config
+├──  ~monorepo-utils~ => toolkit-cli (what do you think about this name ?)
+└── templates
+```
+
+### pnpm workspaces
+
+pnpm will recognize any folder as a package based on the following rules:
+
+- it has a `package.json` file at its root
+- it follows one of the patterns defined in [pnpm-workspace.yaml](./pnpm-workspace.yaml).
+
+You can find the full list of packages by running:
+
+```sh
+pnpm run -w project:list
+```
+
+### New package
+
+You can then import your newly package (for example `@bsport/my-cool-package`), by adding in your project's package.json the following:
+
+```jsonc
+{
+  // ...
+  "dependencies": {
+    "@bsport/my-cool-package": "workspace:*",
+    // ...
+  },
+}
+```
+
+or if you don't want your package to appear in the production build
+
+```jsonc
+{
+  // ...
+  "devDependencies": {
+    "@bsport/my-cool-package": "workspace:*",
+    // ...
+  },
+}
 ```
 
 ## Troubleshooting
@@ -168,6 +306,6 @@ pnpm i -g pnpm
 
 If you face this error on Linux, you may need to increase the max number of watches:
 
-```
+```sh
 echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
 ```

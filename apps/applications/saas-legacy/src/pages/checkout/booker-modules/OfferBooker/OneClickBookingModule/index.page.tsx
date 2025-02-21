@@ -18,13 +18,11 @@ import {
 import ConsumerBookingDetailsCard from '#src/libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingDetailsCard';
 import { getLevelTranslation } from '#src/libs/level/utils';
 import useConsumerBookingDateTime from '#src/libs/consumer-space/components/reworked/@MyBookings/hooks/useConsumerBookingDateTime';
-import Skeleton from '#src/components/css-only/Skeleton';
 import Typography from '#src/components/css-only/Fabrique/Typography/Typography.component';
 import { TypographyVariant } from '#src/components/css-only/Fabrique/Typography/constants';
 import ButtonV2 from '#src/components/css-only/Fabrique/ButtonV2';
 import MinimalPaymentPackCard from '#src/libs/marketplace/components/@PaymentPack/MinimalPaymentPackCard';
 import { LinkExternal01 } from '#src/components/untitledui';
-import './index.css';
 import LightSignupForm, {
   LightSignupFormValues,
   lightSignupFormWrapper,
@@ -43,6 +41,8 @@ import {
 import { useFormikContext } from 'formik';
 import WidgetUtils from '#src/libs/widget/WidgetUtils';
 import { urlToMarketplace } from '#src/libs/marketplace/utils';
+import { OneClickCheckoutSkeleton } from '#src/pages/checkout/booker-modules/OfferBooker/OneClickBookingModule/_components/OneClickCheckoutSkeleton';
+import './index.css';
 
 type OwnProps = {
   companyId: number;
@@ -221,15 +221,7 @@ const OneClickBookingModule: React.FC<Props> = ({
             {t('oneClickBooking.goToLogin')}
           </ButtonV2>
         </div>
-        {state.loading && (
-          <>
-            <Skeleton className="bs-oneclick-booking__skeleton--tiny" />
-            <Skeleton className="bs-oneclick-booking__skeleton" />
-            <Skeleton className="bs-oneclick-booking__skeleton--small" />
-            <Skeleton className="bs-oneclick-booking__skeleton--small" />
-            <Skeleton className="bs-oneclick-booking__skeleton" />
-          </>
-        )}
+        <OneClickCheckoutSkeleton isLoading={state.loading} />
         {offer && (
           <div className="bs-oneclick-booking__content">
             <div className="bs-oneclick-booking__booking-details">

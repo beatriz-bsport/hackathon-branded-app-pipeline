@@ -1,14 +1,11 @@
 import React from "react";
-import { cva, type VariantProps } from "class-variance-authority";
 import Item from "#src/components/NavigationMenu/Item";
 import { NavigationMenuProvider } from "#src/components/NavigationMenu/Context";
 import type { NavigationMenuType } from "#src/components/NavigationMenu/types";
 
-const navigationMenu = cva();
-
 export type NavigationMenuProps = React.HTMLAttributes<HTMLDivElement> &
-  VariantProps<typeof navigationMenu> &
   NavigationMenuType;
+
 /**
  * NavigationMenu
  *
@@ -28,7 +25,7 @@ const NavigationMenu: React.FC<NavigationMenuProps> = ({
   if (!items?.length) return null;
   return (
     <NavigationMenuProvider onItemClick={onItemClick} items={items}>
-      <div className={navigationMenu({ className })} {...props}>
+      <div className={className || ""} {...props}>
         {items.map(({ id }) => (
           <Item id={id} key={id} />
         ))}

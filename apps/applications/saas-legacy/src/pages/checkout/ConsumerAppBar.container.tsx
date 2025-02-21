@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import { MuiThemeProvider, makeStyles } from '@material-ui/core/styles';
 import { push } from 'connected-react-router';
@@ -64,6 +64,12 @@ export const ConsumerAppBar: React.FC<Props> = ({
     }
   }, [auth, consumerProfile, fetchProfile]);
 
+  const handleGoToUserSpace = useCallback(() => {
+    if (theme?.company) {
+      goToUserSpace(theme.company);
+    }
+  }, [theme?.company, goToUserSpace]);
+
   return (
     <MuiThemeProvider theme={getTheme(theme)}>
       <div className={classes.container}>
@@ -72,6 +78,7 @@ export const ConsumerAppBar: React.FC<Props> = ({
             auth={auth}
             disconnect={disconnect}
             photo={consumerProfile?.photo}
+            requestLogin={handleGoToUserSpace}
           />
         ) : (
           <MarketplaceAppBar
@@ -79,12 +86,17 @@ export const ConsumerAppBar: React.FC<Props> = ({
             // @ts-expect-error
             companyId={companyId}
             disconnect={disconnect}
-            goToUserSpace={() => goToUserSpace(theme.company)}
+            goToUserSpace={handleGoToUserSpace}
             isRelationNavigation={isRelationNavigation}
             isWidget={isWidget}
             logo={theme && theme.cover}
             navigateBackToMasterRelation={navigateBackToMasterRelation}
             photo={consumerProfile?.photo}
+            /* This is a temporary solution to redirect users to the login page when they are not authenticated.
+             * This redirection should only occur during the one-click checkout process.
+             * TODO: Implement the new CheckoutNavigation feature to handle this scenario appropriately.
+             */
+            requestLogin={handleGoToUserSpace}
             theme={theme}
             websiteURL={theme.websiteURL}
           />

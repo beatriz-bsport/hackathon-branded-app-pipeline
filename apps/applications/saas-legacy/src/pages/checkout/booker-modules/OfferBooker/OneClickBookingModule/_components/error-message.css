@@ -1,0 +1,27 @@
+.bs-oneclick-booking-error-message__container,
+.bs-oneclick-booking-error-message__text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.bs-oneclick-booking-error-message__container {
+  gap: var(--bs-space-size-6);
+  padding: var(--bs-space-size-6);
+}
+
+.bs-oneclick-booking-error-message__text {
+}
+
+.bs-oneclick-booking-error-message__text__title {
+  color: var(--bs-color-text-default);
+  font-weight: var(--bs-font-weight-strong);
+}
+
+.bs-oneclick-booking-error-message__text__description {
+  color: var(--bs-color-text-weak);
+  font-weight: var(--bs-font-weight-weak);
+  text-align: center;
+}
+
+.bs-oneclick-booking-error-message__button {
+}

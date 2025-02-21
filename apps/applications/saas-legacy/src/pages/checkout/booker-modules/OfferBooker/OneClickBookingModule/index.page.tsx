@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
+import { replace as replaceRouter } from 'connected-react-router';
 import { connect, ConnectedProps } from 'react-redux';
 import { compose } from 'recompose';
 import { useTranslation } from 'react-i18next';
@@ -19,10 +20,7 @@ import { getLevelTranslation } from '#src/libs/level/utils';
 import useConsumerBookingDateTime from '#src/libs/consumer-space/components/reworked/@MyBookings/hooks/useConsumerBookingDateTime';
 import Skeleton from '#src/components/css-only/Skeleton';
 import Typography from '#src/components/css-only/Fabrique/Typography/Typography.component';
-import {
-  TypographyColor,
-  TypographyVariant,
-} from '#src/components/css-only/Fabrique/Typography/constants';
+import { TypographyVariant } from '#src/components/css-only/Fabrique/Typography/constants';
 import ButtonV2 from '#src/components/css-only/Fabrique/ButtonV2';
 import MinimalPaymentPackCard from '#src/libs/marketplace/components/@PaymentPack/MinimalPaymentPackCard';
 import { LinkExternal01 } from '#src/components/untitledui';
@@ -33,6 +31,7 @@ import LightSignupForm, {
 } from './_components/LightSignupForm';
 import useFetchOfferInformation from './_hooks/useFetchOfferInformation';
 import useBookInOneClick from './_hooks/useBookInOneClick';
+import { ErrorCode, ErrorMessage } from './_components/ErrorMessage';
 import useCheckBookableStatus from './_hooks/useCheckBookableStatus';
 import Loader from './_components/Loader';
 import { consumerAppBarHOC } from '#src/hocs/consumer-app-bar.hoc';
@@ -42,6 +41,8 @@ import {
   ButtonVariant,
 } from '#src/components/css-only/Fabrique/ButtonV2/constants';
 import { useFormikContext } from 'formik';
+import WidgetUtils from '#src/libs/widget/WidgetUtils';
+import { urlToMarketplace } from '#src/libs/marketplace/utils';
 
 type OwnProps = {
   companyId: number;
@@ -56,6 +57,7 @@ const OneClickBookingModule: React.FC<Props> = ({
   authenticated,
   theme,
   retrieveCompanyCssConfiguration,
+  replace,
 }) => {
   const {
     values: lightSignupValues,
@@ -106,6 +108,9 @@ const OneClickBookingModule: React.FC<Props> = ({
     if (!isFormValid) {
       return;
     }
+    if ((await checkBookableStatus(offerId))?.shouldDisplayErrorPage) {
+      return;
+    }
     await submitLightSignupForm();
     await bookInOneClick({
       companyId,
@@ -127,6 +132,8 @@ const OneClickBookingModule: React.FC<Props> = ({
     lightSignupValues.lastName,
     lightSignupValues.email,
     lightSignupValues.phone,
+    checkBookableStatus,
+    offerId,
   ]);
 
   const offerDate = useConsumerBookingDateTime({
@@ -145,6 +152,13 @@ const OneClickBookingModule: React.FC<Props> = ({
     window.location.search,
   );
 
+  const goBackToCalendar = () => {
+    if (WidgetUtils.isWidget()) {
+      WidgetUtils.handleGoBackNavigation();
+    }
+    replace(urlToMarketplace(theme?.company_name, companyId.toString()));
+  };
+
   // @debt(4, 2, 2) This works because we do not set the authenticated state in the redux store
   // when we are on the one click booking page (we are just storing the token in the local storage)
   if (authenticated) {
@@ -159,24 +173,28 @@ const OneClickBookingModule: React.FC<Props> = ({
     );
   }
 
-  if (
-    bookableStatusState.error ||
-    bookableStatusState.value.shouldDisplayErrorPage
-  ) {
-    // TODO: Create a nice Oops component
-    return (
-      <Typography color={TypographyColor.ERROR}>
-        {t('oneClickBooking.bookableStatus.error')}
-      </Typography>
-    );
-  }
-
   if (bookableStatusState.value.shouldRedirect) {
     return <Redirect to={offerBookerUrl} />;
   }
 
   if (state.value?.paymentPacks && state.value?.paymentPacks.length === 0) {
     return <Redirect to={offerBookerUrl} />;
+  }
+
+  if (
+    bookableStatusState.error ||
+    bookableStatusState.value?.shouldDisplayErrorPage
+  ) {
+    return (
+      <ErrorMessage
+        /* Using "as" here to avoid redundance.
+         * shouldDisplayErrorPage is already true only if statusCode is 1 | 2 | 3 | 4
+         * Instead of writing again a if statement, we cast the value of statusCode
+         */
+        errorCode={bookableStatusState.value.statusCode as ErrorCode}
+        goBackToCalendar={goBackToCalendar}
+      />
+    );
   }
 
   const offerLevelTranslation = getLevelTranslation(offer?.level, ' ', t);
@@ -294,6 +312,7 @@ const connector = connect(
   {
     snackbarError,
     retrieveCompanyCssConfiguration: retrieveCompanyCssConfigurationAction,
+    replace: replaceRouter,
   },
 );
 

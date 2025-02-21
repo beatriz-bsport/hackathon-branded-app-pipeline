@@ -753,7 +753,26 @@
         "goToLogin": "Log in",
         "yourBooking": "Your booking",
         "seeMoreWithLogin": "Log in to explore packs and subscriptions!",
-        "bookableStatus": { "error": "Oops, it seems this booking is not available" },
+        "bookableStatus": {
+          "error": "Oops, it seems this booking is not available",
+          "full": {
+            "title": "Session fully booked",
+            "description": "This session just filled up, and we couldn’t complete your booking. <br> Please check the calendar to find another available session."
+          },
+          "locked": {
+            "title": "Session canceled",
+            "description": "This session has been canceled and is no longer available for booking. <br> Please check the calendar for other available sessions."
+          },
+          "closeTooSoon": {
+            "title": "Oops! Too early to book",
+            "description": "This session is not available for booking yet. <br> Please check the calendar to see when bookings open or explore other available sessions."
+          },
+          "closeTooLate": {
+            "title": "Oops! Too late to book",
+            "description": "This session has already started or ended, so booking is no longer possible. <br> Please check the calendar for upcoming sessions."
+          }
+        },
+        "goToCalendar": "Go to the calendar",
         "bookButtonLabel": "Book now"
       },
       "lightSignup": {

@@ -79,7 +79,10 @@
 }
 
 .bs-oneclick-booking__light-signup-form {
+  display: flex;
+  flex-direction: column;
   width: 100%;
+  gap: var(--bs-space-size-4);
 }
 
 .bs-light-signup-form__container {
@@ -115,4 +118,10 @@
   flex-direction: column;
   width: 100%;
   gap: var(--bs-space-size-1);
+}
+
+.bs-oneclick-booking__divider {
+  height: 1px;
+  width: 100%;
+  background-color: var(--bs-color-border-weak);
 }

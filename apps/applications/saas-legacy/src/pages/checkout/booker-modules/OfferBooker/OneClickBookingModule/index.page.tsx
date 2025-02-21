@@ -286,7 +286,12 @@ const OneClickBookingModule: React.FC<Props> = ({
                 </ButtonV2>
               </div>
             </div>
+            <div className="bs-oneclick-booking__divider" />
+
             <div className="bs-oneclick-booking__light-signup-form">
+              <Typography variant={TypographyVariant.TITLE_SM}>
+                {t('oneClickBooking.yourDetails')}
+              </Typography>
               <LightSignupForm />
               <div className="bs-oneclick-booking__book-button-container">
                 <ButtonV2

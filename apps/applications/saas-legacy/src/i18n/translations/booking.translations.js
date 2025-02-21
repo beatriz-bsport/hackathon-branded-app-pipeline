@@ -628,6 +628,7 @@ const getTranslations = async () => {
       alreadyMember: 'Already have an account?',
       goToLogin: 'Log in',
       yourBooking: 'Your booking',
+      yourDetails: 'Your details',
       seeMoreWithLogin: 'Log in to explore packs and subscriptions!',
       bookableStatus: {
         error: 'Oops, it seems this booking is not available',

@@ -12,6 +12,20 @@ import AvatarImage from "#src/components/Avatar/assets/avatar.jpeg";
  */
 const meta: Meta<typeof Table> = {
   component: Table,
+  argTypes: {
+    emptyStateProps: {
+      table: {
+        type: {
+          detail:
+            "{\n\tisEmpty: boolean;\n\temptyConfig: {" +
+            "\n\t\ttitle?: string;\n\t\tsubtitle?: string;\n\t\tclassName?: string;" +
+            "\n\t\tctaButtonConfig?: ButtonProps;\n\t\tsecondaryButtonConfig?: ButtonProps;\n\t};" +
+            "\n\tisEmptySearch?: boolean;\n\temptySearchConfig?: Like emptyConfig;\n}",
+          summary: "UseEmptyStateProps",
+        },
+      },
+    },
+  },
 };
 
 export default meta;
@@ -120,6 +134,34 @@ const columns: Column<DataRow>[] = [
   },
 ];
 
+const emptyConfig = {
+  title: "No email templates yet",
+  subtitle: "Create email templates to easily contact your members",
+  className: "max-w-[320px]",
+  ctaButtonConfig: {
+    iconLeft: "award-03" as const,
+    label: "Create template",
+    onClick: () => console.log("Create email template"),
+  },
+  secondaryButtonConfig: {
+    iconLeft: "bank-note-03" as const,
+    label: "Add category",
+    onClick: () => console.log("Create a new category"),
+  },
+};
+
+const emptySearchConfig = {
+  title: "No results found",
+  subtitle:
+    "No members match your filters.\nTry clearing them to see more results",
+  className: "max-w-[320px]",
+  secondaryButtonConfig: {
+    iconLeft: "x" as const,
+    label: "Clear filters",
+    onClick: () => console.log("Clear the filters"),
+  },
+};
+
 export const Primary: StoryObj<typeof Table> = {
   args: {
     columns: columns as Column<BaseRowType>[],
@@ -127,6 +169,12 @@ export const Primary: StoryObj<typeof Table> = {
     rowHeight: "sm",
     selectable: true,
     withVerticalBorders: true,
+    emptyStateProps: {
+      isEmptySearch: false,
+      emptySearchConfig: emptySearchConfig,
+      isEmpty: false,
+      emptyConfig: emptyConfig,
+    },
   },
 };
 
@@ -191,5 +239,35 @@ export const WithRowLink: StoryObj<typeof Table> = {
     rowHeight: "sm",
     selectable: true,
     withVerticalBorders: true,
+  },
+};
+
+export const EmptyTable: StoryObj<typeof Table> = {
+  args: {
+    columns: [],
+    rows: [],
+    rowHeight: "sm",
+    selectable: true,
+    withVerticalBorders: true,
+    emptyStateProps: {
+      isEmpty: true,
+      emptyConfig: emptyConfig,
+    },
+  },
+};
+
+export const EmptySearchTable: StoryObj<typeof Table> = {
+  args: {
+    columns: [],
+    rows: [],
+    rowHeight: "sm",
+    selectable: true,
+    withVerticalBorders: true,
+    emptyStateProps: {
+      isEmptySearch: true,
+      emptySearchConfig: emptySearchConfig,
+      isEmpty: true, // Check that empty search prevails over empty
+      emptyConfig: emptyConfig,
+    },
   },
 };

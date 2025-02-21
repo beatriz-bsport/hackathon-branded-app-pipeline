@@ -6,6 +6,9 @@ import { ChipProps } from "#src/components/Chip";
 import { CheckboxProvider } from "#src/contexts/CheckboxContext";
 import type { PaginationProps } from "#src/components/private/Pagination";
 import { usePagination } from "#src/hooks/use-pagination";
+import useEmptyState, {
+  type UseEmptyStateProps,
+} from "#src/hooks/use-empty-state.hook";
 
 const defaultClasses = [
   "flex",
@@ -49,12 +52,17 @@ export type ListProps = {
   items?: ListItemProps[];
   isSelectable?: boolean;
   paginationProps?: PaginationProps;
+  emptyStateProps?: UseEmptyStateProps;
 };
-
 /**
  * A list component that can contain multiple `Item` components and one `Header` component.
  * It manages the state of checked items and provides context for each `Item` regarding its checked state.
  * @param className Classname to add to the list container.
+ * @param emptyStateProps [Optional] Dictionnary of props to manage the empty state rendering
+ * - emptyConfig Configuration to display the empty state UI when isEmpty is true;
+ * - emptySearchConfig [Optional] Configuration to display the empty search UI when isEmptySearch is true;
+ * - isEmpty Whether the fetch return an empty list;
+ * - isEmptySearch [Optional] Whether the filtering return an empty list;
  * @param id Optional ID for the list.
  * @param header Optional header component to display at the top of the list.
  * @param items An array of `Item` components to display in the list.
@@ -69,10 +77,16 @@ const List: React.FC<ListProps> = ({
   items,
   isSelectable = false,
   paginationProps,
+  emptyStateProps,
 }: ListProps) => {
   const valueIds = items?.map((item) => item.id) ?? [];
 
   const pagination = usePagination(paginationProps);
+
+  const { shouldRenderEmptyState, EmptyState } = useEmptyState(emptyStateProps);
+  if (shouldRenderEmptyState) {
+    return <EmptyState />;
+  }
 
   return (
     <CheckboxProvider valueIds={valueIds}>

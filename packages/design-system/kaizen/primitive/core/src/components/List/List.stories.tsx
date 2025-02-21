@@ -16,6 +16,18 @@ const meta: Meta<typeof List> = {
     },
     header: { control: "object" },
     items: { control: "object" },
+    emptyStateProps: {
+      table: {
+        type: {
+          detail:
+            "{\n\tisEmpty: boolean;\n\temptyConfig: {" +
+            "\n\t\ttitle?: string;\n\t\tsubtitle?: string;\n\t\tclassName?: string;" +
+            "\n\t\tctaButtonConfig?: ButtonProps;\n\t\tsecondaryButtonConfig?: ButtonProps;\n\t};" +
+            "\n\tisEmptySearch?: boolean;\n\temptySearchConfig?: Like emptyConfig;\n}",
+          summary: "UseEmptyStateProps",
+        },
+      },
+    },
   },
 };
 
@@ -30,18 +42,36 @@ const items = Array.from({ length: 100 }, (_, index) => ({
   description: "Playing with fonts is fun",
 }));
 
+const emptyConfig = {
+  title: "No email templates yet",
+  subtitle: "Create email templates to easily contact your members",
+  className: "max-w-[320px]",
+  ctaButtonConfig: {
+    iconLeft: "award-03" as const,
+    label: "Create template",
+    onClick: () => console.log("Create email template"),
+  },
+  secondaryButtonConfig: {
+    iconLeft: "bank-note-03" as const,
+    label: "Add category",
+    onClick: () => console.log("Create a new category"),
+  },
+};
+
+const emptySearchConfig = {
+  title: "No results found",
+  subtitle:
+    "No members match your filters.\nTry clearing them to see more results",
+  className: "max-w-[320px]",
+  secondaryButtonConfig: {
+    iconLeft: "x" as const,
+    label: "Clear filters",
+    onClick: () => console.log("Clear the filters"),
+  },
+};
+
 export const Primary: Story = {
   name: "List",
-  render: (args) => {
-    return (
-      <List
-        header={args.header}
-        id={args.id}
-        items={args.items}
-        isSelectable={args.isSelectable}
-      />
-    );
-  },
   args: {
     id: "list-1",
     header: {
@@ -70,19 +100,17 @@ export const Primary: Story = {
       },
     ],
     isSelectable: false,
+    emptyStateProps: {
+      isEmptySearch: false,
+      emptySearchConfig: emptySearchConfig,
+      isEmpty: false,
+      emptyConfig: emptyConfig,
+    },
   },
 };
 
 export const Checkboxes: Story = {
   name: "List with checkboxes",
-  render: (args) => (
-    <List
-      header={args.header}
-      id={args.id}
-      items={args.items}
-      isSelectable={args.isSelectable}
-    />
-  ),
   args: {
     id: "list-2",
     header: {
@@ -222,5 +250,27 @@ export const PaginatedList: Story = {
         }}
       />
     );
+  },
+};
+
+export const EmptyList: Story = {
+  args: {
+    emptyStateProps: {
+      isEmptySearch: false,
+      emptySearchConfig: emptySearchConfig,
+      isEmpty: true,
+      emptyConfig: emptyConfig,
+    },
+  },
+};
+
+export const EmptySearchList: Story = {
+  args: {
+    emptyStateProps: {
+      isEmptySearch: true,
+      emptySearchConfig: emptySearchConfig,
+      isEmpty: true, // Check that empty search prevails over empty
+      emptyConfig: emptyConfig,
+    },
   },
 };

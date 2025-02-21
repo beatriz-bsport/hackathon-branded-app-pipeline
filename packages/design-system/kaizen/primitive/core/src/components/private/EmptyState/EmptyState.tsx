@@ -1,0 +1,97 @@
+import React, { lazy, Suspense, useMemo } from "react";
+import { cva, type VariantProps } from "class-variance-authority";
+import Body from "#src/components/Body";
+import Button, { type ButtonProps } from "#src/components/Button";
+import Title from "#src/components/Title";
+
+const defaultClasses = ["flex", "flex-col", "gap-xs", "items-center"] as const;
+
+const emptyState = cva(defaultClasses);
+
+export type EmptyStateProps = React.HTMLAttributes<HTMLDivElement> &
+  VariantProps<typeof emptyState> & {
+    children?: React.ReactNode;
+    ctaButtonConfig?: Partial<ButtonProps>;
+    secondaryButtonConfig?: Partial<ButtonProps>;
+    subtitle?: string;
+    title?: string;
+    variant?: "empty-state" | "no-results-found";
+  };
+
+/**
+ * Internal component used to display empty list states, with two variants :
+ * Whether the list is empty by filtering (no-results-found) or not (empty-state, default variant).
+ * @param props.children Optional. Additional ReactNode to add at the bottom of the component.
+ * @param props.className Optional. Custom CSS classes for the container.
+ * @param props.ctaButtonConfig Optional. Props to provide to the CTA button. The CTA style is enforced.
+ * @param props.secondaryButtonConfig Optional. Props to provide to the secondary button. THe secondary style is enforced.
+ * @param props.title Optional. Title to display main information.
+ * @param props.subtitle Optional. Body to add under the title to add hints.
+ * @param props.variant Optional. Define the icon to display (`empty-state` or `no-results-found`).
+ * @link  https://docs.infra.bsport.io/storybook/kaizen/dev/index.html?path=/docs/components-emptystate--docs
+ */
+const EmptyState: React.FC<EmptyStateProps> = ({
+  children,
+  ctaButtonConfig,
+  className,
+  secondaryButtonConfig,
+  title,
+  subtitle,
+  variant,
+  ...props
+}) => {
+  const SVGEmptyImage = useMemo(() => {
+    const assetName =
+      variant === "no-results-found" ? "no-results-found" : "empty-state";
+    return lazy(async () => await import(`./assets/${assetName}.svg?react`));
+  }, [variant]);
+
+  return (
+    <div className={emptyState({ className })} {...props}>
+      <Suspense fallback={null}>
+        <SVGEmptyImage />
+      </Suspense>
+      {title && (
+        <Title htmlVariant="h3" weight="stronger" color="weak">
+          {title}
+        </Title>
+      )}
+      {subtitle && (
+        <Body
+          htmlVariant="p"
+          weight="weak"
+          color="weak"
+          className="text-center"
+          size="lg"
+        >
+          {subtitle}
+        </Body>
+      )}
+      {(ctaButtonConfig || secondaryButtonConfig) && (
+        <div className="flex flex-row items-center justify-center gap-xs mt-sm">
+          {secondaryButtonConfig && (
+            <Button
+              {...secondaryButtonConfig}
+              color="main"
+              size="md"
+              intent="default"
+            />
+          )}
+          {ctaButtonConfig && (
+            <Button
+              {...ctaButtonConfig}
+              color="main"
+              size="md"
+              intent="call-to-action"
+            />
+          )}
+        </div>
+      )}
+      {children}
+    </div>
+  );
+};
+
+EmptyState.displayName = "KaizenEmptyState";
+
+export default EmptyState;

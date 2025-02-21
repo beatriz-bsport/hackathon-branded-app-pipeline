@@ -9,6 +9,9 @@ import {
   useCheckboxContext,
 } from "#src/contexts/CheckboxContext";
 import { usePagination } from "#src/hooks/use-pagination";
+import useEmptyState, {
+  type UseEmptyStateProps,
+} from "#src/hooks/use-empty-state.hook";
 
 const defaultClasses = ["table", "table-auto", "w-full", "text-left"] as const;
 const table = cva(defaultClasses);
@@ -61,6 +64,7 @@ export type TableProps<RowType extends BaseRowType> =
     selectable?: boolean;
     withVerticalBorders?: boolean;
     paginationProps?: PaginationProps;
+    emptyStateProps?: UseEmptyStateProps;
   };
 
 /**
@@ -68,6 +72,11 @@ export type TableProps<RowType extends BaseRowType> =
  * It allows different configurations such as selectable rows with checkboxes, different row heights, and vertical borders between cells.
  * @param props.className Classname to add to the table.
  * @param props.columns Array of column data.
+ * @param emptyStateProps [Optional] Dictionnary of props to manage the empty state rendering
+ * - emptyConfig Configuration to display the empty state UI when isEmpty is true;
+ * - emptySearchConfig [Optional] Configuration to display the empty search UI when isEmptySearch is true;
+ * - isEmpty Whether the fetch return an empty list;
+ * - isEmptySearch [Optional] Whether the filtering return an empty list;
  * @param props.rows Array of row data.
  * @param props.rowHeight Height of the row. Can be "sm" or "lg".
  * @param props.selectable Boolean to define if the table integrates with checkboxes.
@@ -82,11 +91,17 @@ const Table = <RowType extends BaseRowType>({
   selectable = false,
   withVerticalBorders = false,
   paginationProps,
+  emptyStateProps,
   ...props
 }: TableProps<RowType>) => {
   const valueIds = rows?.map((row) => row.id) ?? [];
 
   const renderedPagination = usePagination(paginationProps);
+
+  const { shouldRenderEmptyState, EmptyState } = useEmptyState(emptyStateProps);
+  if (shouldRenderEmptyState) {
+    return <EmptyState />;
+  }
 
   return (
     <CheckboxProvider valueIds={valueIds}>

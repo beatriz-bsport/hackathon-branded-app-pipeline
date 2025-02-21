@@ -30,7 +30,8 @@ const config: UserConfig = {
       filename: "module.js",
       shared: ["react", "react-dom"],
       exposes: {
-        "./Navigation": "./src/components/NavigationSidebar",
+        "./App": "./src/components/NavigationSidebar",
+        "./languageSwitcher": "./src/utils/languageSwitcher",
       },
     }),
   ],

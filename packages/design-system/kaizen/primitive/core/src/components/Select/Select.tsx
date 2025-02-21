@@ -41,7 +41,10 @@ export const statuses = mapValues(variants.status, (_, key) => key) as {
 
 const select = cva(defaultClasses, { variants });
 
-export type SelectProps = React.ButtonHTMLAttributes<HTMLButtonElement> &
+export type SelectProps = Omit<
+  React.ButtonHTMLAttributes<HTMLButtonElement>,
+  "onSelect"
+> &
   VariantProps<typeof select> & {
     name?: string;
     label: string;

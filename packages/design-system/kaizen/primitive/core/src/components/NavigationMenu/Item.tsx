@@ -114,7 +114,7 @@ const Item: React.FC<ItemProps> = ({ id, selected }) => {
                 </div>
               </>
             ),
-            [],
+            [icon, label, rightSlot, subItems],
           );
 
           useEffect(() => {

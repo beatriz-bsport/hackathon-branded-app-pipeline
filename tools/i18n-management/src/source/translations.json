@@ -1,4 +1,67 @@
 {
+  "@bsport/navigation-sidebar": {
+    "default": {
+      "menus": {
+        "inbox": "Inbox",
+        "notifications": "Notifications",
+        "calendar": "Calendar",
+        "schedule": "Schedule",
+        "accessControl": "Access Control",
+        "classes": {
+          "title": "Classes",
+          "activities": "Activities",
+          "workshops": "Workshops",
+          "appointments": "Appointments"
+        },
+        "memberships": {
+          "title": "Memberships",
+          "passes": "Passes",
+          "subscriptions": "Subscriptions"
+        },
+        "products": {
+          "title": "Products",
+          "webshop": "Webshop",
+          "packs": "Packs",
+          "giftcards": "Gift cards",
+          "videoAndEbooks": "Videos & ebooks",
+          "orders": "Orders"
+        },
+        "marketing": {
+          "title": "Marketing",
+          "memberNotifications": "Member notifications",
+          "emailTemplates": "Email templates",
+          "smartlists": "Smartlists",
+          "audience": "Audience",
+          "promotions": "Promotions"
+        },
+        "dashboard": "Dashboard / Overview",
+        "reporting": "Reporting",
+        "finance": {
+          "title": "Finance",
+          "invoices": "Invoices",
+          "payouts": "Payouts",
+          "directDebits": "Direct debits",
+          "expenses": "Expenses",
+          "payroll": "Payroll"
+        },
+        "membersHub": {
+          "title": "Members Hub",
+          "members": "Members",
+          "forms": "Forms",
+          "tags": "Tags"
+        },
+        "myStudio": {
+          "title": "My studio",
+          "teachers": "Teachers",
+          "establishments": "Establishments"
+        }
+      },
+      "revampCard": {
+        "betaFeedbackLink": "Beta feedback",
+        "goBackToOldUi": "Go back to old UI"
+      }
+    }
+  },
   "@bsport/saas-legacy": {
     "accessControl": {
       "broadcastChannelWarning": "Your browser version prevents us from running this feature correctly. Please upgrade your browser.",

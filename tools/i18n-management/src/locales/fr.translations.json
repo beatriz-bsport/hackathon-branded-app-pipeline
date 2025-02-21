@@ -1,4 +1,21 @@
 {
+    "@bsport/navigation-sidebar": {
+        "default": {
+          "menus": {
+            "inbox": "Messagerie",
+            "notifications": "Notifications",
+            "calendar": "Calendrier",
+            "schedule": "Emploi du temps",
+            "accessControl": "Access Control",
+            "classes": {
+              "title": "Cours",
+              "activities": "Activités",
+              "workshops": "Ateliers",
+              "appointments": "Rendez-vous"
+            }
+            }
+        }
+    },
     "@bsport/saas-legacy": {
         "alerting": {
             "list": {

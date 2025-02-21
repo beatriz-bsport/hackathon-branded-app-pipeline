@@ -27,6 +27,7 @@ export {
   LANGUAGES,
   LOCALES,
   type TFunction,
+  type Locale,
 } from "@bsport/i18n";
 
 export const getFixedNamespace = getNamespacePrefixer({

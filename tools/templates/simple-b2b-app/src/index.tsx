@@ -6,11 +6,15 @@ import "@bsport/kaizen-primitive-core/styles";
 import "./index.css";
 import App from "./App";
 import { i18nInstance } from "#src/utils/i18n";
+import { navigationLanguageSwitcher } from "navigation-sidebar/languageSwitcher";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <BrowserRouter>
-      <AppWrapper i18nInstance={i18nInstance}>
+      <AppWrapper
+        i18nInstance={i18nInstance}
+        appsLanguageSwitchers={[navigationLanguageSwitcher]}
+      >
         <App />
       </AppWrapper>
     </BrowserRouter>

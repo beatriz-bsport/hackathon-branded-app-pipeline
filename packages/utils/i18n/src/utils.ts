@@ -1,8 +1,9 @@
 import { Settings } from "luxon";
+import type { i18n } from "i18next";
 import {
   LOCALES_WITH_FIRST_WEEKDAY_BEING_SUNDAY,
   LANGUAGES,
-  LOCALES,
+  type Locale,
 } from "./constants";
 
 export function setLuxonLocale(language: string) {
@@ -17,8 +18,6 @@ export function setLuxonLocale(language: string) {
     Settings.defaultWeekSettings = null;
   }
 }
-
-type Locale = (typeof LOCALES)[number];
 
 export function getFallbackLanguage(language: string): Array<Locale> {
   const defaultFallback = [LANGUAGES.ENGLISH, LANGUAGES.FRENCH];
@@ -56,3 +55,10 @@ export function getNamespacePrefixer({
 }) {
   return (namespace: string) => `${applicationName}_${namespace}`;
 }
+
+// Return a function that set the language of the provided i18nInstance
+export const getLanguageSwitcher = (i18nInstance: i18n) => {
+  return (languageId: Locale) => {
+    i18nInstance.changeLanguage(languageId);
+  };
+};

@@ -34,9 +34,10 @@ const config: UserConfig = {
       filename: "module.js",
       shared: ["react", "react-dom"],
       remotes: getLocalFederationRemotes(),
-      // exposes: {
-      //  "./": "./src/",
-      //},
+      exposes: {
+        "./App": "./src/App",
+        "./languageSwitcher": "./src/utils/languageSwitcher",
+      },
     }),
   ],
   esbuild: {

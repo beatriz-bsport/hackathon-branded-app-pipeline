@@ -17,7 +17,6 @@ import withThemeProvider from '#src/hocs/company-themifier.hoc';
 // @ts-expect-error
 import asyncComponent from '../../AsyncComponent.js';
 import { RootState } from '../../reducers';
-import Config from '#src/config';
 import { match as MatchType, matchPath } from 'react-router-dom';
 
 const MarketplaceAsManager = asyncComponent(
@@ -117,19 +116,15 @@ export const NewBookingFlowRouter: React.FC<Props> = ({
   }
 
   return (
-    /* NOTE: The marketplaceCssHoc will look at its parents to search for a Themeprovider. 
-      Some pages (like the contract checkout) are wraped into the marketplaceCssHoc but don't have parent 
-      that provide a theme. That's why we need to wrap the router into a MuiThemeProvider
-       */ <Switch>
-      {/* TODO: Remove this once the feature flag on one click booking is ready */}
-      {['local', 'dev', 'football'].includes(
-        Config.REACT_APP_SENTRY_ENVIRONMENT,
-      ) && (
-        <Route
-          component={OneClickBookingModule}
-          path="/one-click-booking/:companyId/:offerId"
-        />
-      )}
+    /* NOTE: The marketplaceCssHoc will look at its parents to search for a Themeprovider.
+     * Some pages (like the contract checkout) are wraped into the marketplaceCssHoc but don't have parent
+     * that provide a theme. That's why we need to wrap the router into a MuiThemeProvider
+     */
+    <Switch>
+      <Route
+        component={OneClickBookingModule}
+        path="/one-click-booking/:companyId/:offerId"
+      />
       <Route
         component={ConfirmationCheckout}
         path={'/checkout-s/:companyId/validation'}

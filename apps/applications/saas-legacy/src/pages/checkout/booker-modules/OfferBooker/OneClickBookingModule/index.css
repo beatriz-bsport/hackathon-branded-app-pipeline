@@ -36,7 +36,7 @@
 
 .bs-oneclick-booking__container {
   gap: var(--bs-space-size-2);
-  padding: var(--bs-space-size-4);
+  padding: var(--bs-space-size-6) var(--bs-space-size-4);
 }
 
 .bs-oneclick-booking__container--loading {
@@ -53,10 +53,14 @@
   line-height: var(--h5-lineHeight);
 }
 
-.bs-oneclick-booking__already-member {
+.bs-oneclick-booking__already-member--mobile {
   display: flex;
   align-items: center;
   gap: var(--bs-space-size-1);
+}
+
+.bs-oneclick-booking__already-member--desktop {
+  display: none;
 }
 
 .bs-oneclick-booking__content {
@@ -130,4 +134,51 @@
 
 .bs-light-signup-form__field {
   width: 100%;
+}
+@container bsOneClickBooking (width > 950px) {
+  .bs-oneclick-booking__container {
+    padding: var(--bs-space-size-8);
+  }
+
+  .bs-oneclick-booking__content {
+    flex-direction: row;
+    gap: var(--bs-space-size-6);
+  }
+
+  .bs-oneclick-booking__booking-details {
+    width: 40%;
+  }
+
+  .bs-oneclick-booking__light-signup-form {
+    width: 60%;
+  }
+
+  .bs-oneclick-booking__divider {
+    display: none;
+  }
+
+  .bs-light-signup-form__name-section,
+  .bs-light-signup-form__contact-section {
+    width: 100%;
+    flex-direction: row;
+    gap: var(--bs-space-size-4);
+  }
+
+  .bs-oneclick-booking__book-button {
+    width: auto;
+  }
+
+  .bs-oneclick-booking__already-member--mobile {
+    display: none;
+  }
+
+  .bs-oneclick-booking__already-member--desktop {
+    display: flex;
+    align-items: center;
+    gap: var(--bs-space-size-1);
+  }
+
+  .bs-oneclick-booking__book-button-container {
+    margin: 0;
+  }
 }

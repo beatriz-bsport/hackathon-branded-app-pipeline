@@ -210,7 +210,7 @@ const OneClickBookingModule: React.FC<Props> = ({
         <Typography variant={TypographyVariant.TITLE_LG}>
           {t('oneClickBooking.checkoutTitle')}
         </Typography>
-        <div className="bs-oneclick-booking__already-member">
+        <div className="bs-oneclick-booking__already-member--mobile">
           {t('oneClickBooking.alreadyMember')}
           <ButtonV2
             color="primary"
@@ -293,6 +293,17 @@ const OneClickBookingModule: React.FC<Props> = ({
                 {t('oneClickBooking.yourDetails')}
               </Typography>
               <LightSignupForm />
+              <div className="bs-oneclick-booking__already-member--desktop">
+                {t('oneClickBooking.alreadyMember')}
+                <ButtonV2
+                  color="primary"
+                  href={loginToBookerUrl}
+                  size="small"
+                  variant="text"
+                >
+                  {t('oneClickBooking.goToLogin')}
+                </ButtonV2>
+              </div>
               <div className="bs-oneclick-booking__book-button-container">
                 <ButtonV2
                   className="bs-oneclick-booking__book-button"

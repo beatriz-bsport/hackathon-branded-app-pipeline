@@ -4,6 +4,7 @@ import { PaginatedResponse } from '../../../state/types';
 import {
   sendGroupedCommunicationAction,
   fetchCommunicationSentGroupConfigsListAction,
+  fetchCommunicationSentGroupConfigsPaginatedListActions,
   updateCommunicationSentGroupConfigAction,
   createCommunicationSentGroupConfigAction,
   deleteCommunicationSentGroupConfigAction,
@@ -15,6 +16,7 @@ import {
   reportByCommunicationSentGroupAction,
   fetchCommunicationSentGroupRecipientListExportLinkActions,
 } from '../actions';
+import { FRANCHISE_COMMUNICATION_SENT_GROUP_PAGINATION_SIZE } from '#src/libs/communication/constants';
 import type {
   CommunicationSentGroupReport,
   CommunicationSentGroupConfig,
@@ -38,6 +40,17 @@ const initialState = Immutable<CommunicationSentGroupConfigState>({
     },
     loading: false,
     error: false,
+  },
+  communicationSentGroupConfigPaginated: {
+    page: 1,
+    next_page: null,
+    previous_page: null,
+    count: 0,
+    page_size: FRANCHISE_COMMUNICATION_SENT_GROUP_PAGINATION_SIZE,
+    allIds: [],
+    byId: {},
+    loading: false,
+    error: null,
   },
   mail: { loading: false, error: null },
   communicationSentGroup: {
@@ -271,6 +284,55 @@ export default handleActions<
           },
           payload.id,
         ),
+    [fetchCommunicationSentGroupConfigsPaginatedListActions.isLoading.toString()]:
+      (state, { payload }: { payload: boolean }) => {
+        return state.setIn(
+          ['communicationSentGroupConfigPaginated', 'loading'],
+          payload,
+        );
+      },
+    [fetchCommunicationSentGroupConfigsPaginatedListActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(
+        ['communicationSentGroupConfigPaginated', 'error'],
+        payload,
+      );
+    },
+    [fetchCommunicationSentGroupConfigsPaginatedListActions.success.toString()]:
+      (
+        state,
+        {
+          payload,
+        }: { payload: PaginatedResponse<CommunicationSentGroupConfig> },
+      ) => {
+        const { next_page, results, count, page } = payload;
+        return state
+          .setIn(['communicationSentGroupConfigPaginated', 'page'], page)
+          .setIn(
+            ['communicationSentGroupConfigPaginated', 'next_page'],
+            next_page,
+          )
+          .setIn(['communicationSentGroupConfigPaginated', 'count'], count)
+          .setIn(
+            ['communicationSentGroupConfigPaginated', 'allIds'],
+            (results || []).map(
+              (communicationSentGroup) => communicationSentGroup.id,
+            ),
+          )
+          .merge(
+            {
+              communicationSentGroupConfigPaginated: {
+                byId: (results || []).reduce(
+                  (acc, v) => ({ ...acc, [v.id]: v }),
+                  {},
+                ),
+              },
+            },
+            { deep: true },
+          );
+      },
     [communicationSentGroupConfigDetailAction.error.toString()]: (
       state,
       { payload }: { payload: Error | null },

@@ -17,6 +17,7 @@ import type {
   RecipientsNumberAndExportable,
   CampaignExportStartEndDates,
   CampaignListParams,
+  CommunicationSentGroupConfigQueryParams,
 } from './types';
 import Config from '../../config';
 
@@ -104,9 +105,13 @@ export const duplicateCommunicationSentGroupConfig = (id: number) => {
   );
 };
 
-export const fetchCommunicationSentGroupConfigsList = () => {
+export const fetchCommunicationSentGroupConfigsList = (
+  params?: CommunicationSentGroupConfigQueryParams,
+) => {
   return getAuth<PaginatedResponse<CommunicationSentGroupConfig>>(
-    `${API_V1_URI}/communication/communication-sent-group-config/`,
+    `${API_V1_URI}/communication/communication-sent-group-config/${buildUrlParams(
+      params,
+    )}`,
   );
 };
 

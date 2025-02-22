@@ -80,7 +80,7 @@ const FranchisePaymentPackTemplateListPageReworked: React.FC<Props> = ({
 
   const [paymentPackTemplateToDelete, setPaymentPackTemplateToDelete] =
     React.useState<deletePaymentPackTemplateState | null>(null);
-  // CDM
+  // CDM TODO : Investigate double initial fetch
   React.useEffect(() => {
     // Fetching the first page for both available for purchase and manager only passes.
     fetchPaymentPackTemplatePaginatedListAvailableForSale({ page: 1 });

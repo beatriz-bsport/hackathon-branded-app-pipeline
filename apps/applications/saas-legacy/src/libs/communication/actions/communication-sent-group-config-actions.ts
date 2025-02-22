@@ -9,6 +9,7 @@ import type {
   ThunkAction,
 } from '../../../state/types';
 import type {
+  CommunicationSentGroupConfigQueryParams,
   CommunicationSentGroupConfig,
   CommunicationSentGroup,
   SendGroupedCommunicationData,
@@ -34,7 +35,9 @@ import {
   fetchCommunicationSentGroupRecipientListExport as fetchCommunicationSentGroupRecipientListExportAPI,
   fetchCommunicationSentGroupRecipientListExportLink as fetchCommunicationSentGroupRecipientListExportLinkAPI,
 } from '../api';
+import { FRANCHISE_COMMUNICATION_SENT_GROUP_PAGINATION_SIZE } from '#src/libs/communication/constants';
 
+import type { RootState } from '#src/reducers';
 export const createCommunicationSentGroupConfigAction = {
   error: createAction<Error | null>(
     'COMMUNICATION-SENT-GROUP-CONFIG/CREATE/ERROR',
@@ -212,6 +215,61 @@ export function fetchCommunicationSentGroupConfigsList(
   };
 }
 
+export const fetchCommunicationSentGroupConfigsPaginatedListActions = {
+  error: createAction<Error | null>(
+    'COMMUNICATION-SENT-GROUP-CONFIG/LIST-PAGINATED/ERROR',
+  ),
+  isLoading: createAction<boolean>(
+    'COMMUNICATION-SENT-GROUP-CONFIG/LIST-PAGINATED/IS_LOADING',
+  ),
+  success: createAction<PaginatedResponse<CommunicationSentGroupConfig>>(
+    'COMMUNICATION-SENT-GROUP-CONFIG/LIST-PAGINATED/SUCCESS',
+  ),
+};
+
+export function fetchCommunicationSentGroupConfigsPaginatedList(
+  params: CommunicationSentGroupConfigQueryParams,
+  options?: OptionCallback<PaginatedResponse<CommunicationSentGroupConfig>>,
+): ThunkAction {
+  return async (dispatch: Dispatch, getState: () => RootState) => {
+    dispatch(
+      fetchCommunicationSentGroupConfigsPaginatedListActions.isLoading(true),
+    );
+    dispatch(
+      fetchCommunicationSentGroupConfigsPaginatedListActions.error(null),
+    );
+
+    const currentState =
+      getState().communicationSentGroupConfig
+        .communicationSentGroupConfigPaginated;
+
+    const nextPage = params?.page ?? currentState.next_page ?? 1;
+    try {
+      const response = await fetchCommunicationSentGroupConfigsListAPI({
+        ...params,
+        page: nextPage,
+        page_size: FRANCHISE_COMMUNICATION_SENT_GROUP_PAGINATION_SIZE,
+      });
+      dispatch(
+        fetchCommunicationSentGroupConfigsPaginatedListActions.success({
+          ...response.data,
+          page: nextPage,
+        }),
+      );
+
+      options?.onSuccess?.(response.data);
+    } catch (error) {
+      console.error(error);
+      dispatch(
+        fetchCommunicationSentGroupConfigsPaginatedListActions.error(error),
+      );
+      options?.onError?.();
+    }
+    dispatch(
+      fetchCommunicationSentGroupConfigsPaginatedListActions.isLoading(false),
+    );
+  };
+}
 export const sendGroupedCommunicationAction = {
   error: createAction<Error | null>(
     'COMMUNICATION-SENT-GROUP-CONFIG/SEND-GROUPED-COMMUNICATION/ERROR',

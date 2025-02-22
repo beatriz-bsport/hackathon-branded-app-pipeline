@@ -21,7 +21,9 @@ import withConfirm from '../../../../../hocs/with-confirm.hoc';
 import ListItemResponsiveAction from '../../../../../components/button/ListItemResponsiveAction.component';
 
 type Props = {
-  communicationSentGroupConfig: ImmutableObject<CommunicationSentGroupConfig>;
+  communicationSentGroupConfig:
+    | ImmutableObject<CommunicationSentGroupConfig>
+    | CommunicationSentGroupConfig;
   onClick: (arg: any) => void;
   onClickEdit: (id: number) => void;
   onClickDelete: (id: number) => void;

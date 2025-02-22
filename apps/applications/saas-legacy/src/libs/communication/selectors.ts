@@ -141,6 +141,20 @@ const getCommunicationGroupRecipientError = (state: RootState) =>
 const getRecipientByCommunicationSentGroupIds = (state: RootState) =>
   _getCommunicationSentGroupConfigState(state).recipient.allIds;
 
+const _getCommunicationSentGroupConfigsPaginatedState = (state: RootState) =>
+  _getCommunicationSentGroupConfigState(state)
+    .communicationSentGroupConfigPaginated;
+
+export const getCommunicationSentGroupConfigsPaginated = createSelector(
+  [_getCommunicationSentGroupConfigsPaginatedState],
+  (paginatedState) => {
+    const { allIds, byId } = paginatedState;
+    return {
+      ...paginatedState,
+      items: allIds.map((id) => byId[id]).filter((item) => !!item),
+    };
+  },
+);
 export const getCommunicationGroupRecipientPaginationData = createSelector(
   [
     getCommunicationGroupRecipientParams,
@@ -165,6 +179,13 @@ export const getCommunicationSentGroupConfig = (
   return _getCommunicationSentGroupConfigState(state)
     .communicationSentGroupConfig.byId[id];
 };
+
+export const getCommunicationSentGroupConfigFromPaginatedState = (
+  state: RootState,
+  id: number,
+) =>
+  _getCommunicationSentGroupConfigState(state)
+    .communicationSentGroupConfigPaginated.byId[id];
 
 export const getCommunicationSentGroup = (
   state: RootState,

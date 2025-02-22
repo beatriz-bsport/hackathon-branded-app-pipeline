@@ -11,3 +11,5 @@ export enum SenderEmailKind {
 export const ONE_MILLION = 1000000;
 export const TEN_THOUSANDS = 10000;
 export const ONE_HUNDRED = 1000000;
+
+export const FRANCHISE_COMMUNICATION_SENT_GROUP_PAGINATION_SIZE = 15;

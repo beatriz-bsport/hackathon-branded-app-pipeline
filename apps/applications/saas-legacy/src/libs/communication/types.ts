@@ -194,6 +194,15 @@ export type CommunicationSentGroupConfigState = {
     createOrUpdate: { loading: boolean; error: Error | null };
     delete: { loading: boolean; error: Error | null };
   };
+  communicationSentGroupConfigPaginated: {
+    page: number;
+    next_page: number | null;
+    previous_page: number | null;
+    count: number;
+    page_size: number;
+    allIds: number[];
+    byId: Record<number, CommunicationSentGroupConfig>;
+  } & ErrorAndLoading;
   mail: { loading: boolean; error: Error | null };
   communicationSentGroup: {
     byId: { [id: number]: CommunicationSentGroup };
@@ -268,4 +277,9 @@ export type CampaignListParams = {
   page: number;
   smartlist: number;
   without_member_info: boolean;
+};
+
+export type CommunicationSentGroupConfigQueryParams = {
+  page: number;
+  page_size?: number;
 };

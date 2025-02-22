@@ -53,6 +53,8 @@ import {
   // CommunicationSentGroupConfig actions handler
   sendGroupedCommunicationAction,
   fetchCommunicationSentGroupConfigsListAction,
+  fetchCommunicationSentGroupConfigsPaginatedList,
+  fetchCommunicationSentGroupConfigsPaginatedListActions,
   updateCommunicationSentGroupConfigAction,
   createCommunicationSentGroupConfigAction,
   deleteCommunicationSentGroupConfigAction,
@@ -118,6 +120,8 @@ export {
   // CommunicationSentGroupConfig actions handler
   sendGroupedCommunicationAction,
   fetchCommunicationSentGroupConfigsListAction,
+  fetchCommunicationSentGroupConfigsPaginatedListActions,
+  fetchCommunicationSentGroupConfigsPaginatedList,
   updateCommunicationSentGroupConfigAction,
   createCommunicationSentGroupConfigAction,
   deleteCommunicationSentGroupConfigAction,

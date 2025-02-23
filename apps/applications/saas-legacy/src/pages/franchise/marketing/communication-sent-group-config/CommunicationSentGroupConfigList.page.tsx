@@ -74,9 +74,9 @@ const CommunicationSentGroupConfigList: React.FC<Props> = ({
   deleteCommunicationSentGroupConfig,
   duplicateCommunicationSentGroupConfig,
   fetchAllCommunicationSentGroupConfigPaginated,
-  goToEdit,
+  goToCampaignHistory,
   goToSelected,
-  goToSelectedCommunicationSentGroupConfig,
+  goToCampaignDetailPage,
   selectedId,
   setQueryParams,
   updateCommunicationSentGroupConfig,
@@ -104,6 +104,11 @@ const CommunicationSentGroupConfigList: React.FC<Props> = ({
     [],
   );
 
+  const handleOpenEditionDialog = React.useCallback(
+    () => setSelectedForEdit(selected),
+    [selected],
+  );
+
   const handlSetSelected = React.useCallback(
     (id: number) => {
       const _selected = communicationSentGroupConfigsPaginatedState.byId[id];
@@ -117,55 +122,93 @@ const CommunicationSentGroupConfigList: React.FC<Props> = ({
     [communicationSentGroupConfigsPaginatedState, goToSelected],
   );
 
-  const handleAddNewCommunicationSentGroupConfig = (
-    communicationSentGroupConfig: Omit<CommunicationSentGroupConfig, 'id'>,
-    options?: OptionCallback,
-  ) => {
-    createCommunicationSentGroupConfig(
-      { ...communicationSentGroupConfig, to_all_members: true },
-      {
-        onSuccess: (
-          newCommunicationSentGroupConfig: CommunicationSentGroupConfig,
-        ) => {
-          options?.onSuccess?.();
-          goToEdit(newCommunicationSentGroupConfig.id);
+  const handleAddNewCommunicationSentGroupConfig = React.useCallback(
+    (
+      communicationSentGroupConfig: Omit<CommunicationSentGroupConfig, 'id'>,
+      options?: OptionCallback,
+    ) => {
+      createCommunicationSentGroupConfig(
+        { ...communicationSentGroupConfig, to_all_members: true },
+        {
+          onSuccess: (
+            newCommunicationSentGroupConfig: CommunicationSentGroupConfig,
+          ) => {
+            options?.onSuccess?.();
+            goToCampaignDetailPage(newCommunicationSentGroupConfig.id);
+          },
         },
-      },
-    );
-    handleCloseCreationDialog();
-    setQueryParams('create')(false);
-  };
+      );
+      handleCloseCreationDialog();
+      setQueryParams('create')(false);
+    },
+    [
+      createCommunicationSentGroupConfig,
+      goToCampaignDetailPage,
+      handleCloseCreationDialog,
+      setQueryParams,
+    ],
+  );
 
-  const handleUpdateCommunicationSentGroupConfig = (
-    communicationSentGroupConfig: CommunicationSentGroupConfig,
-  ) => {
-    handleCloseCreationDialog();
-    updateCommunicationSentGroupConfig(selectedId, {
-      ...communicationSentGroupConfig,
-      ...(selected.to_all_members
-        ? {
-            to_all_members: selected.to_all_members,
-          }
-        : {
-            smartlists: selected.smartlists,
-          }),
-    });
-  };
+  const handleUpdateCommunicationSentGroupConfig = React.useCallback(
+    (communicationSentGroupConfig: CommunicationSentGroupConfig) => {
+      handleCloseCreationDialog();
+      updateCommunicationSentGroupConfig(selectedId, {
+        ...communicationSentGroupConfig,
+        ...(selected.to_all_members
+          ? {
+              to_all_members: selected.to_all_members,
+            }
+          : {
+              smartlists: selected.smartlists,
+            }),
+      });
+    },
+    [
+      handleCloseCreationDialog,
+      selected,
+      selectedId,
+      updateCommunicationSentGroupConfig,
+    ],
+  );
 
-  const handleDeleteCommunicationSentGroupConfig = (id: number) => {
-    deleteCommunicationSentGroupConfig(id, {
-      onSuccess: () =>
-        fetchAllCommunicationSentGroupConfigPaginated({ page: 1 }),
-    });
-  };
-  const handleDuplicateCommunicationSentGroupConfig = (id: number) =>
-    duplicateCommunicationSentGroupConfig(id, {
-      onSuccess: (communicationSentGroupConfig: CommunicationSentGroupConfig) =>
-        fetchAllCommunicationSentGroupConfigPaginated(
-          { page: 1 },
-          { onSuccess: () => goToEdit(communicationSentGroupConfig.id) },
-        ),
-    });
+  const handleDeleteCommunicationSentGroupConfig = React.useCallback(
+    (id: number) => {
+      deleteCommunicationSentGroupConfig(id, {
+        onSuccess: () =>
+          fetchAllCommunicationSentGroupConfigPaginated({ page: 1 }),
+      });
+    },
+    [
+      deleteCommunicationSentGroupConfig,
+      fetchAllCommunicationSentGroupConfigPaginated,
+    ],
+  );
+
+  const handleGoToCampaignDetailPage = React.useCallback(
+    (id: number) => goToCampaignDetailPage(id),
+    [goToCampaignDetailPage],
+  );
+
+  const handleDuplicateCommunicationSentGroupConfig = React.useCallback(
+    (id: number) =>
+      duplicateCommunicationSentGroupConfig(id, {
+        onSuccess: (
+          communicationSentGroupConfig: CommunicationSentGroupConfig,
+        ) =>
+          fetchAllCommunicationSentGroupConfigPaginated(
+            { page: 1 },
+            {
+              onSuccess: () =>
+                goToCampaignDetailPage(communicationSentGroupConfig.id),
+            },
+          ),
+      }),
+    [
+      duplicateCommunicationSentGroupConfig,
+      fetchAllCommunicationSentGroupConfigPaginated,
+      goToCampaignDetailPage,
+    ],
+  );
 
   // Enabling automatic selection when id in url
   React.useEffect(() => {
@@ -183,10 +226,10 @@ const CommunicationSentGroupConfigList: React.FC<Props> = ({
       return searchResults.map((result) => ({
         label: result.name,
         value: result.id,
-        onClick: () => goToSelectedCommunicationSentGroupConfig(result.id),
+        onClick: () => goToCampaignDetailPage(result.id),
       }));
     },
-    [goToSelectedCommunicationSentGroupConfig],
+    [goToCampaignDetailPage],
   );
 
   return (
@@ -227,7 +270,7 @@ const CommunicationSentGroupConfigList: React.FC<Props> = ({
                 onClick={handlSetSelected}
                 onClickDelete={handleDeleteCommunicationSentGroupConfig}
                 onClickDuplicate={handleDuplicateCommunicationSentGroupConfig}
-                onClickEdit={() => goToEdit(communicationSentGroupConfig.id)}
+                onClickEdit={handleGoToCampaignDetailPage}
                 selected={communicationSentGroupConfig?.id === selected?.id}
               />
             )}
@@ -235,9 +278,9 @@ const CommunicationSentGroupConfigList: React.FC<Props> = ({
         </Grid>
         <Grid item md={6} xs={12}>
           <SmartListCard
-            onClickCampaign={goToSelectedCommunicationSentGroupConfig}
-            onClickConfigure={goToEdit}
-            onEdit={() => setSelectedForEdit(selected)}
+            onClickCampaign={goToCampaignHistory}
+            onClickConfigure={handleGoToCampaignDetailPage}
+            onEdit={handleOpenEditionDialog}
             smartlist={selected}
           />
         </Grid>
@@ -298,9 +341,10 @@ const mapDispatchToProps = {
   deleteCommunicationSentGroupConfig: deleteCommunicationSentGroupConfigAction,
   duplicateCommunicationSentGroupConfig:
     duplicateCommunicationSentGroupConfigAction,
-  goToEdit: (id: number) => pushAction(`/f/marketing/campaign/${id}/general`),
+  goToCampaignHistory: (id: number) =>
+    pushAction(`/f/marketing/campaign/${id}/history`),
   goToSelected: (id: number) => pushAction(`/f/marketing/campaign/${id}`),
-  goToSelectedCommunicationSentGroupConfig: (id: number) =>
+  goToCampaignDetailPage: (id: number) =>
     pushAction(`/f/marketing/campaign/${id}/general`),
 };
 

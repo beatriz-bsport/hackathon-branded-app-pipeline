@@ -414,16 +414,15 @@ type CoachPaymentRuleGroupAPIParams = PaginationFilterParams;
 
 type ExtendedArray<T> = T[] | ReadonlyArray<T> | ImmutableArray<T>;
 
-type ReplaceArrayTypes<T> =
-  T extends Array<infer U>
-    ? ExtendedArray<U>
-    : T extends ReadonlyArray<infer U>
-      ? ExtendedArray<U>
-      : T extends ImmutableArray<infer U>
-        ? ExtendedArray<U>
-        : T extends object
-          ? { [K in keyof T]: ReplaceArrayTypes<T[K]> }
-          : T;
+type ReplaceArrayTypes<T> = T extends Array<infer U>
+  ? ExtendedArray<U>
+  : T extends ReadonlyArray<infer U>
+  ? ExtendedArray<U>
+  : T extends ImmutableArray<infer U>
+  ? ExtendedArray<U>
+  : T extends object
+  ? { [K in keyof T]: ReplaceArrayTypes<T[K]> }
+  : T;
 
 export type OptionPropsWithData<T> = Omit<
   OptionProps<SelectOption<number>>,

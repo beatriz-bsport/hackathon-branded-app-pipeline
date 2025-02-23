@@ -5,7 +5,7 @@ import { useTranslation, withTranslation } from 'react-i18next';
 import { TFunction } from 'i18next';
 import { compose } from 'recompose';
 import { ConnectedProps, connect } from 'react-redux';
-
+import { makeStyles, Grid } from '@material-ui/core';
 // HOCS
 // @ts-expect-error
 import withQueryParams from '#src/hocs/with-query-params.hoc';
@@ -33,7 +33,6 @@ import {
 } from '#src/libs/communication/selectors';
 
 // Components
-import { Grid } from '@material-ui/core';
 import IsEmptyList from '#src/components/navigation/IsEmptyList.component';
 // @ts-expect-error
 import SmartListCard from '#src/libs/smart-list/components/SmartlistCard.component';
@@ -42,6 +41,9 @@ import SmartListFormDialog from '#src/libs/smart-list/components/SmartListFormDi
 import BottomActionButtons from '#src/components/button/BottomActionsButton.component';
 import PaginatedListBaseReworked from '#src/components/PaginatedListBaseReworked.component';
 import CommunicationSentGroupConfigListItem from '#src/libs/communication/components/communication-sent-group-config/CommunicationSentGroupConfigListing/CommunicationSentGroupConfigListItem.component';
+import CommunicationSentGroupConfigSearchItem from '#src/libs/communication/components/communication-sent-group-config/CommunicationSentGroupConfigListing/CommunicationSentGroupConfigSearchItem.component';
+
+import ObjectSearchComponent from '#src/libs/fuzzy-search/components/ObjectSearch.component';
 
 type RouterProps = {
   // eslint-disable-next-line react/no-unused-prop-types
@@ -65,6 +67,7 @@ const CommunicationSentGroupConfigListReworked: React.FC<Props> = ({
   setQueryParams,
   updateCommunicationSentGroupConfig,
 }) => {
+  const classes = useStyles();
   const { t } = useTranslation('campaign');
   const [openCreationDialog, setOpenCreationDialog] = React.useState(false);
   const [selectedForEdit, setSelectedForEdit] =
@@ -160,6 +163,18 @@ const CommunicationSentGroupConfigListReworked: React.FC<Props> = ({
   const noExistingConfig =
     !communicationSentGroupConfigsPaginatedState.loading &&
     !communicationSentGroupConfigsPaginatedState.count;
+
+  const formatSearchOptions = React.useCallback(
+    (searchResults: CommunicationSentGroupConfig[]) => {
+      return searchResults.map((result) => ({
+        label: result.name,
+        value: result.id,
+        onClick: () => goToSelectedCommunicationSentGroupConfig(result.id),
+      }));
+    },
+    [goToSelectedCommunicationSentGroupConfig],
+  );
+
   return (
     <>
       <IsEmptyList
@@ -171,6 +186,16 @@ const CommunicationSentGroupConfigListReworked: React.FC<Props> = ({
       />
       <Grid container direction="row" spacing={3}>
         <Grid item md={6} xs={12}>
+          {!noExistingConfig && (
+            <ObjectSearchComponent
+              className={classes.searchComponent}
+              components={{ Option: CommunicationSentGroupConfigSearchItem }}
+              optionsFormatter={formatSearchOptions}
+              placeholder={t('search')}
+              searchedObjectType="communication_sent_group_config"
+              variant="default"
+            />
+          )}
           <PaginatedListBaseReworked
             hideDefaultEmptyComponent
             itemPerPage={communicationSentGroupConfigsPaginatedState.page_size}
@@ -272,3 +297,9 @@ export default compose(
   withQueryParams([['create'], 'queryParams', 'setQueryParams']),
   connector,
 )(CommunicationSentGroupConfigListReworked);
+
+const useStyles = makeStyles((theme) => ({
+  searchComponent: {
+    paddingBottom: theme.spacing(2),
+  },
+}));

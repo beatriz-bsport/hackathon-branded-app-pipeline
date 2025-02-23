@@ -75,6 +75,10 @@ const typeToURIMap: Record<SearchObjectType, Array<string>> = {
     'payment-pack/universal-pass-template',
     API_V1_URI_BUYABLE,
   ],
+  communication_sent_group_config: [
+    'communication/communication-sent-group-config',
+    API_V1_URI_CDP,
+  ],
 };
 
 const typeToV0URIMap: { [key in SearchObjectType]?: Array<string> } = {

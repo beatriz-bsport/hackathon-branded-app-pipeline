@@ -42,7 +42,7 @@ import type {
   FranchiseUserPrivatePass,
 } from '#src/libs/franchise/types';
 import type { ReportConfiguration } from '#src/libs/reporting/common/types';
-
+import type { CommunicationSentGroupConfig } from '#src/libs/communication/types';
 const labelExtractorMap: Record<
   SearchObjectType,
   (item: ObjectSearchResult) => string
@@ -93,6 +93,9 @@ const labelExtractorMap: Record<
   universal_payment_pack_template: (
     paymentPaymentTemplate: PaymentPackTemplateAPI,
   ) => paymentPaymentTemplate.name,
+  communication_sent_group_config: (
+    communicationSentGroupConfig: CommunicationSentGroupConfig,
+  ) => communicationSentGroupConfig.name,
 };
 
 /**

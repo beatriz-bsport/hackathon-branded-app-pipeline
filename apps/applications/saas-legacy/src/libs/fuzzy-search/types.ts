@@ -83,6 +83,7 @@ import type {
   ReportConfiguration,
   ReportQueryParams,
 } from '#src/libs/reporting/common/types';
+import type { CommunicationSentGroupConfig } from '#src/libs/communication/types';
 
 export type SearchIdentifier = {
   searchedObjectType: SearchObjectType;
@@ -159,6 +160,7 @@ export const searchObjectIdentifiers = [
   'custom_form',
   'coach_payment_rule_groups',
   'reportV2',
+  'communication_sent_group_config',
 ] as const;
 
 export type SearchObjectType = (typeof searchObjectIdentifiers)[number];
@@ -206,6 +208,7 @@ type ResultsTypes = {
   reportV2: ReportConfiguration;
   payment_pack_template: PaymentPackTemplateAPI;
   universal_payment_pack_template: PaymentPackTemplateAPI;
+  communication_sent_group_config: CommunicationSentGroupConfig;
 };
 
 /* eslint-disable-next-line */
@@ -314,6 +317,7 @@ type APIParamsMap = {
   reportV2: ReportAPIParams;
   payment_pack_template: FranchiseProductTemplateQueryParams;
   universal_payment_pack_template: FranchiseProductTemplateQueryParams;
+  communication_sent_group_config: void;
 };
 
 export type FuzzySearchFilterParams<T extends SearchObjectType> =
@@ -410,15 +414,16 @@ type CoachPaymentRuleGroupAPIParams = PaginationFilterParams;
 
 type ExtendedArray<T> = T[] | ReadonlyArray<T> | ImmutableArray<T>;
 
-type ReplaceArrayTypes<T> = T extends Array<infer U>
-  ? ExtendedArray<U>
-  : T extends ReadonlyArray<infer U>
-  ? ExtendedArray<U>
-  : T extends ImmutableArray<infer U>
-  ? ExtendedArray<U>
-  : T extends object
-  ? { [K in keyof T]: ReplaceArrayTypes<T[K]> }
-  : T;
+type ReplaceArrayTypes<T> =
+  T extends Array<infer U>
+    ? ExtendedArray<U>
+    : T extends ReadonlyArray<infer U>
+      ? ExtendedArray<U>
+      : T extends ImmutableArray<infer U>
+        ? ExtendedArray<U>
+        : T extends object
+          ? { [K in keyof T]: ReplaceArrayTypes<T[K]> }
+          : T;
 
 export type OptionPropsWithData<T> = Omit<
   OptionProps<SelectOption<number>>,

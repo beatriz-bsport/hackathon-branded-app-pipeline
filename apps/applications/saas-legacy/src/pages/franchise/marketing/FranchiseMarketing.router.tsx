@@ -11,16 +11,9 @@ const FranchiseTagManagement = asyncComponent(
 const CommunicationSentGroupConfigList = asyncComponent(
   () =>
     import(
-      './communication-sent-group-config/CommunicationSentGroupConfigListReworked.page'
+      './communication-sent-group-config/CommunicationSentGroupConfigList.page'
     ),
 );
-
-// const CommunicationSentGroupConfigList = asyncComponent(
-//   () =>
-//     import(
-//       './communication-sent-group-config/CommunicationSentGroupConfigList.page'
-//     ),
-// );
 
 const CommunicationSentGroupConfigDetail = asyncComponent(
   () =>

@@ -1,248 +1,310 @@
 import React from 'react';
-
-import { compose, withHandlers } from 'recompose';
-import { WithTranslation, withTranslation } from 'react-i18next';
+// External Libs
+import { push as pushAction } from 'connected-react-router';
+import { useTranslation, withTranslation } from 'react-i18next';
 import { TFunction } from 'i18next';
-import { push } from 'connected-react-router';
+import { compose } from 'recompose';
 import { ConnectedProps, connect } from 'react-redux';
+import { makeStyles, Grid } from '@material-ui/core';
+// HOCS
+// @ts-expect-error
+import withQueryParams from '#src/hocs/with-query-params.hoc';
 import withTitle from '#src/hocs/with-title.hoc';
 import routerParamsToProps from '#src/hocs/router-params-to-props.hoc';
+
+// Types
+import { RootState } from '#src/reducers';
+import { OptionCallback } from '#src/state/types';
+import type { CommunicationSentGroupConfig } from '#src/libs/communication/types';
+
+// Redux Actions
 import {
   createCommunicationSentGroupConfig as createCommunicationSentGroupConfigAction,
   deleteCommunicationSentGroupConfig as deleteCommunicationSentGroupConfigAction,
-  fetchCommunicationSentGroupConfigsList as fetchCommunicationSentGroupConfigsListAction,
+  fetchCommunicationSentGroupConfigsPaginatedList as fetchCommunicationSentGroupConfigsPaginatedListAction,
   updateCommunicationSentGroupConfig as updateCommunicationSentGroupConfigAction,
   duplicateCommunicationSentGroupConfig as duplicateCommunicationSentGroupConfigAction,
 } from '#src/libs/communication/actions';
+
+// Redux Selectors
 import {
-  getAllCommunicationSentGroupConfigs,
-  getCommunicationSentGroupConfig,
+  getCommunicationSentGroupConfigFromPaginatedState,
+  getCommunicationSentGroupConfigsPaginated,
 } from '#src/libs/communication/selectors';
-import type { CommunicationSentGroupConfig } from '#src/libs/communication/types';
+
+// Components
+import Alert from '@material-ui/lab/Alert';
+import AlertTitle from '@material-ui/lab/AlertTitle';
+import IsEmptyList from '#src/components/navigation/IsEmptyList.component';
+// @ts-expect-error
+import SmartListCard from '#src/libs/smart-list/components/SmartlistCard.component';
 // @ts-expect-error
 import SmartListFormDialog from '#src/libs/smart-list/components/SmartListFormDialog.component';
 import BottomActionButtons from '#src/components/button/BottomActionsButton.component';
-import CommunicationSentGroupConfigListing from '#src/libs/communication/components/communication-sent-group-config/CommunicationSentGroupConfigListing';
-// @ts-expect-error
-import withQueryParams from '../../../../hocs/with-query-params.hoc';
-import { RootState } from '../../../../reducers';
-import { OptionCallback } from '../../../../state/types';
-import { WithHandlerType } from '../../../../utils/types';
+import PaginatedListBaseReworked from '#src/components/PaginatedListBaseReworked.component';
+import CommunicationSentGroupConfigListItem from '#src/libs/communication/components/communication-sent-group-config/CommunicationSentGroupConfigListing/CommunicationSentGroupConfigListItem.component';
+import CommunicationSentGroupConfigSearchItem from '#src/libs/communication/components/communication-sent-group-config/CommunicationSentGroupConfigListing/CommunicationSentGroupConfigSearchItem.component';
 
-type OwnProps = {
+import ObjectSearchComponent from '#src/libs/fuzzy-search/components/ObjectSearch.component';
+
+type RouterProps = {
   // eslint-disable-next-line react/no-unused-prop-types
   campaignId: number;
   setQueryParams: (queryName: string) => (queryValue: boolean) => void;
   selectedId: number;
 };
 
-type OwnAndConnectedProps = OwnProps & ConnectedProps<typeof connector>;
+type Props = RouterProps & ConnectedProps<typeof connector>;
 
-type Props = OwnAndConnectedProps &
-  WithTranslation &
-  WithHandlerType<typeof mapWithHandlers>;
-
-type State = {
-  openCreateDialog: boolean;
-  openEditDialog: boolean;
+// @debt(impact: 1, easy: 1, contagion: 1)
+// This component shouldn't exist, and proper API error handling should be performed
+// to help the user understand that a unique name must be used.
+const UniqueCampaignNameAlert: React.FC = () => {
+  const { t } = useTranslation('campaign');
+  return (
+    <Alert severity="info" style={{ alignItems: 'center' }}>
+      <AlertTitle>{t('detail.tab.general')}</AlertTitle>
+      {t('campaignCreationWarning')}
+    </Alert>
+  );
 };
+const CommunicationSentGroupConfigList: React.FC<Props> = ({
+  communicationSentGroupConfigsPaginatedState,
+  createCommunicationSentGroupConfig,
+  deleteCommunicationSentGroupConfig,
+  duplicateCommunicationSentGroupConfig,
+  fetchAllCommunicationSentGroupConfigPaginated,
+  goToEdit,
+  goToSelected,
+  goToSelectedCommunicationSentGroupConfig,
+  selectedId,
+  setQueryParams,
+  updateCommunicationSentGroupConfig,
+}) => {
+  const classes = useStyles();
+  const { t } = useTranslation('campaign');
+  const [openCreationDialog, setOpenCreationDialog] = React.useState(false);
+  const [selectedForEdit, setSelectedForEdit] =
+    React.useState<CommunicationSentGroupConfig | null>(null);
 
-class CommunicationSentGroupConfigList extends React.PureComponent<
-  Props,
-  State
-> {
-  constructor(props: Props) {
-    super(props);
-    this.state = {
-      openCreateDialog: false,
-      openEditDialog: false,
-    };
-  }
+  const [selected, setSelected] =
+    React.useState<CommunicationSentGroupConfig | null>(null);
 
-  componentDidMount() {
-    this.props.fetchAllCommunicationSentGroupConfig();
-  }
+  const handleOpenCreationDialog = React.useCallback(
+    () => setOpenCreationDialog(true),
+    [],
+  );
+  const handleCloseCreationDialog = React.useCallback(
+    () => setOpenCreationDialog(false),
+    [],
+  );
 
-  addNewCommunicationSentGroupConfig = (
+  const handleCloseEditionDialog = React.useCallback(
+    () => setSelectedForEdit(null),
+    [],
+  );
+
+  const handlSetSelected = React.useCallback(
+    (id: number) => {
+      const _selected = communicationSentGroupConfigsPaginatedState.byId[id];
+      if (!!_selected) {
+        setSelected(_selected);
+        goToSelected(id);
+      } else {
+        setSelected(null);
+      }
+    },
+    [communicationSentGroupConfigsPaginatedState, goToSelected],
+  );
+
+  const handleAddNewCommunicationSentGroupConfig = (
     communicationSentGroupConfig: Omit<CommunicationSentGroupConfig, 'id'>,
     options?: OptionCallback,
   ) => {
-    this.props.createCommunicationSentGroupConfig(
+    createCommunicationSentGroupConfig(
       { ...communicationSentGroupConfig, to_all_members: true },
       {
-        onSuccess: (newCommunicationSentGroupConfig) => {
-          if (options && options.onSuccess) options.onSuccess();
-          this.props.goToEdit(newCommunicationSentGroupConfig.id);
+        onSuccess: (
+          newCommunicationSentGroupConfig: CommunicationSentGroupConfig,
+        ) => {
+          options?.onSuccess?.();
+          goToEdit(newCommunicationSentGroupConfig.id);
         },
       },
     );
-    this.setState({ openCreateDialog: false });
-    this.props.setQueryParams('create')(false);
+    handleCloseCreationDialog();
+    setQueryParams('create')(false);
   };
 
-  handleUpdateCommunicationSentGroupConfig = (
+  const handleUpdateCommunicationSentGroupConfig = (
     communicationSentGroupConfig: CommunicationSentGroupConfig,
   ) => {
-    this.setState({ openEditDialog: false });
-    this.props.updateCommunicationSentGroupConfig(this.props.selectedId, {
+    handleCloseCreationDialog();
+    updateCommunicationSentGroupConfig(selectedId, {
       ...communicationSentGroupConfig,
-      ...(this.props.communicationSentGroupConfigSelected.to_all_members
+      ...(selected.to_all_members
         ? {
-            to_all_members:
-              this.props.communicationSentGroupConfigSelected.to_all_members,
+            to_all_members: selected.to_all_members,
           }
         : {
-            smartlists:
-              this.props.communicationSentGroupConfigSelected.smartlists,
+            smartlists: selected.smartlists,
           }),
     });
   };
 
-  handleCommunicationSentGroupConfigDeleteOnClick = (id: number) => {
-    this.props.deleteCommunicationSentGroupConfig(id, {
-      onSuccess: () => this.props.goToCommunicationSentGroupConfigsList,
+  const handleDeleteCommunicationSentGroupConfig = (id: number) => {
+    deleteCommunicationSentGroupConfig(id, {
+      onSuccess: () =>
+        fetchAllCommunicationSentGroupConfigPaginated({ page: 1 }),
     });
   };
-
-  handleCommunicationSentGroupConfigDuplicateOnClick = (id: number) =>
-    this.props.duplicateCommunicationSentGroupConfig(id, {
-      onSuccess: (
-        communicationSentGroupConfig: CommunicationSentGroupConfig,
-      ) => {
-        return this.props.goToSelected(communicationSentGroupConfig.id);
-      },
+  const handleDuplicateCommunicationSentGroupConfig = (id: number) =>
+    duplicateCommunicationSentGroupConfig(id, {
+      onSuccess: (communicationSentGroupConfig: CommunicationSentGroupConfig) =>
+        fetchAllCommunicationSentGroupConfigPaginated(
+          { page: 1 },
+          { onSuccess: () => goToEdit(communicationSentGroupConfig.id) },
+        ),
     });
 
-  handleSelect = (id: number) => {
-    if (id === this.props.selectedId) {
-      this.props.goToEdit(id);
-    } else {
-      this.props.goToSelected(id);
-    }
-  };
+  // Enabling automatic selection when id in url
+  React.useEffect(() => {
+    selectedId && handlSetSelected(selectedId);
 
-  handleEditSmartListCard = () => this.setState({ openEditDialog: true });
+    return () => handlSetSelected(null);
+  }, [selectedId, handlSetSelected]);
 
-  handleCommunicationSentGroupConfigItemOnClick = (campaignId: number) =>
-    this.handleSelect(campaignId);
+  const noExistingConfig =
+    !communicationSentGroupConfigsPaginatedState.loading &&
+    !communicationSentGroupConfigsPaginatedState.count;
 
-  handleOpenCommunicationSentGroupConfigCreateDialog = () => {
-    this.setState({ openCreateDialog: true });
-    this.props.setQueryParams('create')(true);
-  };
+  const formatSearchOptions = React.useCallback(
+    (searchResults: CommunicationSentGroupConfig[]) => {
+      return searchResults.map((result) => ({
+        label: result.name,
+        value: result.id,
+        onClick: () => goToSelectedCommunicationSentGroupConfig(result.id),
+      }));
+    },
+    [goToSelectedCommunicationSentGroupConfig],
+  );
 
-  handleCancelCommunicationSentGroupConfigCreateOrUpdateDialog = () => {
-    this.setState({
-      openEditDialog: false,
-      openCreateDialog: false,
-    });
-    this.props.setQueryParams('create')(false);
-  };
+  return (
+    <>
+      <IsEmptyList
+        button={t('campaign.add')}
+        hideEmptyText={!noExistingConfig}
+        onCreate={handleOpenCreationDialog}
+        onCreateLabel={t('campaign.add')}
+        text={t('noCampaign')}
+      />
+      <Grid container direction="row" spacing={3}>
+        <Grid item md={6} xs={12}>
+          {!noExistingConfig && (
+            <ObjectSearchComponent
+              className={classes.searchComponent}
+              components={{ Option: CommunicationSentGroupConfigSearchItem }}
+              optionsFormatter={formatSearchOptions}
+              placeholder={t('search')}
+              searchedObjectType="communication_sent_group_config"
+              variant="default"
+            />
+          )}
+          <PaginatedListBaseReworked
+            hideDefaultEmptyComponent
+            itemPerPage={communicationSentGroupConfigsPaginatedState.page_size}
+            items={communicationSentGroupConfigsPaginatedState.items}
+            loading={communicationSentGroupConfigsPaginatedState.loading}
+            nbItems={communicationSentGroupConfigsPaginatedState.count}
+            onPageRequested={fetchAllCommunicationSentGroupConfigPaginated}
+            page={communicationSentGroupConfigsPaginatedState.page}
+            renderItem={(
+              communicationSentGroupConfig: CommunicationSentGroupConfig,
+            ) => (
+              <CommunicationSentGroupConfigListItem
+                key={communicationSentGroupConfig.id}
+                communicationSentGroupConfig={communicationSentGroupConfig}
+                onClick={handlSetSelected}
+                onClickDelete={handleDeleteCommunicationSentGroupConfig}
+                onClickDuplicate={handleDuplicateCommunicationSentGroupConfig}
+                onClickEdit={() => goToEdit(communicationSentGroupConfig.id)}
+                selected={communicationSentGroupConfig?.id === selected?.id}
+              />
+            )}
+          />
+        </Grid>
+        <Grid item md={6} xs={12}>
+          <SmartListCard
+            onClickCampaign={goToSelectedCommunicationSentGroupConfig}
+            onClickConfigure={goToEdit}
+            onEdit={() => setSelectedForEdit(selected)}
+            smartlist={selected}
+          />
+        </Grid>
+      </Grid>
+      {openCreationDialog && (
+        <SmartListFormDialog
+          fullScreen
+          isFranchisor
+          onCancel={handleCloseCreationDialog}
+          open={openCreationDialog}
+          smartlist={null}
+          updateSmartList={handleAddNewCommunicationSentGroupConfig}
+        >
+          <UniqueCampaignNameAlert />
+        </SmartListFormDialog>
+      )}
 
-  render() {
-    const {
-      t,
-      communicationSentGroupConfigsList,
-      communicationSentGroupConfigSelected,
-      loading,
-      goToSelectedCommunicationSentGroupConfig,
-      goToEdit,
-    } = this.props;
-
-    return (
-      <div>
-        <CommunicationSentGroupConfigListing
-          communicationSentGroupConfigSelected={
-            communicationSentGroupConfigSelected
-          }
-          communicationSentGroupConfigsList={communicationSentGroupConfigsList}
-          goToEdit={goToEdit}
-          goToSelectedCommunicationSentGroupConfig={
-            goToSelectedCommunicationSentGroupConfig
-          }
-          handleCommunicationSentGroupConfigDeleteOnClick={
-            this.handleCommunicationSentGroupConfigDeleteOnClick
-          }
-          handleCommunicationSentGroupConfigDuplicateOnClick={
-            this.handleCommunicationSentGroupConfigDuplicateOnClick
-          }
-          handleCommunicationSentGroupConfigItemOnClick={
-            this.handleCommunicationSentGroupConfigItemOnClick
-          }
-          handleEditSmartListCard={this.handleEditSmartListCard}
-          handleOpenCommunicationSentGroupConfigCreateDialog={
-            this.handleOpenCommunicationSentGroupConfigCreateDialog
-          }
-          loading={loading}
+      {selectedForEdit && (
+        <SmartListFormDialog
+          fullScreen
+          isFranchisor
+          onCancel={handleCloseEditionDialog}
+          open={!!selectedForEdit}
+          smartlist={selectedForEdit}
+          updateSmartList={handleUpdateCommunicationSentGroupConfig}
+        >
+          <UniqueCampaignNameAlert />
+        </SmartListFormDialog>
+      )}
+      {/* Mandatoory condition to avoid duplicate bottom actions due to EmptyList component */}
+      {!noExistingConfig && (
+        <BottomActionButtons
+          onCreate={handleOpenCreationDialog}
+          onCreateLabel={t('campaign.add')}
         />
-        {(this.state.openEditDialog || this.state.openCreateDialog) && (
-          <SmartListFormDialog
-            fullScreen
-            isFranchisor
-            onCancel={
-              this.handleCancelCommunicationSentGroupConfigCreateOrUpdateDialog
-            }
-            open={this.state.openEditDialog || this.state.openCreateDialog}
-            smartlist={
-              this.state.openEditDialog
-                ? this.props.communicationSentGroupConfigSelected
-                : null
-            }
-            updateSmartList={
-              this.state.openEditDialog
-                ? this.handleUpdateCommunicationSentGroupConfig
-                : this.addNewCommunicationSentGroupConfig
-            }
-          />
-        )}
-        {!!communicationSentGroupConfigsList.length && (
-          <BottomActionButtons
-            onCreate={this.handleOpenCommunicationSentGroupConfigCreateDialog}
-            onCreateLabel={t('campaign.add')}
-          />
-        )}
-      </div>
-    );
-  }
-}
+      )}
+    </>
+  );
+};
 
 const mapStateToProps = (
   state: RootState,
   { selectedId }: { selectedId: number },
 ) => ({
-  communicationSentGroupConfigsList: getAllCommunicationSentGroupConfigs(state),
-  communicationSentGroupConfigSelected: getCommunicationSentGroupConfig(
-    state,
-    selectedId,
-  ),
+  communicationSentGroupConfigsPaginatedState:
+    getCommunicationSentGroupConfigsPaginated(state),
+  communicationSentGroupConfigSelected:
+    getCommunicationSentGroupConfigFromPaginatedState(state, selectedId),
   loading:
     state.communicationSentGroupConfig.communicationSentGroupConfig.loading,
 });
 
 const mapDispatchToProps = {
-  fetchAllCommunicationSentGroupConfig:
-    fetchCommunicationSentGroupConfigsListAction,
+  fetchAllCommunicationSentGroupConfigPaginated:
+    fetchCommunicationSentGroupConfigsPaginatedListAction,
   createCommunicationSentGroupConfig: createCommunicationSentGroupConfigAction,
   updateCommunicationSentGroupConfig: updateCommunicationSentGroupConfigAction,
   deleteCommunicationSentGroupConfig: deleteCommunicationSentGroupConfigAction,
   duplicateCommunicationSentGroupConfig:
     duplicateCommunicationSentGroupConfigAction,
-  push,
+  goToEdit: (id: number) => pushAction(`/f/marketing/campaign/${id}/general`),
+  goToSelected: (id: number) => pushAction(`/f/marketing/campaign/${id}`),
+  goToSelectedCommunicationSentGroupConfig: (id: number) =>
+    pushAction(`/f/marketing/campaign/${id}/general`),
 };
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
-
-const mapWithHandlers = {
-  goToEdit: (props: OwnAndConnectedProps) => (id: number) =>
-    props.push(`/f/marketing/campaign/${id}/general`),
-  goToSelected: (props: OwnAndConnectedProps) => (id: number) =>
-    props.push(`/f/marketing/campaign/${id}`),
-  goToSelectedCommunicationSentGroupConfig:
-    (props: OwnAndConnectedProps) => (id: number) =>
-      props.push(`/f/marketing/campaign/${id}/general`),
-  goToCommunicationSentGroupConfigsList: (props: OwnAndConnectedProps) => () =>
-    props.push('/f/marketing/campaign'),
-};
 
 export default compose(
   routerParamsToProps({ campaignId: 'selectedId:number' }),
@@ -252,5 +314,10 @@ export default compose(
   ),
   withQueryParams([['create'], 'queryParams', 'setQueryParams']),
   connector,
-  withHandlers(mapWithHandlers),
 )(CommunicationSentGroupConfigList);
+
+const useStyles = makeStyles((theme) => ({
+  searchComponent: {
+    paddingBottom: theme.spacing(2),
+  },
+}));

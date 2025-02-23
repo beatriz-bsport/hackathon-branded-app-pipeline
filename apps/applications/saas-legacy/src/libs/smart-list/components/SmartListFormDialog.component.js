@@ -28,6 +28,7 @@ type Props = {
   ) => void,
   classes: Object,
   open: boolean,
+  children: React.Node,
 };
 
 const {
@@ -84,7 +85,7 @@ export class SmartListFormDialog extends Component<Props, state> {
   };
 
   render() {
-    const { t, open } = this.props;
+    const { t, open, children } = this.props;
     return (
       <Dialog fullScreen={false} open={open}>
         <DialogTitle id="dialog-title">
@@ -129,6 +130,8 @@ export class SmartListFormDialog extends Component<Props, state> {
                 value={this.state.description}
                 variant="outlined"
               />
+
+              {children}
               <DialogActions>
                 <Button color="secondary" onClick={this.onCancel}>
                   {t('smart_list.cancel')}

@@ -27,6 +27,8 @@ exports.default = {
   historyTitle: 'Mailing history',
   noCampaign:
     'Send campaigns to your members to keep them in touch with what’s happening in your franchise.',
+  campaignCreationWarning:
+    'Make sure your campaign name is unique to prevent any issues.',
   memberSelectionInfo:
     "Add members to the recipients of your campaign by selecting a studio and then choosing one of its smartlists. If you want to add all your members directly, you can also click on 'Select all members'.",
   mail: {

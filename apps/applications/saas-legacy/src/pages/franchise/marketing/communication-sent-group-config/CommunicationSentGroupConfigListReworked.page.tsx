@@ -33,6 +33,8 @@ import {
 } from '#src/libs/communication/selectors';
 
 // Components
+import Alert from '@material-ui/lab/Alert';
+import AlertTitle from '@material-ui/lab/AlertTitle';
 import IsEmptyList from '#src/components/navigation/IsEmptyList.component';
 // @ts-expect-error
 import SmartListCard from '#src/libs/smart-list/components/SmartlistCard.component';
@@ -54,6 +56,18 @@ type RouterProps = {
 
 type Props = RouterProps & ConnectedProps<typeof connector>;
 
+// @debt(impact: 1, easy: 1, contagion: 1)
+// This component shouldn't exist, and proper API error handling should be performed
+// to help the user understand that a unique name must be used.
+const UniqueCampaignNameAlert: React.FC = () => {
+  const { t } = useTranslation('campaign');
+  const classes = useStyles();
+  return (
+    <Alert className={classes.campaignNameAlert} severity="info">
+      {t('campaignCreationWarning')}
+    </Alert>
+  );
+};
 const CommunicationSentGroupConfigListReworked: React.FC<Props> = ({
   communicationSentGroupConfigsPaginatedState,
   createCommunicationSentGroupConfig,
@@ -91,7 +105,7 @@ const CommunicationSentGroupConfigListReworked: React.FC<Props> = ({
   );
 
   const handlSetSelected = React.useCallback(
-    (id: number) => {
+    (id: number | null) => {
       const _selected = communicationSentGroupConfigsPaginatedState.byId[id];
       if (!!_selected) {
         setSelected(_selected);
@@ -236,7 +250,9 @@ const CommunicationSentGroupConfigListReworked: React.FC<Props> = ({
           open={openCreationDialog}
           smartlist={null}
           updateSmartList={handleAddNewCommunicationSentGroupConfig}
-        />
+        >
+          <UniqueCampaignNameAlert />
+        </SmartListFormDialog>
       )}
 
       {selectedForEdit && (
@@ -247,7 +263,9 @@ const CommunicationSentGroupConfigListReworked: React.FC<Props> = ({
           open={!!selectedForEdit}
           smartlist={selectedForEdit}
           updateSmartList={handleUpdateCommunicationSentGroupConfig}
-        />
+        >
+          <UniqueCampaignNameAlert />
+        </SmartListFormDialog>
       )}
       {/* Mandatoory condition to avoid duplicate bottom actions due to EmptyList component */}
       {!noExistingConfig && (
@@ -301,5 +319,10 @@ export default compose(
 const useStyles = makeStyles((theme) => ({
   searchComponent: {
     paddingBottom: theme.spacing(2),
+  },
+  campaignNameAlert: {
+    alignItems: 'center',
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(2),
   },
 }));

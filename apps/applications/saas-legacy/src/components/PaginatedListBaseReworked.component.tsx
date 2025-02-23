@@ -23,6 +23,7 @@ type Props = {
     page_size?: number;
   }) => void;
   renderItem: (item: any) => React.JSX.Element;
+  hideDefaultEmptyComponent?: boolean;
 };
 
 const useStyles = makeStyles((theme) => ({
@@ -62,6 +63,7 @@ const PaginatedListBaseReworked: React.FC<Props> = ({
   page: pageProp,
   loading,
   nbItems,
+  hideDefaultEmptyComponent,
 }) => {
   const classes = useStyles();
   const handlePageRequested = React.useCallback(
@@ -85,6 +87,9 @@ const PaginatedListBaseReworked: React.FC<Props> = ({
   );
 
   if (!loading && !items?.length) {
+    if (hideDefaultEmptyComponent) {
+      return null;
+    }
     return <PaginatedListDefaultEmptyComponent />;
   }
   return (

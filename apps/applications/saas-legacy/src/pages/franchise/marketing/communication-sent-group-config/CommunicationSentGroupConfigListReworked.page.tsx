@@ -34,6 +34,7 @@ import {
 
 // Components
 import { Grid } from '@material-ui/core';
+import IsEmptyList from '#src/components/navigation/IsEmptyList.component';
 // @ts-expect-error
 import SmartListCard from '#src/libs/smart-list/components/SmartlistCard.component';
 // @ts-expect-error
@@ -156,11 +157,22 @@ const CommunicationSentGroupConfigListReworked: React.FC<Props> = ({
     return () => handlSetSelected(null);
   }, [selectedId, handlSetSelected]);
 
+  const noExistingConfig =
+    !communicationSentGroupConfigsPaginatedState.loading &&
+    !communicationSentGroupConfigsPaginatedState.count;
   return (
     <>
+      <IsEmptyList
+        button={t('campaign.add')}
+        hideEmptyText={!noExistingConfig}
+        onCreate={handleOpenCreationDialog}
+        onCreateLabel={t('campaign.add')}
+        text={t('noCampaign')}
+      />
       <Grid container direction="row" spacing={3}>
         <Grid item md={6} xs={12}>
           <PaginatedListBaseReworked
+            hideDefaultEmptyComponent
             itemPerPage={communicationSentGroupConfigsPaginatedState.page_size}
             items={communicationSentGroupConfigsPaginatedState.items}
             loading={communicationSentGroupConfigsPaginatedState.loading}
@@ -212,10 +224,13 @@ const CommunicationSentGroupConfigListReworked: React.FC<Props> = ({
           updateSmartList={handleUpdateCommunicationSentGroupConfig}
         />
       )}
-      <BottomActionButtons
-        onCreate={handleOpenCreationDialog}
-        onCreateLabel={t('campaign.add')}
-      />
+      {/* Mandatoory condition to avoid duplicate bottom actions due to EmptyList component */}
+      {!noExistingConfig && (
+        <BottomActionButtons
+          onCreate={handleOpenCreationDialog}
+          onCreateLabel={t('campaign.add')}
+        />
+      )}
     </>
   );
 };

@@ -23,6 +23,7 @@ const FranchiseEmailTemplateListPageReworked = asyncComponent(
   () => import('./FranchiseEmailListReworked.page'),
 );
 
+// TODO : Apply for everyone
 const FranchiseEmailTemplateListPageToUse: React.FC<{
   franchiseId: number;
 }> = React.memo(({ franchiseId }) => {

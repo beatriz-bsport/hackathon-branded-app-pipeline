@@ -65,10 +65,10 @@ const AuthenticatedSwitch: React.FC<{
 }> = ({ isAuthenticated, companyId, location, routes }) => {
   const matches = routes.map((route) => ({
     route,
-    match: matchPath(location.pathname, { path: route.path }),
+    match: matchPath(location.pathname, { path: route.path, exact: true }),
   }));
   for (const { route, match } of matches) {
-    if (!isAuthenticated && match.isExact) {
+    if (!isAuthenticated && !!match) {
       return (
         <Redirect
           to={

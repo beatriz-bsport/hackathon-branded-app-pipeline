@@ -11,7 +11,7 @@ Lint and Compile:
     - echo "Format checking CSS files"
     - pnpm run pretty
     - echo "Type checking all files"
-    - pnpm run compile
+    - pnpm run compile --strict false
     - echo "Lint checking all files"
     - NODE_OPTIONS=--max-old-space-size=7000 pnpm run lint
 

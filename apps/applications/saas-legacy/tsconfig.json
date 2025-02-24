@@ -12,6 +12,7 @@
     "target": "es6",
     "jsx": "react-jsx",
     "allowSyntheticDefaultImports": true,
+    "strict": true,
     "esModuleInterop": true,
     "lib": [
       "es2015",

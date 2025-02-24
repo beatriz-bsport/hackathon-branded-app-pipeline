@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
-
 import { buildUrlParams } from "@bsport/fetch";
-import { Card, Title, Body } from "@bsport/kaizen-primitive-core";
+import { List } from "@bsport/kaizen-primitive-core";
 
 import fetch from "#src/utils/fetch";
+import { usePaginationQueryParams } from "@bsport/use-pagination-query-params";
 
 type OfferMinimal = {
   id: number | undefined;
@@ -12,38 +12,57 @@ type OfferMinimal = {
 
 const OfferListExample: React.FC = () => {
   const [offers, setOffers] = useState<OfferMinimal[]>([]);
-
-  const urlParams = buildUrlParams({
-    company: "2", // Set the dev API to see data
-    min_date: "2025-01-01",
-    max_date: "2025-01-30",
-    available: "true",
-  });
+  const [totalItems, setTotalItems] = useState(0);
+  const { currentPage, currentPageSize, setPageSettings } =
+    usePaginationQueryParams();
   useEffect(() => {
-    fetch(`api/v1/offer/${urlParams}`, {})
-      .then((response) => response.json())
-      .then((data) => {
-        const results = data.results;
-        const offerList = results?.map((item: OfferMinimal) => {
-          return { id: item?.id, activity: item?.activity };
-        });
-        setOffers(offerList);
-      })
-      .catch(console.error);
-  }, []);
+    const urlParams = buildUrlParams({
+      company: "2", // Set the dev API to see data
+      min_date: "2025-01-01",
+      max_date: "2025-01-30",
+      available: "true",
+      page: currentPage,
+      page_size: currentPageSize,
+    });
+    const getPaginatedOffers = async () => {
+      try {
+        const response = await fetch(`api/v1/offer/${urlParams}`);
+        const data = await response.json();
+        const { results, count } = data;
+        setOffers(
+          results?.map((item: OfferMinimal) => {
+            return { id: item?.id, activity: item?.activity };
+          }),
+        );
+        setTotalItems(count);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    getPaginatedOffers();
+  }, [currentPage, currentPageSize]);
 
   if (!offers?.length) {
     return null;
   }
 
   return (
-    <div className="flex flex-row p-md gap-md flex-wrap">
-      {offers.map((offer) => (
-        <Card elevated actionable={false} padding="sm" key={offer.id}>
-          <Title htmlVariant="h3">Offer n°{offer.id}</Title>
-          <Body htmlVariant="p">Related activity : {offer.activity}</Body>
-        </Card>
-      ))}
+    <div className="flex flex-row p-md gap-md flex-wrap w-full">
+      <List
+        id="offer-list"
+        items={offers.map((item) => ({
+          id: `offer-${item.id}`,
+          title: `Offer n°${item.id}`,
+        }))}
+        className="w-full"
+        paginationProps={{
+          currentPage,
+          rowsPerPage: currentPageSize,
+          onPageSettingsChange: setPageSettings,
+          totalItems: totalItems,
+          showRowsPerPageSelector: true,
+        }}
+      />
     </div>
   );
 };

@@ -30,7 +30,7 @@ export const ArchivedSection = (props: Props) => {
     <div className={classes.disabledList}>
       <div className={classes.buttonTitle}>
         <Typography className={classes.sectionTitle} variant="h5">
-          {`${t('disabledItemsTitle')} (${(props.disabledItems || []).length})`}
+          {`${t('disabledItemsTitle')} (${(props.disabledItems ?? []).length})`}
         </Typography>
 
         <IconButton onClick={() => setShowDisabled(!showDisabled)}>

@@ -32,7 +32,7 @@ const FranchiseShopItemTemplateDetailVariantListMobile: React.FC<Props> = ({
 
   return (
     <List className={classes.listContainer}>
-      {(variantList || []).map((variant) => (
+      {(variantList ?? []).map((variant) => (
         <ListItem key={variant.id} className={classes.listItemContainer}>
           <CardMedia
             className={classes.variantImage}

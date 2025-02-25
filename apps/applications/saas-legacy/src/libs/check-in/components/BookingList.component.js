@@ -69,7 +69,7 @@ const BookingList: React.FC<Props> = ({
             />
           </ListItem>
         )}
-        {(bookings || []).map((booking) => (
+        {(bookings ?? []).map((booking) => (
           <CheckInBookingItem
             key={booking.id}
             booking={booking}

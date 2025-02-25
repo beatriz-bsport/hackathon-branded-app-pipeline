@@ -123,9 +123,9 @@ export class EstablishmentList extends React.Component<Props, State> {
 
   render() {
     if (
-      (this.props.establishments || []).length === 0 &&
+      (this.props.establishments ?? []).length === 0 &&
       !this.props.loading &&
-      (this.props.establishmentsArchived || []).length === 0
+      (this.props.establishmentsArchived ?? []).length === 0
     ) {
       return (
         <IsEmptyList
@@ -165,11 +165,11 @@ export class EstablishmentList extends React.Component<Props, State> {
         <Paper className={this.props.classes.map}>
           <Map markerClicked={() => {}} markers={this.props.establishments} />
         </Paper>
-        {(this.props.establishmentsArchived || []).length ? (
+        {(this.props.establishmentsArchived ?? []).length ? (
           <div>
             <ButtonBase
               className={this.props.classes.buttonTitle}
-              disabled={!(this.props.establishmentsArchived || []).length}
+              disabled={!(this.props.establishmentsArchived ?? []).length}
               onClick={() =>
                 this.setState((prevState) => ({
                   showDisabled: !prevState.showDisabled,
@@ -178,7 +178,7 @@ export class EstablishmentList extends React.Component<Props, State> {
             >
               <Typography
                 color={
-                  (this.props.establishmentsArchived || []).length
+                  (this.props.establishmentsArchived ?? []).length
                     ? 'default'
                     : 'textSecondary'
                 }
@@ -186,7 +186,7 @@ export class EstablishmentList extends React.Component<Props, State> {
                 variant="h5"
               >
                 {`${this.props.t('list.section.archived')} (${
-                  (this.props.establishmentsArchived || []).length
+                  (this.props.establishmentsArchived ?? []).length
                 })`}
               </Typography>
 

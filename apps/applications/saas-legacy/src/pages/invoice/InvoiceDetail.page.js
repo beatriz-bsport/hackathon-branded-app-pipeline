@@ -805,7 +805,7 @@ export class InvoiceDetail extends React.Component<Props, State> {
                     this.props.detachPaymentMethodLoading
                   }
                   dispApplyForAll={
-                    (this.props.plannedPaymentEventList || []).length > 1
+                    (this.props.plannedPaymentEventList ?? []).length > 1
                   }
                   enabledPaymentMethods={getBackofficeEnabledPaymentGroupMethods(
                     {

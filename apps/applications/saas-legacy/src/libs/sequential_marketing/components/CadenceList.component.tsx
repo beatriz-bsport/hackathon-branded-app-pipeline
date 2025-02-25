@@ -78,7 +78,7 @@ export const CadenceList: React.FC<Props> = ({
   const sensors = useSensors(useSensor(MouseSensor), useSensor(TouchSensor));
 
   const cadenceSortableItems = React.useMemo(() => {
-    return [...(cadences || [])]?.filter(
+    return [...(cadences ?? [])]?.filter(
       (cadence) =>
         !!cadence &&
         !!cadence?.priority_index &&

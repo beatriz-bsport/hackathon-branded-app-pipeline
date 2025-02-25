@@ -265,7 +265,7 @@ class OfferListSummary extends React.PureComponent<Props> {
 
           {!!this.props.onClickAddMoreOffer &&
             !(offer?.group?.full_booking_only ?? false) &&
-            (this.props.additionalGuestList || []).length === 0 && (
+            (this.props.additionalGuestList ?? []).length === 0 && (
               <ButtonBase
                 className={classes.bookButtonInner}
                 disabled={!offer}
@@ -282,7 +282,7 @@ class OfferListSummary extends React.PureComponent<Props> {
               </ButtonBase>
             )}
           {!!this.props.onAddAdditionalGuest &&
-            (this.props.selectedOffers || []).length < 1 &&
+            (this.props.selectedOffers ?? []).length < 1 &&
             !this.props.isRegisteringForWaitingList &&
             !offer?.room_blueprint && (
               <>

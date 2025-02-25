@@ -132,7 +132,7 @@ const QuickReportFilterConfigColumnsMenu: React.FC<Props> = ({
     () =>
       uniqBy(
         [
-          ...(filterableColumns || []).map((c) => ({
+          ...(filterableColumns ?? []).map((c) => ({
             label: t(`${getColumnLabelTranslation(c.datatype, c.identifier)}`),
             value: c.identifier,
             datatype: c.datatype,

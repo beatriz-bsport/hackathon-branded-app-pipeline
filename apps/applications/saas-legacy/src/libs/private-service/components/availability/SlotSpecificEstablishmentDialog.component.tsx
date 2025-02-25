@@ -29,7 +29,7 @@ export const SlotSpecificEstablishmentDialog: React.FC<Props> = ({
   const { t } = useTranslation('privateService');
 
   const activeEstablishments = useMemo(
-    () => (establishments || []).filter((e) => !e.disabled),
+    () => (establishments ?? []).filter((e) => !e.disabled),
     [establishments],
   );
 

@@ -51,7 +51,7 @@ export const useConsumerPassDetailsCardHeaderData = ({
         })
       : '';
 
-  const label = {
+  const labels: Record<string, string | undefined> = {
     suspendedWithDate: t(
       'reworked.myPasses.consumerPassDetailsCard.availability.suspendedUntil',
       {
@@ -84,28 +84,30 @@ export const useConsumerPassDetailsCardHeaderData = ({
         },
       },
     ),
-  }?.[
-    isSuspended
-      ? `suspended${suspensionDate ? 'WithDate' : 'WithoutDate'}`
-      : availability
-  ];
+  };
+  const label = isSuspended
+    ? labels[`suspended${suspensionDate ? 'WithDate' : 'WithoutDate'}`]
+    : labels[availability ?? ''];
 
-  const customClassName = {
+  const customClassNames: Record<string, string | null> = {
     suspended: `bs-${cssVariant}-details-card__header__list__item--warning`,
     expired: `bs-${cssVariant}-details-card__header__list__item--error`,
-  }?.[isSuspended ? 'suspended' : availability];
+  };
+  const customClassName =
+    customClassNames[isSuspended ? 'suspended' : availability ?? ''];
 
   const customIconClassName =
-    availability === ('future' || 'active')
+    availability === 'future' || availability === 'active'
       ? `bs-${cssVariant}-details-card__header__list__item__icon--weak-color`
       : null;
 
-  const Icon = {
+  const Icons: Record<string, React.ReactNode | null> = {
     suspended: PauseCircle,
     future: CalendarDate,
     active: CalendarCheck02,
     expired: X,
-  }?.[isSuspended ? 'suspended' : availability];
+  };
+  const Icon = Icons[isSuspended ? 'suspended' : availability ?? ''];
 
   const usedCredits = totalCredits - creditsLeft;
   const hideList = (!caption && availability === 'future') || !Icon || !label;

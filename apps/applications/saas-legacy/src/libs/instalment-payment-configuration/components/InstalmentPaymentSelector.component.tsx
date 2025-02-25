@@ -39,7 +39,7 @@ const InstalmentPaymentSelector: React.FC<Props> = ({
   const [processing, setProcessing] = React.useState(false);
   const isLoadingMain =
     instalmentPaymentConfigurationSelectedId &&
-    !(instalmentPaymentConfigurationList || [])
+    !(instalmentPaymentConfigurationList ?? [])
       .map((ipc) => ipc.id)
       .includes(instalmentPaymentConfigurationSelectedId);
 
@@ -86,14 +86,14 @@ const InstalmentPaymentSelector: React.FC<Props> = ({
   return (
     <div className={classes.row}>
       {processing && <LinearProgress />}
-      {!!(instalmentPaymentConfigurationList || []).length && (
+      {!!(instalmentPaymentConfigurationList ?? []).length && (
         <BasketInstalmentEmptyPlaceholder
           checked={instalmentPaymentConfigurationSelectedId === null}
           disabled={processing || paymentProcessing}
           onSelect={onEmptyInstalmentPaymentSelect}
         />
       )}
-      {(instalmentPaymentConfigurationList || []).map((ipc) => (
+      {(instalmentPaymentConfigurationList ?? []).map((ipc) => (
         <BasketInstalmentPaymentOption
           key={ipc.id}
           basketPrice={basketPriceCts / 100}

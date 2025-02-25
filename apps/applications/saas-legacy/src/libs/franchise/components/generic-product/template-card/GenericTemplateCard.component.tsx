@@ -81,10 +81,10 @@ const FranchiseGenericProductTemplateCard = (props: Props) => {
     React.useState(
       !!parseQueryString(location.search || '')?.openSelectCompaniesForm,
     );
-  const companiesInTemplateIdList = (companiesInTemplate || []).map(
+  const companiesInTemplateIdList = (companiesInTemplate ?? []).map(
     (c) => c.id,
   );
-  const companiesWithoutInstance = (allCompanies || []).filter(
+  const companiesWithoutInstance = (allCompanies ?? []).filter(
     (c) => !companiesInTemplateIdList.includes(c.id),
   );
   const sortedCompaniesInTemplate =
@@ -164,13 +164,13 @@ const FranchiseGenericProductTemplateCard = (props: Props) => {
         )}
       >
         {deleteTemplateInstanceChildren}
-        {(deleteTemplateInstanceContents || []).map(
+        {(deleteTemplateInstanceContents ?? []).map(
           (content: string, index: number) => (
             <Typography
               key={`${index}-${content.slice(0, 10)}`}
               className={clsx({
                 [classes.description]:
-                  index < (deleteTemplateInstanceContents || []).length - 1,
+                  index < (deleteTemplateInstanceContents ?? []).length - 1,
               })}
               color="textSecondary"
               variant="body1"

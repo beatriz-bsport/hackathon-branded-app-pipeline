@@ -23,13 +23,13 @@ const CustomTemplateComponent = (args: Props) => {
   });
 
   return (
-    /* @ts-expect-error */
     <SearchForStorybook
+      {...args}
+      // @ts-expect-error src/components/css-only/Search/Search.stories.tsx:18
       data={contractItems}
       renderItem={(item: SearchItemData<BaseAdditionalData>) => (
         <ClickableItem {...item.additionalData} />
       )}
-      {...args}
     />
   );
 };

@@ -140,7 +140,7 @@ const PaymentStripeRevamped: React.FC<
     return (
       <Elements stripe={stripePromise ?? fallbackStripePromise}>
         <ObjectLevelPermissionProvider requiredPermission="billing.allowed_actions.addPaymentMethod">
-          {(hasAddPaymentMethodPermission) => (
+          {(hasAddPaymentMethodPermission: boolean) => (
             <StripePaymentMethodForm
               ref={ref}
               paym

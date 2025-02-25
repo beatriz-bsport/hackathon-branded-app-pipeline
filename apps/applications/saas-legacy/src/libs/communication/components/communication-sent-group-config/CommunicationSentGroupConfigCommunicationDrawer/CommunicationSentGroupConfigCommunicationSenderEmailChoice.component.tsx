@@ -49,7 +49,7 @@ export const CommunicationSentGroupConfigCommunicationSenderEmailChoice: React.F
 
   const senderEmailOptions = useMemo(
     () =>
-      ([...companies] || []).map((company) => ({
+      [...(companies ?? [])].map((company) => ({
         value: company.email,
         label: company.email,
       })),

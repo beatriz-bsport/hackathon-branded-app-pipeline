@@ -22,9 +22,9 @@ export const getCompaniesWithSmartLists = (
   smartLists: SeamlessImmutable.ImmutableArray<SmartList>,
   communicationSentGroupConfig: CommunicationSentGroupConfig,
 ): CompanyWithSmartList[] => {
-  const companiesWithSmartLists = ((companies as FranchiseCompany[]) || []).map(
+  const companiesWithSmartLists = ((companies as FranchiseCompany[]) ?? []).map(
     (company: FranchiseCompany) => {
-      const smartListAssociatedWithCompany = (smartLists || []).find(
+      const smartListAssociatedWithCompany = (smartLists ?? []).find(
         (smartList: SmartList) =>
           company.id === smartList.company &&
           communicationSentGroupConfig.smartlists.includes(smartList.id),

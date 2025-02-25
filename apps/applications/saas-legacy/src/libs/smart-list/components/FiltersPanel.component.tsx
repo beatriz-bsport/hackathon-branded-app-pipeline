@@ -434,7 +434,7 @@ export class FiltersPanel extends Component<Props, State> {
                 {t('generateExport')}
               </Button>
               <ObjectLevelPermissionProviderComponent requiredPermission="export.allowed_actions.smartlist">
-                {(hasPermission) =>
+                {(hasPermission: boolean) =>
                   hasPermission && (
                     <Button
                       className={classes.actionButton}

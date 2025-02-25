@@ -149,7 +149,7 @@ export function CoachPaymentRuleSelectorStyled(props: Props) {
     selectorClass,
     id,
   } = props;
-  const suggestions = (coachPaymentRulesList || []).map((s) => ({
+  const suggestions = (coachPaymentRulesList ?? []).map((s) => ({
     value: s.id,
     label: s.name,
   }));

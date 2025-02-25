@@ -55,7 +55,7 @@ const MarketplaceCommonFilterForm: React.FC<Props> = (props) => {
         newEstablishments = values.map((e: Establishment) => e.id);
         newEstablishmentGroups = establishmentGroupList
           .filter((eg: EstablishmentGroup) =>
-            (eg.establishment || [])
+            (eg.establishment ?? [])
               .map((e: Establishment) => e.id)
               .every((e_id: number) => newEstablishments.includes(e_id)),
           )

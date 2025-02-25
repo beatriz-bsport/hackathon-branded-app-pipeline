@@ -76,7 +76,7 @@ export function createListHandler(
           return state.set('error', payload);
         },
         [listActions.fetchedPage]: (state, { payload }) => {
-          if ((payload || []).length) {
+          if ((payload ?? []).length) {
             return state.set('all', state.all.concat(payload));
           }
           return state;

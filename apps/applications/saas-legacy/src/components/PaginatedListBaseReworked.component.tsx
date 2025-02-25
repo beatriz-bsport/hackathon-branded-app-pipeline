@@ -93,7 +93,7 @@ const PaginatedListBaseReworked: React.FC<Props> = ({
         {loading && <LinearProgress />}
         <Paper className={classes.paper} elevation={0}>
           <List disablePadding>
-            {(items || []).map((item) => renderItem(item))}
+            {(items ?? []).map((item) => renderItem(item))}
           </List>
         </Paper>
       </div>

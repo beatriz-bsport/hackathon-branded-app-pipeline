@@ -189,7 +189,7 @@ export default handleActions<Immutable.Immutable<UserPreference>, any>(
       { payload }: { payload: number },
     ) => {
       return state.set('doNotDisplayDeleteStepDialogCadenceIds', [
-        ...(state.doNotDisplayDeleteStepDialogCadenceIds || []),
+        ...(state.doNotDisplayDeleteStepDialogCadenceIds ?? []),
         payload,
       ]);
     },
@@ -198,14 +198,14 @@ export default handleActions<Immutable.Immutable<UserPreference>, any>(
       { payload }: { payload: number },
     ) => {
       return state.set('doNotDisplayDeleteExitDialogCadenceIds', [
-        ...(state.doNotDisplayDeleteExitDialogCadenceIds || []),
+        ...(state.doNotDisplayDeleteExitDialogCadenceIds ?? []),
         payload,
       ]);
     },
     [userPreferenceActions.doNotDisplayConvertStepIntoExitDialogAnymore.toString()]:
       (state, { payload }: { payload: number }) => {
         return state.set('doNotDisplayConvertStepIntoExitDialogCadenceIds', [
-          ...(state.doNotDisplayConvertStepIntoExitDialogCadenceIds || []),
+          ...(state.doNotDisplayConvertStepIntoExitDialogCadenceIds ?? []),
           payload,
         ]);
       },
@@ -214,7 +214,7 @@ export default handleActions<Immutable.Immutable<UserPreference>, any>(
       { payload }: { payload: number },
     ) => {
       return state.set('doNotDisplayEditingCadencePopinCadenceIds', [
-        ...(state.doNotDisplayEditingCadencePopinCadenceIds || []),
+        ...(state.doNotDisplayEditingCadencePopinCadenceIds ?? []),
         payload,
       ]);
     },
@@ -223,7 +223,7 @@ export default handleActions<Immutable.Immutable<UserPreference>, any>(
       { payload }: { payload: number },
     ) => {
       return state.set('doNotDisplayPauseDialogCadenceIds', [
-        ...(state.doNotDisplayPauseDialogCadenceIds || []),
+        ...(state.doNotDisplayPauseDialogCadenceIds ?? []),
         payload,
       ]);
     },

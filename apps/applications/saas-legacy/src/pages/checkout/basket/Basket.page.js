@@ -531,7 +531,7 @@ export class BasketPage extends React.Component<Props> {
   ) => {
     if (!this.props.basket) return;
 
-    const basketHasOfferData = (this.props.basket.checkout_items || []).some(
+    const basketHasOfferData = (this.props.basket.checkout_items ?? []).some(
       (checkoutItem) => checkoutItem?.extra_data?.offers_data?.length > 0,
     );
 

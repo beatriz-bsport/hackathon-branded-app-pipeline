@@ -496,8 +496,8 @@ export class PrivatePassList extends React.Component<Props, State> {
     );
     if (
       // @ts-expect-error
-      (this.props.privatePassList || []).length +
-        (this.props.disabledPrivatePassList || []).length ===
+      (this.props.privatePassList ?? []).length +
+        (this.props.disabledPrivatePassList ?? []).length ===
         0 &&
       !this.props.loading
     ) {
@@ -637,7 +637,7 @@ export class PrivatePassList extends React.Component<Props, State> {
                 <div className={classes.buttonTitle}>
                   <Typography className={classes.sectionTitle} variant="h5">
                     {`${t('disabledPacksTitle')} (${
-                      (this.props.disabledPrivatePassList || []).length
+                      (this.props.disabledPrivatePassList ?? []).length
                     })`}
                   </Typography>
 

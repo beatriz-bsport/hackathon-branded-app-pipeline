@@ -109,12 +109,12 @@ export default handleActions<Immutable.Immutable<ReportingStateV2>, any>(
         .setIn(['reportsPaginated', 'count'], count)
         .setIn(
           ['reportsPaginated', 'allIds'],
-          uniq((results || []).map((report) => report.id)),
+          uniq((results ?? []).map((report) => report.id)),
         )
         .merge(
           {
             reportsPaginated: {
-              byId: (results || []).reduce<
+              byId: (results ?? []).reduce<
                 PayloadReduceType<ReportConfiguration>
               >(
                 (accumulator, report) => ({

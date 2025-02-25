@@ -16,7 +16,7 @@ const AdditionalGuestList = (props: Props) => {
   const classes = useStyles();
   return (
     <div className={classes.container}>
-      {(props.guestList || []).map((guest: AdditionalGuest, idx: number) => (
+      {(props.guestList ?? []).map((guest: AdditionalGuest, idx: number) => (
         <div className={classes.row}>
           <IconButton color="primary" onClick={() => props.onRemoveGuest(idx)}>
             <DeleteIcon />

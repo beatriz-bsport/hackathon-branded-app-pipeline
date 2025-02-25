@@ -23,7 +23,7 @@ const useSmartlistContext = (
 
   const SMARTLIST_OPTIONS = React.useMemo(
     () =>
-      (smartlists?.asMutable() || []).map(
+      (smartlists?.asMutable() ?? []).map(
         (smartlist: Immutable.ImmutableObject<SmartList>) => ({
           label: smartlist.name,
           value: smartlist.id,

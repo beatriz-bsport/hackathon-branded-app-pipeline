@@ -328,7 +328,7 @@ export function createOrUpdateCoach(
 
       dispatch(upsert.error(error));
       if (options && options.onError) {
-        options.onError((error || []).response ? error.response.data : {});
+        options.onError((error ?? []).response ? error.response.data : {});
       }
     }
     dispatch(upsert.isLoading(false));

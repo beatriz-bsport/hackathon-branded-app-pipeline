@@ -109,7 +109,7 @@ export const DashboardTabBar = (props: Props) => {
           value={props.currentTabIndex}
           variant="scrollable"
         >
-          {(props.dashboardSettings || []).map((tab, i) => (
+          {(props.dashboardSettings ?? []).map((tab, i) => (
             <Tab
               key={`tab-${i}`}
               wrapped

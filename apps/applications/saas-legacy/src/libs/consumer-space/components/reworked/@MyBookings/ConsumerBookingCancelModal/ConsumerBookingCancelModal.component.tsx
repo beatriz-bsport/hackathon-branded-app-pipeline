@@ -230,7 +230,7 @@ const ConsumerBookingCancelModal: React.FC<Props> = ({
             </Typography>
 
             <List className="bs-consumer-booking-cancel-modal__dialog__list">
-              {(relatedBookings || []).map((relatedBooking) => (
+              {(relatedBookings ?? []).map((relatedBooking) => (
                 <RelatedBookingItem
                   key={relatedBooking.id}
                   booking={relatedBooking}

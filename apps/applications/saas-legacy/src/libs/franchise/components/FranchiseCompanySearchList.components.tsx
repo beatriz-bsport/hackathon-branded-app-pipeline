@@ -91,7 +91,7 @@ const FranchiseCompanySearchList: React.FC<Props> = ({
 
   const nonEmptyCompanyGroups = React.useMemo(
     () =>
-      (companyGroupList || []).filter((group) =>
+      (companyGroupList ?? []).filter((group) =>
         companies.some((company) => company.company_group === group.id),
       ),
     [companies, companyGroupList],

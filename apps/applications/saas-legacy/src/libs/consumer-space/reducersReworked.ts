@@ -418,7 +418,7 @@ export default handleActions<Immutable.Immutable<ConsumerStateReworked>, any>(
         .setIn(['myBookings', 'bookings', 'past', 'count'], count)
         .setIn(
           ['myBookings', 'bookings', 'past', 'bookings', 'allIds'],
-          (results || []).map((booking) => booking.id),
+          (results ?? []).map((booking) => booking.id),
         )
         .merge(
           {
@@ -426,7 +426,7 @@ export default handleActions<Immutable.Immutable<ConsumerStateReworked>, any>(
               bookings: {
                 past: {
                   bookings: {
-                    byId: (results || []).reduce<
+                    byId: (results ?? []).reduce<
                       PayloadReduceType<BookingREST>
                     >((acc, booking) => {
                       acc[booking.id] = booking;
@@ -470,7 +470,7 @@ export default handleActions<Immutable.Immutable<ConsumerStateReworked>, any>(
         .setIn(['myBookings', 'bookings', 'future', 'count'], count)
         .setIn(
           ['myBookings', 'bookings', 'future', 'bookings', 'allIds'],
-          (results || []).map((booking) => booking.id),
+          (results ?? []).map((booking) => booking.id),
         )
         .merge(
           {
@@ -478,7 +478,7 @@ export default handleActions<Immutable.Immutable<ConsumerStateReworked>, any>(
               bookings: {
                 future: {
                   bookings: {
-                    byId: (results || []).reduce<
+                    byId: (results ?? []).reduce<
                       PayloadReduceType<BookingREST>
                     >((acc, booking) => {
                       acc[booking.id] = booking;
@@ -531,7 +531,7 @@ export default handleActions<Immutable.Immutable<ConsumerStateReworked>, any>(
             'private_services',
             'allIds',
           ],
-          (results || []).map((privateBooking) => privateBooking.id),
+          (results ?? []).map((privateBooking) => privateBooking.id),
         )
         .merge(
           {
@@ -539,7 +539,7 @@ export default handleActions<Immutable.Immutable<ConsumerStateReworked>, any>(
               privateBookings: {
                 past: {
                   private_services: {
-                    byId: (results || []).reduce<
+                    byId: (results ?? []).reduce<
                       PayloadReduceType<PrivateBooking>
                     >((acc, privateBooking) => {
                       acc[privateBooking.id] = privateBooking;
@@ -592,7 +592,7 @@ export default handleActions<Immutable.Immutable<ConsumerStateReworked>, any>(
             'private_services',
             'allIds',
           ],
-          (results || []).map((privateBooking) => privateBooking.id),
+          (results ?? []).map((privateBooking) => privateBooking.id),
         )
         .merge(
           {
@@ -600,7 +600,7 @@ export default handleActions<Immutable.Immutable<ConsumerStateReworked>, any>(
               privateBookings: {
                 future: {
                   private_services: {
-                    byId: (results || []).reduce<
+                    byId: (results ?? []).reduce<
                       PayloadReduceType<PrivateBooking>
                     >((acc, privateBooking) => {
                       acc[privateBooking.id] = privateBooking;
@@ -647,7 +647,7 @@ export default handleActions<Immutable.Immutable<ConsumerStateReworked>, any>(
         .setIn(['myBookings', 'bookingsWorkshop', 'past', 'count'], count)
         .setIn(
           ['myBookings', 'bookingsWorkshop', 'past', 'bookings', 'allIds'],
-          (results || []).map((booking) => booking.id),
+          (results ?? []).map((booking) => booking.id),
         )
         .merge(
           {
@@ -655,7 +655,7 @@ export default handleActions<Immutable.Immutable<ConsumerStateReworked>, any>(
               bookingsWorkshop: {
                 past: {
                   bookings: {
-                    byId: (results || []).reduce<
+                    byId: (results ?? []).reduce<
                       PayloadReduceType<BookingREST>
                     >((acc, booking) => {
                       acc[booking.id] = booking;
@@ -702,7 +702,7 @@ export default handleActions<Immutable.Immutable<ConsumerStateReworked>, any>(
         .setIn(['myBookings', 'bookingsWorkshop', 'future', 'count'], count)
         .setIn(
           ['myBookings', 'bookingsWorkshop', 'future', 'bookings', 'allIds'],
-          (results || []).map((booking) => booking.id),
+          (results ?? []).map((booking) => booking.id),
         )
         .merge(
           {
@@ -710,7 +710,7 @@ export default handleActions<Immutable.Immutable<ConsumerStateReworked>, any>(
               bookingsWorkshop: {
                 future: {
                   bookings: {
-                    byId: (results || []).reduce<
+                    byId: (results ?? []).reduce<
                       PayloadReduceType<BookingREST>
                     >((acc, booking) => {
                       acc[booking.id] = booking;
@@ -758,7 +758,7 @@ export default handleActions<Immutable.Immutable<ConsumerStateReworked>, any>(
         .setIn(['myBookings', 'bookings', 'waitlist', 'count'], count)
         .setIn(
           ['myBookings', 'bookings', 'waitlist', 'booking_options', 'allIds'],
-          (results || []).map((bookingOption) => bookingOption.id),
+          (results ?? []).map((bookingOption) => bookingOption.id),
         )
         .merge(
           {
@@ -766,7 +766,7 @@ export default handleActions<Immutable.Immutable<ConsumerStateReworked>, any>(
               bookings: {
                 waitlist: {
                   booking_options: {
-                    byId: (results || []).reduce<
+                    byId: (results ?? []).reduce<
                       PayloadReduceType<WaitingListBookingOption>
                     >((acc, bookingOption) => {
                       acc[bookingOption.id] = bookingOption;
@@ -823,7 +823,7 @@ export default handleActions<Immutable.Immutable<ConsumerStateReworked>, any>(
             'booking_options',
             'allIds',
           ],
-          (results || []).map((bookingOption) => bookingOption.id),
+          (results ?? []).map((bookingOption) => bookingOption.id),
         )
         .merge(
           {
@@ -831,7 +831,7 @@ export default handleActions<Immutable.Immutable<ConsumerStateReworked>, any>(
               bookingsWorkshop: {
                 waitlist: {
                   booking_options: {
-                    byId: (results || []).reduce<
+                    byId: (results ?? []).reduce<
                       PayloadReduceType<WaitingListBookingOption>
                     >((acc, bookingOption) => {
                       acc[bookingOption.id] = bookingOption;
@@ -865,14 +865,14 @@ export default handleActions<Immutable.Immutable<ConsumerStateReworked>, any>(
         .setIn(['mySubscriptions', 'active', 'count'], count)
         .setIn(
           ['mySubscriptions', 'active', 'subscriptions', 'allIds'],
-          (results || []).map((subscription) => subscription.id),
+          (results ?? []).map((subscription) => subscription.id),
         )
         .merge(
           {
             mySubscriptions: {
               active: {
                 subscriptions: {
-                  byId: (results || []).reduce<
+                  byId: (results ?? []).reduce<
                     PayloadReduceType<SubscriptionREST>
                   >((acc, subscription) => {
                     acc[subscription.id] = subscription;
@@ -942,14 +942,14 @@ export default handleActions<Immutable.Immutable<ConsumerStateReworked>, any>(
         .setIn(['mySubscriptions', 'future', 'count'], count)
         .setIn(
           ['mySubscriptions', 'future', 'subscriptions', 'allIds'],
-          (results || []).map((subscription) => subscription.id),
+          (results ?? []).map((subscription) => subscription.id),
         )
         .merge(
           {
             mySubscriptions: {
               future: {
                 subscriptions: {
-                  byId: (results || []).reduce<
+                  byId: (results ?? []).reduce<
                     PayloadReduceType<SubscriptionREST>
                   >((acc, subscription) => {
                     acc[subscription.id] = subscription;
@@ -1007,14 +1007,14 @@ export default handleActions<Immutable.Immutable<ConsumerStateReworked>, any>(
         .setIn(['mySubscriptions', 'expired', 'count'], count)
         .setIn(
           ['mySubscriptions', 'expired', 'subscriptions', 'allIds'],
-          (results || []).map((subscription) => subscription.id),
+          (results ?? []).map((subscription) => subscription.id),
         )
         .merge(
           {
             mySubscriptions: {
               expired: {
                 subscriptions: {
-                  byId: (results || []).reduce<
+                  byId: (results ?? []).reduce<
                     PayloadReduceType<SubscriptionREST>
                   >((acc, subscription) => {
                     acc[subscription.id] = subscription;
@@ -1087,7 +1087,7 @@ export default handleActions<Immutable.Immutable<ConsumerStateReworked>, any>(
         .setIn(['myPasses', 'consumerPaymentPack', 'expired', 'count'], count)
         .setIn(
           ['myPasses', 'consumerPaymentPack', 'expired', 'passes', 'allIds'],
-          (results || []).map((consumerPaymentPack) => consumerPaymentPack.id),
+          (results ?? []).map((consumerPaymentPack) => consumerPaymentPack.id),
         )
         .merge(
           {
@@ -1095,7 +1095,7 @@ export default handleActions<Immutable.Immutable<ConsumerStateReworked>, any>(
               consumerPaymentPack: {
                 expired: {
                   passes: {
-                    byId: (results || []).reduce<
+                    byId: (results ?? []).reduce<
                       PayloadReduceType<ConsumerPaymentPackREST>
                     >((acc, ps) => {
                       acc[ps.id] = ps;
@@ -1142,7 +1142,7 @@ export default handleActions<Immutable.Immutable<ConsumerStateReworked>, any>(
         .setIn(['myPasses', 'consumerPaymentPack', 'active', 'count'], count)
         .setIn(
           ['myPasses', 'consumerPaymentPack', 'active', 'passes', 'allIds'],
-          (results || []).map((consumerPaymentPack) => consumerPaymentPack.id),
+          (results ?? []).map((consumerPaymentPack) => consumerPaymentPack.id),
         )
         .merge(
           {
@@ -1150,7 +1150,7 @@ export default handleActions<Immutable.Immutable<ConsumerStateReworked>, any>(
               consumerPaymentPack: {
                 active: {
                   passes: {
-                    byId: (results || []).reduce<
+                    byId: (results ?? []).reduce<
                       PayloadReduceType<ConsumerPaymentPackREST>
                     >((acc, ps) => {
                       acc[ps.id] = ps;
@@ -1197,7 +1197,7 @@ export default handleActions<Immutable.Immutable<ConsumerStateReworked>, any>(
         .setIn(['myPasses', 'consumerPaymentPack', 'future', 'count'], count)
         .setIn(
           ['myPasses', 'consumerPaymentPack', 'future', 'passes', 'allIds'],
-          (results || []).map((consumerPaymentPack) => consumerPaymentPack.id),
+          (results ?? []).map((consumerPaymentPack) => consumerPaymentPack.id),
         )
         .merge(
           {
@@ -1205,7 +1205,7 @@ export default handleActions<Immutable.Immutable<ConsumerStateReworked>, any>(
               consumerPaymentPack: {
                 future: {
                   passes: {
-                    byId: (results || []).reduce<
+                    byId: (results ?? []).reduce<
                       PayloadReduceType<ConsumerPaymentPackREST>
                     >((acc, ps) => {
                       acc[ps.id] = ps;
@@ -1252,7 +1252,7 @@ export default handleActions<Immutable.Immutable<ConsumerStateReworked>, any>(
         .setIn(['myPasses', 'privateConsumerPass', 'expired', 'count'], count)
         .setIn(
           ['myPasses', 'privateConsumerPass', 'expired', 'passes', 'allIds'],
-          (results || []).map((privateConsumerPass) => privateConsumerPass.id),
+          (results ?? []).map((privateConsumerPass) => privateConsumerPass.id),
         )
         .merge(
           {
@@ -1260,7 +1260,7 @@ export default handleActions<Immutable.Immutable<ConsumerStateReworked>, any>(
               privateConsumerPass: {
                 expired: {
                   passes: {
-                    byId: (results || []).reduce<
+                    byId: (results ?? []).reduce<
                       PayloadReduceType<PrivateConsumerPassREST>
                     >((acc, ps) => {
                       acc[ps.id] = ps;
@@ -1307,7 +1307,7 @@ export default handleActions<Immutable.Immutable<ConsumerStateReworked>, any>(
         .setIn(['myPasses', 'privateConsumerPass', 'active', 'count'], count)
         .setIn(
           ['myPasses', 'privateConsumerPass', 'active', 'passes', 'allIds'],
-          (results || []).map((privateConsumerPass) => privateConsumerPass.id),
+          (results ?? []).map((privateConsumerPass) => privateConsumerPass.id),
         )
         .merge(
           {
@@ -1315,7 +1315,7 @@ export default handleActions<Immutable.Immutable<ConsumerStateReworked>, any>(
               privateConsumerPass: {
                 active: {
                   passes: {
-                    byId: (results || []).reduce<
+                    byId: (results ?? []).reduce<
                       PayloadReduceType<PrivateConsumerPassREST>
                     >((acc, ps) => {
                       acc[ps.id] = ps;
@@ -1362,7 +1362,7 @@ export default handleActions<Immutable.Immutable<ConsumerStateReworked>, any>(
         .setIn(['myPasses', 'privateConsumerPass', 'future', 'count'], count)
         .setIn(
           ['myPasses', 'privateConsumerPass', 'future', 'passes', 'allIds'],
-          (results || []).map((privateConsumerPass) => privateConsumerPass.id),
+          (results ?? []).map((privateConsumerPass) => privateConsumerPass.id),
         )
         .merge(
           {
@@ -1370,7 +1370,7 @@ export default handleActions<Immutable.Immutable<ConsumerStateReworked>, any>(
               privateConsumerPass: {
                 future: {
                   passes: {
-                    byId: (results || []).reduce<
+                    byId: (results ?? []).reduce<
                       PayloadReduceType<PrivateConsumerPassREST>
                     >((acc, ps) => {
                       acc[ps.id] = ps;
@@ -1414,7 +1414,7 @@ export default handleActions<Immutable.Immutable<ConsumerStateReworked>, any>(
         .setIn(['myPasses', 'universalPass', 'expired', 'count'], count)
         .setIn(
           ['myPasses', 'universalPass', 'expired', 'passes', 'allIds'],
-          (results || []).map((universalPass) => universalPass.id),
+          (results ?? []).map((universalPass) => universalPass.id),
         )
         .merge(
           {
@@ -1422,7 +1422,7 @@ export default handleActions<Immutable.Immutable<ConsumerStateReworked>, any>(
               universalPass: {
                 expired: {
                   passes: {
-                    byId: (results || []).reduce<
+                    byId: (results ?? []).reduce<
                       PayloadReduceType<UniversalPassREST>
                     >((acc, ps) => {
                       acc[ps.id] = ps;
@@ -1466,7 +1466,7 @@ export default handleActions<Immutable.Immutable<ConsumerStateReworked>, any>(
         .setIn(['myPasses', 'universalPass', 'active', 'count'], count)
         .setIn(
           ['myPasses', 'universalPass', 'active', 'passes', 'allIds'],
-          (results || []).map((universalPass) => universalPass.id),
+          (results ?? []).map((universalPass) => universalPass.id),
         )
         .merge(
           {
@@ -1474,7 +1474,7 @@ export default handleActions<Immutable.Immutable<ConsumerStateReworked>, any>(
               universalPass: {
                 active: {
                   passes: {
-                    byId: (results || []).reduce<
+                    byId: (results ?? []).reduce<
                       PayloadReduceType<UniversalPassREST>
                     >((acc, ps) => {
                       acc[ps.id] = ps;
@@ -1518,7 +1518,7 @@ export default handleActions<Immutable.Immutable<ConsumerStateReworked>, any>(
         .setIn(['myPasses', 'universalPass', 'future', 'count'], count)
         .setIn(
           ['myPasses', 'universalPass', 'future', 'passes', 'allIds'],
-          (results || []).map((universalPass) => universalPass.id),
+          (results ?? []).map((universalPass) => universalPass.id),
         )
         .merge(
           {
@@ -1526,7 +1526,7 @@ export default handleActions<Immutable.Immutable<ConsumerStateReworked>, any>(
               universalPass: {
                 future: {
                   passes: {
-                    byId: (results || []).reduce<
+                    byId: (results ?? []).reduce<
                       PayloadReduceType<UniversalPassREST>
                     >((acc, ps) => {
                       acc[ps.id] = ps;
@@ -1675,7 +1675,7 @@ export default handleActions<Immutable.Immutable<ConsumerStateReworked>, any>(
         .setIn(['myInvoices', 'unpaid', 'nextPage'], payload.next_page)
         .setIn(
           ['myInvoices', 'unpaid', 'allUuids'],
-          (payload.results || []).map(
+          (payload.results ?? []).map(
             (consumerInvoice) => consumerInvoice.uuid,
           ),
         )
@@ -1718,7 +1718,7 @@ export default handleActions<Immutable.Immutable<ConsumerStateReworked>, any>(
         .setIn(['myInvoices', 'paid', 'nextPage'], payload.next_page)
         .setIn(
           ['myInvoices', 'paid', 'allUuids'],
-          (payload.results || []).map(
+          (payload.results ?? []).map(
             (consumerInvoice) => consumerInvoice.uuid,
           ),
         )
@@ -1761,7 +1761,7 @@ export default handleActions<Immutable.Immutable<ConsumerStateReworked>, any>(
         .setIn(['myInvoices', 'refunded', 'nextPage'], payload.next_page)
         .setIn(
           ['myInvoices', 'refunded', 'allUuids'],
-          (payload.results || []).map(
+          (payload.results ?? []).map(
             (consumerInvoice) => consumerInvoice.uuid,
           ),
         )
@@ -1866,7 +1866,7 @@ export default handleActions<Immutable.Immutable<ConsumerStateReworked>, any>(
           {
             myBookings: {
               waitlistPositionByOffer: {
-                byOfferId: (payload || []).reduce(
+                byOfferId: (payload ?? []).reduce(
                   (accumulator, currentPosition) => ({
                     ...accumulator,
                     [currentPosition.id]: currentPosition,

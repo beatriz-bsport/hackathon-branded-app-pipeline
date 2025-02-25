@@ -196,7 +196,7 @@ const ShopSupplierTable: React.FC<Props> = ({
         </TableRow>
       </TableHead>
       <TableBody>
-        {(supplierList || []).map((supplier) => (
+        {(supplierList ?? []).map((supplier) => (
           <ShopSupplierListItem
             key={supplier.id}
             handleEditSupplier={handleEditSupplier}

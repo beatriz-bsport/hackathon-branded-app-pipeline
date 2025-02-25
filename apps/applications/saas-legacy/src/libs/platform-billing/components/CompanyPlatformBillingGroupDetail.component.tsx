@@ -77,7 +77,7 @@ export const CompanyPlatformBillinGroupDetail: React.FC<Props> = ({
 
   const nonSubscribedUpsellPackagesToShow = useMemo(
     () =>
-      (nonSubscribedUpsellPackages || []).filter(
+      (nonSubscribedUpsellPackages ?? []).filter(
         (upsellPackage: UpsellPackage) =>
           !upsellPackage.hidden &&
           ((hasLimitedAccessToAudience &&

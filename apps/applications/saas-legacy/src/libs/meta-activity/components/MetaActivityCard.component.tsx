@@ -104,7 +104,7 @@ export const MetaActivityCard = (props: Props) => {
                 )}
               </Typography>
             </div>
-            {(metaActivity.custom_restriction_rule || []).length !== 0 && (
+            {(metaActivity.custom_restriction_rule ?? []).length !== 0 && (
               <div className={classes.restrictionSubSection}>
                 <div className={classes.headerWithIcon}>
                   <LocalOfferIcon className={classes.leftIcon} />

@@ -122,7 +122,7 @@ const ConsumerGenericCardFooter: React.FC<Props> = ({
       )}
 
       {!secondaryButtonsHidden &&
-        (secondaryButtonsList || []).map(
+        (secondaryButtonsList ?? []).map(
           ({
             color,
             isDisabled,
@@ -156,7 +156,7 @@ const ConsumerGenericCardFooter: React.FC<Props> = ({
             ),
         )}
 
-      {(mainButtonsList || []).map(
+      {(mainButtonsList ?? []).map(
         ({
           color,
           isDisabled,
@@ -199,7 +199,7 @@ const ConsumerGenericCardFooter: React.FC<Props> = ({
           onClose={handleOnMenuClose}
         >
           {/* TODO: DISABLE STATE FOR MENU ITEMS AND PUT FOR EACH MENUITEM HERE */}
-          {(menuItemsList || []).map(
+          {(menuItemsList ?? []).map(
             ({ label, leftIcon, onClick, shouldDisplay, menuItemClassName }) =>
               shouldDisplay && (
                 <MenuItem
@@ -232,7 +232,7 @@ const ConsumerGenericCardFooter: React.FC<Props> = ({
               cancelLabel: t('common:back'),
             }}
           >
-            {(menuItemsList || []).map(
+            {(menuItemsList ?? []).map(
               ({
                 label,
                 leftIcon,

@@ -1,4 +1,16 @@
 import type { ConsumerSpaceWidgetConfig } from '#src/libs/exportable-components/types';
+import type {
+  MarketplaceCalendarVariant,
+  MarketplaceNewsletterV2Data,
+} from '#src/libs/marketplace/types';
+import type { Coach } from '#src/libs/associated-coach/types';
+import type { Establishment } from '#src/libs/establishment/types';
+import type { Level } from '#src/libs/level/types';
+import type { MetaActivity } from '#src/libs/meta-activity/types';
+import type { PaymentPackCategory } from '#src/libs/payment-packs/types';
+import type { PrivatePassCategory } from '#src/libs/private-service/types';
+import type { Giftcard } from '#src/libs/giftcard/types';
+import type { Video } from '#src/libs/video/types';
 
 export const EXPORTABLE_COMPONENT_TYPE_VOD = 'vod';
 export const EXPORTABLE_COMPONENT_TYPE_CALENDAR_V2 = 'calendarV2';
@@ -26,6 +38,15 @@ const LOGIN_WITH_DISCONNECTED_STATUS_DEFAULT_CONFIG: ConsumerSpaceWidgetConfig =
     showTitle: true,
   };
 
+type CalendarDefaultConfig = {
+  coaches: Array<Coach>;
+  establishments: Array<Establishment>;
+  metaActivities: Array<MetaActivity>;
+  levels: Array<Level>;
+  variant: MarketplaceCalendarVariant | null | undefined;
+  groupSessionByPeriod: boolean;
+};
+
 export const EXPORTABLE_COMPONENTS = [
   {
     identifier: EXPORTABLE_COMPONENT_TYPE_REFERRAL,
@@ -41,22 +62,18 @@ export const EXPORTABLE_COMPONENTS = [
       defaultPage: 'consumerBooking',
     },
   },
+  // cf ExportableCalendarV2Settings.form.tsx
   {
     identifier: EXPORTABLE_COMPONENT_TYPE_CALENDAR_V2,
     label: 'marketplace.calendar',
     defaultConfig: {
-      // @ts-expect-error
       coaches: [],
-      // @ts-expect-error
       establishments: [],
-      // @ts-expect-error
       metaActivities: [],
-      // @ts-expect-error
       levels: [],
-      // @ts-expect-error
       variant: null,
       groupSessionByPeriod: true,
-    },
+    } as CalendarDefaultConfig,
   },
 
   {
@@ -69,39 +86,32 @@ export const EXPORTABLE_COMPONENTS = [
       levels: [],
       variant: null,
       groupSessionByPeriod: true,
-    },
+    } as CalendarDefaultConfig,
   },
 
   {
     identifier: EXPORTABLE_COMPONENT_TYPE_WORKSHOP,
     label: 'marketplace.workshop',
     defaultConfig: {
-      // @ts-expect-error
-      coaches: [],
-      // @ts-expect-error
-      establishments: [],
-      // @ts-expect-error
-      metaActivities: [],
-      // @ts-expect-error
-      levels: [],
+      coaches: [] as Array<Coach>,
+      establishments: [] as Array<Establishment>,
+      metaActivities: [] as Array<MetaActivity>,
+      levels: [] as Array<Level>,
     },
   },
   {
     identifier: EXPORTABLE_COMPONENT_TYPE_PASS,
     label: 'marketplace.pass',
     defaultConfig: {
-      // @ts-expect-error
-      paymentPackCategories: [],
-      // @ts-expect-error
-      privatePassCategories: [],
+      paymentPackCategories: [] as Array<PaymentPackCategory>,
+      privatePassCategories: [] as Array<PrivatePassCategory>,
     },
   },
   {
     label: 'marketplace.vod',
     identifier: EXPORTABLE_COMPONENT_TYPE_VOD,
     defaultConfig: {
-      // @ts-expect-error
-      videoId: null,
+      videos: [] as Array<Video>,
     },
   },
   {
@@ -132,26 +142,21 @@ export const EXPORTABLE_COMPONENTS = [
     label: 'newsletter',
     defaultConfig: {
       fieldsType: 'fullNameAndEmail',
-      // @ts-expect-error
-      title: null,
-      showTitle: true,
-      // @ts-expect-error
-      subtitle: null,
+      title: undefined,
+      showTitle: undefined,
+      subtitle: undefined,
       showSubtitle: true,
-      // @ts-expect-error
-      successTitle: null,
+      successTitle: undefined,
       showSuccessTitle: true,
-      // @ts-expect-error
-      successText: null,
+      successText: undefined,
       showSuccessText: true,
-    },
+    } as MarketplaceNewsletterV2Data,
   },
   {
     identifier: EXPORTABLE_COMPONENT_TYPE_GIFTCARD,
     label: 'giftcard',
     defaultConfig: {
-      // @ts-expect-error
-      giftcards: [],
+      giftcards: [] as Array<Giftcard>,
     },
   },
   {

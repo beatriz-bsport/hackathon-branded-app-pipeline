@@ -15,12 +15,12 @@ import {
   MarketplaceCalendarVariant,
 } from '../../../marketplace/types';
 
-import { Coach } from '../../../associated-coach/types';
-import {
+import type { Coach } from '#src/libs/associated-coach/types';
+import type {
   Establishment,
   EstablishmentGroup,
-} from '../../../establishment/types';
-import { MetaActivity } from '../../../meta-activity/types';
+} from '#src/libs//establishment/types';
+import type { MetaActivity } from '#src/libs//meta-activity/types';
 import CommonSettings from './CommonSettings.form';
 
 interface Props {

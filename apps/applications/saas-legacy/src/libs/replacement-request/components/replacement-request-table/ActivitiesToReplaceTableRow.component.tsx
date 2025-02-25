@@ -229,7 +229,7 @@ export const ActivitiesToReplaceTableRow: React.FC<Props> = ({
                 DateTime.fromISO(replacementRequest.closing_date)
               }
               isMobile={isMobile}
-              nbAnswers={(replacementRequest.coach_answer || []).length}
+              nbAnswers={(replacementRequest.coach_answer ?? []).length}
             />
           )}
         </div>
@@ -540,7 +540,7 @@ export const ActivitiesToReplaceTableRow: React.FC<Props> = ({
                   DateTime.now() >
                   DateTime.fromISO(replacementRequest.closing_date)
                 }
-                nbAnswers={(replacementRequest.coach_answer || []).length}
+                nbAnswers={(replacementRequest.coach_answer ?? []).length}
               />
             </TableCell>
             <TableCell className={classes.tableCell}>

@@ -318,13 +318,13 @@ export default handleActions<Immutable.Immutable<CouponState>, any>(
           .setIn(['couponTemplatePaginated', 'activeCoupons', 'count'], count)
           .setIn(
             ['couponTemplatePaginated', 'activeCoupons', 'allIds'],
-            (results || []).map((template) => template.id),
+            (results ?? []).map((template) => template.id),
           )
           .merge(
             {
               couponTemplatePaginated: {
                 activeCoupons: {
-                  byId: (results || []).reduce(
+                  byId: (results ?? []).reduce(
                     (accumulator, couponTemplate) => ({
                       ...accumulator,
                       [couponTemplate.id]: couponTemplate,
@@ -375,13 +375,13 @@ export default handleActions<Immutable.Immutable<CouponState>, any>(
           )
           .setIn(
             ['couponTemplatePaginated', 'expiredActiveCoupons', 'allIds'],
-            (results || []).map((template) => template.id),
+            (results ?? []).map((template) => template.id),
           )
           .merge(
             {
               couponTemplatePaginated: {
                 expiredActiveCoupons: {
-                  byId: (results || []).reduce(
+                  byId: (results ?? []).reduce(
                     (accumulator, couponTemplate) => ({
                       ...accumulator,
                       [couponTemplate.id]: couponTemplate,
@@ -426,13 +426,13 @@ export default handleActions<Immutable.Immutable<CouponState>, any>(
           .setIn(['couponTemplatePaginated', 'inactiveCoupons', 'count'], count)
           .setIn(
             ['couponTemplatePaginated', 'inactiveCoupons', 'allIds'],
-            (results || []).map((template) => template.id),
+            (results ?? []).map((template) => template.id),
           )
           .merge(
             {
               couponTemplatePaginated: {
                 inactiveCoupons: {
-                  byId: (results || []).reduce(
+                  byId: (results ?? []).reduce(
                     (accumulator, couponTemplate) => ({
                       ...accumulator,
                       [couponTemplate.id]: couponTemplate,

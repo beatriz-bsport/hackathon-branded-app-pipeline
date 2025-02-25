@@ -19,7 +19,7 @@ export const ConsumerGenericTabs = <TabType,>({
 }: Props<TabType>) => {
   return (
     <div className="bs-consumer-generic-tabs">
-      {(tabs || []).map(({ onClick, label, type }) => (
+      {(tabs ?? []).map(({ onClick, label, type }) => (
         <Tab
           key={`${label}-${type}`}
           className="bs-consumer-generic-tabs__tab"

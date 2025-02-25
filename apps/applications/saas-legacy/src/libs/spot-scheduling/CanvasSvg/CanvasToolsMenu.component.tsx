@@ -98,7 +98,7 @@ class CanvasToolsMenu extends React.PureComponent<Props> {
     // @ts-expect-error
     const sortSpots = (a, b) => b.id - a.id;
     const { classes, t } = this.props;
-    const copySpotTypes = [...(this.props.spotTypes || [])];
+    const copySpotTypes = [...(this.props.spotTypes ?? [])];
 
     return (
       <div className={classes.toolsMenuContainer}>

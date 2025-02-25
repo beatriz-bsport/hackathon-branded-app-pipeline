@@ -82,7 +82,7 @@ const SessionSelector: React.FC<Props> = (props) => {
         },
       );
 
-      const sessions = (sessionsListByIdentifier || []).reduce(
+      const sessions = (sessionsListByIdentifier ?? []).reduce(
         (acc, slotGroup) => intersection(slotGroup, acc),
         props.sessionMoment.list,
       );

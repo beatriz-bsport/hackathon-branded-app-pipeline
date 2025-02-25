@@ -63,7 +63,7 @@ const CustomEventForm = (props: Props) => {
               closeMenuOnSelect
               nullCurrentValue
               coaches={props.coaches.filter(
-                (c) => !(coaches || []).find((c_) => c_.id === c.id),
+                (c) => !(coaches ?? []).find((c_) => c_.id === c.id),
               )}
               selectedCoaches={[]}
               selectOption={(ev) => {

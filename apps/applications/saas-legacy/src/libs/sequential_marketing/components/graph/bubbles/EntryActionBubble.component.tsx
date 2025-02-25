@@ -70,7 +70,7 @@ const EntryActionBubble: React.FC<Props> = ({
   }, []);
 
   React.useEffect(() => {
-    setMarketingActionList(marketingActions || []);
+    setMarketingActionList(marketingActions ?? []);
   }, [marketingActions]);
 
   return (

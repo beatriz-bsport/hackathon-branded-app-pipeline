@@ -128,7 +128,7 @@ export const CoachPerformanceCachedDataList = (props: Props) => {
                     </IconButton>
                   </Tooltip>
                   <ObjectLevelPermissionProviderComponent requiredPermission="export.allowed_actions.payroll">
-                    {(hasPermission) =>
+                    {(hasPermission: boolean) =>
                       hasPermission && (
                         <Tooltip title={t('cachedData.downloadMySavedData')}>
                           <IconButton

@@ -287,13 +287,13 @@ export class CadenceDetailPage extends Component<Props> {
   getCadenceMinimalConfigurationState =
     (): CadenceInitialConfigurationState => {
       const cadenceWinConfigured =
-        (this.props.cadence?.exits || []).filter(
+        (this.props.cadence?.exits ?? []).filter(
           (exit: ConnectedTrigger) =>
             exit?.destination_config?.status === DestinationStatus.WIN,
         ).length !== 0;
 
       const cadenceLoseConfigured =
-        (this.props.cadence?.exits || []).filter(
+        (this.props.cadence?.exits ?? []).filter(
           (exit: ConnectedTrigger) =>
             exit?.destination_config?.status === DestinationStatus.FAIL,
         ).length !== 0;

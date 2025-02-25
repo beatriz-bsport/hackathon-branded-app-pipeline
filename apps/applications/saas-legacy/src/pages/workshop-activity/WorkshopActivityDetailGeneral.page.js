@@ -413,10 +413,10 @@ export default compose(
   }),
   withTitle(({ id, workshopActivities }) => {
     if (id) {
-      const workshopActivity = (workshopActivities || []).filter(
+      const workshopActivity = (workshopActivities ?? []).filter(
         (m) => m.id === id,
       );
-      if ((workshopActivity || []).length === 1) {
+      if ((workshopActivity ?? []).length === 1) {
         return workshopActivity[0].name;
       }
     }

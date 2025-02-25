@@ -94,36 +94,33 @@ export const DisciplineGroupForm: React.FC<Props> = ({
   );
 
   const activityValuesList = useMemo(
-    () =>
-      [
-        ...activityList?.map((ma) => ({
-          label: ma.name,
-          value: ma.id,
-        })),
-      ] || [],
+    () => [
+      ...(activityList ?? [])?.map((ma) => ({
+        label: ma.name,
+        value: ma.id,
+      })),
+    ],
     [activityList],
   );
 
   const workshopValuesList = useMemo(
-    () =>
-      [
-        ...workshopList?.map((w) => ({
-          label: w.name,
-          value: w.id,
-        })),
-      ] || [],
+    () => [
+      ...(workshopList ?? []).map((w) => ({
+        label: w.name,
+        value: w.id,
+      })),
+    ],
     [workshopList],
   );
 
   const categoryValuesList = useMemo(
-    () =>
-      [
-        ...categoryList?.map((category) => ({
-          label: category.name,
-          value: category.id,
-          parentCategory: category.SCS.id,
-        })),
-      ] || [],
+    () => [
+      ...(categoryList ?? [])?.map((category) => ({
+        label: category.name,
+        value: category.id,
+        parentCategory: category.SCS.id,
+      })),
+    ],
     [categoryList],
   );
 
@@ -461,7 +458,6 @@ export const DisciplineGroupForm: React.FC<Props> = ({
                         </div>
                       )}
                       {multiLocationChoice === MultilocationChoice.Locations ? (
-                        // @ts-expect-error
                         <EstablishmentGroupSelector
                           isClearable
                           establishmentGroups={establishmentGroupList}
@@ -472,7 +468,6 @@ export const DisciplineGroupForm: React.FC<Props> = ({
                           selectOption={selectOptionLocations}
                         />
                       ) : (
-                        // @ts-expect-error
                         <EstablishmentSelector
                           isClearable
                           establishments={establishmentList}

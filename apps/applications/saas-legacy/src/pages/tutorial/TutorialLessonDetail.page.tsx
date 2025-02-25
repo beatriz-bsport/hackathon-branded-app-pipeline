@@ -207,7 +207,7 @@ class TutorialLessonDetail extends React.Component<Props, ComponentState> {
         onSuccess: () => {
           if (
             firstFinish &&
-            ((this.props.statistics || [])[sectionId] || [])[2] === 100
+            ((this.props.statistics ?? [])[sectionId] ?? [])[2] === 100
           ) {
             this.props.setOpenSectionFinishDialog(true);
           } else {
@@ -244,10 +244,10 @@ class TutorialLessonDetail extends React.Component<Props, ComponentState> {
       {
         onSuccess: () => {
           if (firstFinish) {
-            if (((this.props.statistics || {}).all || [])[2] === 100) {
+            if (((this.props.statistics || {}).all ?? [])[2] === 100) {
               this.goToMenuWithAllFinishDialog();
             } else if (
-              ((this.props.statistics || {})[sectionId] || [])[2] === 100
+              ((this.props.statistics || {})[sectionId] ?? [])[2] === 100
             ) {
               this.props.setOpenSectionFinishDialog(true);
             }
@@ -302,7 +302,7 @@ class TutorialLessonDetail extends React.Component<Props, ComponentState> {
     const previousLessonId =
       selectedLessonId > 0 ? lessonsId[selectedLessonId - 1] : null;
     const nextLessonId =
-      selectedLessonId < (lessonsId || []).length - 1
+      selectedLessonId < (lessonsId ?? []).length - 1
         ? lessonsId[selectedLessonId + 1]
         : null;
     if (this.props.isLessonLoading) {

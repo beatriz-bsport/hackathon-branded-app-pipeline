@@ -95,17 +95,17 @@ const MarketplacePassFilters: React.FC<Props> = React.memo(
       [hidePaymentCombo, paymentComboList],
     );
 
-    const searchResultCount = useMemo(
-      () =>
-        searchResultState.paymentPack?.length +
-          searchResultState.privatePass?.length +
-          searchResultState.paymentCombo?.length ?? 0,
-      [
-        searchResultState.paymentCombo?.length,
-        searchResultState.paymentPack?.length,
-        searchResultState.privatePass?.length,
-      ],
-    );
+    const searchResultCount = useMemo(() => {
+      return (
+        (searchResultState.paymentPack ?? []).length +
+        (searchResultState.privatePass ?? []).length +
+        (searchResultState.paymentCombo ?? []).length
+      );
+    }, [
+      searchResultState.paymentCombo,
+      searchResultState.paymentPack,
+      searchResultState.privatePass,
+    ]);
 
     const searchFilterTypeOptions = useMemo(
       () => [

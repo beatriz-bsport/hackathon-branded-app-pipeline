@@ -84,7 +84,7 @@ async function main() {
           );
         } else {
           countryCodes.split(',').forEach((code) => {
-            newData[code] = [...new Set(newData[code] || []).add(timezone)];
+            newData[code] = [...new Set(newData[code] ?? []).add(timezone)];
           });
         }
       }

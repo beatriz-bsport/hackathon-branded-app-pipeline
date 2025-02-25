@@ -108,7 +108,7 @@ export const QuickBooksTaxSection: React.FC<Props> = ({
                 </TableRow>
               </TableHead>
               <TableBody>
-                {(taxCodesList || []).map((taxCode) => (
+                {(taxCodesList ?? []).map((taxCode) => (
                   <TableRow
                     key={`tax_code_row_${taxCode?.Id}`}
                     classes={{ root: classes.MuiRowRoot }}

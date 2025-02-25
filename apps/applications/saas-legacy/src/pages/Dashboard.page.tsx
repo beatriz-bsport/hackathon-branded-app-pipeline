@@ -111,7 +111,7 @@ export class DashboardPage extends Component<Props> {
 
   componentDidUpdate(prevProps: Props) {
     const { dashboardTab } = this.props;
-    const prevGraphUuids = ((prevProps.dashboardTab || {}).graphs || []).map(
+    const prevGraphUuids = ((prevProps.dashboardTab || {}).graphs ?? []).map(
       (g: DataSourceDashboardGraph) => g.uuid,
     );
 

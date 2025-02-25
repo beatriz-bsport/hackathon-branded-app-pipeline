@@ -143,7 +143,7 @@ const VideoForm = (props: Props) => {
                   closeMenuOnSelect
                   nullCurrentValue
                   coaches={[
-                    ...(props.coaches || []).filter(
+                    ...(props.coaches ?? []).filter(
                       (c) => !coaches.includes(c.id) && !c.disabled,
                     ),
                   ]}

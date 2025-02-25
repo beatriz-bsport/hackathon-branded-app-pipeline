@@ -186,7 +186,7 @@ const withFormikWrapper = withFormik<HOCProps, FormValues>({
   validateOnMount: true,
   mapPropsToValues: ({ marketingActions }) => {
     return {
-      marketingActions: (marketingActions || []) as StepMarketingActions[],
+      marketingActions: (marketingActions ?? []) as StepMarketingActions[],
     };
   },
   handleSubmit: (values, { props: { onSubmit }, setSubmitting }) => {

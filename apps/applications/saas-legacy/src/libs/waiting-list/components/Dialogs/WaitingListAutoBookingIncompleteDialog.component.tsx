@@ -48,13 +48,13 @@ const WaitingListAutoBookingIncompleteDialog: React.FC<Props> = ({
         <DialogTitle>{t('dialog.autoBooking.incomplete.title')}</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            {!!(cleanRegisteredMemberList || []).length && (
+            {!!(cleanRegisteredMemberList ?? []).length && (
               <>
                 <Typography align="left" variant="body1">
                   {t('dialog.autoBooking.incomplete.content.registered')}
                 </Typography>
                 <div className={classes.memberLines}>
-                  {(cleanRegisteredMemberList || []).map((member) => (
+                  {(cleanRegisteredMemberList ?? []).map((member) => (
                     <Typography key={member.id} align="left" variant="body2">
                       {` - ${member?.name || ''} ${member?.email || ''}`}
                     </Typography>
@@ -66,7 +66,7 @@ const WaitingListAutoBookingIncompleteDialog: React.FC<Props> = ({
               {t('dialog.autoBooking.incomplete.content.unregistered')}
             </Typography>
             <div className={classes.memberLines}>
-              {(cleanUnregisteredMemberList || []).map((member) => (
+              {(cleanUnregisteredMemberList ?? []).map((member) => (
                 <Typography key={member.id} align="left" variant="body2">
                   {` - ${member?.name || ''} ${member?.email || ''}`}
                 </Typography>
@@ -78,7 +78,7 @@ const WaitingListAutoBookingIncompleteDialog: React.FC<Props> = ({
           <Button onClick={onClose}>
             {t('dialog.autoBooking.incomplete.actions.ok')}
           </Button>
-          {!!(cleanUnregisteredMemberList || []).length && (
+          {!!(cleanUnregisteredMemberList ?? []).length && (
             <Button color="primary" onClick={onContinueBookingOptions}>
               {t('dialog.autoBooking.incomplete.actions.bookThem')}
             </Button>

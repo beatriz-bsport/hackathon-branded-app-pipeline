@@ -153,7 +153,7 @@ const ReportDetailDrawer: React.FC<Props & FormikProps<InitialValues>> = ({
 
   const columnsDisplayed = React.useMemo(
     () =>
-      (reportCategoryMetadata?.columns || []).filter((column) =>
+      (reportCategoryMetadata?.columns ?? []).filter((column) =>
         values.columnIdentifiers.includes(column.identifier),
       ),
     [reportCategoryMetadata, values.columnIdentifiers],
@@ -398,7 +398,7 @@ const ReportDetailDrawer: React.FC<Props & FormikProps<InitialValues>> = ({
               />
               <Divider />
               <div className={classes.columnsContainer}>
-                {(reportCategoryMetadata?.columns || []).map((column) => (
+                {(reportCategoryMetadata?.columns ?? []).map((column) => (
                   <FormControlLabel
                     key={column.identifier}
                     control={

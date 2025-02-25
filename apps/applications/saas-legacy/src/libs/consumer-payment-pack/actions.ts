@@ -308,7 +308,7 @@ export function fetchConsumerPaymentPackMaxoutBooking(
   options?: OptionCallback,
 ) {
   return async (dispatch: Dispatch) => {
-    if ((consumer_payment_pack_ids || []).length === 0) return;
+    if ((consumer_payment_pack_ids ?? []).length === 0) return;
     dispatch(consumerPaymentPackMaxoutBookingAction.isLoading(true));
     dispatch(consumerPaymentPackMaxoutBookingAction.error(null));
     try {

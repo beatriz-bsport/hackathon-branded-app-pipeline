@@ -34,7 +34,7 @@ const ShopItemDetailVariantListMobile: React.FC<Props> = ({
 
   return (
     <List className={classes.listContainer}>
-      {(shopItemVariantList || []).map((variant) => (
+      {(shopItemVariantList ?? []).map((variant) => (
         <ListItem className={classes.listItemContainer}>
           <CardMedia
             className={classes.variantImage}

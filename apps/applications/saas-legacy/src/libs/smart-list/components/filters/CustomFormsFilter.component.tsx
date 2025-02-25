@@ -71,9 +71,9 @@ export class CustomFormsFilter extends Component<Props> {
     const { filter_data, t, classes, onChange, custom_forms } = this.props;
     const sortName = (a: CustomForm, b: CustomForm) =>
       a?.name < b?.name ? -1 : 1;
-    const sortedCustomForms = [...(custom_forms || [])].sort(sortName);
+    const sortedCustomForms = [...(custom_forms ?? [])].sort(sortName);
     const sortedFilterDataCustomForms = [
-      ...(filter_data?.custom_forms || []),
+      ...(filter_data?.custom_forms ?? []),
     ].sort(sortName);
     return (
       <div>
@@ -138,7 +138,7 @@ export class CustomFormsFilter extends Component<Props> {
                 (sortedFilterDataCustomForms &&
                   !(
                     items?.length === sortedFilterDataCustomForms.length &&
-                    [...(items || [])].sort(sortName).every((value, index) => {
+                    [...(items ?? [])].sort(sortName).every((value, index) => {
                       return value === sortedFilterDataCustomForms[index];
                     })
                   )) ||

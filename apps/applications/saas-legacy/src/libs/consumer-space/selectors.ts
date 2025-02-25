@@ -137,7 +137,7 @@ const _getConsumerBookingsList = createSelector(
     (_, bookingsList: BookingREST[]) => bookingsList,
   ],
   (state, bookingsList) => {
-    const bookings = (bookingsList || []).map((booking) => {
+    const bookings = (bookingsList ?? []).map((booking) => {
       const bookingOffer = getOfferById(state, booking?.offer);
       const metaActivity = getMetaActivity(state, booking?.meta_activity);
       const coach = getCoach(state, bookingOffer?.coach);
@@ -183,7 +183,7 @@ const _getConsumerPrivateBookingsList = createSelector(
     (_, privateBookingsList: PrivateBooking[]) => privateBookingsList,
   ],
   (state, privateBookingsList) => {
-    const privateBookings = (privateBookingsList || []).map(
+    const privateBookings = (privateBookingsList ?? []).map(
       (privateBooking) => {
         const coach = getCoach(
           state,
@@ -224,7 +224,7 @@ const _getConsumerBookingOptionsList = createSelector(
     (_, bookingOptionsList: WaitingListBookingOption[]) => bookingOptionsList,
   ],
   (state, bookingOptionsList) => {
-    const bookingOptions = (bookingOptionsList || []).map((bookingOption) => {
+    const bookingOptions = (bookingOptionsList ?? []).map((bookingOption) => {
       const establishment = getEstablishment(
         state,
         bookingOption?.establishment,
@@ -1014,21 +1014,21 @@ export const getInvoicesComplementaryLoading = (state: RootState) =>
 export const getUnpaidInvoices = createSelector(
   [_getInvoicesRESTByUuid, _getUnpaidInvoicesAllUuids],
   (restByUuid, allUuids): ConsumerInvoiceREST[] =>
-    (allUuids || [])
+    (allUuids ?? [])
       .map((uuid) => restByUuid[uuid])
       .filter((_invoice) => !!_invoice),
 );
 export const getPaidInvoices = createSelector(
   [_getInvoicesRESTByUuid, _getPaidInvoicesAllUuids],
   (restByUuid, allUuids): ConsumerInvoiceREST[] =>
-    (allUuids || [])
+    (allUuids ?? [])
       .map((uuid) => restByUuid[uuid])
       .filter((_invoice) => !!_invoice),
 );
 export const getRefundedInvoices = createSelector(
   [_getInvoicesRESTByUuid, _getRefundedInvoicesAllUuids],
   (restByUuid, allUuids): ConsumerInvoiceREST[] =>
-    (allUuids || [])
+    (allUuids ?? [])
       .map((uuid) => restByUuid[uuid])
       .filter((_invoice) => !!_invoice),
 );

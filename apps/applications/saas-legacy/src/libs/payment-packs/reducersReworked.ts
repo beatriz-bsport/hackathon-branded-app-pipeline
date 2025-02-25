@@ -109,13 +109,13 @@ export default handleActions<
         )
         .setIn(
           ['paymentPackTemplatePaginated', 'availablePasses', 'allIds'],
-          (results || []).map((template) => template.id),
+          (results ?? []).map((template) => template.id),
         )
         .merge(
           {
             paymentPackTemplatePaginated: {
               availablePasses: {
-                byId: (results || []).reduce(
+                byId: (results ?? []).reduce(
                   (acc, v) => ({ ...acc, [v.id]: v }),
                   {},
                 ),
@@ -164,13 +164,13 @@ export default handleActions<
         )
         .setIn(
           ['paymentPackTemplatePaginated', 'managerOnlyPasses', 'allIds'],
-          (results || []).map((template) => template.id),
+          (results ?? []).map((template) => template.id),
         )
         .merge(
           {
             paymentPackTemplatePaginated: {
               managerOnlyPasses: {
-                byId: (results || []).reduce(
+                byId: (results ?? []).reduce(
                   (acc, v) => ({ ...acc, [v.id]: v }),
                   {},
                 ),
@@ -230,13 +230,13 @@ export default handleActions<
             'availablePasses',
             'allIds',
           ],
-          (results || []).map((template) => template.id),
+          (results ?? []).map((template) => template.id),
         )
         .merge(
           {
             universalPaymentPackTemplatePaginated: {
               availablePasses: {
-                byId: (results || []).reduce(
+                byId: (results ?? []).reduce(
                   (acc, v) => ({ ...acc, [v.id]: v }),
                   {},
                 ),
@@ -306,13 +306,13 @@ export default handleActions<
               'managerOnlyPasses',
               'allIds',
             ],
-            (results || []).map((template) => template.id),
+            (results ?? []).map((template) => template.id),
           )
           .merge(
             {
               universalPaymentPackTemplatePaginated: {
                 managerOnlyPasses: {
-                  byId: (results || []).reduce(
+                  byId: (results ?? []).reduce(
                     (acc, v) => ({ ...acc, [v.id]: v }),
                     {},
                   ),

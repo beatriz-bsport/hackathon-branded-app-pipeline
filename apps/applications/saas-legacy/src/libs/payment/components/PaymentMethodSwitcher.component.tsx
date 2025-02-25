@@ -55,10 +55,10 @@ export const PaymentMethodSwitcher: React.FC<Props> = (props) => {
       onChange={(ev) => props.onChange(ev.target.value)}
       value={props.paymentMethod}
     >
-      {(props.enabledPaymentMethods || []).includes(
+      {(props.enabledPaymentMethods ?? []).includes(
         BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,
       ) ||
-      (props.enabledPaymentGroupMethodIdentifier || []).includes(
+      (props.enabledPaymentGroupMethodIdentifier ?? []).includes(
         PAYMENT_GROUP_METHOD_IDENTIFIER_CB,
       ) ? (
         <FormControlLabel
@@ -70,10 +70,10 @@ export const PaymentMethodSwitcher: React.FC<Props> = (props) => {
           value="card"
         />
       ) : null}
-      {(props.enabledPaymentMethods || []).includes(
+      {(props.enabledPaymentMethods ?? []).includes(
         BILLING_PLAN_PAYMENT_METHOD_STRIPE_BACS_DEBIT,
       ) ||
-      (props.enabledPaymentGroupMethodIdentifier || []).includes(
+      (props.enabledPaymentGroupMethodIdentifier ?? []).includes(
         PAYMENT_GROUP_METHOD_IDENTIFIER_BACS_DEBIT,
       ) ? (
         <FormControlLabel
@@ -85,10 +85,10 @@ export const PaymentMethodSwitcher: React.FC<Props> = (props) => {
           value="bacs_debit"
         />
       ) : null}
-      {((props.enabledPaymentMethods || []).includes(
+      {((props.enabledPaymentMethods ?? []).includes(
         BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA,
       ) ||
-        (props.enabledPaymentGroupMethodIdentifier || []).includes(
+        (props.enabledPaymentGroupMethodIdentifier ?? []).includes(
           PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA,
         )) &&
       currency === 'eur' ? (
@@ -101,10 +101,10 @@ export const PaymentMethodSwitcher: React.FC<Props> = (props) => {
           value="sepa_debit"
         />
       ) : null}
-      {(props.enabledPaymentMethods || []).includes(
+      {(props.enabledPaymentMethods ?? []).includes(
         BILLING_PLAN_PAYMENT_METHOD_BSPORT_CREDIT,
       ) ||
-      (props.enabledPaymentGroupMethodIdentifier || []).includes(
+      (props.enabledPaymentGroupMethodIdentifier ?? []).includes(
         PAYMENT_GROUP_METHOD_IDENTIFIER_DEBT,
       ) ? (
         <FormControlLabel
@@ -116,10 +116,10 @@ export const PaymentMethodSwitcher: React.FC<Props> = (props) => {
           value="bsport:credit"
         />
       ) : null}
-      {((props.enabledPaymentMethods || []).includes(
+      {((props.enabledPaymentMethods ?? []).includes(
         PAYMENT_STRIPE_TERMINAL_FAKE,
       ) ||
-        (props.enabledPaymentGroupMethodIdentifier || []).includes(
+        (props.enabledPaymentGroupMethodIdentifier ?? []).includes(
           PAYMENT_STRIPE_TERMINAL_FAKE,
         )) && (
         <FeatureListProvider>

@@ -76,15 +76,13 @@ export const UniversalPassFormPaymentPackCompatibility = (props: Props) => {
                       options?.map((option) => option.value),
                     );
                   }}
-                  options={
-                    [
-                      ...(categoryList || [])?.map((category) => ({
-                        label: category.name,
-                        value: category.id,
-                        parentCategory: category.SCS.id,
-                      })),
-                    ] || []
-                  }
+                  options={[
+                    ...(categoryList ?? []).map((category) => ({
+                      label: category.name,
+                      value: category.id,
+                      parentCategory: category.SCS.id,
+                    })),
+                  ]}
                   placeholder={t('addPaymentPack.letBlank')}
                   value={values?.linked_payment_pack_categories?.map((id) => ({
                     label: categoryList.find((category) => category.id === id)
@@ -124,14 +122,12 @@ export const UniversalPassFormPaymentPackCompatibility = (props: Props) => {
                       options?.map((option) => option.value),
                     );
                   }}
-                  options={
-                    [
-                      ...(establishmentList || [])?.map((establishment) => ({
-                        label: establishment.title,
-                        value: establishment.id,
-                      })),
-                    ] || []
-                  }
+                  options={[
+                    ...(establishmentList ?? [])?.map((establishment) => ({
+                      label: establishment.title,
+                      value: establishment.id,
+                    })),
+                  ]}
                   placeholder={t('addPaymentPack.letBlank')}
                   value={values?.linked_payment_pack_establishments?.map(
                     (id) => ({
@@ -171,7 +167,7 @@ export const UniversalPassFormPaymentPackCompatibility = (props: Props) => {
                     );
                   }}
                   options={[
-                    ...(metaActivityList || [])?.map((metaActivity) => ({
+                    ...(metaActivityList ?? [])?.map((metaActivity) => ({
                       label: metaActivity.name,
                       value: metaActivity.id,
                     })),

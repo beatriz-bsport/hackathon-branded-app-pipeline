@@ -42,7 +42,7 @@ const BookkeepingAccountSelector: React.FC<Props> = ({
   const bookkeepingAccountChoices: Choice[] = React.useMemo(
     () =>
       Object.values(
-        (bookkeepingAccounts || []).map((ba) =>
+        (bookkeepingAccounts ?? []).map((ba) =>
           getBookkeepingAccountChoice(ba),
         ),
       ),

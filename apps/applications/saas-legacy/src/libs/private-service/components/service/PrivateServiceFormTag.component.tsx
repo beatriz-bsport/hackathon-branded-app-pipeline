@@ -42,13 +42,11 @@ export const PrivateServiceFormTag = (props: Props) => {
               closeMenuOnSelect
               inScrollBar
               isClearable
-              allTagsWithTagGroup={
-                [
-                  ...tagList?.filter(
-                    (tag) => !values?.unpaid_blacklist_tags?.includes(tag.id),
-                  ),
-                ] || []
-              }
+              allTagsWithTagGroup={[
+                ...(tagList ?? []).filter(
+                  (tag) => !values?.unpaid_blacklist_tags?.includes(tag.id),
+                ),
+              ]}
               // @ts-expect-error
               onChange={(
                 items: Array<{
@@ -86,13 +84,11 @@ export const PrivateServiceFormTag = (props: Props) => {
               closeMenuOnSelect
               inScrollBar
               isClearable
-              allTagsWithTagGroup={
-                [
-                  ...tagList?.filter(
-                    (tag) => !values?.unpaid_whitelist_tags?.includes(tag.id),
-                  ),
-                ] || []
-              }
+              allTagsWithTagGroup={[
+                ...(tagList ?? []).filter(
+                  (tag) => !values?.unpaid_whitelist_tags?.includes(tag.id),
+                ),
+              ]}
               // @ts-expect-error
               onChange={(
                 items: Array<{

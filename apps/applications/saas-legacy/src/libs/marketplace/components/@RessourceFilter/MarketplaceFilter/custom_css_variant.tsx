@@ -47,7 +47,7 @@ const coachesOptions = coachList.map((coach) => ({
 }));
 
 const establishmentsOptions = getGroupedEstablishmentOptions([
-  ...(establishmentList || []),
+  ...(establishmentList ?? []),
 ]).map((option) => {
   return { ...option, icon: true };
 });

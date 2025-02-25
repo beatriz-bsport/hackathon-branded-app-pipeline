@@ -31,7 +31,7 @@ export function CoachPaymentRuleSelector(props: Props) {
     enableReset,
     disabled,
   } = props;
-  const suggestions = (coachPaymentRulesList || []).map((s) => ({
+  const suggestions = (coachPaymentRulesList ?? []).map((s) => ({
     value: s.id,
     label: s.name,
   }));

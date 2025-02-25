@@ -87,7 +87,7 @@ export const CoachPerformanceDateAndEstablishmentFilter: React.FC<Props> = ({
 
   const establishmentsOptions = React.useMemo(
     () =>
-      ([...establishments] || []).map((establishment) => {
+      [...(establishments ?? [])].map((establishment) => {
         return { value: establishment?.id, label: establishment?.title };
       }),
     [establishments],

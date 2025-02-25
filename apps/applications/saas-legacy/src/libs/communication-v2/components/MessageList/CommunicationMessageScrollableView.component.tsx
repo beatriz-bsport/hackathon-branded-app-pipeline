@@ -37,14 +37,14 @@ const CommunicationMessageScrollableView = (props: Props) => {
   const [currentPage, setCurrentPage] = useState(0);
   const [scrollToBottomListener, setScrollToBottomListener] = useState(false);
   const [previousNumberCommunication, setPreviousNumberCommunication] =
-    useState((props.messageList || []).length);
+    useState((props.messageList ?? []).length);
 
   const pageHasChanged = props.currentPage !== currentPage;
   const needToScrollToBottom =
     props.scrollToBottomFlag !== scrollToBottomListener;
-  const listIsEmpty = !(props.messageList || []).length;
+  const listIsEmpty = !(props.messageList ?? []).length;
   const listCountHasChanged =
-    previousNumberCommunication !== (props.messageList || []).length;
+    previousNumberCommunication !== (props.messageList ?? []).length;
   const scrollHeightHasChanged =
     !!scrollRef?.current &&
     previousScrollHeight !== scrollRef.current.scrollHeight; // means that the content has changed
@@ -71,7 +71,7 @@ const CommunicationMessageScrollableView = (props: Props) => {
   // When a new communication has been sent and is displayed at the bottom -> go to bottom
   if (needToScrollToBottom && listCountHasChanged && scrollHeightHasChanged) {
     setScrollToBottomListener(!scrollToBottomListener);
-    setPreviousNumberCommunication((props.messageList || []).length);
+    setPreviousNumberCommunication((props.messageList ?? []).length);
     setPreviousScrollHeight(scrollRef.current.scrollHeight);
     scrollRef.current.scrollTop =
       scrollRef.current.scrollHeight -

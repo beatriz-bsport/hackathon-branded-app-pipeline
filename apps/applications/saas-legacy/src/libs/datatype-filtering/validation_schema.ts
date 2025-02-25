@@ -186,7 +186,7 @@ const BaseSchema = {
   //   'Is byId duplicate',
   //   'filter.form.error.byIdDuplicate',
   //   function CheckAmout(item) {
-  //     const allDatatypes = (item || []).flatMap((fg) =>
+  //     const allDatatypes = (item ?? []).flatMap((fg) =>
   //       fg.filters_data.map((data) => data.datatype),
   //     );
   //     const datatypesCount = allDatatypes.reduce((acc, datatype) => {

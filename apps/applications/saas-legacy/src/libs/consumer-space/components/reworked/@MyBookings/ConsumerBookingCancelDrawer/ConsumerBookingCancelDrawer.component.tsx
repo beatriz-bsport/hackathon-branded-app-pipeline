@@ -213,7 +213,7 @@ const ConsumerBookingCancelDrawer: React.FC<Props> = ({
         </Typography>
 
         <List className="bs-consumer-booking-cancel-drawer__list">
-          {(relatedBookings || []).map((relatedBooking) => (
+          {(relatedBookings ?? []).map((relatedBooking) => (
             <RelatedBookingItem
               key={relatedBooking.id}
               booking={relatedBooking}

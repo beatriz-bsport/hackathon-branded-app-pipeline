@@ -70,7 +70,7 @@ const ClockInHistoryHeaderForm: React.FC<HOCProps> = ({
           </Actions>
         </Grid>
         <ObjectLevelPermissionProviderComponent requiredPermission="export.allowed_actions.attendance">
-          {(hasPermission) =>
+          {(hasPermission: boolean) =>
             hasPermission && (
               <Grid item>
                 <Actions>

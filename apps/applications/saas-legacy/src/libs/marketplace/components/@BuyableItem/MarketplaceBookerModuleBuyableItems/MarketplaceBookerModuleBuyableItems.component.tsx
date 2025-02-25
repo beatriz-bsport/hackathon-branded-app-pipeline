@@ -97,7 +97,7 @@ const MarketplaceBookerModuleBuyableItems: React.FC<Props> = ({
                 count: availableConsumerPacks.length,
               })}
             </div>
-            {(availableConsumerPacks || []).map((consumerPaymentPack) => (
+            {(availableConsumerPacks ?? []).map((consumerPaymentPack) => (
               <MarketplaceConsumerPaymentPackCard
                 key={consumerPaymentPack.id}
                 bookingConfirmButtonComponent={bookingConfirmButtonComponent}
@@ -140,7 +140,7 @@ const MarketplaceBookerModuleBuyableItems: React.FC<Props> = ({
             selectedBuyableItemCategory={selectedBuyableItemCategory}
           />
           {!selectedBuyableItemCategory ? (
-            (buyableItemCategories || [])?.map((buyableItemCategory) => (
+            (buyableItemCategories ?? [])?.map((buyableItemCategory) => (
               <MarketplaceBuyableItemCategoryList
                 key={buyableItemCategory.index}
                 excludeRecommendedItemsFromRegularCategories

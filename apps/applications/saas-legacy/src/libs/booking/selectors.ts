@@ -94,7 +94,7 @@ export const withStaffModificationHistory = memoize((selector) =>
     if (Array.isArray(booking)) {
       return booking.map((b) => ({
         ...b,
-        staff_history: (b?.staff_history || []).map(
+        staff_history: (b?.staff_history ?? []).map(
           (staffEvent: StaffModificationHistory) => ({
             ...staffEvent,
             staff: staffDict[staffEvent?.staff_id],
@@ -104,7 +104,7 @@ export const withStaffModificationHistory = memoize((selector) =>
     }
     return {
       ...booking,
-      staff_history: (booking.staff_history || []).map(
+      staff_history: (booking.staff_history ?? []).map(
         (staffEvent: StaffModificationHistory) => ({
           ...staffEvent,
           staff: staffDict[staffEvent?.staff_id],

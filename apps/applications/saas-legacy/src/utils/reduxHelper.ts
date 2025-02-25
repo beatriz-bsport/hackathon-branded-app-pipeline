@@ -13,7 +13,7 @@ export const areAllInCache = (
   cachedIds: { [key: number]: number },
   expirationMilliseconds: number,
 ) => {
-  const idsToRefresh = (ids || []).filter(
+  const idsToRefresh = (ids ?? []).filter(
     (id) =>
       !cachedIds[id] || Date.now() - cachedIds[id] > expirationMilliseconds,
   );

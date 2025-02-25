@@ -74,7 +74,7 @@ export const MetricsProgressList: React.FC<MetricsProgressListProps> =
           </Typography>
         </div>
         <div className={classes.progressesContainer}>
-          {(progressList || []).map((progress: CadenceProgressBarProps) => {
+          {(progressList ?? []).map((progress: CadenceProgressBarProps) => {
             return (
               <CadenceGlobalMetricsProgressBar
                 count={progress.count}

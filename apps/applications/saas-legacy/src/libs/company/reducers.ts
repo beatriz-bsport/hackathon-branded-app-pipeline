@@ -104,7 +104,7 @@ export default handleActions<Immutable.Immutable<CompanyState>, any>(
       state,
       { payload }: { payload: FeatureList },
     ) => {
-      return state.setIn(['feature', 'data'], payload || []);
+      return state.setIn(['feature', 'data'], payload ?? []);
     },
     [listFeatureActions.isLoading.toString()]: (
       state,

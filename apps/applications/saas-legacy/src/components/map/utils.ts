@@ -27,7 +27,7 @@ const getDistance = (m1: MarkerType, m2: MarkerType) => {
 };
 
 export const maxDistance = (markers: Array<MarkerType>) => {
-  return (markers || []).reduce(
+  return (markers ?? []).reduce(
     (acc, marker) => {
       const distances = markers.map((m) => getDistance(marker, m));
       acc.maxLatitudeDistance = Math.max(

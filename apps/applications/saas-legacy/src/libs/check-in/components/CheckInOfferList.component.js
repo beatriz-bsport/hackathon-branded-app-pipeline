@@ -164,7 +164,7 @@ export class CheckInOfferList extends Component<Props, State> {
     const { classes, offersLoading, offers, t, onOpenAuthenticationDialog } =
       this.props;
 
-    if (offersLoading && !(this.props.offers || []).length) {
+    if (offersLoading && !(this.props.offers ?? []).length) {
       return <LinearProgress />;
     }
 

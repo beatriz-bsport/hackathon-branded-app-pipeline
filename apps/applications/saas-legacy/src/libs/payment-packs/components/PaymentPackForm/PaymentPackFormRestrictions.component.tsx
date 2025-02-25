@@ -279,15 +279,13 @@ export const PaymentPackFormRestrictions = (props: Props) => {
                         options?.map((option) => option.value),
                       );
                     }}
-                    options={
-                      [
-                        ...categoryList?.map((category) => ({
-                          label: category.name,
-                          value: category.id,
-                          parentCategory: category.SCS.id,
-                        })),
-                      ] || []
-                    }
+                    options={[
+                      ...(categoryList ?? []).map((category) => ({
+                        label: category.name,
+                        value: category.id,
+                        parentCategory: category.SCS.id,
+                      })),
+                    ]}
                     placeholder={t('addPaymentPack.letBlank')}
                     value={values?.categories?.map((id) => ({
                       label: categoryList.find((category) => category.id === id)
@@ -329,14 +327,14 @@ export const PaymentPackFormRestrictions = (props: Props) => {
                         options?.map((option) => option.value),
                       );
                     }}
-                    options={
-                      [
-                        ...availableEstablishmentList?.map((establishment) => ({
+                    options={[
+                      ...(availableEstablishmentList ?? []).map(
+                        (establishment) => ({
                           label: establishment.title,
                           value: establishment.id,
-                        })),
-                      ] || []
-                    }
+                        }),
+                      ),
+                    ]}
                     placeholder={t('addPaymentPack.letBlank')}
                     value={values?.establishments?.map((id) => ({
                       label: availableEstablishmentList.find(

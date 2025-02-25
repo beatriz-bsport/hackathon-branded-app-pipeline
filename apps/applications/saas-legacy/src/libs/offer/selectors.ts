@@ -201,7 +201,7 @@ export const getOfferDataList = createSelector(_getOfferData, (offerData) =>
 
 export const getOffersByDay = createSelector(
   [_getOfferByDayIds, _getOfferData],
-  (ids, data) => (ids || []).map((id) => data[id]),
+  (ids, data) => (ids ?? []).map((id) => data[id]),
 );
 
 export const withTags = memoize((selector: (state: RootState) => any) =>
@@ -245,25 +245,25 @@ export const getManagerOffersFiltered = createSelector(
   ],
   (offers, filters, theme, userCalendarFilter) => {
     let offersFiltered = offers;
-    if ((filters.establishments || []).length) {
+    if ((filters.establishments ?? []).length) {
       offersFiltered = offersFiltered.filter((o) =>
         filters.establishments.includes(o.establishment),
       );
     }
-    if ((filters.coaches || []).length) {
+    if ((filters.coaches ?? []).length) {
       offersFiltered = offersFiltered.filter(
         (o) =>
           (filters.coaches.includes(o.coach) && !o.coach_override) ||
           (o.coach_override && filters.coaches.includes(o.coach_override)),
       );
     }
-    if ((filters.levels || []).length) {
+    if ((filters.levels ?? []).length) {
       offersFiltered = offersFiltered.filter((o) =>
         filters.levels.includes(o.level),
       );
     }
     // @ts-expect-error
-    if ((filters.metaActivities || []).length) {
+    if ((filters.metaActivities ?? []).length) {
       offersFiltered = offersFiltered.filter((o) =>
         // @ts-expect-error
         filters.metaActivities.includes(o.meta_activity),
@@ -283,25 +283,25 @@ export const getAvailableOffersFiltered = createSelector(
   [getOffersByDay, getManagerFilters],
   (offers, filters) => {
     let offersFiltered = offers;
-    if ((filters.establishments || []).length) {
+    if ((filters.establishments ?? []).length) {
       offersFiltered = offersFiltered.filter((o) =>
         filters.establishments.includes(o.establishment),
       );
     }
-    if ((filters.coaches || []).length) {
+    if ((filters.coaches ?? []).length) {
       offersFiltered = offersFiltered.filter(
         (o) =>
           (filters.coaches.includes(o.coach) && !o.coach_override) ||
           (o.coach_override && filters.coaches.includes(o.coach_override)),
       );
     }
-    if ((filters.levels || []).length) {
+    if ((filters.levels ?? []).length) {
       offersFiltered = offersFiltered.filter((o) =>
         filters.levels.includes(o.level),
       );
     }
     // @ts-expect-error
-    if ((filters.metaActivities || []).length) {
+    if ((filters.metaActivities ?? []).length) {
       offersFiltered = offersFiltered.filter((o) =>
         // @ts-expect-error
         filters.metaActivities.includes(o.meta_activity),
@@ -412,7 +412,7 @@ export const getMassDisabledOfferInGroupIds = (state: RootState) =>
 
 export const getMassDisabledOfferInGroup = createSelector(
   [getMassDisabledOfferInGroupIds, _getOfferData],
-  (ids, data) => (ids || []).map((id) => data[id]),
+  (ids, data) => (ids ?? []).map((id) => data[id]),
 );
 export const getNextAvailableOffer = (state: RootState) =>
   getState(state).next.item;
@@ -430,7 +430,7 @@ export const getOffersListByMetaActivity = createCachedSelector(
   (offerState, offersData) => {
     return {
       ...offerState,
-      items: (offerState.allIds || []).map((id) => offersData[id]),
+      items: (offerState.allIds ?? []).map((id) => offersData[id]),
     };
   },
 )((state: RootState, metaActivityId: number) => metaActivityId);

@@ -34,7 +34,7 @@ const AvailablePaymentMethodList = (props: Props) => {
 
   return (
     <List dense>
-      {(props.available_payment_method_identifiers || []).map((identifier) => {
+      {(props.available_payment_method_identifiers ?? []).map((identifier) => {
         const paymentMethodCategory =
           identifier === CB.id
             ? t(`paymentMethod.onlinePayments`)

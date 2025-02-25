@@ -298,7 +298,7 @@ export class SubscriptionTable extends Component<Props, State> {
     };
     return (
       <ObjectLevelPermissionProviderComponent requiredPermission="export.allowed_actions.subscription">
-        {(hasPermission) => (
+        {(hasPermission: boolean) => (
           <MUIDataTable
             columns={getColumnData(
               this.props.t,

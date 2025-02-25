@@ -84,7 +84,7 @@ export function CoachPerformancePrivateServiceTable(props: Props) {
           />
         )}
         <ObjectLevelPermissionProviderComponent requiredPermission="export.allowed_actions.payroll">
-          {(hasPermission) =>
+          {(hasPermission: boolean) =>
             hasPermission &&
             !(props.asCoach && !has_coach_access_to_compensation_downloading) &&
             !props.displayChip && (

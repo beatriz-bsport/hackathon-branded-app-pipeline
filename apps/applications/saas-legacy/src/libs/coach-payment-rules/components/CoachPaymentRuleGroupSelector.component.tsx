@@ -32,7 +32,7 @@ export const CoachPaymentRuleGroupSelector = (props: Props) => {
     enableReset,
   } = props;
 
-  const suggestions = (coachPaymentRuleGroupsList || []).map(
+  const suggestions = (coachPaymentRuleGroupsList ?? []).map(
     (s: CoachPaymentRuleGroup) => ({
       value: s.id,
       label: s.name,

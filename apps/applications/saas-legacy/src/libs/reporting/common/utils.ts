@@ -816,7 +816,7 @@ export const getFilterableColumns = (
   t: TFunction,
 ) =>
   uniqBy(
-    (columns || []).filter((d) => {
+    (columns ?? []).filter((d) => {
       if (!d.is_filterable) return false;
       // For franchisors, we only allow the 'company' datatype among DATATYPE_FILTERABLE_BY_ID_IN and the ones in
       // DATATYPE_PRESET_INTEGER_VALUE

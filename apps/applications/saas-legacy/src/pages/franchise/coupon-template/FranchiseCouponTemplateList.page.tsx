@@ -81,7 +81,7 @@ const FranchiseCouponTemplateListReworked: React.FC<Props> = ({
 
   const fetchCouponsRelatedObjects = React.useCallback(
     (couponTemplates: CouponTemplateAPI[]) => {
-      const relatedObjectsIds = (couponTemplates || []).reduce(
+      const relatedObjectsIds = (couponTemplates ?? []).reduce(
         (acc, couponTemplate) => {
           if (
             ![BUYABLE_ITEM_PASS, BUYABLE_ITEM_PRIVATE_PASS].includes(

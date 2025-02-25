@@ -59,7 +59,7 @@ export function PaymentComboSelector(props: Props) {
     autofocus,
     error,
   } = props;
-  const suggestions = [...(paymentComboList || [])]
+  const suggestions = [...(paymentComboList ?? [])]
     .sort((pp, pp_) => pp.name > pp_.name)
     .map((pp) => ({ value: pp.id, label: pp.name, pp }));
 

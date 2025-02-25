@@ -51,7 +51,7 @@ export const filterSearchedMarketplaceContracts = (
   fuzzySearchContractResults: number[],
 ) => {
   if (fuzzySearchContractResults) {
-    return (contractList || [])?.filter((contract) =>
+    return (contractList ?? [])?.filter((contract) =>
       fuzzySearchContractResults.some(
         (searchItem) => searchItem === contract.id,
       ),

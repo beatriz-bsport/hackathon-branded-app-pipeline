@@ -79,38 +79,35 @@ export const useCompatibilityForm = ({
   );
 
   const SCTsOptions = useMemo(
-    () =>
-      [
-        ...SCTList?.map((category) => ({
-          label: category.name,
-          value: category.id,
-          parentCategory: category.id,
-        })),
-      ] || [],
+    () => [
+      ...(SCTList ?? []).map((category) => ({
+        label: category.name,
+        value: category.id,
+        parentCategory: category.id,
+      })),
+    ],
     [SCTList],
   );
 
   const establishmentsOptions = useMemo(
-    () =>
-      [
-        ...availableEstablishmentList?.map((establishment) => ({
-          label: establishment.title,
-          value: establishment.id,
-          parentCategory: establishment.id,
-        })),
-      ] || [],
+    () => [
+      ...(availableEstablishmentList ?? []).map((establishment) => ({
+        label: establishment.title,
+        value: establishment.id,
+        parentCategory: establishment.id,
+      })),
+    ],
     [availableEstablishmentList],
   );
 
   const metaActivitiesOptions = useMemo(
-    () =>
-      [
-        ...metaActivityList?.map((metaActivity) => ({
-          label: metaActivity.name,
-          value: metaActivity.id,
-          parentCategory: metaActivity.id,
-        })),
-      ] || [],
+    () => [
+      ...(metaActivityList ?? []).map((metaActivity) => ({
+        label: metaActivity.name,
+        value: metaActivity.id,
+        parentCategory: metaActivity.id,
+      })),
+    ],
     [metaActivityList],
   );
 

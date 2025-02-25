@@ -12,7 +12,7 @@ type Props = {
 };
 
 export const ContractSelector = (props: Props) => {
-  const contractOptions = [...(props.contracts || [])].map((c) => ({
+  const contractOptions = [...(props.contracts ?? [])].map((c) => ({
     label: c.name,
     value: c.id,
   }));

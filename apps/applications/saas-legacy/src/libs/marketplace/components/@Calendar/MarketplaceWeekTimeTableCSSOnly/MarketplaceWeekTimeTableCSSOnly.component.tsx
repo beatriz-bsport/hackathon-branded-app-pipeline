@@ -138,7 +138,7 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
     const weekOffers = getWeekOffers(date, offers, {
       startWeekOnDaySelected: this.props.startWeekOnDaySelected,
     });
-    (weekOffers || []).map((dayOffers: Array<Offer>, i) => {
+    (weekOffers ?? []).map((dayOffers: Array<Offer>, i) => {
       morning[i] = dayOffers.filter(
         (offer: Offer) =>
           DateTime.fromISO(offer.date_start).hour < SPLIT_AFTERNOON,

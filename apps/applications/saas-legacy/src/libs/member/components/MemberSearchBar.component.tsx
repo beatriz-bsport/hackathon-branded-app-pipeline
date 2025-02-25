@@ -79,7 +79,7 @@ const MemberSearchBar: React.FC<Props> = ({
                   }}
                 >
                   <ObjectLevelPermissionProvider requiredPermission="member.allowed_actions.readInfo">
-                    {(hasMemberReadInfoPermission) => (
+                    {(hasMemberReadInfoPermission: boolean) => (
                       <ListItemText
                         primary={member.name}
                         secondary={

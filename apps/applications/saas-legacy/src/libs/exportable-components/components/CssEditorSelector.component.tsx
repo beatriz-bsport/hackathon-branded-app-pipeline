@@ -46,7 +46,7 @@ const CssEditorSelector: React.FC<Props> = ({
 
   const componentOptions = useMemo(
     () =>
-      Array.from(COMPONENTS_BY_PAGE?.[page] || []).map((component) => ({
+      Array.from(COMPONENTS_BY_PAGE?.[page] ?? []).map((component) => ({
         label: t(`widget.components.${component.label}`),
         value: component.label,
       })),

@@ -316,7 +316,7 @@ export function EstablishmentSelector(props: Props) {
         isOptionDisabled={
           isOptionDisabled
             ? (option: { value: number; label: string }) =>
-                (selectedEstablishments || []).includes(option.value)
+                (selectedEstablishments ?? []).includes(option.value)
             : null
         }
         menuPortalTarget={

@@ -230,7 +230,6 @@ export function fetchMetaActivityDetails(id: number): ThunkAction {
 
     try {
       const response = await fetchMetaActivityDetailsAPI(id);
-      // @ts-expect-error
       const metaActivityDictObject = { [response.data.id]: response.data };
       dispatch(metaActivityDetailActions.success(metaActivityDictObject));
     } catch (err) {
@@ -726,10 +725,8 @@ export function fetchDisabledMetaActivityPaginatedList(
         customer_enabled: false,
         ...(isWorkshop !== undefined ? { is_workshop: isWorkshop } : {}),
       });
-      // @ts-expect-error
       dispatch(disabledMetaActivitiesActions.success(response.data));
       if (options && options.onSuccess) {
-        // @ts-expect-error
         options.onSuccess(response.data);
       }
     } catch (err) {

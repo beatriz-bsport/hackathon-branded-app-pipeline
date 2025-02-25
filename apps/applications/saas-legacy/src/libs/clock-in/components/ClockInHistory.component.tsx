@@ -267,7 +267,7 @@ const ClockInHistoryRow: React.FC<{
             {isLoading && <LinearProgress />}
             <Table>
               <ObjectLevelPermissionProviderComponent requiredPermission="export.allowed_actions.attendance">
-                {(hasPermission) =>
+                {(hasPermission: boolean) =>
                   hasPermission && (
                     <TableRow className={classes.root}>
                       <TableCell colSpan={50}>

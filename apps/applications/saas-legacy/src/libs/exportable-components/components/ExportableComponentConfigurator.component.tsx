@@ -1,23 +1,26 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 
-import { Level } from '#src/libs/level/types';
+import type { Level } from '#src/libs/level/types';
 import type { Tag, TagGroupAPI } from '#src/libs/tag/types';
-import { Coach } from '../../associated-coach/types';
-import { Establishment, EstablishmentGroup } from '../../establishment/types';
-import { MetaActivity } from '../../meta-activity/types';
-import { Giftcard } from '../../giftcard/types';
-import {
+import type { Coach } from '#src/libs/associated-coach/types';
+import type {
+  Establishment,
+  EstablishmentGroup,
+} from '#src/libs/establishment/types';
+import type { MetaActivity } from '#src/libs/meta-activity/types';
+import type { Giftcard } from '#src/libs/giftcard/types';
+import type {
   PrivatePassCategory,
   PrivateService,
   PrivateServiceGroup,
-} from '../../private-service/types';
-import { Video } from '../../video/types';
+} from '#src/libs/private-service/types';
+import type { Video } from '#src/libs/video/types';
 import ExportableComponentSettingForm from './settings';
-import {
+import type {
   PaymentPackCategory,
   PaymentPackTemplate,
-} from '../../payment-packs/types';
+} from '#src/libs/payment-packs/types';
 
 type Props = {
   componentType: string;

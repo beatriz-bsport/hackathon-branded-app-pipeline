@@ -15,7 +15,7 @@ type Props = {
 const ConsumerInvoiceItemList: React.FC<Props> = ({ invoiceItems }) => {
   const { t } = useTranslation('consumerSpace');
 
-  const sortedInvoiceItems = [...(invoiceItems || [])].sort(
+  const sortedInvoiceItems = [...(invoiceItems ?? [])].sort(
     (a, b) => parseFloat(b.price) - parseFloat(a.price),
   );
 

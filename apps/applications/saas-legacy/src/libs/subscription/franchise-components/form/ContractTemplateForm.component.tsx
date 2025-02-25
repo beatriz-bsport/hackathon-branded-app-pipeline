@@ -197,7 +197,7 @@ const ContractTemplateForm: React.FC<ContractTemplateFormProps> = ({
   );
 
   const formatPaymentPackTemplateSelectedOption = React.useMemo(() => {
-    const selectedTemplate = (paymentPackTemplateList || []).find(
+    const selectedTemplate = (paymentPackTemplateList ?? []).find(
       (paymentPackTemplate) =>
         paymentPackTemplate?.id === values.paymentPackTemplate,
     );
@@ -231,7 +231,7 @@ const ContractTemplateForm: React.FC<ContractTemplateFormProps> = ({
     [handleOnPrivatePassTemplateChange, getResultsById],
   );
   const formatPrivatePassTemplateSelectedOption = React.useMemo(() => {
-    const selectedTemplate = (privatePassTemplateList || []).find(
+    const selectedTemplate = (privatePassTemplateList ?? []).find(
       (privatePassTemplate) =>
         privatePassTemplate?.id === values.privatePassTemplate,
     );

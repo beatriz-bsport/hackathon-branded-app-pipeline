@@ -22,6 +22,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import type { Dispatch } from 'src/state/types';
 import { Theme } from '@material-ui/core';
 import type { RootState } from 'src/reducers';
+// @ts-expect-error error TS7016: Could not find a declaration file for module 'history'
 import type { Location } from 'history';
 import { WithStyles } from '@material-ui/styles';
 import { DateTime } from 'luxon';

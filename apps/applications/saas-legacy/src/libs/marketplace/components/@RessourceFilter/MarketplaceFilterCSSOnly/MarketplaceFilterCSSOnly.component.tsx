@@ -97,7 +97,7 @@ const MarketplaceFilterCSSOnly: React.FC<Props> = ({
 
   const establishmentsOptions = useMemo(
     () =>
-      getGroupedEstablishmentOptions([...(establishments || [])]).map((opt) => {
+      getGroupedEstablishmentOptions([...(establishments ?? [])]).map((opt) => {
         return { ...opt, icon: true };
       }),
     [establishments],

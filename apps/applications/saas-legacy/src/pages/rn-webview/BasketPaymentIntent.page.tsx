@@ -434,7 +434,7 @@ export class BasketPaymentIntent extends React.Component<Props, State> {
   ) => {
     if (!this.props.basket) return;
 
-    const basketHasOfferData = (this.props.basket.checkout_items || []).some(
+    const basketHasOfferData = (this.props.basket.checkout_items ?? []).some(
       (checkoutItem) => checkoutItem?.extra_data?.offers_data?.length > 0,
     );
 

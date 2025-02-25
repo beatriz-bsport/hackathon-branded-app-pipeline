@@ -65,7 +65,7 @@ export class AvailabilityUpdateResourceChoserDialog extends React.PureComponent<
       },
       advancedSectionOpen: false,
       selectedEstablishments: [],
-      activeEstablishments: (props.establishments || []).filter(
+      activeEstablishments: (props.establishments ?? []).filter(
         (e) => !e.disabled,
       ),
     };
@@ -74,7 +74,7 @@ export class AvailabilityUpdateResourceChoserDialog extends React.PureComponent<
   componentDidUpdate(prevProps: Props) {
     if (!isEqual(prevProps.establishments, this.props.establishments)) {
       this.setState({
-        activeEstablishments: (this.props.establishments || []).filter(
+        activeEstablishments: (this.props.establishments ?? []).filter(
           (e) => !e.disabled,
         ),
       });

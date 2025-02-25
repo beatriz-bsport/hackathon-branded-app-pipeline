@@ -55,7 +55,7 @@ const OutputWonTriggerBubble: React.FC<Props> = ({
   }, []);
 
   React.useEffect(() => {
-    setConnectedTriggerList(connectedTriggers || []);
+    setConnectedTriggerList(connectedTriggers ?? []);
   }, [connectedTriggers]);
 
   return (

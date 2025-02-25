@@ -395,7 +395,7 @@ export const InvoiceContent: React.FC<Props> = ({
         invoice.invoice_type !== INVOICE_TYPE_MIGRATION && (
           <div className={classes.buttonRow}>
             <ObjectLevelPermissionProviderComponent requiredPermission="export.allowed_actions.invoice">
-              {(hasPermission) =>
+              {(hasPermission: boolean) =>
                 hasPermission && (
                   <Tooltip
                     aria-label="pdf-not-available"

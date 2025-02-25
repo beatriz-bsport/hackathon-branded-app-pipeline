@@ -957,9 +957,9 @@ export default compose<any, ConfirmationCheckoutProps>(
       basket: Basket;
     }) => ({
       offerBookedIdList: [
-        ...((user_registration_response || {}).offers_booked || []),
+        ...((user_registration_response || {}).offers_booked ?? []),
         ...flatten(
-          ((basket || {}).checkout_items || []).map((checkoutItem) =>
+          ((basket || {}).checkout_items ?? []).map((checkoutItem) =>
             checkoutItem?.extra_data?.offers_data?.map(
               (offerData) => offerData.offer_id,
             ),

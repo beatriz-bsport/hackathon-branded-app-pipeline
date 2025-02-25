@@ -61,7 +61,7 @@ export const PrivateServiceListItem: React.FC<Props> = ({
     const coaches = privateService.coaches || [];
     return hideSecondary
       ? null
-      : (coaches || [])
+      : (coaches ?? [])
           // @ts-expect-error - Until we have better typing for private service page (selectors)
           .filter((coach) => !!coach && coach.name)
           // @ts-expect-error - Until we have better typing for private service page (selectors)

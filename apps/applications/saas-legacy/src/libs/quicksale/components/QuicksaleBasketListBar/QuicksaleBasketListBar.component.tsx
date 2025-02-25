@@ -46,7 +46,7 @@ const BasketChip: React.FC<BasketChipProps> = ({
 
   const deliveryFeePrice = React.useMemo(
     () =>
-      (basket.checkout_items || []).find(
+      (basket.checkout_items ?? []).find(
         (checkoutItem) =>
           checkoutItem.buyable_item_identifier === BUYABLE_ITEM_FEE,
       )?.unit_price ?? 0,

@@ -507,13 +507,13 @@ export default handleActions<Immutable.Immutable<EmailTemplateState>, any>(
           .setIn(['franchise', 'ownedByFranchisor', 'count'], count)
           .setIn(
             ['franchise', 'ownedByFranchisor', 'allIds'],
-            (results || []).map((template) => template.id),
+            (results ?? []).map((template) => template.id),
           )
           .merge(
             {
               franchise: {
                 ownedByFranchisor: {
-                  byId: (results || []).reduce(
+                  byId: (results ?? []).reduce(
                     (acc, v) => ({ ...acc, [v.id]: v }),
                     {},
                   ),
@@ -550,13 +550,13 @@ export default handleActions<Immutable.Immutable<EmailTemplateState>, any>(
           .setIn(['franchise', 'ownedByFranchisee', 'count'], count)
           .setIn(
             ['franchise', 'ownedByFranchisee', 'allIds'],
-            (results || []).map((template) => template.id),
+            (results ?? []).map((template) => template.id),
           )
           .merge(
             {
               franchise: {
                 ownedByFranchisee: {
-                  byId: (results || []).reduce(
+                  byId: (results ?? []).reduce(
                     (acc, v) => ({ ...acc, [v.id]: v }),
                     {},
                   ),
@@ -588,13 +588,13 @@ export default handleActions<Immutable.Immutable<EmailTemplateState>, any>(
           .setIn(['franchise', 'bsportDefault', 'count'], count)
           .setIn(
             ['franchise', 'bsportDefault', 'allIds'],
-            (results || []).map((template) => template.id),
+            (results ?? []).map((template) => template.id),
           )
           .merge(
             {
               franchise: {
                 bsportDefault: {
-                  byId: (results || []).reduce(
+                  byId: (results ?? []).reduce(
                     (acc, v) => ({ ...acc, [v.id]: v }),
                     {},
                   ),

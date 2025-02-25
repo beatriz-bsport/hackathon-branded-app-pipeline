@@ -84,7 +84,7 @@ export const PaymentMethodList = ({
   }
 
   const relevantSavedPaymentMethodList = paymentMethodType
-    ? (savedPaymentMethodList || []).filter(
+    ? (savedPaymentMethodList ?? []).filter(
         (pm) => paymentMethodType === pm.type,
       )
     : savedPaymentMethodList;

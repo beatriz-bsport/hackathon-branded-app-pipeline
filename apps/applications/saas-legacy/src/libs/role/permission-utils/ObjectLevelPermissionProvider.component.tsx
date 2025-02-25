@@ -5,10 +5,15 @@ import { getObjectPermissions } from '#src/libs/role/selectors';
 import { RootState } from '../../../reducers';
 import { hasObjectLevelPermission } from './utils';
 
-interface OwnProps {
-  requiredPermission: string | string[];
-  children: (hasPermission: boolean | boolean[]) => React.ReactNode;
-}
+type OwnProps =
+  | {
+      requiredPermission: string;
+      children: (hasPermission: boolean) => React.ReactNode;
+    }
+  | {
+      requiredPermission: string[];
+      children: (hasPermission: boolean[]) => React.ReactNode;
+    };
 
 type Props = OwnProps & ConnectedProps<typeof connector>;
 
@@ -25,7 +30,7 @@ const ObjectLevelPermissionProvider: React.FC<Props> = ({
     const hasPermissionArray = requiredPermission.map((permissionString) =>
       hasObjectLevelPermission(objectPermissions, permissionString),
     );
-
+    // @ts-expect-error TS can not detect that this particular children only accepts boolean[]
     return <>{children(hasPermissionArray)}</>;
   }
 
@@ -33,6 +38,7 @@ const ObjectLevelPermissionProvider: React.FC<Props> = ({
     objectPermissions,
     requiredPermission,
   );
+  // @ts-expect-error TS can not detect that this particular children only accepts boolean
   return <>{children(hasPermission)}</>;
 };
 

@@ -47,7 +47,7 @@ const MetaActivitySelectorWithCard = (props: Props) => {
 
         setSearchText(event.target.value);
         return setFuzzySearchActivities(
-          (fuse.search(event.target.value) || []) as MetaActivity[],
+          (fuse.search(event.target.value) ?? []) as MetaActivity[],
         );
       },
     [metaActivities],

@@ -60,7 +60,7 @@ const PaymentMethodSwitcher = (props: {
     onChange={(ev) => props.onChange(ev.target.value)}
     value={props.paymentMethodType}
   >
-    {(props.enabledPaymentMethods || []).includes(
+    {(props.enabledPaymentMethods ?? []).includes(
       PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA,
     ) ? (
       <FormControlLabel
@@ -72,7 +72,7 @@ const PaymentMethodSwitcher = (props: {
         value="sepa_debit"
       />
     ) : null}
-    {(props.enabledPaymentMethods || []).includes(
+    {(props.enabledPaymentMethods ?? []).includes(
       PAYMENT_GROUP_METHOD_IDENTIFIER_CB,
     ) ? (
       <FormControlLabel
@@ -84,7 +84,7 @@ const PaymentMethodSwitcher = (props: {
         value="card"
       />
     ) : null}
-    {(props.enabledPaymentMethods || []).includes(
+    {(props.enabledPaymentMethods ?? []).includes(
       PAYMENT_GROUP_METHOD_IDENTIFIER_BACS_DEBIT,
     ) ? (
       <FormControlLabel
@@ -96,7 +96,7 @@ const PaymentMethodSwitcher = (props: {
         value="bacs_debit"
       />
     ) : null}
-    {(props.enabledPaymentMethods || []).includes(
+    {(props.enabledPaymentMethods ?? []).includes(
       PAYMENT_GROUP_METHOD_IDENTIFIER_DEBT,
     ) &&
     (!props.registerNow ||
@@ -122,7 +122,7 @@ const PaymentMethodSwitcher = (props: {
         value="internal"
       />
     ) : null}
-    {(props.enabledPaymentMethods || []).includes(
+    {(props.enabledPaymentMethods ?? []).includes(
       PAYMENT_STRIPE_TERMINAL_FAKE,
     ) && (
       <FeatureListProvider>

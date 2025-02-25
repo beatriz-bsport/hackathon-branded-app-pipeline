@@ -392,8 +392,8 @@ export class MetaActivityListPage extends React.Component<Props, State> {
   render() {
     const { classes, t, selectedMetaActivity } = this.props;
     if (
-      (this.props.enabledMetaActivities || []).length +
-        (this.props.disabledMetaActivities || []).length ===
+      (this.props.enabledMetaActivities ?? []).length +
+        (this.props.disabledMetaActivities ?? []).length ===
         0 &&
       !this.props.loading
     ) {
@@ -540,7 +540,7 @@ export class MetaActivityListPage extends React.Component<Props, State> {
                   <Typography variant="h5">
                     {`${t('metaActivity:disabledMetaActivities')} (${
                       this.props.disabledMetaActivitiesPagination?.count ||
-                      (this.props.disabledMetaActivities || []).length
+                      (this.props.disabledMetaActivities ?? []).length
                     })`}
                   </Typography>
 

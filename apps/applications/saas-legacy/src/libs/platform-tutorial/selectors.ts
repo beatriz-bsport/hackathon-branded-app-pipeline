@@ -142,14 +142,14 @@ export const withLessons = memoize((selector) =>
       if (!Array.isArray(section)) {
         return {
           ...section,
-          lessons: (tutorialLessonList || []).filter((l) =>
+          lessons: (tutorialLessonList ?? []).filter((l) =>
             [section.id, section.uuid].includes(l.section),
           ),
         };
       }
       return section.map((s) => ({
         ...s,
-        lessons: (tutorialLessonList || []).filter((l) =>
+        lessons: (tutorialLessonList ?? []).filter((l) =>
           [s.id, s.uuid].includes(l.section),
         ),
       }));
@@ -209,7 +209,7 @@ export const withSectionTutorialCompletion = memoize(
             viewed:
               (tutorial_completion?.viewed_by_section_id || {})[section?.id]
                 ?.length === section?.lessons?.length,
-            lessons: (section?.lessons || [])?.map((lesson: TutorialLesson) => {
+            lessons: (section?.lessons ?? [])?.map((lesson: TutorialLesson) => {
               return {
                 ...lesson,
                 completed: (tutorial_completion?.completed_by_section_id || {})[
@@ -230,7 +230,7 @@ export const withSectionTutorialCompletion = memoize(
           viewed:
             (tutorial_completion?.viewed_by_section_id || {})[s?.id]?.length ===
             s?.lessons?.length,
-          lessons: (s?.lessons || [])?.map((lesson: TutorialLesson) => {
+          lessons: (s?.lessons ?? [])?.map((lesson: TutorialLesson) => {
             return {
               ...lesson,
               completed: (tutorial_completion?.completed_by_section_id || {})[

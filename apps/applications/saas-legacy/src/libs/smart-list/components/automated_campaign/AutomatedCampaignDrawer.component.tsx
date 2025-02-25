@@ -336,7 +336,7 @@ export const AutomatedCommunicationDrawer: React.FC<
                   values.email_kind === WRITTEN_EMAIL_KIND
                 }
                 disabled={
-                  (alreadyConfiguredCommunicationKind || []).includes(
+                  (alreadyConfiguredCommunicationKind ?? []).includes(
                     COMMUNICATION_KIND_EMAIL,
                   ) || !!initial?.id
                 }
@@ -355,7 +355,7 @@ export const AutomatedCommunicationDrawer: React.FC<
                   values.email_kind === TEMPLATE_EMAIL_KIND
                 }
                 disabled={
-                  (alreadyConfiguredCommunicationKind || []).includes(
+                  (alreadyConfiguredCommunicationKind ?? []).includes(
                     COMMUNICATION_KIND_EMAIL,
                   ) || !!initial?.id
                 }
@@ -376,7 +376,7 @@ export const AutomatedCommunicationDrawer: React.FC<
                     }
                     disabled={
                       !hasUpsell(featureList, UPSELL_IDENTIFIER_SMS) ||
-                      (alreadyConfiguredCommunicationKind || []).includes(
+                      (alreadyConfiguredCommunicationKind ?? []).includes(
                         COMMUNICATION_KIND_SMS,
                       ) ||
                       !!initial?.id
@@ -405,7 +405,7 @@ export const AutomatedCommunicationDrawer: React.FC<
                           featureList,
                           UPSELL_IDENTIFIER_PUSH_NOTIFICATION,
                         )) ||
-                      (alreadyConfiguredCommunicationKind || []).includes(
+                      (alreadyConfiguredCommunicationKind ?? []).includes(
                         COMMUNICATION_KIND_PUSH_NOTIFICATION,
                       ) ||
                       !!initial?.id

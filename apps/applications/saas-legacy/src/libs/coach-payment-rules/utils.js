@@ -108,7 +108,7 @@ export const getEstablishmentIdsByEstablishmentGroupLocations = (
         (establishmentGroup) => establishmentGroup.id === establishmentGroupId,
       );
       return [
-        ...new Set(acc.concat(establishmentsFromGroup?.establishment || [])),
+        ...new Set(acc.concat(establishmentsFromGroup?.establishment ?? [])),
       ];
     }, []) || []
   );

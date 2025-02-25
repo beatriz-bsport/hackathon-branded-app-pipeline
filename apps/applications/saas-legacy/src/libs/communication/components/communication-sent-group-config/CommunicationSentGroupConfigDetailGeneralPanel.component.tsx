@@ -103,7 +103,7 @@ const CommunicationSentGroupConfigDetailGeneralPanel: React.FC<Props> = ({
   const initialValues: CommunicationSentGroupConfigFormValues = useMemo(() => {
     return {
       sendToAllMembers: true,
-      companiesWithSmartLists: ((companies as FranchiseCompany[]) || []).map(
+      companiesWithSmartLists: ((companies as FranchiseCompany[]) ?? []).map(
         (company: FranchiseCompany) => ({
           companyId: company.id,
           companyName: company.name,

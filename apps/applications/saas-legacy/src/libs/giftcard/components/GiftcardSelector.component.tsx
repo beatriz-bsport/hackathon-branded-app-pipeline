@@ -63,7 +63,7 @@ export function GiftcardSelector(props: Props) {
     autofocus,
     classes,
   } = props;
-  const suggestions = [...(giftcardList || [])]
+  const suggestions = [...(giftcardList ?? [])]
     // @ts-expect-error
     .sort((pp, pp_) => pp.name > pp_.name)
     .map((pp) => ({ value: pp.id, label: pp.name, pp }));

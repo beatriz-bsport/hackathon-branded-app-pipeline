@@ -121,7 +121,7 @@ export const getFormattedExtensionForInput = (
   fileExtensionList?: FileType[],
 ) => {
   // Append a  `.` to non-MIME type extension
-  const formattedExtensionList = (fileExtensionList || []).map((extension) =>
+  const formattedExtensionList = (fileExtensionList ?? []).map((extension) =>
     Object.keys(MIME_TYPE_MAP).includes(extension)
       ? extension
       : `.${extension}`,

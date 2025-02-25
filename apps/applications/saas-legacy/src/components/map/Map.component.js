@@ -39,7 +39,7 @@ export default class MyMap extends Component<Props, State> {
 
   constructor(props: Props) {
     super(props);
-    this.state.zoom = props.zoom || setZoom(maxDistance(props.markers || []));
+    this.state.zoom = props.zoom || setZoom(maxDistance(props.markers ?? []));
   }
 
   componentDidUpdate(prevProps: Props) {

@@ -161,7 +161,7 @@ export const getPlatformSubscription = (state) => {
       minimal_platform_billing_stage,
       maximum_platform_billing_stage,
     ),
-    upsell_packages: (platformSubscription.upsell_packages || []).map((up) =>
+    upsell_packages: (platformSubscription.upsell_packages ?? []).map((up) =>
       _getUpsellPackage(state, up),
     ),
   };
@@ -330,7 +330,7 @@ export const getPlatformBillingGroup = (
           ...up,
           subscribed:
             platformSubscription &&
-            (platformSubscription.upsell_packages || []).includes(up.id),
+            (platformSubscription.upsell_packages ?? []).includes(up.id),
         };
       }),
   };

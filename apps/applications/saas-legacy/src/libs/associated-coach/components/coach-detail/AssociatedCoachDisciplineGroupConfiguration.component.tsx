@@ -336,7 +336,7 @@ export const AssociatedCoachDisciplineGroupConfiguration: React.FC<Props> = ({
                 // @ts-expect-error
                 assignDisciplineGroupHandler(ev.value);
               }}
-              options={[...disciplineGroupOptions] || []}
+              options={[...(disciplineGroupOptions ?? [])]}
               placeholder={t('coachEdit.disciplineGroup')}
               styles={selectStyles}
               value={disciplineGroupOptions.filter(

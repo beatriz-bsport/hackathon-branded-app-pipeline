@@ -260,7 +260,7 @@ export default handleActions<Immutable.Immutable<OfferState>, any>(
           {
             similarOffersReworked: {
               offers: {
-                byId: (results || []).reduce<PayloadReduceType<OfferREST>>(
+                byId: (results ?? []).reduce<PayloadReduceType<OfferREST>>(
                   (acc, offer) => {
                     acc[offer.id] = offer;
                     return acc;

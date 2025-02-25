@@ -170,7 +170,8 @@ const HelpPaddingDialog = ({
 };
 
 export const PrivateServiceForm = (props: Props) => {
-  const { values, setValues, setFieldValue, initial, companyId } = props;
+  const { values, setValues, setFieldValue, initial, companyId, tagList } =
+    props;
   const { t } = useTranslation('privateService');
   const classes = useStyles();
 
@@ -203,25 +204,23 @@ export const PrivateServiceForm = (props: Props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const { member_blacklist_tags, member_whitelist_tags } = values || {};
+
   const allWhitelistTagsWithTagGroup = React.useMemo(() => {
-    return (
-      [
-        ...props.tagList?.filter(
-          (tag) => !values.member_blacklist_tags?.includes(tag.id),
-        ),
-      ] || []
-    );
-  }, [props.tagList, values.member_blacklist_tags]);
+    return [
+      ...(tagList ?? []).filter(
+        (tag) => !member_blacklist_tags?.includes(tag.id),
+      ),
+    ];
+  }, [tagList, member_blacklist_tags]);
 
   const allBlacklistTagsWithTagGroup = React.useMemo(() => {
-    return (
-      [
-        ...props.tagList?.filter(
-          (tag) => !values.member_whitelist_tags?.includes(tag.id),
-        ),
-      ] || []
-    );
-  }, [props.tagList, values.member_whitelist_tags]);
+    return [
+      ...(tagList ?? []).filter(
+        (tag) => !member_whitelist_tags?.includes(tag.id),
+      ),
+    ];
+  }, [tagList, member_whitelist_tags]);
 
   const toggleAdvancedOptions = React.useCallback(() => {
     setOpenAdvancedOptions((prev) => !prev);
@@ -1085,7 +1084,7 @@ export const PrivateServiceSchema = Yup.object().shape({
 const isNumber = <T,>(value: T) => !Number.isNaN(Number(value));
 
 const getIds = <T extends { id: number }>(list: T[]) =>
-  (list || [])
+  (list ?? [])
     .map((value) => (isNumber<T>(value) ? value : value.id))
     .filter((_value) => !!_value);
 

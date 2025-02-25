@@ -125,10 +125,10 @@ const CustomFormsFilterV2: React.FC<OwnProps> = ({
   const sortName = (a: CustomForm, b: CustomForm) =>
     a?.name < b?.name ? -1 : 1;
 
-  const sortedCustomForms = [...(custom_forms || [])].sort(sortName);
+  const sortedCustomForms = [...(custom_forms ?? [])].sort(sortName);
 
   const sortedFilterDataCustomForms = [
-    ...(filter_data?.custom_forms || []),
+    ...(filter_data?.custom_forms ?? []),
   ].sort(sortName);
 
   const handleConditionV2Change = React.useCallback(
@@ -145,7 +145,7 @@ const CustomFormsFilterV2: React.FC<OwnProps> = ({
         (sortedFilterDataCustomForms &&
           !(
             items?.length === sortedFilterDataCustomForms.length &&
-            [...(items || [])].sort(sortName).every((value, index) => {
+            [...(items ?? [])].sort(sortName).every((value, index) => {
               return value === sortedFilterDataCustomForms[index];
             })
           )) ||

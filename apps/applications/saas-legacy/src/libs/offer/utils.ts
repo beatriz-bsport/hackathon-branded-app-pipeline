@@ -1,13 +1,8 @@
 import { DateTime } from 'luxon';
-import type { Coach } from '#src/libs/associated-coach/types';
-import type { Establishment } from '#src/libs/establishment/types';
-import type { MetaActivity } from '#src/libs/meta-activity/types';
-import type { Level } from '#src/libs/level/types';
 import type { LuxonDateTime } from '#src/types';
 import { OFFER_RECURRENCE } from './constants';
 import type {
   Offer,
-  OfferDataListItem,
   OfferFormRecurrenceWeekDay,
   OfferFormValues,
   Offer_FULL,
@@ -136,30 +131,3 @@ export function getDeletePermission(
   }
   return false;
 }
-
-export const getOffersWithMoreInformation = (
-  offers: Offer[],
-  coaches: Coach[],
-  establishments: Establishment[],
-  metaActivities: MetaActivity[],
-  customLevels: Level[],
-): OfferDataListItem[] =>
-  // @ts-expect-error typescript is not inferring correctly the type of offer ...
-  (offers ?? []).map((offer) => {
-    return {
-      ...offer,
-      coach: coaches?.find((coach) => offer.coach === coach.id),
-      coach_override: coaches?.find(
-        (coach) => offer.coach_override === coach.id,
-      ),
-      meta_activity: metaActivities?.find(
-        (metaActivity) => offer.meta_activity === metaActivity.id,
-      ),
-      establishment: establishments?.find(
-        (establishment) => offer.establishment === establishment.id,
-      ),
-      customLevel: customLevels?.find(
-        (level) => offer.custom_level === level.id,
-      ),
-    };
-  });

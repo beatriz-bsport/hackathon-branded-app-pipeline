@@ -796,7 +796,7 @@ export class BookingItemForManager extends Component<Props, State> {
       this.props.member &&
       this.props.member.notes &&
       this.props.member.notes.filter((n) => n.highlighted);
-    if (this.props.heading !== 'date_start' && (notes || []).length) {
+    if (this.props.heading !== 'date_start' && (notes ?? []).length) {
       return (
         <Tooltip
           placement="right"

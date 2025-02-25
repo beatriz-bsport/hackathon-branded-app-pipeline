@@ -94,7 +94,7 @@ export const getWithSCT = (state: RootState, id: number) => {
     return {
       ...pack,
       categories: getSCTs(state).filter((sct) =>
-        (pack.categories || []).includes(sct.id),
+        (pack.categories ?? []).includes(sct.id),
       ),
     };
   }

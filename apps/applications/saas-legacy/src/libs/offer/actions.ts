@@ -590,7 +590,7 @@ export function fetchOfferBulkBatched(
   ignoreManagerOnly?: boolean,
 ) {
   return async (dispatch: Dispatch, getState: () => RootState) => {
-    let ids_uniq = uniq((ids || []).filter((id) => !!id));
+    let ids_uniq = uniq((ids ?? []).filter((id) => !!id));
     if (useCache) {
       ids_uniq = ids_uniq.filter((id) => !getState().offer.byId[id]);
     }
@@ -636,7 +636,7 @@ export function fetchOfferBulk(
   ignoreManagerOnly?: boolean,
 ) {
   return async (dispatch: Dispatch, getState: () => RootState) => {
-    let ids_uniq = uniq((ids || []).filter((id) => !!id));
+    let ids_uniq = uniq((ids ?? []).filter((id) => !!id));
     if (useCache) {
       ids_uniq = ids_uniq.filter((id) => !getState().offer.byId[id]);
     }
@@ -1018,14 +1018,11 @@ export function offerUserRegistration(
     dispatch(offerUserRegistrationAction.isLoading(true));
     try {
       const response = await postUserRegistrationAPI(data, params);
-      // @ts-expect-error
       if (response && response.data && response.data.buyable_item_error_code) {
-        // @ts-expect-error
         const error_code = response.data.buyable_item_error_code;
         if (ALL_ERROR_CODES.includes(error_code)) {
           dispatch(
             snackbarError(
-              // @ts-expect-error
               `canNotBuyErrorCode.${response.data.buyable_item_error_code}`,
             ),
           );

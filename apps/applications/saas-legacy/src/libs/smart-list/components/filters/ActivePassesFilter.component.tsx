@@ -82,13 +82,13 @@ export class ActivePassesFilter extends Component<Props> {
       a: PaymentPack | PrivatePass,
       b: PaymentPack | PrivatePass,
     ) => (a?.name < b?.name ? -1 : 1);
-    const sortedPaymentPacks = [...(payment_packs || [])].sort(sortName);
+    const sortedPaymentPacks = [...(payment_packs ?? [])].sort(sortName);
     const sortedFilterDataPaymentPacks = [
-      ...(filter_data?.payment_packs || []),
+      ...(filter_data?.payment_packs ?? []),
     ].sort(sortName);
-    const sortedPrivatePasses = [...(private_passes || [])].sort(sortName);
+    const sortedPrivatePasses = [...(private_passes ?? [])].sort(sortName);
     const sortedFilterDataPrivatePasses = [
-      ...(filter_data?.private_passes || []),
+      ...(filter_data?.private_passes ?? []),
     ].sort(sortName);
     return (
       <div>
@@ -154,7 +154,7 @@ export class ActivePassesFilter extends Component<Props> {
                 (sortedFilterDataPaymentPacks &&
                   !(
                     items.length === sortedFilterDataPaymentPacks.length &&
-                    [...(items || [])].sort(sortName).every((value, index) => {
+                    [...(items ?? [])].sort(sortName).every((value, index) => {
                       return value === sortedFilterDataPaymentPacks[index];
                     })
                   )) ||
@@ -198,7 +198,7 @@ export class ActivePassesFilter extends Component<Props> {
                 (sortedFilterDataPrivatePasses &&
                   !(
                     items.length === sortedFilterDataPrivatePasses.length &&
-                    [...(items || [])].sort(sortName).every((value, index) => {
+                    [...(items ?? [])].sort(sortName).every((value, index) => {
                       return value === sortedFilterDataPrivatePasses[index];
                     })
                   )) ||

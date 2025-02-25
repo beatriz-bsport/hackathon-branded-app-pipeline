@@ -730,10 +730,10 @@ export default compose<any, OwnProps>(
   }),
   withProps(({ user_registration_response, basket }) => ({
     offerBookedIdList: [
-      ...((user_registration_response || {}).offers_booked || []),
+      ...((user_registration_response || {}).offers_booked ?? []),
       ...flatten(
         // @ts-expect-error
-        ((basket || {}).checkout_items || []).map((ci) =>
+        ((basket || {}).checkout_items ?? []).map((ci) =>
           // @ts-expect-error
           ci?.extra_data?.offers_data?.map((d) => d.offer_id),
         ),

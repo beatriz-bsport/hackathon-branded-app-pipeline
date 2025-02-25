@@ -53,7 +53,7 @@ export const withStaffModificationHistory = memoize((selector) =>
     if (!Array.isArray(bookings)) {
       return {
         ...bookings,
-        staff_history: (bookings?.staff_history || []).map(
+        staff_history: (bookings?.staff_history ?? []).map(
           (staffEvent: StaffModificationHistory) => ({
             ...staffEvent,
             staff: staffDict[staffEvent?.staff_id],
@@ -63,7 +63,7 @@ export const withStaffModificationHistory = memoize((selector) =>
     }
     return bookings.map((b) => ({
       ...b,
-      staff_history: (b?.staff_history || []).map(
+      staff_history: (b?.staff_history ?? []).map(
         (staffEvent: StaffModificationHistory) => ({
           ...staffEvent,
           staff: staffDict[staffEvent?.staff_id],
@@ -108,6 +108,7 @@ export const withRelatedFields = memoize((selector) =>
       tagDict,
       tagGroupData,
     ) => {
+      const memberDataSrc = memberData ?? memberDetailData;
       if (!bookings) return null;
       if (!Array.isArray(bookings)) {
         return Immutable({
@@ -119,19 +120,11 @@ export const withRelatedFields = memoize((selector) =>
           private_consumer_pass:
             privateConsumerPassData[bookings.private_consumer_pass] ||
             bookings.private_consumer_pass,
-          member: !memberData[bookings.member]
+          member: !memberDataSrc[bookings.member]
             ? bookings.member
             : {
-                ...memberData[bookings.member],
-                tags: memberData[bookings.member]?.tags?.map(
-                  (tag_id: number) => ({
-                    ...tagDict[tag_id],
-                    group: tagGroupData[tagDict[tag_id]?.group],
-                  }),
-                ),
-              } || {
-                ...memberDetailData[bookings.member],
-                tags: memberDetailData[bookings.member]?.tags?.map(
+                ...memberDataSrc[bookings.member],
+                tags: memberDataSrc[bookings.member]?.tags?.map(
                   (tag_id: number) => ({
                     ...tagDict[tag_id],
                     group: tagGroupData[tagDict[tag_id]?.group],
@@ -147,22 +140,14 @@ export const withRelatedFields = memoize((selector) =>
           establishment: estalbishmentData[b.establishment],
           private_service: serviceData[b.private_service],
           private_slot: slotData[b.private_slot],
-          member: !memberData[b.member]
+          member: !memberDataSrc[b.member]
             ? b.member
             : {
-                ...memberData[b.member],
-                tags: memberData[b.member]?.tags?.map((tag_id: number) => ({
+                ...memberDataSrc[b.member],
+                tags: memberDataSrc[b.member]?.tags?.map((tag_id: number) => ({
                   ...tagDict[tag_id],
                   group: tagGroupData[tagDict[tag_id]?.group],
                 })),
-              } || {
-                ...memberDetailData[b.member],
-                tags: memberDetailData[b.member]?.tags?.map(
-                  (tag_id: number) => ({
-                    ...tagDict[tag_id],
-                    group: tagGroupData[tagDict[tag_id]?.group],
-                  }),
-                ),
               },
           private_consumer_pass:
             privateConsumerPassData[b.private_consumer_pass] ||

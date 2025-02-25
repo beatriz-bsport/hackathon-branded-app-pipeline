@@ -147,14 +147,13 @@ type Props = OwnProps &
   RouteChildrenProps<any> &
   QueryParamsHocProps;
 
-export type FinalProps = Props & WithHandlerType<typeof mapWithHandlers>;
-type State = {
-  offerId: number | null;
-  offer: Offer | null;
-  displayGroupPopup: (Offer_FULL & { redirect: string }) | null;
-  filteredEstablishments: Array<Establishment> | null;
-  filters: MarketplaceFilters;
-  offerSearchResult: { query: string; offerList: Offer[] | null };
+export type FinalProps = Props &
+  WithHandlerType<typeof mapWithHandlers> &
+  ContainerWidthListenerProps;
+
+type ContainerWidthListenerProps = {
+  containerWidth: number | undefined;
+  calendarRefContainer: React.Ref<null>;
 };
 
 function withContainerWidthListener<
@@ -164,6 +163,7 @@ function withContainerWidthListener<
   return (WrappedComponent: React.ComponentType<WrappedComponentProps>) => {
     class WithContainerWidthListener extends Component<WrappedComponentProps> {
       constructor(props: FinalProps) {
+        // @ts-expect-error FinalProps is not the right typing for Props received by the compose
         super(props);
         // This reference is used to evaluate the size of the calendar,
         // and to determine if it should be displayed in card mode or not.
@@ -207,6 +207,15 @@ function withContainerWidthListener<
     return WithContainerWidthListener;
   };
 }
+
+type State = {
+  offerId: number | null;
+  offer: Offer | null;
+  displayGroupPopup: (Offer_FULL & { redirect: string }) | null;
+  filteredEstablishments: Array<Establishment> | null;
+  filters: MarketplaceFilters;
+  offerSearchResult: { query: string; offerList: Offer[] | null };
+};
 
 export class MarketplaceCalendar extends Component<FinalProps, State> {
   constructor(props: FinalProps) {
@@ -312,7 +321,7 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
   };
 
   fetchData = () => {
-    this.props.fetchEstablishmentBulk(this.state.filters.establishments || []);
+    this.props.fetchEstablishmentBulk(this.state.filters.establishments ?? []);
 
     this.props.fetchAssociatedCoachBulkFromCoachIds(
       this.state.filters.coaches || [],
@@ -339,7 +348,7 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
       optionalParams.is_online = this.props.onlineFilter?.is_online;
     }
 
-    this.props.fetchMetaActivityBulk(this.state.filters.activity__in || []);
+    this.props.fetchMetaActivityBulk(this.state.filters.activity__in ?? []);
 
     this.props.fetchNextAvailableOffer({
       company: this.props.companyId,
@@ -435,9 +444,7 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
       this.props.establishments,
     );
     const offersChanged = !isEqual(
-      // @ts-expect-error
       prevProps.offers.map((o) => o.id),
-      // @ts-expect-error
       this.props.offers.map((o) => o.id),
     );
 
@@ -608,12 +615,11 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
       );
 
       const searchResult = this.props.offers.filter(
-        // @ts-expect-error
         (offer) =>
-          searchedOffers.includes(offer.id) ||
-          searchedEstablishments.includes(offer.establishment) ||
-          searchedMetaActivities.includes(offer.meta_activity) ||
-          searchedCoaches.includes(offer.coach),
+          searchedOffers?.includes(offer.id) ||
+          searchedEstablishments?.includes(offer.establishment) ||
+          searchedMetaActivities?.includes(offer.meta_activity) ||
+          searchedCoaches?.includes(offer.coach),
       );
 
       this.setState({

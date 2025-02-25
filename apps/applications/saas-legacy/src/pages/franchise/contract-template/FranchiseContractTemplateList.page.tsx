@@ -310,12 +310,12 @@ const FranchiseContractTemplateList: React.FC<Props> = ({
   const fetchContractsRelatedObjects = React.useCallback(
     (contractTemplates: ContractTemplate[]) => {
       const paymentPackTemplateIds = uniq(
-        (contractTemplates || [])
+        (contractTemplates ?? [])
           .map((contractTemplate) => contractTemplate.payment_pack_template)
           .filter((paymentPackTemplateId) => !!paymentPackTemplateId),
       );
       const privatePassTemplateIds = uniq(
-        (contractTemplates || [])
+        (contractTemplates ?? [])
           .map((contractTemplate) => contractTemplate.payment_pack_template)
           .filter((paymentPackTemplateId) => !!paymentPackTemplateId),
       );

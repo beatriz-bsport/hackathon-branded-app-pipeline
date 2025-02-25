@@ -52,7 +52,7 @@ export const getPaymentMethodsConcatenatedString = (
   paymentMethodIdentifierList: number[],
   t: TFunction,
 ) => {
-  const string_payment_methods = (paymentMethodIdentifierList || []).map(
+  const string_payment_methods = (paymentMethodIdentifierList ?? []).map(
     (identifier: number) => t(`payment:paymentMethod.${identifier}`),
   );
   const nbMethods = string_payment_methods.length;

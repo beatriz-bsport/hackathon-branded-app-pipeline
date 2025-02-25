@@ -693,7 +693,7 @@ export const fetchCommunicationScheduledList = (
     // preventing a potential issue with Django Rest Framework that fetches the entire database.
     if (filters.id__in && !filters.smartlist_id__in) {
       const uniq_ids = uniq(
-        (filters.id__in || []).filter(
+        (filters.id__in ?? []).filter(
           (communicationScheduledId) => !!communicationScheduledId,
         ),
       );

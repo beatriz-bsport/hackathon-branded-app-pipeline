@@ -431,7 +431,7 @@ const MarketplaceContractPayment: React.FC<Props> = React.memo(
     const filteredSavedPaymentMethodList = useMemo(
       () =>
         paymentMethod
-          ? (savedPaymentMethodList || []).filter(
+          ? (savedPaymentMethodList ?? []).filter(
               (method) => method.type === paymentMethod,
             )
           : savedPaymentMethodList,

@@ -131,8 +131,8 @@ export class CoachList extends React.Component<Props, State> {
   render() {
     const { t } = this.props;
     if (
-      (this.props.associatedCoaches || []).length +
-        (this.props.inactiveCoaches || []).length ===
+      (this.props.associatedCoaches ?? []).length +
+        (this.props.inactiveCoaches ?? []).length ===
         0 &&
       !this.props.loading
     ) {
@@ -221,23 +221,23 @@ export class CoachList extends React.Component<Props, State> {
           />
         </Paper>
 
-        {(inactiveCoachesList || []).length ? (
+        {(inactiveCoachesList ?? []).length ? (
           <div>
             <ButtonBase
               className={this.props.classes.buttonTitle}
-              disabled={!(inactiveCoachesList || []).length}
+              disabled={!(inactiveCoachesList ?? []).length}
               onClick={this.onShowDisabled}
             >
               <Typography
                 color={
-                  (inactiveCoachesList || []).length
+                  (inactiveCoachesList ?? []).length
                     ? 'initial'
                     : 'textSecondary'
                 }
                 variant="h5"
               >
                 {`${t('coach:inactiveCoaches')} (${
-                  (inactiveCoachesList || []).length
+                  (inactiveCoachesList ?? []).length
                 })`}
               </Typography>
 
@@ -261,7 +261,7 @@ export class CoachList extends React.Component<Props, State> {
                       'management.coach.allowed_actions.delete',
                     ]}
                   >
-                    {([hasEditPermission, hasDeletePermission]) => (
+                    {([hasEditPermission, hasDeletePermission]: boolean[]) => (
                       <VirtualizedCoachList
                         coachList={inactiveCoachesList}
                         deleteCoach={

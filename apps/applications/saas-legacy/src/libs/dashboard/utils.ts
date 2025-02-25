@@ -12,7 +12,6 @@ import {
   BILLING_PLAN_GRAPH_IDENTIFIER,
 } from '#src/libs/dashboard/constants';
 import { DatatypeFilterConfig } from '#src/libs/datatype-filtering/types';
-// @ts-expect-error
 import type { Graph } from '../statistics/types';
 import type {
   DataSourceDashboardGraph,

@@ -77,7 +77,7 @@ export const BookingCancellationDialog: React.FC<Props> = ({
       booking?.offer.meta_activity?.custom_restriction_rule ?? [];
     const last_discard_minutes = custom_restriction_rule.reduce(
       (acc: number, crr: any) => {
-        if ((memberTags || []).some((tag) => crr.tags.includes(tag))) {
+        if ((memberTags ?? []).some((tag) => crr.tags.includes(tag))) {
           return Math.min(acc, crr.last_discard_minutes);
         }
         return acc;

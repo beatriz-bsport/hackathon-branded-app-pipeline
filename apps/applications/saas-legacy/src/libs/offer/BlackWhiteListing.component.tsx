@@ -96,13 +96,11 @@ export class BlackWhiteListing extends Component<Props, State> {
                       closeMenuOnSelect
                       inScrollBar
                       isClearable
-                      allTagsWithTagGroup={
-                        [
-                          ...tagList?.filter(
-                            (tag) => !blacklist_tags?.includes(tag.id),
-                          ),
-                        ] || []
-                      }
+                      allTagsWithTagGroup={[
+                        ...(tagList ?? [])?.filter(
+                          (tag) => !blacklist_tags?.includes(tag.id),
+                        ),
+                      ]}
                       onChange={(items) =>
                         onWhiteListChange(items.map((item) => item.value))
                       }
@@ -128,13 +126,11 @@ export class BlackWhiteListing extends Component<Props, State> {
                       closeMenuOnSelect
                       inScrollBar
                       isClearable
-                      allTagsWithTagGroup={
-                        [
-                          ...tagList?.filter(
-                            (tag) => !whitelist_tags?.includes(tag.id),
-                          ),
-                        ] || []
-                      }
+                      allTagsWithTagGroup={[
+                        ...(tagList ?? [])?.filter(
+                          (tag) => !whitelist_tags?.includes(tag.id),
+                        ),
+                      ]}
                       onChange={(items) =>
                         onBlackListChange(items.map((item) => item.value))
                       }

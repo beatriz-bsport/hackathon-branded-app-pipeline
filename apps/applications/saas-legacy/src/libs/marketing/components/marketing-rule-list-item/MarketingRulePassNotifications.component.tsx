@@ -140,7 +140,7 @@ const PassNotifications = ({
     remainingValidityNotifications,
     expiredValidityNotifications,
   } = useMemo(
-    () => splitPassNotificationsByTrigger(notifications || []),
+    () => splitPassNotificationsByTrigger(notifications ?? []),
     [notifications],
   );
 

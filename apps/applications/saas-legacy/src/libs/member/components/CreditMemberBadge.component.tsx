@@ -50,7 +50,7 @@ export const CreditMemberBadge: React.FC<Props> = ({
 
   return (
     <ObjectLevelPermissionProvider requiredPermission="member.allowed_actions.readBalance">
-      {(hasPermission) => {
+      {(hasPermission: boolean) => {
         return hasPermission ? (
           <Badge
             anchorOrigin={

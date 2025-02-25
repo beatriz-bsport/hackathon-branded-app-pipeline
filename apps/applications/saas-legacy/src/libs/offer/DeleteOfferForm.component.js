@@ -60,7 +60,7 @@ export class DeleteOfferForm extends Component<Props, State> {
     cashback: true,
     deleteAll: false,
     cancelLinkedHybridOffer: true,
-    similarOffersWithSelectedStatus: (this.props.similarOffers || []).map(
+    similarOffersWithSelectedStatus: (this.props.similarOffers ?? []).map(
       (so) => ({
         ...so,
         selected: true,
@@ -74,11 +74,11 @@ export class DeleteOfferForm extends Component<Props, State> {
 
   componentDidUpdate(prevProps: Props) {
     if (
-      (prevProps.similarOffers || []).length !==
-      (this.props.similarOffers || []).length
+      (prevProps.similarOffers ?? []).length !==
+      (this.props.similarOffers ?? []).length
     ) {
       this.setState({
-        similarOffersWithSelectedStatus: (this.props.similarOffers || [])
+        similarOffersWithSelectedStatus: (this.props.similarOffers ?? [])
           .filter(
             (similarOffer) =>
               similarOffer.available === this.props.offer.available,

@@ -343,7 +343,7 @@ const ShopItemFormProductStep: React.FC<Props> = ({
               <MenuItem disabled value="">
                 {t('translation:form.shop.item.supplier')}
               </MenuItem>
-              {(supplierList || []).map((supplier) => (
+              {(supplierList ?? []).map((supplier) => (
                 <MenuItem key={supplier.id} value={supplier.id}>
                   {supplier.name}
                 </MenuItem>

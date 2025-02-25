@@ -548,7 +548,7 @@ export function CoachPaymentRuleGroupFormFields({
                       )}
                     </List>
 
-                    {(archivedCoachesState || []).length ? (
+                    {(archivedCoachesState ?? []).length ? (
                       <List>
                         <Typography variant="h6">
                           {t(

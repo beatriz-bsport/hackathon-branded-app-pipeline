@@ -205,7 +205,7 @@ export const PartnershipConfigurationMultipleEstablishmentForm: React.FC<
         </div>
       ))}
       <Button
-        onClick={() => setConfiguration([...(configuration || []), emptyConf])}
+        onClick={() => setConfiguration([...(configuration ?? []), emptyConf])}
       >
         <AddIcon className={classes.iconLeft} />
         {t('parameters.add')}

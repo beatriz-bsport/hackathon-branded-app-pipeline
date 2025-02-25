@@ -45,7 +45,7 @@ const MarketplacePaymentComboBuyableItem: React.FC<Props> = ({
 
   const paymentComboItems = useMemo(
     () =>
-      (paymentCombo.payment_packs || []).concat(
+      (paymentCombo.payment_packs ?? []).concat(
         paymentCombo.shop_items,
         paymentCombo.private_passes,
       ),

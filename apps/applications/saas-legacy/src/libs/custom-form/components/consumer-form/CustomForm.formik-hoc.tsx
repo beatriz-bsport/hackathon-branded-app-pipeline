@@ -280,27 +280,16 @@ export const ConsumerFormFieldsHOC = withFormik({
     { props: { onSubmit, initial }, setSubmitting },
   ) => {
     const {
-      // @ts-expect-error
       date_created,
-      // @ts-expect-error
       name,
-      // @ts-expect-error
       disabled,
-      // @ts-expect-error
       id,
-      // @ts-expect-error
       custom_form_field,
-      // @ts-expect-error
       layout,
-      // @ts-expect-error
       is_member_form,
-      // @ts-expect-error
       is_signup,
-      // @ts-expect-error
       passwordConfirm,
-      // @ts-expect-error
       layout_configuration,
-
       ...cleaned_values
     } = {
       ...values,

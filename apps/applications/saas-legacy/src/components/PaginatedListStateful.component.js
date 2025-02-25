@@ -33,7 +33,7 @@ export default class PaginatedList extends PureComponent<Props, State> {
       <PaginatedListBase
         {...this.props}
         items={this.getCurrentPage()}
-        nbItems={(this.props.items || []).length}
+        nbItems={(this.props.items ?? []).length}
         onPageRequested={this.handlePageRequested}
         page={this.state.page}
       />

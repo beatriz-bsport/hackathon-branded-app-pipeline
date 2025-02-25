@@ -124,7 +124,7 @@ export class RecursionToogle extends Component<Props, State> {
               </div>
             ) : (
               <List component="nav">
-                {(similarOffers || []).map((so, index) => (
+                {(similarOffers ?? []).map((so, index) => (
                   <OfferListItem
                     key={so.id}
                     checked={selectedSimilarOfferIds?.includes(so.id)}

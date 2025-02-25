@@ -322,7 +322,7 @@ export class SmartListCampaign extends React.Component<Props> {
     return (
       <div className={classes.container}>
         <ObjectLevelPermissionProviderComponent requiredPermission="export.allowed_actions.smartlist_general_report">
-          {(hasPermission) =>
+          {(hasPermission: boolean) =>
             hasPermission && (
               <>
                 <CampaignsExportLimitDialog

@@ -252,7 +252,7 @@ type State = {
   selectedBuyableItemCategory: BuyableItemCategory | null;
   selectedOffers: MultipleOfferSelectedData[];
   removedSelectedGroupedOffers: (OfferREST | Offer_FULL)[];
-  selectedItem: BookerItem;
+  selectedItem: BookerItem | null;
   isSpotSelectorOpen: boolean;
   selectedSpotsIds: SelectedSpotsIdsKeying;
   selectedSpots: SelectedSpotsKeying;
@@ -268,7 +268,7 @@ type State = {
     TheIcon: SvgIconComponent;
     color: string;
     isWaitingListOpenMainReason: boolean;
-  };
+  } | null;
   offerWasRetrieved: boolean;
   isSimilarOfferModalOpened: boolean;
   memberBookingId: number;
@@ -351,8 +351,8 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
           page_size: SIMILAR_OFFER_PAGE_SIZE,
         },
         {
-          onSuccess: (data: PaginatedResponse<OfferREST>) => {
-            const offers = data.results;
+          onSuccess: (data?: PaginatedResponse<OfferREST>) => {
+            const offers = data?.results;
             if (offers && offers.length) {
               this.props.fetchMetaActivityBulk(
                 offers.map((offer) => offer.meta_activity),
@@ -735,8 +735,9 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
         comboPack.exceedsBookingMaxout === false,
     );
 
-    let availableContracts = [];
+    let availableContracts: Contract[] = [];
     if (this.state.selectedOffers.length <= 1) {
+      // @ts-expect-error Inconsistent type with Contract
       availableContracts = this.getAvailableContracts(selectedOffers).filter(
         (contract: ContractWithPaymentPack & MaxoutData) =>
           contract.exceedsBookingMaxout === false,
@@ -1305,7 +1306,7 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
       return this.state.bookingBlockedReason?.title;
     }
 
-    return (this.props.consumerPacksForBooking || [])?.length > 0
+    return (this.props.consumerPacksForBooking ?? [])?.length > 0
       ? this.props.t('booking:newBookingModule.reviewAndConfirm')
       : this.props.t('booking:newBookingModule.buyPass');
   };

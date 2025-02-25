@@ -48,7 +48,7 @@ const FinnerGrainEventItemContainer: React.FC<
         <SubdirectoryArrowRight />
         <div className={classes.filteredItemChipContainer}>
           {itemIds &&
-            (itemList || []).map((filteredItem) => {
+            (itemList ?? []).map((filteredItem) => {
               const isItemDisabled =
                 ('private_services' in filteredItem &&
                   !filteredItem?.available) ||

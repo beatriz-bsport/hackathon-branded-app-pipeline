@@ -524,14 +524,14 @@ export class PrivateCalendar extends React.PureComponent<Props, State> {
     ) => {
       const events = Immutable([
         ...availabilitySlots.map(availabilitySlotAsEvent(resourceDatatypeView)),
-        ...(offerList || []).map(
+        ...(offerList ?? []).map(
           offerAsEvent(
             resourceDatatypeView,
             this.props.getHasPendingReplacementRequest,
           ),
         ),
         ...privateBookings.map(privateBookingAsEvent(resourceDatatypeView)),
-        ...(customEventList || []).map(
+        ...(customEventList ?? []).map(
           customEventAsEvent(resourceDatatypeView),
         ),
       ]);

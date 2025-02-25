@@ -34,7 +34,7 @@ const PaymentMethodTypeSwitcher = (props: {
       onChange={(ev) => props.onChange(parseInt(ev.target.value))}
       value={props.payment_method}
     >
-      {(props.enabledPaymentGroupMethodIdentifier || []).includes(
+      {(props.enabledPaymentGroupMethodIdentifier ?? []).includes(
         PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA,
       ) && (
         <FormControlLabel
@@ -46,7 +46,7 @@ const PaymentMethodTypeSwitcher = (props: {
           value={PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA}
         />
       )}
-      {(props.enabledPaymentGroupMethodIdentifier || []).includes(
+      {(props.enabledPaymentGroupMethodIdentifier ?? []).includes(
         PAYMENT_GROUP_METHOD_IDENTIFIER_CB,
       ) && (
         <FormControlLabel
@@ -58,7 +58,7 @@ const PaymentMethodTypeSwitcher = (props: {
           value={PAYMENT_GROUP_METHOD_IDENTIFIER_CB}
         />
       )}
-      {(props.enabledPaymentGroupMethodIdentifier || []).includes(
+      {(props.enabledPaymentGroupMethodIdentifier ?? []).includes(
         PAYMENT_GROUP_METHOD_IDENTIFIER_BACS_DEBIT,
       ) && (
         <FormControlLabel
@@ -70,7 +70,7 @@ const PaymentMethodTypeSwitcher = (props: {
           value={PAYMENT_GROUP_METHOD_IDENTIFIER_BACS_DEBIT}
         />
       )}
-      {(props.enabledPaymentGroupMethodIdentifier || []).includes(
+      {(props.enabledPaymentGroupMethodIdentifier ?? []).includes(
         PAYMENT_GROUP_METHOD_IDENTIFIER_DEBT,
       ) && (
         <FormControlLabel
@@ -83,7 +83,7 @@ const PaymentMethodTypeSwitcher = (props: {
         />
       )}
 
-      {(props.enabledPaymentGroupMethodIdentifier || []).includes(
+      {(props.enabledPaymentGroupMethodIdentifier ?? []).includes(
         PAYMENT_STRIPE_TERMINAL_FAKE,
       ) && (
         <FeatureListProvider>

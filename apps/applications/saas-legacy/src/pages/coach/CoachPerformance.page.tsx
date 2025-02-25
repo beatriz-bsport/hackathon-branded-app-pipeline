@@ -96,15 +96,15 @@ export class CoachPerformance extends React.Component<Props> {
     this.setState({ selectedEstablishments, selectedLocations });
   };
 
-  establishmentsOptions = ([...this.props.establishments] || []).map(
+  establishmentsOptions = [...(this.props.establishments ?? [])].map(
     (establishment) => {
       return { value: establishment?.id, label: establishment?.title };
     },
   );
 
-  establishmentGroupLocationsOptions = (
-    [...this.props.establishmentGroupList] || []
-  ).map((establishmentGroup) => {
+  establishmentGroupLocationsOptions = [
+    ...(this.props.establishmentGroupList ?? []),
+  ].map((establishmentGroup) => {
     return { value: establishmentGroup.id, label: establishmentGroup.name };
   });
 

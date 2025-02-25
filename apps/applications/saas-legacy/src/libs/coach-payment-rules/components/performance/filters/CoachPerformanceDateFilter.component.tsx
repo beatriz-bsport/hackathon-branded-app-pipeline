@@ -268,7 +268,7 @@ export function CoachPerformanceForm(props: Props) {
             {t('calculate')}
           </Submit>
           <ObjectLevelPermissionProviderComponent requiredPermission="export.allowed_actions.payroll">
-            {(hasPermission) =>
+            {(hasPermission: boolean) =>
               hasPermission &&
               !props.hideExport && (
                 <Button

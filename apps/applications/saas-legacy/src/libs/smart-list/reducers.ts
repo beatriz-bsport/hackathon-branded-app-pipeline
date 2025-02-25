@@ -507,7 +507,7 @@ export default handleActions<Immutable.Immutable<SmartListState>, any>(
         .setIn(
           ['automatedCampaign', 'bySmartListId', payload.smartlist],
           [
-            ...(state.automatedCampaign.bySmartListId[payload.smartlist] || [])
+            ...(state.automatedCampaign.bySmartListId[payload.smartlist] ?? [])
               // @ts-expect-error
               .filter((auto_c) => auto_c.id !== payload.id),
             payload,
@@ -536,7 +536,7 @@ export default handleActions<Immutable.Immutable<SmartListState>, any>(
         .setIn(
           ['automatedCampaign', 'bySmartListId', payload.smartlist],
           [
-            ...(state.automatedCampaign.bySmartListId[payload.smartlist] || [])
+            ...(state.automatedCampaign.bySmartListId[payload.smartlist] ?? [])
               // @ts-expect-error
               .filter((auto_c) => auto_c.id !== payload.id),
             payload,

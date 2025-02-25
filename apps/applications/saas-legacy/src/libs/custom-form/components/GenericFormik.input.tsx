@@ -331,7 +331,7 @@ export const MaterialUiMultiSelectorField: React.FC<Props> = (props) => {
       if (onChange) {
         onChange?.(optionList);
       } else {
-        const valueList = (optionList || []).map((option) => option.value);
+        const valueList = (optionList ?? []).map((option) => option.value);
         helpers.setValue(valueList);
         helpers.setTouched(true, false);
       }

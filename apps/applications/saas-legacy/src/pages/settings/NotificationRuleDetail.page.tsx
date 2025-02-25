@@ -277,7 +277,7 @@ const NotificationRuleDetail = (props: Props) => {
                 }
                 emailDesignList={emailDesignList}
                 event={event.notification_event}
-                franchisedOwned={!!event.rule?.franchisor ?? false}
+                franchisedOwned={!!event.rule?.franchisor}
                 onDeleteNotificationRule={deleteNotificationRule}
                 onDisable={handleSettingsDisable(event.notification_event)}
                 onSendCompany={handleSettingsCopy(event.notification_event)}

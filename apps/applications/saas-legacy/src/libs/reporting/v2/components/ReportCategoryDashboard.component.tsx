@@ -45,7 +45,7 @@ const ReportCategoryDashboard: React.FC<Props> = ({
 
   const metadataWithLabel: ReportMetadataValueWithLabel[] = React.useMemo(
     () =>
-      (metadata || []).reduce((acc, reportCategory) => {
+      (metadata ?? []).reduce((acc, reportCategory) => {
         const { read: hasReadPermission } =
           getReportObjectPermissionsBasedOnCategory(
             objectLevelPermissions,

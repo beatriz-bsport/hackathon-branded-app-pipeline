@@ -40,7 +40,7 @@ const FileDropzone: React.FC<FileDropzoneProps> = ({
       onDrop={async (e) => {
         e.preventDefault();
         e.stopPropagation();
-        handleDropFiles(e.dataTransfer.files || []);
+        handleDropFiles(e.dataTransfer.files ?? []);
       }}
       onDragLeave={(e) => {
         e.preventDefault();

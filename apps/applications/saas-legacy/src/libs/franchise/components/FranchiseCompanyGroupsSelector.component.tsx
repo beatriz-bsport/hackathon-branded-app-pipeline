@@ -32,7 +32,7 @@ const FranchiseCompanyGroupsSelector: React.FC<Props> = ({
   const onDelete = React.useCallback(
     (chipDataValue: string) => () => {
       onChange(
-        (selectedCompanyGroups || []).filter(
+        (selectedCompanyGroups ?? []).filter(
           (companyGroup) => companyGroup.value !== chipDataValue,
         ),
       );

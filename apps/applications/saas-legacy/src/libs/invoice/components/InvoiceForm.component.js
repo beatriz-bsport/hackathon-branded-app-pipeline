@@ -126,7 +126,7 @@ export class InvoiceForm extends React.Component<Props, State> {
 
   getInvoiceItemAmount = () => {
     return [
-      ...(this.props.invoiceItemList || []),
+      ...(this.props.invoiceItemList ?? []),
       ...this.state.invoiceItemList,
     ]
       .filter((ii) => !!ii && !ii.reverted)
@@ -138,7 +138,7 @@ export class InvoiceForm extends React.Component<Props, State> {
 
   getPaymentItemAmount = () => {
     return [
-      ...(this.props.paymentItemList || []),
+      ...(this.props.paymentItemList ?? []),
       ...this.state.paymentItemList,
     ]
       .filter((p) => !!p && !p.reverted && p.payment_received)
@@ -148,7 +148,7 @@ export class InvoiceForm extends React.Component<Props, State> {
   invoiceItemIsEmpty = () => {
     return (
       this.state.invoiceItemList.length === 0 &&
-      (this.props.invoiceItemList || []).length === 0
+      (this.props.invoiceItemList ?? []).length === 0
     );
   };
 

@@ -363,8 +363,8 @@ export class WorkshopActivityList extends React.Component<Props, State> {
     const { classes, t, selectedMetaActivity } = this.props;
 
     if (
-      (this.props.workshopActivities || []).length +
-        (this.props.disabledWorkshopActivities || []).length ===
+      (this.props.workshopActivities ?? []).length +
+        (this.props.disabledWorkshopActivities ?? []).length ===
         0 &&
       !this.props.loading
     ) {
@@ -445,7 +445,7 @@ export class WorkshopActivityList extends React.Component<Props, State> {
               makeActivityCopy={this.props.makeActivityCopy}
               metaActivities={this.props.workshopActivities}
             />
-            {(this.props.disabledWorkshopActivities || []).length ? (
+            {(this.props.disabledWorkshopActivities ?? []).length ? (
               <div>
                 <ButtonBase
                   className={this.props.classes.buttonTitle}
@@ -456,7 +456,7 @@ export class WorkshopActivityList extends React.Component<Props, State> {
                     variant="h5"
                   >
                     {`${t('disabledWorkshops')} (${
-                      (this.props.disabledWorkshopActivities || []).length
+                      (this.props.disabledWorkshopActivities ?? []).length
                     })`}
                   </Typography>
 

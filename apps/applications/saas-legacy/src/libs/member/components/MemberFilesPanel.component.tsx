@@ -88,7 +88,7 @@ export const MemberFilesPanel = (props: Props) => {
               {!file.coach_has_access && <VisibilityOffIcon />}
             </IconButton>
             <ObjectLevelPermissionProviderComponent requiredPermission="export.allowed_actions.memberDocument">
-              {(hasPermission) =>
+              {(hasPermission: boolean) =>
                 hasPermission && (
                   <IconButton onClick={handleDownload(file)}>
                     <CloudDownloadIcon color="primary" />

@@ -223,7 +223,7 @@ const MarketplaceSubscriptionPayment: React.FC<Props> = ({
   const filteredSavedPaymentMethodList = useMemo(
     () =>
       paymentMethod
-        ? (savedPaymentMethodList || []).filter(
+        ? (savedPaymentMethodList ?? []).filter(
             (method) => method.type === paymentMethod,
           )
         : savedPaymentMethodList,

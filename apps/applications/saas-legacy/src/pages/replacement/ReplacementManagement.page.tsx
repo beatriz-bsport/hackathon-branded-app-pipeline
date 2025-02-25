@@ -983,15 +983,15 @@ const handlers = {
 
       // Check if filter actually needs to be updated to prevent useless api calls in useEffect
       const shouldUpdateFilter =
-        (replacementRequestManagerFilter.coach__in || []).length !==
+        (replacementRequestManagerFilter.coach__in ?? []).length !==
           sanitizedCoachIds.length ||
-        (replacementRequestManagerFilter.establishment__in || []).length !==
+        (replacementRequestManagerFilter.establishment__in ?? []).length !==
           sanitizedEstablishmentIds.length ||
-        (replacementRequestManagerFilter.establishment_group__in || [])
+        (replacementRequestManagerFilter.establishment_group__in ?? [])
           .length !== sanitizedEstablishmentGroupIds.length ||
-        (replacementRequestManagerFilter.meta_activity__in || []).length !==
+        (replacementRequestManagerFilter.meta_activity__in ?? []).length !==
           sanitizedMetaActivityIds.length ||
-        (replacementRequestManagerFilter.category__in || []).length !==
+        (replacementRequestManagerFilter.category__in ?? []).length !==
           sanitizedCategoryIds.length;
 
       if (shouldUpdateFilter) {

@@ -67,7 +67,7 @@ export function initI18n({
       supportedLngs: Object.values(LANGUAGES),
       debug: false,
       // string or array of namespaces to load
-      ns: (namespaces || []).map(namespacePrefixer),
+      ns: (namespaces ?? []).map(namespacePrefixer),
       interpolation: {
         escapeValue: false, // react already safes from xss => https://www.i18next.com/translation-function/interpolation#unescape
       },

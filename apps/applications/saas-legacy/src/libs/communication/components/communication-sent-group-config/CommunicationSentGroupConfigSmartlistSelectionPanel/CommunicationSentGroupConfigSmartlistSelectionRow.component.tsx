@@ -28,7 +28,7 @@ export const CommunicationSentGroupConfigSmartlistSelectionRow: React.FC<
     useFormikContext<CommunicationSentGroupConfigFormValues>();
 
   const options = useMemo(() => {
-    const filteredOptions = (smartLists || [])
+    const filteredOptions = (smartLists ?? [])
       .filter((smartList) => smartList.company === companyId)
       .map((smartList) => ({
         label: smartList.name,

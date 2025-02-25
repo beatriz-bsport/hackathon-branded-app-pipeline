@@ -1,5 +1,5 @@
 import React from 'react';
-import history from '../../../history';
+import history, { type Location } from '../../../history';
 import { parseQueryString } from '../../../http';
 import { rudderStackPage } from './utils';
 
@@ -17,7 +17,7 @@ export function withRudderStackHistoryTracker<P>(
       this.state = {
         prevPath: null,
         prevSearch: null,
-        unlisten: history.listen((location) => {
+        unlisten: history.listen((location: Location) => {
           if (
             location.pathname !== this.state.prevPath ||
             location.search != this.state.prevPath

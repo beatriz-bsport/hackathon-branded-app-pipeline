@@ -5,6 +5,7 @@ import { withTranslation, WithTranslation } from 'react-i18next';
 import EuroSymbolIcon from '@material-ui/icons/EuroSymbol';
 import { Link } from 'react-router-dom';
 import { withRouter } from 'react-router';
+// @ts-expect-error error TS7016: Could not find a declaration file for module 'history'
 import { Location } from 'history';
 import { compose } from 'recompose';
 import clsx from 'clsx';

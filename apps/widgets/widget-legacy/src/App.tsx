@@ -146,9 +146,9 @@ const WIDGET_ACCEPTING_NO_POPUP_MODE = [
   EXPORTABLE_COMPONENT_TYPE_CALENDAR_V2,
 ];
 type OwnProps = WidgetConfig & {
-  store: any,
-  lang?: string,
-  history: any,
+  store: any;
+  lang?: string;
+  history: any;
 };
 
 type Props = OwnProps &
@@ -256,7 +256,7 @@ class BsportWidget extends Component<Props> {
     // This mode will only be allowed on specific pages (meaning the pages refactored to css only)
     const allowNoPopup = WIDGET_ACCEPTING_NO_POPUP_MODE.includes(widgetType);
     const companyId =
-      this.props.companyId || (this.props.franchisor?.companies || [])[0]?.id;
+      this.props.companyId || (this.props.franchisor?.companies ?? [])[0]?.id;
 
     return (
       <div className={classes.container}>

@@ -1050,18 +1050,18 @@ export default compose(
     'setPaymentMethod',
     ({ enabledPaymentMethods, enabledPaymentGroupMethodIdentifier }) => {
       const isBacsEnabled =
-        (enabledPaymentGroupMethodIdentifier || []).includes(
+        (enabledPaymentGroupMethodIdentifier ?? []).includes(
           PAYMENT_GROUP_METHOD_IDENTIFIER_BACS_DEBIT,
         ) ||
-        (enabledPaymentMethods || []).includes(
+        (enabledPaymentMethods ?? []).includes(
           BILLING_PLAN_PAYMENT_METHOD_STRIPE_BACS_DEBIT,
         );
 
       const isSepaEnabled =
-        (enabledPaymentGroupMethodIdentifier || []).includes(
+        (enabledPaymentGroupMethodIdentifier ?? []).includes(
           PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA,
         ) ||
-        (enabledPaymentMethods || []).includes(
+        (enabledPaymentMethods ?? []).includes(
           BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA,
         );
 

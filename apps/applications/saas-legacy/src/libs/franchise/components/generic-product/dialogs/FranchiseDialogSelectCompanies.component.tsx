@@ -35,7 +35,7 @@ export const FranchiseDialogSelectCompanies = (props: Props) => {
 
   const companyDic = React.useMemo(
     () =>
-      [...(companyWithoutInstanceList || [])].reduce<
+      [...(companyWithoutInstanceList ?? [])].reduce<
         Record<number, FranchiseCompany>
       >((dic, company) => {
         dic[company.id] = company;

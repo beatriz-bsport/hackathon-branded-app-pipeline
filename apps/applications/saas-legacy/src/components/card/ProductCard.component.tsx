@@ -143,7 +143,7 @@ export const ProductCard = (props: Props) => {
           </Grid>
           <Grid item xs={4}>
             <div className={classes.columnRight}>
-              {(buttons || []).map(
+              {(buttons ?? []).map(
                 (button: {
                   onClick: () => void;
                   label: string;

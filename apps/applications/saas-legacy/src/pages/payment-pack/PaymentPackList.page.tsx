@@ -631,8 +631,8 @@ export class PaymentPackList extends React.Component<Props, State> {
 
     if (
       // @ts-expect-error
-      (this.props.enabledPacks || []).length +
-        (this.props.disabledPacks || []).length ===
+      (this.props.enabledPacks ?? []).length +
+        (this.props.disabledPacks ?? []).length ===
         0 &&
       !loading
     ) {

@@ -44,7 +44,7 @@ export const getBasketGeneratedObjects = (state: RootState) => {
     offerList: withMetaActivity(
       withCoach(
         withEstablishment((state_) =>
-          (getCheckoutState(state_).basket.generatedObjects.data || [])
+          (getCheckoutState(state_).basket.generatedObjects.data ?? [])
             .filter(
               (object) => object.extra_data && object.extra_data.offer_next,
             )

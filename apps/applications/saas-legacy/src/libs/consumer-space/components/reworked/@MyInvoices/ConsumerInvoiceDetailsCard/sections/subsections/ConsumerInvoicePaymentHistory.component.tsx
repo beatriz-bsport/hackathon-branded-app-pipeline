@@ -32,7 +32,7 @@ const ConsumerInvoicePaymentHistory: React.FC<Props> = ({
       </Typography>
       {paymentItemList?.length > 0 || plannedPaymentErrorList?.length > 0 ? (
         <>
-          {(paymentItemList || []).map((paymentItem) => (
+          {(paymentItemList ?? []).map((paymentItem) => (
             <ConsumerInvoicePayment
               key={`ConsumerInvoicePayment-paymentItem:${paymentItem.id}`}
               date={paymentItem.date}
@@ -47,7 +47,7 @@ const ConsumerInvoicePaymentHistory: React.FC<Props> = ({
               }
             />
           ))}
-          {(plannedPaymentErrorList || []).map((plannedPayment) => (
+          {(plannedPaymentErrorList ?? []).map((plannedPayment) => (
             <ConsumerInvoicePayment
               key={`ConsumerInvoicePayment-plannedPaymentError:${plannedPayment.id}`}
               isPaymentError

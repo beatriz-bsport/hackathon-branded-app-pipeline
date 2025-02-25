@@ -103,7 +103,7 @@ class FabPrivateCalendar extends React.PureComponent<Props, State> {
     return (
       <>
         <ObjectLevelPermissionProvider requiredPermission="reservation.privateBooking.allowed_actions.create">
-          {(hasCreatePermission) => {
+          {(hasCreatePermission: boolean) => {
             return (
               <FabWithItems
                 hidden={!hasCreatePermission}

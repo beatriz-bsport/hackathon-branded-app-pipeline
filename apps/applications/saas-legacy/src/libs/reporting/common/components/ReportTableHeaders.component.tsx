@@ -34,7 +34,7 @@ const CardHeaders: React.FC<{
     const classes = useStyles();
     const { t } = useTranslation('reporting');
 
-    const converters = (headerDetails || []).map((detail) =>
+    const converters = (headerDetails ?? []).map((detail) =>
       getConverter(detail, classes, t),
     );
 
@@ -69,7 +69,7 @@ const CardHeaders: React.FC<{
           )}
           {hasReportBeenGenerated && !isLoading && !reportWithoutResults && (
             <Grid container alignItems="stretch" direction="row" spacing={2}>
-              {(headerDetails || []).map((detail, index) => {
+              {(headerDetails ?? []).map((detail, index) => {
                 return (
                   <Grid key={index} item lg={2} md={4} xs={6}>
                     <Card elevation={0}>

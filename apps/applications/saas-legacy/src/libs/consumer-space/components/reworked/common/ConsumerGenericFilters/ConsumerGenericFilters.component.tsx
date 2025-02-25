@@ -61,7 +61,7 @@ export const ConsumerGenericFilters = <TabType,>({
   return (
     <div className="bs-consumer-generic-filters">
       <div className="bs-consumer-generic-filters__tabs">
-        {(filters || []).map(
+        {(filters ?? []).map(
           ({ className, hasBadge, label, onClick, type, value }) => (
             <ActionTab
               key={`${className}-${type}`}

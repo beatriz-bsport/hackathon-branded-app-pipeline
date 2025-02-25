@@ -147,7 +147,7 @@ export const CheckoutItemListItem: React.FC<Props> = ({
       )}
 
       {!hideExtraData &&
-        (checkout_item.sub_items || []).map((sub_item, idx) => (
+        (checkout_item.sub_items ?? []).map((sub_item, idx) => (
           <ListItem key={idx} dense divider>
             <ListItemIcon>
               <CalendarIcon color="textSecondary" />

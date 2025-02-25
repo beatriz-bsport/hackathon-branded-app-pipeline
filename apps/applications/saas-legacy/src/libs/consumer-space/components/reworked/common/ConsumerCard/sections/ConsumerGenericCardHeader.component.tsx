@@ -56,7 +56,7 @@ const ConsumerGenericCardHeader: React.FC<Props> = ({
           chipsWrapperClassName,
         )}
       >
-        {(chipsDataList || []).map(
+        {(chipsDataList ?? []).map(
           ({
             shouldDisplay,
             chipClassName,

@@ -4,7 +4,7 @@ import { makeStyles, TextField } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { MarketplaceGiftcardData } from '../../../marketplace/types';
 
-import { Giftcard } from '../../../giftcard/types';
+import { Giftcard } from '#src/libs/giftcard/types';
 
 interface Props {
   giftcards: Array<Giftcard>;
@@ -23,7 +23,7 @@ const MarketplaceGiftcardSettingsForm: React.FC<Props> = ({
 
   const value = React.useMemo(
     () => [
-      ...(giftcards || []).filter((giftcard) =>
+      ...(giftcards ?? []).filter((giftcard) =>
         config?.giftcards?.includes(giftcard.id),
       ),
     ],

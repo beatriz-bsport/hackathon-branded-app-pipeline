@@ -421,7 +421,7 @@ export function fetchPaymentPackBulk(
   options?: OptionCallback<PaymentPack[]>,
 ): ThunkAction {
   return async (dispatch: Dispatch) => {
-    const ids_uniq = uniq((ids || []).filter((_id) => !!_id));
+    const ids_uniq = uniq((ids ?? []).filter((_id) => !!_id));
 
     if (ids_uniq.length === 0) {
       if (options && options.onSuccess) {
@@ -461,7 +461,7 @@ export function fetchPaymentPackBulkWidget(
   options?: OptionCallback<PaymentPack[]>,
 ): ThunkAction {
   return async () => {
-    const ids_uniq = uniq((ids || []).filter((_id) => !!_id));
+    const ids_uniq = uniq((ids ?? []).filter((_id) => !!_id));
     if (ids_uniq.length === 0) {
       if (options && options.onSuccess) {
         options.onSuccess([]);

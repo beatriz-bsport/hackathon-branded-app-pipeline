@@ -487,7 +487,7 @@ export default handleActions<Immutable.Immutable<FranchiseState>, any>(
         .setIn(['userProfile', 'associatedMembers', 'count'], count)
         .setIn(
           ['userProfile', 'associatedMembers', 'allIds'],
-          uniq((results || []).map((member) => member.id)),
+          uniq((results ?? []).map((member) => member.id)),
         )
         .merge(
           {
@@ -532,7 +532,7 @@ export default handleActions<Immutable.Immutable<FranchiseState>, any>(
         .setIn(['userProfile', 'tags', 'count'], count)
         .setIn(
           ['userProfile', 'tags', 'allIds'],
-          (results || []).map((tag) => tag.id),
+          (results ?? []).map((tag) => tag.id),
         )
         .merge(
           {
@@ -590,7 +590,7 @@ export default handleActions<Immutable.Immutable<FranchiseState>, any>(
         .setIn(['userProfile', 'passes', 'count'], count)
         .setIn(
           ['userProfile', 'passes', 'allIds'],
-          uniq((results || []).map((pass) => pass.id)),
+          uniq((results ?? []).map((pass) => pass.id)),
         )
         .merge({
           userProfile: {
@@ -756,7 +756,7 @@ export default handleActions<Immutable.Immutable<FranchiseState>, any>(
         .setIn(['userProfile', 'billingPlans', 'count'], count)
         .setIn(
           ['userProfile', 'billingPlans', 'allIds'],
-          uniq((results || []).map((billingPlan) => billingPlan.id)),
+          uniq((results ?? []).map((billingPlan) => billingPlan.id)),
         )
         .merge(
           {
@@ -810,7 +810,7 @@ export default handleActions<Immutable.Immutable<FranchiseState>, any>(
         .setIn(['userProfile', 'billingPlans', 'invoices', 'count'], count)
         .setIn(
           ['userProfile', 'billingPlans', 'invoices', 'allIds'],
-          uniq((results || []).map((invoice) => invoice.uuid)),
+          uniq((results ?? []).map((invoice) => invoice.uuid)),
         )
         .merge(
           {

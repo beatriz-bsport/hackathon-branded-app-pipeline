@@ -52,7 +52,7 @@ const getMemberTagsWithTagGroup: (state: RootState) => Array<Tag<TagGroupAPI>> =
 export const getAllTagsWithTagGroup = createSelector(
   [_getTags, getTagGroupsDict],
   (tagsItemsList, tagGroupData) => {
-    return (tagsItemsList || [])
+    return (tagsItemsList ?? [])
       .map((tag) => {
         return {
           ...tag,

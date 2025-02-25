@@ -1,15 +1,21 @@
 import { computeNbCompatibleCoaches } from '../utils';
 
-const fakeCoachesWithoutIds = [
+type TestConfiguration = {
+  is_teaching_all_activities: boolean;
+  is_teaching_all_workshops: boolean;
+  is_teaching_all_categories: boolean;
+  meta_activities_taught: number[];
+  workshops_taught: number[];
+  categories_taught: number[];
+};
+
+const fakeCoachesWithoutIds: Array<TestConfiguration> = [
   {
     is_teaching_all_activities: true,
     is_teaching_all_workshops: false,
     is_teaching_all_categories: false,
-    // @ts-expect-error
     meta_activities_taught: [],
-    // @ts-expect-error
     workshops_taught: [],
-    // @ts-expect-error
     categories_taught: [],
   },
   {
@@ -30,12 +36,11 @@ const fakeCoachesWithoutIds = [
   },
 ];
 
-const fakeCoachesOnlyIds = [
+const fakeCoachesOnlyIds: Array<TestConfiguration> = [
   {
     is_teaching_all_activities: false,
     is_teaching_all_workshops: false,
     is_teaching_all_categories: false,
-    // @ts-expect-error
     meta_activities_taught: [],
     workshops_taught: [1],
     categories_taught: [1, 2],
@@ -58,12 +63,11 @@ const fakeCoachesOnlyIds = [
   },
 ];
 
-const fakeCoachesMixed = [
+const fakeCoachesMixed: Array<TestConfiguration> = [
   {
     is_teaching_all_activities: true,
     is_teaching_all_workshops: false,
     is_teaching_all_categories: false,
-    // @ts-expect-error
     meta_activities_taught: [],
     workshops_taught: [1],
     categories_taught: [1, 2],
@@ -73,9 +77,7 @@ const fakeCoachesMixed = [
     is_teaching_all_workshops: true,
     is_teaching_all_categories: true,
     meta_activities_taught: [1, 3],
-    // @ts-expect-error
     workshops_taught: [],
-    // @ts-expect-error
     categories_taught: [],
   },
   {

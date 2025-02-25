@@ -254,8 +254,8 @@ export class QuickInvoice extends PureComponent<Props, State> {
             <Grid container alignItems="center" direction="row">
               <Grid item className={classes.invoiceItemListContainer} xs={9}>
                 {[
-                  ...(this.state.invoiceItemList || []),
-                  ...(this.props.uneditableInvoiceItems || []).map((ii) => ({
+                  ...(this.state.invoiceItemList ?? []),
+                  ...(this.props.uneditableInvoiceItems ?? []).map((ii) => ({
                     ...ii,
                     editable: false,
                   })),

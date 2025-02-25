@@ -90,26 +90,26 @@ export const BookingFilters: React.FC<Props> = (props: Props) => {
             {
               onClick: () =>
                 props.setFiltersValue('booking_status_code__in', [
-                  ...(props.filters.booking_status_code__in || []),
+                  ...(props.filters.booking_status_code__in ?? []),
                   BOOKING_STATUS_OK.id,
                 ]),
               onDelete: () =>
                 props.setFiltersValue(
                   'booking_status_code__in',
-                  (props.filters.booking_status_code__in || []).filter(
+                  (props.filters.booking_status_code__in ?? []).filter(
                     (v: number) => v !== BOOKING_STATUS_OK.id,
                   ),
                 ),
               label: t('filters.notCancelled'),
               icon: ConsumerIcon,
-              show: (props.filters.booking_status_code__in || []).includes(
+              show: (props.filters.booking_status_code__in ?? []).includes(
                 BOOKING_STATUS_OK.id,
               ),
             },
             {
               onClick: () =>
                 props.setFiltersValue('booking_status_code__in', [
-                  ...(props.filters.booking_status_code__in || []),
+                  ...(props.filters.booking_status_code__in ?? []),
                   BOOKING_STATUS_CANCELLED_BY_OFFER.id,
                 ]),
               onDelete: () =>
@@ -121,46 +121,46 @@ export const BookingFilters: React.FC<Props> = (props: Props) => {
                 ),
               label: t('filters.canceled'),
               icon: CancelIcon,
-              show: (props.filters.booking_status_code__in || []).includes(
+              show: (props.filters.booking_status_code__in ?? []).includes(
                 BOOKING_STATUS_CANCELLED_BY_OFFER.id,
               ),
             },
             {
               onClick: () =>
                 props.setFiltersValue('booking_status_code__in', [
-                  ...(props.filters.booking_status_code__in || []),
+                  ...(props.filters.booking_status_code__in ?? []),
                   BOOKING_STATUS_CANCELLED_BY_MANAGER.id,
                 ]),
               onDelete: () =>
                 props.setFiltersValue(
                   'booking_status_code__in',
-                  (props.filters.booking_status_code__in || []).filter(
+                  (props.filters.booking_status_code__in ?? []).filter(
                     (v: number) => v !== BOOKING_STATUS_CANCELLED_BY_MANAGER.id,
                   ),
                 ),
               label: t('filters.managerCanceled'),
               icon: ManagerIcon,
-              show: (props.filters.booking_status_code__in || []).includes(
+              show: (props.filters.booking_status_code__in ?? []).includes(
                 BOOKING_STATUS_CANCELLED_BY_MANAGER.id,
               ),
             },
             {
               onClick: () =>
                 props.setFiltersValue('booking_status_code__in', [
-                  ...(props.filters.booking_status_code__in || []),
+                  ...(props.filters.booking_status_code__in ?? []),
                   BOOKING_STATUS_CANCELLED_BY_CONSUMER.id,
                 ]),
               onDelete: () =>
                 props.setFiltersValue(
                   'booking_status_code__in',
-                  (props.filters.booking_status_code__in || []).filter(
+                  (props.filters.booking_status_code__in ?? []).filter(
                     (v: number) =>
                       v !== BOOKING_STATUS_CANCELLED_BY_CONSUMER.id,
                   ),
                 ),
               label: t('filters.consumerCanceled'),
               icon: ConsumerIcon,
-              show: (props.filters.booking_status_code__in || []).includes(
+              show: (props.filters.booking_status_code__in ?? []).includes(
                 BOOKING_STATUS_CANCELLED_BY_CONSUMER.id,
               ),
             },

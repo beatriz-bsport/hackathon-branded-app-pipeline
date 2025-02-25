@@ -112,7 +112,7 @@ export const useStepsAndTriggersRecorder = ({
       const triggers = Immutable.from(
         steps.reduce<StoredTrigger[]>((acc, step) => {
           return acc.concat(
-            (step?.exits || [])
+            (step?.exits ?? [])
               .filter((trigger) => displayDisabledTriggers || !trigger.disabled)
               .map(
                 (trig) =>
@@ -482,14 +482,12 @@ export const useNodeElementsRecorder = ({
       if (!storedTriggerToTest?.trigger?.destination_config?.destination_id) {
         return false;
       }
-      return (
-        !!storedTriggers?.find(
-          (currentStoredTrigger) =>
-            storedTriggerToTest.trigger.trigger_config.uuid !==
-              currentStoredTrigger.trigger.trigger_config.uuid &&
-            storedTriggerToTest.trigger.destination_config.destination_id ===
-              currentStoredTrigger.trigger.destination_config.destination_id,
-        ) ?? false
+      return !!storedTriggers?.find(
+        (currentStoredTrigger) =>
+          storedTriggerToTest.trigger.trigger_config.uuid !==
+            currentStoredTrigger.trigger.trigger_config.uuid &&
+          storedTriggerToTest.trigger.destination_config.destination_id ===
+            currentStoredTrigger.trigger.destination_config.destination_id,
       );
     },
     [storedTriggers],

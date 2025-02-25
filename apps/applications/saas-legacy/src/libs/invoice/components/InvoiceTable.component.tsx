@@ -306,7 +306,7 @@ const InvoiceRow: React.FC<Props> = React.memo((props) => {
         )}
         <TableCell>{DateTime.fromISO(invoice.date).toFormat('D')}</TableCell>
         <ObjectLevelPermissionProvider requiredPermission="export.allowed_actions.invoice">
-          {(hasPermission) =>
+          {(hasPermission: boolean) =>
             !!props.finalizeInvoice &&
             invoice.invoice_type !== INVOICE_TYPE_MIGRATION &&
             hasPermission && (

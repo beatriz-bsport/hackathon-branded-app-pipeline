@@ -131,7 +131,7 @@ const PayoutListItem: React.FC<Props> = ({
               !(bsportPayout.automatic === false) && (
                 <Typography color="textSecondary" variant="caption">
                   {t('payout.paymentNb', {
-                    nb: (bsportPayout.payments || []).length,
+                    nb: (bsportPayout.payments ?? []).length,
                   })}
                 </Typography>
               )}
@@ -153,7 +153,7 @@ const PayoutListItem: React.FC<Props> = ({
         </div>
         <Collapse in={isOpen}>
           <div className={classes.paymentContainer}>
-            {(bsportPayout.payments || []).map((p) => (
+            {(bsportPayout.payments ?? []).map((p) => (
               <div key={p.id} className={classes.paymentRow}>
                 <div style={{ width: '100%' }}>
                   <PaymentListItemV2 paymentItem={p} />

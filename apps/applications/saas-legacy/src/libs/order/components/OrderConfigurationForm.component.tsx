@@ -69,7 +69,7 @@ export class OrderConfigrationForm extends Component<Props, State> {
                 <MenuItem value={-1}>
                   {t('configuration.noDefaultDeliveryFee')}
                 </MenuItem>
-                {(deliveryFees || []).map((deliveryFee) => (
+                {(deliveryFees ?? []).map((deliveryFee) => (
                   <MenuItem key={deliveryFee.id} value={deliveryFee.id}>
                     {deliveryFee.name}
                   </MenuItem>

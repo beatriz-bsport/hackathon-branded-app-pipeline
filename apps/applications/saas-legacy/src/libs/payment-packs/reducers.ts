@@ -794,7 +794,7 @@ export const newPaymentPackReducer = handleActions(
       const { results } = payload;
       return state.merge(
         {
-          byId: (results || []).reduce<{ [id: number]: PaymentPack }>(
+          byId: (results ?? []).reduce<{ [id: number]: PaymentPack }>(
             (acc, paymentPack) => {
               acc[paymentPack.id] = paymentPack;
               return acc;

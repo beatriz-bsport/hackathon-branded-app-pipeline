@@ -3,7 +3,6 @@ import {
   DataSourceFieldMetadata,
   DatatypeFilterConfig,
 } from '#src/libs/datatype-filtering/types';
-// @ts-expect-error
 import type { Graph } from '../statistics/types';
 
 export type DashboardTab = { tab_label: string; graphs: Array<Graph> };

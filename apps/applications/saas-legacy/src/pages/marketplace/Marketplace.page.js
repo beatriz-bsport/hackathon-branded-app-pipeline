@@ -244,11 +244,11 @@ export class MarketPlace extends Component<Props, State> {
       }
 
       const hasMultipleComponentTypeConfig =
-        (settings?.config || []).filter(
+        (settings?.config ?? []).filter(
           (tabConfig) => tabConfig.component_type === componentType,
         ).length > 1;
 
-      let configIndex = (settings?.config || []).findIndex(
+      let configIndex = (settings?.config ?? []).findIndex(
         (tab) => tab.component_type === componentType,
       );
 

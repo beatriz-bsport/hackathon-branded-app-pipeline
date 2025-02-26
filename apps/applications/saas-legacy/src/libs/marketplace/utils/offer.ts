@@ -1,4 +1,4 @@
-import { DateTime } from 'luxon';
+import { DateTime, Duration } from 'luxon';
 import type { MetaActivity } from '#src/libs/meta-activity/types';
 import type { OffersGroup } from '#src/libs/group-offer/types';
 import {
@@ -58,9 +58,12 @@ export function isOfferBookableYet(
   }
   if (metaActivity) {
     return (
-      DateTime.fromISO(offer.date_start).minus({
-        minutes: metaActivity.first_booking_minutes_until,
-      }) <= DateTime.now()
+      DateTime.fromISO(offer.date_start).minus(
+        // Use 'days' unit to properly handle DST changes
+        Duration.fromObject({
+          minutes: metaActivity.first_booking_minutes_until,
+        }).shiftTo('days', 'hours', 'minute'),
+      ) <= DateTime.now()
     );
   }
   return null;

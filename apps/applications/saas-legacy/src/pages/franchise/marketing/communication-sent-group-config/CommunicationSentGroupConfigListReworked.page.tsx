@@ -34,7 +34,6 @@ import {
 
 // Components
 import Alert from '@material-ui/lab/Alert';
-import AlertTitle from '@material-ui/lab/AlertTitle';
 import IsEmptyList from '#src/components/navigation/IsEmptyList.component';
 // @ts-expect-error
 import SmartListCard from '#src/libs/smart-list/components/SmartlistCard.component';
@@ -106,10 +105,12 @@ const CommunicationSentGroupConfigListReworked: React.FC<Props> = ({
 
   const handlSetSelected = React.useCallback(
     (id: number | null) => {
-      const _selected = communicationSentGroupConfigsPaginatedState.byId[id];
+      const _selected = !!id
+        ? communicationSentGroupConfigsPaginatedState.byId[id]
+        : null;
       if (!!_selected) {
         setSelected(_selected);
-        goToSelected(id);
+        !!id && goToSelected(id);
       } else {
         setSelected(null);
       }
@@ -124,11 +125,10 @@ const CommunicationSentGroupConfigListReworked: React.FC<Props> = ({
     createCommunicationSentGroupConfig(
       { ...communicationSentGroupConfig, to_all_members: true },
       {
-        onSuccess: (
-          newCommunicationSentGroupConfig: CommunicationSentGroupConfig,
-        ) => {
+        onSuccess: (newCommunicationSentGroupConfig) => {
           options?.onSuccess?.();
-          goToEdit(newCommunicationSentGroupConfig.id);
+          !!newCommunicationSentGroupConfig?.id &&
+            goToEdit(newCommunicationSentGroupConfig.id);
         },
       },
     );
@@ -142,12 +142,12 @@ const CommunicationSentGroupConfigListReworked: React.FC<Props> = ({
     handleCloseCreationDialog();
     updateCommunicationSentGroupConfig(selectedId, {
       ...communicationSentGroupConfig,
-      ...(selected.to_all_members
+      ...(selected?.to_all_members
         ? {
             to_all_members: selected.to_all_members,
           }
         : {
-            smartlists: selected.smartlists,
+            smartlists: selected?.smartlists ?? [],
           }),
     });
   };
@@ -160,10 +160,14 @@ const CommunicationSentGroupConfigListReworked: React.FC<Props> = ({
   };
   const handleDuplicateCommunicationSentGroupConfig = (id: number) =>
     duplicateCommunicationSentGroupConfig(id, {
-      onSuccess: (communicationSentGroupConfig: CommunicationSentGroupConfig) =>
+      onSuccess: (communicationSentGroupConfig) =>
         fetchAllCommunicationSentGroupConfigPaginated(
           { page: 1 },
-          { onSuccess: () => goToEdit(communicationSentGroupConfig.id) },
+          {
+            onSuccess: () =>
+              communicationSentGroupConfig?.id &&
+              goToEdit(communicationSentGroupConfig.id),
+          },
         ),
     });
 
@@ -183,7 +187,8 @@ const CommunicationSentGroupConfigListReworked: React.FC<Props> = ({
       return searchResults.map((result) => ({
         label: result.name,
         value: result.id,
-        onClick: () => goToSelectedCommunicationSentGroupConfig(result.id),
+        onClick: () =>
+          result?.id && goToSelectedCommunicationSentGroupConfig(result.id),
       }));
     },
     [goToSelectedCommunicationSentGroupConfig],
@@ -227,7 +232,10 @@ const CommunicationSentGroupConfigListReworked: React.FC<Props> = ({
                 onClick={handlSetSelected}
                 onClickDelete={handleDeleteCommunicationSentGroupConfig}
                 onClickDuplicate={handleDuplicateCommunicationSentGroupConfig}
-                onClickEdit={() => goToEdit(communicationSentGroupConfig.id)}
+                onClickEdit={() =>
+                  communicationSentGroupConfig?.id &&
+                  goToEdit(communicationSentGroupConfig.id)
+                }
                 selected={communicationSentGroupConfig?.id === selected?.id}
               />
             )}
@@ -306,7 +314,7 @@ const mapDispatchToProps = {
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
 
-export default compose(
+export default compose<Props, unknown>(
   routerParamsToProps({ campaignId: 'selectedId:number' }),
   withTranslation(['campaign']),
   withTitle(({ t }: { t: TFunction }) =>

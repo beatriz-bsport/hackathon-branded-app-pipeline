@@ -80,7 +80,7 @@ const PaginatedListBaseReworked: React.FC<Props> = ({
   }, []);
 
   const handleChange = React.useCallback(
-    (_: React.ChangeEvent, newPage: number) => {
+    (_: React.ChangeEvent<unknown>, newPage: number) => {
       onPageRequested({ page: newPage });
     },
     [onPageRequested],

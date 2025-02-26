@@ -1,0 +1,12 @@
+Validate MR Title:
+  image: node:22-alpine
+  stage: init
+  interruptible: true
+  tags:
+    - build-frontend
+    - cluster:bsport-tooling
+  script:
+    - chmod +x ./tools/ci/validate-mr-title.sh
+    - ./tools/ci/validate-mr-title.sh "$CI_MERGE_REQUEST_TITLE"
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"

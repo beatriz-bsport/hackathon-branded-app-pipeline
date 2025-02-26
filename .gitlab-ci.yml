@@ -6,6 +6,7 @@ variables:
   REGISTRY_NAME: bsport/bsport-ichizen-builder
 
 stages:
+  - init
   - prepare-builder
   - merge-request-open
   - analyze
@@ -13,6 +14,7 @@ stages:
   - deploy
 
 include:
+  - local: "/tools/ci/validate-mr-title.yml"
   - local: "/tools/ci/utilities.yml"
   - local: "/tools/ci/prepare-builder.yml"
   - local: "/tools/ci/merge-request-open.yml"

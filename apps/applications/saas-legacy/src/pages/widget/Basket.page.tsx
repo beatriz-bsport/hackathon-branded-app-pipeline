@@ -20,6 +20,7 @@ import { MaterialStyleType } from '../../utils/types';
 
 type OwnProps = {
   companyId: number;
+  // eslint-disable-next-line react/no-unused-prop-types
   companyName: string;
 };
 

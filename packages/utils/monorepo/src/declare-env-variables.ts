@@ -1,4 +1,12 @@
-import { execSync } from "node:child_process";
+import fs from "node:fs";
+import os from "node:os";
+
+type ActionParameters = {
+  filename: string;
+  name: string;
+  value: string;
+  overrideOnly?: boolean;
+};
 
 /**
  * Create or replace environement variable in specified file
@@ -13,25 +21,24 @@ export function declareEnvVariable({
   name,
   value,
   overrideOnly,
-}: {
-  filename: string;
-  name: string;
-  value: string;
-  overrideOnly?: boolean;
-}) {
+}: ActionParameters) {
   try {
-    // Exit if the variable does not exist and overrideOnly is true
-    const variableExists =
-      execSync(`cat ${filename} | grep ${name} | wc -l`)
-        .toString("utf-8")
-        .trim() !== "0";
-    if (overrideOnly && !variableExists) {
+    const envFileLines = fs.readFileSync(filename, "utf8").split(os.EOL);
+    const existingLine = envFileLines.find((line) => {
+      return line.toLowerCase().startsWith(name.toLowerCase());
+    });
+
+    if (overrideOnly && !existingLine) {
       return;
     }
-    // Drop line containing the variable if it exists
-    execSync(`sed -i '/${name}/d' ${filename}`);
-    // Write new line mapping name to value
-    execSync(`echo "${name}=${value}" >> ${filename}`);
+
+    const targetIndex = existingLine ? envFileLines.indexOf(existingLine) : 0;
+
+    // replace the name/value with the new value
+    envFileLines.splice(targetIndex, 1, `${name}=${value}`);
+
+    // write everything back to the file system
+    fs.writeFileSync(filename, envFileLines.join(os.EOL));
   } catch (error) {
     console.error(error);
     throw new Error(

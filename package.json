@@ -13,7 +13,7 @@
   "license": "UNLICENSED",
   "author": "bsport<tech@bsport.io>",
   "scripts": {
-    "api-environment:set": "pnpm exec ts-node tools/monorepo-utils/src/index.ts api-environment:set",
+    "api-environment:set": "ts-node tools/monorepo-utils/src/index.ts api-environment:set",
     "build": "nx build",
     "build:all": "nx run-many --all --target=build",
     "federate:navigation": "pnpm exec nx build @bsport/navigation-sidebar > /dev/null 2>&1 && pnpm exec nx preview @bsport/navigation-sidebar",

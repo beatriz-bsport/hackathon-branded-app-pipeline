@@ -19,6 +19,7 @@ import type { WithTooltip } from "@bsport/kaizen-primitive-core/dist/components/
 
 import { ARCHIVED_GROUP_ACTIVITIES_PATH } from "#src/constants";
 import { useGroupActivityModals } from "#src/hooks/useGroupActivityModals";
+import { compact } from "lodash";
 
 const GroupActivitiesList: React.FC = () => {
   const { t } = useTranslation("groupActivity");
@@ -38,49 +39,46 @@ const GroupActivitiesList: React.FC = () => {
   const { archiveModal, duplicateModal, onClickArchive, onClickDuplicate } =
     useGroupActivityModals({ currentPage, fetchData, rowsPerPage });
 
-  const renderedGroupActivities: ListItemProps[] = useMemo(
+  const renderedGroupActivities = useMemo<ListItemProps[]>(
     () =>
       groupActivities.map(
         ({ on_booking_notification, is_broadcast, id, name }) => {
           // Define the notification chip if there are booking notifications
-          const notificationChip = on_booking_notification?.length
-            ? {
-                color: "default",
-                label: t("list.enabled.item.notifications.title"),
-                size: "lg", // Explicitly set size to "lg"
-                type: "weak",
-                iconLeft: "bell-ringing-04",
-                tooltipProps: {
-                  label: t("list.enabled.item.notifications.popoverLabel"),
-                  placement: "bottom",
-                },
-              }
-            : undefined;
+          const notificationChip: WithTooltip<ListItemChipsProps> | undefined =
+            on_booking_notification?.length
+              ? {
+                  color: "default",
+                  label: t("list.enabled.item.notifications.title"),
+                  size: "lg", // Explicitly set size to "lg"
+                  type: "weak",
+                  iconLeft: "bell-ringing-04",
+                  tooltipProps: {
+                    label: t("list.enabled.item.notifications.popoverLabel"),
+                    placement: "bottom",
+                  },
+                }
+              : undefined;
 
           // Define the broadcast chip if the activity is a broadcast
-          const broadcastChip = is_broadcast
-            ? {
-                color: "default",
-                label: t("list.enabled.item.livestream.title"),
-                size: "lg", // Explicitly set size to "lg"
-                type: "weak",
-                iconLeft: "video-recorder",
-                tooltipProps: {
-                  label: t("list.enabled.item.livestream.popoverLabel"),
-                  placement: "bottom",
-                },
-              }
-            : undefined;
+          const broadcastChip: WithTooltip<ListItemChipsProps> | undefined =
+            is_broadcast
+              ? {
+                  color: "default",
+                  label: t("list.enabled.item.livestream.title"),
+                  size: "lg", // Explicitly set size to "lg"
+                  type: "weak",
+                  iconLeft: "video-recorder",
+                  tooltipProps: {
+                    label: t("list.enabled.item.livestream.popoverLabel"),
+                    placement: "bottom",
+                  },
+                }
+              : undefined;
 
-          // Determine the chips array based on the presence of notification and broadcast chips
-          const chips = (() => {
-            if (notificationChip && broadcastChip) {
-              return [notificationChip, broadcastChip];
-            }
-            if (notificationChip) return [notificationChip];
-            if (broadcastChip) return [broadcastChip];
-            return [];
-          })() as WithTooltip<
+          const chips = compact([
+            notificationChip,
+            broadcastChip,
+          ]) as WithTooltip<
             [ListItemChipsProps] | [ListItemChipsProps, ListItemChipsProps]
           >;
 

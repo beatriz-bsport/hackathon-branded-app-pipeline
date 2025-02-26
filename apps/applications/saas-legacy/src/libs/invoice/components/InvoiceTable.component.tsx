@@ -60,6 +60,7 @@ import {
 import type { OptionCallback } from '../../../state/types';
 import { getReceiptUrl as getReceiptUrlAPI } from '../api';
 import { ExportInvoiceStatus } from '#src/libs/invoice/constants';
+import { downloadDocument } from '#src/utils/downloader';
 
 type Props = {
   applyGiftcardOnInvoice: (
@@ -171,7 +172,7 @@ const InvoiceRow: React.FC<Props> = React.memo((props) => {
         },
         onSuccess: (inv: InvoiceV1Serializer) => {
           if (inv?.exported_invoice_file_path) {
-            window.open(inv.exported_invoice_file_path, '_blank');
+            downloadDocument(inv.exported_invoice_file_path);
           }
           setProcessing(false);
         },

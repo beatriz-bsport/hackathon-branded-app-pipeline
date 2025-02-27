@@ -1,8 +1,11 @@
 import type { TFunction } from 'i18next';
 import type { FeatureList, UpsellPackage } from '#src/libs/company/types';
 
+import Config from '#src/config';
 import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
 import { UPSELL_IDENTIFIER_SMS } from './upsell-identifiers';
+
+import { STRIPE_TEST_VAT_IDS } from './constant';
 
 export const hasUpsell = (
   featureList: FeatureList,
@@ -31,3 +34,19 @@ export function getUpsellPriceString(
     price_cts: getCurrencyDisplayWithPrice(upsellPackage.price_cts / 100),
   });
 }
+
+/**
+ * The simplified format of an EU VAt id is two letters followed by 8 to 12 characters.
+ * Its exact format will depend on the company country.
+ */
+export const isValidEuVatId = (vatId: string): boolean => {
+  // Stripe test VAT Ids don't respect regex
+  if (
+    STRIPE_TEST_VAT_IDS.includes(vatId) &&
+    Config.REACT_APP_SENTRY_ENVIRONMENT !== 'production'
+  )
+    return true;
+
+  const regex = /^[A-Z]{2}.{8,12}$/;
+  return regex.test(vatId);
+};

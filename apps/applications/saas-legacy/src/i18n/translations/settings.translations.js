@@ -363,6 +363,17 @@ exports.default = {
       },
     },
   },
+  platformCustomerEntity: {
+    vatId: {
+      title: 'VAT identification number',
+      descriptionPart1:
+        'bsport requires your VAT number (also known as a VAT registration number or intracommunity VAT number) to include it on invoices we issue to you.',
+      descriptionPart2:
+        'If your business is based in the EU (excluding France) and has a registered VAT number, providing it is mandatory to apply the reverse-charge mechanism, ensuring that VAT is not charged by bsport.',
+      update: 'Update VAT number',
+      errorChip: 'Missing valid VAT number',
+    },
+  },
   company: {
     stripe: { update: 'Update Stripe information' },
     bankAccountInfo: {

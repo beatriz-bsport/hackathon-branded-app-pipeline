@@ -147,6 +147,9 @@ import {
   removeItemInStorage,
   setItemInStorage,
 } from '../utils/storage';
+import { fetchPlatformCustomerEntity as fetchPlatformCustomerEntityAction } from '#src/libs/platform-billing/actions';
+
+import { RegularizingVatInformationDialog } from '#src/libs/platform-billing/components/RegularizingVatInformationDialog.component';
 
 import { retrieveCommunicationSMSProviderVerification } from '../libs/communication-v2/actions';
 const CompanyDetailPage = asyncComponent(() =>
@@ -292,6 +295,8 @@ type Props = {
   fetchAssociatedCoaches: () => void,
   fetchAllCoachPaymentRuleGroups: () => void,
   fetchAllPrivateSlots: () => void,
+  fetchPlatformCustomerEntity: () => void,
+  platformCustomerEntity: PlatformCustomerEntity,
   pushRouter: (string) => void,
 
   fetchTags: () => void,
@@ -471,6 +476,7 @@ export class Backoffice extends Component<Props, State> {
     displayLeftMenu: true,
     need_regularizing_failed_invoice_modal: false,
     need_regularizing_disputed_invoice_modal: false,
+    need_regularizing_vat_information_modal: false,
   };
 
   countAlerting: number = 0;
@@ -531,6 +537,7 @@ export class Backoffice extends Component<Props, State> {
         this.props.retrieveStripeAccountStatus();
       },
     });
+    this.props.fetchPlatformCustomerEntity();
     const { language } = i18n;
     setLuxonLocale(language);
   }
@@ -628,6 +635,15 @@ export class Backoffice extends Component<Props, State> {
     }
   };
 
+  checkVatInformation = () => {
+    if (
+      this.props.platformCustomerEntity.is_vat_id_collection_required &&
+      this.props.platformCustomerEntity.is_valid_vat_id_missing
+    ) {
+      this.setState({ need_regularizing_vat_information_modal: true });
+    }
+  };
+
   checkStripeAccountConfiguration = () => {
     switch (this.props.stripeAccountStatus?.action) {
       case BLOCK_BACKOFFICE:
@@ -646,6 +662,7 @@ export class Backoffice extends Component<Props, State> {
         break;
 
       default:
+        this.checkVatInformation();
         break;
     }
   };
@@ -698,7 +715,10 @@ export class Backoffice extends Component<Props, State> {
 
   redirectToCompanySettings = () => {
     this.props.pushRouter('/settings/company');
-    this.setState({ need_configuring_stripe_account_dialog: false });
+    this.setState({
+      need_configuring_stripe_account_dialog: false,
+      need_regularizing_vat_information_modal: false,
+    });
   };
 
   deleteAlert = (alert_kind: number, id: number) =>
@@ -930,6 +950,18 @@ export class Backoffice extends Component<Props, State> {
             </GenericResponsiveDialog>
           </div>
         )}
+        <GenericResponsiveDialog
+          open={this.state.need_regularizing_vat_information_modal}
+        >
+          <RegularizingVatInformationDialog
+            cancel={() => {
+              this.setState({
+                need_regularizing_vat_information_modal: false,
+              });
+            }}
+            goNext={this.redirectToCompanySettings}
+          />
+        </GenericResponsiveDialog>
         {this.props.stripeAccountStatus && (
           <GenericResponsiveDialog
             open={!!this.state.need_configuring_stripe_account_dialog}
@@ -1043,6 +1075,10 @@ export default compose(
       stripeCompany: state.company.stripeCompany.data,
       platformSubscriptionPaymentStatus:
         state.platformBilling.subscriptionPaymentStatus.data,
+      platformCustomerEntity:
+        state.platformBilling.platformCustomerEntity?.data,
+      platformCustomerEntityLoading:
+        state.platformBilling.platformCustomerEntity?.loading,
       stripeAccountStatus: state.company.stripeAccountStatus.data,
       establishmentsSelectedInRole: getEstablishmentsSelectedInRole(state),
     }),
@@ -1108,6 +1144,7 @@ export default compose(
       updateTutorialLessonViewedStatus,
       checkMemberInEstablishment: checkMemberInEstablishmentAction,
 
+      fetchPlatformCustomerEntity: fetchPlatformCustomerEntityAction,
       getStripeOnboardingPending,
       retrieveCommunicationSMSProviderVerification,
     },

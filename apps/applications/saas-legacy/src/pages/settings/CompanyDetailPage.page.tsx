@@ -14,7 +14,10 @@ import {
   snackbarError as snackbarErrorAction,
   snackbarSuccess as snackbarSuccessAction,
 } from '#src/libs/snackbar/actions';
-
+import {
+  updatePlatformCustomerEntityVatInformation as updatePlatformCustomerEntityVatInformationAction,
+  fetchPlatformCustomerEntity as fetchPlatformCustomerEntityAction,
+} from '#src/libs/platform-billing/actions';
 import {
   attachExternalAccount as attachExternalAccountAction,
   retrieveMyCompanySetup as retrieveMyCompanySetupAction,
@@ -77,6 +80,7 @@ export class CompanyDetailPage extends Component<Props> {
           },
         );
       this.props.retrievePayPalCompany();
+      this.props.fetchPlatformCustomerEntity();
     }
   }
   hasBeenRedirectedAfterCompletePayPalOnboarding = () => {
@@ -103,13 +107,20 @@ export class CompanyDetailPage extends Component<Props> {
       paypalIsAvailableInCountry,
       featureList,
       fetchPayPalOnboardingLink,
+      platformCustomerEntity,
+      platformCustomerEntityLoading,
+      updatePlatformCustomerEntityVatInformation,
       attachExternalAccount,
       redirectToPlatformBilling,
       updateCompanyDetail,
+      fetchPlatformCustomerEntity,
     } = this.props;
 
     const isLoading =
-      !companySetup || paypalCompanyStatusIsLoading || themeLoading;
+      !companySetup ||
+      paypalCompanyStatusIsLoading ||
+      themeLoading ||
+      platformCustomerEntityLoading;
 
     return (
       <div className={classes.container}>
@@ -122,8 +133,13 @@ export class CompanyDetailPage extends Component<Props> {
                 attachExternalAccount={attachExternalAccount}
                 company={companySetup}
                 currency={companySetup.currency}
+                fetchPlatformCustomerEntity={fetchPlatformCustomerEntity}
                 onSuccessDialogConfirmed={redirectToPlatformBilling}
+                platformCustomerEntity={platformCustomerEntity}
                 updateCompanyDetail={updateCompanyDetail}
+                updatePlatformCustomerEntityVatInformation={
+                  updatePlatformCustomerEntityVatInformation
+                }
               />
             </Paper>
             {paypalIsAvailableInCountry &&
@@ -168,6 +184,9 @@ const styles = (theme: Theme) =>
 const connector = connect(
   (state: RootState) => ({
     companySetup: state.company.setup,
+    platformCustomerEntity: state.platformBilling.platformCustomerEntity?.data,
+    platformCustomerEntityLoading:
+      state.platformBilling.platformCustomerEntity?.loading,
     paypalCompanyStatusIsLoading: state.company.paypalCompanyStatus.loading,
     paypalAccountStatus: state.company.paypalCompanyStatus.data?.account_status,
     paypalAccountStatusError: state.company.paypalCompanyStatus.error,
@@ -186,6 +205,9 @@ const connector = connect(
   }),
   {
     retrieveMyCompanySetup: retrieveMyCompanySetupAction,
+    fetchPlatformCustomerEntity: fetchPlatformCustomerEntityAction,
+    updatePlatformCustomerEntityVatInformation:
+      updatePlatformCustomerEntityVatInformationAction,
     retrievePayPalCompany: retrievePayPalCompanyAction,
     fetchPayPalOnboardingLink: fetchPayPalOnboardingLinkAction,
     updateCompanyDetail: () => push('/settings/company_onboarding'),
@@ -199,7 +221,7 @@ const connector = connect(
 );
 export default compose(
   withStyles(styles),
-  withTranslation(['settings']),
+  withTranslation(['settings', 'platformBilling']),
   withTitle(({ t }) => t('tab.company')),
   withQueryParams([
     [

@@ -14,6 +14,7 @@ import {
   retrievePlatformSubscriptionPaymentStatusActions,
   subscribeUpsellPackageActions,
   fetchUpsellPackageActions,
+  fetchPlatformCustomerEntityActions,
 } from './actions';
 
 const initialState = Immutable({
@@ -43,6 +44,11 @@ const initialState = Immutable({
     error: null,
   },
   platformBillingGroup: {
+    data: null,
+    loading: false,
+    error: null,
+  },
+  platformCustomerEntity: {
     data: null,
     loading: false,
     error: null,
@@ -262,6 +268,15 @@ export default handleActions(
           ['billingStage', 'allIds'],
           payload.map((ups) => ups.id),
         );
+    },
+    [fetchPlatformCustomerEntityActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['platformCustomerEntity', 'loading'], payload);
+    },
+    [fetchPlatformCustomerEntityActions.error]: (state, { payload }) => {
+      return state.set(['platformCustomerEntity', 'error'], payload);
+    },
+    [fetchPlatformCustomerEntityActions.success]: (state, { payload }) => {
+      return state.setIn(['platformCustomerEntity', 'data'], payload);
     },
     [subscribeUpsellPackageActions.isLoading]: (state, { payload }) => {
       return state.setIn(['upsellPackage', 'loading'], payload);

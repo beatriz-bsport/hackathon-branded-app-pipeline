@@ -18,10 +18,16 @@ import {
   payInvoice as payInvoiceAPI,
   retrievePlatformSubscriptionPaymentStatusAPI,
   subscribeUpsellPackage as subscribeUpsellPackageAPI,
+  fetchPlatformCustomerEntity as fetchPlatformCustomerEntityAPI,
+  updatePlatformCustomerEntityVatInformation as updatePlatformCustomerEntityVatInformationAPI,
 } from './api';
 
 import { snackbarError, snackbarSuccess } from '../snackbar/actions';
-import { PlatformSubscriptionPaymentStatus } from './type';
+import {
+  PlatformSubscriptionPaymentStatus,
+  UpdatePlatformCustomerEntityVatInformationParams,
+  PlatformCustomerEntity,
+} from './type';
 
 import type { Dispatch, OptionCallback } from '../../state/types';
 
@@ -299,6 +305,51 @@ export function requestUpsellPackage(
       if (options && options.onError) options.onError();
     }
     dispatch(requestUpsellPackageActions.isLoading(false));
+  };
+}
+
+export const fetchPlatformCustomerEntityActions = {
+  isLoading: createAction('PLATFORM_CUSTOMER_ENTITY/FETCH/IS_LOADING'),
+  error: createAction('PLATFORM_CUSTOMER_ENTITY/FETCH/ERROR'),
+  success: createAction('PLATFORM_CUSTOMER_ENTITY/FETCH/SUCCESS'),
+};
+
+export function fetchPlatformCustomerEntity(
+  options?: OptionCallback<PlatformCustomerEntity>,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(fetchPlatformCustomerEntityActions.isLoading(true));
+    dispatch(fetchPlatformCustomerEntityActions.error(null));
+    try {
+      const response = await fetchPlatformCustomerEntityAPI();
+
+      dispatch(fetchPlatformCustomerEntityActions.success(response.data));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
+    } catch (err) {
+      console.error(err);
+      dispatch(fetchPlatformCustomerEntityActions.error(err));
+      if (options && options.onError) options.onError();
+    }
+    dispatch(fetchPlatformCustomerEntityActions.isLoading(false));
+  };
+}
+
+export function updatePlatformCustomerEntityVatInformation(
+  params: UpdatePlatformCustomerEntityVatInformationParams,
+  options: OptionCallback,
+) {
+  return async (_dispatch: Dispatch) => {
+    try {
+      await updatePlatformCustomerEntityVatInformationAPI(params);
+      if (options && options.onSuccess) {
+        options.onSuccess();
+      }
+    } catch (err) {
+      console.error(err);
+      if (options && options.onError) options.onError();
+    }
   };
 }
 

@@ -24,6 +24,8 @@ export const BETA_UPSELL_IDS = [
   UPSELL_IDENTIFIER_QUICKSALE,
 ];
 
+export const STRIPE_TEST_VAT_IDS = ['111111111', '222222222', '000000000'];
+
 /**
  * @description These identifiers represent upsells that have been available to customers in the past,
  * but should no longer be available for purchase anymore.

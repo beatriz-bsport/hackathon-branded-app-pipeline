@@ -2,9 +2,13 @@ import {
   UpsellPackage,
   UpsellPackageSubscribedAPI,
 } from '#src/libs/company/types';
-import { getAuth, postAuth, buildUrlParams } from '../../http';
+import { getAuth, postAuth, patchAuth, buildUrlParams } from '../../http';
 
 import Config from '../../config';
+import {
+  PlatformCustomerEntity,
+  UpdatePlatformCustomerEntityVatInformationParams,
+} from '#src/libs/platform-billing/type';
 
 const API_V1_URI = Config.REACT_APP_BASE_URI_FINANCIAL_SERVICES_V1;
 
@@ -72,6 +76,37 @@ export const requestUpsellPackage = (upsell_identifier: number) => {
   return postAuth<UpsellPackage>(
     `${API_V1_URI}/platform_billing/upsell_package/request_upsell_by_identifier/`,
     { upsell_identifier },
+  );
+};
+
+/**
+ * Fetches the platform customer entity related to the authenticated manager
+ *
+ * @returns - A promise that resolves to a PlatformCustomerEntity object.
+ */
+export const fetchPlatformCustomerEntity = () => {
+  return getAuth<PlatformCustomerEntity>(
+    `${API_V1_URI}/platform_billing/platform_customer_entity/me/`,
+  );
+};
+
+/**
+ * Update the VAT id information of platform customer entity related to the authenticated manager
+ *
+ * @param params - The query parameters:
+ *      - vat_id: a string corresponding to the customer VAT id. (optional)
+ *      - has_attributed_vat_id: a boolean indicating whether the customer has an attributed VAT id. (required)
+ */
+
+export const updatePlatformCustomerEntityVatInformation = (
+  params: UpdatePlatformCustomerEntityVatInformationParams,
+) => {
+  return patchAuth(
+    `${API_V1_URI}/platform_billing/platform_customer_entity/me/update_vat_information/`,
+    {
+      ...(params?.vatId && { vat_id: params.vatId }),
+      has_attributed_vat_id: params.hasAttributedVatId,
+    },
   );
 };
 

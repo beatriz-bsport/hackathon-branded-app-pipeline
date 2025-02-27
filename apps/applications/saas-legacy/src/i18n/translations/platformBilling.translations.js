@@ -26,6 +26,32 @@ exports.default = {
     },
     bill: 'Complete payment',
   },
+  platformCustomerEntity: {
+    vatId: {
+      dialog: {
+        title: 'VAT identification number',
+        errorChip: 'Missing valid VAT ID',
+        invalidFormat: 'Invalid format',
+        content:
+          'bsport requires your VAT number (also known as a VAT registration number or intracommunity VAT number) to include it on invoices we issue to you.',
+        vatIdLabel: 'VAT identification number',
+        hasAttributedVatIdLabel:
+          'I do not have a registered VAT number. If your business is based in the EU (excluding France), the reverse-charge mechanism will not apply and bsport will charge French VAT rates (20%).',
+        update: 'Update VAT number',
+        actions: {
+          cancel: 'Cancel',
+          save: 'Save',
+        },
+      },
+      alert: {
+        title: 'Missing valid VAT number',
+        text: 'You have not provided a VAT number, or the one you have provided is not valid',
+        description:
+          'bsport requires your VAT number (also known as a VAT registration number or intracommunity VAT number) to include it on invoices we issue to you.',
+        update: 'Update VAT number',
+      },
+    },
+  },
   upsellPackage: {
     billOnce: '{{ price_cts }}',
     vod: { explainBilling: '  +{{currencyDisplay }}1 / active client' },

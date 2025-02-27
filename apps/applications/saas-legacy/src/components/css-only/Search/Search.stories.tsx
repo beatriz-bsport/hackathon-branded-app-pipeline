@@ -7,6 +7,7 @@ import ClickableItem from '#src/components/css-only/ClickableItem';
 import { contractListFactory } from '#src/libs/subscription/factory';
 import { useMarketplaceSearchContractData } from './hooks';
 import { BaseAdditionalData, SearchItemData } from './Search.component';
+import { ComponentStory } from '@storybook/react';
 
 const contractList = contractListFactory(10);
 
@@ -34,15 +35,10 @@ const CustomTemplateComponent = (args: Props) => {
   );
 };
 
-const CustomTemplate = (args: Props) => {
+const CustomTemplate: ComponentStory<typeof CustomTemplateComponent> = (
+  args: Props,
+) => {
   return <CustomTemplateComponent {...args} />;
-};
-
-export const SubscriptionsSearch = CustomTemplate.bind({});
-SubscriptionsSearch.args = {
-  contractList,
-  showContractDetail: () => {},
-  addContractToBasket: () => {},
 };
 
 export default {
@@ -61,3 +57,5 @@ export default {
     },
   },
 };
+
+export const SubscriptionsSearch = CustomTemplate.bind({});

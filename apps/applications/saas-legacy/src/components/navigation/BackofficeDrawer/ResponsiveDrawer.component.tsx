@@ -177,14 +177,14 @@ const ResponsiveDrawer: React.FC<Props> = ({
   hasLimitedAccesToAudience,
 }) => {
   const { t } = useTranslation(['navigation']);
-  const classes = useStyles({ iconsOnly });
+  const classes = useStyles({ iconsOnly: !!iconsOnly });
 
   const [toggledMenu, setToggledMenu] = useState<Record<number, boolean>>({});
 
   const handleToggle = React.useCallback(
     (i: number, item: DrawerItem) => () => {
       const newToggledMenu = {
-        [i]: !toggledMenu?.[i] ?? false,
+        [i]: !toggledMenu?.[i] || false,
       };
 
       setToggledMenu(newToggledMenu);
@@ -198,7 +198,7 @@ const ResponsiveDrawer: React.FC<Props> = ({
   const closeTab = () => {
     window.close();
   };
-  const prevIconOnly = usePrevious(iconsOnly);
+  const prevIconOnly = usePrevious(!!iconsOnly);
 
   const accessMonitoringItem = React.useMemo(() => {
     if (

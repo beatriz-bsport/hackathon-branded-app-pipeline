@@ -42,8 +42,8 @@ export const CalendarDay: React.FC<Props> = ({
     return day <= endDatetime && day >= startDatetime;
   });
 
-  const isDayInRange = isDayInRangeOf?.length > 0 ?? false;
-  const classes = useStyles(isDayInRangeOf?.length ?? 0)();
+  const isDayInRange = isDayInRangeOf.length > 0;
+  const classes = useStyles(isDayInRangeOf.length ?? 0)();
 
   const isDisabled = !day.hasSame(dateSelected, 'month');
   const isSelected = day.hasSame(dateSelected, 'day');

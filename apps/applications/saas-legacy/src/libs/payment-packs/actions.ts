@@ -378,7 +378,7 @@ export const fetchMarketplacePacksAction = {
 
 export function fetchMarketplacePacks(
   params: any,
-  options?: OptionCallback,
+  options?: OptionCallback<PaymentPack[]>,
 ): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(fetchMarketplacePacksAction.isLoading(true));
@@ -458,13 +458,13 @@ export function fetchPaymentPackBulk(
 
 export function fetchPaymentPackBulkWidget(
   ids: Array<number>,
-  options?: OptionCallback<PaymentPack[]>,
+  options?: OptionCallback<PaginatedResponse<PaymentPack>>,
 ): ThunkAction {
   return async () => {
     const ids_uniq = uniq((ids ?? []).filter((_id) => !!_id));
     if (ids_uniq.length === 0) {
       if (options && options.onSuccess) {
-        options.onSuccess([]);
+        options.onSuccess();
       }
       return;
     }
@@ -498,7 +498,7 @@ export function fetchPaymentPackForBooking(
   company: number,
   page: number,
   page_size: number,
-  options?: OptionCallback,
+  options?: OptionCallback<PaginatedResponse<PaymentPack>>,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(paymentPackForBookingActions.isLoading(true));
@@ -516,7 +516,7 @@ export function fetchPaymentPackForBooking(
       });
       dispatch(paymentPackForBookingActions.success(response.data));
       if (options && options.onSuccess) {
-        options.onSuccess(response.data.results);
+        options.onSuccess(response.data);
       }
     } catch (error) {
       console.error(error);
@@ -690,24 +690,24 @@ export const resetDisabledPaymentPack = () =>
 
 export function fetchPaymentPackList(
   params: any = {},
-  options?: OptionCallback,
+  options?: OptionCallback<PaginatedResponse<PaymentPack>>,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(listPaymentPackActions.error(null));
     dispatch(listPaymentPackActions.isLoading(true));
     try {
       const response = await fetchPaymentPackListAPI(params);
-      dispatch(
-        listPaymentPackActions.success(response.data.results || response.data),
-      );
+      dispatch(listPaymentPackActions.success(response.data));
 
       if (options && options.onSuccess) {
-        options.onSuccess(response.data.results || response.data);
+        options.onSuccess(response.data);
       }
     } catch (err) {
       console.error(err);
       dispatch(listPaymentPackActions.error(err));
-      if (options && options.onError) options.onError(err);
+      if (options && options.onError) {
+        err instanceof Error ? options.onError(err) : options.onError();
+      }
     }
     dispatch(listPaymentPackActions.isLoading(false));
   };

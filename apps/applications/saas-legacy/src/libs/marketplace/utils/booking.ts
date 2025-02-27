@@ -122,7 +122,9 @@ export const getAddGuestTooltipText = (
   bookingGuestNumberLeft: number,
   t: TFunction,
 ) => {
-  if (bookableStatus === (undefined || null)) return '';
+  if (bookableStatus === undefined || bookableStatus === null) {
+    return '';
+  }
   if (!allowGuestOffer) {
     return t('booking:offer.bookingForAGuest.bookingStatus.guestNotAllowed');
   }

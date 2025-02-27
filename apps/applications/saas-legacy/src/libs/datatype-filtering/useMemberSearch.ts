@@ -86,7 +86,7 @@ const useMemberSearch = (
   // with different serializers but for this usecase, we only need name and consumer attributes
   const options: MemberSearchBarOptions = useMemo(
     () =>
-      ([...memberResults] ?? []).map((member) => ({
+      [...memberResults].map((member) => ({
         label: member?.name || '',
         value: member.consumer,
         member,

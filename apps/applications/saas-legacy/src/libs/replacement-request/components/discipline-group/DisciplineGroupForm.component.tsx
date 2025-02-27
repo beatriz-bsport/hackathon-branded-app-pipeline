@@ -209,7 +209,7 @@ export const DisciplineGroupForm: React.FC<Props> = ({
           setFieldValue('establishment_groups', []);
         };
         const selectOptionEstablishments = (
-          list: EstablishmentSelectOption[],
+          list: EstablishmentGroupSelectOption[],
         ) => {
           if (!list) {
             setFieldValue('establishments', []);
@@ -460,12 +460,19 @@ export const DisciplineGroupForm: React.FC<Props> = ({
                       {multiLocationChoice === MultilocationChoice.Locations ? (
                         <EstablishmentGroupSelector
                           isClearable
+                          closeMenuOnSelect={false}
                           establishmentGroups={establishmentGroupList}
                           placeholder={t(
                             'disciplineGroup.form.pickEstablishment',
                           )}
                           selectedEstablishmentGroups={establishment_groups}
-                          selectOption={selectOptionLocations}
+                          selectOption={
+                            selectOptionLocations as (
+                              list:
+                                | EstablishmentGroupSelectOption[]
+                                | EstablishmentGroupSelectOption,
+                            ) => void
+                          }
                         />
                       ) : (
                         <EstablishmentSelector
@@ -475,7 +482,14 @@ export const DisciplineGroupForm: React.FC<Props> = ({
                             'disciplineGroup.form.pickEstablishment',
                           )}
                           selectedEstablishments={establishments}
-                          selectOption={selectOptionEstablishments}
+                          selectOption={
+                            selectOptionEstablishments as (
+                              suggestion:
+                                | EstablishmentSelectOption[]
+                                | EstablishmentSelectOption
+                                | number,
+                            ) => void
+                          }
                         />
                       )}
                     </div>

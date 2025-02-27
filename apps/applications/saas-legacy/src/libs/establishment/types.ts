@@ -156,7 +156,6 @@ export type EstablishmentGroup = {
 export type EstablishmentGroupSelectOption = {
   label: string;
   value: number | string;
-  establishmentGroupList?: EstablishmentGroup[];
 };
 
 export type EstablishmentBillingGroup = {

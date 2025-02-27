@@ -8,7 +8,7 @@ import { Offer } from '#src/libs/offer/types';
 export const doTextSearch = (
   searchText: string,
   coaches: Array<Coach>,
-  establishments: Array<Establishment>,
+  establishments: Establishment[] | ReadonlyArray<Establishment>,
   metaActivities: Array<MetaActivity>,
   offers: Array<Offer>,
 ) => {

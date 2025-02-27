@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { DateTime } from 'luxon';
@@ -101,23 +101,32 @@ export const useConsumerPassDetailsCardHeaderData = ({
       ? `bs-${cssVariant}-details-card__header__list__item__icon--weak-color`
       : null;
 
-  const Icons: Record<string, React.ReactNode | null> = {
-    suspended: PauseCircle,
-    future: CalendarDate,
-    active: CalendarCheck02,
-    expired: X,
+  const getIcon = () => {
+    if (isSuspended) {
+      return <PauseCircle stroke="currentColor" />;
+    }
+    switch (availability) {
+      case 'future':
+        return <CalendarDate stroke="currentColor" />;
+      case 'active':
+        return <CalendarCheck02 stroke="currentColor" />;
+      case 'expired':
+        return <X stroke="currentColor" />;
+      default:
+        return undefined;
+    }
   };
-  const Icon = Icons[isSuspended ? 'suspended' : availability ?? ''];
 
   const usedCredits = totalCredits - creditsLeft;
-  const hideList = (!caption && availability === 'future') || !Icon || !label;
+  const hideList =
+    (!caption && availability === 'future') || !getIcon() || !label;
 
   return {
     caption,
     customClassName,
     customIconClassName,
     hideList,
-    Icon,
+    getIcon,
     label,
     usedCredits,
   };

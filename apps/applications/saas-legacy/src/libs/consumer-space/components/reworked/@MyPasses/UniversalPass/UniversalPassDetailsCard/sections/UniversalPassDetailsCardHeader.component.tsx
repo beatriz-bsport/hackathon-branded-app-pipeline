@@ -33,7 +33,7 @@ const UniversalPassDetailsCardHeader: React.FC<Props> = ({
   suspensionDate,
 }) => {
   const {
-    Icon,
+    getIcon,
     label,
     customClassName,
     usedCredits,
@@ -78,7 +78,7 @@ const UniversalPassDetailsCardHeader: React.FC<Props> = ({
             'bs-universal-pass-details-card__header__list__item',
             customClassName,
           )}
-          icon={<Icon stroke="currentColor" />}
+          icon={getIcon()}
           label={label}
         />
       </List>

@@ -1,7 +1,6 @@
 import React, { FocusEventHandler } from 'react';
 import chroma from 'chroma-js';
-import { compose } from 'recompose';
-import { withTranslation, WithTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import Immutable from 'seamless-immutable';
 import { colors } from '@bsport/common/lib/colors.js';
 import Select, { components } from 'react-select';
@@ -267,7 +266,7 @@ export type OwnProps = {
   onBlur?: FocusEventHandler<HTMLSelectElement>;
 };
 
-type Props = OwnProps & WithTranslation;
+type Props = OwnProps;
 export function EstablishmentSelector(props: Props) {
   const {
     closeMenuOnSelect,
@@ -291,9 +290,9 @@ export function EstablishmentSelector(props: Props) {
     selectMultipleOptions,
     selectOption,
     selectorClass,
-    t,
     targetParentElement,
   } = props;
+  const { t } = useTranslation('establishment');
   const roomsSelected =
     selectedEstablishments && !nullCurrentValue
       ? // @ts-expect-error
@@ -350,16 +349,12 @@ export function EstablishmentSelector(props: Props) {
   );
 }
 
-const EstablishmentSelectorComposed = compose<Props, OwnProps>(
-  withTranslation(['establishment']),
-)(EstablishmentSelector);
-
-export default EstablishmentSelectorComposed;
+export default EstablishmentSelector;
 
 export const EstablishmentSelectorControlled = (props: OwnProps) => {
   const [value, setValue] = React.useState(props.selectedEstablishments);
   return (
-    <EstablishmentSelectorComposed
+    <EstablishmentSelector
       {...props}
       selectedEstablishments={value}
       selectOption={(sList) => {

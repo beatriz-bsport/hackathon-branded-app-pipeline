@@ -30,7 +30,7 @@ const OfferFormTags = (props: Props) => {
     () =>
       tagList?.length
         ? tagList.filter(
-            (tag) => !selectedBlacklistTags?.includes(tag.id) ?? tag,
+            (tag) => !selectedBlacklistTags?.includes(tag.id) || tag,
           )
         : [],
     [selectedBlacklistTags, tagList],
@@ -39,7 +39,7 @@ const OfferFormTags = (props: Props) => {
     () =>
       tagList?.length
         ? tagList.filter(
-            (tag) => !selectedWhitelistTags?.includes(tag.id) ?? tag,
+            (tag) => !selectedWhitelistTags?.includes(tag.id) || tag,
           )
         : [],
     [selectedWhitelistTags, tagList],

@@ -22,9 +22,9 @@ export type CellData = {
   extra_data: { [key: string]: string | number | null };
 };
 
-export type CellConverter = (value: string | number | null) => {
+export type CellConverter = (value: string | number | undefined) => {
   cellProps?: { [key: string]: any };
-  value: string | number | null;
+  value: string | number | undefined;
 };
 
 export type SerializedRow = {

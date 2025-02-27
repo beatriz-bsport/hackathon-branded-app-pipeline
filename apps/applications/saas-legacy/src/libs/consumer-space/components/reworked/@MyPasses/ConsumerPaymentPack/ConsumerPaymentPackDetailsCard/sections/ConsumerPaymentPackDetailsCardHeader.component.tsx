@@ -33,7 +33,7 @@ const ConsumerPaymentPackDetailsCardHeader: React.FC<Props> = ({
   totalCredits,
 }) => {
   const {
-    Icon,
+    getIcon,
     label,
     customClassName,
     usedCredits,
@@ -79,7 +79,7 @@ const ConsumerPaymentPackDetailsCardHeader: React.FC<Props> = ({
             'bs-consumer-payment-pack-details-card__header__list__item',
             customClassName,
           )}
-          icon={<Icon stroke="currentColor" />}
+          icon={getIcon()}
           label={label}
         />
       </List>

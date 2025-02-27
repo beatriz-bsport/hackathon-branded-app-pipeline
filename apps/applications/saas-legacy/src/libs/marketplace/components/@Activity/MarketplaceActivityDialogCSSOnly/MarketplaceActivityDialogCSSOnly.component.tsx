@@ -21,7 +21,7 @@ export type Props = {
   companyTheme: CompanyTheme;
   open: boolean;
   metaActivities: { [key: number]: MetaActivity };
-  establishments: Array<Establishment>;
+  establishments: Establishment[];
   coaches: Array<Coach>;
   customLevels: Array<Level>;
   offer: Offer;

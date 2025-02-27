@@ -109,15 +109,29 @@ const initialState: Immutable.Immutable<CommunicationState> =
       byId: {},
       allIds: [],
     },
-    // @ts-expect-error
     inboxThread: {
       byId: {},
-      ...Object.fromEntries(
-        Object.values(ChatThreadKinds).map((threadKind) => [
-          threadKind,
-          { allIds: [], page: null, next_page: null, count: 0 },
-        ]),
-      ),
+      member: {
+        allIds: [],
+        page: null,
+        next_page: null,
+        count: 0,
+        loading: false,
+      },
+      offer: {
+        allIds: [],
+        page: null,
+        next_page: null,
+        count: 0,
+        loading: false,
+      },
+      smartlist: {
+        allIds: [],
+        page: null,
+        next_page: null,
+        count: 0,
+        loading: false,
+      },
       unreadAnswersCountsById: {},
       allUnreadAnswersCount: 0,
       currentThread: {
@@ -148,7 +162,7 @@ const initialState: Immutable.Immutable<CommunicationState> =
     },
   });
 
-export default handleActions<Immutable.Immutable<CommunicationState>>(
+export default handleActions<Immutable.Immutable<CommunicationState>, any>(
   {
     [sendCommunicationAction.isLoading.toString()]: (
       state,
@@ -164,7 +178,6 @@ export default handleActions<Immutable.Immutable<CommunicationState>>(
         .merge(
           {
             sent: {
-              // @ts-expect-error
               byId: { [payload.id]: payload },
             },
           },
@@ -172,7 +185,6 @@ export default handleActions<Immutable.Immutable<CommunicationState>>(
         )
         .setIn(
           ['sent', 'messageList', 'allIds'],
-          // @ts-expect-error
           [...state.sent.messageList.allIds, payload.id],
         );
     },
@@ -280,7 +292,6 @@ export default handleActions<Immutable.Immutable<CommunicationState>>(
       state,
       { payload },
     ) => {
-      // @ts-expect-error
       return state.merge({ sent: { byId: payload } }, { deep: true });
     },
     [flagAllUnreadCommunicationsAsReadInContextActions.error.toString()]: (
@@ -312,9 +323,8 @@ export default handleActions<Immutable.Immutable<CommunicationState>>(
       { payload },
     ) => {
       return state.setIn(
-        // @ts-expect-error
         ['company_communication_provider', payload.kind, 'error'],
-        // @ts-expect-error
+
         payload.error,
       );
     },
@@ -323,9 +333,8 @@ export default handleActions<Immutable.Immutable<CommunicationState>>(
       { payload },
     ) => {
       return state.setIn(
-        // @ts-expect-error
         ['company_communication_provider', payload.kind, 'loading'],
-        // @ts-expect-error
+
         payload.loading,
       );
     },
@@ -345,9 +354,8 @@ export default handleActions<Immutable.Immutable<CommunicationState>>(
       { payload },
     ) => {
       return state.setIn(
-        // @ts-expect-error
         ['company_communication_provider', payload.kind, 'update', 'error'],
-        // @ts-expect-error
+
         payload.error,
       );
     },
@@ -356,9 +364,8 @@ export default handleActions<Immutable.Immutable<CommunicationState>>(
       { payload },
     ) => {
       return state.setIn(
-        // @ts-expect-error
         ['company_communication_provider', payload.kind, 'update', 'loading'],
-        // @ts-expect-error
+
         payload.loading,
       );
     },
@@ -497,7 +504,7 @@ export default handleActions<Immutable.Immutable<CommunicationState>>(
       { payload }: { payload: UnreadAnswersCount[] },
     ) => {
       const allUnreadAnswersCount = payload.reduce<number>(
-        (total, current) => total + current?.unread_answers_count ?? 0,
+        (total, current) => total + current?.unread_answers_count || 0,
         0,
       );
 

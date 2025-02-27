@@ -16,7 +16,7 @@ const CardHeaders: React.FC<{
   headerDetails: {
     column_identifier: string;
     datatype: string;
-    column_value: null | number;
+    column_value?: number;
   }[];
   v2?: boolean;
   hasReportBeenGenerated?: boolean;
@@ -78,6 +78,7 @@ const CardHeaders: React.FC<{
                       </Typography>
                       <Typography
                         variant="h5"
+                        // @ts-expect-error Property 'cellProps' does not exist on type '{ value: any; }'
                         {...(converters[index](detail.column_value).cellProps ||
                           {})}
                       >
@@ -108,6 +109,7 @@ const CardHeaders: React.FC<{
                   </Typography>
                   <Typography
                     variant="h5"
+                    // @ts-expect-error Property 'cellProps' does not exist on type '{ value: any; }'
                     {...(converters[index](detail.column_value).cellProps ||
                       {})}
                   >

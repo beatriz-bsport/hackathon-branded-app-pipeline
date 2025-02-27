@@ -1,7 +1,6 @@
 // eslint-disable-next-line max-classes-per-file
 import React, { Component } from 'react';
 import memoize from 'lodash/memoize';
-import Immutable from 'seamless-immutable';
 import { connect } from 'react-redux';
 import { compose, withHandlers } from 'recompose';
 import { RouteChildrenProps, withRouter } from 'react-router';
@@ -83,7 +82,12 @@ import { fetchGroupsOfferBulk as fetchGroupsOfferBulkAction } from '#src/libs/gr
 
 import withTitle from '#src/hocs/with-title.hoc';
 
-import { Offer, OfferFilterData, Offer_FULL } from '#src/libs/offer/types';
+import {
+  Offer,
+  OfferFilterData,
+  OfferREST,
+  Offer_FULL,
+} from '#src/libs/offer/types';
 import {
   Establishment,
   EstablishmentGroup,
@@ -210,11 +214,11 @@ function withContainerWidthListener<
 
 type State = {
   offerId: number | null;
-  offer: Offer | null;
+  offer?: Offer | OfferREST | null;
   displayGroupPopup: (Offer_FULL & { redirect: string }) | null;
   filteredEstablishments: Array<Establishment> | null;
   filters: MarketplaceFilters;
-  offerSearchResult: { query: string; offerList: Offer[] | null };
+  offerSearchResult: { query: string; offerList: Offer[] | OfferREST[] | null };
 };
 
 export class MarketplaceCalendar extends Component<FinalProps, State> {
@@ -285,7 +289,7 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
     }
     try {
       const cardModeDisplayMinWidth = parseFloat(
-        this.props.config?.cardModeDisplayMinWidth,
+        this.props.config?.cardModeDisplayMinWidth as string,
       );
 
       return (this.props.containerWidth ?? 1240) > cardModeDisplayMinWidth;
@@ -482,10 +486,8 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
           : filteredEstablishmentIds;
 
         // @ts-expect-error
-        filteredEstablishments = Immutable<Array<Establishment>>(
-          this.props.establishments.filter((e: Establishment) =>
-            uniqueEstIds.includes(e.id),
-          ),
+        filteredEstablishments = this.props.establishments.filter((e) =>
+          uniqueEstIds.includes(e.id),
         );
       }
       this.setState({ filteredEstablishments });
@@ -598,7 +600,7 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
         ? this.props.metaActivitiesWorkshops
         : this.props.metaActivities;
       const establishments = this.state.filters.establishment_group__in?.length
-        ? this.state.filteredEstablishments
+        ? this.state.filteredEstablishments ?? []
         : this.props.establishments;
 
       const [
@@ -609,8 +611,9 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
       ] = doTextSearch(
         searchText,
         this.props.coaches,
-        establishments,
+        establishments as Establishment[] | ReadonlyArray<Establishment>,
         Object.values(metaActivities),
+        // @ts-expect-error mismatch between Offer, OfferRest, Offer_FULL
         this.props.offers,
       );
 
@@ -707,9 +710,10 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
           coaches={coaches}
           companyTheme={this.props.theme}
           customLevels={this.props.customLevels}
+          //@ts-expect-error
           establishments={
             this.state.filters.establishment_group__in?.length
-              ? this.state.filteredEstablishments
+              ? this.state.filteredEstablishments ?? []
               : establishments
           }
           group={this.props.group}
@@ -723,10 +727,11 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
               ? this.props.metaActivitiesWorkshops
               : metaActivities
           }
-          offer={this.state.offer}
+          offer={this.state.offer as Offer}
           // @ts-expect-error
           onClickBook={this.goToBook}
-          onClickBookOption={this.props.goToBookOption}
+          // @ts-expect-error
+          onClickBookOption={this.goToBookOption}
           onClose={this.closeOfferDialog}
           open={!!this.state.offerId}
         />

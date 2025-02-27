@@ -139,7 +139,7 @@ export type AssociatedCoachFilters = {
   with_workshop?: boolean;
   id__in?: number[];
   id__not_in?: number[];
-  has_coach_payment_rule_group_id?: boolean;
+  has_coach_payment_rule_group?: boolean;
   associated_coach__in?: number[];
 };
 

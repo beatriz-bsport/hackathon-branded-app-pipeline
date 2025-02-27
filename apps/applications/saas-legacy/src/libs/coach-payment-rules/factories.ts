@@ -46,7 +46,7 @@ export function coachPaymentRuleFactory(coachId?: number): CoachPaymentRule {
     exclude_cancelled_from_confirmed_bookings: randomBoolean(),
     excluded_payment_packs: randomArray(3),
     bonuses: randomBonusCoachPaymentRules(2),
-    associated_coach: [coachId] ?? randomArray(3),
+    associated_coach: coachId ? [coachId] : randomArray(3),
     private_associated_coach: randomArray(3),
   };
 }

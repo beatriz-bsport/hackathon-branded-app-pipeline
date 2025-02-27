@@ -28,7 +28,7 @@ export type Props = {
   price?: string;
   displayTax: boolean;
   // To investigate, taxes are decimal therefore strings.
-  tax?: number;
+  tax?: string | number;
 };
 
 const DetailsContainer = ({

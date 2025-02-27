@@ -1,6 +1,6 @@
 export type ErrorAndLoading = {
   loading: boolean;
-  error?: Error;
+  error?: Error | null;
 };
 
 export type WithPagination = {

@@ -173,10 +173,7 @@ import type {
   OfferConstraint,
 } from '#src/libs/booker-module/types';
 import type { PaymentCombo } from '#src/libs/payment-combo/types';
-import type {
-  Contract,
-  ContractWithPaymentPack,
-} from '#src/libs/subscription/types';
+import type { Contract } from '#src/libs/subscription/types';
 import OfferBookingWaitingList from '#src/libs/offer/components/OfferBookingWaitingList';
 import MarketplaceBookingBlockedReason from '#src/libs/marketplace/components/@Booking/MarketplaceBookingBlockedReason';
 import MarketplaceSpotSelector from '#src/libs/marketplace/components/@SpotScheduling/MarketplaceSpotSelector';
@@ -628,7 +625,7 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
       this.state.offersConstraint,
       this.props.consumerPaymentPackList,
       this.props.cppMaxoutBookings,
-      selectedOffers,
+      selectedOffers as OfferREST[],
       this.props.offer,
       this.props.offer?.timezone_name,
     );
@@ -722,36 +719,35 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
       .filter((offer) => offer.id !== this.props.offerId);
     const availablePaymentPacks = this.getAvailablePaymentPacks(
       selectedOffers,
-    ).filter(
-      (paymentPack: PaymentPack & MaxoutData) =>
-        paymentPack.exceedsBookingMaxout === false,
-    );
+    ).filter((paymentPack) => paymentPack.exceedsBookingMaxout === false);
     const availablePaymentPackCategories =
-      this.getAvailablePaymentPackCategories(availablePaymentPacks);
+      this.getAvailablePaymentPackCategories(
+        // TODO : REBUILD ALL THE COMMON FUNCTIONS AND PROPERLY TYPE THEM
+        // @ts-expect-error inconsistent type with PaymentPack
+        availablePaymentPacks,
+      );
     const availableComboPacks = this.getAvailableComboPacks(
       selectedOffers,
-    ).filter(
-      (comboPack: PaymentCombo & MaxoutData) =>
-        comboPack.exceedsBookingMaxout === false,
-    );
+    ).filter((comboPack) => comboPack.exceedsBookingMaxout === false);
 
     let availableContracts: Contract[] = [];
     if (this.state.selectedOffers.length <= 1) {
       // @ts-expect-error Inconsistent type with Contract
       availableContracts = this.getAvailableContracts(selectedOffers).filter(
-        (contract: ContractWithPaymentPack & MaxoutData) =>
-          contract.exceedsBookingMaxout === false,
+        (contract) => contract.exceedsBookingMaxout === false,
       );
     }
 
     const availablePaymentPacksWithoutCategory = availablePaymentPacks.filter(
-      (paymentPack: PaymentPack) => paymentPack.category === null,
+      (paymentPack) => paymentPack.categories === null,
     );
     if (
       this.props.bookingFunnelConfiguration?.current_pricing_option_ordering
     ) {
       const buyableItemCategories = buildBuyableItemCategories(
         availableContracts,
+        // TODO : REBUILD ALL THE COMMON FUNCTIONS AND PROPERLY TYPE THEM
+        // @ts-expect-error inconsistent type with PaymentCombo and PaymentPack
         availableComboPacks,
         availablePaymentPacksWithoutCategory,
         availablePaymentPackCategories,
@@ -837,8 +833,8 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
         (offerExtraData) => offerExtraData.offer.id !== this.props.offerId,
       );
     const newOfferConstraints = getOfferContraints(
-      // @ts-expect-error
       this.props.offer,
+      // @ts-expect-error type inconsistency between common and saas Offer_FULL | OfferRest
       selectedOffers,
       this.props.offerStatusById,
       /**
@@ -867,13 +863,7 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
     const selectedBuyableItemIdentifier =
       this.state.selectedItem.itemIdentifier;
 
-    type AvailableFunctionType = (
-      offers: OfferREST[],
-    ) => Array<BookerItem['data']>;
-
-    const mapIdentifierToFunction: {
-      [identifier: string]: AvailableFunctionType;
-    } = {
+    const mapIdentifierToFunction = {
       [CONSUMER_PAYMENT_PACK_IDENTIFIER]: this.getAvailableConsumerPack,
       [PAYMENT_PACK_BOOKING_FUNNEL_IDENTIFIER]: this.getAvailablePaymentPacks,
       [PAYMENT_COMBO_BOOKING_FUNNEL_IDENTIFIER]: this.getAvailableComboPacks,
@@ -1210,7 +1200,6 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
       isRegistered,
       isRegisteredWaitingList,
     } = getOfferFeature(
-      // @ts-expect-error
       this.props.offer,
       this.props.offerStatusById,
       this.props.theme.accept_double_booking,
@@ -1229,7 +1218,6 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
     let isBookingBlocked = !isBookable || blockedByTags || isBlockedByGroup;
     const { title, message, icon, color, isWaitingListOpenMainReason } =
       getMainOfferNotBookableReasonWithTitle(
-        // @ts-expect-error
         this.props.offer,
         this.props.offerStatusById[this.props.offerId],
         {
@@ -1266,11 +1254,11 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
     });
 
     const availableConsumerPacks = this.getAvailableConsumerPack().filter(
-      (consumerPack: ConsumerPaymentPack & MaxoutData) =>
-        consumerPack.exceedsBookingMaxout === false,
+      (consumerPack) => consumerPack.exceedsBookingMaxout === false,
     );
 
     this.setState({
+      // @ts-expect-error inconsistency between common and saas PaymentPack types
       availableConsumerPacks,
     });
 
@@ -1281,6 +1269,7 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
     ) {
       this.setState({
         selectedItem: {
+          // @ts-expect-error inconsistency between common and saas PaymentPack types
           data: availableConsumerPacks[0],
           itemIdentifier: CONSUMER_PAYMENT_PACK_IDENTIFIER,
         },
@@ -1850,10 +1839,8 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
                           this.getIsLoading()
                         }
                         displayTax={
-                          this.props.theme?.is_tax_excluded_in_marketplace
+                          !!this.props.theme?.is_tax_excluded_in_marketplace
                         }
-                        // @ts-expect-error
-                        isBookable={isBookable}
                         OfferSummaryComponent={
                           <div>
                             {this.getSortedSelectedOffersToDisplay().map(
@@ -1933,8 +1920,6 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
                       />
                     }
                     buyableItemCategories={this.state.buyableItemCategories}
-                    // @ts-expect-error
-                    companyTheme={this.props.theme}
                     hideCreditsForCustomers={
                       this.props.theme.hide_credits_for_customers
                     }
@@ -1943,7 +1928,7 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
                         .hide_unnecessary_compatible_purchase_method
                     }
                     isExcludingTax={
-                      this.props.theme.is_tax_excluded_in_marketplace
+                      !!this.props.theme.is_tax_excluded_in_marketplace
                     }
                     isLoading={this.getIsLoading()}
                     isShowBuyableItems={this.state.showBuyableItems}
@@ -1982,9 +1967,9 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
                     this.state.confirmLoading ||
                     this.getIsLoading()
                   }
-                  displayTax={this.props.theme?.is_tax_excluded_in_marketplace}
-                  // @ts-expect-error
-                  isBookable={isBookable}
+                  displayTax={
+                    !!this.props.theme?.is_tax_excluded_in_marketplace
+                  }
                   OfferSummaryComponent={
                     <div>
                       {this.getSortedSelectedOffersToDisplay().map(
@@ -2074,8 +2059,12 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
                       toggleSimilarOfferModal={this.toggleSimilarOfferModal}
                     />
                   }
-                  // @ts-expect-error
-                  tax={this.state.selectedItem?.data?.tax}
+                  tax={
+                    !!this.state.selectedItem &&
+                    'tax' in this.state.selectedItem?.data
+                      ? this.state.selectedItem?.data?.tax
+                      : undefined
+                  }
                   value={
                     isWaitingList
                       ? t(`booking:offer.mainButton.registerWaitingList`)
@@ -2142,17 +2131,9 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
 }
 
 const mapStateToProps = (state: RootState, props: OwnProps) => {
-  const offer: Offer<
-    Coach,
-    Establishment,
-    MetaActivity,
-    number,
-    number,
-    OffersGroup
-  > = withMetaActivity(withGroup(withCoach(withEstablishment(getOfferById))))(
-    state,
-    props.offerId,
-  );
+  const offer = withMetaActivity(
+    withGroup(withCoach(withEstablishment(getOfferById))),
+  )(state, props.offerId);
   const memberTagList = props.memberTagList || getMemberTagsIdsList(state);
   const authenticated = props.authenticated || state.auth.authenticated;
   const isGroupedOfferFullBookingOnly = offer?.group?.full_booking_only;
@@ -2164,14 +2145,12 @@ const mapStateToProps = (state: RootState, props: OwnProps) => {
     offerStatusLoading: state.offer.offerStatus.loading,
     consumerPaymentPackList: withPaymentPackForConsumer(
       getConsumerPaymentPackForBooking,
-    )(state) as ConsumerPaymentPack<PaymentPack>[],
+    )(state),
     paymentPackList: excludeUnaccessiblePacks(getPaymentPackForBooking)(state, {
       memberTagList,
       authenticated,
     }),
-    paymentComboList: withPaymentPackForCombo(getPaymentComboForBooking)(
-      state,
-    ) as PaymentCombo[],
+    paymentComboList: withPaymentPackForCombo(getPaymentComboForBooking)(state),
     paymentPackCategories: getAllPaymentPackCategory(state),
     contractList: withPaymentPackForContract(getContractForBooking)(state),
     bookingFunnelConfiguration: state.marketplace.bookingFunnel.configuration,

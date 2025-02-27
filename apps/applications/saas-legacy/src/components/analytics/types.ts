@@ -89,7 +89,7 @@ export type SessionFullPayload = {
   sessionId?: number;
 };
 
-export type SessionItem = OfferREST | Offer_FULL | Offer;
+export type SessionItem = OfferREST | Offer_FULL | Offer | undefined;
 
 export type BookingSuccess = {
   offersBooked: OfferBookingValidation[];

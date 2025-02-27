@@ -27,6 +27,7 @@ import {
   ContractWithPaymentPack,
   MaxoutData,
   MaxoutInfo,
+  OfferREST,
 } from './available-payment.type';
 
 export const getPaymentPackTimeLimitation = (
@@ -41,8 +42,8 @@ export const getPaymentPackTimeLimitation = (
   }
   if (validity_daterange) {
     const dateRange: {
-      lower: string,
-      upper: string,
+      lower: string;
+      upper: string;
     } = JSON.parse(validity_daterange);
     return {
       start: DateTime.fromISO(dateRange.lower),
@@ -76,7 +77,7 @@ export const getPaymentPackTimeLimitation = (
 export const getOfferContraints = (
   baseOffer: Offer_FULL,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  selectedOffers: Array<{ offer: Offer_FULL, extra_data: any }>,
+  selectedOffers: Array<{ offer: Offer_FULL; extra_data: any }>,
   offerStatusById: { [id: number]: OfferStatus },
   additionalGuestCount: number = 0,
   isBookingForInviteeOnly: boolean = false,
@@ -130,7 +131,7 @@ export const getCanIBook = (
   offerStatusById: { [id: number]: OfferStatus },
   baseOffer: Offer_FULL,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  selectedOffers: Array<{ offer: Offer_FULL, extra_data: any }>,
+  selectedOffers: Array<{ offer: Offer_FULL; extra_data: any }>,
   selectedPack: SelectedPack,
   acceptDoubleBooking: boolean,
   acceptDoubleBookingWorkshop: boolean,
@@ -238,11 +239,11 @@ export const getMainOfferNotBookableReason = (
     isRegisteredWaitingList,
     blockedByTags,
   }: {
-    isBookable: boolean,
-    isWaitingList: boolean,
-    isRegistered: boolean,
-    isRegisteredWaitingList: boolean,
-    blockedByTags: boolean,
+    isBookable: boolean;
+    isWaitingList: boolean;
+    isRegistered: boolean;
+    isRegisteredWaitingList: boolean;
+    blockedByTags: boolean;
   },
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   t: (x: string, data?: any) => string,
@@ -321,11 +322,11 @@ export const getMainOfferNotBookableReasonWithTitle = (
     isRegisteredWaitingList,
     blockedByTags,
   }: {
-    isBookable: boolean,
-    isWaitingList: boolean,
-    isRegistered: boolean,
-    isRegisteredWaitingList: boolean,
-    blockedByTags: boolean,
+    isBookable: boolean;
+    isWaitingList: boolean;
+    isRegistered: boolean;
+    isRegisteredWaitingList: boolean;
+    blockedByTags: boolean;
   },
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   t: (x: string, data?: any) => string,
@@ -452,8 +453,8 @@ export const getAvailableConsumerPack = memoize(
     offersConstraint: OfferConstraint,
     consumerPaymentPackList: ConsumerPaymentPack<PaymentPack>[],
     consumerPaymentPackMaxoutBooking: { [key: string]: MaxoutBooking },
-    selectedOffer: Offer_FULL[],
-    offer: Offer_FULL,
+    selectedOffer: Offer_FULL[] | OfferREST[],
+    offer: Offer_FULL | OfferREST,
     tz_name: string,
   ) => {
     const tzName = tz_name || 'Europe/Paris';
@@ -620,8 +621,8 @@ export const getAvailablePaymentPacks = memoize(
   (
     offersConstraint: OfferConstraint,
     paymentPackList: PaymentPack[],
-    selectedOffer: Offer_FULL[],
-    offer: Offer_FULL,
+    selectedOffer: Offer_FULL[] | OfferREST[],
+    offer: Offer_FULL | OfferREST,
     tz_name: string,
   ) => {
     const { credit, minDate, maxDate, mustAllowBookingForGuest } =
@@ -772,8 +773,8 @@ export const getAvailableComboPacks = memoize(
   (
     offersConstraint: OfferConstraint,
     paymentComboList: PaymentCombo[],
-    selectedOffers: Offer_FULL[],
-    offer: Offer_FULL,
+    selectedOffers: Offer_FULL[] | OfferREST[],
+    offer: Offer_FULL | OfferREST,
     tz_name: string,
   ) => {
     const { credit, minDate, maxDate, mustAllowBookingForGuest } =
@@ -828,8 +829,8 @@ export const getAvailableContracts = memoize(
   (
     offersConstraint: OfferConstraint,
     contractList: Array<ContractWithPaymentPack>,
-    selectedOffers: Offer_FULL[],
-    offer: Offer_FULL,
+    selectedOffers: Offer_FULL[] | OfferREST[],
+    offer: Offer_FULL | OfferREST,
     tz_name: string,
   ) => {
     const tzName = tz_name || 'Europe/Paris';

@@ -30,9 +30,11 @@ const contractFactory = (options?: ContractFactoryOptions) => {
   return {
     id: faker.number.int(10000),
     company: parseInt(faker.finance.accountNumber(4)),
-    payment_pack: options?.hasPaymentPack ? faker.number.int(10000) : null,
-    private_pass: options?.hasPrivatePass ? faker.number.int(10000) : null,
-    payment_combo: options?.hasPaymentCombo ? faker.number.int(10000) : null,
+    payment_pack: options?.hasPaymentPack ? faker.number.int(10000) : undefined,
+    private_pass: options?.hasPrivatePass ? faker.number.int(10000) : undefined,
+    payment_combo: options?.hasPaymentCombo
+      ? faker.number.int(10000)
+      : undefined,
     name: generateRandomName(faker),
     description: generateRandomDescription(faker, FakerTextLength.LONG),
     contract: faker.finance.accountNumber(4),
@@ -57,6 +59,7 @@ const contractFactory = (options?: ContractFactoryOptions) => {
     contract_template: options?.hasContractTemplate
       ? faker.number.int(10000)
       : null,
+    editable: options?.isEditable ?? false,
   };
 };
 

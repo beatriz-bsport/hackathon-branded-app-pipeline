@@ -151,7 +151,7 @@ export type Contract = {
   highlighted_as_recommended: boolean;
   tags_on_first_billing: number[];
   nb_interval_after_auto_renewal: number | null;
-  contract_template: number;
+  contract_template: number | null;
   editable: boolean;
 };
 
@@ -362,6 +362,7 @@ export type ContractFactoryOptions = {
   isUsableByStaff?: boolean;
   monthBillingDay?: number;
   isHighlightedAsRecommended?: boolean;
+  isEditable?: boolean;
 };
 
 export type RegisterBackgroundReturnValue = {

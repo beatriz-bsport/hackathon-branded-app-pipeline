@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { CommunicationDrawerWithStyles as CommunicationDrawer } from '#src/libs/communication-v2/components/CommunicationDrawer.component';
+import CommunicationDrawer from '#src/libs/communication-v2/components/CommunicationDrawer.component';
 import MembersFactory, {
   MemberFactory,
 } from '#src/libs/member/factories/Member';
@@ -13,6 +13,7 @@ import {
   CommunicationMessage,
   DrawerProps,
   Communication,
+  Recipient,
 } from '#src/libs/communication-v2/types';
 import { Member } from '#src/libs/member/types';
 import { tagCategories, tagListFactory } from '#src/libs/tag/factory';
@@ -33,9 +34,9 @@ import {
   COMMUNICATION_FILTER_SEND_PARAMETERS,
 } from '#src/libs/communication-v2/constants';
 import { useMediaQuery, useTheme } from '@material-ui/core';
+import { ComponentStory } from '@storybook/react';
 
 // UTILS JUST FOR STORYBOOK
-const randomBoolean = () => Math.random() > 0.5;
 const randomInt = (max: number): number => Math.ceil(Math.random() * max);
 const getAllRecipientsWithMember = (
   com: CommunicationMessage,
@@ -105,11 +106,6 @@ const getFilteredCommunicationMessageList = (
   return communicationsFiltered;
 };
 
-const themeForDrawer = {
-  hide_intercom: randomBoolean(),
-  is_two_way_email_activated: randomBoolean(),
-};
-
 // DATABASES FOR STORYBOOK
 const [emailTemplateDetailList, emailTemplateSummaryList] =
   EmailTemplateDetailSummaryListsFactory(6);
@@ -173,7 +169,9 @@ const WrapperWithState = (args: DrawerProps) => {
   };
 
   // ---------- RECIPIENTS PROPS ----------
-  const [informationRecipientList, setInformationRecipientList] = useState([]);
+  const [informationRecipientList, setInformationRecipientList] = useState<
+    Recipient<Member>[]
+  >([]);
   const [informationRecipientListCount, setInformationrecipientListCount] =
     useState(0);
   const loadingInformationRecipientList = false;
@@ -185,14 +183,14 @@ const WrapperWithState = (args: DrawerProps) => {
     const recipients =
       DATABASE_RECIPIENTS_WITH_MEMBERS_BY_COMMUNICATION_SENT.find(
         (element) => element.key === communication.id,
-      ).value;
+      )?.value;
     const range = [
       (page - 1) * PAGINATION_SIZE_RECIPIENTS,
-      Math.min(page * PAGINATION_SIZE_RECIPIENTS, recipients.length),
+      Math.min(page * PAGINATION_SIZE_RECIPIENTS, recipients?.length ?? 0),
     ];
-    const nextList = recipients.slice(range[0], range[1]);
+    const nextList = recipients?.slice(range[0], range[1]) ?? [];
     setInformationRecipientList(nextList);
-    setInformationrecipientListCount(recipients.length);
+    setInformationrecipientListCount(recipients?.length ?? 0);
   };
   const recipientsProps = {
     informationRecipientList,
@@ -275,7 +273,9 @@ const drawerProps = {
   communicationKindToWrite: Math.floor(Math.random() * 4),
 };
 
-const CustomTemplate = (args: DrawerProps) => <WrapperWithState {...args} />;
+const CustomTemplate: ComponentStory<typeof WrapperWithState> = (
+  args: DrawerProps,
+) => <WrapperWithState {...args} />;
 
 export const MemberContext = CustomTemplate.bind({});
 
@@ -283,7 +283,6 @@ MemberContext.args = {
   ...drawerProps,
   contextIdentifier: CONTEXT_MEMBER,
   contextMember: MemberFactory({ number_tags: 10 }, true),
-  theme: themeForDrawer,
 };
 
 export const NotificationContext = CustomTemplate.bind({});
@@ -293,7 +292,6 @@ NotificationContext.args = {
   contextIdentifier: CONTEXT_NOTIFICATION,
   contextTitle:
     "Le nom de l'object de ma push notif - essayons un text genre super long, .. ",
-  theme: themeForDrawer,
 };
 
 export const SessionContext = CustomTemplate.bind({});
@@ -302,19 +300,21 @@ SessionContext.args = {
   ...drawerProps,
   contextIdentifier: CONTEXT_OFFER,
   contextTitle: 'Le nom de ma séance',
-  allMemberCategoryList: [
-    {
-      categoryMemberIdList: [],
-      categoryLabel: 'Première catégorie',
-      categoryIdentifier: 1,
-    },
-    {
-      categoryMemberIdList: [],
-      categoryLabel: 'Seconde catégorie',
-      categoryIdentifier: 2,
-    },
-  ],
-  theme: themeForDrawer,
+  allMemberCategoryList: {
+    categories: [
+      {
+        categoryMemberIdList: [],
+        categoryLabel: 'Première catégorie',
+        categoryIdentifier: 1,
+      },
+      {
+        categoryMemberIdList: [],
+        categoryLabel: 'Seconde catégorie',
+        categoryIdentifier: 2,
+      },
+    ],
+    filterPlaceholder: '',
+  },
 };
 
 export const SmartlistContext = CustomTemplate.bind({});
@@ -323,7 +323,6 @@ SmartlistContext.args = {
   ...drawerProps,
   contextIdentifier: CONTEXT_SMARTLIST,
   contextTitle: 'Le nom de ma smartlist',
-  theme: themeForDrawer,
 };
 
 export default {

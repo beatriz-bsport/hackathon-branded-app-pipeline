@@ -15,7 +15,7 @@ import type { CustomMobilePopup } from '#src/libs/settings/types';
 import type { SmartList } from '#src/libs/smart-list/types';
 
 export type CommunicationProviderState = {
-  provider?: CommunicationProvider;
+  provider?: CommunicationProvider | null;
   update: ErrorAndLoading;
 } & ErrorAndLoading;
 

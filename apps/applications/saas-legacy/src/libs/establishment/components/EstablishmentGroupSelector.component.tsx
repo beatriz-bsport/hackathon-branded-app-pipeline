@@ -1,7 +1,6 @@
 import React from 'react';
 import chroma from 'chroma-js';
-import { compose } from 'recompose';
-import { withTranslation, WithTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import { colors } from '@bsport/common/lib/colors.js';
 import Select from 'react-select';
 import { styleFn, StylesConfig } from 'react-select/lib/styles';
@@ -95,14 +94,14 @@ type OwnProps = {
   establishmentGroups: Array<EstablishmentGroup>;
   selectOption: (
     suggestion:
-      | Omit<EstablishmentGroupSelectOption, 'establishmentGroupList'>[]
-      | Omit<EstablishmentGroupSelectOption, 'establishmentGroupList'>,
+      | EstablishmentGroupSelectOption[]
+      | EstablishmentGroupSelectOption,
   ) => void;
   selectMultipleOptions?: (itemsValueList: Array<number>) => void;
   selectedEstablishmentGroups: Array<number> | null;
   disabled?: boolean;
   noMulti?: boolean;
-  closeMenuOnSelect: boolean;
+  closeMenuOnSelect?: boolean;
   isClearable?: boolean;
   nullCurrentValue?: boolean;
   placeholder?: string;
@@ -110,10 +109,9 @@ type OwnProps = {
   onChange?: () => void;
 };
 
-type Props = OwnProps & WithTranslation;
+type Props = OwnProps;
 export function EstablishmentGroupSelector(props: Props) {
   const {
-    t,
     establishmentGroups,
     selectOption,
     selectMultipleOptions,
@@ -127,6 +125,7 @@ export function EstablishmentGroupSelector(props: Props) {
     placeholder,
     onChange,
   } = props;
+  const { t } = useTranslation('establishment');
   const roomsSelected =
     !nullCurrentValue && selectedEstablishmentGroups
       ? getEstablishmentGroupOptions([
@@ -154,6 +153,4 @@ export function EstablishmentGroupSelector(props: Props) {
   );
 }
 
-export default compose<any, OwnProps>(withTranslation(['establishment']))(
-  EstablishmentGroupSelector,
-);
+export default EstablishmentGroupSelector;

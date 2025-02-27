@@ -38,7 +38,7 @@ const PrivateConsumerPassDetailsCardHeader: React.FC<Props> = ({
     customClassName,
     customIconClassName,
     hideList,
-    Icon,
+    getIcon,
     label,
     usedCredits,
   } = useConsumerPassDetailsCardHeaderData({
@@ -80,7 +80,7 @@ const PrivateConsumerPassDetailsCardHeader: React.FC<Props> = ({
             'bs-private-consumer-pass-details-card__header__list__item',
             customClassName,
           )}
-          icon={<Icon stroke="currentColor" />}
+          icon={getIcon()}
           label={label}
         />
       </List>

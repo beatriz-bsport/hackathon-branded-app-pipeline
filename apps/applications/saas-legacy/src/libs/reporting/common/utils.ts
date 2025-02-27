@@ -127,7 +127,6 @@ import type {
   ReportCategory,
   ReportMetadata,
   ReportConfiguration,
-  CellConverter,
   ReportObjectPermissions,
   ReportMetadataValueWithLabel,
 } from './types';
@@ -309,13 +308,13 @@ export const getConverter = (
   },
   classes: ClassNameMap<string>,
   t: TFunction,
-): CellConverter => {
+) => {
   if (!column || !column.datatype) {
     return (value: any) => ({ value });
   }
   const { datatype } = column;
 
-  return (value) => {
+  return (value: string | number | undefined) => {
     if (datatype === 'price') {
       return {
         cellProps: { className: classes.right },

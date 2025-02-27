@@ -541,24 +541,35 @@ export const AssociatedCoachDisciplineGroupConfiguration: React.FC<Props> = ({
           )}
           <div className={classes.establishmentSeletor}>
             {multiLocationChoice === MultilocationChoice.Locations ? (
-              // @ts-expect-error
               <EstablishmentGroupSelector
                 isClearable
                 disabled={!!values.disciplineGroup}
                 establishmentGroups={establishmentGroupList}
                 placeholder={t('disciplineGroup.form.pickEstablishment')}
                 selectedEstablishmentGroups={values.establishmentGroups}
-                selectOption={selectOptionLocations}
+                selectOption={
+                  selectOptionLocations as (
+                    ev:
+                      | EstablishmentGroupSelectOption[]
+                      | EstablishmentGroupSelectOption,
+                  ) => void
+                }
               />
             ) : (
-              // @ts-expect-error
               <EstablishmentSelector
                 isClearable
                 disabled={!!values.disciplineGroup}
                 establishments={establishmentList}
                 placeholder={t('disciplineGroup.form.pickEstablishment')}
                 selectedEstablishments={values.establishments}
-                selectOption={selectOptionEstablishments}
+                selectOption={
+                  selectOptionEstablishments as (
+                    suggestion:
+                      | EstablishmentSelectOption[]
+                      | EstablishmentSelectOption
+                      | number,
+                  ) => void
+                }
               />
             )}
           </div>

@@ -8,7 +8,7 @@ import {
   checkCanArchiveGroupActivity as apiCheckCanArchiveGroupActivity,
 } from "#src/api";
 
-import type { Action } from "@bsport/store-base";
+import type { GenericAction } from "@bsport/store-base";
 import type {
   CanArchiveGroupActivityResponse,
   FetchGroupActivitiesParams,
@@ -16,46 +16,23 @@ import type {
   PaginatedResponse,
 } from "#src/types";
 
-/**
- * Fetches group activities based on the provided parameters.
- *
- * @param fetch - The fetch function to use for making the network request.
- * @param params - The parameters for fetching group activities.
- * @param params.page - The page number to fetch.
- * @param params.pageSize - The number of items per page.
- * @param params.customerEnabled - Whether customer-enabled activities should be fetched.
- * @returns A promise that resolves to a result containing the paginated response of meta activities or an error.
- * @throws An error if the fetch request fails or if the response is not ok.
- */
-export const fetchGroupActivities: Action<
+export const fetchGroupActivities: GenericAction<
   FetchGroupActivitiesParams,
-  Result<PaginatedResponse<MetaActivity>, Error>
+  PaginatedResponse<MetaActivity>
 > = async (fetch, params) => {
   const [uri, init] = apiFetchGroupActivities(params);
 
   return Result.try(
     async () => {
-      const response = await fetch(uri, init);
-      if (!response.ok) {
-        return new Error("Response was not ok");
-      }
-      return response.json();
+      return (await fetch<PaginatedResponse<MetaActivity>>(uri, init)).data;
     },
     (error) => new Error("Failed to fetch group activities", { cause: error }),
   );
 };
 
-/**
- * Check if a group activity can be archived based on its ID
- *
- * @param fetch - The fetch function to use for making the network request.
- * @param groupActivityId - The ID of the group activity to archive.
- * @returns A promise that resolves to a result containing can_destroy (boolean) and the offers related to this group activity.
- * @throws An error if the groupActivityId is not provided, if the fetch request fails, or if the response is not ok.
- */
-export const checkCanArchiveGroupActivity: Action<
+export const checkCanArchiveGroupActivity: GenericAction<
   string,
-  Result<CanArchiveGroupActivityResponse, Error>
+  CanArchiveGroupActivityResponse
 > = async (fetch, groupActivityId) => {
   if (!groupActivityId)
     return Result.error(
@@ -68,11 +45,7 @@ export const checkCanArchiveGroupActivity: Action<
 
   return Result.try(
     async () => {
-      const response = await fetch(uri, init);
-      if (!response.ok) {
-        return new Error("Response was not ok");
-      }
-      return response.json();
+      return (await fetch<CanArchiveGroupActivityResponse>(uri, init)).data;
     },
     (error) =>
       new Error(`Failed to check group activity with ID: ${groupActivityId}`, {
@@ -81,18 +54,10 @@ export const checkCanArchiveGroupActivity: Action<
   );
 };
 
-/**
- * Archives a group activity by its ID.
- *
- * @param fetch - The fetch function to use for making the network request.
- * @param groupActivityId - The ID of the group activity to archive.
- * @returns A promise that resolves to a result containing the the archived group activity or an error.
- * @throws An error if the groupActivityId is not provided, if the fetch request fails, or if the response is not ok.
- */
-export const archiveGroupActivity: Action<
-  string,
-  Result<MetaActivity, Error>
-> = async (fetch, groupActivityId) => {
+export const archiveGroupActivity: GenericAction<string, MetaActivity> = async (
+  fetch,
+  groupActivityId,
+) => {
   if (!groupActivityId)
     return Result.error(
       new Error("A group activity Id is required to archive."),
@@ -102,11 +67,7 @@ export const archiveGroupActivity: Action<
 
   return Result.try(
     async () => {
-      const response = await fetch(uri, init);
-      if (!response.ok) {
-        return new Error("Response was not ok");
-      }
-      return response.json();
+      return (await fetch<MetaActivity>(uri, init)).data;
     },
     (error) =>
       new Error(
@@ -118,17 +79,9 @@ export const archiveGroupActivity: Action<
   );
 };
 
-/**
- * Unarchives a group activity by its ID.
- *
- * @param fetch - The fetch function to use for making the network request.
- * @param groupActivityId - The ID of the group activity to unarchive.
- * @returns A promise that resolves to a result containing the the unarchived group activity or an error.
- * @throws An error if the groupActivityId is not provided, if the fetch request fails, or if the response is not ok.
- */
-export const unarchiveGroupActivity: Action<
+export const unarchiveGroupActivity: GenericAction<
   string,
-  Result<MetaActivity, Error>
+  MetaActivity
 > = async (fetch, groupActivityId) => {
   if (!groupActivityId)
     return Result.error(
@@ -139,11 +92,7 @@ export const unarchiveGroupActivity: Action<
 
   return Result.try(
     async () => {
-      const response = await fetch(uri, init);
-      if (!response.ok) {
-        return new Error("Response was not ok");
-      }
-      return response.json();
+      return (await fetch<MetaActivity>(uri, init)).data;
     },
     (error) =>
       new Error(
@@ -155,17 +104,9 @@ export const unarchiveGroupActivity: Action<
   );
 };
 
-/**
- * Duplicate a group activity by its ID.
- *
- * @param fetch - The fetch function to use for making the network request.
- * @param groupActivityId - The ID of the group activity to duplicate.
- * @returns A promise that resolves to the duplicated group activity.
- * @throws An error if the groupActivityId is not provided, if the fetch request fails, or if the response is not ok.
- */
-export const duplicateGroupActivity: Action<
+export const duplicateGroupActivity: GenericAction<
   string,
-  Result<MetaActivity, Error>
+  MetaActivity
 > = async (fetch, groupActivityId) => {
   if (!groupActivityId)
     return Result.error(
@@ -176,11 +117,7 @@ export const duplicateGroupActivity: Action<
 
   return Result.try(
     async () => {
-      const response = await fetch(uri, init);
-      if (!response.ok) {
-        return new Error("Response was not ok");
-      }
-      return response.json();
+      return (await fetch<MetaActivity>(uri, init)).data;
     },
     (error) =>
       new Error(

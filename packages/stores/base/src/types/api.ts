@@ -10,6 +10,14 @@ export type Action<P, R extends Result<unknown, unknown>> = (
 ) => Promise<R>;
 
 /**
+ * An action with generic error class
+ */
+export type GenericAction<P, R> = (
+  fetch: Fetch,
+  params: P,
+) => Promise<Result<R, Error>>;
+
+/**
  * Type describing a complete API call, which can be passed to `fetch`.
  */
 export type ApiConfig = Parameters<Fetch>;

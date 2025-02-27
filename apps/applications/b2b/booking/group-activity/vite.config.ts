@@ -14,7 +14,7 @@ import {
 /**
  * Application name used for federation. Must also be present in @bsport/config-federation to work.
  */
-const APP_NAME: APPLICATION = "simple-b2b-app";
+const APP_NAME: APPLICATION = "group-activities";
 
 // https://vite.dev/config/
 const config: UserConfig = {
@@ -34,9 +34,10 @@ const config: UserConfig = {
       filename: "module.js",
       shared: ["react", "react-dom"],
       remotes: getLocalFederationRemotes(),
-      // exposes: {
-      //  "./": "./src/",
-      //},
+      exposes: {
+        "./App": "./src/App",
+        "./languageSwitcher": "./src/utils/languageSwitcher",
+      },
     }),
   ],
   esbuild: {

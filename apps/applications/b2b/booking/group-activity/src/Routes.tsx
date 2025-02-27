@@ -9,7 +9,7 @@ import {
   GROUP_ACTIVITIES_PATH,
 } from "#src/constants";
 
-const Navigation = lazy(() => import("navigation-sidebar/Navigation"));
+const Navigation = lazy(() => import("navigation-sidebar/App"));
 const IS_LOCAL_DEVELOPMENT = import.meta.env.DEV;
 
 const AppRoutes = () => {
@@ -23,10 +23,15 @@ const AppRoutes = () => {
       }
     >
       <Route
+        index
         path={ARCHIVED_GROUP_ACTIVITIES_PATH}
         element={<ArchivedGroupActivitiesList />}
       />
-      <Route element={<GroupActivitiesList />} path={GROUP_ACTIVITIES_PATH} />
+      <Route
+        index
+        path={GROUP_ACTIVITIES_PATH}
+        element={<GroupActivitiesList />}
+      />
     </RoutesWrapper>
   );
 };

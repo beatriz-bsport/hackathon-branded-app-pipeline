@@ -1,5 +1,9 @@
 const FEDERATED_APP_CONFIG = {
   // Reserved for the template
+  "group-activities": {
+    port: 4998,
+  },
+  // Reserved for the template
   "simple-b2b-app": {
     port: 4999,
   },

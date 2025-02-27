@@ -7,6 +7,7 @@ import { getProgressInformation } from "../utils";
 
 import TransitionWrapper from "./TransitionWrapper";
 import LoaderActionButton from "./LoaderActionButton";
+import { useTranslation, useKaizenI18nInstance } from "#src/i18n";
 
 type LoaderProgressBarProps = {
   fileUploadTracker: FileUploadTracker;
@@ -29,6 +30,8 @@ const LoaderProgressBar = ({
   handleRemoveFileFromList,
   handleRetryUpload,
 }: LoaderProgressBarProps) => {
+  const i18nInstance = useKaizenI18nInstance();
+  const { t } = useTranslation("default", { i18n: i18nInstance });
   const [displayUploadProgress, setDisplayUploadProgress] = useState(true);
 
   const { status, file, progressValue, customMessage } = fileUploadTracker;
@@ -38,6 +41,7 @@ const LoaderProgressBar = ({
         status: status,
         uploadProgressValue: progressValue,
         customMessage: customMessage,
+        t,
       }),
     [status, progressValue],
   );

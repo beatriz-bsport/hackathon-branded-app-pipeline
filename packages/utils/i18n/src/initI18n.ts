@@ -1,14 +1,18 @@
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
-import backend, { type HttpBackendOptions } from "i18next-http-backend";
+import httpBackend from "i18next-http-backend";
 import languageDetector from "i18next-browser-languagedetector";
-
+import resourcesToBackend from "i18next-resources-to-backend";
 import {
   setLuxonLocale,
   getFallbackLanguage,
   getNamespacePrefixer,
 } from "./utils";
-import { LANGUAGES, type InitConfig } from "./constants";
+import {
+  LANGUAGES,
+  type InitConfig,
+  type InMemoryTranslationsLoader,
+} from "./constants";
 
 type I18nConfig = {
   namespaces: string[];
@@ -20,30 +24,36 @@ type I18nConfig = {
  * @param applicationUrl [Optional]
  * URL of the application, to indicate where to fetch public translations files.
  * If not provided, used by default the current URL (where `vite dev` is running)
+ * @param debug [Optional] Whether to active the debug mode that shows missing keys
+ * @param inMemoryTranslationsLoader [Optional]
+ * Async function which returns, given an (unprefixed) namespace and locale, the related translation object
+ * If provided, i18n will load translations with in memory method. Else, it uses backend method (public/locales).
  * @param namespaces List of namespaces (without prefix) related to the application
  * @returns An i18n instance fully configured, to provide to I18NextProvider
  */
 export function initI18n({
   applicationName,
   applicationUrl,
+  debug = false,
+  inMemoryTranslationsLoader,
   namespaces,
 }: I18nConfig) {
+  // ----- UTILS -----
+  // Function to prefix a given namespace with the provided applicationName
   const namespacePrefixer = getNamespacePrefixer({ applicationName });
-  i18n
-    // load translation using http
-    // learn more: https://github.com/i18next/i18next-http-backend
-    .use(backend)
-    // detect user language
-    // learn more: https://github.com/i18next/i18next-browser-languageDetector
-    .use(languageDetector)
-    // passes i18n down to react-i18next
-    .use(initReactI18next)
-    // init i18next
-    // for all options read: https://www.i18next.com/overview/configuration-options
-    .init<HttpBackendOptions>({
+  // Function to remove the prefix of a namespace
+  const namespaceUnprefixer = (namespace: string) =>
+    namespace.split(`${applicationName}_`)[1];
+
+  // ----- BACKEND INITIALISATORS -----
+  // Initialize an HTTP Backend that loads translations using http from /public/locales
+  // learn more: https://github.com/i18next/i18next-http-backend
+  const getHttpBackend = () =>
+    new httpBackend(
+      null,
       // backend options to provide to the HttpBackend object
       // learn more: https://github.com/i18next/i18next-http-backend?tab=readme-ov-file#backend-options
-      backend: {
+      {
         // allow cross domain requests
         crossDomain: false,
         // allow credentials on cross domain requests
@@ -60,12 +70,43 @@ export function initI18n({
           ? `${applicationUrl}/locales/{{lng}}/{{ns}}.json`
           : "/locales/{{lng}}/{{ns}}.json",
       },
+    );
+
+  // Initialize a "in memory" backend that uses either an object or a loader
+  // CF example : https://github.com/i18next/i18next-resources-to-backend/blob/main/test/chained-backend.spec.js
+  const getInMemoryBackend = () => {
+    if (!inMemoryTranslationsLoader) {
+      // Fallback with a default resource to be sure we don't break i18n
+      return resourcesToBackend({});
+    }
+    // The input of resourcesToBackend contains prefixed namespaces
+    // While the applications will read unprefixed namespaces within their src/i18n/locales files
+    const fixedInMemoryLoader: InMemoryTranslationsLoader = async (
+      locale,
+      namespace,
+    ) =>
+      await inMemoryTranslationsLoader(locale, namespaceUnprefixer(namespace));
+    return resourcesToBackend(fixedInMemoryLoader);
+  };
+
+  // ----- CREATE I18N INSTANCE -----
+  const i18nInstance = i18n.createInstance();
+  i18nInstance
+    .use(inMemoryTranslationsLoader ? getInMemoryBackend() : getHttpBackend())
+    // detect user language
+    // learn more: https://github.com/i18next/i18next-browser-languageDetector
+    .use(languageDetector)
+    // passes i18n down to react-i18next
+    .use(initReactI18next)
+    // init i18next
+    // for all options read: https://www.i18next.com/overview/configuration-options
+    .init({
       // language to use if translations in user language are not available
       // learn more: https://www.i18next.com/principles/fallback#language-fallback
       fallbackLng: getFallbackLanguage,
       // array of allowed languages
       supportedLngs: Object.values(LANGUAGES),
-      debug: false,
+      debug: debug,
       // string or array of namespaces to load
       ns: (namespaces ?? []).map(namespacePrefixer),
       interpolation: {
@@ -73,11 +114,16 @@ export function initI18n({
       },
     });
 
-  i18n.on("languageChanged", (lng) => {
+  // ----- LISTENERS -----
+  i18nInstance.on("languageChanged", (lng) => {
     setLuxonLocale(lng);
   });
 
-  setLuxonLocale(i18n.language);
+  i18nInstance.on("failedLoading", (language, namespace, message) =>
+    console.error({ language, namespace, message }),
+  );
 
-  return i18n;
+  setLuxonLocale(i18nInstance.language);
+
+  return i18nInstance;
 }

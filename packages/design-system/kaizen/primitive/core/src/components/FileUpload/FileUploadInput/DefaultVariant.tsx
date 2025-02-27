@@ -4,6 +4,7 @@ import Icon from "#src/components/Icon";
 import Body from "#src/components/Body";
 
 import FileDropzone from "./FileDropzone";
+import { useTranslation, useKaizenI18nInstance } from "#src/i18n";
 
 type DefaultVariantProps = {
   dragAndDropFileCTAText?: string;
@@ -25,10 +26,11 @@ const DefaultVariant = ({
   handleDropFiles,
   uploadFileCTAText,
 }: DefaultVariantProps) => {
-  // ##### TODO : internationalization
-  const uploadFileLabel = uploadFileCTAText || "Upload a file";
+  const i18nInstance = useKaizenI18nInstance();
+  const { t } = useTranslation("default", { i18n: i18nInstance });
+  const uploadFileLabel = uploadFileCTAText || t("fileUpload.uploadFileCTA");
   const dragAndDropFileLabel =
-    dragAndDropFileCTAText || "or drag and drop it here";
+    dragAndDropFileCTAText || t("fileUpload.dragAndDropCTA");
 
   return (
     <FileDropzone

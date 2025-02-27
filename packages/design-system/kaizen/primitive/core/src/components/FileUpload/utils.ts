@@ -1,3 +1,4 @@
+import type { TFunction } from "@bsport/i18n";
 import type { ProgressBarStatuses } from "../ProgressBar";
 import {
   UPLOAD_STATUSES,
@@ -141,30 +142,30 @@ export function getProgressInformation({
   status,
   uploadProgressValue,
   customMessage,
+  t,
 }: {
   status: FileUploadStatus;
   uploadProgressValue?: number;
   customMessage?: string;
+  t: TFunction;
 }): {
   progressBarStatus: ProgressBarStatuses;
   progressBarValue: number;
   progressMessage: string;
 } {
   if (status === UPLOAD_STATUSES.success) {
-    // ##### TODO : internationalization
     return {
       progressBarStatus: "positive",
       progressBarValue: 100,
-      progressMessage: customMessage || "Uploaded successfully.",
+      progressMessage: customMessage || t("fileUpload.uploadStatus.success"),
     };
   }
 
   if (status === UPLOAD_STATUSES.error) {
-    // ##### TODO : internationalization
     return {
       progressBarStatus: "critical",
       progressBarValue: 100,
-      progressMessage: customMessage || "Could not upload this file.",
+      progressMessage: customMessage || t("fileUpload.uploadStatus.error"),
     };
   }
 

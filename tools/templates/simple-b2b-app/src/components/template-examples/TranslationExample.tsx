@@ -1,5 +1,9 @@
 import React from "react";
 import {
+  FileUpload,
+  FILE_UPLOAD_STATUSES,
+} from "@bsport/kaizen-primitive-core";
+import {
   useTranslation,
   withTranslation,
   type TFunction,
@@ -76,6 +80,12 @@ const TranslationExample: React.FC = () => {
       <SimpleTranslationWithHoc />
       <MultipleNamespacesWithHook />
       <MultipleNamespacesWithHoc />
+      <FileUpload
+        inputId="file-upload-test-translation"
+        handleUploadFile={async () => {
+          return { status: FILE_UPLOAD_STATUSES.success };
+        }}
+      />
     </div>
   );
 };

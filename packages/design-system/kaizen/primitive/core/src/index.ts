@@ -30,9 +30,11 @@ export {
 } from "./components/DragAndDrop";
 export {
   default as FileUpload,
+  UPLOAD_STATUSES as FILE_UPLOAD_STATUSES,
   type FileUploadProps,
 } from "./components/FileUpload";
 export { default as Filter, type FilterProps } from "./components/Filter";
+export { KaizenI18nProvider } from "./components/I18nProvider";
 export { default as Icon, type IconProps } from "./components/Icon";
 export {
   default as Indicator,
@@ -90,3 +92,10 @@ export { ThemeProvider, themes, useTheme } from "./components/ThemeProvider";
 export { tailwindConfig } from "./tailwind";
 // Export css variables (map a token to a css variable)
 import "@bsport/kaizen-tokens/src/index.css";
+
+// ----- I18N -----
+export {
+  i18nNamespaces,
+  i18nNamespacePrefix,
+  inMemoryTranslationsLoader,
+} from "./i18n";

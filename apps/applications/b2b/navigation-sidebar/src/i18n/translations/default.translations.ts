@@ -21,7 +21,7 @@ exports.default = {
       webshop: "Webshop",
       packs: "Packs",
       giftcards: "Gift cards",
-      videoAndEbooks: "Videos & ebooks",
+      videosAndEbooks: "Videos & ebooks",
       orders: "Orders",
     },
     marketing: {

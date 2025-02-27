@@ -33,7 +33,9 @@ const config: StorybookConfig = {
   docs: {},
 
   typescript: {
-    reactDocgen: "react-docgen",
+    // Disable docgen addon as it is not installed and does not support
+    // usage of internal @bsport/i18n
+    reactDocgen: false,
   },
 };
 

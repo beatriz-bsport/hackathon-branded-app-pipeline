@@ -1,4 +1,16 @@
 {
+    "@bsport/kaizen-primitive-core": {
+        "default": {
+          "fileUpload": {
+            "uploadFileCTA": "Importer un fichier",
+            "dragAndDropCTA": "ou le déposer ici",
+            "uploadStatus": {
+              "success": "Import réussi",
+              "error": "Erreur d'import du fichier"
+            }
+          }
+        }
+    },
     "@bsport/navigation-sidebar": {
         "default": {
           "menus": {

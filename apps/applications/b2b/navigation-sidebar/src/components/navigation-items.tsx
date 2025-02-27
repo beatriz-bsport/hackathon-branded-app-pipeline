@@ -75,7 +75,7 @@ export const getNavigationItems = ({
           { id: "webshop", label: t("menus.products.webshop") },
           { id: "packs", label: t("menus.products.packs") },
           { id: "gift-cards", label: t("menus.products.giftcards") },
-          { id: "videos", label: t("menus.products.videos") },
+          { id: "videos", label: t("menus.products.videosAndEbooks") },
           { id: "orders", label: t("menus.products.orders") },
         ],
       },

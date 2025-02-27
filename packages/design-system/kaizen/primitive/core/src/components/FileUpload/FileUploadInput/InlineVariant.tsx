@@ -1,14 +1,16 @@
 import React from "react";
 import classNames from "classnames";
 import Icon from "#src/components/Icon";
+import { useTranslation, useKaizenI18nInstance } from "#src/i18n";
 
 /**
  * Inline variant for FileUploadInput, mirroring the aspect of a Button.
  * @param props.buttonTitle Optional. Text to override the default title of the button.
  */
 const InlineVariant: React.FC<{ buttonTitle?: string }> = ({ buttonTitle }) => {
-  // ##### TODO : internationalization
-  const uploadFileLabel = buttonTitle || "Upload file";
+  const i18nInstance = useKaizenI18nInstance();
+  const { t } = useTranslation("default", { i18n: i18nInstance });
+  const uploadFileLabel = buttonTitle || t("fileUpload.uploadFileCTA");
 
   return (
     <div

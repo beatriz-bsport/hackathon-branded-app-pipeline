@@ -24,6 +24,21 @@ export const LOCALES = [
   LANGUAGES.CZECH,
 ] as const;
 
+// From https://emojipedia.org/fr/drapeaux
+export const FLAG_EMOJIS = {
+  [LANGUAGES.FRENCH]: "🇫🇷",
+  [LANGUAGES.ENGLISH]: "🇬🇧",
+  [LANGUAGES.ENGLISH_BRITISH]: "🇬🇧",
+  [LANGUAGES.ENGLISH_US]: "🇺🇸",
+  [LANGUAGES.SPANISH]: "🇪🇸",
+  [LANGUAGES.DUTCH]: "🇳🇱",
+  [LANGUAGES.GERMAN]: "🇩🇪",
+  [LANGUAGES.ITALIAN]: "🇮🇹",
+  [LANGUAGES.CATALAN]: "🇪🇸",
+  [LANGUAGES.PORTUGUESE]: "🇵🇹",
+  [LANGUAGES.CZECH]: "🇨🇿",
+};
+
 export const EXTRA_TIMEZONES = {
   FR: [
     "Indian/Reunion",
@@ -40,9 +55,16 @@ export const EXTRA_TIMEZONES = {
 
 export const LOCALES_WITH_FIRST_WEEKDAY_BEING_SUNDAY = ["en-US", "en-CA"];
 
+export type Locale = (typeof LOCALES)[number];
+
+export type InMemoryTranslationsLoader = (
+  locale: Locale,
+  namespace: string,
+) => Promise<object>;
+
 export type InitConfig = {
   applicationName: string;
   applicationUrl?: string;
+  inMemoryTranslationsLoader?: InMemoryTranslationsLoader;
+  debug?: boolean;
 };
-
-export type Locale = (typeof LOCALES)[number];

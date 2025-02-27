@@ -1,4 +1,16 @@
 {
+  "@bsport/kaizen-primitive-core": {
+    "default": {
+      "fileUpload": {
+        "uploadFileCTA": "Upload a file",
+        "dragAndDropCTA": "or drag and drop it here",
+        "uploadStatus": {
+          "success": "Upload successfully",
+          "error": "Could not upload this file"
+        }
+      }
+    }
+  },
   "@bsport/navigation-sidebar": {
     "default": {
       "menus": {
@@ -23,7 +35,7 @@
           "webshop": "Webshop",
           "packs": "Packs",
           "giftcards": "Gift cards",
-          "videoAndEbooks": "Videos & ebooks",
+          "videosAndEbooks": "Videos & ebooks",
           "orders": "Orders"
         },
         "marketing": {

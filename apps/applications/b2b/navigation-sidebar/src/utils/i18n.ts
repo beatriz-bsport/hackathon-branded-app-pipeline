@@ -1,4 +1,4 @@
-import { initI18n, getUseTranslation } from "@bsport/i18n";
+import { initI18n, getUseTranslation, type UseTranslation } from "@bsport/i18n";
 import namespaceList from "#src/i18n/namespaces.json";
 import { getAppPort, type APPLICATION } from "@bsport/config-federation";
 
@@ -12,9 +12,8 @@ export const i18nInstance = initI18n({
   applicationUrl: `${applicationUrl}:${getAppPort(applicationName)}`,
 });
 
-export const useTranslation: ReturnType<typeof getUseTranslation> =
-  getUseTranslation({
-    applicationName: i18nNamespacePrefix,
-  });
+export const useTranslation: UseTranslation = getUseTranslation({
+  applicationName: i18nNamespacePrefix,
+});
 
 export { type TFunction, I18nextProvider } from "@bsport/i18n";

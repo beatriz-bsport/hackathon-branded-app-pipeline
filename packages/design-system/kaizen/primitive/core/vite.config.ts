@@ -16,12 +16,13 @@ const config: UserConfig = {
       fileName: (format) => `index.${format}.js`,
     },
     rollupOptions: {
-      external: ["react", "react-dom", "tailwindcss"],
+      external: ["react", "react-dom", "tailwindcss", "@bsport/i18n"],
       output: {
         globals: {
           react: "React",
           "react-dom": "ReactDOM",
           tailwindcss: "tailwindcss",
+          "@bsport/i18n": "BsportI18n",
         },
       },
     },

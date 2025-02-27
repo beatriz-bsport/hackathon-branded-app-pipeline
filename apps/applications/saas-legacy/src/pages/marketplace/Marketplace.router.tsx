@@ -12,6 +12,8 @@ import asyncComponent from '../../AsyncComponent';
 import { RootState } from '../../reducers';
 import namespaces from '../../i18n/namespaces.json';
 import { removeItemInStorage, setItemInStorage } from '#src/utils/storage';
+import Passes from '#src/pages/marketplace/passes';
+import Config from '#src/config';
 
 const MarketplaceResolver = asyncComponent(
   // @ts-expect-error
@@ -61,7 +63,14 @@ export class MarketplaceRouter extends React.Component<Props> {
             component={Marketplace}
             path="/m/:companyName/:companyId/"
           />
-
+          {/* Temporary route, used to display new passes page during development */}
+          {['dev', 'local'].includes(Config.REACT_APP_SENTRY_ENVIRONMENT) && (
+            <Route
+              exact
+              component={Passes}
+              path="/m/:companyName/:companyId/new-pass"
+            />
+          )}
           <Route
             component={Marketplace}
             path="/m/:companyName/:companyId/:subcomponent/"

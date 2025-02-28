@@ -555,6 +555,9 @@ const getTranslations = async () => {
         confirm: 'Send',
       },
     },
+    accessibilityText: {
+      expandRow: 'Expand row',
+    },
   };
 };
 

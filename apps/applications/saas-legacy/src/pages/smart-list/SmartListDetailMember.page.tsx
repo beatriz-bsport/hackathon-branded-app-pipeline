@@ -839,14 +839,13 @@ export class SmartListDetailMember extends React.Component<Props, State> {
             <>
               {!!this.props.openCommunicationChatDrawer && (
                 <CommunicationDrawer
-                  contextIdentifier={CONTEXT_SMARTLIST}
-                  contextObjectId={this.props.smartlist?.id ?? this.props.id}
-                  contextTitle={this.props.smartlist?.name}
+                  communicationIdentifier={CONTEXT_SMARTLIST}
+                  communicationObjectId={
+                    this.props.smartlist?.id ?? this.props.id
+                  }
+                  communicationTitle={this.props.smartlist?.name}
                   onDrawerClose={this.handleCommunicationDrawerClose}
                   openDrawer={this.props.openCommunicationChatDrawer}
-                  propToListenToReloadRecipients={
-                    this.state.resetMembersFetchForCommunication
-                  }
                 />
               )}
               <BottomActionsButtonCustom

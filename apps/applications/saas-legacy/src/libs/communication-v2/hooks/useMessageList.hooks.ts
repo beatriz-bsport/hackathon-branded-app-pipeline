@@ -27,8 +27,8 @@ import { getFormatedFiltersToFetchCommunicationSent } from '#src/libs/communicat
 
 export type FetchMessageListParams = {
   filters: number[];
-  dateStart: number;
-  dateEnd: number;
+  dateStart: number | null;
+  dateEnd: number | null;
   page: number;
   isRefreshing?: boolean;
 } & CommunicationIdentifiers;
@@ -44,8 +44,8 @@ export const useMessageList = () => {
 
   const fetchMessages = useCallback(
     ({
-      contextIdentifier,
-      contextObjectId,
+      communicationIdentifier,
+      communicationObjectId,
       filters,
       dateStart,
       dateEnd,
@@ -59,29 +59,31 @@ export const useMessageList = () => {
           dateStart,
           dateEnd,
         ),
-        context_identifier: contextIdentifier,
-        context_object_id: contextObjectId,
+        context_identifier: communicationIdentifier,
+        context_object_id: communicationObjectId,
         ...(isRefreshing && { page_size: REFRESH_THREAD_PAGINATION_SIZE }),
       };
 
       return dispatch(
         fetchCommunicationSentListAction(params, !!isRefreshing, {
-          onSuccess: (responseData: Communication[]) => {
-            const memberIds = uniq(
-              responseData.flatMap(
-                (sent: Communication) =>
-                  sent.recipient_member_id_list
-                    ?.slice(
-                      0,
-                      Math.min(
-                        MAX_DISPLAY,
-                        sent.recipient_member_id_list.length,
-                      ),
-                    )
-                    .filter((id: number) => !!id) || [],
-              ),
-            );
-            dispatch(fetchMemberBulkByIdAction(memberIds));
+          onSuccess: (responseData?: Communication[]) => {
+            if (responseData) {
+              const memberIds = uniq(
+                responseData.flatMap(
+                  (sent: Communication) =>
+                    sent.recipient_member_id_list
+                      ?.slice(
+                        0,
+                        Math.min(
+                          MAX_DISPLAY,
+                          sent.recipient_member_id_list.length,
+                        ),
+                      )
+                      .filter((id: number) => !!id) || [],
+                ),
+              );
+              dispatch(fetchMemberBulkByIdAction(memberIds));
+            }
           },
         }),
       );

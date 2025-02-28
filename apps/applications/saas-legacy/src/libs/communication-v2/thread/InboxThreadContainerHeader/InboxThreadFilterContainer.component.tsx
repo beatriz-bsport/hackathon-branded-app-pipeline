@@ -20,24 +20,24 @@ import type { SelectFieldItem } from '#src/libs/communication-v2/types';
 import CommunicationFilterCollapse from '#src/libs/communication-v2/components/Filter/CommunicationFilterCollapse.component';
 
 type Props = {
-  kindFilterValues: SelectFieldItem[];
-  kindFilterSetter?: (args: SelectFieldItem[]) => void;
+  communicationKinds: SelectFieldItem[];
+  setCommunicationKind?: (args: SelectFieldItem[]) => void;
   popKindFilterValue: (index: number) => void;
   dateStart: DateTime;
-  dateStartSetter?: (newDate: DateTime) => void;
+  setDateStart?: (newDate: DateTime) => void;
   dateEnd: DateTime;
-  dateEndSetter?: (newDate: DateTime) => void;
+  setDateEnd?: (newDate: DateTime) => void;
   resetPeriodFilter: () => void;
-  channelFilterValues?: SelectFieldItem[];
+  messageChannels?: SelectFieldItem[];
   popChannelFilterValue?: (index: number) => void;
-  recipientFilterValues: SelectFieldItem[];
-  recipientFilterSetter?: (args: SelectFieldItem[]) => void;
+  recipientTypes: SelectFieldItem[];
+  setRecipientTypes?: (args: SelectFieldItem[]) => void;
   popRecipientFilterValue: (index: number) => void;
-  sendParameterFilterValues: SelectFieldItem[];
-  sendParameterFilterSetter?: (args: SelectFieldItem[]) => void;
+  automatedMessages: SelectFieldItem[];
+  setAutomatedMessages?: (args: SelectFieldItem[]) => void;
   popSendParameterFilterValue: (index: number) => void;
-  srcOrDstFilterValues: SelectFieldItem[];
-  srcOrDstFilterSetter?: (args: SelectFieldItem[]) => void;
+  messagesOrigin: SelectFieldItem[];
+  setMessagesOrigin?: (args: SelectFieldItem[]) => void;
   popSrcOrDstFilterValue: (index: number) => void;
   resetFilters: () => void;
 
@@ -56,24 +56,24 @@ type Props = {
 };
 
 const InboxThreadFilterContainer: React.FC<Props> = ({
-  kindFilterValues,
-  kindFilterSetter,
+  communicationKinds,
+  setCommunicationKind,
   popKindFilterValue,
   dateStart,
-  dateStartSetter,
+  setDateStart,
   dateEnd,
-  dateEndSetter,
+  setDateEnd,
   resetPeriodFilter,
-  channelFilterValues,
+  messageChannels,
   popChannelFilterValue,
-  recipientFilterValues,
-  recipientFilterSetter,
+  recipientTypes,
+  setRecipientTypes,
   popRecipientFilterValue,
-  sendParameterFilterValues,
-  sendParameterFilterSetter,
+  automatedMessages,
+  setAutomatedMessages,
   popSendParameterFilterValue,
-  srcOrDstFilterValues,
-  srcOrDstFilterSetter,
+  messagesOrigin,
+  setMessagesOrigin,
   popSrcOrDstFilterValue,
   resetFilters,
   handleFiltersSubmit,
@@ -90,10 +90,10 @@ const InboxThreadFilterContainer: React.FC<Props> = ({
   const periodHasChanged = !!dateStart || !!dateEnd;
 
   const countFilter =
-    kindFilterValues.length +
-    recipientFilterValues.length +
-    sendParameterFilterValues.length +
-    srcOrDstFilterValues.length +
+    communicationKinds.length +
+    recipientTypes.length +
+    automatedMessages.length +
+    messagesOrigin.length +
     (periodHasChanged ? 1 : 0);
 
   const displayFiltersSelector = !!countFilter && !showFilterModal;
@@ -103,11 +103,11 @@ const InboxThreadFilterContainer: React.FC<Props> = ({
   }, [setShowFilterModal]);
 
   const {
-    hasKindFilter,
+    hasCommunicationKindsFilter,
     hasDatesFilter,
-    hasRecipientFilter,
-    hasSendParameterFilter,
-    hasSrcOrDstFilter,
+    hasRecipientTypesFilter,
+    hasAutomatedMessagesFilter,
+    hasMessagesOriginFilter,
   } = getFiltersToEnableForThread(relatedObjectKind);
 
   return (
@@ -127,9 +127,9 @@ const InboxThreadFilterContainer: React.FC<Props> = ({
             </div>
             <div className={classes.filterValuesContainer}>
               <Hidden xsDown>
-                {!!kindFilterValues.length && (
+                {!!communicationKinds.length && (
                   <CommunicationFilterValuesGenericSummary
-                    filterValues={kindFilterValues}
+                    filterValues={communicationKinds}
                     popFilterValue={popKindFilterValue}
                     title={t(`filter.kind.title`)}
                   />
@@ -142,30 +142,30 @@ const InboxThreadFilterContainer: React.FC<Props> = ({
                     title={t('filter.dateFilter.period')}
                   />
                 )}
-                {!!channelFilterValues?.length && (
+                {!!messageChannels?.length && (
                   <CommunicationFilterValuesGenericSummary
-                    filterValues={channelFilterValues}
+                    filterValues={messageChannels}
                     popFilterValue={popChannelFilterValue}
                     title={t(`filter.channel.title`)}
                   />
                 )}
-                {recipientFilterValues.length > 0 && (
+                {recipientTypes.length > 0 && (
                   <CommunicationFilterValuesGenericSummary
-                    filterValues={recipientFilterValues}
+                    filterValues={recipientTypes}
                     popFilterValue={popRecipientFilterValue}
                     title={t(`filter.recipient.title`)}
                   />
                 )}
-                {!!sendParameterFilterValues.length && (
+                {!!automatedMessages.length && (
                   <CommunicationFilterValuesGenericSummary
-                    filterValues={sendParameterFilterValues}
+                    filterValues={automatedMessages}
                     popFilterValue={popSendParameterFilterValue}
                     title={t(`filter.sendParameter.title`)}
                   />
                 )}
-                {!!srcOrDstFilterValues.length && (
+                {!!messagesOrigin.length && (
                   <CommunicationFilterValuesGenericSummary
-                    filterValues={srcOrDstFilterValues}
+                    filterValues={messagesOrigin}
                     popFilterValue={popSrcOrDstFilterValue}
                     title={t(`filter.srcOrDst.title`)}
                   />
@@ -196,26 +196,24 @@ const InboxThreadFilterContainer: React.FC<Props> = ({
       <Collapse className={classes.collapse} in={showFilterModal}>
         <CommunicationFilterCollapse
           allPreviousFilter={allPreviousFilter}
-          dateEndSetter={dateEndSetter}
-          dateEndValue={dateEnd}
-          dateStartSetter={dateStartSetter}
-          dateStartValue={dateStart}
+          automatedMessages={automatedMessages}
+          communicationKinds={communicationKinds}
+          dateEnd={dateEnd}
+          dateStart={dateStart}
           handleFiltersSubmit={handleFiltersSubmit}
+          hasAutomatedMessagesFilter={hasAutomatedMessagesFilter}
+          hasCommunicationKindsFilter={hasCommunicationKindsFilter}
           hasDatesFilter={hasDatesFilter}
-          hasKindFilter={hasKindFilter}
-          hasRecipientFilter={hasRecipientFilter}
-          hasSendParameterFilter={hasSendParameterFilter}
-          hasSrcOrDstFilter={hasSrcOrDstFilter}
-          kindFilterSetter={kindFilterSetter}
-          kindFilterValues={kindFilterValues}
-          // @ts-expect-error
-          periodHasChanged={periodHasChanged}
-          recipientFilterSetter={recipientFilterSetter}
-          recipientFilterValues={recipientFilterValues}
-          sendParameterFilterSetter={sendParameterFilterSetter}
-          sendParameterFilterValues={sendParameterFilterValues}
-          srcOrDstFilterSetter={srcOrDstFilterSetter}
-          srcOrDstFilterValues={srcOrDstFilterValues}
+          hasMessagesOriginFilter={hasMessagesOriginFilter}
+          hasRecipientTypesFilter={hasRecipientTypesFilter}
+          messagesOrigin={messagesOrigin}
+          recipientTypes={recipientTypes}
+          setAutomatedMessages={setAutomatedMessages}
+          setCommunicationKind={setCommunicationKind}
+          setDateEnd={setDateEnd}
+          setDateStart={setDateStart}
+          setMessagesOrigin={setMessagesOrigin}
+          setRecipientTypes={setRecipientTypes}
         />
         <IconButton className={classes.iconButton} onClick={hideCollapse}>
           <ExpandLess fontSize="large" />

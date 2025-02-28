@@ -21,24 +21,24 @@ import type {
   FilteringMemberIdsByGenericCategories,
   Recipient,
   SelectFieldItem,
-  CommunicationMessage,
   MessageData,
 } from '#src/libs/communication-v2/types';
-import { getConsentWarning } from '#src/libs/communication-v2/utils';
 import type { Member } from '#src/libs/member/types';
-import { PAGINATION_SIZE_RECIPIENTS } from '#src/libs/communication-v2/constants';
-import type {
-  EmailTemplateDetail,
-  EmailTemplateSummary,
-  ResolvedGenericTags,
-} from '#src/libs/email-editor/types';
+import {
+  CONTEXT_MEMBER,
+  CONTEXT_OFFER,
+  CONTEXT_SMARTLIST,
+  PAGINATION_SIZE_RECIPIENTS,
+} from '#src/libs/communication-v2/constants';
+import type { ResolvedGenericTags } from '#src/libs/email-editor/types';
 import type { Theme } from '#src/libs/theme/types';
 import InboxNoThread from '#src/libs/communication-v2/thread/InboxThreadContainer/InboxNoThread.component';
 import InboxThreadSenderContainer from '#src/libs/communication-v2/thread/InboxThreadContainer/InboxThreadSenderContainer.component';
-import type { OptionCallback } from '../../../../state/types';
+import type { OptionCallback } from '#src/state/types';
 import Config from '../../../../config';
 import { getCommunicationSMSProviderVerificationState } from '#src/libs/communication-v2/selectors';
 import type { RootState } from '#src/reducers';
+import { CommunicationContextProvider } from '#src/libs/communication-v2/context/CommunicationDrawer.context';
 
 export type Props = {
   // --- Inbox Thread ---
@@ -69,22 +69,22 @@ export type Props = {
   goToThreadListPage: () => void;
 
   // --- Filtering ---
-  kindFilterValues?: SelectFieldItem[];
-  kindFilterSetter?: (args: SelectFieldItem[]) => void;
+  communicationKinds?: SelectFieldItem[];
+  setCommunicationKind?: (args: SelectFieldItem[]) => void;
 
-  recipientFilterValues?: SelectFieldItem[];
-  recipientFilterSetter?: (args: SelectFieldItem[]) => void;
+  recipientTypes?: SelectFieldItem[];
+  setRecipientTypes?: (args: SelectFieldItem[]) => void;
 
-  sendParameterFilterValues?: SelectFieldItem[];
-  sendParameterFilterSetter?: (args: SelectFieldItem[]) => void;
+  automatedMessages?: SelectFieldItem[];
+  setAutomatedMessages?: (args: SelectFieldItem[]) => void;
 
-  srcOrDstFilterValues?: SelectFieldItem[];
-  srcOrDstFilterSetter?: (args: SelectFieldItem[]) => void;
+  messagesOrigin?: SelectFieldItem[];
+  setMessagesOrigin?: (args: SelectFieldItem[]) => void;
 
-  dateStartValue?: DateTime;
-  dateStartSetter?: (newDate: DateTime) => void;
-  dateEndValue?: DateTime;
-  dateEndSetter?: (newDate: DateTime) => void;
+  dateStart?: DateTime;
+  setDateStart?: (newDate: DateTime) => void;
+  dateEnd?: DateTime;
+  setDateEnd?: (newDate: DateTime) => void;
 
   filterDateStart: number;
   filterDateEnd: number;
@@ -113,34 +113,22 @@ export type Props = {
   onCloseSnackbar: () => void;
 
   // --- Member ---
-  contextMember: Member;
+  communicationMember: Member;
 
   // --- Offer ---
   allMemberCategoryList: FilteringMemberIdsByGenericCategories;
 
   // --- MessageList ---
-  messageList: CommunicationMessage[];
   currentPage: number;
   recipientList: Recipient<Member>[];
   recipientListCount: number;
   scrollToBottomFlag: boolean;
   fetchMoreCommunicationMessages: () => void;
-  loadingCommunicationMessageDataList: boolean;
 
   // --- Send Message ---
   communicationKindBeingWritten: number;
   showMessageWriter: boolean;
   handleShowMessageWriter: () => void;
-
-  fetchEmailSummaryList: () => void;
-  fetchPaginatedAvailableRecipientMemberList: (
-    page: number,
-    memberSelectedCategories?: number[],
-  ) => void;
-  fetchEmailDetail: (templateId: number) => void;
-  loadingRecipientsModalMemberList: boolean;
-  paginatedMemberList: Member[];
-  resetPaginatedAvailableRecipientMemberList: (options: OptionCallback) => void;
 
   sendCommunication: (
     data: MessageData,
@@ -149,27 +137,11 @@ export type Props = {
       storeInCallback: (communication: Communication) => boolean;
     },
   ) => void;
-  setCommunicationKindBeingWritten: (
-    kind: number,
-    callback?: () => void,
-  ) => void;
-
-  countAvailableRecipientsTotal: number;
-  countAvailableRecipientsWithEmail: number;
-  countAvailableRecipientsWithPhone: number;
-
   // --- Theme ---
   theme: Theme;
 
   // --- Email Template ---
-  emailTemplateDetailList: Record<number, EmailTemplateDetail>;
-  emailTemplateSummaryList: EmailTemplateSummary[];
-  loadingEmailTemplateSummaryList: boolean;
-  loadingEmailTemplateDetailList: boolean;
   resolvedGenericTags: ResolvedGenericTags;
-  tagCategories: {
-    [tag_name: string]: string[];
-  };
 };
 
 const InboxThreadContainer: React.FC<
@@ -177,14 +149,7 @@ const InboxThreadContainer: React.FC<
 > = (props) => {
   const classes = useStyles();
   const { t } = useTranslation('communication');
-
-  const consentWarning =
-    props.contextMember &&
-    getConsentWarning(
-      props.contextMember,
-      props.communicationKindBeingWritten,
-      t,
-    );
+  const { communicationMember } = props;
 
   const hasActiveFilters =
     !!props.filterDateEnd || !!props.filterDateStart || !!props.filters.length;
@@ -202,6 +167,19 @@ const InboxThreadContainer: React.FC<
     !props.communicationSMSProviderVerificationState.isVerified &&
     props.communicationKindBeingWritten === COMMUNICATION_KIND_SMS;
 
+  const getContextIdentifier = React.useCallback(() => {
+    switch (props.contextSelected) {
+      case ChatThreadKinds.Offer:
+        return CONTEXT_OFFER;
+      case ChatThreadKinds.Member:
+        return CONTEXT_MEMBER;
+      case ChatThreadKinds.Smartlist:
+        return CONTEXT_SMARTLIST;
+      default:
+        return 0;
+    }
+  }, [props.contextSelected]);
+
   return (
     <>
       {props.isThreadLoading ? (
@@ -214,127 +192,94 @@ const InboxThreadContainer: React.FC<
             <InboxNoThread />
           ) : (
             <>
-              <InboxThreadContainerHeader
-                allPreviousFilter={props.allPreviousFilter}
-                dateEndSetter={props.dateEndSetter}
-                dateEndValue={props.dateEndValue}
-                dateStartSetter={props.dateStartSetter}
-                dateStartValue={props.dateStartValue}
-                flagAsUnread={props.flagAsUnread}
-                goToDetailPage={props.goToDetailPage}
-                goToThreadListPage={props.goToThreadListPage}
-                handleFiltersSubmit={props.handleFiltersSubmit}
-                kindFilterSetter={props.kindFilterSetter}
-                kindFilterValues={props.kindFilterValues}
-                onShowFilterModal={props.onShowFilterModal}
-                popKindFilterValue={props.popKindFilterValue}
-                popRecipientFilterValue={props.popRecipientFilterValue}
-                popSendParameterFilterValue={props.popSendParameterFilterValue}
-                popSrcOrDstFilterValue={props.popSrcOrDstFilterValue}
-                recipientFilterSetter={props.recipientFilterSetter}
-                recipientFilterValues={props.recipientFilterValues}
-                resetFilters={props.resetFilters}
-                resetPeriodFilter={props.resetPeriodFilter}
-                sendParameterFilterSetter={props.sendParameterFilterSetter}
-                sendParameterFilterValues={props.sendParameterFilterValues}
-                setShowFilterModal={props.setShowFilterModal}
-                showFilterModal={props.showFilterModal}
-                srcOrDstFilterSetter={props.srcOrDstFilterSetter}
-                srcOrDstFilterValues={props.srcOrDstFilterValues}
-                switchDisabledStatus={props.switchDisabledStatus}
-                switchFavoriteStatus={props.switchFavoriteStatus}
-                switchMutedStatus={props.switchMutedStatus}
-                thread={props.thread}
-              />
-
-              <div className={classes.threadContainer}>
-                <Snackbar
-                  anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-                  autoHideDuration={5000}
-                  className={classes.snackbar}
-                  onClose={props.onCloseSnackbar}
-                  open={props.displaySnackbar}
-                >
-                  <Alert className={classes.snackbarContent} severity="info">
-                    {t('messageList.filterOutCommunicationSent')}
-                  </Alert>
-                </Snackbar>
-                <CommunicationMessageListContainer
-                  allMemberCategoryList={props.allMemberCategoryList}
-                  consentWarning={consentWarning}
-                  contextMember={props.contextMember}
-                  currentPage={props.currentPage}
-                  fetchMoreCommunicationMessages={
-                    props.fetchMoreCommunicationMessages
+              <CommunicationContextProvider
+                initialValues={{
+                  communicationIdentifier: getContextIdentifier(),
+                  communicationMember: communicationMember,
+                  communicationTitle: props.thread.title,
+                  communicationObjectId: props.thread.related_object_id,
+                  allMemberCategoryList: props.allMemberCategoryList,
+                  fullScreen: false,
+                }}
+              >
+                <InboxThreadContainerHeader
+                  allPreviousFilter={props.allPreviousFilter}
+                  automatedMessages={props.automatedMessages}
+                  communicationKinds={props.communicationKinds}
+                  dateEnd={props.dateEnd}
+                  dateStart={props.dateStart}
+                  flagAsUnread={props.flagAsUnread}
+                  goToDetailPage={props.goToDetailPage}
+                  goToThreadListPage={props.goToThreadListPage}
+                  handleFiltersSubmit={props.handleFiltersSubmit}
+                  messagesOrigin={props.messagesOrigin}
+                  onShowFilterModal={props.onShowFilterModal}
+                  popKindFilterValue={props.popKindFilterValue}
+                  popRecipientFilterValue={props.popRecipientFilterValue}
+                  popSendParameterFilterValue={
+                    props.popSendParameterFilterValue
                   }
-                  hasActiveFilters={hasActiveFilters}
-                  loadingCommunicationMessageDataList={
-                    props.loadingCommunicationMessageDataList
-                  }
-                  messageList={props.messageList}
-                  //@ts-expect-error
-                  onCloseSnackbar={props.onCloseSnackbar}
-                  openSnackbar={props.displaySnackbar}
-                  paginationSize={PAGINATION_SIZE_RECIPIENTS}
-                  recipientList={props.recipientList}
-                  recipientListCount={props.recipientListCount}
-                  resolvedGenericTags={props.resolvedGenericTags}
-                  scrollToBottomFlag={props.scrollToBottomFlag}
-                  showCommunicationSmsProviderNotVerifiedWarning={
-                    showCommunicationSmsProviderNotVerifiedWarning
-                  }
-                  showMailProviderWarningContent={
-                    showMailProviderWarningContent
-                  }
+                  popSrcOrDstFilterValue={props.popSrcOrDstFilterValue}
+                  recipientTypes={props.recipientTypes}
+                  resetFilters={props.resetFilters}
+                  resetPeriodFilter={props.resetPeriodFilter}
+                  setAutomatedMessages={props.setAutomatedMessages}
+                  setCommunicationKind={props.setCommunicationKind}
+                  setDateEnd={props.setDateEnd}
+                  setDateStart={props.setDateStart}
+                  setMessagesOrigin={props.setMessagesOrigin}
+                  setRecipientTypes={props.setRecipientTypes}
+                  setShowFilterModal={props.setShowFilterModal}
+                  showFilterModal={props.showFilterModal}
+                  switchDisabledStatus={props.switchDisabledStatus}
+                  switchFavoriteStatus={props.switchFavoriteStatus}
+                  switchMutedStatus={props.switchMutedStatus}
+                  thread={props.thread}
                 />
-              </div>
-              <InboxThreadSenderContainer
-                allMemberCategoryList={props.allMemberCategoryList}
-                communicationKindBeingWritten={
-                  props.communicationKindBeingWritten
-                }
-                contextMember={props.contextMember}
-                contextSelected={props.contextSelected}
-                countAvailableRecipientsTotal={
-                  props.countAvailableRecipientsTotal
-                }
-                countAvailableRecipientsWithEmail={
-                  props.countAvailableRecipientsWithEmail
-                }
-                countAvailableRecipientsWithPhone={
-                  props.countAvailableRecipientsWithPhone
-                }
-                emailTemplateDetailList={props.emailTemplateDetailList}
-                emailTemplateSummaryList={props.emailTemplateSummaryList}
-                fetchEmailDetail={props.fetchEmailDetail}
-                fetchEmailSummaryList={props.fetchEmailSummaryList}
-                fetchPaginatedAvailableRecipientMemberList={
-                  props.fetchPaginatedAvailableRecipientMemberList
-                }
-                handleShowMessageWriter={props.handleShowMessageWriter}
-                hideAutoResend={hideAutoResend}
-                loadingEmailTemplateDetailList={
-                  props.loadingEmailTemplateDetailList
-                }
-                loadingEmailTemplateSummaryList={
-                  props.loadingEmailTemplateSummaryList
-                }
-                loadingRecipientsModalMemberList={
-                  props.loadingRecipientsModalMemberList
-                }
-                paginatedMemberList={props.paginatedMemberList}
-                resetPaginatedAvailableRecipientMemberList={
-                  props.resetPaginatedAvailableRecipientMemberList
-                }
-                resolvedGenericTags={props.resolvedGenericTags}
-                sendCommunication={props.sendCommunication}
-                setCommunicationKindBeingWritten={
-                  props.setCommunicationKindBeingWritten
-                }
-                showMessageWriter={props.showMessageWriter}
-                tagCategories={props.tagCategories}
-                thread={props.thread}
-              />
+
+                <div className={classes.threadContainer}>
+                  <Snackbar
+                    anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+                    autoHideDuration={5000}
+                    className={classes.snackbar}
+                    onClose={props.onCloseSnackbar}
+                    open={props.displaySnackbar}
+                  >
+                    <Alert className={classes.snackbarContent} severity="info">
+                      {t('messageList.filterOutCommunicationSent')}
+                    </Alert>
+                  </Snackbar>
+                  <CommunicationMessageListContainer
+                    currentPage={props.currentPage}
+                    fetchMoreCommunicationMessages={
+                      props.fetchMoreCommunicationMessages
+                    }
+                    hasActiveFilters={hasActiveFilters}
+                    //@ts-expect-error
+                    onCloseSnackbar={props.onCloseSnackbar}
+                    openSnackbar={props.displaySnackbar}
+                    paginationSize={PAGINATION_SIZE_RECIPIENTS}
+                    recipientList={props.recipientList}
+                    recipientListCount={props.recipientListCount}
+                    resolvedGenericTags={props.resolvedGenericTags}
+                    scrollToBottomFlag={props.scrollToBottomFlag}
+                    showCommunicationSmsProviderNotVerifiedWarning={
+                      showCommunicationSmsProviderNotVerifiedWarning
+                    }
+                    showMailProviderWarningContent={
+                      showMailProviderWarningContent
+                    }
+                  />
+                </div>
+                <InboxThreadSenderContainer
+                  communicationMember={props.communicationMember}
+                  handleShowMessageWriter={props.handleShowMessageWriter}
+                  hideAutoResend={hideAutoResend}
+                  sendCommunication={props.sendCommunication}
+                  showMessageWriter={props.showMessageWriter}
+                  thread={props.thread}
+                />
+              </CommunicationContextProvider>
             </>
           )}
         </>

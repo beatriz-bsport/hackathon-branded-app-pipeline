@@ -3,7 +3,6 @@ import React, { useCallback } from 'react';
 import CommunicationTemplateModal from '#src/libs/communication-v2/components/MessageSender/ModalTemplate/CommunicationTemplateModal.component';
 
 type EmailTemplateSelectorProps = {
-  fullScreen?: boolean;
   setOpenTemplateSelector: (open: boolean) => void;
   setMailTemplateSelected: (templateId: number | null) => void;
   setMailTitle: (title: string) => void;
@@ -14,7 +13,6 @@ type EmailTemplateSelectorProps = {
 };
 
 const EmailTemplateSelector: React.FC<EmailTemplateSelectorProps> = ({
-  fullScreen,
   setOpenTemplateSelector,
   setMailTemplateSelected,
   setMailTitle,
@@ -42,7 +40,6 @@ const EmailTemplateSelector: React.FC<EmailTemplateSelectorProps> = ({
   return (
     <CommunicationTemplateModal
       closeDialog={onClose}
-      fullScreen={fullScreen}
       open={openTemplateSelector}
       selectedTemplate={mailTemplateSelected}
       selectedTitle={mailTitle}

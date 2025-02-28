@@ -6,7 +6,6 @@ import CommunicationSelectTemplate from './CommunicationSelectTemplate.component
 import { useEmailTemplates } from '#src/libs/communication-v2/hooks/useEmailTemplates.hooks';
 
 export type Props = {
-  fullScreen?: boolean;
   open: boolean;
   selectedTemplate: number;
   selectedTitle: string;
@@ -16,7 +15,6 @@ export type Props = {
 };
 
 export const CommunicationTemplateModal: React.FC<Props> = ({
-  fullScreen,
   open,
   selectedTemplate,
   selectedTitle,
@@ -66,7 +64,6 @@ export const CommunicationTemplateModal: React.FC<Props> = ({
       buttonCancelText={t('common.cancel')}
       buttonConfirmText={t('common.confirm')}
       closeDialog={closeDialog}
-      fullScreen={fullScreen}
       onCancel={closeDialog}
       onConfirm={onConfirm}
       open={open}

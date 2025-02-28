@@ -21,6 +21,7 @@ import {
 } from '#src/libs/communication-v2/constants';
 import CommunicationWrapperDialog from '../../CommunicationWrapperDialog.component';
 import { useTagsAndCategories } from '#src/libs/communication-v2/hooks/useCommunicationsTools.hooks';
+import { useCommunicationContext } from '#src/libs/communication-v2/context/CommunicationDrawer.context';
 
 type Props = {
   children: React.ReactNode;
@@ -30,7 +31,6 @@ type Props = {
   emailTitle: string;
   handleChangeContent: (event: React.ChangeEvent) => void;
   handleChangeTitle: (event: React.ChangeEvent) => void;
-  isMobileSize?: boolean;
   loadingTemplateDetails?: boolean;
   onEditTemplate?: () => void;
   onFocus?: (identifier: number) => void;
@@ -47,7 +47,6 @@ const CommunicationWriteEmail: React.FC<Props> = ({
   emailTemplateDetails,
   emailTemplateSelected,
   emailTitle,
-  isMobileSize,
   loadingTemplateDetails,
   onFocus,
   onRemoveTemplate,
@@ -55,6 +54,7 @@ const CommunicationWriteEmail: React.FC<Props> = ({
   onSeeTemplate,
   refreshTemplateData,
 }) => {
+  const { fullScreen } = useCommunicationContext();
   const { t } = useTranslation('communication');
 
   const [showRefreshDialog, setShowRefreshDialog] = useState(false);
@@ -112,7 +112,7 @@ const CommunicationWriteEmail: React.FC<Props> = ({
           customOptions={{
             display: { column: true },
             rows: {
-              minRows: isMobileSize ? 2 : 6,
+              minRows: fullScreen ? 2 : 6,
             },
             focus: {
               onFocus: onContentFocus,
@@ -203,7 +203,6 @@ const RefreshDialog: React.FC<RefreshProps> = React.memo(
       <CommunicationWrapperDialog
         buttonCancelText={t('common.cancel')}
         buttonConfirmText={t('common.refresh')}
-        fullScreen={false}
         maxWidth="xs"
         onConfirm={refreshTemplateData}
         open={openDialog}

@@ -1899,7 +1899,8 @@
           "close": "Cancel",
           "confirm": "Send"
         }
-      }
+      },
+      "accessibilityText": { "expandRow": "Expand row" }
     },
     "consumerSpace": {
       "navigation": {

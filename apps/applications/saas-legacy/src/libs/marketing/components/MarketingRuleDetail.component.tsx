@@ -418,9 +418,9 @@ class MarketingRuleDetail extends React.PureComponent<Props, State> {
           this.props.theme?.company === 498) &&
           !!this.props.selectedNotification && (
             <CommunicationDrawer
-              contextIdentifier={CONTEXT_NOTIFICATION}
-              contextObjectId={this.props.selectedNotification?.id}
-              contextTitle={this.getPrimaryText(
+              communicationIdentifier={CONTEXT_NOTIFICATION}
+              communicationObjectId={this.props.selectedNotification?.id}
+              communicationTitle={this.getPrimaryText(
                 this.props.selectedNotification,
               )}
               onDrawerClose={this.onCloseCommunicationDrawerClick}

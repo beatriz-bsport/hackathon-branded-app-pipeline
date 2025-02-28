@@ -188,10 +188,10 @@ class InboxThreadContainerPage extends PureComponent<Props> {
     this.props.setInboxContainerState(
       {
         ...this.props.inboxContainerState,
-        kindFilterValues: [],
-        recipientFilterValues: [],
-        sendParameterFilterValues: [],
-        srcOrDstFilterValues: [],
+        communicationKinds: [],
+        recipientTypes: [],
+        automatedMessages: [],
+        messagesOrigin: [],
         dateStart: null,
         dateEnd: null,
       },
@@ -215,13 +215,13 @@ class InboxThreadContainerPage extends PureComponent<Props> {
     switch (filterIdentifier) {
       case COMMUNICATION_FILTER_IDENTIFIER_KIND:
         newFilterValues = [
-          ...this.props.inboxContainerState.kindFilterValues,
+          ...this.props.inboxContainerState.communicationKinds,
         ].splice(index, 1);
 
         this.props.setInboxContainerState(
           {
             ...this.props.inboxContainerState,
-            kindFilterValues: newFilterValues,
+            communicationKinds: newFilterValues,
           },
           this.handleFiltersSubmit,
         );
@@ -230,13 +230,13 @@ class InboxThreadContainerPage extends PureComponent<Props> {
 
       case COMMUNICATION_FILTER_IDENTIFIER_RECIPIENT:
         newFilterValues = [
-          ...this.props.inboxContainerState.recipientFilterValues,
+          ...this.props.inboxContainerState.recipientTypes,
         ].splice(index, 1);
 
         this.props.setInboxContainerState(
           {
             ...this.props.inboxContainerState,
-            recipientFilterValues: newFilterValues,
+            recipientTypes: newFilterValues,
           },
           this.handleFiltersSubmit,
         );
@@ -245,13 +245,13 @@ class InboxThreadContainerPage extends PureComponent<Props> {
 
       case COMMUNICATION_FILTER_IDENTIFIER_SEND_PARAMETER:
         newFilterValues = [
-          ...this.props.inboxContainerState.sendParameterFilterValues,
+          ...this.props.inboxContainerState.automatedMessages,
         ].splice(index, 1);
 
         this.props.setInboxContainerState(
           {
             ...this.props.inboxContainerState,
-            sendParameterFilterValues: newFilterValues,
+            automatedMessages: newFilterValues,
           },
           this.handleFiltersSubmit,
         );
@@ -260,13 +260,13 @@ class InboxThreadContainerPage extends PureComponent<Props> {
 
       case COMMUNICATION_FILTER_IDENTIFIER_SRC_OR_DST:
         newFilterValues = [
-          ...this.props.inboxContainerState.srcOrDstFilterValues,
+          ...this.props.inboxContainerState.messagesOrigin,
         ].splice(index, 1);
 
         this.props.setInboxContainerState(
           {
             ...this.props.inboxContainerState,
-            sendParameterFilterValues: newFilterValues,
+            messagesOrigin: newFilterValues,
           },
           this.handleFiltersSubmit,
         );
@@ -349,7 +349,7 @@ class InboxThreadContainerPage extends PureComponent<Props> {
       count,
       contextSelected,
       // --- Member ---
-      contextMember,
+      communicationMember,
       // --- Message List ---
       fetchPageInformationRecipientList,
       loadingMessageList,
@@ -389,12 +389,12 @@ class InboxThreadContainerPage extends PureComponent<Props> {
       goToDetailPage,
       // --- Filtering ---
       onShowFilterModal,
-      kindFilterSetter,
-      recipientFilterSetter,
-      sendParameterFilterSetter,
-      srcOrDstFilterSetter,
-      dateStartSetter,
-      dateEndSetter,
+      setCommunicationKind,
+      setRecipientTypes,
+      setAutomatedMessages,
+      setMessagesOrigin,
+      setDateStart,
+      setDateEnd,
       setShowFilterModal,
       // --- Offer
       bookings,
@@ -416,10 +416,10 @@ class InboxThreadContainerPage extends PureComponent<Props> {
       filters,
       filterDateStart,
       filterDateEnd,
-      kindFilterValues,
-      recipientFilterValues,
-      sendParameterFilterValues,
-      srcOrDstFilterValues,
+      communicationKinds,
+      recipientTypes,
+      automatedMessages,
+      messagesOrigin,
       dateStart,
       dateEnd,
       allPreviousFilters,
@@ -434,25 +434,20 @@ class InboxThreadContainerPage extends PureComponent<Props> {
 
     return (
       <InboxThreadContainer
-        // --- Inbox Thread ---
         allMemberCategoryList={allMemberCategoryList}
         allPreviousFilter={allPreviousFilters}
-        // --- Thread List ---
+        automatedMessages={automatedMessages}
         communicationKindBeingWritten={communicationKindBeingWritten}
-        contextMember={contextMember}
-        // --- Header Actions ---
+        communicationKinds={communicationKinds}
+        communicationMember={communicationMember}
         contextSelected={contextSelected}
-        // @ts-expect-error
         count={count}
         countAvailableRecipientsTotal={countAvailableRecipientsTotal}
         countAvailableRecipientsWithEmail={countAvailableRecipientsWithEmail}
         countAvailableRecipientsWithPhone={countAvailableRecipientsWithPhone}
         currentPage={messagePage}
-        // --- Filtering ---
-        dateEndSetter={dateEndSetter}
-        dateEndValue={dateEnd}
-        dateStartSetter={dateStartSetter}
-        dateStartValue={dateStart}
+        dateEnd={dateEnd}
+        dateStart={dateStart}
         displaySnackbar={displaySnackbar}
         emailTemplateDetailList={emailTemplateDetailList}
         emailTemplateSummaryList={emailTemplateSummaryList}
@@ -472,31 +467,23 @@ class InboxThreadContainerPage extends PureComponent<Props> {
         handleFiltersSubmit={this.handleFiltersSubmit}
         handleShowMessageWriter={handleShowMessageWriter}
         isThreadLoading={isThreadLoading}
-        kindFilterSetter={kindFilterSetter}
-        kindFilterValues={kindFilterValues}
         loadingCommunicationMessageDataList={loadingMessageList}
         loadingEmailTemplateDetailList={loadingEmailTemplateDetailList}
         loadingEmailTemplateSummaryList={loadingEmailTemplateSummaryList}
-        // --- Message List ---
         loadingInformationRecipientList={loadingInformationRecipientList}
         loadingRecipientsModalMemberList={loadingRecipientsModalMemberList}
         messageList={messageList}
+        messagesOrigin={messagesOrigin}
         onCloseSnackbar={onCloseSnackbar}
         onShowFilterModal={onShowFilterModal}
         paginatedMemberList={recipientsModalMemberList}
         popKindFilterValue={this.popKindFilterValue}
         popRecipientFilterValue={this.popRecipientFilterValue}
         popSendParameterFilterValue={this.popSendParameterFilterValue}
-        // --- Member ---
         popSrcOrDstFilterValue={this.popSrcOrDstFilterValue}
-        // --- Offer ---
-        recipientFilterSetter={recipientFilterSetter}
-        // --- Snackbar ---
-        recipientFilterValues={recipientFilterValues}
         recipientList={recipientList}
-        // --- Theme ---
         recipientListCount={recipientListCount}
-        // --- Send Message ---
+        recipientTypes={recipientTypes}
         resetFilters={this.resetFilters}
         resetPaginatedAvailableRecipientMemberList={
           resetPaginatedAvailableRecipientMemberList
@@ -505,15 +492,16 @@ class InboxThreadContainerPage extends PureComponent<Props> {
         resolvedGenericTags={resolvedGenericTags}
         scrollToBottomFlag={scrollMessagesToBottomFlag}
         sendCommunication={this.sendCommunication}
-        sendParameterFilterSetter={sendParameterFilterSetter}
-        sendParameterFilterValues={sendParameterFilterValues}
+        setAutomatedMessages={setAutomatedMessages}
+        setCommunicationKind={setCommunicationKind}
         setCommunicationKindBeingWritten={setCommunicationKindBeingWritten}
+        setDateEnd={setDateEnd}
+        setDateStart={setDateStart}
+        setMessagesOrigin={setMessagesOrigin}
+        setRecipientTypes={setRecipientTypes}
         setShowFilterModal={setShowFilterModal}
         showFilterModal={showFilterModal}
         showMessageWriter={showMessageWriter}
-        srcOrDstFilterSetter={srcOrDstFilterSetter}
-        srcOrDstFilterValues={srcOrDstFilterValues}
-        // --- Email Templates ---
         switchDisabledStatus={switchDisabledStatus}
         switchFavoriteStatus={switchFavoriteStatus}
         switchMutedStatus={switchMutedStatus}

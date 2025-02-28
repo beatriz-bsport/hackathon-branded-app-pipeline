@@ -1,4 +1,4 @@
-import React, { memo, useMemo } from 'react';
+import React, { memo, useCallback, useMemo } from 'react';
 import { DateTime } from 'luxon';
 import chroma from 'chroma-js';
 import clsx from 'clsx';
@@ -30,7 +30,6 @@ import {
   interpolateHTMLWithTags,
   findMemberAssociatedTagsInTagsGroups,
 } from '#src/components/html/utils';
-import type { Member } from '#src/libs/member/types';
 import {
   COMMUNICATION_SENT_SENDING_FAIL,
   COMMUNICATION_SENT_SENDING_PROCESSING,
@@ -39,6 +38,7 @@ import {
 import { getSmartlistChannelFromMetadata } from '#src/libs/communication-v2/utils';
 import { useTagsAndCategories } from '#src/libs/communication-v2/hooks/useCommunicationsTools.hooks';
 import CommunicationMessageNumberRecipients from '#src/libs/communication-v2/components/MessageList/SingleMessage/CommunicationMessageNumberRecipients.component';
+import { useCommunicationContext } from '#src/libs/communication-v2/context/CommunicationDrawer.context';
 import { getTextColorFromRGB } from '#src/utils/color';
 
 import '../styles.css';
@@ -220,8 +220,7 @@ const useStyles = makeStyles<Theme, { reverse: boolean; withTopGap: boolean }>(
 const sanitizeRegex = /<script[\s\S]*?>[\s\S]*?<\/script>/gi;
 
 type OwnProps = {
-  oneToOneMessageMember: Member;
-  onShowInformationClick: () => void;
+  onShowInformationClick: (communication: CommunicationMessage) => void;
   onShowEmailTemplate: (title: string, html: string) => void;
   communicationMessage: CommunicationMessage;
 };
@@ -242,15 +241,13 @@ const CommunicationKindIcon = (props: { kind: number }) => {
 };
 
 export const CommunicationMessageBubble = (props: Props) => {
-  const {
-    oneToOneMessageMember,
-    onShowInformationClick,
-    onShowEmailTemplate,
-    communicationMessage,
-  } = props;
+  const { onShowInformationClick, onShowEmailTemplate, communicationMessage } =
+    props;
   const { communication, channel, photos, answerSourceMember } =
     communicationMessage;
   const { resolvedGenericTags } = useTagsAndCategories();
+  const { communicationMember: oneToOneMessageMember } =
+    useCommunicationContext();
 
   const reverse = !!communication.is_answer;
   const withChannel =
@@ -296,11 +293,12 @@ export const CommunicationMessageBubble = (props: Props) => {
     let tagsForMember = {};
     if (oneToOneMessageMember) {
       if (communication.data && communication.data.tags_groups) {
-        tagsForMember = findMemberAssociatedTagsInTagsGroups(
-          oneToOneMessageMember.firstname,
-          oneToOneMessageMember.lastname,
-          communication.data.tags_groups,
-        );
+        tagsForMember =
+          findMemberAssociatedTagsInTagsGroups(
+            oneToOneMessageMember.firstname,
+            oneToOneMessageMember.lastname,
+            communication.data.tags_groups,
+          ) || [];
       } else {
         tagsForMember = {
           '{firstname}': oneToOneMessageMember.firstname,
@@ -328,6 +326,10 @@ export const CommunicationMessageBubble = (props: Props) => {
       tagsToInterpolate,
     );
   }, [communication.data.subject, communication.title, tagsToInterpolate]);
+
+  const handleShowCommunicationInformationClick = useCallback(() => {
+    onShowInformationClick(communicationMessage);
+  }, [onShowInformationClick, communicationMessage]);
 
   return (
     <div className={classes.container}>
@@ -374,7 +376,7 @@ export const CommunicationMessageBubble = (props: Props) => {
                 communication.status === COMMUNICATION_SENT_SENDING_SUCCESS && (
                   <IconButton
                     className={classes.iconButton}
-                    onClick={onShowInformationClick}
+                    onClick={handleShowCommunicationInformationClick}
                     size="small"
                   >
                     <InfoOutlined className={classes.infoIcon} />
@@ -416,7 +418,7 @@ export const CommunicationMessageBubble = (props: Props) => {
               communication.status === COMMUNICATION_SENT_SENDING_SUCCESS && (
                 <ButtonBase
                   className={classes.showInfo}
-                  onClick={onShowInformationClick}
+                  onClick={handleShowCommunicationInformationClick}
                 >
                   <CommunicationMessageNumberRecipients
                     numberRecipients={communication.total_recipients}

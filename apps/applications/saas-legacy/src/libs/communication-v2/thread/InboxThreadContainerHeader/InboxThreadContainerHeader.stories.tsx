@@ -16,9 +16,9 @@ const smartlistThreadProps = SmartListThread();
 const offerThreadProps = OfferThread();
 
 const CustomMemberTemplate = (args: Props) => {
-  const [dateStartValue, setDateStartValue] = useState<DateTime | null>(null);
-  const [dateEndValue, setDateEndValue] = useState<DateTime | null>(null);
-  const [kindFilter, kindFilterSetter] = useState<SelectFieldItem[]>([]);
+  const [dateStart, setdateStart] = useState<DateTime | null>(null);
+  const [dateEnd, setdateEnd] = useState<DateTime | null>(null);
+  const [kindFilter, setCommunicationKind] = useState<SelectFieldItem[]>([]);
   const [recipientFilter, setRecipientFilter] = useState<SelectFieldItem[]>([]);
   const [srcOrDstFilter, setSrcOrDstFilter] = useState<SelectFieldItem[]>([]);
   const [sendParameterFilter, setSendParameterFilter] = useState<
@@ -32,18 +32,18 @@ const CustomMemberTemplate = (args: Props) => {
 
   return (
     <InboxThreadContainerHeader
-      kindFilterValues={kindFilter}
-      kindFilterSetter={kindFilterSetter}
-      sendParameterFilterValues={sendParameterFilter}
-      sendParameterFilterSetter={setSendParameterFilter}
-      recipientFilterValues={recipientFilter}
-      recipientFilterSetter={setRecipientFilter}
-      srcOrDstFilterValues={srcOrDstFilter}
-      srcOrDstFilterSetter={setSrcOrDstFilter}
-      dateStartValue={dateStartValue}
-      dateStartSetter={setDateStartValue}
-      dateEndValue={dateEndValue}
-      dateEndSetter={setDateEndValue}
+      communicationKinds={kindFilter}
+      setCommunicationKind={setCommunicationKind}
+      automatedMessages={sendParameterFilter}
+      setAutomatedMessages={setSendParameterFilter}
+      recipientTypes={recipientFilter}
+      setRecipientTypes={setRecipientFilter}
+      messagesOrigin={srcOrDstFilter}
+      setMessagesOrigin={setSrcOrDstFilter}
+      dateStart={dateStart}
+      setDateStart={setdateStart}
+      dateEnd={dateEnd}
+      setDateEnd={setdateEnd}
       allPreviousFilter={{ filters: [], dateStart: null, dateEnd: null }}
       showFilterModal={showFilterModal}
       setShowFilterModal={setShowFilterModal}
@@ -54,12 +54,12 @@ const CustomMemberTemplate = (args: Props) => {
 };
 
 const CustomSmartlistTemplate = (args: Props) => {
-  const [dateStartValue, setDateStartValue] = useState<DateTime | null>(null);
-  const [dateEndValue, setDateEndValue] = useState<DateTime | null>(null);
+  const [dateStart, setdateStart] = useState<DateTime | null>(null);
+  const [dateEnd, setdateEnd] = useState<DateTime | null>(null);
   const [sendParameterFilter, setSendParameterFilter] = useState<
     SelectFieldItem[]
   >([]);
-  const [kindFilter, kindFilterSetter] = useState<SelectFieldItem[]>([]);
+  const [kindFilter, setCommunicationKind] = useState<SelectFieldItem[]>([]);
   const [recipientFilter, setRecipientFilter] = useState<SelectFieldItem[]>([]);
   const [srcOrDstFilter, setSrcOrDstFilter] = useState<SelectFieldItem[]>([]);
   const [showFilterModal, setShowFilterModal] = useState(false);
@@ -70,18 +70,18 @@ const CustomSmartlistTemplate = (args: Props) => {
 
   return (
     <InboxThreadContainerHeader
-      kindFilterValues={kindFilter}
-      kindFilterSetter={kindFilterSetter}
-      sendParameterFilterValues={sendParameterFilter}
-      sendParameterFilterSetter={setSendParameterFilter}
-      recipientFilterValues={recipientFilter}
-      recipientFilterSetter={setRecipientFilter}
-      srcOrDstFilterValues={srcOrDstFilter}
-      srcOrDstFilterSetter={setSrcOrDstFilter}
-      dateStartValue={dateStartValue}
-      dateStartSetter={setDateStartValue}
-      dateEndValue={dateEndValue}
-      dateEndSetter={setDateEndValue}
+      communicationKinds={kindFilter}
+      setCommunicationKind={setCommunicationKind}
+      automatedMessages={sendParameterFilter}
+      setAutomatedMessages={setSendParameterFilter}
+      recipientTypes={recipientFilter}
+      setRecipientTypes={setRecipientFilter}
+      messagesOrigin={srcOrDstFilter}
+      setMessagesOrigin={setSrcOrDstFilter}
+      dateStart={dateStart}
+      setDateStart={setdateStart}
+      dateEnd={dateEnd}
+      setDateEnd={setdateEnd}
       allPreviousFilter={{ filters: [], dateStart: null, dateEnd: null }}
       showFilterModal={showFilterModal}
       setShowFilterModal={setShowFilterModal}
@@ -92,9 +92,9 @@ const CustomSmartlistTemplate = (args: Props) => {
 };
 
 const CustomOfferTemplate = (args: Props) => {
-  const [kindFilter, kindFilterSetter] = useState<SelectFieldItem[]>([]);
-  const [dateStartValue, setDateStartValue] = useState<DateTime | null>(null);
-  const [dateEndValue, setDateEndValue] = useState<DateTime | null>(null);
+  const [kindFilter, setCommunicationKind] = useState<SelectFieldItem[]>([]);
+  const [dateStart, setdateStart] = useState<DateTime | null>(null);
+  const [dateEnd, setdateEnd] = useState<DateTime | null>(null);
   const [recipientFilter, setRecipientFilter] = useState<SelectFieldItem[]>([]);
   const [srcOrDstFilter, setSrcOrDstFilter] = useState<SelectFieldItem[]>([]);
   const [sendParameterFilter, setSendParameterFilter] = useState<
@@ -108,18 +108,18 @@ const CustomOfferTemplate = (args: Props) => {
 
   return (
     <InboxThreadContainerHeader
-      kindFilterValues={kindFilter}
-      kindFilterSetter={kindFilterSetter}
-      sendParameterFilterValues={sendParameterFilter}
-      sendParameterFilterSetter={setSendParameterFilter}
-      recipientFilterValues={recipientFilter}
-      recipientFilterSetter={setRecipientFilter}
-      srcOrDstFilterValues={srcOrDstFilter}
-      srcOrDstFilterSetter={setSrcOrDstFilter}
-      dateStartValue={dateStartValue}
-      dateStartSetter={setDateStartValue}
-      dateEndValue={dateEndValue}
-      dateEndSetter={setDateEndValue}
+      communicationKinds={kindFilter}
+      setCommunicationKind={setCommunicationKind}
+      automatedMessages={sendParameterFilter}
+      setAutomatedMessages={setSendParameterFilter}
+      recipientTypes={recipientFilter}
+      setRecipientTypes={setRecipientFilter}
+      messagesOrigin={srcOrDstFilter}
+      setMessagesOrigin={setSrcOrDstFilter}
+      dateStart={dateStart}
+      setDateStart={setdateStart}
+      dateEnd={dateEnd}
+      setDateEnd={setdateEnd}
       allPreviousFilter={{ filters: [], dateStart: null, dateEnd: null }}
       showFilterModal={showFilterModal}
       setShowFilterModal={setShowFilterModal}

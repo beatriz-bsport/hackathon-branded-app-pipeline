@@ -17,9 +17,8 @@ import BottomBarIcons from '#src/libs/communication-v2/components/MessageSender/
 
 type SendMessageContainerBottomIconsProps = {
   communicationKind: number;
-  contextIdentifier?: number;
+  communicationIdentifier?: number;
   directMember?: Member;
-  fullScreen?: boolean;
   hideAutoResend?: boolean;
   relatedObjectKind?: ChatThreadKinds;
   tagCategories: { [tag_name: string]: string[] };
@@ -44,9 +43,8 @@ const SendMessageContainerBottomIcons: React.FC<
   SendMessageContainerBottomIconsProps
 > = ({
   communicationKind,
-  contextIdentifier,
+  communicationIdentifier,
   directMember,
-  fullScreen,
   hideAutoResend,
   relatedObjectKind,
   tagCategories,
@@ -80,8 +78,8 @@ const SendMessageContainerBottomIcons: React.FC<
   const tags = useMemo(() => {
     return relatedObjectKind
       ? getAvailableTagsFromThread(tagCategories)
-      : getAvailableTagsFromContext(contextIdentifier, tagCategories);
-  }, [relatedObjectKind, tagCategories, contextIdentifier]);
+      : getAvailableTagsFromContext(communicationIdentifier, tagCategories);
+  }, [relatedObjectKind, tagCategories, communicationIdentifier]);
 
   const selectedRecipientsCount = useMemo(() => {
     const count = getSelectedRecipientsCount();
@@ -104,9 +102,8 @@ const SendMessageContainerBottomIcons: React.FC<
   return (
     <BottomBarIcons
       actionType={communicationKind}
-      contextIdentifier={contextIdentifier}
+      communicationIdentifier={communicationIdentifier}
       directMember={directMember}
-      fullScreen={fullScreen}
       handleSelectRecipients={onSelectRecipients}
       handleSelectTemplate={onSelectTemplate}
       memberList={selectedMemberDetailList}

@@ -182,15 +182,16 @@ export type MessageData = {
   email_resend_count?: number;
 };
 
+export type CommunicationChannelsList =
+  | 'offer_id'
+  | 'marketing_notification_id'
+  | 'smartlist_id'
+  | 'member_id'
+  | 'notification_rule';
+
 export type CommunicationFilterParams = {
   filter_kind?: number[];
-  filter_channel?: [
-    | 'offer_id'
-    | 'marketing_notification_id'
-    | 'smartlist_id'
-    | 'member_id'
-    | 'notification_rule',
-  ];
+  filter_channel?: CommunicationChannelsList;
   filter_recipient?: number[];
   filter_send_parameter?: number;
   filter_src_or_dst?: number;
@@ -201,11 +202,11 @@ export type CommunicationFilterParams = {
 export type FilterState = {
   dateStart: DateTime;
   dateEnd: DateTime;
-  kindFilterValues: SelectFieldItem[];
-  recipientFilterValues: SelectFieldItem[];
-  channelFilterValues?: SelectFieldItem[];
-  sendParameterFilterValues: SelectFieldItem[];
-  srcOrDstFilterValues: SelectFieldItem[];
+  communicationKinds: SelectFieldItem[];
+  recipientTypes: SelectFieldItem[];
+  messageChannels?: SelectFieldItem[];
+  automatedMessages: SelectFieldItem[];
+  messagesOrigin: SelectFieldItem[];
   showFilterModal: boolean;
   allPreviousFilters: { filters: number[]; dateStart: number; dateEnd: number };
 };
@@ -219,13 +220,11 @@ export type FetchCommunicationParams = {
 export type DrawerProps = {
   onDrawerClose: () => void;
   openDrawer: boolean;
-  contextIdentifier: number; // see in constants
-  contextMember?: Member; // if we are on a member page
-  contextTitle?: string; // notification/smarlist/session name
-  contextObjectId?: number; // for hoc
+  communicationIdentifier: number;
+  communicationObjectId: number;
+  communicationMember?: Member;
+  communicationTitle?: string;
   allMemberCategoryList?: FilteringMemberIdsByGenericCategories;
-  communicationKindToWrite?: number;
-  propToListenToReloadRecipients?: any; // if this prop changes, refetch data on recipients
 };
 
 export type FilteringMemberIdsByGenericCategories = {
@@ -358,8 +357,8 @@ export type MemberListDataByCommunicationKind = {
 };
 
 export type CommunicationIdentifiers = {
-  contextIdentifier: number;
-  contextObjectId: number;
+  communicationIdentifier: number;
+  communicationObjectId: number;
 };
 
 export type CommunicationContextQueryParams = {
@@ -373,3 +372,12 @@ export type FetchFirstReachedRecipientsParams = {
   blacklist_phone: number[];
   blacklist_notification: number[];
 } & CommunicationContextQueryParams;
+
+export type AuhtorizedFiltersList = {
+  hasDatesFilter: boolean;
+  hasRecipientTypesFilter: boolean;
+  hasMessageChannelsFilter: boolean;
+  hasMessagesOriginFilter: boolean;
+  hasAutomatedMessagesFilter: boolean;
+  hasCommunicationKindsFilter: boolean;
+};

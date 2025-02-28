@@ -2009,6 +2009,9 @@
                 "confirm": "Send"
             }
         },
+        "accessibilityText": {
+            "expandRow": "Expand row"
+        },
         "communication": "Communications"
     },
     "consumerSpace": {

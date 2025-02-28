@@ -17,7 +17,6 @@ type MessageWriterByKindProps = {
   emailTemplateDetailList: Record<number, EmailTemplateDetail>;
   emailTemplateSelected: number | null;
   emailTitle: string;
-  fullScreen?: boolean;
   loadingTemplateDetailList: boolean;
   mailContent: string;
   notificationContent: string;
@@ -41,7 +40,6 @@ const MessageWriterByKind: React.FC<MessageWriterByKindProps> = ({
   emailTemplateDetailList,
   emailTemplateSelected,
   emailTitle,
-  fullScreen,
   loadingTemplateDetailList,
   mailContent,
   notificationContent,
@@ -132,7 +130,6 @@ const MessageWriterByKind: React.FC<MessageWriterByKindProps> = ({
           emailTitle={emailTitle}
           handleChangeContent={handleChangeContent}
           handleChangeTitle={handleChangeTitle}
-          isMobileSize={fullScreen}
           loadingTemplateDetails={loadingTemplateDetailList}
           onEditTemplate={onEditTemplate}
           onFocus={onFocus}
@@ -146,7 +143,6 @@ const MessageWriterByKind: React.FC<MessageWriterByKindProps> = ({
       {communicationKind === WRITE_SMS && (
         <CommunicationWriteSMS
           handleChangeContent={handleChangeSMSContent}
-          isMobileSize={fullScreen}
           onFocus={onFocus}
           smsContent={smsContent}
         >
@@ -157,7 +153,6 @@ const MessageWriterByKind: React.FC<MessageWriterByKindProps> = ({
         <CommunicationWriteNotification
           handleChangeContent={handleChangeNotificationContent}
           handleChangeTitle={handleChangeNotificationTitle}
-          isMobileSize={fullScreen}
           notificationContent={notificationContent}
           notificationTitle={notificationTitle}
           onFocus={onFocus}

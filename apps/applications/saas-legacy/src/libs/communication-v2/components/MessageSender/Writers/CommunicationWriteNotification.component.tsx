@@ -13,12 +13,12 @@ import {
   MAX_LENGTH_PUSH_CONTENT,
   MAX_LENGTH_PUSH_TITLE,
 } from '#src/libs/communication-v2/constants';
+import { useCommunicationContext } from '#src/libs/communication-v2/context/CommunicationDrawer.context';
 
 type Props = {
   children: React.ReactNode;
   handleChangeContent: (event: React.ChangeEvent) => void;
   handleChangeTitle: (event: React.ChangeEvent) => void;
-  isMobileSize?: boolean;
   minimalBottom?: boolean; // for specific use such as sequential marketing
   notificationContent: string;
   notificationTitle: string;
@@ -29,14 +29,13 @@ const CommunicationWriteNotification: React.FC<Props> = ({
   children,
   handleChangeContent,
   handleChangeTitle,
-  isMobileSize,
   minimalBottom,
   notificationContent,
   notificationTitle,
   onFocus,
 }) => {
+  const { fullScreen } = useCommunicationContext();
   const { t } = useTranslation('communication');
-
   const classes = useStyles();
 
   const onTitleFocus = useCallback(
@@ -72,7 +71,7 @@ const CommunicationWriteNotification: React.FC<Props> = ({
         customOptions={{
           display: { column: true },
           rows: {
-            minRows: isMobileSize ? 2 : 6,
+            minRows: fullScreen ? 2 : 6,
           },
           focus: {
             onFocus: onContentFocus,

@@ -42,6 +42,7 @@ import {
   CommunicationThreadWithUnreadAnswersCount,
   CommunicationContext,
   CommunicationContextQueryParams,
+  AuhtorizedFiltersList,
 } from '#src/libs/communication-v2/types';
 import {
   COMMUNICATION_FILTER_IDENTIFIER_CHANNEL,
@@ -197,87 +198,89 @@ export const getPersonnalizedChoicesByIdentifier = memoize(
 );
 
 export const getFilterOptionsOverride = memoize(
-  (contextIdentifier: number, t: TFunction) => {
+  (communicationIdentifier: number, t: TFunction) => {
     return {
-      kindFilterOptionsOverride:
-        contextIdentifier === CONTEXT_NOTIFICATION
+      communicationKindsOptionsOverride:
+        communicationIdentifier === CONTEXT_NOTIFICATION
           ? getPersonnalizedChoicesByIdentifier(
               [COMMUNICATION_KIND_EMAIL, COMMUNICATION_KIND_PUSH_NOTIFICATION],
               t,
             )
           : undefined,
       // in case these filters are overriden in the future
-      recipientFilterOptionsOverride: undefined,
-      channelFilterOptionsOverride: undefined,
-      sendParameterFilterOptionsOverride: undefined,
-      srcOrDstFilterOptionsOverride: undefined,
+      recipientTypesOptionsOverride: undefined,
+      messageChannelsOptionsOverride: undefined,
+      automatedMessagesOptionsOverride: undefined,
+      messagesOriginOptionsOverride: undefined,
     };
   },
 );
 
-export const getFiltersToEnable = memoize((contextIdentifier: number) => {
-  const sharedFilters = {
-    hasKindFilter: true,
-    hasDatesFilter: true,
-    hasSrcOrDstFilter: true,
-  };
-  switch (contextIdentifier) {
-    case CONTEXT_OFFER:
-      return {
-        ...sharedFilters,
-        hasChannelFilter: false,
-        hasRecipientFilter: true,
-        hasSendParameterFilter: false,
-      };
-    case CONTEXT_SMARTLIST:
-      return {
-        ...sharedFilters,
-        hasChannelFilter: false,
-        hasRecipientFilter: false,
-        hasSendParameterFilter: true,
-      };
-    case CONTEXT_MEMBER:
-      return {
-        ...sharedFilters,
-        hasChannelFilter: true,
-        hasRecipientFilter: false,
-        hasSendParameterFilter: false,
-      };
-    default:
-      return {
-        ...sharedFilters,
-        hasChannelFilter: false,
-        hasRecipientFilter: false,
-        hasSendParameterFilter: false,
-      };
-  }
-});
+export const getFiltersToEnable = memoize(
+  (communicationIdentifier: number): AuhtorizedFiltersList => {
+    const sharedFilters = {
+      hasCommunicationKindsFilter: true,
+      hasDatesFilter: true,
+      hasMessagesOriginFilter: true,
+    };
+    switch (communicationIdentifier) {
+      case CONTEXT_OFFER:
+        return {
+          ...sharedFilters,
+          hasMessageChannelsFilter: false,
+          hasRecipientTypesFilter: true,
+          hasAutomatedMessagesFilter: false,
+        };
+      case CONTEXT_SMARTLIST:
+        return {
+          ...sharedFilters,
+          hasMessageChannelsFilter: false,
+          hasRecipientTypesFilter: false,
+          hasAutomatedMessagesFilter: true,
+        };
+      case CONTEXT_MEMBER:
+        return {
+          ...sharedFilters,
+          hasMessageChannelsFilter: true,
+          hasRecipientTypesFilter: false,
+          hasAutomatedMessagesFilter: false,
+        };
+      default:
+        return {
+          ...sharedFilters,
+          hasMessageChannelsFilter: false,
+          hasRecipientTypesFilter: false,
+          hasAutomatedMessagesFilter: false,
+        };
+    }
+  },
+);
 
 export const getFiltersToEnableForThread = memoize(
   (relatedObjectKind: ChatThreadKinds) => {
     const sharedFilters = {
-      hasKindFilter: true,
+      hasCommunicationKindsFilter: true,
       hasDatesFilter: true,
-      hasSrcOrDstFilter: true,
+      hasMessagesOriginFilter: true,
     };
     switch (relatedObjectKind) {
       case ChatThreadKinds.Offer:
         return {
           ...sharedFilters,
-          hasRecipientFilter: true,
-          hasSendParameterFilter: false,
+          hasRecipientTypesFilter: true,
+          hasAutomatedMessagesFilter: false,
         };
       case ChatThreadKinds.Smartlist:
         return {
           ...sharedFilters,
-          hasRecipientFilter: false,
-          hasSendParameterFilter: true,
+          hasRecipientTypesFilter: false,
+          hasAutomatedMessagesFilter: true,
         };
       default:
         return {
           ...sharedFilters,
-          hasRecipientFilter: false,
-          hasSendParameterFilter: false,
+          hasRecipientTypesFilter: false,
+          hasAutomatedMessagesFilter: false,
         };
     }
   },
@@ -321,8 +324,8 @@ export const filterCommunicationThread = memoize(
     communication: Communication,
     filters: {
       numberFilters: number[];
-      dateStartFilter: number;
-      dateEndFilter: number;
+      dateStartFilter: number | null;
+      dateEndFilter: number | null;
     },
   ) => {
     const { numberFilters, dateStartFilter, dateEndFilter } = filters;
@@ -344,7 +347,6 @@ export const filterCommunicationThread = memoize(
       ];
     if (
       !!formatedFilters.filter_channel &&
-      // @ts-expect-error
       !formatedFilters.filter_channel.includes(channel)
     )
       return true;
@@ -470,8 +472,10 @@ export const getValidityTooltipMessage = memoize(
 // To send message, we only have user tags available
 // The others are not tackled (unlike in email designs)
 export const getAvailableTagsFromContext = memoize(
-  (contextIdentifier: number, tags: { [tag_name: string]: string[] }) => {
-    const categories = getAvailableTagsCategoriesByContext(contextIdentifier);
+  (communicationIdentifier: number, tags: { [tag_name: string]: string[] }) => {
+    const categories = getAvailableTagsCategoriesByContext(
+      communicationIdentifier,
+    );
     const selectAllTagsCategories = categories.length === 0;
     if (tags) {
       return Object.entries(tags).reduce((acc, [tagCategory, tagList]) => {
@@ -504,9 +508,11 @@ export const getAvailableTagsFromThread = memoize(
   },
 );
 
-const getAvailableTagsCategoriesByContext = (contextIdentifier: number) => {
+const getAvailableTagsCategoriesByContext = (
+  communicationIdentifier: number,
+) => {
   // Keep that function in case one day we would like to apply different kinds depending on the context
-  switch (contextIdentifier) {
+  switch (communicationIdentifier) {
     case CONTEXT_MEMBER:
     case CONTEXT_SMARTLIST:
     case CONTEXT_OFFER:
@@ -582,8 +588,8 @@ export const getSmartlistChannelFromMetadata = (
 export const getFormatedFiltersToFetchCommunicationSent = memoize(
   (
     filters: number[],
-    dateStart: number,
-    dateEnd: number,
+    dateStart: number | null,
+    dateEnd: number | null,
   ): CommunicationFilterParams => {
     const channelIds: string[] = Object.keys(COMMUNICATION_FILTER_CHANNELS);
     const channelList = filters
@@ -633,21 +639,21 @@ So we need to format differently our query params for the related endpoints
 */
 export const getFormattedQueryParamsFromContext = memoize(
   (
-    contextIdentifier: number,
-    contextObjectId: number,
+    communicationIdentifier: number,
+    communicationObjectId: number,
     memberSelectedCategories: number[],
   ): CommunicationContextQueryParams => {
-    switch (contextIdentifier) {
+    switch (communicationIdentifier) {
       case CONTEXT_MEMBER:
-        return { id__in: [contextObjectId] };
+        return { id__in: [communicationObjectId] };
       case CONTEXT_OFFER:
         return {
-          offer_with_selected_categories: `${contextObjectId}::${formatNumberListIntoString(
+          offer_with_selected_categories: `${communicationObjectId}::${formatNumberListIntoString(
             memberSelectedCategories,
           )}`,
         };
       case CONTEXT_SMARTLIST:
-        return { smartlist: contextObjectId };
+        return { smartlist: communicationObjectId };
       default:
         return {};
     }

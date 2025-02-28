@@ -29,7 +29,6 @@ export type Props = {
   countAvailableRecipientsWithEmail: number;
   countAvailableRecipientsWithPhone: number;
   fetchPaginatedAvailableRecipientMemberList: (page: number) => void;
-  fullScreen?: boolean;
   handleCloseDialog: () => void;
   kind: number;
   loadingPaginatedMemberList: boolean;
@@ -59,7 +58,6 @@ const CommunicationRecipientsModal: React.FC<Props> = ({
   countAvailableRecipientsWithEmail,
   countAvailableRecipientsWithPhone,
   fetchPaginatedAvailableRecipientMemberList,
-  fullScreen,
   handleCloseDialog,
   kind,
   loadingPaginatedMemberList,
@@ -174,7 +172,6 @@ const CommunicationRecipientsModal: React.FC<Props> = ({
       buttonCancelText={t('common.cancel')}
       buttonConfirmText={t('common.confirm')}
       closeDialog={onClose}
-      fullScreen={fullScreen}
       onCancel={onClose}
       onConfirm={onConfirm}
       open={open}
@@ -240,7 +237,6 @@ const CommunicationRecipientsModal: React.FC<Props> = ({
         {openRefreshDialog && (
           <CommunicationWrapperDialog
             buttonConfirmText={t('common.refresh')}
-            fullScreen={false}
             maxWidth="xs"
             onConfirm={onRefreshMemberData}
             open={openRefreshDialog}

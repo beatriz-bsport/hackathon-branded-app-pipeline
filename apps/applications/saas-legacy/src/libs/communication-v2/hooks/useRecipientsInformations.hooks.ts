@@ -26,7 +26,9 @@ export type FetchRecipientsParams = {
   memberSelectedCategories?: number[];
 };
 
-export const useRecipientInformation = (contextMember?: { id: number }) => {
+export const useRecipientInformation = (communicationMember?: {
+  id: number;
+}) => {
   const dispatch = useDispatch();
 
   const recipientList = useSelector(getRecipientWithMemberPaginatedList);
@@ -39,8 +41,8 @@ export const useRecipientInformation = (contextMember?: { id: number }) => {
       page,
       memberSelectedCategories,
     }: FetchRecipientsParams) => {
-      const memberFilter = contextMember
-        ? { member_id__in: [contextMember.id] }
+      const memberFilter = communicationMember
+        ? { member_id__in: [communicationMember.id] }
         : getFormatedQueryParamsToFetchRecipientPaginatedList(
             communication,
             memberSelectedCategories,
@@ -64,7 +66,7 @@ export const useRecipientInformation = (contextMember?: { id: number }) => {
         }),
       );
     },
-    [dispatch, contextMember],
+    [dispatch, communicationMember],
   );
 
   return {

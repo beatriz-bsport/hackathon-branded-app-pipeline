@@ -143,21 +143,18 @@ type WithHandlers = {
   handleShowMessageWriter: () => void;
   onShowFilterModal: () => void;
   joinAllFilters: () => number[];
-  kindFilterSetter: (values: SelectFieldItem[], options?: () => void) => void;
-  recipientFilterSetter: (
+  setCommunicationKind: (
     values: SelectFieldItem[],
     options?: () => void,
   ) => void;
-  sendParameterFilterSetter: (
+  setRecipientTypes: (values: SelectFieldItem[], options?: () => void) => void;
+  setAutomatedMessages: (
     values: SelectFieldItem[],
     options?: () => void,
   ) => void;
-  srcOrDstFilterSetter: (
-    values: SelectFieldItem[],
-    options?: () => void,
-  ) => void;
-  dateStartSetter: (dateStart: DateTime, options?: () => void) => void;
-  dateEndSetter: (dateStart: DateTime, options?: () => void) => void;
+  setMessagesOrigin: (values: SelectFieldItem[], options?: () => void) => void;
+  setDateStart: (dateStart: DateTime, options?: () => void) => void;
+  setDateEnd: (dateStart: DateTime, options?: () => void) => void;
   setShowFilterModal: (showFilterModal: boolean, options?: () => void) => void;
   setCommunicationKindBeingWritten: (
     kind: number,
@@ -189,7 +186,7 @@ const connector = connect(
     emailTemplateSummaryList: getAllEmailTemplatesSummaries(state),
     loadingEmailTemplateSummaryList: state.emailTemplate.loading,
     // MEMBERS
-    contextMember:
+    communicationMember:
       thread?.related_object_kind === ChatThreadKinds.Member &&
       getMember(state, thread?.related_object_id),
     countAvailableRecipientsTotal: state.member.communication.countTotal,
@@ -254,10 +251,10 @@ export default function withInboxThreadData(
       filterDateEnd: null,
       dateStart: null,
       dateEnd: null,
-      kindFilterValues: [],
-      recipientFilterValues: [],
-      sendParameterFilterValues: [],
-      srcOrDstFilterValues: [],
+      communicationKinds: [],
+      recipientTypes: [],
+      automatedMessages: [],
+      messagesOrigin: [],
       allPreviousFilters: {
         filters: [],
         dateStart: null,
@@ -311,8 +308,8 @@ export default function withInboxThreadData(
           page: number,
           memberSelectedCategories?: number[],
         ) => {
-          const recipientParams = props.contextMember
-            ? { member_id__in: [props.contextMember.id] }
+          const recipientParams = props.communicationMember
+            ? { member_id__in: [props.communicationMember.id] }
             : getFormatedQueryParamsToFetchRecipientPaginatedList(
                 communication,
                 memberSelectedCategories,
@@ -439,41 +436,41 @@ export default function withInboxThreadData(
       joinAllFilters: (props: InboxConnectedProps) => () => {
         const filtersNumbers: number[] = [];
         const {
-          hasKindFilter,
-          hasSrcOrDstFilter,
-          hasRecipientFilter,
-          hasSendParameterFilter,
+          hasCommunicationKindsFilter,
+          hasMessagesOriginFilter,
+          hasRecipientTypesFilter,
+          hasAutomatedMessagesFilter,
         } = getFiltersToEnableForThread(props.thread.related_object_kind);
         if (
-          hasKindFilter &&
-          props.inboxContainerState.kindFilterValues.length
+          hasCommunicationKindsFilter &&
+          props.inboxContainerState.communicationKinds.length
         ) {
-          props.inboxContainerState.kindFilterValues.forEach(
+          props.inboxContainerState.communicationKinds.forEach(
             (item: SelectFieldItem) => filtersNumbers.push(item.value),
           );
         }
         if (
-          hasRecipientFilter &&
-          props.inboxContainerState.recipientFilterValues.length
+          hasRecipientTypesFilter &&
+          props.inboxContainerState.recipientTypes.length
         ) {
-          props.inboxContainerState.recipientFilterValues.forEach(
+          props.inboxContainerState.recipientTypes.forEach(
             (item: SelectFieldItem) => filtersNumbers.push(item.value),
           );
         }
         if (
-          hasSendParameterFilter &&
-          props.inboxContainerState.sendParameterFilterValues.length
+          hasAutomatedMessagesFilter &&
+          props.inboxContainerState.automatedMessages.length
         ) {
-          props.inboxContainerState.sendParameterFilterValues.forEach(
+          props.inboxContainerState.automatedMessages.forEach(
             (item: SelectFieldItem) => filtersNumbers.push(item.value),
           );
         }
 
         if (
-          hasSrcOrDstFilter &&
-          props.inboxContainerState.srcOrDstFilterValues.length
+          hasMessagesOriginFilter &&
+          props.inboxContainerState.messagesOrigin.length
         ) {
-          props.inboxContainerState.srcOrDstFilterValues.forEach(
+          props.inboxContainerState.messagesOrigin.forEach(
             (item: SelectFieldItem) => filtersNumbers.push(item.value),
           );
         }
@@ -492,51 +489,51 @@ export default function withInboxThreadData(
         return filtersNumbers;
       },
       // --- Filter Setters ---
-      kindFilterSetter:
+      setCommunicationKind:
         (props: InboxConnectedProps) =>
         (values: SelectFieldItem[], options?: () => void) => {
           props.setInboxContainerState(
             {
               ...props.inboxContainerState,
-              kindFilterValues: values,
+              communicationKinds: values,
             },
             options,
           );
         },
-      recipientFilterSetter:
+      setRecipientTypes:
         (props: InboxConnectedProps) =>
         (values: SelectFieldItem[], options?: () => void) => {
           props.setInboxContainerState(
             {
               ...props.inboxContainerState,
-              recipientFilterValues: values,
+              recipientTypes: values,
             },
             options,
           );
         },
-      sendParameterFilterSetter:
+      setAutomatedMessages:
         (props: InboxConnectedProps) =>
         (values: SelectFieldItem[], options?: () => void) => {
           props.setInboxContainerState(
             {
               ...props.inboxContainerState,
-              sendParameterFilterValues: values,
+              automatedMessages: values,
             },
             options,
           );
         },
-      srcOrDstFilterSetter:
+      setMessagesOrigin:
         (props: InboxConnectedProps) =>
         (values: SelectFieldItem[], options?: () => void) => {
           props.setInboxContainerState(
             {
               ...props.inboxContainerState,
-              srcOrDstFilterValues: values,
+              messagesOrigin: values,
             },
             options,
           );
         },
-      dateStartSetter:
+      setDateStart:
         (props: InboxConnectedProps) =>
         (dateStart: DateTime, options?: () => void) => {
           props.setInboxContainerState(
@@ -547,7 +544,7 @@ export default function withInboxThreadData(
             options,
           );
         },
-      dateEndSetter:
+      setDateEnd:
         (props: InboxConnectedProps) =>
         (dateEnd: DateTime, options?: () => void) => {
           props.setInboxContainerState(

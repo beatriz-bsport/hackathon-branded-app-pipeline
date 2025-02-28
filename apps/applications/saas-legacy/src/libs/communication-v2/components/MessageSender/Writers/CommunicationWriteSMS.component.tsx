@@ -14,12 +14,12 @@ import {
   MAX_LENGTH_AUTOMATIC_SMS,
   TEXTFIELD_SMS_CONTENT,
 } from '#src/libs/communication-v2/constants';
+import { useCommunicationContext } from '#src/libs/communication-v2/context/CommunicationDrawer.context';
 
 type Props = {
   children: React.ReactNode;
   handleChangeContent: (event: React.ChangeEvent) => void;
   onFocus?: (identifier: number) => void;
-  isMobileSize?: boolean;
   minimalBottom?: boolean; // for specific use such as sequential marketing
   smsContent: string;
 };
@@ -28,10 +28,10 @@ const CommunicationWriteSMS: React.FC<Props> = ({
   children,
   handleChangeContent,
   onFocus,
-  isMobileSize,
   minimalBottom,
   smsContent,
 }) => {
+  const { fullScreen } = useCommunicationContext();
   const { t } = useTranslation('communication');
 
   const classes = useStyles();
@@ -55,7 +55,7 @@ const CommunicationWriteSMS: React.FC<Props> = ({
         customOptions={{
           display: { column: true },
           rows: {
-            minRows: isMobileSize ? 2 : 6,
+            minRows: fullScreen ? 2 : 6,
           },
           focus: {
             onFocus: onSMSFocus,

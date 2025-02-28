@@ -21,28 +21,28 @@ export const FilterOnMemberChat = CustomTemplate.bind({});
 
 FilterOnMemberChat.args = {
   ...defaultArgs,
-  contextIdentifier: CONTEXT_MEMBER,
+  communicationIdentifier: CONTEXT_MEMBER,
 };
 
 export const FilterOnNotificationChat = CustomTemplate.bind({});
 
 FilterOnNotificationChat.args = {
   ...defaultArgs,
-  contextIdentifier: CONTEXT_NOTIFICATION,
+  communicationIdentifier: CONTEXT_NOTIFICATION,
 };
 
 export const FilterOnOfferChat = CustomTemplate.bind({});
 
 FilterOnOfferChat.args = {
   ...defaultArgs,
-  contextIdentifier: CONTEXT_OFFER,
+  communicationIdentifier: CONTEXT_OFFER,
 };
 
 export const FilterOnSmartlistChat = CustomTemplate.bind({});
 
 FilterOnSmartlistChat.args = {
   ...defaultArgs,
-  contextIdentifier: CONTEXT_SMARTLIST,
+  communicationIdentifier: CONTEXT_SMARTLIST,
 };
 
 export default {

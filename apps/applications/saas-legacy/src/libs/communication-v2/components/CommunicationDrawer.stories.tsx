@@ -208,8 +208,8 @@ const WrapperWithState = (args: DrawerProps) => {
   };
 
   // ---------- MEMBERS PROPS ----------
-  const memberDatabase = args.contextMember
-    ? [args.contextMember]
+  const memberDatabase = args.communicationMember
+    ? [args.communicationMember]
     : DATABASE_RECIPIENTS_MODAL_MEMBER_LIST;
   const initialRecipientsMemberList = memberDatabase.slice(
     0,
@@ -270,7 +270,6 @@ const WrapperWithState = (args: DrawerProps) => {
 const drawerProps = {
   onDrawerClose: () => {},
   openDrawer: true,
-  communicationKindToWrite: Math.floor(Math.random() * 4),
 };
 
 const CustomTemplate: ComponentStory<typeof WrapperWithState> = (
@@ -281,16 +280,17 @@ export const MemberContext = CustomTemplate.bind({});
 
 MemberContext.args = {
   ...drawerProps,
-  contextIdentifier: CONTEXT_MEMBER,
-  contextMember: MemberFactory({ number_tags: 10 }, true),
+  communicationIdentifier: CONTEXT_MEMBER,
+  communicationMember: MemberFactory({ number_tags: 10 }, true),
+  theme: themeForDrawer,
 };
 
 export const NotificationContext = CustomTemplate.bind({});
 
 NotificationContext.args = {
   ...drawerProps,
-  contextIdentifier: CONTEXT_NOTIFICATION,
-  contextTitle:
+  communicationIdentifier: CONTEXT_NOTIFICATION,
+  communicationTitle:
     "Le nom de l'object de ma push notif - essayons un text genre super long, .. ",
 };
 
@@ -298,31 +298,30 @@ export const SessionContext = CustomTemplate.bind({});
 
 SessionContext.args = {
   ...drawerProps,
-  contextIdentifier: CONTEXT_OFFER,
-  contextTitle: 'Le nom de ma séance',
-  allMemberCategoryList: {
-    categories: [
-      {
-        categoryMemberIdList: [],
-        categoryLabel: 'Première catégorie',
-        categoryIdentifier: 1,
-      },
-      {
-        categoryMemberIdList: [],
-        categoryLabel: 'Seconde catégorie',
-        categoryIdentifier: 2,
-      },
-    ],
-    filterPlaceholder: '',
-  },
+  communicationIdentifier: CONTEXT_OFFER,
+  communicationTitle: 'Le nom de ma séance',
+  allMemberCategoryList: [
+    {
+      categoryMemberIdList: [],
+      categoryLabel: 'Première catégorie',
+      categoryIdentifier: 1,
+    },
+    {
+      categoryMemberIdList: [],
+      categoryLabel: 'Seconde catégorie',
+      categoryIdentifier: 2,
+    },
+  ],
+  theme: themeForDrawer,
 };
 
 export const SmartlistContext = CustomTemplate.bind({});
 
 SmartlistContext.args = {
   ...drawerProps,
-  contextIdentifier: CONTEXT_SMARTLIST,
-  contextTitle: 'Le nom de ma smartlist',
+  communicationIdentifier: CONTEXT_SMARTLIST,
+  communicationTitle: 'Le nom de ma smartlist',
+  theme: themeForDrawer,
 };
 
 export default {

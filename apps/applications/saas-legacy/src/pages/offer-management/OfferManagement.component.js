@@ -285,9 +285,7 @@ type Props = {
   activityGroups: number,
 
   fetchGroupsOfferList: () => {},
-  fetchLevelList: ({
-    company: number,
-  }) => void,
+  fetchLevelList: ({ company: number }) => void,
   fetchAssociatedCoachesList: (params: any) => void,
   fetchSpotForBlueprint: (company: number) => void,
   spotTypes: SpotType[],
@@ -1426,9 +1424,9 @@ export class OfferManagement extends Component<Props, State> {
                 bookings,
                 bookingOptionsPending,
               )}
-              contextIdentifier={CONTEXT_OFFER}
-              contextObjectId={this.props.offer.id ?? this.props.offerId}
-              contextTitle={this.props.offer?.name}
+              communicationIdentifier={CONTEXT_OFFER}
+              communicationObjectId={this.props.offer.id ?? this.props.offerId}
+              communicationTitle={this.props.offer?.name}
               onDrawerClose={this.handleCloseCommunicationDrawer}
               openDrawer={this.props.communicationDrawerIsOpen}
             />

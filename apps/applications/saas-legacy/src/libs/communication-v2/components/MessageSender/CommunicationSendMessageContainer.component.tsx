@@ -31,7 +31,6 @@ import {
 } from '#src/libs/communication-v2/constants';
 import type {
   MessageData,
-  FilteringMemberIdsByGenericCategories,
   MemberListIdsByCommunicationKind,
   FetchFirstReachedRecipientsParams,
 } from '#src/libs/communication-v2/types';
@@ -47,38 +46,27 @@ import {
   useAvailableRecipients,
 } from '#src/libs/communication-v2/hooks/useAvailableRecipients.hooks';
 import { useEmailTemplates } from '#src/libs/communication-v2/hooks/useEmailTemplates.hooks';
+import { useCommunicationContext } from '#src/libs/communication-v2/context/CommunicationDrawer.context';
 
 export type Props = {
-  allMemberCategoryList?: FilteringMemberIdsByGenericCategories;
-  communicationKind: number;
-  contextIdentifier?: number;
-  contextObjectId?: number;
   relatedObjectKind?: ChatThreadKinds;
   relatedObjectId?: number;
   directMember?: Member;
-  fullScreen?: boolean;
   pageSize: number;
   sendCommunication: (
     data: MessageData,
     memberSelectedCategories: number[],
     options?: OptionCallback<void>,
   ) => void;
-  setCommunicationKind: (kind: number, callback?: () => void) => void;
   hideAutoResend?: boolean;
 };
 
 export const CommunicationSendMessageContainer: React.FC<Props> = ({
-  allMemberCategoryList,
-  communicationKind,
-  contextIdentifier,
-  contextObjectId,
   relatedObjectKind,
   relatedObjectId,
   directMember,
-  fullScreen,
   pageSize,
   sendCommunication,
-  setCommunicationKind,
   hideAutoResend,
 }) => {
   const [uncheckedMembers, setUncheckedMembers] =
@@ -87,8 +75,9 @@ export const CommunicationSendMessageContainer: React.FC<Props> = ({
       phone: [],
       notification: [],
     });
-  const [mailTemplateSelected, setMailTemplateSelected] =
-    useState<number>(null);
+  const [mailTemplateSelected, setMailTemplateSelected] = useState<
+    number | null
+  >(null);
   const [mailTitle, setMailTitle] = useState('');
   const [mailContent, setMailContent] = useState('');
   const [smsContent, setSmsContent] = useState('');
@@ -101,10 +90,18 @@ export const CommunicationSendMessageContainer: React.FC<Props> = ({
   const [validity, setValidity] = useState<number | null>(null);
   const [checkedMemberCategoryFilter, setCheckedMemberCategoryFilter] =
     useState<number[]>([]);
+
   const [autoResendConfigDialogOpen, setAutoResendConfigDialogOpen] =
     useState(false);
   const [resendCount, setResendCount] = useState(0);
   const [resendDelay, setResendDelay] = useState(0);
+  const {
+    allMemberCategoryList,
+    communicationKind,
+    communicationIdentifier,
+    communicationObjectId,
+    setCommunicationKind,
+  } = useCommunicationContext();
   const {
     availableRecipientsList,
     availableRecipientsTotalCount,
@@ -116,7 +113,10 @@ export const CommunicationSendMessageContainer: React.FC<Props> = ({
     fetchAvailableRecipients,
     fetchFirstReachedRecipients,
     resetRecipients,
-  } = useAvailableRecipients({ contextIdentifier, contextObjectId });
+  } = useAvailableRecipients({
+    communicationIdentifier,
+    communicationObjectId,
+  });
   const { loadingTemplateDetails, templateDetailList, fetchTemplateDetails } =
     useEmailTemplates();
   const { resolvedGenericTags, tagCategories } = useTagsAndCategories();
@@ -424,10 +424,10 @@ export const CommunicationSendMessageContainer: React.FC<Props> = ({
       );
     }
 
-    if (contextIdentifier && contextObjectId) {
+    if (communicationIdentifier && communicationObjectId) {
       return getFormattedQueryParamsFromContext(
-        contextIdentifier,
-        contextObjectId,
+        communicationIdentifier,
+        communicationObjectId,
         checkedMemberCategoryFilter,
       );
     }
@@ -436,8 +436,8 @@ export const CommunicationSendMessageContainer: React.FC<Props> = ({
   }, [
     relatedObjectKind,
     relatedObjectId,
-    contextIdentifier,
-    contextObjectId,
+    communicationIdentifier,
+    communicationObjectId,
     checkedMemberCategoryFilter,
   ]);
 
@@ -461,7 +461,9 @@ export const CommunicationSendMessageContainer: React.FC<Props> = ({
   ]);
 
   const html =
-    !loadingTemplateDetails && templateDetailList?.[mailTemplateSelected]?.html;
+    !loadingTemplateDetails &&
+    mailTemplateSelected &&
+    templateDetailList?.[mailTemplateSelected]?.html;
 
   return (
     <>
@@ -472,7 +474,6 @@ export const CommunicationSendMessageContainer: React.FC<Props> = ({
           emailTemplateDetailList={templateDetailList}
           emailTemplateSelected={mailTemplateSelected}
           emailTitle={mailTitle}
-          fullScreen={fullScreen}
           getEmailDetail={fetchTemplateDetails}
           loadingTemplateDetailList={loadingTemplateDetails}
           mailContent={mailContent}
@@ -490,10 +491,9 @@ export const CommunicationSendMessageContainer: React.FC<Props> = ({
         >
           <SendMessageContainerBottomIcons
             checkAndSetValidity={checkAndSetValidity}
+            communicationIdentifier={communicationIdentifier}
             communicationKind={communicationKind}
-            contextIdentifier={contextIdentifier}
             directMember={directMember}
-            fullScreen={fullScreen}
             getSelectedRecipientsCount={getSelectedRecipientsCount}
             hideAutoResend={hideAutoResend}
             onBaliseItemClick={onBaliseItemClick}
@@ -518,7 +518,6 @@ export const CommunicationSendMessageContainer: React.FC<Props> = ({
           fetchPaginatedAvailableRecipientMemberList={
             handleFetchPaginatedAvailableRecipientMemberList
           }
-          fullScreen={fullScreen}
           handleCloseDialog={handleCloseRecipientModal}
           kind={communicationKind}
           loadingPaginatedMemberList={loadingAvailableRecipients}
@@ -532,7 +531,6 @@ export const CommunicationSendMessageContainer: React.FC<Props> = ({
         {openTemplateSelector && communicationKind === WRITE_EMAIL && (
           <EmailTemplateSelector
             checkAndSetValidity={checkAndSetValidity}
-            fullScreen={fullScreen}
             mailTemplateSelected={mailTemplateSelected}
             mailTitle={mailTitle}
             openTemplateSelector={openTemplateSelector}

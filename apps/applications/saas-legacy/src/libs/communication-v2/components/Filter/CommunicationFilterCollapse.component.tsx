@@ -13,66 +13,63 @@ import {
   COMMUNICATION_FILTER_IDENTIFIER_SRC_OR_DST,
 } from '#src/libs/communication-v2/constants';
 import { getFieldChoicesByIdentifier } from '#src/libs/communication-v2/utils';
-import { SelectFieldItem } from '#src/libs/communication-v2/types';
+import type { CommunicationListFilters } from '#src/libs/communication-v2/components/CommunicationDrawer.component';
+import type { SelectFieldItem } from '#src/libs/communication-v2/types';
 import CommunicationFilterDateField from '#src/libs/communication-v2/components/Filter/CommunicationFilterDateField.component';
 import CommunicationFilterGenericField from '#src/libs/communication-v2/components/Filter/CommunicationFilterGenericField.component';
 
 type FilterModalProps = {
-  hasKindFilter?: boolean;
-  hasRecipientFilter?: boolean;
-  hasChannelFilter?: boolean;
-  hasSendParameterFilter?: boolean;
-  hasSrcOrDstFilter?: boolean;
+  hasCommunicationKindsFilter?: boolean;
+  hasRecipientTypesFilter?: boolean;
+  hasMessageChannelsFilter?: boolean;
+  hasAutomatedMessagesFilter?: boolean;
+  hasMessagesOriginFilter?: boolean;
   hasDatesFilter?: boolean;
-  kindFilterValues?: SelectFieldItem[];
-  kindFilterSetter?: (args: SelectFieldItem[]) => void;
-  kindFilterOptionsOverride?: SelectFieldItem[];
-  recipientFilterValues?: SelectFieldItem[];
-  recipientFilterSetter?: (args: SelectFieldItem[]) => void;
-  recipientFilterOptionsOverride?: SelectFieldItem[];
-  channelFilterValues?: SelectFieldItem[];
-  channelFilterSetter?: (args: SelectFieldItem[]) => void;
-  channelFilterOptionsOverride?: SelectFieldItem[];
-  sendParameterFilterValues?: SelectFieldItem[];
-  sendParameterFilterSetter?: (args: SelectFieldItem[]) => void;
-  sendParameterFilterOptionsOverride?: SelectFieldItem[];
-  srcOrDstFilterValues?: SelectFieldItem[];
-  srcOrDstFilterSetter?: (args: SelectFieldItem[]) => void;
-  srcOrDstFilterOptionsOverride?: SelectFieldItem[];
-  dateStartValue?: DateTime;
-  dateStartSetter?: (newDate: DateTime) => void;
-  dateEndValue?: DateTime;
-  dateEndSetter?: (newDate: DateTime) => void;
+  communicationKinds?: SelectFieldItem[];
+  setCommunicationKind?: (args: SelectFieldItem[]) => void;
+  communicationKindsOptionsOverride?: SelectFieldItem[];
+  recipientTypes?: SelectFieldItem[];
+  setRecipientTypes?: (args: SelectFieldItem[]) => void;
+  recipientTypesOptionsOverride?: SelectFieldItem[];
+  messageChannels?: SelectFieldItem[];
+  setMessageChannels?: (args: SelectFieldItem[]) => void;
+  messageChannelsOptionsOverride?: SelectFieldItem[];
+  automatedMessages?: SelectFieldItem[];
+  setAutomatedMessages?: (args: SelectFieldItem[]) => void;
+  automatedMessagesOptionsOverride?: SelectFieldItem[];
+  messagesOrigin?: SelectFieldItem[];
+  setMessagesOrigin?: (args: SelectFieldItem[]) => void;
+  messagesOriginOptionsOverride?: SelectFieldItem[];
+  dateStart?: DateTime | null;
+  setDateStart?: (newDate: DateTime) => void;
+  dateEnd?: DateTime | null;
+  setDateEnd?: (newDate: DateTime) => void;
   handleFiltersSubmit: () => void;
-  allPreviousFilter?: {
-    filters: number[];
-    dateStart: number;
-    dateEnd: number;
-  };
+  allPreviousFilter?: CommunicationListFilters;
 };
 
 export const CommunicationFilterCollapse = (props: FilterModalProps) => {
   const classes = useStyles();
   const { t } = useTranslation(['communication']);
   const allFilterNumbers = []
-    .concat(props.kindFilterValues?.map((field) => field.value))
-    .concat(props.recipientFilterValues?.map((field) => field.value))
-    .concat(props.channelFilterValues?.map((field) => field.value))
-    .concat(props.sendParameterFilterValues?.map((field) => field.value))
-    .concat(props.srcOrDstFilterValues?.map((field) => field.value));
+    .concat(props.communicationKinds?.map((field) => field.value))
+    .concat(props.recipientTypes?.map((field) => field.value))
+    .concat(props.messageChannels?.map((field) => field.value))
+    .concat(props.automatedMessages?.map((field) => field.value))
+    .concat(props.messagesOrigin?.map((field) => field.value));
   const enableSubmitButton =
-    (props.dateStartValue?.toUnixInteger() || null) !==
+    (props.dateStart?.toUnixInteger() || null) !==
       props.allPreviousFilter?.dateStart ||
-    (props.dateEndValue?.toUnixInteger() || null) !==
+    (props.dateEnd?.toUnixInteger() || null) !==
       props.allPreviousFilter?.dateEnd ||
     !isEqual(allFilterNumbers, props.allPreviousFilter.filters);
   return (
     <Paper className={classes.container}>
       <div className={classes.filtersContainer}>
-        {props.hasKindFilter && (
+        {props.hasCommunicationKindsFilter && (
           <CommunicationFilterGenericField
             fieldChoices={
-              props.kindFilterOptionsOverride ??
+              props.communicationKindsOptionsOverride ??
               getFieldChoicesByIdentifier(
                 COMMUNICATION_FILTER_IDENTIFIER_KIND,
                 t,
@@ -80,22 +77,22 @@ export const CommunicationFilterCollapse = (props: FilterModalProps) => {
             }
             fieldName={t(`filter.kind.title`)}
             fieldPlaceholder={t(`filter.kind.placeholder`)}
-            fieldValues={props.kindFilterValues}
-            fieldValuesSetter={props.kindFilterSetter}
+            fieldValues={props.communicationKinds}
+            fieldValuesSetter={props.setCommunicationKind}
           />
         )}
         {props.hasDatesFilter && (
           <CommunicationFilterDateField
-            fieldEndSetter={props.dateEndSetter}
-            fieldEndValue={props.dateEndValue}
-            fieldStartSetter={props.dateStartSetter}
-            fieldStartValue={props.dateStartValue}
+            fieldEndSetter={props.setDateEnd}
+            fieldEndValue={props.dateEnd}
+            fieldStartSetter={props.setDateStart}
+            fieldStartValue={props.dateStart}
           />
         )}
-        {props.hasRecipientFilter && (
+        {props.hasRecipientTypesFilter && (
           <CommunicationFilterGenericField
             fieldChoices={
-              props.recipientFilterOptionsOverride ??
+              props.recipientTypesOptionsOverride ??
               getFieldChoicesByIdentifier(
                 COMMUNICATION_FILTER_IDENTIFIER_RECIPIENT,
                 t,
@@ -103,14 +100,14 @@ export const CommunicationFilterCollapse = (props: FilterModalProps) => {
             }
             fieldName={t(`filter.recipient.title`)}
             fieldPlaceholder={t(`filter.recipient.placeholder`)}
-            fieldValues={props.recipientFilterValues}
-            fieldValuesSetter={props.recipientFilterSetter}
+            fieldValues={props.recipientTypes}
+            fieldValuesSetter={props.setRecipientTypes}
           />
         )}
-        {props.hasChannelFilter && (
+        {props.hasMessageChannelsFilter && (
           <CommunicationFilterGenericField
             fieldChoices={
-              props.channelFilterOptionsOverride ??
+              props.messageChannelsOptionsOverride ??
               getFieldChoicesByIdentifier(
                 COMMUNICATION_FILTER_IDENTIFIER_CHANNEL,
                 t,
@@ -118,15 +115,15 @@ export const CommunicationFilterCollapse = (props: FilterModalProps) => {
             }
             fieldName={t(`filter.channel.title`)}
             fieldPlaceholder={t(`filter.channel.placeholder`)}
-            fieldValues={props.channelFilterValues}
-            fieldValuesSetter={props.channelFilterSetter}
+            fieldValues={props.messageChannels}
+            fieldValuesSetter={props.setMessageChannels}
           />
         )}
-        {props.hasSendParameterFilter && (
+        {props.hasAutomatedMessagesFilter && (
           <CommunicationFilterGenericField
             noMulti
             fieldChoices={
-              props.sendParameterFilterOptionsOverride ??
+              props.automatedMessagesOptionsOverride ??
               getFieldChoicesByIdentifier(
                 COMMUNICATION_FILTER_IDENTIFIER_SEND_PARAMETER,
                 t,
@@ -134,15 +131,15 @@ export const CommunicationFilterCollapse = (props: FilterModalProps) => {
             }
             fieldName={t(`filter.sendParameter.title`)}
             fieldPlaceholder={t(`filter.sendParameter.placeholder`)}
-            fieldValues={props.sendParameterFilterValues}
-            fieldValuesSetter={props.sendParameterFilterSetter}
+            fieldValues={props.automatedMessages}
+            fieldValuesSetter={props.setAutomatedMessages}
           />
         )}
-        {props.hasSrcOrDstFilter && (
+        {props.hasMessagesOriginFilter && (
           <CommunicationFilterGenericField
             noMulti
             fieldChoices={
-              props.srcOrDstFilterOptionsOverride ??
+              props.messagesOriginOptionsOverride ??
               getFieldChoicesByIdentifier(
                 COMMUNICATION_FILTER_IDENTIFIER_SRC_OR_DST,
                 t,
@@ -150,8 +147,8 @@ export const CommunicationFilterCollapse = (props: FilterModalProps) => {
             }
             fieldName={t(`filter.srcOrDst.title`)}
             fieldPlaceholder={t(`filter.srcOrDst.placeholder`)}
-            fieldValues={props.srcOrDstFilterValues}
-            fieldValuesSetter={props.srcOrDstFilterSetter}
+            fieldValues={props.messagesOrigin}
+            fieldValuesSetter={props.setMessagesOrigin}
           />
         )}
       </div>

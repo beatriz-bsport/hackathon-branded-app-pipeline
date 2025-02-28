@@ -29,34 +29,34 @@ export type SendCommunicationParams = {
 };
 
 export const useCommunicationActions = ({
-  contextIdentifier,
-  contextObjectId,
+  communicationIdentifier,
+  communicationObjectId,
 }: CommunicationIdentifiers) => {
   const dispatch = useDispatch();
 
   const sendCommunication = useCallback(
     ({ data, memberSelectedCategories, options }: SendCommunicationParams) => {
       const formattedQueryParams = getFormattedQueryParamsFromContext(
-        contextIdentifier,
-        contextObjectId,
+        communicationIdentifier,
+        communicationObjectId,
         memberSelectedCategories,
       );
 
       const dataWithContext = {
         ...data,
-        context_identifier: contextIdentifier,
-        context_object_id: contextObjectId,
+        context_identifier: communicationIdentifier,
+        context_object_id: communicationObjectId,
         member_filters: { ...formattedQueryParams },
       };
       return dispatch(sendCommunicationAction(dataWithContext, options));
     },
-    [dispatch, contextIdentifier, contextObjectId],
+    [dispatch, communicationIdentifier, communicationObjectId],
   );
 
   const flagAllUnreadCommunicationsAsRead = useCallback(() => {
     const params = {
-      context_identifier: contextIdentifier,
-      context_object_id: contextObjectId,
+      context_identifier: communicationIdentifier,
+      context_object_id: communicationObjectId,
     };
     dispatch(
       flagAllUnreadCommunicationsAsReadInContextAction(params, {
@@ -66,7 +66,7 @@ export const useCommunicationActions = ({
         },
       }),
     );
-  }, [dispatch, contextIdentifier, contextObjectId]);
+  }, [dispatch, communicationIdentifier, communicationObjectId]);
 
   return { sendCommunication, flagAllUnreadCommunicationsAsRead };
 };

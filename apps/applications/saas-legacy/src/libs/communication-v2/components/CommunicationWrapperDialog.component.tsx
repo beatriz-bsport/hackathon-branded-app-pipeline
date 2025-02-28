@@ -9,12 +9,13 @@ import Divider from '@material-ui/core/Divider';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 
+import { useCommunicationContext } from '#src/libs/communication-v2/context/CommunicationDrawer.context';
+
 type Props = {
   buttonCancelText?: string;
   buttonConfirmText?: string;
   children: any;
   closeDialog?: () => void;
-  fullScreen?: boolean;
   maxWidth?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
   onCancel?: () => void;
   onConfirm?: () => void;
@@ -23,10 +24,12 @@ type Props = {
 };
 const CommunicationWrapperDialog = (props: Props) => {
   const classes = useStyles();
+  const { fullScreen } = useCommunicationContext();
+
   return (
     <Dialog
       fullWidth
-      fullScreen={props.fullScreen}
+      fullScreen={fullScreen}
       maxWidth={props.maxWidth ?? 'sm'}
       onClose={props.closeDialog}
       open={props.open}

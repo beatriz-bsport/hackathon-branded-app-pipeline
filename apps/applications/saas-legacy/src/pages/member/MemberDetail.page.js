@@ -566,9 +566,9 @@ export class MemberDetail extends React.Component<Props> {
         />
         {Config.REACT_APP_SENTRY_ENVIRONMENT !== 'production' && isOpenChat && (
           <CommunicationDrawer
-            contextIdentifier={CONTEXT_MEMBER}
-            contextMember={this.props.member}
-            contextObjectId={this.props.member?.id ?? this.props.id}
+            communicationIdentifier={CONTEXT_MEMBER}
+            communicationMember={this.props.member}
+            communicationObjectId={this.props.member?.id ?? this.props.id}
             onDrawerClose={this.handleCloseCommunicationDrawer}
             openDrawer={isOpenChat}
           />

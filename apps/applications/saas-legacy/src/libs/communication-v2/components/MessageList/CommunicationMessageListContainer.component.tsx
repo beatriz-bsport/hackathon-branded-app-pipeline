@@ -4,27 +4,20 @@ import { makeStyles } from '@material-ui/core';
 import clsx from 'clsx';
 
 import InfoGenericBox from '#src/components/box/InfoGenericBox.component';
-import type {
-  CommunicationMessage,
-  FilteringMemberIdsByGenericCategories,
-} from '#src/libs/communication-v2/types';
-import type { Member } from '#src/libs/member/types';
+import type { CommunicationMessage } from '#src/libs/communication-v2/types';
 import HTMLPreviewDialog from '#src/components/html/HTMLPreviewDialog.component';
 import CommunicationMessageScrollableView from '#src/libs/communication-v2/components/MessageList/CommunicationMessageScrollableView.component';
 import CommunicationInformationModal from '#src/libs/communication-v2/components/MessageList/ModalInformation/CommunicationInformationModal.component';
 import AlertSmsProviderSmsNotVerified from '#src/libs/communication-v2/components/AlertSmsProviderNotVerified.component';
+import { useCommunicationContext } from '#src/libs/communication-v2/context/CommunicationDrawer.context';
+import { getConsentWarning } from '#src/libs/communication-v2/utils';
+
 import './styles.css';
 
 export type Props = {
-  allMemberCategoryList?: FilteringMemberIdsByGenericCategories;
-  consentWarning?: string;
-  contextMember?: Member;
   currentPage: number;
-  messageList: CommunicationMessage[];
   fetchMoreCommunicationMessages: () => void;
-  fullScreen?: boolean;
   hasActiveFilters: boolean;
-  loadingCommunicationMessageDataList: boolean;
   paginationSize: number;
   scrollToBottomFlag: boolean;
   showMailProviderWarningContent: boolean;
@@ -32,30 +25,27 @@ export type Props = {
 };
 
 const CommunicationMessageListContainer: React.FC<Props> = ({
-  consentWarning,
-  contextMember,
-  messageList,
   fetchMoreCommunicationMessages,
-  fullScreen,
   hasActiveFilters,
-  loadingCommunicationMessageDataList,
   paginationSize,
   showMailProviderWarningContent,
   currentPage,
   scrollToBottomFlag,
   showCommunicationSmsProviderNotVerifiedWarning,
-  allMemberCategoryList,
 }: Props) => {
   const [openEmailView, setOpenEmailView] = useState(false);
   const [openInformationModal, setOpenInformationModal] = useState(false);
   const [selectedCommunication, setSelectedCommunication] =
     useState<CommunicationMessage | null>(null);
   const [selectedMailBody, setSelectedMailBody] = useState<string | null>(null);
-  const [selectedMailTitle, setSelectedMailTitle] = useState<string | null>(
-    null,
-  );
+  const [selectedMailTitle, setSelectedMailTitle] = useState<string>('');
+  const { communicationMember, communicationKind } = useCommunicationContext();
   const { t } = useTranslation('communication');
   const classes = useStyles();
+
+  const consentWarning =
+    communicationMember &&
+    getConsentWarning(communicationMember, communicationKind, t);
 
   const closeEmailView = useCallback(() => {
     setOpenEmailView(false);
@@ -80,7 +70,7 @@ const CommunicationMessageListContainer: React.FC<Props> = ({
   }, []);
 
   const { modalContextTitle, modalContextInformation } = useMemo(() => {
-    if (!contextMember) {
+    if (!communicationMember) {
       return {
         modalContextTitle: '',
         modalContextInformation: '',
@@ -94,7 +84,7 @@ const CommunicationMessageListContainer: React.FC<Props> = ({
       modalContextInformation:
         selectedCommunication?.communication?.data?.subject || '',
     };
-  }, [contextMember, selectedCommunication, t]);
+  }, [communicationMember, selectedCommunication, t]);
 
   return (
     <div
@@ -136,11 +126,6 @@ const CommunicationMessageListContainer: React.FC<Props> = ({
         currentPage={currentPage}
         fetchOnEndScroll={fetchMoreCommunicationMessages}
         hasActiveFilters={hasActiveFilters}
-        loadingCommunicationMessageDataList={
-          loadingCommunicationMessageDataList
-        }
-        messageList={messageList}
-        oneToOneMessageMember={contextMember}
         scrollToBottomFlag={scrollToBottomFlag}
         showCommunicationInformation={showCommunicationInformation}
         showEmailTemplate={showEmailTemplate}
@@ -155,12 +140,9 @@ const CommunicationMessageListContainer: React.FC<Props> = ({
       )}
       {openInformationModal && (
         <CommunicationInformationModal
-          allMemberCategoryList={allMemberCategoryList}
           contextInformation={modalContextInformation}
-          contextMember={contextMember}
-          contextTitle={modalContextTitle}
-          fullScreen={fullScreen}
           handleCloseDialog={closeInformationModal}
+          modalTitle={modalContextTitle}
           open={openInformationModal}
           paginationSize={paginationSize}
           selectedCommunication={selectedCommunication}

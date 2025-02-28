@@ -18,7 +18,6 @@ import { COMMUNICATION_CHANNEL_SMARTLIST } from '@bsport/common/lib/master-data/
 import type {
   Recipient,
   CommunicationMessage,
-  FilteringMemberIdsByGenericCategories,
 } from '#src/libs/communication-v2/types';
 import type { Member } from '#src/libs/member/types';
 import CommunicationWrapperDialog from '#src/libs/communication-v2/components/CommunicationWrapperDialog.component';
@@ -29,30 +28,27 @@ import {
   FetchRecipientsParams,
   useRecipientInformation,
 } from '#src/libs/communication-v2/hooks/useRecipientsInformations.hooks';
+import { useCommunicationContext } from '#src/libs/communication-v2/context/CommunicationDrawer.context';
 
 export type Props = {
-  allMemberCategoryList?: FilteringMemberIdsByGenericCategories;
   contextInformation?: string;
-  contextMember?: Member;
-  contextTitle?: string;
-  fullScreen?: boolean;
+  modalTitle?: string;
   handleCloseDialog: () => void;
-  open?: boolean;
+  open: boolean;
   paginationSize: number;
-  selectedCommunication: CommunicationMessage;
+  selectedCommunication: CommunicationMessage | null;
 };
 
 export const CommunicationInformationModal: React.FC<Props> = ({
-  allMemberCategoryList,
   contextInformation,
-  contextMember,
-  contextTitle,
-  fullScreen,
+  modalTitle,
   handleCloseDialog,
   open,
   paginationSize,
   selectedCommunication,
 }: Props) => {
+  const { communicationMember, allMemberCategoryList } =
+    useCommunicationContext();
   const [checkedCategoryFilters, setCheckedCategoryFilters] = useState<
     number[]
   >(
@@ -60,29 +56,33 @@ export const CommunicationInformationModal: React.FC<Props> = ({
       [],
   );
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const { communication } = selectedCommunication;
   const {
     recipientList,
     loadingRecipientList,
     recipientListCount,
     fetchRecipients,
-  } = useRecipientInformation(contextMember);
+  } = useRecipientInformation(communicationMember);
   const { t } = useTranslation('communication');
   const classes = useStyles();
 
   const fetchRecipientPaginatedListCallback = useCallback(() => {
-    if (communication) {
+    if (selectedCommunication?.communication) {
       const params: FetchRecipientsParams = {
-        communication,
+        communication: selectedCommunication.communication,
         page: currentPage,
         memberSelectedCategories: checkedCategoryFilters,
       };
       fetchRecipients(params);
     }
-  }, [fetchRecipients, communication, currentPage, checkedCategoryFilters]);
+  }, [
+    fetchRecipients,
+    selectedCommunication,
+    currentPage,
+    checkedCategoryFilters,
+  ]);
 
   const handleChangePage = useCallback(
-    (event: ChangeEvent, page: number = 1) => {
+    (event: ChangeEvent<unknown>, page: number = 1) => {
       setCurrentPage(page);
     },
     [],
@@ -106,30 +106,30 @@ export const CommunicationInformationModal: React.FC<Props> = ({
   ]);
 
   const recipientsCount = recipientListCount || 0;
-  const { kind, date_created } = selectedCommunication.communication;
-  const pageCount = contextMember
+  const kind = selectedCommunication?.communication?.kind;
+  const date_created = selectedCommunication?.communication?.date_created;
+  const pageCount = communicationMember
     ? 1
     : Math.ceil(recipientsCount / paginationSize);
   const title = `${t(`campaign.kind.${kind}`)} -  ${DateTime.fromISO(
-    date_created,
+    date_created || '',
   ).toFormat('D - t')}`;
 
   return (
     <CommunicationWrapperDialog
       buttonCancelText={t('common.close')}
       closeDialog={onClose}
-      fullScreen={fullScreen}
       onCancel={onClose}
       open={open}
       title={title}
     >
       <>
-        {!!contextTitle &&
+        {!!modalTitle &&
           selectedCommunication?.channel !==
             COMMUNICATION_CHANNEL_SMARTLIST && (
             <div className={classes.contextContainer}>
               <Typography className={classes.boldTypo} variant="h6">
-                {contextTitle}
+                {modalTitle}
               </Typography>
               <Typography variant="body2">{contextInformation}</Typography>
             </div>

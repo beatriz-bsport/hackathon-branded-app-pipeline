@@ -37,22 +37,22 @@ export type Props = {
   goToThreadListPage: () => void;
 
   // --- Filtering ---
-  kindFilterValues?: SelectFieldItem[];
-  kindFilterSetter?: (args: SelectFieldItem[]) => void;
+  communicationKinds?: SelectFieldItem[];
+  setCommunicationKind?: (args: SelectFieldItem[]) => void;
 
-  recipientFilterValues?: SelectFieldItem[];
-  recipientFilterSetter?: (args: SelectFieldItem[]) => void;
+  recipientTypes?: SelectFieldItem[];
+  setRecipientTypes?: (args: SelectFieldItem[]) => void;
 
-  sendParameterFilterValues?: SelectFieldItem[];
-  sendParameterFilterSetter?: (args: SelectFieldItem[]) => void;
+  automatedMessages?: SelectFieldItem[];
+  setAutomatedMessages?: (args: SelectFieldItem[]) => void;
 
-  srcOrDstFilterValues?: SelectFieldItem[];
-  srcOrDstFilterSetter?: (args: SelectFieldItem[]) => void;
+  messagesOrigin?: SelectFieldItem[];
+  setMessagesOrigin?: (args: SelectFieldItem[]) => void;
 
-  dateStartValue?: DateTime;
-  dateStartSetter?: (newDate: DateTime) => void;
-  dateEndValue?: DateTime;
-  dateEndSetter?: (newDate: DateTime) => void;
+  dateStart?: DateTime;
+  setDateStart?: (newDate: DateTime) => void;
+  dateEnd?: DateTime;
+  setDateEnd?: (newDate: DateTime) => void;
 
   handleFiltersSubmit: () => void;
   allPreviousFilter: {
@@ -81,18 +81,18 @@ const InboxThreadContainerHeader: React.FC<Props> = ({
   flagAsUnread,
   goToDetailPage,
   goToThreadListPage,
-  kindFilterValues,
-  kindFilterSetter,
-  recipientFilterValues,
-  recipientFilterSetter,
-  sendParameterFilterValues,
-  sendParameterFilterSetter,
-  srcOrDstFilterValues,
-  srcOrDstFilterSetter,
-  dateStartValue,
-  dateStartSetter,
-  dateEndValue,
-  dateEndSetter,
+  communicationKinds,
+  setCommunicationKind,
+  recipientTypes,
+  setRecipientTypes,
+  automatedMessages,
+  setAutomatedMessages,
+  messagesOrigin,
+  setMessagesOrigin,
+  dateStart,
+  setDateStart,
+  dateEnd,
+  setDateEnd,
   handleFiltersSubmit,
   allPreviousFilter,
   showFilterModal,
@@ -139,29 +139,29 @@ const InboxThreadContainerHeader: React.FC<Props> = ({
       />
       <InboxThreadFilterContainer
         allPreviousFilter={allPreviousFilter}
-        dateEnd={dateEndValue}
-        dateEndSetter={dateEndSetter}
-        dateStart={dateStartValue}
-        dateStartSetter={dateStartSetter}
+        automatedMessages={automatedMessages}
+        communicationKinds={communicationKinds}
+        dateEnd={dateEnd}
+        dateStart={dateStart}
         handleFiltersSubmit={handleFiltersSubmit}
-        kindFilterSetter={kindFilterSetter}
-        kindFilterValues={kindFilterValues}
+        messagesOrigin={messagesOrigin}
         onShowFilterModal={onShowFilterModal}
         popKindFilterValue={popKindFilterValue}
         popRecipientFilterValue={popRecipientFilterValue}
         popSendParameterFilterValue={popSendParameterFilterValue}
         popSrcOrDstFilterValue={popSrcOrDstFilterValue}
-        recipientFilterSetter={recipientFilterSetter}
-        recipientFilterValues={recipientFilterValues}
+        recipientTypes={recipientTypes}
         relatedObjectKind={related_object_kind}
         resetFilters={resetFilters}
         resetPeriodFilter={resetPeriodFilter}
-        sendParameterFilterSetter={sendParameterFilterSetter}
-        sendParameterFilterValues={sendParameterFilterValues}
+        setAutomatedMessages={setAutomatedMessages}
+        setCommunicationKind={setCommunicationKind}
+        setDateEnd={setDateEnd}
+        setDateStart={setDateStart}
+        setMessagesOrigin={setMessagesOrigin}
+        setRecipientTypes={setRecipientTypes}
         setShowFilterModal={setShowFilterModal}
         showFilterModal={showFilterModal}
-        srcOrDstFilterSetter={srcOrDstFilterSetter}
-        srcOrDstFilterValues={srcOrDstFilterValues}
       />
     </>
   );

@@ -5,28 +5,29 @@ import Avatar from '@material-ui/core/Avatar';
 import CloseIcon from '@material-ui/icons/Close';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
+import { useCommunicationContext } from '#src/libs/communication-v2/context/CommunicationDrawer.context';
 
 type Props = {
-  contextAvatar?: string;
-  contextTitle: string;
   onDrawerClose: () => void;
 };
 
 const CommunicationHeader = (props: Props) => {
-  const { contextTitle, contextAvatar, onDrawerClose } = props;
+  const { onDrawerClose } = props;
+  const { communicationTitle, communicationMember } = useCommunicationContext();
+  const communicationPhoto = communicationMember?.photo;
   const classes = useStyles();
   return (
     <div className={classes.container}>
       <div className={classes.textContainer}>
-        {contextAvatar && (
+        {communicationPhoto && (
           <Avatar
-            alt={contextAvatar}
+            alt={communicationPhoto}
             className={classes.avatar}
-            src={contextAvatar}
+            src={communicationPhoto}
           />
         )}
         <Typography className={classes.text} variant="body1">
-          {contextTitle}
+          {communicationTitle}
         </Typography>
       </div>
       <IconButton onClick={onDrawerClose} size="small">

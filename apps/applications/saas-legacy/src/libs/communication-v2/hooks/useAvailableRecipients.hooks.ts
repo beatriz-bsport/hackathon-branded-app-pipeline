@@ -37,8 +37,8 @@ export type ResetRecipientsParams = {
 };
 
 export const useAvailableRecipients = ({
-  contextIdentifier,
-  contextObjectId,
+  communicationIdentifier,
+  communicationObjectId,
 }: CommunicationIdentifiers) => {
   const dispatch = useDispatch();
 
@@ -67,8 +67,8 @@ export const useAvailableRecipients = ({
       memberSelectedCategories = [],
     }: FetchAvailableRecipientsParams) => {
       const formattedQueryParams = getFormattedQueryParamsFromContext(
-        contextIdentifier,
-        contextObjectId,
+        communicationIdentifier,
+        communicationObjectId,
         memberSelectedCategories,
       );
       const params = {
@@ -80,7 +80,7 @@ export const useAvailableRecipients = ({
 
       return dispatch(fetchCommunicationsPaginatedMembersAction(params));
     },
-    [dispatch, contextIdentifier, contextObjectId],
+    [dispatch, communicationIdentifier, communicationObjectId],
   );
 
   const fetchFirstReachedRecipients = useCallback(

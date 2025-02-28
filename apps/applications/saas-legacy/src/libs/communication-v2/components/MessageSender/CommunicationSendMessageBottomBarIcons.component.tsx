@@ -58,11 +58,11 @@ import CommunicationSMSCostReminderModal from '#src/libs/communication-v2/Commun
 import ObjectLevelPermissionProvider from '#src/libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 import CommunicationMessageNumberRecipients from '#src/libs/communication-v2/components/MessageList/SingleMessage/CommunicationMessageNumberRecipients.component';
 import Config from '#src/config';
+import { useCommunicationContext } from '#src/libs/communication-v2/context/CommunicationDrawer.context';
 
 type Props = {
   actionType: number;
   directMember: Member;
-  fullScreen?: boolean;
   handleSelectTemplate: () => void;
   handleSelectRecipients: () => void;
   memberList: MemberMinimal[];
@@ -73,14 +73,13 @@ type Props = {
   setActionType: (actionType: number) => void;
   tags: Record<string, Array<string>>;
   validity: number;
-  contextIdentifier?: number;
+  communicationIdentifier?: number;
   openResendConfigDialog?: () => void;
 };
 
 const BottomBarIcons: React.FC<Props & ConnectedProps<typeof connector>> = ({
   actionType,
   directMember,
-  fullScreen,
   handleSelectTemplate,
   handleSelectRecipients,
   memberList,
@@ -91,7 +90,7 @@ const BottomBarIcons: React.FC<Props & ConnectedProps<typeof connector>> = ({
   setActionType,
   tags,
   validity,
-  contextIdentifier,
+  communicationIdentifier,
   openResendConfigDialog,
   communicationSMSProviderVerificationState,
 }) => {
@@ -101,6 +100,7 @@ const BottomBarIcons: React.FC<Props & ConnectedProps<typeof connector>> = ({
   const [menuBalisesAnchorEl, setMenuBalisesAnchorEl] = useState(null);
   const [isSmsCostReminderModalOpen, setIsSmsCostReminderModalOpen] =
     useState(false);
+  const { fullScreen } = useCommunicationContext();
   const handleCloseMenu = () => setMenuAnchorEl(null);
   const handleCloseMenuBalises = () => setMenuBalisesAnchorEl(null);
   const handleCostReminderModalOnClose = useCallback(
@@ -216,7 +216,7 @@ const BottomBarIcons: React.FC<Props & ConnectedProps<typeof connector>> = ({
                 </IconButton>
               </Tooltip>
 
-              {contextIdentifier === CONTEXT_SMARTLIST &&
+              {communicationIdentifier === CONTEXT_SMARTLIST &&
                 actionType === WRITE_EMAIL &&
                 openResendConfigDialog && (
                   <Tooltip
@@ -277,7 +277,7 @@ const BottomBarIcons: React.FC<Props & ConnectedProps<typeof connector>> = ({
                   </Typography>
                 </MenuItem>
 
-                {contextIdentifier === CONTEXT_SMARTLIST &&
+                {communicationIdentifier === CONTEXT_SMARTLIST &&
                   actionType === WRITE_EMAIL &&
                   openResendConfigDialog && (
                     <MenuItem
@@ -352,7 +352,7 @@ const BottomBarIcons: React.FC<Props & ConnectedProps<typeof connector>> = ({
                 }
                 onClick={
                   actionType === WRITE_SMS &&
-                  contextIdentifier !== CONTEXT_MEMBER
+                  communicationIdentifier !== CONTEXT_MEMBER
                     ? handleCostReminderModalOpen
                     : sendMessage
                 }

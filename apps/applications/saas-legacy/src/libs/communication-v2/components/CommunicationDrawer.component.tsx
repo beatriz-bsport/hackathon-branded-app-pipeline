@@ -23,10 +23,7 @@ import CommunicationFilterContainer from '#src/libs/communication-v2/components/
 import CommunicationMessageListContainer from '#src/libs/communication-v2/components/MessageList/CommunicationMessageListContainer.component';
 import CommunicationSendMessageContainer from '#src/libs/communication-v2/components/MessageSender/CommunicationSendMessageContainer.component';
 
-import {
-  getConsentWarning,
-  filterCommunicationThread,
-} from '#src/libs/communication-v2/utils';
+import { filterCommunicationThread } from '#src/libs/communication-v2/utils';
 
 import type {
   Communication,
@@ -37,9 +34,7 @@ import type { OptionCallback } from '#src/state/types';
 
 import {
   CONTEXT_NOTIFICATION,
-  CONTEXT_MEMBER,
   PAGINATION_SIZE_RECIPIENTS,
-  WRITE_EMAIL,
   REFRESH_THREAD_TIMEOUT,
 } from '#src/libs/communication-v2/constants';
 import {
@@ -56,10 +51,19 @@ import {
   SendCommunicationParams,
   useCommunicationActions,
 } from '#src/libs/communication-v2/hooks/useCommunicationsActions.hooks';
+import {
+  CommunicationContextProvider,
+  useCommunicationContext,
+} from '#src/libs/communication-v2/context/CommunicationDrawer.context';
 
 type NullableTimeout = ReturnType<typeof setTimeout> | null;
 
-export type Props = DrawerProps & WithMobileDialog;
+export type Props = DrawerProps & Omit<WithMobileDialog, 'width'>;
+
+type CommunicationManagerProps = {
+  openDrawer: boolean;
+  onDrawerClose: () => void;
+};
 
 export type CommunicationListFilters = {
   filters: number[];
@@ -67,17 +71,10 @@ export type CommunicationListFilters = {
   dateEnd: number | null;
 };
 
-export const CommunicationDrawer: React.FC<Props> = ({
-  contextObjectId,
-  propToListenToReloadRecipients,
-  fullScreen,
-  contextIdentifier,
-  contextMember,
-  contextTitle,
+const CommunicationDrawerManager: React.FC<CommunicationManagerProps> = ({
   openDrawer,
   onDrawerClose,
-  allMemberCategoryList,
-}: Props) => {
+}: CommunicationManagerProps) => {
   const [messagePage, setMessagePage] = useState(1);
   const [communicationListFilters, setCommunicationListFilters] =
     useState<CommunicationListFilters>({
@@ -86,27 +83,27 @@ export const CommunicationDrawer: React.FC<Props> = ({
       dateEnd: null,
     });
   const [showMessageWritter, setShowMessageWritter] = useState(false);
-  const [communicationKindBeingWritten, setCommunicationKindBeingWritten] =
-    useState(WRITE_EMAIL);
   const [displaySnackbar, setDisplaySnackbar] = useState(false);
   const [scrollToBottomFlag, setScrollToBottomFlag] = useState(false);
   const [intervalTimeoutId, setIntervalTimeoutId] =
     useState<NullableTimeout>(null);
 
   const {
-    fetchMessages,
-    messageList,
-    loadingMessageList,
-    hasNextMessageListPage,
-  } = useMessageList();
+    communicationIdentifier,
+    communicationObjectId,
+    communicationMember,
+    communicationKind,
+  } = useCommunicationContext();
+
+  const { fetchMessages, hasNextMessageListPage } = useMessageList();
   const { fetchAvailableRecipients } = useAvailableRecipients({
-    contextIdentifier,
-    contextObjectId,
+    communicationIdentifier,
+    communicationObjectId,
   });
   const { sendCommunication, flagAllUnreadCommunicationsAsRead } =
     useCommunicationActions({
-      contextIdentifier,
-      contextObjectId,
+      communicationIdentifier,
+      communicationObjectId,
     });
   const { fetchTags } = useTagsAndCategories();
   const { theme } = useTheme();
@@ -114,8 +111,8 @@ export const CommunicationDrawer: React.FC<Props> = ({
 
   const fetchMessageList = useCallback(() => {
     const params: FetchMessageListParams = {
-      contextIdentifier,
-      contextObjectId,
+      communicationIdentifier,
+      communicationObjectId,
       page: messagePage,
       filters: communicationListFilters?.filters,
       dateStart: communicationListFilters?.dateStart,
@@ -126,8 +123,8 @@ export const CommunicationDrawer: React.FC<Props> = ({
     messagePage,
     communicationListFilters,
     fetchMessages,
-    contextObjectId,
-    contextIdentifier,
+    communicationObjectId,
+    communicationIdentifier,
   ]);
 
   const fetchMoreMessages = useCallback(() => {
@@ -138,8 +135,8 @@ export const CommunicationDrawer: React.FC<Props> = ({
 
   const refreshMessageList = useCallback(() => {
     const params: FetchMessageListParams = {
-      contextIdentifier,
-      contextObjectId,
+      communicationIdentifier,
+      communicationObjectId,
       page: 1,
       filters: communicationListFilters?.filters,
       dateStart: communicationListFilters?.dateStart,
@@ -150,8 +147,8 @@ export const CommunicationDrawer: React.FC<Props> = ({
   }, [
     communicationListFilters,
     fetchMessages,
-    contextObjectId,
-    contextIdentifier,
+    communicationObjectId,
+    communicationIdentifier,
   ]);
 
   const scheduleRefreshMessageList = useCallback(
@@ -175,10 +172,12 @@ export const CommunicationDrawer: React.FC<Props> = ({
       dateEnd,
     }: {
       filters: number[];
-      dateStart: number;
-      dateEnd: number;
+      dateStart: number | null;
+      dateEnd: number | null;
     }) => {
-      clearTimeout(intervalTimeoutId);
+      if (intervalTimeoutId) {
+        clearInterval(intervalTimeoutId);
+      }
       setMessagePage(1);
       setIntervalTimeoutId(null);
       setCommunicationListFilters(() => {
@@ -205,7 +204,7 @@ export const CommunicationDrawer: React.FC<Props> = ({
     (
       data: MessageData,
       memberSelectedCategories: number[],
-      options: OptionCallback<void>,
+      options?: OptionCallback<void>,
     ) => {
       const storeInCallback = (communicationResponse: Communication) => {
         const filtersTmp = {
@@ -261,27 +260,23 @@ export const CommunicationDrawer: React.FC<Props> = ({
   }, [
     communicationListFilters,
     messagePage,
-    contextObjectId,
+    communicationObjectId,
     fetchMessageList,
     fetchAvailableRecipients,
-    propToListenToReloadRecipients,
   ]);
 
   const SlideTransition = (props: SlideProps) => (
     <Slide {...props} direction="left" />
   );
 
-  const consentWarning =
-    contextMember &&
-    getConsentWarning(contextMember, communicationKindBeingWritten, t);
   const showMailProviderWarningContent: boolean =
     showMessageWritter &&
-    communicationKindBeingWritten === COMMUNICATION_KIND_EMAIL &&
+    communicationKind === COMMUNICATION_KIND_EMAIL &&
     !theme.is_two_way_email_activated;
 
   const showCommunicationSmsProviderNotVerifiedWarning =
     !smsVerificationProvider?.isVerified &&
-    communicationKindBeingWritten === COMMUNICATION_KIND_SMS;
+    communicationKind === COMMUNICATION_KIND_SMS;
 
   return (
     <GenericResponsiveDrawer
@@ -292,15 +287,8 @@ export const CommunicationDrawer: React.FC<Props> = ({
       onClose={onDrawerClose}
       open={openDrawer}
     >
-      <CommunicationHeader
-        contextAvatar={contextMember?.photo}
-        contextTitle={contextMember?.name || contextTitle}
-        onDrawerClose={onDrawerClose}
-      />
-      <CommunicationFilterContainer
-        contextIdentifier={contextIdentifier}
-        handleFilters={handleFilterChange}
-      />
+      <CommunicationHeader onDrawerClose={onDrawerClose} />
+      <CommunicationFilterContainer handleFilters={handleFilterChange} />
       <div className={classes.messageListContainer}>
         <Snackbar
           anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
@@ -315,19 +303,13 @@ export const CommunicationDrawer: React.FC<Props> = ({
           </Alert>
         </Snackbar>
         <CommunicationMessageListContainer
-          allMemberCategoryList={allMemberCategoryList}
-          consentWarning={consentWarning}
-          contextMember={contextMember}
           currentPage={messagePage}
           fetchMoreCommunicationMessages={fetchMoreMessages}
-          fullScreen={fullScreen}
           hasActiveFilters={
             !!communicationListFilters.dateStart ||
             !!communicationListFilters.dateEnd ||
             !!communicationListFilters.filters.length
           }
-          loadingCommunicationMessageDataList={loadingMessageList}
-          messageList={messageList}
           paginationSize={PAGINATION_SIZE_RECIPIENTS}
           scrollToBottomFlag={scrollToBottomFlag}
           showCommunicationSmsProviderNotVerifiedWarning={
@@ -336,7 +318,7 @@ export const CommunicationDrawer: React.FC<Props> = ({
           showMailProviderWarningContent={showMailProviderWarningContent}
         />
       </div>
-      {contextIdentifier !== CONTEXT_NOTIFICATION && (
+      {communicationIdentifier !== CONTEXT_NOTIFICATION && (
         <div
           className={clsx(classes.sendMessageContainer, {
             [classes.sendMessageContainerWithIntercom]:
@@ -368,22 +350,29 @@ export const CommunicationDrawer: React.FC<Props> = ({
           )}
           <Collapse in={showMessageWritter} timeout={500}>
             <CommunicationSendMessageContainer
-              allMemberCategoryList={allMemberCategoryList}
-              communicationKind={communicationKindBeingWritten}
-              contextIdentifier={contextIdentifier}
-              contextObjectId={contextObjectId}
-              directMember={
-                contextIdentifier === CONTEXT_MEMBER && contextMember
-              }
-              fullScreen={fullScreen}
+              directMember={communicationMember}
               pageSize={PAGINATION_SIZE_RECIPIENTS}
               sendCommunication={sendCommunicationCallback}
-              setCommunicationKind={setCommunicationKindBeingWritten}
             />
           </Collapse>
         </div>
       )}
     </GenericResponsiveDrawer>
+  );
+};
+
+export const CommunicationDrawer: React.FC<Props> = ({
+  onDrawerClose,
+  openDrawer,
+  ...props
+}: Props) => {
+  return (
+    <CommunicationContextProvider initialValues={props}>
+      <CommunicationDrawerManager
+        onDrawerClose={onDrawerClose}
+        openDrawer={openDrawer}
+      />
+    </CommunicationContextProvider>
   );
 };
 

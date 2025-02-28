@@ -10,43 +10,21 @@ import { useTranslation } from 'react-i18next';
 import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-inbox.js';
 
 import CommunicationSendMessageContainer from '#src/libs/communication-v2/components/MessageSender/CommunicationSendMessageContainer.component';
-import {
-  PAGINATION_SIZE_RECIPIENTS,
-  MAP_THREAD_KIND_TO_CONTEXT_IDENTIFIER,
-} from '#src/libs/communication-v2/constants';
+import { PAGINATION_SIZE_RECIPIENTS } from '#src/libs/communication-v2/constants';
 import type {
   Communication,
   CommunicationThread,
-  FilteringMemberIdsByGenericCategories,
   MessageData,
 } from '#src/libs/communication-v2/types';
 import type { Member } from '#src/libs/member/types';
-import type {
-  EmailTemplateDetail,
-  EmailTemplateSummary,
-  ResolvedGenericTags,
-} from '#src/libs/email-editor/types';
 import type { OptionCallback } from '../../../../state/types';
 
 type Props = {
   // --- Inbox Thread ---
   thread?: CommunicationThread;
-  contextSelected?: ChatThreadKinds;
-
   // --- Send Message ---
-  communicationKindBeingWritten: number;
   showMessageWriter: boolean;
   handleShowMessageWriter: () => void;
-
-  fetchEmailSummaryList: () => void;
-  fetchPaginatedAvailableRecipientMemberList: (
-    page: number,
-    memberSelectedCategories?: number[],
-  ) => void;
-  fetchEmailDetail: (templateId: number) => void;
-  loadingRecipientsModalMemberList: boolean;
-  paginatedMemberList: Member[];
-  resetPaginatedAvailableRecipientMemberList: (options: OptionCallback) => void;
 
   sendCommunication: (
     data: MessageData,
@@ -55,30 +33,8 @@ type Props = {
       storeInCallback: (communication: Communication) => boolean;
     },
   ) => void;
-  setCommunicationKindBeingWritten: (
-    kind: number,
-    callback?: () => void,
-  ) => void;
-
-  countAvailableRecipientsTotal: number;
-  countAvailableRecipientsWithEmail: number;
-  countAvailableRecipientsWithPhone: number;
-
   // --- Member ---
-  contextMember: Member;
-
-  // --- Offer ---
-  allMemberCategoryList: FilteringMemberIdsByGenericCategories;
-
-  // --- Email Template ---
-  emailTemplateDetailList: Record<number, EmailTemplateDetail>;
-  emailTemplateSummaryList: EmailTemplateSummary[];
-  loadingEmailTemplateSummaryList: boolean;
-  loadingEmailTemplateDetailList: boolean;
-  resolvedGenericTags: ResolvedGenericTags;
-  tagCategories: {
-    [tag_name: string]: string[];
-  };
+  communicationMember: Member;
 
   // --- Misc ---
   hideAutoResend?: boolean;
@@ -86,29 +42,10 @@ type Props = {
 
 const InboxThreadSenderContainer: React.FC<Props> = ({
   thread,
-  communicationKindBeingWritten,
   showMessageWriter,
   handleShowMessageWriter,
-  fetchEmailSummaryList,
-  fetchEmailDetail,
-  fetchPaginatedAvailableRecipientMemberList,
-  loadingRecipientsModalMemberList,
-  paginatedMemberList,
-  resetPaginatedAvailableRecipientMemberList,
   sendCommunication,
-  setCommunicationKindBeingWritten,
-  countAvailableRecipientsTotal,
-  countAvailableRecipientsWithEmail,
-  countAvailableRecipientsWithPhone,
-  contextMember,
-  allMemberCategoryList,
-  emailTemplateDetailList,
-  emailTemplateSummaryList,
-  loadingEmailTemplateDetailList,
-  loadingEmailTemplateSummaryList,
-  resolvedGenericTags,
-  tagCategories,
-  contextSelected,
+  communicationMember,
   hideAutoResend,
 }) => {
   const { t } = useTranslation('communication');
@@ -141,40 +78,15 @@ const InboxThreadSenderContainer: React.FC<Props> = ({
       )}
       <Collapse in={showMessageWriter} timeout={500}>
         <CommunicationSendMessageContainer
-          allMemberCategoryList={allMemberCategoryList}
-          communicationKind={communicationKindBeingWritten}
-          contextIdentifier={
-            MAP_THREAD_KIND_TO_CONTEXT_IDENTIFIER[contextSelected]
-          }
-          countAvailableRecipientsTotal={countAvailableRecipientsTotal}
-          countAvailableRecipientsWithEmail={countAvailableRecipientsWithEmail}
-          countAvailableRecipientsWithPhone={countAvailableRecipientsWithPhone}
           directMember={
             thread.related_object_kind === ChatThreadKinds.Member &&
-            contextMember
+            communicationMember
           }
-          emailTemplateDetailList={emailTemplateDetailList}
-          emailTemplateSummaryList={emailTemplateSummaryList}
-          fetchEmailSummaryList={fetchEmailSummaryList}
-          fetchPaginatedAvailableRecipientMemberList={
-            fetchPaginatedAvailableRecipientMemberList
-          }
-          getEmailDetail={fetchEmailDetail}
           hideAutoResend={hideAutoResend}
-          loadingPaginatedMemberList={loadingRecipientsModalMemberList}
-          loadingTemplateDetailList={loadingEmailTemplateDetailList}
-          loadingTemplateSummaryList={loadingEmailTemplateSummaryList}
           pageSize={PAGINATION_SIZE_RECIPIENTS}
-          paginatedMemberList={paginatedMemberList}
           relatedObjectId={thread.related_object_id}
           relatedObjectKind={thread.related_object_kind}
-          resetPaginatedAvailableRecipientMemberList={
-            resetPaginatedAvailableRecipientMemberList
-          }
-          resolvedGenericTags={resolvedGenericTags}
           sendCommunication={sendCommunication}
-          setCommunicationKind={setCommunicationKindBeingWritten}
-          tagCategories={tagCategories}
         />
       </Collapse>
     </div>

@@ -4,17 +4,14 @@ import { useTranslation } from 'react-i18next';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Typography from '@material-ui/core/Typography';
 import type { CommunicationMessage } from '#src/libs/communication-v2/types';
-import type { Member } from '#src/libs/member/types';
 import CommunicationMessageBubble from '#src/libs/communication-v2/components/MessageList/SingleMessage/CommunicationMessageBubble.component';
 import useIsVisibleOnScreen from '#src/hooks/useIsVisibleOnScreen';
+import { useMessageList } from '#src/libs/communication-v2/hooks/useMessageList.hooks';
 
 type Props = {
-  messageList: Array<CommunicationMessage>;
   fetchOnEndScroll: () => void;
-  oneToOneMessageMember: Member;
-  loadingCommunicationMessageDataList: boolean;
-  showCommunicationInformation: (communication?: CommunicationMessage) => void;
-  showEmailTemplate: (title?: string, html?: string) => void;
+  showCommunicationInformation: (communication: CommunicationMessage) => void;
+  showEmailTemplate: (title: string, html: string) => void;
   currentPage: number;
   scrollToBottomFlag: boolean;
   hasActiveFilters: boolean;
@@ -23,9 +20,8 @@ type Props = {
 const OFFSET = 5;
 
 const CommunicationMessageScrollableView = (props: Props) => {
-  const { t } = useTranslation('communication');
-  const classes = useStyles();
-
+  const { loadingMessageList, messageList } = useMessageList();
+  const messageListLength = (messageList || []).length;
   const [_, currentElement, scrollRef] = useIsVisibleOnScreen<HTMLDivElement>(
     OFFSET,
     400,
@@ -35,17 +31,19 @@ const CommunicationMessageScrollableView = (props: Props) => {
   const [currentPage, setCurrentPage] = useState(0);
   const [scrollToBottomListener, setScrollToBottomListener] = useState(false);
   const [previousNumberCommunication, setPreviousNumberCommunication] =
-    useState((props.messageList ?? []).length);
+    useState(messageListLength);
 
   const pageHasChanged = props.currentPage !== currentPage;
   const needToScrollToBottom =
     props.scrollToBottomFlag !== scrollToBottomListener;
-  const listIsEmpty = !(props.messageList ?? []).length;
-  const listCountHasChanged =
-    previousNumberCommunication !== (props.messageList ?? []).length;
+  const listIsEmpty = messageListLength === 0;
+  const listCountHasChanged = previousNumberCommunication !== messageListLength;
   const scrollHeightHasChanged =
     !!scrollRef?.current &&
     previousScrollHeight !== scrollRef.current.scrollHeight; // means that the content has changed
+
+  const { t } = useTranslation('communication');
+  const classes = useStyles();
 
   if (
     (pageHasChanged || (props.currentPage === 1 && !needToScrollToBottom)) &&
@@ -69,19 +67,18 @@ const CommunicationMessageScrollableView = (props: Props) => {
   // When a new communication has been sent and is displayed at the bottom -> go to bottom
   if (needToScrollToBottom && listCountHasChanged && scrollHeightHasChanged) {
     setScrollToBottomListener(!scrollToBottomListener);
-    setPreviousNumberCommunication((props.messageList ?? []).length);
+    setPreviousNumberCommunication(messageListLength);
     setPreviousScrollHeight(scrollRef.current.scrollHeight);
     scrollRef.current.scrollTop =
       scrollRef.current.scrollHeight -
       scrollRef.current.getBoundingClientRect().height;
   }
-  const sortedMessageList = props.messageList ?? [];
+  const sortedMessageList: CommunicationMessage[] = messageList || [];
 
   return (
     <div ref={scrollRef} className={classes.scrollContainer}>
       <div ref={currentElement} />
-      {props.loadingCommunicationMessageDataList &&
-      sortedMessageList.length === 0 ? (
+      {loadingMessageList && sortedMessageList.length === 0 ? (
         <div className={classes.loadingContainer}>
           <CircularProgress />
         </div>
@@ -90,24 +87,20 @@ const CommunicationMessageScrollableView = (props: Props) => {
           <CommunicationMessageBubble
             key={threadCommunication.communication.uuid}
             communicationMessage={threadCommunication}
-            oneToOneMessageMember={props.oneToOneMessageMember}
             onShowEmailTemplate={props.showEmailTemplate}
-            onShowInformationClick={() =>
-              props.showCommunicationInformation(threadCommunication)
-            }
+            onShowInformationClick={props?.showCommunicationInformation}
           />
         ))
       )}
-      {!props.loadingCommunicationMessageDataList &&
-        sortedMessageList.length === 0 && (
-          <Typography className={classes.emptyLabel} variant="subtitle1">
-            {t(
-              `thread.emptyThread.${
-                props.hasActiveFilters ? 'becauseOfFilters' : 'becauseNeverUsed'
-              }`,
-            )}
-          </Typography>
-        )}
+      {!loadingMessageList && sortedMessageList.length === 0 && (
+        <Typography className={classes.emptyLabel} variant="subtitle1">
+          {t(
+            `thread.emptyThread.${
+              props.hasActiveFilters ? 'becauseOfFilters' : 'becauseNeverUsed'
+            }`,
+          )}
+        </Typography>
+      )}
     </div>
   );
 };

@@ -1,10 +1,6 @@
 import React from 'react';
 import type { CompanyTheme } from '#src/libs/theme/types';
-// @ts-expect-error
-import i18n from '#src/i18n/index';
 import Config from '#src/config';
-
-import { getCurrentLanguageIsoCode } from '#src/utils/language';
 
 type Props = {
   companyTheme?: CompanyTheme;
@@ -20,8 +16,6 @@ const FeatureBaseComponent: React.FC<Props> = ({
 
   React.useEffect(() => {
     const win = window as any;
-    const { language } = i18n;
-    const isoLanguage = getCurrentLanguageIsoCode(language);
 
     if (userAuthState && companyTheme) {
       win.Featurebase(
@@ -34,20 +28,6 @@ const FeatureBaseComponent: React.FC<Props> = ({
           name: userAuthState.name,
           id: '123456',
           profilePicture: companyTheme?.cover,
-          companies: [
-            {
-              id: `${companyTheme?.company}`, // required
-              name: companyTheme?.company_name, // required
-              customFields: {
-                language: isoLanguage,
-                currency: companyTheme.currency,
-                franchisor: `${companyTheme.franchisor}`,
-                isPremium: `${companyTheme.is_premium}`,
-                locale: companyTheme.locale,
-                timezone: companyTheme?.timezone_name,
-              },
-            },
-          ],
         },
         (err: any) => {
           !err && setIsFeatureBaseAuthenticated(true);

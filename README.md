@@ -39,13 +39,13 @@ pnpm install
 To run an app, you can either
 
 ```sh
-cd apps/applications/[application] && pnpm run build && pnpm run start
+cd apps/applications/[application] && pnpm run build && pnpm run dev
 ```
 
 or
 
 ```sh
-pnpm exec nx start @bsport/[application]
+pnpm exec nx dev @bsport/[application]
 ```
 
 **NB:** This applies as well to any script of any project in the pnpm workspace. To run the script `[script]` in the project `@bsport/[application]`, just run
@@ -57,7 +57,7 @@ pnpm exec nx [script] @bsport/[application]
 ### Run Kaizen primitive components library
 
 ```sh
-cd packages/design-system/kaizen/primitive-components && pnpm run dev
+cd packages/design-system/kaizen/primitive/core && pnpm run dev
 ```
 
 ## Quick guide

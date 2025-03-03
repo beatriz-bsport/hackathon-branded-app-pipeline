@@ -14,6 +14,15 @@
     },
     "build-storybook": {
       "cache": true
+    },
+    "dev": {
+      "cache": true
+    },
+    "deploy": {
+      "cache": true
+    },
+    "preview": {
+      "cache": true
     }
   },
   "affected": {

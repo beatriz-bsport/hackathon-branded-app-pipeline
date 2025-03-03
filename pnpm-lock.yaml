@@ -111,6 +111,9 @@ importers:
       commitizen:
         specifier: ^4.3.1
         version: 4.3.1(@types/node@22.9.0)(typescript@5.6.3)
+      concurrently:
+        specifier: ^8.2.2
+        version: 8.2.2
       core-js:
         specifier: ^3.39.0
         version: 3.39.0
@@ -1533,7 +1536,7 @@ importers:
         version: 3.5.0
       react-i18next:
         specifier: ^15.4.0
-        version: 15.4.0(i18next@24.2.1(typescript@5.6.3))(react@19.0.0)
+        version: 15.4.0(i18next@24.2.1(typescript@5.6.3))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
     devDependencies:
       '@bsport/eslint-config-react':
         specifier: workspace:*
@@ -7544,10 +7547,6 @@ packages:
   chalk@4.1.2:
     resolution: {integrity: sha512-oKnbhFyRIXpUuez8iBMmyEa4nbj4IOQyuhc/wy9kY7/WVPcwIO9VA668Pu8RkO7+0G76SLROeyw9CpQ061i4mA==}
     engines: {node: '>=10'}
-
-  chalk@5.3.0:
-    resolution: {integrity: sha512-dLitG79d+GV1Nb/VYcCDFivJeK1hiukt9QjRNVOsUtTy1rR1YJsmpGGTZ3qJos+uw7WmWF4wUwBd9jxjocFC2w==}
-    engines: {node: ^12.17.0 || ^14.13 || >=16.0.0}
 
   chalk@5.4.1:
     resolution: {integrity: sha512-zgVZuo2WcZgfUEmsn6eO3kINexW8RAE4maiQ8QNs8CtpPCSyMiYsULR3HQYkm3w8FIA3SberyMJMSldGsW+U3w==}
@@ -18844,7 +18843,7 @@ snapshots:
       '@commitlint/execute-rule': 19.0.0
       '@commitlint/resolve-extends': 19.1.0
       '@commitlint/types': 19.0.3
-      chalk: 5.3.0
+      chalk: 5.4.1
       cosmiconfig: 9.0.0(typescript@4.9.5)
       cosmiconfig-typescript-loader: 5.0.0(@types/node@14.18.63)(cosmiconfig@9.0.0(typescript@5.6.3))(typescript@4.9.5)
       lodash.isplainobject: 4.0.6
@@ -18861,7 +18860,7 @@ snapshots:
       '@commitlint/execute-rule': 19.0.0
       '@commitlint/resolve-extends': 19.1.0
       '@commitlint/types': 19.0.3
-      chalk: 5.3.0
+      chalk: 5.4.1
       cosmiconfig: 9.0.0(typescript@5.6.3)
       cosmiconfig-typescript-loader: 5.0.0(@types/node@20.12.12)(cosmiconfig@9.0.0(typescript@5.6.3))(typescript@5.6.3)
       lodash.isplainobject: 4.0.6
@@ -18878,7 +18877,7 @@ snapshots:
       '@commitlint/execute-rule': 19.0.0
       '@commitlint/resolve-extends': 19.1.0
       '@commitlint/types': 19.0.3
-      chalk: 5.3.0
+      chalk: 5.4.1
       cosmiconfig: 9.0.0(typescript@5.6.3)
       cosmiconfig-typescript-loader: 5.0.0(@types/node@22.9.0)(cosmiconfig@9.0.0(typescript@5.6.3))(typescript@5.6.3)
       lodash.isplainobject: 4.0.6
@@ -18902,7 +18901,7 @@ snapshots:
   '@commitlint/types@19.0.3':
     dependencies:
       '@types/conventional-commits-parser': 5.0.0
-      chalk: 5.3.0
+      chalk: 5.4.1
     optional: true
 
   '@cspotcode/source-map-support@0.8.1':
@@ -25973,8 +25972,6 @@ snapshots:
       ansi-styles: 4.3.0
       supports-color: 7.2.0
 
-  chalk@5.3.0: {}
-
   chalk@5.4.1: {}
 
   chance@1.1.9: {}
@@ -26964,7 +26961,7 @@ snapshots:
   cz-conventional-changelog@3.3.0(@types/node@14.18.63)(typescript@4.9.5):
     dependencies:
       chalk: 2.4.2
-      commitizen: 4.3.1(@types/node@22.9.0)(typescript@5.6.3)
+      commitizen: 4.3.1(@types/node@14.18.63)(typescript@4.9.5)
       conventional-commit-types: 3.0.0
       lodash.map: 4.6.0
       longest: 2.0.1
@@ -31853,7 +31850,7 @@ snapshots:
   jest-watch-typeahead@2.2.2(jest@28.1.3(@types/node@20.12.12)(node-notifier@8.0.2)(ts-node@10.9.2(@swc/core@1.9.2(@swc/helpers@0.5.15))(@types/node@20.12.12)(typescript@5.6.3))):
     dependencies:
       ansi-escapes: 6.2.1
-      chalk: 5.3.0
+      chalk: 5.4.1
       jest: 28.1.3(@types/node@20.12.12)(node-notifier@8.0.2)(ts-node@10.9.2(@swc/core@1.9.2(@swc/helpers@0.5.15))(@types/node@20.12.12)(typescript@5.6.3))
       jest-regex-util: 29.6.3
       jest-watcher: 29.7.0
@@ -31864,7 +31861,7 @@ snapshots:
   jest-watch-typeahead@2.2.2(jest@29.7.0(@types/node@22.9.0)(babel-plugin-macros@3.1.0)(node-notifier@8.0.2)(ts-node@10.9.2(@swc/core@1.9.2(@swc/helpers@0.5.15))(@types/node@22.9.0)(typescript@5.6.3))):
     dependencies:
       ansi-escapes: 6.2.1
-      chalk: 5.3.0
+      chalk: 5.4.1
       jest: 29.7.0(@types/node@22.9.0)(babel-plugin-macros@3.1.0)(node-notifier@8.0.2)(ts-node@10.9.2(@swc/core@1.9.2(@swc/helpers@0.5.15))(@types/node@22.9.0)(typescript@5.6.3))
       jest-regex-util: 29.6.3
       jest-watcher: 29.7.0
@@ -35037,12 +35034,14 @@ snapshots:
     optionalDependencies:
       react-dom: 16.10.2(react@16.10.2)
 
-  react-i18next@15.4.0(i18next@24.2.1(typescript@5.6.3))(react@19.0.0):
+  react-i18next@15.4.0(i18next@24.2.1(typescript@5.6.3))(react-dom@19.0.0(react@19.0.0))(react@19.0.0):
     dependencies:
       '@babel/runtime': 7.25.0
       html-parse-stringify: 3.0.1
       i18next: 24.2.1(typescript@5.6.3)
       react: 19.0.0
+    optionalDependencies:
+      react-dom: 19.0.0(react@19.0.0)
 
   react-infinite-scroll-component@6.1.0(react@16.10.2):
     dependencies:

@@ -42,6 +42,8 @@ import { useFormikContext } from 'formik';
 import WidgetUtils from '#src/libs/widget/WidgetUtils';
 import { urlToMarketplace } from '#src/libs/marketplace/utils';
 import { OneClickCheckoutSkeleton } from '#src/pages/checkout/booker-modules/OfferBooker/OneClickBookingModule/_components/OneClickCheckoutSkeleton';
+import AcceptTermsAndConditions from '#src/components/css-only/Fabrique/Temporary/AcceptTermsAndConditions';
+import { TermsAndConditionType } from '#src/libs/payment/types';
 import './index.css';
 
 type OwnProps = {
@@ -63,10 +65,17 @@ const OneClickBookingModule: React.FC<Props> = ({
     values: lightSignupValues,
     submitForm: submitLightSignupForm,
     validateForm: validateLightSignupForm,
+    errors: lightSignupErrors,
   } = useFormikContext<LightSignupFormValues>();
   const [selectedPaymentPackId, setSelectedPaymentPackId] = useState<
     number | null
   >(null);
+
+  const [areTermsAndConditionsAccepted, setAreTermsAndConditionsAccepted] =
+    useState(false);
+
+  const handleAcceptTermsandConditions = (accepted: boolean) =>
+    setAreTermsAndConditionsAccepted(accepted);
 
   const [bookableStatusState, checkBookableStatus] = useCheckBookableStatus();
   const [state, fetchOffer] = useFetchOfferInformation();
@@ -120,6 +129,8 @@ const OneClickBookingModule: React.FC<Props> = ({
       lastName: lightSignupValues.lastName,
       email: lightSignupValues.email,
       phone: lightSignupValues.phone,
+      acceptEmail: lightSignupValues.acceptEmail,
+      acceptSms: lightSignupValues.acceptSms,
     });
   }, [
     validateLightSignupForm,
@@ -151,6 +162,8 @@ const OneClickBookingModule: React.FC<Props> = ({
     offerBookerUrl,
     window.location.search,
   );
+
+  const { general_terms_and_conditions } = theme;
 
   const goBackToCalendar = () => {
     if (WidgetUtils.isWidget()) {
@@ -285,6 +298,16 @@ const OneClickBookingModule: React.FC<Props> = ({
                 {t('oneClickBooking.yourDetails')}
               </Typography>
               <LightSignupForm />
+              {general_terms_and_conditions && (
+                <AcceptTermsAndConditions
+                  id="one-click-checkout-terms-and-conditions"
+                  label={t('lightSignup.form.acceptTermsAndCondition.label')}
+                  name="termsAndConditions"
+                  onCheck={handleAcceptTermsandConditions}
+                  termsAndConditions={general_terms_and_conditions}
+                  type={TermsAndConditionType.TERMS_AND_CONDITIONS}
+                />
+              )}
               <div className="bs-oneclick-booking__already-member--desktop">
                 {t('oneClickBooking.alreadyMember')}
                 <ButtonV2
@@ -300,6 +323,12 @@ const OneClickBookingModule: React.FC<Props> = ({
                 <ButtonV2
                   className="bs-oneclick-booking__book-button"
                   color={ButtonColor.PRIMARY}
+                  isDisabled={
+                    !!Object.values(lightSignupErrors).length ||
+                    !lightSignupValues.email ||
+                    (!!general_terms_and_conditions &&
+                      !areTermsAndConditionsAccepted)
+                  }
                   onClick={onBook}
                   size={ButtonSize.LG}
                   variant={ButtonVariant.CONTAINED}

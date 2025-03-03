@@ -7,12 +7,15 @@ import { isValidPhoneNumber } from 'libphonenumber-js';
 import { getItemInStorage, setItemInStorage } from '#src/utils/storage';
 import { STORAGE_KEY_LIGHT_SIGNUP_FORM_VALUES } from '#src/actions/constants';
 import TextField from '#src/components/css-only/Fabrique/Temporary/Textfield';
+import Checkboxfield from '#src/components/css-only/Fabrique/Temporary/Checkboxfield';
 
 export type LightSignupFormValues = {
-  firstName: string;
-  lastName: string;
+  firstName?: string;
+  lastName?: string;
   email: string;
   phone?: string;
+  acceptEmail: boolean;
+  acceptSms: boolean;
 };
 
 const LightSignupForm = () => {
@@ -63,30 +66,40 @@ const LightSignupForm = () => {
           type="tel"
         />
       </div>
+      <Checkboxfield
+        id="light-signup-accept-email"
+        label={t('lightSignup.form.acceptEmail.label')}
+        name="acceptEmail"
+      />
+      <Checkboxfield
+        id="light-signup-accept-sms"
+        label={t('lightSignup.form.acceptSms.label')}
+        name="acceptSms"
+      />
     </Form>
   );
 };
 
 const lightSignupFormValidationSchema = Yup.object().shape({
-  firstName: Yup.string().required(
-    'booking:lightSignup.form.errors.requiredField',
-  ),
-  lastName: Yup.string().required(
-    'booking:lightSignup.form.errors.requiredField',
-  ),
+  firstName: Yup.string().nullable(),
+  lastName: Yup.string().nullable(),
   email: Yup.string()
     .matches(emailValidationRegExp, 'booking:lightSignup.form.errors.email')
     .required('booking:lightSignup.form.errors.requiredField'),
-  phone: Yup.string().test(
-    'is-phone',
-    'booking:lightSignup.form.errors.phone',
-    (value) => !value || isValidPhoneNumber(value),
-  ),
+  phone: Yup.string()
+    .nullable()
+    .test(
+      'is-phone',
+      'booking:lightSignup.form.errors.phone',
+      (value) => !value || isValidPhoneNumber(value),
+    ),
+  acceptEmail: Yup.boolean(),
+  acceptSms: Yup.boolean(),
 });
 
 export const lightSignupFormWrapper = withFormik<{}, LightSignupFormValues>({
   enableReinitialize: true,
-  validateOnChange: false,
+  validateOnChange: true,
   validationSchema: lightSignupFormValidationSchema,
   handleSubmit: async (formValues) => {
     setItemInStorage(
@@ -105,6 +118,8 @@ export const lightSignupFormWrapper = withFormik<{}, LightSignupFormValues>({
           lastName: '',
           email: '',
           phone: '',
+          acceptEmail: false,
+          acceptSms: false,
         };
   },
 });

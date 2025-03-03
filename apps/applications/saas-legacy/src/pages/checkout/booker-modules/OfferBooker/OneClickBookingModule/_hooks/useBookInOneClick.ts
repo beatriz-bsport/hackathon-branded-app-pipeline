@@ -66,6 +66,8 @@ type UseBookInOneClickParams = {
   lastName: string;
   email: string;
   phone: string;
+  acceptEmail: boolean;
+  acceptSms: boolean;
 };
 
 const bookInOneClick =
@@ -78,6 +80,8 @@ const bookInOneClick =
     lastName,
     email,
     phone,
+    acceptEmail,
+    acceptSms,
   }: UseBookInOneClickParams) => {
     //TODO: If there is a token in the local storage, we should use it to update the member
 
@@ -87,6 +91,8 @@ const bookInOneClick =
       email,
       phone_number: phone,
       company_id: companyId,
+      accept_email: acceptEmail,
+      accept_sms: acceptSms,
     });
 
     setAuthToken(data.token);

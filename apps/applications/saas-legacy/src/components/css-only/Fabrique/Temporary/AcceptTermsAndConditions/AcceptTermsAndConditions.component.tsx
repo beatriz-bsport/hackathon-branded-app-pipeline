@@ -76,8 +76,8 @@ const AcceptTermsAndConditions: React.FC<AcceptTermsAndConditionsProps> = ({
   const [{ value }, { touched, error }, { setValue }] = useField<boolean>(name);
 
   const handleChange = useCallback(
-    (event: React.ChangeEvent<HTMLInputElement>) => {
-      const checked = event.target.checked;
+    (event?: React.ChangeEvent<HTMLInputElement>) => {
+      const checked = event?.target.checked ?? false;
       onCheck?.(checked);
       setValue(checked);
     },

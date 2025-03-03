@@ -20,8 +20,8 @@ const Checkboxfield: React.FC<Props> = (props: Props) => {
   const { setValue } = form;
 
   const handleChange = React.useCallback(
-    (event: React.ChangeEvent<HTMLInputElement>) => {
-      const checked = event.target.checked;
+    (event?: React.ChangeEvent<HTMLInputElement>) => {
+      const checked = event?.target.checked ?? false;
       setValue(checked);
     },
     [setValue],

@@ -1,3 +1,3 @@
-import { Passes } from './Passes';
+import Passes from './Passes';
 
 export default Passes;

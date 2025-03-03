@@ -68,7 +68,7 @@ export class MarketplaceRouter extends React.Component<Props> {
             <Route
               exact
               component={Passes}
-              path="/m/:companyName/:companyId/new-pass"
+              path="/m/:companyName/:companyId/new-pass/:tabName?"
             />
           )}
           <Route

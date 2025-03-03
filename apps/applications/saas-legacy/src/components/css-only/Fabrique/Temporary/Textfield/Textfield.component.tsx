@@ -2,13 +2,19 @@ import React, { ChangeEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useField } from 'formik';
 import clsx from 'clsx';
-import TextField, { Props as TextfieldProps } from '../../TextFieldV2';
+import TextField, {
+  Props as TextfieldProps,
+} from '#src/components/css-only/Fabrique/TextFieldV2';
 import './styles.css';
 
 type Props = {
   layoutActive?: boolean;
   spaceField?: boolean;
-} & Omit<TextfieldProps, 'onChange' | 'errorMessage' | 'isError' | 'value'>;
+  name: string;
+} & Omit<
+  TextfieldProps,
+  'onChange' | 'errorMessage' | 'isError' | 'value' | 'name'
+>;
 
 const Textfield: React.FC<Props> = (props: Props) => {
   const { t } = useTranslation('marketing');
@@ -33,11 +39,12 @@ const Textfield: React.FC<Props> = (props: Props) => {
           'bs-fabrique-textfield--space-field': props.spaceField,
         }),
         inputContainer: 'bs-fabrique-textfield__input-container',
+        ...props.classes,
       }}
       errorMessage={meta.error && t(meta.error)}
       isError={!!(meta.touched && meta.error)}
       onChange={handleChange}
-      size="sm"
+      size={props.size ?? 'sm'}
     />
   );
 };

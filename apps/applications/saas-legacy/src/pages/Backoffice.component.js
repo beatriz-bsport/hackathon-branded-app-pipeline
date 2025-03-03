@@ -537,7 +537,11 @@ export class Backoffice extends Component<Props, State> {
         this.props.retrieveStripeAccountStatus();
       },
     });
-    this.props.fetchPlatformCustomerEntity();
+    this.props.fetchPlatformCustomerEntity({
+      onSuccess: () => {
+        this.checkVatInformation();
+      },
+    });
     const { language } = i18n;
     setLuxonLocale(language);
   }
@@ -662,7 +666,6 @@ export class Backoffice extends Component<Props, State> {
         break;
 
       default:
-        this.checkVatInformation();
         break;
     }
   };

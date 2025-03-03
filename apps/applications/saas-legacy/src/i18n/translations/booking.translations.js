@@ -662,6 +662,17 @@ const getTranslations = async () => {
         lastName: { label: 'Last name' },
         email: { label: 'Email' },
         phone: { label: 'Phone', placeholder: '+33612345678' },
+        acceptEmail: {
+          label:
+            'I agree to receive promotional emails, including special offers and discounts',
+        },
+        acceptSms: {
+          label:
+            'I agree to receive promotional texts, including special offers and discounts',
+        },
+        acceptTermsAndCondition: {
+          label: 'I accept the General Terms of Use',
+        },
         button: { label: 'Sign up' },
         errors: {
           requiredField: 'This field is required',

@@ -174,6 +174,9 @@ importers:
       '@bsport/b2b-backbone':
         specifier: workspace:*
         version: link:../../../../../../packages/utils/b2b-backbone
+      '@bsport/common':
+        specifier: workspace:*
+        version: link:../../../../../../packages/common-legacy
       '@bsport/fetch':
         specifier: workspace:*
         version: link:../../../../../../packages/utils/fetch
@@ -18900,7 +18903,7 @@ snapshots:
       '@commitlint/types': 19.0.3
       chalk: 5.4.1
       cosmiconfig: 9.0.0(typescript@4.9.5)
-      cosmiconfig-typescript-loader: 5.0.0(@types/node@14.18.63)(cosmiconfig@9.0.0(typescript@5.6.3))(typescript@4.9.5)
+      cosmiconfig-typescript-loader: 5.0.0(@types/node@14.18.63)(cosmiconfig@9.0.0(typescript@4.9.5))(typescript@4.9.5)
       lodash.isplainobject: 4.0.6
       lodash.merge: 4.6.2
       lodash.uniq: 4.5.0
@@ -19804,7 +19807,9 @@ snapshots:
       source-map: 0.6.1
       string-length: 2.0.0
     transitivePeerDependencies:
+      - bufferutil
       - supports-color
+      - utf-8-validate
 
   '@jest/reporters@28.1.3(node-notifier@8.0.2)':
     dependencies:
@@ -19922,7 +19927,9 @@ snapshots:
       jest-runner: 24.9.0
       jest-runtime: 24.9.0
     transitivePeerDependencies:
+      - bufferutil
       - supports-color
+      - utf-8-validate
 
   '@jest/test-sequencer@28.1.3':
     dependencies:
@@ -26584,10 +26591,10 @@ snapshots:
 
   corser@2.0.1: {}
 
-  cosmiconfig-typescript-loader@5.0.0(@types/node@14.18.63)(cosmiconfig@9.0.0(typescript@5.6.3))(typescript@4.9.5):
+  cosmiconfig-typescript-loader@5.0.0(@types/node@14.18.63)(cosmiconfig@9.0.0(typescript@4.9.5))(typescript@4.9.5):
     dependencies:
       '@types/node': 14.18.63
-      cosmiconfig: 9.0.0(typescript@5.6.3)
+      cosmiconfig: 9.0.0(typescript@4.9.5)
       jiti: 1.21.6
       typescript: 4.9.5
     optional: true
@@ -27016,7 +27023,7 @@ snapshots:
   cz-conventional-changelog@3.3.0(@types/node@14.18.63)(typescript@4.9.5):
     dependencies:
       chalk: 2.4.2
-      commitizen: 4.3.1(@types/node@14.18.63)(typescript@4.9.5)
+      commitizen: 4.3.1(@types/node@20.12.12)(typescript@5.6.3)
       conventional-commit-types: 3.0.0
       lodash.map: 4.6.0
       longest: 2.0.1

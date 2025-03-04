@@ -31,4 +31,42 @@ exports.default = {
       restore: "Unarchive member",
     },
   },
+  listPage: {
+    archiveModal: {
+      title: "Archive member",
+      description: {
+        action:
+          "Are you sure that you want to archive <strong>{{ name }}</strong> ?",
+        effect:
+          "They will no longer be active but can be restored any time from your archive.",
+      },
+      alertIrregularity: {
+        adviseRegularization:
+          "Based on the following criteria, we advise that you regularize your member's internal account balance before the member is archived:",
+        items: {
+          negativeBalance: "Negative internal account balance",
+          unpaidInvoices: "Unpaid invoice(s)",
+          currentSubscription: "Current subscription",
+          autorenewalSubscriptions: "Subscriptions with automatic renewals",
+          futureBookings: "Future bookings",
+          recurringBookings: "Recurring bookings",
+          scheduledAppointments: "Scheduled appointments",
+        },
+      },
+      buttons: {
+        cancel: "Cancel",
+        archive: "Archive",
+      },
+      toasts: {
+        messageArchived: "{{ name }} has been archived",
+        actionUndo: "Undo",
+      },
+    },
+  },
+  archivedListPage: {
+    toasts: {
+      messageUnarchived: "{{ name }} has been unarchived",
+      actionUndo: "Undo",
+    },
+  },
 };

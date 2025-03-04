@@ -1,7 +1,8 @@
 import { lazy, Suspense } from "react";
 import { Route } from "react-router";
 import { RoutesWrapper } from "@bsport/b2b-backbone";
-import { MemberListPage } from "#src/pages/MemberListPage";
+import { MemberListPage } from "#src/pages/MemberList";
+import { ArchivedMemberListPage } from "#src/pages/ArchivedMemberList";
 
 const NavigationSidebar = lazy(() => import("navigation-sidebar/App"));
 
@@ -22,6 +23,7 @@ const AppRoutes = () => {
       }
     >
       <Route element={<MemberListPage />} index />
+      <Route element={<ArchivedMemberListPage />} path="archived" />
     </RoutesWrapper>
   );
 };

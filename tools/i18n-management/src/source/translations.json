@@ -1,4 +1,5 @@
 {
+  "@bsport/b2b-member-list": { "common": { "pages": { "memberList": "Members" } } },
   "@bsport/kaizen-primitive-core": {
     "default": {
       "fileUpload": {

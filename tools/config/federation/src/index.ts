@@ -7,6 +7,10 @@ const FEDERATED_APP_CONFIG = {
   "navigation-sidebar": {
     port: 5000,
   },
+  // Core Data : Range 5100
+  "b2b-member-list": {
+    port: 5101,
+  },
 };
 
 export type APPLICATION = keyof typeof FEDERATED_APP_CONFIG;

@@ -7,4 +7,10 @@ exports.default = {
       error: "Could not upload this file",
     },
   },
+  emptyState: {
+    noResultsFound: {
+      title: "No results found",
+      clearFilters: "Clear filters",
+    },
+  },
 };

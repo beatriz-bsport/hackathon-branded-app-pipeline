@@ -3,6 +3,7 @@ import { cva, type VariantProps } from "class-variance-authority";
 import Body from "#src/components/Body";
 import Button, { type ButtonProps } from "#src/components/Button";
 import Title from "#src/components/Title";
+import { useTranslation, useKaizenI18nInstance } from "#src/i18n";
 
 const defaultClasses = ["flex", "flex-col", "gap-xs", "items-center"] as const;
 
@@ -37,23 +38,42 @@ const EmptyState: React.FC<EmptyStateProps> = ({
   secondaryButtonConfig,
   title,
   subtitle,
-  variant,
+  variant = "empty-state",
   ...props
 }) => {
+  const i18nInstance = useKaizenI18nInstance();
+  const { t } = useTranslation("default", { i18n: i18nInstance });
+
   const SVGEmptyImage = useMemo(() => {
     const assetName =
       variant === "no-results-found" ? "no-results-found" : "empty-state";
     return lazy(async () => await import(`./assets/${assetName}.svg?react`));
   }, [variant]);
 
+  let defaultTitle = "";
+  let defaultSecondaryButtonConfig = {};
+  if (variant === "no-results-found") {
+    // Set some default parameters
+    defaultTitle = t("emptyState.noResultsFound.title");
+    defaultSecondaryButtonConfig = {
+      label: t("emptyState.noResultsFound.clearFilters"),
+      iconLeft: "x",
+    };
+  }
+
+  const finalTitle = title ?? defaultTitle;
+  const finalSecondaryButtonConfig = secondaryButtonConfig
+    ? { ...defaultSecondaryButtonConfig, ...secondaryButtonConfig }
+    : undefined;
+
   return (
     <div className={emptyState({ className })} {...props}>
       <Suspense fallback={null}>
         <SVGEmptyImage />
       </Suspense>
-      {title && (
+      {finalTitle && (
         <Title htmlVariant="h3" weight="stronger" color="weak">
-          {title}
+          {finalTitle}
         </Title>
       )}
       {subtitle && (
@@ -67,11 +87,11 @@ const EmptyState: React.FC<EmptyStateProps> = ({
           {subtitle}
         </Body>
       )}
-      {(ctaButtonConfig || secondaryButtonConfig) && (
+      {(ctaButtonConfig || finalSecondaryButtonConfig) && (
         <div className="flex flex-row items-center justify-center gap-xs mt-sm">
           {secondaryButtonConfig && (
             <Button
-              {...secondaryButtonConfig}
+              {...finalSecondaryButtonConfig}
               color="main"
               size="md"
               intent="default"

@@ -8,6 +8,7 @@ const icons = {
   "announcement-01": React.lazy(
     async () => await import("./assets/announcement-01.svg?react"),
   ),
+  archive: React.lazy(async () => await import("./assets/archive.svg?react")),
   "arrow-left": React.lazy(
     async () => await import("./assets/arrow-left.svg?react"),
   ),
@@ -105,6 +106,7 @@ const icons = {
     async () => await import("./assets/pencil-02.svg?react"),
   ),
   "pin-02": React.lazy(async () => await import("./assets/pin-02.svg?react")),
+  plus: React.lazy(async () => await import("./assets/plus.svg?react")),
   "refresh-cw-01": React.lazy(
     async () => await import("./assets/refresh-cw-01.svg?react"),
   ),
@@ -123,6 +125,9 @@ const icons = {
   ),
   "ticket-01": React.lazy(
     async () => await import("./assets/ticket-01.svg?react"),
+  ),
+  unarchive: React.lazy(
+    async () => await import("./assets/unarchive.svg?react"),
   ),
   "upload-01": React.lazy(
     async () => await import("./assets/upload-01.svg?react"),

@@ -60,6 +60,7 @@ export {
   type NavigationMenuItem,
 } from "./components/NavigationMenu";
 export { default as Popover, type PopoverProps } from "./components/Popover";
+export { type PaginationProps } from "./components/private/Pagination";
 export {
   default as ProgressBar,
   type ProgressBarProps,

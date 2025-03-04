@@ -66,13 +66,24 @@ export const CompleteConfiguration: Story = {
 export const FilterEmptyResults: Story = {
   name: "Empty filter results",
   args: {
-    title: "No results found",
     subtitle:
       "No members match your filters.\nTry clearing them to see more results",
     className: "max-w-[320px]",
     secondaryButtonConfig: {
-      iconLeft: "x",
-      label: "Clear filters",
+      onClick: () => console.log("Clear the filters"),
+    },
+    variant: "no-results-found",
+  },
+};
+
+export const CustomFilterEmptyResults: Story = {
+  name: "Custom empty filter results",
+  args: {
+    title: "Custom title",
+    subtitle: "No members match your filters.",
+    className: "max-w-[320px]",
+    secondaryButtonConfig: {
+      label: "Custom cta",
       onClick: () => console.log("Clear the filters"),
     },
     variant: "no-results-found",

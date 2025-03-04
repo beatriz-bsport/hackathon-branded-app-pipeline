@@ -222,9 +222,9 @@
                             "sessions": "Compatibele sessies"
                         },
                         "labels": {
-                            "category": "Categorien",
-                            "activity": "Activitieiten",
-                            "room": "Kamers"
+                            "category": "Categoriën",
+                            "activity": "Activiteiten",
+                            "room": "Ruimtes"
                         }
                     },
                     "restriction": {

@@ -29,18 +29,14 @@ const OfferFormTags = (props: Props) => {
   const availableWhitelistTags = useMemo(
     () =>
       tagList?.length
-        ? tagList.filter(
-            (tag) => !selectedBlacklistTags?.includes(tag.id) || tag,
-          )
+        ? tagList.filter((tag) => !selectedBlacklistTags?.includes(tag.id))
         : [],
     [selectedBlacklistTags, tagList],
   );
   const availableBlacklistTags = useMemo(
     () =>
       tagList?.length
-        ? tagList.filter(
-            (tag) => !selectedWhitelistTags?.includes(tag.id) || tag,
-          )
+        ? tagList.filter((tag) => !selectedWhitelistTags?.includes(tag.id))
         : [],
     [selectedWhitelistTags, tagList],
   );

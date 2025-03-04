@@ -418,7 +418,10 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
       this.props.fetchMyRelatedMemberList(this.props.companyId);
     }
     this.props.fetchOffer(this.props.offerId, {
-      onSuccess: (offer: OfferREST) => {
+      onSuccess: (offer?: OfferREST) => {
+        if (!offer) {
+          throw new Error('Offer not found');
+        }
         this.props.fetchBookingGuestNumber(this.props.offerId);
         this.props.fetchOfferWaitingListPosition(this.props.offerId);
         this.props.fetchCompanyTheme(offer.company);
@@ -438,7 +441,10 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
         this.props.fetchAllPaymentPackCategory(offer.company);
         this.props.fetchMetaActivityBulk([offer.meta_activity]);
         this.props.fetchCoachBulkForCompany(
-          [offer.coach, offer.coach_override],
+          [
+            offer.coach,
+            ...(offer.coach_override ? [offer.coach_override] : []),
+          ],
           this.props.companyId,
         );
         this.props.fetchEstablishmentBulk([offer.establishment]);
@@ -451,10 +457,10 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
           });
           this.props.fetchGroup(offer.group, {
             onSuccess: (group) => {
-              if (!group.full_booking_only) {
+              if (group && !group.full_booking_only) {
                 this.props.fetchOfferBulk(group.offers, {
                   onSuccess: (offers) => {
-                    this.fetchOffersRelatedObject(offers);
+                    if (offers) this.fetchOffersRelatedObject(offers);
                     this.retrieveFetchedGroupedOffer(group.id);
                     this.props.fetchOfferStatusList(
                       group.offers,
@@ -463,16 +469,17 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
                       },
                       {
                         onSuccess: (offersStatusList) => {
-                          const offersWithAvailableStatusIdsList =
-                            offersStatusList
-                              .filter(
-                                (offerStatus) =>
-                                  offerStatus.bookable_status ===
-                                  OFFER_BOOKABLE_STATUS_BOOKABLE,
-                              )
-                              .map(
-                                (filteredOfferStatus) => filteredOfferStatus.id,
-                              );
+                          const offersWithAvailableStatusIdsList = (
+                            offersStatusList ?? []
+                          )
+                            ?.filter(
+                              (offerStatus) =>
+                                offerStatus.bookable_status ===
+                                OFFER_BOOKABLE_STATUS_BOOKABLE,
+                            )
+                            .map(
+                              (filteredOfferStatus) => filteredOfferStatus.id,
+                            );
                           this.filterGroupedOfferInSelectedOffer([
                             this.props.offerId,
                             ...offersWithAvailableStatusIdsList,
@@ -685,7 +692,7 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
   fetchCompatibleConsumerPaymentPacks = () => {
     this.props.fetchConsumerPaymentPackForBooking(this.props.offerId, {
       onSuccess: (cppList) => {
-        if (cppList.length > 0) {
+        if (cppList && cppList.length > 0) {
           const cpp_ids = cppList.map((cpp) => cpp.id);
           const pp_ids = cppList.map((cpp) => cpp.payment_pack);
 
@@ -719,7 +726,7 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
       .filter((offer) => offer.id !== this.props.offerId);
     const availablePaymentPacks = this.getAvailablePaymentPacks(
       selectedOffers,
-    ).filter((paymentPack) => paymentPack.exceedsBookingMaxout === false);
+    ).filter((paymentPack) => !paymentPack.exceedsBookingMaxout);
     const availablePaymentPackCategories =
       this.getAvailablePaymentPackCategories(
         // TODO : REBUILD ALL THE COMMON FUNCTIONS AND PROPERLY TYPE THEM
@@ -728,18 +735,19 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
       );
     const availableComboPacks = this.getAvailableComboPacks(
       selectedOffers,
-    ).filter((comboPack) => comboPack.exceedsBookingMaxout === false);
+    ).filter((comboPack) => !comboPack.exceedsBookingMaxout);
 
     let availableContracts: Contract[] = [];
     if (this.state.selectedOffers.length <= 1) {
       // @ts-expect-error Inconsistent type with Contract
       availableContracts = this.getAvailableContracts(selectedOffers).filter(
-        (contract) => contract.exceedsBookingMaxout === false,
+        (contract) => !contract.exceedsBookingMaxout,
       );
     }
 
     const availablePaymentPacksWithoutCategory = availablePaymentPacks.filter(
-      (paymentPack) => paymentPack.categories === null,
+      (paymentPack) =>
+        !paymentPack?.categories || paymentPack.categories.length === 0,
     );
     if (
       this.props.bookingFunnelConfiguration?.current_pricing_option_ordering

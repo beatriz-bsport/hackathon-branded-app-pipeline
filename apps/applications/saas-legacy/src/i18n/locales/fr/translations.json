@@ -18071,11 +18071,11 @@
             },
             "gtmId": {
                 "placeholder": "GTM-XXXXXX",
-                "label": "Google Tag ID"
+                "label": "Google Tag Manager ID"
             },
             "facebookPixelId": {
                 "placeholder": "ID",
-                "label": "Facebook Pixel Id"
+                "label": "Facebook Pixel ID"
             },
             "instagramURL": {
                 "label": "URL Instagram",

@@ -690,17 +690,18 @@ export const resetDisabledPaymentPack = () =>
 
 export function fetchPaymentPackList(
   params: any = {},
-  options?: OptionCallback<PaginatedResponse<PaymentPack>>,
+  options?: OptionCallback<PaymentPack[]>,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(listPaymentPackActions.error(null));
     dispatch(listPaymentPackActions.isLoading(true));
     try {
       const response = await fetchPaymentPackListAPI(params);
-      dispatch(listPaymentPackActions.success(response.data));
+      const responseData = response.data.results ?? response.data;
+      dispatch(listPaymentPackActions.success(responseData));
 
       if (options && options.onSuccess) {
-        options.onSuccess(response.data);
+        options.onSuccess(responseData);
       }
     } catch (err) {
       console.error(err);

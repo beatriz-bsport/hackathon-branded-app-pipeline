@@ -17,7 +17,7 @@ const VoucherCodesSelectButtons: React.FC<Props> = ({
   const { t } = useTranslation('coupon');
   const classes = useStyles();
 
-  const isNoneVoucherCodesSelected = selectedVoucherCodes?.length === 0 || true;
+  const isNoneVoucherCodesSelected = (selectedVoucherCodes || []).length === 0;
 
   const areAllVoucherCodesSelected =
     !!selectedVoucherCodes && !!allCodes

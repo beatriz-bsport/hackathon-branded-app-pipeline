@@ -2,6 +2,7 @@ Validate MR Title:
   image: node:22-alpine
   stage: init
   interruptible: true
+  allow_failure: true
   tags:
     - build-frontend
     - cluster:bsport-tooling

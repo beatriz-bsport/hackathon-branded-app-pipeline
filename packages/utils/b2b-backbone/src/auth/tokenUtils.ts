@@ -31,25 +31,23 @@ export const removeAuthToken = () => {
  */
 export const login = async (email: string, password: string) => {
   // Hardcoded on dev API for now
-  const response = await fetch("api/v1/authentication/signin/with-login/", {
-    method: "POST",
-    body: JSON.stringify({
-      email,
-      password,
-    }),
-  });
+  const { data } = await fetch<{ token: string }>(
+    "api/v1/authentication/signin/with-login/",
+    {
+      method: "POST",
+      body: JSON.stringify({
+        email,
+        password,
+      }),
+    },
+  );
 
-  if (response.ok) {
-    const data = await response.json();
-    const token = data.token;
+  const token = data.token;
 
-    if (token) {
-      setAuthToken(token);
-    } else {
-      throw new Error("Token not found in response.");
-    }
+  if (token) {
+    setAuthToken(token);
   } else {
-    throw new Error("Login failed. Please check your credentials.");
+    throw new Error("Token not found in response.");
   }
 };
 

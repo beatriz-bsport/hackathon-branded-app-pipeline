@@ -3,6 +3,8 @@ import {
   getNamespacePrefixer,
   getUseTranslation,
   getWithTranslation,
+  type UseTranslation,
+  type WithTranslation,
 } from "@bsport/i18n";
 import namespaceList from "#src/i18n/namespaces.json";
 
@@ -13,11 +15,11 @@ export const i18nInstance = initI18n({
   namespaces: namespaceList,
 });
 
-export const useTranslation = getUseTranslation({
+export const useTranslation: UseTranslation = getUseTranslation({
   applicationName: i18nNamespacePrefix,
 });
 
-export const withTranslation = getWithTranslation({
+export const withTranslation: WithTranslation = getWithTranslation({
   applicationName: i18nNamespacePrefix,
 });
 

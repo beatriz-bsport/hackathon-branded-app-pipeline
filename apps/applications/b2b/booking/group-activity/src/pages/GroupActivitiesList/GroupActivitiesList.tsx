@@ -3,19 +3,17 @@ import {
   ListLayout,
   Button,
   List,
-  Title,
-  Body,
   Loader,
 } from "@bsport/kaizen-primitive-core";
 
 import { useTranslation } from "#src/utils/i18n";
 import usePaginatedGroupActivities from "#src/hooks/usePaginatedGroupActivities";
 
-import EmptyIllustration from "#src/components/EmptyIllustration";
-
-import type { ListItemProps } from "@bsport/kaizen-primitive-core/dist/components/List/Item";
-import type { ListItemChipsProps } from "@bsport/kaizen-primitive-core/dist/components/List";
-import type { WithTooltip } from "@bsport/kaizen-primitive-core/dist/components/Tooltip";
+import type {
+  ListItemProps,
+  ListItemChipsProps,
+  WithTooltip,
+} from "@bsport/kaizen-primitive-core";
 
 import { ARCHIVED_GROUP_ACTIVITIES_PATH } from "#src/constants";
 import { useGroupActivityModals } from "#src/hooks/useGroupActivityModals";
@@ -123,7 +121,7 @@ const GroupActivitiesList: React.FC = () => {
   }, [fetchData]);
 
   return (
-    <ListLayout className="w-full">
+    <ListLayout>
       <ListLayout.Header
         callToActionButton={
           <div className="flex gap-2xs">
@@ -150,39 +148,18 @@ const GroupActivitiesList: React.FC = () => {
         <Loader className="w-full h-full" size="xl" />
       ) : (
         <ListLayout.Content className="hide-scrollbar w-full h-full">
-          {renderedGroupActivities.length ? (
-            <List
-              id="enabled-group-activities-list"
-              items={renderedGroupActivities}
-              className="w-full"
-              paginationProps={paginationProps}
-            />
-          ) : (
-            <div className="flex flex-col gap-sm w-full items-center justify-center">
-              <div className="flex flex-col gap-xs items-center">
-                <EmptyIllustration />
-                <Title htmlVariant="h3" color="weak" weight="strong">
-                  {t("list.enabled.emptyState.title")}
-                </Title>
-                <Body
-                  htmlVariant="p"
-                  weight="weak"
-                  color="weak"
-                  size="lg"
-                  className="max-w-xs text-center"
-                >
-                  {t("list.enabled.emptyState.body")}
-                </Body>
-              </div>
-              <Button
-                iconLeft="plus"
-                intent="call-to-action"
-                color="main"
-                size="md"
-                label={t("list.header.add")}
-              />
-            </div>
-          )}
+          <List
+            id="enabled-group-activities-list"
+            items={renderedGroupActivities}
+            className="w-full"
+            paginationProps={paginationProps}
+            emptyStateProps={{
+              isEmpty: !paginationProps.totalItems,
+              emptyConfig: {
+                title: t("list.enabled.emptyState.title"),
+              },
+            }}
+          />
           {archiveModal}
           {duplicateModal}
         </ListLayout.Content>

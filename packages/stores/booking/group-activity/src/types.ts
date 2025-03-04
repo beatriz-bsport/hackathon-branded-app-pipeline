@@ -1,10 +1,4 @@
-export type PaginatedResponse<T = void> = {
-  count: number;
-  links: { next: number | null; previous: number | null };
-  next_page: number | null;
-  page: number;
-  results: T[];
-};
+export type { PaginatedResponse } from "@bsport/store-base";
 
 /**
  * A MetaActivity is a meta_activity in the backend.

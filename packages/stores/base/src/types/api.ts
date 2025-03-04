@@ -21,3 +21,11 @@ export type GenericAction<P, R> = (
  * Type describing a complete API call, which can be passed to `fetch`.
  */
 export type ApiConfig = Parameters<Fetch>;
+
+export type PaginatedResponse<T = void> = {
+  count: number;
+  links: { next: number | null; previous: number | null };
+  next_page: number | null;
+  page: number;
+  results: T[];
+};

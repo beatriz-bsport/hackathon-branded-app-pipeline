@@ -1,11 +1,5 @@
 import React, { useEffect, useMemo } from "react";
-import {
-  ListLayout,
-  List,
-  Title,
-  Loader,
-  toast,
-} from "@bsport/kaizen-primitive-core";
+import { ListLayout, List, Loader, toast } from "@bsport/kaizen-primitive-core";
 
 import { useTranslation } from "#src/utils/i18n";
 import usePaginatedGroupActivities from "#src/hooks/usePaginatedGroupActivities";
@@ -13,7 +7,6 @@ import usePaginatedGroupActivities from "#src/hooks/usePaginatedGroupActivities"
 import type { ListItemProps } from "@bsport/kaizen-primitive-core/dist/components/List/Item";
 
 import { GROUP_ACTIVITIES_PATH } from "#src/constants";
-import EmptyIllustration from "#src/components/EmptyIllustration";
 import {
   unarchiveGroupActivity,
   archiveGroupActivity,
@@ -93,7 +86,7 @@ const ArchivedGroupActivitiesList: React.FC = () => {
   }, [fetchData]);
 
   return (
-    <ListLayout className="w-full">
+    <ListLayout>
       <ListLayout.Header
         breadcrumbsItems={[
           {
@@ -108,26 +101,18 @@ const ArchivedGroupActivitiesList: React.FC = () => {
         <Loader className="w-full h-full" size="xl" />
       ) : (
         <ListLayout.Content className="hide-scrollbar w-full h-full">
-          {renderedArchivedGroupActivities.length ? (
-            <List
-              id="archived-group-activities-list"
-              items={renderedArchivedGroupActivities}
-              className="w-full"
-              paginationProps={paginationProps}
-            />
-          ) : (
-            <div className="flex flex-col gap-sm w-full items-center justify-center">
-              <EmptyIllustration />
-              <Title
-                htmlVariant="h3"
-                color="weak"
-                weight="strong"
-                className="max-w-[16rem] text-center"
-              >
-                {t("list.archived.emptyState.title")}
-              </Title>
-            </div>
-          )}
+          <List
+            id="archived-group-activities-list"
+            items={renderedArchivedGroupActivities}
+            className="w-full"
+            paginationProps={paginationProps}
+            emptyStateProps={{
+              isEmpty: !paginationProps.totalItems,
+              emptyConfig: {
+                title: t("list.archived.emptyState.title"),
+              },
+            }}
+          />
         </ListLayout.Content>
       )}
     </ListLayout>

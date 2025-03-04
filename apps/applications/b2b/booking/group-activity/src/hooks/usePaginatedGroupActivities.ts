@@ -9,7 +9,7 @@ import {
 
 import fetch from "#src/utils/fetch";
 
-import type { PaginationProps } from "@bsport/kaizen-primitive-core/dist/components/private/Pagination";
+import type { PaginationProps } from "@bsport/kaizen-primitive-core";
 
 const usePaginatedGroupActivities = (customerEnabled: boolean) => {
   const [groupActivities, setGroupActivities] = useState<MetaActivity[]>([]);

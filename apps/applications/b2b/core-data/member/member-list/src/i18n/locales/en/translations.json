@@ -1,7 +1,8 @@
 {
     "common": {
         "pages": {
-            "memberList": "Members"
+            "memberList": "Members",
+            "archivedMemberList": "Archived members"
         },
         "actions": {
             "addMember": "Add member"
@@ -64,6 +65,13 @@
             "toasts": {
                 "messageUnarchived": "{{ name }} has been unarchived",
                 "actionUndo": "Undo"
+            }
+        },
+        "filters": {
+            "label": "Filter",
+            "operators": {
+                "is": "is",
+                "isNot": "is not"
             }
         }
     }

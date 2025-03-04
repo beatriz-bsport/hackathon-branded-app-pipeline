@@ -7,7 +7,16 @@ export const ArchivedMemberListPage: React.FC = () => {
 
   return (
     <ListLayout>
-      <ListLayout.Header pageTitle={t("pages.memberList")} />
+      <ListLayout.Header
+        pageTitle={t("pages.archivedMemberList")}
+        breadcrumbsItems={[
+          {
+            id: "member",
+            text: t("pages.memberList"),
+            href: "/",
+          },
+        ]}
+      />
       <ListLayout.Content className="hide-scrollbar h-full">
         <ArchivedMemberListContent />
       </ListLayout.Content>

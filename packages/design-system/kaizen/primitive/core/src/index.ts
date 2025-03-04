@@ -33,7 +33,12 @@ export {
   UPLOAD_STATUSES as FILE_UPLOAD_STATUSES,
   type FileUploadProps,
 } from "./components/FileUpload";
-export { default as Filter, type FilterProps } from "./components/Filter";
+export {
+  default as Filter,
+  type FilterProps,
+  type FilterField,
+  type FilterElementState,
+} from "./components/Filter";
 export { KaizenI18nProvider } from "./components/I18nProvider";
 export { default as Icon, type IconProps } from "./components/Icon";
 export {

@@ -1,6 +1,7 @@
 exports.default = {
   pages: {
     memberList: "Members",
+    archivedMemberList: "Archived members",
   },
   actions: {
     addMember: "Add member",
@@ -67,6 +68,13 @@ exports.default = {
     toasts: {
       messageUnarchived: "{{ name }} has been unarchived",
       actionUndo: "Undo",
+    },
+  },
+  filters: {
+    label: "Filter",
+    operators: {
+      is: "is",
+      isNot: "is not",
     },
   },
 };

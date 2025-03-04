@@ -1,7 +1,7 @@
 {
   "@bsport/b2b-member-list": {
     "common": {
-      "pages": { "memberList": "Members" },
+      "pages": { "memberList": "Members", "archivedMemberList": "Archived members" },
       "actions": { "addMember": "Add member" },
       "memberTable": {
         "loading": "Loading members ...",
@@ -54,7 +54,8 @@
           "messageUnarchived": "{{ name }} has been unarchived",
           "actionUndo": "Undo"
         }
-      }
+      },
+      "filters": { "label": "Filter", "operators": { "is": "is", "isNot": "is not" } }
     }
   },
   "@bsport/kaizen-primitive-core": {

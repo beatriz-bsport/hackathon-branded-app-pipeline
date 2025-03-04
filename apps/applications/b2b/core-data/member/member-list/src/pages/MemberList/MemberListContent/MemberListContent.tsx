@@ -3,15 +3,16 @@ import { MemberTable } from "#src/components/MemberTable";
 import { fetchMemberListPage, type Member } from "#src/store-api-pkg";
 import { usePaginationQueryParams } from "@bsport/use-pagination-query-params";
 import { MemberArchiveModal } from "./MemberArchiveModal";
+import type { FilterParams } from "#src/hooks/useMemberFilters";
 
 type MemberListContentProps = {
-  hasActiveFilters?: boolean;
+  activeFilters: FilterParams;
   onAddMemberClick?: () => void;
   onClearFiltersClick?: () => void;
 };
 
 export const MemberListContent: React.FC<MemberListContentProps> = ({
-  hasActiveFilters = false,
+  activeFilters,
   onAddMemberClick,
   onClearFiltersClick,
 }) => {
@@ -33,11 +34,12 @@ export const MemberListContent: React.FC<MemberListContentProps> = ({
       page_size: currentPageSize,
       page: currentPage,
       exclude_archived: true,
+      ...activeFilters,
     });
     setMemberList(data.results);
     setTotalItems(data.count);
     setIsLoading(false);
-  }, [currentPage, currentPageSize]);
+  }, [currentPage, currentPageSize, activeFilters]);
 
   const handleArchive = ({
     memberId,
@@ -71,7 +73,7 @@ export const MemberListContent: React.FC<MemberListContentProps> = ({
         }}
         mode="active"
         handleArchive={handleArchive}
-        hasActiveFilters={hasActiveFilters}
+        hasActiveFilters={!!activeFilters}
         onAddMemberClick={onAddMemberClick}
         onClearFilterClick={onClearFiltersClick}
       />

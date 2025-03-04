@@ -31,6 +31,7 @@ const icons = {
   "book-closed": React.lazy(
     async () => await import("./assets/book-closed.svg?react"),
   ),
+  box: React.lazy(async () => await import("./assets/box.svg?react")),
   "building-02": React.lazy(
     async () => await import("./assets/building-02.svg?react"),
   ),

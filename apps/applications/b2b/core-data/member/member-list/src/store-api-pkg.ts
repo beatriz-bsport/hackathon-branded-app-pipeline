@@ -28,7 +28,7 @@ export type Member = {
 };
 
 // ----- Generic -----
-const performFetchAction = async <T>({
+export const performFetchAction = async <T>({
   url,
   params = {},
   errorReturn,

@@ -19,6 +19,10 @@ const FEDERATED_APP_CONFIG = {
   "sm-giftcard": {
     port: 5151,
   },
+  // Financial services : Range 5200
+  "sm-invoice": {
+    port: 5201,
+  },
 };
 
 export type APPLICATION = keyof typeof FEDERATED_APP_CONFIG;

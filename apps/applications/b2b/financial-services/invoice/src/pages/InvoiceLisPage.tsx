@@ -1,0 +1,341 @@
+import { useCallback, useEffect, useMemo, useState } from "react";
+import {
+  INVOICE_TYPE_EMPTY_PAYMENT_CONTAINER,
+  INVOICE_TYPE_MIGRATION,
+  INVOICE_TYPE_REVERSE,
+} from "@bsport/common/lib/master-data/invoice-type.js";
+import {
+  Button,
+  Chip,
+  ListLayout,
+  Loader,
+  Menu,
+  Popover,
+  Table,
+  Tooltip,
+} from "@bsport/kaizen-primitive-core";
+import type { Column } from "@bsport/kaizen-primitive-core/dist/components/Table/Table";
+import {
+  fetchInvoices,
+  finalizeInvoice,
+  getReceiptUrl,
+  type Invoice,
+} from "@bsport/store-financial-services-invoice";
+import { useTranslation } from "#src/utils/i18n";
+import { fetchWithAuth } from "@bsport/b2b-backbone";
+
+const DEFAULT_PAGE = 1;
+const DEFAULT_PAGE_SIZE = 10;
+
+type TableDataRow = {
+  id: string;
+  uuid: string;
+  date: string;
+  member: string;
+  amount: string;
+  type: string;
+  status: Array<{
+    label: string;
+    color: "positive" | "critical" | "warning" | "default";
+  }>;
+  downloadPdf: {
+    uuid: string;
+    is_draft: boolean;
+    is_receipt_available: boolean;
+  };
+};
+
+export const InvoiceListPage = () => {
+  const [invoices, setInvoices] = useState<Invoice[]>([]);
+  const [currentPage, setCurrentPage] = useState(DEFAULT_PAGE);
+  const [totalInvoices, setTotalInvoices] = useState(0);
+  const [isLoading, setIsLoading] = useState(true);
+  const { t } = useTranslation("invoice");
+
+  const fetchData = useCallback((page: number, rows: number) => {
+    setCurrentPage(page);
+    setIsLoading(true);
+
+    const fetchInvoiceList = async () => {
+      // @ts-expect-error Need to type fetchWithAuth
+      const response = await fetchInvoices(fetchWithAuth, {
+        page,
+        pageSize: rows,
+      });
+      response.fold(
+        ({ results, count }) => {
+          console.log(results);
+          setInvoices(results);
+          setTotalInvoices(count);
+        },
+        (error) => console.error(error),
+      );
+      setIsLoading(false);
+    };
+
+    fetchInvoiceList();
+  }, []);
+
+  useEffect(() => {
+    fetchData(DEFAULT_PAGE, DEFAULT_PAGE_SIZE);
+  }, [fetchData]);
+
+  const handleClickDownload = useCallback((invoiceUuid: string) => {
+    // @ts-expect-error Need to type fetchWithAuth
+    finalizeInvoice(fetchWithAuth, invoiceUuid).then((response) => {
+      response.fold(
+        ({ stripe_invoice_pdf }) => {
+          if (stripe_invoice_pdf) {
+            window.open(stripe_invoice_pdf, "_blank");
+          }
+        },
+        (error) => console.error(error),
+      );
+    });
+  }, []);
+
+  const getInvoiceType = useCallback((invoice: Invoice) => {
+    switch (invoice.invoice_type) {
+      case INVOICE_TYPE_MIGRATION:
+        return "migration";
+      case INVOICE_TYPE_REVERSE:
+        return "return";
+      case INVOICE_TYPE_EMPTY_PAYMENT_CONTAINER:
+        return "credit_payment";
+      default:
+        return invoice.reverse_invoices && invoice.reverse_invoices.length
+          ? "reversed"
+          : "regular";
+    }
+  }, []);
+
+  const columns: Column<TableDataRow>[] = useMemo(
+    () => [
+      {
+        id: "uuid",
+        keyPath: "uuid",
+        header: t("tableColumnLabel.number"),
+        type: "string",
+      },
+      {
+        id: "date",
+        keyPath: "date",
+        header: t("tableColumnLabel.date"),
+        type: "date",
+      },
+      {
+        id: "memberLink",
+        keyPath: "member",
+        header: t("tableColumnLabel.member"),
+        type: "string",
+      },
+      {
+        id: "amount",
+        keyPath: "amount",
+        header: t("tableColumnLabel.amount"),
+        type: "number",
+        align: "end",
+      },
+      {
+        id: "type",
+        keyPath: "type",
+        header: t("tableColumnLabel.type"),
+        type: "string",
+      },
+      {
+        id: "status",
+        keyPath: "status",
+        header: t("tableColumnLabel.status"),
+        type: "custom",
+        render: (row) => (
+          <div className="flex gap-sm">
+            {row.status.map((status, index) => (
+              <Chip
+                key={index}
+                label={status.label}
+                color={status.color}
+                size="lg"
+                type="weak"
+              />
+            ))}
+          </div>
+        ),
+      },
+      {
+        id: "downloadPdf",
+        keyPath: "downloadPdf",
+        header: "",
+        type: "custom",
+        align: "center",
+        render: (row) => {
+          const button = (
+            <Popover>
+              <Popover.Anchor>
+                {({ setIsPopoverOpened }) => (
+                  <Button
+                    iconLeft="download-01"
+                    intent="flat"
+                    color="main"
+                    size="md"
+                    onClick={(event) => {
+                      event.stopPropagation();
+                      event.preventDefault();
+                      if (row.downloadPdf.is_receipt_available) {
+                        setIsPopoverOpened(true);
+                      } else {
+                        handleClickDownload(row.downloadPdf.uuid);
+                      }
+                    }}
+                    disabled={row.downloadPdf.is_draft}
+                  />
+                )}
+              </Popover.Anchor>
+              <Popover.Content placement="bottom-right">
+                {({ setIsPopoverOpened }) => (
+                  <Menu
+                    items={[
+                      { type: "title", label: t("download.title") },
+                      { id: "download-pdf", label: t("download.pdf") },
+                      { id: "download-receipt", label: t("Receipt") },
+                    ]}
+                    onSelectOption={(id) => {
+                      setIsPopoverOpened(false);
+
+                      if (id === "download-pdf") {
+                        handleClickDownload(row.downloadPdf.uuid);
+                      } else if (id === "download-receipt") {
+                        // @ts-expect-error Need to type fetchWithAuth
+                        getReceiptUrl(fetchWithAuth, row.downloadPdf.uuid).then(
+                          (response) => {
+                            response.fold(
+                              (value) => window.open(value, "_blank"),
+                              (error) => console.error(error),
+                            );
+                          },
+                        );
+                      }
+                    }}
+                  />
+                )}
+              </Popover.Content>
+            </Popover>
+          );
+
+          return row.downloadPdf.is_draft ? (
+            <Tooltip
+              label={t("download.explainPdfDraft")}
+              placement="bottom-right"
+            >
+              {button}
+            </Tooltip>
+          ) : (
+            button
+          );
+        },
+      },
+    ],
+    [handleClickDownload, getReceiptUrl, t],
+  );
+
+  const rows: TableDataRow[] = useMemo(
+    () =>
+      invoices.map((invoice) => ({
+        id: `row-${invoice.uuid}`,
+        link: `/invoice/${invoice.uuid}`,
+        uuid: invoice.uuid.slice(0, 8),
+        date: invoice.date,
+        member: invoice.memberName,
+        amount: invoice.amount_due_cts.toString(),
+        type: t(`invoiceType.${getInvoiceType(invoice)}`),
+        status: [{ label: t("invoiceStatus.open"), color: "default" }],
+        downloadPdf: {
+          uuid: invoice.uuid,
+          is_draft: invoice.is_draft,
+          is_receipt_available: invoice.is_v2 && invoice.payments.length > 0,
+        },
+      })),
+    [invoices, getInvoiceType, t],
+  );
+
+  return isLoading && invoices.length === 0 ? (
+    <Loader className="w-full text-onsurface-default" size="xl" />
+  ) : (
+    <ListLayout className="w-full">
+      <ListLayout.Header
+        callToActionButton={
+          <Button
+            iconLeft="bell-03"
+            intent="call-to-action"
+            color="main"
+            size="md"
+            label="Export invoices"
+            onClick={() => console.log("Export invoices clicked")}
+          />
+        }
+        filterConfig={{
+          filters: [
+            { id: "is", label: t("filters.is") },
+            { id: "is-not", label: t("filters.is-not") },
+          ],
+          fields: {
+            status: {
+              id: "status",
+              label: t("tableColumnLabel.status"),
+              availableFilters: ["is", "is-not"],
+              values: [
+                { id: "open", label: t("invoiceStatus.open") },
+                { id: "past-due", label: t("invoiceStatus.past_due") },
+                { id: "paid", label: t("invoiceStatus.paid") },
+                { id: "refunded", label: t("invoiceStatus.refunded") },
+                { id: "voided", label: t("invoiceStatus.voided") },
+              ],
+              multiSelect: true,
+            },
+            type: {
+              id: "type",
+              label: t("tableColumnLabel.type"),
+              availableFilters: ["is", "is-not"],
+              values: [
+                { id: "regular", label: t("invoiceType.regular") },
+                { id: "reversed", label: t("invoiceType.reversed") },
+                { id: "migration", label: t("invoiceType.migration") },
+                { id: "return", label: t("invoiceType.return") },
+                {
+                  id: "credit_payment",
+                  label: t("invoiceType.credit_payment"),
+                },
+              ],
+              multiSelect: false,
+            },
+          },
+          selectFieldLabel: "Filter",
+          onFilterChange: (filters) =>
+            console.log(`Filters changed: ${filters}`),
+        }}
+        pageTitle="Invoices"
+      />
+      <ListLayout.Content className="h-full flex-col !overflow-visible">
+        <Table
+          columns={columns}
+          rows={rows}
+          paginationProps={{
+            currentPage,
+            rowsPerPage: 10,
+            totalItems: totalInvoices,
+            showRowsPerPageSelector: true,
+            onPageSettingsChange: fetchData,
+            disabled: isLoading,
+          }}
+          emptyStateProps={{
+            isEmpty: totalInvoices === 0,
+            emptyConfig: {
+              title: t("emptyTable.title"),
+              subtitle: t("emptyTable.description"),
+              className: "h-full justify-center",
+            },
+          }}
+        />
+      </ListLayout.Content>
+    </ListLayout>
+  );
+};

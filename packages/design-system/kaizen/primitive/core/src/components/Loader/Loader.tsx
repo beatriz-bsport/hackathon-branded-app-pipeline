@@ -26,7 +26,7 @@ const loader = cva(defaultClasses, {
 });
 
 export type LoaderProps = React.HTMLAttributes<HTMLDivElement> & {
-  size?: keyof typeof sizes;
+  size: keyof typeof sizes;
 };
 
 /**

@@ -229,7 +229,7 @@ const Content: React.FC<{
         "top-0 left-0 opacity-transparent": !isVisible,
       })}
       role={role}
-      aria-hidden={!isVisible}
+      aria-hidden={!isMounted}
       onKeyDown={handleKeyDown}
       ref={contentRef}
       style={placementStyles}

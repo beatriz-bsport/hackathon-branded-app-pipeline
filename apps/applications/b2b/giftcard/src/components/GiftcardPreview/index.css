@@ -1,0 +1,73 @@
+.giftcard-preview__card {
+  align-items: stretch;
+  background-color: white;
+  border-radius: 0.5rem;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  display: flex;
+  flex-direction: row;
+  max-width: 700px;
+  width: 100%;
+}
+
+.giftcard-preview__image {
+  border-top-left-radius: 0.5rem;
+  border-bottom-left-radius: 0.5rem;
+  width: 25%;
+  object-fit: cover;
+}
+
+.giftcard-preview__content-container {
+  padding: 1rem;
+}
+
+.giftcard-preview__content-container__partial {
+  width: 75%;
+}
+
+.giftcard-preview__content-container__full {
+  width: 100%;
+}
+
+.giftcard-preview__title {
+  font-weight: 500;
+  font-size: 1.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.giftcard-preview__hint {
+  color: rgb(153, 153, 153, 1);
+  font-weight: 300;
+  font-size: 0.875rem;
+}
+
+.giftcard-preview__data {
+  color: black;
+  font-weight: 400;
+  font-size: 1.25rem;
+  margin-bottom: 0.75rem;
+}
+
+.giftcard-preview__data-weaker {
+  color: black;
+  font-weight: 400;
+  font-size: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.giftcard-preview__data-stronger {
+  color: rgba(39, 132, 47, 1);
+  font-weight: 500;
+  font-size: 1.25rem;
+}
+
+.giftcard-preview__footer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.giftcard-preview__company-cover {
+  max-height: 30px;
+}

@@ -32,6 +32,7 @@ export {
   default as FileUpload,
   UPLOAD_STATUSES as FILE_UPLOAD_STATUSES,
   type FileUploadProps,
+  type FileUploadStatus,
 } from "./components/FileUpload";
 export {
   default as Filter,

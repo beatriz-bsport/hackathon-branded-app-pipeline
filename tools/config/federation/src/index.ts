@@ -15,6 +15,10 @@ const FEDERATED_APP_CONFIG = {
   "b2b-member-list": {
     port: 5101,
   },
+  // Buyables : Range 5150
+  "sm-giftcard": {
+    port: 5151,
+  },
 };
 
 export type APPLICATION = keyof typeof FEDERATED_APP_CONFIG;

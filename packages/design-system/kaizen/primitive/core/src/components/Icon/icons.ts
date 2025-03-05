@@ -66,6 +66,7 @@ const icons = {
   "filter-lines": React.lazy(
     async () => await import("./assets/filter-lines.svg?react"),
   ),
+  "gift-02": React.lazy(async () => await import("./assets/gift-02.svg?react")),
   "graduation-hat-02": React.lazy(
     async () => await import("./assets/graduation-hat-02.svg?react"),
   ),
@@ -130,6 +131,9 @@ const icons = {
   ),
   "ticket-01": React.lazy(
     async () => await import("./assets/ticket-01.svg?react"),
+  ),
+  "trash-01": React.lazy(
+    async () => await import("./assets/trash-01.svg?react"),
   ),
   unarchive: React.lazy(
     async () => await import("./assets/unarchive.svg?react"),

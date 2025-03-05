@@ -1,0 +1,38 @@
+/**
+ * This injects Tailwind's base styles [override by our theme] 
+ * and any base styles registered by plugins
+ * or by the @layer base directive in our css files.
+ */
+@tailwind base;
+
+/**
+  * This injects Tailwind's component classes 
+  * and any component classes registered by plugins
+  * or by the @layer components directive in our css files.
+  */
+@tailwind components;
+
+/**
+  * This injects Tailwind's utility classes 
+  * and any utility classes registered by plugins
+  * or by the @layer utilities directive in our css files.
+  */
+@tailwind utilities;
+
+:root {
+}
+
+#root {
+  @apply bg-surface-page;
+  @apply text-onsurface-default;
+}
+
+.hide-scrollbar {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}

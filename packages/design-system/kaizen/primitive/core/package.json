@@ -19,6 +19,7 @@
   ],
   "scripts": {
     "build": "tsc && vite build",
+    "ci:compile": "tsc --noEmit",
     "ci:deploy": "./scripts/ci-deploy.sh $1",
     "component:add": "pnpm exec hygen component new",
     "dev": "pnpm run storybook:dev",

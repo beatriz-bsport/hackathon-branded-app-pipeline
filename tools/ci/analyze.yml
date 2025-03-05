@@ -12,6 +12,12 @@ Analyze:
   script:
     - NX_BASE=$CI_MERGE_REQUEST_TARGET_BRANCH_NAME
     - git fetch origin $NX_BASE
+    - echo "🔱 These are the affected projects :"
+    - pnpm exec nx show projects --affected --base=origin/$NX_BASE --head=HEAD
+    - echo "*"
+    - echo "⏳ Compile ichizen affected projects with Typescript"
+    - pnpm exec nx affected --target=ci:compile --base=origin/$NX_BASE
+    - echo "✅ All ichizen affected projects have been compiled with Typescript"
     - echo "*"
     - echo "⏳ Lint ichizen affected projects"
     - pnpm exec nx affected --target=lint --base=origin/$NX_BASE

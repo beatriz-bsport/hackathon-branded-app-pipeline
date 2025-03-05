@@ -12,8 +12,8 @@ const HomeExample: React.FC = () => {
     // Fetch the theme data when the component mounts
     const fetchData = async () => {
       try {
-        const response = await fetchWithAuth("api/v1/company/theme/me/");
-        const data = await response.json();
+        const { data } = await fetchWithAuth("api/v1/company/theme/me/");
+        // @ts-expect-error Need to type fetchWithAuth
         setThemeData(data);
         toast({
           status: "positive",

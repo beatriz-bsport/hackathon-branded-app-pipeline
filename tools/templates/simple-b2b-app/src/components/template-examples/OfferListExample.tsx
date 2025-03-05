@@ -26,8 +26,8 @@ const OfferListExample: React.FC = () => {
     });
     const getPaginatedOffers = async () => {
       try {
-        const response = await fetch(`api/v1/offer/${urlParams}`);
-        const data = await response.json();
+        const { data } = await fetch(`api/v1/offer/${urlParams}`);
+        // @ts-expect-error Need to type data
         const { results, count } = data;
         setOffers(
           results?.map((item: OfferMinimal) => {

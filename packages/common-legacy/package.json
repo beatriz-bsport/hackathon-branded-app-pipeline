@@ -28,6 +28,7 @@
   "scripts": {
     "build": "tsc && tsc-alias",
     "check-type": "tsc --noEmit",
+    "ci:compile": "tsc --noEmit",
     "compile": "tsc && tsc-alias",
     "format": "find src -name \"*.js\" | xargs pnpm run prettier --write",
     "postinstall": "pnpm run build",

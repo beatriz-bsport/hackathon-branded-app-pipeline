@@ -441,6 +441,7 @@ class InboxThreadContainerPage extends PureComponent<Props> {
         communicationKinds={communicationKinds}
         communicationMember={communicationMember}
         contextSelected={contextSelected}
+        // @ts-expect-error count* Props are useless and should be removed
         count={count}
         countAvailableRecipientsTotal={countAvailableRecipientsTotal}
         countAvailableRecipientsWithEmail={countAvailableRecipientsWithEmail}

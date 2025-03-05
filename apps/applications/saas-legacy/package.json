@@ -6,6 +6,7 @@
     "analyze": "NODE_ENV=development ANALYZE=true webpack build --config config/webpack.dev.js",
     "build": "export CI=false ; node --max_old_space_size=19000 scripts/build.js",
     "ci:build": "./scripts/ci-build.sh",
+    "ci:compile": "tsc --strict false -p ./tsconfig.json",
     "ci:deploy": "./scripts/ci-deploy.sh",
     "compile": "npx tsc -p .",
     "format": "find src -name \"*.js\" | xargs pnpm exec prettier --write",

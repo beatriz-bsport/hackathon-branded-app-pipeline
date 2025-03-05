@@ -7,6 +7,7 @@
   "scripts": {
     "build": "tsc && vite build",
     "dev": "concurrently \"pnpm run --silent -w federate:navigation\" \"vite\"",
+    "ci:compile": "tsc",
     "format": "prettier --write '**/*.{ts,tsx,js,jsx,cjs,mjs,scss,css,json,md,mdx,html,svg}'",
     "format:check": "prettier --check '**/*.{ts,tsx,js,jsx,cjs,mjs}'",
     "lint": "eslint .",

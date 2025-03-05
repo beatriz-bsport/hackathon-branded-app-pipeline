@@ -20,14 +20,9 @@ export type Props = {
 
 const TemplateEmailForm: React.FC<Props> = ({
   emailDetailList,
-  emailDetailListLoading,
-  emailSummaryList,
-  emailSummaryListLoading,
   marketingAction,
-  resolvedGenericTags,
   withoutValidation,
   fetchEmailSummaryList,
-  getEmailDetail,
   submit,
 }) => {
   const formik = useFormik<Partial<StepMarketingActions>>({
@@ -73,12 +68,7 @@ const TemplateEmailForm: React.FC<Props> = ({
     <CommunicationSelectTemplate
       currentTitle={actionSpec?.subject}
       emailDetailList={emailDetailList}
-      emailDetailListLoading={emailDetailListLoading}
-      emailSummaryList={emailSummaryList}
-      emailSummaryListLoading={emailSummaryListLoading}
       fetchEmailSummaryList={fetchEmailSummaryList}
-      getEmailDetail={getEmailDetail}
-      resolvedGenericTags={resolvedGenericTags}
       selectedTemplate={actionSpec?.email_design}
       updateCurrentTitle={handleUpdateTitle}
       updateSelectedTemplate={handleSelectEmailDesign}

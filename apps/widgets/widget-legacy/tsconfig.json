@@ -11,6 +11,9 @@
     "jsx": "react",
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
+    "rootDir": ".",
+    "skipLibCheck": true,
+    "baseUrl": ".",
     "lib": [
       "es2015",
       "es2016",
@@ -21,11 +24,8 @@
       "es2020",
       "ESNext"
     ],
-    "types": [
-      "react"
-    ]
+    "types": ["react"]
   },
-  "include": [
-    "./src/**/*.ts*"
-  ]
+  "include": ["./src/**/*.ts*"],
+  "exclude": ["**/node_modules/"]
 }

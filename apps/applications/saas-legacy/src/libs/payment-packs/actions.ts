@@ -697,7 +697,8 @@ export function fetchPaymentPackList(
     dispatch(listPaymentPackActions.isLoading(true));
     try {
       const response = await fetchPaymentPackListAPI(params);
-      const responseData = response.data.results ?? response.data;
+      const responseData =
+        'results' in response.data ? response.data.results : response.data;
       dispatch(listPaymentPackActions.success(responseData));
 
       if (options && options.onSuccess) {

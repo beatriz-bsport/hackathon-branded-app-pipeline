@@ -1,0 +1,12 @@
+{
+    "default": {
+        "fileUpload": {
+            "uploadStatus": {
+                "error": "Impossibile caricare il file",
+                "success": "Caricamento riuscito"
+            },
+            "dragAndDropCTA": "o trascinalo qui",
+            "uploadFileCTA": "Carica un file"
+        }
+    }
+}

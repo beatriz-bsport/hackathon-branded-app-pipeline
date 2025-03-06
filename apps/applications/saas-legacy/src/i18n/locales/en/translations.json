@@ -2568,7 +2568,7 @@
                     "information": "If activated, your data (speed, calories burned, etc.) will be displayed in real-time during your session. In any case, you will receive a summary by e-mail at the end of the session."
                 },
                 "accountBalance": "Account balance",
-                "regularizeBalance": "Regularize balance",
+                "regularizeBalance": "Settle balance",
                 "membershipId": "Membership number",
                 "paymentMethods": {
                     "title": "Saved payment methods",

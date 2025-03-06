@@ -10,4 +10,8 @@ Validate MR Title:
     - chmod +x ./tools/ci/validate-mr-title.sh
     - ./tools/ci/validate-mr-title.sh "$CI_MERGE_REQUEST_TITLE"
   rules:
+    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "staging"
+      when: "never"
+    - if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "production"
+      when: "never"
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"

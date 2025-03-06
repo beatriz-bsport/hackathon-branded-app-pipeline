@@ -7,8 +7,8 @@ echo "Detected title : $MR_TITLE"
 
 # Regular expressions for individual parts of the Commitizen pattern
 TYPE_PATTERN='^(build|chore|ci|docs|feat|fix|perf|refactor|revert|style|test)$'
-SCOPE_PATTERN='^[a-zA-Z0-9\-]+$'
-SUBJECT_PATTERN='^[a-zA-Z0-9 _|-]{1,80}$'
+SCOPE_PATTERN='^[a-zA-Z0-9_/\-]+$'
+SUBJECT_PATTERN='^[a-zA-Z0-9 _()\[\]|/,?;.:&\\-]{1,80}$'
 
 # Function to check the type
 check_type() {
@@ -45,8 +45,8 @@ check_subject() {
   echo "Detected subject : $SUBJECT"
   if ! echo "$SUBJECT" | grep -qE "$SUBJECT_PATTERN"; then
     echo "❗ Error: Subject '$SUBJECT' does not match the expected pattern."
-    echo "💡 Please ensure it contains between 1 and 80 characters in length,"
-    echo "and only alphanumeric characters, hyphens, underscores, and spaces."
+    echo "💡 Please ensure it contains between 1 and 80 characters in length, and only "
+    echo "alphanumeric characters, spaces, and the following characters : , or ; or . or ? or : or / or \\ or () or [] or - or _"
     return 1
   fi
   echo "✅ Subject is valid"

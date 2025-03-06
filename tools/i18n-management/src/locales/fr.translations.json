@@ -1,30 +1,30 @@
 {
     "@bsport/kaizen-primitive-core": {
         "default": {
-          "fileUpload": {
-            "uploadFileCTA": "Importer un fichier",
-            "dragAndDropCTA": "ou le déposer ici",
-            "uploadStatus": {
-              "success": "Import réussi",
-              "error": "Erreur d'import du fichier"
+            "fileUpload": {
+                "uploadFileCTA": "Importer un fichier",
+                "dragAndDropCTA": "ou le déposer ici",
+                "uploadStatus": {
+                    "success": "Import réussi",
+                    "error": "Erreur d'import du fichier"
+                }
             }
-          }
         }
     },
     "@bsport/navigation-sidebar": {
         "default": {
-          "menus": {
-            "inbox": "Messagerie",
-            "notifications": "Notifications",
-            "calendar": "Calendrier",
-            "schedule": "Emploi du temps",
-            "accessControl": "Access Control",
-            "classes": {
-              "title": "Cours",
-              "activities": "Activités",
-              "workshops": "Ateliers",
-              "appointments": "Rendez-vous"
-            }
+            "menus": {
+                "inbox": "Messagerie",
+                "notifications": "Notifications",
+                "calendar": "Calendrier",
+                "schedule": "Emploi du temps",
+                "accessControl": "Access Control",
+                "classes": {
+                    "title": "Cours",
+                    "activities": "Activités",
+                    "workshops": "Ateliers",
+                    "appointments": "Rendez-vous"
+                }
             }
         }
     },
@@ -9701,6 +9701,29 @@
                 "title": "Engageons la conversation",
                 "content": "Nous vous remercions pour votre intérêt. Si vous souhaitez en savoir plus sur cet add-on, nous vous invitons à poser votre question dans notre chat d'assistance personnalisé. Votre gestionnaire de compte sera ravi de vous fournir de plus amples informations.",
                 "close": "Fermer"
+            },
+            "platformCustomerEntity": {
+                "vatId": {
+                    "dialog": {
+                        "errorChip": "Numéro de TVA invalide ou absent",
+                        "content": "bsport a besoin de votre numéro d'identification TVA (également appelé numéro d'immatriculation à la TVA ou numéro de TVA intracommunautaire) pour le faire figurer sur les factures que nous vous adressons.",
+                        "update": "Mettre à jour le numéro de TVA",
+                        "hasAttributedVatIdLabel": "Je ne possède pas de numéro de TVA. Si votre entreprise est basée dans l'Union Européenne (hors France), le mécanisme d'autoliquidation ne s'appliquera pas et bsport appliquera les taux de TVA français (20 %).",
+                        "actions": {
+                            "save": "Enregistrer",
+                            "cancel": "Annuler"
+                        },
+                        "vatIdLabel": "Numéro d'identification TVA",
+                        "title": "Numéro d'identification TVA",
+                        "invalidFormat": "Format invalide"
+                    },
+                    "alert": {
+                        "description": "bsport a besoin de votre numéro d'identification TVA (également appelé numéro d'immatriculation à la TVA ou numéro de TVA intracommunautaire) pour le faire figurer sur les factures que nous vous adressons.",
+                        "title": "Numéro de TVA invalide ou absent",
+                        "update": "Mettre à jour le numéro de TVA",
+                        "text": "Vous n'avez pas fourni de numéro d'identification TVA, ou celui que vous avez fourni n'est pas valide"
+                    }
+                }
             }
         },
         "privateService": {
@@ -14266,6 +14289,15 @@
                 "stripe": {
                     "update": "Mettre à jour les informations Stripe"
                 }
+            },
+            "platformCustomerEntity": {
+                "vatId": {
+                    "errorChip": "Numéro de TVA invalide ou absent",
+                    "update": "Mettre à jour le numéro de TVA",
+                    "descriptionPart2": "Si votre entreprise est basée dans l'Union Européenne (hors France) et possède un numéro de TVA, vous devez le fournir afin que le mécanisme d'autoliquidation s'applique. Cela permet à bsport de ne pas vous facturer la TVA.",
+                    "descriptionPart1": "bsport a besoin de votre numéro de TVA (également appelé numéro d'immatriculation à la TVA ou numéro de TVA intracommunautaire) pour le faire figurer sur les factures que nous vous adressons.",
+                    "title": "Numéro d'identification TVA"
+                }
             }
         },
         "shop": {
@@ -14480,7 +14512,7 @@
                                 },
                                 "title": "Fournisseurs",
                                 "detailsModal": {
-                                    "title": "Fournisseur: {{name}}"
+                                    "title": "Fournisseur: "
                                 }
                             },
                             "supplierPrices": {

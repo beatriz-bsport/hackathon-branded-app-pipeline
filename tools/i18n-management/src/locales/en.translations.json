@@ -16451,6 +16451,13 @@
             "platformBillingGroup": {
                 "soonAvailable": "Available Soon !",
                 "myGroup": "My subscription"
+            },
+            "platformCustomerEntity": {
+                "vatId": {
+                    "dialog": {
+                        "errorChip": "Missing valid VAT number"
+                    }
+                }
             }
         },
         "widget": {

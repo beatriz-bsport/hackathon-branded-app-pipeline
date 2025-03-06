@@ -2238,7 +2238,7 @@
                         "hasRelatedMarketplaceComponentConfigs": "Las pestañas de calendario y taller configuradas para su mercado ya no mostrarán este calendario de ubicación.",
                         "hasRelatedMarketingNotifications": "Las notificaciones vinculadas a esta ubicación se eliminarán.",
                         "exclusiveAssociatedCoaches": "Su profesor {{- coach_name }} sólo recibe una notificación cuando se realiza una solicitud de sustitución para una sesión en esta ubicación. Por lo tanto, al eliminar la ubicación, recibirán solicitudes de sustitución de todas las ubicaciones.",
-                        "exclusiveAssociatedCoaches_plural": "Sus profesores {{- coach_name }} sólo reciben una notificación cuando se realiza una solicitud de sustitución para una sesión en esta ubicación. Al eliminar la ubicación, recibirán las solicitudes de sustitución de todas las ubicaciones.",
+                        "exclusiveAssociatedCoaches_plural": "Sus profesores {{- coach_name }} sólo reciben una notificación cuando se realiza una solicitud de sustitución para una sesión en esta ubicación. Al eliminar la ubicación, recibirán por tanto solicitudes de sustitución de todas las ubicaciones.",
                         "hasRelatedAssociatedCoaches": "Algunos profesores reciben una notificación cuando se realiza una solicitud de sustitución para una sesión en esta ubicación. Al eliminar la ubicación, dejarán de recibir la notificación correspondiente.",
                         "hasRelatedStaffConfigurations": "Esta ubicación se utiliza para la supervisión de accesos por uno o varios miembros del personal. Al eliminar la ubicación sin seleccionar una nueva, ya no podrán realizar la supervisión de accesos."
                     },
@@ -2775,6 +2775,15 @@
                 "stripe": {
                     "update": "Actualizar la información de Stripe"
                 }
+            },
+            "platformCustomerEntity": {
+                "vatId": {
+                    "errorChip": "Falta un número de IVA válido",
+                    "update": "Actualizar el número de IVA",
+                    "descriptionPart2": "Si su empresa tiene su sede en la UE (excluida Francia) y dispone de un número de IVA registrado, es obligatorio aplicar el mecanismo de inversión impositiva, que garantiza que bsport no repercuta el IVA.",
+                    "descriptionPart1": "bsport necesita su número de IVA (también conocido como número de registro de IVA o número de IVA intracomunitario) para incluirlo en las facturas que le emitamos.",
+                    "title": "Número de identificación a efectos del IVA"
+                }
             }
         },
         "datetime": {
@@ -3082,7 +3091,7 @@
                                 },
                                 "title": "Proveedores",
                                 "detailsModal": {
-                                    "title": "Proveedor: {{name}}"
+                                    "title": "Proveedor: "
                                 }
                             },
                             "supplierPrices": {
@@ -5175,7 +5184,7 @@
                 "marketplace_enabled": "Disponible para la venta en línea",
                 "supplier_price": "Precio del revendedor",
                 "subshop_name": "Categoría",
-                "ca": "Volumen de negocios generado",
+                "ca": "Ingresos generados",
                 "sales": "Ventas",
                 "stock_variation": "Variación de las existencias",
                 "stock": "Existencias actuales",
@@ -5452,7 +5461,16 @@
                 "incremental_identifier": "Número",
                 "product_categories": "Categorías de productos",
                 "product_types": "Tipos de productos",
-                "kind": "Tipo"
+                "kind": "Tipo",
+                "gross_profit": "Beneficio bruto",
+                "cost_of_stock": "Coste de las existencias (fecha final)",
+                "cost_of_sale": "Coste de venta",
+                "barcode": "Código de barras",
+                "supplier_name": "Proveedor",
+                "stock_keeping_unit": "SKU",
+                "size": "Talla",
+                "color": "Color",
+                "subtitle": "Subtítulo"
             },
             "payment_method": {
                 "cash": "Efectivo",
@@ -7567,8 +7585,26 @@
                 "checkoutTitle": "Pago",
                 "bookButtonLabel": "Reserve ahora",
                 "bookableStatus": {
-                    "error": "Uy, parece que esta reserva no está disponible"
-                }
+                    "error": "Uy, parece que esta reserva no está disponible",
+                    "closeTooLate": {
+                        "description": "Esta sesión ya ha comenzado o finalizado, por lo que ya no es posible reservar. <br> Consulte el calendario para conocer las próximas sesiones.",
+                        "title": "¡Uy! Demasiado tarde para reservar"
+                    },
+                    "closeTooSoon": {
+                        "description": "Esta sesión aún no se puede reservar. <br> Consulte el calendario para ver cuándo se abren las reservas o explorar otras sesiones disponibles.",
+                        "title": "¡Uy! Demasiado pronto para reservar"
+                    },
+                    "locked": {
+                        "description": "Esta sesión ha sido cancelada y ya no está disponible para reservas. <br> Consulte el calendario para ver otras sesiones disponibles.",
+                        "title": "Sesión cancelada"
+                    },
+                    "full": {
+                        "description": "Esta sesión se acaba de llenar y no hemos podido completar su reserva. <br> Consulte el calendario para encontrar otra sesión disponible.",
+                        "title": "Sesión completa"
+                    }
+                },
+                "goToCalendar": "Ir al calendario",
+                "yourDetails": "Tus datos"
             },
             "lightSignup": {
                 "form": {
@@ -13551,7 +13587,8 @@
                     "coaches": "Profesores asociados",
                     "default": "Remuneraciones por defecto",
                     "helper": "Puede agrupar sus normas de remuneración para actividades, talleres y citas. Al añadir un profesor a un grupo, se le aplican automáticamente todas las normas de remuneración del grupo. Cualquier cambio en el grupo se aplicará también a todos los profesores del grupo.",
-                    "specfic_private_slot": "Remuneración específica por una cita"
+                    "specfic_private_slot": "Remuneración específica por una cita",
+                    "removed_coaches": "Profesores eliminados"
                 },
                 "fields": {
                     "private_service": "Citas",
@@ -18704,6 +18741,29 @@
                     "missing_charge": "No se ha intentado el pago"
                 },
                 "bill": "Regularizar"
+            },
+            "platformCustomerEntity": {
+                "vatId": {
+                    "alert": {
+                        "update": "Actualizar el Número de Identificación Fiscal (NIF)",
+                        "description": "bsport necesita Número de Identificación Fiscal (NIF) (también conocido como número de registro de IVA o número de IVA intracomunitario) para incluirlo en las facturas que le emitamos.",
+                        "text": "No ha facilitado un Número de Identificación Fiscal (NIF) o el que ha facilitado no es válido.",
+                        "title": "Falta un Número de Identificación Fiscal (NIF)"
+                    },
+                    "dialog": {
+                        "update": "Actualizar el Número de Identificación Fiscal (NIF)",
+                        "hasAttributedVatIdLabel": "No tengo un Número de Identificación Fiscal (NIF). Si su empresa está radicada en la UE (excluida Francia), no se aplicará el mecanismo de inversión impositiva y bsport aplicará el tipo de IVA francés (20%).",
+                        "vatIdLabel": "Número de Identificación Fiscal (NIF)",
+                        "content": "bsport necesita su NIF (también conocido como número de registro de IVA o número de IVA intracomunitario) para incluirlo en las facturas que le emitamos.",
+                        "errorChip": "Falta el NIF válido",
+                        "title": "Número de Identificación Fiscal (NIF)",
+                        "actions": {
+                            "save": "Guardar",
+                            "cancel": "Cancelar"
+                        },
+                        "invalidFormat": "Formato no válido"
+                    }
+                }
             }
         },
         "marketing": {
@@ -21432,7 +21492,8 @@
                     "campaign": "Campañas",
                     "general": "General"
                 }
-            }
+            },
+            "campaignCreationWarning": "Asegúrese de que el nombre de su campaña es único para evitar problemas."
         },
         "accessControl": {
             "snackbar": {
@@ -21600,6 +21661,80 @@
         },
         "namespaceAlpha": {
             "helloWorld": "¡Hola, mundo!"
+        }
+    },
+    "@bsport/navigation-sidebar": {
+        "default": {
+            "revampCard": {
+                "goBackToOldUi": "Volver a la antigua interfaz de usuario",
+                "betaFeedbackLink": "Comentarios sobre la versión beta"
+            },
+            "menus": {
+                "myStudio": {
+                    "establishments": "Establecimientos",
+                    "teachers": "Profesores",
+                    "title": "Mi estudio"
+                },
+                "membersHub": {
+                    "tags": "Etiquetas",
+                    "forms": "Formularios",
+                    "members": "Miembros",
+                    "title": "Centro de Miembros"
+                },
+                "finance": {
+                    "payroll": "Nóminas",
+                    "expenses": "Gastos",
+                    "directDebits": "Domiciliaciones bancarias",
+                    "payouts": "Pagos",
+                    "invoices": "Facturas",
+                    "title": "Finanzas"
+                },
+                "reporting": "Reportes",
+                "dashboard": "Dashboard / Visión general",
+                "marketing": {
+                    "promotions": "Promociones",
+                    "audience": "Audience",
+                    "smartlists": "Smartlists",
+                    "emailTemplates": "Plantillas de email",
+                    "memberNotifications": "Notificaciones a los miembros",
+                    "title": "Marketing"
+                },
+                "products": {
+                    "orders": "Pedidos",
+                    "videosAndEbooks": "Videos & eBooks",
+                    "giftcards": "Tarjetas de regalo",
+                    "packs": "Packs",
+                    "webshop": "Tienda",
+                    "title": "Productos"
+                },
+                "memberships": {
+                    "subscriptions": "Suscripciones",
+                    "passes": "Pases"
+                },
+                "classes": {
+                    "appointments": "Citas",
+                    "workshops": "Talleres",
+                    "activities": "Actividades",
+                    "title": "Clases"
+                },
+                "accessControl": "Control de acceso",
+                "schedule": "Horario",
+                "calendar": "Calendario",
+                "notifications": "Notificaciones",
+                "inbox": "Bandeja de entrada"
+            }
+        }
+    },
+    "@bsport/kaizen-primitive-core": {
+        "default": {
+            "fileUpload": {
+                "uploadStatus": {
+                    "error": "No se ha podido cargar este archivo",
+                    "success": "Cargado con éxito"
+                },
+                "dragAndDropCTA": "o arrástrelo y suéltelo aquí",
+                "uploadFileCTA": "Cargar un archivo"
+            }
         }
     }
 }

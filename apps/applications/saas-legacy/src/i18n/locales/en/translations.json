@@ -9959,7 +9959,7 @@
             "vatId": {
                 "dialog": {
                     "title": "VAT identification number",
-                    "errorChip": "Missing valid VAT ID",
+                    "errorChip": "Missing valid VAT number",
                     "invalidFormat": "Invalid format",
                     "content": "bsport requires your VAT number (also known as a VAT registration number or intracommunity VAT number) to include it on invoices we issue to you.",
                     "vatIdLabel": "VAT identification number",

@@ -8918,7 +8918,7 @@
         "generalTermsAndConditions": {
             "close": "Schließen",
             "iAccept": "Ich akzeptiere die ",
-            "theTermsAndConditions": "Allgemeine Verkaufsbedingungen.",
+            "theTermsAndConditions": "Allgemeine Nutzungsbedingungen.",
             "generalTermsOfUse": " Allgemeine Geschäftsbedingungen",
             "waiver": "Verzichtserklärung."
         },
@@ -10657,7 +10657,7 @@
             "bornIn": "Geboren am {{-date}} - {{age}} Jahre alt"
         },
         "memberTermsAccepted": " wurden am {{- date}} akzeptiert.",
-        "termsAndConditions": "Die Allgemeinen Geschäftsbedingungen",
+        "termsAndConditions": "Allgemeine Geschäftsbedingungen",
         "applyBalanceToUnpaidInvoices": "Kontostand des Mitglieds verwenden, um unbezahlte Rechnungen zu begleichen",
         "adjustBalance": "Kontostand anpassen",
         "unpaidInvoiceTitle": "Unbezahlte Rechnung",

@@ -7021,6 +7021,15 @@
             "stripe": {
                 "update": "Aggiorna le informazioni di Stripe"
             }
+        },
+        "platformCustomerEntity": {
+            "vatId": {
+                "errorChip": "Partita IVA valida mancante",
+                "update": "Aggiorna il numero di partita IVA",
+                "descriptionPart2": "Se la tua azienda si trova nell'UE (esclusa la Francia) e ha un numero di partita IVA registrato, fornirlo è obbligatorio per applicare il meccanismo di inversione contabile, garantendo che l'IVA non venga addebitata da bsport.",
+                "descriptionPart1": "bsport richiede il tuo numero di partita IVA per includerlo nelle fatture che emettiamo per te.",
+                "title": "Numero di partita IVA"
+            }
         }
     },
     "invoice": {
@@ -8755,7 +8764,7 @@
             "total_uses": "Numero di utilizzi",
             "date_created": "Data di creazione",
             "expiration_date": "Data di scadenza",
-            "ca": "Ricavo generato",
+            "ca": "Fatturato lordo",
             "establishment": "Stabilimenti",
             "date_start_dow": "Giorno",
             "last_booking": "Prenotazione precedente",
@@ -9001,7 +9010,16 @@
             "incremental_identifier": "Numero",
             "product_categories": "Categorie di prodotti",
             "product_types": "Tipi di prodotto",
-            "kind": "Tipo"
+            "kind": "Tipo",
+            "gross_profit": "Profitto lordo",
+            "cost_of_stock": "Costo delle scorte (data di fine)",
+            "cost_of_sale": "Costo di vendita",
+            "barcode": "Codice a barre",
+            "supplier_name": "Fornitore",
+            "stock_keeping_unit": "SKU",
+            "size": "Dimensione",
+            "color": "Colore",
+            "subtitle": "Sottotitolo"
         },
         "payment_method": {
             "dispute": "Contenzioso",
@@ -11860,8 +11878,26 @@
             "checkoutTitle": "Checkout",
             "bookButtonLabel": "Prenota ora",
             "bookableStatus": {
-                "error": "Oops, sembra che questa prenotazione non sia disponibile"
-            }
+                "error": "Oops, sembra che questa prenotazione non sia disponibile",
+                "closeTooLate": {
+                    "description": "Questa sessione è già iniziata o terminata, quindi la prenotazione non è più possibile. <br> Controlla il calendario per le prossime sessioni disponibili.",
+                    "title": "Ops! È troppo tardi per prenotare"
+                },
+                "closeTooSoon": {
+                    "description": "Questa sessione non è ancora disponibile per la prenotazione. <br> Controlla il calendario per sapere quando apriranno le prenotazioni o esplora altre sessioni disponibili.",
+                    "title": "Ops! È troppo presto per prenotare"
+                },
+                "locked": {
+                    "description": "Questa sessione è stata cancellata e non è più disponibile per la prenotazione. <br> Controlla il calendario per trovare altre sessioni disponibili.",
+                    "title": "Sessioni cancellate"
+                },
+                "full": {
+                    "description": "Questa sessione è già al completo e non siamo riusciti a finalizzare la tua prenotazione. <br> Controlla il calendario per trovare un'altra sessione disponibile.",
+                    "title": "Sessione completamente prenotata"
+                }
+            },
+            "goToCalendar": "Vai al calendario",
+            "yourDetails": "I vostri dati"
         },
         "lightSignup": {
             "form": {
@@ -13453,7 +13489,7 @@
                     "hasRelatedMarketplaceComponentConfigs": "Le schede calendario e workshop configurate per il vostro marketplace non visualizzeranno più il calendario della sede.",
                     "hasRelatedMarketingNotifications": "Le notifiche relative a questa sede saranno eliminate.",
                     "exclusiveAssociatedCoaches": "L'insegnante {{- coach_name }} viene avvisato solo quando viene fatta una richiesta di sostituzione per una sessione in questa sede. Eliminando la sede, riceverà quindi le richieste di sostituzione da tutte le sedi.",
-                    "exclusiveAssociatedCoaches_plural": "Gli insegnanti {{- coach_name }} vengono avvisati solo quando viene fatta una richiesta di sostituzione per una sessione in questa sede. Eliminandola, riceveranno quindi le richieste di sostituzione da tutte le sedi.",
+                    "exclusiveAssociatedCoaches_plural": "I tuoi insegnanti {{- coach_name }} vengono notificati solo quando viene fatta una richiesta di sostituzione per una sessione in questa sede. Eliminandola, riceveranno quindi richieste di sostituzione da ogni sede.",
                     "hasRelatedAssociatedCoaches": "Alcuni insegnanti ricevono una notifica quando viene fatta una richiesta di sostituzione per una sessione in questa sede. Eliminando la sede, non riceveranno più la relativa notifica.",
                     "hasRelatedStaffConfigurations": "Questa sede è utilizzata per il monitoraggio degli accessi da parte di uno o più utenti staff. Eliminando la sede senza selezionarne una nuova, questi non potranno più effettuare il monitoraggio degli accessi."
                 },
@@ -13474,17 +13510,17 @@
                 "hasRelatedZoomEstablishment": "Questo stabilimento verrà rimosso dall'elenco degli stabilimenti utilizzati per lo streaming in diretta con l'integrazione di Zoom.",
                 "hasRelatedAvailabilitySlots": "Le fasce orarie disponibili dell'orario di questo stabilimento saranno cancellate.",
                 "relatedPaymentPacks": "Il seguente pass {{- pass_name }} non sarà più utilizzabile per questo stabilimento, assicuratevi di informare i vostri clienti.",
-                "relatedPaymentPacks_plural": "I seguenti pachetti {{- pass_name }} non saranno più utilizzabili per questo stabilimento, assicuratevi di informare i vostri clienti.",
+                "relatedPaymentPacks_plural": "I seguenti pacchetti {{- pass_name }} non saranno più utilizzabili per questo stabilimento, assicurati di informare i tuoi clienti al riguardo.",
                 "hasRelatedAssociatedCoaches": "Alcuni insegnanti ricevono una notifica quando viene presentata una richiesta di sostituzione per una sessione in questo stabilimento. Eliminando lo stabilimento, non riceveranno più la notifica relativa.",
                 "exclusiveAssociatedCoaches": "L'insegnante {{- coach_name }} viene avvisato solo quando viene fatta una richiesta di sostituzione per una sessione in questo stabilimento. Eliminando lo stabilimento, riceverà quindi le richieste di sostituzione da tutte lo stabilimento.",
-                "exclusiveAssociatedCoaches_plural": "I vostri insegnanti {{- coach_name }} sono avvisati solo quando viene fatta una richiesta di sostituzione per una sessione in questo stabilimento. Eliminandola, riceveranno quindi le richieste di sostituzione da tutti gli stabilimenti.",
+                "exclusiveAssociatedCoaches_plural": "Gli insegnanti {{- coach_name }} vengono notificati solo quando viene fatta una richiesta di sostituzione per una sessione in questo stabilimento. Eliminando lo stabilimento, riceveranno quindi richieste di sostituzione da ogni stabilimento.",
                 "hasRelatedCoachAvailabilitySlots": "Questo stabilimento verrà rimosso dall'elenco degli stabilimenti disponibili utilizzati nel calendario dei docenti.",
                 "exclusiveCoachAvailabilitySlots": "L'insegnante {{- coach_name }} è indicato come disponibile per questo stabilimento solo per alcune fasce orarie. Eliminando lo stabilimento , queste fasce orarie saranno eliminate.",
-                "exclusiveCoachAvailabilitySlots_plural": "Gli insegnanti {{- coach_name }} sono indicati come disponibili per questo stabilimento solo per alcune fasce orarie. Eliminandolo, queste fasce orarie saranno eliminate.",
+                "exclusiveCoachAvailabilitySlots_plural": "Gli insegnanti {{- coach_name }} sono indicati come disponibili solo per questo stabilimento in alcuni orari. Eliminando lo stabilimento, questi orari verranno eliminati.",
                 "hasRelatedStaffConfigurations": "Questo stabilimento sarà rimosso dagli stabilimenti utilizzati dgli utenti staff per il monitoraggio degli accessi.",
                 "hasExclusiveStaffConfigurations": "Alcuni utenti Staff sono configurati per monitorare l'accesso dei membri per questo stabilimento. Eliminando lo stabilimento senza selezionarne uno nuovo, non potranno più effettuare il monitoraggio degli accessi.",
                 "exclusivePrivateServices": "L'appuntamento {{- private_service_name }} è configurato per svolgersi solo in questo stabilimento. Eliminando questo stabilimento, l'appuntamento potrà svolgersi ovunque.",
-                "exclusivePrivateServices_plural": "Gli appuntamenti {{- private_service_name }} sono configurati per essere svolti solo in questo stabilimento. Eliminandolo, gli appuntamenti potranno svolgersi ovunque.",
+                "exclusivePrivateServices_plural": "Gli appuntamenti {{- private_service_name }} sono configurati per svolgersi solo in questo stabilimento. Eliminando questo stabilimento, questi appuntamenti potranno svolgersi ovunque.",
                 "hasBillingGroup": "Questo stabilimento sarà anche rimosso dal gruppo di fatturazione {{- establishment_billing_group_name }}."
             },
             "infos": {
@@ -13497,9 +13533,9 @@
                 "isIntegratedInPartnership": "Una o più integrazioni utilizzano questo stabilimento.",
                 "hasExclusiveMarketplaceComponentConfigs": "Una o più schede del marketplace sono impostate per visualizzare solo il calendario e gli workshop di questo stabilimento; si prega di aggiornarle prima di eliminare lo stabilimento.",
                 "exclusiveEstablishmentGroups": "La sede {{- establishment_group_name }} contiene solo lo stabilimento che si desidera eliminare; si prega di aggiornare o eliminare questa sede.",
-                "exclusiveEstablishmentGroups_plural": "Le sedi {{- establishment_group_name }} contengono solo lo stabilimento che si desidera eliminare; aggiornare o eliminare queste sedi.",
+                "exclusiveEstablishmentGroups_plural": "Le sedi {{- establishment_group_name }} contengono solo lo stabilimento che desideri eliminare. Per favore, aggiorna o elimina queste sedi.",
                 "exclusivePaymentPacks": "Il seguente pacchetto {{- pass_name }} è utilizzabile esclusivamente in questo stabilimento. Si prega di aggiornare le restrizioni prima di cancellare lo stabilimento.",
-                "exclusivePaymentPacks_plural": "I seguenti pacchetti {{- pass_name }} sono utilizzabili solo in questo stabilimento. Aggiornare le restrizioni prima di cancellare lo stabilimento.",
+                "exclusivePaymentPacks_plural": "I seguenti pacchetti {{- pass_name }} possono essere utilizzati solo in questo stabilimento. Per favore, aggiorna le loro restrizioni prima di eliminare lo stabilimento.",
                 "hasExclusiveBillingGroup": "Questo stabilimento è l'ultimo del suo gruppo di fatturazione. Si prega di cancellare o aggiornare il gruppo di fatturazione in questione prima di cancellare questo stabilimento.",
                 "hasUpcomingPrivateBookings": "Alcuni appuntamenti in programma avranno luogo in questo stabilimento. Ti preghiamo di eliminare gli appuntamenti in questione prima di eliminare questo stabilimento.",
                 "hasUpcomingOffers": "Alcune sessioni in programma avranno luogo in questo stabilimento. Ti preghiamo di eliminare le sessioni in questione prima di eliminare questo stabilimento."
@@ -14575,7 +14611,7 @@
                             },
                             "title": "Fornitori",
                             "detailsModal": {
-                                "title": "Fornitore: {{name}}"
+                                "title": "Fornitore: "
                             }
                         },
                         "supplierPrices": {
@@ -14781,7 +14817,8 @@
                 "coaches": "Insegnanti associati",
                 "specfic_private_slot": "Retribuzione specifica per un appuntamento",
                 "default": "Retribuzioni predefinite",
-                "helper": "Puoi raggruppare le tue regole di retribuzione per attività, workshop e appuntamenti. Aggiungendo un insegnante a un gruppo, tutte le regole di retribuzione del gruppo sono automaticamente applicate all'insegnante. Qualsiasi modifica al gruppo sarà applicata anche a tutti gli insegnanti del gruppo."
+                "helper": "Puoi raggruppare le tue regole di retribuzione per attività, workshop e appuntamenti. Aggiungendo un insegnante a un gruppo, tutte le regole di retribuzione del gruppo sono automaticamente applicate all'insegnante. Qualsiasi modifica al gruppo sarà applicata anche a tutti gli insegnanti del gruppo.",
+                "removed_coaches": "Insegnanti rimossi"
             },
             "workshop": "Workshop",
             "session": "Attività",
@@ -18648,6 +18685,29 @@
                 "missing_charge": "Nessun pagamento tentato"
             },
             "bill": "Regolarizzare"
+        },
+        "platformCustomerEntity": {
+            "vatId": {
+                "alert": {
+                    "update": "Aggiorna il numero di partita IVA",
+                    "description": "bsport richiede il tuo numero di partita IVA per includerlo nelle fatture che emettiamo per te.",
+                    "text": "Non hai fornito un numero di partita IVA, oppure quello che hai fornito non è valido",
+                    "title": "Partita IVA valida mancante"
+                },
+                "dialog": {
+                    "actions": {
+                        "save": "Salva",
+                        "cancel": "Cancella"
+                    },
+                    "update": "Aggiorna il numero di partita IVA",
+                    "hasAttributedVatIdLabel": "Non possiedo un numero di partita IVA registrato. Se la tua azienda si trova nell'UE (esclusa la Francia), il meccanismo di inversione contabile non si applicherà e bsport addebiterà le aliquote IVA francesi (20%).",
+                    "vatIdLabel": "Numero di partita IVA",
+                    "content": "bsport richiede il tuo numero di partita IVA per includerlo nelle fatture che emettiamo per te.",
+                    "invalidFormat": "Formato non valido",
+                    "errorChip": "Partita IVA valida mancante",
+                    "title": "Numero di Partita IVA"
+                }
+            }
         }
     },
     "marketing": {
@@ -21375,7 +21435,8 @@
                 "campaign": "Campagna",
                 "general": "Generale"
             }
-        }
+        },
+        "campaignCreationWarning": "Assicurati che il nome della tua campagna sia unico per evitare eventuali problemi."
     },
     "accessControl": {
         "snackbar": {

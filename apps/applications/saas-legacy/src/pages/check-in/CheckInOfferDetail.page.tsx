@@ -115,7 +115,11 @@ type ConnectedPropsAndStateHandlers = ConnectedProps<typeof connector> &
   OwnProps;
 
 const playSound = (audioFile: HTMLAudioElement) => {
-  audioFile.play();
+  try {
+    audioFile.play();
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 export class CheckInOfferDetailPage extends React.Component<Props> {

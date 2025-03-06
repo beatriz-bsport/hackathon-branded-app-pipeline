@@ -18,7 +18,11 @@ import type { Booking } from '#src/libs/booking/types.ts';
 const likeAudio = new Audio(boop);
 
 const playSound = (audioFile) => {
-  audioFile.play();
+  try {
+    audioFile.play();
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 type Props = {

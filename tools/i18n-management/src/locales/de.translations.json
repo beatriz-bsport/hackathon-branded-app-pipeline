@@ -6512,7 +6512,16 @@
                 "incremental_identifier": "Nummer",
                 "product_categories": "Produktkategorien",
                 "product_types": "Produkttypen",
-                "kind": "Typ"
+                "kind": "Typ",
+                "gross_profit": "Bruttogewinn",
+                "cost_of_stock": "Bestandskosten (Enddatum)",
+                "cost_of_sale": "Vertriebskosten",
+                "barcode": "Barcode",
+                "supplier_name": "Lieferant",
+                "stock_keeping_unit": "SKU",
+                "size": "Größe",
+                "color": "Farbe",
+                "subtitle": "Untertitel"
             },
             "no": "Nein",
             "yes": "Ja",
@@ -9335,7 +9344,8 @@
                     "helper": "Sie können Ihre Vergütungsregeln für Tätigkeiten, Workshops und Termine zusammenfassen. Wenn Sie eine Lehrkraft zu einer Gruppe hinzufügen, werden alle Vergütungsregeln der Gruppe automatisch auf die Lehrkraft angewendet. Alle Änderungen an der Gruppe werden auch für alle Lehrkräfte der Gruppe übernommen.",
                     "default": "Standardvergütung",
                     "specfic_private_slot": "Besondere Vergütung für eine Ernennung",
-                    "coaches": "Assoziierte Professoren"
+                    "coaches": "Assoziierte Professoren",
+                    "removed_coaches": "Entfernte Lehrer"
                 },
                 "workshop": "Workshops",
                 "session": "Gruppenaktivitäten",
@@ -9574,7 +9584,7 @@
                                 },
                                 "title": "Anbieter",
                                 "detailsModal": {
-                                    "title": "Lieferant: {{name}}"
+                                    "title": "Lieferant: "
                                 }
                             },
                             "supplierPrices": {
@@ -10456,8 +10466,26 @@
                 "checkoutTitle": "Bezahlen",
                 "bookButtonLabel": "Jetzt buchen",
                 "bookableStatus": {
-                    "error": "Hoppla, diese Buchung ist anscheinend nicht verfügbar"
-                }
+                    "error": "Hoppla, diese Buchung ist anscheinend nicht verfügbar",
+                    "closeTooLate": {
+                        "description": "Diese Sitzung hat bereits begonnen oder ist bereits beendet, daher ist eine Buchung nicht mehr möglich. <br> Bitte prüfe den Kalender für kommende Sitzungen.",
+                        "title": "Ups! Die Buchung ist leider nicht mehr möglich"
+                    },
+                    "closeTooSoon": {
+                        "description": "Diese Sitzung ist noch nicht zur Buchung verfügbar. <br> Überprüfe den Kalender, um den Buchungszeitpunkt zu erfahren oder sieh dir andere verfügbare Sitzungen an.",
+                        "title": "Ups! Es ist noch zu früh, um zu buchen"
+                    },
+                    "locked": {
+                        "description": "Diese Sitzung wurde abgesagt und ist nicht mehr buchbar. <br> Bitte überprüfe den Kalender für andere verfügbare Sitzungen.",
+                        "title": "Die Sitzung wurde abgesagt"
+                    },
+                    "full": {
+                        "description": "Leider ist diese Sitzung bereits ausgebucht und wir konnten deine Buchung nicht abschließen. <br> Schau im Kalender nach einer anderen verfügbaren Option.",
+                        "title": "Sitzung vollständig ausgebucht"
+                    }
+                },
+                "goToCalendar": "Gehe zum Kalender",
+                "yourDetails": "Deine Angaben"
             },
             "lightSignup": {
                 "form": {
@@ -13122,7 +13150,7 @@
                         "availability": {
                             "expiresToday": "Letzter Tag",
                             "expiresIn": "{{ daysRemaining }} Tag übrig",
-                            "expiresIn_plural": "{{ daysRemaining }}Tage übrig",
+                            "expiresIn_plural": "{{ daysRemaining }} Tage übrig",
                             "future": "Beginnt am: {{ startDate }}",
                             "expired": "Abgelaufen am: {{ expirationDate }}",
                             "active": "Läuft ab am: {{ expirationDate }}"
@@ -17222,6 +17250,15 @@
                 "stripe": {
                     "update": "Stripe-Informationen aktualisieren"
                 }
+            },
+            "platformCustomerEntity": {
+                "vatId": {
+                    "errorChip": "Gültige Umsatzsteuer-Identifikationsnummer fehlt",
+                    "update": "Umsatzsteuer-Identifikationsnummer aktualisieren",
+                    "descriptionPart2": "Wenn Ihr Unternehmen in der EU (außerhalb von Frankreich) ansässig ist und eine gültige Umsatzsteuer-Identifikationsnummer besitzt, ist die Angabe dieser Nummer erforderlich, um das Reverse-Charge-Verfahren anzuwenden und sicherzustellen, dass von bsport keine Mehrwertsteuer berechnet wird.",
+                    "descriptionPart1": "bsport benötigt Ihre Umsatzsteuer-Identifikationsnummer (auch bekannt als USt-IdNr. oder innergemeinschaftliche USt-IdNr.), um diese auf den Rechnungen, die wir Ihnen ausstellen, anzugeben.",
+                    "title": "USt-IdNr."
+                }
             }
         },
         "workshop": {
@@ -17983,6 +18020,29 @@
                     "missing_charge": "Keine Zahlung versucht"
                 },
                 "bill": "Zahlung vervollständigen"
+            },
+            "platformCustomerEntity": {
+                "vatId": {
+                    "alert": {
+                        "update": "Umsatzsteuer-Identifikationsnummer aktualisieren",
+                        "description": "bsport benötigt Ihre Umsatzsteuer-Identifikationsnummer (auch bekannt als USt-IdNr. oder innergemeinschaftliche USt-IdNr.), um diese auf den Rechnungen, die wir Ihnen ausstellen, anzugeben.",
+                        "text": "Sie haben keine Umsatzsteuer-Identifikationsnummer angegeben oder die angegebene ist ungültig",
+                        "title": "Gültige USt-IdNr. fehlt"
+                    },
+                    "dialog": {
+                        "actions": {
+                            "save": "Speichern",
+                            "cancel": "Abbrechen"
+                        },
+                        "update": "USt-IdNr. aktualisieren",
+                        "hasAttributedVatIdLabel": "Ich habe keine registrierte Umsatzsteuer-Identifikationsnummer. Wenn dein Unternehmen in der EU (außerhalb von Frankreich) ansässig ist, wird das Reverse-Charge-Verfahren nicht angewendet und bsport wird die französischen Mehrwertsteuersätze (20%) berechnen.",
+                        "vatIdLabel": "Umsatzsteuer-Identifikationsnummer",
+                        "content": "bsport benötigt deine Umsatzsteuer-Identifikationsnummer (auch bekannt als USt-IdNr. oder innergemeinschaftliche USt-IdNr.), um sie auf den Rechnungen, die wir dir ausstellen, anzugeben.",
+                        "invalidFormat": "Ungültiges Format",
+                        "errorChip": "Keine gültige USt-IdNr. vorhanden",
+                        "title": "Umsatzsteuer-Identifikationsnummer (USt-IdNr.)"
+                    }
+                }
             }
         },
         "widget": {
@@ -21282,7 +21342,8 @@
                     "campaign": "Kampagnen",
                     "general": "Allgemein"
                 }
-            }
+            },
+            "campaignCreationWarning": "Achte darauf, dass der Name deiner Kampagne einzigartig ist, um mögliche Probleme zu verhindern."
         },
         "accessControl": {
             "snackbar": {
@@ -21488,7 +21549,30 @@
                 "schedule": "Stundenplan",
                 "calendar": "Kalender",
                 "notifications": "Benachrichtigungen",
-                "inbox": "Posteingang"
+                "inbox": "Posteingang",
+                "myStudio": {
+                    "establishments": "Einrichtungen",
+                    "teachers": "Lehrer",
+                    "title": "Mein Studio"
+                },
+                "membersHub": {
+                    "tags": "Tags",
+                    "forms": "Formulare",
+                    "members": "Mitglieder",
+                    "title": "Mitgliederbereich"
+                },
+                "finance": {
+                    "payroll": "Lohnabrechnung",
+                    "expenses": "Ausgaben",
+                    "directDebits": "Lastschriften",
+                    "payouts": "Auszahlungen",
+                    "invoices": "Rechnungen",
+                    "title": "Finanzen"
+                }
+            },
+            "revampCard": {
+                "goBackToOldUi": "Zur alten Benutzeroberfläche zurückkehren",
+                "betaFeedbackLink": "Beta-Feedback"
             }
         }
     },

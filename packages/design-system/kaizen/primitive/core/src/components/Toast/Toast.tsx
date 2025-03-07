@@ -116,7 +116,7 @@ const Toast: React.FC<ToastProps> = ({
           </Title>
         )}
         {description && (
-          <Body htmlVariant="p" weight="weak" size="lg">
+          <Body htmlVariant="p" weight="weak" size="lg" color="onstrong">
             {description}
           </Body>
         )}

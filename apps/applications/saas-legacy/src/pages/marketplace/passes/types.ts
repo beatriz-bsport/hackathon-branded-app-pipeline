@@ -1,0 +1,23 @@
+export type CardValidityInfo = {
+  dateRange?: {
+    upper: string;
+    lower: string;
+  };
+  durationYears: number;
+  durationMonths: number;
+  durationDays: number;
+  startDateMethod: number;
+};
+
+export type CardContent = {
+  id: string;
+  title: string;
+  validityInfo: CardValidityInfo;
+  price: number;
+  credits: number;
+  isUnlimited: boolean;
+  tax?: number;
+  isUniversal: boolean;
+  onClickDetails: () => void;
+  onAddToCart: () => void;
+};

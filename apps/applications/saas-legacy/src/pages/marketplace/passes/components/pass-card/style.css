@@ -1,0 +1,55 @@
+.bs-marketplace-pass-card__root {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  gap: var(--bs-space-size-4);
+  max-width: 500px;
+  min-width: 350px;
+}
+
+.bs-marketplace-pass-card__header {
+  width: 100%;
+}
+
+.bs-marketplace-pass-card__description {
+  color: var(--bs-color-text-weak);
+}
+
+.bs-marketplace-pass-card__content {
+  display: flex;
+  flex-direction: row;
+  gap: var(--bs-space-size-4);
+  width: 100%;
+}
+
+.bs-marketplace-pass-card__divider {
+  border: 1px solid var(--bs-color-border-default);
+}
+
+.bs-marketplace-pass-card__footer {
+  display: flex;
+  gap: var(--bs-space-size-2);
+  width: 100%;
+}
+
+.bs-marketplace-pass-card__detail-button {
+  flex: 1;
+}
+
+.bs-marketplace-pass-card__buy-button {
+  flex: 3;
+}
+
+@container marketplace-layout (max-width:400px) {
+  .bs-marketplace-pass-card__root {
+    width: 100%;
+    min-width: unset;
+  }
+  .bs-marketplace-pass-card__footer {
+    flex-direction: column;
+  }
+  .bs-marketplace-pass-card__buy-button {
+    order: -1;
+    flex: 1;
+  }
+}

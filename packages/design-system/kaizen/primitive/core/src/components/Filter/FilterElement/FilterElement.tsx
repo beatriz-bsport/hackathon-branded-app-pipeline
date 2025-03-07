@@ -1,4 +1,9 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useImperativeHandle,
+  useState,
+} from "react";
 import FilterElementClearButton from "./FilterElementClearButton";
 import FilterElementSelectField from "./FilterElementSelectField";
 import FilterElementTypeSelector from "./FilterElementTypeSelector";
@@ -26,6 +31,7 @@ export type FilterElementProps = {
     valueIds: string[],
   ) => void;
   onClear: () => void;
+  ref?: React.Ref<{ resetFilters: () => void }>;
 };
 
 /**
@@ -39,6 +45,7 @@ export type FilterElementProps = {
  * @param openedByDefault A boolean that indicates whether the filter element should be opened by default.
  * @param onFilterElementChange A function that is called when a filter element is changed.
  * @param onClear A function that is called when the clear button is clicked.
+ * @param ref A ref object to access the resetFilters method.
  */
 const FilterElement: React.FC<FilterElementProps> = ({
   filters,
@@ -47,6 +54,7 @@ const FilterElement: React.FC<FilterElementProps> = ({
   openedByDefault,
   onFilterElementChange,
   onClear,
+  ref,
 }) => {
   const [displayEntireFilter, setDisplayEntireFilter] = useState(false);
   const [selectedField, setSelectedField] = useState<string | null>(null);
@@ -89,6 +97,11 @@ const FilterElement: React.FC<FilterElementProps> = ({
     setDisplayEntireFilter(false);
     onClear?.();
   }, [onClear]);
+
+  // Expose resetFilters method through ref
+  useImperativeHandle(ref, () => ({ resetFilters: handleClear }), [
+    handleClear,
+  ]);
 
   return (
     <ol className="inline-flex">

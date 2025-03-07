@@ -27,7 +27,12 @@ export type FilterProps = {
   };
   selectFieldLabel: string;
   onFilterChange: (filters: FilterElementState[]) => void;
+  ref?: React.Ref<{ resetFilters: () => void }>;
 };
+
+const FILTER_ELEMENTS_DEFAULT = [
+  { id: 0, field: null, filter: null, valueIds: [] },
+];
 
 /**
  * Rendering a customizable list of filter items within an ordered list.
@@ -39,13 +44,15 @@ export type FilterProps = {
  * @param props.fields An object of field objects, each containing an id, label, available filters,
  * @param props.selectFieldLabel The label to display for the select field.
  * @param props.onFilterChange A function that is called when the filter elements are changed.
+ * @param props.ref A ref object to access the resetFilters method.
  * @link https://docs.infra.bsport.io/storybook/kaizen/main/index.html?path=/docs/components-filter--docs
  */
 const Filter: React.FC<FilterProps> = (props) => {
+  const { onFilterChange } = props;
   const [elementId, setElementId] = useState(1);
-  const [filterElements, setFilterElements] = useState<FilterElementState[]>([
-    { id: 0, field: null, filter: null, valueIds: [] },
-  ]);
+  const [filterElements, setFilterElements] = useState<FilterElementState[]>(
+    FILTER_ELEMENTS_DEFAULT,
+  );
 
   const addFilter = useCallback(() => {
     setFilterElements((prev) => [
@@ -61,11 +68,11 @@ const Filter: React.FC<FilterProps> = (props) => {
         const updatedFilters = prev.map((element) =>
           element.id === id ? { ...element, field, filter, valueIds } : element,
         );
-        props.onFilterChange(updatedFilters);
+        onFilterChange(updatedFilters);
         return updatedFilters;
       });
     },
-    [props],
+    [onFilterChange],
   );
 
   const removeFilterElement = useCallback(
@@ -74,17 +81,15 @@ const Filter: React.FC<FilterProps> = (props) => {
         const newFilterElements = prev.filter((element) => element.id !== id);
 
         if (newFilterElements.length === 0) {
-          props.onFilterChange([
-            { id: 0, field: null, filter: null, valueIds: [] },
-          ]);
-          return [{ id: 0, field: null, filter: null, valueIds: [] }];
+          onFilterChange(FILTER_ELEMENTS_DEFAULT);
+          return FILTER_ELEMENTS_DEFAULT;
         }
 
-        props.onFilterChange(newFilterElements);
+        onFilterChange(newFilterElements);
         return newFilterElements;
       });
     },
-    [props],
+    [onFilterChange],
   );
 
   const isEveryFilterComplete = useMemo(

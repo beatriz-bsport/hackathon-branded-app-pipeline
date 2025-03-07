@@ -10199,6 +10199,15 @@
                 "stripe": {
                     "update": "Update Stripe informatie"
                 }
+            },
+            "platformCustomerEntity": {
+                "vatId": {
+                    "errorChip": "Ontbrekend geldig BTW-nummer",
+                    "update": "BTW-nummer bijwerken",
+                    "descriptionPart2": "Als je bedrijf is gevestigd in de EU (met uitzondering van Frankrijk) en een geregistreerd btw-nummer heeft, is het verplicht om de verleggingsregeling toe te passen, zodat er geen btw in rekening wordt gebracht door bsport.",
+                    "descriptionPart1": "bsport heeft uw btw-nummer (ook wel btw-registratienummer of intracommunautair btw-nummer genoemd) nodig om het te kunnen vermelden op facturen die wij aan u uitreiken.",
+                    "title": "BTW-identificatienummer"
+                }
             }
         },
         "privateService": {
@@ -18669,6 +18678,29 @@
                     "missing_charge": "Er zijn geen betalingspogingen om weer te geven."
                 },
                 "bill": "Vereffenen"
+            },
+            "platformCustomerEntity": {
+                "vatId": {
+                    "alert": {
+                        "update": "BTW-nummer bijwerken",
+                        "description": "bsport heeft uw btw-nummer (ook wel btw-registratienummer of intracommunautair btw-nummer genoemd) nodig om het te kunnen vermelden op facturen die wij aan u uitreiken.",
+                        "text": "Je hebt geen btw-nummer opgegeven, of het btw-nummer dat je hebt opgegeven is ongeldig.",
+                        "title": "Ontbrekend geldig BTW-nummer"
+                    },
+                    "dialog": {
+                        "actions": {
+                            "save": "Opslaan",
+                            "cancel": "Annuleer"
+                        },
+                        "update": "BTW-nummer bijwerken",
+                        "hasAttributedVatIdLabel": "Ik heb geen btw-nummer. Als uw bedrijf is gevestigd in de EU (met uitzondering van Frankrijk), is de verleggingsregeling niet van toepassing en brengt bsport het Franse btw-tarief (20%) in rekening.",
+                        "vatIdLabel": "BTW-identificatienummer",
+                        "content": "bsport heeft uw btw-nummer (ook wel btw-registratienummer of intracommunautair btw-nummer genoemd) nodig om het te kunnen vermelden op facturen die wij aan u uitreiken.",
+                        "invalidFormat": "Ongeldig formaat",
+                        "errorChip": "Geldig BTW-nummer ontbreekt",
+                        "title": "BTW nummer"
+                    }
+                }
             }
         },
         "marketing": {

@@ -8,11 +8,8 @@ import {
   getFallbackLanguage,
   getNamespacePrefixer,
 } from "./utils";
-import {
-  LANGUAGES,
-  type InitConfig,
-  type InMemoryTranslationsLoader,
-} from "./constants";
+import { LANGUAGES } from "./constants";
+import type { InitConfig, InMemoryTranslationsLoader } from "./types";
 
 type I18nConfig = {
   namespaces: string[];

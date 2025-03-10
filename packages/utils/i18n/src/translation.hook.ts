@@ -3,63 +3,90 @@ import {
   type UseTranslationOptions,
   type FallbackNs,
 } from "react-i18next";
-import type { TFunction } from "i18next";
-import type { InitConfig } from "./constants";
+import type { TOptions } from "i18next";
+import type { DeepKeys, GetDictValue, InitConfig } from "./types";
 import { getNamespacePrefixer } from "./utils";
-
-type UseTranslationNs = Parameters<typeof useTranslation>[0];
 
 /**
  * Return an override version of useTranslation, for which provided namespaces
- * are prefixed with the config.applicationName input
+ * are prefixed with the config.applicationName input.
+ * To have typescript intellisense, provide generic type of your resources to the getter.
+ *
+ * @description
+ * In your i18n app folder, after running translation:update script, you'll find
+ * the `locales/en/translations.json` build file : it contains your app translations
+ * structure. Use it to define your AppResources type.
+ * ```tsx
+ * import type translations from "#src/i18n/locales/en/translations.json";
+ *
+ * export const useTranslation = getUseTranslation<typeof translations>({
+ *   applicationName: i18nNamespacePrefix,
+ * });
+ * ```
  */
-export function getUseTranslation({ applicationName }: InitConfig) {
-  const namespacePrefixer = getNamespacePrefixer({ applicationName });
+export function getUseTranslation<AppResources>({
+  applicationName,
+}: InitConfig) {
+  const namespacePrefixer = getNamespacePrefixer<keyof AppResources>({
+    applicationName,
+  });
 
-  function useTranslationOverride(
-    namespaces?: UseTranslationNs,
-    options?: UseTranslationOptions<FallbackNs<UseTranslationNs>>,
+  function useTranslationOverride<Namespaces extends keyof AppResources>(
+    namespaces?: Namespaces | Namespaces[],
+    options?: UseTranslationOptions<FallbackNs<Namespaces>>,
   ) {
-    let overrideNamespaces: UseTranslationNs = undefined;
-    if (typeof namespaces === "string") {
-      overrideNamespaces = namespacePrefixer(namespaces);
-    }
-    if (Array.isArray(namespaces)) {
-      overrideNamespaces = namespaces.map(namespacePrefixer);
-    }
+    // Prefix namespaces
+    const overrideNamespaces = namespaces
+      ? Array.isArray(namespaces)
+        ? namespaces.map(namespacePrefixer)
+        : namespacePrefixer(namespaces)
+      : undefined;
 
-    // When multiple namespaces are provided, the t function must provide
-    // Options to specify which namespace to use, that has to be override as well
-    const getOverrideTOptions = (
-      _options?: Parameters<TFunction<string, string>>[1],
-    ) => {
+    // Transform options to also prefix namespaces
+    const getOverrideTOptions = (_options?: TOptions) => {
       if (!_options) return {};
-
       if (typeof _options === "string") return _options;
 
       if ("ns" in _options && _options.ns) {
         const _ns = _options.ns;
-        const overrideNs = Array.isArray(_ns)
-          ? _ns.map(namespacePrefixer)
-          : namespacePrefixer(_ns as string);
         return {
           ..._options,
-          ns: overrideNs,
+          ns: Array.isArray(_ns)
+            ? _ns.map(namespacePrefixer)
+            : namespacePrefixer(_ns as keyof AppResources),
         };
       }
 
       return _options;
     };
-    const params = useTranslation(overrideNamespaces, options);
-    const { t: originalT } = params;
-    // @ts-expect-error typing mess
-    const overrideT: TFunction<string, string> = (i18nKey, options) => {
-      // @ts-expect-error typing mess
-      return originalT(i18nKey, getOverrideTOptions(options));
+
+    // Hook into i18next
+    const params = useTranslation<
+      // @ts-expect-error TS can not infer that Namespaces (keyof AppResources) extends string
+      Namespaces | Namespaces[],
+      FallbackNs<Namespaces>
+    >(overrideNamespaces, options);
+
+    // useTranslation exports
+    // - an array [t: TFunction<Ns, KPrefix>, i18n: i18n, ready: boolean]
+    // - and a dictionary, containing i18n, t, and ready
+    const { t: originalT, i18n, ready } = params;
+
+    // Strongly-typed `t`
+    const overrideT = <P extends DeepKeys<AppResources[Namespaces]>>(
+      i18nKey: P,
+      options?: TOptions,
+    ) => {
+      return originalT(i18nKey, getOverrideTOptions(options)) as GetDictValue<
+        P,
+        AppResources[Extract<Namespaces, string>]
+      >;
     };
+
     return {
-      ...params,
       t: overrideT,
+      i18n: i18n,
+      ready: ready,
     };
   }
 

@@ -1,12 +1,13 @@
 import {
   initI18n,
+  getAppI18nextProvider,
   getNamespacePrefixer,
   getUseTranslation,
   getWithTranslation,
-  type UseTranslation,
-  type WithTranslation,
+  type TFunction as BaseTFunction,
 } from "@bsport/i18n";
 import namespaceList from "#src/i18n/namespaces.json";
+import type translations from "#src/i18n/locales/en/translations.json";
 
 const i18nNamespacePrefix = import.meta.env.VITE_I18N_NAMESPACE_PREFIX;
 
@@ -15,23 +16,22 @@ export const i18nInstance = initI18n({
   namespaces: namespaceList,
 });
 
-export const useTranslation: UseTranslation = getUseTranslation({
+export const useTranslation = getUseTranslation<typeof translations>({
   applicationName: i18nNamespacePrefix,
 });
 
-export const withTranslation: WithTranslation = getWithTranslation({
+export const withTranslation = getWithTranslation<typeof translations>({
   applicationName: i18nNamespacePrefix,
 });
 
-export {
-  I18nextProvider,
-  Trans,
-  LANGUAGES,
-  LOCALES,
-  type TFunction,
-  type Locale,
-} from "@bsport/i18n";
+export type TFunction = BaseTFunction<typeof translations>;
 
-export const getFixedNamespace = getNamespacePrefixer({
+export const getFixedNamespace = getNamespacePrefixer<
+  keyof typeof translations
+>({
   applicationName: i18nNamespacePrefix,
 });
+
+export const { AppI18nextProvider } = getAppI18nextProvider(i18nInstance);
+
+export { Trans, LANGUAGES, LOCALES, type Locale } from "@bsport/i18n";

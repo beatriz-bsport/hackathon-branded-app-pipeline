@@ -42,7 +42,7 @@ const MultipleNamespacesWithHook: React.FC = () => {
         These are translations from multiple namespaces using useTranslation :
       </p>
       <ul>
-        <li>{t("helloWorld", { ns: "namespaceAlpha" })}</li>
+        <li>{t("helloName", { ns: "namespaceAlpha", name: "Jon" })}</li>
         <li>{t("nested.item1", { ns: "namespaceBeta" })}</li>
         <li>{t("nested.item2", { ns: "namespaceBeta" })}</li>
       </ul>

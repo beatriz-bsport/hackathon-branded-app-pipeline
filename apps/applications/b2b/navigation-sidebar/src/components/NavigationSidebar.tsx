@@ -1,5 +1,5 @@
 import { Button, Card, NavigationMenu } from "@bsport/kaizen-primitive-core";
-import { I18nextProvider, i18nInstance, useTranslation } from "#src/utils/i18n";
+import { AppI18nextProvider, useTranslation } from "#src/utils/i18n";
 import { getNavigationElements } from "./navigation-items";
 
 const NavigationSidebarContent = () => {
@@ -39,9 +39,9 @@ const NavigationSidebarContent = () => {
 
 const NavigationSidebar = () => {
   return (
-    <I18nextProvider i18n={i18nInstance}>
+    <AppI18nextProvider>
       <NavigationSidebarContent />
-    </I18nextProvider>
+    </AppI18nextProvider>
   );
 };
 

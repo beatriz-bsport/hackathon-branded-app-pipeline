@@ -1,4 +1,4 @@
-import { i18nInstance, I18nextProvider } from "#src/utils/i18n";
+import { AppI18nextProvider } from "#src/utils/i18n";
 import AppRoutes from "./Routes";
 
 /**
@@ -7,9 +7,9 @@ import AppRoutes from "./Routes";
  */
 const App: React.FC = () => {
   return (
-    <I18nextProvider i18n={i18nInstance}>
+    <AppI18nextProvider>
       <AppRoutes />
-    </I18nextProvider>
+    </AppI18nextProvider>
   );
 };
 

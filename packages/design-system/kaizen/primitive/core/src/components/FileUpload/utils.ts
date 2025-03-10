@@ -1,5 +1,5 @@
-import type { TFunction } from "@bsport/i18n";
-import type { ProgressBarStatuses } from "../ProgressBar";
+import type { TFunction } from "#src/i18n";
+import type { ProgressBarStatuses } from "#src/components/ProgressBar";
 import {
   UPLOAD_STATUSES,
   MIME_TYPE_MAP,

@@ -3,8 +3,8 @@ import type { i18n } from "i18next";
 import {
   LOCALES_WITH_FIRST_WEEKDAY_BEING_SUNDAY,
   LANGUAGES,
-  type Locale,
 } from "./constants";
+import type { Locale } from "./types";
 
 export function setLuxonLocale(language: string) {
   Settings.defaultLocale = language;
@@ -48,12 +48,12 @@ export function getFallbackLanguage(language: string): Array<Locale> {
 }
 
 // Return a function that appends the application name as prefix to the namespace
-export function getNamespacePrefixer({
+export function getNamespacePrefixer<T = string>({
   applicationName,
 }: {
   applicationName: string;
 }) {
-  return (namespace: string) => `${applicationName}_${namespace}`;
+  return (namespace: T) => `${applicationName}_${namespace}`;
 }
 
 // Return a function that set the language of the provided i18nInstance

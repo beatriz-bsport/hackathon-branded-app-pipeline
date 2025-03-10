@@ -54,17 +54,3 @@ export const EXTRA_TIMEZONES = {
 };
 
 export const LOCALES_WITH_FIRST_WEEKDAY_BEING_SUNDAY = ["en-US", "en-CA"];
-
-export type Locale = (typeof LOCALES)[number];
-
-export type InMemoryTranslationsLoader = (
-  locale: Locale,
-  namespace: string,
-) => Promise<object>;
-
-export type InitConfig = {
-  applicationName: string;
-  applicationUrl?: string;
-  inMemoryTranslationsLoader?: InMemoryTranslationsLoader;
-  debug?: boolean;
-};

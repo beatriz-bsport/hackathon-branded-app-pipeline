@@ -1,6 +1,7 @@
 {
     "namespaceAlpha": {
-        "helloWorld": "Hello world !"
+        "helloWorld": "Hello world !",
+        "helloName": "Hello {{ name }} !"
     },
     "namespaceBeta": {
         "goodbye": "Goodbye world",

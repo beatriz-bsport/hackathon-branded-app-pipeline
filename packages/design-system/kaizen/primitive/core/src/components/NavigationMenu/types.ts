@@ -1,5 +1,4 @@
 import { IconName } from "#src/components/Icon";
-import { MouseEvent } from "react";
 
 export type BaseItem = {
   id: string;
@@ -8,13 +7,15 @@ export type BaseItem = {
   target?: React.AnchorHTMLAttributes<HTMLAnchorElement>["target"];
 };
 
-export type Item = BaseItem & {
+export type NavigationMenuItem = BaseItem & {
   icon: IconName;
   subItems?: BaseItem[];
-  rightSlot?: React.ReactNode;
+  endSlot?: React.ReactNode;
+  type?: "item";
 };
 
-export type NavigationMenuType = {
-  items: Item[];
-  onItemClick?: (item: BaseItem | Item) => (e: MouseEvent) => void;
+type NavigationMenuDivider = {
+  type: "divider";
 };
+
+export type NavigationMenuElement = NavigationMenuDivider | NavigationMenuItem;

@@ -1,10 +1,17 @@
 import React from "react";
-import Item from "#src/components/NavigationMenu/Item";
-import { NavigationMenuProvider } from "#src/components/NavigationMenu/Context";
-import type { NavigationMenuType } from "#src/components/NavigationMenu/types";
+import classNames from "classnames";
+import Divider from "#src/components/Divider";
+import Item from "./Item";
+import {
+  NavigationMenuProvider,
+  type NavigationMenuProviderProps,
+} from "./Context";
+import type { NavigationMenuElement } from "./types";
 
 export type NavigationMenuProps = React.HTMLAttributes<HTMLDivElement> &
-  NavigationMenuType;
+  Omit<NavigationMenuProviderProps, "items"> & {
+    elements: NavigationMenuElement[];
+  };
 
 /**
  * NavigationMenu
@@ -13,22 +20,35 @@ export type NavigationMenuProps = React.HTMLAttributes<HTMLDivElement> &
  * This component utilizes `ContextProvider` to manage the state of the menu items.
  *
  * @param props.className - Additional CSS classes for custom styling of the navigation menu.
- * @param props.items - Array of items to render in the navigation menu. Each item can have optional sub-items and right-side content.
+ * @param props.elements - Array of items or dividers to render in the navigation menu. Each item can have optional sub-items and right-side content.
  * @param props.onItemClick - Callback function triggered when a menu item is clicked.
  */
 const NavigationMenu: React.FC<NavigationMenuProps> = ({
   className,
-  items,
+  elements,
   onItemClick,
   ...props
 }) => {
-  if (!items?.length) return null;
+  if (!elements?.length) return null;
   return (
-    <NavigationMenuProvider onItemClick={onItemClick} items={items}>
+    <NavigationMenuProvider
+      onItemClick={onItemClick}
+      items={elements.filter((item) => item?.type !== "divider")}
+    >
       <div className={className || ""} {...props}>
-        {items.map(({ id }) => (
-          <Item id={id} key={id} />
-        ))}
+        {elements.map((element, index) => {
+          const isLast = index === elements.length - 1;
+          return element?.type === "divider" ? (
+            <Divider
+              key={`navigation-divider-${index}`}
+              className={classNames("border-stroke-thin mt-2xs", {
+                "mb-xs": !isLast,
+              })}
+            />
+          ) : (
+            <Item id={element.id} key={element.id} isLast={isLast} />
+          );
+        })}
       </div>
     </NavigationMenuProvider>
   );

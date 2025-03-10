@@ -21,6 +21,7 @@ const variants = {
     [TYPOGRAPHY_COLORS.weak]: ["text-onsurface-weak"],
     [TYPOGRAPHY_COLORS.weaker]: ["text-onsurface-weaker"],
     [TYPOGRAPHY_COLORS.disabled]: ["text-onsurface-disabled", "opacity-sm"],
+    [TYPOGRAPHY_COLORS.inherit]: ["text-inherit"],
   },
   weight: {
     weaker: ["font-weaker"],

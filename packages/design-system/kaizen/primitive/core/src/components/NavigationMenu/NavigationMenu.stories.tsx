@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import Badge from "#src/components/Badge";
 import NavigationMenu from "#src/components/NavigationMenu";
-import type { Item } from "#src/components/NavigationMenu/types";
+import type { NavigationMenuElement } from "#src/components/NavigationMenu/types";
 
-const items: Item[] = [
+const elements: NavigationMenuElement[] = [
   {
     id: "item-1",
     label: "Day time",
@@ -17,8 +17,9 @@ const items: Item[] = [
       { id: "subItems1-sunset", label: "Sunset" },
       { id: "subItems1-midnight", label: "Midnight Thoughts" },
     ],
-    rightSlot: <Badge size="sm" color="default" text="yolo" />,
+    endSlot: <Badge size="sm" color="default" text="yolo" />,
   },
+  { type: "divider" },
   {
     id: "item-2",
     label: "Food",
@@ -40,6 +41,7 @@ const items: Item[] = [
     href: "#?filter=lines",
     target: "_blank",
   },
+  { type: "divider" },
   {
     id: "item-4",
     label: "Activity",
@@ -65,7 +67,7 @@ const items: Item[] = [
 const meta: Meta<typeof NavigationMenu> = {
   component: NavigationMenu,
   args: {
-    items,
+    elements,
     onItemClick: (item) => (e) => {
       e.preventDefault();
       console.log("item clicked:", item);
@@ -77,6 +79,4 @@ export default meta;
 
 type Story = StoryObj<typeof NavigationMenu>;
 
-export const Primary: Story = {
-  name: "NavigationMenu",
-};
+export const NavigationMenuExample: Story = {};

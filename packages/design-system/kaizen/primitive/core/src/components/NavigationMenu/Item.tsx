@@ -40,6 +40,7 @@ const navigationMenuItem = cva(defaultClasses, {
 
 export type ItemProps = VariantProps<typeof navigationMenuItem> & {
   id: string;
+  isLast: boolean;
 };
 
 /**
@@ -50,23 +51,27 @@ export type ItemProps = VariantProps<typeof navigationMenuItem> & {
  *
  * @param  props.id - Unique identifier for the menu item.
  * @param  props.selected - Defines if the menu item is selected.
+ * @param  props.isLast - Whether the element is the last one
  */
-const Item: React.FC<ItemProps> = ({ id, selected }) => {
+const Item: React.FC<ItemProps> = ({ id, selected, isLast }) => {
   const {
     selectedItemId,
-    openItemId,
-    setOpenItemId,
+    openMenuId,
+    setOpenMenuId,
     onItemClick,
     setSelectedItemId,
     itemsById,
   } = useNavigationMenuContext();
+
   const item = itemsById[id];
-  const { icon, label, rightSlot, subItems, href, target } = item;
+
+  const { icon, label, endSlot, subItems, href, target } = item;
   const subItemsRef = useRef<HTMLDivElement | null>(null);
-  const isOpen = openItemId === id;
+  const isOpen = openMenuId === id;
   const isActive =
     (subItems?.some((subItem) => subItem.id === selectedItemId) && !isOpen) ||
     id === selectedItemId;
+  const hasSubitems = !!subItems?.length;
 
   useEffect(() => {
     if (!isOpen) {
@@ -88,10 +93,15 @@ const Item: React.FC<ItemProps> = ({ id, selected }) => {
               <>
                 <div
                   className={classNames(
-                    "flex items-center gap-xs",
-                    isActive
-                      ? "text-onsurface-main-weak"
-                      : "text-onsurface-default",
+                    "flex transition-all duration-normal items-center gap-xs",
+                    {
+                      "mb-2xs": !isLast,
+                      "text-onsurface-main-weak": isActive,
+                      "text-onsurface-default": !isActive,
+                      "font-stronger":
+                        isActive &&
+                        (!hasSubitems || (hasSubitems && !isCollapseOpen)),
+                    },
                   )}
                 >
                   {!!icon && <Icon icon={icon} size="sm" />}
@@ -100,8 +110,8 @@ const Item: React.FC<ItemProps> = ({ id, selected }) => {
                   )}
                 </div>
                 <div className="flex items-center gap-xs">
-                  {!!rightSlot && <div className="flex">{rightSlot}</div>}
-                  {!!subItems?.length && (
+                  {!!endSlot && <div className="flex">{endSlot}</div>}
+                  {hasSubitems && (
                     <Icon
                       className={classNames(
                         "transform transition-transform duration-long text-onsurface-default",
@@ -114,20 +124,20 @@ const Item: React.FC<ItemProps> = ({ id, selected }) => {
                 </div>
               </>
             ),
-            [icon, label, rightSlot, subItems],
+            [icon, label, endSlot, hasSubitems, isActive, isCollapseOpen],
           );
 
           useEffect(() => {
-            setIsCollapseOpen(openItemId === id);
-          }, [openItemId]);
+            setIsCollapseOpen(openMenuId === id);
+          }, [openMenuId]);
 
           const handleOnClick = useCallback(
             (e: MouseEvent) => {
-              setOpenItemId((prevState) => (prevState === id ? "" : id));
+              setOpenMenuId((prevState) => (prevState === id ? "" : id));
               if (!subItems?.length) setSelectedItemId(id);
               return onItemClick?.(item)(e);
             },
-            [setOpenItemId, id, onItemClick],
+            [setOpenMenuId, id, onItemClick],
           );
 
           return href ? (
@@ -155,14 +165,15 @@ const Item: React.FC<ItemProps> = ({ id, selected }) => {
           );
         }}
       </Collapse.Controller>
-      <Collapse.Content>
-        <div ref={subItemsRef}>
-          {!!subItems?.length &&
-            subItems.map((subItem) => (
+      {hasSubitems && (
+        <Collapse.Content>
+          <div ref={subItemsRef}>
+            {subItems.map((subItem) => (
               <SubItem subItem={subItem} key={subItem.id} />
             ))}
-        </div>
-      </Collapse.Content>
+          </div>
+        </Collapse.Content>
+      )}
     </Collapse>
   );
 };

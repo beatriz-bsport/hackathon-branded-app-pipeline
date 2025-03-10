@@ -1,11 +1,10 @@
-import { Button, Divider, NavigationMenu } from "@bsport/kaizen-primitive-core";
-import { Fragment } from "react/jsx-runtime";
+import { Button, Card, NavigationMenu } from "@bsport/kaizen-primitive-core";
 import { I18nextProvider, i18nInstance, useTranslation } from "#src/utils/i18n";
-import { getNavigationItems } from "./navigation-items";
+import { getNavigationElements } from "./navigation-items";
 
 const NavigationSidebarContent = () => {
   const { t } = useTranslation("default");
-  const categories = getNavigationItems({ t });
+  const navigationElements = getNavigationElements({ t });
   return (
     <div
       className={
@@ -13,25 +12,8 @@ const NavigationSidebarContent = () => {
         "bg-surface-page-navigation shrink-0 flex flex-col justify-between"
       }
     >
-      <div>
-        {/* TODO: Add separators to NavigationMenu */}
-        {/* TODO: Add hrefs */}
-        {categories.map((items, index) => (
-          <Fragment key={`category-${index}`}>
-            <NavigationMenu className="p-xs" items={items} />
-            {index < categories.length - 1 ? (
-              <Divider className="border-stroke-thin" />
-            ) : null}
-          </Fragment>
-        ))}
-      </div>
-      {/* TODO: Replace with Card when styles are fixed */}
-      <div
-        className={
-          "p-xs mt-md mx-xs flex flex-col gap-2xs rounded-md " +
-          "bg-surface-default-elevated border-stroke-thin border-stroke-default"
-        }
-      >
+      <NavigationMenu className="px-xs" elements={navigationElements} />
+      <Card elevated className="p-xs mt-md mx-xs flex flex-col gap-2xs">
         <Button
           className="justify-between"
           label={t("revampCard.betaFeedbackLink")}
@@ -50,7 +32,7 @@ const NavigationSidebarContent = () => {
           iconRight="arrow-right"
           fullWidth
         />
-      </div>
+      </Card>
     </div>
   );
 };

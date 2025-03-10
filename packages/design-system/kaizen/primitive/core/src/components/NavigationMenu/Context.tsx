@@ -4,22 +4,24 @@ import React, {
   ReactNode,
   useState,
   useContext,
+  Dispatch,
+  SetStateAction,
 } from "react";
 import keyBy from "lodash/keyBy";
-import type { BaseItem, Item } from "./types";
+import type { BaseItem, NavigationMenuItem } from "./types";
 
 const Context = createContext<{
-  itemsById: { [id: string]: Item };
+  itemsById: { [id: string]: NavigationMenuItem };
   onItemClick?: (item: BaseItem) => (e: MouseEvent) => void;
-  openItemId: string;
-  setSelectedItemId: React.Dispatch<React.SetStateAction<string>>;
+  openMenuId: string;
+  setSelectedItemId: Dispatch<SetStateAction<string>>;
   selectedItemId: string;
-  setOpenItemId: React.Dispatch<React.SetStateAction<string>>;
+  setOpenMenuId: Dispatch<SetStateAction<string>>;
 }>({
   onItemClick: () => () => {},
-  openItemId: "",
+  openMenuId: "",
   selectedItemId: "",
-  setOpenItemId: () => {},
+  setOpenMenuId: () => {},
   setSelectedItemId: () => {},
   itemsById: {},
 });
@@ -27,39 +29,44 @@ const Context = createContext<{
 export const useNavigationMenuContext = () => {
   const {
     onItemClick,
-    openItemId,
+    openMenuId,
     selectedItemId,
-    setOpenItemId,
+    setOpenMenuId,
     setSelectedItemId,
     itemsById,
   } = useContext(Context);
   return {
     onItemClick,
-    openItemId,
+    openMenuId,
     selectedItemId,
-    setOpenItemId,
+    setOpenMenuId,
     setSelectedItemId,
     itemsById,
   };
 };
 
-export const NavigationMenuProvider: React.FC<{
-  children?: ReactNode | undefined;
+export type NavigationMenuProviderProps = {
   onItemClick?: (item: BaseItem) => (e: MouseEvent) => void;
-  items: Item[];
-}> = ({ children, onItemClick, items }) => {
-  const [selectedItemId, setSelectedItemId] = useState("");
-  const [openItemId, setOpenItemId] = useState("");
+  items: NavigationMenuItem[];
+};
 
+export const NavigationMenuProvider: React.FC<
+  {
+    children?: ReactNode | undefined;
+  } & NavigationMenuProviderProps
+> = ({ children, onItemClick, items }) => {
   const itemsById = keyBy(items, "id");
+  /** @todo Init value based on url pattern */
+  const [selectedItemId, setSelectedItemId] = useState("");
+  const [openMenuId, setOpenMenuId] = useState("");
 
   return (
     <Context.Provider
       value={{
         selectedItemId,
         setSelectedItemId,
-        openItemId,
-        setOpenItemId,
+        openMenuId,
+        setOpenMenuId,
         onItemClick,
         itemsById,
       }}

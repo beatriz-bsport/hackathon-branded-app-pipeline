@@ -9,7 +9,6 @@ import { cva } from "class-variance-authority";
 
 const defaultClasses = [
   "flex flex-col",
-  "gap-xs",
   "relative",
   "border-none outline-none",
   "text-onsurface-default",
@@ -126,7 +125,7 @@ const Content: React.FC<{
       role="region"
       aria-hidden={!isCollapseOpen}
       style={{ maxHeight: maxHeight }}
-      className="transition-all ease-in-out duration-extra-long overflow-hidden pl-xs"
+      className="transition-all ease-in-out duration-extra-long overflow-hidden"
     >
       <div ref={childrenContainerRef}>
         {typeof children === "function"

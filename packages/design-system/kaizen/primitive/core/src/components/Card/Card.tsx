@@ -3,9 +3,6 @@ import { cva, type VariantProps } from "class-variance-authority";
 
 const defaultClasses = [
   "rounded-md",
-  "flex",
-  "flex-col",
-  "gap-md",
   "hover:ease-in-out",
   "duration-default",
 ] as const;
@@ -93,12 +90,12 @@ export type CardProps = React.HTMLAttributes<HTMLDivElement> &
  */
 const Card: React.FC<CardProps> = ({
   className,
-  actionable,
+  actionable = false,
   children,
-  elevated,
+  elevated = false,
   onClick,
   padding = "default",
-  selected,
+  selected = false,
   ...props
 }) => {
   const selectedByElevation = useMemo(() => {

@@ -68,6 +68,7 @@ export { default as Modal, type ModalProps } from "./components/Modal";
 export {
   default as NavigationMenu,
   type NavigationMenuProps,
+  type NavigationMenuElement,
   type NavigationMenuItem,
 } from "./components/NavigationMenu";
 export { default as Popover, type PopoverProps } from "./components/Popover";

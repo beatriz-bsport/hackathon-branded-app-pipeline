@@ -3,16 +3,47 @@ import { cva, type VariantProps } from "class-variance-authority";
 import classNames from "classnames";
 import type { BaseItem } from "#src/components/NavigationMenu/types";
 import { useNavigationMenuContext } from "#src/components/NavigationMenu/Context";
+import Body from "../Body";
 
 const navigationMenuSubItem = cva([
   "group",
   "flex flex-row items-center justify-start",
   "border-none outline-none",
-  "h-lg min-h-lg",
+  "h-[26px] min-h-lg",
   "w-full",
-  "gap-xs",
+  "gap-2xs",
+  "pl-md",
   "transition ease-out duration-long",
 ]);
+
+const navigationMenuSubItemLabel = cva(
+  [
+    "w-full",
+    "text-left align-middle",
+    "rounded-sm",
+    "px-xs py-[2px]",
+    "font-size-body-sm",
+    "transition-all duration-normal",
+  ],
+  {
+    variants: {
+      selected: {
+        true: [
+          "group-hover:bg-surface-action-main-selected-hovered",
+          "group-focus-visible:bg-surface-action-main-selected-hovered",
+          "group-active:bg-surface-action-main-selected-pressed",
+          "text-onsurface-main-weak",
+        ],
+        false: [
+          "group-hover:bg-surface-action-default-weak-hovered",
+          "group-focus-visible:bg-surface-action-default-weak-hovered",
+          "group-active:bg-surface-action-default-weak-pressed",
+          "text-onsurface-weak",
+        ],
+      },
+    },
+  },
+);
 
 export type SubItemProps = React.HTMLAttributes<HTMLButtonElement> &
   VariantProps<typeof navigationMenuSubItem> & {
@@ -37,28 +68,15 @@ const SubItem: React.FC<SubItemProps> = ({ className, subItem, ...props }) => {
 
   const selected = selectedItemId === subItem.id;
 
-  const renderedLabel = useMemo(
-    () =>
-      subItem.label ? (
-        <span
-          className={classNames(
-            "font-size-body-sm",
-            selected ? "text-onsurface-main-weak" : "text-onsurface-weak",
-          )}
-        >
-          {subItem.label}
-        </span>
-      ) : null,
-    [subItem.label, selected],
-  );
-
   const indicator = useMemo(
     () => (
       <div className="w-[0.125rem] h-full relative">
-        {selected && (
-          <div className="absolute w-full h-full bg-onsurface-main-weak rounded-sm" />
-        )}
-        <div className="absolute w-full h-full bg-surface-action-default-weak-hovered" />
+        <div
+          className={classNames("absolute w-full h-full", {
+            "bg-onsurface-main-weak rounded-sm": selected,
+            "bg-surface-action-default-weak-hovered": !selected,
+          })}
+        />
       </div>
     ),
     [selected],
@@ -69,7 +87,7 @@ const SubItem: React.FC<SubItemProps> = ({ className, subItem, ...props }) => {
       setSelectedItemId(subItem.id);
       return onItemClick?.(subItem)(e);
     },
-    [setSelectedItemId, onItemClick, subItem.id],
+    [setSelectedItemId, onItemClick, subItem],
   );
 
   return (
@@ -81,29 +99,15 @@ const SubItem: React.FC<SubItemProps> = ({ className, subItem, ...props }) => {
       {...props}
     >
       {indicator}
-      <div
-        className={classNames(
-          [
-            "h-[1.25rem] w-full",
-            "px-2xs",
-            "flex justify-start items-center",
-            "rounded-sm",
-          ],
-          selected
-            ? [
-                "group-hover:bg-surface-action-main-selected-hovered",
-                "group-focus-visible:bg-surface-action-main-selected-hovered",
-                "group-active:bg-surface-action-main-selected-pressed",
-              ]
-            : [
-                "group-hover:bg-surface-action-default-weak-hovered",
-                "group-focus-visible:bg-surface-action-default-weak-hovered",
-                "group-active:bg-surface-action-default-weak-pressed",
-              ],
-        )}
+      <Body
+        htmlVariant="p"
+        size="md"
+        color="inherit"
+        className={navigationMenuSubItemLabel({ selected })}
+        weight={selected ? "stronger" : "weak"}
       >
-        {renderedLabel}
-      </div>
+        {subItem.label}
+      </Body>
     </button>
   );
 };

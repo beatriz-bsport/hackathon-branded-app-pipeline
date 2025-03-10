@@ -1,12 +1,16 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 
 import Typography from '#src/components/css-only/Fabrique/Typography';
 import TextField from '#src/components/css-only/Fabrique/TextFieldV2';
 import { SearchRefraction, Settings04 } from '#src/components/untitledui';
 import Button from '#src/components/css-only/Fabrique/ButtonV2';
+import Selector from '#src/components/css-only/Fabrique/Selector';
+import useViewport from '#src/components/css-only/Fabrique/hooks/useViewport';
+import IconButton from '#src/components/css-only/Fabrique/IconButton';
 import { useUrlTabNavigation } from '#src/libs/marketplace/components/@Layout/hooks/useUrlTabNavigation';
 import Tab from '#src/components/css-only/Fabrique/Tab';
 import { useTranslation } from 'react-i18next';
+import { MARKETPLACE_BREAKPOINT } from '#src/libs/marketplace/constants';
 
 export type HeaderLayoutProps = React.HTMLAttributes<HTMLDivElement> & {
   pageTabs: PageTabs;
@@ -40,8 +44,19 @@ const HeaderLayout: React.FC<HeaderLayoutProps> = ({
   pageTitle,
   ...props
 }) => {
+  const { width } = useViewport();
+  const isMobile = width < MARKETPLACE_BREAKPOINT.SM;
   const { handleTabClick, selectedTab } = useUrlTabNavigation(pageTabs);
   const { t } = useTranslation(['marketplace', 'common']);
+
+  const getSelectedTabItemLabel = useCallback(
+    (selectedTabItem: TabData): string => selectedTabItem.label,
+    [],
+  );
+  const getSelectedTabItemValue = useCallback(
+    (selectedTabItem: TabData): string => selectedTabItem.urlPath,
+    [],
+  );
 
   return (
     <div className="bs-marketplace-header-layout__root" {...props}>
@@ -59,40 +74,66 @@ const HeaderLayout: React.FC<HeaderLayoutProps> = ({
             leftIcon={<SearchRefraction />}
             onChange={() => {}}
             placeholder={t('marketplace:passes.search')}
-            size="sm"
+            size="lg"
             type="text"
             value=""
           />
         </div>
       </div>
       <div className="bs-marketplace-header-layout__bottom">
-        <div className="bs-marketplace-header-layout__tabs">
-          {pageTabs.map(({ label, urlPath }) => {
-            return (
-              <Tab
-                key={label}
-                className="bs-marketplace-header-layout__tab"
-                color="grey"
-                isSelected={selectedTab.urlPath === urlPath}
-                onClick={handleTabClick(urlPath)}
-              >
-                {label}
-              </Tab>
-            );
-          })}
-        </div>
+        {pageTabs && isMobile ? (
+          <Selector
+            noAnimate
+            preventOpenMenu
+            className="bs-marketplace-header-layout__selector"
+            closeOnSelect={false}
+            getSelectedItemLabel={getSelectedTabItemLabel}
+            getSelectedItemValue={getSelectedTabItemValue}
+            id="bs-marketplace-header-layout__selector"
+            selectedItems={pageTabs[0]}
+            size="lg"
+          />
+        ) : (
+          <div className="bs-marketplace-header-layout__tabs">
+            {pageTabs.map(({ label, urlPath }) => {
+              return (
+                <Tab
+                  key={label}
+                  className="bs-marketplace-header-layout__tab"
+                  color="grey"
+                  isSelected={selectedTab.urlPath === urlPath}
+                  onClick={handleTabClick(urlPath)}
+                >
+                  {label}
+                </Tab>
+              );
+            })}
+          </div>
+        )}
         <div className="bs-marketplace-header-layout__filters">
           {/* Filters button: the logic to handle filtering will be implemented in a future MR */}
-          <Button
-            key="Filters"
-            color="grey"
-            leftIcon={<Settings04 />}
-            onClick={() => {}}
-            size="md"
-            variant="outlined"
-          >
-            {t('marketplace:passes.filters')}
-          </Button>
+          {isMobile ? (
+            <IconButton
+              className="bs-marketplace-header-layout__filters__icon-button"
+              color="grey"
+              onClick={() => {}}
+              size="lg"
+              variant="outlined"
+            >
+              <Settings04 stroke="currentColor" />
+            </IconButton>
+          ) : (
+            <Button
+              key="filters"
+              color="grey"
+              leftIcon={<Settings04 />}
+              onClick={() => {}}
+              size="md"
+              variant="outlined"
+            >
+              {t('marketplace:passes.filters')}
+            </Button>
+          )}
         </div>
       </div>
     </div>

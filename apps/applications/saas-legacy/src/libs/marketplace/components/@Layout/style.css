@@ -3,6 +3,9 @@
   flex-direction: column;
   gap: var(--bs-space-size-4);
   padding: var(--bs-space-size-4);
+  /* Enable container query */
+  container-name: marketplace-layout;
+  container-type: inline-size;
 }
 
 .bs-marketplace-header-layout__root {
@@ -46,4 +49,27 @@
 
 .bs-marketplace-header-layout__root .bs-marketplace-header-layout__search svg {
   color: var(--bs-grey-600);
+}
+
+@container marketplace-layout (max-width: 720px) {
+  .bs-marketplace-header-layout__top {
+    flex-direction: column;
+    align-items: start;
+    gap: var(--bs-space-size-2);
+  }
+
+  .bs-marketplace-header-layout__top .bs-fabrique-textfield__wrapper,
+  .bs-marketplace-header-layout__top .bs-fabrique-textfield__container,
+  .bs-marketplace-header-layout__top .bs-marketplace-header-layout__search,
+  .bs-marketplace-header-layout__top .bs-fabrique-textfield__input__container {
+    width: 100%;
+  }
+  .bs-marketplace-header-layout__bottom {
+    flex-direction: row;
+    align-items: center;
+    gap: var(--bs-space-size-2);
+  }
+  .bs-marketplace-header-layout__selector {
+    width: 100%;
+  }
 }

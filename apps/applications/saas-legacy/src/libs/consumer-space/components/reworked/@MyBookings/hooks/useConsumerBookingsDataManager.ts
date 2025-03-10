@@ -883,6 +883,57 @@ export default function useConsumerBookingsDataManager({
     ],
   );
 
+  /**
+   * Determines the category of the soonest upcoming booking.
+   *
+   * Category is understood as activity, workshop or appointment
+   *
+   * This function evaluates three lists of future bookings: activities, workshops,
+   * and private bookings. It identifies the earliest booking from these lists and
+   * returns the category of that booking. If no bookings are found, it defaults
+   * to the activity category.
+   *
+   */
+  const getSoonestBookingCategory = () => {
+    const soonestActivityBooking =
+      futureBookingsList?.[0] && !futureBookingsList[0].date_canceled
+        ? {
+            category: BookingTabEnum.ACTIVITY,
+            date: DateTime.fromISO(futureBookingsList[0].offer_date_start),
+          }
+        : null;
+    const soonestWorkshopBooking =
+      futureBookingsWorkshopList?.[0] &&
+      !futureBookingsWorkshopList[0].date_canceled
+        ? {
+            category: BookingTabEnum.WORKSHOP,
+            date: DateTime.fromISO(
+              futureBookingsWorkshopList[0].offer_date_start,
+            ),
+          }
+        : null;
+
+    const soonestPrivateBooking =
+      futurePrivateBookingsList?.[0] &&
+      !futurePrivateBookingsList[0].date_canceled
+        ? {
+            category: BookingTabEnum.APPOINTMENT,
+            date: DateTime.fromISO(futurePrivateBookingsList[0].date_start),
+          }
+        : null;
+    const sortedBookings = [
+      soonestActivityBooking,
+      soonestWorkshopBooking,
+      soonestPrivateBooking,
+    ]
+      .filter((booking) => !!booking)
+      .sort((a, b) => a?.date.toMillis() - b?.date.toMillis());
+
+    return sortedBookings.length
+      ? sortedBookings[0].category
+      : BookingTabEnum.ACTIVITY;
+  };
+
   return {
     // LOCAL STATE
     selectedTab,

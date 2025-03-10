@@ -934,6 +934,14 @@ export default function useConsumerBookingsDataManager({
       : BookingTabEnum.ACTIVITY;
   };
 
+  const setInitialTab = () => {
+    if (isFirstLoading) {
+      const soonestBookingCategory = getSoonestBookingCategory();
+      handleSetSelectedTab(soonestBookingCategory);
+      setIsFirstLoading(false);
+    }
+  };
+
   return {
     // LOCAL STATE
     selectedTab,
@@ -960,6 +968,7 @@ export default function useConsumerBookingsDataManager({
     isBookingDetailsDrawerOpen,
     // STATE HANDLERS
     handleSetSelectedTab,
+    setInitialTab,
     handleSetSelectedFilterTab,
     handleSetSelectedBooking,
     handleSetSelectedPrivateBooking,

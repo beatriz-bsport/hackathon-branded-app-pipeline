@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { MarketPlaceSessionTimeDisplay } from '@bsport/common/lib/master-data/personalization.js';
 import { useTranslation } from 'react-i18next';
 import clsx from 'clsx';
@@ -233,6 +233,7 @@ export const ConsumerBookingPageReworkedComponent: React.FC<Props> = ({
     currentCount,
     currentPage,
     isFirstLoading,
+    setInitialTab,
   } = useConsumerBookingsDataManager({
     pastBookingsState,
     pastBookingsList,
@@ -358,6 +359,23 @@ export const ConsumerBookingPageReworkedComponent: React.FC<Props> = ({
       t,
     ],
   );
+
+  useEffect(() => {
+    if (
+      !(
+        getIsBookingsLoading('appointment') ||
+        getIsBookingsLoading('workshop') ||
+        getIsBookingsLoading('activity')
+      )
+    ) {
+      setInitialTab();
+    }
+  }, [
+    futureBookingsList,
+    futureBookingsWorkshopList,
+    futurePrivateBookingsList,
+  ]);
+
   return (
     <PageContentContainer
       contentClassName={clsx('bs-consumer-booking-page__root', {

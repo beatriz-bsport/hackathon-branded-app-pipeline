@@ -232,6 +232,7 @@ export const ConsumerBookingPageReworkedComponent: React.FC<Props> = ({
     setSelectedBookingForBookingForAGuest,
     currentCount,
     currentPage,
+    isFirstLoading,
   } = useConsumerBookingsDataManager({
     pastBookingsState,
     pastBookingsList,
@@ -418,6 +419,7 @@ export const ConsumerBookingPageReworkedComponent: React.FC<Props> = ({
       />
       <ConsumerPageHeader
         FilterProps={{ filters, selectedFilter: selectedFilterTab }}
+        isFirstLoading={isFirstLoading}
         isMobile={isMobile}
         TabsProps={{
           selectedTab,

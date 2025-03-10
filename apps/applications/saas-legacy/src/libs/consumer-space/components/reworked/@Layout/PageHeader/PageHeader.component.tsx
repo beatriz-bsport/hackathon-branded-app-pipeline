@@ -9,6 +9,7 @@ import PageHeaderFilters from '#src/libs/consumer-space/components/reworked/@Lay
 import type { HeaderButton } from '#src/libs/consumer-space/components/reworked/common/ConsumerGenericHeader/ConsumerGenericHeader.component';
 import type { PageHeaderTabsType, TabData } from './PageHeaderTabs/types';
 import type { TabFilter } from '../PageHeaderFilters/types';
+import Skeleton from '#src/components/css-only/Skeleton';
 import './styles.css';
 
 type Props = {
@@ -30,6 +31,7 @@ type Props = {
     filters: TabFilter[];
     selectedFilter: string;
   };
+  isFirstLoading?: boolean;
 };
 
 const PageHeader: React.FC<Props> = ({
@@ -38,6 +40,7 @@ const PageHeader: React.FC<Props> = ({
   TabsProps,
   TitleProps,
   FilterProps,
+  isFirstLoading,
 }) => {
   return (
     <div className={clsx('bs-consumer-page__header', classes?.container ?? '')}>
@@ -46,16 +49,30 @@ const PageHeader: React.FC<Props> = ({
         isMobile={!!isMobile}
         title={TitleProps.title}
       />
-      <PageHeaderTabs
-        handleToggleTabDrawer={TabsProps?.handleToggleTabDrawer}
-        isMobile={isMobile}
-        selectedTab={TabsProps?.selectedTab}
-        tabs={TabsProps?.tabs ?? []}
-      />
-      <PageHeaderFilters
-        filters={FilterProps?.filters ?? []}
-        selectedFilter={FilterProps?.selectedFilter}
-      />
+      {isFirstLoading ? (
+        <Skeleton
+          className="bs-consumer-page__header__tab-skeleton"
+          variant="rectangle"
+        />
+      ) : (
+        <PageHeaderTabs
+          handleToggleTabDrawer={TabsProps?.handleToggleTabDrawer}
+          isMobile={isMobile}
+          selectedTab={TabsProps?.selectedTab}
+          tabs={TabsProps?.tabs ?? []}
+        />
+      )}
+      {isFirstLoading ? (
+        <Skeleton
+          className="bs-consumer-page__header__tab-skeleton"
+          variant="rectangle"
+        />
+      ) : (
+        <PageHeaderFilters
+          filters={FilterProps?.filters ?? []}
+          selectedFilter={FilterProps?.selectedFilter}
+        />
+      )}
     </div>
   );
 };

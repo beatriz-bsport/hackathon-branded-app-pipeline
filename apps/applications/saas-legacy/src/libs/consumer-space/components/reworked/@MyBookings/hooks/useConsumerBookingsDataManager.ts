@@ -174,6 +174,8 @@ export default function useConsumerBookingsDataManager({
   const [selectedBookingOption, setSelectedBookingOption] =
     useState<ConsumerBookingOption | null>(null);
 
+  const [isFirstLoading, setIsFirstLoading] = useState(true);
+
   /* MODAL/DRAWER STATES */
   const [isBookingTabDrawerOpen, setIsBookingTabDrawerOpen] = useState(false);
 
@@ -941,5 +943,6 @@ export default function useConsumerBookingsDataManager({
     bookingOptionList,
     relatedBookingsInGroup,
     isMobile,
+    isFirstLoading,
   };
 }

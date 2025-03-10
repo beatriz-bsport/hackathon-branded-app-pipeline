@@ -77,7 +77,7 @@ const initialState: Immutable.Immutable<ConsumerStateReworked> =
           next_page: null,
           previous_page: null,
           count: 0,
-          loading: false,
+          loading: true,
           error: null,
           bookings: {
             allIds: [],
@@ -115,7 +115,7 @@ const initialState: Immutable.Immutable<ConsumerStateReworked> =
           next_page: null,
           previous_page: null,
           count: 0,
-          loading: false,
+          loading: true,
           error: null,
           private_services: {
             allIds: [],
@@ -141,7 +141,7 @@ const initialState: Immutable.Immutable<ConsumerStateReworked> =
           next_page: null,
           previous_page: null,
           count: 0,
-          loading: false,
+          loading: true,
           error: null,
           bookings: {
             allIds: [],

@@ -37,7 +37,7 @@ import type {
   WaitingListConfiguration,
 } from '#src/libs/waiting-list/types';
 
-import type { OptionCallback } from '#src/state/types';
+import type { OptionCallback, PaginatedResponse } from '#src/state/types';
 import {
   BOOKING_FOR_GUEST_FREQUENCY,
   OfferStatusWaitingListPosition,
@@ -74,13 +74,34 @@ type Props = {
   isConsumerPacksLoading: boolean;
   getIsBookingsLoading: (selectedTab: BookingTab) => boolean;
   fetchPastBookings: (page?: number) => void;
-  fetchFutureBookings: () => void;
+  fetchFutureBookings: (
+    page?: number,
+    options?: OptionCallback<PaginatedResponse<BookingREST>>,
+  ) => void;
+  fetchSoonestBooking: (
+    page?: number,
+    options?: OptionCallback<PaginatedResponse<BookingREST>>,
+  ) => void;
   fetchBookingOptions: () => void;
   fetchBookingOptionsWorkshop: () => void;
   fetchPastPrivateBookings: () => void;
-  fetchFuturePrivateBookings: () => void;
+  fetchFuturePrivateBookings: (
+    page?: number,
+    options?: OptionCallback<PaginatedResponse<PrivateBooking>>,
+  ) => void;
+  fetchSoonestPrivateBooking: (
+    page?: number,
+    options?: OptionCallback<PaginatedResponse<PrivateBooking>>,
+  ) => void;
   fetchPastBookingsWorkshop: () => void;
-  fetchFutureBookingsWorkshop: () => void;
+  fetchFutureBookingsWorkshop: (
+    page?: number,
+    options?: OptionCallback<PaginatedResponse<BookingREST>>,
+  ) => void;
+  fetchSoonestWorkshopBooking: (
+    page?: number,
+    options?: OptionCallback<PaginatedResponse<BookingREST>>,
+  ) => void;
   resetConsumerState: () => void;
   cancelBooking: (
     params: CancelBookingParams,
@@ -156,6 +177,9 @@ export const ConsumerBookingPageReworkedComponent: React.FC<Props> = ({
   onBookingForAGuestSubmit,
   getOfferWaitingListPosition,
   waitingListConfiguration,
+  fetchSoonestBooking,
+  fetchSoonestPrivateBooking,
+  fetchSoonestWorkshopBooking,
 }) => {
   const {
     selectedTab,
@@ -242,6 +266,9 @@ export const ConsumerBookingPageReworkedComponent: React.FC<Props> = ({
     cancelPrivateBooking,
     cancelBookingOption,
     isConsumerPacksLoading,
+    fetchSoonestBooking,
+    fetchSoonestPrivateBooking,
+    fetchSoonestWorkshopBooking,
   });
 
   const { t } = useTranslation('consumerSpace');

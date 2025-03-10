@@ -46,7 +46,7 @@ import {
 import { getUserZone } from '#src/utils/datetime';
 import WidgetUtils from '#src/libs/widget/WidgetUtils';
 import Config from '#src/config';
-import type { OptionCallback } from '../../../../../../state/types';
+import type { OptionCallback, PaginatedResponse } from '#src/state/types';
 
 /** Provides all of the necessary data and fetch handlers for consumer booking page */
 export default function useConsumerBookingsDataManager({
@@ -103,13 +103,34 @@ export default function useConsumerBookingsDataManager({
   futureBookingsWorkshopList: ConsumerBooking[];
   getIsBookingsLoading: (selectedTab: BookingTab) => boolean;
   fetchPastBookings: (page?: number) => void;
-  fetchFutureBookings: (page?: number) => void;
+  fetchFutureBookings: (
+    page?: number,
+    options?: OptionCallback<PaginatedResponse<BookingREST>>,
+  ) => void;
+  fetchSoonestBooking: (
+    page?: number,
+    options?: OptionCallback<PaginatedResponse<BookingREST>>,
+  ) => void;
   fetchBookingOptions: (page?: number) => void;
   fetchBookingOptionsWorkshop: (page?: number) => void;
   fetchPastPrivateBookings: (page?: number) => void;
-  fetchFuturePrivateBookings: (page?: number) => void;
+  fetchFuturePrivateBookings: (
+    page?: number,
+    options?: OptionCallback<PaginatedResponse<PrivateBooking>>,
+  ) => void;
+  fetchSoonestPrivateBooking: (
+    page?: number,
+    options?: OptionCallback<PaginatedResponse<PrivateBooking>>,
+  ) => void;
   fetchPastBookingsWorkshop: (page?: number) => void;
-  fetchFutureBookingsWorkshop: (page?: number) => void;
+  fetchFutureBookingsWorkshop: (
+    page?: number,
+    options?: OptionCallback<PaginatedResponse<BookingREST>>,
+  ) => void;
+  fetchSoonestWorkshopBooking: (
+    page?: number,
+    options?: OptionCallback<PaginatedResponse<BookingREST>>,
+  ) => void;
   resetConsumerState: () => void;
   cancelBooking: (
     params: CancelBookingParams,

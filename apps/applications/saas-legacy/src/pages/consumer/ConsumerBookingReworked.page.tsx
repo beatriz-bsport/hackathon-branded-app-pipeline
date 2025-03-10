@@ -93,7 +93,7 @@ import { getMarketplaceSettingsConfig } from '#src/libs/marketplace/selectors';
 
 import { ConsumerSpaceContextEnum } from '#src/libs/consumer-space/constants';
 
-import type { PaginatedResponse } from '#src/state/types';
+import type { OptionCallback, PaginatedResponse } from '#src/state/types';
 
 type OwnProps = {};
 type ParamsProps = {
@@ -118,17 +118,17 @@ export class ConsumerBooking extends React.Component<Props, State> {
   }
 
   componentDidMount() {
-    this.fetchPastBookings();
-    this.fetchFutureBookings();
-    this.fetchBookingOptions();
+    this.fetchSoonestBooking();
+    this.fetchSoonestPrivateBooking();
+    this.fetchSoonestWorkshopBooking();
     this.props.fetchCompanyWaitlistConfiguration(this.props.companyId);
   }
 
   componentDidUpdate(prevProps: Props) {
     if (!prevProps?.membership?.id && !!this.props?.membership?.id) {
-      this.fetchPastBookings();
-      this.fetchFutureBookings();
-      this.fetchBookingOptions();
+      this.fetchSoonestBooking();
+      this.fetchSoonestPrivateBooking();
+      this.fetchSoonestWorkshopBooking();
     }
   }
 
@@ -278,7 +278,10 @@ export class ConsumerBooking extends React.Component<Props, State> {
       );
   };
 
-  fetchFutureBookings = (page?: number) => {
+  fetchFutureBookings = (
+    page?: number,
+    options?: OptionCallback<PaginatedResponse<BookingREST>>,
+  ) => {
     !!this.props.membership?.id &&
       this.props.fetchMyFutureBookingAsMember(
         { page, member: this.props.membership.id },
@@ -288,7 +291,23 @@ export class ConsumerBooking extends React.Component<Props, State> {
             this.props.fetchConsumerGuestNumberEligibleLeftByOfferBulk(
               data.results.map((booking) => booking.offer),
             );
+            options?.onSuccess && options.onSuccess(data);
           },
+          onError: (error) => options?.onError && options.onError(error),
+        },
+      );
+  };
+
+  fetchSoonestBooking = (
+    page?: number,
+    options?: OptionCallback<PaginatedResponse<BookingREST>>,
+  ) => {
+    !!this.props.membership?.id &&
+      this.props.fetchMyFutureBookingAsMember(
+        { page, member: this.props.membership.id, page_size: 1 },
+        {
+          onSuccess: (data) => options?.onSuccess && options.onSuccess(data),
+          onError: (error) => options?.onError && options.onError(error),
         },
       );
   };
@@ -338,7 +357,10 @@ export class ConsumerBooking extends React.Component<Props, State> {
       );
   };
 
-  fetchFuturePrivateBookings = (page?: number) => {
+  fetchFuturePrivateBookings = (
+    page?: number,
+    options?: OptionCallback<PaginatedResponse<PrivateBooking>>,
+  ) => {
     !!this.props.membership?.id &&
       this.props.fetchMyFuturePrivateBookingAsMember(
         {
@@ -347,8 +369,30 @@ export class ConsumerBooking extends React.Component<Props, State> {
           company: this.props.companyId,
         },
         {
-          onSuccess: (data) =>
-            this.fetchAssociatedPrivateBookingsObjects(data.results),
+          onSuccess: (data) => {
+            this.fetchAssociatedPrivateBookingsObjects(data.results);
+            options?.onSuccess && options.onSuccess(data);
+          },
+          onError: (error) => options?.onError && options.onError(error),
+        },
+      );
+  };
+
+  fetchSoonestPrivateBooking = (
+    page?: number,
+    options?: OptionCallback<PaginatedResponse<PrivateBooking>>,
+  ) => {
+    !!this.props.membership?.id &&
+      this.props.fetchMyFuturePrivateBookingAsMember(
+        {
+          page,
+          member: this.props.membership.id,
+          company: this.props.companyId,
+          page_size: 1,
+        },
+        {
+          onSuccess: (data) => options?.onSuccess && options.onSuccess(data),
+          onError: (error) => options?.onError && options.onError(error),
         },
       );
   };
@@ -364,13 +408,33 @@ export class ConsumerBooking extends React.Component<Props, State> {
       );
   };
 
-  fetchFutureBookingsWorkshop = (page?: number) => {
+  fetchFutureBookingsWorkshop = (
+    page?: number,
+    options?: OptionCallback<PaginatedResponse<BookingREST>>,
+  ) => {
     !!this.props.membership?.id &&
       this.props.fetchMyFutureBookingWorkshopAsMember(
         { page, member: this.props.membership.id },
         {
-          onSuccess: (data) =>
-            this.fetchAssociatedBookingsObjects(data.results),
+          onSuccess: (data) => {
+            this.fetchAssociatedBookingsObjects(data.results);
+            options?.onSuccess && options.onSuccess(data);
+          },
+          onError: (error) => options?.onError && options.onError(error),
+        },
+      );
+  };
+
+  fetchSoonestWorkshopBooking = (
+    page?: number,
+    options?: OptionCallback<PaginatedResponse<BookingREST>>,
+  ) => {
+    !!this.props.membership?.id &&
+      this.props.fetchMyFutureBookingWorkshopAsMember(
+        { page, member: this.props.membership.id, page_size: 1 },
+        {
+          onSuccess: (data) => options?.onSuccess && options.onSuccess(data),
+          onError: (error) => options?.onError && options.onError(error),
         },
       );
   };
@@ -425,6 +489,9 @@ export class ConsumerBooking extends React.Component<Props, State> {
         fetchPastBookings={this.fetchPastBookings}
         fetchPastBookingsWorkshop={this.fetchPastBookingsWorkshop}
         fetchPastPrivateBookings={this.fetchPastPrivateBookings}
+        fetchSoonestBooking={this.fetchSoonestBooking}
+        fetchSoonestPrivateBooking={this.fetchSoonestPrivateBooking}
+        fetchSoonestWorkshopBooking={this.fetchSoonestWorkshopBooking}
         futureBookingsList={this.props.myFutureBookingsList}
         futureBookingsState={this.props.myFutureBookingsState}
         futureBookingsWorkshopList={this.props.myFutureBookingsWorkshopList}

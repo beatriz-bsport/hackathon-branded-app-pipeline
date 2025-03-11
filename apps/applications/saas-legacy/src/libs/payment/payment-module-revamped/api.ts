@@ -9,7 +9,10 @@ import {
   DetachPaymentMethodResponse,
   PaymentMethod,
 } from '#src/libs/payment/types';
-import { PAYMENT_INTENT_TYPE_INVOICE } from '@bsport/common/lib/master-data/payment-group.js';
+import {
+  PAYMENT_INTENT_TYPE_BASKET,
+  PAYMENT_INTENT_TYPE_INVOICE,
+} from '@bsport/common/lib/master-data/payment-group.js';
 import Config from '../../../config';
 
 const API_V1_URI = Config.REACT_APP_BASE_URI_FINANCIAL_SERVICES_V1;
@@ -53,5 +56,18 @@ export const fetchPaymentMethodList = (params: any = {}) => {
 export const getPaymentGroupStatus = (paymentGroupId: number) => {
   return getAuth<PaymentGroupStatus>(
     `${API_V1_URI}/payment/payment_group/${paymentGroupId}/status/`,
+  );
+};
+
+export const requestBasketClientSecret = (params: {
+  payment_engine_identifier: number;
+  basket: string;
+}) => {
+  return postAuth<RequestClientSecretPayload>(
+    `${API_V1_URI}/payment/payment_group/request_client_secret/`,
+    {
+      payment_intent_type: PAYMENT_INTENT_TYPE_BASKET,
+      ...params,
+    },
   );
 };

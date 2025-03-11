@@ -9,6 +9,9 @@ export type PaymentModuleState = {
   invoiceClientSecret: {
     [invoiceUuid: string]: RequestClientSecretPayload & ErrorAndLoading;
   };
+  basketClientSecret: {
+    [basketId: string]: RequestClientSecretPayload & ErrorAndLoading;
+  };
   paymentMethodList: {
     [memberId: number]: {
       paymentMethods: Array<PaymentMethod>;

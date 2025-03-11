@@ -96,3 +96,9 @@ export const getIsBackendProcessingAfterPayment = createSelector(
     return backendStatus?.processing || false;
   },
 );
+
+export const getBasketClientSecret = createSelector(
+  [getPaymentModuleState, _uuidParameterSelector],
+  (paymentModuleState, basketId) =>
+    paymentModuleState.basketClientSecret[basketId],
+);

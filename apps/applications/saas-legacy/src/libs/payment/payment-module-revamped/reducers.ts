@@ -6,6 +6,7 @@ import {
   applyBalanceToInvoiceActions,
   detachPaymentMethodActions,
   listSavedPaymentMethodListActions,
+  requestBasketClientSecretActions,
   requestInvoiceClientSecretActions,
   setBackendProcessingAfterPaymentActions,
   setPaymentStatusActions,
@@ -20,6 +21,10 @@ export type PaymentModuleState = {
   invoiceClientSecret: {
     [invoiceUuid: string]: RequestClientSecretPayload & ErrorAndLoading;
   };
+  basketClientSecret: {
+    [basketId: string]: RequestClientSecretPayload & ErrorAndLoading;
+  };
+
   paymentMethodList: {
     [memberId: number]: {
       paymentMethods: Array<PaymentMethod>;
@@ -42,6 +47,7 @@ const initialState: Immutable.Immutable<PaymentModuleState> =
   Immutable<PaymentModuleState>({
     applyBalanceToInvoice: {},
     invoiceClientSecret: {},
+    basketClientSecret: {},
     paymentMethodList: {},
     paymentGroupStatus: {},
     backendStatusAfterPayment: {},
@@ -133,6 +139,52 @@ export default handleActions<Immutable.Immutable<PaymentModuleState>, any>(
         error: null,
       });
     },
+    [requestBasketClientSecretActions.initialize.toString()]: (
+      state,
+      { payload }: { payload: { basketId: string } },
+    ) => {
+      return state.setIn(['basketClientSecret', payload.basketId], {
+        loading: false,
+        client_secret: null,
+        price_cts: null,
+        payment_group: null,
+        error: null,
+      });
+    },
+    [requestBasketClientSecretActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: { basketId: string; loading: boolean } },
+    ) => {
+      return state.setIn(
+        ['basketClientSecret', payload.basketId, 'loading'],
+        payload.loading,
+      );
+    },
+    [requestBasketClientSecretActions.error.toString()]: (
+      state,
+      { payload }: { payload: { basketId: string; error: Error | null } },
+    ) => {
+      return state.setIn(
+        ['basketClientSecret', payload.basketId, 'error'],
+        payload.error,
+      );
+    },
+    [requestBasketClientSecretActions.success.toString()]: (
+      state,
+      {
+        payload,
+      }: { payload: RequestClientSecretPayload & { basketId: string } },
+    ) => {
+      const { basketId, ...requestClientSecretPayload } = payload;
+      return state.updateIn(
+        ['basketClientSecret', basketId],
+        (currentValue) => ({
+          ...currentValue,
+          ...requestClientSecretPayload,
+        }),
+      );
+    },
+
     [listSavedPaymentMethodListActions.isLoading.toString()]: (
       state,
       { payload }: { payload: { memberId: string; loading: boolean } },

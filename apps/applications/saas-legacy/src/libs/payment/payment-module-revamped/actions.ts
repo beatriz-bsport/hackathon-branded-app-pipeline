@@ -1,10 +1,13 @@
 import { createAction } from 'redux-actions';
+import { AxiosError } from 'axios';
+
 import {
   applyBalanceToInvoice as applyBalanceToInvoiceAPI,
   requestInvoiceClientSecret as requestInvoiceClientSecretAPI,
   detachPaymentMethod as detachPaymentMethodAPI,
   fetchPaymentMethodList as fetchPaymentMethodListAPI,
   getPaymentGroupStatus as getPaymentGroupStatusAPI,
+  requestBasketClientSecret as requestBasketClientSecretAPI,
 } from '#src/libs/payment/payment-module-revamped/api';
 import { snackbarSuccess, snackbarError } from '#src/libs/snackbar/actions';
 import type { ThunkAction, Dispatch, OptionCallback } from '#src/state/types';
@@ -393,5 +396,88 @@ export function setPaymentStatus(params: {
       }, 2000);
     }
     // }
+  };
+}
+
+export const requestBasketClientSecretActions = {
+  isLoading: createAction<{ basketId: string; loading: boolean }>(
+    'PAYMENT_MODULE/BASKET/REQUEST_CLIENT_SECRET/LOADING',
+  ),
+  error: createAction<{ basketId: string; error: Error | null }>(
+    'PAYMENT_MODULE/BASKET/REQUEST_CLIENT_SECRET/ERROR',
+  ),
+  success: createAction<RequestClientSecretPayload & { basketId: string }>(
+    'PAYMENT_MODULE/BASKET/REQUEST_CLIENT_SECRET/SUCCESS',
+  ),
+  initialize: createAction<{ basketId: string }>(
+    'PAYMENT_MODULE/BASKET/REQUEST_CLIENT_SECRET/INITIALIZE',
+  ),
+};
+
+export function resetBasketClientSecret(params: { basketId: string }) {
+  return async (dispatch: Dispatch) => {
+    dispatch(requestBasketClientSecretActions.initialize(params));
+  };
+}
+
+export function requestBasketClientSecret(
+  params: {
+    basketId: string;
+    payment_engine_identifier: number;
+  },
+  options?: OptionCallback<RequestClientSecretPayload>,
+) {
+  const { basketId, payment_engine_identifier } = params;
+  return async (dispatch: Dispatch) => {
+    dispatch(
+      requestBasketClientSecretActions.initialize({
+        basketId: basketId,
+      }),
+    );
+    dispatch(
+      requestBasketClientSecretActions.isLoading({
+        basketId: basketId,
+        loading: true,
+      }),
+    );
+    try {
+      const response = await requestBasketClientSecretAPI({
+        payment_engine_identifier,
+        basket: basketId,
+      });
+      dispatch(
+        requestBasketClientSecretActions.success({
+          ...response.data,
+          basketId,
+        }),
+      );
+      options?.onSuccess?.();
+    } catch (error) {
+      const axiosError = error as AxiosError;
+      console.error(axiosError);
+      if (
+        isErrorWithCustomCode(axiosError) &&
+        axiosError.response?.data?.error_code
+      ) {
+        dispatch(
+          snackbarError(
+            `clientSecret.errors.${axiosError.response.data.error_code}`,
+          ),
+        );
+      }
+      options?.onError?.(axiosError);
+      dispatch(
+        requestBasketClientSecretActions.error({
+          basketId,
+          error: axiosError,
+        }),
+      );
+    }
+    dispatch(
+      requestBasketClientSecretActions.isLoading({
+        basketId,
+        loading: false,
+      }),
+    );
   };
 }

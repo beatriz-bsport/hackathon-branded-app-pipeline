@@ -1,4 +1,4 @@
-import { existsSync } from "fs-extra";
+import { existsSync, readJSONSync } from "fs-extra";
 import path from "path";
 import { getProjectsPackageJsons } from "@bsport/typescript-monorepo-utils";
 
@@ -9,13 +9,26 @@ export type ProjectConfig = {
 };
 
 const PROJECTS_TO_FILTER_OUT = ["@bsport/saas-legacy", "@bsport/widget-legacy"];
+function getPrintFns({ quiet }: { quiet: boolean }) {
+  return {
+    print: (...msgs: any) => !quiet && console.log(...msgs),
+    printError: (...msgs: any) => !quiet && console.error(...msgs),
+    printGroup: (...msgs: any) => !quiet && console.group(...msgs),
+    printGroupEnd: () => !quiet && console.groupEnd(),
+  };
+}
 
 /**
  * Retrieve all applications containing a right i18n configuration,
  * Meaning a src/i18n folder containing a translations folder and a namespaces.json file,
  * And return the adequate data to run the update script for translations.
  */
-export async function getInternationalizedApplications() {
+export async function getInternationalizedApplications(params?: {
+  quiet?: boolean;
+}) {
+  const { printError, printGroup, printGroupEnd, print } = getPrintFns({
+    quiet: !!params?.quiet,
+  });
   const projects = await getProjectsPackageJsons({ isAbsolutePath: true });
 
   // Filter projects to keep only those with i18n
@@ -41,15 +54,93 @@ export async function getInternationalizedApplications() {
         });
       }
     } catch (error) {
-      console.error(`Skip ${projectName} : Could not find src/i18n folder`);
+      printError(`Skip ${projectName} : Could not find src/i18n folder`);
     }
   }
 
-  console.group(`\n> Projects with i18n configuration`);
+  printGroup(`\n> Projects with i18n configuration`);
   for (const project of filteredProjectList) {
-    console.log(`- ${project.name}`);
+    print(`- ${project.name}`);
   }
-  console.groupEnd();
+  printGroupEnd();
 
   return filteredProjectList;
+}
+
+/**
+ * Retrieve the list of namespaces of the project
+ * @param pathToI18n Relative path from the root of ichizen to app i18n folder
+ */
+export function getAppNamespaces(pathToI18n: string): string[] {
+  const namespaceListPath = path.resolve(pathToI18n, "namespaces.json");
+  if (!existsSync(namespaceListPath)) {
+    return [];
+  }
+  return readJSONSync(namespaceListPath);
+}
+
+/**
+ * Retrieve and aggregate translations from *.translations.js/ts files of given namespaces
+ * @param pathToI18n Relative path from the root of ichizen to app i18n folder
+ * @param namespaces List of namespace to read and aggregate
+ */
+export async function getNamespacesTranslations({
+  pathToI18n,
+  namespaces,
+}: {
+  pathToI18n: string;
+  namespaces: string[];
+}) {
+  try {
+    const aggregatedTranslations: { [namespace: string]: object } = {};
+
+    for (const namespace of namespaces) {
+      const filePath = getNamespaceTranslationsPath({
+        translationsFolder: path.resolve(pathToI18n, "translations"),
+        namespace,
+      });
+      if (!filePath) {
+        console.log(`Skip ${namespace} - Could not find a filepath`);
+        continue; // Skip if no file path is found
+      }
+
+      const fileContent: object = await require(filePath).default;
+      aggregatedTranslations[namespace] = fileContent;
+    }
+
+    return aggregatedTranslations;
+  } catch (error) {
+    console.error(error);
+    console.error("Fail to concat src/i18n/translations/ files");
+    return {};
+  }
+}
+
+/**
+ * Given a namespace, and a folder path will all translations files (.js, .ts),
+ * Return the adequate path of the file containing the translations of that namespace.
+ */
+function getNamespaceTranslationsPath({
+  translationsFolder,
+  namespace,
+}: {
+  translationsFolder: string;
+  namespace: string;
+}) {
+  const filePathTs = path.resolve(
+    translationsFolder,
+    `${namespace}.translations.ts`,
+  );
+  const filePathJs = path.resolve(
+    translationsFolder,
+    `${namespace}.translations.js`,
+  );
+  if (existsSync(filePathTs)) {
+    return filePathTs;
+  } else if (existsSync(filePathJs)) {
+    return filePathJs;
+  } else {
+    console.warn(`Could not find ${filePathTs} or ${filePathJs}`);
+    return "";
+  }
 }

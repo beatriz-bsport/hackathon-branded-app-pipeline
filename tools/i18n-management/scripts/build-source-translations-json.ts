@@ -1,7 +1,12 @@
 import path from "path";
-import { readJSONSync, existsSync, writeFileSync, mkdirSync } from "fs-extra";
+import { existsSync, writeFileSync, mkdirSync } from "fs-extra";
 import beautify from "json-beautify";
-import { getInternationalizedApplications, type ProjectConfig } from "./utils";
+import {
+  getInternationalizedApplications,
+  getAppNamespaces,
+  getNamespacesTranslations,
+  type ProjectConfig,
+} from "./utils";
 
 async function main() {
   // Step 1 : List all projects with i18n folder
@@ -33,76 +38,21 @@ async function generateProjectTranslations({
 }: {
   projectConfig: ProjectConfig;
 }) {
-  const { pathToI18n, name } = projectConfig;
-  const errorMessage = `Failed to build translations object for ${name}:`;
-
   // Retrieve namespace list
-  const namespaceListPath = path.resolve(pathToI18n, "namespaces.json");
-  if (!existsSync(namespaceListPath)) {
-    console.error(errorMessage, "File src/i18n/namespaces.json does not exist");
-    return {};
-  }
-  const namespaceList: string[] = readJSONSync(namespaceListPath);
-  if (!namespaceList?.length) {
+  const namespaces = getAppNamespaces(projectConfig.pathToI18n);
+  if (namespaces.length === 0) {
+    console.error(
+      `Failed to build translations object for ${projectConfig.name}:`,
+      "File src/i18n/namespaces.json does not exist or is empty",
+    );
     return {};
   }
 
   // Retrieve [namespace].translations.js in translations/
-  try {
-    const translationsPath = path.resolve(
-      projectConfig.pathToI18n,
-      "translations",
-    );
-
-    const aggregatedTranslations: { [namespace: string]: object } = {};
-
-    for (const namespace of namespaceList) {
-      const filePath = getNamespaceTranslationsPath({
-        translationsFolder: translationsPath,
-        namespace,
-      });
-      if (!filePath) {
-        continue; // Skip if no file path is found
-      }
-
-      const fileContent: object = await require(filePath).default;
-      aggregatedTranslations[namespace] = fileContent;
-    }
-
-    return aggregatedTranslations;
-  } catch (error) {
-    console.error(errorMessage, "Fail to concat src/i18n/translations/ files");
-    return {};
-  }
-}
-
-/**
- * Given a namespace, and a folder path will all translations files (.js, .ts),
- * Return the adequate path of the file containing the translations of that namespace.
- */
-function getNamespaceTranslationsPath({
-  translationsFolder,
-  namespace,
-}: {
-  translationsFolder: string;
-  namespace: string;
-}) {
-  const filePathTs = path.resolve(
-    translationsFolder,
-    `${namespace}.translations.ts`,
-  );
-  const filePathJs = path.resolve(
-    translationsFolder,
-    `${namespace}.translations.js`,
-  );
-  if (existsSync(filePathTs)) {
-    return filePathTs;
-  } else if (existsSync(filePathJs)) {
-    return filePathJs;
-  } else {
-    console.warn(`Could not find ${filePathTs} or ${filePathJs}`);
-    return "";
-  }
+  return await getNamespacesTranslations({
+    namespaces,
+    pathToI18n: projectConfig.pathToI18n,
+  });
 }
 
 main();

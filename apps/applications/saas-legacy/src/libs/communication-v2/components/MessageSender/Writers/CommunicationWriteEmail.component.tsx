@@ -21,7 +21,6 @@ import {
 } from '#src/libs/communication-v2/constants';
 import CommunicationWrapperDialog from '../../CommunicationWrapperDialog.component';
 import { useTagsAndCategories } from '#src/libs/communication-v2/hooks/useCommunicationsTools.hooks';
-import { useCommunicationContext } from '#src/libs/communication-v2/context/CommunicationDrawer.context';
 
 type Props = {
   children: React.ReactNode;
@@ -37,6 +36,7 @@ type Props = {
   onSeeTemplate?: () => void;
   onRemoveTemplate?: () => void;
   refreshTemplateData?: ({ templateId }: FetchTemplateDetailsParams) => void;
+  fullScreen?: boolean;
 };
 
 const CommunicationWriteEmail: React.FC<Props> = ({
@@ -53,8 +53,8 @@ const CommunicationWriteEmail: React.FC<Props> = ({
   onEditTemplate,
   onSeeTemplate,
   refreshTemplateData,
+  fullScreen,
 }) => {
-  const { fullScreen } = useCommunicationContext();
   const { t } = useTranslation('communication');
 
   const [showRefreshDialog, setShowRefreshDialog] = useState(false);

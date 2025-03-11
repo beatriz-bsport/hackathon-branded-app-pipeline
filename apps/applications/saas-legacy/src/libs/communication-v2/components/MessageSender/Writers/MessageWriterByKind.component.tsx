@@ -10,6 +10,7 @@ import CommunicationWriteSMS from '#src/libs/communication-v2/components/Message
 import CommunicationWriteNotification from '#src/libs/communication-v2/components/MessageSender/Writers/CommunicationWriteNotification.component';
 import CommunicationWriteEmail from '#src/libs/communication-v2/components/MessageSender/Writers/CommunicationWriteEmail.component';
 import { openNewBackOfficeWindow } from '#src/utils/windows';
+import { useCommunicationContext } from '#src/libs/communication-v2/context/CommunicationDrawer.context';
 
 type MessageWriterByKindProps = {
   children: React.ReactNode;
@@ -56,6 +57,7 @@ const MessageWriterByKind: React.FC<MessageWriterByKindProps> = ({
   setFocusTextField,
   checkAndSetValidity,
 }: MessageWriterByKindProps) => {
+  const { fullScreen } = useCommunicationContext();
   const onSeeTemplate = useCallback(() => {
     setOpenTemplateVisualizer(true);
   }, [setOpenTemplateVisualizer]);
@@ -128,6 +130,7 @@ const MessageWriterByKind: React.FC<MessageWriterByKindProps> = ({
           emailTemplateDetails={emailTemplateDetailList}
           emailTemplateSelected={emailTemplateSelected}
           emailTitle={emailTitle}
+          fullScreen={fullScreen}
           handleChangeContent={handleChangeContent}
           handleChangeTitle={handleChangeTitle}
           loadingTemplateDetails={loadingTemplateDetailList}
@@ -142,6 +145,7 @@ const MessageWriterByKind: React.FC<MessageWriterByKindProps> = ({
       )}
       {communicationKind === WRITE_SMS && (
         <CommunicationWriteSMS
+          fullScreen={fullScreen}
           handleChangeContent={handleChangeSMSContent}
           onFocus={onFocus}
           smsContent={smsContent}
@@ -151,6 +155,7 @@ const MessageWriterByKind: React.FC<MessageWriterByKindProps> = ({
       )}
       {communicationKind === WRITE_PUSH_NOTIFICATION && (
         <CommunicationWriteNotification
+          fullScreen={fullScreen}
           handleChangeContent={handleChangeNotificationContent}
           handleChangeTitle={handleChangeNotificationTitle}
           notificationContent={notificationContent}

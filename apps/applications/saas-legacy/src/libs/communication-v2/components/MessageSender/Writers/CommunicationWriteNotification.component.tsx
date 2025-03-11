@@ -13,7 +13,6 @@ import {
   MAX_LENGTH_PUSH_CONTENT,
   MAX_LENGTH_PUSH_TITLE,
 } from '#src/libs/communication-v2/constants';
-import { useCommunicationContext } from '#src/libs/communication-v2/context/CommunicationDrawer.context';
 
 type Props = {
   children: React.ReactNode;
@@ -23,6 +22,7 @@ type Props = {
   notificationContent: string;
   notificationTitle: string;
   onFocus?: (identifier: number) => void;
+  fullScreen?: boolean;
 };
 
 const CommunicationWriteNotification: React.FC<Props> = ({
@@ -33,8 +33,8 @@ const CommunicationWriteNotification: React.FC<Props> = ({
   notificationContent,
   notificationTitle,
   onFocus,
+  fullScreen,
 }) => {
-  const { fullScreen } = useCommunicationContext();
   const { t } = useTranslation('communication');
   const classes = useStyles();
 

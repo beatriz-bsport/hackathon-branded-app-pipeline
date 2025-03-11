@@ -14,7 +14,6 @@ import {
   MAX_LENGTH_AUTOMATIC_SMS,
   TEXTFIELD_SMS_CONTENT,
 } from '#src/libs/communication-v2/constants';
-import { useCommunicationContext } from '#src/libs/communication-v2/context/CommunicationDrawer.context';
 
 type Props = {
   children: React.ReactNode;
@@ -22,6 +21,7 @@ type Props = {
   onFocus?: (identifier: number) => void;
   minimalBottom?: boolean; // for specific use such as sequential marketing
   smsContent: string;
+  fullScreen?: boolean;
 };
 
 const CommunicationWriteSMS: React.FC<Props> = ({
@@ -30,8 +30,8 @@ const CommunicationWriteSMS: React.FC<Props> = ({
   onFocus,
   minimalBottom,
   smsContent,
+  fullScreen,
 }) => {
-  const { fullScreen } = useCommunicationContext();
   const { t } = useTranslation('communication');
 
   const classes = useStyles();

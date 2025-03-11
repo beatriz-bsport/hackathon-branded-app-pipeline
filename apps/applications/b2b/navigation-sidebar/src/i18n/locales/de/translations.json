@@ -34,7 +34,30 @@
             "schedule": "Stundenplan",
             "calendar": "Kalender",
             "notifications": "Benachrichtigungen",
-            "inbox": "Posteingang"
+            "inbox": "Posteingang",
+            "myStudio": {
+                "establishments": "Einrichtungen",
+                "teachers": "Lehrer",
+                "title": "Mein Studio"
+            },
+            "membersHub": {
+                "tags": "Tags",
+                "forms": "Formulare",
+                "members": "Mitglieder",
+                "title": "Mitgliederbereich"
+            },
+            "finance": {
+                "payroll": "Lohnabrechnung",
+                "expenses": "Ausgaben",
+                "directDebits": "Lastschriften",
+                "payouts": "Auszahlungen",
+                "invoices": "Rechnungen",
+                "title": "Finanzen"
+            }
+        },
+        "revampCard": {
+            "goBackToOldUi": "Zur alten Benutzeroberfläche zurückkehren",
+            "betaFeedbackLink": "Beta-Feedback"
         }
     }
 }

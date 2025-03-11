@@ -15549,7 +15549,7 @@
                 }
             },
             "customForm": {
-                "layout": "Personlisierung",
+                "layout": "Personalisierung",
                 "general": "Inhalt",
                 "campaign": "Kampagne",
                 "statistics": "Statistiken"
@@ -20364,13 +20364,13 @@
             "privatePass": "Terminpässe",
             "shopItem": "Produkte",
             "combo": "Packs",
-            "recurrency": "Rekursion",
+            "recurrency": "Intervall",
             "number_of_billing": "Anzahl der Zahlungen",
             "paymentNumber": "{{number_of_billing}} Zahlung",
             "paymentNumber_plural": "{{number_of_billing}} Zahlungen",
             "fee": "Feste Kosten",
             "minimumAmount": "Mindestbetrag des Warenkorbs",
-            "compatibility": "Rechenschaftspflicht",
+            "compatibility": "Kompabilität",
             "seeAll": "alles sehen",
             "packAvailableForAll": "Alle kompatiblen Kurspässe",
             "packAvailable": "{{length}} kompatibler Kurspass",

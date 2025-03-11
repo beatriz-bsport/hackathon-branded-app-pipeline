@@ -37,6 +37,10 @@
   width: fit-content;
 }
 
+.bs-marketplace-header-layout__list__item__label {
+  text-decoration: none;
+}
+
 .bs-marketplace-header-layout__root .bs-fabrique-tab-root--selected {
   background-color: var(--bs-color-border-strong);
   color: var(--bs-color-action-light);

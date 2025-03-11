@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 
 import Typography from '#src/components/css-only/Fabrique/Typography';
 import TextField from '#src/components/css-only/Fabrique/TextFieldV2';
@@ -10,6 +10,9 @@ import IconButton from '#src/components/css-only/Fabrique/IconButton';
 import { useUrlTabNavigation } from '#src/libs/marketplace/components/@Layout/hooks/useUrlTabNavigation';
 import Tab from '#src/components/css-only/Fabrique/Tab';
 import { useTranslation } from 'react-i18next';
+import BottomDrawer from '#src/components/css-only/Fabrique/BottomDrawer';
+import List from '#src/components/css-only/Fabrique/List';
+import ListItem from '#src/components/css-only/Fabrique/ListItem';
 import { MARKETPLACE_BREAKPOINT } from '#src/libs/marketplace/constants';
 
 export type HeaderLayoutProps = React.HTMLAttributes<HTMLDivElement> & {
@@ -48,6 +51,19 @@ const HeaderLayout: React.FC<HeaderLayoutProps> = ({
   const isMobile = width < MARKETPLACE_BREAKPOINT.SM;
   const { handleTabClick, selectedTab } = useUrlTabNavigation(pageTabs);
   const { t } = useTranslation(['marketplace', 'common']);
+  const [isBottomDrawerOpen, setIsBottomDrawerOpen] = useState(false);
+
+  const toggleBottomDrawer = useCallback(() => {
+    setIsBottomDrawerOpen((prevState) => !prevState);
+  }, []);
+
+  const handleBottomDrawerClick = useCallback(
+    (urlPath: string) => () => {
+      handleTabClick(urlPath)();
+      setIsBottomDrawerOpen(false);
+    },
+    [handleTabClick],
+  );
 
   const getSelectedTabItemLabel = useCallback(
     (selectedTabItem: TabData): string => selectedTabItem.label,
@@ -90,7 +106,8 @@ const HeaderLayout: React.FC<HeaderLayoutProps> = ({
             getSelectedItemLabel={getSelectedTabItemLabel}
             getSelectedItemValue={getSelectedTabItemValue}
             id="bs-marketplace-header-layout__selector"
-            selectedItems={pageTabs[0]}
+            onClick={toggleBottomDrawer}
+            selectedItems={selectedTab}
             size="lg"
           />
         ) : (
@@ -136,6 +153,36 @@ const HeaderLayout: React.FC<HeaderLayoutProps> = ({
           )}
         </div>
       </div>
+      {isMobile && (
+        <BottomDrawer
+          blanketProps={{
+            isOpen: isBottomDrawerOpen,
+            onClick: toggleBottomDrawer,
+          }}
+          className="bs-marketplace-header-layout-drawer__root"
+          modalDialogProps={{
+            cancelLabel: t('common:back'),
+            title: t('marketplace:passes.drawerTitle.tabs'),
+            onClose: toggleBottomDrawer,
+            onCancel: toggleBottomDrawer,
+          }}
+        >
+          <List className="bs-marketplace-header-layout__list">
+            {pageTabs.map((tab) => (
+              <ListItem
+                key={tab.urlPath}
+                classes={{
+                  label: 'bs-marketplace-header-layout__list__item__label',
+                }}
+                isSelected={tab.urlPath === selectedTab.urlPath}
+                label={tab.label}
+                onClick={handleBottomDrawerClick(tab.urlPath)}
+                type="clickableText"
+              />
+            ))}
+          </List>
+        </BottomDrawer>
+      )}
     </div>
   );
 };

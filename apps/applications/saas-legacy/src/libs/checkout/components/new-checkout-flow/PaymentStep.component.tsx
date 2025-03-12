@@ -135,7 +135,12 @@ export const PaymentStep: React.FC<PaymentStepProps> = forwardRef(
 
     const onSubmitUnpaid = React.useCallback(async () => {
       setPaymentProcessing(true);
-
+      /**
+       * checkItemsBasket and verifyPriceBasketAPI are intentionally not moved to a Redux action because:
+       * 1. They are always executed within the context of a checkout process, specifically inside an iframe widget.
+       * 2. The data returned by these API calls do not need to be stored or managed within the Redux store.
+       * Therefore, keeping these API calls local to this context is more appropriate and efficient.
+       */
       const basketItemsChecked = await checkItemsBasket(basket.id);
       if (!basketItemsChecked) {
         setPaymentProcessing(false);

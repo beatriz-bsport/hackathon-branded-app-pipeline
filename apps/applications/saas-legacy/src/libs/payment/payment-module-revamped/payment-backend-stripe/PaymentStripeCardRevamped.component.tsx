@@ -357,7 +357,12 @@ const PaymentStripeCardRevamped = forwardRef(
         }
 
         if (basketId) {
-          // TODO with BS-5131: move this API call to Redux action
+          /**
+           * checkItemsBasket and verifyPriceBasketAPI are intentionally not moved to a Redux action because:
+           * 1. They are always executed within the context of a checkout process, specifically inside an iframe widget.
+           * 2. The data returned by these API calls do not need to be stored or managed within the Redux store.
+           * Therefore, keeping these API calls local to this context is more appropriate and efficient.
+           */
           const { data } = await verifyPriceBasketAPI(basketId);
 
           const basketItemsChecked = await checkItemsBasket(basketId);
@@ -379,6 +384,13 @@ const PaymentStripeCardRevamped = forwardRef(
         }
         try {
           if (!areInitialBillingDetailsNecessary && paymentMethodSelected) {
+            /**
+             * This API call is intentionally not moved to a Redux action because:
+             * 1. It might be executed within the context of a checkout process, specifically inside the marketplace
+             * or in an iframe widget. Thus, we don't need to make authenticated call from the widget.
+             * 2. The data returned by this API call does not need to be stored or managed within the Redux store.
+             * Therefore, keeping the API call local to this context is more appropriate and efficient.
+             */
             await updatePaymentMethodBillingDetailsAPI({
               member: memberId,
               payment_method_id: paymentMethodSelected,
@@ -407,7 +419,13 @@ const PaymentStripeCardRevamped = forwardRef(
             // The payment has been processed!
             if (basketId) {
               try {
-                // TODO with BS-5131: move this API call to Redux action
+                /**
+                 * This API call is intentionally not moved to a Redux action because:
+                 * 1. It might be executed within the context of a checkout process, specifically inside the marketplace
+                 * or in an iframe widget. Thus, we don't need to make authenticated call from the widget.
+                 * 2. The data returned by this API call does not need to be stored or managed within the Redux store.
+                 * Therefore, keeping the API call local to this context is more appropriate and efficient.
+                 */
                 await blockPendingBasketAPI(basketId);
               } catch (err) {
                 console.error(err);

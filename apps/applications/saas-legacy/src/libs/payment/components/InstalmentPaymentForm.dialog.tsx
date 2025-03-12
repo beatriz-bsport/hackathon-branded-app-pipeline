@@ -121,6 +121,13 @@ const InstalmentPaymentFormDialog = (props: Props) => {
       !areInitialBillingDetailsNecessary &&
       readableIdentifier === MarketplacePaymentMethods.card
     ) {
+      /**
+       * This API call is intentionally not moved to a Redux action because:
+       * 1. It might be executed within the context of a checkout process, specifically inside the marketplace
+       * or in an iframe widget. Thus, we don't need to make authenticated call from the widget.
+       * 2. The data returned by this API call does not need to be stored or managed within the Redux store.
+       * Therefore, keeping the API call local to this context is more appropriate and efficient.
+       */
       await updatePaymentMethodBillingDetailsAPI({
         payment_method_id: paymentConfig.payment_method_id,
         billing_details: {

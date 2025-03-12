@@ -368,6 +368,12 @@ export const PaymentStripeSEPA = forwardRef(
         event.preventDefault();
 
         if (basketId) {
+          /**
+           * checkItemsBasket and verifyPriceBasketAPI are intentionally not moved to a Redux action because:
+           * 1. They are always executed within the context of a checkout process, specifically inside an iframe widget.
+           * 2. The data returned by these API calls do not need to be stored or managed within the Redux store.
+           * Therefore, keeping these API calls local to this context is more appropriate and efficient.
+           */
           const { data } = await verifyPriceBasketAPI(basketId);
 
           const basketItemsChecked = await checkItemsBasket(basketId);

@@ -5296,7 +5296,7 @@
                     "title": "Critères d'entrée",
                     "addTrigger": "Ajouter un déclencheur d'entrée",
                     "helperText": "Tout d'abord, définissez la manière dont vos membres entrerons dans le {{ workflowLowerCase }}. Sélectionnez un ou plusieurs événements ou smartlists et si le membre correspond à l'un d'entre eux, il entrera dans le {{ workflowLowerCase }}.",
-                    "creationHelper": "Commençons par décider comment vos membres entrent dans le {{ workflowLowerCase }}. Pour ce faire, vous devez sélectionner un déclencheur d'entrée. \u2028Si vous sélectionnez plusieurs déclencheurs, les membres qui correspondent à l'un d'entre eux entreront dans le {{ workflowLowerCase }}.",
+                    "creationHelper": "Commençons par décider comment vos membres entrent dans le {{ workflowLowerCase }}. Pour ce faire, vous devez sélectionner un déclencheur d'entrée.  Si vous sélectionnez plusieurs déclencheurs, les membres qui correspondent à l'un d'entre eux entreront dans le {{ workflowLowerCase }}.",
                     "editionHelper": "Modifiez les critères d'entrée de vos membres dans le {{ workflowLowerCase }}. Si un membre correspond à l'un de ces critères, il rejoindra le {{ workflowLowerCase }}."
                 },
                 "convertIntoStep": {
@@ -5337,7 +5337,7 @@
                 },
                 "wonTrigger": {
                     "title": "Sortie réussie",
-                    "helperText": "Définissez l'objectif global de votre {{ workflowLowerCase }}. Si un membre effectue le (ou l'un des) déclencheur(s) de sortie sélectionné(s), il atteindra l'objectif et quittera le {{ workflowLowerCase }} avec succès (quelle que soit l'étape à laquelle il se trouve).\u2028Cela vous aidera à suivre vos indicateurs de performance.",
+                    "helperText": "Définissez l'objectif global de votre {{ workflowLowerCase }}. Si un membre effectue le (ou l'un des) déclencheur(s) de sortie sélectionné(s), il atteindra l'objectif et quittera le {{ workflowLowerCase }} avec succès (quelle que soit l'étape à laquelle il se trouve). Cela vous aidera à suivre vos indicateurs de performance.",
                     "addTrigger": "Ajouter un déclencheur de sortie"
                 }
             },
@@ -11612,7 +11612,10 @@
             "incremental_identifier": "Nombre",
             "product_categories": "Catégories de produits",
             "product_types": "Types de produits",
-            "kind": "Type"
+            "kind": "Type",
+            "size": "Taille",
+            "color": "Couleur",
+            "subtitle": "Sous-titre"
         },
         "yes": "Oui",
         "no": "Non",

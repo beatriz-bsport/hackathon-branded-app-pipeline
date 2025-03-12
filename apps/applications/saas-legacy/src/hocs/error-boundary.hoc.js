@@ -3,7 +3,8 @@
 import * as Sentry from '@sentry/react';
 
 import React from 'react';
-
+import { getVerticalOwnerByPageUrl } from '#src/sentry/utils';
+import { SENTRY_FRONTEND_MODULE_TAG_NAME } from '#src/sentry/types';
 import '../errors.scss';
 
 /* eslint-disable */
@@ -12,11 +13,15 @@ export default function (WrappedComponent) {
     state = { error: null };
 
     componentDidCatch(error, errorInfo) {
+      const currentUrl = window?.location?.pathname || '';
+      const attributedVertical = getVerticalOwnerByPageUrl(currentUrl);
+
       this.setState({ error });
       Sentry.withScope((scope) => {
         Object.keys(errorInfo).forEach((key) => {
           scope.setExtra(key, errorInfo[key]);
         });
+        Sentry.setTag(SENTRY_FRONTEND_MODULE_TAG_NAME, attributedVertical);
         Sentry.captureException(error);
         console.error(error);
       });

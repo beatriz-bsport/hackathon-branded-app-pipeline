@@ -7,6 +7,8 @@ import Config from '../config';
 import RELEASE_SHA from '../release-sha';
 import { setSessionId } from './session';
 import history from '../history';
+import { SENTRY_FRONTEND_MODULE_TAG_NAME } from '#src/sentry/types';
+import { getVerticalOwnerByPageUrl } from '#src/sentry/utils';
 
 const exceptionMessageRegexpToIgnore = [
   /Loading chunk /i,
@@ -56,6 +58,8 @@ Sentry.init({
   replaysOnErrorSampleRate: 1.0,
   tracesSampleRate: 0.002,
   beforeSend(event, hint) {
+    const currentUrl = window?.location.pathname || '';
+    const verticalOwner = getVerticalOwnerByPageUrl(currentUrl);
     const error = hint.originalException;
     if (
       error &&
@@ -69,6 +73,12 @@ Sentry.init({
       )
     ) {
       return null;
+    }
+    if (error instanceof Error) {
+      event.tags = {
+        ...event.tags,
+        [SENTRY_FRONTEND_MODULE_TAG_NAME]: verticalOwner,
+      };
     }
     return event;
   },

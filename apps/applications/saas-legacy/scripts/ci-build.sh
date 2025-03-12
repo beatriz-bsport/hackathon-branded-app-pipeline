@@ -36,6 +36,7 @@ echo "export default '$VERSION';" > src/release.js
 echo "export default '$VERSION_SHA';" > src/release-sha.js
 
 # Build the application
+pnpm run translation:update
 pnpm run build
 
 # Replace the env file

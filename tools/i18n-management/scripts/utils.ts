@@ -8,6 +8,8 @@ export type ProjectConfig = {
   pathToPublicLocales: string;
 };
 
+const PROJECTS_TO_FILTER_OUT = ["@bsport/saas-legacy", "@bsport/widget-legacy"];
+
 /**
  * Retrieve all applications containing a right i18n configuration,
  * Meaning a src/i18n folder containing a translations folder and a namespaces.json file,
@@ -22,6 +24,12 @@ export async function getInternationalizedApplications() {
     a.name.localeCompare(b.name),
   )) {
     const { name: projectName, path: projectPath } = projectConfig;
+
+    // Filter out legacy projects -> they have their own weblate project
+    if (PROJECTS_TO_FILTER_OUT.includes(projectName)) {
+      continue;
+    }
+
     const i18nPath = path.join(projectPath, "/src/i18n");
     const publicLocalesPath = path.join(projectPath, "/public/locales");
     try {

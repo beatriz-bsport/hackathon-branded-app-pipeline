@@ -25,7 +25,7 @@
     "start-dev": "export NODE_OPTIONS=--openssl-legacy-provider NODE_ENV=development && pnpm run translation:update && cp envs/dev-api-only public/env.js && BROWSER=none webpack serve --config config/webpack.dev.js",
     "start-staging": "export NODE_OPTIONS=--openssl-legacy-provider NODE_ENV=development && pnpm run translation:update && cp envs/staging-api-only public/env.js && BROWSER=none webpack serve --config config/webpack.dev.js",
     "test": "export NODE_OPTIONS=--openssl-legacy-provider && pnpm exec jest --logHeapUsage",
-    "translation:update": "pnpm run -w translation:update"
+    "translation:update": "./scripts/update-translations.sh"
   },
   "config": {
     "commitizen": {

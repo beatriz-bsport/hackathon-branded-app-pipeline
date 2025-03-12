@@ -71,3 +71,14 @@ export const requestBasketClientSecret = (params: {
     },
   );
 };
+
+export const createPendingBookings = async (params: {
+  basketId: string;
+  data: { payment_group_method_identifier?: number };
+}) => {
+  const { basketId, data } = params;
+  return postAuth(
+    `${API_V1_URI}/checkout/basket/${basketId}/create_pending_bookings/`,
+    data ?? {},
+  );
+};

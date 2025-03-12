@@ -235,4 +235,17 @@ exports.default = {
       noCategory: 'No category',
     },
   },
+  passes: {
+    tabs: {
+      all: 'All',
+      passes: 'Passes',
+      appointmentPasses: 'Appointment passes',
+    },
+    drawerTitle: {
+      tabs: 'Select a pass type',
+    },
+    title: 'Passes',
+    filters: 'Filters',
+    search: 'Search',
+  },
 };

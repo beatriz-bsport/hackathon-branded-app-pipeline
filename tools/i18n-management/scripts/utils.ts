@@ -18,6 +18,8 @@ function getPrintFns({ quiet }: { quiet: boolean }) {
   };
 }
 
+const PROJECTS_TO_FILTER_OUT = ["@bsport/saas-legacy", "@bsport/widget-legacy"];
+
 /**
  * Retrieve all applications containing a right i18n configuration,
  * Meaning a src/i18n folder containing a translations folder and a namespaces.json file,

@@ -65,7 +65,7 @@ const OneClickBookingModule: React.FC<Props> = ({
     values: lightSignupValues,
     submitForm: submitLightSignupForm,
     validateForm: validateLightSignupForm,
-    errors: lightSignupErrors,
+    isValid,
   } = useFormikContext<LightSignupFormValues>();
   const [selectedPaymentPackId, setSelectedPaymentPackId] = useState<
     number | null
@@ -324,8 +324,7 @@ const OneClickBookingModule: React.FC<Props> = ({
                   className="bs-oneclick-booking__book-button"
                   color={ButtonColor.PRIMARY}
                   isDisabled={
-                    !!Object.values(lightSignupErrors).length ||
-                    !lightSignupValues.email ||
+                    !isValid ||
                     (!!general_terms_and_conditions &&
                       !areTermsAndConditionsAccepted)
                   }

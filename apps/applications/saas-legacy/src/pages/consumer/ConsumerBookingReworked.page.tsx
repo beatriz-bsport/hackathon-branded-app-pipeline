@@ -118,17 +118,17 @@ export class ConsumerBooking extends React.Component<Props, State> {
   }
 
   componentDidMount() {
-    this.fetchSoonestBooking();
-    this.fetchSoonestPrivateBooking();
-    this.fetchSoonestWorkshopBooking();
+    this.fetchSoonestBookings();
+    this.fetchSoonestPrivateBookings();
+    this.fetchSoonestWorkshopBookings();
     this.props.fetchCompanyWaitlistConfiguration(this.props.companyId);
   }
 
   componentDidUpdate(prevProps: Props) {
     if (!prevProps?.membership?.id && !!this.props?.membership?.id) {
-      this.fetchSoonestBooking();
-      this.fetchSoonestPrivateBooking();
-      this.fetchSoonestWorkshopBooking();
+      this.fetchSoonestBookings();
+      this.fetchSoonestPrivateBookings();
+      this.fetchSoonestWorkshopBookings();
     }
   }
 
@@ -298,16 +298,16 @@ export class ConsumerBooking extends React.Component<Props, State> {
       );
   };
 
-  fetchSoonestBooking = (
+  fetchSoonestBookings = (
     page?: number,
     options?: OptionCallback<PaginatedResponse<BookingREST>>,
   ) => {
     !!this.props.membership?.id &&
       this.props.fetchMyFutureBookingAsMember(
-        { page, member: this.props.membership.id, page_size: 1 },
+        { page, member: this.props.membership.id },
         {
-          onSuccess: (data) => options?.onSuccess && options.onSuccess(data),
-          onError: (error) => options?.onError && options.onError(error),
+          onSuccess: (data) => options?.onSuccess?.(data),
+          onError: (error) => options?.onError?.(error),
         },
       );
   };
@@ -378,7 +378,7 @@ export class ConsumerBooking extends React.Component<Props, State> {
       );
   };
 
-  fetchSoonestPrivateBooking = (
+  fetchSoonestPrivateBookings = (
     page?: number,
     options?: OptionCallback<PaginatedResponse<PrivateBooking>>,
   ) => {
@@ -388,11 +388,10 @@ export class ConsumerBooking extends React.Component<Props, State> {
           page,
           member: this.props.membership.id,
           company: this.props.companyId,
-          page_size: 1,
         },
         {
-          onSuccess: (data) => options?.onSuccess && options.onSuccess(data),
-          onError: (error) => options?.onError && options.onError(error),
+          onSuccess: (data) => options?.onSuccess?.(data),
+          onError: (error) => options?.onError?.(error),
         },
       );
   };
@@ -425,16 +424,16 @@ export class ConsumerBooking extends React.Component<Props, State> {
       );
   };
 
-  fetchSoonestWorkshopBooking = (
+  fetchSoonestWorkshopBookings = (
     page?: number,
     options?: OptionCallback<PaginatedResponse<BookingREST>>,
   ) => {
     !!this.props.membership?.id &&
       this.props.fetchMyFutureBookingWorkshopAsMember(
-        { page, member: this.props.membership.id, page_size: 1 },
+        { page, member: this.props.membership.id },
         {
-          onSuccess: (data) => options?.onSuccess && options.onSuccess(data),
-          onError: (error) => options?.onError && options.onError(error),
+          onSuccess: (data) => options?.onSuccess?.(data),
+          onError: (error) => options?.onError?.(error),
         },
       );
   };
@@ -489,9 +488,9 @@ export class ConsumerBooking extends React.Component<Props, State> {
         fetchPastBookings={this.fetchPastBookings}
         fetchPastBookingsWorkshop={this.fetchPastBookingsWorkshop}
         fetchPastPrivateBookings={this.fetchPastPrivateBookings}
-        fetchSoonestBooking={this.fetchSoonestBooking}
-        fetchSoonestPrivateBooking={this.fetchSoonestPrivateBooking}
-        fetchSoonestWorkshopBooking={this.fetchSoonestWorkshopBooking}
+        fetchSoonestBooking={this.fetchSoonestBookings}
+        fetchSoonestPrivateBooking={this.fetchSoonestPrivateBookings}
+        fetchSoonestWorkshopBooking={this.fetchSoonestWorkshopBookings}
         futureBookingsList={this.props.myFutureBookingsList}
         futureBookingsState={this.props.myFutureBookingsState}
         futureBookingsWorkshopList={this.props.myFutureBookingsWorkshopList}

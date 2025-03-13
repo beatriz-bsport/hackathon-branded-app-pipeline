@@ -895,36 +895,37 @@ export default function useConsumerBookingsDataManager({
    *
    */
   const getSoonestBookingCategory = () => {
-    const soonestActivityBooking =
-      futureBookingsList?.[0] && !futureBookingsList[0].date_canceled
+    const soonestActivityBooking = (futureBookingsList ?? []).filter(
+      ({ date_canceled }) => !date_canceled,
+    )[0];
+
+    const soonestWorkshopBooking = (futureBookingsWorkshopList ?? []).filter(
+      ({ date_canceled }) => !date_canceled,
+    )[0];
+
+    const soonestPrivateBooking = (futurePrivateBookingsList ?? []).filter(
+      ({ date_canceled }) => !date_canceled,
+    )[0];
+
+    const sortedBookings = [
+      soonestActivityBooking
         ? {
             category: BookingTabEnum.ACTIVITY,
-            date: DateTime.fromISO(futureBookingsList[0].offer_date_start),
+            date: DateTime.fromISO(soonestActivityBooking.offer_date_start),
           }
-        : null;
-    const soonestWorkshopBooking =
-      futureBookingsWorkshopList?.[0] &&
-      !futureBookingsWorkshopList[0].date_canceled
+        : null,
+      soonestWorkshopBooking
         ? {
             category: BookingTabEnum.WORKSHOP,
-            date: DateTime.fromISO(
-              futureBookingsWorkshopList[0].offer_date_start,
-            ),
+            date: DateTime.fromISO(soonestWorkshopBooking.offer_date_start),
           }
-        : null;
-
-    const soonestPrivateBooking =
-      futurePrivateBookingsList?.[0] &&
-      !futurePrivateBookingsList[0].date_canceled
+        : null,
+      soonestPrivateBooking
         ? {
             category: BookingTabEnum.APPOINTMENT,
-            date: DateTime.fromISO(futurePrivateBookingsList[0].date_start),
+            date: DateTime.fromISO(soonestPrivateBooking.date_start),
           }
-        : null;
-    const sortedBookings = [
-      soonestActivityBooking,
-      soonestWorkshopBooking,
-      soonestPrivateBooking,
+        : null,
     ]
       .filter((booking) => !!booking)
       .sort((a, b) => a?.date.toMillis() - b?.date.toMillis());

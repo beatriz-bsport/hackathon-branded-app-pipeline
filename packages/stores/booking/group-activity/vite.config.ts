@@ -16,18 +16,12 @@ export default defineConfig({
     outDir: "build",
     lib: {
       entry: path.resolve(__dirname, "src/index.ts"), // Entry point of your library
-      formats: ["es", "umd"], // Specify the output formats
-      name: "lib", // Required for UMD formats
+      formats: ["es"], // Specify the output formats
       fileName: (format) => `lib.${format}.js`, // Customize the output file name
     },
     rollupOptions: {
       // External dependencies that shouldn't be bundled
       external: ["react"],
-      output: {
-        globals: {
-          react: "React",
-        },
-      },
     },
   },
   resolve: {

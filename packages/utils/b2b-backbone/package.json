@@ -6,13 +6,14 @@
   "type": "module",
   "exports": {
     ".": {
+      "types": "./build/lib.d.ts",
       "import": "./build/lib.es.js",
-      "require": "./build/lib.umd.js"
+      "default": "./build/lib.es.js"
     }
   },
-  "main": "build/lib.umd.js",
+  "main": "build/lib.es.js",
   "module": "build/lib.es.js",
-  "types": "build/lib.es.d.ts",
+  "types": "build/lib.d.ts",
   "scripts": {
     "build": "tsc && vite build",
     "dev": "vite",

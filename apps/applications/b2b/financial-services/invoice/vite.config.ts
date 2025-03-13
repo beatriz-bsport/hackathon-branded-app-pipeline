@@ -47,13 +47,6 @@ const config: UserConfig = {
   build: {
     rollupOptions: {
       external: ["react", "react-dom", "tailwindcss"],
-      output: {
-        globals: {
-          react: "React",
-          "react-dom": "ReactDOM",
-          tailwindcss: "tailwindcss",
-        },
-      },
     },
     cssCodeSplit: false,
     sourcemap: true,

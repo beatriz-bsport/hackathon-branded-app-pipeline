@@ -13,18 +13,11 @@ const config: UserConfig = {
     lib: {
       entry: resolve(__dirname, "./src/index.ts"),
       name: pkg.name,
+      formats: ["es"], // Specify the output formats
       fileName: (format) => `index.${format}.js`,
     },
     rollupOptions: {
       external: ["react", "react-dom", "tailwindcss", "@bsport/i18n"],
-      output: {
-        globals: {
-          react: "React",
-          "react-dom": "ReactDOM",
-          tailwindcss: "tailwindcss",
-          "@bsport/i18n": "BsportI18n",
-        },
-      },
     },
     sourcemap: true,
     emptyOutDir: true,

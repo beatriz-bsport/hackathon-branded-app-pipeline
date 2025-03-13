@@ -43,9 +43,6 @@ describe('Testing App Navigation', () => {
         'Establishments',
       );
       cy.route('GET', `${REACT_APP_URI}/category/SCT`).as('SCT');
-      cy.route('GET', `${REACT_APP_URI}/category/easy-accesses`).as(
-        'EasyAccesses',
-      );
       cy.route('GET', `${REACT_APP_URI}/saas/payment-pack/`).as('PaymentPack');
       cy.route('GET', `${REACT_APP_URI}/payment-rules/`).as('PaymentRules');
       cy.route('GET', `${REACT_APP_URI}/saas/workshop-activities/`).as(
@@ -60,7 +57,6 @@ describe('Testing App Navigation', () => {
         '@AssociatedCoachs',
         '@Establishments',
         '@SCT',
-        '@EasyAccesses',
         '@PaymentPack',
         '@Bookings',
         '@NewMembers',

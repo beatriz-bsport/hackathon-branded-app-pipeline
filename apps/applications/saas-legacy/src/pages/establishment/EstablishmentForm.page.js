@@ -44,7 +44,6 @@ const establishmentMap = {
   cover: 'cover',
   location: 'location',
   specific_info: 'specific_info',
-  easy_access: 'easy_access',
   associatedestablishment_set: 'associatedestablishment_set',
   tzname: 'tzname',
   practical_info: 'practical_info',
@@ -86,7 +85,7 @@ export class EstablishmentFormPage extends Component<Props> {
     const establishmentData = mapFormDataWithObject(
       updatedDataClean,
       establishmentMap,
-      ['cover'],
+      ['cover', 'easy_access'],
     );
     if (updatedDataClean.cover) {
       establishmentData.append('cover', updatedDataClean.cover);

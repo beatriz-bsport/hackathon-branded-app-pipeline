@@ -32,19 +32,12 @@ export type MaxoutBooking = {
   months: MaxoutBookingData[];
 };
 
-export type EasyAccess = {
-  id: number;
-  lines: Array<string>;
-  name: string;
-};
-
 export type Establishment = {
   id: number;
   title: string;
   cover: string;
   location: Location;
   specific_info: string;
-  easy_access: EasyAccess;
   disabled: boolean;
   associatedestablishment_set: number[];
   tzname: string;

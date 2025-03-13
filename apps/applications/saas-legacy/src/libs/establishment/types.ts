@@ -4,18 +4,11 @@ export type Location = {
   longitude: string;
 };
 
-export type EasyAccess = {
-  id: number;
-  lines: Array<string>;
-  name: string;
-};
-
 export type Establishment = {
   associatedestablishment_set: number[];
   capacity?: number;
   cover: string;
   disabled: boolean;
-  easy_access: EasyAccess;
   establishment_billing_group_id: number | null;
   has_next_slots?: boolean;
   id: number;
@@ -41,7 +34,6 @@ export type EstablishmentWithAssociatedId = {
   cover: string;
   location: Location;
   specific_info: string;
-  easy_access: EasyAccess;
   disabled: boolean;
   associatedestablishment_set: number[];
   tzname: string;

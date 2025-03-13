@@ -11,12 +11,6 @@ export type SCT = {
   language: string;
 };
 
-export type EasyAccess = {
-  id: number;
-  name: string;
-  line: string[];
-};
-
 export type CategoryState = {
   isLoading: boolean;
   SCTs: SCT[];

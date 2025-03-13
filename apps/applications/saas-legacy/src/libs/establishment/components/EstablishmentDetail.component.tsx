@@ -20,8 +20,6 @@ import Calendar from '../../../components/offer/Calendar.component';
 // @ts-expect-error
 import Map from '../../../components/map/Map.component';
 import BookingCreationNotification from '../../booking/components/BookingCreationNotification.component';
-// @ts-expect-error
-import EasyAccessStack from '../../category/components/EasyAccessStack.component';
 import EstablishmentSpotScheduling from './EstablishmentSpotScheduling.component';
 import { RoomBlueprint } from '../../spot-scheduling/types';
 import { MaterialStyleType } from '../../../utils/types';
@@ -162,14 +160,6 @@ export class EstablishmentDetail extends Component<Props, State> {
                       capacity: establishment.capacity,
                     })}
                   </Typography>
-                  <EasyAccessStack
-                    className={classes.easyAccess}
-                    // @ts-expect-error
-                    lines={establishment.easy_access.lines}
-                    // @ts-expect-error
-                    name={establishment.easy_access.name}
-                    size="xs"
-                  />
                   <Typography variant="caption">
                     {establishment.location.address}
                   </Typography>
@@ -252,9 +242,6 @@ const styles = (theme) => ({
   },
   descriptionBlock: {
     paddingTop: theme.spacing(2),
-  },
-  easyAccess: {
-    marginBottom: theme.spacing(1),
   },
   paperContent: {
     padding: theme.spacing(2),

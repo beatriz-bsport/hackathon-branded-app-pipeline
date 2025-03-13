@@ -2,7 +2,6 @@ import { faker } from '@faker-js/faker';
 
 import { generateRandomInt } from '#src/utils/factories';
 import {
-  EasyAccess,
   Establishment,
   EstablishmentBillingGroup,
   EstablishmentGroup,
@@ -66,22 +65,6 @@ const SPECIFIC_INFOS: Array<string> = [
   'Good rates',
 ];
 
-const EASY_ACCESS_LINES: Array<Array<string>> = [
-  ['RER D', 'Ligne 5'],
-  ['Ligne 2', 'Ligne 3', 'Ligne 1'],
-  ['Ligne 4'],
-  ['Ligne 6', 'RER A', 'RER B'],
-  ['RER C'],
-];
-
-const EASY_ACCESS_NAMES: Array<string> = [
-  'Melun',
-  'Val',
-  'Boulogne',
-  'Barcelone',
-  'Rungis',
-];
-
 const TZNAMES: Array<string> = [
   'Europe/Paris',
   'Europe/Madrid',
@@ -105,30 +88,16 @@ function location_factory(num_el: number): Array<Location> {
   }));
 }
 
-function easy_access_factory(num_el: number): Array<EasyAccess> {
-  const EASY_ACCESS_IDS = [...Array(num_el).keys()];
-  const names = [...Array(num_el)].map(
-    (_, i) => EASY_ACCESS_NAMES[i % EASY_ACCESS_NAMES.length],
-  );
-  return EASY_ACCESS_IDS.map((id) => ({
-    id: id + 1,
-    lines: random_choice(EASY_ACCESS_LINES),
-    name: names[id],
-  }));
-}
-
 export function establishment_factory(num_el: number): Array<Establishment> {
   const ESTABLISHMENT_IDS = [...Array(num_el).keys()];
   const titles = [...Array(num_el)].map((_, i) => TITLES[i % TITLES.length]);
   const locations = location_factory(num_el);
-  const easy_accesses = easy_access_factory(num_el);
   return ESTABLISHMENT_IDS.map((id) => ({
     id: id + 1,
     title: titles[id],
     cover: random_choice(COVERS),
     location: locations[id],
     specific_info: random_choice(SPECIFIC_INFOS),
-    easy_access: easy_accesses[id],
     disabled: false,
     associatedestablishment_set: [],
     tzname: random_choice(TZNAMES),

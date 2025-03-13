@@ -21,11 +21,6 @@ FactoryBot.define('Establishment', {
     latitude: faker.location.longitude(),
     longitude: faker.location.latitude(),
   }),
-  easy_access: () => ({
-    id: Math.floor(Math.random() * 1000),
-    lines: [`${Math.floor(Math.random() * 14)}`],
-    name: faker.location.streetAddress(),
-  }),
 });
 
 export default FactoryBot;

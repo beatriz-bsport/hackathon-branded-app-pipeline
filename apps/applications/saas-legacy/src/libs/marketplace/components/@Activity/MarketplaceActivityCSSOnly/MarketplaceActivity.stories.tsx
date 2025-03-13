@@ -135,7 +135,6 @@ const offer = {
     },
     specific_info:
       'Le Centre Elément a pour vocation de proposer une approche holistique du bien-être, en travaillant sur le corps physique, émotionnel et énergétique. Amplifiez votre expérience en ajoutant à votre pratique régulière : Un air purifié et énergisant, une eau vivifiée, des technologies innovantes.',
-    easy_access: { id: 3539, lines: ['M1', 'M11'], name: 'Hôtel De Ville' },
     associatedestablishment_set: [52],
     tzname: 'Europe/Paris',
     practical_info: 'porte en verre sur rue',

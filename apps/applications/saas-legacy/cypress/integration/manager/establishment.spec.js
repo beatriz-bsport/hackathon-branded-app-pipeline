@@ -17,7 +17,7 @@ context('Manager - Establishment', () => {
       });
     cy.visit('/establishment/add');
   });
-  it('Manager can create new establishment, all fields are required', function() {
+  it('Manager can create new establishment, all fields are required', function () {
     cy.server();
     cy.route('POST', `${REACT_APP_URI}/saas/establishments/add`).as(
       'addEstablishmentRequest1',
@@ -57,12 +57,9 @@ context('Manager - Establishment', () => {
       expect(establishment.title).to.equal(establishment_title);
       expect(establishment.specific_info).to.equal(establishment_info);
       expect(establishment.location.address).to.equal(address);
-      expect(establishment.easy_access).to.be.a('number');
       expect(establishment.cover).to.be.a('string');
       expect(establishment.images).to.be.a('array');
-      cy.url()
-        .location('pathname')
-        .should('eq', '/establishment');
+      cy.url().location('pathname').should('eq', '/establishment');
     });
   });
 });

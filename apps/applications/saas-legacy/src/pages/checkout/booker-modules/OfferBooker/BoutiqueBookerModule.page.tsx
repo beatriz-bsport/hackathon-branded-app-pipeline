@@ -746,8 +746,7 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
     }
 
     const availablePaymentPacksWithoutCategory = availablePaymentPacks.filter(
-      (paymentPack) =>
-        !paymentPack?.categories || paymentPack.categories.length === 0,
+      (paymentPack) => paymentPack?.category === null,
     );
     if (
       this.props.bookingFunnelConfiguration?.current_pricing_option_ordering

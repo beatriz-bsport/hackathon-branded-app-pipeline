@@ -228,7 +228,8 @@ export type PaymentPack = {
 
   editable: boolean;
   establishments: Array<number>;
-  categories: Array<number>;
+  categories: Array<number>; // the category-based restrictions. empty array means no category-based restriction (alias of SCTs)
+  category: number | null; // the visual category of the payment pack. Null means no category
   barcode: string;
   onsite_payment_available: boolean;
   full_vod_access: boolean;

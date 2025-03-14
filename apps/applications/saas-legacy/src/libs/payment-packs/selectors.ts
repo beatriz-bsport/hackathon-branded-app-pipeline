@@ -776,14 +776,12 @@ export const getPaymentPackCategoriesWithPacks = createSelector(
     return Immutable<PaymentPackCategoryWithPacks[]>([
       ...categoryIdList.map((catId: number) => ({
         ...categoryData[catId],
-        // @ts-expect-error
         packs: paymentPackList.filter((e) => e.category === catId),
       })),
       {
         id: null,
         name: '',
         category_ordering: Number.MAX_SAFE_INTEGER,
-        // @ts-expect-error
         packs: paymentPackList.filter((pack) => !pack.category),
       },
     ]);

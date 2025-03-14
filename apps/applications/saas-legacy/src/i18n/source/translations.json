@@ -5656,7 +5656,9 @@
       "drawerTitle": { "tabs": "Select a pass type" },
       "title": "Passes",
       "filters": "Filters",
-      "search": "Search"
+      "search": "Search",
+      "buy": "Buy",
+      "details": "Details"
     }
   },
   "member": {

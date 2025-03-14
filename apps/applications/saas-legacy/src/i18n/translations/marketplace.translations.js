@@ -247,5 +247,7 @@ exports.default = {
     title: 'Passes',
     filters: 'Filters',
     search: 'Search',
+    buy: 'Buy',
+    details: 'Details',
   },
 };

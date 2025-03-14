@@ -92,3 +92,11 @@ export function getUseTranslation<AppResources>({
 
   return useTranslationOverride;
 }
+
+type UseTranslation<AppResources> = ReturnType<
+  typeof getUseTranslation<AppResources>
+>;
+
+export type TFunctionGeneric<AppResources> = ReturnType<
+  UseTranslation<AppResources>
+>["t"];

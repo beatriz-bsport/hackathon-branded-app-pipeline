@@ -2,8 +2,20 @@ import React, { Suspense, useEffect } from "react";
 import type { Preview } from "@storybook/react";
 import "@bsport/kaizen-tokens/src/index.css";
 import { withThemeByClassName } from "@storybook/addon-themes";
-import { FLAG_EMOJIS, LOCALES } from "@bsport/i18n";
-import { AppI18nextProvider, kaizenLanguageSwitcher } from "./i18n";
+import {
+  instanciateAppI18n,
+  LOCALES,
+  FLAG_EMOJIS,
+  i18nNamespacePrefix,
+  i18nNamespaces,
+  type Translations,
+} from "../src/i18n/index";
+
+const { AppI18nextProvider, languageSwitcher } =
+  instanciateAppI18n<Translations>({
+    applicationName: i18nNamespacePrefix,
+    namespaces: i18nNamespaces,
+  });
 
 const preview: Preview = {
   decorators: [
@@ -12,7 +24,7 @@ const preview: Preview = {
 
       // When the locale global changes, set the new locale in i18n
       useEffect(() => {
-        kaizenLanguageSwitcher(locale);
+        languageSwitcher(locale);
       }, [locale]);
 
       return (

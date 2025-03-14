@@ -1,9 +1,9 @@
 import React from "react";
-import { initI18n, LOCALES, type Locale } from "@bsport/i18n";
+import { LOCALES, type Locale, type I18n } from "@bsport/i18n";
 import { Select } from "@bsport/kaizen-primitive-core";
 
 export type LanguageSelectorProps = {
-  i18nInstance: ReturnType<typeof initI18n>;
+  i18nInstance: I18n;
   appsLanguageSwitchers?: Array<(languageId: Locale) => void>;
 };
 

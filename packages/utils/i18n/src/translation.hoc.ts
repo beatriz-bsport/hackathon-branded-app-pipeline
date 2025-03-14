@@ -2,11 +2,6 @@ import { withTranslation } from "react-i18next";
 import { getNamespacePrefixer } from "./utils";
 import type { InitConfig } from "./types";
 
-type WithTranslationNs = Parameters<typeof withTranslation>[0];
-type WithTranslationFn = typeof withTranslation<WithTranslationNs>;
-type WithTranslationOptions = Parameters<WithTranslationFn>[1];
-type WithTranslationReturnType = ReturnType<WithTranslationFn>;
-
 /**
  * Return an override version of withTranslation, for which provided namespaces
  * are prefixed with the config.applicationName input.
@@ -19,7 +14,7 @@ type WithTranslationReturnType = ReturnType<WithTranslationFn>;
  * ```tsx
  * import type translations from "#src/i18n/locales/en/translations.json";
  *
- * export const withTranslation = getWithTranslation<AppResources>({
+ * export const withTranslation = getWithTranslation<typeof translations>({
  *   applicationName: i18nNamespacePrefix,
  * });
  * ```
@@ -33,16 +28,19 @@ export function getWithTranslation<AppResources>({
 
   function withTranslationOverride<Namespaces extends keyof AppResources>(
     namespaces?: Namespaces | Namespaces[],
-    options?: WithTranslationOptions,
-  ): WithTranslationReturnType {
-    let overrideNs: WithTranslationNs = undefined;
-    if (typeof namespaces === "string") {
-      overrideNs = namespacePrefixer(namespaces);
-    }
-    if (Array.isArray(namespaces)) {
-      overrideNs = namespaces.map(namespacePrefixer);
-    }
-    return withTranslation(overrideNs, options);
+    options?: { withRef?: boolean; keyPrefix?: undefined } | undefined,
+    // @ts-expect-error TS can not infer that Namespaces (keyof AppResources) extends string
+  ): ReturnType<typeof withTranslation<Namespaces, undefined>> {
+    // Prefix namespaces
+    const overrideNamespaces = namespaces
+      ? Array.isArray(namespaces)
+        ? namespaces.map(namespacePrefixer)
+        : namespacePrefixer(namespaces)
+      : undefined;
+    return withTranslation<string | string[], undefined>(
+      overrideNamespaces,
+      options,
+    );
   }
 
   return withTranslationOverride;

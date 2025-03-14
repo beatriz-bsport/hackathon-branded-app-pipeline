@@ -1,5 +1,5 @@
 import React from "react";
-import { initI18n, getLanguageSwitcher } from "@bsport/i18n";
+import { instanciateAppI18n } from "@bsport/i18n";
 import {
   ThemeProvider,
   i18nNamespaces,
@@ -14,14 +14,15 @@ type AppWrapperProps = {
   children: React.ReactNode;
 } & DevToolsProps;
 
-const kaizenI18nInstance = initI18n({
+const {
+  languageSwitcher: kaizenLanguageSwitcher,
+  i18nInstance: kaizenI18nInstance,
+} = instanciateAppI18n({
   applicationName: i18nNamespacePrefix,
   namespaces: i18nNamespaces,
   inMemoryTranslationsLoader: inMemoryTranslationsLoader,
   debug: true,
 });
-
-const kaizenLanguageSwitcher = getLanguageSwitcher(kaizenI18nInstance);
 
 /**
  * A Wrapper to provide the features required for local development.

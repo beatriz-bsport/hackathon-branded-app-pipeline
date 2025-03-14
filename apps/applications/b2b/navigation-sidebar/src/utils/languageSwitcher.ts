@@ -1,4 +1,1 @@
-import { getLanguageSwitcher } from "@bsport/i18n";
-import { i18nInstance } from "./i18n";
-
-export const navigationLanguageSwitcher = getLanguageSwitcher(i18nInstance);
+export { languageSwitcher as navigationLanguageSwitcher } from "./i18n";

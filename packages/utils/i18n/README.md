@@ -17,33 +17,27 @@
 
    ```tsx
    // src/utils/i18n.ts
-   import {
-     initI18n,
-     getNamespacePrefixer,
-     getUseTranslation,
-     getWithTranslation,
-   } from "@bsport/i18n";
-
+   import { instanciateAppI18n, type TFunctionGeneric } from "@bsport/i18n";
    import namespaceList from "#src/i18n/namespaces.json";
+   import type translations from "#src/i18n/locales/en/translations.json";
 
    const i18nNamespacePrefix = import.meta.env.VITE_I18N_NAMESPACE_PREFIX;
 
-   export const i18nInstance = initI18n({
+   export const {
+     i18nInstance, // I18n instance of the application
+     useTranslation, // Hook to get TFunction
+     withTranslation, // Hoc to get TFunction
+     getFixedNamespace, // Util to prefix namespaces
+     AppI18nextProvider, // Provider of the application i18n instance
+     languageSwitcher, // Util to expose to module federation to change locale
+   } = instanciateAppI18n<typeof translations>({
      applicationName: i18nNamespacePrefix,
      namespaces: namespaceList,
    });
 
-   export const useTranslation = getUseTranslation({
-     applicationName: i18nNamespacePrefix,
-   });
+   export type TFunction = TFunctionGeneric<typeof translations>;
 
-   export const withTranslation = getWithTranslation({
-     applicationName: i18nNamespacePrefix,
-   });
-
-   export const namespacePrefixer = getNamespacePrefixer({
-     applicationName: i18nNamespacePrefix,
-   });
+   export { Trans, LANGUAGES, LOCALES, type Locale } from "@bsport/i18n";
    ```
 
 3. Configure your application translations: take a look at [@bsport/i18n-management](../../../tools/i18n-management/README.md).

@@ -8,7 +8,6 @@ export type ProjectConfig = {
   pathToPublicLocales: string;
 };
 
-const PROJECTS_TO_FILTER_OUT = ["@bsport/saas-legacy", "@bsport/widget-legacy"];
 function getPrintFns({ quiet }: { quiet: boolean }) {
   return {
     print: (...msgs: any) => !quiet && console.log(...msgs),

@@ -5,7 +5,7 @@ import React, {
   useMemo,
   useRef,
 } from "react";
-import { cva, type VariantProps } from "class-variance-authority";
+import { cva } from "class-variance-authority";
 import classNames from "classnames";
 import Collapse from "#src/components/Collapse";
 import Icon from "#src/components/Icon";
@@ -29,18 +29,10 @@ const defaultClasses = [
   "active:bg-surface-action-default-weak-pressed",
 ];
 
-const navigationMenuItem = cva(defaultClasses, {
-  variants: {
-    selected: {
-      true: ["bg-onsurface-main-weak"],
-      false: ["bg-surface-action-default-weak-hovered"],
-    },
-  },
-});
+const navigationMenuItem = cva(defaultClasses);
 
-export type ItemProps = VariantProps<typeof navigationMenuItem> & {
+export type ItemProps = {
   id: string;
-  isLast: boolean;
 };
 
 /**
@@ -50,10 +42,8 @@ export type ItemProps = VariantProps<typeof navigationMenuItem> & {
  * This component uses the `Context` to manage the state of selected and open items.
  *
  * @param  props.id - Unique identifier for the menu item.
- * @param  props.selected - Defines if the menu item is selected.
- * @param  props.isLast - Whether the element is the last one
  */
-const Item: React.FC<ItemProps> = ({ id, selected, isLast }) => {
+const Item: React.FC<ItemProps> = ({ id }) => {
   const {
     selectedItemId,
     openMenuId,
@@ -85,7 +75,7 @@ const Item: React.FC<ItemProps> = ({ id, selected, isLast }) => {
   }, [isOpen]);
 
   return (
-    <Collapse id={id}>
+    <Collapse id={id} className="mb-2xs last:mb-[0px]">
       <Collapse.Controller>
         {({ collapseProps, setIsCollapseOpen, isCollapseOpen }) => {
           const content = useMemo(
@@ -93,9 +83,8 @@ const Item: React.FC<ItemProps> = ({ id, selected, isLast }) => {
               <>
                 <div
                   className={classNames(
-                    "flex transition-all duration-normal items-center gap-xs",
+                    "flex transition-all duration-normal items-center gap-xs overflow-hidden",
                     {
-                      "mb-2xs": !isLast,
                       "text-onsurface-main-weak": isActive,
                       "text-onsurface-default": !isActive,
                       "font-stronger":
@@ -106,7 +95,9 @@ const Item: React.FC<ItemProps> = ({ id, selected, isLast }) => {
                 >
                   {!!icon && <Icon icon={icon} size="sm" />}
                   {!!label && (
-                    <span className="font-size-body-md">{label}</span>
+                    <span className="font-size-body-md truncate w-full">
+                      {label}
+                    </span>
                   )}
                 </div>
                 <div className="flex items-center gap-xs">
@@ -146,7 +137,7 @@ const Item: React.FC<ItemProps> = ({ id, selected, isLast }) => {
               tabIndex={0}
               href={href}
               target={target}
-              className={navigationMenuItem({ selected })}
+              className={navigationMenuItem()}
               onClick={handleOnClick}
               {...collapseProps}
             >
@@ -156,7 +147,7 @@ const Item: React.FC<ItemProps> = ({ id, selected, isLast }) => {
             <button
               role="button"
               tabIndex={0}
-              className={navigationMenuItem({ selected })}
+              className={navigationMenuItem()}
               onClick={handleOnClick}
               {...collapseProps}
             >

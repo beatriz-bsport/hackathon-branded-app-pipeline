@@ -1,5 +1,4 @@
 import React from "react";
-import classNames from "classnames";
 import Divider from "#src/components/Divider";
 import Item from "./Item";
 import {
@@ -37,16 +36,13 @@ const NavigationMenu: React.FC<NavigationMenuProps> = ({
     >
       <div className={className || ""} {...props}>
         {elements.map((element, index) => {
-          const isLast = index === elements.length - 1;
           return element?.type === "divider" ? (
             <Divider
               key={`navigation-divider-${index}`}
-              className={classNames("border-stroke-thin mt-2xs", {
-                "mb-xs": !isLast,
-              })}
+              className="border-stroke-thin mt-2xs mb-xs last:mb-[0px]"
             />
           ) : (
-            <Item id={element.id} key={element.id} isLast={isLast} />
+            <Item id={element.id} key={element.id} />
           );
         })}
       </div>

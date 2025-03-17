@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import Badge from "#src/components/Badge";
+import Indicator from "#src/components/Indicator";
 import NavigationMenu from "#src/components/NavigationMenu";
 import type { NavigationMenuElement } from "#src/components/NavigationMenu/types";
 
@@ -22,17 +23,8 @@ const elements: NavigationMenuElement[] = [
   { type: "divider" },
   {
     id: "item-2",
-    label: "Food",
+    label: "Flat item with very long name with many words",
     icon: "loading",
-    subItems: [
-      { id: "subItems2-coffee", label: "Morning Coffee" },
-      { id: "subItems2-tea", label: "Afternoon Tea" },
-      { id: "subItems2-lunch", label: "Lunch Time" },
-      { id: "subItems2-dinner", label: "Dinner Time" },
-      { id: "subItems2-dessert", label: "Dessert Break" },
-      { id: "subItems2-snack", label: "Snack Attack" },
-      { id: "subItems2-drinks", label: "Evening Drinks" },
-    ],
   },
   {
     id: "item-3",
@@ -56,6 +48,33 @@ const elements: NavigationMenuElement[] = [
       { id: "subItems3-lake", label: "Lake Escape" },
     ],
   },
+  { type: "divider" },
+  {
+    id: "item-5",
+    label: "LG indicator",
+    icon: "bell-ringing-04",
+    endSlot: <Indicator size="lg" color="default" position="top" value={10} />,
+  },
+  {
+    id: "item-6",
+    label: "SM indicator",
+    icon: "bell-ringing-04",
+    endSlot: <Indicator size="sm" color="default" position="top" value={10} />,
+  },
+  {
+    id: "item-7",
+    label: "Menu item with very long name with many words as well",
+    icon: "book-closed",
+    subItems: [
+      { id: "subItems7-coffee", label: "Morning Coffee" },
+      { id: "subItems7-tea", label: "Afternoon Tea" },
+      { id: "subItems7-lunch", label: "Lunch Time" },
+      { id: "subItems7-dinner", label: "Dinner Time" },
+      { id: "subItems7-dessert", label: "Dessert Break" },
+      { id: "subItems7-snack", label: "Snack Attack" },
+      { id: "subItems7-drinks", label: "Evening Drinks" },
+    ],
+  },
 ];
 
 /**
@@ -72,6 +91,7 @@ const meta: Meta<typeof NavigationMenu> = {
       e.preventDefault();
       console.log("item clicked:", item);
     },
+    className: "max-w-[320px]",
   },
 };
 

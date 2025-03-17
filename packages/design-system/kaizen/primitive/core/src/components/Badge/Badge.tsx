@@ -1,7 +1,6 @@
 import React from "react";
-import { cva, type VariantProps } from "class-variance-authority";
-import mapValues from "lodash/mapValues";
-import { SetRequired } from "type-fest";
+import { cva } from "class-variance-authority";
+import Body from "#src/components/Body";
 import Icon, { IconName } from "#src/components/Icon";
 
 const defaultClasses = [
@@ -10,10 +9,6 @@ const defaultClasses = [
 ] as const;
 
 const variants = {
-  size: {
-    sm: ["text-body-xs"],
-    lg: ["text-body-md"],
-  },
   sizeByType: {
     "text:sm": ["h-element-sm"],
     "text:lg": ["h-element-md"],
@@ -46,23 +41,15 @@ const variants = {
   },
 } as const;
 
-export const sizes = mapValues(variants.size, (_, key) => key) as {
-  [key in keyof typeof variants.size]: key;
-};
+export const sizes = ["sm", "lg"] as const;
 export const colors = ["default", "main", "critical"] as const;
 
-type BadgeVariantProps = SetRequired<
-  Omit<VariantProps<typeof badge>, "sizeByType" | "colorByType" | "buttonType">,
-  "size"
->;
-
-export type BadgeProps = React.HTMLAttributes<HTMLDivElement> &
-  BadgeVariantProps & {
-    text?: string;
-    size: keyof typeof sizes;
-    color: (typeof colors)[number];
-    icon?: IconName;
-  };
+export type BadgeProps = React.HTMLAttributes<HTMLDivElement> & {
+  text?: string;
+  size: (typeof sizes)[number];
+  color: (typeof colors)[number];
+  icon?: IconName;
+};
 
 const badge = cva(defaultClasses, {
   variants,
@@ -93,7 +80,6 @@ const Badge: React.FC<BadgeProps> = ({
     <div
       className={badge({
         className,
-        size,
         sizeByType: `${buttonType}:${size}` as keyof typeof variants.sizeByType,
         colorByType:
           `${buttonType}:${color}` as keyof typeof variants.colorByType,
@@ -101,7 +87,13 @@ const Badge: React.FC<BadgeProps> = ({
       })}
       {...props}
     >
-      <span className="leading-xs">{text}</span>
+      <Body
+        size={size === "lg" ? "md" : "sm"}
+        color="inherit"
+        htmlVariant="span"
+      >
+        {text}
+      </Body>
       {!!icon && <Icon icon={icon} size={iconSize} />}
     </div>
   );

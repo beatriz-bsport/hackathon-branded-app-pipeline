@@ -15,13 +15,13 @@ export const getNavigationElements = ({
       icon: "message-square-02",
       id: "inbox",
       label: t("menus.inbox"),
-      endSlot: <Indicator color="default" position="top" size="lg" value={1} />,
+      endSlot: <Indicator color="default" position="top" size="sm" value={1} />,
     },
     {
       icon: "bell-03",
       id: "notifications",
       label: t("menus.notifications"),
-      endSlot: <Indicator color="default" position="top" size="lg" value={2} />,
+      endSlot: <Indicator color="default" position="top" size="sm" value={2} />,
     },
     {
       type: "divider",

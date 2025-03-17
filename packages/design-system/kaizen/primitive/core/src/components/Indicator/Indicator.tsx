@@ -1,7 +1,9 @@
 import React from "react";
+import classNames from "classnames";
 import { cva, type VariantProps } from "class-variance-authority";
 import mapValues from "lodash/mapValues";
 import { SetRequired } from "type-fest";
+import Body from "#src/components/Body";
 
 const defaultClasses = [
   "flex items-center justify-center",
@@ -15,8 +17,8 @@ const variants = {
     bottom: ["bottom-[0]", "translate-y-1/2"],
   },
   size: {
-    sm: ["text-body-xs", "p-2xs"],
-    lg: ["text-body-md", "p-xs"],
+    sm: ["p-2xs"],
+    lg: ["p-xs"],
   },
   sizeByType: {
     "text:sm": ["h-element-sm"],
@@ -110,20 +112,29 @@ const Indicator: React.FC<IndicatorProps> = ({
       {...props}
     >
       {children}
-      <span
-        className={`${indicator({
-          className,
-          position: children ? position : undefined,
-          size,
-          sizeByType:
-            `${buttonType}:${size}` as keyof typeof variants.sizeByType,
-          colorByType:
-            `${buttonType}:${color}` as keyof typeof variants.colorByType,
-          buttonType,
-        })} ${children ? positionIndicator : ""}`}
+      <div
+        className={classNames(
+          indicator({
+            className,
+            position: children ? position : undefined,
+            size,
+            sizeByType:
+              `${buttonType}:${size}` as keyof typeof variants.sizeByType,
+            colorByType:
+              `${buttonType}:${color}` as keyof typeof variants.colorByType,
+            buttonType,
+          }),
+          children ? positionIndicator : "",
+        )}
       >
-        {numberToRender}
-      </span>
+        <Body
+          htmlVariant="span"
+          color="inherit"
+          size={size === "lg" ? "md" : "sm"}
+        >
+          {numberToRender}
+        </Body>
+      </div>
     </div>
   );
 };

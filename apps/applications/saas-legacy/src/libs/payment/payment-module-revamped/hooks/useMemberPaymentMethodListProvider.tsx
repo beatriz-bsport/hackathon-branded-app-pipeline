@@ -5,29 +5,29 @@ import { OptionCallback } from '#src/state/types';
 
 import {
   fetchMemberPaymentMethodList as fetchMemberPaymentMethodListAction,
-  resetInvoicePaymentMethodList as resetInvoicePaymentMethodListAction,
+  resetPaymentMethodList as resetPaymentMethodListAction,
 } from '#src/libs/payment/payment-module-revamped/actions';
 import { getPaymentMethodList } from '#src/libs/payment/payment-module-revamped/selectors';
 import { PaymentMethod } from '#src/libs/payment/types';
 
-type UseInvoicePaymentMethodListProvider = {
+type UsePaymentMethodListProvider = {
   isPaymentMethodListLoading: boolean;
   paymentMethodListAll: Array<PaymentMethod>;
-  paymentMethodListError: Error;
+  paymentMethodListError: Error | null | undefined;
   handleFetchMemberPaymentMethodList: (options?: OptionCallback) => void;
   hasFetchedPaymentMethodList: boolean;
   resetPaymentMethodList: () => void;
 };
 /***
- * @description Provider for invoice payment method list
+ * @description Provider for payment method list
  * Define context for everything related to payment methods attached to a member
  *
  * Only concerns card and SEPA payment methods
  * @param memberId The member ID
  * ***/
-export const useInvoicePaymentMethodListProvider = ({
+export const useMemberPaymentMethodListProvider = ({
   memberId,
-}: any): UseInvoicePaymentMethodListProvider => {
+}: any): UsePaymentMethodListProvider => {
   const paymentMethodList = useSelector((state: RootState) =>
     getPaymentMethodList(state, memberId),
   );
@@ -54,7 +54,7 @@ export const useInvoicePaymentMethodListProvider = ({
   );
 
   const resetPaymentMethodList = React.useCallback(() => {
-    dispatch(resetInvoicePaymentMethodListAction(memberId));
+    dispatch(resetPaymentMethodListAction(memberId));
   }, [dispatch, memberId]);
 
   return {

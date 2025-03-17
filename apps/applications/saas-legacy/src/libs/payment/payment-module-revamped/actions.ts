@@ -288,7 +288,7 @@ export function fetchMemberPaymentMethodList(
   };
 }
 
-export function resetInvoicePaymentMethodList(memberId: number) {
+export function resetPaymentMethodList(memberId: number) {
   return async (dispatch: Dispatch) => {
     dispatch(listSavedPaymentMethodListActions.initialize({ memberId }));
   };

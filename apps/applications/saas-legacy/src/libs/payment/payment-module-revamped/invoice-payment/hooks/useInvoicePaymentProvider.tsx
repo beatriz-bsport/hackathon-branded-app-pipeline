@@ -19,7 +19,7 @@ import {
   fetchPaymentGroupStatus as fetchPaymentGroupStatusAction,
   setPaymentStatus as setPaymentStatusActions,
 } from '#src/libs/payment/payment-module-revamped/actions';
-import { useInvoicePaymentMethodListProvider } from '#src/libs/payment/payment-module-revamped/invoice-payment/hooks/useInvoicePaymentMethodListProvider';
+import { useMemberPaymentMethodListProvider } from '#src/libs/payment/payment-module-revamped/hooks/useMemberPaymentMethodListProvider';
 import { PayerContext } from '#src/libs/payment/payment-module-revamped/types';
 import {
   getApplyBalance,
@@ -205,7 +205,7 @@ export const useInvoicePaymentProvider = ({
   }, [dispatch, invoiceUuid]);
 
   const { handleFetchMemberPaymentMethodList } =
-    useInvoicePaymentMethodListProvider({
+    useMemberPaymentMethodListProvider({
       memberId: payerContext.memberId,
     });
 

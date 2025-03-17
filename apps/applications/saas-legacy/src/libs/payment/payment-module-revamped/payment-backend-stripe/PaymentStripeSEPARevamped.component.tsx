@@ -26,7 +26,7 @@ import PaymentMethodList from '#src/libs/payment/components/payment-method-list/
 import PopOver from '#src/components/Popover';
 import StripeErrorCode from '#src/libs/payment/components/payment-backend-stripe/StripeErrorCode.component';
 import UseInternalAccountForm from '#src/libs/payment/components/UseInternalAccountForm.component';
-import { useInvoicePaymentMethodListProvider } from '#src/libs/payment/payment-module-revamped/invoice-payment/hooks/useInvoicePaymentMethodListProvider';
+import { useMemberPaymentMethodListProvider } from '#src/libs/payment/payment-module-revamped/hooks/useMemberPaymentMethodListProvider';
 import { LinearProgress } from '#src/components/css-only/Fabrique/LinearProgress/LinearProgress.component';
 import Alert from '#src/components/css-only/Fabrique/Alert';
 
@@ -267,7 +267,7 @@ export const PaymentStripeSEPARevamped = forwardRef(
       paymentMethodListError,
       handleFetchMemberPaymentMethodList,
       resetPaymentMethodList,
-    } = useInvoicePaymentMethodListProvider({
+    } = useMemberPaymentMethodListProvider({
       memberId,
     });
 

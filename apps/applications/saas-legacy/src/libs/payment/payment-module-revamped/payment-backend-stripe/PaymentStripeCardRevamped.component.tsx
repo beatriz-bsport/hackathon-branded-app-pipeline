@@ -32,7 +32,7 @@ import {
   updatePaymentMethodBillingDetails as updatePaymentMethodBillingDetailsAPI,
   verifyPriceBasket as verifyPriceBasketAPI,
 } from '#src/libs/payment/api';
-import { useInvoicePaymentMethodListProvider } from '#src/libs/payment/payment-module-revamped/invoice-payment/hooks/useInvoicePaymentMethodListProvider';
+import { useMemberPaymentMethodListProvider } from '#src/libs/payment/payment-module-revamped/hooks/useMemberPaymentMethodListProvider';
 import Alert from '#Fabrique/Alert';
 
 type Props = {
@@ -177,7 +177,7 @@ const PaymentStripeCardRevamped = forwardRef(
       handleFetchMemberPaymentMethodList,
       hasFetchedPaymentMethodList,
       resetPaymentMethodList,
-    } = useInvoicePaymentMethodListProvider({
+    } = useMemberPaymentMethodListProvider({
       memberId,
     });
 

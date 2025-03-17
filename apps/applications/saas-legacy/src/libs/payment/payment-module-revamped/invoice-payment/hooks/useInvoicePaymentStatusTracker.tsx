@@ -8,7 +8,7 @@ import {
   getHasPaymentSucceeded,
   getIsBackendProcessingAfterPayment,
 } from '#src/libs/payment/payment-module-revamped/selectors';
-import { useInvoicePaymentMethodListProvider } from '#src/libs/payment/payment-module-revamped/invoice-payment/hooks/useInvoicePaymentMethodListProvider';
+import { useMemberPaymentMethodListProvider } from '#src/libs/payment/payment-module-revamped/hooks/useMemberPaymentMethodListProvider';
 
 type UseInvoicePaymentStatusTrackerProps = {
   invoiceUuid: string;
@@ -58,7 +58,7 @@ export const useInvoicePaymentStatusTracker = ({
     getDetachPaymentMethod(state, memberId),
   );
 
-  const { isPaymentMethodListLoading } = useInvoicePaymentMethodListProvider({
+  const { isPaymentMethodListLoading } = useMemberPaymentMethodListProvider({
     memberId,
   });
 

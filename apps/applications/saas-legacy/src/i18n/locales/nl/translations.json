@@ -8026,6 +8026,15 @@
                 },
                 "firstName": {
                     "label": "Voornaam"
+                },
+                "acceptSms": {
+                    "label": "Ik ga akkoord met het ontvangen van promotionele SMS, inclusief speciale aanbiedingen en kortingen"
+                },
+                "acceptTermsAndCondition": {
+                    "label": "Ik accepteer de algemene gebruiksvoorwaarden"
+                },
+                "acceptEmail": {
+                    "label": "Ik ga akkoord met het ontvangen van promotionele e-mails, inclusief speciale aanbiedingen en kortingen"
                 }
             }
         }

@@ -13028,6 +13028,9 @@
             "close": "Abbrechen",
             "content": "Die Nachricht wird sofort gesendet.",
             "title": "Sofort senden"
+        },
+        "accessibilityText": {
+            "expandRow": "Zeile erweitern"
         }
     },
     "consumerSpace": {
@@ -13149,7 +13152,7 @@
                     "availability": {
                         "expiresToday": "Letzter Tag",
                         "expiresIn": "{{ daysRemaining }} Tag übrig",
-                        "expiresIn_plural": "{{ daysRemaining }} Tage übrig",
+                        "expiresIn_plural": "Noch {{ daysRemaining }} Tage übrig",
                         "future": "Beginnt am: {{ startDate }}",
                         "expired": "Abgelaufen am: {{ expirationDate }}",
                         "active": "Läuft ab am: {{ expirationDate }}"
@@ -17518,7 +17521,7 @@
             },
             "warnings": {
                 "exclusiveAssociatedCoaches": "Die Lehrkraft {{- coach_name }} wird nur benachrichtigt, wenn eine Vertretungsanfrage für eine Sitzung in dieser Einrichtung erfolgt. Wenn die Einrichtung gelöscht wird, erhält diese Lehrkraft daher Vertretungsanfragen von jeder Einrichtung.",
-                "exclusiveAssociatedCoaches_plural": "Deine Lehrer{{- Trainername }}werden nur benachrichtigt, wenn für eine Sitzung in dieser Einrichtung ein Vertretungswunsch vorliegt. Durch die Löschung des Betriebes erhalten Sie daher von allen Betrieben Ersatzanfragen.",
+                "exclusiveAssociatedCoaches_plural": "Deine Lehrer {{- coach_name }} werden nur benachrichtigt, wenn eine Vertretungsanfrage für einen Kurs in dieser Einrichtung gemacht wird. Wenn du diese Einrichtung löschst, werden sie deshalb Vertretungsanfragen von jeder Einrichtung erhalten.",
                 "hasBillingGroup": "Diese Einrichtung wird auch aus der Rechnungsgruppe {{- establishment_billing_group_name }} entfernt.",
                 "exclusivePrivateServices_plural": "Diese Termine {{- private_service_name }} sind so konfiguriert, dass sie nur in dieser Einrichtung stattfinden können. Wenn diese Einrichtung gelöscht wird, können diese Termine überall stattfinden.",
                 "exclusivePrivateServices": "Der Termin {{- private_service_name }} ist so konfiguriert, dass er nur in dieser Einrichtung stattfinden kann. Wenn diese Einrichtung gelöscht wird, kann dieser Termin überall stattfinden.",
@@ -19337,7 +19340,7 @@
                     "title": "Eingangskriterium",
                     "addTrigger": "Einen Eingangs-Auslöser hinzufügen",
                     "helperText": "Legen Sie zunächst fest, wie Ihre Mitglieder den {{ workflowLowerCase }} betreten sollen. Wählen Sie ein oder mehrere Ereignisse oder Smartlists aus. Wenn das Mitglied einem dieser Ereignisse oder Smartlists entspricht, wird es den {{ workflowLowerCase }} betreten.",
-                    "creationHelper": "Legen Sie zunächst fest,  wann Mitglieder den {{ workflowLowerCase }} betreten sollen. Dazu müssen Sie einen Eintrittsauslöser auswählen. \u2028Sind mehrere Auslöser ausgewählt, werden die Mitglieder, die einem dieser Auslöser entsprechen, in den {{ workflowLowerCase }} aufgenommen.",
+                    "creationHelper": "Legen Sie zunächst fest,  wann Mitglieder den {{ workflowLowerCase }} betreten sollen. Dazu müssen Sie einen Eintrittsauslöser auswählen.  Sind mehrere Auslöser ausgewählt, werden die Mitglieder, die einem dieser Auslöser entsprechen, in den {{ workflowLowerCase }} aufgenommen.",
                     "editionHelper": "Kriterien der Mitglieder für den Beitritt zum {{ workflowLowerCase }} bearbeiten. Wenn ein Mitglied eines dieser Kriterien erfüllt, wird es dem {{ workflowLowerCase }} hinzugefügt."
                 },
                 "step": {
@@ -19381,7 +19384,7 @@
                 },
                 "wonTrigger": {
                     "title": "Erfolgreicher Austritt",
-                    "helperText": "Legen Sie das globale Ziel des {{ workflowLowerCase }} fest. Wenn ein Mitglied einen dieser Ausgangstrigger ausführt, ist das Ziel erreicht und das Mitglied verlässt erfolgreich den {{ workflowLowerCase }} (unabhängig davon, in welchem Schritt das Mitglied sich befindet).\u2028Dies hilft dabei Performance Indikatoren zu verfolgen.",
+                    "helperText": "Legen Sie das globale Ziel des {{ workflowLowerCase }} fest. Wenn ein Mitglied einen dieser Ausgangstrigger ausführt, ist das Ziel erreicht und das Mitglied verlässt erfolgreich den {{ workflowLowerCase }} (unabhängig davon, in welchem Schritt das Mitglied sich befindet). Dies hilft dabei Performance Indikatoren zu verfolgen.",
                     "addTrigger": "Ausgangsauslöser hinzufügen"
                 }
             },

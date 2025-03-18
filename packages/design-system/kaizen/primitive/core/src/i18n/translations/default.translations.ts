@@ -13,4 +13,11 @@ exports.default = {
       clearFilters: "Clear filters",
     },
   },
+  detailsLayout: {
+    confirmation: {
+      title: "The page has unsaved changes.",
+      discard: "Discard",
+      save: "Save changes",
+    },
+  },
 };

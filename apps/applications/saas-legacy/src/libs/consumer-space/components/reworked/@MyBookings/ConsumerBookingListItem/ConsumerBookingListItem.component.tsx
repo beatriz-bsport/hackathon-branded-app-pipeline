@@ -14,6 +14,7 @@ import { isDateInThePast } from '#src/utils/datetime';
 import ConsumerBookingCard from '#src/libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingCard';
 
 import type { ConsumerBooking } from '#src/libs/booking/types';
+import { DateTime } from 'luxon';
 
 type Props = {
   isSelected?: boolean;
@@ -51,9 +52,12 @@ const ConsumerBookingListItem: React.FC<Props> = ({
   getOfferElligibleGuestNumber,
   setSelectedBookingForBookingForAGuest,
 }) => {
+  const { date_start: dateStart, duration_minute: durationMinute } =
+    item?.offer ?? {};
+
   const selectedBookingDate = useConsumerBookingDateTime({
-    dateStart: item.offer?.date_start,
-    durationMinute: item.offer?.duration_minute,
+    dateStart,
+    durationMinute,
     establishmentTimezoneName: item.establishment?.tzname,
     isMetaActivityBroadcast: item.meta_activity?.is_broadcast,
     sessionTimeDisplay,
@@ -93,11 +97,19 @@ const ConsumerBookingListItem: React.FC<Props> = ({
     [handleShowSpotDetails, item],
   );
 
-  const offerIsInThePast = isDateInThePast(item.offer?.date_start);
+  const offerIsInThePast = isDateInThePast(dateStart);
+
+  const sessionEndTime =
+    dateStart &&
+    DateTime.fromISO(dateStart).plus({ minute: durationMinute }).toISO();
+
+  const sessionHasEnded = sessionEndTime
+    ? isDateInThePast(sessionEndTime)
+    : true;
 
   const bookingActionsMap = {
     isCancellable: !item.date_canceled && !offerIsInThePast,
-    isJoinableOnline: item.meta_activity?.is_broadcast && !offerIsInThePast,
+    isJoinableOnline: item.meta_activity?.is_broadcast && !sessionHasEnded,
   };
 
   const coachName = getCoachDisplayName(

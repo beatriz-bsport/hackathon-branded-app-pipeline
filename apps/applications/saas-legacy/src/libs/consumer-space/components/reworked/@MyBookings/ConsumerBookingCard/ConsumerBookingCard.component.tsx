@@ -124,7 +124,7 @@ const ConsumerBookingCard: React.FC<Props> = ({
           spotSchedulingPosition={spotSchedulingPosition}
           waitingListPosition={waitingListPosition}
         />
-        {!isBookingCancelled && !isItemInThePast && (
+        {!isBookingCancelled && (!isItemInThePast || isJoinableOnline) && (
           <ConsumerBookingCardFooter
             isBookable={isBookable}
             isBookableDisabled={isBookableDisabled}

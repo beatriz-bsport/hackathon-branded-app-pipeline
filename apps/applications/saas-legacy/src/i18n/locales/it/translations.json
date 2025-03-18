@@ -11925,6 +11925,15 @@
                 },
                 "firstName": {
                     "label": "Nome"
+                },
+                "acceptSms": {
+                    "label": "Accetto di ricevere SMS promozionali, incluse offerte speciali e sconti."
+                },
+                "acceptTermsAndCondition": {
+                    "label": "Accetto le Condizioni generali di utilizzo"
+                },
+                "acceptEmail": {
+                    "label": "Accetto di ricevere e-mail promozionali, incluse offerte speciali e sconti"
                 }
             }
         }

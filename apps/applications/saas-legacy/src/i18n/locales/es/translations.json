@@ -7628,6 +7628,15 @@
                 },
                 "firstName": {
                     "label": "Nombre"
+                },
+                "acceptTermsAndCondition": {
+                    "label": "Acepto las condiciones generales de uso"
+                },
+                "acceptSms": {
+                    "label": "Acepto recibir SMS promocionales, incluidas ofertas especiales y descuentos"
+                },
+                "acceptEmail": {
+                    "label": "Acepto recibir correos electrónicos promocionales, incluyendo ofertas especiales y descuentos"
                 }
             }
         }

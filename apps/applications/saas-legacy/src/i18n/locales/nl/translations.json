@@ -182,7 +182,7 @@
                     "availability": {
                         "expiresToday": "Laatste dag",
                         "expiresIn": "{{ daysRemaining }} dag(en) over",
-                        "expiresIn_plural": "{{ daysRemaining }} resterende dagen",
+                        "expiresIn_plural": "{{ daysRemaining }}dagen resterend",
                         "future": "Startdatum: {{ startDate }}",
                         "expired": "Verlopen op: {{ expirationDate }}",
                         "active": "Verloopdatum: {{ expirationDate }}"
@@ -2952,6 +2952,9 @@
             "close": "Annuleren",
             "content": "Dit bericht wordt onmiddelijk verstuurd.",
             "title": "Onmiddelijk versturen"
+        },
+        "accessibilityText": {
+            "expandRow": "Rij uitbreiden"
         }
     },
     "paymentCombo": {
@@ -3676,7 +3679,16 @@
             "incremental_identifier": "Nummer",
             "product_categories": "Categorieën van producten",
             "product_types": "Soorten producten",
-            "kind": "Type"
+            "kind": "Type",
+            "gross_profit": "Brutowinst",
+            "cost_of_stock": "Voorraadkosten (einddatum)",
+            "cost_of_sale": "Verkoopkosten",
+            "barcode": "Barcode",
+            "supplier_name": "Leverancier",
+            "stock_keeping_unit": "SKU",
+            "size": "Grootte",
+            "color": "Kleur",
+            "subtitle": "Ondertitel"
         },
         "report": {
             "delete_message": "Weet je zeker dat je \"{{- name }}\" wilt verwijderen?"
@@ -5408,9 +5420,9 @@
             "errors": {
                 "hasUpcomingPrivateBookings": "Sommige komende afspraken vinden plaats in deze vestiging. Annuleer en verwijder ze voordat je deze vestiging verwijdert.",
                 "exclusivePaymentPacks": "De volgende pas {{- pass_name }} is alleen bruikbaar in deze vestiging. Werk de beperkingen bij voordat u de vestiging verwijdert.",
-                "exclusivePaymentPacks_plural": "De volgende leskaarten {{- pass_name }} zijn alleen te gebruiken in deze vestiging. Pas hun beperkingen aan voordat je de vestiging verwijdert.",
+                "exclusivePaymentPacks_plural": "De volgende passen{{- pass_name }}zijn alleen bruikbaar in deze vestiging. Werk de beperkingen bij voordat u de vestiging verwijdert.",
                 "exclusiveEstablishmentGroups": "De locatie {{- establishment_group_name }} bevat alleen de vestiging die u wilt verwijderen. Werk deze locatie bij of verwijder deze.",
-                "exclusiveEstablishmentGroups_plural": "De locaties {{- establishment_group_name }} bevatten alleen de vestiging die je wilt verwijderen. Werk deze locaties bij of verwijder ze.",
+                "exclusiveEstablishmentGroups_plural": "De locaties {{- establishment_group_name }} bevatten alleen de vestiging die u wilt verwijderen. U kunt deze locaties bijwerken of verwijderen.",
                 "hasExclusiveMarketplaceComponentConfigs": "Een of meerdere tabbladen op de marktplaats zijn ingesteld om alleen de agenda en workshops van deze vestiging weer te geven.",
                 "hasUpcomingOffers": "Sommige komende sessies vinden plaats in deze vestiging. Annuleer en verwijder ze voordat je deze vestiging verwijdert.",
                 "hasExclusiveBillingGroup": "Deze vestiging is de laatste van zijn factureringsgroep. Verwijder deze factureringsgroep of werk deze bij voordat u deze vestiging verwijdert.",
@@ -5421,7 +5433,7 @@
                 "exclusivePrivateServices": "De afspraak {{- private_service_name }} is geconfigureerd om alleen in deze vestiging plaats te vinden. Door deze vestiging te verwijderen, kan deze afspraak overal plaatsvinden.",
                 "exclusivePrivateServices_plural": "De afspraken {{- private_service_name }} zijn geconfigureerd om alleen in deze vestiging plaats te vinden. Door deze vestiging te verwijderen, kunnen deze afspraken overal plaatsvinden.",
                 "exclusiveCoachAvailabilitySlots": "De leraar {{- coach_name }} is aangegeven als beschikbaar voor deze vestiging voor slechts enkele tijdsloten. Door de vestiging te verwijderen, worden deze tijdslots verwijderd.",
-                "exclusiveCoachAvailabilitySlots_plural": "De instructeurs {{- coach_name }} zijn aangegeven als beschikbaar voor deze vestiging voor slechts enkele tijdslots. Door de vestiging te verwijderen, worden deze tijdslots verwijderd.",
+                "exclusiveCoachAvailabilitySlots_plural": "De docenten{{- coach_name }}worden aangegeven als beschikbaar voor deze vestiging voor slechts enkele tijdsloten. Door de vestiging te verwijderen, worden deze tijdsloten verwijderd.",
                 "exclusiveAssociatedCoaches_plural": "Je leraren {{- coach_name }} krijgt alleen bericht als er een vervangingsverzoek wordt gedaan voor een sessie in deze vestiging. Door de vestiging te verwijderen, ontvangen ze dus vervangingsverzoeken van elke vestiging.",
                 "exclusiveAssociatedCoaches": "Je leraar {{- coach_name }} krijgt alleen bericht als er een vervangingsverzoek wordt gedaan voor een sessie in deze vestiging. Door de vestiging te verwijderen, ontvangen ze dus vervangingsverzoeken van elke vestiging.",
                 "hasExclusiveStaffConfigurations": "Sommige medewerkers zijn geconfigureerd om de toegang van leden alleen voor deze vestiging te controleren. Door de vestiging te verwijderen zonder een nieuwe te selecteren, kunnen ze geen toegangscontrole meer uitvoeren.",
@@ -7970,8 +7982,26 @@
             "alreadyMember": "Heeft u al een account?",
             "bookButtonLabel": "Boek nu",
             "bookableStatus": {
-                "error": "Oeps, het lijkt erop dat deze boeking niet beschikbaar is"
-            }
+                "error": "Oeps, het lijkt erop dat deze boeking niet beschikbaar is",
+                "closeTooLate": {
+                    "description": "Deze sessie is al begonnen of afgelopen, dus reserveren is niet meer mogelijk. <br> Controleer de kalender voor aankomende sessies.",
+                    "title": "Oeps! Te laat om te boeken"
+                },
+                "closeTooSoon": {
+                    "description": "Deze sessie is nog niet beschikbaar om te boeken. <br> Controleer de kalender om te zien wanneer de boekingen opengaan of bekijk andere beschikbare sessies.",
+                    "title": "Oeps! Te vroeg om te boeken"
+                },
+                "locked": {
+                    "description": "Deze sessie is geannuleerd en kan niet meer worden geboekt. <br> Controleer de kalender voor andere beschikbare sessies.",
+                    "title": "Sessie geannuleerd"
+                },
+                "full": {
+                    "description": "Deze sessie is zojuist volgeboekt en we konden je boeking niet voltooien. <br> Controleer de kalender om een andere beschikbare sessie te vinden.",
+                    "title": "Sessie volgeboekt"
+                }
+            },
+            "goToCalendar": "Ga naar de kalender",
+            "yourDetails": "Jouw informatie"
         },
         "lightSignup": {
             "form": {
@@ -11900,7 +11930,8 @@
                 "coaches": "Gekoppelde instructeur(s)",
                 "specfic_private_slot": "Afspraken",
                 "default": "Standaard",
-                "helper": "Je kunt meerdere payroll-regels aan een groep toevoegen voor je groepsactiviteiten, workshops en afspraken. Zodra je instructeurs toevoegt, zullen alle payroll-regels van deze groep op de geselecteerde instructeurs van toepassing zijn. Elke verandering geldt ook voor iedereen die in de groep zit."
+                "helper": "Je kunt meerdere payroll-regels aan een groep toevoegen voor je groepsactiviteiten, workshops en afspraken. Zodra je instructeurs toevoegt, zullen alle payroll-regels van deze groep op de geselecteerde instructeurs van toepassing zijn. Elke verandering geldt ook voor iedereen die in de groep zit.",
+                "removed_coaches": "Verwijderde leraren"
             },
             "workshop": "Workshops",
             "session": "Groepsactiviteiten",
@@ -21428,7 +21459,8 @@
                 "campaign": "Campagnes",
                 "general": "Algemeen"
             }
-        }
+        },
+        "campaignCreationWarning": "Zorg ervoor dat uw campagnenaam uniek is om problemen te voorkomen."
     },
     "accessControl": {
         "snackbar": {

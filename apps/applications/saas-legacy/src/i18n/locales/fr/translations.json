@@ -1784,6 +1784,9 @@
             "close": "Annuler",
             "content": "Ce message sera envoyé immédiatement.",
             "title": "Envoyer immédiatement"
+        },
+        "accessibilityText": {
+            "expandRow": "Développer la ligne"
         }
     },
     "consumerSpace": {
@@ -9495,7 +9498,8 @@
                 "helper": "Vous pouvez grouper ensemble vos règles de rémunérations pour les activités, ateliers et rendez-vous. En ajoutant un professeur à un groupe, l’ensemble des règles de rémunération du groupe viennent s’appliquer automatiquement au professeur. Tout changement sur le groupe viendra aussi se faire sur tous les professeurs du groupe.",
                 "default": "Rémunérations par défaut",
                 "specfic_private_slot": "Rémunération spécifique pour un rendez-vous",
-                "coaches": "Professeurs associés"
+                "coaches": "Professeurs associés",
+                "removed_coaches": "Professeurs retirés"
             },
             "fields": {
                 "addPrivateSlot": "Ajouter une régle",
@@ -11633,7 +11637,13 @@
             "kind": "Type",
             "size": "Taille",
             "color": "Couleur",
-            "subtitle": "Sous-titre"
+            "subtitle": "Sous-titre",
+            "gross_profit": "Bénéfice brut",
+            "cost_of_stock": "Coût des stocks (à la date de fin)",
+            "cost_of_sale": "Coût des ventes",
+            "barcode": "Code barre",
+            "supplier_name": "Fournisseur",
+            "stock_keeping_unit": "SKU"
         },
         "yes": "Oui",
         "no": "Non",

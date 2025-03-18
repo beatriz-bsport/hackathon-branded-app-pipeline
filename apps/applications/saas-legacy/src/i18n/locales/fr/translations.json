@@ -658,8 +658,26 @@
             "checkoutTitle": "Checkout",
             "bookButtonLabel": "Réservez maintenant",
             "bookableStatus": {
-                "error": "Oups, il semble que cette réservation ne soit pas disponible"
-            }
+                "error": "Oups, il semble que cette réservation ne soit pas disponible",
+                "closeTooLate": {
+                    "description": "Cette séance a déjà commencé ou est terminée, il n'est donc plus possible de la réserver. <br> Veuillez consulter le calendrier pour les prochaines séances.",
+                    "title": "Oups ! Il est trop tard pour réserver."
+                },
+                "closeTooSoon": {
+                    "description": "Cette séance n'est pas encore disponible à la réservation. <br> Veuillez consulter le calendrier pour voir quand les réservations ouvrent ou explorer d'autres séances disponibles.",
+                    "title": "Oups ! Il est trop tôt pour réserver."
+                },
+                "locked": {
+                    "description": "Cette séance a été annulée et n'est plus disponible à la réservation. <br> Veuillez consulter le calendrier pour trouver d'autres séances disponibles.",
+                    "title": "Séance annulée"
+                },
+                "full": {
+                    "description": "Cette séance vient de se remplir et nous n'avons pas pu finaliser votre réservation. <br> Veuillez consulter le calendrier pour trouver une autre séance disponible.",
+                    "title": "Séance complète"
+                }
+            },
+            "goToCalendar": "Voir le calendrier",
+            "yourDetails": "Vos informations"
         },
         "lightSignup": {
             "form": {
@@ -3387,7 +3405,7 @@
                 "exclusivePrivateServices_plural": "Les rendez-vous {{- private_service_name }} sont configurés pour avoir lieu uniquement dans cet établissement. En supprimant cet établissement, ces rendez-vous pourront avoir lieu n'importe où.",
                 "exclusivePrivateServices": "Le rendez-vous {{- private_service_name }} est configuré pour avoir lieu uniquement dans cet établissement. En supprimant cet établissement, ce rendez-vous pourra avoir lieu n'importe où.",
                 "exclusiveCoachAvailabilitySlots": "Le/la professeur(e) {{- coach_name }} est indiqué(e) comme étant disponible sur certaines plages horaires pour cet établissement uniquement. En supprimant l'établissement, ces plages horaires seront supprimées.",
-                "exclusiveCoachAvailabilitySlots_plural": "Les enseignants {{- coach_name }} sont indiqués comme étant disponibles pour cet établissement uniquement pour certaines plages horaires. En supprimant l'établissement, ces plages horaires seront supprimées.",
+                "exclusiveCoachAvailabilitySlots_plural": "Les professeurs {{- coach_name }} sont indiqués comme étant disponibles pour cet établissement uniquement sur certains créneaux horaires. En supprimant l'établissement, ces créneaux seront également supprimés.",
                 "exclusiveAssociatedCoaches": "Votre professeur(e) {{- coach_name }} est averti(e) lorsqu'une demande de substitution est faite pour une séance dans cet établissement uniquement. En supprimant l'établissement, il/elle recevra donc les demandes de substitution de tous les établissements.",
                 "exclusiveAssociatedCoaches_plural": "Vos professeurs {{- coach_name }} ne sont avertis que lorsqu'une demande de remplacement est faite pour une session dans cet établissement. En supprimant l'établissement, ils recevront donc les demandes de remplacement de tous les établissements.",
                 "hasBillingGroup": "Cet établissement sera également retiré du groupe de facturation {{- establishment_billing_group_name }}.",
@@ -21172,7 +21190,8 @@
                 "campaign": "Campagnes",
                 "general": "Général"
             }
-        }
+        },
+        "campaignCreationWarning": "Assurez-vous que le nom de votre campagne est unique pour éviter tout problème."
     },
     "accessControl": {
         "snackbar": {

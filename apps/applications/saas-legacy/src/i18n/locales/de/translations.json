@@ -10509,6 +10509,15 @@
                 },
                 "firstName": {
                     "label": "Vorname"
+                },
+                "acceptSms": {
+                    "label": "Ich bin damit einverstanden, Werbe-SMS zu erhalten, einschließlich Sonderangebote und Rabatte"
+                },
+                "acceptTermsAndCondition": {
+                    "label": "Ich akzeptiere die Allgemeinen Nutzungsbedingungen"
+                },
+                "acceptEmail": {
+                    "label": "Ich bin damit einverstanden, Werbe-E-Mails mit Sonderangeboten und Rabatten zu erhalten"
                 }
             }
         }

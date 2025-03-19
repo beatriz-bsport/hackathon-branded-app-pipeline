@@ -10511,13 +10511,13 @@
                     "label": "Vorname"
                 },
                 "acceptSms": {
-                    "label": "Ich bin damit einverstanden, Werbe-SMS zu erhalten, einschließlich Sonderangebote und Rabatte"
+                    "label": "Ich bin damit einverstanden, SMS mit Marketinginhalten, inklusive Sonderangeboten und Rabatten zu erhalten."
                 },
                 "acceptTermsAndCondition": {
-                    "label": "Ich akzeptiere die Allgemeinen Nutzungsbedingungen"
+                    "label": "Ich akzeptiere die allgemeinen Nutzungsbedingungen"
                 },
                 "acceptEmail": {
-                    "label": "Ich bin damit einverstanden, Werbe-E-Mails mit Sonderangeboten und Rabatten zu erhalten"
+                    "label": "Ich bin damit einverstanden, E-Mails mit Marketinginhalten, inklusive Sonderangeboten und Rabatten zu erhalten"
                 }
             }
         }
@@ -13161,7 +13161,7 @@
                     "availability": {
                         "expiresToday": "Letzter Tag",
                         "expiresIn": "{{ daysRemaining }} Tag übrig",
-                        "expiresIn_plural": "Noch {{ daysRemaining }} Tage übrig",
+                        "expiresIn_plural": "Noch {{ daysRemaining }} Tage",
                         "future": "Beginnt am: {{ startDate }}",
                         "expired": "Abgelaufen am: {{ expirationDate }}",
                         "active": "Läuft ab am: {{ expirationDate }}"
@@ -17530,7 +17530,7 @@
             },
             "warnings": {
                 "exclusiveAssociatedCoaches": "Die Lehrkraft {{- coach_name }} wird nur benachrichtigt, wenn eine Vertretungsanfrage für eine Sitzung in dieser Einrichtung erfolgt. Wenn die Einrichtung gelöscht wird, erhält diese Lehrkraft daher Vertretungsanfragen von jeder Einrichtung.",
-                "exclusiveAssociatedCoaches_plural": "Deine Lehrer {{- coach_name }} werden nur benachrichtigt, wenn eine Vertretungsanfrage für einen Kurs in dieser Einrichtung gemacht wird. Wenn du diese Einrichtung löschst, werden sie deshalb Vertretungsanfragen von jeder Einrichtung erhalten.",
+                "exclusiveAssociatedCoaches_plural": "Deine Lehrer {{- coach_name }} werden nur benachrichtigt, wenn eine Vertretungsanfrage für einen Kurs in dieser Einrichtung gemacht wird. Wenn du diese Einrichtung löschst, erhalten sie Vertretungsanfragen von jeder Einrichtung.",
                 "hasBillingGroup": "Diese Einrichtung wird auch aus der Rechnungsgruppe {{- establishment_billing_group_name }} entfernt.",
                 "exclusivePrivateServices_plural": "Diese Termine {{- private_service_name }} sind so konfiguriert, dass sie nur in dieser Einrichtung stattfinden können. Wenn diese Einrichtung gelöscht wird, können diese Termine überall stattfinden.",
                 "exclusivePrivateServices": "Der Termin {{- private_service_name }} ist so konfiguriert, dass er nur in dieser Einrichtung stattfinden kann. Wenn diese Einrichtung gelöscht wird, kann dieser Termin überall stattfinden.",

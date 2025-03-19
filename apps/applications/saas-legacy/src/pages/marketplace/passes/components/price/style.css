@@ -1,0 +1,7 @@
+.bs-marketplace-card-price {
+  display: flex;
+}
+
+.bs-marketplace-card-price__fractional-amount {
+  padding-top: 4px;
+}

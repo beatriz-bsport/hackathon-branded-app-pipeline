@@ -1,6 +1,6 @@
 import { TFunction } from 'i18next';
 import isNil from 'lodash/isNil';
-import { getCreditFactor } from '#src/libs/theme/selectors';
+import { getCreditFactor, getCurrencyDisplay } from '#src/libs/theme/selectors';
 
 export const provincialTaxHelperText = (
   tax: number,
@@ -173,4 +173,33 @@ export const formatPriceWithCurrency = (
     default:
       return `${negativeSign}${symbol}${absolutePrice}`;
   }
+};
+
+/**
+ * Extracts formatted price details, including currency symbol, main and fractional amounts.
+ *
+ * @param {number} price - The price to process.
+ * @param {boolean} [isExcludingTax] - Whether to exclude tax.
+ * @param {number} [tax] - The tax percentage.
+ * @returns {object} An object containing `integerAmount`, `fractionalAmount`, `symbol`, `amount` and `amountWithSymbol`.
+ */
+export const getPriceDetails = (
+  price: number,
+  tax?: number,
+  isExcludingTax?: boolean,
+) => {
+  let priceLabel = getPrice(price, isExcludingTax, tax);
+  if (priceLabel === '0') priceLabel = '0.00';
+
+  const symbol = getCurrencyDisplay();
+  const [integerAmount, fractionalAmount] = priceLabel.split('.');
+  const amountWithSymbol = symbol + priceLabel;
+
+  return {
+    integerAmount,
+    fractionalAmount: `.${fractionalAmount}`,
+    symbol,
+    amount: priceLabel,
+    amountWithSymbol,
+  };
 };

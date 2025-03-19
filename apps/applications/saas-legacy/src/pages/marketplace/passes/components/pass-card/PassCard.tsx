@@ -5,6 +5,7 @@ import Card from '#src/components/css-only/Fabrique/Card';
 import useViewport from '#src/components/css-only/Fabrique/hooks/useViewport';
 import { useValidityInfoForPaymentPackCard } from '#src/pages/marketplace/passes/hooks/useValidityInfoForPaymentPackCard';
 import { useTranslation } from 'react-i18next';
+import Price from '#src/pages/marketplace/passes/components/price/Price';
 import { MARKETPLACE_BREAKPOINT } from '#src/libs/marketplace/constants';
 import type { CardContent } from '#src/pages/marketplace/passes/types';
 import './style.css';
@@ -15,7 +16,7 @@ type PassCardProps = {
 
 const PassCard: React.FC<PassCardProps> = ({ content }) => {
   const { t } = useTranslation('marketplace');
-  const { title, price, credits, onAddToCart, onClickDetails } = content;
+  const { title, price, tax, credits, onAddToCart, onClickDetails } = content;
   const { width } = useViewport();
   const validity = useValidityInfoForPaymentPackCard(content.validityInfo);
   const isMobile = width < MARKETPLACE_BREAKPOINT.XS;
@@ -38,12 +39,7 @@ const PassCard: React.FC<PassCardProps> = ({ content }) => {
       </div>
 
       <div className="bs-marketplace-pass-card__content">
-        <Typography
-          className="bs-new-pass-card-content__price"
-          variant="title-lg"
-        >
-          ${price}
-        </Typography>
+        <Price price={price} tax={tax} />
         <div className="bs-marketplace-pass-card__divider"></div>
         <Typography
           className="bs-marketplace-pass-card__credits"

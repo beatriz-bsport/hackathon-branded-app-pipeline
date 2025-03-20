@@ -91,6 +91,20 @@ export default meta;
 
 type Story = StoryObj<typeof Modal>;
 
+const args = {
+  open: false,
+  title: "Modal title",
+  description:
+    "Ergonomic executive chair upholstered in bonded black leather and PVC padded seat and back for all-day comfort and support.",
+  onClose: () => console.log("modal closed"),
+  onCrossButtonClick: () => console.log("cross button clicked"),
+  onClickOutside: () => console.log("clicked outside"),
+  confirmLabel: "Confirm",
+  onConfirmClick: () => console.log("confirm clicked"),
+  cancelLabel: "Cancel",
+  onCancelClick: () => console.log("cancel clicked"),
+};
+
 /**
  * This is the default state of the Modal component.
  */
@@ -126,22 +140,63 @@ export const ModalShort: Story = {
       </>
     );
   },
-  args: {
-    open: false,
-    size: "sm",
-    title: "Modal title",
-    description:
-      "Ergonomic executive chair upholstered in bonded black leather and PVC padded seat and back for all-day comfort and support.",
-    footerDirection: "row",
-    onClose: () => console.log("modal closed"),
-    onCrossButtonClick: () => console.log("cross button clicked"),
-    onClickOutside: () => console.log("clicked outside"),
-    confirmLabel: "Confirm",
-    confirmColor: "main",
-    onConfirmClick: () => console.log("confirm clicked"),
-    cancelLabel: "Cancel",
-    onCancelClick: () => console.log("cancel clicked"),
+  args,
+};
+
+/**
+ * This story demonstrates how the `Modal` can accept a custom `description` prop.<br>
+ * The `description` can either be a string or a `ReactNode`. In this case, we're using a `ReactNode`
+ * that includes custom styles (e.g., different text colors).
+ */
+export const ModalWithACustomDescription: Story = {
+  name: "Modal with a custom description",
+  render: (args) => {
+    const [isOpen, setIsOpen] = useState(false);
+    const handleOpen = () => setIsOpen(true);
+    const handleClose = () => setIsOpen(false);
+
+    useEffect(() => {
+      setIsOpen(args.open);
+    }, [args.open]);
+
+    return (
+      <>
+        <Button
+          label="Open Modal"
+          size="md"
+          intent="default"
+          color="main"
+          onClick={handleOpen}
+        />
+        <Modal
+          {...args}
+          open={isOpen}
+          onClose={handleClose}
+          description={
+            <div>
+              <Body htmlVariant="p" weight="stronger">
+                This is a custom description with
+              </Body>
+              <Body htmlVariant="p" color="positive">
+                green colored text
+              </Body>
+              <Body htmlVariant="p" color="info">
+                blue colored text
+              </Body>
+            </div>
+          }
+        >
+          <Body htmlVariant="p" size="sm" color="default">
+            Lorem ipsum odor amet, consectetuer adipiscing elit. Iaculis tempus
+            libero habitant ex potenti; aptent vel fringilla. Commodo himenaeos
+            vitae ullamcorper commodo enim lacus leo finibus. Ultricies urna
+            litora suscipit curabitur viverra laoreet purus ante sit.
+          </Body>
+        </Modal>
+      </>
+    );
   },
+  args,
 };
 
 /**
@@ -191,22 +246,7 @@ export const ModalConfirmClosing: Story = {
       </>
     );
   },
-  args: {
-    open: false,
-    size: "sm",
-    title: "Modal title",
-    description:
-      "Ergonomic executive chair upholstered in bonded black leather and PVC padded seat and back for all-day comfort and support.",
-    footerDirection: "row",
-    onClose: () => console.log("modal closed"),
-    onCrossButtonClick: () => console.log("cross button clicked"),
-    onClickOutside: () => console.log("clicked outside"),
-    confirmLabel: "Confirm",
-    confirmColor: "main",
-    onConfirmClick: () => console.log("confirm clicked"),
-    cancelLabel: "Cancel",
-    onCancelClick: () => console.log("cancel clicked"),
-  },
+  args,
 };
 
 /**
@@ -271,20 +311,5 @@ export const ModalOverflow: Story = {
       </>
     );
   },
-  args: {
-    open: false,
-    size: "sm",
-    title: "Modal title",
-    description:
-      "Ergonomic executive chair upholstered in bonded black leather and PVC padded seat and back for all-day comfort and support.",
-    footerDirection: "row",
-    onClose: () => console.log("modal closed"),
-    onCrossButtonClick: () => console.log("cross button clicked"),
-    onClickOutside: () => console.log("clicked outside"),
-    confirmLabel: "Confirm",
-    confirmColor: "main",
-    onConfirmClick: () => console.log("confirm clicked"),
-    cancelLabel: "Cancel",
-    onCancelClick: () => console.log("cancel clicked"),
-  },
+  args,
 };

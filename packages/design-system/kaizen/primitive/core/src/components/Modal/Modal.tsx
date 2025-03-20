@@ -41,7 +41,7 @@ export type ModalProps = React.HTMLAttributes<HTMLDivElement> &
     open: boolean;
     size: string;
     title: string;
-    description?: string;
+    description?: React.ReactNode;
     footerDirection?: (typeof footerDirections)[number];
     onClose?: () => void;
     onCrossButtonClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
@@ -64,7 +64,7 @@ export type ModalProps = React.HTMLAttributes<HTMLDivElement> &
  * @param props.open Whether the modal is open or not.
  * @param props.size Size of the modal. Can be one of "sm", "md", or "lg".
  * @param props.title Title of the modal.
- * @param props.description Description below the title.
+ * @param props.description Description below the title. Can be a string or a ReactNode.
  * @param props.footerDirection Direction of the footer.
  * @param props.onClose Function to call when the modal is closed.
  * @param props.onCrossButtonClick Function to call when the cross button is clicked.

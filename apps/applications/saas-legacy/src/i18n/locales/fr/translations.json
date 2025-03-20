@@ -18331,12 +18331,12 @@
             "metaActivityEditFormSubtitle": "Modification d'une activité"
         },
         "invoice": {
-            "invoiceList": "Mes transactions",
+            "invoiceList": "Transactions",
             "invoiceCreate": "Facturer",
             "invoiceEdit": "Edition facture"
         },
         "expense": {
-            "expenseList": "Mes dépenses"
+            "expenseList": "Dépenses"
         },
         "coach": {
             "coachList": "Professeurs",

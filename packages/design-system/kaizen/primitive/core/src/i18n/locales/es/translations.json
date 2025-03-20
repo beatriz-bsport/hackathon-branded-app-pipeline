@@ -7,6 +7,12 @@
             },
             "dragAndDropCTA": "o arrástrelo y suéltelo aquí",
             "uploadFileCTA": "Cargar un archivo"
+        },
+        "emptyState": {
+            "noResultsFound": {
+                "clearFilters": "Borrar filtros",
+                "title": "No se han encontrado resultados"
+            }
         }
     }
 }

@@ -44,7 +44,8 @@
             },
             "memberships": {
                 "subscriptions": "Suscripciones",
-                "passes": "Pases"
+                "passes": "Pases",
+                "title": "Suscripciones"
             },
             "classes": {
                 "appointments": "Citas",

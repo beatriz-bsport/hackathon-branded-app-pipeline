@@ -26,13 +26,6 @@ const meta: Meta<typeof Alert> = {
     buttonLabel: {
       control: { type: "text" },
     },
-    isClearable: {
-      control: { type: "boolean" },
-      table: {
-        type: { summary: "boolean" },
-        defaultValue: { summary: "false" },
-      },
-    },
     children: {
       table: { type: { summary: "ReactNode" } },
     },
@@ -50,7 +43,6 @@ export const Primary: Story = {
     type: "weak",
     title: "Title of this alert",
     buttonLabel: "Assign",
-    isClearable: true,
     onClearClick: () => console.log("Click close"),
     onButtonClick: () => console.log("Click button"),
     children:

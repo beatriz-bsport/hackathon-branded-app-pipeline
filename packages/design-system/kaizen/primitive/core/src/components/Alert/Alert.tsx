@@ -72,12 +72,11 @@ const alert = cva(defaultClasses, {
 
 export type AlertProps = React.HTMLAttributes<HTMLDivElement> & {
   status: (typeof statuses)[number];
-  type: (typeof types)[number];
+  type?: (typeof types)[number];
   title?: string;
   buttonLabel?: string;
-  isClearable?: boolean;
-  onClearClick: MouseEventHandler<HTMLButtonElement>;
-  onButtonClick: MouseEventHandler<HTMLButtonElement>;
+  onClearClick?: MouseEventHandler<HTMLButtonElement>;
+  onButtonClick?: MouseEventHandler<HTMLButtonElement>;
 };
 
 /**
@@ -88,7 +87,6 @@ export type AlertProps = React.HTMLAttributes<HTMLDivElement> & {
  * @param props.type Type of the alert. Can be "weak" or "strong".
  * @param props.title Title of the alert.
  * @param props.buttonLabel Text label of the button.
- * @param props.isClearable Boolean to define if the alert is clearable.
  * @param props.onClearClick Function to call when the alert is cleared.
  * @param props.onButtonClick Function to call when the button is clicked.
  * @param props.children Content of the alert.
@@ -97,15 +95,15 @@ export type AlertProps = React.HTMLAttributes<HTMLDivElement> & {
 const Alert: React.FC<AlertProps> = ({
   className,
   status,
-  type,
+  type = "weak",
   title,
   buttonLabel,
-  isClearable = true,
   onClearClick,
   onButtonClick,
   children,
   ...props
 }) => {
+  const isClearable = !!onClearClick;
   const isDisplayingActions = buttonLabel || isClearable;
 
   return (

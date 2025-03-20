@@ -80,7 +80,7 @@ export function ShopItemSelector(props: Props) {
         // @ts-expect-error
         .asMutable()
         // @ts-expect-error
-        .sort((pp, pp_) => pp.name > pp_.name)
+        .sort((pp, pp_) => pp.name.localeCompare(pp_.name))
         // @ts-expect-error
         .map((pp) => ({
           value: pp.id,

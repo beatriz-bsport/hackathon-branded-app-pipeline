@@ -67,8 +67,7 @@ export function PrivatePassSelector(props: Props) {
   } = props;
   const suggestions = privatePassList
     ? [...privatePassList]
-        // @ts-expect-error
-        .sort((pp, pp_) => pp.name > pp_.name)
+        .sort((pp, pp_) => pp.name.localeCompare(pp_.name))
         .map((pp) => ({ value: pp.id, label: pp.name, pp }))
     : [];
   return (

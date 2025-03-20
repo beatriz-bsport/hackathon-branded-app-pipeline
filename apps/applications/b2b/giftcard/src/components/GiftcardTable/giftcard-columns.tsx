@@ -1,13 +1,13 @@
 import {
   Button,
   Chip,
+  type GenericTableColumn,
   Tooltip,
-  type TableProps,
 } from "@bsport/kaizen-primitive-core";
 import type { TFunction } from "#src/utils/i18n";
 import type { TableRowData } from "./constants";
 
-type TableColumn = TableProps<TableRowData>["columns"][number];
+type TableColumn = GenericTableColumn<TableRowData>;
 
 type GiftcardHandler = ({
   giftcardId,
@@ -55,7 +55,6 @@ export const getTableColumns = ({
   const columnStatus: TableColumn = {
     header: "",
     id: "column-status",
-    keyPath: "",
     type: "custom",
     align: "end",
     render: (row) => (
@@ -99,7 +98,6 @@ export const getTableColumns = ({
   const columnActions: TableColumn = {
     header: "",
     id: "column-actions",
-    keyPath: "",
     type: "custom",
     render: (row) => {
       if (row.isShared) {
@@ -119,7 +117,7 @@ export const getTableColumns = ({
               size="md"
               onClick={() =>
                 handleRestore({
-                  giftcardId: parseInt(row.id),
+                  giftcardId: row.id,
                   giftcardName: row.name,
                 })
               }
@@ -142,7 +140,7 @@ export const getTableColumns = ({
                 size="md"
                 onClick={() =>
                   handleDuplicate({
-                    giftcardId: parseInt(row.id),
+                    giftcardId: row.id,
                     giftcardName: row.name,
                   })
                 }
@@ -161,7 +159,7 @@ export const getTableColumns = ({
                 size="md"
                 onClick={() =>
                   handleArchive({
-                    giftcardId: parseInt(row.id),
+                    giftcardId: row.id,
                     giftcardName: row.name,
                   })
                 }

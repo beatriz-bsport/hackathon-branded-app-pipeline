@@ -30,9 +30,8 @@ type ColumnType =
  * You can add new column types here, such as "date", "time", etc.,
  * to extend the functionality of the Table component.
  */
-export type Column<RowType extends BaseRowType> = {
+export type Column<RowType extends BaseRow> = {
   id: string;
-  keyPath: string;
   header: React.ReactNode | string;
   type: ColumnType;
   sortable?: boolean;
@@ -40,23 +39,35 @@ export type Column<RowType extends BaseRowType> = {
 } & (
   | {
       type: "custom";
+      keyPath?: string;
       render: (row: RowType) => React.ReactNode;
     }
   | {
       type: "link";
+      keyPath: string;
       target?: "_blank" | "_self" | "_parent" | "_top";
       label?: (row: RowType) => string;
     }
   | {
       type: "avatar";
+      keyPath: string;
       size?: keyof typeof avatarSizes;
     }
-  | { type: Exclude<ColumnType, "custom" | "link" | "avatar"> }
+  | {
+      type: Exclude<ColumnType, "custom" | "link" | "avatar">;
+      keyPath: string;
+    }
 );
 
-export type BaseRowType = { id: string; link?: string; className?: string };
+export type BaseRow = {
+  id: string | number;
+  link?: string;
+  className?: string;
+};
 
-export type TableProps<RowType extends BaseRowType> =
+export type GenericTableColumn<RowType extends BaseRow> = Column<RowType>;
+
+export type TableProps<RowType extends BaseRow> =
   TableHTMLAttributes<HTMLTableElement> & {
     columns: Column<RowType>[];
     rows: RowType[];
@@ -83,7 +94,7 @@ export type TableProps<RowType extends BaseRowType> =
  * @param props.withVerticalBorders Boolean to define if the table has vertical borders.
  * @link https://docs.infra.bsport.io/storybook/kaizen/main/index.html?path=/docs/components-table--docs
  */
-const Table = <RowType extends BaseRowType>({
+const Table = <RowType extends BaseRow>({
   className,
   columns,
   rows,
@@ -94,7 +105,7 @@ const Table = <RowType extends BaseRowType>({
   emptyStateProps,
   ...props
 }: TableProps<RowType>) => {
-  const valueIds = rows?.map((row) => row.id) ?? [];
+  const valueIds = rows?.map((row) => row.id.toString()) ?? [];
 
   const renderedPagination = usePagination(paginationProps);
 
@@ -119,7 +130,7 @@ const Table = <RowType extends BaseRowType>({
   );
 };
 
-const InnerTableWithContext = <RowType extends BaseRowType>({
+const InnerTableWithContext = <RowType extends BaseRow>({
   className,
   columns,
   rows,
@@ -138,7 +149,9 @@ const InnerTableWithContext = <RowType extends BaseRowType>({
 
   const handleSelectAllChange = useCallback(() => {
     setSelectedValues(
-      areAllSelected || areSomeSelected ? [] : rows.map((row) => row.id),
+      areAllSelected || areSomeSelected
+        ? []
+        : rows.map((row) => row.id.toString()),
     );
   }, [areAllSelected, areSomeSelected, rows, setSelectedValues]);
 
@@ -160,7 +173,6 @@ const InnerTableWithContext = <RowType extends BaseRowType>({
         areAllSelected={areAllSelected}
         areSomeSelected={areSomeSelected}
         handleSelectAllChange={handleSelectAllChange}
-        rowHeight={rowHeight}
         withVerticalBorders={withVerticalBorders}
       />
       <div className="table-row-group" role="rowgroup">
@@ -168,11 +180,11 @@ const InnerTableWithContext = <RowType extends BaseRowType>({
           <TableRow
             key={row.id}
             row={row}
-            rowId={row.id}
-            columns={columns as Column<BaseRowType>[]}
+            rowId={row.id.toString()}
+            columns={columns as Column<BaseRow>[]}
             selectable={selectable}
             handleCheckboxChange={handleCheckboxChange}
-            selected={selectedValues.includes(row.id)}
+            selected={selectedValues.includes(row.id.toString())}
             rowHeight={rowHeight}
             withVerticalBorders={withVerticalBorders}
             link={row.link}

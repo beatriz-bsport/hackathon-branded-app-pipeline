@@ -1,26 +1,24 @@
 import React, { useMemo } from "react";
 import Body from "#src/components/Body";
 import Checkbox from "#src/components/Checkbox";
-import { BaseRowType, Column } from "./Table";
+import type { BaseRow, Column } from "./Table";
 import TableCell from "./TableCell";
 
-type TableHeaderProps<RowType extends BaseRowType> = {
+type TableHeaderProps<RowType extends BaseRow> = {
   columns: Column<RowType>[];
   selectable?: boolean;
   areAllSelected?: boolean;
   areSomeSelected?: boolean;
   handleSelectAllChange?: () => void;
-  rowHeight?: "sm" | "lg";
   withVerticalBorders?: boolean;
 };
 
-const TableHeader = <RowType extends BaseRowType>({
+const TableHeader = <RowType extends BaseRow>({
   columns,
   selectable = false,
   areAllSelected = false,
   areSomeSelected = false,
   handleSelectAllChange,
-  rowHeight = "sm",
   withVerticalBorders = false,
 }: TableHeaderProps<RowType>): React.ReactElement => {
   const selectAllValue = useMemo(
@@ -40,7 +38,7 @@ const TableHeader = <RowType extends BaseRowType>({
           <TableCell
             isHeader
             withVerticalBorders={withVerticalBorders}
-            rowHeight={rowHeight}
+            rowHeight="sm"
           >
             <Checkbox
               value={selectAllValue}
@@ -54,7 +52,7 @@ const TableHeader = <RowType extends BaseRowType>({
             key={col.id}
             isHeader
             withVerticalBorders={withVerticalBorders}
-            rowHeight={rowHeight}
+            rowHeight="sm"
             align={col.align}
           >
             <Body htmlVariant="span">{col.header}</Body>

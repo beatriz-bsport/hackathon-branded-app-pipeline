@@ -1,5 +1,5 @@
 export type TableRowData = {
-  id: string;
+  id: number;
   iconSrc: string;
   isShared: boolean;
   isUnavailable: boolean;

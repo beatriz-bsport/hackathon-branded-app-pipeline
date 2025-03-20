@@ -1,23 +1,23 @@
 import {
   Avatar,
-  Button,
   Body,
+  Button,
+  type GenericTableColumn,
   Tooltip,
-  type TableProps,
 } from "@bsport/kaizen-primitive-core";
 import type { TFunction } from "#src/utils/i18n";
 
 export type TableRowData = {
   balance: number;
   email: string;
-  id: string;
+  id: number;
   initials: string;
   joinDate: string;
   name: string;
   photo?: string;
 };
 
-type TableColumn = TableProps<TableRowData>["columns"][number];
+type TableColumn = GenericTableColumn<TableRowData>;
 
 type MemberHandler = ({
   memberId,
@@ -126,7 +126,7 @@ export const getTableColumns = ({
               size="md"
               onClick={() =>
                 handleRestore({
-                  memberId: Number(row.id),
+                  memberId: row.id,
                   memberName: row.name,
                 })
               }
@@ -148,7 +148,7 @@ export const getTableColumns = ({
               size="md"
               onClick={() =>
                 handleArchive({
-                  memberId: Number(row.id),
+                  memberId: row.id,
                   memberName: row.name,
                 })
               }

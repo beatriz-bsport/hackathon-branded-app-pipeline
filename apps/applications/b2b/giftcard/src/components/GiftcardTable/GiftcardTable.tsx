@@ -58,7 +58,7 @@ export const GiftcardTable: React.FC<GiftcardTableProps> = ({
 
   // Format giftcards to match GiftcardTable data
   const tableRows = giftcardList.map((giftcard) => ({
-    id: `${giftcard.id}`,
+    id: giftcard.id,
     iconSrc: giftcard.cover,
     isShared: giftcard.is_shared_giftcard,
     isUnavailable: giftcard.manager_only, // TODO : What field corresponds to unavailable ?

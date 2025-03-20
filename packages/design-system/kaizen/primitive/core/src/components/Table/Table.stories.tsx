@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Meta, StoryObj } from "@storybook/react";
-import Table, { BaseRowType, Column } from "./Table";
+import type { BaseRow, Column } from "./Table";
+import Table from "./Table";
 import Button from "#src/components/Button";
 import Chip from "#src/components/Chip";
 import AvatarImage from "#src/components/Avatar/assets/avatar.jpeg";
@@ -13,6 +14,18 @@ import AvatarImage from "#src/components/Avatar/assets/avatar.jpeg";
 const meta: Meta<typeof Table> = {
   component: Table,
   argTypes: {
+    rowHeight: {
+      options: ["sm", "lg"],
+      control: "inline-radio",
+    },
+    selectable: {
+      control: { type: "boolean" },
+      defaultValue: true,
+    },
+    withVerticalBorders: {
+      control: { type: "boolean" },
+      defaultValue: true,
+    },
     emptyStateProps: {
       table: {
         type: {
@@ -164,7 +177,7 @@ const emptySearchConfig = {
 
 export const Primary: StoryObj<typeof Table> = {
   args: {
-    columns: columns as Column<BaseRowType>[],
+    columns: columns as Column<BaseRow>[],
     rows: rows.slice(0, 5),
     rowHeight: "sm",
     selectable: true,
@@ -189,7 +202,7 @@ const updateRows = (page: number, nbRows: number) => {
  */
 export const WithPagination: StoryObj<typeof Table> = {
   args: {
-    columns: columns as Column<BaseRowType>[],
+    columns: columns as Column<BaseRow>[],
     rows,
     rowHeight: "sm",
     selectable: true,
@@ -231,7 +244,7 @@ export const WithPagination: StoryObj<typeof Table> = {
  */
 export const WithRowLink: StoryObj<typeof Table> = {
   args: {
-    columns: columns as Column<BaseRowType>[],
+    columns: columns as Column<BaseRow>[],
     rows: rows.slice(0, 3).map((row) => ({
       ...row,
       link: "https://example.com",

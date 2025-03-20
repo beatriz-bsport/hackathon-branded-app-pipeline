@@ -49,7 +49,7 @@ export const MemberTable: React.FC<MemberTableProps> = ({
   );
 
   const tableRows: TableRowData[] = memberList.map((member) => ({
-    id: member.id.toString(),
+    id: member.id,
     balance:
       member.credit_account_balance - parseFloat(member.total_unpaid_amount),
     email: member.email,

@@ -4,10 +4,10 @@ import Avatar from "#src/components/Avatar";
 import Body from "#src/components/Body";
 import Checkbox from "#src/components/Checkbox";
 import withLink from "#src/components/private/withLink";
-import { BaseRowType, Column } from "./Table";
+import type { BaseRow, Column } from "./Table";
 import TableCell from "./TableCell";
 
-type TableRowProps<RowType extends BaseRowType> = {
+type TableRowProps<RowType extends BaseRow> = {
   row: RowType;
   rowId: string;
   columns: Column<RowType>[];
@@ -26,7 +26,7 @@ const resolveDeepPath = <T,>(obj: T, path: string): unknown => {
 };
 
 const TableRow = withLink(
-  <RowType extends BaseRowType>({
+  <RowType extends BaseRow>({
     row,
     rowId,
     columns,
@@ -43,7 +43,8 @@ const TableRow = withLink(
     const renderedCells = useMemo(
       () =>
         columns.map((col) => {
-          const value = resolveDeepPath(row, col.keyPath);
+          const value =
+            col.type !== "custom" && resolveDeepPath(row, col.keyPath);
 
           const content =
             col.type === "custom" && col.render ? (

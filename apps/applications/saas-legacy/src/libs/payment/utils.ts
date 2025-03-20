@@ -19,7 +19,6 @@ import {
 import Config from '#src/config';
 import { getCurrencyCode } from '#src/libs/theme/selectors';
 import { getLocaleFromLanguage } from '#src/utils/language';
-import { TERMINAL_SETUP_INTENT_ALLOWED_COUNTRIES } from '#src/libs/terminal/constants';
 import {
   PAYMENT_METHOD_BRAND_NAME_MAP,
   PAYMENT_METHOD_PNG_MAP,
@@ -93,11 +92,7 @@ export const getBackofficeBillingPlanEnabledPaymentMethods = ({
       ? [BILLING_PLAN_PAYMENT_METHOD_STRIPE_BACS_DEBIT]
       : []),
     ...(withCredit ? [BILLING_PLAN_PAYMENT_METHOD_BSPORT_CREDIT] : []),
-    ...(withTerminal &&
-    stripeRegion === 'NorthAmerica' &&
-    TERMINAL_SETUP_INTENT_ALLOWED_COUNTRIES.includes(companyCountry)
-      ? [PAYMENT_STRIPE_TERMINAL_FAKE]
-      : []),
+    ...(withTerminal ? [PAYMENT_STRIPE_TERMINAL_FAKE] : []),
   ];
 };
 
@@ -119,11 +114,7 @@ export const getBackofficeEnabledPaymentGroupMethods = ({
       ? [PAYMENT_GROUP_METHOD_IDENTIFIER_BACS_DEBIT]
       : []),
     ...(withCredit ? [PAYMENT_GROUP_METHOD_IDENTIFIER_DEBT] : []),
-    ...(withTerminal &&
-    stripeRegion === 'NorthAmerica' &&
-    TERMINAL_SETUP_INTENT_ALLOWED_COUNTRIES.includes(companyCountry)
-      ? [PAYMENT_STRIPE_TERMINAL_FAKE]
-      : []),
+    ...(withTerminal ? [PAYMENT_STRIPE_TERMINAL_FAKE] : []),
   ];
 };
 

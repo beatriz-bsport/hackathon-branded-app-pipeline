@@ -62,10 +62,6 @@ import type { OptionCallback } from '#src/state/types';
 import type { RootState } from '#src/reducers';
 import type { ConsumerGiftcard } from '#src/libs/giftcard/types';
 
-/* CONSTANTS */
-
-import { TERMINAL_SETUP_INTENT_ALLOWED_COUNTRIES } from '#src/libs/terminal/constants';
-
 /* UTILS */
 
 import { getBackofficeBillingPlanEnabledPaymentMethods } from '#src/libs/payment/utils';
@@ -454,10 +450,7 @@ const ConnectedBillingProblemCard: React.FC<Props> = React.memo(
         {!!memberId && !!companyCountry && !!stripeRegion && (
           <PaymentModal isOpen={isAddPaymentMethodDialogOpen}>
             <AddPaymentMethod
-              addViaTerminal={
-                stripeRegion === 'NorthAmerica' &&
-                TERMINAL_SETUP_INTENT_ALLOWED_COUNTRIES.includes(companyCountry)
-              }
+              addViaTerminal
               cardBillingDetailsMandatory={
                 companyTheme.force_billing_details_on_cards
               }

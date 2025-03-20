@@ -1,5 +1,3 @@
-import { TERMINAL_SETUP_FOR_FUTURE_USAGE_ALLOWED_COUNTRIES } from '#src/libs/terminal/constants';
-
 export const parseIntentIdFromClientSecret = (
   clientSecret: string,
 ): string | null => {
@@ -8,6 +6,3 @@ export const parseIntentIdFromClientSecret = (
   const intentId = intentRegex.exec(clientSecret);
   return intentId ? intentId[0] : null;
 };
-
-export const isSetupForFutureUsageAllowed = (country: string) =>
-  TERMINAL_SETUP_FOR_FUTURE_USAGE_ALLOWED_COUNTRIES.includes(country);

@@ -1,9 +1,0 @@
-export const TERMINAL_SETUP_INTENT_ALLOWED_COUNTRIES = [
-  'US',
-  'CA',
-  'AU',
-  'GB',
-  'SG',
-];
-
-export const TERMINAL_SETUP_FOR_FUTURE_USAGE_ALLOWED_COUNTRIES = ['US'];

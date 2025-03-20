@@ -23,6 +23,7 @@ export type ConnectionToken = {
 
 export type ProcessPaymentIntentPayload = {
   payment_intent_id: string;
+  save_for_later: boolean;
 };
 
 export type ProcessSetupIntentPayload = {

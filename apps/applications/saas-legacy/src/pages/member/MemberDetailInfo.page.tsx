@@ -131,7 +131,6 @@ import type { ConsumerGiftcard } from '#src/libs/giftcard/types';
 import AddPaymentMethod from '#src/libs/payment/components/AddPaymentMethod.component';
 import PaymentModal from '#src/libs/payment/components/PaymentModal.component';
 import MemberResetPasswordDialog from '#src/libs/member/components/MemberResetPasswordDialog.component';
-import { TERMINAL_SETUP_INTENT_ALLOWED_COUNTRIES } from '#src/libs/terminal/constants';
 import { getBackofficeBillingPlanEnabledPaymentMethods } from '#src/libs/payment/utils';
 import { getMemberEventPath } from '#src/libs/member/events.utils';
 import MemberEventPanel from '#src/libs/member/components/MemberEventPanel.component';
@@ -600,10 +599,7 @@ export class MemberDetailPage extends React.PureComponent<Props> {
         {this.props.member?.id && !!companyCountry && !!stripeRegion && (
           <PaymentModal isOpen={this.props.isAddPaymentMethodDialogOpen}>
             <AddPaymentMethod
-              addViaTerminal={
-                stripeRegion === 'NorthAmerica' &&
-                TERMINAL_SETUP_INTENT_ALLOWED_COUNTRIES.includes(companyCountry)
-              }
+              addViaTerminal
               cardBillingDetailsMandatory={
                 this.props.companyTheme.force_billing_details_on_cards
               }

@@ -22,10 +22,7 @@ import {
   cancelReaderAction as cancelReaderActionAPI,
 } from '#src/libs/terminal/api';
 import type { StripeAPIException } from '#src/libs/payment/types';
-import {
-  parseIntentIdFromClientSecret,
-  isSetupForFutureUsageAllowed,
-} from '#src/libs/terminal/utils';
+import { parseIntentIdFromClientSecret } from '#src/libs/terminal/utils';
 import { updateIntentToSavePaymentMethod } from '#src/libs/payment/api';
 
 import { STRIPE_ERROR_CODE } from '#src/libs/constants';
@@ -37,10 +34,7 @@ import type {
 // eslint-disable-next-line no-duplicate-imports
 import { TerminalPaymentSteps } from '#src/libs/terminal/types';
 import type { OptionCallback } from '../../../state/types';
-import {
-  getCurrencyDisplayWithPrice,
-  getCompanyCountry,
-} from '../../theme/selectors';
+import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
 
 const POLL_RETRY_INACTIVITY_THRESHOLD = 60;
 const POLL_RETRY_DELAY_MS = 1000;
@@ -222,7 +216,6 @@ export const PaymentStripeTerminal: React.FC<Props> = ({
   onSuccess,
   onlySavePaymentMethod,
 }) => {
-  const companyCountry = getCompanyCountry();
   const classes = useStyles();
   const { t } = useTranslation('invoice');
 
@@ -366,6 +359,7 @@ export const PaymentStripeTerminal: React.FC<Props> = ({
         ? processSetupIntentPI(selectedReader, { setup_intent_id: intentId })
         : processPaymentIntentAPI(selectedReader, {
             payment_intent_id: intentId,
+            save_for_later: saveForLater,
           }));
       setProcessing && setProcessing(true);
       recursivePoll(
@@ -539,25 +533,17 @@ export const PaymentStripeTerminal: React.FC<Props> = ({
                 </React.Fragment>
               ))}
             </div>
-            {/* Save card for later when paying only available in US
-              https://stripe.com/docs/terminal/features/saving-cards/save-after-payment */}
-            {(!!isSetupIntent ||
-              (!isSetupIntent &&
-                isSetupForFutureUsageAllowed(companyCountry))) && (
-              <div className={classes.row}>
-                <Checkbox
-                  checked={saveForLater}
-                  color="primary"
-                  disabled={!!isSetupIntent}
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                    setSaveForLater(e.target.checked)
-                  }
-                />
-                <Typography>
-                  {t('paymentPanel.actions.saveForLater')}
-                </Typography>
-              </div>
-            )}
+            <div className={classes.row}>
+              <Checkbox
+                checked={saveForLater}
+                color="primary"
+                disabled={!!isSetupIntent}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setSaveForLater(e.target.checked)
+                }
+              />
+              <Typography>{t('paymentPanel.actions.saveForLater')}</Typography>
+            </div>
           </>
 
           {children || null}

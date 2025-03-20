@@ -1,12 +1,20 @@
 import { Result } from "typescript-result";
 import { Action } from "@bsport/store-base";
-
 import {
-  apiFetchInvoices,
-  apiFinalizeInvoice,
-  apiGetReceiptUrl,
-} from "#src/index";
-import { FetchInvoicesParams, Invoice, PaginatedResponse } from "#src/types";
+  fetchInvoices as apiFetchInvoices,
+  finalizeInvoice as apiFinalizeInvoice,
+  getReceiptUrl as apiGetReceiptUrl,
+} from "#src/api";
+import type {
+  FetchInvoicesParams,
+  Invoice,
+  PaginatedResponse,
+} from "#src/types";
+import {
+  setInvoices,
+  updateInvoice,
+  updateReceiptUrl,
+} from "#src/actions/store";
 
 /**
  * Fetches a list of paginated invoices.
@@ -21,7 +29,15 @@ export const fetchInvoices: Action<
 
   return Result.try(
     async () => {
-      return (await fetch<PaginatedResponse<Invoice>>(uri, init)).data;
+      const { data } = await fetch<PaginatedResponse<Invoice>>(uri, init);
+
+      setInvoices({
+        invoices: data.results,
+        page: data.page,
+        count: data.count,
+      });
+
+      return data;
     },
     (error) => new Error("Failed to fetch invoices", { cause: error }),
   );
@@ -46,7 +62,11 @@ export const finalizeInvoice: Action<string, Result<Invoice, Error>> = async (
 
   return Result.try(
     async () => {
-      return (await fetch<Invoice>(uri, init)).data;
+      const { data } = await fetch<Invoice>(uri, init);
+
+      updateInvoice(data);
+
+      return data;
     },
     (error) => new Error("Failed to finalize invoice", { cause: error }),
   );
@@ -71,7 +91,11 @@ export const getReceiptUrl: Action<string, Result<string, Error>> = async (
 
   return Result.try(
     async () => {
-      return (await fetch<string>(uri, init)).data;
+      const { data } = await fetch<string>(uri, init);
+
+      updateReceiptUrl(data);
+
+      return data;
     },
     (error) => new Error("Failed to generate receipt URL", { cause: error }),
   );

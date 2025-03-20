@@ -31,6 +31,7 @@
   "dependencies": {
     "@bsport/fetch": "workspace:*",
     "typescript-result": "^3.1.1",
+    "use-sync-external-store": "^1.4.0",
     "zustand": "^5.0.3"
   },
   "devDependencies": {

@@ -19,6 +19,9 @@ import {
   fetchInvoices,
   finalizeInvoice,
   getReceiptUrl,
+  useInvoiceStore,
+  selectInvoices,
+  selectCount,
   type Invoice,
 } from "@bsport/store-financial-services-invoice";
 import { useTranslation } from "#src/utils/i18n";
@@ -46,9 +49,9 @@ type TableDataRow = {
 };
 
 export const InvoiceListPage = () => {
-  const [invoices, setInvoices] = useState<Invoice[]>([]);
   const [currentPage, setCurrentPage] = useState(DEFAULT_PAGE);
-  const [totalInvoices, setTotalInvoices] = useState(0);
+  const invoices = useInvoiceStore(selectInvoices);
+  const count = useInvoiceStore(selectCount);
   const [isLoading, setIsLoading] = useState(true);
   const { t } = useTranslation("invoice");
 
@@ -63,10 +66,8 @@ export const InvoiceListPage = () => {
         pageSize: rows,
       });
       response.fold(
-        ({ results, count }) => {
+        ({ results }) => {
           console.log(results);
-          setInvoices(results);
-          setTotalInvoices(count);
         },
         (error) => console.error(error),
       );
@@ -196,7 +197,7 @@ export const InvoiceListPage = () => {
                     items={[
                       { type: "title", label: t("download.title") },
                       { id: "download-pdf", label: t("download.pdf") },
-                      { id: "download-receipt", label: t("Receipt") },
+                      { id: "download-receipt", label: t("download.receipt") },
                     ]}
                     onSelectOption={(id) => {
                       setIsPopoverOpened(false);
@@ -321,13 +322,13 @@ export const InvoiceListPage = () => {
           paginationProps={{
             currentPage,
             rowsPerPage: 10,
-            totalItems: totalInvoices,
+            totalItems: count,
             showRowsPerPageSelector: true,
             onPageSettingsChange: fetchData,
             disabled: isLoading,
           }}
           emptyStateProps={{
-            isEmpty: totalInvoices === 0,
+            isEmpty: count === 0,
             emptyConfig: {
               title: t("emptyTable.title"),
               subtitle: t("emptyTable.description"),

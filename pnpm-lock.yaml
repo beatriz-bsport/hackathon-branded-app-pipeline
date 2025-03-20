@@ -1674,9 +1674,12 @@ importers:
       typescript-result:
         specifier: ^3.1.1
         version: 3.1.1
+      use-sync-external-store:
+        specifier: ^1.4.0
+        version: 1.4.0(react@19.0.0)
       zustand:
         specifier: ^5.0.3
-        version: 5.0.3(@types/react@18.3.12)(immer@9.0.21)(react@19.0.0)
+        version: 5.0.3(@types/react@18.3.12)(immer@9.0.21)(react@19.0.0)(use-sync-external-store@1.4.0(react@19.0.0))
     devDependencies:
       '@bsport/eslint-config-react':
         specifier: workspace:*
@@ -1712,6 +1715,9 @@ importers:
       typescript-result:
         specifier: ^3.1.1
         version: 3.1.1
+      zustand:
+        specifier: ^5.0.3
+        version: 5.0.3(@types/react@18.3.12)(immer@9.0.21)(react@19.0.0)(use-sync-external-store@1.4.0(react@19.0.0))
     devDependencies:
       '@bsport/eslint-config-react':
         specifier: workspace:*
@@ -17032,6 +17038,11 @@ packages:
     resolution: {integrity: sha512-oCwdVC7mTuWiPyjLUz/COz5TLk6wgp0RCsN+wHZ2Ekneac9w8uuV0njcbbie2ME+Vs+d6duwmYuR3HgQXs1fOg==}
     engines: {node: '>= 0.4'}
 
+  use-sync-external-store@1.4.0:
+    resolution: {integrity: sha512-9WXSPC5fMv61vaupRkCKCxsPxBocVnwakBEkMIHHpkTTg6icbJtg6jzgtLDm4bl3cSHAca52rYWih0k4K3PfHw==}
+    peerDependencies:
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
+
   use@3.1.1:
     resolution: {integrity: sha512-cwESVXlO3url9YWlFW/TA9cshCEhtu7IKJ/p5soJ/gGpj7vbvFrAY/eIioQ6Dw23KjZhYgiIo8HOs1nQ2vr/oQ==}
     engines: {node: '>=0.10.0'}
@@ -19103,7 +19114,7 @@ snapshots:
       '@commitlint/types': 19.0.3
       chalk: 5.4.1
       cosmiconfig: 9.0.0(typescript@4.9.5)
-      cosmiconfig-typescript-loader: 5.0.0(@types/node@14.18.63)(cosmiconfig@9.0.0(typescript@4.9.5))(typescript@4.9.5)
+      cosmiconfig-typescript-loader: 5.0.0(@types/node@14.18.63)(cosmiconfig@9.0.0(typescript@5.6.3))(typescript@4.9.5)
       lodash.isplainobject: 4.0.6
       lodash.merge: 4.6.2
       lodash.uniq: 4.5.0
@@ -26791,10 +26802,10 @@ snapshots:
 
   corser@2.0.1: {}
 
-  cosmiconfig-typescript-loader@5.0.0(@types/node@14.18.63)(cosmiconfig@9.0.0(typescript@4.9.5))(typescript@4.9.5):
+  cosmiconfig-typescript-loader@5.0.0(@types/node@14.18.63)(cosmiconfig@9.0.0(typescript@5.6.3))(typescript@4.9.5):
     dependencies:
       '@types/node': 14.18.63
-      cosmiconfig: 9.0.0(typescript@4.9.5)
+      cosmiconfig: 9.0.0(typescript@5.6.3)
       jiti: 1.21.6
       typescript: 4.9.5
     optional: true
@@ -38179,6 +38190,10 @@ snapshots:
       punycode: 1.4.1
       qs: 6.13.0
 
+  use-sync-external-store@1.4.0(react@19.0.0):
+    dependencies:
+      react: 19.0.0
+
   use@3.1.1: {}
 
   util-deprecate@1.0.2: {}
@@ -39399,10 +39414,11 @@ snapshots:
     optionalDependencies:
       react: 16.10.2
 
-  zustand@5.0.3(@types/react@18.3.12)(immer@9.0.21)(react@19.0.0):
+  zustand@5.0.3(@types/react@18.3.12)(immer@9.0.21)(react@19.0.0)(use-sync-external-store@1.4.0(react@19.0.0)):
     optionalDependencies:
       '@types/react': 18.3.12
       immer: 9.0.21
       react: 19.0.0
+      use-sync-external-store: 1.4.0(react@19.0.0)
 
   zwitch@1.0.5: {}

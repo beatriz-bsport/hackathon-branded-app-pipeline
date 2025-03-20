@@ -31,7 +31,8 @@
   "dependencies": {
     "@bsport/fetch": "workspace:*",
     "@bsport/store-base": "workspace:*",
-    "typescript-result": "^3.1.1"
+    "typescript-result": "^3.1.1",
+    "zustand": "^5.0.3"
   },
   "devDependencies": {
     "@bsport/eslint-config-react": "workspace:*"

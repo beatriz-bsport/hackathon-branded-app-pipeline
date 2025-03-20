@@ -1,4 +1,5 @@
 import { type StoreApi, type ExtractState } from "zustand";
+import { shallow } from "zustand/shallow";
 import { useStoreWithEqualityFn } from "zustand/traditional";
 
 /**
@@ -6,10 +7,14 @@ import { useStoreWithEqualityFn } from "zustand/traditional";
  *
  * @see https://github.com/pmndrs/zustand/blob/main/docs/guides/typescript.md#bounded-usestore-hook-for-vanilla-stores
  */
-export const bindStore = ((store) => (selector, cmp) =>
-  useStoreWithEqualityFn(store, selector, cmp)) as <S extends StoreApi<S>>(
+export const bindStore = ((store) => (selector, cmp) => {
+  return useStoreWithEqualityFn(store, selector, cmp ?? shallow);
+}) as <S extends StoreApi<unknown>>(
   store: S,
 ) => {
   (): ExtractState<S>;
-  <T>(selector: (state: ExtractState<S>) => T, cmp: (a: T, b: T) => boolean): T;
+  <T>(
+    selector: (state: ExtractState<S>) => T,
+    cmp?: (a: T, b: T) => boolean,
+  ): T;
 };

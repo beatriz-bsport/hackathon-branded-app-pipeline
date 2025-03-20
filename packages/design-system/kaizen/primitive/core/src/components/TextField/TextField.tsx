@@ -1,10 +1,11 @@
-import React, { ChangeEvent, useState } from "react";
+import React, { type ChangeEvent, useState } from "react";
 import { cva } from "class-variance-authority";
 import mapValues from "lodash/mapValues";
 import classNames from "classnames";
 import Button from "#src/components/Button";
 import Icon, { IconName } from "#src/components/Icon";
 import Badge from "#src/components/Badge";
+import ColorInput from "./ColorInput";
 
 const defaultClasses = [
   "w-full",
@@ -30,14 +31,15 @@ export const statuses = mapValues(variants.status, (_, key) => key) as {
 };
 
 export const inputTypes = [
+  "color",
   "date",
   "datetime-local",
   "email",
   "number",
   "password",
+  "search",
   "tel",
   "text",
-  "search",
 ] as const;
 
 export type TextFieldPrefixSuffix =
@@ -120,7 +122,39 @@ const TextField: React.FC<TextFieldProps> = ({
   onFocus,
   ...props
 }) => {
+  /* TODO: Check with design if the color picker needs all these props, and split it in a separate component (explained here: https://gitlab.com/bsport/ichizen/-/merge_requests/425#note_2402509306) */
+
   const [isInputFocused, setIsInputFocused] = useState(false);
+
+  const isValidHex = (val?: string) =>
+    /^#[0-9A-Fa-f]{3}$|^#[0-9A-Fa-f]{6}$/i.test(val ?? "");
+  const getDefaultColor = (val?: string) =>
+    isValidHex(val) ? (val ?? "#ffffff") : "#ffffff";
+
+  const [colorInputValue, setColorInputValue] = useState(
+    getDefaultColor(value),
+  );
+
+  const handleTextChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const val = e.target.value;
+
+    if (/^#[\da-f]{0,6}$/i.test(val)) {
+      if (val.length === 4 || val.length === 7) {
+        setColorInputValue(val);
+      }
+      onChange?.(e);
+    }
+  };
+
+  const handleColorInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setColorInputValue(e.target.value);
+    onChange?.(e);
+  };
+
+  const colorInputProps =
+    type === "color"
+      ? { type: "text", onChange: handleTextChange }
+      : { type, onChange };
 
   return (
     <div
@@ -145,106 +179,114 @@ const TextField: React.FC<TextFieldProps> = ({
           )}
         </label>
       )}
-      <div
-        className={classNames(
-          "relative flex justify-between rounded-md bg-surface-default overflow-hidden before:content-[''] before:absolute before:inset-0 before:w-full before:h-full before:rounded-md before:pointer-events-none",
-          {
-            "before:shadow-border-thin-default": status === "default",
-            "before:shadow-border-thin-positive": status === "positive",
-            "before:shadow-border-thin-critical": status === "error",
-            "shadow-focused": isInputFocused && status === "default",
-          },
-        )}
-      >
-        {/* Input type search need this special custom style to hide clear button rendered by default in the different browsers */}
-        {type === "search" && (
-          <style>
-            {`
-              input[type="search"]::-ms-clear { display: none; width: 0; height: 0; }
-              input[type="search"]::-webkit-search-decoration,
-              input[type="search"]::-webkit-search-cancel-button,
-              input[type="search"]::-webkit-search-results-button,
-              input[type="search"]::-webkit-search-results-decoration { display: none !important; }
-              input[type="search"]::-moz-search-cancel-button { display: none !important; }
-            `}
-          </style>
-        )}
-        {/* TODO: type country */}
-        {prefix && Object.keys(prefix).length > 0 && (
-          <div className="flex px-md items-center gap-xs border-r-stroke-thin border-r-stroke-default bg-surface-default-weak text-onsurface-weaker">
-            {prefix.type === "text" ? (
-              <span>{prefix.value}</span>
-            ) : prefix.type === "icon" ? (
-              <Icon icon={prefix.value} size="sm" />
-            ) : prefix.type === "color" ? (
-              <Badge
-                size="sm"
-                color="default"
-                style={{ backgroundColor: prefix.value }}
-              />
-            ) : null}
-          </div>
-        )}
-        <div className="flex gap-xs items-center justify-between w-full px-xs py-2xs">
-          {iconLeft && (
-            <div className="text-onsurface-weak">
-              <Icon icon={iconLeft} size="sm" />
+      <div className="flex gap-xs">
+        <div
+          className={classNames(
+            "relative flex justify-between rounded-md bg-surface-default overflow-hidden before:content-[''] before:absolute before:inset-0 before:w-full before:h-full before:rounded-md before:pointer-events-none",
+            {
+              "before:shadow-border-thin-default": status === "default",
+              "before:shadow-border-thin-positive": status === "positive",
+              "before:shadow-border-thin-critical": status === "error",
+              "shadow-focused": isInputFocused && status === "default",
+            },
+          )}
+        >
+          {/* Input type search need this special custom style to hide clear button rendered by default in the different browsers */}
+          {type === "search" && (
+            <style>
+              {`
+                input[type="search"]::-ms-clear { display: none; width: 0; height: 0; }
+                input[type="search"]::-webkit-search-decoration,
+                input[type="search"]::-webkit-search-cancel-button,
+                input[type="search"]::-webkit-search-results-button,
+                input[type="search"]::-webkit-search-results-decoration { display: none !important; }
+                input[type="search"]::-moz-search-cancel-button { display: none !important; }
+              `}
+            </style>
+          )}
+          {/* TODO: type country */}
+          {prefix && Object.keys(prefix).length > 0 && (
+            <div className="flex px-md items-center gap-xs border-r-stroke-thin border-r-stroke-default bg-surface-default-weak text-onsurface-weaker">
+              {prefix.type === "text" ? (
+                <span>{prefix.value}</span>
+              ) : prefix.type === "icon" ? (
+                <Icon icon={prefix.value} size="sm" />
+              ) : prefix.type === "color" ? (
+                <Badge
+                  size="sm"
+                  color="default"
+                  style={{ backgroundColor: prefix.value }}
+                />
+              ) : null}
             </div>
           )}
-          <input
-            className={textField({ status })}
-            id={id}
-            name={id}
-            value={value}
-            placeholder={placeholder}
-            required={required}
-            onChange={onChange}
-            onBlur={(e) => {
-              setIsInputFocused(false);
-              onBlur?.(e);
-            }}
-            onFocus={(e) => {
-              setIsInputFocused(true);
-              onFocus?.(e);
-            }}
-            type={type}
-            disabled={disabled}
-            aria-required={required}
-            aria-invalid={status === "error"}
-            aria-describedby={helperText ? `${id}-helper-text` : undefined}
-            {...props}
-          />
-          {type !== "number" && value && (
-            <Button
-              iconLeft="x-close"
-              size="sm"
-              intent="flat"
-              color="default"
-              onClick={onClear}
-              className="text-onsurface-weak"
+          <div className="flex gap-xs items-center justify-between w-full px-xs py-2xs">
+            {iconLeft && (
+              <div className="text-onsurface-weak">
+                <Icon icon={iconLeft} size="sm" />
+              </div>
+            )}
+            <input
+              className={textField({ status })}
+              id={id}
+              name={id}
+              value={value}
+              placeholder={placeholder}
+              required={required}
+              disabled={disabled}
+              onBlur={(e) => {
+                setIsInputFocused(false);
+                onBlur?.(e);
+              }}
+              onFocus={(e) => {
+                setIsInputFocused(true);
+                onFocus?.(e);
+              }}
+              aria-required={required}
+              aria-invalid={status === "error"}
+              aria-describedby={helperText ? `${id}-helper-text` : undefined}
+              {...props}
+              {...colorInputProps}
             />
-          )}
-          {iconRight && (
-            <div className="text-onsurface-weak">
-              <Icon icon={iconRight} size="sm" />
+            {type !== "number" && type !== "color" && value && (
+              <Button
+                iconLeft="x-close"
+                size="sm"
+                intent="flat"
+                color="default"
+                onClick={onClear}
+                className="text-onsurface-weak"
+              />
+            )}
+            {iconRight && (
+              <div className="text-onsurface-weak">
+                <Icon icon={iconRight} size="sm" />
+              </div>
+            )}
+          </div>
+          {/* TODO: type country */}
+          {suffix && Object.keys(suffix).length > 0 && (
+            <div className="flex px-md justify-center items-center gap-xs border-l-stroke-thin border-l-stroke-default bg-surface-default-weak text-onsurface-weaker">
+              {suffix?.type === "text" ? (
+                <span>{suffix.value}</span>
+              ) : suffix?.type === "icon" ? (
+                <Icon icon={suffix.value} size="sm" />
+              ) : suffix?.type === "color" ? (
+                <Badge
+                  size="sm"
+                  color="default"
+                  className={`bg-[${suffix.value}]`}
+                />
+              ) : null}
             </div>
           )}
         </div>
-        {/* TODO: type country */}
-        {suffix && Object.keys(suffix).length > 0 && (
-          <div className="flex px-md justify-center items-center gap-xs border-l-stroke-thin border-l-stroke-default bg-surface-default-weak text-onsurface-weaker">
-            {suffix?.type === "text" ? (
-              <span>{suffix.value}</span>
-            ) : suffix?.type === "icon" ? (
-              <Icon icon={suffix.value} size="sm" />
-            ) : suffix?.type === "color" ? (
-              <Badge
-                size="sm"
-                color="default"
-                className={`bg-[${suffix.value}]`}
-              />
-            ) : null}
-          </div>
+        {type === "color" && (
+          <ColorInput
+            value={colorInputValue}
+            onChange={handleColorInputChange}
+            disabled={disabled}
+          />
         )}
       </div>
       {helperText && (

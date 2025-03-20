@@ -16,6 +16,7 @@ const meta: Meta<typeof TextField> = {
     },
     status: {
       options: Object.keys(statuses),
+      control: { type: "inline-radio" },
       table: { type: { summary: "string" } },
     },
     value: {
@@ -23,6 +24,7 @@ const meta: Meta<typeof TextField> = {
     },
     type: {
       options: inputTypes,
+      control: { type: "select" },
       table: { type: { summary: "string" } },
     },
     onChange: {
@@ -113,8 +115,47 @@ export const TextFieldBasic: Story = {
   },
   args: {
     id: "textfield",
+    type: "text",
     status: "default",
     value: "Fun with selectors",
+    onChange: () => {},
+    onClear: () => {},
+    label: "Label",
+    placeholder: "Placeholder",
+    required: true,
+    disabled: false,
+    helperText: "I am helping you here!",
+    statusText: "Status is either good or bad.",
+  },
+};
+
+/**
+ *  Showcases the color picker with the input alongside the textfield. This is a native browser feature, so the modal will behave differently on Firefox, Chrome, and mobile.
+ */
+export const TextFieldColorPicker: Story = {
+  name: "Text Field color picker",
+  render: (args) => {
+    const [value, setValue] = useState(args.value);
+    useEffect(() => {
+      setValue(args.value);
+    }, [args.value]);
+
+    return (
+      <TextField
+        {...args}
+        value={value}
+        onChange={(e: ChangeEvent<HTMLInputElement>) =>
+          setValue(e.target.value)
+        }
+        onClear={() => setValue("")}
+      />
+    );
+  },
+  args: {
+    id: "textfield",
+    type: "color",
+    status: "default",
+    value: "#abc667",
     onChange: () => {},
     onClear: () => {},
     label: "Label",
@@ -147,6 +188,7 @@ export const TextFieldWithIcons: Story = {
   },
   args: {
     id: "textfield",
+    type: "text",
     status: "default",
     value: "Fun with selectors",
     onChange: () => {},
@@ -186,6 +228,7 @@ export const TextFieldWithPrefixSuffix: Story = {
   },
   args: {
     id: "textfield",
+    type: "text",
     status: "default",
     value: "",
     onChange: () => {},

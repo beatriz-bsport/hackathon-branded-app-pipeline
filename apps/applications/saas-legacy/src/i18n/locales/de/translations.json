@@ -14735,7 +14735,7 @@
         },
         "invoice": {
             "invoiceCreate": "In Rechnung stellen",
-            "invoiceList": "Meine Transaktionen",
+            "invoiceList": "Rechnungen",
             "invoiceEdit": "Änderung der Rechnung"
         },
         "metaActivity": {
@@ -14792,7 +14792,7 @@
         "shop": "Webshop",
         "offerFormPage": "Erstellung eines Kurses",
         "expense": {
-            "expenseList": "Meine Ausgaben"
+            "expenseList": "Ausgaben"
         },
         "coachUserSpace": {
             "performance": "Lohnabrechnung",

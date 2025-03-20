@@ -18064,7 +18064,7 @@
         "invoice": {
             "invoiceEdit": "Edición factura",
             "invoiceCreate": "Facturar",
-            "invoiceList": "Mis transaciones"
+            "invoiceList": "Facturas"
         },
         "metaActivity": {
             "metaActivityFormPage": "Formulario Actividad",
@@ -18092,7 +18092,7 @@
             "videoList": "Videoteca"
         },
         "expense": {
-            "expenseList": "Mis gastos"
+            "expenseList": "Gastos"
         },
         "coachUserSpace": {
             "performance": "Remuneración",

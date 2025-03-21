@@ -22,6 +22,8 @@ import ConsumerSubscriptionReworked from '#src/pages/consumer/ConsumerSubscripti
 import { getMembership } from '#src/libs/membership/selectors';
 import { RootState } from '#src/reducers';
 import { ConsumerSpaceContextEnum } from '#src/libs/consumer-space/constants';
+//@ts-expect-error
+import BasketPage from '#src/pages/checkout/basket/Basket.page';
 
 const BridgeWidget = asyncComponent(() => import('./BridgeWidget.page'));
 
@@ -64,7 +66,10 @@ class WidgetRouter extends React.Component<Props> {
             component={BridgeWidget}
             path="/widget/:companyName/:companyId/bridge"
           />
-
+          <Route
+            component={BasketPage}
+            path="/widget/:companyName/:companyId/basket"
+          />
           <Route
             component={this.attachConsumerProps(ConsumerBookingReworked)}
             path="/widget/:companyName/:companyId/bookings/"

@@ -64,15 +64,16 @@ export const useBasketPaymentStoreData = (
     total_price_prepaid_lines_cts: basketTotalPricePrepaidLinesCts,
     instalment_payment: instalmentPaymentSelectedId,
     checkout_items: basketCheckoutItems,
-  } = useSelector((state: RootState) => getBasket(state, basketId));
+  } = useSelector((state: RootState) => getBasket(state, basketId)) ?? {};
 
   const creditAccountBalance = useSelector((state: RootState) =>
     getUsableCreditAccountBalance(state, memberId),
   );
 
-  const { loading: isDetachPaymentMethodLoading } = useSelector(
-    (state: RootState) => getDetachPaymentMethod(state, memberId),
-  );
+  const { loading: isDetachPaymentMethodLoading } =
+    useSelector((state: RootState) =>
+      getDetachPaymentMethod(state, memberId),
+    ) ?? {};
 
   const instalmentPaymentConfigurations = useSelector((state: RootState) =>
     getInstalmentForBasketList(state),
@@ -83,11 +84,12 @@ export const useBasketPaymentStoreData = (
     client_secret: clientSecret,
     loading: isClientSecretLoading,
     error: clientSecretError,
-  } = useSelector((state: RootState) => getBasketClientSecret(state, basketId));
+  } = useSelector((state: RootState) =>
+    getBasketClientSecret(state, basketId),
+  ) ?? {};
 
-  const { loading, current: currentBasket } = useSelector(
-    (state: RootState) => getCheckoutState(state).basket,
-  );
+  const { loading, current: currentBasket } =
+    useSelector((state: RootState) => getCheckoutState(state).basket) ?? {};
 
   const {
     loading: isCurrentBasketLoading,

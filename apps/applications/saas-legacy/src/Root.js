@@ -211,7 +211,7 @@ export class Root extends Component<Props> {
             networkAvailable={this.props.networkAvailable}
           />
         )}
-        {theme && theme.gtmId && <Analytics theme={theme} />}
+        {theme && <Analytics theme={theme} />}
         {!pendingEmailConfirmation || !authenticated ? (
           <Switch>
             <Route

@@ -26,6 +26,8 @@ import {
   getSessionMetaActivityId,
   getItemQuantity,
 } from './utils';
+import { getItemInStorage } from '#src/utils/storage';
+import { META_PIXEL_ID_STORAGE_KEY } from './constants';
 
 const analyticsUtils = {
   trackGTM: (eventName: string, payload?: GTMPayload) => {
@@ -37,9 +39,23 @@ const analyticsUtils = {
     }
   },
 
+  /**
+   *
+   * @param eventName The name of the event we want to send to Meta Pixel
+   * @param payload The data bring by this event
+   * This function is now using trackSingle because this is the only way we have to send events to precise studios
+   * We are retrieveing the meta pixel id here as the analytics sender function are not in a react component
+   * (cannot put this function in a hook as some component using it are still react classes)
+   * so the meta pixel id is set in the session storage when building the Analytics component
+   */
   trackMetaPixel: (eventName: string, payload?: MetaPixelPayload) => {
-    if (typeof window !== 'undefined' && typeof window.fbq === 'function') {
-      window.fbq('track', eventName, payload || {});
+    const metaPixelId = getItemInStorage('session', META_PIXEL_ID_STORAGE_KEY);
+    if (
+      metaPixelId &&
+      metaPixelId !== 'undefined' &&
+      typeof window?.fbq === 'function'
+    ) {
+      window.fbq('trackSingle', metaPixelId, eventName, payload || {});
     }
   },
 

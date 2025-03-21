@@ -10,6 +10,7 @@ declare global {
   interface Window {
     dataLayer: Object[] | null;
     fbq: any;
+    _fbq: any;
     isLoadedAnalytics: boolean | null;
   }
 }

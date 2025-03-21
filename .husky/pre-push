@@ -1,36 +1,34 @@
 #!/usr/bin/env sh
 echo "⏳ Starting pre-push hook"
 
-# Run translations checks when pushing directly to deployed envs
-RUN_TRANSLATIONS_CHECK="false"
-# Do not use git branch --show-current as it appeared on git 2.22 and weblate is 2.20
-GIT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
-if [ "$GIT_BRANCH" = "dev" ]; then
-    RUN_TRANSLATIONS_CHECK="true"
-elif [ "$GIT_BRANCH" = "staging" ]; then
-    RUN_TRANSLATIONS_CHECK="true"
-elif [ "$GIT_BRANCH" = "production" ]; then
-    RUN_TRANSLATIONS_CHECK="true"
-else
-    continue
-fi
-
-if [ "$ECOSYSTEM_SKIP_HOOKS" != "true" ] && [ "$RUN_TRANSLATIONS_CHECK" = "true" ]; then
-    echo "Check whether JSON translations have been edited"
-    git fetch origin $GIT_BRANCH
-    NB_LOCALES_DIFF=$(git diff origin/$GIT_BRANCH --name-only | grep '/locales' | wc -l)
+if [ "$ECOSYSTEM_SKIP_HOOKS" != "true" ]; then
+    echo "⏳ Checking whether translations have been edited ..."
+    echo "ℹ️  Run translation:update on Ichizen and saas-legacy"
+    # Build translations for saas-legacy and i18n-management
+    pnpm exec nx run-many --target=translation:update --projects=@bsport/saas-legacy,@bsport/i18n-management
+    # Count number of changes in locales folder containing build translations files
+    NB_LOCALES_DIFF=$(git status -s | grep '/locales/' | wc -l)
+    echo "ℹ️  Number of changes detected : $NB_LOCALES_DIFF"
     if [ "$NB_LOCALES_DIFF" = "0" ]; then
         echo "✅ No changes detected in **/locales/ files"
-        continue
+        exit 0
     else
         echo "❗ Changes detected in **/locales/ files"
-        echo "❗ Build final translations files in the applications"
-        pnpm run -w translation:update
-        echo "❗ Add (stage) translations files that have been changed"
-        git diff HEAD --name-only | grep '/locales/' | xargs git add
-        export ECOSYSTEM_SKIP_HOOKS=true
-        git commit -m "chore(translations): Commit translation:update diff (translation builds)" --no-verify
-        echo "✅ Commit updated translations files"
+        echo "❗ A commit will be created with translations and locales files"
+        echo "❗ If you want to skip this, run 'export ECOSYSTEM_SKIP_HOOKS=true' before pushing"
+        echo "⏳ Adding translations and locales changes ..."
+        git status -s | cut -c4- | grep '/translations/\|/locales/'| xargs git add
+        # 
+        echo "⏳ Commiting changes if staged files are present ..."
+        NB_STAGED_FILES=$(git diff --name-only --cached | wc -l | tr -d ' ')
+        if [ "$NB_STAGED_FILES" = "0" ]; then
+            echo "❗ No staged files detected. Skip commit."
+            exit 0
+        else
+            echo "ℹ️  Translations files have been staged. Generate commit."
+            ECOSYSTEM_SKIP_HOOKS=true git commit -m "chore(translations): Commit translation:update diff (pre-push)" --no-verify
+            echo "✅ Created commit to update translations files"
+        fi
     fi
 fi
 

@@ -13,7 +13,8 @@ Analyze:
     - NX_BASE=$CI_MERGE_REQUEST_TARGET_BRANCH_NAME
     - git fetch origin $NX_BASE
     - echo "🔱 These are the affected projects :"
-    - pnpm exec nx show projects --affected --base=origin/$NX_BASE --head=HEAD
+    - AFFECTED_PROJECTS=$(pnpm exec nx show projects --affected --base=origin/$NX_BASE --head=HEAD)
+    - echo $AFFECTED_PROJECTS
     - echo "*"
     - echo "⏳ Compile ichizen affected projects with Typescript"
     - pnpm exec nx affected --target=ci:compile --base=origin/$NX_BASE
@@ -32,8 +33,14 @@ Analyze:
     - echo "✅ All legacy affected projetcs have been linted"
     - echo "*"
     - echo "⏳ Check translations files have been commited"
+    - SAAS_LEGACY_AFFECTED=$(echo $(echo "$AFFECTED_PROJECTS" | grep '@bsport/saas-legacy' | wc -l | tr -d ' '))
+    - |
+      if [ "$SAAS_LEGACY_AFFECTED" -eq "1" ]; then
+        echo "❗ @bsport/saas-legacy has been changed. Checking translations."
+        pnpm exec nx translation:update @bsport/saas-legacy
+      fi
     - pnpm run -w translation:update
-    - NB_LOCALES_DIFF=$(echo $(git diff HEAD --name-only | grep '/locales' | wc -l))
+    - NB_LOCALES_DIFF=$(echo $(git diff HEAD --name-only | grep '/locales' | wc -l | tr -d ' '))
     - |
       if [ "$NB_LOCALES_DIFF" != "0" ]; then
         echo "❗ Detected changes in **/locales files that have not been commited ❗"

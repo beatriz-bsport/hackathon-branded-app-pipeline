@@ -9,7 +9,7 @@ import {
 } from '@bsport/common/lib/master-data/payment-group';
 import { AxiosError } from 'axios';
 
-type PaymentEngine =
+export type PaymentEngine =
   | typeof PAYMENT_ENGINE_STRIPE
   | typeof PAYMENT_ENGINE_BSPORT
   | typeof PAYMENT_ENGINE_PAYPAL;

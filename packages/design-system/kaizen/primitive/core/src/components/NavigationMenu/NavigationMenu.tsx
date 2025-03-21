@@ -1,6 +1,7 @@
 import React from "react";
 import Divider from "#src/components/Divider";
 import Item from "./Item";
+import Group from "./Group";
 import {
   NavigationMenuProvider,
   type NavigationMenuProviderProps,
@@ -32,18 +33,26 @@ const NavigationMenu: React.FC<NavigationMenuProps> = ({
   return (
     <NavigationMenuProvider
       onItemClick={onItemClick}
-      items={elements.filter((item) => item?.type !== "divider")}
+      items={elements.filter(
+        (item) => item?.type !== "divider" && item?.type !== "group",
+      )}
     >
       <div className={className || ""} {...props}>
         {elements.map((element, index) => {
-          return element?.type === "divider" ? (
-            <Divider
-              key={`navigation-divider-${index}`}
-              className="border-stroke-thin mt-2xs mb-xs last:mb-[0px]"
-            />
-          ) : (
-            <Item id={element.id} key={element.id} />
-          );
+          if (element?.type === "divider") {
+            return (
+              <Divider
+                key={`navigation-divider-${index}`}
+                className="border-stroke-thin mt-2xs mb-xs last:mb-[0px]"
+              />
+            );
+          } else if (element?.type === "group") {
+            return (
+              <Group key={`navigation-group-${index}`} label={element?.label} />
+            );
+          }
+
+          return <Item id={element.id} key={element.id} />;
         })}
       </div>
     </NavigationMenuProvider>

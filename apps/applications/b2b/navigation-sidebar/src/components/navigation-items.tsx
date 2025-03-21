@@ -2,13 +2,111 @@ import {
   Indicator,
   type NavigationMenuElement,
 } from "@bsport/kaizen-primitive-core";
-import { TFunction } from "#src/utils/i18n";
 
-export const getNavigationElements = ({
-  t,
+import { useTranslation } from "#src/utils/i18n";
+
+export type MenuSet = "default" | "settings";
+
+export const useNavigationElements = ({
+  menuSet = "default",
 }: {
-  t: TFunction;
+  menuSet?: MenuSet;
 }): NavigationMenuElement[] => {
+  const { t } = useTranslation("default");
+
+  if (menuSet === "settings") {
+    return [
+      {
+        type: "group",
+        label: t("menus.settings.title"),
+      },
+      {
+        id: "general",
+        label: t("menus.settings.general"),
+      },
+      {
+        id: "marketplace",
+        label: t("menus.settings.marketplace"),
+      },
+      {
+        id: "widgets",
+        label: t("menus.settings.widgets"),
+      },
+      {
+        id: "permissions",
+        label: t("menus.settings.permissions"),
+      },
+      {
+        id: "personalization",
+        label: t("menus.settings.personalization"),
+      },
+      {
+        id: "teacherView",
+        label: t("menus.settings.teacherView"),
+      },
+      {
+        id: "memberForms",
+        label: t("menus.settings.memberForms"),
+      },
+      {
+        id: "livestreaming",
+        label: t("menus.settings.livestreaming"),
+      },
+      {
+        id: "transactionalNotifications",
+        label: t("menus.settings.transactionalNotifications"),
+      },
+      {
+        id: "payroll",
+        label: t("menus.settings.payroll"),
+      },
+      {
+        id: "paymentMethods",
+        label: t("menus.settings.paymentMethods"),
+      },
+      {
+        id: "paymentFacilities",
+        label: t("menus.settings.paymentFacilities"),
+      },
+      {
+        id: "billing",
+        label: t("menus.settings.billing"),
+      },
+      {
+        id: "company",
+        label: t("menus.settings.company"),
+      },
+      {
+        id: "waitlist",
+        label: t("menus.settings.waitlist"),
+      },
+      {
+        id: "webhook",
+        label: t("menus.settings.webhook"),
+      },
+      {
+        id: "partnership",
+        label: t("menus.settings.partnership"),
+      },
+      {
+        id: "activeCampaign",
+        label: t("menus.settings.activeCampaign"),
+      },
+      {
+        id: "referral",
+        label: t("menus.settings.referral"),
+      },
+      {
+        id: "bsportSubscription",
+        label: t("menus.settings.bsportSubscription"),
+      },
+      {
+        id: "temporaryPass",
+        label: t("menus.settings.temporaryPass"),
+      },
+    ] as const;
+  }
+
   /** @todo Add hrefs */
   return [
     {
@@ -146,5 +244,5 @@ export const getNavigationElements = ({
         { id: "establishments", label: t("menus.myStudio.establishments") },
       ],
     },
-  ];
+  ] as const;
 };

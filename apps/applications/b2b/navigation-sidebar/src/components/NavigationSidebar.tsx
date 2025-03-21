@@ -1,19 +1,42 @@
+import { useState } from "react";
+
 import { Button, Card, NavigationMenu } from "@bsport/kaizen-primitive-core";
+
 import { AppI18nextProvider, useTranslation } from "#src/utils/i18n";
-import { getNavigationElements } from "./navigation-items";
+
+import { useNavigationElements, type MenuSet } from "./navigation-items";
+import NavigationSidebarHeader from "./NavigationSidebarHeader";
+import LanguageDropdown from "./LanguageDropdown";
 
 const NavigationSidebarContent = () => {
   const { t } = useTranslation("default");
-  const navigationElements = getNavigationElements({ t });
+
+  const [menuSet, setMenuSet] = useState<MenuSet>("default");
+  const navigationElements = useNavigationElements({ menuSet });
+
   return (
     <div
       className={
-        "h-screen hide-scrollbar overflow-y-scroll w-[240px] py-md " +
-        "bg-surface-page-navigation shrink-0 flex flex-col justify-between"
+        "h-screen hide-scrollbar w-[240px] py-md " +
+        "bg-surface-page-navigation shrink-0 flex flex-col"
       }
     >
-      <NavigationMenu className="px-xs" elements={navigationElements} />
-      <Card elevated className="p-xs mt-md mx-xs flex flex-col gap-2xs">
+      <NavigationSidebarHeader
+        // TODO: repalce with real data
+        label="bsport studio"
+        menuSet={menuSet}
+        onSelectItem={(id) => {
+          if (id === "settings") {
+            setMenuSet(id);
+          }
+        }}
+        onBack={() => setMenuSet("default")}
+      />
+      <div role="presentation" className="flex-1 overflow-y-scroll">
+        <NavigationMenu className="px-xs" elements={navigationElements} />
+        {menuSet === "settings" && <LanguageDropdown />}
+      </div>
+      <Card elevated className="p-xs mx-xs flex flex-col gap-2xs mt-[auto]">
         <Button
           className="justify-between"
           label={t("revampCard.betaFeedbackLink")}

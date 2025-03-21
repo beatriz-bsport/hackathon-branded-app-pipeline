@@ -69,6 +69,15 @@ const icons = {
   "filter-lines": React.lazy(
     async () => await import("./assets/filter-lines.svg?react"),
   ),
+  "flag-cz": React.lazy(async () => await import("./assets/flag-cz.svg?react")),
+  "flag-de": React.lazy(async () => await import("./assets/flag-de.svg?react")),
+  "flag-es": React.lazy(async () => await import("./assets/flag-es.svg?react")),
+  "flag-fr": React.lazy(async () => await import("./assets/flag-fr.svg?react")),
+  "flag-it": React.lazy(async () => await import("./assets/flag-it.svg?react")),
+  "flag-nl": React.lazy(async () => await import("./assets/flag-nl.svg?react")),
+  "flag-pt": React.lazy(async () => await import("./assets/flag-pt.svg?react")),
+  "flag-uk": React.lazy(async () => await import("./assets/flag-uk.svg?react")),
+  "flag-us": React.lazy(async () => await import("./assets/flag-us.svg?react")),
   "gift-02": React.lazy(async () => await import("./assets/gift-02.svg?react")),
   "graduation-hat-02": React.lazy(
     async () => await import("./assets/graduation-hat-02.svg?react"),

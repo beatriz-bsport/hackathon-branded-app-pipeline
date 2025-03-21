@@ -33,7 +33,7 @@ const defaultClasses = [
   "transition ease-out duration-default",
 ] as const;
 
-const popoverClasses = cva("relative w-fit h-full");
+const popoverClasses = cva("relative w-fit h-fit");
 
 export const PopoverContext = createContext<{
   isPopoverOpened: boolean;

@@ -5,8 +5,7 @@ import React, {
   useMemo,
   useRef,
 } from "react";
-import { cva } from "class-variance-authority";
-import classNames from "classnames";
+import { cva, cx } from "class-variance-authority";
 import Collapse from "#src/components/Collapse";
 import Icon from "#src/components/Icon";
 import SubItem from "#src/components/NavigationMenu/SubItem";
@@ -82,7 +81,7 @@ const Item: React.FC<ItemProps> = ({ id }) => {
             () => (
               <>
                 <div
-                  className={classNames(
+                  className={cx(
                     "flex transition-all duration-normal items-center gap-xs overflow-hidden",
                     {
                       "text-onsurface-main-weak": isActive,
@@ -95,7 +94,11 @@ const Item: React.FC<ItemProps> = ({ id }) => {
                 >
                   {!!icon && <Icon icon={icon} size="sm" />}
                   {!!label && (
-                    <span className="font-size-body-md truncate w-full">
+                    <span
+                      className={cx("font-size-body-md truncate w-full", {
+                        "pl-xs": !icon,
+                      })}
+                    >
                       {label}
                     </span>
                   )}
@@ -104,7 +107,7 @@ const Item: React.FC<ItemProps> = ({ id }) => {
                   {!!endSlot && <div className="flex">{endSlot}</div>}
                   {hasSubitems && (
                     <Icon
-                      className={classNames(
+                      className={cx(
                         "transform transition-transform duration-long text-onsurface-default",
                         isCollapseOpen ? "rotate-[-90deg]" : "rotate-90",
                       )}

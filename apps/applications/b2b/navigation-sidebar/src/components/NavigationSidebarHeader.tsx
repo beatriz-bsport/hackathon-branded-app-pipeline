@@ -1,0 +1,165 @@
+import type { HTMLAttributes } from "react";
+
+import {
+  Avatar,
+  Body,
+  Button,
+  Divider,
+  Icon,
+} from "@bsport/kaizen-primitive-core";
+
+import DropdownMenu, { type DropdownMenuItems } from "./DropdownMenu";
+
+import type { MenuSet } from "./navigation-items";
+import { useTranslation, type TFunction } from "#src/utils/i18n";
+
+const getMenuOptions = (t: TFunction): DropdownMenuItems => [
+  {
+    id: "settings",
+    label: t("menus.popover.settings"),
+    iconLeft: "settings-03",
+  },
+  {
+    id: "attendance",
+    label: t("menus.popover.attendance"),
+    iconLeft: "clock",
+  },
+  {
+    id: "ledger",
+    label: t("menus.popover.ledger"),
+    iconLeft: "book-closed",
+  },
+  {
+    id: "tutorials",
+    label: t("menus.popover.tutorials"),
+    iconLeft: "graduation-hat-02",
+  },
+  {
+    id: "help",
+    label: t("menus.popover.help"),
+    iconLeft: "help-circle",
+  },
+  {
+    id: "feedback",
+    label: t("menus.popover.feedback"),
+    iconLeft: "pin-02",
+  },
+  {
+    id: "logout",
+    label: t("menus.popover.logout"),
+    iconLeft: "log-out-01",
+  },
+];
+
+type NavigationSidebarHeaderProps = {
+  label: string;
+  avatarUrl?: string;
+  menuSet: MenuSet;
+  onSelectItem?: (id: string) => void;
+  onBack?: () => void;
+};
+
+const NavigationSidebarHeader = ({
+  menuSet,
+  onSelectItem,
+  onBack,
+  label,
+  avatarUrl,
+}: NavigationSidebarHeaderProps) => {
+  const { t } = useTranslation("default");
+
+  if (menuSet === "settings" && onBack) {
+    return (
+      <header>
+        <Button
+          className="mx-xs"
+          label={t("common.back")}
+          intent="flat"
+          size="md"
+          color="default"
+          iconLeft="arrow-left"
+          onClick={onBack}
+        />
+        <Divider className="mt-xs" weight="thin" orientation="horizontal" />
+      </header>
+    );
+  }
+
+  return (
+    <header className="flex gap-2xs px-xs pb-xs">
+      <DropdownMenu
+        className="flex-1"
+        items={getMenuOptions(t)}
+        onSelectOption={({ id, setIsPopoverOpened }) => {
+          onSelectItem?.(id);
+          setIsPopoverOpened(false);
+        }}
+        placement="bottom-left"
+      >
+        {({ setIsPopoverOpened }) => (
+          <TopStatusButton
+            label={label}
+            avatarUrl={avatarUrl}
+            onClick={() => setIsPopoverOpened(true)}
+          />
+        )}
+      </DropdownMenu>
+      <Button
+        className="shrink-0"
+        intent="default"
+        size="md"
+        color="main"
+        iconLeft="search-refraction"
+      />
+    </header>
+  );
+};
+
+export default NavigationSidebarHeader;
+
+type TopStatusButtonProps = HTMLAttributes<HTMLButtonElement> & {
+  label: string;
+  avatarUrl?: string;
+};
+
+const MAX_INITIALS_LENGTH = 2;
+
+function TopStatusButton({
+  label,
+  avatarUrl,
+  ...htmlProps
+}: TopStatusButtonProps) {
+  const initials = label
+    .split(" ")
+    .map((word) => word.charAt(0))
+    .slice(0, MAX_INITIALS_LENGTH)
+    .join("");
+
+  return (
+    <button
+      // TODO: decide what to do with Button component
+      // we are replicating styles here because Avatar
+      // is not supported
+      className={
+        "flex gap-xs items-center w-full p-xs rounded-md " +
+        "bg-surface-action-default-elevated-rest " +
+        "active:bg-surface-action-default-elevated-pressed " +
+        "hover:bg-surface-action-default-elevated-hovered " +
+        "shadow-action-default-rest " +
+        "active:shadow-action-default-pressed " +
+        "hover:shadow-action-default-hovered"
+      }
+      {...htmlProps}
+    >
+      <Avatar shape="squared" size="xs" initials={initials} src={avatarUrl} />
+      <Body
+        className="flex-1 text-left leading-xs"
+        htmlVariant="span"
+        size="lg"
+      >
+        {label}
+      </Body>
+      <Icon icon="chevron-down" size="sm" />
+    </button>
+  );
+}

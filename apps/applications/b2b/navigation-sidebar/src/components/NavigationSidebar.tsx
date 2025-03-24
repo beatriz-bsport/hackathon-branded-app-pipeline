@@ -7,12 +7,15 @@ import { AppI18nextProvider, useTranslation } from "#src/utils/i18n";
 import { useNavigationElements, type MenuSet } from "./navigation-items";
 import NavigationSidebarHeader from "./NavigationSidebarHeader";
 import LanguageDropdown from "./LanguageDropdown";
+import FeedbackDialog, { useFeedbackDialog } from "./FeedbackDialog";
 
 const NavigationSidebarContent = () => {
   const { t } = useTranslation("default");
 
   const [menuSet, setMenuSet] = useState<MenuSet>("default");
   const navigationElements = useNavigationElements({ menuSet });
+
+  const { open, openDialog, closeDialog } = useFeedbackDialog();
 
   return (
     <div
@@ -54,8 +57,10 @@ const NavigationSidebarContent = () => {
           color="default"
           iconRight="arrow-right"
           fullWidth
+          onClick={openDialog}
         />
       </Card>
+      <FeedbackDialog open={open} onClose={closeDialog} />
     </div>
   );
 };

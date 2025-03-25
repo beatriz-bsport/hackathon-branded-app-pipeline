@@ -11,7 +11,7 @@
             }
         }
     },
-    "@bsport/navigation-sidebar": {
+    "@bsport/sm-navigation-sidebar": {
         "default": {
             "menus": {
                 "inbox": "Messagerie",

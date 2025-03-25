@@ -140,131 +140,6 @@
       }
     }
   },
-  "@bsport/navigation-sidebar": {
-    "default": {
-      "common": { "back": "Back" },
-      "menus": {
-        "popover": {
-          "settings": "Settings",
-          "attendance": "Attendance",
-          "ledger": "Ledger",
-          "tutorials": "Tutorials",
-          "help": "Help center",
-          "feedback": "Feedback board",
-          "logout": "Logout"
-        },
-        "inbox": "Inbox",
-        "notifications": "Notifications",
-        "calendar": "Calendar",
-        "schedule": "Schedule",
-        "accessControl": "Access Control",
-        "classes": {
-          "title": "Classes",
-          "activities": "Activities",
-          "workshops": "Workshops",
-          "appointments": "Appointments"
-        },
-        "memberships": {
-          "title": "Memberships",
-          "passes": "Passes",
-          "subscriptions": "Subscriptions"
-        },
-        "products": {
-          "title": "Products",
-          "webshop": "Webshop",
-          "packs": "Packs",
-          "giftcards": "Gift cards",
-          "videosAndEbooks": "Videos & ebooks",
-          "orders": "Orders"
-        },
-        "marketing": {
-          "title": "Marketing",
-          "memberNotifications": "Member notifications",
-          "emailTemplates": "Email templates",
-          "smartlists": "Smartlists",
-          "audience": "Audience",
-          "promotions": "Promotions"
-        },
-        "dashboard": "Dashboard / Overview",
-        "reporting": "Reporting",
-        "finance": {
-          "title": "Finance",
-          "invoices": "Invoices",
-          "payouts": "Payouts",
-          "directDebits": "Direct debits",
-          "expenses": "Expenses",
-          "payroll": "Payroll"
-        },
-        "membersHub": {
-          "title": "Members Hub",
-          "members": "Members",
-          "forms": "Forms",
-          "tags": "Tags"
-        },
-        "myStudio": {
-          "title": "My studio",
-          "teachers": "Teachers",
-          "establishments": "Establishments"
-        },
-        "settings": {
-          "title": "Settings",
-          "general": "General",
-          "marketplace": "Marketplace",
-          "widgets": "Widgets",
-          "permissions": "Permissions",
-          "personalization": "Personalization",
-          "teacherView": "Teacher view",
-          "memberForms": "Member forms",
-          "livestreaming": "Livestreaming",
-          "transactionalNotifications": "Transactional notifications",
-          "payroll": "Payroll",
-          "paymentMethods": "Payment methods",
-          "paymentFacilities": "Payment facilities",
-          "billing": "Billing",
-          "company": "Company",
-          "waitlist": "Waitlist",
-          "webhook": "Webhook",
-          "partnership": "Partnership",
-          "activeCampaign": "ActiveCampaign",
-          "referral": "Referral",
-          "bsportSubscription": "bsport subscription",
-          "temporaryPass": "Temporary pass",
-          "changeLanguage": "Change language"
-        }
-      },
-      "revampCard": {
-        "betaFeedbackLink": "Beta feedback",
-        "goBackToOldUi": "Go back to old UI"
-      },
-      "languages": {
-        "french": "French",
-        "englishUK": "English (UK)",
-        "englishUS": "English (US)",
-        "spanish": "Spanish",
-        "dutch": "Dutch",
-        "german": "German",
-        "italian": "Italian",
-        "portuguese": "Portuguese",
-        "czech": "Czech"
-      }
-    },
-    "feedbackDialog": {
-      "title": "Switch Back to the Old Interface",
-      "description": "Seems like we could improve some things! Your feedback is incredibly valuable in helping us make the new interface better.",
-      "confirm": "Confirm",
-      "cancel": "Cancel",
-      "mainQuestion": "Could you take a moment to tell us why you prefer the old interface?",
-      "reasons": {
-        "slower": "The new platform is slower or less responsive",
-        "missingFeatures": "I'm missing features I used to rely on",
-        "hardToNavigate": "The design is hard to navigate or read",
-        "dontLike": "I just don't like it",
-        "other": "Other"
-      },
-      "additionalFeedbackQuestion": "Do you have additional feedback you'd like to share?",
-      "additionalFeedbackPlaceholder": "Type your feedback here..."
-    }
-  },
   "@bsport/sm-giftcard": {
     "common": {
       "pages": { "list": "Gift cards", "archivedList": "Archived gift cards" },
@@ -393,6 +268,131 @@
         "receipt": "Receipt",
         "explainPdfDraft": "The invoice is still a draft, pdf is not available."
       }
+    }
+  },
+  "@bsport/sm-navigation-sidebar": {
+    "default": {
+      "common": { "back": "Back" },
+      "menus": {
+        "popover": {
+          "settings": "Settings",
+          "attendance": "Attendance",
+          "ledger": "Ledger",
+          "tutorials": "Tutorials",
+          "help": "Help center",
+          "feedback": "Feedback board",
+          "logout": "Logout"
+        },
+        "inbox": "Inbox",
+        "notifications": "Notifications",
+        "calendar": "Calendar",
+        "schedule": "Schedule",
+        "accessControl": "Access Control",
+        "classes": {
+          "title": "Classes",
+          "activities": "Activities",
+          "workshops": "Workshops",
+          "appointments": "Appointments"
+        },
+        "memberships": {
+          "title": "Memberships",
+          "passes": "Passes",
+          "subscriptions": "Subscriptions"
+        },
+        "products": {
+          "title": "Products",
+          "webshop": "Webshop",
+          "packs": "Packs",
+          "giftcards": "Gift cards",
+          "videosAndEbooks": "Videos & ebooks",
+          "orders": "Orders"
+        },
+        "marketing": {
+          "title": "Marketing",
+          "memberNotifications": "Member notifications",
+          "emailTemplates": "Email templates",
+          "smartlists": "Smartlists",
+          "audience": "Audience",
+          "promotions": "Promotions"
+        },
+        "dashboard": "Dashboard / Overview",
+        "reporting": "Reporting",
+        "finance": {
+          "title": "Finance",
+          "invoices": "Invoices",
+          "payouts": "Payouts",
+          "directDebits": "Direct debits",
+          "expenses": "Expenses",
+          "payroll": "Payroll"
+        },
+        "membersHub": {
+          "title": "Members Hub",
+          "members": "Members",
+          "forms": "Forms",
+          "tags": "Tags"
+        },
+        "myStudio": {
+          "title": "My studio",
+          "teachers": "Teachers",
+          "establishments": "Establishments"
+        },
+        "settings": {
+          "title": "Settings",
+          "general": "General",
+          "marketplace": "Marketplace",
+          "widgets": "Widgets",
+          "permissions": "Permissions",
+          "personalization": "Personalization",
+          "teacherView": "Teacher view",
+          "memberForms": "Member forms",
+          "livestreaming": "Livestreaming",
+          "transactionalNotifications": "Transactional notifications",
+          "payroll": "Payroll",
+          "paymentMethods": "Payment methods",
+          "paymentFacilities": "Payment facilities",
+          "billing": "Billing",
+          "company": "Company",
+          "waitlist": "Waitlist",
+          "webhook": "Webhook",
+          "partnership": "Partnership",
+          "activeCampaign": "ActiveCampaign",
+          "referral": "Referral",
+          "bsportSubscription": "bsport subscription",
+          "temporaryPass": "Temporary pass",
+          "changeLanguage": "Change language"
+        }
+      },
+      "revampCard": {
+        "betaFeedbackLink": "Beta feedback",
+        "goBackToOldUi": "Go back to old UI"
+      },
+      "languages": {
+        "french": "French",
+        "englishUK": "English (UK)",
+        "englishUS": "English (US)",
+        "spanish": "Spanish",
+        "dutch": "Dutch",
+        "german": "German",
+        "italian": "Italian",
+        "portuguese": "Portuguese",
+        "czech": "Czech"
+      }
+    },
+    "feedbackDialog": {
+      "title": "Switch Back to the Old Interface",
+      "description": "Seems like we could improve some things! Your feedback is incredibly valuable in helping us make the new interface better.",
+      "confirm": "Confirm",
+      "cancel": "Cancel",
+      "mainQuestion": "Could you take a moment to tell us why you prefer the old interface?",
+      "reasons": {
+        "slower": "The new platform is slower or less responsive",
+        "missingFeatures": "I'm missing features I used to rely on",
+        "hardToNavigate": "The design is hard to navigate or read",
+        "dontLike": "I just don't like it",
+        "other": "Other"
+      },
+      "additionalFeedbackQuestion": "Do you have additional feedback you'd like to share?",
+      "additionalFeedbackPlaceholder": "Type your feedback here..."
     }
   },
   "@bsport/template-simple-b2b-app": {

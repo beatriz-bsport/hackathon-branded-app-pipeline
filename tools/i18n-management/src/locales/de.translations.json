@@ -21513,7 +21513,7 @@
             "helloWorld": "Hello world!"
         }
     },
-    "@bsport/navigation-sidebar": {
+    "@bsport/sm-navigation-sidebar": {
         "default": {
             "menus": {
                 "reporting": "Berichte",

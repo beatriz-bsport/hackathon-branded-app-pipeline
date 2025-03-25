@@ -21607,7 +21607,7 @@
             "helloWorld": "Ciao mondo!"
         }
     },
-    "@bsport/navigation-sidebar": {
+    "@bsport/sm-navigation-sidebar": {
         "default": {
             "menus": {
                 "memberships": {

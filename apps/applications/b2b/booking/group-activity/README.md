@@ -30,7 +30,7 @@ pnpm run federation:navigation
 From anywhere :
 
 ```
-pnpm exec nx build @bsport/navigation-sidebar && pnpm exec nx preview @bsport/navigation-sidebar
+pnpm exec nx build @bsport/sm-navigation-sidebar && pnpm exec nx preview @bsport/sm-navigation-sidebar
 ```
 
 ### Run your application

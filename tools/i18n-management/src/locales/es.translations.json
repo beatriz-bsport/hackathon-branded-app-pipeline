@@ -21663,7 +21663,7 @@
             "helloWorld": "¡Hola, mundo!"
         }
     },
-    "@bsport/navigation-sidebar": {
+    "@bsport/sm-navigation-sidebar": {
         "default": {
             "revampCard": {
                 "goBackToOldUi": "Volver a la antigua interfaz de usuario",

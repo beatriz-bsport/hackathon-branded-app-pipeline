@@ -1,9 +1,9 @@
 {
-  "name": "@bsport/navigation-sidebar",
+  "name": "@bsport/sm-navigation-sidebar",
   "version": "0.0.0",
   "private": true,
   "description": "Navigation sidebar",
-  "author": "Pierre Bondoerffer <pierre.bondoerffer@bsport.io>",
+  "author": "David Bretaud <david.bretaud@bsport.io>",
   "type": "module",
   "scripts": {
     "build": "tsc && vite build",

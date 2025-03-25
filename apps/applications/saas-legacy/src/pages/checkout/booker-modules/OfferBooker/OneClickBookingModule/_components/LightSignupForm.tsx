@@ -10,8 +10,8 @@ import TextField from '#src/components/css-only/Fabrique/Temporary/Textfield';
 import Checkboxfield from '#src/components/css-only/Fabrique/Temporary/Checkboxfield';
 
 export type LightSignupFormValues = {
-  firstName?: string;
-  lastName?: string;
+  firstName: string;
+  lastName: string;
   email: string;
   phone?: string;
   acceptEmail: boolean;
@@ -26,6 +26,7 @@ const LightSignupForm = () => {
       <div className="bs-light-signup-form__name-section">
         <TextField
           isFullWidth
+          isRequired
           id="light-signup-first-name"
           inputId="light-signup-first-name-input"
           label={t('lightSignup.form.firstName.label')}
@@ -35,6 +36,7 @@ const LightSignupForm = () => {
         />
         <TextField
           isFullWidth
+          isRequired
           id="light-signup-last-name"
           inputId="light-signup-last-name-input"
           label={t('lightSignup.form.lastName.label')}
@@ -81,8 +83,12 @@ const LightSignupForm = () => {
 };
 
 const lightSignupFormValidationSchema = Yup.object().shape({
-  firstName: Yup.string().nullable(),
-  lastName: Yup.string().nullable(),
+  firstName: Yup.string().required(
+    'booking:lightSignup.form.errors.requiredField',
+  ),
+  lastName: Yup.string().required(
+    'booking:lightSignup.form.errors.requiredField',
+  ),
   email: Yup.string()
     .matches(emailValidationRegExp, 'booking:lightSignup.form.errors.email')
     .required('booking:lightSignup.form.errors.requiredField'),

@@ -22,7 +22,7 @@ import { updateDefaultEstablishmentBillingGroup } from '#src/libs/member/actions
 
 type UsePayment = {
   clientSecret: string;
-  createPendingBookingsIfNecessary: (data: {
+  createPendingBookingsIfNecessary: (data?: {
     payment_group_method_identifier?: number;
   }) => void;
   getClientSecret: (paymentEngine: PaymentEngine) => void;
@@ -103,14 +103,14 @@ export const usePayment = (
    * @param {number} [data.payment_group_method_identifier] - The payment group method identifier.
    */
   const createPendingBookingsIfNecessary = useCallback(
-    (data: { payment_group_method_identifier?: number }) => {
+    (data?: { payment_group_method_identifier?: number }) => {
       if (basketId) {
         const basketHasOfferData = (basketCheckoutItems ?? []).some(
           ({ extra_data }) =>
             !!extra_data?.offers_data && extra_data.offers_data.length > 0,
         );
 
-        if (basketHasOfferData) {
+        if (basketHasOfferData && data) {
           createPendingBookings({ basketId, data }).catch((error) =>
             console.error(error),
           );

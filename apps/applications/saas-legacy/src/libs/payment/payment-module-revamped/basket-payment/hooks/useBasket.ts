@@ -25,7 +25,7 @@ import type { Basket } from '#src/libs/checkout/types';
 type UseBasket = {
   basketTotalPriceCts: number;
   basketTotalPricePrepaidLinesCts: number;
-  checkBasketItems: () => Promise<boolean>;
+  checkBasketItems: (basketID: string) => Promise<boolean>;
   isBasketLoading: boolean;
   isCurrentBasketProcessing: boolean;
   submitUnpaidBasket: (options?: OptionCallback) => Promise<void>;
@@ -151,25 +151,29 @@ export const useBasket = (
    *
    * @returns {Promise<boolean>} Returns true if the check is successful, false otherwise.
    */
-  const checkBasketItems = useCallback(async () => {
-    try {
-      await checkItemsBasket(basketId);
-    } catch (error) {
-      const axiosError = error as AxiosError;
+  const checkBasketItems = useCallback(
+    async (basketID: string) => {
+      try {
+        await checkItemsBasket(basketID);
+      } catch (error) {
+        const axiosError = error as AxiosError;
 
-      if (isErrorWithCustomCode(axiosError) && axiosError?.response?.data) {
-        setCheckBasketItemError(axiosError);
-        refreshBasket();
-        return false;
+        if (isErrorWithCustomCode(axiosError) && axiosError?.response?.data) {
+          setCheckBasketItemError(axiosError);
+          refreshBasket();
+          return false;
+        }
       }
-    }
-    return true;
-  }, [basketId, refreshBasket, setCheckBasketItemError]);
+      return true;
+    },
+
+    [refreshBasket, setCheckBasketItemError],
+  );
 
   const submitUnpaidBasket = useCallback(
     async (options?: OptionCallback) => {
       setIsPaymentProcessing(true);
-      const basketItemsChecked = await checkBasketItems();
+      const basketItemsChecked = await checkBasketItems(basketId);
       if (!basketItemsChecked) {
         setIsPaymentProcessing(false);
         return;

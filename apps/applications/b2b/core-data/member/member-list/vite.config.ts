@@ -36,7 +36,6 @@ const config: UserConfig = {
       remotes: getLocalFederationRemotes(),
       exposes: {
         "./App": "./src/App",
-        "./languageSwitcher": "./src/utils/languageSwitcher",
       },
     }),
   ],

@@ -30,6 +30,7 @@
     "lint:fix": "eslint --fix ."
   },
   "dependencies": {
+    "@bsport/broadcast-channel-polyfill": "workspace:*",
     "i18next": "^24.2.1",
     "i18next-browser-languagedetector": "^8.0.2",
     "i18next-http-backend": "^3.0.1",

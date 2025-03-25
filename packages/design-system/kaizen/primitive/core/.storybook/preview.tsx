@@ -8,14 +8,14 @@ import {
   FLAG_EMOJIS,
   i18nNamespacePrefix,
   i18nNamespaces,
+  switchLanguage,
   type Translations,
 } from "../src/i18n/index";
 
-const { AppI18nextProvider, languageSwitcher } =
-  instanciateAppI18n<Translations>({
-    applicationName: i18nNamespacePrefix,
-    namespaces: i18nNamespaces,
-  });
+const { AppI18nextProvider } = instanciateAppI18n<Translations>({
+  applicationName: i18nNamespacePrefix,
+  namespaces: i18nNamespaces,
+});
 
 const preview: Preview = {
   decorators: [
@@ -24,7 +24,7 @@ const preview: Preview = {
 
       // When the locale global changes, set the new locale in i18n
       useEffect(() => {
-        languageSwitcher(locale);
+        switchLanguage(locale);
       }, [locale]);
 
       return (

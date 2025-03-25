@@ -1,10 +1,15 @@
 import { Settings } from "luxon";
-import type { i18n } from "i18next";
+import { applyBroadcastChannelPolyfill } from "@bsport/broadcast-channel-polyfill";
+
 import {
   LOCALES_WITH_FIRST_WEEKDAY_BEING_SUNDAY,
   LANGUAGES,
+  LANGUAGE_SWITCHER_CHANNEL,
+  LANGUAGE_SWITCHER_ACTION,
 } from "./constants";
 import type { Locale } from "./types";
+
+applyBroadcastChannelPolyfill();
 
 export function setLuxonLocale(language: string) {
   Settings.defaultLocale = language;
@@ -56,9 +61,16 @@ export function getNamespacePrefixer<T = string>({
   return (namespace: T) => `${applicationName}_${namespace}`;
 }
 
-// Return a function that set the language of the provided i18nInstance
-export const getLanguageSwitcher = (i18nInstance: i18n) => {
-  return (languageId: Locale) => {
-    i18nInstance.changeLanguage(languageId);
-  };
+/**
+ * Post a message to the language switcher broadcast channel to tell i18n instances
+ * to change their language based on the provided languageId
+ * @param languageId Language to set in i18n instances
+ */
+export const switchLanguage = (languageId: Locale) => {
+  const broadcast = new BroadcastChannel(LANGUAGE_SWITCHER_CHANNEL);
+  broadcast.postMessage({
+    action: LANGUAGE_SWITCHER_ACTION,
+    payload: languageId,
+  });
+  broadcast.close();
 };

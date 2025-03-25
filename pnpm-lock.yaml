@@ -1789,6 +1789,9 @@ importers:
 
   packages/utils/i18n:
     dependencies:
+      '@bsport/broadcast-channel-polyfill':
+        specifier: workspace:*
+        version: link:../broadcast-channel-polyfill
       i18next:
         specifier: ^24.2.1
         version: 24.2.1(typescript@5.6.3)

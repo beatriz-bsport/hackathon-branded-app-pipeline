@@ -29,7 +29,6 @@
      withTranslation, // Hoc to get TFunction
      getFixedNamespace, // Util to prefix namespaces
      AppI18nextProvider, // Provider of the application i18n instance
-     languageSwitcher, // Util to expose to module federation to change locale
    } = instanciateAppI18n<typeof translations>({
      applicationName: i18nNamespacePrefix,
      namespaces: namespaceList,

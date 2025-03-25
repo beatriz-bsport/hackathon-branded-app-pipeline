@@ -44,6 +44,11 @@ export type TFunction = TFunctionGeneric<typeof translations>;
 
 // ----- For storybook -----
 
-export { FLAG_EMOJIS, LOCALES, instanciateAppI18n } from "@bsport/i18n";
+export {
+  FLAG_EMOJIS,
+  LOCALES,
+  instanciateAppI18n,
+  switchLanguage,
+} from "@bsport/i18n";
 
 export type Translations = typeof translations;

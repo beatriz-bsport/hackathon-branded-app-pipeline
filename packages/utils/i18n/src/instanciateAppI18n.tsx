@@ -1,7 +1,7 @@
 import { getUseTranslation } from "./translation.hook";
 import { getWithTranslation } from "./translation.hoc";
 import { initI18n } from "./initI18n";
-import { getLanguageSwitcher, getNamespacePrefixer } from "./utils";
+import { getNamespacePrefixer } from "./utils";
 import { getAppI18nextProvider } from "./i18nextProvider";
 import type { InMemoryTranslationsLoader } from "./types";
 
@@ -38,7 +38,6 @@ import type { InMemoryTranslationsLoader } from "./types";
  *   withTranslation,
  *   getFixedNamespace,
  *   AppI18nextProvider,
- *   languageSwitcher,
  * } = instanciateAppI18n<typeof translations>({
  *   applicationUrl: "URL_AFTER_DEPLOYMENT", // Replace with actual URL after deployment
  *   applicationName: "i18nNamespacePrefix",
@@ -80,7 +79,6 @@ export function instanciateAppI18n<AppResources>({
   });
 
   const { AppI18nextProvider } = getAppI18nextProvider(i18nInstance);
-  const languageSwitcher = getLanguageSwitcher(i18nInstance);
 
   return {
     i18nInstance,
@@ -88,6 +86,5 @@ export function instanciateAppI18n<AppResources>({
     withTranslation,
     getFixedNamespace,
     AppI18nextProvider,
-    languageSwitcher,
   };
 }

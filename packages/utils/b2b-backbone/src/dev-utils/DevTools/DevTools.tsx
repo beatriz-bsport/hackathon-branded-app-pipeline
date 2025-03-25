@@ -9,10 +9,7 @@ import Logout from "./Logout";
 
 export type DevToolsProps = LanguageSelectorProps;
 
-const DevTools: React.FC<DevToolsProps> = ({
-  i18nInstance,
-  appsLanguageSwitchers,
-}) => {
+const DevTools: React.FC<DevToolsProps> = ({ i18nInstance }) => {
   const isLogged = !!getAuthToken();
   return (
     <div
@@ -38,10 +35,7 @@ const DevTools: React.FC<DevToolsProps> = ({
           {() => (
             <div className="gap-xs flex flex-col">
               <ThemeSelector />
-              <LanguageSelector
-                i18nInstance={i18nInstance}
-                appsLanguageSwitchers={appsLanguageSwitchers}
-              />
+              <LanguageSelector i18nInstance={i18nInstance} />
               {isLogged && <Logout />}
             </div>
           )}

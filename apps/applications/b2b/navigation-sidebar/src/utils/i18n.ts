@@ -7,15 +7,11 @@ const i18nNamespacePrefix = import.meta.env.VITE_I18N_NAMESPACE_PREFIX;
 const applicationUrl = import.meta.env.VITE_APPLICATION_BASE_URL;
 const applicationName: APPLICATION = "navigation-sidebar";
 
-export const {
-  i18nInstance,
-  useTranslation,
-  AppI18nextProvider,
-  languageSwitcher,
-} = instanciateAppI18n<typeof translations>({
-  applicationName: i18nNamespacePrefix,
-  namespaces: namespaceList,
-  applicationUrl: `${applicationUrl}:${getAppPort(applicationName)}`,
-});
+export const { i18nInstance, useTranslation, AppI18nextProvider } =
+  instanciateAppI18n<typeof translations>({
+    applicationName: i18nNamespacePrefix,
+    namespaces: namespaceList,
+    applicationUrl: `${applicationUrl}:${getAppPort(applicationName)}`,
+  });
 
 export type TFunction = TFunctionGeneric<typeof translations>;

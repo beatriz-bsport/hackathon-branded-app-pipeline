@@ -54,3 +54,7 @@ export const EXTRA_TIMEZONES = {
 };
 
 export const LOCALES_WITH_FIRST_WEEKDAY_BEING_SUNDAY = ["en-US", "en-CA"];
+
+export const LANGUAGE_SWITCHER_CHANNEL = "bsport:switch-language";
+
+export const LANGUAGE_SWITCHER_ACTION = "SWITCH_LANGUAGE";

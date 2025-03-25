@@ -8,7 +8,11 @@ import {
   getFallbackLanguage,
   getNamespacePrefixer,
 } from "./utils";
-import { LANGUAGES } from "./constants";
+import {
+  LANGUAGES,
+  LANGUAGE_SWITCHER_CHANNEL,
+  LANGUAGE_SWITCHER_ACTION,
+} from "./constants";
 import type { InitConfig, InMemoryTranslationsLoader } from "./types";
 
 type I18nConfig = {
@@ -112,6 +116,14 @@ export function initI18n({
     });
 
   // ----- LISTENERS -----
+  const broadcast = new BroadcastChannel(LANGUAGE_SWITCHER_CHANNEL);
+  broadcast.addEventListener("message", (event) => {
+    const { action, payload } = event.data;
+    if (action === LANGUAGE_SWITCHER_ACTION) {
+      i18nInstance.changeLanguage(payload);
+    }
+  });
+
   i18nInstance.on("languageChanged", (lng) => {
     setLuxonLocale(lng);
   });

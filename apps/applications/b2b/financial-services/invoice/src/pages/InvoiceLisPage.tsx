@@ -315,7 +315,7 @@ export const InvoiceListPage = () => {
         }}
         pageTitle="Invoices"
       />
-      <ListLayout.Content className="h-full flex-col !overflow-visible">
+      <ListLayout.Content className="flex-col">
         <Table
           columns={columns}
           rows={rows}

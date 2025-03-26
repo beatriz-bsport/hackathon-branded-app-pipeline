@@ -32,7 +32,7 @@ function ListPage() {
         }}
         pageTitle="Offer list example"
       />
-      <ListLayout.Content className="hide-scrollbar">
+      <ListLayout.Content>
         <OfferListExample />
       </ListLayout.Content>
     </ListLayout>

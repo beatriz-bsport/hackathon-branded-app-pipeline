@@ -53,7 +53,7 @@ export const GiftcardListPage: React.FC = () => {
           />,
         ]}
       />
-      <ListLayout.Content className="hide-scrollbar h-full">
+      <ListLayout.Content>
         <GiftcardListContent onAddGiftcardClick={navigateToCreatePage} />
       </ListLayout.Content>
       {openImageModal && (

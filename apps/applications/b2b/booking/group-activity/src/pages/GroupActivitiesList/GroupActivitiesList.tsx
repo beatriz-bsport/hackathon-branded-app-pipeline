@@ -147,7 +147,7 @@ const GroupActivitiesList: React.FC = () => {
       {isLoading ? (
         <Loader className="w-full h-full" size="xl" />
       ) : (
-        <ListLayout.Content className="hide-scrollbar w-full h-full">
+        <ListLayout.Content>
           <List
             id="enabled-group-activities-list"
             items={renderedGroupActivities}

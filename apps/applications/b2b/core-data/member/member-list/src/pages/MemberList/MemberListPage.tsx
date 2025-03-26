@@ -39,7 +39,7 @@ export const MemberListPage: React.FC = () => {
           </Tooltip>,
         ]}
       />
-      <ListLayout.Content className="hide-scrollbar h-full">
+      <ListLayout.Content>
         <MemberListContent
           onClearFiltersClick={handleClearFilters}
           activeFilters={activeFilters}

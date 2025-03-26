@@ -17,7 +17,7 @@ export const ArchivedMemberListPage: React.FC = () => {
           },
         ]}
       />
-      <ListLayout.Content className="hide-scrollbar h-full">
+      <ListLayout.Content>
         <ArchivedMemberListContent />
       </ListLayout.Content>
     </ListLayout>

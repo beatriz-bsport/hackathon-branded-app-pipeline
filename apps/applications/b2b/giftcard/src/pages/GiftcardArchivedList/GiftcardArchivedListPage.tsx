@@ -17,7 +17,7 @@ export const GiftcardArchivedListPage: React.FC = () => {
           },
         ]}
       />
-      <ListLayout.Content className="hide-scrollbar h-full">
+      <ListLayout.Content>
         <GiftcardArchivedListContent />
       </ListLayout.Content>
     </ListLayout>

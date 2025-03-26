@@ -1,5 +1,5 @@
 import React, { ReactNode } from "react";
-import { cva } from "class-variance-authority";
+import { cva, type VariantProps } from "class-variance-authority";
 import HeaderLayout from "#src/components/private/HeaderLayout";
 
 export type ListLayoutProps = React.HTMLAttributes<HTMLDivElement> & {
@@ -45,12 +45,21 @@ ListLayout.Header = HeaderLayout;
 
 // ----- Content -----
 
-const listLayoutContent = cva(["flex", "overflow-y-scroll"]);
+const contentVariants = {
+  showScrollbar: {
+    true: [],
+    false: ["hide-scrollbar"],
+  },
+};
+
+const listLayoutContent = cva(["flex", "overflow-y-scroll", "h-full"], {
+  variants: contentVariants,
+});
 
 type ListLayoutContentProps = {
   children: React.ReactNode;
   className?: string;
-};
+} & VariantProps<typeof listLayoutContent>;
 
 /**
  * Wrapper for the content handling scrolling behavior
@@ -59,8 +68,13 @@ type ListLayoutContentProps = {
 const ListLayoutContent: React.FC<ListLayoutContentProps> = ({
   children,
   className,
+  showScrollbar = false,
 }) => {
-  return <div className={listLayoutContent({ className })}>{children}</div>;
+  return (
+    <div className={listLayoutContent({ className, showScrollbar })}>
+      {children}
+    </div>
+  );
 };
 
 ListLayout.Content = ListLayoutContent;

@@ -20,7 +20,7 @@ const NavigationSidebarContent = () => {
   return (
     <div
       className={
-        "h-screen hide-scrollbar w-[240px] py-md " +
+        "h-screen w-[240px] py-md " +
         "bg-surface-page-navigation shrink-0 flex flex-col"
       }
     >
@@ -35,7 +35,10 @@ const NavigationSidebarContent = () => {
         }}
         onBack={() => setMenuSet("default")}
       />
-      <div role="presentation" className="flex-1 overflow-y-scroll">
+      <div
+        role="presentation"
+        className="flex-1 overflow-y-scroll hide-scrollbar"
+      >
         <NavigationMenu className="px-xs" elements={navigationElements} />
         {menuSet === "settings" && <LanguageDropdown />}
       </div>

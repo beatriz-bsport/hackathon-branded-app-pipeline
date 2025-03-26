@@ -100,7 +100,7 @@ const ArchivedGroupActivitiesList: React.FC = () => {
       {isLoading ? (
         <Loader className="w-full h-full" size="xl" />
       ) : (
-        <ListLayout.Content className="hide-scrollbar w-full h-full">
+        <ListLayout.Content>
           <List
             id="archived-group-activities-list"
             items={renderedArchivedGroupActivities}

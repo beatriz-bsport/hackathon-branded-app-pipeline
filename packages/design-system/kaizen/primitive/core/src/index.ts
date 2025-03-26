@@ -118,6 +118,7 @@ export { ThemeProvider, themes, useTheme } from "./components/ThemeProvider";
 export { tailwindConfig } from "./tailwind";
 // Export css variables (map a token to a css variable)
 import "@bsport/kaizen-tokens/src/index.css";
+import "./globals.css";
 
 // ----- I18N -----
 export {

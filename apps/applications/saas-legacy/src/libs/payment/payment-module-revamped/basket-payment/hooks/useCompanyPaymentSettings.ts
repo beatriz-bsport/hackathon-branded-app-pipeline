@@ -15,8 +15,7 @@ import type { EstablishmentBillingGroup } from '#src/libs/establishment/types';
 type UseCompanyPaymentSettings = {
   establishmentBillingGroups: EstablishmentBillingGroup[];
   generalTermsAndConditions: string;
-  handleFetchAllEstablishmentBillingGroup: (options?: OptionCallback) => void;
-  handleFetchCompanyTheme: (options?: OptionCallback<CompanyTheme>) => void;
+  handleFetchCompanyThemeWithEstablishmentBillingGroups: () => void;
   isCardBillingDetailsMandatory: boolean;
   isCompanyThemeLoading: boolean;
   isConsumerAllowedToUseInternalAccount: boolean;
@@ -73,15 +72,26 @@ export const useCompanyPaymentSettings = (
     [dispatch, companyId],
   );
 
+  const handleFetchCompanyThemeWithEstablishmentBillingGroups = useCallback(
+    () =>
+      handleFetchCompanyTheme({
+        onSuccess: (theme) => {
+          if (theme?.enable_multi_localization) {
+            handleFetchAllEstablishmentBillingGroup();
+          }
+        },
+      }),
+    [handleFetchCompanyTheme, handleFetchAllEstablishmentBillingGroup],
+  );
+
   return {
     establishmentBillingGroups,
     generalTermsAndConditions,
-    handleFetchAllEstablishmentBillingGroup,
-    handleFetchCompanyTheme,
     isCardBillingDetailsMandatory,
     isCompanyThemeLoading,
     isConsumerAllowedToUseInternalAccount,
     isMultiLocalizationEnabled,
     paymentMethodAvailableBasket,
+    handleFetchCompanyThemeWithEstablishmentBillingGroups,
   };
 };

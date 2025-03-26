@@ -94,6 +94,9 @@ import type { RootState } from '../../../../reducers';
 import { sortByDate } from '../../../../utils/datetime';
 import { buildUrlParams } from '../../../../http';
 
+// @ts-expect-error js file
+import { auth as authActions } from '#src/actions';
+
 import './styles.css';
 
 type QueryParams = {
@@ -101,6 +104,7 @@ type QueryParams = {
   billingPlanId: string;
   dialogMode: string;
   onValidation: string;
+  one_click_checkout?: string;
   user_registration_response: string;
 };
 
@@ -736,10 +740,13 @@ const mapWithHandlers = {
   goToMemberBookings:
     ({
       replace,
+      disconnect,
       companyId,
+      queryParams,
       companyTheme,
     }: {
       replace: typeof replaceRouter;
+      disconnect: any;
       companyId: number;
       queryParams: QueryParams;
       companyTheme: CompanyTheme;
@@ -747,17 +754,21 @@ const mapWithHandlers = {
     () => {
       if (WidgetUtils.isWidget()) {
         replace(buildUrlForWidget('bookings/', companyTheme));
+        if (!!queryParams?.one_click_checkout) disconnect();
         return;
       }
       replace(`/c/${companyId}/booking/`);
+      if (!!queryParams?.one_click_checkout) disconnect();
     },
   goToMarketplace:
     ({
+      disconnect,
       replace,
       companyId,
       queryParams,
       companyTheme,
     }: {
+      disconnect: any;
       replace: typeof replaceRouter;
       companyId: number;
       queryParams: QueryParams;
@@ -769,11 +780,13 @@ const mapWithHandlers = {
         if (queryParams && queryParams.onValidation === 'close') {
           window.close();
         }
+        if (!!queryParams?.one_click_checkout) disconnect();
         return;
       }
       replace(
         urlToMarketplace(companyTheme.company_name, companyId.toString()),
       );
+      if (!!queryParams?.one_click_checkout) disconnect();
     },
   goToMemberPasses:
     ({
@@ -909,6 +922,7 @@ const mapDispatchToProps = {
   push: pushRouter,
   goBack,
   retrieveCompanyCssConfiguration: retrieveCompanyCssConfigurationAction,
+  disconnect: authActions.disconnect,
 };
 
 const connector = connect(mapStateToProps, mapDispatchToProps);

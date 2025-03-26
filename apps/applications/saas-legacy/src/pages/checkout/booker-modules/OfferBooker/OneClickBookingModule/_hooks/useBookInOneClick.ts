@@ -39,6 +39,7 @@ const redirectToConfirmationPage = (
   pushUrl(
     getCheckoutValidationUrl(offer.company, {
       basket: basketId,
+      one_click_checkout: 'true',
       user_registration_response: encodeURIComponent(
         JSON.stringify(userRegistrationResponse),
       ),
@@ -98,9 +99,7 @@ const bookInOneClick =
     setAuthToken(data.token);
 
     const { data: userRegistrationResponse } = await postUserRegistration({
-      extra_data: {
-        one_click_checkout: true,
-      },
+      one_click_checkout: true,
       payment_pack: selectedPaymentPackId,
       offers: [{ offer_id: offer.id, extra_data: {} }],
       email,

@@ -144,7 +144,7 @@ export async function fetchOfferWaitingListPositionList(
 
 export async function postUserRegistration(
   data: {
-    extra_data?: { one_click_checkout?: boolean };
+    one_click_checkout?: boolean;
     consumer_payment_pack?: number;
     payment_pack?: number;
     payment_combo?: number;
@@ -166,7 +166,6 @@ export async function fetchCompatiblePacks(offerId: number) {
 export async function fetchById(offerId: number) {
   return getAuth(`${API_URI}/saas/offer/${offerId}/`);
 }
-
 export async function disableOffer({
   offerId,
   notify,

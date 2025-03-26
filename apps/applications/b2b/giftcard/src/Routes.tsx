@@ -4,7 +4,7 @@ import { RoutesWrapper } from "@bsport/b2b-backbone";
 import { GiftcardListPage } from "#src/pages/GiftcardList";
 import { GiftcardArchivedListPage } from "#src/pages/GiftcardArchivedList";
 
-const NavigationSidebar = lazy(() => import("navigation-sidebar/App"));
+const NavigationSidebar = lazy(() => import("sm-navigation-sidebar/App"));
 
 const IS_LOCAL_DEVELOPMENT = import.meta.env.DEV;
 

@@ -3,7 +3,7 @@ import { Route } from "react-router";
 import { RoutesWrapper } from "@bsport/b2b-backbone";
 import { InvoiceListPage } from "#src/pages/InvoiceLisPage";
 
-const NavigationSidebar = lazy(() => import("navigation-sidebar/App"));
+const NavigationSidebar = lazy(() => import("sm-navigation-sidebar/App"));
 
 const IS_LOCAL_DEVELOPMENT = import.meta.env.DEV;
 

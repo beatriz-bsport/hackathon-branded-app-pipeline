@@ -1,123 +1,4 @@
 {
-  "@bsport/b2b-member-list": {
-    "common": {
-      "pages": { "memberList": "Members", "archivedMemberList": "Archived members" },
-      "actions": { "addMember": "Add member" },
-      "memberTable": {
-        "loading": "Loading members ...",
-        "emptySearch": {
-          "subtitle": "No members match your filters. Try clearing them to see more results."
-        },
-        "emptyList": {
-          "activeMode": {
-            "title": "No members yet",
-            "subtitle": "Start adding members in your studio"
-          },
-          "archivedMode": { "title": "No archived members" }
-        },
-        "headers": {
-          "name": "Name",
-          "email": "Email",
-          "balance": "Balance",
-          "joinDate": "Join Date"
-        },
-        "tooltips": { "archive": "Archive member", "restore": "Unarchive member" }
-      },
-      "listPage": {
-        "archiveModal": {
-          "title": "Archive member",
-          "description": {
-            "action": "Are you sure that you want to archive <strong>{{ name }}</strong> ?",
-            "effect": "They will no longer be active but can be restored any time from your archive."
-          },
-          "alertIrregularity": {
-            "adviseRegularization": "Based on the following criteria, we advise that you regularize your member's internal account balance before the member is archived:",
-            "items": {
-              "negativeBalance": "Negative internal account balance",
-              "unpaidInvoices": "Unpaid invoice(s)",
-              "currentSubscription": "Current subscription",
-              "autorenewalSubscriptions": "Subscriptions with automatic renewals",
-              "futureBookings": "Future bookings",
-              "recurringBookings": "Recurring bookings",
-              "scheduledAppointments": "Scheduled appointments"
-            }
-          },
-          "buttons": { "cancel": "Cancel", "archive": "Archive" },
-          "toasts": {
-            "messageArchived": "{{ name }} has been archived",
-            "actionUndo": "Undo"
-          }
-        }
-      },
-      "archivedListPage": {
-        "toasts": {
-          "messageUnarchived": "{{ name }} has been unarchived",
-          "actionUndo": "Undo"
-        }
-      },
-      "filters": { "label": "Filter", "operators": { "is": "is", "isNot": "is not" } }
-    }
-  },
-  "@bsport/group-activity": {
-    "groupActivity": {
-      "list": {
-        "enabled": {
-          "item": {
-            "notifications": {
-              "title": "Notifications",
-              "popoverLabel": "Has notifications set up"
-            },
-            "livestream": {
-              "title": "Livestream",
-              "popoverLabel": "Live streaming available"
-            }
-          },
-          "duplicate": {
-            "title": "Duplicate activity",
-            "modalContent": "Duplicate <strong>{{groupActivityName}}</strong>?<br/> You can edit the gift card details afterwards.",
-            "cancel": "Cancel",
-            "confirm": "Duplicate"
-          },
-          "archive": {
-            "title": "Archive activity",
-            "modalContent": "Do you want to archive <strong>{{groupActivityName}}</strong> activity? The sessions and past bookings won't be modified.<br/> You can unarchive the activity at any time.",
-            "cantArchive": "There are upcoming sessions planned for this activity. Check if they have been cancelled.",
-            "cancel": "Cancel",
-            "confirm": "Archive"
-          },
-          "emptyState": {
-            "title": "No group activities yet",
-            "body": "Create group activities and let your members attend sessions"
-          }
-        },
-        "archived": {
-          "unarchive": "Unarchive activity",
-          "emptyState": { "title": "No archived group activities yet" }
-        },
-        "header": {
-          "groupActivities": "Group activities",
-          "archivedGroupActivities": "Archived group activities",
-          "add": "Add group activity",
-          "filter": "Filter",
-          "display": {
-            "title": "Display",
-            "ordering": "Ordering",
-            "alphabetical": "Alphabetical",
-            "reset": "Reset",
-            "save": "Save"
-          },
-          "archivedActivities": "Archived activities"
-        },
-        "toasts": {
-          "duplication": "{{groupActivityName}} has been duplicated",
-          "archive": "{{groupActivityName}} has been archived",
-          "unarchive": "{{groupActivityName}} has been unarchived",
-          "open": "Open",
-          "undo": "Undo"
-        }
-      }
-    }
-  },
   "@bsport/kaizen-primitive-core": {
     "default": {
       "fileUpload": {
@@ -228,6 +109,66 @@
       "toasts": { "messageDeleted": "Your image was deleted", "actionUndo": "Undo" }
     }
   },
+  "@bsport/sm-group-activity": {
+    "groupActivity": {
+      "list": {
+        "enabled": {
+          "item": {
+            "notifications": {
+              "title": "Notifications",
+              "popoverLabel": "Has notifications set up"
+            },
+            "livestream": {
+              "title": "Livestream",
+              "popoverLabel": "Live streaming available"
+            }
+          },
+          "duplicate": {
+            "title": "Duplicate activity",
+            "modalContent": "Duplicate <strong>{{groupActivityName}}</strong>?<br/> You can edit the gift card details afterwards.",
+            "cancel": "Cancel",
+            "confirm": "Duplicate"
+          },
+          "archive": {
+            "title": "Archive activity",
+            "modalContent": "Do you want to archive <strong>{{groupActivityName}}</strong> activity? The sessions and past bookings won't be modified.<br/> You can unarchive the activity at any time.",
+            "cantArchive": "There are upcoming sessions planned for this activity. Check if they have been cancelled.",
+            "cancel": "Cancel",
+            "confirm": "Archive"
+          },
+          "emptyState": {
+            "title": "No group activities yet",
+            "body": "Create group activities and let your members attend sessions"
+          }
+        },
+        "archived": {
+          "unarchive": "Unarchive activity",
+          "emptyState": { "title": "No archived group activities yet" }
+        },
+        "header": {
+          "groupActivities": "Group activities",
+          "archivedGroupActivities": "Archived group activities",
+          "add": "Add group activity",
+          "filter": "Filter",
+          "display": {
+            "title": "Display",
+            "ordering": "Ordering",
+            "alphabetical": "Alphabetical",
+            "reset": "Reset",
+            "save": "Save"
+          },
+          "archivedActivities": "Archived activities"
+        },
+        "toasts": {
+          "duplication": "{{groupActivityName}} has been duplicated",
+          "archive": "{{groupActivityName}} has been archived",
+          "unarchive": "{{groupActivityName}} has been unarchived",
+          "open": "Open",
+          "undo": "Undo"
+        }
+      }
+    }
+  },
   "@bsport/sm-invoice": {
     "invoice": {
       "invoiceType": {
@@ -268,6 +209,65 @@
         "receipt": "Receipt",
         "explainPdfDraft": "The invoice is still a draft, pdf is not available."
       }
+    }
+  },
+  "@bsport/sm-member-list": {
+    "common": {
+      "pages": { "memberList": "Members", "archivedMemberList": "Archived members" },
+      "actions": { "addMember": "Add member" },
+      "memberTable": {
+        "loading": "Loading members ...",
+        "emptySearch": {
+          "subtitle": "No members match your filters. Try clearing them to see more results."
+        },
+        "emptyList": {
+          "activeMode": {
+            "title": "No members yet",
+            "subtitle": "Start adding members in your studio"
+          },
+          "archivedMode": { "title": "No archived members" }
+        },
+        "headers": {
+          "name": "Name",
+          "email": "Email",
+          "balance": "Balance",
+          "joinDate": "Join Date"
+        },
+        "tooltips": { "archive": "Archive member", "restore": "Unarchive member" }
+      },
+      "listPage": {
+        "archiveModal": {
+          "title": "Archive member",
+          "description": {
+            "action": "Are you sure that you want to archive <strong>{{ name }}</strong> ?",
+            "effect": "They will no longer be active but can be restored any time from your archive."
+          },
+          "alertIrregularity": {
+            "adviseRegularization": "Based on the following criteria, we advise that you regularize your member's internal account balance before the member is archived:",
+            "items": {
+              "negativeBalance": "Negative internal account balance",
+              "unpaidInvoices": "Unpaid invoice(s)",
+              "currentSubscription": "Current subscription",
+              "autorenewalSubscriptions": "Subscriptions with automatic renewals",
+              "futureBookings": "Future bookings",
+              "recurringBookings": "Recurring bookings",
+              "scheduledAppointments": "Scheduled appointments"
+            }
+          },
+          "buttons": { "cancel": "Cancel", "archive": "Archive" },
+          "toasts": {
+            "messageArchived": "{{ name }} has been archived",
+            "actionUndo": "Undo"
+          }
+        }
+      },
+      "archivedListPage": {
+        "toasts": {
+          "messageUnarchived": "{{ name }} has been unarchived",
+          "actionUndo": "Undo"
+        }
+      },
+      "filters": { "label": "Filter", "operators": { "is": "is", "isNot": "is not" } }
     }
   },
   "@bsport/sm-navigation-sidebar": {
@@ -395,7 +395,7 @@
       "additionalFeedbackPlaceholder": "Type your feedback here..."
     }
   },
-  "@bsport/template-simple-b2b-app": {
+  "@bsport/template-sm-application": {
     "namespaceAlpha": { "helloWorld": "Hello world !", "helloName": "Hello {{ name }} !" },
     "namespaceBeta": {
       "goodbye": "Goodbye world",

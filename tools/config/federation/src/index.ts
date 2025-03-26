@@ -1,18 +1,18 @@
 const FEDERATED_APP_CONFIG = {
   // Reserved for the template
-  "group-activities": {
+  "sm-group-activity": {
     port: 4998,
   },
   // Reserved for the template
-  "simple-b2b-app": {
+  "template-sm-application": {
     port: 4999,
   },
   // Applications
-  "navigation-sidebar": {
+  "sm-navigation-sidebar": {
     port: 5000,
   },
   // Core Data : Range 5100
-  "b2b-member-list": {
+  "sm-member-list": {
     port: 5101,
   },
   // Buyables : Range 5150

@@ -28,7 +28,7 @@
             }
         }
     },
-    "@bsport/template-simple-b2b-app": {
+    "@bsport/template-sm-application": {
         "namespaceAlpha": {
             "helloWorld": "Bonjour le monde !"
         },

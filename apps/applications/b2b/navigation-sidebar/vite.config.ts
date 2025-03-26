@@ -10,7 +10,7 @@ import { getAppPort, type APPLICATION } from "@bsport/config-federation";
 /**
  * Application name used for federation. Must also be present in @bsport/config-federation to work.
  */
-const APP_NAME: APPLICATION = "navigation-sidebar";
+const APP_NAME: APPLICATION = "sm-navigation-sidebar";
 
 // https://vite.dev/config/
 const config: UserConfig = {

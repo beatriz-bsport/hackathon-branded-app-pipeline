@@ -1,5 +1,5 @@
 {
-    "@bsport/template-simple-b2b-app": {
+    "@bsport/template-sm-application": {
         "namespaceBeta": {
             "nested": {
                 "item2": "Ich bin der zweite Artikel!",

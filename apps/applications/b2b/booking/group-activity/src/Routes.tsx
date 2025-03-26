@@ -9,7 +9,7 @@ import {
   GROUP_ACTIVITIES_PATH,
 } from "#src/constants";
 
-const Navigation = lazy(() => import("navigation-sidebar/App"));
+const Navigation = lazy(() => import("sm-navigation-sidebar/App"));
 const IS_LOCAL_DEVELOPMENT = import.meta.env.DEV;
 
 const AppRoutes = () => {

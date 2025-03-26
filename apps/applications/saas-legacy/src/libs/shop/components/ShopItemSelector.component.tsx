@@ -80,7 +80,11 @@ export function ShopItemSelector(props: Props) {
         // @ts-expect-error
         .asMutable()
         // @ts-expect-error
-        .sort((pp, pp_) => pp.name.localeCompare(pp_.name))
+        .sort((pp, pp_) => {
+          const name1 = pp?.name ?? '';
+          const name2 = pp_?.name ?? '';
+          return name1.localeCompare(name2);
+        })
         // @ts-expect-error
         .map((pp) => ({
           value: pp.id,

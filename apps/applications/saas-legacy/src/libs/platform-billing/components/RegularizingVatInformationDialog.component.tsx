@@ -5,10 +5,15 @@ import makeStyles from '@material-ui/core/styles/makeStyles';
 import { Button, Typography } from '@material-ui/core';
 import InfoBox from '#src/components/box/InfoBox.component';
 
+import TimeoutButton from '#src/components/button/TimeoutButton.component';
+
 type OwnProps = {
   goNext: () => void;
   cancel: () => void;
 };
+
+// In seconds
+const REGULARIZING_VAT_INFORMATION_DIALOG_CANCEL_TIMEOUT = 20;
 
 export const RegularizingVatInformationDialog: React.FC<OwnProps> = ({
   goNext,
@@ -32,7 +37,16 @@ export const RegularizingVatInformationDialog: React.FC<OwnProps> = ({
       />
       <div className={classes.actions}>
         <div className={classes.actionsEnd}>
-          {cancel && <Button onClick={cancel}>{t('common:close')}</Button>}
+          {cancel && (
+            <TimeoutButton
+              delayBeforeActivation={
+                REGULARIZING_VAT_INFORMATION_DIALOG_CANCEL_TIMEOUT
+              }
+              onClick={cancel}
+            >
+              {t('common:close')}
+            </TimeoutButton>
+          )}
           <Button color="primary" onClick={goNext} variant="contained">
             {t(`platformCustomerEntity.vatId.alert.update`)}
           </Button>

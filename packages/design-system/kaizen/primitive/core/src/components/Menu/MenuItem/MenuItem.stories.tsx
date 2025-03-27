@@ -1,9 +1,11 @@
+import type { Meta, StoryObj } from "@storybook/react";
 import React, { useEffect, useState } from "react";
-import MenuItem from ".";
+
 import AvatarImage from "#src/components/Avatar/assets/avatar.jpeg";
 import { icons } from "#src/components/Icon";
+
+import MenuItem from ".";
 import { menuItemTypes } from "./constants";
-import type { Meta, StoryObj } from "@storybook/react";
 import { CheckBox as CheckBoxType, Radio as RadioType } from "./types";
 
 /**

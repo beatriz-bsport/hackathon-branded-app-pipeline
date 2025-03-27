@@ -1,5 +1,5 @@
 import { getAuthToken } from "@bsport/local-storage-auth-token";
-import { setTransactionId, setSessionId } from "@bsport/sentry";
+import { setSessionId, setTransactionId } from "@bsport/sentry";
 import { getTimezoneName } from "@bsport/timezone-utils";
 
 export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;

@@ -1,4 +1,5 @@
 import { program } from "commander";
+
 import packageJson from "../package.json";
 import commandPromises from "./commands";
 

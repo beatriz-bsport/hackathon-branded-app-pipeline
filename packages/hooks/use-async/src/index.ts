@@ -1,4 +1,4 @@
-import { useCallback, useState, type DependencyList } from "react";
+import { type DependencyList, useCallback, useState } from "react";
 import { Result } from "typescript-result";
 
 // Utility type to extract the type of the value inside the Result from the async function

@@ -1,6 +1,8 @@
 import React, { useMemo } from "react";
+
 import Body from "#src/components/Body";
 import Checkbox from "#src/components/Checkbox";
+
 import type { BaseRow, Column } from "./Table";
 import TableCell from "./TableCell";
 

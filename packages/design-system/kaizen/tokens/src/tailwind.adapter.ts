@@ -1,9 +1,10 @@
-import type { Config } from "tailwindcss";
-import path from "path";
-import fs from "fs/promises";
 import { existsSync } from "fs";
-import { extractCSSVariables } from "#src/utils";
+import fs from "fs/promises";
+import path from "path";
+import type { Config } from "tailwindcss";
+
 import { formatVariableName, formatVariableValue } from "#src/supernova.helper";
+import { extractCSSVariables } from "#src/utils";
 
 /**
  * This file contains all the adapters consuming a Supernova export file and transforming it into a Tailwind theme.

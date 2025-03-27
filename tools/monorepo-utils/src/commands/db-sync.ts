@@ -1,5 +1,5 @@
-import type { Command } from "commander";
 import { spawnSync } from "child_process";
+import type { Command } from "commander";
 import inquirer from "inquirer";
 
 const DATABASES = {

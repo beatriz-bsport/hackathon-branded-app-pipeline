@@ -1,8 +1,10 @@
-import type { SetRequired } from "type-fest";
+import { type VariantProps, cva } from "class-variance-authority";
 import React, { useMemo } from "react";
-import { cva, type VariantProps } from "class-variance-authority";
+import type { SetRequired } from "type-fest";
+
 import Icon, { type IconName } from "#src/components/Icon";
 import Loader from "#src/components/Loader";
+
 import {
   colorsByIntent,
   defaultClasses,

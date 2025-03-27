@@ -1,5 +1,7 @@
 import { createStore } from "zustand/vanilla";
+
 import { bindStore } from "@bsport/store-base";
+
 import type { Invoice } from "#src/types";
 
 export interface InvoiceState {

@@ -1,7 +1,10 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useCallback, useEffect, useState } from "react";
+
 import { usePaginationQueryParams } from "@bsport/use-pagination-query-params";
+
 import { GiftcardTable } from "#src/components/GiftcardTable";
-import { getGiftcardList, type Giftcard } from "#src/features/api";
+import { type Giftcard, getGiftcardList } from "#src/features/api";
+
 import { GiftcardArchiveModal } from "./GiftcardArchiveModal";
 import { GiftcardDuplicateModal } from "./GiftcardDuplicateModal";
 

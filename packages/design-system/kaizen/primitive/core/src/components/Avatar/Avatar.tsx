@@ -1,7 +1,8 @@
-import React, { useMemo } from "react";
-import { cva, type VariantProps } from "class-variance-authority";
-import mapValues from "lodash/mapValues";
+import { type VariantProps, cva } from "class-variance-authority";
 import classNames from "classnames";
+import mapValues from "lodash/mapValues";
+import React, { useMemo } from "react";
+
 import Icon, { IconName } from "#src/components/Icon";
 
 const defaultClasses = [

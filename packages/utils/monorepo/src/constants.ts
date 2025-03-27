@@ -1,7 +1,7 @@
-import path from "path";
+import { exec as execCb, execSync } from "child_process";
 import fs from "fs";
 import { promisify } from "node:util";
-import { exec as execCb, execSync } from "child_process";
+import path from "path";
 
 const exec = promisify(execCb);
 

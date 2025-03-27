@@ -1,20 +1,20 @@
 import React, {
-  useState,
-  useEffect,
-  useMemo,
   Dispatch,
   SetStateAction,
+  useEffect,
+  useMemo,
+  useState,
 } from "react";
 
-import {
-  UPLOAD_STATUSES,
-  type FileUploadStatus,
-  type FileUploadTracker,
-  type FileType,
-} from "./constants";
-import { getNewFileUploadTrackerItems } from "./utils";
 import FileUploadInput from "./FileUploadInput";
 import FileUploadLoading from "./FileUploadLoading";
+import {
+  type FileType,
+  type FileUploadStatus,
+  type FileUploadTracker,
+  UPLOAD_STATUSES,
+} from "./constants";
+import { getNewFileUploadTrackerItems } from "./utils";
 
 export type FileUploadProps = {
   autoUpload?: boolean;

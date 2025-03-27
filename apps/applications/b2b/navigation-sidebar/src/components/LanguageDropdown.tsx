@@ -1,10 +1,11 @@
+import { useState } from "react";
+
 import { LANGUAGES } from "@bsport/i18n";
 import { Icon } from "@bsport/kaizen-primitive-core";
 
 import { i18nInstance, useTranslation } from "#src/utils/i18n";
 
 import DropdownMenu, { type DropdownMenuItems } from "./DropdownMenu";
-import { useState } from "react";
 
 const useLanguageItems = (): DropdownMenuItems => {
   const { t } = useTranslation("default");

@@ -1,13 +1,14 @@
+import keyBy from "lodash/keyBy";
 import React, {
-  createContext,
+  Dispatch,
   MouseEvent,
   ReactNode,
-  useState,
-  useContext,
-  Dispatch,
   SetStateAction,
+  createContext,
+  useContext,
+  useState,
 } from "react";
-import keyBy from "lodash/keyBy";
+
 import type { BaseItem, NavigationMenuItem } from "./types";
 
 const Context = createContext<{

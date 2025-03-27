@@ -1,14 +1,16 @@
-import { getMonorepoBasePath } from "@bsport/typescript-monorepo-utils";
-import type { Command } from "commander";
-import inquirer from "inquirer";
-import path from "path";
-import util from "node:util";
-import fs from "fs-extra";
 import child_process from "child_process";
+import type { Command } from "commander";
+import fs from "fs-extra";
+import inquirer from "inquirer";
+import util from "node:util";
+import path from "path";
+
+import { getMonorepoBasePath } from "@bsport/typescript-monorepo-utils";
+
 import {
+  MAP_PROJECT_TO_ID,
   getBranchesCreatedInLastXMonths,
   getBranchesRelatedToOpenMR,
-  MAP_PROJECT_TO_ID,
 } from "./open-branch-list";
 
 const exec = util.promisify(child_process.exec);

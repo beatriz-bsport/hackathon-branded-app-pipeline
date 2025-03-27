@@ -1,3 +1,8 @@
+// Export css variables (map a token to a css variable)
+import "@bsport/kaizen-tokens/src/index.css";
+
+import "./globals.css";
+
 export { default as Alert, type AlertProps } from "./components/Alert";
 export {
   default as Autocomplete,
@@ -116,9 +121,6 @@ export { ThemeProvider, themes, useTheme } from "./components/ThemeProvider";
 // ----- CSS -----
 // Export tailwind theme (map a className to a token)
 export { tailwindConfig } from "./tailwind";
-// Export css variables (map a token to a css variable)
-import "@bsport/kaizen-tokens/src/index.css";
-import "./globals.css";
 
 // ----- I18N -----
 export {

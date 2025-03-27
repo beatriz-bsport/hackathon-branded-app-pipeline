@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import List from "#src/components/List";
 import { useState } from "react";
+
+import List from "#src/components/List";
 
 /**
  * A list component that can contain multiple `Item` components and one `Header` component.<br>

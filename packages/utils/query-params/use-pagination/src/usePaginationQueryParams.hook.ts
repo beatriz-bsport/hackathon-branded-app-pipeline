@@ -1,7 +1,8 @@
 import { useSearchParams } from "react-router";
+
 import {
-  stringifyParams,
   getNumberSearchParam,
+  stringifyParams,
   updateSearchParams,
 } from "@bsport/base-query-params";
 

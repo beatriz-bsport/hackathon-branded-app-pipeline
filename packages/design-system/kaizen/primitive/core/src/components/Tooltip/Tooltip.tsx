@@ -1,6 +1,7 @@
-import React, { useCallback, useMemo, useState } from "react";
 import { cva } from "class-variance-authority";
 import classNames from "classnames";
+import React, { useCallback, useMemo, useState } from "react";
+
 import Chip, { ChipProps } from "#src/components/Chip";
 import {
   Placements,

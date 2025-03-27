@@ -1,14 +1,16 @@
-import React from "react";
 import { cva } from "class-variance-authority";
-import Header, { ListHeaderProps } from "./Header";
-import Item, { ListItemProps } from "./Item";
+import React from "react";
+
 import { ChipProps } from "#src/components/Chip";
-import { CheckboxProvider } from "#src/contexts/CheckboxContext";
 import type { PaginationProps } from "#src/components/private/Pagination";
-import { usePagination } from "#src/hooks/use-pagination";
+import { CheckboxProvider } from "#src/contexts/CheckboxContext";
 import useEmptyState, {
   type UseEmptyStateProps,
 } from "#src/hooks/use-empty-state.hook";
+import { usePagination } from "#src/hooks/use-pagination";
+
+import Header, { ListHeaderProps } from "./Header";
+import Item, { ListItemProps } from "./Item";
 
 const defaultClasses = [
   "flex",

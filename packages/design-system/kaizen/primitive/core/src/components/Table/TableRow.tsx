@@ -1,9 +1,11 @@
-import React, { useCallback, useMemo } from "react";
 import classNames from "classnames";
+import React, { useCallback, useMemo } from "react";
+
 import Avatar from "#src/components/Avatar";
 import Body from "#src/components/Body";
 import Checkbox from "#src/components/Checkbox";
 import withLink from "#src/components/private/withLink";
+
 import type { BaseRow, Column } from "./Table";
 import TableCell from "./TableCell";
 

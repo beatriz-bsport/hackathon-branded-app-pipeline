@@ -1,10 +1,12 @@
-import React from "react";
-import {
-  FileUpload,
-  FILE_UPLOAD_STATUSES,
-} from "@bsport/kaizen-primitive-core";
-import { uploadGiftcardImage } from "#src/features/api";
 import classNames from "classnames";
+import React from "react";
+
+import {
+  FILE_UPLOAD_STATUSES,
+  FileUpload,
+} from "@bsport/kaizen-primitive-core";
+
+import { uploadGiftcardImage } from "#src/features/api";
 
 type GiftcardImageUploaderProps = {
   fetchGiftcardImageList: () => void;

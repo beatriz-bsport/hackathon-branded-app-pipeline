@@ -1,3 +1,5 @@
+import { cva } from "class-variance-authority";
+import classNames from "classnames";
 import React, {
   ChangeEvent,
   FocusEvent,
@@ -5,13 +7,12 @@ import React, {
   useEffect,
   useState,
 } from "react";
-import { cva } from "class-variance-authority";
-import classNames from "classnames";
-import useDebounce from "#src/hooks/debounce";
+
 import Menu from "#src/components/Menu";
+import { Item, MenuOption } from "#src/components/Menu/types";
 import Popover from "#src/components/Popover";
 import TextField, { type TextFieldProps } from "#src/components/TextField";
-import { Item, MenuOption } from "#src/components/Menu/types";
+import useDebounce from "#src/hooks/debounce";
 
 const defaultClasses = ["flex", "flex-col", "gap-sm"] as const;
 

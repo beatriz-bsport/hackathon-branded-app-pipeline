@@ -1,14 +1,14 @@
+import { cva } from "class-variance-authority";
 import {
-  type ReactNode,
-  type FC,
-  type HTMLAttributes,
   type CSSProperties,
-  type PropsWithChildren,
+  type FC,
   type ForwardRefExoticComponent,
+  type HTMLAttributes,
+  type PropsWithChildren,
+  type ReactNode,
   type RefAttributes,
   forwardRef,
 } from "react";
-import { cva } from "class-variance-authority";
 
 import Body from "#src/components/Body";
 import Button from "#src/components/Button";
@@ -19,8 +19,8 @@ import { useKaizenI18nInstance, useTranslation } from "#src/i18n";
 
 import {
   LayoutProvider,
-  useLayoutContext,
   type LayoutProviderRef,
+  useLayoutContext,
 } from "./LayoutProvider";
 
 const MAX_CONTENT_WIDTH = 920;

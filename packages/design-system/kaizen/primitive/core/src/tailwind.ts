@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss";
+
 import THEME from "@bsport/kaizen-tokens/src/tailwind.theme.json";
 
 /**

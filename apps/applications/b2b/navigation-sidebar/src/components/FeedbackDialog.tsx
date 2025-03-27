@@ -1,12 +1,12 @@
 import React, {
-  useState,
-  useId,
-  useEffect,
   type ChangeEvent,
   type ComponentProps,
+  useEffect,
+  useId,
+  useState,
 } from "react";
 
-import { Modal, Checkbox, TextArea, Body } from "@bsport/kaizen-primitive-core";
+import { Body, Checkbox, Modal, TextArea } from "@bsport/kaizen-primitive-core";
 
 import { useTranslation } from "#src/utils/i18n";
 

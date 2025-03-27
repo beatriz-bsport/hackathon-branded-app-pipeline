@@ -1,15 +1,16 @@
-import type { Command } from "commander";
-import type { DistinctQuestion } from "inquirer";
-import type { PackageJson } from "@bsport/typescript-monorepo-utils";
 import { spawn } from "child_process";
-import path from "path";
+import type { Command } from "commander";
 import fs from "fs-extra";
+import type { DistinctQuestion } from "inquirer";
 import inquirer from "inquirer";
 import kebabCase from "lodash/kebabCase";
+import path from "path";
+
+import type { PackageJson } from "@bsport/typescript-monorepo-utils";
 import {
+  declareEnvVariable,
   getMonorepoBasePath,
   getProjectsPackageJsons,
-  declareEnvVariable,
 } from "@bsport/typescript-monorepo-utils";
 
 const bsportName = "bsport";

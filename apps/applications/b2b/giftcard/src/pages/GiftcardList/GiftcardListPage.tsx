@@ -1,8 +1,11 @@
 import { useState } from "react";
-import { ListLayout, Button, Tooltip } from "@bsport/kaizen-primitive-core";
+
+import { Button, ListLayout, Tooltip } from "@bsport/kaizen-primitive-core";
+
 import { useTranslation } from "#src/utils/i18n";
-import { GiftcardListContent } from "./GiftcardListContent";
+
 import { GiftcardImageUploadModal } from "./GiftcardImageUploadModal";
+import { GiftcardListContent } from "./GiftcardListContent";
 
 export const GiftcardListPage: React.FC = () => {
   const { t } = useTranslation("common");

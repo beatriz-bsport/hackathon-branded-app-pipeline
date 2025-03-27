@@ -1,5 +1,12 @@
 import { Result } from "typescript-result";
+
 import { Action } from "@bsport/store-base";
+
+import {
+  setInvoices,
+  updateInvoice,
+  updateReceiptUrl,
+} from "#src/actions/store";
 import {
   fetchInvoices as apiFetchInvoices,
   finalizeInvoice as apiFinalizeInvoice,
@@ -10,11 +17,6 @@ import type {
   Invoice,
   PaginatedResponse,
 } from "#src/types";
-import {
-  setInvoices,
-  updateInvoice,
-  updateReceiptUrl,
-} from "#src/actions/store";
 
 /**
  * Fetches a list of paginated invoices.

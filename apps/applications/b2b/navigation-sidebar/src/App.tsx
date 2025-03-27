@@ -1,12 +1,13 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 
-import "./index.css";
+import { Select } from "@bsport/kaizen-primitive-core";
 import "@bsport/kaizen-primitive-core/styles";
 
 import NavigationSidebar from "#src/components/NavigationSidebar";
 import { i18nInstance } from "#src/utils/i18n";
-import { Select } from "@bsport/kaizen-primitive-core";
+
+import "./index.css";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>

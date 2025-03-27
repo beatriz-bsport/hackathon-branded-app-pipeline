@@ -1,10 +1,12 @@
-import React, { useState } from "react";
 import { cva } from "class-variance-authority";
-import Collapse from "#src/components/Collapse";
-import Header, { type ListHeaderProps } from "./Header";
-import DragAndDrop from "#src/components/DragAndDrop";
-import Item from "./Item";
 import classNames from "classnames";
+import React, { useState } from "react";
+
+import Collapse from "#src/components/Collapse";
+import DragAndDrop from "#src/components/DragAndDrop";
+
+import Header, { type ListHeaderProps } from "./Header";
+import Item from "./Item";
 import type { Sortable } from "./types";
 
 const defaultClasses = [

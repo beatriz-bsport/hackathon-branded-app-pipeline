@@ -1,4 +1,5 @@
 import type { PackageJson } from "type-fest";
+
 import { getAffectedProjects } from "./get-affected-projects";
 import { getProjectsPackageJsons } from "./get-projects-package-jsons";
 

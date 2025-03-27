@@ -1,5 +1,7 @@
 import React from "react";
+
 import { Body } from "@bsport/kaizen-primitive-core";
+
 import GiftcardPreview from "#src/components/GiftcardPreview";
 import { useTranslation } from "#src/utils/i18n";
 

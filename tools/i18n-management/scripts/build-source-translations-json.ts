@@ -1,11 +1,12 @@
-import path from "path";
-import { existsSync, writeFileSync, mkdirSync } from "fs-extra";
+import { existsSync, mkdirSync, writeFileSync } from "fs-extra";
 import beautify from "json-beautify";
+import path from "path";
+
 import {
-  getInternationalizedApplications,
-  getAppNamespaces,
-  getNamespacesTranslations,
   type ProjectConfig,
+  getAppNamespaces,
+  getInternationalizedApplications,
+  getNamespacesTranslations,
 } from "./utils";
 
 async function main() {

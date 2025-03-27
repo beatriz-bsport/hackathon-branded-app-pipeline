@@ -1,7 +1,8 @@
+import { type VariantProps, cva } from "class-variance-authority";
+import mapValues from "lodash/mapValues";
 import React, { useMemo } from "react";
 import type { SetRequired } from "type-fest";
-import { cva, type VariantProps } from "class-variance-authority";
-import mapValues from "lodash/mapValues";
+
 import { TYPOGRAPHY_COLORS } from "#src/constants";
 
 const defaultClasses = [] as const;

@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import MediaImage from "./assets/media.jpg";
+
 import Media, { ratios, sizes } from ".";
+import MediaImage from "./assets/media.jpg";
 
 /**
  * A Media component that renders an image with customizable size, aspect ratio,

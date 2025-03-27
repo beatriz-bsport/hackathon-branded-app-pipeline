@@ -1,8 +1,8 @@
-import path from "path";
 import fs from "fs/promises";
-import { fileURLToPath } from "url";
+import path from "path";
 import { dirname } from "path";
 import prettier from "prettier";
+import { fileURLToPath } from "url";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ASSETS_FOLDER_PATH = path.resolve(

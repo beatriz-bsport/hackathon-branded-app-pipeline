@@ -1,6 +1,8 @@
-import { lazy, Suspense } from "react";
+import { Suspense, lazy } from "react";
 import { Route } from "react-router";
+
 import { RoutesWrapper } from "@bsport/b2b-backbone";
+
 import { InvoiceListPage } from "#src/pages/InvoiceLisPage";
 
 const NavigationSidebar = lazy(() => import("sm-navigation-sidebar/App"));

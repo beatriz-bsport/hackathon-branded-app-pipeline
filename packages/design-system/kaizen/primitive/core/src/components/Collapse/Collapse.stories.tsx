@@ -1,10 +1,10 @@
-import React from "react";
 import type { Meta, StoryObj } from "@storybook/react";
+import React from "react";
 
-import Title from "#src/components/Title";
 import Body from "#src/components/Body";
 import Button from "#src/components/Button";
 import Collapse from "#src/components/Collapse";
+import Title from "#src/components/Title";
 
 /**
  * The Collapse component is used to show and hide content in a controlled manner,

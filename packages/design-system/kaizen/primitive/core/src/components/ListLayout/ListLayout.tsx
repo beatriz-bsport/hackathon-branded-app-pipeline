@@ -1,5 +1,6 @@
+import { type VariantProps, cva } from "class-variance-authority";
 import React, { ReactNode } from "react";
-import { cva, type VariantProps } from "class-variance-authority";
+
 import HeaderLayout from "#src/components/private/HeaderLayout";
 
 export type ListLayoutProps = React.HTMLAttributes<HTMLDivElement> & {

@@ -1,13 +1,12 @@
-import { useState, useMemo } from "react";
+import { useMemo, useState } from "react";
 
 import ProgressBar from "#src/components/ProgressBar";
+import { useKaizenI18nInstance, useTranslation } from "#src/i18n";
 
 import type { FileUploadTracker } from "../constants";
 import { getProgressInformation } from "../utils";
-
-import TransitionWrapper from "./TransitionWrapper";
 import LoaderActionButton from "./LoaderActionButton";
-import { useTranslation, useKaizenI18nInstance } from "#src/i18n";
+import TransitionWrapper from "./TransitionWrapper";
 
 type LoaderProgressBarProps = {
   fileUploadTracker: FileUploadTracker;

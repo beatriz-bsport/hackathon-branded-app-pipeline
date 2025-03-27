@@ -1,11 +1,13 @@
 import React from "react";
+
 import Divider from "#src/components/Divider";
-import Item from "./Item";
-import Group from "./Group";
+
 import {
   NavigationMenuProvider,
   type NavigationMenuProviderProps,
 } from "./Context";
+import Group from "./Group";
+import Item from "./Item";
 import type { NavigationMenuElement } from "./types";
 
 export type NavigationMenuProps = React.HTMLAttributes<HTMLDivElement> &

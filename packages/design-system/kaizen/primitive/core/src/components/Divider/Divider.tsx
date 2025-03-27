@@ -1,6 +1,6 @@
-import React from "react";
-import { cva, type VariantProps } from "class-variance-authority";
+import { type VariantProps, cva } from "class-variance-authority";
 import mapValues from "lodash/mapValues";
+import React from "react";
 
 const defaultClasses = ["border-stroke-divider", "flex"] as const;
 

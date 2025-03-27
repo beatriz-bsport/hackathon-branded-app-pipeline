@@ -1,15 +1,17 @@
-import React, { useCallback, useState, useEffect } from "react";
-import { useTranslation } from "#src/utils/i18n";
-import { Alert, Body, Modal, toast } from "@bsport/kaizen-primitive-core";
+import React, { useCallback, useEffect, useState } from "react";
+
 import {
   MEMBER_STATUS,
   MemberStatuses,
 } from "@bsport/common/lib/master-data/member";
+import { Alert, Body, Modal, toast } from "@bsport/kaizen-primitive-core";
+
 import {
   archiveMember,
-  restoreMember,
   interrogateMemberRegularity,
+  restoreMember,
 } from "#src/store-api-pkg";
+import { useTranslation } from "#src/utils/i18n";
 import { Trans } from "#src/utils/i18n";
 
 type MemberArchiveModalProps = {

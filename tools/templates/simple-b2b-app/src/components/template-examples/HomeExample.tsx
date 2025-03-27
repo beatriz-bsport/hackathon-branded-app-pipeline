@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
+
 import { Body, Link, Title, toast } from "@bsport/kaizen-primitive-core";
+
 import fetch from "#src/utils/fetch";
+
 import TranslationExample from "./TranslationExample";
 
 type CompanyTheme = { companyId: number };

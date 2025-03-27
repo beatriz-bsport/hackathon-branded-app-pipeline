@@ -1,6 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import Select, { statuses } from "./Select";
+
 import { icons } from "#src/components/Icon";
+
+import Select, { statuses } from "./Select";
 
 /**
  * A custom select component that displays a button which, when clicked or activated via a keyboard,<br>

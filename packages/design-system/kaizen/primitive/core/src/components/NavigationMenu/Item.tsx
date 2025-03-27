@@ -1,3 +1,4 @@
+import { cva, cx } from "class-variance-authority";
 import React, {
   MouseEvent,
   useCallback,
@@ -5,11 +6,11 @@ import React, {
   useMemo,
   useRef,
 } from "react";
-import { cva, cx } from "class-variance-authority";
+
 import Collapse from "#src/components/Collapse";
 import Icon from "#src/components/Icon";
-import SubItem from "#src/components/NavigationMenu/SubItem";
 import { useNavigationMenuContext } from "#src/components/NavigationMenu/Context";
+import SubItem from "#src/components/NavigationMenu/SubItem";
 
 const defaultClasses = [
   "group",

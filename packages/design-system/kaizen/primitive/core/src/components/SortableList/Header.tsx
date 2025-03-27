@@ -1,8 +1,9 @@
-import React from "react";
 import classNames from "classnames";
+import React from "react";
+
 import Button, { ButtonProps } from "#src/components/Button";
-import { sortableListItem } from "#src/components/SortableList/SortableList";
 import Icon from "#src/components/Icon";
+import { sortableListItem } from "#src/components/SortableList/SortableList";
 
 export type ListHeaderProps = React.HTMLAttributes<HTMLDivElement> & {
   collapseController?: () => void;

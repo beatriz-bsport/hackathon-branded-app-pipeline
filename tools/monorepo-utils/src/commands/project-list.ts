@@ -1,12 +1,13 @@
 import type { Command } from "commander";
-import path from "path";
 import { writeFileSync } from "fs";
+import fs from "fs-extra";
+import path from "path";
+
 import {
   getAffectedProjectsPackageJsons,
-  getProjectsPackageJsons,
   getMonorepoBasePath,
+  getProjectsPackageJsons,
 } from "@bsport/typescript-monorepo-utils";
-import fs from "fs-extra";
 
 enum FormatType {
   JSON = "json",

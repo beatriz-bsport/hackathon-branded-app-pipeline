@@ -4,7 +4,9 @@ import {
   type GenericTableColumn,
   Tooltip,
 } from "@bsport/kaizen-primitive-core";
+
 import type { TFunction } from "#src/utils/i18n";
+
 import type { TableRowData } from "./constants";
 
 type TableColumn = GenericTableColumn<TableRowData>;

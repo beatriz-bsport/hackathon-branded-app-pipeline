@@ -1,17 +1,19 @@
-import React, { TableHTMLAttributes, useCallback } from "react";
 import { cva } from "class-variance-authority";
-import TableHeader from "./TableHeader";
-import TableRow from "./TableRow";
+import React, { TableHTMLAttributes, useCallback } from "react";
+
 import { sizes as avatarSizes } from "#src/components/Avatar";
 import { type PaginationProps } from "#src/components/private/Pagination";
 import {
   CheckboxProvider,
   useCheckboxContext,
 } from "#src/contexts/CheckboxContext";
-import { usePagination } from "#src/hooks/use-pagination";
 import useEmptyState, {
   type UseEmptyStateProps,
 } from "#src/hooks/use-empty-state.hook";
+import { usePagination } from "#src/hooks/use-pagination";
+
+import TableHeader from "./TableHeader";
+import TableRow from "./TableRow";
 
 const defaultClasses = ["table", "table-auto", "w-full", "text-left"] as const;
 const table = cva(defaultClasses);

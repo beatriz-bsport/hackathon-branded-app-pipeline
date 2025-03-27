@@ -1,7 +1,9 @@
-import { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react";
-import Autocomplete from "./Autocomplete";
+import { useState } from "react";
+
 import { MenuOption } from "#src/components/Menu/types";
+
+import Autocomplete from "./Autocomplete";
 
 /**
  * This component is a text input field that offers autocompletion from a set of items.<br>

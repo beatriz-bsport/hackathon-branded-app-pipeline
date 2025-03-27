@@ -1,10 +1,10 @@
-import path from "path";
-import util from "node:util";
-import fs from "fs-extra";
 import child_process from "child_process";
-import { getMonorepoBasePath } from "@bsport/typescript-monorepo-utils";
-
 import type { Command } from "commander";
+import fs from "fs-extra";
+import util from "node:util";
+import path from "path";
+
+import { getMonorepoBasePath } from "@bsport/typescript-monorepo-utils";
 
 const exec = util.promisify(child_process.exec);
 

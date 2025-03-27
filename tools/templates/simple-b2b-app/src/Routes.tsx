@@ -1,6 +1,8 @@
-import { lazy, Suspense } from "react";
+import { Suspense, lazy } from "react";
 import { Route } from "react-router";
+
 import { RoutesWrapper } from "@bsport/b2b-backbone";
+
 import App from "#src/pages/Home";
 import ListPage from "#src/pages/ListPage";
 

@@ -1,15 +1,17 @@
-import React, { Suspense, useEffect } from "react";
-import type { Preview } from "@storybook/react";
-import "@bsport/kaizen-tokens/src/index.css";
 import { withThemeByClassName } from "@storybook/addon-themes";
+import type { Preview } from "@storybook/react";
+import React, { Suspense, useEffect } from "react";
+
+import "@bsport/kaizen-tokens/src/index.css";
+
 import {
-  instanciateAppI18n,
-  LOCALES,
   FLAG_EMOJIS,
+  LOCALES,
+  type Translations,
   i18nNamespacePrefix,
   i18nNamespaces,
+  instanciateAppI18n,
   switchLanguage,
-  type Translations,
 } from "../src/i18n/index";
 
 const { AppI18nextProvider } = instanciateAppI18n<Translations>({

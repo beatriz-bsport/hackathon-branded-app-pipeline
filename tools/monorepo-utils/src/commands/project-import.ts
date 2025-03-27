@@ -1,11 +1,12 @@
 // Script based on this tutorial (not using `git mv` as it was removing the files `.gitignore`)
 // https://blog.jdriven.com/2021/04/how-to-merge-multiple-git-repositories/
-import type { Command } from "commander";
-import path from "path";
-import util from "node:util";
-import fs from "fs-extra";
-import { getMonorepoBasePath } from "@bsport/typescript-monorepo-utils";
 import child_process from "child_process";
+import type { Command } from "commander";
+import fs from "fs-extra";
+import util from "node:util";
+import path from "path";
+
+import { getMonorepoBasePath } from "@bsport/typescript-monorepo-utils";
 
 const exec = util.promisify(child_process.exec);
 

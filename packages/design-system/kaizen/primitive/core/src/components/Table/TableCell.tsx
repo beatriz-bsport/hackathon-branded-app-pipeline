@@ -1,6 +1,6 @@
-import React, { ReactNode } from "react";
 import { cva } from "class-variance-authority";
 import classNames from "classnames";
+import React, { ReactNode } from "react";
 
 export type TableCellProps = {
   children: ReactNode;

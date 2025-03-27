@@ -1,8 +1,9 @@
-import React from "react";
+import { type VariantProps, cva } from "class-variance-authority";
 import classNames from "classnames";
-import { cva, type VariantProps } from "class-variance-authority";
 import mapValues from "lodash/mapValues";
+import React from "react";
 import { SetRequired } from "type-fest";
+
 import Body from "#src/components/Body";
 
 const defaultClasses = [

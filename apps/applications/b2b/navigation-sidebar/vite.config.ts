@@ -1,11 +1,12 @@
-import type { UserConfig } from "vite";
-import react from "@vitejs/plugin-react-swc";
-import svgr from "vite-plugin-svgr";
-import dts from "vite-plugin-dts";
-import { resolve } from "path";
 import { nxViteTsPaths } from "@nx/vite/plugins/nx-tsconfig-paths.plugin";
 import federation from "@originjs/vite-plugin-federation";
-import { getAppPort, type APPLICATION } from "@bsport/config-federation";
+import react from "@vitejs/plugin-react-swc";
+import { resolve } from "path";
+import type { UserConfig } from "vite";
+import dts from "vite-plugin-dts";
+import svgr from "vite-plugin-svgr";
+
+import { type APPLICATION, getAppPort } from "@bsport/config-federation";
 
 /**
  * Application name used for federation. Must also be present in @bsport/config-federation to work.

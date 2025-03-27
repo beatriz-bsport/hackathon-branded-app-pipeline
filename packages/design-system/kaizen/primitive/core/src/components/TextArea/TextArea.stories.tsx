@@ -1,5 +1,6 @@
-import React, { ChangeEvent, useEffect, useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react";
+import React, { ChangeEvent, useEffect, useState } from "react";
+
 import TextArea, { statuses } from "./TextArea";
 
 /**

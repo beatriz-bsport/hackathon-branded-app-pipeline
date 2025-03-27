@@ -1,11 +1,13 @@
-import React, { useEffect, useState } from "react";
-import Menu from ".";
 import type { Meta, StoryObj } from "@storybook/react";
+import React, { useEffect, useState } from "react";
+
 import AvatarImage from "#src/components/Avatar/assets/avatar.jpeg";
-import { Item } from "#src/components/Menu/types";
 import Badge from "#src/components/Badge";
 import Chip from "#src/components/Chip";
 import Icon from "#src/components/Icon";
+import { Item } from "#src/components/Menu/types";
+
+import Menu from ".";
 
 const menuOptions: Item[] = [
   { type: "title", label: "Menu title" },

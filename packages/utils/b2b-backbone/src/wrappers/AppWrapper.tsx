@@ -1,11 +1,12 @@
 import React from "react";
+
 import { instanciateAppI18n } from "@bsport/i18n";
 import {
-  ThemeProvider,
-  i18nNamespaces,
-  i18nNamespacePrefix,
-  inMemoryTranslationsLoader,
   KaizenI18nProvider,
+  ThemeProvider,
+  i18nNamespacePrefix,
+  i18nNamespaces,
+  inMemoryTranslationsLoader,
 } from "@bsport/kaizen-primitive-core";
 
 import DevTools from "#src/dev-utils/DevTools";

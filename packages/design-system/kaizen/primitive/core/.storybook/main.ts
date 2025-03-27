@@ -1,8 +1,8 @@
-import type { StorybookConfig } from "@storybook/react-vite";
 import { nxViteTsPaths } from "@nx/vite/plugins/nx-tsconfig-paths.plugin";
+import type { StorybookConfig } from "@storybook/react-vite";
+import tailwindcss from "tailwindcss";
 import { mergeConfig } from "vite";
 import svgr from "vite-plugin-svgr";
-import tailwindcss from "tailwindcss";
 
 const config: StorybookConfig = {
   stories: ["../src/**/*.@(mdx|stories.@(js|jsx|ts|tsx))"],

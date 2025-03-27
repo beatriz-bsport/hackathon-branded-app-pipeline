@@ -1,10 +1,11 @@
+import { type VariantProps, cva } from "class-variance-authority";
 import React, { useMemo } from "react";
-import { cva, type VariantProps } from "class-variance-authority";
-import { IconName } from "#src/components/Icon";
-import Popover from "#src/components/Popover";
-import Menu from "#src/components/Menu";
+
 import Avatar, { sizes } from "#src/components/Avatar/Avatar";
+import { IconName } from "#src/components/Icon";
+import Menu from "#src/components/Menu";
 import type { Item } from "#src/components/Menu/types";
+import Popover from "#src/components/Popover";
 
 const NUMBER_AVATAR_TO_DISPLAY = 3;
 

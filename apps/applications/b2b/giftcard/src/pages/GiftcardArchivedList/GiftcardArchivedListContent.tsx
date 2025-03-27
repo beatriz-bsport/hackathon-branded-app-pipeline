@@ -1,14 +1,16 @@
-import React, { useState, useEffect, useCallback } from "react";
-import { GiftcardTable } from "#src/components/GiftcardTable";
-import { useTranslation } from "#src/utils/i18n";
-import {
-  getGiftcardArchivedList,
-  restoreGiftcard,
-  archiveGiftcard,
-  type Giftcard,
-} from "#src/features/api";
+import React, { useCallback, useEffect, useState } from "react";
+
 import { toast } from "@bsport/kaizen-primitive-core";
 import { usePaginationQueryParams } from "@bsport/use-pagination-query-params";
+
+import { GiftcardTable } from "#src/components/GiftcardTable";
+import {
+  type Giftcard,
+  archiveGiftcard,
+  getGiftcardArchivedList,
+  restoreGiftcard,
+} from "#src/features/api";
+import { useTranslation } from "#src/utils/i18n";
 
 export const GiftcardArchivedListContent: React.FC = () => {
   const { t } = useTranslation("common");

@@ -1,8 +1,8 @@
-import type { Command } from "commander";
-import path from "path";
-import util from "node:util";
-import fs from "fs-extra";
 import child_process from "child_process";
+import type { Command } from "commander";
+import fs from "fs-extra";
+import util from "node:util";
+import path from "path";
 
 const exec = util.promisify(child_process.exec);
 

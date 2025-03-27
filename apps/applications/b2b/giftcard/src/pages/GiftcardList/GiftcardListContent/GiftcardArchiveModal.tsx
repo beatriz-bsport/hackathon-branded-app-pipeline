@@ -1,7 +1,9 @@
 import React, { useCallback } from "react";
-import { useTranslation } from "#src/utils/i18n";
+
 import { Body, Modal, toast } from "@bsport/kaizen-primitive-core";
+
 import { archiveGiftcard, restoreGiftcard } from "#src/features/api";
+import { useTranslation } from "#src/utils/i18n";
 
 type GiftcardArchiveModalProps = {
   giftcardId: number;

@@ -1,5 +1,7 @@
 import { ListLayout } from "@bsport/kaizen-primitive-core";
+
 import { useTranslation } from "#src/utils/i18n";
+
 import { GiftcardArchivedListContent } from "./GiftcardArchivedListContent";
 
 export const GiftcardArchivedListPage: React.FC = () => {

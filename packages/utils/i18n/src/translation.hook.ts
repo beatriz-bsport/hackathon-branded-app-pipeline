@@ -1,9 +1,10 @@
-import {
-  useTranslation,
-  type UseTranslationOptions,
-  type FallbackNs,
-} from "react-i18next";
 import type { TOptions } from "i18next";
+import {
+  type FallbackNs,
+  type UseTranslationOptions,
+  useTranslation,
+} from "react-i18next";
+
 import type { DeepKeys, GetDictValue, InitConfig } from "./types";
 import { getNamespacePrefixer } from "./utils";
 

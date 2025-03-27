@@ -1,18 +1,21 @@
+import classNames from "classnames";
 import React, { useMemo } from "react";
+
 import {
   Body,
   Loader,
   Table,
   type TableProps,
 } from "@bsport/kaizen-primitive-core";
-import { useTranslation } from "#src/utils/i18n";
+
 import type { Giftcard } from "#src/features/api";
-import {
-  getTableColumns,
-  type GetTableColumnsParams,
-} from "./giftcard-columns";
+import { useTranslation } from "#src/utils/i18n";
+
 import type { TableRowData } from "./constants";
-import classNames from "classnames";
+import {
+  type GetTableColumnsParams,
+  getTableColumns,
+} from "./giftcard-columns";
 
 type GiftcardTableProps = Omit<GetTableColumnsParams, "t"> & {
   giftcardList: Array<Giftcard>;

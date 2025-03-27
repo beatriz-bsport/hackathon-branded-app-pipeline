@@ -1,10 +1,10 @@
 import classNames from "classnames";
 
-import Icon from "#src/components/Icon";
 import Body from "#src/components/Body";
+import Icon from "#src/components/Icon";
+import { useKaizenI18nInstance, useTranslation } from "#src/i18n";
 
 import FileDropzone from "./FileDropzone";
-import { useTranslation, useKaizenI18nInstance } from "#src/i18n";
 
 type DefaultVariantProps = {
   dragAndDropFileCTAText?: string;

@@ -1,17 +1,15 @@
+import { type VariantProps, cva } from "class-variance-authority";
 import React from "react";
-import { cva, type VariantProps } from "class-variance-authority";
+
+import Divider from "#src/components/Divider";
 
 import Button from "./Button";
 import Checkbox from "./Checkbox";
 import Radio from "./Radio";
-import Title from "./Title";
 import Text from "./Text";
-
-import Divider from "#src/components/Divider";
-
-import type { MenuItem as MenuItemType } from "./types";
-
+import Title from "./Title";
 import { menuItemTypes } from "./constants";
+import type { MenuItem as MenuItemType } from "./types";
 
 const menuItem = cva(["list-none"]);
 

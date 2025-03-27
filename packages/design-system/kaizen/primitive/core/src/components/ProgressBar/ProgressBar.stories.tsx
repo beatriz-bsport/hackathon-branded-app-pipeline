@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
+
 import ProgressBar, { sizes, statuses } from "./ProgressBar";
 
 /**

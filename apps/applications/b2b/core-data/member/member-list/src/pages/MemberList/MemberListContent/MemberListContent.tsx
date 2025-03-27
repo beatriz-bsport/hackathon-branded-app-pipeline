@@ -1,9 +1,12 @@
-import React, { useState, useEffect, useCallback } from "react";
-import { MemberTable } from "#src/components/MemberTable";
-import { fetchMemberListPage, type Member } from "#src/store-api-pkg";
+import React, { useCallback, useEffect, useState } from "react";
+
 import { usePaginationQueryParams } from "@bsport/use-pagination-query-params";
-import { MemberArchiveModal } from "./MemberArchiveModal";
+
+import { MemberTable } from "#src/components/MemberTable";
 import type { FilterParams } from "#src/hooks/useMemberFilters";
+import { type Member, fetchMemberListPage } from "#src/store-api-pkg";
+
+import { MemberArchiveModal } from "./MemberArchiveModal";
 
 type MemberListContentProps = {
   activeFilters: FilterParams;

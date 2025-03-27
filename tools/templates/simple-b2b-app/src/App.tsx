@@ -1,4 +1,5 @@
 import { AppI18nextProvider } from "#src/utils/i18n";
+
 import AppRoutes from "./Routes";
 
 /**

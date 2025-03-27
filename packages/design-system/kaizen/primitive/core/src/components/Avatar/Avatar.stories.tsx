@@ -1,7 +1,9 @@
 import type { Meta, StoryObj } from "@storybook/react";
+
+import { icons } from "#src/components/Icon";
+
 import Avatar, { sizes } from "./Avatar";
 import AvatarImage from "./assets/avatar.jpeg";
-import { icons } from "#src/components/Icon";
 
 /**
  * A component that displays an avatar, which can be an image or an icon.<br>

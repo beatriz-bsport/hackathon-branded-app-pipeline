@@ -1,7 +1,9 @@
-import React from "react";
 import type { Meta, StoryObj } from "@storybook/react";
-import Indicator, { colors, positions, sizes } from "./Indicator";
+import React from "react";
+
 import Icon from "#src/components/Icon";
+
+import Indicator, { colors, positions, sizes } from "./Indicator";
 
 /**
  * React component to display an Indicator for numeric notifications or status updates,

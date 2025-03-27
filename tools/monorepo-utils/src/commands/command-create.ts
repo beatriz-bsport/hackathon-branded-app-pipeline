@@ -1,8 +1,9 @@
 import type { Command } from "commander";
 import fs from "fs";
-import path from "path";
-import kebabCase from "lodash/kebabCase";
 import camelCase from "lodash/camelCase";
+import kebabCase from "lodash/kebabCase";
+import path from "path";
+
 import { commandCase } from "@bsport/typescript-string-utils";
 
 const template = (commandName: string) => `

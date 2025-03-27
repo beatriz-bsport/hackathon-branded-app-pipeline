@@ -1,7 +1,8 @@
-import React, { HTMLAttributes, useMemo, Suspense } from "react";
+import { type VariantProps, cva } from "class-variance-authority";
 import mapValues from "lodash/mapValues";
+import React, { HTMLAttributes, Suspense, useMemo } from "react";
+
 import ICONS from "./icons";
-import { cva, type VariantProps } from "class-variance-authority";
 
 export type IconName = keyof typeof ICONS;
 

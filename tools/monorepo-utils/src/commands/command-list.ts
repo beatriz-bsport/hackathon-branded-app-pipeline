@@ -1,8 +1,9 @@
 import type { Command } from "commander";
-import path from "path";
 import { program } from "commander";
 import fs from "fs-extra";
 import kebabCase from "lodash/kebabCase";
+import path from "path";
+
 import pkg from "../../package.json";
 
 enum OutputType {

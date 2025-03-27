@@ -1,4 +1,4 @@
-import { type StoreApi, type ExtractState } from "zustand";
+import { type ExtractState, type StoreApi } from "zustand";
 import { shallow } from "zustand/shallow";
 import { useStoreWithEqualityFn } from "zustand/traditional";
 

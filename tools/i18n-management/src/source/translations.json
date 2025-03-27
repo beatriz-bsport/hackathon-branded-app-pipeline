@@ -10,7 +10,10 @@
         }
       },
       "emptyState": {
-        "noResultsFound": { "title": "No results found", "clearFilters": "Clear filters" }
+        "noResultsFound": {
+          "title": "No results found",
+          "clearFilters": "Clear filters"
+        }
       },
       "detailsLayout": {
         "confirmation": {
@@ -106,7 +109,10 @@
         "title": "Gift card image bank",
         "description": "Add custom images to allow your members to make their gift cards more personal. During the creation of the gift card, members will be able to choose a background image."
       },
-      "toasts": { "messageDeleted": "Your image was deleted", "actionUndo": "Undo" }
+      "toasts": {
+        "messageDeleted": "Your image was deleted",
+        "actionUndo": "Undo"
+      }
     }
   },
   "@bsport/sm-group-activity": {
@@ -213,7 +219,10 @@
   },
   "@bsport/sm-member-list": {
     "common": {
-      "pages": { "memberList": "Members", "archivedMemberList": "Archived members" },
+      "pages": {
+        "memberList": "Members",
+        "archivedMemberList": "Archived members"
+      },
       "actions": { "addMember": "Add member" },
       "memberTable": {
         "loading": "Loading members ...",
@@ -233,7 +242,10 @@
           "balance": "Balance",
           "joinDate": "Join Date"
         },
-        "tooltips": { "archive": "Archive member", "restore": "Unarchive member" }
+        "tooltips": {
+          "archive": "Archive member",
+          "restore": "Unarchive member"
+        }
       },
       "listPage": {
         "archiveModal": {
@@ -267,7 +279,10 @@
           "actionUndo": "Undo"
         }
       },
-      "filters": { "label": "Filter", "operators": { "is": "is", "isNot": "is not" } }
+      "filters": {
+        "label": "Filter",
+        "operators": { "is": "is", "isNot": "is not" }
+      }
     }
   },
   "@bsport/sm-navigation-sidebar": {
@@ -396,10 +411,16 @@
     }
   },
   "@bsport/template-sm-application": {
-    "namespaceAlpha": { "helloWorld": "Hello world !", "helloName": "Hello {{ name }} !" },
+    "namespaceAlpha": {
+      "helloWorld": "Hello world !",
+      "helloName": "Hello {{ name }} !"
+    },
     "namespaceBeta": {
       "goodbye": "Goodbye world",
-      "nested": { "item1": "I'm the first item !", "item2": "I'm the second item !" }
+      "nested": {
+        "item1": "I'm the first item !",
+        "item2": "I'm the second item !"
+      }
     }
   }
 }

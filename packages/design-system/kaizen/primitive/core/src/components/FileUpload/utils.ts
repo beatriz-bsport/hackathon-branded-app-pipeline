@@ -1,12 +1,13 @@
-import type { TFunction } from "#src/i18n";
 import type { ProgressBarStatuses } from "#src/components/ProgressBar";
+import type { TFunction } from "#src/i18n";
+
 import {
-  UPLOAD_STATUSES,
-  MIME_TYPE_MAP,
-  type FileUploadTracker,
-  type FileUploadStatus,
   type FileType,
+  type FileUploadStatus,
+  type FileUploadTracker,
+  MIME_TYPE_MAP,
   type MimeCategory,
+  UPLOAD_STATUSES,
 } from "./constants";
 
 // ----- File Upload utils -----

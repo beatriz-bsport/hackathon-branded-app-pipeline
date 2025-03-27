@@ -1,4 +1,5 @@
 import React, { useCallback, useMemo } from "react";
+
 import MenuItem from "#src/components/Menu/MenuItem";
 import type { MenuType } from "#src/components/Menu/types";
 

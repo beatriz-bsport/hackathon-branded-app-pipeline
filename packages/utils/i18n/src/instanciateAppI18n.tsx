@@ -1,9 +1,9 @@
-import { getUseTranslation } from "./translation.hook";
-import { getWithTranslation } from "./translation.hoc";
-import { initI18n } from "./initI18n";
-import { getNamespacePrefixer } from "./utils";
 import { getAppI18nextProvider } from "./i18nextProvider";
+import { initI18n } from "./initI18n";
+import { getWithTranslation } from "./translation.hoc";
+import { getUseTranslation } from "./translation.hook";
 import type { InMemoryTranslationsLoader } from "./types";
+import { getNamespacePrefixer } from "./utils";
 
 /**
  * Instantiates and returns all necessary objects and functions to manage the application's i18n system.

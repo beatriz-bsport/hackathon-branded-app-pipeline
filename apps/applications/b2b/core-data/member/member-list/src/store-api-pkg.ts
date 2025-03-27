@@ -1,5 +1,6 @@
 // TODO : export in store | api pkg
 import { buildUrlParams } from "@bsport/fetch";
+
 import fetch from "#src/utils/fetch";
 
 // ----- Types -----

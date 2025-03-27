@@ -1,7 +1,8 @@
-import React from "react";
 import classNames from "classnames";
+import React from "react";
+
 import Icon from "#src/components/Icon";
-import { useTranslation, useKaizenI18nInstance } from "#src/i18n";
+import { useKaizenI18nInstance, useTranslation } from "#src/i18n";
 
 /**
  * Inline variant for FileUploadInput, mirroring the aspect of a Button.

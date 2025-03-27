@@ -1,23 +1,22 @@
+import { compact } from "lodash";
 import React, { useEffect, useMemo } from "react";
+
 import {
-  ListLayout,
   Button,
   List,
+  ListLayout,
   Loader,
 } from "@bsport/kaizen-primitive-core";
-
-import { useTranslation } from "#src/utils/i18n";
-import usePaginatedGroupActivities from "#src/hooks/usePaginatedGroupActivities";
-
 import type {
-  ListItemProps,
   ListItemChipsProps,
+  ListItemProps,
   WithTooltip,
 } from "@bsport/kaizen-primitive-core";
 
 import { ARCHIVED_GROUP_ACTIVITIES_PATH } from "#src/constants";
 import { useGroupActivityModals } from "#src/hooks/useGroupActivityModals";
-import { compact } from "lodash";
+import usePaginatedGroupActivities from "#src/hooks/usePaginatedGroupActivities";
+import { useTranslation } from "#src/utils/i18n";
 
 const GroupActivitiesList: React.FC = () => {
   const { t } = useTranslation("groupActivity");

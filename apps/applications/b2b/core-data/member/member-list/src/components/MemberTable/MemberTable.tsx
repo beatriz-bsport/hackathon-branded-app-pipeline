@@ -1,17 +1,20 @@
-import React, { useMemo } from "react";
 import classNames from "classnames";
+import React, { useMemo } from "react";
+
 import {
   Body,
   Loader,
-  Table,
   type PaginationProps,
+  Table,
 } from "@bsport/kaizen-primitive-core";
+
 import type { Member } from "#src/store-api-pkg";
 import { useTranslation } from "#src/utils/i18n";
+
 import {
-  getTableColumns,
   type GetTableColumnsParams,
   type TableRowData,
+  getTableColumns,
 } from "./columns";
 
 type MemberTableProps = {

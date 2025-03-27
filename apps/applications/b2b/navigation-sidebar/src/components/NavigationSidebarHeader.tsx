@@ -8,10 +8,10 @@ import {
   Icon,
 } from "@bsport/kaizen-primitive-core";
 
-import DropdownMenu, { type DropdownMenuItems } from "./DropdownMenu";
+import { type TFunction, useTranslation } from "#src/utils/i18n";
 
+import DropdownMenu, { type DropdownMenuItems } from "./DropdownMenu";
 import type { MenuSet } from "./navigation-items";
-import { useTranslation, type TFunction } from "#src/utils/i18n";
 
 const getMenuOptions = (t: TFunction): DropdownMenuItems => [
   {

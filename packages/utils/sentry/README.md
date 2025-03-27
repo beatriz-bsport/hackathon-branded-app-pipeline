@@ -18,7 +18,7 @@ This package configures Sentry.
 2. Import what you need from the package root
 
    ```tsx
-   import { initSentry, setTransactionId, setSessionId } from "@bsport/sentry";
+   import { initSentry, setSessionId, setTransactionId } from "@bsport/sentry";
 
    // ...
    ```

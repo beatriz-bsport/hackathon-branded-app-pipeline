@@ -1,6 +1,6 @@
-import React from "react";
-import classNames from "classnames";
 import { cva } from "class-variance-authority";
+import classNames from "classnames";
+import React from "react";
 
 const defaultClasses = [
   "relative",

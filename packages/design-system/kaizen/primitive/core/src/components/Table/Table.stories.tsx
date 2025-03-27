@@ -1,10 +1,12 @@
-import React, { useState } from "react";
 import { Meta, StoryObj } from "@storybook/react";
-import type { BaseRow, Column } from "./Table";
-import Table from "./Table";
+import React, { useState } from "react";
+
+import AvatarImage from "#src/components/Avatar/assets/avatar.jpeg";
 import Button from "#src/components/Button";
 import Chip from "#src/components/Chip";
-import AvatarImage from "#src/components/Avatar/assets/avatar.jpeg";
+
+import type { BaseRow, Column } from "./Table";
+import Table from "./Table";
 
 /**
  * The Table component is used to render a flexible, customizable data table that displays rows and columns of information.<br>

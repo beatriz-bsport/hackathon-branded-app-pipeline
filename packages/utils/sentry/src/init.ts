@@ -1,11 +1,12 @@
 import { init } from "@sentry/react";
-import { setSessionId } from "./session";
+
 import {
-  exceptionMessagesToIgnore,
+  ENV,
   ENV_DSN,
   RELEASE_SHA,
-  ENV,
+  exceptionMessagesToIgnore,
 } from "./constants";
+import { setSessionId } from "./session";
 
 export const initSentry = () => {
   if (!ENV_DSN) {

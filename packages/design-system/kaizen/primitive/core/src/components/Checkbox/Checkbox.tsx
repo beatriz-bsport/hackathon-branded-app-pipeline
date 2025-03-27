@@ -1,6 +1,7 @@
-import React, { useCallback, useEffect, useRef } from "react";
-import { cva, type VariantProps } from "class-variance-authority";
+import { type VariantProps, cva } from "class-variance-authority";
 import classNames from "classnames";
+import React, { useCallback, useEffect, useRef } from "react";
+
 import CheckboxSVG from "./CheckboxSVG";
 
 export const defaultClasses = [

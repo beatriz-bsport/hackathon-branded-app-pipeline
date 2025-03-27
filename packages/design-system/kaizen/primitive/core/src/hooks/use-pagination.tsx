@@ -1,4 +1,5 @@
 import { useCallback, useState } from "react";
+
 import Pagination, {
   type PaginationProps,
 } from "#src/components/private/Pagination";

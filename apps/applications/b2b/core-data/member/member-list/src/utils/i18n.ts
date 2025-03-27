@@ -1,6 +1,7 @@
-import { instanciateAppI18n, type TFunctionGeneric } from "@bsport/i18n";
-import namespaceList from "#src/i18n/namespaces.json";
+import { type TFunctionGeneric, instanciateAppI18n } from "@bsport/i18n";
+
 import type translations from "#src/i18n/locales/en/translations.json";
+import namespaceList from "#src/i18n/namespaces.json";
 
 const i18nNamespacePrefix = import.meta.env.VITE_I18N_NAMESPACE_PREFIX;
 

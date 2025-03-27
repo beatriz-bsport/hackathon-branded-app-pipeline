@@ -1,6 +1,7 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
-import { cva, type VariantProps } from "class-variance-authority";
+import { type VariantProps, cva } from "class-variance-authority";
 import classNames from "classnames";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
+
 import Body from "#src/components/Body";
 import Button from "#src/components/Button";
 import Divider from "#src/components/Divider";

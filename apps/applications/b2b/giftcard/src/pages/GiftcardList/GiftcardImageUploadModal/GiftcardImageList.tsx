@@ -1,9 +1,12 @@
+import classNames from "classnames";
 import React from "react";
-import { List, type ButtonProps } from "@bsport/kaizen-primitive-core";
+
+import { type ButtonProps, List } from "@bsport/kaizen-primitive-core";
+
 import type { GiftcardImage } from "#src/features/api";
 import { useTranslation } from "#src/utils/i18n";
+
 import { GiftcardImageUploader } from "./GiftcardImageUploader";
-import classNames from "classnames";
 
 type GiftcardImageListProps = {
   currentPage: number;

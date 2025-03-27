@@ -1,11 +1,13 @@
 import React from "react";
+
 import { Button, Popover, Tooltip } from "@bsport/kaizen-primitive-core";
 import { getAuthToken } from "@bsport/local-storage-auth-token";
+
 import LanguageSelector, {
   type LanguageSelectorProps,
 } from "./LanguageSelector";
-import ThemeSelector from "./ThemeSelector";
 import Logout from "./Logout";
+import ThemeSelector from "./ThemeSelector";
 
 export type DevToolsProps = LanguageSelectorProps;
 

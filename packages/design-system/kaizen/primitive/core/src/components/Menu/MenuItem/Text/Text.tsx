@@ -1,5 +1,6 @@
+import { type VariantProps, cva } from "class-variance-authority";
 import React, { useMemo } from "react";
-import { cva, type VariantProps } from "class-variance-authority";
+
 import Avatar from "#src/components/Avatar";
 import Icon from "#src/components/Icon";
 import {

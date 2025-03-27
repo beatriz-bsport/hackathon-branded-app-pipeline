@@ -1,13 +1,15 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useCallback, useEffect, useState } from "react";
+
 import { toast } from "@bsport/kaizen-primitive-core";
+import { usePaginationQueryParams } from "@bsport/use-pagination-query-params";
+
 import { MemberTable } from "#src/components/MemberTable";
 import {
+  type Member,
   fetchMemberListPage as apiFetchMemberListPage,
   archiveMember,
   restoreMember,
-  type Member,
 } from "#src/store-api-pkg";
-import { usePaginationQueryParams } from "@bsport/use-pagination-query-params";
 import { useTranslation } from "#src/utils/i18n";
 
 type ArchivedMemberListContentProps = {

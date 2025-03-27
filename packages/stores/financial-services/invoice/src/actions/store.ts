@@ -1,5 +1,5 @@
-import type { Invoice } from "#src/types";
 import { invoiceStore } from "#src/store";
+import type { Invoice } from "#src/types";
 
 export const updateInvoice = (updatedInvoice: Invoice) => {
   invoiceStore.setState((state) => {

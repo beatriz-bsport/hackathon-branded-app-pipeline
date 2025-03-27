@@ -1,13 +1,15 @@
 import React from "react";
+
 import {
-  FileUpload,
   FILE_UPLOAD_STATUSES,
+  FileUpload,
 } from "@bsport/kaizen-primitive-core";
+
 import {
-  useTranslation,
-  withTranslation,
   type TFunction,
   getFixedNamespace,
+  useTranslation,
+  withTranslation,
 } from "#src/utils/i18n";
 
 const SingleNamespaceWithHook: React.FC = () => {

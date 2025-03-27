@@ -1,11 +1,11 @@
+import { cva } from "class-variance-authority";
 import React, {
+  ReactNode,
+  createContext,
+  useContext,
   useEffect,
   useState,
-  createContext,
-  ReactNode,
-  useContext,
 } from "react";
-import { cva } from "class-variance-authority";
 
 const defaultClasses = [
   "flex flex-col",

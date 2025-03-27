@@ -1,11 +1,12 @@
 import { Settings } from "luxon";
+
 import { applyBroadcastChannelPolyfill } from "@bsport/broadcast-channel-polyfill";
 
 import {
-  LOCALES_WITH_FIRST_WEEKDAY_BEING_SUNDAY,
   LANGUAGES,
-  LANGUAGE_SWITCHER_CHANNEL,
   LANGUAGE_SWITCHER_ACTION,
+  LANGUAGE_SWITCHER_CHANNEL,
+  LOCALES_WITH_FIRST_WEEKDAY_BEING_SUNDAY,
 } from "./constants";
 import type { Locale } from "./types";
 

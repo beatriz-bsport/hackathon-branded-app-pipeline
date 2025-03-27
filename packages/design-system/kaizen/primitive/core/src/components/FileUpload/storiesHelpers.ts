@@ -1,4 +1,4 @@
-import { UPLOAD_STATUSES, type FileUploadStatus } from "./constants";
+import { type FileUploadStatus, UPLOAD_STATUSES } from "./constants";
 
 /**
  * This functions aims to replicate axios post request with signal and onUploadProgress params.

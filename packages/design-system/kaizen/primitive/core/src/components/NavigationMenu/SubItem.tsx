@@ -1,8 +1,10 @@
-import React, { MouseEvent, useCallback, useMemo } from "react";
-import { cva, type VariantProps } from "class-variance-authority";
+import { type VariantProps, cva } from "class-variance-authority";
 import classNames from "classnames";
-import type { BaseItem } from "#src/components/NavigationMenu/types";
+import React, { MouseEvent, useCallback, useMemo } from "react";
+
 import { useNavigationMenuContext } from "#src/components/NavigationMenu/Context";
+import type { BaseItem } from "#src/components/NavigationMenu/types";
+
 import Body from "../Body";
 
 const navigationMenuSubItem = cva([

@@ -1,3 +1,4 @@
+import classNames from "classnames";
 import React, {
   createRef,
   forwardRef,
@@ -8,7 +9,7 @@ import React, {
 import { createPortal } from "react-dom";
 import { createRoot } from "react-dom/client";
 import { v4 as uuid } from "uuid";
-import classNames from "classnames";
+
 import Toast, { ToastProps } from "./Toast";
 import {
   RENDERED_ITEMS,

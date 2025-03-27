@@ -1,16 +1,18 @@
-import { useCallback, useState, useEffect } from "react";
-import { useTranslation } from "#src/utils/i18n";
+import { useCallback, useEffect, useState } from "react";
+
 import type {
-  FilterProps,
-  FilterField,
   FilterElementState,
+  FilterField,
+  FilterProps,
 } from "@bsport/kaizen-primitive-core";
+
 import {
-  fetchTagList,
-  fetchTagGroupList,
-  type TagGroup,
   type Tag,
+  type TagGroup,
+  fetchTagGroupList,
+  fetchTagList,
 } from "#src/store-api-custom-data-plaform-pkg";
+import { useTranslation } from "#src/utils/i18n";
 
 const FILTER_IS = "is" as const;
 const FILTER_IS_NOT = "isNot" as const;

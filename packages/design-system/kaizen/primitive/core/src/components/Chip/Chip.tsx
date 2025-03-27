@@ -1,7 +1,9 @@
+import { type VariantProps, cva } from "class-variance-authority";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
-import { cva, type VariantProps } from "class-variance-authority";
 import { SetRequired } from "type-fest";
+
 import Icon, { IconName } from "#src/components/Icon";
+
 import { colors, defaultClasses, sizes, variants } from "./constants";
 
 const chip = cva(defaultClasses, {

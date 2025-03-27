@@ -1,9 +1,10 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
+
 import { buildUrlParams } from "@bsport/fetch";
 import { List } from "@bsport/kaizen-primitive-core";
+import { usePaginationQueryParams } from "@bsport/use-pagination-query-params";
 
 import fetch from "#src/utils/fetch";
-import { usePaginationQueryParams } from "@bsport/use-pagination-query-params";
 
 type OfferMinimal = {
   id: number | undefined;

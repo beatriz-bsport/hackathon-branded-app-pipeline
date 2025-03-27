@@ -1,11 +1,12 @@
-import React, { KeyboardEvent, useCallback, useState } from "react";
-import { cva, type VariantProps } from "class-variance-authority";
+import { type VariantProps, cva } from "class-variance-authority";
 import classNames from "classnames";
 import mapValues from "lodash/mapValues";
+import React, { KeyboardEvent, useCallback, useState } from "react";
+
 import Icon, { type IconName } from "#src/components/Icon";
-import Popover from "#src/components/Popover";
 import Menu from "#src/components/Menu";
 import { Item, MenuOption } from "#src/components/Menu/types";
+import Popover from "#src/components/Popover";
 
 const defaultClasses = [
   "w-full",

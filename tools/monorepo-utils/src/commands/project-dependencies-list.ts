@@ -1,4 +1,5 @@
 import type { Command } from "commander";
+
 import { getProjectsDependencies } from "@bsport/typescript-monorepo-utils";
 
 enum FormatType {

@@ -1,14 +1,14 @@
 import { Result } from "typescript-result";
 
-import {
-  fetchGroupActivities as apiFetchGroupActivities,
-  archiveGroupActivity as apiArchiveGroupActivity,
-  unarchiveGroupActivity as apiUnarchiveGroupActivity,
-  duplicateGroupActivity as apiDuplicateGroupActivity,
-  checkCanArchiveGroupActivity as apiCheckCanArchiveGroupActivity,
-} from "#src/api";
-
 import type { GenericAction } from "@bsport/store-base";
+
+import {
+  archiveGroupActivity as apiArchiveGroupActivity,
+  checkCanArchiveGroupActivity as apiCheckCanArchiveGroupActivity,
+  duplicateGroupActivity as apiDuplicateGroupActivity,
+  fetchGroupActivities as apiFetchGroupActivities,
+  unarchiveGroupActivity as apiUnarchiveGroupActivity,
+} from "#src/api";
 import type {
   CanArchiveGroupActivityResponse,
   FetchGroupActivitiesParams,

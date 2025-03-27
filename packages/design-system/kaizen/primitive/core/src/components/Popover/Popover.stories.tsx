@@ -1,9 +1,11 @@
-import React from "react";
 import type { Meta, StoryObj } from "@storybook/react";
-import Popover from "./Popover";
-import Button from "#src/components/Button";
+import React from "react";
+
 import Body from "#src/components/Body";
+import Button from "#src/components/Button";
 import { Placements } from "#src/hooks/placement-classes.hook";
+
+import Popover from "./Popover";
 
 // Since placement is an argument of Popover.Content, we customize args in Storybook
 type CustomProps = React.ComponentProps<typeof Popover> & {

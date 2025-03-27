@@ -1,10 +1,12 @@
 import { Result } from "typescript-result";
+
 import {
-  setAuthToken,
   removeAuthToken,
+  setAuthToken,
 } from "@bsport/local-storage-auth-token";
 import type { Action } from "@bsport/store-base";
-import { login as apiLogin, type LoginParams } from "./api";
+
+import { type LoginParams, login as apiLogin } from "./api";
 import { LOGIN_URL } from "./constants";
 
 /**

@@ -1,9 +1,8 @@
 import { cva } from "class-variance-authority";
 
-import { UPLOAD_STATUSES, type FileUploadTracker } from "../constants";
-
-import LoadingIcon from "./LoadingIcon";
+import { type FileUploadTracker, UPLOAD_STATUSES } from "../constants";
 import LoaderProgressBar from "./LoaderProgressBar";
+import LoadingIcon from "./LoadingIcon";
 
 const defaultClasses = [
   "rounded-md",

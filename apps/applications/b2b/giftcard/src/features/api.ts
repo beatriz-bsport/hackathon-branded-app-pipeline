@@ -4,9 +4,10 @@
  * - Classic get list : only one with the disabled as params
  * - Error handling
  * */
-
 import type { Dispatch, SetStateAction } from "react";
+
 import { fetchWithAuth, getAuthToken } from "@bsport/b2b-backbone";
+
 import { xhr } from "#src/utils/fetch";
 
 const API_URI = "api/v1";

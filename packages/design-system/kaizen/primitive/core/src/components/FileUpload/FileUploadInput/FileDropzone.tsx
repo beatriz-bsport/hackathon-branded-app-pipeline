@@ -1,5 +1,5 @@
-import { useState } from "react";
 import classNames from "classnames";
+import { useState } from "react";
 
 type FileDropzoneProps = {
   children: React.ReactNode;

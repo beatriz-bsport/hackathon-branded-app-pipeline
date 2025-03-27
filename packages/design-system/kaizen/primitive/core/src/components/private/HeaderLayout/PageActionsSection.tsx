@@ -1,5 +1,6 @@
-import React from "react";
 import classNames from "classnames";
+import React from "react";
+
 import Badge, { type BadgeProps } from "#src/components/Badge";
 import Breadcrumbs, {
   type BreadcrumbsProps,
@@ -8,6 +9,7 @@ import Button from "#src/components/Button";
 import Chip, { type ChipProps } from "#src/components/Chip";
 import Tabs, { type TabsProps } from "#src/components/Tabs";
 import Title from "#src/components/Title";
+
 import CustomActionsSection, {
   type CustomActionsSectionProps,
 } from "./CustomActionsSection";

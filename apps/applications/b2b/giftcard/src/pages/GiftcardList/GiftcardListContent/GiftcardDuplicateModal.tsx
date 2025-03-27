@@ -1,7 +1,9 @@
 import React, { useCallback } from "react";
-import { useTranslation } from "#src/utils/i18n";
+
 import { Body, Modal, toast } from "@bsport/kaizen-primitive-core";
+
 import { duplicateGiftcard } from "#src/features/api";
+import { useTranslation } from "#src/utils/i18n";
 
 type GiftcardDuplicateModalProps = {
   giftcardId: number;

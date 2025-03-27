@@ -1,15 +1,16 @@
-import path from "path";
 import {
   existsSync,
   mkdirSync,
-  writeFileSync,
   readJSONSync,
   removeSync,
+  writeFileSync,
 } from "fs-extra";
-import { mergeFiles } from "json-merger";
 import beautify from "json-beautify";
-import { getInternationalizedApplications, type ProjectConfig } from "./utils";
-import { LOCALES, LANGUAGES } from "../src";
+import { mergeFiles } from "json-merger";
+import path from "path";
+
+import { LANGUAGES, LOCALES } from "../src";
+import { type ProjectConfig, getInternationalizedApplications } from "./utils";
 
 async function main() {
   // Step 1 : List all projects with i18n folder

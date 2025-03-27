@@ -4,10 +4,10 @@ import { Button, Card, NavigationMenu } from "@bsport/kaizen-primitive-core";
 
 import { AppI18nextProvider, useTranslation } from "#src/utils/i18n";
 
-import { useNavigationElements, type MenuSet } from "./navigation-items";
-import NavigationSidebarHeader from "./NavigationSidebarHeader";
-import LanguageDropdown from "./LanguageDropdown";
 import FeedbackDialog, { useFeedbackDialog } from "./FeedbackDialog";
+import LanguageDropdown from "./LanguageDropdown";
+import NavigationSidebarHeader from "./NavigationSidebarHeader";
+import { type MenuSet, useNavigationElements } from "./navigation-items";
 
 const NavigationSidebarContent = () => {
   const { t } = useTranslation("default");

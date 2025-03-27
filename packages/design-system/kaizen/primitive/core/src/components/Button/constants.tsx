@@ -1,4 +1,5 @@
 import mapValues from "lodash/mapValues";
+
 import { FOCUS_CLASSES } from "#src/constants";
 
 export const defaultClasses = [

@@ -1,11 +1,12 @@
-import type { Config } from "tailwindcss";
-import path from "path";
-import fs from "fs/promises";
 import { existsSync } from "fs";
+import fs from "fs/promises";
 import merge from "lodash/merge";
 import without from "lodash/without";
-import adapters from "#src/tailwind.adapter";
+import path from "path";
 import prettier from "prettier";
+import type { Config } from "tailwindcss";
+
+import adapters from "#src/tailwind.adapter";
 
 const SOURCE_FOLDER = path.resolve(__dirname, "../export/supernova");
 

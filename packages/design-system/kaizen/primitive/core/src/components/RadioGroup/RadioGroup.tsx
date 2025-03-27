@@ -1,5 +1,6 @@
+import { type VariantProps, cva } from "class-variance-authority";
 import React from "react";
-import { cva, type VariantProps } from "class-variance-authority";
+
 import RadioButton, { RadioOptionsProps } from "./RadioButton";
 
 export const defaultClasses = ["flex flex-col gap-md"] as const;

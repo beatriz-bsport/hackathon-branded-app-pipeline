@@ -1,7 +1,9 @@
-import { useRef } from "react";
 import type { Meta, StoryObj } from "@storybook/react";
-import Filter from "./Filter";
+import { useRef } from "react";
+
 import Button from "#src/components/Button";
+
+import Filter from "./Filter";
 
 /**
  * Rendering a customizable list of filter items within an ordered list.<br>

@@ -1,8 +1,10 @@
-import React from "react";
 import type { Meta, StoryObj } from "@storybook/react";
-import Tooltip from "./Tooltip";
+import React from "react";
+
 import Button from "#src/components/Button";
 import { Placements } from "#src/hooks/placement-classes.hook";
+
+import Tooltip from "./Tooltip";
 
 /**
  * React component for a tooltip element. It is a compact component that can be used to

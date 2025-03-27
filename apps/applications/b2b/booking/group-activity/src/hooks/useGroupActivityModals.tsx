@@ -1,14 +1,15 @@
 import { useState } from "react";
-import { Trans, useTranslation } from "#src/utils/i18n";
+
+import { Modal, toast } from "@bsport/kaizen-primitive-core";
 import {
   archiveGroupActivity,
-  duplicateGroupActivity,
   checkCanArchiveGroupActivity,
+  duplicateGroupActivity,
   unarchiveGroupActivity,
 } from "@bsport/store-booking-group-activity";
-import { Modal, toast } from "@bsport/kaizen-primitive-core";
 
 import fetch from "#src/utils/fetch";
+import { Trans, useTranslation } from "#src/utils/i18n";
 
 export const useGroupActivityModals = ({
   fetchData,

@@ -1,6 +1,6 @@
-import React, { useCallback } from "react";
-import { cva, type VariantProps } from "class-variance-authority";
+import { type VariantProps, cva } from "class-variance-authority";
 import classNames from "classnames";
+import React, { useCallback } from "react";
 
 export const defaultClasses = [
   "relative",

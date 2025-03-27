@@ -1,4 +1,5 @@
-import { ListLayout, Button } from "@bsport/kaizen-primitive-core";
+import { Button, ListLayout } from "@bsport/kaizen-primitive-core";
+
 import OfferListExample from "#src/components/template-examples/OfferListExample";
 
 function ListPage() {

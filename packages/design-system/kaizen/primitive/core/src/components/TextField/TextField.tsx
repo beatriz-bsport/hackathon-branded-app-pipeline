@@ -1,10 +1,12 @@
-import React, { type ChangeEvent, useState } from "react";
 import { cva } from "class-variance-authority";
-import mapValues from "lodash/mapValues";
 import classNames from "classnames";
+import mapValues from "lodash/mapValues";
+import React, { type ChangeEvent, useState } from "react";
+
+import Badge from "#src/components/Badge";
 import Button from "#src/components/Button";
 import Icon, { IconName } from "#src/components/Icon";
-import Badge from "#src/components/Badge";
+
 import ColorInput from "./ColorInput";
 
 const defaultClasses = [

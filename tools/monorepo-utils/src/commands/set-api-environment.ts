@@ -1,14 +1,15 @@
+import child_process from "child_process";
 import type { Command } from "commander";
-import { writeFileSync, existsSync } from "fs-extra";
-import type { ValueOf } from "type-fest";
-import path from "path";
+import { existsSync, writeFileSync } from "fs-extra";
 import util from "node:util";
+import path from "path";
+import type { ValueOf } from "type-fest";
+
 import {
+  declareEnvVariable,
   getMonorepoBasePathSync,
   getProjectsPackageJsons,
-  declareEnvVariable,
 } from "@bsport/typescript-monorepo-utils";
-import child_process from "child_process";
 
 const exec = util.promisify(child_process.exec);
 

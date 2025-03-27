@@ -1,4 +1,4 @@
-import { useTheme, Button } from "@bsport/kaizen-primitive-core";
+import { Button, useTheme } from "@bsport/kaizen-primitive-core";
 
 const ThemeSelector: React.FC = () => {
   const { theme, setTheme } = useTheme();

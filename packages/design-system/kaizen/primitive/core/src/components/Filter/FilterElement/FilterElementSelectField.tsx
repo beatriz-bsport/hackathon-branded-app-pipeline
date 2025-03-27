@@ -1,8 +1,10 @@
-import React from "react";
 import classNames from "classnames";
+import React from "react";
+
 import Button from "#src/components/Button";
 import Menu from "#src/components/Menu";
 import Popover from "#src/components/Popover";
+
 import { filterElementBtnClasses, filterElementClasses } from "./constants";
 
 type FilterElementSelectFieldProps = {

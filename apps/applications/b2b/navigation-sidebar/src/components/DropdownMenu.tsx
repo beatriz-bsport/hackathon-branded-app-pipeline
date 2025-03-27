@@ -1,4 +1,5 @@
 import type { ComponentProps } from "react";
+
 import { Menu, Popover } from "@bsport/kaizen-primitive-core";
 
 export type DropdownMenuItems = ComponentProps<typeof Menu>["items"];

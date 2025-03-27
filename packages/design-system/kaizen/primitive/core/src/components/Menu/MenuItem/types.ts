@@ -1,5 +1,6 @@
 import { DividerProps } from "#src/components/Divider";
 import { IconName } from "#src/components/Icon";
+
 import { menuItemTypes } from "./constants";
 
 export type LeftSlot = {

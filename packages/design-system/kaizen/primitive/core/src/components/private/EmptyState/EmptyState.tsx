@@ -1,9 +1,10 @@
-import React, { lazy, Suspense, useMemo } from "react";
-import { cva, type VariantProps } from "class-variance-authority";
+import { type VariantProps, cva } from "class-variance-authority";
+import React, { Suspense, lazy, useMemo } from "react";
+
 import Body from "#src/components/Body";
 import Button, { type ButtonProps } from "#src/components/Button";
 import Title from "#src/components/Title";
-import { useTranslation, useKaizenI18nInstance } from "#src/i18n";
+import { useKaizenI18nInstance, useTranslation } from "#src/i18n";
 
 const defaultClasses = ["flex", "flex-col", "gap-xs", "items-center"] as const;
 

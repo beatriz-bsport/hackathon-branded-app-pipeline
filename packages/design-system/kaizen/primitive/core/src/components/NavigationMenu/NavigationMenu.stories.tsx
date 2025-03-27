@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
+
 import Badge from "#src/components/Badge";
 import Indicator from "#src/components/Indicator";
 import NavigationMenu from "#src/components/NavigationMenu";

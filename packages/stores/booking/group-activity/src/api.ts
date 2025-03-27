@@ -1,7 +1,8 @@
 import { buildUrlParams } from "@bsport/fetch";
 import type { ApiConfig } from "@bsport/store-base";
-import type { FetchGroupActivitiesParams } from "#src/types";
+
 import { DEFAULT_CURRENT_PAGE, DEFAULT_ROWS_PER_PAGE } from "#src/constants";
+import type { FetchGroupActivitiesParams } from "#src/types";
 
 const BASE_URL = "book/v1/meta-activity/";
 

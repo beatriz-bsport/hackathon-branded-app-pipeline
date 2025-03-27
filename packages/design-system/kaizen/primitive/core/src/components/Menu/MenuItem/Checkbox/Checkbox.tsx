@@ -1,15 +1,16 @@
+import { type VariantProps, cva } from "class-variance-authority";
+import classNames from "classnames";
 import React, { useCallback, useEffect, useMemo, useRef } from "react";
-import { cva, type VariantProps } from "class-variance-authority";
-import { CheckBox as CheckBoxType } from "#src/components/Menu/MenuItem/types";
+
+import Avatar from "#src/components/Avatar";
+import { CheckboxSVG } from "#src/components/Checkbox";
+import Icon from "#src/components/Icon";
+import Indicator from "#src/components/Menu/MenuItem/Indicator";
 import {
   defaultMenuItemClasses,
   menuItemVariants,
 } from "#src/components/Menu/MenuItem/constants";
-import Avatar from "#src/components/Avatar";
-import Icon from "#src/components/Icon";
-import classNames from "classnames";
-import { CheckboxSVG } from "#src/components/Checkbox";
-import Indicator from "#src/components/Menu/MenuItem/Indicator";
+import { CheckBox as CheckBoxType } from "#src/components/Menu/MenuItem/types";
 
 const checkbox = cva(defaultMenuItemClasses, {
   variants: menuItemVariants,

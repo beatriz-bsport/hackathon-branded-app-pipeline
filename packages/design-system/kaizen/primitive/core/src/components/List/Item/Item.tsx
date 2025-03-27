@@ -1,15 +1,16 @@
-import React, { useCallback, useMemo } from "react";
 import { VariantProps } from "class-variance-authority";
 import classNames from "classnames";
+import React, { useCallback, useMemo } from "react";
+
 import Avatar, { AvatarProps } from "#src/components/Avatar";
 import Button, { ButtonProps } from "#src/components/Button";
 import Checkbox from "#src/components/Checkbox";
 import Chip from "#src/components/Chip";
 import Icon, { IconName } from "#src/components/Icon";
+import { ListItemChipsProps, listItem } from "#src/components/List";
+import { type WithTooltip, withTooltip } from "#src/components/Tooltip";
 import withLink from "#src/components/private/withLink";
-import { listItem, ListItemChipsProps } from "#src/components/List";
 import { useCheckboxContext } from "#src/contexts/CheckboxContext";
-import { withTooltip, type WithTooltip } from "#src/components/Tooltip";
 
 type Props = {
   id: string;

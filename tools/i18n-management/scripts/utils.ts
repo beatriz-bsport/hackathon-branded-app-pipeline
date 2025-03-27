@@ -1,5 +1,6 @@
 import { existsSync, readJSONSync } from "fs-extra";
 import path from "path";
+
 import { getProjectsPackageJsons } from "@bsport/typescript-monorepo-utils";
 
 export type ProjectConfig = {

@@ -5,6 +5,7 @@ import {
   type GenericTableColumn,
   Tooltip,
 } from "@bsport/kaizen-primitive-core";
+
 import type { TFunction } from "#src/utils/i18n";
 
 export type TableRowData = {

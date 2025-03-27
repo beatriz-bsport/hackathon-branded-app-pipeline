@@ -1,18 +1,16 @@
 import React, { useEffect, useMemo } from "react";
-import { ListLayout, List, Loader, toast } from "@bsport/kaizen-primitive-core";
 
-import { useTranslation } from "#src/utils/i18n";
-import usePaginatedGroupActivities from "#src/hooks/usePaginatedGroupActivities";
-
+import { List, ListLayout, Loader, toast } from "@bsport/kaizen-primitive-core";
 import type { ListItemProps } from "@bsport/kaizen-primitive-core/dist/components/List/Item";
-
-import { GROUP_ACTIVITIES_PATH } from "#src/constants";
 import {
-  unarchiveGroupActivity,
   archiveGroupActivity,
+  unarchiveGroupActivity,
 } from "@bsport/store-booking-group-activity";
 
+import { GROUP_ACTIVITIES_PATH } from "#src/constants";
+import usePaginatedGroupActivities from "#src/hooks/usePaginatedGroupActivities";
 import fetch from "#src/utils/fetch";
+import { useTranslation } from "#src/utils/i18n";
 
 const ArchivedGroupActivitiesList: React.FC = () => {
   const { t } = useTranslation("groupActivity");

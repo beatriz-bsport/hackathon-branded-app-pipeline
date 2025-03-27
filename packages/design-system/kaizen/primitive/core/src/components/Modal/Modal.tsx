@@ -1,12 +1,13 @@
+import { type VariantProps, cva } from "class-variance-authority";
+import classNames from "classnames";
+import mapValues from "lodash/mapValues";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-import { cva, type VariantProps } from "class-variance-authority";
 import type { SetRequired } from "type-fest";
-import mapValues from "lodash/mapValues";
-import classNames from "classnames";
-import Title from "#src/components/Title";
+
 import Body from "#src/components/Body";
 import Button from "#src/components/Button";
+import Title from "#src/components/Title";
 import useEscapeKeydownListener from "#src/hooks/escape-keydown-listener.hook";
 
 const defaultClasses = [

@@ -1,5 +1,7 @@
 import { ListLayout } from "@bsport/kaizen-primitive-core";
+
 import { useTranslation } from "#src/utils/i18n";
+
 import { ArchivedMemberListContent } from "./ArchivedMemberListContent";
 
 export const ArchivedMemberListPage: React.FC = () => {

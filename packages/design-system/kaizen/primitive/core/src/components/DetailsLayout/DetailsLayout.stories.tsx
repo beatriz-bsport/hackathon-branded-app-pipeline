@@ -1,5 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
+
 import Button from "#src/components/Button";
+
 import DetailsLayout from "./DetailsLayout";
 import { useDetailsLayout } from "./LayoutProvider";
 

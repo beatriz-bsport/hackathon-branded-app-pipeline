@@ -1,10 +1,11 @@
-import type { UserConfig } from "vite";
+import { nxViteTsPaths } from "@nx/vite/plugins/nx-tsconfig-paths.plugin";
 import react from "@vitejs/plugin-react-swc";
 import { resolve } from "path";
-import dts from "vite-plugin-dts";
 import tailwindcss from "tailwindcss";
+import type { UserConfig } from "vite";
+import dts from "vite-plugin-dts";
 import svgr from "vite-plugin-svgr";
-import { nxViteTsPaths } from "@nx/vite/plugins/nx-tsconfig-paths.plugin";
+
 import pkg from "./package.json";
 
 // https://vitejs.dev/config/

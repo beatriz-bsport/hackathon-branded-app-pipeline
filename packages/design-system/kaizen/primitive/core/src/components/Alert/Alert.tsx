@@ -1,10 +1,11 @@
-import React, { MouseEventHandler } from "react";
 import { cva } from "class-variance-authority";
 import classNames from "classnames";
-import Icon, { type IconName } from "#src/components/Icon";
-import Title from "#src/components/Title";
+import React, { MouseEventHandler } from "react";
+
 import Body from "#src/components/Body";
 import Button from "#src/components/Button";
+import Icon, { type IconName } from "#src/components/Icon";
+import Title from "#src/components/Title";
 
 const defaultClasses = [
   "rounded-lg",

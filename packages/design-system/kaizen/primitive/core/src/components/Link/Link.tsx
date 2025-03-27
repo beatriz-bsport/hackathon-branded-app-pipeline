@@ -1,7 +1,8 @@
-import React from "react";
-import { cva, type VariantProps } from "class-variance-authority";
+import { type VariantProps, cva } from "class-variance-authority";
 import classNames from "classnames";
 import mapValues from "lodash/mapValues";
+import React from "react";
+
 import Avatar, { type AvatarProps } from "#src/components/Avatar";
 import Icon, { type IconName } from "#src/components/Icon";
 

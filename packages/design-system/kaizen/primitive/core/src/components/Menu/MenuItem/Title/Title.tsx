@@ -1,4 +1,5 @@
 import React from "react";
+
 import type { Title as TitleType } from "#src/components/Menu/MenuItem/types";
 import Title from "#src/components/Title";
 

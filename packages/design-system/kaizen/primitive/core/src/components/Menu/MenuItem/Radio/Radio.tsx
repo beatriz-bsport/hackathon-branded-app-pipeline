@@ -1,13 +1,14 @@
+import { cva } from "class-variance-authority";
 import React, { useMemo, useRef } from "react";
-import { Radio as RadioType } from "#src/components/Menu/MenuItem/types";
+
+import Avatar from "#src/components/Avatar";
+import Icon from "#src/components/Icon";
+import Indicator from "#src/components/Menu/MenuItem/Indicator";
 import {
   baseMenuItemClasses,
   menuItemVariants,
 } from "#src/components/Menu/MenuItem/constants";
-import { cva } from "class-variance-authority";
-import Avatar from "#src/components/Avatar";
-import Icon from "#src/components/Icon";
-import Indicator from "#src/components/Menu/MenuItem/Indicator";
+import { Radio as RadioType } from "#src/components/Menu/MenuItem/types";
 
 const radio = cva(baseMenuItemClasses, {
   variants: menuItemVariants,

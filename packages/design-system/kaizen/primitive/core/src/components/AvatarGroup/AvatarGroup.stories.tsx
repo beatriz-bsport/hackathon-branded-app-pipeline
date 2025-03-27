@@ -1,8 +1,9 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import AvatarGroup from "./AvatarGroup";
 
-import AvatarImage from "#src/components/Avatar/assets/avatar.jpeg";
 import { sizes } from "#src/components/Avatar";
+import AvatarImage from "#src/components/Avatar/assets/avatar.jpeg";
+
+import AvatarGroup from "./AvatarGroup";
 
 const data = [
   {

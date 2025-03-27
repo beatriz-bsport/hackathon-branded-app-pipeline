@@ -1,5 +1,6 @@
-import React, { ReactNode, useState, DragEvent } from "react";
 import classNames from "classnames";
+import React, { DragEvent, ReactNode, useState } from "react";
+
 import { useDragAndDrop } from "./DragAndDrop";
 
 /**

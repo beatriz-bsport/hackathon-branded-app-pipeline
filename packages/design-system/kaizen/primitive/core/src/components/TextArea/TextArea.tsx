@@ -1,7 +1,7 @@
-import React, { ChangeEvent, useMemo } from "react";
 import { cva } from "class-variance-authority";
-import mapValues from "lodash/mapValues";
 import classNames from "classnames";
+import mapValues from "lodash/mapValues";
+import React, { ChangeEvent, useMemo } from "react";
 
 const defaultClasses = [
   "min-h-xl w-full",

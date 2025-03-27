@@ -1,5 +1,6 @@
-import React from "react";
 import { cva } from "class-variance-authority";
+import React from "react";
+
 import Body from "#src/components/Body";
 import Icon, { IconName } from "#src/components/Icon";
 

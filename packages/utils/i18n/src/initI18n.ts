@@ -1,19 +1,20 @@
 import i18n from "i18next";
-import { initReactI18next } from "react-i18next";
-import httpBackend from "i18next-http-backend";
 import languageDetector from "i18next-browser-languagedetector";
+import httpBackend from "i18next-http-backend";
 import resourcesToBackend from "i18next-resources-to-backend";
-import {
-  setLuxonLocale,
-  getFallbackLanguage,
-  getNamespacePrefixer,
-} from "./utils";
+import { initReactI18next } from "react-i18next";
+
 import {
   LANGUAGES,
-  LANGUAGE_SWITCHER_CHANNEL,
   LANGUAGE_SWITCHER_ACTION,
+  LANGUAGE_SWITCHER_CHANNEL,
 } from "./constants";
-import type { InitConfig, InMemoryTranslationsLoader } from "./types";
+import type { InMemoryTranslationsLoader, InitConfig } from "./types";
+import {
+  getFallbackLanguage,
+  getNamespacePrefixer,
+  setLuxonLocale,
+} from "./utils";
 
 type I18nConfig = {
   namespaces: string[];

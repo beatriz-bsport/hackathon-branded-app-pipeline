@@ -1,7 +1,9 @@
+import { cva } from "class-variance-authority";
+import classNames from "classnames";
 import React, {
+  ReactNode,
   createContext,
   isValidElement,
-  ReactNode,
   useCallback,
   useContext,
   useEffect,
@@ -9,14 +11,13 @@ import React, {
   useState,
 } from "react";
 import ReactDOM from "react-dom";
-import classNames from "classnames";
+
+import useEscapeKeydownListener from "#src/hooks/escape-keydown-listener.hook";
+import useOutsideClickListener from "#src/hooks/outside-click-listener";
 import {
   Placements,
   useAbsolutePlacementStyles,
 } from "#src/hooks/placement-classes.hook";
-import useEscapeKeydownListener from "#src/hooks/escape-keydown-listener.hook";
-import useOutsideClickListener from "#src/hooks/outside-click-listener";
-import { cva } from "class-variance-authority";
 
 const defaultClasses = [
   "fixed",

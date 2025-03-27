@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react";
-import Modal, { confirmColors, footerDirections, sizes } from "./Modal";
+import React, { useEffect, useState } from "react";
+
 import Body from "#src/components/Body";
 import Button from "#src/components/Button";
+
+import Modal, { confirmColors, footerDirections, sizes } from "./Modal";
 
 /**
  * A dialog box that appears on top of the main content, requiring the user to

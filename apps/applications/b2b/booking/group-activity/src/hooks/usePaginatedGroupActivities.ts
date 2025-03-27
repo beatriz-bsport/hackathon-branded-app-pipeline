@@ -1,15 +1,14 @@
 import { useCallback, useMemo, useState } from "react";
 
+import type { PaginationProps } from "@bsport/kaizen-primitive-core";
 import {
-  fetchGroupActivities,
   DEFAULT_CURRENT_PAGE,
   DEFAULT_ROWS_PER_PAGE,
   type MetaActivity,
+  fetchGroupActivities,
 } from "@bsport/store-booking-group-activity";
 
 import fetch from "#src/utils/fetch";
-
-import type { PaginationProps } from "@bsport/kaizen-primitive-core";
 
 const usePaginatedGroupActivities = (customerEnabled: boolean) => {
   const [groupActivities, setGroupActivities] = useState<MetaActivity[]>([]);

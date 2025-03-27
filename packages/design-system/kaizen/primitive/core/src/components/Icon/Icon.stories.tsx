@@ -1,6 +1,7 @@
-import React from "react";
 import type { Meta, StoryObj } from "@storybook/react";
-import Icon, { icons, sizes, type IconName } from "./Icon";
+import React from "react";
+
+import Icon, { type IconName, icons, sizes } from "./Icon";
 
 /**
  * Generic Icon React component allowing to render any<br>

@@ -1,11 +1,10 @@
-import React, { useMemo } from "react";
 import { cva } from "class-variance-authority";
+import React, { useMemo } from "react";
 
 import type { FileType, FileUploadTracker } from "../constants";
 import { getFormattedExtensionForInput } from "../utils";
-
-import InlineVariant from "./InlineVariant";
 import DefaultVariant from "./DefaultVariant";
+import InlineVariant from "./InlineVariant";
 
 const defaultClasses = ["h-fit", "inline-block"] as const;
 

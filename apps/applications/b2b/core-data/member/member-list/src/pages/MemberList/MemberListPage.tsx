@@ -1,7 +1,9 @@
 import { Button, ListLayout, Tooltip } from "@bsport/kaizen-primitive-core";
-import { useTranslation } from "#src/utils/i18n";
-import { MemberListContent } from "./MemberListContent";
+
 import { useMemberFilters } from "#src/hooks/useMemberFilters";
+import { useTranslation } from "#src/utils/i18n";
+
+import { MemberListContent } from "./MemberListContent";
 
 export const MemberListPage: React.FC = () => {
   const { t } = useTranslation("common");

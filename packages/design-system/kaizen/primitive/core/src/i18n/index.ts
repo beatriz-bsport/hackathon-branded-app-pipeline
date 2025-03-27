@@ -1,11 +1,14 @@
 import { useContext } from "react";
+
 import {
-  getUseTranslation,
-  type TFunctionGeneric,
   type InMemoryTranslationsLoader,
+  type TFunctionGeneric,
+  getUseTranslation,
 } from "@bsport/i18n";
+
 import { KaizenI18nContext } from "#src/components/I18nProvider";
 import type translations from "#src/i18n/locales/en/translations.json";
+
 import i18nNamespaces from "./namespaces.json";
 
 const i18nNamespacePrefix = import.meta.env.VITE_I18N_NAMESPACE_PREFIX;

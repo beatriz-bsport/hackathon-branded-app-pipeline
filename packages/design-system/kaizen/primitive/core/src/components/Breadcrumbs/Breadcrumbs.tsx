@@ -1,7 +1,9 @@
+import { type VariantProps, cva } from "class-variance-authority";
 import React, { Fragment } from "react";
-import { cva, type VariantProps } from "class-variance-authority";
-import BreadcrumbsItem, { BreadcrumbItemProps } from "./BreadcrumbsItem";
+
 import Icon from "#src/components/Icon";
+
+import BreadcrumbsItem, { BreadcrumbItemProps } from "./BreadcrumbsItem";
 
 const defaultClasses = [
   "flex",

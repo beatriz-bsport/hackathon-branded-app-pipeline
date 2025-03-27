@@ -1,4 +1,5 @@
 import type { Result } from "typescript-result";
+
 import type { Fetch } from "@bsport/fetch";
 
 /**

@@ -1,7 +1,8 @@
-import type { NXPrintAffectedOutput } from "./types";
-import { promisify } from "node:util";
 import { exec as execCb } from "child_process";
+import { promisify } from "node:util";
+
 import { getMonorepoBasePath } from "./constants";
+import type { NXPrintAffectedOutput } from "./types";
 
 const exec = promisify(execCb);
 

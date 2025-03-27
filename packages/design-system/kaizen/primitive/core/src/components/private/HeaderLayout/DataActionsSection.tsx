@@ -1,9 +1,10 @@
 import React from "react";
-import Filter, { type FilterProps } from "#src/components/Filter";
+
 import Button from "#src/components/Button";
 import ExpandableSearchInput, {
   type ExpandableSearchInputProps,
 } from "#src/components/ExpandableSearchInput";
+import Filter, { type FilterProps } from "#src/components/Filter";
 
 export type DataActionsSectionProps = {
   filterConfig?: FilterProps;

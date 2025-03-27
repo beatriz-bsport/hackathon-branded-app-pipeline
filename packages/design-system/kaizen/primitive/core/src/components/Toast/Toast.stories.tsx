@@ -1,7 +1,9 @@
-import React from "react";
 import type { Meta, StoryObj } from "@storybook/react";
-import { icons } from "#src/components/Icon";
+import React from "react";
+
 import Button from "#src/components/Button";
+import { icons } from "#src/components/Icon";
+
 import Toast, { statuses } from "./Toast";
 import { toast } from "./ToastManager";
 

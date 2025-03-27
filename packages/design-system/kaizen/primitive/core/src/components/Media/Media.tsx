@@ -1,5 +1,6 @@
+import { type VariantProps, cva } from "class-variance-authority";
 import React, { useState } from "react";
-import { cva, type VariantProps } from "class-variance-authority";
+
 import Icon from "../Icon";
 
 const variants = {

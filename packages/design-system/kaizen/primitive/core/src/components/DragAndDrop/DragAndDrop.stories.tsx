@@ -1,10 +1,12 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { useState } from "react";
-import DragAndDrop from "./DragAndDrop";
-import Body from "#src/components/Body";
 import classNames from "classnames";
+import { useState } from "react";
+
+import Body from "#src/components/Body";
 import Card from "#src/components/Card";
 import Title from "#src/components/Title";
+
+import DragAndDrop from "./DragAndDrop";
 
 type Task = {
   id: string;

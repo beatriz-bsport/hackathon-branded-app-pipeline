@@ -1,6 +1,7 @@
 import { withTranslation } from "react-i18next";
-import { getNamespacePrefixer } from "./utils";
+
 import type { InitConfig } from "./types";
+import { getNamespacePrefixer } from "./utils";
 
 /**
  * Return an override version of withTranslation, for which provided namespaces

@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import Pagination from "./Pagination";
 import { useEffect, useState } from "react";
+
+import Pagination from "./Pagination";
 
 /**
  * **This component is an internal component. It should not be used directly in your apps !**<br>

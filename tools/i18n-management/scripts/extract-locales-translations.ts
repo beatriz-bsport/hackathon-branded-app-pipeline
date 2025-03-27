@@ -3,12 +3,14 @@
  * based on the existing translations files of the legacy structure.
  * In other words, it generates the first builds based on historical translations (before migration to monorepo).
  */
-import path from "path";
-import { writeFileSync, readJsonSync } from "fs-extra";
+import { readJsonSync, writeFileSync } from "fs-extra";
 import beautify from "json-beautify";
+import path from "path";
+
 import { getMonorepoBasePathSync } from "@bsport/typescript-monorepo-utils";
-import { getInternationalizedApplications } from "./utils";
+
 import { LOCALES } from "../src";
+import { getInternationalizedApplications } from "./utils";
 
 type ProjectToImport = {
   name: string;

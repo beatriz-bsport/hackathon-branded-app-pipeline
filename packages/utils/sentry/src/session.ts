@@ -1,5 +1,6 @@
-import { uuid } from "@bsport/random-utils";
 import { withScope } from "@sentry/react";
+
+import { uuid } from "@bsport/random-utils";
 
 let sessionId: string | undefined;
 

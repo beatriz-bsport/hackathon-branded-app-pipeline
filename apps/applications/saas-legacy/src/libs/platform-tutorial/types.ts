@@ -10,6 +10,7 @@ export type LanguageDict = {
   it: string;
   pt: string;
   cs: string;
+  cimode: string;
 };
 
 export type TutorialSection = {

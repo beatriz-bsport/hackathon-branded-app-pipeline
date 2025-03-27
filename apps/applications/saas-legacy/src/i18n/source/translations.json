@@ -1913,7 +1913,8 @@
       "fr": "French",
       "none": "Automatic",
       "cs": "Czech",
-      "pt": "Portuguese"
+      "pt": "Portuguese",
+      "cimode": "Debug"
     },
     "subscription": { "isEmpty": "There are no active subscriptions to display." },
     "Basket": "My basket",

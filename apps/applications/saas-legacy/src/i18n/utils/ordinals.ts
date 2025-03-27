@@ -55,6 +55,14 @@ const NUMERABLE_BY_LOCALE: {
       return num === 1 ? 'er' : 'e';
     },
   },
+  [LANGUAGES.DEBUG]: {
+    delimiter: {
+      thousands: '.',
+    },
+    getOrdinalSuffix(num) {
+      return num === 1 ? 'er' : 'e';
+    },
+  },
   [LANGUAGES.SPANISH]: {
     delimiter: {
       thousands: '.',

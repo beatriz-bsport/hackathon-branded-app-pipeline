@@ -92,6 +92,7 @@ exports.default = {
     none: 'Automatic',
     cs: 'Czech',
     pt: 'Portuguese',
+    cimode: 'Debug',
   },
   subscription: { isEmpty: 'There are no active subscriptions to display.' },
   Basket: 'My basket',

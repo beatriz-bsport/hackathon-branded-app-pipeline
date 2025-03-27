@@ -20,6 +20,8 @@ import EN_FLAG from '../input/flags/EN.png';
 import US_FLAG from '../input/flags/US.png';
 import PT_FLAG from '../input/flags/PT.png';
 import CZ_FLAG from '../input/flags/CZ.png';
+import ZA_FLAG from '../input/flags/ZA.png';
+import Config from '../../config';
 
 type Props = {
   closeMenu: () => void,
@@ -46,6 +48,7 @@ const countryFlag = {
   [LANGUAGES.SPANISH]: ES_FLAG,
   [LANGUAGES.PORTUGUESE]: PT_FLAG,
   [LANGUAGES.CZECH]: CZ_FLAG,
+  [LANGUAGES.DEBUG]: ZA_FLAG,
 };
 
 const LanguageSelectBase = (props: Props) => {
@@ -60,6 +63,15 @@ const LanguageSelectBase = (props: Props) => {
         )}
         {!noLabelMenuItem && t(`language.${lng}`)}
       </MenuItem>
+    );
+  };
+
+  const getAvailableLanguages = () => {
+    if (Config.REACT_APP_SENTRY_ENVIRONMENT !== 'production') {
+      return AVAILABLE_LANGUAGES;
+    }
+    return AVAILABLE_LANGUAGES.filter(
+      (language) => language !== LANGUAGES.DEBUG,
     );
   };
 
@@ -81,7 +93,7 @@ const LanguageSelectBase = (props: Props) => {
         <MenuItem disabled component="div" value="">
           {t('navigation.pick_a_language')}
         </MenuItem>
-        {AVAILABLE_LANGUAGES.map((lng) => renderMenuItem(lng))}
+        {getAvailableLanguages().map((lng) => renderMenuItem(lng))}
         {!!allowNull && (
           <MenuItem component="div" value="none">
             {t('navigation.automaticLanguage')}

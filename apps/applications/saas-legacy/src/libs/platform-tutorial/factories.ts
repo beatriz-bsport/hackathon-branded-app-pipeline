@@ -27,6 +27,7 @@ const fakerDict = {
   nl: 'nl',
   pt: 'pt',
   cs: 'cs',
+  cimode: 'cimode',
 };
 const sectionNames = [
   'Paiements en plusieurs fois',

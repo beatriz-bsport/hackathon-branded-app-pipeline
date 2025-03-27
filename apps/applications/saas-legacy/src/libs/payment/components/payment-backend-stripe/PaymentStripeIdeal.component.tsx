@@ -1,10 +1,6 @@
 import React, { useImperativeHandle, forwardRef } from 'react';
 import { useTranslation } from 'react-i18next';
-import {
-  useStripe,
-  useElements,
-  IdealBankElement,
-} from '@stripe/react-stripe-js';
+import { useStripe, useElements } from '@stripe/react-stripe-js';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
@@ -27,30 +23,6 @@ import {
   blockPendingBasket as blockPendingBasketAPI,
   verifyPriceBasket as verifyPriceBasketAPI,
 } from '#src/libs/payment/api';
-
-const IDEAL_ELEMENT_OPTIONS = {
-  // Custom styling can be passed to options when creating an Element
-  style: {
-    base: {
-      padding: '10px 12px',
-      zIndex: 9999,
-      color: '#32325d',
-      fontSize: '16px',
-      '::placeholder': {
-        color: '#aab7c4',
-      },
-    },
-  },
-};
-
-function IdealBankSection() {
-  return (
-    <div>
-      <Typography>iDEAL Bank</Typography>
-      <IdealBankElement options={IDEAL_ELEMENT_OPTIONS} />
-    </div>
-  );
-}
 
 type PaymentStripeIdealProps = {
   AcceptTermsAndConditionsComponent: React.Component;
@@ -180,8 +152,6 @@ export const PaymentStripeIdeal = forwardRef(
           return;
         }
 
-        const idealBank = elements.getElement(IdealBankElement);
-
         saveQueryParamInLocalStorage(
           USER_REGISTRATION_RESPONSE_QUERY_PARAM,
           USER_REGISTRATION_RESPONSE_LOCAL_STORAGE_KEY,
@@ -203,7 +173,7 @@ export const PaymentStripeIdeal = forwardRef(
 
         const { error } = await stripe.confirmIdealPayment(clientSecret, {
           payment_method: {
-            ideal: idealBank,
+            ideal: {},
             billing_details: {
               name,
               email,
@@ -276,7 +246,6 @@ export const PaymentStripeIdeal = forwardRef(
           </Typography>
         ) : (
           <>
-            <IdealBankSection />
             <div className={classes.fieldContainer}>
               <TextInput
                 required

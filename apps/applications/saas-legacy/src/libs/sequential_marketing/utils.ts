@@ -6,6 +6,7 @@ import type {
   CadenceStep,
   ConnectedTrigger,
   TriggerConfig,
+  TriggerConfigTypeAssertion,
   TriggerEventConfig,
 } from '#src/libs/sequential_marketing/types';
 import {
@@ -13,6 +14,7 @@ import {
   TriggerIdentifier,
 } from '#src/libs/sequential_marketing/constants';
 import Config from '../../config';
+import { CADENCE_FINNER_GRAIN_ALLOWED_EVENTS_LIST } from './constants/event';
 
 export const isCadenceInitialConfigurationCompleted = (
   cadenceMinimalConfigurationState: CadenceInitialConfigurationState,
@@ -196,4 +198,49 @@ export function removeFilteredPks(config: TriggerConfig): TriggerConfig {
     return cleanedConfig; // returns the object without the filtered_pks field
   }
   return config; // returns the original object if not a TriggerEventConfig
+}
+
+/** The goal of this function is to take the trigger config parameter and to return
+ *  a string to be able to assert and to validate wich precise trigger config type it
+ *  is out of these 3 : TriggerEventConfig, TriggerTimeoutConfig, TriggerEmpty.
+ *  'event_type' only belong to TriggerEventConfig, 'timeout' only belong to
+ *  TriggerTimeoutConfig and if it is none of the 2 above then it a TriggerEmptyConfig.
+ *
+ * @param {TriggerConfig} config - The base config we want to assert the type.
+ * @returns {string} a string inidicating which trigger config type it is.
+ */
+export function getTriggerConfigType(
+  config: TriggerConfig,
+): TriggerConfigTypeAssertion {
+  if ('event_type' in config) return 'TriggerEventConfig';
+  if ('timeout' in config) return 'TriggerTimeoutConfig';
+  return 'TriggerEmptyConfig';
+}
+
+/** The goal of this function is to take the trigger config parameter and to return
+ *  a boolean to be able to assert and to validate if the trigger config is able to
+ *  be used as finner grain trigger.
+ *
+ * @param {TriggerConfig} config - The base config we want to assert the type.
+ * @returns {boolean} check if the trigger config as a valid finner grain setup
+ */
+export function checkIsValidFinnerGrainTrigger(config: TriggerConfig) {
+  if (!config) return false;
+
+  const isTriggerConfigObject = typeof config === 'object';
+  const isTriggerConfigEventType = 'event_type' in config;
+  const hasTriggerConfigFilteredKeys = 'filtered_pks' in config;
+
+  const eventConfig =
+    isTriggerConfigObject && isTriggerConfigEventType
+      ? (config as TriggerEventConfig)
+      : null;
+
+  return (
+    eventConfig?.event_type != null &&
+    CADENCE_FINNER_GRAIN_ALLOWED_EVENTS_LIST.includes(eventConfig.event_type) &&
+    hasTriggerConfigFilteredKeys &&
+    Array.isArray(eventConfig?.filtered_pks) &&
+    eventConfig?.filtered_pks?.length > 0
+  );
 }

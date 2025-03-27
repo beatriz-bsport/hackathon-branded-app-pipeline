@@ -76,6 +76,11 @@ export interface TriggerEventConfig extends TriggerConfigBaseDict {
   filtered_pks?: number[];
 }
 
+export type TriggerConfigTypeAssertion =
+  | 'TriggerEventConfig'
+  | 'TriggerTimeoutConfig'
+  | 'TriggerEmptyConfig';
+
 export type TriggerConfig =
   | TriggerEmptyConfig
   | TriggerTimeoutConfig

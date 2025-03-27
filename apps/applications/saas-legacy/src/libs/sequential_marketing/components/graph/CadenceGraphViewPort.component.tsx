@@ -36,10 +36,15 @@ import type {
   ConnectedTrigger,
   CadenceInitialConfiguration,
   FinnerGrainEventBaseSetup,
+  TriggerEventConfig,
 } from '#src/libs/sequential_marketing/types';
 import type { SmartList } from '#src/libs/smart-list/types';
 import { CADENCE_DETAIL_MAIN_PANEL_ID } from '#src/libs/sequential_marketing/constants/keywords';
-import Config from '../../../../config';
+import Config from '#src/config';
+import {
+  checkIsValidFinnerGrainTrigger,
+  getTriggerConfigType,
+} from '#src/libs/sequential_marketing/utils';
 
 import './styles.css';
 
@@ -301,45 +306,44 @@ export const CadenceGraphViewPort: React.FC<Props> = ({
 
   // ================= CHECK FINNER GRAIN ERRORS IN EXIT RULES =================
 
+  const getValidFinnerGrainTriggers = (triggers: ConnectedTrigger[]) => {
+    return triggers
+      .filter(
+        (trigger) =>
+          getTriggerConfigType(trigger?.trigger_config) ===
+          'TriggerEventConfig',
+      )
+      .map((trigger) => {
+        const triggerConfig = trigger.trigger_config as TriggerEventConfig;
+        return checkIsValidFinnerGrainTrigger(triggerConfig)
+          ? {
+              eventType: triggerConfig.event_type,
+              itemIds: triggerConfig.filtered_pks || [],
+            }
+          : null;
+      })
+      .filter(Boolean) as FinnerGrainEventBaseSetup[];
+  };
+
   const checkIfExitRulesHaveFinnerGrainEventsErrors = React.useCallback(() => {
-    let numberOfValidEvents = 0;
-    let triggersFinnerGrainItem: FinnerGrainEventBaseSetup[] = [];
-    wonConnectedTriggers?.forEach((trigger) => {
-      if (
-        'event_type' in trigger.trigger_config &&
-        'filtered_pks' in trigger.trigger_config &&
-        trigger.trigger_config.filtered_pks.length > 0
-      )
-        triggersFinnerGrainItem.push({
-          eventType: trigger.trigger_config.event_type,
-          itemIds: trigger.trigger_config.filtered_pks,
-        });
-    });
-    lostConnectedTriggers?.forEach((trigger) => {
-      if (
-        'event_type' in trigger.trigger_config &&
-        'filtered_pks' in trigger.trigger_config &&
-        trigger.trigger_config.filtered_pks.length > 0
-      )
-        triggersFinnerGrainItem.push({
-          eventType: trigger.trigger_config.event_type,
-          itemIds: trigger.trigger_config.filtered_pks,
-        });
-    });
+    const triggersFinnerGrainItem: FinnerGrainEventBaseSetup[] = [
+      ...getValidFinnerGrainTriggers(wonConnectedTriggers || []),
+      ...getValidFinnerGrainTriggers(lostConnectedTriggers || []),
+    ];
 
     triggersFinnerGrainItem?.forEach((trigger) =>
       handleFetchFinnerGrainEventsItem(trigger.eventType, trigger.itemIds),
     );
 
-    triggersFinnerGrainItem.forEach((trigger) => {
-      const doesEventHaveItemsDisabled =
-        getFinnerGrainEventsItem(trigger.eventType, trigger.itemIds)?.filter(
-          (element) =>
-            ('private_services' in element && !element.available) ||
-            element.disabled,
-        )?.length > 0;
-      if (!doesEventHaveItemsDisabled) numberOfValidEvents += 1;
-    });
+    const numberOfValidEvents = triggersFinnerGrainItem.filter((trigger) => {
+      const events =
+        getFinnerGrainEventsItem(trigger.eventType, trigger.itemIds) || [];
+      return !events.some(
+        (element) =>
+          ('private_services' in element && !element.available) ||
+          element.disabled,
+      );
+    }).length;
 
     setHasFinnerGrainItemsError(
       numberOfValidEvents !== triggersFinnerGrainItem?.length,

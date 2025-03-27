@@ -24,6 +24,7 @@ import {
   selectCount,
   type Invoice,
 } from "@bsport/store-financial-services-invoice";
+import { useAsync } from "@bsport/use-async";
 import { useTranslation } from "#src/utils/i18n";
 import fetch from "#src/utils/fetch";
 
@@ -52,29 +53,19 @@ export const InvoiceListPage = () => {
   const [currentPage, setCurrentPage] = useState(DEFAULT_PAGE);
   const invoices = useInvoiceStore(selectInvoices);
   const count = useInvoiceStore(selectCount);
-  const [isLoading, setIsLoading] = useState(true);
   const { t } = useTranslation("invoice");
 
-  const fetchData = useCallback((page: number, rows: number) => {
+  const fetchDataBase = async (page: number, rows: number) => {
     setCurrentPage(page);
-    setIsLoading(true);
+    return fetchInvoices(fetch, {
+      page,
+      pageSize: rows,
+    });
+  };
 
-    const fetchInvoiceList = async () => {
-      const response = await fetchInvoices(fetch, {
-        page,
-        pageSize: rows,
-      });
-      response.fold(
-        ({ results }) => {
-          console.log(results);
-        },
-        (error) => console.error(error),
-      );
-      setIsLoading(false);
-    };
-
-    fetchInvoiceList();
-  }, []);
+  const [{ isLoading }, fetchData] = useAsync<typeof fetchDataBase>({
+    asyncFn: fetchDataBase,
+  });
 
   useEffect(() => {
     fetchData(DEFAULT_PAGE, DEFAULT_PAGE_SIZE);

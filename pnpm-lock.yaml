@@ -302,6 +302,9 @@ importers:
       '@bsport/store-financial-services-invoice':
         specifier: workspace:*
         version: link:../../../../../packages/stores/financial-services/invoice
+      '@bsport/use-async':
+        specifier: workspace:*
+        version: link:../../../../../packages/hooks/use-async
       react:
         specifier: ^19.0.0
         version: 19.0.0
@@ -1665,6 +1668,19 @@ importers:
       tsconfig-paths:
         specifier: ^4.2.0
         version: 4.2.0
+
+  packages/hooks/use-async:
+    dependencies:
+      react:
+        specifier: ^19.0.0
+        version: 19.0.0
+      typescript-result:
+        specifier: ^3.1.1
+        version: 3.1.1
+    devDependencies:
+      '@bsport/eslint-config-react':
+        specifier: workspace:*
+        version: link:../../../tools/config/eslint
 
   packages/local-storage/auth-token:
     devDependencies:

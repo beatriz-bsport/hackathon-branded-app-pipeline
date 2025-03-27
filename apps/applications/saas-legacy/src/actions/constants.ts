@@ -1,6 +1,8 @@
 export const STORAGE_KEY_BSPORT_TOKEN = 'bsport:http:token';
 export const STORAGE_KEY_LIGHT_SIGNUP_FORM_VALUES =
   'bsport:one-click-booking:lightSignupFormValues';
+export const STORAGE_KEY_LIGHT_SIGNUP_MEMBER_ID =
+  'bsport:one-click-booking:lightSignUpMemberId';
 export const STORAGE_KEY_BSPORT_IMPERSONATED_TOKEN = 'http:token';
 export const STORAGE_KEY_BSPORT_IMPERSONATED_ORIGIN_TOKEN =
   'bsport:franchise:http:token';

@@ -8,6 +8,9 @@ import { getItemInStorage, setItemInStorage } from '#src/utils/storage';
 import { STORAGE_KEY_LIGHT_SIGNUP_FORM_VALUES } from '#src/actions/constants';
 import TextField from '#src/components/css-only/Fabrique/Temporary/Textfield';
 import Checkboxfield from '#src/components/css-only/Fabrique/Temporary/Checkboxfield';
+import AcceptTermsAndConditions from '#src/components/css-only/Fabrique/Temporary/AcceptTermsAndConditions';
+import { TermsAndConditionType } from '#src/libs/payment/types';
+import { useTheme } from '#src/pages/marketplace/passes/hooks/useTheme';
 
 export type LightSignupFormValues = {
   firstName: string;
@@ -16,10 +19,13 @@ export type LightSignupFormValues = {
   phone?: string;
   acceptEmail: boolean;
   acceptSms: boolean;
+  acceptTermsAndConditions: boolean;
 };
 
 const LightSignupForm = () => {
   const { t } = useTranslation('booking');
+
+  const { general_terms_and_conditions } = useTheme() ?? {};
 
   return (
     <Form noValidate className="bs-light-signup-form__container">
@@ -78,6 +84,14 @@ const LightSignupForm = () => {
         label={t('lightSignup.form.acceptSms.label')}
         name="acceptSms"
       />
+
+      <AcceptTermsAndConditions
+        id="one-click-checkout-terms-and-conditions"
+        label={t('lightSignup.form.acceptTermsAndCondition.label')}
+        name="acceptTermsAndConditions"
+        termsAndConditions={general_terms_and_conditions}
+        type={TermsAndConditionType.TERMS_AND_CONDITIONS}
+      />
     </Form>
   );
 };
@@ -101,6 +115,7 @@ const lightSignupFormValidationSchema = Yup.object().shape({
     ),
   acceptEmail: Yup.boolean(),
   acceptSms: Yup.boolean(),
+  acceptTermsAndConditions: Yup.boolean(),
 });
 
 export const lightSignupFormWrapper = withFormik<{}, LightSignupFormValues>({
@@ -126,6 +141,7 @@ export const lightSignupFormWrapper = withFormik<{}, LightSignupFormValues>({
           phone: '',
           acceptEmail: false,
           acceptSms: false,
+          acceptTermsAndConditions: false,
         };
   },
 });

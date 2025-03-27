@@ -1,9 +1,12 @@
-import { getTimezoneName } from "@bsport/timezone-utils";
+import { getAuthToken } from "@bsport/local-storage-auth-token";
 import { setTransactionId, setSessionId } from "@bsport/sentry";
+import { getTimezoneName } from "@bsport/timezone-utils";
 
 export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 export function getHeaders(): HeadersInit {
+  const token = getAuthToken();
+
   // missing getBsportRequestFromHeader() here
   return {
     Accept: "application/json",
@@ -12,6 +15,7 @@ export function getHeaders(): HeadersInit {
     "X-React-Referrer": window.location.href.slice(0, 250),
     "X-bsport-log-collection": "true",
     "X-Transaction-ID": setTransactionId(),
+    ...(token ? { Authorization: `Token ${token}` } : {}),
   };
 }
 

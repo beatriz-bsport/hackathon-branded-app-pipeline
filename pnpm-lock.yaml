@@ -1666,6 +1666,28 @@ importers:
         specifier: ^4.2.0
         version: 4.2.0
 
+  packages/local-storage/auth-token:
+    devDependencies:
+      '@bsport/eslint-config-react':
+        specifier: workspace:*
+        version: link:../../../tools/config/eslint
+
+  packages/stores/auth:
+    dependencies:
+      '@bsport/local-storage-auth-token':
+        specifier: workspace:*
+        version: link:../../local-storage/auth-token
+      '@bsport/store-base':
+        specifier: workspace:*
+        version: link:../base
+      typescript-result:
+        specifier: ^3.1.1
+        version: 3.1.1
+    devDependencies:
+      '@bsport/eslint-config-react':
+        specifier: workspace:*
+        version: link:../../../tools/config/eslint
+
   packages/stores/base:
     dependencies:
       '@bsport/fetch':
@@ -1687,9 +1709,6 @@ importers:
 
   packages/stores/booking/group-activity:
     dependencies:
-      '@bsport/b2b-backbone':
-        specifier: workspace:*
-        version: link:../../../utils/b2b-backbone
       '@bsport/fetch':
         specifier: workspace:*
         version: link:../../../utils/fetch
@@ -1734,6 +1753,12 @@ importers:
       '@bsport/kaizen-primitive-core':
         specifier: workspace:*
         version: link:../../design-system/kaizen/primitive/core
+      '@bsport/local-storage-auth-token':
+        specifier: workspace:*
+        version: link:../../local-storage/auth-token
+      '@bsport/store-auth':
+        specifier: workspace:*
+        version: link:../../stores/auth
       react-router:
         specifier: ^7.1.5
         version: 7.1.5(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
@@ -1776,6 +1801,9 @@ importers:
 
   packages/utils/fetch:
     dependencies:
+      '@bsport/local-storage-auth-token':
+        specifier: workspace:*
+        version: link:../../local-storage/auth-token
       '@bsport/sentry':
         specifier: workspace:*
         version: link:../sentry

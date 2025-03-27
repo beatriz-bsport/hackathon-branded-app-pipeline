@@ -1,19 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { Body, Link, Title, toast } from "@bsport/kaizen-primitive-core";
-import { fetchWithAuth } from "@bsport/b2b-backbone";
-
+import fetch from "#src/utils/fetch";
 import TranslationExample from "./TranslationExample";
 
+type CompanyTheme = { companyId: number };
+
 const HomeExample: React.FC = () => {
-  const [themeData, setThemeData] = useState(null);
+  const [themeData, setThemeData] = useState<CompanyTheme | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     // Fetch the theme data when the component mounts
     const fetchData = async () => {
       try {
-        const { data } = await fetchWithAuth("api/v1/company/theme/me/");
-        // @ts-expect-error Need to type fetchWithAuth
+        const { data } = await fetch<CompanyTheme>("api/v1/company/theme/me/");
         setThemeData(data);
         toast({
           status: "positive",

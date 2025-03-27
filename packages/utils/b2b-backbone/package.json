@@ -27,6 +27,8 @@
     "@bsport/fetch": "workspace:*",
     "@bsport/i18n": "workspace:*",
     "@bsport/kaizen-primitive-core": "workspace:*",
+    "@bsport/local-storage-auth-token": "workspace:*",
+    "@bsport/store-auth": "workspace:*",
     "react-router": "^7.1.5"
   },
   "devDependencies": {

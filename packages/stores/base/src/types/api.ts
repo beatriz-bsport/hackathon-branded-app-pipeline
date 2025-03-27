@@ -1,5 +1,5 @@
-import { Result } from "typescript-result";
-import { Fetch } from "@bsport/fetch";
+import type { Result } from "typescript-result";
+import type { Fetch } from "@bsport/fetch";
 
 /**
  * A stateful action that can modify state.

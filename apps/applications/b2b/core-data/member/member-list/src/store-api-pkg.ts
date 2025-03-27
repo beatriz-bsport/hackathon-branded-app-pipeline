@@ -1,7 +1,6 @@
 // TODO : export in store | api pkg
-
-import { fetchWithAuth } from "@bsport/b2b-backbone";
 import { buildUrlParams } from "@bsport/fetch";
+import fetch from "#src/utils/fetch";
 
 // ----- Types -----
 
@@ -38,8 +37,8 @@ export const performFetchAction = async <T>({
   errorReturn: T;
 }): Promise<T> => {
   try {
-    const response = await fetchWithAuth(url, params);
-    return await response.json();
+    const { data } = await fetch<T>(url, params);
+    return data;
   } catch (error) {
     console.error(error);
     return errorReturn;

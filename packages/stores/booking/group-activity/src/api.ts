@@ -1,4 +1,3 @@
-import { getAuthToken } from "@bsport/b2b-backbone";
 import { buildUrlParams } from "@bsport/fetch";
 import type { ApiConfig } from "@bsport/store-base";
 import type { FetchGroupActivitiesParams } from "#src/types";
@@ -25,15 +24,7 @@ export const fetchGroupActivities = ({
     page_size: pageSize || DEFAULT_ROWS_PER_PAGE,
     is_workshop: false,
   };
-  return [
-    `${BASE_URL}${buildUrlParams(params)}`,
-    {
-      method: "GET",
-      headers: {
-        Authorization: `Token ${getAuthToken()}`,
-      },
-    },
-  ];
+  return [`${BASE_URL}${buildUrlParams(params)}`];
 };
 
 /**
@@ -44,15 +35,7 @@ export const fetchGroupActivities = ({
 export const checkCanArchiveGroupActivity = (
   groupActivityId: string,
 ): ApiConfig => {
-  return [
-    `${BASE_URL}${groupActivityId}/can_destroy/`,
-    {
-      method: "GET",
-      headers: {
-        Authorization: `Token ${getAuthToken()}`,
-      },
-    },
-  ];
+  return [`${BASE_URL}${groupActivityId}/can_destroy/`];
 };
 
 /**
@@ -65,9 +48,6 @@ export const archiveGroupActivity = (groupActivityId: string): ApiConfig => {
     `${BASE_URL}${groupActivityId}/`,
     {
       method: "DELETE",
-      headers: {
-        Authorization: `Token ${getAuthToken()}`,
-      },
     },
   ];
 };
@@ -82,9 +62,6 @@ export const unarchiveGroupActivity = (groupActivityId: string): ApiConfig => {
     `${BASE_URL}${groupActivityId}/restore/`,
     {
       method: "PUT",
-      headers: {
-        Authorization: `Token ${getAuthToken()}`,
-      },
     },
   ];
 };
@@ -99,9 +76,6 @@ export const duplicateGroupActivity = (groupActivityId: string): ApiConfig => {
     `${BASE_URL}${groupActivityId}/copy/`,
     {
       method: "POST",
-      headers: {
-        Authorization: `Token ${getAuthToken()}`,
-      },
     },
   ];
 };

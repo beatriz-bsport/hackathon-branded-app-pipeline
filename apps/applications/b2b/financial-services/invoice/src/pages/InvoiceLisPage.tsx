@@ -25,7 +25,7 @@ import {
   type Invoice,
 } from "@bsport/store-financial-services-invoice";
 import { useTranslation } from "#src/utils/i18n";
-import { fetchWithAuth } from "@bsport/b2b-backbone";
+import fetch from "#src/utils/fetch";
 
 const DEFAULT_PAGE = 1;
 const DEFAULT_PAGE_SIZE = 10;
@@ -60,8 +60,7 @@ export const InvoiceListPage = () => {
     setIsLoading(true);
 
     const fetchInvoiceList = async () => {
-      // @ts-expect-error Need to type fetchWithAuth
-      const response = await fetchInvoices(fetchWithAuth, {
+      const response = await fetchInvoices(fetch, {
         page,
         pageSize: rows,
       });
@@ -82,8 +81,7 @@ export const InvoiceListPage = () => {
   }, [fetchData]);
 
   const handleClickDownload = useCallback((invoiceUuid: string) => {
-    // @ts-expect-error Need to type fetchWithAuth
-    finalizeInvoice(fetchWithAuth, invoiceUuid).then((response) => {
+    finalizeInvoice(fetch, invoiceUuid).then((response) => {
       response.fold(
         ({ stripe_invoice_pdf }) => {
           if (stripe_invoice_pdf) {
@@ -205,8 +203,7 @@ export const InvoiceListPage = () => {
                       if (id === "download-pdf") {
                         handleClickDownload(row.downloadPdf.uuid);
                       } else if (id === "download-receipt") {
-                        // @ts-expect-error Need to type fetchWithAuth
-                        getReceiptUrl(fetchWithAuth, row.downloadPdf.uuid).then(
+                        getReceiptUrl(fetch, row.downloadPdf.uuid).then(
                           (response) => {
                             response.fold(
                               (value) => window.open(value, "_blank"),

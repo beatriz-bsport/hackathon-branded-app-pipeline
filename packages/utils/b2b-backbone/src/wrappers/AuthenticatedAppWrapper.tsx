@@ -1,6 +1,6 @@
 import React from "react";
-import AuthWrapper from "#src/auth/AuthWrapper";
 import { Outlet } from "react-router";
+import AuthWrapper from "./AuthWrapper";
 
 type AuthenticatedAppWrapperProps = {
   isLocalDevelopment?: boolean;

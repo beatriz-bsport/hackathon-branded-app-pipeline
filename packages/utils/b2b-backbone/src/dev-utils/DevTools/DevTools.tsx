@@ -1,6 +1,6 @@
 import React from "react";
 import { Button, Popover, Tooltip } from "@bsport/kaizen-primitive-core";
-import { getAuthToken } from "#src/auth/tokenUtils";
+import { getAuthToken } from "@bsport/local-storage-auth-token";
 import LanguageSelector, {
   type LanguageSelectorProps,
 } from "./LanguageSelector";

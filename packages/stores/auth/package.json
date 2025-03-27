@@ -1,10 +1,10 @@
 {
-  "name": "@bsport/fetch",
+  "name": "@bsport/store-auth",
   "version": "0.0.0",
   "private": true,
-  "description": "bsport API fetch",
+  "description": "Store package to manage auth actions and tokens",
   "license": "UNLICENSED",
-  "author": "Marwan El Boussarghini <marwan@bsport.io>",
+  "author": "David Bretaud <david.bretaud@bsport.io>",
   "type": "module",
   "exports": {
     ".": {
@@ -21,7 +21,7 @@
   ],
   "scripts": {
     "build": "vite build",
-    "clean": "rm -rf build",
+    "ci:compile": "tsc",
     "dev": "vite build --watch",
     "format": "prettier --write '**/*.{ts,tsx,js,jsx,cjs,mjs,scss,css,json,md,mdx,html,svg}'",
     "format:check": "prettier --check '**/*.{ts,tsx,js,jsx,cjs,mjs}'",
@@ -31,8 +31,8 @@
   },
   "dependencies": {
     "@bsport/local-storage-auth-token": "workspace:*",
-    "@bsport/sentry": "workspace:*",
-    "@bsport/timezone-utils": "workspace:*"
+    "@bsport/store-base": "workspace:*",
+    "typescript-result": "^3.1.1"
   },
   "devDependencies": {
     "@bsport/eslint-config-react": "workspace:*"

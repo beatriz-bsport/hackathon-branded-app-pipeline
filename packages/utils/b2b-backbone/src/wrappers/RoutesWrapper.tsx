@@ -1,8 +1,8 @@
 import React from "react";
 import { Route, Routes } from "react-router";
+import { LOGIN_URL } from "@bsport/store-auth";
 import DevLoginPage from "#src/dev-utils/DevLoginPage";
 import { AuthenticatedAppWrapper } from "./AuthenticatedAppWrapper";
-import { LOGIN_URL } from "#src/auth/constants";
 
 type RoutesWrapperProps = {
   children: React.ReactNode;

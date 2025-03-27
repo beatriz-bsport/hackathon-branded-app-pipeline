@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
-import { LOGIN_URL } from "#src/auth/constants";
-import { getAuthToken } from "#src/auth/tokenUtils";
+import { LOGIN_URL } from "@bsport/store-auth";
+import { getAuthToken } from "@bsport/local-storage-auth-token";
 
 interface AuthWrapperProps {
   children: React.ReactNode;

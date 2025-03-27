@@ -17,7 +17,7 @@ import type { RootState } from '#src/reducers';
 import { snackbarError, snackbarSuccess } from '../snackbar/actions';
 import {
   fetchMyUserProfileAPI,
-  updateMember,
+  updateMemberWithFormData,
   addMember,
   updateNote,
   createNote,
@@ -635,7 +635,7 @@ export function createOrUpdateMember(
   return async (dispatch: Dispatch) => {
     dispatch(actionCreateOrUpdateMember(memberData));
 
-    const createOrUpdate = id ? updateMember : addMember;
+    const createOrUpdate = id ? updateMemberWithFormData : addMember;
     try {
       const response: any = await createOrUpdate(memberData);
 

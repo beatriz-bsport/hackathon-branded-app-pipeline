@@ -124,8 +124,13 @@ export async function linkMeToCompany(data: any) {
   return postAuth(`${API_V1_URI}/member/link_to_company/`, data);
 }
 
-export async function updateMember(data: any) {
-  return putAuth(`${API_V1_URI}/member/${data.get('id')}/`, data);
+export async function updateMember(id: string, data: Object) {
+  return putAuth(`${API_V1_URI}/member/${id}/`, data);
+}
+
+export async function updateMemberWithFormData(data: FormData) {
+  const id = data.get('id') as string;
+  return updateMember(id, data);
 }
 
 export async function fetchMyUserProfileAPI() {

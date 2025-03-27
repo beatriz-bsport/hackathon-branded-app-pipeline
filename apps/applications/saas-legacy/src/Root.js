@@ -18,6 +18,7 @@ import { fetchAccessLevel } from './actions/auth.actions';
 import WidgetUtils from './libs/widget/WidgetUtils';
 import withQueryParams from './hocs/with-query-params.hoc';
 import Analytics from './components/analytics/Analytics.component';
+import { removeTrackingScripts } from './components/analytics/utils.ts';
 
 const MarketPlaceRouter = asyncComponent(() =>
   import('./pages/marketplace/Marketplace.router'),
@@ -102,6 +103,9 @@ type Props = {
 
   pendingEmailConfirmation: boolean,
   authenticated: boolean,
+  isManager: boolean,
+  isFranchisor: boolean,
+  isCoach: boolean,
   theme: CompanyTheme,
 };
 
@@ -196,8 +200,17 @@ export class Root extends Component<Props> {
       initializating,
       pendingEmailConfirmation,
       authenticated,
+      isManager,
+      isFranchisor,
+      isCoach,
       theme,
     } = this.props;
+
+    const isUsingMarketplace = !isManager && !isFranchisor && !isCoach;
+
+    if (!isUsingMarketplace) {
+      removeTrackingScripts();
+    }
 
     if (!rehydrated || initializating) {
       return <LinearProgress />;
@@ -211,7 +224,7 @@ export class Root extends Component<Props> {
             networkAvailable={this.props.networkAvailable}
           />
         )}
-        {theme && <Analytics theme={theme} />}
+        {theme && isUsingMarketplace && <Analytics theme={theme} />}
         {!pendingEmailConfirmation || !authenticated ? (
           <Switch>
             <Route
@@ -291,6 +304,9 @@ function mapStateToProps(state) {
     networkAvailable: state.network.isAvailable,
     pendingEmailConfirmation: isPendingEmailConfirmation(state),
     authenticated: state.auth.authenticated,
+    isManager: state.auth.is_manager,
+    isFranchisor: state.auth.is_franchisor,
+    isCoach: state.auth.is_coach,
     theme: state.theme.theme,
   };
 }

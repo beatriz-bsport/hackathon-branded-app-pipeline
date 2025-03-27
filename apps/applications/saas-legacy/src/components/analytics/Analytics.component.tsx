@@ -8,6 +8,7 @@ import {
   BLACKLIST_META_PIXEL_EVENT_LISTS,
   META_PIXEL_ID_STORAGE_KEY,
 } from './constants';
+import { removeTrackingScripts } from './utils';
 
 type Props = {
   theme: CompanyTheme;
@@ -125,6 +126,7 @@ const Analytics: React.FC<Props> = ({ theme, isInternal }) => {
        * (low chance as sessionStorage is managed through tabs but lets
        * be cautious with it)
        *  */
+      removeTrackingScripts();
       removeItemInStorage('session', META_PIXEL_ID_STORAGE_KEY);
     };
   }, [init]);

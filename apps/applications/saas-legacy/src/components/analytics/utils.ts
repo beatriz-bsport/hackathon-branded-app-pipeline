@@ -157,3 +157,82 @@ export const getBookedSessionListDataFromBasket = (
   });
   return bookingSuccessData;
 };
+
+/**
+ * This function is used to remove all instances of Google Tag Manager script, noscript and  iframe
+ * that we can have on our deliverable so that we can stay as clean as possible and try to delete
+ * every unwanted piece of GTM container that have been set up on our page as efficiently as possible.
+ * Unfortunately for the cache issue where it reload a previously updated container from an other
+ * session it will be unefficient and will not be able to prevent it from reloading
+ *
+ * No Params
+ * No Return
+ */
+function removeGTMScripts() {
+  if (typeof document === 'undefined') return;
+  // Find all script tags
+  const elements = document.querySelectorAll('script, iframe, noscript');
+
+  elements.forEach((element: Element) => {
+    if (!element) return;
+    if (
+      'src' in element &&
+      typeof element.src === 'string' &&
+      (element.src?.includes('googletagmanager.com') ||
+        element.src?.includes('gtm.js'))
+    ) {
+      element.remove();
+      return;
+    }
+
+    // Check inline scripts
+    if (
+      element.innerHTML?.includes('googletagmanager') ||
+      element.innerHTML?.includes('GTM-')
+    ) {
+      element.remove();
+      return;
+    }
+  });
+}
+
+/**
+ * This function is used to remove all instances of Meta Pixel script that we can have on our
+ * deliverable so that we can stay as clean as possible and try to delete every initialized
+ * Meta Pixel scripts that have been set up on our page as efficiently as possible.
+ * Unfortunately for the cache issue where it reload a previously updated container from an other
+ * session it will be unefficient and will not be able to prevent it from reloading
+ *
+ * No Params
+ * No Return
+ */
+function removeMetaPixelScripts() {
+  if (typeof document === 'undefined') return;
+  const scripts = document.querySelectorAll('script');
+  // Check each script for Meta Pixel content
+  scripts.forEach((script) => {
+    if (!script) return;
+    // Check src attribute or inline scripts in one condition
+    if (
+      script.src?.includes('connect.facebook.net') ||
+      script.src?.includes('fbevents.js') ||
+      script.innerHTML?.includes('fbq(') ||
+      script.innerHTML?.includes('fbevents.js') ||
+      script.innerHTML?.includes('facebook-jssdk')
+    ) {
+      script.remove();
+    }
+  });
+}
+
+/**
+ * This function runs both GTM and Meta Pixel cleanup function that are needed
+ * to try to clean up our pages from redundant initialization of Analytics Tools
+ *
+ * No Params
+ * No Return
+ */
+export function removeTrackingScripts() {
+  removeGTMScripts();
+  removeMetaPixelScripts();
+}

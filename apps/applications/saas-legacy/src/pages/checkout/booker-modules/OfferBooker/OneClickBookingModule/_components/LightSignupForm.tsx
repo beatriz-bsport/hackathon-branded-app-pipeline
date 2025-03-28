@@ -16,7 +16,7 @@ export type LightSignupFormValues = {
   firstName: string;
   lastName: string;
   email: string;
-  phone?: string;
+  phone: string;
   acceptEmail: boolean;
   acceptSms: boolean;
   acceptTermsAndConditions: boolean;
@@ -123,6 +123,7 @@ export const lightSignupFormWrapper = withFormik<{}, LightSignupFormValues>({
   validateOnChange: true,
   validationSchema: lightSignupFormValidationSchema,
   handleSubmit: async (formValues) => {
+    formValues.phone = formValues.phone.replace(/\s+/g, '');
     setItemInStorage(
       'local',
       STORAGE_KEY_LIGHT_SIGNUP_FORM_VALUES,

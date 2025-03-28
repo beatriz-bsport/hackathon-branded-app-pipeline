@@ -84,6 +84,8 @@ exports.default = {
       confirmationMessage: 'You have successfully subscribed to {{- name }}',
       commitmentMessage:
         'Please note: Subscribing entails a 12-month commitment period',
+      timeConsumingHelper:
+        'The subscription to this upsell may take a few seconds to be processed',
     },
   },
   platformBillingStage: {

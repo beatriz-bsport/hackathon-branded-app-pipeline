@@ -49,8 +49,10 @@ import {
   UPSELL_IDENTIFIER_GUEST,
   UPSELL_IDENTIFIER_PREMIUM_SUPPORT,
   UPSELL_IDENTIFIER_WELLHUB,
+  UPSELL_IDENTIFIER_FISKALY,
 } from '../upsell-identifiers';
 import WellhubLogoIcon from '#src/components/icons/WellhubLogoIcon.component';
+import FiskalyLogoIcon from '#src/components/icons/FiskalyLogoIcon.component';
 
 type Props = {
   upsellPackage: UpsellPackage;
@@ -140,6 +142,7 @@ export const MAP_UPSELL_IDENTIFIER_TO_ICON_COMPONENT = {
   [UPSELL_IDENTIFIER_GUEST]: PersonAddIcon,
   [UPSELL_IDENTIFIER_PREMIUM_SUPPORT]: HelpOutlinedIcon,
   [UPSELL_IDENTIFIER_WELLHUB]: WellhubLogoIcon,
+  [UPSELL_IDENTIFIER_FISKALY]: FiskalyLogoIcon,
 };
 
 const createUpsellPackageComponent = memoize(
@@ -258,6 +261,9 @@ const UPSELL_REGISTRY = {
   ),
   [UPSELL_IDENTIFIER_WELLHUB]: createUpsellPackageComponent(
     UPSELL_IDENTIFIER_WELLHUB,
+  ),
+  [UPSELL_IDENTIFIER_FISKALY]: createUpsellPackageComponent(
+    UPSELL_IDENTIFIER_FISKALY,
   ),
 };
 

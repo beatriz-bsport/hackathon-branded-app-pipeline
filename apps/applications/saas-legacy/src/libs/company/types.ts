@@ -114,6 +114,7 @@ export type UpsellPackage = {
   hidden: boolean;
   tax: string;
   subscribe_from_backoffice: boolean;
+  is_subscription_time_consuming: boolean;
 };
 
 /**

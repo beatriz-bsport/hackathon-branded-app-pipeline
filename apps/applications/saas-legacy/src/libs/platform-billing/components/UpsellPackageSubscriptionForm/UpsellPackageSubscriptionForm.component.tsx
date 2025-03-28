@@ -128,6 +128,7 @@ const UpsellPackageSubscriptionForm: React.FC<Props> = ({
       <div className={classes.actionButtons}>
         <Button
           className={classes.button}
+          disabled={loading}
           onClick={closeAndTrack}
           variant="outlined"
         >
@@ -136,7 +137,7 @@ const UpsellPackageSubscriptionForm: React.FC<Props> = ({
         <Button
           className={classes.button}
           color="primary"
-          disabled={!confirmChecked}
+          disabled={!confirmChecked || loading}
           onClick={handleSubscribe}
           variant="contained"
         >
@@ -151,6 +152,11 @@ const UpsellPackageSubscriptionForm: React.FC<Props> = ({
           )}
         </Button>
       </div>
+      {upsellPackage.is_subscription_time_consuming && (
+        <Typography className={classes.helperText} variant="caption">
+          {t('upsellPackage.subscriptionForm.timeConsumingHelper')}
+        </Typography>
+      )}
     </div>
   );
 };
@@ -224,7 +230,8 @@ const useStyles = makeStyles((theme: Theme) => ({
     flexDirection: 'row',
     justifyContent: 'flex-end',
     alignItems: 'center',
-    padding: theme.spacing(3),
+    paddingRight: theme.spacing(3),
+    paddingTop: theme.spacing(3),
   },
   infoButton: {
     display: 'flex',
@@ -241,6 +248,16 @@ const useStyles = makeStyles((theme: Theme) => ({
   divider: {
     marginBottom: theme.spacing(3),
     marginTop: theme.spacing(3),
+  },
+  helperText: {
+    marginLeft: theme.spacing(2),
+    marginTop: theme.spacing(1),
+    color: theme.palette.text.secondary,
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+    paddingRight: theme.spacing(3),
   },
 }));
 

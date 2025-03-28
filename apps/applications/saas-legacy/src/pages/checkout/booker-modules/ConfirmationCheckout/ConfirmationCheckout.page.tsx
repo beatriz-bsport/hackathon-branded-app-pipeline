@@ -936,6 +936,7 @@ export default compose<any, ConfirmationCheckoutProps>(
       'dialogMode',
       'onValidation',
       'billingPlanId',
+      'one_click_checkout',
     ],
     'queryParams',
     'setQueryParams',

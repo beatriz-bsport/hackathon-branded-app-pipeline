@@ -11789,7 +11789,7 @@
             "selectSession": "Wähle einen Termin",
             "searchFirstSlot": "Die nächste Verfügbarkeit finden",
             "emptyState": "Derzeit nicht verfügbar",
-            "previousOffer": "Ein neuerer Kurs ist am {{- date }} verfügbar: {{ hour }}",
+            "previousOffer": "Ein neuer Kurs ist am {{- date }} verfügbar: {{ hour }}",
             "nextOffer": "Erste Verfügbarkeit: {{- date }} um {{ hour }}",
             "pickASlot": "Wähle deine verfügbare Zeit"
         },

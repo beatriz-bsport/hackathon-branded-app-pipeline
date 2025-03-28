@@ -14,7 +14,7 @@
 
 # Ignore generated locales
 **/locales/**/*
-tools/i18n-management/src/source/translations.json
+**/source/translations.json
 
 # Ignore supernova exports
 **/supernova/**/*

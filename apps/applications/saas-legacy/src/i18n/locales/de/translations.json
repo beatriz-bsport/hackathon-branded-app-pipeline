@@ -4115,7 +4115,7 @@
                         "_label": "Eine Zahlungsmethode hinzufügen"
                     },
                     "deletePaymentMethod": {
-                        "_label": "Bezahlungsmethdoe löschen"
+                        "_label": "Bezahlungsmethode löschen"
                     },
                     "partialRefundAsDiscount": {
                         "_label": "Eine Ermäßigung anwenden (Rückerstattung)"

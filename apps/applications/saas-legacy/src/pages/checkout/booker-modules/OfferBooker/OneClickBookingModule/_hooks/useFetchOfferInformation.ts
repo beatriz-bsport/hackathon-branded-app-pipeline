@@ -31,9 +31,6 @@ const buildFetchOfferInformation = async (
     include_expired: false,
     new_member_only: true,
   });
-  const freePaymentPacks = paymentPacks.filter(
-    (paymentPack) => paymentPack.price === 0,
-  );
   let metaActivity: MetaActivity | undefined;
   let establishment: Establishment | undefined;
   let coach: Coach | undefined;
@@ -50,7 +47,7 @@ const buildFetchOfferInformation = async (
 
   return {
     offer,
-    paymentPacks: freePaymentPacks.slice(0, 2),
+    paymentPacks,
     metaActivity,
     establishment,
     coach,

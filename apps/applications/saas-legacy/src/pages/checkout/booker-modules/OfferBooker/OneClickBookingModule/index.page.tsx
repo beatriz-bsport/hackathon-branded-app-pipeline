@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
+import isEqual from 'lodash/isEqual';
 import { replace as replaceRouter } from 'connected-react-router';
 import { connect, ConnectedProps } from 'react-redux';
 import { compose } from 'recompose';
@@ -44,6 +45,7 @@ import { urlToMarketplace } from '#src/libs/marketplace/utils';
 import { OneClickCheckoutSkeleton } from '#src/pages/checkout/booker-modules/OfferBooker/OneClickBookingModule/_components/OneClickCheckoutSkeleton';
 import AcceptTermsAndConditions from '#src/components/css-only/Fabrique/Temporary/AcceptTermsAndConditions';
 import { TermsAndConditionType } from '#src/libs/payment/types';
+import useDebouncedCallback from '#src/hooks/useDebouncedCallBack';
 import { useLightSignUp } from './_hooks/useLightSignUp';
 import './index.css';
 import { getItemInStorage } from '#src/utils/storage';
@@ -57,6 +59,32 @@ type OwnProps = {
 
 type Props = OwnProps & ConnectedProps<typeof connector>;
 
+/**
+ * Trims whitespace from all string fields in a LightSignupFormValues object.
+ *
+ * This function is necessary because the backend may return string values without
+ * leading or trailing whitespace, while the frontend form values might contain
+ * extraneous spaces. By trimming the form values before comparison, we ensure
+ * consistency between the frontend and backend data. This consistency is crucial
+ * for accurately determining whether an update is necessary, as it prevents
+ * false positives caused by mere differences in whitespace.
+ *
+ * @param formValues - The LightSignupFormValues object containing form data.
+ * @returns A new LightSignupFormValues object with all string fields trimmed of
+ * leading and trailing whitespace.
+ */
+function trimFormValues(
+  formValues: LightSignupFormValues,
+): LightSignupFormValues {
+  return {
+    ...formValues,
+    firstName: formValues.firstName.trim(),
+    lastName: formValues.lastName.trim(),
+    email: formValues.email.trim(),
+    phone: formValues.phone.trim(),
+  };
+}
+
 const OneClickBookingModule: React.FC<Props> = ({
   companyId,
   offerId,
@@ -65,6 +93,7 @@ const OneClickBookingModule: React.FC<Props> = ({
   retrieveCompanyCssConfiguration,
   replace,
 }) => {
+  const DEBOUNCE_CALLBACK_DELAY = 1000;
   const {
     values: lightSignupValues,
     submitForm: submitLightSignupForm,
@@ -119,6 +148,12 @@ const OneClickBookingModule: React.FC<Props> = ({
   const canPerformLightSignUpCreate =
     !memberId && isTokenNull && !lightSignupCreateLoading;
 
+  const canPerformLightSignupUpdate =
+    !!memberId &&
+    !isTokenNull &&
+    !!lightSignupValues &&
+    !isEqual(updatedMember, trimFormValues(lightSignupValues));
+
   useEffect(() => {
     checkBookableStatus(offerId);
   }, [offerId, checkBookableStatus]);
@@ -146,6 +181,74 @@ const OneClickBookingModule: React.FC<Props> = ({
   const metaActivity = offerState.value?.metaActivity;
   const establishment = offerState.value?.establishment;
   const coach = offerState.value?.coach;
+  const paymentPacks = offerState.value?.paymentPacks;
+
+  const isSelectedPaymentPackFree = !paymentPacks?.find(
+    ({ id }) => id === selectedPaymentPackId,
+  )?.price;
+
+  const debouncedLightSignUp = useDebouncedCallback(
+    async () => {
+      if (!selectedPaymentPackId || !offer) return;
+      if (canPerformLightSignUpCreate) {
+        if (!isValid || (await getIsFormInvalid())) {
+          return;
+        }
+        await submitLightSignupForm();
+        await lightSignupCreate({
+          companyId,
+          firstName: lightSignupValues.firstName,
+          lastName: lightSignupValues.lastName,
+          email: lightSignupValues.email,
+          phone: lightSignupValues.phone,
+          acceptEmail: lightSignupValues.acceptEmail,
+          acceptSms: lightSignupValues.acceptSms,
+          accept_terms_and_conditions:
+            lightSignupValues.acceptTermsAndConditions,
+        });
+        return;
+      }
+      if (canPerformLightSignupUpdate) {
+        if (!isValid || (await getIsFormInvalid())) {
+          return;
+        }
+        await submitLightSignupForm();
+        await lightSignUpUpdate({
+          id: memberId,
+          first_name: lightSignupValues.firstName,
+          last_name: lightSignupValues.lastName,
+          email: lightSignupValues.email,
+          phone_number: lightSignupValues.phone,
+          accept_email: lightSignupValues.acceptEmail,
+          accept_sms: lightSignupValues.acceptSms,
+          accept_terms_and_conditions:
+            lightSignupValues.acceptTermsAndConditions,
+        });
+      }
+    },
+    DEBOUNCE_CALLBACK_DELAY,
+    [
+      checkBookableStatus,
+      companyId,
+      lightSignupCreate,
+      lightSignupValues.acceptEmail,
+      lightSignupValues.acceptSms,
+      lightSignupValues.email,
+      lightSignupValues.firstName,
+      lightSignupValues.lastName,
+      lightSignupValues.phone,
+      lightSignupValues.acceptTermsAndConditions,
+      offer,
+      offerId,
+      selectedPaymentPackId,
+      submitLightSignupForm,
+      validateLightSignupForm,
+    ],
+  );
+
+  useEffect(() => {
+    if (!isSelectedPaymentPackFree) debouncedLightSignUp();
+  }, [debouncedLightSignUp, isSelectedPaymentPackFree, lightSignupValues]);
 
   const onBook = useCallback(async () => {
     if (!selectedPaymentPackId || !offer) return;
@@ -373,7 +476,7 @@ const OneClickBookingModule: React.FC<Props> = ({
                 {t('oneClickBooking.yourDetails')}
               </Typography>
               <LightSignupForm />
-              {general_terms_and_conditions && (
+              {general_terms_and_conditions && isSelectedPaymentPackFree && (
                 <AcceptTermsAndConditions
                   id="one-click-checkout-terms-and-conditions"
                   label={t('lightSignup.form.acceptTermsAndCondition.label')}

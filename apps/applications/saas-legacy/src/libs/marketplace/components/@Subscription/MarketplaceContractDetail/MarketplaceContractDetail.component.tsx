@@ -6,7 +6,7 @@ import StarIcon from '@material-ui/icons/Star';
 import ReceiptIcon from '@material-ui/icons/Receipt';
 import ReplayIcon from '@material-ui/icons/Replay';
 import Button from '#src/components/css-only/Fabrique/Button';
-import Collapse from '#src/components/css-only/Fabrique/Collapse';
+import ShowMore from '#src/components/css-only/Fabrique/ShowMore';
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 import { KeyboardArrowDown, KeyboardArrowUp } from '@material-ui/icons';
 import Card, { CardSize } from '#src/components/css-only/Card';
@@ -57,7 +57,7 @@ const ContractLegalNotice: React.FC<{
 
   return (
     <>
-      <Collapse collapsedHeight={75} isExpanded={showMore}>
+      <ShowMore collapsedHeight={75} isExpanded={showMore}>
         <div
           ref={legalContractText.ref}
           className={clsx('bs-contract-checkout__body__text', {
@@ -66,7 +66,7 @@ const ContractLegalNotice: React.FC<{
         >
           {legalNotice}
         </div>
-      </Collapse>
+      </ShowMore>
       {legalContractText.isExpandable && (
         <Button
           disableRipple

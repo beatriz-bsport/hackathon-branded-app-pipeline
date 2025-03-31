@@ -13,7 +13,7 @@ import CardContent from '#src/components/css-only/Card/CardContent';
 import Grid from '#src/components/css-only/Grid';
 import GridItem from '#src/components/css-only/Grid/GridItem';
 import Price from '#src/components/css-only/Price';
-import Collapse from '#src/components/css-only/Fabrique/Collapse';
+import ShowMore from '#src/components/css-only/Fabrique/ShowMore';
 import Button from '#src/components/css-only/Fabrique/Button';
 import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
 import {
@@ -173,7 +173,7 @@ const MarketplacePaymentPackBuyableItem: React.FC<Props> = ({
                   }),
             }}
           >
-            <Collapse collapsedHeight={40} isExpanded={showAllDescription}>
+            <ShowMore collapsedHeight={40} isExpanded={showAllDescription}>
               <div
                 ref={descriptionText.ref}
                 className={clsx('bs-payment-pack-buyable-item__description', {
@@ -183,7 +183,7 @@ const MarketplacePaymentPackBuyableItem: React.FC<Props> = ({
               >
                 {paymentPack?.description ?? ''}
               </div>
-            </Collapse>
+            </ShowMore>
           </GridItem>
           {/* START -- FIFTHROW / SEE MORE & VALIDITY ROW */}
           <GridItem

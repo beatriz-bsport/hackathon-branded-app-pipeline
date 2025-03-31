@@ -1,10 +1,10 @@
 import React from 'react';
 import { fakerEN as faker } from '@faker-js/faker';
 
-import { CollapseForStorybook, type Props } from '.';
+import { ShowMoreForStorybook, type Props } from '.';
 
 const CollaspeTemplate = (args: Props) => (
-  <CollapseForStorybook {...args}>{args.children}</CollapseForStorybook>
+  <ShowMoreForStorybook {...args}>{args.children}</ShowMoreForStorybook>
 );
 
 export const AlertSuccess = CollaspeTemplate.bind({});
@@ -13,8 +13,8 @@ AlertSuccess.args = {
 };
 
 export default {
-  title: 'TheFrabique/Collapse',
-  component: CollapseForStorybook,
+  title: 'Fabrique/ShowMore',
+  component: ShowMoreForStorybook,
   argTypes: {
     isExpanded: {
       control: {

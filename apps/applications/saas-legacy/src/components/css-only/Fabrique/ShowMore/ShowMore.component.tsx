@@ -11,7 +11,7 @@ export type Props = {
   children: React.ReactElement | React.ReactNode | React.ReactNode[];
   collapsedHeight?: number;
 };
-export const Collapse: React.FC<Props> = ({
+export const ShowMore: React.FC<Props> = ({
   classes,
   isExpanded,
   children,
@@ -55,6 +55,6 @@ export const Collapse: React.FC<Props> = ({
   );
 };
 
-export const CollapseForStorybook = marketplaceCssHoc()(Collapse);
+export const ShowMoreForStorybook = marketplaceCssHoc()(ShowMore);
 
-export default memo(Collapse);
+export default memo(ShowMore);

@@ -78,7 +78,7 @@ const OneClickBookingModule: React.FC<Props> = ({
     setAreTermsAndConditionsAccepted(accepted);
 
   const [bookableStatusState, checkBookableStatus] = useCheckBookableStatus();
-  const [state, fetchOffer] = useFetchOfferInformation();
+  const [offerState, fetchOffer] = useFetchOfferInformation();
   const [bookingState, bookInOneClick] = useBookInOneClick();
 
   const { t } = useTranslation('booking');
@@ -101,15 +101,15 @@ const OneClickBookingModule: React.FC<Props> = ({
   }, [companyId, offerId]);
 
   useEffect(() => {
-    if (state.error || bookingState.error) {
+    if (offerState.error || bookingState.error) {
       snackbarError('booking.fetch.error');
     }
-  }, [state.error, bookingState.error]);
+  }, [offerState.error, bookingState.error]);
 
-  const offer = state.value?.offer;
-  const metaActivity = state.value?.metaActivity;
-  const establishment = state.value?.establishment;
-  const coach = state.value?.coach;
+  const offer = offerState.value?.offer;
+  const metaActivity = offerState.value?.metaActivity;
+  const establishment = offerState.value?.establishment;
+  const coach = offerState.value?.coach;
 
   const onBook = useCallback(async () => {
     const formErrors = await validateLightSignupForm();
@@ -195,7 +195,7 @@ const OneClickBookingModule: React.FC<Props> = ({
     return <Redirect to={loginToBookerUrl} />;
   }
 
-  if (state.value?.paymentPacks && state.value.paymentPacks.length === 0) {
+  if (offerState.value?.paymentPacks && !offerState.value.paymentPacks.length) {
     return <Redirect to={loginToBookerUrl} />;
   }
 
@@ -234,7 +234,7 @@ const OneClickBookingModule: React.FC<Props> = ({
             {t('oneClickBooking.goToLogin')}
           </ButtonV2>
         </div>
-        <OneClickCheckoutSkeleton isLoading={state.loading} />
+        <OneClickCheckoutSkeleton isLoading={offerState.loading} />
         {offer && (
           <div className="bs-oneclick-booking__content">
             <div className="bs-oneclick-booking__booking-details">
@@ -251,7 +251,7 @@ const OneClickBookingModule: React.FC<Props> = ({
                   description={metaActivity?.description}
                   establishmentAddress={establishment?.location?.address}
                   establishmentTitle={establishment?.title}
-                  isLoading={state.loading}
+                  isLoading={offerState.loading}
                   levelName={offerLevelTranslation}
                   metaActivityLastDiscardMinutes={
                     metaActivity?.last_discard_minutes
@@ -265,7 +265,7 @@ const OneClickBookingModule: React.FC<Props> = ({
                 />
               </div>
               <div className="bs-oneclick-booking__payment-packs">
-                {state.value?.paymentPacks.map((paymentPack) => (
+                {offerState.value.paymentPacks.map((paymentPack) => (
                   <div
                     key={paymentPack.id}
                     className="bs-oneclick-booking__payment-pack-item"
@@ -273,7 +273,7 @@ const OneClickBookingModule: React.FC<Props> = ({
                   >
                     <MinimalPaymentPackCard
                       isFocused={paymentPack.id === selectedPaymentPackId}
-                      isLoading={state.loading}
+                      isLoading={offerState.loading}
                       paymentPack={paymentPack}
                     />
                   </div>

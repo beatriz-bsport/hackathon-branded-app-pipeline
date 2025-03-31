@@ -44,7 +44,11 @@ import { urlToMarketplace } from '#src/libs/marketplace/utils';
 import { OneClickCheckoutSkeleton } from '#src/pages/checkout/booker-modules/OfferBooker/OneClickBookingModule/_components/OneClickCheckoutSkeleton';
 import AcceptTermsAndConditions from '#src/components/css-only/Fabrique/Temporary/AcceptTermsAndConditions';
 import { TermsAndConditionType } from '#src/libs/payment/types';
+import { useLightSignUp } from './_hooks/useLightSignUp';
 import './index.css';
+import { getItemInStorage } from '#src/utils/storage';
+import { STORAGE_KEY_LIGHT_SIGNUP_MEMBER_ID } from '#src/actions/constants';
+import { getAuthToken } from '#src/http';
 
 type OwnProps = {
   companyId: number;
@@ -67,6 +71,21 @@ const OneClickBookingModule: React.FC<Props> = ({
     validateForm: validateLightSignupForm,
     isValid,
   } = useFormikContext<LightSignupFormValues>();
+
+  const getIsFormInvalid = useCallback(async () => {
+    const formErrors = await validateLightSignupForm();
+    return !(Object.values(formErrors).length === 0);
+  }, [validateLightSignupForm]);
+
+  const memberId = getItemInStorage(
+    'local',
+    STORAGE_KEY_LIGHT_SIGNUP_MEMBER_ID,
+  );
+
+  const token = getAuthToken();
+
+  const isTokenNull = !token || token === 'null';
+
   const [selectedPaymentPackId, setSelectedPaymentPackId] = useState<
     number | null
   >(null);
@@ -80,8 +99,25 @@ const OneClickBookingModule: React.FC<Props> = ({
   const [bookableStatusState, checkBookableStatus] = useCheckBookableStatus();
   const [offerState, fetchOffer] = useFetchOfferInformation();
   const [bookingState, bookInOneClick] = useBookInOneClick();
+  const {
+    lightSignupCreate: [
+      {
+        loading: lightSignupCreateLoading,
+        error: lightSignupCreateError,
+        value: createdMember,
+      },
+      lightSignupCreate,
+    ],
+    lightSignUpUpdate: [
+      { value: updatedMember, error: lightSignupUpdateError },
+      lightSignUpUpdate,
+    ],
+  } = useLightSignUp();
 
   const { t } = useTranslation('booking');
+
+  const canPerformLightSignUpCreate =
+    !memberId && isTokenNull && !lightSignupCreateLoading;
 
   useEffect(() => {
     checkBookableStatus(offerId);
@@ -112,39 +148,79 @@ const OneClickBookingModule: React.FC<Props> = ({
   const coach = offerState.value?.coach;
 
   const onBook = useCallback(async () => {
-    const formErrors = await validateLightSignupForm();
-    const isFormValid = Object.values(formErrors).length === 0;
-    if (!isFormValid) {
+    if (!selectedPaymentPackId || !offer) return;
+    if (await getIsFormInvalid()) {
       return;
     }
     if ((await checkBookableStatus(offerId))?.shouldDisplayErrorPage) {
       return;
     }
+
     await submitLightSignupForm();
-    await bookInOneClick({
-      companyId,
-      selectedPaymentPackId,
-      offer,
-      firstName: lightSignupValues.firstName,
-      lastName: lightSignupValues.lastName,
-      email: lightSignupValues.email,
-      phone: lightSignupValues.phone,
-      acceptEmail: lightSignupValues.acceptEmail,
-      acceptSms: lightSignupValues.acceptSms,
-    });
+
+    if (canPerformLightSignUpCreate) {
+      await lightSignupCreate({
+        companyId,
+        firstName: lightSignupValues.firstName,
+        lastName: lightSignupValues.lastName,
+        email: lightSignupValues.email,
+        phone: lightSignupValues.phone,
+        acceptEmail: lightSignupValues.acceptEmail,
+        acceptSms: lightSignupValues.acceptSms,
+        accept_terms_and_conditions: lightSignupValues.acceptTermsAndConditions,
+      });
+      if (!lightSignupCreateError && !!createdMember) {
+        await bookInOneClick({
+          offer,
+          companyId,
+          selectedPaymentPackId,
+          email: createdMember.email,
+        });
+      }
+    } else {
+      await lightSignUpUpdate({
+        id: memberId,
+        first_name: lightSignupValues.firstName,
+        last_name: lightSignupValues.lastName,
+        email: lightSignupValues.email,
+        phone_number: lightSignupValues.phone,
+        accept_email: lightSignupValues.acceptEmail,
+        accept_sms: lightSignupValues.acceptSms,
+        accept_terms_and_conditions: lightSignupValues.acceptTermsAndConditions,
+      });
+      if (!lightSignupUpdateError && !!updatedMember) {
+        await bookInOneClick({
+          offer,
+          companyId,
+          selectedPaymentPackId,
+          email: updatedMember.email,
+        });
+      }
+    }
   }, [
-    validateLightSignupForm,
+    lightSignupCreate,
+    lightSignUpUpdate,
+    lightSignupUpdateError,
+    updatedMember,
     submitLightSignupForm,
     bookInOneClick,
     companyId,
     selectedPaymentPackId,
     offer,
+    lightSignupValues.acceptEmail,
+    lightSignupValues.acceptSms,
     lightSignupValues.firstName,
     lightSignupValues.lastName,
     lightSignupValues.email,
     lightSignupValues.phone,
+    lightSignupValues.acceptTermsAndConditions,
+    memberId,
     checkBookableStatus,
     offerId,
+    canPerformLightSignUpCreate,
+    createdMember,
+    getIsFormInvalid,
+    lightSignupCreateError,
   ]);
 
   const offerDate = useConsumerBookingDateTime({
@@ -190,7 +266,6 @@ const OneClickBookingModule: React.FC<Props> = ({
       </div>
     );
   }
-
   if (bookableStatusState.value.shouldRedirect) {
     return <Redirect to={loginToBookerUrl} />;
   }

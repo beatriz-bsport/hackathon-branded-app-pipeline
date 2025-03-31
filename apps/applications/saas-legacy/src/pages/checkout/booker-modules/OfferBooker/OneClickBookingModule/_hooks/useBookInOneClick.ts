@@ -1,6 +1,4 @@
-import { lightSignup } from '#src/libs/member/api';
 import { fetchCurrentBasket, validateUnpaid } from '#src/libs/checkout/api';
-import { setAuthToken } from '#src/http/utils';
 import { OfferREST } from '#src/libs/offer/types';
 import { OfferBookingValidation } from '#src/components/analytics/types';
 import {
@@ -10,7 +8,6 @@ import {
 } from '#src/components/analytics/utils';
 import analyticsUtils from '#src/components/analytics/analytics';
 import { UserRegistrationResponse } from '#src/libs/booker-module/types';
-import { postUserRegistration } from '#src/libs/offer/api';
 import { getCheckoutValidationUrl } from '#src/libs/marketplace/routing-utils';
 import { useDispatch } from 'react-redux';
 import { push } from 'connected-react-router';
@@ -18,6 +15,7 @@ import useAsyncFn from '#src/hooks/useAsyncFn';
 import { Basket } from '#src/libs/checkout/types';
 import { removeItemInStorage } from '#src/utils/storage';
 import { STORAGE_KEY_LIGHT_SIGNUP_FORM_VALUES } from '#src/actions/constants';
+import { postUserRegistration } from '#src/libs/offer/api';
 
 const redirectToConfirmationPage = (
   offer: OfferREST,
@@ -63,69 +61,46 @@ type UseBookInOneClickParams = {
   companyId: number;
   selectedPaymentPackId: number;
   offer: OfferREST;
-  firstName: string;
-  lastName: string;
   email: string;
-  phone: string;
-  acceptEmail: boolean;
-  acceptSms: boolean;
 };
-
-const bookInOneClick =
-  (pushUrl: (url: string) => void) =>
-  async ({
-    companyId,
-    selectedPaymentPackId,
-    offer,
-    firstName,
-    lastName,
-    email,
-    phone,
-    acceptEmail,
-    acceptSms,
-  }: UseBookInOneClickParams) => {
-    //TODO: If there is a token in the local storage, we should use it to update the member
-
-    const { data } = await lightSignup({
-      first_name: firstName,
-      last_name: lastName,
-      email,
-      phone_number: phone,
-      company_id: companyId,
-      accept_email: acceptEmail,
-      accept_sms: acceptSms,
-    });
-
-    setAuthToken(data.token);
-
-    const { data: userRegistrationResponse } = await postUserRegistration({
-      one_click_checkout: true,
-      payment_pack: selectedPaymentPackId,
-      offers: [{ offer_id: offer.id, extra_data: {} }],
-      email,
-    });
-
-    if (userRegistrationResponse.error_codes.length > 0) {
-      // TODO: Add a better error handling here
-      throw new Error('Error during user registration');
-    }
-
-    const { data: basket } = await fetchCurrentBasket(companyId);
-
-    await validateBasket(basket);
-
-    removeItemInStorage('local', STORAGE_KEY_LIGHT_SIGNUP_FORM_VALUES);
-
-    redirectToConfirmationPage(
-      offer,
-      userRegistrationResponse,
-      basket.id,
-      pushUrl,
-    );
-  };
 
 const useBookInOneClick = () => {
   const dispatch = useDispatch();
+
+  const bookInOneClick =
+    (pushUrl: (url: string) => void) =>
+    async ({
+      offer,
+      companyId,
+      selectedPaymentPackId,
+      email,
+    }: UseBookInOneClickParams) => {
+      const { data: userRegistrationResponse } = await postUserRegistration({
+        one_click_checkout: true,
+        payment_pack: selectedPaymentPackId,
+        offers: [{ offer_id: offer.id, extra_data: {} }],
+        email,
+      });
+
+      if (userRegistrationResponse.error_codes.length > 0) {
+        // TODO: Add a better error handling here
+        throw new Error('Error during user registration');
+      }
+
+      const { data: basket } = await fetchCurrentBasket(companyId);
+
+      await validateBasket(basket);
+
+      removeItemInStorage('local', STORAGE_KEY_LIGHT_SIGNUP_FORM_VALUES);
+
+      redirectToConfirmationPage(
+        offer,
+        userRegistrationResponse,
+        basket.id,
+        pushUrl,
+      );
+    };
+
   return useAsyncFn(bookInOneClick((url) => dispatch(push(url))));
 };
 

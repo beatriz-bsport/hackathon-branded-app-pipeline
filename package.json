@@ -32,6 +32,7 @@
     "project:import": "ts-node tools/monorepo-utils/src/index.ts project:import",
     "project:list": "ts-node tools/monorepo-utils/src/index.ts project:list",
     "pwd": "pwd",
+    "translation:migrate": "pnpm exec nx translation:migrate @bsport/i18n-management",
     "translation:update": "pnpm exec nx translation:update @bsport/i18n-management",
     "utils": "ts-node tools/monorepo-utils/src/index.ts"
   },

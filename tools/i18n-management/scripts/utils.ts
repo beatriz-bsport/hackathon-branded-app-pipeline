@@ -9,6 +9,10 @@ export type ProjectConfig = {
   pathToPublicLocales: string;
 };
 
+export type Translations = {
+  [key: string]: string | Translations;
+};
+
 function getPrintFns({ quiet }: { quiet: boolean }) {
   return {
     print: (...msgs: any) => !quiet && console.log(...msgs),
@@ -94,7 +98,7 @@ export async function getNamespacesTranslations({
   namespaces: string[];
 }) {
   try {
-    const aggregatedTranslations: { [namespace: string]: object } = {};
+    const aggregatedTranslations: Translations = {};
 
     for (const namespace of namespaces) {
       const filePath = getNamespaceTranslationsPath({
@@ -106,7 +110,7 @@ export async function getNamespacesTranslations({
         continue; // Skip if no file path is found
       }
 
-      const fileContent: object = await require(filePath).default;
+      const fileContent: Translations = await require(filePath).default;
       aggregatedTranslations[namespace] = fileContent;
     }
 

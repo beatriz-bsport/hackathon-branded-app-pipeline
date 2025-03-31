@@ -6,6 +6,7 @@
   "scripts": {
     "format": "prettier --write '**/*.{ts,tsx,js,jsx,cjs,mjs,scss,css,json,md,mdx,html,svg}'",
     "format:check": "prettier --check '**/*.{ts,tsx,js,jsx,cjs,mjs}'",
+    "translation:migrate": "tsx ./scripts/import-legacy-translations.ts",
     "translation:update": "./scripts/update-translations.sh"
   },
   "dependencies": {
@@ -13,7 +14,10 @@
     "fs-extra": "^11.2.0"
   },
   "devDependencies": {
+    "@inquirer/prompts": "^7.3.3",
     "@types/fs-extra": "^11.0.1",
+    "commander": "^9.3.0",
+    "inquirer-select-pro": "1.0.0-alpha.9",
     "json-beautify": "^1.1.1",
     "json-merger": "^2.0.0",
     "tsx": "^4.19.2"

@@ -6,10 +6,11 @@ Read [the full documentation](https://www.notion.so/bright-shovel-41b/i18n-Trans
 
 ## TLDR
 
-This tool does two things :
+This tool does three things :
 
 - update the [Weblate source translations](./src/source/translations.json), a JSON file that defines the key structuration of the translations ;
 - split the [locales translations](./src/locales) files across the different projects, in their `public/locales` folder.
+- provide a script to migrate translations from `saas-legacy` into new apps translations.
 
 ## Use i18n in an application
 
@@ -75,11 +76,21 @@ The script that updates translations and creates the final translations files th
 
 Add the following script to your `package.json` application :
 
-```tsx
+```json
 {
-	"translation:update": "pnpm run -w translation:update"
+  "translation:update": "pnpm run -w translation:update"
 }
 ```
+
+### "translation:migrate" script
+
+You can migrate translations from `saas-legacy` into new applications in an easy way using the `translation:migrate` [script](./scripts/import-legacy-translations.ts).
+
+```bash
+pnpm run -w translation:migrate
+```
+
+To master the usage of this script, please visit our [Notion page](https://www.notion.so/bright-shovel-41b/How-to-migrate-translations-from-saas-legacy-to-new-application-1bd137e4c64080758a64d62ff794307f).
 
 ### Use `public/locales/` as source dir to serve translations files
 

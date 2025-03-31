@@ -57,6 +57,8 @@ module.exports = [
       "storybook-static/*",
       // Hygen templates
       "_templates/*",
+      // module federation temporal files
+      ".__mf__temp/*",
     ],
   },
 ];

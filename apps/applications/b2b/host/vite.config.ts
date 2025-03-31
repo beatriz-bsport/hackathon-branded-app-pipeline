@@ -3,38 +3,39 @@ import { nxViteTsPaths } from "@nx/vite/plugins/nx-tsconfig-paths.plugin";
 import react from "@vitejs/plugin-react-swc";
 import { resolve } from "path";
 import { defineConfig } from "vite";
+import restart from "vite-plugin-restart";
 import svgr from "vite-plugin-svgr";
 import topLevelAwait from "vite-plugin-top-level-await";
 
-import { type APPLICATION, getAppPort } from "@bsport/config-federation";
-
 import { dependencies } from "./package.json";
 
-/**
- * Application name used for federation. Must also be present in @bsport/config-federation to work.
- */
-const APP_NAME: APPLICATION = "sm-navigation-sidebar";
+const APP_NAME = "sm-host";
 
 export default defineConfig(({ mode }) => {
-  const base = mode === "development" ? "/" : "/v2/apps/navigation-sidebar/";
-  const i18nUrl =
+  /**
+   * TODO: the main purpose is to test the deployment so for this we
+   * want a hardcoded feature branch URL
+   */
+  const remoteEntryUrl =
     mode === "development"
-      ? `http://localhost:${getAppPort(APP_NAME)}`
-      : base.slice(0, -1); // remove trailing slash
+      ? "http://localhost:5000/remoteEntry.js"
+      : "/v2/apps/navigation-sidebar/remoteEntry.js";
+
+  const base = mode === "development" ? "/" : "/v2/";
+  const i18nUrl =
+    mode === "development" ? "http://localhost:3000" : base.slice(0, -1); // remove trailing slash
 
   return {
     base,
     define: {
-      "import.meta.env.VITE_I18N_NAMESPACE_PREFIX": JSON.stringify(
-        "sm-navigation-sidebar",
-      ),
+      "import.meta.env.VITE_I18N_NAMESPACE_PREFIX": JSON.stringify(APP_NAME),
       "import.meta.env.VITE_APPLICATION_BASE_URL": JSON.stringify(i18nUrl),
     },
     server: {
-      port: getAppPort(APP_NAME),
+      port: 3000,
     },
     preview: {
-      port: getAppPort(APP_NAME),
+      port: 3000,
     },
     plugins: [
       nxViteTsPaths(),
@@ -62,21 +63,23 @@ export default defineConfig(({ mode }) => {
             singleton: true,
           },
         },
-        exposes: {
-          "./NavigationSidebar": "./src/components/NavigationSidebar",
+        remotes: {
+          "sm-navigation-sidebar": {
+            name: "sm-navigation-sidebar",
+            entry: remoteEntryUrl,
+            type: "module",
+          },
         },
-        getPublicPath:
-          mode === "development"
-            ? `() => 'http://localhost:5000'`
-            : `() => '${base}'`,
       }),
       topLevelAwait(),
+      restart({
+        restart: ["../navigation-sidebar/src/**/*"],
+      }),
     ],
     build: {
       cssCodeSplit: false,
       sourcemap: true,
       emptyOutDir: true,
-      target: "esnext",
     },
     resolve: {
       alias: {

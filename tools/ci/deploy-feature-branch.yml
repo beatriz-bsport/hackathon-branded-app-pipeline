@@ -20,6 +20,10 @@
     - echo "🔱 These are the affected projects :"
     - pnpm exec nx show projects --affected --base=origin/dev --head=HEAD
     - echo "*"
+    - echo "Set correct API environment"
+    - ENVIRONMENT=$(echo "$CI_COMMIT_TAG" | sed -n 's/.*deploy-\(frontend-only-\)\{0,1\}\([[:alnum:]_-]\+\).*/\2/p')
+    - pnpm run -w api-environment:set feature-branch -fb $ENVIRONMENT
+    - echo "*"
     - echo "⏳ Build affected projects and their dependencies"
     - pnpm exec nx affected --target=ci:build --base=origin/dev --head=HEAD "feature-branch" $FRONTEND_ONLY
     - echo "✅ All affected projets have been rebuilt"

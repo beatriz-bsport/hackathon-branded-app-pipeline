@@ -61,3 +61,6 @@ vitest.config.*.timestamp*
 
 # Translation files
 **/public/locales
+
+# Module Federation
+**/.__mf__temp

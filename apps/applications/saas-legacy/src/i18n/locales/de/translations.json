@@ -13136,7 +13136,8 @@
             "fr": "Französisch",
             "none": "Automatisch",
             "pt": "Portugiesisch",
-            "cs": "Tschechisch"
+            "cs": "Tschechisch",
+            "cimode": "Debug"
         },
         "subscription": {
             "isEmpty": "Sie haben keine aktiven Abonnements."
@@ -13161,7 +13162,7 @@
                     "availability": {
                         "expiresToday": "Letzter Tag",
                         "expiresIn": "{{ daysRemaining }} Tag übrig",
-                        "expiresIn_plural": "Noch {{ daysRemaining }} Tage",
+                        "expiresIn_plural": "{{ daysRemaining }} Tage übrig",
                         "future": "Beginnt am: {{ startDate }}",
                         "expired": "Abgelaufen am: {{ expirationDate }}",
                         "active": "Läuft ab am: {{ expirationDate }}"
@@ -17530,7 +17531,7 @@
             },
             "warnings": {
                 "exclusiveAssociatedCoaches": "Die Lehrkraft {{- coach_name }} wird nur benachrichtigt, wenn eine Vertretungsanfrage für eine Sitzung in dieser Einrichtung erfolgt. Wenn die Einrichtung gelöscht wird, erhält diese Lehrkraft daher Vertretungsanfragen von jeder Einrichtung.",
-                "exclusiveAssociatedCoaches_plural": "Deine Lehrer {{- coach_name }} werden nur benachrichtigt, wenn eine Vertretungsanfrage für einen Kurs in dieser Einrichtung gemacht wird. Wenn du diese Einrichtung löschst, erhalten sie Vertretungsanfragen von jeder Einrichtung.",
+                "exclusiveAssociatedCoaches_plural": "Deine Lehrkräfte {{- coach_name }} erhalten nur eine Benachrichtigung, wenn eine Vertretungsanfrage für eine Sitzung an diesem Standort eingeht. Wird der Standort gelöscht, erhalten sie Vertretungsanfragen für alle Standorte.",
                 "hasBillingGroup": "Diese Einrichtung wird auch aus der Rechnungsgruppe {{- establishment_billing_group_name }} entfernt.",
                 "exclusivePrivateServices_plural": "Diese Termine {{- private_service_name }} sind so konfiguriert, dass sie nur in dieser Einrichtung stattfinden können. Wenn diese Einrichtung gelöscht wird, können diese Termine überall stattfinden.",
                 "exclusivePrivateServices": "Der Termin {{- private_service_name }} ist so konfiguriert, dass er nur in dieser Einrichtung stattfinden kann. Wenn diese Einrichtung gelöscht wird, kann dieser Termin überall stattfinden.",

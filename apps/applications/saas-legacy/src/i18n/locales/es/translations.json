@@ -2237,7 +2237,7 @@
                     "hasRelatedMarketplaceComponentConfigs": "Las pestañas de calendario y taller configuradas para su mercado ya no mostrarán este calendario de ubicación.",
                     "hasRelatedMarketingNotifications": "Las notificaciones vinculadas a esta ubicación se eliminarán.",
                     "exclusiveAssociatedCoaches": "Su profesor {{- coach_name }} sólo recibe una notificación cuando se realiza una solicitud de sustitución para una sesión en esta ubicación. Por lo tanto, al eliminar la ubicación, recibirán solicitudes de sustitución de todas las ubicaciones.",
-                    "exclusiveAssociatedCoaches_plural": "Sus profesores {{- coach_name }} sólo reciben una notificación cuando se realiza una solicitud de sustitución para una sesión en esta ubicación. Al eliminar la ubicación, recibirán las solicitudes de sustitución de todas las ubicaciones.",
+                    "exclusiveAssociatedCoaches_plural": "Sus profesores {{- coach_name }} sólo reciben una notificación cuando se realiza una solicitud de sustitución para una sesión en esta ubicación. Por lo tanto, al eliminar la ubicación, recibirán solicitudes de sustitución de todas las ubicaciones.",
                     "hasRelatedAssociatedCoaches": "Algunos profesores reciben una notificación cuando se realiza una solicitud de sustitución para una sesión en esta ubicación. Al eliminar la ubicación, dejarán de recibir la notificación correspondiente.",
                     "hasRelatedStaffConfigurations": "Esta ubicación se utiliza para la supervisión de accesos por uno o varios miembros del personal. Al eliminar la ubicación sin seleccionar una nueva, ya no podrán realizar la supervisión de accesos."
                 },
@@ -8578,7 +8578,8 @@
             "nl": "Holandés",
             "none": "Automático",
             "cs": "Checo",
-            "pt": "Portugués"
+            "pt": "Portugués",
+            "cimode": "Debug"
         },
         "subscription": {
             "isEmpty": "No tienes ninguna suscripción en curso"

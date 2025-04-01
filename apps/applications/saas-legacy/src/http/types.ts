@@ -62,6 +62,11 @@ export interface SafeAxiosInstance extends AxiosInstance {
     config?: AxiosRequestConfig,
     options?: AxiosLockOptions,
   ): AxiosPromise<T>;
+  head<T = any>(
+    url: string,
+    config?: AxiosRequestConfig,
+    options?: AxiosLockOptions,
+  ): AxiosPromise<T>;
   delete(
     url: string,
     config?: AxiosRequestConfig,

@@ -100,7 +100,7 @@ export function deleteEstablishment(id: number, options?: OptionCallback) {
   };
 }
 
-export const resetAction = createAction('ESTABLISHMENT/RESET/SUCCESS');
+export const resetAction = createAction('ESTABLISHMENT/RESET/DONE');
 
 export function resetEstablishments() {
   return async (dispatch: ThunkDispatch<any, any, any>) => {

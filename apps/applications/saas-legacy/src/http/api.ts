@@ -248,6 +248,39 @@ export async function get<T = unknown>(
   }
 }
 
+export async function head<T = unknown>(
+  uri: string,
+  headers: AxiosRequestConfig['headers'] = {},
+  cancelToken?: AxiosRequestConfig['cancelToken'],
+  lockOptions?: AxiosLockOptions,
+) {
+  try {
+    const response = await axios.head<T>(
+      uri,
+      {
+        headers: {
+          'Accept-Language': i18n.language || 'en',
+          'X-Transaction-ID': setTransactionId(),
+          'X-Timezone-Name': getTimezoneName(),
+          'X-Session-ID': setSessionId(),
+          'X-React-Referrer': window.location.href.slice(0, 250),
+          'X-bsport-log-collection': 'true',
+          ...(headers || {}),
+          ...getBsportRequestFromHeader(),
+        },
+        cancelToken,
+      },
+      lockOptions,
+    );
+    return response;
+  } catch (err) {
+    if (err?.response?.status >= 500 && err?.response?.status < 600) {
+      Sentry.captureException(err);
+    }
+    throw err;
+  }
+}
+
 /**
  * @deprecated This version is not type safe.
  */

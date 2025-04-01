@@ -332,7 +332,7 @@ export const availabilitySlotListActions = {
   error: createAction('AVAILABILITY_SLOT/LIST/ERROR'),
   isLoading: createAction('AVAILABILITY_SLOT/LIST/IS_LOADING'),
   success: createAction('AVAILABILITY_SLOT/LIST/SUCCESS'),
-  reset: createAction('AVAILABILITY_SLOT/RESET/SUCCESS'),
+  reset: createAction('AVAILABILITY_SLOT/RESET/DONE'),
 };
 
 export const resetAvailabilitySlots = availabilitySlotListActions.reset;
@@ -2141,7 +2141,7 @@ export const privateBookingListActions = {
   error: createAction('PRIVATE_BOOKING/LIST/ERROR'),
   isLoading: createAction('PRIVATE_BOOKING/LIST/IS_LOADING'),
   success: createAction('PRIVATE_BOOKING/LIST/SUCCESS'),
-  reset: createAction('PRIVATE_BOOKING/RESET/SUCCESS'),
+  reset: createAction('PRIVATE_BOOKING/RESET/DONE'),
 };
 
 export const resetPrivateBookings = privateBookingListActions.reset;

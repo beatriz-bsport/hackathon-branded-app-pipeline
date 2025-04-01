@@ -43,7 +43,7 @@ export const fetchLevelBulkActions = {
   error: createAction('LEVEL/FETCH_BULK/ERROR'),
   loading: createAction('LEVEL/FETCH_BULK/LOADING'),
   success: createAction('LEVEL/FETCH_BULK/SUCCESS'),
-  reset: createAction('LEVEL/RESET/SUCCESS'),
+  reset: createAction('LEVEL/RESET/DONE'),
 };
 
 export const fetchLevelBulk = (

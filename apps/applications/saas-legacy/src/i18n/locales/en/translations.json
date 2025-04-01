@@ -19342,7 +19342,10 @@
     "titles": {
         "banner": {
             "isStaging": "Learn more in an online demo",
-            "networkError": "You are not connected to the internet",
+            "networkError": "Looks like you're offline. Please check your internet and try again.",
+            "serverError": "We’re having trouble loading your data. Please wait while we restore the connection.",
+            "networkConnectionRestored": "Connection restored!",
+            "serverConnectionRestored": "Connection restored. You can continue without issues.",
             "franchiseConnection": "You're currently connected as one of your studios' Sub Accounts."
         },
         "member": {

@@ -48,7 +48,6 @@ import marketplace from '#src/libs/marketplace/reducers';
 import memberReducer from '#src/libs/member/reducers';
 import membership from '#src/libs/membership/reducers';
 import metaActivityReducers from '#src/libs/meta-activity/reducers';
-// @ts-expect-error
 import network from '#src/libs/network/reducers';
 import notificationRule from '#src/libs/notification-rule/reducers';
 import objectSearchReducers from '#src/libs/fuzzy-search/reducers';

@@ -11,7 +11,7 @@ import { compose, withProps } from 'recompose';
 
 import { isPendingEmailConfirmation } from '#src/libs/login/selectors';
 import asyncComponent from './AsyncComponent';
-import Banner from './components/navigation/Banner.component';
+import Banner from './components/navigation/Banner/Banner.component';
 import Config from './config';
 import { parseQueryString } from './http';
 import { fetchAccessLevel } from './actions/auth.actions';
@@ -19,6 +19,7 @@ import WidgetUtils from './libs/widget/WidgetUtils';
 import withQueryParams from './hocs/with-query-params.hoc';
 import Analytics from './components/analytics/Analytics.component';
 import { removeTrackingScripts } from './components/analytics/utils.ts';
+import type { NetworkState } from './libs/network/types';
 
 const MarketPlaceRouter = asyncComponent(() =>
   import('./pages/marketplace/Marketplace.router'),
@@ -97,7 +98,7 @@ type Props = {
   classes: Object,
   rehydrated: boolean,
   initializating: boolean,
-  networkAvailable: boolean,
+  networkState: NetworkState,
   fetchAccessLevel: (token: string) => void,
   location: any,
 
@@ -204,6 +205,7 @@ export class Root extends Component<Props> {
       isFranchisor,
       isCoach,
       theme,
+      networkState,
     } = this.props;
 
     const isUsingMarketplace = !isManager && !isFranchisor && !isCoach;
@@ -221,7 +223,7 @@ export class Root extends Component<Props> {
           <Banner
             paymentMethodMissing
             environment={Config.REACT_APP_SENTRY_ENVIRONMENT}
-            networkAvailable={this.props.networkAvailable}
+            networkState={networkState}
           />
         )}
         {theme && isUsingMarketplace && <Analytics theme={theme} />}
@@ -301,7 +303,7 @@ function mapStateToProps(state) {
   return {
     rehydrated: state._persist && state._persist.rehydrated,
     initializating: state.auth.initializating,
-    networkAvailable: state.network.isAvailable,
+    networkState: state.network.networkState,
     pendingEmailConfirmation: isPendingEmailConfirmation(state),
     authenticated: state.auth.authenticated,
     isManager: state.auth.is_manager,

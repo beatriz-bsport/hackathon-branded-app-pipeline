@@ -791,7 +791,7 @@ export function emailTemplateDelete(
   };
 }
 
-export const resetAction = createAction('EMAIL/RESET/SUCCESS');
+export const resetAction = createAction('EMAIL/RESET/DONE');
 
 export function resetEmails() {
   return async (dispatch: Dispatch) => {

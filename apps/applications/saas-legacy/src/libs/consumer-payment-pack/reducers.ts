@@ -335,6 +335,12 @@ export default handleActions<Immutable.Immutable<ConsumerPaymentPackState>>(
           .setIn(['byPaymentPack', 'page'], payload.page)
       );
     },
+    [universalbyMember.reset.toString()]: (state) => {
+      return state
+        .setIn(['universalbyMember', 'page'], 1)
+        .setIn(['universalbyMember', 'count'], 0)
+        .setIn(['universalbyMember', 'allIds'], []);
+    },
     [byPaymentPack.error.toString()]: (state, { payload }) => {
       return state.setIn(['byPaymentPack', 'error'], payload);
     },

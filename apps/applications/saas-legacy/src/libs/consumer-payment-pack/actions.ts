@@ -378,7 +378,7 @@ export const byMember = {
 
 export function resetConsumerPackByMember() {
   return async (dispatch: Dispatch) => {
-    dispatch(byMember.success({ page: 1, count: 0, results: [] }));
+    dispatch(byMember.reset());
   };
 }
 

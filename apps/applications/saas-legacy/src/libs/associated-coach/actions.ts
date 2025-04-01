@@ -99,7 +99,7 @@ export function deleteCoach(id: number, options?: OptionCallback) {
   };
 }
 
-export const resetAction = createAction('COACH/RESET/SUCCESS');
+export const resetAction = createAction('COACH/RESET/DONE');
 
 export function resetCoaches() {
   return async (dispatch: ThunkDispatch<any, any, any>) => {

@@ -820,7 +820,7 @@
         "or": "ou",
         "expire_in": "Expire dans ",
         "bookerMethod": {
-            "emptyMethod": "Aucune carte n'est compatible avec cette vidéo, veuillez contacter votre studio",
+            "emptyMethod": "Désolé, pour le moment il n'y a pas de carte compatible avec cette vidéo. Veuillez vous rendre dans la section abonnement pour y accéder.",
             "actions": {
                 "bookVod": "Débloquer la vidéo"
             },

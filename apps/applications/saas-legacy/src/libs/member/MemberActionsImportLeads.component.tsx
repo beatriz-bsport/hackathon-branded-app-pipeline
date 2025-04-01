@@ -1,5 +1,8 @@
 import React, { FC, useCallback, useState, memo } from 'react';
-import { LEAD_MANAGEMENT_IMPORT_LOCK_ACQUISITION_ERROR } from '@bsport/common/lib/master-data/error-codes/member.js';
+import {
+  LEAD_MANAGEMENT_IMPORT_WRONG_NUMBER_OF_COLUMNS_ERROR,
+  LEAD_MANAGEMENT_IMPORT_UNKNOWN_ERROR,
+} from '@bsport/common/lib/master-data/error-codes/member.js';
 
 import { useTranslation } from 'react-i18next';
 
@@ -24,6 +27,7 @@ import {
 } from '#src/libs/member/constants';
 
 import clsx from 'clsx';
+import { ErrorData } from './types';
 
 export const MemberActionsImportLeadsSuccess: FC = () => {
   const { t } = useTranslation('member');
@@ -136,12 +140,8 @@ export const MemberActionsImportLeadsPartialSuccess: FC<
   );
 };
 
-type FailureProps = {
-  errorCodes?: number[];
-};
-
-const MemberActionsImportLeadsFailure: FC<FailureProps> = ({
-  errorCodes = [LEAD_MANAGEMENT_IMPORT_LOCK_ACQUISITION_ERROR],
+const MemberActionsImportLeadsFailure: FC<{ errors: ErrorData[] }> = ({
+  errors,
 }) => {
   const { t } = useTranslation('member');
 
@@ -153,6 +153,13 @@ const MemberActionsImportLeadsFailure: FC<FailureProps> = ({
     setDialogOpen(false);
   }, []);
 
+  if (errors.length === 0) {
+    errors.push({
+      error_code: LEAD_MANAGEMENT_IMPORT_UNKNOWN_ERROR,
+      error_message: '',
+    } as ErrorData);
+  }
+
   return (
     <GenericResponsiveDialog maxWidth="sm" open={dialogOpen}>
       <DialogContent className={classes.contentContainer}>
@@ -161,10 +168,23 @@ const MemberActionsImportLeadsFailure: FC<FailureProps> = ({
         </div>
         <Typography variant="h6">{t('leads.dialogs.errors.title')}</Typography>
         <List>
-          {errorCodes.map((errorCode) => (
-            <ListItem key={errorCode} className={classes.bulletPoint}>
+          {errors.slice(0, 100).map(({ error_code, error_data }, index) => (
+            <ListItem key={index} className={classes.bulletPoint}>
               <Typography className={classes.listElement} variant="body1">
-                {t(`leads.dialogs.errors.${errorCode}`)}
+                {error_code ==
+                LEAD_MANAGEMENT_IMPORT_WRONG_NUMBER_OF_COLUMNS_ERROR
+                  ? t(`leads.dialogs.errors.${error_code}`, {
+                      column_count: error_data?.['column_count'] ?? 0,
+                      row_count: error_data?.['row_count'] ?? 0,
+                    })
+                  : t(
+                      `leads.dialogs.errors.${
+                        error_code &&
+                        error_code !== LEAD_MANAGEMENT_IMPORT_UNKNOWN_ERROR
+                          ? error_code
+                          : 'unknown'
+                      }`,
+                    )}
               </Typography>
             </ListItem>
           ))}
@@ -235,6 +255,7 @@ const useStyles = makeStyles((theme) => ({
     marginRight: theme.spacing(3),
     marginLeft: theme.spacing(3),
     marginBottom: theme.spacing(1),
+    maxHeight: '80vh',
   },
   actionsContainer: {
     margin: theme.spacing(1),

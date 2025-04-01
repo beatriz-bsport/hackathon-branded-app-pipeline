@@ -275,6 +275,21 @@ export type MemberSearchFilterParams = {
 export type LeadManagementImportBackgroundTaskReturnValue =
   ImmutableArray<string> | null;
 
+export type ErrorData = {
+  error_code: number;
+  error_message?: string;
+  error_data?: {
+    row_count?: number;
+    column_count?: number;
+  };
+};
+
+export interface BackgroundError extends Error {
+  return_value?: {
+    error_code: number;
+  };
+}
+
 export type MemberSearchBarOption = {
   label: string;
   value: number;

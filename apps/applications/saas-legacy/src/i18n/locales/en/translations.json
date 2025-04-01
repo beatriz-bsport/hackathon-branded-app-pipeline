@@ -6388,7 +6388,7 @@
                 },
                 "errors": {
                     "71000": "Please wait for the ongoing import to finalize",
-                    "71001": "This file does not have the required number of columns",
+                    "71001": "This file does not have the required number of columns, it has {{column_count}} columns in row {{row_count}}",
                     "71002": "This file exceeds the maximum size limit",
                     "title": "Unfortunately, the import process has failed because:"
                 }

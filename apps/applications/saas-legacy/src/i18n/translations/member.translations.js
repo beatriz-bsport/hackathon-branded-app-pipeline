@@ -7,6 +7,7 @@ const getTranslations = async () => {
     LEAD_MANAGEMENT_IMPORT_LOCK_ACQUISITION_ERROR,
     LEAD_MANAGEMENT_IMPORT_WRONG_NUMBER_OF_COLUMNS_ERROR,
     LEAD_MANAGEMENT_IMPORT_MAXIMUM_NUMBER_OF_ROWS_ERROR,
+    LEAD_MANAGEMENT_IMPORT_WRONG_ENCODING,
   } = await import('@bsport/common/lib/master-data/error-codes/member.js');
 
   return {
@@ -50,12 +51,15 @@ const getTranslations = async () => {
         },
         errors: {
           title: 'Unfortunately, the import process has failed because:',
+          unknown: 'An unexpected error occurred',
           [LEAD_MANAGEMENT_IMPORT_LOCK_ACQUISITION_ERROR]:
             'Please wait for the ongoing import to finalize',
           [LEAD_MANAGEMENT_IMPORT_WRONG_NUMBER_OF_COLUMNS_ERROR]:
-            'This file does not have the required number of columns',
+            'This file does not have the required number of columns, it has {{column_count}} columns in row {{row_count}}',
           [LEAD_MANAGEMENT_IMPORT_MAXIMUM_NUMBER_OF_ROWS_ERROR]:
             'This file exceeds the maximum size limit',
+          [LEAD_MANAGEMENT_IMPORT_WRONG_ENCODING]:
+            'Failed to decode the file. Please ensure it is not corrupted or in an unsupported format',
         },
       },
     },

@@ -60,7 +60,11 @@ import type {
   FetchRecipientsParams,
   MemberSearchFilterParams,
   LeadManagementImportBackgroundTaskReturnValue,
+  ErrorData,
+  BackgroundError,
 } from './types';
+
+import { LEAD_MANAGEMENT_IMPORT_UNKNOWN_ERROR } from '@bsport/common/lib/master-data/error-codes/member.js';
 import {
   areAllInCache,
   GenericAsyncAction,
@@ -1433,28 +1437,36 @@ export const uploadLeadManagementFile = (
                   customDialogComponent,
                 }),
               );
+              dispatch(uploadLeadManagementFileActions.isLoading(false));
             },
-            // This error occurs when the manager tries to upload two files at the same time
-            onError: () => {
+            // An error occurred during the background task execution
+            onError: (backgroundTaskError: BackgroundError | undefined) => {
               dispatch(
                 displayCustomBackgroundDialog({
                   uuid: backgroundTaskUuid,
                   customDialogComponent: () =>
-                    React.createElement(MemberActionsImportLeads.Failure),
+                    React.createElement(MemberActionsImportLeads.Failure, {
+                      errors: [
+                        {
+                          error_code:
+                            backgroundTaskError?.return_value?.error_code ??
+                            LEAD_MANAGEMENT_IMPORT_UNKNOWN_ERROR,
+                        },
+                      ],
+                    }),
                 }),
               );
+              dispatch(uploadLeadManagementFileActions.isLoading(false));
             },
           },
         ),
       );
-    } catch (err) {
-      console.error(err);
+    } catch (errorResponse: any) {
+      console.error(errorResponse);
 
-      dispatch(uploadLeadManagementFileActions.error(err));
-
-      const errorCodes = err.response.data?.map(
-        (error: { error_code: number }) => error.error_code,
-      );
+      dispatch(uploadLeadManagementFileActions.error(errorResponse));
+      const data = errorResponse?.response?.data ?? [];
+      const errors: ErrorData[] = Array.isArray(data) ? data : [data];
 
       const uuid = uuid4();
 
@@ -1463,16 +1475,13 @@ export const uploadLeadManagementFile = (
           uuid,
           customDialogComponent: () =>
             React.createElement(MemberActionsImportLeads.Failure, {
-              errorCodes: errorCodes,
+              errors: errors,
             }),
         }),
       );
 
-      options?.onError?.(err);
+      options?.onError?.(errorResponse);
+      dispatch(uploadLeadManagementFileActions.isLoading(false));
     }
-    setTimeout(
-      () => dispatch(uploadLeadManagementFileActions.isLoading(false)),
-      5000,
-    );
   };
 };

@@ -5698,9 +5698,11 @@
         },
         "errors": {
           "71000": "Please wait for the ongoing import to finalize",
-          "71001": "This file does not have the required number of columns",
+          "71001": "This file does not have the required number of columns, it has {{column_count}} columns in row {{row_count}}",
           "71002": "This file exceeds the maximum size limit",
-          "title": "Unfortunately, the import process has failed because:"
+          "71003": "Failed to decode the file. Please ensure it is not corrupted or in an unsupported format",
+          "title": "Unfortunately, the import process has failed because:",
+          "unknown": "An unexpected error occurred"
         }
       }
     },

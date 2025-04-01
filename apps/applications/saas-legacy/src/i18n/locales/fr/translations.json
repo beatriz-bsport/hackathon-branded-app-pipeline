@@ -1896,7 +1896,8 @@
             "nl": "Néerlandais",
             "pt": "Portuguais",
             "cs": "Tchèque",
-            "none": "Automatique"
+            "none": "Automatique",
+            "cimode": "Debug"
         },
         "appbar": {
             "profile": "Accéder à mon profil",

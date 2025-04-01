@@ -9424,9 +9424,9 @@
             "form": {
                 "submit": "Speichern",
                 "cancel": "Abbrechen",
-                "quantityLabel": "Session(s)",
+                "quantityLabel": "Einheiten",
                 "title": "Änderung des Inventares",
-                "quantityHelperText": "Zum Inventar hinzuzufügende/abzuziehende Session",
+                "quantityHelperText": "Zum Inventar hinzuzufügende/abzuziehende Einheiten",
                 "quantityError": "Bitte geben Sie eine gültige Nummer ein"
             },
             "noProvisionHistory": "Kein Verkaufsverlauf",
@@ -17770,7 +17770,7 @@
             "actions": {
                 "bookVod": "Das Video freischalten"
             },
-            "emptyMethod": "Kein Pass ist mit diesem Video kompatibel. Bitte kontaktieren Sie Ihr Studio."
+            "emptyMethod": "Sorry, momentan gibt es keinen Kurspass, der mit diesem Video kompatibel ist. Bitte gehe zu Abonnements, um darauf zuzugreifen."
         },
         "internalAccount": {
             "use": "Mein Guthaben verwenden",

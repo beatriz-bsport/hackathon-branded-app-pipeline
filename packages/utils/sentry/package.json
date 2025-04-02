@@ -1,10 +1,15 @@
 {
   "name": "@bsport/sentry",
-  "version": "0.1.0",
-  "private": true,
   "description": "Library to init and configure Sentry",
+  "version": "0.1.0",
   "author": "David Bretaud <david.bretaud@bsport.io>",
-  "type": "module",
+  "dependencies": {
+    "@bsport/random-utils": "workspace:*",
+    "@sentry/react": "^7.26.0"
+  },
+  "devDependencies": {
+    "@bsport/eslint-config-react": "workspace:*"
+  },
   "exports": {
     ".": {
       "types": "./build/lib.d.ts",
@@ -12,27 +17,22 @@
       "default": "./build/lib.es.js"
     }
   },
-  "main": "build/lib.es.js",
-  "module": "build/lib.es.js",
-  "types": "build/lib.d.ts",
   "files": [
     "build"
   ],
+  "main": "build/lib.es.js",
+  "module": "build/lib.es.js",
+  "private": true,
   "scripts": {
     "build": "vite build",
     "clean": "rm -rf build",
     "dev": "vite build --watch",
     "format": "prettier --write '**/*.{ts,tsx,js,jsx,cjs,mjs,scss,css,json,md,mdx,html,svg}'",
     "format:check": "prettier --check '**/*.{ts,tsx,js,jsx,cjs,mjs}'",
-    "postinstall": "pnpm run build",
     "lint": "eslint .",
-    "lint:fix": "eslint --fix ."
+    "lint:fix": "eslint --fix .",
+    "postinstall": "pnpm run build"
   },
-  "dependencies": {
-    "@bsport/random-utils": "workspace:*",
-    "@sentry/react": "^7.26.0"
-  },
-  "devDependencies": {
-    "@bsport/eslint-config-react": "workspace:*"
-  }
+  "type": "module",
+  "types": "build/lib.d.ts"
 }

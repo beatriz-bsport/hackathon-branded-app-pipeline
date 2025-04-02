@@ -1,41 +1,6 @@
 {
   "name": "@bsport/kaizen-primitive-core",
   "version": "0.0.0",
-  "private": true,
-  "type": "module",
-  "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.es.js",
-      "default": "./dist/index.es.js"
-    },
-    "./styles": {
-      "default": "./dist/style.css"
-    }
-  },
-  "main": "./dist/index.es.js",
-  "module": "./dist/index.es.js",
-  "types": "./dist/index.d.ts",
-  "files": [
-    "dist"
-  ],
-  "scripts": {
-    "build": "tsc && vite build",
-    "ci:compile": "tsc --noEmit",
-    "ci:deploy": "./scripts/ci-deploy.sh $1",
-    "component:add": "pnpm exec hygen component new",
-    "dev": "pnpm run storybook:dev",
-    "format": "prettier --write '**/*.{ts,tsx,js,jsx,cjs,mjs,scss,css,json,md,mdx,html,svg}'",
-    "format:check": "prettier --check '**/*.{ts,tsx,js,jsx,cjs,mjs}'",
-    "icon:generate": "tsx ./scripts/generate-icons.ts",
-    "postinstall": "pnpm build",
-    "lint": "eslint .",
-    "lint:fix": "eslint --fix .",
-    "pre-commit": "sh ./scripts/pre-commit.sh",
-    "storybook:build": "sb build",
-    "storybook:dev": "sb dev",
-    "translation:update": "pnpm run -w translation:update"
-  },
   "dependencies": {
     "@bsport/i18n": "workspace:*",
     "class-variance-authority": "^0.7.0",
@@ -60,5 +25,40 @@
     "vite": "^5.4.11",
     "vite-plugin-dts": "^4.3.0",
     "vite-plugin-svgr": "^4.3.0"
-  }
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.es.js",
+      "default": "./dist/index.es.js"
+    },
+    "./styles": {
+      "default": "./dist/style.css"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "main": "./dist/index.es.js",
+  "module": "./dist/index.es.js",
+  "private": true,
+  "scripts": {
+    "build": "tsc && vite build",
+    "ci:compile": "tsc --noEmit",
+    "ci:deploy": "./scripts/ci-deploy.sh $1",
+    "component:add": "pnpm exec hygen component new",
+    "dev": "pnpm run storybook:dev",
+    "format": "prettier --write '**/*.{ts,tsx,js,jsx,cjs,mjs,scss,css,json,md,mdx,html,svg}'",
+    "format:check": "prettier --check '**/*.{ts,tsx,js,jsx,cjs,mjs}'",
+    "icon:generate": "tsx ./scripts/generate-icons.ts",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix .",
+    "postinstall": "pnpm build",
+    "pre-commit": "sh ./scripts/pre-commit.sh",
+    "storybook:build": "sb build",
+    "storybook:dev": "sb dev",
+    "translation:update": "pnpm run -w translation:update"
+  },
+  "type": "module",
+  "types": "./dist/index.d.ts"
 }

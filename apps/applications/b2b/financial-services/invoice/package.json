@@ -1,19 +1,8 @@
 {
   "name": "@bsport/sm-invoice",
-  "version": "0.0.0",
-  "private": true,
   "description": "Application for Studio Managers to handle Invoices",
+  "version": "0.0.0",
   "author": "Charles Castelain <charles.castelain@bsport.io>",
-  "type": "module",
-  "scripts": {
-    "build": "tsc && vite build",
-    "dev": "concurrently \"pnpm run --silent -w federate:navigation\" \"vite\"",
-    "format": "prettier --write '**/*.{ts,tsx,js,jsx,cjs,mjs,scss,css,json,md,mdx,html,svg}'",
-    "format:check": "prettier --check '**/*.{ts,tsx,js,jsx,cjs,mjs}'",
-    "lint": "eslint .",
-    "preview": "vite preview",
-    "translation:update": "pnpm run -w translation:update"
-  },
   "dependencies": {
     "@bsport/b2b-backbone": "workspace:*",
     "@bsport/common": "workspace:*",
@@ -35,5 +24,16 @@
     "tailwindcss": "^3.4.14",
     "vite": "^5.4.11",
     "vite-plugin-svgr": "^4.3.0"
-  }
+  },
+  "private": true,
+  "scripts": {
+    "build": "tsc && vite build",
+    "dev": "concurrently \"pnpm run --silent -w federate:navigation\" \"vite\"",
+    "format": "prettier --write '**/*.{ts,tsx,js,jsx,cjs,mjs,scss,css,json,md,mdx,html,svg}'",
+    "format:check": "prettier --check '**/*.{ts,tsx,js,jsx,cjs,mjs}'",
+    "lint": "eslint .",
+    "preview": "vite preview",
+    "translation:update": "pnpm run -w translation:update"
+  },
+  "type": "module"
 }

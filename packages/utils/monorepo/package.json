@@ -1,28 +1,28 @@
 {
   "name": "@bsport/typescript-monorepo-utils",
-  "version": "0.0.0",
-  "private": true,
   "description": "Typescript Monorepo Utils",
+  "version": "0.0.0",
   "author": "Marwan El Boussarghini <marwan.elboussarghini@gmail.com>",
-  "main": "build/index.js",
-  "source": "src/index.ts",
-  "types": "build/index.d.ts",
-  "scripts": {
-    "build": "tsc",
-    "dev": "tsc -w",
-    "format": "prettier --write '**/*.{ts,tsx,js,jsx,cjs,mjs,scss,css,json,md,mdx,html,svg}'",
-    "format:check": "prettier --check '**/*.{ts,tsx,js,jsx,cjs,mjs}'",
-    "postinstall": "pnpm run build",
-    "lint": "eslint .",
-    "lint:fix": "eslint --fix .",
-    "test": "jest",
-    "test:watch": "jest --watch"
-  },
   "dependencies": {
     "fs-extra": "^11.2.0"
   },
   "devDependencies": {
     "@bsport/eslint-config-react": "workspace:*",
     "@types/fs-extra": "^11.0.1"
-  }
+  },
+  "main": "build/index.js",
+  "private": true,
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc -w",
+    "format": "prettier --write '**/*.{ts,tsx,js,jsx,cjs,mjs,scss,css,json,md,mdx,html,svg}'",
+    "format:check": "prettier --check '**/*.{ts,tsx,js,jsx,cjs,mjs}'",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix .",
+    "postinstall": "pnpm run build",
+    "test": "jest",
+    "test:watch": "jest --watch"
+  },
+  "source": "src/index.ts",
+  "types": "build/index.d.ts"
 }

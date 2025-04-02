@@ -1,33 +1,8 @@
 {
   "name": "@bsport/use-pagination-query-params",
-  "version": "0.0.0",
-  "private": true,
   "description": "Hook to manage pagination state in URL",
-  "license": "UNLICENSED",
+  "version": "0.0.0",
   "author": "David Bretaud <david.bretaud@bsport.io>",
-  "type": "module",
-  "exports": {
-    ".": {
-      "types": "./build/lib.d.ts",
-      "import": "./build/lib.es.js",
-      "default": "./build/lib.es.js"
-    }
-  },
-  "main": "build/lib.es.js",
-  "module": "build/lib.es.js",
-  "types": "build/lib.d.ts",
-  "files": [
-    "build"
-  ],
-  "scripts": {
-    "build": "vite build",
-    "dev": "vite build --watch",
-    "format": "prettier --write '**/*.{ts,tsx,js,jsx,cjs,mjs,scss,css,json,md,mdx,html,svg}'",
-    "format:check": "prettier --check '**/*.{ts,tsx,js,jsx,cjs,mjs}'",
-    "postinstall": "pnpm run build",
-    "lint": "eslint .",
-    "lint:fix": "eslint --fix ."
-  },
   "dependencies": {
     "@bsport/base-query-params": "workspace:*",
     "react": "^19.0.0",
@@ -36,5 +11,30 @@
   },
   "devDependencies": {
     "@bsport/eslint-config-react": "workspace:*"
-  }
+  },
+  "exports": {
+    ".": {
+      "types": "./build/lib.d.ts",
+      "import": "./build/lib.es.js",
+      "default": "./build/lib.es.js"
+    }
+  },
+  "files": [
+    "build"
+  ],
+  "license": "UNLICENSED",
+  "main": "build/lib.es.js",
+  "module": "build/lib.es.js",
+  "private": true,
+  "scripts": {
+    "build": "vite build",
+    "dev": "vite build --watch",
+    "format": "prettier --write '**/*.{ts,tsx,js,jsx,cjs,mjs,scss,css,json,md,mdx,html,svg}'",
+    "format:check": "prettier --check '**/*.{ts,tsx,js,jsx,cjs,mjs}'",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix .",
+    "postinstall": "pnpm run build"
+  },
+  "type": "module",
+  "types": "build/lib.d.ts"
 }

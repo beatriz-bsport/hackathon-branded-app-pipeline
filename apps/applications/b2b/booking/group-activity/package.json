@@ -1,19 +1,8 @@
 {
   "name": "@bsport/sm-group-activity",
-  "version": "0.0.0",
-  "private": true,
   "description": "Group activity",
-  "type": "module",
-  "scripts": {
-    "build": "tsc && vite build",
-    "dev": "vite",
-    "federation:navigation": "pnpm exec nx build @bsport/sm-navigation-sidebar && pnpm exec nx preview @bsport/sm-navigation-sidebar",
-    "format": "prettier --write '**/*.{ts,tsx,js,jsx,cjs,mjs,scss,css,json,md,mdx,html,svg}'",
-    "format:check": "prettier --check '**/*.{ts,tsx,js,jsx,cjs,mjs}'",
-    "lint": "eslint .",
-    "preview": "vite preview",
-    "translation:update": "pnpm run -w translation:update"
-  },
+  "version": "0.0.0",
+  "author": "Blaise <blaise@bsport.io>",
   "dependencies": {
     "@bsport/b2b-backbone": "workspace:*",
     "@bsport/fetch": "workspace:*",
@@ -35,5 +24,16 @@
     "vite": "^5.4.11",
     "vite-plugin-svgr": "^4.3.0"
   },
-  "author": "Blaise <blaise@bsport.io>"
+  "private": true,
+  "scripts": {
+    "build": "tsc && vite build",
+    "dev": "vite",
+    "federation:navigation": "pnpm exec nx build @bsport/sm-navigation-sidebar && pnpm exec nx preview @bsport/sm-navigation-sidebar",
+    "format": "prettier --write '**/*.{ts,tsx,js,jsx,cjs,mjs,scss,css,json,md,mdx,html,svg}'",
+    "format:check": "prettier --check '**/*.{ts,tsx,js,jsx,cjs,mjs}'",
+    "lint": "eslint .",
+    "preview": "vite preview",
+    "translation:update": "pnpm run -w translation:update"
+  },
+  "type": "module"
 }

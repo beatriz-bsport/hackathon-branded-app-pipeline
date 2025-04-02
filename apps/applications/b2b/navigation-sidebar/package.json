@@ -1,20 +1,8 @@
 {
   "name": "@bsport/sm-navigation-sidebar",
-  "version": "0.0.0",
-  "private": true,
   "description": "Navigation sidebar",
+  "version": "0.0.0",
   "author": "David Bretaud <david.bretaud@bsport.io>",
-  "type": "module",
-  "scripts": {
-    "build": "tsc && vite build",
-    "ci:compile": "tsc --noEmit",
-    "dev": "vite",
-    "format": "prettier --write '**/*.{ts,tsx,js,jsx,cjs,mjs,scss,css,json,md,mdx,html,svg}'",
-    "format:check": "prettier --check '**/*.{ts,tsx,js,jsx,cjs,mjs}'",
-    "lint": "eslint .",
-    "preview": "vite preview",
-    "translation:update": "pnpm run -w translation:update"
-  },
   "dependencies": {
     "@bsport/i18n": "workspace:*",
     "@bsport/kaizen-primitive-core": "workspace:*",
@@ -31,5 +19,17 @@
     "vite": "^5.4.11",
     "vite-plugin-dts": "^4.3.0",
     "vite-plugin-svgr": "^4.3.0"
-  }
+  },
+  "private": true,
+  "scripts": {
+    "build": "tsc && vite build",
+    "ci:compile": "tsc --noEmit",
+    "dev": "vite",
+    "format": "prettier --write '**/*.{ts,tsx,js,jsx,cjs,mjs,scss,css,json,md,mdx,html,svg}'",
+    "format:check": "prettier --check '**/*.{ts,tsx,js,jsx,cjs,mjs}'",
+    "lint": "eslint .",
+    "preview": "vite preview",
+    "translation:update": "pnpm run -w translation:update"
+  },
+  "type": "module"
 }

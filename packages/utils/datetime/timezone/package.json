@@ -1,11 +1,15 @@
 {
   "name": "@bsport/timezone-utils",
-  "version": "0.0.0",
-  "private": true,
   "description": "Timezone utilities",
-  "license": "UNLICENSED",
+  "version": "0.0.0",
   "author": "Marwan El Boussarghini <marwan@bsport.io>",
-  "type": "module",
+  "dependencies": {
+    "luxon": "^3.4.4"
+  },
+  "devDependencies": {
+    "@bsport/eslint-config-react": "workspace:*",
+    "@types/luxon": "^3.4.2"
+  },
   "exports": {
     ".": {
       "types": "./build/lib.d.ts",
@@ -13,26 +17,22 @@
       "default": "./build/lib.es.js"
     }
   },
-  "main": "build/lib.es.js",
-  "module": "build/lib.es.js",
-  "types": "build/lib.d.ts",
   "files": [
     "build"
   ],
+  "license": "UNLICENSED",
+  "main": "build/lib.es.js",
+  "module": "build/lib.es.js",
+  "private": true,
   "scripts": {
     "build": "vite build",
     "dev": "vite build --watch",
     "format": "prettier --write '**/*.{ts,tsx,js,jsx,cjs,mjs,scss,css,json,md,mdx,html,svg}'",
     "format:check": "prettier --check '**/*.{ts,tsx,js,jsx,cjs,mjs}'",
-    "postinstall": "pnpm run build",
     "lint": "eslint .",
-    "lint:fix": "eslint --fix ."
+    "lint:fix": "eslint --fix .",
+    "postinstall": "pnpm run build"
   },
-  "dependencies": {
-    "luxon": "^3.4.4"
-  },
-  "devDependencies": {
-    "@bsport/eslint-config-react": "workspace:*",
-    "@types/luxon": "^3.4.2"
-  }
+  "type": "module",
+  "types": "build/lib.d.ts"
 }

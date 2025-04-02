@@ -1,45 +1,8 @@
 {
   "name": "@bsport/ichizen",
-  "version": "1.0.0",
   "description": "Source code of all bsport's web interfaces, including the interface for our clients, their members and the widget that our client integrate of their own websites.",
-  "keywords": [
-    "monorepository",
-    "nx",
-    "react",
-    "vite",
-    "storybook",
-    "tailwindcss"
-  ],
-  "license": "UNLICENSED",
+  "version": "1.0.0",
   "author": "bsport<tech@bsport.io>",
-  "scripts": {
-    "api-environment:set": "ts-node tools/monorepo-utils/src/index.ts api-environment:set",
-    "build": "nx build",
-    "build:all": "nx run-many --all --target=build",
-    "federate:navigation": "pnpm exec nx build @bsport/sm-navigation-sidebar > /dev/null 2>&1 && pnpm exec nx preview @bsport/sm-navigation-sidebar",
-    "format": "pnpm exec nx run-many -t format",
-    "format:affected": "pnpm exec nx affected --target=format",
-    "format:check": "pnpm exec nx run-many -t format:check",
-    "format:check:affected": "pnpm exec nx affected --target=format:check",
-    "preinstall": "npx only-allow pnpm",
-    "lint": "pnpm exec nx run-many -t lint",
-    "lint:affected": "pnpm exec nx affected --target=lint",
-    "lint:affected:fix": "pnpm exec nx affected --target=lint:fix",
-    "lint:fix": "pnpm exec nx run-many -t lint:fix",
-    "prepare": "husky",
-    "project:create": "ts-node tools/monorepo-utils/src/index.ts project:create",
-    "project:dependencies:list": "ts-node tools/monorepo-utils/src/index.ts project:dependencies:list",
-    "project:import": "ts-node tools/monorepo-utils/src/index.ts project:import",
-    "project:list": "ts-node tools/monorepo-utils/src/index.ts project:list",
-    "pwd": "pwd",
-    "sync:format": "pnpm exec syncpack format",
-    "sync:list": "pnpm exec syncpack list",
-    "sync:mismatch:fix": "pnpm exec syncpack fix-mismatches",
-    "sync:mismatch:list": "pnpm exec syncpack list-mismatches",
-    "translation:migrate": "pnpm exec nx translation:migrate @bsport/i18n-management",
-    "translation:update": "pnpm exec nx translation:update @bsport/i18n-management",
-    "utils": "ts-node tools/monorepo-utils/src/index.ts"
-  },
   "config": {
     "commitizen": {
       "path": "cz-conventional-changelog"
@@ -109,5 +72,42 @@
   },
   "engines": {
     "pnpm": "9.15.1"
+  },
+  "keywords": [
+    "monorepository",
+    "nx",
+    "react",
+    "storybook",
+    "tailwindcss",
+    "vite"
+  ],
+  "license": "UNLICENSED",
+  "scripts": {
+    "api-environment:set": "ts-node tools/monorepo-utils/src/index.ts api-environment:set",
+    "build": "nx build",
+    "build:all": "nx run-many --all --target=build",
+    "federate:navigation": "pnpm exec nx build @bsport/sm-navigation-sidebar > /dev/null 2>&1 && pnpm exec nx preview @bsport/sm-navigation-sidebar",
+    "format": "pnpm exec nx run-many -t format",
+    "format:affected": "pnpm exec nx affected --target=format",
+    "format:check": "pnpm exec nx run-many -t format:check",
+    "format:check:affected": "pnpm exec nx affected --target=format:check",
+    "lint": "pnpm exec nx run-many -t lint",
+    "lint:affected": "pnpm exec nx affected --target=lint",
+    "lint:affected:fix": "pnpm exec nx affected --target=lint:fix",
+    "lint:fix": "pnpm exec nx run-many -t lint:fix",
+    "preinstall": "npx only-allow pnpm",
+    "prepare": "husky",
+    "project:create": "ts-node tools/monorepo-utils/src/index.ts project:create",
+    "project:dependencies:list": "ts-node tools/monorepo-utils/src/index.ts project:dependencies:list",
+    "project:import": "ts-node tools/monorepo-utils/src/index.ts project:import",
+    "project:list": "ts-node tools/monorepo-utils/src/index.ts project:list",
+    "pwd": "pwd",
+    "sync:format": "pnpm exec syncpack format",
+    "sync:list": "pnpm exec syncpack list",
+    "sync:mismatch:fix": "pnpm exec syncpack fix-mismatches",
+    "sync:mismatch:list": "pnpm exec syncpack list-mismatches",
+    "translation:migrate": "pnpm exec nx translation:migrate @bsport/i18n-management",
+    "translation:update": "pnpm exec nx translation:update @bsport/i18n-management",
+    "utils": "ts-node tools/monorepo-utils/src/index.ts"
   }
 }

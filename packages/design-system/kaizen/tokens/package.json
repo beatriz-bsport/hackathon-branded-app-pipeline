@@ -1,28 +1,28 @@
 {
   "name": "@bsport/kaizen-tokens",
-  "version": "0.0.0",
-  "private": true,
   "description": "Back-office - Design tokens",
+  "version": "0.0.0",
   "author": "Marwan El Boussarghini <marwan@bsport.io>",
+  "dependencies": {},
+  "devDependencies": {
+    "@bsport/eslint-config-react": "workspace:*",
+    "@types/node": "^22.9.0",
+    "tsconfig-paths": "^4.2.0"
+  },
   "main": "build/index.js",
-  "source": "src/index.ts",
-  "types": "build/index.d.ts",
+  "private": true,
   "scripts": {
     "build": "tsc",
     "ci:merge-request:open": "./scripts/ci-merge-request-open.sh",
     "dev": "tsc -w",
     "format": "prettier --write '**/*.{ts,tsx,js,jsx,cjs,mjs,scss,css,json,md,mdx,html,svg}'",
     "format:check": "prettier --check '**/*.{ts,tsx,js,jsx,cjs,mjs}'",
-    "postinstall": "npm run build",
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
+    "postinstall": "npm run build",
     "pre-commit": "sh ./scripts/pre-commit.sh",
     "tokens:import": "ts-node -r tsconfig-paths/register ./scripts/import-tokens.ts"
   },
-  "dependencies": {},
-  "devDependencies": {
-    "@bsport/eslint-config-react": "workspace:*",
-    "@types/node": "^22.9.0",
-    "tsconfig-paths": "^4.2.0"
-  }
+  "source": "src/index.ts",
+  "types": "build/index.d.ts"
 }

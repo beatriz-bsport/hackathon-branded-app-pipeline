@@ -1,20 +1,8 @@
 {
   "name": "@bsport/sm-giftcard",
-  "version": "0.1.0",
-  "private": true,
   "description": "Pages to manage giftcard for studio managers : List, Archived list, Details",
+  "version": "0.1.0",
   "author": "David Bretaud <david.bretaud@bsport.io>",
-  "type": "module",
-  "scripts": {
-    "build": "tsc && vite build",
-    "dev": "concurrently \"pnpm run --silent -w federate:navigation\" \"vite\"",
-    "federation:navigation": "pnpm exec nx build @bsport/sm-navigation-sidebar && pnpm exec nx preview @bsport/sm-navigation-sidebar",
-    "format": "prettier --write '**/*.{ts,tsx,js,jsx,cjs,mjs,scss,css,json,md,mdx,html,svg}'",
-    "format:check": "prettier --check '**/*.{ts,tsx,js,jsx,cjs,mjs}'",
-    "lint": "eslint .",
-    "preview": "vite preview",
-    "translation:update": "pnpm run -w translation:update"
-  },
   "dependencies": {
     "@bsport/b2b-backbone": "workspace:*",
     "@bsport/fetch": "workspace:*",
@@ -35,5 +23,17 @@
     "tailwindcss": "^3.4.14",
     "vite": "^5.4.11",
     "vite-plugin-svgr": "^4.3.0"
-  }
+  },
+  "private": true,
+  "scripts": {
+    "build": "tsc && vite build",
+    "dev": "concurrently \"pnpm run --silent -w federate:navigation\" \"vite\"",
+    "federation:navigation": "pnpm exec nx build @bsport/sm-navigation-sidebar && pnpm exec nx preview @bsport/sm-navigation-sidebar",
+    "format": "prettier --write '**/*.{ts,tsx,js,jsx,cjs,mjs,scss,css,json,md,mdx,html,svg}'",
+    "format:check": "prettier --check '**/*.{ts,tsx,js,jsx,cjs,mjs}'",
+    "lint": "eslint .",
+    "preview": "vite preview",
+    "translation:update": "pnpm run -w translation:update"
+  },
+  "type": "module"
 }

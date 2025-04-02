@@ -13,6 +13,7 @@ import {
   requestBasketClientSecret,
   resetBasketClientSecret,
   setPaymentStatus,
+  fetchPaymentGroupStatus,
 } from '#src/libs/payment/payment-module-revamped/actions';
 import { fetchInstalmentPaymentByBasket } from '#src/libs/instalment-payment-configuration/actions';
 
@@ -21,7 +22,6 @@ import type { OptionCallback } from '#src/state/types';
 import type { Basket } from '#src/libs/checkout/types';
 import type { RequestClientSecretPayload } from '#src/libs/invoice/types';
 import type { InstalmentPaymentApi } from '#src/libs/instalment-payment-configuration/types';
-import { fetchPaymentGroupStatus } from '#src/libs/payment/actions';
 import { PAYMENT_INTENT_STATUS_SUCCESS } from '@bsport/common/lib/master-data/payment-group';
 
 type UseBasketPaymentActionsData = {
@@ -54,6 +54,13 @@ type UseBasketPaymentActionsData = {
     options?: OptionCallback<Basket>,
   ) => void;
   handleResetBasketClientSecret: () => void;
+  handleSetPaymentStatus: ({
+    paymentGroupId,
+    isPaymentProcessing,
+  }: {
+    paymentGroupId: number;
+    isPaymentProcessing: boolean;
+  }) => void;
 };
 
 /**
@@ -183,6 +190,24 @@ export const useBasketPaymentActions = (
     [dispatch],
   );
 
+  const handleSetPaymentStatus = useCallback(
+    ({
+      paymentGroupId,
+      isPaymentProcessing,
+    }: {
+      paymentGroupId: number;
+      isPaymentProcessing: boolean;
+    }) => {
+      dispatch(
+        setPaymentStatus({
+          paymentGroupId,
+          paymentProcessing: isPaymentProcessing,
+        }),
+      );
+    },
+    [dispatch],
+  );
+
   return {
     handleAssignInstalmentPayment,
     handleCreateOrRefreshInternalAccountPrepaidLine,
@@ -193,5 +218,6 @@ export const useBasketPaymentActions = (
     handleFetchPaymentGroupStatus,
     handleRequestBasketClientSecret,
     handleResetBasketClientSecret,
+    handleSetPaymentStatus,
   };
 };

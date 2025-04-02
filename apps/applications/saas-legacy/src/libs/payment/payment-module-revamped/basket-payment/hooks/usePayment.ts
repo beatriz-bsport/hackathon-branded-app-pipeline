@@ -86,15 +86,13 @@ export const usePayment = (
     handleCreateOrRefreshInternalAccountPrepaidLine,
     handleResetBasketClientSecret,
     handleRequestBasketClientSecret,
+    handleSetPaymentStatus,
   } = useBasketPaymentActions(basketId, companyId, memberId);
 
   const { refreshBasket } = useBasket(basketId, companyId, memberId);
 
-  const {
-    selectedPaymentEngine,
-    selectedEstablishmentBillingGroup,
-    setIsPaymentProcessing,
-  } = useBasketPaymentLocalState();
+  const { selectedPaymentEngine, selectedEstablishmentBillingGroup } =
+    useBasketPaymentLocalState();
 
   /**
    * Creates pending bookings based on the basket data.
@@ -173,12 +171,17 @@ export const usePayment = (
     (isPaymentProcessing: boolean) => {
       selectedEstablishmentBillingGroup &&
         handleUpdateMemberBillingGroup(selectedEstablishmentBillingGroup.id);
-      setIsPaymentProcessing(isPaymentProcessing);
+
+      handleSetPaymentStatus({
+        paymentGroupId,
+        isPaymentProcessing,
+      });
     },
     [
       handleUpdateMemberBillingGroup,
-      setIsPaymentProcessing,
       selectedEstablishmentBillingGroup,
+      paymentGroupId,
+      handleSetPaymentStatus,
     ],
   );
 

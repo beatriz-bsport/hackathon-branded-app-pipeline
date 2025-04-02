@@ -56,16 +56,17 @@ export const useBasket = (
     basketTotalPricePrepaidLinesCts,
     isBasketLoading,
     isCurrentBasketProcessing,
+    paymentGroupId,
   } = useBasketPaymentStoreData(basketId, memberId);
 
   const {
     handleFetchCurrentBasket,
     handleFetchInstalmentPaymentByBasket,
     handleFetchBasket,
+    handleSetPaymentStatus,
   } = useBasketPaymentActions(basketId, companyId, memberId);
 
-  const { setCheckBasketItemError, setIsPaymentProcessing } =
-    useBasketPaymentLocalState();
+  const { setCheckBasketItemError } = useBasketPaymentLocalState();
 
   const handleFetchOfferBulk = useCallback(
     (offerIds: number[], options?: OptionCallback<Offer[]>) => {
@@ -172,10 +173,10 @@ export const useBasket = (
 
   const submitUnpaidBasket = useCallback(
     async (options?: OptionCallback) => {
-      setIsPaymentProcessing(true);
+      handleSetPaymentStatus({ paymentGroupId, isPaymentProcessing: true });
       const basketItemsChecked = await checkBasketItems(basketId);
       if (!basketItemsChecked) {
-        setIsPaymentProcessing(false);
+        handleSetPaymentStatus({ paymentGroupId, isPaymentProcessing: false });
         return;
       }
       const { data } = await verifyPriceBasket(basketId);
@@ -183,7 +184,7 @@ export const useBasket = (
         (!!basketTotalPriceCts || basketTotalPriceCts === 0) &&
         basketTotalPriceCts !== data
       ) {
-        setIsPaymentProcessing(false);
+        handleSetPaymentStatus({ paymentGroupId, isPaymentProcessing: false });
         window.alert(t('myBasket.error.inconsistentBasket'));
         window.location.reload();
         return;
@@ -202,7 +203,8 @@ export const useBasket = (
       basketTotalPriceCts,
       checkBasketItems,
       t,
-      setIsPaymentProcessing,
+      handleSetPaymentStatus,
+      paymentGroupId,
     ],
   );
 

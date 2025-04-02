@@ -7,8 +7,8 @@ import {
   type PaginationProps,
   Table,
 } from "@bsport/kaizen-primitive-core";
+import type { Member } from "@bsport/store-core-data-member";
 
-import type { Member } from "#src/store-api-pkg";
 import { useTranslation } from "#src/utils/i18n";
 
 import {

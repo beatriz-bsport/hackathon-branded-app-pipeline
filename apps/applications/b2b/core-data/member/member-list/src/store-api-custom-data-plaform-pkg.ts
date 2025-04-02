@@ -1,5 +1,24 @@
 // TODO : export in store | api pkg
-import { performFetchAction } from "./store-api-pkg";
+import fetch from "#src/utils/fetch";
+
+// ----- Generic -----
+export const performFetchAction = async <T>({
+  url,
+  params = {},
+  errorReturn,
+}: {
+  url: string;
+  params?: object;
+  errorReturn: T;
+}): Promise<T> => {
+  try {
+    const { data } = await fetch(url, params);
+    return data as T;
+  } catch (error) {
+    console.error(error);
+    return errorReturn;
+  }
+};
 
 // ----- Types -----
 

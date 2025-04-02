@@ -15,7 +15,7 @@ import {
 /**
  * Application name used for federation. Must also be present in @bsport/config-federation to work.
  */
-const APP_NAME: APPLICATION = "b2b-member-list";
+const APP_NAME: APPLICATION = "sm-member-list";
 
 // https://vite.dev/config/
 const config: UserConfig = {

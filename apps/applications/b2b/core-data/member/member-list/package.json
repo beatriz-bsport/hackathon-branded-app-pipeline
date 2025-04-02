@@ -20,6 +20,8 @@
     "@bsport/fetch": "workspace:*",
     "@bsport/i18n": "workspace:*",
     "@bsport/kaizen-primitive-core": "workspace:*",
+    "@bsport/store-core-data-member": "workspace:*",
+    "@bsport/use-async": "workspace:*",
     "@bsport/use-pagination-query-params": "workspace:*",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",

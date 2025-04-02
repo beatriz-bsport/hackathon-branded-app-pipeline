@@ -11,7 +11,6 @@ export const {
   withTranslation,
   getFixedNamespace,
   AppI18nextProvider,
-  languageSwitcher,
 } = instanciateAppI18n<typeof translations>({
   applicationName: i18nNamespacePrefix,
   namespaces: namespaceList,

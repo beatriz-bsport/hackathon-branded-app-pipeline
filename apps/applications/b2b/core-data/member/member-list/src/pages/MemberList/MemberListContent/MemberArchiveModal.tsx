@@ -1,18 +1,20 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect } from "react";
 
 import {
   MEMBER_STATUS,
   MemberStatuses,
 } from "@bsport/common/lib/master-data/member";
 import { Alert, Body, Modal, toast } from "@bsport/kaizen-primitive-core";
-
 import {
-  archiveMember,
-  interrogateMemberRegularity,
-  restoreMember,
-} from "#src/store-api-pkg";
-import { useTranslation } from "#src/utils/i18n";
-import { Trans } from "#src/utils/i18n";
+  archiveMemberAction,
+  interrogateMemberRegularityAction,
+  restoreMemberAction,
+  selectIrregularities,
+  useMemberStore,
+} from "@bsport/store-core-data-member";
+
+import fetch from "#src/utils/fetch";
+import { Trans, useTranslation } from "#src/utils/i18n";
 
 type MemberArchiveModalProps = {
   memberId: number;
@@ -29,7 +31,7 @@ const MEMBER_IRREGULARITY_TO_TRANSLATION = {
   [MEMBER_STATUS.HAS_FUTURE_BOOKINGS]: "futureBookings",
   [MEMBER_STATUS.HAS_RECCURENT_BOOKING]: "recurringBookings",
   [MEMBER_STATUS.HAS_PRIVATE_BOOKING]: "scheduledAppointments",
-};
+} as const;
 
 export const MemberArchiveModal: React.FC<MemberArchiveModalProps> = ({
   memberId,
@@ -38,23 +40,22 @@ export const MemberArchiveModal: React.FC<MemberArchiveModalProps> = ({
   refreshPageList,
 }) => {
   const { t } = useTranslation("common");
-  const [memberIrregularities, setMemberIrregularities] = useState<
-    MemberStatuses[]
-  >([]);
+  const memberIrregularities: MemberStatuses[] =
+    useMemberStore(selectIrregularities);
 
   // ----- Handlers -----
 
   const handleRestore = useCallback(async () => {
     // Restore the member
-    await restoreMember({ memberId });
+    await restoreMemberAction(fetch, { memberId });
 
     // Once executed, refresh the list
     await refreshPageList();
-  }, [refreshPageList, restoreMember, memberId]);
+  }, [refreshPageList, memberId]);
 
   const handleArchive = useCallback(async () => {
     // Archive the Member
-    await archiveMember({ memberId });
+    await archiveMemberAction(fetch, { memberId });
 
     // Refresh the list page once the request has finished
     refreshPageList();
@@ -72,17 +73,13 @@ export const MemberArchiveModal: React.FC<MemberArchiveModalProps> = ({
 
     // Close the modal
     onClose();
-  }, [archiveMember, refreshPageList, handleRestore, memberId, toast]);
+  }, [refreshPageList, handleRestore, memberId, toast]);
 
   // ----- On load -----
 
   useEffect(() => {
     if (memberId) {
-      const getIrregularity = async () => {
-        const response = await interrogateMemberRegularity({ memberId });
-        setMemberIrregularities(response);
-      };
-      getIrregularity();
+      interrogateMemberRegularityAction(fetch, { memberId });
     }
   }, [memberId]);
 
@@ -111,13 +108,7 @@ export const MemberArchiveModal: React.FC<MemberArchiveModalProps> = ({
           {t("listPage.archiveModal.description.effect")}
         </Body>
         {memberIrregularities.length > 0 && (
-          <Alert
-            type="weak"
-            status="warning"
-            onButtonClick={() => {}}
-            onClearClick={() => {}}
-            isClearable={false}
-          >
+          <Alert type="weak" status="warning">
             <Body htmlVariant="p" color="warning" weight="weak">
               {t(
                 "listPage.archiveModal.alertIrregularity.adviseRegularization",

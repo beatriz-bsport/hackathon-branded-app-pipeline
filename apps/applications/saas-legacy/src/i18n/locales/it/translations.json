@@ -15559,7 +15559,7 @@
             "actions": {
                 "bookVod": "Sblocca il video"
             },
-            "emptyMethod": "Nessuna scheda è compatibile con questo video, contatta il tuo studio"
+            "emptyMethod": "Siamo spiacenti, al momento non esiste un pacchetto compatibile con questo video. Per accedere a questo video, si prega di andare alla sezione abbonamenti."
         },
         "internalAccount": {
             "cancel": "Cancella",

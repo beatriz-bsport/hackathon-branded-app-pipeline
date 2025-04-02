@@ -1,0 +1,45 @@
+import useAsyncFn from '#src/hooks/useAsyncFn';
+import {
+  fetchCurrentBasket,
+  removeItemFromBasket,
+} from '#src/libs/checkout/api';
+import { postUserRegistration } from '#src/libs/offer/api';
+
+type HandleUserRegistrationParams = {
+  companyId: number;
+  email: string;
+  offerId: number;
+  paymentPackId: number;
+};
+
+export const handleUserRegistration = async ({
+  companyId,
+  email,
+  offerId,
+  paymentPackId,
+}: HandleUserRegistrationParams) => {
+  const { data: basket } = await fetchCurrentBasket(companyId);
+
+  const checkoutItems = basket?.checkout_items?.map(({ id, quantity }) => ({
+    checkout_item: id,
+    quantity,
+  }));
+
+  if (!!checkoutItems?.length && basket?.id) {
+    await removeItemFromBasket(basket.id, checkoutItems[0]);
+  }
+
+  const { data: userRegistrationResponse } = await postUserRegistration({
+    one_click_checkout: true,
+    payment_pack: paymentPackId,
+    offers: [{ offer_id: offerId, extra_data: {} }],
+    email,
+  });
+  const { data: updatedBasket } = await fetchCurrentBasket(companyId);
+
+  return { basket: updatedBasket, userRegistrationResponse };
+};
+
+export const useHandleUserRegistration = () => {
+  return useAsyncFn(handleUserRegistration);
+};

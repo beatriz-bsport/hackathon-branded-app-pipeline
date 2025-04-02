@@ -43,8 +43,6 @@ import { useFormikContext } from 'formik';
 import WidgetUtils from '#src/libs/widget/WidgetUtils';
 import { urlToMarketplace } from '#src/libs/marketplace/utils';
 import { OneClickCheckoutSkeleton } from '#src/pages/checkout/booker-modules/OfferBooker/OneClickBookingModule/_components/OneClickCheckoutSkeleton';
-import AcceptTermsAndConditions from '#src/components/css-only/Fabrique/Temporary/AcceptTermsAndConditions';
-import { TermsAndConditionType } from '#src/libs/payment/types';
 import useDebouncedCallback from '#src/hooks/useDebouncedCallBack';
 import { useLightSignUp } from './_hooks/useLightSignUp';
 import './index.css';
@@ -118,12 +116,6 @@ const OneClickBookingModule: React.FC<Props> = ({
   const [selectedPaymentPackId, setSelectedPaymentPackId] = useState<
     number | null
   >(null);
-
-  const [areTermsAndConditionsAccepted, setAreTermsAndConditionsAccepted] =
-    useState(false);
-
-  const handleAcceptTermsandConditions = (accepted: boolean) =>
-    setAreTermsAndConditionsAccepted(accepted);
 
   const [bookableStatusState, checkBookableStatus] = useCheckBookableStatus();
   const [offerState, fetchOffer] = useFetchOfferInformation();
@@ -342,8 +334,6 @@ const OneClickBookingModule: React.FC<Props> = ({
     window.location.search,
   );
 
-  const { general_terms_and_conditions } = theme;
-
   const goBackToCalendar = () => {
     if (WidgetUtils.isWidget()) {
       WidgetUtils.handleGoBackNavigation();
@@ -476,16 +466,6 @@ const OneClickBookingModule: React.FC<Props> = ({
                 {t('oneClickBooking.yourDetails')}
               </Typography>
               <LightSignupForm />
-              {general_terms_and_conditions && isSelectedPaymentPackFree && (
-                <AcceptTermsAndConditions
-                  id="one-click-checkout-terms-and-conditions"
-                  label={t('lightSignup.form.acceptTermsAndCondition.label')}
-                  name="termsAndConditions"
-                  onCheck={handleAcceptTermsandConditions}
-                  termsAndConditions={general_terms_and_conditions}
-                  type={TermsAndConditionType.TERMS_AND_CONDITIONS}
-                />
-              )}
               <div className="bs-oneclick-booking__already-member--desktop">
                 {t('oneClickBooking.alreadyMember')}
                 <ButtonV2
@@ -501,11 +481,7 @@ const OneClickBookingModule: React.FC<Props> = ({
                 <ButtonV2
                   className="bs-oneclick-booking__book-button"
                   color={ButtonColor.PRIMARY}
-                  isDisabled={
-                    !isValid ||
-                    (!!general_terms_and_conditions &&
-                      !areTermsAndConditionsAccepted)
-                  }
+                  isDisabled={!isValid}
                   onClick={onBook}
                   size={ButtonSize.LG}
                   variant={ButtonVariant.CONTAINED}

@@ -352,14 +352,7 @@ const OneClickBookingModule: React.FC<Props> = ({
     return <Redirect to={offerBookerUrl} />;
   }
 
-  if (bookableStatusState.loading || !bookableStatusState.value) {
-    return (
-      <div className="bs-oneclick-booking__container--loading">
-        <Loader />
-      </div>
-    );
-  }
-  if (bookableStatusState.value.shouldRedirect) {
+  if (bookableStatusState?.value?.shouldRedirect) {
     return <Redirect to={loginToBookerUrl} />;
   }
 
@@ -368,8 +361,8 @@ const OneClickBookingModule: React.FC<Props> = ({
   }
 
   if (
-    bookableStatusState.error ||
-    bookableStatusState.value?.shouldDisplayErrorPage
+    bookableStatusState?.error ||
+    bookableStatusState?.value?.shouldDisplayErrorPage
   ) {
     return (
       <ErrorMessage
@@ -377,7 +370,7 @@ const OneClickBookingModule: React.FC<Props> = ({
          * shouldDisplayErrorPage is already true only if statusCode is 1 | 2 | 3 | 4
          * Instead of writing again a if statement, we cast the value of statusCode
          */
-        errorCode={bookableStatusState.value.statusCode as ErrorCode}
+        errorCode={bookableStatusState?.value?.statusCode as ErrorCode}
         goBackToCalendar={goBackToCalendar}
       />
     );

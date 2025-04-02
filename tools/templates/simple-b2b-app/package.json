@@ -6,8 +6,8 @@
   "type": "module",
   "scripts": {
     "build": "tsc && vite build",
-    "dev": "concurrently \"pnpm run --silent -w federate:navigation\" \"vite\"",
     "ci:compile": "tsc",
+    "dev": "concurrently \"pnpm run --silent -w federate:navigation\" \"vite\"",
     "format": "prettier --write '**/*.{ts,tsx,js,jsx,cjs,mjs,scss,css,json,md,mdx,html,svg}'",
     "format:check": "prettier --check '**/*.{ts,tsx,js,jsx,cjs,mjs}'",
     "lint": "eslint .",
@@ -22,7 +22,7 @@
     "@bsport/use-pagination-query-params": "workspace:*",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "react-router": "^7.1.1"
+    "react-router": "^7.2.0"
   },
   "devDependencies": {
     "@bsport/config-federation": "workspace:*",

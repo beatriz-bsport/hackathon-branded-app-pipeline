@@ -41,14 +41,14 @@
     "class-variance-authority": "^0.7.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "uuid": "^11.0.3"
+    "uuid": "^11.0.4"
   },
   "devDependencies": {
     "@bsport/eslint-config-react": "workspace:*",
     "@bsport/kaizen-tokens": "workspace:*",
     "@types/inquirer": "^9.0.7",
     "@vitejs/plugin-react": "^4.3.3",
-    "@vitejs/plugin-react-swc": "^3.7.1",
+    "@vitejs/plugin-react-swc": "^3.7.2",
     "autoprefixer": "^10.4.20",
     "classnames": "^2.5.1",
     "concurrently": "^8.2.2",

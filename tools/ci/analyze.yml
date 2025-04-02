@@ -16,6 +16,10 @@ Analyze:
     - AFFECTED_PROJECTS=$(pnpm exec nx show projects --affected --base=origin/$NX_BASE --head=HEAD)
     - echo $AFFECTED_PROJECTS
     - echo "*"
+    - echo "⏳ Verify all our packages versions are synchronized and checking integrity rules"
+    - pnpm run sync:mismatch:list
+    - echo "✅ All dependencies are well configured !"
+    - echo "*"
     - echo "⏳ Compile ichizen affected projects with Typescript"
     - pnpm exec nx affected --target=ci:compile --base=origin/$NX_BASE
     - echo "✅ All ichizen affected projects have been compiled with Typescript"

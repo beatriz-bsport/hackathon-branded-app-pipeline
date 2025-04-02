@@ -15176,7 +15176,7 @@
         },
         "payLater": {
             "explain": "Je wordt in de studio gevraagd om de betaling te voltooien. Tot die tijd wordt de factuur als onbetaald beschouwd.",
-            "submit": "Later afrekenen"
+            "submit": "Fysieke betaling"
         },
         "or": "of",
         "expire_in": "Verloopt over ",

@@ -9,8 +9,12 @@ export default {
   trailingComma: "all", // Print trailing commas wherever possible in multi-line comma-separated syntactic structures.
   semi: true, // Print semicolons at the ends of statements.
 
+  plugins: [
+    "@trivago/prettier-plugin-sort-imports",
+    "prettier-plugin-packagejson",
+  ],
+
   // Custom options from @trivago/prettier-plugin-sort-imports : https://github.com/trivago/prettier-plugin-sort-imports
-  plugins: ["@trivago/prettier-plugin-sort-imports"],
   importOrder: [
     "<THIRD_PARTY_MODULES>",
     "^@bsport/(.*)$",

@@ -1,8 +1,19 @@
 {
   "name": "@bsport/sm-member-list",
-  "description": "B2B Application to display member list",
   "version": "0.0.0",
+  "private": true,
+  "description": "B2B Application to display member list",
   "author": "David Bretaud <david.bretaud@bsport.io>",
+  "type": "module",
+  "scripts": {
+    "build": "tsc && vite build",
+    "dev": "concurrently \"pnpm run --silent -w federate:navigation\" \"vite\"",
+    "format": "prettier --write '**/*.{ts,tsx,js,jsx,cjs,mjs,scss,css,json,md,mdx,html,svg}'",
+    "format:check": "prettier --check '**/*.{ts,tsx,js,jsx,cjs,mjs}'",
+    "lint": "eslint .",
+    "preview": "vite preview",
+    "translation:update": "pnpm run -w translation:update"
+  },
   "dependencies": {
     "@bsport/b2b-backbone": "workspace:*",
     "@bsport/common": "workspace:*",
@@ -24,16 +35,5 @@
     "tailwindcss": "^3.4.14",
     "vite": "^5.4.11",
     "vite-plugin-svgr": "^4.3.0"
-  },
-  "private": true,
-  "scripts": {
-    "build": "tsc && vite build",
-    "dev": "concurrently \"pnpm run --silent -w federate:navigation\" \"vite\"",
-    "format": "prettier --write '**/*.{ts,tsx,js,jsx,cjs,mjs,scss,css,json,md,mdx,html,svg}'",
-    "format:check": "prettier --check '**/*.{ts,tsx,js,jsx,cjs,mjs}'",
-    "lint": "eslint .",
-    "preview": "vite preview",
-    "translation:update": "pnpm run -w translation:update"
-  },
-  "type": "module"
+  }
 }

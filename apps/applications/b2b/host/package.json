@@ -1,8 +1,22 @@
 {
   "name": "@bsport/sm-host",
-  "description": "Studio Manager - Module Federation host app",
   "version": "0.0.1",
+  "private": true,
+  "description": "Studio Manager - Module Federation host app",
   "author": "Osmel Mora <osmel.mora@bsport.io>",
+  "type": "module",
+  "scripts": {
+    "build": "tsc && vite build",
+    "ci:build": "./scripts/ci-build.sh",
+    "ci:compile": "tsc",
+    "ci:deploy": "./scripts/ci-deploy.sh",
+    "dev": "vite",
+    "format": "prettier --write '**/*.{ts,tsx,js,jsx,cjs,mjs,scss,css,json,md,mdx,html,svg}'",
+    "format:check": "prettier --check '**/*.{ts,tsx,js,jsx,cjs,mjs}'",
+    "lint": "eslint .",
+    "preview": "vite preview",
+    "translation:update": "pnpm run -w translation:update"
+  },
   "dependencies": {
     "@bsport/b2b-backbone": "workspace:*",
     "@bsport/fetch": "workspace:*",
@@ -22,19 +36,5 @@
     "tailwindcss": "^3.4.14",
     "vite": "^5.4.11",
     "vite-plugin-svgr": "^4.3.0"
-  },
-  "private": true,
-  "scripts": {
-    "build": "tsc && vite build",
-    "ci:build": "./scripts/ci-build.sh",
-    "ci:compile": "tsc",
-    "ci:deploy": "./scripts/ci-deploy.sh",
-    "dev": "vite",
-    "format": "prettier --write '**/*.{ts,tsx,js,jsx,cjs,mjs,scss,css,json,md,mdx,html,svg}'",
-    "format:check": "prettier --check '**/*.{ts,tsx,js,jsx,cjs,mjs}'",
-    "lint": "eslint .",
-    "preview": "vite preview",
-    "translation:update": "pnpm run -w translation:update"
-  },
-  "type": "module"
+  }
 }

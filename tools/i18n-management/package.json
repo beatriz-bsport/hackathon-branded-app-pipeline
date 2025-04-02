@@ -1,8 +1,14 @@
 {
   "name": "@bsport/i18n-management",
-  "description": "Library to manage build translations and Weblate interaction",
   "version": "1.0.0",
+  "description": "Library to manage build translations and Weblate interaction",
   "author": "David Bretaud <david.bretaud@bsport.io>",
+  "scripts": {
+    "format": "prettier --write '**/*.{ts,tsx,js,jsx,cjs,mjs,scss,css,json,md,mdx,html,svg}'",
+    "format:check": "prettier --check '**/*.{ts,tsx,js,jsx,cjs,mjs}'",
+    "translation:migrate": "tsx ./scripts/import-legacy-translations.ts",
+    "translation:update": "./scripts/update-translations.sh"
+  },
   "dependencies": {
     "@bsport/typescript-monorepo-utils": "workspace:*",
     "fs-extra": "^11.2.0"
@@ -15,11 +21,5 @@
     "json-beautify": "^1.1.1",
     "json-merger": "^2.0.0",
     "tsx": "^4.19.2"
-  },
-  "scripts": {
-    "format": "prettier --write '**/*.{ts,tsx,js,jsx,cjs,mjs,scss,css,json,md,mdx,html,svg}'",
-    "format:check": "prettier --check '**/*.{ts,tsx,js,jsx,cjs,mjs}'",
-    "translation:migrate": "tsx ./scripts/import-legacy-translations.ts",
-    "translation:update": "./scripts/update-translations.sh"
   }
 }

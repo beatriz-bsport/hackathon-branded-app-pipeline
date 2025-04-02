@@ -1,16 +1,11 @@
 {
   "name": "@bsport/base-query-params",
-  "description": "Set of utils to implement hooks for state in URL",
   "version": "0.0.0",
+  "private": true,
+  "description": "Set of utils to implement hooks for state in URL",
+  "license": "UNLICENSED",
   "author": "David Bretaud <david.bretaud@bsport.io>",
-  "dependencies": {
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "react-router": "^7.2.0"
-  },
-  "devDependencies": {
-    "@bsport/eslint-config-react": "workspace:*"
-  },
+  "type": "module",
   "exports": {
     ".": {
       "types": "./build/lib.d.ts",
@@ -18,22 +13,27 @@
       "default": "./build/lib.es.js"
     }
   },
+  "main": "build/lib.es.js",
+  "module": "build/lib.es.js",
+  "types": "build/lib.d.ts",
   "files": [
     "build"
   ],
-  "license": "UNLICENSED",
-  "main": "build/lib.es.js",
-  "module": "build/lib.es.js",
-  "private": true,
   "scripts": {
     "build": "vite build",
     "dev": "vite build --watch",
     "format": "prettier --write '**/*.{ts,tsx,js,jsx,cjs,mjs,scss,css,json,md,mdx,html,svg}'",
     "format:check": "prettier --check '**/*.{ts,tsx,js,jsx,cjs,mjs}'",
+    "postinstall": "pnpm run build",
     "lint": "eslint .",
-    "lint:fix": "eslint --fix .",
-    "postinstall": "pnpm run build"
+    "lint:fix": "eslint --fix ."
   },
-  "type": "module",
-  "types": "build/lib.d.ts"
+  "dependencies": {
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-router": "^7.2.0"
+  },
+  "devDependencies": {
+    "@bsport/eslint-config-react": "workspace:*"
+  }
 }

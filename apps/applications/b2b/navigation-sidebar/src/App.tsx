@@ -1,6 +1,5 @@
-import "@bsport/kaizen-primitive-core/styles";
-
 import { Select } from "@bsport/kaizen-primitive-core";
+import "@bsport/kaizen-primitive-core/styles";
 
 import NavigationSidebar from "#src/components/NavigationSidebar";
 import { i18nInstance } from "#src/utils/i18n";

@@ -1,22 +1,22 @@
 {
   "name": "@bsport/typescript-string-utils",
-  "description": "Typescript String Utils",
   "version": "0.0.0",
-  "author": "Marwan El Boussarghini <marwan.elboussarghini@gmail.com>",
-  "dependencies": {
-    "@bsport/eslint-config-react": "workspace:*"
-  },
-  "main": "build/index.js",
   "private": true,
+  "description": "Typescript String Utils",
+  "author": "Marwan El Boussarghini <marwan.elboussarghini@gmail.com>",
+  "main": "build/index.js",
+  "source": "src/index.ts",
+  "types": "build/index.d.ts",
   "scripts": {
     "build": "tsc",
     "dev": "tsc -w",
     "format": "prettier --write '**/*.{ts,tsx,js,jsx,cjs,mjs,scss,css,json,md,mdx,html,svg}'",
     "format:check": "prettier --check '**/*.{ts,tsx,js,jsx,cjs,mjs}'",
+    "postinstall": "npm run build",
     "lint": "eslint .",
-    "lint:fix": "eslint --fix .",
-    "postinstall": "npm run build"
+    "lint:fix": "eslint --fix ."
   },
-  "source": "src/index.ts",
-  "types": "build/index.d.ts"
+  "dependencies": {
+    "@bsport/eslint-config-react": "workspace:*"
+  }
 }

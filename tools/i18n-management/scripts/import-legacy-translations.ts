@@ -1,18 +1,20 @@
-import path from "path";
-import { writeFileSync, readJSONSync, existsSync, mkdirSync } from "fs-extra";
-import beautify from "json-beautify";
+import { select } from "@inquirer/prompts";
 import { exec } from "child_process";
 import { Command } from "commander";
-import { select } from "@inquirer/prompts";
+import { existsSync, mkdirSync, readJSONSync, writeFileSync } from "fs-extra";
 import { select as selectWithSearch } from "inquirer-select-pro";
+import beautify from "json-beautify";
+import path from "path";
+
 import { getMonorepoBasePathSync } from "@bsport/typescript-monorepo-utils";
+
 import { LOCALES } from "../src";
 import {
-  getInternationalizedApplications,
-  getAppNamespaces,
-  getNamespacesTranslations,
   type ProjectConfig,
   type Translations,
+  getAppNamespaces,
+  getInternationalizedApplications,
+  getNamespacesTranslations,
 } from "./utils";
 
 // ----- Types -----

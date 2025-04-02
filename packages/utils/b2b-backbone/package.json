@@ -1,7 +1,28 @@
 {
   "name": "@bsport/b2b-backbone",
-  "description": "B2B Backbone",
   "version": "0.0.0",
+  "private": true,
+  "description": "B2B Backbone",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./build/lib.d.ts",
+      "import": "./build/lib.es.js",
+      "default": "./build/lib.es.js"
+    }
+  },
+  "main": "build/lib.es.js",
+  "module": "build/lib.es.js",
+  "types": "build/lib.d.ts",
+  "scripts": {
+    "build": "tsc && vite build",
+    "dev": "vite",
+    "format": "prettier --write '**/*.{ts,tsx,js,jsx,cjs,mjs,scss,css,json,md,mdx,html,svg}'",
+    "format:check": "prettier --check '**/*.{ts,tsx,js,jsx,cjs,mjs}'",
+    "postinstall": "pnpm run build",
+    "lint": "eslint .",
+    "preview": "vite preview"
+  },
   "dependencies": {
     "@bsport/fetch": "workspace:*",
     "@bsport/i18n": "workspace:*",
@@ -12,26 +33,5 @@
   },
   "devDependencies": {
     "@bsport/eslint-config-react": "workspace:*"
-  },
-  "exports": {
-    ".": {
-      "types": "./build/lib.d.ts",
-      "import": "./build/lib.es.js",
-      "default": "./build/lib.es.js"
-    }
-  },
-  "main": "build/lib.es.js",
-  "module": "build/lib.es.js",
-  "private": true,
-  "scripts": {
-    "build": "tsc && vite build",
-    "dev": "vite",
-    "format": "prettier --write '**/*.{ts,tsx,js,jsx,cjs,mjs,scss,css,json,md,mdx,html,svg}'",
-    "format:check": "prettier --check '**/*.{ts,tsx,js,jsx,cjs,mjs}'",
-    "lint": "eslint .",
-    "postinstall": "pnpm run build",
-    "preview": "vite preview"
-  },
-  "type": "module",
-  "types": "build/lib.d.ts"
+  }
 }

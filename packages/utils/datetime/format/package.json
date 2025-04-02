@@ -1,26 +1,26 @@
 {
   "name": "@bsport/datetime-format-utils",
-  "description": "Format Date util",
   "version": "0.0.0",
+  "private": true,
+  "description": "Format Date util",
   "author": "Marwan El Boussarghini <marwan@bsport.io>",
+  "main": "build/index.js",
+  "source": "src/index.ts",
+  "types": "build/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc -w",
+    "format": "prettier --write '**/*.{ts,tsx,js,jsx,cjs,mjs,scss,css,json,md,mdx,html,svg}'",
+    "format:check": "prettier --check '**/*.{ts,tsx,js,jsx,cjs,mjs}'",
+    "postinstall": "npm run build",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix ."
+  },
   "dependencies": {
     "luxon": "^3.4.4"
   },
   "devDependencies": {
     "@bsport/eslint-config-react": "workspace:*",
     "@types/luxon": "^3.4.2"
-  },
-  "main": "build/index.js",
-  "private": true,
-  "scripts": {
-    "build": "tsc",
-    "dev": "tsc -w",
-    "format": "prettier --write '**/*.{ts,tsx,js,jsx,cjs,mjs,scss,css,json,md,mdx,html,svg}'",
-    "format:check": "prettier --check '**/*.{ts,tsx,js,jsx,cjs,mjs}'",
-    "lint": "eslint .",
-    "lint:fix": "eslint --fix .",
-    "postinstall": "npm run build"
-  },
-  "source": "src/index.ts",
-  "types": "build/index.d.ts"
+  }
 }

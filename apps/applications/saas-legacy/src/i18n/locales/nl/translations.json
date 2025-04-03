@@ -15288,7 +15288,7 @@
             "actions": {
                 "bookVod": "Video ontgrendelen"
             },
-            "emptyMethod": "De studio heeft geen compatible kaarten voor deze video beschikbaar gesteld."
+            "emptyMethod": "Sorry, op dit moment is er geen pas compatibel met deze video. Ga naar het abonnementsgedeelte om er toegang toe te krijgen."
         },
         "internalAccount": {
             "confirm": "Bevestigen",

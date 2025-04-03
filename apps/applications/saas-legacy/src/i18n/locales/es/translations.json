@@ -13795,7 +13795,7 @@
             "actions": {
                 "bookVod": "Desbloquear el vídeo"
             },
-            "emptyMethod": "Ninguna tarjeta es compatible con este vídeo, póngase en contacto con su estudio"
+            "emptyMethod": "Lo sentimos, por el momento no hay ningún pase compatible con este vídeo. Por favor, diríjase a la sección de suscripción para acceder a él."
         },
         "internalAccount": {
             "useMyInternalAccount": "Utilización de mi saldo",

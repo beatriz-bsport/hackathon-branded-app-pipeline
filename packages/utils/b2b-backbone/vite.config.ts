@@ -23,9 +23,13 @@ export default defineConfig({
       // External dependencies that shouldn't be bundled
       external: [
         "react",
+        "react/jsx-dev-runtime",
+        "react/jsx-runtime",
         "react-router",
-        "@bsport/kaizen-primitive-core",
+        "react-router-dom",
+        "@bsport/fetch",
         "@bsport/i18n",
+        "@bsport/kaizen-primitive-core",
       ],
     },
   },

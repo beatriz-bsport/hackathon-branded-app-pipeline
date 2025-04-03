@@ -1,4 +1,4 @@
-import { Suspense, lazy } from "react";
+import { lazy } from "react";
 import { Route } from "react-router";
 
 import { RoutesWrapper } from "@bsport/b2b-backbone";
@@ -12,16 +12,9 @@ const IS_LOCAL_DEVELOPMENT = import.meta.env.DEV;
 const AppRoutes = () => {
   return (
     <RoutesWrapper
-      isDevelopmentMode={IS_LOCAL_DEVELOPMENT}
-      NavigationApp={
-        <Suspense
-          fallback={
-            <div className="h-screen w-[240px] bg-surface-page-navigation" />
-          }
-        >
-          <NavigationSidebar />
-        </Suspense>
-      }
+      isStandalone={IS_LOCAL_DEVELOPMENT}
+      NavigationApp={NavigationSidebar}
+      baseUrl=""
     >
       <Route element={<InvoiceListPage />} index />
     </RoutesWrapper>

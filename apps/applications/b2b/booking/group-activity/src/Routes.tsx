@@ -1,4 +1,4 @@
-import { Suspense, lazy } from "react";
+import { lazy } from "react";
 import { Route } from "react-router";
 
 import { RoutesWrapper } from "@bsport/b2b-backbone";
@@ -10,18 +10,15 @@ import {
 import ArchivedGroupActivitiesList from "#src/pages/ArchivedGroupActivitiesList/ArchivedGroupActivitiesList";
 import GroupActivitiesList from "#src/pages/GroupActivitiesList/GroupActivitiesList";
 
-const Navigation = lazy(() => import("sm-navigation-sidebar/App"));
+const NavigationSidebar = lazy(() => import("sm-navigation-sidebar/App"));
 const IS_LOCAL_DEVELOPMENT = import.meta.env.DEV;
 
 const AppRoutes = () => {
   return (
     <RoutesWrapper
-      isDevelopmentMode={IS_LOCAL_DEVELOPMENT}
-      NavigationApp={
-        <Suspense>
-          <Navigation />
-        </Suspense>
-      }
+      isStandalone={IS_LOCAL_DEVELOPMENT}
+      NavigationApp={NavigationSidebar}
+      baseUrl=""
     >
       <Route
         index

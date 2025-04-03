@@ -1,4 +1,5 @@
-import React, { ChangeEvent, useState } from "react";
+import { type ChangeEvent, useState } from "react";
+import { useNavigate } from "react-router";
 
 import { Button, TextField } from "@bsport/kaizen-primitive-core";
 import { login } from "@bsport/store-auth";
@@ -6,13 +7,14 @@ import { login } from "@bsport/store-auth";
 import { fetch } from "#src/utils/fetch";
 
 function DevLoginPage() {
+  const navigate = useNavigate();
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
   const handleLogin = async () => {
     const response = await login(fetch, { email, password });
     response.fold(() => {
-      window.location.href = "/";
+      navigate("/", { replace: true });
     }, console.error);
   };
 

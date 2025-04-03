@@ -1,5 +1,5 @@
-import type { Member } from "#src/types";
 import { memberStore } from "#src/store";
+import type { Member } from "#src/types";
 
 export const updateMember = (updatedMember: Member) => {
   memberStore.setState((state) => {

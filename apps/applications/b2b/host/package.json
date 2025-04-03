@@ -7,6 +7,7 @@
   "type": "module",
   "scripts": {
     "build": "tsc && vite build",
+    "build:preview": "vite build --mode preview",
     "ci:build": "./scripts/ci-build.sh",
     "ci:compile": "tsc",
     "ci:deploy": "./scripts/ci-deploy.sh",
@@ -14,7 +15,7 @@
     "format": "prettier --write '**/*.{ts,tsx,js,jsx,cjs,mjs,scss,css,json,md,mdx,html,svg}'",
     "format:check": "prettier --check '**/*.{ts,tsx,js,jsx,cjs,mjs}'",
     "lint": "eslint .",
-    "preview": "vite preview",
+    "preview": "vite preview --mode preview",
     "translation:update": "pnpm run -w translation:update"
   },
   "dependencies": {
@@ -36,5 +37,14 @@
     "tailwindcss": "^3.4.14",
     "vite": "^5.4.11",
     "vite-plugin-svgr": "^4.3.0"
+  },
+  "federation": {
+    "devPort": 4000,
+    "remotes": {
+      "sm-navigation-sidebar": {
+        "devPort": 4050,
+        "watchPath": "../navigation-sidebar/src/**/*"
+      }
+    }
   }
 }

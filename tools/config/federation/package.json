@@ -26,10 +26,20 @@
     "format:check": "prettier --check '**/*.{ts,tsx,js,jsx,cjs,mjs}'",
     "postinstall": "pnpm run build",
     "lint": "eslint .",
-    "lint:fix": "eslint --fix ."
+    "lint:fix": "eslint --fix .",
+    "test": "node --import ./test.config.mjs --test src/__tests__/**/*.test.ts"
   },
-  "dependencies": {},
+  "dependencies": {
+    "zod": "^3.24.2"
+  },
   "devDependencies": {
-    "@bsport/eslint-config-react": "workspace:*"
+    "@bsport/eslint-config-react": "workspace:*",
+    "@types/node": "^22.13.15",
+    "ts-node": "^10.9.2"
+  },
+  "nx": {
+    "tags": [
+      "tools:config-federation"
+    ]
   }
 }

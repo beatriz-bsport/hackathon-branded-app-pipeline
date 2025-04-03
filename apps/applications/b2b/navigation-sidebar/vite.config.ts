@@ -6,69 +6,28 @@ import { defineConfig } from "vite";
 import svgr from "vite-plugin-svgr";
 import topLevelAwait from "vite-plugin-top-level-await";
 
-import { type APPLICATION, getAppPort } from "@bsport/config-federation";
+import { getConfig } from "@bsport/config-federation";
 
-import { dependencies } from "./package.json";
-
-/**
- * Application name used for federation. Must also be present in @bsport/config-federation to work.
- */
-const APP_NAME: APPLICATION = "sm-navigation-sidebar";
+import packageJson from "./package.json";
 
 export default defineConfig(({ mode }) => {
-  const base = mode === "development" ? "/" : "/v2/apps/navigation-sidebar/";
-  const i18nUrl =
-    mode === "development"
-      ? `http://localhost:${getAppPort(APP_NAME)}`
-      : base.slice(0, -1); // remove trailing slash
+  const config = getConfig({
+    mode,
+    packageJson,
+    appType: "shared",
+  });
 
   return {
-    base,
-    define: {
-      "import.meta.env.VITE_I18N_NAMESPACE_PREFIX": JSON.stringify(
-        "sm-navigation-sidebar",
-      ),
-      "import.meta.env.VITE_APPLICATION_BASE_URL": JSON.stringify(i18nUrl),
-    },
-    server: {
-      port: getAppPort(APP_NAME),
-    },
-    preview: {
-      port: getAppPort(APP_NAME),
-    },
+    base: config.base,
+    define: config.define,
+    server: config.server,
+    preview: config.preview,
     plugins: [
       nxViteTsPaths(),
       svgr(),
       react(),
       federation({
-        name: APP_NAME,
-        filename: "remoteEntry.js",
-        manifest: {
-          fileName: "mf-manifest.json",
-        },
-        shared: {
-          react: {
-            singleton: true,
-            requiredVersion: dependencies["react"],
-          },
-          "react-dom": {
-            singleton: true,
-            requiredVersion: dependencies["react-dom"],
-          },
-          "@bsport/i18n": {
-            singleton: true,
-          },
-          "@bsport/kaizen-primitive-core": {
-            singleton: true,
-          },
-        },
-        exposes: {
-          "./NavigationSidebar": "./src/components/NavigationSidebar",
-        },
-        getPublicPath:
-          mode === "development"
-            ? `() => 'http://localhost:5000'`
-            : `() => '${base}'`,
+        ...config.federation,
       }),
       topLevelAwait(),
     ],

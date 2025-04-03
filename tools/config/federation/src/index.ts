@@ -50,7 +50,4 @@ export const getLocalFederationRemotes = () => {
   return remotes as Record<APPLICATION, string>;
 };
 
-// TODO: getProductionFederationRemotes() which returns actual URLs on our servers
-//
-// Suggested format:
-// https://xxxxx.bsport.io/apps/$APP_NAME/assets/module.js
+export { getConfig } from "./config";

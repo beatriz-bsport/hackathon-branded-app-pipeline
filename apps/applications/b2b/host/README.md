@@ -32,3 +32,19 @@ To build your application :
 ```sh
 pnpm run build
 ```
+
+### Running preview
+
+```sh
+pnpm run build:preview
+pnpm run preview
+```
+
+You may also need to run the same commands to the remote applications you are using.
+
+Using filters, you can run the same commands to all the remote applications:
+
+```sh
+pnpm --filter="@bsport/sm-*" run build:preview
+pnpm --filter="@bsport/sm-*" run preview
+```

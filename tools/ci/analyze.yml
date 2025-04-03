@@ -24,6 +24,10 @@ Analyze:
     - pnpm exec nx affected --target=ci:compile --base=origin/$NX_BASE
     - echo "✅ All ichizen affected projects have been compiled with Typescript"
     - echo "*"
+    - echo "⏳ Execute federation-config test when affected"
+    - pnpm exec nx affected --target=test --base=origin/$NX_BASE --exclude='*,!tag:tools:config-federation'
+    - echo "✅ federation-config tests have been executed if affected"
+    - echo "*"
     - echo "⏳ Lint ichizen affected projects"
     - pnpm exec nx affected --target=lint --base=origin/$NX_BASE
     - echo "✅ All ichizen affected projects have been linted"

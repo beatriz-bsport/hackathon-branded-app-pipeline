@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import isEqual from 'lodash/isEqual';
 import { replace as replaceRouter } from 'connected-react-router';
 import { connect, ConnectedProps } from 'react-redux';
@@ -45,7 +45,9 @@ import { urlToMarketplace } from '#src/libs/marketplace/utils';
 import { OneClickCheckoutSkeleton } from '#src/pages/checkout/booker-modules/OfferBooker/OneClickBookingModule/_components/OneClickCheckoutSkeleton';
 import useDebouncedCallback from '#src/hooks/useDebouncedCallBack';
 import { useLightSignUp } from './_hooks/useLightSignUp';
+import { OnlinePaymentBasket } from '#src/libs/payment/payment-module-revamped/basket-payment/OnlinePaymentBasket';
 import { useHandleUserRegistration } from './_hooks/useHandleUserRegistration';
+import { useBasketPaymentStatusTracker } from '#src/libs/payment/payment-module-revamped/basket-payment/hooks/useBasketPaymentStatusTracker';
 import { getItemInStorage } from '#src/utils/storage';
 import { STORAGE_KEY_LIGHT_SIGNUP_MEMBER_ID } from '#src/actions/constants';
 import { getAuthToken } from '#src/http';
@@ -92,6 +94,8 @@ const OneClickBookingModule: React.FC<Props> = ({
   retrieveCompanyCssConfiguration,
   replace,
 }) => {
+  const paymentRef = useRef(null);
+
   const DEBOUNCE_CALLBACK_DELAY = 1000;
   const {
     values: lightSignupValues,
@@ -105,10 +109,8 @@ const OneClickBookingModule: React.FC<Props> = ({
     return !(Object.values(formErrors).length === 0);
   }, [validateLightSignupForm]);
 
-  const memberId = getItemInStorage(
-    'local',
-    STORAGE_KEY_LIGHT_SIGNUP_MEMBER_ID,
-  );
+  const memberId =
+    getItemInStorage('local', STORAGE_KEY_LIGHT_SIGNUP_MEMBER_ID) ?? '';
 
   const token = getAuthToken();
 
@@ -122,17 +124,10 @@ const OneClickBookingModule: React.FC<Props> = ({
   const [offerState, fetchOffer] = useFetchOfferInformation();
   const {
     lightSignupCreate: [
-      {
-        loading: lightSignupCreateLoading,
-        error: lightSignupCreateError,
-        value: createdMember,
-      },
+      { loading: lightSignupCreateLoading, value: createdMember },
       lightSignupCreate,
     ],
-    lightSignUpUpdate: [
-      { value: updatedMember, error: lightSignupUpdateError },
-      lightSignUpUpdate,
-    ],
+    lightSignUpUpdate: [{ value: updatedMember }, lightSignUpUpdate],
   } = useLightSignUp();
   const {
     bookInOneClick: [bookingState, bookInOneClick],
@@ -268,37 +263,47 @@ const OneClickBookingModule: React.FC<Props> = ({
     if (!isSelectedPaymentPackFree) debouncedLightSignUp();
   }, [debouncedLightSignUp, isSelectedPaymentPackFree, lightSignupValues]);
 
+  const onBookWithChargeablePaymentPack = useCallback(() => {
+    onBookingSuccess({
+      offer,
+      basketId: basket?.id,
+      userRegistrationResponse,
+    });
+  }, [basket?.id, onBookingSuccess, userRegistrationResponse, offer]);
+
   const onBookWithFreePaymentPack = useCallback(async () => {
     if (!selectedPaymentPackId || !offer) return;
     if (await getIsFormInvalid()) {
-      return;
-    }
-    if ((await checkBookableStatus(offerId))?.shouldDisplayErrorPage) {
       return;
     }
 
     await submitLightSignupForm();
 
     if (canPerformLightSignUpCreate) {
-      await lightSignupCreate({
-        companyId,
-        firstName: lightSignupValues.firstName,
-        lastName: lightSignupValues.lastName,
-        email: lightSignupValues.email,
-        phone: lightSignupValues.phone,
-        acceptEmail: lightSignupValues.acceptEmail,
-        acceptSms: lightSignupValues.acceptSms,
-        accept_terms_and_conditions: lightSignupValues.acceptTermsAndConditions,
-      });
-      if (!lightSignupCreateError && !!createdMember) {
+      try {
+        await lightSignupCreate({
+          companyId,
+          firstName: lightSignupValues.firstName,
+          lastName: lightSignupValues.lastName,
+          email: lightSignupValues.email,
+          phone: lightSignupValues.phone,
+          acceptEmail: lightSignupValues.acceptEmail,
+          acceptSms: lightSignupValues.acceptSms,
+          accept_terms_and_conditions:
+            lightSignupValues.acceptTermsAndConditions,
+        });
         await bookInOneClick({
           offer,
           companyId,
           selectedPaymentPackId,
-          email: createdMember.email,
+          email: createdMember?.email!!,
         });
+      } catch (error) {
+        console.error(error);
       }
-    } else {
+      return;
+    }
+    try {
       await lightSignUpUpdate({
         id: memberId,
         first_name: lightSignupValues.firstName,
@@ -309,19 +314,19 @@ const OneClickBookingModule: React.FC<Props> = ({
         accept_sms: lightSignupValues.acceptSms,
         accept_terms_and_conditions: lightSignupValues.acceptTermsAndConditions,
       });
-      if (!lightSignupUpdateError && !!updatedMember) {
-        await bookInOneClick({
-          offer,
-          companyId,
-          selectedPaymentPackId,
-          email: updatedMember.email,
-        });
-      }
+      await bookInOneClick({
+        offer,
+        companyId,
+        selectedPaymentPackId,
+        email: updatedMember?.email!!,
+      });
+    } catch (error) {
+      console.error(error);
     }
+    return;
   }, [
     lightSignupCreate,
     lightSignUpUpdate,
-    lightSignupUpdateError,
     updatedMember,
     submitLightSignupForm,
     bookInOneClick,
@@ -336,41 +341,27 @@ const OneClickBookingModule: React.FC<Props> = ({
     lightSignupValues.phone,
     lightSignupValues.acceptTermsAndConditions,
     memberId,
-    checkBookableStatus,
-    offerId,
     canPerformLightSignUpCreate,
     createdMember,
     getIsFormInvalid,
-    lightSignupCreateError,
   ]);
 
-  const handleConfirmPayment = React.useCallback(
-    (event?: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-      // @ts-expect-error
-      !!event && paymentRef?.current?.onPaymentConfirm?.(event);
-    },
-    [],
-  );
-
-  const onBook = useCallback(
-    async (event?: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-      if ((await checkBookableStatus(offerId))?.shouldDisplayErrorPage) {
-        return;
-      }
-      if (isSelectedPaymentPackFree) {
-        onBookWithFreePaymentPack();
-      } else {
-        handleConfirmPayment(event);
-      }
-    },
-    [
-      isSelectedPaymentPackFree,
-      onBookWithFreePaymentPack,
-      handleConfirmPayment,
-      checkBookableStatus,
-      offerId,
-    ],
-  );
+  const onBook = useCallback(async () => {
+    if ((await checkBookableStatus(offerId))?.shouldDisplayErrorPage) {
+      return;
+    }
+    if (isSelectedPaymentPackFree) {
+      onBookWithFreePaymentPack();
+      return;
+    }
+    onBookWithChargeablePaymentPack();
+  }, [
+    onBookWithFreePaymentPack,
+    checkBookableStatus,
+    offerId,
+    onBookWithChargeablePaymentPack,
+    isSelectedPaymentPackFree,
+  ]);
 
   const offerDate = useConsumerBookingDateTime({
     dateStart: offer?.date_start,
@@ -417,6 +408,28 @@ const OneClickBookingModule: React.FC<Props> = ({
     ],
   );
 
+  const {
+    hasPaymentSucceeded,
+    isBackendProcessingAfterPayment,
+    isPaymentProcessing,
+  } = useBasketPaymentStatusTracker(basket?.id, parseInt(memberId));
+
+  const isPaymentLoading =
+    bookingState.loading ||
+    isBackendProcessingAfterPayment ||
+    isPaymentProcessing ||
+    hasPaymentSucceeded ||
+    userRegistrationLoading;
+
+  const isBookButtonDisable =
+    !isValid || !lightSignupValues.acceptTermsAndConditions;
+
+  const shouldDisplayOnlinePayment =
+    !!basket?.id &&
+    !!memberId &&
+    !!basket?.total_price_cts &&
+    !userRegistrationLoading;
+
   // @debt(4, 2, 2) This works because we do not set the authenticated state in the redux store
   // when we are on the one click booking page (we are just storing the token in the local storage)
   if (authenticated) {
@@ -427,7 +440,10 @@ const OneClickBookingModule: React.FC<Props> = ({
     return <Redirect to={loginToBookerUrl} />;
   }
 
-  if (offerState.value?.paymentPacks && !offerState.value.paymentPacks.length) {
+  if (
+    offerState.value?.paymentPacks &&
+    offerState.value.paymentPacks.length === 0
+  ) {
     return <Redirect to={loginToBookerUrl} />;
   }
 
@@ -530,6 +546,17 @@ const OneClickBookingModule: React.FC<Props> = ({
                 {t('oneClickBooking.yourDetails')}
               </Typography>
               <LightSignupForm />
+              {shouldDisplayOnlinePayment && (
+                <OnlinePaymentBasket
+                  ref={paymentRef}
+                  basketId={basket.id}
+                  companyId={companyId}
+                  onConfirmPaymentSuccess={onBookWithChargeablePaymentPack}
+                  payerContext={{
+                    memberId: parseInt(memberId),
+                  }}
+                />
+              )}
               <div className="bs-oneclick-booking__already-member--desktop">
                 {t('oneClickBooking.alreadyMember')}
                 <ButtonV2
@@ -542,22 +569,24 @@ const OneClickBookingModule: React.FC<Props> = ({
                 </ButtonV2>
               </div>
               <div className="bs-oneclick-booking__book-button-container">
-                <ButtonV2
-                  className="bs-oneclick-booking__book-button"
-                  color={ButtonColor.PRIMARY}
-                  isDisabled={!isValid}
-                  onClick={onBook}
-                  size={ButtonSize.LG}
-                  variant={ButtonVariant.CONTAINED}
-                >
-                  {bookingState.loading ? (
-                    <div className="bs-light-signup-form__submit-button-loader">
-                      <Loader />
-                    </div>
-                  ) : (
-                    t('oneClickBooking.bookButtonLabel')
-                  )}
-                </ButtonV2>
+                {isSelectedPaymentPackFree && (
+                  <ButtonV2
+                    className="bs-oneclick-booking__book-button"
+                    color={ButtonColor.PRIMARY}
+                    isDisabled={isBookButtonDisable}
+                    onClick={onBook}
+                    size={ButtonSize.LG}
+                    variant={ButtonVariant.CONTAINED}
+                  >
+                    {isPaymentLoading ? (
+                      <div className="bs-light-signup-form__submit-button-loader">
+                        <Loader />
+                      </div>
+                    ) : (
+                      t('oneClickBooking.bookButtonLabel')
+                    )}
+                  </ButtonV2>
+                )}
               </div>
             </div>
           </div>

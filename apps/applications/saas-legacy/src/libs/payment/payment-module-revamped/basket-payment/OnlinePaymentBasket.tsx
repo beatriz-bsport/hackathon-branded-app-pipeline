@@ -233,8 +233,12 @@ export const OnlinePaymentBasket: React.FC<Props> = forwardRef(
           onPayPalError: paymentRef?.current?.onPayPalError,
         };
       },
-      [paymentRef, submitUnpaidBasket, isTotalPriceNull],
+      [selectedPaymentEngine],
     );
+
+    useEffect(() => {
+      getClientSecret(selectedPaymentEngine);
+    }, [selectedPaymentEngine]);
 
     return (
       <div className={classes.container}>

@@ -141,16 +141,11 @@ const ReportingDetail: React.FC<Props> = ({
               (reportFilterConfig) =>
                 !reportFilterConfig.is_quick_report_filter,
             ) || null;
-          // Fetching data based on Report dates values in database column if not franchisor
+          // Fetch only headers, else our users will have a miserable experience
+          // as reports take a long time to load
           {
             !isFranchisor &&
               fetchReportHeaders(reportId, {
-                report_filter_config_id: fetchedAdvancedReportFilterConfigs?.id,
-              });
-
-            !isFranchisor &&
-              fetchSerializedReport(reportId, {
-                page: 1,
                 report_filter_config_id: fetchedAdvancedReportFilterConfigs?.id,
               });
           }
@@ -161,7 +156,6 @@ const ReportingDetail: React.FC<Props> = ({
   }, [
     fetchReportFilterConfigList,
     reportId,
-    fetchSerializedReport,
     fetchReportHeaders,
     isFranchisor,
     getInvalidFilters,

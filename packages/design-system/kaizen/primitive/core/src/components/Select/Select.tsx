@@ -13,8 +13,6 @@ const defaultClasses = [
   "flex",
   "items-center",
   "gap-xs",
-  "px-xs",
-  "py-xs",
   "rounded-md",
   "text-onsurface-default",
   "bg-surface-action-default-elevated-rest",
@@ -25,6 +23,10 @@ const defaultClasses = [
 ] as const;
 
 const variants = {
+  size: {
+    sm: ["h-lg", "px-xs"],
+    md: ["h-xl", "p-xs"],
+  },
   status: {
     default: [],
     critical: ["shadow-border-thin-critical"],
@@ -36,6 +38,9 @@ const variants = {
   },
 } as const;
 
+export const sizes = mapValues(variants.size, (_, key) => key) as {
+  [key in keyof typeof variants.size]: key;
+};
 export const statuses = mapValues(variants.status, (_, key) => key) as {
   [key in keyof typeof variants.status]: key;
 };
@@ -48,7 +53,8 @@ export type SelectProps = Omit<
 > &
   VariantProps<typeof select> & {
     name?: string;
-    label: string;
+    value?: string;
+    defaultValue?: string;
     items: Item[];
     iconLeft?: IconName;
     disabled?: boolean;
@@ -57,32 +63,60 @@ export type SelectProps = Omit<
 
 /**
  * A custom select component that displays a button which, when clicked or activated via a keyboard,
- * reveals a popover with selectable items. This component supports various visual states and integrates
- * well with forms by allowing submission of the selected value.
+ * reveals a popover with selectable items. This component supports both controlled and uncontrolled modes,
+ * integrates well with forms by allowing submission of the selected value, and provides accessibility features.
+ *
+ * - **Controlled Mode**: Pass the `value` prop to control the selected value externally. Use `onSelect` to handle changes.
+ * - **Uncontrolled Mode**: Pass the `defaultValue` prop to initialize the selected value internally. The component manages its own state.
  * @param props.className Classname to add to the select.
  * @param props.id Id of the select.
  * @param props.name Name of the hidden input for form submissions.
+ * @param props.size Size of the select. Can be "sm" or "md".
  * @param props.status Status of the select. Can be "default", "critical", or "positive".
- * @param props.label Label of the select.
- * @param props.items Items of the select.
- * @param props.iconLeft Icon on the left side of the select.
- * @param props.disabled Whether the select is disabled or not.
- * @param props.onSelect Function to call when an option is selected.
+ * @param props.value Controlled selected value. Use this prop to manage the selected value externally.
+ * @param props.defaultValue Default selected value (uncontrolled). Use this prop to initialize the selected value internally.
+ * @param props.items List of selectable items. Each item should include an `id` and `label`.
+ * @param props.iconLeft Icon displayed on the left side of the select button.
+ * @param props.disabled Whether the select is disabled or not. Disabled state prevents user interaction.
+ * @param props.onSelect Function to call when an option is selected. Receives the selected option's label or id as an argument.
  * @link https://docs.infra.bsport.io/storybook/kaizen/main/index.html?path=/docs/components-select--docs
  */
 const Select: React.FC<SelectProps> = ({
   className,
   id,
   name,
+  size = "md",
   status,
-  label,
+  value,
+  defaultValue,
   items,
   iconLeft,
   disabled,
   onSelect,
   ...props
 }) => {
-  const [selectedValue, setSelectedValue] = useState<string>(label);
+  const isControlled = value !== undefined;
+
+  const [internalValue, setInternalValue] = useState<string>(
+    defaultValue ?? "",
+  );
+
+  // The displayed value depends on whether it's controlled or uncontrolled
+  const selectedValue = isControlled ? value : internalValue;
+
+  const handleSelect = useCallback(
+    (optionId: string) => {
+      const option = items.find((item) => (item as MenuOption).id === optionId);
+      const newValue = (option as MenuOption)?.label || optionId;
+
+      if (!isControlled) {
+        setInternalValue(newValue);
+      }
+
+      onSelect?.(newValue);
+    },
+    [isControlled, items, onSelect],
+  );
 
   return (
     <Popover>
@@ -91,7 +125,7 @@ const Select: React.FC<SelectProps> = ({
           const handleButtonClick = () => setIsPopoverOpened((prev) => !prev);
 
           const handleKeyDown = (e: KeyboardEvent<HTMLButtonElement>) => {
-            if (e.key === "ArrowDown" || e.key === "Enter" || e.key === " ") {
+            if (["ArrowDown", "Enter", " "].includes(e.key)) {
               e.preventDefault();
               setIsPopoverOpened((prev) => !prev);
             }
@@ -107,11 +141,14 @@ const Select: React.FC<SelectProps> = ({
               />
 
               <button
-                className={classNames(select({ className, status, disabled }), {
-                  "shadow-focused": isPopoverOpened,
-                  "shadow-action-default-rest hover:shadow-action-default-hovered":
-                    !isPopoverOpened,
-                })}
+                className={classNames(
+                  select({ className, size, status, disabled }),
+                  {
+                    "shadow-focused": isPopoverOpened,
+                    "shadow-action-default-rest hover:shadow-action-default-hovered":
+                      !isPopoverOpened,
+                  },
+                )}
                 onClick={handleButtonClick}
                 onKeyDown={handleKeyDown}
                 aria-haspopup="listbox"
@@ -122,36 +159,32 @@ const Select: React.FC<SelectProps> = ({
                 {...props}
               >
                 {iconLeft && <Icon icon={iconLeft} size="sm" />}
-                <span className="w-full text-left">{selectedValue}</span>
-                <Icon icon="chevron-selector-vertical" size="sm" />
+                <span
+                  className={classNames("w-full text-left leading-xs", {
+                    "text-body-md": size === "sm",
+                    "text-body-lg": size === "md",
+                  })}
+                >
+                  {selectedValue}
+                </span>
+                <Icon icon="chevron-down" size="sm" />
               </button>
             </>
           );
         }}
       </Popover.Anchor>
       <Popover.Content placement="bottom-left">
-        {({ setIsPopoverOpened }) => {
-          const handleSelect = useCallback(
-            (value: string) => {
-              const option = items.find(
-                (item) => (item as MenuOption).id === value,
-              );
-              setSelectedValue((option as MenuOption).label || value);
+        {({ setIsPopoverOpened }) => (
+          <Menu
+            items={items}
+            disabled={disabled || false}
+            onSelectOption={(optionId) => {
+              handleSelect(optionId);
               setIsPopoverOpened(false);
-              onSelect?.(value);
-            },
-            [onSelect],
-          );
-
-          return (
-            <Menu
-              items={items}
-              disabled={disabled || false}
-              onSelectOption={handleSelect}
-              aria-labelledby={id}
-            />
-          );
-        }}
+            }}
+            aria-labelledby={id}
+          />
+        )}
       </Popover.Content>
     </Popover>
   );

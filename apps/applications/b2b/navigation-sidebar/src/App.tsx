@@ -29,7 +29,7 @@ const App = () => (
             { id: "fr", label: "FR" },
           ]}
           name="language-selector"
-          label={
+          defaultValue={
             i18nInstance.resolvedLanguage?.toLocaleUpperCase() ||
             "Select language"
           }

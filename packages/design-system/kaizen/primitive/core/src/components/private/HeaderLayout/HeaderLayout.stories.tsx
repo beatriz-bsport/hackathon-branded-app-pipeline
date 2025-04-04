@@ -169,7 +169,7 @@ const ARGS = {
           return (
             <Select
               key="selector"
-              label="Select something"
+              defaultValue="Select something"
               items={[
                 { id: "option-1", label: "Option 1" },
                 { id: "option-2", label: "Option 2" },

@@ -1,26 +1,36 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { useState } from "react";
 
 import { icons } from "#src/components/Icon";
 
-import Select, { statuses } from "./Select";
+import Select, { sizes, statuses } from "./Select";
 
 /**
- * A custom select component that displays a button which, when clicked or activated via a keyboard,<br>
- * reveals a popover with selectable options. This component supports various visual states and integrates<br>
- * well with forms by allowing submission of the selected value.<br>
+ * A custom select component that displays a button which, when clicked or activated via a keyboard,
+ * reveals a popover with selectable items. This component supports both controlled and uncontrolled modes,
+ * integrates well with forms by allowing submission of the selected value, and provides accessibility features.<br>
+ *
+ * - **Controlled Mode**: Pass the `value` prop to control the selected value externally. Use `onSelect` to handle changes.<br>
+ * - **Uncontrolled Mode**: Pass the `defaultValue` prop to initialize the selected value internally. The component manages its own state.<br>
+ *
  * <a href="https://www.figma.com/design/aQ73ihLayonUHVquF0QY2C/Kaizen-library?node-id=331-23641" target="_blank">Figma</a><br>
  */
 const meta: Meta<typeof Select> = {
   component: Select,
   argTypes: {
-    label: {
-      control: { type: "text" },
+    id: { control: { type: "text" } },
+    name: { control: { type: "text" } },
+    size: {
+      options: Object.keys(sizes),
+      control: { type: "inline-radio" },
     },
     status: {
       options: Object.keys(statuses),
       control: { type: "select" },
       table: { defaultValue: { summary: "default" } },
     },
+    value: { control: { type: "text" } },
+    defaultValue: { control: { type: "text" } },
     items: {
       table: {
         type: {
@@ -61,8 +71,40 @@ export const Primary: Story = {
   args: {
     id: "select-1",
     name: "select-1",
+    size: "md",
     status: "default",
-    label: "Select an option",
+    defaultValue: "Select an option",
+    items: [
+      { id: "option-1", label: "Option 1" },
+      { id: "option-2", label: "Option 2" },
+      { id: "option-3", label: "Option 3" },
+    ],
+    iconLeft: "arrow-right",
+    disabled: false,
+    onSelect: (option) => console.log(`Selected option: ${option}`),
+  },
+};
+
+/**
+ * This example demonstrates selecting an option and displaying a modified, abbreviated value.
+ */
+export const ControlledValue: Story = {
+  name: "Controlled value",
+  render: (args) => {
+    const [value, setValue] = useState(args.value);
+
+    const handleSelect = (option: string) => {
+      setValue(option.replace("Option", "Opt. "));
+    };
+
+    return <Select {...args} value={value} onSelect={handleSelect} />;
+  },
+  args: {
+    id: "select-1",
+    name: "select-1",
+    size: "md",
+    status: "default",
+    value: "Select an option",
     items: [
       { id: "option-1", label: "Option 1" },
       { id: "option-2", label: "Option 2" },

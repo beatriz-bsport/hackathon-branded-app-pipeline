@@ -1,6 +1,6 @@
 type WaitingListAutoCancellationType = {
-  id: number,
-  text: string,
+  id: number;
+  text: string;
 };
 
 export const WAITING_LIST_AUTO_CANCELLATION_DUMB: WaitingListAutoCancellationType =

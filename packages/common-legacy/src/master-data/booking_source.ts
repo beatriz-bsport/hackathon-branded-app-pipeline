@@ -1,6 +1,6 @@
 type BookingSource = {
-  id: number,
-  text: string,
+  id: number;
+  text: string;
 };
 
 export const BOOKING_SOURCE_APP: BookingSource = {

@@ -1,6 +1,6 @@
 export type StatusCode = {
-  id: number,
-  text: string,
+  id: number;
+  text: string;
 };
 
 export const SUCCEEDED: StatusCode = {

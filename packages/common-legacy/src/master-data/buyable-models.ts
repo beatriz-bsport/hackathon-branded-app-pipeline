@@ -1,6 +1,6 @@
 export type BuyableModel = {
-  id: number,
-  modelName: string,
+  id: number;
+  modelName: string;
 };
 
 export const SHOP_ITEM: BuyableModel = {

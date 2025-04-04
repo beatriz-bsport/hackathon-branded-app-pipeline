@@ -16,7 +16,7 @@ import aquaticAerobic from '../../assets/images/sports/aerobic_aquatic.png';
 import modernDanse from '../../assets/images/sports/danse_moderne.png';
 import other from '../../assets/images/sports/other.png';
 
-export type SportOptions = { id: number, text: string, icon: string };
+export type SportOptions = { id: number; text: string; icon: string };
 const SPORTS: SportOptions[] = [
   { id: 7, text: 'Aérobic', icon: aerobic },
   { id: 2, text: 'Danse africaine', icon: africanDanse },

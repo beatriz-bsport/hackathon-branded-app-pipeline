@@ -9,7 +9,7 @@ export const filterUnaccessiblePaymentPack = (
   {
     memberTagIdsList,
     authenticated,
-  }: { memberTagIdsList: number[], authenticated: boolean },
+  }: { memberTagIdsList: number[]; authenticated: boolean },
 ) => {
   if (Array.isArray(paymentPacks)) {
     if (!authenticated) {

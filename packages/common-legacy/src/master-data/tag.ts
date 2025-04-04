@@ -1,6 +1,6 @@
 type TagKind = {
-  id: number,
-  text: string,
+  id: number;
+  text: string;
 };
 
 export const TAG_KIND_MEMBER: TagKind = {

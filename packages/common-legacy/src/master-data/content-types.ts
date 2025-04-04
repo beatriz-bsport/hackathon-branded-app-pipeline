@@ -1,4 +1,4 @@
-const CONTENT_TYPES: Array<{ id: number, modelName: string }> = [
+const CONTENT_TYPES: Array<{ id: number; modelName: string }> = [
   {
     id: 24,
     modelName: 'Booking',

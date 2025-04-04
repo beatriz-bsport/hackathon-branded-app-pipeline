@@ -2,7 +2,7 @@
 
 ## Add commons to dependency
 
-Add to your dependencies the workspace symlink : 
+Add to your dependencies the workspace symlink :
 
 ```json
 "dependencies": {
@@ -44,4 +44,4 @@ You should see a `/lib` folder containing the build, with JS files.
 
 If you want to upgrade commons and see direct changes in your application, you just need to make your change and compile / build again `packages/common`.
 
-:warning: `bsport-mobile` uses common as well. 
+:warning: `bsport-mobile` uses common as well.

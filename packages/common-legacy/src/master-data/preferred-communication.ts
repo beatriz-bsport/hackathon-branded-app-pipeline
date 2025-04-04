@@ -1,6 +1,6 @@
 type PreferredCommunication = {
-  id: number,
-  text: string,
+  id: number;
+  text: string;
 };
 export const SMS: PreferredCommunication = {
   id: 0,

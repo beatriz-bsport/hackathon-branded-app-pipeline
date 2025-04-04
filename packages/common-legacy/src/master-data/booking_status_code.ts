@@ -1,6 +1,6 @@
 type BookingStatusCode = {
-  id: number,
-  text: string,
+  id: number;
+  text: string;
 };
 
 export const BOOKING_STATUS_OK: BookingStatusCode = {

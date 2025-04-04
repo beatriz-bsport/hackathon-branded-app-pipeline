@@ -30,7 +30,8 @@
     "check-type": "tsc --noEmit",
     "ci:compile": "tsc --noEmit",
     "compile": "tsc && tsc-alias",
-    "format": "find src -name \"*.js\" | xargs pnpm run prettier --write",
+    "format": "prettier --write '**/*.{ts,tsx,js,jsx,cjs,mjs,scss,css,json,md,mdx,html,svg}'",
+    "format:check": "prettier --check '**/*.{ts,tsx,js,jsx,cjs,mjs}'",
     "postinstall": "pnpm run build",
     "lint": "eslint ./src",
     "lint:fix": "eslint --fix ./src"

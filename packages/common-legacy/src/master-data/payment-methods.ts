@@ -1,7 +1,7 @@
 type PaymentMethodType = {
-  id: number,
-  text: string,
-  is_method_editable: boolean,
+  id: number;
+  text: string;
+  is_method_editable: boolean;
 };
 export const CB: PaymentMethodType = {
   id: 0,

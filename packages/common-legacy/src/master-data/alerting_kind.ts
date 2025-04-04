@@ -1,6 +1,6 @@
 type AlertingKind = {
-  alert_kind: number,
-  text: string,
+  alert_kind: number;
+  text: string;
 };
 
 export const UNEVEN_INVOICE_ALERT: AlertingKind = {

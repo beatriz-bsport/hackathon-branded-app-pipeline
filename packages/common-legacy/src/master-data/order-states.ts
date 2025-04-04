@@ -1,6 +1,6 @@
 type OrderState = {
-  id: number,
-  text: string,
+  id: number;
+  text: string;
 };
 
 export const ORDER_STATE_INITIALIZED: OrderState = {

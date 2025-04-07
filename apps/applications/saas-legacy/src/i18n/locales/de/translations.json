@@ -3030,21 +3030,21 @@
             },
             "websiteURL": {
                 "placeholder": "https://studio.com/",
-                "helperText": "Wird beispielsweise verwendet, wenn der Kunde auf Ihr Logo klickt",
-                "label": "URL Website",
+                "helperText": "Mitglieder werden dahin weitergeleitet, wenn sie auf das Logo klicken",
+                "label": "Link zu deiner Website",
                 "errorText": "Diese URL ist ungültig"
             },
             "secondary_color": {
                 "label": "Sekundäre Farbe",
-                "helperText": "Komplementärfarbe des Designs"
+                "helperText": "Am besten ist eine Farbe, die gut mit der Primärfarbe kombiniert werden kann"
             },
             "primary_color": {
-                "helperText": "Wähle eine Farbe, vermeide Monochromie",
+                "helperText": "Am besten ist eine Farbe, die gut mit anderen Farben kombiniert werden kann",
                 "label": "Hauptfarbe"
             },
             "cover": {
                 "label": "Logo",
-                "helperText": "Bevorzuge PNG-Formate mit durchsichtigem Hintergrund"
+                "helperText": "Wähle ein Logo im PNG-Format mit einem durchsichtigen Hintergrund"
             },
             "themePersonalization": {
                 "default_booking_ordering": {
@@ -3107,17 +3107,17 @@
                 "cancelledOffersManager": "Stornierte Kurse im Adminkalender anzeigen",
                 "checkBalance": {
                     "shiftRatio": {
-                        "explain": "Wenn mehr als {{numberCheck}} Buchungen in einem Kurs aufgezeichnet werden, wird keine Reservierung autorisiert, wodurch ein Ungleichgewicht zwischen Frauen und Männern entsteht, das größer ist als {{gender_max_shift_for_booking}} Personen.",
+                        "explain": "Wenn mehr als {{numberCheck}} Buchungen auftreten, wird keine Buchung mehr akzeptiert, durch welche ein Ungleichgewicht entsteht, das größer ist als {{gender_max_shift_for_booking}} Personen.",
                         "helperText": "Beschränke das Verhältnis zwischen Frauen und Männern auf {{gender_max_shift_for_booking}} Personen",
-                        "placeholder": "Maximal zulässiges Verhältnis zwischen Frau und Männer"
+                        "placeholder": "Maximal zulässiges Un-Verhältnis"
                     },
                     "numberCheck": {
                         "helperText": "Wenn mehr als {{number}} Personen einen Kurs buchen, wird eine zusätzliche Buchung nur akzeptiert, wenn das Verhältnis zwischen Frauen und Männern unter dem folgenden Wert liegt.",
-                        "placeholder": "Überprüfe das Verhältnis zwischen Frauen und Männern, wenn die Anzahl der Buchungen überschritten wird"
+                        "placeholder": "Überprüfe das Verhältnis von Frauen und Männern, wenn die Anzahl der Buchungen überschritten wird"
                     },
-                    "checkbox": "Begrenze das Verhältnis zwischen Frauen und Männern bei Buchungen (Tanz ...)"
+                    "checkbox": "Anteil der Frauen und Männer soll möglichst ausgewogen sein (z.B. Tanzkurs)"
                 },
-                "offerBalance": "Einrichtung einer Verhältnis-Kontrolle für Frauen und Männer",
+                "offerBalance": "Ausgewogener Anteil Frauen und Männer",
                 "showGenderOffer": "Anzahl der angemeldeten Frauen und Männer anzeigen",
                 "hideCoach": "Infos zur Lehrkraft im Mitgliederkalender ausblenden",
                 "maxFutureBooking": {
@@ -3159,7 +3159,7 @@
                     "enableReplacement": "Vertretung",
                     "access": "Zugang",
                     "enableRemuneration": "Lohnabrechnung",
-                    "description": "Passen Sie die Lehrkräfteansicht im Web an. Bitte beachten Sie, dass die Einstellungen hier keinen Einfluss auf die Ansicht der Anwendung durch die Lehrkraft haben.",
+                    "description": "Passe die Lehrkraftansicht im Web an. Bitte beachte, dass die Einstellungen hier keinen Einfluss auf die Ansicht der App durch die Lehrkraft haben.",
                     "isLateReplacementRequestLimited": "Limit für verspätete Anfragen",
                     "enableSchedule": "Wochenplan",
                     "daysBeforeReplacementClosing": {
@@ -3170,8 +3170,8 @@
                         "helperText": "Schließung von Anfragen auf Vertretung",
                         "placeholder": "Anzahl an Tagen"
                     },
-                    "restrictionsDescription": "Geben Sie an, auf welche Tabs Ihre Lehrkräfte Zugriff haben",
-                    "enable": "Lehrkräftebereich standardmäßig aktivieren",
+                    "restrictionsDescription": "Wähle die Reiter aus, auf die deine Lehrkräfte Zugriff haben sollen.",
+                    "enable": "Lehrkraftansicht aktivieren",
                     "maxNbRequestPerPeriod": {
                         "recap": {
                             "1": "Jede {{nbPeriods}} Woche können Ihre Lehrkräfte maximal {{nbRequests}} verspätete Anfragen stellen. Sobald diese Zahl überschritten ist, können sie bis zum Ende der Periode keine verspäteten Anfragen mehr stellen.",
@@ -3187,11 +3187,11 @@
                         "placeholder": "Zeitraum auswählen"
                     },
                     "errors": {
-                        "restrictionToggles": "Bitte wählen Sie mindestens eine Option aus"
+                        "restrictionToggles": "Bitte wähle mindestens eine Option aus"
                     },
-                    "enableDescription": "Wenn Sie diese Funktion aktivieren, wird der Zugang für alle neuen Lehrkräfte standardmäßig aktiviert",
+                    "enableDescription": "Wenn du diese Option aktivierst, dann sehen alle Lehrkräfte diese Ansicht standardmäßig.",
                     "replacementSettings": "Vertretungs-Einstellungen",
-                    "enableRemunerationDownload": "Lehrkräften erlauben ihre Lohnabrechnung herunterzuladen"
+                    "enableRemunerationDownload": "Lehrkräfte können ihre Lohnabrechnung herunterladen"
                 },
                 "noShow": {
                     "title": "Abwesenheiten (No-Show)",
@@ -3212,10 +3212,10 @@
                 "signup": {
                     "urlRedirection": "URL-Weiterleitung",
                     "urlError": "Bitte geben Sie eine gültige URL ein",
-                    "helperText": "Nach der Registrierung erhalten Ihre Mitglieder eine E-Mail zur Bestätigung ihrer E-Mail-Adresse. Ihr Konto wird erst aktiviert, wenn diese E-Mail bestätigt wurde",
+                    "helperText": "Um ihr Konto zu aktivieren, müssen Mitglieder den Link in der Bestätigungs-E-Mail klicken.",
                     "urlHelperText": "Das Mitglied wird zu diesem Link weitergeleitet, nachdem es die E-Mail-Adresse bestätigt hat. Falls nicht angegeben, wird es zu dessen Profil auf dem Marketplace weitergeleitet.",
-                    "label": "Bestätigungs-E-Mail bei Anmeldung",
-                    "title": "Anmeldung"
+                    "label": "Bestätigungs-E-Mail nach Registrierung senden",
+                    "title": "Registrierungen"
                 },
                 "hideSessionWithTagsNotEligible": "Kurse ausblenden, die dem Mitglied aufgrund der Tags nicht zur Verfügung stehen",
                 "errorURL": "Bitte geben Sie eine gültige URL an, bevor Sie das Formular speichern",
@@ -3265,9 +3265,9 @@
                 "bookingLimitation": "Allgemeine Buchungseinstellungen",
                 "resetPassword": {
                     "urlError": "Bitte geben Sie eine gültige URL ein",
-                    "urlHelperText": "Dieses Feld leer lassen, um auf den Marktplatz umzuleiten",
-                    "urlRedirection": "Benutzerdefinierte URL",
-                    "helperText": "Standardmäßig werden Mitglieder, sobald sie ihr Passwort zurücksetzen auf den Marktplatz umgeleitet. Wenn sie wo anders weitergeleitet werden sollen (z. B. auf Ihre Website), tragen Sie bitte die gewünschte URL in das folgende Feld ein.",
+                    "urlHelperText": "Lass dieses Feld leer, wenn du deine Mitglieder zum Marktplatz weiterleiten möchtest.",
+                    "urlRedirection": "Dein Link zur Weiterleitung",
+                    "helperText": "Mitglieder, die ihr Passwort zurücksetzen, werden zum Marktplatz weitergeleitet. Falls du einen anderen Link zur Weiterleitung verwenden möchtest, gib den Link hier ein:",
                     "title": "Passwort zurücksetzen"
                 },
                 "memberProfile": {
@@ -3275,7 +3275,7 @@
                         "showMembershipNumber": "Mitgliedsnummer anzeigen",
                         "showBarcodeButton": "Barcode anzeigen",
                         "showMemberAccountBalance": "Kontostand des Mitglieds anzeigen",
-                        "title": "Mein Profil"
+                        "title": "Dein Profil"
                     }
                 },
                 "displayActivityPrice": "Anzahl der erforderlichen Credits anzeigen",
@@ -3289,7 +3289,7 @@
             },
             "general_terms_and_conditions": {
                 "placeholder": "Ich bestätige, dass ich ein ärztliches Attest besitze und es in mein Studio mitbringen werde",
-                "helperText": "Müssen für die Zahlung und Anmeldung akzeptiert werden",
+                "helperText": "Pflichtfeld für die Anmeldung und Zahlung",
                 "label": "Allgemeine Verkaufsbedingungen"
             },
             "android_app_url": {
@@ -3304,7 +3304,7 @@
             },
             "general_terms_of_use": {
                 "placeholder": "Ich bestätige, dass ich über 13 Jahre alt bin",
-                "helperText": "Muss für jede Registrierung akzeptiert werden",
+                "helperText": "Pflichtfeld für jede Registrierung",
                 "label": "Allgemeine Geschäftsbedingungen"
             },
             "facebookPixelId": {
@@ -3314,7 +3314,7 @@
             "waiver": {
                 "label": "Verzichtserklärung",
                 "placeholder": "Ich bestätige, dass ich über 13 Jahre alt bin",
-                "helperText": "Muss für jede Registrierung akzeptiert werden"
+                "helperText": "Pflichtfeld für jede Registrierung"
             },
             "provincialTax": {
                 "taxHelperText": "Erscheint auf Rechnungen",
@@ -3351,7 +3351,7 @@
             },
             "productsThemePersonalization": {
                 "credits": {
-                    "description": "Aktivieren oder deaktivieren Sie die Anzeige der Pässe für Kunden",
+                    "description": "Aktiviere oder deaktiviere die Anzeige der Kurspässe",
                     "label": "Credits ausblenden",
                     "subTitle": "Credits"
                 },
@@ -3359,10 +3359,10 @@
                 "productsOrdering": {
                     "itemNumberCaption": "{{count}} Produkt",
                     "itemNumberCaption_plural": "{{count}} Produkte",
-                    "description": "Organisieren Sie Ihre Produkte so, dass sie für Ihre Kunden sichtbar sind, wenn sie eine Aktivität buchen und Pässe, Pakete oder Abonnements benötigen.",
+                    "description": "Wenn du diese Option aktivierst, dann kannst du Pässe, Pakete und Abos anzeigen, die Mitglieder bei Buchung einer Aktivität brauchen.",
                     "reset": "Zurücksetzen",
-                    "label": "Personalisierte Anordnung",
-                    "subTitle": "Reihenfolge der Produkte"
+                    "label": "Personalisierte Anzeige",
+                    "subTitle": "Produkt-Reihenfolge"
                 }
             },
             "checkInPersonalization": {
@@ -3403,9 +3403,9 @@
             "leadAcquisitionSuccess": "Wenn ein Benutzer das Akquise-Widget erfolgreich übermittelt hat",
             "openAnalyticsModalButton": "Analyse-Tools verbinden",
             "analyticsInformationModal": {
-                "confirm": "ANLEITUNG ANZEIGEN",
-                "content": "Nutze erweiterte Analysen, indem du den Google Tag Manager mit Google Analytics und dem Meta Pixel (Facebook Pixel) verknüpfst. Folge unserer Schritt-für-Schritt-Anleitung, um die wichtigsten Kennzahlen für dein Unternehmen zu erfassen.",
-                "title": "Richte Analyse-tools ein, um umfassendere Einblicke in deine Daten zu gewinnen"
+                "confirm": "Zur Anleitung",
+                "content": "Mit Analyse-Tools wie Google Tag Manager, Google Analytics and Meta-Pixel gewinnst du wichtige Kennzahlen für dein Studio. Wir bieten dir eine Kurzanleitung zur Einrichtung an.",
+                "title": "Analyse-Tools für mehr Erkenntnisse"
             }
         },
         "signUpForm": {
@@ -3439,7 +3439,7 @@
                 "vaccination_status": "Status Sanitärpass COVID-19"
             },
             "error": "Es ist ein Problem aufgetreten",
-            "title": "Formular für Mitglieder",
+            "title": "Formulare für Mitglieder",
             "account_creation": "Ein Konto erstellen",
             "account_modification": "Ein Konto bearbeiten",
             "field_identifier": "Felder",
@@ -8926,7 +8926,7 @@
         },
         "generalTermsAndConditions": {
             "close": "Schließen",
-            "iAccept": "Ich akzeptiere die ",
+            "iAccept": "Ja ",
             "theTermsAndConditions": "Allgemeine Nutzungsbedingungen.",
             "generalTermsOfUse": " Allgemeine Geschäftsbedingungen",
             "waiver": "Verzichtserklärung."
@@ -9899,7 +9899,7 @@
     },
     "booking": {
         "details": {
-            "pleaseSelectABooking": "Wählen Sie eine Buchung aus, um die Details zu sehen",
+            "pleaseSelectABooking": "Wähle eine Buchung aus, um die Details zu sehen.",
             "offerTitle": "Verbundener Kurs",
             "consumerPaymentPackTitle": "Genutzer Kurspass",
             "title": "Details der Buchung"
@@ -9934,7 +9934,7 @@
                 "maleUnavailable": "Der Kurs kann nicht mehr für Männer gebucht werden.",
                 "femaleUnavailable": "Der Kurs kann nicht mehr für Frauen gebucht werden."
             },
-            "hasRegistered": "Sie sind bereits für diesen Kurs angemeldet.",
+            "hasRegistered": "Du bist bereits für diesen Kurs angemeldet.",
             "recurrent": {
                 "backToRegistererChoice": "Zurück",
                 "bookMultiple": "Buchen",
@@ -9942,29 +9942,29 @@
             },
             "isLoading": "Kurse werden gesucht...",
             "book": {
-                "unknowError": "Momentan keine Buchung möglich - Bitte versuchen Sie es später erneut"
+                "unknowError": "Momentan keine Buchung möglich - Bitte versuche es später erneut"
             },
             "tags": {
                 "unAuthorized": "Du hast nicht die erforderliche Berechtigung diesen Kurs zu buchen.",
                 "managerDialogWarningDialog": {
                     "confirm": "Bestätigen",
                     "cancel": "Abbrechen",
-                    "content": "Achtung, dieses Mitglied verfügt nicht über die notwendigen Tags, um für diesen Kurs angemeldet zu werden. Möchten Sie es trotzdem anmelden?",
+                    "content": "Achtung, dieses Mitglied verfügt nicht über die notwendigen Tags, um für diesen Kurs angemeldet zu werden. Möchtest du es trotzdem anmelden?",
                     "title": "Informationen"
                 }
             },
-            "isBookingLimitReached": "Sie haben Ihr Buchungslimit erreicht",
+            "isBookingLimitReached": "Du hast dein Buchungslimit erreicht",
             "multiSession": {
                 "selectSpot": {
                     "validationButton": "Kurs hinzufügen{{selectedSessionsCount}}",
                     "validationButton_plural": "Kurse hinzufügen{{selectedSessionsCount}}",
-                    "dialogSubtitle": "Wählen Sie Ihren Platz für die Klasse",
+                    "dialogSubtitle": "Wähle deinen Platz für den Kurs",
                     "dialogTitle": "Platz auswählen",
                     "dialogTitleWithSteps": "Platz auswählen{{currentStep}}{{totalSteps}}"
                 },
                 "addSession": {
                     "noContent": "Es wurden keine ähnlichen Kurse gefunden.",
-                    "dialogSubtitle": "Wählen Sie den Kurs, den Sie buchen möchten",
+                    "dialogSubtitle": "Wähle den Kurs, den du buchen möchtest",
                     "dialogTitle": "Einen Kurs hinzufügen",
                     "sessionCount": "{{selectedSessionsCount}} von {{totalSessionsCount}} Kurse",
                     "selectAll": "Alle Auswählen"
@@ -9973,10 +9973,10 @@
             "groupedSession": {
                 "warningModal": {
                     "partialBooking": {
-                        "text": "Diese Aktivität ist Teil einer Gruppe von Kursen. Sie sind nicht verpflichtet, an allen Kursen der Gruppe teilzunehmen, und Sie können wählen, an welchen Kursen Sie teilnehmen möchten"
+                        "text": "Diese Aktivität ist Teil einer Gruppe von Kursen. Du bist nicht verpflichtet, an allen Kursen der Gruppe teilzunehmen, und Du kannst wählen, an welchen Kursen Du teilnehmen möchtest."
                     },
                     "fullBookingOnly": {
-                        "text": "Sie werden für alle {{sessionsTotal}} Kurse dieser Gruppe eingeschrieben"
+                        "text": "Du wirst für alle {{sessionsTotal}} Kurse dieser Gruppe eingeschrieben"
                     },
                     "title": "Buchung einer Gruppe von Kursen"
                 },
@@ -10095,7 +10095,7 @@
                 },
                 "sendAfterMail": "Sende diese Benachrichtigung nach Ende des Kurses",
                 "sendBeforeMail": "Sende diese Benachrichtigung vor dem Anfang eines Kurses",
-                "explain": "Sie können Ihre Mitglieder vor oder nach bestimmten Kursen benachrichtigen, abhängig von verschiedenen Kriterien wie der Anzahl der Besuche, Abwesenheiten oder sogar Stornierungen.",
+                "explain": "Du kannst deine Mitglieder vor oder nach bestimmten Kursen benachrichtigen, abhängig von verschiedenen Kriterien wie der Anzahl der Besuche, Abwesenheiten oder sogar Stornierungen.",
                 "help": {
                     "absence": "Diese Benachrichtigung wird gesendet, wenn ein Mitglied {{notify_booking_nb}} Zeit(en) versäumt.",
                     "attendance": "Diese Benachrichtigung wird gesendet, wenn ein Mitglied an {{notify_booking_nb}} Zeit(en) teilnimmt.",
@@ -10138,7 +10138,7 @@
                 "bookingNumberAll": "Alle Buchungen",
                 "addVariable": "Variable hinzufügen",
                 "pushHelper": "Achtung, Push-Benachrichtigungen sollten sparsam eingesetzt werden. Zu viele Push-Benachrichtigungen können dazu führen, dass einige Mitglieder die App deinstallieren.",
-                "needPushUpsell": "Bitte aktivieren Sie das Push-Benachrichtigungs-Add-On, um diese Funktion zu nutzen.",
+                "needPushUpsell": "Bitte aktiviere das Push-Benachrichtigungs-Add-On, um diese Funktion zu nutzen.",
                 "push": "Push-Benachrichtigung",
                 "mail": "E-Mail",
                 "sendingMethod": "Kommunikationskanal",
@@ -10148,7 +10148,7 @@
                 "sendBeforeNotification": "Sende diese Push-Benachrichtigung vor dem davon betroffenen Kurs",
                 "smartListHelper": "Keine E-Mail senden, wenn das Mitglied zu einer der folgenden Smartlisten gehört",
                 "smartListHelperInclude": "Eine E-Mail nur senden, wenn das Mitglied einer der folgenden Smartlisten angehört",
-                "warning": "Wenn Sie keine Smartlist auswählen, besteht die Gefahr, dass Sie Mitglieder benachrichtigen, die bereits einen anderen Kurspass gekauft haben",
+                "warning": "Wenn Du keine Smartlist auswählst, besteht die Gefahr, dass du Mitglieder benachrichtigst, die bereits einen anderen Kurspass gekauft haben",
                 "createSmartList": "Eine Smartlist erstellen",
                 "smartListSelection": "Smartliste(n) auswählen (optional)",
                 "advanced": "Fortgeschrittene"
@@ -10160,7 +10160,7 @@
             "deleteModal": {
                 "cancel": "Abbrechen",
                 "confirm": "Löschen",
-                "content": "Soll die wiederkehrende Regel gelöscht werden? Möchten Sie auch die zukünftigen Buchungen, die mit dieser Regel erstellt wurden, stornieren?",
+                "content": "Soll die wiederkehrende Regel gelöscht werden? Möchtest Du auch die zukünftigen Buchungen, die mit dieser Regel erstellt wurden, stornieren?",
                 "title": "Wiederholungsregel löschen",
                 "success": "Die wiederkehrende Buchung wurde gelöscht"
             },
@@ -10194,7 +10194,7 @@
                     "label": "Beginn der Wiederholung am "
                 },
                 "groupWarning": "Achtung es ist nicht möglich, wiederkehrende Buchungen für Gruppen von Kursen zu erstellen",
-                "permissionWarning": "Sie haben keine Erlaubnis Buchungen für diese Aktivität abzuschließen"
+                "permissionWarning": "Du hast keine Erlaubnis Buchungen für diese Aktivität abzuschließen"
             },
             "recurrentRuleBooking": "Wiederkehrende Buchung",
             "item": {
@@ -10210,7 +10210,7 @@
             "editModal": {
                 "success": "Die wiederkehrende Buchung wurde geändert"
             },
-            "blockedBookings": "Mitglieder können bis zu {{days}} Tage im Voraus für diese Aktivität buchen. Erwägen Sie eine Verlängerung der Wiederholungszeiträume, um eine Überfüllung zu vermeiden.",
+            "blockedBookings": "Mitglieder können bis zu {{days}} Tage im Voraus für diese Aktivität buchen. Erwäge eine Verlängerung der Wiederholungszeiträume, um eine Überfüllung zu vermeiden.",
             "notifyIfCanceled": "Sende eine Stornierungs-E-Mail",
             "notify": "Sende eine Bestätigungs-E-Mail, wenn ein Mitglied registriert wird",
             "showLess": "Weniger anzeigen",
@@ -10219,7 +10219,7 @@
             "offerForm": {
                 "selectAll": "Alle auswählen",
                 "unselectAll": "Alle abwählen",
-                "helperText": "Es scheint, dass die in der wiederkehrenden Buchung enthaltenen Sitzungen bereits für dieses Mitglied storniert wurden. Sie können hier die Sitzungen auswählen, die Sie dem System erlauben, erneut zu buchen"
+                "helperText": "Es scheint, dass die in der wiederkehrenden Buchung enthaltenen Sitzungen bereits für dieses Mitglied storniert wurden. Du kannst hier die Sitzungen auswählen, die dem System erlauben, sie erneut zu buchen"
             }
         },
         "memberGraph": {
@@ -10237,7 +10237,7 @@
             "bookingsTitle": "Buchen",
             "addSession": "Kurs hinzufügen",
             "noPackAvailable": "Kein Kurspass ist mit diesem Kurs kompatibel!",
-            "noPackAvailable_plural": "Kein Kurspass ist mit dieser Gruppe von Kursen zur gleichen Zeit kompatibel. Sie müssen sich für diese Kurse separat anmelden.",
+            "noPackAvailable_plural": "Kein Kurspass ist mit dieser Gruppe von Kursen zur gleichen Zeit kompatibel. Du musst dich für diese Kurse separat anmelden.",
             "packTitle": "Meine Buchungsmethode",
             "offerStatus": {
                 "waiting_list_status": {
@@ -10249,7 +10249,7 @@
                     "5": "Bereits registriert",
                     "6": "Unausgewogenes Verhältnis zwischen Männern und Frauen",
                     "7": "Unausgewogenes Verhältnis zwischen Männern und Frauen",
-                    "9": "Sie versuchen, mehr zukünftige Kurse zu buchen, als Ihr Studio erlaubt",
+                    "9": "Du versuchst mehr zukünftige Kurse zu buchen, als dein Studio erlaubt",
                     "6002": "Warteliste: voll",
                     "6003": "Warteliste: beigetreten",
                     "6005": "Warteliste",
@@ -10261,7 +10261,7 @@
                     "1": "Anmeldungen geschlossen",
                     "2": "Anmeldungen geschlossen",
                     "4": "Kurs nicht verfügbar",
-                    "9": "Sie versuchen, mehr zukünftige Kurse zu buchen, als Ihr Studio erlaubt"
+                    "9": "Du versuchst mehr zukünftige Kurse zu buchen, als dein Studio erlaubt"
                 },
                 "waiting_list": "Warteliste",
                 "book": "Anmeldung",
@@ -10276,46 +10276,46 @@
             "bookingForMe": "Mich",
             "bookingsTitleFor": "Ich buche für {{name}}",
             "bookingForAGuest": {
-                "addGuestLimit": "Sie haben die Einladungsgrenze erreicht für",
-                "addGuestNumberLeftSeveral": "Sie können noch {{number}} weitere Personen einladen für",
-                "addGuestNumberLeftOne": "Sie können noch 1 Person einladen für",
+                "addGuestLimit": "Du hast die Einladungsgrenze erreicht für",
+                "addGuestNumberLeftSeveral": "Du kannst noch {{number}} weitere Personen einladen für",
+                "addGuestNumberLeftOne": "Du kannst noch 1 Person einladen für",
                 "frequencyWeekly": "in dieser Woche.",
                 "frequencyMonthly": "in diesem Monat.",
                 "frequencyYearly": "in diesem Jahr.",
                 "frequencyGeneric": "der aktuelle Zeitraum.",
                 "addGuest": "Einen Gast hinzufügen",
-                "warningCustomLeveledSession": "Dieser Kurs hat ein benutzerdefiniertes Niveau. Stellen Sie sicher, dass die Person, die Sie einladen, über das erwartete Niveau verfügt.",
-                "warningLeveledSession": "Dieser Kurs ist nur für Personen mit dem Niveau : {{level}}. Stellen Sie sicher, dass die Person, die Sie einladen, über das erwartete Niveau verfügt.",
+                "warningCustomLeveledSession": "Dieser Kurs hat ein benutzerdefiniertes Niveau. Stelle sicher, dass die Person, die du einlädst, über das erwartete Niveau verfügt.",
+                "warningLeveledSession": "Dieser Kurs ist nur für Personen mit dem Niveau : {{level}}. Stelle sicher, dass die Person, die du einlädst, über das erwartete Niveau verfügt.",
                 "bookingStatus": {
-                    "0": "Laden Sie einen Freund ein",
+                    "0": "Lade einen Freund ein",
                     "1": "Der Kurs ist noch nicht buchbar",
                     "2": "Der Kurs ist nicht mehr buchbar",
                     "3": "Der Kurs ist ausgebucht",
                     "4": "Der Kurs ist nicht mehr buchbar",
                     "guestNotAllowed": "Der Kurs ist nicht für Gäste zugänglich"
                 },
-                "addGuestNumberLeftGeneric": "Sie können noch eine wietere Person in diesem Zeitraum einladen.",
-                "addGuestNumberLeftGeneric_plural": "Sie können noch {{count}} weitere Personen in diesem Zeitraum einladen.",
-                "addGuestNumberLeftYear": "Sie können noch eine weitere Person dieses Jahr einladen.",
-                "addGuestNumberLeftYear_plural": "Sie können noch {{count}} weitere Personen dieses Jahr einladen.",
-                "addGuestNumberLeftMonth": "Sie können noch eine weitere Person diesen Monat einladen.",
-                "addGuestNumberLeftMonth_plural": "Sie können noch {{count}} weitere Personen diesen Monat einladen.",
-                "addGuestNumberLeftWeek": "Sie können noch eine weitere Person diese Woche einladen.",
-                "addGuestNumberLeftWeek_plural": "Sie können noch {{count}} weitere Personen diese Woche einladen.",
+                "addGuestNumberLeftGeneric": "Du kannst noch eine weitere Person in diesem Zeitraum einladen.",
+                "addGuestNumberLeftGeneric_plural": "Du kannst noch {{count}} weitere Personen in diesem Zeitraum einladen.",
+                "addGuestNumberLeftYear": "Du kannst noch eine weitere Person dieses Jahr einladen.",
+                "addGuestNumberLeftYear_plural": "Du kannst noch {{count}} weitere Personen dieses Jahr einladen.",
+                "addGuestNumberLeftMonth": "Du kannst noch eine weitere Person diesen Monat einladen.",
+                "addGuestNumberLeftMonth_plural": "Du kannst noch {{count}} weitere Personen diesen Monat einladen.",
+                "addGuestNumberLeftWeek": "Du kannst noch eine weitere Person diese Woche einladen.",
+                "addGuestNumberLeftWeek_plural": "Du kannst noch {{count}} weitere Personen diese Woche einladen.",
                 "guestLimitReached": {
-                    "every_year": "Sie haben das Einladungslimit für dieses Jahr erreicht.",
-                    "every_month": "Sie haben das Einladungslimit für diesen Monat erreicht.",
-                    "every_week": "Sie haben das Einladungslimit für diese Woche erreicht."
+                    "every_year": "Du hast das Einladungslimit für dieses Jahr erreicht.",
+                    "every_month": "Du hast das Einladungslimit für diesen Monat erreicht.",
+                    "every_week": "Du hast das Einladungslimit für diese Woche erreicht."
                 },
                 "sendInvitation": "Einladung versenden",
                 "submit": "Für einen Gast buchen"
             },
             "bookingFor": "Buchung für",
-            "bookingForSubtitle": "Wählen Sie die Person, für die Sie buchen möchten"
+            "bookingForSubtitle": "Wähle die Person, für die du buchen möchtest"
         },
         "placeNumber": "Ort {{count}}",
         "noSpotAttributed": "Kein Platz zugewiesen",
-        "changeSpot": "Ändern Sie Ihren Platz",
+        "changeSpot": "Ändere deinen Platz",
         "setSpot": "Einen Platz zuweisen",
         "performanceTracking": {
             "stat": "Statistiken"
@@ -10340,8 +10340,8 @@
                     "label": "E-Mail"
                 },
                 "errors": {
-                    "email": "Bitte fügen Sie eine gültige E-Mail-Adresse ein",
-                    "requiredField": "Bitte füllen Sie dieses Feld aus"
+                    "email": "Bitte füge eine gültige E-Mail-Adresse ein",
+                    "requiredField": "Bitte fülle dieses Feld aus"
                 },
                 "dialog": {
                     "emailWarning": {
@@ -10349,14 +10349,14 @@
                             "saveAndContinue": "Speichern und fortfahren",
                             "continueWithoutEmail": "Ohne E-Mail fortfahren"
                         },
-                        "description": "Sie haben keine E-Mail für Ihren Gast angegeben.",
+                        "description": "Du hast keine E-Mail für deinen Gast angegeben.",
                         "title": "Keine E-Mail angegeben",
                         "submitLabel": "Fortfahren ohne",
-                        "fieldLabel": "Möchten Sie die E-Mail hinzufügen?",
-                        "alert": "Sie werden keine Informationen über diese Sitzung erhalten."
+                        "fieldLabel": "Möchtest du die E-Mail hinzufügen?",
+                        "alert": "Du wirst keine Informationen über diese Sitzung erhalten."
                     },
-                    "description": "Sie bringen einen Freund oder Partner mit, um das Erlebnis zu teilen? Geben Sie einfach den Namen und die E-Mail-Adresse Ihres Gastes an und wir werden dafür sorgen, dass er alle notwendigen Informationen erhält.",
-                    "title": "Laden Sie einen Gast ein"
+                    "description": "Du bringst einen Freund/ Partner mit, um das Erlebnis zu teilen? Gib einfach den Namen und die E-Mail-Adresse deines Gastes an und wir versenden alle notwendigen Informationen.",
+                    "title": "Lade einen Gast ein"
                 }
             }
         },
@@ -10383,7 +10383,7 @@
                     "title": "Bald verfügbar"
                 },
                 "isAlreadyRegistered": {
-                    "message": "Sie sind bereit für diesen Kurs angemeldet.",
+                    "message": "Du bist bereits für diesen Kurs angemeldet.",
                     "title": "Kurs bereits gebucht"
                 },
                 "blockedByTags": {
@@ -10396,31 +10396,31 @@
                 },
                 "waitingListLockedByPendingBookings": {
                     "title": "Andere Buchungen in Bearbeitung",
-                    "message": "Andere Personen buchen gerade, die Warteliste ist derzeit nicht verfügbar. Bitte versuchen Sie es in ein paar Minuten erneut, um zu sehen, ob ein Platz frei geworden ist."
+                    "message": "Andere Personen buchen gerade, die Warteliste ist derzeit nicht verfügbar. Bitte versuche es in ein paar Minuten erneut, um zu sehen, ob ein Platz frei geworden ist."
                 },
                 "isWaitingListFull": {
                     "title": "Warteliste voll",
-                    "message": "Dieser Kurs und die Warteliste sind voll. \nBitte versuchen Sie es zu einem späteren Zeitpunkt erneut."
+                    "message": "Dieser Kurs und die Warteliste sind voll. \nBitte versuche es zu einem späteren Zeitpunkt erneut."
                 },
                 "isAlreadyOnWaitingList": {
                     "title": "Bereits auf der Warteliste",
-                    "message": "Wenn Sie auf der Warteliste stehen, werden Sie per E-Mail benachrichtigt, sobald ein Platz frei wird."
+                    "message": "Wenn du auf der Warteliste stehst, wirst du per E-Mail benachrichtigt, sobald ein Platz frei wird."
                 },
                 "waitingListOpen": {
                     "title": "Kurs voll",
-                    "message": "Treten Sie der Warteliste bei und Sie erhalten eine Nachricht, sobald ein Platz frei wird."
+                    "message": "Tritt der Warteliste bei und erhalte eine Nachricht, sobald ein Platz frei wird."
                 },
                 "noPassAvailable": {
                     "title": "Keine Kurspässe verfügbar",
                     "message": "Es sind keine Kurspässe verfügbar, um sich auf die Warteliste setzen zu lassen."
                 },
                 "isBookingLimitReached": {
-                    "message": "Sie haben Ihr Limit an Buchungen erreicht. Sie können erneut buchen, wenn ein Kurs vorbei ist oder storniert wurde.",
+                    "message": "Du hast dein Limit an Buchungen erreicht. Du kannst erneut buchen, wenn ein Kurs vorbei ist oder storniert wurde.",
                     "title": "Buchung nicht möglich"
                 }
             },
             "backToCalendar": "Zurück zum Kalender",
-            "waitingListWarning": "Bevor Sie sich auf die Warteliste setzen lassen, sollten Sie sich vergewissern, dass Sie einen geeigneten Kurspass, ein Paket oder einen Vertrag gekauft haben. Ein aktiver Kurspass, ein Paket oder ein Vertrag sind unerlässlich, um Ihren Platz auf der Warteliste zu sichern.",
+            "waitingListWarning": "Bevor du dich auf die Warteliste setzen lässt, solltest du dich vergewissern, dass du einen geeigneten Kurspass, ein Paket oder einen Vertrag gekauft hast. Ein aktiver Kurspass, ein Paket oder ein Vertrag sind unerlässlich, um deinen Platz auf der Warteliste zu sichern.",
             "myPasses": "Mein Kurspass",
             "myPasses_plural": "Meine Kurspässe",
             "buyNewPass": "Neuen Kurspass kaufen",
@@ -10435,17 +10435,17 @@
             "combos": "Pakete",
             "passes": "Kurspässe",
             "otherPasses": "Andere Kurspässe",
-            "spotSelectorTitle": "Wählen Sie Ihren Platz",
+            "spotSelectorTitle": "Wähle deinen Platz",
             "seeAllProducts": "Alle Produkte ansehen",
             "recommended": "Empfehlungen",
             "reviewAndConfirm": "Überprüfen und Bestätigen",
-            "guestSpotSelectorTitle": "Wählen Sie einen Platz für Ihren Gast",
+            "guestSpotSelectorTitle": "Wählen einen Platz für deinen Gast",
             "removeFromBasket": {
                 "buttons": {
                     "confirm": "ENTFERNEN",
                     "cancel": "ABBRECHEN"
                 },
-                "message": "Wenn Sie den Pass aus dem Korb entfernen, werden auch die zugehörigen Buchungen entfernt.",
+                "message": "Wenn du den Pass aus dem Korb entfernst, werden auch die zugehörigen Buchungen entfernt.",
                 "title": "Entfernen"
             },
             "multipleSpotSelectionSpotSelectorTitle": "Spot auswählen ({{currentSpot}}/{{totalSpot}})"
@@ -10461,7 +10461,7 @@
             "seeMoreWithLogin": "Melde dich an um Pakete und Mitlgliedschaften zu entdecken!",
             "yourBooking": "Deine Buchung",
             "goToLogin": "Anmeldung",
-            "alreadyMember": "Sie haben bereits einen Account?",
+            "alreadyMember": "Du hast bereits einen Account?",
             "checkoutTitle": "Bezahlen",
             "bookButtonLabel": "Jetzt buchen",
             "bookableStatus": {
@@ -10490,8 +10490,8 @@
             "form": {
                 "errors": {
                     "global": "Bei der Anmeldung ist ein Fehler aufgetreten",
-                    "phone": "Bitte geben Sie eine gültige Telefonnummer ein",
-                    "email": "Bitte geben Sie eine gültige E-Mail-Adresse ein",
+                    "phone": "Bitte gib eine gültige Telefonnummer ein",
+                    "email": "Bitte gib eine gültige E-Mail-Adresse ein",
                     "requiredField": "Dieses Feld ist erforderlich"
                 },
                 "button": {
@@ -11143,7 +11143,7 @@
             "code": {
                 "label": "Code",
                 "helperText": "Der Code, der an die betroffenen Mitglieder weitergeleitet wird",
-                "helperTextFranchise": "Der Code, den Sie an die betroffenen Mitglieder weitergeben. Achten Sie darauf, dass der Code nicht bereits in Ihren verschiedenen Studios existiert.",
+                "helperTextFranchise": "Der Code, den du an die betroffenen Mitglieder weitergibst. Achte darauf, dass der Code nicht bereits in deinen verschiedenen Studios existiert.",
                 "codeAlreadyInUse": "Dieser Code ist bereits in Gebrauch."
             },
             "is_active": {
@@ -11161,7 +11161,7 @@
                 "blacklist_tags": "Nicht erlaubt",
                 "whitelist_tags": "Erlaubt",
                 "tags": "Tags",
-                "tagInfo": "Verwenden Sie Tags, um den Coupon nur für eine bestimmte Gruppe von Mitgliedern auf dem Marketplace, im Widget und in der App nutzbar zu machen. Sie können Tags auswählen, damit der Gutschein nur von Mitgliedern mit einem der ausgewählten Tags verwendet werden kann. Oder Sie können Tags auswählen, um den Gutschein nur für Mitglieder mit einem der ausgewählten Tags unbrauchbar zu machen. "
+                "tagInfo": "Verwende Tags, um den Coupon nur für eine bestimmte Gruppe von Mitgliedern auf dem Marketplace, im Widget und in der App nutzbar zu machen. Du kannst Tags auswählen, damit der Gutschein nur von Mitgliedern mit einem der ausgewählten Tags verwendet werden kann. Oder Du kannst Tags auswählen, um den Gutschein nur für Mitglieder mit einem der ausgewählten Tags unbrauchbar zu machen. "
             },
             "selectorPlaceholder": {
                 "paymentPack": "Kurspässe auswählen (gültig für alle Pässe, wenn keiner ausgewählt wurde)",
@@ -11198,14 +11198,14 @@
                 "select": {
                     "error": "Der gleiche Sub Tag kann nicht in beiden Listen vorhanden sein",
                     "empty_tag_list": "Kein Sub Tag ausgewählt",
-                    "tag": "Wählen Sie einen Haupttag",
-                    "tag_group": "Wählen Sie einen Haupttag"
+                    "tag": "Wähle einen Haupttag",
+                    "tag_group": "Wähle einen Haupttag"
                 },
                 "tag": "Sub Tag",
                 "tag_group": "Gruppe"
             },
             "title": "Gutschein",
-            "alert": "Ein Rabattcode kann von einem Mitglied verwendet werden, um den Preis des Warenkorbs zu verringern. In diesem Formular können Sie komplett einstellen, wie der Code angewendet wird. Sie wählen den Code selbst und entscheiden darüber, wie Sie ihn mit Ihren Mitgliedern teilen."
+            "alert": "Ein Rabattcode kann von einem Mitglied verwendet werden, um den Preis des Warenkorbs zu verringern. In diesem Formular kannst du komplett einstellen, wie der Code angewendet wird. Du wählst den Code selbst und entscheidest darüber, wie du ihn mit deinen Mitgliedern teilst."
         },
         "list": {
             "inactiveCoupons": "Inaktive oder abgelaufene Werbeaktionen",
@@ -11235,8 +11235,8 @@
         "couponTemplateInstance": {
             "companyEmpty": "Kein Studio ist so konfiguriert, dass es diese Aktion annimmt.",
             "delete": {
-                "explain2": "Sie können sie später wieder hinzufügen.",
-                "explain1": "Sind Sie sicher, dass Sie die Verfügbarkeit des Aktionscodes für ({{- name }}) ändern wollen ?",
+                "explain2": "Du kannst sie später wieder hinzufügen.",
+                "explain1": "Sicher, dass du die Verfügbarkeit des Aktionscodes für ({{- name }}) ändern willst?",
                 "title": "Teilen stoppen"
             },
             "create": {
@@ -11248,27 +11248,27 @@
         "couponTemplate": {
             "notEditable": "Dieser Coupon ist ein Coupon, der vom Master Account freigegeben wurde. Die Elemente wurden vom Master Account festgelegt und können nicht geändert werden.",
             "warningDialog": {
-                "content1": "Achtung, Sie möchten die Einstellungen für die Anwendung der gemeinsamen Aktionen auf bestimmte Kurs- oder Terminpässe ändern.",
+                "content1": "Achtung, du möchtest die Einstellungen für die Anwendung der gemeinsamen Aktionen auf bestimmte Kurs- oder Terminpässe ändern.",
                 "content2": "Dadurch wird die Liste der Studios, mit denen die Aktion geteilt wird, zurückgesetzt.",
-                "content3": "Sie können wieder auswählen, welche Studios sich diese Aktion teilen.",
+                "content3": "Du kannst wieder auswählen, welche Studios sich diese Aktion teilen.",
                 "title": "Änderungen bestätigen"
             },
             "isEmptyExplain": "Keine gespeicherten geteilten Aktionscodes",
             "actions": {
                 "create": "Einen geteilten Rabatt hinzufügen"
             },
-            "formDisclaimer": "Wenn Sie in Zukunft diese Sektion ändern möchten, um diese Aktion auf eine oder mehrere bestimmte Kurs-/Termin-Pässe anwendbar zu machen, wird die Liste der Studios, die diese Aktion teilen, aus Kompatibilitätsgründen auf Null zurückgesetzt."
+            "formDisclaimer": "Wenn du in Zukunft diese Sektion ändern möchtest, um diese Aktion auf eine oder mehrere bestimmte Kurs-/Termin-Pässe anwendbar zu machen, wird die Liste der Studios, die diese Aktion teilen, aus Kompatibilitätsgründen auf Null zurückgesetzt."
         },
         "uniqueCodeCoupon": {
             "form": {
-                "alertInfo": "Gutscheine sind einmalige Codes, die dem Mitglied einen 100%igen Rabatt auf ein bestimmtes Produkt bieten. Diese Codes werden nicht von der Plattform selbst generiert, sondern müssen hier als CSV-Datei hochgeladen werden. Diese Funktion ist besonders nützlich, wenn Sie mit einem externen Unternehmen wie Groupon eine Werbekampagne durchgeführt haben. In diesem Fall generiert und verkauft Groupon (oder ein ähnliches Unternehmen) die Gutscheine im Namen Ihres Studios.",
+                "alertInfo": "Gutscheine sind einmalige Codes, die dem Mitglied einen 100%igen Rabatt auf ein bestimmtes Produkt bieten. Diese Codes werden nicht von der Plattform selbst generiert, sondern müssen hier als CSV-Datei hochgeladen werden. Diese Funktion ist besonders nützlich, wenn du mit einem externen Unternehmen wie Groupon eine Werbekampagne durchgeführt hast. In diesem Fall generiert und verkauft Groupon (oder ein ähnliches Unternehmen) die Gutscheine im Namen deines Studios.",
                 "alertWarning": "Gilt nicht für Abonnements",
                 "couponCostForCompany": {
-                    "helperText": "Die Einnahmen, die Sie vom Kampagnenpartner für jeden verkauften Gutschein erhalten. Sie werden bei der Berechnung des Grenzwerts für die Wiederbezahlung der Lehrkräfte sowie in den Berichten verwendet. Bei allen Berechnungen, die den Grenzwert nicht berücksichtigen, wird in den Berichten dieser gegebene Preis ignoriert und diese Aktion als 100% Rabatt behandelt.",
+                    "helperText": "Die Einnahmen, die du vom Kampagnenpartner für jeden verkauften Gutschein erhalten. Sie werden bei der Berechnung des Grenzwerts für die Wiederbezahlung der Lehrkräfte sowie in den Berichten verwendet. Bei allen Berechnungen, die den Grenzwert nicht berücksichtigen, wird in den Berichten dieser gegebene Preis ignoriert und diese Aktion als 100% Rabatt behandelt.",
                     "label": "Preis inkl. MwSt"
                 },
                 "usage_per_member": {
-                    "label": "Begrenzen Sie die Anzahl der Gutscheine, die ein Mitglied kaufen kann",
+                    "label": "Begrenze die Anzahl der Gutscheine, die ein Mitglied kaufen kann",
                     "helperText": "Obergrenze"
                 },
                 "only_on_first_checkout": {
@@ -11278,10 +11278,10 @@
                     "title": "Einmalige Gutscheine hochladen",
                     "label": "Drag & Drop oder Anklicken, um die Datei auszuwählen",
                     "sizeLimitHelper": "CSV-Datei (maximal 1MB)",
-                    "helperText": "Bitte laden Sie eine CSV-Datei mit allen Gutscheincodes in der ersten Spalte hoch, einen Code pro Zeile, ohne Kopfzeile."
+                    "helperText": "Bitte lade eine CSV-Datei mit allen Gutscheincodes in der ersten Spalte hoch, einen Code pro Zeile, ohne Kopfzeile."
                 },
                 "errors": {
-                    "5000": "Sie dürfen keinen Code angeben, der bereits in einem anderen Coupon verwendet wurde.",
+                    "5000": "Du darfst keinen Code angeben, der bereits in einem anderen Coupon verwendet wurde.",
                     "5001": "Einige der einmaligen Codes können nicht hinzugefügt werden, da sie bereits registriert wurden.",
                     "5003": "Einige einmalige Codes sind bereits in einem anderen Gutschein gespeichert.",
                     "5004": "Dieser Code kann nur auf einen einzigen Artikel angewendet werden.",
@@ -11294,7 +11294,7 @@
                         "format": "Fehler bei der Formatierung des Datums"
                     },
                     "fileUploader": {
-                        "fileTooLargeError": "Die Datei ist zu groß. Bitte überschreiten Sie nicht 1 MB.",
+                        "fileTooLargeError": "Die Datei ist leider zu groß. Bitte überschreite 1 MB nicht.",
                         "incorrectDataError": "Die Datei enthält keine korrekten Daten.",
                         "notCsvFileError": "Der Dateityp entspricht nicht einer CSV-Datei."
                     },
@@ -12566,7 +12566,7 @@
             "clicksCount": "Klicks",
             "readCount": "Geöffnet",
             "showSms": "SMS anzeigen",
-            "isAnswerWarning": "Achtung ! Nur Sie können diese Nachricht sehen",
+            "isAnswerWarning": "Achtung! Nur Du kannst diese Nachricht sehen",
             "numberOfRecipientsCompact": "Empfänger: {{count}}",
             "numberOfRecipients": "An Empfänger gesendet",
             "numberOfRecipients_plural": "An {{count}} Empfänger gesendet",
@@ -12627,10 +12627,10 @@
                     "max_communications_sent_per_member": "Anzahl der Fälle, in denen die Regel gilt",
                     "advancedSection": "Fortgeschrittene",
                     "submit": "Bestätigen",
-                    "frequenceHelper": "Diese Benachrichtigung wird für {{ max }} {{ event_kind }} an jedes Mitglied der Smartlist gesendet. Nach {{ max }} {{ event_kind }} werden die Mitglieder keine Nachricht mehr erhalten. Sie können diese Einstellung unter 'Erweitert' ändern.",
+                    "frequenceHelper": "Diese Benachrichtigung wird für {{ max }} {{ event_kind }} an jedes Mitglied der Smartlist gesendet. Nach {{ max }} {{ event_kind }} werden die Mitglieder keine Nachricht mehr erhalten. Du kannst diese Einstellung unter 'Erweitert' ändern.",
                     "maxCommunicationSentHelperText": {
-                        "0": "Standardmäßig wird die Nachricht nur beim ersten Eintrag eines Mitglieds in die Smartlist gesendet. Wenn ein Mitglied die Smartliste verlässt oder erneut eingetragen wird, wird die Nachricht wieder verschickt. Passen Sie die Einstellungen an, wenn Sie begränzen wollen, wie oft das gleiche Mitglied die Nachricht erhalten kann: einmal, zweimal oder dreimal.",
-                        "1": "Standardmäßig wird die Nachricht jedes mal wenn ein Mitglied die Smartlist verlässt gesendet. Wenn ein Mitglied wieder in die Smartlist eingetragen wird  oder erneut verlässt, wird die Nachricht wieder verschickt. Passen Sie die Einstellungen an, wenn Sie begränzen wollen, wie oft das gleiche Mitglied die Nachricht erhalten kann: einmal, zweimal oder dreimal."
+                        "0": "Standardmäßig wird die Nachricht nur beim ersten Eintrag eines Mitglieds in die Smartlist gesendet. Wenn ein Mitglied die Smartliste verlässt oder erneut eingetragen wird, wird die Nachricht wieder verschickt. Passe die Einstellungen an, wenn du  begrenzen willst, wie oft das gleiche Mitglied die Nachricht erhalten kann: einmal, zweimal oder dreimal.",
+                        "1": "Standardmäßig wird die Nachricht jedes mal wenn ein Mitglied die Smartlist verlässt gesendet. Wenn ein Mitglied wieder in die Smartlist eingetragen wird  oder erneut verlässt, wird die Nachricht wieder verschickt. Passe die Einstellungen an, wenn du begrenzen willst, wie oft das gleiche Mitglied die Nachricht erhalten kann: einmal, zweimal oder dreimal."
                     },
                     "limitSection": "Limit",
                     "unlimited": "Kein Limit"
@@ -12640,7 +12640,7 @@
                 "onJoin": "Am Eingang in die Smartlist",
                 "onLeft": "Beim Verlassen der Smartlist",
                 "deleteDialog": {
-                    "content": "Sind Sie sicher, dass Sie diese Regel zum automatischen Senden entfernen möchten? Diese Aktion kann nicht mehr umgekehrt werden.",
+                    "content": "Sicher, dass du diese Regel zum automatischen Senden entfernen möchtest? Diese Aktion kann nicht mehr umgekehrt werden.",
                     "title": "Löschen"
                 },
                 "eventKind": {
@@ -12653,9 +12653,9 @@
             "processing": "Wird versendet...",
             "exportCampaigns": {
                 "dialogButtonGenerateAnyway": "Trotzdem erstellen",
-                "dialogContentAlternative": "Klicken Sie alternativ auf \"Trotzdem erstellen\", um den Bericht ohne das Empfängerblatt zu erstellen.",
+                "dialogContentAlternative": "Klicke alternativ auf \"Trotzdem erstellen\", um den Bericht ohne das Empfängerblatt zu erstellen.",
                 "dialogContentSurplus": "Das Limit ist um {{ difference_count }} Zeilen überschritten.",
-                "dialogContent": "Dieser Bericht hat {{ count }} Millionen Empfängerzeilen und übersteigt damit die xlsx-Beschränkung von einer Millionen. Um Empfänger einzubeziehen, verringern Sie den Datumsbereich, um die Anzahl zu reduzieren.",
+                "dialogContent": "Dieser Bericht hat {{ count }} Millionen Empfängerzeilen und übersteigt damit die xlsx-Beschränkung von einer Millionen. Um Empfänger einzubeziehen, verringere den Datumsbereich, um die Anzahl zu reduzieren.",
                 "dialogTitle": "Empfängerlimit überschritten",
                 "title": "Exportierte Kampagnen"
             },
@@ -12667,16 +12667,16 @@
             "missing": "E-Mail nicht vorhanden",
             "success": "Die Nachricht wurde versendet.",
             "content": "Inhalt der E-Mail",
-            "refreshText": "Bitte laden Sie die Seite neu, um die E-Mail-Änderung zu aktualisieren",
-            "error": "E-Mail wurde nicht versendet, bitte versuchen Sie es später erneut",
-            "refreshTextPhone": "Bitte laden Sie die Seite neu, um die Telefonänderung zu aktualisieren",
+            "refreshText": "Bitte lade die Seite neu, um die E-Mail-Änderung zu aktualisieren",
+            "error": "E-Mail wurde nicht versendet, bitte versuche es später erneut",
+            "refreshTextPhone": "Bitte lade die Seite neu, um die Telefonänderung zu aktualisieren",
             "sendSms": "SMS senden",
             "hideMail": "E-Mail verstecken",
             "count": "Zeichen",
             "showMail": "E-Mail anzeigen",
             "mailSelection": "E-Mail auswählen",
-            "selectToShowPreview": "Wählen Sie eine E-Mail aus, um eine Vorschau davon zu sehen.",
-            "noMailAvailable": "Keine E-Mail verfügbar. Bitte erstellen Sie eine.",
+            "selectToShowPreview": "Wähle eine E-Mail aus, um eine Vorschau davon zu sehen.",
+            "noMailAvailable": "Keine E-Mail verfügbar. Bitte erstelle eine.",
             "phoneMissing": "Es kann keine Telefonnummer angezeigt werden.",
             "mailMissing": "Es kann keine E-Mail angezeigt werden.",
             "numberSms": "SMS",
@@ -12688,9 +12688,9 @@
             "titleNotification": "Titel",
             "sendNotification": "Push-Benachrichtigung",
             "warningConsent2": "Diese Entscheidung deines Mitglieds zu missachten, wäre illegal. bsport distanziert sich von jeglicher Verantwortung für den Missbrauch von direkten E-Mails.",
-            "warningConsent1": "Achtung! Dieses Mitglied hat die Option, ihm Werbe-E-Mails zu senden, deaktiviert. Direkte E-Mails ermöglichen es Ihnen, mit Ihren Mitgliedern auf einfache und schnelle Weise zu kommunizieren. Sie sollten nicht für Werbe- oder Promotionszwecke verwendet werden.",
-            "titleInterpolated": "Die Variablen in der Betreffzeile und im Körper der E-Mail werden entsprechend dem Empfänger aktualisiert.",
-            "warningProvider": "Bitte beachten Sie, dass die Antworten der Mitglieder auf diese Nachricht nicht auf der Plattform, sondern direkt in Ihrer Mailbox erscheinen werden. Damit alle hier erscheinen, ändern Sie die Kommunikationseinstellung auf der Seite Einstellungen/Anpassung."
+            "warningConsent1": "Achtung! Dieses Mitglied hat die Option, ihm Werbe-E-Mails zu senden, deaktiviert. Direkte E-Mails ermöglichen es dir, mit deinen Mitgliedern auf einfache und schnelle Weise zu kommunizieren. Sie sollten nicht für Werbe- oder Promotionszwecke verwendet werden.",
+            "titleInterpolated": "Die Variablen im Betreff und Inhalt der E-Mail werden entsprechend dem Empfänger aktualisiert.",
+            "warningProvider": "Bitte beachte, dass die Antworten der Mitglieder auf diese Nachricht nicht auf der Plattform, sondern direkt in deiner Mailbox erscheinen werden. Damit alle hier erscheinen, ändere die Kommunikationseinstellung auf der Seite Einstellungen/Anpassung."
         },
         "table": {
             "columns": {
@@ -12722,9 +12722,9 @@
         "recipients": "Empfänger",
         "sms": {
             "warningConsent2": "Diese Entscheidung deines Mitglieds zu missachten, wäre illegal. bsport distanziert sich von jeglicher Verantwortung für den Missbrauch von Direkt-SMS.",
-            "warningConsent1": "Achtung! Dieses Mitglied hat die Möglichkeit, ihm Werbe-SMS zu senden, deaktiviert. Direkt-SMS ermöglichen es Ihnen, sich schnell und einfach mit Ihren Mitgliedern zu unterhalten. Sie sollten nicht für Werbe- oder Promotionszwecke verwendet werden.",
+            "warningConsent1": "Achtung! Dieses Mitglied hat die Möglichkeit, Werbe-SMS zu senden, deaktiviert. Direkt-SMS ermöglichen es dir, dich schnell und einfach mit deinen Mitgliedern zu unterhalten. Sie sollten nicht für Werbe- oder Promotionszwecke verwendet werden.",
             "warningProviderNotVerified": {
-                "regulatoryNotice": "Bevor Sie SMS-Kampagnen, automatische Mitteilungen oder Direktnachrichten versenden können, muss die Nummer validiert werden, um den lokalen Vorschriften in den USA und Kanada zu entsprechen.",
+                "regulatoryNotice": "Bevor du SMS-Kampagnen, automatische Mitteilungen oder Direktnachrichten versenden kannst, muss die Nummer validiert werden, um den lokalen Vorschriften in den USA und Kanada zu entsprechen.",
                 "mainMessage": "Es sieht so aus, als ob die Telefonnummer für SMS noch nicht validiert wurde.",
                 "title": "SMS Nachrichten nicht verfügbar"
             }
@@ -12758,9 +12758,9 @@
                 "noMessage": "Keine Nachricht",
                 "disableDialog": {
                     "title": "Chat archivieren",
-                    "firstContent": "Sie sind dabei diesen Chat zu archvieren.",
+                    "firstContent": "Du bist dabei diesen Chat zu archvieren.",
                     "secondContent": "Er wird nicht mehr in der Chat-Liste erscheinen, kann aber weiterhin über den Filter 'Archiviert' aufgerufen werden.",
-                    "thirdContent": "Beachten Sie, dass eine neue Nachricht in diesem Chat, die von Ihnen oder Ihrem Gesprächspartner kommt, den Chat automatisch wiederherstellt."
+                    "thirdContent": "Beachte, dass eine neue Nachricht in diesem Chat, die von dir oder deinem Gesprächspartner kommt, den Chat automatisch wiederherstellt."
                 }
             },
             "kind": {
@@ -12780,14 +12780,14 @@
             "noThread": {
                 "list": "Kein Ergebnis",
                 "item": {
-                    "member": "Hier finden Sie die Gespräche mit den Mitgliedern",
-                    "smartlist": "Hier finden Sie die Konversationen Ihrer Smartlists",
-                    "offer": "Hier finden Sie die Konversationen Ihrer Kurs"
+                    "member": "Hier findest du die Gespräche mit den Mitgliedern",
+                    "smartlist": "Hier findest du die Konversationen deiner Smartlists",
+                    "offer": "Hier findest du die Konversationen deiner Kurse"
                 }
             },
             "selectThread": {
                 "title": "Einen Chat auswählen",
-                "description": "Klicken Sie auf ein Mitglied, eine Smartlist oder einen Kurs, um die zugehörige Konversation anzuzeigen"
+                "description": "Klicke auf ein Mitglied, eine Smartlist oder einen Kurs, um die zugehörige Konversation anzuzeigen"
             },
             "panel": {
                 "header": "Details",
@@ -12820,16 +12820,16 @@
         },
         "sendMessage": {
             "writeCommunication": "Eine Nachricht senden",
-            "refresh": "Um die neue Version Ihres Templates zu sehen, klicken Sie bitte auf die Schaltfläche Aktualisieren.",
+            "refresh": "Um die neue Version deines Templates zu sehen, klicke bitte auf die Schaltfläche Aktualisieren.",
             "sendDisabled": {
                 "missingPhoneInDirectMember": "Dieser Nutzer hat keine Telefonnummer",
                 "missingEmailInDirectMember": "Dieser Nutzer hat keine E-Mail-Adresse.",
                 "missingContent": "Ihre Nachricht ist nicht vollständig.",
-                "missingRecipients": "Wählen Sie zunächst Empfänger aus"
+                "missingRecipients": "Wähle zunächst Empfänger"
             },
             "buttons": {
                 "selectRecipientsMobile": "Empfänger.",
-                "selectRecipients": "Wählen Sie Empfänger",
+                "selectRecipients": "Wähle Empfänger",
                 "send": "Senden"
             },
             "textField": {
@@ -12849,13 +12849,13 @@
             "smsCostReminderModal": {
                 "confirm": "Bestätigen",
                 "cancel": "Abbrechen",
-                "content": "Eine SMS an eine große Anzahl von Mitgliedern zu schicken kann teuer sein. Sie können den Preis pro SMS in Ihrem Vertrag nachschauen. Sind SIe sicher, dass Sie diese Nahcricht verschicken wollen?",
+                "content": "Eine SMS an eine große Anzahl von Mitgliedern zu schicken kann teuer sein. Du kannst den Preis pro SMS in Ihrem Vertrag nachschauen. Bist du sicher, dass du diese Nachricht verschicken willst?",
                 "title": "Erinnerung für SMS-Kosten"
             },
-            "membersWontLoad": "Wir haben derzeit ein Problem beim Laden der Mitglieder in dieser Smartlist. Bitte beachten Sie, dass Sie die Anzahl der Mitglieder, die von dieser Mitteilung erreicht werden, nicht in der Vorschau sehen können."
+            "membersWontLoad": "Wir haben derzeit ein Problem beim Laden der Mitglieder in dieser Smartlist. Bitte beachte, dass du die Anzahl der Mitglieder, die von dieser Mitteilung erreicht werden, nicht in der Vorschau sehen kannst."
         },
         "dialogRecipients": {
-            "refreshMemberData": "Um Ihre Änderungen anzuzeigen, klicken Sie bitte auf die Schaltfläche \"Aktualisieren\".",
+            "refreshMemberData": "Um Deine Änderungen anzuzeigen, klicke bitte auf die Schaltfläche \"Aktualisieren\".",
             "noPhone": "Keine Telefonnummer angegeben",
             "noMail": "Keine E-Mail-Adresse angegeben",
             "warnings": {
@@ -12866,7 +12866,7 @@
             }
         },
         "dialogTemplate": {
-            "refreshText": "Um Ihre neue Vorlage in der Liste erscheinen zu lassen, klicken Sie bitte auf die Schaltfläche \"Aktualisieren\".",
+            "refreshText": "Um deine neue Vorlage in der Liste erscheinen zu lassen, klicke bitte auf die Schaltfläche \"Aktualisieren\".",
             "title": "Vorlage auswählen"
         },
         "dialogInformation": {
@@ -12901,23 +12901,23 @@
                 "71": "Empfangen"
             },
             "srcOrDst": {
-                "placeholder": "Wählen Sie einen Nachrichtentyp aus",
+                "placeholder": "Wähle einen Nachrichtentyp",
                 "title": "Nachrichten"
             },
             "sendParameter": {
-                "placeholder": "Wählen Sie eine Einstellung",
+                "placeholder": "Wähle eine Einstellung",
                 "title": "Parameter für die Sendung"
             },
             "recipient": {
-                "placeholder": "Wählen Sie einen Buchungsstatus",
+                "placeholder": "Wähle einen Buchungsstatus",
                 "title": "Empfänger"
             },
             "channel": {
-                "placeholder": "Wählen Sie einen Kommunikationskanal aus",
+                "placeholder": "Wähle einen Kommunikationskanal",
                 "title": "Kanäle"
             },
             "kind": {
-                "placeholder": "Wählen Sie eine Sendungsart aus",
+                "placeholder": "Wähle eine Sendungsart",
                 "title": "Art der Sendung"
             },
             "numberFilter": "1 Filter angewendet",
@@ -12939,8 +12939,8 @@
             "title": "Chat-Einstellungen",
             "submit": "Speichern",
             "twoWayEmail": {
-                "title": "Erhalten Sie Antworten per E-Mail auf der Plattform",
-                "description": "Bitte beachten Sie, dass E-Mail-Antworten von Mitgliedern nicht mehr in Ihrem Posteingang, sondern direkt auf der Plattform erscheinen."
+                "title": "E-Mails von Mitgliedern bei bsport erhalten",
+                "description": "Wenn du diese Option aktivierst, dann erhältst du E-Mail-Antworten von Mitgliedern bei bsport, nicht in deiner Mailbox."
             }
         },
         "smartListPopup": {
@@ -12958,10 +12958,10 @@
             "memberListTitle": "Start-Pop-Up"
         },
         "messageList": {
-            "filterOutCommunicationSent": "Die Kommunikation, die Sie gerade gesendet haben, wird von den aktiven Filtern verdeckt.",
+            "filterOutCommunicationSent": "Die Kommunikation, die du gerade gesendet hast, wird von den aktiven Filtern verdeckt.",
             "emptyList": {
                 "becauseOfFilters": "Keine Ergebnisse, die mit den Filtern übereinstimmen.",
-                "becauseNeverUsed": "Sie haben noch keine Kommunikation auf diesem Kanal gesendet."
+                "becauseNeverUsed": "Du hast noch keine Kommunikation auf diesem Kanal gesendet."
             }
         },
         "createThread": {
@@ -12969,7 +12969,7 @@
             "confirmResourceSelected": "Bestätigen",
             "title": "Neue Nachricht",
             "smartlistPlaceholder": "Wähle eine Smartlist",
-            "refreshSmartlist": "Klicken Sie auf den Refresh Button, um die neuen Smartlists einzusehen"
+            "refreshSmartlist": "Klicke auf den Refresh Button, um die neuen Smartlists einzusehen"
         },
         "resendSection": {
             "resendDelay": {
@@ -12987,13 +12987,13 @@
             "tooLateToUpdateDialog": {
                 "close": "Zurück zu Smartlist",
                 "content": "Diese Nachricht kann innerhalb von 5 Minuten nach dem Senden nicht geändert oder gelöscht werden.",
-                "title": "Sie können diese Nachricht nicht mehr ändern oder löschen."
+                "title": "Du kannst diese Nachricht nicht mehr ändern oder löschen."
             },
             "dialog": {
                 "close": "Abbrechen",
                 "submit": "Nachricht planen",
                 "separator": "an",
-                "helperText": "Wählen Sie die Zeit, zu der Sie die Nachricht planen möchten.",
+                "helperText": "Wähle die Zeit, zu der du die Nachricht planen möchtest.",
                 "title": "Eine Nachricht planen"
             },
             "nighttimeLimit": "Die Nachricht wird in der Nacht gesendet. Um bessere Resultate zu erzielen, empfehlen wir, die Marketingnachrichten tagsüber zu versenden.",
@@ -13023,14 +13023,14 @@
             "deleteDialog": {
                 "submit": "Löschen",
                 "close": "Abbrechen",
-                "content": "Sind Sie sicher, dass Sie diese Nachricht löschen möchten?",
+                "content": "Bist du sicher, dass du diese Nachricht löschen möchtest?",
                 "title": "Nachricht löschen"
             },
             "deleteMessage": "Nachricht löschen",
             "cancelEdition": "Änderungen verwerfen",
             "saveEdition": "Änderungen speichern",
-            "chooseTime": "Wählen Sie eine Zeit",
-            "chooseDate": "Wählen Sie ein Datum"
+            "chooseTime": "Wähle eine Zeit",
+            "chooseDate": "Wähle ein Datum"
         },
         "sendNowDialog": {
             "confirm": "Senden",
@@ -13058,7 +13058,7 @@
             "accessLive": "Livestream beitreten",
             "spotNumber": "Ort: {{count}}",
             "isUnpaid": "Unbezahlt",
-            "noShow": "Sie wurden für diesen Kurs als abwesend gekennzeichnet"
+            "noShow": "Du wurdest für diesen Kurs als abwesend gekennzeichnet"
         },
         "congratulation": {
             "cancel": "Schließen",
@@ -13089,7 +13089,7 @@
             "pack": "Pässe",
             "dashboard": "Überblick",
             "myVideos": "Meine Videos",
-            "pick_a_language": "Wählen Sie eine Sprache",
+            "pick_a_language": "Wähle eine Sprache",
             "automaticLanguage": "Automatische Spracherkennung",
             "giftcard": "Geschenkgutscheine",
             "statistic": "Statistiken",
@@ -13108,12 +13108,12 @@
             "doUnsubscribe": "Abonnement stornieren",
             "error": "Fehler beim Stornierung des Abonnements",
             "success": {
-                "text": "Sie haben sich erfolgreich abgemeldet. Sie werden keine Newsletter mehr von {{- companyName}} erhalten.",
-                "title": "Sie haben sich abgemeldet."
+                "text": "Du hast dich erfolgreich abgemeldet. Du wirst keine Newsletter mehr von {{- companyName}} erhalten.",
+                "title": "Du hast dich abgemeldet."
             },
             "explainAction": {
-                "possessive": "Sind Sie sicher, dass Sie den Newsletter von {{- companyName}} abbestellen möchten?",
-                "normal": "Sind Sie sicher, dass Sie den Newsletter von {{- companyName}} abbestellen möchten?"
+                "possessive": "Sicher, dass Du den Newsletter von {{- companyName}} abbestellen möchtest?",
+                "normal": "Sicher, dass Du den Newsletter von {{- companyName}} abbestellen möchtest?"
             }
         },
         "myVideos": {
@@ -13140,7 +13140,7 @@
             "cimode": "Debug"
         },
         "subscription": {
-            "isEmpty": "Sie haben keine aktiven Abonnements."
+            "isEmpty": "Du hast keine aktiven Abonnements."
         },
         "Basket": "Mein Warenkorb",
         "appbar": {
@@ -13149,7 +13149,7 @@
             "profile": "Zu meinem Profil"
         },
         "spivi": {
-            "settingsInfo": "Wenn diese Option aktiviert ist, werden Ihre Daten (Geschwindigkeit, Kalorienverbrauch...) während Ihrer Trainingseinheit in Echtzeit angezeigt. Wenn Sie diese Option deaktivieren, werden Ihre Daten nicht mehr angezeigt, aber Sie erhalten am Ende des Kurses eine Zusammenfassung per E-Mail.",
+            "settingsInfo": "Wenn diese Option aktiviert ist, werden deine Daten (Geschwindigkeit, Kalorienverbrauch...) während deiner Trainingseinheit in Echtzeit angezeigt. Wenn du diese Option deaktivierst, werden deine Daten nicht mehr angezeigt, aber du erhältst am Ende des Kurses eine Zusammenfassung per E-Mail.",
             "settings": "Meine Daten in Echtzeit anzeigen",
             "settingsTitle": "Spinning-Daten"
         },
@@ -13251,11 +13251,11 @@
             },
             "myBookings": {
                 "spotSchedulingModal": {
-                    "subtitle": "Finden Sie schnell Ihren Platz im Kurs",
+                    "subtitle": "Finde schnell deinen Platz im Kurs",
                     "title": "Platzreservierung"
                 },
                 "onlineWarningModal": {
-                    "message": "Sie können diesen Link 15 Minuten vor dem Kurs öffnen.",
+                    "message": "Du kannst diesen Link 15 Minuten vor dem Kurs öffnen.",
                     "subtitle": "Der Kurs wird am {{- date}} um {{hour}} beginnen",
                     "title": "Online-Aktivität"
                 },
@@ -13263,10 +13263,10 @@
                     "group": {
                         "listTitle": "Buchungen, die storniert werden:",
                         "alert": {
-                            "message": "Wenden Sie sich an das Studio, wenn Sie einen einzelnen Kurs stornieren möchten.",
+                            "message": "Wende dich an das Studio, wenn du einen einzelnen Kurs stornieren möchtest.",
                             "title": "Alle Buchungen für diese Veranstaltung werden storniert"
                         },
-                        "message": "Diese Buchung ist Teil einer Gruppe.\nSie werden automatisch von allen zukünftigen Kursen, die mit dieser Veranstaltung verbunden sind, abgemeldet. Die Credits werden erstattet und können erneut verwendet werden."
+                        "message": "Diese Buchung ist Teil einer Gruppe.\nDu wirst automatisch von allen zukünftigen Kursen, die mit dieser Veranstaltung verbunden sind, abgemeldet. Die Credits werden erstattet und können erneut verwendet werden."
                     },
                     "noRefund": "Ihr(e) Credit(s) werden für eine verspätete Absage nicht rückerstattet.",
                     "creditsWillBeRefunded": "{{count}} Credit wird rückerstattet.",
@@ -13281,7 +13281,7 @@
                         "consumerPrivateBooking": "Termin absagen",
                         "consumerBooking": "Kurs absagen"
                     },
-                    "waitlist": "Sie werden von der Warteliste entfernt."
+                    "waitlist": "Du wirst von der Warteliste entfernt."
                 },
                 "detailsCard": {
                     "workshop": {
@@ -13360,9 +13360,9 @@
                             "past": "Keine vergangenen Termine vorzuweisen."
                         },
                         "pass": {
-                            "active": "Sieht aus, als hätten Sie noch keinen Karte gekauft.",
-                            "future": "Sieht aus, als hätten Sie noch keinen Karte gekauft.",
-                            "expired": "Sie haben noch keine abgelaufenen Karten."
+                            "active": "Sieht aus, als hättest Du noch keinen Pass gekauft.",
+                            "future": "Sieht aus, als hättest du noch keinen Kurspass gekauft.",
+                            "expired": "Du hast noch keine abgelaufenen Karten."
                         }
                     }
                 },
@@ -13389,9 +13389,9 @@
                 "chooseBookingType": "Buchungsart wählen"
             },
             "placeholderCard": {
-                "myBookings": "Wählen Sie einen Kurs aus um mehr Details zu sehen",
-                "myPasses": "Wählen Sie einen Pass, um weitere Details zu sehen",
-                "mySubscriptions": "Wählen Sie ein Abonnement, um weitere Details zu sehen"
+                "myBookings": "Wähle einen Kurs aus um mehr Details zu sehen",
+                "myPasses": "Wähle einen Pass, um weitere Details zu sehen",
+                "mySubscriptions": "Wähle ein Abonnement, um weitere Details zu sehen"
             },
             "showLess": "Weniger anzeigen",
             "showMore": "Mehr anzeigen",
@@ -13427,7 +13427,7 @@
                         "autoRenewed": "Automatisch erneuert",
                         "paused": "Derzeit pausiert"
                     },
-                    "failedPaymentReason": "Grund: {{- note }} Bitte kontaktieren Sie Ihr Studio, um die Situation zu klären",
+                    "failedPaymentReason": "Grund: {{- note }} Bitte kontaktiere dein Studio, um die Situation zu klären",
                     "failedPayment": "Zahlung fehlgeschlagen",
                     "emptyInvoices": " Keine Rechnungshistorie zu sehen",
                     "billingHistory": "Rechnungshistorie",
@@ -13469,14 +13469,14 @@
                     "active": "Begonnen am {{- date }}"
                 },
                 "close": "Schließen",
-                "paymentMethodUpdatedContent": "Ihre Zahlungsmethode wurde erfolgreich aktualisiert",
+                "paymentMethodUpdatedContent": "Deine Zahlungsmethode wurde erfolgreich aktualisiert",
                 "paymentMethodUpdatedTitle": "Zahlungsmethode ändern",
                 "changePaymentMethod": "Zahlungsmethode ändern",
                 "paymentModalAlert": "Wenn keine Zahlungsmethode gespeichert ist, wird für jede Zahlung automatisch eine Verbindlichkeit auf Ihrem internen Konto erstellt.",
                 "download": "Herunterladen",
                 "placeholder": {
-                    "expired": "Sie haben noch keine abgelaufenen Abonnements.",
-                    "nonExpired": "Sieht so aus, als hätten Sie keine aktiven Abonnements."
+                    "expired": "Du hast noch keine abgelaufenen Abonnements.",
+                    "nonExpired": "Sieht so aus, als hättest Du keine aktiven Abonnements."
                 }
             },
             "myInvoices": {
@@ -13489,7 +13489,7 @@
                     "details": "Angaben zur Zahlung",
                     "confirm": "Bestätigen",
                     "addPaymentMethod": "Zahlungsmethode hinzufügen",
-                    "backendProcessingInvoice": "Bitte warten Sie einen Moment, während wir Ihre Rechnung bearbeiten..."
+                    "backendProcessingInvoice": "Bitte warte einen Moment, während wir deine Rechnung bearbeiten..."
                 },
                 "detailsCard": {
                     "total": "Insgesamt",
@@ -13554,9 +13554,9 @@
                     "title": "Meine Rechnungen"
                 },
                 "placeholder": {
-                    "refunded": "Sie haben noch keine erstatteten Rechnungen.",
-                    "paid": "Sie haben noch keine bezahlten Rechnungen.",
-                    "unpaid": "Gut gemacht, Sie haben keine unbezahlten Rechnungen mehr."
+                    "refunded": "Du hast noch keine erstatteten Rechnungen.",
+                    "paid": "Du hast noch keine bezahlten Rechnungen.",
+                    "unpaid": "Super, Du hast keine unbezahlten Rechnungen."
                 }
             },
             "myProfile": {
@@ -13571,19 +13571,19 @@
                     "add": "Zahlungsmethode hinzufügen",
                     "cardItemCaptionText": "Läuft ab: {{- additionalInfo}}",
                     "paymentMethodLabel": "Endet mit <strong>{{- identifier}}</strong>",
-                    "empty": "Sobald Sie eine Zahlung gespeichert haben, wird sie hier angezeigt.",
+                    "empty": "Sobald Du eine Zahlung gespeichert hast, wird sie hier angezeigt.",
                     "directPayments": "Direkte Zahlungen",
                     "cards": "Karten",
                     "title": "Gespeicherte Zahlungsarten",
                     "tooltipText": {
-                        "more": "Fügen Sie eine neue Zahlungsmethode hinzu und löschen Sie diese, wenn Sie das Kartensystem ändern möchten.",
+                        "more": "Füge eine neue Zahlungsmethode hinzu und lösche diese, wenn du das Kartensystem ändern möchtest.",
                         "other": "Andere"
                     }
                 },
                 "membershipId": "Mitgliedsnummer",
                 "accountBalance": "Kontostand",
                 "spivi": {
-                    "information": "Falls aktiviert, werden Ihre Daten (Geschwindigkeit, Kalorienverbrauch usw.) während Ihrer Sitzung in Echtzeit angezeigt. Andernfalls erhalten Sie am Ende der Sitzung eine Zusammenfassung per E-Mail.",
+                    "information": "Falls aktiviert, werden deine Daten (Geschwindigkeit, Kalorienverbrauch usw.) während deiner Sitzung in Echtzeit angezeigt. Andernfalls erhältst du am Ende der Sitzung eine Zusammenfassung per E-Mail.",
                     "drawerTitle": "Daten anzeigen",
                     "displayData": "Meine Daten in Echtzeit anzeigen",
                     "title": "Daten abrufen"
@@ -13602,12 +13602,12 @@
                 "birthday": "Geburtstag",
                 "gender": "Geschlecht",
                 "detachPayment": {
-                    "subtitle": "Denken Sie daran, dass Sie Zahlungsarten, die für wiederkehrende Zahlungen verwendet werden, nicht löschen können.",
+                    "subtitle": "Denke daran, dass du Zahlungsarten, die für wiederkehrende Zahlungen verwendet werden, nicht löschen kannst.",
                     "title": "Zahlungsmethode löschen"
                 },
                 "barCode": {
                     "entryBarcode": "Eingabe Barcode",
-                    "scanInfo": "Scannen Sie diesen Barcode, um das Studio zu betreten oder um für Ihren Kurs einzuchecken.",
+                    "scanInfo": "Scanne diesen Barcode, um das Studio zu betreten oder um für deinen Kurs einzuchecken.",
                     "scan": "Scan Barcode"
                 },
                 "edition": {
@@ -13658,12 +13658,12 @@
                 "mySubscriptions": "Meine Abonnements",
                 "myPasses": "Meine Kurspässe",
                 "myBookings": "Meine Buchungen",
-                "exploreYourProfile": "Erkunden Sie Ihr Profil",
+                "exploreYourProfile": "Erkunde dein Profil",
                 "myVideosAndEbooks": "Meine Videos & eBooks",
                 "switchAccount": "Account wechseln",
-                "loggedInAs": "Sie sind derzeit angemeldet als {{ name }}"
+                "loggedInAs": "Du bist derzeit angemeldet als {{ name }}"
             },
-            "exploreYourProfile": "Erkunden Sie Ihr Profil.",
+            "exploreYourProfile": "Erkunde dein Profil.",
             "appbar": {
                 "myAccount": "Mein Konto",
                 "cart": "Warenkorb",
@@ -13884,7 +13884,7 @@
             "base": "Basis",
             "bonus": "Bonus",
             "nb_bookings": "Buchungen",
-            "error": "Es scheint, dass einige Kurse keine zugehörige Lohnabrechnungsregel haben. Bitte konfigurieren Sie Ihre Aktivitäten und Ausbilder korrekt, um die Lohnabrechnung zu nutzen.",
+            "error": "Es scheint, dass einige Kurse keine zugehörige Lohnabrechnungsregel haben. Bitte konfiguriere deine Aktivitäten und Lehrkräfte korrekt, um die Lohnabrechnung zu nutzen.",
             "total": "Gesamtvergütung",
             "cancelled_bookings": "Stornierte Buchungen",
             "confirmed_bookings": "Teilnehmer",
@@ -13925,12 +13925,12 @@
         },
         "export": {
             "completed": {
-                "message": "Die Exportdatei für die Lehrkraft-Lohnabrechnung ist verfügbar. Sie können diese Daten auch unter 'Gespeicherte Daten' abrufen.",
+                "message": "Die Exportdatei für die Lehrkraft-Lohnabrechnung ist verfügbar. Du kannst diese Daten auch unter 'Gespeicherte Daten' abrufen.",
                 "title": "Lohnabrechnung exportieren"
             },
             "dialog": {
                 "buttonText": "Bestätigen",
-                "message": "Durch den Export der Daten können Sie ein Excel Dokument für die ausgewählte Dauer erstellen. Diese Daten können ebenfalls gespeichert und später verwendet werden.",
+                "message": "Durch den Export der Daten kannst du ein Excel Dokument für die ausgewählte Dauer erstellen. Diese Daten können ebenfalls gespeichert und später verwendet werden.",
                 "title": "Exportieren und Speichern von Daten"
             },
             "buttonText": "Exportieren"
@@ -13951,7 +13951,7 @@
             "workshopCoachPaymentRuleSelctor": "Workshops",
             "sessionCoachPaymentRuleSelctor": "Gruppenaktivitäten ",
             "coachPaymentRuleGroupSelector": "Lohnabrechnungsgruppen",
-            "coachSelector": "Wählen Sie Lehrkräfte aus",
+            "coachSelector": "Wähle Lehrkräfte aus",
             "reset": "Filter zurücksetzen",
             "apply": "Filter anwenden",
             "header": "Erweiterte Filter",
@@ -13960,7 +13960,7 @@
         },
         "form": {
             "ifEmptyAllowAll": "Leer lassen, um diesen Filter zu überspringen",
-            "selectEstablishments": "Wählen Sie Einrichtungen"
+            "selectEstablishments": "Wähle Einrichtungen"
         }
     },
     "paymentCombo": {
@@ -15698,7 +15698,7 @@
             "error_email_exists": "Es gibt bereits eine Lehrkraft mit dieser E-Mail. Verwende das Formular zur Erstellung einer Lehrkraft",
             "linkByEmail": {
                 "emailPlaceHolder": "lehrkraft@bsport.io",
-                "explain": "Wenn diese E-Mail bereits in unserer Datenbank existiert, werden wir die Lehrkraft automatisch für Sie erstellen.",
+                "explain": "Wenn diese E-Mail bereits in unserer Datenbank existiert, werden wir die Lehrkraft automatisch für dich erstellen.",
                 "emailLabel": "E-Mail",
                 "title": "E-Mail-Adresse der Lehrkraft",
                 "submit": "Bestätigen",
@@ -15712,12 +15712,12 @@
                 "success": "Lehrkraftdetails aktualisiert",
                 "title": "Lehrkraft aktualisieren",
                 "errors": {
-                    "emailAlreadyInUse": "Die eingegebene E-Mail existiert bereits in der Datenbank. Sie können diese E-Mail nur dann mit einer Lehrkraft verknüpfen, wenn Sie eine neue Lehrkraft erstellen."
+                    "emailAlreadyInUse": "Die eingegebene E-Mail existiert bereits in der Datenbank. Du kannst diese E-Mail nur dann mit einer Lehrkraft verknüpfen, wenn du eine neue Lehrkraft erstellst."
                 }
             },
             "errorDescription": "Die Beschreibung ist zu lang (max. 1000)",
             "errorLinkLength": "Der angegebene URL ist zu lang (max. 150)",
-            "errorInvalidURL": "Bitte geben Sie einen gültigen URL ein"
+            "errorInvalidURL": "Bitte gib eine gültige URL ein"
         },
         "noActivity": "Diese Lehrkraft leitet keine Aktivität.",
         "selfNoActivity": "Du bist für keine Aktivität eingeteilt.",
@@ -15747,7 +15747,7 @@
             "enabled": "Aktive Lehrkräfte"
         },
         "emptyDescription": "Keine Beschreibung verfügbar.",
-        "pleaseFill": "Bitte geben Sie eine Lehrkraft an",
+        "pleaseFill": "Bitte gib eine Lehrkraft an",
         "showDescription": "Beschreibung ansehen",
         "color": "Farbcode (Termin)",
         "coach_override": "Vertretung",
@@ -15766,7 +15766,7 @@
         },
         "showPerformance": "Lohnabrechnung anzeigen",
         "noCoach": "Zur Zeit gibt es keine registrierten Lehrkräfte",
-        "noCoachs": "Keine registrierten Lehrkräfte. Verwalten Sie hier die Lehrkräfte, Referenten und deren Gehälter.",
+        "noCoachs": "Keine registrierten Lehrkräfte. Verwalte hier die Lehrkräfte, Referenten und deren Gehälter.",
         "inactiveCoaches": "Archivierte Lehrkräfte",
         "paymentRule": "Lohnabrechnung",
         "coachAccess": {
@@ -17131,7 +17131,7 @@
                     "cancel": "Schließen",
                     "inventory": "Mein Inventar"
                 },
-                "helperText": "Sie können in der App externe Links hinzufügen, um Ihre Kunden auf Ihre Website oder eine andere Plattform weiterzuleiten. Die Links werden auf dem Tab \"Einkauf\" der mobilen App angezeigt.",
+                "helperText": "Du kannst der App externe Links hinzufügen, um Mitglieder auf deine Website oder eine andere Seite weiterzuleiten. Diese Links erscheinen im Reiter „Einkauf“ in der App.",
                 "deleteModal": {
                     "title": "Löschen",
                     "confirm": "Löschen",
@@ -17144,7 +17144,7 @@
             },
             "popup": {
                 "subtitle": "Pop-up",
-                "helperText": "Das Pop-up erscheint einmal, wenn Ihre Mitglieder die Anwendung öffnen. Es lenkt die Aufmerksamkeit Ihrer Mitglieder auf ein besonderes Ereignis (einen neuen Kurs, eine Werbeaktion ...) und leitet sie auf die gewünschte Webseite weiter.",
+                "helperText": "Du kannst ein Popup hinzufügen, das einmal erscheint, wenn deine Mitglieder die bsport-App öffnen. Damit erzeugst du Aufmerksamkeit für dein Angebot, z. B. ein neuer Kurs, eine Werbeaktion. Du kannst auch einen Link, z. B. zu deiner Website anbieten.",
                 "updated": "Aktualisieren",
                 "deleteModal": {
                     "cancel": "Stornieren",
@@ -17168,8 +17168,8 @@
                 },
                 "image": "Bild",
                 "add": "Pop-up hinzufügen",
-                "name": "Pop-up Name",
-                "link": "Pop-up Link",
+                "name": "Popup-Name",
+                "link": "Popup-Link",
                 "action": "Aktion"
             },
             "customize": {
@@ -17183,13 +17183,13 @@
                             "membership": "Wochenplan",
                             "studio": "Studio",
                             "activities": "Aktivitäten (Standard)",
-                            "schedule": "Zeitplan"
+                            "schedule": "Wochenplan"
                         },
                         "placeholder": "Eine Seite auswählen",
-                        "helperText": "Mit dieser Option können Sie die Standardseite auswählen, die Nutzer beim Öffnen der App sehen.",
+                        "helperText": "Hier kannst du eine Startseite auswählen, die deine Mitglieder zuerst sehen, wenn sie die App öffnen.",
                         "label": "Standard \"Home-Button\" ändern"
                     },
-                    "title": "Standardseite"
+                    "title": "Startseite"
                 },
                 "title": "Personalisierung"
             }
@@ -17609,27 +17609,27 @@
             "featured": "Wir empfehlen",
             "error": {
                 "invalidBasket": "Dein Warenkorb enthielt Produkte, die nicht mehr zum Verkauf stehen. Es wurde keine Zahlung verzeichnet.",
-                "inconsistentBasket": "Ihr Warenkorb wurde geändert. Bitte aktualisieren Sie Ihre Seite, bevor Sie Ihre Zahlung bestätigen.\nIhnen wurde nichts in Rechnung gestellt.",
-                "unavailableSessions": "Einige Sitzungen in Ihrem Warenkorb sind nicht mehr verfügbar, daher konnten wir Ihre Reservierung nicht abschließen. Alle nicht-verfügbaren wurden entfernt. Bitte überprüfen Sie Ihren Einkaufswagen und versuchen Sie es erneut."
+                "inconsistentBasket": "Dein Warenkorb wurde geändert. Bitte aktualisiere die Seite, bevor du deine Zahlung bestätigst.\nDir wurde nichts in Rechnung gestellt.",
+                "unavailableSessions": "Einige Sitzungen in deinem Warenkorb sind nicht mehr verfügbar, daher konnten wir deine Reservierung nicht abschließen. Alle nicht-verfügbaren wurden entfernt. Bitte überprüfe deinen Einkaufswagen und versuche es erneut."
             },
             "isFinalized": "Ihr Warenkorb wurde validiert",
-            "checkingPaymentStatus": "Bitte warten Sie, wir prüfen den Status Ihrer Zahlung.",
+            "checkingPaymentStatus": "Bitte warte, wir prüfen den Status deiner Zahlung.",
             "totalQuantity": "Enthält: {{ qty }} Produkt(e)",
-            "acceptTermsAndFinalize": "Bitte akzeptieren Sie die Allgemeinen Geschäftsbedingungen und schließen Sie Ihre Buchung ab",
-            "checkAndFinalize": "Bitte überprüfen Sie Ihren Warenkorb und schließen Sie Ihre Buchung ab",
+            "acceptTermsAndFinalize": "Bitte akzeptiere die Allgemeinen Geschäftsbedingungen und schließe deine Buchung ab",
+            "checkAndFinalize": "Bitte überprüfe deinen Warenkorb und schließe deine Buchung ab",
             "almostDone": "Fast geschafft",
             "newCheckout": {
                 "isEmpty": "Ihr Warenkorb ist leer!",
-                "isEmptyDescription": "Erkunden Sie den Marketplace weiter!"
+                "isEmptyDescription": "Erkunde den Marketplace weiter!"
             },
             "noBooking": {
-                "acceptTermsAndFinalize": "Bitte akzeptieren Sie die Allgemeinen Geschäftsbedingungen und schließen Sie Ihren Warenkorb ab",
-                "checkAndFinalize": "Bitte überprüfen Sie Ihren Warenkorb"
+                "acceptTermsAndFinalize": "Bitte akzeptiere die Allgemeinen Geschäftsbedingungen und schließe deinen Warenkorb ab",
+                "checkAndFinalize": "Bitte überprüfe deinen Warenkorb"
             },
             "goToMarketplace": "Marketplace ansehen",
             "referral": {
                 "hasReachedMaxUses": "Die maximale Anzahl an Verwendungen für den Empfehlungslink wurde erreicht.",
-                "missingAmountBeforeApplication": "Der Mindestkaufbetrag wurde nicht erreicht. Sie riskieren, Ihren Empfehlungslink zu verlieren. Nur noch {{ missingAmount }}, um vom Rabatt zu profitieren!"
+                "missingAmountBeforeApplication": "Der Mindestkaufbetrag wurde nicht erreicht. Du riskierst, deinen Empfehlungslink zu verlieren. Nur noch {{ missingAmount }}, um vom Rabatt zu profitieren!"
             }
         },
         "forms": {
@@ -17643,7 +17643,7 @@
             }
         },
         "paymentIntent": {
-            "isProcessing": "Bitte warten Sie einen Augenblick"
+            "isProcessing": "Bitte warte einen Augenblick"
         },
         "autoAdd": {
             "paymentPack": {
@@ -17658,7 +17658,7 @@
         },
         "payLater": {
             "submit": "Im Studio bezahlen",
-            "explain": "Ihre Rechnung wird als unbezahlt betrachtet, bis Sie diese über Ihr Mitgliedsprofil oder direkt im Studio begleichen."
+            "explain": "Deine Rechnung wird als unbezahlt betrachtet, bis du diese über dein Mitgliedsprofil oder direkt im Studio begleichst."
         },
         "or": "oder",
         "validation": {
@@ -17670,20 +17670,20 @@
                 "offerBooked_plural": "Meine Buchungen",
                 "offerNotBookable": "Keine Registrierung möglich",
                 "errorExplain": {
-                    "generic": "Der Vorgang konnte nicht durchgeführt werden. Wir bitten Sie, es noch einmal zu versuchen.",
+                    "generic": "Der Vorgang konnte nicht durchgeführt werden. Wir bitten dich, es noch einmal zu versuchen.",
                     "guestGeneric": "Es ist ein Problem mit der Reservierung für einen Gast aufgetreten.",
                     "guestOvercomeLimit": "Die Anzahl der für diese Buchung hinzugefügten Gäste überschreitet die zulässige Anzahl.",
                     "guestOffer": "Das Studio hat die Buchungsfunktion für einen Gast für diesen Kurs deaktiviert.",
                     "guestPass": "Das Studio hat die Buchungsfunktion für einen Gast für diesen Kurspass deaktiviert.",
                     "guestNotEnoughSpot": "Es gibt nicht genug Plätze für alle Ihre Gäste.",
-                    "guestReachedLimit": "Sie haben bereits das Limit für die Buchung eines Gastes im aktuellen Zeitraum erreicht. Es ist nicht mehr möglich, weitere zu buchen.",
+                    "guestReachedLimit": "Du hast bereits das Limit für die Buchung eines Gastes im aktuellen Zeitraum erreicht. Es ist nicht mehr möglich, weitere zu buchen.",
                     "guestSettings": "Das Studio hat die Buchungsfunktion für einen Gast deaktiviert.",
-                    "genericOfferError": "Wir sind auf ein Problem bei der Verarbeitung Ihrer Kursbuchung gestoßen. Bitte versuchen Sie es zu einem späteren Zeitpunkt erneut oder buchen Sie einen anderen Kurs.",
-                    "offerOnlyBookingError": "Leider können der ausgewählte Kurs und der ausgewählte Platz derzeit nicht gebucht werden. Wir bitten Sie, es erneut zu versuchen."
+                    "genericOfferError": "Wir sind auf ein Problem bei der Verarbeitung deiner Kursbuchung gestoßen. Bitte versuche es zu einem späteren Zeitpunkt erneut oder buche einen anderen Kurs.",
+                    "offerOnlyBookingError": "Leider können der ausgewählte Kurs und der ausgewählte Platz derzeit nicht gebucht werden. Wir bitten dich, es erneut zu versuchen."
                 },
                 "error": "Fehler",
                 "recap": "Zusammenfassung",
-                "explain": "Ihre Kauf wurde bearbeitet. In Kürze werden Sie auch eine Bestätigungs-E-Mail erhalten.",
+                "explain": "Dein Kauf wurde bearbeitet. In Kürze wirst du auch eine Bestätigungs-E-Mail erhalten.",
                 "myGiftcard": "Mein Geschenkgutschein",
                 "myGiftcard_plural": "Meine Geschenkgutscheine",
                 "myProduct": "Mein Produkt",
@@ -17693,22 +17693,22 @@
                 "myPack_plural": "Meine Pakete",
                 "myPass": "Mein Kurspass",
                 "myPass_plural": "Meine Kurspässe",
-                "alert": "Ups! Die Buchung ist fehlgeschlagen.\nWir sind bei der Verarbeitung Ihrer Kursbuchung auf ein Problem gestoßen. Bitte versuchen Sie es zu einem späteren Zeitpunkt erneut oder buchen Sie einen anderen Kurs.",
+                "alert": "Ups! Die Buchung ist fehlgeschlagen.\nWir sind bei der Verarbeitung deiner Kursbuchung auf ein Problem gestoßen. Bitte versuche es zu einem späteren Zeitpunkt erneut oder buche einen anderen Kurs.",
                 "confirmationStatusMessage": {
-                    "offerAndPurchaseSuccess": "Herzlichen Glückwunsch! Ihre Einkäufe und Buchungen sind bestätigt. Sie erhalten in Kürze eine Bestätigungs-E-Mail mit allen Details.",
+                    "offerAndPurchaseSuccess": "Herzlichen Glückwunsch! Deine Einkäufe und Buchungen sind bestätigt. Du erhältst in Kürze eine Bestätigungs-E-Mail mit allen Details.",
                     "paymentSuccess": "Herzlichen Glückwunsch! Ihr Kauf wurde bestätigt!",
                     "paymentSuccess_plural": "Herzlichen Glückwunsch! Ihre Käufe wurden bestätigt!",
-                    "offerOnlySuccess": "Die Buchung wurde erfolgreich abgeschlossen. Sie erhalten in Kürze eine Bestätigungs-E-Mail mit allen Details.",
-                    "offerOnlySuccess_plural": "Die Buchungen wurden erfolgreich abgeschlossen. Sie erhalten in Kürze eine Bestätigungs-E-Mail mit allen Details.",
-                    "offerOnlyGuestSuccess": "Die Buchung wurde abgeschlossen. Sie und Ihr Gast werden in Kürze eine Bestätigungsmail mit allen Details erhalten.",
-                    "offersPartiallyConfirmed": "Einige Sitzungen konnten nicht gebucht werden, möglicherweise weil sie ausgebucht wurden oder beim Auschecken abgesagt wurden. Sie erhalten in Kürze eine Bestätigungs-E-Mail mit Einzelheiten zu den erfolgreichen Buchungen."
+                    "offerOnlySuccess": "Die Buchung wurde erfolgreich abgeschlossen. Du erhältst in Kürze eine Bestätigungs-E-Mail mit allen Details.",
+                    "offerOnlySuccess_plural": "Die Buchungen wurden erfolgreich abgeschlossen. Du erhältst in Kürze eine Bestätigungs-E-Mail mit allen Details.",
+                    "offerOnlyGuestSuccess": "Die Buchung wurde abgeschlossen. Du und dein Gast werden in Kürze eine Bestätigungsmail mit allen Details erhalten.",
+                    "offersPartiallyConfirmed": "Einige Sitzungen konnten nicht gebucht werden, möglicherweise weil sie ausgebucht wurden oder beim Auschecken abgesagt wurden. Du erhältst in Kürze eine Bestätigungs-E-Mail mit Einzelheiten zu den erfolgreichen Buchungen."
                 },
                 "confirmationStatusTitle": {
                     "success": {
-                        "waitingList": "Sie haben sich auf die Warteliste gesetzt",
+                        "waitingList": "Du hast dich auf die Warteliste gesetzt",
                         "paymentSuccess": "Zahlung bestätigt!",
                         "offerOnlySuccess": "Viel Spaß beim Kurs!",
-                        "offerOnlyGuestSuccess": "Genießen Sie den Kurs mit Ihrem Gast!"
+                        "offerOnlyGuestSuccess": "Viel Spaß beim Kurs mit deinem Gast!"
                     },
                     "errors": {
                         "genericOfferError": "Hoppla! Die Buchung ist fehlgeschlagen.",
@@ -17751,7 +17751,7 @@
         "expire_in": "Läuft ab in ",
         "historyTitle": "Warenkorbverlauf",
         "eventHistory": {
-            "pleaseSelectABasket": "Wählen Sie einen Warenkorb aus, um den Verlauf anzuzeigen",
+            "pleaseSelectABasket": "Wähle einen Warenkorb aus, um den Verlauf anzuzeigen",
             "sectionTitle": "Events"
         },
         "events": {
@@ -17796,12 +17796,12 @@
         },
         "expiredSpotDialog": {
             "refresh": "Aktualisieren",
-            "message": "Ihre Platzreservierung ist abgelaufen. Sie können sie erneut auswählen oder sich für eine neue entscheiden.",
+            "message": "Deine Platzreservierung ist abgelaufen. Du kannst sie erneut auswählen oder dich für eine neue entscheiden.",
             "title": "Ihre Platzreservierung ist abgelaufen"
         },
         "spotSavedFor": "Der ausgewählte Platz wird für {{countdown}} reserviert.",
         "billingGroup": {
-            "helperText": "Der bevorzugte Standort ist derjenige, an dem Sie Ihren Einkauf zu verwenden beabsichtigen, und wird für die Ausstellung Ihrer Rechnung verwendet.",
+            "helperText": "Der bevorzugte Standort ist derjenige, an dem du deinen Einkauf einlösen wirst, und wird für die Ausstellung deiner Rechnung verwendet.",
             "placeholder": "Standort",
             "title": "Bevorzugter Standort"
         }
@@ -18918,14 +18918,14 @@
                 "title": "Titel",
                 "isMandatoryOnSignUp": "Dieses Feld ist bei der Anmeldung obligatorisch",
                 "waiver": "Haftungsverzichtserklärung",
-                "repeatPassword": "Bestätigen",
+                "repeatPassword": "Passwort bestätigen",
                 "general_terms_and_conditions": "Ich akzeptiere die Allgemeinen Geschäftsbedingungen.",
                 "country": "Land",
                 "city": "Stadt",
                 "additional_adress": "Zusätzliche Adressinformationen",
                 "password": "Passwort",
                 "phone": "Telefon",
-                "email": "E-Mail Adresse",
+                "email": "E-Mail-Adresse",
                 "vaccination_status": "COVID-19 Sanitärpass Status",
                 "accept_sms": "Ich würde gerne relevante Informationen per SMS erhalten",
                 "accept_email": "Ich würde gerne relevante Informationen via E-Mail erhalten",
@@ -18936,7 +18936,7 @@
                 "address_line_2": "Zusätzliche Adresszeile",
                 "address_line_1": "Adresse",
                 "birthday": "Geburtsdatum",
-                "last_name": "Familienname",
+                "last_name": "Nachname",
                 "first_name": "Vorname",
                 "sign_up_question": "Anmeldeformularfragen",
                 "location": "Bevorzugter Standort",
@@ -19045,8 +19045,8 @@
                 "preview": "Übersicht"
             },
             "signUp": {
-                "helperMemberForm": "Das Änderungsformular kann individuell angepasst werden und wird auf der Profilseite Ihrer Mitglieder angezeigt und ermöglicht es ihnen, ihre Informationen hinzuzufügen oder zu bearbeiten.",
-                "helperSignup": "Sie können das Anmeldeformular für Ihr Studio mit benutzerdefinierten Fragen und Feldern personalisieren.",
+                "helperMemberForm": "Das Änderungsformular kann individuell angepasst werden und wird auf der Profilseite deiner Mitglieder angezeigt.",
+                "helperSignup": "Hier kannst du das Registrierungsformular für dein Studio personalisieren, um z. B. bestimmte Infos von neuen Mitgliedern abzufragen.",
                 "signupFields": "Formularfragen"
             },
             "breakpoints": {
@@ -20568,10 +20568,10 @@
     "clockIn": {
         "clockinDialog": {
             "successClockIn": "Ankunftszeit:",
-            "subtitleSuccess": "Ihre Zeiterfassung wurde erfolgreich abgeschlossen. Sie können eine neue Zeiterfassung starten, wenn Sie dieses Fenster das nächste Mal öffnen.",
+            "subtitleSuccess": "Deine Zeiterfassung wurde erfolgreich abgeschlossen. Du kannst eine neue Zeiterfassung starten, wenn du dieses Fenster das nächste Mal öffnest.",
             "clockInForOther": "für einen anderen Mitarbeiter ausstempeln",
-            "subtitleClockOut": "Jetzt geht es los! Um erneut auszustempeln und den Stundenzähler zu stoppen, klicken Sie bitte auf \"Clock-Out\".",
-            "subtitleClockIn": "Hallo {{- name }}, klicken Sie auf \"Clock-In\", um mit der Zeiterfassung Ihres Tages zu beginnen.",
+            "subtitleClockOut": "Jetzt geht es los! Um auszustempeln, klicke bitte auf \"Clock-Out\".",
+            "subtitleClockIn": "Hallo {{- name }}, klicke auf \"Clock-In\", um mit der Zeiterfassung deines Tages zu beginnen.",
             "lastClockOut": "Ankunftszeit: ",
             "lastClockIn": "Letzter Clock-In: {{- date }} - {{ hour }}",
             "clockOut": "Clock-Out",
@@ -20599,7 +20599,7 @@
         },
         "modal": {
             "delete": {
-                "content": "Achtung! Sind Sie sicher, dass Sie den Zeitslot für diesen Mitarbeiter löschen möchten? Dieser Vorgang ist unumkehrbar.",
+                "content": "Achtung! Bist du sicher, dass Du den Zeitslot für diesen Mitarbeiter löschen möchtest? Dieser Vorgang ist unumkehrbar.",
                 "title": "Löschen"
             }
         },
@@ -21313,23 +21313,23 @@
         "exportCampaign": "Exportieren",
         "save": "Speichern",
         "schemaError": {
-            "nonEmptyEmailTemplate": "Bitte wählen Sie eine E-Mail-Vorlage",
-            "nonEmptyBody": "Der Inhalt Ihrer E-Mail ist derzeit leer. Bitte fügen Sie Inhalte hinzu bevor Sie fortfahren.",
-            "nonEmptyToggle": "Bitte wählen Sie Empfänger bevor Sie die Nachricht verschicken.",
-            "nonEmptySmartList": "Bitte wählen Sie eine Smartlist"
+            "nonEmptyEmailTemplate": "Bitte wähle eine E-Mail-Vorlage",
+            "nonEmptyBody": "Der Inhalt deiner E-Mail ist derzeit leer. Bitte füge Inhalte hinzu, bevor du fortfährst.",
+            "nonEmptyToggle": "Bitte wähle Empfänger bevor du die Nachricht verschickst.",
+            "nonEmptySmartList": "Bitte wähle eine Smartlist"
         },
-        "smartListOption": "Wählen Sie eine Smartlist",
+        "smartListOption": "Wähle eine Smartlist",
         "mail": {
             "sendButton": "Senden",
-            "customDomainNotDefined": "Sie haben keine benutzerdefinierte Domäne definiert. <1/>Bitte setzen Sie sich mit unserem Team in Verbindung, um den Konfigurationsprozess einzuleiten.",
+            "customDomainNotDefined": "Du hast keine benutzerdefinierte Domain definiert. <1/>Bitte setze dich mit unserem Team in Verbindung, um den Konfigurationsprozess einzuleiten.",
             "example": "Beispiel",
             "customEmail": "Benutzerdefinierte E-Mail",
             "franchiseeMail": "Franchisenehmer-E-Mail",
-            "chooseSender": "Bitte wählen Sie die E-Mail-Adresse , die zum Versenden verwenden möchten.",
+            "chooseSender": "Bitte wähle die E-Mail-Adresse, die du zum Versand nutzen möchtest.",
             "sendMail": "Nachricht schicken"
         },
-        "memberSelectionInfo": "Fügen Sie Mitglieder zu den Empfängern Ihrer Kampagne hinzu, indem Sie ein Studio auswählen und dann eine seiner Smartlists auswählen. Wenn Sie alle Ihre Mitglieder direkt hinzufügen möchten, können Sie auch auf \"Alle Mitglieder auswählen\" klicken.",
-        "noCampaign": "Verschicken Sie Kampagnen an Ihre Mitglieder, um sie über Geschehnisse in Ihrem Franchise auf dem Laufenden zu halten.",
+        "memberSelectionInfo": "Füge Mitglieder zu den Empfängern deiner Kampagne hinzu, indem du ein Studio auswählst und dann eine Smartlist auswählst. Wenn du alle deine Mitglieder direkt hinzufügen möchten, kannst du auch auf \"Alle Mitglieder auswählen\" klicken.",
+        "noCampaign": "Verschicke Kampagnen an deine Mitglieder, um sie über Geschehnisse in deinem Franchise auf dem Laufenden zu halten.",
         "historyTitle": "Versandhistorie",
         "campaign": {
             "add": "Kampagne hinzufügen"
@@ -21338,7 +21338,7 @@
         "sendToAllMembers": "An alle Mitglieder senden",
         "modal": {
             "delete": {
-                "content": "Diese Aktion wird die Kampagne permanent archivieren und alle verbundenen Daten werden nicht mehr zugänglich sein. Sind Sie sich sicher, dass Sie mit dem Archivieren fortfahren wollen?",
+                "content": "Diese Aktion wird die Kampagne permanent archivieren und alle verbundenen Daten werden nicht mehr zugänglich sein. Bist du dir sicher, dass du mit dem Archivieren fortfahren willst?",
                 "confirm": "Bestätigen",
                 "cancel": "Abbrechen",
                 "title": "Kampagne archivieren"

@@ -6068,6 +6068,18 @@
             "giftcard": "Cartes-cadeaux",
             "calendarV2": "Calendrier",
             "calendar": "Calendrier"
+        },
+        "passes": {
+            "filters": "Filtres",
+            "title": "Cartes de cours",
+            "tabs": {
+                "appointmentPasses": "Cartes RDV",
+                "passes": "Cartes de cours",
+                "all": "Tout"
+            },
+            "search": "Rechercher",
+            "buy": "Acheter",
+            "details": "Détails"
         }
     },
     "member": {

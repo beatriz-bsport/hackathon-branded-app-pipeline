@@ -14,7 +14,10 @@ import { push } from 'connected-react-router';
 import useAsyncFn from '#src/hooks/useAsyncFn';
 import { Basket } from '#src/libs/checkout/types';
 import { removeItemInStorage } from '#src/utils/storage';
-import { STORAGE_KEY_LIGHT_SIGNUP_FORM_VALUES } from '#src/actions/constants';
+import {
+  STORAGE_KEY_LIGHT_SIGNUP_FORM_VALUES,
+  STORAGE_KEY_LIGHT_SIGNUP_MEMBER_ID,
+} from '#src/actions/constants';
 import { postUserRegistration } from '#src/libs/offer/api';
 
 const redirectToConfirmationPage = (
@@ -92,6 +95,8 @@ const useBookInOneClick = () => {
       await validateBasket(basket);
 
       removeItemInStorage('local', STORAGE_KEY_LIGHT_SIGNUP_FORM_VALUES);
+
+      removeItemInStorage('local', STORAGE_KEY_LIGHT_SIGNUP_MEMBER_ID);
 
       redirectToConfirmationPage(
         offer,

@@ -3586,12 +3586,12 @@
                     "showAdvanced": "Mehr anzeigen",
                     "permissions": "Berechtigungen",
                     "restrictedUrlPlaceholder": "Beispiel: / member /",
-                    "restrictedUrl": "Eingeschränkte URLs",
+                    "restrictedUrl": "Whitelist websites",
                     "description": "Beschreibung",
                     "name": "Name",
                     "title": "Rollenerstellung",
-                    "buttonCreate": "Füge eine Rolle hinzu  ",
-                    "restrictedUrlExplain": "Verwenden Sie diesen Parameter, um eine Whitelist von URLs für diese Rolle festzulegen. Nur die unten aufgelisteten URLs sind für den mit dieser Rolle verbundenen Mitarbeitern zugänglich",
+                    "buttonCreate": "Rolle hinzufügen  ",
+                    "restrictedUrlExplain": "Hier kannst du Website-Links eingeben, die für Team-Mitglieder mit dieser Rolle zugänglich sind. Alle anderen Website-Links funktionieren nicht, nur die Links in dieser Liste.",
                     "authorizeManagerExplain": "Die Mitarbeiter mit dieser Rolle können die gleichen Aktionen, wie der Manager durchführen: die Buchung einer Session in einer nicht verfügbaren Einrichtung veranlassen, die Buchung mit einer nicht verfügbaren Lehrkraft durchsetzen, die maximale Anzahl der für einen Kurs angemeldeten Mitglieder überschreiten.",
                     "authorizeManagerAction": "Dem Mitarbeiter die Kontrolle eines Managers geben"
                 },
@@ -3616,35 +3616,35 @@
                 }
             }
         },
-        "explainStaffDoNot": "Ein Mitarbeiter-Zugang ermöglicht keine Verbindung zur mobilen Anwendung (nur Lehrkräfte und Schüler)",
-        "explainStaffDo": "Ein Mitarbeiterzugang ermöglicht eine Verbindung per Handy oder Computer mit dem folgenden Link : https://backoffice.bsport.io",
+        "explainStaffDoNot": "Hinweis: Die mobile App steht nur Lehrkräften und Mitgliedern zur Verfügung.",
+        "explainStaffDo": "Deine Mitarbeiter können sich per PC, Handy oder Tablet über folgenden Link einloggen: https://backoffice.bsport.io.",
         "permissions": "Verfügbare Rollen",
         "userRoles": "Mitarbeiterkonten",
         "pageTitle": "Mitarbeiter",
         "roleDescription": {
             "0": {
-                "name": "Leiter",
-                "description": "Zugang des Administrators, keine Einschränkung, kann Mitarbeiterkonten erstellen"
+                "name": "Inhaber",
+                "description": "Administrator-Zugang mit allen verfügbaren Funktionen. Kann auch Mitarbeiterkonten erstellen. Ein Inhaber-Konto kann nicht gelöscht werden."
             },
             "1": {
-                "description": "Mit Check-in | Wide können Mitarbeiter Kurse bearbeiten (Zeit, Vetretung, Absage usw.), Ihre Mitgliederdatenbank einsehen und Mitglieder einchecken.",
-                "name": "Erweitertes Check-In"
+                "description": "Mitglieder können Kurse bearbeiten (z. B. Uhrzeit, Vertretung, absagen), die Mitgliederliste einsehen und andere Mitglieder einchecken.",
+                "name": "Erweiterter Check-In"
             },
             "2": {
-                "description": "Zugang nur zum Check-In.",
+                "description": "Nur der Check-In steht zur Verfügung.",
                 "name": "Eingeschränktes Check-In"
             },
             "3": {
-                "description": "Verwenden Sie diese Rolle, wenn Sie möchten, dass die Mitglieder selbst über Ihr Tablet einchecken. Kontaktieren Sie Ihren Account Manager bei bsport für weitere Informationen.",
-                "name": "Tablett-Check-In"
+                "description": "Mitglieder können sich selbst per Tablet einchecken. Um diese Rolle zu vergeben, kontaktiere bitte deinen Account-Manager bei bsport.",
+                "name": "Check-In per Tablet"
             },
             "4": {
-                "description": "Administrator, gleicher Zugang wie der Leiter, kann aber gelöscht/erstellt werden",
+                "description": "Administrator-Zugang mit allen verfügbaren Funktionen. Kann auch Mitarbeiterkonten erstellen. Ein Administrator-Konto kann aber erstellt und gelöscht werden.",
                 "name": "Administrator"
             },
             "5": {
                 "name": "Berichte",
-                "description": "Zugriff nur auf Berichte, die beispielsweise für Deine Buchhaltung nützlich sind"
+                "description": "Erlaubt Zugriff nur auf Berichte, die für die Buchhaltung relevant sind."
             },
             "-1": {
                 "description": "Zugriff nur auf die Schnellverkaufsschnittstelle",
@@ -16986,7 +16986,7 @@
                 "selectActivity": "Wähle eine Aktivität",
                 "selectEstablishment": "Wähle eine Einrichtung",
                 "selectCoach": "Wähle eine Lehrkraft",
-                "selectComponent": "Wähle eine Komponente",
+                "selectComponent": "Komponente wählen",
                 "showAdvanced": "Weitere Optionen anzeigen",
                 "selectVideo": "Wähle ein Video",
                 "selectPrivateServiceGroups": "Wähle Deine Kategorien",
@@ -18065,7 +18065,7 @@
             "copy": "Kopieren",
             "url": "Kalenderlink",
             "code": "Widget auf Deiner Website",
-            "choice": "Wähle aus, wie Du Dein Widget anzeigen möchtest",
+            "choice": "Wie möchtest du dein Widget anzeigen?",
             "visualisation": "Anzeigen",
             "widget": "Teile Deinen Kalender",
             "displayType": "Anzeigetyp",
@@ -18078,7 +18078,7 @@
             "widgetPreviewError": "Bitte beende die Konfiguration",
             "dialogTitle": "Widget-Anpassung",
             "linkToConfig": "Link zu dieser Konfiguration",
-            "codeInfo": "Der Code, der in Deine Website integriert werden soll",
+            "codeInfo": "Code zur Integration in deine Website",
             "creationPageInfo": "Richte dein Widget ein und füge den Code deiner Website hinzu.",
             "dialogMode": {
                 "iframe": "Auf der Seite bleiben",
@@ -18092,7 +18092,7 @@
             "browserLanguage": "Browsersprache",
             "languageHelper": "Das Widget verwendet standardmäßig die hier ausgewählte Sprache. Wähle \"Browsersprache\", damit Du die Sprache des Widgets automatisch an die Sprache Deiner Mitglieder anpasst.",
             "pickALanguage": "Wähle die Standardsprache",
-            "configTitle": "Mein Widget",
+            "configTitle": "Dein Widget",
             "containerConfiguration": {
                 "title": "Allgemeine Konfiguration"
             },
@@ -18115,7 +18115,7 @@
                 "secondaryColor": "Sekundärfarbe",
                 "borderColor": "Randfarbe",
                 "backgroundColorPage": "Hintergrundfarbe",
-                "backgroundColorElement": "Hauptfarbe des Hintergrunds der Elemente",
+                "backgroundColorElement": "Primärfarbe für den Hintergrund des Elements",
                 "reset": "zurücksetzen",
                 "spacingHelper": "Die Abstände basieren auf Vielfachen von {{base}}px",
                 "roundingHelper": "Ecken werden in Vielfachen von {{base}}px gerundet",
@@ -18127,9 +18127,9 @@
                     "confirm": "Bestätigen"
                 },
                 "submit": "Speichern",
-                "secondaryBackgroundColorElement": "Sekundäre Hintergrundfarbe der Elemente"
+                "secondaryBackgroundColorElement": "Sekundärfarbe für den Hintergrund des Elements"
             },
-            "todayOnly": "Übersicht Kurse des Tages",
+            "todayOnly": "Kurse des aktuellen Tages",
             "responsiveIframe": "Reaktionsmodus aktivieren",
             "variant": "Hervorheben",
             "variantOption": {
@@ -18142,7 +18142,7 @@
                 "submit": "Bestätigen",
                 "cancel": "Schließen"
             },
-            "groupSessionByPeriod": "Morgens, nachmittags und abends trennen",
+            "groupSessionByPeriod": "Morgens, nachmittags und abends einzeln darstellen",
             "customCss": {
                 "CSS": "CSS",
                 "preview": "Vorschau{{-name}}",
@@ -18156,11 +18156,11 @@
                     "content": "Achtung Sie sind dabei, das CSS dieses Elements zurückzusetzen. Es wird auf seine Standardkonfiguration zurückgesetzt."
                 },
                 "info": "Sie haben die Möglichkeit, jedes Element und seine Varianten, aus denen die Widgets bestehen, anzupassen. Wählen Sie ein Widget und dann das gewünschte Element aus.",
-                "choiceWidget": "Wahl des Widgets",
+                "choiceWidget": "Widget wählen",
                 "infoMultiplePage": "Dieses Symbol ist auf mehreren Widgets vorhanden, die Änderungen werden auf die folgenden Widgets angewendet:",
                 "showBsportCode": "bsport-Stil anzeigen",
                 "unsavedChanges": "Änderungen wurden nicht gespeichert",
-                "choiceElement": "Wahl des Symbols",
+                "choiceElement": "Symbol wählen",
                 "snackbarSuccessSave": "Ihr Symbol wurde erfolgreich gespeichert",
                 "snackbarSuccessResetAll": "Alle Ihre Konfigurationen wurden erfolgreich zurückgesetzt",
                 "baseCode": "bsport-Stil",

@@ -6487,9 +6487,11 @@
             "dialogs": {
                 "errors": {
                     "71000": "Veuillez attendre la fin de l'importation en cours",
-                    "71001": "Ce fichier n'a pas le nombre de colonnes requis",
+                    "71001": "Ce fichier n'a pas le nombre de colonnes requis, il a {{column_count}} colonnes dans la ligne {{row_count}}",
                     "71002": "Ce fichier dépasse la taille maximale autorisée",
-                    "title": "Malheureusement, l'import a échoué pour les raisons suivantes:"
+                    "title": "Malheureusement, l'import a échoué pour les raisons suivantes:",
+                    "unknown": "Une erreur inattendue s'est produite",
+                    "71003": "Le décodage du fichier a échoué. Veuillez vous assurer qu'il n'est pas corrompu ou dans un format non pris en charge"
                 },
                 "partialSuccess": {
                     "successImportSubtext": "Membres créés",
@@ -9676,7 +9678,8 @@
                 "infoHelper": "Besoin de plus d'informations ?",
                 "confirmHelper": "Veuillez confirmer que vous souhaitez vous abonner à cet add-on",
                 "priceHelper": "Ce prix sera ajouté à votre forfait mensuel.",
-                "title": "S'abonner à l'add-on"
+                "title": "S'abonner à l'add-on",
+                "timeConsumingHelper": "L'abonnement à ce produit peut prendre quelques secondes avant d'être traité"
             },
             "seeMore": "Voir plus",
             "billSMS": "{{ price_cts }} / SMS"
@@ -18311,8 +18314,11 @@
         },
         "banner": {
             "isStaging": "Prendre RDV",
-            "networkError": "Vous n'êtes pas connecté à internet",
-            "franchiseConnection": "Vous êtes actuellement connecté sur une application de vos franchisé"
+            "networkError": "Il semble que vous soyez hors ligne. Veuillez vérifier votre connexion Internet et réessayer.",
+            "franchiseConnection": "Vous êtes actuellement connecté sur une application de vos franchisé",
+            "serverConnectionRestored": "La connexion est rétablie. Vous pouvez continuer sans problème.",
+            "networkConnectionRestored": "Connexion rétablie !",
+            "serverError": "Une erreur s'est produite de notre côté. Veuillez patienter ou cliquez ici pour actualiser la page."
         },
         "member": {
             "memberForm": "Ajouter un membre",

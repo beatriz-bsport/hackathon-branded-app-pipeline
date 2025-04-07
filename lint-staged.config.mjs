@@ -11,6 +11,9 @@ export default {
   // Other files should not be linted, only formatted
   "*.{cjs,mjs,scss,css,json,md,mdx,html,svg}": ["prettier --write"],
 
+  // Format pnpm-lock.yaml
+  "pnpm-lock.yaml": [() => "pnpm i -w --lockfile-only --ignore-scripts"],
+
   // Sort package.json entries
   "package.json": ["sort-package-json"],
 };

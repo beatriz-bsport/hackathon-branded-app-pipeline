@@ -18079,7 +18079,7 @@
             "dialogTitle": "Widget-Anpassung",
             "linkToConfig": "Link zu dieser Konfiguration",
             "codeInfo": "Der Code, der in Deine Website integriert werden soll",
-            "creationPageInfo": "Passe die Widgets an und integriere es in Deine Website",
+            "creationPageInfo": "Richte dein Widget ein und füge den Code deiner Website hinzu.",
             "dialogMode": {
                 "iframe": "Auf der Seite bleiben",
                 "popup": "Neues Fenster öffnen",

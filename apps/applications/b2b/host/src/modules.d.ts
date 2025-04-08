@@ -4,3 +4,10 @@ declare module "sm-navigation-sidebar/NavigationSidebar" {
   const NavigationSidebar: VFC;
   export default NavigationSidebar;
 }
+
+declare module "sm-group-activity/App" {
+  import { VFC } from "react";
+
+  const App: VFC;
+  export default App;
+}

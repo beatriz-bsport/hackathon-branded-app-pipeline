@@ -12,6 +12,8 @@ import Icon from "#src/components/Icon";
 import { useNavigationMenuContext } from "#src/components/NavigationMenu/Context";
 import SubItem from "#src/components/NavigationMenu/SubItem";
 
+import type { NavigationMenuItem } from "./types";
+
 const defaultClasses = [
   "group",
   "h-xl min-h-xl w-full",
@@ -31,9 +33,21 @@ const defaultClasses = [
 
 const navigationMenuItem = cva(defaultClasses);
 
-export type ItemProps = {
-  id: string;
+type BaseItemProps = Omit<NavigationMenuItem, "subItems"> & {
+  onClick?: (e: MouseEvent) => void;
 };
+
+type SubItemsProps = BaseItemProps & {
+  subItems: NavigationMenuItem["subItems"];
+  children?: never;
+};
+
+type ChildrenProps = BaseItemProps & {
+  subItems?: never;
+  children?: React.ReactNode;
+};
+
+export type ItemProps = SubItemsProps | ChildrenProps;
 
 /**
  * Item
@@ -43,25 +57,52 @@ export type ItemProps = {
  *
  * @param  props.id - Unique identifier for the menu item.
  */
-const Item: React.FC<ItemProps> = ({ id }) => {
+const Item: React.FC<ItemProps> = (props) => {
+  const {
+    id,
+    icon,
+    label,
+    endSlot,
+    subItems,
+    children,
+    href,
+    target,
+    onClick,
+  } = props;
+  const context = useNavigationMenuContext();
+
+  // Use context values only if props are not provided
   const {
     selectedItemId,
     openMenuId,
-    setOpenMenuId,
+    setOpenMenuId = () => {},
     onItemClick,
-    setSelectedItemId,
-    itemsById,
-  } = useNavigationMenuContext();
-
-  const item = itemsById[id];
-
-  const { icon, label, endSlot, subItems, href, target } = item;
+    setSelectedItemId = () => {},
+  } = context || {};
   const subItemsRef = useRef<HTMLDivElement | null>(null);
   const isOpen = openMenuId === id;
-  const isActive =
-    (subItems?.some((subItem) => subItem.id === selectedItemId) && !isOpen) ||
-    id === selectedItemId;
-  const hasSubitems = !!subItems?.length;
+  const isActive = React.useMemo(() => {
+    if (id === selectedItemId) return true;
+
+    // when a subitem is selected and it is collapsed we set the parent as active
+    if (subItems?.some((subItem) => subItem.id === selectedItemId)) {
+      return !isOpen;
+    }
+
+    // when a child is selected and it is collapsed we set the parent as active
+    if (children) {
+      const childrenArray = React.Children.toArray(children);
+      const hasActiveChild = childrenArray.some(
+        (child) =>
+          React.isValidElement(child) && child.props.id === selectedItemId,
+      );
+      return hasActiveChild && !isOpen;
+    }
+
+    return false;
+  }, [id, selectedItemId, isOpen, subItems, children]);
+
+  const hasSubitems = !!subItems?.length || !!children;
 
   useEffect(() => {
     if (!isOpen) {
@@ -129,8 +170,9 @@ const Item: React.FC<ItemProps> = ({ id }) => {
           const handleOnClick = useCallback(
             (e: MouseEvent) => {
               setOpenMenuId((prevState) => (prevState === id ? "" : id));
-              if (!subItems?.length) setSelectedItemId(id);
-              return onItemClick?.(item)(e);
+              if (!subItems?.length && !children) setSelectedItemId(id);
+              if (onClick) onClick(e);
+              else if (onItemClick) onItemClick(props)(e);
             },
             [setOpenMenuId, id, onItemClick],
           );
@@ -160,12 +202,13 @@ const Item: React.FC<ItemProps> = ({ id }) => {
           );
         }}
       </Collapse.Controller>
-      {hasSubitems && (
+      {(hasSubitems || children) && (
         <Collapse.Content>
           <div ref={subItemsRef}>
-            {subItems.map((subItem) => (
-              <SubItem subItem={subItem} key={subItem.id} />
+            {subItems?.map(({ id, label }) => (
+              <SubItem id={id} label={label} key={id} />
             ))}
+            {children}
           </div>
         </Collapse.Content>
       )}

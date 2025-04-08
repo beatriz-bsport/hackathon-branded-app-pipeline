@@ -147,7 +147,11 @@ export const useNavigationElements = ({
       id: "classes",
       label: t("menus.classes.title"),
       subItems: [
-        { id: "activities", label: t("menus.classes.activities") },
+        {
+          id: "activities",
+          label: t("menus.classes.activities"),
+          href: "/activity",
+        },
         { id: "workshops", label: t("menus.classes.workshops") },
         { id: "appointments", label: t("menus.classes.appointments") },
       ],

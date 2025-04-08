@@ -3,7 +3,7 @@
 set -eE
 
 # List of applications to deploy
-APPLICATIONS="@bsport/sm-host @bsport/sm-navigation-sidebar"
+APPLICATIONS="@bsport/sm-host @bsport/sm-navigation-sidebar @bsport/sm-group-activity"
 
 echo "*"
 echo "⏳ Deploying Studio Manager applications"

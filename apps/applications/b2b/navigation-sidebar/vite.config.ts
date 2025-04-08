@@ -26,9 +26,7 @@ export default defineConfig(({ mode }) => {
       nxViteTsPaths(),
       svgr(),
       react(),
-      federation({
-        ...config.federation,
-      }),
+      federation(config.federation),
       topLevelAwait(),
     ],
     build: {

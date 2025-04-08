@@ -48,9 +48,8 @@ const navigationMenuSubItemLabel = cva(
 );
 
 export type SubItemProps = React.HTMLAttributes<HTMLButtonElement> &
-  VariantProps<typeof navigationMenuSubItem> & {
-    subItem: BaseItem;
-  };
+  VariantProps<typeof navigationMenuSubItem> &
+  BaseItem;
 
 /**
  * SubItem
@@ -64,11 +63,16 @@ export type SubItemProps = React.HTMLAttributes<HTMLButtonElement> &
  * @param  props.id - Unique identifier for the navigation sub-item.
  * @param  props.label - The text label displayed for the navigation sub-item.
  */
-const SubItem: React.FC<SubItemProps> = ({ className, subItem, ...props }) => {
+const SubItem: React.FC<SubItemProps> = ({
+  className,
+  id,
+  label,
+  ...props
+}) => {
   const { selectedItemId, setSelectedItemId, onItemClick } =
     useNavigationMenuContext();
 
-  const selected = selectedItemId === subItem.id;
+  const selected = selectedItemId === id;
 
   const indicator = useMemo(
     () => (
@@ -86,10 +90,10 @@ const SubItem: React.FC<SubItemProps> = ({ className, subItem, ...props }) => {
 
   const handleOnClick = useCallback(
     (e: MouseEvent) => {
-      setSelectedItemId(subItem.id);
-      return onItemClick?.(subItem)(e);
+      setSelectedItemId(id);
+      return onItemClick?.({ id, label })(e);
     },
-    [setSelectedItemId, onItemClick, subItem],
+    [setSelectedItemId, onItemClick, id, label],
   );
 
   return (
@@ -108,7 +112,7 @@ const SubItem: React.FC<SubItemProps> = ({ className, subItem, ...props }) => {
         className={navigationMenuSubItemLabel({ selected })}
         weight={selected ? "stronger" : "weak"}
       >
-        {subItem.label}
+        {label}
       </Body>
     </button>
   );

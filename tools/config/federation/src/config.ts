@@ -175,11 +175,15 @@ export const getConfig = (config: {
     shared: {
       react: {
         singleton: true,
-        requiredVersion: packageJson.dependencies["react"],
+        requiredVersion: packageJson.dependencies["react"] ?? "19.0.0",
       },
       "react-dom": {
         singleton: true,
-        requiredVersion: packageJson.dependencies["react-dom"],
+        requiredVersion: packageJson.dependencies["react-dom"] ?? "19.0.0",
+      },
+      "react-router": {
+        singleton: true,
+        requiredVersion: packageJson.dependencies["react-router"] ?? "7.2.0",
       },
       "@bsport/i18n": {
         singleton: true,

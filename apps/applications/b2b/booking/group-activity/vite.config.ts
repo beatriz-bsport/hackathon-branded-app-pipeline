@@ -1,63 +1,43 @@
+import { federation } from "@module-federation/vite";
 import { nxViteTsPaths } from "@nx/vite/plugins/nx-tsconfig-paths.plugin";
-import federation from "@originjs/vite-plugin-federation";
 import react from "@vitejs/plugin-react-swc";
 import { resolve } from "path";
-import type { UserConfig } from "vite";
-import dts from "vite-plugin-dts";
+import { defineConfig } from "vite";
 import svgr from "vite-plugin-svgr";
+import topLevelAwait from "vite-plugin-top-level-await";
 
-import {
-  type APPLICATION,
-  getAppPort,
-  getLocalFederationRemotes,
-} from "@bsport/config-federation";
+import { getConfig } from "@bsport/config-federation";
 
-/**
- * Application name used for federation. Must also be present in @bsport/config-federation to work.
- */
-const APP_NAME: APPLICATION = "group-activities";
+import packageJson from "./package.json";
 
-// https://vite.dev/config/
-const config: UserConfig = {
-  server: {
-    port: getAppPort(APP_NAME),
-  },
-  preview: {
-    port: getAppPort(APP_NAME),
-  },
-  plugins: [
-    nxViteTsPaths(),
-    svgr(),
-    react(),
-    dts({ insertTypesEntry: true }),
-    federation({
-      name: APP_NAME,
-      filename: "module.js",
-      shared: ["react", "react-dom"],
-      remotes: getLocalFederationRemotes(),
-      exposes: {
-        "./App": "./src/App",
+export default defineConfig(({ mode }) => {
+  const config = getConfig({
+    mode,
+    packageJson,
+    appType: "booking",
+  });
+
+  return {
+    base: config.base,
+    define: config.define,
+    server: config.server,
+    preview: config.preview,
+    plugins: [
+      nxViteTsPaths(),
+      svgr(),
+      react(),
+      federation(config.federation),
+      topLevelAwait(),
+    ],
+    build: {
+      cssCodeSplit: false,
+      emptyOutDir: true,
+      target: "esnext",
+    },
+    resolve: {
+      alias: {
+        "#src": resolve(__dirname, "src"),
       },
-    }),
-  ],
-  esbuild: {
-    supported: {
-      "top-level-await": true,
     },
-  },
-  build: {
-    rollupOptions: {
-      external: ["react", "react-dom", "tailwindcss"],
-    },
-    cssCodeSplit: false,
-    sourcemap: true,
-    emptyOutDir: true,
-  },
-  resolve: {
-    alias: {
-      "#src": resolve(__dirname, "src"),
-    },
-  },
-};
-
-export default config;
+  };
+});

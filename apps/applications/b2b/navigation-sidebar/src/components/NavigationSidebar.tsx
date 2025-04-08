@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router";
 
 import { Button, Card, NavigationMenu } from "@bsport/kaizen-primitive-core";
 
@@ -16,6 +17,84 @@ const NavigationSidebarContent = () => {
   const navigationElements = useNavigationElements({ menuSet });
 
   const { open, openDialog, closeDialog } = useFeedbackDialog();
+
+  const renderNavigationItems = () => {
+    if (menuSet === "settings") {
+      return (
+        <>
+          <NavigationMenu.Group label={t("menus.settings.title")} />
+          {navigationElements.map((item) => {
+            if (item.type === "group") return null;
+
+            if ("id" in item && "label" in item) {
+              return (
+                <NavigationMenu.Item
+                  key={item.id}
+                  id={item.id}
+                  label={item.label}
+                />
+              );
+            }
+            return null;
+          })}
+        </>
+      );
+    }
+
+    return (
+      <>
+        {navigationElements.map((element, index) => {
+          if (element.type === "divider") {
+            return <NavigationMenu.Divider key={`divider-${index}`} />;
+          }
+
+          if (element.type === "group") {
+            return (
+              <NavigationMenu.Group
+                key={`group-${index}`}
+                label={element.label}
+              />
+            );
+          }
+
+          const item = (
+            <NavigationMenu.Item
+              key={element.id}
+              id={element.id}
+              icon={element.icon}
+              label={element.label}
+              endSlot={element.endSlot}
+            >
+              {element.subItems?.map((subItem) => {
+                const subItemElement = (
+                  <NavigationMenu.SubItem
+                    key={subItem.id}
+                    id={subItem.id}
+                    label={subItem.label}
+                  />
+                );
+                return subItem.href ? (
+                  <Link key={subItem.id} to={subItem.href}>
+                    {subItemElement}
+                  </Link>
+                ) : (
+                  subItemElement
+                );
+              })}
+            </NavigationMenu.Item>
+          );
+
+          return element.href ? (
+            <Link key={element.id} to={element.href}>
+              {item}
+            </Link>
+          ) : (
+            item
+          );
+        })}
+      </>
+    );
+  };
 
   return (
     <div
@@ -39,7 +118,9 @@ const NavigationSidebarContent = () => {
         role="presentation"
         className="flex-1 overflow-y-scroll hide-scrollbar"
       >
-        <NavigationMenu className="px-xs" elements={navigationElements} />
+        <NavigationMenu className="px-xs">
+          {renderNavigationItems()}
+        </NavigationMenu>
         {menuSet === "settings" && <LanguageDropdown />}
       </div>
       <Card elevated className="p-xs mx-xs flex flex-col gap-2xs mt-[auto]">

@@ -1,19 +1,34 @@
 import React from "react";
 
-import Divider from "#src/components/Divider";
-
 import {
   NavigationMenuProvider,
   type NavigationMenuProviderProps,
 } from "./Context";
+import NavigationMenuDivider from "./Divider";
 import Group from "./Group";
 import Item from "./Item";
+import SubItem from "./SubItem";
 import type { NavigationMenuElement } from "./types";
 
-export type NavigationMenuProps = React.HTMLAttributes<HTMLDivElement> &
-  Omit<NavigationMenuProviderProps, "items"> & {
-    elements: NavigationMenuElement[];
-  };
+type BaseNavigationMenuProps = Omit<
+  React.HTMLAttributes<HTMLDivElement>,
+  "children"
+> &
+  Omit<NavigationMenuProviderProps, "items">;
+
+type ElementsNavigationMenuProps = BaseNavigationMenuProps & {
+  elements: NavigationMenuElement[];
+  children?: never;
+};
+
+type ChildrenNavigationMenuProps = BaseNavigationMenuProps & {
+  elements?: never;
+  children: React.ReactNode;
+};
+
+export type NavigationMenuProps =
+  | ElementsNavigationMenuProps
+  | ChildrenNavigationMenuProps;
 
 /**
  * NavigationMenu
@@ -23,44 +38,70 @@ export type NavigationMenuProps = React.HTMLAttributes<HTMLDivElement> &
  *
  * @param props.className - Additional CSS classes for custom styling of the navigation menu.
  * @param props.elements - Array of items or dividers to render in the navigation menu. Each item can have optional sub-items and right-side content.
+ * @param props.children - React children for direct composition using Item, Group, and Divider components.
  * @param props.onItemClick - Callback function triggered when a menu item is clicked.
  */
 const NavigationMenu: React.FC<NavigationMenuProps> = ({
   className,
   elements,
+  children,
   onItemClick,
   ...props
 }) => {
-  if (!elements?.length) return null;
-  return (
-    <NavigationMenuProvider
-      onItemClick={onItemClick}
-      items={elements.filter(
-        (item) => item?.type !== "divider" && item?.type !== "group",
-      )}
-    >
-      <div className={className || ""} {...props}>
-        {elements.map((element, index) => {
-          if (element?.type === "divider") {
-            return (
-              <Divider
-                key={`navigation-divider-${index}`}
-                className="border-stroke-thin mt-2xs mb-xs last:mb-[0px]"
-              />
-            );
-          } else if (element?.type === "group") {
-            return (
-              <Group key={`navigation-group-${index}`} label={element?.label} />
-            );
-          }
+  if (!elements && !children) {
+    return null;
+  }
 
-          return <Item id={element.id} key={element.id} />;
-        })}
-      </div>
-    </NavigationMenuProvider>
+  return (
+    <div className={className || ""} {...props}>
+      {elements ? (
+        <NavigationMenuProvider
+          onItemClick={onItemClick}
+          items={elements.filter(
+            (item) => item?.type !== "divider" && item?.type !== "group",
+          )}
+        >
+          {elements.map((element, index) => {
+            if (element?.type === "divider") {
+              return (
+                <NavigationMenuDivider key={`navigation-divider-${index}`} />
+              );
+            }
+
+            if (element?.type === "group") {
+              return (
+                <Group
+                  key={`navigation-group-${index}`}
+                  label={element.label}
+                />
+              );
+            }
+
+            const { id, ...elementProps } = element;
+            return <Item key={id} id={id} {...elementProps} />;
+          })}
+        </NavigationMenuProvider>
+      ) : (
+        <NavigationMenuProvider onItemClick={onItemClick} items={[]}>
+          {children}
+        </NavigationMenuProvider>
+      )}
+    </div>
   );
 };
 
-NavigationMenu.displayName = "KaizenNavigationMenu";
+const NavigationMenuWithSubcomponents =
+  NavigationMenu as typeof NavigationMenu & {
+    Item: typeof Item;
+    Group: typeof Group;
+    Divider: typeof NavigationMenuDivider;
+    SubItem: typeof SubItem;
+  };
 
-export default NavigationMenu;
+NavigationMenuWithSubcomponents.displayName = "KaizenNavigationMenu";
+NavigationMenuWithSubcomponents.Item = Item;
+NavigationMenuWithSubcomponents.Group = Group;
+NavigationMenuWithSubcomponents.Divider = NavigationMenuDivider;
+NavigationMenuWithSubcomponents.SubItem = SubItem;
+
+export default NavigationMenuWithSubcomponents;

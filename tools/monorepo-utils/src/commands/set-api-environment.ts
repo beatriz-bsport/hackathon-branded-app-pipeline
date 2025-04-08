@@ -94,7 +94,7 @@ async function action(
   const projects = await getProjectsPackageJsons();
   const fetchPath = projects["@bsport/fetch"].path;
   const fetchAbsolutePath = path.resolve(ichizenRootPath, fetchPath);
-  const envFileName = ".env.local";
+  const envFileName = env === ENVS.LOCAL ? ".env.local" : ".env.production";
   const envFilePath = path.resolve(fetchPath, envFileName);
 
   // Verify the env is among accepted values

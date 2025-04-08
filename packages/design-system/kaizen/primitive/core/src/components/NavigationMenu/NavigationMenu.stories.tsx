@@ -87,7 +87,6 @@ const elements: NavigationMenuElement[] = [
 const meta: Meta<typeof NavigationMenu> = {
   component: NavigationMenu,
   args: {
-    elements,
     onItemClick: (item) => (e) => {
       e.preventDefault();
       console.log("item clicked:", item);
@@ -100,4 +99,50 @@ export default meta;
 
 type Story = StoryObj<typeof NavigationMenu>;
 
-export const NavigationMenuExample: Story = {};
+export const WithElements: Story = {
+  args: {
+    elements,
+  },
+};
+
+export const WithComposition: Story = {
+  render: () => (
+    <NavigationMenu className="max-w-[320px]">
+      <NavigationMenu.Item
+        id="item-1"
+        label="Day time"
+        icon="user-edit"
+        endSlot={<Badge size="sm" color="default" text="yolo" />}
+      >
+        <NavigationMenu.SubItem id="subItems1-morning" label="Good Morning" />
+        <NavigationMenu.SubItem
+          id="subItems1-afternoon"
+          label="Good Afternoon"
+        />
+      </NavigationMenu.Item>
+      <NavigationMenu.Divider />
+      <NavigationMenu.Item
+        id="item-2"
+        label="Flat item with very long name"
+        icon="loading"
+      />
+      <NavigationMenu.Group label="Activities" />
+      <NavigationMenu.Item
+        id="item-3"
+        label="Third Item"
+        icon="filter-lines"
+        href="#?filter=lines"
+        target="_blank"
+      />
+      <NavigationMenu.Divider />
+      <NavigationMenu.Item
+        id="item-4"
+        label="With Indicator"
+        icon="bell-ringing-04"
+        endSlot={
+          <Indicator size="lg" color="default" position="top" value={10} />
+        }
+      />
+    </NavigationMenu>
+  ),
+};

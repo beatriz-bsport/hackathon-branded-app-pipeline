@@ -1,3 +1,5 @@
+import { BrowserRouter, Route, Routes, useParams } from "react-router";
+
 import { Select } from "@bsport/kaizen-primitive-core";
 import "@bsport/kaizen-primitive-core/styles";
 
@@ -6,19 +8,15 @@ import { i18nInstance } from "#src/utils/i18n";
 
 import "./index.css";
 
-const App = () => (
-  <div className="flex">
-    <NavigationSidebar />
-    <div
-      className={
-        "flex flex-col flex-grow items-center " +
-        "justify-center h-screen w-full sticky top-0 gap-xs"
-      }
-    >
+const Home = () => {
+  const { slug } = useParams();
+
+  return (
+    <div className="flex flex-col flex-grow items-center justify-center h-screen w-full sticky top-0 gap-xs">
       <p>
         You are running{" "}
         <code className="bg-luna-grey-200 p-xs">navigation-sidebar</code> in{" "}
-        <b>standalone mode</b>.
+        <b>{slug ? `federation mode: ${slug}` : "standalone mode"}</b>.
       </p>
       <p>It is intended for use in a federation context.</p>
       <div className="h-fit">
@@ -39,7 +37,25 @@ const App = () => (
         />
       </div>
     </div>
-  </div>
+  );
+};
+
+const basename = import.meta.env.DEV
+  ? ""
+  : import.meta.env.VITE_APPLICATION_BASE_URL;
+
+const App = () => (
+  <BrowserRouter basename={basename}>
+    <div className="flex">
+      <NavigationSidebar />
+      <div className="flex flex-col flex-grow p-4">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/:slug" element={<Home />} />
+        </Routes>
+      </div>
+    </div>
+  </BrowserRouter>
 );
 
 export default App;

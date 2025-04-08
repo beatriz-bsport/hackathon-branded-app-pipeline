@@ -97,6 +97,10 @@ describe("getConfig", async () => {
           singleton: true,
           requiredVersion: "^18.0.0",
         },
+        "react-router": {
+          singleton: true,
+          requiredVersion: "7.2.0",
+        },
         "@bsport/i18n": {
           singleton: true,
         },

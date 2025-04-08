@@ -44,6 +44,10 @@
       "sm-navigation-sidebar": {
         "devPort": 4050,
         "watchPath": "../navigation-sidebar/src/**/*"
+      },
+      "sm-group-activity": {
+        "devPort": 4200,
+        "watchPath": "../booking/group-activity/src/**/*"
       }
     }
   }

@@ -522,9 +522,15 @@ importers:
       '@bsport/common':
         specifier: workspace:*
         version: link:../../../packages/common-legacy
+      '@bsport/consent-management':
+        specifier: workspace:*
+        version: link:../../../packages/consent-management
       '@date-io/luxon':
         specifier: ^1.3.13
         version: 1.3.13(luxon@3.5.0)
+      '@didomi/react':
+        specifier: ^1.8.8
+        version: 1.8.8(react@16.10.2)
       '@dnd-kit/core':
         specifier: ^4.0.1
         version: 4.0.3(react-dom@16.10.2(react@16.10.2))(react@16.10.2)
@@ -1668,6 +1674,16 @@ importers:
       tsc-alias:
         specifier: ^1.8.10
         version: 1.8.10
+
+  packages/consent-management:
+    dependencies:
+      '@didomi/react':
+        specifier: ^1.8.8
+        version: 1.8.8(react@19.0.0)
+    devDependencies:
+      '@bsport/eslint-config-react':
+        specifier: workspace:*
+        version: link:../../tools/config/eslint
 
   packages/design-system/kaizen/primitive/core:
     dependencies:
@@ -3134,6 +3150,11 @@ packages:
     resolution: {integrity: sha512-2ZHG28oWJno0gD+20EoSJO0yffm6JS5r7YzYhGMkrnLGvcCRZuwXSxMmIshSPLIR0cjidiAfGCqsrigHIR4ZQA==}
     peerDependencies:
       react: '>= 16.8.6'
+
+  '@didomi/react@1.8.8':
+    resolution: {integrity: sha512-z+OcfdhVz4kViis9JydHQ1bGtgVng4FO6ZSrG2IuktB84D0dk67WItq+YlgbRKlrHVY79cTsUDUFTjfZFnPubQ==}
+    peerDependencies:
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
 
   '@digitalroute/cz-conventional-changelog-for-jira@8.0.1':
     resolution: {integrity: sha512-I7uNQ2R5LnDYVhQ01sfNvaxqe1PutXyDl8Kltj4L8uDa1LTYqQgWWp3yEj3XYDNjhUjsAheHW0lsmF1oiAjWVg==}
@@ -19658,6 +19679,16 @@ snapshots:
     transitivePeerDependencies:
       - '@types/react'
       - react-dom
+
+  '@didomi/react@1.8.8(react@16.10.2)':
+    dependencies:
+      prop-types: 15.8.1
+      react: 16.10.2
+
+  '@didomi/react@1.8.8(react@19.0.0)':
+    dependencies:
+      prop-types: 15.8.1
+      react: 19.0.0
 
   '@digitalroute/cz-conventional-changelog-for-jira@8.0.1(@types/node@14.18.63)(typescript@4.9.5)':
     dependencies:

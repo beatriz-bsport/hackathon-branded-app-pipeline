@@ -43,6 +43,8 @@ type ConfigType = {
   REACT_APP_PAYPAL_CLIENT_ID: string;
   REACT_APP_PAYPAL_PARTNER_ATTRIBUTION_ID: string;
   REACT_APP_MIXPANEL_TOKEN: string;
+  REACT_APP_DIDOMI_API_KEY: string;
+  REACT_APP_DIDOMI_NOTICE_ID: string;
 };
 
 const Config = {} as ConfigType;

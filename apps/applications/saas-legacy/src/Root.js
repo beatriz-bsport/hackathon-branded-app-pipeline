@@ -1,5 +1,6 @@
 // @flow
 import React, { Component } from 'react';
+import ConsentManager from './components/consent/ConsentManager.component';
 import { DIALOG_MODE_DEACTIVATED } from '@bsport/common/lib/master-data/widget-dialog-mode.js';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
@@ -227,6 +228,11 @@ export class Root extends Component<Props> {
           />
         )}
         {theme && isUsingMarketplace && <Analytics theme={theme} />}
+        <ConsentManager
+          apiKey={Config.REACT_APP_DIDOMI_API_KEY}
+          domain={window.location.hostname}
+          noticeId={Config.REACT_APP_DIDOMI_NOTICE_ID}
+        />
         {!pendingEmailConfirmation || !authenticated ? (
           <Switch>
             <Route

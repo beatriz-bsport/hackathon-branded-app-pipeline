@@ -6984,9 +6984,11 @@
             "dialogs": {
                 "errors": {
                     "71000": "Espere a que finalice la importación en curso",
-                    "71001": "Este fichero no tiene el número de columnas requerido",
+                    "71001": "Este archivo no tiene el número requerido de columnas, tiene {{column_count}} columnas en la fila {{row_count}}",
                     "71002": "Este archivo supera el límite de tamaño máximo",
-                    "title": "Lamentablemente, el proceso de importación ha fallado porque:"
+                    "title": "Lamentablemente, el proceso de importación ha fallado porque:",
+                    "unknown": "Se ha producido un error inesperado",
+                    "71003": "No se ha podido descodificar el archivo. Asegúrese de que no esté dañado o en un formato no compatible"
                 },
                 "partialSuccess": {
                     "successImportSubtext": "Miembros creados",
@@ -18085,9 +18087,12 @@
             "memberForm": "Añadir un miembro"
         },
         "banner": {
-            "networkError": "No estás conectado a internet",
+            "networkError": "Parece que no estás conectado a Internet. Por favor, comprueba tu conexión e inténtalo de nuevo.",
             "isStaging": "Pedir cita",
-            "franchiseConnection": "Está conectado a la aplicación de uno de sus franquiciados"
+            "franchiseConnection": "Está conectado a la aplicación de uno de sus franquiciados",
+            "serverConnectionRestored": "Conexión restablecida. Puede continuar sin problemas.",
+            "networkConnectionRestored": "¡Conexión restablecida!",
+            "serverError": "Algo salió mal de nuestra parte. Por favor, espere o haga clic aquí para actualizar la página."
         },
         "video": {
             "videoList": "Videoteca"
@@ -18702,7 +18707,8 @@
                 "infoHelper": "¿Necesita más información?",
                 "confirmHelper": "Confirme que desea suscribirse a este suplemento",
                 "priceHelper": "Este precio se añadirá a su plan mensual.",
-                "title": "Suscribirse al suplemento"
+                "title": "Suscribirse al suplemento",
+                "timeConsumingHelper": "La suscripción a esta funcionalidad adicional puede tardar unos segundos en procesarse"
             },
             "seeMore": "Ver más",
             "billSMS": "{{ price_cts }} / SMS"

@@ -1,5 +1,3 @@
-export type { PaginatedResponse } from "@bsport/store-base";
-
 /**
  * A MetaActivity is a meta_activity in the backend.
  * It can be a group activity or a workshop, as it's the same object.
@@ -40,15 +38,4 @@ export type GroupActivityCustomRestriction<Tag = number> = {
   last_booking_minutes: number;
   last_discard_minutes: number;
   tags: Tag[];
-};
-
-export type CanArchiveGroupActivityResponse = {
-  can_destroy: boolean;
-  offers: number[];
-};
-
-export type FetchGroupActivitiesParams = {
-  page: number;
-  pageSize: number;
-  customerEnabled: boolean; // if false, the endpoint should return the archived group activities
 };

@@ -3,8 +3,8 @@ import React, { useEffect, useMemo } from "react";
 import { List, ListLayout, Loader, toast } from "@bsport/kaizen-primitive-core";
 import type { ListItemProps } from "@bsport/kaizen-primitive-core/dist/components/List/Item";
 import {
-  archiveGroupActivity,
-  unarchiveGroupActivity,
+  archiveGroupActivityAction,
+  unarchiveGroupActivityAction,
 } from "@bsport/store-booking-group-activity";
 
 import { GROUP_ACTIVITIES_PATH } from "#src/constants";
@@ -25,17 +25,19 @@ const ArchivedGroupActivitiesList: React.FC = () => {
   } = usePaginatedGroupActivities(false);
 
   const revertUnarchiveGroupActivity = (groupActivityId: number) => () => {
-    archiveGroupActivity(fetch, groupActivityId.toString()).then((response) => {
-      response.fold(
-        () => fetchData(currentPage, rowsPerPage),
-        (error) => console.error(error),
-      );
-    });
+    archiveGroupActivityAction(fetch, groupActivityId.toString()).then(
+      (response) => {
+        response.fold(
+          () => fetchData(currentPage, rowsPerPage),
+          (error) => console.error(error),
+        );
+      },
+    );
   };
 
   const handleUnarchiveGroupActivity = (groupActivityId: number) => () => {
     if (!groupActivityId) return;
-    unarchiveGroupActivity(fetch, groupActivityId.toString()).then(
+    unarchiveGroupActivityAction(fetch, groupActivityId.toString()).then(
       (response) => {
         response.fold(
           ({ name }) => {

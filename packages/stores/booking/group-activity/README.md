@@ -1,50 +1,63 @@
-# Group Activity Management
+# Booking | Group Activity store package
 
-This project provides a structured way to manage group activities using TypeScript. It includes various scripts and configurations to facilitate development and deployment.
+This package provides a Zustand store implementation for managing the state related to the Group Activity entity in an application. It includes types, actions, API interactions, and selectors to facilitate state management.
 
-## Table of Contents
+## Installation
 
-- [Project Structure](#project-structure)
-- [Getting Started](#getting-started)
-  - [Prerequisites](#prerequisites)
-  - [Installation](#installation)
-- [How to use](#how-to-use)
+1. Add to your application dependencies in `package.json` the store package name :
 
-## Project Structure
+   ```jsonc
+   {
+     "dependencies": {
+       "@bsport/store-booking-group-activity": "workspace:*",
+     },
+   }
+   ```
 
-The project is organized into the following directories and files:
+2. Run `pnpm i` in your application to finalize the link
 
-- **build**: Contains build-related scripts and configurations.
-- **node_modules**: Dependencies for the project.
-- **scripts**: Custom scripts for various tasks.
-- **src**: Source code for the project.
-  - **actions**: Contains action-related TypeScript files.
-    - `groupActivity.ts`: Manages group activity actions.
-  - `api.ts`: API-related actions.
-  - `constants.ts`: Constant definitions.
-  - `index.ts`: Entry point for actions.
-  - `results.ts`: Result handling.
-  - `types.ts`: Type definitions.
-  - **env**: Environment-related configurations.
-    - `.env`: Environment variables.
-    - `.prettierrc`: Prettier configuration.
-    - `eslint.config.mjs`: ESLint configuration.
-    - `package.json`: Project dependencies and scripts.
-- **README.md**: This file.
-- **tsconfig.json**: TypeScript configuration.
-- **vite-env.d.ts**: Vite environment declarations.
-- **vite.config.ts**: Vite configuration.
+## Usage
 
-## How to use
+Here's a basic example of how to use the store in your application:
 
-1. Import the package by adding this line to your project `package.json`
+```tsx
+import { useGroupActivityStore, fetchGroupActivitiesAction, selectGroupActivities } from '@bsport/store-package-name';
+import fetch from "#src/utils/fetch";
 
-```jsonc
-{
-  // package.json
-  "dependencies": {
-    // Your other dependencies
-    "@bsport/stores-group-activity": "workspace:*",
-  },
-}
+const MyComponent = () => {
+    // Retrieve data from the store
+    const groupActivities = useGroupActivityStore(selectGroupActivities);
+
+    // Inject fetch in the action
+    const fetchGroupActivities = useCallback(async () => {
+        return fetchGroupActivitiesAction(fetch, { ...params});
+    }, [... deps])
+    ...
+};
 ```
+
+## Files
+
+### types.ts
+
+Defines the TypeScript types for the objects retrieved from the backend API related to the Group Activity entity.
+
+### store.ts
+
+Implements the Zustand store and provides a hook to bind it to your components.
+
+### actions/store.ts
+
+Contains actions to interact with the Zustand store, such as updating state or triggering side effects. They shall be used inside actions/index.ts
+
+### actions/index.ts
+
+Exports actions that can be used in your applications to interact with the Group Activity store.
+
+### api.ts
+
+Defines the API parameters and functions used by the actions to fetch or manipulate Group Activity data.
+
+### selectors.ts
+
+Provides functions to retrieve specific data from the Group Activity store, making it easier to access nested or derived state.

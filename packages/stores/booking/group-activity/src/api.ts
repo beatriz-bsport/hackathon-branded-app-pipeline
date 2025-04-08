@@ -1,10 +1,12 @@
-import { buildUrlParams } from "@bsport/fetch";
-import type { ApiConfig } from "@bsport/store-base";
+import { type ApiConfig, buildUrlParams } from "@bsport/store-base";
 
-import { DEFAULT_CURRENT_PAGE, DEFAULT_ROWS_PER_PAGE } from "#src/constants";
-import type { FetchGroupActivitiesParams } from "#src/types";
+const API_URL = "book/v1/meta-activity";
 
-const BASE_URL = "book/v1/meta-activity/";
+export type FetchGroupActivitiesParams = {
+  page: number;
+  pageSize: number;
+  customerEnabled: boolean; // if false, the endpoint should return the archived group activities
+};
 
 /**
  * Fetches a paginated list of group activities based on the provided parameters.
@@ -14,18 +16,18 @@ const BASE_URL = "book/v1/meta-activity/";
  * @param params.page - The current page number (by default 1).
  * @param params.pageSize - The number of items per page (by default 10).
  */
-export const fetchGroupActivities = ({
+export const fetchGroupActivitiesAPI = ({
   page,
   pageSize,
   customerEnabled,
 }: FetchGroupActivitiesParams): ApiConfig => {
   const params = {
     customer_enabled: customerEnabled,
-    page: page || DEFAULT_CURRENT_PAGE,
-    page_size: pageSize || DEFAULT_ROWS_PER_PAGE,
+    page: page,
+    page_size: pageSize,
     is_workshop: false,
   };
-  return [`${BASE_URL}${buildUrlParams(params)}`];
+  return [`${API_URL}${buildUrlParams(params)}`];
 };
 
 /**
@@ -33,10 +35,10 @@ export const fetchGroupActivities = ({
  *
  * @param groupActivityId - The ID of the group activity to be archived.
  */
-export const checkCanArchiveGroupActivity = (
+export const checkCanArchiveGroupActivityAPI = (
   groupActivityId: string,
 ): ApiConfig => {
-  return [`${BASE_URL}${groupActivityId}/can_destroy/`];
+  return [`${API_URL}/${groupActivityId}/can_destroy/`];
 };
 
 /**
@@ -44,9 +46,9 @@ export const checkCanArchiveGroupActivity = (
  *
  * @param groupActivityId - The ID of the group activity to be archived.
  */
-export const archiveGroupActivity = (groupActivityId: string): ApiConfig => {
+export const archiveGroupActivityAPI = (groupActivityId: string): ApiConfig => {
   return [
-    `${BASE_URL}${groupActivityId}/`,
+    `${API_URL}/${groupActivityId}/`,
     {
       method: "DELETE",
     },
@@ -58,9 +60,11 @@ export const archiveGroupActivity = (groupActivityId: string): ApiConfig => {
  *
  * @param groupActivityId - The ID of the group activity to be unarchived.
  */
-export const unarchiveGroupActivity = (groupActivityId: string): ApiConfig => {
+export const unarchiveGroupActivityAPI = (
+  groupActivityId: string,
+): ApiConfig => {
   return [
-    `${BASE_URL}${groupActivityId}/restore/`,
+    `${API_URL}/${groupActivityId}/restore/`,
     {
       method: "PUT",
     },
@@ -72,9 +76,11 @@ export const unarchiveGroupActivity = (groupActivityId: string): ApiConfig => {
  *
  * @param groupActivityId - The ID of the group activity to duplicate.
  */
-export const duplicateGroupActivity = (groupActivityId: string): ApiConfig => {
+export const duplicateGroupActivityAPI = (
+  groupActivityId: string,
+): ApiConfig => {
   return [
-    `${BASE_URL}${groupActivityId}/copy/`,
+    `${API_URL}/${groupActivityId}/copy/`,
     {
       method: "POST",
     },

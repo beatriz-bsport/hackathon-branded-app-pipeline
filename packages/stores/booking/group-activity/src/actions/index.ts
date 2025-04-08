@@ -1,0 +1,164 @@
+import { Result } from "typescript-result";
+
+import type { GenericAction, PaginatedResponse } from "@bsport/store-base";
+
+import {
+  type FetchGroupActivitiesParams,
+  archiveGroupActivityAPI,
+  checkCanArchiveGroupActivityAPI,
+  duplicateGroupActivityAPI,
+  fetchGroupActivitiesAPI,
+  unarchiveGroupActivityAPI,
+} from "#src/api";
+import type { MetaActivity } from "#src/types";
+
+import {
+  setGroupActivities,
+  setInterrogate,
+  updateGroupActivity,
+} from "./store";
+
+export const fetchGroupActivitiesAction: GenericAction<
+  FetchGroupActivitiesParams,
+  PaginatedResponse<MetaActivity>
+> = async (fetch, params) => {
+  const [uri, init] = fetchGroupActivitiesAPI(params);
+
+  return Result.try(
+    async () => {
+      const { data } = await fetch<PaginatedResponse<MetaActivity>>(uri, init);
+
+      setGroupActivities({
+        groupActivities: data.results,
+        count: data.count,
+        page: data.page,
+      });
+
+      return data;
+    },
+    (error) => new Error("Failed to fetch group activities", { cause: error }),
+  );
+};
+
+type CanArchiveGroupActivityResponse = {
+  can_destroy: boolean;
+  offers: number[];
+};
+
+export const checkCanArchiveGroupActivityAction: GenericAction<
+  string,
+  CanArchiveGroupActivityResponse
+> = async (fetch, groupActivityId) => {
+  if (!groupActivityId)
+    return Result.error(
+      new Error(
+        "A group activity Id is required to check if it can be archived.",
+      ),
+    );
+
+  const [uri, init] = checkCanArchiveGroupActivityAPI(groupActivityId);
+
+  return Result.try(
+    async () => {
+      const { data } = await fetch<CanArchiveGroupActivityResponse>(uri, init);
+
+      setInterrogate({
+        canDestroy: data.can_destroy,
+        offers: data.offers,
+      });
+
+      return data;
+    },
+    (error) =>
+      new Error(`Failed to check group activity with ID: ${groupActivityId}`, {
+        cause: error,
+      }),
+  );
+};
+
+export const archiveGroupActivityAction: GenericAction<
+  string,
+  MetaActivity
+> = async (fetch, groupActivityId) => {
+  if (!groupActivityId)
+    return Result.error(
+      new Error("A group activity Id is required to archive."),
+    );
+
+  const [uri, init] = archiveGroupActivityAPI(groupActivityId);
+
+  return Result.try(
+    async () => {
+      const { data } = await fetch<MetaActivity>(uri, init);
+
+      updateGroupActivity(data);
+
+      return data;
+    },
+    (error) =>
+      new Error(
+        `Failed to archive group activity with ID: ${groupActivityId}`,
+        {
+          cause: error,
+        },
+      ),
+  );
+};
+
+export const unarchiveGroupActivityAction: GenericAction<
+  string,
+  MetaActivity
+> = async (fetch, groupActivityId) => {
+  if (!groupActivityId)
+    return Result.error(
+      new Error("A group activity Id is required to unarchive."),
+    );
+
+  const [uri, init] = unarchiveGroupActivityAPI(groupActivityId);
+
+  return Result.try(
+    async () => {
+      const { data } = await fetch<MetaActivity>(uri, init);
+
+      updateGroupActivity(data);
+
+      return data;
+    },
+    (error) =>
+      new Error(
+        `Failed to unarchive group activity with ID: ${groupActivityId}`,
+        {
+          cause: error,
+        },
+      ),
+  );
+};
+
+export const duplicateGroupActivityAction: GenericAction<
+  string,
+  MetaActivity
+> = async (fetch, groupActivityId) => {
+  if (!groupActivityId)
+    return Result.error(
+      new Error("A group activity Id is required to duplicate it."),
+    );
+
+  const [uri, init] = duplicateGroupActivityAPI(groupActivityId);
+
+  return Result.try(
+    async () => {
+      const { data } = await fetch<MetaActivity>(uri, init);
+
+      updateGroupActivity(data);
+
+      return data;
+    },
+    (error) =>
+      new Error(
+        `Failed to duplicate group activity with ID: ${groupActivityId}`,
+        {
+          cause: error,
+        },
+      ),
+  );
+};

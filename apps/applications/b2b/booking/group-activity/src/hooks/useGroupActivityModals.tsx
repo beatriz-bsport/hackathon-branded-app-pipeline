@@ -2,10 +2,10 @@ import { useState } from "react";
 
 import { Modal, toast } from "@bsport/kaizen-primitive-core";
 import {
-  archiveGroupActivity,
-  checkCanArchiveGroupActivity,
-  duplicateGroupActivity,
-  unarchiveGroupActivity,
+  archiveGroupActivityAction,
+  checkCanArchiveGroupActivityAction,
+  duplicateGroupActivityAction,
+  unarchiveGroupActivityAction,
 } from "@bsport/store-booking-group-activity";
 
 import fetch from "#src/utils/fetch";
@@ -39,16 +39,18 @@ export const useGroupActivityModals = ({
   const [canArchiveGroupActivity, setCanArchiveGroupActivity] = useState(false);
 
   const onClickArchive = (id: number, name: string) => () => {
-    checkCanArchiveGroupActivity(fetch, id.toString()).then((response) => {
-      response.fold(
-        ({ can_destroy }) => {
-          setCanArchiveGroupActivity(can_destroy);
-          setIsArchiveModalOpen(true);
-          setGroupActivityToArchive({ id, name });
-        },
-        (error) => console.error(error),
-      );
-    });
+    checkCanArchiveGroupActivityAction(fetch, id.toString()).then(
+      (response) => {
+        response.fold(
+          ({ can_destroy }) => {
+            setCanArchiveGroupActivity(can_destroy);
+            setIsArchiveModalOpen(true);
+            setGroupActivityToArchive({ id, name });
+          },
+          (error) => console.error(error),
+        );
+      },
+    );
   };
 
   const onCloseArchiveModal = () => {
@@ -68,7 +70,7 @@ export const useGroupActivityModals = ({
   };
 
   const revertArchiveGroupActivity = (groupActivityId: number) => () => {
-    unarchiveGroupActivity(fetch, groupActivityId.toString()).then(
+    unarchiveGroupActivityAction(fetch, groupActivityId.toString()).then(
       (response) => {
         response.fold(
           () => fetchData(currentPage, rowsPerPage),
@@ -80,53 +82,55 @@ export const useGroupActivityModals = ({
 
   const handleArchiveGroupActivity = () => {
     if (!groupActivityToArchive?.id) return;
-    archiveGroupActivity(fetch, groupActivityToArchive.id.toString()).then(
-      (response) => {
-        response.fold(
-          ({ name }) => {
-            toast({
-              status: "default",
-              icon: "archive",
-              description: t("list.toasts.archive", {
-                groupActivityName: name,
-              }),
-              duration: 5000,
-              buttonLabel: t("list.toasts.undo"),
-              onButtonClick: revertArchiveGroupActivity(
-                groupActivityToArchive.id,
-              ),
-            });
-          },
-          (error) => console.error(error),
-        );
-        fetchData(currentPage, rowsPerPage);
-        onCloseArchiveModal();
-      },
-    );
+    archiveGroupActivityAction(
+      fetch,
+      groupActivityToArchive.id.toString(),
+    ).then((response) => {
+      response.fold(
+        ({ name }) => {
+          toast({
+            status: "default",
+            icon: "archive",
+            description: t("list.toasts.archive", {
+              groupActivityName: name,
+            }),
+            duration: 5000,
+            buttonLabel: t("list.toasts.undo"),
+            onButtonClick: revertArchiveGroupActivity(
+              groupActivityToArchive.id,
+            ),
+          });
+        },
+        (error) => console.error(error),
+      );
+      fetchData(currentPage, rowsPerPage);
+      onCloseArchiveModal();
+    });
   };
 
   const handleDuplicateGroupActivity = () => {
     if (!groupActivityToDuplicate?.id) return;
-    duplicateGroupActivity(fetch, groupActivityToDuplicate.id.toString()).then(
-      (response) => {
-        response.fold(
-          ({ name }) => {
-            toast({
-              status: "default",
-              icon: "copy-03",
-              description: t("list.toasts.duplication", {
-                groupActivityName: name,
-              }),
-              duration: 5000,
-              buttonLabel: t("list.toasts.open"),
-            });
-          },
-          (error) => console.error(error),
-        );
-        fetchData(currentPage, rowsPerPage);
-        onCloseDuplicateModal();
-      },
-    );
+    duplicateGroupActivityAction(
+      fetch,
+      groupActivityToDuplicate.id.toString(),
+    ).then((response) => {
+      response.fold(
+        ({ name }) => {
+          toast({
+            status: "default",
+            icon: "copy-03",
+            description: t("list.toasts.duplication", {
+              groupActivityName: name,
+            }),
+            duration: 5000,
+            buttonLabel: t("list.toasts.open"),
+          });
+        },
+        (error) => console.error(error),
+      );
+      fetchData(currentPage, rowsPerPage);
+      onCloseDuplicateModal();
+    });
   };
 
   const archiveModal = (

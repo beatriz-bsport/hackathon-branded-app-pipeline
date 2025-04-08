@@ -2,7 +2,7 @@
   "name": "@bsport/store-booking-group-activity",
   "version": "0.0.0",
   "private": true,
-  "description": "Group activity",
+  "description": "Package to provide state management for group activity",
   "license": "UNLICENSED",
   "author": "Blaise <blaise@bsport.io>",
   "type": "module",
@@ -21,6 +21,7 @@
   ],
   "scripts": {
     "build": "vite build",
+    "ci:compile": "tsc",
     "dev": "vite build --watch",
     "format": "prettier --write '**/*.{ts,tsx,js,jsx,cjs,mjs,scss,css,json,md,mdx,html,svg}'",
     "format:check": "prettier --check '**/*.{ts,tsx,js,jsx,cjs,mjs}'",
@@ -29,9 +30,9 @@
     "lint:fix": "eslint --fix ."
   },
   "dependencies": {
-    "@bsport/fetch": "workspace:*",
     "@bsport/store-base": "workspace:*",
-    "typescript-result": "^3.1.1"
+    "typescript-result": "^3.1.1",
+    "zustand": "^5.0.3"
   },
   "devDependencies": {
     "@bsport/eslint-config-react": "workspace:*"

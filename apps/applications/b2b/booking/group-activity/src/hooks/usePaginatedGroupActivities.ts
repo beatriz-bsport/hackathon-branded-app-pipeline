@@ -2,10 +2,8 @@ import { useCallback, useMemo, useState } from "react";
 
 import type { PaginationProps } from "@bsport/kaizen-primitive-core";
 import {
-  DEFAULT_CURRENT_PAGE,
-  DEFAULT_ROWS_PER_PAGE,
   type MetaActivity,
-  fetchGroupActivities,
+  fetchGroupActivitiesAction,
 } from "@bsport/store-booking-group-activity";
 
 import fetch from "#src/utils/fetch";
@@ -15,9 +13,9 @@ const usePaginatedGroupActivities = (customerEnabled: boolean) => {
 
   const [isLoading, setIsLoading] = useState(true);
 
-  const [currentPage, setCurrentPage] = useState(DEFAULT_CURRENT_PAGE);
+  const [currentPage, setCurrentPage] = useState(1);
 
-  const [rowsPerPage, setRowsPerPage] = useState(DEFAULT_ROWS_PER_PAGE);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
 
   const [totalItems, setTotalItems] = useState(1);
 
@@ -25,7 +23,7 @@ const usePaginatedGroupActivities = (customerEnabled: boolean) => {
     (page: number, rows: number) => {
       setCurrentPage(page);
       setIsLoading(true);
-      fetchGroupActivities(fetch, {
+      fetchGroupActivitiesAction(fetch, {
         customerEnabled,
         page: page,
         pageSize: rows,

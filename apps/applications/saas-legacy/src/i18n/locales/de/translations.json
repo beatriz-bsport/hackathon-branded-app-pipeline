@@ -10944,9 +10944,11 @@
             "dialogs": {
                 "errors": {
                     "71000": "Bitte warten Sie, bis der laufende Import abgeschlossen ist",
-                    "71001": "Diese Datei hat nicht die erforderliche Anzahl von Spalten",
+                    "71001": "Diese Datei hat leider nicht die erforderliche Anzahl von Spalten, sie hat {{column_count}} Spalten in der Zeile {{row_count}}",
                     "71002": "Diese Datei überschreitet die maximale Größe",
-                    "title": "Leider ist der Importvorgang fehlgeschlagen, da:"
+                    "title": "Leider ist der Importvorgang fehlgeschlagen, da:",
+                    "unknown": "Ein unerwarteter Fehler ist aufgetreten",
+                    "71003": "Leider konnten wir die Datei nicht entschlüsseln. Bitte stelle sicher, dass die Datei nicht beschädigt ist und das Dateiformat unterstützt wird."
                 },
                 "partialSuccess": {
                     "successImportSubtext": "Erstellte Mitglieder",
@@ -14757,9 +14759,12 @@
             "mergeMember": "Mitglied zusammenlegen"
         },
         "banner": {
-            "networkError": "Du bist nicht mit dem Internet verbunden",
+            "networkError": "Bist du offline? Prüfe bitte deine Internetverbindung und versuche es nochmal.",
             "isStaging": "Einen Termin vereinbaren",
-            "franchiseConnection": "Sie sind gerade bei einer der Anwendungen Ihrer Franchisenehmer angemeldet"
+            "franchiseConnection": "Sie sind gerade bei einer der Anwendungen Ihrer Franchisenehmer angemeldet",
+            "serverConnectionRestored": "Verbindung wiederhergestellt. Du kannst ohne Probleme fortfahren.",
+            "serverError": "Sorry, bei uns ist etwas schief gelaufen - bitte warte, oder klicke hier um die Seite neu zu laden.",
+            "networkConnectionRestored": "Verbindung wiederhergestellt!"
         },
         "video": {
             "videoList": "Videothek"
@@ -17531,7 +17536,7 @@
             },
             "warnings": {
                 "exclusiveAssociatedCoaches": "Die Lehrkraft {{- coach_name }} wird nur benachrichtigt, wenn eine Vertretungsanfrage für eine Sitzung in dieser Einrichtung erfolgt. Wenn die Einrichtung gelöscht wird, erhält diese Lehrkraft daher Vertretungsanfragen von jeder Einrichtung.",
-                "exclusiveAssociatedCoaches_plural": "Deine Lehrkräfte {{- coach_name }} erhalten nur eine Benachrichtigung, wenn eine Vertretungsanfrage für eine Sitzung an diesem Standort eingeht. Wird der Standort gelöscht, erhalten sie Vertretungsanfragen für alle Standorte.",
+                "exclusiveAssociatedCoaches_plural": "Dein(e) Lehrer {{- coach_name }} werden nur benachrichtigt, wenn eine Vertretungsanfrage für einen Kurs in dieser Einrichtung gemacht wird. Wenn du diese Einrichtung löschst, werden sie (deshalb) Vertretungsanfragen von jeder Einrichtung erhalten.",
                 "hasBillingGroup": "Diese Einrichtung wird auch aus der Rechnungsgruppe {{- establishment_billing_group_name }} entfernt.",
                 "exclusivePrivateServices_plural": "Diese Termine {{- private_service_name }} sind so konfiguriert, dass sie nur in dieser Einrichtung stattfinden können. Wenn diese Einrichtung gelöscht wird, können diese Termine überall stattfinden.",
                 "exclusivePrivateServices": "Der Termin {{- private_service_name }} ist so konfiguriert, dass er nur in dieser Einrichtung stattfinden kann. Wenn diese Einrichtung gelöscht wird, kann dieser Termin überall stattfinden.",
@@ -18004,7 +18009,8 @@
                 "infoHelper": "Brauchen Sie mehr Informationen?",
                 "confirmHelper": "Bitte bestätigen Sie, dass Sie dieses Add-on abonnieren möchten",
                 "priceHelper": "Dieser Preis wird zu Ihrem monatlichen Plan hinzugefügt.",
-                "title": "Das Add-On abonnieren"
+                "title": "Das Add-On abonnieren",
+                "timeConsumingHelper": "Die Bearbeitung der Anmeldung für diesen Upsell kann einige Sekunden dauern"
             },
             "seeMore": "Mehr anzeigen",
             "billSMS": "{{ price_cts }} / SMS"

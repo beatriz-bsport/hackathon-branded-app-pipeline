@@ -183,7 +183,7 @@
                     "availability": {
                         "expiresToday": "Laatste dag",
                         "expiresIn": "{{ daysRemaining }} dag(en) over",
-                        "expiresIn_plural": "{{ daysRemaining }}dagen resterend",
+                        "expiresIn_plural": "{{ daysRemaining }} dagen resterend",
                         "future": "Startdatum: {{ startDate }}",
                         "expired": "Verlopen op: {{ expirationDate }}",
                         "active": "Verloopdatum: {{ expirationDate }}"
@@ -7383,9 +7383,11 @@
             "dialogs": {
                 "errors": {
                     "71000": "Gelieve te wachten totdat de huidige import is voltooid",
-                    "71001": "Dit bestand heeft niet het vereiste aantal kolommen.",
+                    "71001": "Dit bestand heeft niet het vereiste aantal kolommen, het bevat {{column_count}} kolommen in rij {{row_count}}",
                     "71002": "Dit bestand heeft niet het vereiste aantal kolommen",
-                    "title": "Helaas is het importproces mislukt omdat:"
+                    "title": "Helaas is het importproces mislukt omdat:",
+                    "unknown": "Er is een onverwachte fout opgetreden",
+                    "71003": "Het bestand kon niet worden gedecodeerd. Controleer of het bestand niet beschadigd is of in een niet-ondersteund formaat staat."
                 },
                 "partialSuccess": {
                     "successImportSubtext": "Aangemaakte leden",
@@ -8313,6 +8315,21 @@
             "giftcard": "Cadeaubonnen",
             "calendarV2": "Kalender",
             "calendar": "Kalender"
+        },
+        "passes": {
+            "details": "Details",
+            "buy": "Koop",
+            "search": "Zoeken",
+            "filters": "Filters",
+            "title": "Leskaarten",
+            "drawerTitle": {
+                "tabs": "Selecteer een type kaart"
+            },
+            "tabs": {
+                "appointmentPasses": "Afspraakkaarten",
+                "passes": "Leskaarten",
+                "all": "Alle"
+            }
         }
     },
     "selfCheckIn": {
@@ -8388,8 +8405,11 @@
         },
         "banner": {
             "isStaging": "Kennismakingsgesprek inplannen",
-            "networkError": "Het lijkt erop dat er geen verbinding met het internet is.",
-            "franchiseConnection": "Je bent momenteel met de Sub-Account van een studio verbonden."
+            "networkError": "Het lijkt erop dat je offline bent. Controleer je internetverbinding en probeer het opnieuw.",
+            "franchiseConnection": "Je bent momenteel met de Sub-Account van een studio verbonden.",
+            "serverConnectionRestored": "Verbinding hersteld. Je kunt zonder problemen doorgaan.",
+            "networkConnectionRestored": "Verbinding hersteld!",
+            "serverError": "We hebben problemen met het laden van je gegevens. Een moment geduld alsjeblieft, we zijn de verbinding aan het herstellen."
         },
         "member": {
             "memberForm": "Een lid toevoegen",
@@ -18690,7 +18710,8 @@
                 "infoHelper": "Verdere vragen?",
                 "confirmHelper": "Bevestig of je deze aanvullende dienst aan je pakket wilt toevoegen.",
                 "priceHelper": "Dit bedrag komt bovenop je huidige maandelijkse pakket.",
-                "title": "Aanvullende dienst activeren"
+                "title": "Aanvullende dienst activeren",
+                "timeConsumingHelper": "Het kan enkele seconden duren voordat de inschrijving voor deze upsell is verwerkt"
             },
             "seeMore": "Toon meer",
             "billSMS": "{{ price_cts }} / sms"

@@ -19,8 +19,10 @@ if [ "$ENVIRONMENT" = "feature-branch" ]; then
 
   ENVIRONMENT=$FEATURE_BRANCH_IDENTIFIER
 elif [ "$ENVIRONMENT" = "dev" ]; then
-  echo "⚠️  Not enabled yet (soon™)"
-  exit 0
+  S3_BUCKET="s3://bsport-backoffice-assets-dev"
+  FRONTEND_URL="backoffice.dev.bsport.io"
+  CLOUDFRONT_ID="E250Q872DC5CN7"
+  CLOUDFRONT_INVALIDATION_LAMBDA_URL="https://uc7e26gvpwrprl5hubmfe4zeou0zyqyu.lambda-url.eu-west-3.on.aws/"
 elif [ "$ENVIRONMENT" = "staging" ]; then
   echo "⚠️  Not enabled yet (soon™)"
   exit 0

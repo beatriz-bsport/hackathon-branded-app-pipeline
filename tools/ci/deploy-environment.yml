@@ -26,6 +26,10 @@
     - pnpm run -w translation:update
     - echo "✅ Translations have been updated"
     - echo "*"
+    - echo "⏳ Set API environment"
+    - pnpm run -w api-environment:set $ENV
+    - echo "✅ the API environment has been set"
+    - echo "*"
     - echo "🔱 These are the affected projects :"
     - pnpm exec nx show projects --affected --base=$CI_COMMIT_BEFORE_SHA --head=HEAD
     - echo "*"

@@ -29,6 +29,7 @@ type Props = {
   quickInvoiceTitle: string,
   t: TFunction,
   quickInvoice: { memberId: number, creditAccount: number, member: Member },
+  isCustomDiscountReasonRequired: boolean,
   editMode?: boolean,
   onClose?: () => void,
   classes: Object,
@@ -245,6 +246,9 @@ export class QuickInvoice extends PureComponent<Props, State> {
             <InvoiceItemEditor
               availableBuyableItems={this.props.availableBuyableItems}
               displayNewWebshop={!!this.props?.displayNewWebshop}
+              isCustomDiscountReasonRequired={
+                this.props.isCustomDiscountReasonRequired
+              }
               member={this.getMemberDetail(quickInvoice)}
               onAddBuyableItem={this.addBuyableItem}
             />

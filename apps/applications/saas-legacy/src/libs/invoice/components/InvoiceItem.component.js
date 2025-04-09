@@ -6,6 +6,9 @@ import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 
+const { InvoiceItemVoucherTraceKind } = await import(
+  '@bsport/common/lib/master-data/invoice-item.js'
+);
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 
 import { getShopItemName } from '../../shop/utils';
@@ -21,20 +24,68 @@ type Props = {
   handleShowPrintableGiftcardDetails?: (id: number) => () => void,
 };
 
+// Copy the logic in backend InvoiceItem.voucher_reasons_translated property
+// so that we use the language set in the frontend
+const translateVoucherReasons = (voucherReasons, t) => {
+  return voucherReasons.map((voucherReason) => {
+    switch (voucherReason.kind) {
+      case InvoiceItemVoucherTraceKind.PAYMENT_COMBO:
+      case InvoiceItemVoucherTraceKind.COUPON_REFERRED:
+      case InvoiceItemVoucherTraceKind.COUPON_REFERRING:
+        return t(`invoiceItem.voucherReason.${voucherReason.kind}`);
+      case InvoiceItemVoucherTraceKind.COUPON_CODE:
+        return t(`invoiceItem.voucherReason.${voucherReason.kind}`, {
+          coupon_name: voucherReason.value ?? '',
+        });
+      case InvoiceItemVoucherTraceKind.MANUAL:
+        return voucherReason.value
+          ? t(
+              `invoiceItem.voucherReason.${InvoiceItemVoucherTraceKind.MANUAL}`,
+              {
+                manual_reason: voucherReason.value,
+                interpolation: { escapeValue: false },
+              },
+            )
+          : t('invoiceItem.voucherReason.manualWithNoReason');
+      default:
+        return '';
+    }
+  });
+};
+
 const InvoiceItem = (props: Props) => {
   const { onDelete, invoiceItem } = props;
   const classes = useStyles();
   const { t } = useTranslation(['invoice']);
-  let voucher = null;
 
   const subtitle = React.useMemo(
     () => invoiceItem.incremental_consumer_giftcard_identifier,
     [invoiceItem.incremental_consumer_giftcard_identifier],
   );
 
-  if (parseFloat(invoiceItem.voucher) !== 0) {
-    voucher = invoiceItem.voucher;
-  }
+  const voucherData = React.useMemo(() => {
+    if (parseFloat(invoiceItem.voucher) === 0)
+      return { voucher: null, voucher_reason: null };
+
+    const voucher = invoiceItem.voucher;
+    const voucherReasons = invoiceItem.voucher_reasons || [];
+    const voucherReasonsTranslated = translateVoucherReasons(voucherReasons, t);
+    const voucher_reason = voucherReasonsTranslated.join(' + ');
+
+    return { voucher, voucher_reason };
+  }, [invoiceItem.voucher, invoiceItem.voucher_reasons, t]);
+
+  const voucherDisplayText = React.useMemo(() => {
+    if (!voucherData.voucher) return '';
+    if (voucherData.voucher_reason) {
+      return `${voucherData.voucher_reason} ${getCurrencyDisplayWithPrice(
+        voucherData.voucher,
+      )}`;
+    }
+    return t('invoiceItem.voucher', {
+      voucher: getCurrencyDisplayWithPrice(voucherData.voucher),
+    });
+  }, [voucherData.voucher, voucherData.voucher_reason, t]);
 
   return (
     <div className={classes.container}>
@@ -62,12 +113,7 @@ const InvoiceItem = (props: Props) => {
           color="textSecondary"
           variant="caption"
         >
-          {(invoiceItem.subtitle || '') +
-            (voucher
-              ? `${t('invoiceItem.voucher', {
-                  voucher: getCurrencyDisplayWithPrice(voucher),
-                })}`
-              : '')}
+          {voucherDisplayText}
         </Typography>
       </div>
 
@@ -75,9 +121,7 @@ const InvoiceItem = (props: Props) => {
         ConsumerGiftcardKind.PRINTABLE && (
         <IconButton
           className={classes.printableGiftcardShowDetails}
-          onClick={props.handleShowPrintableGiftcardDetails?.(
-            invoiceItem?.object_id,
-          )}
+          onClick={handleShowPrintableGiftcardDetails?.(invoiceItem?.object_id)}
           size="small"
         >
           <AttachFile fontSize="inherit" />
@@ -98,7 +142,9 @@ const InvoiceItem = (props: Props) => {
       <div className={classes.secondaryAction}>
         <Typography className={invoiceItem.reverted ? classes.revert : null}>
           {getCurrencyDisplayWithPrice(
-            parseFloat(invoiceItem.price - (voucher || 0)).toFixed(2),
+            parseFloat(invoiceItem.price - (voucherData.voucher || 0)).toFixed(
+              2,
+            ),
           )}
         </Typography>
         {!!invoiceItem.editable && onDelete && (
@@ -147,6 +193,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'flex-start',
+    wordBreak: 'break-word',
   },
   revert: {
     textDecoration: 'line-through',

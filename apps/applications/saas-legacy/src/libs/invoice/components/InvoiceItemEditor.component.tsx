@@ -17,7 +17,6 @@ import {
   BUYABLE_ITEM_PRIVATE_PASS,
   BUYABLE_ITEM_COMBO_ITEM,
   BUYABLE_ITEM_GIFTCARD,
-  BUYABLE_ITEM_CREDIT,
   QuicksaleBasketItem,
 } from '@bsport/common/lib/master-data/buyable-items.js';
 
@@ -32,6 +31,7 @@ import GiftcardSelector from '#src/libs/giftcard/components/GiftcardSelector.com
 import ShopItemSelector, {
   shopItemOption,
 } from '#src/libs/shop/components/ShopItemSelector.component';
+import TextField from '@material-ui/core/TextField';
 // @ts-expect-error
 import withConfirm from '../../../hocs/with-confirm.hoc';
 import { paymentPackTagsAndMemberTagsCompatibilty } from '#src/libs/payment-packs/utils';
@@ -162,6 +162,7 @@ type Props = {
   };
   member: { credit_account_balance: number };
   displayNewWebshop?: boolean;
+  isCustomDiscountReasonRequired: boolean;
 };
 
 const getPriceForItem = (
@@ -200,6 +201,7 @@ const InvoiceItemEditor: React.FC<Props> = ({
   availableBuyableItems,
   member,
   displayNewWebshop,
+  isCustomDiscountReasonRequired,
 }) => {
   const classes = useStyles();
 
@@ -224,6 +226,8 @@ const InvoiceItemEditor: React.FC<Props> = ({
   const [voucher, setVoucher] = useState<string | null>(null);
   const [errors, setErrors] = useState(false);
   const [voucherPercent, setVoucherPercent] = useState<string | null>(null);
+  const [voucherReason, setVoucherReason] = useState<string | null>(null);
+  const [voucherReasonErrors, setVoucherReasonErrors] = useState(false);
 
   const [warnMamangerOnInvoice, setWarnManagerOnInvoice] = useState(false);
 
@@ -249,7 +253,9 @@ const InvoiceItemEditor: React.FC<Props> = ({
       setSelectedBuyableItem(null);
       setVoucher(null);
       setVoucherPercent(null);
+      setVoucherReason(null);
       setErrors(false);
+      setVoucherReasonErrors(false);
       setFinalPricePreview(null);
       setBuyableItemIdentifier(parseInt(value, 10));
     },
@@ -260,6 +266,8 @@ const InvoiceItemEditor: React.FC<Props> = ({
     (item_id: number, newSelectedBuyableItem?: ShopItem) => {
       setVoucher(null);
       setVoucherPercent(null);
+      setVoucherReason(null);
+      setVoucherReasonErrors(false);
       setErrors(false);
       setBuyableItemId(item_id);
       if (isBuyableShopItemFromNewWebshop) {
@@ -289,18 +297,16 @@ const InvoiceItemEditor: React.FC<Props> = ({
     [],
   );
 
+  const shouldEnterCustomDiscountReason = useMemo(() => {
+    return (
+      (parseFloat(voucher) > 0 || parseFloat(voucherPercent) > 0) &&
+      isCustomDiscountReasonRequired
+    );
+  }, [voucher, voucherPercent, isCustomDiscountReasonRequired]);
+
   const onClickAddInvoiceItem = useCallback(() => {
-    if (buyableItemIdentifier === BUYABLE_ITEM_CREDIT) {
-      const data = {
-        buyable_item_id: 0,
-        // @ts-expect-error
-        price: parseFloat(buyableItemId).toFixed(2),
-        // @ts-expect-error
-        voucher: parseFloat(voucher || 0).toFixed(2),
-        name: t('invoiceItem.credit.label'),
-      };
-      // @ts-expect-error
-      onAddBuyableItem(buyableItemIdentifier, data);
+    if (!voucherReason && shouldEnterCustomDiscountReason) {
+      setVoucherReasonErrors(true);
     } else {
       /**
        * For the new webshop, we use the selectedBuyableItem to add the item to the basket
@@ -314,6 +320,7 @@ const InvoiceItemEditor: React.FC<Props> = ({
             // @ts-expect-error
             (bi) => bi.id === buyableItemId,
           );
+      setVoucherReasonErrors(false);
 
       for (let i = 0; i < quantity; i++) {
         onAddBuyableItem(buyableItemIdentifier, {
@@ -321,18 +328,20 @@ const InvoiceItemEditor: React.FC<Props> = ({
           buyable_item_id: buyableItem.id,
           price: parseFloat(buyableItem.price).toFixed(2),
           voucher: parseFloat(voucher || '0.00').toFixed(2),
+          voucher_reason: voucherReason || '',
         });
       }
     }
   }, [
+    voucherReason,
     buyableItemIdentifier,
     buyableItemId,
     voucher,
-    t,
     onAddBuyableItem,
     isBuyableShopItemFromNewWebshop,
     selectedBuyableItem,
     availableBuyableItems,
+    shouldEnterCustomDiscountReason,
     quantity,
   ]);
 
@@ -438,6 +447,15 @@ const InvoiceItemEditor: React.FC<Props> = ({
     [onChangeVoucherPercent],
   );
 
+  const handleOnChangeVoucherReason = React.useCallback(
+    (event: ChangeEvent<HTMLInputElement>) => {
+      const value = event.target.value || '';
+      setVoucherReasonErrors(!value);
+      setVoucherReason(value);
+    },
+    [setVoucherReasonErrors, setVoucherReason],
+  );
+
   const handleOnChangeFinalPricePreview = useCallback(
     (event: ChangeEvent<HTMLInputElement>) => {
       const pricePreview = event.target.value;
@@ -488,6 +506,15 @@ const InvoiceItemEditor: React.FC<Props> = ({
       buyableItemPrice,
       availableBuyableItems,
     ],
+  );
+
+  const handleEnterKey = useCallback(
+    (e: React.KeyboardEvent<HTMLInputElement>) => {
+      if (e.key === 'Enter') {
+        e.preventDefault(); // Prevent adding a new line when pressing Enter
+      }
+    },
+    [],
   );
 
   const handleFinalPricePreviewOnBlur = useCallback(() => {
@@ -619,7 +646,7 @@ const InvoiceItemEditor: React.FC<Props> = ({
                       value={voucher === null ? '0.00' : voucher}
                       variant="outlined"
                     />
-                    <div className={classes.percentDiscountWrapper}>
+                    <div className={classes.fieldDiscountWrapper}>
                       <NumericInput
                         fullWidth
                         disabled={buyableItemId === null}
@@ -643,7 +670,24 @@ const InvoiceItemEditor: React.FC<Props> = ({
                         variant="outlined"
                       />
                     </div>
-                    <div className={classes.percentDiscountWrapper}>
+                    {shouldEnterCustomDiscountReason && (
+                      <TextField
+                        multiline
+                        required
+                        className={classes.fieldDiscountWrapper}
+                        error={voucherReasonErrors}
+                        helperText={`${voucherReason?.length ?? 0}/100`}
+                        inputProps={{ maxLength: 100 }}
+                        label={t('invoiceItem.discountReason')}
+                        maxRows={5}
+                        name="voucherReason"
+                        onChange={handleOnChangeVoucherReason}
+                        onKeyDown={handleEnterKey}
+                        value={voucherReason}
+                        variant="outlined"
+                      />
+                    )}
+                    <div className={classes.fieldDiscountWrapper}>
                       <NumericInput
                         fullWidth
                         disabled={buyableItemId === null}
@@ -759,7 +803,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column',
   },
-  percentDiscountWrapper: {
+  fieldDiscountWrapper: {
     marginTop: theme.spacing(2),
   },
 }));

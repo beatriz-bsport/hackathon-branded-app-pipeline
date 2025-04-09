@@ -1,6 +1,7 @@
 // @flow
 import React from 'react';
 import { compose } from 'recompose';
+import { withTranslation, TFunction } from 'react-i18next';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Grid from '@material-ui/core/Grid';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -8,31 +9,37 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import AttachIcon from '@material-ui/icons/Attachment';
-import { withTranslation, TFunction } from 'react-i18next';
 import Paper from '@material-ui/core/Paper';
 import Collapse from '@material-ui/core/Collapse';
-import WarningIcon from '@material-ui/icons/Warning';
 import Switch from '@material-ui/core/Switch';
-import AddIcon from '@material-ui/icons/Add';
-import EditIcon from '@material-ui/icons/Edit';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogActions from '@material-ui/core/DialogActions';
-import DeleteIcon from '@material-ui/icons/Delete';
 import IconButton from '@material-ui/core/IconButton';
+
+// Icons
+import AttachIcon from '@material-ui/icons/Attachment';
+import WarningIcon from '@material-ui/icons/Warning';
+import AddIcon from '@material-ui/icons/Add';
+import EditIcon from '@material-ui/icons/Edit';
+import DeleteIcon from '@material-ui/icons/Delete';
+
+import type { FeatureList } from '#src/libs/company/types';
+import type { StripeReader } from '#src/libs/terminal/types';
+
 import StripeTerminalRegisterReaderDialog from '#src/libs/terminal/components/StripeTerminalRegisterReaderDialog';
 import ThemeInternalAccountForm from '#src/libs/theme/components/ThemeInternalAccountForm.component';
 import InfoTypography from '#src/components/typo/InfoTypography.components';
-import type { FeatureList } from '#src/libs/company/types';
+import InvoiceRefundsAndDiscountsForm from '#src/libs/invoice/components/InvoiceRefundsAndDiscountsForm.form';
+import TaxDisplayForm from '#src/libs/theme/components/TaxDisplay.form';
+import ProvincialTaxForm from '#src/libs/theme/components/ProvincialTax.form';
+import NumberInput from '#src/components/input/NumericInput.component';
+
 import FeatureListProvider from '#src/libs/company/hocs/feature-list-provider.hoc.js';
-import type { StripeReader } from '#src/libs/terminal/types';
 import { UPSELL_IDENTIFIER_STRIPE_TERMINAL } from '#src/libs/platform-billing/upsell-identifiers';
 import { hasUpsell } from '#src/libs/platform-billing/utils';
-import TaxDisplayForm from '../../theme/components/TaxDisplay.form';
-import ProvincialTaxForm from '../../theme/components/ProvincialTax.form';
-import NumberInput from '../../../components/input/NumericInput.component';
+import { getCompanyCountry } from '#src/libs/theme/selectors';
 
 type Props = {
   classes: any,
@@ -45,13 +52,15 @@ type Props = {
     disable_pass_on_fail_subscription_payment: boolean,
     revert_bookings_on_fail_subscription_payment: boolean,
     advance_sepa_billing: boolean,
+    is_custom_discount_reason_required: boolean,
+    is_invoice_revert_reason_required: boolean,
   },
   processing: boolean,
-  onSubmit: (data: any) => void,
   theme: CompanyTheme,
   submitTheme: (company_id: number, data: any) => void,
   goToReports: () => void,
   patchTheme: (data: FormData, options?: OptionCallback) => void,
+  patchInvoiceConfiguration: (data: FormData, options?: OptionCallback) => void,
   stripeReaders: StripeReader[],
   deleteReaderAndFetch: (readerId: string, options?: OptionCallback) => void,
   createReaderAndFetch: (data: any, options?: OptionCallback) => void,
@@ -75,6 +84,8 @@ type State = {
   selectedReaderToDelete: null | any,
   isProcessingDeleteReader: false,
   selectedReaderToUpdate: boolean,
+  is_custom_discount_reason_required: boolean,
+  is_invoice_revert_reason_required: boolean,
 };
 
 export class InvoiceConfigurationForm extends React.Component<Props, State> {
@@ -93,6 +104,10 @@ export class InvoiceConfigurationForm extends React.Component<Props, State> {
         props.configuration.disable_pass_on_fail_subscription_payment,
       revert_bookings_on_fail_subscription_payment:
         props.configuration.revert_bookings_on_fail_subscription_payment,
+      is_custom_discount_reason_required:
+        props.configuration.is_custom_discount_reason_required,
+      is_invoice_revert_reason_required:
+        props.configuration.is_invoice_revert_reason_required,
       advance_sepa_billing: props.configuration.advance_sepa_billing,
       openConnectReaderDialog: false,
       selectedReaderToDelete: null,
@@ -126,8 +141,33 @@ export class InvoiceConfigurationForm extends React.Component<Props, State> {
     });
   };
 
+  isCompanyGerman = () => {
+    return getCompanyCountry() === 'DE';
+  };
+
+  handlePatchInvoiceConfiguration = () => {
+    this.props.patchInvoiceConfiguration({
+      disable_pass_on_fail_subscription_payment:
+        this.state.disable_pass_on_fail_subscription_payment,
+      revert_bookings_on_fail_subscription_payment:
+        this.state.revert_bookings_on_fail_subscription_payment,
+      nb_retries_subscription_payments:
+        this.state.nb_retries_subscription_payments,
+      advance_sepa_billing: this.state.advance_sepa_billing,
+    });
+  };
+
+  handlePatchBusinessConfiguration = () => {
+    this.props.patchInvoiceConfiguration({
+      invoice_business_name: this.state.invoiceBusinessName,
+      stripe_footer: this.state.stripe_footer,
+      show_company_email_in_invoice: this.state.show_company_email_in_invoice,
+    });
+  };
+
   render() {
     const { classes, t } = this.props;
+    const isCompanyGerman = this.isCompanyGerman();
     return (
       <>
         <div>
@@ -324,17 +364,7 @@ export class InvoiceConfigurationForm extends React.Component<Props, State> {
                         .revert_bookings_on_fail_subscription_payment) ||
                   this.props.processing
                 }
-                onClick={() =>
-                  this.props.onSubmit({
-                    disable_pass_on_fail_subscription_payment:
-                      this.state.disable_pass_on_fail_subscription_payment,
-                    revert_bookings_on_fail_subscription_payment:
-                      this.state.revert_bookings_on_fail_subscription_payment,
-                    nb_retries_subscription_payments:
-                      this.state.nb_retries_subscription_payments,
-                    advance_sepa_billing: this.state.advance_sepa_billing,
-                  })
-                }
+                onClick={this.handlePatchInvoiceConfiguration}
                 variant="contained"
               >
                 {t('configuration.submit_stripe_footer')}
@@ -407,14 +437,7 @@ export class InvoiceConfigurationForm extends React.Component<Props, State> {
                   this.checkInvoicePDFConfigurationHasNotChanged() ||
                   this.props.processing
                 }
-                onClick={() =>
-                  this.props.onSubmit({
-                    invoice_business_name: this.state.invoiceBusinessName,
-                    stripe_footer: this.state.stripe_footer,
-                    show_company_email_in_invoice:
-                      this.state.show_company_email_in_invoice,
-                  })
-                }
+                onClick={this.handlePatchBusinessConfiguration}
                 variant="contained"
               >
                 {t('configuration.submit_stripe_footer')}
@@ -424,6 +447,18 @@ export class InvoiceConfigurationForm extends React.Component<Props, State> {
               ) : null}
             </div>
           </Paper>
+          <div className={classes.content}>
+            <InvoiceRefundsAndDiscountsForm
+              initial={{
+                is_invoice_revert_reason_required:
+                  this.props.configuration.is_invoice_revert_reason_required,
+                is_custom_discount_reason_required:
+                  this.props.configuration.is_custom_discount_reason_required,
+              }}
+              isCompanyGerman={isCompanyGerman}
+              submit={this.props.patchInvoiceConfiguration}
+            />
+          </div>
           <div className={classes.content}>
             <TaxDisplayForm
               initial={{

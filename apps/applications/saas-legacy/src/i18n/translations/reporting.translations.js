@@ -157,6 +157,7 @@ const getTranslations = async () => {
       address: 'Address',
       tax: 'VAT / Sales tax',
       voucher: 'Promotion',
+      voucher_reason: 'Reason for discount',
       total_price: 'Price (incl. VAT / Sales Tax)',
       total_price_notax: 'Price (excl. VAT / Sales Tax)',
       payment_note: 'Payment note',

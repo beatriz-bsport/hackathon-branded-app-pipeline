@@ -180,6 +180,7 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
     alignItems: 'flex-start',
     marginLeft: theme.spacing(1),
+    wordBreak: 'break-word',
   },
   revert: {
     textDecoration: 'line-through',

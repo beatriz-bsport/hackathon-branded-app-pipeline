@@ -13,16 +13,16 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import KeyboardReturnIcon from '@material-ui/icons/KeyboardReturn';
 import ReceiptIcon from '@material-ui/icons/Receipt';
 import {
-  INVOICE_TYPE_REGULAR,
   INVOICE_TYPE_EMPTY_PAYMENT_CONTAINER as INVOICE_TYPE_RECEIPT,
+  INVOICE_TYPE_REGULAR,
   INVOICE_TYPE_REVERSE,
 } from '@bsport/common/lib/master-data/invoice-type.js';
 import { DISPUTE as PAYMENT_METHOD_DISPUTE } from '@bsport/common/lib/master-data/payment-methods.js';
 import { PAYMENT_ENGINE_BSPORT } from '@bsport/common/lib/master-data/payment-group.js';
 import {
-  PLANNED_PAYMENT_EVENT_STATUS_REGISTERED,
   PLANNED_PAYMENT_EVENT_STATUS_CANCELED,
   PLANNED_PAYMENT_EVENT_STATUS_ERROR,
+  PLANNED_PAYMENT_EVENT_STATUS_REGISTERED,
 } from '@bsport/common/lib/master-data/planned-payment-event.js';
 import ObjectLevelPermissionProvider from '#src/libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 import { Payment } from '#src/libs/payment/types';
@@ -36,7 +36,7 @@ import PaymentListItemV2 from './PaymentListItemV2.component';
 import PlannedPaymentEventListItem from './PlannedPaymentEventListItem.component';
 import PlannedPaymentEventErrorListItem from './PlannedPaymentEventErrorListItem.component';
 
-import { PlannedPaymentEvent, Invoice, InvoiceV1Serializer } from '../types';
+import { Invoice, InvoiceV1Serializer, PlannedPaymentEvent } from '../types';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 import { OptionCallback } from '../../../state/types';
 
@@ -461,6 +461,14 @@ export const InvoicePaymentPanel: FC<Props> = (props) => {
                 />
               ))}
         </div>
+        {props.invoice.revert_reason && (
+          <Typography className={classes.revertReasonSection} variant="body1">
+            {t('paymentPanel.revertReason', {
+              revertReason: props.invoice.revert_reason,
+              interpolation: { escapeValue: false },
+            })}
+          </Typography>
+        )}
         {!props.plannedPaymentEventLoading &&
           !!plannedPaymentWithoutUnrecoverableErrorList.length && (
             <React.Fragment>
@@ -674,6 +682,10 @@ const useStyles = makeStyles((theme) => ({
   },
   listContainer: {
     marginLeft: theme.spacing(1),
+  },
+  revertReasonSection: {
+    paddingTop: theme.spacing(1),
+    wordBreak: 'break-word',
   },
 }));
 

@@ -2424,7 +2424,10 @@
         "tags": "Tags",
         "tagInfo": "Use tags to make the promo code usable only by a selected group of members on the marketplace, widget and app. You can select tags to make the promo code usable only by members with one of the chosen tags. Or you can select tags to make the promo code unusable only by members with one of the selected tags. "
       },
-      "name": { "label": "Name" },
+      "name": {
+        "label": "Name",
+        "helperText": "The name entered here will appear on invoices when the promo code is applied"
+      },
       "code": {
         "label": "Code",
         "helperText": "Your members will need to use this exact promotional code.",
@@ -3750,6 +3753,14 @@
         "stripe_footer_placeholder": "No additional legal information",
         "show_company_email_in_invoice": "Display the company email address on all invoices"
       },
+      "refundsAndDiscount": {
+        "title": "Refunds and Discounts",
+        "info": "These options allow you to force a justification from staff member when manually adding a discount or cancelling / refunding an invoice.",
+        "checkbox": {
+          "customDiscountJustification": "Require justification for manual discounts",
+          "refundAndCancelJustification": "Require justification for invoice refunds and cancellations"
+        }
+      },
       "nf525Button": "Download",
       "nf525Explain": "BSPORT Solutions follows the NF525 compliance procedures. Download our official certificate.",
       "nf525": "NF525 Certification",
@@ -3976,6 +3987,14 @@
     },
     "invoiceItem": {
       "voucher": "Discount: {{ voucher }}",
+      "voucherReason": {
+        "payment_combo": "Pack discount",
+        "coupon": "Promo code: {{coupon_name}}",
+        "coupon_referred": "Referral discount: Referred member",
+        "coupon_referring": "Referral discount: Referring member",
+        "manual": "Manual discount: {{manual_reason}}",
+        "manualWithNoReason": "Manual discount"
+      },
       "quantity": "Quantity",
       "credit": { "label": "Credit" },
       "buyableItemIdentifier": {
@@ -3987,7 +4006,8 @@
         "11": "Gift cards"
       },
       "discount": "Discount",
-      "finalPricePreview": "Preview total"
+      "finalPricePreview": "Preview total",
+      "discountReason": "Reason for discount"
     },
     "invoiceInfoDialog": {
       "actions": { "close": "Close", "show": "See invoice" },
@@ -4005,7 +4025,8 @@
           "1": "Refund on internal account",
           "2": "Manual refund"
         },
-        "explainEmptyPayment": "Are you sure you want to cancel this invoice?"
+        "explainEmptyPayment": "Are you sure you want to cancel this invoice?",
+        "revertReason": "Reason for cancellation"
       },
       "dialog": {
         "actions": { "confirm": "Confirm", "cancel": "Close" },
@@ -4136,7 +4157,8 @@
       "billingMoreThanNeeded": "If you charge more than the amount of the invoice, the difference in cost will be added to the client account balance",
       "errorSecretExplain2": "If the issue is not resolved please contact us at dev+payment-intent@bsport.io",
       "errorSecretExplain1": "This payment method is not available at the moment",
-      "plannedPaymentEvent": { "title": "Planned payment", "title_plural": "Planned payments" }
+      "plannedPaymentEvent": { "title": "Planned payment", "title_plural": "Planned payments" },
+      "revertReason": "Reason: {{ revertReason }}"
     },
     "paymentMethod": {
       "label": {
@@ -10798,6 +10820,7 @@
       "address": "Address",
       "tax": "VAT / Sales tax",
       "voucher": "Promotion",
+      "voucher_reason": "Reason for discount",
       "total_price": "Price (incl. VAT / Sales Tax)",
       "total_price_notax": "Price (excl. VAT / Sales Tax)",
       "payment_note": "Payment note",

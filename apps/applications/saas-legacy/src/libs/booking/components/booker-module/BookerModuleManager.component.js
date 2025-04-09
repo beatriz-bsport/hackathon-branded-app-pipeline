@@ -90,6 +90,7 @@ type Props = {
       paymentPack?: PaymentPack,
     },
     voucher?: number,
+    voucherReason?: string,
     establishmentBillingGroupId?: number,
   ) => void,
 
@@ -138,6 +139,8 @@ type Props = {
   isAutoBooking: boolean,
   fetchFutureBookingsByMember: (memberId: number) => void,
   futureBookingsByMemberCount: number,
+  isInvoiceConfigurationLoading: boolean,
+  isCustomDiscountReasonRequired: boolean,
 };
 
 const REGISTER_METHOD_CHOICE = 0;
@@ -271,8 +274,9 @@ export class BookerModuleManager extends PureComponent<Props, State> {
       loading,
       member,
       maxoutLoading,
+      isInvoiceConfigurationLoading,
     } = this.props;
-    if (!member || !member.id || loading) {
+    if (!member || !member.id || loading || isInvoiceConfigurationLoading) {
       return (
         <GenericResponsiveDialog
           open
@@ -455,6 +459,9 @@ export class BookerModuleManager extends PureComponent<Props, State> {
                     this.handleFetchNoncompatibleConsumerPackByOfferByMember
                   }
                   incompatibilitiesReasons={this.props.incompatibilitiesReasons}
+                  isCustomDiscountReasonRequired={
+                    this.props.isCustomDiscountReasonRequired
+                  }
                   isNotAllowedToOverbook={
                     !this.props.userRole?.has_booking_override_control
                   }
@@ -468,12 +475,14 @@ export class BookerModuleManager extends PureComponent<Props, State> {
                   registerToOffer={(
                     registererObject,
                     voucher?,
+                    voucherReason?,
                     establishmentBillingGroupId?,
                   ) =>
                     this.props.registerToOffer(
                       this.props.offerId,
                       registererObject,
                       voucher,
+                      voucherReason,
                       establishmentBillingGroupId,
                     )
                   }
@@ -599,6 +608,7 @@ export default compose(
         offerId,
         registererObjectOverride,
         voucher?,
+        voucherReason?,
         establishmentBillingGroupId?,
       ) => {
         registerToOffer(
@@ -610,6 +620,7 @@ export default compose(
             keep_credits,
           },
           voucher,
+          voucherReason,
           establishmentBillingGroupId,
         );
       },

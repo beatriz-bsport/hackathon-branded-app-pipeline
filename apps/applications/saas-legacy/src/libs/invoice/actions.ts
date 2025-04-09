@@ -375,6 +375,7 @@ export function revertInvoice(
   params: {
     reverse_type?: number;
     payment_method_to_reverse?: string;
+    revert_reason?: string;
   },
   options: OptionCallback<InvoiceDetailsSerializer>,
 ) {

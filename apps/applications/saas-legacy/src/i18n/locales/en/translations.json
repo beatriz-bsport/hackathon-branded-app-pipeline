@@ -4256,6 +4256,14 @@
                 "stripe_footer_placeholder": "No additional legal information",
                 "show_company_email_in_invoice": "Display the company email address on all invoices"
             },
+            "refundsAndDiscount": {
+                "title": "Refunds and Discounts",
+                "info": "These options allow you to force a justification from staff member when manually adding a discount or cancelling / refunding an invoice.",
+                "checkbox": {
+                    "customDiscountJustification": "Require justification for manual discounts",
+                    "refundAndCancelJustification": "Require justification for invoice refunds and cancellations"
+                }
+            },
             "nf525Button": "Download",
             "nf525Explain": "BSPORT Solutions follows the NF525 compliance procedures. Download our official certificate.",
             "nf525": "NF525 Certification",
@@ -4490,6 +4498,14 @@
         },
         "invoiceItem": {
             "voucher": "Discount: {{ voucher }}",
+            "voucherReason": {
+                "payment_combo": "Pack discount",
+                "coupon": "Promo code: {{coupon_name}}",
+                "coupon_referred": "Referral discount: Referred member",
+                "coupon_referring": "Referral discount: Referring member",
+                "manual": "Manual discount: {{manual_reason}}",
+                "manualWithNoReason": "Manual discount"
+            },
             "quantity": "Quantity",
             "credit": {
                 "label": "Credit"
@@ -4504,7 +4520,8 @@
                 "undefined": "Gift card"
             },
             "discount": "Discount",
-            "finalPricePreview": "Preview total"
+            "finalPricePreview": "Preview total",
+            "discountReason": "Reason for discount"
         },
         "invoiceInfoDialog": {
             "actions": {
@@ -4525,7 +4542,8 @@
                     "1": "Refund on internal account",
                     "2": "Manual refund"
                 },
-                "explainEmptyPayment": "Are you sure you want to cancel this invoice?"
+                "explainEmptyPayment": "Are you sure you want to cancel this invoice?",
+                "revertReason": "Reason for cancellation"
             },
             "dialog": {
                 "actions": {
@@ -4690,7 +4708,8 @@
             "plannedPaymentEvent": {
                 "title": "Planned payment",
                 "title_plural": "Planned payments"
-            }
+            },
+            "revertReason": "Reason: {{ revertReason }}"
         },
         "paymentMethod": {
             "label": {
@@ -12114,6 +12133,7 @@
             "address": "Address",
             "tax": "VAT / Sales tax",
             "voucher": "Promotion",
+            "voucher_reason": "Reason for discount",
             "total_price": "Price (incl. VAT / Sales Tax)",
             "total_price_notax": "Price (excl. VAT / Sales Tax)",
             "payment_note": "Payment note",

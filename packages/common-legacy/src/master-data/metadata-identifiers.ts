@@ -329,6 +329,7 @@ export enum InvoiceMetadataIdentifierEnum {
   PRODUCT_PRICE = 'product_price',
   TAX = 'tax',
   VOUCHER = 'voucher',
+  VOUCHER_REASON = 'voucher_reason',
   TOTAL_PRICE = 'total_price',
   TOTAL_PRICE_NOTAX = 'total_price_notax',
   PAYMENT_METHOD = 'payment_method',

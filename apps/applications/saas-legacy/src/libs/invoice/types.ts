@@ -73,6 +73,7 @@ export type Invoice<M = number, PI = number, II = number> = {
   is_quick_invoice: boolean | null;
   invoice_type: InvoiceType;
   reverse_invoices: Array<string>;
+  revert_reason: string | null;
   is_v2: boolean;
   is_draft?: boolean;
   plannedinvoice: number;
@@ -277,6 +278,8 @@ export type InvoiceConfigurationSerializer = {
   show_company_email_in_invoice: boolean;
   revert_bookings_on_fail_subscription_payment: boolean;
   advance_sepa_billing: boolean;
+  is_force_manual_discount_justification: boolean;
+  is_force_manual_refund_and_cancel_justification: boolean;
 };
 
 export type InvoiceConfigurationMemberSerializer = {

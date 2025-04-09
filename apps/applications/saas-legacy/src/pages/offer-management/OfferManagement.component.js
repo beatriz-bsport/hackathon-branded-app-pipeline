@@ -45,7 +45,10 @@ import type {
   BookingREST,
 } from '#src/libs/booking/types';
 import type { Member } from '#src/libs/member/types';
-import type { Invoice } from '#src/libs/invoice/types';
+import type {
+  Invoice,
+  InvoiceConfigurationSerializer,
+} from '#src/libs/invoice/types';
 import type {
   Establishment,
   EstablishmentBillingGroup,
@@ -134,6 +137,11 @@ type Props = {
   fetchInvoice: () => void,
   fetchInvoiceItemList: (params: any) => void,
   quickCreatedInvoices: Array<Invoice>,
+
+  fetchInvoiceConfiguration: () => void,
+  invoiceConfiguration: InvoiceConfigurationSerializer,
+  isInvoiceConfigurationLoading: boolean,
+  isCustomDiscountReasonRequired: boolean,
 
   fetchPrivatePassList: () => void,
   fetchPaymentComboList: () => void,
@@ -413,6 +421,7 @@ export class OfferManagement extends Component<Props, State> {
     this.props.fetchCompanyWaitlistConfiguration(
       this.props.company_theme.company,
     );
+    this.props.fetchInvoiceConfiguration();
     if (this.props.company_theme.enable_multi_localization) {
       this.props.fetchAllEstablishmentBillingGroup({
         params: { company: this.props.companyId },
@@ -1275,6 +1284,12 @@ export class OfferManagement extends Component<Props, State> {
             getInvoicePaymentGroupIsProcessing={
               this.props.getInvoicePaymentGroupIsProcessing
             }
+            isCustomDiscountReasonRequired={
+              this.props.isCustomDiscountReasonRequired
+            }
+            isInvoiceConfigurationLoading={
+              this.props.isInvoiceConfigurationLoading
+            }
             memberDetails={this.props.memberDetails}
             onlinePaymentEnabled={
               this.props.company_theme.online_payment_enabled
@@ -1304,6 +1319,10 @@ export class OfferManagement extends Component<Props, State> {
           <BookerModuleManager
             isAutoBooking={
               !!this.props.unregisteredSelectedBookingOptions.length
+            }
+            isCustomDiscountReasonRequired={
+              this.props.invoiceConfiguration
+                ?.is_custom_discount_reason_required
             }
             member={this.props.memberToRegister}
             memberDetails={this.props.memberDetails}
@@ -1646,6 +1665,7 @@ export default compose(
           keep_credits,
         }: { notify_member: boolean, keep_credits: boolean },
         voucher?: number,
+        voucherReason?: string,
         establishmentBillingGroupId?: number,
       ) => {
         if (!Array.isArray(offerId)) {
@@ -1698,6 +1718,7 @@ export default compose(
                   is_v2: true,
                   memberId,
                   voucher: parseFloat(voucher),
+                  voucher_reason: voucherReason,
                   establishment_billing_group_id: establishmentBillingGroupId,
                 },
                 offerId,
@@ -1763,6 +1784,7 @@ export default compose(
                 is_v2: true,
                 memberId,
                 voucher: parseFloat(voucher),
+                voucher_reason: voucherReason,
                 establishment_billing_group_id: establishmentBillingGroupId,
               },
               offerId,

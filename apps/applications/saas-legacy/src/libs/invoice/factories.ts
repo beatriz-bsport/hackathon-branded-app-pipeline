@@ -61,6 +61,7 @@ export function invoiceFactory(options?: Partial<Invoice>): Invoice {
     ),
     uuid: options?.uuid ?? faker.string.uuid(),
     voucher: options?.voucher ?? '',
+    revert_reason: options?.revert_reason ?? '',
   };
 }
 

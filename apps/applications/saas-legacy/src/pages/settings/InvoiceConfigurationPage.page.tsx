@@ -1,6 +1,5 @@
 import React from 'react';
 import { compose, withHandlers, withStateHandlers } from 'recompose';
-import { connect } from 'react-redux';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import { TFunction } from 'i18next';
 import { Theme } from '@material-ui/core/styles';
@@ -9,8 +8,24 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
+
+import { connect } from 'react-redux';
 import { push as pushRouter } from 'connected-react-router';
+
+import type { OptionCallback } from '#src/state/types';
+import type { MaterialStyleType, WithHandlerType } from '#src/utils/types';
+import type { EstablishmentBillingGroup as EstablishmentBillingGroupType } from '#src/libs/establishment/types';
+import type { InvoiceConfigurationSerializer } from '#src/libs/invoice/types';
+import { RootState } from '#src/reducers/index';
+
 import InfoTypography from '#src/components/typo/InfoTypography.components';
+import BookkeepingAccountSection from '#src/libs/invoice/components/BookkeepingAccountSection.component';
+import BackofficeLinearProgress from '#src/components/navigation/BackofficeLinearProgress.component';
+// @ts-expect-error
+import InvoiceConfigurationForm from '../../libs/invoice/components/InvoiceConfigurationForm.component';
+import EstablishmentBillingGroupTable from '#src/libs/establishment/components/EstablishmentBillingGroupTable.component';
+import EstablishmentBillingGroupFormDialog from '#src/libs/establishment/components/EstablishmentBillingGroupFormDialog.component';
+
 import {
   deleteBookkeepingAccount as deleteBookkeepingAccountAction,
   fetchBookkeepingAccountList as fetchBookkeepingAccountListAction,
@@ -24,48 +39,37 @@ import {
   deleteStripeReader,
   editStripeReader,
 } from '#src/libs/terminal/actions';
+import {
+  fetchInvoiceConfiguration,
+  patchInvoiceConfiguration as patchInvoiceConfigurationAction,
+} from '#src/libs/invoice/actions';
+import {
+  snackbarSuccess as snackbarSuccessAction,
+  snackbarError as snackbarErrorAction,
+} from '#src/libs/snackbar/actions';
+import {
+  fetchEstablishments,
+  fetchAllEstablishmentBillingGroup as fetchAllEstablishmentBillingGroupAction,
+  upsertEstablishmentBillingGroup as upsertEstablishmentBillingGroupAction,
+  deleteEstablishmentBillingGroup as deleteEstablishmentBillingGroupAction,
+} from '#src/libs/establishment/actions';
+import { updateCompanyTheme } from '#src/libs/theme/actions';
+
 import { getStripeReaders } from '#src/libs/terminal/selectors';
 import {
   getBookkeepingAccountList,
   getBookkeepingAccountLoading,
   getLinkedProductNames,
 } from '#src/libs/payment/selectors';
-import BookkeepingAccountSection from '#src/libs/invoice/components/BookkeepingAccountSection.component';
-import { IS_BOOKKEEPING_ACOUNT_FEATURE_ENABLED } from '#src/libs/payment/constants';
-import BackofficeLinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
-import { OptionCallback } from '../../state/types';
-import withTitle from '../../hocs/with-title.hoc';
-import { MaterialStyleType, WithHandlerType } from '../../utils/types';
-import { RootState } from '../../reducers/index';
-
-// @ts-expect-error
-import InvoiceConfigurationForm from '../../libs/invoice/components/InvoiceConfigurationForm.component';
-import {
-  fetchInvoiceConfiguration,
-  patchInvoiceConfiguration as patchInvoiceConfigurationAction,
-} from '../../libs/invoice/actions';
-import {
-  snackbarSuccess as snackbarSuccessAction,
-  snackbarError as snackbarErrorAction,
-} from '../../libs/snackbar/actions';
-
+import themeSelectors from '#src/libs/theme/selectors';
 import {
   getEnabledEstablishmentBillingGroups,
   withEstablishment,
   getAvailableEstablishmentList,
-} from '../../libs/establishment/selectors';
-import {
-  fetchEstablishments,
-  fetchAllEstablishmentBillingGroup as fetchAllEstablishmentBillingGroupAction,
-  upsertEstablishmentBillingGroup as upsertEstablishmentBillingGroupAction,
-  deleteEstablishmentBillingGroup as deleteEstablishmentBillingGroupAction,
-} from '../../libs/establishment/actions';
+} from '#src/libs/establishment/selectors';
 
-import EstablishmentBillingGroupTable from '../../libs/establishment/components/EstablishmentBillingGroupTable.component';
-import EstablishmentBillingGroupFormDialog from '../../libs/establishment/components/EstablishmentBillingGroupFormDialog.component';
-import type { EstablishmentBillingGroup as EstablishmentBillingGroupType } from '../../libs/establishment/types';
-import themeSelectors from '../../libs/theme/selectors';
-import { updateCompanyTheme } from '../../libs/theme/actions';
+import { IS_BOOKKEEPING_ACOUNT_FEATURE_ENABLED } from '#src/libs/payment/constants';
+import withTitle from '#src/hocs/with-title.hoc';
 
 type StateHandlerInit = {
   openDialogForm: boolean;
@@ -113,7 +117,7 @@ export class InvoiceConfigurationPage extends React.Component<Props, State> {
             deleteReaderAndFetch={this.props.deleteReaderAndFetch}
             editReaderAndFetch={this.props.editReaderAndFetch}
             goToReports={this.props.goToReports}
-            onSubmit={this.props.patchInvoiceConfiguration}
+            patchInvoiceConfiguration={this.props.patchInvoiceConfiguration}
             patchTheme={this.props.patchTheme}
             processing={processing}
             setOpenConnectReaderDialog={this.props.setOpenConnectReaderDialog}
@@ -255,13 +259,23 @@ const mapWithHandlers = {
     (data: FormData, options: OptionCallback) => {
       props.submitTheme(props.theme.company, data, options);
     },
-  // @ts-expect-error
-  patchInvoiceConfiguration: (props: OwnAndConnectedProps) => (data) => {
-    props.patchInvoiceConfigurationAction(data, {
-      onSuccess: () => props.snackbarSuccess('settings.update.success'),
-      onError: () => props.snackbarError('settings.update.error'),
-    });
-  },
+  patchInvoiceConfiguration:
+    (props: OwnAndConnectedProps) =>
+    (
+      data: Partial<InvoiceConfigurationSerializer>,
+      options: OptionCallback<InvoiceConfigurationSerializer>,
+    ) => {
+      props.patchInvoiceConfigurationAction(data, {
+        onSuccess: () => {
+          props.snackbarSuccess('settings.update.success');
+          options?.onSuccess?.();
+        },
+        onError: () => {
+          props.snackbarError('settings.update.error');
+          options?.onError?.();
+        },
+      });
+    },
   upsertEstablishmentBillingGroup:
     (props: OwnAndConnectedProps) =>
     (establishmentBillingGroup: EstablishmentBillingGroupType) => {

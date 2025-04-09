@@ -52,6 +52,7 @@ import {
   changePaymentMethodAndRegisterPlannedPaymentEvent,
   schedulePayment,
   applyGiftcardOnInvoice as applyGiftcardOnInvoiceAction,
+  fetchInvoiceConfiguration as fetchInvoiceConfigurationAction,
 } from '#src/libs/invoice/actions';
 import {
   fetchEstablishments,
@@ -122,6 +123,7 @@ import type {
 import type {
   PlannedPaymentEvent,
   InvoiceV1Serializer,
+  InvoiceConfigurationSerializer,
 } from '#src/libs/invoice/types';
 import type { StripeReader } from '../../libs/terminal/types';
 import { TEMPORARY_AMOUNT_TO_FORCE_INTERNAL_PAYMENT_CTS } from '../../libs/invoice/constants';
@@ -248,6 +250,9 @@ type Props = {
     data: GiftcardAttributePrintableCodePayload,
     options?: OptionCallback<ConsumerGiftcard>,
   ) => void,
+  invoiceConfiguration: InvoiceConfigurationSerializer,
+  isInvoiceConfigurationLoading: boolean,
+  fetchInvoiceConfiguration: () => void,
 };
 
 type State = {
@@ -276,6 +281,7 @@ export class InvoiceDetail extends React.Component<Props, State> {
     this.props.fetchStripeReaders();
     this.props.refreshCompanyTheme();
     this.props.fetchStripeBalance();
+    this.props.fetchInvoiceConfiguration();
     if (this.props.companyTheme.enable_multi_localization) {
       this.props.fetchAllEstablishmentBillingGroup({
         params: { company: this.props.companyId },
@@ -848,6 +854,12 @@ export class InvoiceDetail extends React.Component<Props, State> {
               this.props.companyTheme.is_auto_debit_activated
             }
             isInChurn={!!this.props.companyTheme.churn_last_paid_month}
+            isInvoiceConfigurationLoading={
+              this.props.isInvoiceConfigurationLoading
+            }
+            isRevertReasonRequired={
+              this.props.invoiceConfiguration?.is_invoice_revert_reason_required
+            }
             onClose={this.props.closeRevertDialog}
             onOpen={this.props.openRevertDialog}
             onSubmit={this.props.revertInvoice}
@@ -995,6 +1007,8 @@ export default compose(
       editEstablishmentBillingGroupIsLoading:
         getEditEstablishmentBillingGroupIsLoading(state),
       getConsumerGiftcard: (id: number) => getConsumerGiftcard(state, id),
+      invoiceConfiguration: state.invoice.configuration.result,
+      isInvoiceConfigurationLoading: state.invoice.configuration.loading,
     }),
     {
       attributeByPrintableCode: attributeByPrintableCodeAction,
@@ -1037,6 +1051,7 @@ export default compose(
       fetchStripeReaders,
       fetchAllEstablishmentBillingGroup:
         fetchAllEstablishmentBillingGroupAction,
+      fetchInvoiceConfiguration: fetchInvoiceConfigurationAction,
     },
   ),
   withHandlers({
@@ -1071,12 +1086,13 @@ export default compose(
         }),
     revertInvoice:
       ({ revertInvoice, goToInvoice, uuid }) =>
-      (reverse_type, payment_method_to_reverse, options) => {
+      (reverse_type, payment_method_to_reverse, revert_reason, options) => {
         revertInvoice(
           uuid,
           {
             reverse_type,
             payment_method_to_reverse,
+            revert_reason,
           },
           {
             onSuccess: (invoice) => {

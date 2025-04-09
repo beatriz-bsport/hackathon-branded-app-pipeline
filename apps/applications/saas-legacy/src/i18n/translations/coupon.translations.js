@@ -86,7 +86,11 @@ const getTranslations = async () => {
         tagInfo:
           'Use tags to make the promo code usable only by a selected group of members on the marketplace, widget and app. You can select tags to make the promo code usable only by members with one of the chosen tags. Or you can select tags to make the promo code unusable only by members with one of the selected tags. ',
       },
-      name: { label: 'Name' },
+      name: {
+        label: 'Name',
+        helperText:
+          'The name entered here will appear on invoices when the promo code is applied',
+      },
       code: {
         label: 'Code',
         helperText:

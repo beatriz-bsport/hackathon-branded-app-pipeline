@@ -40,6 +40,7 @@ import { getCurrencyDisplay } from '#src/libs/theme/selectors';
 import GenericResponsiveDialog from '#src/components/genericDialog/GenericResponsiveDialog';
 import { OptionCallback } from '#src/state/types';
 import InvoiceReverterMeansAlerting from '#src/libs/invoice/components/InvoiceReverterMeansAlerting.component';
+import InvoiceRevertReasonField from './InvoiceRevertReasonField.component';
 
 type Props = {
   open?: boolean;
@@ -48,6 +49,7 @@ type Props = {
   onSubmit: (
     reverse_type: InvoiceReverseMethod,
     payment_method_to_reverse: number,
+    revert_reason: string,
     options?: OptionCallback,
   ) => void;
   payments: Array<Payment>;
@@ -56,6 +58,8 @@ type Props = {
   isInChurn: boolean;
   refundBlockingLimit?: number;
   stripeBalanceSum?: number;
+  isRevertReasonRequired: boolean;
+  isInvoiceConfigurationLoading?: boolean;
 };
 
 export const InvoiceReverterDialog = ({
@@ -69,6 +73,8 @@ export const InvoiceReverterDialog = ({
   isInChurn,
   refundBlockingLimit,
   stripeBalanceSum,
+  isRevertReasonRequired,
+  isInvoiceConfigurationLoading,
 }: Props) => {
   const classes = useStyles();
   const { t } = useTranslation(['invoice']);
@@ -77,6 +83,8 @@ export const InvoiceReverterDialog = ({
 
   const [reverseMethod, handleChangeReverseMethod] =
     React.useState<InvoiceReverseMethod>(REVERSE_ON_NEW_PAYMENT_METHOD);
+
+  const [revertReason, handleRevertReason] = React.useState('');
 
   const [paymentMethodSelected, selectPaymentMethod] = React.useState(
     PAYMENT_GROUP_METHOD_IDENTIFIER_CASH,
@@ -178,11 +186,11 @@ export const InvoiceReverterDialog = ({
 
   const submitReverseInvoice = React.useCallback(() => {
     setProcessing(true);
-    onSubmit(reverseMethod, paymentMethodSelected, {
+    onSubmit(reverseMethod, paymentMethodSelected, revertReason, {
       onSuccess: () => setProcessing(false),
       onError: () => setProcessing(false),
     });
-  }, [onSubmit, paymentMethodSelected, reverseMethod]);
+  }, [onSubmit, paymentMethodSelected, reverseMethod, revertReason]);
 
   const handleCloseAutoDebitModal = React.useCallback(() => {
     onOpen();
@@ -207,6 +215,11 @@ export const InvoiceReverterDialog = ({
     submitReverseInvoice();
     setIsSEPARefundModalOpened(false);
   }, [submitReverseInvoice]);
+
+  const shouldEnterRevertReason = React.useMemo(
+    () => isRevertReasonRequired && revertReason.length === 0,
+    [isRevertReasonRequired, revertReason],
+  );
 
   const onClickConfirm = React.useCallback(() => {
     if (
@@ -240,13 +253,14 @@ export const InvoiceReverterDialog = ({
     submitReverseInvoice();
   }, [
     allowedReverseMethodsLoading,
-    isAutoDebitActivated,
-    isReachingRefundLimit,
-    onClose,
     payments.length,
     reverseMethod,
-    submitReverseInvoice,
+    isReachingRefundLimit,
     hasAtLeastOneSEPAPayment,
+    invoice.price_payed,
+    submitReverseInvoice,
+    onClose,
+    isAutoDebitActivated,
   ]);
 
   const actionButtons = (
@@ -263,7 +277,7 @@ export const InvoiceReverterDialog = ({
       ) : (
         <Button
           color="primary"
-          disabled={allowedReverseMethodsLoading}
+          disabled={allowedReverseMethodsLoading || shouldEnterRevertReason}
           onClick={onClickConfirm}
         >
           {t('revert.dialog.actions.confirm')}
@@ -272,7 +286,7 @@ export const InvoiceReverterDialog = ({
     </DialogActions>
   );
 
-  if (allowedReverseMethodsLoading)
+  if (allowedReverseMethodsLoading || isInvoiceConfigurationLoading)
     return (
       <Dialog open={!!open}>
         <DialogTitle>{t('revert.dialog.title')}</DialogTitle>
@@ -295,6 +309,11 @@ export const InvoiceReverterDialog = ({
           <DialogContentText>
             {t('revert.content.explainEmptyPayment')}
           </DialogContentText>
+          <InvoiceRevertReasonField
+            handleRevertReason={handleRevertReason}
+            required={shouldEnterRevertReason}
+            revertReason={revertReason}
+          />
         </DialogContent>
         {actionButtons}
       </Dialog>
@@ -394,7 +413,11 @@ export const InvoiceReverterDialog = ({
               </Select>
             </Collapse>
           </div>
-
+          <InvoiceRevertReasonField
+            handleRevertReason={handleRevertReason}
+            required={shouldEnterRevertReason}
+            revertReason={revertReason}
+          />
           {actionButtons}
         </DialogContent>
       </GenericResponsiveDialog>

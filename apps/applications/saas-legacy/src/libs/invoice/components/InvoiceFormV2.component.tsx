@@ -54,6 +54,7 @@ type OwnProps = {
   imageCarouselChangeable: boolean;
   giftcardBackgroundImageList: Array<GiftcardBackgroundImage>;
   displayNewWebshop: boolean;
+  isCustomDiscountReasonRequired: boolean;
 };
 
 type Props = OwnProps & WithStyles & WithTranslation;
@@ -150,6 +151,7 @@ export class InvoiceForm extends React.Component<Props, State> {
             (parseFloat(item.price) >= 0
               ? Math.min(parseFloat(item.price), item.voucher || 0)
               : 0) || 0,
+          voucher_reason: item.voucher_reason || '',
           buyable_item_identifier,
         },
       ],
@@ -330,6 +332,9 @@ export class InvoiceForm extends React.Component<Props, State> {
             displayNewWebshop={this.props.displayNewWebshop}
             invoiceHasChanged={this.state.invoiceItemList.length}
             invoiceItemIsEmpty={this.invoiceItemIsEmpty()}
+            isCustomDiscountReasonRequired={
+              this.props.isCustomDiscountReasonRequired
+            }
             member={this.props.member}
             onAddBuyableItem={this.addBuyableItem}
           />

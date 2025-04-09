@@ -68,6 +68,7 @@ type Props = {
     >,
   ) => void,
   displayNewWebshop: boolean,
+  isCustomDiscountReasonRequired: boolean,
 };
 
 type State = {
@@ -230,6 +231,9 @@ export class QuickInvoicePanel extends React.PureComponent<Props, State> {
                       }
                       establishmentBillingGroups={
                         this.props.establishmentBillingGroups
+                      }
+                      isCustomDiscountReasonRequired={
+                        this.props.isCustomDiscountReasonRequired
                       }
                       member={quickInvoice.member}
                       memberCreditAccountBalance={

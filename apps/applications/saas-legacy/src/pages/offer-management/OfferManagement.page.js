@@ -17,6 +17,7 @@ import {
   fetchSpecificInvoice as fetchInvoice,
   fetchInvoiceList as fetchInvoiceListAction,
   applyGiftcardOnInvoice as applyGiftcardOnInvoiceAction,
+  fetchInvoiceConfiguration as fetchInvoiceConfigurationAction,
 } from '#src/libs/invoice/actions';
 import {
   fetchOfferById as fetchOfferByIdAction,
@@ -265,6 +266,8 @@ export default compose(
       // invoice
       unpaidInvoiceList: getUnpaidInvoiceListWithInvoiceItemAndMembers(state),
       quickCreatedInvoices: withInvoiceItem(getAllQuickCreatedInvoices)(state),
+      invoiceConfiguration: state.invoice.configuration.result,
+      isInvoiceConfigurationLoading: state.invoice.configuration.loading,
 
       // buyable stuff
       availableBuyableItems: getBuyableItem(state),
@@ -377,6 +380,7 @@ export default compose(
       fetchInvoiceList: fetchInvoiceListAction,
       applyGiftcardOnInvoice: applyGiftcardOnInvoiceAction,
       resetInvoiceList: resetInvoiceListAction,
+      fetchInvoiceConfiguration: fetchInvoiceConfigurationAction,
       // giftcard actions
 
       fetchConsumerGiftcardList: fetchConsumerGiftcardListAction,

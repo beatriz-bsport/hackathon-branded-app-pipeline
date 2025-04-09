@@ -17,6 +17,9 @@ const getTranslations = async () => {
     BUYABLE_ITEM_GIFTCARD,
     BUYABLE_ITEM_CREDIT,
   } = await import('@bsport/common/lib/master-data/buyable-items.js');
+  const { InvoiceItemVoucherTraceKind } = await import(
+    '@bsport/common/lib/master-data/invoice-item.js'
+  );
   const { INVOICE_TYPE_MIGRATION, INVOICE_TYPE_EMPTY_PAYMENT_CONTAINER } =
     await import('@bsport/common/lib/master-data/invoice-type.js');
   const {
@@ -77,6 +80,16 @@ const getTranslations = async () => {
         stripe_footer_placeholder: 'No additional legal information',
         show_company_email_in_invoice:
           'Display the company email address on all invoices',
+      },
+      refundsAndDiscount: {
+        title: 'Refunds and Discounts',
+        info: 'These options allow you to force a justification from staff member when manually adding a discount or cancelling / refunding an invoice.',
+        checkbox: {
+          customDiscountJustification:
+            'Require justification for manual discounts',
+          refundAndCancelJustification:
+            'Require justification for invoice refunds and cancellations',
+        },
       },
       nf525Button: 'Download',
       nf525Explain:
@@ -332,6 +345,18 @@ const getTranslations = async () => {
     },
     invoiceItem: {
       voucher: 'Discount: {{ voucher }}',
+      voucherReason: {
+        [InvoiceItemVoucherTraceKind.PAYMENT_COMBO]: 'Pack discount',
+        [InvoiceItemVoucherTraceKind.COUPON_CODE]:
+          'Promo code: {{coupon_name}}',
+        [InvoiceItemVoucherTraceKind.COUPON_REFERRED]:
+          'Referral discount: Referred member',
+        [InvoiceItemVoucherTraceKind.COUPON_REFERRING]:
+          'Referral discount: Referring member',
+        [InvoiceItemVoucherTraceKind.MANUAL]:
+          'Manual discount: {{manual_reason}}',
+        manualWithNoReason: 'Manual discount',
+      },
       quantity: 'Quantity',
       credit: { label: 'Credit' },
       buyableItemIdentifier: {
@@ -344,6 +369,7 @@ const getTranslations = async () => {
       },
       discount: 'Discount',
       finalPricePreview: 'Preview total',
+      discountReason: 'Reason for discount',
     },
     invoiceInfoDialog: {
       actions: { close: 'Close', show: 'See invoice' },
@@ -366,6 +392,7 @@ const getTranslations = async () => {
           [REVERSE_ON_NEW_PAYMENT_METHOD]: 'Manual refund',
         },
         explainEmptyPayment: 'Are you sure you want to cancel this invoice?',
+        revertReason: 'Reason for cancellation',
       },
       dialog: {
         actions: { confirm: 'Confirm', cancel: 'Close' },
@@ -523,6 +550,7 @@ const getTranslations = async () => {
         title: 'Planned payment',
         title_plural: 'Planned payments',
       },
+      revertReason: 'Reason: {{ revertReason }}',
     },
     paymentMethod: {
       label: {

@@ -22,6 +22,7 @@ import ButtonBase from '@material-ui/core/ButtonBase';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import Alert from '@material-ui/lab/Alert';
 
+import TextField from '@material-ui/core/TextField';
 import PriceInput from '../../../../components/input/PriceInput.component';
 import PercentInput from '../../../../components/input/PercentInput.component';
 import PaymentPackListItem from '../../../payment-packs/components/PaymentPackListItem.component';
@@ -53,6 +54,7 @@ type Props = {
       paymentPack?: PaymentPack,
     },
     voucher?: number,
+    voucherReason?: string,
   ) => void,
   onBookMultiple: (bookings: {
     consumerPaymentPack?: ConsumerPaymentPack,
@@ -68,6 +70,7 @@ type Props = {
   memberDetails: { [id: number]: Member },
   closeDialog: () => void,
   isNotAllowedToOverbook?: Boolean,
+  isCustomDiscountReasonRequired: boolean,
 
   fetchIncompatibilitiesReasonsByOfferByConsumerPack: (
     cpp_id: number,
@@ -92,6 +95,8 @@ const BookingModuleRegisterMethodChoice = (props: Props) => {
 
   const [voucher, setVoucher] = useState('0,00');
   const [voucherPercentage, setVoucherPercentage] = useState(0.0);
+  const [voucherReason, setVoucherReason] = useState<string | null>(null);
+  const [voucherReasonErrors, setVoucherReasonErrors] = useState(false);
   const [finalPricePreview, setFinalPricePreview] = useState('0,00');
 
   const [openConfirmation, setOpenConfirmation] = useState(false);
@@ -208,10 +213,16 @@ const BookingModuleRegisterMethodChoice = (props: Props) => {
     setSelectedPack(null);
     setVoucherDialogOpen(false);
     setVoucher('0,00');
+    setVoucherPercentage(0.0);
+    setVoucherReason(null);
     setFinalPricePreview('0,00');
   }, []);
 
   const handleOnConfirmClick = () => {
+    if (shouldEnterCustomDiscountReason && !voucherReason) {
+      setVoucherReasonErrors(true);
+      return;
+    }
     if (
       props.enableMultiLocalization &&
       !selectedEstablishmentBillingGroup &&
@@ -223,6 +234,7 @@ const BookingModuleRegisterMethodChoice = (props: Props) => {
     props.registerToOffer(
       { paymentPack: selectedPack },
       voucher,
+      voucherReason,
       selectedEstablishmentBillingGroup?.id,
     );
     setSelectedPack(null);
@@ -279,6 +291,30 @@ const BookingModuleRegisterMethodChoice = (props: Props) => {
       setRequiredEstablishmentBillingGroupIsMissing,
     ],
   );
+
+  const handleOnChangeVoucherReason = React.useCallback(
+    (event: ChangeEvent<HTMLInputElement>) => {
+      const value = event.target.value || '';
+      setVoucherReasonErrors(!value);
+      setVoucherReason(value);
+    },
+    [setVoucherReasonErrors, setVoucherReason],
+  );
+  const handleEnterKey = React.useCallback(
+    (e: React.KeyboardEvent<HTMLInputElement>) => {
+      if (e.key === 'Enter') {
+        e.preventDefault(); // Prevent adding a new line when pressing Enter
+      }
+    },
+    [],
+  );
+
+  const shouldEnterCustomDiscountReason = React.useMemo(() => {
+    return (
+      (parseFloat(voucher) > 0 || parseFloat(voucherPercentage) > 0) &&
+      props.isCustomDiscountReasonRequired
+    );
+  }, [voucher, voucherPercentage, props.isCustomDiscountReasonRequired]);
 
   const hasNoCompatiblePasses =
     !props.consumerPacksOrMaxoutLoading && props.consumerPacks.length === 0;
@@ -603,6 +639,23 @@ const BookingModuleRegisterMethodChoice = (props: Props) => {
                       value={voucher}
                       variant="outlined"
                     />
+                    {shouldEnterCustomDiscountReason && (
+                      <TextField
+                        multiline
+                        required
+                        className={classes.fieldDiscountWrapper}
+                        error={voucherReasonErrors}
+                        helperText={`${voucherReason?.length ?? 0}/100`}
+                        inputProps={{ maxLength: 100 }}
+                        label={t('invoice:invoiceItem.discountReason')}
+                        maxRows={5}
+                        name="voucherReason"
+                        onChange={handleOnChangeVoucherReason}
+                        onKeyDown={handleEnterKey}
+                        value={voucherReason}
+                        variant="outlined"
+                      />
+                    )}
                     <PercentInput
                       error={
                         Number.isNaN(voucher) ||

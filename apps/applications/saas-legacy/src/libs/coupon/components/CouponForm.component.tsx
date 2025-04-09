@@ -4,7 +4,7 @@ import TextField from '@material-ui/core/TextField';
 import withStyles, { ClassNameMap } from '@material-ui/core/styles/withStyles';
 import Typography from '@material-ui/core/Typography';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import { MuiPickersUtilsProvider, DatePicker } from 'material-ui-pickers';
+import { DatePicker, MuiPickersUtilsProvider } from 'material-ui-pickers';
 import Collapse from '@material-ui/core/Collapse';
 import FormControl from '@material-ui/core/FormControl';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -15,22 +15,22 @@ import Divider from '@material-ui/core/Divider';
 import { compose } from 'recompose';
 import { withTranslation } from 'react-i18next';
 import {
-  VOUCHER_TYPE_PERCENT,
   VOUCHER_TYPE_AMOUNT,
+  VOUCHER_TYPE_PERCENT,
 } from '@bsport/common/lib/master-data/coupon.js';
 import {
-  COUPON_SUBSCRIPTION_MODE_RECURRENT_PRICE,
-  COUPON_SUBSCRIPTION_MODE_FIRST_INVOICE,
   COUPON_SUBSCRIPTION_MODE_ALL_INVOICES,
+  COUPON_SUBSCRIPTION_MODE_FIRST_INVOICE,
   COUPON_SUBSCRIPTION_MODE_NONE,
+  COUPON_SUBSCRIPTION_MODE_RECURRENT_PRICE,
 } from '@bsport/common/lib/master-data/coupon-subscription-mode.js';
 
 import {
-  BUYABLE_ITEM_PASS,
-  BUYABLE_ITEM_SHOP_ITEM,
-  BUYABLE_ITEM_FEE,
-  BUYABLE_ITEM_PRIVATE_PASS,
   BUYABLE_ITEM_COMBO_ITEM,
+  BUYABLE_ITEM_FEE,
+  BUYABLE_ITEM_PASS,
+  BUYABLE_ITEM_PRIVATE_PASS,
+  BUYABLE_ITEM_SHOP_ITEM,
 } from '@bsport/common/lib/master-data/buyable-items.js';
 import Block from '@material-ui/icons/Block';
 import Check from '@material-ui/icons/Check';
@@ -53,7 +53,7 @@ import NumericInput from '#src/components/input/NumericInput.component';
 import PriceInput from '#src/components/input/PriceInput.component';
 import PercentInput from '#src/components/input/PercentInput.component';
 import Checkbox from '#src/components/input/Checkbox.component';
-import type { Coupon, CheckCouponCodePayload } from '../types';
+import type { CheckCouponCodePayload, Coupon } from '../types';
 
 import { PaymentPack } from '#src/libs/payment-packs/types';
 import { ShopItem } from '#src/libs/shop/types';
@@ -823,6 +823,7 @@ export class CouponForm extends React.Component<Props, State> {
           required
           className={classes.field}
           disabled={!!initial?.coupon_template_instance}
+          helperText={t('form.name.helperText')}
           label={t('form.name.label')}
           onChange={this.handleChange('name', true)}
           value={this.state.name}

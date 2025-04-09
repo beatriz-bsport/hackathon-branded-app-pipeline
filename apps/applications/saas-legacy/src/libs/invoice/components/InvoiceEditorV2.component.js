@@ -20,6 +20,7 @@ type Props = {
 
   goToSubscription: (id: number) => void,
   invoice?: Invoice,
+  isCustomDiscountReasonRequired: boolean,
   member: Member,
 
   displayNewWebshop: boolean,
@@ -100,6 +101,9 @@ export const InvoiceEditor = (props: Props) => {
               <InvoiceItemEditor
                 availableBuyableItems={props.availableBuyableItems}
                 displayNewWebshop={props.displayNewWebshop}
+                isCustomDiscountReasonRequired={
+                  props.isCustomDiscountReasonRequired
+                }
                 member={props.member}
                 onAddBuyableItem={props.onAddBuyableItem}
               />

@@ -20,6 +20,10 @@ Analyze:
     - pnpm run sync:mismatch:list
     - echo "✅ All dependencies are well configured !"
     - echo "*"
+    - echo "⏳ Check there are no duplicate dependencies"
+    - pnpm dedupe --check
+    - echo "✅ pnpm-lock.yaml is clean !"
+    - echo "*"
     - echo "⏳ Compile ichizen affected projects with Typescript"
     - pnpm exec nx affected --target=ci:compile --base=origin/$NX_BASE
     - echo "✅ All ichizen affected projects have been compiled with Typescript"

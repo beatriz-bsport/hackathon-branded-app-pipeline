@@ -5,14 +5,15 @@ import React, {
   useEffect,
   useMemo,
   useRef,
+  useState,
 } from "react";
 
 import Collapse from "#src/components/Collapse";
 import Icon from "#src/components/Icon";
 import { useNavigationMenuContext } from "#src/components/NavigationMenu/Context";
+import { ItemProvider } from "#src/components/NavigationMenu/ItemContext";
 import SubItem from "#src/components/NavigationMenu/SubItem";
-
-import type { NavigationMenuItem } from "./types";
+import type { NavigationMenuItem } from "#src/components/NavigationMenu/types";
 
 const defaultClasses = [
   "group",
@@ -56,6 +57,15 @@ export type ItemProps = SubItemsProps | ChildrenProps;
  * This component uses the `Context` to manage the state of selected and open items.
  *
  * @param  props.id - Unique identifier for the menu item.
+ * @param  props.label - The text label displayed for the menu item.
+ * @param  props.icon - The icon displayed for the menu item.
+ * @param  props.endSlot - Additional content to be displayed at the end of the menu item.
+ * @param  props.subItems - An array of sub-items for the menu item.
+ * @param  props.children - Child elements to be displayed within the menu item.
+ * @param  props.href - The URL to navigate to when the menu item is clicked.
+ * @param  props.target - The target attribute for the link.
+ * @param  props.onClick - Callback function to be executed when the menu item is clicked.
+ * @param  props.active - Whether the menu item is active.
  */
 const Item: React.FC<ItemProps> = (props) => {
   const {
@@ -68,8 +78,11 @@ const Item: React.FC<ItemProps> = (props) => {
     href,
     target,
     onClick,
+    active,
   } = props;
   const context = useNavigationMenuContext();
+
+  const [activeSubItemId, setActiveSubItemId] = useState<string | null>(null);
 
   // Use context values only if props are not provided
   const {
@@ -91,11 +104,7 @@ const Item: React.FC<ItemProps> = (props) => {
 
     // when a child is selected and it is collapsed we set the parent as active
     if (children) {
-      const childrenArray = React.Children.toArray(children);
-      const hasActiveChild = childrenArray.some(
-        (child) =>
-          React.isValidElement(child) && child.props.id === selectedItemId,
-      );
+      const hasActiveChild = activeSubItemId === selectedItemId;
       return hasActiveChild && !isOpen;
     }
 
@@ -115,104 +124,115 @@ const Item: React.FC<ItemProps> = (props) => {
     }
   }, [isOpen]);
 
+  useEffect(() => {
+    if (id !== selectedItemId && active) {
+      setSelectedItemId(id);
+    }
+  }, [active]);
+
   return (
-    <Collapse id={id} className="mb-2xs last:mb-[0px]">
-      <Collapse.Controller>
-        {({ collapseProps, setIsCollapseOpen, isCollapseOpen }) => {
-          const content = useMemo(
-            () => (
-              <>
-                <div
-                  className={cx(
-                    "flex transition-all duration-normal items-center gap-xs overflow-hidden",
-                    {
-                      "text-onsurface-main-weak": isActive,
-                      "text-onsurface-default": !isActive,
-                      "font-stronger":
-                        isActive &&
-                        (!hasSubitems || (hasSubitems && !isCollapseOpen)),
-                    },
-                  )}
-                >
-                  {!!icon && <Icon icon={icon} size="sm" />}
-                  {!!label && (
-                    <span
-                      className={cx("font-size-body-md truncate w-full", {
-                        "pl-xs": !icon,
-                      })}
-                    >
-                      {label}
-                    </span>
-                  )}
-                </div>
-                <div className="flex items-center gap-xs">
-                  {!!endSlot && <div className="flex">{endSlot}</div>}
-                  {hasSubitems && (
-                    <Icon
-                      className={cx(
-                        "transform transition-transform duration-long text-onsurface-default",
-                        isCollapseOpen ? "rotate-[-90deg]" : "rotate-90",
-                      )}
-                      icon="chevron-right"
-                      size="sm"
-                    />
-                  )}
-                </div>
-              </>
-            ),
-            [icon, label, endSlot, hasSubitems, isActive, isCollapseOpen],
-          );
+    <ItemProvider
+      activeSubItemId={activeSubItemId}
+      setActiveSubItemId={setActiveSubItemId}
+    >
+      <Collapse id={id} className="mb-2xs last:mb-[0px]">
+        <Collapse.Controller>
+          {({ collapseProps, setIsCollapseOpen, isCollapseOpen }) => {
+            const content = useMemo(
+              () => (
+                <>
+                  <div
+                    className={cx(
+                      "flex transition-all duration-normal items-center gap-xs overflow-hidden",
+                      {
+                        "text-onsurface-main-weak": isActive,
+                        "text-onsurface-default": !isActive,
+                        "font-stronger":
+                          isActive &&
+                          (!hasSubitems || (hasSubitems && !isCollapseOpen)),
+                      },
+                    )}
+                  >
+                    {!!icon && <Icon icon={icon} size="sm" />}
+                    {!!label && (
+                      <span
+                        className={cx("font-size-body-md truncate w-full", {
+                          "pl-xs": !icon,
+                        })}
+                      >
+                        {label}
+                      </span>
+                    )}
+                  </div>
+                  <div className="flex items-center gap-xs">
+                    {!!endSlot && <div className="flex">{endSlot}</div>}
+                    {hasSubitems && (
+                      <Icon
+                        className={cx(
+                          "transform transition-transform duration-long text-onsurface-default",
+                          isCollapseOpen ? "rotate-[-90deg]" : "rotate-90",
+                        )}
+                        icon="chevron-right"
+                        size="sm"
+                      />
+                    )}
+                  </div>
+                </>
+              ),
+              [icon, label, endSlot, hasSubitems, isActive, isCollapseOpen],
+            );
 
-          useEffect(() => {
-            setIsCollapseOpen(openMenuId === id);
-          }, [openMenuId]);
+            useEffect(() => {
+              setIsCollapseOpen(openMenuId === id);
+            }, [openMenuId]);
 
-          const handleOnClick = useCallback(
-            (e: MouseEvent) => {
-              setOpenMenuId((prevState) => (prevState === id ? "" : id));
-              if (!subItems?.length && !children) setSelectedItemId(id);
-              if (onClick) onClick(e);
-              else if (onItemClick) onItemClick(props)(e);
-            },
-            [setOpenMenuId, id, onItemClick],
-          );
+            const handleOnClick = useCallback(
+              (e: MouseEvent) => {
+                setOpenMenuId((prevState) => (prevState === id ? "" : id));
+                if (!subItems?.length && !children) setSelectedItemId(id);
+                if (onClick) onClick(e);
+                else if (onItemClick) onItemClick(props)(e);
+              },
+              [setOpenMenuId, id, onItemClick],
+            );
 
-          return href ? (
-            <a
-              role="link"
-              tabIndex={0}
-              href={href}
-              target={target}
-              className={navigationMenuItem()}
-              onClick={handleOnClick}
-              {...collapseProps}
-            >
-              {content}
-            </a>
-          ) : (
-            <button
-              role="button"
-              tabIndex={0}
-              className={navigationMenuItem()}
-              onClick={handleOnClick}
-              {...collapseProps}
-            >
-              {content}
-            </button>
-          );
-        }}
-      </Collapse.Controller>
-      {(hasSubitems || children) && (
-        <Collapse.Content>
-          <div ref={subItemsRef}>
-            {subItems?.map(({ id, label }) => (
-              <SubItem id={id} label={label} key={id} />
-            ))}
-            {children}
-          </div>
-        </Collapse.Content>
-      )}
-    </Collapse>
+            return href ? (
+              <a
+                role="link"
+                tabIndex={0}
+                href={href}
+                target={target}
+                className={navigationMenuItem()}
+                onClick={handleOnClick}
+                {...collapseProps}
+              >
+                {content}
+              </a>
+            ) : (
+              <button
+                role="button"
+                tabIndex={0}
+                className={navigationMenuItem()}
+                onClick={handleOnClick}
+                {...collapseProps}
+              >
+                {content}
+              </button>
+            );
+          }}
+        </Collapse.Controller>
+        {(hasSubitems || children) && (
+          <Collapse.Content>
+            <div ref={subItemsRef}>
+              {subItems?.map(({ id, label }) => (
+                <SubItem id={id} label={label} key={id} />
+              ))}
+              {children}
+            </div>
+          </Collapse.Content>
+        )}
+      </Collapse>
+    </ItemProvider>
   );
 };
 

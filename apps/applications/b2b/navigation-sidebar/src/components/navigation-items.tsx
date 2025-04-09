@@ -114,6 +114,7 @@ export const useNavigationElements = ({
       id: "inbox",
       label: t("menus.inbox"),
       endSlot: <Indicator color="default" position="top" size="sm" value={1} />,
+      href: "/",
     },
     {
       icon: "bell-03",

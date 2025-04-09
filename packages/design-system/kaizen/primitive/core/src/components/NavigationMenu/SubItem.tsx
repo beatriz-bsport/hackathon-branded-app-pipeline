@@ -1,11 +1,12 @@
 import { type VariantProps, cva } from "class-variance-authority";
 import classNames from "classnames";
-import React, { MouseEvent, useCallback, useMemo } from "react";
+import React, { MouseEvent, useCallback, useEffect, useMemo } from "react";
 
 import { useNavigationMenuContext } from "#src/components/NavigationMenu/Context";
 import type { BaseItem } from "#src/components/NavigationMenu/types";
 
 import Body from "../Body";
+import { useItemContext } from "./ItemContext";
 
 const navigationMenuSubItem = cva([
   "group",
@@ -62,15 +63,19 @@ export type SubItemProps = React.HTMLAttributes<HTMLButtonElement> &
  * @param  props.className - Additional CSS classes for custom styling.
  * @param  props.id - Unique identifier for the navigation sub-item.
  * @param  props.label - The text label displayed for the navigation sub-item.
+ * @param  props.active - Whether the sub-item is active.
  */
 const SubItem: React.FC<SubItemProps> = ({
   className,
   id,
   label,
+  active,
   ...props
 }) => {
   const { selectedItemId, setSelectedItemId, onItemClick } =
     useNavigationMenuContext();
+
+  const { setActiveSubItemId } = useItemContext();
 
   const selected = selectedItemId === id;
 
@@ -88,9 +93,17 @@ const SubItem: React.FC<SubItemProps> = ({
     [selected],
   );
 
+  useEffect(() => {
+    if (id !== selectedItemId && active) {
+      setSelectedItemId(id);
+      setActiveSubItemId(id);
+    }
+  }, [active]);
+
   const handleOnClick = useCallback(
     (e: MouseEvent) => {
       setSelectedItemId(id);
+      setActiveSubItemId(id);
       return onItemClick?.({ id, label })(e);
     },
     [setSelectedItemId, onItemClick, id, label],

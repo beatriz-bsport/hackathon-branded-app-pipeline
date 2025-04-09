@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router";
+import { NavLink } from "react-router";
 
 import { Button, Card, NavigationMenu } from "@bsport/kaizen-primitive-core";
 
@@ -57,39 +57,43 @@ const NavigationSidebarContent = () => {
             );
           }
 
-          const item = (
+          const item = ({ isActive }: { isActive?: boolean } = {}) => (
             <NavigationMenu.Item
               key={element.id}
               id={element.id}
               icon={element.icon}
               label={element.label}
               endSlot={element.endSlot}
+              active={isActive}
             >
               {element.subItems?.map((subItem) => {
-                const subItemElement = (
+                const subItemElement = ({
+                  isActive,
+                }: { isActive?: boolean } = {}) => (
                   <NavigationMenu.SubItem
                     key={subItem.id}
                     id={subItem.id}
                     label={subItem.label}
+                    active={isActive}
                   />
                 );
                 return subItem.href ? (
-                  <Link key={subItem.id} to={subItem.href}>
+                  <NavLink key={subItem.id} to={subItem.href}>
                     {subItemElement}
-                  </Link>
+                  </NavLink>
                 ) : (
-                  subItemElement
+                  subItemElement()
                 );
               })}
             </NavigationMenu.Item>
           );
 
           return element.href ? (
-            <Link key={element.id} to={element.href}>
+            <NavLink key={element.id} to={element.href}>
               {item}
-            </Link>
+            </NavLink>
           ) : (
-            item
+            item()
           );
         })}
       </>

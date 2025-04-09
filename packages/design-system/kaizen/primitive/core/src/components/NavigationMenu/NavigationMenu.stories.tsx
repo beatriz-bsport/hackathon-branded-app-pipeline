@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { useState } from "react";
 
 import Badge from "#src/components/Badge";
 import Indicator from "#src/components/Indicator";
@@ -102,6 +103,48 @@ type Story = StoryObj<typeof NavigationMenu>;
 export const WithElements: Story = {
   args: {
     elements,
+  },
+};
+
+export const WithActiveProps: Story = {
+  render: () => {
+    const [activeId, setActiveId] = useState<string | null>("item-1");
+
+    const handleClick = (id: string) => {
+      setActiveId(id === activeId ? null : id);
+    };
+
+    return (
+      <NavigationMenu className="max-w-[320px]">
+        <NavigationMenu.Item
+          id="item-1"
+          label="First Item"
+          icon="user-edit"
+          active={activeId === "item-1"}
+          onClick={() => handleClick("item-1")}
+        >
+          <NavigationMenu.SubItem
+            id="subitem-1"
+            label="SubItem One"
+            active={activeId === "subitem-1"}
+            onClick={() => handleClick("subitem-1")}
+          />
+          <NavigationMenu.SubItem
+            id="subitem-2"
+            label="SubItem Two"
+            active={activeId === "subitem-2"}
+            onClick={() => handleClick("subitem-2")}
+          />
+        </NavigationMenu.Item>
+        <NavigationMenu.Item
+          id="item-2"
+          label="Second Item"
+          icon="loading"
+          active={activeId === "item-2"}
+          onClick={() => handleClick("item-2")}
+        />
+      </NavigationMenu>
+    );
   },
 };
 

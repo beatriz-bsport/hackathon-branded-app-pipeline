@@ -58,6 +58,15 @@ for APPLICATION in $APPLICATIONS; do
     S3_URL="$S3_BUCKET/apps/$APP_NAME"
   fi
 
+  echo "📦 Current directory: $(pwd)"
+  echo "📦 Checking dist directory:"
+  ls -la ./dist || echo "dist directory not found!"
+
+  if [ ! -d "./dist" ]; then
+    echo "❌ Error: dist directory does not exist in $(pwd)"
+    exit 1
+  fi
+
   echo "📦 Uploading dist to $S3_URL"
   # actl not needed for now, only for production
   aws s3 cp ./dist/ $S3_URL --recursive --only-show-errors $ACL_PARAM

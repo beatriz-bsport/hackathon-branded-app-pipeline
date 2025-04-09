@@ -1,6 +1,6 @@
 import { Result } from "typescript-result";
 
-import { Action } from "@bsport/store-base";
+import type { Action, PaginatedResponse } from "@bsport/store-base";
 
 import {
   setInvoices,
@@ -8,26 +8,25 @@ import {
   updateReceiptUrl,
 } from "#src/actions/store";
 import {
-  fetchInvoices as apiFetchInvoices,
-  finalizeInvoice as apiFinalizeInvoice,
-  getReceiptUrl as apiGetReceiptUrl,
+  fetchInvoicesAPI,
+  finalizeInvoiceAPI,
+  getReceiptUrlAPI,
 } from "#src/api";
-import type {
-  FetchInvoicesParams,
-  Invoice,
-  PaginatedResponse,
-} from "#src/types";
+import type { Invoice } from "#src/types";
 
 /**
  * Fetches a list of paginated invoices.
  * @param params.page The page number.
  * @param params.pageSize The number of items per page.
  */
-export const fetchInvoices: Action<
-  FetchInvoicesParams,
+export const fetchInvoicesAction: Action<
+  {
+    page: number;
+    pageSize: number;
+  },
   Result<PaginatedResponse<Invoice>, Error>
 > = async (fetch, params) => {
-  const [uri, init] = apiFetchInvoices(params);
+  const [uri, init] = fetchInvoicesAPI(params);
 
   return Result.try(
     async () => {
@@ -50,17 +49,17 @@ export const fetchInvoices: Action<
  * @param fetch The fetch function.
  * @param invoiceUuid The UUID of the invoice.
  */
-export const finalizeInvoice: Action<string, Result<Invoice, Error>> = async (
-  fetch,
-  invoiceUuid,
-) => {
+export const finalizeInvoiceAction: Action<
+  string,
+  Result<Invoice, Error>
+> = async (fetch, invoiceUuid) => {
   if (!invoiceUuid) {
     return Result.error(
       new Error("The invoice UUID is required to finalize an invoice"),
     );
   }
 
-  const [uri, init] = apiFinalizeInvoice(invoiceUuid);
+  const [uri, init] = finalizeInvoiceAPI(invoiceUuid);
 
   return Result.try(
     async () => {
@@ -79,17 +78,17 @@ export const finalizeInvoice: Action<string, Result<Invoice, Error>> = async (
  * @param fetch The fetch function.
  * @param invoiceUuid The UUID of the invoice.
  */
-export const getReceiptUrl: Action<string, Result<string, Error>> = async (
-  fetch,
-  invoiceUuid,
-) => {
+export const getReceiptUrlAction: Action<
+  string,
+  Result<string, Error>
+> = async (fetch, invoiceUuid) => {
   if (!invoiceUuid) {
     return Result.error(
       new Error("The invoice UUID is required to generate a receipt URL"),
     );
   }
 
-  const [uri, init] = apiGetReceiptUrl(invoiceUuid);
+  const [uri, init] = getReceiptUrlAPI(invoiceUuid);
 
   return Result.try(
     async () => {

@@ -1,4 +1,4 @@
-import { InvoiceState } from "./store";
+import type { InvoiceState } from "./store";
 
 export const selectInvoices = (state: InvoiceState) => {
   const { ids, byId } = state;

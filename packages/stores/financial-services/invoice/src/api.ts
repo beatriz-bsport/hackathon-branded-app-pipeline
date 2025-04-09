@@ -1,22 +1,25 @@
-import { buildUrlParams } from "@bsport/fetch";
-import { ApiConfig } from "@bsport/store-base";
+import { type ApiConfig, buildUrlParams } from "@bsport/store-base";
 
-import { BASE_URL, DEFAULT_PAGE, DEFAULT_PAGE_SIZE } from "#src/constants";
-import { FetchInvoicesParams } from "#src/types";
+const BASE_URL = "financial-services/v1/payment/invoices";
+const DEFAULT_PAGE = 1;
+const DEFAULT_PAGE_SIZE = 10;
 
-export const fetchInvoices = ({
+export const fetchInvoicesAPI = ({
   page,
   pageSize,
-}: FetchInvoicesParams): ApiConfig => {
+}: {
+  page: number;
+  pageSize: number;
+}): ApiConfig => {
   const params = {
-    page: page || DEFAULT_PAGE,
-    page_size: pageSize || DEFAULT_PAGE_SIZE,
+    page: page ?? DEFAULT_PAGE,
+    page_size: pageSize ?? DEFAULT_PAGE_SIZE,
   };
 
   return [`${BASE_URL}/${buildUrlParams(params)}`];
 };
 
-export const finalizeInvoice = (invoiceUuid: string): ApiConfig => {
+export const finalizeInvoiceAPI = (invoiceUuid: string): ApiConfig => {
   return [
     `${BASE_URL}/${invoiceUuid}/finalize/`,
     {
@@ -26,7 +29,7 @@ export const finalizeInvoice = (invoiceUuid: string): ApiConfig => {
   ];
 };
 
-export const getReceiptUrl = (invoiceUuid: string): ApiConfig => {
+export const getReceiptUrlAPI = (invoiceUuid: string): ApiConfig => {
   return [
     `${BASE_URL}/${invoiceUuid}/generate_receipt/`,
     {

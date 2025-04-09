@@ -1852,9 +1852,6 @@ importers:
 
   packages/stores/financial-services/invoice:
     dependencies:
-      '@bsport/fetch':
-        specifier: workspace:*
-        version: link:../../../utils/fetch
       '@bsport/store-base':
         specifier: workspace:*
         version: link:../../base

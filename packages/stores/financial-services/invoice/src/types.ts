@@ -65,16 +65,3 @@ enum PaymentRefundStatus {
   SUCCESS = "SUCCESS",
   FAILED = "FAILED",
 }
-
-export type FetchInvoicesParams = {
-  page: number;
-  pageSize: number;
-};
-
-export type PaginatedResponse<T = void> = {
-  count: number;
-  links: { next: number | null; previous: number | null };
-  next_page: number | null;
-  page: number;
-  results: T[];
-};

@@ -18,9 +18,9 @@ import {
 import type { Column } from "@bsport/kaizen-primitive-core/dist/components/Table/Table";
 import {
   type Invoice,
-  fetchInvoices,
-  finalizeInvoice,
-  getReceiptUrl,
+  fetchInvoicesAction,
+  finalizeInvoiceAction,
+  getReceiptUrlAction,
   selectCount,
   selectInvoices,
   useInvoiceStore,
@@ -59,7 +59,7 @@ export const InvoiceListPage = () => {
 
   const fetchDataBase = async (page: number, rows: number) => {
     setCurrentPage(page);
-    return fetchInvoices(fetch, {
+    return fetchInvoicesAction(fetch, {
       page,
       pageSize: rows,
     });
@@ -74,7 +74,7 @@ export const InvoiceListPage = () => {
   }, [fetchData]);
 
   const handleClickDownload = useCallback((invoiceUuid: string) => {
-    finalizeInvoice(fetch, invoiceUuid).then((response) => {
+    finalizeInvoiceAction(fetch, invoiceUuid).then((response) => {
       response.fold(
         ({ stripe_invoice_pdf }) => {
           if (stripe_invoice_pdf) {
@@ -196,7 +196,7 @@ export const InvoiceListPage = () => {
                       if (id === "download-pdf") {
                         handleClickDownload(row.downloadPdf.uuid);
                       } else if (id === "download-receipt") {
-                        getReceiptUrl(fetch, row.downloadPdf.uuid).then(
+                        getReceiptUrlAction(fetch, row.downloadPdf.uuid).then(
                           (response) => {
                             response.fold(
                               (value) => window.open(value, "_blank"),
@@ -225,7 +225,7 @@ export const InvoiceListPage = () => {
         },
       },
     ],
-    [handleClickDownload, getReceiptUrl, t],
+    [handleClickDownload, getReceiptUrlAction, t],
   );
 
   const rows: TableDataRow[] = useMemo(

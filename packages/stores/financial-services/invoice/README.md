@@ -1,52 +1,63 @@
-# Invoice Management
+# Financial Services | Invoice store package
 
-This project offers a structured approach to managing invoices with TypeScript. It includes various scripts and
-configurations to aid in development and deployment.
-
----
-
-## Table of Contents
-
-- [Project Structure](#project-structure)
-- [Installation](#installation)
-
----
-
-## Project Structure
-
-The project is organized into the following directories and files:
-
-- **build:** Contains build-related scripts and configurations.
-- **node_modules:** Dependencies for the project.
-- **src:** Source code for the project.
-  - **actions:** Contains action-related TypeScript files.
-    - **invoice.ts:** Manages invoice actions.
-  - **api.ts:** API-related actions.
-  - **constants.ts:** Constant definitions.
-  - **index.ts:** Entry point for the project.
-  - **results.ts:** Result handling.
-  - **types.ts:** Type definitions.
-- **.env:** Environment variables.
-- **.prettierrc:** Prettier configuration.
-- **eslint.config.mjs:** ESLint configuration.
-- **package.json:** Project dependencies and scripts.
-- **README.md:** This file.
-- **tsconfig.json:** TypeScript configuration.
-- **vite-env.d.ts:** Vite environment declarations.
-- **vite.config.ts:** Vite configuration.
-
----
+This package provides a Zustand store implementation for managing the state related to the Invoice entity in an application. It includes types, actions, API interactions, and selectors to facilitate state management.
 
 ## Installation
 
-Add the package to your project by updating your `package.json`:
+1. Add to your application dependencies in `package.json` the store package name :
 
-```jsonc
-{
-  // package.json
-  "dependencies": {
-    // Your other dependencies
-    "@bsport/store-financial-services-invoice": "workspace:*",
-  },
-}
+   ```jsonc
+   {
+     "dependencies": {
+       "@bsport/store-financial-services-invoice": "workspace:*",
+     },
+   }
+   ```
+
+2. Run `pnpm i` in your application to finalize the link
+
+## Usage
+
+Here's a basic example of how to use the store in your application:
+
+```tsx
+import { useInvoiceStore, fetchInvoicesAction, selectInvoices } from '@bsport/store-package-name';
+import fetch from "#src/utils/fetch";
+
+const MyComponent = () => {
+    // Retrieve data from the store
+    const invoices = useInvoiceStore(selectInvoices);
+
+    // Inject fetch in the action
+    const fetchInvoices = useCallback(async () => {
+        return fetchInvoicesAction(fetch, { ...params});
+    }, [... deps])
+    ...
+};
 ```
+
+## Files
+
+### types.ts
+
+Defines the TypeScript types for the objects retrieved from the backend API related to the Invoice entity.
+
+### store.ts
+
+Implements the Zustand store and provides a hook to bind it to your components.
+
+### actions/store.ts
+
+Contains actions to interact with the Zustand store, such as updating state or triggering side effects. They shall be used inside actions/index.ts
+
+### actions/index.ts
+
+Exports actions that can be used in your applications to interact with the Invoice store.
+
+### api.ts
+
+Defines the API parameters and functions used by the actions to fetch or manipulate Invoice data.
+
+### selectors.ts
+
+Provides functions to retrieve specific data from the Invoice store, making it easier to access nested or derived state.

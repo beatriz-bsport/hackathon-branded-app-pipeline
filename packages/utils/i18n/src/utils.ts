@@ -68,6 +68,8 @@ export function getNamespacePrefixer<T = string>({
  * @param languageId Language to set in i18n instances
  */
 export const switchLanguage = (languageId: Locale) => {
+  if (!languageId) return;
+
   const broadcast = new BroadcastChannel(LANGUAGE_SWITCHER_CHANNEL);
   // Ensure languageId is well formatted, in case typing is bypassed
   let language = languageId.toLowerCase();

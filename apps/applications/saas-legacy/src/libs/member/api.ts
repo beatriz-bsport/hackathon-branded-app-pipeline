@@ -120,6 +120,10 @@ export async function lightSignup(data: Object) {
   );
 }
 
+export async function finalizeLightSignup(memberId: number) {
+  return postAuth(`${API_V1_URI}/member/${memberId}/finalize_light_signup/`);
+}
+
 export async function linkMeToCompany(data: any) {
   return postAuth(`${API_V1_URI}/member/link_to_company/`, data);
 }

@@ -14,10 +14,11 @@ import LocationIcon from '@material-ui/icons/LocationOn';
 import EditIcon from '@material-ui/icons/Edit';
 import CloseIcon from '@material-ui/icons/Close';
 import IconButton from '@material-ui/core/IconButton';
+import Chip from '@material-ui/core/Chip';
 import {
   INVOICE_TYPE_EMPTY_PAYMENT_CONTAINER,
-  INVOICE_TYPE_REVERSE,
   INVOICE_TYPE_MIGRATION,
+  INVOICE_TYPE_REVERSE,
 } from '@bsport/common/lib/master-data/invoice-type.js';
 import { CircularProgress } from '@material-ui/core';
 
@@ -35,7 +36,7 @@ import {
   PaymentRefundStatus,
   type WithAuthor,
 } from '#src/libs/invoice/types';
-import { formatAsDatetimeAdapted } from '../../../utils/datetime';
+import { formatAsDatetimeAdapted } from '#src/utils/datetime';
 
 type Props = {
   editEstablishmentBillingGroupIsLoading: boolean;
@@ -160,13 +161,19 @@ export const InvoiceHeader = (props: Props) => {
   } else if (invoice.reverse_invoices && !!invoice.reverse_invoices.length) {
     invoiceHeaderType = 'titleReverted';
   }
+
   return (
     <div className={classes.header}>
-      <Typography variant="h4">
-        {t(`invoice.${invoiceHeaderType}`, {
-          uuid: invoice.invoice_legal_identifier || invoice.uuid.slice(0, 8),
-        })}
-      </Typography>
+      <div className={classes.titleContainer}>
+        <Typography variant="h4">
+          {t(`invoice.${invoiceHeaderType}`, {
+            uuid: invoice.invoice_legal_identifier || invoice.uuid.slice(0, 8),
+          })}
+        </Typography>
+        {invoice.is_signed_on_fiskaly && (
+          <Chip color="primary" label={t('sentToFiskaly')} />
+        )}
+      </div>
       <div className={classes.additionalInfo}>
         <div className={classes.row}>
           <TodayIcon className={classes.leftIcon} fontSize="small" />
@@ -279,6 +286,11 @@ export const InvoiceHeader = (props: Props) => {
 const useStyles = makeStyles((theme: Theme) => ({
   header: {
     marginBottom: theme.spacing(2),
+  },
+  titleContainer: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
   additionalInfo: {
     borderLeft: '2px solid black',

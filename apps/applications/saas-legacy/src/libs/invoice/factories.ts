@@ -1,6 +1,6 @@
 import { faker } from '@faker-js/faker';
 
-import { InvoiceType, Invoice, ConsumerInvoice } from '#src/libs/invoice/types';
+import { ConsumerInvoice, Invoice, InvoiceType } from '#src/libs/invoice/types';
 import { PaymentEngine, PaymentItem } from '#src/libs/invoice/payment/types';
 import { PaymentMethodsChoices } from '#src/libs/invoice/payment/constants';
 import { ExportInvoiceErrorCode, ExportInvoiceStatus } from './constants';
@@ -38,6 +38,7 @@ export function invoiceFactory(options?: Partial<Invoice>): Invoice {
     is_draft: options?.is_draft ?? false,
     is_finalized: options?.is_finalized ?? false,
     is_member_pos: options?.is_member_pos ?? false,
+    is_signed_on_fiskaly: options?.is_signed_on_fiskaly ?? false,
     is_quick_invoice: options?.is_quick_invoice ?? null,
     is_v2: options?.is_v2 ?? false,
     member: options?.member ?? faker.number.int(10000),

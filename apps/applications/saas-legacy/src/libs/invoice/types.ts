@@ -86,6 +86,7 @@ export type Invoice<M = number, PI = number, II = number> = {
   author: number;
   source: number;
   is_member_pos: boolean;
+  is_signed_on_fiskaly: boolean;
 };
 
 export type ConsumerInvoiceREST = {

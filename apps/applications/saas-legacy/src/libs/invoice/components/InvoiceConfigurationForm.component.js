@@ -1,7 +1,7 @@
 // @flow
 import React from 'react';
 import { compose } from 'recompose';
-import { withTranslation, TFunction } from 'react-i18next';
+import { TFunction, withTranslation } from 'react-i18next';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Grid from '@material-ui/core/Grid';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -24,6 +24,7 @@ import WarningIcon from '@material-ui/icons/Warning';
 import AddIcon from '@material-ui/icons/Add';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
+import LinkIcon from '@material-ui/icons/Link';
 
 import type { FeatureList } from '#src/libs/company/types';
 import type { StripeReader } from '#src/libs/terminal/types';
@@ -36,10 +37,11 @@ import TaxDisplayForm from '#src/libs/theme/components/TaxDisplay.form';
 import ProvincialTaxForm from '#src/libs/theme/components/ProvincialTax.form';
 import NumberInput from '#src/components/input/NumericInput.component';
 
-import FeatureListProvider from '#src/libs/company/hocs/feature-list-provider.hoc.js';
+import FeatureListProvider from '#src/libs/company/hocs/feature-list-provider.hoc';
 import { UPSELL_IDENTIFIER_STRIPE_TERMINAL } from '#src/libs/platform-billing/upsell-identifiers';
 import { hasUpsell } from '#src/libs/platform-billing/utils';
 import { getCompanyCountry } from '#src/libs/theme/selectors';
+import type { CompanyTheme } from '../../theme/types';
 
 type Props = {
   classes: any,
@@ -374,6 +376,45 @@ export class InvoiceConfigurationForm extends React.Component<Props, State> {
               ) : null}
             </div>
           </Paper>
+          {this.props.theme.is_fiskaly_operational && (
+            <Paper className={classes.tseContainer}>
+              <Typography component="h3" variant="h6">
+                {t('configuration.tse.title')}
+              </Typography>
+              <Typography variant="subtitle1">
+                {t('configuration.tse.description')}
+              </Typography>
+              <div>
+                <Typography variant="body1">
+                  {t('configuration.tse.version')}
+                </Typography>
+                <Typography variant="body1">
+                  {t('configuration.tse.manufacturer')}
+                </Typography>
+              </div>
+              <div className={classes.tseButtons}>
+                <Button
+                  color="primary"
+                  href="https://developer.fiskaly.com/de/sign-de/certification"
+                  target="_blank"
+                  variant="outlined"
+                >
+                  <LinkIcon className={classes.leftIcon} />
+                  {t('configuration.tse.manufacturerLinkLabel')}
+                </Button>
+                <Button
+                  color="primary"
+                  disabled={this.props.processing}
+                  href="https://developer.fiskaly.com/assets/files/BSI-K-TR-0403-2021_TR-Konformitaetsbericht_fiskaly_TSE-1705c4b9bf53a5fa36f734dbf9b2e7c2.pdf"
+                  target="_blank"
+                  variant="outlined"
+                >
+                  <LinkIcon className={classes.leftIcon} />
+                  {t('configuration.tse.documentationLabel')}
+                </Button>
+              </div>
+            </Paper>
+          )}
           <Paper className={classes.paper}>
             <div className={classes.header}>
               <Typography component="h3" variant="h6">
@@ -751,6 +792,18 @@ const styles = (theme) => ({
   invoicePdfCompanyNameHeader: {
     marginBottom: theme.spacing(2),
     marginTop: theme.spacing(2),
+  },
+  tseContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: theme.spacing(3),
+    padding: theme.spacing(2),
+    marginBottom: theme.spacing(2),
+  },
+  tseButtons: {
+    display: 'flex',
+    alignItems: 'flex-start',
+    gap: theme.spacing(1),
   },
 });
 

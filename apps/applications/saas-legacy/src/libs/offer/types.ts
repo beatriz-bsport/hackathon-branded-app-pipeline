@@ -566,3 +566,9 @@ export enum BOOKING_FOR_GUEST_FREQUENCY {
   MONTH = 'every_month',
   YEAR = 'every_year',
 }
+
+export type DeleteOfferPayload = {
+  deleteAll: boolean;
+  custom_selection: boolean;
+  custom_selection_ids: number[];
+};

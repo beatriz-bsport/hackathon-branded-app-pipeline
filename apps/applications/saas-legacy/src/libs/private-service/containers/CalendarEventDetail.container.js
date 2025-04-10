@@ -582,12 +582,7 @@ export class CalendarEventDetail extends React.Component<Props, State> {
     });
   };
 
-  onCancelOffer = async (data: {
-    offerId: number,
-    cashback?: boolean,
-    notify?: boolean,
-    deleteAll?: boolean,
-  }) => {
+  onCancelOffer = async (data) => {
     this.props.setOfferProcessing(true);
     try {
       await disableOfferAPI(data);
@@ -653,22 +648,18 @@ export class CalendarEventDetail extends React.Component<Props, State> {
                 offerWasCancelled={!offer.available}
                 onCancel={this.props.closeOfferDeleteModal}
                 onCancelOffer={({
-                  cashback,
                   notify,
                   deleteAll,
                   custom_selection,
                   custom_selection_ids,
-                  force,
                   cancel_linked_hybrid_offer,
                 }) =>
                   this.onCancelOffer({
                     offerId: offer.id,
-                    cashback,
                     notify,
                     deleteAll,
                     custom_selection,
                     custom_selection_ids,
-                    force,
                     cancel_linked_hybrid_offer,
                   })
                 }

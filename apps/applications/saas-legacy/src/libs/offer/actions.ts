@@ -63,6 +63,7 @@ import type {
   OfferStatusWaitingListPosition,
   OfferStatusParams,
   OfferREST,
+  DeleteOfferPayload,
 } from './types';
 
 import chunk from 'lodash/chunk';
@@ -1342,12 +1343,10 @@ export const disableOfferActions = {
 export function disableOffer(
   data: {
     offerId: number;
-    cashback?: boolean;
-    notify?: boolean;
-    deleteAll?: boolean;
-    custom_selection?: boolean;
-    custom_selection_ids?: Array<number>;
-    force: boolean;
+    notify: boolean;
+    deleteAll: boolean;
+    custom_selection: boolean;
+    custom_selection_ids: Array<number>;
     cancel_linked_hybrid_offer?: boolean;
   },
   options: OptionBackgroundCallback,
@@ -1391,7 +1390,7 @@ export const hardDeleteOfferActions = {
 
 export function hardDeleteOffers(
   offerId: number,
-  data: any,
+  data: DeleteOfferPayload,
   options: OptionBackgroundCallback,
 ) {
   return async (dispatch: Dispatch) => {

@@ -17,6 +17,7 @@ import type {
   OfferStatusParams,
   OfferStatus,
   OfferREST,
+  DeleteOfferPayload,
 } from './types';
 
 import { PaginatedResponse } from '../../state/types';
@@ -166,39 +167,37 @@ export async function fetchCompatiblePacks(offerId: number) {
 export async function fetchById(offerId: number) {
   return getAuth(`${API_URI}/saas/offer/${offerId}/`);
 }
+
 export async function disableOffer({
   offerId,
   notify,
-  cashback,
   deleteAll,
   custom_selection,
   custom_selection_ids,
-  force,
   cancel_linked_hybrid_offer,
 }: {
   offerId: number;
-  notify?: boolean;
-  cashback?: boolean;
-  deleteAll?: boolean;
-  custom_selection?: boolean;
-  custom_selection_ids?: Array<number>;
-  force: boolean;
+  notify: boolean;
+  deleteAll: boolean;
+  custom_selection: boolean;
+  custom_selection_ids: number[];
   cancel_linked_hybrid_offer?: boolean;
 }) {
-  return patchAuth(`${API_URI}/saas/offer/${offerId}/disable/`, {
-    available: false,
-    notify,
-    cashback,
-    deleteAll,
-    custom_selection,
-    custom_selection_ids,
-    force,
+  return patchAuth(`${API_V1_URI}/offer/manager/${offerId}/cancel/`, {
+    should_notify: notify,
+    apply_to_all_similar_offers: deleteAll,
+    selected_similar_offer_ids: custom_selection ? custom_selection_ids : [],
     cancel_linked_hybrid_offer,
   });
 }
 
-export async function deleteOffer(offerId: number, data: any) {
-  return deleteAuth(`${API_URI}/saas/offer/${offerId}/disable/`, data || {});
+export async function deleteOffer(offerId: number, data: DeleteOfferPayload) {
+  return deleteAuth(`${API_V1_URI}/offer/manager/${offerId}/delete/`, {
+    apply_to_all_similar_offers: data.deleteAll,
+    selected_similar_offer_ids: data.custom_selection
+      ? data.custom_selection_ids
+      : [],
+  });
 }
 
 export const isRegistered = async (offerId: number) => {

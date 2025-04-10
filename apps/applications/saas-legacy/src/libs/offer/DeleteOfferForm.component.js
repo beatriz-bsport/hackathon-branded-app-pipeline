@@ -156,7 +156,6 @@ export class DeleteOfferForm extends Component<Props, State> {
         deleteAll,
         custom_selection,
         custom_selection_ids,
-        force: true,
       });
     }
     deleteAll =
@@ -174,7 +173,6 @@ export class DeleteOfferForm extends Component<Props, State> {
       .map((so) => so.id);
     return this.props.onCancelOffer({
       notify,
-      cashback,
       deleteAll,
       custom_selection,
       custom_selection_ids,

@@ -37,7 +37,7 @@ import OfferCard from '#src/components/offer/OfferCard.component';
 import MetaActivityGroupsFilter from '#src/libs/meta-activity/components/MetaActivityGroupsFilter.component';
 import GroupCard from '#src/libs/group-offer/components/GroupCard.component';
 import GenericResponsiveDrawer from '#src/components/genericDrawer/GenericResponsiveDrawer.component';
-import { Offer } from '#src/libs/offer/types';
+import { Offer, DeleteOfferPayload } from '#src/libs/offer/types';
 // @ts-expect-error
 import DeleteOfferForm from '#src/libs/offer/DeleteOfferForm.component';
 import BackofficeLinearProgress from '#src/components/navigation/BackofficeLinearProgress.component';
@@ -398,12 +398,10 @@ const WorkshopActivityGroup: React.FC<Props> = ({
   };
 
   const handleCancelOffer = (data: {
-    cashback?: boolean;
-    notify?: boolean;
-    deleteAll?: boolean;
-    custom_selection?: boolean;
-    custom_selection_ids?: Array<number>;
-    force: boolean;
+    notify: boolean;
+    deleteAll: boolean;
+    custom_selection: boolean;
+    custom_selection_ids: Array<number>;
     cancel_linked_hybrid_offer: boolean;
   }) => {
     disableOffer(
@@ -428,7 +426,7 @@ const WorkshopActivityGroup: React.FC<Props> = ({
     );
   };
 
-  const handleDeleteOffer = (data: any) => {
+  const handleDeleteOffer = (data: DeleteOfferPayload) => {
     hardDeleteOffers(selectedOfferId, data, {
       onSuccess: () => {
         handleCloseDeleteModal();

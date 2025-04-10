@@ -137,6 +137,7 @@ import type {
   OfferFilter,
   OfferTypeFilter,
   OfferREST,
+  DeleteOfferPayload,
 } from '#src/libs/offer/types';
 
 import { snackbarSuccess } from '#src/libs/snackbar/actions';
@@ -395,19 +396,17 @@ type Props = {
 
   hardDeleteOffers: (
     offerId: number,
-    data: any,
+    data: DeleteOfferPayload,
     options: OptionCallback,
   ) => void,
 
   disableOffer: (
     data: {
       offerId: number,
-      cashback?: boolean,
-      notify?: boolean,
-      deleteAll?: boolean,
-      custom_selection?: boolean,
-      custom_selection_ids?: Array<number>,
-      force: boolean,
+      notify: boolean,
+      deleteAll: boolean,
+      custom_selection: boolean,
+      custom_selection_ids: Array<number>,
     },
     options: OptionCallback,
   ) => void,
@@ -665,13 +664,11 @@ export class Planning extends PureComponent<Props, State> {
 
   onCancelOffer = (data: {
     offerId: number,
-    cashback?: boolean,
-    notify?: boolean,
-    deleteAll?: boolean,
-    custom_selection?: boolean,
-    custom_selection_ids?: Array<number>,
+    notify: boolean,
+    deleteAll: boolean,
+    custom_selection: boolean,
+    custom_selection_ids: Array<number>,
     cancel_linked_hybrid_offer?: boolean,
-    force: boolean,
   }) => {
     this.props.disableOffer(data, {
       onSuccess: () => {
@@ -689,7 +686,7 @@ export class Planning extends PureComponent<Props, State> {
     });
   };
 
-  onHardDeleteOffer = (offerId: number, data: any) => {
+  onHardDeleteOffer = (offerId: number, data: DeleteOfferPayload) => {
     this.props.hardDeleteOffers(offerId, data, {
       onSuccess: () => {
         this.setState({ deleteModalOpened: false });
@@ -965,22 +962,18 @@ export class Planning extends PureComponent<Props, State> {
             offerWasCancelled={!selectedOffer.available}
             onCancel={this.onCancelModal}
             onCancelOffer={({
-              cashback,
               notify,
               deleteAll,
               custom_selection,
               custom_selection_ids,
-              force,
               cancel_linked_hybrid_offer,
             }) =>
               this.onCancelOffer({
                 offerId: selectedOffer.id,
-                cashback,
                 notify,
                 deleteAll,
                 custom_selection,
                 custom_selection_ids,
-                force,
                 cancel_linked_hybrid_offer,
               })
             }

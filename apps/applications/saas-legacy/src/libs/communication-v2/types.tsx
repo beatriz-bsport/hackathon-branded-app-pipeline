@@ -12,7 +12,7 @@ import type {
   MemberMinimal,
 } from '#src/libs/member/types';
 import type { CustomMobilePopup } from '#src/libs/settings/types';
-import type { SmartList } from '#src/libs/smart-list/types';
+import type { AutomatedCampaign, SmartList } from '#src/libs/smart-list/types';
 
 export type CommunicationProviderState = {
   provider?: CommunicationProvider | null;
@@ -217,6 +217,15 @@ export type FetchCommunicationParams = {
 } & CommunicationContext &
   CommunicationFilterParams;
 
+export type CommunicationDrawerMode = 'write-only' | 'read-only' | 'read-write';
+
+export type SmartlistOptions = {
+  scheduledCommunicationDraft?: CommunicationScheduled | null;
+  automatedCommunicationDraft?: AutomatedCampaign | null;
+  automatedCampaignKind?: number;
+  usedAutoCampaignCommMethods?: number[];
+};
+
 export type DrawerProps = {
   onDrawerClose: () => void;
   openDrawer: boolean;
@@ -225,6 +234,8 @@ export type DrawerProps = {
   communicationMember?: Member;
   communicationTitle?: string;
   allMemberCategoryList?: FilteringMemberIdsByGenericCategories;
+  mode?: CommunicationDrawerMode;
+  smartlistOptions?: SmartlistOptions;
 };
 
 export type FilteringMemberIdsByGenericCategories = {

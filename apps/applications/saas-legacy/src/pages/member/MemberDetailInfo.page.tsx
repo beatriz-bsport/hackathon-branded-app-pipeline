@@ -84,17 +84,7 @@ import {
 
 import { withInvoiceItem, getInvoiceList } from '#src/libs/invoice/selectors';
 
-import { sendCommunication } from '#src/libs/communication/actions';
-import {
-  emailTemplateDetail,
-  emailTemplatesSummaries as fetchEmailTemplatesSummaries,
-} from '#src/libs/email-editor/actions';
-
 import { fetchResolvedGenericTags as fetchResolvedGenericTagsAction } from '#src/libs/notification-rule/actions';
-import {
-  getAllEmailTemplatesSummaries,
-  getEmailTemplatesDetail,
-} from '#src/libs/email-editor/selectors';
 import {
   fetchEstablishments,
   fetchAllEstablishmentGroup,
@@ -454,15 +444,9 @@ export class MemberDetailPage extends React.PureComponent<Props> {
           <MemberSummaryCard
             companyCountry={this.props.companyCountry}
             editMember={this.handleEditMember}
-            emailDetailLoading={this.props.emailDetailLoading}
-            emailDetails={this.props.email_templates_details}
-            emailListLoading={this.props.emailListLoading}
-            emails={this.props.email_templates_list}
             favoriteEstablishmentGroupList={
               this.props.favoriteEstablishmentGroupList
             }
-            getEmailDetail={this.props.fetchEmailTemplateDetail}
-            getEmails={this.props.fetchEmailTemplatesSummaries}
             handleOpenResetPasswordDialog={this.handleOpenResetPasswordDialog}
             handleRedirectToReferringMember={
               this.handleRedirectToReferringMember
@@ -477,7 +461,6 @@ export class MemberDetailPage extends React.PureComponent<Props> {
               this.props.referralMemberStatus?.referring_member_name
             }
             resolvedGenericTags={this.props.resolvedGenericTags}
-            sendCommunication={this.props.sendCommunication}
           />
           {member && !member.is_pos && (
             <>
@@ -694,11 +677,6 @@ const connector = connect(
     taskList: memberTaskListSelector(state),
     taskLoading: state.reminder.task.byMember.loading,
     staffList: getUsersWithRole(state),
-    // email emailTemplatesSummaries
-    email_templates_list: getAllEmailTemplatesSummaries(state),
-    email_templates_details: getEmailTemplatesDetail(state),
-    emailListLoading: state.emailTemplate.loading,
-    emailDetailLoading: state.emailTemplate.detail.loading,
     theme: state.theme.theme,
     companyCountry: state.theme.theme.locale.split('_')[1],
     onlinePaymentEnabled: state.theme.theme.online_payment_enabled,
@@ -734,7 +712,6 @@ const connector = connect(
     fetchPaymentMethodListActions: fetchPaymentMethodList,
     detachPaymentMethodAction: detachPaymentMethod,
     // fetchInvoiceItemList: fetchInvoiceItemListAction,
-    sendCommunication,
     fetchCompanyUserRoles,
     fetchMember,
     searchMembers: (text: string) =>
@@ -742,8 +719,6 @@ const connector = connect(
     tagMember,
     untagMember,
     fetchTags,
-    fetchEmailTemplateDetail: emailTemplateDetail,
-    fetchEmailTemplatesSummaries,
     mergeInto: (src: number, dst: number) =>
       routerPush(`/member/merge/${src}/into/${dst}`),
     editMember: (id: number) => routerPush(`/member/edit/${id}`),

@@ -1205,7 +1205,7 @@ export class OfferManagement extends Component<Props, State> {
             onRollCallButtonClick={this.openConfirmationRollCallDialog}
             openAddMemberModal={this.props.openAddMemberModal}
             openCommunicationDrawer={this.props.openCommunicationDrawer}
-            openMailDialog={this.props.openCommunicationDialog}
+            openMailDialog={this.props.openCommunicationDrawer}
             programDataLoading={this.props.programDataLoading}
             programList={this.props.programList}
             quickCreatedInvoices={this.props.quickCreatedInvoices}
@@ -1398,6 +1398,7 @@ export class OfferManagement extends Component<Props, State> {
           }}
           open={!!this.props.optionToDiscardWithDialog}
         />
+        {/** CDP-150 To Remove  */}
         {!!this.props.communicationDialogIsOpen && (
           <MailMembers
             bookingOptionsPending={bookingOptionsPending}

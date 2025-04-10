@@ -2,14 +2,16 @@ import React, { createContext, useContext, useState } from 'react';
 
 import type { Member } from '#src/libs/member/types';
 import type {
+  CommunicationDrawerMode,
+  CommunicationScheduled,
   DrawerProps,
   FilteringMemberIdsByGenericCategories,
 } from '#src/libs/communication-v2/types';
 import type { WithMobileDialog } from '@material-ui/core';
+import type { AutomatedCampaign } from '#src/libs/smart-list/types';
 
-type ExcludedDrawerPropsFields = 'onDrawerClose' | 'openDrawer';
 export type CommunicationContextProps = Omit<WithMobileDialog, 'width'> &
-  Omit<DrawerProps, ExcludedDrawerPropsFields>;
+  DrawerProps;
 
 type CommunicationContextType = {
   // State values
@@ -20,9 +22,15 @@ type CommunicationContextType = {
   allMemberCategoryList: FilteringMemberIdsByGenericCategories | null;
   communicationKind: number;
   fullScreen: boolean;
-
+  automatedCommunicationDraft: AutomatedCampaign | null;
+  scheduledCommunicationDraft: CommunicationScheduled | null;
+  automatedCommunicationKind: number;
+  usedAutoCampaignCommMethods: number[];
+  openDrawer: boolean;
+  mode: CommunicationDrawerMode;
   // State setters
   setCommunicationKind: (kind: number) => void;
+  onCloseCommunicationDrawer: () => void;
 };
 
 const CommunicationContext = createContext<
@@ -36,24 +44,43 @@ export const CommunicationContextProvider = ({
   children: React.ReactNode;
   initialValues: CommunicationContextProps;
 }) => {
-  const [communicationIdentifier] = useState<number>(
-    initialValues?.communicationIdentifier,
-  );
-  const [communicationObjectId] = useState<number>(
-    initialValues?.communicationObjectId,
-  );
+  const { smartlistOptions } = initialValues ?? {};
+  const {
+    scheduledCommunicationDraft: initialScheduledCommunicationDraft,
+    automatedCommunicationDraft: initialAutomatedCommunicationDraft,
+  } = smartlistOptions ?? {};
+  const initialCommunicationKind =
+    initialScheduledCommunicationDraft?.communication_kind ??
+    initialAutomatedCommunicationDraft?.communication_kind ??
+    0;
+  const communicationIdentifier = initialValues?.communicationIdentifier;
+  const communicationObjectId = initialValues?.communicationObjectId;
+  const communicationTitle: string | null =
+    initialValues?.communicationTitle ?? null;
+  const allMemberCategoryList: FilteringMemberIdsByGenericCategories | null =
+    initialValues?.allMemberCategoryList ?? null;
+  const scheduledCommunicationDraft: CommunicationScheduled | null =
+    initialScheduledCommunicationDraft ?? null;
+  const automatedCommunicationDraft: AutomatedCampaign | null =
+    initialAutomatedCommunicationDraft ?? null;
+  const automatedCommunicationKind: number | null =
+    smartlistOptions?.automatedCampaignKind ?? -1;
+  const usedAutoCampaignCommMethods =
+    smartlistOptions?.usedAutoCampaignCommMethods ?? [];
+
+  const openDrawer = initialValues?.openDrawer ?? false;
+  const fullScreen = initialValues?.fullScreen ?? false;
+  const mode: CommunicationDrawerMode = initialValues?.mode ?? 'read-write';
   const [communicationMember, setCommunicationMember] = useState<Member | null>(
     initialValues?.communicationMember ?? null,
   );
-  const [communicationTitle] = useState<string | null>(
-    initialValues?.communicationTitle ?? null,
+  const [communicationKind, setCommunicationKind] = useState(
+    initialCommunicationKind,
   );
-  const [allMemberCategoryList] =
-    useState<FilteringMemberIdsByGenericCategories | null>(
-      initialValues?.allMemberCategoryList ?? null,
-    );
-  const [fullScreen] = useState(initialValues?.fullScreen ?? false);
-  const [communicationKind, setCommunicationKind] = useState(0);
+
+  const onCloseCommunicationDrawer = () => {
+    initialValues.onDrawerClose();
+  };
 
   // To handle updates to initialValues
   React.useEffect(() => {
@@ -71,9 +98,16 @@ export const CommunicationContextProvider = ({
     allMemberCategoryList,
     fullScreen,
     communicationKind,
+    scheduledCommunicationDraft,
+    automatedCommunicationDraft,
+    automatedCommunicationKind,
+    usedAutoCampaignCommMethods,
+    openDrawer,
+    mode,
 
     // State setters
     setCommunicationKind,
+    onCloseCommunicationDrawer,
   };
   return (
     <CommunicationContext.Provider value={value}>

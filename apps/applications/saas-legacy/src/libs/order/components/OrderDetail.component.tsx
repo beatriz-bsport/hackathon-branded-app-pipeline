@@ -26,7 +26,6 @@ import ObjectLevelPermissionWrapper from '#src/libs/role/permission-utils/Object
 
 import { OrderWithProducts, Product } from '#src/libs/order/types';
 import { Invoice } from '#src/libs/invoice/types';
-import { EmailTemplateDetail } from '#src/libs/email-editor/types';
 
 import DeliveryFeeListItem from '#src/libs/order/components/DeliveryFeeListItem.component';
 import { Member } from '#src/libs/member/types';
@@ -37,18 +36,10 @@ type Props = {
   onInvoiceClick: (uuid: string) => void;
   goToMember: (id: number) => void;
   updateOrderState: (id: number) => void;
-  sendCommunication: (com: any) => void;
 
   order?: OrderWithProducts<Member>;
   invoice?: Invoice;
   companyCountry?: string;
-
-  getEmails: () => void;
-  getEmailDetail: (id: number) => void;
-  emailListLoading: boolean;
-  emailDetailLoading: boolean;
-  emails: Array<any>;
-  emailDetails: Record<string, EmailTemplateDetail>;
 };
 
 export const OrderDetail: React.FC<Props> = ({
@@ -58,13 +49,6 @@ export const OrderDetail: React.FC<Props> = ({
   onInvoiceClick,
   updateOrderState,
   goToMember,
-  sendCommunication,
-  getEmails,
-  getEmailDetail,
-  emailListLoading,
-  emailDetailLoading,
-  emails,
-  emailDetails,
 }) => {
   const { t } = useTranslation('order');
   const classes = useStyles();
@@ -195,15 +179,8 @@ export const OrderDetail: React.FC<Props> = ({
           {order.member ? (
             <MemberSummaryCard
               companyCountry={companyCountry}
-              emailDetailLoading={emailDetailLoading}
-              emailDetails={emailDetails}
-              emailListLoading={emailListLoading}
-              emails={emails}
-              getEmailDetail={getEmailDetail}
-              getEmails={getEmails}
               goToMember={() => goToMember(order.member.id)}
               member={order.member}
-              sendCommunication={sendCommunication}
             />
           ) : null}
         </Grid>

@@ -7,7 +7,7 @@ import { useEmailTemplates } from '#src/libs/communication-v2/hooks/useEmailTemp
 
 export type Props = {
   open: boolean;
-  selectedTemplate: number;
+  selectedTemplate?: number;
   selectedTitle: string;
   closeDialog: () => void;
   setTemplate: (id: number) => void;
@@ -23,7 +23,9 @@ export const CommunicationTemplateModal: React.FC<Props> = ({
   setTitle,
 }) => {
   const { t } = useTranslation('communication');
-  const [selectedTemplateId, setSelectedTemplateId] = useState<number>(null);
+  const [selectedTemplateId, setSelectedTemplateId] = useState<number | null>(
+    null,
+  );
   const [currentTitle, setCurrentTitle] = useState('');
   const { templateDetailList, fetchTemplateSummaries } = useEmailTemplates();
 
@@ -46,6 +48,7 @@ export const CommunicationTemplateModal: React.FC<Props> = ({
   }, [fetchTemplateSummaries, templateDetailList]);
 
   const onConfirm = useCallback(() => {
+    if (!selectedTemplateId) return;
     setTemplate(selectedTemplateId);
     setTitle(currentTitle);
     closeDialog?.();
@@ -64,6 +67,7 @@ export const CommunicationTemplateModal: React.FC<Props> = ({
       buttonCancelText={t('common.cancel')}
       buttonConfirmText={t('common.confirm')}
       closeDialog={closeDialog}
+      maxWidth="md"
       onCancel={closeDialog}
       onConfirm={onConfirm}
       open={open}

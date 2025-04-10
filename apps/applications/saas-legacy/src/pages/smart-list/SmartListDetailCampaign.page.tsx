@@ -65,7 +65,10 @@ import {
   emailTemplateDetail,
   emailTemplatesSummaries,
 } from '#src/libs/email-editor/actions';
-import { MINUTE_LIMIT_TO_SCHEDULE_COMMUNICATION } from '#src/libs/communication-v2/constants';
+import {
+  CONTEXT_SMARTLIST,
+  MINUTE_LIMIT_TO_SCHEDULE_COMMUNICATION,
+} from '#src/libs/communication-v2/constants';
 
 import type { CampaignExportStartEndDates } from '#src/libs/communication/types';
 import type { CommunicationScheduled } from '#src/libs/communication-v2/types';
@@ -74,6 +77,8 @@ import type { OptionCallback } from '../../state/types';
 import type { RootState } from '../../reducers';
 import Config from '../../config';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
+import { CommunicationDrawer } from '#src/libs/communication-v2/components/CommunicationDrawer.component';
+import ObjectLevelPermissionWrapper from '#src/libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
 
 type OwnProps = {
   id: number;
@@ -468,6 +473,7 @@ export class SmartListCampaign extends React.Component<Props> {
             resolvedGenericTags={this.props?.resolvedGenericTags}
           />
         </Collapse>
+        {/* CDP-150 - To remove  */}
         <CommunicationDrawerDEPRECATED
           hideMemberList
           closeDrawerForTooLateUpdate={
@@ -498,12 +504,38 @@ export class SmartListCampaign extends React.Component<Props> {
           membersToDisplay={this.props.members.displayItems}
           memberToDisplayError={this.props.members.error}
           onCancel={this.closeCommunicationScheduledEditionDrawer}
-          open={this.props.openEditCommunication}
+          open={false}
           page={this.props.members.page}
           resolvedGenericTags={this.props.resolvedGenericTags}
           sendNow={this.openCommunicationScheduledSendNowDialog}
           timezone={this.props.timezone}
         />
+        {(Config.REACT_APP_SENTRY_ENVIRONMENT !== 'production' ||
+          this.props.companyId === 498) && (
+          <ObjectLevelPermissionWrapper
+            forcedBehavior="hidden"
+            requiredPermission="member.allowed_actions.communication"
+          >
+            <>
+              {!!this.props.openEditCommunication && (
+                <CommunicationDrawer
+                  communicationIdentifier={CONTEXT_SMARTLIST}
+                  communicationObjectId={this.props.id}
+                  communicationTitle={
+                    this.props.communicationScheduledSelected?.title || ''
+                  }
+                  fullScreen={false}
+                  onDrawerClose={this.closeCommunicationScheduledEditionDrawer}
+                  openDrawer={this.props.openEditCommunication}
+                  smartlistOptions={{
+                    scheduledCommunicationDraft:
+                      this.props.communicationScheduledSelected,
+                  }}
+                />
+              )}
+            </>
+          </ObjectLevelPermissionWrapper>
+        )}
         {this.props.isDeleteCommunicationScheduledDialogOpen && (
           <GenericDeleteDialog
             cancelLabel={t('scheduled.deleteDialog.close')}

@@ -13,6 +13,7 @@ import type {
   AutomatedCampaignQueryParams,
   AutomatedCampaign,
   FetchSmartlistMembersQueryParams,
+  CreateAutomatedCampaign,
 } from './types';
 import Config from '../../config';
 
@@ -165,7 +166,7 @@ export const fetchSmartListAutomatedCampaigns = async (
 };
 
 export const createSmartListAutomatedCampaign = async (
-  data: AutomatedCampaign,
+  data: AutomatedCampaign | CreateAutomatedCampaign,
 ) => {
   return postAuth(`${API_V1_URI}/smartlist/automated_campaign/`, data);
 };

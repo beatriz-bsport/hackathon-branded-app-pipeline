@@ -219,8 +219,6 @@ type OwnProps = {
   closeMemberTable: boolean;
   automatedCampaignCreateEventkind: number;
   setAutomatedCampaignCreateEventkind: (kind: number | null) => void;
-  openAutomatedCampaignDrawer: boolean;
-  setOpenAutomatedCampaignDrawer: (open: boolean) => void;
   selectAutomatedCampaignId: number | null;
   setSelectAutomatedCampaignId: (id: number | null) => void;
   resolvedGenericTags: ResolvedGenericTags;
@@ -379,17 +377,24 @@ export class SmartListDetailMember extends React.Component<Props, State> {
 
   onAddAutomatedCampaign = (kind: number) => {
     this.props.setAutomatedCampaignCreateEventkind(kind);
-    this.props.setOpenAutomatedCampaignDrawer(true);
+    this.props.setOpenCommunicationChatDrawer(true);
   };
 
   handleCancelAutomateCampaignForm = () => {
-    this.props.setOpenAutomatedCampaignDrawer(false);
+    this.props.setOpenCommunicationChatDrawer(false);
     this.props.setSelectAutomatedCampaignId(null);
+    this.props.setAutomatedCampaignCreateEventkind(null);
   };
 
   handleEditAutomatedCampaign = (id: number) => {
+    const automatedCampaignEventKind = this.props.smartlist_automated_campaigns
+      // @ts-expect-error
+      ?.filter(
+        (campaign: AutomatedCampaign) => campaign.id === id,
+      )?.[0]?.event_kind;
     this.props.setSelectAutomatedCampaignId(id);
-    this.props.setOpenAutomatedCampaignDrawer(true);
+    this.props.setAutomatedCampaignCreateEventkind(automatedCampaignEventKind);
+    this.props.setOpenCommunicationChatDrawer(true);
   };
 
   getAlreadyConfiguredCommunicationKind = () => {
@@ -405,8 +410,17 @@ export class SmartListDetailMember extends React.Component<Props, State> {
     );
   };
 
+  resetCommunicationDrawerContext = () => {
+    this.props.setSelectAutomatedCampaignId(null);
+    this.props.setAutomatedCampaignCreateEventkind(null);
+    this.setState({
+      communicationScheduledSelected: null,
+    });
+  };
+
   handleCommunicationDrawerClose = () => {
     this.props.setOpenCommunicationChatDrawer(false);
+    this.resetCommunicationDrawerContext();
   };
 
   handleBackgroundCsvExport = () => {
@@ -472,10 +486,14 @@ export class SmartListDetailMember extends React.Component<Props, State> {
     communicationScheduled: CommunicationScheduled,
   ) => {
     if (this.checkIsMessageSchedulable(communicationScheduled)) {
-      this.setState({
-        communicationScheduledSelected: communicationScheduled,
-      });
-      this.props.setOpenSendEmail(true);
+      this.setState(
+        {
+          communicationScheduledSelected: communicationScheduled,
+        },
+        () => {
+          this.props.setOpenCommunicationChatDrawer(true);
+        },
+      );
     } else {
       this.openTooLateToUpdateCommunicationScheduledDialog();
     }
@@ -598,6 +616,10 @@ export class SmartListDetailMember extends React.Component<Props, State> {
     });
   };
 
+  handleOpenCommunicationDrawer = () => {
+    this.props.setOpenCommunicationChatDrawer(true);
+  };
+
   render() {
     if (!this.props.smartlist_filters) {
       return <LinearProgress />;
@@ -682,7 +704,7 @@ export class SmartListDetailMember extends React.Component<Props, State> {
           memberList={this.props.members.displayItems}
           memberLoading={this.props.members.loading}
           meta_activities={this.props.meta_activities}
-          onRequestEmail={() => this.props.setOpenSendEmail(true)}
+          onRequestEmail={this.handleOpenCommunicationDrawer}
           payment_packs={this.props.payment_packs}
           private_passes={this.props.privatePassList}
           private_services={this.props.privateServices}
@@ -782,9 +804,10 @@ export class SmartListDetailMember extends React.Component<Props, State> {
           initial={this.props.selected_smartlist_autmated_campaign}
           onCancel={this.handleCancelAutomateCampaignForm}
           onSubmit={this.props.createOrUpdateAutomatedCampaign}
-          open={this.props.openAutomatedCampaignDrawer}
+          open={false}
           resolvedGenericTags={this.props.resolvedGenericTags}
         />
+        {/* CDP-150 - To remove  */}
         {/* @ts-expect-error */}
         <CommunicationDrawerDEPRECATED
           hideMemberList
@@ -846,6 +869,18 @@ export class SmartListDetailMember extends React.Component<Props, State> {
                   communicationTitle={this.props.smartlist?.name}
                   onDrawerClose={this.handleCommunicationDrawerClose}
                   openDrawer={this.props.openCommunicationChatDrawer}
+                  smartlistOptions={{
+                    scheduledCommunicationDraft:
+                      this.state.communicationScheduledSelected,
+                    automatedCommunicationDraft: this.props
+                      .selectAutomatedCampaignId
+                      ? this.props.selected_smartlist_autmated_campaign
+                      : null,
+                    automatedCampaignKind:
+                      this.props.automatedCampaignCreateEventkind,
+                    usedAutoCampaignCommMethods:
+                      this.getAlreadyConfiguredCommunicationKind(),
+                  }}
                 />
               )}
               <BottomActionsButtonCustom
@@ -1316,7 +1351,6 @@ const mapWithHandlers = {
           {
             onSuccess: () => {
               options?.onSuccess && options.onSuccess();
-              props.setOpenAutomatedCampaignDrawer(false);
             },
             onError: () => {
               options?.onError && options.onError();
@@ -1332,7 +1366,6 @@ const mapWithHandlers = {
           {
             onSuccess: () => {
               options?.onSuccess && options.onSuccess();
-              props.setOpenAutomatedCampaignDrawer(false);
             },
             onError: () => {
               options?.onError && options.onError();

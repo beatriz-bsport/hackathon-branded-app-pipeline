@@ -9,10 +9,6 @@ import { getInvoice } from '#src/libs/invoice/selectors';
 import type { Invoice } from '#src/libs/invoice/types';
 
 import routerParamsToProps from '#src/hocs/router-params-to-props.hoc';
-import {
-  getAllEmailTemplatesSummaries,
-  getEmailTemplatesDetail,
-} from '#src/libs/email-editor/selectors';
 
 import { getOrder, withMember } from '#src/libs/order/selectors';
 
@@ -24,11 +20,6 @@ import {
 } from '#src/libs/order/actions';
 import { fetchByQueryInvoice as fetchByQueryInvoiceAction } from '#src/libs/invoice/actions';
 import OrderDetailComponent from '#src/libs/order/components/OrderDetail.component';
-import { sendCommunication } from '#src/libs/communication/actions';
-import {
-  emailTemplateDetail,
-  emailTemplatesSummaries as fetchEmailTemplatesSummaries,
-} from '#src/libs/email-editor/actions';
 
 import withTitle from '../../hocs/with-title.hoc';
 import { WithHandlerType } from '../../utils/types';
@@ -76,18 +67,11 @@ export class OrderDetail extends Component<Props> {
       <div>
         <OrderDetailComponent
           companyCountry={this.props.companyCountry}
-          emailDetailLoading={this.props.emailDetailLoading}
-          emailDetails={this.props.email_templates_details}
-          emailListLoading={this.props.emailListLoading}
-          emails={this.props.email_templates_list}
-          getEmailDetail={this.props.fetchEmailTemplateDetail}
-          getEmails={this.props.fetchEmailTemplatesSummaries}
           goToMember={goToMember}
           invoice={invoice}
           onInvoiceClick={onInvoiceClick}
           // @ts-expect-error
           order={order}
-          sendCommunication={this.props.sendCommunication}
           updateOrderState={(state) =>
             this.props.patchOrder(
               // @ts-expect-error
@@ -112,17 +96,10 @@ const connector = connect(
     // @ts-expect-error
     order: withMember(getOrder)(state, orderId),
     invoice: getInvoice(state, relatedInvoice),
-    email_templates_list: getAllEmailTemplatesSummaries(state),
-    email_templates_details: getEmailTemplatesDetail(state),
-    emailListLoading: state.emailTemplate.loading,
-    emailDetailLoading: state.emailTemplate.detail.loading,
     companyCountry: state.theme.theme.locale.split('_')[1],
   }),
   {
     fetchByQueryInvoice: fetchByQueryInvoiceAction,
-    sendCommunication,
-    fetchEmailTemplateDetail: (id: number) => emailTemplateDetail(id),
-    fetchEmailTemplatesSummaries,
     fetchMember,
     fetchOrder,
     patchOrder,

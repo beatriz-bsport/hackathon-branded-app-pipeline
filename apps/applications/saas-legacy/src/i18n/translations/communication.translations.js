@@ -325,6 +325,8 @@ const getTranslations = async () => {
         sms: 'SMS',
         mail: 'Email',
         autoResend: 'Auto-resends',
+        messageScheduling: 'Schedule the message',
+        automaticCommunicationLimit: 'Set a limit',
       },
       refresh:
         'To see the new version of your template, please click on the refresh button.',
@@ -338,6 +340,8 @@ const getTranslations = async () => {
         selectRecipientsMobile: 'to',
         selectRecipients: 'Choose recipients',
         send: 'Send',
+        scheduleCommunication: 'Schedule',
+        updateScheduled: 'Update',
       },
       textField: {
         warningLength: '{{number_sms}} SMS will be sent',
@@ -503,6 +507,7 @@ const getTranslations = async () => {
       confirm: 'Send',
     },
     scheduled: {
+      inputLabel: 'Choose the time you want to schedule the message.',
       chooseDate: 'Pick a date',
       chooseTime: 'Pick a time',
       numberOfRecipients: 'Recipient: {{ count }}',

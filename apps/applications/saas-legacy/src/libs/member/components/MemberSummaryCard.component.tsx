@@ -36,10 +36,6 @@ import { Cake } from '@material-ui/icons';
 
 import MemberSummaryInfoItem from '#src/libs/member/components/MemberSummaryInfoItem.component';
 import {
-  EmailTemplateDetail,
-  ResolvedGenericTags,
-} from '#src/libs/email-editor/types';
-import {
   ALLOWED_COUNTRIES_FOR_STATES,
   SMALL_MOBILE_CRITICAL_SIZE,
 } from '#src/libs/member/constants';
@@ -60,16 +56,13 @@ import EmailItem from '../../communication/components/EmailItem.component';
 // @ts-expect-error
 import PhoneItem from '../../communication/components/PhoneItem.component';
 import TypographyMultiline from '../../../components/typo/TypographyMultiline.component';
-// @ts-expect-error
-import DEPRECATEDCommunicationDrawer from '../../communication/components/DEPRECATEDCommunicationDrawer.component';
 import EmergencyContactItemComponent from '../../communication/components/EmergencyContactItem.component';
 import { EstablishmentGroup } from '../../establishment/types';
 import FavouriteEstablishmentGroupItemComponent from '../../establishment/components/FavouriteEstablishmentGroupItem.component';
 
 import { MemberSummaryCardReferralSection } from './MemberSummaryCardReferralSection.component';
-
-const SELECT_EMAIL = 1;
-const SEND_SMS = 2;
+import { CommunicationDrawer } from '#src/libs/communication-v2/components/CommunicationDrawer.component';
+import { CONTEXT_MEMBER } from '#src/libs/communication-v2/constants';
 
 type OwnProps = {
   editMember?: () => void;
@@ -82,16 +75,7 @@ type OwnProps = {
   setShowTermsAndConditions?: (show: boolean) => void;
   showTermsOfUse?: boolean;
   setShowTermsOfUse?: (show: boolean) => void;
-  getEmails?: () => void;
-  getEmailDetail?: (id: number) => void;
-  emailListLoading?: boolean;
-  emails?: Array<any>;
-  emailDetailLoading?: boolean;
-  emailDetails?: Record<string, EmailTemplateDetail>;
-  sendCommunication?: (com: any) => void;
-
   favoriteEstablishmentGroupList?: Array<EstablishmentGroup>;
-  resolvedGenericTags?: ResolvedGenericTags;
   handleOpenResetPasswordDialog?: () => void;
   referringMemberName?: string;
   referringMemberId?: number;
@@ -105,6 +89,10 @@ export class MemberSummaryCard extends PureComponent<Props> {
     displayMailDialog: false,
     displayBarcodeDialog: false,
     sendSms: false,
+  };
+
+  closeCommunicationDrawer = () => {
+    this.setState({ displayMailDialog: false, sendSms: false });
   };
 
   renderMembershipAndBirthday = () => {
@@ -269,28 +257,13 @@ export class MemberSummaryCard extends PureComponent<Props> {
                   />
                 )}
               {this.state.displayMailDialog && (
-                <DEPRECATEDCommunicationDrawer
-                  fullscreen
-                  receiversNotEditable
-                  actionType={this.state.sendSms ? SEND_SMS : SELECT_EMAIL}
-                  allIds={[member.id]}
-                  allIdsWithEmail={member.email ? [member.id] : []}
-                  allIdsWithPhone={member.phone_number ? [member.id] : []}
-                  emailDetailLoading={this.props.emailDetailLoading}
-                  emailDetails={this.props.emailDetails}
-                  emailListLoading={this.props.emailListLoading}
-                  emails={this.props.emails}
-                  getEmailDetail={this.props.getEmailDetail}
-                  getEmails={this.props.getEmails}
-                  membersToDisplay={[{ ...member, phone: member.phone_number }]}
-                  onCancel={() =>
-                    this.setState({ displayMailDialog: false, sendSms: false })
-                  }
-                  open={this.state.displayMailDialog}
-                  resolvedGenericTags={this.props.resolvedGenericTags}
-                  send={this.props.sendCommunication}
-                  showEmailConsentWarning={!member.accept_email}
-                  showSmsConsentWarning={!member.accept_sms}
+                <CommunicationDrawer
+                  communicationIdentifier={CONTEXT_MEMBER}
+                  communicationMember={member}
+                  communicationObjectId={member?.id}
+                  fullScreen={false}
+                  onDrawerClose={this.closeCommunicationDrawer}
+                  openDrawer={this.state.displayMailDialog}
                 />
               )}
             </List>

@@ -5,36 +5,35 @@ import CommunicationTemplateModal from '#src/libs/communication-v2/components/Me
 type EmailTemplateSelectorProps = {
   setOpenTemplateSelector: (open: boolean) => void;
   setMailTemplateSelected: (templateId: number | null) => void;
-  setMailTitle: (title: string) => void;
+  setTitle: (title: string) => void;
+  setContent: (content: string) => void;
   checkAndSetValidity: () => void;
   openTemplateSelector: boolean;
   mailTemplateSelected: number | null;
-  mailTitle: string;
+  title: string;
 };
 
 const EmailTemplateSelector: React.FC<EmailTemplateSelectorProps> = ({
   setOpenTemplateSelector,
   setMailTemplateSelected,
-  setMailTitle,
+  setTitle,
+  setContent,
   checkAndSetValidity,
   openTemplateSelector,
   mailTemplateSelected,
-  mailTitle,
+  title,
 }: EmailTemplateSelectorProps) => {
   const onClose = useCallback(
     () => setOpenTemplateSelector(false),
     [setOpenTemplateSelector],
   );
-  const setTitle = useCallback(
-    (title: string) => setMailTitle(title),
-    [setMailTitle],
-  );
   const setTemplate = useCallback(
     (templateId: number) => {
+      setContent('');
       setMailTemplateSelected(templateId);
       checkAndSetValidity();
     },
-    [setMailTemplateSelected, checkAndSetValidity],
+    [setMailTemplateSelected, checkAndSetValidity, setContent],
   );
 
   return (
@@ -42,7 +41,7 @@ const EmailTemplateSelector: React.FC<EmailTemplateSelectorProps> = ({
       closeDialog={onClose}
       open={openTemplateSelector}
       selectedTemplate={mailTemplateSelected}
-      selectedTitle={mailTitle}
+      selectedTitle={title}
       setTemplate={setTemplate}
       setTitle={setTitle}
     />

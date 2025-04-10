@@ -416,13 +416,15 @@ class MarketingRuleDetail extends React.PureComponent<Props, State> {
       <React.Fragment>
         {(Config.REACT_APP_SENTRY_ENVIRONMENT !== 'production' ||
           this.props.theme?.company === 498) &&
-          !!this.props.selectedNotification && (
+          !!this.props.selectedNotification &&
+          this.state.openCommunicationDrawer && (
             <CommunicationDrawer
               communicationIdentifier={CONTEXT_NOTIFICATION}
               communicationObjectId={this.props.selectedNotification?.id}
               communicationTitle={this.getPrimaryText(
                 this.props.selectedNotification,
               )}
+              mode="read-only"
               onDrawerClose={this.onCloseCommunicationDrawerClick}
               openDrawer={this.state.openCommunicationDrawer}
             />
@@ -536,9 +538,7 @@ class MarketingRuleDetail extends React.PureComponent<Props, State> {
                       </Typography>
                     </div>
                   </Paper>
-                  {(Config.REACT_APP_SENTRY_ENVIRONMENT === 'dev' ||
-                    Config.REACT_APP_SENTRY_ENVIRONMENT === 'local' ||
-                    Config.REACT_APP_SENTRY_ENVIRONMENT === 'staging' ||
+                  {(Config.REACT_APP_SENTRY_ENVIRONMENT !== 'production' ||
                     this.props.theme?.company === 498) && (
                     <Button
                       color="primary"

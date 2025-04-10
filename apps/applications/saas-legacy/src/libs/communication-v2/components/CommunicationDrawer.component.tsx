@@ -22,6 +22,7 @@ import CommunicationHeader from '#src/libs/communication-v2/components/Communica
 import CommunicationFilterContainer from '#src/libs/communication-v2/components/Filter/CommunicationFilterContainer.component';
 import CommunicationMessageListContainer from '#src/libs/communication-v2/components/MessageList/CommunicationMessageListContainer.component';
 import CommunicationSendMessageContainer from '#src/libs/communication-v2/components/MessageSender/CommunicationSendMessageContainer.component';
+import AutomatedCampaignCommunicationSender from '#src/libs/communication-v2/components/MessageSender/AutomatedCampaigns/AutomatedCampaignCommunicationSender.component';
 
 import { filterCommunicationThread } from '#src/libs/communication-v2/utils';
 
@@ -33,7 +34,8 @@ import type {
 import type { OptionCallback } from '#src/state/types';
 
 import {
-  CONTEXT_NOTIFICATION,
+  COMMUNICATION_DRAWER_READ_ONLY_MODE,
+  COMMUNICATION_DRAWER_WRITE_ONLY_MODE,
   PAGINATION_SIZE_RECIPIENTS,
   REFRESH_THREAD_TIMEOUT,
 } from '#src/libs/communication-v2/constants';
@@ -60,21 +62,13 @@ type NullableTimeout = ReturnType<typeof setTimeout> | null;
 
 export type Props = DrawerProps & Omit<WithMobileDialog, 'width'>;
 
-type CommunicationManagerProps = {
-  openDrawer: boolean;
-  onDrawerClose: () => void;
-};
-
 export type CommunicationListFilters = {
   filters: number[];
   dateStart: number | null;
   dateEnd: number | null;
 };
 
-const CommunicationDrawerManager: React.FC<CommunicationManagerProps> = ({
-  openDrawer,
-  onDrawerClose,
-}: CommunicationManagerProps) => {
+const CommunicationDrawerManager: React.FC = () => {
   const [messagePage, setMessagePage] = useState(1);
   const [communicationListFilters, setCommunicationListFilters] =
     useState<CommunicationListFilters>({
@@ -93,6 +87,12 @@ const CommunicationDrawerManager: React.FC<CommunicationManagerProps> = ({
     communicationObjectId,
     communicationMember,
     communicationKind,
+    scheduledCommunicationDraft,
+    openDrawer,
+    mode,
+    automatedCommunicationDraft,
+    automatedCommunicationKind,
+    onCloseCommunicationDrawer,
   } = useCommunicationContext();
 
   const { fetchMessages, hasNextMessageListPage } = useMessageList();
@@ -196,7 +196,7 @@ const CommunicationDrawerManager: React.FC<CommunicationManagerProps> = ({
     setDisplaySnackbar(displaySnackbar);
   }, [displaySnackbar]);
 
-  const onShowMessageWriter = useCallback(() => {
+  const onShowMessageWritter = useCallback(() => {
     setShowMessageWritter((current) => !current);
   }, []);
 
@@ -251,6 +251,18 @@ const CommunicationDrawerManager: React.FC<CommunicationManagerProps> = ({
   }, [fetchTags, flagAllUnreadCommunicationsAsRead]);
 
   useEffect(() => {
+    if (scheduledCommunicationDraft || automatedCommunicationDraft) {
+      setTimeout(() => {
+        setShowMessageWritter(true);
+      }, 200);
+    }
+  }, [
+    scheduledCommunicationDraft,
+    automatedCommunicationDraft,
+    automatedCommunicationKind,
+  ]);
+
+  useEffect(() => {
     const fetchAvailableRecipientsParams = {
       page: 1,
     };
@@ -264,6 +276,9 @@ const CommunicationDrawerManager: React.FC<CommunicationManagerProps> = ({
     fetchMessageList,
     fetchAvailableRecipients,
   ]);
+
+  const isAutomatedCampaign =
+    automatedCommunicationKind !== -1 || !!automatedCommunicationDraft;
 
   const SlideTransition = (props: SlideProps) => (
     <Slide {...props} direction="left" />
@@ -284,76 +299,73 @@ const CommunicationDrawerManager: React.FC<CommunicationManagerProps> = ({
       withoutHeaderContainer
       withoutPadding
       mobileMinWidth="350px"
-      onClose={onDrawerClose}
+      onClose={onCloseCommunicationDrawer}
       open={openDrawer}
     >
-      <CommunicationHeader onDrawerClose={onDrawerClose} />
-      <CommunicationFilterContainer handleFilters={handleFilterChange} />
-      <div className={classes.messageListContainer}>
-        <Snackbar
-          anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-          autoHideDuration={5000}
-          className={classes.snackbar}
-          onClose={onCloseSnackbar}
-          open={displaySnackbar}
-          TransitionComponent={SlideTransition}
-        >
-          <Alert className={classes.snackbarContent} severity="info">
-            {t('messageList.filterOutCommunicationSent')}
-          </Alert>
-        </Snackbar>
-        <CommunicationMessageListContainer
-          currentPage={messagePage}
-          fetchMoreCommunicationMessages={fetchMoreMessages}
-          hasActiveFilters={
-            !!communicationListFilters.dateStart ||
-            !!communicationListFilters.dateEnd ||
-            !!communicationListFilters.filters.length
-          }
-          paginationSize={PAGINATION_SIZE_RECIPIENTS}
-          scrollToBottomFlag={scrollToBottomFlag}
-          showCommunicationSmsProviderNotVerifiedWarning={
-            showCommunicationSmsProviderNotVerifiedWarning
-          }
-          showMailProviderWarningContent={showMailProviderWarningContent}
-        />
-      </div>
-      {communicationIdentifier !== CONTEXT_NOTIFICATION && (
+      <CommunicationHeader />
+      {mode !== COMMUNICATION_DRAWER_WRITE_ONLY_MODE && (
+        <>
+          <CommunicationFilterContainer handleFilters={handleFilterChange} />
+          <div className={classes.messageListContainer}>
+            <Snackbar
+              anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+              autoHideDuration={5000}
+              className={classes.snackbar}
+              onClose={onCloseSnackbar}
+              open={displaySnackbar}
+              TransitionComponent={SlideTransition}
+            >
+              <Alert className={classes.snackbarContent} severity="info">
+                {t('messageList.filterOutCommunicationSent')}
+              </Alert>
+            </Snackbar>
+            <CommunicationMessageListContainer
+              currentPage={messagePage}
+              fetchMoreCommunicationMessages={fetchMoreMessages}
+              hasActiveFilters={
+                !!communicationListFilters.dateStart ||
+                !!communicationListFilters.dateEnd ||
+                !!communicationListFilters.filters.length
+              }
+              paginationSize={PAGINATION_SIZE_RECIPIENTS}
+              scrollToBottomFlag={scrollToBottomFlag}
+              showCommunicationSmsProviderNotVerifiedWarning={
+                showCommunicationSmsProviderNotVerifiedWarning
+              }
+              showMailProviderWarningContent={showMailProviderWarningContent}
+            />
+          </div>
+        </>
+      )}
+      {mode !== COMMUNICATION_DRAWER_READ_ONLY_MODE && (
         <div
           className={clsx(classes.sendMessageContainer, {
             [classes.sendMessageContainerWithIntercom]:
               !!theme && !theme.hide_intercom,
           })}
         >
-          {showMessageWritter ? (
-            <ButtonBase
-              disableRipple
-              disableTouchRipple
-              onClick={onShowMessageWriter}
-            >
-              <KeyboardArrowDown className={classes.buttonIconClose} />
-            </ButtonBase>
-          ) : (
-            <div className={classes.buttonMessageWriterContainer}>
-              <ButtonBase
-                disableRipple
-                disableTouchRipple
-                className={classes.buttonMessageWriter}
-                onClick={onShowMessageWriter}
-              >
-                <Send fontSize="small" />
-                <Typography className={classes.buttonText} variant="subtitle1">
-                  {t('sendMessage.writeCommunication')}
-                </Typography>
-              </ButtonBase>
-            </div>
-          )}
-          <Collapse in={showMessageWritter} timeout={500}>
-            <CommunicationSendMessageContainer
-              directMember={communicationMember}
-              pageSize={PAGINATION_SIZE_RECIPIENTS}
-              sendCommunication={sendCommunicationCallback}
+          {mode !== COMMUNICATION_DRAWER_WRITE_ONLY_MODE && (
+            <CommunicationSenderToggleButton
+              onShowMessageWritter={onShowMessageWritter}
+              showMessageWritter={showMessageWritter}
             />
+          )}
+          <Collapse
+            in={
+              showMessageWritter ||
+              mode === COMMUNICATION_DRAWER_WRITE_ONLY_MODE
+            }
+            timeout={500}
+          >
+            {isAutomatedCampaign ? (
+              <AutomatedCampaignCommunicationSender />
+            ) : (
+              <CommunicationSendMessageContainer
+                directMember={communicationMember}
+                pageSize={PAGINATION_SIZE_RECIPIENTS}
+                sendCommunication={sendCommunicationCallback}
+              />
+            )}
           </Collapse>
         </div>
       )}
@@ -361,17 +373,49 @@ const CommunicationDrawerManager: React.FC<CommunicationManagerProps> = ({
   );
 };
 
-export const CommunicationDrawer: React.FC<Props> = ({
-  onDrawerClose,
-  openDrawer,
-  ...props
-}: Props) => {
+export type CommunicationSenderToggleButtonProps = {
+  showMessageWritter: boolean;
+  onShowMessageWritter: () => void;
+};
+
+export const CommunicationSenderToggleButton: React.FC<
+  CommunicationSenderToggleButtonProps
+> = ({ showMessageWritter, onShowMessageWritter }) => {
+  const { t } = useTranslation('communication');
+  const classes = useStyles();
+  return (
+    <>
+      {showMessageWritter ? (
+        <ButtonBase
+          disableRipple
+          disableTouchRipple
+          onClick={onShowMessageWritter}
+        >
+          <KeyboardArrowDown className={classes.buttonIconClose} />
+        </ButtonBase>
+      ) : (
+        <div className={classes.buttonMessageWriterContainer}>
+          <ButtonBase
+            disableRipple
+            disableTouchRipple
+            className={classes.buttonMessageWriter}
+            onClick={onShowMessageWritter}
+          >
+            <Send fontSize="small" />
+            <Typography className={classes.buttonText} variant="subtitle1">
+              {t('sendMessage.writeCommunication')}
+            </Typography>
+          </ButtonBase>
+        </div>
+      )}
+    </>
+  );
+};
+
+export const CommunicationDrawer: React.FC<Props> = (props: Props) => {
   return (
     <CommunicationContextProvider initialValues={props}>
-      <CommunicationDrawerManager
-        onDrawerClose={onDrawerClose}
-        openDrawer={openDrawer}
-      />
+      <CommunicationDrawerManager />
     </CommunicationContextProvider>
   );
 };

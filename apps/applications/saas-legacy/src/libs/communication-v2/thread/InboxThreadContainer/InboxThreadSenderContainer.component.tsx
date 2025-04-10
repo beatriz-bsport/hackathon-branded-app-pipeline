@@ -35,9 +35,6 @@ type Props = {
   ) => void;
   // --- Member ---
   communicationMember: Member;
-
-  // --- Misc ---
-  hideAutoResend?: boolean;
 };
 
 const InboxThreadSenderContainer: React.FC<Props> = ({
@@ -46,7 +43,6 @@ const InboxThreadSenderContainer: React.FC<Props> = ({
   handleShowMessageWriter,
   sendCommunication,
   communicationMember,
-  hideAutoResend,
 }) => {
   const { t } = useTranslation('communication');
   const classes = useStyles();
@@ -82,7 +78,6 @@ const InboxThreadSenderContainer: React.FC<Props> = ({
             thread.related_object_kind === ChatThreadKinds.Member &&
             communicationMember
           }
-          hideAutoResend={hideAutoResend}
           pageSize={PAGINATION_SIZE_RECIPIENTS}
           relatedObjectId={thread.related_object_id}
           relatedObjectKind={thread.related_object_kind}

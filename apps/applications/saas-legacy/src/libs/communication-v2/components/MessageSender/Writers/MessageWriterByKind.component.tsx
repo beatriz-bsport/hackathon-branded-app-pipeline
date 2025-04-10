@@ -17,21 +17,15 @@ type MessageWriterByKindProps = {
   communicationKind: number;
   emailTemplateDetailList: Record<number, EmailTemplateDetail>;
   emailTemplateSelected: number | null;
-  emailTitle: string;
+  title: string;
   loadingTemplateDetailList: boolean;
-  mailContent: string;
-  notificationContent: string;
-  notificationTitle: string;
-  smsContent: string;
+  content: string;
   getEmailDetail: ({ templateId }: FetchTemplateDetailsParams) => void;
   setOpenTemplateVisualizer: (open: boolean) => void;
   setMailTemplateSelected: (templateId: number | null) => void;
-  setMailTitle: (title: string) => void;
-  setMailContent: (content: string) => void;
-  setNotificationTitle: (title: string) => void;
-  setNotificationContent: (content: string) => void;
-  setSmsContent: (content: string) => void;
-  setFocusTextField: (identifier: number | null) => void;
+  setTitle: (title: string) => void;
+  setContent: (content: string) => void;
+  setFocusTextField: (identifier: number) => void;
   checkAndSetValidity: () => void;
 };
 
@@ -40,21 +34,15 @@ const MessageWriterByKind: React.FC<MessageWriterByKindProps> = ({
   communicationKind,
   emailTemplateDetailList,
   emailTemplateSelected,
-  emailTitle,
   loadingTemplateDetailList,
-  mailContent,
-  notificationContent,
-  notificationTitle,
-  smsContent,
+  title,
+  content,
   getEmailDetail,
   setOpenTemplateVisualizer,
   setMailTemplateSelected,
-  setMailTitle,
-  setMailContent,
-  setNotificationTitle,
-  setNotificationContent,
-  setSmsContent,
   setFocusTextField,
+  setTitle,
+  setContent,
   checkAndSetValidity,
 }: MessageWriterByKindProps) => {
   const { fullScreen } = useCommunicationContext();
@@ -69,50 +57,23 @@ const MessageWriterByKind: React.FC<MessageWriterByKindProps> = ({
 
   const onRemoveTemplate = useCallback(() => {
     setMailTemplateSelected(null);
-    setMailTitle('');
-  }, [setMailTemplateSelected, setMailTitle]);
+    setTitle('');
+  }, [setMailTemplateSelected, setTitle]);
 
   const handleChangeTitle = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
-      setMailTitle(event.target.value);
+      setTitle(event.target.value || '');
       checkAndSetValidity();
     },
-    [setMailTitle, checkAndSetValidity],
+    [setTitle, checkAndSetValidity],
   );
 
   const handleChangeContent = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
-      setMailContent(event.target.value);
+      setContent(event.target.value || '');
       checkAndSetValidity();
     },
-    [setMailContent, checkAndSetValidity],
-  );
-
-  const handleChangeNotificationTitle = useCallback(
-    (event: React.ChangeEvent) => {
-      const target = event.target as HTMLInputElement;
-      setNotificationTitle(target.value);
-      checkAndSetValidity();
-    },
-    [setNotificationTitle, checkAndSetValidity],
-  );
-
-  const handleChangeNotificationContent = useCallback(
-    (event: React.ChangeEvent) => {
-      const target = event.target as HTMLInputElement;
-      setNotificationContent(target.value);
-      checkAndSetValidity();
-    },
-    [setNotificationContent, checkAndSetValidity],
-  );
-
-  const handleChangeSMSContent = useCallback(
-    (event: React.ChangeEvent) => {
-      const target = event.target as HTMLInputElement;
-      setSmsContent(target.value);
-      checkAndSetValidity();
-    },
-    [setSmsContent, checkAndSetValidity],
+    [setContent, checkAndSetValidity],
   );
 
   const onFocus = useCallback(
@@ -126,10 +87,10 @@ const MessageWriterByKind: React.FC<MessageWriterByKindProps> = ({
     <>
       {communicationKind === WRITE_EMAIL && (
         <CommunicationWriteEmail
-          emailContent={mailContent}
+          emailContent={content}
           emailTemplateDetails={emailTemplateDetailList}
           emailTemplateSelected={emailTemplateSelected}
-          emailTitle={emailTitle}
+          emailTitle={title}
           fullScreen={fullScreen}
           handleChangeContent={handleChangeContent}
           handleChangeTitle={handleChangeTitle}
@@ -146,9 +107,9 @@ const MessageWriterByKind: React.FC<MessageWriterByKindProps> = ({
       {communicationKind === WRITE_SMS && (
         <CommunicationWriteSMS
           fullScreen={fullScreen}
-          handleChangeContent={handleChangeSMSContent}
+          handleChangeContent={handleChangeContent}
           onFocus={onFocus}
-          smsContent={smsContent}
+          smsContent={content}
         >
           {children}
         </CommunicationWriteSMS>
@@ -156,10 +117,10 @@ const MessageWriterByKind: React.FC<MessageWriterByKindProps> = ({
       {communicationKind === WRITE_PUSH_NOTIFICATION && (
         <CommunicationWriteNotification
           fullScreen={fullScreen}
-          handleChangeContent={handleChangeNotificationContent}
-          handleChangeTitle={handleChangeNotificationTitle}
-          notificationContent={notificationContent}
-          notificationTitle={notificationTitle}
+          handleChangeContent={handleChangeContent}
+          handleChangeTitle={handleChangeTitle}
+          notificationContent={content}
+          notificationTitle={title}
           onFocus={onFocus}
         >
           {children}

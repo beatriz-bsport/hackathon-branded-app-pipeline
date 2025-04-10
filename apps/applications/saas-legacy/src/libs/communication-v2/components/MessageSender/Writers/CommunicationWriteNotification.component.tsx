@@ -16,8 +16,8 @@ import {
 
 type Props = {
   children: React.ReactNode;
-  handleChangeContent: (event: React.ChangeEvent) => void;
-  handleChangeTitle: (event: React.ChangeEvent) => void;
+  handleChangeContent: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  handleChangeTitle: (event: React.ChangeEvent<HTMLInputElement>) => void;
   minimalBottom?: boolean; // for specific use such as sequential marketing
   notificationContent: string;
   notificationTitle: string;

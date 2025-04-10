@@ -5,7 +5,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Typography from '@material-ui/core/Typography';
 
-import { OptionsType } from 'react-select/lib/types';
+import { MenuPosition, OptionsType } from 'react-select/lib/types';
 import type { EmailTemplateSummary } from '../types';
 
 type Props = {
@@ -14,6 +14,7 @@ type Props = {
   helperText: string;
   value?: number;
   disabled?: boolean;
+  menuPosition?: MenuPosition;
 };
 
 type EmailOptionProps = {
@@ -58,6 +59,7 @@ export const EmailSelector: React.FC<Props> = ({
   emails,
   helperText,
   disabled,
+  menuPosition,
 }) => {
   const suggestions: OptionsType<EmailTemplateOption> = useMemo(
     () =>
@@ -100,6 +102,7 @@ export const EmailSelector: React.FC<Props> = ({
       isClearable
       components={{ Option: EmailOption }}
       isDisabled={disabled}
+      menuPosition={menuPosition || 'absolute'}
       onChange={handleChangeEmail}
       options={suggestions}
       placeholder={helperText}

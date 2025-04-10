@@ -1,21 +1,47 @@
-import React from 'react';
+import React, { useCallback, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/styles';
 import { Theme } from '@material-ui/core';
 import Avatar from '@material-ui/core/Avatar';
 import CloseIcon from '@material-ui/icons/Close';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
+import { SEND_COMMUNICATION_ON_JOIN } from '@bsport/common/lib/master-data/smart-list';
 import { useCommunicationContext } from '#src/libs/communication-v2/context/CommunicationDrawer.context';
 
-type Props = {
-  onDrawerClose: () => void;
-};
-
-const CommunicationHeader = (props: Props) => {
-  const { onDrawerClose } = props;
-  const { communicationTitle, communicationMember } = useCommunicationContext();
+const CommunicationHeader = () => {
+  const {
+    communicationTitle,
+    communicationMember,
+    automatedCommunicationKind,
+    automatedCommunicationDraft,
+    onCloseCommunicationDrawer,
+  } = useCommunicationContext();
   const communicationPhoto = communicationMember?.photo;
   const classes = useStyles();
+  const { t } = useTranslation('communication');
+
+  const getTitle = useCallback(() => {
+    if (automatedCommunicationDraft) {
+      return automatedCommunicationKind === SEND_COMMUNICATION_ON_JOIN
+        ? t('campaign.automated.form.subtitles.update.joinSmartList')
+        : t('campaign.automated.form.subtitles.update.leftSmartList');
+    } else if (automatedCommunicationKind !== -1) {
+      return automatedCommunicationKind === SEND_COMMUNICATION_ON_JOIN
+        ? t('campaign.automated.form.subtitles.create.joinSmartList')
+        : t('campaign.automated.form.subtitles.create.leftSmartList');
+    }
+    return communicationMember ? communicationMember.name : communicationTitle;
+  }, [
+    communicationMember,
+    communicationTitle,
+    automatedCommunicationKind,
+    automatedCommunicationDraft,
+    t,
+  ]);
+
+  const drawerTitle = useMemo(() => getTitle(), [getTitle]);
+
   return (
     <div className={classes.container}>
       <div className={classes.textContainer}>
@@ -27,10 +53,10 @@ const CommunicationHeader = (props: Props) => {
           />
         )}
         <Typography className={classes.text} variant="body1">
-          {communicationTitle}
+          {drawerTitle}
         </Typography>
       </div>
-      <IconButton onClick={onDrawerClose} size="small">
+      <IconButton onClick={onCloseCommunicationDrawer} size="small">
         <CloseIcon />
       </IconButton>
     </div>
@@ -78,4 +104,4 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-export default CommunicationHeader;
+export default React.memo(CommunicationHeader);

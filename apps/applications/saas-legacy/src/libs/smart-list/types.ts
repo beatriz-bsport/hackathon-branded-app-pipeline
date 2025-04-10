@@ -79,6 +79,34 @@ export type AutomatedCampaign<C = number, SM = number, ED = number> = {
   email_resend_delay: number;
 };
 
+export type CreateAutomatedCampaign = {
+  smartlist: number;
+  event_kind: number;
+  communication_kind: number;
+  text: string | null;
+  email_design: number | null;
+  title: string | null;
+  max_communications_sent_per_member: number | null;
+  email_resend_count: number;
+  email_resend_delay: number;
+};
+
+export type EditAutomatedCampaign = {
+  id: number;
+  company?: number;
+  smartlist: number;
+  event_kind: number;
+  communication_kind: number;
+  text: string | null;
+  email_design: number | null;
+  title: string | null;
+  disabled: boolean;
+  date_created: string;
+  max_communications_sent_per_member: number | null;
+  email_resend_count: number;
+  email_resend_delay: number;
+};
+
 export type CadencesUsingSmartlistSuccess = {
   smartlist_id: number;
   cadences: number[];

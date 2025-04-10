@@ -12,6 +12,8 @@ export enum BsportRequestFromHeaderValue {
   SAAS_BACKOFFICE = 'backoffice',
 }
 
+export const LINE_SPORTS_CLUB_ID = 498;
+
 export const BSPORT_REQUEST_FROM_HEADER = 'X-bsport-request-from';
 export const BSPORT_REQUEST_FROM_HEADER_STORAGE_LOCATION =
   'bsport-request-from';

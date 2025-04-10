@@ -26,10 +26,10 @@ type Props = {
   children: React.ReactNode;
   emailContent: string;
   emailTemplateDetails?: Record<number, EmailTemplateDetail>;
-  emailTemplateSelected?: number;
+  emailTemplateSelected?: number | null;
   emailTitle: string;
-  handleChangeContent: (event: React.ChangeEvent) => void;
-  handleChangeTitle: (event: React.ChangeEvent) => void;
+  handleChangeContent: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  handleChangeTitle: (event: React.ChangeEvent<HTMLInputElement>) => void;
   loadingTemplateDetails?: boolean;
   onEditTemplate?: () => void;
   onFocus?: (identifier: number) => void;
@@ -70,17 +70,26 @@ const CommunicationWriteEmail: React.FC<Props> = ({
   );
 
   const onRefreshTemplateData = useCallback(() => {
+    if (!emailTemplateSelected) return;
     const refreshTemplateDaraParams: FetchTemplateDetailsParams = {
       templateId: emailTemplateSelected,
     };
     setShowRefreshDialog(false);
-    refreshTemplateData(refreshTemplateDaraParams);
+    refreshTemplateData?.(refreshTemplateDaraParams);
   }, [emailTemplateSelected, refreshTemplateData]);
 
   const handleEditTemplate = useCallback(() => {
-    onEditTemplate();
+    onEditTemplate?.();
     setShowRefreshDialog(true);
   }, [onEditTemplate]);
+
+  const handleRemoveTemplate = useCallback(() => {
+    onRemoveTemplate?.();
+  }, [onRemoveTemplate]);
+
+  const handleSeeTemplate = useCallback(() => {
+    onSeeTemplate?.();
+  }, [onSeeTemplate]);
 
   return (
     <React.Fragment>
@@ -95,14 +104,14 @@ const CommunicationWriteEmail: React.FC<Props> = ({
         placeholder={t('sendMessage.textField.object')}
         value={emailTitle}
       />
-      {emailTemplateSelected ? (
+      {emailTemplateSelected && emailTemplateDetails ? (
         <EmailPreview
           emailTemplateDetails={emailTemplateDetails}
           emailTemplateSelected={emailTemplateSelected}
-          loadingTemplateDetails={loadingTemplateDetails}
+          loadingTemplateDetails={loadingTemplateDetails || false}
           onEditTemplate={handleEditTemplate}
-          onRemoveTemplate={onRemoveTemplate}
-          onSeeTemplate={onSeeTemplate}
+          onRemoveTemplate={handleRemoveTemplate}
+          onSeeTemplate={handleSeeTemplate}
         >
           {children}
         </EmailPreview>

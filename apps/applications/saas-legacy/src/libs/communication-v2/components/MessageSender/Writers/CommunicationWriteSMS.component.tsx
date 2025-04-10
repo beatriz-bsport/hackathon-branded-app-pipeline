@@ -17,7 +17,7 @@ import {
 
 type Props = {
   children: React.ReactNode;
-  handleChangeContent: (event: React.ChangeEvent) => void;
+  handleChangeContent: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onFocus?: (identifier: number) => void;
   minimalBottom?: boolean; // for specific use such as sequential marketing
   smsContent: string;

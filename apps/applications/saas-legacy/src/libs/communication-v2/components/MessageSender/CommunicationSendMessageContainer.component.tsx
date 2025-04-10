@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 
-import { Paper, makeStyles } from '@material-ui/core';
+import { Collapse, Paper, makeStyles } from '@material-ui/core';
 
 import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-inbox.js';
 import HTMLPreviewDialog from '#src/components/html/HTMLPreviewDialog.component';
@@ -13,13 +13,6 @@ import {
   getFormattedQueryParamsFromThread,
 } from '#src/libs/communication-v2/utils';
 import {
-  MAX_LENGTH_PUSH_CONTENT,
-  MAX_LENGTH_PUSH_TITLE,
-  TEXTFIELD_MAIL_CONTENT,
-  TEXTFIELD_MAIL_TITLE,
-  TEXTFIELD_NOTIFICATION_CONTENT,
-  TEXTFIELD_NOTIFICATION_TITLE,
-  TEXTFIELD_SMS_CONTENT,
   WRITE_EMAIL,
   WRITE_SMS,
   WRITE_PUSH_NOTIFICATION,
@@ -28,6 +21,9 @@ import {
   CAN_NOT_SEND_BECAUSE_MISSING_CONTENT,
   CAN_NOT_SEND_BECAUSE_DIRECT_MEMBER_HAS_NOT_A_PHONE_NUMBER,
   CAN_NOT_SEND_BECAUSE_DIRECT_MEMBER_HAS_NOT_AN_EMAIL,
+  VALIDITY_INITIAL_VALUE,
+  MAX_LENGTH_PUSH_TITLE,
+  WAIT_FOR_MESSAGE_SCHEDULER_ANIMATION,
 } from '#src/libs/communication-v2/constants';
 import type {
   MessageData,
@@ -35,18 +31,28 @@ import type {
   FetchFirstReachedRecipientsParams,
 } from '#src/libs/communication-v2/types';
 import type { OptionCallback } from '#src/state/types';
-import CommunicationRecipientsModal from '#src/libs/communication-v2/components/MessageSender/ModalRecipient/CommunicationRecipientsModal.component';
-import EmailTemplateSelector from '#src/libs/communication-v2/components/MessageSender/Writers/EmailTemplateSelector.component';
-import MessageWriterByKind from '#src/libs/communication-v2/components/MessageSender/Writers/MessageWriterByKind.component';
-import SendMessageContainerBottomIcons from '#src/libs/communication-v2/components/MessageSender/Writers/SendMessageContainerBottomIcons.component';
-import { useTagsAndCategories } from '#src/libs/communication-v2/hooks/useCommunicationsTools.hooks';
+import {
+  useTagsAndCategories,
+  useTheme,
+} from '#src/libs/communication-v2/hooks/useCommunicationsTools.hooks';
 import {
   FetchAvailableRecipientsParams,
   ResetRecipientsParams,
   useAvailableRecipients,
 } from '#src/libs/communication-v2/hooks/useAvailableRecipients.hooks';
 import { useEmailTemplates } from '#src/libs/communication-v2/hooks/useEmailTemplates.hooks';
+import {
+  CreateScheduledCommunicationParams,
+  EditScheduledCommunicationParams,
+  useCommunicationSchedulers,
+} from '#src/libs/communication-v2/hooks/useCommunicationScheduler.hooks';
+import { useCommunicationManagement } from '#src/libs/communication-v2/hooks/useCommunicationManagement.hooks';
 import { useCommunicationContext } from '#src/libs/communication-v2/context/CommunicationDrawer.context';
+import CommunicationRecipientsModal from '#src/libs/communication-v2/components/MessageSender/ModalRecipient/CommunicationRecipientsModal.component';
+import EmailTemplateSelector from '#src/libs/communication-v2/components/MessageSender/Writers/EmailTemplateSelector.component';
+import MessageWriterByKind from '#src/libs/communication-v2/components/MessageSender/Writers/MessageWriterByKind.component';
+import SendMessageContainerBottomIcons from '#src/libs/communication-v2/components/MessageSender/Writers/SendMessageContainerBottomIcons.component';
+import CommunicationSchedulerInput from '#src/libs/communication-v2/components/MessageSender/CommunicationSchedulerInput.component';
 
 export type Props = {
   relatedObjectKind?: ChatThreadKinds;
@@ -58,7 +64,6 @@ export type Props = {
     memberSelectedCategories: number[],
     options?: OptionCallback<void>,
   ) => void;
-  hideAutoResend?: boolean;
 };
 
 export const CommunicationSendMessageContainer: React.FC<Props> = ({
@@ -67,41 +72,36 @@ export const CommunicationSendMessageContainer: React.FC<Props> = ({
   directMember,
   pageSize,
   sendCommunication,
-  hideAutoResend,
 }) => {
+  const [validity, setValidity] = useState<number>(VALIDITY_INITIAL_VALUE);
+  const [checkedMemberCategoryFilter, setCheckedMemberCategoryFilter] =
+    useState<number[]>([]);
   const [uncheckedMembers, setUncheckedMembers] =
     useState<MemberListIdsByCommunicationKind>({
       email: [],
       phone: [],
       notification: [],
     });
-  const [mailTemplateSelected, setMailTemplateSelected] = useState<
-    number | null
-  >(null);
-  const [mailTitle, setMailTitle] = useState('');
-  const [mailContent, setMailContent] = useState('');
-  const [smsContent, setSmsContent] = useState('');
-  const [notificationTitle, setNotificationTitle] = useState('');
-  const [notificationContent, setNotificationContent] = useState('');
-  const [focusTextField, setFocusTextField] = useState<number | null>(null);
   const [openTemplateSelector, setOpenTemplateSelector] = useState(false);
   const [openTemplateVisualizer, setOpenTemplateVisualizer] = useState(false);
   const [openRecipientSelector, setOpenRecipientSelector] = useState(false);
-  const [validity, setValidity] = useState<number | null>(null);
-  const [checkedMemberCategoryFilter, setCheckedMemberCategoryFilter] =
-    useState<number[]>([]);
-
   const [autoResendConfigDialogOpen, setAutoResendConfigDialogOpen] =
     useState(false);
-  const [resendCount, setResendCount] = useState(0);
-  const [resendDelay, setResendDelay] = useState(0);
+  const [openCommunicationScheduling, setOpenCommunicationScheduling] =
+    useState(false);
+  const [hasDraftMessageInitializedData, setHasDraftMessageInitializedData] =
+    useState(false);
   const {
     allMemberCategoryList,
     communicationKind,
     communicationIdentifier,
     communicationObjectId,
+    communicationMember,
+    scheduledCommunicationDraft,
+    onCloseCommunicationDrawer,
     setCommunicationKind,
   } = useCommunicationContext();
+  const { timezone } = useTheme();
   const {
     availableRecipientsList,
     availableRecipientsTotalCount,
@@ -117,26 +117,59 @@ export const CommunicationSendMessageContainer: React.FC<Props> = ({
     communicationIdentifier,
     communicationObjectId,
   });
+  const {
+    scheduleCommunication,
+    editScheduledCommunication,
+    sendScheduledCommunicationNow,
+  } = useCommunicationSchedulers({
+    communicationObjectId,
+  });
+  const {
+    title,
+    content,
+    mailTemplateSelected,
+    communicationSchedulingDate,
+    resendCount,
+    resendDelay,
+    setTitle,
+    setContent,
+    setMailTemplateSelected,
+    setResendConfig,
+    setCommunicationSchedulingDate,
+    setFocusTextField,
+    resetAllContent,
+    resetEmailTemplate,
+    initializeFromDraft,
+    addTag,
+    createCommunicationSenderData,
+    createCommunicationSchedulingData,
+    checkIsMessageSchedulable,
+  } = useCommunicationManagement();
   const { loadingTemplateDetails, templateDetailList, fetchTemplateDetails } =
     useEmailTemplates();
   const { resolvedGenericTags, tagCategories } = useTagsAndCategories();
   const classes = useStyles();
 
-  const openResendConfigDialog = useCallback(() => {
+  const handleOpenResendConfigDialog = useCallback(() => {
     setAutoResendConfigDialogOpen(true);
   }, []);
 
-  const closeResendConfigDialog = useCallback(() => {
+  const handleCloseResendConfigDialog = useCallback(() => {
     setAutoResendConfigDialogOpen(false);
   }, []);
 
-  const setResendConfig = useCallback(
-    (data: { resendCount: number; resendDelay: number }) => {
-      setResendCount(data?.resendCount);
-      setResendDelay(data?.resendDelay);
-      closeResendConfigDialog();
-    },
-    [closeResendConfigDialog],
+  const handleOpenMessageSchedulingModal = useCallback(() => {
+    setOpenCommunicationScheduling(!openCommunicationScheduling);
+  }, [openCommunicationScheduling]);
+
+  const handleCloseRecipientModal = useCallback(
+    () => setOpenRecipientSelector(false),
+    [setOpenRecipientSelector],
+  );
+
+  const handleCloseHTMLPreviewDialog = useCallback(
+    () => setOpenTemplateVisualizer(false),
+    [],
   );
 
   const getSelectedRecipientsCount = useCallback(() => {
@@ -164,62 +197,6 @@ export const CommunicationSendMessageContainer: React.FC<Props> = ({
     uncheckedMembers,
   ]);
 
-  const checkAndSetValidity = useCallback(() => {
-    if (!directMember && getSelectedRecipientsCount() === 0) {
-      return setValidity(CAN_NOT_SEND_BECAUSE_MISSING_RECIPIENTS);
-    }
-
-    if (directMember) {
-      if (communicationKind === WRITE_EMAIL && !directMember.email) {
-        return setValidity(CAN_NOT_SEND_BECAUSE_DIRECT_MEMBER_HAS_NOT_AN_EMAIL);
-      }
-      if (communicationKind === WRITE_SMS && !directMember.phone_number) {
-        return setValidity(
-          CAN_NOT_SEND_BECAUSE_DIRECT_MEMBER_HAS_NOT_A_PHONE_NUMBER,
-        );
-      }
-    }
-
-    const updateValidity = (valid: boolean) =>
-      setValidity(
-        valid ? CAN_SEND_MESSAGE : CAN_NOT_SEND_BECAUSE_MISSING_CONTENT,
-      );
-
-    if (communicationKind === WRITE_EMAIL) {
-      updateValidity(
-        mailTitle !== '' &&
-          (mailContent !== '' || mailTemplateSelected !== null),
-      );
-    }
-    if (communicationKind === WRITE_SMS) {
-      updateValidity(smsContent !== '');
-    }
-    if (communicationKind === WRITE_PUSH_NOTIFICATION) {
-      updateValidity(notificationTitle !== '' && notificationContent !== '');
-    }
-  }, [
-    directMember,
-    communicationKind,
-    mailTitle,
-    mailContent,
-    mailTemplateSelected,
-    smsContent,
-    notificationTitle,
-    notificationContent,
-    getSelectedRecipientsCount,
-  ]);
-
-  const handleFetchPaginatedAvailableRecipientMemberList = useCallback(
-    (page: number) => {
-      const params: FetchAvailableRecipientsParams = {
-        page,
-        memberSelectedCategories: checkedMemberCategoryFilter || [],
-      };
-      fetchAvailableRecipients(params);
-    },
-    [fetchAvailableRecipients, checkedMemberCategoryFilter],
-  );
-
   const getRecipientBlacklist = useCallback((): Array<number> => {
     switch (communicationKind) {
       case WRITE_EMAIL:
@@ -233,10 +210,6 @@ export const CommunicationSendMessageContainer: React.FC<Props> = ({
     }
   }, [communicationKind, uncheckedMembers]);
 
-  const getSelectedMembersDetailsAllKinds = useCallback(() => {
-    checkAndSetValidity();
-  }, [checkAndSetValidity]);
-
   const handleCheckMemberCategoryFilter = useCallback(
     (nextList: number[], refreshCountRecipients: () => void) => {
       setCheckedMemberCategoryFilter(nextList);
@@ -245,74 +218,124 @@ export const CommunicationSendMessageContainer: React.FC<Props> = ({
     [setCheckedMemberCategoryFilter],
   );
 
-  const handleCloseRecipientModal = useCallback(
-    () => setOpenRecipientSelector(false),
-    [setOpenRecipientSelector],
-  );
+  const checkAndSetValidity = useCallback(() => {
+    if (
+      !communicationMember &&
+      getSelectedRecipientsCount() === 0 &&
+      !communicationSchedulingDate
+    ) {
+      return setValidity(CAN_NOT_SEND_BECAUSE_MISSING_RECIPIENTS);
+    }
 
-  const onBaliseItemClick = useCallback(
-    (selectedItem: string) => {
-      const tagLength = selectedItem?.length + 2; // 2 for the brackets
-      if (communicationKind === WRITE_EMAIL) {
-        if (focusTextField === TEXTFIELD_MAIL_TITLE) {
-          setMailTitle((prevTitle) => `${prevTitle}{${selectedItem}}`);
-        } else if (focusTextField === TEXTFIELD_MAIL_CONTENT) {
-          setMailContent((prevContent) => `${prevContent}{${selectedItem}}`);
-        }
-      } else if (
-        communicationKind === WRITE_SMS &&
-        focusTextField === TEXTFIELD_SMS_CONTENT
-      ) {
-        setSmsContent((prevContent) => `${prevContent}{${selectedItem}}`);
-      } else if (communicationKind === WRITE_PUSH_NOTIFICATION) {
-        if (
-          focusTextField === TEXTFIELD_NOTIFICATION_TITLE &&
-          notificationTitle?.length + tagLength <= MAX_LENGTH_PUSH_TITLE
-        ) {
-          setNotificationTitle((prevTitle) => `${prevTitle}{${selectedItem}}`);
-        } else if (
-          focusTextField === TEXTFIELD_NOTIFICATION_CONTENT &&
-          notificationContent?.length + tagLength <= MAX_LENGTH_PUSH_CONTENT
-        ) {
-          setNotificationContent(
-            (prevContent) => `${prevContent}{${selectedItem}}`,
-          );
-        }
+    if (communicationMember) {
+      if (communicationKind === WRITE_EMAIL && !communicationMember.email) {
+        return setValidity(CAN_NOT_SEND_BECAUSE_DIRECT_MEMBER_HAS_NOT_AN_EMAIL);
       }
-    },
-    [
-      communicationKind,
-      focusTextField,
-      notificationTitle?.length,
-      notificationContent?.length,
-    ],
-  );
+      if (
+        communicationKind === WRITE_SMS &&
+        !communicationMember.phone_number
+      ) {
+        return setValidity(
+          CAN_NOT_SEND_BECAUSE_DIRECT_MEMBER_HAS_NOT_A_PHONE_NUMBER,
+        );
+      }
+    }
 
-  const onCloseHTMLPreviewDialog = useCallback(
-    () => setOpenTemplateVisualizer(false),
-    [],
+    const hasValidMessageScheduling =
+      (openCommunicationScheduling &&
+        !!communicationSchedulingDate &&
+        checkIsMessageSchedulable()) ||
+      !openCommunicationScheduling;
+
+    const isValidContent = () => {
+      switch (communicationKind) {
+        case WRITE_EMAIL:
+          return (
+            title !== '' && (content !== '' || mailTemplateSelected !== null)
+          );
+        case WRITE_SMS:
+          return content !== '';
+        case WRITE_PUSH_NOTIFICATION:
+          return (
+            title !== '' &&
+            title.length <= MAX_LENGTH_PUSH_TITLE &&
+            content !== ''
+          );
+        default:
+          return false;
+      }
+    };
+
+    setValidity(
+      hasValidMessageScheduling && isValidContent()
+        ? CAN_SEND_MESSAGE
+        : CAN_NOT_SEND_BECAUSE_MISSING_CONTENT,
+    );
+  }, [
+    communicationMember,
+    title,
+    content,
+    mailTemplateSelected,
+    communicationSchedulingDate,
+    communicationKind,
+    openCommunicationScheduling,
+    getSelectedRecipientsCount,
+    checkIsMessageSchedulable,
+  ]);
+
+  const buildContextParams = useCallback(() => {
+    if (relatedObjectKind && relatedObjectId) {
+      return getFormattedQueryParamsFromThread(
+        relatedObjectKind,
+        relatedObjectId,
+        checkedMemberCategoryFilter,
+      );
+    }
+
+    if (communicationIdentifier && communicationObjectId) {
+      return getFormattedQueryParamsFromContext(
+        communicationIdentifier,
+        communicationObjectId,
+        checkedMemberCategoryFilter,
+      );
+    }
+
+    return {};
+  }, [
+    relatedObjectKind,
+    relatedObjectId,
+    communicationIdentifier,
+    communicationObjectId,
+    checkedMemberCategoryFilter,
+  ]);
+
+  const handleSetUncheckedMembers = useCallback(
+    (uncheckedIds: {
+      email: number[];
+      phone: number[];
+      notification: number[];
+    }) => {
+      setUncheckedMembers(uncheckedIds);
+      checkAndSetValidity();
+    },
+    [checkAndSetValidity],
   );
 
   const flushEditAndRefreshCallback = useCallback(() => {
+    resetAllContent();
     setUncheckedMembers({
       email: [],
       phone: [],
       notification: [],
     });
-    setMailTemplateSelected(null);
-    setMailTitle('');
-    setMailContent('');
-    setSmsContent('');
-    setNotificationTitle('');
-    setNotificationContent('');
-    setFocusTextField(null);
+    setFocusTextField(0);
     setOpenTemplateSelector(false);
     setOpenRecipientSelector(false);
     setOpenTemplateVisualizer(false);
     setCheckedMemberCategoryFilter([]);
-    getSelectedMembersDetailsAllKinds();
-    setValidity(null);
-  }, [getSelectedMembersDetailsAllKinds]);
+    setOpenCommunicationScheduling(false);
+    setValidity(VALIDITY_INITIAL_VALUE);
+  }, [resetAllContent, setFocusTextField]);
 
   const flushEditAndRefreshCallbackWithReset = useCallback(() => {
     // We reset to an initial state with no selected category and no selected members
@@ -342,103 +365,134 @@ export const CommunicationSendMessageContainer: React.FC<Props> = ({
   );
 
   const sendMessage = useCallback(() => {
-    let content;
-    let autoResendConfiguration = {
-      email_resend_delay: 0,
-      email_resend_count: 0,
-    };
-    switch (communicationKind) {
-      case WRITE_EMAIL:
-        if (mailTemplateSelected) {
-          content = {
-            subject: mailTitle,
-            email_template: mailTemplateSelected,
-          };
-        } else {
-          content = {
-            subject: mailTitle,
-            body: mailContent,
-          };
-        }
-        autoResendConfiguration = {
-          email_resend_count: resendCount,
-          email_resend_delay: resendDelay,
+    const communicationSenderData = createCommunicationSenderData({
+      communicationKind,
+    });
+    const communicationSchedulingData = createCommunicationSchedulingData({
+      timezone,
+      communicationKind,
+    });
+
+    if (communicationSchedulingData) {
+      if (openCommunicationScheduling && !scheduledCommunicationDraft) {
+        const params: CreateScheduledCommunicationParams = {
+          data: communicationSchedulingData,
+          options: {
+            onSuccess: onCloseCommunicationDrawer,
+          },
         };
-        break;
-      case WRITE_SMS:
-        content = {
-          sms: smsContent,
-        };
-        break;
-      case WRITE_PUSH_NOTIFICATION:
-        content = {
-          notification_title: notificationTitle,
-          notification_content: notificationContent,
-        };
-        break;
-      default:
-        console.error('communicationKind matches no one of expected kinds.');
+        scheduleCommunication(params);
         return;
+      }
+
+      if (openCommunicationScheduling && scheduledCommunicationDraft) {
+        const params: EditScheduledCommunicationParams = {
+          data: {
+            ...scheduledCommunicationDraft,
+            ...communicationSchedulingData,
+          },
+          options: {
+            onSuccess: onCloseCommunicationDrawer,
+          },
+        };
+        editScheduledCommunication(params);
+        return;
+      }
     }
+    if (!openCommunicationScheduling && scheduledCommunicationDraft) {
+      sendScheduledCommunicationNow({
+        scheduledCommunicationId: scheduledCommunicationDraft.id,
+        options: {
+          onSuccess: onCloseCommunicationDrawer,
+        },
+      });
+      return;
+    }
+
     sendMessageWithFlushEditAndRefreshCallback({
-      ...content,
-      ...autoResendConfiguration,
+      ...communicationSenderData?.content,
+      ...communicationSenderData?.autoResend,
       member_blacklist: getRecipientBlacklist(),
     });
   }, [
     communicationKind,
-    mailTemplateSelected,
-    mailTitle,
-    mailContent,
-    resendCount,
-    resendDelay,
-    smsContent,
-    notificationTitle,
-    notificationContent,
+    timezone,
+    scheduledCommunicationDraft,
+    openCommunicationScheduling,
     sendMessageWithFlushEditAndRefreshCallback,
+    editScheduledCommunication,
+    scheduleCommunication,
     getRecipientBlacklist,
+    sendScheduledCommunicationNow,
+    onCloseCommunicationDrawer,
+    createCommunicationSchedulingData,
+    createCommunicationSenderData,
   ]);
 
-  const handleSetUncheckedMembers = useCallback(
-    (uncheckedIds: {
-      email: number[];
-      phone: number[];
-      notification: number[];
-    }) => {
-      setUncheckedMembers(uncheckedIds);
-      getSelectedMembersDetailsAllKinds();
+  const handleFetchPaginatedAvailableRecipientMemberList = useCallback(
+    (page: number) => {
+      const params: FetchAvailableRecipientsParams = {
+        page,
+        memberSelectedCategories: checkedMemberCategoryFilter || [],
+      };
+      fetchAvailableRecipients(params);
     },
-    [getSelectedMembersDetailsAllKinds],
+    [fetchAvailableRecipients, checkedMemberCategoryFilter],
+  );
+
+  const handleSetCommunicationKind = useCallback(
+    (kind: number) => {
+      resetEmailTemplate();
+      setCommunicationKind(kind);
+    },
+    [setCommunicationKind, resetEmailTemplate],
+  );
+
+  const handleSetResendConfig = useCallback(
+    (data: { resendCount: number; resendDelay: number }) => {
+      setResendConfig(data);
+      handleCloseResendConfigDialog();
+    },
+    [setResendConfig, handleCloseResendConfigDialog],
+  );
+
+  const onTagClick = useCallback(
+    (tagIdentifier: string) => {
+      addTag({ tagName: tagIdentifier, communicationKind });
+    },
+    [addTag, communicationKind],
   );
 
   useEffect(() => {
-    getSelectedMembersDetailsAllKinds();
-  }, [getSelectedMembersDetailsAllKinds]);
+    checkAndSetValidity();
+  }, [checkAndSetValidity]);
 
-  const buildContextParams = useCallback(() => {
-    if (relatedObjectKind && relatedObjectId) {
-      return getFormattedQueryParamsFromThread(
-        relatedObjectKind,
-        relatedObjectId,
-        checkedMemberCategoryFilter,
-      );
+  useEffect(() => {
+    if (!scheduledCommunicationDraft || hasDraftMessageInitializedData) return;
+
+    initializeFromDraft({
+      draft: scheduledCommunicationDraft,
+      communicationKind,
+    });
+    const { email_design, datetime_scheduled } = scheduledCommunicationDraft;
+
+    if (email_design) {
+      fetchTemplateDetails({ templateId: email_design });
     }
 
-    if (communicationIdentifier && communicationObjectId) {
-      return getFormattedQueryParamsFromContext(
-        communicationIdentifier,
-        communicationObjectId,
-        checkedMemberCategoryFilter,
+    if (datetime_scheduled) {
+      setTimeout(
+        () => setOpenCommunicationScheduling(true),
+        WAIT_FOR_MESSAGE_SCHEDULER_ANIMATION,
       );
     }
-
-    return {};
+    setHasDraftMessageInitializedData(true);
   }, [
-    relatedObjectKind,
-    relatedObjectId,
-    communicationIdentifier,
-    communicationObjectId,
-    checkedMemberCategoryFilter,
+    hasDraftMessageInitializedData,
+    scheduledCommunicationDraft,
+    communicationKind,
+    fetchTemplateDetails,
+    initializeFromDraft,
   ]);
 
   useEffect(() => {
@@ -460,6 +514,16 @@ export const CommunicationSendMessageContainer: React.FC<Props> = ({
     uncheckedMembers.notification,
   ]);
 
+  useEffect(() => {
+    if (!openCommunicationScheduling && !scheduledCommunicationDraft) {
+      setCommunicationSchedulingDate(null);
+    }
+  }, [
+    openCommunicationScheduling,
+    scheduledCommunicationDraft,
+    setCommunicationSchedulingDate,
+  ]);
+
   const html =
     !loadingTemplateDetails &&
     mailTemplateSelected &&
@@ -468,26 +532,32 @@ export const CommunicationSendMessageContainer: React.FC<Props> = ({
   return (
     <>
       <Paper className={classes.mainContainer}>
+        {
+          <Collapse
+            in={openCommunicationScheduling}
+            timeout={WAIT_FOR_MESSAGE_SCHEDULER_ANIMATION}
+          >
+            <CommunicationSchedulerInput
+              checkIsMessageSchedulable={checkIsMessageSchedulable}
+              communicationSchedulingDate={communicationSchedulingDate}
+              setCommunicationSchedulingDate={setCommunicationSchedulingDate}
+            />
+          </Collapse>
+        }
         <MessageWriterByKind
           checkAndSetValidity={checkAndSetValidity}
           communicationKind={communicationKind}
+          content={content}
           emailTemplateDetailList={templateDetailList}
           emailTemplateSelected={mailTemplateSelected}
-          emailTitle={mailTitle}
           getEmailDetail={fetchTemplateDetails}
           loadingTemplateDetailList={loadingTemplateDetails}
-          mailContent={mailContent}
-          notificationContent={notificationContent}
-          notificationTitle={notificationTitle}
+          setContent={setContent}
           setFocusTextField={setFocusTextField}
-          setMailContent={setMailContent}
           setMailTemplateSelected={setMailTemplateSelected}
-          setMailTitle={setMailTitle}
-          setNotificationContent={setNotificationContent}
-          setNotificationTitle={setNotificationTitle}
           setOpenTemplateVisualizer={setOpenTemplateVisualizer}
-          setSmsContent={setSmsContent}
-          smsContent={smsContent}
+          setTitle={setTitle}
+          title={title}
         >
           <SendMessageContainerBottomIcons
             checkAndSetValidity={checkAndSetValidity}
@@ -495,14 +565,15 @@ export const CommunicationSendMessageContainer: React.FC<Props> = ({
             communicationKind={communicationKind}
             directMember={directMember}
             getSelectedRecipientsCount={getSelectedRecipientsCount}
-            hideAutoResend={hideAutoResend}
-            onBaliseItemClick={onBaliseItemClick}
-            openResendConfigDialog={openResendConfigDialog}
+            isMessageSchedulingOpen={openCommunicationScheduling}
+            onBaliseItemClick={onTagClick}
+            openMessageSchedulingModal={handleOpenMessageSchedulingModal}
+            openResendConfigDialog={handleOpenResendConfigDialog}
             relatedObjectKind={relatedObjectKind}
             selectedMemberDetailListAllKinds={firstReachedRecipientsList}
             selectedMemberDetailListLoading={firstReachedRecipientsLoading}
             sendMessage={sendMessage}
-            setCommunicationKind={setCommunicationKind}
+            setCommunicationKind={handleSetCommunicationKind}
             setOpenRecipientSelector={setOpenRecipientSelector}
             setOpenTemplateSelector={setOpenTemplateSelector}
             tagCategories={tagCategories}
@@ -532,11 +603,12 @@ export const CommunicationSendMessageContainer: React.FC<Props> = ({
           <EmailTemplateSelector
             checkAndSetValidity={checkAndSetValidity}
             mailTemplateSelected={mailTemplateSelected}
-            mailTitle={mailTitle}
             openTemplateSelector={openTemplateSelector}
+            setContent={setContent}
             setMailTemplateSelected={setMailTemplateSelected}
-            setMailTitle={setMailTitle}
             setOpenTemplateSelector={setOpenTemplateSelector}
+            setTitle={setTitle}
+            title={title}
           />
         )}
         {openTemplateVisualizer &&
@@ -544,17 +616,17 @@ export const CommunicationSendMessageContainer: React.FC<Props> = ({
           !!html && (
             <HTMLPreviewDialog
               html={html}
-              onClose={onCloseHTMLPreviewDialog}
+              onClose={handleCloseHTMLPreviewDialog}
               open={openTemplateVisualizer}
               resolvedGenericTags={resolvedGenericTags}
-              title={mailTitle}
+              title={title}
             />
           )}
       </Paper>
 
       <AutoResendConfigDialog
-        handleClose={closeResendConfigDialog}
-        handleSubmit={setResendConfig}
+        handleClose={handleCloseResendConfigDialog}
+        handleSubmit={handleSetResendConfig}
         initial={{
           resendCount: resendCount,
           resendDelay: resendDelay,
@@ -569,7 +641,7 @@ const useStyles = makeStyles((theme) => ({
   mainContainer: {
     display: 'flex',
     flexDirection: 'column',
-    alignItems: 'center',
+    gap: '8px',
     justifyContent: 'flex-start',
     padding: theme.spacing(2),
     borderTopWidth: 1,

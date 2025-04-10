@@ -1,6 +1,5 @@
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import clsx from 'clsx';
 import { Theme, makeStyles } from '@material-ui/core';
 import Tooltip from '@material-ui/core/Tooltip';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -10,7 +9,6 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Hidden from '@material-ui/core/Hidden';
 import Divider from '@material-ui/core/Divider';
 import Button from '@material-ui/core/Button';
-import ButtonBase from '@material-ui/core/ButtonBase';
 import Typography from '@material-ui/core/Typography';
 import {
   Mail as MailIcon,
@@ -22,19 +20,16 @@ import {
   MoreVert as MenuIcon,
   LibraryBooks as TemplateIcon,
   SettingsEthernet as BaliseIcon,
-  Send as SendIcon,
-  People as PeopleIcon,
-  Schedule as ScheduleIcon,
+  RemoveCircle as RemoveCircleIcon,
+  Repeat as RepeatIcon,
 } from '@material-ui/icons';
-import RepeatIcon from '@material-ui/icons/Repeat';
 
 // @ts-expect-error
 import FeatureListProvider from '#src/libs/company/hocs/feature-list-provider.hoc';
 
 import NestedList from '#src/components/NestedMenu.component';
 
-import { Member, MemberMinimal } from '#src/libs/member/types';
-import { FeatureList } from '#src/libs/company/types';
+import type { FeatureList } from '#src/libs/company/types';
 
 import { getValidityTooltipMessage } from '#src/libs/communication-v2/utils';
 import {
@@ -42,9 +37,6 @@ import {
   WRITE_SMS,
   WRITE_PUSH_NOTIFICATION,
   CAN_SEND_MESSAGE,
-  MAX_DISPLAY,
-  CONTEXT_SMARTLIST,
-  CONTEXT_MEMBER,
 } from '#src/libs/communication-v2/constants';
 import {
   UPSELL_IDENTIFIER_PUSH_NOTIFICATION,
@@ -53,7 +45,6 @@ import {
 import { hasUpsell } from '#src/libs/platform-billing/utils';
 import CommunicationSMSCostReminderModal from '#src/libs/communication-v2/CommunicationSMSCostReminderModal.component';
 import ObjectLevelPermissionProvider from '#src/libs/role/permission-utils/ObjectLevelPermissionProvider.component';
-import CommunicationMessageNumberRecipients from '#src/libs/communication-v2/components/MessageList/SingleMessage/CommunicationMessageNumberRecipients.component';
 import Config from '#src/config';
 import { useCommunicationContext } from '#src/libs/communication-v2/context/CommunicationDrawer.context';
 import {
@@ -63,42 +54,26 @@ import {
 
 type Props = {
   actionType: number;
-  directMember?: Member;
   handleSelectTemplate: () => void;
-  handleSelectRecipients: () => void;
-  memberList: MemberMinimal[];
-  memberListLoading: boolean;
   onBaliseItemClick: (item: string) => void;
-  selectedRecipientsCount: number;
   sendMessage: () => void;
   setActionType: (actionType: number) => void;
   tags: Record<string, Array<string>>;
   validity: number;
-  communicationIdentifier?: number;
+  openAutomatedCampaignLimitModal: () => void;
   openResendConfigDialog?: () => void;
-  openMessageSchedulingModal?: () => void;
-  isMessageSchedulingOpen?: boolean;
-  isInboxContext: boolean;
 };
 
-const BottomBarIcons: React.FC<Props> = ({
+const AutomatedCampaignSetterBottomBar: React.FC<Props> = ({
   actionType,
-  directMember,
   handleSelectTemplate,
-  handleSelectRecipients,
-  memberList,
-  memberListLoading,
   onBaliseItemClick,
-  selectedRecipientsCount,
   sendMessage,
   setActionType,
   tags,
   validity,
-  communicationIdentifier,
+  openAutomatedCampaignLimitModal,
   openResendConfigDialog,
-  openMessageSchedulingModal,
-  isMessageSchedulingOpen,
-  isInboxContext,
 }) => {
   const [menuAnchorEl, setMenuAnchorEl] = useState<Element | undefined>(
     undefined,
@@ -108,27 +83,25 @@ const BottomBarIcons: React.FC<Props> = ({
   );
   const [isSmsCostReminderModalOpen, setIsSmsCostReminderModalOpen] =
     useState(false);
-  const { fullScreen, scheduledCommunicationDraft } = useCommunicationContext();
-  const { isAutoResendHidden } = useTheme();
+  const { automatedCommunicationDraft, usedAutoCampaignCommMethods } =
+    useCommunicationContext();
   const { smsVerificationProvider } = useSMSVerification();
+  const { isAutoResendHidden } = useTheme();
   const { t } = useTranslation('communication');
   const classes = useStyles();
 
   const handleOpenMenu = useCallback((event: React.MouseEvent<HTMLElement>) => {
     setMenuAnchorEl(event.currentTarget);
   }, []);
-
   const handleCloseMenu = useCallback(() => {
     setMenuAnchorEl(undefined);
   }, []);
-
   const handleOpenTagsMenu = useCallback(
     (event: React.MouseEvent<HTMLElement>) => {
       setTagsMenuAnchorEl(event.currentTarget);
     },
     [],
   );
-
   const handleCloseTagsMenu = useCallback(() => {
     setTagsMenuAnchorEl(undefined);
   }, []);
@@ -137,7 +110,6 @@ const BottomBarIcons: React.FC<Props> = ({
     () => setIsSmsCostReminderModalOpen(false),
     [],
   );
-
   const handleCostReminderModalOpen = useCallback(
     () => setIsSmsCostReminderModalOpen(true),
     [],
@@ -160,18 +132,35 @@ const BottomBarIcons: React.FC<Props> = ({
     setActionType(WRITE_PUSH_NOTIFICATION);
   }, [setActionType]);
 
-  const sendButtonText = useMemo(() => {
-    if (scheduledCommunicationDraft && isMessageSchedulingOpen) {
-      return t('sendMessage.buttons.updateScheduled');
-    }
-    if (isMessageSchedulingOpen) {
-      return t('sendMessage.buttons.scheduleCommunication');
-    }
-    return t('sendMessage.buttons.send');
-  }, [scheduledCommunicationDraft, isMessageSchedulingOpen, t]);
+  const getIsEmailDisabled = useCallback(() => {
+    return (
+      usedAutoCampaignCommMethods.includes(WRITE_EMAIL) ||
+      !!automatedCommunicationDraft
+    );
+  }, [automatedCommunicationDraft, usedAutoCampaignCommMethods]);
 
-  const isRecipientSelectorDisabled =
-    isMessageSchedulingOpen || !!scheduledCommunicationDraft;
+  const getIsSMSDisabled = useCallback(
+    (featureList: FeatureList) => {
+      return (
+        !hasUpsell(featureList, UPSELL_IDENTIFIER_SMS) ||
+        usedAutoCampaignCommMethods.includes(WRITE_SMS) ||
+        !!automatedCommunicationDraft
+      );
+    },
+    [automatedCommunicationDraft, usedAutoCampaignCommMethods],
+  );
+
+  const getIsPushNotificationDisabled = useCallback(
+    (featureList: FeatureList) => {
+      return (
+        Config.REACT_APP_SENTRY_ENVIRONMENT === 'production' ||
+        !hasUpsell(featureList, UPSELL_IDENTIFIER_PUSH_NOTIFICATION) ||
+        usedAutoCampaignCommMethods.includes(WRITE_PUSH_NOTIFICATION) ||
+        !!automatedCommunicationDraft
+      );
+    },
+    [automatedCommunicationDraft, usedAutoCampaignCommMethods],
+  );
 
   return (
     <ObjectLevelPermissionProvider requiredPermission="member.allowed_actions.communication">
@@ -185,6 +174,7 @@ const BottomBarIcons: React.FC<Props> = ({
               <IconButton
                 className={classes.iconButton}
                 color={actionType === WRITE_EMAIL ? 'primary' : 'default'}
+                disabled={getIsEmailDisabled()}
                 onClick={setCommunicationTypeToMail}
               >
                 {actionType === WRITE_EMAIL ? (
@@ -204,7 +194,7 @@ const BottomBarIcons: React.FC<Props> = ({
                     <IconButton
                       className={classes.iconButton}
                       color={actionType === WRITE_SMS ? 'primary' : 'default'}
-                      disabled={!hasUpsell(featureList, UPSELL_IDENTIFIER_SMS)}
+                      disabled={getIsSMSDisabled(featureList)}
                       onClick={setCommunicationTypeToSMS}
                     >
                       {actionType === WRITE_SMS ? (
@@ -235,13 +225,7 @@ const BottomBarIcons: React.FC<Props> = ({
                         ? 'primary'
                         : 'default'
                     }
-                    disabled={
-                      Config.REACT_APP_SENTRY_ENVIRONMENT === 'production' &&
-                      !hasUpsell(
-                        featureList,
-                        UPSELL_IDENTIFIER_PUSH_NOTIFICATION,
-                      )
-                    }
+                    disabled={getIsPushNotificationDisabled(featureList)}
                     onClick={setCommunicationTypeToPushNotification}
                   >
                     {actionType === WRITE_PUSH_NOTIFICATION ? (
@@ -278,7 +262,6 @@ const BottomBarIcons: React.FC<Props> = ({
                 </IconButton>
               </Tooltip>
               {!isAutoResendHidden &&
-                communicationIdentifier === CONTEXT_SMARTLIST &&
                 actionType === WRITE_EMAIL &&
                 openResendConfigDialog && (
                   <Tooltip
@@ -290,19 +273,16 @@ const BottomBarIcons: React.FC<Props> = ({
                     </IconButton>
                   </Tooltip>
                 )}
-
-              {communicationIdentifier === CONTEXT_SMARTLIST &&
-                !isInboxContext &&
-                openMessageSchedulingModal && (
-                  <Tooltip
-                    placement="top"
-                    title={t('sendMessage.icons.messageScheduling') as string}
-                  >
-                    <IconButton onClick={openMessageSchedulingModal}>
-                      <ScheduleIcon />
-                    </IconButton>
-                  </Tooltip>
-                )}
+              <Tooltip
+                placement="top"
+                title={
+                  t('sendMessage.icons.automaticCommunicationLimit') as string
+                }
+              >
+                <IconButton onClick={openAutomatedCampaignLimitModal}>
+                  <RemoveCircleIcon />
+                </IconButton>
+              </Tooltip>
               <NestedList
                 forTagsSelector
                 anchorElMenu={tagsMenuAnchorEl}
@@ -348,9 +328,7 @@ const BottomBarIcons: React.FC<Props> = ({
                     {t('sendMessage.icons.balise')}
                   </Typography>
                 </MenuItem>
-
                 {!isAutoResendHidden &&
-                  communicationIdentifier === CONTEXT_SMARTLIST &&
                   actionType === WRITE_EMAIL &&
                   openResendConfigDialog && (
                     <MenuItem
@@ -375,52 +353,6 @@ const BottomBarIcons: React.FC<Props> = ({
             </Hidden>
           </div>
           <div className={classes.bottomFlexContainer}>
-            {!directMember && (
-              <ButtonBase
-                className={clsx(
-                  classes.bottomRecipientSelector,
-                  classes.bottomFlexContainer,
-                  {
-                    [classes.disabledButton]: isRecipientSelectorDisabled,
-                  },
-                )}
-                disabled={isRecipientSelectorDisabled}
-                disableTouchRipple={isRecipientSelectorDisabled}
-                onClick={handleSelectRecipients}
-              >
-                {selectedRecipientsCount ? (
-                  <CommunicationMessageNumberRecipients
-                    compactText
-                    compactAvatars={fullScreen}
-                    loading={memberListLoading}
-                    members={
-                      memberList?.slice(
-                        0,
-                        Math.min(MAX_DISPLAY, memberList.length),
-                      ) ?? []
-                    }
-                    numberRecipients={selectedRecipientsCount}
-                  />
-                ) : (
-                  <>
-                    <PeopleIcon
-                      className={classes.bottomRecipientSelectorIcon}
-                    />
-                    <Typography
-                      className={classes.bottomRecipientSelectorText}
-                      variant="caption"
-                    >
-                      <Hidden xsDown>
-                        {t('sendMessage.buttons.selectRecipients')}
-                      </Hidden>
-                      <Hidden smUp>
-                        {t('sendMessage.buttons.selectRecipientsMobile')}
-                      </Hidden>
-                    </Typography>
-                  </>
-                )}
-              </ButtonBase>
-            )}
             {validity &&
             validity === CAN_SEND_MESSAGE &&
             hasCommunicationPermission ? (
@@ -430,26 +362,27 @@ const BottomBarIcons: React.FC<Props> = ({
                   actionType == WRITE_SMS && !smsVerificationProvider.isVerified
                 }
                 onClick={
-                  actionType === WRITE_SMS &&
-                  communicationIdentifier !== CONTEXT_MEMBER
+                  actionType === WRITE_SMS
                     ? handleCostReminderModalOpen
                     : sendMessage
                 }
                 variant="contained"
               >
                 <Hidden xsDown>
-                  <p className={classes.buttonSendText}>{sendButtonText}</p>
+                  <p className={classes.buttonSendText}>
+                    {t('common.confirm')}
+                  </p>
                 </Hidden>
-                <SendIcon fontSize="small" />
               </Button>
             ) : (
               <Tooltip title={getValidityTooltipMessage(validity, t)}>
                 <span id="need-this-span-to-display-tooltip-with-disabled-button">
                   <Button disabled color="primary" variant="contained">
                     <Hidden xsDown>
-                      <p className={classes.buttonSendText}>{sendButtonText}</p>
+                      <p className={classes.buttonSendText}>
+                        {t('common.confirm')}
+                      </p>
                     </Hidden>
-                    <SendIcon fontSize="small" />
                   </Button>
                 </span>
               </Tooltip>
@@ -480,30 +413,6 @@ const useStyles = makeStyles((theme: Theme) => ({
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-  },
-  bottomRecipientSelector: {
-    borderRadius: theme.spacing(1),
-    border: 'solid 1px',
-    borderColor: theme.palette.grey[100],
-    marginRight: theme.spacing(2),
-    paddingLeft: theme.spacing(2),
-    paddingRight: theme.spacing(2),
-    paddingTop: theme.spacing(0.5),
-    paddingBottom: theme.spacing(0.5),
-    [theme.breakpoints.down('xs')]: {
-      marginRight: theme.spacing(1),
-      paddingLeft: theme.spacing(1),
-      paddingRight: theme.spacing(1),
-    },
-  },
-  bottomRecipientSelectorText: {
-    color: theme.palette.text.secondary,
-    width: 'min-content',
-    lineHeight: 'normal',
-    marginLeft: theme.spacing(1),
-  },
-  bottomRecipientSelectorIcon: {
-    color: theme.palette.text.secondary,
   },
   buttonSendText: {
     padding: 0,
@@ -538,4 +447,4 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-export default React.memo(BottomBarIcons);
+export default React.memo(AutomatedCampaignSetterBottomBar);

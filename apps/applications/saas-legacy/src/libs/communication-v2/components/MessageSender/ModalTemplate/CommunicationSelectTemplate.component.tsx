@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -119,6 +119,12 @@ const CommunicationSelectTemplate: React.FC<Props> = ({
     [],
   );
 
+  useEffect(() => {
+    if (selectedTemplate && !loadingTemplateDetails) {
+      setDisplayTemplatePreview(true);
+    }
+  }, [selectedTemplate, loadingTemplateDetails]);
+
   const html =
     !loadingTemplateDetails && emailDetailList?.[selectedTemplate]?.html;
 
@@ -141,6 +147,7 @@ const CommunicationSelectTemplate: React.FC<Props> = ({
             <EmailSelector
               emails={templateSummaryList}
               helperText={t('mail.mailSelection')}
+              menuPosition="fixed"
               onChange={onSelectTemplate}
               value={selectedTemplate}
             />

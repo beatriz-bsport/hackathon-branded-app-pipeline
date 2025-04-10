@@ -23,7 +23,7 @@ import CommunicationRecipientsModalRow from '#src/libs/communication-v2/componen
 import RecipientInformationsWarning from '#src/libs/communication-v2/components/MessageSender/ModalRecipient/RecipientInformationsWarning.component';
 
 export type Props = {
-  allMemberCategoryList?: FilteringMemberIdsByGenericCategories;
+  allMemberCategoryList: FilteringMemberIdsByGenericCategories | null;
   checkedMemberCategoriesFilters: number[];
   countAvailableRecipientsTotal: number;
   countAvailableRecipientsWithEmail: number;

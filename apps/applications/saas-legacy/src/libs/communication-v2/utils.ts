@@ -1055,3 +1055,15 @@ export const getCommunicationContextFromThread = (
       return { thread_id: thread.id };
   }
 };
+
+// utility funcitons to format date for scheduled communication
+export const formatDateForScheduledCommunication = (
+  date: DateTime | null,
+  timezone: string,
+) => {
+  if (!date) return '';
+  const dateToFormat = date ?? DateTime.now();
+  const zonedDate = dateToFormat.setZone(timezone);
+
+  return `${zonedDate.toISODate()}T${zonedDate.toFormat('HH:mm')}`;
+};

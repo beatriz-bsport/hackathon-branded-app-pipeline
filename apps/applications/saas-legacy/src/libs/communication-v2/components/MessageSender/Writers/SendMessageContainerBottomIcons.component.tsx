@@ -17,13 +17,13 @@ import BottomBarIcons from '#src/libs/communication-v2/components/MessageSender/
 
 type SendMessageContainerBottomIconsProps = {
   communicationKind: number;
-  communicationIdentifier?: number;
+  communicationIdentifier: number;
   directMember?: Member;
-  hideAutoResend?: boolean;
+  isMessageSchedulingOpen?: boolean;
   relatedObjectKind?: ChatThreadKinds;
   tagCategories: { [tag_name: string]: string[] };
-  setCommunicationKind: (kind: number, callback?: () => void) => void;
-  validity: number | null;
+  setCommunicationKind: (kind: number) => void;
+  validity: number;
   selectedMemberDetailListAllKinds: {
     email: MemberMinimal[];
     phone: MemberMinimal[];
@@ -32,6 +32,7 @@ type SendMessageContainerBottomIconsProps = {
   selectedMemberDetailListLoading: boolean;
   onBaliseItemClick: (selectedItem: string) => void;
   openResendConfigDialog: () => void;
+  openMessageSchedulingModal: () => void;
   sendMessage: () => void;
   getSelectedRecipientsCount: () => number;
   setOpenTemplateSelector: (open: boolean) => void;
@@ -45,7 +46,7 @@ const SendMessageContainerBottomIcons: React.FC<
   communicationKind,
   communicationIdentifier,
   directMember,
-  hideAutoResend,
+  isMessageSchedulingOpen,
   relatedObjectKind,
   tagCategories,
   setCommunicationKind,
@@ -54,6 +55,7 @@ const SendMessageContainerBottomIcons: React.FC<
   selectedMemberDetailListLoading,
   onBaliseItemClick,
   openResendConfigDialog,
+  openMessageSchedulingModal,
   sendMessage,
   getSelectedRecipientsCount,
   setOpenTemplateSelector,
@@ -70,7 +72,8 @@ const SendMessageContainerBottomIcons: React.FC<
 
   const setActionType = useCallback(
     (kind: number) => {
-      setCommunicationKind(kind, checkAndSetValidity);
+      setCommunicationKind(kind);
+      checkAndSetValidity();
     },
     [setCommunicationKind, checkAndSetValidity],
   );
@@ -106,10 +109,13 @@ const SendMessageContainerBottomIcons: React.FC<
       directMember={directMember}
       handleSelectRecipients={onSelectRecipients}
       handleSelectTemplate={onSelectTemplate}
+      isInboxContext={!!relatedObjectKind}
+      isMessageSchedulingOpen={isMessageSchedulingOpen}
       memberList={selectedMemberDetailList}
       memberListLoading={selectedMemberDetailListLoading}
       onBaliseItemClick={onBaliseItemClick}
-      openResendConfigDialog={!hideAutoResend && openResendConfigDialog}
+      openMessageSchedulingModal={openMessageSchedulingModal}
+      openResendConfigDialog={openResendConfigDialog}
       selectedRecipientsCount={selectedRecipientsCount}
       sendMessage={sendMessage}
       setActionType={setActionType}

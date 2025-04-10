@@ -35,7 +35,6 @@ import type { Theme } from '#src/libs/theme/types';
 import InboxNoThread from '#src/libs/communication-v2/thread/InboxThreadContainer/InboxNoThread.component';
 import InboxThreadSenderContainer from '#src/libs/communication-v2/thread/InboxThreadContainer/InboxThreadSenderContainer.component';
 import type { OptionCallback } from '#src/state/types';
-import Config from '../../../../config';
 import { getCommunicationSMSProviderVerificationState } from '#src/libs/communication-v2/selectors';
 import type { RootState } from '#src/reducers';
 import { CommunicationContextProvider } from '#src/libs/communication-v2/context/CommunicationDrawer.context';
@@ -159,10 +158,6 @@ const InboxThreadContainer: React.FC<
     props.communicationKindBeingWritten === COMMUNICATION_KIND_EMAIL &&
     !props.theme.is_two_way_email_activated;
 
-  const hideAutoResend =
-    Config.REACT_APP_SENTRY_ENVIRONMENT === 'production' &&
-    props.theme.company !== 498;
-
   const showCommunicationSmsProviderNotVerifiedWarning =
     !props.communicationSMSProviderVerificationState.isVerified &&
     props.communicationKindBeingWritten === COMMUNICATION_KIND_SMS;
@@ -200,6 +195,8 @@ const InboxThreadContainer: React.FC<
                   communicationObjectId: props.thread.related_object_id,
                   allMemberCategoryList: props.allMemberCategoryList,
                   fullScreen: false,
+                  onDrawerClose: () => {},
+                  openDrawer: false,
                 }}
               >
                 <InboxThreadContainerHeader
@@ -274,7 +271,6 @@ const InboxThreadContainer: React.FC<
                 <InboxThreadSenderContainer
                   communicationMember={props.communicationMember}
                   handleShowMessageWriter={props.handleShowMessageWriter}
-                  hideAutoResend={hideAutoResend}
                   sendCommunication={props.sendCommunication}
                   showMessageWriter={props.showMessageWriter}
                   thread={props.thread}

@@ -13,6 +13,8 @@ import {
   getTagCategories,
 } from '#src/libs/notification-rule/selectors';
 import themeSelectors from '#src/libs/theme/selectors';
+import Config from '#src/config';
+import { LINE_SPORTS_CLUB_ID } from '#src/constants';
 
 export const useTagsAndCategories = () => {
   const dispatch = useDispatch();
@@ -34,7 +36,22 @@ export const useTagsAndCategories = () => {
 
 export const useTheme = () => {
   const theme = useSelector(themeSelectors.getTheme);
-  return { theme };
+  const communicationStartHour = theme.earliest_hour_to_send_communications;
+  const communicationEndHour = theme.latest_hour_to_send_communications;
+  const timezone = theme.timezone_name;
+  const companyId = theme.company;
+
+  const isAutoResendHidden =
+    Config.REACT_APP_SENTRY_ENVIRONMENT === 'production' &&
+    companyId !== LINE_SPORTS_CLUB_ID;
+
+  return {
+    theme,
+    communicationStartHour,
+    communicationEndHour,
+    timezone,
+    isAutoResendHidden,
+  };
 };
 
 export const useSMSVerification = () => {

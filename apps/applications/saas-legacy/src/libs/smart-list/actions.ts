@@ -54,6 +54,7 @@ import {
   AutomatedCampaign,
   AutomatedCampaignQueryParams,
   CadencesUsingSmartlistSuccess,
+  CreateAutomatedCampaign,
   SmartList,
 } from './types';
 import { RootState } from '../../reducers';
@@ -649,7 +650,7 @@ export const createSmartListAutomatedCampaignActions = {
 };
 
 export const createSmartListAutomatedCampaign = (
-  data: AutomatedCampaign,
+  data: AutomatedCampaign | CreateAutomatedCampaign,
   options?: OptionCallback<AutomatedCampaign>,
 ) => {
   return async (dispatch: Dispatch) => {

@@ -26,7 +26,7 @@ export function setLuxonLocale(language: string) {
 }
 
 export function getFallbackLanguage(language: string): Array<Locale> {
-  const defaultFallback = [LANGUAGES.ENGLISH, LANGUAGES.FRENCH];
+  const defaultFallback = [LANGUAGES.ENGLISH];
 
   if (!language) return defaultFallback;
 
@@ -69,9 +69,16 @@ export function getNamespacePrefixer<T = string>({
  */
 export const switchLanguage = (languageId: Locale) => {
   const broadcast = new BroadcastChannel(LANGUAGE_SWITCHER_CHANNEL);
+  // Ensure languageId is well formatted, in case typing is bypassed
+  let language = languageId.toLowerCase();
+  if (language.includes("-")) {
+    // Ex : en-US
+    const [country, locale] = language.split("-");
+    language = `${country}-${locale.toUpperCase()}`;
+  }
   broadcast.postMessage({
     action: LANGUAGE_SWITCHER_ACTION,
-    payload: languageId,
+    payload: language,
   });
   broadcast.close();
 };

@@ -32,7 +32,7 @@ const Home = () => {
             "Select language"
           }
           onSelect={(lng) => {
-            i18nInstance.changeLanguage(lng);
+            i18nInstance.changeLanguage(lng.toLowerCase());
           }}
         />
       </div>

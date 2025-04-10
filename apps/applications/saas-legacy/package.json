@@ -27,14 +27,6 @@
     "test": "export NODE_OPTIONS=--openssl-legacy-provider && pnpm exec jest --logHeapUsage",
     "translation:update": "./scripts/update-translations.sh"
   },
-  "config": {
-    "commitizen": {
-      "path": "./node_modules/@digitalroute/cz-conventional-changelog-for-jira",
-      "skipScope": false,
-      "jiraOptional": true,
-      "jiraLocation": "post-body"
-    }
-  },
   "browserslist": "> 0.25%",
   "eslintConfig": {
     "extends": "react-app"
@@ -182,7 +174,6 @@
     "@babel/preset-react": "^7.24.6",
     "@babel/preset-typescript": "^7.24.7",
     "@bbbtech/storybook-formik": "^2.5.0",
-    "@digitalroute/cz-conventional-changelog-for-jira": "^8.0",
     "@sentry/cli": "^1.61.0",
     "@sentry/webpack-plugin": "^2.22.7",
     "@storybook/addon-actions": "^6.5.16",
@@ -258,7 +249,6 @@
     "babel-plugin-lodash": "^3.3.4",
     "babel-plugin-module-resolver": "^5.0.2",
     "clean-webpack-plugin": "^4.0.0",
-    "cz-conventional-changelog": "3.2.0",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.8",
     "enzyme-to-json": "^3.6.2",

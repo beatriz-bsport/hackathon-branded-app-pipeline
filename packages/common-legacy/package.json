@@ -36,14 +36,6 @@
     "lint": "eslint ./src",
     "lint:fix": "eslint --fix ./src"
   },
-  "config": {
-    "commitizen": {
-      "path": "./node_modules/@digitalroute/cz-conventional-changelog-for-jira",
-      "skipScope": false,
-      "jiraOptional": true,
-      "jiraLocation": "post-body"
-    }
-  },
   "dependencies": {
     "luxon": "^3.4.4",
     "memoize-one": "^4.0.2",
@@ -52,7 +44,6 @@
   },
   "devDependencies": {
     "@bsport/eslint-config-react": "workspace:*",
-    "@digitalroute/cz-conventional-changelog-for-jira": "^8.0",
     "@types/luxon": "^3.4.2",
     "@types/memoize-one": "^4.1.1",
     "@types/node": "^14.14.21",

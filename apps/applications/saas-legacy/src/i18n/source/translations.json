@@ -5710,11 +5710,73 @@
         "appointmentPasses": "Appointment passes"
       },
       "drawerTitle": { "tabs": "Select a pass type" },
+      "detail": {
+        "header": {
+          "credits": "{{count}} credit",
+          "credits_plural": "{{count}} credits",
+          "unlimited": "Unlimited",
+          "newMemberOnly": "Only for new members",
+          "isUniversalPass": "Universal pass",
+          "onlyVodAccess": "Available for VOD only",
+          "fullVodAccess": "VOD compatible",
+          "onsitePaymentAvailable": "Payment on site available"
+        },
+        "availability": {
+          "active": "Valid from {{ startDate }} to {{ expirationDate }}",
+          "suspended": "Suspended",
+          "suspendedUntil": "Suspended until {{ endDate }}",
+          "expired": "Expired on {{ expirationDate }}",
+          "future": "Starts on {{ startDate }}",
+          "validUntil": "Valid until {{ expirationDate }}"
+        },
+        "description": { "showMore": "Show more", "showLess": "Show less" },
+        "compatibility": {
+          "titles": {
+            "studios": "Compatible studios",
+            "activity": "Activities compatibility",
+            "appointment": "Appointment compatibility",
+            "main": "Compatibility"
+          },
+          "subtitles": {
+            "activity": "Compatible activities",
+            "timeSlots": "Compatible time slots",
+            "sessions": "Compatible sessions"
+          },
+          "contents": {
+            "allActivities": "Compatible with all activities of the studio",
+            "allRooms": "Compatible with all rooms of the studio",
+            "allCategories": "Compatible with all categories of the studio",
+            "allTimeSlots": "Compatible with all the time slots",
+            "vod": "Can be used for <strong>Videos on demand</strong>",
+            "bookingForGuest": "Can be used to <strong>Invite a guest</strong>",
+            "noAppointments": "No compatible appointments",
+            "allSessions": "Compatible with all sessions",
+            "sessions": "Compatible sessions: {{ sessionsList }}"
+          },
+          "labels": {
+            "category": "Categories",
+            "activity": "Activities",
+            "room": "Rooms"
+          }
+        },
+        "restriction": {
+          "title": "Restrictions on use",
+          "daily": "Can only be used {{ amount }} time per day.",
+          "daily_plural": "Can only be used {{ amount }} times per day.",
+          "weekly": "Can only be used {{ amount }} time per week.",
+          "weekly_plural": "Can only be used {{ amount }} times per week.",
+          "monthly": "Can only be used {{ amount }} time per month.",
+          "monthly_plural": "Can only be used {{ amount }} times per month."
+        }
+      },
       "title": "Passes",
       "filters": "Filters",
       "search": "Search",
       "buy": "Buy",
-      "details": "Details"
+      "details": "Details",
+      "close": "Close",
+      "addToCart": "Add to cart",
+      "to": "to"
     }
   },
   "member": {

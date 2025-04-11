@@ -24,7 +24,7 @@
     "inquirer": "^8.2.6"
   },
   "devDependencies": {
-    "@bsport/eslint-config-react": "workspace:*",
+    "@bsport/config-eslint-react": "workspace:*",
     "@types/fs-extra": "^11.0.1",
     "@types/inquirer": "^9.0.7"
   }

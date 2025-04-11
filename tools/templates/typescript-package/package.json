@@ -31,6 +31,6 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "@bsport/eslint-config-react": "workspace:*"
+    "@bsport/config-eslint-react": "workspace:*"
   }
 }

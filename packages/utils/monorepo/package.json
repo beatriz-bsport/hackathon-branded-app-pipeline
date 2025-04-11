@@ -22,7 +22,7 @@
     "fs-extra": "^11.2.0"
   },
   "devDependencies": {
-    "@bsport/eslint-config-react": "workspace:*",
+    "@bsport/config-eslint-react": "workspace:*",
     "@types/fs-extra": "^11.0.1"
   }
 }

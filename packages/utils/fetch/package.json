@@ -35,6 +35,6 @@
     "@bsport/timezone-utils": "workspace:*"
   },
   "devDependencies": {
-    "@bsport/eslint-config-react": "workspace:*"
+    "@bsport/config-eslint-react": "workspace:*"
   }
 }

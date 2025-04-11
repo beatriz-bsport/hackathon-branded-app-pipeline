@@ -15,17 +15,19 @@ import { LOGIN_URL } from "./constants";
  * @param email
  * @param password
  */
-export const login: Action<LoginParams, Result<void, Error>> = async (
-  fetch,
-  params,
-) => {
+export const login: Action<
+  LoginParams,
+  { token: string },
+  Error,
+  void
+> = async (fetch, params) => {
   const [uri, init] = apiLogin(params);
 
   return Result.try(
     async () => {
-      const token = (await fetch<{ token: string }>(uri, init)).data;
-      setAuthToken(token.token);
-      return;
+      const { data } = await fetch(uri, init);
+
+      setAuthToken(data.token);
     },
     (error) => new Error("Token not found in response.", { cause: error }),
   );

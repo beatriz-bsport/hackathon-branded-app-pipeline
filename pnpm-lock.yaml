@@ -1768,9 +1768,6 @@ importers:
 
   packages/stores/base:
     dependencies:
-      '@bsport/fetch':
-        specifier: workspace:*
-        version: link:../../utils/fetch
       typescript-result:
         specifier: ^3.1.1
         version: 3.1.1

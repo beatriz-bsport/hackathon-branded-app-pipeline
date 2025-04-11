@@ -510,30 +510,25 @@ export class SmartListCampaign extends React.Component<Props> {
           sendNow={this.openCommunicationScheduledSendNowDialog}
           timezone={this.props.timezone}
         />
-        {(Config.REACT_APP_SENTRY_ENVIRONMENT !== 'production' ||
-          this.props.companyId === 498) && (
+        {!!this.props.openEditCommunication && (
           <ObjectLevelPermissionWrapper
             forcedBehavior="hidden"
             requiredPermission="member.allowed_actions.communication"
           >
-            <>
-              {!!this.props.openEditCommunication && (
-                <CommunicationDrawer
-                  communicationIdentifier={CONTEXT_SMARTLIST}
-                  communicationObjectId={this.props.id}
-                  communicationTitle={
-                    this.props.communicationScheduledSelected?.title || ''
-                  }
-                  fullScreen={false}
-                  onDrawerClose={this.closeCommunicationScheduledEditionDrawer}
-                  openDrawer={this.props.openEditCommunication}
-                  smartlistOptions={{
-                    scheduledCommunicationDraft:
-                      this.props.communicationScheduledSelected,
-                  }}
-                />
-              )}
-            </>
+            <CommunicationDrawer
+              communicationIdentifier={CONTEXT_SMARTLIST}
+              communicationObjectId={this.props.id}
+              communicationTitle={
+                this.props.communicationScheduledSelected?.title || ''
+              }
+              fullScreen={false}
+              onDrawerClose={this.closeCommunicationScheduledEditionDrawer}
+              openDrawer={this.props.openEditCommunication}
+              smartlistOptions={{
+                scheduledCommunicationDraft:
+                  this.props.communicationScheduledSelected,
+              }}
+            />
           </ObjectLevelPermissionWrapper>
         )}
         {this.props.isDeleteCommunicationScheduledDialogOpen && (

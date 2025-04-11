@@ -564,15 +564,6 @@ export class MemberDetail extends React.Component<Props> {
           onConfirm={this.archiveMember}
           open={this.props.openArchiveDialog}
         />
-        {Config.REACT_APP_SENTRY_ENVIRONMENT !== 'production' && isOpenChat && (
-          <CommunicationDrawer
-            communicationIdentifier={CONTEXT_MEMBER}
-            communicationMember={this.props.member}
-            communicationObjectId={this.props.member?.id ?? this.props.id}
-            onDrawerClose={this.handleCloseCommunicationDrawer}
-            openDrawer={isOpenChat}
-          />
-        )}
       </ContentWithAppBar>
     );
   }

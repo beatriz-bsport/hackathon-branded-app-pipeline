@@ -45,7 +45,6 @@ import { MarketingNotificationMailStat } from '../../communication/types';
 import FeatureListProvider from '../../company/hocs/feature-list-provider.hoc';
 import { CompanyTheme } from '../../theme/types';
 
-import Config from '../../../config';
 import { isPassNotification } from '../utils';
 import MarketingRulePassPaginatedList from './MarketingRulePassPaginatedList.component';
 import { CONSUMER_PAYMENT_PACK_CREDIT_NOTIFICATION_COUNTDOWN_ON_BOOKING } from '#src/libs/payment-packs/utils';
@@ -414,9 +413,8 @@ class MarketingRuleDetail extends React.PureComponent<Props, State> {
     } = this.props;
     return (
       <React.Fragment>
-        {(Config.REACT_APP_SENTRY_ENVIRONMENT !== 'production' ||
-          this.props.theme?.company === 498) &&
-          !!this.props.selectedNotification &&
+        {!!this.props.selectedNotification &&
+          typeof this.props.selectedNotification?.id === 'number' &&
           this.state.openCommunicationDrawer && (
             <CommunicationDrawer
               communicationIdentifier={CONTEXT_NOTIFICATION}
@@ -538,18 +536,15 @@ class MarketingRuleDetail extends React.PureComponent<Props, State> {
                       </Typography>
                     </div>
                   </Paper>
-                  {(Config.REACT_APP_SENTRY_ENVIRONMENT !== 'production' ||
-                    this.props.theme?.company === 498) && (
-                    <Button
-                      color="primary"
-                      disabled={!this.props.selectedNotification}
-                      onClick={this.onOpenCommunicationDrawerClick}
-                      size="medium"
-                      variant="contained"
-                    >
-                      {t('communication:generic.history')}
-                    </Button>
-                  )}
+                  <Button
+                    color="primary"
+                    disabled={!this.props.selectedNotification}
+                    onClick={this.onOpenCommunicationDrawerClick}
+                    size="medium"
+                    variant="contained"
+                  >
+                    {t('communication:generic.history')}
+                  </Button>
                   <Typography className={classes.emailSummary} variant="h5">
                     {t('marketing:notifications.mailTitle')}:{' '}
                     {this.props.emailSummary.title}

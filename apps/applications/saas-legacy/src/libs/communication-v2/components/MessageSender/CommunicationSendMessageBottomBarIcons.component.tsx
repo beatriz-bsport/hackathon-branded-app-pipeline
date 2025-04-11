@@ -236,7 +236,7 @@ const BottomBarIcons: React.FC<Props> = ({
                         : 'default'
                     }
                     disabled={
-                      Config.REACT_APP_SENTRY_ENVIRONMENT === 'production' &&
+                      Config.REACT_APP_SENTRY_ENVIRONMENT === 'production' ||
                       !hasUpsell(
                         featureList,
                         UPSELL_IDENTIFIER_PUSH_NOTIFICATION,

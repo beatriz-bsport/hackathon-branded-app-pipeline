@@ -1434,23 +1434,20 @@ export class OfferManagement extends Component<Props, State> {
             spotTypes={this.props.spotTypes.concat(DEFAULT_SPOT_TYPE)}
           />
         )}
-        {!!this.props.offer &&
-          !!this.props.communicationDrawerIsOpen &&
-          (Config.REACT_APP_SENTRY_ENVIRONMENT !== 'production' ||
-            this.props.companyId === 498) && (
-            <CommunicationDrawer
-              allMemberCategoryList={getOfferCategories(
-                this.props.t,
-                bookings,
-                bookingOptionsPending,
-              )}
-              communicationIdentifier={CONTEXT_OFFER}
-              communicationObjectId={this.props.offer.id ?? this.props.offerId}
-              communicationTitle={this.props.offer?.name}
-              onDrawerClose={this.handleCloseCommunicationDrawer}
-              openDrawer={this.props.communicationDrawerIsOpen}
-            />
-          )}
+        {!!this.props.offer && !!this.props.communicationDrawerIsOpen && (
+          <CommunicationDrawer
+            allMemberCategoryList={getOfferCategories(
+              this.props.t,
+              bookings,
+              bookingOptionsPending,
+            )}
+            communicationIdentifier={CONTEXT_OFFER}
+            communicationObjectId={this.props.offer.id ?? this.props.offerId}
+            communicationTitle={this.props.offer?.name}
+            onDrawerClose={this.handleCloseCommunicationDrawer}
+            openDrawer={this.props.communicationDrawerIsOpen}
+          />
+        )}
         <GenericDialog />
       </Grid>
     );

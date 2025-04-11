@@ -16,7 +16,6 @@ import Collapse from '@material-ui/core/Collapse';
 import Divider from '@material-ui/core/Divider';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import SendIcon from '@material-ui/icons/Send';
 import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
 
@@ -188,7 +187,6 @@ import {
   CONTEXT_SMARTLIST,
   MINUTE_LIMIT_TO_SCHEDULE_COMMUNICATION,
 } from '#src/libs/communication-v2/constants';
-import BottomActionsButtonCustom from '#src/components/button/BottomActionsButtonCustom.component';
 
 import GenericMuiDialog from '#src/components/genericDialog/GenericMuiDIalog';
 import GenericDeleteDialog from '#src/components/genericDialog/GenericDeleteDialog.component';
@@ -214,7 +212,6 @@ type OwnProps = {
   openSendEmail: boolean;
   setOpenSendEmail: (open: boolean) => void;
   setCloseMemberTable: (open: boolean) => void;
-  setOpenAutoTagRulesDialog: (open: boolean) => void;
   openAutoTagRulesDialog: boolean;
   closeMemberTable: boolean;
   automatedCampaignCreateEventkind: number;
@@ -225,7 +222,6 @@ type OwnProps = {
   openCommunicationChatDrawer: boolean;
   setOpenCommunicationChatDrawer: (open: boolean) => void;
   getUnreadAnswersCountAction: (params: CommunicationContext) => void;
-  numberOfUnreadAnswers: number;
 } & WithTranslation &
   MaterialStyleType<ReturnType<typeof styles>>;
 
@@ -853,54 +849,30 @@ export class SmartListDetailMember extends React.Component<Props, State> {
           sendNow={this.openCommunicationScheduledSendNowDialog}
           timezone={this.props.timezone}
         />
-        {(Config.REACT_APP_SENTRY_ENVIRONMENT !== 'production' ||
-          this.props.companyId === 498) && (
+        {!!this.props.openCommunicationChatDrawer && (
           <ObjectLevelPermissionWrapper
             forcedBehavior="hidden"
             requiredPermission="member.allowed_actions.communication"
           >
-            <>
-              {!!this.props.openCommunicationChatDrawer && (
-                <CommunicationDrawer
-                  communicationIdentifier={CONTEXT_SMARTLIST}
-                  communicationObjectId={
-                    this.props.smartlist?.id ?? this.props.id
-                  }
-                  communicationTitle={this.props.smartlist?.name}
-                  onDrawerClose={this.handleCommunicationDrawerClose}
-                  openDrawer={this.props.openCommunicationChatDrawer}
-                  smartlistOptions={{
-                    scheduledCommunicationDraft:
-                      this.state.communicationScheduledSelected,
-                    automatedCommunicationDraft: this.props
-                      .selectAutomatedCampaignId
-                      ? this.props.selected_smartlist_autmated_campaign
-                      : null,
-                    automatedCampaignKind:
-                      this.props.automatedCampaignCreateEventkind,
-                    usedAutoCampaignCommMethods:
-                      this.getAlreadyConfiguredCommunicationKind(),
-                  }}
-                />
-              )}
-              <BottomActionsButtonCustom
-                buttonsProperties={[
-                  {
-                    onClick: (e) => {
-                      e.stopPropagation();
-                      this.props.setOpenCommunicationChatDrawer(true);
-                    },
-                    color: 'primary',
-                    disabled: this.props.loading,
-                    icon: <SendIcon />,
-                    text: this.props.t('communication:generic.communication'),
-                    keepTextUnderSelectedMinWidth: true,
-                    badgeValue: this.props.numberOfUnreadAnswers,
-                  },
-                ]}
-                minWidth="xs"
-              />
-            </>
+            <CommunicationDrawer
+              communicationIdentifier={CONTEXT_SMARTLIST}
+              communicationObjectId={this.props.smartlist?.id ?? this.props.id}
+              communicationTitle={this.props.smartlist?.name}
+              onDrawerClose={this.handleCommunicationDrawerClose}
+              openDrawer={this.props.openCommunicationChatDrawer}
+              smartlistOptions={{
+                scheduledCommunicationDraft:
+                  this.state.communicationScheduledSelected,
+                automatedCommunicationDraft: this.props
+                  .selectAutomatedCampaignId
+                  ? this.props.selected_smartlist_autmated_campaign
+                  : null,
+                automatedCampaignKind:
+                  this.props.automatedCampaignCreateEventkind,
+                usedAutoCampaignCommMethods:
+                  this.getAlreadyConfiguredCommunicationKind(),
+              }}
+            />
           </ObjectLevelPermissionWrapper>
         )}
         {this.state.openEditDialog && (
@@ -1129,9 +1101,6 @@ const connector = connect(
     customForms: getAllCustomForm(state),
     customFormLoading: state.customForm.loading,
 
-    // UNREAD ANSWERS
-    numberOfUnreadAnswers: state.communicationV2.unreadAnswers.count,
-
     // OTHERS
     companyId: state.theme.theme.company,
 
@@ -1310,7 +1279,11 @@ const mapWithHandlers = {
     }),
 
   createAutoTag:
-    (props: OwnAndConnectedProps) =>
+    (
+      props: OwnAndConnectedProps & {
+        setOpenAutoTagRulesDialog: (open: boolean) => void;
+      },
+    ) =>
     async (data: { company: number; tag: number; kind: number }) => {
       props.setOpenAutoTagRulesDialog(true);
       const res = await showInformativeDialog(
@@ -1328,7 +1301,11 @@ const mapWithHandlers = {
   deleteAutoTag: (props: OwnAndConnectedProps) => (id: number) =>
     props.deleteAutoTagAction(id),
   updateAutoTag:
-    (props: OwnAndConnectedProps) =>
+    (
+      props: OwnAndConnectedProps & {
+        setOpenAutoTagRulesDialog: (open: boolean) => void;
+      },
+    ) =>
     async (tag_rule_id: number, data: { tag: number; kind: number }) => {
       const res = await showInformativeDialog(
         props.t('smartList:tag_rules.asyncDialog.title'),

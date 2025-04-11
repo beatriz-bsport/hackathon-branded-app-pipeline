@@ -19,7 +19,6 @@ import AlertTitle from '@material-ui/lab/AlertTitle';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import MailIcon from '@material-ui/icons/Mail';
-import SendIcon from '@material-ui/icons/Send';
 import OpenInNewIcon from '@material-ui/icons/OpenInNew';
 import { withTranslation, TFunction } from 'react-i18next';
 
@@ -49,7 +48,6 @@ import type { Booking, BookingOption } from '#src/libs/booking/types';
 import type { Member } from '#src/libs/member/types';
 import type { Invoice } from '#src/libs/invoice/types';
 import { Tag, TagGroup } from '#src/libs/tag/types';
-import BottomActionsButtonCustom from '#src/components/button/BottomActionsButtonCustom.component';
 import ValidationRollCallButton from '#src/libs/offer/components/ValidationRollCallButton.component';
 import ValidationRollCallText from '#src/libs/offer/components/ValidationRollCallText.component';
 import ObjectLevelPermissionProvider from '#src/libs/role/permission-utils/ObjectLevelPermissionProvider.component';
@@ -77,7 +75,6 @@ type Props = {
   bookings: Array<Booking>,
   bookingOptionsPending: Array<BookingOption>,
   openMailDialog: () => void,
-  openCommunicationDrawer: () => void,
   offer?: Offer,
 
   addToQuickInvoicePanel: (number) => void,
@@ -137,9 +134,7 @@ type Props = {
   },
   programList: Array<PerformanceTrackingProgram>,
   refresh: () => void,
-  companyId: number,
   onProgramDetailsClick: (member?: Member, booking?: Booking) => void,
-  numberOfUnreadAnswers: number,
   onRollCallButtonClick: () => void,
   isRollCallMandatory: boolean,
   displayPositionInWaitingList: boolean,
@@ -591,32 +586,6 @@ export class BookingManagement extends React.PureComponent<Props, State> {
                                 >
                                   <MailIcon />
                                 </IconButton>
-                                {(Config.REACT_APP_SENTRY_ENVIRONMENT !==
-                                  'production' ||
-                                  this.props.companyId === 498) && (
-                                  <BottomActionsButtonCustom
-                                    buttonsProperties={[
-                                      {
-                                        onClick: (e) => {
-                                          e.stopPropagation();
-                                          this.props.openCommunicationDrawer();
-                                        },
-                                        color: 'primary',
-                                        disabled:
-                                          this.props.bookingLoading ||
-                                          this.props.loading,
-                                        icon: <SendIcon />,
-                                        text: t(
-                                          'communication:generic.communication',
-                                        ),
-                                        keepTextUnderSelectedMinWidth: true,
-                                        badgeValue:
-                                          this.props.numberOfUnreadAnswers,
-                                      },
-                                    ]}
-                                    minWidth="xs"
-                                  />
-                                )}
                               </>
                             )}
                             {hasCreatePermission &&

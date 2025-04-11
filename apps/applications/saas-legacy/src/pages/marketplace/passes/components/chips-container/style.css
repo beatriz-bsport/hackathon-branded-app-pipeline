@@ -1,0 +1,10 @@
+.bs-marketplace-chips-container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--bs-space-size-1);
+}
+.bs-marketplace-chips-container__list {
+  display: flex;
+  flex-flow: row wrap;
+  gap: var(--bs-space-size-2);
+}

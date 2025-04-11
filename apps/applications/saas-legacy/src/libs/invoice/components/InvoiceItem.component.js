@@ -6,9 +6,6 @@ import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 
-const { InvoiceItemVoucherTraceKind } = await import(
-  '@bsport/common/lib/master-data/invoice-item.js'
-);
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 
 import { getShopItemName } from '../../shop/utils';
@@ -16,6 +13,7 @@ import { getShopItemName } from '../../shop/utils';
 import clsx from 'clsx';
 import { AttachFile } from '@material-ui/icons';
 import { ConsumerGiftcardKind } from '@bsport/common/lib/master-data/giftcard.js';
+import { InvoiceItemVoucherTraceKind } from '@bsport/common/lib/master-data/invoice-item.js';
 
 type Props = {
   invoiceItem: InvoiceItem,

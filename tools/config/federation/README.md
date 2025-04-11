@@ -14,28 +14,31 @@ Gets the list of remotes for local development.
 
 ### `getConfig`
 
-Generates and validates configuration for a federated module. This function helps set up Module Federation in a Vite application by providing standardized configuration based on the app type and environment.
+Generates and returns a complete Vite configuration for a federated module. This function provides a standardized configuration based on the app type and environment, including all necessary plugins and settings.
 
 #### Parameters
 
 ```typescript
 interface ConfigParams {
   appType: AppTypes; // Type of the application (hosts, shared, core-data, etc.)
-  mode: "development" | "production" | "preview"; // Build mode
+  mode: string; // Build mode ('development' or 'preview')
   packageJson: PackageJson; // package.json configuration
+  rootDir: string; // Root directory of the application
 }
 ```
 
 #### Returns
 
-Returns a validated configuration object containing:
+Returns a complete Vite configuration object (`import('vite').UserConfig`) with all necessary settings preconfigured:
 
 - `base`: Base URL configuration
 - `server`: Vite server configuration
 - `preview`: Vite preview configuration
 - `define`: Global constants
-- `federation`: Module Federation configuration
-- `pathsToWatch`: Paths to watch for development
+- `plugins`: All required plugins including federation
+- `build`: Build configuration
+
+The configuration can be used as-is or mixed with your own custom settings.
 
 #### Package.json Federation Configuration
 
@@ -83,22 +86,35 @@ import { getConfig } from "@bsport/config-federation";
 
 import packageJson from "./package.json";
 
+// Basic usage
 export default defineConfig(({ mode }) => {
-  const config = getConfig({
-    appType: "hosts",
+  return getConfig({
     mode,
     packageJson,
+    appType: "hosts",
+    rootDir: __dirname,
+  });
+});
+
+// Mixing with custom configuration
+export default defineConfig(({ mode }) => {
+  const federatedConfig = getConfig({
+    mode,
+    packageJson,
+    appType: "hosts",
+    rootDir: __dirname,
   });
 
   return {
-    base: config.base,
-    server: config.server,
-    preview: config.preview,
-    define: config.define,
-    plugins: [
-      // ... other plugins
-      federation(config.federation),
-    ],
+    ...federatedConfig,
+    define: {
+      ...federatedConfig.define,
+      __MY_CUSTOM_ENV__: JSON.stringify(process.env.MY_CUSTOM_ENV),
+    },
+    build: {
+      ...federatedConfig.build,
+      minify: mode === "production",
+    },
   };
 });
 ```

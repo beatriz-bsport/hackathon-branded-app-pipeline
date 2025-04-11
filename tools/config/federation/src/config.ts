@@ -1,5 +1,11 @@
 import { federation } from "@module-federation/vite";
+import { nxViteTsPaths } from "@nx/vite/plugins/nx-tsconfig-paths.plugin";
+import react from "@vitejs/plugin-react-swc";
+import { resolve } from "path";
 import { type PreviewOptions, type ServerOptions, type UserConfig } from "vite";
+import restart from "vite-plugin-restart";
+import svgr from "vite-plugin-svgr";
+import topLevelAwait from "vite-plugin-top-level-await";
 import { z } from "zod";
 
 export const AppTypesEnum = z.enum(
@@ -85,34 +91,49 @@ const ConfigSchema = z
   );
 
 /**
- * Generates and validates configuration for a federated module
+ * Generates and returns a complete Vite configuration for a federated module
  * @param {Object} config - Configuration object for the module
  * @param {AppTypes} config.appType - Type of the application (hosts, shared, core-data, etc.)
  * @param {string} config.mode - Build mode ('development' or 'preview')
  * @param {Object} config.packageJson - Package.json configuration validated against ConfigSchema
- * @returns {Object} Validated configuration object for the federated module
+ * @param {string} config.rootDir - Root directory of the application
+ * @returns {import('vite').UserConfig} Complete Vite configuration including all necessary plugins and settings
  * @throws {Error} If configuration validation fails
  * @example
+ * // Basic usage
+ * import { defineConfig } from "vite";
+ * import { getConfig } from "@bsport/config-federation";
  * import packageJson from "./package.json";
  *
  * export default defineConfig(({ mode }) => {
- *    const config = getConfig({
- *      appType: "hosts",
- *      mode,
- *      packageJson,
- *    });
- *    return {
- *      base: config.base,
- *      server: config.server,
- *      preview: config.preview,
- *      define: config.define,
- *      plugins: [
- *        nxViteTsPaths(),
- *        svgr(),
- *        react(),
- *        topLevelAwait(),
- *        federation(config.federation),
- *      ],
+ *   return getConfig({
+ *     mode,
+ *     packageJson,
+ *     appType: "hosts",
+ *     rootDir: __dirname,
+ *   });
+ * });
+ *
+ * @example
+ * // Mixing with custom configuration
+ * export default defineConfig(({ mode }) => {
+ *   const federatedConfig = getConfig({
+ *     mode,
+ *     packageJson,
+ *     appType: "hosts",
+ *     rootDir: __dirname,
+ *   });
+ *
+ *   return {
+ *     ...federatedConfig,
+ *     define: {
+ *       ...federatedConfig.define,
+ *       __MY_CUSTOM_ENV__: JSON.stringify(process.env.MY_CUSTOM_ENV),
+ *     },
+ *     build: {
+ *       ...federatedConfig.build,
+ *       minify: mode === "production",
+ *     },
  *   };
  * });
  */
@@ -120,6 +141,7 @@ export const getConfig = (config: {
   appType: AppTypes;
   mode: string;
   packageJson: z.infer<typeof ConfigSchema>["packageJson"];
+  rootDir: string;
 }) => {
   const result = ConfigSchema.safeParse(config);
 
@@ -167,7 +189,35 @@ export const getConfig = (config: {
     port: devPort,
   };
 
-  const federationConfig: Parameters<typeof federation>[0] = {
+  const pathsToWatch: string[] = [];
+  let remotes:
+    | Record<string, { name: string; type: string; entry: string }>
+    | undefined;
+
+  if (packageJson.federation.remotes) {
+    remotes = Object.entries(packageJson.federation.remotes).reduce(
+      (acc, [key, remote]) => {
+        if (remote.watchPath) {
+          pathsToWatch.push(remote.watchPath);
+        }
+
+        return {
+          ...acc,
+          [key]: {
+            name: key,
+            type: "module",
+            entry: isLocal
+              ? `http://localhost:${remote.devPort}/remoteEntry.js`
+              : `/v2/apps/${removePrefix(key)}/remoteEntry.js`,
+          },
+        };
+      },
+
+      {},
+    );
+  }
+
+  const federationConfig = {
     name: federationName || removeScope(packageJson.name),
     filename: "remoteEntry.js",
     manifest: {
@@ -194,42 +244,43 @@ export const getConfig = (config: {
       },
     },
     exposes,
+    remotes,
   };
 
-  const pathsToWatch: string[] = [];
-  // Add remotes configuration if present in package.json
-  if (packageJson.federation.remotes) {
-    federationConfig.remotes = Object.entries(
-      packageJson.federation.remotes,
-    ).reduce(
-      (acc, [key, remote]) => {
-        if (remote.watchPath) {
-          pathsToWatch.push(remote.watchPath);
-        }
-
-        return {
-          ...acc,
-          [key]: {
-            name: key,
-            type: "module",
-            entry: isLocal
-              ? `http://localhost:${remote.devPort}/remoteEntry.js`
-              : `/v2/apps/${removePrefix(key)}/remoteEntry.js`,
-          },
-        };
-      },
-
-      {},
-    );
-  }
+  const plugins = [
+    nxViteTsPaths(),
+    svgr(),
+    react(),
+    federation(federationConfig),
+    topLevelAwait(),
+    restart({
+      restart: pathsToWatch,
+    }),
+  ];
 
   return {
     define,
     base,
     server,
     preview,
-    federation: federationConfig,
-    pathsToWatch,
+    plugins,
+    build: {
+      cssCodeSplit: false,
+      emptyOutDir: true,
+    },
+    resolve: {
+      alias: {
+        "#src": resolve(config.rootDir, "src"),
+      },
+    },
+    /**
+     * Why?
+     * we want to simplify the tests, given we have a lot of cases
+     * for the config and testing the mocks is inefficient
+     */
+    ...(process.env.NODE_ENV === "test"
+      ? { federation: federationConfig }
+      : {}),
   };
 };
 

@@ -50,4 +50,5 @@ export const getLocalFederationRemotes = () => {
   return remotes as Record<APPLICATION, string>;
 };
 
-export { getConfig } from "./config";
+// using esm modules we have to use explicit .js extension
+export { getConfig } from "./config.js";

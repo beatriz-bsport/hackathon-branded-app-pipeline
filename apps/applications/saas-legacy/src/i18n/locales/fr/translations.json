@@ -1661,7 +1661,9 @@
                 "notification": "Notification push",
                 "balise": "Balises",
                 "template": "Template email",
-                "autoResend": "Renvois automatiques"
+                "autoResend": "Renvois automatiques",
+                "automaticCommunicationLimit": "Définir une limite",
+                "messageScheduling": "Programmer le message"
             },
             "textField": {
                 "content": "Message",
@@ -1672,7 +1674,9 @@
             "buttons": {
                 "send": "Envoyer",
                 "selectRecipients": "Choisissez destinataires",
-                "selectRecipientsMobile": "dest."
+                "selectRecipientsMobile": "dest.",
+                "updateScheduled": "Mettre à jour",
+                "scheduleCommunication": "Programmer"
             },
             "sendDisabled": {
                 "missingRecipients": "Choisissez d'abord des destinataires",
@@ -1785,8 +1789,9 @@
             "deleteMessage": "Supprimer ce message",
             "cancelEdition": "Abandonner les modifications",
             "saveEdition": "Enregistrer les modifications",
-            "chooseTime": "Sélectionnez une heure",
-            "chooseDate": "Sélectionnez une date"
+            "chooseTime": "Sélectionner une heure",
+            "chooseDate": "Sélectionner une date",
+            "inputLabel": "Choisissez la date et l’heure d’envoi du message."
         },
         "sendNowDialog": {
             "confirm": "Envoyer",

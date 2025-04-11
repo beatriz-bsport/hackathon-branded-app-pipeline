@@ -1034,8 +1034,8 @@
                     "paymentSuccess": "Congratulations! Your purchase has been confirmed!",
                     "paymentSuccess_plural": "Congratulations! Your purchases are confirmed!",
                     "offerOnlySuccess": "The booking has been made. You will soon receive a confirmation e-mail with all the details.",
-                    "offerOnlySuccess_plural": "The bookings have been made. You will soon receive a confirmation e-mail with all the details.",
                     "offerOnlyGuestSuccess": "The booking has been made. You and your guest will shortly receive a confirmation e-mail with all the details.",
+                    "offerOnlySuccess_plural": "The bookings have been made. You will soon receive a confirmation e-mail with all the details.",
                     "offersPartiallyConfirmed": "Some sessions could not be booked, possibly because they filled up or were canceled during checkout. You will receive a confirmation email shortly with details of the successful bookings."
                 },
                 "confirmationStatusTitle": {
@@ -1946,7 +1946,7 @@
             "confirm": "Send"
         },
         "scheduled": {
-            "inputLabel": "Choose when you want to schedule this message.",
+            "inputLabel": "Choose the time you want to schedule the message.",
             "chooseDate": "Pick a date",
             "chooseTime": "Pick a time",
             "numberOfRecipients": "Recipient: {{ count }}",
@@ -4176,8 +4176,8 @@
                 "show_company_email_in_invoice": "Display the company email address on all invoices"
             },
             "refundsAndDiscount": {
-                "title": "Discounts and Refunds",
-                "info": "Activate these options to require staff to provide a reason when manually applying a discount or canceling/refunding an invoice.",
+                "title": "Refunds and Discounts",
+                "info": "These options allow you to force a justification from staff member when manually adding a discount or cancelling / refunding an invoice.",
                 "checkbox": {
                     "customDiscountJustification": "Require justification for manual discounts",
                     "refundAndCancelJustification": "Require justification for invoice refunds and cancellations"
@@ -4335,7 +4335,7 @@
                 "addReader": "Connect a terminal"
             },
             "tse": {
-                "title": "Kassensicherungsverordnung (Germany)",
+                "title": "Kassensicherungsverordnung (Deutschland)",
                 "description": "It’s a regulation aimed at ensuring the security and integrity of electronic cash register systems. We use Fiskaly as a technical security device (TSE) to prevent manipulation and ensure that transaction data is stored securely and tamper-proof.",
                 "version": "Version of the TSE: 2.0",
                 "manufacturer": "Manufacturer: bsport",
@@ -4682,7 +4682,8 @@
         "paymentEngine": {
             "label": {
                 "0": "Manual payment",
-                "1": "Online payment"
+                "1": "Stripe",
+                "2": "Paypal"
             }
         },
         "invoiceType": {

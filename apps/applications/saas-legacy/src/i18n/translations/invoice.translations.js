@@ -50,6 +50,7 @@ const getTranslations = async () => {
     PAYMENT_GROUP_METHOD_IDENTIFIER_GIROPAY,
     PAYMENT_ENGINE_STRIPE,
     PAYMENT_ENGINE_BSPORT,
+    PAYMENT_ENGINE_PAYPAL,
     REVERSE_ON_PAYMENT_METHOD,
     REVERSE_ON_DEBT,
     REVERSE_ON_NEW_PAYMENT_METHOD,
@@ -611,8 +612,9 @@ const getTranslations = async () => {
     },
     paymentEngine: {
       label: {
-        [PAYMENT_ENGINE_STRIPE]: 'Online payment',
+        [PAYMENT_ENGINE_STRIPE]: 'Stripe',
         [PAYMENT_ENGINE_BSPORT]: 'Manual payment',
+        [PAYMENT_ENGINE_PAYPAL]: 'Paypal',
       },
     },
     invoiceType: {

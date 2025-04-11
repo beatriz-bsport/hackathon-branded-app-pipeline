@@ -48,7 +48,7 @@ for APPLICATION in $APPLICATIONS; do
 
   # get the path relative to the application root, for example for @bsport/sm-host it will
   # be "apps/applications/b2b/host"
-  ASSET_PATH=$(pnpm exec nx show project $APPLICATION | grep '"root":' | sed 's/.*"root": *"\([^"]*\).*/\1/')
+  ASSET_PATH=$(pnpm exec nx show project $APPLICATION --json | grep -o '"root":"[^"]*"' | sed 's/"root":"\(.*\)"$/\1/')
   echo "LOGS : THIS IS ASSET_PATH : $ASSET_PATH"
   
   cd "$ROOT_DIR/$ASSET_PATH"

@@ -1,25 +1,14 @@
-import { lazy } from "react";
-import { Route } from "react-router";
-
-import { RoutesWrapper } from "@bsport/b2b-backbone";
+import { Route, Routes } from "react-router";
 
 import { ArchivedMemberListPage } from "#src/pages/ArchivedMemberList";
 import { MemberListPage } from "#src/pages/MemberList";
 
-const NavigationSidebar = lazy(() => import("sm-navigation-sidebar/App"));
-
-const IS_LOCAL_DEVELOPMENT = import.meta.env.DEV;
-
 const AppRoutes = () => {
   return (
-    <RoutesWrapper
-      isStandalone={IS_LOCAL_DEVELOPMENT}
-      NavigationApp={NavigationSidebar}
-      baseUrl=""
-    >
+    <Routes>
       <Route element={<MemberListPage />} index />
       <Route element={<ArchivedMemberListPage />} path="archived" />
-    </RoutesWrapper>
+    </Routes>
   );
 };
 

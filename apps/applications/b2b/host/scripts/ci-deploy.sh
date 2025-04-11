@@ -38,15 +38,23 @@ S3_BUCKET="$S3_BUCKET/v2"
 
 ROOT_DIR=$(git rev-parse --show-toplevel)
 cd "$ROOT_DIR"
+echo "LOGS : THIS IS ROOT_DIR : $ROOT_DIR"
 
 for APPLICATION in $APPLICATIONS; do
   echo "*"
   echo "⏳ Copying $APPLICATION assets to S3"
+  PWD_BEGIN=$(pwd)
+  echo "LOGS : THIS IS PWD_BEGIN : $PWD_BEGIN"
 
   # get the path relative to the application root, for example for @bsport/sm-host it will
   # be "apps/applications/b2b/host"
   ASSET_PATH=$(pnpm exec nx show project $APPLICATION | grep '"root":' | sed 's/.*"root": *"\([^"]*\).*/\1/')
+  echo "LOGS : THIS IS ASSET_PATH : $ASSET_PATH"
+  
   cd "$ROOT_DIR/$ASSET_PATH"
+  PWD=$(pwd)
+  echo "LOGS : THIS IS pwd : $PWD"
+  
 
   # set S3_URL
   if [ "$APPLICATION" = "@bsport/sm-host" ]; then
@@ -55,6 +63,7 @@ for APPLICATION in $APPLICATIONS; do
   else
     # Use current folder name as app name
     APP_NAME=$(basename $(pwd))
+    echo "LOGS : THIS IS APP_NAME : $APP_NAME"
     S3_URL="$S3_BUCKET/apps/$APP_NAME"
   fi
 

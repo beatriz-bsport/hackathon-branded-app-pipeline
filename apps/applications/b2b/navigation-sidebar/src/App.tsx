@@ -40,12 +40,8 @@ const Home = () => {
   );
 };
 
-const basename = import.meta.env.DEV
-  ? ""
-  : import.meta.env.VITE_APPLICATION_BASE_URL;
-
 const App = () => (
-  <BrowserRouter basename={basename}>
+  <BrowserRouter basename={import.meta.env.BASENAME}>
     <div className="flex">
       <NavigationSidebar />
       <div className="flex flex-col flex-grow p-4">

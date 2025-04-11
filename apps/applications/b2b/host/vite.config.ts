@@ -37,6 +37,7 @@ export default defineConfig(({ mode }) => {
       cssCodeSplit: false,
       sourcemap: true,
       emptyOutDir: true,
+      target: "esnext",
     },
     resolve: {
       alias: {

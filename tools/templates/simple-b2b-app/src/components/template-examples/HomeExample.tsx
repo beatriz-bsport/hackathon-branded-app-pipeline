@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router";
 
-import { Body, Link, Title, toast } from "@bsport/kaizen-primitive-core";
+import { Body, Title, toast } from "@bsport/kaizen-primitive-core";
 
 import fetch from "#src/utils/fetch";
 
@@ -61,7 +62,7 @@ const HomeExample: React.FC = () => {
           </div>
         )}
         <TranslationExample />
-        <Link href="/list-example">Go to Offer list example</Link>
+        <Link to="list-example">Go to Offer list example</Link>
       </div>
     </div>
   );

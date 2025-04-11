@@ -1,8 +1,5 @@
 import { Route, Routes } from "react-router";
 
-// TODO: wait for b2b-backbone to be fixed
-// import { RoutesWrapper } from "@bsport/b2b-backbone";
-
 import {
   ARCHIVED_GROUP_ACTIVITIES_PATH,
   GROUP_ACTIVITIES_PATH,

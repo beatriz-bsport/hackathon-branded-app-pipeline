@@ -156,6 +156,7 @@ export const getConfig = (config: {
       removeScope(packageJson.name),
     ),
     "import.meta.env.VITE_APPLICATION_BASE_URL": JSON.stringify(i18nUrl),
+    "import.meta.env.BASENAME": JSON.stringify(isLocal ? "" : base),
   };
 
   const server: ServerOptions = {

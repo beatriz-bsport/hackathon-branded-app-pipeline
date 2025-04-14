@@ -128,7 +128,7 @@ const ConfigSchema = z
  *     ...federatedConfig,
  *     define: {
  *       ...federatedConfig.define,
- *       __MY_CUSTOM_ENV__: JSON.stringify(process.env.MY_CUSTOM_ENV),
+ *       __GLOBAL_VAR__: JSON.stringify(process.env.MY_CUSTOM_ENV),
  *     },
  *     build: {
  *       ...federatedConfig.build,
@@ -166,7 +166,9 @@ export const getConfig = (config: {
    * In production the i18n URL already has a slash for building the URL for the locales location
    * so we have to remove it to avoid double slashes
    */
-  const i18nUrl = isLocal ? `http://localhost:${devPort}` : base.slice(0, -1);
+  const appBaseUrl = isLocal
+    ? `http://localhost:${devPort}`
+    : base.slice(0, -1);
 
   /**
    * For now we instantiate i18n using env variables
@@ -174,11 +176,9 @@ export const getConfig = (config: {
    * to the federation config
    */
   const define: NonNullable<UserConfig["define"]> = {
-    "import.meta.env.VITE_I18N_NAMESPACE_PREFIX": JSON.stringify(
-      removeScope(packageJson.name),
-    ),
-    "import.meta.env.VITE_APPLICATION_BASE_URL": JSON.stringify(i18nUrl),
-    "import.meta.env.BASENAME": JSON.stringify(isLocal ? "" : base),
+    __I18N_NAMESPACE_PREFIX__: JSON.stringify(removeScope(packageJson.name)),
+    __APPLICATION_BASE_URL__: JSON.stringify(appBaseUrl),
+    __BASENAME__: JSON.stringify(isLocal ? "" : base),
   };
 
   const server: ServerOptions = {

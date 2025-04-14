@@ -11,6 +11,9 @@
       "types": "./build/index.d.ts",
       "import": "./build/index.js",
       "default": "./build/index.js"
+    },
+    "./vite": {
+      "types": "./build/vite.d.ts"
     }
   },
   "main": "build/index.js",
@@ -20,7 +23,7 @@
     "build"
   ],
   "scripts": {
-    "build": "rimraf build && tsc",
+    "build": "rimraf build && tsc && cp src/vite.d.ts build/vite.d.ts",
     "dev": "tsc --watch",
     "format": "prettier --write '**/*.{ts,tsx,js,jsx,cjs,mjs,scss,css,json,md,mdx,html,svg}'",
     "format:check": "prettier --check '**/*.{ts,tsx,js,jsx,cjs,mjs}'",

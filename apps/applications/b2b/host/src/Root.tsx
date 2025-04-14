@@ -10,10 +10,7 @@ const NavigationSidebar = lazy(
 
 export function Root() {
   return (
-    <AppWrapper
-      basename={import.meta.env.BASENAME}
-      NavigationApp={NavigationSidebar}
-    >
+    <AppWrapper basename={__BASENAME__} NavigationApp={NavigationSidebar}>
       <Routes>
         <Route path="/" element={<h1>Hello world</h1>} />
         <Route path="/activity/*" element={<GroupActivities />} />

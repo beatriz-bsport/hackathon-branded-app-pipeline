@@ -109,7 +109,8 @@ export default defineConfig(({ mode }) => {
     ...federatedConfig,
     define: {
       ...federatedConfig.define,
-      __MY_CUSTOM_ENV__: JSON.stringify(process.env.MY_CUSTOM_ENV),
+      // Example of adding global variables
+      __GLOBAL_VAR__: JSON.stringify(process.env.MY_CUSTOM_ENV),
     },
     build: {
       ...federatedConfig.build,

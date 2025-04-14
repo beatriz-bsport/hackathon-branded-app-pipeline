@@ -11,7 +11,7 @@ import "./index.css";
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <AppWrapper
-      basename={import.meta.env.BASENAME}
+      basename={__BASENAME__}
       NavigationApp={lazy(
         () => import("sm-navigation-sidebar/NavigationSidebar"),
       )}

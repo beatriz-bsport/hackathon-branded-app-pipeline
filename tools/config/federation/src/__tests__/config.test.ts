@@ -215,10 +215,10 @@ describe("getConfig", () => {
   it("generates correct i18n URL and namespace prefix", () => {
     // Development mode
     const devConfig = getConfig(createConfig());
-    expect(devConfig.define["import.meta.env.VITE_APPLICATION_BASE_URL"]).toBe(
+    expect(devConfig.define["__APPLICATION_BASE_URL__"]).toBe(
       JSON.stringify("http://localhost:4000"),
     );
-    expect(devConfig.define["import.meta.env.VITE_I18N_NAMESPACE_PREFIX"]).toBe(
+    expect(devConfig.define["__I18N_NAMESPACE_PREFIX__"]).toBe(
       JSON.stringify("sm-navigation-sidebar"),
     );
 
@@ -228,12 +228,12 @@ describe("getConfig", () => {
         mode: "preview",
       }),
     );
-    expect(
-      previewConfig.define["import.meta.env.VITE_APPLICATION_BASE_URL"],
-    ).toBe(JSON.stringify("http://localhost:4000"));
-    expect(
-      previewConfig.define["import.meta.env.VITE_I18N_NAMESPACE_PREFIX"],
-    ).toBe(JSON.stringify("sm-navigation-sidebar"));
+    expect(previewConfig.define["__APPLICATION_BASE_URL__"]).toBe(
+      JSON.stringify("http://localhost:4000"),
+    );
+    expect(previewConfig.define["__I18N_NAMESPACE_PREFIX__"]).toBe(
+      JSON.stringify("sm-navigation-sidebar"),
+    );
 
     // Production mode
     const prodConfig = getConfig(
@@ -242,12 +242,12 @@ describe("getConfig", () => {
         federationConfig: { remotes: mockRemotes },
       }),
     );
-    expect(prodConfig.define["import.meta.env.VITE_APPLICATION_BASE_URL"]).toBe(
+    expect(prodConfig.define["__APPLICATION_BASE_URL__"]).toBe(
       JSON.stringify("/v2"),
     );
-    expect(
-      prodConfig.define["import.meta.env.VITE_I18N_NAMESPACE_PREFIX"],
-    ).toBe(JSON.stringify("sm-navigation-sidebar"));
+    expect(prodConfig.define["__I18N_NAMESPACE_PREFIX__"]).toBe(
+      JSON.stringify("sm-navigation-sidebar"),
+    );
   });
 
   it("generates correct remotes configuration", () => {

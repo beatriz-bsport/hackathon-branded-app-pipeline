@@ -41,7 +41,7 @@ const Home = () => {
 };
 
 const App = () => (
-  <BrowserRouter basename={import.meta.env.BASENAME}>
+  <BrowserRouter basename={__BASENAME__}>
     <div className="flex">
       <NavigationSidebar />
       <div className="flex flex-col flex-grow p-4">

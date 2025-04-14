@@ -10,7 +10,7 @@ import "./index.css";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <AppWrapper basename={import.meta.env.BASENAME}>
+    <AppWrapper basename={__BASENAME__}>
       <App />
     </AppWrapper>
   </StrictMode>,

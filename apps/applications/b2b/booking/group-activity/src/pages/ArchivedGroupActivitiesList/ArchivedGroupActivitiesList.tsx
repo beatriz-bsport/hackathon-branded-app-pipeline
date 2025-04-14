@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo } from "react";
 
 import { List, ListLayout, Loader, toast } from "@bsport/kaizen-primitive-core";
-import type { ListItemProps } from "@bsport/kaizen-primitive-core/dist/components/List/Item";
+import type { ListItemProps } from "@bsport/kaizen-primitive-core";
 import {
   archiveGroupActivityAction,
   unarchiveGroupActivityAction,

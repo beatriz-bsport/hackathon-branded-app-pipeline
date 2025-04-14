@@ -2725,7 +2725,9 @@
             "buttons": {
                 "selectRecipientsMobile": "Ontvangers",
                 "selectRecipients": "Selecteer de ontvangers",
-                "send": "Versturen"
+                "send": "Versturen",
+                "updateScheduled": "Update",
+                "scheduleCommunication": "Progammeer"
             },
             "refresh": "Ververs om het nieuwe e-mailsjabloon te zien.",
             "sendDisabled": {
@@ -2746,7 +2748,9 @@
                 "notification": "Push-notificatie",
                 "sms": "Sms'je",
                 "mail": "E-mail",
-                "autoResend": "Automatisch opnieuw verzenden"
+                "autoResend": "Automatisch opnieuw verzenden",
+                "automaticCommunicationLimit": "Stel een limiet in",
+                "messageScheduling": "Plan het bericht"
             },
             "writeCommunication": "Een bericht versturen",
             "smsCostReminderModal": {
@@ -2946,7 +2950,8 @@
             "cancelEdition": "Wijzigingen negeren",
             "saveEdition": "Wijzigingen opslaan",
             "chooseTime": "Selecteer een tijd",
-            "chooseDate": "Selecteer een datum"
+            "chooseDate": "Selecteer een datum",
+            "inputLabel": "Kies het tijdstip waarop je het bericht wilt plannen."
         },
         "sendNowDialog": {
             "confirm": "Versturen",
@@ -3689,7 +3694,8 @@
             "stock_keeping_unit": "SKU",
             "size": "Grootte",
             "color": "Kleur",
-            "subtitle": "Ondertitel"
+            "subtitle": "Ondertitel",
+            "voucher_reason": "Reden voor korting"
         },
         "report": {
             "delete_message": "Weet je zeker dat je \"{{- name }}\" wilt verwijderen?"
@@ -5421,9 +5427,9 @@
             "errors": {
                 "hasUpcomingPrivateBookings": "Sommige komende afspraken vinden plaats in deze vestiging. Annuleer en verwijder ze voordat je deze vestiging verwijdert.",
                 "exclusivePaymentPacks": "De volgende pas {{- pass_name }} is alleen bruikbaar in deze vestiging. Werk de beperkingen bij voordat u de vestiging verwijdert.",
-                "exclusivePaymentPacks_plural": "De volgende passen{{- pass_name }}zijn alleen bruikbaar in deze vestiging. Werk de beperkingen bij voordat u de vestiging verwijdert.",
+                "exclusivePaymentPacks_plural": "De volgende passen {{- pass_name }} zijn alleen bruikbaar in deze vestiging. Werk de beperkingen bij voordat je de vestiging verwijdert.",
                 "exclusiveEstablishmentGroups": "De locatie {{- establishment_group_name }} bevat alleen de vestiging die u wilt verwijderen. Werk deze locatie bij of verwijder deze.",
-                "exclusiveEstablishmentGroups_plural": "De locaties {{- establishment_group_name }} bevatten alleen de vestiging die je wilt verwijderen. Je kunt deze locaties bijwerken of verwijderen.",
+                "exclusiveEstablishmentGroups_plural": "De locaties {{- establishment_group_name }} bevatten alleen de vestiging die je wilt verwijderen. Gelieve deze locaties bij te werken of te verwijderen.",
                 "hasExclusiveMarketplaceComponentConfigs": "Een of meerdere tabbladen op de marktplaats zijn ingesteld om alleen de agenda en workshops van deze vestiging weer te geven.",
                 "hasUpcomingOffers": "Sommige komende sessies vinden plaats in deze vestiging. Annuleer en verwijder ze voordat je deze vestiging verwijdert.",
                 "hasExclusiveBillingGroup": "Deze vestiging is de laatste van zijn factureringsgroep. Verwijder deze factureringsgroep of werk deze bij voordat u deze vestiging verwijdert.",
@@ -5434,7 +5440,7 @@
                 "exclusivePrivateServices": "De afspraak {{- private_service_name }} is geconfigureerd om alleen in deze vestiging plaats te vinden. Door deze vestiging te verwijderen, kan deze afspraak overal plaatsvinden.",
                 "exclusivePrivateServices_plural": "De afspraken {{- private_service_name }} zijn geconfigureerd om alleen in deze vestiging plaats te vinden. Door deze vestiging te verwijderen, kunnen deze afspraken overal plaatsvinden.",
                 "exclusiveCoachAvailabilitySlots": "De leraar {{- coach_name }} is aangegeven als beschikbaar voor deze vestiging voor slechts enkele tijdsloten. Door de vestiging te verwijderen, worden deze tijdslots verwijderd.",
-                "exclusiveCoachAvailabilitySlots_plural": "De docenten{{- coach_name }}worden aangegeven als beschikbaar voor deze vestiging voor slechts enkele tijdsloten. Door de vestiging te verwijderen, worden deze tijdsloten verwijderd.",
+                "exclusiveCoachAvailabilitySlots_plural": "De docenten {{- coach_name }} zijn aangegeven als slechts voor een beperkt aantal tijdsloten beschikbaar voor deze instelling. Door de instelling te verwijderen, worden deze tijdsloten verwijderd.",
                 "exclusiveAssociatedCoaches_plural": "Je leraren {{- coach_name }} krijgt alleen bericht als er een vervangingsverzoek wordt gedaan voor een sessie in deze vestiging. Door de vestiging te verwijderen, ontvangen ze dus vervangingsverzoeken van elke vestiging.",
                 "exclusiveAssociatedCoaches": "Je leraar {{- coach_name }} krijgt alleen bericht als er een vervangingsverzoek wordt gedaan voor een sessie in deze vestiging. Door de vestiging te verwijderen, ontvangen ze dus vervangingsverzoeken van elke vestiging.",
                 "hasExclusiveStaffConfigurations": "Sommige medewerkers zijn geconfigureerd om de toegang van leden alleen voor deze vestiging te controleren. Door de vestiging te verwijderen zonder een nieuwe te selecteren, kunnen ze geen toegangscontrole meer uitvoeren.",
@@ -13725,7 +13731,8 @@
                 "tagInfo": "Gebruik tags om de promotiecode alleen voor bepaalde leden op de marketplace, widget en app beschikbaar te maken. Selecteer met welke tags wie wel óf niet deze promotiecode kan gebruiken. "
             },
             "name": {
-                "label": "Naam"
+                "label": "Naam",
+                "helperText": "De naam die hier wordt ingevoerd, verschijnt op facturen wanneer de promotiecode wordt toegepast"
             },
             "code": {
                 "helperText": "Dit is de code die leden moeten gebruiken om de promotiecode te activeren.",
@@ -15515,7 +15522,22 @@
             },
             "explainInvoicePDFTitle": "Deze naam verschijnt als de naam van je studio op alle gegenereerde facturen",
             "invoicePDFEmail": "Factuur e-mailadres",
-            "invoicePDFTitle": "Factuur bedrijfsnaam"
+            "invoicePDFTitle": "Factuur bedrijfsnaam",
+            "tse": {
+                "documentationLabel": "Procedurele documentatie",
+                "manufacturerLinkLabel": "Certificaat van de TSE-fabrikant",
+                "manufacturer": "Fabrikant: bsport",
+                "version": "Versie van de TSE: 2.0",
+                "description": "Het is een regelgeving die gericht is op het waarborgen van de veiligheid en integriteit van elektronische kassasystemen. We gebruiken Fiskaly als technisch beveiligingsmiddel (TSE) om manipulatie te voorkomen en ervoor te zorgen dat transactiegegevens veilig en fraudebestendig worden opgeslagen."
+            },
+            "refundsAndDiscount": {
+                "checkbox": {
+                    "refundAndCancelJustification": "Vereist rechtvaardiging voor factuurrestituties en annuleringen",
+                    "customDiscountJustification": "Vereist rechtvaardiging voor handmatige kortingen"
+                },
+                "info": "Activeer deze opties om medewerkers te verplichten een reden op te geven bij het handmatig toepassen van een korting of het annuleren/terugbetalen van een factuur.",
+                "title": "Kortingen en terugbetalingen"
+            }
         },
         "section": {
             "paymentList": {
@@ -15549,7 +15571,16 @@
                 "undefined": "Cadeaubon"
             },
             "discount": "Korting",
-            "finalPricePreview": "Voorbeeld totaal"
+            "finalPricePreview": "Voorbeeld totaal",
+            "discountReason": "Reden voor korting",
+            "voucherReason": {
+                "manualWithNoReason": "Handmatige korting",
+                "manual": "Handmatige korting: {{manual_reason}}",
+                "coupon_referring": "Verwijzingskorting: Verwijzend lid",
+                "coupon_referred": "Verwijzingskorting: Verwezen lid",
+                "coupon": "Promotiecode: {{coupon_name}}",
+                "payment_combo": "Pakketkorting"
+            }
         },
         "actions": {
             "finalize": "Afronden (PDF)",
@@ -15683,7 +15714,8 @@
             "plannedPaymentEvent": {
                 "title": "Geplande betaling",
                 "title_plural": "Geplande betalingen"
-            }
+            },
+            "revertReason": "Reden: {{ revertReason }}"
         },
         "balance": {
             "updaterDialog": {
@@ -15716,7 +15748,8 @@
                     "1": "Terugstorten op interne rekening (Wallet)",
                     "2": "Handmatige terugbetaling"
                 },
-                "explainEmptyPayment": "Weet je zeker dat je deze factuur wilt annuleren?"
+                "explainEmptyPayment": "Weet je zeker dat je deze factuur wilt annuleren?",
+                "revertReason": "Reden voor annulering"
             },
             "dialog": {
                 "title": "Factuur annuleren",
@@ -15972,7 +16005,8 @@
             "3": "Annuleren",
             "4": "In uitvoering"
         },
-        "anonymousMember": "Anoniem lid"
+        "anonymousMember": "Anoniem lid",
+        "sentToFiskaly": "Verzonden naar Fiskaly"
     },
     "waitingList": {
         "switchToEnable": "Wachtlijst heractiveren",

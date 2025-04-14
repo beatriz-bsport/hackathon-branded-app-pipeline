@@ -53,6 +53,7 @@
   "devDependencies": {
     "@chromatic-com/storybook": "^3.2.2",
     "@module-federation/vite": "^1.2.6",
+    "@nx/devkit": "20.3.0",
     "@nx/eslint": "20.3.0",
     "@nx/eslint-plugin": "20.3.0",
     "@nx/js": "20.3.0",

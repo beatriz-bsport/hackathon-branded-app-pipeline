@@ -36,6 +36,10 @@ fi
 
 S3_BUCKET="$S3_BUCKET/v2"
 
+
+# Capture script directory before changing directory
+SCRIPT_DIR="$(pwd)/scripts"
+
 ROOT_DIR=$(git rev-parse --show-toplevel)
 cd "$ROOT_DIR"
 echo "LOGS : THIS IS ROOT_DIR : $ROOT_DIR"
@@ -46,15 +50,19 @@ for APPLICATION in $APPLICATIONS; do
   PWD_BEGIN=$(pwd)
   echo "LOGS : THIS IS PWD_BEGIN : $PWD_BEGIN"
 
+
+
   # get the path relative to the application root, for example for @bsport/sm-host it will
   # be "apps/applications/b2b/host"
-  ASSET_PATH=$(pnpm exec nx show project $APPLICATION --json | grep -o '"root":"[^"]*"' | sed 's/"root":"\(.*\)"$/\1/')
-  echo "LOGS : THIS IS ASSET_PATH : $ASSET_PATH"
+  ASSET_PATH=$(node "$SCRIPT_DIR/get-app-path.mjs" "$APPLICATION")
+  if [ $? -ne 0 ] || [ -z "$ASSET_PATH" ]; then
+    echo "Error: Failed to get project root for $APPLICATION (using devkit)"
+    exit 0
+  fi
+
+  echo "Project root found: $ASSET_PATH"
   
   cd "$ROOT_DIR/$ASSET_PATH"
-  PWD=$(pwd)
-  echo "LOGS : THIS IS pwd : $PWD"
-  
 
   # set S3_URL
   if [ "$APPLICATION" = "@bsport/sm-host" ]; then

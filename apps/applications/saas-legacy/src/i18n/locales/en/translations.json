@@ -4261,8 +4261,8 @@
                 "show_company_email_in_invoice": "Display the company email address on all invoices"
             },
             "refundsAndDiscount": {
-                "title": "Refunds and Discounts",
-                "info": "These options allow you to force a justification from staff member when manually adding a discount or cancelling / refunding an invoice.",
+                "title": "Discounts and Refunds",
+                "info": "Activate these options to require staff to provide a reason when manually applying a discount or canceling/refunding an invoice.",
                 "checkbox": {
                     "customDiscountJustification": "Require justification for manual discounts",
                     "refundAndCancelJustification": "Require justification for invoice refunds and cancellations"

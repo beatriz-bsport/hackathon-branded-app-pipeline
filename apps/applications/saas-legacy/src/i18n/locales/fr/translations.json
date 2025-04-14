@@ -457,7 +457,7 @@
                     "6002": "Liste d'attente pleine",
                     "6003": "Déjà inscrit sur liste",
                     "6005": "Liste d'attente",
-                    "displayPosition": "Votre position sur la liste d'attente est: {{waitlistPosition}}",
+                    "displayPosition": "Votre position sur la liste d'attente est : {{waitlistPosition}}",
                     "displayWaitlistSize": "Votre position actuelle sur la liste d'attente est la suivante : {{waitlistPosition}}"
                 },
                 "blockedByTags": "Inscription non autorisée"
@@ -946,7 +946,7 @@
             "clockOut": "Terminer",
             "lastClockIn": "Dernier pointage : {{- date }} - {{ hour }}",
             "lastClockOut": "Heure d'arrivée : ",
-            "subtitleClockIn": "Bonjour {{- name }}! Cliquez sur “Commencer” pour débuter le pointage de votre journée.",
+            "subtitleClockIn": "Bonjour {{- name }} ! Cliquez sur “Commencer” pour débuter le pointage de votre journée.",
             "subtitleClockOut": "C’est parti ! Pour pointer de nouveau et stopper le décompte d’heure merci de cliquer sur “Terminer”",
             "clockInForOther": "pointer pour un autre staff",
             "subtitleSuccess": "Vos horaires ont bien été enregistrés. Vous pourrez commencer un nouveau pointage la prochaine fois que vous ouvrirez cette fenêtre.",
@@ -1379,8 +1379,8 @@
                 "totalRead": "Nombre de personnes ayant ouvert le mail",
                 "totalClick": "Nombre de personnes ayant cliqué sur un lien",
                 "deliveryRate": "Envois réussis",
-                "lastOpen": "Dernière ouverture",
-                "dateCreated": "Date d'envoi",
+                "lastOpen": "Dernière ouverture :",
+                "dateCreated": "Date d'envoi :",
                 "topLinks": "Liens les plus cliqués",
                 "recipientList": "Détail par destinataire",
                 "noTopLink": "Aucun clic",
@@ -1581,7 +1581,7 @@
             "applyFilter": "Appliquer",
             "filterAction": "Filtrer",
             "dateFilter": {
-                "title": "Date d'envoi",
+                "title": "Date d'envoi :",
                 "period": "Période",
                 "dateStart": "Date de début",
                 "dateEnd": "Date de fin"
@@ -1612,7 +1612,7 @@
                 "0": "Email",
                 "1": "SMS",
                 "2": "Notification push",
-                "10": "Session",
+                "10": "Séance",
                 "11": "Message direct",
                 "12": "Smartlist",
                 "13": "Notification",
@@ -1783,7 +1783,7 @@
             "deleteDialog": {
                 "submit": "Supprimer",
                 "close": "Annuler",
-                "content": "Êtes-vous sûr de vouloir supprimer ce message?",
+                "content": "Êtes-vous sûr de vouloir supprimer ce message ?",
                 "title": "Supprimer ce message"
             },
             "deleteMessage": "Supprimer ce message",
@@ -1887,8 +1887,8 @@
                 "title": "Vous vous êtes désabonné."
             },
             "explainAction": {
-                "possessive": "Êtes-vous sûr de vouloir vous désabonner des newsletters de {{- companyName}}?",
-                "normal": "Êtes-vous sûr de vouloir vous désabonner des newsletters de {{- companyName}}?"
+                "possessive": "Êtes-vous sûr de vouloir vous désabonner des newsletters de {{- companyName}} ?",
+                "normal": "Êtes-vous sûr de vouloir vous désabonner des newsletters de {{- companyName}} ?"
             }
         },
         "language": {
@@ -2257,14 +2257,14 @@
                     "pay": "Payer maintenant",
                     "otherItems": "+{{ count }} éléments",
                     "originalInvoice": "Facture originale",
-                    "location": "Localisation: {{ name }}",
+                    "location": "Localisation : {{ name }}",
                     "invoice": "Facture",
                     "downloads": "Téléchargements",
                     "downloadRefundedInvoice": "Télécharger la facture remboursée",
                     "downloadReceipt": "Télécharger le reçu",
                     "downloadOriginalInvoice": "Télécharger la facture originale",
                     "downloadInvoice": "Télécharger la facture",
-                    "amountDue": "Montant dû: {{- amount}}"
+                    "amountDue": "Montant dû : {{- amount}}"
                 },
                 "header": {
                     "filters": {
@@ -2307,7 +2307,7 @@
                     "pay": "Payer maintenant",
                     "paid": "Payé",
                     "noPaymentRegistered": "Il n'y a pas encore de paiement enregistré.",
-                    "due": "Due",
+                    "due": "Dû",
                     "downloadRefundedInvoice": "Télécharger la facture remboursée",
                     "downloadReceipt": "Télécharger le reçu",
                     "downloadOriginalInvoice": "Télécharger la facture originale",
@@ -2330,7 +2330,7 @@
                 },
                 "paymentMethods": {
                     "add": "Ajouter un mode de paiement",
-                    "cardItemCaptionText": "Expire: {{- additionalInfo}}",
+                    "cardItemCaptionText": "Expire : {{- additionalInfo}}",
                     "paymentMethodLabel": "Se termine par <strong>{{- identifier}}</strong>",
                     "empty": "Une fois que vous aurez enregistré un paiement, il apparaîtra ici.",
                     "directPayments": "Paiements directs",
@@ -2457,8 +2457,8 @@
             "member_uses": "utilisations par membre",
             "member_use": "utilisation par membre",
             "limitation": "Limité à",
-            "whitelist_tags": "Disponible uniquement pour les membres ayant certains tags",
-            "blacklist_tags": "Indisponible pour les membres ayant certains tags"
+            "whitelist_tags": "Disponible uniquement pour les membres ayant certains tags :",
+            "blacklist_tags": "Indisponible pour les membres ayant certains tags :"
         },
         "noDiscount": "Aucun achat effectué avec le code",
         "modal": {
@@ -2493,7 +2493,8 @@
                 "blacklist_tags": "Non - Autorisé"
             },
             "name": {
-                "label": "Nom"
+                "label": "Nom",
+                "helperText": "Le nom saisi ici apparaîtra sur les factures lorsque le code promo est appliqué"
             },
             "code": {
                 "label": "Code",
@@ -2617,7 +2618,7 @@
             },
             "delete": {
                 "title": "Stopper le partage",
-                "explain1": "Êtes-vous sûr de vouloir stopper le partage du code promotionnel pour ({{- name }})?",
+                "explain1": "Êtes-vous sûr de vouloir stopper le partage du code promotionnel pour ({{- name }}) ?",
                 "explain2": "Vous pourrez l'ajouter de nouveau par la suite."
             },
             "companyEmpty": "Aucun studio n'est configuré pour accepter cette promotion"
@@ -3423,9 +3424,9 @@
                 "exclusivePrivateServices_plural": "Les rendez-vous {{- private_service_name }} sont configurés pour avoir lieu uniquement dans cet établissement. En supprimant cet établissement, ces rendez-vous pourront avoir lieu n'importe où.",
                 "exclusivePrivateServices": "Le rendez-vous {{- private_service_name }} est configuré pour avoir lieu uniquement dans cet établissement. En supprimant cet établissement, ce rendez-vous pourra avoir lieu n'importe où.",
                 "exclusiveCoachAvailabilitySlots": "Le/la professeur(e) {{- coach_name }} est indiqué(e) comme étant disponible sur certaines plages horaires pour cet établissement uniquement. En supprimant l'établissement, ces plages horaires seront supprimées.",
-                "exclusiveCoachAvailabilitySlots_plural": "Les professeurs {{- coach_name }} sont indiqués comme étant disponibles pour cet établissement uniquement pour certaines plages horaires. En supprimant l'établissement, ces plages horaires seront supprimées.",
+                "exclusiveCoachAvailabilitySlots_plural": "Le(s) professeur(s) {{- coach_name }} sont indiqués comme étant disponibles pour cet établissement uniquement pour certaines plages horaires. En supprimant l'établissement, ces plages horaires seront supprimées.",
                 "exclusiveAssociatedCoaches": "Votre professeur(e) {{- coach_name }} est averti(e) lorsqu'une demande de substitution est faite pour une séance dans cet établissement uniquement. En supprimant l'établissement, il/elle recevra donc les demandes de substitution de tous les établissements.",
-                "exclusiveAssociatedCoaches_plural": "Vos professeurs {{- coach_name }} ne sont avertis que lorsqu'une demande de remplacement est faite pour une séance dans cet établissement. En supprimant l'établissement, ils recevront donc les demandes de remplacement de tous les établissements.",
+                "exclusiveAssociatedCoaches_plural": "Le(s) professeur(s) {{- coach_name }} ne sont avertis que lorsqu'une demande de remplacement est faite pour une séance dans cet établissement. En supprimant l'établissement, ils recevront donc les demandes de remplacement de tous les établissements.",
                 "hasBillingGroup": "Cet établissement sera également retiré du groupe de facturation {{- establishment_billing_group_name }}.",
                 "hasExclusiveStaffConfigurations": "Certains membres du personnel sont configurés pour surveiller l'accès des membres pour cet établissement uniquement. En supprimant l'établissement sans en sélectionner un nouveau, ils ne pourront plus effectuer de contrôle d'accès.",
                 "hasRelatedStaffConfigurations": "Cet établissement sera retiré des établissements utilisés par les membres du personnel pour le contrôle d'accès.",
@@ -3451,7 +3452,7 @@
                 "warnings": {
                     "hasRelatedAssociatedCoaches": "Certains professeurs reçoivent une notification lorsqu'une demande de substitution est faite pour une séance dans cette localisation. En supprimant la localisation, ils ne recevront plus de notification à ce sujet.",
                     "exclusiveAssociatedCoaches": "Votre professeur(e) {{- coach_name }} est averti(e) que lorsqu'une demande de remplacement est faite pour une séance dans cette localisation uniquement. En supprimant la localisation, il/elle recevra donc les demandes de remplacement de toutes les localisations.",
-                    "exclusiveAssociatedCoaches_plural": "Vos professeurs {{- coach_name }} ne sont avertis que lorsqu'une demande de substitution est faite pour une session dans cette localisation. En supprimant la localisation, ils recevront donc les demandes de substitution de toutes les localisation.",
+                    "exclusiveAssociatedCoaches_plural": "Le(s) professeur(s) {{- coach_name }} ne sont avertis que lorsqu'une demande de remplacement est faite pour une séance dans cette localisation. En supprimant la localisation, ils recevront donc les demandes de remplacement de toutes les localisations.",
                     "hasRelatedStaffConfigurations": "Cette localisation est utilisée pour la surveillance des accès par un ou plusieurs membres du personnel. En supprimant la localisation sans en sélectionner une nouvelle, ils ne pourront plus effectuer de surveillance des accès.",
                     "hasRelatedMarketingNotifications": "Les notifications liées à cette localisation seront supprimées.",
                     "hasRelatedMarketplaceComponentConfigs": "Les onglets du calendrier et des ateliers configurés pour votre marketplace n'afficheront plus le calendrier cette localisation."
@@ -4175,7 +4176,8 @@
                     "label": "Pays du compte bancaire",
                     "placeholder": "France"
                 }
-            }
+            },
+            "revertReason": "Raison : {{ revertReason }}"
         },
         "invoiceInfoDialog": {
             "explain": "Un ou plusieurs paiements ne sont pas passés correctement, l'acompte du membre reflète l'echec du paiement",
@@ -4410,7 +4412,23 @@
             },
             "explainInvoicePDFTitle": "Ce nom apparaîtra en tant que nom de votre studio sur toutes les factures générées",
             "invoicePDFEmail": "Adresse électronique pour la facture",
-            "invoicePDFTitle": "Nom de la société facturante"
+            "invoicePDFTitle": "Nom de la société facturante",
+            "tse": {
+                "documentationLabel": "Documentation procédurale",
+                "manufacturerLinkLabel": "Certificat du fabricant du TSE",
+                "manufacturer": "Fabricant : bsport",
+                "version": "Version du TSE : 2.0",
+                "description": "Il s'agit d'une réglementation visant à garantir la sécurité et l'intégrité des systèmes de caisse électroniques. Pour y répondre, nous utilisons Fiskaly comme dispositif de sécurité technique (TSE), afin d’empêcher toute manipulation des données et de garantir que l’ensemble des transactions soient enregistrées de manière sécurisée et infalsifiable.",
+                "title": "Kassensicherungsverordnung (Allemagne)"
+            },
+            "refundsAndDiscount": {
+                "checkbox": {
+                    "refundAndCancelJustification": "Exiger une justification pour les réductions manuelles",
+                    "customDiscountJustification": "Exiger une justification pour les remises manuelles"
+                },
+                "title": "Promotions et remboursements",
+                "info": "Activez ces options pour obliger le personnel à fournir une raison lors de l’application manuelle d’une réduction ou de l’annulation/le remboursement d’une facture."
+            }
         },
         "invoiceItem": {
             "buyableItemIdentifier": {
@@ -4427,7 +4445,16 @@
             "quantity": "Quantité",
             "voucher": "Réduction : {{ voucher }}",
             "discount": "Réduction",
-            "finalPricePreview": "Aperçu du total"
+            "finalPricePreview": "Aperçu du total",
+            "voucherReason": {
+                "coupon": "Code promo : {{coupon_name}}",
+                "manualWithNoReason": "Remise manuelle",
+                "manual": "Remise manuelle : {{manual_reason}}",
+                "coupon_referring": "Remise de parrainage : Membre parrain",
+                "coupon_referred": "Remise de parrainage : Membre parrainé",
+                "payment_combo": "Remise sur pack"
+            },
+            "discountReason": "Raison pour la réduction"
         },
         "section": {
             "invoiceItemList": {
@@ -4514,7 +4541,8 @@
                     "0": "Les paiements carte / SEPA / etc... seront reversés directement sur le compte du client. Utilisez cette méthode pour opérer un remboursement direct suite à une erreur.",
                     "1": "Un avoir sera généré et incrémentera d'autant le solde client. Utilisez cette méthode pour générer un avoir.",
                     "2": "Choisissez vous-même le moyen de remboursement. Utilisez cette méthode pour un remboursement chèque / virement manuel / espèces."
-                }
+                },
+                "revertReason": "Raison pour l'annulation"
             },
             "autoDebitDialog": {
                 "helper": "Votre studio est actuellement en procédure de clôture de compte Bsport.\n\nEn cliquant sur confirmer, la facture sera bien remboursée. Votre solde Stripe sera prélevé de {{refundAmount}} {{ currencyDisplay }}. Cependant pour remettre votre solde Stripe à 0 {{ currencyDisplay }} vous serez automatiquement débité de la différence directement sur votre compte bancaire indiqué dans Paramètres > Entreprise.\n\nSi vous ne souhaitez pas dépasser vote limite de découvert, vous pouvez attendre que votre solde Stripe remonte.",
@@ -4606,7 +4634,8 @@
             "2": "En attente",
             "3": "Annulé",
             "4": "En cours"
-        }
+        },
+        "sentToFiskaly": "Signé par Fiskaly"
     },
     "login": {
         "emailValidation": {
@@ -4711,7 +4740,7 @@
             "NO": "Norvège",
             "EE": "Estonie",
             "US": "États-Unis d'Amérique",
-            "SE": "Sweden",
+            "SE": "Suède",
             "FI": "Finlande",
             "DK": "Danemark",
             "LU": "Luxembourg",
@@ -4725,11 +4754,11 @@
             "PT": "Portugal",
             "BR": "Brésil",
             "SG": "Singapour",
-            "NZ": "Nouvelle Zélande",
+            "NZ": "Nouvelle-Zélande",
             "LT": "Lituanie",
             "LV": "Lettonie",
             "MY": "Malaysie",
-            "IN": "India",
+            "IN": "Inde",
             "GR": "Grèce",
             "CZ": "République Tchèque",
             "BG": "Bulgarie",
@@ -4865,7 +4894,7 @@
                 "email": "Email",
                 "validate": "Soumettre",
                 "successText": "Votre inscription a été envoyée",
-                "successTitle": "Merci pour votre intérêt!"
+                "successTitle": "Merci pour votre intérêt !"
             }
         },
         "notifications": {
@@ -5032,10 +5061,10 @@
                     "days_plural": "après {{days}} d'expiration"
                 },
                 "smartlist": {
-                    "smartListExclude": "Cette notification n'est pas destinée à cette smartlist: {{smartlist_names}}.",
-                    "smartListExclude_plural": "Cette notification n'est pas destinée à ces smartlists: {{smartlist_names}}.",
-                    "smartListInclude": "Cette notification est destinée à cette smartlist: {{smartlist_names}}.",
-                    "smartListInclude_plural": "Cette notification est destinée à ces smartlists: {{smartlist_names}}."
+                    "smartListExclude": "Cette notification n'est pas destinée à cette smartlist : {{smartlist_names}}.",
+                    "smartListExclude_plural": "Cette notification n'est pas destinée à ces smartlists : {{smartlist_names}}.",
+                    "smartListInclude": "Cette notification est destinée à cette smartlist : {{smartlist_names}}.",
+                    "smartListInclude_plural": "Cette notification est destinée à ces smartlists : {{smartlist_names}}."
                 },
                 "send": {
                     "emailAndPush": "Un courriel et une notification push seront envoyés",
@@ -5662,7 +5691,7 @@
                 "archive": {
                     "dialog": {
                         "helper": "Les déclencheurs qui précèdent cette étape seront supprimés. Le reste du {{ workflowLowerCase }} sera déconnecté mais pas supprimé.",
-                        "title": "Êtes-vous sûr de vouloir supprimer cette sortie?"
+                        "title": "Êtes-vous sûr de vouloir supprimer cette sortie ?"
                     }
                 }
             },
@@ -5879,7 +5908,7 @@
         "genericCardDetails": {
             "compatibility": {
                 "categories": "{{ count }} catégorie",
-                "categories_plural": "{{ count }} catégorie",
+                "categories_plural": "{{ count }} catégories",
                 "none": "Aucun rendez-vous compatible",
                 "compatible": "Compatible avec {{count}} rendez-vous",
                 "compatible_plural": "Compatible avec {{count}} rendez-vous",
@@ -6506,7 +6535,7 @@
                     "71000": "Veuillez attendre la fin de l'importation en cours",
                     "71001": "Ce fichier n'a pas le nombre de colonnes requis, il a {{column_count}} colonnes dans la ligne {{row_count}}",
                     "71002": "Ce fichier dépasse la taille maximale autorisée",
-                    "title": "Malheureusement, l'import a échoué pour les raisons suivantes:",
+                    "title": "Malheureusement, l'import a échoué pour les raisons suivantes :",
                     "unknown": "Une erreur inattendue s'est produite",
                     "71003": "Le décodage du fichier a échoué. Veuillez vous assurer qu'il n'est pas corrompu ou dans un format non pris en charge"
                 },
@@ -6514,7 +6543,7 @@
                     "successImportSubtext": "Membres créés",
                     "failedImportSubtext": "Lignes incorrectes",
                     "fileName": "fichierMembres.csv",
-                    "lineTwoMessage": "Veuillez trouver les 2 fichiers détaillant la situation:",
+                    "lineTwoMessage": "Veuillez trouver les 2 fichiers détaillant la situation :",
                     "lineOneMessage": "Cependant, les comptes des membres dont les données sont correctes ont été créés avec succès.",
                     "title": "Certaines lignes du fichier contenaient des erreurs et n'ont pas pu être traitées"
                 },
@@ -6685,7 +6714,7 @@
                 }
             },
             "errors": {
-                "offers_length": "Vous n'avez créé qu'une seule séance. Pour pouvoir créer un groupe de séances, \n      ajoutez au moins deux séances. Si vous souhaitez créer une séance unique, vous pouvez le faire directement depuis\n      l'atelier en question ou l'onglet calendrier."
+                "offers_length": "Vous n'avez créé qu'une seule séance. Pour pouvoir créer un groupe de séances, ajoutez au moins deux séances. Si vous souhaitez créer une séance unique, vous pouvez le faire directement depuis l'atelier en question ou l'onglet calendrier."
             },
             "intervalLabel": {
                 "month": "Tous les mois",
@@ -6720,8 +6749,8 @@
             },
             "offerDescription": "{{ count }} séances du {{- firstSession }} au {{- lastSession }}",
             "warning": {
-                "uncreatedGroups": "Attention, certains groupes ne seront pas créés.\n        Vous pouvez les trouver dans la section \"Groupes non créés\" en bas de cette liste",
-                "groupsWithOutOfTheRangeOffers": "Les groupes de séances ci-dessous ne seront pas créés car\n        ils comportent des séances qui ont lieu dans plus de 3 ans"
+                "uncreatedGroups": "Attention, certains groupes ne seront pas créés.\nVous pouvez les trouver dans la section \"Groupes non créés\" en bas de cette liste",
+                "groupsWithOutOfTheRangeOffers": "Les groupes de séances ci-dessous ne seront pas créés car ils comportent des séances qui ont lieu dans plus de 3 ans"
             }
         },
         "cancelledOffers": "{{count}} annulations",
@@ -8519,7 +8548,7 @@
                 "choose": "Choisir des cartes de cours partagées"
             },
             "specification": {
-                "companySharedWithTitle": "Partagée avec les studios"
+                "companySharedWithTitle": "Partagée avec les studios :"
             },
             "isEmptyExplain": "Les cartes de cours partagées sont disponibles dans les studios de votre choix, et permettent à vos membres d'utiliser indifféremment leurs crédits dans les studios que vous aurez choisi.",
             "section": {
@@ -8737,7 +8766,7 @@
         "extension": {
             "nbDaysAdded": "+{{count}} jour",
             "nbDaysAdded_plural": "+{{count}} jours",
-            "addedOn": "Ajouté le: ",
+            "addedOn": "Ajouté le : ",
             "delete": {
                 "title": "Suppression de l'extension",
                 "explain": "Êtes-vous sûr de vouloir supprimer l'extension de validité ?",
@@ -8819,7 +8848,7 @@
                 "startOnFirstUse": "Le décompte de validité débute le jour de la première réservation",
                 "startOnFirstUseHelper": "Sinon le décompte début le jour de facturation du pass",
                 "expirationDaysBeforeFirstUse": {
-                    "label": "Expiration si aucune réservation initiale",
+                    "label": "Expiration si aucune réservation initiale :",
                     "helperText": "Si la carte de cours n'est pas consommé une première fois pendant ce nb de jour, il est rendu invalide"
                 },
                 "managerOnly": "Invisible pour les clients",
@@ -8869,7 +8898,7 @@
                 "delete": {
                     "title": "Suppression de la carte :",
                     "askConfirmation": "Attention ! Cette opération est définitive. La carte ne sera plus visible et deviendra indisponible à l'achat.",
-                    "thereAreConsumers": "Attention ! Des membres ont acheté cette carte de cours, si vous le supprimez ces derniers pourront toujours utiliser leurs crédits restants. Vous pouvez les réduire manuellement à zéro ici.\n\nLa carte n'apparaitra plus dans votre magasin pour les nouveaux acheteurs.",
+                    "thereAreConsumers": "Attention ! Des membres ont acheté cette carte de cours, si vous le supprimez ces derniers pourront toujours utiliser leurs crédits restants. Vous pouvez les réduire manuellement à zéro ici.\nLa carte n'apparaitra plus dans votre magasin pour les nouveaux acheteurs.",
                     "isUsedInCombo": "Attention ! Cette carte de cours est utilisée dans un pack, celui-ci ne sera plus disponible à la vente si vous supprimez cette carte de cours.",
                     "actions": {
                         "cancel": "Annuler",
@@ -9872,7 +9901,7 @@
             },
             "notAssociatedDialog": {
                 "title": "Aucun RDV associé",
-                "info": "La disponibilité a bien été enregistrée. En revanche, ce professeur n'est associé à aucun RDV.\n        Pour pouvoir enregister un nouveau RDV avec ce professeur, associez le au RDV souhaité depuis l'onglet RDV.",
+                "info": "La disponibilité a bien été enregistrée. En revanche, ce professeur n'est associé à aucun RDV.\nPour pouvoir enregister un nouveau RDV avec ce professeur, associez le au RDV souhaité depuis l'onglet RDV.",
                 "checkbox": "Ne plus me le rappeler",
                 "close": "Fermer"
             },
@@ -10495,7 +10524,7 @@
                     "on_attendance": " à partir de la première présence"
                 },
                 "expirationDaysBeforeFirstUse": {
-                    "label": "Expiration si aucune réservation initiale",
+                    "label": "Expiration si aucune réservation initiale :",
                     "helperText": "Si la carte de cours n'est pas consommée une première fois pendant ce nombre de jours, elle sera rendue invalide."
                 },
                 "actions": {
@@ -11005,7 +11034,7 @@
             "copyReferralLink": "Copier le lien de parrainage",
             "yourFriendGets": "Votre ami obtient",
             "youGet": "Vous obtenez",
-            "nbUsesLeft": "Nombre d'utilisations restantes:"
+            "nbUsesLeft": "Nombre d'utilisations restantes :"
         },
         "conditions": {
             "title": "Conditions d'utilisation du lien de parrainage",
@@ -11673,7 +11702,8 @@
             "cost_of_sale": "Coût des ventes",
             "barcode": "Code barre",
             "supplier_name": "Fournisseur",
-            "stock_keeping_unit": "SKU"
+            "stock_keeping_unit": "SKU",
+            "voucher_reason": "Raison pour la réduction"
         },
         "yes": "Oui",
         "no": "Non",
@@ -11724,7 +11754,7 @@
             "giftcard": "Carte cadeau"
         },
         "report": {
-            "delete_message": "Êtes-vous sûr de vouloir supprimer le rapport \"{{- name }}\"?"
+            "delete_message": "Êtes-vous sûr de vouloir supprimer le rapport \"{{- name }}\" ?"
         },
         "form": {
             "title": "Nouveau rapport",
@@ -14092,9 +14122,9 @@
             "subtitle": "Vous pouvez activer ou désactiver les moyens de paiements utilisés par vos membres lors de leur paiement en ligne.",
             "subtitle2": "En tant que manager, vous avez toujours accès à tous les moyens de paiements disponibles.",
             "methodPaymentBasket": "Paiement ponctuel",
-            "methodPaymentBasketHelper": "Autoriser les paiements du panier d'achat, règlement de la dette et des impayés.. uniquement via",
+            "methodPaymentBasketHelper": "Autoriser les paiements du panier d'achat, règlement de la dette et des impayés.. uniquement via :",
             "methodPaymentSubscription": "Paiement récurrent",
-            "methodPaymentSubscriptionHelper": "Autoriser les paiements des souscriptions (contrats) uniquement via",
+            "methodPaymentSubscriptionHelper": "Autoriser les paiements des souscriptions (contrats) uniquement via :",
             "methodPaymentSubscriptionError": "Veuillez choisir au moins une méthode de paiement",
             "methodPaymentCardBillingDetails": "Demander les coordonnées de facturation pour les paiements par carte.",
             "methodPaymentCardBillingDetailsHelper": "En activant cette fonctionnalité, vous réduirez le nombre de paiement par carte nécessitant le 3D Secure (validation SMS, applications bancaires, etc.).Attention, ces champs seront obligatoires.",
@@ -14543,7 +14573,7 @@
                             },
                             "title": "Fournisseurs",
                             "detailsModal": {
-                                "title": "Fournisseur: "
+                                "title": "Fournisseur : "
                             }
                         },
                         "supplierPrices": {
@@ -15339,7 +15369,7 @@
         "usedInFranchiseCommmunication": "Utilisé dans une campagne par votre franchise",
         "cannotBeDeletedDialogAudience": {
             "content": "Vous ne pouvez pas supprimer cette smartlist tant qu'elle est utilisée dans le {{ workflowLowerCase }} suivant :",
-            "content_plural": "Vous ne pouvez pas supprimer cette smartlist tant qu'elle est utilisée dans les {{ workflowLowerCase }} suivants :",
+            "content_plural": "Vous ne pouvez pas supprimer cette smartlist tant qu'elle est utilisée dans les {{ workflowPluralLowerCase }} suivants :",
             "title": "Utilisée dans un des {{ workflowPluralLowerCase }}"
         },
         "audienceListDialog": {
@@ -17567,7 +17597,7 @@
                     },
                     "failureStep": {
                         "title": "Échec de mise en pause",
-                        "contentIncomingBill": "L'abonnement {{- subscriptionName}} de {- subscriberName }} n'a pas pu être mis en pause car une facture dans l'intervalle de pause va être facturée dans les 24h, ou une facture future est en cours de paiment. Merci de changer la date de début de la pause.",
+                        "contentIncomingBill": "L'abonnement {{- subscriptionName}} de {{- subscriberName }} n'a pas pu être mis en pause car une facture dans l'intervalle de pause va être facturée dans les 24h, ou une facture future est en cours de paiment. Merci de changer la date de début de la pause.",
                         "contentOverlapPause": "L'abonnement {{- subscriptionName}} de {{- subscriberName }} n'a pas pu être mis en pause car une pause est déjà prévue du {{- fromDate}} au {{- untilDate}}.",
                         "contentInvalidTimedelta": "La pause doit au moins durer une journée.",
                         "contentCanNotCancelPause": "La pause ayant déjà commencé ou étant déjà passée, elle ne peut pas être annulée.",
@@ -17650,7 +17680,7 @@
             }
         },
         "GermanMarketSetSubscriptionAutoRenewalAlert": {
-            "content": "Pour se conformer à la loi allemande (FCCA), après 2 ans d'abonnement, le renouvellement doit être d'une durée inférieure à un an. Êtes-vous sûr de vouloir continuer?",
+            "content": "Pour se conformer à la loi allemande (FCCA), après 2 ans d'abonnement, le renouvellement doit être d'une durée inférieure à un an. Êtes-vous sûr de vouloir continuer ?",
             "title": "Renouvellement automatique"
         },
         "germanNbIntervalAlert": "Pour se conformer à la loi allemande (FCCA), le nombre de factures doit être inférieur à 24.",
@@ -17814,8 +17844,8 @@
             },
             "couponDetail": {
                 "title": "Codes promos liés au tag",
-                "whitelist": "Utilisable par les membres disposant du tag",
-                "blacklist": "Non utilisable par les membres disposant du tag",
+                "whitelist": "Utilisable par les membres disposant du tag :",
+                "blacklist": "Non utilisable par les membres disposant du tag :",
                 "removeTag": "Retirer le tag",
                 "empty": "Aucun code promo n'est lié au tag {{- tag }}",
                 "createViaCoupon": "Accéder aux codes promo"
@@ -18784,7 +18814,7 @@
                     }
                 },
                 "phone": "Téléphone",
-                "rgpdTitle": "Moyen de communication accepté par le membre (promotions, marketing, smartlist etc...)",
+                "rgpdTitle": "Moyen de communication accepté par le membre (promotions, marketing, smartlist etc...) :",
                 "birthdayYear": "Année de naissance",
                 "barcode": "Code-barre (carte)",
                 "barcodeHelper": "(optionnel) utilisez ce code pour vos carte d'accès",

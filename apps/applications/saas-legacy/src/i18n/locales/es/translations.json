@@ -2237,7 +2237,7 @@
                     "hasRelatedMarketplaceComponentConfigs": "Las pestañas de calendario y taller configuradas para su mercado ya no mostrarán este calendario de ubicación.",
                     "hasRelatedMarketingNotifications": "Las notificaciones vinculadas a esta ubicación se eliminarán.",
                     "exclusiveAssociatedCoaches": "Su profesor {{- coach_name }} sólo recibe una notificación cuando se realiza una solicitud de sustitución para una sesión en esta ubicación. Por lo tanto, al eliminar la ubicación, recibirán solicitudes de sustitución de todas las ubicaciones.",
-                    "exclusiveAssociatedCoaches_plural": "Sus profesores {{- coach_name }} sólo reciben una notificación cuando se realiza una solicitud de sustitución para una sesión en esta ubicación. Por lo tanto, al eliminar la ubicación, recibirán solicitudes de sustitución de todas las ubicaciones.",
+                    "exclusiveAssociatedCoaches_plural": "Sus profesores {{- coach_name }} sólo reciben una notificación cuando se realiza una solicitud de sustitución para una sesión en esta ubicación. Al eliminar la ubicación, recibirán por tanto solicitudes de sustitución de todas las ubicaciones.",
                     "hasRelatedAssociatedCoaches": "Algunos profesores reciben una notificación cuando se realiza una solicitud de sustitución para una sesión en esta ubicación. Al eliminar la ubicación, dejarán de recibir la notificación correspondiente.",
                     "hasRelatedStaffConfigurations": "Esta ubicación se utiliza para la supervisión de accesos por uno o varios miembros del personal. Al eliminar la ubicación sin seleccionar una nueva, ya no podrán realizar la supervisión de accesos."
                 },
@@ -3590,7 +3590,23 @@
             },
             "explainInvoicePDFTitle": "Este nombre aparecerá como nombre de su estudio en todas las facturas generadas",
             "invoicePDFEmail": "Dirección de correo electrónico para la factura",
-            "invoicePDFTitle": "Nombre de la empresa de facturación"
+            "invoicePDFTitle": "Nombre de la empresa de facturación",
+            "tse": {
+                "title": "Kassensicherungsverordnung (Deutschland)",
+                "documentationLabel": "Documentación procesal",
+                "manufacturerLinkLabel": "Certificado del fabricante del TSE",
+                "manufacturer": "Fabricante: bsport",
+                "version": "Versión del TSE: 2.0",
+                "description": "Es una normativa destinada a garantizar la seguridad e integridad de los sistemas de caja electrónica. Utilizamos Fiskaly como dispositivo técnico de seguridad (TSE) para evitar manipulaciones y garantizar que los datos de las transacciones se almacenan de forma segura y a prueba de manipulaciones."
+            },
+            "refundsAndDiscount": {
+                "checkbox": {
+                    "refundAndCancelJustification": "Exigir justificación de las devoluciones y anulaciones de facturas",
+                    "customDiscountJustification": "Exigir la justificación de los descuentos manuales"
+                },
+                "info": "Active estas opciones para exigir al personal que proporcione un motivo al aplicar manualmente un descuento o cancelar/devolver una factura.",
+                "title": "Descuentos y devoluciones"
+            }
         },
         "section": {
             "paymentList": {
@@ -3624,7 +3640,16 @@
                 "undefined": "tarjeta regalo"
             },
             "discount": "Descuento",
-            "finalPricePreview": "Vista previa total"
+            "finalPricePreview": "Vista previa total",
+            "discountReason": "Motivo del descuento",
+            "voucherReason": {
+                "manualWithNoReason": "Descuento manual",
+                "manual": "Descuento manual: {{manual_reason}}",
+                "coupon_referring": "Descuento por referencia: Miembro referente",
+                "coupon_referred": "Descuento por referencia: Miembro referido",
+                "coupon": "Código promocional: {{coupon_name}}",
+                "payment_combo": "Descuento en el pack"
+            }
         },
         "returnPayment": {
             "modal": {
@@ -3717,7 +3742,8 @@
                     "1": "Reembolso del crédito (saldo)",
                     "2": "Reembolso manual"
                 },
-                "explainEmptyPayment": "Está seguro de que quiere cancelar esta factura?"
+                "explainEmptyPayment": "Está seguro de que quiere cancelar esta factura?",
+                "revertReason": "Motivo de la cancelación"
             },
             "dialog": {
                 "title": "Cancelación de la factura",
@@ -3882,7 +3908,8 @@
             "plannedPaymentEvent": {
                 "title": "Pago planificado",
                 "title_plural": "Pagos planificados"
-            }
+            },
+            "revertReason": "Motivo: {{ revertReason }}"
         },
         "paymentMethod": {
             "label": {
@@ -4055,7 +4082,8 @@
             "3": "Cancelado",
             "4": "En curso"
         },
-        "anonymousMember": "Miembro anónimo"
+        "anonymousMember": "Miembro anónimo",
+        "sentToFiskaly": "Enviado a Fiskaly"
     },
     "coach": {
         "coach": "Profesor",
@@ -5469,7 +5497,8 @@
             "stock_keeping_unit": "SKU",
             "size": "Talla",
             "color": "Color",
-            "subtitle": "Subtítulo"
+            "subtitle": "Subtítulo",
+            "voucher_reason": "Motivo del descuento"
         },
         "payment_method": {
             "cash": "Efectivo",
@@ -7916,6 +7945,21 @@
             "giftcard": "Tarjetas de regalo",
             "calendarV2": "Calendario",
             "calendar": "Calendario"
+        },
+        "passes": {
+            "details": "Detalles",
+            "buy": "Comprar",
+            "search": "Buscar",
+            "filters": "Filtros",
+            "title": "Pases",
+            "drawerTitle": {
+                "tabs": "Seleccione un tipo de pase"
+            },
+            "tabs": {
+                "appointmentPasses": "Pases de citas",
+                "passes": "Pases",
+                "all": "Todos"
+            }
         }
     },
     "notificationRule": {
@@ -9199,7 +9243,8 @@
                 "codeAlreadyInUse": "Este código ya está en uso."
             },
             "name": {
-                "label": "Nombre"
+                "label": "Nombre",
+                "helperText": "El nombre introducido aquí aparecerá en las facturas cuando se aplique el código promocional"
             },
             "section": {
                 "advanced": "Avanzado",
@@ -10905,7 +10950,9 @@
                 "notification": "Notificación push",
                 "sms": "SMS",
                 "mail": "Email",
-                "autoResend": "Renvío automático"
+                "autoResend": "Renvío automático",
+                "automaticCommunicationLimit": "Establecer un límite",
+                "messageScheduling": "Programar el mensaje"
             },
             "refresh": "Para ver la nueva versión de tu plantilla, haz clic en el botón de actualización.",
             "sendDisabled": {
@@ -10917,7 +10964,9 @@
             "buttons": {
                 "selectRecipientsMobile": "dest.",
                 "selectRecipients": "Elige destinatarios",
-                "send": "Enviar"
+                "send": "Enviar",
+                "updateScheduled": "Actualizar",
+                "scheduleCommunication": "Programar"
             },
             "textField": {
                 "warningLength": "Se enviarán {{number_sms}} SMS",
@@ -11123,7 +11172,8 @@
             "cancelEdition": "Descartar cambios",
             "saveEdition": "Guardar cambios",
             "chooseTime": "Elige una hora",
-            "chooseDate": "Elige una fecha"
+            "chooseDate": "Elige una fecha",
+            "inputLabel": "Elija la hora a la que desea programar el mensaje."
         },
         "sendNowDialog": {
             "confirm": "Enviar",

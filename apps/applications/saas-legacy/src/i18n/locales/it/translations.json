@@ -2792,7 +2792,9 @@
             "buttons": {
                 "selectRecipientsMobile": "dest.",
                 "selectRecipients": "Scegli i destinatari",
-                "send": "Invia"
+                "send": "Invia",
+                "updateScheduled": "Aggiorna",
+                "scheduleCommunication": "Programma"
             },
             "textField": {
                 "warningLength": "{{number_sms}} verrà inviato un SMS",
@@ -2806,7 +2808,9 @@
                 "notification": "Notifica push",
                 "sms": "SMS",
                 "mail": "Email",
-                "autoResend": "Reinvio automatico"
+                "autoResend": "Reinvio automatico",
+                "automaticCommunicationLimit": "Imposta un limite",
+                "messageScheduling": "Programma il messaggio"
             },
             "smsCostReminderModal": {
                 "confirm": "Conferma",
@@ -2988,7 +2992,8 @@
             "cancelEdition": "Elimina cambiamenti",
             "saveEdition": "Salva modifiche",
             "chooseTime": "Seleziona un orario",
-            "chooseDate": "Seleziona una data"
+            "chooseDate": "Seleziona una data",
+            "inputLabel": "Scegliere l'ora in cui si desidera programmare il messaggio."
         },
         "sendNowDialog": {
             "content": "Il messaggio verrà inviato subito.",
@@ -7199,7 +7204,23 @@
             },
             "explainInvoicePDFTitle": "Questo nome apparirà come nome dello studio su tutte le ricevute generate",
             "invoicePDFTitle": "Nome della società di fatturazione",
-            "invoicePDFEmail": "Indirizzo e-mail di fatturazione"
+            "invoicePDFEmail": "Indirizzo e-mail di fatturazione",
+            "tse": {
+                "title": "Kassensicherungsverordnung (Deutschland)",
+                "documentationLabel": "Documentazione procedurale",
+                "manufacturerLinkLabel": "Certificato del produttore del TSE",
+                "manufacturer": "Produttore: bsport",
+                "version": "Versione del TSE: 2.0",
+                "description": "Si tratta di una normativa volta a garantire la sicurezza e l'integrità dei sistemi elettronici di cassa. Utilizziamo Fiskaly come dispositivo tecnico di sicurezza (TSE) per evitare manipolazioni e garantire che i dati delle transazioni siano memorizzati in modo sicuro e a prova di manomissione."
+            },
+            "refundsAndDiscount": {
+                "checkbox": {
+                    "refundAndCancelJustification": "Richiedere una giustificazione per i rimborsi e le cancellazioni delle ricevute",
+                    "customDiscountJustification": "Richiedere una giustificazione per gli sconti manuali"
+                },
+                "info": "Attivare queste opzioni per richiedere allo staff di fornire una motivazione quando si applica manualmente uno sconto o si annulla/rimborsa una fattura.",
+                "title": "Sconti e Rimborsi"
+            }
         },
         "returnPayment": {
             "modal": {
@@ -7225,7 +7246,16 @@
                 "label": "Credito"
             },
             "discount": "Riduzione",
-            "finalPricePreview": "Anteprima totale"
+            "finalPricePreview": "Anteprima totale",
+            "discountReason": "Motivo dello sconto",
+            "voucherReason": {
+                "manualWithNoReason": "Sconto manuale",
+                "manual": "Sconto manuale: {{manual_reason}}",
+                "coupon_referring": "Sconto per referral: Membro referente",
+                "coupon_referred": "Sconto per referral: Membro riferito",
+                "coupon": "Codice promozionale: {{coupon_name}}",
+                "payment_combo": "Sconto sul pacchetto"
+            }
         },
         "actions": {
             "finalize": "Finalizza (PDF)",
@@ -7326,7 +7356,8 @@
                     "1": "Rimborso sul credito (saldo)",
                     "2": "Rimborso manuale"
                 },
-                "explainEmptyPayment": "Sei sicuro di voler annullare questa ricevuta?"
+                "explainEmptyPayment": "Sei sicuro di voler annullare questa ricevuta?",
+                "revertReason": "Motivo della cancellazione"
             },
             "dialog": {
                 "title": "Annullamento della ricevuta",
@@ -7491,7 +7522,8 @@
             "plannedPaymentEvent": {
                 "title": "Pagamento programmato",
                 "title_plural": "Pagamenti programmati"
-            }
+            },
+            "revertReason": "Motivo: {{ revertReason }}"
         },
         "paymentMethod": {
             "label": {
@@ -7664,7 +7696,8 @@
             "3": "Annullato",
             "4": "In corso"
         },
-        "anonymousMember": "Membro anonimo"
+        "anonymousMember": "Membro anonimo",
+        "sentToFiskaly": "Inviato a Fiskaly"
     },
     "coach": {
         "selector": {
@@ -9023,7 +9056,8 @@
             "stock_keeping_unit": "SKU",
             "size": "Dimensione",
             "color": "Colore",
-            "subtitle": "Sottotitolo"
+            "subtitle": "Sottotitolo",
+            "voucher_reason": "Motivo dello sconto"
         },
         "payment_method": {
             "dispute": "Contenzioso",
@@ -12910,7 +12944,8 @@
                 "paymentCombo": "Seleziona i pacchetti combinati (valido su tutti i prodotti se nessuno è selezionato)"
             },
             "name": {
-                "label": "Nome"
+                "label": "Nome",
+                "helperText": "Il nome inserito in questo campo apparirà sulle ricevute quando il codice promozionale è applicato"
             },
             "code": {
                 "label": "Codice",
@@ -13504,7 +13539,7 @@
                     "hasRelatedMarketplaceComponentConfigs": "Le schede calendario e workshop configurate per il vostro marketplace non visualizzeranno più il calendario della sede.",
                     "hasRelatedMarketingNotifications": "Le notifiche relative a questa sede saranno eliminate.",
                     "exclusiveAssociatedCoaches": "L'insegnante {{- coach_name }} viene avvisato solo quando viene fatta una richiesta di sostituzione per una sessione in questa sede. Eliminando la sede, riceverà quindi le richieste di sostituzione da tutte le sedi.",
-                    "exclusiveAssociatedCoaches_plural": "Gli insegnanti {{- coach_name }} vengono avvisati solo quando viene fatta una richiesta di sostituzione per una sessione in questa sede. Eliminandola, riceveranno quindi le richieste di sostituzione da tutte le sedi.",
+                    "exclusiveAssociatedCoaches_plural": "Gli insegnanti {{- coach_name }} vengono avvisati solo quando viene fatta una richiesta di sostituzione per una sessione in questa sede. Eliminando la sede, riceveranno comunque le richieste di sostituzione da tutte le altri sedi.",
                     "hasRelatedAssociatedCoaches": "Alcuni insegnanti ricevono una notifica quando viene fatta una richiesta di sostituzione per una sessione in questa sede. Eliminando la sede, non riceveranno più la relativa notifica.",
                     "hasRelatedStaffConfigurations": "Questa sede è utilizzata per il monitoraggio degli accessi da parte di uno o più utenti staff. Eliminando la sede senza selezionarne una nuova, questi non potranno più effettuare il monitoraggio degli accessi."
                 },
@@ -13528,14 +13563,14 @@
                 "relatedPaymentPacks_plural": "I seguenti pacchetti {{- pass_name }} non saranno più utilizzabili per questo stabilimento, assicuratevi di informare i vostri clienti.",
                 "hasRelatedAssociatedCoaches": "Alcuni insegnanti ricevono una notifica quando viene presentata una richiesta di sostituzione per una sessione in questo stabilimento. Eliminando lo stabilimento, non riceveranno più la notifica relativa.",
                 "exclusiveAssociatedCoaches": "L'insegnante {{- coach_name }} viene avvisato solo quando viene fatta una richiesta di sostituzione per una sessione in questo stabilimento. Eliminando lo stabilimento, riceverà quindi le richieste di sostituzione da tutte lo stabilimento.",
-                "exclusiveAssociatedCoaches_plural": "I vostri insegnanti {{- coach_name }} sono avvisati solo quando viene fatta una richiesta di sostituzione per una sessione in questo stabilimento. Eliminandolo, riceveranno quindi le richieste di sostituzione da tutti gli sabilimenti.",
+                "exclusiveAssociatedCoaches_plural": "Gli insegnanti {{- coach_name }} sono avvisati solo quando viene fatta una richiesta di sostituzione per una sessione in questo stabilimento. Eliminandolo, riceveranno quindi le richieste di sostituzione da tutti gli stabilimenti.",
                 "hasRelatedCoachAvailabilitySlots": "Questo stabilimento verrà rimosso dall'elenco degli stabilimenti disponibili utilizzati nel calendario dei docenti.",
                 "exclusiveCoachAvailabilitySlots": "L'insegnante {{- coach_name }} è indicato come disponibile per questo stabilimento solo per alcune fasce orarie. Eliminando lo stabilimento , queste fasce orarie saranno eliminate.",
                 "exclusiveCoachAvailabilitySlots_plural": "Gli insegnanti {{- coach_name }} sono indicati come disponibili per questo stabilimento solo per alcune fasce orarie. Eliminando lo stabilimento, queste fasce orarie saranno eliminate.",
                 "hasRelatedStaffConfigurations": "Questo stabilimento sarà rimosso dagli stabilimenti utilizzati dgli utenti staff per il monitoraggio degli accessi.",
                 "hasExclusiveStaffConfigurations": "Alcuni utenti Staff sono configurati per monitorare l'accesso dei membri per questo stabilimento. Eliminando lo stabilimento senza selezionarne uno nuovo, non potranno più effettuare il monitoraggio degli accessi.",
                 "exclusivePrivateServices": "L'appuntamento {{- private_service_name }} è configurato per svolgersi solo in questo stabilimento. Eliminando questo stabilimento, l'appuntamento potrà svolgersi ovunque.",
-                "exclusivePrivateServices_plural": "Gli appuntamenti {{- private_service_name }} sono configurati per essere svolti solo in questo stabilimento. Eliminando questo stabilimento, gli appuntamenti potranno svolgersi ovunque.",
+                "exclusivePrivateServices_plural": "Gli appuntamenti {{- private_service_name }} sono configurati per essere svolti solo in questo stabilimento. Eliminandolo, gli appuntamenti potranno svolgersi ovunque.",
                 "hasBillingGroup": "Questo stabilimento sarà anche rimosso dal gruppo di fatturazione {{- establishment_billing_group_name }}."
             },
             "infos": {
@@ -13548,7 +13583,7 @@
                 "isIntegratedInPartnership": "Una o più integrazioni utilizzano questo stabilimento.",
                 "hasExclusiveMarketplaceComponentConfigs": "Una o più schede del marketplace sono impostate per visualizzare solo il calendario e gli workshop di questo stabilimento; si prega di aggiornarle prima di eliminare lo stabilimento.",
                 "exclusiveEstablishmentGroups": "La sede {{- establishment_group_name }} contiene solo lo stabilimento che si desidera eliminare; si prega di aggiornare o eliminare questa sede.",
-                "exclusiveEstablishmentGroups_plural": "Le sedi {{- establishment_group_name }} contengono solo lo stabilimento che si desidera eliminare; aggiornare o eliminare queste sedi.",
+                "exclusiveEstablishmentGroups_plural": "Le sedi {{- establishment_group_name }} contengono solo lo stabilimento che si desidera eliminare; si prega di aggiornare o eliminare queste sedi.",
                 "exclusivePaymentPacks": "Il seguente pacchetto {{- pass_name }} è utilizzabile esclusivamente in questo stabilimento. Si prega di aggiornare le restrizioni prima di cancellare lo stabilimento.",
                 "exclusivePaymentPacks_plural": "I seguenti pacchetti {{- pass_name }} sono utilizzabili solo in questo stabilimento. Aggiornare le restrizioni prima di cancellare lo stabilimento.",
                 "hasExclusiveBillingGroup": "Questo stabilimento è l'ultimo del suo gruppo di fatturazione. Si prega di cancellare o aggiornare il gruppo di fatturazione in questione prima di cancellare questo stabilimento.",

@@ -1946,7 +1946,7 @@
             "confirm": "Send"
         },
         "scheduled": {
-            "inputLabel": "Choose the time you want to schedule the message.",
+            "inputLabel": "Choose when you want to schedule this message.",
             "chooseDate": "Pick a date",
             "chooseTime": "Pick a time",
             "numberOfRecipients": "Recipient: {{ count }}",

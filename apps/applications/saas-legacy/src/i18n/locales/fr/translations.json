@@ -1791,7 +1791,7 @@
             "saveEdition": "Enregistrer les modifications",
             "chooseTime": "Sélectionner une heure",
             "chooseDate": "Sélectionner une date",
-            "inputLabel": "Choisissez la date et l’heure d’envoi du message."
+            "inputLabel": "Choisissez quand vous souhaitez programmer l'envoi de ce message."
         },
         "sendNowDialog": {
             "confirm": "Envoyer",

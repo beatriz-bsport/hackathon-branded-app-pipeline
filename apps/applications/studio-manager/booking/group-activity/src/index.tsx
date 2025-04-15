@@ -1,8 +1,8 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 
-import { AppWrapper } from "@bsport/b2b-backbone";
 import "@bsport/kaizen-primitive-core/styles";
+import { AppWrapper } from "@bsport/sm-backbone";
 
 import App from "./App";
 

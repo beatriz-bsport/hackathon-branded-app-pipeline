@@ -15,11 +15,11 @@
     "translation:update": "pnpm run -w translation:update"
   },
   "dependencies": {
-    "@bsport/b2b-backbone": "workspace:*",
     "@bsport/common": "workspace:*",
     "@bsport/fetch": "workspace:*",
     "@bsport/i18n": "workspace:*",
     "@bsport/kaizen-primitive-core": "workspace:*",
+    "@bsport/sm-backbone": "workspace:*",
     "@bsport/store-core-data-member": "workspace:*",
     "@bsport/use-async": "workspace:*",
     "@bsport/use-pagination-query-params": "workspace:*",

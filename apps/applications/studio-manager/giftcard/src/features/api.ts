@@ -6,7 +6,7 @@
  * */
 import type { Dispatch, SetStateAction } from "react";
 
-import { fetchWithAuth, getAuthToken } from "@bsport/b2b-backbone";
+import { fetchWithAuth, getAuthToken } from "@bsport/sm-backbone";
 
 import { xhr } from "#src/utils/fetch";
 

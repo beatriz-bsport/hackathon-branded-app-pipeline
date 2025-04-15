@@ -42,7 +42,7 @@ You can run any script from this folder using the following command: `pnpm exec 
 
 This script allows to set the API environment variables in fetch package.
 
-**Usage:** `@bsport/monorepo-utils-tools api-environment:set [options] <env>`
+**Usage:** `@bsport/toolkit-cli api-environment:set [options] <env>`
 
 |  Arg  |                                                 Description                                                 |
 | :---: | :---------------------------------------------------------------------------------------------------------: |
@@ -58,7 +58,7 @@ This script allows to set the API environment variables in fetch package.
 
 Creates a new command in the monorepo-utils project.
 
-**Usage:** `@bsport/monorepo-utils-tools command:create [options] <command-name>`
+**Usage:** `@bsport/toolkit-cli command:create [options] <command-name>`
 
 |      Arg       |                                        Description                                         |
 | :------------: | :----------------------------------------------------------------------------------------: |
@@ -74,7 +74,7 @@ Creates a new command in the monorepo-utils project.
 
 Allows to list all the utils command from the monorepo.
 
-**Usage:** `@bsport/monorepo-utils-tools command:list [options]`
+**Usage:** `@bsport/toolkit-cli command:list [options]`
 
 |         Option          |                          Description                          |
 | :---------------------: | :-----------------------------------------------------------: |
@@ -87,7 +87,7 @@ Allows to list all the utils command from the monorepo.
 
 Sync production DB backup to other environment
 
-**Usage:** `@bsport/monorepo-utils-tools db:sync [env_name]`
+**Usage:** `@bsport/toolkit-cli db:sync [env_name]`
 
 |    Arg     |                                                    Description                                                    |
 | :--------: | :---------------------------------------------------------------------------------------------------------------: |
@@ -101,7 +101,7 @@ Sync production DB backup to other environment
 
 An interactive CLI to import legacy bsport projects : bsport-saas, bsport-widget
 
-**Usage:** `@bsport/monorepo-utils-tools legacy:migrate [options]`
+**Usage:** `@bsport/toolkit-cli legacy:migrate [options]`
 
 |            Option            |                                      Description                                      |
 | :--------------------------: | :-----------------------------------------------------------------------------------: |
@@ -113,7 +113,7 @@ An interactive CLI to import legacy bsport projects : bsport-saas, bsport-widget
 
 List open branches of a gitlab repo which have been created less than X months ago
 
-**Usage:** `@bsport/monorepo-utils-tools open:branch:list [options] <initial-repository-path>`
+**Usage:** `@bsport/toolkit-cli open:branch:list [options] <initial-repository-path>`
 
 |            Arg            |                          Description                           |
 | :-----------------------: | :------------------------------------------------------------: |
@@ -131,7 +131,7 @@ List open branches of a gitlab repo which have been created less than X months a
 
 Clean a bsport project that have been imported in the monorepository.
 
-**Usage:** `@bsport/monorepo-utils-tools project:clean [options] <project-path>`
+**Usage:** `@bsport/toolkit-cli project:clean [options] <project-path>`
 
 |      Arg       |                    Description                     |
 | :------------: | :------------------------------------------------: |
@@ -154,7 +154,7 @@ Creates a new project from a template and installs its dependencies and:
 - if the `package.json` file of the template includes a `project:init` script, runs `pnpm run project:init --name {params.name} --title {params.title}`,
 - if the project is not recognised by the monorepo, prints a warning and suggests to add it to pnpm-workspace.yaml.
 
-**Usage:** `@bsport/monorepo-utils-tools project:create [options]`
+**Usage:** `@bsport/toolkit-cli project:create [options]`
 
 |          Option          |                                                          Description                                                           |
 | :----------------------: | :----------------------------------------------------------------------------------------------------------------------------: |
@@ -169,7 +169,7 @@ Creates a new project from a template and installs its dependencies and:
 
 List for a list of projects their monorepo dependencies and which monorepo projects are using them.
 
-**Usage:** `@bsport/monorepo-utils-tools project:dependencies:list [options]`
+**Usage:** `@bsport/toolkit-cli project:dependencies:list [options]`
 
 |              Option              |                                           Description                                            |
 | :------------------------------: | :----------------------------------------------------------------------------------------------: |
@@ -183,7 +183,7 @@ List for a list of projects their monorepo dependencies and which monorepo proje
 
 Imports a local project structure with all git commits to a monorepo.
 
-**Usage:** `@bsport/monorepo-utils-tools project:import [options] <target-path> <filesystem-path>`
+**Usage:** `@bsport/toolkit-cli project:import [options] <target-path> <filesystem-path>`
 
 |        Arg        |                                  Description                                   |
 | :---------------: | :----------------------------------------------------------------------------: |
@@ -205,7 +205,7 @@ Imports a local project structure with all git commits to a monorepo.
 
 Lists all monorepository projects
 
-**Usage:** `@bsport/monorepo-utils-tools project:list [options]`
+**Usage:** `@bsport/toolkit-cli project:list [options]`
 
 |         Option          |                                                  Description                                                   |
 | :---------------------: | :------------------------------------------------------------------------------------------------------------: |

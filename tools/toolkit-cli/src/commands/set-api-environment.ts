@@ -146,16 +146,16 @@ async function action(
     });
   }
 
-  // Update the build of @bsport/fetch and @bsport/b2b-backbone to reflect variable changes
+  // Update the build of @bsport/fetch and @bsport/sm-backbone to reflect variable changes
   {
     print("> Rebuild the @bsport/fetch library");
     await exec("pnpm run build", {
       cwd: fetchAbsolutePath,
     });
-    print("> Rebuild the @bsport/b2b-backbone library");
+    print("> Rebuild the @bsport/sm-backbone library");
     const b2bBackboneAbsolutePath = path.resolve(
       ichizenRootPath,
-      projects["@bsport/b2b-backbone"].path,
+      projects["@bsport/sm-backbone"].path,
     );
     await exec("pnpm run build", { cwd: b2bBackboneAbsolutePath });
   }

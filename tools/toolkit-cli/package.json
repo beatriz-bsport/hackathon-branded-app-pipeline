@@ -1,5 +1,5 @@
 {
-  "name": "@bsport/monorepo-utils-tools",
+  "name": "@bsport/toolkit-cli",
   "version": "1.0.0",
   "private": true,
   "description": "Monorepository utils library",

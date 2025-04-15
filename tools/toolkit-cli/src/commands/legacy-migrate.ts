@@ -390,7 +390,7 @@ async function _processProjectImport({
   print("¤ Trigger the project import script");
   const tempBranch = "temp/prepare-migration";
   const tempRemote = `${project}-remote`;
-  const cmdImportProject = `npx ts-node tools/monorepo-utils/src/index.ts project:import ${projectSubpath} ${fsPath} \
+  const cmdImportProject = `npx ts-node tools/toolkit-cli/src/index.ts project:import ${projectSubpath} ${fsPath} \
   --branch dev --noCleanUp --tempBranch ${tempBranch} --tempRemote ${tempRemote}`;
   print(`> ${cmdImportProject}`);
   const { stdout } = await exec(cmdImportProject, { cwd: monorepoBasePath });
@@ -1041,7 +1041,7 @@ async function _processCleanProject({
   const monorepoBasePath = await getMonorepoBasePath();
   const projectSubpath = MAP_PROJECT_TO_MONOREPO_FOLDER[project];
 
-  const cmdCleanProject = `npx ts-node tools/monorepo-utils/src/index.ts project:clean ${projectSubpath} --repo ${project}`;
+  const cmdCleanProject = `npx ts-node tools/toolkit-cli/src/index.ts project:clean ${projectSubpath} --repo ${project}`;
   print(`> ${cmdCleanProject}`);
   await exec(cmdCleanProject, { cwd: monorepoBasePath });
 

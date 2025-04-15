@@ -79,7 +79,7 @@ In your project you can set-up the following pnpm scripts that will be ran by Gi
 
 #### Utils
 
-To administrate the monorepository you can use the [`monorepo-utils`](/tools/monorepo-utils/README.md) command. It allows you to create new projects, commands, etc...
+To administrate the monorepository you can use the [`monorepo-utils`](/tools/toolkit-cli/README.md) command. It allows you to create new projects, commands, etc...
 
 ```sh
 pnpm run utils --help
@@ -116,7 +116,7 @@ It will ask you some questions to create the project:
 - The path where the project will be created. It can be relative to the monorepo root or absolute.
 - The template you want to use. The templates are located in the [`/templates`](/templates) folder. You can create your own templates and use them in this command.
 
-Full documentation [here](/tools/monorepo-utils/README.md#projectcreate).
+Full documentation [here](/tools/toolkit-cli/README.md#projectcreate).
 
 ### Maintainance
 

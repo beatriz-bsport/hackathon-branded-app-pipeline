@@ -19,10 +19,10 @@
     "translation:update": "pnpm run -w translation:update"
   },
   "dependencies": {
-    "@bsport/b2b-backbone": "workspace:*",
     "@bsport/fetch": "workspace:*",
     "@bsport/i18n": "workspace:*",
     "@bsport/kaizen-primitive-core": "workspace:*",
+    "@bsport/sm-backbone": "workspace:*",
     "@bsport/use-pagination-query-params": "workspace:*",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",

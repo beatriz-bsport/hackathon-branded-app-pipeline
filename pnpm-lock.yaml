@@ -991,9 +991,6 @@ importers:
 
   apps/applications/studio-manager/booking/group-activity:
     dependencies:
-      '@bsport/b2b-backbone':
-        specifier: workspace:*
-        version: link:../../../../../packages/utils/b2b-backbone
       '@bsport/fetch':
         specifier: workspace:*
         version: link:../../../../../packages/utils/fetch
@@ -1003,6 +1000,9 @@ importers:
       '@bsport/kaizen-primitive-core':
         specifier: workspace:*
         version: link:../../../../../packages/design-system/kaizen/primitive/core
+      '@bsport/sm-backbone':
+        specifier: workspace:*
+        version: link:../../../../../packages/utils/b2b-backbone
       '@bsport/store-booking-group-activity':
         specifier: workspace:*
         version: link:../../../../../packages/stores/booking/group-activity
@@ -1040,9 +1040,6 @@ importers:
 
   apps/applications/studio-manager/core-data/member/member-list:
     dependencies:
-      '@bsport/b2b-backbone':
-        specifier: workspace:*
-        version: link:../../../../../../packages/utils/b2b-backbone
       '@bsport/common':
         specifier: workspace:*
         version: link:../../../../../../packages/common-legacy
@@ -1055,6 +1052,9 @@ importers:
       '@bsport/kaizen-primitive-core':
         specifier: workspace:*
         version: link:../../../../../../packages/design-system/kaizen/primitive/core
+      '@bsport/sm-backbone':
+        specifier: workspace:*
+        version: link:../../../../../../packages/utils/b2b-backbone
       '@bsport/store-core-data-member':
         specifier: workspace:*
         version: link:../../../../../../packages/stores/core-data/member
@@ -1104,9 +1104,6 @@ importers:
 
   apps/applications/studio-manager/financial-services/invoice:
     dependencies:
-      '@bsport/b2b-backbone':
-        specifier: workspace:*
-        version: link:../../../../../packages/utils/b2b-backbone
       '@bsport/common':
         specifier: workspace:*
         version: link:../../../../../packages/common-legacy
@@ -1119,6 +1116,9 @@ importers:
       '@bsport/kaizen-primitive-core':
         specifier: workspace:*
         version: link:../../../../../packages/design-system/kaizen/primitive/core
+      '@bsport/sm-backbone':
+        specifier: workspace:*
+        version: link:../../../../../packages/utils/b2b-backbone
       '@bsport/store-financial-services-invoice':
         specifier: workspace:*
         version: link:../../../../../packages/stores/financial-services/invoice
@@ -1162,9 +1162,6 @@ importers:
 
   apps/applications/studio-manager/giftcard:
     dependencies:
-      '@bsport/b2b-backbone':
-        specifier: workspace:*
-        version: link:../../../../packages/utils/b2b-backbone
       '@bsport/fetch':
         specifier: workspace:*
         version: link:../../../../packages/utils/fetch
@@ -1174,6 +1171,9 @@ importers:
       '@bsport/kaizen-primitive-core':
         specifier: workspace:*
         version: link:../../../../packages/design-system/kaizen/primitive/core
+      '@bsport/sm-backbone':
+        specifier: workspace:*
+        version: link:../../../../packages/utils/b2b-backbone
       '@bsport/use-pagination-query-params':
         specifier: workspace:*
         version: link:../../../../packages/utils/query-params/use-pagination
@@ -1217,9 +1217,6 @@ importers:
 
   apps/applications/studio-manager/host:
     dependencies:
-      '@bsport/b2b-backbone':
-        specifier: workspace:*
-        version: link:../../../../packages/utils/b2b-backbone
       '@bsport/fetch':
         specifier: workspace:*
         version: link:../../../../packages/utils/fetch
@@ -1229,6 +1226,9 @@ importers:
       '@bsport/kaizen-primitive-core':
         specifier: workspace:*
         version: link:../../../../packages/design-system/kaizen/primitive/core
+      '@bsport/sm-backbone':
+        specifier: workspace:*
+        version: link:../../../../packages/utils/b2b-backbone
       '@bsport/use-pagination-query-params':
         specifier: workspace:*
         version: link:../../../../packages/utils/query-params/use-pagination
@@ -2090,42 +2090,8 @@ importers:
         specifier: ^4.19.2
         version: 4.19.2
 
-  tools/monorepo-utils:
-    dependencies:
-      '@bsport/typescript-monorepo-utils':
-        specifier: workspace:*
-        version: link:../../packages/utils/monorepo
-      '@bsport/typescript-string-utils':
-        specifier: workspace:*
-        version: link:../../packages/utils/string
-      commander:
-        specifier: ^9.3.0
-        version: 9.5.0
-      directory-tree:
-        specifier: ^3.5.1
-        version: 3.5.1
-      fs-extra:
-        specifier: ^11.2.0
-        version: 11.2.0
-      inquirer:
-        specifier: ^8.2.6
-        version: 8.2.6
-    devDependencies:
-      '@bsport/config-eslint-react':
-        specifier: workspace:*
-        version: link:../config/eslint-react
-      '@types/fs-extra':
-        specifier: ^11.0.1
-        version: 11.0.4
-      '@types/inquirer':
-        specifier: ^9.0.7
-        version: 9.0.7
-
   tools/templates/sm-application:
     dependencies:
-      '@bsport/b2b-backbone':
-        specifier: workspace:*
-        version: link:../../../packages/utils/b2b-backbone
       '@bsport/fetch':
         specifier: workspace:*
         version: link:../../../packages/utils/fetch
@@ -2135,6 +2101,9 @@ importers:
       '@bsport/kaizen-primitive-core':
         specifier: workspace:*
         version: link:../../../packages/design-system/kaizen/primitive/core
+      '@bsport/sm-backbone':
+        specifier: workspace:*
+        version: link:../../../packages/utils/b2b-backbone
       react:
         specifier: ^19.0.0
         version: 19.0.0
@@ -2185,6 +2154,37 @@ importers:
       '@bsport/config-eslint-react':
         specifier: workspace:*
         version: link:../../config/eslint-react
+
+  tools/toolkit-cli:
+    dependencies:
+      '@bsport/typescript-monorepo-utils':
+        specifier: workspace:*
+        version: link:../../packages/utils/monorepo
+      '@bsport/typescript-string-utils':
+        specifier: workspace:*
+        version: link:../../packages/utils/string
+      commander:
+        specifier: ^9.3.0
+        version: 9.5.0
+      directory-tree:
+        specifier: ^3.5.1
+        version: 3.5.1
+      fs-extra:
+        specifier: ^11.2.0
+        version: 11.2.0
+      inquirer:
+        specifier: ^8.2.6
+        version: 8.2.6
+    devDependencies:
+      '@bsport/config-eslint-react':
+        specifier: workspace:*
+        version: link:../config/eslint-react
+      '@types/fs-extra':
+        specifier: ^11.0.1
+        version: 11.0.4
+      '@types/inquirer':
+        specifier: ^9.0.7
+        version: 9.0.7
 
 packages:
 

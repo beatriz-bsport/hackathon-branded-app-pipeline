@@ -1,7 +1,7 @@
 import { lazy } from "react";
 import { Route, Routes } from "react-router";
 
-import { AppWrapper } from "@bsport/b2b-backbone";
+import { AppWrapper } from "@bsport/sm-backbone";
 
 const GroupActivities = lazy(() => import("sm-group-activity/App"));
 const NavigationSidebar = lazy(

@@ -6113,7 +6113,10 @@
             },
             "search": "Rechercher",
             "buy": "Acheter",
-            "details": "Détails"
+            "details": "Détails",
+            "drawerTitle": {
+                "tabs": "Sélectionner un type de carte"
+            }
         }
     },
     "member": {

@@ -30,9 +30,13 @@ export const handleUserRegistration = async ({
   }
 
   const { data: userRegistrationResponse } = await postUserRegistration({
-    one_click_checkout: true,
     payment_pack: paymentPackId,
-    offers: [{ offer_id: offerId, extra_data: {} }],
+    offers: [
+      {
+        offer_id: offerId,
+        extra_data: { one_click_checkout: true, auto_assign_spot: true },
+      },
+    ],
     email,
   });
   const { data: updatedBasket } = await fetchCurrentBasket(companyId);

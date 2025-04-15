@@ -1,6 +1,4 @@
-import { useState } from "react";
-
-import { LANGUAGES } from "@bsport/i18n";
+import { LANGUAGES, type Locale, switchLanguage } from "@bsport/i18n";
 import { Icon } from "@bsport/kaizen-primitive-core";
 
 import { i18nInstance, useTranslation } from "#src/utils/i18n";
@@ -84,21 +82,16 @@ const LanguageDropdown = () => {
   const { t } = useTranslation("default");
   const languageItems = useLanguageItems();
 
-  const [selectedLanguage, setSelectedLanguage] = useState(
-    i18nInstance.language,
-  );
-
   return (
     <DropdownMenu
       className="w-full pl-xs pr-xs mb-md"
       items={languageItems}
       onSelectOption={({ id, setIsPopoverOpened }) => {
-        i18nInstance.changeLanguage(id);
+        switchLanguage(id as Locale);
         setIsPopoverOpened(false);
-        setSelectedLanguage(id);
       }}
       placement="top-left"
-      selectedValues={[selectedLanguage]}
+      selectedValues={[i18nInstance.language]}
     >
       {({ setIsPopoverOpened }) => (
         <button

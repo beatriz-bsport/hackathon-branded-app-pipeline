@@ -288,6 +288,9 @@ const getTranslations = async () => {
       filterAction: 'Filter',
       applyFilter: 'Apply',
       srcOrDst: { placeholder: 'Select a message type', title: 'Messages' },
+      ariaLabel: {
+        deleteAllFilters: 'Delete all filters',
+      },
     },
     dialogInformation: {
       status: {

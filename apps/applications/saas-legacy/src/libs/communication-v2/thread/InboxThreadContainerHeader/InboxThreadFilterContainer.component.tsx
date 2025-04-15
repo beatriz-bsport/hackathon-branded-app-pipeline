@@ -113,12 +113,8 @@ const InboxThreadFilterContainer: React.FC<Props> = ({
   return (
     <>
       {displayFiltersSelector && (
-        <div className={classes.container}>
-          <ButtonBase
-            disableRipple
-            className={classes.filterDisplayer}
-            onClick={onShowFilterModal}
-          >
+        <div className={classes.filterDisplayer}>
+          <ButtonBase disableRipple onClick={onShowFilterModal}>
             <div className={classes.filterTitleContainer}>
               <Tune className={classes.filterIcon} />
               <Typography className={classes.filterTitle} variant="body1">
@@ -182,15 +178,14 @@ const InboxThreadFilterContainer: React.FC<Props> = ({
                 />
               </Hidden>
             </div>
-
-            <IconButton
-              aria-label="expand row"
-              className={classes.closeFilter}
-              onClick={resetFilters}
-            >
-              <Close />
-            </IconButton>
           </ButtonBase>
+          <IconButton
+            aria-label={t('filter.ariaLabel.deleteAllFilters')}
+            className={classes.closeFilter}
+            onClick={resetFilters}
+          >
+            <Close />
+          </IconButton>
         </div>
       )}
       <Collapse className={classes.collapse} in={showFilterModal}>
@@ -224,12 +219,6 @@ const InboxThreadFilterContainer: React.FC<Props> = ({
 };
 
 const useStyles = makeStyles((theme) => ({
-  container: {
-    borderRadius: 0,
-    borderBottom: 'solid 1px',
-    borderBottomColor: theme.palette.divider,
-    zIndex: 1000,
-  },
   filterTitleContainer: {
     display: 'flex',
     flexDirection: 'row',
@@ -282,8 +271,14 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'row',
     justifyContent: 'space-between',
     width: '100%',
+    borderRadius: 0,
+    borderBottom: 'solid 1px',
+    borderBottomColor: theme.palette.divider,
+    zIndex: 1000,
   },
   closeFilter: {
+    height: 'fit-content',
+    alignSelf: 'center',
     [theme.breakpoints.down('sm')]: {
       display: 'none',
     },

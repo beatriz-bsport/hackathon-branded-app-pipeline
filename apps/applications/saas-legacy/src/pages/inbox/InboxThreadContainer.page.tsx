@@ -168,6 +168,7 @@ class InboxThreadContainerPage extends PureComponent<Props> {
         filters,
         filterDateStart: dateStart,
         filterDateEnd: dateEnd,
+        showFilterModal: false,
         timeoutId: null,
       },
       this.fetchMessageListAndScheduleRefresh, // and we schedule a new refresh
@@ -216,8 +217,8 @@ class InboxThreadContainerPage extends PureComponent<Props> {
       case COMMUNICATION_FILTER_IDENTIFIER_KIND:
         newFilterValues = [
           ...this.props.inboxContainerState.communicationKinds,
-        ].splice(index, 1);
-
+        ];
+        newFilterValues.splice(index, 1);
         this.props.setInboxContainerState(
           {
             ...this.props.inboxContainerState,
@@ -229,9 +230,8 @@ class InboxThreadContainerPage extends PureComponent<Props> {
         break;
 
       case COMMUNICATION_FILTER_IDENTIFIER_RECIPIENT:
-        newFilterValues = [
-          ...this.props.inboxContainerState.recipientTypes,
-        ].splice(index, 1);
+        newFilterValues = [...this.props.inboxContainerState.recipientTypes];
+        newFilterValues.splice(index, 1);
 
         this.props.setInboxContainerState(
           {
@@ -244,9 +244,8 @@ class InboxThreadContainerPage extends PureComponent<Props> {
         break;
 
       case COMMUNICATION_FILTER_IDENTIFIER_SEND_PARAMETER:
-        newFilterValues = [
-          ...this.props.inboxContainerState.automatedMessages,
-        ].splice(index, 1);
+        newFilterValues = [...this.props.inboxContainerState.automatedMessages];
+        newFilterValues.splice(index, 1);
 
         this.props.setInboxContainerState(
           {
@@ -259,9 +258,8 @@ class InboxThreadContainerPage extends PureComponent<Props> {
         break;
 
       case COMMUNICATION_FILTER_IDENTIFIER_SRC_OR_DST:
-        newFilterValues = [
-          ...this.props.inboxContainerState.messagesOrigin,
-        ].splice(index, 1);
+        newFilterValues = [...this.props.inboxContainerState.messagesOrigin];
+        newFilterValues.splice(index, 1);
 
         this.props.setInboxContainerState(
           {

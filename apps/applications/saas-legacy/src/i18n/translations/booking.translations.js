@@ -652,6 +652,11 @@ const getTranslations = async () => {
           description:
             'This session has already started or ended, so booking is no longer possible. <br> Please check the calendar for upcoming sessions.',
         },
+        unhandled: {
+          title: 'An Unexpected Error Occurred',
+          description:
+            "We encountered an unexpected error. It doesn't seem possible to book this session for now.",
+        },
       },
       goToCalendar: 'Go to the calendar',
       bookButtonLabel: 'Book now',

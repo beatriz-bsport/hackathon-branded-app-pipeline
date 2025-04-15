@@ -1,12 +1,4 @@
 {
-    "namespaceBeta": {
-        "nested": {
-            "item2": "Sono il secondo articolo!",
-            "item1": "Sono il primo articolo!"
-        },
-        "goodbye": "Addio mondo"
-    },
-    "namespaceAlpha": {
-        "helloWorld": "Ciao mondo!"
-    }
+    "namespaceBeta": {},
+    "namespaceAlpha": {}
 }

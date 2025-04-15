@@ -11,6 +11,7 @@ export const { i18nInstance, useTranslation, AppI18nextProvider } =
     applicationName,
     namespaces,
     applicationUrl,
+    debug: import.meta.env.DEV,
   });
 
 export type TFunction = TFunctionGeneric<typeof translations>;

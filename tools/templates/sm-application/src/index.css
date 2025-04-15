@@ -23,6 +23,5 @@
 }
 
 #root {
-  @apply bg-surface-page;
-  @apply text-onsurface-default;
+  @apply bg-surface-page text-onsurface-default;
 }

@@ -1,15 +1,12 @@
+import { lazy } from "react";
 import { Route, Routes } from "react-router";
 
-import App from "#src/pages/Home";
-import ListPage from "#src/pages/ListPage";
+const ListPage = lazy(() => import("#src/pages/ListPage"));
 
-const AppRoutes = () => {
+export const AppRoutes = () => {
   return (
     <Routes>
-      <Route element={<App />} path="/" />
-      <Route element={<ListPage />} path="/list-example" />
+      <Route element={<ListPage />} path="/" />
     </Routes>
   );
 };
-
-export default AppRoutes;

@@ -1,15 +1,7 @@
 {
     "@bsport/template-sm-application": {
-        "namespaceBeta": {
-            "nested": {
-                "item2": "Ich bin der zweite Artikel!",
-                "item1": "Ich bin der erste Artikel!"
-            },
-            "goodbye": "Goodbye world"
-        },
-        "namespaceAlpha": {
-            "helloWorld": "Hello world!"
-        }
+        "namespaceBeta": {},
+        "namespaceAlpha": {}
     },
     "@bsport/sm-navigation-sidebar": {
         "default": {

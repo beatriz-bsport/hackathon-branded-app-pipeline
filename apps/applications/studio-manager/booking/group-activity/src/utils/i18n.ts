@@ -16,6 +16,7 @@ export const {
   applicationName,
   applicationUrl,
   namespaces: namespaceList,
+  debug: import.meta.env.DEV,
 });
 
 export type TFunction = TFunctionGeneric<typeof translations>;

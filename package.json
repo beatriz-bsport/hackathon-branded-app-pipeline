@@ -16,7 +16,7 @@
     "api-environment:set": "ts-node tools/monorepo-utils/src/index.ts api-environment:set",
     "build": "nx build",
     "build:all": "nx run-many --all --target=build",
-    "federate:navigation": "pnpm exec nx build @bsport/sm-navigation-sidebar > /dev/null 2>&1 && pnpm exec nx preview @bsport/sm-navigation-sidebar",
+    "federate:navigation": "pnpm --filter '@bsport/sm-navigation-sidebar' dev",
     "format": "pnpm exec nx run-many -t format",
     "format:affected": "pnpm exec nx affected --target=format",
     "format:check": "pnpm exec nx run-many -t format:check",

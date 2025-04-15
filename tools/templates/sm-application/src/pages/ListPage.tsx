@@ -1,43 +1,17 @@
-import { Button, ListLayout } from "@bsport/kaizen-primitive-core";
+import { ListLayout } from "@bsport/kaizen-primitive-core";
 
-import OfferListExample from "#src/components/template-examples/OfferListExample";
+import { useTranslation } from "#src/utils/i18n";
 
-function ListPage() {
+const ListPage: React.FC = () => {
+  const { t } = useTranslation("namespaceAlpha");
   return (
     <ListLayout>
-      <ListLayout.Header
-        breadcrumbsItems={[
-          {
-            text: "Back to home",
-            href: "/",
-            id: "back-to-home",
-          },
-        ]}
-        callToActionButton={
-          <Button
-            iconLeft="bell-03"
-            intent="call-to-action"
-            color="main"
-            size="md"
-            label="CTA Button"
-          />
-        }
-        pageTabs={{
-          tabs: [
-            {
-              label: "Some tab",
-              icon: "user-edit",
-            },
-          ],
-          orientation: "horizontal",
-        }}
-        pageTitle="Offer list example"
-      />
+      <ListLayout.Header pageTitle={t("helloName", { name: "John Doe" })} />
       <ListLayout.Content>
-        <OfferListExample />
+        <p>Your content</p>
       </ListLayout.Content>
     </ListLayout>
   );
-}
+};
 
 export default ListPage;

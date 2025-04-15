@@ -132,34 +132,9 @@ const ReportingDetail: React.FC<Props> = ({
   ]);
 
   React.useEffect(() => {
-    fetchReportFilterConfigList(
-      { report_id_in: [reportId] },
-      {
-        onSuccess: (fetchedReportFilterConfigs) => {
-          const fetchedAdvancedReportFilterConfigs =
-            fetchedReportFilterConfigs.find(
-              (reportFilterConfig) =>
-                !reportFilterConfig.is_quick_report_filter,
-            ) || null;
-          // Fetch only headers, else our users will have a miserable experience
-          // as reports take a long time to load
-          {
-            !isFranchisor &&
-              fetchReportHeaders(reportId, {
-                report_filter_config_id: fetchedAdvancedReportFilterConfigs?.id,
-              });
-          }
-        },
-      },
-    );
+    fetchReportFilterConfigList({ report_id_in: [reportId] });
     getInvalidFilters(reportId);
-  }, [
-    fetchReportFilterConfigList,
-    reportId,
-    fetchReportHeaders,
-    isFranchisor,
-    getInvalidFilters,
-  ]);
+  }, [fetchReportFilterConfigList, reportId, getInvalidFilters]);
 
   const { t } = useTranslation('reporting');
 

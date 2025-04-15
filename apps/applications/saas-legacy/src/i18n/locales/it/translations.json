@@ -7206,7 +7206,7 @@
             "invoicePDFTitle": "Nome della società di fatturazione",
             "invoicePDFEmail": "Indirizzo e-mail di fatturazione",
             "tse": {
-                "title": "Kassensicherungsverordnung (Deutschland)",
+                "title": "Kassensicherungsverordnung (Germania)",
                 "documentationLabel": "Documentazione procedurale",
                 "manufacturerLinkLabel": "Certificato del produttore del TSE",
                 "manufacturer": "Produttore: bsport",

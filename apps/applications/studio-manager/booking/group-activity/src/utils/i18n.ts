@@ -3,8 +3,8 @@ import { type TFunctionGeneric, instanciateAppI18n } from "@bsport/i18n";
 import type translations from "#src/i18n/locales/en/translations.json";
 import namespaceList from "#src/i18n/namespaces.json";
 
-const applicationName = __I18N_NAMESPACE_PREFIX__;
-const applicationUrl = __APPLICATION_BASE_URL__;
+const applicationName = __GROUP_ACTIVITY__.__I18N_NAMESPACE_PREFIX__;
+const applicationUrl = __GROUP_ACTIVITY__.__APPLICATION_BASE_URL__;
 
 export const {
   i18nInstance,

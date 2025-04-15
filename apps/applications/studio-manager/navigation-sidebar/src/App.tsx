@@ -40,8 +40,10 @@ const Home = () => {
   );
 };
 
+const basename = __NAVIGATION_SIDEBAR__.__BASENAME__;
+
 const App = () => (
-  <BrowserRouter basename={__BASENAME__}>
+  <BrowserRouter basename={basename}>
     <div className="flex">
       <NavigationSidebar />
       <div className="flex flex-col flex-grow p-4">

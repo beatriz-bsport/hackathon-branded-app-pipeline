@@ -170,15 +170,19 @@ export const getConfig = (config: {
     ? `http://localhost:${devPort}`
     : base.slice(0, -1);
 
-  /**
-   * For now we instantiate i18n using env variables
-   * Since we need to locate the i18n files it is related
-   * to the federation config
-   */
+  const namespace = compose(
+    uppercase,
+    replaceHyphens,
+    removeScope,
+    removePrefix,
+  )(packageJson.name);
+
   const define: NonNullable<UserConfig["define"]> = {
-    __I18N_NAMESPACE_PREFIX__: JSON.stringify(removeScope(packageJson.name)),
-    __APPLICATION_BASE_URL__: JSON.stringify(appBaseUrl),
-    __BASENAME__: JSON.stringify(isLocal ? "" : base),
+    [`__${namespace}__`]: JSON.stringify({
+      __I18N_NAMESPACE_PREFIX__: removeScope(packageJson.name),
+      __APPLICATION_BASE_URL__: appBaseUrl,
+      __BASENAME__: isLocal ? "" : base,
+    }),
   };
 
   const server: ServerOptions = {
@@ -307,11 +311,19 @@ function getBase({
 }
 
 function removeScope(name: string) {
-  return name.replace("@bsport/", "");
+  return name.replace(/@bsport\//i, "");
 }
 
 function removePrefix(name: string) {
   return name.replace(/^[^-]+-/, "");
+}
+
+function uppercase(name: string) {
+  return name.toUpperCase();
+}
+
+function replaceHyphens(name: string) {
+  return name.replace(/-/g, "_");
 }
 
 function compose<T>(...fns: Array<(x: T) => T>): (x: T) => T {

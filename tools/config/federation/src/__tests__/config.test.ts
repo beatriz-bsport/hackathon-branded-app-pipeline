@@ -212,15 +212,16 @@ describe("getConfig", () => {
     expect(configWithoutExposes.federation?.exposes).toBe(undefined);
   });
 
-  it("generates correct i18n URL and namespace prefix", () => {
+  it("generates define variables", () => {
     // Development mode
     const devConfig = getConfig(createConfig());
-    expect(devConfig.define["__APPLICATION_BASE_URL__"]).toBe(
-      JSON.stringify("http://localhost:4000"),
+    const variables = JSON.parse(devConfig.define["__NAVIGATION_SIDEBAR__"]);
+
+    expect(variables["__APPLICATION_BASE_URL__"]).toBe("http://localhost:4000");
+    expect(variables["__I18N_NAMESPACE_PREFIX__"]).toBe(
+      "sm-navigation-sidebar",
     );
-    expect(devConfig.define["__I18N_NAMESPACE_PREFIX__"]).toBe(
-      JSON.stringify("sm-navigation-sidebar"),
-    );
+    expect(variables["__BASENAME__"]).toBe("");
 
     // Preview mode
     const previewConfig = getConfig(
@@ -228,12 +229,17 @@ describe("getConfig", () => {
         mode: "preview",
       }),
     );
-    expect(previewConfig.define["__APPLICATION_BASE_URL__"]).toBe(
-      JSON.stringify("http://localhost:4000"),
+    const previewVariables = JSON.parse(
+      previewConfig.define["__NAVIGATION_SIDEBAR__"],
     );
-    expect(previewConfig.define["__I18N_NAMESPACE_PREFIX__"]).toBe(
-      JSON.stringify("sm-navigation-sidebar"),
+
+    expect(previewVariables["__APPLICATION_BASE_URL__"]).toBe(
+      "http://localhost:4000",
     );
+    expect(previewVariables["__I18N_NAMESPACE_PREFIX__"]).toBe(
+      "sm-navigation-sidebar",
+    );
+    expect(previewVariables["__BASENAME__"]).toBe("");
 
     // Production mode
     const prodConfig = getConfig(
@@ -242,12 +248,15 @@ describe("getConfig", () => {
         federationConfig: { remotes: mockRemotes },
       }),
     );
-    expect(prodConfig.define["__APPLICATION_BASE_URL__"]).toBe(
-      JSON.stringify("/v2"),
+    const prodVariables = JSON.parse(
+      prodConfig.define["__NAVIGATION_SIDEBAR__"],
     );
-    expect(prodConfig.define["__I18N_NAMESPACE_PREFIX__"]).toBe(
-      JSON.stringify("sm-navigation-sidebar"),
+
+    expect(prodVariables["__APPLICATION_BASE_URL__"]).toBe("/v2");
+    expect(prodVariables["__I18N_NAMESPACE_PREFIX__"]).toBe(
+      "sm-navigation-sidebar",
     );
+    expect(prodVariables["__BASENAME__"]).toBe("/v2/");
   });
 
   it("generates correct remotes configuration", () => {

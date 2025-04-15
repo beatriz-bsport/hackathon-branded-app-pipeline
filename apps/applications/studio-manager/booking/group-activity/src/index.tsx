@@ -8,9 +8,11 @@ import App from "./App";
 
 import "./index.css";
 
+const basename = __GROUP_ACTIVITY__.__BASENAME__;
+
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <AppWrapper basename={__BASENAME__}>
+    <AppWrapper basename={basename}>
       <App />
     </AppWrapper>
   </StrictMode>,

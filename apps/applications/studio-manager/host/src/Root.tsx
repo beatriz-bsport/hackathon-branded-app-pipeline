@@ -8,9 +8,11 @@ const NavigationSidebar = lazy(
   () => import("sm-navigation-sidebar/NavigationSidebar"),
 );
 
+const basename = __HOST__.__BASENAME__;
+
 export function Root() {
   return (
-    <AppWrapper basename={__BASENAME__} NavigationApp={NavigationSidebar}>
+    <AppWrapper basename={basename} NavigationApp={NavigationSidebar}>
       <Routes>
         <Route path="/" element={<h1>Hello world</h1>} />
         <Route path="/activity/*" element={<GroupActivities />} />

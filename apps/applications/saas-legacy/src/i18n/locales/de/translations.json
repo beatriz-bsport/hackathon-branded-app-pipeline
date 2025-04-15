@@ -6520,7 +6520,8 @@
             "stock_keeping_unit": "SKU",
             "size": "Größe",
             "color": "Farbe",
-            "subtitle": "Untertitel"
+            "subtitle": "Untertitel",
+            "voucher_reason": "Rabattgrund"
         },
         "no": "Nein",
         "yes": "Ja",
@@ -8430,7 +8431,23 @@
             },
             "explainInvoicePDFTitle": "Dieser Name erscheint auf allen Rechnungen",
             "invoicePDFEmail": "E-Mail-Adresse für Rechnungen",
-            "invoicePDFTitle": "Name des Abrechnungsunternehmens"
+            "invoicePDFTitle": "Name des Abrechnungsunternehmens",
+            "tse": {
+                "documentationLabel": "Verfahrensdokumentation",
+                "manufacturerLinkLabel": "Zertifikat des TSE Herstellers",
+                "manufacturer": "Hersteller: bsport",
+                "version": "TSE Version: 2.0",
+                "description": "Ziel dieser Verordnung ist es, die Sicherheit und Integrität elektronischer Kassensystemen zu gewährleisten. \nWir nutzen Fiskaly als technische Sicherheitseinrichtung (TSE), um Manipulation zu verhindern und sicherzustellen, dass Transaktionsdaten sicher gespeichert werden.",
+                "title": "Kassensicherungsverordnung (Deutschland)"
+            },
+            "refundsAndDiscount": {
+                "checkbox": {
+                    "refundAndCancelJustification": "Begründung für Stornierungen und Rückerstattungen von Rechnungen anfordern",
+                    "customDiscountJustification": "Begründung für manuelle Rabatte anfordern"
+                },
+                "info": "Aktiviere diese Optionen, sodass Mitarbeitende einen Grund angeben müssen, wenn sie Rabatte anwenden oder eine Rechnung stornieren/rückerstatten.",
+                "title": "Rabatte und Rückerstattungen"
+            }
         },
         "returnPayment": {
             "modal": {
@@ -8528,7 +8545,16 @@
                 "undefined": "Geschenkkarte"
             },
             "discount": "Rabatt",
-            "finalPricePreview": "Vorschau zur Gesamtsumme"
+            "finalPricePreview": "Vorschau zur Gesamtsumme",
+            "discountReason": "Rabatt-Grund",
+            "voucherReason": {
+                "manualWithNoReason": "Manueller Rabatt",
+                "manual": "Manueller Rabatt: {{manual_reason}}",
+                "coupon_referring": "Empfehlungsrabatt: empfehlendes Mitglied",
+                "coupon_referred": "Empfehlungsrabatt: empfohlenes Mitglied",
+                "coupon": "Rabattcode: {{coupon_name}}",
+                "payment_combo": "Paket-Rabatt"
+            }
         },
         "uneditableMessage": {
             "invoiceFinalizedThusNotEditable": "Die Rechnung wurde abgeschlossen und kann deswegen nicht mehr geändert werden",
@@ -8557,7 +8583,8 @@
                     "1": "Eine Gutschrift wird erstellt und dem Kundenguthaben entsprechend gutgeschrieben. Verwende diese Methode, um eine Gutschrift zu erstellen.",
                     "2": "Wählen Sie selbst die Erstattungsmethode. Verwenden Sie diese Methode für einen Scheck / eine manuelle Überweisung / eine Rückerstattung in bar."
                 },
-                "explainEmptyPayment": "Möchten Sie diese Rechnung wirklich stornieren?"
+                "explainEmptyPayment": "Möchten Sie diese Rechnung wirklich stornieren?",
+                "revertReason": "Stornierungs-Grund"
             },
             "dialog": {
                 "actions": {
@@ -8765,7 +8792,8 @@
             "plannedPaymentEvent": {
                 "title": "Geplante Zahlung",
                 "title_plural": "Geplante Zahlungen"
-            }
+            },
+            "revertReason": "Grund: {{ revertReason }}"
         },
         "paymentEngine": {
             "label": {
@@ -8895,7 +8923,8 @@
             "3": "Abgebrochen",
             "4": "in Bearbeitung"
         },
-        "anonymousMember": "Anonymes Mitglied"
+        "anonymousMember": "Anonymes Mitglied",
+        "sentToFiskaly": "An Fiskaly versandt"
     },
     "payment": {
         "paymentMethod": {
@@ -11140,7 +11169,8 @@
                 "clear_date": "Kein Ablaufdatum"
             },
             "name": {
-                "label": "Name"
+                "label": "Name",
+                "helperText": "Dieser Name erscheint auf Rechnungen, wenn der Code genutzt wird"
             },
             "code": {
                 "label": "Code",
@@ -12832,7 +12862,9 @@
             "buttons": {
                 "selectRecipientsMobile": "Empfänger.",
                 "selectRecipients": "Wähle Empfänger",
-                "send": "Senden"
+                "send": "Senden",
+                "updateScheduled": "Aktualisieren",
+                "scheduleCommunication": "Planen"
             },
             "textField": {
                 "warningLength": "{{number_sms}} SMS werden gesendet",
@@ -12846,7 +12878,9 @@
                 "notification": "Push-Benachrichtigung",
                 "sms": "SMS",
                 "mail": "E-Mail",
-                "autoResend": "Automatische Neusendung"
+                "autoResend": "Automatische Neusendung",
+                "automaticCommunicationLimit": "Limit festlegen",
+                "messageScheduling": "Plane deine Nachricht"
             },
             "smsCostReminderModal": {
                 "confirm": "Bestätigen",
@@ -13032,7 +13066,8 @@
             "cancelEdition": "Änderungen verwerfen",
             "saveEdition": "Änderungen speichern",
             "chooseTime": "Wähle eine Zeit",
-            "chooseDate": "Wähle ein Datum"
+            "chooseDate": "Wähle ein Datum",
+            "inputLabel": "Wann möchtest du die Nachricht versenden?"
         },
         "sendNowDialog": {
             "confirm": "Senden",
@@ -16267,6 +16302,21 @@
             "giftcard": "Geschenkgutscheine",
             "calendarV2": "Kalender",
             "calendar": "Kalender"
+        },
+        "passes": {
+            "details": "Details",
+            "buy": "Kaufen",
+            "search": "Suchen",
+            "filters": "Filter",
+            "title": "Kurspässe",
+            "drawerTitle": {
+                "tabs": "Wähle die Art der Pässe"
+            },
+            "tabs": {
+                "appointmentPasses": "Terminpässe",
+                "passes": "Kurspässe",
+                "all": "Alle"
+            }
         }
     },
     "partnership": {
@@ -17536,7 +17586,7 @@
             },
             "warnings": {
                 "exclusiveAssociatedCoaches": "Die Lehrkraft {{- coach_name }} wird nur benachrichtigt, wenn eine Vertretungsanfrage für eine Sitzung in dieser Einrichtung erfolgt. Wenn die Einrichtung gelöscht wird, erhält diese Lehrkraft daher Vertretungsanfragen von jeder Einrichtung.",
-                "exclusiveAssociatedCoaches_plural": "Dein(e) Lehrer {{- coach_name }} werden nur benachrichtigt, wenn eine Vertretungsanfrage für einen Kurs in dieser Einrichtung gemacht wird. Wenn du diese Einrichtung löschst, werden sie (deshalb) Vertretungsanfragen von jeder Einrichtung erhalten.",
+                "exclusiveAssociatedCoaches_plural": "Deine Lehrer {{- coach_name }} werden nur benachrichtigt, wenn eine Vertretungsanfrage für einen Kurs in dieser Einrichtung gemacht wird. Wenn du diese Einrichtung löschst, werden sie Vertretungsanfragen von jeder Einrichtung erhalten.",
                 "hasBillingGroup": "Diese Einrichtung wird auch aus der Rechnungsgruppe {{- establishment_billing_group_name }} entfernt.",
                 "exclusivePrivateServices_plural": "Diese Termine {{- private_service_name }} sind so konfiguriert, dass sie nur in dieser Einrichtung stattfinden können. Wenn diese Einrichtung gelöscht wird, können diese Termine überall stattfinden.",
                 "exclusivePrivateServices": "Der Termin {{- private_service_name }} ist so konfiguriert, dass er nur in dieser Einrichtung stattfinden kann. Wenn diese Einrichtung gelöscht wird, kann dieser Termin überall stattfinden.",

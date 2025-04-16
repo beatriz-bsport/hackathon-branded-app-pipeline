@@ -1,48 +1,57 @@
-# B2B Host Application
+# Host for Studio Manager applications
 
-This application is the host of the B2B applications.
+This application is the host of the Studio Manager applications.
 
-## Quickstart
+## Purpose
 
-### Run your application
+The host application imports all studio manager applications via Module Federation. It is a central place where you can route from one application to another.
 
-To run in localhost :
+## Run in dev mode
+
+To run all applications in dev mode
 
 ```sh
 pnpm run dev
 ```
 
-This will run two applications aside :
+You'll see running only the port 4000 of the host app : <http://localhost:4000>.
 
-- The Navigation Sidebar on port 5000, with module federation.
-- Your application, on the port defined in `vite.config.ts`.
-
-If you want to see the translations, you need to run the `translation:update` script :
-
-```
-pnpm run translation:update
-```
-
-This will automatically build translations files in `public/locales` folder. You might need to rebuild your apps to integrate the new translations.
-
-### Build your application
-
-To build your application :
+But all the other applications (remotes) are running. If you want to see them, you can add the `--debug` flag.
 
 ```sh
-pnpm run build
+pnpm run dev --debug
 ```
 
-### Running preview
+## Run in build preview mode
+
+To run all applications in build preview mode (apps are built specifically for preview) :
 
 ```sh
-pnpm run build:preview
-pnpm run preview
+pnpm run dev --build:preview
 ```
 
-You may also need to run the same commands to the remote applications you are using.
+You can logs the remote applications as well with
 
-Using filters, you can run the same commands to all the remote applications:
+```sh
+pnpm run dev --build:preview --debug
+```
+
+## Run specific applications
+
+If you don't need all applications, you can be more granular. For this, you can use `pnpm --filter` with `dev:single` script :
+
+```sh
+# Run host app in dev:single mode
+pnpm run dev:single
+# Run navigation sidebar
+pnpm --filter @bsport/sm-navigation-sidebar dev:single
+# Run specific apps with name
+pnpm --filter @bsport/sm-giftcard dev:single
+# Run specific apps with filter
+pnpm --filter"@bsport/sm-*" dev:single
+```
+
+You can do the same by combining the scripts `build:preview` and `preview` of each application.
 
 ```sh
 pnpm --filter="@bsport/sm-*" run build:preview

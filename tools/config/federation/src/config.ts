@@ -155,7 +155,7 @@ export const getConfig = (config: {
   }
 
   const { packageJson, mode } = result.data;
-  const isHost = !!packageJson.federation.remotes;
+  const isHost = config.appType === "hosts";
   const isLocal = mode === "preview" || mode === "development";
   const { devPort, name: federationName, exposes } = packageJson.federation;
 

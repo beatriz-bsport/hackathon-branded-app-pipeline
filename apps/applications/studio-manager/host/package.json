@@ -11,7 +11,8 @@
     "ci:build": "./scripts/ci-build.sh",
     "ci:compile": "tsc",
     "ci:deploy": "./scripts/ci-deploy.sh",
-    "dev": "vite",
+    "dev": "./scripts/run-dev-all.sh",
+    "dev:single": "vite",
     "format": "prettier --write '**/*.{ts,tsx,js,jsx,cjs,mjs,scss,css,json,md,mdx,html,svg}'",
     "format:check": "prettier --check '**/*.{ts,tsx,js,jsx,cjs,mjs}'",
     "lint": "eslint .",
@@ -43,9 +44,21 @@
         "devPort": 4050,
         "watchPath": "../navigation-sidebar/src/**/*"
       },
+      "sm-member-list": {
+        "devPort": 4100,
+        "watchPath": "../core-data/member/member-list/src/**/*"
+      },
+      "sm-giftcard": {
+        "devPort": 4150,
+        "watchPath": "../buyables/giftcard/src/**/*"
+      },
       "sm-group-activity": {
         "devPort": 4200,
         "watchPath": "../booking/group-activity/src/**/*"
+      },
+      "sm-invoice": {
+        "devPort": 4250,
+        "watchPath": "../financial-services/invoice/src/**/*"
       }
     }
   }

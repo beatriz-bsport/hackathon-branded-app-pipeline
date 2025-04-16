@@ -3,7 +3,7 @@
 set -eE
 
 # List of applications to deploy
-APPLICATIONS="@bsport/sm-host @bsport/sm-navigation-sidebar @bsport/sm-group-activity"
+APPLICATIONS=$(cat ./scripts/apps.txt)
 
 echo "*"
 echo "⏳ Deploying Studio Manager applications"
@@ -48,9 +48,7 @@ for APPLICATION in $APPLICATIONS; do
   echo "*"
   echo "⏳ Copying $APPLICATION assets to S3"
   PWD_BEGIN=$(pwd)
-  echo "LOGS : THIS IS PWD_BEGIN : $PWD_BEGIN"
-
-
+  echo "📦 Starting directory: $PWD_BEGIN"
 
   # get the path relative to the application root, for example for @bsport/sm-host it will
   # be "apps/applications/b2b/host"

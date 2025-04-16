@@ -176,7 +176,11 @@ export const useNavigationElements = ({
       subItems: [
         { id: "webshop", label: t("menus.products.webshop") },
         { id: "packs", label: t("menus.products.packs") },
-        { id: "gift-cards", label: t("menus.products.giftcards") },
+        {
+          id: "gift-cards",
+          label: t("menus.products.giftcards"),
+          href: "/giftcard",
+        },
         { id: "videos", label: t("menus.products.videosAndEbooks") },
         { id: "orders", label: t("menus.products.orders") },
       ],
@@ -220,7 +224,11 @@ export const useNavigationElements = ({
       id: "finance",
       label: t("menus.finance.title"),
       subItems: [
-        { id: "invoices", label: t("menus.finance.invoices") },
+        {
+          id: "invoices",
+          label: t("menus.finance.invoices"),
+          href: "/invoice",
+        },
         { id: "payouts", label: t("menus.finance.payouts") },
         { id: "direct-debits", label: t("menus.finance.directDebits") },
         { id: "expenses", label: t("menus.finance.expenses") },
@@ -235,7 +243,11 @@ export const useNavigationElements = ({
       id: "members-hub",
       label: t("menus.membersHub.title"),
       subItems: [
-        { id: "members", label: t("menus.membersHub.members") },
+        {
+          id: "members",
+          label: t("menus.membersHub.members"),
+          href: "/member",
+        },
         { id: "forms", label: t("menus.membersHub.forms") },
         { id: "tags", label: t("menus.membersHub.tags") },
       ],

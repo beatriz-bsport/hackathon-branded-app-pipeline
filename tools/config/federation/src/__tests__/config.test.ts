@@ -96,6 +96,8 @@ describe("getConfig", () => {
     const prodRemoteConfig = getConfig(
       createConfig({
         mode: "production",
+        appType: "shared", // Something different than hosts
+        federationConfig: { devPort: 4050 },
       }),
     );
     expect(prodRemoteConfig.base).toBe("/v2/apps/navigation-sidebar/");

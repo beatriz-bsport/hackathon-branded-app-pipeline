@@ -167,7 +167,8 @@ export type SelectFieldItem = {
 
 export type MessageParams = MessageData &
   CommunicationContext & {
-    member_filters: MemberFilter | Immutable<MemberFilter>;
+    member_filters?: MemberFilter | Immutable<MemberFilter>;
+    members?: number[];
   };
 
 export type MessageData = {

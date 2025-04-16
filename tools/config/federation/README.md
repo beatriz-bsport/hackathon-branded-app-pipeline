@@ -4,14 +4,6 @@ Import this in your `vite.config.ts` and use the functions you need.
 
 ## API
 
-### `getAppPort`
-
-Gets the port for a specific app.
-
-### `getLocalFederationRemotes`
-
-Gets the list of remotes for local development.
-
 ### `getConfig`
 
 Generates and returns a complete Vite configuration for a federated module. This function provides a standardized configuration based on the app type and environment, including all necessary plugins and settings.

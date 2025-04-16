@@ -76,6 +76,14 @@ const ConfigSchema = z
     mode: z.enum(["development", "production", "preview"], {
       description: "Build mode meant to be used with vite's mode",
     }),
+    rootDir: z.string(),
+    deploymentRelativeUrl: z
+      .enum(["/v2/", "/studio/"], {
+        description:
+          "Base URL for the application that matches the path in the S3 bucket",
+      })
+      .optional()
+      .default("/v2/"),
   })
   .refine(
     (data) => {
@@ -142,6 +150,7 @@ export const getConfig = (config: {
   mode: string;
   packageJson: z.infer<typeof ConfigSchema>["packageJson"];
   rootDir: string;
+  deploymentBaseUrl?: string;
 }) => {
   const result = ConfigSchema.safeParse(config);
 
@@ -154,12 +163,17 @@ export const getConfig = (config: {
     throw new Error(errorMessage);
   }
 
-  const { packageJson, mode } = result.data;
+  const { packageJson, mode, deploymentRelativeUrl } = result.data;
   const isHost = config.appType === "hosts";
   const isLocal = mode === "preview" || mode === "development";
   const { devPort, name: federationName, exposes } = packageJson.federation;
 
-  const base = getBase({ isHost, appName: packageJson.name, isLocal });
+  const base = getBase({
+    appName: packageJson.name,
+    deploymentRelativeUrl,
+    isLocal,
+    isHost,
+  });
 
   /**
    * Why remove the trailing slash?
@@ -212,7 +226,7 @@ export const getConfig = (config: {
             type: "module",
             entry: isLocal
               ? `http://localhost:${remote.devPort}/remoteEntry.js`
-              : `/v2/apps/${removePrefix(key)}/remoteEntry.js`,
+              : `${deploymentRelativeUrl}apps/${removePrefix(key)}/remoteEntry.js`,
           },
         };
       },
@@ -292,10 +306,12 @@ function getBase({
   isHost,
   appName,
   isLocal,
+  deploymentRelativeUrl,
 }: {
   isHost: boolean;
   appName: string;
   isLocal: boolean;
+  deploymentRelativeUrl: string;
 }) {
   if (isLocal) {
     return "/";
@@ -307,7 +323,9 @@ function getBase({
    */
   const name = compose(removeScope, removePrefix)(appName);
 
-  return isHost ? "/v2/" : `/v2/apps/${name}/`;
+  return isHost
+    ? deploymentRelativeUrl
+    : `${deploymentRelativeUrl}apps/${name}/`;
 }
 
 function removeScope(name: string) {

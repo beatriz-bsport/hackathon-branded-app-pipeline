@@ -644,8 +644,6 @@ export const getFormattedQueryParamsFromContext = memoize(
     memberSelectedCategories: number[],
   ): CommunicationContextQueryParams => {
     switch (communicationIdentifier) {
-      case CONTEXT_MEMBER:
-        return { id__in: [communicationObjectId] };
       case CONTEXT_OFFER:
         return {
           offer_with_selected_categories: `${communicationObjectId}::${formatNumberListIntoString(

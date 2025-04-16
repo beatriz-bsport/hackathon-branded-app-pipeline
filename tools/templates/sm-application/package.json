@@ -14,6 +14,7 @@
     "format:check": "prettier --check '**/*.{ts,tsx,js,jsx,cjs,mjs}'",
     "lint": "eslint .",
     "preview": "vite preview --mode preview",
+    "project:init": "node scripts/init.mjs",
     "translation:update": "pnpm run -w translation:update"
   },
   "dependencies": {

@@ -7,7 +7,7 @@ const AppRoutes = () => {
   return (
     <Routes>
       <Route element={<MemberListPage />} index />
-      <Route element={<ArchivedMemberListPage />} path="archived" />
+      <Route element={<ArchivedMemberListPage />} path="/archived" />
     </Routes>
   );
 };

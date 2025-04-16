@@ -8,6 +8,7 @@ import {
 import {
   Button,
   Chip,
+  type GenericTableColumn,
   ListLayout,
   Loader,
   Menu,
@@ -15,7 +16,6 @@ import {
   Table,
   Tooltip,
 } from "@bsport/kaizen-primitive-core";
-import type { Column } from "@bsport/kaizen-primitive-core/dist/components/Table/Table";
 import {
   type Invoice,
   fetchInvoicesAction,
@@ -101,7 +101,7 @@ export const InvoiceListPage = () => {
     }
   }, []);
 
-  const columns: Column<TableDataRow>[] = useMemo(
+  const columns: GenericTableColumn<TableDataRow>[] = useMemo(
     () => [
       {
         id: "uuid",

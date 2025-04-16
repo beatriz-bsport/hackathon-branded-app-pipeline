@@ -1,4 +1,4 @@
-import { StrictMode } from "react";
+import { StrictMode, lazy } from "react";
 import { createRoot } from "react-dom/client";
 
 import "@bsport/kaizen-primitive-core/styles";
@@ -12,7 +12,12 @@ const basename = __GROUP_ACTIVITY__.__BASENAME__;
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <AppWrapper basename={basename}>
+    <AppWrapper
+      basename={basename}
+      NavigationApp={lazy(
+        () => import("sm-navigation-sidebar/NavigationSidebar"),
+      )}
+    >
       <App />
     </AppWrapper>
   </StrictMode>,

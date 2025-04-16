@@ -6,9 +6,7 @@
  * */
 import type { Dispatch, SetStateAction } from "react";
 
-import { fetchWithAuth, getAuthToken } from "@bsport/sm-backbone";
-
-import { xhr } from "#src/utils/fetch";
+import { fetch, xhr } from "#src/utils/fetch";
 
 const API_URI = "api/v1";
 
@@ -53,11 +51,10 @@ export async function getGiftcardList({
   try {
     // TODO : Add pagination on the backend
     console.log("Should paginate with : ", { currentPage, rowsPerPage });
-    const { data } = await fetchWithAuth(
+    const { data } = await fetch<Giftcard[]>(
       `${API_URI}/giftcard/giftcard?disabled=false`,
     );
     // TODO : Retrieve paginated response instead of just response
-    // @ts-expect-error data must be typed Giftcard[]
     setGiftcardList(data);
     setTotalItems(data.length);
   } catch (error) {
@@ -82,11 +79,10 @@ export async function getGiftcardArchivedList({
   try {
     // TODO : Add pagination on the backend
     console.log("Should paginate with : ", { currentPage, rowsPerPage });
-    const { data } = await fetchWithAuth(
+    const { data } = await fetch<Giftcard[]>(
       `${API_URI}/giftcard/giftcard?disabled=true`,
     );
     // TODO : Retrieve paginated response instead of just response
-    // @ts-expect-error data must be typed Giftcard[]
     setGiftcardList(data);
     setTotalItems(data.length);
   } catch (error) {
@@ -99,7 +95,7 @@ export async function getGiftcardArchivedList({
  */
 export async function restoreGiftcard({ giftcardId }: { giftcardId: number }) {
   try {
-    const { data } = await fetchWithAuth(
+    const { data } = await fetch(
       `${API_URI}/giftcard/giftcard/${giftcardId}/restore/`,
       {
         method: "POST",
@@ -116,12 +112,9 @@ export async function restoreGiftcard({ giftcardId }: { giftcardId: number }) {
  */
 export async function archiveGiftcard({ giftcardId }: { giftcardId: number }) {
   try {
-    const { data } = await fetchWithAuth(
-      `${API_URI}/giftcard/giftcard/${giftcardId}`,
-      {
-        method: "DELETE",
-      },
-    );
+    const { data } = await fetch(`${API_URI}/giftcard/giftcard/${giftcardId}`, {
+      method: "DELETE",
+    });
     return data;
   } catch (error) {
     console.error(error);
@@ -137,13 +130,12 @@ export async function duplicateGiftcard({
   giftcardId: number;
 }): Promise<Giftcard | void> {
   try {
-    const { data } = await fetchWithAuth(
+    const { data } = await fetch<Giftcard>(
       `${API_URI}/giftcard/giftcard/${giftcardId}/copy/`,
       {
         method: "POST",
       },
     );
-    // @ts-expect-error data should be typed with Giftcard
     return data;
   } catch (error) {
     console.error(error);
@@ -161,8 +153,7 @@ export async function getCompanyTheme({
   setTheme: Dispatch<SetStateAction<{ cover: string }>>;
 }) {
   try {
-    const { data } = await fetchWithAuth("api/v1/company/theme/me/");
-    // @ts-expect-error data should be typed with theme
+    const { data } = await fetch<{ cover: string }>("api/v1/company/theme/me/");
     setTheme(data);
   } catch (error) {
     console.error(error);
@@ -187,11 +178,10 @@ export async function getGiftcardImageList({
     // TODO : Add pagination on the backend
     console.log("Should paginate with : ", { currentPage, rowsPerPage });
     // TODO : Filter bg image with company directly in the backend
-    const { data } = await fetchWithAuth(
+    const { data } = await fetch<GiftcardImage[]>(
       `${API_URI}/giftcard/giftcard_background_image?company=2`,
     );
     // Retrieve paginated response instead of just response
-    // @ts-expect-error data should be typed with GiftcardImage[]
     setItemList(data);
     setTotalItems(data.length);
   } catch (error) {
@@ -215,12 +205,10 @@ export async function uploadGiftcardImage({
   { status: "success" | "abort" } | { status: "error"; error_code: number }
 > {
   try {
-    const token = getAuthToken();
     const formData = new FormData();
     formData.append("image", file);
 
     await xhr(`${API_URI}/giftcard/giftcard_background_image/`, {
-      headers: { Authorization: `Token ${token}` },
       method: "POST",
       formData: formData,
       onUploadProgress: onUploadProgress,
@@ -246,7 +234,7 @@ export async function uploadGiftcardImage({
  */
 export async function archiveGiftcardImage({ id }: { id: number }) {
   try {
-    await fetchWithAuth(`${API_URI}/giftcard/giftcard_background_image/${id}`, {
+    await fetch(`${API_URI}/giftcard/giftcard_background_image/${id}`, {
       method: "DELETE",
     });
   } catch (error) {
@@ -257,12 +245,9 @@ export async function archiveGiftcardImage({ id }: { id: number }) {
 export async function restoreGiftcardImage({ id }: { id: number }) {
   try {
     // TODO : Implement the endpoint
-    await fetchWithAuth(
-      `${API_URI}/giftcard/giftcard_background_image/restore/${id}`,
-      {
-        method: "POST",
-      },
-    );
+    await fetch(`${API_URI}/giftcard/giftcard_background_image/restore/${id}`, {
+      method: "POST",
+    });
   } catch (error) {
     console.error(error);
   }

@@ -8,7 +8,7 @@ import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 import routerParamsToProps from '#src/hocs/router-params-to-props.hoc';
 import { retrieveCompanyCssConfiguration as retrieveCompanyCssConfigurationAction } from '#src/libs/exportable-components/actions';
 import WithCustomCssProvider from '#src/hocs/company-custom-css.hoc';
-import { snackbarError } from '#src/libs/snackbar/actions';
+import { snackbarError as snackbarErrorAction } from '#src/libs/snackbar/actions';
 import themeSelectors from '#src/libs/theme/selectors';
 import type { RootState } from '#src/reducers';
 import { Redirect } from 'react-router-dom';
@@ -51,6 +51,7 @@ import { useBasketPaymentStatusTracker } from '#src/libs/payment/payment-module-
 import { getItemInStorage } from '#src/utils/storage';
 import { STORAGE_KEY_LIGHT_SIGNUP_MEMBER_ID } from '#src/actions/constants';
 import { getAuthToken } from '#src/http';
+import ALL_ERROR_CODES from '@bsport/common/lib/master-data/error-codes/buyable-item-can-not-be-bought';
 import './index.css';
 
 type OwnProps = {
@@ -93,6 +94,7 @@ const OneClickBookingModule: React.FC<Props> = ({
   theme,
   retrieveCompanyCssConfiguration,
   replace,
+  snackbarError,
 }) => {
   const paymentRef = useRef(null);
 
@@ -141,6 +143,9 @@ const OneClickBookingModule: React.FC<Props> = ({
 
   const { basket, userRegistrationResponse } = userRegistrationValues ?? {};
 
+  const buyableItemErrorCode =
+    userRegistrationResponse?.buyable_item_error_code;
+
   const { t } = useTranslation('booking');
 
   const canPerformLightSignUpCreate =
@@ -182,6 +187,16 @@ const OneClickBookingModule: React.FC<Props> = ({
       snackbarError('booking.fetch.error');
     }
   }, [offerState.error, bookingState.error]);
+
+  useEffect(() => {
+    if (buyableItemErrorCode) {
+      if (ALL_ERROR_CODES.includes(buyableItemErrorCode)) {
+        snackbarError(`canNotBuyErrorCode.${buyableItemErrorCode}`);
+      } else {
+        snackbarError(`canNotBuyErrorCode.generic`);
+      }
+    }
+  }, [buyableItemErrorCode]);
 
   const offer = offerState.value?.offer;
   const metaActivity = offerState.value?.metaActivity;
@@ -602,7 +617,7 @@ const connector = connect(
     theme: themeSelectors.getTheme(state),
   }),
   {
-    snackbarError,
+    snackbarError: snackbarErrorAction,
     retrieveCompanyCssConfiguration: retrieveCompanyCssConfigurationAction,
     replace: replaceRouter,
   },

@@ -11317,7 +11317,7 @@
             "billing_plan": "Souscription",
             "franchise_shared_pass": "Utilisations cartes partagées",
             "referral_grant": "Parrainage",
-            "access_monitoring": "Surveillance des accès"
+            "access_monitoring": "Access Monitoring"
         },
         "header": {
             "sum": "Somme",
@@ -12253,7 +12253,7 @@
                             "title": "Localisation",
                             "helpText": "Sélectionnez ici si ce compte staff contrôlera l'entrée des membres devant une salle spécifique, un groupe de salle ou une localisation entière (dans ce cas, laissez le sélecteur de salle vide après la sélection de la localisation)"
                         },
-                        "title": "Surveillance des accès"
+                        "title": "Access monitoring"
                     },
                     "teacher": {
                         "ifEmptySelectAll": "Laisser vide pout tout sélectionner",
@@ -12578,7 +12578,7 @@
                     "perform": {
                         "_label": "Surveiller les accès"
                     },
-                    "_label": "Surveillance des accès",
+                    "_label": "Access monitoring",
                     "settings": {
                         "_label": "Page des paramètres d'accès"
                     },
@@ -13480,7 +13480,7 @@
                         }
                     },
                     "access_monitoring": {
-                        "_label": "Surveillance des accès",
+                        "_label": "Access monitoring",
                         "allowed_actions": {
                             "edit": {
                                 "_label": "Modifier"
@@ -21403,7 +21403,7 @@
             "unreadCount": "{{ count }} nouvelle visite",
             "unreadCount_plural": "{{ count }} nouvelles visites"
         },
-        "accessMonitoringTitle": "Surveillance des accès",
+        "accessMonitoringTitle": "Access monitoring",
         "filters": {
             "entryStatus": {
                 "U": "Inconnu",

@@ -30,16 +30,12 @@ export const ErrorMessage: React.FC<Props> = ({
 }) => {
   const { t } = useTranslation('booking');
 
-  if (
-    !errorCode ||
-    ![
-      OFFER_BOOKABLE_STATUS_CLOSE_TOO_LATE,
-      OFFER_BOOKABLE_STATUS_CLOSE_TOO_SOON,
-      OFFER_BOOKABLE_STATUS_FULL,
-      OFFER_BOOKABLE_STATUS_LOCKED,
-    ].includes(errorCode)
-  )
-    return null;
+  const unhandledError = {
+    title: t('oneClickBooking.bookableStatus.unhandled.title'),
+    description: t(
+      'booking:oneClickBooking.bookableStatus.unhandled.description',
+    ),
+  };
 
   const errorData = {
     [OFFER_BOOKABLE_STATUS_CLOSE_TOO_LATE]: {
@@ -68,6 +64,9 @@ export const ErrorMessage: React.FC<Props> = ({
     },
   };
 
+  const currentError =
+    errorData?.[errorCode as keyof typeof errorData] ?? unhandledError;
+
   return (
     <div className="bs-oneclick-booking-error-message__container">
       <BigIcon variant="error" />
@@ -76,13 +75,13 @@ export const ErrorMessage: React.FC<Props> = ({
           className="bs-oneclick-booking-error-message__text__title"
           variant="title-md"
         >
-          {errorData[errorCode].title}
+          {currentError.title}
         </Typography>
         <Typography
           className="bs-oneclick-booking-error-message__text__description"
           variant="body-md"
         >
-          {errorData[errorCode].description}
+          {currentError.description}
         </Typography>
       </div>
       <Button

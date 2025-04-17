@@ -1,1 +1,1 @@
-export { RoutesWrapper } from "./RoutesWrapper";
+export { RoutesWrapper, type RoutesWrapperProps } from "./RoutesWrapper";

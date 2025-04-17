@@ -1,11 +1,29 @@
-import { describe, it } from "node:test";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 
 import { getConfig } from "../config.js";
-import { expect } from "./test-utils.js";
+
+vi.mock("@module-federation/vite", () => ({
+  federation: vi.fn().mockReturnValue([{ name: "module-federation" }]),
+}));
+vi.mock("@nx/vite/plugins/nx-tsconfig-paths.plugin", () => ({
+  nxViteTsPaths: vi.fn().mockReturnValue({ name: "nx-tsconfig-paths" }),
+}));
+vi.mock("@vitejs/plugin-react-swc", () => ({
+  default: vi.fn().mockReturnValue({ name: "vite:react-swc" }),
+}));
+vi.mock("vite-plugin-restart", () => ({
+  default: vi.fn().mockReturnValue({ name: "vite-plugin-restart" }),
+}));
+vi.mock("vite-plugin-svgr", () => ({
+  default: vi.fn().mockReturnValue({ name: "vite-plugin-svgr" }),
+}));
+vi.mock("vite-plugin-top-level-await", () => ({
+  default: vi.fn().mockReturnValue({ name: "vite-plugin-top-level-await" }),
+}));
 
 type ConfigInput = Parameters<typeof getConfig>[0];
 
-describe("getConfig", async () => {
+describe("getConfig", () => {
   const mockRemotes = { "sm-remote-app": { devPort: 4001 } };
 
   const mockPackageJson: ConfigInput["packageJson"] = {
@@ -28,6 +46,7 @@ describe("getConfig", async () => {
   } = {}): ConfigInput => ({
     appType: "hosts",
     mode: "development",
+    rootDir: "/test/root",
     packageJson: {
       ...mockPackageJson,
       federation: federationConfig
@@ -37,7 +56,11 @@ describe("getConfig", async () => {
     ...overrides,
   });
 
-  await it("validates port ranges correctly", () => {
+  beforeEach(() => {
+    vi.resetAllMocks();
+  });
+
+  it("validates port ranges correctly", () => {
     // Valid port for hosts
     const regularValidConfig = createConfig();
     expect(() => getConfig(regularValidConfig)).not.toThrow();
@@ -51,7 +74,7 @@ describe("getConfig", async () => {
     );
   });
 
-  await it("generates correct base URLs", () => {
+  it("generates correct base URLs", () => {
     // Development mode, host app
     const devHostConfig = getConfig(
       createConfig({
@@ -73,21 +96,25 @@ describe("getConfig", async () => {
     const prodRemoteConfig = getConfig(
       createConfig({
         mode: "production",
+        appType: "shared", // Something different than hosts
+        federationConfig: { devPort: 4050 },
       }),
     );
     expect(prodRemoteConfig.base).toBe("/v2/apps/navigation-sidebar/");
   });
 
-  await it("generates correct federation config", () => {
-    const config = getConfig(createConfig());
+  it("generates correct federation config", async () => {
+    getConfig(createConfig());
 
-    expect(config.federation).toEqual({
+    const { federation } = await import("@module-federation/vite");
+
+    expect(federation).toHaveBeenCalledTimes(1);
+    expect(federation).toHaveBeenCalledWith({
       name: "sm-navigation-sidebar",
       filename: "remoteEntry.js",
       manifest: {
         fileName: "mf-manifest.json",
       },
-      exposes: undefined,
       shared: {
         react: {
           singleton: true,
@@ -111,19 +138,22 @@ describe("getConfig", async () => {
     });
   });
 
-  await it("correctly handles pathsToWatch from remotes", () => {
+  it("correctly handles pathsToWatch from remotes", async () => {
     // Test with no watchPath in remotes
-    const configNoWatch = getConfig(
+    getConfig(
       createConfig({
         federationConfig: {
           remotes: mockRemotes,
         },
       }),
     );
-    expect(configNoWatch.pathsToWatch).toEqual([]);
+    const { default: restart } = await import("vite-plugin-restart");
+    expect(restart).toHaveBeenCalledWith({
+      restart: [],
+    });
 
     // Test with watchPath in remotes
-    const configWithWatch = getConfig(
+    getConfig(
       createConfig({
         federationConfig: {
           remotes: {
@@ -139,13 +169,12 @@ describe("getConfig", async () => {
         },
       }),
     );
-    expect(configWithWatch.pathsToWatch).toEqual([
-      "../remote-app",
-      "../another-app",
-    ]);
+    expect(restart).toHaveBeenCalledWith({
+      restart: ["../remote-app", "../another-app"],
+    });
 
     // Test with mixed remotes (some with watchPath, some without)
-    const configMixed = getConfig(
+    getConfig(
       createConfig({
         federationConfig: {
           remotes: {
@@ -158,10 +187,12 @@ describe("getConfig", async () => {
         },
       }),
     );
-    expect(configMixed.pathsToWatch).toEqual(["../remote-app"]);
+    expect(restart).toHaveBeenCalledWith({
+      restart: ["../remote-app"],
+    });
   });
 
-  await it("handles exposes configuration correctly", () => {
+  it("handles exposes configuration correctly", () => {
     const configWithExposes = getConfig(
       createConfig({
         federationConfig: {
@@ -173,25 +204,26 @@ describe("getConfig", async () => {
       }),
     );
 
-    expect(configWithExposes.federation.exposes).toEqual({
+    expect(configWithExposes.federation?.exposes).toEqual({
       "./App": "./src/App.tsx",
       "./Button": "./src/components/Button.tsx",
     });
 
     // Test without exposes configuration
     const configWithoutExposes = getConfig(createConfig());
-    expect(configWithoutExposes.federation.exposes).toBe(undefined);
+    expect(configWithoutExposes.federation?.exposes).toBe(undefined);
   });
 
-  await it("generates correct i18n URL and namespace prefix", () => {
+  it("generates define variables", () => {
     // Development mode
     const devConfig = getConfig(createConfig());
-    expect(devConfig.define["import.meta.env.VITE_APPLICATION_BASE_URL"]).toBe(
-      JSON.stringify("http://localhost:4000"),
+    const variables = JSON.parse(devConfig.define["__NAVIGATION_SIDEBAR__"]);
+
+    expect(variables["__APPLICATION_BASE_URL__"]).toBe("http://localhost:4000");
+    expect(variables["__I18N_NAMESPACE_PREFIX__"]).toBe(
+      "sm-navigation-sidebar",
     );
-    expect(devConfig.define["import.meta.env.VITE_I18N_NAMESPACE_PREFIX"]).toBe(
-      JSON.stringify("sm-navigation-sidebar"),
-    );
+    expect(variables["__BASENAME__"]).toBe("");
 
     // Preview mode
     const previewConfig = getConfig(
@@ -199,12 +231,17 @@ describe("getConfig", async () => {
         mode: "preview",
       }),
     );
-    expect(
-      previewConfig.define["import.meta.env.VITE_APPLICATION_BASE_URL"],
-    ).toBe(JSON.stringify("http://localhost:4000"));
-    expect(
-      previewConfig.define["import.meta.env.VITE_I18N_NAMESPACE_PREFIX"],
-    ).toBe(JSON.stringify("sm-navigation-sidebar"));
+    const previewVariables = JSON.parse(
+      previewConfig.define["__NAVIGATION_SIDEBAR__"],
+    );
+
+    expect(previewVariables["__APPLICATION_BASE_URL__"]).toBe(
+      "http://localhost:4000",
+    );
+    expect(previewVariables["__I18N_NAMESPACE_PREFIX__"]).toBe(
+      "sm-navigation-sidebar",
+    );
+    expect(previewVariables["__BASENAME__"]).toBe("");
 
     // Production mode
     const prodConfig = getConfig(
@@ -213,15 +250,18 @@ describe("getConfig", async () => {
         federationConfig: { remotes: mockRemotes },
       }),
     );
-    expect(prodConfig.define["import.meta.env.VITE_APPLICATION_BASE_URL"]).toBe(
-      JSON.stringify("/v2"),
+    const prodVariables = JSON.parse(
+      prodConfig.define["__NAVIGATION_SIDEBAR__"],
     );
-    expect(
-      prodConfig.define["import.meta.env.VITE_I18N_NAMESPACE_PREFIX"],
-    ).toBe(JSON.stringify("sm-navigation-sidebar"));
+
+    expect(prodVariables["__APPLICATION_BASE_URL__"]).toBe("/v2");
+    expect(prodVariables["__I18N_NAMESPACE_PREFIX__"]).toBe(
+      "sm-navigation-sidebar",
+    );
+    expect(prodVariables["__BASENAME__"]).toBe("/v2/");
   });
 
-  await it("generates correct remotes configuration", () => {
+  it("generates correct remotes configuration", () => {
     const mockPackageJsonWithRemotes = {
       ...mockPackageJson,
       federation: {
@@ -236,7 +276,7 @@ describe("getConfig", async () => {
         packageJson: mockPackageJsonWithRemotes,
       }),
     );
-    expect(devConfig.federation.remotes).toEqual({
+    expect(devConfig.federation?.remotes).toEqual({
       "sm-remote-app": {
         name: "sm-remote-app",
         type: "module",
@@ -251,12 +291,58 @@ describe("getConfig", async () => {
         packageJson: mockPackageJsonWithRemotes,
       }),
     );
-    expect(prodConfig.federation.remotes).toEqual({
+    expect(prodConfig.federation?.remotes).toEqual({
       "sm-remote-app": {
         name: "sm-remote-app",
         type: "module",
         entry: "/v2/apps/remote-app/remoteEntry.js",
       },
     });
+  });
+
+  it("generates correct build configuration", () => {
+    const config = getConfig(createConfig());
+
+    expect(config.build).toEqual({
+      cssCodeSplit: false,
+      emptyOutDir: true,
+    });
+  });
+
+  it("generates correct resolve alias configuration", () => {
+    const config = getConfig(createConfig());
+
+    expect(config.resolve).toEqual({
+      alias: {
+        "#src": "/test/root/src",
+      },
+    });
+  });
+
+  it("configures all required plugins correctly", async () => {
+    const config = getConfig(createConfig());
+
+    // Import all mocked plugins
+    const { nxViteTsPaths } = await import(
+      "@nx/vite/plugins/nx-tsconfig-paths.plugin"
+    );
+    const { default: svgr } = await import("vite-plugin-svgr");
+    const { default: react } = await import("@vitejs/plugin-react-swc");
+    const { federation } = await import("@module-federation/vite");
+    const { default: topLevelAwait } = await import(
+      "vite-plugin-top-level-await"
+    );
+    const { default: restart } = await import("vite-plugin-restart");
+
+    // Verify all plugins are present
+    expect(config.plugins).toHaveLength(6);
+
+    // Verify each plugin is called once
+    expect(nxViteTsPaths).toHaveBeenCalledOnce();
+    expect(svgr).toHaveBeenCalledOnce();
+    expect(react).toHaveBeenCalledOnce();
+    expect(federation).toHaveBeenCalledOnce();
+    expect(topLevelAwait).toHaveBeenCalledOnce();
+    expect(restart).toHaveBeenCalledOnce();
   });
 });

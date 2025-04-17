@@ -19,13 +19,13 @@ import { setMembers, updateIrregularities, updateMember } from "./store";
  */
 export const fetchMembersAction: Action<
   Parameters<typeof fetchMembersAPI>[0],
-  Result<PaginatedResponse<Member>, Error>
+  PaginatedResponse<Member>
 > = async (fetch, params) => {
   const [uri, init] = fetchMembersAPI(params);
 
   return Result.try(
     async () => {
-      const { data } = await fetch<PaginatedResponse<Member>>(uri, init);
+      const { data } = await fetch(uri, init);
 
       setMembers({
         members: data.results,
@@ -43,17 +43,19 @@ export const fetchMembersAction: Action<
  * Archive an active member
  * @param memberId Id of the member to archive
  */
-export const archiveMemberAction: Action<
-  { memberId: number },
-  Result<void, Error>
-> = async (fetch, params) => {
+export const archiveMemberAction: Action<{ memberId: number }, Member> = async (
+  fetch,
+  params,
+) => {
   const [uri, init] = archiveMemberAPI(params);
 
   return Result.try(
     async () => {
-      const { data } = await fetch<Member>(uri, init);
+      const { data } = await fetch(uri, init);
 
       updateMember(data);
+
+      return data;
     },
     (error) =>
       new Error(`Failed to archive member n°${params.memberId}`, {
@@ -66,17 +68,19 @@ export const archiveMemberAction: Action<
  * Restore an archived member
  * @param memberId Id of the member to restore
  */
-export const restoreMemberAction: Action<
-  { memberId: number },
-  Result<void, Error>
-> = async (fetch, params) => {
+export const restoreMemberAction: Action<{ memberId: number }, Member> = async (
+  fetch,
+  params,
+) => {
   const [uri, init] = restoreMemberAPI(params);
 
   return Result.try(
     async () => {
-      const { data } = await fetch<Member>(uri, init);
+      const { data } = await fetch(uri, init);
 
       updateMember(data);
+
+      return data;
     },
     (error) =>
       new Error(`Failed to restore member n°${params.memberId}`, {
@@ -92,13 +96,13 @@ export const restoreMemberAction: Action<
  */
 export const interrogateMemberRegularityAction: Action<
   { memberId: number },
-  Result<number[], Error>
+  number[]
 > = async (fetch, params) => {
   const [uri, init] = interrogateMemberRegularityAPI(params);
 
   return Result.try(
     async () => {
-      const { data } = await fetch<number[]>(uri, init);
+      const { data } = await fetch(uri, init);
 
       updateIrregularities(data);
 

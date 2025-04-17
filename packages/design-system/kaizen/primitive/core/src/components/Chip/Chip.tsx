@@ -1,6 +1,5 @@
 import { type VariantProps, cva } from "class-variance-authority";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
-import { SetRequired } from "type-fest";
 
 import Icon, { IconName } from "#src/components/Icon";
 
@@ -10,9 +9,9 @@ const chip = cva(defaultClasses, {
   variants,
 });
 
-type VariantChipsProps = SetRequired<
-  Omit<VariantProps<typeof chip>, "type" | "colorByType">,
-  "size"
+type VariantChipsProps = Omit<
+  VariantProps<typeof chip>,
+  "type" | "colorByType"
 >;
 
 export type ChipProps = React.HTMLAttributes<HTMLDivElement> &

@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "jsx": "react-jsx",
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "outDir": "",
+    "allowSyntheticDefaultImports": true,
+    "allowJs": true,
+    "declaration": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "isolatedModules": true,
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "composite": true
+  },
+  "files": [
+    "../../../../../node_modules/@nx/react/typings/styled-jsx.d.ts",
+    "../../../../../node_modules/@nx/react/typings/cssmodule.d.ts",
+    "../../../../../node_modules/@nx/react/typings/image.d.ts"
+  ],
+  "include": ["src/**/*.stories.{ts,jsx,js,tsx,mdx}", ".storybook/*.{js,ts}"]
+}

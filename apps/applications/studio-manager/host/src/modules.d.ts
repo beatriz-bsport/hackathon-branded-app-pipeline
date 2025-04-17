@@ -1,0 +1,34 @@
+interface BaseApp {
+  App: React.VFC;
+  NavigationSidebar: React.VFC;
+}
+
+// ----- Common -----
+declare module "sm-navigation-sidebar/NavigationSidebar" {
+  const NavigationSidebar: BaseApp["NavigationSidebar"];
+  export default NavigationSidebar;
+}
+
+// ----- Booking -----
+declare module "sm-group-activity/App" {
+  const App: BaseApp["App"];
+  export default App;
+}
+
+// ----- Buyables -----
+declare module "sm-giftcard/App" {
+  const App: BaseApp["App"];
+  export default App;
+}
+
+// ----- Core-data -----
+declare module "sm-member-list/App" {
+  const App: BaseApp["App"];
+  export default App;
+}
+
+// ----- Financial Services -----
+declare module "sm-invoice/App" {
+  const App: BaseApp["App"];
+  export default App;
+}

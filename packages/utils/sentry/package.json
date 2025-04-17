@@ -33,6 +33,6 @@
     "@sentry/react": "^7.26.0"
   },
   "devDependencies": {
-    "@bsport/eslint-config-react": "workspace:*"
+    "@bsport/config-eslint-react": "workspace:*"
   }
 }

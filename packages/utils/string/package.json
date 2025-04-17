@@ -17,6 +17,6 @@
     "lint:fix": "eslint --fix ."
   },
   "dependencies": {
-    "@bsport/eslint-config-react": "workspace:*"
+    "@bsport/config-eslint-react": "workspace:*"
   }
 }

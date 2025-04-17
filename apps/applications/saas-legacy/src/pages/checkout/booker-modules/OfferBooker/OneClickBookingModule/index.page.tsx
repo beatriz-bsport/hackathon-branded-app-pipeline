@@ -53,6 +53,11 @@ import { STORAGE_KEY_LIGHT_SIGNUP_MEMBER_ID } from '#src/actions/constants';
 import { getAuthToken } from '#src/http';
 import ALL_ERROR_CODES from '@bsport/common/lib/master-data/error-codes/buyable-item-can-not-be-bought';
 import './index.css';
+import { PHONE_NUMBER_IN_USE } from './constants';
+import {
+  COACH_EDIT_EMAIL_ADDRESS_IS_STAFF_USER,
+  COACH_EMAIL_ADDRESS_EXISTS,
+} from '@bsport/common/lib/master-data/error-codes/associated-coach';
 
 type OwnProps = {
   companyId: number;
@@ -96,6 +101,8 @@ const OneClickBookingModule: React.FC<Props> = ({
   replace,
   snackbarError,
 }) => {
+  const { t } = useTranslation('booking');
+
   const paymentRef = useRef(null);
 
   const DEBOUNCE_CALLBACK_DELAY = 1000;
@@ -105,6 +112,8 @@ const OneClickBookingModule: React.FC<Props> = ({
     validateForm: validateLightSignupForm,
     isValid,
   } = useFormikContext<LightSignupFormValues>();
+
+  const { setFieldError } = useFormikContext();
 
   const getIsFormInvalid = useCallback(async () => {
     const formErrors = await validateLightSignupForm();
@@ -126,11 +135,58 @@ const OneClickBookingModule: React.FC<Props> = ({
   const [offerState, fetchOffer] = useFetchOfferInformation();
   const {
     lightSignupCreate: [
-      { loading: lightSignupCreateLoading, value: createdMember },
+      {
+        loading: lightSignupCreateLoading,
+        value: createdMember,
+        error: lightSignupCreateError,
+      },
       lightSignupCreate,
     ],
     lightSignUpUpdate: [{ value: updatedMember }, lightSignUpUpdate],
   } = useLightSignUp();
+
+  const getLighSignUpCustomErrors = useCallback(
+    (errorCode?: number) => {
+      const customFieldErrors = {
+        [PHONE_NUMBER_IN_USE]: {
+          fieldName: 'phone',
+          message: t('lightSignup.form.errors.phoneTaken'),
+        },
+        [COACH_EDIT_EMAIL_ADDRESS_IS_STAFF_USER]: {
+          fieldName: 'email',
+          message: t('lightSignup.form.errors.emailTaken'),
+        },
+        [COACH_EMAIL_ADDRESS_EXISTS]: {
+          fieldName: 'email',
+          message: t('lightSignup.form.errors.emailTaken'),
+        },
+      };
+
+      if (
+        errorCode &&
+        [
+          PHONE_NUMBER_IN_USE,
+          COACH_EDIT_EMAIL_ADDRESS_IS_STAFF_USER,
+          COACH_EMAIL_ADDRESS_EXISTS,
+        ].includes(errorCode)
+      ) {
+        setFieldError(
+          customFieldErrors[errorCode].fieldName,
+          customFieldErrors[errorCode].message,
+        );
+      }
+    },
+    [setFieldError, t],
+  );
+
+  useEffect(
+    () =>
+      getLighSignUpCustomErrors(
+        lightSignupCreateError?.response?.data?.error_code,
+      ),
+    [lightSignupCreateError?.response?.data?.error_code],
+  );
+
   const {
     bookInOneClick: [bookingState, bookInOneClick],
     onBookingSuccess,
@@ -145,8 +201,6 @@ const OneClickBookingModule: React.FC<Props> = ({
 
   const buyableItemErrorCode =
     userRegistrationResponse?.buyable_item_error_code;
-
-  const { t } = useTranslation('booking');
 
   const canPerformLightSignUpCreate =
     !memberId && isTokenNull && !lightSignupCreateLoading;

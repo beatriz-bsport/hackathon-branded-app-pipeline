@@ -37,9 +37,13 @@ const API_V1_URI_MEMBER_EXPERIENCE =
   Config.REACT_APP_BASE_URI_MEMBER_EXPERIENCE_V1;
 
 export const sendCommunication = async (data: MessageParams) => {
+  const params = {
+    ...data,
+    isHotfixCompatible: true,
+  };
   return postAuthDeprecated(
     `${API_V1_URI}/communication/communication_sent/send_communication/`,
-    data,
+    params,
   );
 };
 

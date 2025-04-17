@@ -52,7 +52,7 @@ const translateVoucherReasons = (voucherReasons, t) => {
 };
 
 const InvoiceItem = (props: Props) => {
-  const { onDelete, invoiceItem } = props;
+  const { onDelete, invoiceItem, handleShowPrintableGiftcardDetails } = props;
   const classes = useStyles();
   const { t } = useTranslation(['invoice']);
 

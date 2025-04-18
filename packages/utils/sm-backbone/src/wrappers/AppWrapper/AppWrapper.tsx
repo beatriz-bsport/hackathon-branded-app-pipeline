@@ -44,11 +44,11 @@ const { i18nInstance: kaizenI18nInstance } = instanciateAppI18n({
  * @description
  * ```tsx
  * const NavigationApp = lazy(() => import("sm-navigation-sidebar/NavigationSidebar"));
- * const BASENAME = import.meta.env.BASENAME;
+ * const basename = __YOUR_APP__.__BASENAME__;
  *
  * const StandaloneApp = () => (
  *  <AppWrapper
- *    basename={APP_BASE_URL}
+ *    basename={basename}
  *    NavigationApp={NavigationApp}
  *  >
  *    <App />

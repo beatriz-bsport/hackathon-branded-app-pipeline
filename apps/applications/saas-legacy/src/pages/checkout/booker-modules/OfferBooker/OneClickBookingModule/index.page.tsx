@@ -58,6 +58,7 @@ import {
   COACH_EDIT_EMAIL_ADDRESS_IS_STAFF_USER,
   COACH_EMAIL_ADDRESS_EXISTS,
 } from '@bsport/common/lib/master-data/error-codes/associated-coach';
+import { AxiosError } from 'axios';
 
 type OwnProps = {
   companyId: number;
@@ -162,29 +163,27 @@ const OneClickBookingModule: React.FC<Props> = ({
         },
       };
 
-      if (
-        errorCode &&
-        [
-          PHONE_NUMBER_IN_USE,
-          COACH_EDIT_EMAIL_ADDRESS_IS_STAFF_USER,
-          COACH_EMAIL_ADDRESS_EXISTS,
-        ].includes(errorCode)
-      ) {
-        setFieldError(
-          customFieldErrors[errorCode].fieldName,
-          customFieldErrors[errorCode].message,
-        );
+      if (errorCode && errorCode in customFieldErrors) {
+        const error =
+          customFieldErrors[errorCode as keyof typeof customFieldErrors];
+        setFieldError(error.fieldName, error.message);
       }
     },
     [setFieldError, t],
   );
 
+  const isAxiosError = (error: unknown): error is AxiosError => {
+    return typeof error === 'object' && error !== null && 'response' in error;
+  };
+
   useEffect(
     () =>
       getLighSignUpCustomErrors(
-        lightSignupCreateError?.response?.data?.error_code,
+        isAxiosError(lightSignupCreateError)
+          ? lightSignupCreateError.response?.data?.error_code
+          : undefined,
       ),
-    [lightSignupCreateError?.response?.data?.error_code],
+    [lightSignupCreateError, getLighSignUpCustomErrors],
   );
 
   const {

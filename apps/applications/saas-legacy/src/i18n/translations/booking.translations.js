@@ -684,6 +684,9 @@ const getTranslations = async () => {
           email: 'Please enter a valid email address',
           phone: 'Please enter a valid phone number',
           global: 'An error occurred while signing up',
+          emailTaken:
+            'Email already exits, you can try logging in with this email',
+          phoneTaken: 'This phone number is already used by another member',
         },
       },
     },

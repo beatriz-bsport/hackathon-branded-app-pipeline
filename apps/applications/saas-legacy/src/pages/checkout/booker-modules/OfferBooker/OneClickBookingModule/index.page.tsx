@@ -8,7 +8,7 @@ import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 import routerParamsToProps from '#src/hocs/router-params-to-props.hoc';
 import { retrieveCompanyCssConfiguration as retrieveCompanyCssConfigurationAction } from '#src/libs/exportable-components/actions';
 import WithCustomCssProvider from '#src/hocs/company-custom-css.hoc';
-import { snackbarError } from '#src/libs/snackbar/actions';
+import { snackbarError as snackbarErrorAction } from '#src/libs/snackbar/actions';
 import themeSelectors from '#src/libs/theme/selectors';
 import type { RootState } from '#src/reducers';
 import { Redirect } from 'react-router-dom';
@@ -51,7 +51,14 @@ import { useBasketPaymentStatusTracker } from '#src/libs/payment/payment-module-
 import { getItemInStorage } from '#src/utils/storage';
 import { STORAGE_KEY_LIGHT_SIGNUP_MEMBER_ID } from '#src/actions/constants';
 import { getAuthToken } from '#src/http';
+import ALL_ERROR_CODES from '@bsport/common/lib/master-data/error-codes/buyable-item-can-not-be-bought';
 import './index.css';
+import { PHONE_NUMBER_IN_USE } from './constants';
+import {
+  COACH_EDIT_EMAIL_ADDRESS_IS_STAFF_USER,
+  COACH_EMAIL_ADDRESS_EXISTS,
+} from '@bsport/common/lib/master-data/error-codes/associated-coach';
+import { AxiosError } from 'axios';
 
 type OwnProps = {
   companyId: number;
@@ -93,7 +100,10 @@ const OneClickBookingModule: React.FC<Props> = ({
   theme,
   retrieveCompanyCssConfiguration,
   replace,
+  snackbarError,
 }) => {
+  const { t } = useTranslation('booking');
+
   const paymentRef = useRef(null);
 
   const DEBOUNCE_CALLBACK_DELAY = 1000;
@@ -103,6 +113,8 @@ const OneClickBookingModule: React.FC<Props> = ({
     validateForm: validateLightSignupForm,
     isValid,
   } = useFormikContext<LightSignupFormValues>();
+
+  const { setFieldError } = useFormikContext();
 
   const getIsFormInvalid = useCallback(async () => {
     const formErrors = await validateLightSignupForm();
@@ -124,11 +136,56 @@ const OneClickBookingModule: React.FC<Props> = ({
   const [offerState, fetchOffer] = useFetchOfferInformation();
   const {
     lightSignupCreate: [
-      { loading: lightSignupCreateLoading, value: createdMember },
+      {
+        loading: lightSignupCreateLoading,
+        value: createdMember,
+        error: lightSignupCreateError,
+      },
       lightSignupCreate,
     ],
     lightSignUpUpdate: [{ value: updatedMember }, lightSignUpUpdate],
   } = useLightSignUp();
+
+  const getLighSignUpCustomErrors = useCallback(
+    (errorCode?: number) => {
+      const customFieldErrors = {
+        [PHONE_NUMBER_IN_USE]: {
+          fieldName: 'phone',
+          message: t('lightSignup.form.errors.phoneTaken'),
+        },
+        [COACH_EDIT_EMAIL_ADDRESS_IS_STAFF_USER]: {
+          fieldName: 'email',
+          message: t('lightSignup.form.errors.emailTaken'),
+        },
+        [COACH_EMAIL_ADDRESS_EXISTS]: {
+          fieldName: 'email',
+          message: t('lightSignup.form.errors.emailTaken'),
+        },
+      };
+
+      if (errorCode && errorCode in customFieldErrors) {
+        const error =
+          customFieldErrors[errorCode as keyof typeof customFieldErrors];
+        setFieldError(error.fieldName, error.message);
+      }
+    },
+    [setFieldError, t],
+  );
+
+  const isAxiosError = (error: unknown): error is AxiosError => {
+    return typeof error === 'object' && error !== null && 'response' in error;
+  };
+
+  useEffect(
+    () =>
+      getLighSignUpCustomErrors(
+        isAxiosError(lightSignupCreateError)
+          ? lightSignupCreateError.response?.data?.error_code
+          : undefined,
+      ),
+    [lightSignupCreateError, getLighSignUpCustomErrors],
+  );
+
   const {
     bookInOneClick: [bookingState, bookInOneClick],
     onBookingSuccess,
@@ -141,7 +198,8 @@ const OneClickBookingModule: React.FC<Props> = ({
 
   const { basket, userRegistrationResponse } = userRegistrationValues ?? {};
 
-  const { t } = useTranslation('booking');
+  const buyableItemErrorCode =
+    userRegistrationResponse?.buyable_item_error_code;
 
   const canPerformLightSignUpCreate =
     !memberId && isTokenNull && !lightSignupCreateLoading;
@@ -182,6 +240,16 @@ const OneClickBookingModule: React.FC<Props> = ({
       snackbarError('booking.fetch.error');
     }
   }, [offerState.error, bookingState.error]);
+
+  useEffect(() => {
+    if (buyableItemErrorCode) {
+      if (ALL_ERROR_CODES.includes(buyableItemErrorCode)) {
+        snackbarError(`canNotBuyErrorCode.${buyableItemErrorCode}`);
+      } else {
+        snackbarError(`canNotBuyErrorCode.generic`);
+      }
+    }
+  }, [buyableItemErrorCode]);
 
   const offer = offerState.value?.offer;
   const metaActivity = offerState.value?.metaActivity;
@@ -602,7 +670,7 @@ const connector = connect(
     theme: themeSelectors.getTheme(state),
   }),
   {
-    snackbarError,
+    snackbarError: snackbarErrorAction,
     retrieveCompanyCssConfiguration: retrieveCompanyCssConfigurationAction,
     replace: replaceRouter,
   },

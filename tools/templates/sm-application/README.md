@@ -34,10 +34,6 @@ It should belong to the port range defined in `/tools/config/federation/src/conf
 
 ---
 
-### Cleanup
-
-After the project scaffold, you can remove the `scripts` folder and also remove the `init.mjs` script from the `package.json`.
-
 <!-- @indication Replace "BUSINESS_DOMAIN" and "PRODUCT_UNIT" -->
 
 # BUSINESS_DOMAIN | PRODUCT_UNIT | Studio Manager Application

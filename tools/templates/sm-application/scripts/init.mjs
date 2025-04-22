@@ -1,8 +1,4 @@
 #!/usr/bin/env node
-/**
- * DELETE THIS SCRIPT AFTER EXECUTED ONCE
- */
-// Using ES modules since the project is set to type: "module"
 import fs from "fs";
 import path from "path";
 import process from "process";
@@ -112,6 +108,38 @@ try {
 
   console.log(`Replacement complete! Modified ${replacementCount} files.`);
   console.log(`Replaced __SM_APPLICATION__ with ${constantName}`);
+
+  // Unlink the current script file first
+  fs.unlinkSync(process.argv[1]);
+  console.log("Unlinked current script file.");
+
+  // Check if scripts directory has other files
+  const scriptsDir = path.join(projectRoot, "scripts");
+  try {
+    const remainingFiles = fs.readdirSync(scriptsDir);
+
+    if (remainingFiles.length === 0) {
+      // If no other files exist, delete the scripts directory
+      fs.rmdirSync(scriptsDir);
+      console.log("Deleted empty scripts directory.");
+    } else {
+      console.log(
+        `Scripts directory still contains ${remainingFiles.length} files, not deleting.`,
+      );
+    }
+  } catch (err) {
+    console.error("Error checking scripts directory:", err.message);
+  }
+
+  // delete package.json project:init script
+  const packageJsonPath = path.join(projectRoot, "package.json");
+  const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, "utf8"));
+  delete packageJson.scripts["project:init"];
+  fs.writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2));
+  console.log("Deleted package.json project:init script.");
+
+  console.log("Project initialization complete.");
+  process.exit(0);
 } catch (error) {
   console.error("Error in initialization script:", error);
   process.exit(1);

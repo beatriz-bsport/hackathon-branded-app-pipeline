@@ -674,6 +674,10 @@
                 "full": {
                     "description": "Cette séance vient de se remplir et nous n'avons pas pu finaliser votre réservation. <br> Veuillez consulter le calendrier pour trouver une autre séance disponible.",
                     "title": "Séance complète"
+                },
+                "unhandled": {
+                    "description": "Nous avons rencontré une erreur inattendue. Il ne semble pas possible de réserver cette séance pour le moment.",
+                    "title": "Une erreur inattendue s'est produite"
                 }
             },
             "goToCalendar": "Voir le calendrier",
@@ -689,7 +693,9 @@
                     "global": "Une erreur s'est produite lors de l'inscription",
                     "email": "Veuillez saisir une adresse électronique valide",
                     "requiredField": "Ce champ est obligatoire",
-                    "phone": "Veuillez saisir un numéro de téléphone valide"
+                    "phone": "Veuillez saisir un numéro de téléphone valide",
+                    "phoneTaken": "Ce numéro de téléphone est déjà utilisé par un autre membre.",
+                    "emailTaken": "Cet e-mail existe déjà. Vous pouvez essayer de vous connecter avec cette adresse."
                 },
                 "email": {
                     "label": "Email"

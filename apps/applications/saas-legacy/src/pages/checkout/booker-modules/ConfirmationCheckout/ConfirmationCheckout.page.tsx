@@ -539,6 +539,7 @@ export class ConfirmationCheckout extends React.PureComponent<Props, State> {
                   getOfferWaitListPosition={
                     this.props.getOfferStatusWaitingListPosition
                   }
+                  hideBookForAGuestButton={isFromOneClickCheckout}
                   hideCoach={hideCoach}
                   isLoading={isLoading}
                   offers={sortedOfferList}
@@ -569,6 +570,7 @@ export class ConfirmationCheckout extends React.PureComponent<Props, State> {
                   getOfferWaitListPosition={
                     this.props.getOfferStatusWaitingListPosition
                   }
+                  hideBookForAGuestButton={isFromOneClickCheckout}
                   hideCoach={hideCoach}
                   isLoading={isLoading}
                   offerNotBookableIdWithErrorCodeList={

@@ -4418,6 +4418,9 @@
                     "content3": "Reconnect"
                 },
                 "addReader": "Connect a terminal"
+            },
+            "tse": {
+                "title": "Kassensicherungsverordnung (Germany)"
             }
         },
         "actions": {

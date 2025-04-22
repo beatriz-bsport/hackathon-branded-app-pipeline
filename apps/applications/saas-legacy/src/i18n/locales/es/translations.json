@@ -3957,7 +3957,8 @@
         "paymentEngine": {
             "label": {
                 "0": "Pago manual",
-                "1": "Pago en línea"
+                "1": "Stripe",
+                "2": "Paypal"
             }
         },
         "invoiceType": {
@@ -7631,6 +7632,10 @@
                 "full": {
                     "description": "Esta sesión se acaba de llenar y no hemos podido completar su reserva. <br> Consulte el calendario para encontrar otra sesión disponible.",
                     "title": "Sesión completa"
+                },
+                "unhandled": {
+                    "description": "Nos hemos encontrado con un error inesperado. No parece posible reservar esta sesión por ahora.",
+                    "title": "Ha ocurrido un error inesperado"
                 }
             },
             "goToCalendar": "Ir al calendario",
@@ -7642,7 +7647,9 @@
                     "global": "Se ha producido un error al inscribirse",
                     "phone": "Introduzca un número de teléfono válido",
                     "email": "Introduzca una dirección de email válida",
-                    "requiredField": "Este campo es obligatorio"
+                    "requiredField": "Este campo es obligatorio",
+                    "phoneTaken": "Este número de teléfono ya está siendo utilizado por otro usuario",
+                    "emailTaken": "El correo electrónico ya ha salido, puede intentar iniciar sesión con este correo electrónico"
                 },
                 "button": {
                     "label": "Inscríbete"
@@ -10915,6 +10922,9 @@
             "srcOrDst": {
                 "placeholder": "Selecciona un tipo de mensaje",
                 "title": "Mensajes"
+            },
+            "ariaLabel": {
+                "deleteAllFilters": "Borrar todos los filtros"
             }
         },
         "dialogRecipients": {

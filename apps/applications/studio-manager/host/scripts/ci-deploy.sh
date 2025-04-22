@@ -34,7 +34,7 @@ else
   exit 0
 fi
 
-S3_BUCKET="$S3_BUCKET/v2"
+S3_BUCKET="$S3_BUCKET/studio"
 
 
 # Capture script directory before changing directory
@@ -99,7 +99,7 @@ echo "⏳ Invalidate CloudFront distribution"
 
 # CLOUDFRONT_INVALIDATION_TOKEN is a Gitlab CI/CD variable
 curl --get \
-  --data-urlencode paths='["/v2/*"]' \
+  --data-urlencode paths='["/studio/*"]' \
   --data-urlencode distribution_id=${CLOUDFRONT_ID} \
   --data-urlencode token=${CLOUDFRONT_INVALIDATION_TOKEN} \
   ${CLOUDFRONT_INVALIDATION_LAMBDA_URL}

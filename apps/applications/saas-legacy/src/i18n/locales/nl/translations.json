@@ -2954,7 +2954,7 @@
             "saveEdition": "Wijzigingen opslaan",
             "chooseTime": "Selecteer een tijd",
             "chooseDate": "Selecteer een datum",
-            "inputLabel": "Kies het tijdstip waarop je het bericht wilt plannen."
+            "inputLabel": "Kies het tijdstip waarop je het bericht wilt inplannen."
         },
         "sendNowDialog": {
             "confirm": "Versturen",
@@ -8027,7 +8027,7 @@
                     "email": "Vul een geldig e-mailadres in",
                     "requiredField": "Dit veld is verplicht",
                     "phoneTaken": "Dit telefoonnummer wordt al gebruikt door een ander lid",
-                    "emailTaken": "De e-mail is al afgesloten, u kunt proberen in te loggen met deze e-mail"
+                    "emailTaken": "Het email adres is al in gebruik, u kunt inloggen met dit email adres"
                 },
                 "button": {
                     "label": "Inschrijven"
@@ -15546,7 +15546,7 @@
                     "customDiscountJustification": "Vereist rechtvaardiging voor handmatige kortingen"
                 },
                 "info": "Activeer deze opties om medewerkers te verplichten een reden op te geven bij het handmatig toepassen van een korting of het annuleren/terugbetalen van een factuur.",
-                "title": "Kortingen en terugbetalingen"
+                "title": "Terugbetalingen en Kortingen"
             }
         },
         "section": {

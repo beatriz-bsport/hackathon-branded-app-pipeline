@@ -4046,7 +4046,8 @@
         "paymentEngine": {
             "label": {
                 "0": "Paiement manuel",
-                "1": "Paiement en ligne"
+                "1": "Stripe",
+                "2": "PayPal"
             }
         },
         "paymentMethod": {

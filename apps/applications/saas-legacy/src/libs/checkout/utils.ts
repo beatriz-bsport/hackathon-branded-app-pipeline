@@ -152,6 +152,55 @@ export const getBillingDetailsDefaultValue = (
   };
 };
 
+export const getOneClickCheckoutConfirmationStatus = (
+  isError: boolean,
+  codeError: number,
+  offers: OfferWithSpotInformation[],
+  basket: Basket,
+) => {
+  const checkoutItems =
+    basket?.checkout_items?.filter((checkoutItem) => !!checkoutItem) ?? [];
+
+  const isbasketWithPasses =
+    checkoutItems.filter(
+      (item) =>
+        item.buyable_item_identifier ===
+          BuyableItemOptions.BUYABLE_ITEM_COMBO_ITEM ||
+        item.buyable_item_identifier === BuyableItemOptions.BUYABLE_ITEM_PASS ||
+        item.buyable_item_identifier ===
+          BuyableItemOptions.BUYABLE_ITEM_PRIVATE_PASS,
+    ).length > 0;
+
+  if (isError) {
+    if (!codeError) {
+      return ConfirmationStatus.GENERIC_OFFER_ERROR;
+    }
+    if (!!offers?.length && !!basket) {
+      switch (codeError) {
+        case OFFER_BOOKABLE_STATUS_FULL:
+          return ConfirmationStatus.OFFER_BOOKING_ERROR_WITH_PURCHASE;
+        default:
+          return ConfirmationStatus.OFFER_GENERIC_ERROR_WITH_PURCHASE;
+      }
+    }
+    switch (codeError) {
+      // error raised when auto assigning a spot, check SpotSchedulingAssignmentError
+      case OFFER_BOOKABLE_STATUS_FULL:
+        return ConfirmationStatus.OFFER_ONLY_BOOKING_ERROR;
+      default:
+        return ConfirmationStatus.GENERIC_OFFER_ERROR;
+    }
+  }
+
+  if (!!offers?.length && !!basket) {
+    return ConfirmationStatus.OFFER_AND_PURCHASE_ONE_CLICK_SUCCESS;
+  }
+  if (isbasketWithPasses) {
+    return ConfirmationStatus.PURCHASE_WITH_PASSES_ONE_CLICK_SUCCESS;
+  }
+  return ConfirmationStatus.OFFER_AND_PURCHASE_ONE_CLICK_SUCCESS;
+};
+
 export const getConfirmationStatus = (
   isError: boolean,
   codeError: number,
@@ -238,6 +287,7 @@ export const getConfirmationStatus = (
   if (isBasketOnlyWithGiftcard) {
     return ConfirmationStatus.PURCHASE_WITH_GIFTCARDS_SUCCESS;
   }
+
   return ConfirmationStatus.PURCHASE_ONLY_SUCCESS;
 };
 

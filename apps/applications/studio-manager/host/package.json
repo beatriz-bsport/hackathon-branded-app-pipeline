@@ -8,9 +8,9 @@
   "scripts": {
     "build": "tsc && vite build",
     "build:preview": "vite build --mode preview",
-    "ci:build": "./scripts/ci-build.sh",
+    "ci:build:mfe": "./scripts/ci-build.sh",
     "ci:compile": "tsc",
-    "ci:deploy": "./scripts/ci-deploy.sh",
+    "ci:deploy:mfe": "./scripts/ci-deploy.sh",
     "dev": "./scripts/run-dev-all.sh",
     "dev:single": "vite",
     "format": "prettier --write '**/*.{ts,tsx,js,jsx,cjs,mjs,scss,css,json,md,mdx,html,svg}'",

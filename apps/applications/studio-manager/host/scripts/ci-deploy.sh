@@ -3,7 +3,17 @@
 set -eE
 
 # List of applications to deploy
-APPLICATIONS=$(cat ./scripts/apps.txt)
+# Check if second argument is provided (SM_AFFECTED_PROJECTS)
+if [ -n "$2" ]; then
+  # Use the provided list of affected projects
+  echo "Using provided list of affected projects"
+  # Convert literal \n to actual newlines
+  APPLICATIONS=$(printf "%b" "$2")
+else
+  # Fall back to the fixed list of applications from apps.txt
+  echo "Using fixed list of applications from apps.txt"
+  APPLICATIONS=$(cat ./scripts/apps.txt)
+fi
 
 echo "*"
 echo "⏳ Deploying Studio Manager applications"

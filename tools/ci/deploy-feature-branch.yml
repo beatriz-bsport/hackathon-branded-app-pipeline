@@ -18,7 +18,11 @@
     # Feature branches updates should be compared with dev
     # As feature branches can be used for multiple features that makes no sense to compare
     - echo "🔱 These are the affected projects :"
-    - pnpm exec nx show projects --affected --base=origin/dev --head=HEAD
+    - AFFECTED_PROJECTS=$(pnpm exec nx show projects --affected --base=origin/dev --head=HEAD)
+    - echo "$AFFECTED_PROJECTS"
+    - SM_AFFECTED_PROJECTS=$(echo "$AFFECTED_PROJECTS" | grep -E "^@bsport/sm-" | tr ' ' '\n' || echo "")
+    - echo "🔱 These are the SM affected projects :"
+    - echo "$SM_AFFECTED_PROJECTS"
     - echo "*"
     - echo "Set correct API environment"
     # Extract environment from CI_COMMIT_TAG
@@ -40,6 +44,20 @@
     - echo "⏳ Deploy affected projects builds"
     - pnpm exec nx affected --target=ci:deploy --base=origin/dev --head=HEAD "feature-branch" $FRONTEND_ONLY
     - echo "✅ All affected projets have been deployed"
+    - echo "*"
+    - |
+      if [ -n "$SM_AFFECTED_PROJECTS" ]; then
+        echo "Deploy affected micro frontends"
+        pnpm --filter=@bsport/sm-host ci:build:mfe "$SM_AFFECTED_PROJECTS"
+        echo "✅ All affected micro frontends have been rebuilt"
+        echo "*"
+        echo "Deploy affected micro frontends"
+        pnpm --filter=@bsport/sm-host ci:deploy:mfe "$ENVIRONMENT_FLAG" "$SM_AFFECTED_PROJECTS"
+        echo "✅ All affected micro frontends have been deployed"
+      else
+        echo "No Studio Manager projects affected, skipping micro frontend deployment"
+      fi
+    - echo "*"
 
 Deploy Feature Branch Frontend Only:
   extends: .Deploy Feature Branch Base

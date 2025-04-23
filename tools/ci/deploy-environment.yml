@@ -31,7 +31,11 @@
     - echo "✅ the API environment has been set"
     - echo "*"
     - echo "🔱 These are the affected projects :"
-    - pnpm exec nx show projects --affected --base=$CI_COMMIT_BEFORE_SHA --head=HEAD
+    - AFFECTED_PROJECTS=$(pnpm exec nx show projects --affected --base=$CI_COMMIT_BEFORE_SHA --head=HEAD)
+    - echo "$AFFECTED_PROJECTS"
+    - SM_AFFECTED_PROJECTS=$(echo "$AFFECTED_PROJECTS" | grep -E "^@bsport/sm-" | tr ' ' '\n' || echo "")
+    - echo "🔱 These are the SM affected projects :"
+    - echo "$SM_AFFECTED_PROJECTS"
     - echo "*"
     - echo "⏳ Build affected projects and their dependencies"
     - pnpm exec nx affected --target=ci:build --base=$CI_COMMIT_BEFORE_SHA --head=HEAD $ENV
@@ -40,6 +44,20 @@
     - echo "⏳ Deploy affected projects builds"
     - pnpm exec nx affected --target=ci:deploy --base=$CI_COMMIT_BEFORE_SHA --head=HEAD $ENV
     - echo "✅ All affected projets have been deployed"
+    - echo "*"
+    - |
+      if [ -n "$SM_AFFECTED_PROJECTS" ]; then
+        echo "Deploy affected micro frontends"
+        pnpm --filter=@bsport/sm-host ci:build:mfe "$SM_AFFECTED_PROJECTS"
+        echo "✅ All affected micro frontends have been rebuilt"
+        echo "*"
+        echo "Deploy affected micro frontends"
+        pnpm --filter=@bsport/sm-host ci:deploy:mfe "$ENVIRONMENT_FLAG" "$SM_AFFECTED_PROJECTS"
+        echo "✅ All affected micro frontends have been deployed"
+      else
+        echo "No Studio Manager projects affected, skipping micro frontend deployment"
+      fi
+    - echo "*"
 
 Deploy Dev:
   extends: .Deploy Base

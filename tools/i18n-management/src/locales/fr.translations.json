@@ -30,14 +30,8 @@
     },
     "@bsport/template-sm-application": {
         "namespaceAlpha": {
-            "helloWorld": "Bonjour le monde !"
+            "helloName": "Bonjour {{ name }} !"
         },
-        "namespaceBeta": {
-            "nested": {
-                "item1": "Je suis le premier item !",
-                "item2": "Je suis le second item !"
-            },
-            "goodbye": "Adieu le monde"
-        }
+        "namespaceBeta": {}
     }
 }

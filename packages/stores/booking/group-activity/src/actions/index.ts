@@ -1,6 +1,6 @@
 import { Result } from "typescript-result";
 
-import type { GenericAction, PaginatedResponse } from "@bsport/store-base";
+import type { Action, PaginatedResponse } from "@bsport/store-base";
 
 import {
   type FetchGroupActivitiesParams,
@@ -18,7 +18,7 @@ import {
   updateGroupActivity,
 } from "./store";
 
-export const fetchGroupActivitiesAction: GenericAction<
+export const fetchGroupActivitiesAction: Action<
   FetchGroupActivitiesParams,
   PaginatedResponse<MetaActivity>
 > = async (fetch, params) => {
@@ -26,7 +26,7 @@ export const fetchGroupActivitiesAction: GenericAction<
 
   return Result.try(
     async () => {
-      const { data } = await fetch<PaginatedResponse<MetaActivity>>(uri, init);
+      const { data } = await fetch(uri, init);
 
       setGroupActivities({
         groupActivities: data.results,
@@ -45,7 +45,7 @@ type CanArchiveGroupActivityResponse = {
   offers: number[];
 };
 
-export const checkCanArchiveGroupActivityAction: GenericAction<
+export const checkCanArchiveGroupActivityAction: Action<
   string,
   CanArchiveGroupActivityResponse
 > = async (fetch, groupActivityId) => {
@@ -60,7 +60,7 @@ export const checkCanArchiveGroupActivityAction: GenericAction<
 
   return Result.try(
     async () => {
-      const { data } = await fetch<CanArchiveGroupActivityResponse>(uri, init);
+      const { data } = await fetch(uri, init);
 
       setInterrogate({
         canDestroy: data.can_destroy,
@@ -76,10 +76,10 @@ export const checkCanArchiveGroupActivityAction: GenericAction<
   );
 };
 
-export const archiveGroupActivityAction: GenericAction<
-  string,
-  MetaActivity
-> = async (fetch, groupActivityId) => {
+export const archiveGroupActivityAction: Action<string, MetaActivity> = async (
+  fetch,
+  groupActivityId,
+) => {
   if (!groupActivityId)
     return Result.error(
       new Error("A group activity Id is required to archive."),
@@ -89,7 +89,7 @@ export const archiveGroupActivityAction: GenericAction<
 
   return Result.try(
     async () => {
-      const { data } = await fetch<MetaActivity>(uri, init);
+      const { data } = await fetch(uri, init);
 
       updateGroupActivity(data);
 
@@ -105,7 +105,7 @@ export const archiveGroupActivityAction: GenericAction<
   );
 };
 
-export const unarchiveGroupActivityAction: GenericAction<
+export const unarchiveGroupActivityAction: Action<
   string,
   MetaActivity
 > = async (fetch, groupActivityId) => {
@@ -118,7 +118,7 @@ export const unarchiveGroupActivityAction: GenericAction<
 
   return Result.try(
     async () => {
-      const { data } = await fetch<MetaActivity>(uri, init);
+      const { data } = await fetch(uri, init);
 
       updateGroupActivity(data);
 
@@ -134,7 +134,7 @@ export const unarchiveGroupActivityAction: GenericAction<
   );
 };
 
-export const duplicateGroupActivityAction: GenericAction<
+export const duplicateGroupActivityAction: Action<
   string,
   MetaActivity
 > = async (fetch, groupActivityId) => {
@@ -147,7 +147,7 @@ export const duplicateGroupActivityAction: GenericAction<
 
   return Result.try(
     async () => {
-      const { data } = await fetch<MetaActivity>(uri, init);
+      const { data } = await fetch(uri, init);
 
       updateGroupActivity(data);
 

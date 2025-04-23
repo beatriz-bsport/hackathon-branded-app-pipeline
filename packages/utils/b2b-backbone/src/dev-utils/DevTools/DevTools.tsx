@@ -1,7 +1,6 @@
 import React from "react";
 
 import { Button, Popover, Tooltip } from "@bsport/kaizen-primitive-core";
-import { getAuthToken } from "@bsport/local-storage-auth-token";
 
 import LanguageSelector, {
   type LanguageSelectorProps,
@@ -12,7 +11,6 @@ import ThemeSelector from "./ThemeSelector";
 export type DevToolsProps = LanguageSelectorProps;
 
 const DevTools: React.FC<DevToolsProps> = ({ i18nInstance }) => {
-  const isLogged = !!getAuthToken();
   return (
     <div
       className="fixed left-0 top-0 m-xs flex flex-col gap-xs"
@@ -38,7 +36,7 @@ const DevTools: React.FC<DevToolsProps> = ({ i18nInstance }) => {
             <div className="gap-xs flex flex-col">
               <ThemeSelector />
               <LanguageSelector i18nInstance={i18nInstance} />
-              {isLogged && <Logout />}
+              <Logout />
             </div>
           )}
         </Popover.Content>

@@ -1,5 +1,11 @@
 import { federation } from "@module-federation/vite";
+import { nxViteTsPaths } from "@nx/vite/plugins/nx-tsconfig-paths.plugin";
+import react from "@vitejs/plugin-react-swc";
+import { resolve } from "path";
 import { type PreviewOptions, type ServerOptions, type UserConfig } from "vite";
+import restart from "vite-plugin-restart";
+import svgr from "vite-plugin-svgr";
+import topLevelAwait from "vite-plugin-top-level-await";
 import { z } from "zod";
 
 export const AppTypesEnum = z.enum(
@@ -70,6 +76,14 @@ const ConfigSchema = z
     mode: z.enum(["development", "production", "preview"], {
       description: "Build mode meant to be used with vite's mode",
     }),
+    rootDir: z.string(),
+    deploymentRelativeUrl: z
+      .enum(["/v2/", "/studio/"], {
+        description:
+          "Base URL for the application that matches the path in the S3 bucket",
+      })
+      .optional()
+      .default("/v2/"),
   })
   .refine(
     (data) => {
@@ -85,34 +99,49 @@ const ConfigSchema = z
   );
 
 /**
- * Generates and validates configuration for a federated module
+ * Generates and returns a complete Vite configuration for a federated module
  * @param {Object} config - Configuration object for the module
  * @param {AppTypes} config.appType - Type of the application (hosts, shared, core-data, etc.)
  * @param {string} config.mode - Build mode ('development' or 'preview')
  * @param {Object} config.packageJson - Package.json configuration validated against ConfigSchema
- * @returns {Object} Validated configuration object for the federated module
+ * @param {string} config.rootDir - Root directory of the application
+ * @returns {import('vite').UserConfig} Complete Vite configuration including all necessary plugins and settings
  * @throws {Error} If configuration validation fails
  * @example
+ * // Basic usage
+ * import { defineConfig } from "vite";
+ * import { getConfig } from "@bsport/config-federation";
  * import packageJson from "./package.json";
  *
  * export default defineConfig(({ mode }) => {
- *    const config = getConfig({
- *      appType: "hosts",
- *      mode,
- *      packageJson,
- *    });
- *    return {
- *      base: config.base,
- *      server: config.server,
- *      preview: config.preview,
- *      define: config.define,
- *      plugins: [
- *        nxViteTsPaths(),
- *        svgr(),
- *        react(),
- *        topLevelAwait(),
- *        federation(config.federation),
- *      ],
+ *   return getConfig({
+ *     mode,
+ *     packageJson,
+ *     appType: "hosts",
+ *     rootDir: __dirname,
+ *   });
+ * });
+ *
+ * @example
+ * // Mixing with custom configuration
+ * export default defineConfig(({ mode }) => {
+ *   const federatedConfig = getConfig({
+ *     mode,
+ *     packageJson,
+ *     appType: "hosts",
+ *     rootDir: __dirname,
+ *   });
+ *
+ *   return {
+ *     ...federatedConfig,
+ *     define: {
+ *       ...federatedConfig.define,
+ *       __GLOBAL_VAR__: JSON.stringify(process.env.MY_CUSTOM_ENV),
+ *     },
+ *     build: {
+ *       ...federatedConfig.build,
+ *       minify: mode === "production",
+ *     },
  *   };
  * });
  */
@@ -120,6 +149,8 @@ export const getConfig = (config: {
   appType: AppTypes;
   mode: string;
   packageJson: z.infer<typeof ConfigSchema>["packageJson"];
+  rootDir: string;
+  deploymentBaseUrl?: string;
 }) => {
   const result = ConfigSchema.safeParse(config);
 
@@ -132,30 +163,40 @@ export const getConfig = (config: {
     throw new Error(errorMessage);
   }
 
-  const { packageJson, mode } = result.data;
-  const isHost = !!packageJson.federation.remotes;
+  const { packageJson, mode, deploymentRelativeUrl } = result.data;
+  const isHost = config.appType === "hosts";
   const isLocal = mode === "preview" || mode === "development";
   const { devPort, name: federationName, exposes } = packageJson.federation;
 
-  const base = getBase({ isHost, appName: packageJson.name, isLocal });
+  const base = getBase({
+    appName: packageJson.name,
+    deploymentRelativeUrl,
+    isLocal,
+    isHost,
+  });
 
   /**
    * Why remove the trailing slash?
    * In production the i18n URL already has a slash for building the URL for the locales location
    * so we have to remove it to avoid double slashes
    */
-  const i18nUrl = isLocal ? `http://localhost:${devPort}` : base.slice(0, -1);
+  const appBaseUrl = isLocal
+    ? `http://localhost:${devPort}`
+    : base.slice(0, -1);
 
-  /**
-   * For now we instantiate i18n using env variables
-   * Since we need to locate the i18n files it is related
-   * to the federation config
-   */
+  const namespace = compose(
+    uppercase,
+    replaceHyphens,
+    removeScope,
+    removePrefix,
+  )(packageJson.name);
+
   const define: NonNullable<UserConfig["define"]> = {
-    "import.meta.env.VITE_I18N_NAMESPACE_PREFIX": JSON.stringify(
-      removeScope(packageJson.name),
-    ),
-    "import.meta.env.VITE_APPLICATION_BASE_URL": JSON.stringify(i18nUrl),
+    [`__${namespace}__`]: JSON.stringify({
+      __I18N_NAMESPACE_PREFIX__: removeScope(packageJson.name),
+      __APPLICATION_BASE_URL__: appBaseUrl,
+      __BASENAME__: isLocal ? "" : base,
+    }),
   };
 
   const server: ServerOptions = {
@@ -166,7 +207,35 @@ export const getConfig = (config: {
     port: devPort,
   };
 
-  const federationConfig: Parameters<typeof federation>[0] = {
+  const pathsToWatch: string[] = [];
+  let remotes:
+    | Record<string, { name: string; type: string; entry: string }>
+    | undefined;
+
+  if (packageJson.federation.remotes) {
+    remotes = Object.entries(packageJson.federation.remotes).reduce(
+      (acc, [key, remote]) => {
+        if (remote.watchPath) {
+          pathsToWatch.push(remote.watchPath);
+        }
+
+        return {
+          ...acc,
+          [key]: {
+            name: key,
+            type: "module",
+            entry: isLocal
+              ? `http://localhost:${remote.devPort}/remoteEntry.js`
+              : `${deploymentRelativeUrl}apps/${removePrefix(key)}/remoteEntry.js`,
+          },
+        };
+      },
+
+      {},
+    );
+  }
+
+  const federationConfig = {
     name: federationName || removeScope(packageJson.name),
     filename: "remoteEntry.js",
     manifest: {
@@ -193,42 +262,43 @@ export const getConfig = (config: {
       },
     },
     exposes,
+    remotes,
   };
 
-  const pathsToWatch: string[] = [];
-  // Add remotes configuration if present in package.json
-  if (packageJson.federation.remotes) {
-    federationConfig.remotes = Object.entries(
-      packageJson.federation.remotes,
-    ).reduce(
-      (acc, [key, remote]) => {
-        if (remote.watchPath) {
-          pathsToWatch.push(remote.watchPath);
-        }
-
-        return {
-          ...acc,
-          [key]: {
-            name: key,
-            type: "module",
-            entry: isLocal
-              ? `http://localhost:${remote.devPort}/remoteEntry.js`
-              : `/v2/apps/${removePrefix(key)}/remoteEntry.js`,
-          },
-        };
-      },
-
-      {},
-    );
-  }
+  const plugins = [
+    nxViteTsPaths(),
+    svgr(),
+    react(),
+    federation(federationConfig),
+    topLevelAwait(),
+    restart({
+      restart: pathsToWatch,
+    }),
+  ];
 
   return {
     define,
     base,
     server,
     preview,
-    federation: federationConfig,
-    pathsToWatch,
+    plugins,
+    build: {
+      cssCodeSplit: false,
+      emptyOutDir: true,
+    },
+    resolve: {
+      alias: {
+        "#src": resolve(config.rootDir, "src"),
+      },
+    },
+    /**
+     * Why?
+     * we want to simplify the tests, given we have a lot of cases
+     * for the config and testing the mocks is inefficient
+     */
+    ...(process.env.NODE_ENV === "test"
+      ? { federation: federationConfig }
+      : {}),
   };
 };
 
@@ -236,10 +306,12 @@ function getBase({
   isHost,
   appName,
   isLocal,
+  deploymentRelativeUrl,
 }: {
   isHost: boolean;
   appName: string;
   isLocal: boolean;
+  deploymentRelativeUrl: string;
 }) {
   if (isLocal) {
     return "/";
@@ -251,15 +323,25 @@ function getBase({
    */
   const name = compose(removeScope, removePrefix)(appName);
 
-  return isHost ? "/v2/" : `/v2/apps/${name}/`;
+  return isHost
+    ? deploymentRelativeUrl
+    : `${deploymentRelativeUrl}apps/${name}/`;
 }
 
 function removeScope(name: string) {
-  return name.replace("@bsport/", "");
+  return name.replace(/@bsport\//i, "");
 }
 
 function removePrefix(name: string) {
   return name.replace(/^[^-]+-/, "");
+}
+
+function uppercase(name: string) {
+  return name.toUpperCase();
+}
+
+function replaceHyphens(name: string) {
+  return name.replace(/-/g, "_");
 }
 
 function compose<T>(...fns: Array<(x: T) => T>): (x: T) => T {

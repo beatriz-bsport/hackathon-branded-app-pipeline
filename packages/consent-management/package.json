@@ -33,6 +33,6 @@
     "@didomi/react": "^1.8.8"
   },
   "devDependencies": {
-    "@bsport/eslint-config-react": "workspace:*"
+    "@bsport/config-eslint-react": "workspace:*"
   }
 }

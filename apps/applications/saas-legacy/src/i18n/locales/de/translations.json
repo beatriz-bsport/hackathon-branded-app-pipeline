@@ -8446,7 +8446,7 @@
                     "customDiscountJustification": "Begründung für manuelle Rabatte anfordern"
                 },
                 "info": "Aktiviere diese Optionen, sodass Mitarbeitende einen Grund angeben müssen, wenn sie Rabatte anwenden oder eine Rechnung stornieren/rückerstatten.",
-                "title": "Rabatte und Rückerstattungen"
+                "title": "Rückerstattungen und Rabatte"
             }
         },
         "returnPayment": {
@@ -8798,7 +8798,8 @@
         "paymentEngine": {
             "label": {
                 "0": "Manuelle Zahlung",
-                "1": "Online-Zahlung"
+                "1": "Stripe",
+                "2": "Paypal"
             }
         },
         "invoiceType": {
@@ -10510,6 +10511,10 @@
                 "full": {
                     "description": "Leider ist diese Sitzung bereits ausgebucht und wir konnten deine Buchung nicht abschließen. <br> Schau im Kalender nach einer anderen verfügbaren Option.",
                     "title": "Sitzung vollständig ausgebucht"
+                },
+                "unhandled": {
+                    "description": "Leider ist ein unerwarteter Fehler aufgetreten. Im Moment ist es nicht möglich, diesen Kurs zu buchen.",
+                    "title": "Ein unerwarteter Fehler ist aufgetreten"
                 }
             },
             "goToCalendar": "Gehe zum Kalender",
@@ -10521,7 +10526,9 @@
                     "global": "Bei der Anmeldung ist ein Fehler aufgetreten",
                     "phone": "Bitte gib eine gültige Telefonnummer ein",
                     "email": "Bitte gib eine gültige E-Mail-Adresse ein",
-                    "requiredField": "Dieses Feld ist erforderlich"
+                    "requiredField": "Dieses Feld ist erforderlich",
+                    "phoneTaken": "Diese Telefonnummer wird bereits von einem anderen Mitglied verwendet",
+                    "emailTaken": "Diese E-mail-Adresse existiert bereits. Du kannst versuchen, dich mit dieser Adresse anzumelden"
                 },
                 "button": {
                     "label": "Anmelden"
@@ -12965,7 +12972,10 @@
                 "title": "Gesendet am:"
             },
             "filterAction": "Filtern",
-            "applyFilter": "Anwenden"
+            "applyFilter": "Anwenden",
+            "ariaLabel": {
+                "deleteAllFilters": "Alle Filter löschen"
+            }
         },
         "generic": {
             "history": "Verlauf",

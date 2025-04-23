@@ -125,7 +125,7 @@ const useStyles = makeStyles((theme) => ({
   banner: {
     display: 'flex',
     top: 0,
-    height: 28,
+    padding: theme.spacing(0.5),
     width: '100%',
     position: 'absolute',
     justifyContent: 'center',

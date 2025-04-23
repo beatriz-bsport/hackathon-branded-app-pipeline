@@ -24,13 +24,13 @@ export const fetchInvoicesAction: Action<
     page: number;
     pageSize: number;
   },
-  Result<PaginatedResponse<Invoice>, Error>
+  PaginatedResponse<Invoice>
 > = async (fetch, params) => {
   const [uri, init] = fetchInvoicesAPI(params);
 
   return Result.try(
     async () => {
-      const { data } = await fetch<PaginatedResponse<Invoice>>(uri, init);
+      const { data } = await fetch(uri, init);
 
       setInvoices({
         invoices: data.results,
@@ -49,10 +49,10 @@ export const fetchInvoicesAction: Action<
  * @param fetch The fetch function.
  * @param invoiceUuid The UUID of the invoice.
  */
-export const finalizeInvoiceAction: Action<
-  string,
-  Result<Invoice, Error>
-> = async (fetch, invoiceUuid) => {
+export const finalizeInvoiceAction: Action<string, Invoice> = async (
+  fetch,
+  invoiceUuid,
+) => {
   if (!invoiceUuid) {
     return Result.error(
       new Error("The invoice UUID is required to finalize an invoice"),
@@ -63,7 +63,7 @@ export const finalizeInvoiceAction: Action<
 
   return Result.try(
     async () => {
-      const { data } = await fetch<Invoice>(uri, init);
+      const { data } = await fetch(uri, init);
 
       updateInvoice(data);
 
@@ -78,10 +78,10 @@ export const finalizeInvoiceAction: Action<
  * @param fetch The fetch function.
  * @param invoiceUuid The UUID of the invoice.
  */
-export const getReceiptUrlAction: Action<
-  string,
-  Result<string, Error>
-> = async (fetch, invoiceUuid) => {
+export const getReceiptUrlAction: Action<string, string> = async (
+  fetch,
+  invoiceUuid,
+) => {
   if (!invoiceUuid) {
     return Result.error(
       new Error("The invoice UUID is required to generate a receipt URL"),
@@ -92,7 +92,7 @@ export const getReceiptUrlAction: Action<
 
   return Result.try(
     async () => {
-      const { data } = await fetch<string>(uri, init);
+      const { data } = await fetch(uri, init);
 
       updateReceiptUrl(data);
 

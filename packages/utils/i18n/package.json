@@ -39,7 +39,7 @@
     "react-i18next": "^15.4.0"
   },
   "devDependencies": {
-    "@bsport/eslint-config-react": "workspace:*",
+    "@bsport/config-eslint-react": "workspace:*",
     "@types/luxon": "^3.4.2"
   }
 }

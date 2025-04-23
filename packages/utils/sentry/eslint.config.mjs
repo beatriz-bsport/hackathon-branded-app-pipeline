@@ -1,3 +1,3 @@
-import bsportEslintConfig from "@bsport/eslint-config-react";
+import bsportEslintReactConfig from "@bsport/config-eslint-react";
 
-export default bsportEslintConfig;
+export default bsportEslintReactConfig;

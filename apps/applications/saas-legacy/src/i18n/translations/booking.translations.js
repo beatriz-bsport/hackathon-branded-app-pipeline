@@ -652,6 +652,11 @@ const getTranslations = async () => {
           description:
             'This session has already started or ended, so booking is no longer possible. <br> Please check the calendar for upcoming sessions.',
         },
+        unhandled: {
+          title: 'An Unexpected Error Occurred',
+          description:
+            "We encountered an unexpected error. It doesn't seem possible to book this session for now.",
+        },
       },
       goToCalendar: 'Go to the calendar',
       bookButtonLabel: 'Book now',
@@ -679,6 +684,9 @@ const getTranslations = async () => {
           email: 'Please enter a valid email address',
           phone: 'Please enter a valid phone number',
           global: 'An error occurred while signing up',
+          emailTaken:
+            'Email already exits, you can try logging in with this email',
+          phoneTaken: 'This phone number is already used by another member',
         },
       },
     },

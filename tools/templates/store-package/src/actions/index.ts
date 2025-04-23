@@ -14,15 +14,15 @@ import { setModels } from "./store";
  */
 export const fetchModelsAction: Action<
   { page: number; page_size: number },
-  Result<PaginatedResponse<Model>, Error>
+  PaginatedResponse<Model>
 > = async (fetch, params) => {
   /** @indication Retrieve fetch arguments from your API method */
   const [uri, init] = fetchModelsAPI(params);
 
   return Result.try(
     async () => {
-      /** @indication Combine fetch with the arguments retrieved above */
-      const { data } = await fetch<PaginatedResponse<Model>>(uri, init);
+      /** @indication Fetch returned type is specified in Action<> */
+      const { data } = await fetch(uri, init);
 
       /** @indication Use store actions to update your Zustand store */
       setModels({

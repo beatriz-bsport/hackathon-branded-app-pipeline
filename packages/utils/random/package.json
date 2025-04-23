@@ -32,6 +32,6 @@
     "uuid": "^11.0.4"
   },
   "devDependencies": {
-    "@bsport/eslint-config-react": "workspace:*"
+    "@bsport/config-eslint-react": "workspace:*"
   }
 }

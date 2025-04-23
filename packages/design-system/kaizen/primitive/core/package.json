@@ -44,7 +44,7 @@
     "uuid": "^11.0.4"
   },
   "devDependencies": {
-    "@bsport/eslint-config-react": "workspace:*",
+    "@bsport/config-eslint-react": "workspace:*",
     "@bsport/kaizen-tokens": "workspace:*",
     "@types/inquirer": "^9.0.7",
     "@vitejs/plugin-react": "^4.3.3",

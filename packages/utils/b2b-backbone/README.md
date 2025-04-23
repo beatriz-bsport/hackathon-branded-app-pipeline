@@ -15,7 +15,7 @@ Add the package as a dependency in your `package.json` file:
 ```json
 {
   "dependencies": {
-    "@bsport/b2b-backbone": "workspace:*"
+    "@bsport/sm-backbone": "workspace:*"
     // other dependencies...
   }
 }
@@ -28,7 +28,7 @@ Add the package as a dependency in your `package.json` file:
 Easily set up authentication using the provided utilities. For example, wrapping your app with the `AuthWrapper`:
 
 ```tsx
-import { AuthWrapper } from "@bsport/b2b-backbone/auth";
+import { AuthWrapper } from "@bsport/sm-backbone/auth";
 
 const App = () => (
   <AuthWrapper>

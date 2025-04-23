@@ -1,4 +1,5 @@
 import { Button } from "@bsport/kaizen-primitive-core";
+import { getAuthToken } from "@bsport/local-storage-auth-token";
 import { logout } from "@bsport/store-auth";
 
 const Logout: React.FC = () => {
@@ -10,6 +11,7 @@ const Logout: React.FC = () => {
       size="md"
       label="Logout"
       className="w-fit"
+      disabled={!getAuthToken()}
     />
   );
 };

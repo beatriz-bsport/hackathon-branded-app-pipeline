@@ -1,0 +1,27 @@
+import type { GiftcardState } from "./store";
+
+// ----- Selectors for giftcards -----
+
+export const selectGiftcards = (state: GiftcardState) => {
+  const { ids, byId } = state.giftcards;
+  return ids.map((id) => byId[id]);
+};
+
+export const selectGiftcard = (state: GiftcardState, id: number) =>
+  state.giftcards.byId[id];
+
+export const selectGiftcardsCount = (state: GiftcardState) =>
+  state.giftcards.count;
+
+// ----- Selectors for giftcardImages -----
+
+export const selectGiftcardImages = (state: GiftcardState) => {
+  const { ids, byId } = state.giftcardImages;
+  return ids.map((id) => byId[id]);
+};
+
+export const selectGiftcardImage = (state: GiftcardState, id: number) =>
+  state.giftcardImages.byId[id];
+
+export const selectGiftcardImagesCount = (state: GiftcardState) =>
+  state.giftcardImages.count;

@@ -1,8 +1,8 @@
 type Primitive = string | number | boolean;
 
-export function buildUrlParams(
-  params: Record<string, Primitive | Array<Primitive>>,
-) {
+export type URLParams = Record<string, Primitive | Array<Primitive>>;
+
+export function buildUrlParams(params: URLParams) {
   if (!params) {
     return "";
   }

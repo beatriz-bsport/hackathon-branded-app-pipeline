@@ -1,10 +1,10 @@
 {
-  "name": "@bsport/store-base",
+  "name": "@bsport/store-buyables-giftcard",
   "version": "0.0.0",
   "private": true,
-  "description": "Base store package",
+  "description": "Store package to manage Giftcard Data Access Layer",
   "license": "UNLICENSED",
-  "author": "Pierre Bondoerffer <pierre.bondoerffer@bsport.io>",
+  "author": "David Bretaud <david.bretaud@bsport.io>",
   "type": "module",
   "exports": {
     ".": {
@@ -30,8 +30,8 @@
     "lint:fix": "eslint --fix ."
   },
   "dependencies": {
+    "@bsport/store-base": "workspace:*",
     "typescript-result": "^3.1.1",
-    "use-sync-external-store": "^1.4.0",
     "zustand": "^5.0.3"
   },
   "devDependencies": {

@@ -1,50 +1,38 @@
-import { getFullUri, getHeaders } from "./utils";
+import {
+  HTTPException,
+  type ResponseType,
+  getFullUri,
+  getHeaders,
+} from "./utils";
 
-type ResponseType<T> = {
-  data: T;
-  status: number;
-};
-
-export class HTTPException extends Error {
-  readonly path: string;
-  readonly name: string;
-  readonly statusCode: number;
-
-  constructor(path: string, name: string, message: string, statusCode: number) {
-    super(
-      `Error calling backend (path: ${path}) because: [${JSON.stringify(name)}] ${message}`,
-    );
-    this.path = path;
-    this.name = name;
-    this.statusCode = statusCode;
-  }
-}
-
-// TODO : Add inputs for getFetch to personalize the fetch method
-// depending on the consuming application
+/** @todo Add parameters to personalize the headers */
 export function getFetch() {
   return async <T = string>(
     uri: string,
     init?: RequestInit & { responseType?: "text" | "json" | "buffer" },
   ): Promise<ResponseType<T>> => {
+    const headers = getHeaders({
+      "Content-Type": "application/json",
+      ...init?.headers,
+    });
+
     const response = await fetch(getFullUri(uri), {
       ...init,
-      headers: {
-        "Content-Type": "application/json",
-        ...getHeaders(),
-        ...init?.headers,
-      },
+      headers,
     });
 
     let payload = null;
 
     try {
-      payload = await (init?.responseType === "text"
-        ? response.text()
-        : init?.responseType === "buffer"
-          ? response.arrayBuffer()
-          : response.json());
-    } catch (e) {
+      const responseType = init?.responseType ?? "json";
+      if (responseType === "text") {
+        payload = await response.text();
+      } else if (responseType === "buffer") {
+        payload = await response.arrayBuffer();
+      } else {
+        payload = await response.json();
+      }
+    } catch {
       payload = null;
     }
 

@@ -1,46 +1,40 @@
-import { getFullUri, getHeaders } from "./utils";
+import {
+  HTTPException,
+  type ResponseType,
+  getFullUri,
+  getHeaders,
+} from "./utils";
 
+/** @todo Add parameters to personalize the headers */
 export function getXhr() {
-  return (
+  return async <T = string>(
     uri: string,
     {
       headers,
-      method,
+      method = "GET",
       signal,
       onUploadProgress,
       formData,
     }: {
       formData?: FormData;
-      headers?: Record<string, string>;
-      method:
-        | "GET"
-        | "POST"
-        | "HEAD"
-        | "PUT"
-        | "DELETE"
-        | "CONNECT"
-        | "OPTIONS"
-        | "TRACE"
-        | "PATCH";
+      headers?: HeadersInit;
+      method?: RequestInit["method"];
       signal?: AbortSignal;
       onUploadProgress?: (progressEvent: ProgressEvent) => void;
     },
-  ): Promise<unknown> => {
-    const _headers = {
-      ...getHeaders(),
-      ...headers,
-    };
+  ): Promise<ResponseType<T>> => {
+    const _headers = getHeaders(headers);
 
-    return new Promise((resolve, reject) => {
+    return new Promise<ResponseType<T>>((resolve, reject) => {
       // Doc : https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest
       const xhr = new XMLHttpRequest();
 
-      // Open a {method} request
+      // Open a {method} request before sending data
       xhr.open(method, getFullUri(uri));
 
       // Set custom headers
       Object.entries(_headers).forEach(([key, value]) => {
-        xhr.setRequestHeader(key, value);
+        xhr.setRequestHeader(key, value as string);
       });
 
       // Track upload progress
@@ -54,19 +48,45 @@ export function getXhr() {
 
       // Handle request completion
       xhr.onload = () => {
-        if (xhr.status >= 200 && xhr.status < 300) {
+        const status = xhr.status;
+        const responseText = xhr.responseText;
+
+        if (status >= 200 && status < 300) {
           try {
-            resolve(JSON.parse(xhr.responseText));
+            const parsed = JSON.parse(responseText);
+            resolve({ data: parsed as T, status });
           } catch (error) {
             reject(new Error("Failed to parse JSON response"));
           }
         } else {
-          reject(new Error(`Request failed with status ${xhr.status}`));
+          try {
+            const parsed = JSON.parse(responseText);
+            reject(
+              new HTTPException(
+                uri,
+                parsed?.code ?? "UNKNOWN",
+                parsed?.message ?? "Some error occurred",
+                parsed?.statusCode ?? status,
+              ),
+            );
+          } catch {
+            reject(
+              new HTTPException(
+                uri,
+                "UNKNOWN",
+                "Failed request with invalid JSON",
+                status,
+              ),
+            );
+          }
         }
       };
 
       // Handle errors
-      xhr.onerror = () => reject(new Error("An error occurred."));
+      xhr.onerror = () =>
+        reject(
+          new HTTPException(uri, "NETWORK_ERROR", "An error occurred.", 0),
+        );
 
       // Handle abort signal
       if (signal) {
@@ -87,3 +107,5 @@ export function getXhr() {
     });
   };
 }
+
+export type Xhr = ReturnType<typeof getXhr>;

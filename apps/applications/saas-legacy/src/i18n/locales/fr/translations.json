@@ -674,6 +674,10 @@
                 "full": {
                     "description": "Cette séance vient de se remplir et nous n'avons pas pu finaliser votre réservation. <br> Veuillez consulter le calendrier pour trouver une autre séance disponible.",
                     "title": "Séance complète"
+                },
+                "unhandled": {
+                    "description": "Nous avons rencontré une erreur inattendue. Il ne semble pas possible de réserver cette séance pour le moment.",
+                    "title": "Une erreur inattendue s'est produite"
                 }
             },
             "goToCalendar": "Voir le calendrier",
@@ -689,7 +693,9 @@
                     "global": "Une erreur s'est produite lors de l'inscription",
                     "email": "Veuillez saisir une adresse électronique valide",
                     "requiredField": "Ce champ est obligatoire",
-                    "phone": "Veuillez saisir un numéro de téléphone valide"
+                    "phone": "Veuillez saisir un numéro de téléphone valide",
+                    "phoneTaken": "Ce numéro de téléphone est déjà utilisé par un autre membre.",
+                    "emailTaken": "Cet e-mail existe déjà. Vous pouvez essayer de vous connecter avec cette adresse."
                 },
                 "email": {
                     "label": "Email"
@@ -1626,6 +1632,9 @@
                 "51": "Manuel",
                 "70": "Envoyés",
                 "71": "Reçus"
+            },
+            "ariaLabel": {
+                "deleteAllFilters": "Effacer tous les filtres"
             }
         },
         "dialogInformation": {
@@ -3424,9 +3433,9 @@
                 "exclusivePrivateServices_plural": "Les rendez-vous {{- private_service_name }} sont configurés pour avoir lieu uniquement dans cet établissement. En supprimant cet établissement, ces rendez-vous pourront avoir lieu n'importe où.",
                 "exclusivePrivateServices": "Le rendez-vous {{- private_service_name }} est configuré pour avoir lieu uniquement dans cet établissement. En supprimant cet établissement, ce rendez-vous pourra avoir lieu n'importe où.",
                 "exclusiveCoachAvailabilitySlots": "Le/la professeur(e) {{- coach_name }} est indiqué(e) comme étant disponible sur certaines plages horaires pour cet établissement uniquement. En supprimant l'établissement, ces plages horaires seront supprimées.",
-                "exclusiveCoachAvailabilitySlots_plural": "Le(s) professeur(s) {{- coach_name }} sont indiqués comme étant disponibles pour cet établissement uniquement pour certaines plages horaires. En supprimant l'établissement, ces plages horaires seront supprimées.",
+                "exclusiveCoachAvailabilitySlots_plural": "Les professeurs {{- coach_name }} sont indiqués comme étant disponibles pour cet établissement uniquement sur certains créneaux horaires. En supprimant l'établissement, ces créneaux seront également supprimés.",
                 "exclusiveAssociatedCoaches": "Votre professeur(e) {{- coach_name }} est averti(e) lorsqu'une demande de substitution est faite pour une séance dans cet établissement uniquement. En supprimant l'établissement, il/elle recevra donc les demandes de substitution de tous les établissements.",
-                "exclusiveAssociatedCoaches_plural": "Le(s) professeur(s) {{- coach_name }} ne sont avertis que lorsqu'une demande de remplacement est faite pour une séance dans cet établissement. En supprimant l'établissement, ils recevront donc les demandes de remplacement de tous les établissements.",
+                "exclusiveAssociatedCoaches_plural": "Vos professeurs {{- coach_name }} ne sont avertis que lorsqu'une demande de remplacement est faite pour une séance dans cet établissement. En supprimant l'établissement, ils recevront donc les demandes de remplacement de tous les établissements.",
                 "hasBillingGroup": "Cet établissement sera également retiré du groupe de facturation {{- establishment_billing_group_name }}.",
                 "hasExclusiveStaffConfigurations": "Certains membres du personnel sont configurés pour surveiller l'accès des membres pour cet établissement uniquement. En supprimant l'établissement sans en sélectionner un nouveau, ils ne pourront plus effectuer de contrôle d'accès.",
                 "hasRelatedStaffConfigurations": "Cet établissement sera retiré des établissements utilisés par les membres du personnel pour le contrôle d'accès.",
@@ -3452,7 +3461,7 @@
                 "warnings": {
                     "hasRelatedAssociatedCoaches": "Certains professeurs reçoivent une notification lorsqu'une demande de substitution est faite pour une séance dans cette localisation. En supprimant la localisation, ils ne recevront plus de notification à ce sujet.",
                     "exclusiveAssociatedCoaches": "Votre professeur(e) {{- coach_name }} est averti(e) que lorsqu'une demande de remplacement est faite pour une séance dans cette localisation uniquement. En supprimant la localisation, il/elle recevra donc les demandes de remplacement de toutes les localisations.",
-                    "exclusiveAssociatedCoaches_plural": "Le(s) professeur(s) {{- coach_name }} ne sont avertis que lorsqu'une demande de remplacement est faite pour une séance dans cette localisation. En supprimant la localisation, ils recevront donc les demandes de remplacement de toutes les localisations.",
+                    "exclusiveAssociatedCoaches_plural": "Vos professeurs {{- coach_name }} ne sont avertis que lorsqu'une demande de remplacement est faite pour une session dans cette localisation. En supprimant la localisation, ils recevront donc les demandes de remplacement de toutes les localisations.",
                     "hasRelatedStaffConfigurations": "Cette localisation est utilisée pour la surveillance des accès par un ou plusieurs membres du personnel. En supprimant la localisation sans en sélectionner une nouvelle, ils ne pourront plus effectuer de surveillance des accès.",
                     "hasRelatedMarketingNotifications": "Les notifications liées à cette localisation seront supprimées.",
                     "hasRelatedMarketplaceComponentConfigs": "Les onglets du calendrier et des ateliers configurés pour votre marketplace n'afficheront plus le calendrier cette localisation."
@@ -4046,7 +4055,8 @@
         "paymentEngine": {
             "label": {
                 "0": "Paiement manuel",
-                "1": "Paiement en ligne"
+                "1": "Stripe",
+                "2": "PayPal"
             }
         },
         "paymentMethod": {

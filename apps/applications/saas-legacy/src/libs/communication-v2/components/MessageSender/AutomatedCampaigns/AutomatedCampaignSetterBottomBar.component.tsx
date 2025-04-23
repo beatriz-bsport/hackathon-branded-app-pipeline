@@ -153,8 +153,8 @@ const AutomatedCampaignSetterBottomBar: React.FC<Props> = ({
   const getIsPushNotificationDisabled = useCallback(
     (featureList: FeatureList) => {
       return (
-        Config.REACT_APP_SENTRY_ENVIRONMENT === 'production' ||
-        !hasUpsell(featureList, UPSELL_IDENTIFIER_PUSH_NOTIFICATION) ||
+        (Config.REACT_APP_SENTRY_ENVIRONMENT === 'production' &&
+          !hasUpsell(featureList, UPSELL_IDENTIFIER_PUSH_NOTIFICATION)) ||
         usedAutoCampaignCommMethods.includes(WRITE_PUSH_NOTIFICATION) ||
         !!automatedCommunicationDraft
       );

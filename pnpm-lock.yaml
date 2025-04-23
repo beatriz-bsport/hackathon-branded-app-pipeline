@@ -1006,6 +1006,9 @@ importers:
       '@bsport/store-booking-group-activity':
         specifier: workspace:*
         version: link:../../../../../packages/stores/booking/group-activity
+      '@bsport/use-pagination-query-params':
+        specifier: workspace:*
+        version: link:../../../../../packages/utils/query-params/use-pagination
       react:
         specifier: ^19.0.0
         version: 19.0.0
@@ -1119,6 +1122,9 @@ importers:
       '@bsport/use-async':
         specifier: workspace:*
         version: link:../../../../../packages/hooks/use-async
+      '@bsport/use-pagination-query-params':
+        specifier: workspace:*
+        version: link:../../../../../packages/utils/query-params/use-pagination
       react:
         specifier: ^19.0.0
         version: 19.0.0

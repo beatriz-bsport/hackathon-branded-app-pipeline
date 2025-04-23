@@ -22,11 +22,9 @@ const GroupActivitiesList: React.FC = () => {
   const { t } = useTranslation("groupActivity");
 
   const {
-    currentPage,
-    fetchData,
+    fetchGroupActivitiesPage,
     groupActivities,
     paginationProps,
-    rowsPerPage,
     isLoading,
   } = usePaginatedGroupActivities(true);
 
@@ -34,7 +32,7 @@ const GroupActivitiesList: React.FC = () => {
     `/activity/${groupActivityId}/general`;
 
   const { archiveModal, duplicateModal, onClickArchive, onClickDuplicate } =
-    useGroupActivityModals({ currentPage, fetchData, rowsPerPage });
+    useGroupActivityModals({ fetchGroupActivitiesPage });
 
   const renderedGroupActivities = useMemo<ListItemProps[]>(
     () =>
@@ -116,8 +114,8 @@ const GroupActivitiesList: React.FC = () => {
   );
 
   useEffect(() => {
-    fetchData(currentPage, rowsPerPage);
-  }, [fetchData]);
+    fetchGroupActivitiesPage();
+  }, [fetchGroupActivitiesPage]);
 
   return (
     <ListLayout>

@@ -16,20 +16,17 @@ const ArchivedGroupActivitiesList: React.FC = () => {
   const { t } = useTranslation("groupActivity");
 
   const {
-    currentPage,
-    fetchData,
+    fetchGroupActivitiesPage,
     groupActivities,
     paginationProps,
-    rowsPerPage,
     isLoading,
   } = usePaginatedGroupActivities(false);
 
   const revertUnarchiveGroupActivity = (groupActivityId: number) => () => {
     archiveGroupActivityAction(fetch, groupActivityId.toString()).then(
       (response) => {
-        response.fold(
-          () => fetchData(currentPage, rowsPerPage),
-          (error) => console.error(error),
+        response.fold(fetchGroupActivitiesPage, (error) =>
+          console.error(error),
         );
       },
     );
@@ -51,7 +48,7 @@ const ArchivedGroupActivitiesList: React.FC = () => {
               buttonLabel: t("list.toasts.undo"),
               onButtonClick: revertUnarchiveGroupActivity(groupActivityId),
             });
-            fetchData(currentPage, rowsPerPage);
+            fetchGroupActivitiesPage();
           },
           (error) => console.error(error),
         );
@@ -82,8 +79,8 @@ const ArchivedGroupActivitiesList: React.FC = () => {
   );
 
   useEffect(() => {
-    fetchData(currentPage, rowsPerPage);
-  }, [fetchData]);
+    fetchGroupActivitiesPage();
+  }, [fetchGroupActivitiesPage]);
 
   return (
     <ListLayout>

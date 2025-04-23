@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo } from "react";
 
 import {
   INVOICE_TYPE_EMPTY_PAYMENT_CONTAINER,
@@ -26,6 +26,7 @@ import {
   useInvoiceStore,
 } from "@bsport/store-financial-services-invoice";
 import { useAsync } from "@bsport/use-async";
+import { usePaginationQueryParams } from "@bsport/use-pagination-query-params";
 
 import fetch from "#src/utils/fetch";
 import { useTranslation } from "#src/utils/i18n";
@@ -52,25 +53,29 @@ type TableDataRow = {
 };
 
 export const InvoiceListPage = () => {
-  const [currentPage, setCurrentPage] = useState(DEFAULT_PAGE);
+  const { currentPage, currentPageSize, setPageSettings } =
+    usePaginationQueryParams({
+      shouldReplace: false,
+      defaultValues: { page_size: DEFAULT_PAGE_SIZE, page: DEFAULT_PAGE },
+    });
   const invoices = useInvoiceStore(selectInvoices);
   const count = useInvoiceStore(selectCount);
   const { t } = useTranslation("invoice");
 
-  const fetchDataBase = async (page: number, rows: number) => {
-    setCurrentPage(page);
+  const _fetchInvoicesPage = useCallback(async () => {
     return fetchInvoicesAction(fetch, {
-      page,
-      pageSize: rows,
+      page: currentPage,
+      pageSize: currentPageSize,
     });
-  };
+  }, [currentPage, currentPageSize]);
 
-  const [{ isLoading }, fetchData] = useAsync<typeof fetchDataBase>({
-    asyncFn: fetchDataBase,
+  const [{ isLoading }, fetchData] = useAsync<typeof _fetchInvoicesPage>({
+    asyncFn: _fetchInvoicesPage,
+    dependencies: [_fetchInvoicesPage],
   });
 
   useEffect(() => {
-    fetchData(DEFAULT_PAGE, DEFAULT_PAGE_SIZE);
+    fetchData();
   }, [fetchData]);
 
   const handleClickDownload = useCallback((invoiceUuid: string) => {
@@ -311,10 +316,10 @@ export const InvoiceListPage = () => {
           rows={rows}
           paginationProps={{
             currentPage,
-            rowsPerPage: 10,
+            rowsPerPage: currentPageSize,
             totalItems: count,
             showRowsPerPageSelector: true,
-            onPageSettingsChange: fetchData,
+            onPageSettingsChange: setPageSettings,
             disabled: isLoading,
           }}
           emptyStateProps={{

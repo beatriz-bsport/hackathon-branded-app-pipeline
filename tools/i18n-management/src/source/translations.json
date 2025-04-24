@@ -21,6 +21,10 @@
       }
     }
   },
+  "@bsport/sm-email-templates": {
+    "namespaceAlpha": { "helloName": "Hello {{ name }} !" },
+    "namespaceBeta": {}
+  },
   "@bsport/sm-giftcard": {
     "common": {
       "pages": { "list": "Gift cards", "archivedList": "Archived gift cards" },

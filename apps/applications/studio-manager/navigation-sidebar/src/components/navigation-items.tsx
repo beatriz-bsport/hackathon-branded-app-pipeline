@@ -197,8 +197,16 @@ export const useNavigationElements = ({
           id: "member-notifications",
           label: t("menus.marketing.memberNotifications"),
         },
-        { id: "email-templates", label: t("menus.marketing.emailTemplates") },
-        { id: "smartlists", label: t("menus.marketing.smartlists") },
+        {
+          id: "email-templates",
+          label: t("menus.marketing.emailTemplates"),
+          href: "/email-templates",
+        },
+        {
+          id: "smartlists",
+          label: t("menus.marketing.smartlists"),
+          href: "/smartlist",
+        },
         { id: "audience", label: t("menus.marketing.audience") },
         { id: "promotions", label: t("menus.marketing.promotions") },
       ],

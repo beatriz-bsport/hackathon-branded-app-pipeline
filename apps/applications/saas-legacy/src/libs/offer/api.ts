@@ -68,6 +68,7 @@ export async function fetchOffersList(
     available?: boolean;
     is_workshop?: boolean;
     only_future?: boolean;
+    with_booking_window?: boolean;
   } & OfferFilterData,
 ) {
   return getAuth(`${API_V1_URI}/offer/${buildUrlParams(params)}`);
@@ -208,9 +209,16 @@ export const userRegistration = async () => {
   return getAuth(`${API_V1_URI}/offer/registered/`);
 };
 
-export async function retrieveOffer(offerId: number) {
+export async function retrieveOffer(
+  offerId: number,
+  params?: { with_booking_window?: boolean },
+) {
   return getAuth<OfferREST>(
-    `${API_V1_URI}/offer/${offerId}/?with_full=true&with_tags_status=true`,
+    `${API_V1_URI}/offer/${offerId}/${buildUrlParams({
+      ...(params || {}),
+      with_full: true,
+      with_tags_status: true,
+    })}`,
   );
 }
 

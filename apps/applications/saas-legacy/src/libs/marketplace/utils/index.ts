@@ -17,7 +17,7 @@ import { doTextSearch } from './fuse-search';
 import {
   isOfferInThePast,
   isOfferInGroupLockedByPreviousOfferInPast,
-  isOfferBookableYet,
+  isTooSoonToBookOffer,
   getPositionOfOfferInTheList,
   getOfferStatus,
   getGroupOfferSetAsFullBookingOnlyStatus,
@@ -45,7 +45,7 @@ export {
   doTextSearch,
   isOfferInThePast,
   isOfferInGroupLockedByPreviousOfferInPast,
-  isOfferBookableYet,
+  isTooSoonToBookOffer,
   getPositionOfOfferInTheList,
   getOfferStatus,
   getGroupOfferSetAsFullBookingOnlyStatus,

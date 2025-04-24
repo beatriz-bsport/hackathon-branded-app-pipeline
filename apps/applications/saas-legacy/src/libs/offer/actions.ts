@@ -506,6 +506,7 @@ export function fetchMarketplaceOfferList(
       const response = await fetchOffersListAPI({
         ...params,
         ...createOfferFilter(filters),
+        with_booking_window: true,
       });
       // @ts-expect-error
       dispatch(offerMarketplaceListActions.success(response.data.results));
@@ -750,13 +751,17 @@ export const retrieveByIdActions = {
   isLoading: createAction('OFFER/RETRIEVE_BY_ID/IS_LOADING'),
 };
 
-export function retrieveOffer(id: number, options?: OptionCallback<OfferREST>) {
+export function retrieveOffer(
+  id: number,
+  options?: OptionCallback<OfferREST>,
+  params?: { with_booking_window?: boolean },
+) {
   return async (dispatch: Dispatch) => {
     dispatch(retrieveByIdActions.isLoading(true));
     dispatch(retrieveByIdActions.error(null));
 
     try {
-      const response = await retrieveOfferAPI(id);
+      const response = await retrieveOfferAPI(id, params);
       dispatch(retrieveByIdActions.success(response.data));
 
       if (options && options.onSuccess) options.onSuccess(response.data);

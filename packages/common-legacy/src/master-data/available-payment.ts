@@ -362,14 +362,21 @@ export const getMainOfferNotBookableReasonWithTitle = (
 
   if (!isWaitingList) {
     if (offerStatus?.bookable_status === OFFER_BOOKABLE_STATUS_CLOSE_TOO_SOON) {
-      const date = DateTime.fromISO(offer.date_start)
-        .setZone(offer.timezone_name)
-        .minus({ minute: offer.meta_activity.first_booking_minutes_until })
-        .toFormat('DDD');
+      const bookingWindowStartDatetime = offer.booking_window_start_datetime
+        ? DateTime.fromISO(offer.booking_window_start_datetime).setZone(
+            offer.timezone_name,
+          )
+        : DateTime.fromISO(offer.date_start)
+            .setZone(offer.timezone_name)
+            .minus({ minute: offer.meta_activity.first_booking_minutes_until });
+
+      const formattedDatetime = bookingWindowStartDatetime.toLocaleString(
+        DateTime.DATETIME_MED,
+      );
 
       title = t('booking:newBookingModule.blockedReasons.isTooSoon.title');
       message = t('booking:newBookingModule.blockedReasons.isTooSoon.message', {
-        date,
+        date: formattedDatetime,
       });
       icon = 'update';
       color = 'warning';

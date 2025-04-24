@@ -7,6 +7,7 @@ import {
   Offer_FULL,
   OfferREST,
 } from '#src/libs/offer/types';
+import { BookingWindowStatus } from '#src/libs/offer/constants';
 import { isDateInThePast } from '#src/utils/datetime';
 import {
   OFFER_DATE_HOURS_SEPARATOR,
@@ -49,24 +50,30 @@ export function isOfferInGroupLockedByPreviousOfferInPast(
   );
 }
 
-export function isOfferBookableYet(
+export function isTooSoonToBookOffer(
   offer: Offer_FULL,
   metaActivity: MetaActivity,
 ) {
-  if (metaActivity && !metaActivity.first_booking_minutes_until) {
-    return true;
+  // If the backend has computed the booking_window_status, then use it in prio
+  if (!!offer.booking_window_status)
+    return offer.booking_window_status === BookingWindowStatus.NOT_YET_OPEN;
+
+  if (!metaActivity) return false;
+
+  // Otherwise, fallback on this ugly thing with metaActivity
+  if (metaActivity.first_booking_minutes_until === 0) {
+    return false;
   }
-  if (metaActivity) {
-    return (
-      DateTime.fromISO(offer.date_start).minus(
-        // Use 'days' unit to properly handle DST changes
-        Duration.fromObject({
-          minutes: metaActivity.first_booking_minutes_until,
-        }).shiftTo('days', 'hours', 'minute'),
-      ) <= DateTime.now()
-    );
-  }
-  return null;
+
+  return (
+    DateTime.now() <
+    DateTime.fromISO(offer.date_start).minus(
+      // Use 'days' unit to properly handle DST changes
+      Duration.fromObject({
+        minutes: metaActivity.first_booking_minutes_until,
+      }).shiftTo('days', 'hours', 'minute'),
+    )
+  );
 }
 
 export const getPositionOfOfferInTheList = (offers: Offer[], index: number) => {
@@ -110,7 +117,7 @@ export const getOfferStatus = (
     return MarketplaceOfferStatus.WAITING_LIST;
   }
   // @ts-expect-error
-  if (!isOfferBookableYet(offer, metaActivity)) {
+  if (isTooSoonToBookOffer(offer, metaActivity)) {
     return MarketplaceOfferStatus.SOON;
   }
   return MarketplaceOfferStatus.BOOKABLE;
@@ -139,11 +146,8 @@ export const getGroupOfferSetAsFullBookingOnlyStatus = (
     if (DateTime.fromISO(first_offer_date) <= DateTime.now()) {
       return MarketplaceOfferStatus.COMPLETED;
     }
-    if (
-      DateTime.fromISO(first_offer_date).minus({
-        minutes: metaActivity?.first_booking_minutes_until,
-      }) > DateTime.now()
-    ) {
+    // @ts-expect-error
+    if (isTooSoonToBookOffer(offer, metaActivity)) {
       return MarketplaceOfferStatus.SOON;
     }
   } else if (isDateInThePast(offer.date_start)) {
@@ -151,9 +155,8 @@ export const getGroupOfferSetAsFullBookingOnlyStatus = (
   } else if (DateTime.fromISO(first_offer_date) <= DateTime.now()) {
     return MarketplaceOfferStatus.BOOKABLE;
   } else if (
-    DateTime.fromISO(first_offer_date).minus({
-      minutes: metaActivity?.first_booking_minutes_until,
-    }) > DateTime.now()
+    // @ts-expect-error
+    isTooSoonToBookOffer(offer, metaActivity)
   ) {
     return MarketplaceOfferStatus.SOON;
   }

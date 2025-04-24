@@ -101,6 +101,14 @@ type OwnProps = {
 
 export type Props = OwnProps & FormikProps<FormikValues>;
 
+const COUNTRIES_REQUIRING_LOCATION_ADDRESS_STATE = [
+  'AU',
+  'CA',
+  'ES',
+  'US',
+  'IT',
+];
+
 export const StripeTerminalRegisterReaderDialog: React.FC<Props> = (props) => {
   const classes = useStyles();
 
@@ -172,7 +180,7 @@ export const StripeTerminalRegisterReaderDialog: React.FC<Props> = (props) => {
                       label={t('translation:form.address.zipcode')}
                       name="postal_code"
                     />
-                    {['AU', 'CA', 'ES', 'US'].includes(
+                    {COUNTRIES_REQUIRING_LOCATION_ADDRESS_STATE.includes(
                       props.values.country,
                     ) && (
                       <TextField

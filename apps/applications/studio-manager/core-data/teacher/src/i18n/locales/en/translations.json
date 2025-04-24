@@ -1,6 +1,13 @@
 {
-    "namespaceAlpha": {
-        "helloName": "Hello {{ name }} !"
-    },
-    "namespaceBeta": {}
+    "common": {
+        "pages": {
+            "active": "Teachers",
+            "archived": "Archived teachers"
+        },
+        "activeList": {
+            "actions": {
+                "addTeacher": "Add teacher"
+            }
+        }
+    }
 }

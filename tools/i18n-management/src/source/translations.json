@@ -396,8 +396,10 @@
     }
   },
   "@bsport/sm-teacher": {
-    "namespaceAlpha": { "helloName": "Hello {{ name }} !" },
-    "namespaceBeta": {}
+    "common": {
+      "pages": { "active": "Teachers", "archived": "Archived teachers" },
+      "activeList": { "actions": { "addTeacher": "Add teacher" } }
+    }
   },
   "@bsport/template-sm-application": {
     "namespaceAlpha": { "helloName": "Hello {{ name }} !" },

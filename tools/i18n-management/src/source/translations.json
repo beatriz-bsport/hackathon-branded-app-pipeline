@@ -395,6 +395,10 @@
       "additionalFeedbackPlaceholder": "Type your feedback here..."
     }
   },
+  "@bsport/sm-teacher": {
+    "namespaceAlpha": { "helloName": "Hello {{ name }} !" },
+    "namespaceBeta": {}
+  },
   "@bsport/template-sm-application": {
     "namespaceAlpha": { "helloName": "Hello {{ name }} !" },
     "namespaceBeta": {}

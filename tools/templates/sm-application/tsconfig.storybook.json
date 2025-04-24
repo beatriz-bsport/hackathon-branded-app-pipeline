@@ -1,6 +1,0 @@
-{
-  "extends": [
-    "./tsconfig.json",
-    "../../config/typescript/src/application/tsconfig.storybook.json"
-  ]
-}

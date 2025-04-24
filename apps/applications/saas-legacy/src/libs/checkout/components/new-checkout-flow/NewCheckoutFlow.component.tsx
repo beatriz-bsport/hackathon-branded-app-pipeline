@@ -89,6 +89,7 @@ type Props = {
   createPendingBookingsIfNecessary?: (data?: {
     payment_group_method_identifier?: number;
   }) => void;
+  invalidatePendingBookingsIfNecessary?: () => void;
   creditAccountBalance?: number | null;
   detachPaymentMethod: (paymentMethodId: string) => void;
   detachPaymentMethodLoading: boolean;
@@ -163,6 +164,7 @@ export const NewCheckoutFlow: React.FC<Props> = ({
   establishmentBillingGroups,
   goBack,
   instalmentPaymentConfigurationList,
+  invalidatePendingBookingsIfNecessary,
   isEstablishmentBillingGroupSelected,
   isExcludingTax,
   onPaymentSuccess,
@@ -432,6 +434,9 @@ export const NewCheckoutFlow: React.FC<Props> = ({
               instalmentPaymentConfigurationList={instalmentPaymentConfigurationList.filter(
                 (ipc) => ipc.basketId === basket?.id,
               )}
+              invalidatePendingBookingsIfNecessary={
+                invalidatePendingBookingsIfNecessary
+              }
               isEstablishmentBillingGroupSelected={
                 isEstablishmentBillingGroupSelected
               }

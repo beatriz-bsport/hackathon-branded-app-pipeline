@@ -47,6 +47,7 @@ type PaymentStripeSofortProps = {
     payment_group_method_identifier?: number;
   }) => void;
   setIsOnlinePaymentDisabled: (isLoading: boolean) => void;
+  invalidatePendingBookingsIfNecessary?: () => void;
 };
 
 export const PaymentStripeSofort = forwardRef(
@@ -71,6 +72,7 @@ export const PaymentStripeSofort = forwardRef(
       onCancel,
       setIsOnlinePaymentDisabled,
       setPaymentProcessing,
+      invalidatePendingBookingsIfNecessary,
     }: PaymentStripeSofortProps,
     ref,
   ) => {
@@ -149,6 +151,11 @@ export const PaymentStripeSofort = forwardRef(
           }
         }
 
+        createPendingBookingsIfNecessary?.({
+          payment_group_method_identifier:
+            PAYMENT_GROUP_METHOD_IDENTIFIER_SOFORT,
+        });
+
         saveQueryParamInLocalStorage(
           USER_REGISTRATION_RESPONSE_QUERY_PARAM,
           USER_REGISTRATION_RESPONSE_LOCAL_STORAGE_KEY,
@@ -187,6 +194,7 @@ export const PaymentStripeSofort = forwardRef(
         if (error) {
           setErrorMessage(error.message);
           setPaymentPageProcessing(false);
+          invalidatePendingBookingsIfNecessary?.();
         } else {
           if (basketId) {
             try {
@@ -194,12 +202,6 @@ export const PaymentStripeSofort = forwardRef(
             } catch (err) {
               console.error(err);
             }
-          }
-          if (createPendingBookingsIfNecessary) {
-            createPendingBookingsIfNecessary({
-              payment_group_method_identifier:
-                PAYMENT_GROUP_METHOD_IDENTIFIER_SOFORT,
-            });
           }
         }
       },
@@ -210,6 +212,7 @@ export const PaymentStripeSofort = forwardRef(
         clientSecret,
         country,
         createPendingBookingsIfNecessary,
+        invalidatePendingBookingsIfNecessary,
         elements,
         email,
         forceSave,

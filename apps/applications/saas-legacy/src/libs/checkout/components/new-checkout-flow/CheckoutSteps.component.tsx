@@ -37,6 +37,7 @@ type CheckoutStepsProps = {
   createPendingBookingsIfNecessary?: (data?: {
     payment_group_method_identifier?: number;
   }) => void;
+  invalidatePendingBookingsIfNecessary?: () => void;
   creditAccountBalance?: number | null;
   currentStep: StepType;
   detachPaymentMethod: (pm_id: string) => void;
@@ -104,6 +105,7 @@ export const CheckoutSteps: React.FC<CheckoutStepsProps> = forwardRef(
       enableMultiLocalization,
       establishmentBillingGroups,
       instalmentPaymentConfigurationList,
+      invalidatePendingBookingsIfNecessary,
       isEstablishmentBillingGroupSelected,
       isOnlinePaymentAvailable,
       isPayLaterAvailable,
@@ -215,6 +217,9 @@ export const CheckoutSteps: React.FC<CheckoutStepsProps> = forwardRef(
                 instalmentPaymentConfigurationList={
                   instalmentPaymentConfigurationList
                 }
+                invalidatePendingBookingsIfNecessary={
+                  invalidatePendingBookingsIfNecessary
+                }
                 isEstablishmentBillingGroupSelected={
                   isEstablishmentBillingGroupSelected
                 }
@@ -273,6 +278,7 @@ export const CheckoutSteps: React.FC<CheckoutStepsProps> = forwardRef(
       companyCountry,
       companyId,
       createPendingBookingsIfNecessary,
+      invalidatePendingBookingsIfNecessary,
       creditAccountBalance,
       currentStep.id,
       detachPaymentMethod,

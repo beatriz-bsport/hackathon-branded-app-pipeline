@@ -37,6 +37,7 @@ type PaymentStripeGiropayProps = {
   createPendingBookingsIfNecessary?: (data?: {
     payment_group_method_identifier?: number;
   }) => void;
+  invalidatePendingBookingsIfNecessary?: () => void;
   setIsOnlinePaymentDisabled?: (isLoading: boolean) => void;
 };
 
@@ -54,6 +55,7 @@ export const PaymentStripeGiropay = forwardRef(
       userDefaultName,
       checkItemsBasket,
       createPendingBookingsIfNecessary,
+      invalidatePendingBookingsIfNecessary,
       onCancel,
       setIsOnlinePaymentDisabled,
       setPaymentProcessing,
@@ -125,6 +127,11 @@ export const PaymentStripeGiropay = forwardRef(
           }
         }
 
+        createPendingBookingsIfNecessary?.({
+          payment_group_method_identifier:
+            PAYMENT_GROUP_METHOD_IDENTIFIER_GIROPAY,
+        });
+
         saveQueryParamInLocalStorage(
           USER_REGISTRATION_RESPONSE_QUERY_PARAM,
           USER_REGISTRATION_RESPONSE_LOCAL_STORAGE_KEY,
@@ -157,6 +164,7 @@ export const PaymentStripeGiropay = forwardRef(
           // Inform the customer that there was an error.
           setErrorMessage(error.message);
           setPaymentPageProcessing(false);
+          invalidatePendingBookingsIfNecessary?.();
         } else {
           if (basketId) {
             try {
@@ -164,12 +172,6 @@ export const PaymentStripeGiropay = forwardRef(
             } catch (err) {
               console.error(err);
             }
-          }
-          if (createPendingBookingsIfNecessary) {
-            createPendingBookingsIfNecessary({
-              payment_group_method_identifier:
-                PAYMENT_GROUP_METHOD_IDENTIFIER_GIROPAY,
-            });
           }
         }
       },
@@ -179,6 +181,7 @@ export const PaymentStripeGiropay = forwardRef(
         checkItemsBasket,
         clientSecret,
         createPendingBookingsIfNecessary,
+        invalidatePendingBookingsIfNecessary,
         elements,
         name,
         setPaymentPageProcessing,

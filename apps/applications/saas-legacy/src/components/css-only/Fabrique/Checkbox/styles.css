@@ -66,6 +66,14 @@
   width: fit-content;
 }
 
+/* CSS trick here :
+    concatenating the name of the class helps to set a higher priority to the css property of the class
+    thus allow us to not use !important in the field we want to emphasize
+ */
+.bs-fabrique-checkbox__wrapper.bs-fabrique-checkbox__wrapper {
+  min-width: fit-content;
+}
+
 .bs-fabrique-checkbox-label {
   color: var(--bs-color-text-default);
 }

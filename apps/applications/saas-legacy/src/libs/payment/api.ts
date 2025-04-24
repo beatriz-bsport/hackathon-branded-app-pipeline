@@ -286,6 +286,12 @@ export const createPendingBookings = async (
   );
 };
 
+export const invalidatePendingBookings = async (basketId: string) => {
+  return postAuth(
+    `${API_V1_URI}/checkout/basket/${basketId}/invalidate_pending_bookings/`,
+  );
+};
+
 // -------------- STRIPE --------------
 
 export const fetchStripeBalance = async () => {

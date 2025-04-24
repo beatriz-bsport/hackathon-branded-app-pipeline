@@ -4,10 +4,18 @@ set -e
 
 echo "*"
 
-# List of applications to build, for now we have this fixed list of applications
-# when all the others are ready we could run all of them using a name filter 
-# given all start with @bsport/sm-
-APPLICATIONS=$(cat ./scripts/apps.txt)
+# List of applications to build
+# Check if argument is provided (SM_AFFECTED_PROJECTS)
+if [ -n "$1" ]; then
+  # Use the provided list of affected projects
+  echo "Using provided list of affected projects"
+  # Convert literal \n to actual newlines using printf instead of echo -e
+  APPLICATIONS=$(printf "%b" "$1")
+else
+  # Fall back to the fixed list of applications from apps.txt
+  echo "Using fixed list of applications from apps.txt"
+  APPLICATIONS=$(cat ./scripts/apps.txt)
+fi
 
 echo "*"
 echo "⏳ Building Studio Manager applications"

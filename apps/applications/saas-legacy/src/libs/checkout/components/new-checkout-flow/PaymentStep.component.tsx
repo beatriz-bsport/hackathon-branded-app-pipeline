@@ -19,6 +19,7 @@ type PaymentStepProps = {
   createPendingBookingsIfNecessary?: (data?: {
     payment_group_method_identifier?: number;
   }) => void;
+  invalidatePendingBookingsIfNecessary?: () => void;
   creditAccountBalance?: number;
   detachPaymentMethod: (paymentMethodId: string) => void;
   detachPaymentMethodLoading: boolean;
@@ -79,6 +80,7 @@ export const PaymentStep: React.FC<PaymentStepProps> = forwardRef(
       detachPaymentMethod,
       detachPaymentMethodLoading,
       instalmentPaymentConfigurationList,
+      invalidatePendingBookingsIfNecessary,
       isEstablishmentBillingGroupSelected,
       isOnlinePaymentAvailable,
       isPayLaterAvailable,
@@ -208,6 +210,9 @@ export const PaymentStep: React.FC<PaymentStepProps> = forwardRef(
               instalmentPaymentConfigurationList
             }
             instalmentPaymentSelectedId={basket?.instalment_payment}
+            invalidatePendingBookingsIfNecessary={
+              invalidatePendingBookingsIfNecessary
+            }
             isEstablishmentBillingGroupSelected={
               isEstablishmentBillingGroupSelected
             }

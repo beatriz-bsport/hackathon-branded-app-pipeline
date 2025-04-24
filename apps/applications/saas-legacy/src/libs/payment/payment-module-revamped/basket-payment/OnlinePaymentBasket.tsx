@@ -107,6 +107,7 @@ export const OnlinePaymentBasket: React.FC<Props> = forwardRef(
       handleFetchInstalmentPaymentByBasket,
       getClientSecret,
       createPendingBookingsIfNecessary,
+      invalidatePendingBookingsIfNecessary,
     } = usePayment(basketId, companyId, memberId);
 
     const { detachPaymentMethod, isDetachPaymentMethodLoading } =
@@ -296,6 +297,9 @@ export const OnlinePaymentBasket: React.FC<Props> = forwardRef(
                 forceHideConfirmPaymentButton={hideConfirmPaymentButton}
                 fromApp={fromApp}
                 instalmentPaymentSelectedId={instalmentPaymentSelectedId}
+                invalidatePendingBookingsIfNecessary={
+                  invalidatePendingBookingsIfNecessary
+                }
                 isEstablishmentBillingGroupSelected={
                   isEstablishmentBillingGroupSelected
                 }

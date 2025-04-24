@@ -183,6 +183,9 @@ export type Offer<C = number, E = number, M = number, A = number> = {
   meta_activity: M;
   timezone_name: string;
   room_blueprint?: number;
+  booking_window_status?: 'not_yet_open' | 'open' | 'closed';
+  booking_window_start_datetime?: string;
+  booking_window_end_datetime?: string;
 };
 
 export type OfferStatus = {

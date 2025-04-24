@@ -198,6 +198,7 @@ type PaymentStripeSEPAProps = {
   setIsOnlinePaymentDisabled?: (isLoading: boolean) => void;
   setPaymentProcessing: (processing: boolean) => void;
   useInternalAccount?: (amount: number) => void;
+  invalidatePendingBookingsIfNecessary?: () => void;
 };
 
 export const PaymentStripeSEPARevamped = forwardRef(
@@ -235,6 +236,7 @@ export const PaymentStripeSEPARevamped = forwardRef(
       setIsOnlinePaymentDisabled,
       setPaymentProcessing,
       useInternalAccount,
+      invalidatePendingBookingsIfNecessary,
     }: PaymentStripeSEPAProps,
     ref,
   ) => {
@@ -411,6 +413,10 @@ export const PaymentStripeSEPARevamped = forwardRef(
           }
         }
 
+        createPendingBookingsIfNecessary?.({
+          payment_group_method_identifier: PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA,
+        });
+
         const iban_ = elements.getElement(IbanElement);
 
         const result = await stripe.confirmSepaDebitPayment(clientSecret, {
@@ -433,6 +439,7 @@ export const PaymentStripeSEPARevamped = forwardRef(
           // Show error to your customer.
           setError(result.error);
           setPaymentPageProcessing(false);
+          invalidatePendingBookingsIfNecessary?.();
           if (onError) onError();
         } else {
           setError(null);
@@ -452,12 +459,6 @@ export const PaymentStripeSEPARevamped = forwardRef(
             }
           }
 
-          if (createPendingBookingsIfNecessary)
-            createPendingBookingsIfNecessary({
-              payment_group_method_identifier:
-                PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA,
-            });
-
           onSuccess(() => setPaymentPageProcessing(false));
           // Show a confirmation message to your customer.
           // The PaymentIntent is in the 'processing' state.
@@ -474,6 +475,7 @@ export const PaymentStripeSEPARevamped = forwardRef(
         checkItemsBasket,
         clientSecret,
         createPendingBookingsIfNecessary,
+        invalidatePendingBookingsIfNecessary,
         elements,
         forceSave,
         needBillingDetailAddress,

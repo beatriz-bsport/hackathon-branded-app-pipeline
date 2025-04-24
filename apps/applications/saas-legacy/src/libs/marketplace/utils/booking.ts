@@ -19,7 +19,7 @@ import {
   EstablishmentBillingGroup,
 } from '#src/libs/establishment/types';
 import { isDateInThePast } from '#src/utils/datetime';
-import { isOfferBookableYet } from './offer';
+import { isTooSoonToBookOffer } from './offer';
 
 export const getBookingButtonTraduction = (
   offer: Offer_FULL,
@@ -45,7 +45,7 @@ export const getBookingButtonTraduction = (
   if (!offer.available) {
     text = t('translation:marketplace.bookButton.notAvailable');
   }
-  if (!isOfferBookableYet(offer, metaActivity)) {
+  if (isTooSoonToBookOffer(offer, metaActivity)) {
     text = t('translation:marketplace.bookButton.notBookableYet');
   }
 
@@ -61,12 +61,15 @@ const getBookingButtonTraductionForOfferGroupSetAsFullBookingOnly = (
   isRegistered: boolean = false,
   t: TFunction,
 ) => {
-  // group.full_booking_only has to be true to enter here
   const { group } = offer;
   const { allow_booking_after_start, first_offer_date } = group;
+
+  // Already booked
   if (isRegistered) {
     return t('translation:marketplace.bookButton.alreadyRegistered');
   }
+
+  // Offer not available or full
   if (!offer.available) {
     return t('translation:marketplace.bookButton.notAvailable');
   }
@@ -74,36 +77,34 @@ const getBookingButtonTraductionForOfferGroupSetAsFullBookingOnly = (
     return t('translation:marketplace.bookButton.full');
   }
 
-  let text = t('translation:marketplace.bookButton.book');
+  // After this point, the offer is available and not full
+  const now = DateTime.now();
+  const firstOfferDate = DateTime.fromISO(first_offer_date);
+
+  // Booking not allowed after session starts
   if (!allow_booking_after_start) {
-    if (DateTime.fromISO(first_offer_date) <= DateTime.now()) {
-      text = t('translation:marketplace.bookButton.isPast');
+    if (firstOfferDate <= now) {
+      return t('translation:marketplace.bookButton.isPast');
     }
-    if (!metaActivity.first_booking_minutes_until) {
-      text = t('translation:marketplace.bookButton.book');
-    } else if (
-      !(
-        DateTime.fromISO(first_offer_date).minus({
-          minutes: metaActivity.first_booking_minutes_until,
-        }) <= DateTime.now()
-      )
-    ) {
-      text = t('translation:marketplace.bookButton.notBookableYet');
-    }
-  } else if (isDateInThePast(offer.date_start)) {
-    return t('translation:marketplace.bookButton.isPast');
-  } else if (DateTime.fromISO(first_offer_date) <= DateTime.now()) {
-    return t('translation:marketplace.bookButton.book');
-  } else if (
-    !(
-      DateTime.fromISO(first_offer_date).minus({
-        minutes: metaActivity.first_booking_minutes_until,
-      }) <= DateTime.now()
-    )
-  ) {
-    text = t('translation:marketplace.bookButton.notBookableYet');
+
+    return isTooSoonToBookOffer(offer, metaActivity)
+      ? t('translation:marketplace.bookButton.notBookableYet')
+      : t('translation:marketplace.bookButton.book');
   }
-  return text;
+
+  if (isDateInThePast(offer.date_start)) {
+    return t('translation:marketplace.bookButton.isPast');
+  }
+
+  if (firstOfferDate <= now) {
+    return t('translation:marketplace.bookButton.book');
+  }
+
+  if (isTooSoonToBookOffer(offer, metaActivity)) {
+    return t('translation:marketplace.bookButton.notBookableYet');
+  }
+
+  return t('translation:marketplace.bookButton.book');
 };
 
 /**

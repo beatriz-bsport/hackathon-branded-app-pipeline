@@ -42,6 +42,7 @@ type PaymentStripeBanContactProps = {
   createPendingBookingsIfNecessary?: (data?: {
     payment_group_method_identifier?: number;
   }) => void;
+  invalidatePendingBookingsIfNecessary?: () => void;
   onCancel: () => void;
   setIsOnlinePaymentDisabled: (isLoading: boolean) => void;
   setPaymentProcessing: (processing: boolean) => void;
@@ -66,6 +67,7 @@ export const PaymentStripeBancontact = forwardRef(
       userDefaultName,
       checkItemsBasket,
       createPendingBookingsIfNecessary,
+      invalidatePendingBookingsIfNecessary,
       onCancel,
       setIsOnlinePaymentDisabled,
       setPaymentProcessing,
@@ -152,6 +154,11 @@ export const PaymentStripeBancontact = forwardRef(
           }
         }
 
+        createPendingBookingsIfNecessary?.({
+          payment_group_method_identifier:
+            PAYMENT_GROUP_METHOD_IDENTIFIER_BANCONTACT,
+        });
+
         // For brevity, this example is using uncontrolled components for
         // the accountholder's name. In a real world app you will
         // probably want to use controlled components.
@@ -194,6 +201,7 @@ export const PaymentStripeBancontact = forwardRef(
           // Show error to your customer.
           setErrorMessage(error.message);
           setPaymentPageProcessing(false);
+          invalidatePendingBookingsIfNecessary?.();
         } else {
           if (basketId) {
             try {
@@ -201,13 +209,6 @@ export const PaymentStripeBancontact = forwardRef(
             } catch (err) {
               console.error(err);
             }
-          }
-
-          if (createPendingBookingsIfNecessary) {
-            createPendingBookingsIfNecessary({
-              payment_group_method_identifier:
-                PAYMENT_GROUP_METHOD_IDENTIFIER_BANCONTACT,
-            });
           }
         }
 
@@ -220,6 +221,7 @@ export const PaymentStripeBancontact = forwardRef(
         checkItemsBasket,
         clientSecret,
         createPendingBookingsIfNecessary,
+        invalidatePendingBookingsIfNecessary,
         elements,
         email,
         forceSave,

@@ -12,13 +12,9 @@ import fetch from "#src/utils/fetch";
 import { Trans, useTranslation } from "#src/utils/i18n";
 
 export const useGroupActivityModals = ({
-  fetchData,
-  currentPage,
-  rowsPerPage,
+  fetchGroupActivitiesPage,
 }: {
-  fetchData: (page: number, rows: number) => void;
-  currentPage: number;
-  rowsPerPage: number;
+  fetchGroupActivitiesPage: () => void;
 }) => {
   const { t } = useTranslation("groupActivity");
 
@@ -72,9 +68,8 @@ export const useGroupActivityModals = ({
   const revertArchiveGroupActivity = (groupActivityId: number) => () => {
     unarchiveGroupActivityAction(fetch, groupActivityId.toString()).then(
       (response) => {
-        response.fold(
-          () => fetchData(currentPage, rowsPerPage),
-          (error) => console.error(error),
+        response.fold(fetchGroupActivitiesPage, (error) =>
+          console.error(error),
         );
       },
     );
@@ -103,7 +98,7 @@ export const useGroupActivityModals = ({
         },
         (error) => console.error(error),
       );
-      fetchData(currentPage, rowsPerPage);
+      fetchGroupActivitiesPage();
       onCloseArchiveModal();
     });
   };
@@ -128,7 +123,7 @@ export const useGroupActivityModals = ({
         },
         (error) => console.error(error),
       );
-      fetchData(currentPage, rowsPerPage);
+      fetchGroupActivitiesPage();
       onCloseDuplicateModal();
     });
   };

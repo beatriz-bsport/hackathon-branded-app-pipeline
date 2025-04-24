@@ -36,9 +36,11 @@ const getTranslations = async () => {
     BOOKING_SOURCE_MIGRATION,
   } = BOOKING_SOURCES;
 
-  const { PAYMENT_ENGINE_STRIPE, PAYMENT_ENGINE_BSPORT } = await import(
-    '@bsport/common/lib/master-data/payment-group.js'
-  );
+  const {
+    PAYMENT_ENGINE_STRIPE,
+    PAYMENT_ENGINE_BSPORT,
+    PAYMENT_ENGINE_PAYPAL,
+  } = await import('@bsport/common/lib/master-data/payment-group.js');
 
   const {
     BILLING_PLAN_STATUS_NOT_STARTED,
@@ -799,7 +801,8 @@ const getTranslations = async () => {
     presetValuesByDatatype: {
       payment_engine: {
         [PAYMENT_ENGINE_BSPORT]: 'Manual payment',
-        [PAYMENT_ENGINE_STRIPE]: 'Online payment',
+        [PAYMENT_ENGINE_STRIPE]: 'Stripe',
+        [PAYMENT_ENGINE_PAYPAL]: 'Paypal',
       },
       payment_method: {
         [CB.id]: 'Card',

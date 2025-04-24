@@ -21,6 +21,10 @@
       }
     }
   },
+  "@bsport/sm-email-templates": {
+    "namespaceAlpha": { "helloName": "Hello {{ name }} !" },
+    "namespaceBeta": {}
+  },
   "@bsport/sm-giftcard": {
     "common": {
       "pages": { "list": "Gift cards", "archivedList": "Archived gift cards" },
@@ -393,6 +397,12 @@
       },
       "additionalFeedbackQuestion": "Do you have additional feedback you'd like to share?",
       "additionalFeedbackPlaceholder": "Type your feedback here..."
+    }
+  },
+  "@bsport/sm-teacher": {
+    "common": {
+      "pages": { "active": "Teachers", "archived": "Archived teachers" },
+      "activeList": { "actions": { "addTeacher": "Add teacher" } }
     }
   },
   "@bsport/template-sm-application": {

@@ -45,6 +45,7 @@ type PaymentStripeProps = {
   createPendingBookingsIfNecessary?: (data?: {
     payment_group_method_identifier?: number;
   }) => void;
+  invalidatePendingBookingsIfNecessary?: () => void;
   creditAccountBalance?: number | null;
   detachPaymentMethod: (pm_id: string) => void;
   detachPaymentMethodLoading: boolean;
@@ -106,6 +107,7 @@ const PaymentStripeRevamped: React.FC<
       clientSecret,
       companyId,
       createPendingBookingsIfNecessary,
+      invalidatePendingBookingsIfNecessary,
       creditAccountBalance,
       detachPaymentMethod,
       detachPaymentMethodLoading,
@@ -177,6 +179,9 @@ const PaymentStripeRevamped: React.FC<
               forceSave={!!instalmentPaymentSelectedId}
               fromApp={fromApp}
               hasAddPaymentMethodPermission={hasAddPaymentMethodPermission}
+              invalidatePendingBookingsIfNecessary={
+                invalidatePendingBookingsIfNecessary
+              }
               isEstablishmentBillingGroupSelected={
                 isEstablishmentBillingGroupSelected
               }

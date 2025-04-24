@@ -417,111 +417,115 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
       this.props.fetchCurrentBasket(this.props.companyId);
       this.props.fetchMyRelatedMemberList(this.props.companyId);
     }
-    this.props.fetchOffer(this.props.offerId, {
-      onSuccess: (offer?: OfferREST) => {
-        if (!offer) {
-          throw new Error('Offer not found');
-        }
-        this.props.fetchBookingGuestNumber(this.props.offerId);
-        this.props.fetchOfferWaitingListPosition(this.props.offerId);
-        this.props.fetchCompanyTheme(offer.company);
-        this.setState({ offerWasRetrieved: true });
-        this.props.fetchMarketplaceSettings(offer.company.toString());
-        this.props.fetchCompanyConfiguration(offer.company);
-        this.props.fetchBookingFunnelConfiguration(offer.company);
-        this.props.resetPaymentPackForBooking();
-        this.fetchCompatibleConsumerPaymentPacks();
-        this.fetchCompatiblePaymentPacks();
-        this.fetchCompatibleComboPacks();
-        this.props.fetchContractForBookingHandler(
-          this.props.offerId,
-          offer.company,
-        );
-        this.props.fetchMemberTagList(offer.company);
-        this.props.fetchAllPaymentPackCategory(offer.company);
-        this.props.fetchMetaActivityBulk([offer.meta_activity]);
-        this.props.fetchCoachBulkForCompany(
-          [
-            offer.coach,
-            ...(offer.coach_override ? [offer.coach_override] : []),
-          ],
-          this.props.companyId,
-        );
-        this.props.fetchEstablishmentBulk([offer.establishment]);
-        if (offer.group !== null && typeof offer.group === 'number') {
-          this.setState({ showGroupedOfferInformationModal: true });
-          this.props.getGroupOfferBookableStatus(offer.group, {
-            onSuccess: () => {
-              this.updateOfferConstraints();
-            },
-          });
-          this.props.fetchGroup(offer.group, {
-            onSuccess: (group) => {
-              if (group && !group.full_booking_only) {
-                this.props.fetchOfferBulk(group.offers, {
-                  onSuccess: (offers) => {
-                    if (offers) this.fetchOffersRelatedObject(offers);
-                    this.retrieveFetchedGroupedOffer(group.id);
-                    this.props.fetchOfferStatusList(
-                      group.offers,
-                      {
-                        page_size: group.offers.length,
-                      },
-                      {
-                        onSuccess: (offersStatusList) => {
-                          const offersWithAvailableStatusIdsList = (
-                            offersStatusList ?? []
-                          )
-                            ?.filter(
-                              (offerStatus) =>
-                                offerStatus.bookable_status ===
-                                OFFER_BOOKABLE_STATUS_BOOKABLE,
-                            )
-                            .map(
-                              (filteredOfferStatus) => filteredOfferStatus.id,
-                            );
-                          this.filterGroupedOfferInSelectedOffer([
-                            this.props.offerId,
-                            ...offersWithAvailableStatusIdsList,
-                          ]);
-                          this.setBuyableItemsAndOfferFeature();
+    this.props.fetchOffer(
+      this.props.offerId,
+      {
+        onSuccess: (offer?: OfferREST) => {
+          if (!offer) {
+            throw new Error('Offer not found');
+          }
+          this.props.fetchBookingGuestNumber(this.props.offerId);
+          this.props.fetchOfferWaitingListPosition(this.props.offerId);
+          this.props.fetchCompanyTheme(offer.company);
+          this.setState({ offerWasRetrieved: true });
+          this.props.fetchMarketplaceSettings(offer.company.toString());
+          this.props.fetchCompanyConfiguration(offer.company);
+          this.props.fetchBookingFunnelConfiguration(offer.company);
+          this.props.resetPaymentPackForBooking();
+          this.fetchCompatibleConsumerPaymentPacks();
+          this.fetchCompatiblePaymentPacks();
+          this.fetchCompatibleComboPacks();
+          this.props.fetchContractForBookingHandler(
+            this.props.offerId,
+            offer.company,
+          );
+          this.props.fetchMemberTagList(offer.company);
+          this.props.fetchAllPaymentPackCategory(offer.company);
+          this.props.fetchMetaActivityBulk([offer.meta_activity]);
+          this.props.fetchCoachBulkForCompany(
+            [
+              offer.coach,
+              ...(offer.coach_override ? [offer.coach_override] : []),
+            ],
+            this.props.companyId,
+          );
+          this.props.fetchEstablishmentBulk([offer.establishment]);
+          if (offer.group !== null && typeof offer.group === 'number') {
+            this.setState({ showGroupedOfferInformationModal: true });
+            this.props.getGroupOfferBookableStatus(offer.group, {
+              onSuccess: () => {
+                this.updateOfferConstraints();
+              },
+            });
+            this.props.fetchGroup(offer.group, {
+              onSuccess: (group) => {
+                if (group && !group.full_booking_only) {
+                  this.props.fetchOfferBulk(group.offers, {
+                    onSuccess: (offers) => {
+                      if (offers) this.fetchOffersRelatedObject(offers);
+                      this.retrieveFetchedGroupedOffer(group.id);
+                      this.props.fetchOfferStatusList(
+                        group.offers,
+                        {
+                          page_size: group.offers.length,
                         },
-                      },
-                    );
-                  },
-                });
-              } else {
-                this.props.listGroupOfferOffersIdsToBeBooked(offer.group, {
-                  onSuccess: (ids) => {
-                    this.props.fetchOfferBulk(ids, {
-                      onSuccess: (offers) => {
-                        this.fetchOffersRelatedObject(offers);
-                        this.retrieveFetchedGroupedOffer(offer.group);
-                        this.filterGroupedOfferInSelectedOffer(ids);
-                      },
-                    });
-                  },
-                });
-              }
-            },
-          });
-        }
+                        {
+                          onSuccess: (offersStatusList) => {
+                            const offersWithAvailableStatusIdsList = (
+                              offersStatusList ?? []
+                            )
+                              ?.filter(
+                                (offerStatus) =>
+                                  offerStatus.bookable_status ===
+                                  OFFER_BOOKABLE_STATUS_BOOKABLE,
+                              )
+                              .map(
+                                (filteredOfferStatus) => filteredOfferStatus.id,
+                              );
+                            this.filterGroupedOfferInSelectedOffer([
+                              this.props.offerId,
+                              ...offersWithAvailableStatusIdsList,
+                            ]);
+                            this.setBuyableItemsAndOfferFeature();
+                          },
+                        },
+                      );
+                    },
+                  });
+                } else {
+                  this.props.listGroupOfferOffersIdsToBeBooked(offer.group, {
+                    onSuccess: (ids) => {
+                      this.props.fetchOfferBulk(ids, {
+                        onSuccess: (offers) => {
+                          this.fetchOffersRelatedObject(offers);
+                          this.retrieveFetchedGroupedOffer(offer.group);
+                          this.filterGroupedOfferInSelectedOffer(ids);
+                        },
+                      });
+                    },
+                  });
+                }
+              },
+            });
+          }
 
-        if (offer.room_blueprint !== null) {
-          this.setState({ isSpotSelectorOpen: true });
-          this.props.fetchRoomBlueprintDetail(offer.room_blueprint);
-          this.props.fetchAssetForBlueprint({
-            blueprint: offer.room_blueprint,
-          });
-          this.props.fetchSpotForBlueprint({
-            company: this.props.companyId,
-          });
-        }
-        this.fetchOfferStatus();
-        this.fetchSimilarOffers();
-        this.handleSelectOffer(offer);
+          if (offer.room_blueprint !== null) {
+            this.setState({ isSpotSelectorOpen: true });
+            this.props.fetchRoomBlueprintDetail(offer.room_blueprint);
+            this.props.fetchAssetForBlueprint({
+              blueprint: offer.room_blueprint,
+            });
+            this.props.fetchSpotForBlueprint({
+              company: this.props.companyId,
+            });
+          }
+          this.fetchOfferStatus();
+          this.fetchSimilarOffers();
+          this.handleSelectOffer(offer);
+        },
       },
-    });
+      { with_booking_window: true },
+    );
   }
 
   filterGroupedOfferInSelectedOffer = (

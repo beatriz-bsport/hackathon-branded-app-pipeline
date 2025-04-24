@@ -90,7 +90,7 @@ describe("getConfig", () => {
         federationConfig: { remotes: mockRemotes },
       }),
     );
-    expect(prodHostConfig.base).toBe("/v2/");
+    expect(prodHostConfig.base).toBe("/studio/");
 
     // Production mode, remote app
     const prodRemoteConfig = getConfig(
@@ -100,7 +100,7 @@ describe("getConfig", () => {
         federationConfig: { devPort: 4050 },
       }),
     );
-    expect(prodRemoteConfig.base).toBe("/v2/apps/navigation-sidebar/");
+    expect(prodRemoteConfig.base).toBe("/studio/apps/navigation-sidebar/");
   });
 
   it("generates correct federation config", async () => {
@@ -254,11 +254,11 @@ describe("getConfig", () => {
       prodConfig.define["__NAVIGATION_SIDEBAR__"],
     );
 
-    expect(prodVariables["__APPLICATION_BASE_URL__"]).toBe("/v2");
+    expect(prodVariables["__APPLICATION_BASE_URL__"]).toBe("/studio");
     expect(prodVariables["__I18N_NAMESPACE_PREFIX__"]).toBe(
       "sm-navigation-sidebar",
     );
-    expect(prodVariables["__BASENAME__"]).toBe("/v2/");
+    expect(prodVariables["__BASENAME__"]).toBe("/studio/");
   });
 
   it("generates correct remotes configuration", () => {
@@ -295,7 +295,7 @@ describe("getConfig", () => {
       "sm-remote-app": {
         name: "sm-remote-app",
         type: "module",
-        entry: "/v2/apps/remote-app/remoteEntry.js",
+        entry: "/studio/apps/remote-app/remoteEntry.js",
       },
     });
   });

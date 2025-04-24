@@ -11421,7 +11421,7 @@
       "is_unpaid": { "True": "Unpaid", "False": "Paid" }
     },
     "presetValuesByDatatype": {
-      "payment_engine": { "0": "Manual payment", "1": "Online payment" },
+      "payment_engine": { "0": "Manual payment", "1": "Stripe", "2": "Paypal" },
       "payment_method": {
         "0": "Card",
         "1": "Cash",

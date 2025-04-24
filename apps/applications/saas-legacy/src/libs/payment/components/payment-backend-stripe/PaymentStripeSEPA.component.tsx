@@ -196,6 +196,7 @@ type PaymentStripeSEPAProps = {
   setIsOnlinePaymentDisabled?: (isLoading: boolean) => void;
   setPaymentProcessing: (processing: boolean) => void;
   useInternalAccount?: (amount: number) => void;
+  invalidatePendingBookingsIfNecessary?: () => void;
 };
 
 export const PaymentStripeSEPA = forwardRef(
@@ -233,6 +234,7 @@ export const PaymentStripeSEPA = forwardRef(
       setIsOnlinePaymentDisabled,
       setPaymentProcessing,
       useInternalAccount,
+      invalidatePendingBookingsIfNecessary,
     }: PaymentStripeSEPAProps,
     ref,
   ) => {
@@ -394,6 +396,10 @@ export const PaymentStripeSEPA = forwardRef(
           }
         }
 
+        createPendingBookingsIfNecessary?.({
+          payment_group_method_identifier: PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA,
+        });
+
         const iban_ = elements.getElement(IbanElement);
 
         const result = await stripe.confirmSepaDebitPayment(clientSecret, {
@@ -416,6 +422,7 @@ export const PaymentStripeSEPA = forwardRef(
           // Show error to your customer.
           setError(result.error);
           setPaymentPageProcessing(false);
+          invalidatePendingBookingsIfNecessary?.();
           if (onError) onError();
         } else {
           setError(null);
@@ -427,12 +434,6 @@ export const PaymentStripeSEPA = forwardRef(
               console.error(err);
             }
           }
-
-          if (createPendingBookingsIfNecessary)
-            createPendingBookingsIfNecessary({
-              payment_group_method_identifier:
-                PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA,
-            });
 
           onSuccess(() => setPaymentPageProcessing(false));
           // Show a confirmation message to your customer.
@@ -450,6 +451,7 @@ export const PaymentStripeSEPA = forwardRef(
         checkItemsBasket,
         clientSecret,
         createPendingBookingsIfNecessary,
+        invalidatePendingBookingsIfNecessary,
         elements,
         forceSave,
         needBillingDetailAddress,

@@ -57,6 +57,7 @@ interface PaymentStripeBacsDebitProps {
   createPendingBookingsIfNecessary?: (data?: {
     payment_group_method_identifier?: number;
   }) => void;
+  invalidatePendingBookingsIfNecessary?: () => void;
   detachPaymentMethod: (pm_id: string) => void;
   onCancel: () => void;
   onError: () => void;
@@ -87,6 +88,7 @@ const PaymentStripeBacsDebit = forwardRef(
       termsAndConditionsAccepted,
       checkItemsBasket,
       createPendingBookingsIfNecessary,
+      invalidatePendingBookingsIfNecessary,
       detachPaymentMethod,
       onCancel,
       onError,
@@ -248,6 +250,11 @@ const PaymentStripeBacsDebit = forwardRef(
         return;
       }
 
+      createPendingBookingsIfNecessary?.({
+        payment_group_method_identifier:
+          PAYMENT_GROUP_METHOD_IDENTIFIER_BACS_DEBIT,
+      });
+
       const result = await stripe.confirmPayment({
         elements,
         clientSecret,
@@ -263,6 +270,7 @@ const PaymentStripeBacsDebit = forwardRef(
         setErrorMessage(result.error.message);
         if (onError) onError();
         setPaymentPageProcessing(false);
+        invalidatePendingBookingsIfNecessary?.();
       } else {
         setErrorMessage(null);
 
@@ -273,11 +281,6 @@ const PaymentStripeBacsDebit = forwardRef(
             console.error(err);
           }
         }
-        if (createPendingBookingsIfNecessary)
-          createPendingBookingsIfNecessary({
-            payment_group_method_identifier:
-              PAYMENT_GROUP_METHOD_IDENTIFIER_BACS_DEBIT,
-          });
         onSuccess(() => setPaymentPageProcessing(false));
       }
     }, [
@@ -287,6 +290,7 @@ const PaymentStripeBacsDebit = forwardRef(
       onError,
       setPaymentPageProcessing,
       createPendingBookingsIfNecessary,
+      invalidatePendingBookingsIfNecessary,
       onSuccess,
       basketId,
     ]);

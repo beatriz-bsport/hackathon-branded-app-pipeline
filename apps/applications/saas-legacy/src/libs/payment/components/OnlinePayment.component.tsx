@@ -54,6 +54,7 @@ type Props = {
     | InstalmentPaymentApiWithBasketId[]
     | null;
   instalmentPaymentSelectedId?: number;
+  invalidatePendingBookingsIfNecessary?: () => void;
   isEstablishmentBillingGroupSelected?: boolean;
   loading: boolean;
   memberId: number;
@@ -116,6 +117,7 @@ const OnlinePayment: React.FC<Props> = forwardRef(
       hideTotalPriceBeforePayment,
       instalmentPaymentConfigurationList,
       instalmentPaymentSelectedId,
+      invalidatePendingBookingsIfNecessary,
       isEstablishmentBillingGroupSelected = true,
       loading,
       memberId,
@@ -296,6 +298,9 @@ const OnlinePayment: React.FC<Props> = forwardRef(
                 detachPaymentMethodLoading={detachPaymentMethodLoading}
                 forceHideConfirmPaymentButton={forceHideConfirmPaymentButton}
                 instalmentPaymentSelectedId={instalmentPaymentSelectedId}
+                invalidatePendingBookingsIfNecessary={
+                  invalidatePendingBookingsIfNecessary
+                }
                 isEstablishmentBillingGroupSelected={
                   isEstablishmentBillingGroupSelected
                 }

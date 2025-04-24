@@ -21,6 +21,7 @@ import {
   checkItemsBasket as checkItemsBasketAPI,
   verifyPriceBasket as verifyPriceBasketAPI,
   createPendingBookings as createPendingBookingsAPI,
+  invalidatePendingBookings as invalidatePendingBookingsAPI,
 } from '#src/libs/payment/api';
 import routerParamsToProps from '#src/hocs/router-params-to-props.hoc';
 import {
@@ -429,20 +430,32 @@ export class BasketPaymentIntent extends React.Component<Props, State> {
     });
   };
 
+  hasOfferData = () => {
+    return (
+      this.props.basket &&
+      (this.props.basket.checkout_items ?? []).some(
+        (checkoutItem) =>
+          (checkoutItem?.extra_data?.offers_data?.length ?? 0) > 0,
+      )
+    );
+  };
+
   createPendingBookingsIfNecessary = (
     data: { payment_group_method_identifier?: number } = {},
   ) => {
-    if (!this.props.basket) return;
+    if (!this.hasOfferData()) return;
 
-    const basketHasOfferData = (this.props.basket.checkout_items ?? []).some(
-      (checkoutItem) => checkoutItem?.extra_data?.offers_data?.length > 0,
+    createPendingBookingsAPI(this.props.basket.id, data).catch((error) =>
+      console.error(error),
     );
+  };
 
-    if (basketHasOfferData) {
-      createPendingBookingsAPI(this.props.basket.id, data).catch(
-        (error: Error) => console.error(error),
-      );
-    }
+  invalidatePendingBookingsIfNecessary = () => {
+    if (!this.hasOfferData()) return;
+
+    invalidatePendingBookingsAPI(this.props.basket.id).catch((error) =>
+      console.error(error),
+    );
   };
 
   updateMemberBillingGroup = (establishmentBillingGroupId: number) => {
@@ -613,6 +626,9 @@ export class BasketPaymentIntent extends React.Component<Props, State> {
               (ipc) => ipc.basketId === this.props.basket?.id,
             )}
             instalmentPaymentSelectedId={this.props.basket?.instalment_payment}
+            invalidatePendingBookingsIfNecessary={
+              this.invalidatePendingBookingsIfNecessary
+            }
             isEstablishmentBillingGroupSelected={
               this.state.isEstablishmentBillingGroupSelected
             }

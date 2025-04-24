@@ -67,6 +67,7 @@ type Props = {
   createPendingBookingsIfNecessary?: (data?: {
     payment_group_method_identifier?: number;
   }) => void;
+  invalidatePendingBookingsIfNecessary?: () => void;
   detachPaymentMethod: (
     paymentMethodId: string,
     options?: OptionCallback<unknown, number>,
@@ -146,6 +147,7 @@ const PaymentStripeCard = forwardRef(
       applyBalanceToInvoice,
       checkItemsBasket,
       createPendingBookingsIfNecessary,
+      invalidatePendingBookingsIfNecessary,
       detachPaymentMethod,
       onCancel,
       onError,
@@ -405,6 +407,10 @@ const PaymentStripeCard = forwardRef(
           }
         }
         try {
+          createPendingBookingsIfNecessary?.({
+            payment_group_method_identifier: PAYMENT_GROUP_METHOD_IDENTIFIER_CB,
+          });
+
           if (!areInitialBillingDetailsNecessary && paymentMethodSelected) {
             /**
              * This API call is intentionally not moved to a Redux action because:
@@ -435,6 +441,7 @@ const PaymentStripeCard = forwardRef(
             // Show error to your customer (e.g., insufficient funds)
             setError(result.error);
             setPaymentPageProcessing(false);
+            invalidatePendingBookingsIfNecessary?.();
             if (onError) onError();
           } else {
             // The payment has been processed!
@@ -446,12 +453,6 @@ const PaymentStripeCard = forwardRef(
               }
             }
             setError(null);
-
-            if (createPendingBookingsIfNecessary)
-              createPendingBookingsIfNecessary({
-                payment_group_method_identifier:
-                  PAYMENT_GROUP_METHOD_IDENTIFIER_CB,
-              });
 
             if (result.paymentIntent.status === 'succeeded') {
               // Show a success message to your customer
@@ -476,6 +477,7 @@ const PaymentStripeCard = forwardRef(
         clientSecret,
         companyId,
         createPendingBookingsIfNecessary,
+        invalidatePendingBookingsIfNecessary,
         elements,
         onError,
         onSuccess,

@@ -1,4 +1,7 @@
-import { createPendingBookings } from '#src/libs/payment/payment-module-revamped/api';
+import {
+  createPendingBookings,
+  invalidatePendingBookings,
+} from '#src/libs/payment/payment-module-revamped/api';
 import { useBasketPaymentStoreData } from './useBasketPaymentStoreData';
 
 import type { Basket } from '#src/libs/checkout/types';
@@ -7,7 +10,7 @@ import type {
   InstalmentPaymentApiWithBasketId,
 } from '#src/libs/instalment-payment-configuration/types';
 import type { OptionCallback } from '#src/state/types';
-import { useCallback } from 'react';
+import { useCallback, useMemo } from 'react';
 import {
   useBasketPaymentLocalState,
   type PaymentEngine,
@@ -25,6 +28,7 @@ type UsePayment = {
   createPendingBookingsIfNecessary: (data?: {
     payment_group_method_identifier?: number;
   }) => void;
+  invalidatePendingBookingsIfNecessary: () => void;
   getClientSecret: (paymentEngine: PaymentEngine) => void;
   instalmentPaymentConfigurations: InstalmentPaymentApiWithBasketId[];
   instalmentPaymentSelectedId: number | undefined;
@@ -94,6 +98,16 @@ export const usePayment = (
   const { selectedPaymentEngine, selectedEstablishmentBillingGroup } =
     useBasketPaymentLocalState();
 
+  const basketHasOfferData = useMemo(() => {
+    return (
+      basketId &&
+      (basketCheckoutItems ?? []).some(
+        ({ extra_data }) =>
+          !!extra_data?.offers_data && extra_data.offers_data.length > 0,
+      )
+    );
+  }, [basketCheckoutItems, basketId]);
+
   /**
    * Creates pending bookings based on the basket data.
    *
@@ -102,21 +116,25 @@ export const usePayment = (
    */
   const createPendingBookingsIfNecessary = useCallback(
     (data?: { payment_group_method_identifier?: number }) => {
-      if (basketId) {
-        const basketHasOfferData = (basketCheckoutItems ?? []).some(
-          ({ extra_data }) =>
-            !!extra_data?.offers_data && extra_data.offers_data.length > 0,
-        );
+      if (!basketHasOfferData || !data) return;
 
-        if (basketHasOfferData && data) {
-          createPendingBookings({ basketId, data }).catch((error) =>
-            console.error(error),
-          );
-        }
-      }
+      createPendingBookings({ basketId, data }).catch((error) =>
+        console.error(error),
+      );
     },
-    [basketCheckoutItems, basketId],
+    [basketId, basketHasOfferData],
   );
+
+  /**
+   * Invalidates pending bookings based on the basket data.
+   */
+  const invalidatePendingBookingsIfNecessary = useCallback(() => {
+    if (!basketHasOfferData) return;
+
+    invalidatePendingBookings({ basketId }).catch((error) =>
+      console.error(error),
+    );
+  }, [basketId, basketHasOfferData]);
 
   const getClientSecret = useCallback(
     (paymentEngine: PaymentEngine) => {
@@ -227,6 +245,7 @@ export const usePayment = (
   return {
     clientSecret,
     createPendingBookingsIfNecessary,
+    invalidatePendingBookingsIfNecessary,
     getClientSecret,
     instalmentPaymentConfigurations,
     instalmentPaymentSelectedId,

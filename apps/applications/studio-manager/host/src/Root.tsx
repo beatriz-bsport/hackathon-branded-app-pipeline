@@ -1,5 +1,7 @@
 import { lazy } from "react";
 import { Route, Routes } from "react-router";
+// Import urls from the navigation sidebar
+import urls from "sm-navigation-sidebar/urls";
 
 import { AppWrapper } from "@bsport/sm-backbone";
 
@@ -29,16 +31,16 @@ export function Root() {
         <Route path="/" element={<h1>Hello world</h1>} />
 
         {/* ----- Booking ----- */}
-        <Route path="/activity/*" element={<GroupActivities />} />
+        <Route path={`${urls.activity}/*`} element={<GroupActivities />} />
 
         {/* ----- Buyables ----- */}
-        <Route path="/giftcard/*" element={<Giftcard />} />
+        <Route path={`${urls.giftcard}/*`} element={<Giftcard />} />
 
         {/* ----- Core-data ----- */}
-        <Route path="/member/*" element={<MemberList />} />
+        <Route path={`${urls.member}/*`} element={<MemberList />} />
 
         {/* ----- Financial Services ----- */}
-        <Route path="/invoice/*" element={<Invoice />} />
+        <Route path={`${urls.invoice}/*`} element={<Invoice />} />
       </Routes>
     </AppWrapper>
   );

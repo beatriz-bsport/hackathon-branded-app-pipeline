@@ -9,6 +9,16 @@ declare module "sm-navigation-sidebar/NavigationSidebar" {
   export default NavigationSidebar;
 }
 
+declare module "sm-navigation-sidebar/urls" {
+  const urls: {
+    activity: string;
+    member: string;
+    invoice: string;
+    giftcard: string;
+  };
+  export default urls;
+}
+
 // ----- Booking -----
 declare module "sm-group-activity/App" {
   const App: BaseApp["App"];

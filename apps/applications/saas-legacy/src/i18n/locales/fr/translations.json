@@ -11965,7 +11965,8 @@
             },
             "payment_engine": {
                 "0": "Payment manuel",
-                "1": "Payment en ligne"
+                "1": "Payment en ligne",
+                "2": "PayPal"
             }
         },
         "presetValuesByIdentifier": {

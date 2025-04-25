@@ -1731,6 +1731,9 @@ importers:
 
   packages/design-system/kaizen/primitive/core:
     dependencies:
+      '@bsport/datetime-manipulation':
+        specifier: workspace:*
+        version: link:../../../../utils/datetime/manipulation
       '@bsport/i18n':
         specifier: workspace:*
         version: link:../../../../utils/i18n
@@ -1962,6 +1965,19 @@ importers:
         version: link:../../../tools/config/eslint-react
 
   packages/utils/datetime/format:
+    dependencies:
+      luxon:
+        specifier: ^3.4.4
+        version: 3.5.0
+    devDependencies:
+      '@bsport/config-eslint-react':
+        specifier: workspace:*
+        version: link:../../../../tools/config/eslint-react
+      '@types/luxon':
+        specifier: ^3.4.2
+        version: 3.4.2
+
+  packages/utils/datetime/manipulation:
     dependencies:
       luxon:
         specifier: ^3.4.4
@@ -32369,9 +32385,7 @@ snapshots:
       pretty-format: 24.9.0
       throat: 4.1.0
     transitivePeerDependencies:
-      - bufferutil
       - supports-color
-      - utf-8-validate
 
   jest-junit@14.0.1:
     dependencies:

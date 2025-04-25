@@ -1,5 +1,6 @@
 import { ListLayout } from "@bsport/kaizen-primitive-core";
 
+import { ROUTES } from "#src/pages/routes";
 import { useTranslation } from "#src/utils/i18n";
 
 import { GiftcardArchivedListContent } from "./GiftcardArchivedListContent";
@@ -15,7 +16,7 @@ export const GiftcardArchivedListPage: React.FC = () => {
           {
             id: "giftcard",
             text: t("pages.list"),
-            href: "/",
+            href: ROUTES.ACTIVE,
           },
         ]}
       />

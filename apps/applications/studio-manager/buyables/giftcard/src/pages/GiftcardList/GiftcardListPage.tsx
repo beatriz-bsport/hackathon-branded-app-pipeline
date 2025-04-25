@@ -1,7 +1,9 @@
 import { useState } from "react";
+import { useNavigate } from "react-router";
 
 import { Button, ListLayout, Tooltip } from "@bsport/kaizen-primitive-core";
 
+import { ROUTES } from "#src/pages/routes";
 import { useTranslation } from "#src/utils/i18n";
 
 import { GiftcardImageUploadModal } from "./GiftcardImageUploadModal";
@@ -11,9 +13,10 @@ export const GiftcardListPage: React.FC = () => {
   const { t } = useTranslation("common");
   const [openImageModal, setOpenImageModal] = useState<boolean>(false);
 
+  const navigate = useNavigate();
   const navigateToCreatePage = () => console.log("Create giftcard");
 
-  const navigateToArchivePage = () => window.location.assign("/archived");
+  const navigateToArchivePage = () => navigate(ROUTES.ARCHIVED);
 
   const openImageBankModal = () => setOpenImageModal(true);
 

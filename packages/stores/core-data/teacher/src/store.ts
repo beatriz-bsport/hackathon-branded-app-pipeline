@@ -1,21 +1,21 @@
 import { createStore } from "zustand/vanilla";
 
-import { bindStore } from "@bsport/store-base";
+import { type PaginatedState, bindStore } from "@bsport/store-base";
 
 import type { Teacher } from "#src/types";
 
-export interface TeacherState {
-  byId: { [key: number]: Teacher };
-  count: number;
-  ids: number[];
-  page: number;
-}
+export type TeacherState = {
+  flatIds: number[];
+  fuzzyIds: number[];
+} & PaginatedState<Teacher>;
 
 export const teacherStore = createStore<TeacherState>()(() => ({
   byId: {},
   count: 0,
   ids: [],
   page: 1,
+  flatIds: [],
+  fuzzyIds: [],
 }));
 
 /**

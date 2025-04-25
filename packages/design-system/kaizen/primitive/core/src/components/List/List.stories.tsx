@@ -3,6 +3,8 @@ import { useState } from "react";
 
 import List from "#src/components/List";
 
+import { ButtonProps } from "../Button";
+
 /**
  * A list component that can contain multiple `Item` components and one `Header` component.<br>
  * It manages the state of checked items and provides context for each `Item` regarding its checked state.<br>
@@ -79,6 +81,59 @@ export const Primary: Story = {
       title: "List Title",
       description: "Helpful description",
       id: "list-header-1",
+    },
+    items: [
+      {
+        id: "list-item-1",
+        title: "Playing with fonts is fun",
+        rightTitle: "Right title",
+        description: "Playing with fonts is fun",
+      },
+      {
+        id: "list-item-2",
+        title: "Playing with fonts is fun",
+        rightTitle: "Right title",
+        description: "Playing with fonts is fun",
+      },
+      {
+        id: "list-item-3",
+        title: "Playing with fonts is fun",
+        rightTitle: "Right title",
+        description: "Playing with fonts is fun",
+      },
+    ],
+    isSelectable: false,
+    emptyStateProps: {
+      isEmptySearch: false,
+      emptySearchConfig: emptySearchConfig,
+      isEmpty: false,
+      emptyConfig: emptyConfig,
+    },
+  },
+};
+
+export const ListWithButtonsInHeader: Story = {
+  name: "List with buttons in header",
+  args: {
+    id: "list-1",
+    header: {
+      title: "List with buttons in header title",
+      description: "Helpful description",
+      id: "list-header-1",
+      buttons: [
+        {
+          intent: "flat",
+          color: "default",
+          size: "md",
+          iconLeft: "chevron-down",
+        },
+        {
+          intent: "flat",
+          color: "default",
+          size: "md",
+          iconLeft: "dots-horizontal",
+        },
+      ] as [ButtonProps, ButtonProps],
     },
     items: [
       {
@@ -256,6 +311,22 @@ export const PaginatedList: Story = {
 
 export const EmptyList: Story = {
   args: {
+    emptyStateProps: {
+      isEmptySearch: false,
+      emptySearchConfig: emptySearchConfig,
+      isEmpty: true,
+      emptyConfig: emptyConfig,
+    },
+  },
+};
+
+export const EmptyListWithHeader: Story = {
+  args: {
+    header: {
+      title: "Empty List Header",
+      description: "Helpful description for a empty list with a header",
+      id: "list-header-4",
+    },
     emptyStateProps: {
       isEmptySearch: false,
       emptySearchConfig: emptySearchConfig,

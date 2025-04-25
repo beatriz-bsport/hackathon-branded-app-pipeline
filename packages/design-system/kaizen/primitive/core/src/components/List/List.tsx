@@ -86,17 +86,18 @@ const List: React.FC<ListProps> = ({
   const pagination = usePagination(paginationProps);
 
   const { shouldRenderEmptyState, EmptyState } = useEmptyState(emptyStateProps);
-  if (shouldRenderEmptyState) {
-    return <EmptyState />;
-  }
 
   return (
     <CheckboxProvider valueIds={valueIds}>
       <div className={className} id={id}>
         {!!header && <Header {...header} isSelectable={isSelectable} />}
-        {items?.map((item) => (
-          <Item {...item} key={item.id} isSelectable={isSelectable} />
-        ))}
+        {shouldRenderEmptyState ? (
+          <EmptyState />
+        ) : (
+          items?.map((item) => (
+            <Item {...item} key={item.id} isSelectable={isSelectable} />
+          ))
+        )}
         {pagination}
       </div>
     </CheckboxProvider>

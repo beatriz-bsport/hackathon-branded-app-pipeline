@@ -23,7 +23,13 @@ exports.default = {
       "be able to choose a background image.",
   },
   toasts: {
-    messageDeleted: "Your image was deleted",
-    actionUndo: "Undo",
+    actions: {
+      undo: "Undo",
+      close: "Close",
+    },
+    archiveMessage: {
+      success: "Your image was deleted",
+      error: "Failed to delete your image",
+    },
   },
 };

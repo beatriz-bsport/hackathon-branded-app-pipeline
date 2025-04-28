@@ -1,20 +1,24 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 
 import { Modal, toast } from "@bsport/kaizen-primitive-core";
-
 import {
-  type GiftcardImage,
-  archiveGiftcardImage,
-  getCompanyTheme,
-  getGiftcardImageList,
-  restoreGiftcardImage,
-} from "#src/features/api";
+  archiveGiftcardImageAction,
+  fetchGiftcardImagesAction,
+  restoreGiftcardImageAction,
+  selectGiftcardImages,
+  selectGiftcardImagesCount,
+  useGiftcardStore,
+} from "@bsport/store-buyables-giftcard";
+
+import { getCompanyTheme } from "#src/features/api";
+import { fetch } from "#src/utils/fetch";
 import { useTranslation } from "#src/utils/i18n";
 
 import { GiftcardDisplay } from "./GiftcardDisplay";
 import { GiftcardImageList } from "./GiftcardImageList";
 
 const ROWS_PER_PAGE = 5;
+const DEFAULT_PAGE = 1;
 
 type UploadModalProps = {
   isOpen: boolean;
@@ -26,76 +30,94 @@ export const GiftcardImageUploadModal: React.FC<UploadModalProps> = ({
   onCloseModal,
 }) => {
   const { t } = useTranslation("imageUpload");
+
+  // Manage the image to render on the Giftcard preview
   const [selectedImage, setSelectedImage] = useState<string | undefined>(
     undefined,
   );
-  const [currentPage, setCurrentPage] = useState<number>(1);
-  const [totalItems, setTotalItems] = useState<number>(0);
-  const [itemList, setItemList] = useState<GiftcardImage[]>([]);
-  // TODO : Company theme should be a global value
+
+  // Pagination can not be managed in URL as it happens in a modal over a Paginated list
+  const [currentPage, setCurrentPage] = useState<number>(DEFAULT_PAGE);
+
+  /** @todo Company theme should be retrieved from common store */
   const [companyTheme, setCompanyTheme] = useState<{ cover: string }>({
     cover: "",
   });
 
+  // Data from store
+  const totalItems = useGiftcardStore(selectGiftcardImagesCount);
+  const giftcardImages = useGiftcardStore(selectGiftcardImages);
+
   // ----- Handlers -----
 
-  const refreshGiftcardImageList = useCallback(() => {
-    getGiftcardImageList({
-      currentPage: 1,
-      rowsPerPage: ROWS_PER_PAGE,
-      setItemList,
-      setTotalItems,
-    });
-  }, []);
+  const fetchGiftcardImages = useCallback(
+    async ({ page }: { page: number }) => {
+      return fetchGiftcardImagesAction(fetch, {
+        page,
+        page_size: ROWS_PER_PAGE,
+        /** @todo Retrieve company id from Company store */
+        company: 2,
+      });
+    },
+    [],
+  );
 
-  // TODO : Use when having true pagination
-  // ADD this in a useEffect
-  const getGiftcardImagePageList = useCallback(() => {
-    getGiftcardImageList({
-      currentPage: currentPage,
-      rowsPerPage: ROWS_PER_PAGE,
-      setItemList,
-      setTotalItems,
-    });
-  }, [currentPage]);
+  const refreshGiftcardImages = useCallback(() => {
+    fetchGiftcardImages({ page: DEFAULT_PAGE });
+  }, [fetchGiftcardImages]);
+
+  /** @todo Use when having true pagination */
+  const fetchGiftcardImagesPage = useCallback(() => {
+    fetchGiftcardImages({ page: currentPage });
+  }, [currentPage, fetchGiftcardImages]);
 
   const handleArchive = async (id: number) => {
-    // Archive the GiftcardBackgroundImage in the backend
-    await archiveGiftcardImage({ id });
+    const response = await archiveGiftcardImageAction(fetch, { id });
 
-    // Refresh the list once it's done
-    await getGiftcardImageList({
-      currentPage,
-      rowsPerPage: ROWS_PER_PAGE,
-      setItemList,
-      setTotalItems,
-    });
+    const onSuccess = () => {
+      // Refresh the list
+      fetchGiftcardImagesPage();
 
-    // Display a toast to "undo" the action
-    toast({
-      status: "critical",
-      icon: "trash-01",
-      title: t("toasts.messageDeleted"),
-      buttonLabel: t("toasts.actionUndo"),
-      onButtonClick: async () => {
-        await restoreGiftcardImage({ id });
-        await getGiftcardImagePageList();
-      },
-    });
+      // Display a toast to "undo" the action
+      toast({
+        status: "critical",
+        icon: "trash-01",
+        title: t("toasts.archiveMessage.success"),
+        buttonLabel: t("toasts.actions.undo"),
+        onButtonClick: async () => {
+          await restoreGiftcardImageAction(fetch, { id });
+          await fetchGiftcardImagesPage();
+        },
+      });
+    };
+
+    const onFailure = () => {
+      // Display a toast to inform about the failure
+      toast({
+        status: "critical",
+        icon: "x",
+        title: t("toasts.archiveMessage.error"),
+        buttonLabel: t("toasts.actions.close"),
+      });
+    };
+
+    response.fold(onSuccess, onFailure);
   };
 
-  // TODO : remove when having true pagination
+  /** @todo Remove when having true pagination */
   const paginatedList = useMemo(() => {
-    return itemList.slice(
+    return giftcardImages.slice(
       (currentPage - 1) * ROWS_PER_PAGE,
       currentPage * ROWS_PER_PAGE,
     );
-  }, [currentPage, itemList]);
+  }, [currentPage, giftcardImages]);
 
-  // On load component, fetch giftcards
-  useEffect(refreshGiftcardImageList, [refreshGiftcardImageList]);
+  // ----- Load data -----
 
-  // On mount, fetch company theme
+  useEffect(() => {
+    refreshGiftcardImages();
+  }, [refreshGiftcardImages]);
+
   useEffect(() => {
     getCompanyTheme({ setTheme: setCompanyTheme });
   }, []);
@@ -128,7 +150,7 @@ export const GiftcardImageUploadModal: React.FC<UploadModalProps> = ({
           onPageChange={setCurrentPage}
           totalItems={totalItems}
           isEmpty={isEmpty}
-          refreshGiftcardImageList={refreshGiftcardImageList}
+          refreshGiftcardImageList={refreshGiftcardImages}
           rowsPerPage={ROWS_PER_PAGE}
         />
       </div>

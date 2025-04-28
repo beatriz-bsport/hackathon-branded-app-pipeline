@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import React, { useMemo } from "react";
+import React from "react";
 
 import {
   Body,
@@ -7,14 +7,14 @@ import {
   Table,
   type TableProps,
 } from "@bsport/kaizen-primitive-core";
+import type { Giftcard } from "@bsport/store-buyables-giftcard";
 
-import type { Giftcard } from "#src/features/api";
 import { useTranslation } from "#src/utils/i18n";
 
 import type { TableRowData } from "./constants";
 import {
   type GetTableColumnsParams,
-  getTableColumns,
+  useTableColumns,
 } from "./giftcard-columns";
 
 type GiftcardTableProps = Omit<GetTableColumnsParams, "t"> & {
@@ -38,17 +38,12 @@ export const GiftcardTable: React.FC<GiftcardTableProps> = ({
 }) => {
   const { t } = useTranslation("common");
 
-  const tableColumns = useMemo(
-    () =>
-      getTableColumns({
-        handleArchive,
-        handleDuplicate,
-        handleRestore,
-        mode,
-        t,
-      }),
-    [mode],
-  );
+  const tableColumns = useTableColumns({
+    handleArchive,
+    handleDuplicate,
+    handleRestore,
+    mode,
+  });
 
   if (isLoading) {
     return (

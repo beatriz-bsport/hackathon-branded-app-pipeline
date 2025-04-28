@@ -1,8 +1,14 @@
-import React, { useCallback } from "react";
+import React from "react";
 
 import { Body, Modal, toast } from "@bsport/kaizen-primitive-core";
+import {
+  type Giftcard,
+  duplicateGiftcardAction,
+} from "@bsport/store-buyables-giftcard";
+import { useAsync } from "@bsport/use-async";
 
-import { duplicateGiftcard } from "#src/features/api";
+import { useGiftcardNavigation } from "#src/hooks/useGiftcardNavigation";
+import { fetch } from "#src/utils/fetch";
 import { useTranslation } from "#src/utils/i18n";
 
 type GiftcardDuplicateModalProps = {
@@ -21,40 +27,52 @@ export const GiftcardDuplicateModal: React.FC<GiftcardDuplicateModalProps> = ({
   refreshPageList,
 }) => {
   const { t } = useTranslation("common");
+  const { navigateToGiftcardDetail } = useGiftcardNavigation();
 
-  const handleOpen = useCallback(
-    async ({ giftcardCopyId }: { giftcardCopyId: number }) => {
-      // TODO : Implement navigation to giftcard page
-      console.log(`Should navigate to giftcard/${giftcardCopyId}`);
+  const [, handleDuplicate] = useAsync({
+    asyncFn: async () => {
+      return duplicateGiftcardAction(fetch, { id: giftcardId });
     },
-    [],
-  );
+    onSuccess: (giftcardCopy: Giftcard) => {
+      // Refresh the list page once the request has finished
+      refreshPageList();
 
-  const handleDuplicate = useCallback(async () => {
-    // Duplicate the giftcard
-    const giftcardCopy = await duplicateGiftcard({ giftcardId });
+      // Display a toast to open the details page of the new giftcard
+      toast({
+        status: "default",
+        icon: "copy-03",
+        title: t("toasts.successMessages.duplicate", {
+          name: giftcardName,
+        }),
+        buttonLabel: t("toasts.actions.open"),
+        onButtonClick: () => {
+          if (giftcardCopy && "id" in giftcardCopy) {
+            navigateToGiftcardDetail(giftcardCopy.id);
+          }
+        },
+      });
 
-    // Refresh the list page once the request has finished
-    refreshPageList();
-
-    // Display a toast to open the details page of the new giftcard
-    toast({
-      status: "default",
-      icon: "copy-03",
-      title: t("listPage.duplicateModal.toasts.messageDuplicated", {
-        name: giftcardName,
-      }),
-      buttonLabel: t("listPage.duplicateModal.toasts.actionOpen"),
-      onButtonClick: () => {
-        if (giftcardCopy && "id" in giftcardCopy) {
-          handleOpen({ giftcardCopyId: giftcardCopy.id });
-        }
-      },
-    });
-
-    // Close the modal
-    onClose();
-  }, [duplicateGiftcard, refreshPageList, toast, handleOpen]);
+      // Close the modal
+      onClose();
+    },
+    onFailure: () => {
+      // Display a toast to inform about the failure
+      toast({
+        status: "critical",
+        icon: "x",
+        title: t("toasts.errorMessages.duplicate", {
+          name: giftcardName,
+        }),
+        buttonLabel: t("toasts.actions.close"),
+      });
+    },
+    dependencies: [
+      navigateToGiftcardDetail,
+      refreshPageList,
+      giftcardName,
+      giftcardId,
+    ],
+  });
 
   return (
     <Modal

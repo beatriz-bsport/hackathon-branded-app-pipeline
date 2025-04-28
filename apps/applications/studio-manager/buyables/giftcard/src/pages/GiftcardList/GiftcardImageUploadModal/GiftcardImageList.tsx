@@ -2,8 +2,8 @@ import classNames from "classnames";
 import React from "react";
 
 import { type ButtonProps, List } from "@bsport/kaizen-primitive-core";
+import type { GiftcardImage } from "@bsport/store-buyables-giftcard";
 
-import type { GiftcardImage } from "#src/features/api";
 import { useTranslation } from "#src/utils/i18n";
 
 import { GiftcardImageUploader } from "./GiftcardImageUploader";

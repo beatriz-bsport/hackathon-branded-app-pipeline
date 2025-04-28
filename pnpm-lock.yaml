@@ -1055,6 +1055,12 @@ importers:
       '@bsport/sm-backbone':
         specifier: workspace:*
         version: link:../../../../../packages/utils/sm-backbone
+      '@bsport/store-buyables-giftcard':
+        specifier: workspace:*
+        version: link:../../../../../packages/stores/buyables/giftcard
+      '@bsport/use-async':
+        specifier: workspace:*
+        version: link:../../../../../packages/hooks/use-async
       '@bsport/use-pagination-query-params':
         specifier: workspace:*
         version: link:../../../../../packages/utils/query-params/use-pagination

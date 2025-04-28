@@ -1,7 +1,7 @@
 import { lazy } from "react";
 import { Route, Routes } from "react-router";
 
-import { ROUTES } from "./pages/routes";
+import { ROUTES } from "#src/pages/routes";
 
 const GiftcardArchivedListPage = lazy(
   () => import("#src/pages/GiftcardArchivedList"),

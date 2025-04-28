@@ -22,6 +22,8 @@
     "@bsport/i18n": "workspace:*",
     "@bsport/kaizen-primitive-core": "workspace:*",
     "@bsport/sm-backbone": "workspace:*",
+    "@bsport/store-buyables-giftcard": "workspace:*",
+    "@bsport/use-async": "workspace:*",
     "@bsport/use-pagination-query-params": "workspace:*",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",

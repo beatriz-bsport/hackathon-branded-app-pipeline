@@ -5,7 +5,7 @@ import {
   Tooltip,
 } from "@bsport/kaizen-primitive-core";
 
-import type { TFunction } from "#src/utils/i18n";
+import { useTranslation } from "#src/utils/i18n";
 
 import type { TableRowData } from "./constants";
 
@@ -24,19 +24,19 @@ export type GetTableColumnsParams = {
   handleDuplicate?: GiftcardHandler;
   handleRestore?: GiftcardHandler;
   mode: "archived" | "active";
-  t: TFunction;
 };
 
 /**
  * Return the colums configs for the Giftcard table
  */
-export const getTableColumns = ({
+export const useTableColumns = ({
   handleArchive,
   handleDuplicate,
   handleRestore,
   mode,
-  t,
 }: GetTableColumnsParams) => {
+  const { t } = useTranslation("common");
+
   const columnAvatar: TableColumn = {
     header: t("giftcardTable.headers.name"),
     id: "column-id",

@@ -1,44 +1,58 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect } from "react";
 
 import { toast } from "@bsport/kaizen-primitive-core";
-import { usePaginationQueryParams } from "@bsport/use-pagination-query-params";
+import {
+  archiveGiftcardAction,
+  restoreGiftcardAction,
+} from "@bsport/store-buyables-giftcard";
 
 import { GiftcardTable } from "#src/components/GiftcardTable";
-import {
-  type Giftcard,
-  archiveGiftcard,
-  getGiftcardArchivedList,
-  restoreGiftcard,
-} from "#src/features/api";
+import { useFetchPaginatedList } from "#src/hooks/useFetchPaginatedList";
+import { fetch } from "#src/utils/fetch";
 import { useTranslation } from "#src/utils/i18n";
 
 export const GiftcardArchivedListContent: React.FC = () => {
   const { t } = useTranslation("common");
-  const [giftcardList, setGiftcardList] = useState<Giftcard[]>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [totalItems, setTotalItems] = useState<number>(0);
-  const { currentPage, currentPageSize, setPageSettings } =
-    usePaginationQueryParams();
+
+  const {
+    giftcardList,
+    isLoading,
+    paginationParams,
+    fetchGiftcardsPage,
+    totalItems,
+  } = useFetchPaginatedList({ archived: true });
 
   // ----- Handlers -----
 
-  const getGiftcardArchivedPageList = useCallback(async () => {
-    setIsLoading(true);
-    await getGiftcardArchivedList({
-      currentPage: currentPage,
-      rowsPerPage: currentPageSize,
-      setGiftcardList,
-      setTotalItems,
-    });
-    setIsLoading(false);
-  }, [currentPage, currentPageSize]);
-
   const handleArchive = useCallback(
-    async ({ giftcardId }: { giftcardId: number }) => {
-      await archiveGiftcard({ giftcardId });
-      await getGiftcardArchivedPageList();
+    async ({
+      giftcardId,
+      giftcardName,
+    }: {
+      giftcardId: number;
+      giftcardName: string;
+    }) => {
+      const response = await archiveGiftcardAction(fetch, { id: giftcardId });
+
+      const onSuccess = () => {
+        fetchGiftcardsPage();
+      };
+
+      const onFailure = () => {
+        // Display a toast to inform about the failure
+        toast({
+          status: "critical",
+          icon: "x",
+          title: t("toasts.errorMessages.archive", {
+            name: giftcardName,
+          }),
+          buttonLabel: t("toasts.actions.close"),
+        });
+      };
+
+      response.fold(onSuccess, onFailure);
     },
-    [getGiftcardArchivedPageList, archiveGiftcard],
+    [fetchGiftcardsPage],
   );
 
   const handleRestore = useCallback(
@@ -49,30 +63,46 @@ export const GiftcardArchivedListContent: React.FC = () => {
       giftcardId: number;
       giftcardName: string;
     }) => {
-      // Restore the giftcard
-      await restoreGiftcard({ giftcardId });
+      const response = await restoreGiftcardAction(fetch, { id: giftcardId });
 
-      // Refresh the list page once the request has finished
-      getGiftcardArchivedPageList();
+      const onSuccess = () => {
+        // Refresh the list page once the request has finished
+        fetchGiftcardsPage();
 
-      // Display a toast to "undo" the action
-      toast({
-        status: "default",
-        icon: "unarchive",
-        title: t("archivedListPage.toasts.messageUnarchived", {
-          name: giftcardName,
-        }),
-        buttonLabel: t("archivedListPage.toasts.actionUndo"),
-        onButtonClick: () => handleArchive({ giftcardId }),
-      });
+        // Display a toast to "undo" the action
+        toast({
+          status: "default",
+          icon: "unarchive",
+          title: t("toasts.successMessages.unarchive", {
+            name: giftcardName,
+          }),
+          buttonLabel: t("toasts.actions.undo"),
+          onButtonClick: () => handleArchive({ giftcardId, giftcardName }),
+        });
+      };
+
+      const onFailure = () => {
+        // Display a toast to inform about the failure
+        toast({
+          status: "critical",
+          icon: "x",
+          title: t("toasts.errorMessages.archive", {
+            name: giftcardName,
+          }),
+          buttonLabel: t("toasts.actions.close"),
+        });
+      };
+
+      response.fold(onSuccess, onFailure);
     },
-    [archiveGiftcard, restoreGiftcard, handleArchive],
+    [fetchGiftcardsPage, handleArchive],
   );
 
-  // On load, fetch Giftcard paginated list
+  // ----- Load data -----
+
   useEffect(() => {
-    getGiftcardArchivedPageList();
-  }, [getGiftcardArchivedPageList]);
+    fetchGiftcardsPage();
+  }, [fetchGiftcardsPage]);
 
   return (
     <GiftcardTable
@@ -82,13 +112,7 @@ export const GiftcardArchivedListContent: React.FC = () => {
       giftcardList={giftcardList}
       handleArchive={handleArchive}
       handleRestore={handleRestore}
-      paginationProps={{
-        currentPage: currentPage,
-        rowsPerPage: currentPageSize,
-        totalItems,
-        onPageSettingsChange: setPageSettings,
-        showRowsPerPageSelector: true,
-      }}
+      paginationProps={paginationParams}
     />
   );
 };

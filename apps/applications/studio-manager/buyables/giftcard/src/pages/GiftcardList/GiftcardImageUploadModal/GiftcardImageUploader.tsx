@@ -5,8 +5,9 @@ import {
   FILE_UPLOAD_STATUSES,
   FileUpload,
 } from "@bsport/kaizen-primitive-core";
+import { uploadGiftcardImageAction } from "@bsport/store-buyables-giftcard";
 
-import { uploadGiftcardImage } from "#src/features/api";
+import { xhr } from "#src/utils/fetch";
 
 type GiftcardImageUploaderProps = {
   fetchGiftcardImageList: () => void;
@@ -22,21 +23,24 @@ export const GiftcardImageUploader: React.FC<GiftcardImageUploaderProps> = ({
     signal: AbortSignal,
     onUploadProgress: (progress: ProgressEvent) => void,
   ) => {
-    const response = await uploadGiftcardImage({
+    const response = await uploadGiftcardImageAction(xhr, {
       file,
       signal,
       onUploadProgress,
     });
-    if (response.status === "success") {
-      // If upload succeded, refresh the list
-      await fetchGiftcardImageList();
-      return { status: FILE_UPLOAD_STATUSES.success };
-    }
-    if (response.status === "abort") {
-      return { status: FILE_UPLOAD_STATUSES.error };
-    }
-    // TODO : return custom message based on response.error_code
-    return { status: FILE_UPLOAD_STATUSES.error };
+
+    return response.fold(
+      () => {
+        // If upload succeded, refresh the list
+        fetchGiftcardImageList();
+        // Return a status "success" to update state of the progress bar
+        return { status: FILE_UPLOAD_STATUSES.success };
+      },
+      () => {
+        // Return a status "error" to update state of the progress bar
+        return { status: FILE_UPLOAD_STATUSES.error };
+      },
+    );
   };
 
   return (

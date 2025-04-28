@@ -1,9 +1,7 @@
 import React, { useCallback, useEffect, useState } from "react";
 
-import { usePaginationQueryParams } from "@bsport/use-pagination-query-params";
-
 import { GiftcardTable } from "#src/components/GiftcardTable";
-import { type Giftcard, getGiftcardList } from "#src/features/api";
+import { useFetchPaginatedList } from "#src/hooks/useFetchPaginatedList";
 
 import { GiftcardArchiveModal } from "./GiftcardArchiveModal";
 import { GiftcardDuplicateModal } from "./GiftcardDuplicateModal";
@@ -15,64 +13,39 @@ type GiftcardListProps = {
 export const GiftcardListContent: React.FC<GiftcardListProps> = ({
   onAddGiftcardClick,
 }) => {
-  const [giftcardList, setGiftcardList] = useState<Giftcard[]>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [totalItems, setTotalItems] = useState<number>(0);
-  const { currentPage, currentPageSize, setPageSettings } =
-    usePaginationQueryParams();
+  const {
+    giftcardList,
+    isLoading,
+    paginationParams,
+    fetchGiftcardsPage,
+    totalItems,
+  } = useFetchPaginatedList({ archived: false });
+
   const [giftcardToArchive, setGiftcardToArchive] = useState<{
-    id: number;
-    name: string;
+    giftcardId: number;
+    giftcardName: string;
   } | null>(null);
+
   const [giftcardToDuplicate, setGiftcardToDuplicate] = useState<{
-    id: number;
-    name: string;
+    giftcardId: number;
+    giftcardName: string;
   } | null>(null);
 
   // ----- Handlers -----
-
-  const getGiftcardPageList = useCallback(async () => {
-    setIsLoading(true);
-    await getGiftcardList({
-      currentPage,
-      rowsPerPage: currentPageSize,
-      setGiftcardList,
-      setTotalItems,
-    });
-    setIsLoading(false);
-  }, [setIsLoading, setTotalItems]);
-
-  const handleArchive = ({
-    giftcardId,
-    giftcardName,
-  }: {
-    giftcardId: number;
-    giftcardName: string;
-  }) => {
-    setGiftcardToArchive({ id: giftcardId, name: giftcardName });
-  };
 
   const handleCloseArchiveModal = useCallback(() => {
     setGiftcardToArchive(null);
   }, []);
 
-  const handleDuplicate = ({
-    giftcardId,
-    giftcardName,
-  }: {
-    giftcardId: number;
-    giftcardName: string;
-  }) => {
-    setGiftcardToDuplicate({ id: giftcardId, name: giftcardName });
-  };
-
   const handleCloseDuplicateModal = useCallback(() => {
     setGiftcardToDuplicate(null);
   }, []);
 
+  // ----- Load data -----
+
   useEffect(() => {
-    getGiftcardPageList();
-  }, [getGiftcardPageList]);
+    fetchGiftcardsPage();
+  }, [fetchGiftcardsPage]);
 
   return (
     <>
@@ -81,32 +54,26 @@ export const GiftcardListContent: React.FC<GiftcardListProps> = ({
         isEmpty={!totalItems}
         isLoading={isLoading}
         giftcardList={giftcardList}
-        handleArchive={handleArchive}
-        handleDuplicate={handleDuplicate}
-        paginationProps={{
-          currentPage: currentPage,
-          rowsPerPage: currentPageSize,
-          totalItems,
-          onPageSettingsChange: setPageSettings,
-          showRowsPerPageSelector: true,
-        }}
+        handleArchive={setGiftcardToArchive}
+        handleDuplicate={setGiftcardToDuplicate}
+        paginationProps={paginationParams}
         onAddGiftcardClick={onAddGiftcardClick}
       />
       {giftcardToArchive && (
         <GiftcardArchiveModal
           isOpen={!!giftcardToArchive}
-          giftcardId={giftcardToArchive.id}
-          giftcardName={giftcardToArchive.name}
-          refreshPageList={getGiftcardPageList}
+          giftcardId={giftcardToArchive.giftcardId}
+          giftcardName={giftcardToArchive.giftcardName}
+          refreshPageList={fetchGiftcardsPage}
           onClose={handleCloseArchiveModal}
         />
       )}
       {giftcardToDuplicate && (
         <GiftcardDuplicateModal
           isOpen={!!giftcardToDuplicate}
-          giftcardId={giftcardToDuplicate.id}
-          giftcardName={giftcardToDuplicate.name}
-          refreshPageList={getGiftcardPageList}
+          giftcardId={giftcardToDuplicate.giftcardId}
+          giftcardName={giftcardToDuplicate.giftcardName}
+          refreshPageList={fetchGiftcardsPage}
           onClose={handleCloseDuplicateModal}
         />
       )}

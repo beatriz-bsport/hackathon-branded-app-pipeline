@@ -27,10 +27,6 @@ exports.default = {
         cancel: "Cancel",
         archive: "Archive",
       },
-      toasts: {
-        messageArchived: "'{{ name }}' has been archived",
-        actionUndo: "Undo",
-      },
     },
     duplicateModal: {
       title: "Duplicate gift card",
@@ -42,19 +38,28 @@ exports.default = {
         cancel: "Cancel",
         duplicate: "Duplicate",
       },
-      toasts: {
-        messageDuplicated: "'{{ name }}' has been duplicated",
-        actionOpen: "Open",
-      },
     },
   },
   archivedListPage: {
     empty: {
       title: "No archived gift cards",
     },
-    toasts: {
-      messageUnarchived: "'{{ name }}' has been unarchived",
-      actionUndo: "Undo",
+  },
+  toasts: {
+    successMessages: {
+      unarchive: "'{{ name }}' has been unarchived",
+      archive: "'{{ name }}' has been archived",
+      duplicate: "'{{ name }}' has been duplicated",
+    },
+    errorMessages: {
+      unarchive: "Failed to unarchive '{{ name }}'",
+      archive: "Failed to archive '{{ name }}'",
+      duplicate: "Failed to duplicate '{{ name }}'",
+    },
+    actions: {
+      undo: "Undo",
+      open: "Open",
+      close: "Close",
     },
   },
   giftcardTable: {

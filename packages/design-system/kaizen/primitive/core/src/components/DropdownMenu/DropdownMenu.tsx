@@ -1,12 +1,13 @@
 import type { ComponentProps } from "react";
 
-import { Menu, Popover } from "@bsport/kaizen-primitive-core";
+import Menu from "#src/components/Menu";
+import Popover from "#src/components/Popover";
 
 export type DropdownMenuItems = ComponentProps<typeof Menu>["items"];
 
-export type DropdownProps = {
+export type DropdownMenuProps = {
   className?: string;
-  children: ComponentProps<typeof Popover.Anchor>["children"];
+  target: ComponentProps<typeof Popover.Anchor>["children"];
   items: DropdownMenuItems;
   onSelectOption: (params: {
     id: string;
@@ -19,22 +20,22 @@ export type DropdownProps = {
 /**
  * DropdownMenu
  * @param props.className - className to be applied to the component
- * @param props.children - children to be rendered inside the anchor
+ * @param props.target - render callback for the popover anchor
  * @param props.items - items to be rendered inside the menu
  * @param props.onSelectOption - callback to be called when an item is selected
  * @param props.placement - placement of the popover
  **/
 export default function DropdownMenu({
   className,
-  children,
+  target,
   onSelectOption,
   items,
   placement,
   selectedValues,
-}: DropdownProps) {
+}: DropdownMenuProps) {
   return (
     <Popover className={className}>
-      <Popover.Anchor>{children}</Popover.Anchor>
+      <Popover.Anchor>{target}</Popover.Anchor>
       <Popover.Content placement={placement}>
         {({
           setIsPopoverOpened,

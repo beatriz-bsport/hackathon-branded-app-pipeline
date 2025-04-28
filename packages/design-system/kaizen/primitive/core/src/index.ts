@@ -33,6 +33,11 @@ export {
   useDetailsLayout,
   type DetailsLayoutProps,
 } from "./components/DetailsLayout";
+export {
+  default as DropdownMenu,
+  type DropdownMenuProps,
+  type DropdownMenuItems,
+} from "./components/DropdownMenu";
 export { default as Divider, type DividerProps } from "./components/Divider";
 export {
   default as ExpandableSearchInput,

@@ -7906,7 +7906,7 @@
             "otherPasses": "Andere leskaarten",
             "passes": "Leskaarten",
             "combos": "Pakketten",
-            "subscriptions": "Contracten",
+            "subscriptions": "Abonnementen",
             "blockedReasons": {
                 "waitingListOpen": {
                     "message": "Schrijf je in op de wachtlijst en je ontvangt een bericht zodra er een plaats vrijkomt.",
@@ -18899,7 +18899,7 @@
             "noNotification": "Er zijn geen actieve meldingen om weer te geven.",
             "contractKind": {
                 "contractStart": "Start",
-                "contractEnd": "Einde"
+                "contractEnd": "Einde abonnement"
             },
             "editPasses": "Bewerk",
             "addPasses": "Voeg toe",

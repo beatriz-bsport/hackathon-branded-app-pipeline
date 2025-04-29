@@ -17,6 +17,9 @@ const MemberList = lazy(() => import("sm-member-list/App"));
 // ----- Financial Services -----
 const Invoice = lazy(() => import("sm-invoice/App"));
 
+// ----- Customer Data Platform -----
+const Smartlists = lazy(() => import("sm-smartlists/App"));
+
 // ----- Common -----
 const NavigationSidebar = lazy(
   () => import("sm-navigation-sidebar/NavigationSidebar"),
@@ -41,6 +44,9 @@ export function Root() {
 
         {/* ----- Financial Services ----- */}
         <Route path={`${urls.invoice}/*`} element={<Invoice />} />
+
+        {/* ----- Customer Data Platform ----- */}
+        <Route path={`${urls.smartlist}/*`} element={<Smartlists />} />
       </Routes>
     </AppWrapper>
   );

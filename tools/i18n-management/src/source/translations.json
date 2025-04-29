@@ -416,6 +416,7 @@
       "additionalFeedbackPlaceholder": "Type your feedback here..."
     }
   },
+  "@bsport/sm-smartlists": { "list": { "helloName": "Hello {{ name }} !" } },
   "@bsport/sm-teacher": {
     "common": {
       "pages": { "active": "Teachers", "archived": "Archived teachers" },

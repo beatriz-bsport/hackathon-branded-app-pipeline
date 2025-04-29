@@ -4,3 +4,4 @@
 @bsport/sm-invoice
 @bsport/sm-member-list
 @bsport/sm-navigation-sidebar
+@bsport/sm-smartlists

@@ -1,17 +1,15 @@
 {
-  "name": "@bsport/sm-host",
-  "version": "0.0.1",
+  "name": "@bsport/sm-smartlists",
+  "version": "0.0.0",
   "private": true,
-  "description": "Studio Manager - Module Federation host app",
+  "description": "CDP Smartlists",
   "author": "Osmel Mora <osmel.mora@bsport.io>",
   "type": "module",
   "scripts": {
-    "build": "tsc && vite build",
+    "build": "tsc -b && vite build",
     "build:preview": "vite build --mode preview",
-    "ci:build:mfe": "./scripts/ci-build.sh",
-    "ci:compile": "tsc",
-    "ci:deploy:mfe": "./scripts/ci-deploy.sh",
-    "dev": "./scripts/run-dev-all.sh",
+    "ci:compile": "tsc -b",
+    "dev": "concurrently \"pnpm run --silent -w federate:navigation\" \"vite\"",
     "dev:single": "vite",
     "format": "prettier --write '**/*.{ts,tsx,js,jsx,cjs,mjs,scss,css,json,md,mdx,html,svg}'",
     "format:check": "prettier --check '**/*.{ts,tsx,js,jsx,cjs,mjs}'",
@@ -24,7 +22,6 @@
     "@bsport/i18n": "workspace:*",
     "@bsport/kaizen-primitive-core": "workspace:*",
     "@bsport/sm-backbone": "workspace:*",
-    "@bsport/use-pagination-query-params": "workspace:*",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-router": "^7.2.0"
@@ -38,31 +35,14 @@
     "vite": "^5.4.11"
   },
   "federation": {
-    "devPort": 4000,
+    "devPort": 4301,
+    "exposes": {
+      "./App": "./src/App"
+    },
     "remotes": {
       "sm-navigation-sidebar": {
         "devPort": 4050,
         "watchPath": "../navigation-sidebar/src/**/*"
-      },
-      "sm-member-list": {
-        "devPort": 4100,
-        "watchPath": "../core-data/member/member-list/src/**/*"
-      },
-      "sm-giftcard": {
-        "devPort": 4150,
-        "watchPath": "../buyables/giftcard/src/**/*"
-      },
-      "sm-group-activity": {
-        "devPort": 4200,
-        "watchPath": "../booking/group-activity/src/**/*"
-      },
-      "sm-invoice": {
-        "devPort": 4250,
-        "watchPath": "../financial-services/invoice/src/**/*"
-      },
-      "sm-smartlists": {
-        "devPort": 4301,
-        "watchPath": "../cdp/smartlists/src/**/*"
       }
     }
   }

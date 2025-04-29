@@ -3,4 +3,6 @@ export default {
   member: "/member",
   invoice: "/invoice",
   giftcard: "/giftcard",
-};
+  smartlist: "/smartlist",
+  emailTemplates: "/email-templates",
+} as const;

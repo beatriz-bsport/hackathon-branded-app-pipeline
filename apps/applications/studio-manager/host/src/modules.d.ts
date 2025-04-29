@@ -15,6 +15,8 @@ declare module "sm-navigation-sidebar/urls" {
     member: string;
     invoice: string;
     giftcard: string;
+    smartlist: string;
+    emailTemplates: string;
   };
   export default urls;
 }
@@ -39,6 +41,12 @@ declare module "sm-member-list/App" {
 
 // ----- Financial Services -----
 declare module "sm-invoice/App" {
+  const App: BaseApp["App"];
+  export default App;
+}
+
+// ----- Customer Data Platform -----
+declare module "sm-smartlists/App" {
   const App: BaseApp["App"];
   export default App;
 }

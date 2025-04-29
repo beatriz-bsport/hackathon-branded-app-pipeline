@@ -201,12 +201,12 @@ export const useNavigationElements = ({
         {
           id: "email-templates",
           label: t("menus.marketing.emailTemplates"),
-          href: "/email-templates",
+          href: urls.emailTemplates,
         },
         {
           id: "smartlists",
           label: t("menus.marketing.smartlists"),
-          href: "/smartlist",
+          href: urls.smartlist,
         },
         { id: "audience", label: t("menus.marketing.audience") },
         { id: "promotions", label: t("menus.marketing.promotions") },

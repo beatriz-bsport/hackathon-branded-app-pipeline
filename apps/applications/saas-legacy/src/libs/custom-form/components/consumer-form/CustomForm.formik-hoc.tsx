@@ -101,17 +101,22 @@ export const ConsumerFormFields = (props: Props) => {
                     </FastField>
                   </div>
                 ))
-              : custom_form_field?.map((field: CustomFormField, i: number) => (
-                  <div key={field?.id?.toString()}>
-                    {/* @ts-expect-error */}
-                    <CustomFormConsumerInput
-                      {...restProps}
-                      field={field}
-                      index={i}
-                      isCssVariantActivated={isCssVariantActivated}
-                    />
-                  </div>
-                ))}
+              : custom_form_field?.map((field: CustomFormField, i: number) => {
+                  return (
+                    <div
+                      className="bs-fabrique-checkbox__wrapper"
+                      key={field?.id?.toString()}
+                    >
+                      {/* @ts-expect-error */}
+                      <CustomFormConsumerInput
+                        {...restProps}
+                        field={field}
+                        index={i}
+                        isCssVariantActivated={isCssVariantActivated}
+                      />
+                    </div>
+                  );
+                })}
           </GridLayoutWrapper>
         </>
       )}

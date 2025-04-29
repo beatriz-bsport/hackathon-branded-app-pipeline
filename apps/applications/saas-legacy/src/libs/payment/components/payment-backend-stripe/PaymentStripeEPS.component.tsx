@@ -33,6 +33,7 @@ type PaymentStripeEPSProps = {
   createPendingBookingsIfNecessary?: (data?: {
     payment_group_method_identifier?: number;
   }) => void;
+  invalidatePendingBookingsIfNecessary?: () => void;
   onCancel: () => void;
   setIsOnlinePaymentDisabled?: (isLoading: boolean) => void;
   setPaymentProcessing: (processing: boolean) => void;
@@ -51,6 +52,7 @@ export const PaymentStripeEPS = forwardRef(
       isEstablishmentBillingGroupSelected,
       checkItemsBasket,
       createPendingBookingsIfNecessary,
+      invalidatePendingBookingsIfNecessary,
       onCancel,
       setIsOnlinePaymentDisabled,
       setPaymentProcessing,
@@ -127,6 +129,10 @@ export const PaymentStripeEPS = forwardRef(
           }
         }
 
+        createPendingBookingsIfNecessary?.({
+          payment_group_method_identifier: PAYMENT_GROUP_METHOD_IDENTIFIER_EPS,
+        });
+
         saveQueryParamInLocalStorage(
           USER_REGISTRATION_RESPONSE_QUERY_PARAM,
           USER_REGISTRATION_RESPONSE_LOCAL_STORAGE_KEY,
@@ -166,6 +172,7 @@ export const PaymentStripeEPS = forwardRef(
           // Inform the customer that there was an error.
           setErrorMessage(error.message);
           setPaymentPageProcessing(false);
+          invalidatePendingBookingsIfNecessary?.();
         } else {
           if (basketId) {
             try {
@@ -173,13 +180,6 @@ export const PaymentStripeEPS = forwardRef(
             } catch (err) {
               console.error(err);
             }
-          }
-
-          if (createPendingBookingsIfNecessary) {
-            createPendingBookingsIfNecessary({
-              payment_group_method_identifier:
-                PAYMENT_GROUP_METHOD_IDENTIFIER_EPS,
-            });
           }
         }
       },
@@ -189,6 +189,7 @@ export const PaymentStripeEPS = forwardRef(
         checkItemsBasket,
         clientSecret,
         createPendingBookingsIfNecessary,
+        invalidatePendingBookingsIfNecessary,
         elements,
         name,
         setPaymentPageProcessing,

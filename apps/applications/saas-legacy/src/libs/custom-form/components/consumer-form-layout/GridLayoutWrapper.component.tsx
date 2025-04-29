@@ -73,7 +73,6 @@ const ResponsiveGridLayoutWrapper: React.FC<Props> = ({
         }}
         className="layout"
         cols={{ lg: 12, md: 12, sm: 12, xs: 12 }}
-        compactType="horizontal"
         customProviderWidth={customProviderWidth}
         isDraggable={isEditing || false}
         isResizable={isEditing || false}

@@ -45,6 +45,7 @@ type PaymentStripeIdealProps = {
   createPendingBookingsIfNecessary?: (data?: {
     payment_group_method_identifier?: number;
   }) => void;
+  invalidatePendingBookingsIfNecessary?: () => void;
   setIsOnlinePaymentDisabled?: (isLoading: boolean) => void;
 };
 
@@ -67,6 +68,7 @@ export const PaymentStripeIdeal = forwardRef(
       userDefaultName,
       checkItemsBasket,
       createPendingBookingsIfNecessary,
+      invalidatePendingBookingsIfNecessary,
       onCancel,
       setIsOnlinePaymentDisabled,
       setPaymentProcessing,
@@ -152,6 +154,11 @@ export const PaymentStripeIdeal = forwardRef(
           return;
         }
 
+        createPendingBookingsIfNecessary?.({
+          payment_group_method_identifier:
+            PAYMENT_GROUP_METHOD_IDENTIFIER_IDEAL,
+        });
+
         saveQueryParamInLocalStorage(
           USER_REGISTRATION_RESPONSE_QUERY_PARAM,
           USER_REGISTRATION_RESPONSE_LOCAL_STORAGE_KEY,
@@ -189,6 +196,7 @@ export const PaymentStripeIdeal = forwardRef(
           // Show error to your customer.
           setErrorMessage(error.message);
           setPaymentPageProcessing(false);
+          invalidatePendingBookingsIfNecessary?.();
         } else {
           if (basketId) {
             try {
@@ -196,13 +204,6 @@ export const PaymentStripeIdeal = forwardRef(
             } catch (err) {
               console.error(err);
             }
-          }
-
-          if (createPendingBookingsIfNecessary) {
-            createPendingBookingsIfNecessary({
-              payment_group_method_identifier:
-                PAYMENT_GROUP_METHOD_IDENTIFIER_IDEAL,
-            });
           }
         }
 
@@ -215,6 +216,7 @@ export const PaymentStripeIdeal = forwardRef(
         checkItemsBasket,
         clientSecret,
         createPendingBookingsIfNecessary,
+        invalidatePendingBookingsIfNecessary,
         elements,
         email,
         forceSave,

@@ -1,4 +1,4 @@
-export const BSPORT_AUTH_TOKEN_KEY = "bsport_auth_token";
+export const BSPORT_AUTH_TOKEN_KEY = "bsport:http:token";
 
 /**
  * Set the authentication token in localStorage.

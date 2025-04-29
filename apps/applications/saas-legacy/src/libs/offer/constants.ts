@@ -37,3 +37,9 @@ export enum OFFER_RECURRENCE {
 }
 
 export const HYBRID_OFFER_DEFAULT_EFFECTIF_FOR_ONLINE_SESSION = 100;
+
+export enum BookingWindowStatus {
+  NOT_YET_OPEN = 'not_yet_open',
+  OPEN = 'open',
+  CLOSED = 'closed',
+}

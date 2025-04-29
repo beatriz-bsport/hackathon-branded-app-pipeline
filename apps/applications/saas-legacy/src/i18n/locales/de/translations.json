@@ -6794,7 +6794,8 @@
             },
             "payment_engine": {
                 "0": "Manuelle Bezahlung",
-                "1": "Online-Bezahlung"
+                "1": "Stripe",
+                "2": "Paypal"
             },
             "booking_status_code": {
                 "0": "Nicht storniert",
@@ -13204,20 +13205,20 @@
             "myPasses": {
                 "consumerPassCard": {
                     "buttonsLabel": {
-                        "seeDetails": "Details ansehen"
+                        "seeDetails": "Infos ansehen"
                     },
                     "availability": {
-                        "expiresToday": "Letzter Tag",
-                        "expiresIn": "{{ daysRemaining }} Tag übrig",
-                        "expiresIn_plural": "{{ daysRemaining }} Tage übrig",
-                        "future": "Beginnt am: {{ startDate }}",
+                        "expiresToday": "Läuft heute ab",
+                        "expiresIn": "{{ daysRemaining }} Tag noch",
+                        "expiresIn_plural": "{{ daysRemaining }} Tage noch",
+                        "future": "Startdatum: {{ startDate }}",
                         "expired": "Abgelaufen am: {{ expirationDate }}",
-                        "active": "Läuft ab am: {{ expirationDate }}"
+                        "active": "Ablaufdatum: {{ expirationDate }}"
                     },
                     "chip": {
                         "multiStudio": "Mehrere Studios",
                         "shared": "Geteilt",
-                        "suspended": "Ausgesetzt"
+                        "suspended": "Angehalten"
                     },
                     "credits": "{{ creditsLeft }}/{{ totalCredits }} Credits",
                     "unlimited": "Unbegrenzt"
@@ -13234,7 +13235,7 @@
                         "frequencyWeekly_plural": "Kann nur {{ amount }} mal pro Woche verwendet werden.",
                         "frequencyDaily": "Kann nur {{ amount }} mal am Tag verwendet werden.",
                         "frequencyDaily_plural": "Kann nur {{ amount }} mal am Tag verwendet werden.",
-                        "title": "Einschränkungen der Nutzung"
+                        "title": "Nutzungs-Einschränkungen"
                     },
                     "compatibility": {
                         "labels": {
@@ -13246,8 +13247,8 @@
                             "sessions": "Kompatible Kurse: {{ sessionsList }}",
                             "allSessions": "Kompatibel mit allen Kursen",
                             "noAppointments": "Keine kompatiblen Termine",
-                            "bookingForGuest": "Kann für <strong>Gästebuchung</strong> verwendet werden",
-                            "vod": "Kann für <strong> Video On-Demand</strong> verwendet werden",
+                            "bookingForGuest": "Kann für eine <strong>Gästebuchung</strong> verwendet werden",
+                            "vod": "Kann für <strong> Video-on-Demand</strong> verwendet werden",
                             "allTimeSlots": "Kompatibel mit allen Zeitfenstern",
                             "allActivities": "Kompatibel mit allen Aktivitäten des Studios"
                         },
@@ -13269,11 +13270,11 @@
                         "title": "Beschreibung"
                     },
                     "availability": {
-                        "validUntil": "Gültig bis zum {{ expirationDate }}",
-                        "future": "Startet am {{ startDate }}",
+                        "validUntil": "Ablaufdatum: {{ expirationDate }}",
+                        "future": "Startdatum: {{ startDate }}",
                         "expired": "Abgelaufen am {{ expirationDate }}",
-                        "suspendedUntil": "Ausgesetzt bs zum {{ endDate }}",
-                        "suspended": "Ausgesetzt",
+                        "suspendedUntil": "Angehalten bis zum {{ endDate }}",
+                        "suspended": "Angehalten",
                         "active": "Gültig vom {{ startDate }} bis {{ expirationDate }}"
                     },
                     "header": {
@@ -13284,7 +13285,7 @@
                 "bookASession": "Kurs buchen",
                 "buyANewPass": "Neuen Kurspass kaufen",
                 "filters": {
-                    "future": "Zukunft",
+                    "future": "Anstehend",
                     "expired": "Abgelaufen",
                     "active": "Aktiv"
                 },
@@ -13302,26 +13303,26 @@
                     "title": "Platzreservierung"
                 },
                 "onlineWarningModal": {
-                    "message": "Du kannst diesen Link 15 Minuten vor dem Kurs öffnen.",
-                    "subtitle": "Der Kurs wird am {{- date}} um {{hour}} beginnen",
+                    "message": "Du kannst diesen Link 15 Minuten vor Kursanfang öffnen.",
+                    "subtitle": "Der Kurs findet am {{- date}} um {{hour}} statt",
                     "title": "Online-Aktivität"
                 },
                 "cancelModal": {
                     "group": {
                         "listTitle": "Buchungen, die storniert werden:",
                         "alert": {
-                            "message": "Wende dich an das Studio, wenn du einen einzelnen Kurs stornieren möchtest.",
+                            "message": "Wende dich bitte an das Studio, wenn du einen einzelnen Kurs stornieren möchtest.",
                             "title": "Alle Buchungen für diese Veranstaltung werden storniert"
                         },
-                        "message": "Diese Buchung ist Teil einer Gruppe.\nDu wirst automatisch von allen zukünftigen Kursen, die mit dieser Veranstaltung verbunden sind, abgemeldet. Die Credits werden erstattet und können erneut verwendet werden."
+                        "message": "Diese Buchung ist Teil einer Gruppe.\nDu wirst automatisch von allen anstehenden Kursen, die mit dieser Veranstaltung verbunden sind, abgemeldet. Deine Credits werden erstattet und können erneut verwendet werden."
                     },
-                    "noRefund": "Ihr(e) Credit(s) werden für eine verspätete Absage nicht rückerstattet.",
-                    "creditsWillBeRefunded": "{{count}} Credit wird rückerstattet.",
-                    "creditsWillBeRefunded_plural": "{{count}} Credits werden rückerstattet.",
+                    "noRefund": "Du erhältst keine Credit-Erstattung, wenn du mit Verspätung absagst.",
+                    "creditsWillBeRefunded": "{{count}} Credit wird erstattet.",
+                    "creditsWillBeRefunded_plural": "{{count}} Credits werden erstattet.",
                     "title": {
-                        "consumerBookingOption": "Diese Warteliste tornieren",
-                        "consumerPrivateBooking": "Diesen Termin absagen",
-                        "consumerBooking": "Diesen Kurs absagen"
+                        "consumerBookingOption": "Warteliste stornieren",
+                        "consumerPrivateBooking": "Termin absagen",
+                        "consumerBooking": "Kurs absagen"
                     },
                     "confirm": {
                         "consumerBookingOption": "Warteliste stornieren",
@@ -13332,19 +13333,19 @@
                 },
                 "detailsCard": {
                     "workshop": {
-                        "title": "Gruppiert mit diesem Workshop"
+                        "title": "Mit diesem Workshop gruppiert"
                     },
                     "teacher": {
-                        "subtitutedBy": "Vertreten durch",
+                        "subtitutedBy": "Vertretung",
                         "absent": "Abwesend",
                         "title": "Lehrkraft"
                     },
                     "waitlist": {
-                        "position": "Ihre Position auf der Warteliste ist: {{position}}"
+                        "position": "Deine Position auf der Warteliste: {{position}}"
                     },
                     "cancellationPolicy": {
-                        "maxDuration": "Stornierungen sind bis zu {{days}} Tag(e), {{hours}} Stunde(n) und {{minutes}} Minute(n) ohne Gebühren möglich.",
-                        "noDuration": "Stornierungen sind immer ohne Gebühren möglich.",
+                        "maxDuration": "Kostenfreie Stornierungen enden in: {{days}} Tag(e), {{hours}} Stunde(n) und {{minutes}} Minute(n).",
+                        "noDuration": "Stornierungen sind immer kostenfrei möglich.",
                         "title": "Stornierungsbedingungen"
                     },
                     "description": {
@@ -13357,11 +13358,11 @@
                         "title": "Entsprechender Pass"
                     },
                     "cancelled": {
-                        "refundWarning": "Keine Credit-Rückerstattungen für verspätete Absagen",
+                        "refundWarning": "Keine Credit-Erstattungen für kurzfristige Absagen",
                         "creditsToRefund": "{{count}} Credit wird erstattet",
                         "creditsToRefund_plural": "{{count}} Credits werden erstattet",
                         "cancelledFromManager": "Vom Studiomanager abgesagt",
-                        "cancelledFromMember": "Von Ihnen storniert",
+                        "cancelledFromMember": "Von dir storniert",
                         "title": "Storniert"
                     },
                     "drawerTitle": "Aktivität"
@@ -13369,13 +13370,13 @@
                 "consumerBookingCard": {
                     "listItemLabels": {
                         "spotSchedulingPosition": "Platz {{ spotSchedulingPosition }}",
-                        "waitingList": "Ihre Position auf der Warteliste ist: {{ waitingListPosition }}"
+                        "waitingList": "Deine Position auf der Warteliste: {{ waitingListPosition }}"
                     },
                     "buttonsLabel": {
                         "bookForAGuest": "Für einen Gast buchen",
                         "joinOnline": "Online teilnehmen",
                         "book": "Buchen",
-                        "seeDetails": "Details ansehen",
+                        "seeDetails": "Infos ansehen",
                         "more": "Mehr",
                         "cancel": "Stornieren"
                     },
@@ -13385,37 +13386,37 @@
                             "bookedForAGuest": "Für einen Gast gebucht",
                             "unpaid": "Unbezahlt"
                         },
-                        "noShow": "Abwesendheit",
-                        "atHome": "Zuhause",
+                        "noShow": "Abwesend",
+                        "atHome": "Zu Hause",
                         "online": "Online"
                     }
                 },
                 "listContainer": {
                     "placeholder": {
                         "workshop": {
-                            "future": "Keine kommenden Workshops anzuzeigen.",
-                            "past": "Keine vergangenen Workshops anzuzeigen.",
-                            "waitlist": "Keine Workshops auf der Warteliste."
+                            "future": "Du hast keine anstehenden Workshops.",
+                            "past": "Du hast keine abgelaufenen Workshops.",
+                            "waitlist": "Du hast keine Workshops auf deiner Warteliste."
                         },
                         "activity": {
-                            "future": "Keine kommenden Aktivitäten anzuzeigen.",
-                            "past": "Keine vergangenen Aktivitäten anzuzeigen.",
-                            "waitlist": "Keine Aktivitäten auf der Warteliste."
+                            "future": "Du hast keine anstehenden Aktivitäten.",
+                            "past": "Du hast keine abgelaufenen Aktivitäten.",
+                            "waitlist": "Du hast keine Aktivitäten auf deiner Warteliste."
                         },
                         "appointment": {
-                            "future": "Keine nächsten Termine geplant.",
-                            "past": "Keine vergangenen Termine vorzuweisen."
+                            "future": "Du hast keine anstehenden Termine.",
+                            "past": "Du hast keine abgelaufenen Termine."
                         },
                         "pass": {
-                            "active": "Sieht aus, als hättest Du noch keinen Pass gekauft.",
-                            "future": "Sieht aus, als hättest du noch keinen Kurspass gekauft.",
-                            "expired": "Du hast noch keine abgelaufenen Karten."
+                            "active": "Du hast keine aktiven Kurspässe.",
+                            "future": "Du hast keine Kurspässe zur Verfügung.",
+                            "expired": "Du hast keine abgelaufenen Kurspässe."
                         }
                     }
                 },
                 "filter": {
-                    "onWaitlist": "Auf der Warteliste",
-                    "past": "Vergangene",
+                    "onWaitlist": "Warteliste",
+                    "past": "Abgelaufen",
                     "upcoming": "Anstehend"
                 },
                 "tab": {
@@ -13431,14 +13432,14 @@
                         "appointment": "Termine nach Datum filtern.",
                         "activity": "Aktivitäten nach Datum filtern."
                     },
-                    "title": "Ein Datum auswählen"
+                    "title": "Datum auswählen"
                 },
                 "chooseBookingType": "Buchungsart wählen"
             },
             "placeholderCard": {
-                "myBookings": "Wähle einen Kurs aus um mehr Details zu sehen",
-                "myPasses": "Wähle einen Pass, um weitere Details zu sehen",
-                "mySubscriptions": "Wähle ein Abonnement, um weitere Details zu sehen"
+                "myBookings": "Wähle einen Kurs aus, um weitere Infos zu bekommen",
+                "myPasses": "Wähle einen Pass aus, um weitere Infos zu bekommen",
+                "mySubscriptions": "Wähle ein Abo aus, um weitere Infos zu bekommen"
             },
             "showLess": "Weniger anzeigen",
             "showMore": "Mehr anzeigen",
@@ -13448,11 +13449,11 @@
                         "nextPayment": "Nächste Zahlung",
                         "nextPaymentDate": "am {{- subscriptionNextPaymentDate }}",
                         "pauseEndDate": "bis einschließlich {{- pauseEndDate }}",
-                        "autoRenewalDate": "am {{- autoRenewalDate }} (inbegriffen)",
+                        "autoRenewalDate": "am {{- autoRenewalDate }} (einschließlich)",
                         "autoRenewed": "Automatisch verlängert",
                         "paused": "Derzeit pausiert",
                         "joiningFee": "Aufnahmegebühr",
-                        "futurePauses": "Eine Pause ist geplant von  {{- dateStart }} bis{{- dateEnd }} (included)\nGerman"
+                        "futurePauses": "Pause ist von  {{- dateStart }} bis einschließlich {{- dateEnd }} geplant"
                     },
                     "buttonsLabel": {
                         "see": "Ansehen",
@@ -13463,103 +13464,103 @@
                     "terms": "Allgemeine Geschäftsbedingungen",
                     "description": "Beschreibung",
                     "paymentMethod": {
-                        "bacs_debit": "Bacs Lastschrift: **** **** **** {{ readableIdentifier }}",
+                        "bacs_debit": "Lastschrift: **** **** **** {{ readableIdentifier }}",
                         "card": "Kreditkarte: **** **** **** {{ readableIdentifier }}",
                         "sepa_debit": "SEPA: **** **** **** {{ readableIdentifier }}",
-                        "internal": "Internes Konto: bei jeder Zahlung wird automatisch Ihr internes Konto belastet",
+                        "internal": "Internes Konto: bei jeder Zahlung wird dein internes Konto automatisch belastet",
                         "title": "Zahlungsmethode",
-                        "nextPaymentDate": "am",
-                        "pauseEndDate": "bis inklusive",
-                        "autoRenewalDate": "am",
-                        "autoRenewed": "Automatisch erneuert",
+                        "nextPaymentDate": "am {{- subscriptionNextPaymentDate }}",
+                        "pauseEndDate": "bis einschließlich {{- pauseEndDate }}",
+                        "autoRenewalDate": "am {{- autoRenewalDate }} (einschließlich)",
+                        "autoRenewed": "Automatisch verlängert",
                         "paused": "Derzeit pausiert"
                     },
                     "failedPaymentReason": "Grund: {{- note }} Bitte kontaktiere dein Studio, um die Situation zu klären",
                     "failedPayment": "Zahlung fehlgeschlagen",
-                    "emptyInvoices": " Keine Rechnungshistorie zu sehen",
-                    "billingHistory": "Rechnungshistorie",
-                    "failedPaymentReasonWithRetry": "Grund: {{- note }}. Die Zahlung wird am {{- nextRetryDate}} erneut versucht.",
-                    "beforeRenewalContractPriceEvery": "Dann {{ price }} every {{ recurrence }} {{ interval }} nach  {{- date }}",
-                    "beforeRenewalContractPricePer": "Dann{{ price }}/{{ interval }} nach {{- date }}",
-                    "loadMore": "Mehr laden",
-                    "drawerTitle": "Abonnement"
+                    "emptyInvoices": " Du hast aktuell keine Rechnungen.",
+                    "billingHistory": "Rechnungen",
+                    "failedPaymentReasonWithRetry": "Grund: {{- note }}. Nächster Zahlungsversuch: {{- nextRetryDate}}.",
+                    "beforeRenewalContractPriceEvery": "Dann {{ price }} alle {{ recurrence }} {{ interval }} nach  {{- date }}",
+                    "beforeRenewalContractPricePer": "Dann {{ price }}/{{ interval }} nach {{- date }}",
+                    "loadMore": "Mehr anzeigen",
+                    "drawerTitle": "Abo"
                 },
                 "consumerSubscriptionCard": {
                     "buttonsLabel": {
-                        "seeDetails": "Details ansehen",
+                        "seeDetails": "Infos ansehen",
                         "addPaymentMethod": "Zahlungsmethode hinzufügen"
                     },
                     "recurrenceLabelEvery": "Alle {{ recurrence }} {{ interval }}",
                     "recurrenceLabelPer": "/{{ interval }}",
                     "chipsLabel": {
                         "failedPayment": "Zahlung fehlgeschlagen",
-                        "missingPaymentMethod": "Fehlende Zahlungsmethode",
+                        "missingPaymentMethod": "Zahlungsmethode fehlt",
                         "isPaused": "Pausiert"
                     },
-                    "nextPayment": "Nächste Zahlung:"
+                    "nextPayment": "Nächste Zahlung: {{- nextPayment }}"
                 },
                 "headerButtonsLabel": {
-                    "getSubscription": "Ein Abonnement abschließen",
+                    "getSubscription": "Abo kaufen",
                     "bookASession": "Kurs buchen",
-                    "backToSubscriptions": "Zurück zu den Abonnements"
+                    "backToSubscriptions": "Zurück zu Abos"
                 },
                 "tab": {
                     "expired": "Abgelaufen",
-                    "future": "Nicht gestartet",
+                    "future": "Nicht aktiv",
                     "active": "Aktiv"
                 },
-                "title": "Meine Abonnements",
+                "title": "Meine Abos",
                 "dateLabel": {
                     "until": " bis {{- date }}",
-                    "expired": "Abgelaufen seit {{- date }}",
-                    "future": "Beginnt am {{- date }}",
-                    "active": "Begonnen am {{- date }}"
+                    "expired": "Abgelaufen seit: {{- date }}",
+                    "future": "Startdatum: {{- date }}",
+                    "active": "Läuft seit: {{- date }}"
                 },
                 "close": "Schließen",
                 "paymentMethodUpdatedContent": "Deine Zahlungsmethode wurde erfolgreich aktualisiert",
-                "paymentMethodUpdatedTitle": "Zahlungsmethode ändern",
-                "changePaymentMethod": "Zahlungsmethode ändern",
-                "paymentModalAlert": "Wenn keine Zahlungsmethode gespeichert ist, wird für jede Zahlung automatisch eine Verbindlichkeit auf Ihrem internen Konto erstellt.",
+                "paymentMethodUpdatedTitle": "Zahlungsmethode aktualisiert",
+                "changePaymentMethod": "Zahlungsmethode aktualisieren",
+                "paymentModalAlert": "Wenn du keine Zahlungsmethode gespeichert hast, wird bei jeder Zahlung einen Negativbetrag zu deinem Konto hinzugefügt.",
                 "download": "Herunterladen",
                 "placeholder": {
-                    "expired": "Du hast noch keine abgelaufenen Abonnements.",
-                    "nonExpired": "Sieht so aus, als hättest Du keine aktiven Abonnements."
+                    "expired": "Du hast keine abgelaufenen Abos.",
+                    "nonExpired": "Du hast keine aktiven Abos."
                 }
             },
             "myInvoices": {
                 "payment": {
                     "useBalance": "Nutzen",
                     "title": "Zahlung der Rechnung",
-                    "successMessage": "Die Zahlung war erfolgreich",
+                    "successMessage": "Zahlung erfolgreich",
                     "myBalance": "Mein interner Kontostand",
                     "method": "Zahlungsmethode",
                     "details": "Angaben zur Zahlung",
                     "confirm": "Bestätigen",
                     "addPaymentMethod": "Zahlungsmethode hinzufügen",
-                    "backendProcessingInvoice": "Bitte warte einen Moment, während wir deine Rechnung bearbeiten..."
+                    "backendProcessingInvoice": "Wir erstellen gerade deine Rechnung ..."
                 },
                 "detailsCard": {
                     "total": "Insgesamt",
-                    "retryDate": "Die Zahlung wird am {{- date }} erneut versucht",
+                    "retryDate": "Erneuter Zahlungsversuch: {{- date }}",
                     "refunded": "Erstattet",
                     "products": "Meine Produkte",
                     "plannedPayments": "Geplante Zahlungen",
-                    "placeholder": "Wähle eine Rechnung aus, um Details zu sehen.",
+                    "placeholder": "Wähle eine Rechnung aus, um Infos anzusehen.",
                     "paymentHistory": "Zahlungsverlauf",
-                    "paymentErrorWithReason": "Diese Zahlung war nicht erfolgreich. Grund: {{- reason }}",
+                    "paymentErrorWithReason": "Diese Zahlung hat leider nicht geklappt. Grund: {{- reason }}",
                     "paymentError": "Diese Zahlung war nicht erfolgreich.",
                     "pay": "Jetzt bezahlen",
                     "paid": "Bezahlt",
                     "noPaymentRegistered": "Zurzeit gibt es keine registrierte Zahlung.",
-                    "due": "Fällt an",
+                    "due": "Fälligkeitsdatum",
                     "downloadRefundedInvoice": "Erstattete Rechnung herunterladen",
-                    "downloadReceipt": "Quittung herunterladen",
+                    "downloadReceipt": "Beleg herunterladen",
                     "downloadOriginalInvoice": "Original-Rechnung herunterladen",
                     "download": "Rechnung herunterladen",
                     "dispute": {
                         "lost": "Verloren",
                         "won": "Gewonnen",
-                        "processing": "Wird bearbeitet"
+                        "processing": "Wird bearbeitet ..."
                     },
                     "drawerTitle": "Rechnung"
                 },
@@ -13568,22 +13569,22 @@
                         "refunded": "Erstattet",
                         "plannedPayments": "Geplante Zahlungen",
                         "partiallyPaid": "Teilweise bezahlt",
-                        "dispute": "Anfechten",
-                        "cancelled": "Abgebrochen"
+                        "dispute": "Beschwerde einreichen",
+                        "cancelled": "Storniert"
                     },
-                    "title": "Rechnung Nr.{{ identifier }}",
-                    "seeDetails": "Siehe Details",
+                    "title": "Rechnung: {{ identifier }}",
+                    "seeDetails": "Infos ansehen",
                     "refundedInvoice": "Erstattete Rechnung",
-                    "receipt": "Quittung",
+                    "receipt": "Beleg",
                     "pay": "Jetzt bezahlen",
                     "otherItems": "+{{ count }} Produkte",
                     "originalInvoice": "Original-Rechnung",
                     "location": "Standort: {{ name }}",
                     "invoice": "Rechnung",
-                    "downloads": "Herunterladen",
-                    "downloadRefundedInvoice": "Erstattete Rechnungen herunterladen",
+                    "downloads": "Rechnungen",
+                    "downloadRefundedInvoice": "Erstattete Rechnung herunterladen",
                     "downloadReceipt": "Beleg herunterladen",
-                    "downloadOriginalInvoice": "Originalrechnung herunterladen",
+                    "downloadOriginalInvoice": "Original-Rechnung herunterladen",
                     "downloadInvoice": "Rechnung herunterladen",
                     "download": "Herunterladen",
                     "amountDue": "Fälliger Betrag: {{- amount}}"
@@ -13596,41 +13597,41 @@
                     },
                     "buttons": {
                         "goBack": "Zurück",
-                        "bookSession": "Eine Sitzung buchen"
+                        "bookSession": "Sitzung buchen"
                     },
                     "title": "Meine Rechnungen"
                 },
                 "placeholder": {
-                    "refunded": "Du hast noch keine erstatteten Rechnungen.",
-                    "paid": "Du hast noch keine bezahlten Rechnungen.",
-                    "unpaid": "Super, Du hast keine unbezahlten Rechnungen."
+                    "refunded": "Du hast aktuell keine erstatteten Rechnungen.",
+                    "paid": "Du hast aktuell keine bezahlten Rechnungen.",
+                    "unpaid": "Du hast keine unbezahlten Rechnungen."
                 }
             },
             "myProfile": {
                 "termsAndConditions": {
                     "accepted": "Akzeptiert am {{- dateAccepted}}",
                     "generalTerms": "Allgemeine Bedingungen",
-                    "termOfuse": "Bedingungen für die Nutzung",
-                    "subtitle": "Mitglied seit {{- dateJoined}}",
-                    "title": "Bedingungen und Konditionen"
+                    "termOfuse": "Nutzungs-Bedingungen",
+                    "subtitle": "Mitglied seit: {{- dateJoined}}",
+                    "title": "Allgemeine Geschäftsbedingungen"
                 },
                 "paymentMethods": {
                     "add": "Zahlungsmethode hinzufügen",
-                    "cardItemCaptionText": "Läuft ab: {{- additionalInfo}}",
+                    "cardItemCaptionText": "Ablaufdatum: {{- additionalInfo}}",
                     "paymentMethodLabel": "Endet mit <strong>{{- identifier}}</strong>",
-                    "empty": "Sobald Du eine Zahlung gespeichert hast, wird sie hier angezeigt.",
+                    "empty": "Zahlungen erscheinen hier nachdem du sie gespeichert hast.",
                     "directPayments": "Direkte Zahlungen",
                     "cards": "Karten",
-                    "title": "Gespeicherte Zahlungsarten",
+                    "title": "Gespeicherte Zahlungsmethoden",
                     "tooltipText": {
-                        "more": "Füge eine neue Zahlungsmethode hinzu und lösche diese, wenn du das Kartensystem ändern möchtest.",
+                        "more": "Um das Kartensystem zu ändern, füge bitte erst eine neue Zahlungsmethode hinzu und lösche die alte hinterher.",
                         "other": "Andere"
                     }
                 },
                 "membershipId": "Mitgliedsnummer",
                 "accountBalance": "Kontostand",
                 "spivi": {
-                    "information": "Falls aktiviert, werden deine Daten (Geschwindigkeit, Kalorienverbrauch usw.) während deiner Sitzung in Echtzeit angezeigt. Andernfalls erhältst du am Ende der Sitzung eine Zusammenfassung per E-Mail.",
+                    "information": "Wenn du diese Option aktivierst, werden deine Daten (Geschwindigkeit, Kalorienverbrauch, usw.) während einer Sitzung in Echtzeit angezeigt. Sonst erhältst du am Ende der Sitzung eine Zusammenfassung per E-Mail.",
                     "drawerTitle": "Daten anzeigen",
                     "displayData": "Meine Daten in Echtzeit anzeigen",
                     "title": "Daten abrufen"
@@ -13642,20 +13643,20 @@
                     "phoneAllowed": "Telefonische Benachrichtigungen erlaubt",
                     "title": "Benachrichtigungen"
                 },
-                "address": "Addresse",
+                "address": "Adresse",
                 "emergencyNumber": "Notfallnummer",
                 "phone": "Handynummer",
                 "identityDocument": "Ausweisdokument",
-                "birthday": "Geburtstag",
+                "birthday": "Geburtsdatum",
                 "gender": "Geschlecht",
                 "detachPayment": {
-                    "subtitle": "Denke daran, dass du Zahlungsarten, die für wiederkehrende Zahlungen verwendet werden, nicht löschen kannst.",
+                    "subtitle": "Zahlungsmethoden für wiederkehrende Zahlungen können nicht gelöscht werden.",
                     "title": "Zahlungsmethode löschen"
                 },
                 "barCode": {
-                    "entryBarcode": "Eingabe Barcode",
-                    "scanInfo": "Scanne diesen Barcode, um das Studio zu betreten oder um für deinen Kurs einzuchecken.",
-                    "scan": "Scan Barcode"
+                    "entryBarcode": "Zugangs-Barcode",
+                    "scanInfo": "Scanne diesen Barcode, um das Studio zu betreten oder für deinen Kurs einzuchecken.",
+                    "scan": "Barcode scannen"
                 },
                 "edition": {
                     "title": "Dein Profil bearbeiten"
@@ -13676,7 +13677,7 @@
                     "changeStudio": "Studio wechseln"
                 },
                 "payments": {
-                    "paymentMethods": "Zahlungsmöglichkeiten",
+                    "paymentMethods": "Zahlungsmethoden",
                     "myInvoices": "Meine Rechnungen",
                     "title": "Zahlungen"
                 },
@@ -13696,21 +13697,21 @@
                 "logOut": "Abmelden",
                 "changeLanguage": "Sprache ändern",
                 "changeStudio": "Studio wechseln",
-                "myPurchases": "Meine Einkäufe",
+                "myPurchases": "Meine Käufe",
                 "myDashboard": "Mein Dashboard",
                 "myStatistics": "Meine Statistiken",
                 "myInvoices": "Meine Rechnungen",
                 "myGiftCards": "Meine Geschenkgutscheine",
                 "myProfile": "Mein Profil",
-                "mySubscriptions": "Meine Abonnements",
+                "mySubscriptions": "Meine Abos",
                 "myPasses": "Meine Kurspässe",
                 "myBookings": "Meine Buchungen",
-                "exploreYourProfile": "Erkunde dein Profil",
+                "exploreYourProfile": "willkommen zurück!",
                 "myVideosAndEbooks": "Meine Videos & eBooks",
                 "switchAccount": "Account wechseln",
                 "loggedInAs": "Du bist derzeit angemeldet als {{ name }}"
             },
-            "exploreYourProfile": "Erkunde dein Profil.",
+            "exploreYourProfile": "willkommen zurück!",
             "appbar": {
                 "myAccount": "Mein Konto",
                 "cart": "Warenkorb",

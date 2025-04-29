@@ -10,5 +10,6 @@ export default defineConfig(({ mode }) => {
     packageJson,
     appType: "hosts",
     rootDir: __dirname,
+    deploymentRelativeUrl: "/studio/",
   });
 });

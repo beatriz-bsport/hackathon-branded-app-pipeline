@@ -11,18 +11,11 @@ import {
   goBack,
   push as pushRouter,
 } from 'connected-react-router';
-import {
-  BUYABLE_ITEM_PASS,
-  BUYABLE_ITEM_SHOP_ITEM,
-  BUYABLE_ITEM_PRIVATE_PASS,
-  BUYABLE_ITEM_COMBO_ITEM,
-} from '@bsport/common/lib/master-data/buyable-items.js';
 import { withTranslation } from 'react-i18next';
 
 import {
   PAYMENT_ENGINE_STRIPE,
   PAYMENT_INTENT_TYPE_BASKET,
-  PAYMENT_GROUP_METHOD_BY_ENGINE,
   PAYMENT_INTENT_STATUS_SUCCESS,
 } from '@bsport/common/lib/master-data/payment-group.js';
 import ALL_ERROR_CODES from '@bsport/common/lib/master-data/error-codes/buyable-item-can-not-be-bought.js';
@@ -81,21 +74,19 @@ import routerParamsToProps from '../../../hocs/router-params-to-props.hoc';
 
 import { fetchOfferBulk as fetchOfferBulkAction } from '../../../libs/offer/actions';
 import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '../../../libs/meta-activity/actions';
-import { getSavedPaymentMethodList } from '../../../libs/payment/selectors';
 import {
   fetchPaymentMethodList,
   detachPaymentMethod,
 } from '../../../libs/payment/actions';
 
-import { getShopItemFeaturedList } from '../../../libs/shop/selectors';
 import { fetchShopItemFeatured } from '../../../libs/shop/actions/shopitem';
 
 import { requestClientSecret as requestClientSecretAPI } from '../../../libs/invoice/api';
-import OnlinePayment from '#src/libs/payment/components/OnlinePayment.component';
 import {
   getPaymentGroupStatus as getPaymentGroupStatusAPI,
   checkItemsBasket as checkItemsBasketAPI,
   createPendingBookings as createPendingBookingsAPI,
+  invalidatePendingBookings as invalidatePendingBookingsAPI,
 } from '../../../libs/payment/api';
 import { validateUnpaid as validateUnpaidAPI } from '../../../libs/checkout/api';
 
@@ -145,7 +136,6 @@ type Props = {
   fetchCompanyTheme: (companyId: number) => void,
   goBack: () => void,
   theme: ?Theme,
-  companyCountry: ?string,
   classes: Object,
 
   t: TFunction,
@@ -154,15 +144,12 @@ type Props = {
     options: OptionCallback,
   ) => void,
   fetchPaymentMethod: (params: any) => void,
-  savedPaymentMethodList: Array<PaymentMethod>,
   attachCoupon: (
     basketId: string,
     code: string,
     options?: OptionCallBackWithKeyedCallbacks<Coupon, CouponErrorCodes>,
     hideSnackBar?: boolean,
   ) => void,
-
-  shopItemList: Array<ShopItem>,
   fetchShopItemFeatured: (companyId: number) => void,
   basketItemRemovalStatusLoading: boolean,
   monitorExpiredItemRemoval: (
@@ -170,8 +157,6 @@ type Props = {
     checkoutItemId: string,
     pollOptionCallback?: APIPollOptionCallback,
   ) => void,
-
-  addShopItemToBasket: (shopitemId: number) => void,
   fetchProfile: () => void,
   auth: any,
 
@@ -526,20 +511,31 @@ export class BasketPage extends React.Component<Props> {
     }
   };
 
+  hasOfferData = () => {
+    return (
+      this.props.basket &&
+      (this.props.basket.checkout_items ?? []).some(
+        (checkoutItem) => checkoutItem?.extra_data?.offers_data?.length > 0,
+      )
+    );
+  };
+
   createPendingBookingsIfNecessary = (
     data: { payment_group_method_identifier?: number } = {},
   ) => {
-    if (!this.props.basket) return;
+    if (!this.hasOfferData()) return;
 
-    const basketHasOfferData = (this.props.basket.checkout_items ?? []).some(
-      (checkoutItem) => checkoutItem?.extra_data?.offers_data?.length > 0,
+    createPendingBookingsAPI(this.props.basket.id, data).catch((error) =>
+      console.error(error),
     );
+  };
 
-    if (basketHasOfferData) {
-      createPendingBookingsAPI(this.props.basket.id, data).catch((error) =>
-        console.error(error),
-      );
-    }
+  invalidatePendingBookingsIfNecessary = () => {
+    if (!this.hasOfferData()) return;
+
+    invalidatePendingBookingsAPI(this.props.basket.id).catch((error) =>
+      console.error(error),
+    );
   };
 
   render() {
@@ -618,6 +614,9 @@ export class BasketPage extends React.Component<Props> {
                 instalmentPaymentConfigurationList={this.props.instalmentPaymentConfigurationList.filter(
                   (ipc) => ipc.basketId === this.props.basket?.id,
                 )}
+                invalidatePendingBookingsIfNecessary={
+                  this.invalidatePendingBookingsIfNecessary
+                }
                 isEstablishmentBillingGroupSelected={
                   this.state.isEstablishmentBillingGroupSelected
                 }
@@ -729,9 +728,6 @@ export default compose(
         processing: state.checkout.basket.current.updating,
         companyThemeLoading: state.theme.loading,
         theme: themeSelectors.getTheme(state),
-        companyCountry: state.theme.theme?.locale?.split('_')[1],
-        shopItemList: getShopItemFeaturedList(state),
-        savedPaymentMethodList: getSavedPaymentMethodList(state),
         detachPaymentMethodLoading:
           state.paymentBackend.detachPaymentMethod.loading,
         creditAccountBalance: getUsableCreditAccountBalance(state, companyId),
@@ -875,15 +871,6 @@ export default compose(
     false,
   ),
   withHandlers({
-    addShopItemToBasket:
-      ({ addItemToBasket, basket }) =>
-      (shopItemId) =>
-        addItemToBasket(basket.id, {
-          buyable_item_identifier: BUYABLE_ITEM_SHOP_ITEM,
-          quantity: 1,
-          buyable_item_id: shopItemId,
-          extra_data: {},
-        }),
     onSuccess:
       ({ replace, basket, queryParams, theme, basketOffers }) =>
       () => {

@@ -5,6 +5,7 @@ import {
   type MetaActivity,
   fetchGroupActivitiesAction,
 } from "@bsport/store-booking-group-activity";
+import { usePaginationQueryParams } from "@bsport/use-pagination-query-params";
 
 import fetch from "#src/utils/fetch";
 
@@ -13,64 +14,48 @@ const usePaginatedGroupActivities = (customerEnabled: boolean) => {
 
   const [isLoading, setIsLoading] = useState(true);
 
-  const [currentPage, setCurrentPage] = useState(1);
-
-  const [rowsPerPage, setRowsPerPage] = useState(10);
+  const { currentPage, currentPageSize, setPageSettings } =
+    usePaginationQueryParams({
+      shouldReplace: false,
+      defaultValues: { page_size: 10, page: 1 },
+    });
 
   const [totalItems, setTotalItems] = useState(1);
 
-  const fetchData = useCallback(
-    (page: number, rows: number) => {
-      setCurrentPage(page);
-      setIsLoading(true);
-      fetchGroupActivitiesAction(fetch, {
-        customerEnabled,
-        page: page,
-        pageSize: rows,
-      }).then((response) => {
-        response.fold(
-          ({ results, count }) => {
-            setGroupActivities(results);
-            setTotalItems(count);
-          },
-          (error) => console.error(error),
-        );
-        setIsLoading(false);
-      });
-    },
-    [currentPage, rowsPerPage],
-  );
-
-  const changeRowsPerPage = useCallback((rows: number) => {
-    setRowsPerPage(rows);
-  }, []);
+  const fetchGroupActivitiesPage = useCallback(() => {
+    setIsLoading(true);
+    fetchGroupActivitiesAction(fetch, {
+      customerEnabled,
+      page: currentPage,
+      pageSize: currentPageSize,
+    }).then((response) => {
+      response.fold(
+        ({ results, count }) => {
+          setGroupActivities(results);
+          setTotalItems(count);
+        },
+        (error) => console.error(error),
+      );
+      setIsLoading(false);
+    });
+  }, [currentPage, currentPageSize]);
 
   const paginationProps: PaginationProps = useMemo(
     () => ({
       currentPage,
-      rowsPerPage,
+      rowsPerPage: currentPageSize,
       showRowsPerPageSelector: true,
       disabled: isLoading,
       totalItems,
-      onRowsPerPageChange: changeRowsPerPage,
-      onPageSettingsChange: fetchData,
+      onPageSettingsChange: setPageSettings,
       className: "p-md",
     }),
-    [
-      currentPage,
-      rowsPerPage,
-      isLoading,
-      totalItems,
-      changeRowsPerPage,
-      fetchData,
-    ],
+    [currentPage, currentPageSize, isLoading, totalItems, setPageSettings],
   );
 
   return {
     groupActivities,
-    fetchData,
-    currentPage,
-    rowsPerPage,
+    fetchGroupActivitiesPage,
     paginationProps,
     isLoading,
   };

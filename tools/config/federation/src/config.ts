@@ -83,7 +83,7 @@ const ConfigSchema = z
           "Base URL for the application that matches the path in the S3 bucket",
       })
       .optional()
-      .default("/v2/"),
+      .default("/studio/"),
   })
   .refine(
     (data) => {
@@ -150,7 +150,7 @@ export const getConfig = (config: {
   mode: string;
   packageJson: z.infer<typeof ConfigSchema>["packageJson"];
   rootDir: string;
-  deploymentBaseUrl?: string;
+  deploymentRelativeUrl?: z.infer<typeof ConfigSchema>["deploymentRelativeUrl"];
 }) => {
   const result = ConfigSchema.safeParse(config);
 

@@ -30,7 +30,7 @@ import { ErrorAndLoading } from '../types';
 import { Establishment, EstablishmentMinimal } from '../establishment/types';
 import { MetaActivity } from '../meta-activity/types';
 import { Coach, CoachMinimal } from '../associated-coach/types';
-import { OFFER_RECURRENCE } from './constants';
+import { OFFER_RECURRENCE, BookingWindowStatus } from './constants';
 import type { WellhubProductId } from '#src/libs/wellhub/types';
 
 export type OfferFilter = {
@@ -165,6 +165,9 @@ export type Offer<
   validated_booking_count: number;
   waiting_list_max_size: number;
   whitelist_tags: T[];
+  booking_window_status?: BookingWindowStatus;
+  booking_window_start_datetime?: string;
+  booking_window_end_datetime?: string;
 };
 
 /**
@@ -216,6 +219,9 @@ export type OfferREST = {
   waiting_list_disabled: boolean;
   waiting_list_max_size: number;
   whitelist_tags: number[];
+  booking_window_status?: BookingWindowStatus;
+  booking_window_start_datetime?: string;
+  booking_window_end_datetime?: string;
 };
 
 /**

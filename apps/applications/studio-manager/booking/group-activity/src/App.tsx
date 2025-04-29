@@ -6,6 +6,7 @@ import AppRoutes from "./Routes";
  * Core of the application, without wrapper.
  * This is what is built and federated.
  */
+
 const App: React.FC = () => {
   return (
     <AppI18nextProvider>

@@ -5816,7 +5816,8 @@
         "presetValuesByDatatype": {
             "payment_engine": {
                 "0": "Pago manual",
-                "1": "Pago online"
+                "1": "Stripe",
+                "2": "Paypal"
             },
             "payment_method": {
                 "0": "Tarjeta",

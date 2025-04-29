@@ -6794,7 +6794,8 @@
             },
             "payment_engine": {
                 "0": "Manuelle Bezahlung",
-                "1": "Online-Bezahlung"
+                "1": "Stripe",
+                "2": "Paypal"
             },
             "booking_status_code": {
                 "0": "Nicht storniert",

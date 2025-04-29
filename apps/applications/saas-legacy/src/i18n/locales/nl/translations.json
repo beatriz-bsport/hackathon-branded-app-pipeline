@@ -3975,7 +3975,8 @@
             },
             "payment_engine": {
                 "0": "Handmatige betaling",
-                "1": "Online betaling"
+                "1": "Online betaling",
+                "2": "Paypal"
             },
             "payment_method_with_credit_account": {
                 "0": "Kaart",

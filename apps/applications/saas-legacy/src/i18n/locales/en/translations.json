@@ -17374,7 +17374,7 @@
                 "50013": "You can no longer answer this substitution request.",
                 "50015": "You cannot answer your own substitution request",
                 "50020": "This substitution request has been denied: impossible to delete it",
-                "50021": "You cannot specify establihments and locations at the same time.",
+                "50021": "You cannot specify establishments and locations at the same time.",
                 "80002": "The value 'Number of days request late' must be greater than the value 'Number of days registration closed'.",
                 "80003": "Missing settings for overdue request limits.",
                 "500001": "A request for substitution already exists",

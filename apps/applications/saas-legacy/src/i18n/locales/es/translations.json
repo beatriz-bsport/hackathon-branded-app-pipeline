@@ -5816,7 +5816,8 @@
         "presetValuesByDatatype": {
             "payment_engine": {
                 "0": "Pago manual",
-                "1": "Pago online"
+                "1": "Stripe",
+                "2": "Paypal"
             },
             "payment_method": {
                 "0": "Tarjeta",
@@ -6133,7 +6134,7 @@
         },
         "newOrder": {
             "title": "Nuevo pedido",
-            "explain": "Pagada por <1>{{name}}</1> en la tienda.",
+            "explain": "Pagada por <1>{{- name}}</1> en la tienda.",
             "price": "Importe: {{ price }}."
         },
         "task": {

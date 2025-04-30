@@ -4765,7 +4765,7 @@
         "paymentEngine": {
             "label": {
                 "0": "Manual payment",
-                "1": "Online payment"
+                "1": "Stripe"
             }
         },
         "invoiceType": {

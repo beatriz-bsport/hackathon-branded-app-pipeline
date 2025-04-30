@@ -1728,7 +1728,7 @@
         "paymentEngine": {
             "label": {
                 "0": "Pagamento manual",
-                "1": "Pagamento pendente"
+                "1": "Stripe"
             }
         },
         "paymentMethod": {

@@ -26,6 +26,7 @@ class ErrorBoundary extends React.Component<
 }
 
 const isInIframe = () => window.self !== window.top;
+const isRnWebview = () => window.location.pathname.includes('rn-webview');
 
 const ConsentManager = ({
   apiKey,
@@ -37,7 +38,7 @@ const ConsentManager = ({
   domain: string;
 }) => {
   if (!apiKey || !noticeId || !domain) return null;
-  if (isInIframe()) return null;
+  if (isInIframe() || isRnWebview()) return null;
 
   return (
     <ErrorBoundary>

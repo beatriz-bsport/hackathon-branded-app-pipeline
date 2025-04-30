@@ -3536,7 +3536,7 @@
                 },
                 "selectFranchiseesDisabled": "Diese Einstellung gilt nur für benutzerdefinierte Aufgaben (nicht Admin oder Eigentümer)",
                 "selectCoach": "Lehrkraft auswählen",
-                "selectFranchisees": "Niederlassung auswählen",
+                "selectFranchisees": "Einrichtung auswählen",
                 "ifEmptySelectAll": "Leer lassen, um alle auszuwählen",
                 "commissionHeader": "Provisionssatz",
                 "advancedSettingsModal": {
@@ -8049,7 +8049,7 @@
                 "50013": "Sie können nicht mehr auf diese Vertretungsanfrage reagieren.",
                 "50015": "Sie können nicht auf Ihre eigene Vertretungsanfrage reagieren",
                 "50020": "Diese Vertretungsanfrage wurde abgelehnt: Löschen nicht möglich",
-                "50021": "Sie können nicht gleichzeitig Niederlassungen und Standorte angeben.",
+                "50021": "Sie können nicht gleichzeitig Einrichtungen und Standorte angeben.",
                 "80002": "Der Wert \"Anzahl der Tage, an denen die Anfrage verspätet ist\" muss größer sein als der Wert \"Anzahl der Tage, an denen die Anfrage geschlossen ist\".",
                 "80003": "Fehlende Einstellungen für Grenzwerte für verspätete Anfragen.",
                 "500001": "Es liegt bereits eine Vertretungsanfrage vor",
@@ -12556,7 +12556,7 @@
             "infoBoxContent": "Sie befinden sich im Verfügbarkeitsmodus für eine bestimmte Einrichtung. Standardmäßig sind Ihre Lehrkräfte in allen Einrichtungen verfügbar, wenn Sie eine Verfügbarkeit erstellen. Auf dieser Seite können Sie spezifische Verfügbarkeiten für bestimmte Einrichtungen festlegen, damit Ihre Lehrkraft nur in diesen Einrichtungen verfügbar ist. Um eine spezifische Verfügbarkeit zu erstellen, müssen Sie eine allgemeine Verfügbarkeit auf dem Wochenplan Ihrer Lehrkraft erstellen.",
             "goToRegularCalendar": "Zurück zum Wochenplan",
             "filters": "Filter",
-            "establishment": "Niederlassung"
+            "establishment": "Einrichtung"
         },
         "universalPass": {
             "delete": {
@@ -15211,7 +15211,7 @@
             "payout_status": "Status der Überweisung",
             "total_discount": "Gesamtrabatt",
             "plan_status": "Abo-Status",
-            "establishment": "Niederlassung",
+            "establishment": "Einrichtung",
             "nb_planned_invoices": "Anzahl der Zahlungseingänge gesamt",
             "margin_value": "Marginaler Wert (inkl. MwSt.)",
             "dispute_status": "Status der Streitfälle",
@@ -15248,7 +15248,7 @@
         },
         "placeholderEmptyValues": {
             "coach": "Keine Lehrkraft",
-            "establishment": "Keine Niederlassung"
+            "establishment": "Keine Einrichtung"
         }
     },
     "relationship": {
@@ -20824,11 +20824,11 @@
                 "allActivities": "Unterrichtet alle Aktivitäten",
                 "workshops": "Workshops",
                 "pickWorkshop": "Workshop wählen",
-                "establishmentSelectorError": "Sie können nicht gleichzeitig Niederlassungen und Standorte angeben",
-                "allEstablishments": "Alle Niederlassungen",
+                "establishmentSelectorError": "Sie können nicht gleichzeitig Einrichtungen und Standorte angeben",
+                "allEstablishments": "Alle Einrichtungen",
                 "pickEstablishment": "Leer lassen, um alles zu wählen",
                 "locations": "Standorte",
-                "establishments": "Niederlassungen"
+                "establishments": "Einrichtungen"
             },
             "add": "Eine Gruppe hinzuzufügen",
             "title": "Disziplingruppen",
@@ -20918,10 +20918,10 @@
             "categories": "Kategorien",
             "pickCategory": "Kategorie wählen",
             "allCategories": "Unterrichtet alle Kategorien",
-            "allEstablishments": "Alle Niederlassungen",
+            "allEstablishments": "Alle Einrichtungen",
             "pickEstablishment": "Leer lassen, um alles auszuwählen",
             "locations": "Standorte",
-            "establishments": "Niederlassungen"
+            "establishments": "Einrichtungen"
         },
         "delete": {
             "title": "Anfrage stornieren",
@@ -21135,7 +21135,7 @@
             },
             "outOfStock": {
                 "title": "Mehr Bestand",
-                "subText": "Das Produkt, das Sie in den Warenkorb legen möchten, ist in Ihrer Niederlassung nicht mehr vorrätig. Möchten Sie es trotzdem hinzufügen?",
+                "subText": "Das Produkt, das du in den Warenkorb legen möchtest, ist in deiner Einrichtung nicht mehr vorrätig. Möchtest du es trotzdem hinzufügen?",
                 "addAnyway": "Trotzdem hinzufügen"
             },
             "cannotAdd": {

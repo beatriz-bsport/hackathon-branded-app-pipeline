@@ -159,117 +159,102 @@ export const usePaymentBasketButtons = ({
       setCurrentStep(steps[0]);
   }, [currentStep, steps]);
 
-  return useMemo(() => {
-    const buttonsConfiguration: ButtonsConfiguration = [];
+  const buttonsConfiguration: ButtonsConfiguration = [];
 
-    /** The data we'll use to build the button configuration.
-     *  Exposed by paymentBasketRef, hooks or declared directly in this hook (local states)
-     **/
-    const paymentEngine = paymentBasketRef?.current?.paymentEngine;
+  /** The data we'll use to build the button configuration.
+   *  Exposed by paymentBasketRef, hooks or declared directly in this hook (local states)
+   **/
+  const paymentEngine = paymentBasketRef?.current?.paymentEngine;
 
-    const isOnlinePaymentDisabled =
-      paymentBasketRef?.current?.isOnlinePaymentDisabled;
+  const isOnlinePaymentDisabled =
+    paymentBasketRef?.current?.isOnlinePaymentDisabled;
 
-    const isEstablishmentBillingGroupSelected =
-      paymentBasketRef?.current?.isEstablishmentBillingGroupSelected;
+  const isEstablishmentBillingGroupSelected =
+    paymentBasketRef?.current?.isEstablishmentBillingGroupSelected;
 
-    const selectedEstablishmentBillingGroup =
-      paymentBasketRef?.current?.selectedEstablishmentBillingGroup;
+  const selectedEstablishmentBillingGroup =
+    paymentBasketRef?.current?.selectedEstablishmentBillingGroup;
 
-    const isTotalPriceNull = !(
-      (basketTotalPriceCts || 0) - (basketTotalPricePrepaidLinesCts || 0)
-    );
+  const isTotalPriceNull = !(
+    (basketTotalPriceCts || 0) - (basketTotalPricePrepaidLinesCts || 0)
+  );
 
-    const isOnlinePaymentAvailable = availablePaymentMethods?.includes(CB.id);
+  const isOnlinePaymentAvailable = availablePaymentMethods?.includes(CB.id);
 
-    const isPayLaterAvailable = availablePaymentMethods?.includes(
-      CREDIT_ACCOUNT.id,
-    );
+  const isPayLaterAvailable = availablePaymentMethods?.includes(
+    CREDIT_ACCOUNT.id,
+  );
 
-    const visibleButtons = getVisibleButtons({
-      currentStepId: currentStep.id,
-      isOnlinePaymentAvailable,
-      isPayLaterAvailable,
-      isTotalPriceNull,
-      paymentEngine,
-    });
+  const visibleButtons = getVisibleButtons({
+    currentStepId: currentStep.id,
+    isOnlinePaymentAvailable,
+    isPayLaterAvailable,
+    isTotalPriceNull,
+    paymentEngine,
+  });
 
-    const disabledButtons = getButtonsDisabledStatus({
-      isBasketLoading: isBasketLoading,
-      currentStepId: currentStep.id,
-      isEstablishmentBillingGroupSelected,
-      isOnlinePaymentDisabled,
-      isPaymentProcessing: isPaymentProcessing,
-    });
+  const disabledButtons = getButtonsDisabledStatus({
+    isBasketLoading: isBasketLoading,
+    currentStepId: currentStep.id,
+    isEstablishmentBillingGroupSelected,
+    isOnlinePaymentDisabled,
+    isPaymentProcessing: isPaymentProcessing,
+  });
 
-    Object.values(submitButtons ?? SUBMIT_BUTTONS).forEach((button) => {
-      if (visibleButtons[button.id]) {
-        const isDisabled = disabledButtons[button.id];
+  Object.values(submitButtons ?? SUBMIT_BUTTONS).forEach((button) => {
+    if (visibleButtons[button.id]) {
+      const isDisabled = disabledButtons[button.id];
 
-        const isProcessing =
-          isPaymentProcessing && button.id === lastSubmitButtonClicked;
+      const isProcessing =
+        isPaymentProcessing && button.id === lastSubmitButtonClicked;
 
-        const handleClick = async (event?: React.MouseEvent<HTMLElement>) => {
-          if (selectedEstablishmentBillingGroup?.id)
-            handleUpdateMemberBillingGroup(
-              selectedEstablishmentBillingGroup.id,
-            );
-          setLastSubmitButtonClicked(button.id);
-          if (button.id === SUBMIT_BUTTONS.PAY_LATER_BUTTON.id) {
-            paymentBasketRef.current.onPayLaterSubmit();
-          } else {
-            paymentBasketRef.current.onPaymentConfirm(event);
-          }
-        };
+      const handleClick = async (event?: React.MouseEvent<HTMLElement>) => {
+        if (selectedEstablishmentBillingGroup?.id)
+          handleUpdateMemberBillingGroup(selectedEstablishmentBillingGroup.id);
+        setLastSubmitButtonClicked(button.id);
+        if (button.id === SUBMIT_BUTTONS.PAY_LATER_BUTTON.id) {
+          paymentBasketRef.current.onPayLaterSubmit();
+        } else {
+          paymentBasketRef.current.onPaymentConfirm(event);
+        }
+      };
 
-        const callbacks: Callbacks =
-          button.id === SUBMIT_BUTTONS.PAYPAL_BUTTON.id
-            ? {
-                createOrder: async () => {
-                  if (selectedEstablishmentBillingGroup?.id)
-                    handleUpdateMemberBillingGroup(
-                      selectedEstablishmentBillingGroup.id,
-                    );
-                  setLastSubmitButtonClicked(button.id);
-                  return paymentBasketRef.current.onPayPalCreateOrder();
-                },
-                onApprove: async () => {
-                  paymentBasketRef.current.onPayPalApprove();
-                  setLastSubmitButtonClicked(button.id);
-                },
-                onError: async () => {
-                  paymentBasketRef.current.onPayPalError();
-                  setLastSubmitButtonClicked(button.id);
-                },
-                onCancel: async () => {
-                  paymentBasketRef.current.onPayPalCancel();
-                  setLastSubmitButtonClicked(button.id);
-                },
-              }
-            : {
-                onClick: handleClick,
-              };
+      const callbacks: Callbacks =
+        button.id === SUBMIT_BUTTONS.PAYPAL_BUTTON.id
+          ? {
+              createOrder: async () => {
+                if (selectedEstablishmentBillingGroup?.id)
+                  handleUpdateMemberBillingGroup(
+                    selectedEstablishmentBillingGroup.id,
+                  );
+                setLastSubmitButtonClicked(button.id);
+                return paymentBasketRef.current.onPayPalCreateOrder();
+              },
+              onApprove: async () => {
+                paymentBasketRef.current.onPayPalApprove();
+                setLastSubmitButtonClicked(button.id);
+              },
+              onError: async () => {
+                paymentBasketRef.current.onPayPalError();
+                setLastSubmitButtonClicked(button.id);
+              },
+              onCancel: async () => {
+                paymentBasketRef.current.onPayPalCancel();
+                setLastSubmitButtonClicked(button.id);
+              },
+            }
+          : {
+              onClick: handleClick,
+            };
 
-        buttonsConfiguration.push({
-          button,
-          isDisabled,
-          isProcessing,
-          callbacks,
-        });
-      }
-    });
+      buttonsConfiguration.push({
+        button,
+        isDisabled,
+        isProcessing,
+        callbacks,
+      });
+    }
+  });
 
-    return buttonsConfiguration;
-  }, [
-    availablePaymentMethods,
-    basketTotalPriceCts,
-    basketTotalPricePrepaidLinesCts,
-    currentStep.id,
-    handleUpdateMemberBillingGroup,
-    isBasketLoading,
-    isPaymentProcessing,
-    lastSubmitButtonClicked,
-    paymentBasketRef,
-    submitButtons,
-  ]);
+  return buttonsConfiguration;
 };

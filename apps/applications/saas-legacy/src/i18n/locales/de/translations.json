@@ -22,8 +22,8 @@
                     "overallExplainSmart": "Wenn ein Platz frei wird, hat der Teilnehmer {{ autokick_delay }} Erinnerungen in Abständen von {{ smart_delay_percentage }}% der verbleibenden Zeit vor Beginn des Kurses, um sich anzumelden. Wenn beispielsweise noch {{ example_hours_before }} Stunden bis zum Beginn des Kurses verbleiben, hat der Teilnehmer {{ example_computed_delay_one }} Minuten Zeit, um sich anzumelden, und dann {{ example_computed_delay_two }} Minuten nach dem ersten Wiederholungsversuch usw., bevor sich der nächste Teilnehmer anmelden kann."
                 },
                 "1": {
-                    "label": "Nach Anmeldezeitpunkt",
-                    "explain": "Wer sich auf die Warteliste setzt, erhält einen Platz nach Anmeldezeitpunkt. Beispiel: Wenn zwei Mitglieder sich bereits auf die Warteliste gesetzt haben, erhält das nächste Mitglied den dritten Platz in der Warteliste. Wenn ein Platz frei wird, hat die erste Person in der Warteliste die Option, den Platz anzunehmen oder abzusagen/zu stornieren. Dann wird der Platz der zweiten Person in der Warteliste angeboten, usw."
+                    "label": "\"First come, first served\" - Prinzip",
+                    "explain": "Diese Warteliste ist unsortiert. Alle auf der Warteliste werden gleichzeitig über freie Plätze informiert."
                 },
                 "label": "Wartelisten-Priorität"
             },
@@ -3474,7 +3474,7 @@
         "marketingEmail": {
             "caption": "Kopien von Transaktions-E-Mails werden an diese Adresse gesendet, wenn die Einstellung aktiviert ist",
             "placeholder": "E-Mail",
-            "label": "Nachfass-E-Mail"
+            "label": "Follow-Up E-Mail"
         },
         "provincialTax": {
             "helperText": "Die Mehrwertsteuer ist kleiner oder gleich der angegebenen Provinzsteuer. Auf Rechnungen wird nur diese Steuer angegeben, ohne zwischen Bundes- und Provinzsteuer zu unterscheiden."
@@ -8957,7 +8957,7 @@
         },
         "generalTermsAndConditions": {
             "close": "Schließen",
-            "iAccept": "Ja ",
+            "iAccept": "Ich akzeptiere die ",
             "theTermsAndConditions": "Allgemeine Nutzungsbedingungen.",
             "generalTermsOfUse": " Allgemeine Geschäftsbedingungen",
             "waiver": "Verzichtserklärung."

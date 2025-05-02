@@ -15,7 +15,7 @@ import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 import type { Subscription } from '#src/libs/subscription/types';
 
-import Collapse from '#src/components/css-only/Fabrique/Collapse';
+import ShowMore from '#src/components/css-only/Fabrique/ShowMore';
 import Button from '#src/components/css-only/Fabrique/Button';
 import MinimalCardSkeleton from '../../MinimalCardSkeleton';
 import BillingInterval from '../MarketplaceBillingInterval';
@@ -156,7 +156,7 @@ const MinimalSubscriptionCard: React.FC<Props> = ({
             rowEnd={4}
             rowStart={4}
           >
-            <Collapse collapsedHeight={40} isExpanded={showAllDescription}>
+            <ShowMore collapsedHeight={40} isExpanded={showAllDescription}>
               <div
                 ref={descriptionText.ref}
                 className={clsx('bs-minimal-subscription-card__description', {
@@ -166,7 +166,7 @@ const MinimalSubscriptionCard: React.FC<Props> = ({
               >
                 {subscription?.description ?? ''}
               </div>
-            </Collapse>
+            </ShowMore>
           </GridItem>
 
           <GridItem

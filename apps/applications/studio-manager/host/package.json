@@ -59,6 +59,10 @@
       "sm-invoice": {
         "devPort": 4250,
         "watchPath": "../financial-services/invoice/src/**/*"
+      },
+      "sm-smartlists": {
+        "devPort": 4301,
+        "watchPath": "../cdp/smartlists/src/**/*"
       }
     }
   }

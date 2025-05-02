@@ -8,7 +8,7 @@ import MarketplaceConsumerPaymentPackCard from '#src/libs/marketplace/components
 import MarketplaceFilterBuyableItemCategory from '#src/libs/marketplace/components/@BuyableItem/MarketplaceFilterBuyableItemCategory';
 import MarketplaceBuyableItemCategoryList from '#src/libs/marketplace/components/@BuyableItem/MarketplaceBuyableItemCategoryList';
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
-import Collapse from '#src/components/css-only/Fabrique/Collapse';
+import ShowMore from '#src/components/css-only/Fabrique/ShowMore';
 import ButtonBase from '#src/components/css-only/Fabrique/ButtonBase';
 import type { MaxoutData, PaymentPack } from '#src/libs/payment-packs/types';
 import type { ConsumerPaymentPack } from '#src/libs/consumer-payment-pack/types';
@@ -129,7 +129,7 @@ const MarketplaceBookerModuleBuyableItems: React.FC<Props> = ({
             )}
           </>
         )}
-        <Collapse
+        <ShowMore
           classes={collapseClasses}
           collapsedHeight={0}
           isExpanded={isDisplayBuyableItems}
@@ -168,7 +168,7 @@ const MarketplaceBookerModuleBuyableItems: React.FC<Props> = ({
             />
           )}
           <div className="bs-booker-module-scroll_filler" />
-        </Collapse>
+        </ShowMore>
       </>
     </div>
   );

@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { FABRIQUE_TYPOGRAPHY_BODY_MD_TWO_LINES_HEIGHT } from '#Fabrique/constants';
 import Typography from '#Fabrique/Typography';
 import Button from '#Fabrique/ButtonV2';
-import Collapse from '#Fabrique/Collapse';
+import ShowMore from '#Fabrique/ShowMore';
 
 import './styles.css';
 
@@ -30,7 +30,7 @@ const ConsumerCardDescription: React.FC<Props> = ({ classes, description }) => {
 
   return (
     <>
-      <Collapse
+      <ShowMore
         classes={{
           content: clsx('bs-consumer-card-description__collapse-content', {
             'bs-consumer-card-description__collapse-content--expanded':
@@ -53,7 +53,7 @@ const ConsumerCardDescription: React.FC<Props> = ({ classes, description }) => {
         >
           {description}
         </Typography>
-      </Collapse>
+      </ShowMore>
 
       <Button
         className={clsx(

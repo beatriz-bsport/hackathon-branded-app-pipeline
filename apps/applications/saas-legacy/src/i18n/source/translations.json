@@ -2836,7 +2836,9 @@
       "bookkeeping_account_number": "Account number",
       "is_first_visit": "First booking",
       "private_booking_date_created": "Date and time of booking",
-      "billing_group_address": "Address"
+      "billing_group_address": "Address",
+      "product": "Product",
+      "product_type": "Product Type"
     },
     "graphFormDrawer": {
       "helperText": {
@@ -11463,6 +11465,18 @@
         "2": "Stopped",
         "3": "Stopped",
         "4": "Finished"
+      },
+      "product_type": {
+        "payment_pack": "Passes",
+        "shop_item": "Webshop items",
+        "top_up": "Top-ups",
+        "payment_combo": "Packs",
+        "private_pass": "Appointment passes",
+        "fee": "Fees",
+        "refund": "Refunded credits",
+        "booking": "Bookings",
+        "coupon": "Promotions",
+        "giftcard": "Gift cards"
       }
     },
     "helperText": {

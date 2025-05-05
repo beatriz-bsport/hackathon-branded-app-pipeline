@@ -45,6 +45,7 @@ export type HeaderLayoutProps = React.HTMLAttributes<HTMLDivElement> &
  */
 const LayoutHeader: React.FC<HeaderLayoutProps> = ({
   breadcrumbsItems,
+  BreadcrumbsItems,
   className,
   callToActionButton,
   endGroupActions,
@@ -74,6 +75,7 @@ const LayoutHeader: React.FC<HeaderLayoutProps> = ({
     >
       <PageActionsSection
         breadcrumbsItems={breadcrumbsItems}
+        BreadcrumbsItems={BreadcrumbsItems}
         callToActionButton={callToActionButton}
         endGroupActions={endGroupActions}
         onEditTitleClick={onEditTitleClick}

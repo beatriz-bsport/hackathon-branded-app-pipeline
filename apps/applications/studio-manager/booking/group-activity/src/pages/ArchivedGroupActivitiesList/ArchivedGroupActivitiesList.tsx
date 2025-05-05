@@ -1,6 +1,13 @@
 import React, { useEffect, useMemo } from "react";
+import { Link } from "react-router";
 
-import { List, ListLayout, Loader, toast } from "@bsport/kaizen-primitive-core";
+import {
+  Breadcrumbs,
+  List,
+  ListLayout,
+  Loader,
+  toast,
+} from "@bsport/kaizen-primitive-core";
 import type { ListItemProps } from "@bsport/kaizen-primitive-core";
 import {
   archiveGroupActivityAction,
@@ -85,12 +92,13 @@ const ArchivedGroupActivitiesList: React.FC = () => {
   return (
     <ListLayout>
       <ListLayout.Header
-        breadcrumbsItems={[
-          {
-            id: "breadcrumb-item-group-activities",
-            text: t("list.header.groupActivities"),
-            href: GROUP_ACTIVITIES_PATH,
-          },
+        BreadcrumbsItems={[
+          <Link key="to-active-group-activities" to={GROUP_ACTIVITIES_PATH}>
+            <Breadcrumbs.Item
+              text={t("list.header.groupActivities")}
+              id="breadcrumb-item-group-activities"
+            />
+          </Link>,
         ]}
         pageTitle={t("list.header.archivedGroupActivities")}
       />

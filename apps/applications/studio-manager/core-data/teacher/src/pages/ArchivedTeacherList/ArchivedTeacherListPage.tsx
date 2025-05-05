@@ -1,4 +1,6 @@
-import { ListLayout } from "@bsport/kaizen-primitive-core";
+import { Link } from "react-router";
+
+import { Breadcrumbs, ListLayout } from "@bsport/kaizen-primitive-core";
 
 import { useTeacherFilters } from "#src/hooks/useTeacherFilters";
 import { ROUTES } from "#src/routes";
@@ -13,12 +15,10 @@ export const ArchivedTeacherListPage: React.FC = () => {
     <ListLayout>
       <ListLayout.Header
         pageTitle={t("pages.archived")}
-        breadcrumbsItems={[
-          {
-            id: "member",
-            text: t("pages.active"),
-            href: ROUTES.ACTIVE,
-          },
+        BreadcrumbsItems={[
+          <Link key="to-active-teacher" to={ROUTES.ACTIVE}>
+            <Breadcrumbs.Item text={t("pages.active")} />
+          </Link>,
         ]}
         searchConfig={{
           id: "teacher-archived-search",

@@ -1,4 +1,6 @@
-import { ListLayout } from "@bsport/kaizen-primitive-core";
+import { Link } from "react-router";
+
+import { Breadcrumbs, ListLayout } from "@bsport/kaizen-primitive-core";
 
 import { useTranslation } from "#src/utils/i18n";
 
@@ -11,12 +13,10 @@ export const ArchivedMemberListPage: React.FC = () => {
     <ListLayout>
       <ListLayout.Header
         pageTitle={t("pages.archivedMemberList")}
-        breadcrumbsItems={[
-          {
-            id: "member",
-            text: t("pages.memberList"),
-            href: "/",
-          },
+        BreadcrumbsItems={[
+          <Link key="to-active-member" to="/">
+            <Breadcrumbs.Item text={t("pages.memberList")} />
+          </Link>,
         ]}
       />
       <ListLayout.Content>

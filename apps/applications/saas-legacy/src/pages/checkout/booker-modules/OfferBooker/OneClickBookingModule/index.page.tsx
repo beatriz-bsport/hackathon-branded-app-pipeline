@@ -63,6 +63,7 @@ import {
 } from '@bsport/common/lib/master-data/error-codes/associated-coach';
 import { AxiosError } from 'axios';
 import './index.css';
+import { USER_REGISTRATION_RESPONSE_LOCAL_STORAGE_KEY } from '#src/libs/payment/constants';
 
 enum CheckPaymentIntent {
   TRUE = 'true',
@@ -125,6 +126,7 @@ const OneClickBookingModule: React.FC<Props> = ({
   retrieveCompanyCssConfiguration,
   replace,
   snackbarError,
+  queryParams,
 }) => {
   const { t } = useTranslation('booking');
 
@@ -355,13 +357,36 @@ const OneClickBookingModule: React.FC<Props> = ({
     if (!isSelectedPaymentPackFree) debouncedLightSignUp();
   }, [debouncedLightSignUp, isSelectedPaymentPackFree, lightSignupValues]);
 
-  const onBookWithChargeablePaymentPack = useCallback(() => {
+  const cleanLocalStorageAndRedirect = useCallback(() => {
+    const basketId = queryParams?.basket_redirection
+      ? queryParams.basket_redirection
+      : basket?.id;
+    const getUserRegistrationResponse = () => {
+      if (!queryParams?.get_user_registration_from_storage) {
+        return userRegistrationResponse;
+      }
+      const rawUserRegistrationResponse = getItemInStorage(
+        'local',
+        USER_REGISTRATION_RESPONSE_LOCAL_STORAGE_KEY,
+      );
+      return rawUserRegistrationResponse
+        ? JSON.parse(rawUserRegistrationResponse)
+        : null;
+    };
+
     onBookingSuccess({
       offer,
-      basketId: basket?.id,
-      userRegistrationResponse,
+      basketId,
+      userRegistrationResponse: getUserRegistrationResponse(),
     });
-  }, [basket?.id, onBookingSuccess, userRegistrationResponse, offer]);
+  }, [
+    basket?.id,
+    onBookingSuccess,
+    userRegistrationResponse,
+    offer,
+    queryParams?.get_user_registration_from_storage,
+    queryParams?.basket_redirection,
+  ]);
 
   const onBookWithFreePaymentPack = useCallback(async () => {
     if (!selectedPaymentPackId || !offer) return;
@@ -446,12 +471,12 @@ const OneClickBookingModule: React.FC<Props> = ({
       onBookWithFreePaymentPack();
       return;
     }
-    onBookWithChargeablePaymentPack();
+    cleanLocalStorageAndRedirect();
   }, [
     onBookWithFreePaymentPack,
     checkBookableStatus,
     offerId,
-    onBookWithChargeablePaymentPack,
+    cleanLocalStorageAndRedirect,
     isSelectedPaymentPackFree,
   ]);
 
@@ -633,7 +658,7 @@ const OneClickBookingModule: React.FC<Props> = ({
                   hideConfirmPaymentButton
                   basketId={basket.id}
                   companyId={companyId}
-                  onConfirmPaymentSuccess={onBookWithChargeablePaymentPack}
+                  onConfirmPaymentSuccess={cleanLocalStorageAndRedirect}
                   payerContext={{
                     memberId: parseInt(memberId),
                     termsAndConditionsAccepted:

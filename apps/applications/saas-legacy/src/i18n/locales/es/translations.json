@@ -3605,7 +3605,7 @@
                     "customDiscountJustification": "Exigir la justificación de los descuentos manuales"
                 },
                 "info": "Active estas opciones para exigir al personal que proporcione un motivo al aplicar manualmente un descuento o cancelar/devolver una factura.",
-                "title": "Descuentos y devoluciones"
+                "title": "Devoluciones y descuentos"
             }
         },
         "section": {
@@ -7650,7 +7650,7 @@
                     "email": "Introduzca una dirección de email válida",
                     "requiredField": "Este campo es obligatorio",
                     "phoneTaken": "Este número de teléfono ya está siendo utilizado por otro usuario",
-                    "emailTaken": "El correo electrónico ya ha salido, puede intentar iniciar sesión con este correo electrónico"
+                    "emailTaken": "El correo electrónico ya existe, puede intentar iniciar sesión con este correo electrónico"
                 },
                 "button": {
                     "label": "Inscríbete"

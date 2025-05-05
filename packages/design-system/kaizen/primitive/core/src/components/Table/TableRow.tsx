@@ -4,6 +4,7 @@ import React, { useCallback, useMemo } from "react";
 import Avatar from "#src/components/Avatar";
 import Body from "#src/components/Body";
 import Checkbox from "#src/components/Checkbox";
+import ColorIndicator from "#src/components/ColorIndicator";
 import withLink from "#src/components/private/withLink";
 
 import type { BaseRow, Column } from "./Table";
@@ -44,7 +45,7 @@ const TableRow = withLink(
 
     const renderedCells = useMemo(
       () =>
-        columns.map((col) => {
+        columns.map((col, index) => {
           const value =
             col.type !== "custom" && resolveDeepPath(row, col.keyPath);
 
@@ -105,6 +106,13 @@ const TableRow = withLink(
               rowHeight={rowHeight}
               align={col.align}
             >
+              {row.color && !selectable && index === 0 && (
+                <ColorIndicator
+                  color={row.color}
+                  type="line"
+                  className="absolute left-0 top-0"
+                />
+              )}
               {content}
             </TableCell>
           );
@@ -114,7 +122,7 @@ const TableRow = withLink(
 
     return (
       <div
-        className={classNames("table-row", {
+        className={classNames("relative table-row", {
           "bg-surface-default hover:bg-surface-action-default-weak-hovered active:bg-surface-action-default-weak-pressed":
             !selected,
           "bg-surface-action-main-selected-rest hover:bg-surface-action-main-selected-hovered active:bg-surface-action-main-selected-pressed":
@@ -125,7 +133,15 @@ const TableRow = withLink(
           <TableCell
             withVerticalBorders={withVerticalBorders}
             rowHeight={rowHeight}
+            align="center"
           >
+            {row.color && (
+              <ColorIndicator
+                color={row.color}
+                type="line"
+                className="absolute left-0 top-0"
+              />
+            )}
             <Checkbox
               value={selected ? "checked" : "unchecked"}
               id={`checkbox-${rowId}`}

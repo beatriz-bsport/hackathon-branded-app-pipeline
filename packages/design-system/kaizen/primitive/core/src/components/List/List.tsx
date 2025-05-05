@@ -13,6 +13,7 @@ import Header, { ListHeaderProps } from "./Header";
 import Item, { ListItemProps } from "./Item";
 
 const defaultClasses = [
+  "relative",
   "flex",
   "min-h-2xl",
   "py-xs",

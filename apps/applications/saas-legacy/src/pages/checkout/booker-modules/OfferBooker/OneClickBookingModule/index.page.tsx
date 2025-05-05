@@ -19,6 +19,9 @@ import {
   getLoginUrl,
   getOfferBookerUrl,
 } from '#src/libs/marketplace/routing-utils';
+import { shouldCheckPaymentStatus } from '#src/libs/checkout/utils';
+//@ts-expect-error
+import CheckPaymentStatus from '#src/pages/checkout/basket/CheckPaymentStatus.component.js';
 import ConsumerBookingDetailsCard from '#src/libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingDetailsCard';
 import { getLevelTranslation } from '#src/libs/level/utils';
 import useConsumerBookingDateTime from '#src/libs/consumer-space/components/reworked/@MyBookings/hooks/useConsumerBookingDateTime';
@@ -88,6 +91,7 @@ type OwnProps = {
     basket_redirection?: string;
     paypalError?: string;
   };
+  setQueryParams: (queryParam: string) => (value: string) => void;
 };
 
 type Props = OwnProps & ConnectedProps<typeof connector>;
@@ -127,6 +131,7 @@ const OneClickBookingModule: React.FC<Props> = ({
   replace,
   snackbarError,
   queryParams,
+  setQueryParams,
 }) => {
   const { t } = useTranslation('booking');
 
@@ -223,6 +228,14 @@ const OneClickBookingModule: React.FC<Props> = ({
   ] = useHandleUserRegistration();
 
   const { basket, userRegistrationResponse } = userRegistrationValues ?? {};
+
+  useEffect(() => {
+    if (!!userRegistrationResponse) {
+      setQueryParams('user_registration_response')(
+        encodeURIComponent(JSON.stringify(userRegistrationResponse)),
+      );
+    }
+  }, [userRegistrationResponse]);
 
   const buyableItemErrorCode =
     userRegistrationResponse?.buyable_item_error_code;
@@ -480,6 +493,13 @@ const OneClickBookingModule: React.FC<Props> = ({
     isSelectedPaymentPackFree,
   ]);
 
+  const onCheckPaymentStatusFail = useCallback(() => {
+    setQueryParams('check_payment_intent')(CheckPaymentIntent.FALSE);
+    snackbarError(
+      t('validation.sections.confirmationStatusTitle.errors.generic'),
+    );
+  }, [snackbarError, t, setQueryParams]);
+
   const offerDate = useConsumerBookingDateTime({
     dateStart: offer?.date_start,
     durationMinute: offer?.duration_minute,
@@ -547,6 +567,7 @@ const OneClickBookingModule: React.FC<Props> = ({
   }
 
   if (
+    !queryParams?.basket_redirection &&
     offerState.value?.paymentPacks &&
     offerState.value.paymentPacks.length === 0
   ) {
@@ -570,6 +591,16 @@ const OneClickBookingModule: React.FC<Props> = ({
   }
 
   const offerLevelTranslation = getLevelTranslation(offer?.level, ' ', t);
+
+  if (shouldCheckPaymentStatus(queryParams)) {
+    return (
+      <CheckPaymentStatus
+        onFail={onCheckPaymentStatusFail}
+        onSuccess={cleanLocalStorageAndRedirect}
+        paymentIntent={queryParams.payment_intent}
+      />
+    );
+  }
 
   return (
     <div className="bs-oneclick-booking__root">

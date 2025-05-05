@@ -19,7 +19,10 @@ import {
   getLoginUrl,
   getOfferBookerUrl,
 } from '#src/libs/marketplace/routing-utils';
-import { shouldCheckPaymentStatus } from '#src/libs/checkout/utils';
+import {
+  shouldCheckPaymentStatus,
+  hasRedirectionFailed,
+} from '#src/libs/checkout/utils';
 //@ts-expect-error
 import CheckPaymentStatus from '#src/pages/checkout/basket/CheckPaymentStatus.component.js';
 import ConsumerBookingDetailsCard from '#src/libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingDetailsCard';
@@ -133,7 +136,7 @@ const OneClickBookingModule: React.FC<Props> = ({
   queryParams,
   setQueryParams,
 }) => {
-  const { t } = useTranslation('booking');
+  const { t } = useTranslation(['booking', 'checkout']);
 
   const paymentRef = useRef(null);
 
@@ -182,15 +185,15 @@ const OneClickBookingModule: React.FC<Props> = ({
       const customFieldErrors = {
         [PHONE_NUMBER_IN_USE]: {
           fieldName: 'phone',
-          message: t('lightSignup.form.errors.phoneTaken'),
+          message: t('booking:lightSignup.form.errors.phoneTaken'),
         },
         [COACH_EDIT_EMAIL_ADDRESS_IS_STAFF_USER]: {
           fieldName: 'email',
-          message: t('lightSignup.form.errors.emailTaken'),
+          message: t('booking:lightSignup.form.errors.emailTaken'),
         },
         [COACH_EMAIL_ADDRESS_EXISTS]: {
           fieldName: 'email',
-          message: t('lightSignup.form.errors.emailTaken'),
+          message: t('booking:lightSignup.form.errors.emailTaken'),
         },
       };
 
@@ -289,6 +292,16 @@ const OneClickBookingModule: React.FC<Props> = ({
       }
     }
   }, [buyableItemErrorCode]);
+
+  useEffect(() => {
+    if (hasRedirectionFailed(queryParams)) {
+      snackbarError(
+        t(
+          'checkout:validation.sections.confirmationStatusTitle.errors.generic',
+        ),
+      );
+    }
+  }, []);
 
   const offer = offerState.value?.offer;
   const metaActivity = offerState.value?.metaActivity;
@@ -496,7 +509,7 @@ const OneClickBookingModule: React.FC<Props> = ({
   const onCheckPaymentStatusFail = useCallback(() => {
     setQueryParams('check_payment_intent')(CheckPaymentIntent.FALSE);
     snackbarError(
-      t('validation.sections.confirmationStatusTitle.errors.generic'),
+      t('checkout:validation.sections.confirmationStatusTitle.errors.generic'),
     );
   }, [snackbarError, t, setQueryParams]);
 
@@ -606,17 +619,17 @@ const OneClickBookingModule: React.FC<Props> = ({
     <div className="bs-oneclick-booking__root">
       <div className="bs-oneclick-booking__container">
         <Typography variant={TypographyVariant.TITLE_LG}>
-          {t('oneClickBooking.checkoutTitle')}
+          {t('booking:oneClickBooking.checkoutTitle')}
         </Typography>
         <div className="bs-oneclick-booking__already-member--mobile">
-          {t('oneClickBooking.alreadyMember')}
+          {t('booking:oneClickBooking.alreadyMember')}
           <ButtonV2
             color="primary"
             href={loginToBookerUrl}
             size="small"
             variant="text"
           >
-            {t('oneClickBooking.goToLogin')}
+            {t('booking:oneClickBooking.goToLogin')}
           </ButtonV2>
         </div>
         <OneClickCheckoutSkeleton isLoading={offerState.loading} />
@@ -624,7 +637,7 @@ const OneClickBookingModule: React.FC<Props> = ({
           <div className="bs-oneclick-booking__content">
             <div className="bs-oneclick-booking__booking-details">
               <Typography variant={TypographyVariant.TITLE_SM}>
-                {t('oneClickBooking.yourBooking')}
+                {t('booking:oneClickBooking.yourBooking')}
               </Typography>
               <div className="bs-oneclick-booking__booking-details__card">
                 <ConsumerBookingDetailsCard
@@ -670,7 +683,7 @@ const OneClickBookingModule: React.FC<Props> = ({
                   variant={ButtonVariant.TEXT}
                 >
                   <div className="bs-oneclick-booking__see-more-with-login">
-                    {t('oneClickBooking.seeMoreWithLogin')}
+                    {t('booking:oneClickBooking.seeMoreWithLogin')}
                     <LinkExternal01 size="16px" />
                   </div>
                 </ButtonV2>
@@ -680,7 +693,7 @@ const OneClickBookingModule: React.FC<Props> = ({
 
             <div className="bs-oneclick-booking__light-signup-form">
               <Typography variant={TypographyVariant.TITLE_SM}>
-                {t('oneClickBooking.yourDetails')}
+                {t('booking:oneClickBooking.yourDetails')}
               </Typography>
               <LightSignupForm />
               {shouldDisplayOnlinePayment && (
@@ -698,14 +711,14 @@ const OneClickBookingModule: React.FC<Props> = ({
                 />
               )}
               <div className="bs-oneclick-booking__already-member--desktop">
-                {t('oneClickBooking.alreadyMember')}
+                {t('booking:oneClickBooking.alreadyMember')}
                 <ButtonV2
                   color="primary"
                   href={loginToBookerUrl}
                   size="small"
                   variant="text"
                 >
-                  {t('oneClickBooking.goToLogin')}
+                  {t('booking:oneClickBooking.goToLogin')}
                 </ButtonV2>
               </div>
               {isSelectedPaymentPackFree && (
@@ -723,7 +736,7 @@ const OneClickBookingModule: React.FC<Props> = ({
                         <Loader />
                       </div>
                     ) : (
-                      t('oneClickBooking.bookButtonLabel')
+                      t('booking:oneClickBooking.bookButtonLabel')
                     )}
                   </ButtonV2>
                 </div>

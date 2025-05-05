@@ -20,6 +20,7 @@ import {
 } from '#src/actions/constants';
 import { finalizeLightSignup } from '#src/libs/member/api';
 import { handleUserRegistration } from './useHandleUserRegistration';
+import { USER_REGISTRATION_RESPONSE_LOCAL_STORAGE_KEY } from '#src/libs/payment/constants';
 
 const redirectToConfirmationPage = (
   offer: OfferREST,
@@ -86,6 +87,18 @@ const useBookInOneClick = () => {
       'local',
       STORAGE_KEY_LIGHT_SIGNUP_MEMBER_ID,
     );
+
+    const rawUserRegistrationResponse = getItemInStorage(
+      'local',
+      USER_REGISTRATION_RESPONSE_LOCAL_STORAGE_KEY,
+    );
+
+    if (!!rawUserRegistrationResponse) {
+      removeItemInStorage(
+        'local',
+        USER_REGISTRATION_RESPONSE_LOCAL_STORAGE_KEY,
+      );
+    }
 
     if (offer && basketId && userRegistrationResponse && memberId) {
       await finalizeLightSignup(parseInt(memberId));

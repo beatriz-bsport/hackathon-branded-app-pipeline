@@ -9332,7 +9332,16 @@
                 "13": "SEPA"
             },
             "product_type": {
-                "payment_pack": "Pacchetti"
+                "payment_pack": "Pacchetti",
+                "giftcard": "Gift card",
+                "coupon": "Promozioni",
+                "booking": "Prenotazioni",
+                "refund": "Crediti rimborsati",
+                "fee": "Commissioni",
+                "private_pass": "Pacchetti per appuntamenti",
+                "payment_combo": "Pacchetti combinati",
+                "top_up": "Ricariche",
+                "shop_item": "Articoli dello shop"
             }
         },
         "presetValuesByIdentifier": {

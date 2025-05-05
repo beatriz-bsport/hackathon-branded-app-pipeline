@@ -2,6 +2,7 @@ import React from "react";
 
 type WithLinkProps = {
   link?: string;
+  color?: string;
   className?: string;
 };
 

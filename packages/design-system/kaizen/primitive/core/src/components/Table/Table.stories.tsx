@@ -48,6 +48,7 @@ export default meta;
 type DataRow = {
   id: string;
   link?: string;
+  color?: string;
   avatar: { src: string; alt: string } | string;
   name: string;
   registeredDate: Date;
@@ -250,6 +251,22 @@ export const WithRowLink: StoryObj<typeof Table> = {
     rows: rows.slice(0, 3).map((row) => ({
       ...row,
       link: "https://example.com",
+    })),
+    rowHeight: "sm",
+    selectable: true,
+    withVerticalBorders: true,
+  },
+};
+
+/**
+ * When a color is provided on a row-level, the row will have a color indicator as a line.
+ */
+export const WithRowColor: StoryObj<typeof Table> = {
+  args: {
+    columns: columns as Column<BaseRow>[],
+    rows: rows.slice(0, 3).map((row, index) => ({
+      ...row,
+      color: index === 0 ? "#2563eb" : index === 2 ? "red" : undefined,
     })),
     rowHeight: "sm",
     selectable: true,

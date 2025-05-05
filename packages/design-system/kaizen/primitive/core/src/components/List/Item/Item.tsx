@@ -6,6 +6,7 @@ import Avatar, { AvatarProps } from "#src/components/Avatar";
 import Button, { ButtonProps } from "#src/components/Button";
 import Checkbox from "#src/components/Checkbox";
 import Chip from "#src/components/Chip";
+import ColorIndicator from "#src/components/ColorIndicator";
 import Icon, { IconName } from "#src/components/Icon";
 import { ListItemChipsProps, listItem } from "#src/components/List";
 import { type WithTooltip, withTooltip } from "#src/components/Tooltip";
@@ -21,6 +22,7 @@ type Props = {
   onCheckboxChange?: (value: boolean) => void;
   icon?: IconName;
   avatar?: WithTooltip<AvatarProps>;
+  color?: string;
   chips?: WithTooltip<
     | [ListItemChipsProps]
     | [ListItemChipsProps, ListItemChipsProps]
@@ -59,6 +61,7 @@ const BaseItem: React.FC<
     isSelectable,
     icon,
     avatar,
+    color,
     chipsDirection,
     buttons,
     id,
@@ -81,6 +84,13 @@ const BaseItem: React.FC<
     return (
       <>
         <div className="flex items-center gap-xs text-onsurface-default w-[70%]">
+          {color && (
+            <ColorIndicator
+              color={color}
+              type="line"
+              className="absolute left-0"
+            />
+          )}
           {isSelectable && (
             <Checkbox id={id} value={checkboxState} onChange={handleChange} />
           )}
@@ -139,6 +149,7 @@ const BaseItem: React.FC<
  * @param props.onCheckboxChange Callback triggered when the checkbox value changes.
  * @param props.icon Name of the icon to display within the item.
  * @param props.avatar Configuration for the avatar component within the item.
+ * @param props.color Color value used to display an indicator on the left side of the item. Accepts any valid CSS color value (hex, rgb, etc).
  * @param props.chips An array of chips to display, up to 3, with details about their labels and styles.
  * @param props.chipsDirection Direction for displaying the chips: "start" or "end".
  * @param props.buttons An array of button configurations, up to 3, displayed within the item.
@@ -157,6 +168,7 @@ const Item: React.FC<ListItemProps> = ({
   isSelectable = false,
   icon,
   avatar,
+  color,
   chipsDirection = "start",
   buttons,
   chips,
@@ -198,6 +210,7 @@ const Item: React.FC<ListItemProps> = ({
         isSelectable={isSelectable}
         icon={icon}
         avatar={avatar}
+        color={color}
         chipsDirection={chipsDirection}
         buttons={buttons}
         chips={chips}

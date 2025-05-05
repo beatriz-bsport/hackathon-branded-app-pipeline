@@ -64,6 +64,7 @@ export type Column<RowType extends BaseRow> = {
 export type BaseRow = {
   id: string | number;
   link?: string;
+  color?: string;
   className?: string;
 };
 
@@ -190,6 +191,7 @@ const InnerTableWithContext = <RowType extends BaseRow>({
             rowHeight={rowHeight}
             withVerticalBorders={withVerticalBorders}
             link={row.link}
+            color={row.color}
             className="contents"
           />
         ))}

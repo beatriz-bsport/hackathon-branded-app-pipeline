@@ -12,6 +12,9 @@ import { snackbarError as snackbarErrorAction } from '#src/libs/snackbar/actions
 import themeSelectors from '#src/libs/theme/selectors';
 import type { RootState } from '#src/reducers';
 import { Redirect } from 'react-router-dom';
+//@ts-expect-error
+import withQueryParams from '#src/hocs/with-query-params.hoc';
+
 import {
   getLoginUrl,
   getOfferBookerUrl,
@@ -61,9 +64,29 @@ import {
 import { AxiosError } from 'axios';
 import './index.css';
 
+enum CheckPaymentIntent {
+  TRUE = 'true',
+  FALSE = 'false',
+}
+
+enum RedirectStatus {
+  SUCCEEDED = 'succeeded',
+  PENDING = 'pending',
+  FAILED = 'failed',
+}
+
 type OwnProps = {
   companyId: number;
   offerId: number;
+  queryParams: {
+    check_payment_intent?: CheckPaymentIntent;
+    payment_intent?: string;
+    user_registration_response?: string;
+    redirect_status?: RedirectStatus;
+    get_user_registration_from_storage?: string;
+    basket_redirection?: string;
+    paypalError?: string;
+  };
 };
 
 type Props = OwnProps & ConnectedProps<typeof connector>;
@@ -692,6 +715,19 @@ export default compose(
     companyId: 'companyId:number',
     offerId: 'offerId:number',
   }),
+  withQueryParams([
+    [
+      'check_payment_intent',
+      'payment_intent',
+      'user_registration_response',
+      'redirect_status',
+      'get_user_registration_from_storage',
+      'basket_redirection',
+      'paypalError',
+    ],
+    'queryParams',
+    'setQueryParams',
+  ]),
   connector,
   marketplaceCssHoc(),
   WithCustomCssProvider,

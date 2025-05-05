@@ -13153,7 +13153,7 @@
         },
         "unsubscriber": {
             "explain": "Möchten Sie sich von allen Newslettern Ihres Studios abmelden?",
-            "doUnsubscribe": "Abonnement stornieren",
+            "doUnsubscribe": "Abmeldung bestätigen",
             "error": "Fehler beim Stornierung des Abonnements",
             "success": {
                 "text": "Du hast dich erfolgreich abgemeldet. Du wirst keine Newsletter mehr von {{- companyName}} erhalten.",

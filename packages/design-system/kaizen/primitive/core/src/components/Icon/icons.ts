@@ -128,6 +128,9 @@ const icons = {
   "refresh-cw-01": React.lazy(
     async () => await import("./assets/refresh-cw-01.svg?react"),
   ),
+  "reverse-left": React.lazy(
+    async () => await import("./assets/reverse-left.svg?react"),
+  ),
   save: React.lazy(async () => await import("./assets/save.svg?react")),
   "search-refraction": React.lazy(
     async () => await import("./assets/search-refraction.svg?react"),

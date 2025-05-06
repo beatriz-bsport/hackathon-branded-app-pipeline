@@ -3019,7 +3019,8 @@
             "billing_group_address": "Adresse",
             "private_booking_date_created": "Date et heure de la réservation",
             "is_first_visit": "Première réservation",
-            "product": "Produit"
+            "product": "Produit",
+            "product_type": "Type de produit"
         },
         "graphDefaultTitles": {
             "paymentTemporal": "Encaissements",

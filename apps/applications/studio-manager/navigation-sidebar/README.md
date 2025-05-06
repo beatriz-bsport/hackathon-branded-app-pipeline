@@ -19,7 +19,7 @@ pnpm dev
 If you want to use the app in federation locally, you can use:
 
 ```sh
-pnpm build
+pnpm build:preview
 pnpm preview
 ```
 

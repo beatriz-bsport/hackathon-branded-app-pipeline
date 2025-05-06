@@ -23,6 +23,7 @@ import type { Offer } from '#src/libs/offer/types';
 import type { Basket } from '#src/libs/checkout/types';
 
 type UseBasket = {
+  availablePaymentMethods: number[];
   basketTotalPriceCts: number;
   basketTotalPricePrepaidLinesCts: number;
   checkBasketItems: (basketID: string) => Promise<boolean>;
@@ -31,6 +32,7 @@ type UseBasket = {
   submitUnpaidBasket: (options?: OptionCallback) => Promise<void>;
   refreshBasket: (options?: OptionCallback) => void;
   handleFetchBasket: (options?: OptionCallback<Basket>) => void;
+  needAddress: boolean;
 };
 
 /**
@@ -57,6 +59,8 @@ export const useBasket = (
     isBasketLoading,
     isCurrentBasketProcessing,
     paymentGroupId,
+    availablePaymentMethods,
+    needAddress,
   } = useBasketPaymentStoreData(basketId, memberId);
 
   const {
@@ -209,6 +213,7 @@ export const useBasket = (
   );
 
   return {
+    availablePaymentMethods,
     basketTotalPriceCts,
     basketTotalPricePrepaidLinesCts,
     checkBasketItems,
@@ -217,5 +222,6 @@ export const useBasket = (
     submitUnpaidBasket,
     refreshBasket,
     handleFetchBasket,
+    needAddress,
   };
 };

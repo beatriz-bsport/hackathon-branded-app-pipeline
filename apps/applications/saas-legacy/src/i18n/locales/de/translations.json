@@ -22,8 +22,8 @@
                     "overallExplainSmart": "Wenn ein Platz frei wird, hat der Teilnehmer {{ autokick_delay }} Erinnerungen in Abständen von {{ smart_delay_percentage }}% der verbleibenden Zeit vor Beginn des Kurses, um sich anzumelden. Wenn beispielsweise noch {{ example_hours_before }} Stunden bis zum Beginn des Kurses verbleiben, hat der Teilnehmer {{ example_computed_delay_one }} Minuten Zeit, um sich anzumelden, und dann {{ example_computed_delay_two }} Minuten nach dem ersten Wiederholungsversuch usw., bevor sich der nächste Teilnehmer anmelden kann."
                 },
                 "1": {
-                    "label": "Nach Anmeldezeitpunkt",
-                    "explain": "Wer sich auf die Warteliste setzt, erhält einen Platz nach Anmeldezeitpunkt. Beispiel: Wenn zwei Mitglieder sich bereits auf die Warteliste gesetzt haben, erhält das nächste Mitglied den dritten Platz in der Warteliste. Wenn ein Platz frei wird, hat die erste Person in der Warteliste die Option, den Platz anzunehmen oder abzusagen/zu stornieren. Dann wird der Platz der zweiten Person in der Warteliste angeboten, usw."
+                    "label": "\"First come, first served\" - Prinzip",
+                    "explain": "Diese Warteliste ist unsortiert. Alle auf der Warteliste werden gleichzeitig über freie Plätze informiert."
                 },
                 "label": "Wartelisten-Priorität"
             },
@@ -3474,7 +3474,7 @@
         "marketingEmail": {
             "caption": "Kopien von Transaktions-E-Mails werden an diese Adresse gesendet, wenn die Einstellung aktiviert ist",
             "placeholder": "E-Mail",
-            "label": "Nachfass-E-Mail"
+            "label": "Follow-Up E-Mail"
         },
         "provincialTax": {
             "helperText": "Die Mehrwertsteuer ist kleiner oder gleich der angegebenen Provinzsteuer. Auf Rechnungen wird nur diese Steuer angegeben, ohne zwischen Bundes- und Provinzsteuer zu unterscheiden."
@@ -3536,7 +3536,7 @@
                 },
                 "selectFranchiseesDisabled": "Diese Einstellung gilt nur für benutzerdefinierte Aufgaben (nicht Admin oder Eigentümer)",
                 "selectCoach": "Lehrkraft auswählen",
-                "selectFranchisees": "Niederlassung auswählen",
+                "selectFranchisees": "Einrichtung auswählen",
                 "ifEmptySelectAll": "Leer lassen, um alle auszuwählen",
                 "commissionHeader": "Provisionssatz",
                 "advancedSettingsModal": {
@@ -6816,6 +6816,18 @@
                 "2": "Gestoppt",
                 "3": "Gestoppt",
                 "4": "Beendet"
+            },
+            "product_type": {
+                "giftcard": "Geschenkgutscheine",
+                "coupon": "Werbeaktionen",
+                "booking": "Buchungen",
+                "refund": "Erstattete Credits",
+                "fee": "Gebühren",
+                "private_pass": "Terminpässe",
+                "payment_combo": "Pakete",
+                "top_up": "Credit Top-ups",
+                "shop_item": "Webshopartikel",
+                "payment_pack": "Kurspässe"
             }
         },
         "presetValuesByIdentifier": {
@@ -8049,7 +8061,7 @@
                 "50013": "Sie können nicht mehr auf diese Vertretungsanfrage reagieren.",
                 "50015": "Sie können nicht auf Ihre eigene Vertretungsanfrage reagieren",
                 "50020": "Diese Vertretungsanfrage wurde abgelehnt: Löschen nicht möglich",
-                "50021": "Sie können nicht gleichzeitig Niederlassungen und Standorte angeben.",
+                "50021": "Sie können nicht gleichzeitig Einrichtungen und Standorte angeben.",
                 "80002": "Der Wert \"Anzahl der Tage, an denen die Anfrage verspätet ist\" muss größer sein als der Wert \"Anzahl der Tage, an denen die Anfrage geschlossen ist\".",
                 "80003": "Fehlende Einstellungen für Grenzwerte für verspätete Anfragen.",
                 "500001": "Es liegt bereits eine Vertretungsanfrage vor",
@@ -8446,7 +8458,7 @@
                     "refundAndCancelJustification": "Begründung für Stornierungen und Rückerstattungen von Rechnungen anfordern",
                     "customDiscountJustification": "Begründung für manuelle Rabatte anfordern"
                 },
-                "info": "Aktiviere diese Optionen, sodass Mitarbeitende einen Grund angeben müssen, wenn sie Rabatte anwenden oder eine Rechnung stornieren/rückerstatten.",
+                "info": "Diese Optionen fordert deine Mitarbeitende dazu auf, einen Grund anzugeben, wenn sie Rabatte anwenden oder eine Rechnung stornieren/rückerstatten.",
                 "title": "Rückerstattungen und Rabatte"
             }
         },
@@ -8957,7 +8969,7 @@
         },
         "generalTermsAndConditions": {
             "close": "Schließen",
-            "iAccept": "Ja ",
+            "iAccept": "Ich akzeptiere die ",
             "theTermsAndConditions": "Allgemeine Nutzungsbedingungen.",
             "generalTermsOfUse": " Allgemeine Geschäftsbedingungen",
             "waiver": "Verzichtserklärung."
@@ -12556,7 +12568,7 @@
             "infoBoxContent": "Sie befinden sich im Verfügbarkeitsmodus für eine bestimmte Einrichtung. Standardmäßig sind Ihre Lehrkräfte in allen Einrichtungen verfügbar, wenn Sie eine Verfügbarkeit erstellen. Auf dieser Seite können Sie spezifische Verfügbarkeiten für bestimmte Einrichtungen festlegen, damit Ihre Lehrkraft nur in diesen Einrichtungen verfügbar ist. Um eine spezifische Verfügbarkeit zu erstellen, müssen Sie eine allgemeine Verfügbarkeit auf dem Wochenplan Ihrer Lehrkraft erstellen.",
             "goToRegularCalendar": "Zurück zum Wochenplan",
             "filters": "Filter",
-            "establishment": "Niederlassung"
+            "establishment": "Einrichtung"
         },
         "universalPass": {
             "delete": {
@@ -13153,7 +13165,7 @@
         },
         "unsubscriber": {
             "explain": "Möchten Sie sich von allen Newslettern Ihres Studios abmelden?",
-            "doUnsubscribe": "Abonnement stornieren",
+            "doUnsubscribe": "Abmeldung bestätigen",
             "error": "Fehler beim Stornierung des Abonnements",
             "success": {
                 "text": "Du hast dich erfolgreich abgemeldet. Du wirst keine Newsletter mehr von {{- companyName}} erhalten.",
@@ -13210,7 +13222,7 @@
                     "availability": {
                         "expiresToday": "Läuft heute ab",
                         "expiresIn": "{{ daysRemaining }} Tag noch",
-                        "expiresIn_plural": "{{ daysRemaining }} Tage noch",
+                        "expiresIn_plural": "Noch {{ daysRemaining }} Tage übrig",
                         "future": "Startdatum: {{ startDate }}",
                         "expired": "Abgelaufen am: {{ expirationDate }}",
                         "active": "Ablaufdatum: {{ expirationDate }}"
@@ -15211,7 +15223,7 @@
             "payout_status": "Status der Überweisung",
             "total_discount": "Gesamtrabatt",
             "plan_status": "Abo-Status",
-            "establishment": "Niederlassung",
+            "establishment": "Einrichtung",
             "nb_planned_invoices": "Anzahl der Zahlungseingänge gesamt",
             "margin_value": "Marginaler Wert (inkl. MwSt.)",
             "dispute_status": "Status der Streitfälle",
@@ -15232,7 +15244,9 @@
             "bookkeeping_account_name": "Name des Kontos",
             "billing_group_address": "Adresse",
             "private_booking_date_created": "Datum und Zeit der Buchung",
-            "is_first_visit": "Erste Buchung"
+            "is_first_visit": "Erste Buchung",
+            "product_type": "Produkttyp",
+            "product": "Produkt"
         },
         "graphDefaultTitles": {
             "paymentTemporal": "Zahlungseingänge",
@@ -15248,7 +15262,7 @@
         },
         "placeholderEmptyValues": {
             "coach": "Keine Lehrkraft",
-            "establishment": "Keine Niederlassung"
+            "establishment": "Keine Einrichtung"
         }
     },
     "relationship": {
@@ -17597,7 +17611,7 @@
             },
             "warnings": {
                 "exclusiveAssociatedCoaches": "Die Lehrkraft {{- coach_name }} wird nur benachrichtigt, wenn eine Vertretungsanfrage für eine Sitzung in dieser Einrichtung erfolgt. Wenn die Einrichtung gelöscht wird, erhält diese Lehrkraft daher Vertretungsanfragen von jeder Einrichtung.",
-                "exclusiveAssociatedCoaches_plural": "Deine Lehrer {{- coach_name }} werden nur benachrichtigt, wenn eine Vertretungsanfrage für einen Kurs in dieser Einrichtung gemacht wird. Wenn du diese Einrichtung löschst, werden sie Vertretungsanfragen von jeder Einrichtung erhalten.",
+                "exclusiveAssociatedCoaches_plural": "Dein(e) Lehrer {{- coach_name }} werden nur benachrichtigt, wenn eine Vertretungsanfrage für einen Kurs in dieser Einrichtung gemacht wird. Wenn du diese Einrichtung löschst, werden sie (deshalb) Vertretungsanfragen von jeder Einrichtung erhalten.",
                 "hasBillingGroup": "Diese Einrichtung wird auch aus der Rechnungsgruppe {{- establishment_billing_group_name }} entfernt.",
                 "exclusivePrivateServices_plural": "Diese Termine {{- private_service_name }} sind so konfiguriert, dass sie nur in dieser Einrichtung stattfinden können. Wenn diese Einrichtung gelöscht wird, können diese Termine überall stattfinden.",
                 "exclusivePrivateServices": "Der Termin {{- private_service_name }} ist so konfiguriert, dass er nur in dieser Einrichtung stattfinden kann. Wenn diese Einrichtung gelöscht wird, kann dieser Termin überall stattfinden.",
@@ -20824,11 +20838,11 @@
                 "allActivities": "Unterrichtet alle Aktivitäten",
                 "workshops": "Workshops",
                 "pickWorkshop": "Workshop wählen",
-                "establishmentSelectorError": "Sie können nicht gleichzeitig Niederlassungen und Standorte angeben",
-                "allEstablishments": "Alle Niederlassungen",
+                "establishmentSelectorError": "Sie können nicht gleichzeitig Einrichtungen und Standorte angeben",
+                "allEstablishments": "Alle Einrichtungen",
                 "pickEstablishment": "Leer lassen, um alles zu wählen",
                 "locations": "Standorte",
-                "establishments": "Niederlassungen"
+                "establishments": "Einrichtungen"
             },
             "add": "Eine Gruppe hinzuzufügen",
             "title": "Disziplingruppen",
@@ -20918,10 +20932,10 @@
             "categories": "Kategorien",
             "pickCategory": "Kategorie wählen",
             "allCategories": "Unterrichtet alle Kategorien",
-            "allEstablishments": "Alle Niederlassungen",
+            "allEstablishments": "Alle Einrichtungen",
             "pickEstablishment": "Leer lassen, um alles auszuwählen",
             "locations": "Standorte",
-            "establishments": "Niederlassungen"
+            "establishments": "Einrichtungen"
         },
         "delete": {
             "title": "Anfrage stornieren",
@@ -21135,7 +21149,7 @@
             },
             "outOfStock": {
                 "title": "Mehr Bestand",
-                "subText": "Das Produkt, das Sie in den Warenkorb legen möchten, ist in Ihrer Niederlassung nicht mehr vorrätig. Möchten Sie es trotzdem hinzufügen?",
+                "subText": "Das Produkt, das du in den Warenkorb legen möchtest, ist in deiner Einrichtung nicht mehr vorrätig. Möchtest du es trotzdem hinzufügen?",
                 "addAnyway": "Trotzdem hinzufügen"
             },
             "cannotAdd": {

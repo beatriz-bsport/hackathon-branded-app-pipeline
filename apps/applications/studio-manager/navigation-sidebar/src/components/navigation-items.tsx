@@ -3,6 +3,7 @@ import {
   type NavigationMenuElement,
 } from "@bsport/kaizen-primitive-core";
 
+import urls from "#src/urls";
 import { useTranslation } from "#src/utils/i18n";
 
 export type MenuSet = "default" | "settings";
@@ -151,7 +152,7 @@ export const useNavigationElements = ({
         {
           id: "activities",
           label: t("menus.classes.activities"),
-          href: "/activity",
+          href: urls.activity,
         },
         { id: "workshops", label: t("menus.classes.workshops") },
         { id: "appointments", label: t("menus.classes.appointments") },
@@ -179,7 +180,7 @@ export const useNavigationElements = ({
         {
           id: "gift-cards",
           label: t("menus.products.giftcards"),
-          href: "/giftcard",
+          href: urls.giftcard,
         },
         { id: "videos", label: t("menus.products.videosAndEbooks") },
         { id: "orders", label: t("menus.products.orders") },
@@ -200,12 +201,12 @@ export const useNavigationElements = ({
         {
           id: "email-templates",
           label: t("menus.marketing.emailTemplates"),
-          href: "/email-templates",
+          href: urls.emailTemplates,
         },
         {
           id: "smartlists",
           label: t("menus.marketing.smartlists"),
-          href: "/smartlist",
+          href: urls.smartlist,
         },
         { id: "audience", label: t("menus.marketing.audience") },
         { id: "promotions", label: t("menus.marketing.promotions") },
@@ -235,7 +236,7 @@ export const useNavigationElements = ({
         {
           id: "invoices",
           label: t("menus.finance.invoices"),
-          href: "/invoice",
+          href: urls.invoice,
         },
         { id: "payouts", label: t("menus.finance.payouts") },
         { id: "direct-debits", label: t("menus.finance.directDebits") },
@@ -254,7 +255,7 @@ export const useNavigationElements = ({
         {
           id: "members",
           label: t("menus.membersHub.members"),
-          href: "/member",
+          href: urls.member,
         },
         { id: "forms", label: t("menus.membersHub.forms") },
         { id: "tags", label: t("menus.membersHub.tags") },

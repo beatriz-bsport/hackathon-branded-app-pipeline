@@ -25,10 +25,19 @@ export { default as Checkbox, type CheckboxProps } from "./components/Checkbox";
 export { default as Chip, type ChipProps } from "./components/Chip";
 export { default as Collapse, type CollapseProps } from "./components/Collapse";
 export {
+  default as DatePicker,
+  type DatePickerProps,
+} from "./components/DatePicker";
+export {
   default as DetailsLayout,
   useDetailsLayout,
   type DetailsLayoutProps,
 } from "./components/DetailsLayout";
+export {
+  default as DropdownMenu,
+  type DropdownMenuProps,
+  type DropdownMenuItems,
+} from "./components/DropdownMenu";
 export { default as Divider, type DividerProps } from "./components/Divider";
 export {
   default as ExpandableSearchInput,

@@ -23,7 +23,6 @@ const defaultClasses = [
   "fixed",
   "z-[999]",
   "min-w-component-popover-min",
-  "max-w-component-popover-max",
   "rounded-sm",
   "p-xs",
   "gap-xs",
@@ -234,6 +233,7 @@ const Content: React.FC<{
       onKeyDown={handleKeyDown}
       ref={contentRef}
       style={placementStyles}
+      data-popover="true"
     >
       {content}
     </div>,

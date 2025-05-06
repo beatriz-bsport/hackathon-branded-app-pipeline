@@ -5,7 +5,7 @@ import clsx from 'clsx';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 import Checkbox from '#src/components/css-only/Checkbox/';
-import Collapse from '#src/components/css-only/Fabrique/Collapse';
+import ShowMore from '#src/components/css-only/Fabrique/ShowMore';
 
 import Button from '#src/components/css-only/Fabrique/Button';
 import useIsTextExpandable from '../../../../../hooks/useIsTextExpandable';
@@ -44,7 +44,7 @@ export const SubscriptionTerms: React.FC<Props> = (props) => {
         {t('newCheckout.terms.title')}
       </div>
       <div className="bs-subscription-terms__collapsible-section">
-        <Collapse collapsedHeight={72} isExpanded={isTextExpanded}>
+        <ShowMore collapsedHeight={72} isExpanded={isTextExpanded}>
           <div
             ref={contractTermsText.ref}
             className={clsx('bs-subscription-terms__text-content', {
@@ -55,7 +55,7 @@ export const SubscriptionTerms: React.FC<Props> = (props) => {
           >
             {contractTerms}
           </div>
-        </Collapse>
+        </ShowMore>
 
         {contractTermsText.isExpandable && (
           <Button

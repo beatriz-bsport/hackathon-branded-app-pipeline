@@ -37,6 +37,7 @@
     "translation:update": "pnpm run -w translation:update"
   },
   "dependencies": {
+    "@bsport/datetime-manipulation": "workspace:*",
     "@bsport/i18n": "workspace:*",
     "class-variance-authority": "^0.7.0",
     "react": "^19.0.0",

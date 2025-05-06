@@ -160,13 +160,9 @@ const TextField: React.FC<TextFieldProps> = ({
 
   return (
     <div
-      className={classNames(
-        className,
-        "flex flex-col gap-2xs max-w-component-select",
-        {
-          "opacity-sm pointer-events-none": disabled,
-        },
-      )}
+      className={classNames("flex flex-col gap-2xs max-w-component-select", {
+        "opacity-sm pointer-events-none": disabled,
+      })}
     >
       {label && (
         <label
@@ -184,6 +180,7 @@ const TextField: React.FC<TextFieldProps> = ({
       <div className="flex gap-xs">
         <div
           className={classNames(
+            className,
             "relative flex justify-between rounded-md bg-surface-default overflow-hidden before:content-[''] before:absolute before:inset-0 before:w-full before:h-full before:rounded-md before:pointer-events-none",
             {
               "before:shadow-border-thin-default": status === "default",

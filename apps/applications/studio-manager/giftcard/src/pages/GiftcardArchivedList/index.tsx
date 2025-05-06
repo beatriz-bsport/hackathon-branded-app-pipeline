@@ -1,1 +1,0 @@
-export { GiftcardArchivedListPage } from "./GiftcardArchivedListPage";

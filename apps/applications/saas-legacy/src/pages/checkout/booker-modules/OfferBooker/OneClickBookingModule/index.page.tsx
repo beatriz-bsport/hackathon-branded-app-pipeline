@@ -70,6 +70,7 @@ import {
 import { AxiosError } from 'axios';
 import './index.css';
 import { USER_REGISTRATION_RESPONSE_LOCAL_STORAGE_KEY } from '#src/libs/payment/constants';
+import { BASKET_INCONSISTENT } from '#src/libs/checkout/constants';
 
 enum CheckPaymentIntent {
   TRUE = 'true',
@@ -302,6 +303,9 @@ const OneClickBookingModule: React.FC<Props> = ({
           'checkout:validation.sections.confirmationStatusTitle.errors.generic',
         ),
       );
+    }
+    if (queryParams?.paypalError == BASKET_INCONSISTENT) {
+      snackbarError(t('invoice:paymentPanel.actions.basketWasInconsistent'));
     }
   }, []);
 

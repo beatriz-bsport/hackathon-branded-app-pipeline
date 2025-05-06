@@ -13,6 +13,7 @@ import type { InstalmentPaymentApiWithBasketId } from '#src/libs/instalment-paym
 import type { CheckoutItem } from '#src/libs/checkout/types';
 
 type UseBasketPaymentStoreData = {
+  availablePaymentMethods: number[];
   basketCheckoutItems: CheckoutItem[];
   basketTotalPriceCts: number;
   basketTotalPricePrepaidLinesCts: number;
@@ -25,6 +26,7 @@ type UseBasketPaymentStoreData = {
   instalmentPaymentConfigurations: InstalmentPaymentApiWithBasketId[];
   instalmentPaymentSelectedId: number | undefined;
   isBasketLoading: boolean;
+  needAddress: boolean;
   paymentGroupId: number;
 };
 
@@ -53,6 +55,7 @@ type UseBasketPaymentStoreData = {
  * @property {string|null} instalmentPaymentSelectedId - The selected instalment payment ID.
  * @property {boolean} isBasketLoading - Indicates if the basket is currently loading.
  * @property {string} paymentGroupId - The payment group ID associated with the basket.
+ * @property {number[]} availablePaymentMethods - The payment payment methods a user can chose among.
  */
 
 export const useBasketPaymentStoreData = (
@@ -64,6 +67,8 @@ export const useBasketPaymentStoreData = (
     total_price_prepaid_lines_cts: basketTotalPricePrepaidLinesCts,
     instalment_payment: instalmentPaymentSelectedId,
     checkout_items: basketCheckoutItems,
+    available_payment_methods: availablePaymentMethods,
+    need_address: needAddress,
   } = useSelector((state: RootState) => getBasket(state, basketId)) ?? {};
 
   const creditAccountBalance = useSelector((state: RootState) =>
@@ -99,6 +104,7 @@ export const useBasketPaymentStoreData = (
   const isBasketLoading = isCurrentBasketLoading || loading;
 
   return {
+    availablePaymentMethods,
     basketCheckoutItems,
     basketTotalPriceCts,
     basketTotalPricePrepaidLinesCts,
@@ -111,6 +117,7 @@ export const useBasketPaymentStoreData = (
     instalmentPaymentConfigurations,
     instalmentPaymentSelectedId,
     isBasketLoading,
+    needAddress,
     paymentGroupId,
   };
 };

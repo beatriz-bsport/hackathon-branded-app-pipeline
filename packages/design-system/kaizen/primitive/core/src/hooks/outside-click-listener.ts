@@ -1,4 +1,4 @@
-import { RefObject, useEffect } from "react";
+import { RefObject, useEffect, useRef } from "react";
 
 /**
  * Hook that adds an event listener to the document for clicks outside the
@@ -12,10 +12,32 @@ const useOutsideClickListener = (
   onClose: () => void,
   open: boolean,
 ) => {
+  const isHandlingRef = useRef(false);
+
   useEffect(() => {
+    if (!open) return;
+
     const handleOutsideClick = (event: MouseEvent) => {
-      if (ref.current && !ref.current.contains(event.target as Node)) {
-        onClose?.();
+      if (isHandlingRef.current) return;
+
+      isHandlingRef.current = true;
+      setTimeout(() => {
+        isHandlingRef.current = false;
+      }, 10);
+
+      const popovers = Array.from(
+        document.querySelectorAll('[data-popover="true"]'),
+      );
+      const topMostPopover = popovers[popovers.length - 1];
+
+      if (topMostPopover !== ref.current) return;
+
+      const clickedInsideAnyPopover = popovers.some((popover) =>
+        popover.contains(event.target as Node),
+      );
+
+      if (!clickedInsideAnyPopover) {
+        onClose();
       }
     };
 

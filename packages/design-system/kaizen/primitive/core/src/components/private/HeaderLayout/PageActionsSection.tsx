@@ -64,15 +64,24 @@ const PageActionsSection: React.FC<PageActionsSectionProps> = ({
             {pageStatusBadge && <Badge {...pageStatusBadge} />}
             {pageStatusChip && <Chip {...pageStatusChip} />}
           </div>
+          {!pageTabs && (
+            <CustomActionsSection
+              callToActionButton={callToActionButton}
+              endGroupActions={endGroupActions}
+              startGroupActions={startGroupActions}
+            />
+          )}
+        </div>
+      </div>
+      {pageTabs && (
+        <div className="flex flex-row justify-between items-center">
+          <Tabs {...pageTabs} orientation="horizontal" className="pt-xs" />
           <CustomActionsSection
             callToActionButton={callToActionButton}
             endGroupActions={endGroupActions}
             startGroupActions={startGroupActions}
           />
         </div>
-      </div>
-      {pageTabs && (
-        <Tabs {...pageTabs} orientation="horizontal" className="pt-xs" />
       )}
     </div>
   );

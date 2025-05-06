@@ -850,6 +850,18 @@ const getTranslations = async () => {
         [BILLING_PLAN_STATUS_PAUSED]: 'Stopped',
         [BILLING_PLAN_STATUS_ENDED]: 'Finished',
       },
+      product_type: {
+        payment_pack: 'Passes',
+        shop_item: 'Webshop items',
+        top_up: 'Top-ups',
+        payment_combo: 'Packs',
+        private_pass: 'Appointment passes',
+        fee: 'Fees',
+        refund: 'Refunded credits',
+        booking: 'Bookings',
+        coupon: 'Promotions',
+        giftcard: 'Gift cards',
+      },
     },
     helperText: {
       access_monitoring:

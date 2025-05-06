@@ -1,5 +1,2 @@
-import Collapse, { Props, CollapseForStorybook } from './Collapse.component';
-
-export type { Props };
-export { CollapseForStorybook };
-export default Collapse;
+export type { CollapseProps } from './Collapse';
+export { default } from './Collapse';

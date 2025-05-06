@@ -1,5 +1,7 @@
 import { lazy } from "react";
 import { Route, Routes } from "react-router";
+// Import urls from the navigation sidebar
+import urls from "sm-navigation-sidebar/urls";
 
 import { AppWrapper } from "@bsport/sm-backbone";
 
@@ -15,6 +17,9 @@ const MemberList = lazy(() => import("sm-member-list/App"));
 // ----- Financial Services -----
 const Invoice = lazy(() => import("sm-invoice/App"));
 
+// ----- Customer Data Platform -----
+const Smartlists = lazy(() => import("sm-smartlists/App"));
+
 // ----- Common -----
 const NavigationSidebar = lazy(
   () => import("sm-navigation-sidebar/NavigationSidebar"),
@@ -29,16 +34,19 @@ export function Root() {
         <Route path="/" element={<h1>Hello world</h1>} />
 
         {/* ----- Booking ----- */}
-        <Route path="/activity/*" element={<GroupActivities />} />
+        <Route path={`${urls.activity}/*`} element={<GroupActivities />} />
 
         {/* ----- Buyables ----- */}
-        <Route path="/giftcard/*" element={<Giftcard />} />
+        <Route path={`${urls.giftcard}/*`} element={<Giftcard />} />
 
         {/* ----- Core-data ----- */}
-        <Route path="/member/*" element={<MemberList />} />
+        <Route path={`${urls.member}/*`} element={<MemberList />} />
 
         {/* ----- Financial Services ----- */}
-        <Route path="/invoice/*" element={<Invoice />} />
+        <Route path={`${urls.invoice}/*`} element={<Invoice />} />
+
+        {/* ----- Customer Data Platform ----- */}
+        <Route path={`${urls.smartlist}/*`} element={<Smartlists />} />
       </Routes>
     </AppWrapper>
   );

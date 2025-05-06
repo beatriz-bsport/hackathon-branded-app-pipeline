@@ -122,6 +122,7 @@ export const OnlinePaymentBasket: React.FC<Props> = forwardRef(
       areTermsAndConditionsAccepted,
       setAreTermsAndConditionsAccepted,
       setIsOnlinePaymentDisabled,
+      isOnlinePaymentDisabled,
       setSelectedPaymentEngine,
     } = useBasketPaymentLocalState();
 
@@ -232,9 +233,21 @@ export const OnlinePaymentBasket: React.FC<Props> = forwardRef(
           onPayPalApprove: paymentRef?.current?.onPayPalApprove,
           onPayPalCancel: paymentRef?.current?.onPayPalCancel,
           onPayPalError: paymentRef?.current?.onPayPalError,
+          paymentEngine: selectedPaymentEngine,
+          paymentMethodSelected,
+          isOnlinePaymentDisabled: isOnlinePaymentDisabled,
+          isEstablishmentBillingGroupSelected:
+            isEstablishmentBillingGroupSelected,
+          selectedEstablishmentBillingGroup: selectedEstablishmentBillingGroup,
         };
       },
-      [selectedPaymentEngine],
+      [
+        selectedPaymentEngine,
+        isOnlinePaymentDisabled,
+        isEstablishmentBillingGroupSelected,
+        selectedEstablishmentBillingGroup,
+        paymentMethodSelected,
+      ],
     );
 
     useEffect(() => {

@@ -1,0 +1,4 @@
+.bs-fabrique-collapse__content {
+  transition: all 200ms ease-in-out;
+  overflow: hidden;
+}

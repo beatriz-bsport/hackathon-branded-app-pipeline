@@ -28,7 +28,7 @@ import { PaymentPack } from '#src/libs/payment-packs/types';
 import { PaymentCombo } from '#src/libs/payment-combo/types';
 import { PrivatePass } from '#src/libs/private-service/types';
 import Button, { ButtonColor } from '#src/components/css-only/Fabrique/Button';
-import Collapse from '#src/components/css-only/Fabrique/Collapse';
+import ShowMore from '#src/components/css-only/Fabrique/ShowMore';
 import BillingInterval from '../MarketplaceBillingInterval';
 import { useDialogClickAwayListener } from '../../../../../hooks/useDialogClickAwayListener';
 import useIsTextExpandable from '../../../../../hooks/useIsTextExpandable';
@@ -323,7 +323,7 @@ const MarketplaceContractDetailModal: React.FC<Props> = React.memo(
                           'bs-contract-details-dialog__item',
                       }}
                     >
-                      <Collapse
+                      <ShowMore
                         collapsedHeight={45}
                         isExpanded={showMoreDescription}
                       >
@@ -336,7 +336,7 @@ const MarketplaceContractDetailModal: React.FC<Props> = React.memo(
                         >
                           {contract?.description}
                         </div>
-                      </Collapse>
+                      </ShowMore>
                       {descriptionText.isExpandable && (
                         <Button
                           disableRipple
@@ -362,7 +362,7 @@ const MarketplaceContractDetailModal: React.FC<Props> = React.memo(
                         <h4 className="bs-contract-card__subtitle --legal">
                           {t('contractCard.legalContract')}
                         </h4>
-                        <Collapse
+                        <ShowMore
                           collapsedHeight={45}
                           isExpanded={showMoreLegalContract}
                         >
@@ -375,7 +375,7 @@ const MarketplaceContractDetailModal: React.FC<Props> = React.memo(
                           >
                             {contract?.contract}
                           </div>
-                        </Collapse>
+                        </ShowMore>
                       </div>
                       {legalContractText.isExpandable && (
                         <Button

@@ -183,7 +183,7 @@
                     "availability": {
                         "expiresToday": "Laatste dag",
                         "expiresIn": "{{ daysRemaining }} dag(en) over",
-                        "expiresIn_plural": "{{ daysRemaining }}dagen resterend",
+                        "expiresIn_plural": "{{ daysRemaining }} dag(en) over",
                         "future": "Startdatum: {{ startDate }}",
                         "expired": "Verlopen op: {{ expirationDate }}",
                         "active": "Verloopdatum: {{ expirationDate }}"
@@ -3999,7 +3999,9 @@
                 "fee": "Toeslagen",
                 "private_pass": "Afspraakkaarten",
                 "payment_combo": "Pakketten",
-                "payment_pack": "Leskaarten"
+                "payment_pack": "Leskaarten",
+                "top_up": "Opwaarderingen",
+                "shop_item": "Webshop-producten"
             }
         },
         "presetValuesByIdentifier": {
@@ -5441,9 +5443,9 @@
             "errors": {
                 "hasUpcomingPrivateBookings": "Sommige komende afspraken vinden plaats in deze vestiging. Annuleer en verwijder ze voordat je deze vestiging verwijdert.",
                 "exclusivePaymentPacks": "De volgende pas {{- pass_name }} is alleen bruikbaar in deze vestiging. Werk de beperkingen bij voordat u de vestiging verwijdert.",
-                "exclusivePaymentPacks_plural": "De volgende passen {{- pass_name }} zijn alleen geldig in deze vestiging. Update hun beperkingen eerst voordat je de vestiging verwijdert.",
+                "exclusivePaymentPacks_plural": "De volgende passen {{- pass_name }} kunnen alleen in deze vestiging worden gebruikt. Werk hun beperkingen bij voordat je de vestiging verwijdert.",
                 "exclusiveEstablishmentGroups": "De locatie {{- establishment_group_name }} bevat alleen de vestiging die u wilt verwijderen. Werk deze locatie bij of verwijder deze.",
-                "exclusiveEstablishmentGroups_plural": "De locaties {{- establishment_group_name }} bevatten alleen de vestiging die je wilt verwijderen, bewerk of verwijder deze locaties eerst.",
+                "exclusiveEstablishmentGroups_plural": "De locaties {{- establishment_group_name }} bevatten alleen de vestiging die je wilt verwijderen, werk deze locaties bij of verwijder ze.",
                 "hasExclusiveMarketplaceComponentConfigs": "Een of meerdere tabbladen op de marktplaats zijn ingesteld om alleen de agenda en workshops van deze vestiging weer te geven.",
                 "hasUpcomingOffers": "Sommige komende sessies vinden plaats in deze vestiging. Annuleer en verwijder ze voordat je deze vestiging verwijdert.",
                 "hasExclusiveBillingGroup": "Deze vestiging is de laatste van zijn factureringsgroep. Verwijder deze factureringsgroep of werk deze bij voordat u deze vestiging verwijdert.",

@@ -237,10 +237,10 @@ const OneClickBookingModule: React.FC<Props> = ({
   }, [companyId, offerId]);
 
   useEffect(() => {
-    if (offerState.error || bookingState.error) {
-      snackbarError('booking.fetch.error');
+    if (bookingState.error) {
+      snackbarError('oneClickBooking.genericError');
     }
-  }, [offerState.error, bookingState.error]);
+  }, [bookingState.error]);
 
   useEffect(() => {
     if (buyableItemErrorCode) {

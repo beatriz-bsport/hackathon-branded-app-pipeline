@@ -11764,7 +11764,7 @@
             "payment_combo": "Pack",
             "private_pass": "Carte RDV",
             "booking": "Réservation",
-            "coupon": "Coupon",
+            "coupon": "Code promotionnel",
             "giftcard": "Carte cadeau"
         },
         "report": {
@@ -11971,7 +11971,15 @@
             },
             "product_type": {
                 "fee": "Frais",
-                "payment_pack": "Cartes de cours"
+                "payment_pack": "Cartes de cours",
+                "giftcard": "Cartes cadeaux",
+                "coupon": "Codes Promotionnels",
+                "booking": "Réservations",
+                "refund": "Crédits remboursés",
+                "private_pass": "Cartes RDV",
+                "payment_combo": "Packs",
+                "top_up": "Recharges de crédits",
+                "shop_item": "Articles du magasin"
             }
         },
         "presetValuesByIdentifier": {

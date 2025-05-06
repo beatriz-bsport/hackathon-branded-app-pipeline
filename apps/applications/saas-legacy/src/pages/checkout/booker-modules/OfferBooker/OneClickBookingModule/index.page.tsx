@@ -47,19 +47,18 @@ import useDebouncedCallback from '#src/hooks/useDebouncedCallBack';
 import { useLightSignUp } from './_hooks/useLightSignUp';
 import { OnlinePaymentBasket } from '#src/libs/payment/payment-module-revamped/basket-payment/OnlinePaymentBasket';
 import { useHandleUserRegistration } from './_hooks/useHandleUserRegistration';
+import { useBasketPaymentStatusTracker } from '#src/libs/payment/payment-module-revamped/basket-payment/hooks/useBasketPaymentStatusTracker';
 import { getItemInStorage } from '#src/utils/storage';
 import { STORAGE_KEY_LIGHT_SIGNUP_MEMBER_ID } from '#src/actions/constants';
 import { getAuthToken } from '#src/http';
 import ALL_ERROR_CODES from '@bsport/common/lib/master-data/error-codes/buyable-item-can-not-be-bought';
-import { PaymentButtons } from './_components/PaymentButtons';
-import { SUBMIT_BUTTONS } from '#src/libs/checkout/types';
+import './index.css';
 import { PHONE_NUMBER_IN_USE } from './constants';
 import {
   COACH_EDIT_EMAIL_ADDRESS_IS_STAFF_USER,
   COACH_EMAIL_ADDRESS_EXISTS,
 } from '@bsport/common/lib/master-data/error-codes/associated-coach';
 import { AxiosError } from 'axios';
-import './index.css';
 
 type OwnProps = {
   companyId: number;
@@ -477,7 +476,18 @@ const OneClickBookingModule: React.FC<Props> = ({
     ],
   );
 
-  const isButtonLoading = bookingState.loading || userRegistrationLoading;
+  const {
+    hasPaymentSucceeded,
+    isBackendProcessingAfterPayment,
+    isPaymentProcessing,
+  } = useBasketPaymentStatusTracker(basket?.id, parseInt(memberId));
+
+  const isPaymentLoading =
+    bookingState.loading ||
+    isBackendProcessingAfterPayment ||
+    isPaymentProcessing ||
+    hasPaymentSucceeded ||
+    userRegistrationLoading;
 
   const isBookButtonDisable =
     !isValid || !lightSignupValues.acceptTermsAndConditions;
@@ -607,7 +617,6 @@ const OneClickBookingModule: React.FC<Props> = ({
               {shouldDisplayOnlinePayment && (
                 <OnlinePaymentBasket
                   ref={paymentRef}
-                  hideConfirmPaymentButton
                   basketId={basket.id}
                   companyId={companyId}
                   onConfirmPaymentSuccess={onBookWithChargeablePaymentPack}
@@ -627,8 +636,8 @@ const OneClickBookingModule: React.FC<Props> = ({
                   {t('oneClickBooking.goToLogin')}
                 </ButtonV2>
               </div>
-              {isSelectedPaymentPackFree && (
-                <div className="bs-oneclick-booking__book-button-container">
+              <div className="bs-oneclick-booking__book-button-container">
+                {isSelectedPaymentPackFree && (
                   <ButtonV2
                     className="bs-oneclick-booking__book-button"
                     color={ButtonColor.PRIMARY}
@@ -637,7 +646,7 @@ const OneClickBookingModule: React.FC<Props> = ({
                     size={ButtonSize.LG}
                     variant={ButtonVariant.CONTAINED}
                   >
-                    {isButtonLoading ? (
+                    {isPaymentLoading ? (
                       <div className="bs-light-signup-form__submit-button-loader">
                         <Loader />
                       </div>
@@ -645,26 +654,8 @@ const OneClickBookingModule: React.FC<Props> = ({
                       t('oneClickBooking.bookButtonLabel')
                     )}
                   </ButtonV2>
-                </div>
-              )}
-              {!isSelectedPaymentPackFree &&
-                !!basket?.id &&
-                !!memberId &&
-                !isNaN(parseInt(memberId)) && (
-                  <PaymentButtons
-                    enforceDisabled={isBookButtonDisable}
-                    paymentBasketRef={paymentRef}
-                    paymentContext={{
-                      basketId: basket?.id,
-                      companyId,
-                      memberId: parseInt(memberId),
-                    }}
-                    submitButtons={{
-                      PAYPAL_BUTTON: SUBMIT_BUTTONS.PAYPAL_BUTTON,
-                      PAY_NOW_BUTTON: SUBMIT_BUTTONS.PAY_NOW_BUTTON,
-                    }}
-                  />
                 )}
+              </div>
             </div>
           </div>
         )}

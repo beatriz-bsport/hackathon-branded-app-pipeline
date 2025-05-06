@@ -250,8 +250,6 @@ const getTranslations = async () => {
       is_first_visit: 'First booking',
       private_booking_date_created: 'Date and time of booking',
       billing_group_address: 'Address',
-      product: 'Product',
-      product_type: 'Product Type',
     },
     graphFormDrawer: {
       helperText: {

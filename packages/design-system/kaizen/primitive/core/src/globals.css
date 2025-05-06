@@ -5,22 +5,8 @@
     -ms-overflow-style: none; /* IE and Edge */
     scrollbar-width: none; /* Firefox */
   }
-
   /* Hide scrollbar for Chrome, Safari and Opera */
   .hide-scrollbar::-webkit-scrollbar {
     display: none;
-  }
-
-  /* TODO: Find a firefox solution to hide the calendar icon */
-  input[type="date"] {
-    text-transform: uppercase;
-
-    &::-webkit-datetime-edit-fields-wrapper {
-      padding-right: var(--kz-sizing-xs);
-    }
-
-    &::-webkit-calendar-picker-indicator {
-      display: none;
-    }
   }
 }

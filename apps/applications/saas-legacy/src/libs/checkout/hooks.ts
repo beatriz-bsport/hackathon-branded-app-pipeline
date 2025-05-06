@@ -424,63 +424,6 @@ export const useConfirmationMessageData = (
         withAlert: null,
         withSubScriptionActions: null,
       },
-      [ConfirmationStatus.OFFER_AND_PURCHASE_ONE_CLICK_SUCCESS]: {
-        actions: {
-          cancel: {
-            label: t('validation.actions.goToCalendar'),
-            onClick: goToCalendar,
-          },
-        },
-        icon: React.createElement(ConfirmationMessageIcon, { isError: false }),
-        message: t(
-          'validation.sections.confirmationStatusMessage.offerAndPurchaseSuccess',
-        ),
-        title: t(
-          'validation.sections.confirmationStatusTitle.success.offerOnlySuccess',
-        ),
-        withAlert: null,
-        withSubScriptionActions: null,
-      },
-      [ConfirmationStatus.PURCHASE_ONLY_ONE_CLICK_SUCCESS]: {
-        actions: {
-          cancel: {
-            label: t('validation.actions.goToCalendar'),
-            onClick: goToCalendar,
-          },
-        },
-        icon: React.createElement(ConfirmationMessageIcon, { isError: false }),
-        message: t(
-          'validation.sections.confirmationStatusMessage.paymentSuccess',
-          {
-            count: checkoutItems?.length,
-          },
-        ),
-        title: t(
-          'validation.sections.confirmationStatusTitle.success.paymentSuccess',
-        ),
-        withAlert: null,
-        withSubScriptionActions: null,
-      },
-      [ConfirmationStatus.PURCHASE_WITH_PASSES_ONE_CLICK_SUCCESS]: {
-        actions: {
-          cancel: {
-            label: t('validation.actions.goToCalendar'),
-            onClick: goToCalendar,
-          },
-        },
-        icon: React.createElement(ConfirmationMessageIcon, { isError: false }),
-        message: t(
-          'validation.sections.confirmationStatusMessage.paymentSuccess',
-          {
-            count: checkoutItems?.length,
-          },
-        ),
-        title: t(
-          'validation.sections.confirmationStatusTitle.success.paymentSuccess',
-        ),
-        withAlert: null,
-        withSubScriptionActions: null,
-      },
     };
   }, [
     t,

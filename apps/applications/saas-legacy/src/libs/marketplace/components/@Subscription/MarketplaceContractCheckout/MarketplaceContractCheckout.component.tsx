@@ -23,7 +23,7 @@ import { PrivatePass } from '#src/libs/private-service/types';
 import { PaymentCombo } from '#src/libs/payment-combo/types';
 import { Contract } from '#src/libs/subscription/types';
 import Button, { ButtonColor } from '#src/components/css-only/Fabrique/Button';
-import ShowMore from '#src/components/css-only/Fabrique/ShowMore';
+import Collapse from '#src/components/css-only/Fabrique/Collapse';
 import BillingInterval from '../MarketplaceBillingInterval';
 import useIsTextExpandable from '../../../../../hooks/useIsTextExpandable';
 
@@ -239,7 +239,7 @@ const MarketplaceContractCheckout: React.FC<Props> = ({
                 )}
               </div>
             )}
-            <ShowMore collapsedHeight={45} isExpanded={showMoreDescription}>
+            <Collapse collapsedHeight={45} isExpanded={showMoreDescription}>
               <div
                 ref={descriptionText.ref}
                 className={clsx('bs-contract-checkout__body__text', {
@@ -248,7 +248,7 @@ const MarketplaceContractCheckout: React.FC<Props> = ({
               >
                 {contract?.description}
               </div>
-            </ShowMore>
+            </Collapse>
             {descriptionText.isExpandable && (
               <Button
                 disableRipple
@@ -274,7 +274,7 @@ const MarketplaceContractCheckout: React.FC<Props> = ({
               <h4 className="bs-contract-checkout__subtitle --legal">
                 {t('marketplace:contractCard.legalContract')}
               </h4>
-              <ShowMore collapsedHeight={45} isExpanded={showMoreLegalContract}>
+              <Collapse collapsedHeight={45} isExpanded={showMoreLegalContract}>
                 <div
                   ref={legalContractText.ref}
                   className={clsx('bs-contract-checkout__body__text', {
@@ -283,7 +283,7 @@ const MarketplaceContractCheckout: React.FC<Props> = ({
                 >
                   {contract?.contract}
                 </div>
-              </ShowMore>
+              </Collapse>
             </div>
             {legalContractText.isExpandable && (
               <Button

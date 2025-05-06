@@ -66,7 +66,6 @@ import MarketplaceOfferBookingList from '#src/libs/marketplace/components/@Booki
 import {
   getConfirmationStatus,
   getNumberOfListToDisplay,
-  getOneClickCheckoutConfirmationStatus,
   sortCheckoutItemByBuyableItemIdentifier,
 } from '#src/libs/checkout/utils';
 import { getPaymentPackById } from '#src/libs/payment-packs/selectors';
@@ -435,25 +434,16 @@ export class ConfirmationCheckout extends React.PureComponent<Props, State> {
 
     const userRegistrationResponse = this.getParsedUserRegistrationResponse();
 
-    const isFromOneClickCheckout = !!this.props.queryParams?.one_click_checkout;
-
-    const confirmationStatus = isFromOneClickCheckout
-      ? getOneClickCheckoutConfirmationStatus(
-          this.isError(),
-          errorCode,
-          offerBookedList,
-          this.props.basket,
-        )
-      : getConfirmationStatus(
-          this.isError(),
-          errorCode,
-          offerBookedList,
-          this.props.basket,
-          billingPlan,
-          this.props.offerPreBookedIdList,
-          userRegistrationResponse?.extra_data?.[0]?.booking_for_invitee_only,
-          isPartiallyConfirmed,
-        );
+    const confirmationStatus = getConfirmationStatus(
+      this.isError(),
+      errorCode,
+      offerBookedList,
+      this.props.basket,
+      billingPlan,
+      this.props.offerPreBookedIdList,
+      userRegistrationResponse?.extra_data?.[0]?.booking_for_invitee_only,
+      isPartiallyConfirmed,
+    );
 
     const isLoading = this.isLoading();
 
@@ -539,7 +529,6 @@ export class ConfirmationCheckout extends React.PureComponent<Props, State> {
                   getOfferWaitListPosition={
                     this.props.getOfferStatusWaitingListPosition
                   }
-                  hideBookForAGuestButton={isFromOneClickCheckout}
                   hideCoach={hideCoach}
                   isLoading={isLoading}
                   offers={sortedOfferList}
@@ -570,7 +559,6 @@ export class ConfirmationCheckout extends React.PureComponent<Props, State> {
                   getOfferWaitListPosition={
                     this.props.getOfferStatusWaitingListPosition
                   }
-                  hideBookForAGuestButton={isFromOneClickCheckout}
                   hideCoach={hideCoach}
                   isLoading={isLoading}
                   offerNotBookableIdWithErrorCodeList={

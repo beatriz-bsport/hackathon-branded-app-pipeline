@@ -5,13 +5,12 @@ import {
   Body,
   Button,
   Divider,
-  DropdownMenu,
-  type DropdownMenuItems,
   Icon,
 } from "@bsport/kaizen-primitive-core";
 
 import { type TFunction, useTranslation } from "#src/utils/i18n";
 
+import DropdownMenu, { type DropdownMenuItems } from "./DropdownMenu";
 import type { MenuSet } from "./navigation-items";
 
 const getMenuOptions = (t: TFunction): DropdownMenuItems => [
@@ -96,14 +95,15 @@ const NavigationSidebarHeader = ({
           setIsPopoverOpened(false);
         }}
         placement="bottom-left"
-        target={({ setIsPopoverOpened }) => (
+      >
+        {({ setIsPopoverOpened }) => (
           <TopStatusButton
             label={label}
             avatarUrl={avatarUrl}
             onClick={() => setIsPopoverOpened(true)}
           />
         )}
-      />
+      </DropdownMenu>
       <Button
         className="shrink-0"
         intent="default"

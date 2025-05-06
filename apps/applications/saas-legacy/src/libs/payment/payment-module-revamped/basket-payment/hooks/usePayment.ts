@@ -45,10 +45,6 @@ type UsePayment = {
   }) => void;
   handleResetBasketClientSecret: () => void;
   handleSetPaymentProcessing: (isPaymentProcessing: boolean) => void;
-  handleUpdateMemberBillingGroup: (
-    defaultEstablishmentBillingGroupId: number,
-    options?: OptionCallback<Member>,
-  ) => void;
   paymentGroupId: number;
   selectInstalmentPayment: (
     instalmentPayment: number | null,
@@ -258,7 +254,6 @@ export const usePayment = (
     handleFetchPaymentGroupStatus,
     handleResetBasketClientSecret,
     handleSetPaymentProcessing,
-    handleUpdateMemberBillingGroup,
     paymentGroupId,
     selectInstalmentPayment,
     useInternalAccount,

@@ -333,7 +333,7 @@ const MarketplaceNavigation: React.FC<Props> = ({
               onClose={handleCloseSignUpDialog}
               onSubmit={handleSubmitCustomForm}
               onSubmitDraft={handleSubmitDraftCustomForm}
-              title={t('translation:form.signUpTitle')}
+              title={t('form.signUpTitle')}
               waiver={companyTheme.waiver}
             />
           ) : (
@@ -345,10 +345,7 @@ const MarketplaceNavigation: React.FC<Props> = ({
               open={isSignUpDialogOpen && !isAuthenticated && signUpCustomForm}
             >
               <DialogTitle>
-                <CustomFormTitle
-                  isCompany
-                  title={t('translation:form.signUpTitle')}
-                />
+                <CustomFormTitle isCompany title={t('form.signUpTitle')} />
               </DialogTitle>
               <div className={classes.customFormContainer}>
                 <CustomFormView

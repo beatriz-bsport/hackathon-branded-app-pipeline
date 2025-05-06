@@ -828,10 +828,6 @@
                 "closeTooLate": {
                     "title": "Oops! Too late to book",
                     "description": "This session has already started or ended, so booking is no longer possible. <br> Please check the calendar for upcoming sessions."
-                },
-                "unhandled": {
-                    "description": "We encountered an unexpected error. It's not possible to book this session at the moment.",
-                    "title": "An Unexpected Error Occurred"
                 }
             },
             "goToCalendar": "Go to the calendar",
@@ -869,8 +865,7 @@
                     "email": "Please enter a valid email address",
                     "phone": "Please enter a valid phone number",
                     "global": "An error occurred while signing up",
-                    "emailTaken": "Email already exists, you can try logging in with this email",
-                    "phoneTaken": "This phone number is already in use by another member"
+                    "emailTaken": "Email already exists, you can try logging in with this email"
                 }
             }
         },
@@ -1764,9 +1759,6 @@
             "srcOrDst": {
                 "placeholder": "Select a message type",
                 "title": "Messages"
-            },
-            "ariaLabel": {
-                "deleteAllFilters": "Delete all filters"
             }
         },
         "dialogInformation": {
@@ -1802,9 +1794,8 @@
                 "notification": "Push notification",
                 "sms": "SMS",
                 "mail": "Email",
-                "autoResend": "Auto-resends",
-                "messageScheduling": "Schedule the message",
-                "automaticCommunicationLimit": "Set a limit"
+                "autoResend": "",
+                "messageScheduling": "Schedule the message"
             },
             "refresh": "To see the new version of your template, please click on the refresh button.",
             "sendDisabled": {
@@ -1983,7 +1974,7 @@
             "confirm": "Send"
         },
         "scheduled": {
-            "inputLabel": "Choose when you want to schedule the message.",
+            "inputLabel": "Choose the time you want to schedule the message.",
             "chooseDate": "Pick a date",
             "chooseTime": "Pick a time",
             "numberOfRecipients": "Recipient: {{ count }}",
@@ -2131,8 +2122,7 @@
             "fr": "French",
             "none": "Automatic",
             "cs": "Czech",
-            "pt": "Portuguese",
-            "cimode": "Debug"
+            "pt": "Portuguese"
         },
         "subscription": {
             "isEmpty": "There are no active subscriptions to display."
@@ -2697,8 +2687,7 @@
                 "tagInfo": "Use tags to make the promo code usable only by a selected group of members on the marketplace, widget and app. You can select tags to make the promo code usable only by members with one of the chosen tags. Or you can select tags to make the promo code unusable only by members with one of the selected tags. "
             },
             "name": {
-                "label": "Name",
-                "helperText": "The name entered here will appear on invoices when the promo code is applied"
+                "label": "Name"
             },
             "code": {
                 "label": "Code",
@@ -4273,8 +4262,8 @@
                 "show_company_email_in_invoice": "Display the company email address on all invoices"
             },
             "refundsAndDiscount": {
-                "title": "Refunds and Discounts",
-                "info": "Activate these options to require staff to provide a reason when manually applying a discount or cancelling/refunding an invoice.",
+                "title": "Discounts and Refunds",
+                "info": "Activate these options to require staff to provide a reason when manually applying a discount or canceling/refunding an invoice.",
                 "checkbox": {
                     "customDiscountJustification": "Require justification for manual discounts",
                     "refundAndCancelJustification": "Require justification for invoice refunds and cancellations"
@@ -4432,12 +4421,7 @@
                 "addReader": "Connect a terminal"
             },
             "tse": {
-                "title": "Kassensicherungsverordnung (Germany)",
-                "documentationLabel": "Procedural documentation",
-                "manufacturerLinkLabel": "Certificate of the TSE manufacturer",
-                "manufacturer": "Manufacturer: bsport",
-                "version": "Version of the TSE: 2.0",
-                "description": "This is a regulation aimed at ensuring the security and integrity of electronic cash register systems. We use Fiskaly as a technical security device (TSE) to prevent manipulation and ensure that transaction data is stored securely and tamper-proof."
+                "title": "Kassensicherungsverordnung (Germany)"
             }
         },
         "actions": {
@@ -4727,7 +4711,7 @@
             },
             "amountRemaining": "Outstanding amount: {{ amount }}",
             "billingMoreThanNeeded": "If you charge more than the amount of the invoice, the difference in cost will be added to the client account balance",
-            "errorSecretExplain2": "If this issue is not resolved please contact us at dev+payment-intent@bsport.io",
+            "errorSecretExplain2": "",
             "errorSecretExplain1": "This payment method is not available at the moment",
             "plannedPaymentEvent": {
                 "title": "Planned payment",
@@ -4781,8 +4765,7 @@
         "paymentEngine": {
             "label": {
                 "0": "Manual payment",
-                "1": "Stripe",
-                "2": "Paypal"
+                "1": "Stripe"
             }
         },
         "invoiceType": {
@@ -4907,8 +4890,7 @@
             "3": "Cancelled",
             "4": "In progress"
         },
-        "anonymousMember": "Anonymous member",
-        "sentToFiskaly": "Sent to Fiskaly"
+        "anonymousMember": "Anonymous member"
     },
     "login": {
         "forms": {
@@ -6394,21 +6376,6 @@
             "invoice": "{{ count }} invoice",
             "invoice_plural": "{{ count }} invoices",
             "registerButton": "Subscribe"
-        },
-        "passes": {
-            "details": "Details",
-            "buy": "Buy",
-            "search": "Search",
-            "filters": "Filters",
-            "title": "Passes",
-            "drawerTitle": {
-                "tabs": "Select a pass type"
-            },
-            "tabs": {
-                "appointmentPasses": "Appointment passes",
-                "passes": "Passes",
-                "all": "All"
-            }
         }
     },
     "member": {
@@ -6450,9 +6417,7 @@
                     "71000": "Please wait for the ongoing import to finalize",
                     "71001": "This file does not have the required number of columns, it has {{column_count}} columns in row {{row_count}}",
                     "71002": "This file exceeds the maximum size limit",
-                    "title": "Unfortunately, the import process has failed because:",
-                    "unknown": "An unexpected error occurred",
-                    "71003": "Failed to decode the file. Please ensure it's not corrupted or in an unsupported format"
+                    "title": "Unfortunately, the import process has failed because:"
                 }
             }
         },
@@ -12805,8 +12770,7 @@
         "presetValuesByDatatype": {
             "payment_engine": {
                 "0": "Manual payment",
-                "1": "Stripe",
-                "2": "Paypal"
+                "1": "Online payment"
             },
             "payment_method": {
                 "0": "Card",
@@ -17410,7 +17374,7 @@
                 "50013": "You can no longer answer this substitution request.",
                 "50015": "You cannot answer your own substitution request",
                 "50020": "This substitution request has been denied: impossible to delete it",
-                "50021": "You cannot specify establishments and locations at the same time.",
+                "50021": "You cannot specify establihments and locations at the same time.",
                 "80002": "The value 'Number of days request late' must be greater than the value 'Number of days registration closed'.",
                 "80003": "Missing settings for overdue request limits.",
                 "500001": "A request for substitution already exists",

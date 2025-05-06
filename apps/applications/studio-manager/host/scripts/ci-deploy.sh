@@ -67,18 +67,6 @@ for APPLICATION in $APPLICATIONS; do
     echo "Error: Failed to get project root for $APPLICATION (using devkit)"
     exit 0
   fi
-  
-  # Debug output to see exact ASSET_PATH value
-  echo "DEBUG: ASSET_PATH='$ASSET_PATH'"
-  
-  # Skip deployment if the asset path doesn't include 'apps/applications'
-  # Use grep to check if the path contains 'apps/applications'
-  if ! echo "$ASSET_PATH" | grep -q "apps/applications"; then
-    echo "⏭️ Skipping deployment for $APPLICATION: Path '$ASSET_PATH' is not in apps/applications"
-    continue
-  else
-    echo "✅ Path '$ASSET_PATH' contains 'apps/applications', proceeding with deployment"
-  fi
 
   echo "Project root found: $ASSET_PATH"
   

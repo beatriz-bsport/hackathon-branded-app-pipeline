@@ -33,7 +33,6 @@ export type Props = {
   ) => OfferStatusWaitingListPosition | {};
   getOfferStatus: (offerId: number) => OfferStatus;
   offerNotBookableIdWithErrorCodeList?: number[][];
-  hideBookForAGuestButton?: boolean;
 };
 
 const MarketplaceOfferBookingList: React.FC<Props> = ({
@@ -51,7 +50,6 @@ const MarketplaceOfferBookingList: React.FC<Props> = ({
   getOfferWaitListPosition,
   getOfferStatus,
   offerNotBookableIdWithErrorCodeList,
-  hideBookForAGuestButton,
 }) => {
   const { t } = useTranslation('snackbar');
 
@@ -82,7 +80,6 @@ const MarketplaceOfferBookingList: React.FC<Props> = ({
         errorMessage={errorMessage}
         getOfferWaitListPosition={getOfferWaitListPosition}
         guestName={getGuestNameFromQueryParams(index)}
-        hideBookForAGuestButton={hideBookForAGuestButton}
         hideCoach={hideCoach}
         isAddGuestDisabled={getIsAddGuestDisabled(offer.id)}
         isLoading={isLoading}

@@ -12,7 +12,7 @@ import CardContent from '#src/components/css-only/Card/CardContent';
 import Grid from '#src/components/css-only/Grid';
 import GridItem from '#src/components/css-only/Grid/GridItem';
 import Price from '#src/components/css-only/Price';
-import ShowMore from '#src/components/css-only/Fabrique/ShowMore';
+import Collapse from '#src/components/css-only/Fabrique/Collapse';
 import RecommendedChip from '#src/components/css-only/RecommendedChip';
 import BillingInterval from '#src/libs/marketplace/components/@Subscription/MarketplaceBillingInterval';
 import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
@@ -166,7 +166,7 @@ const MarketplaceContractBuyableItem: React.FC<Props> = ({
                   }),
             }}
           >
-            <ShowMore collapsedHeight={40} isExpanded={showAllDescription}>
+            <Collapse collapsedHeight={40} isExpanded={showAllDescription}>
               <div
                 ref={descriptionText.ref}
                 className={clsx('bs-contract-buyable-item__description', {
@@ -176,7 +176,7 @@ const MarketplaceContractBuyableItem: React.FC<Props> = ({
               >
                 {contract?.description ?? ''}
               </div>
-            </ShowMore>
+            </Collapse>
           </GridItem>
 
           {/* START -- FIFTHROW / SEE MORE & NUMBER OF BILLING ROW */}

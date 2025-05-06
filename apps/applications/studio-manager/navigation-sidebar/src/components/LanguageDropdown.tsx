@@ -1,11 +1,9 @@
 import { LANGUAGES, type Locale, switchLanguage } from "@bsport/i18n";
-import {
-  DropdownMenu,
-  type DropdownMenuItems,
-  Icon,
-} from "@bsport/kaizen-primitive-core";
+import { Icon } from "@bsport/kaizen-primitive-core";
 
 import { i18nInstance, useTranslation } from "#src/utils/i18n";
+
+import DropdownMenu, { type DropdownMenuItems } from "./DropdownMenu";
 
 const useLanguageItems = (): DropdownMenuItems => {
   const { t } = useTranslation("default");
@@ -94,7 +92,8 @@ const LanguageDropdown = () => {
       }}
       placement="top-left"
       selectedValues={[i18nInstance.language]}
-      target={({ setIsPopoverOpened }) => (
+    >
+      {({ setIsPopoverOpened }) => (
         <button
           className={defaultClasses.join(" ")}
           onClick={() => setIsPopoverOpened(true)}
@@ -105,7 +104,7 @@ const LanguageDropdown = () => {
           <Icon icon="arrow-right" size="sm" />
         </button>
       )}
-    />
+    </DropdownMenu>
   );
 };
 

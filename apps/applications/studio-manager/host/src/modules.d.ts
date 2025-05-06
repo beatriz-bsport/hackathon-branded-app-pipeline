@@ -9,18 +9,6 @@ declare module "sm-navigation-sidebar/NavigationSidebar" {
   export default NavigationSidebar;
 }
 
-declare module "sm-navigation-sidebar/urls" {
-  const urls: {
-    activity: string;
-    member: string;
-    invoice: string;
-    giftcard: string;
-    smartlist: string;
-    emailTemplates: string;
-  };
-  export default urls;
-}
-
 // ----- Booking -----
 declare module "sm-group-activity/App" {
   const App: BaseApp["App"];
@@ -41,12 +29,6 @@ declare module "sm-member-list/App" {
 
 // ----- Financial Services -----
 declare module "sm-invoice/App" {
-  const App: BaseApp["App"];
-  export default App;
-}
-
-// ----- Customer Data Platform -----
-declare module "sm-smartlists/App" {
   const App: BaseApp["App"];
   export default App;
 }

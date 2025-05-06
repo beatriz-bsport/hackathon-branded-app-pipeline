@@ -14,7 +14,7 @@ import CardContent from '#src/components/css-only/Card/CardContent';
 import Grid from '#src/components/css-only/Grid';
 import GridItem from '#src/components/css-only/Grid/GridItem';
 import Price from '#src/components/css-only/Price';
-import ShowMore from '#src/components/css-only/Fabrique/ShowMore';
+import Collapse from '#src/components/css-only/Fabrique/Collapse';
 import Button from '#src/components/css-only/Fabrique/Button';
 import InitialPrice from '#src/libs/marketplace/components/@PaymentCombo/MarketplacePaymentComboCard/InitialPrice';
 
@@ -180,7 +180,7 @@ const MarketplacePaymentComboBuyableItem: React.FC<Props> = ({
                   }),
             }}
           >
-            <ShowMore collapsedHeight={40} isExpanded={showAllDescription}>
+            <Collapse collapsedHeight={40} isExpanded={showAllDescription}>
               <div
                 ref={descriptionText.ref}
                 className={clsx('bs-payment-combo-buyable-item__description', {
@@ -190,7 +190,7 @@ const MarketplacePaymentComboBuyableItem: React.FC<Props> = ({
               >
                 {paymentCombo?.description ?? ''}
               </div>
-            </ShowMore>
+            </Collapse>
           </GridItem>
 
           {/* START -- FIFTHROW / SEE MORE ROW */}

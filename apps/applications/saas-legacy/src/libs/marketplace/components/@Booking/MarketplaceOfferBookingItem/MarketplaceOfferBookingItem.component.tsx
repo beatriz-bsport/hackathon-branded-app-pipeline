@@ -38,7 +38,6 @@ export type Props = {
     offerId: number,
   ) => OfferStatusWaitingListPosition | {};
   errorMessage?: string;
-  hideBookForAGuestButton?: boolean;
 };
 
 const MarketplaceOfferBookingItem: React.FC<Props> = ({
@@ -55,7 +54,6 @@ const MarketplaceOfferBookingItem: React.FC<Props> = ({
   onOpenAddGuestModal,
   getOfferWaitListPosition,
   errorMessage,
-  hideBookForAGuestButton,
 }) => {
   const formattedDate = useOfferFormattedDate(
     offer,
@@ -117,9 +115,7 @@ const MarketplaceOfferBookingItem: React.FC<Props> = ({
       onOpenAddGuestModal={onOpenAddGuestModal}
       positionInWaitingList={positionInWaitingList}
       shouldDisplayAddGuestButton={
-        !hideBookForAGuestButton &&
-        companyTheme.allow_guest &&
-        companyTheme.allow_guest_activatable
+        companyTheme.allow_guest && companyTheme.allow_guest_activatable
       }
       spotId={offer.spot_information?.indexType}
       spotName={

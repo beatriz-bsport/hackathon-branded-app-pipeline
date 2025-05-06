@@ -1041,105 +1041,7 @@ importers:
         specifier: ^5.4.11
         version: 5.4.11(@types/node@22.13.15)(less@4.1.3)(sass@1.77.8)(stylus@0.64.0)(terser@5.31.3)
 
-  apps/applications/studio-manager/buyables/giftcard:
-    dependencies:
-      '@bsport/fetch':
-        specifier: workspace:*
-        version: link:../../../../../packages/utils/fetch
-      '@bsport/i18n':
-        specifier: workspace:*
-        version: link:../../../../../packages/utils/i18n
-      '@bsport/kaizen-primitive-core':
-        specifier: workspace:*
-        version: link:../../../../../packages/design-system/kaizen/primitive/core
-      '@bsport/sm-backbone':
-        specifier: workspace:*
-        version: link:../../../../../packages/utils/sm-backbone
-      '@bsport/store-buyables-giftcard':
-        specifier: workspace:*
-        version: link:../../../../../packages/stores/buyables/giftcard
-      '@bsport/use-async':
-        specifier: workspace:*
-        version: link:../../../../../packages/hooks/use-async
-      '@bsport/use-pagination-query-params':
-        specifier: workspace:*
-        version: link:../../../../../packages/utils/query-params/use-pagination
-      react:
-        specifier: ^19.0.0
-        version: 19.0.0
-      react-dom:
-        specifier: ^19.0.0
-        version: 19.0.0(react@19.0.0)
-      react-router:
-        specifier: ^7.2.0
-        version: 7.2.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
-    devDependencies:
-      '@bsport/config-eslint-react':
-        specifier: workspace:*
-        version: link:../../../../../tools/config/eslint-react
-      '@bsport/config-federation':
-        specifier: workspace:*
-        version: link:../../../../../tools/config/federation
-      autoprefixer:
-        specifier: ^10.4.20
-        version: 10.4.20(postcss@8.4.49)
-      classnames:
-        specifier: ^2.5.1
-        version: 2.5.1
-      postcss:
-        specifier: ^8.4.49
-        version: 8.4.49
-      tailwindcss:
-        specifier: ^3.4.14
-        version: 3.4.14(ts-node@10.9.2(@swc/core@1.11.13(@swc/helpers@0.5.15))(@types/node@22.13.15)(typescript@5.8.2))
-      vite:
-        specifier: ^5.4.11
-        version: 5.4.11(@types/node@22.13.15)(less@4.1.3)(sass@1.77.8)(stylus@0.64.0)(terser@5.31.3)
-
   apps/applications/studio-manager/cdp/email-templates:
-    dependencies:
-      '@bsport/fetch':
-        specifier: workspace:*
-        version: link:../../../../../packages/utils/fetch
-      '@bsport/i18n':
-        specifier: workspace:*
-        version: link:../../../../../packages/utils/i18n
-      '@bsport/kaizen-primitive-core':
-        specifier: workspace:*
-        version: link:../../../../../packages/design-system/kaizen/primitive/core
-      '@bsport/sm-backbone':
-        specifier: workspace:*
-        version: link:../../../../../packages/utils/sm-backbone
-      react:
-        specifier: ^19.0.0
-        version: 19.0.0
-      react-dom:
-        specifier: ^19.0.0
-        version: 19.0.0(react@19.0.0)
-      react-router:
-        specifier: ^7.2.0
-        version: 7.2.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
-    devDependencies:
-      '@bsport/config-eslint-react':
-        specifier: workspace:*
-        version: link:../../../../../tools/config/eslint-react
-      '@bsport/config-federation':
-        specifier: workspace:*
-        version: link:../../../../../tools/config/federation
-      autoprefixer:
-        specifier: ^10.4.20
-        version: 10.4.20(postcss@8.4.49)
-      postcss:
-        specifier: ^8.4.49
-        version: 8.4.49
-      tailwindcss:
-        specifier: ^3.4.14
-        version: 3.4.14(ts-node@10.9.2(@swc/core@1.11.13(@swc/helpers@0.5.15))(@types/node@22.13.15)(typescript@5.8.2))
-      vite:
-        specifier: ^5.4.11
-        version: 5.4.11(@types/node@22.13.15)(less@4.1.3)(sass@1.77.8)(stylus@0.64.0)(terser@5.31.3)
-
-  apps/applications/studio-manager/cdp/smartlists:
     dependencies:
       '@bsport/fetch':
         specifier: workspace:*
@@ -1328,6 +1230,55 @@ importers:
       autoprefixer:
         specifier: ^10.4.20
         version: 10.4.20(postcss@8.4.49)
+      postcss:
+        specifier: ^8.4.49
+        version: 8.4.49
+      tailwindcss:
+        specifier: ^3.4.14
+        version: 3.4.14(ts-node@10.9.2(@swc/core@1.11.13(@swc/helpers@0.5.15))(@types/node@22.13.15)(typescript@5.8.2))
+      vite:
+        specifier: ^5.4.11
+        version: 5.4.11(@types/node@22.13.15)(less@4.1.3)(sass@1.77.8)(stylus@0.64.0)(terser@5.31.3)
+
+  apps/applications/studio-manager/giftcard:
+    dependencies:
+      '@bsport/fetch':
+        specifier: workspace:*
+        version: link:../../../../packages/utils/fetch
+      '@bsport/i18n':
+        specifier: workspace:*
+        version: link:../../../../packages/utils/i18n
+      '@bsport/kaizen-primitive-core':
+        specifier: workspace:*
+        version: link:../../../../packages/design-system/kaizen/primitive/core
+      '@bsport/sm-backbone':
+        specifier: workspace:*
+        version: link:../../../../packages/utils/sm-backbone
+      '@bsport/use-pagination-query-params':
+        specifier: workspace:*
+        version: link:../../../../packages/utils/query-params/use-pagination
+      react:
+        specifier: ^19.0.0
+        version: 19.0.0
+      react-dom:
+        specifier: ^19.0.0
+        version: 19.0.0(react@19.0.0)
+      react-router:
+        specifier: ^7.2.0
+        version: 7.2.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+    devDependencies:
+      '@bsport/config-eslint-react':
+        specifier: workspace:*
+        version: link:../../../../tools/config/eslint-react
+      '@bsport/config-federation':
+        specifier: workspace:*
+        version: link:../../../../tools/config/federation
+      autoprefixer:
+        specifier: ^10.4.20
+        version: 10.4.20(postcss@8.4.49)
+      classnames:
+        specifier: ^2.5.1
+        version: 2.5.1
       postcss:
         specifier: ^8.4.49
         version: 8.4.49
@@ -1780,9 +1731,6 @@ importers:
 
   packages/design-system/kaizen/primitive/core:
     dependencies:
-      '@bsport/datetime-manipulation':
-        specifier: workspace:*
-        version: link:../../../../utils/datetime/manipulation
       '@bsport/i18n':
         specifier: workspace:*
         version: link:../../../../utils/i18n
@@ -1975,22 +1923,6 @@ importers:
         specifier: workspace:*
         version: link:../../../../tools/config/eslint-react
 
-  packages/stores/core-data/teacher:
-    dependencies:
-      '@bsport/store-base':
-        specifier: workspace:*
-        version: link:../../base
-      typescript-result:
-        specifier: ^3.1.1
-        version: 3.1.1
-      zustand:
-        specifier: ^5.0.3
-        version: 5.0.3(@types/react@18.3.12)(immer@9.0.21)(react@19.0.0)(use-sync-external-store@1.4.0(react@19.0.0))
-    devDependencies:
-      '@bsport/config-eslint-react':
-        specifier: workspace:*
-        version: link:../../../../tools/config/eslint-react
-
   packages/stores/financial-services/invoice:
     dependencies:
       '@bsport/store-base':
@@ -2014,19 +1946,6 @@ importers:
         version: link:../../../tools/config/eslint-react
 
   packages/utils/datetime/format:
-    dependencies:
-      luxon:
-        specifier: ^3.4.4
-        version: 3.5.0
-    devDependencies:
-      '@bsport/config-eslint-react':
-        specifier: workspace:*
-        version: link:../../../../tools/config/eslint-react
-      '@types/luxon':
-        specifier: ^3.4.2
-        version: 3.4.2
-
-  packages/utils/datetime/manipulation:
     dependencies:
       luxon:
         specifier: ^3.4.4
@@ -20902,7 +20821,9 @@ snapshots:
       jest-runner: 24.9.0
       jest-runtime: 24.9.0
     transitivePeerDependencies:
+      - bufferutil
       - supports-color
+      - utf-8-validate
 
   '@jest/test-sequencer@28.1.3':
     dependencies:
@@ -32434,9 +32355,7 @@ snapshots:
       pretty-format: 24.9.0
       throat: 4.1.0
     transitivePeerDependencies:
-      - bufferutil
       - supports-color
-      - utf-8-validate
 
   jest-junit@14.0.1:
     dependencies:

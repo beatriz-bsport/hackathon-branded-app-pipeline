@@ -35,8 +35,7 @@
   "federation": {
     "devPort": 4050,
     "exposes": {
-      "./NavigationSidebar": "./src/components/NavigationSidebar",
-      "./urls": "./src/urls"
+      "./NavigationSidebar": "./src/components/NavigationSidebar"
     }
   }
 }

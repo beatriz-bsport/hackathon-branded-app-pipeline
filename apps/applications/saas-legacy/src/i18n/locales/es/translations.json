@@ -1475,9 +1475,7 @@
             "bookkeeping_account_name": "Nombre de la cuenta",
             "billing_group_address": "Dirección",
             "private_booking_date_created": "Fecha y hora de la reserva",
-            "is_first_visit": "Primera reserva",
-            "product_type": "Tipo de producto",
-            "product": "Producto"
+            "is_first_visit": "Primera reserva"
         },
         "graphFormDrawer": {
             "helperText": {
@@ -2239,7 +2237,7 @@
                     "hasRelatedMarketplaceComponentConfigs": "Las pestañas de calendario y taller configuradas para su mercado ya no mostrarán este calendario de ubicación.",
                     "hasRelatedMarketingNotifications": "Las notificaciones vinculadas a esta ubicación se eliminarán.",
                     "exclusiveAssociatedCoaches": "Su profesor {{- coach_name }} sólo recibe una notificación cuando se realiza una solicitud de sustitución para una sesión en esta ubicación. Por lo tanto, al eliminar la ubicación, recibirán solicitudes de sustitución de todas las ubicaciones.",
-                    "exclusiveAssociatedCoaches_plural": "Sus profesores {{- coach_name }} sólo reciben una notificación cuando se realiza una solicitud de sustitución para una sesión en esta ubicación. Al eliminar la ubicación, recibirán las solicitudes de sustitución de todas las ubicaciones.",
+                    "exclusiveAssociatedCoaches_plural": "Sus profesores {{- coach_name }} sólo reciben una notificación cuando se realiza una solicitud de sustitución para una sesión en esta ubicación. Al eliminar la ubicación, recibirán por tanto solicitudes de sustitución de todas las ubicaciones.",
                     "hasRelatedAssociatedCoaches": "Algunos profesores reciben una notificación cuando se realiza una solicitud de sustitución para una sesión en esta ubicación. Al eliminar la ubicación, dejarán de recibir la notificación correspondiente.",
                     "hasRelatedStaffConfigurations": "Esta ubicación se utiliza para la supervisión de accesos por uno o varios miembros del personal. Al eliminar la ubicación sin seleccionar una nueva, ya no podrán realizar la supervisión de accesos."
                 },
@@ -3607,7 +3605,7 @@
                     "customDiscountJustification": "Exigir la justificación de los descuentos manuales"
                 },
                 "info": "Active estas opciones para exigir al personal que proporcione un motivo al aplicar manualmente un descuento o cancelar/devolver una factura.",
-                "title": "Devoluciones y descuentos"
+                "title": "Descuentos y devoluciones"
             }
         },
         "section": {
@@ -5867,18 +5865,6 @@
                 "2": "Detenido",
                 "3": "En pausa",
                 "4": "Terminado"
-            },
-            "product_type": {
-                "giftcard": "Tarjetas de regalo",
-                "coupon": "Promociones",
-                "booking": "Reservas",
-                "refund": "Créditos reembolsados",
-                "fee": "Comisiones",
-                "private_pass": "Pases de cita",
-                "payment_combo": "Packs",
-                "top_up": "Recargas",
-                "shop_item": "Artículos de la tienda",
-                "payment_pack": "Pases"
             }
         },
         "helperText": {
@@ -7663,8 +7649,8 @@
                     "phone": "Introduzca un número de teléfono válido",
                     "email": "Introduzca una dirección de email válida",
                     "requiredField": "Este campo es obligatorio",
-                    "phoneTaken": "Este número de teléfono ya está siendo utilizado por otro miembro",
-                    "emailTaken": "El correo electrónico ya existe, puede intentar iniciar sesión con este correo electrónico"
+                    "phoneTaken": "Este número de teléfono ya está siendo utilizado por otro usuario",
+                    "emailTaken": "El correo electrónico ya ha salido, puede intentar iniciar sesión con este correo electrónico"
                 },
                 "button": {
                     "label": "Inscríbete"
@@ -11198,7 +11184,7 @@
             "saveEdition": "Guardar cambios",
             "chooseTime": "Elige una hora",
             "chooseDate": "Elige una fecha",
-            "inputLabel": "Elija cuándo desea programar el mensaje."
+            "inputLabel": "Elija la hora a la que desea programar el mensaje."
         },
         "sendNowDialog": {
             "confirm": "Enviar",

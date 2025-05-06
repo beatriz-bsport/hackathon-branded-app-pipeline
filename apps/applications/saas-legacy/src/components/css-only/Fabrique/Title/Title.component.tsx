@@ -2,7 +2,7 @@ import React from 'react';
 import clsx from 'clsx';
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 import Typography from '#Fabrique/Typography';
-import ShowMore from '#Fabrique/ShowMore';
+import Collapse from '#Fabrique/Collapse';
 import ButtonBase from '#Fabrique/ButtonBaseV2';
 import { ChevronDown } from '#src/components/untitledui';
 import { TitleSize } from './constants';
@@ -99,13 +99,13 @@ const Title: React.FC<Props> = ({
             })}
           />
         </ButtonBase>
-        <ShowMore
+        <Collapse
           classes={collapseClasses}
           collapsedHeight={0}
           isExpanded={isExpanded}
         >
           {childrenCollapsable}
-        </ShowMore>
+        </Collapse>
       </div>
     );
   }

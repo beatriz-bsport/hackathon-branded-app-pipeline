@@ -20,16 +20,4 @@ exports.default = {
       save: "Save changes",
     },
   },
-  datePicker: {
-    modalTitle: "Select a day",
-    shortcutsTitle: "Shortcuts",
-    selectedDay: "Selected day",
-    startDate: "Start date",
-    endDate: "End date",
-    nextMonth: "Next month",
-    previousMonth: "Previous month",
-    invalidStartDate: "Invalid start date",
-    invalidEndDate: "Invalid end date",
-    rangeLabel: "From {{ start }} to {{end}}",
-  },
 };

@@ -8,7 +8,6 @@ import { fetch } from "#src/utils/fetch";
 
 function DevLoginPage() {
   const navigate = useNavigate();
-
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 

@@ -1,1 +1,1 @@
-export { ArchivedMemberListPage } from "./ArchivedMemberListPage";
+export { ArchivedMemberListPage as default } from "./ArchivedMemberListPage";

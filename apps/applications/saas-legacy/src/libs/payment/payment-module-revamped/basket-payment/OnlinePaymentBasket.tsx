@@ -44,6 +44,7 @@ type Props = {
   payerContext: {
     memberId: number;
     fromApp?: boolean;
+    termsAndConditionsAccepted?: boolean;
   };
   onCancelPaymentBeforeConfirming?: () => void;
   onConfirmPaymentError?: () => void;
@@ -57,7 +58,7 @@ export const OnlinePaymentBasket: React.FC<Props> = forwardRef(
       basketId,
       companyId,
       hideConfirmPaymentButton,
-      payerContext: { memberId, fromApp },
+      payerContext: { memberId, fromApp, termsAndConditionsAccepted },
       onCancelPaymentBeforeConfirming,
       onConfirmPaymentError,
       onConfirmPaymentSuccess,
@@ -333,7 +334,11 @@ export const OnlinePaymentBasket: React.FC<Props> = forwardRef(
                 setPaymentProcessing={handleSetPaymentProcessing}
                 setTermsAndConditionsAccepted={setAreTermsAndConditionsAccepted}
                 termsAndConditions={generalTermsAndConditions}
-                termsAndConditionsAccepted={areTermsAndConditionsAccepted}
+                termsAndConditionsAccepted={
+                  hideConfirmPaymentButton
+                    ? termsAndConditionsAccepted
+                    : areTermsAndConditionsAccepted
+                }
                 useInternalAccount={useInternalAccount}
               >
                 <div className={classes.billingGroupSelector}>

@@ -14,12 +14,12 @@ import {
   unarchiveGroupActivityAction,
 } from "@bsport/store-booking-group-activity";
 
-import { GROUP_ACTIVITIES_PATH } from "#src/constants";
-import usePaginatedGroupActivities from "#src/hooks/usePaginatedGroupActivities";
-import fetch from "#src/utils/fetch";
+import { usePaginatedGroupActivities } from "#src/hooks/usePaginatedGroupActivities";
+import { ROUTES } from "#src/urls";
+import { fetch } from "#src/utils/fetch";
 import { useTranslation } from "#src/utils/i18n";
 
-const ArchivedGroupActivitiesList: React.FC = () => {
+export const ArchivedGroupActivitiesList: React.FC = () => {
   const { t } = useTranslation("groupActivity");
 
   const {
@@ -93,7 +93,7 @@ const ArchivedGroupActivitiesList: React.FC = () => {
     <ListLayout>
       <ListLayout.Header
         BreadcrumbsItems={[
-          <Link key="to-active-group-activities" to={GROUP_ACTIVITIES_PATH}>
+          <Link key="to-active-group-activities" to={ROUTES.ACTIVE}>
             <Breadcrumbs.Item
               text={t("list.header.groupActivities")}
               id="breadcrumb-item-group-activities"
@@ -123,5 +123,3 @@ const ArchivedGroupActivitiesList: React.FC = () => {
     </ListLayout>
   );
 };
-
-export default ArchivedGroupActivitiesList;

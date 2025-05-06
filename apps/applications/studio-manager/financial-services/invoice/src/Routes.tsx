@@ -1,6 +1,7 @@
+import { lazy } from "react";
 import { Route, Routes } from "react-router";
 
-import { InvoiceListPage } from "#src/pages/InvoiceLisPage";
+const InvoiceListPage = lazy(() => import("#src/pages/InvoiceLisPage"));
 
 const AppRoutes = () => {
   return (

@@ -253,7 +253,9 @@ const OneClickBookingModule: React.FC<Props> = ({
     !isEqual(updatedMember, trimFormValues(lightSignupValues));
 
   useEffect(() => {
-    checkBookableStatus(offerId);
+    if (queryParams?.redirect_status !== RedirectStatus.FAILED) {
+      checkBookableStatus(offerId);
+    }
   }, [offerId, checkBookableStatus]);
 
   useEffect(() => {

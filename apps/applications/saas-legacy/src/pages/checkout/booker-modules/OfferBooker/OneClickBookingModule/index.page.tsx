@@ -613,6 +613,8 @@ const OneClickBookingModule: React.FC<Props> = ({
                   onConfirmPaymentSuccess={onBookWithChargeablePaymentPack}
                   payerContext={{
                     memberId: parseInt(memberId),
+                    termsAndConditionsAccepted:
+                      lightSignupValues.acceptTermsAndConditions,
                   }}
                 />
               )}

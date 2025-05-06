@@ -1,1 +1,1 @@
-export { MemberListPage } from "./MemberListPage";
+export { MemberListPage as default } from "./MemberListPage";

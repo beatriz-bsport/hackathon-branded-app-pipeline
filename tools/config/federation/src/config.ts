@@ -8,6 +8,8 @@ import svgr from "vite-plugin-svgr";
 import topLevelAwait from "vite-plugin-top-level-await";
 import { z } from "zod";
 
+import { translationsWatcher } from "./translationsWatcherPlugin";
+
 export const AppTypesEnum = z.enum(
   [
     "hosts",
@@ -274,6 +276,7 @@ export const getConfig = (config: {
     restart({
       restart: pathsToWatch,
     }),
+    translationsWatcher(config.rootDir),
   ];
 
   return {

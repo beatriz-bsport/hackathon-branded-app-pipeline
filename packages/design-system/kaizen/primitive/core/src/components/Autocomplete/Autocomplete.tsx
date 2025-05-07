@@ -105,28 +105,31 @@ const Autocomplete: React.FC<AutocompleteProps> = ({
     [items],
   );
 
+  const handleTextFieldChange = useCallback(
+    (
+      event: ChangeEvent<HTMLInputElement>,
+      setIsPopoverOpened: (open: boolean) => void,
+    ) => {
+      const inputValue = event.target.value?.toLowerCase() || "";
+
+      if (onValueChange) {
+        debouncedOnChange(inputValue);
+      } else {
+        const matchingItems = filterItems(inputValue);
+        setIsPopoverOpened(matchingItems.length > 0);
+        setFilteredItems(matchingItems);
+      }
+    },
+    [onValueChange, debouncedOnChange, filterItems],
+  );
+
   return (
     <div className={autocomplete({ className })} {...props}>
       <Popover>
         <Popover.Anchor>
           {({ setIsPopoverOpened }) => {
-            const handleTextFieldChange = useCallback(
-              (event: ChangeEvent<HTMLInputElement>) => {
-                const inputValue = event.target.value?.toLowerCase() || "";
-
-                if (onValueChange) {
-                  debouncedOnChange(inputValue);
-                } else {
-                  const matchingItems = filterItems(inputValue);
-                  setIsPopoverOpened(matchingItems.length > 0);
-                  setFilteredItems(matchingItems);
-                }
-              },
-              [onValueChange, debouncedOnChange, filterItems],
-            );
-
             const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-              handleTextFieldChange(e);
+              handleTextFieldChange(e, setIsPopoverOpened);
               props.onChange?.(e);
             };
 

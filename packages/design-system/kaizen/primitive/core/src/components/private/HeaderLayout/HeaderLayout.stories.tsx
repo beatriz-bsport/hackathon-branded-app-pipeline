@@ -235,6 +235,7 @@ const ARGS = {
   PAGE_TABS: {
     tabs: [
       {
+        id: "tab-1",
         label: "Info",
         href: "#",
         target: "_self",
@@ -242,11 +243,13 @@ const ARGS = {
         icon: "award-03" as const,
       },
       {
+        id: "tab-2",
         label: "Bookings",
         disabled: false,
         icon: "award-03" as const,
       },
       {
+        id: "tab-3",
         label: "VOD",
         disabled: false,
         icon: "award-03" as const,

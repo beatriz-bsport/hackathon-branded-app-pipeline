@@ -114,7 +114,11 @@ export {
   type GenericTableColumn,
   type TableProps,
 } from "./components/Table";
-export { default as Tabs, type TabsProps } from "./components/Tabs";
+export {
+  default as Tabs,
+  type TabsItemProps,
+  type TabsProps,
+} from "./components/Tabs";
 export { default as TextArea, type TextAreaProps } from "./components/TextArea";
 export {
   default as TextField,

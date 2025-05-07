@@ -418,6 +418,7 @@
       "additionalFeedbackPlaceholder": "Type your feedback here..."
     }
   },
+  "@bsport/sm-order": { "namespaceAlpha": { "helloName": "Hello {{ name }} !" } },
   "@bsport/sm-smartlists": { "list": { "helloName": "Hello {{ name }} !" } },
   "@bsport/sm-teacher": {
     "common": {

@@ -66,7 +66,7 @@ const Tabs: React.FC<TabsProps> & { Item: typeof TabsItem } = ({
   // Internal state to manage the active tab
   const [_activeTab, _setActiveTab] = useState(defaultValue);
 
-  if (!tabs?.length || !TabsItems?.length) {
+  if (!tabs?.length && !TabsItems?.length) {
     console.warn(
       "The Tabs component should have at least one tab or TabItem to render.",
     );

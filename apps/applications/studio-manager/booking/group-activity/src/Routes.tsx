@@ -13,8 +13,8 @@ const ArchivedGroupActivitiesList = lazy(
 const AppRoutes = () => {
   return (
     <Routes>
-      <Route index element={<ArchivedGroupActivitiesList />} />
-      <Route path={ROUTES.ARCHIVED} element={<GroupActivitiesList />} />
+      <Route index element={<GroupActivitiesList />} />
+      <Route path={ROUTES.ARCHIVED} element={<ArchivedGroupActivitiesList />} />
     </Routes>
   );
 };

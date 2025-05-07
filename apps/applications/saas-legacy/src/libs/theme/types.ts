@@ -148,6 +148,7 @@ export type Theme = {
   display_new_webshop: boolean;
   zoho_member_import_enabled: boolean;
   one_click_checkout_enabled: boolean;
+  revamped_passes_page_enabled: boolean;
 };
 
 export type ThemeState = {

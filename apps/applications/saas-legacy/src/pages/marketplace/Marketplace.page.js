@@ -137,6 +137,7 @@ const MarketplaceVodRouter = asyncComponent(() =>
 const MarketplaceGiftcardPage = asyncComponent(() =>
   import('./MarketplaceGiftcard.page'),
 );
+const Passes = asyncComponent(() => import('#src/pages/marketplace/passes'));
 
 type StateHandlerType = typeof withStateHandlersInit &
   WithHandlerType<typeof withStateHandlersSetter>;
@@ -318,7 +319,9 @@ export class MarketPlace extends Component<Props, State> {
 
     switch (this.props.subcomponent) {
       case MARKETPLACE_PATH_TAB_PASS:
-        return (
+        return this.props.companyTheme?.revamped_passes_page_enabled ? (
+          <Passes />
+        ) : (
           <MarketplacePassPage
             key={this.props.tabSelected}
             companyId={this.props.companyId}

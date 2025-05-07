@@ -4,6 +4,7 @@ const tseslint = require("typescript-eslint");
 const js = require("@eslint/js");
 const react = require("eslint-plugin-react");
 const reactRefresh = require("eslint-plugin-react-refresh");
+const reactHooks = require("eslint-plugin-react-hooks");
 
 module.exports = [
   {
@@ -46,6 +47,7 @@ module.exports = [
       "@typescript-eslint/no-unused-vars": ["error", { caughtErrors: "none" }],
     },
   },
+  reactHooks.configs["recommended-latest"],
   pluginJs.configs.recommended,
   ...tseslint.configs.recommended,
   {
@@ -60,5 +62,12 @@ module.exports = [
       // module federation temporal files
       ".__mf__temp/*",
     ],
+  },
+  {
+    files: ["**/*.stories.@(ts|tsx|js|jsx)"],
+    rules: {
+      "react-hooks/rules-of-hooks": "off",
+      "react-hooks/exhaustive-deps": "off",
+    },
   },
 ];

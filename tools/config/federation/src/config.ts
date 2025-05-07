@@ -8,7 +8,7 @@ import svgr from "vite-plugin-svgr";
 import topLevelAwait from "vite-plugin-top-level-await";
 import { z } from "zod";
 
-import { translationsWatcher } from "./translationsWatcherPlugin";
+import { translationsWatcher } from "./translationsWatcherPlugin.js";
 
 export const AppTypesEnum = z.enum(
   [

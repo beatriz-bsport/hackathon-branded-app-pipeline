@@ -112,6 +112,7 @@ import MarketplaceBasketSummaryDialogCssOnly from '../../libs/marketplace/compon
 import { getItemInStorage } from '../../utils/storage';
 import { STORAGE_KEY_BSPORT_RELATED_MEMBER_TOKEN } from '../../actions/constants';
 import analyticsUtils from '../../components/analytics/analytics';
+import { PassesPageTabNames } from '../../libs/marketplace/types';
 
 const MarketplacePassPage = asyncComponent(() => import('./MarketplacePass'));
 
@@ -260,6 +261,7 @@ export class MarketPlace extends Component<Props, State> {
         const tabConfig = settings?.config?.[configIndex];
         const newPath = fromConfigToUrl(tabConfig, {
           tabSelected: configIndex,
+          tabName: PassesPageTabNames.PASSES,
         });
         return this.props.replace(newPath);
       }

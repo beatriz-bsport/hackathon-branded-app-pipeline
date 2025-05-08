@@ -1,7 +1,6 @@
 import { useCallback, useMemo } from 'react';
-import { useHistory, useParams } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import type { PageTabs } from '#src/libs/marketplace/components/@Layout/HeaderLayout';
-import { urlToMarketplaceTab } from '#src/libs/marketplace/utils';
 
 /**
  * A custom hook to manage tab navigation based on the URL.
@@ -14,43 +13,43 @@ import { urlToMarketplaceTab } from '#src/libs/marketplace/utils';
  *   - `handleTabClick`: A function to handle tab clicks and update the URL.
  */
 
-// Temporary assignation of "new-pass" during development, since subcomponent is not available in the current route
 export const useUrlTabNavigation = (tabs: PageTabs) => {
   const history = useHistory();
-  const {
-    companyName,
-    companyId,
-    tabName,
-    subcomponent = 'new-pass',
-  } = useParams<{
-    companyName: string;
-    companyId: string;
-    subcomponent: string;
-    tabName: string;
-  }>();
+  const location = useLocation();
 
   const tabUrlPaths = tabs.map((tab) => tab.urlPath);
 
-  const basePath = urlToMarketplaceTab(companyName, companyId, subcomponent);
+  const queryParams = useMemo(
+    () => new URLSearchParams(location.search),
+    [location.search],
+  );
 
-  // Check if the tabName exists in the tabUrlPaths array, and if so, return the corresponding selected tab
+  const tabName = queryParams.get('tabName');
+
+  // Checks if the tabName exists in the tabUrlPaths array, and if so, returns the corresponding selected tab
   // If not, default to the first tab
   const selectedTab = useMemo(() => {
-    return tabs.find((tab) => tab.urlPath === `/${tabName}`) ?? tabs[0];
-  }, [tabName, tabUrlPaths, tabs]);
+    return tabs.find((tab) => tab.urlPath === tabName) ?? tabs[0];
+  }, [tabName, tabs]);
 
   // If the tabName is invalid or missing, redirect to the first valid tab
-  if (!tabName || !tabUrlPaths.includes(`/${tabName}`)) {
-    history.replace(`${basePath}${selectedTab.urlPath}`);
+  if (!tabName || !tabUrlPaths.includes(tabName)) {
+    queryParams.set('tabName', selectedTab.urlPath);
+    history.push({
+      search: queryParams.toString(),
+    });
   }
 
   const handleTabClick = useCallback(
     (urlPath: string) => () => {
       if (urlPath !== selectedTab.urlPath) {
-        history.push(`${basePath}${urlPath}`);
+        queryParams.set('tabName', urlPath);
+        history.push({
+          search: queryParams.toString(),
+        });
       }
     },
-    [selectedTab, history, basePath],
+    [selectedTab, history, queryParams],
   );
 
   return { handleTabClick, selectedTab };

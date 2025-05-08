@@ -4,15 +4,16 @@ import { compose } from 'recompose';
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 import { useUrlTabNavigation } from '#src/libs/marketplace/components/@Layout/hooks/useUrlTabNavigation';
 import { useTranslation } from 'react-i18next';
+import { PassesPageTabNames } from '#src/libs/marketplace/types';
 
 export const Passes = () => {
   const { t } = useTranslation('marketplace');
   const tabs = useMemo(
     () => [
-      { label: t('passes.tabs.passes'), urlPath: '/passes' },
+      { label: t('passes.tabs.passes'), urlPath: PassesPageTabNames.PASSES },
       {
         label: t('passes.tabs.appointmentPasses'),
-        urlPath: '/appointment-passes',
+        urlPath: PassesPageTabNames.APPOINTMENT_PASSES,
       },
     ],
     [t],

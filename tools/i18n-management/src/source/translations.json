@@ -419,7 +419,22 @@
     }
   },
   "@bsport/sm-order": { "namespaceAlpha": { "helloName": "Hello {{ name }} !" } },
-  "@bsport/sm-smartlists": { "list": { "helloName": "Hello {{ name }} !" } },
+  "@bsport/sm-smartlists": {
+    "list": {
+      "title": "Smartlists",
+      "addSmartlist": "Add smartlist",
+      "loading": "Loading smartlists...",
+      "emptyState": {
+        "title": "No smartlists yet",
+        "subtitle": "Create smartlists to segment your members, send targeted messages, and track engagement metrics."
+      },
+      "emptySearch": {
+        "title": "No results found",
+        "subtitle": "No smartlists match your search.\nTry clearing it to see more results",
+        "clearFilters": "Clear search"
+      }
+    }
+  },
   "@bsport/sm-teacher": {
     "common": {
       "pages": { "active": "Teachers", "archived": "Archived teachers" },

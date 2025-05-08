@@ -2,10 +2,8 @@ import { AppI18nextProvider } from "#src/utils/i18n";
 
 import { AppRoutes } from "./Routes";
 
-/**
- * Core of the application.
- * This is what is built and federated.
- */
+import "./index.css";
+
 const App: React.FC = () => {
   return (
     <AppI18nextProvider>

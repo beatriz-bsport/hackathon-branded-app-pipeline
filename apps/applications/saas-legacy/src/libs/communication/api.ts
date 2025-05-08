@@ -18,6 +18,8 @@ import type {
   CampaignExportStartEndDates,
   CampaignListParams,
   CommunicationSentGroupConfigQueryParams,
+  MarketingPreferenceData,
+  MarketingPreferenceUpdatePayload,
 } from './types';
 import Config from '../../config';
 
@@ -223,3 +225,43 @@ export const fetchLatestCampaignExportLink = (smartlistId: number) => {
     `${API_V1_URI_CDP}/smartlist/group/${smartlistId}/latest_campaign_export_link/`,
   );
 };
+
+/**
+ * Fetches marketing preferences for the authenticated user in a specific franchise
+ *
+ * @param franchise_id - The ID of the franchise to fetch preferences for
+ * @returns Promise resolving to an array of marketing preferences
+ */
+export const fetchMyFranchiseMarketingPreferences = (franchise_id: number) =>
+  getAuth<MarketingPreferenceData[]>(
+    `${API_V1_URI}/communication/marketing-preferences/franchise/${franchise_id}/`,
+  );
+
+/**
+ * Updates marketing preferences for the authenticated user in a specific franchise
+ *
+ * @param franchise_id - The ID of the franchise to update preferences for
+ * @param payload - Array of marketing preference updates
+ * @returns Promise resolving to the update result
+ */
+export const updateMyFranchiseMarketingPreferences = (
+  franchise_id: number,
+  payload: MarketingPreferenceUpdatePayload[],
+) =>
+  postAuth(
+    `${API_V1_URI}/communication/marketing-preferences/franchise/${franchise_id}/update_preferences/`,
+    payload,
+  );
+
+/**
+ * Checks if marketing preferences are enabled for a specific franchise
+ *
+ * @param franchise_id - The ID of the franchise to check eligibility for
+ * @returns Promise resolving to the eligibility status
+ */
+export const checkFranchiseMarketingPreferencesEligibility = (
+  franchise_id: number,
+) =>
+  getAuth(
+    `${API_V1_URI}/communication/marketing-preferences/franchise/${franchise_id}/eligible/`,
+  );

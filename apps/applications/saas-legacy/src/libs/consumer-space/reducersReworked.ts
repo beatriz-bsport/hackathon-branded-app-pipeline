@@ -39,6 +39,13 @@ import {
   fetchMyFutureSubscriptionsAsMemberActions,
 } from '#src/libs/consumer-space/actions/subscription-actions';
 
+import {
+  fetchMyFranchiseMarketingPreferencesActions,
+  updateMyFranchiseMarketingPreferencesActions,
+  checkFranchiseMarketingPreferencesEligibilityActions,
+} from '#src/libs/consumer-space/actions/marketing-preferences';
+import type { MarketingPreferenceData } from '#src/libs/communication/types';
+
 import type { PaginatedResponse } from '#src/state/types';
 import type { BookingREST } from '#src/libs/booking/types';
 import type { WaitingListBookingOption } from '#src/libs/waiting-list/types';
@@ -385,6 +392,11 @@ const initialState: Immutable.Immutable<ConsumerStateReworked> =
         allUuids: [],
         nextPage: null,
       },
+    },
+    myFranchiseMarketingPreferences: {
+      eligibility: { eligible: false, error: null, loading: false },
+      companyPreferences: { preferences: [], loading: false, error: null },
+      update: { error: null, loading: false },
     },
   });
 
@@ -1879,6 +1891,86 @@ export default handleActions<Immutable.Immutable<ConsumerStateReworked>, any>(
           { deep: true },
         );
       },
+
+    //Marketing preferences
+    [fetchMyFranchiseMarketingPreferencesActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(
+        ['myFranchiseMarketingPreferences', 'companyPreferences', 'loading'],
+        payload,
+      );
+    },
+    [fetchMyFranchiseMarketingPreferencesActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(
+        ['myFranchiseMarketingPreferences', 'companyPreferences', 'error'],
+        payload,
+      );
+    },
+    [fetchMyFranchiseMarketingPreferencesActions.success.toString()]: (
+      state,
+      { payload }: { payload: MarketingPreferenceData[] },
+    ) => {
+      return state.setIn(
+        [
+          'myFranchiseMarketingPreferences',
+          'companyPreferences',
+          'preferences',
+        ],
+        payload,
+      );
+    },
+    [updateMyFranchiseMarketingPreferencesActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(
+        ['myFranchiseMarketingPreferences', 'update', 'loading'],
+        payload,
+      );
+    },
+    [updateMyFranchiseMarketingPreferencesActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(
+        ['myFranchiseMarketingPreferences', 'update', 'error'],
+        payload,
+      );
+    },
+    [checkFranchiseMarketingPreferencesEligibilityActions.isLoading.toString()]:
+      (state, { payload }: { payload: boolean }) => {
+        return state.setIn(
+          ['myFranchiseMarketingPreferences', 'eligibility', 'loading'],
+          payload,
+        );
+      },
+    [checkFranchiseMarketingPreferencesEligibilityActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state
+        .setIn(
+          ['myFranchiseMarketingPreferences', 'eligibility', 'error'],
+          payload,
+        )
+        .setIn(
+          ['myFranchiseMarketingPreferences', 'eligibility', 'eligible'],
+          false,
+        );
+    },
+    [checkFranchiseMarketingPreferencesEligibilityActions.success.toString()]: (
+      state,
+    ) => {
+      return state.setIn(
+        ['myFranchiseMarketingPreferences', 'eligibility', 'eligible'],
+        true,
+      );
+    },
   },
   initialState,
 );

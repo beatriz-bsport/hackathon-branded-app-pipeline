@@ -2333,7 +2333,16 @@
           "phoneAllowed": "Phone notifications allowed",
           "phoneNotAllowed": "Phone notifications not allowed",
           "emailAllowed": "Email notifications allowed",
-          "emailNotAllowed": "Email notifications not allowed"
+          "emailNotAllowed": "Email notifications not allowed",
+          "manageYourFranchiseMarketingPrefencesLabel": "Manage Your Marketing Preferences",
+          "receiveEmailUpdates": "Receive email updates",
+          "receiveSmsUpdates": "Receive SMS updates",
+          "updatePreferencesLoading": "Saving",
+          "updatePreferencesButton": "Save preferences",
+          "portal": {
+            "title": "Marketing Communication Preferences",
+            "subtitle": "Choose how you'd like to receive updates from each of your locations"
+          }
         },
         "spivi": {
           "title": "Spinning data",

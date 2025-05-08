@@ -9,6 +9,10 @@ import {
   PaymentGroupStatus,
   RequestClientSecretPayload,
 } from '#src/libs/invoice/types';
+import type {
+  MarketingPreferenceUpdatePayload,
+  MarketingPreferenceData,
+} from '#src/libs/communication/types';
 
 export type ConsumerSummaryCardProps = {
   acceptEmail: boolean;
@@ -119,4 +123,19 @@ export type ConsumerProfileContextType = {
     params: PaymentGroupBillingEstablishmentPayload,
     options?: OptionCallback<number>,
   ) => void;
+  isFranchiseMarketingPreferencesActivated: boolean;
+  toggleFranchiseMarketingPreferencesPortal: () => void;
+  franchiseMarketingPreferencesPortalOpen: boolean;
+  franchisorId: number | null;
+  updateMyFranchiseMarketingPreferences: (
+    {
+      franchise_id,
+      data,
+    }: {
+      franchise_id: number;
+      data: MarketingPreferenceUpdatePayload[];
+    },
+    options?: OptionCallback,
+  ) => void;
+  franchiseMarketingPreferences: MarketingPreferenceData[];
 };

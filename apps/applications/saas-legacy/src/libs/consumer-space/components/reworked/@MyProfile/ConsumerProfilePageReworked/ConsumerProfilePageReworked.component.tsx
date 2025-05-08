@@ -13,6 +13,7 @@ import SavedPaymentMethodCard from '#src/libs/consumer-space/components/reworked
 import { ConsumerProfileContext } from '#src/libs/consumer-space/components/reworked/@MyProfile/ConsumerProfileContext';
 import CustomFormPortal from '#Fabrique/Temporary/CustomFormPortal';
 import BarcodePortal from '#src/components/css-only/Portals/BarcodePortal';
+import FranchiseMarketingPreferencesPortal from '#src/components/css-only/Portals/FranchiseMarketingPreferencesPortal';
 import DetachPaymentPortal from '#src/components/css-only/Portals/DetachPaymentPortal';
 import TermsAndConditions from '#src/components/css-only/Portals/TermsAndConditions';
 import RegularizeDebtModal from '#src/components/css-only/Portals/RegularizeDebtPortal/RegularizeDebtModal.component';
@@ -31,13 +32,14 @@ import type { CompanyTheme } from '#src/libs/theme/types';
 import type { Member } from '#src/libs/member/types';
 import type { PaymentMethod } from '#src/libs/payment/types';
 import type { OptionCallback } from '#src/state/types';
-
+import type { MarketingPreferenceData } from '#src/libs/communication/types';
 import { buildMemberReferralLink } from '@bsport/common/lib/referrals/utils.js';
 import Config from '#src/config';
 import type {
   ReferralMemberStatus,
   ReferralProgram,
 } from '#src/libs/referral/types';
+
 import './styles.css';
 
 type Props = {
@@ -139,6 +141,11 @@ const ConsumerProfilePageReworked: React.FC<Props> = ({
     detachPaymentMethodErrorCode,
     setDetachPaymentMethodErrorCode,
     isRegularizeBalancePortalOpen,
+    franchiseMarketingPreferences,
+    franchiseMarketingPreferencesPortalOpen,
+    toggleFranchiseMarketingPreferencesPortal,
+    updateMyFranchiseMarketingPreferences,
+    franchisorId,
   } = useContext(ConsumerProfileContext);
 
   const { general_terms_of_use, waiver, is_referral_program_activated } =
@@ -206,6 +213,26 @@ const ConsumerProfilePageReworked: React.FC<Props> = ({
       detachPaymentMethod,
       closeDetachPaymentMethodPortal,
       setDetachPaymentMethodErrorCode,
+    ],
+  );
+
+  const handleUpdateMyFranchiseMarketingPreferences = React.useCallback(
+    (values: MarketingPreferenceData[]) => {
+      return (
+        !!franchisorId &&
+        updateMyFranchiseMarketingPreferences(
+          {
+            franchise_id: franchisorId,
+            data: values,
+          },
+          { onSuccess: toggleFranchiseMarketingPreferencesPortal },
+        )
+      );
+    },
+    [
+      updateMyFranchiseMarketingPreferences,
+      toggleFranchiseMarketingPreferencesPortal,
+      franchisorId,
     ],
   );
   const buttonsData = React.useMemo(
@@ -367,7 +394,19 @@ const ConsumerProfilePageReworked: React.FC<Props> = ({
         subtitle={t('consumerSpace:reworked.myProfile.barCode.scanInfo')}
         title={t('consumerSpace:reworked.myProfile.barCode.scan')}
       />
-
+      <FranchiseMarketingPreferencesPortal
+        isMobile={isMobile}
+        isOpen={franchiseMarketingPreferencesPortalOpen}
+        onClose={toggleFranchiseMarketingPreferencesPortal}
+        preferences={franchiseMarketingPreferences}
+        subtitle={t(
+          'consumerSpace:reworked.myProfile.notifications.portal.subtitle',
+        )}
+        title={t('consumerSpace:reworked.myProfile.notifications.portal.title')}
+        updateMyFranchiseMarketingPreferences={
+          handleUpdateMyFranchiseMarketingPreferences
+        }
+      />
       <DetachPaymentPortal
         confirmLabel={t('common:delete')}
         errorMessage={

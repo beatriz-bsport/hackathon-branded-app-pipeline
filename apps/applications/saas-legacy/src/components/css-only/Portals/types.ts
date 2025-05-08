@@ -1,3 +1,4 @@
+import type { MarketingPreferenceData } from '#src/libs/communication/types';
 export type ModalsAndDrawersProps = {
   cancelLabel?: string;
   confirmLabel?: string;
@@ -31,4 +32,17 @@ export type TermsModalsAndDrawersProps = ModalsAndDrawersProps & {
 
 export type TermsPortalProps = PortalProps & {
   terms: string;
+};
+
+export type FranchiseMarketingPreferencesModalsAndDrawersProps =
+  ModalsAndDrawersProps & {
+    preferences: MarketingPreferenceData[];
+    onSubmit: (values: MarketingPreferenceData[]) => void;
+  };
+
+export type FranchiseMarketingPreferencesProps = PortalProps & {
+  preferences: MarketingPreferenceData[];
+  updateMyFranchiseMarketingPreferences: (
+    values: MarketingPreferenceData[],
+  ) => void;
 };

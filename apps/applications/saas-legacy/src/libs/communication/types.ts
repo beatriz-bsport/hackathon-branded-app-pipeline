@@ -283,3 +283,26 @@ export type CommunicationSentGroupConfigQueryParams = {
   page: number;
   page_size?: number;
 };
+
+/**
+ * Marketing preference data structure for a company
+ */
+export interface MarketingPreferenceData {
+  company_id: number;
+  company_name: string;
+  opt_in_out_data: {
+    accept_marketing_email: boolean;
+    accept_marketing_sms: boolean;
+  };
+}
+
+/**
+ * Marketing preference update payload structure
+ */
+export interface MarketingPreferenceUpdatePayload {
+  company_id: number;
+  opt_in_out_data: {
+    accept_marketing_email: boolean;
+    accept_marketing_sms: boolean;
+  };
+}

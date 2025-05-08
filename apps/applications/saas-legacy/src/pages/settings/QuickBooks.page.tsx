@@ -109,7 +109,7 @@ export class QuickBooks extends React.Component<Props, State> {
     const res = await showActionDialog(
       this.props.t('quickbooks.confirmDialog.title'),
       this.props.t('quickbooks.confirmDialog.text'),
-      DialogActionEnum.DELETE,
+      DialogActionEnum.CONFIRM,
     );
 
     if (res) {

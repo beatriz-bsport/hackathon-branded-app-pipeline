@@ -1,1 +1,1 @@
-export { TeacherTable, type Teacher } from "./TeacherTable";
+export { TeacherTable } from "./TeacherTable";

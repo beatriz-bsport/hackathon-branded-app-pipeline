@@ -1,20 +1,38 @@
-import React from "react";
+import React, { useEffect } from "react";
 
-import { type Teacher, TeacherTable } from "#src/components/TeacherTable";
-import TEMP_DATA from "#src/pages/temp_data.json";
+import { TeacherTable } from "#src/components/TeacherTable";
+import { useFetchTeachers } from "#src/hooks/useFetchTeachers";
 
-export const ArchivedTeacherListContent: React.FC = () => {
+export const ArchivedTeacherListContent: React.FC<{ searchInput: string }> = ({
+  searchInput,
+}) => {
+  const {
+    paginationParams,
+    teachers,
+    isLoading,
+    isEmpty,
+    isEmptySearch,
+    fuzzySearchTeachers,
+    fetchTeacherPage,
+  } = useFetchTeachers({ searchInput, archived: true });
+
+  // ---- Load data -----
+
+  useEffect(() => {
+    fuzzySearchTeachers();
+  }, [fuzzySearchTeachers]);
+
+  useEffect(() => {
+    fetchTeacherPage();
+  }, [fetchTeacherPage]);
   return (
     <TeacherTable
       mode="archived"
-      /** @todo Will set true parameters after */
-      paginationProps={{
-        currentPage: 1,
-        rowsPerPage: 10,
-        totalItems: 100,
-        showRowsPerPageSelector: true,
-      }}
-      teachers={TEMP_DATA as Teacher[]}
+      isEmpty={isEmpty}
+      isEmptySearch={isEmptySearch}
+      isLoading={isLoading}
+      paginationProps={paginationParams}
+      teachers={teachers}
       handleRestore={({ teacherId, teacherName }) =>
         console.log(`Restore ${teacherName} - n°${teacherId} `)
       }

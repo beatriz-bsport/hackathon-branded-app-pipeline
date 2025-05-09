@@ -30,7 +30,7 @@ export const ArchivedTeacherListPage: React.FC = () => {
         }}
       />
       <ListLayout.Content>
-        <ArchivedTeacherListContent />
+        <ArchivedTeacherListContent searchInput={searchInput} />
       </ListLayout.Content>
     </ListLayout>
   );

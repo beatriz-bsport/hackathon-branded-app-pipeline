@@ -7,6 +7,7 @@ import {
   type PaginationProps,
   Table,
 } from "@bsport/kaizen-primitive-core";
+import type { Teacher } from "@bsport/store-core-data-teacher";
 
 import { useTranslation } from "#src/utils/i18n";
 
@@ -15,17 +16,6 @@ import {
   type TableRowData,
   useTeacherTableColumns,
 } from "./columns";
-
-/** @todo Import type from store package - This type will be remove after */
-export type Teacher = {
-  id: number;
-  name: string;
-  email: string;
-  firstname: string;
-  lastname: string;
-  photo: string | null;
-  phone: string;
-};
 
 type TeacherTableProps = {
   isEmpty?: boolean;

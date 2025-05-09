@@ -52,7 +52,7 @@ export const TeacherListPage: React.FC = () => {
         }}
       />
       <ListLayout.Content>
-        <TeacherListContent />
+        <TeacherListContent searchInput={searchInput} />
       </ListLayout.Content>
     </ListLayout>
   );

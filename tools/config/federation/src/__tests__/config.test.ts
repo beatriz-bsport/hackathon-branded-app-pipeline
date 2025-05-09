@@ -309,8 +309,8 @@ describe("getConfig", () => {
     const config = getConfig(createConfig());
 
     expect(config.build).toEqual({
-      cssCodeSplit: false,
       emptyOutDir: true,
+      cssCodeSplit: true,
     });
   });
 

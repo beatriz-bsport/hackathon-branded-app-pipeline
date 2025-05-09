@@ -286,8 +286,14 @@ export const getConfig = (config: {
     preview,
     plugins,
     build: {
-      cssCodeSplit: false,
       emptyOutDir: true,
+      /**
+       * Why?
+       * We need this to make sure the CSS is split from the JS bundle
+       * so remote apps can load the CSS from the host application
+       * providedd the CSS is included in the exposed components
+       */
+      cssCodeSplit: true,
     },
     resolve: {
       alias: {

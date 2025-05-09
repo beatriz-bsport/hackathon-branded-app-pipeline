@@ -89,6 +89,15 @@ const meta: Meta<typeof TextField> = {
         },
       },
     },
+    fullWidth: {
+      table: {
+        type: {
+          summary: "boolean",
+          detail:
+            "will make the component take all the parent available width or not",
+        },
+      },
+    },
   },
 };
 
@@ -128,6 +137,7 @@ export const TextFieldBasic: Story = {
     disabled: false,
     helperText: "I am helping you here!",
     statusText: "Status is either good or bad.",
+    fullWidth: false,
   },
 };
 
@@ -166,6 +176,7 @@ export const TextFieldColorPicker: Story = {
     disabled: false,
     helperText: "I am helping you here!",
     statusText: "Status is either good or bad.",
+    fullWidth: false,
   },
 };
 
@@ -203,6 +214,7 @@ export const TextFieldWithIcons: Story = {
     statusText: "Status is either good or bad.",
     iconLeft: "message-question-square",
     iconRight: "loading",
+    fullWidth: false,
   },
 };
 
@@ -241,7 +253,49 @@ export const TextFieldWithPrefixSuffix: Story = {
     disabled: false,
     helperText: "I am helping you here!",
     statusText: "Status is either good or bad.",
+    fullWidth: false,
     prefix: { type: "color", value: "#32a69e" },
     suffix: { type: "icon", value: "arrow-right" },
+  },
+};
+
+/**
+ * The parent is bigger than the textfield, so if you put the fullWidth params to true it will take all the availanle width outside of the max width set to a textfield.
+ */
+export const TextFieldWithBiggerParent: Story = {
+  name: "Text Field with bigger parent",
+  render: (args) => {
+    const [value, setValue] = useState(args.value);
+    useEffect(() => {
+      setValue(args.value);
+    }, [args.value]);
+
+    return (
+      <TextField
+        {...args}
+        value={value}
+        onChange={(e: ChangeEvent<HTMLInputElement>) =>
+          setValue(e.target.value)
+        }
+        onClear={() => setValue("")}
+      />
+    );
+  },
+  args: {
+    id: "textfield",
+    type: "text",
+    status: "default",
+    value: "",
+    onChange: () => {},
+    onClear: () => {},
+    label: "Label",
+    placeholder: "Placeholder",
+    required: true,
+    disabled: false,
+    helperText: "I am helping you here!",
+    statusText: "Status is either good or bad.",
+    prefix: { type: "color", value: "#32a69e" },
+    suffix: { type: "icon", value: "arrow-right" },
+    fullWidth: true,
   },
 };

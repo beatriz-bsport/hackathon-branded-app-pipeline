@@ -185,11 +185,14 @@ const Modal: React.FC<ModalProps> = ({
             <Title htmlVariant="h4" weight="stronger" id="modal-title">
               {title}
             </Title>
-            {description && (
-              <Body htmlVariant="p" size="md" weight="weak">
-                {description}
-              </Body>
-            )}
+            {description &&
+              (typeof description === "string" ? (
+                <Body htmlVariant="p" size="md" weight="weak">
+                  {description}
+                </Body>
+              ) : (
+                <>{description}</>
+              ))}
           </div>
           <Button
             size="sm"

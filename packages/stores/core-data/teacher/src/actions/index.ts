@@ -134,10 +134,10 @@ export const archiveTeacherAction: Action<{ id: number }, Teacher> = async (
  * Restore an archived Teacher (AssociatedCoach)
  * @param associatedCoachId associated_coach_id of the Teacher to restore
  */
-export const restoreTeacherAction: Action<
-  { associatedCoachId: number },
-  Teacher
-> = async (fetch, params) => {
+export const restoreTeacherAction: Action<{ id: number }, Teacher> = async (
+  fetch,
+  params,
+) => {
   const [uri, init] = restoreTeacherAPI(params);
 
   return Result.try(
@@ -149,7 +149,7 @@ export const restoreTeacherAction: Action<
       return data;
     },
     (error) =>
-      new Error(`Failed to restore teacher n°${params.associatedCoachId}`, {
+      new Error(`Failed to restore teacher n°${params.id}`, {
         cause: error,
       }),
   );

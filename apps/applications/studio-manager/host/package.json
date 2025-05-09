@@ -48,6 +48,10 @@
         "devPort": 4100,
         "watchPath": "../core-data/member/member-list/src/**/*"
       },
+      "sm-teacher": {
+        "devPort": 4110,
+        "watchPath": "../core-data/teacher/src/**/*"
+      },
       "sm-giftcard": {
         "devPort": 4150,
         "watchPath": "../buyables/giftcard/src/**/*"

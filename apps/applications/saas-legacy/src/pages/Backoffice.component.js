@@ -1169,11 +1169,7 @@ export default compose(
               err.response.data &&
               !err.response.data.validated
             ) {
-              pushRouter(
-                `/login/company_onboarding/email_validation/${encodeURIComponent(
-                  username,
-                )}`,
-              );
+              pushRouter('/login/company_onboarding/welcome');
             }
           },
         });

@@ -44,12 +44,8 @@ export default compose(
       createCompany: createCompanyAction,
       checkEmailExists,
       requestLogin: requestLoginAction,
-      goToEmailValidation: (email: string) =>
-        push(
-          `/login/company_onboarding/email_validation/${encodeURIComponent(
-            email,
-          )}${window.location.search}`,
-        ),
+      goToOnboardingConfirmation: () =>
+        push('/login/company_onboarding/confirmation/'),
     },
   ),
   withProps({
@@ -58,14 +54,19 @@ export default compose(
   }),
   withHandlers({
     createCompany:
-      ({ createCompany, access_code, requestLogin, goToEmailValidation }) =>
+      ({
+        createCompany,
+        access_code,
+        requestLogin,
+        goToOnboardingConfirmation,
+      }) =>
       (data: any, options: OptionCallback) => {
         createCompany(
           { ...data, access_code },
           {
             onSuccess: (...args: any) => {
               requestLogin(data.email, data.password);
-              goToEmailValidation(data.email);
+              goToOnboardingConfirmation();
               if (options && options.onSuccess) options.onSuccess(...args);
             },
             onError: options && options.onError,

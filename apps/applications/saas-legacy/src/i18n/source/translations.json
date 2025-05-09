@@ -4447,17 +4447,19 @@
         "next": "Continue",
         "content": "BSPORT is a community of enthusiasts that facilitate, automate, and streamline your studio's day-to-day management.",
         "title": "Welcome!"
+      },
+      "confirmation": {
+        "content": {
+          "core": "The new backoffice platform has been successfully created. However, before sending the client's access credentials, please ensure the following validation steps from the internal documentation are completed:",
+          "billing": "Platform Billing: Create the billing setup for the new backoffice.",
+          "upsell": "Upsells: Add any applicable upsells to the platform.",
+          "emailValidation": "Email Validation: Perform the administrative action to validate the client's email address.",
+          "help": "Refer to the internal documentation for detailed instructions on each step."
+        },
+        "disconnect": "Disconnect"
       }
     },
-    "emailValidation": {
-      "disconnect": "Change account",
-      "goToLogin": "Back",
-      "linkExpired": "Your validation link has expired",
-      "hasSentAgain": "Email sent",
-      "sendAgain": "Resend a confirmation email",
-      "success": "Your email has been validated! You're being redirected to your Back Office.",
-      "explain": "We sent you a validation email, you're almost there!"
-    },
+    "emailValidation": { "goToLogin": "Back", "linkExpired": "Your validation link has expired" },
     "language": {
       "es": "Spanish",
       "nl": "Dutch",

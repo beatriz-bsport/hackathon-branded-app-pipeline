@@ -8,6 +8,36 @@
             "actions": {
                 "addTeacher": "Add teacher"
             }
+        },
+        "table": {
+            "headers": {
+                "name": "Name",
+                "email": "Email",
+                "phone": "Phone"
+            },
+            "loading": {
+                "activeList": "Loading teachers ...",
+                "archivedList": "Loading archived teachers ..."
+            },
+            "empty": {
+                "activeList": {
+                    "title": "No teachers yet",
+                    "subtitle": "Start adding teachers to your studio"
+                },
+                "archivedList": {
+                    "title": "No archived teachers yet",
+                    "subtitle": "Any teachers moved here can be restored"
+                }
+            },
+            "tooltips": {
+                "archive": "Archive teacher",
+                "restore": "Unarchive teacher",
+                "clickToCopy": "Click to copy"
+            },
+            "actions": {
+                "copyEmail": "Email has been copied to your clipboard",
+                "copyPhone": "Mobile number has been copied to your clipboard"
+            }
         }
     }
 }

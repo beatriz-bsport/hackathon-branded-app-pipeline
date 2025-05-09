@@ -3,8 +3,10 @@ import { useNavigate } from "react-router";
 import { Button, ListLayout, Tooltip } from "@bsport/kaizen-primitive-core";
 
 import { useTeacherFilters } from "#src/hooks/useTeacherFilters";
-import { ROUTES } from "#src/routes";
+import { ROUTES } from "#src/pages/routes";
 import { useTranslation } from "#src/utils/i18n";
+
+import { TeacherListContent } from "./TeacherListContent";
 
 export const TeacherListPage: React.FC = () => {
   const { t } = useTranslation("common");
@@ -50,9 +52,7 @@ export const TeacherListPage: React.FC = () => {
         }}
       />
       <ListLayout.Content>
-        <p>
-          Active list - Searching <b>{searchInput}</b>
-        </p>
+        <TeacherListContent />
       </ListLayout.Content>
     </ListLayout>
   );

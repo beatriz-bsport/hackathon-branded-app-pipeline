@@ -59,6 +59,7 @@ const icons = {
   ),
   clock: React.lazy(async () => await import("./assets/clock.svg?react")),
   "copy-03": React.lazy(async () => await import("./assets/copy-03.svg?react")),
+  "copy-07": React.lazy(async () => await import("./assets/copy-07.svg?react")),
   "dots-horizontal": React.lazy(
     async () => await import("./assets/dots-horizontal.svg?react"),
   ),

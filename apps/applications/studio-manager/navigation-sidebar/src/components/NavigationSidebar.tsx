@@ -3,6 +3,7 @@ import { NavLink } from "react-router";
 
 import { Button, Card, NavigationMenu } from "@bsport/kaizen-primitive-core";
 
+import "#src/index.css";
 import { AppI18nextProvider, useTranslation } from "#src/utils/i18n";
 
 import FeedbackDialog, { useFeedbackDialog } from "./FeedbackDialog";

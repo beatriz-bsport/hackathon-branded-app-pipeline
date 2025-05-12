@@ -16604,6 +16604,9 @@
         },
         "privateService": {
             "notCompatibleWithPartnership": "Le rendez-vous n'a pas été enregistré. Veuillez réessayer."
+        },
+        "oneClickBooking": {
+            "genericError": "Nous n'avons pas pu finaliser votre réservation. Veuillez vérifier vos informations et réessayer."
         }
     },
     "spotScheduling": {

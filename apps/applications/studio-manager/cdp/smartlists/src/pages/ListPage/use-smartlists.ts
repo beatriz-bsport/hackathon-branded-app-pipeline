@@ -35,7 +35,7 @@ export function useSmartlists(params: SmartlistsParams = {}) {
 
   const [{ isLoading }, fetchData] = useAsync<typeof fetchSmartlists>({
     asyncFn: fetchSmartlists,
-    dependencies: [params.page, params.page_size, debouncedSearch],
+    dependencies: [params.page, params.page_size, debouncedSearch.trim()],
   });
 
   useEffect(() => {

@@ -62,3 +62,13 @@ export const restoreTeacherAPI = ({ id }: { id: number }): ApiConfig => {
     },
   ];
 };
+
+export const linkByEmailAPI = ({ email }: { email: string }): ApiConfig => {
+  return [
+    `${API_URL_COACH}/link_by_email/`,
+    {
+      method: "POST",
+      body: JSON.stringify({ email }),
+    },
+  ];
+};

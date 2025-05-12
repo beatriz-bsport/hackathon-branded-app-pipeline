@@ -5,9 +5,10 @@ import { useFetchTeachers } from "#src/hooks/useFetchTeachers";
 
 import { TeacherArchiveModal } from "./TeacherArchiveModal";
 
-export const TeacherListContent: React.FC<{ searchInput: string }> = ({
-  searchInput,
-}) => {
+export const TeacherListContent: React.FC<{
+  searchInput: string;
+  onAddTeacherClick: () => void;
+}> = ({ searchInput, onAddTeacherClick }) => {
   const {
     paginationParams,
     teachers,
@@ -49,6 +50,7 @@ export const TeacherListContent: React.FC<{ searchInput: string }> = ({
         paginationProps={paginationParams}
         teachers={teachers}
         handleArchive={setTeacherToArchive}
+        onAddTeacherClick={onAddTeacherClick}
       />
       {teacherToArchive && (
         <TeacherArchiveModal

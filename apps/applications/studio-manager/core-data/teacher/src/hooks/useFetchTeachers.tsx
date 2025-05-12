@@ -61,7 +61,7 @@ export const useFetchTeachers = ({
       page_size: currentPageSize,
       page: DEFAULT_PAGE,
     });
-  }, [currentPageSize, searchInput]);
+  }, [currentPageSize, searchInput, archived]);
 
   const [{ isLoading: isLoadingFuzzy }, fuzzySearchTeachers] = useAsync<
     typeof _fuzzySearchTeachers

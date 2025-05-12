@@ -3,15 +3,24 @@ import { useNavigate } from "react-router";
 import { Button, ListLayout, Tooltip } from "@bsport/kaizen-primitive-core";
 
 import { useTeacherFilters } from "#src/hooks/useTeacherFilters";
-import { ROUTES } from "#src/pages/routes";
+import { ROUTES } from "#src/urls";
 import { useTranslation } from "#src/utils/i18n";
 
+import { AddTeacherModal } from "./AddTeacherModal";
+import { useAddTeacherModal } from "./AddTeacherModal/useAddTeacherModal";
 import { TeacherListContent } from "./TeacherListContent";
 
 export const TeacherListPage: React.FC = () => {
   const { t } = useTranslation("common");
 
   const navigate = useNavigate();
+
+  const {
+    onAddTeacherClick,
+    onConfirmClick,
+    onModalClose,
+    openAddTeacherModal,
+  } = useAddTeacherModal();
 
   const { searchInput, setSearchInput, clearSearchInput } = useTeacherFilters();
 
@@ -26,7 +35,7 @@ export const TeacherListPage: React.FC = () => {
             color="main"
             size="md"
             label={t("activeList.actions.addTeacher")}
-            onClick={() => console.log("Navigate to create teacher page")}
+            onClick={onAddTeacherClick}
           />
         }
         endGroupActions={[
@@ -52,7 +61,15 @@ export const TeacherListPage: React.FC = () => {
         }}
       />
       <ListLayout.Content>
-        <TeacherListContent searchInput={searchInput} />
+        <TeacherListContent
+          searchInput={searchInput}
+          onAddTeacherClick={clearSearchInput}
+        />
+        <AddTeacherModal
+          onClose={onModalClose}
+          onConfirmClick={onConfirmClick}
+          open={openAddTeacherModal}
+        />
       </ListLayout.Content>
     </ListLayout>
   );

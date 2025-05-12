@@ -8,6 +8,25 @@
             "actions": {
                 "addTeacher": "Add teacher"
             },
+            "addTeacherModal": {
+                "title": "Add teacher",
+                "input": {
+                    "label": "Teacher email",
+                    "placeholder": "Add teacher's email...",
+                    "helper": "If an email is already in our system, the teacher's account will be linked automatically.",
+                    "missingEmailError": "This is required"
+                },
+                "actions": {
+                    "cancel": "Cancel",
+                    "create": "Create",
+                    "open": "Open"
+                },
+                "linkedTeacher": "Teacher successfully linked",
+                "errors": {
+                    "staffExists": "The email indicated is already linked to a staff account.",
+                    "staffFranchiseExists": "The email indicated is already linked to a staff franchise account."
+                }
+            },
             "archiveModal": {
                 "buttons": {
                     "archive": "Archive",

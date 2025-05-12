@@ -137,14 +137,16 @@ export const NewBookingFlowRouter: React.FC<Props> = ({
           {
             component: BoutiqueBookerModule,
             path: '/booker-module-s/:companyId/:offerId',
-            redirectTo: theme.one_click_checkout_enabled
-              ? ({ params }) =>
-                  getOneClickBookingUrl(
-                    Number(params.companyId),
-                    Number(params.offerId),
-                    window.location.search,
-                  )
-              : undefined,
+            redirectTo:
+              theme.one_click_checkout_enabled &&
+              theme.requires_email_confirmation_when_signing_up
+                ? ({ params }) =>
+                    getOneClickBookingUrl(
+                      Number(params.companyId),
+                      Number(params.offerId),
+                      window.location.search,
+                    )
+                : undefined,
           },
           {
             component: BasketPage,

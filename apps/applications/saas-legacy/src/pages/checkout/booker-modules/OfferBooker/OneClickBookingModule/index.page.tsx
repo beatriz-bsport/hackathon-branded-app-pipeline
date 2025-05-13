@@ -606,6 +606,12 @@ const OneClickBookingModule: React.FC<Props> = ({
     );
   }
 
+  if (!!memberId && isNaN(parseInt(memberId))) {
+    throw new Error(
+      'Invalid requirements: Member ID is present but not a valid number',
+    );
+  }
+
   return (
     <div className="bs-oneclick-booking__root">
       <div className="bs-oneclick-booking__container">
@@ -712,7 +718,7 @@ const OneClickBookingModule: React.FC<Props> = ({
                   {t('booking:oneClickBooking.goToLogin')}
                 </ButtonV2>
               </div>
-              {isSelectedPaymentPackFree && (
+              {isSelectedPaymentPackFree ? (
                 <div className="bs-oneclick-booking__book-button-container">
                   <ButtonV2
                     className="bs-oneclick-booking__book-button"
@@ -731,25 +737,21 @@ const OneClickBookingModule: React.FC<Props> = ({
                     )}
                   </ButtonV2>
                 </div>
+              ) : (
+                <PaymentButtons
+                  enforceDisabled={isBookButtonDisable}
+                  paymentBasketRef={paymentRef}
+                  paymentContext={{
+                    basketId: basket?.id,
+                    companyId,
+                    memberId: parseInt(memberId),
+                  }}
+                  submitButtons={{
+                    PAYPAL_BUTTON: SUBMIT_BUTTONS.PAYPAL_BUTTON,
+                    PAY_NOW_BUTTON: SUBMIT_BUTTONS.PAY_NOW_BUTTON,
+                  }}
+                />
               )}
-              {!isSelectedPaymentPackFree &&
-                !!basket?.id &&
-                !!memberId &&
-                !isNaN(parseInt(memberId)) && (
-                  <PaymentButtons
-                    enforceDisabled={isBookButtonDisable}
-                    paymentBasketRef={paymentRef}
-                    paymentContext={{
-                      basketId: basket?.id,
-                      companyId,
-                      memberId: parseInt(memberId),
-                    }}
-                    submitButtons={{
-                      PAYPAL_BUTTON: SUBMIT_BUTTONS.PAYPAL_BUTTON,
-                      PAY_NOW_BUTTON: SUBMIT_BUTTONS.PAY_NOW_BUTTON,
-                    }}
-                  />
-                )}
             </div>
           </div>
         )}

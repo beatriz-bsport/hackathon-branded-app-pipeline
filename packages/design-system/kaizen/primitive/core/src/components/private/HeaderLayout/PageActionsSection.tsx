@@ -16,7 +16,6 @@ import CustomActionsSection, {
 
 export type PageActionsSectionProps = {
   breadcrumbsItems?: BreadcrumbsProps["breadcrumbsItems"];
-  BreadcrumbsItems?: BreadcrumbsProps["BreadcrumbsItems"];
   onEditTitleClick?: () => void;
   pageStatusBadge?: BadgeProps;
   pageStatusChip?: ChipProps;
@@ -28,7 +27,6 @@ const PageActionsSection: React.FC<PageActionsSectionProps> = ({
   breadcrumbsItems,
   callToActionButton,
   endGroupActions,
-  BreadcrumbsItems,
   onEditTitleClick,
   pageStatusChip,
   pageStatusBadge,
@@ -46,11 +44,8 @@ const PageActionsSection: React.FC<PageActionsSectionProps> = ({
       })}
     >
       <div className="py-xs gap-2xs flex flex-col ">
-        {(breadcrumbsItems || BreadcrumbsItems) && (
-          <Breadcrumbs
-            breadcrumbsItems={breadcrumbsItems}
-            BreadcrumbsItems={BreadcrumbsItems}
-          />
+        {breadcrumbsItems && (
+          <Breadcrumbs breadcrumbsItems={breadcrumbsItems} />
         )}
         <div className="flex flex-row justify-between items-center">
           <div className="flex flex-row gap-xs items-center justify-start">

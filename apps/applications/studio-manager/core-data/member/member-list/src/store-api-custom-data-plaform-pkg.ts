@@ -1,5 +1,5 @@
 // TODO : export in store | api pkg
-import { fetch } from "#src/utils/fetch";
+import fetch from "#src/utils/fetch";
 
 // ----- Generic -----
 export const performFetchAction = async <T>({

@@ -1,5 +1,0 @@
-{
-    "namespaceAlpha": {
-        "helloName": "Hello {{ name }} !"
-    }
-}

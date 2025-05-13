@@ -28,7 +28,7 @@ import {
 import { useAsync } from "@bsport/use-async";
 import { usePaginationQueryParams } from "@bsport/use-pagination-query-params";
 
-import { fetch } from "#src/utils/fetch";
+import fetch from "#src/utils/fetch";
 import { useTranslation } from "#src/utils/i18n";
 
 const DEFAULT_PAGE = 1;
@@ -335,5 +335,3 @@ export const InvoiceListPage = () => {
     </ListLayout>
   );
 };
-
-export default InvoiceListPage;

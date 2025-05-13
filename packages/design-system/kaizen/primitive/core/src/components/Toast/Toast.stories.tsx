@@ -86,7 +86,8 @@ export default meta;
 
 type Story = StoryObj<typeof Toast>;
 
-export const Toaster: Story = {
+export const Primary: Story = {
+  name: "Toast",
   render: (args) => {
     return (
       <div>
@@ -106,32 +107,6 @@ export const Toaster: Story = {
     description: "This is a beautiful toast.",
     icon: "message-alert-square",
     buttonLabel: "Undo",
-    onButtonClick: () => console.log("Button clicked!"),
-    onDismiss: () => null,
-    duration: 5000,
-  },
-};
-
-export const ToastFullConfiguration: Story = {
-  args: {
-    status: "default",
-    title: "This is a nice title here.",
-    description: "This is a beautiful toast.",
-    icon: "message-alert-square",
-    buttonIcon: "x-close",
-    buttonLabel: "Close",
-    onButtonClick: () => console.log("Button clicked!"),
-    onDismiss: () => null,
-    duration: 5000,
-  },
-};
-
-export const ToastActionUndoneConfiguration: Story = {
-  args: {
-    status: "default",
-    title: "Action undone",
-    icon: "reverse-left",
-    buttonIcon: "x-close",
     onButtonClick: () => console.log("Button clicked!"),
     onDismiss: () => null,
     duration: 5000,

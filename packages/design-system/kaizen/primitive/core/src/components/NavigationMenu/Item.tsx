@@ -3,6 +3,7 @@ import React, {
   MouseEvent,
   useCallback,
   useEffect,
+  useMemo,
   useRef,
   useState,
 } from "react";
@@ -93,7 +94,6 @@ const Item: React.FC<ItemProps> = (props) => {
   } = context || {};
   const subItemsRef = useRef<HTMLDivElement | null>(null);
   const isOpen = openMenuId === id;
-
   const isActive = React.useMemo(() => {
     if (id === selectedItemId) return true;
 
@@ -109,7 +109,7 @@ const Item: React.FC<ItemProps> = (props) => {
     }
 
     return false;
-  }, [id, activeSubItemId, selectedItemId, isOpen, subItems, children]);
+  }, [id, selectedItemId, isOpen, subItems, children]);
 
   const hasSubitems = !!subItems?.length || !!children;
 
@@ -128,26 +128,7 @@ const Item: React.FC<ItemProps> = (props) => {
     if (id !== selectedItemId && active) {
       setSelectedItemId(id);
     }
-  }, [active, id, selectedItemId, setSelectedItemId]);
-
-  const handleOnClick = useCallback(
-    (e: MouseEvent) => {
-      setOpenMenuId((prevState) => (prevState === id ? "" : id));
-      if (!subItems?.length && !children) setSelectedItemId(id);
-      if (onClick) onClick(e);
-      else if (onItemClick) onItemClick(props)(e);
-    },
-    [
-      setOpenMenuId,
-      id,
-      onItemClick,
-      props,
-      children,
-      onClick,
-      setSelectedItemId,
-      subItems,
-    ],
-  );
+  }, [active]);
 
   return (
     <ItemProvider
@@ -157,51 +138,63 @@ const Item: React.FC<ItemProps> = (props) => {
       <Collapse id={id} className="mb-2xs last:mb-[0px]">
         <Collapse.Controller>
           {({ collapseProps, setIsCollapseOpen, isCollapseOpen }) => {
-            const Content = () => (
-              <>
-                <div
-                  className={cx(
-                    "flex transition-all duration-normal items-center gap-xs overflow-hidden",
-                    {
-                      "text-onsurface-main-weak": isActive,
-                      "text-onsurface-default": !isActive,
-                      "font-stronger":
-                        isActive &&
-                        (!hasSubitems || (hasSubitems && !isCollapseOpen)),
-                    },
-                  )}
-                >
-                  {!!icon && <Icon icon={icon} size="sm" />}
-                  {!!label && (
-                    <span
-                      className={cx("font-size-body-md truncate w-full", {
-                        "pl-xs": !icon,
-                      })}
-                    >
-                      {label}
-                    </span>
-                  )}
-                </div>
-                <div className="flex items-center gap-xs">
-                  {!!endSlot && <div className="flex">{endSlot}</div>}
-                  {hasSubitems && (
-                    <Icon
-                      className={cx(
-                        "transform transition-transform duration-long text-onsurface-default",
-                        isCollapseOpen ? "rotate-[-90deg]" : "rotate-90",
-                      )}
-                      icon="chevron-right"
-                      size="sm"
-                    />
-                  )}
-                </div>
-              </>
+            const content = useMemo(
+              () => (
+                <>
+                  <div
+                    className={cx(
+                      "flex transition-all duration-normal items-center gap-xs overflow-hidden",
+                      {
+                        "text-onsurface-main-weak": isActive,
+                        "text-onsurface-default": !isActive,
+                        "font-stronger":
+                          isActive &&
+                          (!hasSubitems || (hasSubitems && !isCollapseOpen)),
+                      },
+                    )}
+                  >
+                    {!!icon && <Icon icon={icon} size="sm" />}
+                    {!!label && (
+                      <span
+                        className={cx("font-size-body-md truncate w-full", {
+                          "pl-xs": !icon,
+                        })}
+                      >
+                        {label}
+                      </span>
+                    )}
+                  </div>
+                  <div className="flex items-center gap-xs">
+                    {!!endSlot && <div className="flex">{endSlot}</div>}
+                    {hasSubitems && (
+                      <Icon
+                        className={cx(
+                          "transform transition-transform duration-long text-onsurface-default",
+                          isCollapseOpen ? "rotate-[-90deg]" : "rotate-90",
+                        )}
+                        icon="chevron-right"
+                        size="sm"
+                      />
+                    )}
+                  </div>
+                </>
+              ),
+              [icon, label, endSlot, hasSubitems, isActive, isCollapseOpen],
             );
 
-            // eslint-disable-next-line react-hooks/rules-of-hooks
             useEffect(() => {
               setIsCollapseOpen(openMenuId === id);
-            }, [openMenuId, setIsCollapseOpen]);
+            }, [openMenuId]);
+
+            const handleOnClick = useCallback(
+              (e: MouseEvent) => {
+                setOpenMenuId((prevState) => (prevState === id ? "" : id));
+                if (!subItems?.length && !children) setSelectedItemId(id);
+                if (onClick) onClick(e);
+                else if (onItemClick) onItemClick(props)(e);
+              },
+              [setOpenMenuId, id, onItemClick],
+            );
 
             return href ? (
               <a
@@ -213,7 +206,7 @@ const Item: React.FC<ItemProps> = (props) => {
                 onClick={handleOnClick}
                 {...collapseProps}
               >
-                <Content />
+                {content}
               </a>
             ) : (
               <button
@@ -223,7 +216,7 @@ const Item: React.FC<ItemProps> = (props) => {
                 onClick={handleOnClick}
                 {...collapseProps}
               >
-                <Content />
+                {content}
               </button>
             );
           }}

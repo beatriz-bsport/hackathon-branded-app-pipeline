@@ -237,10 +237,10 @@ const OneClickBookingModule: React.FC<Props> = ({
   }, [companyId, offerId]);
 
   useEffect(() => {
-    if (bookingState.error) {
-      snackbarError('oneClickBooking.genericError');
+    if (offerState.error || bookingState.error) {
+      snackbarError('booking.fetch.error');
     }
-  }, [bookingState.error]);
+  }, [offerState.error, bookingState.error]);
 
   useEffect(() => {
     if (buyableItemErrorCode) {
@@ -613,8 +613,6 @@ const OneClickBookingModule: React.FC<Props> = ({
                   onConfirmPaymentSuccess={onBookWithChargeablePaymentPack}
                   payerContext={{
                     memberId: parseInt(memberId),
-                    termsAndConditionsAccepted:
-                      lightSignupValues.acceptTermsAndConditions,
                   }}
                 />
               )}

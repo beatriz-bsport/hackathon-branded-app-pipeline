@@ -14887,9 +14887,6 @@
         "error": "An error occurred during the configuration",
         "success": "Your unit ID has been successfully linked"
       }
-    },
-    "oneClickBooking": {
-      "genericError": "We couldn't complete your booking. Please review your details and try again."
     }
   },
   "spotScheduling": {

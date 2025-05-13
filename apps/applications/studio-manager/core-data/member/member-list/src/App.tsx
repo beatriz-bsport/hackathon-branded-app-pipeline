@@ -1,8 +1,6 @@
 import { AppI18nextProvider } from "#src/utils/i18n";
 
-import { AppRoutes } from "./Routes";
-
-import "./index.css";
+import AppRoutes from "./Routes";
 
 /**
  * Core of the application, without wrapper.

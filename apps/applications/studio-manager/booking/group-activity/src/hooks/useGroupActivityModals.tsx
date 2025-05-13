@@ -8,7 +8,7 @@ import {
   unarchiveGroupActivityAction,
 } from "@bsport/store-booking-group-activity";
 
-import { fetch } from "#src/utils/fetch";
+import fetch from "#src/utils/fetch";
 import { Trans, useTranslation } from "#src/utils/i18n";
 
 export const useGroupActivityModals = ({

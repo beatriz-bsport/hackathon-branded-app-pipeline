@@ -8,8 +8,6 @@ import svgr from "vite-plugin-svgr";
 import topLevelAwait from "vite-plugin-top-level-await";
 import { z } from "zod";
 
-import { translationsWatcher } from "./translationsWatcherPlugin.js";
-
 export const AppTypesEnum = z.enum(
   [
     "hosts",
@@ -276,7 +274,6 @@ export const getConfig = (config: {
     restart({
       restart: pathsToWatch,
     }),
-    translationsWatcher(config.rootDir),
   ];
 
   return {
@@ -286,14 +283,8 @@ export const getConfig = (config: {
     preview,
     plugins,
     build: {
+      cssCodeSplit: false,
       emptyOutDir: true,
-      /**
-       * Why?
-       * We need this to make sure the CSS is split from the JS bundle
-       * so remote apps can load the CSS from the host application
-       * providedd the CSS is included in the exposed components
-       */
-      cssCodeSplit: true,
     },
     resolve: {
       alias: {

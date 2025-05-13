@@ -13,7 +13,7 @@ import {
   useMemberStore,
 } from "@bsport/store-core-data-member";
 
-import { fetch } from "#src/utils/fetch";
+import fetch from "#src/utils/fetch";
 import { Trans, useTranslation } from "#src/utils/i18n";
 
 type MemberArchiveModalProps = {
@@ -40,9 +40,6 @@ export const MemberArchiveModal: React.FC<MemberArchiveModalProps> = ({
   refreshPageList,
 }) => {
   const { t } = useTranslation("common");
-
-  // ----- State -----
-
   const memberIrregularities: MemberStatuses[] =
     useMemberStore(selectIrregularities);
 
@@ -50,78 +47,35 @@ export const MemberArchiveModal: React.FC<MemberArchiveModalProps> = ({
 
   const handleRestore = useCallback(async () => {
     // Restore the member
-    const response = await restoreMemberAction(fetch, { memberId });
+    await restoreMemberAction(fetch, { memberId });
 
-    const onSuccess = () => {
-      // Refresh the list
-      refreshPageList();
-
-      // Display a toast to inform about the success
-      toast({
-        status: "default",
-        icon: "reverse-left",
-        title: t("toasts.messageUndone.success"),
-        buttonIcon: "x-close",
-      });
-    };
-
-    const onFailure = (error: Error) => {
-      // Display a toast to inform about the failure
-      toast({
-        status: "critical",
-        icon: "reverse-left",
-        title: t("toasts.messageUndone.error"),
-        buttonIcon: "x-close",
-      });
-
-      // Debugging
-      console.error(error);
-    };
-
-    response.fold(onSuccess, onFailure);
+    // Once executed, refresh the list
+    await refreshPageList();
   }, [refreshPageList, memberId]);
 
   const handleArchive = useCallback(async () => {
     // Archive the Member
-    const response = await archiveMemberAction(fetch, { memberId });
+    await archiveMemberAction(fetch, { memberId });
 
-    const onSuccess = () => {
-      // Refresh the list page
-      refreshPageList();
+    // Refresh the list page once the request has finished
+    refreshPageList();
 
-      // Display a toast to "undo" the action
-      toast({
-        status: "default",
-        icon: "archive",
-        title: t("toasts.messageArchived.success"),
-        buttonLabel: t("toasts.actions.undo"),
-        onButtonClick: handleRestore,
-      });
+    // Display a toast to "undo" the action
+    toast({
+      status: "default",
+      icon: "archive",
+      title: t("listPage.archiveModal.toasts.messageArchived", {
+        name: memberName,
+      }),
+      buttonLabel: t("listPage.archiveModal.toasts.actionUndo"),
+      onButtonClick: handleRestore,
+    });
 
-      // Close the modal
-      onClose();
-    };
+    // Close the modal
+    onClose();
+  }, [refreshPageList, handleRestore, memberId, toast]);
 
-    const onFailure = (error: Error) => {
-      // Display a toast to inform about the failure
-      toast({
-        status: "critical",
-        icon: "archive",
-        title: t("toasts.messageArchived.error"),
-        buttonIcon: "x-close",
-      });
-
-      // Debugging
-      console.error(error);
-
-      // Close the modal
-      onClose();
-    };
-
-    response.fold(onSuccess, onFailure);
-  }, [refreshPageList, handleRestore, memberId]);
-
-  // ----- Load data -----
+  // ----- On load -----
 
   useEffect(() => {
     if (memberId) {

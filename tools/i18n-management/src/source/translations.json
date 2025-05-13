@@ -275,19 +275,17 @@
               "scheduledAppointments": "Scheduled appointments"
             }
           },
-          "buttons": { "cancel": "Cancel", "archive": "Archive" }
+          "buttons": { "cancel": "Cancel", "archive": "Archive" },
+          "toasts": {
+            "messageArchived": "{{ name }} has been archived",
+            "actionUndo": "Undo"
+          }
         }
       },
-      "toasts": {
-        "actions": { "undo": "Undo" },
-        "messageUndone": { "success": "Action undone", "error": "Failed to undone the action" },
-        "messageArchived": {
-          "success": "Member has been archived",
-          "error": "Failed to archive member"
-        },
-        "messageRestored": {
-          "success": "Member has been restored",
-          "error": "Failed to restore member"
+      "archivedListPage": {
+        "toasts": {
+          "messageUnarchived": "{{ name }} has been unarchived",
+          "actionUndo": "Undo"
         }
       },
       "filters": { "label": "Filter", "operators": { "is": "is", "isNot": "is not" } }
@@ -418,23 +416,7 @@
       "additionalFeedbackPlaceholder": "Type your feedback here..."
     }
   },
-  "@bsport/sm-order": { "namespaceAlpha": { "helloName": "Hello {{ name }} !" } },
-  "@bsport/sm-smartlists": {
-    "list": {
-      "title": "Smartlists",
-      "addSmartlist": "Add smartlist",
-      "loading": "Loading smartlists...",
-      "emptyState": {
-        "title": "No smartlists yet",
-        "subtitle": "Create smartlists to segment your members, send targeted messages, and track engagement metrics."
-      },
-      "emptySearch": {
-        "title": "No results found",
-        "subtitle": "No smartlists match your search.\nTry clearing it to see more results",
-        "clearFilters": "Clear search"
-      }
-    }
-  },
+  "@bsport/sm-smartlists": { "list": { "helloName": "Hello {{ name }} !" } },
   "@bsport/sm-teacher": {
     "common": {
       "pages": { "active": "Teachers", "archived": "Archived teachers" },

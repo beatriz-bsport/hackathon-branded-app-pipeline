@@ -77,27 +77,29 @@ const AvatarGroup: React.FC<AvatarGroupProps> = ({
   size,
   ...props
 }) => {
+  if (!data?.length) return null;
+
   const numberOfAvatarLeft = data.length - NUMBER_AVATAR_TO_DISPLAY;
 
-  const renderedAvatars = useMemo(() => {
-    if (!data?.length) return null;
-
-    return data.slice(0, NUMBER_AVATAR_TO_DISPLAY).map((avatar, index) => {
-      return (
-        <Avatar
-          key={avatar.id}
-          shape={shape}
-          size={size}
-          initials={getInitials(avatar.name)}
-          alt={avatar.alt}
-          iconName={avatar.iconName}
-          src={avatar.src}
-          style={{ zIndex: index }}
-          className={index === 0 ? avatarClasses() : avatarClasses({ size })}
-        />
-      );
-    });
-  }, [data, size, shape]);
+  const renderedAvatars = useMemo(
+    () =>
+      data.slice(0, NUMBER_AVATAR_TO_DISPLAY).map((avatar, index) => {
+        return (
+          <Avatar
+            key={avatar.id}
+            shape={shape}
+            size={size}
+            initials={getInitials(avatar.name)}
+            alt={avatar.alt}
+            iconName={avatar.iconName}
+            src={avatar.src}
+            style={{ zIndex: index }}
+            className={index === 0 ? avatarClasses() : avatarClasses({ size })}
+          />
+        );
+      }),
+    [data, size, shape],
+  );
 
   const avatarsLeft: Item[] = data
     .slice(NUMBER_AVATAR_TO_DISPLAY, data.length - 1)
@@ -132,10 +134,8 @@ const AvatarGroup: React.FC<AvatarGroupProps> = ({
           </Popover.Content>
         </Popover>
       ) : null,
-    [numberOfAvatarLeft, avatarsLeft, shape, size],
+    [numberOfAvatarLeft, shape, size],
   );
-
-  if (!data?.length) return null;
 
   return (
     <div className={avatarGroup({ className })} {...props}>

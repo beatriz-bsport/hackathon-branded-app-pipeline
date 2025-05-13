@@ -8279,9 +8279,6 @@
         },
         "privateService": {
             "notCompatibleWithPartnership": "Der Termin wurde nicht gespeichert. Bitte versuchen Sie es erneut."
-        },
-        "oneClickBooking": {
-            "genericError": "Wir konnten deine Buchung nicht abschließen. Bitte kontrolliere deine Angaben und versuche es nochmal."
         }
     },
     "invoice": {

@@ -1,18 +1,15 @@
-import { lazy } from "react";
 import { Route, Routes } from "react-router";
 
-import { ROUTES } from "./urls";
+import { ArchivedMemberListPage } from "#src/pages/ArchivedMemberList";
+import { MemberListPage } from "#src/pages/MemberList";
 
-const ArchivedMemberListPage = lazy(
-  () => import("#src/pages/ArchivedMemberList"),
-);
-const MemberListPage = lazy(() => import("#src/pages/MemberList"));
-
-export const AppRoutes = () => {
+const AppRoutes = () => {
   return (
     <Routes>
       <Route element={<MemberListPage />} index />
-      <Route element={<ArchivedMemberListPage />} path={ROUTES.ARCHIVED} />
+      <Route element={<ArchivedMemberListPage />} path="/archived" />
     </Routes>
   );
 };
+
+export default AppRoutes;

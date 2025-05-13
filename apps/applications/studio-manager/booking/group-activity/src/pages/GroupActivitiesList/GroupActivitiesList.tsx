@@ -1,6 +1,5 @@
 import { compact } from "lodash";
 import React, { useEffect, useMemo } from "react";
-import { Link } from "react-router";
 
 import {
   Button,
@@ -14,12 +13,12 @@ import type {
   WithTooltip,
 } from "@bsport/kaizen-primitive-core";
 
+import { ARCHIVED_GROUP_ACTIVITIES_PATH } from "#src/constants";
 import { useGroupActivityModals } from "#src/hooks/useGroupActivityModals";
-import { usePaginatedGroupActivities } from "#src/hooks/usePaginatedGroupActivities";
-import { ROUTES } from "#src/urls";
+import usePaginatedGroupActivities from "#src/hooks/usePaginatedGroupActivities";
 import { useTranslation } from "#src/utils/i18n";
 
-export const GroupActivitiesList: React.FC = () => {
+const GroupActivitiesList: React.FC = () => {
   const { t } = useTranslation("groupActivity");
 
   const {
@@ -121,24 +120,24 @@ export const GroupActivitiesList: React.FC = () => {
   return (
     <ListLayout>
       <ListLayout.Header
-        endGroupActions={[
-          <Link key="link-to-archive" to={ROUTES.ARCHIVED}>
+        callToActionButton={
+          <div className="flex gap-2xs">
+            <a href={ARCHIVED_GROUP_ACTIVITIES_PATH}>
+              <Button
+                iconLeft="archive"
+                intent="default"
+                color="main"
+                size="md"
+              />
+            </a>
             <Button
-              iconLeft="archive"
-              intent="default"
+              iconLeft="plus"
+              intent="call-to-action"
               color="main"
               size="md"
+              label={t("list.header.add")}
             />
-          </Link>,
-        ]}
-        callToActionButton={
-          <Button
-            iconLeft="plus"
-            intent="call-to-action"
-            color="main"
-            size="md"
-            label={t("list.header.add")}
-          />
+          </div>
         }
         pageTitle={t("list.header.groupActivities")}
       />
@@ -165,3 +164,5 @@ export const GroupActivitiesList: React.FC = () => {
     </ListLayout>
   );
 };
+
+export default GroupActivitiesList;

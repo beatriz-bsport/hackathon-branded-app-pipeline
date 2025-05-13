@@ -18,3 +18,10 @@
  * or by the @layer utilities directive in our css files.
  */
 @tailwind utilities;
+
+:root {
+}
+
+#root {
+  @apply bg-surface-page;
+}

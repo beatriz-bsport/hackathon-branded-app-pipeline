@@ -41,7 +41,6 @@ const TableHeader = <RowType extends BaseRow>({
             isHeader
             withVerticalBorders={withVerticalBorders}
             rowHeight="sm"
-            align="center"
           >
             <Checkbox
               value={selectAllValue}

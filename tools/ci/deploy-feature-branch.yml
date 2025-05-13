@@ -52,7 +52,7 @@
         echo "✅ All affected micro frontends have been rebuilt"
         echo "*"
         echo "Deploy affected micro frontends"
-        pnpm --filter=@bsport/sm-host ci:deploy:mfe 'feature-branch' "$SM_AFFECTED_PROJECTS"
+        pnpm --filter=@bsport/sm-host ci:deploy:mfe "$ENVIRONMENT_FLAG" "$SM_AFFECTED_PROJECTS"
         echo "✅ All affected micro frontends have been deployed"
       else
         echo "No Studio Manager projects affected, skipping micro frontend deployment"

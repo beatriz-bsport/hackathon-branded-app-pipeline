@@ -20,11 +20,6 @@ vi.mock("vite-plugin-svgr", () => ({
 vi.mock("vite-plugin-top-level-await", () => ({
   default: vi.fn().mockReturnValue({ name: "vite-plugin-top-level-await" }),
 }));
-vi.mock("../translationsWatcherPlugin", () => ({
-  translationsWatcher: vi
-    .fn()
-    .mockReturnValue({ name: "translations-watcher" }),
-}));
 
 type ConfigInput = Parameters<typeof getConfig>[0];
 
@@ -309,8 +304,8 @@ describe("getConfig", () => {
     const config = getConfig(createConfig());
 
     expect(config.build).toEqual({
+      cssCodeSplit: false,
       emptyOutDir: true,
-      cssCodeSplit: true,
     });
   });
 
@@ -338,12 +333,9 @@ describe("getConfig", () => {
       "vite-plugin-top-level-await"
     );
     const { default: restart } = await import("vite-plugin-restart");
-    const { translationsWatcher } = await import(
-      "../translationsWatcherPlugin"
-    );
 
     // Verify all plugins are present
-    expect(config.plugins).toHaveLength(7);
+    expect(config.plugins).toHaveLength(6);
 
     // Verify each plugin is called once
     expect(nxViteTsPaths).toHaveBeenCalledOnce();
@@ -352,6 +344,5 @@ describe("getConfig", () => {
     expect(federation).toHaveBeenCalledOnce();
     expect(topLevelAwait).toHaveBeenCalledOnce();
     expect(restart).toHaveBeenCalledOnce();
-    expect(translationsWatcher).toHaveBeenCalledOnce();
   });
 });

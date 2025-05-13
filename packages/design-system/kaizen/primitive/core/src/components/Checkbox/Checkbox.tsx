@@ -132,47 +132,43 @@ const Checkbox: React.FC<CheckboxProps> = ({
         />
         <CheckboxSVG value={value} direction={direction} />
       </div>
-      {label && (
-        <>
-          <div className="flex" style={{ gridArea: "label" }}>
-            <label
-              htmlFor={id}
-              className={classNames("flex gap-2xs cursor-pointer w-full", {
-                "cursor-default": disabled,
-                "pl-xs": direction === "start",
-                "pr-xs": direction === "end",
-              })}
-            >
-              <span>{label}</span>
-              {required && (
-                <span className="text-onsurface-status-critical-strong text-body-sm leading-xs">
-                  *
-                </span>
-              )}
-            </label>
-          </div>
+      <div className="flex" style={{ gridArea: "label" }}>
+        <label
+          htmlFor={id}
+          className={classNames("flex gap-2xs cursor-pointer w-full", {
+            "cursor-default": disabled,
+            "pl-xs": direction === "start",
+            "pr-xs": direction === "end",
+          })}
+        >
+          <span>{label}</span>
+          {required && (
+            <span className="text-onsurface-status-critical-strong text-body-sm leading-xs">
+              *
+            </span>
+          )}
+        </label>
+      </div>
 
-          <div style={{ gridArea: "empty" }} />
-          <div
-            className={classNames("flex flex-col", {
-              "pl-xs": direction === "start",
-              "pr-xs": direction === "end",
-            })}
-            style={{ gridArea: "helper" }}
-          >
-            {helperText && (
-              <span className="text-onsurface-weak text-body-sm leading-xs">
-                {helperText}
-              </span>
-            )}
-            {errorText && (
-              <span className="text-onsurface-status-critical-strong text-body-sm leading-xs">
-                {errorText}
-              </span>
-            )}
-          </div>
-        </>
-      )}
+      <div style={{ gridArea: "empty" }} />
+      <div
+        className={classNames("flex flex-col", {
+          "pl-xs": direction === "start",
+          "pr-xs": direction === "end",
+        })}
+        style={{ gridArea: "helper" }}
+      >
+        {helperText && (
+          <span className="text-onsurface-weak text-body-sm leading-xs">
+            {helperText}
+          </span>
+        )}
+        {errorText && (
+          <span className="text-onsurface-status-critical-strong text-body-sm leading-xs">
+            {errorText}
+          </span>
+        )}
+      </div>
     </div>
   );
 };

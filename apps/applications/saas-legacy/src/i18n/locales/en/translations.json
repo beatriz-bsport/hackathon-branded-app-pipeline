@@ -3188,9 +3188,7 @@
             "is_first_visit": "First booking",
             "private_booking_date_created": "Date and time of booking",
             "billing_group_address": "Address",
-            "invoice_date_created": "Date invoice issued",
-            "product_type": "Product Type",
-            "product": "Product"
+            "invoice_date_created": "Date invoice issued"
         },
         "graphFormDrawer": {
             "helperText": {
@@ -12856,18 +12854,6 @@
                 "2": "Stopped",
                 "3": "Stopped",
                 "4": "Finished"
-            },
-            "product_type": {
-                "giftcard": "Gift cards",
-                "coupon": "Promotions",
-                "booking": "Bookings",
-                "refund": "Refunded credits",
-                "fee": "Fees",
-                "private_pass": "Appointment passes",
-                "payment_combo": "Packs",
-                "top_up": "Top-ups",
-                "shop_item": "Webshop items",
-                "payment_pack": "Passes"
             }
         },
         "helperText": {

@@ -1,6 +1,37 @@
-# Booking | Group activity | Studio Manager Application
+# B2B Application Template
+
+This template provides a minimal setup to create a new application for bsport's clients.
+
+It is built using:
+
+- [lodash](https://lodash.com/): JavaScript utility library.
+- [vite]()
 
 ## Quickstart
+
+### Run the Navigation Sidebar application
+
+Our template uses Module Federation to run the Navigation Sidebar application.
+
+In a first terminal, you need to build and preview the Navigation Sidebar application to expose a remote entry.
+
+On the `apps/applications/b2b/navigation-sidebar` :
+
+```
+pnpm run build && pnpm run preview
+```
+
+From your application, you can run the script `federation:navigation` :
+
+```
+pnpm run federation:navigation
+```
+
+From anywhere :
+
+```
+pnpm exec nx build @bsport/sm-navigation-sidebar && pnpm exec nx preview @bsport/sm-navigation-sidebar
+```
 
 ### Run your application
 
@@ -10,45 +41,21 @@ To run in localhost :
 pnpm run dev
 ```
 
-This will run two applications aside :
-
-- The Navigation Sidebar on port 4050, with module federation.
-- The Group activity application, on the port defined in `package.json` in `federation.devPort` : 4200.
-
-Go to <http://localhost:4200>.
-
-### Build your translations
-
 If you want to see the translations, you need to run the `translation:update` script :
 
 ```
 pnpm run translation:update
 ```
 
-This will automatically build translations files in `public/locales` folder. You might need to rebuild your apps to integrate the new translations.
+This will automatically build translations files in `public/locales` folder.
 
-You will automatically have intellisense of your available translations.
+### Build your application
 
-### Build your application for local preview
-
-To build your application and be able to run the build locally (preview) :
-
-```sh
-pnpm run build:preview
-```
-
-To preview the result :
-
-```sh
-pnpm run preview
-```
-
-:warning: The application is not built with react, as it is aimed to be shared in the Module Federation architecture. You need to run the host app in preview mode as well.
-
-### Build your application for deployment
-
-To build your application in production environment :
+To build your application :
 
 ```sh
 pnpm run build
 ```
+
+:warning: You can not preview your build !
+React is defined as an external dependencies in the Vite config, thus it won't be in the final bundle.

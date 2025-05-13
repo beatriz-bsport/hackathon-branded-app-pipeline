@@ -1,20 +1,20 @@
-import { lazy } from "react";
 import { Route, Routes } from "react-router";
 
-import { ROUTES } from "#src/urls";
-
-const GroupActivitiesList = lazy(
-  () => import("#src/pages/GroupActivitiesList"),
-);
-const ArchivedGroupActivitiesList = lazy(
-  () => import("#src/pages/ArchivedGroupActivitiesList"),
-);
+import {
+  ARCHIVED_GROUP_ACTIVITIES_PATH,
+  GROUP_ACTIVITIES_PATH,
+} from "#src/constants";
+import ArchivedGroupActivitiesList from "#src/pages/ArchivedGroupActivitiesList/ArchivedGroupActivitiesList";
+import GroupActivitiesList from "#src/pages/GroupActivitiesList/GroupActivitiesList";
 
 const AppRoutes = () => {
   return (
     <Routes>
-      <Route index element={<GroupActivitiesList />} />
-      <Route path={ROUTES.ARCHIVED} element={<ArchivedGroupActivitiesList />} />
+      <Route
+        path={ARCHIVED_GROUP_ACTIVITIES_PATH}
+        element={<ArchivedGroupActivitiesList />}
+      />
+      <Route path={GROUP_ACTIVITIES_PATH} element={<GroupActivitiesList />} />
     </Routes>
   );
 };

@@ -23,7 +23,6 @@ import LanguageButton from '../../components/button/LanguageButton.component';
 import asyncComponent from '../../AsyncComponent';
 import useSaasRouterTracker from '../../hooks/useSaasRouterTracker';
 import { BsportRequestFromHeaderValue } from '../../constants';
-import { retrieveCompanyCssConfiguration as retrieveCompanyCssConfigurationAction } from '#src/libs/exportable-components/actions';
 import './ConfirmEmailRouterStyles.css';
 
 const ConfirmingEmailPage = asyncComponent(
@@ -45,9 +44,7 @@ export const ConfirmEmailRouter: React.FC<Props> = ({
   simplifyUI,
   refreshValidationEmailStatus,
   companyId,
-  themeCompanyId,
   fetchCompanyTheme,
-  retrieveCompanyCssConfiguration,
 }) => {
   useSaasRouterTracker(BsportRequestFromHeaderValue.SAAS_EMAIL_CONFIRMATION);
 
@@ -64,18 +61,6 @@ export const ConfirmEmailRouter: React.FC<Props> = ({
   React.useEffect(() => {
     refreshValidationEmailStatus();
   }, [refreshValidationEmailStatus]);
-
-  React.useEffect(() => {
-    // try first using the companyId coming from the query param
-    // and fallback to the theme one if it'not present
-    const effectiveCompanyId =
-      companyId != null && !Number.isNaN(companyId)
-        ? companyId
-        : themeCompanyId;
-    if (effectiveCompanyId != null) {
-      retrieveCompanyCssConfiguration(effectiveCompanyId);
-    }
-  }, [retrieveCompanyCssConfiguration, companyId, themeCompanyId]);
 
   React.useEffect(() => {
     if (companyId) {
@@ -119,12 +104,10 @@ const connector = connect(
   (state: RootState, companyId: number) => ({
     theme: themeSelectors.getTheme(state),
     simplifyUI: !!companyId,
-    themeCompanyId: state.theme.theme.company,
   }),
   {
     fetchCompanyTheme: fetchCompanyThemeAction,
     refreshValidationEmailStatus: refreshValidationEmailStatusAction,
-    retrieveCompanyCssConfiguration: retrieveCompanyCssConfigurationAction,
   },
 );
 

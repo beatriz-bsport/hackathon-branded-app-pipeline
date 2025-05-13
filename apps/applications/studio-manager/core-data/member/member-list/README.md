@@ -1,11 +1,30 @@
-# Core data | Member List | Studio Manager Application
-
-## Links
-
-- [Figma](https://www.figma.com/design/E0ysoRirTKqRj89BfQKStF/Members?node-id=31-17127&t=EknhE24NI3v0nS6P-0)
-- [Linear project - List page](https://linear.app/bsport/project/members-list-page-50d16ff1ebec/overview)
+# B2B Member list
 
 ## Quickstart
+
+### Run the Navigation Sidebar application
+
+Our template uses Module Federation to run the Navigation Sidebar application.
+
+In a first terminal, you need to build and preview the Navigation Sidebar application to expose a remote entry.
+
+On the `apps/applications/b2b/navigation-sidebar` :
+
+```
+pnpm run build && pnpm run preview
+```
+
+From your application, you can run the script `federation:navigation` :
+
+```
+pnpm run federation:navigation
+```
+
+From anywhere :
+
+```
+pnpm exec nx build @bsport/sm-navigation-sidebar && pnpm exec nx preview @bsport/sm-navigation-sidebar
+```
 
 ### Run your application
 
@@ -15,39 +34,21 @@ To run in localhost :
 pnpm run dev
 ```
 
-This will run two applications aside :
-
-- The Navigation Sidebar on port 4050, with module federation.
-- The Member list application on port 4100, that import the Navigation Sidebar.
-
-Go to <http://localhost:4100>.
-
-### Build your translations
-
 If you want to see the translations, you need to run the `translation:update` script :
 
 ```
 pnpm run translation:update
 ```
 
-This will automatically build translations files in `public/locales` folder. You might need to rebuild your apps to integrate the new translations.
+This will automatically build translations files in `public/locales` folder.
 
-You will automatically have intellisense of your available translations.
+### Build your application
 
-### Build your application for local preview
-
-To build your application for local preview :
-
-```sh
-pnpm run build:preview
-```
-
-:warning: The application is not built with react, as it is aimed to be shared in the Module Federation architecture. You need to run the host app in preview mode as well.
-
-### Build your application for deployment
-
-To build your application in production environment :
+To build your application :
 
 ```sh
 pnpm run build
 ```
+
+:warning: You can not preview your build !
+React is defined as an external dependencies in the Vite config, thus it won't be in the final bundle.

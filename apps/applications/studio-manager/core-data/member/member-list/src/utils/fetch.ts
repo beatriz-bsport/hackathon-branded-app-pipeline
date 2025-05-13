@@ -1,3 +1,5 @@
 import { getFetch } from "@bsport/fetch";
 
-export const fetch = getFetch();
+const fetch = getFetch();
+
+export default fetch;

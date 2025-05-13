@@ -3019,8 +3019,7 @@
             "billing_group_address": "Adresse",
             "private_booking_date_created": "Date et heure de la réservation",
             "is_first_visit": "Première réservation",
-            "product": "Produit",
-            "product_type": "Type de produit"
+            "product": "Produit"
         },
         "graphDefaultTitles": {
             "paymentTemporal": "Encaissements",
@@ -16604,9 +16603,6 @@
         },
         "privateService": {
             "notCompatibleWithPartnership": "Le rendez-vous n'a pas été enregistré. Veuillez réessayer."
-        },
-        "oneClickBooking": {
-            "genericError": "Nous n'avons pas pu finaliser votre réservation. Veuillez vérifier vos informations et réessayer."
         }
     },
     "spotScheduling": {

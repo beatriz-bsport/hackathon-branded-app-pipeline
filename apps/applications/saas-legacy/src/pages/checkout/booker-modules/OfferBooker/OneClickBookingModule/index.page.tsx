@@ -424,6 +424,10 @@ const OneClickBookingModule: React.FC<Props> = ({
 
     await submitLightSignupForm();
 
+    if ((await checkBookableStatus(offerId))?.shouldDisplayErrorPage) {
+      return;
+    }
+
     if (canPerformLightSignUpCreate) {
       try {
         await lightSignupCreate({
@@ -489,23 +493,8 @@ const OneClickBookingModule: React.FC<Props> = ({
     canPerformLightSignUpCreate,
     createdMember,
     getIsFormInvalid,
-  ]);
-
-  const onBook = useCallback(async () => {
-    if ((await checkBookableStatus(offerId))?.shouldDisplayErrorPage) {
-      return;
-    }
-    if (isSelectedPaymentPackFree) {
-      onBookWithFreePaymentPack();
-      return;
-    }
-    cleanLocalStorageAndRedirect();
-  }, [
-    onBookWithFreePaymentPack,
     checkBookableStatus,
     offerId,
-    cleanLocalStorageAndRedirect,
-    isSelectedPaymentPackFree,
   ]);
 
   const onCheckPaymentStatusFail = useCallback(() => {
@@ -729,7 +718,7 @@ const OneClickBookingModule: React.FC<Props> = ({
                     className="bs-oneclick-booking__book-button"
                     color={ButtonColor.PRIMARY}
                     isDisabled={isBookButtonDisable}
-                    onClick={onBook}
+                    onClick={onBookWithFreePaymentPack}
                     size={ButtonSize.LG}
                     variant={ButtonVariant.CONTAINED}
                   >

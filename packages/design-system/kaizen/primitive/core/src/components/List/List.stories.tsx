@@ -3,8 +3,6 @@ import { useState } from "react";
 
 import List from "#src/components/List";
 
-import { ButtonProps } from "../Button";
-
 /**
  * A list component that can contain multiple `Item` components and one `Header` component.<br>
  * It manages the state of checked items and provides context for each `Item` regarding its checked state.<br>
@@ -17,17 +15,87 @@ const meta: Meta<typeof List> = {
       control: "text",
       description: "Optional ID for the list.",
     },
-    header: { control: "object" },
-    items: { control: "object" },
-    emptyStateProps: {
+    collapsibleProps: {
+      control: "object",
       table: {
         type: {
           detail:
-            "{\n\tisEmpty: boolean;\n\temptyConfig: {" +
-            "\n\t\ttitle?: string;\n\t\tsubtitle?: string;\n\t\tclassName?: string;" +
-            "\n\t\tctaButtonConfig?: ButtonProps;\n\t\tsecondaryButtonConfig?: ButtonProps;\n\t};" +
-            "\n\tisEmptySearch?: boolean;\n\temptySearchConfig?: Like emptyConfig;\n}",
+            "{\n\tinitiallyOpen?: boolean;\n\tid?: string;\n\tclassName?: string\n}",
+          summary: "CollapseProps",
+        },
+      },
+    },
+    header: {
+      control: "object",
+      table: {
+        type: {
+          summary: "ListHeaderProps",
+          detail: `
+    {
+      id: string;
+      title: string;
+      className?: string;
+      description?: string;
+      isSelectable?: boolean;
+      onCheckboxChange?: (checked: boolean) => void;
+      buttons?: ActionsButtons[]; // The same as normal button but the onClick event does not have an event parameter
+      dropdownConfig?: ActionsDropdownConfig;
+    }
+          `.trim(),
+        },
+      },
+    },
+    items: {
+      control: "object",
+      table: {
+        type: {
+          summary: "ListItemProps",
+          detail: `
+    {
+      id: string;
+      title: string;
+      rightTitle?: string;
+      description?: string;
+      className?: string;
+      icon?: string;
+      avatar?: AvatarProps;
+      color?: string;
+      chips?: ChipProps[];
+      chipsDirection?: "start" | "end";
+      buttons?: ActionsButtons[];  // The same as normal button but the onClick event does not have an event parameter
+      dropdownConfig?: ActionsDropdownConfig;
+      link?: string;
+      onCheckboxChange?: (checked: boolean) => void;
+    }
+          `.trim(),
+        },
+      },
+    },
+    emptyStateProps: {
+      control: "object",
+      table: {
+        type: {
           summary: "UseEmptyStateProps",
+          detail: `
+    {
+      isEmpty: boolean;
+      emptyConfig: {
+        title?: string;
+        subtitle?: string;
+        className?: string;
+        ctaButtonConfig?: ButtonProps;
+        secondaryButtonConfig?: ButtonProps;
+      };
+      isEmptySearch?: boolean;
+      emptySearchConfig?: {
+        title?: string;
+        subtitle?: string;
+        className?: string;
+        ctaButtonConfig?: ButtonProps;
+        secondaryButtonConfig?: ButtonProps;
+      };
+    }
+          `.trim(),
         },
       },
     },
@@ -73,6 +141,13 @@ const emptySearchConfig = {
   },
 };
 
+const collapseConfig = {
+  id: "list-collapse",
+  initiallyOpen: true,
+};
+
+const baseDropdownConfig = { visibleActionsDisplayLimit: 0 };
+
 export const Primary: Story = {
   name: "List",
   args: {
@@ -81,6 +156,36 @@ export const Primary: Story = {
       title: "List Title",
       description: "Helpful description",
       id: "list-header-1",
+      dropdownConfig: baseDropdownConfig,
+      buttons: [
+        {
+          id: "list-header-button-2",
+          label: "Button 2",
+          intent: "flat",
+          color: "default",
+          size: "md",
+          iconLeft: "announcement-01",
+          onClick: () => alert("Button 2 clicked"),
+        },
+        {
+          id: "list-header-button-3",
+          label: "Button 3",
+          intent: "flat",
+          color: "default",
+          size: "md",
+          iconLeft: "announcement-01",
+          onClick: () => alert("Button 3 clicked"),
+        },
+        {
+          id: "list-header-button-4",
+          label: "Button 4",
+          intent: "flat",
+          color: "default",
+          size: "md",
+          iconLeft: "announcement-01",
+          onClick: () => alert("Button 4 clicked"),
+        },
+      ],
     },
     items: [
       {
@@ -88,6 +193,36 @@ export const Primary: Story = {
         title: "Playing with fonts is fun",
         rightTitle: "Right title",
         description: "Playing with fonts is fun",
+        dropdownConfig: { visibleActionsDisplayLimit: 2 },
+        buttons: [
+          {
+            id: "list-header-button-2",
+            label: "Button 2",
+            intent: "flat",
+            color: "default",
+            size: "md",
+            iconLeft: "announcement-01",
+            onClick: () => alert("Button 2 clicked"),
+          },
+          {
+            id: "list-header-button-3",
+            label: "Button 3",
+            intent: "flat",
+            color: "default",
+            size: "md",
+            iconLeft: "announcement-01",
+            onClick: () => alert("Button 3 clicked"),
+          },
+          {
+            id: "list-header-button-4",
+            label: "Button 4",
+            intent: "flat",
+            color: "default",
+            size: "md",
+            iconLeft: "announcement-01",
+            onClick: () => alert("Button 4 clicked"),
+          },
+        ],
       },
       {
         id: "list-item-2",
@@ -104,6 +239,7 @@ export const Primary: Story = {
         color: "red",
       },
     ],
+    collapsibleProps: collapseConfig,
     isSelectable: false,
     emptyStateProps: {
       isEmptySearch: false,
@@ -118,24 +254,42 @@ export const ListWithButtonsInHeader: Story = {
   name: "List with buttons in header",
   args: {
     id: "list-1",
+    collapsibleProps: {
+      initiallyOpen: true,
+    },
     header: {
       title: "List with buttons in header title",
       description: "Helpful description",
       id: "list-header-1",
       buttons: [
         {
+          id: "list-header-button-2",
+          label: "Button 2",
           intent: "flat",
           color: "default",
           size: "md",
-          iconLeft: "chevron-down",
+          iconLeft: "announcement-01",
+          onClick: () => alert("Button 2 clicked"),
         },
         {
+          id: "list-header-button-3",
+          label: "Button 3",
           intent: "flat",
           color: "default",
           size: "md",
-          iconLeft: "dots-horizontal",
+          iconLeft: "announcement-01",
+          onClick: () => alert("Button 3 clicked"),
         },
-      ] as [ButtonProps, ButtonProps],
+        {
+          id: "list-header-button-4",
+          label: "Button 4",
+          intent: "flat",
+          color: "default",
+          size: "md",
+          iconLeft: "announcement-01",
+          onClick: () => alert("Button 4 clicked"),
+        },
+      ],
     },
     items: [
       {
@@ -155,6 +309,162 @@ export const ListWithButtonsInHeader: Story = {
         title: "Playing with fonts is fun",
         rightTitle: "Right title",
         description: "Playing with fonts is fun",
+      },
+    ],
+    isSelectable: false,
+    emptyStateProps: {
+      isEmptySearch: false,
+      emptySearchConfig: emptySearchConfig,
+      isEmpty: false,
+      emptyConfig: emptyConfig,
+    },
+  },
+};
+
+export const ListWithNoPrimaryButtons: Story = {
+  name: "List with buttons in header",
+  args: {
+    id: "list-1",
+    collapsibleProps: {
+      initiallyOpen: true,
+    },
+    header: {
+      title: "List with buttons in header title",
+      description: "Helpful description",
+      id: "list-header-1",
+      dropdownConfig: { visibleActionsDisplayLimit: 0 },
+      buttons: [
+        {
+          id: "list-header-button-2",
+          label: "Button 2",
+          intent: "flat",
+          color: "default",
+          size: "md",
+          iconLeft: "announcement-01",
+          onClick: () => alert("Announcement clicked"),
+        },
+        {
+          id: "list-header-button-3",
+          label: "Button 3",
+          intent: "flat",
+          color: "default",
+          size: "md",
+          iconLeft: "bank-note-03",
+          onClick: () => alert("Note clicked"),
+        },
+        {
+          id: "list-header-button-4",
+          label: "Button 4",
+          intent: "flat",
+          color: "default",
+          size: "md",
+          iconLeft: "x",
+          onClick: () => alert("X clicked"),
+        },
+      ],
+    },
+    items: [
+      {
+        id: "list-item-1",
+        title: "Playing with fonts is fun",
+        rightTitle: "Right title",
+        description: "Playing with fonts is fun",
+        buttons: [
+          {
+            id: "list-header-button-2",
+            intent: "flat",
+            color: "default",
+            size: "md",
+            iconLeft: "announcement-01",
+            onClick: () => alert("Announcement clicked"),
+          },
+          {
+            id: "list-header-button-3",
+            intent: "flat",
+            color: "default",
+            size: "md",
+            iconLeft: "bank-note-03",
+            onClick: () => alert("Note clicked"),
+          },
+          {
+            id: "list-header-button-4",
+            label: "Button 4",
+            intent: "flat",
+            color: "default",
+            size: "md",
+            iconLeft: "x",
+            onClick: () => alert("X clicked"),
+          },
+        ],
+      },
+      {
+        id: "list-item-2",
+        title: "Playing with fonts is fun",
+        rightTitle: "Right title",
+        description: "Playing with fonts is fun",
+        buttons: [
+          {
+            id: "list-header-button-2",
+            intent: "flat",
+            color: "default",
+            size: "md",
+            iconLeft: "announcement-01",
+            onClick: () => alert("Announcement clicked"),
+          },
+          {
+            id: "list-header-button-3",
+            intent: "flat",
+            color: "default",
+            size: "md",
+            iconLeft: "bank-note-03",
+            onClick: () => alert("Note clicked"),
+          },
+          {
+            id: "list-header-button-4",
+            label: "Button 4",
+            intent: "flat",
+            color: "default",
+            size: "md",
+            iconLeft: "x",
+            onClick: () => alert("X clicked"),
+          },
+        ],
+      },
+      {
+        id: "list-item-3",
+        title: "Playing with fonts is fun",
+        rightTitle: "Right title",
+        description: "Playing with fonts is fun",
+        dropdownConfig: { visibleActionsDisplayLimit: 0 },
+        buttons: [
+          {
+            id: "list-header-button-2",
+            label: "Announcement",
+            intent: "flat",
+            color: "default",
+            size: "md",
+            iconLeft: "announcement-01",
+            onClick: () => alert("Announcement clicked"),
+          },
+          {
+            id: "list-header-button-3",
+            label: "Notes",
+            intent: "flat",
+            color: "default",
+            size: "md",
+            iconLeft: "bank-note-03",
+            onClick: () => alert("Note clicked"),
+          },
+          {
+            id: "list-header-button-4",
+            label: "Quit",
+            intent: "flat",
+            color: "default",
+            size: "md",
+            iconLeft: "x",
+            onClick: () => alert("X clicked"),
+          },
+        ],
       },
     ],
     isSelectable: false,
@@ -207,6 +517,8 @@ export const Checkboxes: Story = {
         chipsDirection: "end",
         buttons: [
           {
+            id: "default",
+            label: "Default",
             size: "md",
             intent: "flat",
             color: "default",
@@ -249,12 +561,16 @@ export const Checkboxes: Story = {
         ],
         buttons: [
           {
+            id: "default-1",
+            label: "Default 1",
             size: "md",
             intent: "flat",
             color: "default",
             iconLeft: "arrow-right",
           },
           {
+            id: "default-2",
+            label: "Default 2",
             size: "md",
             intent: "flat",
             color: "default",
@@ -324,6 +640,9 @@ export const EmptyList: Story = {
 
 export const EmptyListWithHeader: Story = {
   args: {
+    collapsibleProps: {
+      initiallyOpen: true,
+    },
     header: {
       title: "Empty List Header",
       description: "Helpful description for a empty list with a header",
@@ -344,6 +663,104 @@ export const EmptySearchList: Story = {
       isEmptySearch: true,
       emptySearchConfig: emptySearchConfig,
       isEmpty: true, // Check that empty search prevails over empty
+      emptyConfig: emptyConfig,
+    },
+  },
+};
+
+export const ListWithButtonDropdownInItems: Story = {
+  name: "List With Button Dropdown In Items",
+  args: {
+    id: "list-1",
+    collapsibleProps: {
+      initiallyOpen: true,
+    },
+    header: {
+      title: "List Title",
+      description: "Helpful description",
+      id: "list-header-1",
+    },
+    items: [
+      {
+        id: "list-item-1",
+        title: "Playing with fonts is fun",
+        rightTitle: "Right title",
+        description: "Playing with fonts is fun",
+      },
+      {
+        id: "list-item-2",
+        title: "Playing with fonts is fun",
+        rightTitle: "Right title",
+        description: "Playing with fonts is fun",
+        buttons: [
+          {
+            id: "default-1",
+            label: "Default 1",
+            size: "md",
+            intent: "flat",
+            color: "default",
+            iconLeft: "arrow-right",
+          },
+          {
+            id: "default-2",
+            label: "Default 2",
+            size: "md",
+            intent: "flat",
+            color: "default",
+            iconLeft: "refresh-cw-01",
+          },
+        ],
+      },
+      {
+        id: "list-item-3",
+        title: "Playing with fonts is fun",
+        rightTitle: "Right title",
+        description: "Playing with fonts is fun",
+        buttons: [
+          {
+            id: "open-new-window",
+            label: "Open new window",
+            size: "md",
+            intent: "flat",
+            color: "default",
+            iconLeft: "plus",
+            onClick: () => window?.open(""),
+          },
+          {
+            id: "console-log",
+            label: "Console log",
+            size: "md",
+            intent: "flat",
+            color: "default",
+            iconLeft: "file-06",
+            onClick: () => console.log("I am console logging hello"),
+          },
+          {
+            id: "alert-action",
+            label: "Alert popping",
+            size: "md",
+            intent: "flat",
+            color: "default",
+            iconLeft: "announcement-01",
+            onClick: () => alert("I am alerting"),
+          },
+          {
+            id: "print-hello",
+            label: "Print hello",
+            size: "md",
+            intent: "flat",
+            color: "default",
+            iconLeft: "bell-ringing-04",
+            onClick: () => alert("Hello to the one who pushed the button"),
+          },
+        ],
+      },
+    ],
+    isSelectable: false,
+    emptyStateProps: {
+      isEmptySearch: false,
+      emptySearchConfig: emptySearchConfig,
+      isEmpty: false,
       emptyConfig: emptyConfig,
     },
   },

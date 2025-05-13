@@ -75,6 +75,7 @@ export {
   type ListProps,
   type ListItemProps,
   type ListItemChipsProps,
+  type ListHeaderProps,
 } from "./components/List";
 export {
   default as ListLayout,

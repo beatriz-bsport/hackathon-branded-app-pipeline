@@ -71,18 +71,21 @@ const ListPage: React.FC = () => {
               title: smartlist.name,
               buttons: [
                 {
+                  id: `smartlist-edit-action-${smartlist.id}`,
                   color: "default",
                   size: "md",
                   intent: "flat",
                   iconLeft: "edit-02",
                 },
                 {
+                  id: `smartlist-copy-action-${smartlist.id}`,
                   color: "default",
                   size: "md",
                   intent: "flat",
                   iconLeft: "copy-03",
                 },
                 {
+                  id: `smartlist-trash-action-${smartlist.id}`,
                   color: "default",
                   size: "md",
                   intent: "flat",

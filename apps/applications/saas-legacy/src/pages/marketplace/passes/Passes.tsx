@@ -23,6 +23,7 @@ const PassesContent: React.FC<PassesContentProps> = ({ companyId }) => {
   const { t } = useTranslation('marketplace');
   const tabs = useMemo(
     () => [
+      { label: t('passes.tabs.all'), urlPath: PassesPageTabNames.ALL },
       { label: t('passes.tabs.passes'), urlPath: PassesPageTabNames.PASSES },
       {
         label: t('passes.tabs.appointmentPasses'),
@@ -69,10 +70,19 @@ const PassesContent: React.FC<PassesContentProps> = ({ companyId }) => {
     handleFetchMarketplacePrivateSlots,
   ]);
 
+  const showPasses = [
+    PassesPageTabNames.ALL,
+    PassesPageTabNames.PASSES,
+  ].includes(selectedTab.urlPath as PassesPageTabNames);
+  const showAppointmentPasses = [
+    PassesPageTabNames.ALL,
+    PassesPageTabNames.APPOINTMENT_PASSES,
+  ].includes(selectedTab.urlPath as PassesPageTabNames);
+
   return (
     <Layout pageTabs={tabs} pageTitle={t('passes.title')}>
       <div className="bs-marketplace-passes-page">
-        {selectedTab.urlPath === tabs[0].urlPath &&
+        {showPasses &&
           passCardsByCategories.map((category) => (
             <div key={category.id} className="bs-marketplace-card-list">
               <Typography
@@ -88,7 +98,7 @@ const PassesContent: React.FC<PassesContentProps> = ({ companyId }) => {
               </div>
             </div>
           ))}
-        {selectedTab.urlPath === tabs[1].urlPath &&
+        {showAppointmentPasses &&
           appointmentPassCardsByCategories.map((category) => (
             <div key={category.id} className="bs-marketplace-card-list">
               <Typography

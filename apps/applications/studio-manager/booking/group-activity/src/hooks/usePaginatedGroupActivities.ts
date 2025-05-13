@@ -7,9 +7,9 @@ import {
 } from "@bsport/store-booking-group-activity";
 import { usePaginationQueryParams } from "@bsport/use-pagination-query-params";
 
-import fetch from "#src/utils/fetch";
+import { fetch } from "#src/utils/fetch";
 
-const usePaginatedGroupActivities = (customerEnabled: boolean) => {
+export const usePaginatedGroupActivities = (customerEnabled: boolean) => {
   const [groupActivities, setGroupActivities] = useState<MetaActivity[]>([]);
 
   const [isLoading, setIsLoading] = useState(true);
@@ -60,5 +60,3 @@ const usePaginatedGroupActivities = (customerEnabled: boolean) => {
     isLoading,
   };
 };
-
-export default usePaginatedGroupActivities;

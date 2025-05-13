@@ -40,6 +40,7 @@ export type ToastProps = React.HTMLAttributes<HTMLLIElement> &
     title?: string;
     description?: string;
     icon?: IconName;
+    buttonIcon?: IconName;
     buttonLabel?: string;
     onButtonClick?: MouseEventHandler<HTMLButtonElement>;
     onDismiss?: () => void;
@@ -58,6 +59,7 @@ export type ToastProps = React.HTMLAttributes<HTMLLIElement> &
  * @param props.title Title of the toast.
  * @param props.description Description below the title.
  * @param props.icon The icon to display.
+ * @param props.buttonIcon Icon of the button.
  * @param props.buttonLabel Text label of the button.
  * @param props.onButtonClick Function to call when the button is clicked.
  * @param props.onDismiss Function to call when the toast is dismissed.
@@ -70,6 +72,7 @@ const Toast: React.FC<ToastProps> = ({
   title,
   description,
   icon,
+  buttonIcon,
   buttonLabel,
   onButtonClick,
   onDismiss,
@@ -122,12 +125,20 @@ const Toast: React.FC<ToastProps> = ({
           </Body>
         )}
       </div>
-      {buttonLabel && (
+      {(buttonLabel || buttonIcon) && (
         <div className="flex flex-row gap-sm">
           <Button
             label={buttonLabel}
-            intent="default"
-            color="main"
+            iconLeft={buttonIcon}
+            {...(buttonLabel
+              ? {
+                  intent: "default",
+                  color: "main",
+                }
+              : {
+                  intent: "flat",
+                  color: "onstrong",
+                })}
             size="sm"
             onClick={handleButtonClick}
             aria-label={`Dismiss ${title || "toast"}`}

@@ -15,6 +15,7 @@ import {
   // @ts-expect-error
 } from '../../../actions/auth.actions';
 import type { RootState } from '../../../reducers';
+import WithCustomCssProvider from '#src/hocs/company-custom-css.hoc';
 import './EmailConfirmationStyles.css';
 
 type Props = {
@@ -71,6 +72,7 @@ export default compose(
       email: state.auth.username,
       companyId: state.theme.theme.company,
       isAuthenticated: state.auth.authenticated,
+      customConfiguration: state.exportableComponents.customCss,
     }),
     {
       goToCompanySignup: (companyId: number) =>
@@ -88,4 +90,5 @@ export default compose(
   })),
   withWidth(),
   marketplaceCssHoc(),
+  WithCustomCssProvider,
 )(EmailConfirmationPage);

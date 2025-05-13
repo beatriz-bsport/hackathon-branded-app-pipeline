@@ -62,9 +62,15 @@ const icons = {
   "dots-horizontal": React.lazy(
     async () => await import("./assets/dots-horizontal.svg?react"),
   ),
+  "dots-vertical": React.lazy(
+    async () => await import("./assets/dots-vertical.svg?react"),
+  ),
   "download-01": React.lazy(
     async () => await import("./assets/download-01.svg?react"),
   ),
+  "edit-02": React.lazy(async () => await import("./assets/edit-02.svg?react")),
+  "edit-05": React.lazy(async () => await import("./assets/edit-05.svg?react")),
+  eye: React.lazy(async () => await import("./assets/eye.svg?react")),
   "file-06": React.lazy(async () => await import("./assets/file-06.svg?react")),
   "filter-lines": React.lazy(
     async () => await import("./assets/filter-lines.svg?react"),
@@ -123,10 +129,16 @@ const icons = {
   "pencil-02": React.lazy(
     async () => await import("./assets/pencil-02.svg?react"),
   ),
+  "pin-01-solid": React.lazy(
+    async () => await import("./assets/pin-01-solid.svg?react"),
+  ),
   "pin-02": React.lazy(async () => await import("./assets/pin-02.svg?react")),
   plus: React.lazy(async () => await import("./assets/plus.svg?react")),
   "refresh-cw-01": React.lazy(
     async () => await import("./assets/refresh-cw-01.svg?react"),
+  ),
+  "reverse-left": React.lazy(
+    async () => await import("./assets/reverse-left.svg?react"),
   ),
   save: React.lazy(async () => await import("./assets/save.svg?react")),
   "search-refraction": React.lazy(

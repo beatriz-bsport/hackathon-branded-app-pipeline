@@ -3,17 +3,12 @@ import React, { useCallback, useEffect } from "react";
 import { toast } from "@bsport/kaizen-primitive-core";
 import {
   archiveMemberAction,
-  fetchMembersAction,
   restoreMemberAction,
-  selectCount,
-  selectMembers,
-  useMemberStore,
 } from "@bsport/store-core-data-member";
-import { useAsync } from "@bsport/use-async";
-import { usePaginationQueryParams } from "@bsport/use-pagination-query-params";
 
 import { MemberTable } from "#src/components/MemberTable";
-import fetch from "#src/utils/fetch";
+import { useFetchPaginatedList } from "#src/hooks/useFetchPaginatedList";
+import { fetch } from "#src/utils/fetch";
 import { useTranslation } from "#src/utils/i18n";
 
 type ArchivedMemberListContentProps = {
@@ -27,65 +22,80 @@ export const ArchivedMemberListContent: React.FC<
 > = ({ hasActiveFilters = false, onAddMemberClick, onClearFiltersClick }) => {
   const { t } = useTranslation("common");
 
-  // ----- State management -----
+  // ----- Pagination settings -----
 
-  const { currentPage, currentPageSize, setPageSettings } =
-    usePaginationQueryParams({ shouldReplace: false });
-
-  const memberList = useMemberStore(selectMembers);
-  const totalItems = useMemberStore(selectCount);
-
-  // ----- Handlers -----
-
-  const _fetchMemberPage = useCallback(async () => {
-    return fetchMembersAction(fetch, {
-      page_size: currentPageSize,
-      page: currentPage,
-      exclude_archived: false,
-    });
-  }, [currentPage, currentPageSize]);
-
-  const [{ isLoading }, fetchMemberPage] = useAsync<typeof _fetchMemberPage>({
-    asyncFn: _fetchMemberPage,
-    dependencies: [_fetchMemberPage],
-    onFailure: console.error,
-  });
+  const { fetchMemberPage, isLoading, memberList, paginationParams } =
+    useFetchPaginatedList({ archived: true });
 
   const handleArchive = useCallback(
     async ({ memberId }: { memberId: number }) => {
       // Archive the member
-      await archiveMemberAction(fetch, { memberId });
+      const response = await archiveMemberAction(fetch, { memberId });
 
-      // Once executed, refresh the list
-      await fetchMemberPage();
+      const onSuccess = () => {
+        // Refresh the list
+        fetchMemberPage();
+
+        // Display a toast to inform on the success
+        toast({
+          status: "default",
+          icon: "reverse-left",
+          title: t("toasts.messageUndone.success"),
+          buttonIcon: "x-close",
+        });
+      };
+
+      const onFailure = (error: Error) => {
+        // Display a toast to inform on the failure
+        toast({
+          status: "critical",
+          icon: "reverse-left",
+          title: t("toasts.messageUndone.error"),
+          buttonIcon: "x-close",
+        });
+
+        // Debugging
+        console.error(error);
+      };
+
+      response.fold(onSuccess, onFailure);
     },
     [fetchMemberPage],
   );
 
   const handleRestore = useCallback(
-    async ({
-      memberId,
-      memberName,
-    }: {
-      memberId: number;
-      memberName: string;
-    }) => {
+    async ({ memberId }: { memberId: number }) => {
       // Restore the member
-      await restoreMemberAction(fetch, { memberId });
+      const response = await restoreMemberAction(fetch, { memberId });
 
-      // Once executed, refresh the list
-      fetchMemberPage();
+      const onSuccess = () => {
+        // Refresh the list
+        fetchMemberPage();
 
-      // Display a toast to "undo" the action
-      toast({
-        status: "default",
-        icon: "unarchive",
-        title: t("archivedListPage.toasts.messageUnarchived", {
-          name: memberName,
-        }),
-        buttonLabel: t("archivedListPage.toasts.actionUndo"),
-        onButtonClick: () => handleArchive({ memberId }),
-      });
+        // Display a toast to "undo" the action
+        toast({
+          status: "default",
+          icon: "unarchive",
+          title: t("toasts.messageRestored.success"),
+          buttonLabel: t("toasts.actions.undo"),
+          onButtonClick: () => handleArchive({ memberId }),
+        });
+      };
+
+      const onFailure = (error: Error) => {
+        // Display a toast to inform about the failure
+        toast({
+          status: "critical",
+          icon: "unarchive",
+          title: t("toasts.messageRestored.error"),
+          buttonIcon: "x-close",
+        });
+
+        // Debugging
+        console.error(error);
+      };
+
+      response.fold(onSuccess, onFailure);
     },
     [fetchMemberPage, handleArchive],
   );
@@ -100,13 +110,7 @@ export const ArchivedMemberListContent: React.FC<
     <MemberTable
       memberList={memberList}
       isLoading={isLoading}
-      paginationProps={{
-        currentPage: currentPage,
-        rowsPerPage: currentPageSize,
-        totalItems: totalItems,
-        onPageSettingsChange: setPageSettings,
-        showRowsPerPageSelector: true,
-      }}
+      paginationProps={paginationParams}
       mode="archived"
       handleRestore={handleRestore}
       hasActiveFilters={hasActiveFilters}

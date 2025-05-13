@@ -25,6 +25,10 @@ export { default as Checkbox, type CheckboxProps } from "./components/Checkbox";
 export { default as Chip, type ChipProps } from "./components/Chip";
 export { default as Collapse, type CollapseProps } from "./components/Collapse";
 export {
+  default as ColorIndicator,
+  type ColorIndicatorProps,
+} from "./components/ColorIndicator";
+export {
   default as DatePicker,
   type DatePickerProps,
 } from "./components/DatePicker";
@@ -110,7 +114,11 @@ export {
   type GenericTableColumn,
   type TableProps,
 } from "./components/Table";
-export { default as Tabs, type TabsProps } from "./components/Tabs";
+export {
+  default as Tabs,
+  type TabsItemProps,
+  type TabsProps,
+} from "./components/Tabs";
 export { default as TextArea, type TextAreaProps } from "./components/TextArea";
 export {
   default as TextField,

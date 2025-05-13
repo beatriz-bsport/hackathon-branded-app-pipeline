@@ -1,17 +1,8 @@
-import React, { useCallback, useEffect, useState } from "react";
-
-import {
-  fetchMembersAction,
-  selectCount,
-  selectMembers,
-  useMemberStore,
-} from "@bsport/store-core-data-member";
-import { useAsync } from "@bsport/use-async";
-import { usePaginationQueryParams } from "@bsport/use-pagination-query-params";
+import React, { useEffect, useState } from "react";
 
 import { MemberTable } from "#src/components/MemberTable";
+import { useFetchPaginatedList } from "#src/hooks/useFetchPaginatedList";
 import type { FilterParams } from "#src/hooks/useMemberFilters";
-import fetch from "#src/utils/fetch";
 
 import { MemberArchiveModal } from "./MemberArchiveModal";
 
@@ -26,17 +17,14 @@ export const MemberListContent: React.FC<MemberListContentProps> = ({
   onAddMemberClick,
   onClearFiltersClick,
 }) => {
-  // ----- State management -----
+  // ----- Pagination settings -----
 
-  // Retrieve pagination params from the URL
-  const { currentPage, currentPageSize, setPageSettings } =
-    usePaginationQueryParams({ shouldReplace: false });
+  const { fetchMemberPage, isLoading, memberList, paginationParams } =
+    useFetchPaginatedList({ archived: false, activeFilters });
 
-  // Retrieve pagination results from the store
-  const memberList = useMemberStore(selectMembers);
-  const totalItems = useMemberStore(selectCount);
+  // ----- State -----
 
-  // State to store the selected member to archive
+  // Manage the selected member to archive
   const [memberToArchive, setMemberToArchive] = useState<{
     memberId: number;
     memberName: string;
@@ -44,34 +32,9 @@ export const MemberListContent: React.FC<MemberListContentProps> = ({
 
   // ----- Handlers -----
 
-  const _fetchMemberPage = useCallback(async () => {
-    return fetchMembersAction(fetch, {
-      page_size: currentPageSize,
-      page: currentPage,
-      exclude_archived: true,
-      ...activeFilters,
-    });
-  }, [currentPage, currentPageSize, activeFilters]);
-
-  const [{ isLoading }, fetchMemberPage] = useAsync<typeof _fetchMemberPage>({
-    asyncFn: _fetchMemberPage,
-    dependencies: [_fetchMemberPage],
-    onFailure: console.error,
-  });
-
-  const handleArchive = ({
-    memberId,
-    memberName,
-  }: {
-    memberId: number;
-    memberName: string;
-  }) => {
-    setMemberToArchive({ memberId, memberName });
-  };
-
   const handleCloseArchiveModal = () => setMemberToArchive(null);
 
-  // ----- Load on mount -----
+  // ----- Load data -----
 
   useEffect(() => {
     fetchMemberPage();
@@ -82,15 +45,9 @@ export const MemberListContent: React.FC<MemberListContentProps> = ({
       <MemberTable
         memberList={memberList}
         isLoading={isLoading}
-        paginationProps={{
-          currentPage: currentPage,
-          rowsPerPage: currentPageSize,
-          totalItems: totalItems,
-          onPageSettingsChange: setPageSettings,
-          showRowsPerPageSelector: true,
-        }}
+        paginationProps={paginationParams}
         mode="active"
-        handleArchive={handleArchive}
+        handleArchive={setMemberToArchive}
         hasActiveFilters={!!activeFilters}
         onAddMemberClick={onAddMemberClick}
         onClearFilterClick={onClearFiltersClick}

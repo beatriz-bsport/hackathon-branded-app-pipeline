@@ -58,16 +58,23 @@ exports.default = {
         cancel: "Cancel",
         archive: "Archive",
       },
-      toasts: {
-        messageArchived: "{{ name }} has been archived",
-        actionUndo: "Undo",
-      },
     },
   },
-  archivedListPage: {
-    toasts: {
-      messageUnarchived: "{{ name }} has been unarchived",
-      actionUndo: "Undo",
+  toasts: {
+    actions: {
+      undo: "Undo",
+    },
+    messageUndone: {
+      success: "Action undone",
+      error: "Failed to undone the action",
+    },
+    messageArchived: {
+      success: "Member has been archived",
+      error: "Failed to archive member",
+    },
+    messageRestored: {
+      success: "Member has been restored",
+      error: "Failed to restore member",
     },
   },
   filters: {

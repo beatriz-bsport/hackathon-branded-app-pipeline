@@ -1439,6 +1439,10 @@ const getTranslations = async () => {
         success: 'Your unit ID has been successfully linked',
       },
     },
+    oneClickBooking: {
+      genericError:
+        "We couldn't complete your booking. Please review your details and try again.",
+    },
   };
 };
 

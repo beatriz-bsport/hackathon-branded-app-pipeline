@@ -44,6 +44,27 @@ export type LinkProps = React.AnchorHTMLAttributes<HTMLAnchorElement> &
     isUnderlined?: boolean;
   }>;
 
+const Wrapper = ({
+  className,
+  href,
+  children,
+  ...props
+}: {
+  className: string;
+  href?: string;
+  children: React.ReactNode;
+} & React.AnchorHTMLAttributes<HTMLAnchorElement>) => {
+  if (!href) {
+    // Render a <div> instead of an <a> to just have the styling
+    return <div className={className}>{children}</div>;
+  }
+  return (
+    <a className={className} href={href} {...props}>
+      {children}
+    </a>
+  );
+};
+
 /**
  * The Link component is used to render hyperlinks with various customization options
  * including different colors, font weights, and an optional icon on the left.
@@ -64,11 +85,13 @@ const Link: React.FC<LinkProps> = ({
   icon,
   isUnderlined,
   children,
+  href,
   ...props
 }) => {
   return (
-    <a
+    <Wrapper
       className={classNames(link({ className, color, weight }), "group")}
+      href={href}
       {...props}
     >
       {avatarProps ? (
@@ -85,7 +108,7 @@ const Link: React.FC<LinkProps> = ({
       >
         {children}
       </span>
-    </a>
+    </Wrapper>
   );
 };
 

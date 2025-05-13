@@ -1,9 +1,8 @@
 import { type VariantProps, cva } from "class-variance-authority";
-import classNames from "classnames";
 import mapValues from "lodash/mapValues";
 import React, { AnchorHTMLAttributes, useState } from "react";
 
-import Icon, { IconName } from "#src/components/Icon";
+import { TabsItem, type TabsItemProps } from "./TabsItem";
 
 const defaultClasses = [
   "flex",
@@ -30,54 +29,48 @@ const tabsVariants = cva(defaultClasses, { variants });
 
 export type TabsProps = React.HTMLAttributes<HTMLDivElement> &
   VariantProps<typeof tabsVariants> & {
-    tabs: {
-      label: string;
-      href?: string;
-      target?: AnchorHTMLAttributes<HTMLAnchorElement>["target"];
-      disabled?: boolean;
-      icon?: IconName;
-      extraProps?: Omit<
-        AnchorHTMLAttributes<HTMLAnchorElement>,
-        "href" | "target"
-      >;
-    }[];
-    orientation: keyof typeof orientations;
+    tabs?: Array<
+      Omit<TabsItemProps, "orientation"> &
+        AnchorHTMLAttributes<HTMLAnchorElement>
+    >;
+    TabsItems?: Array<React.ReactNode>;
+    orientation: "horizontal" | "vertical";
     defaultValue?: string;
     value?: string;
-    onValueChange?: (value: string) => void;
+    onValueChange?: (id: string) => void;
   };
 
 /**
- * A component that renders a set of tabs.
- * One tab is composed of a unique label and reprensented by an anchor tag that may be used to navigate to another page.
- * @param props.tabs The tabs to render.
+ * A component that renders a set of TabsItem in two different ways
+ * - with composition : provide an array of TabsItem through TabsItems prop
+ * - with object declaration : provide an array of configs through tabs prop
+ *
+ * @param props.tabs The tabs to render with object declaration API.
+ * @param props.TabsItems TabItems to render with composable API.
  * @param props.orientation The orientation of the tabs. Can be "horizontal" or "vertical".
- * @param props.defaultValue Initial selected tab. To be used if you don't need to control the state.
- * @param props.value Currently selected tab. If `undefined`, will use `defaultValue`. Should be used with `onValueChange`.
- * @param props.onValueChange Callback to set the selected tab.
- * @link https://docs.infra.bsport.io/storybook/kaizen/main/index.html?path=/docs/components-tabs--docs
+ * @param props.defaultValue [Optional] Initial selected tab. To be used if you don't need to control the state.
+ * @param props.value [Optional] Currently selected tab. If `undefined`, will use `defaultValue`. Should be used with `onValueChange`.
+ * @param props.onValueChange [Optional] Callback to set the selected tab.
+ * @link https://docs.infra.bsport.io/storybook/kaizen/dev/index.html?path=/docs/components-tabs--docs
  */
-const Tabs: React.FC<TabsProps> = ({
+const Tabs: React.FC<TabsProps> & { Item: typeof TabsItem } = ({
   className,
-  tabs,
-  orientation,
-  defaultValue,
-  value,
+  defaultValue = "",
   onValueChange,
+  orientation = "horizontal",
+  tabs = [],
+  TabsItems = [],
+  value,
   ...props
-}) => {
-  const [activeTab, setActiveTab] = useState(defaultValue || value);
+}: TabsProps) => {
+  // Internal state to manage the active tab
+  const [_activeTab, _setActiveTab] = useState(defaultValue);
 
-  const handleTabClick = (label: string) => {
-    const clickedTab = tabs?.find((tab) => tab.label === label);
-    if (!clickedTab?.disabled) {
-      setActiveTab(label);
-      onValueChange?.(label);
-    }
-  };
-
-  if (!tabs) {
-    console.warn("The Tabs component should have at least one tab to render.");
+  if (!tabs?.length && !TabsItems?.length) {
+    console.warn(
+      "The Tabs component should have at least one tab or TabItem to render.",
+    );
+    return null;
   }
   if ((value && !onValueChange) || (!value && onValueChange)) {
     console.warn(
@@ -85,61 +78,64 @@ const Tabs: React.FC<TabsProps> = ({
     );
   }
 
+  let tabsItems: Array<React.ReactNode>;
+  if (TabsItems?.length > 0) {
+    // Composable API - Use TabItems
+    tabsItems = TabsItems;
+  } else {
+    // Object Declaration API - Use tabs
+
+    // Use the adequate state manager for the selected tab
+    const useExternal = value && onValueChange;
+    const activeTab = useExternal ? value : _activeTab;
+    const setActiveTab = useExternal ? onValueChange : _setActiveTab;
+
+    const getHandleTabClick =
+      ({
+        id,
+        disabled,
+        onClick,
+      }: {
+        id: string;
+        disabled?: boolean;
+        onClick?: () => void;
+      }) =>
+      () => {
+        if (!disabled) {
+          // Update the internal or external state
+          setActiveTab(id);
+          // Additional callback
+          onClick?.();
+        }
+      };
+
+    // Create an array of TabItem
+    tabsItems = tabs.map(
+      ({ id, icon, disabled, isActive, label, onClick, ...otherProps }) => (
+        <a key={id} {...otherProps}>
+          <TabsItem
+            id={id}
+            icon={icon}
+            disabled={disabled}
+            isActive={isActive ?? id === activeTab}
+            label={label}
+            orientation={orientation}
+            onClick={getHandleTabClick({ id, disabled, onClick })}
+          />
+        </a>
+      ),
+    );
+  }
+
   return (
     <div className={tabsVariants({ className, orientation })} {...props}>
-      {tabs?.map(({ label, icon, disabled, ...tabProps }) => (
-        <a
-          key={label}
-          className={classNames(
-            "py-xs",
-            {
-              "border-b-stroke-regular border-b-stroke-action-main-selected":
-                orientation === "horizontal",
-              "pr-sm border-r-stroke-regular": orientation === "vertical",
-            },
-            {
-              "text-onsurface-action-weak-main font-strong":
-                activeTab === label,
-              "text-onsurface-action-main-rest border-none":
-                activeTab !== label,
-            },
-            {
-              "cursor-not-allowed opacity-sm": disabled,
-              "cursor-pointer": !disabled,
-            },
-          )}
-          aria-selected={activeTab === label}
-          tabIndex={activeTab === label ? 0 : -1}
-          role="tab"
-          onClick={() => handleTabClick(label)}
-          {...tabProps}
-        >
-          <div
-            className={classNames("flex px-xs py-2xs gap-xs rounded-sm", {
-              "hover:bg-surface-action-main-weak-hovered active:bg-surface-action-main-weak-pressed":
-                !disabled && activeTab === label,
-              "hover:bg-surface-action-default-weak-hovered active:bg-surface-action-default-weak-pressed":
-                !disabled && activeTab !== label,
-            })}
-          >
-            {icon && (
-              <Icon
-                icon={icon}
-                size="sm"
-                className={classNames({
-                  "text-onsurface-main-strong": activeTab === label,
-                  "text-onsurface-default": activeTab !== label,
-                })}
-              />
-            )}
-            <span className="flex-1 truncate">{label}</span>
-          </div>
-        </a>
-      ))}
+      {tabsItems}
     </div>
   );
 };
 
 Tabs.displayName = "KaizenTabs";
+
+Tabs.Item = TabsItem;
 
 export default Tabs;

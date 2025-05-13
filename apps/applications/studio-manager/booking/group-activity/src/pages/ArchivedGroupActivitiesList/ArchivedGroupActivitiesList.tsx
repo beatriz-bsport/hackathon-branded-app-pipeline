@@ -1,18 +1,25 @@
 import React, { useEffect, useMemo } from "react";
+import { Link } from "react-router";
 
-import { List, ListLayout, Loader, toast } from "@bsport/kaizen-primitive-core";
+import {
+  Breadcrumbs,
+  List,
+  ListLayout,
+  Loader,
+  toast,
+} from "@bsport/kaizen-primitive-core";
 import type { ListItemProps } from "@bsport/kaizen-primitive-core";
 import {
   archiveGroupActivityAction,
   unarchiveGroupActivityAction,
 } from "@bsport/store-booking-group-activity";
 
-import { GROUP_ACTIVITIES_PATH } from "#src/constants";
-import usePaginatedGroupActivities from "#src/hooks/usePaginatedGroupActivities";
-import fetch from "#src/utils/fetch";
+import { usePaginatedGroupActivities } from "#src/hooks/usePaginatedGroupActivities";
+import { ROUTES } from "#src/urls";
+import { fetch } from "#src/utils/fetch";
 import { useTranslation } from "#src/utils/i18n";
 
-const ArchivedGroupActivitiesList: React.FC = () => {
+export const ArchivedGroupActivitiesList: React.FC = () => {
   const { t } = useTranslation("groupActivity");
 
   const {
@@ -85,12 +92,13 @@ const ArchivedGroupActivitiesList: React.FC = () => {
   return (
     <ListLayout>
       <ListLayout.Header
-        breadcrumbsItems={[
-          {
-            id: "breadcrumb-item-group-activities",
-            text: t("list.header.groupActivities"),
-            href: GROUP_ACTIVITIES_PATH,
-          },
+        BreadcrumbsItems={[
+          <Link key="to-active-group-activities" to={ROUTES.ACTIVE}>
+            <Breadcrumbs.Item
+              text={t("list.header.groupActivities")}
+              id="breadcrumb-item-group-activities"
+            />
+          </Link>,
         ]}
         pageTitle={t("list.header.archivedGroupActivities")}
       />
@@ -115,5 +123,3 @@ const ArchivedGroupActivitiesList: React.FC = () => {
     </ListLayout>
   );
 };
-
-export default ArchivedGroupActivitiesList;

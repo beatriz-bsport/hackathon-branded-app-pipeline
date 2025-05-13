@@ -78,7 +78,7 @@ const useBookInOneClick = () => {
   const dispatch = useDispatch();
   const pushUrl = (url: string) => dispatch(push(url));
 
-  const onBookingSuccess = async ({
+  const redirectOnBookingSuccess = async ({
     offer,
     userRegistrationResponse,
     basketId,
@@ -132,7 +132,7 @@ const useBookInOneClick = () => {
     if (basket) {
       await validateBasket(basket);
 
-      onBookingSuccess({
+      redirectOnBookingSuccess({
         basketId: basket.id,
         offer,
         userRegistrationResponse,
@@ -141,7 +141,7 @@ const useBookInOneClick = () => {
   };
   return {
     bookInOneClick: useAsyncFn(bookInOneClick),
-    onBookingSuccess,
+    redirectOnBookingSuccess,
   };
 };
 

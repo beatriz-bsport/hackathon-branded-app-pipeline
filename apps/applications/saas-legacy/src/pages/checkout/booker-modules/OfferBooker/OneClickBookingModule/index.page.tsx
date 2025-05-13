@@ -222,7 +222,7 @@ const OneClickBookingModule: React.FC<Props> = ({
 
   const {
     bookInOneClick: [bookingState, bookInOneClick],
-    onBookingSuccess,
+    redirectOnBookingSuccess,
   } = useBookInOneClick();
 
   const [
@@ -402,14 +402,14 @@ const OneClickBookingModule: React.FC<Props> = ({
         : null;
     };
 
-    onBookingSuccess({
+    redirectOnBookingSuccess({
       offer,
       basketId,
       userRegistrationResponse: getUserRegistrationResponse(),
     });
   }, [
     basket?.id,
-    onBookingSuccess,
+    redirectOnBookingSuccess,
     userRegistrationResponse,
     offer,
     queryParams?.get_user_registration_from_storage,

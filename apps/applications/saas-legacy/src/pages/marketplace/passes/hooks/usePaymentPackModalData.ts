@@ -22,11 +22,13 @@ import {
  * to display the detail modal for a specific payment pack.
  *
  */
-export const usePaymentPackModalData = (id: number) => {
+export const usePaymentPackModalData = (id: number | null) => {
   const { t } = useTranslation('marketplace');
   const companyTheme = useSelector(getTheme);
   const paymentPack: PaymentPack =
-    useSelector((state: RootState) => getPaymentPack(state, id)) ?? {};
+    useSelector((state: RootState) =>
+      id ? getPaymentPack(state, id) : null,
+    ) ?? {};
 
   const validity = useValidityInfoForPaymentPackCard({
     dateRange: paymentPack.validity_daterange,

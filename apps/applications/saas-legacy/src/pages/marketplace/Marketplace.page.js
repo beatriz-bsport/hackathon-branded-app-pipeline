@@ -319,7 +319,12 @@ export class MarketPlace extends Component<Props, State> {
     switch (this.props.subcomponent) {
       case MARKETPLACE_PATH_TAB_PASS:
         return this.props.companyTheme?.revamped_passes_page_enabled ? (
-          <Passes />
+          <Passes
+            key={this.props.tabSelected}
+            companyId={this.props.companyId}
+            requestSignUp={this.openLogin}
+            toggleCurrentBasketOpen={this.toggleCurrentBasketOpen}
+          />
         ) : (
           <MarketplacePassPage
             key={this.props.tabSelected}

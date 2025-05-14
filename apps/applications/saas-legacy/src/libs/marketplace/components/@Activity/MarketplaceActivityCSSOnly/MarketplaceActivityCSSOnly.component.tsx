@@ -133,7 +133,6 @@ export const MarketplaceActivityV2 = (props: Props) => {
     <div className="bs-activity">
       <Dialog
         disablePortal
-        maxWidth="md"
         onClose={() => {
           setMobileMapModalOpen(false);
         }}

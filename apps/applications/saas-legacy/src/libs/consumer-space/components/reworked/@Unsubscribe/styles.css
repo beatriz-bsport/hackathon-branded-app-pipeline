@@ -42,3 +42,16 @@
 .bs-unsubscribe__success__title {
   align-items: center;
 }
+
+.bs-unsubscribe-marketing-prefs__container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  padding-top: 50px;
+}
+.bs-unsubscribe-marketing-prefs__title {
+}
+.bs-unsubscribe-marketing-prefs__subtitle {
+}

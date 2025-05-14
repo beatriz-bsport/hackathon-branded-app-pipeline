@@ -232,10 +232,21 @@ export const fetchLatestCampaignExportLink = (smartlistId: number) => {
  * @param franchise_id - The ID of the franchise to fetch preferences for
  * @returns Promise resolving to an array of marketing preferences
  */
-export const fetchMyFranchiseMarketingPreferences = (franchise_id: number) =>
-  getAuth<MarketingPreferenceData[]>(
+export const fetchMyFranchiseMarketingPreferences = (
+  franchise_id: number,
+  unsubscribe_uuid?: string,
+) => {
+  if (!!unsubscribe_uuid) {
+    return getAuth<MarketingPreferenceData[]>(
+      `${API_V1_URI}/communication/marketing-preferences/franchise/${franchise_id}/${buildUrlParams(
+        { unsubscribe_uuid },
+      )}`,
+    );
+  }
+  return getAuth<MarketingPreferenceData[]>(
     `${API_V1_URI}/communication/marketing-preferences/franchise/${franchise_id}/`,
   );
+};
 
 /**
  * Updates marketing preferences for the authenticated user in a specific franchise
@@ -247,11 +258,21 @@ export const fetchMyFranchiseMarketingPreferences = (franchise_id: number) =>
 export const updateMyFranchiseMarketingPreferences = (
   franchise_id: number,
   payload: MarketingPreferenceUpdatePayload[],
-) =>
-  postAuth(
+  unsubscribe_uuid?: string,
+) => {
+  if (!!unsubscribe_uuid) {
+    return postAuth(
+      `${API_V1_URI}/communication/marketing-preferences/franchise/${franchise_id}/update_preferences/${buildUrlParams(
+        { unsubscribe_uuid },
+      )}`,
+      payload,
+    );
+  }
+  return postAuth(
     `${API_V1_URI}/communication/marketing-preferences/franchise/${franchise_id}/update_preferences/`,
     payload,
   );
+};
 
 /**
  * Checks if marketing preferences are enabled for a specific franchise
@@ -261,7 +282,16 @@ export const updateMyFranchiseMarketingPreferences = (
  */
 export const checkFranchiseMarketingPreferencesEligibility = (
   franchise_id: number,
-) =>
-  getAuth(
+  unsubscribe_uuid?: string,
+) => {
+  if (!!unsubscribe_uuid) {
+    return getAuth(
+      `${API_V1_URI}/communication/marketing-preferences/franchise/${franchise_id}/eligible/${buildUrlParams(
+        { unsubscribe_uuid },
+      )}`,
+    );
+  }
+  return getAuth(
     `${API_V1_URI}/communication/marketing-preferences/franchise/${franchise_id}/eligible/`,
   );
+};

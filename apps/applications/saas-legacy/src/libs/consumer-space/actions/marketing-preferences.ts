@@ -26,8 +26,10 @@ export const fetchMyFranchiseMarketingPreferencesActions = {
 export const fetchMyFranchiseMarketingPreferences = (
   {
     franchise_id,
+    unsubscribe_uuid,
   }: {
     franchise_id: number;
+    unsubscribe_uuid?: string;
   },
   options?: OptionCallback<MarketingPreferenceData[]>,
 ): ThunkAction => {
@@ -37,6 +39,7 @@ export const fetchMyFranchiseMarketingPreferences = (
     try {
       const response = await fetchMyFranchiseMarketingPreferencesAPI(
         franchise_id,
+        unsubscribe_uuid,
       );
       dispatch(
         fetchMyFranchiseMarketingPreferencesActions.success(response.data),
@@ -68,9 +71,11 @@ export const updateMyFranchiseMarketingPreferences = (
   {
     franchise_id,
     data,
+    unsubscribe_uuid,
   }: {
     franchise_id: number;
     data: MarketingPreferenceUpdatePayload[];
+    unsubscribe_uuid?: string;
   },
   options?: OptionCallback,
 ): ThunkAction => {
@@ -78,14 +83,23 @@ export const updateMyFranchiseMarketingPreferences = (
     dispatch(updateMyFranchiseMarketingPreferencesActions.isLoading(true));
     dispatch(updateMyFranchiseMarketingPreferencesActions.error(null));
     try {
-      await updateMyFranchiseMarketingPreferencesAPI(franchise_id, data);
+      await updateMyFranchiseMarketingPreferencesAPI(
+        franchise_id,
+        data,
+        unsubscribe_uuid,
+      );
       dispatch(
         updateMyFranchiseMarketingPreferencesActions.success({ franchise_id }),
       );
       dispatch(
         snackbarSuccess?.('Your marketing preferences have been updated.'),
       );
-      dispatch(fetchMyFranchiseMarketingPreferences({ franchise_id }));
+      dispatch(
+        fetchMyFranchiseMarketingPreferences({
+          franchise_id,
+          ...(!!unsubscribe_uuid ? { unsubscribe_uuid } : {}),
+        }),
+      );
       options?.onSuccess?.();
     } catch (err) {
       console.error(err);
@@ -95,7 +109,12 @@ export const updateMyFranchiseMarketingPreferences = (
           'An error occured while updating your marketing preferences.',
         ),
       );
-      dispatch(fetchMyFranchiseMarketingPreferences({ franchise_id }));
+      dispatch(
+        fetchMyFranchiseMarketingPreferences({
+          franchise_id,
+          ...(!!unsubscribe_uuid ? { unsubscribe_uuid } : {}),
+        }),
+      );
       options?.onError?.();
     }
     dispatch(updateMyFranchiseMarketingPreferencesActions.isLoading(false));
@@ -117,8 +136,10 @@ export const checkFranchiseMarketingPreferencesEligibilityActions = {
 export const checkFranchiseMarketingPreferencesEligibility = (
   {
     franchise_id,
+    unsubscribe_uuid,
   }: {
     franchise_id: number;
+    unsubscribe_uuid?: string;
   },
   options?: OptionCallback<{ eligible: boolean }>,
 ): ThunkAction => {
@@ -128,7 +149,10 @@ export const checkFranchiseMarketingPreferencesEligibility = (
     );
     dispatch(checkFranchiseMarketingPreferencesEligibilityActions.error(null));
     try {
-      await checkFranchiseMarketingPreferencesEligibilityAPI(franchise_id);
+      await checkFranchiseMarketingPreferencesEligibilityAPI(
+        franchise_id,
+        unsubscribe_uuid,
+      );
       dispatch(checkFranchiseMarketingPreferencesEligibilityActions.success());
 
       options?.onSuccess?.({ eligible: true });

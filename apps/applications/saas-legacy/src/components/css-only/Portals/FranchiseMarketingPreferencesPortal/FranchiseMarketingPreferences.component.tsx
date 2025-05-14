@@ -31,7 +31,11 @@ const FranchiseMarketingPreferences: React.FC<
     onSubmit(values);
   };
   return (
-    <Formik initialValues={preferences} onSubmit={_handleSubmit}>
+    <Formik
+      enableReinitialize
+      initialValues={preferences}
+      onSubmit={_handleSubmit}
+    >
       {({ values, handleSubmit, isSubmitting }) => {
         return (
           <Form className="bs-marketing-prefs__form" onSubmit={handleSubmit}>

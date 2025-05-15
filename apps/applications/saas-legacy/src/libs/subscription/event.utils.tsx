@@ -88,6 +88,52 @@ const getEventPauseDeletedSecondaryText = (
   return `${dateRangeText} - ${dateDeletionAndStaffText}`;
 };
 
+/**
+ * @description This function returns the primary text for the stop event.
+ *
+ * It checks if the event was stopped by a manager or a member and returns the appropriate text.
+ * If the event was stopped by a manager, it includes the name of the stopping staff. If the event was stopped by a member, it returns a different text.
+ * If the stopping staff name is not available, it returns the default primary text.
+ *
+ * @param stopEvent the stop event
+ * @param t the i18n function
+ * @returns the primary text for the stop event
+ *
+ * @example
+ * const stopEvent = {
+ *   event_type: 'billing_plan-stop',
+ *   data: {
+ *     has_been_stopped_by_member: false,
+ *     stopping_user_name: 'John Doe',
+ *     stopping_user_email: '',
+ *   },
+ * };
+ * const t = (key: string) => key; // Mock translation function
+ * const primaryText = getEventStopPrimaryText(stopEvent, t);
+ * console.log(primaryText); // Output: "Stop : Subscription Name : Stopped by manager : John Doe"
+ */
+const getEventStopPrimaryText = (
+  stopEvent: SubscriptionEvent,
+  t: TFunction,
+): string => {
+  const primaryDefaultText = getPrimaryText(stopEvent, t);
+  const isStoppedByManager = !stopEvent.data?.has_been_stopped_by_member;
+  const stoppingStaffName =
+    stopEvent.data?.stopping_user_name || stopEvent.data?.stopping_user_email;
+
+  if (!stoppingStaffName && isStoppedByManager) return primaryDefaultText;
+
+  return (
+    primaryDefaultText +
+    ' : ' +
+    (isStoppedByManager
+      ? t('subscription:scheduledStop.stoppedByManager', {
+          name: stoppingStaffName,
+        })
+      : t('subscription:scheduledStop.stoppedByMember'))
+  );
+};
+
 export const COMPANY_EVENTS = {
   [BILLING_PLAN_EVENTS.create]: {
     icon: <AddIcon />,
@@ -134,7 +180,7 @@ export const COMPANY_EVENTS = {
   },
   [BILLING_PLAN_EVENTS.stop]: {
     icon: <StopIcon />,
-    getPrimaryText,
+    getPrimaryText: getEventStopPrimaryText,
     i18nText: `subscription:events.${BILLING_PLAN_EVENTS.stop}`,
   },
   [BILLING_PLAN_EVENTS.renew]: {

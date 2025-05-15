@@ -186,6 +186,7 @@ export class DashboardPage extends Component<Props> {
       deleteGraph,
       isDrawerOpen,
       generateGraphPropsForDisplay,
+      displayStopSubscriptionFromMemberSide,
       t,
     } = this.props;
 
@@ -282,6 +283,9 @@ export class DashboardPage extends Component<Props> {
           <DashboardGraphFormDrawer
             // @ts-expect-error
             open
+            displayStopSubscriptionFromMemberSide={
+              displayStopSubscriptionFromMemberSide
+            }
             graphMetadata={graphMetadata}
             handleGetDynamicDataForFilters={
               this.props.handleGetDynamicDataForFilters
@@ -305,6 +309,8 @@ const settingsAndMetadataconnector = connect(
     dashboardTab: getDataSourceDashboardSettingsTab(state, currentTabIndex),
     dashboardSettingsLoading:
       state.dashboardSettings.dataSourceDashboardGraphs.settings.loading,
+    displayStopSubscriptionFromMemberSide:
+      !!getTheme(state)?.display_stop_subscription_from_member_side,
   }),
   {
     fetchMetadata: fetchDataSourceDashboardGraphMetadata,

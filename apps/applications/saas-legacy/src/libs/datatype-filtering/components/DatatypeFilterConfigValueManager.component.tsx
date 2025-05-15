@@ -37,6 +37,7 @@ import {
   BILLING_PLAN_STATUS_STOPPED,
   BILLING_PLAN_STATUS_PAUSED,
   BILLING_PLAN_STATUS_ENDED,
+  BILLING_PLAN_STATUS_STOPPED_BY_MEMBER,
 } from '@bsport/common/lib/master-data/subscription-status.js';
 
 import { Field, FieldAttributes, useFormikContext } from 'formik';
@@ -109,6 +110,7 @@ type ChipProps = {
 
 type Props = {
   comparator: AllComparator;
+  displayStopSubscriptionFromMemberSide?: boolean;
   prefix: string;
   filterItem: DatatypeFilterConfigItem;
   isPreview?: boolean;
@@ -128,6 +130,7 @@ const PAYMENT_METHODS_WITHOUT_CREDIT_ACCOUNT = PAYMENT_METHODS.filter(
 
 const DatatypeFilterConfigValueManager: React.FC<Props> = ({
   prefix,
+  displayStopSubscriptionFromMemberSide,
   filterItem,
   comparator,
   isPreview,
@@ -244,6 +247,9 @@ const DatatypeFilterConfigValueManager: React.FC<Props> = ({
         columnName={filterItem.identifier}
         // @ts-expect-error
         datatype={filterItem.datatype}
+        displayStopSubscriptionFromMemberSide={
+          !!displayStopSubscriptionFromMemberSide
+        }
         getDataByType={getDataByType}
         inScrollBar={inScrollBar}
         invalidAdvancedFilterItemsUUID={invalidAdvancedFilterItemsUUID}
@@ -433,6 +439,7 @@ const DatatypeFilterConfigValueFloat: React.FC<{
 const DatatypeFilterConfigValueList: React.FC<{
   name: string;
   datatype: DatatypeFilterConfigItemTypeById;
+  displayStopSubscriptionFromMemberSide?: boolean;
   isPreview?: boolean;
   getDataByType: handleGetDynamicDataForFiltersType;
   inScrollBar: boolean;
@@ -450,6 +457,7 @@ const DatatypeFilterConfigValueList: React.FC<{
 }> = ({
   name,
   datatype,
+  displayStopSubscriptionFromMemberSide,
   isPreview,
   getDataByType,
   inScrollBar,
@@ -607,8 +615,13 @@ const DatatypeFilterConfigValueList: React.FC<{
             BILLING_PLAN_STATUS_STOPPED,
             BILLING_PLAN_STATUS_PAUSED,
             BILLING_PLAN_STATUS_ENDED,
+            ...(!!displayStopSubscriptionFromMemberSide
+              ? [BILLING_PLAN_STATUS_STOPPED_BY_MEMBER]
+              : []),
           ].map((value) => ({
-            label: t(`subscription:billing_plan_status.${value}`),
+            label: t(
+              `reporting:presetValuesByDatatype.billing_plan_status.${value}`,
+            ),
             value,
             columnName,
           }));
@@ -798,7 +811,15 @@ const DatatypeFilterConfigValueList: React.FC<{
           return [];
       }
     },
-    [getDataByType, t, columnName, reportCategory, valuesInConfig, datatype],
+    [
+      datatype,
+      getDataByType,
+      columnName,
+      reportCategory,
+      displayStopSubscriptionFromMemberSide,
+      t,
+      valuesInConfig,
+    ],
   );
 
   if (['user'].includes(datatype)) {

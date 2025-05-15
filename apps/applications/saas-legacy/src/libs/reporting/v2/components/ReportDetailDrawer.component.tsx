@@ -58,6 +58,7 @@ import { ReportCategoryEnum } from '@bsport/common/lib/master-data/report-catego
 
 type Props = {
   categoryName: ReportCategoryEnum;
+  displayStopSubscriptionFromMemberSide?: boolean;
   // dynamicDataHasBeenLoaded unused: just to rerender component when data has been loaded
   // eslint-disable-next-line react/no-unused-prop-types
   dynamicDataHasBeenLoaded: Record<DynamicFilterDataType, boolean>;
@@ -85,6 +86,7 @@ type InitialValues = {
 
 const ReportDetailDrawer: React.FC<Props & FormikProps<InitialValues>> = ({
   categoryName,
+  displayStopSubscriptionFromMemberSide,
   handleDrawerClosing,
   handleGetDynamicDataForFilters,
   handleSubmit,
@@ -312,6 +314,9 @@ const ReportDetailDrawer: React.FC<Props & FormikProps<InitialValues>> = ({
                     checkOtherRowExist={checkOtherRowExist}
                     consumableColumns={filterableColumns}
                     displayPopperWarning={false}
+                    displayStopSubscriptionFromMemberSide={
+                      displayStopSubscriptionFromMemberSide
+                    }
                     filterGroup={filterGroup}
                     getDataByType={handleGetDynamicDataForFilters}
                     groupOperand={values.config.group_operand}

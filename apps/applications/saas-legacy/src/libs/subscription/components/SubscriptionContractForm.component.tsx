@@ -32,11 +32,15 @@ import PopOver from '#src/components/Popover';
 import TagGroupDuplicatedAlert from '#src/libs/tag/components/TagGroupDuplicatedAlert.component';
 import { useHasTagsSameGroup } from '#src/libs/tag/components/hooks';
 import {
+  CONTRACT_MAX_COMMITMENT_VALUE_ALLOWED,
   CONTRACT_MAX_NB_INTERVAL_ALLOWED,
   SHOULD_DISPLAY_AUTO_RENEWAL_WARNING_MESSAGE,
-} from '../constants';
-import { OptionCallback } from '../../../state/types';
-import { ContractWithPaymentPack, Contract } from '../types';
+} from '#src/libs/subscription/constants';
+import type { OptionCallback } from '#src/state/types';
+import type {
+  ContractWithPaymentPack,
+  Contract,
+} from '#src/libs/subscription/types';
 // @ts-expect-error
 import PaymentComboSelectorField from '../../payment-combo/components/PaymentComboSelectorField.component';
 // @ts-expect-error
@@ -144,6 +148,7 @@ const useShowNbIntervalAfterAutoRenewalInput = (
 };
 
 export type SubscriptionContractFormDrawerPropsWithoutFormik = {
+  displayStopSubscriptionFromMemberSide?: boolean;
   // eslint-disable-next-line react/no-unused-prop-types
   onSubmit: (data: any, options: OptionCallback) => void;
   // eslint-disable-next-line react/no-unused-prop-types
@@ -632,6 +637,57 @@ export function SubscriptionContractFields(
           label={t('contract.form.highlightedAsRecommended.label')}
           name="highlighted_as_recommended"
         />
+
+        {!!props?.displayStopSubscriptionFromMemberSide && (
+          <SwitchField
+            disabled={isFromContractTemplate}
+            label={t('contract.form.commitmentPeriod.label')}
+            name="has_mandatory_commitment_period"
+          />
+        )}
+        {!!props?.displayStopSubscriptionFromMemberSide &&
+          !!values?.has_mandatory_commitment_period && (
+            <>
+              <Typography className={classes.helperText}>
+                {t('contract.form.commitmentPeriod.helperText')}
+              </Typography>
+              <div className={classes.row}>
+                <Typography variant="body2">
+                  {t('contract.form.commitmentPeriod.label')}
+                </Typography>
+                <IntegerField
+                  required
+                  className={classes.intervalIntegerField}
+                  disabled={isFromContractTemplate}
+                  name="commitment_period_value"
+                />
+                <IntervalRecurrenceSelectField
+                  displayPeriod
+                  required
+                  className={classes.intervalSelectorField}
+                  disabled={isFromContractTemplate}
+                  name="commitment_period_unit"
+                  variant="outlined"
+                />
+              </div>
+              {!!values?.commitment_period_unit &&
+                !!values?.commitment_period_value && (
+                  <Alert
+                    className={classes.alert}
+                    severity="info"
+                    variant="outlined"
+                  >
+                    {t(
+                      `contract.form.commitmentPeriod.explain.${values.commitment_period_unit}`,
+                      {
+                        count: values.commitment_period_value,
+                        commitment_period_value: values.commitment_period_value,
+                      },
+                    )}
+                  </Alert>
+                )}
+            </>
+          )}
       </FormSection>
 
       <FormSection
@@ -854,6 +910,16 @@ export const SubscriptionContractFieldsSchema = Yup.object().shape({
       },
     )
     .max(CONTRACT_MAX_NB_INTERVAL_ALLOWED, 'contract.form.nb_interval.error'),
+  has_mandatory_commitment_period: Yup.boolean().required().default(false),
+  commitment_period_value: Yup.number()
+    .integer('common:form.validation.number')
+    .min(1, 'common:positiveNumber')
+    .max(
+      CONTRACT_MAX_COMMITMENT_VALUE_ALLOWED,
+      'contract.form.commitmentPeriod.error',
+    )
+    .nullable(),
+  commitment_period_unit: Yup.string().nullable(),
 });
 
 function isNumber(value: unknown): value is number {
@@ -892,6 +958,8 @@ export const SubscriptionContractFormHoc = withFormik<
         invoicing_type: initial.month_billing_day
           ? InvoicingType.fixedDay
           : InvoicingType.sameDayAsSubscription,
+        commitment_period_unit: initial.commitment_period_unit || 'month',
+        commitment_period_value: initial.commitment_period_value || 1,
       };
     }
     return {
@@ -917,6 +985,9 @@ export const SubscriptionContractFormHoc = withFormik<
       nb_interval_after_auto_renewal: null,
       contract_template: null,
       editable: true,
+      has_mandatory_commitment_period: false,
+      commitment_period_unit: 'month',
+      commitment_period_value: 1,
     };
   },
   enableReinitialize: true,

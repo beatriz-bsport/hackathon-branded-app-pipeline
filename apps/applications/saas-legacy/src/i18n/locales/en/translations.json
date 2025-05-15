@@ -2407,7 +2407,7 @@
                 "dateLabel": {
                     "active": "Started on {{- date }}",
                     "future": "Starts on {{- date }}",
-                    "expired": "Expired since {{- date }}",
+                    "expired": "Expired since {{- date }} (excluded)",
                     "until": " until {{- date }}"
                 },
                 "tab": {
@@ -2444,17 +2444,35 @@
                     "drawerTitle": "Subscription",
                     "beforeRenewalContractPricePer": "Then {{ price }}/{{ interval }} after {{- date }}",
                     "beforeRenewalContractPriceEvery": "Then {{ price }} every {{ recurrence }} {{ interval }} after {{- date }}",
+                    "commitmentPeriod": {
+                        "title": "Manage subscription",
+                        "subtitle": "This subscription is ending with no more next payments",
+                        "explain": {
+                            "day": "This subscription has a {{ commitment_value }} day commitment period, for cancellations or questions, please directly contact the studio.",
+                            "day_plural": "This subscription has a {{ commitment_value }} days commitment period, for cancellations or questions, please directly contact the studio.",
+                            "week": "This subscription has a {{ commitment_value }} week commitment period, for cancellations or questions, please directly contact the studio.",
+                            "week_plural": "This subscription has a {{ commitment_value }} weeks commitment period, for cancellations or questions, please directly contact the studio.",
+                            "month": "This subscription has a {{ commitment_value }} month commitment period, for cancellations or questions, please directly contact the studio.",
+                            "month_plural": "This subscription has a {{ commitment_value }} months commitment period, for cancellations or questions, please directly contact the studio.",
+                            "year": "This subscription has a {{ commitment_value }} year commitment period, for cancellations or questions, please directly contact the studio.",
+                            "year_plural": "This subscription has a {{ commitment_value }} years commitment period, for cancellations or questions, please directly contact the studio."
+                        }
+                    },
+                    "loading": "We're processing your request...",
                     "description": "Description",
                     "terms": "Terms",
                     "termsAccepted": "Accepted on {{- termsDate }}",
                     "buttonsLabel": {
                         "see": "See",
                         "add": "Add",
-                        "change": "Change"
+                        "change": "Change",
+                        "unsubscribe": "Unsubscribe"
                     },
                     "headerListItemLabels": {
                         "futurePauses": "A pause is scheduled from {{- dateStart }} to {{- dateEnd }} (included)",
                         "nextPayment": "Next payment",
+                        "stop": "Unsubscribed",
+                        "stopValidDate": "Valid until {{- expirationDate }} (excluded)",
                         "paused": "Currently paused",
                         "autoRenewed": "Automatically renewed",
                         "autoRenewalDate": "on {{- autoRenewalDate }} (included)",
@@ -18390,7 +18408,9 @@
         },
         "scheduledStop": {
             "label": "Terminated",
-            "unscheduleStop": "Unschedule the stop"
+            "unscheduleStop": "Unschedule the stop",
+            "stoppedByManager": "Terminated by {{ name }}",
+            "stoppedByMember": "Terminated by the member"
         },
         "end": {
             "renew": "Auto-renew",

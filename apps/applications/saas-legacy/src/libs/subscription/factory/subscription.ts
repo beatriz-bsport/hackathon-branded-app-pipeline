@@ -51,6 +51,7 @@ const subscriptionFactory = (options?: SubscriptionFactoryOptions) => {
     date_created: DateTime.now().minus({ weeks: 3 }).toISO(),
     description: generateRandomDescription(faker, FakerTextLength.LONG),
     editable: options?.isEditable ?? faker.datatype.boolean(),
+    expiration_date: DateTime.now().plus({ months: 5 }).toISO(),
     first_billing_date: DateTime.now().plus({ months: 1 }).toISO(),
     flat_fee: generateRandomPrice(faker, { min: 5, max: 100 }).toString(),
     has_ended: options?.isSubscriptionEnded ?? faker.datatype.boolean(),
@@ -87,6 +88,10 @@ const subscriptionFactory = (options?: SubscriptionFactoryOptions) => {
     has_discount: options?.hasDiscount ?? faker.datatype.boolean(),
     nb_interval_after_auto_renewal: faker.number.int({ min: 2, max: 12 }),
     has_changed_after_renewal: faker.datatype.boolean(),
+    has_mandatory_commitment_period: faker.datatype.boolean(),
+    commitment_period_unit: randomInterval,
+    commitment_period_value: faker.number.int({ min: 1, max: 90 }),
+    is_member_cancellation_allowed: faker.datatype.boolean(),
   };
 };
 

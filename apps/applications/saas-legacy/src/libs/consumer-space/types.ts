@@ -133,6 +133,8 @@ export type ConsumerSubscriptionInvoiceDetails = {
   };
 } & ErrorAndLoading;
 
+export type ConsumerSubscriptionStop = ErrorAndLoading;
+
 export type ConsumerStateReworked = {
   myBookings: {
     bookings: {
@@ -161,6 +163,7 @@ export type ConsumerStateReworked = {
     future: ConsumerSubscriptionReworked;
     expired: ConsumerSubscriptionReworked;
     invoices: ConsumerSubscriptionInvoiceDetails;
+    stop: ConsumerSubscriptionStop;
   };
   myPasses: {
     tabs: {

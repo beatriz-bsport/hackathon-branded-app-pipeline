@@ -19,6 +19,7 @@ import type { handleGetDynamicDataForFiltersType } from '#src/libs/datatype-filt
 import { ReportCategoryEnum } from '@bsport/common/lib/master-data/report-categories.js';
 
 type Props = {
+  displayStopSubscriptionFromMemberSide?: boolean;
   filterGroup: DatatypeFilterConfigGroup;
   consumableColumns: Array<DataSourceFieldMetadata | ReportMetadataColumn>;
   reportColumns: string[];
@@ -40,6 +41,7 @@ type Props = {
 
 const DatatypeFilterConfigGroupRow: React.FC<Props> = ({
   consumableColumns,
+  displayStopSubscriptionFromMemberSide,
   reportColumns,
   groupOperand,
   prefix,
@@ -90,6 +92,9 @@ const DatatypeFilterConfigGroupRow: React.FC<Props> = ({
               dashboardTranslationNamespace={dashboardTranslationNamespace}
               displayAsFirstOrderRow={filterGroup.display_has_single}
               displayPopperWarning={displayPopperWarning}
+              displayStopSubscriptionFromMemberSide={
+                displayStopSubscriptionFromMemberSide
+              }
               filterItem={filterItem}
               getDataByType={getDataByType}
               groupOperand={filterGroup.inner_operand}

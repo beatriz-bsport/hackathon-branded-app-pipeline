@@ -24,6 +24,8 @@ const TERMSDATE = formatAsDate(SUBSCRIPTION.contract_terms_date_accepted);
 const LASTINVOICEDATEBEFORERENWAL = formatAsDate(
   SUBSCRIPTION.next_billing_date,
 );
+const COMMITMENTPERIOD = SUBSCRIPTION.commitment_period_unit;
+const COMMITMENTVALUE = SUBSCRIPTION.commitment_period_value;
 
 const ConsumerSubscriptionDetailsCardVariationRegistry = [
   {
@@ -183,10 +185,20 @@ export const CONSUMER_SUBSCRIPTION_DETAILS_CARD_PREVIEW: React.FC<{
       {...componentProps}
       areDetailsLoading={false}
       autoRenewalDate={NEXTBILLINGDATE}
+      commitmentPeriod={COMMITMENTPERIOD}
+      commitmentValue={COMMITMENTVALUE}
       description={SUBSCRIPTION.description}
+      expirationDate={SUBSCRIPTION.expiration_date}
       handleInvoiceDetailsPaginationFetchMore={emptyFn}
       hasDetailsNextPage={false}
       invoiceRetryNumber={0}
+      isCommitmentPeriodSectionHidden={
+        SUBSCRIPTION.has_mandatory_commitment_period
+      }
+      isMemberCancellationAllowed={
+        SUBSCRIPTION.has_mandatory_commitment_period &&
+        SUBSCRIPTION.is_member_cancellation_allowed
+      }
       isMobile={false}
       isPaymentMethodSectionHidden={false}
       isSubscriptionStopped={false}
@@ -196,6 +208,7 @@ export const CONSUMER_SUBSCRIPTION_DETAILS_CARD_PREVIEW: React.FC<{
       }
       onPaymentMethodActionClick={emptyFn}
       onSeeClick={emptyFn}
+      onUnSubscribeClick={emptyFn}
       pauseEndDate={NEXTBILLINGDATE}
       price={SUBSCRIPTION.recurrent_price.toString()}
       readableIdentifier="4242"
@@ -203,6 +216,15 @@ export const CONSUMER_SUBSCRIPTION_DETAILS_CARD_PREVIEW: React.FC<{
       recurrentPrice={
         componentProps.hasAutoRenewal && SUBSCRIPTION.recurrent_price.toString()
       }
+      shouldDisplayCommitmentPeriodAlert={
+        SUBSCRIPTION.has_mandatory_commitment_period &&
+        !SUBSCRIPTION.is_member_cancellation_allowed
+      }
+      shouldDisplayCommitmentPeriodSubtitle={
+        SUBSCRIPTION.has_mandatory_commitment_period &&
+        !SUBSCRIPTION.is_member_cancellation_allowed
+      }
+      shouldDisplayUnsubscribeCaptionText={false}
       subscriptionInterval={SUBSCRIPTION.interval}
       subscriptionName={SUBSCRIPTION.name_without_member_name}
       subscriptionNextPaymentDate={SUBSCRIPTIONEXTPAYMENTDATE}

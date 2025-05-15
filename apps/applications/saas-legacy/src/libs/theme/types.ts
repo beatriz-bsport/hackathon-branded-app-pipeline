@@ -141,6 +141,7 @@ export type Theme = {
   first_warning_payment_method_expiration_days: string;
   second_warning_payment_method_expiration_days: string;
   display_credit_price_for_offer: boolean;
+  display_stop_subscription_from_member_side: boolean;
   // Member profile
   show_member_account_balance: boolean;
   show_barcode_button: boolean;

@@ -541,6 +541,9 @@ export const getMyExpiredSubscriptionsList = createSelector(
   },
 );
 
+export const getSubscriptionCancellationLoadingState = (state: RootState) =>
+  state.consumerReworked.mySubscriptions.stop.loading;
+
 /** Get full object for consumer payment packs */
 const _getConsumerPaymentPack = createSelector(
   [

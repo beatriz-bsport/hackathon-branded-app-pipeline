@@ -6,13 +6,17 @@ import BottomDrawer from '#Fabrique/BottomDrawer';
 import ConsumerSubscriptionDetailsCard from '#src/libs/consumer-space/components/reworked/@MySubscriptions/ConsumerSubscriptionDetailsCard';
 
 import { formatAsDate } from '#src/utils/datetime';
-import { isPaused } from '#src/libs/subscription/utils';
+import {
+  getCommitmentPeriodDisplay,
+  isPaused,
+} from '#src/libs/subscription/utils';
 import {
   getSubtitleCardDetailsDate,
   informationBasedOnCouponApplied,
 } from '#src/libs/consumer-space/components/reworked/@MySubscriptions/utils';
 
 import type {
+  CommitmentPeriodDisplayReturnedValues,
   SubscriptionREST,
   SubscriptionsInvoicesDetailsREST,
 } from '#src/libs/subscription/types';
@@ -24,6 +28,7 @@ import {
 } from '#src/libs/consumer-space/components/reworked/@MySubscriptions/constants';
 
 type Props = {
+  displayStopSubscriptionFromMemberSide?: boolean;
   hasDetailsNextPage: boolean;
   invoiceRetryNumber: number;
   isLoading: boolean;
@@ -42,9 +47,11 @@ type Props = {
   onSeeTermsClick: () => void;
   handleInvoiceDetailsPaginationFetchMore: () => void;
   handlePaymentModalOpen: () => void;
+  onUnSubscribeClick: () => void;
 };
 
 const ConsumerSubscriptionDetailsDrawer: React.FC<Props> = ({
+  displayStopSubscriptionFromMemberSide,
   isOpen,
   hasDetailsNextPage,
   invoiceRetryNumber,
@@ -60,6 +67,7 @@ const ConsumerSubscriptionDetailsDrawer: React.FC<Props> = ({
   onSeeTermsClick,
   handleInvoiceDetailsPaginationFetchMore,
   handlePaymentModalOpen,
+  onUnSubscribeClick,
 }) => {
   const { t } = useTranslation(['consumerSpace', 'common']);
 
@@ -84,6 +92,16 @@ const ConsumerSubscriptionDetailsDrawer: React.FC<Props> = ({
     [selectedSubscription?.pauses],
   );
 
+  const commitmentPeriodDisplay: CommitmentPeriodDisplayReturnedValues =
+    useMemo(
+      () =>
+        getCommitmentPeriodDisplay(
+          selectedSubscription,
+          !!displayStopSubscriptionFromMemberSide,
+        ),
+      [selectedSubscription, displayStopSubscriptionFromMemberSide],
+    );
+
   return (
     <BottomDrawer
       blanketProps={{ isOpen, onClick: handleClose }}
@@ -100,7 +118,13 @@ const ConsumerSubscriptionDetailsDrawer: React.FC<Props> = ({
       <ConsumerSubscriptionDetailsCard
         areDetailsLoading={areDetailsLoading}
         autoRenewalDate={formatAsDate(selectedSubscription?.last_billing_date)}
+        commitmentPeriod={selectedSubscription?.commitment_period_unit}
+        commitmentValue={selectedSubscription?.commitment_period_value}
         description={selectedSubscription?.description}
+        displayStopSubscriptionFromMemberSide={
+          displayStopSubscriptionFromMemberSide
+        }
+        expirationDate={selectedSubscription?.expiration_date}
         failedInvoices={selectedSubscription?.failed_payments_invoices}
         handleInvoiceDetailsPaginationFetchMore={
           handleInvoiceDetailsPaginationFetchMore
@@ -114,7 +138,14 @@ const ConsumerSubscriptionDetailsDrawer: React.FC<Props> = ({
           !selectedSubscription?.stripe_payment_method_id
         }
         invoiceRetryNumber={invoiceRetryNumber}
+        isCommitmentPeriodSectionHidden={
+          selectedFilter == SubscriptionFilterEnum.EXPIRED ||
+          commitmentPeriodDisplay.isCommitmentPeriodSectionHidden
+        }
         isLoading={isLoading}
+        isMemberCancellationAllowed={
+          commitmentPeriodDisplay.isMemberCancellationAllowed
+        }
         isMobile={isMobile}
         isPaused={isPaused(selectedSubscription?.pauses)}
         isPaymentMethodSectionHidden={
@@ -130,6 +161,7 @@ const ConsumerSubscriptionDetailsDrawer: React.FC<Props> = ({
         )}
         onPaymentMethodActionClick={handlePaymentModalOpen}
         onSeeClick={onSeeTermsClick}
+        onUnSubscribeClick={onUnSubscribeClick}
         pauseEndDate={selectedSubscriptionPauseEndDate}
         paymentMethodType={paymentMethodUsed?.type}
         price={(selectedSubscription?.price_to_display_cts / 100).toFixed(2)}
@@ -141,6 +173,16 @@ const ConsumerSubscriptionDetailsDrawer: React.FC<Props> = ({
         )}
         selectedSubscriptionInvoiceDetails={selectedSubscriptionInvoiceDetails}
         selectedSubscriptionsFuturePauses={selectedSubscriptionsFuturePauses}
+        shouldDisplayCommitmentPeriodAlert={
+          commitmentPeriodDisplay.shouldDisplayCommitmentPeriodAlert
+        }
+        shouldDisplayCommitmentPeriodSubtitle={
+          commitmentPeriodDisplay.shouldDisplayCommitmentPeriodSubtitle
+        }
+        shouldDisplayUnsubscribeCaptionText={
+          selectedFilter !== SubscriptionFilterEnum.EXPIRED &&
+          !!displayStopSubscriptionFromMemberSide
+        }
         showPlaceholder={showPlaceholder}
         subscriptionInterval={selectedSubscription?.interval}
         subscriptionName={selectedSubscription?.name_without_member_name}

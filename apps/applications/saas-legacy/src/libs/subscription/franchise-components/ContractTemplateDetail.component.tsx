@@ -35,6 +35,7 @@ import {
 
 type Props = {
   contractTemplate: ContractTemplate;
+  displayStopSubscriptionFromMemberSideForFranchisees?: boolean;
   getPrivatePassTemplateById: (id: number) => PrivatePassTemplate;
   getPaymentPackTemplateById: (id: number) => PaymentPackTemplate;
   getFranchiseCompanyListById: (id__in: number[]) => FranchiseCompany[];
@@ -44,6 +45,7 @@ type Props = {
 
 const ContractTemplateDetail: React.FC<Props> = ({
   contractTemplate,
+  displayStopSubscriptionFromMemberSideForFranchisees,
   getPrivatePassTemplateById,
   getPaymentPackTemplateById,
   getFranchiseCompanyListById,
@@ -69,6 +71,9 @@ const ContractTemplateDetail: React.FC<Props> = ({
     manager_only,
     month_billing_day,
     is_usable_by_staff,
+    has_mandatory_commitment_period,
+    commitment_period_unit,
+    commitment_period_value,
   } = contractTemplate || {};
 
   const associatedPassTemplate = private_pass_template
@@ -91,6 +96,20 @@ const ContractTemplateDetail: React.FC<Props> = ({
   const flatFeeDisplayWithCurrency = useMemo(
     () => getCurrencyDisplayWithPrice(flat_fee),
     [flat_fee],
+  );
+
+  const shouldDisplayCommitmentPeriodSection = useMemo(
+    () =>
+      has_mandatory_commitment_period &&
+      commitment_period_unit &&
+      commitment_period_value &&
+      !!displayStopSubscriptionFromMemberSideForFranchisees,
+    [
+      has_mandatory_commitment_period,
+      commitment_period_unit,
+      commitment_period_value,
+      displayStopSubscriptionFromMemberSideForFranchisees,
+    ],
   );
 
   return (
@@ -210,6 +229,19 @@ const ContractTemplateDetail: React.FC<Props> = ({
         <Typography variant="h6">{t('contract.legal')}</Typography>
         <TypographyWithShowMore multiline>{contract}</TypographyWithShowMore>
       </div>
+      {shouldDisplayCommitmentPeriodSection && (
+        <div className={classes.block}>
+          <Typography className={classes.textBlock} variant="h6">
+            {t('contract.commitmentPeriod.label')}
+          </Typography>
+          <Typography>
+            {t(`contract.commitmentPeriod.explain.${commitment_period_unit}`, {
+              count: commitment_period_value ?? 1,
+              commitment_period_value: commitment_period_value ?? 1,
+            })}
+          </Typography>
+        </div>
+      )}
     </Paper>
   );
 };
@@ -234,6 +266,9 @@ const useStyles = makeStyles((theme) => ({
   },
   block: {
     marginBottom: theme.spacing(1),
+  },
+  textBlock: {
+    marginBottom: theme.spacing(2),
   },
   recurrence: {
     marginLeft: theme.spacing(2),

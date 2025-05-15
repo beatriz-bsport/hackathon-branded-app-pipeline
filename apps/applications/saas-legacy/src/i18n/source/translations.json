@@ -2176,8 +2176,8 @@
         "dateLabel": {
           "active": "Started on {{- date }}",
           "future": "Starts on {{- date }}",
-          "expired": "Expired since {{- date }}",
-          "until": " until {{- date }}"
+          "expired": "Expired since {{- date }} (excluded)",
+          "until": " until {{- date }} (excluded)"
         },
         "tab": { "active": "Active", "future": "Not started", "expired": "Expired" },
         "download": "Download",
@@ -2209,13 +2209,47 @@
           "drawerTitle": "Subscription",
           "beforeRenewalContractPricePer": "Then {{ price }}/{{ interval }} after {{- date }}",
           "beforeRenewalContractPriceEvery": "Then {{ price }} every {{ recurrence }} {{ interval }} after {{- date }}",
+          "commitmentPeriod": {
+            "title": "Manage subscription",
+            "subtitle": "This subscription is ending with no more next payments after the current cycle.",
+            "explain": {
+              "day": "This subscription has a {{ commitment_period_value }} day commitment period, for cancellations or questions, please directly contact the studio.",
+              "day_plural": "This subscription has a {{ commitment_period_value }} days commitment period, for cancellations or questions, please directly contact the studio.",
+              "week": "This subscription has a {{ commitment_period_value }} week commitment period, for cancellations or questions, please directly contact the studio.",
+              "week_plural": "This subscription has a {{ commitment_period_value }} weeks commitment period, for cancellations or questions, please directly contact the studio.",
+              "month": "This subscription has a {{ commitment_period_value }} month commitment period, for cancellations or questions, please directly contact the studio.",
+              "month_plural": "This subscription has a {{ commitment_period_value }} months commitment period, for cancellations or questions, please directly contact the studio.",
+              "year": "This subscription has a {{ commitment_period_value }} year commitment period, for cancellations or questions, please directly contact the studio.",
+              "year_plural": "This subscription has a {{ commitment_period_value }} years commitment period, for cancellations or questions, please directly contact the studio."
+            },
+            "modal": {
+              "explainNotStarted": "You are about to cancel a subscription that hasn't started. \nYou'll still be charged for the first billing cycle, and your benefits will remain valid until {{- expiration_date }} (excluded).\nAre you sure you want to continue?",
+              "explainStarted": "You are about to cancel this subscription. Your subscription benefits will remain valid until {{- expiration_date }} (excluded).\nAre you sure you want to continue?",
+              "explainNoExpirationDate": "You are about to cancel this subscription. Your subscription benefits will remain valid until the end of the next billing cycle.\nAre you sure you want to continue?",
+              "cancel": "Keep subscription",
+              "confirmationTitle": "You've successfully unsubscribed",
+              "confirmationStarted": "You can continue to enjoy subscription benefits until {{- expiration_date }} (excluded).",
+              "confirmationNotStarted": "You can close the modal.",
+              "failedTitle": "Something went wrong",
+              "failedMessage": "Please refresh your page and try again.",
+              "alert": "Pre-booked sessions made under a subscription with unlimited classes will be cancelled after this period and may be subject to a late cancellation fee."
+            }
+          },
+          "loading": "We're processing your request...",
           "description": "Description",
           "terms": "Terms",
           "termsAccepted": "Accepted on {{- termsDate }}",
-          "buttonsLabel": { "see": "See", "add": "Add", "change": "Change" },
+          "buttonsLabel": {
+            "see": "See",
+            "add": "Add",
+            "change": "Change",
+            "unsubscribe": "Unsubscribe"
+          },
           "headerListItemLabels": {
             "futurePauses": "A pause is scheduled from {{- dateStart }} to {{- dateEnd }} (included)",
             "nextPayment": "Next payment",
+            "stop": "Unsubscribed",
+            "stopValidDate": "Valid until {{- expirationDate }} (excluded)",
             "paused": "Currently paused",
             "autoRenewed": "Automatically renewed",
             "autoRenewalDate": "on {{- autoRenewalDate }} (included)",
@@ -11535,9 +11569,10 @@
       "billing_plan_status": {
         "0": "Not yet started",
         "1": "In progress",
-        "2": "Stopped",
-        "3": "Stopped",
-        "4": "Finished"
+        "2": "Terminated (Manager)",
+        "3": "Paused",
+        "4": "Finished",
+        "5": "Terminated (Member)"
       },
       "product_type": {
         "payment_pack": "Passes",
@@ -15206,7 +15241,7 @@
       "billing_plan-pause": "Paused payments",
       "billing_plan-pause_deleted": "Pause cancelled",
       "billing_plan-create": "Create",
-      "billing_plan-stop": "Stopped payments",
+      "billing_plan-stop": "Subscription terminated by",
       "billing_plan-renew": "Automatic renewals",
       "billing_plan-payment_dispute": "Payment: disputed",
       "billing_plan-payment_success": "Payment: successful",
@@ -15309,6 +15344,19 @@
       },
       "description": "Description",
       "legal": "Terms",
+      "commitmentPeriod": {
+        "label": "Commitment period",
+        "explain": {
+          "day": "This subscription will commit the member for {{ commitment_period_value }} day.",
+          "day_plural": "This subscription will commit the member for {{ commitment_period_value }} days.",
+          "week": "This subscription will commit the member for {{ commitment_period_value }} week.",
+          "week_plural": "This subscription will commit the member for {{ commitment_period_value }} weeks.",
+          "month": "This subscription will commit the member for {{ commitment_period_value }} month.",
+          "month_plural": "This subscription will commit the member for {{ commitment_period_value }} months.",
+          "year": "This subscription will commit the member for {{ commitment_period_value }} year.",
+          "year_plural": "This subscription will commit the member for {{ commitment_period_value }} years."
+        }
+      },
       "actions": {
         "iAcceptCondition": "I accept the terms.",
         "iwanttostarton": "Preferred starting date of this subscription: ",
@@ -15444,7 +15492,22 @@
           },
           "selectTags": "Select tags"
         },
-        "notEditable": "This contract originates from a previously completed data migration. Some fields may not be editable to preserve the data."
+        "notEditable": "This contract originates from a previously completed data migration. Some fields may not be editable to preserve the data.",
+        "commitmentPeriod": {
+          "label": "Commitment period",
+          "helperText": "Remember to check your country's laws regarding the right of withdrawal for subscription and add the required information in your terms and conditions.",
+          "error": "The commitment period can't exceed 90.",
+          "explain": {
+            "day": "This subscription will commit the member for {{ commitment_period_value }} day. Changes to the subscription commitment period in settings will not affect any subscriptions that have already been purchased.",
+            "day_plural": "This subscription will commit the member for {{ commitment_period_value }} days. Changes to the subscription commitment period in settings will not affect any subscriptions that have already been purchased.",
+            "week": "This subscription will commit the member for {{ commitment_period_value }} week. Changes to the subscription commitment period in settings will not affect any subscriptions that have already been purchased.",
+            "week_plural": "This subscription will commit the member for {{ commitment_period_value }} weeks. Changes to the subscription commitment period in settings will not affect any subscriptions that have already been purchased.",
+            "month": "This subscription will commit the member for {{ commitment_period_value }} month. Changes to the subscription commitment period in settings will not affect any subscriptions that have already been purchased.",
+            "month_plural": "This subscription will commit the member for {{ commitment_period_value }} months. Changes to the subscription commitment period in settings will not affect any subscriptions that have already been purchased.",
+            "year": "This subscription will commit the member for {{ commitment_period_value }} year. Changes to the subscription commitment period in settings will not affect any subscriptions that have already been purchased.",
+            "year_plural": "This subscription will commit the member for {{ commitment_period_value }} years. Changes to the subscription commitment period in settings will not affect any subscriptions that have already been purchased."
+          }
+        }
       },
       "deleteForm": {
         "actions": { "confirm": "Delete", "cancel": "Cancel" },
@@ -15729,7 +15792,12 @@
       "paused": "Paused",
       "valid": "Valid"
     },
-    "scheduledStop": { "label": "Terminated", "unscheduleStop": "Unschedule the stop" },
+    "scheduledStop": {
+      "label": "Terminated",
+      "unscheduleStop": "Unschedule the stop",
+      "stoppedByManager": "Terminated by {{ name }}",
+      "stoppedByMember": "Terminated by the member"
+    },
     "end": { "renew": "Auto-renew", "noRenew": "End the subscription" },
     "seeMore": "Show more",
     "search": "Search a subscription",

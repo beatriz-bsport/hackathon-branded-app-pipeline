@@ -95,6 +95,7 @@ type Props = {
   ) => Promise<void>;
   userPermissions: RolePermission;
   displayNewWebshop?: boolean;
+  displayStopSubscriptionFromMemberSide?: boolean;
 } & Pick<withDatatypeDynamicDataProps, 'handleGetDynamicDataForFilters'>;
 
 const ReportDetailPage: React.FC<Props> = ({
@@ -127,6 +128,7 @@ const ReportDetailPage: React.FC<Props> = ({
   updateReport,
   userPermissions,
   displayNewWebshop,
+  displayStopSubscriptionFromMemberSide,
 }) => {
   const classes = useStyles({ isNavigationDrawerExpanded });
   const { t } = useTranslation('reporting');
@@ -292,6 +294,9 @@ const ReportDetailPage: React.FC<Props> = ({
       <ReportDetailDrawer
         advancedReportFilterConfig={advancedReportFilterConfig}
         categoryName={categoryName}
+        displayStopSubscriptionFromMemberSide={
+          displayStopSubscriptionFromMemberSide
+        }
         dynamicDataHasBeenLoaded={dynamicDataHasBeenLoaded}
         handleDrawerClosing={handleEditDrawerState(false)}
         handleGetDynamicDataForFilters={handleGetDynamicDataForFilters}
@@ -343,6 +348,9 @@ const ReportDetailPage: React.FC<Props> = ({
         <ReportDetailContent
           categoryName={categoryName}
           displayNewWebshop={displayNewWebshop}
+          displayStopSubscriptionFromMemberSide={
+            displayStopSubscriptionFromMemberSide
+          }
           dynamicDataHasBeenLoaded={dynamicDataHasBeenLoaded}
           editReportFilterConfig={editReportFilterConfig}
           excelExportLoading={excelExportLoading}

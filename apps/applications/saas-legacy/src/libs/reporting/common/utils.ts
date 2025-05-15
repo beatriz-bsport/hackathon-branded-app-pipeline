@@ -975,7 +975,7 @@ export const getSingleValueLabel = (
     case ReportFilterableDataType.INVOICE_STATUS:
       return t(`invoice:status.${value}`);
     case ReportFilterableDataType.BILLING_PLAN_STATUS:
-      return t(`subscription:billing_plan_status.${value}`);
+      return t(`reporting:presetValuesByDatatype.billing_plan_status.${value}`);
     case ReportFilterableDataType.DISPUTE_STATUS:
       return t(`payment:disputeStatus.${value}`);
     case ReportFilterableDataType.BOOKING_STATUS_CODE:

@@ -37,6 +37,7 @@ import {
   fetchMyActiveSubscriptionsAsMemberActions,
   fetchMyExpiredSubscriptionsAsMemberActions,
   fetchMyFutureSubscriptionsAsMemberActions,
+  stopConsumerSubscriptionActions,
 } from '#src/libs/consumer-space/actions/subscription-actions';
 
 import {
@@ -232,6 +233,10 @@ const initialState: Immutable.Immutable<ConsumerStateReworked> =
         loading: false,
         error: null,
         bySubscriptionId: {},
+      },
+      stop: {
+        loading: false,
+        error: null,
       },
     },
     myPasses: {
@@ -1663,6 +1668,18 @@ export default handleActions<Immutable.Immutable<ConsumerStateReworked>, any>(
       { payload }: { payload: Error | null },
     ) => {
       return state.setIn(['mySubscriptions', 'invoices', 'error'], payload);
+    },
+    [stopConsumerSubscriptionActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(['mySubscriptions', 'stop', 'loading'], payload);
+    },
+    [stopConsumerSubscriptionActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(['mySubscriptions', 'stop', 'error'], payload);
     },
     /* MY INVOICES REDUCER */
     [fetchConsumerUnpaidInvoicesActions.isLoading.toString()]: (

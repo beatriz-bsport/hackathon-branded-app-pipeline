@@ -82,6 +82,7 @@ const { trackFormAdd, trackFormSuccess, trackFormCancel } =
 type Values = DataSourceDashboardGraph;
 
 export type OuterProps = {
+  displayStopSubscriptionFromMemberSide?: boolean;
   open: boolean;
   graphMetadata: Array<DataSourceDashboardGraphMetadata>;
   initial?: DataSourceDashboardGraph;
@@ -114,6 +115,7 @@ const onTrack = (initial, values, track) => {
 };
 
 const DashboardGraphFormDrawer: React.FC<OuterProps & FormikProps<Values>> = ({
+  displayStopSubscriptionFromMemberSide,
   open,
   graphMetadata,
   isPreview,
@@ -549,6 +551,9 @@ const DashboardGraphFormDrawer: React.FC<OuterProps & FormikProps<Values>> = ({
                   <DatatypeFilterConfigValueManager
                     inScrollBar
                     comparator={4}
+                    displayStopSubscriptionFromMemberSide={
+                      displayStopSubscriptionFromMemberSide
+                    }
                     filterItem={
                       values.date_filter_config.groups[0].filters_data[0]
                     }
@@ -624,6 +629,9 @@ const DashboardGraphFormDrawer: React.FC<OuterProps & FormikProps<Values>> = ({
                           addFilter={handleAddFilterInGroup(indexGroup)}
                           checkOtherRowExist={checkOtherRowExist}
                           consumableColumns={selectedGraphConsumableMetadata}
+                          displayStopSubscriptionFromMemberSide={
+                            displayStopSubscriptionFromMemberSide
+                          }
                           filterGroup={filterGroup}
                           getDataByType={handleGetDynamicDataForFilters}
                           groupOperand={values.filter_config.group_operand}

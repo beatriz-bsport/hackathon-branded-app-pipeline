@@ -2,10 +2,23 @@ import { Result } from "typescript-result";
 
 import type { Action, Fetch } from "@bsport/store-base";
 
-import { fetchSearchSmartlistsAPI, fetchSmartlistsAPI } from "#src/api";
+import {
+  createSmartlistAPI,
+  deleteSmartlistAPI,
+  duplicateSmartlistAPI,
+  editSmartlistAPI,
+  fetchSearchSmartlistsAPI,
+  fetchSmartlistsAPI,
+} from "#src/api";
 import { selectCount, selectSmartlists } from "#src/selectors";
 import { smartlistStore } from "#src/store";
-import type { Smartlist, SmartlistSearchResult } from "#src/types";
+import type {
+  CreateSmartlistParams,
+  EditSmartlistParams,
+  GeneralSmartlistParams,
+  Smartlist,
+  SmartlistSearchResult,
+} from "#src/types";
 
 import { resetFuzzySearch, setPaginationData, setSmartlists } from "./store";
 
@@ -20,6 +33,15 @@ function hasSearch(params: Params): params is Required<Params> {
   return !!params.search?.trim();
 }
 
+/**
+ * Fetches smartlists from the API
+ * @param fetch - Fetch function to use for the API call
+ * @param params - Parameters for fetching smartlists
+ * @param params.page - Page number
+ * @param params.page_size - Page size
+ * @param params.search - Search query
+ * @returns A Result containing the fetched smartlists or an error
+ */
 export const fetchSmartlistsAction = async (
   fetch: Fetch<Smartlist[] | SmartlistSearchResult>,
   params: Params,
@@ -103,5 +125,100 @@ const fetchSearchSmartlistsAction: Action<
       return data;
     },
     (error) => new Error("Failed to search smartlists", { cause: error }),
+  );
+};
+
+/**
+ * Creates a new smartlist
+ * @param fetch - Fetch function to use for the API call
+ * @param params - Parameters for creating a smartlist
+ * @param params.name - Name of the smartlist
+ * @param params.description - Description of the smartlist
+ * @param params.company - Company of the smartlist
+ * @returns A Result containing the created smartlist or an error
+ */
+export const createSmartlistAction: Action<
+  CreateSmartlistParams,
+  Smartlist
+> = async (fetch, params) => {
+  const [uri, init] = createSmartlistAPI(params);
+
+  return Result.try(
+    async () => {
+      const { data } = await fetch(uri, init);
+
+      return data;
+    },
+    (error) => new Error("Failed to create smartlist", { cause: error }),
+  );
+};
+
+/**
+ * Edits an existing smartlist
+ * @param fetch - Fetch function to use for the API call
+ * @param params - Parameters for editing the smartlist
+ * @param params.name - Name of the smartlist
+ * @param params.description - Description of the smartlist
+ * @returns A Result containing the updated smartlist or an error
+ */
+export const editSmartlistAction: Action<
+  EditSmartlistParams,
+  Smartlist
+> = async (fetch, params) => {
+  const [uri, init] = editSmartlistAPI(params);
+
+  return Result.try(
+    async () => {
+      const { data } = await fetch(uri, init);
+
+      return data;
+    },
+    (error) => new Error("Failed to edit smartlist", { cause: error }),
+  );
+};
+
+/**
+ * Deletes an existing smartlist
+ * @param fetch - Fetch function to use for the API call
+ * @param params - Parameters for deleting the smartlist
+ * @param params.id - ID of the smartlist to delete
+ * @returns A Result containing a success boolean or an error
+ */
+export const deleteSmartlistAction: Action<
+  GeneralSmartlistParams,
+  boolean
+> = async (fetch, params) => {
+  const [uri, init] = deleteSmartlistAPI(params);
+
+  return Result.try(
+    async () => {
+      await fetch(uri, init);
+
+      return true;
+    },
+    (error) => new Error("Failed to delete smartlist", { cause: error }),
+  );
+};
+
+/**
+ * Creates a copy of an existing smartlist
+ * @param fetch - Fetch function to use for the API call
+ * @param params - Parameters for duplicating the smartlist
+ * @param params.id - ID of the smartlist to duplicate
+ * @returns A Result containing the newly created smartlist or an error
+ */
+export const duplicateSmartlistAction: Action<
+  GeneralSmartlistParams,
+  Smartlist
+> = async (fetch, params) => {
+  const [uri, init] = duplicateSmartlistAPI(params);
+
+  return Result.try(
+    async () => {
+      const { data } = await fetch(uri, init);
+
+      return data;
+    },
+    (error) => new Error("Failed to duplicate smartlist", { cause: error }),
   );
 };

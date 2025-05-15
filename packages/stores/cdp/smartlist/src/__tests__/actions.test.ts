@@ -1,6 +1,12 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
-import { fetchSmartlistsAction } from "#src/actions";
+import {
+  createSmartlistAction,
+  deleteSmartlistAction,
+  duplicateSmartlistAction,
+  editSmartlistAction,
+  fetchSmartlistsAction,
+} from "#src/actions";
 import { selectSmartlists } from "#src/selectors";
 import { smartlistStore } from "#src/store";
 import type { Smartlist, SmartlistSearchResult } from "#src/types";
@@ -100,5 +106,255 @@ describe("fetchSmartlistsAction", () => {
     const smartlists = selectSmartlists(storeState);
     expect(smartlists).toHaveLength(1);
     expect(smartlists[0].name).toBe(searchTerm);
+  });
+});
+
+describe("createSmartlistAction", () => {
+  it("should successfully create a smartlist", async () => {
+    const newSmartlist = {
+      name: "API Created Smartlist",
+      description: "Created via API",
+      company: 1,
+    };
+
+    const realFetch = createTestFetch<Smartlist>();
+
+    const result = await createSmartlistAction(realFetch, newSmartlist);
+
+    return result.fold(
+      (createdSmartlist) => {
+        expect(createdSmartlist).toEqual({
+          id: 999,
+          name: newSmartlist.name,
+          description: newSmartlist.description,
+          company: newSmartlist.company,
+          member_base: 1,
+          has_active_communication_group_configs: false,
+        });
+      },
+      (error) => {
+        expect.fail(`Expected success but got error: ${error.message}`);
+      },
+    );
+  });
+
+  it("should handle error when creating a smartlist with invalid name", async () => {
+    const invalidSmartlist = {
+      name: "Invalid Smartlist",
+      description: "This should trigger a 400 error",
+      company: 1,
+    };
+
+    const realFetch = createTestFetch<Smartlist>();
+
+    const result = await createSmartlistAction(realFetch, invalidSmartlist);
+
+    return result.fold(
+      () => {
+        // If we get here, means that it didn't throw an error
+        expect.fail("Expected an error but got success");
+      },
+      (error) => {
+        expect(error.message).toBe("Failed to create smartlist");
+      },
+    );
+  });
+});
+
+describe("editSmartlistAction", () => {
+  beforeEach(() => {
+    // Initialize the store with mock data for testing edit functionality
+    smartlistStore.setState({
+      byId: {
+        1: mockSmartlists[0],
+        2: mockSmartlists[1],
+      },
+      ids: [1, 2],
+      count: 2,
+      page: 1,
+      pageSize: 10,
+    });
+  });
+
+  it("should successfully edit a smartlist", async () => {
+    const updateData = {
+      id: 1,
+      name: "Updated Smartlist Name",
+      description: "Updated description",
+    };
+
+    const realFetch = createTestFetch<Smartlist>();
+
+    const result = await editSmartlistAction(realFetch, updateData);
+
+    return result.fold(
+      (updatedSmartlist) => {
+        // Check that the function returned the updated smartlist
+        expect(updatedSmartlist.id).toBe(updateData.id);
+        expect(updatedSmartlist.name).toBe(updateData.name);
+        expect(updatedSmartlist.description).toBe(updateData.description);
+      },
+      (error) => {
+        expect.fail(`Expected success but got error: ${error.message}`);
+      },
+    );
+  });
+
+  it("should handle error when editing a smartlist with invalid name", async () => {
+    const invalidUpdateData = {
+      id: 1,
+      name: "Invalid Smartlist",
+      description: "This should trigger a 400 error",
+    };
+
+    const realFetch = createTestFetch<Smartlist>();
+
+    const result = await editSmartlistAction(realFetch, invalidUpdateData);
+
+    return result.fold(
+      () => {
+        // If we get here, means that it didn't throw an error
+        expect.fail("Expected an error but got success");
+      },
+      (error) => {
+        expect(error.message).toBe("Failed to edit smartlist");
+      },
+    );
+  });
+
+  it("should handle error when editing a non-existent smartlist", async () => {
+    const nonExistentId = 999;
+    const updateData = {
+      id: nonExistentId,
+      name: "Updated Smartlist Name",
+      description: "Updated description",
+    };
+
+    const realFetch = createTestFetch<Smartlist>();
+
+    const result = await editSmartlistAction(realFetch, updateData);
+
+    return result.fold(
+      () => {
+        // If we get here, means that it didn't throw an error
+        expect.fail("Expected an error but got success");
+      },
+      (error) => {
+        expect(error.message).toBe("Failed to edit smartlist");
+      },
+    );
+  });
+});
+
+describe("deleteSmartlistAction", () => {
+  beforeEach(() => {
+    // Initialize the store with mock data for testing delete functionality
+    smartlistStore.setState({
+      byId: {
+        1: mockSmartlists[0],
+        2: mockSmartlists[1],
+      },
+      ids: [1, 2],
+      count: 2,
+      page: 1,
+      pageSize: 10,
+      fuzzySearchIds: [],
+    });
+  });
+
+  it("should successfully delete a smartlist", async () => {
+    const params = {
+      id: 1,
+    };
+    const realFetch = createTestFetch<boolean>();
+
+    const result = await deleteSmartlistAction(realFetch, params);
+
+    return result.fold(
+      (success) => {
+        expect(success).toBe(true);
+      },
+      (error) => {
+        expect.fail(`Expected success but got error: ${error.message}`);
+      },
+    );
+  });
+
+  it("should handle error when deleting a smartlist fails", async () => {
+    const params = {
+      id: 123,
+    };
+    const realFetch = createTestFetch<boolean>();
+
+    const result = await deleteSmartlistAction(realFetch, params);
+
+    return result.fold(
+      () => {
+        expect.fail("Expected an error but got success");
+      },
+      (error) => {
+        expect(error.message).toBe("Failed to delete smartlist");
+      },
+    );
+  });
+});
+
+describe("duplicateSmartlistAction", () => {
+  beforeEach(() => {
+    // Initialize the store with mock data for testing duplicate functionality
+    smartlistStore.setState({
+      byId: {
+        1: mockSmartlists[0],
+        2: mockSmartlists[1],
+      },
+      ids: [1, 2],
+      count: 2,
+      page: 1,
+      pageSize: 10,
+      fuzzySearchIds: [],
+    });
+  });
+
+  it("should successfully duplicate a smartlist", async () => {
+    const params = {
+      id: 1,
+    };
+    const realFetch = createTestFetch<Smartlist>();
+
+    const result = await duplicateSmartlistAction(realFetch, params);
+
+    return result.fold(
+      (duplicatedSmartlist) => {
+        expect(duplicatedSmartlist.id).toBe(1000);
+        expect(duplicatedSmartlist.name).toBe(
+          `Copy of ${mockSmartlists[0].name}`,
+        );
+        expect(duplicatedSmartlist.description).toBe(
+          mockSmartlists[0].description,
+        );
+        expect(duplicatedSmartlist.company).toBe(mockSmartlists[0].company);
+      },
+      (error) => {
+        expect.fail(`Expected success but got error: ${error.message}`);
+      },
+    );
+  });
+
+  it("should handle error when duplicating a smartlist fails", async () => {
+    const params = {
+      id: 123,
+    };
+    const realFetch = createTestFetch<Smartlist>();
+
+    const result = await duplicateSmartlistAction(realFetch, params);
+
+    return result.fold(
+      () => {
+        expect.fail("Expected an error but got success");
+      },
+      (error) => {
+        expect(error.message).toBe("Failed to duplicate smartlist");
+      },
+    );
   });
 });

@@ -14,6 +14,7 @@ export const SHARED_PASSES_SELECTOR_ICON_TOOLTIP_SHADOW =
 export const BORDER_RADIUS_CONTRACT_DETAIL = 4;
 export const FONT_WEIGHT_CONTRACT_DETAIL = 500;
 export const FONT_SIZE_CONTRACT_DETAIL = '0.875rem';
+export const CONTRACT_MAX_COMMITMENT_VALUE_ALLOWED = 90;
 
 export const PLANNED_INVOICE_TIME_CONFIGURATION = {
   hour: 12,
@@ -44,6 +45,9 @@ export const DEFAULT_CONTRACT_TEMPLATE_FORM_INITIAL_VALUES: ContractTemplateForm
     autoRenewal: false,
     unusableByStaff: false,
     editable: true,
+    has_mandatory_commitment_period: false,
+    commitment_period_value: 1,
+    commitment_period_unit: 'month',
   };
 
 export const PAUSE_RESULT_FAIL_INCOMING_BILL = 63101;

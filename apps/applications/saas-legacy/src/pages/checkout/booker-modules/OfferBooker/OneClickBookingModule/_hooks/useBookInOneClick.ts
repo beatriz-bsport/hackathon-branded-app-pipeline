@@ -20,6 +20,7 @@ import {
 } from '#src/actions/constants';
 import { finalizeLightSignup } from '#src/libs/member/api';
 import { handleUserRegistration } from './useHandleUserRegistration';
+import { USER_REGISTRATION_RESPONSE_LOCAL_STORAGE_KEY } from '#src/libs/payment/constants';
 
 const redirectToConfirmationPage = (
   offer: OfferREST,
@@ -77,7 +78,7 @@ const useBookInOneClick = () => {
   const dispatch = useDispatch();
   const pushUrl = (url: string) => dispatch(push(url));
 
-  const onBookingSuccess = async ({
+  const redirectOnBookingSuccess = async ({
     offer,
     userRegistrationResponse,
     basketId,
@@ -86,6 +87,18 @@ const useBookInOneClick = () => {
       'local',
       STORAGE_KEY_LIGHT_SIGNUP_MEMBER_ID,
     );
+
+    const rawUserRegistrationResponse = getItemInStorage(
+      'local',
+      USER_REGISTRATION_RESPONSE_LOCAL_STORAGE_KEY,
+    );
+
+    if (!!rawUserRegistrationResponse) {
+      removeItemInStorage(
+        'local',
+        USER_REGISTRATION_RESPONSE_LOCAL_STORAGE_KEY,
+      );
+    }
 
     if (offer && basketId && userRegistrationResponse && memberId) {
       await finalizeLightSignup(parseInt(memberId));
@@ -119,7 +132,7 @@ const useBookInOneClick = () => {
     if (basket) {
       await validateBasket(basket);
 
-      onBookingSuccess({
+      redirectOnBookingSuccess({
         basketId: basket.id,
         offer,
         userRegistrationResponse,
@@ -128,7 +141,7 @@ const useBookInOneClick = () => {
   };
   return {
     bookInOneClick: useAsyncFn(bookInOneClick),
-    onBookingSuccess,
+    redirectOnBookingSuccess,
   };
 };
 

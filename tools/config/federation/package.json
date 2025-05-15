@@ -46,7 +46,8 @@
   },
   "nx": {
     "tags": [
-      "tools:config-federation"
+      "tools:config-federation",
+      "execute:unit-tests"
     ]
   }
 }

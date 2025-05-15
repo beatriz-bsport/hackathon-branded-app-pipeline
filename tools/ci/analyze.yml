@@ -29,7 +29,7 @@ Analyze:
     - echo "✅ All ichizen affected projects have been compiled with Typescript"
     - echo "*"
     - echo "⏳ Execute federation-config test when affected"
-    - pnpm exec nx affected --target=test --base=origin/$NX_BASE --exclude='*,!tag:tools:config-federation'
+    - pnpm exec nx affected --target=test --base=origin/$NX_BASE --exclude='*,!tag:execute:unit-tests'
     - echo "✅ federation-config tests have been executed if affected"
     - echo "*"
     - echo "⏳ Lint ichizen affected projects"

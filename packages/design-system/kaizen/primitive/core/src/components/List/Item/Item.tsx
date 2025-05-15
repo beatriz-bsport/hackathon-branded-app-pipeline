@@ -2,16 +2,21 @@ import { VariantProps } from "class-variance-authority";
 import classNames from "classnames";
 import React, { useCallback, useMemo } from "react";
 
-import Avatar, { AvatarProps } from "#src/components/Avatar";
-import Button, { ButtonProps } from "#src/components/Button";
+import Avatar, { type AvatarProps } from "#src/components/Avatar";
+import Button from "#src/components/Button";
 import Checkbox from "#src/components/Checkbox";
 import Chip from "#src/components/Chip";
 import ColorIndicator from "#src/components/ColorIndicator";
+import DropdownMenu from "#src/components/DropdownMenu";
 import Icon, { IconName } from "#src/components/Icon";
 import { ListItemChipsProps, listItem } from "#src/components/List";
 import { type WithTooltip, withTooltip } from "#src/components/Tooltip";
 import withLink from "#src/components/private/withLink";
 import { useCheckboxContext } from "#src/contexts/CheckboxContext";
+import useSplitActionsByDisplayOrder, {
+  type ActionsButtons,
+  type ActionsDropdownConfig,
+} from "#src/hooks/use-split-actions-by-display-order";
 
 type Props = {
   id: string;
@@ -29,11 +34,8 @@ type Props = {
     | [ListItemChipsProps, ListItemChipsProps, ListItemChipsProps]
   >;
   chipsDirection?: "start" | "end";
-  buttons?: WithTooltip<
-    | [ButtonProps]
-    | [ButtonProps, ButtonProps]
-    | [ButtonProps, ButtonProps, ButtonProps]
-  >;
+  buttons?: WithTooltip<ActionsButtons[]>;
+  dropdownConfig?: ActionsDropdownConfig;
   link?: string;
   className?: string;
 };
@@ -68,7 +70,13 @@ const BaseItem: React.FC<
     checkboxState,
     handleChange,
     chips,
+    dropdownConfig,
   }) => {
+    const { actions, dropdownMenuProps } = useSplitActionsByDisplayOrder({
+      actions: buttons || [],
+      dropdownConfig: dropdownConfig,
+    });
+
     const renderedChips = useMemo(
       () =>
         chips ? (
@@ -116,20 +124,19 @@ const BaseItem: React.FC<
             </span>
           )}
           {chipsDirection === "end" && renderedChips}
-          {buttons && (
+          {actions && (
             <div className="flex items-center gap-sm">
-              {buttons.map((button, index) => (
+              {actions.map((action) => (
                 <ButtonWithTooltip
-                  key={index}
-                  {...button}
-                  onClick={(e) => {
-                    e.stopPropagation(); // Prevents event bubbling
-                    e.preventDefault(); // Prevents the link from triggering if needed
-                    button.onClick?.(e);
+                  key={action.id}
+                  {...action}
+                  onClick={() => {
+                    action.onClick?.();
                   }}
-                  label={button?.label}
+                  label={action?.label}
                 />
               ))}
+              {dropdownMenuProps && <DropdownMenu {...dropdownMenuProps} />}
             </div>
           )}
         </div>
@@ -153,6 +160,7 @@ const BaseItem: React.FC<
  * @param props.chips An array of chips to display, up to 3, with details about their labels and styles.
  * @param props.chipsDirection Direction for displaying the chips: "start" or "end".
  * @param props.buttons An array of button configurations, up to 3, displayed within the item.
+ * @param props.dropdownConfig An optionnal object, dropdown config such as the max number of actions displayed inline or the dropdown component fields.
  * @param props.link The URL to navigate to when the item is clicked.
  * If provided, the entire item may act as a clickable link.
  * @param props.id The id of the item.
@@ -172,6 +180,7 @@ const Item: React.FC<ListItemProps> = ({
   chipsDirection = "start",
   buttons,
   chips,
+  dropdownConfig,
   ...props
 }) => {
   const { toggleCheckbox, getCheckboxState } = useCheckboxContext();
@@ -214,6 +223,7 @@ const Item: React.FC<ListItemProps> = ({
         chipsDirection={chipsDirection}
         buttons={buttons}
         chips={chips}
+        dropdownConfig={dropdownConfig}
       />
     </li>
   );

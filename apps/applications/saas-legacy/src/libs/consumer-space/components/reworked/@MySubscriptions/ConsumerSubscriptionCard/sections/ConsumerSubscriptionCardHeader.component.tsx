@@ -7,6 +7,7 @@ import {
   AlertCircle,
   CreditCardX,
   PauseCircle,
+  XSquare,
 } from '#src/components/untitledui';
 import type { ConsumerSubscriptionCardProps } from '..';
 
@@ -17,6 +18,7 @@ type Props = Pick<
   | 'isPaused'
   | 'hasFailedPayments'
   | 'hasMissingPaymentMethod'
+  | 'hasUnsubscribed'
 >;
 
 const ConsumerSubscriptionCardHeader: React.FC<Props> = ({
@@ -25,6 +27,7 @@ const ConsumerSubscriptionCardHeader: React.FC<Props> = ({
   isPaused,
   hasFailedPayments,
   hasMissingPaymentMethod,
+  hasUnsubscribed,
 }) => {
   const { t } = useTranslation('consumerSpace');
   const chipsDataList = [
@@ -52,6 +55,15 @@ const ConsumerSubscriptionCardHeader: React.FC<Props> = ({
       leftIcon: <CreditCardX stroke="currentColor" />,
       text: t(
         'reworked.mySubscriptions.consumerSubscriptionCard.chipsLabel.failedPayment',
+      ),
+      chipClassName: 'bs-consumer__booking-card__header__chip',
+    },
+    {
+      shouldDisplay: hasUnsubscribed,
+      chipColor: 'error' as ChipColor,
+      leftIcon: <XSquare stroke="currentColor" />,
+      text: t(
+        'reworked.mySubscriptions.consumerSubscriptionCardDetails.headerListItemLabels.stop',
       ),
       chipClassName: 'bs-consumer__booking-card__header__chip',
     },

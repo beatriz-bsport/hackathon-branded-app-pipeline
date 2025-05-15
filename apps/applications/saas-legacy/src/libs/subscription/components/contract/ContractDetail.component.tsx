@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import { useTranslation } from 'react-i18next';
@@ -30,6 +30,7 @@ import {
 } from '#src/libs/subscription/constants';
 type Props = {
   contract: ContractWithPaymentPack;
+  displayStopSubscriptionFromMemberSide?: boolean;
   goToPack: (id: number) => void;
   goToPrivatePass: (id: number) => void;
   company: { id: number; name: string };
@@ -53,13 +54,34 @@ const ContractDetail = (props: Props) => {
     month_billing_day,
     nb_interval_after_auto_renewal,
     is_usable_by_staff,
+    has_mandatory_commitment_period,
+    commitment_period_unit,
+    commitment_period_value,
   } = props.contract;
   const classes = useStyles();
   const { t } = useTranslation('subscription');
 
-  const duration = recurrence_basis * nb_interval;
-  const durationAfterAutoRenewal =
-    nb_interval_after_auto_renewal * recurrence_basis;
+  const duration = useMemo(
+    () => recurrence_basis * nb_interval,
+    [nb_interval, recurrence_basis],
+  );
+  const durationAfterAutoRenewal = useMemo(
+    () => nb_interval_after_auto_renewal * recurrence_basis,
+    [nb_interval_after_auto_renewal, recurrence_basis],
+  );
+  const shouldDisplayCommitmentPeriodSection = useMemo(
+    () =>
+      has_mandatory_commitment_period &&
+      commitment_period_unit &&
+      commitment_period_value &&
+      !!props?.displayStopSubscriptionFromMemberSide,
+    [
+      has_mandatory_commitment_period,
+      commitment_period_unit,
+      commitment_period_value,
+      props?.displayStopSubscriptionFromMemberSide,
+    ],
+  );
 
   return (
     <div>
@@ -191,6 +213,22 @@ const ContractDetail = (props: Props) => {
           <Typography variant="h6">{t('contract.legal')}</Typography>
           <TypographyWithShowMore multiline>{contract}</TypographyWithShowMore>
         </div>
+        {shouldDisplayCommitmentPeriodSection && (
+          <div className={classes.block}>
+            <Typography className={classes.textBlock} variant="h6">
+              {t('contract.commitmentPeriod.label')}
+            </Typography>
+            <Typography>
+              {t(
+                `contract.commitmentPeriod.explain.${commitment_period_unit}`,
+                {
+                  count: commitment_period_value ?? 1,
+                  commitment_period_value: commitment_period_value ?? 1,
+                },
+              )}
+            </Typography>
+          </div>
+        )}
         {props.company ? (
           <ObjectLevelPermissionWrapper
             forcedBehavior="hidden"
@@ -245,6 +283,9 @@ const useStyles = makeStyles((theme) => ({
   },
   block: {
     marginBottom: theme.spacing(3),
+  },
+  textBlock: {
+    marginBottom: theme.spacing(2),
   },
   booleanTitle: {
     marginRight: theme.spacing(2),

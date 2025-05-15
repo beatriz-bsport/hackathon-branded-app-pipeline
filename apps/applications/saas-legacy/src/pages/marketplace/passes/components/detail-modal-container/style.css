@@ -1,0 +1,10 @@
+.bs-marketplace-detail-modal__blanket {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: var(--bs-space-size-4);
+}
+
+.bs-marketplace-detail-modal__dialog {
+  min-width: var(--bs-fabrique-modal-dialog-size--md);
+}

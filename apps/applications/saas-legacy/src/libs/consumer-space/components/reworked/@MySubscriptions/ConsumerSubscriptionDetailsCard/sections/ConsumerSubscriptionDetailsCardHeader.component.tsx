@@ -13,6 +13,7 @@ import {
   BellRinging04,
   ClockRefresh,
   PauseCircle,
+  StopCircle,
 } from '#src/components/untitledui';
 import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
 import { formatAsDate } from '#src/utils/datetime';
@@ -36,10 +37,15 @@ type Props = Pick<
   | 'subscriptionName'
   | 'subscriptionNextPaymentDate'
   | 'subtitleDate'
+  | 'expirationDate'
+  | 'shouldDisplayUnsubscribeCaptionText'
+  | 'displayStopSubscriptionFromMemberSide'
 >;
 
 const ConsumerSubscriptionDetailsCardHeader: React.FC<Props> = ({
   autoRenewalDate,
+  displayStopSubscriptionFromMemberSide,
+  expirationDate,
   hasAutoRenewal,
   isPaused,
   isSubscriptionStopped,
@@ -54,6 +60,7 @@ const ConsumerSubscriptionDetailsCardHeader: React.FC<Props> = ({
   subscriptionName,
   subscriptionNextPaymentDate,
   subtitleDate,
+  shouldDisplayUnsubscribeCaptionText,
 }) => {
   const { t } = useTranslation(['consumerSpace', 'subscription']);
   const recurrentPriceDisplayed = getSubscriptionTextBasedOnCouponApplied(
@@ -148,6 +155,29 @@ const ConsumerSubscriptionDetailsCardHeader: React.FC<Props> = ({
             icon={<BellRinging04 stroke="currentColor" />}
             label={t(
               'reworked.mySubscriptions.consumerSubscriptionCardDetails.headerListItemLabels.nextPayment',
+            )}
+          />
+        )}
+        {isSubscriptionStopped && !!displayStopSubscriptionFromMemberSide && (
+          <ListItem
+            captionText={
+              shouldDisplayUnsubscribeCaptionText && !!expirationDate
+                ? t(
+                    'reworked.mySubscriptions.consumerSubscriptionCardDetails.headerListItemLabels.stopValidDate',
+                    { expirationDate: formatAsDate(expirationDate) },
+                  )
+                : undefined
+            }
+            className={clsx(
+              'bs-consumer__subscription-details-card__header__list-item__unsubscribe',
+              {
+                'bs-consumer__subscription-details-card__header__list-item--hidden':
+                  !expirationDate,
+              },
+            )}
+            icon={<StopCircle stroke="currentColor" />}
+            label={t(
+              'reworked.mySubscriptions.consumerSubscriptionCardDetails.headerListItemLabels.stop',
             )}
           />
         )}

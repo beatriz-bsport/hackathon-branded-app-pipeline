@@ -9,8 +9,7 @@ import routerParamsToProps from '../../../hocs/router-params-to-props.hoc';
 
 import CompanyOnboardingWelcomePage from './CompanyOnboardingWelcome.page';
 import CompanyOnboardingFormPage from './CompanyOnboardingForm.page';
-// @ts-expect-error
-import EmailValidationPage from './EmailValidation.page';
+import CompanyOnboardingConfirmationPage from './CompanyOnboardingConfirmation.page';
 
 type OwnProps = {
   activeStep: string;
@@ -18,9 +17,9 @@ type OwnProps = {
 
 const WELCOME = 0;
 const FORM = 1;
-const VALIDATE_EMAIL = 2;
+const CONFIRMATION = 2;
 
-const getSteps = () => [WELCOME, FORM, VALIDATE_EMAIL];
+const getSteps = () => [WELCOME, FORM, CONFIRMATION];
 
 export const CompanyOnboardingRouter = (props: OwnProps) => {
   const classes = useStyles();
@@ -34,7 +33,7 @@ export const CompanyOnboardingRouter = (props: OwnProps) => {
       activeStepNumber = 1;
       break;
     }
-    case 'email_validation': {
+    case 'confirmation': {
       activeStepNumber = 2;
       break;
     }
@@ -64,8 +63,8 @@ export const CompanyOnboardingRouter = (props: OwnProps) => {
           path="/login/company_onboarding/form/"
         />
         <Route
-          component={EmailValidationPage}
-          path="/login/company_onboarding/email_validation/:email"
+          component={CompanyOnboardingConfirmationPage}
+          path="/login/company_onboarding/confirmation/"
         />
       </Switch>
     </div>

@@ -3,10 +3,12 @@ import classNames from "classnames";
 import mapValues from "lodash/mapValues";
 import React, { KeyboardEvent, useCallback, useState } from "react";
 
+import Body from "#src/components/Body";
 import Icon, { type IconName } from "#src/components/Icon";
 import Menu from "#src/components/Menu";
 import { Item, MenuOption } from "#src/components/Menu/types";
 import Popover from "#src/components/Popover";
+import { Placements } from "#src/hooks/placement-classes.hook";
 
 const defaultClasses = [
   "w-full",
@@ -58,6 +60,9 @@ export type SelectProps = Omit<
     items: Item[];
     iconLeft?: IconName;
     disabled?: boolean;
+    helperText?: string;
+    errorText?: string;
+    popoverPlacement?: (typeof Placements)[number];
     onSelect?: (option: string) => void;
   };
 
@@ -78,6 +83,9 @@ export type SelectProps = Omit<
  * @param props.items List of selectable items. Each item should include an `id` and `label`.
  * @param props.iconLeft Icon displayed on the left side of the select button.
  * @param props.disabled Whether the select is disabled or not. Disabled state prevents user interaction.
+ * @param props.helperText Text below the select to provide additional information.
+ * @param props.errorText Text to display when the select is in error.
+ * @param props.popoverPlacement Placement of the popover. Defaults to `"bottom-left"`. Can be any valid placement from the `Placements` type.
  * @param props.onSelect Function to call when an option is selected. Receives the selected option's label or id as an argument.
  * @link https://docs.infra.bsport.io/storybook/kaizen/main/index.html?path=/docs/components-select--docs
  */
@@ -92,6 +100,9 @@ const Select: React.FC<SelectProps> = ({
   items,
   iconLeft,
   disabled,
+  helperText,
+  errorText,
+  popoverPlacement = "bottom-left",
   onSelect,
   ...props
 }) => {
@@ -119,7 +130,7 @@ const Select: React.FC<SelectProps> = ({
   );
 
   return (
-    <Popover>
+    <Popover className="flex flex-col gap-2xs">
       <Popover.Anchor>
         {({ isPopoverOpened, setIsPopoverOpened }) => {
           const handleButtonClick = () => setIsPopoverOpened((prev) => !prev);
@@ -173,7 +184,7 @@ const Select: React.FC<SelectProps> = ({
           );
         }}
       </Popover.Anchor>
-      <Popover.Content placement="bottom-left">
+      <Popover.Content placement={popoverPlacement}>
         {({ setIsPopoverOpened }) => (
           <Menu
             items={items}
@@ -186,6 +197,24 @@ const Select: React.FC<SelectProps> = ({
           />
         )}
       </Popover.Content>
+
+      <div>
+        {helperText && (
+          <Body htmlVariant="p" size="sm" color="weak">
+            {helperText}
+          </Body>
+        )}
+        {errorText && (
+          <Body
+            htmlVariant="p"
+            size="sm"
+            color="inherit"
+            className="text-onsurface-status-critical-strong"
+          >
+            {errorText}
+          </Body>
+        )}
+      </div>
     </Popover>
   );
 };

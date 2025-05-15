@@ -314,3 +314,8 @@ export type OfferFeature =
       blockedByTags: any;
       blocked_by_tags?: undefined;
     };
+
+export enum PassesPageTabNames {
+  PASSES = 'passes',
+  APPOINTMENT_PASSES = 'appointment-passes',
+}

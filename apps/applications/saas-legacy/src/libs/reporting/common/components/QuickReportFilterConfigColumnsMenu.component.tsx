@@ -47,6 +47,7 @@ type QuickFilterConfigSearchColumnOptions = {
 };
 
 type Props = {
+  displayStopSubscriptionFromMemberSide?: boolean;
   isQuickFilterConfigColumnModalOpen: boolean;
   setIsQuickFilterConfigColumnModalOpen: React.Dispatch<
     React.SetStateAction<boolean>
@@ -76,6 +77,7 @@ type Props = {
 };
 
 const QuickReportFilterConfigColumnsMenu: React.FC<Props> = ({
+  displayStopSubscriptionFromMemberSide,
   isQuickFilterModalOpen,
   handleQuickFilterModalClose,
   handleOpenModal,
@@ -258,6 +260,9 @@ const QuickReportFilterConfigColumnsMenu: React.FC<Props> = ({
         <QuickReportFilterConfigFilter
           anchorEl={anchorEl}
           columnsDataSelectedQuickFilter={columnsDataSelectedQuickFilter}
+          displayStopSubscriptionFromMemberSide={
+            displayStopSubscriptionFromMemberSide
+          }
           getDataByType={getDataByType}
           isQuickFilterConfigRowModalOpen={isQuickFilterConfigRowModalOpen}
           isQuickFilterModalOpen={isQuickFilterModalOpen}

@@ -128,6 +128,7 @@ export const CONSUMER_SUBSCRIPTION_CARD_PREVIEW: React.FC<{
 
   return (
     <ConsumerSubscriptionCard
+      hasUnsubscribed={false}
       {...componentProps}
       onAddPaymentMethodClick={emptyFn}
       onDetailsClick={emptyFn}

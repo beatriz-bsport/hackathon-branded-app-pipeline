@@ -16,6 +16,7 @@ import type {
   ConsumerInvoiceREST,
 } from '#src/libs/invoice/types';
 import { OfferStatusWaitingListPosition } from '#src/libs/offer/types';
+import type { MarketingPreferenceData } from '#src/libs/communication/types';
 export type Profile = {
   name: string;
   first_name: string;
@@ -132,6 +133,8 @@ export type ConsumerSubscriptionInvoiceDetails = {
   };
 } & ErrorAndLoading;
 
+export type ConsumerSubscriptionStop = ErrorAndLoading;
+
 export type ConsumerStateReworked = {
   myBookings: {
     bookings: {
@@ -160,6 +163,7 @@ export type ConsumerStateReworked = {
     future: ConsumerSubscriptionReworked;
     expired: ConsumerSubscriptionReworked;
     invoices: ConsumerSubscriptionInvoiceDetails;
+    stop: ConsumerSubscriptionStop;
   };
   myPasses: {
     tabs: {
@@ -192,8 +196,16 @@ export type ConsumerStateReworked = {
     paid: ErrorAndLoading & ConsumerInvoiceReworked;
     refunded: ErrorAndLoading & ConsumerInvoiceReworked;
   };
+  myFranchiseMarketingPreferences: ConsumerFranchiseMarketingPreferences;
 };
 
+export type ConsumerFranchiseMarketingPreferences = {
+  eligibility: { eligible: boolean } & ErrorAndLoading;
+  companyPreferences: {
+    preferences: MarketingPreferenceData[];
+  } & ErrorAndLoading;
+  update: ErrorAndLoading;
+};
 export type ConsumerInvoiceReworked = {
   count: number;
   page: number;

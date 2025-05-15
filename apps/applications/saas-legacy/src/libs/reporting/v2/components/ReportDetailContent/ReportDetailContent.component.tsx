@@ -41,6 +41,7 @@ import type { DynamicFilterDataType } from '#src/libs/datatype-filtering/types';
 
 type Props = {
   categoryName: ReportCategoryEnum;
+  displayStopSubscriptionFromMemberSide?: boolean;
   dynamicDataHasBeenLoaded: Record<DynamicFilterDataType, boolean>;
   editReportFilterConfig: (
     reportFilterConfigId: number,
@@ -73,6 +74,7 @@ type Props = {
 
 const ReportDetailContent: React.FC<Props> = ({
   categoryName,
+  displayStopSubscriptionFromMemberSide,
   dynamicDataHasBeenLoaded,
   editReportFilterConfig,
   excelExportLoading,
@@ -167,6 +169,9 @@ const ReportDetailContent: React.FC<Props> = ({
     <Paper className={classes.contentPaper} variant="outlined">
       <ReportDetailContentHeader
         categoryName={categoryName}
+        displayStopSubscriptionFromMemberSide={
+          displayStopSubscriptionFromMemberSide
+        }
         dynamicDataHasBeenLoaded={dynamicDataHasBeenLoaded}
         editReportFilterConfig={editReportFilterConfig}
         excelExportDisabled={excelExportLoading || reportGeneratedRows.loading}

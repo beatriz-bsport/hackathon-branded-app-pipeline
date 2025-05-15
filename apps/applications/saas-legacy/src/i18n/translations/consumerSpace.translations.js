@@ -361,8 +361,8 @@ exports.default = {
       dateLabel: {
         active: 'Started on {{- date }}',
         future: 'Starts on {{- date }}',
-        expired: 'Expired since {{- date }}',
-        until: ' until {{- date }}',
+        expired: 'Expired since {{- date }} (excluded)',
+        until: ' until {{- date }} (excluded)',
       },
       tab: {
         active: 'Active',
@@ -402,6 +402,44 @@ exports.default = {
           'Then {{ price }}/{{ interval }} after {{- date }}',
         beforeRenewalContractPriceEvery:
           'Then {{ price }} every {{ recurrence }} {{ interval }} after {{- date }}',
+        commitmentPeriod: {
+          title: 'Manage subscription',
+          subtitle:
+            'This subscription is ending with no more next payments after the current cycle.',
+          explain: {
+            day: 'This subscription has a {{ commitment_period_value }} day commitment period, for cancellations or questions, please directly contact the studio.',
+            day_plural:
+              'This subscription has a {{ commitment_period_value }} days commitment period, for cancellations or questions, please directly contact the studio.',
+            week: 'This subscription has a {{ commitment_period_value }} week commitment period, for cancellations or questions, please directly contact the studio.',
+            week_plural:
+              'This subscription has a {{ commitment_period_value }} weeks commitment period, for cancellations or questions, please directly contact the studio.',
+            month:
+              'This subscription has a {{ commitment_period_value }} month commitment period, for cancellations or questions, please directly contact the studio.',
+            month_plural:
+              'This subscription has a {{ commitment_period_value }} months commitment period, for cancellations or questions, please directly contact the studio.',
+            year: 'This subscription has a {{ commitment_period_value }} year commitment period, for cancellations or questions, please directly contact the studio.',
+            year_plural:
+              'This subscription has a {{ commitment_period_value }} years commitment period, for cancellations or questions, please directly contact the studio.',
+          },
+          modal: {
+            explainNotStarted:
+              "You are about to cancel a subscription that hasn't started. \nYou'll still be charged for the first billing cycle, and your benefits will remain valid until {{- expiration_date }} (excluded).\nAre you sure you want to continue?",
+            explainStarted:
+              'You are about to cancel this subscription. Your subscription benefits will remain valid until {{- expiration_date }} (excluded).\nAre you sure you want to continue?',
+            explainNoExpirationDate:
+              'You are about to cancel this subscription. Your subscription benefits will remain valid until the end of the next billing cycle.\nAre you sure you want to continue?',
+            cancel: 'Keep subscription',
+            confirmationTitle: "You've successfully unsubscribed",
+            confirmationStarted:
+              'You can continue to enjoy subscription benefits until {{- expiration_date }} (excluded).',
+            confirmationNotStarted: 'You can close the modal.',
+            failedTitle: 'Something went wrong',
+            failedMessage: 'Please refresh your page and try again.',
+            alert:
+              'Pre-booked sessions made under a subscription with unlimited classes will be cancelled after this period and may be subject to a late cancellation fee.',
+          },
+        },
+        loading: "We're processing your request...",
         description: 'Description',
         terms: 'Terms',
         termsAccepted: 'Accepted on {{- termsDate }}',
@@ -409,11 +447,14 @@ exports.default = {
           see: 'See',
           add: 'Add',
           change: 'Change',
+          unsubscribe: 'Unsubscribe',
         },
         headerListItemLabels: {
           futurePauses:
             'A pause is scheduled from {{- dateStart }} to {{- dateEnd }} (included)',
           nextPayment: 'Next payment',
+          stop: 'Unsubscribed',
+          stopValidDate: 'Valid until {{- expirationDate }} (excluded)',
           paused: 'Currently paused',
           autoRenewed: 'Automatically renewed',
           autoRenewalDate: 'on {{- autoRenewalDate }} (included)',
@@ -551,6 +592,17 @@ exports.default = {
         phoneNotAllowed: 'Phone notifications not allowed',
         emailAllowed: 'Email notifications allowed',
         emailNotAllowed: 'Email notifications not allowed',
+        manageYourFranchiseMarketingPrefencesLabel:
+          'Manage Your Marketing Preferences',
+        receiveEmailUpdates: 'Receive email updates',
+        receiveSmsUpdates: 'Receive SMS updates',
+        updatePreferencesLoading: 'Saving',
+        updatePreferencesButton: 'Save preferences',
+        portal: {
+          title: 'Marketing Communication Preferences',
+          subtitle:
+            "Choose how you'd like to receive updates from each of your locations",
+        },
       },
       spivi: {
         title: 'Spinning data',

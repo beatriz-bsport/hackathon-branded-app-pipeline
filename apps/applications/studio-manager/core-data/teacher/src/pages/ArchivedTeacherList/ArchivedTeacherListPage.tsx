@@ -3,8 +3,10 @@ import { Link } from "react-router";
 import { Breadcrumbs, ListLayout } from "@bsport/kaizen-primitive-core";
 
 import { useTeacherFilters } from "#src/hooks/useTeacherFilters";
-import { ROUTES } from "#src/routes";
+import { ROUTES } from "#src/urls";
 import { useTranslation } from "#src/utils/i18n";
+
+import { ArchivedTeacherListContent } from "./ArchivedTeacherListContent";
 
 export const ArchivedTeacherListPage: React.FC = () => {
   const { t } = useTranslation("common");
@@ -28,9 +30,7 @@ export const ArchivedTeacherListPage: React.FC = () => {
         }}
       />
       <ListLayout.Content>
-        <p>
-          Archived list - Searching <b>{searchInput}</b>
-        </p>
+        <ArchivedTeacherListContent searchInput={searchInput} />
       </ListLayout.Content>
     </ListLayout>
   );

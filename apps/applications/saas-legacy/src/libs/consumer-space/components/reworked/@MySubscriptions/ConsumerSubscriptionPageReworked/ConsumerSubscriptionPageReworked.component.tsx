@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useCallback } from 'react';
 import type { AxiosResponse } from 'axios';
 import { useTranslation } from 'react-i18next';
 import clsx from 'clsx';
@@ -26,12 +26,16 @@ import type { PaymentMethod } from '#src/libs/payment/types';
 import type { SubscriptionFilter } from '#src/libs/consumer-space/components/reworked/@MySubscriptions/types';
 
 import useConsumerSubscriptionsDataManager from '#src/libs/consumer-space/components/reworked/@MySubscriptions/hooks/useConsumerSubscriptionsDataManager';
-import { SubscriptionFilterEnum } from '#src/libs/consumer-space/components/reworked/@MySubscriptions/constants';
+import {
+  SubscriptionFilterEnum,
+  SubscriptionStatusEnum,
+} from '#src/libs/consumer-space/components/reworked/@MySubscriptions/constants';
 import { ConsumerSpaceContextEnum } from '#src/libs/consumer-space/constants';
 
 import type { OptionCallback, PaginatedResponse } from '#src/state/types';
 
 import './styles.css';
+import ConsumerSubscriptionCommitmentPeriodPortal from '#src/libs/consumer-space/components/reworked/@MySubscriptions/ConsumerSubscriptionPortals/ConsumerSubscriptionCommitmentPeriodPortal';
 
 type Props = {
   activeSubscriptionsState: ConsumerSubscriptionReworked;
@@ -89,6 +93,9 @@ type Props = {
   ) => void;
   memberMail: string;
   memberName: string;
+  isSubscriptionCancellationLoading: boolean;
+  displayStopSubscriptionFromMemberSide?: boolean;
+  stopConsumerSubscription: (id: number, options?: OptionCallback) => void;
 };
 
 const ConsumerSubscriptionPageReworked: React.FC<Props> = ({
@@ -114,6 +121,9 @@ const ConsumerSubscriptionPageReworked: React.FC<Props> = ({
   switchPaymentMethod,
   memberMail,
   memberName,
+  isSubscriptionCancellationLoading,
+  displayStopSubscriptionFromMemberSide,
+  stopConsumerSubscription,
 }) => {
   const {
     areDetailsLoading,
@@ -130,6 +140,7 @@ const ConsumerSubscriptionPageReworked: React.FC<Props> = ({
     subscriptionsList,
     isPaymentModalOpen,
     isTermsModalOpen,
+    isCommitmentPeriodPortalOpen,
     isSubscriptionDetailsDrawerOpen,
     currentCount,
     currentPage,
@@ -139,6 +150,8 @@ const ConsumerSubscriptionPageReworked: React.FC<Props> = ({
     handlePaymentModalOpen,
     handlePaymentModalClose,
     handleCloseSubscriptionDetailsDrawer,
+    handleCommitmentPeriodPortalOpen,
+    handleCommitmentPeriodPortalClose,
   } = useConsumerSubscriptionsDataManager({
     activeSubscriptionsState,
     activeSubscriptionsList,
@@ -153,13 +166,16 @@ const ConsumerSubscriptionPageReworked: React.FC<Props> = ({
     subscriptionsInvoicesDetailsState,
   });
 
-  const downloadBillingPlanTerms = React.useCallback(
-    (options: OptionCallback) =>
-      downloadBillingPlanTermsAction(selectedSubscription.id, options),
+  const downloadBillingPlanTerms = useCallback(
+    (options: OptionCallback) => {
+      if (selectedSubscription?.id) {
+        downloadBillingPlanTermsAction(selectedSubscription?.id, options);
+      }
+    },
     [selectedSubscription, downloadBillingPlanTermsAction],
   );
 
-  const paymentMethodUsed = React.useMemo(
+  const paymentMethodUsed = useMemo(
     () =>
       paymentMethodList.find(
         (paymentMethod) =>
@@ -168,7 +184,7 @@ const ConsumerSubscriptionPageReworked: React.FC<Props> = ({
     [paymentMethodList, selectedSubscription],
   );
 
-  const handleSwitchPaymentMethod = React.useCallback(
+  const handleSwitchPaymentMethod = useCallback(
     (subscriptionId, payment_method_id, options) => {
       switchPaymentMethod(subscriptionId, payment_method_id, selectedFilter, {
         onSuccess: () => {
@@ -180,19 +196,58 @@ const ConsumerSubscriptionPageReworked: React.FC<Props> = ({
     [switchPaymentMethod, selectedFilter],
   );
 
+  const handleStopSubscriptionFromMemberProfile = useCallback(
+    (options?: OptionCallback) => {
+      if (!selectedSubscription?.id) {
+        return;
+      }
+
+      const stoppedSubscriptionPreviousStatus = selectedSubscription?.status;
+      stopConsumerSubscription(selectedSubscription.id, {
+        onSuccess: () => {
+          if (isMobile) handleCloseSubscriptionDetailsDrawer();
+          options?.onSuccess?.();
+
+          if (
+            stoppedSubscriptionPreviousStatus ==
+            SubscriptionStatusEnum.NOT_STARTED
+          ) {
+            // If the subscription is successfully stopped, then it will be moved from the "Not Started" tab to the "Expired" tab
+            fetchFutureSubscriptionsList();
+            fetchExpiredSubscriptionsList();
+          } else {
+            // If the subscription is successfully stopped, then it will stay in the "Active" tab
+            fetchActiveSubscriptionsList();
+          }
+        },
+        onError: () => options?.onError?.(),
+      });
+    },
+    [
+      fetchExpiredSubscriptionsList,
+      fetchFutureSubscriptionsList,
+      fetchActiveSubscriptionsList,
+      handleCloseSubscriptionDetailsDrawer,
+      isMobile,
+      selectedSubscription?.id,
+      selectedSubscription?.status,
+      stopConsumerSubscription,
+    ],
+  );
+
   const { t } = useTranslation('consumerSpace');
 
-  const handleSetActiveFilter = React.useCallback(
+  const handleSetActiveFilter = useCallback(
     () => handleSetSelectedFilter?.(SubscriptionFilterEnum.ACTIVE),
     [handleSetSelectedFilter],
   );
 
-  const handleSetFutureFilter = React.useCallback(
+  const handleSetFutureFilter = useCallback(
     () => handleSetSelectedFilter?.(SubscriptionFilterEnum.FUTURE),
     [handleSetSelectedFilter],
   );
 
-  const handleSetExpiredFilter = React.useCallback(
+  const handleSetExpiredFilter = useCallback(
     () => handleSetSelectedFilter?.(SubscriptionFilterEnum.EXPIRED),
     [handleSetSelectedFilter],
   );
@@ -246,6 +301,9 @@ const ConsumerSubscriptionPageReworked: React.FC<Props> = ({
     >
       <ConsumerSubscriptionModals
         areDetailsLoading={areDetailsLoading}
+        displayStopSubscriptionFromMemberSide={
+          !!displayStopSubscriptionFromMemberSide
+        }
         handleCloseSubscriptionDetailsDrawer={
           handleCloseSubscriptionDetailsDrawer
         }
@@ -259,6 +317,7 @@ const ConsumerSubscriptionPageReworked: React.FC<Props> = ({
         isMobile={isMobile}
         isSubscriptionDetailsDrawerOpen={isSubscriptionDetailsDrawerOpen}
         onSeeTermsClick={handleTermsModalOpen}
+        onUnSubscribeClick={handleCommitmentPeriodPortalOpen}
         paymentMethodUsed={paymentMethodUsed}
         selectedFilter={selectedFilter}
         selectedSubscription={selectedSubscription}
@@ -280,6 +339,9 @@ const ConsumerSubscriptionPageReworked: React.FC<Props> = ({
         areDetailsLoading={areDetailsLoading}
         currentCount={currentCount}
         currentPage={currentPage}
+        displayStopSubscriptionFromMemberSide={
+          !!displayStopSubscriptionFromMemberSide
+        }
         handleChangePage={handleChangePage}
         handleInvoiceDetailsPaginationFetchMore={
           handleInvoiceDetailsPaginationFetchMore
@@ -291,6 +353,7 @@ const ConsumerSubscriptionPageReworked: React.FC<Props> = ({
         isLoading={isLoading}
         isMobile={isMobile}
         onSeeTermsClick={handleTermsModalOpen}
+        onUnSubscribeClick={handleCommitmentPeriodPortalOpen}
         paymentMethodUsed={paymentMethodUsed}
         selectedFilter={selectedFilter}
         selectedSubscription={selectedSubscription}
@@ -307,6 +370,24 @@ const ConsumerSubscriptionPageReworked: React.FC<Props> = ({
           termsContent={selectedSubscription.contract_terms}
         />
       )}
+      {selectedSubscription && (
+        <ConsumerSubscriptionCommitmentPeriodPortal
+          displayBottomDrawer={isMobile}
+          hasSubscriptionStarted={
+            selectedSubscription.status !== SubscriptionStatusEnum.NOT_STARTED
+          }
+          isOpen={isCommitmentPeriodPortalOpen}
+          isSubscriptionCancellationLoading={isSubscriptionCancellationLoading}
+          onClose={handleCommitmentPeriodPortalClose}
+          stopSubscriptionFromMemberProfile={
+            handleStopSubscriptionFromMemberProfile
+          }
+          subscriptionForecastedExpirationDate={
+            selectedSubscription?.forecasted_expiration_date
+          }
+        />
+      )}
+
       <ConsumerSubscriptionPaymentPortal
         detachPaymentMethod={detachPaymentMethod}
         displayBottomDrawer={isMobile}

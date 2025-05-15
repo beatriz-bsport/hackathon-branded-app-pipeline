@@ -46,6 +46,7 @@ import {
   getFranchiseCompanyListById as getFranchiseCompanyListByIdSelector,
   getFranchiseCompanyNameById as getFranchiseCompanyNameByIdSelector,
   getAllFranchiseCompanyIds,
+  getFranchiseDisplayStopSubscriptionFromMemberSideForFranchisees,
 } from '#src/libs/franchise/selectors';
 
 import ContractTemplateList from '#src/libs/subscription/franchise-components/ContractTemplateList.component';
@@ -249,6 +250,7 @@ const FranchiseContractTemplateList: React.FC<Props> = ({
   activeContractTemplateState,
   disabledContractTemplateState,
   companiesIdList,
+  displayStopSubscriptionFromMemberSideForFranchisees,
   push,
   getPaymentPackTemplateList,
   getPrivatePassTemplateList,
@@ -537,6 +539,9 @@ const FranchiseContractTemplateList: React.FC<Props> = ({
         open={!!selectedContractTemplateIdToDelete}
       />
       <ContractTemplateFormDrawer
+        displayStopSubscriptionFromMemberSideForFranchisees={
+          !!displayStopSubscriptionFromMemberSideForFranchisees
+        }
         fetchPaymentPackTemplateBulk={fetchPaymentPackTemplateBulk}
         fetchPrivatePassTemplateBulk={fetchPrivatePassTemplateBulk}
         getPaymentPackTemplateList={getPaymentPackTemplateList}
@@ -588,6 +593,8 @@ const mapStateToProps = (state: RootState) => ({
     numberOfPages: state.subscription.contractTemplate.disabled.numberOfPages,
   },
   companiesIdList: getAllFranchiseCompanyIds(state),
+  displayStopSubscriptionFromMemberSideForFranchisees:
+    getFranchiseDisplayStopSubscriptionFromMemberSideForFranchisees(state),
   getPaymentPackTemplateById: (id: number) =>
     getPaymentPackTemplateByIdSelector(state, id),
   getPrivatePassTemplateById: (id: number) =>

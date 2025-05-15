@@ -8,6 +8,7 @@ import {
   archiveTeacherAPI,
   fetchTeachersAPI,
   fuzzySearchTeachersAPI,
+  linkByEmailAPI,
   restoreTeacherAPI,
 } from "#src/api";
 import type { Teacher } from "#src/types";
@@ -132,12 +133,12 @@ export const archiveTeacherAction: Action<{ id: number }, Teacher> = async (
 
 /**
  * Restore an archived Teacher (AssociatedCoach)
- * @param associatedCoachId associated_coach_id of the Teacher to restore
+ * @param id Id of the Teacher to archive
  */
-export const restoreTeacherAction: Action<
-  { associatedCoachId: number },
-  Teacher
-> = async (fetch, params) => {
+export const restoreTeacherAction: Action<{ id: number }, Teacher> = async (
+  fetch,
+  params,
+) => {
   const [uri, init] = restoreTeacherAPI(params);
 
   return Result.try(
@@ -149,8 +150,56 @@ export const restoreTeacherAction: Action<
       return data;
     },
     (error) =>
-      new Error(`Failed to restore teacher n°${params.associatedCoachId}`, {
+      new Error(`Failed to restore teacher n°${params.id}`, {
         cause: error,
       }),
+  );
+};
+
+/** @todo This is temporary and will be moved later, it's for POC ts intellisense. Same class as in fetch pkg */
+class HTTPException extends Error {
+  readonly path: string;
+  readonly name: string;
+  readonly statusCode: number;
+
+  constructor(path: string, name: string, message: string, statusCode: number) {
+    super(
+      `Error calling backend (path: ${path}) because: [${JSON.stringify(name)}] ${message}`,
+    );
+    this.path = path;
+    this.name = name;
+    this.statusCode = statusCode;
+  }
+}
+
+/**
+ * Create or Link a Teacher into the company based on the provided email.
+ * @param email
+ */
+export const linkByEmailAction: Action<
+  { email: string },
+  Teacher,
+  HTTPException
+> = async (fetch, params) => {
+  const [uri, init] = linkByEmailAPI(params);
+
+  return Result.try(
+    async () => {
+      const { data } = await fetch(uri, init);
+
+      updateTeacher(data);
+
+      return data;
+    },
+    (error) => {
+      /** @todo Return an HttpException with the right error code */
+      console.error(
+        new Error(`Failed to link teacher with email ${params.email}`, {
+          cause: error,
+        }),
+      );
+      /** @todo Need to find a way to inform Typescript result that we expect an HTTPException */
+      return error as HTTPException;
+    },
   );
 };

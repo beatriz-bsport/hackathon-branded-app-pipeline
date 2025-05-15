@@ -6,6 +6,8 @@ import type {
   ContractTemplate,
   ContractTemplateFormValues,
   ContractTemplatePayload,
+  SubscriptionREST,
+  CommitmentPeriodDisplayReturnedValues,
 } from './types';
 import {
   PassType,
@@ -16,6 +18,7 @@ import { TFunction } from 'i18next';
 import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
 import type { PaymentPackTemplate } from '#src/libs/payment-packs/types';
 import type { PrivatePassTemplate } from '#src/libs/private-service/types';
+import { SubscriptionStatusEnum } from '#src/libs/consumer-space/components/reworked/@MySubscriptions/constants';
 
 export function isPaused(
   pausesArray?: (SubscriptionPause | FranchiseUserBillingPlanPause)[],
@@ -111,6 +114,10 @@ export const initializeContractTemplateFormValues = (
     autoRenewal: contractTemplate.auto_renewal,
     unusableByStaff: !contractTemplate.is_usable_by_staff,
     editable: contractTemplate?.editable,
+    has_mandatory_commitment_period:
+      !!contractTemplate?.has_mandatory_commitment_period,
+    commitment_period_value: contractTemplate?.commitment_period_value ?? 1,
+    commitment_period_unit: contractTemplate?.commitment_period_unit ?? 'month',
   };
 
   setDrawerInitialValues(initialValues);
@@ -138,6 +145,10 @@ export const mapContractTemplateFormValuesToApi = (
     manager_only: contractTemplate.managerOnly,
     auto_renewal: contractTemplate.autoRenewal,
     is_usable_by_staff: !contractTemplate.unusableByStaff,
+    has_mandatory_commitment_period:
+      !!contractTemplate?.has_mandatory_commitment_period,
+    commitment_period_value: contractTemplate?.commitment_period_value,
+    commitment_period_unit: contractTemplate?.commitment_period_unit,
   };
 };
 
@@ -178,3 +189,112 @@ export const getSubscriptionPriceAndRecurrence = (
       count: recurrenceBasis * nbInterval,
     },
   )}`;
+
+/**
+ * Determine the commitment period section displayed information from the subscription selected.
+ *
+ * @param {SubscriptionREST} subscription The subscription to check
+ * @param {boolean} [displayStopSubscriptionFromMemberSide] Optional boolean to indicate if the stop subscription from the member side is enabled for the requested company
+ *
+ * @returns An object containing the following information:
+ * - isCommitmentPeriodSectionHidden: A boolean indicating if the commitment period section should be hidden
+ * - shouldDisplayCommitmentPeriodAlert: A boolean indicating if the alert should be displayed
+ * - shouldDisplayCommitmentPeriodSubtitle: A boolean indicating if the subtitle should be displayed
+ * - isMemberCancellationAllowed: A boolean indicating if the member can cancel the subscription
+ *
+ * @example
+ * const subscription = {
+ *  has_mandatory_commitment_period: true,
+ * commitment_period_unit: 'month',
+ * commitment_period_value: 1,
+ * status: 'started',
+ * is_member_cancellation_allowed: false,
+ * };
+ * ReturnType {
+ * isCommitmentPeriodSectionHidden: false,
+ * shouldDisplayCommitmentPeriodAlert: true,
+ * shouldDisplayCommitmentPeriodSubtitle: false,
+ * isMemberCancellationAllowed: false,
+ * }
+ *
+ */
+export const getCommitmentPeriodDisplay = (
+  subscription: SubscriptionREST,
+  displayStopSubscriptionFromMemberSide?: boolean,
+): CommitmentPeriodDisplayReturnedValues => {
+  if (!subscription) {
+    return {
+      isCommitmentPeriodSectionHidden: true,
+      shouldDisplayCommitmentPeriodAlert: false,
+      shouldDisplayCommitmentPeriodSubtitle: false,
+      isMemberCancellationAllowed: false,
+    };
+  }
+
+  const {
+    status,
+    has_mandatory_commitment_period,
+    commitment_period_unit,
+    commitment_period_value,
+    is_within_commitment_period,
+    is_member_cancellation_allowed,
+    auto_renewal,
+    forecasted_expiration_date,
+  } = subscription;
+
+  const isSubscriptionStatusAllowingStop =
+    status === SubscriptionStatusEnum.PAUSED ||
+    status === SubscriptionStatusEnum.STARTED ||
+    status === SubscriptionStatusEnum.NOT_STARTED ||
+    status === SubscriptionStatusEnum.ENDED;
+
+  const isCommitmentConfigurationNotValid =
+    has_mandatory_commitment_period &&
+    (!commitment_period_unit || !commitment_period_value);
+
+  /**
+   * The commitment period section should be hidden when:
+   * - The subscription has no commitment period or no commitment value set whereas has_mandatory_commitment_period is True
+   * - The subscription is stopped
+   */
+  const isCommitmentPeriodSectionHidden =
+    isCommitmentConfigurationNotValid ||
+    !isSubscriptionStatusAllowingStop ||
+    !displayStopSubscriptionFromMemberSide;
+
+  /**
+   * It is the last billing cycle when:
+   * - The subscription has no auto-renewal
+   * - The subscription has no forecasted expiration date, meaning, there is no next payment planned
+   */
+  const isLastBillingCycle = !auto_renewal && !forecasted_expiration_date;
+
+  return {
+    isCommitmentPeriodSectionHidden: isCommitmentPeriodSectionHidden,
+    /**
+     * The alert should be displayed when:
+     * - The subscription has a valid commitment period configuration
+     * - The subscription has a required commitment period
+     * - The member can't cancel the subscription at the moment, meaning before the end of the commitment period
+     */
+    shouldDisplayCommitmentPeriodAlert:
+      !isCommitmentPeriodSectionHidden &&
+      has_mandatory_commitment_period &&
+      is_within_commitment_period &&
+      !is_member_cancellation_allowed,
+    /**
+     * The subtitle should be displayed when:
+     * - The subscription has a valid commitment period configuration
+     * - The member can't stop the subscription
+     * - The commitment period is past or there is no commitment period required
+     * - It is the last billing cycle
+     * -> The subscription is about to end with no next payment, meaning the last validity period -> Last case in which the member can't stop the subscription
+     */
+    shouldDisplayCommitmentPeriodSubtitle:
+      !isCommitmentPeriodSectionHidden &&
+      !is_member_cancellation_allowed &&
+      !is_within_commitment_period &&
+      isLastBillingCycle,
+    isMemberCancellationAllowed: is_member_cancellation_allowed,
+  };
+};

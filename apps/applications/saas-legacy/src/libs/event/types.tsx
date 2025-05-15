@@ -43,6 +43,13 @@ type SubscriptionEventUpdateData = {
   use_stripe_connected?: boolean;
 };
 
+type SubscriptionEventStopData = {
+  tag_ids?: number[];
+  has_been_stopped_by_member?: boolean;
+  stopping_user_name?: string;
+  stopping_user_email?: string;
+};
+
 export type SubscriptionEvent = {
   company_event: string;
   company_id: number;
@@ -53,7 +60,8 @@ export type SubscriptionEvent = {
     payment_combo?: number;
     amount?: number;
   } & SubscriptionEventPauseData &
-    SubscriptionEventUpdateData;
+    SubscriptionEventUpdateData &
+    SubscriptionEventStopData;
   date: number;
   event_type: string;
   identifier: string;

@@ -50,6 +50,7 @@ import QuickReportFilterConfigColumnsMenu from '#src/libs/reporting/common/compo
 
 type Props = {
   categoryName: ReportCategoryEnum;
+  displayStopSubscriptionFromMemberSide?: boolean;
   dynamicDataHasBeenLoaded: Record<DynamicFilterDataType, boolean>;
   generationDisabled: boolean;
   editReportFilterConfig: (
@@ -86,6 +87,7 @@ const ReportDetailContentHeader: React.FC<
   Props & FormikProps<FormikValues>
 > = ({
   categoryName,
+  displayStopSubscriptionFromMemberSide,
   dynamicDataHasBeenLoaded,
   editReportFilterConfig,
   excelExportDisabled,
@@ -282,6 +284,9 @@ const ReportDetailContentHeader: React.FC<
                   columns={reportColumnsMetadata}
                   columnsDataSelectedQuickFilter={
                     columnsDataSelectedQuickFilter
+                  }
+                  displayStopSubscriptionFromMemberSide={
+                    displayStopSubscriptionFromMemberSide
                   }
                   getDataByType={handleGetDynamicDataForFilters}
                   handleQuickFilterModalClose={handleQuickFilterModalClose}

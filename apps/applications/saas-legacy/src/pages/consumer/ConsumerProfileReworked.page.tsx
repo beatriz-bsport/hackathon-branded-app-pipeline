@@ -29,11 +29,22 @@ import {
   getStripeRegion,
   getTheme,
 } from '#src/libs/theme/selectors';
+import { getFranchisor } from '#src/libs/franchise/selectors';
 import { getConsumerProfileCustomForm } from '#src/libs/custom-form/selectors';
 import { getMemberDetail } from '#src/libs/member/selectors';
 
 import { requestSetupIntentSecret as requestSetupIntentSecretAPI } from '#src/libs/payment/api';
 
+import {
+  fetchMyFranchiseMarketingPreferences as fetchMyFranchiseMarketingPreferencesAction,
+  updateMyFranchiseMarketingPreferences as updateMyFranchiseMarketingPreferencesAction,
+  checkFranchiseMarketingPreferencesEligibility as checkFranchiseMarketingPreferencesEligibilityAction,
+} from '#src/libs/consumer-space/actions/marketing-preferences';
+import {
+  getFranchiseMarketingPreferencesEligiblity,
+  getFranchiseMarketingPreferences,
+  getFranchiseMarketingPreferencesUpdateState,
+} from '#src/libs/consumer-space/selectors';
 import ConsumerProfilePageReworked from '#src/libs/consumer-space/components/reworked/@MyProfile/ConsumerProfilePageReworked';
 import ConsumerProfileContextProvider from '#src/libs/consumer-space/components/reworked/@MyProfile/ConsumerProfileContext';
 
@@ -75,8 +86,39 @@ class ConsumerProfileReworked extends React.Component<Props> {
       this.props.fetchMyUserProfile();
       this.fetchReferralData();
     }
+    if (!!this.props.franchisor?.id) {
+      this.props.checkFranchiseMarketingPreferencesEligibility(
+        {
+          franchise_id: this.props.franchisor.id,
+        },
+        {
+          onSuccess: () =>
+            this.props.fetchMyFranchiseMarketingPreferences({
+              franchise_id: this.props.franchisor.id,
+            }),
+        },
+      );
+    }
   }
 
+  componentDidUpdate(prevProps: Readonly<Props>): void {
+    if (
+      prevProps?.franchisor?.id !== this.props.franchisor?.id &&
+      !!this.props.franchisor?.id
+    ) {
+      this.props.checkFranchiseMarketingPreferencesEligibility(
+        {
+          franchise_id: this.props.franchisor.id,
+        },
+        {
+          onSuccess: () =>
+            this.props.fetchMyFranchiseMarketingPreferences({
+              franchise_id: this.props.franchisor.id,
+            }),
+        },
+      );
+    }
+  }
   fetchMember = () => {
     !!this.props.membership?.id &&
       this.props.fetchMember(this.props.membership.id, {}, { me: true });
@@ -180,8 +222,8 @@ class ConsumerProfileReworked extends React.Component<Props> {
       requestClientSecret,
       fetchPaymentGroupStatus,
       setPaymentGroupBillingEstablishment,
+      updateMyFranchiseMarketingPreferences,
     } = this.props;
-
     const companyCountry = getCompanyCountry();
     const stripeRegion = getStripeRegion();
 
@@ -200,12 +242,20 @@ class ConsumerProfileReworked extends React.Component<Props> {
         fetchMember={this.fetchMember}
         fetchMemberPaymentMethod={this.fetchMemberPaymentMethod}
         fetchPaymentGroupStatus={fetchPaymentGroupStatus}
+        franchiseMarketingPreferences={this.props.franchiseMarketingPreferences}
+        franchisorId={this.props.franchisor?.id ?? null}
+        isFranchiseMarketingPreferencesActivated={
+          this.props.isFranchiseMarketingPreferencesActivated
+        }
         memberId={this.props.member?.id}
         requestClientSecret={requestClientSecret}
         setPaymentGroupBillingEstablishment={
           setPaymentGroupBillingEstablishment
         }
         stripeId={this.props.companyTheme?.stripe_id}
+        updateMyFranchiseMarketingPreferences={
+          updateMyFranchiseMarketingPreferences
+        }
       >
         <ConsumerProfilePageReworked
           companyCountry={companyCountry}
@@ -268,6 +318,12 @@ const mapStateToProps = (
   referralMemberStatusError: getReferralMemberStatusError(state),
   membershipLoading: state.membership.retrieve.loading,
   membershipError: state.membership.retrieve.error,
+  franchisor: getFranchisor(state),
+  isFranchiseMarketingPreferencesActivated:
+    getFranchiseMarketingPreferencesEligiblity(state),
+  franchiseMarketingPreferences: getFranchiseMarketingPreferences(state),
+  franchiseMarketingPreferencesUpdateState:
+    getFranchiseMarketingPreferencesUpdateState(state),
 });
 
 const mapDispatchToProps = {
@@ -284,6 +340,13 @@ const mapDispatchToProps = {
   fetchPaymentGroupStatus: fetchPaymentGroupStatusAction,
   setPaymentGroupBillingEstablishment:
     setPaymentGroupBillingEstablishmentAction,
+  // MARKETING PREFERENCES
+  fetchMyFranchiseMarketingPreferences:
+    fetchMyFranchiseMarketingPreferencesAction,
+  updateMyFranchiseMarketingPreferences:
+    updateMyFranchiseMarketingPreferencesAction,
+  checkFranchiseMarketingPreferencesEligibility:
+    checkFranchiseMarketingPreferencesEligibilityAction,
 };
 
 const connector = connect(mapStateToProps, mapDispatchToProps);

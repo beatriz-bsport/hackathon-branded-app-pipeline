@@ -12,10 +12,19 @@ import { snackbarError as snackbarErrorAction } from '#src/libs/snackbar/actions
 import themeSelectors from '#src/libs/theme/selectors';
 import type { RootState } from '#src/reducers';
 import { Redirect } from 'react-router-dom';
+//@ts-expect-error
+import withQueryParams from '#src/hocs/with-query-params.hoc';
+
 import {
   getLoginUrl,
   getOfferBookerUrl,
 } from '#src/libs/marketplace/routing-utils';
+import {
+  shouldCheckPaymentStatus,
+  hasRedirectionFailed,
+} from '#src/libs/checkout/utils';
+//@ts-expect-error
+import CheckPaymentStatus from '#src/pages/checkout/basket/CheckPaymentStatus.component.js';
 import ConsumerBookingDetailsCard from '#src/libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingDetailsCard';
 import { getLevelTranslation } from '#src/libs/level/utils';
 import useConsumerBookingDateTime from '#src/libs/consumer-space/components/reworked/@MyBookings/hooks/useConsumerBookingDateTime';
@@ -60,10 +69,33 @@ import {
 } from '@bsport/common/lib/master-data/error-codes/associated-coach';
 import { AxiosError } from 'axios';
 import './index.css';
+import { USER_REGISTRATION_RESPONSE_LOCAL_STORAGE_KEY } from '#src/libs/payment/constants';
+import { BASKET_INCONSISTENT } from '#src/libs/checkout/constants';
+
+enum CheckPaymentIntent {
+  TRUE = 'true',
+  FALSE = 'false',
+}
+
+enum RedirectStatus {
+  SUCCEEDED = 'succeeded',
+  PENDING = 'pending',
+  FAILED = 'failed',
+}
 
 type OwnProps = {
   companyId: number;
   offerId: number;
+  queryParams: {
+    check_payment_intent?: CheckPaymentIntent;
+    payment_intent?: string;
+    user_registration_response?: string;
+    redirect_status?: RedirectStatus;
+    get_user_registration_from_storage?: string;
+    basket_redirection?: string;
+    paypalError?: string;
+  };
+  setQueryParams: (queryParam: string) => (value: string) => void;
 };
 
 type Props = OwnProps & ConnectedProps<typeof connector>;
@@ -102,8 +134,10 @@ const OneClickBookingModule: React.FC<Props> = ({
   retrieveCompanyCssConfiguration,
   replace,
   snackbarError,
+  queryParams,
+  setQueryParams,
 }) => {
-  const { t } = useTranslation('booking');
+  const { t } = useTranslation(['booking', 'checkout']);
 
   const paymentRef = useRef(null);
 
@@ -152,15 +186,15 @@ const OneClickBookingModule: React.FC<Props> = ({
       const customFieldErrors = {
         [PHONE_NUMBER_IN_USE]: {
           fieldName: 'phone',
-          message: t('lightSignup.form.errors.phoneTaken'),
+          message: t('booking:lightSignup.form.errors.phoneTaken'),
         },
         [COACH_EDIT_EMAIL_ADDRESS_IS_STAFF_USER]: {
           fieldName: 'email',
-          message: t('lightSignup.form.errors.emailTaken'),
+          message: t('booking:lightSignup.form.errors.emailTaken'),
         },
         [COACH_EMAIL_ADDRESS_EXISTS]: {
           fieldName: 'email',
-          message: t('lightSignup.form.errors.emailTaken'),
+          message: t('booking:lightSignup.form.errors.emailTaken'),
         },
       };
 
@@ -189,7 +223,7 @@ const OneClickBookingModule: React.FC<Props> = ({
 
   const {
     bookInOneClick: [bookingState, bookInOneClick],
-    onBookingSuccess,
+    redirectOnBookingSuccess,
   } = useBookInOneClick();
 
   const [
@@ -198,6 +232,14 @@ const OneClickBookingModule: React.FC<Props> = ({
   ] = useHandleUserRegistration();
 
   const { basket, userRegistrationResponse } = userRegistrationValues ?? {};
+
+  useEffect(() => {
+    if (!!userRegistrationResponse) {
+      setQueryParams('user_registration_response')(
+        encodeURIComponent(JSON.stringify(userRegistrationResponse)),
+      );
+    }
+  }, [userRegistrationResponse]);
 
   const buyableItemErrorCode =
     userRegistrationResponse?.buyable_item_error_code;
@@ -212,7 +254,9 @@ const OneClickBookingModule: React.FC<Props> = ({
     !isEqual(updatedMember, trimFormValues(lightSignupValues));
 
   useEffect(() => {
-    checkBookableStatus(offerId);
+    if (queryParams?.redirect_status !== RedirectStatus.FAILED) {
+      checkBookableStatus(offerId);
+    }
   }, [offerId, checkBookableStatus]);
 
   useEffect(() => {
@@ -251,6 +295,19 @@ const OneClickBookingModule: React.FC<Props> = ({
       }
     }
   }, [buyableItemErrorCode]);
+
+  useEffect(() => {
+    if (hasRedirectionFailed(queryParams)) {
+      snackbarError(
+        t(
+          'checkout:validation.sections.confirmationStatusTitle.errors.generic',
+        ),
+      );
+    }
+    if (queryParams?.paypalError == BASKET_INCONSISTENT) {
+      snackbarError(t('invoice:paymentPanel.actions.basketWasInconsistent'));
+    }
+  }, []);
 
   const offer = offerState.value?.offer;
   const metaActivity = offerState.value?.metaActivity;
@@ -332,13 +389,36 @@ const OneClickBookingModule: React.FC<Props> = ({
     if (!isSelectedPaymentPackFree) debouncedLightSignUp();
   }, [debouncedLightSignUp, isSelectedPaymentPackFree, lightSignupValues]);
 
-  const onBookWithChargeablePaymentPack = useCallback(() => {
-    onBookingSuccess({
+  const cleanLocalStorageAndRedirect = useCallback(() => {
+    const basketId = queryParams?.basket_redirection
+      ? queryParams.basket_redirection
+      : basket?.id;
+    const getUserRegistrationResponse = () => {
+      if (!queryParams?.get_user_registration_from_storage) {
+        return userRegistrationResponse;
+      }
+      const rawUserRegistrationResponse = getItemInStorage(
+        'local',
+        USER_REGISTRATION_RESPONSE_LOCAL_STORAGE_KEY,
+      );
+      return rawUserRegistrationResponse
+        ? JSON.parse(rawUserRegistrationResponse)
+        : null;
+    };
+
+    redirectOnBookingSuccess({
       offer,
-      basketId: basket?.id,
-      userRegistrationResponse,
+      basketId,
+      userRegistrationResponse: getUserRegistrationResponse(),
     });
-  }, [basket?.id, onBookingSuccess, userRegistrationResponse, offer]);
+  }, [
+    basket?.id,
+    redirectOnBookingSuccess,
+    userRegistrationResponse,
+    offer,
+    queryParams?.get_user_registration_from_storage,
+    queryParams?.basket_redirection,
+  ]);
 
   const onBookWithFreePaymentPack = useCallback(async () => {
     if (!selectedPaymentPackId || !offer) return;
@@ -347,6 +427,10 @@ const OneClickBookingModule: React.FC<Props> = ({
     }
 
     await submitLightSignupForm();
+
+    if ((await checkBookableStatus(offerId))?.shouldDisplayErrorPage) {
+      return;
+    }
 
     if (canPerformLightSignUpCreate) {
       try {
@@ -413,24 +497,16 @@ const OneClickBookingModule: React.FC<Props> = ({
     canPerformLightSignUpCreate,
     createdMember,
     getIsFormInvalid,
-  ]);
-
-  const onBook = useCallback(async () => {
-    if ((await checkBookableStatus(offerId))?.shouldDisplayErrorPage) {
-      return;
-    }
-    if (isSelectedPaymentPackFree) {
-      onBookWithFreePaymentPack();
-      return;
-    }
-    onBookWithChargeablePaymentPack();
-  }, [
-    onBookWithFreePaymentPack,
     checkBookableStatus,
     offerId,
-    onBookWithChargeablePaymentPack,
-    isSelectedPaymentPackFree,
   ]);
+
+  const onCheckPaymentStatusFail = useCallback(() => {
+    setQueryParams('check_payment_intent')(CheckPaymentIntent.FALSE);
+    snackbarError(
+      t('checkout:validation.sections.confirmationStatusTitle.errors.generic'),
+    );
+  }, [snackbarError, t, setQueryParams]);
 
   const offerDate = useConsumerBookingDateTime({
     dateStart: offer?.date_start,
@@ -499,6 +575,7 @@ const OneClickBookingModule: React.FC<Props> = ({
   }
 
   if (
+    !queryParams?.basket_redirection &&
     offerState.value?.paymentPacks &&
     offerState.value.paymentPacks.length === 0
   ) {
@@ -523,21 +600,37 @@ const OneClickBookingModule: React.FC<Props> = ({
 
   const offerLevelTranslation = getLevelTranslation(offer?.level, ' ', t);
 
+  if (shouldCheckPaymentStatus(queryParams)) {
+    return (
+      <CheckPaymentStatus
+        onFail={onCheckPaymentStatusFail}
+        onSuccess={cleanLocalStorageAndRedirect}
+        paymentIntent={queryParams.payment_intent}
+      />
+    );
+  }
+
+  if (!!memberId && isNaN(parseInt(memberId))) {
+    throw new Error(
+      'Invalid requirements: Member ID is present but not a valid number',
+    );
+  }
+
   return (
     <div className="bs-oneclick-booking__root">
       <div className="bs-oneclick-booking__container">
         <Typography variant={TypographyVariant.TITLE_LG}>
-          {t('oneClickBooking.checkoutTitle')}
+          {t('booking:oneClickBooking.checkoutTitle')}
         </Typography>
         <div className="bs-oneclick-booking__already-member--mobile">
-          {t('oneClickBooking.alreadyMember')}
+          {t('booking:oneClickBooking.alreadyMember')}
           <ButtonV2
             color="primary"
             href={loginToBookerUrl}
             size="small"
             variant="text"
           >
-            {t('oneClickBooking.goToLogin')}
+            {t('booking:oneClickBooking.goToLogin')}
           </ButtonV2>
         </div>
         <OneClickCheckoutSkeleton isLoading={offerState.loading} />
@@ -545,7 +638,7 @@ const OneClickBookingModule: React.FC<Props> = ({
           <div className="bs-oneclick-booking__content">
             <div className="bs-oneclick-booking__booking-details">
               <Typography variant={TypographyVariant.TITLE_SM}>
-                {t('oneClickBooking.yourBooking')}
+                {t('booking:oneClickBooking.yourBooking')}
               </Typography>
               <div className="bs-oneclick-booking__booking-details__card">
                 <ConsumerBookingDetailsCard
@@ -591,7 +684,7 @@ const OneClickBookingModule: React.FC<Props> = ({
                   variant={ButtonVariant.TEXT}
                 >
                   <div className="bs-oneclick-booking__see-more-with-login">
-                    {t('oneClickBooking.seeMoreWithLogin')}
+                    {t('booking:oneClickBooking.seeMoreWithLogin')}
                     <LinkExternal01 size="16px" />
                   </div>
                 </ButtonV2>
@@ -601,7 +694,7 @@ const OneClickBookingModule: React.FC<Props> = ({
 
             <div className="bs-oneclick-booking__light-signup-form">
               <Typography variant={TypographyVariant.TITLE_SM}>
-                {t('oneClickBooking.yourDetails')}
+                {t('booking:oneClickBooking.yourDetails')}
               </Typography>
               <LightSignupForm />
               {shouldDisplayOnlinePayment && (
@@ -610,7 +703,7 @@ const OneClickBookingModule: React.FC<Props> = ({
                   hideConfirmPaymentButton
                   basketId={basket.id}
                   companyId={companyId}
-                  onConfirmPaymentSuccess={onBookWithChargeablePaymentPack}
+                  onConfirmPaymentSuccess={cleanLocalStorageAndRedirect}
                   payerContext={{
                     memberId: parseInt(memberId),
                     termsAndConditionsAccepted:
@@ -619,23 +712,23 @@ const OneClickBookingModule: React.FC<Props> = ({
                 />
               )}
               <div className="bs-oneclick-booking__already-member--desktop">
-                {t('oneClickBooking.alreadyMember')}
+                {t('booking:oneClickBooking.alreadyMember')}
                 <ButtonV2
                   color="primary"
                   href={loginToBookerUrl}
                   size="small"
                   variant="text"
                 >
-                  {t('oneClickBooking.goToLogin')}
+                  {t('booking:oneClickBooking.goToLogin')}
                 </ButtonV2>
               </div>
-              {isSelectedPaymentPackFree && (
+              {isSelectedPaymentPackFree ? (
                 <div className="bs-oneclick-booking__book-button-container">
                   <ButtonV2
                     className="bs-oneclick-booking__book-button"
                     color={ButtonColor.PRIMARY}
                     isDisabled={isBookButtonDisable}
-                    onClick={onBook}
+                    onClick={onBookWithFreePaymentPack}
                     size={ButtonSize.LG}
                     variant={ButtonVariant.CONTAINED}
                   >
@@ -644,29 +737,25 @@ const OneClickBookingModule: React.FC<Props> = ({
                         <Loader />
                       </div>
                     ) : (
-                      t('oneClickBooking.bookButtonLabel')
+                      t('booking:oneClickBooking.bookButtonLabel')
                     )}
                   </ButtonV2>
                 </div>
+              ) : (
+                <PaymentButtons
+                  enforceDisabled={isBookButtonDisable}
+                  paymentBasketRef={paymentRef}
+                  paymentContext={{
+                    basketId: basket?.id,
+                    companyId,
+                    memberId: parseInt(memberId),
+                  }}
+                  submitButtons={{
+                    PAYPAL_BUTTON: SUBMIT_BUTTONS.PAYPAL_BUTTON,
+                    PAY_NOW_BUTTON: SUBMIT_BUTTONS.PAY_NOW_BUTTON,
+                  }}
+                />
               )}
-              {!isSelectedPaymentPackFree &&
-                !!basket?.id &&
-                !!memberId &&
-                !isNaN(parseInt(memberId)) && (
-                  <PaymentButtons
-                    enforceDisabled={isBookButtonDisable}
-                    paymentBasketRef={paymentRef}
-                    paymentContext={{
-                      basketId: basket?.id,
-                      companyId,
-                      memberId: parseInt(memberId),
-                    }}
-                    submitButtons={{
-                      PAYPAL_BUTTON: SUBMIT_BUTTONS.PAYPAL_BUTTON,
-                      PAY_NOW_BUTTON: SUBMIT_BUTTONS.PAY_NOW_BUTTON,
-                    }}
-                  />
-                )}
             </div>
           </div>
         )}
@@ -692,6 +781,19 @@ export default compose(
     companyId: 'companyId:number',
     offerId: 'offerId:number',
   }),
+  withQueryParams([
+    [
+      'check_payment_intent',
+      'payment_intent',
+      'user_registration_response',
+      'redirect_status',
+      'get_user_registration_from_storage',
+      'basket_redirection',
+      'paypalError',
+    ],
+    'queryParams',
+    'setQueryParams',
+  ]),
   connector,
   marketplaceCssHoc(),
   WithCustomCssProvider,

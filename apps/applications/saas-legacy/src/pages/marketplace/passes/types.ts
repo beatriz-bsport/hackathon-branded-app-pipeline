@@ -21,3 +21,18 @@ export type CardContent = {
   onClickDetails: () => void;
   onAddToCart: () => void;
 };
+
+export type PassRestrictionFrequency = 'daily' | 'weekly' | 'monthly';
+
+export type PassRestriction = {
+  frequency: PassRestrictionFrequency;
+  amount: number;
+};
+
+export type DailyTimeSlots = {
+  dayOfWeek: number;
+  slots: Array<{
+    from: string;
+    to: string;
+  }>;
+};

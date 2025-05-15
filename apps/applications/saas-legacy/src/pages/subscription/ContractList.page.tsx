@@ -339,6 +339,10 @@ export class SubscriptionList extends React.Component<Props, State> {
                       name: this.props.theme.company_name,
                     }}
                     contractList={this.props.contractListAvailableAll}
+                    displayStopSubscriptionFromMemberSide={
+                      !!this.props.theme
+                        ?.display_stop_subscription_from_member_side
+                    }
                     loading={this.props.contractLoading}
                     onClick={this.onClickContract}
                     onDelete={hasDeletePermission && this.handleDeleteContract}
@@ -370,6 +374,10 @@ export class SubscriptionList extends React.Component<Props, State> {
                     dense
                     divider
                     contractList={this.props.contractListManagerOnly}
+                    displayStopSubscriptionFromMemberSide={
+                      !!this.props.theme
+                        ?.display_stop_subscription_from_member_side
+                    }
                     loading={this.props.contractLoading}
                     onClick={this.onClickContract}
                     onDelete={hasDeletePermission && this.handleDeleteContract}
@@ -413,6 +421,10 @@ export class SubscriptionList extends React.Component<Props, State> {
                       dense
                       divider
                       contractList={this.props.inactiveContracts}
+                      displayStopSubscriptionFromMemberSide={
+                        !!this.props.theme
+                          ?.display_stop_subscription_from_member_side
+                      }
                       loading={this.props.contractLoading}
                       onRestore={
                         hasEditPermission && this.handleRestoreContract
@@ -485,6 +497,9 @@ export class SubscriptionList extends React.Component<Props, State> {
               />
             ) : null}
             <SubscriptionContractFormDrawer
+              displayStopSubscriptionFromMemberSide={
+                !!this.props.theme?.display_stop_subscription_from_member_side
+              }
               initial={this.state.contractToEditFromSearch}
               onClose={
                 this.state.contractToEditFromSearch

@@ -6,3 +6,10 @@ export type Smartlist = {
   member_base: number;
   name: string;
 };
+
+export type SmartlistSearchResult = {
+  results: Smartlist[];
+  count: number;
+  next: string | null;
+  previous: string | null;
+};

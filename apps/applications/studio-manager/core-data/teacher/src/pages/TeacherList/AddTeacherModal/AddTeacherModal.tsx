@@ -1,0 +1,77 @@
+import React, { useState } from "react";
+
+import { Body, Modal, TextField } from "@bsport/kaizen-primitive-core";
+
+import { useTranslation } from "#src/utils/i18n";
+
+type AddTeacherModalProps = {
+  open?: boolean;
+  onConfirmClick: (input: string, callback: () => void) => void;
+  onClose: () => void;
+};
+
+export const AddTeacherModal: React.FC<AddTeacherModalProps> = ({
+  open,
+  onClose,
+  onConfirmClick,
+}) => {
+  const { t } = useTranslation("common");
+
+  const [value, setValue] = useState("");
+  const [showError, setShowError] = useState(false);
+
+  const handleValueChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setShowError(false);
+    setValue(event.target.value);
+  };
+
+  const handleClear = () => {
+    setValue("");
+    setShowError(false);
+  };
+
+  const handleConfirm = () => {
+    if (!value) {
+      setShowError(true);
+    } else {
+      onConfirmClick(value, handleClear);
+    }
+  };
+
+  return (
+    <Modal
+      open={!!open}
+      confirmColor="main"
+      confirmLabel={t("activeList.addTeacherModal.actions.create")}
+      cancelLabel={t("activeList.addTeacherModal.actions.cancel")}
+      onConfirmClick={handleConfirm}
+      onClose={onClose}
+      onCrossButtonClick={onClose}
+      onClickOutside={onClose}
+      size="md"
+      title={t("activeList.actions.addTeacher")}
+    >
+      <TextField
+        label={t("activeList.addTeacherModal.input.label")}
+        id="input-teacher-email"
+        placeholder={t("activeList.addTeacherModal.input.placeholder")}
+        required
+        type="email"
+        onClear={handleClear}
+        className="w-full"
+        autoFocus
+        value={value}
+        onChange={handleValueChange}
+        status={showError ? "error" : "default"}
+        statusText={
+          showError
+            ? t("activeList.addTeacherModal.input.missingEmailError")
+            : undefined
+        }
+      />
+      <Body size="md" htmlVariant="p" className="mt-md">
+        {t("activeList.addTeacherModal.input.helper")}
+      </Body>
+    </Modal>
+  );
+};

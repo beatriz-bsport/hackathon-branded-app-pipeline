@@ -39,7 +39,8 @@ export const CheckboxProvider = ({
     });
   }, []);
 
-  const areAllSelected = selectedValues.size === valueIds.length;
+  const areAllSelected =
+    valueIds.length > 0 && selectedValues.size === valueIds.length;
 
   const areSomeSelected =
     selectedValues.size > 0 && selectedValues.size < valueIds.length;

@@ -7,6 +7,11 @@ import {
   PaymentGroupStatus,
   RequestClientSecretPayload,
 } from '#src/libs/invoice/types';
+import type {
+  MarketingPreferenceUpdatePayload,
+  MarketingPreferenceData,
+} from '#src/libs/communication/types';
+
 import type { PaymentGroupBillingEstablishmentPayload } from '#src/libs/payment/types';
 
 export const ConsumerProfileContext =
@@ -47,6 +52,19 @@ const ConsumerProfileContextProvider: React.FC<{
     params: PaymentGroupBillingEstablishmentPayload,
     options?: OptionCallback<number>,
   ) => void;
+  isFranchiseMarketingPreferencesActivated: boolean;
+  franchiseMarketingPreferences: MarketingPreferenceData[];
+  updateMyFranchiseMarketingPreferences: (
+    {
+      franchise_id,
+      data,
+    }: {
+      franchise_id: number;
+      data: MarketingPreferenceUpdatePayload[];
+    },
+    options?: OptionCallback,
+  ) => void;
+  franchisorId: number | null;
 }> = ({
   children,
   creditAccountBalance,
@@ -62,6 +80,10 @@ const ConsumerProfileContextProvider: React.FC<{
   requestClientSecret,
   fetchPaymentGroupStatus,
   setPaymentGroupBillingEstablishment,
+  isFranchiseMarketingPreferencesActivated,
+  franchiseMarketingPreferences,
+  updateMyFranchiseMarketingPreferences,
+  franchisorId,
 }) => {
   const { width } = useViewport();
   const isMobile = width < CONSUMER_SPACE_MOBILE_BREAKPOINT;
@@ -91,6 +113,10 @@ const ConsumerProfileContextProvider: React.FC<{
     string | null
   >(null);
 
+  const [
+    franchiseMarketingPreferencesPortalOpen,
+    setFranchiseMarketingPreferencesPortalOpen,
+  ] = useState(false);
   /** Display a message when failed to detach a payment method from widget */
   const [detachPaymentMethodErrorCode, setDetachPaymentMethodErrorCode] =
     useState<number>(null);
@@ -110,6 +136,10 @@ const ConsumerProfileContextProvider: React.FC<{
 
   const toggleRegularizeBalancePortal = useCallback(() => {
     setIsRegularizeBalancePortalOpen((prevState) => !prevState);
+  }, []);
+
+  const toggleFranchiseMarketingPreferencesPortal = useCallback(() => {
+    setFranchiseMarketingPreferencesPortalOpen((prevState) => !prevState);
   }, []);
 
   const handleConfirmRegularizeBalance = () => {
@@ -197,6 +227,12 @@ const ConsumerProfileContextProvider: React.FC<{
         requestClientSecret,
         fetchPaymentGroupStatus,
         setPaymentGroupBillingEstablishment,
+        isFranchiseMarketingPreferencesActivated,
+        franchiseMarketingPreferencesPortalOpen,
+        toggleFranchiseMarketingPreferencesPortal,
+        updateMyFranchiseMarketingPreferences,
+        franchiseMarketingPreferences,
+        franchisorId,
       }}
     >
       {children}

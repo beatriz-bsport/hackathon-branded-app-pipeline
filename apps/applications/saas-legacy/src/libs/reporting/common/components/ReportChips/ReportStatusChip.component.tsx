@@ -32,6 +32,7 @@ import {
   BILLING_PLAN_STATUS_STOPPED,
   BILLING_PLAN_STATUS_PAUSED,
   BILLING_PLAN_STATUS_ENDED,
+  BILLING_PLAN_STATUS_STOPPED_BY_MEMBER,
 } from '@bsport/common/lib/master-data/subscription-status.js';
 
 import CustomChip from '#src/components/chip/CustomChip.component';
@@ -76,6 +77,7 @@ const createMatches = (theme: Theme): Matches => {
       [BILLING_PLAN_STATUS_STOPPED]: { color: red, icon: 'Stop' },
       [BILLING_PLAN_STATUS_PAUSED]: { color: blue, icon: 'Pause' },
       [BILLING_PLAN_STATUS_ENDED]: { color: red, icon: 'Cancel' },
+      [BILLING_PLAN_STATUS_STOPPED_BY_MEMBER]: { color: red, icon: 'Stop' },
     },
     booking_status_code: {
       [BOOKING_STATUS_OK.id]: { color: green, icon: 'CheckCircle' },

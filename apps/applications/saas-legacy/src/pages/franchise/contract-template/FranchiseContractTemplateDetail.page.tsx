@@ -44,6 +44,7 @@ import {
 import {
   getFranchiseCompanyListById as getFranchiseCompanyListByIdSelector,
   getFranchiseCompany as getFranchiseCompanyByIdSelector,
+  getFranchiseDisplayStopSubscriptionFromMemberSideForFranchisees,
 } from '#src/libs/franchise/selectors';
 
 import {
@@ -70,6 +71,7 @@ const FranchiseContractTemplateDetail: React.FC<Props> = ({
   selectedContractTemplateState,
   contractTemplate,
   billingPlans,
+  displayStopSubscriptionFromMemberSideForFranchisees,
   getFranchiseCompanyById,
   getPrivatePassTemplateById,
   getPaymentPackTemplateById,
@@ -210,6 +212,9 @@ const FranchiseContractTemplateDetail: React.FC<Props> = ({
           <Grid className={classes.detailContainer} md={6} xs={12}>
             <ContractTemplateDetail
               contractTemplate={contractTemplate}
+              displayStopSubscriptionFromMemberSideForFranchisees={
+                !!displayStopSubscriptionFromMemberSideForFranchisees
+              }
               getFranchiseCompanyListById={getFranchiseCompanyListById}
               getPaymentPackTemplateById={getPaymentPackTemplateById}
               getPrivatePassTemplateById={getPrivatePassTemplateById}
@@ -253,6 +258,9 @@ const FranchiseContractTemplateDetail: React.FC<Props> = ({
         />
       </div>
       <ContractTemplateFormDrawer
+        displayStopSubscriptionFromMemberSideForFranchisees={
+          !!displayStopSubscriptionFromMemberSideForFranchisees
+        }
         fetchPaymentPackTemplateBulk={fetchPaymentPackTemplateBulk}
         fetchPrivatePassTemplateBulk={fetchPrivatePassTemplateBulk}
         getPaymentPackTemplateList={getPaymentPackTemplateList}
@@ -284,6 +292,8 @@ const mapStateToProps = (
     count: state.subscription.contractTemplate?.billingPlans.count,
     page: state.subscription.contractTemplate?.billingPlans.page,
   },
+  displayStopSubscriptionFromMemberSideForFranchisees:
+    getFranchiseDisplayStopSubscriptionFromMemberSideForFranchisees(state),
   getFranchiseCompanyById: (id: number) =>
     getFranchiseCompanyByIdSelector(id)(state),
   // @ts-expect-error

@@ -14,6 +14,7 @@ import {
   getMyExpiredSubscriptionsState,
   getMyExpiredSubscriptionsList,
   getMySubscriptionsInvoicesDetailsState,
+  getSubscriptionCancellationLoadingState,
 } from '#src/libs/consumer-space/selectors';
 import { getMarketplaceSettingsConfig } from '#src/libs/marketplace/selectors';
 
@@ -30,6 +31,7 @@ import {
   fetchMyActiveSubscriptionsAsMember as fetchMyActiveSubscriptionsAsMemberAction,
   fetchMyExpiredSubscriptionsAsMember as fetchMyExpiredSubscriptionsAsMemberAction,
   fetchMyFutureSubscriptionsAsMember as fetchMyFutureSubscriptionsAsMemberAction,
+  stopConsumerSubscription as stopConsumerSubscriptionAction,
 } from '#src/libs/consumer-space/actions/subscription-actions';
 
 import type { Membership } from '#src/libs/membership/types';
@@ -114,6 +116,8 @@ export class ConsumerSubscription extends React.Component<Props> {
       fetchPaymentMethodList,
       paymentMethodLoading,
       auth,
+      isSubscriptionCancellationLoading,
+      stopConsumerSubscription,
     } = this.props;
 
     return (
@@ -121,6 +125,9 @@ export class ConsumerSubscription extends React.Component<Props> {
         activeSubscriptionsList={activeSubscriptionsList}
         activeSubscriptionsState={activeSubscriptionsState}
         detachPaymentMethod={detachPaymentMethod}
+        displayStopSubscriptionFromMemberSide={
+          !!companyTheme?.display_stop_subscription_from_member_side
+        }
         downloadBillingPlanTermsAction={downloadPDFContractTermsForBillingPlan}
         enabledPaymentGroupMethodIdentifierIds={
           companyTheme.payment_method_available_subscription
@@ -138,6 +145,7 @@ export class ConsumerSubscription extends React.Component<Props> {
         invoiceRetryNumber={
           invoiceConfiguration?.nb_retries_subscription_payments
         }
+        isSubscriptionCancellationLoading={isSubscriptionCancellationLoading}
         memberMail={auth.username}
         memberName={auth.name}
         paymentMethodList={paymentMethodList as PaymentMethod[]}
@@ -145,6 +153,7 @@ export class ConsumerSubscription extends React.Component<Props> {
         refreshSavedPaymentMethodList={fetchPaymentMethodList}
         // @ts-expect-error TODO dynamic typing for widget action
         requestSetupIntentSecret={requestSetupIntentSecret}
+        stopConsumerSubscription={stopConsumerSubscription}
         subscriptionsInvoicesDetailsState={subscriptionsInvoicesDetailsState}
         switchPaymentMethod={switchPaymentMethod}
       />
@@ -168,6 +177,8 @@ const connector = connect(
     marketplaceSettingsConfig: getMarketplaceSettingsConfig(state),
     paymentMethodLoading: state.paymentBackend.paymentMethod.loading,
     auth: state.auth,
+    isSubscriptionCancellationLoading:
+      getSubscriptionCancellationLoadingState(state),
   }),
   {
     fetchPaymentMethodListAction,
@@ -182,6 +193,7 @@ const connector = connect(
     switchSubscriptionPaymentMethod: switchSubscriptionPaymentMethodAction,
     detachPaymentMethodAction,
     fetchMySubscriptionAsMemberAction,
+    stopConsumerSubscriptionAction,
   },
 );
 
@@ -197,6 +209,7 @@ export const consumerSubscriptionMapWithHandlers = {
         props.fetchMyActiveSubscriptionsAsMemberAction(
           {
             member: props.membership?.id,
+            ...(page && { page }),
             ...(page_size && { page_size }),
           },
           options,
@@ -213,6 +226,7 @@ export const consumerSubscriptionMapWithHandlers = {
       props.fetchMyFutureSubscriptionsAsMemberAction(
         {
           member: props.membership?.id,
+          ...(page && { page }),
           ...(page_size && { page_size }),
         },
         options,
@@ -228,6 +242,7 @@ export const consumerSubscriptionMapWithHandlers = {
       props.fetchMyExpiredSubscriptionsAsMemberAction(
         {
           member: props.membership?.id,
+          ...(page && { page }),
           ...(page_size && { page_size }),
         },
         options,
@@ -328,6 +343,14 @@ export const consumerSubscriptionMapWithHandlers = {
           onError: options?.onError,
         },
       );
+    },
+  stopConsumerSubscription:
+    (props: OwnAndConnectedAndRouteProps) =>
+    (subscriptionId: number, options?: OptionCallback) => {
+      props.stopConsumerSubscriptionAction(subscriptionId, {
+        onSuccess: () => options?.onSuccess?.(),
+        onError: () => options?.onError?.(),
+      });
     },
 };
 

@@ -19,5 +19,21 @@
   align-items: center;
 }
 
-.bs-consumer__subscription__payment__confirmation-dialog__content__text {
+.bs-consumer__subscription__modal-dialog__content__commitment-period {
+  word-break: break-word;
+  white-space: pre-line;
+  display: flex;
+  flex-direction: column;
+  gap: var(--bs-space-size-6);
+}
+
+.bs-consumer__subscription__commitment_period__confirmation-dialog__content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--bs-space-size-6);
+  align-items: center;
+}
+
+.bs-consumer__subscription__modal-dialog__content__commitment-period__alert--hidden {
+  display: none;
 }

@@ -247,6 +247,10 @@ export class ContractDetailPage extends Component<Props> {
                   // @ts-expect-error
                   companyTheme={this.props.theme}
                   contract={this.props.contract}
+                  displayStopSubscriptionFromMemberSide={
+                    !!this.props.theme
+                      ?.display_stop_subscription_from_member_side
+                  }
                   goToCombo={this.props.goToCombo}
                   goToPack={this.props.goToPaymentPackDetail}
                   goToPrivatePass={this.props.goToPrivatePass}
@@ -392,8 +396,10 @@ export class ContractDetailPage extends Component<Props> {
                 onClose={this.closeDeleteContractModal}
               />
             </Grid>
-
             <SubscriptionContractFormDrawer
+              displayStopSubscriptionFromMemberSide={
+                !!this.props.theme?.display_stop_subscription_from_member_side
+              }
               initial={this.props.contract}
               onClose={this.closeContractFormDrawer}
               onSubmit={this.submitContractForm}

@@ -48,6 +48,7 @@ const getTranslations = async () => {
     BILLING_PLAN_STATUS_STOPPED,
     BILLING_PLAN_STATUS_PAUSED,
     BILLING_PLAN_STATUS_ENDED,
+    BILLING_PLAN_STATUS_STOPPED_BY_MEMBER,
   } = await import('@bsport/common/lib/master-data/subscription-status.js');
 
   const {
@@ -846,9 +847,10 @@ const getTranslations = async () => {
       billing_plan_status: {
         [BILLING_PLAN_STATUS_STARTED]: 'In progress',
         [BILLING_PLAN_STATUS_NOT_STARTED]: 'Not yet started',
-        [BILLING_PLAN_STATUS_STOPPED]: 'Stopped',
-        [BILLING_PLAN_STATUS_PAUSED]: 'Stopped',
+        [BILLING_PLAN_STATUS_STOPPED]: 'Terminated (Manager)',
+        [BILLING_PLAN_STATUS_PAUSED]: 'Paused',
         [BILLING_PLAN_STATUS_ENDED]: 'Finished',
+        [BILLING_PLAN_STATUS_STOPPED_BY_MEMBER]: 'Terminated (Member)',
       },
       product_type: {
         payment_pack: 'Passes',

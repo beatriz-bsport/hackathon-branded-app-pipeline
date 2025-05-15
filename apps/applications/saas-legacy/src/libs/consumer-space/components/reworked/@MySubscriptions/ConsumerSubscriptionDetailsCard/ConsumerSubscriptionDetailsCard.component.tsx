@@ -18,6 +18,7 @@ import type {
 import type { MarketplacePaymentMethodsType } from '#src/libs/marketplace/types';
 import {
   ConsumerSubscriptionDetailsCardBillingHistory,
+  ConsumerSubscriptionDetailsCardCommitmentPeriod,
   ConsumerSubscriptionDetailsCardDescription,
   ConsumerSubscriptionDetailsCardFailedPayments,
   ConsumerSubscriptionDetailsCardHeader,
@@ -36,6 +37,8 @@ type Props = {
   className?: string;
   /** Description of subscription */
   description: string;
+  /** Subscription expiration date */
+  expirationDate: string | null;
   /** List of failed invoices */
   failedInvoices: SubscriptionsFailedInvoicesREST[];
   /** Handler that fetches invoices of a subscription */
@@ -97,13 +100,33 @@ type Props = {
   subtitleDate: string;
   /** Date when terms have been accepted for the subscription */
   termsDate: string;
+  /** Commitment period interval type: days, weeks, months or years */
+  commitmentPeriod: string | null;
+  /** Commitment period value, the number of intervals */
+  commitmentValue: number | null;
+  /** If the commitment period section should be hidden */
+  isCommitmentPeriodSectionHidden: boolean;
+  /** If the member can stop the subscription from their member side */
+  isMemberCancellationAllowed: boolean;
+  /** Action when clicking on Unsubscribe */
+  onUnSubscribeClick: () => void;
+  /** If commitment period alert should be displayed */
+  shouldDisplayCommitmentPeriodAlert: boolean;
+  /** If commitment period subtitle should be displayed */
+  shouldDisplayCommitmentPeriodSubtitle: boolean;
+  /** If unsubscribe caption text should be displayed */
+  shouldDisplayUnsubscribeCaptionText: boolean;
+  /** If the stop subscription feature should be displayed from the member side */
+  displayStopSubscriptionFromMemberSide?: boolean;
 };
 
 const ConsumerSubscriptionDetailsCard: React.FC<Props> = ({
   areDetailsLoading,
   autoRenewalDate,
+  displayStopSubscriptionFromMemberSide,
   className,
   description,
+  expirationDate,
   failedInvoices,
   handleInvoiceDetailsPaginationFetchMore,
   hasAutoRenewal,
@@ -133,6 +156,14 @@ const ConsumerSubscriptionDetailsCard: React.FC<Props> = ({
   subscriptionNextPaymentDate,
   subtitleDate,
   termsDate,
+  commitmentPeriod,
+  commitmentValue,
+  isCommitmentPeriodSectionHidden,
+  isMemberCancellationAllowed,
+  onUnSubscribeClick,
+  shouldDisplayCommitmentPeriodAlert,
+  shouldDisplayCommitmentPeriodSubtitle,
+  shouldDisplayUnsubscribeCaptionText,
 }) => {
   const { t } = useTranslation('consumerSpace');
 
@@ -161,6 +192,10 @@ const ConsumerSubscriptionDetailsCard: React.FC<Props> = ({
     >
       <ConsumerSubscriptionDetailsCardHeader
         autoRenewalDate={autoRenewalDate}
+        displayStopSubscriptionFromMemberSide={
+          displayStopSubscriptionFromMemberSide
+        }
+        expirationDate={expirationDate}
         hasAutoRenewal={hasAutoRenewal}
         isPaused={isPaused}
         isSubscriptionStopped={isSubscriptionStopped}
@@ -171,6 +206,9 @@ const ConsumerSubscriptionDetailsCard: React.FC<Props> = ({
         recurrenceBasis={recurrenceBasis}
         recurrentPrice={recurrentPrice}
         selectedSubscriptionsFuturePauses={selectedSubscriptionsFuturePauses}
+        shouldDisplayUnsubscribeCaptionText={
+          shouldDisplayUnsubscribeCaptionText
+        }
         subscriptionInterval={subscriptionInterval}
         subscriptionName={subscriptionName}
         subscriptionNextPaymentDate={subscriptionNextPaymentDate}
@@ -191,6 +229,17 @@ const ConsumerSubscriptionDetailsCard: React.FC<Props> = ({
       <ConsumerSubscriptionDetailsCardTerms
         onSeeClick={onSeeClick}
         termsDate={termsDate}
+      />
+      <ConsumerSubscriptionDetailsCardCommitmentPeriod
+        commitmentPeriod={commitmentPeriod}
+        commitmentValue={commitmentValue}
+        isCommitmentPeriodSectionHidden={isCommitmentPeriodSectionHidden}
+        isMemberCancellationAllowed={isMemberCancellationAllowed}
+        onUnSubscribeClick={onUnSubscribeClick}
+        shouldDisplayCommitmentPeriodAlert={shouldDisplayCommitmentPeriodAlert}
+        shouldDisplayCommitmentPeriodSubtitle={
+          shouldDisplayCommitmentPeriodSubtitle
+        }
       />
       <ConsumerSubscriptionDetailsCardBillingHistory
         areDetailsLoading={areDetailsLoading}

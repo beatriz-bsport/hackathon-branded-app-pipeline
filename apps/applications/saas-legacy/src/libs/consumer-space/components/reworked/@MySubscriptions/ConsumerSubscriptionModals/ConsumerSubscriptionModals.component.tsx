@@ -12,6 +12,7 @@ import type { SubscriptionFilter } from '../types';
 
 type Props = {
   /* DETAILS DRAWER */
+  displayStopSubscriptionFromMemberSide?: boolean;
   isSubscriptionDetailsDrawerOpen: boolean;
   hasDetailsNextPage: boolean;
   invoiceRetryNumber: number;
@@ -29,10 +30,12 @@ type Props = {
   onSeeTermsClick: () => void;
   handleInvoiceDetailsPaginationFetchMore: () => void;
   handlePaymentModalOpen: () => void;
+  onUnSubscribeClick: () => void;
 };
 
 const ConsumerSubscriptionModals: React.FC<Props> = ({
   /* DETAILS DRAWER */
+  displayStopSubscriptionFromMemberSide,
   isSubscriptionDetailsDrawerOpen,
   hasDetailsNextPage,
   invoiceRetryNumber,
@@ -47,11 +50,15 @@ const ConsumerSubscriptionModals: React.FC<Props> = ({
   onSeeTermsClick,
   handleInvoiceDetailsPaginationFetchMore,
   handlePaymentModalOpen,
+  onUnSubscribeClick,
 }) => {
   return (
     <PortalContainer wrapperId="bs-consumer__subscription-page__portal-container">
       <ConsumerSubscriptionDetailsDrawer
         areDetailsLoading={areDetailsLoading}
+        displayStopSubscriptionFromMemberSide={
+          displayStopSubscriptionFromMemberSide
+        }
         handleClose={handleCloseSubscriptionDetailsDrawer}
         handleInvoiceDetailsPaginationFetchMore={
           handleInvoiceDetailsPaginationFetchMore
@@ -63,6 +70,7 @@ const ConsumerSubscriptionModals: React.FC<Props> = ({
         isMobile={isMobile}
         isOpen={isMobile && isSubscriptionDetailsDrawerOpen}
         onSeeTermsClick={onSeeTermsClick}
+        onUnSubscribeClick={onUnSubscribeClick}
         paymentMethodUsed={paymentMethodUsed}
         selectedFilter={selectedFilter}
         selectedSubscription={selectedSubscription}

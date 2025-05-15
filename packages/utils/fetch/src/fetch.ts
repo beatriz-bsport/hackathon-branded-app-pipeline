@@ -39,8 +39,8 @@ export function getFetch() {
     if (!response.ok) {
       throw new HTTPException(
         uri,
-        payload?.code ?? payload?.error ?? "UNKONWN",
-        payload?.message ?? "Some Error occured",
+        payload?.code ?? payload?.error ?? payload?.error_code ?? "UNKONWN",
+        payload?.message ?? payload?.error_message ?? "Some Error occured",
         payload?.statusCode ?? response?.status ?? 400,
       );
     }

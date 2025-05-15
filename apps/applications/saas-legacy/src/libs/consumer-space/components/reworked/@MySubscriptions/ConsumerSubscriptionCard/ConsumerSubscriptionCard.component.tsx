@@ -19,6 +19,8 @@ type Props = {
   hasFailedPayments: boolean;
   /** Indicates if a subscription has missing payment method */
   hasMissingPaymentMethod: boolean;
+  /** Indicates if the subscription has been previously unsubscribed */
+  hasUnsubscribed: boolean;
   /** Indicates if see details button is disabled */
   isDetailsDisabled: boolean;
   /** Indicates if subscriptions are being fetched */
@@ -49,6 +51,7 @@ const ConsumerSubscriptionCard: React.FC<Props> = ({
   addPaymentMethodDisabled,
   hasFailedPayments,
   hasMissingPaymentMethod,
+  hasUnsubscribed,
   isDetailsDisabled,
   isLoading,
   isPaused,
@@ -73,6 +76,7 @@ const ConsumerSubscriptionCard: React.FC<Props> = ({
       <ConsumerSubscriptionCardHeader
         hasFailedPayments={hasFailedPayments}
         hasMissingPaymentMethod={hasMissingPaymentMethod}
+        hasUnsubscribed={hasUnsubscribed}
         isPaused={isPaused}
         subscriptionDate={subscriptionDate}
         subscriptionName={subscriptionName}

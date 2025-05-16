@@ -8,4 +8,24 @@ exports.default = {
       },
     },
   },
+  table: {
+    headers: {
+      lastDateUpdated: "Last Updated",
+      buyer: "Buyer",
+      orderStatus: "Status",
+      quantity: "Quantity",
+      total: "Total",
+      dateCreated: "Created",
+    },
+    loading: "Loading orders ...",
+    emptyState: {
+      title: "No orders yet",
+      emptyDatabase: "Manage and track orders from your webshop here",
+      emptySearch:
+        "Looks like there are no orders currently marked as {{ status }}.",
+    },
+    rows: {
+      memberArchived: "archived",
+    },
+  },
 };

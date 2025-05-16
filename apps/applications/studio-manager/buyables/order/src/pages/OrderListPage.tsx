@@ -1,12 +1,16 @@
-import { Button, ListLayout } from "@bsport/kaizen-primitive-core";
+import { ListLayout } from "@bsport/kaizen-primitive-core";
 
+import { OrderTable } from "#src/components/OrderTable";
+import { Order } from "#src/components/OrderTable/constants";
 import { useOrderFilters } from "#src/hooks/useOrderFilters";
 import { useTranslation } from "#src/utils/i18n";
+
+import data from "./mock_data.json";
 
 const OrderListPage: React.FC = () => {
   const { t } = useTranslation("list");
 
-  const { filterConfig, handleClearFilters, activeFilters } = useOrderFilters();
+  const { filterConfig, activeFilters } = useOrderFilters();
 
   return (
     <ListLayout>
@@ -20,16 +24,19 @@ const OrderListPage: React.FC = () => {
         }}
       />
       <ListLayout.Content>
-        <Button
-          onClick={handleClearFilters}
-          iconLeft="filter-lines"
-          label="Just a button to check the clear handler"
-          color="main"
-          size="sm"
-          intent="call-to-action"
-          className="h-fit m-lg"
+        <OrderTable
+          orderList={data.results as Array<Order>}
+          paginationProps={{
+            currentPage: 1,
+            rowsPerPage: 10,
+            totalItems: data.count,
+            showRowsPerPageSelector: true,
+          }}
+          isLoading={false}
+          isEmpty={false}
+          isEmptySearch={false}
+          filterStatus={activeFilters.status}
         />
-        <p>Filter :{activeFilters.status}</p>
       </ListLayout.Content>
     </ListLayout>
   );

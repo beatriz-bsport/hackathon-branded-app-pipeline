@@ -1,31 +1,21 @@
 import { useCallback, useRef, useState } from "react";
 
-import {
-  ORDER_STATE_CANCELLED,
-  ORDER_STATE_ONSITEDELIVERY,
-  ORDER_STATE_PAID,
-  ORDER_STATE_SENT,
-} from "@bsport/common/lib/master-data/order-states";
+import { ORDER_STATE_INITIALIZED } from "@bsport/common/lib/master-data/order-states";
 import type { FilterProps } from "@bsport/kaizen-primitive-core";
 
+import {
+  ORDER_STATUSES,
+  ORDER_STATUS_TO_I18N_KEY,
+  type OrderStatus,
+} from "#src/utils/constants";
 import { useTranslation } from "#src/utils/i18n";
 
 const FILTER_IS = "is" as const;
 
-const statuses = [
-  ORDER_STATE_PAID.id,
-  ORDER_STATE_CANCELLED.id,
-  ORDER_STATE_ONSITEDELIVERY.id,
-  ORDER_STATE_SENT.id,
-] as Array<700 | 1100 | 1200 | 9000>;
-
-type Statuses = (typeof statuses)[number];
-
 export const useOrderFilters = () => {
-  const { t } = useTranslation(["common", "list"]);
-
+  const { t } = useTranslation(["list", "common"]);
   const [activeFilters, setActiveFilters] = useState<{
-    status: Statuses | undefined;
+    status: OrderStatus | undefined;
   }>({
     status: undefined,
   });
@@ -42,10 +32,14 @@ export const useOrderFilters = () => {
       id: "order-status",
       label: t("status.label", { ns: "common" }),
       availableFilters: [FILTER_IS],
-      values: statuses.map((orderStatus) => {
+      values: ORDER_STATUSES.filter(
+        (orderStatus) => orderStatus !== ORDER_STATE_INITIALIZED.id,
+      ).map((orderStatus) => {
         return {
           id: `${orderStatus}`,
-          label: t(`status.values.${orderStatus}`, { ns: "common" }),
+          label: t(`status.values.${ORDER_STATUS_TO_I18N_KEY[orderStatus]}`, {
+            ns: "common",
+          }),
         };
       }),
       multiSelect: false,
@@ -60,7 +54,7 @@ export const useOrderFilters = () => {
       const nonEmptyFilterField = filters.filter((value) => !!value.field);
       const nextStatus =
         nonEmptyFilterField.length > 0
-          ? (Number(nonEmptyFilterField[0].valueIds[0]) as Statuses)
+          ? (Number(nonEmptyFilterField[0].valueIds[0]) as OrderStatus)
           : undefined;
       setActiveFilters({
         status: nextStatus,

@@ -3,10 +3,11 @@
         "status": {
             "label": "Status",
             "values": {
-                "700": "To be processed",
-                "1100": "Cancelled",
-                "1200": "Click & collect",
-                "9000": "Sent"
+                "toBeProcessed": "To be processed",
+                "cancelled": "Cancelled",
+                "clickAndCollect": "Click & collect",
+                "sent": "Sent",
+                "initialized": "Initialized"
             }
         }
     },
@@ -18,6 +19,25 @@
                 "operators": {
                     "is": "is"
                 }
+            }
+        },
+        "table": {
+            "headers": {
+                "lastDateUpdated": "Last Updated",
+                "buyer": "Buyer",
+                "orderStatus": "Status",
+                "quantity": "Quantity",
+                "total": "Total",
+                "dateCreated": "Created"
+            },
+            "loading": "Loading orders ...",
+            "emptyState": {
+                "title": "No orders yet",
+                "emptyDatabase": "Manage and track orders from your webshop here",
+                "emptySearch": "Looks like there are no orders currently marked as {{ status }}."
+            },
+            "rows": {
+                "memberArchived": "archived"
             }
         }
     }

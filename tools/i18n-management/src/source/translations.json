@@ -30,7 +30,8 @@
         "invalidStartDate": "Invalid start date",
         "invalidEndDate": "Invalid end date",
         "rangeLabel": "From {{ start }} to {{end}}"
-      }
+      },
+      "modal": { "back": "Back", "next": "Next" }
     }
   },
   "@bsport/sm-email-templates": {

@@ -3,8 +3,17 @@ import React, { useEffect, useState } from "react";
 
 import Body from "#src/components/Body";
 import Button from "#src/components/Button";
+import type { IconName } from "#src/components/Icon";
+import Select from "#src/components/Select";
+import Title from "#src/components/Title";
+import Toggle from "#src/components/Toggle";
 
-import Modal, { confirmColors, footerDirections, sizes } from "./Modal";
+import Modal, {
+  StepConfig,
+  confirmColors,
+  footerDirections,
+  sizes,
+} from "./Modal";
 
 /**
  * A dialog box that appears on top of the main content, requiring the user to
@@ -87,6 +96,13 @@ const meta: Meta<typeof Modal> = {
       table: { type: { summary: "ReactNode" } },
     },
   },
+  parameters: {
+    docs: {
+      source: {
+        type: "code",
+      },
+    },
+  },
 };
 
 export default meta;
@@ -95,13 +111,16 @@ type Story = StoryObj<typeof Modal>;
 
 const args = {
   open: false,
+  size: "md" as keyof typeof sizes,
   title: "Modal title",
   description:
     "Ergonomic executive chair upholstered in bonded black leather and PVC padded seat and back for all-day comfort and support.",
+  footerDirection: "row" as const,
   onClose: () => console.log("modal closed"),
   onCrossButtonClick: () => console.log("cross button clicked"),
   onClickOutside: () => console.log("clicked outside"),
   confirmLabel: "Confirm",
+  confirmColor: "main" as const,
   onConfirmClick: () => console.log("confirm clicked"),
   cancelLabel: "Cancel",
   onCancelClick: () => console.log("cancel clicked"),
@@ -129,7 +148,6 @@ export const ModalShort: Story = {
           intent="default"
           color="main"
           onClick={handleOpen}
-          loading={false}
         />
         <Modal {...args} open={isOpen} onClose={handleClose}>
           <Body htmlVariant="p" size="sm" color="default">
@@ -230,7 +248,6 @@ export const ModalConfirmClosing: Story = {
           intent="default"
           color="main"
           onClick={handleOpen}
-          loading={false}
         />
         <Modal
           {...args}
@@ -274,9 +291,8 @@ export const ModalOverflow: Story = {
           intent="default"
           color="main"
           onClick={handleOpen}
-          loading={false}
         />
-        <Modal {...args} open={isOpen} onClose={handleClose}>
+        <Modal {...args} open={isOpen} onClose={handleClose} size="sm">
           <Body htmlVariant="p" size="md" color="default">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ac
             odio molestie, rhoncus lacus eget, placerat libero. Phasellus nec
@@ -310,6 +326,109 @@ export const ModalOverflow: Story = {
             tristique magna lacinia felis aliquet ornare in et tellus.
           </Body>
         </Modal>
+      </>
+    );
+  },
+  args,
+};
+
+/**
+ * Instead of children, you can render a step form thanks to the `steps` prop.<br>
+ * There is a different content rendered for each step, and the initial step can be specified.
+ */
+export const ModalStepForm: Story = {
+  name: "Modal step form",
+  render: (args) => {
+    const [isOpen, setIsOpen] = useState(false);
+    const [currentStep, setCurrentStep] = useState(0);
+    const [selectedOption, setSelectedOption] = useState("");
+    const [checked, setChecked] = useState(false);
+
+    const modalSteps: StepConfig[] = [
+      {
+        label: "Account Setup",
+        content: (
+          <div className="space-y-md">
+            <Title htmlVariant="h4">Step 1: Select your option</Title>
+            <Select
+              id="select-example"
+              size="md"
+              status="default"
+              defaultValue="Next step is blocked now!"
+              items={[{ id: "option-1", label: "Pass to next step" }]}
+              iconLeft="arrow-right"
+              onSelect={(opt) => setSelectedOption(opt)}
+            />
+          </div>
+        ),
+        validate: () => selectedOption.length > 0,
+        icon: (currentStep === 0 ? "circle" : "check-circle") as IconName,
+      },
+      {
+        label: "Confirmation",
+        content: (
+          <div className="space-y-md">
+            <Title htmlVariant="h4">Step 2: Review your info</Title>
+            <Toggle
+              id="toggle-example"
+              label="All good?"
+              checked={checked}
+              onChange={() => setChecked(!checked)}
+            />
+          </div>
+        ),
+        validate: () => checked,
+        icon: (currentStep <= 1 ? "circle" : "check-circle") as IconName,
+      },
+      {
+        label: "Finish the flow",
+        content: (
+          <div className="space-y-md">
+            <Title htmlVariant="h4">
+              Step 3: Just see the confirm label changing here
+            </Title>
+          </div>
+        ),
+        icon: "alert-triangle",
+      },
+    ];
+
+    const handleClose = () => {
+      setCurrentStep(0);
+      setSelectedOption("");
+      setChecked(false);
+      setIsOpen(false);
+    };
+    const handleNext = () => {
+      if (currentStep === modalSteps.length - 1) return;
+      setCurrentStep((prev) => prev + 1);
+    };
+    const handleBack = () => {
+      if (currentStep === 0) return;
+      setCurrentStep((prev) => prev - 1);
+      setSelectedOption("");
+      setChecked(false);
+    };
+
+    return (
+      <>
+        <Button
+          label="Open Modal"
+          size="md"
+          intent="default"
+          color="main"
+          onClick={() => setIsOpen(true)}
+        />
+        <Modal
+          {...args}
+          open={isOpen}
+          steps={modalSteps}
+          initialStep={0}
+          onClose={handleClose}
+          onCrossButtonClick={handleClose}
+          onConfirmClick={handleNext}
+          onCancelClick={handleBack}
+        />
       </>
     );
   },

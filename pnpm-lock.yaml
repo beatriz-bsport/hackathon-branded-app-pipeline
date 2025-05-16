@@ -1098,6 +1098,9 @@ importers:
 
   apps/applications/studio-manager/buyables/order:
     dependencies:
+      '@bsport/common':
+        specifier: workspace:*
+        version: link:../../../../../packages/common-legacy
       '@bsport/fetch':
         specifier: workspace:*
         version: link:../../../../../packages/utils/fetch

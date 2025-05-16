@@ -78,6 +78,7 @@ const args = {
   },
   selectFieldLabel: "Select a field",
   onFilterChange: () => {},
+  singleField: false,
 };
 
 export const Primary: Story = {
@@ -109,5 +110,13 @@ export const ResetFilters: Story = {
         />
       </div>
     );
+  },
+};
+
+export const FilterWithSingleChoice: Story = {
+  name: "Filter with single choice",
+  args: {
+    ...args,
+    singleField: true,
   },
 };

@@ -418,7 +418,26 @@
       "additionalFeedbackPlaceholder": "Type your feedback here..."
     }
   },
-  "@bsport/sm-order": { "namespaceAlpha": { "helloName": "Hello {{ name }} !" } },
+  "@bsport/sm-order": {
+    "common": {
+      "status": {
+        "label": "Status",
+        "values": {
+          "700": "To be processed",
+          "1100": "Cancelled",
+          "1200": "Click & collect",
+          "9000": "Sent"
+        }
+      }
+    },
+    "list": {
+      "pageTitle": "Orders",
+      "header": {
+        "searchTooltip": "Search on this page",
+        "filters": { "operators": { "is": "is" } }
+      }
+    }
+  },
   "@bsport/sm-smartlists": {
     "list": {
       "title": "Smartlists",

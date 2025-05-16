@@ -1,5 +1,24 @@
 {
-    "namespaceAlpha": {
-        "helloName": "Hello {{ name }} !"
+    "common": {
+        "status": {
+            "label": "Status",
+            "values": {
+                "700": "To be processed",
+                "1100": "Cancelled",
+                "1200": "Click & collect",
+                "9000": "Sent"
+            }
+        }
+    },
+    "list": {
+        "pageTitle": "Orders",
+        "header": {
+            "searchTooltip": "Search on this page",
+            "filters": {
+                "operators": {
+                    "is": "is"
+                }
+            }
+        }
     }
 }

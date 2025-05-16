@@ -2175,12 +2175,15 @@
                         "autoRenewed": "Renouvelée automatiquement",
                         "paused": "Actuellement en pause",
                         "joiningFee": "Frais d'adhésion : {{- fees }}",
-                        "futurePauses": "Une pause est prévue du {{- dateStart }} au {{- dateEnd }} (inclus)"
+                        "futurePauses": "Une pause est prévue du {{- dateStart }} au {{- dateEnd }} (inclus)",
+                        "stopValidDate": "Valable jusqu'au {{- expirationDate }} (exclu)",
+                        "stop": "Désabonné"
                     },
                     "buttonsLabel": {
                         "see": "Voir",
                         "change": "Modifier",
-                        "add": "Ajouter"
+                        "add": "Ajouter",
+                        "unsubscribe": "Se désabonner"
                     },
                     "termsAccepted": "Acceptées le {{- termsDate }}",
                     "terms": "Mentions légales",
@@ -2205,7 +2208,34 @@
                     "beforeRenewalContractPriceEvery": "Puis {{ price }} tous les {{ recurrence }}{{ interval }} après le {{- date }}",
                     "beforeRenewalContractPricePer": "Puis {{ price }}/{{ interval }} après le {{- date }}",
                     "loadMore": "En savoir plus",
-                    "drawerTitle": "Abonnement"
+                    "drawerTitle": "Abonnement",
+                    "loading": "Nous traitons votre demande...",
+                    "commitmentPeriod": {
+                        "modal": {
+                            "alert": "Les sessions réservées à l'avance dans le cadre d'un abonnement avec un nombre illimité de cours seront annulées après cette période et pourront faire l'objet de frais d'annulation tardive.",
+                            "failedMessage": "Veuillez actualiser votre page et réessayer.",
+                            "failedTitle": "Quelque chose n'a pas fonctionné",
+                            "confirmationNotStarted": "Vous pouvez fermer la fenêtre.",
+                            "confirmationStarted": "Vous pouvez continuer à bénéficier des avantages de l'abonnement jusqu'au {{- expiration_date }} (exclu).",
+                            "confirmationTitle": "Vous vous êtes désinscrit avec succès",
+                            "cancel": "Garder l'abonnement",
+                            "explainNoExpirationDate": "Vous êtes sur le point de résilier votre abonnement. Les avantages de votre abonnement resteront valables jusqu'à la fin du prochain cycle de facturation.\nEtes-vous sûr de vouloir continuer ?",
+                            "explainNotStarted": "Vous êtes sur le point d'annuler un abonnement qui n'a pas encore commencé. \nLe premier cycle de facturation vous sera facturé et vos avantages resteront valables jusqu'au {{- expiration_date }} (exclu).\nÊtes-vous sûr de vouloir continuer ?",
+                            "explainStarted": "Vous êtes sur le point d'annuler cet abonnement. Les avantages de votre abonnement resteront valables jusqu'au {{- expiration_date }} (exclu).\nÊtes-vous sûr de vouloir continuer ?"
+                        },
+                        "explain": {
+                            "year": "Cet abonnement a une période d'engagement de {{ commitment_period_value }} an, si vous souhaitez l'annuler ou avez des questions, veuillez contacter directement le studio.",
+                            "year_plural": "Cet abonnement a une période d'engagement de {{ commitment_period_value }} ans, si vous souhaitez l'annuler ou avez des questions, veuillez contacter directement le studio.",
+                            "month": "Cet abonnement a une période d'engagement de {{ commitment_period_value }} mois, si vous souhaitez l'annuler ou avez des questions, veuillez contacter directement le studio.",
+                            "month_plural": "Cet abonnement a une période d'engagement de {{ commitment_period_value }} mois, si vous souhaitez l'annuler ou avez des questions, veuillez contacter directement le studio.",
+                            "week": "Cet abonnement a une période d'engagement de {{ commitment_period_value }} semaine, si vous souhaitez l'annuler ou avez des questions, veuillez contacter directement le studio.",
+                            "week_plural": "Cet abonnement a une période d'engagement de {{ commitment_period_value }} semaines, si vous souhaitez l'annuler ou avez des questions, veuillez contacter directement le studio.",
+                            "day": "Cet abonnement a une période d'engagement de {{ commitment_period_value }} jour, si vous souhaitez l'annuler ou avez des questions, veuillez contacter directement le studio.",
+                            "day_plural": "Cet abonnement a une période d'engagement de {{ commitment_period_value }} jours, si vous souhaitez l'annuler ou avez des questions, veuillez contacter directement le studio."
+                        },
+                        "subtitle": "Cet abonnement se termine et il n'y aura plus de prochains paiements après le cycle actuel.",
+                        "title": "Gérer l'abonnement"
+                    }
                 },
                 "consumerSubscriptionCard": {
                     "buttonsLabel": {
@@ -4735,6 +4765,16 @@
                 },
                 "previous": "Précédent",
                 "next": "Confirmer"
+            },
+            "confirmation": {
+                "disconnect": "Déconnexion",
+                "content": {
+                    "help": "Reportez-vous à la documentation interne pour obtenir des instructions détaillées sur chaque étape.",
+                    "emailValidation": "Validation de l'adresse e-mail : Effectuer l'action admin pour valider l'adresse e-mail du client.",
+                    "upsell": "Upsell : Ajoutez tous les upsell applicables à la plateforme.",
+                    "billing": "Facturation de la plateforme : Créer la configuration de la facturation pour le nouveau backoffice.",
+                    "core": "La nouvelle plateforme de backoffice a été créée avec succès. Cependant, avant d'envoyer les identifiants d'accès du client, veuillez vous assurer que les étapes de validation suivantes de la documentation interne ont été effectuées :"
+                }
             }
         },
         "country": {
@@ -11994,9 +12034,10 @@
             "billing_plan_status": {
                 "0": "Pas encore commencé",
                 "1": "En cours",
-                "2": "Stoppé",
+                "2": "Terminé (Manager)",
                 "3": "En pause",
-                "4": "Terminé"
+                "4": "Terminé",
+                "5": "Terminé (Membre)"
             },
             "booking_status_code": {
                 "0": "Non-annulé",
@@ -16934,7 +16975,7 @@
             },
             "billing_plan-pause": "Pause",
             "billing_plan-create": "Création",
-            "billing_plan-stop": "Arrêt",
+            "billing_plan-stop": "Abonnement résilié par",
             "billing_plan-renew": "Renouvellement",
             "billing_plan-payment_dispute": "Litige",
             "billing_plan-payment_success": "Paiement réussi",
@@ -17280,7 +17321,22 @@
                     "firstLabel": "Modifier la facturation de l'abonnement pour les prochains renouvellements",
                     "secondLabel": "Nombre de factures *"
                 },
-                "notEditable": "Ce contrat provient d'une migration de données. Certains champs peuvent ne pas être modifiables afin de préserver les données."
+                "notEditable": "Ce contrat provient d'une migration de données. Certains champs peuvent ne pas être modifiables afin de préserver les données.",
+                "commitmentPeriod": {
+                    "explain": {
+                        "year": "Cet abonnement engage le membre pour {{ commitment_period_value }} an. Les modifications apportées à la période d'engagement de l'abonnement dans les paramètres n'affecteront pas les abonnements déjà achetés.",
+                        "year_plural": "Cet abonnement engage le membre pour {{ commitment_period_value }} ans. Les modifications apportées à la période d'engagement de l'abonnement dans les paramètres n'affecteront pas les abonnements déjà achetés.",
+                        "month": "Cet abonnement engage le membre pour {{ commitment_period_value }} mois. Les modifications apportées à la période d'engagement de l'abonnement dans les paramètres n'affecteront pas les abonnements déjà achetés.",
+                        "month_plural": "Cet abonnement engage le membre pour {{ commitment_period_value }} mois. Les modifications apportées à la période d'engagement de l'abonnement dans les paramètres n'affecteront pas les abonnements déjà achetés.",
+                        "week": "Cet abonnement engage le membre pour {{ commitment_period_value }} semaine. Les modifications apportées à la période d'engagement de l'abonnement dans les paramètres n'affecteront pas les abonnements déjà achetés.",
+                        "week_plural": "Cet abonnement engage le membre pour {{ commitment_period_value }} semaines. Les modifications apportées à la période d'engagement de l'abonnement dans les paramètres n'affecteront pas les abonnements déjà achetés.",
+                        "day": "Cet abonnement engage le membre pour {{ commitment_period_value }} jour. Les modifications apportées à la période d'engagement de l'abonnement dans les paramètres n'affecteront pas les abonnements déjà achetés.",
+                        "day_plural": "Cet abonnement engage le membre pour {{ commitment_period_value }} jours. Les modifications apportées à la période d'engagement de l'abonnement dans les paramètres n'affecteront pas les abonnements déjà achetés."
+                    },
+                    "error": "La période d'engagement ne peut excéder 90.",
+                    "helperText": "N'oubliez pas de vérifier la législation de votre pays concernant le droit de rétractation pour les abonnements et d'ajouter les informations nécessaires dans vos conditions générales.",
+                    "label": "Période d'engagement"
+                }
             },
             "deleteForm": {
                 "title": "Suppression contrat",
@@ -17340,6 +17396,19 @@
                 "week_plural": "toutes les {{count}} semaines",
                 "day": "par jour",
                 "day_plural": "Tous les {{count}} jours"
+            },
+            "commitmentPeriod": {
+                "explain": {
+                    "year": "Cet abonnement engagera le membre pour {{ commitment_period_value }} an.",
+                    "year_plural": "Cet abonnement engagera le membre pour {{ commitment_period_value }} ans.",
+                    "month": "Cet abonnement engagera le membre pour {{ commitment_period_value }} mois.",
+                    "month_plural": "Cet abonnement engagera le membre pour {{ commitment_period_value }} mois.",
+                    "week": "Cet abonnement engagera le membre pour {{ commitment_period_value }} semaine.",
+                    "week_plural": "Cet abonnement engagera le membre pour {{ commitment_period_value }} semaines.",
+                    "day": "Cet abonnement engagera le membre pour {{ commitment_period_value }} jour.",
+                    "day_plural": "Cet abonnement engagera le membre pour {{ commitment_period_value }} jours."
+                },
+                "label": "Période d'engagement"
             }
         },
         "recap": {
@@ -17379,7 +17448,9 @@
         },
         "scheduledStop": {
             "label": "Arrêt programmé",
-            "unscheduleStop": "Déprogrammer l'arrêt"
+            "unscheduleStop": "Déprogrammer l'arrêt",
+            "stoppedByMember": "Terminé par le membre",
+            "stoppedByManager": "Terminé par {{ name }}"
         },
         "action": {
             "stop": "Arrêter",

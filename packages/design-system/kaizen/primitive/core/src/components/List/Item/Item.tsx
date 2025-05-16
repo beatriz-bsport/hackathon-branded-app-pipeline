@@ -14,7 +14,7 @@ import { type WithTooltip, withTooltip } from "#src/components/Tooltip";
 import withLink from "#src/components/private/withLink";
 import { useCheckboxContext } from "#src/contexts/CheckboxContext";
 import useSplitActionsByDisplayOrder, {
-  type ActionsButtons,
+  type ActionButton,
   type ActionsDropdownConfig,
 } from "#src/hooks/use-split-actions-by-display-order";
 
@@ -34,7 +34,7 @@ type Props = {
     | [ListItemChipsProps, ListItemChipsProps, ListItemChipsProps]
   >;
   chipsDirection?: "start" | "end";
-  buttons?: WithTooltip<ActionsButtons[]>;
+  buttons?: WithTooltip<ActionButton[]>;
   dropdownConfig?: ActionsDropdownConfig;
   link?: string;
   className?: string;

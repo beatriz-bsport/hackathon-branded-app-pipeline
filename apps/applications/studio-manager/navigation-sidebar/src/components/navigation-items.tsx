@@ -199,9 +199,9 @@ export const useNavigationElements = ({
           label: t("menus.marketing.memberNotifications"),
         },
         {
-          id: "email-templates",
+          id: "email-template",
           label: t("menus.marketing.emailTemplates"),
-          href: urls.emailTemplates,
+          href: urls.emailTemplate,
         },
         {
           id: "smartlists",

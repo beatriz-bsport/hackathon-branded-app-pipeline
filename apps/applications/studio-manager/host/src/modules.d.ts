@@ -12,7 +12,7 @@ declare module "sm-navigation-sidebar/NavigationSidebar" {
 declare module "sm-navigation-sidebar/urls" {
   const urls: {
     activity: string;
-    emailTemplates: string;
+    emailTemplate: string;
     giftcard: string;
     invoice: string;
     member: string;
@@ -52,6 +52,10 @@ declare module "sm-invoice/App" {
 }
 
 // ----- Customer Data Platform -----
+declare module "sm-email-template/App" {
+  const App: BaseApp["App"];
+  export default App;
+}
 declare module "sm-smartlists/App" {
   const App: BaseApp["App"];
   export default App;

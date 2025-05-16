@@ -19,6 +19,7 @@ const Teacher = lazy(() => import("sm-teacher/App"));
 const Invoice = lazy(() => import("sm-invoice/App"));
 
 // ----- Customer Data Platform -----
+const EmailTemplate = lazy(() => import("sm-email-template/App"));
 const Smartlists = lazy(() => import("sm-smartlists/App"));
 
 // ----- Common -----
@@ -49,6 +50,7 @@ export function Root() {
 
         {/* ----- Customer Data Platform ----- */}
         <Route path={`${urls.smartlist}/*`} element={<Smartlists />} />
+        <Route path={`${urls.emailTemplate}/*`} element={<EmailTemplate />} />
       </Routes>
     </AppWrapper>
   );

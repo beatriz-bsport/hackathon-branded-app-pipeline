@@ -38,7 +38,7 @@ const meta: Meta<typeof List> = {
       description?: string;
       isSelectable?: boolean;
       onCheckboxChange?: (checked: boolean) => void;
-      buttons?: ActionsButtons[]; // The same as normal button but the onClick event does not have an event parameter
+      buttons?: ActionButton[]; // The same as normal button but the onClick event does not have an event parameter
       dropdownConfig?: ActionsDropdownConfig;
     }
           `.trim(),
@@ -62,7 +62,7 @@ const meta: Meta<typeof List> = {
       color?: string;
       chips?: ChipProps[];
       chipsDirection?: "start" | "end";
-      buttons?: ActionsButtons[];  // The same as normal button but the onClick event does not have an event parameter
+      buttons?: ActionButton[];  // The same as normal button but the onClick event does not have an event parameter
       dropdownConfig?: ActionsDropdownConfig;
       link?: string;
       onCheckboxChange?: (checked: boolean) => void;

@@ -3,8 +3,8 @@ import { type TFunctionGeneric, instanciateAppI18n } from "@bsport/i18n";
 import type translations from "#src/i18n/locales/en/translations.json";
 import namespaceList from "#src/i18n/namespaces.json";
 
-const applicationName = __EMAIL_TEMPLATES__.__I18N_NAMESPACE_PREFIX__;
-const applicationUrl = __EMAIL_TEMPLATES__.__APPLICATION_BASE_URL__;
+const applicationName = __EMAIL_TEMPLATE__.__I18N_NAMESPACE_PREFIX__;
+const applicationUrl = __EMAIL_TEMPLATE__.__APPLICATION_BASE_URL__;
 
 export const {
   i18nInstance,

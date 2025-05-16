@@ -9,7 +9,7 @@ import DropdownMenu from "#src/components/DropdownMenu";
 import { listItem } from "#src/components/List";
 import { useCheckboxContext } from "#src/contexts/CheckboxContext";
 import useSplitActionsByDisplayOrder, {
-  type ActionsButtons,
+  type ActionButton,
   type ActionsDropdownConfig,
 } from "#src/hooks/use-split-actions-by-display-order";
 
@@ -20,7 +20,7 @@ type HeaderProps = React.HTMLAttributes<HTMLDivElement> &
     description?: string;
     isSelectable?: boolean;
     onCheckboxChange?: (value: boolean) => void;
-    buttons?: ActionsButtons[];
+    buttons?: ActionButton[];
     dropdownConfig?: ActionsDropdownConfig;
     collapsibleProps?: Omit<CollapseProps, "children">;
   };

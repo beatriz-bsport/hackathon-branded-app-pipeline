@@ -2,4 +2,4 @@
 /// <reference types="vite/types/importMeta.d.ts" />
 /// <reference types="@bsport/config-federation/vite" />
 
-declare const __EMAIL_TEMPLATES__: FederationVariables;
+declare const __EMAIL_TEMPLATE__: FederationVariables;

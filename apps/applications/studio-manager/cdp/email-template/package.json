@@ -1,8 +1,8 @@
 {
-  "name": "@bsport/sm-email-templates",
+  "name": "@bsport/sm-email-template",
   "version": "0.0.0",
   "private": true,
-  "description": "Email templates list page for studio manager [CDP owned]",
+  "description": "Email template list page for studio manager",
   "author": "theo.steffanetti <theo.steffanetti@bsport.io>",
   "type": "module",
   "scripts": {

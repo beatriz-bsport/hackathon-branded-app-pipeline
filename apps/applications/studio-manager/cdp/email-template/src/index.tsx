@@ -6,7 +6,7 @@ import { AppWrapper } from "@bsport/sm-backbone";
 
 import App from "./App";
 
-const basename = __EMAIL_TEMPLATES__.__BASENAME__;
+const basename = __EMAIL_TEMPLATE__.__BASENAME__;
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>

@@ -2,7 +2,7 @@ import Button, { type ButtonProps } from "#src/components/Button";
 import type { DropdownMenuProps } from "#src/components/DropdownMenu";
 import type { MenuOption } from "#src/components/Menu/types";
 
-export type ActionsButtons = ButtonProps & {
+export type ActionButton = ButtonProps & {
   id: string;
   onClick?: () => void;
 };
@@ -13,12 +13,12 @@ export type ActionsDropdownConfig = {
 };
 
 export type UseActionsPlacementProps = {
-  actions: ActionsButtons[] | null;
+  actions: ActionButton[] | null;
   dropdownConfig?: ActionsDropdownConfig;
 };
 
 export type UseActionsPlacementReturn = {
-  actions: ActionsButtons[];
+  actions: ActionButton[];
   dropdownMenuProps: DropdownMenuProps | null;
 };
 
@@ -28,7 +28,7 @@ const BASE_MAXIMUM_NUMBER_OF_PRIMARY_ACTIONS = 2;
  * Hook that returns you list of buttons and dropdown menu setup to use when you
  * want to have an undefined amount of actions that you can setup in your components props.
  * @param actions list of actions that you want to refine.
- * @returns { actions: ActionsButtons[], dropdownMenuProps: DropdownMenuProps | null } object containing the list of buttons to render and the dropdown menu setup.
+ * @returns { actions: ActionButton[], dropdownMenuProps: DropdownMenuProps | null } object containing the list of buttons to render and the dropdown menu setup.
  */
 const useSplitActionsByDisplayOrder = ({
   actions,
@@ -46,7 +46,7 @@ const useSplitActionsByDisplayOrder = ({
   };
 
   const transformButtonPropsIntoDropdownMenuItems = (
-    actionsToRefine: ActionsButtons[],
+    actionsToRefine: ActionButton[],
   ): MenuOption[] => {
     return actionsToRefine.map((action) => ({
       id: action.id,
@@ -56,7 +56,7 @@ const useSplitActionsByDisplayOrder = ({
   };
 
   const getInlineActionsSetup = (): [
-    ActionsButtons[],
+    ActionButton[],
     DropdownMenuProps | null,
   ] => {
     if (!actions) {

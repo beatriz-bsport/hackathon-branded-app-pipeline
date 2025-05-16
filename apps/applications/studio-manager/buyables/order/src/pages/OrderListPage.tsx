@@ -1,16 +1,29 @@
+import { useEffect } from "react";
+
 import { ListLayout } from "@bsport/kaizen-primitive-core";
 
 import { OrderTable } from "#src/components/OrderTable";
-import { Order } from "#src/components/OrderTable/constants";
+import { useFetchOrders } from "#src/hooks/useFetchOrders";
 import { useOrderFilters } from "#src/hooks/useOrderFilters";
 import { useTranslation } from "#src/utils/i18n";
-
-import data from "./mock_data.json";
 
 const OrderListPage: React.FC = () => {
   const { t } = useTranslation("list");
 
   const { filterConfig, activeFilters } = useOrderFilters();
+
+  const {
+    isLoading,
+    isEmpty,
+    isEmptySearch,
+    paginationParams,
+    orders,
+    fetchOrdersPage,
+  } = useFetchOrders({ status: activeFilters.status });
+
+  useEffect(() => {
+    fetchOrdersPage();
+  }, [fetchOrdersPage]);
 
   return (
     <ListLayout>
@@ -25,16 +38,11 @@ const OrderListPage: React.FC = () => {
       />
       <ListLayout.Content>
         <OrderTable
-          orderList={data.results as Array<Order>}
-          paginationProps={{
-            currentPage: 1,
-            rowsPerPage: 10,
-            totalItems: data.count,
-            showRowsPerPageSelector: true,
-          }}
-          isLoading={false}
-          isEmpty={false}
-          isEmptySearch={false}
+          orderList={orders}
+          paginationProps={paginationParams}
+          isLoading={isLoading}
+          isEmpty={isEmpty}
+          isEmptySearch={isEmptySearch}
           filterStatus={activeFilters.status}
         />
       </ListLayout.Content>

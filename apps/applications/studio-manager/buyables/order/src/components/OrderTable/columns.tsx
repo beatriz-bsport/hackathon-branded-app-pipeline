@@ -40,7 +40,11 @@ export const useOrderTableColumns = () => {
           src={row.memberPhotoSrc}
           alt={row.memberName}
         />
-        <Body htmlVariant="p" weight="strong">
+        <Body
+          htmlVariant="p"
+          weight="strong"
+          className="truncate max-w-[180px]"
+        >
           {row.memberName}
         </Body>
       </div>

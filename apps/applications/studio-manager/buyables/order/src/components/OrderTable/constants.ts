@@ -31,26 +31,3 @@ export type TableRowData = {
   orderQuantity: number;
   orderTotal: string;
 };
-
-/** @todo Import the types from the store package when ready */
-type OrderProductLine = {
-  quantity: number;
-  product_type: number;
-  product_id: number;
-  name: string;
-  subline: string;
-  unit_price: string;
-  order: string; // Order.id
-};
-
-export type Order = {
-  id: string;
-  state: OrderStatus;
-  total_price: string;
-  first_name: string;
-  last_name: string;
-  product_lines: Array<OrderProductLine>;
-  updated_at: string;
-  created_at: string;
-  member_archived: boolean;
-};

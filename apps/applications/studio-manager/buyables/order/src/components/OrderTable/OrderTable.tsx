@@ -7,6 +7,7 @@ import {
   Table,
   type TableProps,
 } from "@bsport/kaizen-primitive-core";
+import type { Order } from "@bsport/store-buyables-order";
 
 import {
   ORDER_STATUS_TO_I18N_KEY,
@@ -15,7 +16,7 @@ import {
 import { useTranslation } from "#src/utils/i18n";
 
 import { useOrderTableColumns } from "./columns";
-import type { Order, TableRowData } from "./constants";
+import type { TableRowData } from "./constants";
 
 type OrderTableProps = {
   orderList: Array<Order>;
@@ -68,7 +69,7 @@ export const OrderTable: React.FC<OrderTableProps> = ({
       (acc, product) => acc + product.quantity,
       0,
     ),
-    orderStatus: order.state,
+    orderStatus: order.state as OrderStatus,
     orderTotal: order.total_price,
   }));
 

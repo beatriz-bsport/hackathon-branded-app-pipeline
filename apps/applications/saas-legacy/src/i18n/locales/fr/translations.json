@@ -6128,7 +6128,72 @@
             "details": "Détails",
             "drawerTitle": {
                 "tabs": "Sélectionner un type de carte"
-            }
+            },
+            "detail": {
+                "compatibility": {
+                    "titles": {
+                        "main": "Compatibilité",
+                        "appointment": "Compatibilité des rendez-vous",
+                        "activity": "Compatibilité des activités",
+                        "studios": "Studios compatibles"
+                    },
+                    "labels": {
+                        "room": "Salles",
+                        "activity": "Activités",
+                        "category": "Catégories"
+                    },
+                    "contents": {
+                        "sessions": "Sessions compatibles : {{ sessionsList }}",
+                        "allSessions": "Compatible pour toutes les séances",
+                        "noAppointments": "Aucun rendez-vous compatible",
+                        "bookingForGuest": "Peut être utilisé pour <strong>inviter un invité</strong>",
+                        "vod": "Peut être utilisé pour les <strong>vidéos à la demande</strong>",
+                        "allTimeSlots": "Compatible avec tous les créneaux horaires",
+                        "allCategories": "Compatible avec toutes les catégories du studio",
+                        "allRooms": "Compatible avec toutes les salles du studio",
+                        "allActivities": "Compatible avec toutes les activités du studio"
+                    },
+                    "subtitles": {
+                        "sessions": "Séances compatibles",
+                        "timeSlots": "Créneaux horaires compatibles",
+                        "activity": "Activités compatibles"
+                    }
+                },
+                "description": {
+                    "showLess": "Voir moins",
+                    "showMore": "Voir plus"
+                },
+                "availability": {
+                    "validUntil": "Valable jusqu'au {{ expirationDate }}",
+                    "future": "Débute le {{ startDate }}",
+                    "expired": "Expire le {{ expirationDate }}",
+                    "suspendedUntil": "Suspendu jusqu'au {{ endDate }}",
+                    "suspended": "Suspendu",
+                    "active": "Valable de {{ startDate }} à {{ expirationDate }}"
+                },
+                "header": {
+                    "onsitePaymentAvailable": "Paiement sur place disponible",
+                    "fullVodAccess": "Compatible avec la VOD",
+                    "onlyVodAccess": "Disponible uniquement pour la VOD",
+                    "isUniversalPass": "Carte universelle",
+                    "newMemberOnly": "Uniquement pour les nouveaux membres",
+                    "unlimited": "Illimités",
+                    "credits": "{{count}} crédit",
+                    "credits_plural": "{{count}} crédits"
+                },
+                "restriction": {
+                    "monthly": "Ne peut être utilisée que {{ amount }} fois par mois.",
+                    "monthly_plural": "Ne peut être utilisée que {{ amount }} fois par mois.",
+                    "weekly": "Ne peut être utilisée que {{ amount }} fois par semaine.",
+                    "weekly_plural": "Ne peut être utilisée que {{ amount }} fois par semaine.",
+                    "daily": "Ne peut être utilisée que {{ amount }} fois par jour.",
+                    "daily_plural": "Ne peut être utilisée que {{ amount }} fois par jour.",
+                    "title": "Restrictions d'utilisation"
+                }
+            },
+            "to": "à",
+            "addToCart": "Ajouter au panier",
+            "close": "Fermer"
         }
     },
     "member": {

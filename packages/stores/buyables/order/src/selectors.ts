@@ -5,6 +5,4 @@ export const selectOrders = (state: OrderState) => {
   return ids.map((id) => byId[id]);
 };
 
-export const selectOrder = (state: OrderState, id: number) => state.byId[id];
-
 export const selectCount = (state: OrderState) => state.count;

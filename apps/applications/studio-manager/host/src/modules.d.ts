@@ -16,6 +16,7 @@ declare module "sm-navigation-sidebar/urls" {
     giftcard: string;
     invoice: string;
     member: string;
+    order: string;
     smartlist: string;
     teacher: string;
   };
@@ -30,6 +31,11 @@ declare module "sm-group-activity/App" {
 
 // ----- Buyables -----
 declare module "sm-giftcard/App" {
+  const App: BaseApp["App"];
+  export default App;
+}
+
+declare module "sm-order/App" {
   const App: BaseApp["App"];
   export default App;
 }

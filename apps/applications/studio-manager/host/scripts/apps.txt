@@ -4,5 +4,6 @@
 @bsport/sm-invoice
 @bsport/sm-member-list
 @bsport/sm-navigation-sidebar
+@bsport/sm-order
 @bsport/sm-smartlists
 @bsport/sm-teacher

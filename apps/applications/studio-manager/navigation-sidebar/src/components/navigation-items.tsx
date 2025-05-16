@@ -183,7 +183,7 @@ export const useNavigationElements = ({
           href: urls.giftcard,
         },
         { id: "videos", label: t("menus.products.videosAndEbooks") },
-        { id: "orders", label: t("menus.products.orders") },
+        { id: "orders", label: t("menus.products.orders"), href: urls.order },
       ],
     },
     {

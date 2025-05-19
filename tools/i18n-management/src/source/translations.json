@@ -34,6 +34,10 @@
       "modal": { "back": "Back", "next": "Next" }
     }
   },
+  "@bsport/sm-custom-forms": {
+    "namespaceAlpha": { "helloName": "Hello {{ name }} !" },
+    "namespaceBeta": {}
+  },
   "@bsport/sm-email-template": {
     "list": {
       "pages": { "active": "Email templates", "archived": "Archived email templates" },
@@ -443,7 +447,8 @@
           "emailTemplates": "Email templates",
           "smartlists": "Smartlists",
           "audience": "Audience",
-          "promotions": "Promotions"
+          "promotions": "Promotions",
+          "customForms": "Custom forms"
         },
         "dashboard": "Dashboard / Overview",
         "reporting": "Reporting",

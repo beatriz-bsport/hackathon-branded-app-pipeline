@@ -7,4 +7,5 @@ export default {
   order: "/order",
   smartlist: "/smartlist",
   teacher: "/teacher",
+  customForm: "/custom-form",
 } as const;

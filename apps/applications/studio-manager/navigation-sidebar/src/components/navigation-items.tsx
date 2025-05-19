@@ -204,6 +204,11 @@ export const useNavigationElements = ({
           href: urls.emailTemplate,
         },
         {
+          id: "custom-forms",
+          label: t("menus.marketing.customForms"),
+          href: urls.customForm,
+        },
+        {
           id: "smartlists",
           label: t("menus.marketing.smartlists"),
           href: urls.smartlist,

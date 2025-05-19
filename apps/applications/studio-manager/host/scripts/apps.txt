@@ -7,3 +7,4 @@
 @bsport/sm-order
 @bsport/sm-smartlists
 @bsport/sm-teacher
+@bsport/sm-custom-form

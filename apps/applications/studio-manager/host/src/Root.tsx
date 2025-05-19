@@ -22,6 +22,7 @@ const Invoice = lazy(() => import("sm-invoice/App"));
 // ----- Customer Data Platform -----
 const EmailTemplate = lazy(() => import("sm-email-template/App"));
 const Smartlists = lazy(() => import("sm-smartlists/App"));
+const CustomForm = lazy(() => import("sm-custom-form/App"));
 
 // ----- Common -----
 const NavigationSidebar = lazy(
@@ -53,6 +54,7 @@ export function Root() {
         {/* ----- Customer Data Platform ----- */}
         <Route path={`${urls.smartlist}/*`} element={<Smartlists />} />
         <Route path={`${urls.emailTemplate}/*`} element={<EmailTemplate />} />
+        <Route path={`${urls.customForm}/*`} element={<CustomForm />} />
       </Routes>
     </AppWrapper>
   );

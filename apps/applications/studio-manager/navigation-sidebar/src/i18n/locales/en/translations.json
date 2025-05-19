@@ -43,7 +43,8 @@
                 "emailTemplates": "Email templates",
                 "smartlists": "Smartlists",
                 "audience": "Audience",
-                "promotions": "Promotions"
+                "promotions": "Promotions",
+                "customForms": "Custom forms"
             },
             "dashboard": "Dashboard / Overview",
             "reporting": "Reporting",

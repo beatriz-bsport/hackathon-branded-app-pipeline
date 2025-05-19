@@ -19,6 +19,7 @@ declare module "sm-navigation-sidebar/urls" {
     order: string;
     smartlist: string;
     teacher: string;
+    customForm: string;
   };
   export default urls;
 }
@@ -63,6 +64,11 @@ declare module "sm-email-template/App" {
   export default App;
 }
 declare module "sm-smartlists/App" {
+  const App: BaseApp["App"];
+  export default App;
+}
+
+declare module "sm-custom-form/App" {
   const App: BaseApp["App"];
   export default App;
 }

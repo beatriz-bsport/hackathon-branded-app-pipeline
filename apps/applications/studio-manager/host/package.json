@@ -75,6 +75,10 @@
       "sm-smartlists": {
         "devPort": 4301,
         "watchPath": "../cdp/smartlists/src/**/*"
+      },
+      "sm-custom-form": {
+        "devPort": 4302,
+        "watchPath": "../cdp/custom-form/src/**/*"
       }
     }
   }

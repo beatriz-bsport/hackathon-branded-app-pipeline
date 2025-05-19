@@ -2393,7 +2393,16 @@
                     "emailAllowed": "Notifications par e-mail autorisées",
                     "phoneNotAllowed": "Notifications par téléphone non autorisées",
                     "phoneAllowed": "Notifications par téléphone autorisées",
-                    "title": "Notifications"
+                    "title": "Notifications",
+                    "portal": {
+                        "subtitle": "Paramétrez vos notifications pour chacun des studios",
+                        "title": "Préférences de communication marketing"
+                    },
+                    "updatePreferencesButton": "Enregistrer les préférences",
+                    "updatePreferencesLoading": "Enregistrement en cours",
+                    "receiveSmsUpdates": "Recevoir les notifications par SMS",
+                    "receiveEmailUpdates": "Recevoir les notifications par e-mail",
+                    "manageYourFranchiseMarketingPrefencesLabel": "Gérer vos préférences marketing"
                 },
                 "address": "Adresse",
                 "emergencyNumber": "Numéro de téléphone d'urgence",
@@ -16011,7 +16020,8 @@
             },
             "create": {
                 "success": "Notification créée avec succès",
-                "error": "Échec de la création de la notification"
+                "error": "Échec de la création de la notification",
+                "errorLackRequiredVariables": "Ce template n'a pas pu être enregistré"
             }
         },
         "role": {

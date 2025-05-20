@@ -2408,7 +2408,7 @@
                     "active": "Started on {{- date }}",
                     "future": "Starts on {{- date }}",
                     "expired": "Expired since {{- date }} (excluded)",
-                    "until": " until {{- date }}"
+                    "until": " until {{- date }} (excluded)"
                 },
                 "tab": {
                     "active": "Active",
@@ -2456,6 +2456,18 @@
                             "month_plural": "This subscription has a {{ commitment_value }} months commitment period, for cancellations or questions, please directly contact the studio.",
                             "year": "This subscription has a {{ commitment_value }} year commitment period, for cancellations or questions, please directly contact the studio.",
                             "year_plural": "This subscription has a {{ commitment_value }} years commitment period, for cancellations or questions, please directly contact the studio."
+                        },
+                        "modal": {
+                            "alert": "Pre-booked sessions made under a subscription with unlimited classes will be cancelled after this period and may be subject to a late cancellation fee.",
+                            "failedMessage": "Please refresh your page and try again.",
+                            "failedTitle": "Something went wrong",
+                            "confirmationNotStarted": "You can close the modal.",
+                            "confirmationStarted": "You can continue to enjoy subscription benefits until {{- expiration_date }} (excluded).",
+                            "confirmationTitle": "You've successfully unsubscribed",
+                            "cancel": "Keep subscription",
+                            "explainNoExpirationDate": "You are about to cancel this subscription. Your subscription benefits will remain valid until the end of the next billing cycle.\nAre you sure you want to continue?",
+                            "explainStarted": "You are about to cancel this subscription. Your subscription benefits will remain valid until {{- expiration_date }} (excluded).\nAre you sure you want to continue?",
+                            "explainNotStarted": "You are about to cancel a subscription that hasn't started. \nYou'll still be charged for the first billing cycle, and your benefits will remain valid until {{- expiration_date }} (excluded).\nAre you sure you want to continue?"
                         }
                     },
                     "loading": "We're processing your request...",
@@ -2601,7 +2613,16 @@
                     "phoneAllowed": "Phone notifications allowed",
                     "phoneNotAllowed": "Phone notifications not allowed",
                     "emailAllowed": "Email notifications allowed",
-                    "emailNotAllowed": "Email notifications not allowed"
+                    "emailNotAllowed": "Email notifications not allowed",
+                    "portal": {
+                        "subtitle": "Choose how you'd like to receive updates from each of your locations",
+                        "title": "Marketing Communication Preferences"
+                    },
+                    "updatePreferencesButton": "Save preferences",
+                    "updatePreferencesLoading": "Saving",
+                    "receiveSmsUpdates": "Receive SMS updates",
+                    "receiveEmailUpdates": "Receive email updates",
+                    "manageYourFranchiseMarketingPrefencesLabel": "Manage Your Marketing Preferences"
                 },
                 "spivi": {
                     "title": "Spinning data",
@@ -5048,6 +5069,16 @@
                 "next": "Continue",
                 "content": "BSPORT is a community of enthusiasts that facilitate, automate, and streamline your studio's day-to-day management.",
                 "title": "Welcome!"
+            },
+            "confirmation": {
+                "disconnect": "Disconnect",
+                "content": {
+                    "help": "Refer to the internal documentation for detailed instructions on each step.",
+                    "emailValidation": "Email Validation: Perform the administrative action to validate the client's email address.",
+                    "upsell": "Upsells: Add any applicable upsells to the platform.",
+                    "billing": "Platform Billing: Create the billing setup for the new backoffice.",
+                    "core": "The new backoffice platform has been successfully created. However, before sending the client's access credentials, please ensure the following validation steps from the internal documentation are completed:"
+                }
             }
         },
         "emailValidation": {
@@ -6428,6 +6459,71 @@
                 "appointmentPasses": "Appointment passes",
                 "passes": "Passes",
                 "all": "All"
+            },
+            "to": "to",
+            "addToCart": "Add to cart",
+            "close": "Close",
+            "detail": {
+                "restriction": {
+                    "monthly": "Can only be used {{ amount }} time per month.",
+                    "monthly_plural": "Can only be used {{ amount }} times per month.",
+                    "weekly": "Can only be used {{ amount }} time per week.",
+                    "weekly_plural": "Can only be used {{ amount }} times per week.",
+                    "daily": "Can only be used {{ amount }} time per day.",
+                    "daily_plural": "Can only be used {{ amount }} times per day.",
+                    "title": "Restrictions on use"
+                },
+                "compatibility": {
+                    "labels": {
+                        "room": "Rooms",
+                        "activity": "Activities",
+                        "category": "Categories"
+                    },
+                    "contents": {
+                        "sessions": "Compatible sessions: {{ sessionsList }}",
+                        "allSessions": "Compatible with all sessions",
+                        "noAppointments": "No compatible appointments",
+                        "bookingForGuest": "Can be used to <strong>Invite a guest</strong>",
+                        "vod": "Can be used for <strong>Videos on demand</strong>",
+                        "allTimeSlots": "Compatible with all the time slots",
+                        "allCategories": "Compatible with all categories of the studio",
+                        "allRooms": "Compatible with all rooms of the studio",
+                        "allActivities": "Compatible with all activities of the studio"
+                    },
+                    "subtitles": {
+                        "sessions": "Compatible sessions",
+                        "timeSlots": "Compatible time slots",
+                        "activity": "Compatible activities"
+                    },
+                    "titles": {
+                        "main": "Compatibility",
+                        "appointment": "Appointment compatibility",
+                        "activity": "Activities compatibility",
+                        "studios": "Compatible studios"
+                    }
+                },
+                "description": {
+                    "showLess": "Show less",
+                    "showMore": "Show more"
+                },
+                "availability": {
+                    "validUntil": "Valid until {{ expirationDate }}",
+                    "future": "Starts on {{ startDate }}",
+                    "expired": "Expired on {{ expirationDate }}",
+                    "suspendedUntil": "Suspended until {{ endDate }}",
+                    "suspended": "Suspended",
+                    "active": "Valid from {{ startDate }} to {{ expirationDate }}"
+                },
+                "header": {
+                    "onsitePaymentAvailable": "Payment on site available",
+                    "fullVodAccess": "VOD compatible",
+                    "onlyVodAccess": "Available for VOD only",
+                    "isUniversalPass": "Universal pass",
+                    "newMemberOnly": "Only for new members",
+                    "unlimited": "Unlimited",
+                    "credits": "{{count}} credit",
+                    "credits_plural": "{{count}} credits"
+                }
             }
         }
     },
@@ -12873,7 +12969,8 @@
                 "1": "In progress",
                 "2": "Stopped",
                 "3": "Stopped",
-                "4": "Finished"
+                "4": "Finished",
+                "5": "Terminated (Member)"
             },
             "product_type": {
                 "giftcard": "Gift cards",
@@ -16602,7 +16699,7 @@
             "create": {
                 "error": "Failed to create notification",
                 "success": "Notification successfully created",
-                "errorLackRequiredVariables": ""
+                "errorLackRequiredVariables": "This template could not be registered"
             },
             "delete": {
                 "error": "Failed to delete notification",
@@ -17567,6 +17664,9 @@
                 "error": "An error occurred during the configuration",
                 "success": "Your unit ID has been successfully linked"
             }
+        },
+        "oneClickBooking": {
+            "genericError": "We couldn't complete your booking. Please review your details and try again."
         }
     },
     "spotScheduling": {
@@ -17823,7 +17923,7 @@
             "billing_plan-pause": "Paused payments",
             "billing_plan-pause_deleted": "Pause cancelled",
             "billing_plan-create": "Create",
-            "billing_plan-stop": "Stopped payments",
+            "billing_plan-stop": "Subscription terminated by",
             "billing_plan-renew": "Automatic renewals",
             "billing_plan-payment_dispute": "Payment: disputed",
             "billing_plan-payment_success": "Payment: successful",
@@ -18095,7 +18195,22 @@
                     "selectTags": "Select tags",
                     "header": "Advanced"
                 },
-                "notEditable": "This contract originates from a previously completed data migration. Some fields may not be editable to preserve the data."
+                "notEditable": "This contract originates from a previously completed data migration. Some fields may not be editable to preserve the data.",
+                "commitmentPeriod": {
+                    "explain": {
+                        "year": "This subscription will commit the member for {{ commitment_period_value }} year. Changes to the subscription commitment period in settings will not affect any subscriptions that have already been purchased.",
+                        "year_plural": "This subscription will commit the member for {{ commitment_period_value }} years. Changes to the subscription commitment period in settings will not affect any subscriptions that have already been purchased.",
+                        "month": "This subscription will commit the member for {{ commitment_period_value }} month. Changes to the subscription commitment period in settings will not affect any subscriptions that have already been purchased.",
+                        "month_plural": "This subscription will commit the member for {{ commitment_period_value }} months. Changes to the subscription commitment period in settings will not affect any subscriptions that have already been purchased.",
+                        "week": "This subscription will commit the member for {{ commitment_period_value }} week. Changes to the subscription commitment period in settings will not affect any subscriptions that have already been purchased.",
+                        "week_plural": "This subscription will commit the member for {{ commitment_period_value }} weeks. Changes to the subscription commitment period in settings will not affect any subscriptions that have already been purchased.",
+                        "day": "This subscription will commit the member for {{ commitment_period_value }} day. Changes to the subscription commitment period in settings will not affect any subscriptions that have already been purchased.",
+                        "day_plural": "This subscription will commit the member for {{ commitment_period_value }} days. Changes to the subscription commitment period in settings will not affect any subscriptions that have already been purchased."
+                    },
+                    "error": "The commitment period can't exceed 90.",
+                    "helperText": "Remember to check your country's laws regarding the right of withdrawal for subscription and add the required information in your terms and conditions.",
+                    "label": "Commitment period"
+                }
             },
             "deleteForm": {
                 "actions": {
@@ -18188,6 +18303,19 @@
                     "month": "After renewal, the subscription will be modified to a {{durationAfterAutoRenewal}}-month plan.",
                     "year": "After renewal, the subscription will be modified to a {{durationAfterAutoRenewal}}-year plan."
                 }
+            },
+            "commitmentPeriod": {
+                "explain": {
+                    "year": "This subscription will commit the member for {{ commitment_period_value }} year.",
+                    "year_plural": "This subscription will commit the member for {{ commitment_period_value }} years.",
+                    "month": "This subscription will commit the member for {{ commitment_period_value }} month.",
+                    "month_plural": "This subscription will commit the member for {{ commitment_period_value }} months.",
+                    "week": "This subscription will commit the member for {{ commitment_period_value }} week.",
+                    "week_plural": "This subscription will commit the member for {{ commitment_period_value }} weeks.",
+                    "day": "This subscription will commit the member for {{ commitment_period_value }} day.",
+                    "day_plural": "This subscription will commit the member for {{ commitment_period_value }} days."
+                },
+                "label": "Commitment period"
             }
         },
         "germanNbIntervalAlert": "To comply with the German Fair Consumers Contract Act, the number of billings has to be less than 24.",

@@ -34,7 +34,7 @@
       "modal": { "back": "Back", "next": "Next" }
     }
   },
-  "@bsport/sm-custom-forms": {
+  "@bsport/sm-custom-form": {
     "namespaceAlpha": { "helloName": "Hello {{ name }} !" },
     "namespaceBeta": {}
   },
@@ -585,6 +585,23 @@
         "title": "No results found",
         "subtitle": "No smartlists match your search.\nTry clearing it to see more results",
         "clearFilters": "Clear search"
+      },
+      "duplicateModal": {
+        "title": "Duplicate smartlist",
+        "description": "Duplicate <b>{{name}}</b>?",
+        "editAfter": "You can edit the smartlist afterwards.",
+        "buttons": { "duplicate": "Duplicate", "cancel": "Cancel" }
+      },
+      "toasts": {
+        "success": { "duplicated": "Your smartlist was duplicated", "open": "Open" },
+        "error": {
+          "duplicateFailed": "Something went wrong while duplicating the smartlist. Please try again."
+        }
+      },
+      "inlineActions": {
+        "duplicate": "Duplicate smartlist",
+        "edit": "Change name or description",
+        "delete": "Delete smartlist"
       }
     }
   },

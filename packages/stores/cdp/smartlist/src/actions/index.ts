@@ -22,13 +22,15 @@ import type {
 
 import { resetFuzzySearch, setPaginationData, setSmartlists } from "./store";
 
-type Params = {
+export type FetchSmartlistsParams = {
   page: number;
   page_size: number;
   search?: string;
 };
 
-function hasSearch(params: Params): params is Required<Params> {
+function hasSearch(
+  params: FetchSmartlistsParams,
+): params is Required<FetchSmartlistsParams> {
   // we are not interested in undefined or empty strings
   return !!params.search?.trim();
 }
@@ -44,12 +46,27 @@ function hasSearch(params: Params): params is Required<Params> {
  */
 export const fetchSmartlistsAction = async (
   fetch: Fetch<Smartlist[] | SmartlistSearchResult>,
-  params: Params,
+  params: FetchSmartlistsParams,
 ) => {
   const currentState = smartlistStore.getState();
   const count = selectCount(currentState);
-  const isNotFirstPage = params.page !== 1;
   const hasData = count > 0;
+
+  if (
+    hasSearch(params) &&
+    params.page === currentState.page &&
+    params.page_size === currentState.pageSize
+  ) {
+    return fetchSearchSmartlistsAction(
+      fetch as Fetch<SmartlistSearchResult>,
+      params,
+    );
+  }
+
+  if (!hasSearch(params)) {
+    resetFuzzySearch();
+  }
+
   /**
    * Why?
    * For the time being the API doesn't support pagination
@@ -57,9 +74,9 @@ export const fetchSmartlistsAction = async (
    * In any case we are loading all the smartlists at once
    *
    * What's the tradeoff?
-   * - We reload when we have page 1 if not we return the cached data
+   * - We may have stale data at some point
    */
-  if (isNotFirstPage && hasData) {
+  if (hasData) {
     setPaginationData({ page: params.page, pageSize: params.page_size });
 
     const updatedState = smartlistStore.getState();
@@ -68,23 +85,13 @@ export const fetchSmartlistsAction = async (
     return Result.ok(smartlists);
   }
 
-  if (hasSearch(params)) {
-    return fetchSearchSmartlistsAction(
-      fetch as Fetch<SmartlistSearchResult>,
-      params,
-    );
-  }
-
-  // Clear fuzzySearchIds when not searching
-  resetFuzzySearch();
-
   return fetchAllSmartlistsAction(fetch as Fetch<Smartlist[]>, params);
 };
 
-const fetchAllSmartlistsAction: Action<Params, Smartlist[]> = async (
-  fetch,
-  params,
-) => {
+export const fetchAllSmartlistsAction: Action<
+  FetchSmartlistsParams,
+  Smartlist[]
+> = async (fetch, params) => {
   const [uri, init] = fetchSmartlistsAPI();
 
   return Result.try(
@@ -104,8 +111,8 @@ const fetchAllSmartlistsAction: Action<Params, Smartlist[]> = async (
   );
 };
 
-const fetchSearchSmartlistsAction: Action<
-  Required<Params>,
+export const fetchSearchSmartlistsAction: Action<
+  Required<FetchSmartlistsParams>,
   SmartlistSearchResult
 > = async (fetch, params) => {
   const [uri, init] = fetchSearchSmartlistsAPI(params);
@@ -118,7 +125,6 @@ const fetchSearchSmartlistsAction: Action<
         smartlists: data.results,
         page: 1,
         pageSize: params.page_size,
-        count: data.results.length,
         mode: "search",
       });
 

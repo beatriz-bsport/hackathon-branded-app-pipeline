@@ -7,7 +7,7 @@ import {
   editSmartlistAction,
   fetchSmartlistsAction,
 } from "#src/actions";
-import { selectSmartlists } from "#src/selectors";
+import { selectCount, selectSmartlists } from "#src/selectors";
 import { smartlistStore } from "#src/store";
 import type { Smartlist, SmartlistSearchResult } from "#src/types";
 
@@ -106,6 +106,48 @@ describe("fetchSmartlistsAction", () => {
     const smartlists = selectSmartlists(storeState);
     expect(smartlists).toHaveLength(1);
     expect(smartlists[0].name).toBe(searchTerm);
+  });
+
+  it("should maintain count when toggling between search and regular views", async () => {
+    // Step 1: Load all smartlists first
+    const allFetch = createTestFetch<Smartlist[]>();
+
+    await fetchSmartlistsAction(allFetch, {
+      page: 1,
+      page_size: 10,
+    });
+
+    // Store the initial count for later comparison
+    let storeState = smartlistStore.getState();
+    const initialCount = selectCount(storeState);
+
+    // Step 2: Apply search that returns fewer results
+    const searchFetch = createTestFetch<SmartlistSearchResult>();
+    const searchTerm = mockSmartlists[0].name; // This will match only one item
+
+    await fetchSmartlistsAction(searchFetch, {
+      page: 1,
+      page_size: 10,
+      search: searchTerm,
+    });
+
+    // Check count during search - should be the length of search results
+    storeState = smartlistStore.getState();
+    const searchCount = selectCount(storeState);
+    expect(searchCount).toBe(1); // Only one item matches the search
+    expect(storeState.fuzzySearchIds.length).toBe(1);
+
+    // Step 3: Remove search by fetching all again
+    await fetchSmartlistsAction(allFetch, {
+      page: 1,
+      page_size: 10,
+    });
+
+    // Check final count after removing search - should be back to original count
+    storeState = smartlistStore.getState();
+    const finalCount = selectCount(storeState);
+    expect(finalCount).toBe(initialCount); // Should be back to the initial count
+    expect(storeState.fuzzySearchIds.length).toBe(0);
   });
 });
 

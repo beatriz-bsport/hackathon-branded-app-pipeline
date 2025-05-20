@@ -6093,7 +6093,7 @@
             "create": {
                 "success": "Notifica creata con successo",
                 "error": "Impossibile creare una notifica",
-                "errorLackRequiredVariables": "Aggiorna inventario"
+                "errorLackRequiredVariables": "Non è stato possibile salvare questo modello"
             }
         },
         "privatePass": {

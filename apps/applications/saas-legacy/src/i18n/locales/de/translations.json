@@ -5579,7 +5579,7 @@
                     "cancel": "Abbrechen",
                     "submit": "Speichern"
                 },
-                "title": "Rückerstattung der Credits",
+                "title": "Credits erstatten",
                 "price": {
                     "label": "Gutzuschreibender Betrag"
                 },
@@ -5596,8 +5596,8 @@
                 "error": {
                     "2029": "Der angeforderte Erstattungsbetrag übersteigt den ursprünglichen Kaufbetrag. Bitte versuche es mit einem geringeren Betrag erneut.",
                     "2030": "Es können nicht mehr Credits abgezogen werden, als auf dem Pass vorhanden sind. Bitte probiere es mit einer kleineren Anzahl erneut.",
-                    "2031": "Ein Fehler ist aufgetreten. Bitte versuche es erneut.",
-                    "default": "Ein Fehler ist aufgetreten. Bitte versuche es erneut."
+                    "2031": "Das hat nicht geklappt. Bitte versuche es nochmal.",
+                    "default": "Das hat nicht geklappt. Bitte versuche es nochmal."
                 }
             },
             "addExtension": "Eine Verlängerung hinzufügen",
@@ -8621,24 +8621,24 @@
         "revert": {
             "content": {
                 "label": {
-                    "0": "Direkte Rückerstattung",
-                    "1": "Rückerstattung von Credits (Restbetrag)",
-                    "2": "Manuelle Rückerstattung"
+                    "0": "Karte oder Überweisung",
+                    "1": "Credits",
+                    "2": "Andere Option"
                 },
                 "explain": {
-                    "0": "Kartenzahlungen / SEPA / etc... werden direkt auf das Konto des Kunden überwiesen. Verwenden Sie diese Methode, um eine direkte Erstattung nach einem Fehler zu machen.",
-                    "1": "Eine Gutschrift wird erstellt und dem Kundenguthaben entsprechend gutgeschrieben. Verwende diese Methode, um eine Gutschrift zu erstellen.",
-                    "2": "Wählen Sie selbst die Erstattungsmethode. Verwenden Sie diese Methode für einen Scheck / eine manuelle Überweisung / eine Rückerstattung in bar."
+                    "0": "Wähle diese Option aus, um den Rechnungsbetrag per Überweisung oder Karte zu erstatten.",
+                    "1": "Wähle diese Option aus, um den Rechnungsbetrag dem Kundenkonto als Gutschrift (Credits) zu erstatten.",
+                    "2": "Wähle diese Option aus, um den Rechnungsbetrag, z. B. bar oder per Scheck zu erstatten."
                 },
                 "explainEmptyPayment": "Möchten Sie diese Rechnung wirklich stornieren?",
-                "revertReason": "Stornierungs-Grund"
+                "revertReason": "Bitte gib einen Grund für die Stornierung an"
             },
             "dialog": {
                 "actions": {
-                    "confirm": "Bestätigen",
-                    "cancel": "Schließen"
+                    "confirm": "Stornieren",
+                    "cancel": "Abbrechen"
                 },
-                "title": "Rechnungsstornierung"
+                "title": "Rechnung stornieren - Wie möchtest du den Rechnungsbetrag erstatten?"
             },
             "warning": {
                 "14100": "Mindestens eine Zahlung dieser Rechnung wurde mit einer Interac-Karte getätigt. Direkte Erstattungen sind für Interac-Karten nicht möglich.",

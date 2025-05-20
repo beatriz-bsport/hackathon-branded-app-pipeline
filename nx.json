@@ -12,6 +12,9 @@
     "build": {
       "dependsOn": ["^build"]
     },
+    "ci:compile": {
+      "dependsOn": ["^build"]
+    },
     "build-storybook": {
       "cache": true
     },
@@ -22,6 +25,9 @@
       "cache": true
     },
     "preview": {
+      "cache": true
+    },
+    "pre-commit": {
       "cache": true
     }
   },

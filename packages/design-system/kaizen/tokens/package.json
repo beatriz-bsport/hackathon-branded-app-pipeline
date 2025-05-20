@@ -13,7 +13,6 @@
     "dev": "tsc -w",
     "format": "prettier --write '**/*.{ts,tsx,js,jsx,cjs,mjs,scss,css,json,md,mdx,html,svg}'",
     "format:check": "prettier --check '**/*.{ts,tsx,js,jsx,cjs,mjs}'",
-    "postinstall": "npm run build",
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
     "pre-commit": "sh ./scripts/pre-commit.sh",
@@ -24,5 +23,10 @@
     "@bsport/config-eslint-react": "workspace:*",
     "@types/node": "^22.13.15",
     "tsconfig-paths": "^4.2.0"
+  },
+  "nx": {
+    "tags": [
+      "postinstall"
+    ]
   }
 }

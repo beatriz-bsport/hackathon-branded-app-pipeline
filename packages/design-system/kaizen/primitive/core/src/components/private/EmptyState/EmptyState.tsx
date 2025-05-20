@@ -6,7 +6,13 @@ import Button, { type ButtonProps } from "#src/components/Button";
 import Title from "#src/components/Title";
 import { useKaizenI18nInstance, useTranslation } from "#src/i18n";
 
-const defaultClasses = ["flex", "flex-col", "gap-xs", "items-center"] as const;
+const defaultClasses = [
+  "py-xl",
+  "flex",
+  "flex-col",
+  "gap-xs",
+  "items-center",
+] as const;
 
 const emptyState = cva(defaultClasses);
 

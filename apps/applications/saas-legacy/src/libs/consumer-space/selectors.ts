@@ -541,6 +541,9 @@ export const getMyExpiredSubscriptionsList = createSelector(
   },
 );
 
+export const getSubscriptionCancellationLoadingState = (state: RootState) =>
+  state.consumerReworked.mySubscriptions.stop.loading;
+
 /** Get full object for consumer payment packs */
 const _getConsumerPaymentPack = createSelector(
   [
@@ -1091,3 +1094,13 @@ export const getConsumerOfferBookingOptionPosition = createSelector(
   (consumerWaitingListPositionByOfferId, offerId) =>
     consumerWaitingListPositionByOfferId.byOfferId[offerId],
 );
+
+export const getFranchiseMarketingPreferencesEligiblity = (state: RootState) =>
+  state.consumerReworked.myFranchiseMarketingPreferences.eligibility.eligible;
+
+export const getFranchiseMarketingPreferences = (state: RootState) =>
+  state.consumerReworked.myFranchiseMarketingPreferences.companyPreferences
+    .preferences;
+
+export const getFranchiseMarketingPreferencesUpdateState = (state: RootState) =>
+  state.consumerReworked.myFranchiseMarketingPreferences.update;

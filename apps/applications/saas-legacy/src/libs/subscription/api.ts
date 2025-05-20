@@ -99,6 +99,12 @@ const stop = async (id: number, params: any) => {
   return deleteAuth(`${API_URI}/subscription/billing-plan/${id}/stop/`, params);
 };
 
+export const stopSubscriptionAsMember = async (id: number) => {
+  return putAuth<SubscriptionREST>(
+    `${API_URI}/subscription/billing-plan/${id}/schedule_stop_from_member_side/`,
+  );
+};
+
 export const fetchPlannedInvoiceList = async (
   page: number,
   page_size: number,

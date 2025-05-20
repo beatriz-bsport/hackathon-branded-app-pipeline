@@ -4,6 +4,7 @@ import ConsumerSubscriptionDetailsCardFailedPayments from './ConsumerSubscriptio
 import ConsumerSubscriptionDetailsCardHeader from './ConsumerSubscriptionDetailsCardHeader.component';
 import ConsumerSubscriptionDetailsCardPaymentMethod from './ConsumerSubscriptionDetailsCardPaymentMethod.component';
 import ConsumerSubscriptionDetailsCardTerms from './ConsumerSubscriptionDetailsCardTerms.component';
+import ConsumerSubscriptionDetailsCardCommitmentPeriod from './ConsumerSubscriptionDetailsCardCommitmentPeriod.component';
 
 export {
   ConsumerSubscriptionDetailsCardBillingHistory,
@@ -12,4 +13,5 @@ export {
   ConsumerSubscriptionDetailsCardHeader,
   ConsumerSubscriptionDetailsCardPaymentMethod,
   ConsumerSubscriptionDetailsCardTerms,
+  ConsumerSubscriptionDetailsCardCommitmentPeriod,
 };

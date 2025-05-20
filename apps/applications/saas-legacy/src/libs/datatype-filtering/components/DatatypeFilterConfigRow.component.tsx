@@ -41,6 +41,7 @@ import {
 import { FILTERABLE_BILLING_PLAN_PRODUCT_TYPE_OPTIONS } from '#src/libs/reporting/common/constants';
 
 type Props = {
+  displayStopSubscriptionFromMemberSide?: boolean;
   filterItem: DatatypeFilterConfigItem;
   consumableColumns: ReportMetadataColumn[];
   reportColumns: string[];
@@ -63,6 +64,7 @@ const DatatypeFilterConfigRow: React.FC<Props> = ({
   hideDelete,
   hidePrefix,
   consumableColumns,
+  displayStopSubscriptionFromMemberSide,
   reportColumns,
   filterItem,
   groupOperand,
@@ -402,6 +404,9 @@ const DatatypeFilterConfigRow: React.FC<Props> = ({
           <DatatypeFilterConfigValueManager
             inScrollBar
             comparator={filterItem.comparator}
+            displayStopSubscriptionFromMemberSide={
+              displayStopSubscriptionFromMemberSide
+            }
             filterItem={filterItem}
             getDataByType={getDataByType}
             invalidAdvancedFilterItemsUUID={invalidAdvancedFilterItemsUUID}

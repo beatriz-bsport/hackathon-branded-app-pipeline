@@ -8,8 +8,6 @@
   bottom: 0;
   left: 0;
   position: fixed;
-  opacity: 1;
-  transition: opacity ease-in-out var(--bs-transition-duration-slow);
   padding: var(--bs-space-size-6);
   gap: var(--bs-space-size-2);
   overflow: hidden;
@@ -21,8 +19,7 @@
 }
 
 .bs-navigation-side-drawer__root--hidden {
-  opacity: 0;
-  z-index: -1;
+  display: none;
 }
 
 .bs-navigation-side-drawer__root .bs-fabrique-submenu__root {

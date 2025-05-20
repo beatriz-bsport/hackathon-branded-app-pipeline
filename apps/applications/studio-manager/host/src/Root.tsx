@@ -13,6 +13,7 @@ const Giftcard = lazy(() => import("sm-giftcard/App"));
 
 // ----- Core-data -----
 const MemberList = lazy(() => import("sm-member-list/App"));
+const Teacher = lazy(() => import("sm-teacher/App"));
 
 // ----- Financial Services -----
 const Invoice = lazy(() => import("sm-invoice/App"));
@@ -41,6 +42,7 @@ export function Root() {
 
         {/* ----- Core-data ----- */}
         <Route path={`${urls.member}/*`} element={<MemberList />} />
+        <Route path={`${urls.teacher}/*`} element={<Teacher />} />
 
         {/* ----- Financial Services ----- */}
         <Route path={`${urls.invoice}/*`} element={<Invoice />} />

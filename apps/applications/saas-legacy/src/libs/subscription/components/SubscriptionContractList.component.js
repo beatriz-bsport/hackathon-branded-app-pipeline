@@ -15,6 +15,7 @@ import SubscriptionContractListItem from './SubscriptionContractListItem.compone
 import SubscriptionContractFormDrawer from './SubscriptionContractFormDrawer.component';
 
 type Props = {
+  displayStopSubscriptionFromMemberSide?: boolean,
   t: TFunction,
   classes: Object,
   company?: { id: number, name: string },
@@ -103,6 +104,9 @@ export const SubscriptionContractList = (props: Props) => {
         </div>
       )}
       <SubscriptionContractFormDrawer
+        displayStopSubscriptionFromMemberSide={
+          !!props?.displayStopSubscriptionFromMemberSide
+        }
         initial={props.contractToEdit}
         onClose={() => {
           props.setCreateOpen(false);
@@ -127,6 +131,9 @@ export const SubscriptionContractList = (props: Props) => {
         tagList={props.tagList}
       />
       <SubscriptionContractFormDrawer
+        displayStopSubscriptionFromMemberSide={
+          !!props?.displayStopSubscriptionFromMemberSide
+        }
         initial={props.contractToEdit}
         onClose={() => props.setContractToEdit(null)}
         onSubmit={(data, options) => {

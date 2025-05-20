@@ -16,10 +16,6 @@ export const validateEmail = (data: any) => {
   return postAuth(`${API_V1_URI}/authentication/validate_email/`, data);
 };
 
-export const requestValidateEmail = (email: string) => {
-  return getAuth(`${API_V1_URI}/authentication/send_email_validation/${email}`);
-};
-
 export const checkEmailValidation = (email: string) => {
   return post(`${API_V1_URI}/authentication/check_email_validation/`, {
     email,

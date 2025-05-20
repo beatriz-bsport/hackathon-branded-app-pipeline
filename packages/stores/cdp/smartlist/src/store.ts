@@ -9,6 +9,8 @@ export interface SmartlistState {
   count: number;
   ids: number[];
   page: number;
+  pageSize: number;
+  fuzzySearchIds: number[];
 }
 
 export const smartlistStore = createStore<SmartlistState>()(() => ({
@@ -16,6 +18,8 @@ export const smartlistStore = createStore<SmartlistState>()(() => ({
   count: 0,
   ids: [],
   page: 1,
+  pageSize: 10,
+  fuzzySearchIds: [],
 }));
 
 /**

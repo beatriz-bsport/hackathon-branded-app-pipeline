@@ -2,6 +2,9 @@
 import React from "react";
 
 const icons = {
+  "alert-circle": React.lazy(
+    async () => await import("./assets/alert-circle.svg?react"),
+  ),
   "align-justify": React.lazy(
     async () => await import("./assets/align-justify.svg?react"),
   ),
@@ -59,6 +62,7 @@ const icons = {
   ),
   clock: React.lazy(async () => await import("./assets/clock.svg?react")),
   "copy-03": React.lazy(async () => await import("./assets/copy-03.svg?react")),
+  "copy-07": React.lazy(async () => await import("./assets/copy-07.svg?react")),
   "dots-horizontal": React.lazy(
     async () => await import("./assets/dots-horizontal.svg?react"),
   ),
@@ -171,6 +175,9 @@ const icons = {
   "user-01": React.lazy(async () => await import("./assets/user-01.svg?react")),
   "user-edit": React.lazy(
     async () => await import("./assets/user-edit.svg?react"),
+  ),
+  "user-plus-01": React.lazy(
+    async () => await import("./assets/user-plus-01.svg?react"),
   ),
   "video-recorder": React.lazy(
     async () => await import("./assets/video-recorder.svg?react"),

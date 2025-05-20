@@ -3,7 +3,7 @@ import type { Result } from "typescript-result";
 // ----- Fetch Handler -----
 // Refer to `packages/utils/fetch/src/fetch.ts`
 
-type Fetch<T = string> = (
+export type Fetch<T = string> = (
   uri: string,
   init?: RequestInit & { responseType?: "text" | "json" | "buffer" },
 ) => Promise<{ data: T; status: number }>;

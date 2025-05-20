@@ -3,6 +3,7 @@ import {
   fetchConsumerSubscriptionList as fetchConsumerSubscriptionListAPI,
   fetchConsumerSubscriptionInvoicesDetails as fetchConsumerSubscriptionInvoicesDetailsAPI,
   fetchConsumerSubscription as fetchConsumerSubscriptionAPI,
+  stopSubscriptionAsMember as stopSubscriptionAsMemberAPI,
 } from '#src/libs/subscription/api';
 
 import type {
@@ -17,7 +18,8 @@ import type {
   OptionCallback,
   ThunkAction,
   PaginatedResponse,
-} from '../../../state/types';
+  Dispatch,
+} from '#src/state/types';
 import { PaginationFilterParams } from '#src/libs/types';
 
 const DEFAULT_INVOICE_PAGE_SIZE = 5;
@@ -275,5 +277,32 @@ export function fetchConsumerSubscriptionInvoicesDetails(
       if (options && options.onError) options.onError(err);
     }
     dispatch(fetchConsumerSubscriptionInvoicesDetailsActions.isLoading(false));
+  };
+}
+
+export const stopConsumerSubscriptionActions = {
+  success: createAction<SubscriptionREST>(
+    'SUBSCRIPTIONS/STOP/AS_MEMBER/SUCCESS',
+  ),
+  isLoading: createAction<boolean>('SUBSCRIPTIONS/STOP/AS_MEMBER/IS_LOADING'),
+  error: createAction<Error | null>('SUBSCRIPTIONS/STOP/AS_MEMBER/ERROR'),
+};
+
+export function stopConsumerSubscription(
+  id: number,
+  options?: OptionCallback<SubscriptionREST>,
+): ThunkAction {
+  return async (dispatch: Dispatch) => {
+    dispatch(stopConsumerSubscriptionActions.isLoading(true));
+    dispatch(stopConsumerSubscriptionActions.error(null));
+    try {
+      const response = await stopSubscriptionAsMemberAPI(id);
+      dispatch(stopConsumerSubscriptionActions.success(response.data));
+      options?.onSuccess?.(response.data);
+    } catch (err) {
+      dispatch(stopConsumerSubscriptionActions.error(err));
+      options?.onError?.(err);
+    }
+    dispatch(stopConsumerSubscriptionActions.isLoading(false));
   };
 }

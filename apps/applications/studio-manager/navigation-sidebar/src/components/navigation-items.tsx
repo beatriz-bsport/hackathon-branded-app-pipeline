@@ -266,7 +266,11 @@ export const useNavigationElements = ({
       id: "my-studio",
       label: t("menus.myStudio.title"),
       subItems: [
-        { id: "teachers", label: t("menus.myStudio.teachers") },
+        {
+          id: "teachers",
+          label: t("menus.myStudio.teachers"),
+          href: urls.teacher,
+        },
         { id: "establishments", label: t("menus.myStudio.establishments") },
       ],
     },

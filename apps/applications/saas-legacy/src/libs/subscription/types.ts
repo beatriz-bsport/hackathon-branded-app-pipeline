@@ -55,6 +55,8 @@ export type Subscription<
   contract: number;
   contract_terms_date_accepted: string;
   contract_terms_pdf_link: string | null;
+  commitment_period_value: number | null;
+  commitment_period_unit: SubscriptionCommitmentPeriod | null;
   date_created: string;
   description: string;
   editable: boolean;
@@ -70,6 +72,7 @@ export type Subscription<
   memberArchived: boolean;
   name: string;
   name_without_member_name: string;
+  has_mandatory_commitment_period: boolean;
   nb_interval: number;
   next_billing_date: string;
   note: string;
@@ -99,6 +102,8 @@ export type Subscription<
 };
 
 export type SubscriptionInterval = 'month' | 'week' | 'day' | 'year';
+
+export type SubscriptionCommitmentPeriod = 'day' | 'week' | 'month' | 'year';
 
 export type SubscriptionData = {
   name: string;
@@ -153,6 +158,9 @@ export type Contract = {
   nb_interval_after_auto_renewal: number | null;
   contract_template: number | null;
   editable: boolean;
+  has_mandatory_commitment_period: boolean;
+  commitment_period_value: number | null;
+  commitment_period_unit: SubscriptionCommitmentPeriod | null;
 };
 
 export type ContractWithPaymentPack<
@@ -183,6 +191,9 @@ export type ContractWithPaymentPack<
   nb_interval_after_auto_renewal: number | null;
   contract_template: number;
   editable: boolean;
+  has_mandatory_commitment_period: boolean;
+  commitment_period_value: number | null;
+  commitment_period_unit: SubscriptionCommitmentPeriod | null;
 };
 
 export type ContractInterval = 'month' | 'week';
@@ -433,6 +444,12 @@ export type SubscriptionREST = {
   source_company_id?: number;
   source_company_name?: string;
   source_company_primary_color?: string;
+  has_mandatory_commitment_period: boolean;
+  commitment_period_value: number | null;
+  commitment_period_unit: SubscriptionCommitmentPeriod | null;
+  is_member_cancellation_allowed: boolean;
+  is_within_commitment_period: boolean;
+  forecasted_expiration_date: string;
 };
 
 export type SubscriptionsFailedInvoicesREST = {
@@ -485,6 +502,9 @@ export type ContractTemplate = {
   is_usable_by_staff: boolean;
   companies: number[];
   editable?: boolean;
+  has_mandatory_commitment_period: boolean;
+  commitment_period_value: number | null;
+  commitment_period_unit: SubscriptionCommitmentPeriod | null;
 };
 
 export type ContractTemplatePayload = Omit<
@@ -528,6 +548,9 @@ export type ContractTemplateFormValues = {
   autoRenewal: boolean;
   unusableByStaff: boolean;
   editable?: boolean;
+  has_mandatory_commitment_period: boolean;
+  commitment_period_value: number | null;
+  commitment_period_unit: SubscriptionCommitmentPeriod | null;
 };
 
 /** The payload type when adding or switching payment method for a Subscription */
@@ -537,4 +560,11 @@ export type SubscriptionPaymentMethodParams = {
   payment_method_id: string | null;
   payment_method_identifier: number;
   source?: string;
+};
+
+export type CommitmentPeriodDisplayReturnedValues = {
+  isCommitmentPeriodSectionHidden: boolean;
+  shouldDisplayCommitmentPeriodAlert: boolean;
+  shouldDisplayCommitmentPeriodSubtitle: boolean;
+  isMemberCancellationAllowed: boolean;
 };

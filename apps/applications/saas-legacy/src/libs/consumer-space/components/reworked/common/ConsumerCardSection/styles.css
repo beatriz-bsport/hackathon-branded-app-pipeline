@@ -42,6 +42,22 @@
   padding: 0;
 }
 
+.bs-consumer-card__section__alerts {
+  width: 100%;
+}
+
+.bs-consumer-card__section__alerts--hidden {
+  display: none;
+}
+
+.bs-consumer-card__section__container {
+  width: 100%;
+}
+
+.bs-consumer-card__section__container--hidden {
+  display: none;
+}
+
 .bs-consumer-card__section__show-more:hover,
 .bs-consumer-card__section__show-more:focus-visible,
 .bs-consumer-card__section__show-more:hover:active {

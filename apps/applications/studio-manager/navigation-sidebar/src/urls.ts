@@ -1,8 +1,9 @@
 export default {
   activity: "/activity",
-  member: "/member",
-  invoice: "/invoice",
-  giftcard: "/giftcard",
-  smartlist: "/smartlist",
   emailTemplates: "/email-templates",
+  giftcard: "/giftcard",
+  invoice: "/invoice",
+  member: "/member",
+  smartlist: "/smartlist",
+  teacher: "/teacher",
 } as const;

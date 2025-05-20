@@ -5,3 +5,4 @@
 @bsport/sm-member-list
 @bsport/sm-navigation-sidebar
 @bsport/sm-smartlists
+@bsport/sm-teacher

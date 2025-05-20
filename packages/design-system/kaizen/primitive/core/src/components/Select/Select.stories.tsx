@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { useState } from "react";
 
 import { icons } from "#src/components/Icon";
+import { Placements } from "#src/hooks/placement-classes.hook";
 
 import Select, { sizes, statuses } from "./Select";
 
@@ -49,6 +50,20 @@ const meta: Meta<typeof Select> = {
     disabled: {
       control: { type: "boolean" },
     },
+    helperText: {
+      control: { type: "text" },
+    },
+    errorText: {
+      control: { type: "text" },
+    },
+    popoverPlacement: {
+      table: {
+        type: { summary: "string" },
+        defaultValue: { summary: '"bottom-left"' },
+      },
+      options: [undefined, ...Object.values(Placements)],
+      control: { type: "select" },
+    },
     onSelect: {
       table: { type: { summary: "function" } },
     },
@@ -81,6 +96,9 @@ export const Primary: Story = {
     ],
     iconLeft: "arrow-right",
     disabled: false,
+    helperText: "",
+    errorText: "",
+    popoverPlacement: undefined,
     onSelect: (option) => console.log(`Selected option: ${option}`),
   },
 };
@@ -112,6 +130,9 @@ export const ControlledValue: Story = {
     ],
     iconLeft: "arrow-right",
     disabled: false,
+    helperText: "",
+    errorText: "",
+    popoverPlacement: undefined,
     onSelect: (option) => console.log(`Selected option: ${option}`),
   },
 };

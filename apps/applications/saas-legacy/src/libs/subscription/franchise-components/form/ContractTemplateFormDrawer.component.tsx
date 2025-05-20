@@ -10,6 +10,7 @@ import {
   PassType,
 } from '#src/libs/subscription/enums';
 import {
+  CONTRACT_MAX_COMMITMENT_VALUE_ALLOWED,
   CONTRACT_MAX_NB_INTERVAL_ALLOWED,
   DEFAULT_CONTRACT_TEMPLATE_FORM_INITIAL_VALUES,
 } from '#src/libs/subscription/constants';
@@ -139,9 +140,20 @@ const franchiseContractTemplateFormValidationSchema = Yup.object().shape({
   autoRenewal: Yup.boolean(),
   unusableByStaff: Yup.boolean(),
   invoicingType: Yup.string().required(),
+  has_mandatory_commitment_period: Yup.boolean().required().default(false),
+  commitment_period_value: Yup.number()
+    .integer('common:form.validation.number')
+    .min(1, 'common:positiveNumber')
+    .max(
+      CONTRACT_MAX_COMMITMENT_VALUE_ALLOWED,
+      'contract.form.commitmentPeriod.error',
+    )
+    .nullable(),
+  commitment_period_unit: Yup.string().nullable(),
 });
 
 const ContractTemplateFormDrawer: React.FC<Props> = ({
+  displayStopSubscriptionFromMemberSideForFranchisees,
   open,
   initialValues,
   handleSubmit,
@@ -172,6 +184,9 @@ const ContractTemplateFormDrawer: React.FC<Props> = ({
         <ContractTemplateForm
           contractTemplateId={initialValues?.id}
           contractTemplateMonthBillingDay={initialValues?.monthBillingDay}
+          displayStopSubscriptionFromMemberSideForFranchisees={
+            displayStopSubscriptionFromMemberSideForFranchisees
+          }
           fetchPaymentPackTemplateBulk={fetchPaymentPackTemplateBulk}
           fetchPrivatePassTemplateBulk={fetchPrivatePassTemplateBulk}
           getPaymentPackTemplateList={getPaymentPackTemplateList}

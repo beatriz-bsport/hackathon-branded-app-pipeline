@@ -52,6 +52,7 @@ export type QuickFiltersColumnsData = {
 }[];
 
 type QuickReportFilterConfigFilterProps = {
+  displayStopSubscriptionFromMemberSide?: boolean;
   isQuickFilterConfigRowModalOpen: boolean;
   selectedColumn: DatatypeFilterConfigItem;
   getDataByType: handleGetDynamicDataForFiltersType;
@@ -65,6 +66,7 @@ type QuickReportFilterConfigFilterProps = {
 const QuickReportFilterConfigFilter: React.FC<
   QuickReportFilterConfigFilterProps
 > = ({
+  displayStopSubscriptionFromMemberSide,
   selectedColumn,
   getDataByType,
   anchorEl,
@@ -295,6 +297,9 @@ const QuickReportFilterConfigFilter: React.FC<
                   closeMenuOnSelect={false}
                   comparator={
                     values.config.groups[0].filters_data[index]?.comparator
+                  }
+                  displayStopSubscriptionFromMemberSide={
+                    displayStopSubscriptionFromMemberSide
                   }
                   filterItem={values.config.groups[0].filters_data[index]}
                   getDataByType={getDataByType}

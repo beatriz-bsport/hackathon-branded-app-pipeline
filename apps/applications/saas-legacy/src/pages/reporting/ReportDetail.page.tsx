@@ -58,6 +58,7 @@ import { getObjectPermissions, getPermissions } from '#src/libs/role/selectors';
 import { getReportObjectPermissionsBasedOnCategory } from '#src/libs/reporting/common/utils';
 import { filter_reports_by_upsells } from '#src/libs/reporting/common/permissions';
 import themeSelectors from '#src/libs/theme/selectors';
+import { getFranchiseDisplayStopSubscriptionFromMemberSideForFranchisees } from '#src/libs/franchise/selectors';
 
 type OwnProps = {
   isFranchisor?: boolean;
@@ -107,6 +108,8 @@ const ReportingDetail: React.FC<Props> = ({
   userPermissions,
   setLastVisitedReportV2,
   displayNewWebshop,
+  displayStopSubscriptionFromMemberSideForCompany,
+  displayStopSubscriptionFromMemberSideForFranchisees,
 }) => {
   React.useEffect(() => {
     resetDynamicDataHasBeenLoaded();
@@ -217,6 +220,10 @@ const ReportingDetail: React.FC<Props> = ({
   )?.id;
 
   const report = getReportSearchResults?.[reportId] as ReportConfiguration;
+
+  const displayStopSubscriptionFromMemberSide = isFranchisor
+    ? displayStopSubscriptionFromMemberSideForFranchisees
+    : displayStopSubscriptionFromMemberSideForCompany;
 
   const handleExcelExportation = React.useCallback(
     (values: ReportGenerationParams) => () => {
@@ -335,6 +342,9 @@ const ReportingDetail: React.FC<Props> = ({
         defaultCategoryReportId={defaultCategoryReportId}
         deleteReport={deleteReport}
         displayNewWebshop={displayNewWebshop}
+        displayStopSubscriptionFromMemberSide={
+          displayStopSubscriptionFromMemberSide
+        }
         dynamicDataHasBeenLoaded={dynamicDataHasBeenLoaded}
         editReportFilterConfig={editReportFilterConfig}
         excelExportLoading={excelExportLoading}
@@ -378,6 +388,11 @@ const connector = connect(
     userPermissions: getPermissions(state),
     lastVisitedReportV2: getLastVisitedReportV2(state),
     displayNewWebshop: themeSelectors.getTheme(state)?.display_new_webshop,
+    displayStopSubscriptionFromMemberSideForCompany:
+      !!themeSelectors?.getTheme(state)
+        ?.display_stop_subscription_from_member_side,
+    displayStopSubscriptionFromMemberSideForFranchisees:
+      getFranchiseDisplayStopSubscriptionFromMemberSideForFranchisees(state),
   }),
   {
     createReport: createReportAction,

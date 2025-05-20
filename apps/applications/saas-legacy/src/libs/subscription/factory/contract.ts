@@ -1,6 +1,7 @@
 import { fakerEN as faker } from '@faker-js/faker';
 
 import {
+  Contract,
   ContractFactoryOptions,
   ContractInterval,
 } from '#src/libs/subscription/types';
@@ -26,7 +27,7 @@ const randomContractInterval = faker.helpers.arrayElement<ContractInterval>([
  *  monthBillingDay: 5
  * })
  */
-const contractFactory = (options?: ContractFactoryOptions) => {
+const contractFactory = (options?: ContractFactoryOptions): Contract => {
   return {
     id: faker.number.int(10000),
     company: parseInt(faker.finance.accountNumber(4)),
@@ -60,6 +61,9 @@ const contractFactory = (options?: ContractFactoryOptions) => {
       ? faker.number.int(10000)
       : null,
     editable: options?.isEditable ?? false,
+    has_mandatory_commitment_period: true,
+    commitment_period_value: 1,
+    commitment_period_unit: 'month',
   };
 };
 

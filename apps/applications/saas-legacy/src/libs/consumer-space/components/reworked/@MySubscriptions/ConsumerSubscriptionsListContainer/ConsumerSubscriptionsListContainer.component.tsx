@@ -21,7 +21,10 @@ import {
 } from '#src/libs/consumer-space/components/reworked/@MySubscriptions/constants';
 import type { PaymentMethod } from '#src/libs/payment/types';
 
-import { isPaused } from '#src/libs/subscription/utils';
+import {
+  getCommitmentPeriodDisplay,
+  isPaused,
+} from '#src/libs/subscription/utils';
 import {
   getSubtitleCardDate,
   getSubtitleCardDetailsDate,
@@ -33,6 +36,7 @@ import { TFunction } from 'i18next';
 
 type Props = {
   areDetailsLoading: boolean;
+  displayStopSubscriptionFromMemberSide?: boolean;
   handleInvoiceDetailsPaginationFetchMore: () => void;
   handleChangePage: (page: number) => void;
   handlePaymentModalOpen: () => void;
@@ -52,9 +56,11 @@ type Props = {
   subscriptionsList: SubscriptionREST[];
   currentCount: number;
   currentPage: number;
+  onUnSubscribeClick: () => void;
 };
 
 type ConsumerSubscriptionsListContainerRowProps = {
+  displayStopSubscriptionFromMemberSide?: boolean;
   selectedSubscriptionId?: number;
   item: SubscriptionREST;
   onAddPaymentMethodClick: (id: number) => () => void;
@@ -65,6 +71,7 @@ type ConsumerSubscriptionsListContainerRowProps = {
 const ConsumerSubscriptionsListContainerRow: React.FC<
   ConsumerSubscriptionsListContainerRowProps
 > = ({
+  displayStopSubscriptionFromMemberSide,
   isMobile,
   selectedSubscriptionId,
   isLoading,
@@ -80,6 +87,10 @@ const ConsumerSubscriptionsListContainerRow: React.FC<
       addPaymentMethodDisabled={isLoading}
       hasFailedPayments={!!item?.failed_payments_invoices?.length}
       hasMissingPaymentMethod={!item?.stripe_payment_method_id}
+      hasUnsubscribed={
+        item?.status === SubscriptionStatusEnum.STOPPED &&
+        !!displayStopSubscriptionFromMemberSide
+      }
       isDetailsDisabled={isLoading}
       isLoading={isLoading}
       isPaused={isPaused(item?.pauses)}
@@ -102,6 +113,7 @@ const ConsumerSubscriptionsListContainerRow: React.FC<
 
 export const ConsumerSubscriptionsListContainer: React.FC<Props> = ({
   areDetailsLoading,
+  displayStopSubscriptionFromMemberSide,
   handleInvoiceDetailsPaginationFetchMore,
   handleChangePage,
   handlePaymentModalOpen,
@@ -118,6 +130,7 @@ export const ConsumerSubscriptionsListContainer: React.FC<Props> = ({
   subscriptionsList,
   currentPage,
   currentCount,
+  onUnSubscribeClick,
 }) => {
   const { t } = useTranslation('consumerSpace');
 
@@ -158,6 +171,15 @@ export const ConsumerSubscriptionsListContainer: React.FC<Props> = ({
     [handlePaymentModalOpen, handleSetSelectedSubscriptions],
   );
 
+  const commitmentPeriodDisplay = useMemo(
+    () =>
+      getCommitmentPeriodDisplay(
+        selectedSubscription,
+        !!displayStopSubscriptionFromMemberSide,
+      ),
+    [displayStopSubscriptionFromMemberSide, selectedSubscription],
+  );
+
   return (
     <PageInnerContentLayout
       count={currentCount}
@@ -170,7 +192,13 @@ export const ConsumerSubscriptionsListContainer: React.FC<Props> = ({
           className={clsx({
             'bs-consumer__subscription-details-card__root--hidden': isMobile,
           })}
+          commitmentPeriod={selectedSubscription?.commitment_period_unit}
+          commitmentValue={selectedSubscription?.commitment_period_value}
           description={selectedSubscription?.description}
+          displayStopSubscriptionFromMemberSide={
+            displayStopSubscriptionFromMemberSide
+          }
+          expirationDate={selectedSubscription?.expiration_date}
           failedInvoices={selectedSubscription?.failed_payments_invoices}
           handleInvoiceDetailsPaginationFetchMore={
             handleInvoiceDetailsPaginationFetchMore
@@ -184,7 +212,14 @@ export const ConsumerSubscriptionsListContainer: React.FC<Props> = ({
             !selectedSubscription?.stripe_payment_method_id
           }
           invoiceRetryNumber={invoiceRetryNumber}
+          isCommitmentPeriodSectionHidden={
+            selectedFilter == SubscriptionFilterEnum.EXPIRED ||
+            !!commitmentPeriodDisplay?.isCommitmentPeriodSectionHidden
+          }
           isLoading={isLoading}
+          isMemberCancellationAllowed={
+            !!commitmentPeriodDisplay?.isMemberCancellationAllowed
+          }
           isMobile={isMobile}
           isPaused={isPaused(selectedSubscription?.pauses)}
           isPaymentMethodSectionHidden={
@@ -200,6 +235,7 @@ export const ConsumerSubscriptionsListContainer: React.FC<Props> = ({
           )}
           onPaymentMethodActionClick={handlePaymentModalOpen}
           onSeeClick={onSeeTermsClick}
+          onUnSubscribeClick={onUnSubscribeClick}
           pauseEndDate={selectedSubscriptionPauseEndDate}
           paymentMethodType={paymentMethodUsed?.type}
           price={(selectedSubscription?.price_to_display_cts / 100).toFixed(2)}
@@ -213,6 +249,16 @@ export const ConsumerSubscriptionsListContainer: React.FC<Props> = ({
             selectedSubscriptionInvoiceDetails
           }
           selectedSubscriptionsFuturePauses={selectedSubscriptionsFuturePauses}
+          shouldDisplayCommitmentPeriodAlert={
+            !!commitmentPeriodDisplay?.shouldDisplayCommitmentPeriodAlert
+          }
+          shouldDisplayCommitmentPeriodSubtitle={
+            !!commitmentPeriodDisplay?.shouldDisplayCommitmentPeriodSubtitle
+          }
+          shouldDisplayUnsubscribeCaptionText={
+            selectedFilter !== SubscriptionFilterEnum.EXPIRED &&
+            !!displayStopSubscriptionFromMemberSide
+          }
           showPlaceholder={!selectedSubscription && !!subscriptionsList?.length}
           subscriptionInterval={selectedSubscription?.interval}
           subscriptionName={selectedSubscription?.name_without_member_name}
@@ -246,6 +292,9 @@ export const ConsumerSubscriptionsListContainer: React.FC<Props> = ({
           isLoading={isLoading}
           rowRenderer={({ item }) => (
             <ConsumerSubscriptionsListContainerRow
+              displayStopSubscriptionFromMemberSide={
+                displayStopSubscriptionFromMemberSide
+              }
               isLoading={isLoading}
               isMobile={isMobile}
               item={item}

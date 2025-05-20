@@ -12,11 +12,12 @@ declare module "sm-navigation-sidebar/NavigationSidebar" {
 declare module "sm-navigation-sidebar/urls" {
   const urls: {
     activity: string;
-    member: string;
-    invoice: string;
-    giftcard: string;
-    smartlist: string;
     emailTemplates: string;
+    giftcard: string;
+    invoice: string;
+    member: string;
+    smartlist: string;
+    teacher: string;
   };
   export default urls;
 }
@@ -35,6 +36,11 @@ declare module "sm-giftcard/App" {
 
 // ----- Core-data -----
 declare module "sm-member-list/App" {
+  const App: BaseApp["App"];
+  export default App;
+}
+
+declare module "sm-teacher/App" {
   const App: BaseApp["App"];
   export default App;
 }

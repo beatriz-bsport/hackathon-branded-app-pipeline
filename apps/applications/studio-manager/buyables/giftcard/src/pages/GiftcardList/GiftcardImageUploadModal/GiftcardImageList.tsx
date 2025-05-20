@@ -1,7 +1,7 @@
 import classNames from "classnames";
 import React from "react";
 
-import { type ButtonProps, List } from "@bsport/kaizen-primitive-core";
+import { List, type ListItemProps } from "@bsport/kaizen-primitive-core";
 import type { GiftcardImage } from "@bsport/store-buyables-giftcard";
 
 import { useTranslation } from "#src/utils/i18n";
@@ -20,11 +20,6 @@ type GiftcardImageListProps = {
   refreshGiftcardImageList: () => void;
 };
 
-type ItemButtons =
-  | [ButtonProps]
-  | [ButtonProps, ButtonProps]
-  | [ButtonProps, ButtonProps, ButtonProps];
-
 export const GiftcardImageList: React.FC<GiftcardImageListProps> = ({
   onItemClick,
   onArchiveClick,
@@ -38,7 +33,7 @@ export const GiftcardImageList: React.FC<GiftcardImageListProps> = ({
 }) => {
   const { t } = useTranslation("imageUpload");
 
-  const items = itemList.map((item) => ({
+  const items: ListItemProps[] = itemList.map((item) => ({
     id: `list-item-${item.id}`,
     // For the title, keep the name after the domain URL
     title: item.image ? item.image.split("/").pop() || "" : "",
@@ -49,13 +44,14 @@ export const GiftcardImageList: React.FC<GiftcardImageListProps> = ({
     },
     buttons: [
       {
+        id: `giftcard-image-preview-action-${item.id}`,
         size: "md",
         intent: "flat",
         color: "default",
         iconLeft: "trash-01",
         onClick: () => onArchiveClick(item.id),
       },
-    ] as ItemButtons,
+    ],
     onClick: () => onItemClick(item.image),
     className: "hover:cursor-pointer text-ellipsis",
   }));

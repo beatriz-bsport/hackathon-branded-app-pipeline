@@ -4,7 +4,6 @@ import {
   fetchTempPassword as fetchTempPasswordAPI,
   generateTempPassword as generateTempPasswordAPI,
   validateEmail as validateEmailAPI,
-  requestValidateEmail as requestValidateEmailAPI,
   checkEmailValidation as checkEmailValidationAPI,
   checkMyEmailValidation as checkMyEmailValidationAPI,
   getEmailValidationStatus as getEmailValidationStatusAPI,
@@ -45,27 +44,6 @@ export function generateTempPassword(): ThunkAction {
       dispatch(tempPasswordActions.error(err));
     }
     dispatch(tempPasswordActions.isLoading(false));
-  };
-}
-
-export const requestValidateEmailActions = {
-  error: createAction('LOGIN/REQUEST_VALIDATE_EMAIL/ERROR'),
-  success: createAction('LOGIN/REQUEST_VALIDATE_EMAIL/SUCCESS'),
-  isLoading: createAction('LOGIN/REQUEST_VALIDATE_EMAIL/IS_LOADING'),
-};
-
-export function requestValidationEmail(email: string, options: any) {
-  return async (dispatch: Dispatch) => {
-    dispatch(requestValidateEmailActions.error(null));
-    dispatch(requestValidateEmailActions.isLoading(true));
-    try {
-      await requestValidateEmailAPI(email);
-      if (options && options.onSuccess) options.onSuccess(email);
-    } catch (err) {
-      dispatch(requestValidateEmailActions.error(err));
-      if (options && options.onError) options.onError(err);
-    }
-    dispatch(requestValidateEmailActions.isLoading(false));
   };
 }
 

@@ -1964,12 +1964,15 @@
                         "autoRenewed": "Rinnovo automatico",
                         "paused": "Attualmente in pausa",
                         "joiningFee": "Tassa di iscrizione: {{- fees }}",
-                        "futurePauses": "È programmata una pausa dal {{- dateStart }} al {{- dateEnd }} (inclusi)"
+                        "futurePauses": "È programmata una pausa dal {{- dateStart }} al {{- dateEnd }} (inclusi)",
+                        "stopValidDate": "Valido fino a {{- expirationDate }} (esclusa)",
+                        "stop": "Disiscritto"
                     },
                     "buttonsLabel": {
                         "see": "Vedi",
                         "change": "Cambia",
-                        "add": "Aggiungi"
+                        "add": "Aggiungi",
+                        "unsubscribe": "Annulla l'iscrizione"
                     },
                     "termsAccepted": "Accettati in data {{- termsDate }}",
                     "terms": "Termini",
@@ -1994,7 +1997,34 @@
                     "beforeRenewalContractPriceEvery": "Poi {{ price }} ogni {{ recurrence }} {{ interval }} dopo {{- date }}",
                     "beforeRenewalContractPricePer": "Poi {{ price }}/{{ interval }} dopo {{- date }}",
                     "loadMore": "Carica di più",
-                    "drawerTitle": "Abbonamento ricorrente"
+                    "drawerTitle": "Abbonamento ricorrente",
+                    "loading": "Stiamo elaborando la tua richiesta...",
+                    "commitmentPeriod": {
+                        "modal": {
+                            "alert": "Le sessioni prenotate in anticipo nell'ambito di un abbonamento con classi illimitate saranno cancellate dopo questo periodo e potrebbero essere soggette a una tassa di cancellazione tardiva.",
+                            "failedMessage": "Aggiornare la pagina e riprovare.",
+                            "failedTitle": "Qualcosa è andato storto",
+                            "confirmationNotStarted": "Puoi chiudere la finestra di dialogo.",
+                            "confirmationStarted": "È possibile continuare a usufruire dei vantaggi dell'abbonamento fino a {{- expiration_date }} (esclusa).",
+                            "confirmationTitle": "L'iscrizione è stata annullata con successo",
+                            "cancel": "Mantenere l'abbonamento ricorrente",
+                            "explainNoExpirationDate": "Si sta per annullare l'abbonamento. I vantaggi dell'abbonamento rimarranno validi fino alla fine del prossimo ciclo di fatturazione.\nSei sicuro di voler continuare?",
+                            "explainStarted": "Si sta per annullare l'abbonamento. I vantaggi dell'abbonamento rimarranno validi fino a {{- expiration_date }} (esclusa).\nSei sicuro di voler continuare?",
+                            "explainNotStarted": "Si sta per annullare un abbonamento ricorrente non ancora iniziato. \nVerrà comunque addebitato il primo ciclo di fatturazione e i vantaggi rimarranno validi fino a {{- expiration_date }} (esclusa).\nSei sicuro di voler continuare?"
+                        },
+                        "explain": {
+                            "year": "Questo abbonamento ha un periodo di vincolo di {{ commitment_period_value }} anno; per cancellazioni o domande, contattare direttamente lo studio.",
+                            "year_plural": "Questo abbonamento ha un periodo di vincolo di {{ commitment_period_value }} anni; per cancellazioni o domande, contattare direttamente lo studio.",
+                            "month": "Questo abbonamento ha un periodo di vincolo di {{ commitment_period_value }} mese; per cancellazioni o domande, contattare direttamente lo studio.",
+                            "month_plural": "Questo abbonamento ha un periodo di vincolo di {{ commitment_period_value }} mesi; per cancellazioni o domande, contattare direttamente lo studio.",
+                            "week": "Questo abbonamento ha un periodo di vincolo di {{ commitment_period_value }} settimana; per cancellazioni o domande, contattare direttamente lo studio.",
+                            "week_plural": "Questo abbonamento ha un periodo di vincolo di {{ commitment_period_value }} settimane; per cancellazioni o domande, contattare direttamente lo studio.",
+                            "day": "Questo abbonamento ha un periodo di vincolo di {{ commitment_period_value }} giorno; per cancellazioni o domande, contattare direttamente lo studio.",
+                            "day_plural": "Questo abbonamento ha un periodo di vincolo di {{ commitment_period_value }} giorni; per cancellazioni o domande, contattare direttamente lo studio."
+                        },
+                        "subtitle": "Questo abbonamento sta per terminare e non ci saranno più pagamenti successivi al ciclo attuale.",
+                        "title": "Gestisci abbonamenti ricorrenti"
+                    }
                 },
                 "headerButtonsLabel": {
                     "getSubscription": "Ottieni un abbonamento ricorrente",
@@ -2008,8 +2038,8 @@
                 },
                 "title": "I miei abbonamenti ricorrenti",
                 "dateLabel": {
-                    "until": " fino al {{- date }}",
-                    "expired": "Scaduta da {{- date }}",
+                    "until": " fino al {{- date }} (esclusa)",
+                    "expired": "Scaduta da {{- date }} (esclusa)",
                     "future": "Iniziata il {{- date }}",
                     "active": "Iniziata il {{- date }}"
                 },
@@ -2138,7 +2168,16 @@
                     "emailAllowed": "Notifiche via email consentite",
                     "phoneNotAllowed": "Notifiche telefoniche non consentite",
                     "phoneAllowed": "Notifiche telefoniche consentite",
-                    "title": "Notifiche"
+                    "title": "Notifiche",
+                    "portal": {
+                        "subtitle": "Scegliete come ricevere gli aggiornamenti da ciascuna delle vostre sedi",
+                        "title": "Preferenze di comunicazione di marketing"
+                    },
+                    "updatePreferencesButton": "Salva preferenze",
+                    "updatePreferencesLoading": "Salvataggio in corso",
+                    "receiveSmsUpdates": "Ricevere aggiornamenti via SMS",
+                    "receiveEmailUpdates": "Ricevere aggiornamenti via e-mail",
+                    "manageYourFranchiseMarketingPrefencesLabel": "Gestire le preferenze di marketing"
                 },
                 "address": "Indirizzo",
                 "emergencyNumber": "Numero di emergenza",
@@ -6054,7 +6093,7 @@
             "create": {
                 "success": "Notifica creata con successo",
                 "error": "Impossibile creare una notifica",
-                "errorLackRequiredVariables": "Aggiorna inventario"
+                "errorLackRequiredVariables": "Non è stato possibile salvare questo modello"
             }
         },
         "privatePass": {
@@ -8118,7 +8157,22 @@
                     "secondLabel": "Numero di ricevute *",
                     "firstLabel": "Modificare la tariffazione dell'abbonamento per i prossimi cicli"
                 },
-                "notEditable": "Questo contratto proviene da una migrazione di dati precedentemente completata. Alcuni campi potrebbero non essere modificabili per preservare i dati."
+                "notEditable": "Questo contratto proviene da una migrazione di dati precedentemente completata. Alcuni campi potrebbero non essere modificabili per preservare i dati.",
+                "commitmentPeriod": {
+                    "explain": {
+                        "year": "Questo abbonamento vincola il membro per {{ commitment_period_value }} anno. Le modifiche al periodo di vincolo dell'abbonamento nelle impostazioni non influiscono sugli abbonamenti già acquistati.",
+                        "year_plural": "Questo abbonamento vincola il membro per {{ commitment_period_value }} anni. Le modifiche al periodo di vincolo dell'abbonamento nelle impostazioni non influiscono sugli abbonamenti già acquistati.",
+                        "month": "Questo abbonamento vincola il membro per {{ commitment_period_value }} mese. Le modifiche al periodo di vincolo dell'abbonamento nelle impostazioni non influiscono sugli abbonamenti già acquistati.",
+                        "month_plural": "Questo abbonamento vincola il membro per {{ commitment_period_value }} mesi. Le modifiche al periodo di vincolo dell'abbonamento nelle impostazioni non influiscono sugli abbonamenti già acquistati.",
+                        "week": "Questo abbonamento vincola il membro per {{ commitment_period_value }} settimana. Le modifiche al periodo di vincolo dell'abbonamento nelle impostazioni non influiscono sugli abbonamenti già acquistati.",
+                        "week_plural": "Questo abbonamento vincola il membro per {{ commitment_period_value }} settimane. Le modifiche al periodo di vincolo dell'abbonamento nelle impostazioni non influiscono sugli abbonamenti già acquistati.",
+                        "day": "Questo abbonamento vincola il membro per {{ commitment_period_value }} giorno. Le modifiche al periodo di vincolo dell'abbonamento nelle impostazioni non influiscono sugli abbonamenti già acquistati.",
+                        "day_plural": "Questo abbonamento vincola il membro per {{ commitment_period_value }} giorni. Le modifiche al periodo di vincolo dell'abbonamento nelle impostazioni non influiscono sugli abbonamenti già acquistati."
+                    },
+                    "error": "Il periodo di vincolo non può superare 90.",
+                    "helperText": "Ricordatevi di verificare le leggi del vostro Paese in merito al diritto di recesso per l'abbonamento e di aggiungere le informazioni necessarie nei vostri termini e condizioni.",
+                    "label": "Periodo di vincolo"
+                }
             },
             "legal": "Informazioni legali",
             "duration": "{{month}} ricevute",
@@ -8214,6 +8268,19 @@
                 "week_plural": "ogni {{count}} settimane",
                 "day": "al giorno",
                 "day_plural": "ogni {{count}} giorni"
+            },
+            "commitmentPeriod": {
+                "explain": {
+                    "year": "Questo abbonamento vincola il membro per {{ commitment_period_value }} anno.",
+                    "year_plural": "Questo abbonamento vincola il membro per {{ commitment_period_value }} anni.",
+                    "month": "Questo abbonamento vincola il membro per {{ commitment_period_value }} mese.",
+                    "month_plural": "Questo abbonamento vincola il membro per {{ commitment_period_value }} mesi.",
+                    "week": "Questo abbonamento vincola il membro per {{ commitment_period_value }} settimana.",
+                    "week_plural": "Questo abbonamento vincola il membro per {{ commitment_period_value }} settimane.",
+                    "day": "Questo abbonamento vincola il membro per {{ commitment_period_value }} giorno.",
+                    "day_plural": "Questo abbonamento vincola il membro per {{ commitment_period_value }} giorni."
+                },
+                "label": "Periodo di vincolo"
             }
         },
         "form": {
@@ -8235,7 +8302,7 @@
             },
             "billing_plan-pause": "Pausa",
             "billing_plan-create": "Creazione",
-            "billing_plan-stop": "Stop",
+            "billing_plan-stop": "Abbonamento terminato da",
             "billing_plan-payment_success": "Pagamento andato a buon fine",
             "billing_plan-payment_failure": "Pagamento rifiutato",
             "billing_plan-update_private_pass": "Pacchetti per appuntamenti modificato",
@@ -8344,7 +8411,9 @@
         },
         "scheduledStop": {
             "label": "Fermata programmato",
-            "unscheduleStop": "Resettare la fermata"
+            "unscheduleStop": "Resettare la fermata",
+            "stoppedByMember": "Terminato dal membro",
+            "stoppedByManager": "Terminato da {{ name }}"
         },
         "end": {
             "renew": "Rinnovo automatico",
@@ -9324,9 +9393,10 @@
             "billing_plan_status": {
                 "0": "Non ancora iniziato",
                 "1": "In corso",
-                "2": "Interrotto",
-                "3": "In pausa",
-                "4": "Terminato"
+                "2": "Interrotto (Manager)",
+                "3": "Messa in pausa",
+                "4": "Terminato",
+                "5": "Terminato (Membro)"
             },
             "payment_method_with_credit_account": {
                 "0": "Carta di credito",
@@ -13611,7 +13681,7 @@
                 "exclusiveEstablishmentGroups": "La sede {{- establishment_group_name }} contiene solo lo stabilimento che si desidera eliminare; si prega di aggiornare o eliminare questa sede.",
                 "exclusiveEstablishmentGroups_plural": "Le sedi {{- establishment_group_name }} contengono solo lo stabilimento che si desidera eliminare; aggiornare o eliminare queste sedi.",
                 "exclusivePaymentPacks": "Il seguente pacchetto {{- pass_name }} è utilizzabile esclusivamente in questo stabilimento. Si prega di aggiornare le restrizioni prima di cancellare lo stabilimento.",
-                "exclusivePaymentPacks_plural": "I seguenti pacchetti {{- pass_name }} sono utilizzabili esclusivamente in questo stabilimento. Si prega di aggiornare le restrizioni prima di cancellare lo stabilimento.",
+                "exclusivePaymentPacks_plural": "I seguenti pacchetti {{- pass_name }} sono utilizzabili solo in questo stabilimento. Aggiornare le restrizioni prima di cancellarlo.",
                 "hasExclusiveBillingGroup": "Questo stabilimento è l'ultimo del suo gruppo di fatturazione. Si prega di cancellare o aggiornare il gruppo di fatturazione in questione prima di cancellare questo stabilimento.",
                 "hasUpcomingPrivateBookings": "Alcuni appuntamenti in programma avranno luogo in questo stabilimento. Ti preghiamo di eliminare gli appuntamenti in questione prima di eliminare questo stabilimento.",
                 "hasUpcomingOffers": "Alcune sessioni in programma avranno luogo in questo stabilimento. Ti preghiamo di eliminare le sessioni in questione prima di eliminare questo stabilimento."
@@ -14188,6 +14258,16 @@
                 "next": "Continua",
                 "content": "bsport riunisce una community di appassionati il cui obiettivo è semplificare i tuoi strumenti informatici e consentirti di comprendere meglio la tua community.",
                 "title": "Benvenuto!"
+            },
+            "confirmation": {
+                "disconnect": "Disconnetti",
+                "content": {
+                    "help": "Per istruzioni dettagliate su ciascun passaggio, consultare la documentazione interna.",
+                    "emailValidation": "Convalida dell'e-mail: Eseguire l'azione amministrativa per convalidare l'indirizzo e-mail del cliente.",
+                    "upsell": "Upsells: Aggiungere alla piattaforma tutti gli upsell applicabili.",
+                    "billing": "Fatturazione della piattaforma: Creare la configurazione di fatturazione per il nuovo backoffice.",
+                    "core": "La nuova piattaforma di backoffice è stata creata con successo. Tuttavia, prima di inviare le credenziali di accesso al cliente, assicuratevi di aver completato i seguenti passaggi di convalida della documentazione interna:"
+                }
             }
         },
         "country": {
@@ -15996,6 +16076,71 @@
                 "appointmentPasses": "Pacchetti per appuntamenti",
                 "passes": "Pacchetti",
                 "all": "Tutti"
+            },
+            "to": "a",
+            "addToCart": "Aggiungi al carrello",
+            "close": "Chiudi",
+            "detail": {
+                "restriction": {
+                    "monthly": "Può essere usato solo {{ amount }} volta al mese.",
+                    "monthly_plural": "Può essere usato solo {{ amount }} volte al mese.",
+                    "weekly": "Può essere usato solo {{ amount }} volta alla settimana.",
+                    "weekly_plural": "Può essere usato solo {{ amount }} volte alla settimana.",
+                    "daily": "Può essere usato solo {{ amount }} volta al giorno.",
+                    "daily_plural": "Può essere usato solo {{ amount }} volte al giorno.",
+                    "title": "Restizioni all'uso"
+                },
+                "compatibility": {
+                    "labels": {
+                        "room": "Sale",
+                        "activity": "Attività",
+                        "category": "Categorie"
+                    },
+                    "contents": {
+                        "sessions": "Sessioni compatibili: {{ sessionsList }}",
+                        "allSessions": "Compatibile con tutte le sessioni",
+                        "noAppointments": "Nessun appuntamento compatibile",
+                        "bookingForGuest": "Può essere utilizzato per <strong>Invita un ospite</strong>",
+                        "vod": "Può essere utilizzato per i <strong>Video On Demand</strong>",
+                        "allTimeSlots": "Compatibile con tutte le fasce orarie",
+                        "allCategories": "Compatibile con tutte le categorie dello studio",
+                        "allRooms": "Compatibile con tutte le sale dello studio",
+                        "allActivities": "Compatibile con tutte le attività dello studio"
+                    },
+                    "subtitles": {
+                        "sessions": "Sessioni compatibili",
+                        "timeSlots": "Fasce orarie compatibili",
+                        "activity": "Attività compatibili"
+                    },
+                    "titles": {
+                        "main": "Compatibilità",
+                        "appointment": "Compatibilità degli appuntamenti",
+                        "activity": "Compatibilità delle attività",
+                        "studios": "Studi compatibili"
+                    }
+                },
+                "description": {
+                    "showLess": "Mostra meno",
+                    "showMore": "Mostra di più"
+                },
+                "availability": {
+                    "validUntil": "Valido fino al {{ expirationDate }}",
+                    "future": "Inizia il {{ startDate }}",
+                    "expired": "Scaduto il {{ expirationDate }}",
+                    "suspendedUntil": "Sospeso fino al {{ endDate }}",
+                    "suspended": "Sospeso",
+                    "active": "Valido dal {{ startDate }} al {{ expirationDate }}"
+                },
+                "header": {
+                    "onsitePaymentAvailable": "Possibilità di pagamento in loco",
+                    "fullVodAccess": "Compatibile con VOD",
+                    "onlyVodAccess": "Disponibile solo per VOD",
+                    "isUniversalPass": "Pacchetto universale",
+                    "newMemberOnly": "Solo per i nuovi membri",
+                    "unlimited": "Illimitato",
+                    "credits": "{{count}} credito",
+                    "credits_plural": "{{count}} crediti"
+                }
             }
         }
     },

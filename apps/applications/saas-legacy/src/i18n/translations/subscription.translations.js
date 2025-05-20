@@ -32,7 +32,7 @@ const getTranslations = async () => {
       [BILLING_PLAN_EVENTS.pause]: 'Paused payments',
       [BILLING_PLAN_EVENTS.pause_deleted]: 'Pause cancelled',
       [BILLING_PLAN_EVENTS.create]: 'Create',
-      [BILLING_PLAN_EVENTS.stop]: 'Stopped payments',
+      [BILLING_PLAN_EVENTS.stop]: 'Subscription terminated by',
       [BILLING_PLAN_EVENTS.renew]: 'Automatic renewals',
       [BILLING_PLAN_EVENTS.payment_dispute]: 'Payment: disputed',
       [BILLING_PLAN_EVENTS.payment_success]: 'Payment: successful',
@@ -146,6 +146,24 @@ const getTranslations = async () => {
       },
       description: 'Description',
       legal: 'Terms',
+      commitmentPeriod: {
+        label: 'Commitment period',
+        explain: {
+          day: 'This subscription will commit the member for {{ commitment_period_value }} day.',
+          day_plural:
+            'This subscription will commit the member for {{ commitment_period_value }} days.',
+          week: 'This subscription will commit the member for {{ commitment_period_value }} week.',
+          week_plural:
+            'This subscription will commit the member for {{ commitment_period_value }} weeks.',
+          month:
+            'This subscription will commit the member for {{ commitment_period_value }} month.',
+          month_plural:
+            'This subscription will commit the member for {{ commitment_period_value }} months.',
+          year: 'This subscription will commit the member for {{ commitment_period_value }} year.',
+          year_plural:
+            'This subscription will commit the member for {{ commitment_period_value }} years.',
+        },
+      },
       actions: {
         iAcceptCondition: 'I accept the terms.',
         iwanttostarton: 'Preferred starting date of this subscription: ',
@@ -310,6 +328,27 @@ const getTranslations = async () => {
         },
         notEditable:
           'This contract originates from a previously completed data migration. Some fields may not be editable to preserve the data.',
+        commitmentPeriod: {
+          label: 'Commitment period',
+          helperText:
+            "Remember to check your country's laws regarding the right of withdrawal for subscription and add the required information in your terms and conditions.",
+          error: "The commitment period can't exceed 90.",
+          explain: {
+            day: 'This subscription will commit the member for {{ commitment_period_value }} day. Changes to the subscription commitment period in settings will not affect any subscriptions that have already been purchased.',
+            day_plural:
+              'This subscription will commit the member for {{ commitment_period_value }} days. Changes to the subscription commitment period in settings will not affect any subscriptions that have already been purchased.',
+            week: 'This subscription will commit the member for {{ commitment_period_value }} week. Changes to the subscription commitment period in settings will not affect any subscriptions that have already been purchased.',
+            week_plural:
+              'This subscription will commit the member for {{ commitment_period_value }} weeks. Changes to the subscription commitment period in settings will not affect any subscriptions that have already been purchased.',
+            month:
+              'This subscription will commit the member for {{ commitment_period_value }} month. Changes to the subscription commitment period in settings will not affect any subscriptions that have already been purchased.',
+            month_plural:
+              'This subscription will commit the member for {{ commitment_period_value }} months. Changes to the subscription commitment period in settings will not affect any subscriptions that have already been purchased.',
+            year: 'This subscription will commit the member for {{ commitment_period_value }} year. Changes to the subscription commitment period in settings will not affect any subscriptions that have already been purchased.',
+            year_plural:
+              'This subscription will commit the member for {{ commitment_period_value }} years. Changes to the subscription commitment period in settings will not affect any subscriptions that have already been purchased.',
+          },
+        },
       },
       deleteForm: {
         actions: { confirm: 'Delete', cancel: 'Cancel' },
@@ -633,6 +672,8 @@ const getTranslations = async () => {
     scheduledStop: {
       label: 'Terminated',
       unscheduleStop: 'Unschedule the stop',
+      stoppedByManager: 'Terminated by {{ name }}',
+      stoppedByMember: 'Terminated by the member',
     },
     end: { renew: 'Auto-renew', noRenew: 'End the subscription' },
     seeMore: 'Show more',

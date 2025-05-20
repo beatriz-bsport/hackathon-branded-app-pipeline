@@ -1,0 +1,18 @@
+[
+  {
+    "id": 1,
+    "company": 101,
+    "description": "First smartlist",
+    "has_active_communication_group_configs": true,
+    "member_base": 201,
+    "name": "Smartlist 1"
+  },
+  {
+    "id": 2,
+    "company": 102,
+    "description": "Second smartlist",
+    "has_active_communication_group_configs": false,
+    "member_base": 202,
+    "name": "Smartlist 2"
+  }
+]

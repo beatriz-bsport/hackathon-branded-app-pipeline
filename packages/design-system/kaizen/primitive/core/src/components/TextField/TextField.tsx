@@ -77,6 +77,7 @@ export type TextFieldProps = Omit<
   iconRight?: IconName;
   prefix?: TextFieldPrefixSuffix;
   suffix?: TextFieldPrefixSuffix;
+  fullWidth?: boolean;
   type?: (typeof inputTypes)[number];
 };
 
@@ -101,6 +102,7 @@ export type TextFieldProps = Omit<
  * @param props.type The type of the textfield.
  * @param props.onBlur Callback function to call when the textfield loses focus.
  * @param props.onFocus Callback function to call when the textfield gains focus.
+ * @param props.fullWidth Optionnal - boolean, make the component take the full available width of the parent.
  */
 const TextField: React.FC<TextFieldProps> = ({
   className,
@@ -122,6 +124,7 @@ const TextField: React.FC<TextFieldProps> = ({
   type = "text",
   onBlur,
   onFocus,
+  fullWidth,
   ...props
 }) => {
   /* TODO: Check with design if the color picker needs all these props, and split it in a separate component (explained here: https://gitlab.com/bsport/ichizen/-/merge_requests/425#note_2402509306) */
@@ -160,8 +163,9 @@ const TextField: React.FC<TextFieldProps> = ({
 
   return (
     <div
-      className={classNames("flex flex-col gap-2xs max-w-component-select", {
+      className={classNames("flex flex-col gap-2xs", {
         "opacity-sm pointer-events-none": disabled,
+        "max-w-component-select": !fullWidth,
       })}
     >
       {label && (
@@ -187,6 +191,7 @@ const TextField: React.FC<TextFieldProps> = ({
               "before:shadow-border-thin-positive": status === "positive",
               "before:shadow-border-thin-critical": status === "error",
               "shadow-focused": isInputFocused && status === "default",
+              "w-full": fullWidth,
             },
           )}
         >

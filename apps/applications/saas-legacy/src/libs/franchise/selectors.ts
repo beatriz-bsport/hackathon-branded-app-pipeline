@@ -475,3 +475,9 @@ export const getFranchiseUserBillingPlansList = createSelector(
 
 export const getFranchiseDisplayNewWebshopForFranchisees = (state: RootState) =>
   getState(state)?.franchisor?.display_new_webshop_for_franchisees;
+
+export const getFranchiseDisplayStopSubscriptionFromMemberSideForFranchisees = (
+  state: RootState,
+) =>
+  getState(state)?.franchisor
+    ?.display_stop_subscription_from_member_side_for_franchisees;

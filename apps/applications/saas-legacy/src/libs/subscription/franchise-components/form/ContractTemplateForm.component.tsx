@@ -67,6 +67,7 @@ type ContractTemplateFormProps = {
   // Props when editing an existing contract template
   contractTemplateId?: number;
   contractTemplateMonthBillingDay?: number;
+  displayStopSubscriptionFromMemberSideForFranchisees?: boolean;
   fetchPaymentPackTemplateBulk: (params: { id__in: number[] }) => void;
   fetchPrivatePassTemplateBulk: (params: { id__in: number[] }) => void;
 };
@@ -87,6 +88,7 @@ const PrivatePassTemplateSearchOption: React.FC<
 const ContractTemplateForm: React.FC<ContractTemplateFormProps> = ({
   contractTemplateId,
   contractTemplateMonthBillingDay,
+  displayStopSubscriptionFromMemberSideForFranchisees,
   handleClose,
   getPrivatePassTemplateList,
   getPaymentPackTemplateList,
@@ -611,7 +613,54 @@ const ContractTemplateForm: React.FC<ContractTemplateFormProps> = ({
             label={t('contract.form.unusableByStaff.label')}
             name="unusableByStaff"
           />
+          {!!displayStopSubscriptionFromMemberSideForFranchisees && (
+            <SwitchField
+              label={t('contract.form.commitmentPeriod.label')}
+              name="has_mandatory_commitment_period"
+            />
+          )}
         </div>
+        {!!displayStopSubscriptionFromMemberSideForFranchisees &&
+          !!values?.has_mandatory_commitment_period && (
+            <>
+              <Typography className={classes.helperText}>
+                {t('contract.form.commitmentPeriod.helperText')}
+              </Typography>
+              <div className={classes.billingRow}>
+                <Typography variant="body2">
+                  {t('contract.form.commitmentPeriod.label')}
+                </Typography>
+                <IntegerField
+                  required
+                  className={classes.intervalIntegerField}
+                  name="commitment_period_value"
+                />
+                <IntervalRecurrenceSelectField
+                  displayPeriod
+                  required
+                  className={classes.intervalSelectorField}
+                  name="commitment_period_unit"
+                  variant="outlined"
+                />
+              </div>
+              {!!values?.commitment_period_unit &&
+                !!values?.commitment_period_value && (
+                  <Alert
+                    className={classes.marginTopClass}
+                    severity="info"
+                    variant="outlined"
+                  >
+                    {t(
+                      `contract.form.commitmentPeriod.explain.${values.commitment_period_unit}`,
+                      {
+                        count: values.commitment_period_value,
+                        commitment_period_value: values.commitment_period_value,
+                      },
+                    )}
+                  </Alert>
+                )}
+            </>
+          )}
       </div>
 
       <Divider />
@@ -690,6 +739,9 @@ const useStyles = makeStyles((theme) => ({
   },
   fullWidth: {
     width: '100%',
+  },
+  helperText: {
+    marginBottom: theme.spacing(2),
   },
 }));
 

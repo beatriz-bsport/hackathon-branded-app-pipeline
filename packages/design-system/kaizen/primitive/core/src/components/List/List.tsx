@@ -9,8 +9,9 @@ import useEmptyState, {
 } from "#src/hooks/use-empty-state.hook";
 import { usePagination } from "#src/hooks/use-pagination";
 
-import Header, { ListHeaderProps } from "./Header";
-import Item, { ListItemProps } from "./Item";
+import Collapse, { type CollapseProps } from "../Collapse";
+import Header, { type ListHeaderProps } from "./Header";
+import Item, { type ListItemProps } from "./Item";
 
 const defaultClasses = [
   "relative",
@@ -48,15 +49,19 @@ export const listItem = cva(defaultClasses, {
 
 export type ListItemChipsProps = Omit<ChipProps, "dismissible" | "onClick">;
 
+export type ListContentProps = {
+  items?: ListItemProps[];
+  paginationProps?: PaginationProps;
+  emptyStateProps?: UseEmptyStateProps;
+  isSelectable?: boolean;
+};
+
 export type ListProps = {
   className?: string;
   id: string;
   header?: ListHeaderProps;
-  items?: ListItemProps[];
-  isSelectable?: boolean;
-  paginationProps?: PaginationProps;
-  emptyStateProps?: UseEmptyStateProps;
-};
+  collapsibleProps?: Omit<CollapseProps, "children">;
+} & ListContentProps;
 /**
  * A list component that can contain multiple `Item` components and one `Header` component.
  * It manages the state of checked items and provides context for each `Item` regarding its checked state.
@@ -70,6 +75,7 @@ export type ListProps = {
  * @param header Optional header component to display at the top of the list.
  * @param items An array of `Item` components to display in the list.
  * @param paginationProps An object gathering all properties passed to Pagination component.
+ * @param props.collapsibleProps Object allow the list to be transformed in a collapsible list and to hide its content.
  * If undefined, the Pagination will not be rendered and therefore the list will not be paginated.
  * @link https://docs.infra.bsport.io/storybook/kaizen/main/index.html?path=/docs/components-list--docs
  */
@@ -79,29 +85,67 @@ const List: React.FC<ListProps> = ({
   header,
   items,
   isSelectable = false,
+  collapsibleProps,
   paginationProps,
   emptyStateProps,
 }: ListProps) => {
   const valueIds = items?.map((item) => item.id) ?? [];
 
+  return (
+    <Collapse {...collapsibleProps}>
+      <CheckboxProvider valueIds={valueIds}>
+        <div className={className} id={id}>
+          {!!header && (
+            <Header
+              {...header}
+              collapsibleProps={collapsibleProps}
+              isSelectable={isSelectable}
+            />
+          )}
+          {collapsibleProps ? (
+            <Collapse.Content>
+              <ListContent
+                isSelectable={isSelectable}
+                items={items}
+                emptyStateProps={emptyStateProps}
+                paginationProps={paginationProps}
+              />
+            </Collapse.Content>
+          ) : (
+            <ListContent
+              isSelectable={isSelectable}
+              items={items}
+              emptyStateProps={emptyStateProps}
+              paginationProps={paginationProps}
+            />
+          )}
+        </div>
+      </CheckboxProvider>
+    </Collapse>
+  );
+};
+
+const ListContent: React.FC<ListContentProps> = ({
+  isSelectable,
+  emptyStateProps,
+  items,
+  paginationProps,
+}) => {
   const pagination = usePagination(paginationProps);
 
   const { shouldRenderEmptyState, EmptyState } = useEmptyState(emptyStateProps);
 
+  if (shouldRenderEmptyState) {
+    return <EmptyState />;
+  }
+
   return (
-    <CheckboxProvider valueIds={valueIds}>
-      <div className={className} id={id}>
-        {!!header && <Header {...header} isSelectable={isSelectable} />}
-        {shouldRenderEmptyState ? (
-          <EmptyState />
-        ) : (
-          items?.map((item) => (
-            <Item {...item} key={item.id} isSelectable={isSelectable} />
-          ))
-        )}
-        {pagination}
-      </div>
-    </CheckboxProvider>
+    <>
+      {items?.map((item) => (
+        <Item {...item} key={item.id} isSelectable={isSelectable} />
+      ))}
+      {pagination}
+    </>
   );
 };
 

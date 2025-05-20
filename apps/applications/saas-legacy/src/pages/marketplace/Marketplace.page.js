@@ -112,6 +112,7 @@ import MarketplaceBasketSummaryDialogCssOnly from '../../libs/marketplace/compon
 import { getItemInStorage } from '../../utils/storage';
 import { STORAGE_KEY_BSPORT_RELATED_MEMBER_TOKEN } from '../../actions/constants';
 import analyticsUtils from '../../components/analytics/analytics';
+import { PassesPageTabNames } from '../../libs/marketplace/types';
 
 const MarketplacePassPage = asyncComponent(() => import('./MarketplacePass'));
 
@@ -136,6 +137,7 @@ const MarketplaceVodRouter = asyncComponent(() =>
 const MarketplaceGiftcardPage = asyncComponent(() =>
   import('./MarketplaceGiftcard.page'),
 );
+const Passes = asyncComponent(() => import('#src/pages/marketplace/passes'));
 
 type StateHandlerType = typeof withStateHandlersInit &
   WithHandlerType<typeof withStateHandlersSetter>;
@@ -260,6 +262,7 @@ export class MarketPlace extends Component<Props, State> {
         const tabConfig = settings?.config?.[configIndex];
         const newPath = fromConfigToUrl(tabConfig, {
           tabSelected: configIndex,
+          tabName: PassesPageTabNames.PASSES,
         });
         return this.props.replace(newPath);
       }
@@ -316,7 +319,9 @@ export class MarketPlace extends Component<Props, State> {
 
     switch (this.props.subcomponent) {
       case MARKETPLACE_PATH_TAB_PASS:
-        return (
+        return this.props.companyTheme?.revamped_passes_page_enabled ? (
+          <Passes />
+        ) : (
           <MarketplacePassPage
             key={this.props.tabSelected}
             companyId={this.props.companyId}

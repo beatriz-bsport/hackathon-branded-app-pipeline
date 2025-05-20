@@ -16,9 +16,7 @@ const variants = {
   },
 } as const;
 
-const iconCva = cva("", {
-  variants,
-});
+const iconCva = cva("shrink-0", { variants });
 
 export type IconProps = HTMLAttributes<HTMLDivElement> &
   VariantProps<typeof iconCva> & {

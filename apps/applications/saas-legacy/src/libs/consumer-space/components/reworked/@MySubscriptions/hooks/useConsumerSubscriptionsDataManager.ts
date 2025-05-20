@@ -136,6 +136,8 @@ const useConsumerSubscriptionsDataManager = ({
   const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false);
   const [isSubscriptionDetailsDrawerOpen, setIsSubscriptionDetailsDrawerOpen] =
     useState(false);
+  const [isCommitmentPeriodPortalOpen, setIsCommitmentPeriodPortalOpen] =
+    useState(false);
 
   // MODALS HANDLERS
   const handleTermsModalClose = useCallback(
@@ -144,6 +146,16 @@ const useConsumerSubscriptionsDataManager = ({
   );
 
   const handleTermsModalOpen = useCallback(() => setIsTermsModalOpen(true), []);
+
+  const handleCommitmentPeriodPortalOpen = useCallback(() => {
+    setIsCommitmentPeriodPortalOpen(true);
+  }, []);
+
+  const handleCommitmentPeriodPortalClose = useCallback(() => {
+    setSelectedSubscription(null);
+    setIsCommitmentPeriodPortalOpen(false);
+    setIsSubscriptionDetailsDrawerOpen(false);
+  }, []);
 
   const handlePaymentModalOpen = useCallback(
     () => setIsPaymentModalOpen(true),
@@ -229,6 +241,7 @@ const useConsumerSubscriptionsDataManager = ({
     isTermsModalOpen,
     isPaymentModalOpen,
     isSubscriptionDetailsDrawerOpen,
+    isCommitmentPeriodPortalOpen,
     // MODAL HANDLERS
     handleTermsModalClose,
     handleTermsModalOpen,
@@ -236,6 +249,8 @@ const useConsumerSubscriptionsDataManager = ({
     handlePaymentModalClose,
     handleOpenSubscriptionDetailsDrawer,
     handleCloseSubscriptionDetailsDrawer,
+    handleCommitmentPeriodPortalOpen,
+    handleCommitmentPeriodPortalClose,
     // COMPUTED STATE
     currentCount,
     currentPage,

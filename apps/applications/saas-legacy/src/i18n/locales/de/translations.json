@@ -309,7 +309,22 @@
                     "secondLabel": "Anzahl der Rechnungen *",
                     "firstLabel": "Abonnementabrechnung für die nächsten Zyklen ändern"
                 },
-                "notEditable": "Dieser Vertrag geht auf eine zuvor abgeschlossene Datenmigration zurück. Einige Felder können möglicherweise nicht bearbeitet werden, um die Daten beizubehalten."
+                "notEditable": "Dieser Vertrag geht auf eine zuvor abgeschlossene Datenmigration zurück. Einige Felder können möglicherweise nicht bearbeitet werden, um die Daten beizubehalten.",
+                "commitmentPeriod": {
+                    "explain": {
+                        "year": "Dieses Abonnement verpflichtet Mitglieder für {{ commitment_period_value }} Jahr. Änderungen der Mindestlaufzeit in den Einstellungen wirken sich nicht auf bereits abgeschlossene Abonnements aus.",
+                        "year_plural": "Dieses Abonnement verpflichtet Mitglieder für {{ commitment_period_value }} Jahre. Änderungen der Mindestlaufzeit in den Einstellungen wirken sich nicht auf bereits abgeschlossene Abonnements aus.",
+                        "month": "Dieses Abonnement verpflichtet Mitglieder für {{ commitment_period_value }} Monat. Änderungen der Mindestlaufzeit in den Einstellungen wirken sich nicht auf bereits abgeschlossene Abonnements aus.",
+                        "month_plural": "Dieses Abonnement verpflichtet Mitglieder für {{ commitment_period_value }} Monate. Änderungen der Mindestlaufzeit in den Einstellungen wirken sich nicht auf bereits abgeschlossene Abonnements aus.",
+                        "week": "Dieses Abonnement verpflichtet Mitglieder für {{ commitment_period_value }} Woche. Änderungen der Mindestlaufzeit in den Einstellungen wirken sich nicht auf bereits abgeschlossene Abonnements aus.",
+                        "week_plural": "Dieses Abonnement verpflichtet Mitglieder für {{ commitment_period_value }} Wochen. Änderungen der Mindestlaufzeit in den Einstellungen wirken sich nicht auf bereits abgeschlossene Abonnements aus.",
+                        "day": "Dieses Abonnement verpflichtet Mitglieder für {{ commitment_period_value }} Tag. Änderungen der Mindestlaufzeit in den Einstellungen wirken sich nicht auf bereits abgeschlossene Abonnements aus.",
+                        "day_plural": "Dieses Abonnement verpflichtet Mitglieder für {{ commitment_period_value }} Tage. Änderungen der Mindestlaufzeit in den Einstellungen wirken sich nicht auf bereits abgeschlossene Abonnements aus."
+                    },
+                    "error": "Die Mindestlaufzeit kann 90 nicht überschreiten.",
+                    "helperText": "Bitte prüfe die gesetzlichen Bestimmungen deines Landes zum Widerrufsrecht bei Abonnements und nimm die erforderlichen Informationen in deinen Allgemeinen Geschäftsbedingungen (AGB) auf.",
+                    "label": "Mindestlaufzeit"
+                }
             },
             "description": "Beschreibung",
             "registerManager": {
@@ -434,6 +449,19 @@
                 "week_plural": "alle {{count}} Wochen",
                 "day": "täglich",
                 "day_plural": "alle {{count}} Tage"
+            },
+            "commitmentPeriod": {
+                "explain": {
+                    "year": "Dieses Abonnement wird das Mitglied für {{ commitment_period_value }} Jahr verpflichten.",
+                    "year_plural": "Dieses Abonnement wird das Mitglied für {{ commitment_period_value }} Jahre verpflichten.",
+                    "month": "Dieses Abonnement wird das Mitglied für {{ commitment_period_value }} Monat verpflichten.",
+                    "month_plural": "Dieses Abonnement wird das Mitglied für {{ commitment_period_value }} Monate verpflichten.",
+                    "week": "Dieses Abonnement wird das Mitglied für {{ commitment_period_value }} Woche verpflichten.",
+                    "week_plural": "Dieses Abonnement wird das Mitglied für {{ commitment_period_value }} Wochen verpflichten.",
+                    "day": "Dieses Abonnement wird das Mitglied für {{ commitment_period_value }} Tag verpflichten.",
+                    "day_plural": "Dieses Abonnement wird das Mitglied für {{ commitment_period_value }} Tage verpflichten."
+                },
+                "label": "Mindestlaufzeit"
             }
         },
         "subscription": {
@@ -539,7 +567,7 @@
             "billing_plan-payment_success": "Erfolgreiche Zahlung",
             "billing_plan-payment_dispute": "Streitfall",
             "billing_plan-renew": "Verlängerung",
-            "billing_plan-stop": "Ende",
+            "billing_plan-stop": "Abonnement beendet von",
             "billing_plan-create": "Erstellung",
             "billing_plan-pause": "Pause",
             "list": {
@@ -661,7 +689,9 @@
         },
         "scheduledStop": {
             "unscheduleStop": "Halte den Stop an",
-            "label": "Terminiert"
+            "label": "Terminiert",
+            "stoppedByMember": "Durch das Mitglied beendet",
+            "stoppedByManager": "Beendet von {{ name }}"
         },
         "end": {
             "renew": "Automatische Verlängerung",
@@ -5549,7 +5579,7 @@
                     "cancel": "Abbrechen",
                     "submit": "Speichern"
                 },
-                "title": "Rückerstattung der Credits",
+                "title": "Credits erstatten",
                 "price": {
                     "label": "Gutzuschreibender Betrag"
                 },
@@ -5566,8 +5596,8 @@
                 "error": {
                     "2029": "Der angeforderte Erstattungsbetrag übersteigt den ursprünglichen Kaufbetrag. Bitte versuche es mit einem geringeren Betrag erneut.",
                     "2030": "Es können nicht mehr Credits abgezogen werden, als auf dem Pass vorhanden sind. Bitte probiere es mit einer kleineren Anzahl erneut.",
-                    "2031": "Ein Fehler ist aufgetreten. Bitte versuche es erneut.",
-                    "default": "Ein Fehler ist aufgetreten. Bitte versuche es erneut."
+                    "2031": "Das hat nicht geklappt. Bitte versuche es nochmal.",
+                    "default": "Das hat nicht geklappt. Bitte versuche es nochmal."
                 }
             },
             "addExtension": "Eine Verlängerung hinzufügen",
@@ -6813,9 +6843,10 @@
             "billing_plan_status": {
                 "0": "Noch nicht begonnen",
                 "1": "in Bearbeitung",
-                "2": "Gestoppt",
-                "3": "Gestoppt",
-                "4": "Beendet"
+                "2": "Beendet (Manager)",
+                "3": "Pausiert",
+                "4": "Beendet",
+                "5": "Beendet (Mitglied)"
             },
             "product_type": {
                 "giftcard": "Geschenkgutscheine",
@@ -7658,7 +7689,8 @@
             },
             "create": {
                 "success": "Benachrichtigung erfolgreich erstellt",
-                "error": "Benachrichtigung konnte nicht erstellt werden"
+                "error": "Benachrichtigung konnte nicht erstellt werden",
+                "errorLackRequiredVariables": "Dieses Template konnte leider nicht gespeichert werden"
             }
         },
         "shop": {
@@ -8590,24 +8622,24 @@
         "revert": {
             "content": {
                 "label": {
-                    "0": "Direkte Rückerstattung",
-                    "1": "Rückerstattung von Credits (Restbetrag)",
-                    "2": "Manuelle Rückerstattung"
+                    "0": "Karte oder Überweisung",
+                    "1": "Credits",
+                    "2": "Andere Option"
                 },
                 "explain": {
-                    "0": "Kartenzahlungen / SEPA / etc... werden direkt auf das Konto des Kunden überwiesen. Verwenden Sie diese Methode, um eine direkte Erstattung nach einem Fehler zu machen.",
-                    "1": "Eine Gutschrift wird erstellt und dem Kundenguthaben entsprechend gutgeschrieben. Verwende diese Methode, um eine Gutschrift zu erstellen.",
-                    "2": "Wählen Sie selbst die Erstattungsmethode. Verwenden Sie diese Methode für einen Scheck / eine manuelle Überweisung / eine Rückerstattung in bar."
+                    "0": "Wähle diese Option aus, um den Rechnungsbetrag per Überweisung oder Karte zu erstatten.",
+                    "1": "Wähle diese Option aus, um den Rechnungsbetrag dem Kundenkonto als Gutschrift (Credits) zu erstatten.",
+                    "2": "Wähle diese Option aus, um den Rechnungsbetrag, z. B. bar oder per Scheck zu erstatten."
                 },
                 "explainEmptyPayment": "Möchten Sie diese Rechnung wirklich stornieren?",
-                "revertReason": "Stornierungs-Grund"
+                "revertReason": "Bitte gib einen Grund für die Stornierung an"
             },
             "dialog": {
                 "actions": {
-                    "confirm": "Bestätigen",
-                    "cancel": "Schließen"
+                    "confirm": "Stornieren",
+                    "cancel": "Abbrechen"
                 },
-                "title": "Rechnungsstornierung"
+                "title": "Rechnung stornieren - Wie möchtest du den Rechnungsbetrag erstatten?"
             },
             "warning": {
                 "14100": "Mindestens eine Zahlung dieser Rechnung wurde mit einer Interac-Karte getätigt. Direkte Erstattungen sind für Interac-Karten nicht möglich.",
@@ -13225,7 +13257,7 @@
                     "availability": {
                         "expiresToday": "Läuft heute ab",
                         "expiresIn": "{{ daysRemaining }} Tag noch",
-                        "expiresIn_plural": "Noch {{ daysRemaining }} Tage übrig",
+                        "expiresIn_plural": "{{ daysRemaining }} Tage übrig",
                         "future": "Startdatum: {{ startDate }}",
                         "expired": "Abgelaufen am: {{ expirationDate }}",
                         "active": "Ablaufdatum: {{ expirationDate }}"
@@ -13468,12 +13500,15 @@
                         "autoRenewed": "Automatisch verlängert",
                         "paused": "Derzeit pausiert",
                         "joiningFee": "Aufnahmegebühr",
-                        "futurePauses": "Pause ist von  {{- dateStart }} bis einschließlich {{- dateEnd }} geplant"
+                        "futurePauses": "Pause ist von  {{- dateStart }} bis einschließlich {{- dateEnd }} geplant",
+                        "stopValidDate": "Gültig bis {{- expirationDate }} (ausgenommen)",
+                        "stop": "Abgemeldet"
                     },
                     "buttonsLabel": {
                         "see": "Ansehen",
                         "change": "Ändern",
-                        "add": "Hinzufügen"
+                        "add": "Hinzufügen",
+                        "unsubscribe": "Abmelden"
                     },
                     "termsAccepted": "Akzeptiert am {{- termsDate }}",
                     "terms": "Allgemeine Geschäftsbedingungen",
@@ -13498,7 +13533,34 @@
                     "beforeRenewalContractPriceEvery": "Dann {{ price }} alle {{ recurrence }} {{ interval }} nach  {{- date }}",
                     "beforeRenewalContractPricePer": "Dann {{ price }}/{{ interval }} nach {{- date }}",
                     "loadMore": "Mehr anzeigen",
-                    "drawerTitle": "Abo"
+                    "drawerTitle": "Abo",
+                    "loading": "Wir bearbeiten deine Anfrage...",
+                    "commitmentPeriod": {
+                        "modal": {
+                            "alert": "Vorab gebuchte Kurse im Rahmen eines Abonnements mit unbegrenzten Kursen werden nach diesem Zeitraum storniert und können mit einer Gebühr für verspätete Stornierung belegt werden.",
+                            "failedMessage": "Bitte lade die Seite neu und versuche es noch einmal.",
+                            "failedTitle": "Etwas ist schief gegangen",
+                            "confirmationNotStarted": "Du kannst das Fenster schließen.",
+                            "confirmationStarted": "Du kannst die Vorteile deines Abonnements bis {{- expiration_date }} (ausgenommen) weiterhin nutzen.",
+                            "confirmationTitle": "Du hast dich erfolgreich abgemeldet",
+                            "cancel": "Abonnement behalten",
+                            "explainNoExpirationDate": "Du kündigst dieses Abonnement. Die Vorteile deines Abonnements bleiben bis zum Ende des nächsten Zahlungszyklus gültig.\nSicher, dass du fortfahren möchtest?",
+                            "explainStarted": "Du kündigst dieses Abonnement. Die Vorteile deines Abonnements bleiben bis {{- expiration_date }} (ausgenommen) gültig.\nSicher, dass du fortfahren möchtest?",
+                            "explainNotStarted": "Du bist dabei, ein Abonnement zu kündigen, dass noch nicht begonnen hat.\nDer erste Zahlungszyklus wird dir trotzdem in Rechnung gestellt. Deine Vorteile bleiben bis {{- expiration_date }} (ausgenommen) gültig.\nBist du sicher, dass du fortfahren möchtest?"
+                        },
+                        "explain": {
+                            "year": "Dieses Abonnement hat eine Mindestlaufzeit von {{ commitment_period_value }} Jahr. Bei Kündigungen oder Fragen wende dich bitte direkt an das Studio.",
+                            "year_plural": "Dieses Abonnement hat eine Mindestlaufzeit von {{ commitment_period_value }} Jahren. Bei Kündigungen oder Fragen wende dich bitte direkt an das Studio.",
+                            "month": "Dieses Abonnement hat eine Mindestlaufzeit von {{ commitment_period_value }} Monat. Bei Kündigungen oder Fragen wende dich bitte direkt an das Studio.",
+                            "month_plural": "Dieses Abonnement hat eine Mindestlaufzeit von {{ commitment_period_value }} Monaten. Bei Kündigungen oder Fragen wende dich bitte direkt an das Studio.",
+                            "week": "Dieses Abonnement hat eine Mindestlaufzeit von {{ commitment_period_value }} Woche. Bei Kündigungen oder Fragen wende dich bitte direkt an das Studio.",
+                            "week_plural": "Dieses Abonnement hat eine Mindestlaufzeit von {{ commitment_period_value }} Wochen. Bei Kündigungen oder Fragen wende dich bitte direkt an das Studio.",
+                            "day": "Dieses Abonnement hat eine Mindestlaufzeit von {{ commitment_period_value }} Tag. Bei Kündigungen oder Fragen wende dich bitte direkt an das Studio.",
+                            "day_plural": "Dieses Abonnement hat eine Mindestlaufzeit von {{ commitment_period_value }} Tagen. Bei Kündigungen oder Fragen wende dich bitte direkt an das Studio."
+                        },
+                        "subtitle": "Dieses Abonnement endet ohne weitere Zahlungen nach dem aktuellen Zyklus.",
+                        "title": "Abonnements verwalten"
+                    }
                 },
                 "consumerSubscriptionCard": {
                     "buttonsLabel": {
@@ -13526,8 +13588,8 @@
                 },
                 "title": "Meine Abos",
                 "dateLabel": {
-                    "until": " bis {{- date }}",
-                    "expired": "Abgelaufen seit: {{- date }}",
+                    "until": " bis {{- date }} (ausgenommen)",
+                    "expired": "Abgelaufen seit: {{- date }} (ausgenommen)",
                     "future": "Startdatum: {{- date }}",
                     "active": "Läuft seit: {{- date }}"
                 },
@@ -13656,7 +13718,16 @@
                     "emailAllowed": "E-Mail-Benachrichtigungen erlaubt",
                     "phoneNotAllowed": "Telefonische Benachrichtigungen nicht erlaubt",
                     "phoneAllowed": "Telefonische Benachrichtigungen erlaubt",
-                    "title": "Benachrichtigungen"
+                    "title": "Benachrichtigungen",
+                    "portal": {
+                        "subtitle": "Wähle, wie du Updates von jedem deiner Standorte erhältst",
+                        "title": "Einstellungen zur Werbekommunikation"
+                    },
+                    "updatePreferencesButton": "Einstellungen speichern",
+                    "updatePreferencesLoading": "Speichern",
+                    "receiveSmsUpdates": "Erhalte SMS Updates",
+                    "receiveEmailUpdates": "Erhalte Email Updates",
+                    "manageYourFranchiseMarketingPrefencesLabel": "Bearbeite deine Marketingeinstellungen"
                 },
                 "address": "Adresse",
                 "emergencyNumber": "Notfallnummer",
@@ -15963,6 +16034,16 @@
                 "next": "Weiter",
                 "content": "bsport ist ein Zusammenschluss von Enthusiasten, deren Ziel es ist, deine IT-Tools zu vereinfachen und dir ein besseres Verständnis Ihrer Community zu ermöglichen.",
                 "title": "Herzlich Willkommen!"
+            },
+            "confirmation": {
+                "disconnect": "Trennen",
+                "content": {
+                    "help": "Beziehe dich auf die interne Dokumentation für detaillierte Anweisungen zu jedem Schritt.",
+                    "emailValidation": "Email-Validierung: Führe die administrative Maßnahme zur Bestätigung der Email-Adresse durch.",
+                    "upsell": "Upsells: Füge alle entsprechenden Upsells zur Plattform hinzu.",
+                    "billing": "Plattform-Abrechnung: Erstelle das Abrechnungs-Setup für das neue Backoffice.",
+                    "core": "Die neue Backoffice-Plattform wurde erfolgreich erstellt.\nBevor die Zugangsdaten an den Kunden gesendet werden, stelle bitte sicher, dass die folgenden Validierungsschritte gemäß der internen Dokumentation abgeschlossen sind:"
+                }
             }
         },
         "emailValidation": {
@@ -16344,6 +16425,71 @@
                 "appointmentPasses": "Terminpässe",
                 "passes": "Kurspässe",
                 "all": "Alle"
+            },
+            "to": "nach/zu",
+            "addToCart": "Zum Einkaufswagen hinzufügen",
+            "close": "Schließen",
+            "detail": {
+                "restriction": {
+                    "monthly": "Kann nur {{ amount }} Mal pro Monat genutzt werden.",
+                    "monthly_plural": "Kann nur {{ amount }} Mal pro Monat genutzt werden.",
+                    "weekly": "Kann nur {{ amount }} Mal pro Woche genutzt werden.",
+                    "weekly_plural": "Kann nur {{ amount }} Mal pro Woche genutzt werden.",
+                    "daily": "Kann nur {{ amount }} Mal pro Tag genutzt werden.",
+                    "daily_plural": "Kann nur {{ amount }} Mal pro Tag genutzt werden.",
+                    "title": "Nutzungsbeschränkungen"
+                },
+                "compatibility": {
+                    "labels": {
+                        "room": "Räume",
+                        "activity": "Aktivitäten",
+                        "category": "Kategorien"
+                    },
+                    "contents": {
+                        "sessions": "Kompatible Termine: {{ sessionsList }}",
+                        "allSessions": "Kompatibel mit allen Kursen",
+                        "noAppointments": "Keine kompatiblen Termine",
+                        "bookingForGuest": "Kann für die <strong>Einladung eines Gastes</strong> genutzt werden",
+                        "vod": "Kann für die <strong>Mediathek</strong> genutzt werden",
+                        "allTimeSlots": "Kompatibel mit allen Zeiten",
+                        "allCategories": "Kompatibel mit allen Kategorien des Studios",
+                        "allRooms": "Kompatibel mit allen Räumen des Studios",
+                        "allActivities": "Kompatibel mit allen Aktivitäten des Studios"
+                    },
+                    "subtitles": {
+                        "sessions": "Kompatible Kurse",
+                        "timeSlots": "Kompatible Zeiten",
+                        "activity": "Kompatible Aktivitäten"
+                    },
+                    "titles": {
+                        "main": "Kompatibilität",
+                        "appointment": "Kompatibilität mit Terminen",
+                        "activity": "Kompatibilität mit Aktivitäten",
+                        "studios": "Kompatible Studios"
+                    }
+                },
+                "description": {
+                    "showLess": "Weniger anzeigen",
+                    "showMore": "Mehr anzeigen"
+                },
+                "availability": {
+                    "validUntil": "Gültig bis {{ expirationDate }}",
+                    "future": "Beginnt am {{ startDate }}",
+                    "expired": "Abgelaufen am {{ expirationDate }}",
+                    "suspendedUntil": "Ausgesetzt bis {{ endDate }}",
+                    "suspended": "Ausgesetzt",
+                    "active": "Gültig von {{ startDate }} bis {{ expirationDate }}"
+                },
+                "header": {
+                    "onsitePaymentAvailable": "Zahlung vor Ort verfügbar",
+                    "fullVodAccess": "Kompatibel mit der Mediathek",
+                    "onlyVodAccess": "Nur für die Mediathek verfügbar",
+                    "isUniversalPass": "Universeller Kurspass",
+                    "newMemberOnly": "Nur für neue Mitglieder",
+                    "unlimited": "Unbegrenzt",
+                    "credits": "{{count}} Credit",
+                    "credits_plural": "{{count}} Credits"
+                }
             }
         }
     },

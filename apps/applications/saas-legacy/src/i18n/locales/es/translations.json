@@ -1857,6 +1857,16 @@
                 "next": "Continuar",
                 "content": "bsport reúne a una comunidad de entusiastas cuyo objetivo es simplificar tus herramientas informáticas y permitirle comprender mejor a tu comunidad.",
                 "title": "¡Bienvenido!"
+            },
+            "confirmation": {
+                "disconnect": "Desconectar",
+                "content": {
+                    "help": "Consulte la documentación interna para obtener instrucciones detalladas sobre cada paso.",
+                    "emailValidation": "Validación de email: Realiza la acción administrativa para validar la dirección de correo electrónico del cliente.",
+                    "upsell": "Funcionalidades adicionales: Añade cualquier producto adicional a la plataforma.",
+                    "billing": "Plataforma de facturación: Cree la configuración de facturación para el nuevo backoffice.",
+                    "core": "La nueva plataforma de backoffice se ha creado correctamente. Sin embargo, antes de enviar las credenciales de acceso del cliente, asegúrese de completar los siguientes pasos de validación de la documentación interna:"
+                }
             }
         },
         "country": {
@@ -2239,7 +2249,7 @@
                     "hasRelatedMarketplaceComponentConfigs": "Las pestañas de calendario y taller configuradas para su mercado ya no mostrarán este calendario de ubicación.",
                     "hasRelatedMarketingNotifications": "Las notificaciones vinculadas a esta ubicación se eliminarán.",
                     "exclusiveAssociatedCoaches": "Su profesor {{- coach_name }} sólo recibe una notificación cuando se realiza una solicitud de sustitución para una sesión en esta ubicación. Por lo tanto, al eliminar la ubicación, recibirán solicitudes de sustitución de todas las ubicaciones.",
-                    "exclusiveAssociatedCoaches_plural": "Sus profesores {{- coach_name }} sólo reciben una notificación cuando se realiza una solicitud de sustitución para una sesión en esta ubicación. Por lo tanto, al eliminar la ubicación, recibirán solicitudes de sustitución de todas las ubicaciones.",
+                    "exclusiveAssociatedCoaches_plural": "Sus profesores {{- coach_name }} sólo reciben una notificación cuando se realiza una solicitud de sustitución para una sesión en esta ubicación. Al eliminar la ubicación, recibirán las solicitudes de sustitución de todas las ubicaciones.",
                     "hasRelatedAssociatedCoaches": "Algunos profesores reciben una notificación cuando se realiza una solicitud de sustitución para una sesión en esta ubicación. Al eliminar la ubicación, dejarán de recibir la notificación correspondiente.",
                     "hasRelatedStaffConfigurations": "Esta ubicación se utiliza para la supervisión de accesos por uno o varios miembros del personal. Al eliminar la ubicación sin seleccionar una nueva, ya no podrán realizar la supervisión de accesos."
                 },
@@ -2260,7 +2270,7 @@
                 "hasRelatedZoomEstablishment": "Este establecimiento se eliminará de la lista de establecimientos utilizados para la retransmisión en directo con la integración de Zoom.",
                 "hasRelatedAvailabilitySlots": "Se borrarán las franjas horarias disponibles de este establecimiento.",
                 "relatedPaymentPacks": "El siguiente pase {{- pass_name }} ya no será utilizable para este establecimiento, asegúrese de informar a sus clientes al respecto.",
-                "relatedPaymentPacks_plural": "Los siguientes pases {{- pass_name }} ya no serán utilizables para este establecimiento, asegúrese de informar a sus clientes al respecto.",
+                "relatedPaymentPacks_plural": "Los siguientes pases {{- pass_name }} ya no serán utilizables para este establecimiento, asegúrese de informar a sus clientes al respecto",
                 "hasRelatedAssociatedCoaches": "Algunos profesores reciben una notificación cuando se solicita una sustitución para una sesión en este establecimiento. Al eliminar el establecimiento, dejarán de recibir la notificación correspondiente.",
                 "exclusiveAssociatedCoaches": "Su profesor {{- coach_name }} sólo recibe una notificación cuando se realiza una solicitud de sustitución para una sesión en este establecimiento. Por lo tanto, al eliminar el establecimiento, recibirán solicitudes de sustitución de todos los establecimientos.",
                 "exclusiveAssociatedCoaches_plural": "Sus profesores {{- coach_name }} sólo reciben una notificación cuando se realiza una solicitud de sustitución para una sesión en este establecimiento. Al eliminar el establecimiento, recibirán por tanto solicitudes de sustitución de todos los establecimientos.",
@@ -4434,7 +4444,22 @@
                     "secondLabel": "Número de facturas *",
                     "firstLabel": "Cambiar la facturación de la suscripción para los próximos ciclos"
                 },
-                "notEditable": "Este contrato procede de una migración de datos realizada con anterioridad. Algunos campos pueden no ser editables para preservar los datos."
+                "notEditable": "Este contrato procede de una migración de datos realizada con anterioridad. Algunos campos pueden no ser editables para preservar los datos.",
+                "commitmentPeriod": {
+                    "explain": {
+                        "year": "Esta suscripción comprometerá al miembro durante {{ commitment_period_value }} año. Los cambios en el periodo de compromiso de la suscripción en la configuración no afectarán a las suscripciones que ya se hayan adquirido.",
+                        "year_plural": "Esta suscripción comprometerá al miembro durante {{ commitment_period_value }} años. Los cambios en el periodo de compromiso de la suscripción en la configuración no afectarán a las suscripciones que ya se hayan adquirido.",
+                        "month": "Esta suscripción comprometerá al miembro durante {{ commitment_period_value }} mes. Los cambios en el periodo de compromiso de la suscripción en la configuración no afectarán a las suscripciones que ya se hayan adquirido.",
+                        "month_plural": "Esta suscripción comprometerá al miembro durante {{ commitment_period_value }} meses. Los cambios en el periodo de compromiso de la suscripción en la configuración no afectarán a las suscripciones que ya se hayan adquirido.",
+                        "week": "Esta suscripción comprometerá al miembro durante {{ commitment_period_value }} semana. Los cambios en el periodo de compromiso de la suscripción en la configuración no afectarán a las suscripciones que ya se hayan adquirido.",
+                        "week_plural": "Esta suscripción comprometerá al miembro durante {{ commitment_period_value }} semanas. Los cambios en el periodo de compromiso de la suscripción en la configuración no afectarán a las suscripciones que ya se hayan adquirido.",
+                        "day": "Esta suscripción comprometerá al miembro durante {{ commitment_period_value }} día. Los cambios en el periodo de compromiso de la suscripción en la configuración no afectarán a las suscripciones que ya se hayan adquirido.",
+                        "day_plural": "Esta suscripción comprometerá al miembro durante {{ commitment_period_value }} días. Los cambios en el periodo de compromiso de la suscripción en la configuración no afectarán a las suscripciones que ya se hayan adquirido."
+                    },
+                    "error": "El periodo de compromiso no puede superar los 90 años.",
+                    "helperText": "No olvide comprobar la legislación de su país sobre el derecho de desistimiento en caso de suscripción y añada la información necesaria en sus condiciones generales.",
+                    "label": "Período de compromiso"
+                }
             },
             "list": {
                 "register": "Suscribir un miembro",
@@ -4559,6 +4584,19 @@
                 "week_plural": "cada {{count}} semanas",
                 "day": "al día",
                 "day_plural": "cada {{count}} días"
+            },
+            "commitmentPeriod": {
+                "explain": {
+                    "year": "Esta suscripción comprometerá al afiliado durante {{ commitment_period_value }} año.",
+                    "year_plural": "Esta suscripción comprometerá al afiliado durante {{ commitment_period_value }} años.",
+                    "month": "Esta suscripción comprometerá al afiliado durante {{ commitment_period_value }} mes.",
+                    "month_plural": "Esta suscripción comprometerá al afiliado durante {{ commitment_period_value }} meses.",
+                    "week": "Esta suscripción comprometerá al miembro durante {{ commitment_period_value }} semana.",
+                    "week_plural": "Esta suscripción comprometerá al miembro durante {{ commitment_period_value }} semanas.",
+                    "day": "Esta suscripción comprometerá al miembro durante {{ commitment_period_value }} día.",
+                    "day_plural": "Esta suscripción comprometerá al miembro durante {{ commitment_period_value }} días."
+                },
+                "label": "Período de compromiso"
             }
         },
         "plannedInvoice": {
@@ -4749,7 +4787,7 @@
             "billing_plan-payment_success": "Pago exitoso",
             "billing_plan-payment_dispute": "Litigio",
             "billing_plan-renew": "Renovación",
-            "billing_plan-stop": "Paro",
+            "billing_plan-stop": "Pagos suspendidos",
             "billing_plan-create": "Creación",
             "billing_plan-pause": "Pausa",
             "list": {
@@ -4780,7 +4818,9 @@
         },
         "scheduledStop": {
             "unscheduleStop": "Desprogramar la parada",
-            "label": "Parada programada"
+            "label": "Parada programada",
+            "stoppedByMember": "Dado de baja por el miembro",
+            "stoppedByManager": "Finalizado por {{ name }}"
         },
         "end": {
             "renew": "Auto-renovación",
@@ -5864,9 +5904,10 @@
             "billing_plan_status": {
                 "0": "Aún no se ha iniciado",
                 "1": "En curso",
-                "2": "Detenido",
-                "3": "En pausa",
-                "4": "Terminado"
+                "2": "Detenida",
+                "3": "Detenida",
+                "4": "Terminado",
+                "5": "Cancelada (Miembro)"
             },
             "product_type": {
                 "giftcard": "Tarjetas de regalo",
@@ -7981,7 +8022,72 @@
                 "appointmentPasses": "Pases de citas",
                 "passes": "Pases",
                 "all": "Todos"
-            }
+            },
+            "detail": {
+                "compatibility": {
+                    "contents": {
+                        "sessions": "Sesiones compatibles: {{ sessionsList }}",
+                        "allSessions": "Compatible con todas las sesiones",
+                        "noAppointments": "No hay citas compatibles",
+                        "bookingForGuest": "Puede utilizarse para <strong>Invitar a un invitado</strong>.",
+                        "vod": "Puede utilizarse para <strong>Vídeos a la carta</strong>",
+                        "allTimeSlots": "Compatible con todas las franjas horarias",
+                        "allCategories": "Compatible con todas las categorías del estudio",
+                        "allRooms": "Compatible con todas las salas del estudio",
+                        "allActivities": "Compatible con todas las actividades del estudio"
+                    },
+                    "labels": {
+                        "room": "Salas",
+                        "activity": "Actividades",
+                        "category": "Categorías"
+                    },
+                    "subtitles": {
+                        "sessions": "Sesiones compatibles",
+                        "timeSlots": "Franjas horarias compatibles",
+                        "activity": "Actividades compatibles"
+                    },
+                    "titles": {
+                        "main": "Compatibilidad",
+                        "appointment": "Compatibilidad de citas",
+                        "activity": "Compatibilidad de actividades",
+                        "studios": "Estudios compatibles"
+                    }
+                },
+                "restriction": {
+                    "monthly": "Sólo puede utilizarse {{ cantidad }} vez al mes.",
+                    "monthly_plural": "Sólo puede utilizarse {{ cantidad }} veces al mes.",
+                    "weekly": "Sólo puede utilizarse {{ cantidad }} vez por semana.",
+                    "weekly_plural": "Sólo puede utilizarse {{ cantidad }} veces por semana.",
+                    "daily": "Sólo puede utilizarse {{ cantidad }} vez al día.",
+                    "daily_plural": "Sólo puede utilizarse {{ cantidad }} veces al día.",
+                    "title": "Restricciones de uso"
+                },
+                "description": {
+                    "showLess": "Mostrar menos",
+                    "showMore": "Ver más"
+                },
+                "availability": {
+                    "validUntil": "Válido hasta {{ expirationDate }}",
+                    "future": "Comienza el {{ startDate }}",
+                    "expired": "Expiró el {{ expirationDate }}",
+                    "suspendedUntil": "Suspendido hasta {{ endDate }}",
+                    "suspended": "Suspendido",
+                    "active": "Válido de {{ startDate }} a {{ expirationDate }}"
+                },
+                "header": {
+                    "onsitePaymentAvailable": "o presencial disponible",
+                    "fullVodAccess": "Compatible con VOD",
+                    "onlyVodAccess": "Disponible sólo para VOD",
+                    "isUniversalPass": "Pase universal",
+                    "newMemberOnly": "Sólo para nuevos miembros",
+                    "unlimited": "Ilimitado",
+                    "credits": "{{count}} crédito",
+                    "credits_plural": "{{count}} créditos"
+                }
+            },
+            "to": "a",
+            "addToCart": "Añadir a la cesta",
+            "close": "Cerrar"
         }
     },
     "notificationRule": {
@@ -8915,12 +9021,15 @@
                         "autoRenewed": "Renovación automática",
                         "paused": "Actualmente en pausa",
                         "joiningFee": "Tasa de inscripción: {{- fees }}",
-                        "futurePauses": "Se programa una pausa desde {{- dateStart }} hasta {{- dateEnd }}. (incluido)"
+                        "futurePauses": "Se programa una pausa desde {{- dateStart }} hasta {{- dateEnd }}. (incluido)",
+                        "stopValidDate": "Válido hasta {{- expirationDate }} (excluido)",
+                        "stop": "Dado/a de baja"
                     },
                     "buttonsLabel": {
                         "see": "Ver",
                         "change": "Cambiar",
-                        "add": "Añadir"
+                        "add": "Añadir",
+                        "unsubscribe": "Cancelar suscripción"
                     },
                     "termsAccepted": "Aceptado el {{- termsDate }}",
                     "terms": "Términos legales",
@@ -8945,7 +9054,34 @@
                     "beforeRenewalContractPriceEvery": "Entonces {{ price }} cada {{ recurrence }} {{ interval }} después de {{- date }}",
                     "beforeRenewalContractPricePer": "Entonces {{ price }}/{ interval }} después de {{- date }}",
                     "loadMore": "Cargar más",
-                    "drawerTitle": "Suscripción"
+                    "drawerTitle": "Suscripción",
+                    "loading": "Estamos procesando su solicitud...",
+                    "commitmentPeriod": {
+                        "modal": {
+                            "alert": "Las sesiones reservadas con antelación en el marco de una suscripción con clases ilimitadas se cancelarán después de este periodo y podrán estar sujetas a una tasa por cancelación tardía.",
+                            "failedMessage": "Por favor, refresque su página e inténtelo de nuevo.",
+                            "failedTitle": "Algo salió mal",
+                            "confirmationNotStarted": "Puede cerrar la ventana.",
+                            "confirmationStarted": "Puede seguir disfrutando de las ventajas de la suscripción hasta {{- expiration_date }} (excluida).",
+                            "confirmationTitle": "Te has dado de baja con éxito",
+                            "cancel": "Mantener suscripción",
+                            "explainNoExpirationDate": "Está a punto de cancelar esta suscripción. Los beneficios de su suscripción seguirán siendo válidos hasta el final del siguiente ciclo de facturación.\n¿Está seguro de que desea continuar?",
+                            "explainStarted": "Está a punto de cancelar esta suscripción. Los beneficios de su suscripción seguirán siendo válidos hasta {{- expiration_date }}. (excluida).\n¿Está seguro de que desea continuar?",
+                            "explainNotStarted": "Está a punto de cancelar una suscripción que no ha comenzado. \nSe te seguirá cobrando el primer ciclo de facturación, y tus ventajas seguirán siendo válidas hasta {{- expiration_date }} (excluida).\n¿Está seguro de que desea continuar?"
+                        },
+                        "explain": {
+                            "year": "Esta suscripción tiene un periodo de compromiso de {{ commitment_period_value }} año, para cancelaciones o preguntas, ponte en contacto directamente con el estudio.",
+                            "year_plural": "Esta suscripción tiene un periodo de compromiso de {{ commitment_period_value }} años, para cancelaciones o preguntas, ponte en contacto directamente con el estudio.",
+                            "month": "Esta suscripción tiene un periodo de compromiso de {{ commitment_period_value }} mes, para cancelaciones o preguntas, ponte en contacto directamente con el estudio.",
+                            "month_plural": "Esta suscripción tiene un periodo de compromiso de {{ commitment_period_value }} meses, para cancelaciones o preguntas, ponte en contacto directamente con el estudio.",
+                            "week": "Esta suscripción tiene un periodo de compromiso de {{ commitment_period_value }} semana, para cancelaciones o preguntas, ponte en contacto directamente con el estudio.",
+                            "week_plural": "Esta suscripción tiene un periodo de compromiso de {{ commitment_period_value }} semanas, para cancelaciones o preguntas, ponte en contacto directamente con el estudio.",
+                            "day": "Esta suscripción tiene un periodo de compromiso de {{ commitment_period_value }} días, para cancelaciones o preguntas, ponte en contacto directamente con el estudio.",
+                            "day_plural": "Esta suscripción tiene un periodo de compromiso de {{ commitment_period_value }} días, para cancelaciones o preguntas, ponte en contacto directamente con el estudio."
+                        },
+                        "subtitle": "Esta suscripción está terminando y no habrá más pagos después del ciclo actual.",
+                        "title": "Gestionar la suscripción"
+                    }
                 },
                 "consumerSubscriptionCard": {
                     "buttonsLabel": {
@@ -8973,8 +9109,8 @@
                 },
                 "title": "Mis suscripciones",
                 "dateLabel": {
-                    "until": " hasta {{- date }}",
-                    "expired": "Caducado desde {{- date }}",
+                    "until": " hasta {{- date }} (excluido)",
+                    "expired": "Caducado desde {{- date }} (excluido)",
                     "future": "Inicia en {{- date }}",
                     "active": "Iniciada el {{- date }}"
                 },
@@ -9103,7 +9239,16 @@
                     "emailAllowed": "Notificaciones por correo electrónico permitidas",
                     "phoneNotAllowed": "Notificaciones telefónicas no permitidas",
                     "phoneAllowed": "Notificaciones telefónicas permitidas",
-                    "title": "Notificaciones"
+                    "title": "Notificaciones",
+                    "portal": {
+                        "subtitle": "Elige cómo quieres recibir las actualizaciones de cada una de tus ubicaciones",
+                        "title": "Preferencias de comunicaciones de marketing"
+                    },
+                    "updatePreferencesButton": "Guardar preferencias",
+                    "updatePreferencesLoading": "Guardando",
+                    "receiveSmsUpdates": "Recibir actualizaciones por SMS",
+                    "receiveEmailUpdates": "Recibir actualizaciones por correo electrónico",
+                    "manageYourFranchiseMarketingPrefencesLabel": "Gestione sus preferencias de marketing"
                 },
                 "address": "Dirección",
                 "emergencyNumber": "Número de emergencia",
@@ -14548,7 +14693,8 @@
             },
             "create": {
                 "success": "Notificación creada correctamente",
-                "error": "No se ha podido crear la notificación"
+                "error": "No se ha podido crear la notificación",
+                "errorLackRequiredVariables": "No se ha podido guardar esta plantilla"
             }
         },
         "activity": {

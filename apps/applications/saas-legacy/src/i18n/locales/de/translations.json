@@ -5562,7 +5562,7 @@
             "success": "Kurspass gelöscht"
         },
         "credit": {
-            "updated": "Die Credits sind aktualisiert"
+            "updated": "Deine Änderungen wurden gespeichert"
         },
         "credits": "Credit",
         "credits_plural": "Credits",
@@ -5570,28 +5570,28 @@
             "refund": {
                 "description": "{{ credits }} Credit - {{ note }}",
                 "description_plural": "{{ credits }} Credits - {{ note }}",
-                "explain": "Wähle die Anzahl der zu erstattenden Credits und den Gesamtwert, der der Anzahlung des Mitglieds gutgeschrieben wird",
+                "explain": "Wähle die Anzahl der Credits, die du einziehen möchtest (kann 0 sein), und den Betrag, den du als Guthaben erstatten möchtest.",
                 "note": {
-                    "label": "Anmerkung"
+                    "label": "Bitte schreib dem Mitglied eine Info dazu."
                 },
                 "warning": "Vorsicht ! Diese Aktion ist unwiderruflich (Erstellung einer Rechnung).",
                 "actions": {
                     "cancel": "Abbrechen",
                     "submit": "Speichern"
                 },
-                "title": "Credits erstatten",
+                "title": "Guthaben erstatten",
                 "price": {
-                    "label": "Gutzuschreibender Betrag"
+                    "label": "Betrag, den du gutschreiben möchtest"
                 },
                 "credits": {
-                    "label": "Abzuziehender Kredit",
+                    "label": "Credits, die du abziehen möchtest",
                     "decimalCredit": {
                         "helperText": "{{count}} Credit wird abgezogen",
                         "helperText_plural": "{{count}} Credits werden abgezogen"
                     }
                 },
-                "warningSecond": "Wenn Du den Kunden per Banküberweisung mit dem verwendeten Zahlungsmittel entschädigen möchtest, storniere die Rechnung und erstatten keine Guthaben-Rückerstattung!",
-                "warningFirst": "Achtung! Dieser Vorgang ist unwiderruflich (Erstellung einer Rechnung).",
+                "warningSecond": "Möchtest du den Betrag über die ursprüngliche Zahlungsmethode erstatten? Storniere bitte die Rechnung statt hier den Betrag als Guthaben zu erstatten.",
+                "warningFirst": "Wichtiger Hinweis: Wenn du diese Änderungen speicherst, dann kannst du sie nicht mehr ändern und eine Rechnung wird erstellt.",
                 "blockUnlimited": "Blockiere die Karte",
                 "error": {
                     "2029": "Der angeforderte Erstattungsbetrag übersteigt den ursprünglichen Kaufbetrag. Bitte versuche es mit einem geringeren Betrag erneut.",
@@ -17755,8 +17755,8 @@
         },
         "deleteObject": {
             "title": {
-                "error": "Die Einrichtung kann aus den folgenden Gründen nicht gelöscht werden:",
-                "warning": "Diese Einrichtung zu löschen hat folgende Konsequenzen:"
+                "error": "Du kannst diese Einrichtung aus den folgenden Gründen nicht löschen:",
+                "warning": "Wenn du diese Einrichtung löschst, passiert Folgendes:"
             },
             "warnings": {
                 "exclusiveAssociatedCoaches": "Die Lehrkraft {{- coach_name }} wird nur benachrichtigt, wenn eine Vertretungsanfrage für eine Sitzung in dieser Einrichtung erfolgt. Wenn die Einrichtung gelöscht wird, erhält diese Lehrkraft daher Vertretungsanfragen von jeder Einrichtung.",
@@ -17778,7 +17778,7 @@
                 "hasRelatedMarketingNotifications": "Meldungen, die sich auf diese Einrichtung beziehen, werden gelöscht."
             },
             "errors": {
-                "hasUpcomingOffers": "Einige anstehende Kurse finden in dieser Einrichtung statt. Bitte storniere und lösche diese, bevor diese Einrichtung gelöscht wird.",
+                "hasUpcomingOffers": "Es finden noch Kurse in dieser Einrichtung statt. Bitte storniere und lösche erst die anstehenden Kurse, bevor du die Einrichtung löschst.",
                 "hasUpcomingPrivateBookings": "Einige anstehende Termine finden in dieser Einrichtung statt. Bitte storniere und lösche diese, bevor diese Einrichtung gelöscht wird.",
                 "hasExclusiveBillingGroup": "Diese Einrichtung ist die Letzte in der Abrechnungsgruppe. Bitte lösche oder aktualisiere diese Abrechnungsgruppe, bevor diese Einrichtung gelöscht wird.",
                 "exclusivePaymentPacks_plural": "Die folgenden Pässe {{- pass_name }} sind nur in dieser Einrichtung verwendbar. Bitte aktualisiere deren Einschränkungen, bevor die Einrichtung gelöscht wird.",
@@ -17791,7 +17791,7 @@
             "infos": {
                 "reportsDefault": "Die Einrichtung wird nicht aus früheren Berichten gelöscht.",
                 "offersDefault": "Bestehende Sitzungen, Workshops und frühere Buchungen werden nicht geändert.",
-                "widgetsDefault": "Kalender- und Workshop-Widgets könnten mit dieser Einrichtung konfiguriert worden sein; vergesse nicht, diese zu aktualisieren.",
+                "widgetsDefault": "Eventuell sind Kalender- und Workshop-Widgets mit dieser Einrichtung verbunden und müssten aktualisiert werden.",
                 "privateBookingsDefault": "Vergangene Terminsitzungen werden nicht geändert."
             }
         },

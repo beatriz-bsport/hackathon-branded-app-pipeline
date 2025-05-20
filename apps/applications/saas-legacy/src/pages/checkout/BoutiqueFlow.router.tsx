@@ -139,7 +139,7 @@ export const NewBookingFlowRouter: React.FC<Props> = ({
             path: '/booker-module-s/:companyId/:offerId',
             redirectTo:
               theme.one_click_checkout_enabled &&
-              theme.requires_email_confirmation_when_signing_up
+              !theme.requires_email_confirmation_when_signing_up
                 ? ({ params }) =>
                     getOneClickBookingUrl(
                       Number(params.companyId),

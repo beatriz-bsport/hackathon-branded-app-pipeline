@@ -1,0 +1,96 @@
+import { type ApiConfig, buildUrlParams } from "@bsport/store-base";
+
+import type {
+  CompanyTemplateFilters,
+  CreateEmailTemplateCategoryPayload,
+  DeleteEmailTemplateItem,
+  EditEmailTemplatePayload,
+  FetchEmailTemplateCategoriesParams,
+  FetchEmailTemplateSummaryParams,
+  SearchEmailTemplateParams,
+  UpdateEmailTemplateCategoryPayload,
+} from "./types";
+
+const API_URL = "customer-data-platform/v1/email_design";
+
+// ----- Email Templates Summary API -----
+
+export const fetchEmailTemplatesAPI = (
+  params: FetchEmailTemplateSummaryParams,
+): ApiConfig => {
+  return [`${API_URL}/summary_paginated/${buildUrlParams(params)}`];
+};
+
+export const fetchAllEmailTemplatesAPI = (
+  params: CompanyTemplateFilters,
+): ApiConfig => {
+  return [`${API_URL}/summary/${buildUrlParams(params)}`];
+};
+
+export const searchEmailTemplatesAPI = (
+  params: SearchEmailTemplateParams,
+): ApiConfig => {
+  const { queryString, ...otherParams } = params;
+  return [
+    `${API_URL}/search/${buildUrlParams({ ...otherParams, q: queryString ?? "" })}`,
+  ];
+};
+
+// ----- Email Templates Category API -----
+
+export const fetchEmailTemplateCategoriesAPI = (
+  params: FetchEmailTemplateCategoriesParams,
+): ApiConfig => {
+  return [`${API_URL}/email_design_category/${buildUrlParams(params)}`];
+};
+
+export const createEmailTemplateCategoryAPI = (
+  payload: CreateEmailTemplateCategoryPayload,
+): ApiConfig => {
+  return [
+    `${API_URL}/email_design_category/`,
+    { method: "POST", body: JSON.stringify(payload) },
+  ];
+};
+
+export const updateEmailTemplateCategoryAPI = (
+  payload: UpdateEmailTemplateCategoryPayload,
+): ApiConfig => {
+  return [
+    `${API_URL}/email_design_category/${payload.id}/`,
+    { method: "PUT", body: JSON.stringify(payload) },
+  ];
+};
+
+export const deleteEmailTemplateCategoryAPI = (
+  params: DeleteEmailTemplateItem,
+): ApiConfig => {
+  return [
+    `${API_URL}/email_design_category/${params.id}`,
+    { method: "DELETE" },
+  ];
+};
+
+// ----- Email Templates Detail API -----
+
+export const fetchEmailTemplateDetailAPI = (id: number): ApiConfig => {
+  return [`${API_URL}/${id}`];
+};
+
+export const createEmailTemplateAPI = (
+  payload: EditEmailTemplatePayload,
+): ApiConfig => {
+  return [`${API_URL}/`, { method: "POST", body: JSON.stringify(payload) }];
+};
+
+export const editEmailTemplateAPI = (
+  params: EditEmailTemplatePayload,
+): ApiConfig => {
+  return [`${API_URL}`, { method: "PUT", body: JSON.stringify(params) }];
+};
+
+export const deleteEmailTemplateAPI = (
+  params: DeleteEmailTemplateItem,
+): ApiConfig => {
+  return [`${API_URL}/${params.id}`, { method: "DELETE" }];
+};

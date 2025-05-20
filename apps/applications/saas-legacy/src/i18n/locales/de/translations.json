@@ -7689,7 +7689,8 @@
             },
             "create": {
                 "success": "Benachrichtigung erfolgreich erstellt",
-                "error": "Benachrichtigung konnte nicht erstellt werden"
+                "error": "Benachrichtigung konnte nicht erstellt werden",
+                "errorLackRequiredVariables": "Dieses Template konnte leider nicht gespeichert werden"
             }
         },
         "shop": {

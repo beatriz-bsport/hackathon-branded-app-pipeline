@@ -14693,7 +14693,8 @@
             },
             "create": {
                 "success": "Notificación creada correctamente",
-                "error": "No se ha podido crear la notificación"
+                "error": "No se ha podido crear la notificación",
+                "errorLackRequiredVariables": "No se ha podido guardar esta plantilla"
             }
         },
         "activity": {

@@ -1,12 +1,12 @@
 import { lazy } from "react";
 import { Route, Routes } from "react-router";
 
-const ListPage = lazy(() => import("#src/pages/ListPage"));
+const PackListPage = lazy(() => import("#src/pages/PackListPage"));
 
 export const AppRoutes = () => {
   return (
     <Routes>
-      <Route element={<ListPage />} path="/" />
+      <Route element={<PackListPage />} path="/" />
     </Routes>
   );
 };

@@ -568,10 +568,7 @@
       }
     }
   },
-  "@bsport/sm-pack": {
-    "namespaceAlpha": { "helloName": "Hello {{ name }} !" },
-    "namespaceBeta": {}
-  },
+  "@bsport/sm-pack": { "list": { "title": "Packs", "actions": { "addAPack": "Add a pack" } } },
   "@bsport/sm-smartlists": {
     "list": {
       "title": "Smartlists",

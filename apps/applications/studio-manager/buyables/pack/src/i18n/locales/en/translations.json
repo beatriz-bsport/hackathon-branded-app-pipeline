@@ -1,6 +1,8 @@
 {
-    "namespaceAlpha": {
-        "helloName": "Hello {{ name }} !"
-    },
-    "namespaceBeta": {}
+    "list": {
+        "title": "Packs",
+        "actions": {
+            "addAPack": "Add a pack"
+        }
+    }
 }

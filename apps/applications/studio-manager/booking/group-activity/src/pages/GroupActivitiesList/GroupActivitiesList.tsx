@@ -223,14 +223,20 @@ export const GroupActivitiesList: React.FC = () => {
                         intent="default"
                         color="main"
                         size="md"
-                        onClick={() => onClickDuplicate(item.id, item.name)}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          onClickDuplicate(item.id, item.name);
+                        }}
                       />
                       <Button
                         iconLeft="archive"
                         intent="default"
                         color="main"
                         size="md"
-                        onClick={() => onClickArchive(item.id, item.name)}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          onClickArchive(item.id, item.name);
+                        }}
                       />
                     </div>
                   );

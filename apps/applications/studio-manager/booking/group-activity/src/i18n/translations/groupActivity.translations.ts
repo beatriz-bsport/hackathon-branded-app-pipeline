@@ -11,6 +11,10 @@ exports.default = {
           popoverLabel: "Live streaming available",
         },
       },
+      filter: {
+        title: "Filter",
+        category: "Category",
+      },
       duplicate: {
         title: "Duplicate activity",
         modalContent:

@@ -12,6 +12,10 @@
                         "popoverLabel": "Live streaming available"
                     }
                 },
+                "filter": {
+                    "title": "Filter",
+                    "category": "Category"
+                },
                 "duplicate": {
                     "title": "Duplicate activity",
                     "modalContent": "Duplicate <strong>{{groupActivityName}}</strong>?<br/> You can edit the gift card details afterwards.",

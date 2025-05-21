@@ -1,5 +1,4 @@
 import capitalize from "lodash/capitalize";
-import compact from "lodash/compact";
 import React, { useEffect } from "react";
 import { Link } from "react-router";
 
@@ -11,58 +10,17 @@ import {
   Loader,
   Table,
 } from "@bsport/kaizen-primitive-core";
-import type { ChipProps, WithTooltip } from "@bsport/kaizen-primitive-core";
 import { MetaActivity } from "@bsport/store-booking-group-activity";
 
+import useGetActivityChips from "#src/hooks/useGetActivityChips";
 import { useGroupActivityModals } from "#src/hooks/useGroupActivityModals";
 import { usePaginatedGroupActivities } from "#src/hooks/usePaginatedGroupActivities";
 import { ROUTES } from "#src/urls";
-import { TFunction, useTranslation } from "#src/utils/i18n";
-
-const getChips = (
-  hasNotification: boolean,
-  isBroadcast: boolean,
-  t: TFunction,
-) => {
-  const notificationChip: WithTooltip<ChipProps> | undefined = hasNotification
-    ? {
-        color: "default",
-        label: "",
-        size: "lg", // Explicitly set size to "lg"
-        type: "weak",
-        iconLeft: "bell-ringing-04",
-        tooltipProps: {
-          label: t("list.enabled.item.notifications.popoverLabel"),
-          placement: "bottom",
-        },
-        id: "group-activity-notification-chip",
-      }
-    : undefined;
-
-  // Define the broadcast chip if the activity is a broadcast
-  const broadcastChip: WithTooltip<ChipProps> | undefined = isBroadcast
-    ? {
-        color: "default",
-        label: "",
-        size: "lg", // Explicitly set size to "lg"
-        type: "weak",
-        iconLeft: "video-recorder",
-        tooltipProps: {
-          label: t("list.enabled.item.livestream.popoverLabel"),
-          placement: "bottom",
-        },
-        id: "group-activity-broadcast-chip",
-      }
-    : undefined;
-
-  return compact([notificationChip, broadcastChip]) as WithTooltip<
-    [ChipProps] | [ChipProps, ChipProps]
-  >;
-};
+import { useTranslation } from "#src/utils/i18n";
 
 export const GroupActivitiesList: React.FC = () => {
   const { t } = useTranslation("groupActivity");
-
+  const { getChips } = useGetActivityChips();
   const {
     fetchGroupActivitiesPage,
     groupActivities,
@@ -197,7 +155,6 @@ export const GroupActivitiesList: React.FC = () => {
                   const chips = getChips(
                     item.on_booking_notification?.length > 0,
                     item.is_broadcast,
-                    t,
                   );
                   return (
                     <div className="flex flex-row gap-sm">

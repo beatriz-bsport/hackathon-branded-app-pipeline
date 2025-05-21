@@ -2081,6 +2081,9 @@ importers:
 
   packages/stores/base:
     dependencies:
+      '@bsport/http-exception':
+        specifier: workspace:*
+        version: link:../../utils/http-exception
       typescript-result:
         specifier: ^3.1.1
         version: 3.1.1
@@ -2327,6 +2330,9 @@ importers:
 
   packages/utils/fetch:
     dependencies:
+      '@bsport/http-exception':
+        specifier: workspace:*
+        version: link:../http-exception
       '@bsport/local-storage-auth-token':
         specifier: workspace:*
         version: link:../../local-storage/auth-token
@@ -2336,6 +2342,12 @@ importers:
       '@bsport/timezone-utils':
         specifier: workspace:*
         version: link:../datetime/timezone
+    devDependencies:
+      '@bsport/config-eslint-react':
+        specifier: workspace:*
+        version: link:../../../tools/config/eslint-react
+
+  packages/utils/http-exception:
     devDependencies:
       '@bsport/config-eslint-react':
         specifier: workspace:*

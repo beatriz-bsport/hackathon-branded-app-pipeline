@@ -29,17 +29,47 @@ export function getFullUri(uri: string) {
   return `${API_BASE_URL}/${uri}`;
 }
 
-export class HTTPException extends Error {
-  readonly path: string;
-  readonly name: string;
-  readonly statusCode: number;
+export function getCustomErrorCodes(
+  err:
+    | number
+    | Array<{ error_code: number; error_message: string }>
+    | undefined,
+): number[] {
+  if (!err) return [];
 
-  constructor(path: string, name: string, message: string, statusCode: number) {
-    super(
-      `Error calling backend (path: ${path}) because: [${JSON.stringify(name)}] ${message}`,
-    );
-    this.path = path;
-    this.name = name;
-    this.statusCode = statusCode;
+  if (Array.isArray(err)) {
+    return err?.filter(Boolean).map((error) => error.error_code);
+  }
+
+  if (typeof err === "number") {
+    return [err];
+  }
+
+  return [];
+}
+
+export function getMessage(
+  httpError:
+    | string
+    | Array<{ error_code: number; error_message: string }>
+    | undefined,
+): string {
+  if (!httpError) return "";
+
+  if (Array.isArray(httpError)) {
+    return httpError
+      ?.filter(Boolean)
+      .map((error) => error.error_message)
+      .join(";");
+  }
+
+  if (typeof httpError === "string") {
+    return httpError;
+  }
+
+  try {
+    return JSON.stringify(httpError);
+  } catch {
+    return "";
   }
 }

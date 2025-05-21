@@ -1,8 +1,11 @@
+import { HTTPException } from "@bsport/http-exception";
+
 import {
-  HTTPException,
   type ResponseType,
+  getCustomErrorCodes,
   getFullUri,
   getHeaders,
+  getMessage,
 } from "./utils";
 
 /** @todo Add parameters to personalize the headers */
@@ -53,30 +56,32 @@ export function getXhr() {
 
         if (status >= 200 && status < 300) {
           try {
-            const parsed = JSON.parse(responseText);
-            resolve({ data: parsed as T, status });
-          } catch (error) {
-            reject(new Error("Failed to parse JSON response"));
-          }
-        } else {
-          try {
-            const parsed = JSON.parse(responseText);
+            const parsed =
+              responseText.length > 0 ? JSON.parse(responseText) : {};
+
+            const errorCodes = getCustomErrorCodes(
+              parsed?.error_code ?? parsed?.errors_arrays,
+            );
             reject(
-              new HTTPException(
-                uri,
-                parsed?.code ?? "UNKNOWN",
-                parsed?.message ?? "Some error occurred",
-                parsed?.statusCode ?? status,
-              ),
+              new HTTPException({
+                path: uri,
+                name: errorCodes.join(";"),
+                statusCode: parsed?.statusCode ?? status,
+                message: getMessage(
+                  parsed?.message ??
+                    parsed?.error_message ??
+                    parsed?.errors_arrays,
+                ),
+                customErrorCodes: errorCodes,
+              }),
             );
           } catch {
             reject(
-              new HTTPException(
-                uri,
-                "UNKNOWN",
-                "Failed request with invalid JSON",
-                status,
-              ),
+              new HTTPException({
+                path: uri,
+                message: "Failed request with invalid JSON",
+                statusCode: status,
+              }),
             );
           }
         }
@@ -85,7 +90,12 @@ export function getXhr() {
       // Handle errors
       xhr.onerror = () =>
         reject(
-          new HTTPException(uri, "NETWORK_ERROR", "An error occurred.", 0),
+          new HTTPException({
+            path: uri,
+            name: "NETWORK_ERROR",
+            message: "An XHR error occured",
+            statusCode: 500,
+          }),
         );
 
       // Handle abort signal

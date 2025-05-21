@@ -15,7 +15,7 @@ This will run two applications aside :
 - The Navigation Sidebar on port 4050, with module federation.
 - The Teacher application, on the port defined in `package.json` in `federation.devPort` : 4110.
 
-Go to <http://localhost:4110>.S
+Go to <http://localhost:4110>.
 
 ### Build your translations
 

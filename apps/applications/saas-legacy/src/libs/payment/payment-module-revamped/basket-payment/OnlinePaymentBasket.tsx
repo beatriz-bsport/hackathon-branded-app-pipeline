@@ -103,6 +103,7 @@ export const OnlinePaymentBasket: React.FC<Props> = forwardRef(
       instalmentPaymentSelectedId,
       isClientSecretLoading,
       paymentGroupId,
+      paymentGroupPriceCts,
       selectInstalmentPayment,
       useInternalAccount,
       handleFetchInstalmentPaymentByBasket,
@@ -327,6 +328,7 @@ export const OnlinePaymentBasket: React.FC<Props> = forwardRef(
                 onError={onConfirmPaymentError}
                 onSuccess={onSuccessfulPayment}
                 paymentGroupId={paymentGroupId}
+                paymentGroupPriceCts={paymentGroupPriceCts}
                 paymentMethodSelected={paymentMethodSelected}
                 sepaDefaultEmail={sepaDefaultEmail}
                 sepaDefaultName={sepaDefaultName}

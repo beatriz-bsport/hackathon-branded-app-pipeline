@@ -8,6 +8,7 @@ import NumericInput from './NumericInput.component';
 
 type Props = React.ComponentProps<typeof NumericInput> & {
   invalid?: boolean;
+  inputStep?: number;
 };
 
 const PriceInput: React.FC<Props> = (props) => {
@@ -16,7 +17,7 @@ const PriceInput: React.FC<Props> = (props) => {
       isPositive
       InputProps={{
         inputProps: {
-          step: 0.01,
+          step: props.inputStep || 0.01,
           style: { color: props.invalid ? 'red' : 'black' },
         },
         startAdornment: (

@@ -67,7 +67,7 @@ type Props = {
   onSuccess: (callback?: () => void) => void;
   paymentEngine?: number;
   paymentGroupId: number;
-  paymentGroupPriceCts?: number;
+  paymentGroupPriceCts: number;
   paymentMethodChoices: Array<number>;
   paymentProcessing?: boolean;
   ref?: React.Ref<any>;
@@ -198,13 +198,14 @@ const OnlinePayment: React.FC<Props> = forwardRef(
           }
           setPaymentProcessing(value);
         }
-      : null;
+      : undefined;
 
     return (
       <div className={classes.container}>
         {!!priceUpdaterOpen && (
           <div className={classes.priceContainer}>
             <PriceInput
+              inputStep={1}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                 setPriceUpdateAmount(parseInt(e.target.value, 10));
               }}
@@ -212,10 +213,10 @@ const OnlinePayment: React.FC<Props> = forwardRef(
             />
             <IconButton
               color="primary"
-              disabled={isOnlinePaymentLoading}
+              disabled={isOnlinePaymentLoading || !priceUpdateAmount}
               onClick={() =>
                 // @ts-expect-error
-                updatePriceCts(parseInt(priceUpdateAmount * 100, 10) || 0, {
+                updatePriceCts(parseInt(priceUpdateAmount * 100, 10) || 1, {
                   onSuccess: () => setPriceUpdaterOpen(false),
                 })
               }

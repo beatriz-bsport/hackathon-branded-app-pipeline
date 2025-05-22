@@ -1040,8 +1040,8 @@
                     "paymentSuccess": "Congratulations! Your purchase has been confirmed!",
                     "paymentSuccess_plural": "Congratulations! Your purchases are confirmed!",
                     "offerOnlySuccess": "The booking has been made. You will soon receive a confirmation e-mail with all the details.",
-                    "offerOnlySuccess_plural": "The bookings have been made. You will soon receive a confirmation e-mail with all the details.",
                     "offerOnlyGuestSuccess": "The booking has been made. You and your guest will shortly receive a confirmation e-mail with all the details.",
+                    "offerOnlySuccess_plural": "The bookings have been made. You will soon receive a confirmation e-mail with all the details.",
                     "offersPartiallyConfirmed": "Some sessions could not be booked, possibly because they filled up or were canceled during checkout. You will receive a confirmation email shortly with details of the successful bookings."
                 },
                 "confirmationStatusTitle": {
@@ -4444,6 +4444,8 @@
                 "noEstablishment": "No establishment has been associated to this invoice",
                 "noBillingGroup": "No billing group has been associated to this invoice"
             },
+            "paymentFailed": "Payment failed. Please try again.",
+            "paymentFailedWithMethod": "Payment failed with {{ paymentMethod }}. Please try again.",
             "titleRevert": "Credit {{ uuid }}",
             "titleRevertPending": "[Pending] Credit {{ uuid }}",
             "titleReceipt": "Payment receipt {{ uuid }}",

@@ -1,8 +1,11 @@
+import { HTTPException } from "@bsport/http-exception";
+
 import {
-  HTTPException,
   type ResponseType,
+  getCustomErrorCodes,
   getFullUri,
   getHeaders,
+  getMessage,
 } from "./utils";
 
 /** @todo Add parameters to personalize the headers */
@@ -37,12 +40,18 @@ export function getFetch() {
     }
 
     if (!response.ok) {
-      throw new HTTPException(
-        uri,
-        payload?.code ?? payload?.error ?? payload?.error_code ?? "UNKONWN",
-        payload?.message ?? payload?.error_message ?? "Some Error occured",
-        payload?.statusCode ?? response?.status ?? 400,
+      const errorCodes = getCustomErrorCodes(
+        payload?.error_code ?? payload?.errors_arrays,
       );
+      throw new HTTPException({
+        path: uri,
+        name: payload?.code ?? errorCodes.join(";"),
+        statusCode: payload?.statusCode ?? response?.status,
+        customErrorCodes: errorCodes,
+        message: getMessage(
+          payload?.message ?? payload?.error_message ?? payload?.errors_arrays,
+        ),
+      });
     }
 
     return {

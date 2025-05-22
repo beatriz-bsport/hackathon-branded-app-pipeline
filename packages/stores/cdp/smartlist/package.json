@@ -25,7 +25,6 @@
     "dev": "vite build --watch",
     "format": "prettier --write '**/*.{ts,tsx,js,jsx,cjs,mjs,scss,css,json,md,mdx,html,svg}'",
     "format:check": "prettier --check '**/*.{ts,tsx,js,jsx,cjs,mjs}'",
-    "postinstall": "pnpm run build",
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
     "test": "vitest run",
@@ -45,7 +44,8 @@
   },
   "nx": {
     "tags": [
-      "execute:unit-tests"
+      "execute:unit-tests",
+      "postinstall"
     ]
   }
 }

@@ -56,6 +56,10 @@
         "devPort": 4150,
         "watchPath": "../buyables/giftcard/src/**/*"
       },
+      "sm-order": {
+        "devPort": 4151,
+        "watchPath": "../buyables/order/src/**/*"
+      },
       "sm-group-activity": {
         "devPort": 4200,
         "watchPath": "../booking/group-activity/src/**/*"
@@ -64,9 +68,17 @@
         "devPort": 4250,
         "watchPath": "../financial-services/invoice/src/**/*"
       },
+      "sm-email-template": {
+        "devPort": 4300,
+        "watchPath": "../cdp/email-template/src/**/*"
+      },
       "sm-smartlists": {
         "devPort": 4301,
         "watchPath": "../cdp/smartlists/src/**/*"
+      },
+      "sm-custom-form": {
+        "devPort": 4302,
+        "watchPath": "../cdp/custom-form/src/**/*"
       }
     }
   }

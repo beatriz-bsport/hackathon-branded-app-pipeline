@@ -1,9 +1,11 @@
 export default {
   activity: "/activity",
-  emailTemplates: "/email-templates",
+  emailTemplate: "/email-template",
   giftcard: "/giftcard",
   invoice: "/invoice",
   member: "/member",
+  order: "/order",
   smartlist: "/smartlist",
   teacher: "/teacher",
+  customForm: "/custom-form",
 } as const;

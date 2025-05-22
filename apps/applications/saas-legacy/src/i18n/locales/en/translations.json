@@ -2448,14 +2448,14 @@
                         "title": "Manage subscription",
                         "subtitle": "This subscription is ending with no more next payments",
                         "explain": {
-                            "day": "This subscription has a {{ commitment_value }} day commitment period, for cancellations or questions, please directly contact the studio.",
-                            "day_plural": "This subscription has a {{ commitment_value }} days commitment period, for cancellations or questions, please directly contact the studio.",
-                            "week": "This subscription has a {{ commitment_value }} week commitment period, for cancellations or questions, please directly contact the studio.",
-                            "week_plural": "This subscription has a {{ commitment_value }} weeks commitment period, for cancellations or questions, please directly contact the studio.",
-                            "month": "This subscription has a {{ commitment_value }} month commitment period, for cancellations or questions, please directly contact the studio.",
-                            "month_plural": "This subscription has a {{ commitment_value }} months commitment period, for cancellations or questions, please directly contact the studio.",
-                            "year": "This subscription has a {{ commitment_value }} year commitment period, for cancellations or questions, please directly contact the studio.",
-                            "year_plural": "This subscription has a {{ commitment_value }} years commitment period, for cancellations or questions, please directly contact the studio."
+                            "day": "This subscription has a {{ commitment_period_value }} day commitment period, for cancellations or questions, please directly contact the studio.",
+                            "day_plural": "This subscription has a {{ commitment_period_value }} days commitment period, for cancellations or questions, please directly contact the studio.",
+                            "week": "This subscription has a {{ commitment_period_value }} week commitment period, for cancellations or questions, please directly contact the studio.",
+                            "week_plural": "This subscription has a {{ commitment_period_value }} weeks commitment period, for cancellations or questions, please directly contact the studio.",
+                            "month": "This subscription has a {{ commitment_period_value }} month commitment period, for cancellations or questions, please directly contact the studio.",
+                            "month_plural": "This subscription has a {{ commitment_period_value }} months commitment period, for cancellations or questions, please directly contact the studio.",
+                            "year": "This subscription has a {{ commitment_period_value }} year commitment period, for cancellations or questions, please directly contact the studio.",
+                            "year_plural": "This subscription has a {{ commitment_period_value }} years commitment period, for cancellations or questions, please directly contact the studio."
                         },
                         "modal": {
                             "alert": "Pre-booked sessions made under a subscription with unlimited classes will be cancelled after this period and may be subject to a late cancellation fee.",

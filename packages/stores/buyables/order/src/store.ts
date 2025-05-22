@@ -5,9 +5,9 @@ import { bindStore } from "@bsport/store-base";
 import type { Order } from "#src/types";
 
 export interface OrderState {
-  byId: { [key: number]: Order };
+  byId: { [key: string]: Order };
   count: number;
-  ids: number[];
+  ids: string[];
   page: number;
 }
 

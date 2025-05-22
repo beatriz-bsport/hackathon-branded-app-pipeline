@@ -23,7 +23,7 @@ export const setSmartlists = ({
   mode = "default",
 }: {
   smartlists: Smartlist[];
-  count: number;
+  count?: number;
   page?: number;
   pageSize?: number;
   mode?: "default" | "search";
@@ -46,7 +46,7 @@ export const setSmartlists = ({
       ...state,
       ...(mode === "search" ? { fuzzySearchIds: ids } : { ids }),
       byId,
-      count,
+      count: count ?? state.count,
       page,
       pageSize,
     };

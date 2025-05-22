@@ -26,7 +26,6 @@ const FeatureBaseComponent: React.FC<Props> = ({
           organization: 'bsport',
           email: userAuthState.username,
           name: userAuthState.name,
-          id: '123456',
           profilePicture: companyTheme?.cover,
         },
         (err: any) => {

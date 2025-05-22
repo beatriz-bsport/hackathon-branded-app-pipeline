@@ -29,6 +29,7 @@ export type FilterProps = {
   selectFieldLabel: string;
   onFilterChange: (filters: FilterElementState[]) => void;
   ref?: React.Ref<{ resetFilters: () => void }>;
+  singleField?: boolean;
 };
 
 const FILTER_ELEMENTS_DEFAULT = [
@@ -46,10 +47,14 @@ const FILTER_ELEMENTS_DEFAULT = [
  * @param props.selectFieldLabel The label to display for the select field.
  * @param props.onFilterChange A function that is called when the filter elements are changed.
  * @param props.ref A ref object to access the resetFilters method.
+ * @param props.singleField Whether only one field can be filtered at the time
  * @link https://docs.infra.bsport.io/storybook/kaizen/main/index.html?path=/docs/components-filter--docs
  */
-const Filter: React.FC<FilterProps> = (props) => {
-  const { onFilterChange } = props;
+const Filter: React.FC<FilterProps> = ({
+  onFilterChange,
+  singleField,
+  ...props
+}) => {
   const [elementId, setElementId] = useState(1);
   const [filterElements, setFilterElements] = useState<FilterElementState[]>(
     FILTER_ELEMENTS_DEFAULT,
@@ -61,7 +66,7 @@ const Filter: React.FC<FilterProps> = (props) => {
       { id: elementId, field: null, filter: null, valueIds: [] },
     ]);
     setElementId((prev) => prev + 1);
-  }, [elementId, props]);
+  }, [elementId]);
 
   const updateFilterElement = useCallback(
     (id: number, field: string, filter: string, valueIds: string[]) => {
@@ -117,7 +122,7 @@ const Filter: React.FC<FilterProps> = (props) => {
           onClear={() => removeFilterElement(element.id)}
         />
       ))}
-      {isEveryFilterComplete && (
+      {isEveryFilterComplete && !singleField && (
         <Button
           color="default"
           intent="flat"

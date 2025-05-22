@@ -14,7 +14,7 @@ export const useDebouncedValue = <T = string>(
 
   useEffect(() => {
     debouncedSetValue(value);
-  }, [value]);
+  }, [value, debouncedSetValue]);
 
   return debouncedValue;
 };

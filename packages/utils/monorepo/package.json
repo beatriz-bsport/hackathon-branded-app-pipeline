@@ -12,7 +12,6 @@
     "dev": "tsc -w",
     "format": "prettier --write '**/*.{ts,tsx,js,jsx,cjs,mjs,scss,css,json,md,mdx,html,svg}'",
     "format:check": "prettier --check '**/*.{ts,tsx,js,jsx,cjs,mjs}'",
-    "postinstall": "pnpm run build",
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
     "test": "jest",
@@ -24,5 +23,10 @@
   "devDependencies": {
     "@bsport/config-eslint-react": "workspace:*",
     "@types/fs-extra": "^11.0.1"
+  },
+  "nx": {
+    "tags": [
+      "postinstall"
+    ]
   }
 }

@@ -1,0 +1,12 @@
+exports.default = {
+  status: {
+    label: "Status",
+    values: {
+      toBeProcessed: "To be processed",
+      cancelled: "Cancelled",
+      clickAndCollect: "Click & collect",
+      sent: "Sent",
+      initialized: "Initialized",
+    },
+  },
+};

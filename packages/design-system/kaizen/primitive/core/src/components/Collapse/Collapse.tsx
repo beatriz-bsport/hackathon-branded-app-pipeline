@@ -16,6 +16,8 @@ const defaultClasses = [
 
 const collapse = cva(defaultClasses);
 
+const BASE_ANIMATION_TIME = 300;
+
 export const CollapseContext = createContext<{
   isCollapseOpen: boolean;
   setIsCollapseOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -108,11 +110,29 @@ const Content: React.FC<{
 
   const childrenContainerRef = React.useRef<HTMLDivElement | null>(null);
 
-  const [maxHeight, setMaxHeight] = useState<number>(0);
+  const [maxHeight, setMaxHeight] = useState<number | string>(0);
 
   useEffect(() => {
-    if (isCollapseOpen && childrenContainerRef?.current) {
-      setMaxHeight(childrenContainerRef.current.scrollHeight);
+    if (!childrenContainerRef?.current) return;
+
+    const element = childrenContainerRef.current;
+
+    if (isCollapseOpen) {
+      const animation = element.animate([], {
+        // we still rely on the BASE_ANIMATION_TIME to set the maxHeight
+        duration: BASE_ANIMATION_TIME,
+        easing: "ease-in-out",
+        fill: "forwards",
+      });
+
+      animation.onfinish = () => {
+        if (childrenContainerRef?.current) {
+          setMaxHeight(childrenContainerRef.current.scrollHeight);
+        }
+      };
+      return () => {
+        animation.cancel();
+      };
     } else {
       setMaxHeight(0);
     }

@@ -1,8 +1,8 @@
 import Immutable from 'seamless-immutable';
 import { loadStripe } from '@stripe/stripe-js';
 import {
-  PAYMENT_ENGINE_STRIPE,
   PAYMENT_ENGINE_BSPORT,
+  PAYMENT_ENGINE_STRIPE,
 } from '@bsport/common/lib/master-data/payment-group.js';
 import {
   MarketplacePaymentMethodBillingDetails,
@@ -213,4 +213,13 @@ export type PayPalScriptProviderOptions = {
 export type PaymentGroupBillingEstablishmentPayload = {
   paymentGroupId: number;
   establishmentId: number | null;
+};
+
+export type UpdatePaymentIntentArgs = {
+  save_for_later: boolean;
+  payment_group_id: number;
+};
+
+export type UpdatePaymentIntentResult = {
+  client_secret: string;
 };

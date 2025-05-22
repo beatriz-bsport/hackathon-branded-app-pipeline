@@ -1,20 +1,6 @@
 import { orderStore } from "#src/store";
 import type { Order } from "#src/types";
 
-export const updateOrder = (updatedOrder: Order) => {
-  orderStore.setState((state) => {
-    if (!updatedOrder) return state;
-
-    const id = updatedOrder.id;
-
-    if (!id) return state;
-
-    return {
-      byId: { ...state.byId, [id]: updatedOrder },
-    };
-  });
-};
-
 export const setOrders = ({
   orders,
   count,

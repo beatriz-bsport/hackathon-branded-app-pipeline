@@ -2,26 +2,30 @@ import { useState } from "react";
 
 import { Button, List, ListLayout } from "@bsport/kaizen-primitive-core";
 import { type Smartlist } from "@bsport/store-cdp-smartlist";
-import { usePaginationQueryParams } from "@bsport/use-pagination-query-params";
 
+import { useSmartlists } from "#src/api/use-smartlists";
+import { DuplicateModal } from "#src/components/DuplicateModal";
 import { Loading } from "#src/components/Loading";
 import { useTranslation } from "#src/utils/i18n";
 
-import { DEFAULT_PAGE, DEFAULT_ROWS_PER_PAGE } from "./constants";
-import { useSmartlists } from "./use-smartlists";
+import { VISIBLE_ACTIONS_DISPLAY_LIMIT } from "./constants";
+import { useDuplicate } from "./use-duplicate";
+import { useFilters } from "./use-filters";
 
 const ListPage: React.FC = () => {
   const { t } = useTranslation("list");
 
-  const { currentPage, currentPageSize, setPageSettings } =
-    usePaginationQueryParams({
-      defaultValues: { page: DEFAULT_PAGE, page_size: DEFAULT_ROWS_PER_PAGE },
-      shouldReplace: false,
-    });
+  const {
+    currentPage,
+    currentPageSize,
+    searchTerm,
+    onSearchChange,
+    onSearchClear,
+    onPageChange,
+    onPageSettingsChange,
+  } = useFilters();
 
-  const [searchTerm, setSearchTerm] = useState("");
-
-  const { smartlists, isLoading, totalItems } = useSmartlists({
+  const { smartlists, isLoading, totalItems, refetch } = useSmartlists({
     page: currentPage,
     page_size: currentPageSize,
     search: searchTerm,
@@ -31,13 +35,27 @@ const ListPage: React.FC = () => {
   const isEmpty = hasNoSmartlists && searchTerm.trim().length === 0;
   const isEmptySearch = searchTerm.trim().length > 0 && hasNoSmartlists;
 
-  const handleSearchChange = (value: string) => {
-    setSearchTerm(value);
-    setPageSettings(DEFAULT_PAGE, currentPageSize);
-  };
+  const [currentSmartlist, setCurrentSmartlist] = useState<Smartlist | null>(
+    null,
+  );
+  const resetCurrentSmartlist = () => setCurrentSmartlist(null);
 
-  const handleSearchClear = () => {
-    handleSearchChange("");
+  const { duplicateSmartlist } = useDuplicate({
+    onSuccess: () => {
+      resetCurrentSmartlist();
+      refetch();
+    },
+    onFailure: () => {
+      resetCurrentSmartlist();
+    },
+  });
+
+  const onDuplicateSmartlist = () => {
+    if (!currentSmartlist) {
+      throw new Error("No smartlist selected this should never happen");
+    }
+
+    duplicateSmartlist({ id: currentSmartlist.id });
   };
 
   return (
@@ -50,87 +68,118 @@ const ListPage: React.FC = () => {
             size="md"
             intent="call-to-action"
             label={t("addSmartlist")}
+            iconLeft="plus"
           />
         }
         searchConfig={{
           id: "smartlists-search",
           inputValue: searchTerm,
-          onInputValueChange: handleSearchChange,
-          onClear: handleSearchClear,
+          onInputValueChange: onSearchChange,
+          onClear: onSearchClear,
         }}
       />
       <ListLayout.Content>
         {isLoading ? (
           <Loading />
         ) : (
-          <List
-            id="smartlists-list"
-            className="w-full"
-            items={smartlists.map((smartlist: Smartlist) => ({
-              id: smartlist.id.toString(),
-              title: smartlist.name,
-              buttons: [
-                {
-                  id: `smartlist-edit-action-${smartlist.id}`,
-                  color: "default",
-                  size: "md",
-                  intent: "flat",
-                  iconLeft: "edit-02",
+          <div className="w-full overflow-x-hidden">
+            <List
+              id="smartlists-list"
+              items={smartlists.map((smartlist: Smartlist) => ({
+                id: smartlist.id.toString(),
+                title: smartlist.name,
+                description: smartlist.description,
+                dropdownConfig: {
+                  visibleActionsDisplayLimit: VISIBLE_ACTIONS_DISPLAY_LIMIT,
                 },
-                {
-                  id: `smartlist-copy-action-${smartlist.id}`,
-                  color: "default",
-                  size: "md",
-                  intent: "flat",
-                  iconLeft: "copy-03",
+                buttons: [
+                  {
+                    id: `smartlist-edit-action-${smartlist.id}`,
+                    color: "default",
+                    size: "md",
+                    intent: "flat",
+                    iconLeft: "edit-02",
+                    "aria-label": t("inlineActions.edit"),
+                    tooltipProps: {
+                      label: t("inlineActions.edit"),
+                      placement: "bottom",
+                    },
+                  },
+                  {
+                    id: `smartlist-copy-action-${smartlist.id}`,
+                    color: "default",
+                    size: "md",
+                    intent: "flat",
+                    iconLeft: "copy-03",
+                    "aria-label": t("inlineActions.duplicate"),
+                    onClick: () => {
+                      setCurrentSmartlist(smartlist);
+                    },
+                    tooltipProps: {
+                      label: t("inlineActions.duplicate"),
+                      placement: "bottom",
+                    },
+                  },
+                  {
+                    id: `smartlist-trash-action-${smartlist.id}`,
+                    color: "default",
+                    size: "md",
+                    intent: "flat",
+                    iconLeft: "trash-01",
+                    "aria-label": t("inlineActions.delete"),
+                    tooltipProps: {
+                      label: t("inlineActions.delete"),
+                      placement: "bottom-right",
+                    },
+                  },
+                ],
+              }))}
+              paginationProps={{
+                currentPage,
+                totalItems,
+                onPageChange,
+                onPageSettingsChange,
+                rowsPerPage: currentPageSize,
+                showRowsPerPageSelector: true,
+              }}
+              emptyStateProps={{
+                emptyConfig: {
+                  ctaButtonConfig: {
+                    iconLeft: "plus",
+                    label: t("addSmartlist"),
+                    color: "main",
+                    size: "md",
+                    intent: "call-to-action",
+                  },
+                  subtitle: t("emptyState.subtitle"),
+                  title: t("emptyState.title"),
                 },
-                {
-                  id: `smartlist-trash-action-${smartlist.id}`,
-                  color: "default",
-                  size: "md",
-                  intent: "flat",
-                  iconLeft: "trash-01",
+                emptySearchConfig: {
+                  secondaryButtonConfig: {
+                    iconLeft: "x",
+                    label: t("emptySearch.clearFilters"),
+                    color: "default",
+                    size: "md",
+                    intent: "flat",
+                    onClick: onSearchClear,
+                  },
+                  subtitle: t("emptySearch.subtitle"),
+                  title: t("emptySearch.title"),
                 },
-              ],
-            }))}
-            paginationProps={{
-              currentPage,
-              totalItems,
-              rowsPerPage: currentPageSize,
-              onPageChange: (page: number) =>
-                setPageSettings(page, currentPageSize),
-              onPageSettingsChange: setPageSettings,
-              showRowsPerPageSelector: true,
-            }}
-            emptyStateProps={{
-              emptyConfig: {
-                ctaButtonConfig: {
-                  iconLeft: "plus",
-                  label: t("addSmartlist"),
-                  color: "main",
-                  size: "md",
-                  intent: "call-to-action",
-                },
-                subtitle: t("emptyState.subtitle"),
-                title: t("emptyState.title"),
-              },
-              emptySearchConfig: {
-                secondaryButtonConfig: {
-                  iconLeft: "x",
-                  label: t("emptySearch.clearFilters"),
-                  color: "default",
-                  size: "md",
-                  intent: "flat",
-                  onClick: handleSearchClear,
-                },
-                subtitle: t("emptySearch.subtitle"),
-                title: t("emptySearch.title"),
-              },
-              isEmpty,
-              isEmptySearch,
-            }}
-          />
+                isEmpty,
+                isEmptySearch,
+              }}
+            />
+          </div>
         )}
+        {currentSmartlist !== null ? (
+          <DuplicateModal
+            isOpen
+            onClose={resetCurrentSmartlist}
+            onDuplicate={onDuplicateSmartlist}
+            smartlist={currentSmartlist}
+          />
+        ) : null}
       </ListLayout.Content>
     </ListLayout>
   );

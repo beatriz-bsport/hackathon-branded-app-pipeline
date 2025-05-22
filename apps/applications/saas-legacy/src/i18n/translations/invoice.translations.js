@@ -322,6 +322,9 @@ const getTranslations = async () => {
         noEstablishment: 'No establishment has been associated to this invoice',
         noBillingGroup: 'No billing group has been associated to this invoice',
       },
+      paymentFailed: 'Payment failed. Please try again.',
+      paymentFailedWithMethod:
+        'Payment failed with {{ paymentMethod }}. Please try again.',
       titleRevert: 'Credit {{ uuid }}',
       titleRevertPending: '[Pending] Credit {{ uuid }}',
       titleReceipt: 'Payment receipt {{ uuid }}',

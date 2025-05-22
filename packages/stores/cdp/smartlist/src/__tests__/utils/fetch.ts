@@ -8,9 +8,24 @@ import type { Fetch } from "@bsport/store-base";
  * @returns A function that matches the Fetch type from @bsport/store-base
  */
 export function createTestFetch<T>(): Fetch<T> {
-  return async (uri, init) => {
+  return async (
+    uri: string,
+    init?: RequestInit & { responseType?: "text" | "json" | "buffer" },
+  ): Promise<{ data: T; status: number }> => {
     const response = await fetch(`http://localhost/${uri}`, init);
-    const data = await response.json();
+
+    // Throw an error for non-2xx status codes
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
+    // For 204 No Content responses, return undefined as data
+    if (response.status === 204) {
+      return { data: undefined as unknown as T, status: response.status };
+    }
+
+    // For other responses, parse JSON
+    const data = (await response.json()) as T;
     return { data, status: response.status };
   };
 }

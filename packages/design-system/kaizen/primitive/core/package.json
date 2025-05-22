@@ -28,7 +28,6 @@
     "format": "prettier --write '**/*.{ts,tsx,js,jsx,cjs,mjs,scss,css,json,md,mdx,html,svg}'",
     "format:check": "prettier --check '**/*.{ts,tsx,js,jsx,cjs,mjs}'",
     "icon:generate": "tsx ./scripts/generate-icons.ts",
-    "postinstall": "pnpm build",
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
     "pre-commit": "sh ./scripts/pre-commit.sh",
@@ -61,5 +60,10 @@
     "vite": "^5.4.11",
     "vite-plugin-dts": "^4.5.3",
     "vite-plugin-svgr": "^4.3.0"
+  },
+  "nx": {
+    "tags": [
+      "postinstall"
+    ]
   }
 }

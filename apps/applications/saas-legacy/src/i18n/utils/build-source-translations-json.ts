@@ -1,5 +1,4 @@
 const fs = require('fs-extra');
-const beautify = require('json-beautify');
 const namespaceList = require('../namespaces.json');
 
 async function buildSourceTranslations() {
@@ -18,7 +17,8 @@ async function buildSourceTranslations() {
 
   fs.writeFileSync(
     `./src/i18n/source/translations.json`,
-    beautify(aggregatedTranslations, null as any, 2, 80),
+    // Align with Weblate formatting
+    JSON.stringify(aggregatedTranslations, undefined, 4),
   );
 }
 

@@ -12,12 +12,14 @@ declare module "sm-navigation-sidebar/NavigationSidebar" {
 declare module "sm-navigation-sidebar/urls" {
   const urls: {
     activity: string;
-    emailTemplates: string;
+    emailTemplate: string;
     giftcard: string;
     invoice: string;
     member: string;
+    order: string;
     smartlist: string;
     teacher: string;
+    customForm: string;
   };
   export default urls;
 }
@@ -30,6 +32,11 @@ declare module "sm-group-activity/App" {
 
 // ----- Buyables -----
 declare module "sm-giftcard/App" {
+  const App: BaseApp["App"];
+  export default App;
+}
+
+declare module "sm-order/App" {
   const App: BaseApp["App"];
   export default App;
 }
@@ -52,7 +59,16 @@ declare module "sm-invoice/App" {
 }
 
 // ----- Customer Data Platform -----
+declare module "sm-email-template/App" {
+  const App: BaseApp["App"];
+  export default App;
+}
 declare module "sm-smartlists/App" {
+  const App: BaseApp["App"];
+  export default App;
+}
+
+declare module "sm-custom-form/App" {
   const App: BaseApp["App"];
   export default App;
 }

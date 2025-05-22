@@ -16,5 +16,7 @@ if [ "$ECOSYSTEM_SKIP_HOOKS" != "true" ] && [ -z "$CI" ]; then
         exit 0
     fi
 
-    pnpm install --no-lockfile
+    pnpm install --no-lockfile --ignore-scripts
+    # Use Nx to rely on postinstall cache
+    pnpm run -w postinstall
 fi

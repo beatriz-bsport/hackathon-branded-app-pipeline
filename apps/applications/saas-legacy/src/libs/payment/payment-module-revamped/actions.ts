@@ -1,26 +1,35 @@
 import { createAction } from 'redux-actions';
 import { AxiosError } from 'axios';
+import {
+  PaymentIntent,
+  Stripe,
+  StripeElements,
+  StripeError,
+} from '@stripe/stripe-js';
 
+import { updateIntentToSavePaymentMethod as updateIntentToSavePaymentMethodAPI } from '#src/libs/payment/api';
 import {
   applyBalanceToInvoice as applyBalanceToInvoiceAPI,
-  requestInvoiceClientSecret as requestInvoiceClientSecretAPI,
   detachPaymentMethod as detachPaymentMethodAPI,
   fetchPaymentMethodList as fetchPaymentMethodListAPI,
   getPaymentGroupStatus as getPaymentGroupStatusAPI,
   requestBasketClientSecret as requestBasketClientSecretAPI,
+  requestInvoiceClientSecret as requestInvoiceClientSecretAPI,
 } from '#src/libs/payment/payment-module-revamped/api';
-import { snackbarSuccess, snackbarError } from '#src/libs/snackbar/actions';
-import type { ThunkAction, Dispatch, OptionCallback } from '#src/state/types';
+import { snackbarError, snackbarSuccess } from '#src/libs/snackbar/actions';
+import type { Dispatch, OptionCallback, ThunkAction } from '#src/state/types';
 import { isErrorWithCustomCode } from '#src/libs/utils';
 
 import {
   PaymentGroupStatus,
-  RequestClientSecretPayload,
+  type RequestClientSecretPayload,
 } from '#src/libs/invoice/types';
-
+import type { BillingDetails } from '#src/libs/marketplace/types';
 import type {
-  PaymentMethod,
   DetachPaymentMethodPayload,
+  PaymentMethod,
+  UpdatePaymentIntentArgs,
+  UpdatePaymentIntentResult,
 } from '#src/libs/payment/types';
 
 export const applyBalanceToInvoiceActions = {
@@ -37,6 +46,7 @@ export const applyBalanceToInvoiceActions = {
     'PAYMENT_MODULE/INVOICE/APPLY_BALANCE/INITIALIZE',
   ),
 };
+
 export function applyBalanceToInvoice(uuid: string, options?: OptionCallback) {
   return async (dispatch: Dispatch) => {
     dispatch(
@@ -113,6 +123,7 @@ export function resetInvoiceClientSecret(params: { invoiceUuid: string }) {
     dispatch(requestInvoiceClientSecretActions.initialize(params));
   };
 }
+
 export function requestInvoiceClientSecret(
   params: {
     uuid: string;
@@ -364,6 +375,7 @@ export function setBackendProcessingAfterPayment(params: {
     dispatch(setBackendProcessingAfterPaymentActions.set(params));
   };
 }
+
 export const setPaymentStatusActions = {
   set: createAction<{
     paymentGroupId: number;
@@ -479,5 +491,143 @@ export function requestBasketClientSecret(
         loading: false,
       }),
     );
+  };
+}
+
+export const updateIntentToSavePaymentMethodActions = {
+  isLoading: createAction<{ paymentGroupId: number; loading: boolean }>(
+    'PAYMENT_MODULE/PAYMENT_GROUP/UPDATE_INTENT_SAVE_PM/LOADING',
+  ),
+  error: createAction<{ paymentGroupId: number; error: Error | null }>(
+    'PAYMENT_MODULE/PAYMENT_GROUP/UPDATE_INTENT_SAVE_PM/ERROR',
+  ),
+  success: createAction<UpdatePaymentIntentResult & { paymentGroupId: number }>(
+    'PAYMENT_MODULE/PAYMENT_GROUP/UPDATE_INTENT_SAVE_PM/SUCCESS',
+  ),
+  initialize: createAction<{ paymentGroupId: number }>(
+    'PAYMENT_MODULE/PAYMENT_GROUP/UPDATE_INTENT_SAVE_PM/INITIALIZE',
+  ),
+};
+
+export function updateIntentToSavePaymentMethod(
+  args: UpdatePaymentIntentArgs,
+  options?: OptionCallback<UpdatePaymentIntentResult>,
+): ThunkAction {
+  return async (dispatch: Dispatch) => {
+    const paymentGroupId = args.payment_group_id;
+
+    dispatch(
+      updateIntentToSavePaymentMethodActions.isLoading({
+        paymentGroupId,
+        loading: true,
+      }),
+    );
+    dispatch(
+      updateIntentToSavePaymentMethodActions.error({
+        paymentGroupId,
+        error: null,
+      }),
+    );
+
+    try {
+      const response = await updateIntentToSavePaymentMethodAPI(args);
+      const resultData = response.data;
+
+      dispatch(
+        updateIntentToSavePaymentMethodActions.success({
+          ...resultData,
+          paymentGroupId,
+        }),
+      );
+
+      options?.onSuccess?.(resultData);
+    } catch (error) {
+      console.error('Error updating intent to save payment method:', error);
+      dispatch(
+        updateIntentToSavePaymentMethodActions.error({
+          paymentGroupId,
+          error: error as Error,
+        }),
+      );
+
+      options?.onError?.(error as Error);
+    } finally {
+      dispatch(
+        updateIntentToSavePaymentMethodActions.isLoading({
+          paymentGroupId,
+          loading: false,
+        }),
+      );
+    }
+  };
+}
+
+export function confirmStripePayment(
+  args: {
+    saveForLater?: boolean;
+    paymentGroupId?: number;
+    stripe: Stripe;
+    elements: StripeElements;
+    clientSecret: string;
+    return_url?: string;
+    shouldConfirmCardPayment?: boolean;
+    shouldConfirmSepaDebitPayment?: boolean;
+    paymentMethodSelected?: string;
+    billingDetails?: BillingDetails;
+    paymentMethodData?: { billing_details?: BillingDetails };
+    cardBillingDetailsMandatory?: boolean;
+  },
+  options?: {
+    onPaymentError?: (error: StripeError) => void;
+    onPaymentSuccess?: (stripeResponse: PaymentIntent) => void;
+  },
+): ThunkAction {
+  return async (dispatch: Dispatch) => {
+    try {
+      if (args.saveForLater && args.paymentGroupId) {
+        await dispatch(
+          updateIntentToSavePaymentMethod({
+            save_for_later: args.saveForLater,
+            payment_group_id: args.paymentGroupId,
+          }),
+        );
+      }
+
+      // Only confirmPayment works with PaymentElement; the others require specific data.
+      // When confirming with a saved payment method, we do not use the PaymentElement so we need to use confirmCardPayment or confirmSepaDebitPayment.
+      let result;
+      if (args.shouldConfirmCardPayment) {
+        result = await args.stripe.confirmCardPayment(args.clientSecret, {
+          payment_method: args.paymentMethodSelected || {
+            card: args.elements.getElement('card')!,
+            ...(args.cardBillingDetailsMandatory
+              ? { billing_details: args.billingDetails }
+              : {}),
+          },
+        });
+      } else if (args.shouldConfirmSepaDebitPayment) {
+        result = await args.stripe.confirmSepaDebitPayment(args.clientSecret, {
+          payment_method: args.paymentMethodSelected || '',
+        });
+      } else {
+        result = await args.stripe.confirmPayment({
+          elements: args.elements,
+          clientSecret: args.clientSecret,
+          redirect: 'if_required',
+          confirmParams: {
+            return_url: args.return_url,
+            payment_method_data: args.paymentMethodData,
+          },
+        });
+      }
+
+      if (result.error) {
+        options?.onPaymentError?.(result.error);
+      } else {
+        options?.onPaymentSuccess?.(result.paymentIntent);
+      }
+    } catch (error) {
+      options?.onPaymentError?.(error as StripeError);
+    }
   };
 }

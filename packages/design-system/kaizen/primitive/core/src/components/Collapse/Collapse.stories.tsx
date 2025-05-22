@@ -5,6 +5,7 @@ import Body from "#src/components/Body";
 import Button from "#src/components/Button";
 import Collapse from "#src/components/Collapse";
 import Title from "#src/components/Title";
+import useEmptyState from "#src/hooks/use-empty-state.hook";
 
 /**
  * The Collapse component is used to show and hide content in a controlled manner,
@@ -184,4 +185,62 @@ export const ControllerInContent: Story = {
       </Collapse.Content>
     </Collapse>
   ),
+};
+
+export const CollapsibleWithComputedChildren: Story = {
+  name: "Collapsible with a computed children component",
+  args: {
+    initiallyOpen: true,
+  },
+  render: (args) => {
+    const emptyConfig = {
+      title: "Test with the base empty state",
+      subtitle:
+        "The empty state is computed so if you do the height calculation too fast you will end up with a cropped component",
+      className: "max-w-[320px]",
+      ctaButtonConfig: {
+        iconLeft: "award-03" as const,
+        label: "Create template",
+        onClick: () => console.log("Create email template"),
+      },
+      secondaryButtonConfig: {
+        iconLeft: "bank-note-03" as const,
+        label: "Add category",
+        onClick: () => console.log("Create a new category"),
+      },
+    };
+
+    const emptyStateProps = {
+      isEmpty: true,
+      emptyConfig: emptyConfig,
+    };
+
+    const { EmptyState } = useEmptyState(emptyStateProps);
+    return (
+      <Collapse initiallyOpen={args?.initiallyOpen}>
+        <Collapse.Controller>
+          {({ collapseProps, setIsCollapseOpen }) => {
+            const toggleOpen = () =>
+              setIsCollapseOpen((prevState) => !prevState);
+            return (
+              <Button
+                color="default"
+                intent="flat"
+                size="md"
+                className="w-fit"
+                iconRight="chevron-down"
+                onClick={toggleOpen}
+                {...collapseProps}
+              />
+            );
+          }}
+        </Collapse.Controller>
+        <Collapse.Content>
+          {() => {
+            return <EmptyState />;
+          }}
+        </Collapse.Content>
+      </Collapse>
+    );
+  },
 };

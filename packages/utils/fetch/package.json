@@ -21,20 +21,26 @@
   ],
   "scripts": {
     "build": "vite build",
+    "ci:compile": "tsc",
     "clean": "rm -rf build",
     "dev": "vite build --watch",
     "format": "prettier --write '**/*.{ts,tsx,js,jsx,cjs,mjs,scss,css,json,md,mdx,html,svg}'",
     "format:check": "prettier --check '**/*.{ts,tsx,js,jsx,cjs,mjs}'",
-    "postinstall": "pnpm run build",
     "lint": "eslint .",
     "lint:fix": "eslint --fix ."
   },
   "dependencies": {
+    "@bsport/http-exception": "workspace:*",
     "@bsport/local-storage-auth-token": "workspace:*",
     "@bsport/sentry": "workspace:*",
     "@bsport/timezone-utils": "workspace:*"
   },
   "devDependencies": {
     "@bsport/config-eslint-react": "workspace:*"
+  },
+  "nx": {
+    "tags": [
+      "postinstall"
+    ]
   }
 }

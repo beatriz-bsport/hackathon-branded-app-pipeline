@@ -1644,6 +1644,8 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
       this.state.isSpotSelectorOpen &&
       !this.props.assetForBlueprintLoading &&
       !this.props.roomBlueprintLoading &&
+      !this.getIsLoading() &&
+      !this.state.isBookingBlocked &&
       !isWaitingList &&
       (this.getIsGuestBooking() ||
         !isRegistered ||

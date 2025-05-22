@@ -13,3 +13,18 @@ export type SmartlistSearchResult = {
   next: string | null;
   previous: string | null;
 };
+
+export type CreateSmartlistParams = {
+  name: string;
+  description: string;
+  company: number;
+};
+
+export type GeneralSmartlistParams = {
+  id: number;
+};
+
+export type EditSmartlistParams = GeneralSmartlistParams & {
+  name?: string;
+  description?: string;
+};

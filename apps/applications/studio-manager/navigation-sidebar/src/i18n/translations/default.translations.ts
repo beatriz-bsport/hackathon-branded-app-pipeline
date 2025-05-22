@@ -43,6 +43,7 @@ exports.default = {
       smartlists: "Smartlists",
       audience: "Audience",
       promotions: "Promotions",
+      customForms: "Custom forms",
     },
     dashboard: "Dashboard / Overview",
     reporting: "Reporting",

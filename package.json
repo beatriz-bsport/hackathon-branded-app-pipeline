@@ -22,6 +22,7 @@
     "format:check": "pnpm exec nx run-many -t format:check",
     "format:check:affected": "pnpm exec nx affected --target=format:check",
     "preinstall": "npx only-allow pnpm",
+    "postinstall": "pnpm exec nx run-many --target=build --projects=tag:postinstall",
     "lint": "pnpm exec nx run-many -t lint",
     "lint:affected": "pnpm exec nx affected --target=lint",
     "lint:affected:fix": "pnpm exec nx affected --target=lint:fix",
@@ -109,6 +110,6 @@
     "vite-plugin-top-level-await": "^1.5.0"
   },
   "engines": {
-    "pnpm": "9.15.1"
+    "pnpm": "10.11.0"
   }
 }

@@ -20,6 +20,41 @@ export enum PaymentMethodBrands {
   VISA = 'visa',
 }
 
+export enum StripePaymentMethodNames {
+  CARD = 'card',
+  SEPA_DEBIT = 'sepa_debit',
+  BANCONTACT = 'bancontact',
+  IDEAL = 'ideal',
+  TWINT = 'twint',
+}
+
+export const STRIPE_CARD_ERROR_CODES = [
+  'generic_decline',
+  'insufficient_funds',
+  'incomplete_cvc',
+  'incomplete_expiry',
+  'incomplete_number',
+  'incorrect_number',
+  'incorrect_zip',
+  'incorrect_cvc',
+  'invalid_cvc',
+  'invalid_expiry_month',
+  'invalid_expiry_year',
+  'invalid_expiry_year_past',
+  'invalid_number',
+  'expired_card',
+  'fraudulent',
+  'lost_card',
+  'stolen_card',
+  'card_velocity_exceeded',
+];
+
+export const STRIPE_SEPA_ERROR_CODES = [
+  'charge_exceeds_source_limit',
+  'charge_exceeds_transaction_limit',
+  'charge_exceeds_weekly_limit',
+];
+
 export const PAYMENT_METHOD_PNG_MAP: {
   [key in PaymentMethodBrands]?: string;
 } = {

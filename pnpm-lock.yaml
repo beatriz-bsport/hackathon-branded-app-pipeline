@@ -1098,6 +1098,110 @@ importers:
 
   apps/applications/studio-manager/buyables/order:
     dependencies:
+      '@bsport/common':
+        specifier: workspace:*
+        version: link:../../../../../packages/common-legacy
+      '@bsport/fetch':
+        specifier: workspace:*
+        version: link:../../../../../packages/utils/fetch
+      '@bsport/i18n':
+        specifier: workspace:*
+        version: link:../../../../../packages/utils/i18n
+      '@bsport/kaizen-primitive-core':
+        specifier: workspace:*
+        version: link:../../../../../packages/design-system/kaizen/primitive/core
+      '@bsport/sm-backbone':
+        specifier: workspace:*
+        version: link:../../../../../packages/utils/sm-backbone
+      '@bsport/store-buyables-order':
+        specifier: workspace:*
+        version: link:../../../../../packages/stores/buyables/order
+      '@bsport/use-async':
+        specifier: workspace:*
+        version: link:../../../../../packages/hooks/use-async
+      '@bsport/use-pagination-query-params':
+        specifier: workspace:*
+        version: link:../../../../../packages/utils/query-params/use-pagination
+      clsx:
+        specifier: ^2.1.1
+        version: 2.1.1
+      react:
+        specifier: ^19.0.0
+        version: 19.0.0
+      react-dom:
+        specifier: ^19.0.0
+        version: 19.0.0(react@19.0.0)
+      react-router:
+        specifier: ^7.2.0
+        version: 7.2.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+    devDependencies:
+      '@bsport/config-eslint-react':
+        specifier: workspace:*
+        version: link:../../../../../tools/config/eslint-react
+      '@bsport/config-federation':
+        specifier: workspace:*
+        version: link:../../../../../tools/config/federation
+      autoprefixer:
+        specifier: ^10.4.20
+        version: 10.4.20(postcss@8.4.49)
+      postcss:
+        specifier: ^8.4.49
+        version: 8.4.49
+      tailwindcss:
+        specifier: ^3.4.14
+        version: 3.4.14(ts-node@10.9.2(@swc/core@1.11.13(@swc/helpers@0.5.15))(@types/node@22.13.15)(typescript@5.8.2))
+      vite:
+        specifier: ^5.4.11
+        version: 5.4.11(@types/node@22.13.15)(less@4.1.3)(sass@1.77.8)(stylus@0.64.0)(terser@5.31.3)
+
+  apps/applications/studio-manager/buyables/pack:
+    dependencies:
+      '@bsport/fetch':
+        specifier: workspace:*
+        version: link:../../../../../packages/utils/fetch
+      '@bsport/i18n':
+        specifier: workspace:*
+        version: link:../../../../../packages/utils/i18n
+      '@bsport/kaizen-primitive-core':
+        specifier: workspace:*
+        version: link:../../../../../packages/design-system/kaizen/primitive/core
+      '@bsport/sm-backbone':
+        specifier: workspace:*
+        version: link:../../../../../packages/utils/sm-backbone
+      '@bsport/use-debounce':
+        specifier: workspace:*
+        version: link:../../../../../packages/hooks/use-debounce
+      react:
+        specifier: ^19.0.0
+        version: 19.0.0
+      react-dom:
+        specifier: ^19.0.0
+        version: 19.0.0(react@19.0.0)
+      react-router:
+        specifier: ^7.2.0
+        version: 7.2.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+    devDependencies:
+      '@bsport/config-eslint-react':
+        specifier: workspace:*
+        version: link:../../../../../tools/config/eslint-react
+      '@bsport/config-federation':
+        specifier: workspace:*
+        version: link:../../../../../tools/config/federation
+      autoprefixer:
+        specifier: ^10.4.20
+        version: 10.4.20(postcss@8.4.49)
+      postcss:
+        specifier: ^8.4.49
+        version: 8.4.49
+      tailwindcss:
+        specifier: ^3.4.14
+        version: 3.4.14(ts-node@10.9.2(@swc/core@1.11.13(@swc/helpers@0.5.15))(@types/node@22.13.15)(typescript@5.8.2))
+      vite:
+        specifier: ^5.4.11
+        version: 5.4.11(@types/node@22.13.15)(less@4.1.3)(sass@1.77.8)(stylus@0.64.0)(terser@5.31.3)
+
+  apps/applications/studio-manager/cdp/custom-form:
+    dependencies:
       '@bsport/fetch':
         specifier: workspace:*
         version: link:../../../../../packages/utils/fetch
@@ -1139,7 +1243,7 @@ importers:
         specifier: ^5.4.11
         version: 5.4.11(@types/node@22.13.15)(less@4.1.3)(sass@1.77.8)(stylus@0.64.0)(terser@5.31.3)
 
-  apps/applications/studio-manager/cdp/email-templates:
+  apps/applications/studio-manager/cdp/email-template:
     dependencies:
       '@bsport/fetch':
         specifier: workspace:*
@@ -1977,6 +2081,9 @@ importers:
 
   packages/stores/base:
     dependencies:
+      '@bsport/http-exception':
+        specifier: workspace:*
+        version: link:../../utils/http-exception
       typescript-result:
         specifier: ^3.1.1
         version: 3.1.1
@@ -2024,6 +2131,54 @@ importers:
         version: link:../../../../tools/config/eslint-react
 
   packages/stores/buyables/order:
+    dependencies:
+      '@bsport/store-base':
+        specifier: workspace:*
+        version: link:../../base
+      typescript-result:
+        specifier: ^3.1.1
+        version: 3.1.1
+      zustand:
+        specifier: ^5.0.3
+        version: 5.0.3(@types/react@18.3.12)(immer@9.0.21)(react@19.0.0)(use-sync-external-store@1.4.0(react@19.0.0))
+    devDependencies:
+      '@bsport/config-eslint-react':
+        specifier: workspace:*
+        version: link:../../../../tools/config/eslint-react
+
+  packages/stores/buyables/pack:
+    dependencies:
+      '@bsport/store-base':
+        specifier: workspace:*
+        version: link:../../base
+      typescript-result:
+        specifier: ^3.1.1
+        version: 3.1.1
+      zustand:
+        specifier: ^5.0.3
+        version: 5.0.3(@types/react@18.3.12)(immer@9.0.21)(react@19.0.0)(use-sync-external-store@1.4.0(react@19.0.0))
+    devDependencies:
+      '@bsport/config-eslint-react':
+        specifier: workspace:*
+        version: link:../../../../tools/config/eslint-react
+
+  packages/stores/cdp/custom-form:
+    dependencies:
+      '@bsport/store-base':
+        specifier: workspace:*
+        version: link:../../base
+      typescript-result:
+        specifier: ^3.1.1
+        version: 3.1.1
+      zustand:
+        specifier: ^5.0.3
+        version: 5.0.3(@types/react@18.3.12)(immer@9.0.21)(react@19.0.0)(use-sync-external-store@1.4.0(react@19.0.0))
+    devDependencies:
+      '@bsport/config-eslint-react':
+        specifier: workspace:*
+        version: link:../../../../tools/config/eslint-react
+
+  packages/stores/cdp/email-template:
     dependencies:
       '@bsport/store-base':
         specifier: workspace:*
@@ -2175,6 +2330,9 @@ importers:
 
   packages/utils/fetch:
     dependencies:
+      '@bsport/http-exception':
+        specifier: workspace:*
+        version: link:../http-exception
       '@bsport/local-storage-auth-token':
         specifier: workspace:*
         version: link:../../local-storage/auth-token
@@ -2184,6 +2342,12 @@ importers:
       '@bsport/timezone-utils':
         specifier: workspace:*
         version: link:../datetime/timezone
+    devDependencies:
+      '@bsport/config-eslint-react':
+        specifier: workspace:*
+        version: link:../../../tools/config/eslint-react
+
+  packages/utils/http-exception:
     devDependencies:
       '@bsport/config-eslint-react':
         specifier: workspace:*

@@ -10,6 +10,7 @@ const GroupActivities = lazy(() => import("sm-group-activity/App"));
 
 // ----- Buyables -----
 const Giftcard = lazy(() => import("sm-giftcard/App"));
+const Order = lazy(() => import("sm-order/App"));
 
 // ----- Core-data -----
 const MemberList = lazy(() => import("sm-member-list/App"));
@@ -19,7 +20,9 @@ const Teacher = lazy(() => import("sm-teacher/App"));
 const Invoice = lazy(() => import("sm-invoice/App"));
 
 // ----- Customer Data Platform -----
+const EmailTemplate = lazy(() => import("sm-email-template/App"));
 const Smartlists = lazy(() => import("sm-smartlists/App"));
+const CustomForm = lazy(() => import("sm-custom-form/App"));
 
 // ----- Common -----
 const NavigationSidebar = lazy(
@@ -39,6 +42,7 @@ export function Root() {
 
         {/* ----- Buyables ----- */}
         <Route path={`${urls.giftcard}/*`} element={<Giftcard />} />
+        <Route path={`${urls.order}/*`} element={<Order />} />
 
         {/* ----- Core-data ----- */}
         <Route path={`${urls.member}/*`} element={<MemberList />} />
@@ -49,6 +53,8 @@ export function Root() {
 
         {/* ----- Customer Data Platform ----- */}
         <Route path={`${urls.smartlist}/*`} element={<Smartlists />} />
+        <Route path={`${urls.emailTemplate}/*`} element={<EmailTemplate />} />
+        <Route path={`${urls.customForm}/*`} element={<CustomForm />} />
       </Routes>
     </AppWrapper>
   );

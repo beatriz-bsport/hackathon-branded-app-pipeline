@@ -32,4 +32,8 @@ exports.default = {
     invalidEndDate: "Invalid end date",
     rangeLabel: "From {{ start }} to {{end}}",
   },
+  modal: {
+    back: "Back",
+    next: "Next",
+  },
 };

@@ -1,6 +1,11 @@
 import { Result } from "typescript-result";
 
-import type { Action, PaginatedResponse } from "@bsport/store-base";
+import {
+  type Action,
+  type HTTPException,
+  type PaginatedResponse,
+  createErrorWithContext,
+} from "@bsport/store-base";
 
 import {
   type FetchTeachersParams,
@@ -52,7 +57,11 @@ export const fetchTeachersAction: Action<
 
       return data;
     },
-    (error) => new Error("Failed to fetch teachers", { cause: error }),
+    (error) =>
+      createErrorWithContext(error, {
+        message: "Failed to fetch teachers",
+        params,
+      }),
   );
 };
 
@@ -68,7 +77,8 @@ export const fetchTeachersAction: Action<
  */
 export const fetchFlatTeachersAction: Action<
   Omit<FetchTeachersParams, "page" | "page_size">,
-  Array<Teacher>
+  Array<Teacher>,
+  HTTPException
 > = async (fetch, params) => {
   const [uri, init] = fetchTeachersAPI(params);
 
@@ -82,13 +92,18 @@ export const fetchFlatTeachersAction: Action<
 
       return data;
     },
-    (error) => new Error("Failed to fetch teachers", { cause: error }),
+    (error) =>
+      createErrorWithContext(error, {
+        message: "Failed to fetch teachers",
+        params,
+      }),
   );
 };
 
 export const fuzzySearchTeachersAction: Action<
   FuzzySearchParams,
-  PaginatedResponse<Teacher>
+  PaginatedResponse<Teacher>,
+  HTTPException
 > = async (fetch, params) => {
   const [uri, init] = fuzzySearchTeachersAPI(params);
 
@@ -102,7 +117,11 @@ export const fuzzySearchTeachersAction: Action<
 
       return data;
     },
-    (error) => new Error("Failed to fuzzy search teachers", { cause: error }),
+    (error) =>
+      createErrorWithContext(error, {
+        message: "Failed to fuzzy search teachers",
+        params,
+      }),
   );
 };
 
@@ -110,10 +129,11 @@ export const fuzzySearchTeachersAction: Action<
  * Archive an active Teacher (AssociatedCoach)
  * @param id Id of the Teacher to archive
  */
-export const archiveTeacherAction: Action<{ id: number }, Teacher> = async (
-  fetch,
-  params,
-) => {
+export const archiveTeacherAction: Action<
+  { id: number },
+  Teacher,
+  HTTPException
+> = async (fetch, params) => {
   const [uri, init] = archiveTeacherAPI(params);
 
   return Result.try(
@@ -125,8 +145,9 @@ export const archiveTeacherAction: Action<{ id: number }, Teacher> = async (
       return data;
     },
     (error) =>
-      new Error(`Failed to archive teacher n°${params.id}`, {
-        cause: error,
+      createErrorWithContext(error, {
+        message: `Failed to archive teacher n°${params.id}`,
+        params,
       }),
   );
 };
@@ -135,10 +156,11 @@ export const archiveTeacherAction: Action<{ id: number }, Teacher> = async (
  * Restore an archived Teacher (AssociatedCoach)
  * @param id Id of the Teacher to archive
  */
-export const restoreTeacherAction: Action<{ id: number }, Teacher> = async (
-  fetch,
-  params,
-) => {
+export const restoreTeacherAction: Action<
+  { id: number },
+  Teacher,
+  HTTPException
+> = async (fetch, params) => {
   const [uri, init] = restoreTeacherAPI(params);
 
   return Result.try(
@@ -150,27 +172,12 @@ export const restoreTeacherAction: Action<{ id: number }, Teacher> = async (
       return data;
     },
     (error) =>
-      new Error(`Failed to restore teacher n°${params.id}`, {
-        cause: error,
+      createErrorWithContext(error, {
+        message: `Failed to restore teacher n°${params.id}`,
+        params,
       }),
   );
 };
-
-/** @todo This is temporary and will be moved later, it's for POC ts intellisense. Same class as in fetch pkg */
-class HTTPException extends Error {
-  readonly path: string;
-  readonly name: string;
-  readonly statusCode: number;
-
-  constructor(path: string, name: string, message: string, statusCode: number) {
-    super(
-      `Error calling backend (path: ${path}) because: [${JSON.stringify(name)}] ${message}`,
-    );
-    this.path = path;
-    this.name = name;
-    this.statusCode = statusCode;
-  }
-}
 
 /**
  * Create or Link a Teacher into the company based on the provided email.
@@ -192,14 +199,10 @@ export const linkByEmailAction: Action<
       return data;
     },
     (error) => {
-      /** @todo Return an HttpException with the right error code */
-      console.error(
-        new Error(`Failed to link teacher with email ${params.email}`, {
-          cause: error,
-        }),
-      );
-      /** @todo Need to find a way to inform Typescript result that we expect an HTTPException */
-      return error as HTTPException;
+      return createErrorWithContext(error, {
+        message: `Failed to link teacher with email ${params.email}`,
+        params,
+      });
     },
   );
 };

@@ -183,7 +183,7 @@ export const useNavigationElements = ({
           href: urls.giftcard,
         },
         { id: "videos", label: t("menus.products.videosAndEbooks") },
-        { id: "orders", label: t("menus.products.orders") },
+        { id: "orders", label: t("menus.products.orders"), href: urls.order },
       ],
     },
     {
@@ -199,9 +199,14 @@ export const useNavigationElements = ({
           label: t("menus.marketing.memberNotifications"),
         },
         {
-          id: "email-templates",
+          id: "email-template",
           label: t("menus.marketing.emailTemplates"),
-          href: urls.emailTemplates,
+          href: urls.emailTemplate,
+        },
+        {
+          id: "custom-forms",
+          label: t("menus.marketing.customForms"),
+          href: urls.customForm,
         },
         {
           id: "smartlists",

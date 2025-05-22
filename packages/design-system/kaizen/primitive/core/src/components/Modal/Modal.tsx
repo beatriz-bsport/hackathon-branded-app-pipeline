@@ -1,14 +1,16 @@
-import { type VariantProps, cva } from "class-variance-authority";
-import classNames from "classnames";
+import { cva, cx } from "class-variance-authority";
 import mapValues from "lodash/mapValues";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-import type { SetRequired } from "type-fest";
 
 import Body from "#src/components/Body";
 import Button from "#src/components/Button";
+import Icon, { type IconName } from "#src/components/Icon";
 import Title from "#src/components/Title";
 import useEscapeKeydownListener from "#src/hooks/escape-keydown-listener.hook";
+import { useKaizenI18nInstance, useTranslation } from "#src/i18n";
+
+import Footer from "./Footer";
 
 const defaultClasses = [
   "absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2",
@@ -25,6 +27,10 @@ const variants = {
     md: "w-component-modal-min-md",
     lg: "w-component-modal-min-lg",
   },
+  isVisible: {
+    true: "opacity-100 pointer-events-auto scale-100",
+    false: "opacity-0 pointer-events-none scale-95",
+  },
 } as const;
 
 export const sizes = mapValues(variants.size, (_, key) => key) as {
@@ -35,19 +41,25 @@ export const footerDirections = ["row", "column"] as const;
 
 const modal = cva(defaultClasses, { variants });
 
-type ModalVariantsProps = SetRequired<VariantProps<typeof modal>, "size">;
+export type StepConfig = {
+  label: string;
+  content: React.ReactNode;
+  validate?: () => boolean;
+  icon?: IconName;
+};
 
-export type ModalProps = React.HTMLAttributes<HTMLDivElement> &
-  ModalVariantsProps & {
-    open: boolean;
-    size: string;
-    title: string;
-    description?: React.ReactNode;
-    footerDirection?: (typeof footerDirections)[number];
-    onClose?: () => void;
-    onCrossButtonClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
-    onClickOutside?: (event: React.MouseEvent<HTMLDivElement>) => void;
-  } & ({
+export type ModalProps = React.HTMLAttributes<HTMLDivElement> & {
+  open: boolean;
+  size: "sm" | "md" | "lg";
+  title: string;
+  description?: React.ReactNode;
+  footerDirection?: (typeof footerDirections)[number];
+  steps?: StepConfig[];
+  initialStep?: number;
+  onClose?: () => void;
+  onCrossButtonClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
+  onClickOutside?: (event: React.MouseEvent<HTMLDivElement>) => void;
+} & ({
     confirmLabel: string;
     confirmColor: (typeof confirmColors)[number];
     onConfirmClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
@@ -67,6 +79,8 @@ export type ModalProps = React.HTMLAttributes<HTMLDivElement> &
  * @param props.title Title of the modal.
  * @param props.description Description below the title. Can be a string or a ReactNode.
  * @param props.footerDirection Direction of the footer.
+ * @param props.steps Array of step config objects to render a modal step form
+ * @param props.initialStep Index of the initial step. Defaults to 0.
  * @param props.onClose Function to call when the modal is closed.
  * @param props.onCrossButtonClick Function to call when the cross button is clicked.
  * @param props.onClickOutside Function to call when the modal is clicked outside.
@@ -84,24 +98,36 @@ const Modal: React.FC<ModalProps> = ({
   size,
   title,
   description,
-  footerDirection,
+  footerDirection = "row",
+  steps,
+  initialStep = 0,
   onClose,
   onCrossButtonClick,
   onClickOutside,
   confirmLabel,
-  confirmColor,
+  confirmColor = "main",
   onConfirmClick,
   cancelLabel,
   onCancelClick,
   children,
   ...props
 }) => {
+  const i18nInstance = useKaizenI18nInstance();
+  const { t } = useTranslation("default", { i18n: i18nInstance });
+
   const [isVisible, setIsVisible] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
+
+  // Handle stepper logic if steps are provided
+  const [currentStep, setCurrentStep] = useState(initialStep);
+  const isStepper = !!steps && steps.length > 0;
+  const currentStepConfig = isStepper ? steps[currentStep] : undefined;
+  const isLastStep = isStepper && currentStep === steps.length - 1;
 
   const handleClose = useCallback(() => {
     setTimeout(() => {
       setIsMounted(false);
+      setCurrentStep(0);
       onClose?.();
       document.body.style.overflow = "";
     }, 200);
@@ -115,7 +141,7 @@ const Modal: React.FC<ModalProps> = ({
         handleClose();
       }
     },
-    [onClickOutside, onClose],
+    [onClickOutside, handleClose],
   );
 
   const handleCrossButtonClick = useCallback(
@@ -123,15 +149,41 @@ const Modal: React.FC<ModalProps> = ({
       onCrossButtonClick?.(event);
       handleClose();
     },
-    [onCrossButtonClick, onClose],
+    [onCrossButtonClick, handleClose],
   );
 
   const handleCancelClick = useCallback(
     (event: React.MouseEvent<HTMLButtonElement>) => {
       onCancelClick?.(event);
-      handleClose();
+
+      if (!isStepper || currentStep === 0) {
+        handleClose();
+      } else {
+        setCurrentStep((prev) => Math.max(prev - 1, 0));
+      }
     },
-    [onCancelClick, onClose],
+    [currentStep, handleClose, onCancelClick],
+  );
+
+  const handleNextStep = useCallback(
+    (event: React.MouseEvent<HTMLButtonElement>) => {
+      if (!isStepper) {
+        onConfirmClick?.(event);
+        return;
+      }
+
+      // The validate function is optional, if it's not passed we assume the step is valid
+      if (currentStepConfig?.validate?.() ?? true) {
+        onConfirmClick?.(event);
+
+        if (isLastStep) {
+          handleClose();
+        } else {
+          setCurrentStep((prev) => prev + 1);
+        }
+      }
+    },
+    [isStepper, currentStepConfig, isLastStep, onConfirmClick, handleClose],
   );
 
   const handleModalClick = useCallback(
@@ -155,7 +207,7 @@ const Modal: React.FC<ModalProps> = ({
       handleClose();
       previousFocusRef.current?.focus();
     }
-  }, [open, handleClose]);
+  }, [open]);
 
   useEscapeKeydownListener(handleClose ?? (() => {}), open);
 
@@ -163,7 +215,7 @@ const Modal: React.FC<ModalProps> = ({
 
   return createPortal(
     <div
-      className={classNames(
+      className={cx(
         "fixed inset-[0] z-[999] bg-surface-blanket transition ease-out duration-default",
         { "bg-surface-blanket/transparent": !isVisible },
       )}
@@ -173,9 +225,7 @@ const Modal: React.FC<ModalProps> = ({
         role="dialog"
         aria-modal="true"
         aria-labelledby="modal-title"
-        className={classNames(modal({ className, size }), {
-          "opacity-transparent scale-95": !isVisible,
-        })}
+        className={cx(modal({ className, size, isVisible }))}
         onClick={handleModalClick}
         ref={modalRef}
         {...props}
@@ -199,41 +249,57 @@ const Modal: React.FC<ModalProps> = ({
             intent="flat"
             color="default"
             iconRight="x"
-            loading={false}
             className="h-fit"
             onClick={handleCrossButtonClick}
           />
         </div>
-        {children && (
-          <div className="p-md flex-grow overflow-y-auto">{children}</div>
-        )}
-        {(cancelLabel || confirmLabel) && (
-          <div
-            className={`flex justify-end p-md gap-xs border-t-stroke-divider border-t-stroke-thin border-opacity-md
-              ${footerDirection === "column" ? "flex-col-reverse" : "flex-row"}`}
-          >
-            {cancelLabel && (
-              <Button
-                size="md"
-                intent="flat"
-                color="default"
-                label={cancelLabel}
-                loading={false}
-                onClick={handleCancelClick}
-              />
-            )}
-            {confirmLabel && (
-              <Button
-                size="md"
-                intent="call-to-action"
-                color={confirmColor || "main"}
-                label={confirmLabel}
-                loading={false}
-                onClick={onConfirmClick}
-              />
-            )}
+
+        {isStepper ? (
+          <div className="flex items-start gap-md p-md min-h-full">
+            <div className="flex flex-col items-start gap-md p-md border-r-stroke-thin border-r-stroke-weak h-full">
+              {steps.map((step, index) => {
+                return (
+                  <div
+                    key={step.label}
+                    className="inline-flex items-center gap-2xs"
+                  >
+                    {step.icon && <Icon icon={step.icon} size="sm" />}
+                    <Body
+                      htmlVariant="span"
+                      weight={index === currentStep ? "strong" : "weak"}
+                      color={index === currentStep ? "default" : "weak"}
+                    >
+                      {step.label}
+                    </Body>
+                  </div>
+                );
+              })}
+            </div>
+            <div className="flex flex-1 p-lg overflow-auto">
+              {steps[currentStep].content}
+            </div>
           </div>
+        ) : (
+          children && (
+            <div className="p-md flex-grow overflow-y-auto">{children}</div>
+          )
         )}
+
+        <Footer
+          cancelLabel={cancelLabel}
+          confirmLabel={confirmLabel}
+          confirmColor={confirmColor}
+          onConfirmClick={onConfirmClick}
+          onCancelClick={onCancelClick}
+          isStepper={isStepper}
+          currentStep={currentStep}
+          steps={steps}
+          t={t}
+          handleCancelClick={handleCancelClick}
+          handleNextStep={handleNextStep}
+          currentStepConfig={currentStepConfig}
+          footerDirection={footerDirection}
+        />
       </div>
     </div>,
     document.body,

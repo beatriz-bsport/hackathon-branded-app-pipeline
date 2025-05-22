@@ -4,7 +4,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import Grid from '@material-ui/core/Grid';
 import { compose, withHandlers, withState, withStateHandlers } from 'recompose';
 import { connect } from 'react-redux';
-import { withTranslation } from 'react-i18next';
+import { TFunction, withTranslation } from 'react-i18next';
 import Grow from '@material-ui/core/Grow';
 import Hidden from '@material-ui/core/Hidden';
 import Fab from '@material-ui/core/Fab';
@@ -253,6 +253,7 @@ type Props = {
   invoiceConfiguration: InvoiceConfigurationSerializer,
   isInvoiceConfigurationLoading: boolean,
   fetchInvoiceConfiguration: () => void,
+  t: TFunction,
 };
 
 type State = {
@@ -286,6 +287,20 @@ export class InvoiceDetail extends React.Component<Props, State> {
       this.props.fetchAllEstablishmentBillingGroup({
         params: { company: this.props.companyId },
       });
+    }
+
+    const { t } = this.props;
+    const queryParams = new URLSearchParams(window.location.search);
+    const redirectStatus = queryParams.get('redirect_status');
+    const paymentMethodType = queryParams.get('payment_method_type');
+
+    if (redirectStatus === 'failed') {
+      const errorMessage = paymentMethodType
+        ? t('invoice:invoice.paymentFailedWithMethod', {
+            paymentMethod: paymentMethodType,
+          })
+        : t('invoice:invoice.paymentFailed');
+      this.props.snackbarError(errorMessage);
     }
   }
 

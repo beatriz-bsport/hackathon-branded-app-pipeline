@@ -21,3 +21,6 @@
 
 # Built lockfiles
 pnpm-lock.yaml
+
+# Ignore module federation temporal files
+.__mf__temp/**

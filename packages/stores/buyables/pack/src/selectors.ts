@@ -1,0 +1,10 @@
+import type { PackState } from "./store";
+
+export const selectPacks = (state: PackState) => {
+  const { ids, byId } = state;
+  return ids.map((id) => byId[id]);
+};
+
+export const selectPack = (state: PackState, id: number) => state.byId[id];
+
+export const selectCount = (state: PackState) => state.count;

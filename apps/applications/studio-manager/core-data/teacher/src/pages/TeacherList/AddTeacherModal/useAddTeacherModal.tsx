@@ -10,6 +10,10 @@ import { useFetchTeachers } from "#src/hooks/useFetchTeachers";
 import { fetch } from "#src/utils/fetch";
 import { useTranslation } from "#src/utils/i18n";
 
+// Same as in @bsport/common but this avoid having this unecessary deps
+const COACH_EDIT_EMAIL_ADDRESS_IS_STAFF_USER = 60002;
+const COACH_CREATE_EMAIL_ADDRESS_IS_FRANCHISOR_USER = 60004;
+
 export const useAddTeacherModal = () => {
   const { t } = useTranslation("common");
   const [openAddTeacherModal, setOpenAddTeacherModal] = useState(false);
@@ -56,15 +60,23 @@ export const useAddTeacherModal = () => {
         if (error.statusCode === 499) {
           // Display a toast to inform about the error
           let errorMessage: string = "";
-          if (String(error.name) === "60002") {
+          if (
+            error.customErrorCodes.includes(
+              COACH_EDIT_EMAIL_ADDRESS_IS_STAFF_USER,
+            )
+          ) {
             errorMessage = t("activeList.addTeacherModal.errors.staffExists");
           }
-          if (String(error.name) === "60004") {
+          if (
+            error.customErrorCodes.includes(
+              COACH_CREATE_EMAIL_ADDRESS_IS_FRANCHISOR_USER,
+            )
+          ) {
             errorMessage = t(
               "activeList.addTeacherModal.errors.staffFranchiseExists",
             );
           }
-          console.log("This is error ", error);
+
           toast({
             title: errorMessage,
             status: "critical",

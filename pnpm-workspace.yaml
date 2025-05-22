@@ -13,3 +13,18 @@ packages:
 
   # Ignore dist outputs
   - "!**/dist/**"
+
+onlyBuiltDependencies:
+  - '@parcel/watcher'
+  - '@sentry/cli'
+  - '@swc/core'
+  - canvas
+  - core-js
+  - core-js-pure
+  - es5-ext
+  - esbuild
+  - javascript-obfuscator
+  - msw
+  - nx
+  - puppeteer
+  - rudder-sdk-js

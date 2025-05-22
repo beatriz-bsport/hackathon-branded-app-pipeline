@@ -237,7 +237,7 @@ async function main(options: Partial<ActionParameters> & { quiet: boolean }) {
   {
     print("⏳ Installing dependencies...");
     await new Promise<void>((resolve, reject) => {
-      const subShell = spawn("pnpm install", [], {
+      const subShell = spawn("pnpm install --ignore-scripts", [], {
         stdio: "inherit",
         shell: true,
         cwd: projectAbsPath,

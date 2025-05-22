@@ -1,20 +1,17 @@
-import capitalize from "lodash/capitalize";
 import React, { useEffect } from "react";
 import { Link } from "react-router";
 
 import {
-  Avatar,
   Button,
-  Chip,
   ListLayout,
   Loader,
   Table,
 } from "@bsport/kaizen-primitive-core";
-import { MetaActivity } from "@bsport/store-booking-group-activity";
+import type { MetaActivity } from "@bsport/store-booking-group-activity";
 
-import useGetActivityChips from "#src/hooks/useGetActivityChips";
 import { useGroupActivityModals } from "#src/hooks/useGroupActivityModals";
 import { usePaginatedGroupActivities } from "#src/hooks/usePaginatedGroupActivities";
+import useTableColumns from "#src/hooks/useTableColumns";
 import { ROUTES } from "#src/urls";
 import { useTranslation } from "#src/utils/i18n";
 
@@ -25,7 +22,7 @@ type Row = MetaActivity & {
 
 export const GroupActivitiesList: React.FC = () => {
   const { t } = useTranslation("groupActivity");
-  const { getChips } = useGetActivityChips();
+  const columns = useTableColumns<Row>();
   const {
     fetchGroupActivitiesPage,
     groupActivities,
@@ -73,6 +70,7 @@ export const GroupActivitiesList: React.FC = () => {
         }
         pageTitle={t("list.header.groupActivities")}
         filterConfig={{
+          // No working at the moment, will be using SCTs in the coming days
           fields: {
             category: {
               availableFilters: ["is", "is-not"],
@@ -109,6 +107,7 @@ export const GroupActivitiesList: React.FC = () => {
           selectFieldLabel: t("list.enabled.filter.title"),
         }}
         searchConfig={{
+          // No working at the moment, will be implemented in the coming days
           id: "group-activity-expandable-search",
         }}
       />
@@ -119,60 +118,7 @@ export const GroupActivitiesList: React.FC = () => {
           <Table<Row>
             id="enabled-group-activities-list"
             columns={[
-              {
-                header: t("list.columns.name"),
-                id: "name",
-                keyPath: "name",
-                type: "custom",
-                render: (item) => {
-                  return (
-                    <div className="flex flex-row items-center gap-sm">
-                      <Avatar
-                        alt={item.alt_cover_main}
-                        shape="squared"
-                        size="md"
-                        src={item.cover_main}
-                      >
-                        empty
-                      </Avatar>
-                      <div>{capitalize(item.name)}</div>
-                    </div>
-                  );
-                },
-              },
-              {
-                header: t("list.columns.category"),
-                id: "category",
-                keyPath: "category",
-                type: "string",
-              },
-              {
-                header: t("list.columns.upcomingSession"),
-                id: "upcomingSession",
-                keyPath: "next_slot",
-                type: "datetime",
-              },
-              {
-                header: t("list.columns.features"),
-                id: "features",
-                keyPath: "features",
-                type: "custom",
-                render: (item) => {
-                  const chips = getChips(
-                    item.on_booking_notification?.length > 0,
-                    item.is_broadcast,
-                  );
-                  return (
-                    <div className="flex flex-row gap-sm">
-                      {chips.map((chip) => (
-                        <div key={chip.id} className="flex">
-                          <Chip {...chip} />
-                        </div>
-                      ))}
-                    </div>
-                  );
-                },
-              },
+              ...columns,
               {
                 header: "",
                 id: "actions",

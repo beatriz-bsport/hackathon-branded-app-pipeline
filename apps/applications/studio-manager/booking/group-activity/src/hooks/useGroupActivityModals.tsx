@@ -56,7 +56,6 @@ export const useGroupActivityModals = ({
   };
 
   const onClickDuplicate = (id: number, name: string) => {
-    console.log("Duplicate activity", id, name);
     setIsDuplicateModalOpen(true);
     setGroupActivityToDuplicate({ id, name });
   };

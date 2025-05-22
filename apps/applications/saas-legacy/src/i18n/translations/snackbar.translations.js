@@ -425,7 +425,7 @@ const getTranslations = async () => {
       create: {
         error: 'Failed to create notification',
         success: 'Notification successfully created',
-        errorLackRequiredVariables: '',
+        errorLackRequiredVariables: 'This template could not be registered',
       },
       delete: {
         error: 'Failed to delete notification',

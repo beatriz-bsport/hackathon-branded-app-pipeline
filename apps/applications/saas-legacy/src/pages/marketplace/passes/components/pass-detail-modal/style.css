@@ -38,7 +38,7 @@
 .bs-marketplace-pass-detail__compatibility__content {
   display: flex;
   flex-direction: column;
-  gap: var(--bs-space-size-2);
+  gap: var(--bs-space-size-3);
 }
 
 .bs-marketplace-pass-detail__compatibility__list-item,

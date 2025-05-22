@@ -162,6 +162,7 @@ export const ArchivedGroupActivitiesList: React.FC = () => {
                         intent="default"
                         color="main"
                         size="md"
+                        label={t("list.actions.unarchive")}
                         onClick={handleUnarchiveGroupActivity(item.id)}
                       />
                     </div>

@@ -18,6 +18,11 @@ import { usePaginatedGroupActivities } from "#src/hooks/usePaginatedGroupActivit
 import { ROUTES } from "#src/urls";
 import { useTranslation } from "#src/utils/i18n";
 
+type Row = MetaActivity & {
+  link: string;
+  color: string;
+};
+
 export const GroupActivitiesList: React.FC = () => {
   const { t } = useTranslation("groupActivity");
   const { getChips } = useGetActivityChips();
@@ -34,6 +39,7 @@ export const GroupActivitiesList: React.FC = () => {
   const renderedGroupActivities = groupActivities.map((item) => ({
     ...item,
     link: getGroupActivityDetailLink(item.id.toString()),
+    color: item.color,
   }));
 
   const { archiveModal, duplicateModal, onClickArchive, onClickDuplicate } =
@@ -110,7 +116,7 @@ export const GroupActivitiesList: React.FC = () => {
         <Loader className="w-full h-full" size="xl" />
       ) : (
         <ListLayout.Content className="flex flex-col gap-sm">
-          <Table<MetaActivity>
+          <Table<Row>
             id="enabled-group-activities-list"
             columns={[
               {
@@ -179,6 +185,7 @@ export const GroupActivitiesList: React.FC = () => {
                         iconLeft="copy-03"
                         intent="default"
                         color="main"
+                        label={t("list.actions.duplicate")}
                         size="md"
                         onClick={(e) => {
                           e.preventDefault();
@@ -189,6 +196,7 @@ export const GroupActivitiesList: React.FC = () => {
                         iconLeft="archive"
                         intent="default"
                         color="main"
+                        label={t("list.actions.archive")}
                         size="md"
                         onClick={(e) => {
                           e.preventDefault();

@@ -47,6 +47,11 @@ exports.default = {
       unarchive: "Unarchive activity",
       emptyState: { title: "No archived group activities yet" },
     },
+    actions: {
+      archive: "Archive",
+      unarchive: "Unarchive",
+      duplicate: "Duplicate",
+    },
     header: {
       groupActivities: "Group activities",
       archivedGroupActivities: "Archived group activities",

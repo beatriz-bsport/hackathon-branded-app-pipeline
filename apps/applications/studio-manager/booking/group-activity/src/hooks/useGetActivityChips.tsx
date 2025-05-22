@@ -38,8 +38,8 @@ const useGetActivityChips = () => {
         }
       : undefined;
 
-    return compact([notificationChip, broadcastChip]) as WithTooltip<
-      [ChipProps] | [ChipProps, ChipProps]
+    return compact([notificationChip, broadcastChip]) as Array<
+      WithTooltip<ChipProps>
     >;
   };
   return { getChips };

@@ -193,25 +193,24 @@ export const PaymentStripeGenericElement = forwardRef(
         );
 
         const url = new URL(window.location.toString());
-        const paymentMethodType = (() => {
-          switch (paymentGroupMethodIdentifier) {
-            case PAYMENT_GROUP_METHOD_IDENTIFIER_BANCONTACT:
-              return StripePaymentMethodNames.BANCONTACT;
-            case PAYMENT_GROUP_METHOD_IDENTIFIER_IDEAL:
-              return StripePaymentMethodNames.IDEAL;
-            default:
-              throw new Error(
-                `Unsupported payment group method identifier: ${paymentGroupMethodIdentifier}`,
-              );
-          }
-        })();
-        url.searchParams.set('payment_method_type', paymentMethodType);
+        let paymentMethodType: string | undefined;
+        switch (paymentGroupMethodIdentifier) {
+          case PAYMENT_GROUP_METHOD_IDENTIFIER_BANCONTACT:
+            paymentMethodType = StripePaymentMethodNames.BANCONTACT;
+            break;
+          case PAYMENT_GROUP_METHOD_IDENTIFIER_IDEAL:
+            paymentMethodType = StripePaymentMethodNames.IDEAL;
+            break;
+        }
+
         const params = url.searchParams;
-        params.delete('payment_method_type');
         params.delete('redirect_status');
         params.delete('user_registration_response');
         params.set('check_payment_intent', 'true');
         params.set('get_user_registration_from_storage', 'true');
+        if (paymentMethodType) {
+          params.set('payment_method_type', paymentMethodType);
+        }
 
         if (basketId) {
           // Include the current basket id in the return URL, so that the basket page keeps track

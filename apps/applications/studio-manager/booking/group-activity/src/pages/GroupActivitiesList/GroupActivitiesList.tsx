@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { Link } from "react-router";
 
 import {
@@ -21,6 +21,7 @@ type Row = MetaActivity & {
 };
 
 export const GroupActivitiesList: React.FC = () => {
+  const ref = useRef<{ resetFilters: () => void }>(null);
   const { t } = useTranslation("groupActivity");
   const columns = useTableColumns<Row>();
   const {
@@ -71,6 +72,7 @@ export const GroupActivitiesList: React.FC = () => {
         pageTitle={t("list.header.groupActivities")}
         filterConfig={{
           // No working at the moment, will be using SCTs in the coming days
+          ref,
           fields: {
             category: {
               availableFilters: ["is", "is-not"],
@@ -122,7 +124,6 @@ export const GroupActivitiesList: React.FC = () => {
               {
                 header: "",
                 id: "actions",
-                keyPath: "actions",
                 type: "custom",
                 render: (item) => {
                   return (
@@ -131,7 +132,7 @@ export const GroupActivitiesList: React.FC = () => {
                         iconLeft="copy-03"
                         intent="default"
                         color="main"
-                        label={t("list.actions.duplicate")}
+                        aria-label={t("list.actions.duplicate")}
                         size="md"
                         onClick={(e) => {
                           e.preventDefault();
@@ -142,7 +143,7 @@ export const GroupActivitiesList: React.FC = () => {
                         iconLeft="archive"
                         intent="default"
                         color="main"
-                        label={t("list.actions.archive")}
+                        aria-label={t("list.actions.archive")}
                         size="md"
                         onClick={(e) => {
                           e.preventDefault();
@@ -156,8 +157,18 @@ export const GroupActivitiesList: React.FC = () => {
             ]}
             emptyStateProps={{
               isEmpty: !paginationProps.totalItems,
+              isEmptySearch: !paginationProps.totalItems,
               emptyConfig: {
                 title: t("list.enabled.emptyState.title"),
+              },
+              emptySearchConfig: {
+                title: t("list.enabled.emptySearchState.title"),
+                subtitle: t("list.enabled.emptySearchState.subtitle"),
+                ctaButtonConfig: {
+                  label: t("list.enabled.emptySearchState.action"),
+                  iconLeft: "plus" as const,
+                  onClick: ref.current?.resetFilters,
+                },
               },
             }}
             paginationProps={paginationProps}

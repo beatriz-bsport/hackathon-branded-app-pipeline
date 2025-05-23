@@ -42,6 +42,11 @@ exports.default = {
         title: "No group activities yet",
         body: "Create group activities and let your members attend sessions",
       },
+      emptySearchState: {
+        title: "No group activities found",
+        subtitle: "Try searching with different keywords",
+        action: "Clear Filters",
+      },
     },
     archived: {
       unarchive: "Unarchive activity",

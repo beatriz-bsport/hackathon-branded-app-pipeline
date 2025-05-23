@@ -7361,7 +7361,9 @@
             "titleReceipt": "Ricevuta di pagamento {{ uuid }}",
             "titleReverted": "Ricevuta (annullata) {{ uuid }}",
             "titleRevert": "Credito {{ uuid }}",
-            "titleRevertPending": "[In attesa] Credito {{ uuid }}"
+            "titleRevertPending": "[In attesa] Credito {{ uuid }}",
+            "paymentFailedWithMethod": "Pagamento non riuscito con {{ paymentMethod }}. Si prega di riprovare.",
+            "paymentFailed": "Pagamento non riuscito. Si prega di riprovare."
         },
         "creditAccountBalance": {
             "current": "Saldo attuale"

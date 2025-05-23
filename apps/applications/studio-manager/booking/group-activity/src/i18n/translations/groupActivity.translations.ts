@@ -1,5 +1,12 @@
 exports.default = {
   list: {
+    columns: {
+      name: "Name",
+      category: "Category",
+      upcomingSession: "Upcoming session",
+      features: "Features",
+      actions: "Actions",
+    },
     enabled: {
       item: {
         notifications: {

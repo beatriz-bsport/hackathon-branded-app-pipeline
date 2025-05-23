@@ -1,18 +1,18 @@
-import { compact } from "lodash";
-import React, { useEffect, useMemo } from "react";
+import capitalize from "lodash/capitalize";
+import compact from "lodash/compact";
+import React, { useEffect } from "react";
 import { Link } from "react-router";
 
 import {
+  Avatar,
   Button,
-  List,
+  Chip,
   ListLayout,
   Loader,
+  Table,
 } from "@bsport/kaizen-primitive-core";
-import type {
-  ListItemChipsProps,
-  ListItemProps,
-  WithTooltip,
-} from "@bsport/kaizen-primitive-core";
+import type { ChipProps, WithTooltip } from "@bsport/kaizen-primitive-core";
+import { MetaActivity } from "@bsport/store-booking-group-activity";
 
 import { useGroupActivityModals } from "#src/hooks/useGroupActivityModals";
 import { usePaginatedGroupActivities } from "#src/hooks/usePaginatedGroupActivities";
@@ -24,27 +24,26 @@ const getChips = (
   isBroadcast: boolean,
   t: TFunction,
 ) => {
-  const notificationChip: WithTooltip<ListItemChipsProps> | undefined =
-    hasNotification
-      ? {
-          color: "default",
-          label: t("list.enabled.item.notifications.title"),
-          size: "lg", // Explicitly set size to "lg"
-          type: "weak",
-          iconLeft: "bell-ringing-04",
-          tooltipProps: {
-            label: t("list.enabled.item.notifications.popoverLabel"),
-            placement: "bottom",
-          },
-          id: "group-activity-notification-chip",
-        }
-      : undefined;
-
-  // Define the broadcast chip if the activity is a broadcast
-  const broadcastChip: WithTooltip<ListItemChipsProps> | undefined = isBroadcast
+  const notificationChip: WithTooltip<ChipProps> | undefined = hasNotification
     ? {
         color: "default",
-        label: t("list.enabled.item.livestream.title"),
+        label: "",
+        size: "lg", // Explicitly set size to "lg"
+        type: "weak",
+        iconLeft: "bell-ringing-04",
+        tooltipProps: {
+          label: t("list.enabled.item.notifications.popoverLabel"),
+          placement: "bottom",
+        },
+        id: "group-activity-notification-chip",
+      }
+    : undefined;
+
+  // Define the broadcast chip if the activity is a broadcast
+  const broadcastChip: WithTooltip<ChipProps> | undefined = isBroadcast
+    ? {
+        color: "default",
+        label: "",
         size: "lg", // Explicitly set size to "lg"
         type: "weak",
         iconLeft: "video-recorder",
@@ -57,7 +56,7 @@ const getChips = (
     : undefined;
 
   return compact([notificationChip, broadcastChip]) as WithTooltip<
-    [ListItemChipsProps] | [ListItemChipsProps, ListItemChipsProps]
+    [ChipProps] | [ChipProps, ChipProps]
   >;
 };
 
@@ -74,56 +73,13 @@ export const GroupActivitiesList: React.FC = () => {
   const getGroupActivityDetailLink = (groupActivityId: string) =>
     `/activity/${groupActivityId}/general`;
 
+  const renderedGroupActivities = groupActivities.map((item) => ({
+    ...item,
+    link: getGroupActivityDetailLink(item.id.toString()),
+  }));
+
   const { archiveModal, duplicateModal, onClickArchive, onClickDuplicate } =
     useGroupActivityModals({ fetchGroupActivitiesPage });
-
-  const renderedGroupActivities = useMemo<ListItemProps[]>(
-    () =>
-      groupActivities.map(
-        ({ on_booking_notification, is_broadcast, id, name }) => {
-          const chips = getChips(
-            on_booking_notification?.length > 0,
-            is_broadcast,
-            t,
-          );
-
-          return {
-            id: id.toString(),
-            title: name,
-            chips,
-            chipsDirection: "end",
-            buttons: [
-              {
-                color: "default",
-                intent: "flat",
-                size: "md",
-                iconLeft: "copy-03",
-                tooltipProps: {
-                  label: t("list.enabled.duplicate.title"),
-                  placement: "bottom",
-                },
-                id: "group-activity-duplicate-button",
-                onClick: onClickDuplicate(id, name),
-              },
-              {
-                color: "default",
-                intent: "flat",
-                size: "md",
-                iconLeft: "archive",
-                tooltipProps: {
-                  label: t("list.enabled.archive.title"),
-                  placement: "bottom-right",
-                },
-                id: "group-activity-archive-button",
-                onClick: onClickArchive(id, name),
-              },
-            ],
-            link: getGroupActivityDetailLink(id.toString()),
-          };
-        },
-      ),
-    [groupActivities],
-  );
 
   useEffect(() => {
     fetchGroupActivitiesPage();
@@ -195,18 +151,100 @@ export const GroupActivitiesList: React.FC = () => {
       {isLoading ? (
         <Loader className="w-full h-full" size="xl" />
       ) : (
-        <ListLayout.Content>
-          <List
+        <ListLayout.Content className="flex flex-col gap-sm">
+          <Table<MetaActivity>
             id="enabled-group-activities-list"
-            items={renderedGroupActivities}
-            className="w-full"
-            paginationProps={paginationProps}
+            columns={[
+              {
+                header: t("list.columns.name"),
+                id: "name",
+                keyPath: "name",
+                type: "custom",
+                render: (item) => {
+                  return (
+                    <div className="flex flex-row items-center gap-sm">
+                      <Avatar
+                        alt={item.alt_cover_main}
+                        shape="squared"
+                        size="md"
+                        src={item.cover_main}
+                      >
+                        empty
+                      </Avatar>
+                      <div>{capitalize(item.name)}</div>
+                    </div>
+                  );
+                },
+              },
+              {
+                header: t("list.columns.category"),
+                id: "category",
+                keyPath: "category",
+                type: "string",
+              },
+              {
+                header: t("list.columns.upcomingSession"),
+                id: "upcomingSession",
+                keyPath: "next_slot",
+                type: "datetime",
+              },
+              {
+                header: t("list.columns.features"),
+                id: "features",
+                keyPath: "features",
+                type: "custom",
+                render: (item) => {
+                  const chips = getChips(
+                    item.on_booking_notification?.length > 0,
+                    item.is_broadcast,
+                    t,
+                  );
+                  return (
+                    <div className="flex flex-row gap-sm">
+                      {chips.map((chip) => (
+                        <div key={chip.id} className="flex">
+                          <Chip {...chip} />
+                        </div>
+                      ))}
+                    </div>
+                  );
+                },
+              },
+              {
+                header: "",
+                id: "actions",
+                keyPath: "actions",
+                type: "custom",
+                render: (item) => {
+                  return (
+                    <div className="flex flex-row gap-sm">
+                      <Button
+                        iconLeft="copy-03"
+                        intent="default"
+                        color="main"
+                        size="md"
+                        onClick={() => onClickDuplicate(item.id, item.name)}
+                      />
+                      <Button
+                        iconLeft="archive"
+                        intent="default"
+                        color="main"
+                        size="md"
+                        onClick={() => onClickArchive(item.id, item.name)}
+                      />
+                    </div>
+                  );
+                },
+              },
+            ]}
             emptyStateProps={{
               isEmpty: !paginationProps.totalItems,
               emptyConfig: {
                 title: t("list.enabled.emptyState.title"),
               },
             }}
+            paginationProps={paginationProps}
+            rows={renderedGroupActivities}
           />
           {archiveModal}
           {duplicateModal}

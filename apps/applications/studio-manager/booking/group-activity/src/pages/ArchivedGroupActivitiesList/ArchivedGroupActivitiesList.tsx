@@ -1,26 +1,29 @@
-import React, { useEffect, useMemo } from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router";
 
 import {
   Breadcrumbs,
-  List,
+  Button,
   ListLayout,
   Loader,
+  Table,
   toast,
 } from "@bsport/kaizen-primitive-core";
-import type { ListItemProps } from "@bsport/kaizen-primitive-core";
 import {
+  type MetaActivity,
   archiveGroupActivityAction,
   unarchiveGroupActivityAction,
 } from "@bsport/store-booking-group-activity";
 
 import { usePaginatedGroupActivities } from "#src/hooks/usePaginatedGroupActivities";
+import useTableColumns from "#src/hooks/useTableColumns";
 import { ROUTES } from "#src/urls";
 import { fetch } from "#src/utils/fetch";
 import { useTranslation } from "#src/utils/i18n";
 
 export const ArchivedGroupActivitiesList: React.FC = () => {
   const { t } = useTranslation("groupActivity");
+  const columns = useTableColumns<MetaActivity>();
 
   const {
     fetchGroupActivitiesPage,
@@ -63,28 +66,6 @@ export const ArchivedGroupActivitiesList: React.FC = () => {
     );
   };
 
-  const renderedArchivedGroupActivities: ListItemProps[] = useMemo(
-    () =>
-      groupActivities.map(({ id, name }) => ({
-        id: id.toString(),
-        title: name,
-        buttons: [
-          {
-            color: "default",
-            intent: "flat",
-            size: "md",
-            iconLeft: "unarchive",
-            tooltipProps: {
-              label: t("list.archived.unarchive"),
-              placement: "bottom-right",
-            },
-            onClick: handleUnarchiveGroupActivity(id),
-          },
-        ],
-      })),
-    [groupActivities],
-  );
-
   useEffect(() => {
     fetchGroupActivitiesPage();
   }, [fetchGroupActivitiesPage]);
@@ -106,17 +87,39 @@ export const ArchivedGroupActivitiesList: React.FC = () => {
         <Loader className="w-full h-full" size="xl" />
       ) : (
         <ListLayout.Content>
-          <List
-            id="archived-group-activities-list"
-            items={renderedArchivedGroupActivities}
-            className="w-full"
-            paginationProps={paginationProps}
+          <Table<MetaActivity>
+            id="enabled-group-activities-list"
+            columns={[
+              ...columns,
+              {
+                header: "",
+                id: "actions",
+                keyPath: "actions",
+                type: "custom",
+                render: (item) => {
+                  return (
+                    <div className="flex flex-row gap-sm">
+                      <Button
+                        iconLeft="unarchive"
+                        intent="default"
+                        color="main"
+                        size="md"
+                        label={t("list.actions.unarchive")}
+                        onClick={handleUnarchiveGroupActivity(item.id)}
+                      />
+                    </div>
+                  );
+                },
+              },
+            ]}
             emptyStateProps={{
               isEmpty: !paginationProps.totalItems,
               emptyConfig: {
-                title: t("list.archived.emptyState.title"),
+                title: t("list.enabled.emptyState.title"),
               },
             }}
+            paginationProps={paginationProps}
+            rows={groupActivities}
           />
         </ListLayout.Content>
       )}

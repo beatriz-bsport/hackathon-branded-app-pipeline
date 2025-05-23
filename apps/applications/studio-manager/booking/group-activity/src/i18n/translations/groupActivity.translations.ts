@@ -1,5 +1,12 @@
 exports.default = {
   list: {
+    columns: {
+      name: "Name",
+      category: "Category",
+      upcomingSession: "Upcoming session",
+      features: "Features",
+      actions: "Actions",
+    },
     enabled: {
       item: {
         notifications: {
@@ -10,6 +17,10 @@ exports.default = {
           title: "Livestream",
           popoverLabel: "Live streaming available",
         },
+      },
+      filter: {
+        title: "Filter",
+        category: "Category",
       },
       duplicate: {
         title: "Duplicate activity",
@@ -31,10 +42,20 @@ exports.default = {
         title: "No group activities yet",
         body: "Create group activities and let your members attend sessions",
       },
+      emptySearchState: {
+        title: "No group activities found",
+        subtitle: "Try searching with different keywords",
+        action: "Clear Filters",
+      },
     },
     archived: {
       unarchive: "Unarchive activity",
       emptyState: { title: "No archived group activities yet" },
+    },
+    actions: {
+      archive: "Archive",
+      unarchive: "Unarchive",
+      duplicate: "Duplicate",
     },
     header: {
       groupActivities: "Group activities",

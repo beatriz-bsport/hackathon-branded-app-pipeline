@@ -1,27 +1,29 @@
-import { compact } from "lodash";
-import React, { useEffect, useMemo } from "react";
+import React, { useEffect, useRef } from "react";
 import { Link } from "react-router";
 
 import {
   Button,
-  List,
   ListLayout,
   Loader,
+  Table,
 } from "@bsport/kaizen-primitive-core";
-import type {
-  ListItemChipsProps,
-  ListItemProps,
-  WithTooltip,
-} from "@bsport/kaizen-primitive-core";
+import type { MetaActivity } from "@bsport/store-booking-group-activity";
 
 import { useGroupActivityModals } from "#src/hooks/useGroupActivityModals";
 import { usePaginatedGroupActivities } from "#src/hooks/usePaginatedGroupActivities";
+import useTableColumns from "#src/hooks/useTableColumns";
 import { ROUTES } from "#src/urls";
 import { useTranslation } from "#src/utils/i18n";
 
-export const GroupActivitiesList: React.FC = () => {
-  const { t } = useTranslation("groupActivity");
+type Row = MetaActivity & {
+  link: string;
+  color: string;
+};
 
+export const GroupActivitiesList: React.FC = () => {
+  const ref = useRef<{ resetFilters: () => void }>(null);
+  const { t } = useTranslation("groupActivity");
+  const columns = useTableColumns<Row>();
   const {
     fetchGroupActivitiesPage,
     groupActivities,
@@ -32,87 +34,14 @@ export const GroupActivitiesList: React.FC = () => {
   const getGroupActivityDetailLink = (groupActivityId: string) =>
     `/activity/${groupActivityId}/general`;
 
+  const renderedGroupActivities = groupActivities.map((item) => ({
+    ...item,
+    link: getGroupActivityDetailLink(item.id.toString()),
+    color: item.color,
+  }));
+
   const { archiveModal, duplicateModal, onClickArchive, onClickDuplicate } =
     useGroupActivityModals({ fetchGroupActivitiesPage });
-
-  const renderedGroupActivities = useMemo<ListItemProps[]>(
-    () =>
-      groupActivities.map(
-        ({ on_booking_notification, is_broadcast, id, name }) => {
-          // Define the notification chip if there are booking notifications
-          const notificationChip: WithTooltip<ListItemChipsProps> | undefined =
-            on_booking_notification?.length
-              ? {
-                  color: "default",
-                  label: t("list.enabled.item.notifications.title"),
-                  size: "lg", // Explicitly set size to "lg"
-                  type: "weak",
-                  iconLeft: "bell-ringing-04",
-                  tooltipProps: {
-                    label: t("list.enabled.item.notifications.popoverLabel"),
-                    placement: "bottom",
-                  },
-                }
-              : undefined;
-
-          // Define the broadcast chip if the activity is a broadcast
-          const broadcastChip: WithTooltip<ListItemChipsProps> | undefined =
-            is_broadcast
-              ? {
-                  color: "default",
-                  label: t("list.enabled.item.livestream.title"),
-                  size: "lg", // Explicitly set size to "lg"
-                  type: "weak",
-                  iconLeft: "video-recorder",
-                  tooltipProps: {
-                    label: t("list.enabled.item.livestream.popoverLabel"),
-                    placement: "bottom",
-                  },
-                }
-              : undefined;
-
-          const chips = compact([
-            notificationChip,
-            broadcastChip,
-          ]) as WithTooltip<
-            [ListItemChipsProps] | [ListItemChipsProps, ListItemChipsProps]
-          >;
-
-          return {
-            id: id.toString(),
-            title: name,
-            chips,
-            chipsDirection: "end",
-            buttons: [
-              {
-                color: "default",
-                intent: "flat",
-                size: "md",
-                iconLeft: "copy-03",
-                tooltipProps: {
-                  label: t("list.enabled.duplicate.title"),
-                  placement: "bottom",
-                },
-                onClick: onClickDuplicate(id, name),
-              },
-              {
-                color: "default",
-                intent: "flat",
-                size: "md",
-                iconLeft: "archive",
-                tooltipProps: {
-                  label: t("list.enabled.archive.title"),
-                  placement: "bottom-right",
-                },
-                onClick: onClickArchive(id, name),
-              },
-            ],
-            link: getGroupActivityDetailLink(id.toString()),
-          };
-        },
-      ),
-    [groupActivities],
-  );
 
   useEffect(() => {
     fetchGroupActivitiesPage();
@@ -141,22 +70,109 @@ export const GroupActivitiesList: React.FC = () => {
           />
         }
         pageTitle={t("list.header.groupActivities")}
+        filterConfig={{
+          // No working at the moment, will be using SCTs in the coming days
+          ref,
+          fields: {
+            category: {
+              availableFilters: ["is", "is-not"],
+              id: "category",
+              label: t("list.enabled.filter.category"),
+              multiSelect: false,
+              values: [
+                {
+                  id: "yoga",
+                  label: "Yoga",
+                },
+                {
+                  id: "pilates",
+                  label: "Pilates",
+                },
+                {
+                  id: "zumba",
+                  label: "Zumba",
+                },
+              ],
+            },
+          },
+          filters: [
+            {
+              id: "is",
+              label: "is",
+            },
+            {
+              id: "is-not",
+              label: "is not",
+            },
+          ],
+          onFilterChange: function Ki() {},
+          selectFieldLabel: t("list.enabled.filter.title"),
+        }}
+        searchConfig={{
+          // No working at the moment, will be implemented in the coming days
+          id: "group-activity-expandable-search",
+        }}
       />
       {isLoading ? (
         <Loader className="w-full h-full" size="xl" />
       ) : (
-        <ListLayout.Content>
-          <List
+        <ListLayout.Content className="flex flex-col gap-sm">
+          <Table<Row>
             id="enabled-group-activities-list"
-            items={renderedGroupActivities}
-            className="w-full"
-            paginationProps={paginationProps}
+            columns={[
+              ...columns,
+              {
+                header: "",
+                id: "actions",
+                type: "custom",
+                render: (item) => {
+                  return (
+                    <div className="flex flex-row gap-sm">
+                      <Button
+                        iconLeft="copy-03"
+                        intent="default"
+                        color="main"
+                        aria-label={t("list.actions.duplicate")}
+                        size="md"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          onClickDuplicate(item.id, item.name);
+                        }}
+                      />
+                      <Button
+                        iconLeft="archive"
+                        intent="default"
+                        color="main"
+                        aria-label={t("list.actions.archive")}
+                        size="md"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          onClickArchive(item.id, item.name);
+                        }}
+                      />
+                    </div>
+                  );
+                },
+              },
+            ]}
             emptyStateProps={{
               isEmpty: !paginationProps.totalItems,
+              isEmptySearch: !paginationProps.totalItems,
               emptyConfig: {
                 title: t("list.enabled.emptyState.title"),
               },
+              emptySearchConfig: {
+                title: t("list.enabled.emptySearchState.title"),
+                subtitle: t("list.enabled.emptySearchState.subtitle"),
+                ctaButtonConfig: {
+                  label: t("list.enabled.emptySearchState.action"),
+                  iconLeft: "plus" as const,
+                  onClick: ref.current?.resetFilters,
+                },
+              },
             }}
+            paginationProps={paginationProps}
+            rows={renderedGroupActivities}
           />
           {archiveModal}
           {duplicateModal}

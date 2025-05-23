@@ -34,7 +34,7 @@ export const useGroupActivityModals = ({
 
   const [canArchiveGroupActivity, setCanArchiveGroupActivity] = useState(false);
 
-  const onClickArchive = (id: number, name: string) => () => {
+  const onClickArchive = (id: number, name: string) => {
     checkCanArchiveGroupActivityAction(fetch, id.toString()).then(
       (response) => {
         response.fold(
@@ -55,7 +55,7 @@ export const useGroupActivityModals = ({
     setGroupActivityToArchive(null);
   };
 
-  const onClickDuplicate = (id: number, name: string) => () => {
+  const onClickDuplicate = (id: number, name: string) => {
     setIsDuplicateModalOpen(true);
     setGroupActivityToDuplicate({ id, name });
   };

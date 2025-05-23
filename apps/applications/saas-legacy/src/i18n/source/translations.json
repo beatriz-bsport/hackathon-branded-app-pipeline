@@ -16684,7 +16684,8 @@
                 "errors": {
                     "14100": "You cannot cancel an invoice with Interac payments.",
                     "14101": "You cannot refund a balance adjustment invoice with a credit note.",
-                    "14102": "It is impossible to reimburse this invoice."
+                    "14102": "It is impossible to reimburse this invoice.",
+                    "35024": "You cannot refund this invoice because your PayPal account does not have enough funds."
                 }
             }
         },

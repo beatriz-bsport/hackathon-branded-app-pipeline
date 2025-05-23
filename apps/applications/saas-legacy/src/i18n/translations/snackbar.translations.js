@@ -137,6 +137,7 @@ const getTranslations = async () => {
     INVOICE_NO_REFUND_ON_INTERAC_PAYMENT_ERROR_CODE,
     INVOICE_NO_REFUND_ON_TYPE_EMPTY_CONTAINER,
     CANNOT_REFUND_INVOICE_EXCEPTION_ERROR_CODE,
+    PAYPAL_REFUND_INSUFFICIENT_FUNDS,
     PAYMENT_GROUP_LOCK_ACQUISITION_ERROR,
     PAYMENT_DISABLED,
     PENDING_PAYMENT_ATTEMPT_OF_PAYMENT_GROUP_BLOCKS_OTHER_PAYMENT_GROUP_CREATION,
@@ -748,6 +749,8 @@ const getTranslations = async () => {
             'You cannot refund a balance adjustment invoice with a credit note.',
           [CANNOT_REFUND_INVOICE_EXCEPTION_ERROR_CODE]:
             'It is impossible to reimburse this invoice.',
+          [PAYPAL_REFUND_INSUFFICIENT_FUNDS]:
+            'You cannot refund this invoice because your PayPal account does not have enough funds.',
         },
       },
     },

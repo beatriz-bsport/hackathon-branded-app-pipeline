@@ -668,6 +668,43 @@ export const EmptySearchList: Story = {
   },
 };
 
+export const LongDescriptionTruncation: Story = {
+  name: "List With Long Descriptions",
+  args: {
+    id: "list-long-descriptions",
+    header: {
+      title: "Long Descriptions Example",
+      description: "Demonstrating line-clamp-1 behavior for descriptions",
+      id: "list-header-long-desc",
+    },
+    items: [
+      {
+        id: "list-item-short",
+        title: "Short Description Example",
+        description: "This is a short description that fits in one line.",
+      },
+      {
+        id: "list-item-long",
+        title: "Long Description Example",
+        description:
+          "This is a very long description that should be truncated with an ellipsis because it exceeds the width of a single line. The line-clamp-1 utility class ensures that this text is displayed on a single line only, with an ellipsis at the end to indicate there is more content.",
+      },
+      {
+        id: "list-item-very-long",
+        title: "Very Long Description With No Spaces",
+        description:
+          "ThisIsAnExtremelyLongDescriptionWithNoSpacesWhichShouldAlsoBeTruncatedWithAnEllipsisToPreventLayoutIssuesAndEnsureTheUIRemainsCleanAndConsistentEvenWithUnusualContentLikeThisVeryLongWordWithoutAnySpacesInIt.",
+      },
+      {
+        id: "list-item-special-chars",
+        title: "Special Characters",
+        description:
+          "Description with special characters: !@#$%^&*()_+{}|:\"<>?~`-=[]\\;',./αβγδεζηθικλμνξοπρστυφχψω",
+      },
+    ],
+  },
+};
+
 export const ListWithButtonDropdownInItems: Story = {
   name: "List With Button Dropdown In Items",
   args: {

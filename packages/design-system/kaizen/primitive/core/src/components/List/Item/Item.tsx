@@ -91,42 +91,45 @@ const BaseItem: React.FC<
 
     return (
       <>
-        <div className="flex items-center gap-xs text-onsurface-default w-[70%]">
-          {color && (
-            <ColorIndicator
-              color={color}
-              type="line"
-              className="absolute left-0"
-            />
-          )}
-          {isSelectable && (
-            <Checkbox id={id} value={checkboxState} onChange={handleChange} />
-          )}
-          {(avatar && <AvatarWithTooltip {...avatar} />) ||
-            (icon && <Icon icon={icon} size="md" />) ||
-            null}
-          <div className="flex flex-col items-start gap-2xs overflow-hidden">
-            <span className="text-onsurface-default text-body-lg leading-md truncate w-full">
-              {title}
-            </span>
-            {description && (
-              <span className="text-onsurface-weak text-body-md leading-sm truncate w-full">
-                {description}
+        <div className="grid grid-cols-[minmax(0,7fr)_minmax(0,3fr)] w-full gap-xs items-center">
+          {/* Left column with title and description */}
+          <div className="flex items-center gap-xs text-onsurface-default">
+            {color && (
+              <ColorIndicator
+                color={color}
+                type="line"
+                className="absolute left-0"
+              />
+            )}
+            {isSelectable && (
+              <Checkbox id={id} value={checkboxState} onChange={handleChange} />
+            )}
+            {(avatar && <AvatarWithTooltip {...avatar} />) ||
+              (icon && <Icon icon={icon} size="md" />) ||
+              null}
+            <div className="flex-1 min-w-0">
+              <span className="block text-onsurface-default text-body-lg leading-md truncate break-word">
+                {title}
+              </span>
+              {description && (
+                <span className="block text-onsurface-weak text-body-md leading-sm truncate break-word">
+                  {description}
+                </span>
+              )}
+            </div>
+            {chipsDirection === "start" && renderedChips}
+          </div>
+
+          {/* Right column with actions */}
+          <div className="flex justify-end gap-sm">
+            {rightTitle && (
+              <span className="text-onsurface-default text-body-lg leading-md">
+                {rightTitle}
               </span>
             )}
-          </div>
-          {chipsDirection === "start" && renderedChips}
-        </div>
-        <div className="flex items-center justify-end gap-sm w-[30%]">
-          {rightTitle && (
-            <span className="text-onsurface-default text-body-lg leading-md">
-              {rightTitle}
-            </span>
-          )}
-          {chipsDirection === "end" && renderedChips}
-          {actions && (
-            <div className="flex items-center gap-sm">
-              {actions.map((action) => (
+            {chipsDirection === "end" && renderedChips}
+            {actions &&
+              actions.map((action) => (
                 <ButtonWithTooltip
                   key={action.id}
                   {...action}
@@ -136,9 +139,8 @@ const BaseItem: React.FC<
                   label={action?.label}
                 />
               ))}
-              {dropdownMenuProps && <DropdownMenu {...dropdownMenuProps} />}
-            </div>
-          )}
+            {dropdownMenuProps && <DropdownMenu {...dropdownMenuProps} />}
+          </div>
         </div>
       </>
     );
@@ -192,7 +194,7 @@ const Item: React.FC<ListItemProps> = ({
       toggleCheckbox(id);
       onCheckboxChange?.(value);
     },
-    [onCheckboxChange],
+    [onCheckboxChange, id, toggleCheckbox],
   );
 
   return (

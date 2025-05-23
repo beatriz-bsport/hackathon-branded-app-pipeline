@@ -1,18 +1,20 @@
-bsport-saas is the core of our frontend. It is both our manager interface (so-called backoffice) the pages where the customers book, explore the calendar, pay (called marketplace), and the user/coach userspace (profile page).
+# SaaS Legacy (previously bsport-saas repository)
 
-It is completed by bsport-mobile which is the repo of our mobile app, and bsport-widget which basically import a lot of stuff from bsport-saas (the marketplace part) and bundle this code to make a reusable widget that can be implemented on our clients websites.
+`saas-legacy` contains the current frontend (old UI), that is going to be replaced step by step by the Revamp project. It is both our manager interface (so-called backoffice) the pages where the customers book, explore the calendar, pay (called marketplace), and the user/coach userspace (profile page).
 
-# INSTALLATION
+Other related legacy projects :
 
-First install the dependencies :
+- [`bsport-mobile`](https://gitlab.com/bsport/bsport-mobile) : Code repository for of our mobile app
+- [`widget-legacy`](../../widgets/widget-legacy/README.md) : Imports many components from `saas-legacy` (the marketplace part) and bundles this code to make a reusable widget that can be implemented on our clients websites.
+- [`common-legacy`](../../../packages/common-legacy/README.md) : A set of constants to be shared between the different frontend interfaces.
 
-```sh
-pnpm run # shortcut to pnpm run install
-```
+---
 
-You can now run the frontend cf next section
+## Running the application
 
-## Running with a local backend server
+The commands below suppose you are under the location `apps/applications/saas-legacy`.
+
+### With local server
 
 To bootstrap the local backend, follow instructions in the README of https://gitlab.com/bsport/bsport-django
 
@@ -22,9 +24,12 @@ When you are ready you can start with :
 pnpm run start
 ```
 
-## Running with the staging backend
+### With deployed environments server
 
 ```sh
+# Dev
+pnpm run start-dev
+# Staging
 pnpm run start-staging
 ```
 
@@ -35,51 +40,59 @@ pnpm run start
 cp envs/staging public/env.js
 ```
 
-# GENERATE TRANSLATIONS
+### Generate translations
 
-When developing with frontend you will often create new string that must be translated with react-i18next (the `t(...)` function)
+Frontend Internationalization (i18n) is managed with `react-i18next` within the `src/i18n` folder.
 
-Add your key (argument of `t`) in the right i18n/af/ file (file ~ t namespace, see the doc of react-i18next for more info of what is a namespace).
+-`translations/*.translations.js` files : where developers are adding / editing translations keys and english copies. These are the source files.
 
-You now want to update the translation of other language (dont worry you dont have to translate it) with :
+- `source/translations.json` : a JSON concatenation of the source files to interact with Weblate.
+- `locales/{locale}/translations.json` : a JSON edited by Weblate containing copies supported languages.
+
+To see translations on your running local application, `react-i18next` needs to use JSON translations files from your `public/locales` folder. All the process of updating and building and uploading to `public/locales` the latest translations is done with a single script :
 
 ```sh
 pnpm run translation:update
 ```
 
-It will add uncommited changes to some "built" files
+---
 
-### Important Note on Key Updates
+## Use the backoffice
 
-When changing a translation key's type (for example, from a string to an object or vice versa), it’s essential to also change the key name. If you keep the same key name, translations will be generated for other languages, but the original English version will remain unchanged. This can lead to inconsistencies and confusion in your translations.
+### Login credentials
 
-# Use the backoffice
-
-## LOGIN
-
-You can use the following user
+On dev :
 
 ```sh
-username: contact@classdiggers.com
-password: demo
+username: dev@bsport.io
+password: dev
 ```
 
-Dont forget you can pick any user and change his password locally with the `shell` container.
+On staging
 
-# Developing with bsport-saas
+```sh
+username: product@bsport.io
+password: product
+```
 
-## Tooling
+On your local DB, you can pick any user and change his password locally with the `shell` container.
+
+---
+
+## Developing in saas-legacy
+
+### Tooling
 
 You probably want to have two chrome/firefox extensions installed :
 
 - redux devtool : adds a new panel to introspect the redux store and actions
 - react devtool : adds a new panel to introspect react component instead of hjust raw HTML in the console, there you can notably see the props of a component
 
-## Code Structure
+### Code Structure
 
 There basically 3 main folders
 
-### pages/
+#### pages/
 
 You will find here all the routing and the page
 
@@ -100,11 +113,11 @@ Each folder here is, more or less, a root url. There are a few "master-router-pa
 
 All other folders have router/page imported by the main interface : the Backoffice (`pages/Backoffice.component.js`)
 
-### components/
+#### components/
 
 The "dumbest components", that does not mean there are the simplest ones code-wise, but that they have no business logic (e.g: a booking is "business-logic" but a button or a table has not). You can think of them as our UI-library.
 
-### libs/
+#### libs/
 
 These folders follow globally the same structure :
 
@@ -114,159 +127,15 @@ These folders follow globally the same structure :
 - `selectors.ts` the redux getter function that extract (maybe transform) the data from the redux store
 - `api.ts` the api call function that interacts directly with the backend. **In general you will use them in actions.ts and not bare-handed!**
 
-## Tests
+### Tests
 
-The tests are if not the most important tool for continous integration and continous developoment it give the security that the software is behaving properly at any time and new development doesn't create regression or unwanted behavior. That's why the test are run by the ci on each merge request and new one should be added in all merge request
+Find out more about the [different testing strategy frontend side](https://www.notion.so/bright-shovel-41b/Test-Overview-1f1137e4c6408015af07d4aa7be35ce5).
 
-> “More than the act of testing, the act of designing tests is one of the best bug preventers known. The thinking that must be done to create a useful test can discover and eliminate bugs before they are coded – indeed, test-design thinking can discover and eliminate bugs at every stage in the creation of software, from conception to specification, to design, coding and the rest.” – Boris Beizer
-
-### There are 4 existing types of test:
-
-### - Unit testing:
-
-**definition**: type of software testing where individual units or components of a software are tested. To put it shortly we are testing if the functions are behaving consistently in sucess and fail cases for a suite of params
-
-example: `util.test.ts`
-
-```ts
-import {
-  myFirstFunction,
-  mySecondFunction,
-} from '../utils';
-
-// "Describe" is the function to tell that it represent a suite of test
-describe('Utils: MyFirstFunction', () => {
-  // "it" describe a single test
-  it('Check if the function send true on empty', () => {
-    const result = myFirstFunction()
-
-    expect(result).toBe(true);
-  })
-
-  // another test in the suite
-  it('Check if the function send false on string param', () => {
-    const result = myFirstFunction("toto")
-
-    expect(result).toBe(false);
-  })
-});
-
-// A file
-describe('Utils: MySecondFunction', () => {
-  // "it" describe a single test
-  it('Check if the function send array on empty', () => {
-    const results = myFirstFunction()
-
-    // We have multiple test available
-    // to see the complete list: https://jestjs.io/fr/docs/expect
-    expect(results).toBeGreaterThan(1);
-
-    // We can have multiple check on one test
-    // if one failed test will failed
-    expect(results[0]).toBe(42);
-});
-```
-
-### - Rendering test:
-
-**definition**: type of software testing where we compare the visual output of the software view
-
-We are not currently using it but a draft to implement it with storybook is present in the file `initStore.test.ts` and need some tweaking to function properly
-
-### - Integration testing
-
-**definition**: type of software testing where individual software modules are combined and tested as a group. Integration testing is conducted to evaluate the compliance of a system or component with specified functional requirements. To put it shortly when we are testing that the interaction from semi-complex component are interacting well between them
-
-example: `FuzzySearch.test.tsx`
-
-```ts
-// Here mandatory for jsx element we tell jest to require a dom
-/**
- * @jest-environment jsdom
- */
-import React from 'react';
-import { fireEvent, render, act } from '@testing-library/react';
-
-import FuzzySearch from '../search/FuzzySearch.component';
-
-// Fuze search is base on delay text field we mock it to use it in a syncrhonous way
-jest.mock('../DelayedTextField.component.tsx');
-
-const items = [
-  { label: 'First', id: 1 },
-  { label: 'Second', id: 2 },
-  { label: 'Third', id: 3 },
-];
-
-describe('FuzeSearch: <FuzeSearch />', () => {
-  let component: any;
-  // We mock the function with jest.fn as it will be usefull later to have test on it
-  const itemRenderer = jest.fn(
-    ({ label, id }: { label: any; id: number }, search: string) => (
-      <div data-testid="row-fuze" key={id}>{`${label} / ${search}`}</div>
-    ),
-  );
-
-  // This function will be called before each test
-  beforeEach(() => {
-    // The act function let us ensure that the componet have been rerendercontinuing
-    act(() => {
-      component = render(
-        <FuzzySearch
-          placeholder="Search"
-          items={items}
-          searchFields={['label']}
-          itemRenderer={itemRenderer}
-        />,
-      );
-    });
-  });
-
-  it('on input change the value', () => {
-    // We get the dom element by a testing id set by the property data-testid added in the jsx
-    const input = component.getByTestId('input-fuze-search');
-    // Create a Dom event here typing in the field
-    fireEvent.change(input, { target: { value: 'First' } });
-
-    expect(input.value).toBe('First');
-  });
-
-  it('check if the item renderer is not call to many time', () => {
-    const input = component.getByTestId('input-fuze-search');
-
-    act(() => {
-      fireEvent.change(input, { target: { value: 's' } });
-    });
-
-    // Here we take the mocked jest function and verify we are not overcalling it
-    expect(itemRenderer).toHaveBeenCalledTimes(2);
-  });
-
-  it('on input display a similar results', () => {
-    const input = component.getByTestId('input-fuze-search');
-
-    act(() => {
-      fireEvent.change(input, { target: { value: 'First' } });
-    });
-
-    const results = component.getAllByTestId('row-fuze');
-
-    expect(results.length).toBe(1);
-  });
-});
-```
-
-#### - End to end testing
-
-**definition**: End-to-end testing is a technique that tests the entire software product from beginning to end to ensure the application flow behaves as expected. To put it shortly we test if the all website is behaving like expected for a flow
-
-Currently we are not implementing end to end testing for the moment
-
-## Tracking Event
+### Tracking Event
 
 All the forms and the pages are tracked. When a new form is implemented it is necessary to add the event trackers. To track events we are using rudderstack, see the documentation for the <a href="https://www.rudderstack.com/docs/sources/event-streams/sdks/rudderstack-javascript-sdk/">JS SDK</a>.
 
-### Events to track for a Form
+#### Events to track for a Form
 
 The 4 events that are tracked when dealing with forms are :
 
@@ -275,7 +144,7 @@ The 4 events that are tracked when dealing with forms are :
 - **submitIntent** when a user click on the 'save' button (but it's useless if the 'save' button is block when the the user fill not correclty, for exemple if the user forgot to fill a field and the button save is blocked) => save button
 - **submitSuccess** when a user successfully submit a form => after the event **onSuccess**
 
-### Implementation
+#### Implementation
 
 To track these events, 4 functions have been created in the files _.../src/components/analytics/utils_. The generic shape of these functions are :
 
@@ -301,7 +170,7 @@ const {
 );
 ```
 
-### Example
+#### Example
 
 See the exemple for the integration of the tracking functions :
 
@@ -346,13 +215,17 @@ export const ExampleForm = (props: Props) => {
 }
 ```
 
-## CREATE NEW ALIAS
+---
+
+## Improve the Developer experience
+
+### Create a new alias
 
 Aliases are a cool way to simplify the imports e.g `#src/libs/` instead of `../../libs/`
 
 To create a new alias you need to add them at multiple places
 
-### .babelrc
+#### .babelrc
 
 ```
   "alias": {
@@ -361,7 +234,7 @@ To create a new alias you need to add them at multiple places
   }
 ```
 
-### .eslintrc
+#### .eslintrc
 
 ```
   "alias": {
@@ -370,7 +243,7 @@ To create a new alias you need to add them at multiple places
   }
 ```
 
-### .tsconfig.json
+#### .tsconfig.json
 
 ```
   "paths": {
@@ -379,13 +252,13 @@ To create a new alias you need to add them at multiple places
   }
 ```
 
-### config/webpack.config.dev.js and config/webpack.config.js
+#### config/webpack.config.dev.js and config/webpack.config.js
 
 the alias need to respect some convention use a # as a prefix to make it clear it's not a path and can't have a / inside to avoid resolving problems
 
 > :warning: **Don t break the widget**: Until better bundling for the widget we also need to add the alias configuration in the widget's webpack otherwise it will break the build
 
-## Access the react app running locally on another device
+### Access the react app running locally on another device
 
 1. Install ngrok: [https://ngrok.com/download](https://ngrok.com/download)
 2. Expose your port 8000 where your api runs with ngrok: `ngrok http 8000`.

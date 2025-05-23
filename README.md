@@ -12,6 +12,10 @@ This repository contains the source code of all bsport's web interfaces, includi
 
 This project is configured with [pnpm workspaces](https://pnpm.io/fr/workspaces) and [NxJS](https://nx.dev/).
 
+The official documentation of the Frontend can be found on [Notion](https://www.notion.so/bright-shovel-41b/Frontend-158137e4c6408076aa1ede46e67e2155).
+
+---
+
 ## How to use
 
 ### Get started
@@ -36,54 +40,115 @@ pnpm install
 
 ### Run an application
 
+Currently we have two different macro-projects in the monorepository :
+
+- Our current backoffice, with an old UI, that is going to disappear in favor of the Revamped project. The old website is in this folder : [apps/applications/saas-legacy](./apps/applications/saas-legacy/README.md).
+- Our Revamped frontend, with a new UI, containing many applications and packages.
+
+Both local frontends can be connected to the dev backend and DB.
+
+#### Run the legacy backoffice
+
+You can either go to the location of the application and run the command
+
+```sh
+cd apps/applications/saas-legacy
+pnpm run start-dev
+# pnpm run start -> connect to local backend and DB
+# pnpm run start-staging -> connect to staging backend and DB
+```
+
+or use a single line command
+
+```sh
+# Using pnpm feature
+pnpm --filter @bsport/saas-legacy start-dev
+# Using Nx feature
+pnpm exec nx start-dev @bsport/saas-legacy
+# Or
+pnpm exec nx run @bsport/saas-legacy:start-dev
+```
+
+#### Set the Backend API for revamped application
+
+The API Url for the backend is abstracted and handled at monorepository level by the `set-api-environment.ts` script. Anywhere from your location in the workspace, you can run
+
+```sh
+# Connect to dev backend
+pnpm run -w api-environment:set dev
+# Connect to statging
+pnpm run -w api-environment:set staging
+# Connect to local
+pnpm run -w api-environment:set local
+# Connect to feature-branch
+pnpm run -w api-environment:set feature-branch -fb NAME-OF-YOUR-API-FEATURE-BRANCH
+```
+
+You can always get some help on the command by running
+
+```sh
+pnpm run -w api-environment:set -h
+```
+
+#### Run a revamped application
+
+All our revamped applications work in a consistent way. Apps dedicated to the future Studio Manager backoffice are located under [apps/applications/studio-manager](./apps/applications/studio-manager/README.md).
+
 To run an app, you can either
 
 ```sh
-cd apps/applications/[application] && pnpm run build && pnpm run dev
+cd apps/applications/studio-manager/[application] && pnpm run dev
 ```
 
 or
 
 ```sh
-pnpm exec nx dev @bsport/[application]
+pnpm exec nx dev @bsport/[name-of-the-application]
 ```
 
-**NB:** This applies as well to any script of any project in the pnpm workspace. To run the script `[script]` in the project `@bsport/[application]`, just run
+#### Run all revamped application
+
+To have a full vision of the future Studio Manager backoffice, we have a special app : the [host app](./apps/applications/studio-manager/host/README.md).
+
+To run this host app, you can either
 
 ```sh
-pnpm exec nx [script] @bsport/[application]
+cd apps/applications/studio-manager/host && pnpm run dev
+```
+
+or
+
+```sh
+pnpm exec nx dev @bsport/sm-host
 ```
 
 ### Run Kaizen primitive components library
 
 ```sh
 cd packages/design-system/kaizen/primitive/core && pnpm run dev
+# Or
+pnpm exec nx dev @bsport/kaizen-primitive-core
 ```
+
+---
 
 ## Quick guide
 
-### Continuous Integration commands
-
-The monorepository comes with a set of pre-defined commands that are run when a project is edited based on various scenarios.
-
-In your project you can set-up the following pnpm scripts that will be ran by Gitlab's CI pipelines or husky git hooks:
-
-| pnpm script  | When is it ran ?                                                                                                   |                              Use case                               |   Diff based on    |
-| :----------: | :----------------------------------------------------------------------------------------------------------------- | :-----------------------------------------------------------------: | :----------------: |
-| `pre-commit` | Just before committing (don't forget to use `git add` if you'd like your changes to be added)                      | Allows to validate code before anything is committed on the project |       `HEAD`       |
-| `ci:deploy`  | When a code is merged either on `dev`, `staging` or `main` (the environment is provided as first argument with $1) |         This will be the deployment script of your project          | `origin/$branch~1` |
-
-**❗️ WARNING:** These commands will only be executed if your project has been modified compared to the base.
-
 ### CLI commands
 
-#### Utils
+To administrate the monorepository, a set of CLIs commands have been introduced : creation of a project, listing of dependencies, updates of translations, etc...
 
-To administrate the monorepository you can use the [`monorepo-utils`](/tools/toolkit-cli/README.md) command. It allows you to create new projects, commands, etc...
+You can use the `utils` command to list all of them, or take a look at our [root package.json](./package.json) or the [toolkit-cli project](/tools/toolkit-cli/README.md). The [i18n-management project](/tools/i18n-management/README.md) proposes also CLI commands related to i18n.
 
 ```sh
-pnpm run utils --help
+pnpm run -w utils --help
 ```
+
+The most important ones you are likely to use :
+
+- `pnpm run -w project:create` : to create a new application, typescript package or store package, based on our [templates](./tools/templates/README.md) ;
+- `pnpm run -w translation:update` : to build and update translations files of our revamped projects ;
+- `pnpm run -w sync:mismatch:list` : to list version mismatches between dependencies of our revamped projects.
 
 ### Generators
 
@@ -102,52 +167,37 @@ When you identify a pattern in your code or your project, you should consider cr
   }
 ```
 
-### Create project
+### Create project (package or application)
 
 To create a new project, you can use the `project:create` command.
 
 ```sh
-pnpm run project:create
+pnpm run -w project:create
 ```
 
-It will ask you some questions to create the project:
+Find out more about :
 
-- The project name that will be used to create the folder and the `package.json` file.
-- The path where the project will be created. It can be relative to the monorepo root or absolute.
-- The template you want to use. The templates are located in the [`/templates`](/templates) folder. You can create your own templates and use them in this command.
+- [the script and its parameters](/tools/toolkit-cli/README.md#projectcreate)
+- [a guide to use the command to create a new application](https://www.notion.so/bright-shovel-41b/Quickstart-Create-a-new-application-17e137e4c6408017880efb0d5548df17)
+- [a guide to use the command to create a new store package](https://www.notion.so/bright-shovel-41b/Quickstart-Create-and-use-a-store-package-1e0137e4c640805f9e3acd7dcbc78559)
 
-Full documentation [here](/tools/toolkit-cli/README.md#projectcreate).
+### Run any script in the pnpm workspace
 
-### Maintainance
-
-#### Upgrade NX dependencies
-
-To upgrade all your NX depedencies, run the following command
+To run the script `[script]` in the project `@bsport/[application]`, just run
 
 ```sh
-pnpm dlx nx migrate latest
+pnpm exec nx [script] @bsport/[application]
 ```
 
-You should do this regularly to ensure your dependencies are up-to-date.
-You can find more regarding upgrading NX here: https://nx.dev/features/automate-updating-dependencies/
+### Tools
 
-#### Upgrade pnpm
+Find out more about our monorepo tools (Nx, pnpm, ...) on [Exploit tools for mono repository management](https://www.notion.so/bright-shovel-41b/Exploit-tools-for-mono-repository-management-WIP-174137e4c640805e865ae0cfb7610bc3) guide.
 
-pnpm version is controlled directly in the monorepository. To upgrade pnpm version you need to:
+---
 
-1. Edit the version in [`./.npmrc](./.npmrc)
-2. Edit the version in the `engines` section in [`./package.json`](./package.json)
-3. Run the following command
+## Monorepository Structure
 
-```sh
-pnpm i -g pnpm
-```
-
-**NB:** Do not run the command `pnpm self-update` as prompted by pnpm as it might install pnpm at a different path.
-
-## Project Structure
-
-### Structure high level
+### High level structure
 
 Ichizen is divided in 3 main root folders:
 
@@ -155,111 +205,7 @@ Ichizen is divided in 3 main root folders:
 - `packages` exposing all libraries that will be used by `apps`, `tools` or externally
 - `tools` exposing tools to enable Software Engineers in their work: Development experience tools, deployment scritps, CLIs...
 
-**Note 1:** Within a folder holding business logic we want as much as possible to follow as much as possible bsport's team organization and have a split similar to what is happening in [`bsport-django`](https://gitlab.com/bsport/bsport-django/-/tree/dev/apps?ref_type=heads).
-
-#### `apps`
-
-Here are the current folders in apps:
-
-- `apps/applications` which is exposing all web applications. Within this folder, each folder represent a user persona that will be using the application. ⚠️ We should try as much as possible to have applications used by different personnas and behave differently as it makes overall documentation, maintenance and testing harder.
-  - `apps/applications/b2b`: Studio managers. The content of this folder follows the **Note 1**.
-  - `apps/applications/b2c`: Studio members.
-  - `apps/applications/saas-legacy`: bsport legacy monolith.
-- `apps/widgets` which is exposing all widgets. These are codes that can be pasted in client's source code and that allows them to display pieces of bsport code and interact with our infrastructure.
-
-#### `packages`
-
-Packages are organized as follows:
-
-- `common-legacy` which is the legacy package holding the business logic shared by `saas-legacy`, `widget-legacy` and [`bpsort-mobile`](https://gitlab.com/bsport/bsport-mobile).
-- `ui-components` which is holding all UI components shared accross different apps. These are split by the audience and the design system that is used:
-  - `fabrique` for Studio members,
-  - `kaizen` for Studio managers.
-- `stores` which holding all the shared business logic of the differents apps (API calls, Zustand stores, helpers ...). The content of this folder follows the **Note 1**.
-- `utils` which expose common libraries exposing functions or utilities that are not holding any Product specific or business logic. It can include time/timezone management, observability tools ...
-
-#### `tools`
-
-TODO
-
-### Tree structure
-
-Here is a visual representation of what the project tree structure looks like.
-
-```tree
-apps/
-├──applications
-  ├── b2b
-    ├── book
-      ├── ...
-    ├── business-insights
-      ├── ...
-    ├── buyables
-      ├── ...
-    ├── communication
-      ├── ...
-    ├── core-data
-      ├── ...
-    ├── customer-data-platform
-      ├── ...
-    ├── financial-services
-      ├── ...
-    └── staff_management
-      ├── ...
-  ├── b2c
-  ├── global
-  └── internal
-└── widgets
-
-packages
-├── stores
-  ├── book
-    └── group-activity
-  ├── business-insights
-    └── report
-  ├── buyables
-    └── giftcard
-  ├── communication
-    └── email-template
-  ├── core-data
-  ├── customer-data-platform
-  ├── financial-services
-    └── invoice
-  └── staff_management
-├── ui-components
-  ├── fabrique
-  ├── global
-  └── kaizen
-    ├── business-components
-      ├── book
-        ├── ...
-      ├── business-insights
-        ├── ...
-      ├── buyables
-        ├── ...
-      ├── communication
-        ├── ...
-      ├── core-data
-        ├── ...
-      ├── customer-data-platform
-        ├── ...
-      ├── financial-services
-        ├── ...
-      └── staff_management
-        ├── ...
-    ├── primitives
-    └── tokens
-└── utils
-  ├── b2b-backbone
-  ├── datetime
-  ...
-
-tools/
-├── ci
-├── config
-├──  ~monorepo-utils~ => toolkit-cli (what do you think about this name ?)
-└── templates
-```
+Find more information and details on our [codebase architecture Notion page](https://www.notion.so/bright-shovel-41b/Enhance-our-codebase-architecture-1d5137e4c64080ca9d81f6bcf3664d43).
 
 ### pnpm workspaces
 
@@ -274,9 +220,9 @@ You can find the full list of packages by running:
 pnpm run -w project:list
 ```
 
-### New package
+### Use internal package
 
-You can then import your newly package (for example `@bsport/my-cool-package`), by adding in your project's package.json the following:
+To use a package made by our developers in the monorepository (for example `@bsport/my-cool-package`), you need to add it manually to your project's `package.json`:
 
 ```jsonc
 {
@@ -300,6 +246,14 @@ or if you don't want your package to appear in the production build
 }
 ```
 
+Then, you need to run a pnpm command to finalize the Symlink between your project's node_modules, and the folder of your package :
+
+```sh
+pnpm install --ignore-scripts
+```
+
+---
+
 ## Troubleshooting
 
 ### Error: ENOSPC: System limit for number of file watchers reached
@@ -309,3 +263,39 @@ If you face this error on Linux, you may need to increase the max number of watc
 ```sh
 echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
 ```
+
+### Your project does not find an internal package
+
+If you have installed an internal package and your IDE tells you that it can't find the package, there are several things to check.
+
+1. **Is the package linked to the node modules of your project ?** You can look directly into the node_modules of your project, if you find the internal package. If not (or to be sure), run `pnpm i --ignore-scripts` in your project.
+2. **Is your internal package built ?** When importing an internal package, we are using the `build` of this package (as defined in its `package.json`). You should never use directly the source code of the package. To build the package, run `pnpm exec nx build @bsport/my-package-name`.
+
+---
+
+## Maintainance
+
+### Upgrade NX dependencies
+
+To upgrade all your NX depedencies, run the following command
+
+```sh
+pnpm dlx nx migrate latest
+```
+
+You should do this regularly to ensure your dependencies are up-to-date.
+You can find more regarding upgrading NX here: https://nx.dev/features/automate-updating-dependencies/
+
+### Upgrade pnpm
+
+pnpm version is controlled directly in the monorepository. To upgrade pnpm version you need to:
+
+1. Edit the version in [`./.npmrc`](./.npmrc)
+2. Edit the version in the `engines` section in [`./package.json`](./package.json)
+3. Run the following command
+
+```sh
+pnpm i -g pnpm
+```
+
+**NB:** Do not run the command `pnpm self-update` as prompted by pnpm as it might install pnpm at a different path.

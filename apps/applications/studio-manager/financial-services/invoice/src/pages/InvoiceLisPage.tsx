@@ -10,7 +10,6 @@ import {
   Chip,
   type GenericTableColumn,
   ListLayout,
-  Loader,
   Menu,
   Popover,
   Table,
@@ -253,9 +252,7 @@ export const InvoiceListPage = () => {
     [invoices, getInvoiceType, t],
   );
 
-  return isLoading && invoices.length === 0 ? (
-    <Loader className="w-full text-onsurface-default" size="xl" />
-  ) : (
+  return (
     <ListLayout className="w-full">
       <ListLayout.Header
         callToActionButton={
@@ -329,6 +326,9 @@ export const InvoiceListPage = () => {
               subtitle: t("emptyTable.description"),
               className: "h-full justify-center",
             },
+          }}
+          loadingProps={{
+            isLoading,
           }}
         />
       </ListLayout.Content>

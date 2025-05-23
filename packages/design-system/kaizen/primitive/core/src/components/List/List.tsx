@@ -7,6 +7,10 @@ import { CheckboxProvider } from "#src/contexts/CheckboxContext";
 import useEmptyState, {
   type UseEmptyStateProps,
 } from "#src/hooks/use-empty-state.hook";
+import {
+  type UseLoadingStateProps,
+  useLoadingState,
+} from "#src/hooks/use-loading-state";
 import { usePagination } from "#src/hooks/use-pagination";
 
 import Collapse, { type CollapseProps } from "../Collapse";
@@ -60,6 +64,7 @@ export type ListProps = {
   className?: string;
   id: string;
   header?: ListHeaderProps;
+  loadingProps?: UseLoadingStateProps;
   collapsibleProps?: Omit<CollapseProps, "children">;
 } & ListContentProps;
 /**
@@ -88,8 +93,14 @@ const List: React.FC<ListProps> = ({
   collapsibleProps,
   paginationProps,
   emptyStateProps,
+  loadingProps,
 }: ListProps) => {
   const valueIds = items?.map((item) => item.id) ?? [];
+
+  const { shouldRenderLoadingState, LoadingState } =
+    useLoadingState(loadingProps);
+
+  if (shouldRenderLoadingState) return <LoadingState />;
 
   return (
     <Collapse {...collapsibleProps}>
@@ -135,9 +146,7 @@ const ListContent: React.FC<ListContentProps> = ({
 
   const { shouldRenderEmptyState, EmptyState } = useEmptyState(emptyStateProps);
 
-  if (shouldRenderEmptyState) {
-    return <EmptyState />;
-  }
+  if (shouldRenderEmptyState) return <EmptyState />;
 
   return (
     <>

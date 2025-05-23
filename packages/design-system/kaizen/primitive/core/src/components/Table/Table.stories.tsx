@@ -40,6 +40,15 @@ const meta: Meta<typeof Table> = {
         },
       },
     },
+    loadingProps: {
+      table: {
+        type: {
+          detail:
+            "{\n\tisLoading: boolean;\n\tmessage: string; \n\tclassName: string;\n}",
+          summary: "LoadingStateProps",
+        },
+      },
+    },
   },
 };
 
@@ -178,6 +187,11 @@ const emptySearchConfig = {
   },
 };
 
+const loadingConfig = {
+  isLoading: false,
+  message: "Loading smth ...",
+};
+
 export const Primary: StoryObj<typeof Table> = {
   args: {
     columns: columns as Column<BaseRow>[],
@@ -191,6 +205,7 @@ export const Primary: StoryObj<typeof Table> = {
       isEmpty: false,
       emptyConfig: emptyConfig,
     },
+    loadingProps: loadingConfig,
   },
 };
 
@@ -300,6 +315,20 @@ export const EmptySearchTable: StoryObj<typeof Table> = {
       emptySearchConfig: emptySearchConfig,
       isEmpty: true, // Check that empty search prevails over empty
       emptyConfig: emptyConfig,
+    },
+  },
+};
+
+export const LoadingTable: StoryObj<typeof Table> = {
+  args: {
+    columns: [],
+    rows: [],
+    rowHeight: "sm",
+    selectable: true,
+    withVerticalBorders: true,
+    loadingProps: {
+      isLoading: true,
+      message: loadingConfig.message,
     },
   },
 };

@@ -1,12 +1,6 @@
-import classNames from "classnames";
 import React from "react";
 
-import {
-  Body,
-  Loader,
-  Table,
-  type TableProps,
-} from "@bsport/kaizen-primitive-core";
+import { Table, type TableProps } from "@bsport/kaizen-primitive-core";
 import type { Giftcard } from "@bsport/store-buyables-giftcard";
 
 import { useTranslation } from "#src/utils/i18n";
@@ -45,15 +39,6 @@ export const GiftcardTable: React.FC<GiftcardTableProps> = ({
     mode,
   });
 
-  if (isLoading) {
-    return (
-      <div className="w-full h-full flex flex-col items-center justify-center gap-md">
-        <Loader size="xl" />
-        <Body htmlVariant="p">{t("giftcardTable.loading")}</Body>
-      </div>
-    );
-  }
-
   // Format giftcards to match GiftcardTable data
   const tableRows = giftcardList.map((giftcard) => ({
     id: giftcard.id,
@@ -86,21 +71,19 @@ export const GiftcardTable: React.FC<GiftcardTableProps> = ({
         };
 
   return (
-    <div
-      className={classNames("w-full h-full flex flex-col flex-1", {
-        "max-w-[320px]": !!isEmpty,
-      })}
-    >
-      <Table
-        columns={tableColumns}
-        rowHeight="sm"
-        rows={tableRows}
-        paginationProps={paginationProps}
-        emptyStateProps={{
-          isEmpty: !!isEmpty,
-          emptyConfig: emptyConfig,
-        }}
-      />
-    </div>
+    <Table
+      columns={tableColumns}
+      rowHeight="sm"
+      rows={tableRows}
+      paginationProps={paginationProps}
+      emptyStateProps={{
+        isEmpty: !!isEmpty,
+        emptyConfig: emptyConfig,
+      }}
+      loadingProps={{
+        isLoading,
+        message: t("giftcardTable.loading"),
+      }}
+    />
   );
 };

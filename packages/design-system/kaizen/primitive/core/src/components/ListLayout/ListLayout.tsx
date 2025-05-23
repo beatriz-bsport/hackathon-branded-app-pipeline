@@ -53,7 +53,7 @@ const contentVariants = {
   },
 };
 
-const listLayoutContent = cva(["flex", "overflow-y-scroll", "h-full"], {
+const listLayoutContent = cva(["overflow-y-scroll", "h-full"], {
   variants: contentVariants,
 });
 

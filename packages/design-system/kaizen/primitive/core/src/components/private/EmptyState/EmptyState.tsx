@@ -12,6 +12,8 @@ const defaultClasses = [
   "flex-col",
   "gap-xs",
   "items-center",
+  "justify-center",
+  "max-w-[320px]",
 ] as const;
 
 const emptyState = cva(defaultClasses);

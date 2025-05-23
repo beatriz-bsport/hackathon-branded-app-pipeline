@@ -31,10 +31,14 @@ const useEmptyState = (props?: UseEmptyStateProps) => {
   return {
     shouldRenderEmptyState: hasEmptySearchConfigured || hasEmptyConfigured,
     EmptyState: () => (
-      <EmptyState
-        variant={hasEmptySearchConfigured ? "no-results-found" : "empty-state"}
-        {...(hasEmptySearchConfigured ? emptySearchConfig : emptyConfig)}
-      />
+      <div className="flex flex-row w-full justify-center items-center h-full">
+        <EmptyState
+          variant={
+            hasEmptySearchConfigured ? "no-results-found" : "empty-state"
+          }
+          {...(hasEmptySearchConfigured ? emptySearchConfig : emptyConfig)}
+        />
+      </div>
     ),
   };
 };

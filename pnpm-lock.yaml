@@ -1122,9 +1122,6 @@ importers:
       '@bsport/use-pagination-query-params':
         specifier: workspace:*
         version: link:../../../../../packages/utils/query-params/use-pagination
-      clsx:
-        specifier: ^2.1.1
-        version: 2.1.1
       react:
         specifier: ^19.0.0
         version: 19.0.0
@@ -1386,9 +1383,6 @@ importers:
       autoprefixer:
         specifier: ^10.4.20
         version: 10.4.20(postcss@8.4.49)
-      classnames:
-        specifier: ^2.5.1
-        version: 2.5.1
       postcss:
         specifier: ^8.4.49
         version: 8.4.49
@@ -1444,9 +1438,6 @@ importers:
       autoprefixer:
         specifier: ^10.4.20
         version: 10.4.20(postcss@8.4.49)
-      clsx:
-        specifier: ^2.1.1
-        version: 2.1.1
       postcss:
         specifier: ^8.4.49
         version: 8.4.49

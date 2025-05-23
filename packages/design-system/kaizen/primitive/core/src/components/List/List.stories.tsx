@@ -247,6 +247,11 @@ export const Primary: Story = {
       isEmpty: false,
       emptyConfig: emptyConfig,
     },
+    loadingProps: {
+      isLoading: false,
+      className: "",
+      message: "Loading smth ...",
+    },
   },
 };
 
@@ -702,6 +707,15 @@ export const LongDescriptionTruncation: Story = {
           "Description with special characters: !@#$%^&*()_+{}|:\"<>?~`-=[]\\;',./αβγδεζηθικλμνξοπρστυφχψω",
       },
     ],
+  },
+};
+
+export const LoadingList: Story = {
+  args: {
+    loadingProps: {
+      isLoading: true,
+      message: "Loading smth...",
+    },
   },
 };
 

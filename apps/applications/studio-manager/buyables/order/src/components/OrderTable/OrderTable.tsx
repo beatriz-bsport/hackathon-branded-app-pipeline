@@ -1,12 +1,6 @@
-import { clsx } from "clsx";
 import React from "react";
 
-import {
-  Body,
-  Loader,
-  Table,
-  type TableProps,
-} from "@bsport/kaizen-primitive-core";
+import { Table, type TableProps } from "@bsport/kaizen-primitive-core";
 import type { Order } from "@bsport/store-buyables-order";
 
 import {
@@ -39,15 +33,6 @@ export const OrderTable: React.FC<OrderTableProps> = ({
 
   const tableColumns = useOrderTableColumns();
 
-  if (isLoading) {
-    return (
-      <div className="w-full h-full flex flex-col items-center justify-center gap-md">
-        <Loader size="xl" />
-        <Body htmlVariant="p">{t("table.loading", { ns: "list" })}</Body>
-      </div>
-    );
-  }
-
   // Format orders to match table data
   const tableRows: Array<TableRowData> = orderList.map((order) => ({
     id: order.id,
@@ -77,13 +62,11 @@ export const OrderTable: React.FC<OrderTableProps> = ({
   const emptyStateProps = {
     isEmpty,
     emptyConfig: {
-      className: "max-w-[320px]",
       title: t("table.emptyState.title", { ns: "list" }),
       subtitle: t("table.emptyState.emptyDatabase", { ns: "list" }),
     },
     isEmptySearch,
     emptySearchConfig: {
-      className: "max-w-[320px]",
       title: t("table.emptyState.title", { ns: "list" }),
       subtitle: t("table.emptyState.emptySearch", {
         ns: "list",
@@ -97,18 +80,16 @@ export const OrderTable: React.FC<OrderTableProps> = ({
   };
 
   return (
-    <div
-      className={clsx("w-full h-full flex flex-col flex-1", {
-        "items-center justify-center": isEmpty || isEmptySearch,
-      })}
-    >
-      <Table
-        columns={tableColumns}
-        rowHeight="lg"
-        rows={tableRows}
-        paginationProps={paginationProps}
-        emptyStateProps={emptyStateProps}
-      />
-    </div>
+    <Table
+      columns={tableColumns}
+      rowHeight="lg"
+      rows={tableRows}
+      paginationProps={paginationProps}
+      emptyStateProps={emptyStateProps}
+      loadingProps={{
+        isLoading,
+        message: t("table.loading", { ns: "list" }),
+      }}
+    />
   );
 };

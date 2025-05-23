@@ -10,6 +10,10 @@ import {
 import useEmptyState, {
   type UseEmptyStateProps,
 } from "#src/hooks/use-empty-state.hook";
+import {
+  type UseLoadingStateProps,
+  useLoadingState,
+} from "#src/hooks/use-loading-state";
 import { usePagination } from "#src/hooks/use-pagination";
 
 import TableHeader from "./TableHeader";
@@ -79,6 +83,7 @@ export type TableProps<RowType extends BaseRow> =
     withVerticalBorders?: boolean;
     paginationProps?: PaginationProps;
     emptyStateProps?: UseEmptyStateProps;
+    loadingProps?: UseLoadingStateProps;
   };
 
 /**
@@ -106,13 +111,20 @@ const Table = <RowType extends BaseRow>({
   withVerticalBorders = false,
   paginationProps,
   emptyStateProps,
+  loadingProps,
   ...props
 }: TableProps<RowType>) => {
   const valueIds = rows?.map((row) => row.id.toString()) ?? [];
 
   const renderedPagination = usePagination(paginationProps);
-
   const { shouldRenderEmptyState, EmptyState } = useEmptyState(emptyStateProps);
+  const { shouldRenderLoadingState, LoadingState } =
+    useLoadingState(loadingProps);
+
+  if (shouldRenderLoadingState) {
+    return <LoadingState />;
+  }
+
   if (shouldRenderEmptyState) {
     return <EmptyState />;
   }

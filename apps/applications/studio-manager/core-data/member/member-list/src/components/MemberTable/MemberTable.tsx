@@ -1,12 +1,6 @@
-import classNames from "classnames";
 import React, { useMemo } from "react";
 
-import {
-  Body,
-  Loader,
-  type PaginationProps,
-  Table,
-} from "@bsport/kaizen-primitive-core";
+import { type PaginationProps, Table } from "@bsport/kaizen-primitive-core";
 import type { Member } from "@bsport/store-core-data-member";
 
 import { useTranslation } from "#src/utils/i18n";
@@ -89,36 +83,25 @@ export const MemberTable: React.FC<MemberTableProps> = ({
     },
   };
 
-  if (isLoading) {
-    return (
-      <div className="w-full h-full flex flex-col items-center justify-center gap-md">
-        <Loader size="xl" />
-        <Body htmlVariant="p">{t("memberTable.loading")}</Body>
-      </div>
-    );
-  }
-
   const isEmpty = !paginationProps?.totalItems;
   const isEmptySearch = isEmpty && hasActiveFilters;
 
   return (
-    <div
-      className={classNames("flex flex-col w-full", {
-        "h-full justify-center": isEmpty,
-      })}
-    >
-      <Table
-        columns={tableColumns}
-        rowHeight="lg"
-        rows={tableRows}
-        paginationProps={paginationProps}
-        emptyStateProps={{
-          isEmpty: isEmpty,
-          emptyConfig: emptyConfig,
-          isEmptySearch: isEmptySearch,
-          emptySearchConfig: emptySearchConfig,
-        }}
-      />
-    </div>
+    <Table
+      columns={tableColumns}
+      rowHeight="lg"
+      rows={tableRows}
+      paginationProps={paginationProps}
+      emptyStateProps={{
+        isEmpty: isEmpty,
+        emptyConfig: emptyConfig,
+        isEmptySearch: isEmptySearch,
+        emptySearchConfig: emptySearchConfig,
+      }}
+      loadingProps={{
+        isLoading,
+        message: t("memberTable.loading"),
+      }}
+    />
   );
 };

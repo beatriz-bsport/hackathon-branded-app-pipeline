@@ -139,6 +139,7 @@ export {
 } from "./components/Tooltip";
 export { ThemeProvider, themes, useTheme } from "./components/ThemeProvider";
 export type { UseEmptyStateProps } from "./hooks/use-empty-state.hook";
+export { useLoadingState } from "./hooks/use-loading-state";
 export type {
   ActionButton,
   ActionsDropdownConfig,

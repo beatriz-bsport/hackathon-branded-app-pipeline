@@ -1,36 +1,153 @@
 import { Result } from "typescript-result";
 
-import type { Action, PaginatedResponse } from "@bsport/store-base";
+import {
+  type Action,
+  /** @todo Enable when paginated is implemented in the backend
+   * PaginatedResponse
+   */
+  type SearchResponse,
+  createErrorWithContext,
+} from "@bsport/store-base";
 
-import { fetchPacksAPI } from "#src/api";
+import {
+  type FetchPacksParams,
+  type FuzzySearchParams,
+  archivePackAPI,
+  fetchPacksAPI,
+  fuzzySearchPacksAPI,
+  restorePackAPI,
+} from "#src/api";
 import type { Pack } from "#src/types";
 
-import { setPacks } from "./store";
+import { setFuzzyPacks, setPacks, updatePack } from "./store";
 
 /**
- * Fetches a list of paginated packs.
+ * Fetch a list of paginated packs.
  * @param params.page The page number.
  * @param params.page_size The number of items per page.
+ * @param params.archived [Optional] If provided, filter on 'available' field.
+ * @param params.include_expired [Optional] Whether to include Pack with a passed expiration date.
+ * @param params.offer [Optionam] If an id is provided, select Packs with a Pass compatible with the offer.
  */
 export const fetchPacksAction: Action<
-  { page: number; page_size: number },
-  PaginatedResponse<Pack>
+  FetchPacksParams,
+  /** @todo Enable when paginated is implemented in the backend */
+  // PaginatedResponse<Pack>
+  Array<Pack>
 > = async (fetch, params) => {
-  /** @indication Retrieve fetch arguments from your API method */
   const [uri, init] = fetchPacksAPI(params);
 
   return Result.try(
     async () => {
       const { data } = await fetch(uri, init);
 
+      /** @todo Enable when paginated is implemented in the backend */
+      // setPacks({
+      //   packs: data.results,
+      //   page: data.page,
+      //   count: data.count,
+      // });
+      const currentPage = params.page;
+      const rowsPerPage = params.page_size;
       setPacks({
-        packs: data.results,
-        page: data.page,
-        count: data.count,
+        packs: data.slice(
+          (currentPage - 1) * rowsPerPage,
+          currentPage * rowsPerPage,
+        ),
+        page: currentPage,
+        count: data.length,
       });
 
       return data;
     },
-    (error) => new Error("Failed to fetch packs", { cause: error }),
+    (error) =>
+      createErrorWithContext(error, {
+        message: "Failed to fetch packs",
+        params,
+      }),
+  );
+};
+
+/**
+ * Fuzzy search a list of packs.
+ * @param params.queryString The string to make the search comparison with.
+ * @param params.page_size The number of items for the search.
+ * @param params.archived [Optional] If provided, filter on 'available' field.
+ * @param params.include_expired [Optional] Whether to include Pack with a passed expiration date.
+ * @param params.offer [Optionam] If an id is provided, select Packs with a Pass compatible with the offer.
+ */
+export const fuzzySearchPacksAction: Action<
+  FuzzySearchParams,
+  SearchResponse<Pack>
+> = async (fetch, params) => {
+  const [uri, init] = fuzzySearchPacksAPI(params);
+
+  return Result.try(
+    async () => {
+      const { data } = await fetch(uri, init);
+
+      setFuzzyPacks({
+        packs: data.results,
+      });
+
+      return data;
+    },
+    (error) =>
+      createErrorWithContext(error, {
+        message: "Failed to fuzzy search packs",
+        params,
+      }),
+  );
+};
+
+/**
+ * Archive an active Pack (PaymentCombo)
+ * @param id Id of the Pack to archive
+ */
+export const archivePackAction: Action<{ id: number }, Pack> = async (
+  fetch,
+  params,
+) => {
+  const [uri, init] = archivePackAPI(params);
+
+  return Result.try(
+    async () => {
+      const { data } = await fetch(uri, init);
+
+      updatePack(data);
+
+      return data;
+    },
+    (error) =>
+      createErrorWithContext(error, {
+        message: `Failed to archive pack n°${params.id}`,
+        params,
+      }),
+  );
+};
+
+/**
+ * Restore an archived Pack (PaymentCombo)
+ * @param id Id of the Pack to restore
+ */
+export const restorePackAction: Action<{ id: number }, Pack> = async (
+  fetch,
+  params,
+) => {
+  const [uri, init] = restorePackAPI(params);
+
+  return Result.try(
+    async () => {
+      const { data } = await fetch(uri, init);
+
+      updatePack(data);
+
+      return data;
+    },
+    (error) =>
+      createErrorWithContext(error, {
+        message: `Failed to restore pack n°${params.id}`,
+        params,
+      }),
   );
 };

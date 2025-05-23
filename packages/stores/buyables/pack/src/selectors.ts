@@ -5,6 +5,11 @@ export const selectPacks = (state: PackState) => {
   return ids.map((id) => byId[id]);
 };
 
+export const selectFuzzyPacks = (state: PackState) => {
+  const { fuzzyIds, byId } = state;
+  return fuzzyIds.map((id) => byId[id]);
+};
+
 export const selectPack = (state: PackState, id: number) => state.byId[id];
 
 export const selectCount = (state: PackState) => state.count;

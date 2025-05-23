@@ -60,13 +60,3 @@ export type XhrAction<
   E = Error,
   ActionReturn = XhrReturn,
 > = (xhr: Xhr<XhrReturn>, params: Params) => Promise<Result<ActionReturn, E>>;
-
-// ----- Response patterns -----
-
-export type PaginatedResponse<T = void> = {
-  count: number;
-  links: { next: number | null; previous: number | null };
-  next_page: number | null;
-  page: number;
-  results: T[];
-};

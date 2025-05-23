@@ -1,20 +1,18 @@
 import { createStore } from "zustand/vanilla";
 
-import { bindStore } from "@bsport/store-base";
+import { type PaginatedState, bindStore } from "@bsport/store-base";
 
 import type { Pack } from "#src/types";
 
-export interface PackState {
-  byId: { [key: number]: Pack };
-  count: number;
-  ids: number[];
-  page: number;
-}
+export type PackState = PaginatedState<Pack> & {
+  fuzzyIds: Array<number>;
+};
 
 export const packStore = createStore<PackState>()(() => ({
   byId: {},
   count: 0,
   ids: [],
+  fuzzyIds: [],
   page: 1,
 }));
 

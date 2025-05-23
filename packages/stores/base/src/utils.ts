@@ -62,3 +62,19 @@ export function createErrorWithContext(
     context,
   });
 }
+
+export function buildById<Model extends { id: number | string }>({
+  initial,
+  newItems,
+}: {
+  initial: { [key: number | string]: Model };
+  newItems: Array<Model>;
+}) {
+  return newItems.reduce(
+    (acc, item) => {
+      acc[item.id] = item;
+      return acc;
+    },
+    { ...initial },
+  );
+}

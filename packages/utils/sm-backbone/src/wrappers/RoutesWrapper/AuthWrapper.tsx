@@ -3,6 +3,8 @@ import { Navigate, Outlet, useLocation } from "react-router";
 
 import { getAuthToken } from "@bsport/local-storage-auth-token";
 
+import { fetchCompanyFeatures } from "#src/api";
+
 export type AuthWrapperProps = {
   NavigationApp?: LazyExoticComponent<FC>;
   loginUrl: string;
@@ -43,7 +45,17 @@ export const AuthWrapper: FC<AuthWrapperProps> = ({
       {/** react-router will map Route.Element to Outlet
        * https://reactrouter.com/start/library/routing#nested-routes
        */}
+      <DataLayerWrapper />
       <Outlet />
     </div>
   );
 };
+
+function DataLayerWrapper() {
+  /**
+   * here we fetch shared data
+   */
+  fetchCompanyFeatures();
+
+  return null;
+}

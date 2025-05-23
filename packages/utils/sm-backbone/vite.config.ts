@@ -30,6 +30,7 @@ export default defineConfig({
         "@bsport/fetch",
         "@bsport/i18n",
         "@bsport/kaizen-primitive-core",
+        "@bsport/use-async",
       ],
     },
   },

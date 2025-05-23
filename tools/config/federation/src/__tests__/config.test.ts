@@ -139,6 +139,9 @@ describe("getConfig", () => {
         "@bsport/kaizen-primitive-core": {
           singleton: true,
         },
+        "@bsport/sm-backbone": {
+          singleton: true,
+        },
       },
     });
   });

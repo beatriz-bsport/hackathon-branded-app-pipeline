@@ -1,0 +1,27 @@
+{
+  "id": 101,
+  "name": "Test Company",
+  "features": [
+    {
+      "id": 1,
+      "name": "feature_1",
+      "display_name": "Feature 1",
+      "description": "First test feature",
+      "enabled": true
+    },
+    {
+      "id": 2,
+      "name": "feature_2",
+      "display_name": "Feature 2",
+      "description": "Second test feature",
+      "enabled": true
+    },
+    {
+      "id": 3,
+      "name": "feature_3",
+      "display_name": "Feature 3",
+      "description": "Third test feature",
+      "enabled": false
+    }
+  ]
+}

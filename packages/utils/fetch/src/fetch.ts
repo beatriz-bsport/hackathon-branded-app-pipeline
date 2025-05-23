@@ -1,6 +1,7 @@
 import { HTTPException } from "@bsport/http-exception";
 
 import {
+  BACKGROUND_TASK_UUID_HEADER,
   type ResponseType,
   getCustomErrorCodes,
   getFullUri,
@@ -57,6 +58,7 @@ export function getFetch() {
     return {
       data: payload as T,
       status: response.status,
+      backgroundTaskUuid: response.headers.get(BACKGROUND_TASK_UUID_HEADER),
     };
   };
 }

@@ -11,7 +11,11 @@ export function createTestFetch<T>(): Fetch<T> {
   return async (
     uri: string,
     init?: RequestInit & { responseType?: "text" | "json" | "buffer" },
-  ): Promise<{ data: T; status: number }> => {
+  ): Promise<{
+    data: T;
+    status: number;
+    backgroundTaskUuid: string | null;
+  }> => {
     const response = await fetch(`http://localhost/${uri}`, init);
 
     // Throw an error for non-2xx status codes
@@ -21,11 +25,15 @@ export function createTestFetch<T>(): Fetch<T> {
 
     // For 204 No Content responses, return undefined as data
     if (response.status === 204) {
-      return { data: undefined as unknown as T, status: response.status };
+      return {
+        data: undefined as unknown as T,
+        status: response.status,
+        backgroundTaskUuid: "",
+      };
     }
 
     // For other responses, parse JSON
     const data = (await response.json()) as T;
-    return { data, status: response.status };
+    return { data, status: response.status, backgroundTaskUuid: "" };
   };
 }

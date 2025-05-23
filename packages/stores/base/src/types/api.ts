@@ -1,12 +1,18 @@
 import type { Result } from "typescript-result";
 
+export type ResponseType<T> = {
+  data: T;
+  status: number;
+  backgroundTaskUuid: string | null;
+};
+
 // ----- Fetch Handler -----
 // Refer to `packages/utils/fetch/src/fetch.ts`
 
 export type Fetch<T = string> = (
   uri: string,
   init?: RequestInit & { responseType?: "text" | "json" | "buffer" },
-) => Promise<{ data: T; status: number }>;
+) => Promise<ResponseType<T>>;
 
 /**
  * Describe a complete API call, which can be passed to `fetch`.
@@ -29,7 +35,7 @@ export type Action<
 // ----- Xhr Handler -----
 // Refer to `packages/utils/fetch/src/xhr.ts`
 
-type Xhr<T = string> = (
+export type Xhr<T = string> = (
   uri: string,
   init: {
     method?: RequestInit["method"];
@@ -38,7 +44,7 @@ type Xhr<T = string> = (
     onUploadProgress?: (progressEvent: ProgressEvent) => void;
     formData?: FormData;
   },
-) => Promise<{ data: T; status: number }>;
+) => Promise<ResponseType<T>>;
 
 /**
  * Describe a complete API call, which can be passed to `xhr`.

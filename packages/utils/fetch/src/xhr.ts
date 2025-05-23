@@ -1,6 +1,7 @@
 import { HTTPException } from "@bsport/http-exception";
 
 import {
+  BACKGROUND_TASK_UUID_HEADER,
   type ResponseType,
   getCustomErrorCodes,
   getFullUri,
@@ -59,6 +60,24 @@ export function getXhr() {
             const parsed =
               responseText.length > 0 ? JSON.parse(responseText) : {};
 
+            const backgroundTaskUuid = xhr.getResponseHeader(
+              BACKGROUND_TASK_UUID_HEADER,
+            );
+
+            resolve({ data: parsed as T, status, backgroundTaskUuid });
+          } catch (error) {
+            reject(
+              new HTTPException({
+                path: uri,
+                message: "Failed to parse JSON response",
+                statusCode: status,
+              }),
+            );
+          }
+        } else {
+          try {
+            const parsed =
+              responseText.length > 0 ? JSON.parse(responseText) : {};
             const errorCodes = getCustomErrorCodes(
               parsed?.error_code ?? parsed?.errors_arrays,
             );

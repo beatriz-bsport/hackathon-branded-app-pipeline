@@ -5,9 +5,12 @@ import { getTimezoneName } from "@bsport/timezone-utils";
 export type ResponseType<T> = {
   data: T;
   status: number;
+  backgroundTaskUuid: string | null;
 };
 
 export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
+export const BACKGROUND_TASK_UUID_HEADER = "x-background-task-uuid";
 
 export function getHeaders(customHeaders?: HeadersInit): HeadersInit {
   const token = getAuthToken();

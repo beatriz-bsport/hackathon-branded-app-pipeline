@@ -212,6 +212,9 @@ export const getPaginatedMembers = createSelector(
 export const getAvailableRecipientsLoading = (state: RootState) =>
   state.member.communication.loading;
 
+export const getAvailableRecipientsError = (state: RootState) =>
+  state.member.communication.error;
+
 export const getAvailableRecipientsTotalCount = (state: RootState) =>
   state.member.communication.countTotal;
 

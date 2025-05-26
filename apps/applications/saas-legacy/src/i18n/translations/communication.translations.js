@@ -353,12 +353,38 @@ const getTranslations = async () => {
         content: 'Message',
       },
       writeCommunication: 'Send a message',
+      warningModalTitle: {
+        title:
+          'We want to inform you of a few things before you send communications',
+      },
       smsCostReminderModal: {
         title: 'SMS cost reminder',
-        content:
-          'Sending SMS to a large group of members can be costly. You can check the price per SMS in your contract. Are you sure you want to send this communication?',
+        content: {
+          description: 'Sending SMS to a large group of members can be costly.',
+          effect:
+            'You can check the price per SMS in your contract. Are you sure you want to send this communication?',
+        },
         cancel: 'Cancel',
         confirm: 'Confirm',
+      },
+      cannotReviewRecipients: {
+        title: 'Send without reviewing all recipients?',
+        content: {
+          description: "We're still loading the full list of recipients.",
+          effect:
+            'If you send your message now, it will still be sent to everyone who matches your Smartlist filters.',
+        },
+        cancel: 'Cancel',
+        confirm: 'Send Anyway',
+      },
+      smsCostWarning: {
+        title: 'Send an SMS to a large group?',
+        content: {
+          description: 'SMS can be more expensive than other channels.',
+          effect: 'Check your contract to find out the cost per SMS.',
+        },
+        cancel: 'Cancel',
+        confirm: 'Send anyway',
       },
       membersWontLoad:
         "We are currently encountering a problem loading the members within this smartlist. Please note that you won't be able to preview the number of members that will be reached by this communication.",

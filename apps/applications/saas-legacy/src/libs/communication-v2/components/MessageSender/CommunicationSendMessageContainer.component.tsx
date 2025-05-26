@@ -24,6 +24,7 @@ import {
   VALIDITY_INITIAL_VALUE,
   MAX_LENGTH_PUSH_TITLE,
   WAIT_FOR_MESSAGE_SCHEDULER_ANIMATION,
+  CONTEXT_SMARTLIST,
 } from '#src/libs/communication-v2/constants';
 import type {
   MessageData,
@@ -104,6 +105,7 @@ export const CommunicationSendMessageContainer: React.FC<Props> = ({
   const { timezone } = useTheme();
   const {
     availableRecipientsList,
+    availableRecipientsError,
     availableRecipientsTotalCount,
     availableRecipientsWithEmailCount,
     availableRecipientsWithPhoneCount,
@@ -149,6 +151,9 @@ export const CommunicationSendMessageContainer: React.FC<Props> = ({
     useEmailTemplates();
   const { resolvedGenericTags, tagCategories } = useTagsAndCategories();
   const classes = useStyles();
+
+  const hasRecipientsListLoaded =
+    availableRecipientsList?.length > 0 && !availableRecipientsError;
 
   const handleOpenResendConfigDialog = useCallback(() => {
     setAutoResendConfigDialogOpen(true);
@@ -219,14 +224,19 @@ export const CommunicationSendMessageContainer: React.FC<Props> = ({
   );
 
   const checkAndSetValidity = useCallback(() => {
-    if (
+    const numberOfReachedRecipients = getSelectedRecipientsCount();
+    /* We do not want to check the recipients count if :
+     * - the communication is a smartlist -> because smartlist can be slow or not even  able to compute
+     * - the communication is a direct message -> count will be 1
+     * - the communication is a scheduled message -> the count cannot be processed while we are not at the scheduled moment
+     */
+    const shouldCheckRecipientsCount =
+      communicationIdentifier !== CONTEXT_SMARTLIST &&
       !communicationMember &&
-      getSelectedRecipientsCount() === 0 &&
-      !communicationSchedulingDate
-    ) {
+      !communicationSchedulingDate;
+    if (shouldCheckRecipientsCount && numberOfReachedRecipients <= 0) {
       return setValidity(CAN_NOT_SEND_BECAUSE_MISSING_RECIPIENTS);
     }
-
     if (communicationMember) {
       if (communicationKind === WRITE_EMAIL && !communicationMember.email) {
         return setValidity(CAN_NOT_SEND_BECAUSE_DIRECT_MEMBER_HAS_NOT_AN_EMAIL);
@@ -273,14 +283,15 @@ export const CommunicationSendMessageContainer: React.FC<Props> = ({
     );
   }, [
     communicationMember,
+    communicationIdentifier,
     title,
     content,
     mailTemplateSelected,
     communicationSchedulingDate,
     communicationKind,
     openCommunicationScheduling,
-    getSelectedRecipientsCount,
     checkIsMessageSchedulable,
+    getSelectedRecipientsCount,
   ]);
 
   const buildContextParams = useCallback(() => {
@@ -524,6 +535,17 @@ export const CommunicationSendMessageContainer: React.FC<Props> = ({
     setCommunicationSchedulingDate,
   ]);
 
+  useEffect(() => {
+    /* reset the recipients list when building the components
+     *  for leftover data in the store and remove them when unbuilding
+     *  the component
+     */
+    resetRecipients({});
+    return () => {
+      resetRecipients({});
+    };
+  }, [resetRecipients]);
+
   const html =
     !loadingTemplateDetails &&
     mailTemplateSelected &&
@@ -565,6 +587,7 @@ export const CommunicationSendMessageContainer: React.FC<Props> = ({
             communicationKind={communicationKind}
             directMember={directMember}
             getSelectedRecipientsCount={getSelectedRecipientsCount}
+            hasRecipientsListLoaded={hasRecipientsListLoaded}
             isMessageSchedulingOpen={openCommunicationScheduling}
             onBaliseItemClick={onTagClick}
             openMessageSchedulingModal={handleOpenMessageSchedulingModal}
@@ -580,25 +603,31 @@ export const CommunicationSendMessageContainer: React.FC<Props> = ({
             validity={validity}
           />
         </MessageWriterByKind>
-        <CommunicationRecipientsModal
-          allMemberCategoryList={allMemberCategoryList}
-          checkedMemberCategoriesFilters={checkedMemberCategoryFilter}
-          countAvailableRecipientsTotal={availableRecipientsTotalCount}
-          countAvailableRecipientsWithEmail={availableRecipientsWithEmailCount}
-          countAvailableRecipientsWithPhone={availableRecipientsWithPhoneCount}
-          fetchPaginatedAvailableRecipientMemberList={
-            handleFetchPaginatedAvailableRecipientMemberList
-          }
-          handleCloseDialog={handleCloseRecipientModal}
-          kind={communicationKind}
-          loadingPaginatedMemberList={loadingAvailableRecipients}
-          open={openRecipientSelector}
-          pageSize={pageSize}
-          paginatedMemberList={availableRecipientsList}
-          setCheckedMemberCategoriesFilters={handleCheckMemberCategoryFilter}
-          setUncheckedMembers={handleSetUncheckedMembers}
-          uncheckedMembers={uncheckedMembers}
-        />
+        {openRecipientSelector && (
+          <CommunicationRecipientsModal
+            allMemberCategoryList={allMemberCategoryList}
+            checkedMemberCategoriesFilters={checkedMemberCategoryFilter}
+            countAvailableRecipientsTotal={availableRecipientsTotalCount}
+            countAvailableRecipientsWithEmail={
+              availableRecipientsWithEmailCount
+            }
+            countAvailableRecipientsWithPhone={
+              availableRecipientsWithPhoneCount
+            }
+            fetchPaginatedAvailableRecipientMemberList={
+              handleFetchPaginatedAvailableRecipientMemberList
+            }
+            handleCloseDialog={handleCloseRecipientModal}
+            kind={communicationKind}
+            loadingPaginatedMemberList={loadingAvailableRecipients}
+            open={openRecipientSelector}
+            pageSize={pageSize}
+            paginatedMemberList={availableRecipientsList}
+            setCheckedMemberCategoriesFilters={handleCheckMemberCategoryFilter}
+            setUncheckedMembers={handleSetUncheckedMembers}
+            uncheckedMembers={uncheckedMembers}
+          />
+        )}
         {openTemplateSelector && communicationKind === WRITE_EMAIL && (
           <EmailTemplateSelector
             checkAndSetValidity={checkAndSetValidity}

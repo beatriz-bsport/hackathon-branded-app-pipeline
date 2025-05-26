@@ -51,7 +51,7 @@ import {
   UPSELL_IDENTIFIER_SMS,
 } from '#src/libs/platform-billing/upsell-identifiers';
 import { hasUpsell } from '#src/libs/platform-billing/utils';
-import CommunicationSMSCostReminderModal from '#src/libs/communication-v2/CommunicationSMSCostReminderModal.component';
+import CommunicationWarningModal from './WarningModal/CommunicationWarningModal.component';
 import ObjectLevelPermissionProvider from '#src/libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 import CommunicationMessageNumberRecipients from '#src/libs/communication-v2/components/MessageList/SingleMessage/CommunicationMessageNumberRecipients.component';
 import Config from '#src/config';
@@ -79,6 +79,7 @@ type Props = {
   openMessageSchedulingModal?: () => void;
   isMessageSchedulingOpen?: boolean;
   isInboxContext: boolean;
+  hasRecipientsListLoaded?: boolean;
 };
 
 const BottomBarIcons: React.FC<Props> = ({
@@ -99,6 +100,7 @@ const BottomBarIcons: React.FC<Props> = ({
   openMessageSchedulingModal,
   isMessageSchedulingOpen,
   isInboxContext,
+  hasRecipientsListLoaded,
 }) => {
   const [menuAnchorEl, setMenuAnchorEl] = useState<Element | undefined>(
     undefined,
@@ -106,7 +108,9 @@ const BottomBarIcons: React.FC<Props> = ({
   const [tagsMenuAnchorEl, setTagsMenuAnchorEl] = useState<Element | undefined>(
     undefined,
   );
-  const [isSmsCostReminderModalOpen, setIsSmsCostReminderModalOpen] =
+  const [shouldDisplaySmsCostWarning, setShouldDisplaySmsCostWarning] =
+    useState(false);
+  const [shouldDisplayRecipientsWarning, setShouldDisplayRecipientsWarning] =
     useState(false);
   const { fullScreen, scheduledCommunicationDraft } = useCommunicationContext();
   const { isAutoResendHidden } = useTheme();
@@ -133,20 +137,67 @@ const BottomBarIcons: React.FC<Props> = ({
     setTagsMenuAnchorEl(undefined);
   }, []);
 
-  const handleCostReminderModalOnClose = useCallback(
-    () => setIsSmsCostReminderModalOpen(false),
+  const handleHideSmsWarning = useCallback(
+    () => setShouldDisplaySmsCostWarning(false),
     [],
   );
 
-  const handleCostReminderModalOpen = useCallback(
-    () => setIsSmsCostReminderModalOpen(true),
+  const handleDisplaySmsWarning = useCallback(
+    () => setShouldDisplaySmsCostWarning(true),
     [],
   );
 
-  const handleSendSmsOnClick = useCallback(() => {
+  const handleHideRecipientsWarning = useCallback(
+    () => setShouldDisplayRecipientsWarning(false),
+    [],
+  );
+
+  const handleDisplayRecipientsWarning = useCallback(
+    () => setShouldDisplayRecipientsWarning(true),
+    [],
+  );
+
+  const handleSendCommunication = useCallback(() => {
+    const shouldShowSmsWarning =
+      communicationIdentifier !== CONTEXT_MEMBER && actionType === WRITE_SMS;
+    const shouldShowRecipientsWarning =
+      communicationIdentifier === CONTEXT_SMARTLIST && !hasRecipientsListLoaded;
+    if (!shouldShowSmsWarning && !shouldShowRecipientsWarning) {
+      sendMessage();
+    }
+    if (shouldShowSmsWarning) {
+      handleDisplaySmsWarning();
+    }
+    if (shouldShowRecipientsWarning) {
+      handleDisplayRecipientsWarning();
+    }
+  }, [
+    hasRecipientsListLoaded,
+    sendMessage,
+    actionType,
+    communicationIdentifier,
+    handleDisplaySmsWarning,
+    handleDisplayRecipientsWarning,
+  ]);
+
+  const handleCloseCommunicationWarningModal = useCallback(() => {
+    if (shouldDisplaySmsCostWarning) {
+      handleHideSmsWarning();
+    }
+    if (shouldDisplayRecipientsWarning) {
+      handleHideRecipientsWarning();
+    }
+  }, [
+    shouldDisplaySmsCostWarning,
+    shouldDisplayRecipientsWarning,
+    handleHideSmsWarning,
+    handleHideRecipientsWarning,
+  ]);
+
+  const handleValidateSendCommunication = useCallback(() => {
     sendMessage();
-    setIsSmsCostReminderModalOpen(false);
-  }, [sendMessage]);
+    handleCloseCommunicationWarningModal();
+  }, [sendMessage, handleCloseCommunicationWarningModal]);
 
   const setCommunicationTypeToMail = useCallback(() => {
     setActionType(WRITE_EMAIL);
@@ -214,11 +265,15 @@ const BottomBarIcons: React.FC<Props> = ({
                       )}
                     </IconButton>
                   </Tooltip>
-                  <CommunicationSMSCostReminderModal
-                    handleClose={handleCostReminderModalOnClose}
-                    open={isSmsCostReminderModalOpen}
-                    sendMessageOnClick={handleSendSmsOnClick}
-                  />
+                  {shouldDisplaySmsCostWarning ||
+                  shouldDisplayRecipientsWarning ? (
+                    <CommunicationWarningModal
+                      handleClose={handleCloseCommunicationWarningModal}
+                      recipientsPreviewWarning={shouldDisplayRecipientsWarning}
+                      sendMessageOnClick={handleValidateSendCommunication}
+                      smsWarning={shouldDisplaySmsCostWarning}
+                    />
+                  ) : null}
                 </>
               )}
             </FeatureListProvider>
@@ -429,12 +484,7 @@ const BottomBarIcons: React.FC<Props> = ({
                 disabled={
                   actionType == WRITE_SMS && !smsVerificationProvider.isVerified
                 }
-                onClick={
-                  actionType === WRITE_SMS &&
-                  communicationIdentifier !== CONTEXT_MEMBER
-                    ? handleCostReminderModalOpen
-                    : sendMessage
-                }
+                onClick={handleSendCommunication}
                 variant="contained"
               >
                 <Hidden xsDown>

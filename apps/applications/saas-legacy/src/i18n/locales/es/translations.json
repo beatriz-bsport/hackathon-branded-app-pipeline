@@ -2249,7 +2249,7 @@
                     "hasRelatedMarketplaceComponentConfigs": "Las pestañas de calendario y taller configuradas para su mercado ya no mostrarán este calendario de ubicación.",
                     "hasRelatedMarketingNotifications": "Las notificaciones vinculadas a esta ubicación se eliminarán.",
                     "exclusiveAssociatedCoaches": "Su profesor {{- coach_name }} sólo recibe una notificación cuando se realiza una solicitud de sustitución para una sesión en esta ubicación. Por lo tanto, al eliminar la ubicación, recibirán solicitudes de sustitución de todas las ubicaciones.",
-                    "exclusiveAssociatedCoaches_plural": "Sus profesores {{- coach_name }} sólo reciben una notificación cuando se realiza una solicitud de sustitución para una sesión en esta ubicación. Al eliminar la ubicación, recibirán las solicitudes de sustitución de todas las ubicaciones.",
+                    "exclusiveAssociatedCoaches_plural": "Sus profesores {{- coach_name }} sólo reciben una notificación cuando se realiza una solicitud de sustitución para una sesión en esta ubicación. Por lo tanto, al eliminar la ubicación, recibirán solicitudes de sustitución de todas las ubicaciones.",
                     "hasRelatedAssociatedCoaches": "Algunos profesores reciben una notificación cuando se realiza una solicitud de sustitución para una sesión en esta ubicación. Al eliminar la ubicación, dejarán de recibir la notificación correspondiente.",
                     "hasRelatedStaffConfigurations": "Esta ubicación se utiliza para la supervisión de accesos por uno o varios miembros del personal. Al eliminar la ubicación sin seleccionar una nueva, ya no podrán realizar la supervisión de accesos."
                 },
@@ -2270,7 +2270,7 @@
                 "hasRelatedZoomEstablishment": "Este establecimiento se eliminará de la lista de establecimientos utilizados para la retransmisión en directo con la integración de Zoom.",
                 "hasRelatedAvailabilitySlots": "Se borrarán las franjas horarias disponibles de este establecimiento.",
                 "relatedPaymentPacks": "El siguiente pase {{- pass_name }} ya no será utilizable para este establecimiento, asegúrese de informar a sus clientes al respecto.",
-                "relatedPaymentPacks_plural": "Los siguientes pases {{- pass_name }} ya no serán utilizables para este establecimiento, asegúrese de informar a sus clientes al respecto",
+                "relatedPaymentPacks_plural": "Los siguientes pases {{- pass_name }} ya no serán utilizables para este establecimiento, asegúrese de informar a sus clientes al respecto.",
                 "hasRelatedAssociatedCoaches": "Algunos profesores reciben una notificación cuando se solicita una sustitución para una sesión en este establecimiento. Al eliminar el establecimiento, dejarán de recibir la notificación correspondiente.",
                 "exclusiveAssociatedCoaches": "Su profesor {{- coach_name }} sólo recibe una notificación cuando se realiza una solicitud de sustitución para una sesión en este establecimiento. Por lo tanto, al eliminar el establecimiento, recibirán solicitudes de sustitución de todos los establecimientos.",
                 "exclusiveAssociatedCoaches_plural": "Sus profesores {{- coach_name }} sólo reciben una notificación cuando se realiza una solicitud de sustitución para una sesión en este establecimiento. Al eliminar el establecimiento, recibirán por tanto solicitudes de sustitución de todos los establecimientos.",
@@ -3730,7 +3730,9 @@
             "titleRevert": "Crédito {{ uuid }}",
             "titleReceipt": "Recibo de pago {{ uuid }}",
             "titleReverted": "Factura ( revertida) {{uuid}}",
-            "titleRevertPending": "[Pendiente] Crédito {{ uuid }}"
+            "titleRevertPending": "[Pendiente] Crédito {{ uuid }}",
+            "paymentFailedWithMethod": "Error en el pago con {{ paymentMethod }}. Por favor, inténtelo de nuevo.",
+            "paymentFailed": "Pago fallido. Por favor, inténtelo de nuevo."
         },
         "creditAccountBalance": {
             "current": "Saldo actual"
@@ -11148,10 +11150,34 @@
             "smsCostReminderModal": {
                 "confirm": "Confirmar",
                 "cancel": "Cancelar",
-                "content": "Enviar SMS a un grupo grande de miembros puede ser costoso. Puedes consultar el precio por SMS en tu contrato. ¿Estás seguro de que quieres enviar esta comunicación?",
+                "content": {
+                    "effect": "Puedes consultar el precio por SMS en tu contrato. ¿Estás seguro de que quieres enviar esta comunicación?",
+                    "description": "Enviar SMS a un grupo numeroso de afiliados puede resultar costoso."
+                },
                 "title": "Recordatorio de costes SMS"
             },
-            "membersWontLoad": "Estamos teniendo problemas para cargar los miembros de esta smartlist. Tenga en cuenta que no podrá previsualizar el número de miembros a los que llegará esta comunicación."
+            "membersWontLoad": "Estamos teniendo problemas para cargar los miembros de esta smartlist. Tenga en cuenta que no podrá previsualizar el número de miembros a los que llegará esta comunicación.",
+            "smsCostWarning": {
+                "confirm": "Enviar de todos modos",
+                "cancel": "Cancelar",
+                "content": {
+                    "effect": "Consulta tu contrato para saber el coste por SMS.",
+                    "description": "Los SMS pueden ser más caros que otros canales."
+                },
+                "title": "¿Enviar un SMS a un grupo grande?"
+            },
+            "cannotReviewRecipients": {
+                "confirm": "Enviar de todos modos",
+                "cancel": "Cancelar",
+                "content": {
+                    "effect": "Si envías tu mensaje ahora, se seguirá enviando a todas las personas que coincidan con los filtros de tu Smartlist.",
+                    "description": "Aún estamos cargando la lista completa de destinatarios."
+                },
+                "title": "¿Enviar sin revisar todos los destinatarios?"
+            },
+            "warningModalTitle": {
+                "title": "Queremos informarle de algunas cosas antes de que envíe comunicaciones"
+            }
         },
         "communication": "Comunicaciones",
         "generic": {

@@ -183,7 +183,7 @@
                     "availability": {
                         "expiresToday": "Laatste dag",
                         "expiresIn": "{{ daysRemaining }} dag(en) over",
-                        "expiresIn_plural": "{{ daysRemaining }} resterende dagen",
+                        "expiresIn_plural": "{{ daysRemaining }} dag(en) over",
                         "future": "Startdatum: {{ startDate }}",
                         "expired": "Verlopen op: {{ expirationDate }}",
                         "active": "Verloopdatum: {{ expirationDate }}"
@@ -460,31 +460,31 @@
                     "beforeRenewalContractPricePer": "Dan {{ price }}/{{ interval }} na {{- date }}",
                     "loadMore": "Laad meer",
                     "drawerTitle": "Abonnement",
-                    "loading": "We verwerken uw verzoek...",
+                    "loading": "We verwerken je verzoek...",
                     "commitmentPeriod": {
                         "modal": {
-                            "alert": "Vooraf geboekte sessies onder een abonnement met onbeperkte lessen worden na deze periode geannuleerd en kunnen onderhevig zijn aan een vergoeding voor late annulering.",
+                            "alert": "Vooraf geboekte sessies onder een abonnement met onbeperkte lessen worden na deze periode geannuleerd en kunnen onderhevig zijn aan een boete voor late annulering.",
                             "failedMessage": "Vernieuw de pagina en probeer het opnieuw.",
                             "failedTitle": "Er ging iets mis",
-                            "confirmationNotStarted": "U kunt het venster sluiten.",
-                            "confirmationStarted": "U kunt blijven profiteren van abonnementsvoordelen tot {{- expiration_date }} (uitgesloten).",
+                            "confirmationNotStarted": "Je kunt het venster sluiten.",
+                            "confirmationStarted": "Je kunt blijven profiteren van abonnementsvoordelen tot {{- expiration_date }} (uitgesloten).",
                             "confirmationTitle": "Je hebt je succesvol uitgeschreven",
                             "cancel": "Abonnement behouden",
-                            "explainNoExpirationDate": "U staat op het punt dit abonnement te annuleren. Je abonnementsvoordelen blijven geldig tot het einde van de volgende factureringscyclus.\nWeet u zeker dat u wilt doorgaan?",
-                            "explainStarted": "U staat op het punt dit abonnement te annuleren. Uw abonnementsvoordelen blijven geldig tot {{- expiration_date }} (uitgesloten).\nWeet u zeker dat u wilt doorgaan?",
-                            "explainNotStarted": "U staat op het punt een abonnement te annuleren dat nog niet is gestart. \nDe eerste factureringscyclus wordt nog in rekening gebracht en uw voordelen blijven geldig tot {{- expiration_date }} (uitgesloten).\nWeet u zeker dat u wilt doorgaan?"
+                            "explainNoExpirationDate": "Je staat op het punt dit abonnement te annuleren. Je abonnementsvoordelen blijven geldig tot het einde van de volgende factureringscyclus.\nWeet je zeker dat je door wilt gaan?",
+                            "explainStarted": "Je staat op het punt dit abonnement te annuleren. Je abonnementsvoordelen blijven geldig tot {{- expiration_date }} (uitgesloten).\nWeet je zeker dat je wilt doorgaan?",
+                            "explainNotStarted": "Je staat op het punt een abonnement te annuleren dat nog niet is gestart. \nDe eerste factureringscyclus wordt nog in rekening gebracht en je voordelen blijven geldig tot {{- expiration_date }} (uitgesloten).\nWeet je zeker dat je wilt doorgaan?"
                         },
                         "explain": {
-                            "year": "Dit abonnement heeft een {{ commitment_period_value }} verbintenisperiode van een jaar. Neem voor annuleringen of vragen rechtstreeks contact op met de studio.",
-                            "year_plural": "Dit abonnement heeft een {{ commitment_period_value }} jarige verbintenisperiode. Neem voor annuleringen of vragen rechtstreeks contact op met de studio.",
-                            "month": "Dit abonnement heeft een {{ commitment_period_value }} maandelijkse verbintenisperiode. Neem voor annuleringen of vragen rechtstreeks contact op met de studio.",
-                            "month_plural": "Dit abonnement heeft een {{ commitment_period_value }} maanden verbintenisperiode. Neem voor annuleringen of vragen direct contact op met de studio.",
-                            "week": "Dit abonnement heeft een {{ commitment_period_value }} vastleggingsperiode van een week. Neem voor annuleringen of vragen rechtstreeks contact op met de studio.",
-                            "week_plural": "Dit abonnement heeft een {{ commitment_period_value }} weken verbintenisperiode. Neem voor annuleringen of vragen direct contact op met de studio.",
-                            "day": "Dit abonnement heeft een {{ commitment_period_value }} vastleggingsperiode van een dag. Neem voor annuleringen of vragen rechtstreeks contact op met de studio.",
-                            "day_plural": "Dit abonnement heeft een {{ commitment_period_value }} dagen verbintenisperiode. Neem voor annuleringen of vragen direct contact op met de studio."
+                            "year": "Dit abonnement heeft een {{ commitment_period_value }} commitmentperiode van een jaar. Neem voor annuleringen of vragen rechtstreeks contact op met de studio.",
+                            "year_plural": "Dit abonnement heeft een {{ commitment_period_value }} jarige commitmentperiode. Neem voor annuleringen of vragen rechtstreeks contact op met de studio.",
+                            "month": "Dit abonnement heeft een {{ commitment_period_value }} maandelijkse commitmentperiode. Neem voor annuleringen of vragen rechtstreeks contact op met de studio.",
+                            "month_plural": "Dit abonnement heeft een {{ commitment_period_value }} maanden commitmentperiode. Neem voor annuleringen of vragen direct contact op met de studio.",
+                            "week": "Dit abonnement heeft een {{ commitment_period_value }} commitmentperiode van een week. Neem voor annuleringen of vragen rechtstreeks contact op met de studio.",
+                            "week_plural": "Dit abonnement heeft een {{ commitment_period_value }} weken commitmentperiode. Neem voor annuleringen of vragen direct contact op met de studio.",
+                            "day": "Dit abonnement heeft een {{ commitment_period_value }} commitmentperiode van een dag. Neem voor annuleringen of vragen rechtstreeks contact op met de studio.",
+                            "day_plural": "Dit abonnement heeft een {{ commitment_period_value }} dagen commitmentperiode. Neem voor annuleringen of vragen direct contact op met de studio."
                         },
-                        "subtitle": "Dit abonnement loopt af met geen volgende betalingen na de huidige cyclus.",
+                        "subtitle": "Dit abonnement loopt af zonder volgende betalingen na de huidige cyclus.",
                         "title": "Abonnement beheren"
                     }
                 },
@@ -653,7 +653,7 @@
                     "updatePreferencesLoading": "Besparing",
                     "receiveSmsUpdates": "SMS updates ontvangen",
                     "receiveEmailUpdates": "Updates per e-mail ontvangen",
-                    "manageYourFranchiseMarketingPrefencesLabel": "Beheer uw marketingvoorkeuren"
+                    "manageYourFranchiseMarketingPrefencesLabel": "Beheer je marketingvoorkeuren"
                 },
                 "address": "Adres",
                 "emergencyNumber": "Alarmnummer",
@@ -3233,8 +3233,8 @@
                     "help": "Raadpleeg de interne documentatie voor gedetailleerde instructies voor elke stap.",
                     "emailValidation": "E-mail validatie: Voer de administratieve actie uit om het e-mailadres van de klant te valideren.",
                     "upsell": "Upsells: Voeg eventuele upsells toe aan het platform.",
-                    "billing": "Platform Facturering: Maak de factureringsinstellingen voor de nieuwe backoffice.",
-                    "core": "Het nieuwe backoffice-platform is met succes aangemaakt. Voordat je de toegangsgegevens van de klant verstuurt, moet je er echter voor zorgen dat de volgende validatiestappen uit de interne documentatie zijn voltooid:"
+                    "billing": "Platform Facturering: Doe de factureringsinstellingen voor de nieuwe backoffice.",
+                    "core": "Het nieuwe backoffice-platform is met succes aangemaakt. Voordat je de toegangsgegevens van de klant verstuurt, moet je er voor zorgen dat de volgende validatiestappen uit de interne documentatie zijn voltooid:"
                 }
             }
         },
@@ -4037,7 +4037,7 @@
                 "0": "Nog niet begonnen",
                 "1": "In uitvoering",
                 "2": "Gestopt",
-                "3": "In de pauze",
+                "3": "Gepauzeerd",
                 "4": "Afgerond",
                 "5": "Beëindigd (lid)"
             },
@@ -5495,7 +5495,7 @@
                 "exclusivePaymentPacks": "De volgende pas {{- pass_name }} is alleen bruikbaar in deze vestiging. Werk de beperkingen bij voordat u de vestiging verwijdert.",
                 "exclusivePaymentPacks_plural": "De volgende passen {{- pass_name }} zijn alleen bruikbaar in deze vestiging. Pas hun beperkingen aan voordat u de vestiging verwijdert.",
                 "exclusiveEstablishmentGroups": "De locatie {{- establishment_group_name }} bevat alleen de vestiging die u wilt verwijderen. Werk deze locatie bij of verwijder deze.",
-                "exclusiveEstablishmentGroups_plural": "De locaties {{- establishment_group_name }} bevatten alleen de vestiging die u wilt verwijderen. Werk deze locaties bij of verwijder ze.",
+                "exclusiveEstablishmentGroups_plural": "De locaties {{- establishment_group_name }} bevatten alleen de vestiging die je wilt verwijderen, bewerk of verwijder deze locaties eerst.",
                 "hasExclusiveMarketplaceComponentConfigs": "Een of meerdere tabbladen op de marktplaats zijn ingesteld om alleen de agenda en workshops van deze vestiging weer te geven.",
                 "hasUpcomingOffers": "Sommige komende sessies vinden plaats in deze vestiging. Annuleer en verwijder ze voordat je deze vestiging verwijdert.",
                 "hasExclusiveBillingGroup": "Deze vestiging is de laatste van zijn factureringsgroep. Verwijder deze factureringsgroep of werk deze bij voordat u deze vestiging verwijdert.",
@@ -5506,7 +5506,7 @@
                 "exclusivePrivateServices": "De afspraak {{- private_service_name }} is geconfigureerd om alleen in deze vestiging plaats te vinden. Door deze vestiging te verwijderen, kan deze afspraak overal plaatsvinden.",
                 "exclusivePrivateServices_plural": "De afspraken {{- private_service_name }} zijn geconfigureerd om alleen in deze vestiging plaats te vinden. Door deze vestiging te verwijderen, kunnen deze afspraken overal plaatsvinden.",
                 "exclusiveCoachAvailabilitySlots": "De leraar {{- coach_name }} is aangegeven als beschikbaar voor deze vestiging voor slechts enkele tijdsloten. Door de vestiging te verwijderen, worden deze tijdslots verwijderd.",
-                "exclusiveCoachAvailabilitySlots_plural": "De docenten {{- coach_name }} zijn aangegeven als beschikbaar voor deze vestiging voor slechts enkele tijdslots. Door de vestiging te verwijderen, worden deze tijdslots verwijderd.",
+                "exclusiveCoachAvailabilitySlots_plural": "De docenten {{- coach_name }} zijn aangegeven als beschikbaar voor deze vestiging tijdens bepaalde tijdsloten. Door de vestiging te verwijderen, worden deze tijdsloten verwijderd.",
                 "exclusiveAssociatedCoaches_plural": "Je leraren {{- coach_name }} krijgt alleen bericht als er een vervangingsverzoek wordt gedaan voor een sessie in deze vestiging. Door de vestiging te verwijderen, ontvangen ze dus vervangingsverzoeken van elke vestiging.",
                 "exclusiveAssociatedCoaches": "Je leraar {{- coach_name }} krijgt alleen bericht als er een vervangingsverzoek wordt gedaan voor een sessie in deze vestiging. Door de vestiging te verwijderen, ontvangen ze dus vervangingsverzoeken van elke vestiging.",
                 "hasExclusiveStaffConfigurations": "Sommige medewerkers zijn geconfigureerd om de toegang van leden alleen voor deze vestiging te controleren. Door de vestiging te verwijderen zonder een nieuwe te selecteren, kunnen ze geen toegangscontrole meer uitvoeren.",
@@ -8414,7 +8414,7 @@
             "detail": {
                 "restriction": {
                     "monthly": "Kan maar {{ amount }} keer per maand worden gebruikt.",
-                    "monthly_plural": "Kan maar {{ amount }} keer per maand.",
+                    "monthly_plural": "Kan maar {{ amount }} keer per maand worden gebruikt.",
                     "weekly": "Kan maar {{ amount }}  keer per week gebruikt worden.",
                     "weekly_plural": "Kan maar {{ amount }} keer per week gebruikt worden.",
                     "daily": "Kan maar {{ amount }} keer per dag gebruikt worden.",
@@ -8425,7 +8425,7 @@
                     "labels": {
                         "room": "Vestigingen",
                         "activity": "Activiteiten",
-                        "category": "Categoriën"
+                        "category": "Categorieën"
                     },
                     "contents": {
                         "sessions": "Compatibele sessies: {{ sessionsList }}",
@@ -8433,14 +8433,14 @@
                         "noAppointments": "Geen compatibele afspraken",
                         "bookingForGuest": "Kan worden gebruikt om <strong>een gast uit te nodigen</strong>",
                         "vod": "Kan worden gebruikt voor <strong>Video's op aanvraag</strong>",
-                        "allTimeSlots": "Compatibel met alle tijdslots",
+                        "allTimeSlots": "Compatibel met alle tijdsloten",
                         "allCategories": "Compatibel met alle categorieën van de studio",
-                        "allRooms": "Compatibel met alle kamers van de studio",
+                        "allRooms": "Compatibel met alle ruimtes van de studio",
                         "allActivities": "Compatibel met alle activiteiten van de studio"
                     },
                     "subtitles": {
                         "sessions": "Compatibele sessies",
-                        "timeSlots": "Compatibele tijdslots",
+                        "timeSlots": "Compatibele tijdsloten",
                         "activity": "Compatibele activiteiten"
                     },
                     "titles": {
@@ -8466,11 +8466,11 @@
                     "onsitePaymentAvailable": "Betaling ter plaatse mogelijk",
                     "fullVodAccess": "VOD-compatibel",
                     "onlyVodAccess": "Alleen beschikbaar voor VOD",
-                    "isUniversalPass": "Universele pas",
+                    "isUniversalPass": "Universele leskaart",
                     "newMemberOnly": "Alleen voor nieuwe leden",
                     "unlimited": "Onbeperkt",
-                    "credits": "{{count}} krediet",
-                    "credits_plural": "{{count}} kredieten"
+                    "credits": "{{count}} credit",
+                    "credits_plural": "{{count}} credits"
                 }
             }
         }
@@ -8813,18 +8813,18 @@
                 "notEditable": "Dit contract is afkomstig van een eerder voltooide datamigratie. Sommige velden zijn mogelijk niet bewerkbaar om de data te behouden.",
                 "commitmentPeriod": {
                     "explain": {
-                        "year": "Dit abonnement verplicht het lid voor {{ commitment_period_value }} jaar. Wijzigingen in de verbintenisperiode van het abonnement in de instellingen hebben geen invloed op abonnementen die al zijn aangeschaft.",
-                        "year_plural": "Dit abonnement zal het lid voor {{ commitment_period_value }} jaar vastleggen. Wijzigingen in de verbintenisperiode van het abonnement in de instellingen hebben geen invloed op abonnementen die al zijn aangeschaft.",
-                        "month": "Dit abonnement verplicht het lid voor {{ commitment_period_value }} maand. Wijzigingen in de verbintenisperiode van het abonnement in de instellingen hebben geen invloed op abonnementen die al zijn aangeschaft.",
-                        "month_plural": "Dit abonnement verplicht het lid voor {{ commitment_period_value }} maanden. Wijzigingen in de verbintenisperiode van het abonnement in de instellingen hebben geen invloed op abonnementen die al zijn aangeschaft.",
-                        "week": "Dit abonnement verplicht het lid voor {{ commitment_period_value }} een week. Wijzigingen in de vastleggingsperiode van het abonnement in de instellingen hebben geen invloed op abonnementen die al zijn aangeschaft.",
-                        "week_plural": "Dit abonnement verplicht het lid voor {{ commitment_period_value }} weken. Wijzigingen in de verbintenisperiode van het abonnement in de instellingen hebben geen invloed op abonnementen die al zijn aangeschaft.",
-                        "day": "Dit abonnement zal het lid voor {{ commitment_period_value }} dag vastleggen. Wijzigingen in de vastleggingsperiode van het abonnement in de instellingen hebben geen invloed op abonnementen die al zijn aangeschaft.",
-                        "day_plural": "Dit abonnement verplicht het lid voor {{ commitment_period_value }} dagen. Wijzigingen in de vastleggingsperiode van het abonnement in de instellingen hebben geen invloed op abonnementen die al zijn aangeschaft."
+                        "year": "Dit abonnement verbindt het lid voor {{ commitment_period_value }} jaar. Wijzigingen in de commitmentperiode van het abonnement in de instellingen hebben geen invloed op abonnementen die al zijn aangeschaft.",
+                        "year_plural": "Dit abonnement verbindt het lid voor {{ commitment_period_value }} jaar. Wijzigingen in de commitmentperiode van het abonnement in de instellingen hebben geen invloed op abonnementen die al zijn aangeschaft.",
+                        "month": "Dit abonnement verbindt het lid voor {{ commitment_period_value }} maand. Wijzigingen in de commitmentperiode van het abonnement in de instellingen hebben geen invloed op abonnementen die al zijn aangeschaft.",
+                        "month_plural": "Dit abonnement verbindt het lid voor {{ commitment_period_value }} maanden. Wijzigingen in de commitmentperiode van het abonnement in de instellingen hebben geen invloed op abonnementen die al zijn aangeschaft.",
+                        "week": "Dit abonnement verbindt het lid voor {{ commitment_period_value }} een week. Wijzigingen in de commitmentperiode van het abonnement in de instellingen hebben geen invloed op abonnementen die al zijn aangeschaft.",
+                        "week_plural": "Dit abonnement verbindt het lid voor {{ commitment_period_value }} weken. Wijzigingen in de commitmentperiode van het abonnement in de instellingen hebben geen invloed op abonnementen die al zijn aangeschaft.",
+                        "day": "Dit abonnement zal het lid voor {{ commitment_period_value }} dag vastleggen. Wijzigingen in de commitmentperiode van het abonnement in de instellingen hebben geen invloed op abonnementen die al zijn aangeschaft.",
+                        "day_plural": "Dit abonnement verplicht het lid voor {{ commitment_period_value }} dagen. Wijzigingen in de commitmentperiode van het abonnement in de instellingen hebben geen invloed op abonnementen die al zijn aangeschaft."
                     },
-                    "error": "De verbintenisperiode kan niet langer zijn dan 90.",
+                    "error": "De commitmentperiode kan niet langer zijn dan 90.",
                     "helperText": "Vergeet niet om de wetgeving van je land met betrekking tot het herroepingsrecht voor abonnementen te controleren en de vereiste informatie toe te voegen aan je algemene voorwaarden.",
-                    "label": "Verbintenisperiode"
+                    "label": "Commitmentperiode"
                 }
             },
             "registerManager": {
@@ -8955,14 +8955,14 @@
                 "explain": {
                     "year": "Dit abonnement verbindt het lid voor {{ commitment_period_value }} jaar.",
                     "year_plural": "Dit abonnement verbindt het lid voor {{ commitment_period_value }} jaren.",
-                    "month": "Dit abonnement verplicht het lid voor {{ commitment_period_value }} maand.",
+                    "month": "Dit abonnement verbindt het lid voor {{ commitment_period_value }} maand.",
                     "month_plural": "Dit abonnement verbindt het lid voor {{ commitment_period_value }} maanden.",
                     "week": "Dit abonnement zal het lid voor {{ commitment_period_value }} week vastleggen.",
                     "week_plural": "Dit abonnement zal het lid voor {{ commitment_period_value }} weken vastleggen.",
                     "day": "Dit abonnement zal het lid voor {{ commitment_period_value }} dag vastleggen.",
                     "day_plural": "Dit abonnement zal het lid voor {{ commitment_period_value }} dagen vastleggen."
                 },
-                "label": "Verbintenisperiode"
+                "label": "Commitmentperiode"
             }
         },
         "action": {
@@ -8996,7 +8996,7 @@
             },
             "billing_plan-pause": "Gepauzeerde betalingen",
             "billing_plan-create": "Toevoegen",
-            "billing_plan-stop": "Gestopte betalingen",
+            "billing_plan-stop": "Abonnement gestopt door",
             "billing_plan-renew": "Automatische verlengingen",
             "billing_plan-payment_dispute": "Gestorneerde betalingen",
             "billing_plan-payment_success": "Succesvolle betalingen",
@@ -15815,7 +15815,9 @@
             "titleRevert": "Bemachtigen {{ uuid }}",
             "titleReceipt": "Betalingsbewijs: {{ uuid }}",
             "titleReverted": "Factuur (geannuleerd) {{ uuid }}",
-            "titleRevertPending": "[Pending] Credit {{ uuid }}"
+            "titleRevertPending": "[Pending] Credit {{ uuid }}",
+            "paymentFailedWithMethod": "Betaling mislukt met {{ paymentMethod }}. Probeer het opnieuw.",
+            "paymentFailed": "Betaling mislukt. Probeer het opnieuw."
         },
         "creditAccountBalance": {
             "current": "Huidig saldo"

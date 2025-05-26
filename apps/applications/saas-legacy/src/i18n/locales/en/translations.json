@@ -4535,7 +4535,8 @@
             "titleRevert": "Credit {{ uuid }}",
             "titleRevertPending": "[Pending] Credit {{ uuid }}",
             "titleReceipt": "Payment receipt {{ uuid }}",
-            "titleReverted": "Invoice (reverted) {{uuid}}"
+            "titleReverted": "Invoice (reverted) {{uuid}}",
+            "paymentFailed": "Payment failed. Please try again."
         },
         "creditAccountBalance": {
             "current": "Current balance"

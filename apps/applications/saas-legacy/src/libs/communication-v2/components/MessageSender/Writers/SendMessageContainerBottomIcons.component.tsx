@@ -23,6 +23,7 @@ type SendMessageContainerBottomIconsProps = {
   relatedObjectKind?: ChatThreadKinds;
   tagCategories: { [tag_name: string]: string[] };
   setCommunicationKind: (kind: number) => void;
+  hasRecipientsListLoaded: boolean;
   validity: number;
   selectedMemberDetailListAllKinds: {
     email: MemberMinimal[];
@@ -49,6 +50,7 @@ const SendMessageContainerBottomIcons: React.FC<
   isMessageSchedulingOpen,
   relatedObjectKind,
   tagCategories,
+  hasRecipientsListLoaded,
   setCommunicationKind,
   validity,
   selectedMemberDetailListAllKinds,
@@ -109,6 +111,7 @@ const SendMessageContainerBottomIcons: React.FC<
       directMember={directMember}
       handleSelectRecipients={onSelectRecipients}
       handleSelectTemplate={onSelectTemplate}
+      hasRecipientsListLoaded={hasRecipientsListLoaded}
       isInboxContext={!!relatedObjectKind}
       isMessageSchedulingOpen={isMessageSchedulingOpen}
       memberList={selectedMemberDetailList}

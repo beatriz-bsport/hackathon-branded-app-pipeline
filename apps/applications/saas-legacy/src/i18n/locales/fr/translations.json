@@ -4091,7 +4091,9 @@
                 "noBillingGroup": "Aucun groupe de facturation n'a été associé à cette facture",
                 "reverseInvoicePending": "Remboursement en cours via "
             },
-            "titleRevertPending": "[En attente] Crédit {{ uuid }}"
+            "titleRevertPending": "[En attente] Crédit {{ uuid }}",
+            "paymentFailedWithMethod": "Le paiement avec {{ paymentMethod }} a échoué. Veuillez réessayer.",
+            "paymentFailed": "Le paiement a échoué. Veuillez réessayer."
         },
         "paymentEngine": {
             "label": {

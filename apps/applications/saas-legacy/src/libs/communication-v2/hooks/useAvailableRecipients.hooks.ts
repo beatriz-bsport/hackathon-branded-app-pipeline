@@ -14,6 +14,7 @@ import { fetchCommunicationsPaginatedMembers as fetchCommunicationsPaginatedMemb
 import { fetchFirstReachedRecipientsList as fetchFirstReachedRecipientsListAction } from '#src/libs/communication-v2/actions';
 
 import {
+  getAvailableRecipientsError,
   getAvailableRecipientsLoading,
   getAvailableRecipientsTotalCount,
   getAvailableRecipientsWithEmailCount,
@@ -33,7 +34,7 @@ export type FetchAvailableRecipientsParams = {
 };
 
 export type ResetRecipientsParams = {
-  options: OptionCallback;
+  options?: OptionCallback;
 };
 
 export const useAvailableRecipients = ({
@@ -43,6 +44,7 @@ export const useAvailableRecipients = ({
   const dispatch = useDispatch();
 
   const availableRecipientsList = useSelector(getPaginatedMembers);
+  const availableRecipientsError = useSelector(getAvailableRecipientsError);
   const loadingAvailableRecipients = useSelector(getAvailableRecipientsLoading);
   const availableRecipientsTotalCount = useSelector(
     getAvailableRecipientsTotalCount,
@@ -101,6 +103,7 @@ export const useAvailableRecipients = ({
 
   return {
     availableRecipientsList,
+    availableRecipientsError,
     loadingAvailableRecipients,
     availableRecipientsTotalCount,
     availableRecipientsWithEmailCount,

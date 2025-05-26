@@ -1518,9 +1518,9 @@
         "form": {
             "offer": {
                 "delete": {
-                    "explainNotify": "Eine Benachrichtigung an Mitglieder senden, die eine Buchung haben",
+                    "explainNotify": "Mitglieder mit bestehender Buchung benachrichtigen",
                     "explainCreditBack": "Erstattung des Guthabens für die genutzten Pässe",
-                    "explainModalities": "Achtung, diese Änderung ist unwiderruflich. Der Kurs wird von den Mitgliedern nicht mehr sichtbar sein. Du wirst aber immer noch Zugang dazu haben.",
+                    "explainModalities": "Wenn du diesen Kurs stornierst, hast du noch Zugang dazu, deine Mitglieder aber nicht. Kurs wirklich stornieren?",
                     "buttonHardDelete": "Löschen",
                     "explainHardDelete": "Soll dieser Kurs von der Liste entfernt werden? Achtung! Dieser Kurs wird dann unsichtbar. Diese Aktion ist unwiderruflich! Wenn es Buchungen für diesen Kurs gibt, wird dieser nicht gelöscht.",
                     "explainForceDanger": "Achtung: Die Buchungen werden endgültig gelöscht. Wenn Sie die Guthaben der Mitglieder nicht erstattet haben, gehen sie vollständig verloren. Bitte überprüfen Sie die Buchungen sorgfältig, bevor Sie sie löschen.",
@@ -1556,11 +1556,11 @@
                         "doNotSelectToAllowAllMembers": "Leer lassen, um alle Mitglieder zuzulassen",
                         "allowed": "Autorisiert",
                         "notAllowed": "Nicht autorisiert",
-                        "helperText": "Verwenden Sie Tags, um den Kurs nur für eine gewünschte Gruppe von Mitgliedern buchbar zu machen. Sie wählen Tags aus, um den Kurs nur für Mitglieder reservierbar zu machen, die eines der ausgewählten Tags besitzen. Oder Sie wählen Tags aus, um den Kurs nur für Mitglieder mit einem der ausgewählten Tag nicht buchbar zu machen."
+                        "helperText": "Verwende Tags, um einen Kurs nur einer bestimmten Gruppe von Mitgliedern zur Verfügung zu stellen oder um eine bestimmte Gruppe von Mitgliedern auszuschließen."
                     },
                     "header": "Fortgeschritten"
                 },
-                "editingGroup": "Achtung, dieser Kurs ist Teil der Kursgruppe {{- name }}",
+                "editingGroup": "Hinweis: Dieser Kurs ist Teil der Kursgruppe {{- name }}",
                 "explainAllowGuest": "Die Buchung für einen Gast zulassen"
             },
             "shop": {
@@ -5562,7 +5562,7 @@
             "success": "Kurspass gelöscht"
         },
         "credit": {
-            "updated": "Die Credits sind aktualisiert"
+            "updated": "Deine Änderungen wurden gespeichert"
         },
         "credits": "Credit",
         "credits_plural": "Credits",
@@ -5570,28 +5570,28 @@
             "refund": {
                 "description": "{{ credits }} Credit - {{ note }}",
                 "description_plural": "{{ credits }} Credits - {{ note }}",
-                "explain": "Wähle die Anzahl der zu erstattenden Credits und den Gesamtwert, der der Anzahlung des Mitglieds gutgeschrieben wird",
+                "explain": "Wähle die Anzahl der Credits, die du abziehen möchtest (kann 0 sein), und den Betrag, den du als Guthaben erstatten möchtest.",
                 "note": {
-                    "label": "Anmerkung"
+                    "label": "Bitte schreib dem Mitglied eine Info dazu."
                 },
                 "warning": "Vorsicht ! Diese Aktion ist unwiderruflich (Erstellung einer Rechnung).",
                 "actions": {
                     "cancel": "Abbrechen",
                     "submit": "Speichern"
                 },
-                "title": "Credits erstatten",
+                "title": "Guthaben erstatten",
                 "price": {
-                    "label": "Gutzuschreibender Betrag"
+                    "label": "Betrag, den du gutschreiben möchtest"
                 },
                 "credits": {
-                    "label": "Abzuziehender Kredit",
+                    "label": "Credits, die du abziehen möchtest",
                     "decimalCredit": {
                         "helperText": "{{count}} Credit wird abgezogen",
                         "helperText_plural": "{{count}} Credits werden abgezogen"
                     }
                 },
-                "warningSecond": "Wenn Du den Kunden per Banküberweisung mit dem verwendeten Zahlungsmittel entschädigen möchtest, storniere die Rechnung und erstatten keine Guthaben-Rückerstattung!",
-                "warningFirst": "Achtung! Dieser Vorgang ist unwiderruflich (Erstellung einer Rechnung).",
+                "warningSecond": "Möchtest du den Betrag über die ursprüngliche Zahlungsmethode erstatten? Storniere bitte die Rechnung, statt hier den Betrag als Guthaben zu erstatten.",
+                "warningFirst": "Wichtiger Hinweis: Wenn du diese Änderungen speicherst, dann kannst du sie nicht mehr ändern und eine Rechnung wird erstellt.",
                 "blockUnlimited": "Blockiere die Karte",
                 "error": {
                     "2029": "Der angeforderte Erstattungsbetrag übersteigt den ursprünglichen Kaufbetrag. Bitte versuche es mit einem geringeren Betrag erneut.",
@@ -8575,7 +8575,9 @@
             "titleRevert": "Credit {{uuid}}",
             "titleReceipt": "Erhalten {{uuid}}",
             "titleReverted": "Rechnung (zurückgeschickt) {{uuid}}",
-            "titleRevertPending": "[Ausstehend] Credit {{ uuid }}"
+            "titleRevertPending": "[Ausstehend] Credit {{ uuid }}",
+            "paymentFailedWithMethod": "Die Zahlung mit {{ paymentMethod }} ist fehlgeschlagen. Bitte versuche es nochmal.",
+            "paymentFailed": "Die Zahlung ist fehlgeschlagen. Bitte versuche es noch einmal."
         },
         "invoiceItem": {
             "voucher": "Rabatt: {{ voucher }}",
@@ -10806,8 +10808,8 @@
                     "6": "Geplante(r) Termin(e)",
                     "general": "Anhand der folgenden Kriterien raten wir Ihnen, den internen Kontostand Ihres Mitglieds zu bereinigen, bevor das Mitglied archiviert wird:"
                 },
-                "helper_text_2": "Dieses Mitglied wird nicht mehr in Ihrer Datenbank aufgeführt.",
-                "helper_text_1": "Sind Sie sicher, dass Sie dieses Mitglied archivieren möchten?"
+                "helper_text_2": "Mitglied wirklich löschen?",
+                "helper_text_1": "Dieses Mitglied wird vollständig gelöscht und kann nicht wiederhergestellt werden."
             }
         },
         "termsOfUse": "Die Allgemeinen Geschäftsbedingungen",
@@ -13855,9 +13857,9 @@
                 },
                 "content": {
                     "cannotDelete": "Für diese Aktivität sind weitere Kurse geplant. Prüfen Sie, ob sie abgesagt wurden.",
-                    "canDelete": "Sind Sie sich sicher, dass Sie diese Aktivität löschen möchten? Die Kurse und vergangenen Buchungen werden nicht geändert. Diese Aktion kann nicht rückgängig gemacht werden."
+                    "canDelete": "Wenn du diese Aktivität löschst, ändern sich die Kurse und vergangenen Buchungen nicht. Du kannst die Aktivität nicht wiederherstellen. Aktivität wirklich löschen?"
                 },
-                "title": "Eine Aktivität löschen"
+                "title": "Aktivität löschen"
             },
             "create": {
                 "steps": {
@@ -15823,8 +15825,8 @@
         "forms": {
             "delete": {
                 "content": {
-                    "canDelete": "Bist du sicher, dass du diese Lehrkraft entfernen möchtest? Du wirst dann keinen Zugang mehr auf die Berechnung ihres Lohns haben. Du kannst sie von ihrer E-Mail aus erneut hinzufügen.",
-                    "cannotDelete": "Du kannst diese Lehrkraft nicht entfernen, weil Kurse in der Zukunft geplant sind!"
+                    "canDelete": "Lehrkraft wirklich löschen? Danach hast du keinen Zugang mehr auf ihre Lohnberechnung. Du kannst sie aber mit ihrer E-Mail-Adresse wieder hinzufügen.",
+                    "cannotDelete": "Du kannst diese Lehrkraft nicht löschen, weil sie anstehende Kurse hat."
                 },
                 "confirm": "Löschen",
                 "cancel": "Abbrechen",
@@ -15834,7 +15836,7 @@
                 },
                 "title": "Lehrkraft löschen"
             },
-            "error_email_exists": "Es gibt bereits eine Lehrkraft mit dieser E-Mail. Verwende das Formular zur Erstellung einer Lehrkraft",
+            "error_email_exists": "Es gibt bereits eine Lehrkraft mit dieser E-Mail-Adresse. Bitte erstelle eine neue Lehrkraft über das entsprechende Formular",
             "linkByEmail": {
                 "emailPlaceHolder": "lehrkraft@bsport.io",
                 "explain": "Wenn diese E-Mail bereits in unserer Datenbank existiert, werden wir die Lehrkraft automatisch für dich erstellen.",
@@ -15854,9 +15856,9 @@
                     "emailAlreadyInUse": "Die eingegebene E-Mail existiert bereits in der Datenbank. Du kannst diese E-Mail nur dann mit einer Lehrkraft verknüpfen, wenn du eine neue Lehrkraft erstellst."
                 }
             },
-            "errorDescription": "Die Beschreibung ist zu lang (max. 1000)",
-            "errorLinkLength": "Der angegebene URL ist zu lang (max. 150)",
-            "errorInvalidURL": "Bitte gib eine gültige URL ein"
+            "errorDescription": "Deine Beschreibung ist zu lang (max. 1.000 Zeichen)",
+            "errorLinkLength": "Der angegebene Link ist zu lang (max. 150 Zeichen)",
+            "errorInvalidURL": "Bitte gib einen gültigen Link ein"
         },
         "noActivity": "Diese Lehrkraft leitet keine Aktivität.",
         "selfNoActivity": "Du bist für keine Aktivität eingeteilt.",
@@ -16790,7 +16792,7 @@
                 "title": "Wechsel der Vertretungslehrkraft"
             },
             "deleteSimilarOffersGroups": "Möchten Sie zukünftige Wiederholungen der Gruppe löschen",
-            "cancelSimilarOffersGroup": "Andere Kurse, die mit diesem Ereignis verbunden sind, stornieren"
+            "cancelSimilarOffersGroup": "Alle Kurse im Rahmen dieses Workshops stornieren"
         },
         "deleteImpossibleText": "Dieser Kurs kann nicht gelöscht werden, da offene Buchungen vorhanden sind.",
         "deleteImpossibleTitle": "Dieser Kurs kann nicht gelöscht werden",
@@ -17507,7 +17509,7 @@
             "delete": {
                 "content": {
                     "canDelete": "Bist du sicher, dass du dieses Event löschen möchtest? Die Kurse und Buchungen werden nicht davon betroffen. Diese Aktion ist unwiderruflich.",
-                    "cannotDelete": "Kurse sind in der Zukunft geplant, prüfe, ob gelöscht und nicht nur storniert sind."
+                    "cannotDelete": "Es stehen noch Kurse für diesen Workshop an. Bitte storniere erst die anstehenden Kurse, bevor du den Workshop löschst."
                 },
                 "actions": {
                     "confirm": "Löschen",
@@ -17521,7 +17523,7 @@
                 "content": "Bist Du sicher, dass Du dieses Event löschen möchtest? Die Kurse und vergangene Buchungen werden nicht davon betroffen.",
                 "confirm": "Löschen",
                 "cancel": "Abbrechen",
-                "title": "Ein Event löschen"
+                "title": "Workshop löschen"
             }
         },
         "navigation": {
@@ -17601,7 +17603,7 @@
             }
         },
         "card": {
-            "update": "Ändern"
+            "update": "Speichern"
         },
         "update": {
             "imageUploaderRequireEditMessage": "Sobald die Einrichtung erstellt ist, haben Sie die Möglichkeit, zusätzliche Bilder hinzuzufügen."
@@ -17755,11 +17757,11 @@
         },
         "deleteObject": {
             "title": {
-                "error": "Die Einrichtung kann aus den folgenden Gründen nicht gelöscht werden:",
-                "warning": "Diese Einrichtung zu löschen hat folgende Konsequenzen:"
+                "error": "Du kannst diese Einrichtung aus folgenden Gründen nicht löschen:",
+                "warning": "Wenn du diese Einrichtung löschst, passiert Folgendes:"
             },
             "warnings": {
-                "exclusiveAssociatedCoaches": "Die Lehrkraft {{- coach_name }} wird nur benachrichtigt, wenn eine Vertretungsanfrage für eine Sitzung in dieser Einrichtung erfolgt. Wenn die Einrichtung gelöscht wird, erhält diese Lehrkraft daher Vertretungsanfragen von jeder Einrichtung.",
+                "exclusiveAssociatedCoaches": "Die Lehrkraft {{- coach_name }} wird nur über Vertretungsanfragen für Kurse in dieser Einrichtung benachrichtigt. Wenn du die Einrichtung löschst, erhält diese Lehrkraft Vertretungsanfragen von jeder Einrichtung.",
                 "exclusiveAssociatedCoaches_plural": "Dein(e) Lehrer {{- coach_name }} werden nur benachrichtigt, wenn eine Vertretungsanfrage für einen Kurs in dieser Einrichtung gemacht wird. Wenn du diese Einrichtung löschst, werden sie (deshalb) Vertretungsanfragen von jeder Einrichtung erhalten.",
                 "hasBillingGroup": "Diese Einrichtung wird auch aus der Rechnungsgruppe {{- establishment_billing_group_name }} entfernt.",
                 "exclusivePrivateServices_plural": "Diese Termine {{- private_service_name }} sind so konfiguriert, dass sie nur in dieser Einrichtung stattfinden können. Wenn diese Einrichtung gelöscht wird, können diese Termine überall stattfinden.",
@@ -17778,20 +17780,20 @@
                 "hasRelatedMarketingNotifications": "Meldungen, die sich auf diese Einrichtung beziehen, werden gelöscht."
             },
             "errors": {
-                "hasUpcomingOffers": "Einige anstehende Kurse finden in dieser Einrichtung statt. Bitte storniere und lösche diese, bevor diese Einrichtung gelöscht wird.",
-                "hasUpcomingPrivateBookings": "Einige anstehende Termine finden in dieser Einrichtung statt. Bitte storniere und lösche diese, bevor diese Einrichtung gelöscht wird.",
-                "hasExclusiveBillingGroup": "Diese Einrichtung ist die Letzte in der Abrechnungsgruppe. Bitte lösche oder aktualisiere diese Abrechnungsgruppe, bevor diese Einrichtung gelöscht wird.",
-                "exclusivePaymentPacks_plural": "Die folgenden Pässe {{- pass_name }} sind nur in dieser Einrichtung verwendbar. Bitte aktualisiere deren Einschränkungen, bevor die Einrichtung gelöscht wird.",
-                "exclusivePaymentPacks": "Der folgende Pass {{- pass_name }} kann nur in dieser Einrichtung verwendet werden. Bitte aktualisiere deren Einschränkungen, bevor die Einrichtung gelöscht wird.",
-                "exclusiveEstablishmentGroups_plural": "Die Standorte {{- establishment_group_name }} enthalten nur die Einrichtung, die Sie löschen möchten. Bitte aktualisieren oder löschen Sie diese Standorte.",
-                "exclusiveEstablishmentGroups": "Der Standort {{- establishment_group_name }} enthält nur eine Einrichtung, die Sie löschen möchten. Bitte aktualisiere oder lösche diesen Standort.",
-                "hasExclusiveMarketplaceComponentConfigs": "Eine oder mehrere Registerkarten auf dem Marktplatz sind so eingestellt, dass nur der Kalender und die Workshops dieser Einrichtung angezeigt werden. Bitte aktualisiere diese, bevor die Einrichtungen gelöscht wird.",
+                "hasUpcomingOffers": "Es finden noch Kurse in dieser Einrichtung statt. Bitte storniere und lösche erst die anstehenden Kurse, bevor du die Einrichtung löschst.",
+                "hasUpcomingPrivateBookings": "Einige anstehende Termine finden in dieser Einrichtung statt. Bitte storniere und lösche diese, bevor du die Einrichtung löschst.",
+                "hasExclusiveBillingGroup": "Diese Einrichtung ist nur noch die einzige in der Abrechnungsgruppe. Bitte bearbeite oder lösche die Abrechnungsgruppe, bevor du die Einrichtung löschst.",
+                "exclusivePaymentPacks_plural": "Die Pässe {{- pass_name }} können nur in dieser Einrichtung verwendet werden. Bitte bearbeite die Einschränkungen der Pässe, bevor du die Einrichtung löschst.",
+                "exclusivePaymentPacks": "Der Pass {{- pass_name }} kann nur in dieser Einrichtung verwendet werden. Bitte bearbeite die Einschränkungen des Passes, bevor du die Einrichtung löschst.",
+                "exclusiveEstablishmentGroups_plural": "Die Standorte {{- establishment_group_name }} enthalten nur die Einrichtung, die du löschen möchtest. Bitte bearbeite oder lösche erst diese Standorte.",
+                "exclusiveEstablishmentGroups": "Der Standort {{- establishment_group_name }} enthält nur die Einrichtung, die du löschen möchtest. Bitte bearbeite oder lösche erst diesen Standort.",
+                "hasExclusiveMarketplaceComponentConfigs": "Eine oder mehrere Registerkarten auf dem Marktplatz zeigen nur den Kalender und die Workshops dieser Einrichtung an. Bitte bearbeite die Einstellungen der Registerkarten, bevor du die Einrichtung löschst.",
                 "isIntegratedInPartnership": "Eine oder mehrere Integrationen nutzen diese Einrichtung."
             },
             "infos": {
                 "reportsDefault": "Die Einrichtung wird nicht aus früheren Berichten gelöscht.",
                 "offersDefault": "Bestehende Sitzungen, Workshops und frühere Buchungen werden nicht geändert.",
-                "widgetsDefault": "Kalender- und Workshop-Widgets könnten mit dieser Einrichtung konfiguriert worden sein; vergesse nicht, diese zu aktualisieren.",
+                "widgetsDefault": "Eventuell sind Kalender- und Workshop-Widgets mit dieser Einrichtung verbunden und müssten aktualisiert werden.",
                 "privateBookingsDefault": "Vergangene Terminsitzungen werden nicht geändert."
             }
         },
@@ -20388,15 +20390,15 @@
                     "error": "Fehler beim Einchecken des Programms"
                 }
             },
-            "deleteContent": "This program will no longer appear on the members to whom it has been added. You can retrieve it in the 'Archived' section.",
+            "deleteContent": "Das Programm wird archiviert und nicht mehr für Mitglieder sichtbar sein. Du kannst es aus dem Bereich \"Archiviert\" wiederherstellen. Programm wirklich löschen?",
             "titleForConsumer": "Meine Programme",
             "default": "Standardprogramm",
             "selectProgram": "Ein Programm auswählen",
             "detail": "Details zum Programm",
             "infoSelectProgram": "Détails du programme",
-            "deleteHeader": "Do you really want to delete this program?",
+            "deleteHeader": "Programm löschen",
             "infoNoProgram": "Add a program for your members to track their metrics",
-            "archived": "Archived",
+            "archived": "Archiviert",
             "title": "Programme",
             "form": {
                 "delete": "das Programm löschen",

@@ -8575,7 +8575,9 @@
             "titleRevert": "Credit {{uuid}}",
             "titleReceipt": "Erhalten {{uuid}}",
             "titleReverted": "Rechnung (zurückgeschickt) {{uuid}}",
-            "titleRevertPending": "[Ausstehend] Credit {{ uuid }}"
+            "titleRevertPending": "[Ausstehend] Credit {{ uuid }}",
+            "paymentFailedWithMethod": "Die Zahlung mit {{ paymentMethod }} ist fehlgeschlagen. Bitte versuche es nochmal.",
+            "paymentFailed": "Die Zahlung ist fehlgeschlagen. Bitte versuche es noch einmal."
         },
         "invoiceItem": {
             "voucher": "Rabatt: {{ voucher }}",
@@ -17760,7 +17762,7 @@
             },
             "warnings": {
                 "exclusiveAssociatedCoaches": "Die Lehrkraft {{- coach_name }} wird nur über Vertretungsanfragen für Kurse in dieser Einrichtung benachrichtigt. Wenn du die Einrichtung löschst, erhält diese Lehrkraft Vertretungsanfragen von jeder Einrichtung.",
-                "exclusiveAssociatedCoaches_plural": "Die Lehrkräfte {{- coach_name }} werden nur über Vertretungsanfragen für Kurse in dieser Einrichtung benachrichtigt. Wenn du diese Einrichtung löschst, erhalten diese Lehrkräfte Vertretungsanfragen von jeder Einrichtung.",
+                "exclusiveAssociatedCoaches_plural": "Dein(e) Lehrer {{- coach_name }} werden nur benachrichtigt, wenn eine Vertretungsanfrage für einen Kurs in dieser Einrichtung gemacht wird. Wenn du diese Einrichtung löschst, werden sie (deshalb) Vertretungsanfragen von jeder Einrichtung erhalten.",
                 "hasBillingGroup": "Diese Einrichtung wird auch aus der Rechnungsgruppe {{- establishment_billing_group_name }} entfernt.",
                 "exclusivePrivateServices_plural": "Diese Termine {{- private_service_name }} sind so konfiguriert, dass sie nur in dieser Einrichtung stattfinden können. Wenn diese Einrichtung gelöscht wird, können diese Termine überall stattfinden.",
                 "exclusivePrivateServices": "Der Termin {{- private_service_name }} ist so konfiguriert, dass er nur in dieser Einrichtung stattfinden kann. Wenn diese Einrichtung gelöscht wird, kann dieser Termin überall stattfinden.",

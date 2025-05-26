@@ -60,6 +60,10 @@
         "devPort": 4151,
         "watchPath": "../buyables/order/src/**/*"
       },
+      "sm-pack": {
+        "devPort": 4152,
+        "watchPath": "../buyables/pack/src/**/*"
+      },
       "sm-group-activity": {
         "devPort": 4200,
         "watchPath": "../booking/group-activity/src/**/*"

@@ -176,7 +176,7 @@ export const useNavigationElements = ({
       label: t("menus.products.title"),
       subItems: [
         { id: "webshop", label: t("menus.products.webshop") },
-        { id: "packs", label: t("menus.products.packs") },
+        { id: "packs", label: t("menus.products.packs"), href: urls.pack },
         {
           id: "gift-cards",
           label: t("menus.products.giftcards"),

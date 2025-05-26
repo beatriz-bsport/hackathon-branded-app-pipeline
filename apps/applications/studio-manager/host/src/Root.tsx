@@ -11,6 +11,7 @@ const GroupActivities = lazy(() => import("sm-group-activity/App"));
 // ----- Buyables -----
 const Giftcard = lazy(() => import("sm-giftcard/App"));
 const Order = lazy(() => import("sm-order/App"));
+const Pack = lazy(() => import("sm-pack/App"));
 
 // ----- Core-data -----
 const MemberList = lazy(() => import("sm-member-list/App"));
@@ -43,6 +44,7 @@ export function Root() {
         {/* ----- Buyables ----- */}
         <Route path={`${urls.giftcard}/*`} element={<Giftcard />} />
         <Route path={`${urls.order}/*`} element={<Order />} />
+        <Route path={`${urls.pack}/*`} element={<Pack />} />
 
         {/* ----- Core-data ----- */}
         <Route path={`${urls.member}/*`} element={<MemberList />} />

@@ -6,5 +6,6 @@ export type TableRowData = {
   limitedTime: boolean;
   numberOfProducts: number;
   price: string;
-  link: string;
+  /** @todo Unlock when link clashes with actions is fixed */
+  // link: string;
 };

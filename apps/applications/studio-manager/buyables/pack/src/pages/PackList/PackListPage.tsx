@@ -1,15 +1,19 @@
-import { useEffect, useId } from "react";
+import { useEffect, useId, useState } from "react";
 import { useNavigate } from "react-router";
 
 import { Button, ListLayout } from "@bsport/kaizen-primitive-core";
 
+import { PackDeleteModal } from "#src/components/PackDeleteModal";
 import { PackTable } from "#src/components/PackTable";
 import { useFetchPacks } from "#src/hooks/useFetchPacks";
 import { useSearchPacks } from "#src/hooks/useSearchPacks";
 import { useTranslation } from "#src/utils/i18n";
 
-const ListPage: React.FC = () => {
+export const PackListPage: React.FC = () => {
   const { t } = useTranslation("list");
+  const [packToDelete, setPackToDelete] = useState<
+    { id: number; name: string } | undefined
+  >(undefined);
 
   const navigate = useNavigate();
   const onAddPackClick = () => {
@@ -61,7 +65,7 @@ const ListPage: React.FC = () => {
       />
       <ListLayout.Content>
         <PackTable
-          handleArchive={({ id }) => alert(`Delete item ${id}`)}
+          handleArchive={setPackToDelete}
           isEmpty={isEmpty}
           isEmptySearch={isEmptySearch}
           isLoading={isLoading}
@@ -69,9 +73,16 @@ const ListPage: React.FC = () => {
           packList={packs}
           paginationProps={paginationParams}
         />
+        {packToDelete && (
+          <PackDeleteModal
+            packId={packToDelete.id}
+            packName={packToDelete.name}
+            isOpen={!!packToDelete}
+            onClose={() => setPackToDelete(undefined)}
+            refreshPageList={fetchPacks}
+          />
+        )}
       </ListLayout.Content>
     </ListLayout>
   );
 };
-
-export default ListPage;

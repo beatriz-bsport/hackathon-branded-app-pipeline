@@ -608,6 +608,19 @@
           "availableForALimitedTime": "This product will only be shown for a limited time",
           "archive": "Delete Pack"
         }
+      },
+      "deleteModal": {
+        "title": "Delete Pack?",
+        "description": {
+          "effect": "If you delete {{ name }}, current or previous purchases won't be affected.",
+          "canNotBeUndone": "This action cannot be undone."
+        },
+        "actions": { "cancel": "Cancel", "delete": "Delete" }
+      },
+      "toasts": {
+        "messageDelete": { "success": "Pack deleted", "error": "Failed to delete pack" },
+        "messageUndo": { "success": "Action undone", "error": "Failed to undo action" },
+        "actions": { "undo": "Undo" }
       }
     }
   },

@@ -82,7 +82,8 @@ export const PackTable: React.FC<PackTableProps> = ({
         aggregateQuantity(payment_packs) +
         aggregateQuantity(private_passes) +
         aggregateQuantity(shop_items),
-      link: `/combo/${id}`,
+      /** @todo Unlock when link clashes with actions is fixed */
+      // link: `/combo/${id}`,
     };
   });
 

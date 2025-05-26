@@ -1171,9 +1171,15 @@ importers:
       '@bsport/store-buyables-pack':
         specifier: workspace:*
         version: link:../../../../../packages/stores/buyables/pack
+      '@bsport/use-async':
+        specifier: workspace:*
+        version: link:../../../../../packages/hooks/use-async
       '@bsport/use-debounce':
         specifier: workspace:*
         version: link:../../../../../packages/hooks/use-debounce
+      '@bsport/use-pagination-query-params':
+        specifier: workspace:*
+        version: link:../../../../../packages/utils/query-params/use-pagination
       clsx:
         specifier: ^2.1.1
         version: 2.1.1

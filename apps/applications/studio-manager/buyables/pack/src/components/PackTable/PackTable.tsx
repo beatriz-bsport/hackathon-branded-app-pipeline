@@ -1,15 +1,12 @@
-import { clsx } from "clsx";
 import React from "react";
 
 import {
-  Body,
-  Loader,
   type PaginationProps,
   Table,
   type UseEmptyStateProps,
 } from "@bsport/kaizen-primitive-core";
+import type { Pack } from "@bsport/store-buyables-pack";
 
-import type { Pack } from "#src/temp-api";
 import { useTranslation } from "#src/utils/i18n";
 
 import { usePackTableColumns } from "./columns";
@@ -89,28 +86,17 @@ export const PackTable: React.FC<PackTableProps> = ({
     };
   });
 
-  if (isLoading) {
-    return (
-      <div className="w-full h-full flex flex-col items-center justify-center gap-md">
-        <Loader size="xl" />
-        <Body htmlVariant="p">{t("table.loading")}</Body>
-      </div>
-    );
-  }
-
   return (
-    <div
-      className={clsx("w-full h-full flex flex-col flex-1", {
-        "items-center justify-center": isEmpty || isEmptySearch,
-      })}
-    >
-      <Table
-        columns={tableColumns}
-        rowHeight="lg"
-        rows={tableRows}
-        paginationProps={paginationProps}
-        emptyStateProps={emptyStateProps}
-      />
-    </div>
+    <Table
+      columns={tableColumns}
+      rowHeight="lg"
+      rows={tableRows}
+      paginationProps={paginationProps}
+      emptyStateProps={emptyStateProps}
+      loadingProps={{
+        isLoading,
+        message: t("table.loading"),
+      }}
+    />
   );
 };

@@ -1,14 +1,12 @@
-import { useId } from "react";
+import { useEffect, useId } from "react";
 import { useNavigate } from "react-router";
 
 import { Button, ListLayout } from "@bsport/kaizen-primitive-core";
 
 import { PackTable } from "#src/components/PackTable";
+import { useFetchPacks } from "#src/hooks/useFetchPacks";
 import { useSearchPacks } from "#src/hooks/useSearchPacks";
-import type { Pack } from "#src/temp-api";
 import { useTranslation } from "#src/utils/i18n";
-
-import MOCK_DATA from "./mock-data.json";
 
 const ListPage: React.FC = () => {
   const { t } = useTranslation("list");
@@ -19,6 +17,26 @@ const ListPage: React.FC = () => {
   };
 
   const { searchInput, setSearchInput, clearSearchInput } = useSearchPacks();
+
+  const {
+    packs,
+    paginationParams,
+    fuzzySearchPacks,
+    fetchPacks,
+    isEmpty,
+    isEmptySearch,
+    isLoading,
+  } = useFetchPacks({ searchInput });
+
+  // ----- Load data -----
+
+  useEffect(() => {
+    fuzzySearchPacks();
+  }, [fuzzySearchPacks]);
+
+  useEffect(() => {
+    fetchPacks();
+  }, [fetchPacks]);
 
   return (
     <ListLayout>
@@ -43,14 +61,13 @@ const ListPage: React.FC = () => {
       />
       <ListLayout.Content>
         <PackTable
-          packList={MOCK_DATA as Array<Pack>}
-          paginationProps={{
-            currentPage: 1,
-            rowsPerPage: 10,
-            totalItems: 10,
-          }}
           handleArchive={({ id }) => alert(`Delete item ${id}`)}
+          isEmpty={isEmpty}
+          isEmptySearch={isEmptySearch}
+          isLoading={isLoading}
           onAddPackClick={onAddPackClick}
+          packList={packs}
+          paginationProps={paginationParams}
         />
       </ListLayout.Content>
     </ListLayout>

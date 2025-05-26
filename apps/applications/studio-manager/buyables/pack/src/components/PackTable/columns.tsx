@@ -1,0 +1,114 @@
+import {
+  Button,
+  type GenericTableColumn,
+  Tooltip,
+} from "@bsport/kaizen-primitive-core";
+
+import { useTranslation } from "#src/utils/i18n";
+
+import { VisibilityBadge } from "./VisibilityBadge";
+import type { TableRowData } from "./types";
+
+type TableColumn = GenericTableColumn<TableRowData>;
+
+export const usePackTableColumns = ({
+  handleArchive,
+}: {
+  handleArchive?: ({ id, name }: { id: number; name: string }) => void;
+}) => {
+  const { t } = useTranslation("list");
+
+  const columnName: TableColumn = {
+    id: "pack-column-name",
+    type: "string",
+    align: "start",
+    keyPath: "name",
+    header: t("table.headers.name"),
+  };
+
+  const columnVisibility: TableColumn = {
+    id: "pack-column-visibility",
+    type: "custom",
+    align: "center",
+    header: t("table.headers.visibility"),
+    render: (row) => {
+      return (
+        <div className="flex flex-row gap-2xs">
+          {row.hiddenForUsers && (
+            <VisibilityBadge
+              tooltip={t("table.tooltips.unavailableForUsers")}
+              icon="package-x"
+            />
+          )}
+          {row.hiddenForStaff && (
+            <VisibilityBadge
+              tooltip={t("table.tooltips.invisibleForStaff")}
+              icon="eye-off"
+            />
+          )}
+          {row.limitedTime && (
+            <VisibilityBadge
+              tooltip={t("table.tooltips.availableForALimitedTime")}
+              icon="clock-stopwatch"
+            />
+          )}
+        </div>
+      );
+    },
+  };
+
+  const columnNumberOfProducts: TableColumn = {
+    id: "pack-column-number-of-products",
+    type: "number",
+    align: "center",
+    keyPath: "numberOfProducts",
+    header: t("table.headers.numberOfProducts"),
+  };
+
+  const columnPrice: TableColumn = {
+    id: "pack-column-price",
+    type: "string",
+    align: "center",
+    keyPath: "price",
+    header: t("table.headers.price"),
+  };
+
+  const columnActions: TableColumn = {
+    id: "pack-column-actions",
+    type: "custom",
+    align: "center",
+    header: "",
+    render: (row) => {
+      if (!handleArchive) return null;
+
+      return (
+        <Tooltip label={t("table.tooltips.archive")} placement="bottom-right">
+          <Button
+            color="default"
+            intent="flat"
+            size="md"
+            onClick={() =>
+              handleArchive({
+                id: row.id,
+                name: row.name,
+              })
+            }
+            iconLeft="trash-01"
+            id="pack-column-actions-archive-button"
+          />
+        </Tooltip>
+      );
+    },
+  };
+
+  const columns = [
+    columnName,
+    columnVisibility,
+    columnNumberOfProducts,
+    columnPrice,
+  ];
+
+  if (handleArchive) columns.push(columnActions);
+
+  return columns;
+};

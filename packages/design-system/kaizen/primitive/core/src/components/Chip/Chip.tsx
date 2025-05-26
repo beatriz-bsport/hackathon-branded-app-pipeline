@@ -16,7 +16,7 @@ type VariantChipsProps = Omit<
 
 export type ChipProps = React.HTMLAttributes<HTMLDivElement> &
   VariantChipsProps & {
-    label: string;
+    label?: string;
     type: "weak" | "strong";
     color: (typeof colors)[number];
     size: keyof typeof sizes;
@@ -97,7 +97,7 @@ const Chip: React.FC<ChipProps> = ({
       {...props}
     >
       {renderedIconLeft}
-      <span>{label}</span>
+      {label && <span>{label}</span>}
       {renderedIconDismiss}
     </div>
   );

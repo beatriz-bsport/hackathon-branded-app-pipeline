@@ -3,8 +3,12 @@ import { useNavigate } from "react-router";
 
 import { Button, ListLayout } from "@bsport/kaizen-primitive-core";
 
+import { PackTable } from "#src/components/PackTable";
 import { useSearchPacks } from "#src/hooks/useSearchPacks";
+import type { Pack } from "#src/temp-api";
 import { useTranslation } from "#src/utils/i18n";
+
+import MOCK_DATA from "./mock-data.json";
 
 const ListPage: React.FC = () => {
   const { t } = useTranslation("list");
@@ -38,8 +42,16 @@ const ListPage: React.FC = () => {
         }}
       />
       <ListLayout.Content>
-        {/* TEMPORARY - Just for testing purposes */}
-        <p>Search with param : {searchInput}</p>
+        <PackTable
+          packList={MOCK_DATA as Array<Pack>}
+          paginationProps={{
+            currentPage: 1,
+            rowsPerPage: 10,
+            totalItems: 10,
+          }}
+          handleArchive={({ id }) => alert(`Delete item ${id}`)}
+          onAddPackClick={onAddPackClick}
+        />
       </ListLayout.Content>
     </ListLayout>
   );

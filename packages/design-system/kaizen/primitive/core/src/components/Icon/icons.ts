@@ -67,6 +67,9 @@ const icons = {
     async () => await import("./assets/chevron-selector-vertical.svg?react"),
   ),
   circle: React.lazy(async () => await import("./assets/circle.svg?react")),
+  "clock-stopwatch": React.lazy(
+    async () => await import("./assets/clock-stopwatch.svg?react"),
+  ),
   clock: React.lazy(async () => await import("./assets/clock.svg?react")),
   "copy-03": React.lazy(async () => await import("./assets/copy-03.svg?react")),
   "copy-07": React.lazy(async () => await import("./assets/copy-07.svg?react")),
@@ -81,6 +84,7 @@ const icons = {
   ),
   "edit-02": React.lazy(async () => await import("./assets/edit-02.svg?react")),
   "edit-05": React.lazy(async () => await import("./assets/edit-05.svg?react")),
+  "eye-off": React.lazy(async () => await import("./assets/eye-off.svg?react")),
   eye: React.lazy(async () => await import("./assets/eye.svg?react")),
   "file-06": React.lazy(async () => await import("./assets/file-06.svg?react")),
   "filter-lines": React.lazy(
@@ -136,6 +140,9 @@ const icons = {
   ),
   "message-x-square": React.lazy(
     async () => await import("./assets/message-x-square.svg?react"),
+  ),
+  "package-x": React.lazy(
+    async () => await import("./assets/package-x.svg?react"),
   ),
   "pencil-02": React.lazy(
     async () => await import("./assets/pencil-02.svg?react"),

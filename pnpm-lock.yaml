@@ -1168,9 +1168,15 @@ importers:
       '@bsport/sm-backbone':
         specifier: workspace:*
         version: link:../../../../../packages/utils/sm-backbone
+      '@bsport/store-buyables-pack':
+        specifier: workspace:*
+        version: link:../../../../../packages/stores/buyables/pack
       '@bsport/use-debounce':
         specifier: workspace:*
         version: link:../../../../../packages/hooks/use-debounce
+      clsx:
+        specifier: ^2.1.1
+        version: 2.1.1
       react:
         specifier: ^19.0.0
         version: 19.0.0

@@ -64,7 +64,11 @@ export {
   type FilterElementState,
 } from "./components/Filter";
 export { KaizenI18nProvider } from "./components/I18nProvider";
-export { default as Icon, type IconProps } from "./components/Icon";
+export {
+  default as Icon,
+  type IconName,
+  type IconProps,
+} from "./components/Icon";
 export {
   default as Indicator,
   type IndicatorProps,

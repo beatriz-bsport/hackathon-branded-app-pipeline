@@ -1,21 +1,27 @@
 import { createStore } from "zustand/vanilla";
 
-import { bindStore } from "@bsport/store-base";
+import { type PaginatedState, bindStore } from "@bsport/store-base";
 
-import type { CustomForm } from "#src/types";
+import type { CustomForm, CustomFormStatistics } from "#src/types";
 
 export interface CustomFormState {
-  byId: { [key: number]: CustomForm };
-  count: number;
-  ids: number[];
-  page: number;
+  customForms: PaginatedState<CustomForm>;
+  statistics: PaginatedState<CustomFormStatistics>;
 }
 
 export const customFormStore = createStore<CustomFormState>()(() => ({
-  byId: {},
-  count: 0,
-  ids: [],
-  page: 1,
+  customForms: {
+    byId: {},
+    count: 0,
+    ids: [],
+    page: 1,
+  },
+  statistics: {
+    byId: {},
+    count: 0,
+    ids: [],
+    page: 1,
+  },
 }));
 
 export const useCustomFormStore = bindStore(customFormStore);

@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 
 import { Modal, toast } from "@bsport/kaizen-primitive-core";
+import { dataAccessLayer } from "@bsport/sm-backbone";
 import {
   archiveGiftcardImageAction,
   fetchGiftcardImagesAction,
@@ -10,7 +11,6 @@ import {
   useGiftcardStore,
 } from "@bsport/store-buyables-giftcard";
 
-import { getCompanyTheme } from "#src/features/api";
 import { fetch } from "#src/utils/fetch";
 import { useTranslation } from "#src/utils/i18n";
 
@@ -39,10 +39,7 @@ export const GiftcardImageUploadModal: React.FC<UploadModalProps> = ({
   // Pagination can not be managed in URL as it happens in a modal over a Paginated list
   const [currentPage, setCurrentPage] = useState<number>(DEFAULT_PAGE);
 
-  /** @todo Company theme should be retrieved from common store */
-  const [companyTheme, setCompanyTheme] = useState<{ cover: string }>({
-    cover: "",
-  });
+  const companyTheme = dataAccessLayer.useCompanyTheme();
 
   // Data from store
   const totalItems = useGiftcardStore(selectGiftcardImagesCount);
@@ -118,10 +115,6 @@ export const GiftcardImageUploadModal: React.FC<UploadModalProps> = ({
     refreshGiftcardImages();
   }, [refreshGiftcardImages]);
 
-  useEffect(() => {
-    getCompanyTheme({ setTheme: setCompanyTheme });
-  }, []);
-
   const isEmpty = !totalItems;
 
   return (
@@ -140,7 +133,7 @@ export const GiftcardImageUploadModal: React.FC<UploadModalProps> = ({
         <GiftcardDisplay
           displaySelectMessage={totalItems > 0}
           selectedImage={selectedImage}
-          companyCover={companyTheme.cover}
+          companyCover={companyTheme?.cover}
         />
         <GiftcardImageList
           currentPage={currentPage}

@@ -1,9 +1,9 @@
-import { type FC, type LazyExoticComponent, Suspense } from "react";
+import { type FC, type LazyExoticComponent, Suspense, useEffect } from "react";
 import { Navigate, Outlet, useLocation } from "react-router";
 
 import { getAuthToken } from "@bsport/local-storage-auth-token";
 
-import { fetchCompanyFeatures } from "#src/api";
+import { fetchSharedData } from "#src/api";
 
 export type AuthWrapperProps = {
   NavigationApp?: LazyExoticComponent<FC>;
@@ -42,10 +42,10 @@ export const AuthWrapper: FC<AuthWrapperProps> = ({
       >
         {NavigationApp ? <NavigationApp /> : undefined}
       </Suspense>
+      <DataLayerWrapper />
       {/** react-router will map Route.Element to Outlet
        * https://reactrouter.com/start/library/routing#nested-routes
        */}
-      <DataLayerWrapper />
       <Outlet />
     </div>
   );
@@ -55,7 +55,9 @@ function DataLayerWrapper() {
   /**
    * here we fetch shared data
    */
-  fetchCompanyFeatures();
+  useEffect(() => {
+    fetchSharedData();
+  }, []);
 
   return null;
 }

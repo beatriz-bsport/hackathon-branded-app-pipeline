@@ -6,7 +6,7 @@ import GiftcardPreview from "#src/components/GiftcardPreview";
 import { useTranslation } from "#src/utils/i18n";
 
 type GiftcardPreviewProps = {
-  companyCover?: string;
+  companyCover?: string | null;
   displaySelectMessage?: boolean;
   selectedImage?: string;
 };

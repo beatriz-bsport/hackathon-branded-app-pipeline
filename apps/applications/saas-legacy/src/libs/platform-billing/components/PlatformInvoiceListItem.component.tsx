@@ -13,6 +13,7 @@ import CheckIcon from '@material-ui/icons/Check';
 import RefreshIcon from '@material-ui/icons/Refresh';
 import Tooltip from '@material-ui/core/Tooltip';
 import ErrorIcon from '@material-ui/icons/Error';
+import CancelIcon from '@material-ui/icons/Cancel';
 
 import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
 import { OptionCallback } from '#src/state/types';
@@ -43,6 +44,9 @@ const StatusIcon = ({ status }: any) => {
     case 'missing_charge': {
       return <WarningIcon color="secondary" />;
     }
+    case 'cancelled_with_credit_note':
+    case 'cancelled_with_negative_invoice':
+      return <CancelIcon color="error" />;
     default:
       return null;
   }
@@ -69,7 +73,15 @@ export const PlatformInvoiceListItem = (props: Props) => {
         )}
       </Typography>
       <Typography
-        color={status === 'succeeded' ? 'inherit' : 'error'}
+        color={
+          [
+            'succeeded',
+            'cancelled_with_credit_note',
+            'cancelled_with_negative_invoice',
+          ].includes(status)
+            ? 'inherit'
+            : 'error'
+        }
         variant="caption"
       >
         {` - ${t(`platformInvoice.status.${status}`)}`}

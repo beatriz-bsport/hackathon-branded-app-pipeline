@@ -23,6 +23,8 @@ exports.default = {
       disputed: 'Payment: disputed',
       succeeded: 'Payment: successful',
       missing_charge: "There's no attempted payment to display.",
+      cancelled_with_credit_note: 'Invoice cancelled by credit note',
+      cancelled_with_negative_invoice: 'Invoice cancelled by negative invoice',
     },
     bill: 'Complete payment',
   },

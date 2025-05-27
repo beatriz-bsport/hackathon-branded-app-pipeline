@@ -2,7 +2,7 @@ import { type ChangeEvent, useState } from "react";
 import { useNavigate } from "react-router";
 
 import { Button, TextField } from "@bsport/kaizen-primitive-core";
-import { login } from "@bsport/store-auth";
+import { loginAction } from "@bsport/store-auth";
 
 import { fetch } from "#src/utils/fetch";
 
@@ -13,7 +13,7 @@ function DevLoginPage() {
   const [password, setPassword] = useState<string>("");
 
   const handleLogin = async () => {
-    const response = await login(fetch, { email, password });
+    const response = await loginAction(fetch, { email, password });
     response.fold(() => {
       navigate("/", { replace: true });
     }, console.error);

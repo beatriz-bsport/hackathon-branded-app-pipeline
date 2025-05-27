@@ -1,3 +1,4 @@
+import { selectUserAccess, useAuthStore } from "@bsport/store-auth";
 import {
   selectFeatures,
   useCompanyStore,
@@ -15,7 +16,12 @@ const useCompanyTheme = () => {
   return useCompanyThemeStore(selectCompanyTheme);
 };
 
+const useUserAccess = () => {
+  return useAuthStore(selectUserAccess);
+};
+
 export const dataAccessLayer = {
   useCompanyFeatures,
   useCompanyTheme,
+  useUserAccess,
 };

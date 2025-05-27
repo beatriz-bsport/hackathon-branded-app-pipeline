@@ -1,0 +1,71 @@
+import { Result } from "typescript-result";
+
+import {
+  removeAuthToken,
+  setAuthToken,
+} from "@bsport/local-storage-auth-token";
+import { type Action, createErrorWithContext } from "@bsport/store-base";
+
+import { type LoginParams, fetchUserAccessAPI, loginAPI } from "#src/api";
+import { UserAccess } from "#src/types";
+
+import { updateUserAccess } from "./store";
+
+/**
+ * Try to log in with the provided email and password.
+ * If the login is successful, the token is stored in localStorage.
+ * @param email
+ * @param password
+ */
+export const loginAction: Action<
+  LoginParams,
+  { token: string },
+  Error,
+  void
+> = async (fetch, params) => {
+  const [uri, init] = loginAPI(params);
+
+  return Result.try(
+    async () => {
+      const { data } = await fetch(uri, init);
+
+      setAuthToken(data.token);
+    },
+    (error) =>
+      createErrorWithContext(error, {
+        message: "Token not found in response.",
+        params,
+      }),
+  );
+};
+
+/**
+ * Remove the authentication token from localStorage
+ * @param callback Function to call when the Token has been removed.
+ * Expecting a Redirect callback using React router context.
+ */
+export const logoutAction = async (callback?: () => void) => {
+  removeAuthToken();
+  callback?.();
+};
+
+/**
+ * Fetch access permissions of the current connected user.
+ */
+export const fetchUserAccessAction: Action<void, UserAccess> = async (
+  fetch,
+) => {
+  const [uri, init] = fetchUserAccessAPI();
+
+  return Result.try(
+    async () => {
+      const { data } = await fetch(uri, init);
+
+      updateUserAccess(data);
+
+      return data;
+    },
+    (error) =>
+      createErrorWithContext(error, { message: "Failed to fetch user access" }),
+  );
+};

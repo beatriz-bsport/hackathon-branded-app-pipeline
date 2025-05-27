@@ -5,7 +5,7 @@ export type LoginParams = {
   password: string;
 };
 
-export const login = ({ email, password }: LoginParams): ApiConfig => {
+export const loginAPI = ({ email, password }: LoginParams): ApiConfig => {
   return [
     "api/v1/authentication/signin/with-login/",
     {
@@ -16,4 +16,8 @@ export const login = ({ email, password }: LoginParams): ApiConfig => {
       }),
     },
   ];
+};
+
+export const fetchUserAccessAPI = (): ApiConfig => {
+  return ["platform/v0/saas/access_level"];
 };

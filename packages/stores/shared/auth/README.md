@@ -18,15 +18,19 @@ This package provides utilities to interact with our authentication API.
 2. Import your desired utilities from the package.
 
    ```tsx
-   import { login } from "@bsport/store-auth";
+   import { loginAction } from "@bsport/store-auth";
    ```
 
 ## Utilities
 
-### `login`
+### `loginAction`
 
 Authenticate against the API to retrieve a valid token, and save it into localStorage.
 
-### `logout`
+### `logoutAction`
 
-Remove the authentication token from localStorage and redirect to the specified route.
+Remove the authentication token from localStorage.
+
+### `fetchUserAccessAction`
+
+Retrieve the permissions (access) related to the authenticated user and store them in the AuthStore.

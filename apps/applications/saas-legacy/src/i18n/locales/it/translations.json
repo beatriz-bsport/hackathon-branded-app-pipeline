@@ -2854,10 +2854,34 @@
             "smsCostReminderModal": {
                 "confirm": "Conferma",
                 "cancel": "Cancella",
-                "content": "L'invio di SMS a un grande gruppo di utenti può essere costoso. È possibile verificare il prezzo per SMS nel vostro contratto. Siete sicuri di voler inviare questa comunicazione?",
+                "content": {
+                    "effect": "Puoi verificare il prezzo tramite SMS nel tuo contratto. Sei sicuro di voler inviare questa comunicazione?",
+                    "description": "L'invio di SMS a un grande gruppo di membri può essere costoso."
+                },
                 "title": "Promemoria dei costi per l'invio di SMS"
             },
-            "membersWontLoad": "Si sta verificando un problema nel caricamento dei membri di questa smartlist. Si prega di notare che non sarà possibile visualizzare in anteprima il numero di membri che saranno raggiunti da questa comunicazione."
+            "membersWontLoad": "Si sta verificando un problema nel caricamento dei membri di questa smartlist. Si prega di notare che non sarà possibile visualizzare in anteprima il numero di membri che saranno raggiunti da questa comunicazione.",
+            "smsCostWarning": {
+                "confirm": "Invia comunque",
+                "cancel": "Cancella",
+                "content": {
+                    "effect": "Controlla il tuo contratto per scoprire il costo di ogni SMS.",
+                    "description": "Gli SMS possono essere più costosi di altri canali."
+                },
+                "title": "Inviare un SMS a un gruppo numeroso?"
+            },
+            "cannotReviewRecipients": {
+                "confirm": "Invia comunque",
+                "cancel": "Cancella",
+                "content": {
+                    "effect": "Se invii il messaggio ora, verrà comunque inviato a tutti coloro che corrispondono ai filtri della tua Smartlist.",
+                    "description": "Stiamo ancora caricando l'elenco completo dei destinatari."
+                },
+                "title": "Inviare senza controllare tutti i destinatari?"
+            },
+            "warningModalTitle": {
+                "title": "Desideriamo informarvi di alcune cose prima di inviare le comunicazioni"
+            }
         },
         "dialogRecipients": {
             "refreshMemberData": "Per visualizzare le modifiche, fare clic sul pulsante di aggiornamento.",

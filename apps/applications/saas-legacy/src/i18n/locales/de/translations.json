@@ -12942,10 +12942,34 @@
             "smsCostReminderModal": {
                 "confirm": "Bestätigen",
                 "cancel": "Abbrechen",
-                "content": "Eine SMS an eine große Anzahl von Mitgliedern zu schicken kann teuer sein. Du kannst den Preis pro SMS in Ihrem Vertrag nachschauen. Bist du sicher, dass du diese Nachricht verschicken willst?",
+                "content": {
+                    "effect": "Den Preis pro SMS findest du in deinem Vertrag. Bist du sicher, dass du diese Nachricht versenden möchtest?",
+                    "description": "Das Versenden von SMS an eine große Gruppe von Mitgliedern kann kostspielig sein."
+                },
                 "title": "Erinnerung für SMS-Kosten"
             },
-            "membersWontLoad": "Wir haben derzeit ein Problem beim Laden der Mitglieder in dieser Smartlist. Bitte beachte, dass du die Anzahl der Mitglieder, die von dieser Mitteilung erreicht werden, nicht in der Vorschau sehen kannst."
+            "membersWontLoad": "Wir haben derzeit ein Problem beim Laden der Mitglieder in dieser Smartlist. Bitte beachte, dass du die Anzahl der Mitglieder, die von dieser Mitteilung erreicht werden, nicht in der Vorschau sehen kannst.",
+            "smsCostWarning": {
+                "confirm": "Trotzdem senden",
+                "cancel": "Abbrechen",
+                "content": {
+                    "effect": "Die Kosten pro SMS findest du in deinem Vertrag.",
+                    "description": "SMS können teurer sein, als andere Aktionen."
+                },
+                "title": "SMS an eine große Gruppe senden?"
+            },
+            "cannotReviewRecipients": {
+                "confirm": "Trotzdem Senden",
+                "cancel": "Abbrechen",
+                "content": {
+                    "effect": "Wenn du diese Nachricht jetzt sendest, wird sie weiterhin an alle verschickt, die deinen Smartlist Filtern entsprechen.",
+                    "description": "Wir laden die gesamte Liste der Empfänger."
+                },
+                "title": "Ohne Überprüfung aller Empfänger senden?"
+            },
+            "warningModalTitle": {
+                "title": "Bevor du Nachrichten verschickst, möchten wir dich über ein paar Dinge informieren"
+            }
         },
         "dialogRecipients": {
             "refreshMemberData": "Um Deine Änderungen anzuzeigen, klicke bitte auf die Schaltfläche \"Aktualisieren\".",

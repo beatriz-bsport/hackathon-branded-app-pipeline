@@ -2799,9 +2799,33 @@
                 "confirm": "Bevestigen",
                 "cancel": "Annuleren",
                 "title": "Herinnering sms-kosten",
-                "content": "SMS'en naar een grote groep leden kan duur zijn. Je kunt de prijs per sms controleren in je contract. Weet u zeker dat u deze communicatie wilt versturen?"
+                "content": {
+                    "effect": "Je kunt de prijs per sms nakijken in je contract. Weet je zeker dat je deze communicatie wilt versturen?",
+                    "description": "SMS versturen naar een grote groep kan duur zijn."
+                }
             },
-            "membersWontLoad": "Er is momenteel een probleem met het laden van de leden in deze smartlist. Houd er rekening mee dat je geen voorbeeld kunt zien van het aantal leden dat wordt bereikt door deze communicatie."
+            "membersWontLoad": "Er is momenteel een probleem met het laden van de leden in deze smartlist. Houd er rekening mee dat je geen voorbeeld kunt zien van het aantal leden dat wordt bereikt door deze communicatie.",
+            "smsCostWarning": {
+                "confirm": "Toch verzenden",
+                "cancel": "Annuleren",
+                "content": {
+                    "effect": "Kijk je contract na om de kosten per sms te weten te komen.",
+                    "description": "SMS kan duurder zijn dan andere verzendmethoden."
+                },
+                "title": "Een sms versturen naar een grote groep?"
+            },
+            "cannotReviewRecipients": {
+                "confirm": "Toch verzenden",
+                "cancel": "Annuleren",
+                "content": {
+                    "effect": "Als je je bericht nu verstuurt, wordt het nog steeds verstuurd naar iedereen die voldoet aan je Smartlist-filters.",
+                    "description": "We zijn nog bezig met het laden van de volledige lijst met ontvangers."
+                },
+                "title": "Verzenden zonder alle ontvangers te controleren?"
+            },
+            "warningModalTitle": {
+                "title": "We willen je over een paar dingen informeren voordat je je berichten verstuurt"
+            }
         },
         "communication": "Bericht",
         "generic": {
@@ -5495,7 +5519,7 @@
                 "exclusivePaymentPacks": "De volgende pas {{- pass_name }} is alleen bruikbaar in deze vestiging. Werk de beperkingen bij voordat u de vestiging verwijdert.",
                 "exclusivePaymentPacks_plural": "De volgende passen {{- pass_name }} zijn alleen bruikbaar in deze vestiging. Pas hun beperkingen aan voordat u de vestiging verwijdert.",
                 "exclusiveEstablishmentGroups": "De locatie {{- establishment_group_name }} bevat alleen de vestiging die u wilt verwijderen. Werk deze locatie bij of verwijder deze.",
-                "exclusiveEstablishmentGroups_plural": "De locaties {{- establishment_group_name }} bevatten alleen de vestiging die je wilt verwijderen, bewerk of verwijder deze locaties eerst.",
+                "exclusiveEstablishmentGroups_plural": "De locaties {{- establishment_group_name }} bevatten alleen de vestiging die u wilt verwijderen. Werk deze locaties bij of verwijder ze.",
                 "hasExclusiveMarketplaceComponentConfigs": "Een of meerdere tabbladen op de marktplaats zijn ingesteld om alleen de agenda en workshops van deze vestiging weer te geven.",
                 "hasUpcomingOffers": "Sommige komende sessies vinden plaats in deze vestiging. Annuleer en verwijder ze voordat je deze vestiging verwijdert.",
                 "hasExclusiveBillingGroup": "Deze vestiging is de laatste van zijn factureringsgroep. Verwijder deze factureringsgroep of werk deze bij voordat u deze vestiging verwijdert.",
@@ -5506,7 +5530,7 @@
                 "exclusivePrivateServices": "De afspraak {{- private_service_name }} is geconfigureerd om alleen in deze vestiging plaats te vinden. Door deze vestiging te verwijderen, kan deze afspraak overal plaatsvinden.",
                 "exclusivePrivateServices_plural": "De afspraken {{- private_service_name }} zijn geconfigureerd om alleen in deze vestiging plaats te vinden. Door deze vestiging te verwijderen, kunnen deze afspraken overal plaatsvinden.",
                 "exclusiveCoachAvailabilitySlots": "De leraar {{- coach_name }} is aangegeven als beschikbaar voor deze vestiging voor slechts enkele tijdsloten. Door de vestiging te verwijderen, worden deze tijdslots verwijderd.",
-                "exclusiveCoachAvailabilitySlots_plural": "De docenten {{- coach_name }} zijn aangegeven als beschikbaar voor deze vestiging tijdens bepaalde tijdsloten. Door de vestiging te verwijderen, worden deze tijdsloten verwijderd.",
+                "exclusiveCoachAvailabilitySlots_plural": "De docenten {{- coach_name }} zijn aangegeven als beschikbaar voor deze vestiging voor slechts enkele tijdslots. Door de vestiging te verwijderen, worden deze tijdslots verwijderd.",
                 "exclusiveAssociatedCoaches_plural": "Je leraren {{- coach_name }} krijgt alleen bericht als er een vervangingsverzoek wordt gedaan voor een sessie in deze vestiging. Door de vestiging te verwijderen, ontvangen ze dus vervangingsverzoeken van elke vestiging.",
                 "exclusiveAssociatedCoaches": "Je leraar {{- coach_name }} krijgt alleen bericht als er een vervangingsverzoek wordt gedaan voor een sessie in deze vestiging. Door de vestiging te verwijderen, ontvangen ze dus vervangingsverzoeken van elke vestiging.",
                 "hasExclusiveStaffConfigurations": "Sommige medewerkers zijn geconfigureerd om de toegang van leden alleen voor deze vestiging te controleren. Door de vestiging te verwijderen zonder een nieuwe te selecteren, kunnen ze geen toegangscontrole meer uitvoeren.",

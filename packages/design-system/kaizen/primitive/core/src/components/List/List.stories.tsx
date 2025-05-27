@@ -99,6 +99,21 @@ const meta: Meta<typeof List> = {
         },
       },
     },
+    loadingProps: {
+      control: "object",
+      table: {
+        type: {
+          summary: "UseLoadingStateProps",
+          detail: `
+    {
+      message?: string; default "Loading...";
+      className?: string;
+      isLoading?: boolean; default: false;
+    }
+          `.trim(),
+        },
+      },
+    },
   },
 };
 
@@ -327,7 +342,7 @@ export const ListWithButtonsInHeader: Story = {
 };
 
 export const ListWithNoPrimaryButtons: Story = {
-  name: "List with buttons in header",
+  name: "List with buttons in items and header",
   args: {
     id: "list-1",
     collapsibleProps: {

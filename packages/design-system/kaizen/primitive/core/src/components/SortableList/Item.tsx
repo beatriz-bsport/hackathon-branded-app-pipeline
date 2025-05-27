@@ -4,11 +4,16 @@ import React, { useMemo } from "react";
 import Avatar from "#src/components/Avatar";
 import Button from "#src/components/Button";
 import Chip from "#src/components/Chip";
+import DropdownMenu from "#src/components/DropdownMenu";
 import Icon from "#src/components/Icon";
 import { sortableListItem } from "#src/components/SortableList/SortableList";
 import type { Sortable } from "#src/components/SortableList/types";
+import { withTooltip } from "#src/components/Tooltip";
+import useSplitActionsByDisplayOrder from "#src/hooks/use-split-actions-by-display-order";
 
 export type ListItemProps = React.HTMLAttributes<HTMLLIElement> & Sortable;
+
+const ButtonWithTooltip = withTooltip(Button);
 
 /**
  * A list item component that displays a title, optional description, and various widgets
@@ -22,7 +27,8 @@ export type ListItemProps = React.HTMLAttributes<HTMLLIElement> & Sortable;
  * @param props.avatar Configuration for the avatar component within the item.
  * @param props.chips An array of chips to display, up to 3, with details about their labels and styles.
  * @param props.chipsDirection Direction for displaying the chips: "start" or "end".
- * @param props.buttons An array of button configurations, up to 3, displayed within the item.
+ * @param props.buttons A list of buttons to display in the header, after 2 of them, the other actions will be pushed to a dropdown menu.
+ * @param props.dropdownConfig An optional object, dropdown config such as the max number of actions displayed inline or the dropdown component fields.
  * @param props.id The id of the item.
  */
 const Item: React.FC<ListItemProps> = ({
@@ -36,8 +42,14 @@ const Item: React.FC<ListItemProps> = ({
   chips,
   chipsDirection = "start",
   buttons,
+  dropdownConfig,
   ...props
 }) => {
+  const { actions, dropdownMenuProps } = useSplitActionsByDisplayOrder({
+    actions: buttons || [],
+    dropdownConfig: dropdownConfig,
+  });
+
   const renderedChips = useMemo(
     () =>
       chips ? (
@@ -84,13 +96,14 @@ const Item: React.FC<ListItemProps> = ({
           </span>
         )}
         {chipsDirection === "end" && renderedChips}
-        {buttons && (
+        {actions?.length > 0 || dropdownMenuProps ? (
           <div className="flex items-center gap-sm">
-            {buttons.map((button) => (
-              <Button key={button.id} {...button} />
+            {actions.map((action) => (
+              <ButtonWithTooltip key={action.id} {...action} />
             ))}
+            {dropdownMenuProps && <DropdownMenu {...dropdownMenuProps} />}
           </div>
-        )}
+        ) : null}
       </div>
     </li>
   );

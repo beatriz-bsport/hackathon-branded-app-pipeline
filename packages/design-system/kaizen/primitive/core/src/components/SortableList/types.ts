@@ -1,7 +1,8 @@
 import type { AvatarProps } from "#src/components/Avatar";
-import type { ButtonProps } from "#src/components/Button";
 import type { IconName } from "#src/components/Icon";
 import type { ListItemChipsProps } from "#src/components/List";
+import type { WithTooltip } from "#src/components/Tooltip";
+import type { ActionButton, ActionsDropdownConfig } from "#src/hooks";
 
 export type Sortable = {
   id: string;
@@ -15,8 +16,6 @@ export type Sortable = {
     | [ListItemChipsProps, ListItemChipsProps]
     | [ListItemChipsProps, ListItemChipsProps, ListItemChipsProps];
   chipsDirection?: "start" | "end";
-  buttons?:
-    | [ButtonProps]
-    | [ButtonProps, ButtonProps]
-    | [ButtonProps, ButtonProps, ButtonProps];
+  dropdownConfig?: ActionsDropdownConfig;
+  buttons?: WithTooltip<ActionButton[]>;
 };

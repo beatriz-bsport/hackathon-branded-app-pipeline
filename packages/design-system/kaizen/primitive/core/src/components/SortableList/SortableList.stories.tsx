@@ -11,20 +11,154 @@ const meta: Meta<typeof SortableList> = {
   component: SortableList,
   argTypes: {
     items: {
-      description: "Array of sortable items to be displayed in the list.",
-      control: { type: "object" },
+      control: "object",
+      table: {
+        type: {
+          summary: "Sortable",
+          detail: `
+    {
+      /** The id of the item. */
+      id: string;
+    
+      /** The main title of the list item. */
+      title: string;
+    
+      /** An additional title displayed on the right side of the item. */
+      rightTitle?: string;
+    
+      /** An optional description displayed below the title. */
+      description?: string;
+    
+      /** Name of the icon to display within the item. */
+      icon?: IconName;
+    
+      /** Configuration for the avatar component within the item. */
+      avatar?: AvatarProps;
+    
+      /** An array of chips to display (up to 3), with details about their labels and styles. */
+      chips?:
+        | [ListItemChipsProps]
+        | [ListItemChipsProps, ListItemChipsProps]
+        | [ListItemChipsProps, ListItemChipsProps, ListItemChipsProps];
+    
+      /** Direction for displaying the chips: "start" or "end". */
+      chipsDirection?: "start" | "end";
+    
+      /** A list of buttons to display in the header; extra actions are pushed to a dropdown. */
+      buttons?: WithTooltip<ActionButton[]>;
+    
+      /** Optional dropdown config, like the number of actions inline or dropdown fields. */
+      dropdownConfig?: ActionsDropdownConfig;
+    }
+          `.trim(),
+        },
+      },
     },
     header: {
-      description: "Header properties for the sortable list.",
-      control: { type: "object" },
+      control: "object",
+      table: {
+        type: {
+          summary: "ListHeaderProps",
+          detail: `
+    {
+      /** The id of the header. */
+      id: string;
+    
+      /** The title text for the header. */
+      title: string;
+    
+      /** An optional description displayed below the title. */
+      description?: string;
+    
+      /** A list of buttons to display in the header; extra actions are pushed to a dropdown. */
+      buttons?: ActionButton[];
+    
+      /** Optional dropdown config, like the number of actions inline or dropdown fields. */
+      dropdownConfig?: ActionsDropdownConfig;
+    
+      /** A boolean indicating whether the collapse is currently open. */
+      isCollapseOpen: boolean;
+    
+      /** The callback function to toggle the collapse. If defined, a collapse icon will be shown. */
+      collapseController?: () => void;
+    
+      /** Any additional HTML div attributes (e.g. className, style, etc.). */
+      [key: string]: any; // From React.HTMLAttributes<HTMLDivElement>
+    }
+          `.trim(),
+        },
+      },
     },
+
     id: {
       description: "Unique identifier for the sortable list.",
       control: { type: "text" },
     },
-    isCollapsible: {
-      description: "Flag to indicate if the list is collapsible.",
-      control: { type: "boolean" },
+    collapsibleProps: {
+      control: "object",
+      table: {
+        type: {
+          summary: "CollapseProps",
+          detail: `
+    {
+      /** The children elements of the Collapse component. */
+      children: React.ReactNode;
+    
+      /** Additional CSS classes to style the component. */
+      className?: string;
+    
+      /** An optional unique identifier for the collapse element (used for accessibility). */
+      id?: string;
+    
+      /** Whether the collapse is initially open. */
+      initiallyOpen?: boolean;
+    }
+          `.trim(),
+        },
+      },
+    },
+    emptyStateProps: {
+      control: "object",
+      table: {
+        type: {
+          summary: "UseEmptyStateProps",
+          detail: `
+    {
+      isEmpty: boolean;
+      emptyConfig: {
+        title?: string;
+        subtitle?: string;
+        className?: string;
+        ctaButtonConfig?: ButtonProps;
+        secondaryButtonConfig?: ButtonProps;
+      };
+      isEmptySearch?: boolean;
+      emptySearchConfig?: {
+        title?: string;
+        subtitle?: string;
+        className?: string;
+        ctaButtonConfig?: ButtonProps;
+        secondaryButtonConfig?: ButtonProps;
+      };
+    }
+          `.trim(),
+        },
+      },
+    },
+    loadingProps: {
+      control: "object",
+      table: {
+        type: {
+          summary: "UseLoadingStateProps",
+          detail: `
+    {
+      message?: string; default "Loading...";
+      className?: string;
+      isLoading?: boolean; default: false;
+    }
+          `.trim(),
+        },
+      },
     },
     onSortChange: {
       description:
@@ -93,9 +227,15 @@ export const Primary: Story = {
       description: "Have fun",
     },
     id: "sortable-list-1",
-    isCollapsible: true,
+    collapsibleProps: {
+      initiallyOpen: true,
+    },
+    loadingProps: {
+      isLoading: false,
+      message: "Loading smth...",
+    },
   },
-  render: ({ items, header, id, isCollapsible }) => {
+  render: ({ items, header, id, collapsibleProps, loadingProps }) => {
     const [sortables, setSortables] = useState<typeof items>(items ?? []);
 
     const onSortChange = (updatedItems: typeof items) => {
@@ -106,9 +246,410 @@ export const Primary: Story = {
       <SortableList
         header={header}
         id={id}
-        isCollapsible={isCollapsible}
+        collapsibleProps={collapsibleProps}
         items={sortables}
         onSortChange={onSortChange}
+        loadingProps={loadingProps}
+      />
+    );
+  },
+};
+
+const emptyConfig = {
+  title: "No email templates yet",
+  subtitle: "Create email templates to easily contact your members",
+  className: "max-w-[320px]",
+  ctaButtonConfig: {
+    iconLeft: "award-03" as const,
+    label: "Create template",
+    onClick: () => console.log("Create email template"),
+  },
+  secondaryButtonConfig: {
+    iconLeft: "bank-note-03" as const,
+    label: "Add category",
+    onClick: () => console.log("Create a new category"),
+  },
+};
+
+const emptySearchConfig = {
+  title: "No results found",
+  subtitle:
+    "No members match your filters.\nTry clearing them to see more results",
+  className: "max-w-[320px]",
+  secondaryButtonConfig: {
+    iconLeft: "x" as const,
+    label: "Clear filters",
+    onClick: () => console.log("Clear the filters"),
+  },
+};
+
+export const ListWithNoPrimaryButtons: Story = {
+  name: "Sortable List with buttons in header and items",
+  args: {
+    id: "list-1",
+    collapsibleProps: {
+      initiallyOpen: true,
+    },
+    loadingProps: {
+      isLoading: false,
+      message: "Loading smth...",
+    },
+    header: {
+      title: "List with buttons in header title",
+      description: "Helpful description",
+      id: "list-header-1",
+      dropdownConfig: { visibleActionsDisplayLimit: 0 },
+      buttons: [
+        {
+          id: "list-header-button-2",
+          label: "Button 2",
+          intent: "flat",
+          color: "default",
+          size: "md",
+          iconLeft: "announcement-01",
+          onClick: () => alert("Announcement clicked"),
+        },
+        {
+          id: "list-header-button-3",
+          label: "Button 3",
+          intent: "flat",
+          color: "default",
+          size: "md",
+          iconLeft: "bank-note-03",
+          onClick: () => alert("Note clicked"),
+        },
+        {
+          id: "list-header-button-4",
+          label: "Button 4",
+          intent: "flat",
+          color: "default",
+          size: "md",
+          iconLeft: "x",
+          onClick: () => alert("X clicked"),
+        },
+      ],
+    },
+    items: [
+      {
+        id: "list-item-1",
+        title: "Playing with fonts is fun",
+        rightTitle: "Right title",
+        description: "Playing with fonts is fun",
+        buttons: [
+          {
+            id: "list-header-button-2",
+            intent: "flat",
+            color: "default",
+            size: "md",
+            iconLeft: "announcement-01",
+            onClick: () => alert("Announcement clicked"),
+          },
+          {
+            id: "list-header-button-3",
+            intent: "flat",
+            color: "default",
+            size: "md",
+            iconLeft: "bank-note-03",
+            onClick: () => alert("Note clicked"),
+          },
+          {
+            id: "list-header-button-4",
+            label: "Button 4",
+            intent: "flat",
+            color: "default",
+            size: "md",
+            iconLeft: "x",
+            onClick: () => alert("X clicked"),
+          },
+        ],
+      },
+      {
+        id: "list-item-2",
+        title: "Playing with fonts is fun",
+        rightTitle: "Right title",
+        description: "Playing with fonts is fun",
+        dropdownConfig: { visibleActionsDisplayLimit: 1 },
+        buttons: [
+          {
+            id: "list-header-button-2",
+            intent: "flat",
+            color: "default",
+            size: "md",
+            iconLeft: "announcement-01",
+            onClick: () => alert("Announcement clicked"),
+          },
+          {
+            id: "list-header-button-3",
+            intent: "flat",
+            color: "default",
+            size: "md",
+            iconLeft: "bank-note-03",
+            onClick: () => alert("Note clicked"),
+          },
+          {
+            id: "list-header-button-4",
+            label: "Button 4",
+            intent: "flat",
+            color: "default",
+            size: "md",
+            iconLeft: "x",
+            onClick: () => alert("X clicked"),
+          },
+        ],
+      },
+      {
+        id: "list-item-3",
+        title: "Playing with fonts is fun",
+        rightTitle: "Right title",
+        description: "Playing with fonts is fun",
+        dropdownConfig: { visibleActionsDisplayLimit: 0 },
+        buttons: [
+          {
+            id: "list-header-button-2",
+            label: "Announcement",
+            intent: "flat",
+            color: "default",
+            size: "md",
+            iconLeft: "announcement-01",
+            onClick: () => alert("Announcement clicked"),
+          },
+          {
+            id: "list-header-button-3",
+            label: "Notes",
+            intent: "flat",
+            color: "default",
+            size: "md",
+            iconLeft: "bank-note-03",
+            onClick: () => alert("Note clicked"),
+          },
+          {
+            id: "list-header-button-4",
+            label: "Quit",
+            intent: "flat",
+            color: "default",
+            size: "md",
+            iconLeft: "x",
+            onClick: () => alert("X clicked"),
+          },
+        ],
+      },
+    ],
+    emptyStateProps: {
+      isEmptySearch: false,
+      emptySearchConfig: emptySearchConfig,
+      isEmpty: false,
+      emptyConfig: emptyConfig,
+    },
+  },
+  render: ({
+    items,
+    header,
+    id,
+    collapsibleProps,
+    emptyStateProps,
+    loadingProps,
+  }) => {
+    const [sortables, setSortables] = useState<typeof items>(items ?? []);
+
+    const onSortChange = (updatedItems: typeof items) => {
+      setSortables(updatedItems);
+    };
+
+    return (
+      <SortableList
+        header={header}
+        id={id}
+        collapsibleProps={collapsibleProps}
+        items={sortables}
+        onSortChange={onSortChange}
+        emptyStateProps={emptyStateProps}
+        loadingProps={loadingProps}
+      />
+    );
+  },
+};
+
+export const LoadingList: Story = {
+  name: "Sortable List with buttons in header and items",
+  args: {
+    id: "list-1",
+    collapsibleProps: {
+      initiallyOpen: true,
+    },
+    loadingProps: {
+      isLoading: true,
+      message: "Loading smth...",
+    },
+    header: {
+      title: "List with buttons in header title",
+      description: "Helpful description",
+      id: "list-header-1",
+      dropdownConfig: { visibleActionsDisplayLimit: 0 },
+      buttons: [
+        {
+          id: "list-header-button-2",
+          label: "Button 2",
+          intent: "flat",
+          color: "default",
+          size: "md",
+          iconLeft: "announcement-01",
+          onClick: () => alert("Announcement clicked"),
+        },
+        {
+          id: "list-header-button-3",
+          label: "Button 3",
+          intent: "flat",
+          color: "default",
+          size: "md",
+          iconLeft: "bank-note-03",
+          onClick: () => alert("Note clicked"),
+        },
+        {
+          id: "list-header-button-4",
+          label: "Button 4",
+          intent: "flat",
+          color: "default",
+          size: "md",
+          iconLeft: "x",
+          onClick: () => alert("X clicked"),
+        },
+      ],
+    },
+    items: [
+      {
+        id: "list-item-1",
+        title: "Playing with fonts is fun",
+        rightTitle: "Right title",
+        description: "Playing with fonts is fun",
+        buttons: [
+          {
+            id: "list-header-button-2",
+            intent: "flat",
+            color: "default",
+            size: "md",
+            iconLeft: "announcement-01",
+            onClick: () => alert("Announcement clicked"),
+          },
+          {
+            id: "list-header-button-3",
+            intent: "flat",
+            color: "default",
+            size: "md",
+            iconLeft: "bank-note-03",
+            onClick: () => alert("Note clicked"),
+          },
+          {
+            id: "list-header-button-4",
+            label: "Button 4",
+            intent: "flat",
+            color: "default",
+            size: "md",
+            iconLeft: "x",
+            onClick: () => alert("X clicked"),
+          },
+        ],
+      },
+      {
+        id: "list-item-2",
+        title: "Playing with fonts is fun",
+        rightTitle: "Right title",
+        description: "Playing with fonts is fun",
+        dropdownConfig: { visibleActionsDisplayLimit: 1 },
+        buttons: [
+          {
+            id: "list-header-button-2",
+            intent: "flat",
+            color: "default",
+            size: "md",
+            iconLeft: "announcement-01",
+            onClick: () => alert("Announcement clicked"),
+          },
+          {
+            id: "list-header-button-3",
+            intent: "flat",
+            color: "default",
+            size: "md",
+            iconLeft: "bank-note-03",
+            onClick: () => alert("Note clicked"),
+          },
+          {
+            id: "list-header-button-4",
+            label: "Button 4",
+            intent: "flat",
+            color: "default",
+            size: "md",
+            iconLeft: "x",
+            onClick: () => alert("X clicked"),
+          },
+        ],
+      },
+      {
+        id: "list-item-3",
+        title: "Playing with fonts is fun",
+        rightTitle: "Right title",
+        description: "Playing with fonts is fun",
+        dropdownConfig: { visibleActionsDisplayLimit: 0 },
+        buttons: [
+          {
+            id: "list-header-button-2",
+            label: "Announcement",
+            intent: "flat",
+            color: "default",
+            size: "md",
+            iconLeft: "announcement-01",
+            onClick: () => alert("Announcement clicked"),
+          },
+          {
+            id: "list-header-button-3",
+            label: "Notes",
+            intent: "flat",
+            color: "default",
+            size: "md",
+            iconLeft: "bank-note-03",
+            onClick: () => alert("Note clicked"),
+          },
+          {
+            id: "list-header-button-4",
+            label: "Quit",
+            intent: "flat",
+            color: "default",
+            size: "md",
+            iconLeft: "x",
+            onClick: () => alert("X clicked"),
+          },
+        ],
+      },
+    ],
+    emptyStateProps: {
+      isEmptySearch: false,
+      emptySearchConfig: emptySearchConfig,
+      isEmpty: false,
+      emptyConfig: emptyConfig,
+    },
+  },
+  render: ({
+    items,
+    header,
+    id,
+    collapsibleProps,
+    emptyStateProps,
+    loadingProps,
+  }) => {
+    const [sortables, setSortables] = useState<typeof items>(items ?? []);
+
+    const onSortChange = (updatedItems: typeof items) => {
+      setSortables(updatedItems);
+    };
+
+    return (
+      <SortableList
+        header={header}
+        id={id}
+        collapsibleProps={collapsibleProps}
+        items={sortables}
+        onSortChange={onSortChange}
+        emptyStateProps={emptyStateProps}
+        loadingProps={loadingProps}
       />
     );
   },

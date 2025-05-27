@@ -1,9 +1,12 @@
 import classNames from "classnames";
 import React from "react";
 
-import Button, { ButtonProps } from "#src/components/Button";
+import Button from "#src/components/Button";
+import DropdownMenu from "#src/components/DropdownMenu";
 import Icon from "#src/components/Icon";
 import { sortableListItem } from "#src/components/SortableList/SortableList";
+import type { ActionButton, ActionsDropdownConfig } from "#src/hooks";
+import useSplitActionsByDisplayOrder from "#src/hooks/use-split-actions-by-display-order";
 
 export type ListHeaderProps = React.HTMLAttributes<HTMLDivElement> & {
   collapseController?: () => void;
@@ -12,10 +15,8 @@ export type ListHeaderProps = React.HTMLAttributes<HTMLDivElement> & {
   id: string;
   title: string;
   description?: string;
-  buttons?:
-    | [ButtonProps]
-    | [ButtonProps, ButtonProps]
-    | [ButtonProps, ButtonProps, ButtonProps];
+  buttons?: ActionButton[];
+  dropdownConfig?: ActionsDropdownConfig;
 };
 
 /**
@@ -25,7 +26,8 @@ export type ListHeaderProps = React.HTMLAttributes<HTMLDivElement> & {
  * @param props.title The title text for the header.
  * @param props.id The id of the Header.
  * @param props.description An optional description displayed below the title.
- * @param props.buttons A list of buttons to display in the header, up to 3.
+ * @param props.buttons A list of buttons to display in the header, after 2 of them, the other actions will be pushed to a dropdown menu.
+ * @param props.dropdownConfig An optional object, dropdown config such as the max number of actions displayed inline or the dropdown component fields.
  * @param props.collapseController The callback responsible for opening and closing the collapse.
  * If it's defined, an Icon is displaid on the right of the component to trigger this function.
  * @param props.collapseController. A boolean set by collapseController
@@ -38,8 +40,14 @@ const Header: React.FC<ListHeaderProps> = ({
   id,
   isCollapseOpen,
   title,
+  dropdownConfig,
   ...props
 }) => {
+  const { actions, dropdownMenuProps } = useSplitActionsByDisplayOrder({
+    actions: buttons || [],
+    dropdownConfig: dropdownConfig,
+  });
+
   return (
     <div
       id={id}
@@ -75,13 +83,12 @@ const Header: React.FC<ListHeaderProps> = ({
             )}
           />
         )}
-        {buttons && (
-          <div className="flex items-center gap-sm">
-            {buttons.map((button) => (
-              <Button key={button.id} {...button} />
-            ))}
-          </div>
-        )}
+        {actions?.map((action) => (
+          <Button key={action.id} {...action}>
+            {action?.label}
+          </Button>
+        ))}
+        {dropdownMenuProps && <DropdownMenu {...dropdownMenuProps} />}
       </div>
     </div>
   );

@@ -71,6 +71,10 @@ export type ListProps = {
  * A list component that can contain multiple `Item` components and one `Header` component.
  * It manages the state of checked items and provides context for each `Item` regarding its checked state.
  * @param className Classname to add to the list container.
+ * @param loadingProps [Optional] Dictionnary of props to manage the loading state rendering
+ * - message [Optional] string of the loading message to display;
+ * - className [Optional] string, tailwind css classes to add to the loading component;
+ * - isLoading [Optional] Whether the fetch return a loading list;
  * @param emptyStateProps [Optional] Dictionnary of props to manage the empty state rendering
  * - emptyConfig Configuration to display the empty state UI when isEmpty is true;
  * - emptySearchConfig [Optional] Configuration to display the empty search UI when isEmptySearch is true;

@@ -1,13 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 
 import { Modal } from "@bsport/kaizen-primitive-core";
 import type { Smartlist } from "@bsport/store-cdp-smartlist";
 
 import { useTranslation } from "#src/utils/i18n";
 
-import { EditForm, type SmartlistFormData } from "./EditForm";
-
-type SmartlistFormField = keyof SmartlistFormData;
+import { EditForm, useSmartlistForm } from "./EditForm";
 
 type EditSmartlistModalProps = {
   isOpen: boolean;
@@ -17,8 +15,6 @@ type EditSmartlistModalProps = {
   isEditing?: boolean;
 };
 
-const MAX_NAME_LENGTH = 200;
-
 export const EditSmartlistModal: React.FC<EditSmartlistModalProps> = ({
   isOpen,
   onClose,
@@ -27,90 +23,31 @@ export const EditSmartlistModal: React.FC<EditSmartlistModalProps> = ({
   isEditing,
 }) => {
   const { t } = useTranslation("list");
-
-  const [formData, setFormData] = useState<SmartlistFormData>({
-    name: smartlist?.name || "",
-    description: smartlist?.description || "",
+  const {
+    formData,
+    errors,
+    handleChange,
+    handleBlur,
+    validateForm,
+    hasNoChanges,
+  } = useSmartlistForm({
+    initialData: {
+      name: smartlist?.name || "",
+      description: smartlist?.description || "",
+    },
   });
-
-  const [errors, setErrors] = useState<
-    Partial<Record<SmartlistFormField, string>>
-  >({});
-
-  const handleChange = (field: SmartlistFormField, value: string) => {
-    setFormData((prev) => ({
-      ...prev,
-      [field]: value,
-    }));
-
-    if (errors[field]) {
-      setErrors((prev) => {
-        const newErrors = { ...prev };
-        newErrors[field] = undefined;
-
-        return newErrors;
-      });
-    }
-  };
-
-  const handleBlur = (field: SmartlistFormField, value: string) => {
-    validateField(field, value);
-  };
-
-  const getFieldError = (
-    field: SmartlistFormField,
-    value: string,
-  ): string | null => {
-    if (field === "name" && !value.trim()) {
-      return t("editForm.fields.name.required");
-    } else if (field === "name" && value.length > MAX_NAME_LENGTH) {
-      return t("editForm.fields.name.maxLength");
-    }
-
-    return null;
-  };
-
-  const validateField = (field: SmartlistFormField, value: string): boolean => {
-    const errorMessage = getFieldError(field, value);
-
-    if (errorMessage) {
-      setErrors((prev) => ({
-        ...prev,
-        [field]: errorMessage,
-      }));
-      return false;
-    }
-    return true;
-  };
-
-  const validateForm = (): boolean => {
-    const newErrors: Partial<Record<SmartlistFormField, string>> = {};
-
-    for (const [field, value] of Object.entries(formData)) {
-      const errorMessage = getFieldError(field as SmartlistFormField, value);
-
-      if (errorMessage) {
-        newErrors[field as SmartlistFormField] = errorMessage;
-      }
-    }
-
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
-
-  const hasNoChanges = (): boolean => {
-    return (
-      formData.name === smartlist.name &&
-      formData.description === smartlist.description
-    );
-  };
 
   const handleSubmit = async () => {
     if (!validateForm()) {
       return;
     }
 
-    if (hasNoChanges()) {
+    if (
+      hasNoChanges({
+        name: smartlist.name,
+        description: smartlist.description,
+      })
+    ) {
       /**
        * Why?
        * Modal component doesn't support disabling the buttons

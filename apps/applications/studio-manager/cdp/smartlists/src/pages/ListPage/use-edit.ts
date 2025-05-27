@@ -46,6 +46,7 @@ export const useEdit = ({
             status: "critical",
             icon: "alert-circle",
             title: t("toasts.error.updateFailed"),
+            buttonIcon: "x-close",
           });
         },
       );
@@ -72,6 +73,7 @@ export const useEdit = ({
           status: "critical",
           icon: "alert-circle",
           title: t("toasts.error.updateFailed"),
+          buttonIcon: "x-close",
         });
       },
     },

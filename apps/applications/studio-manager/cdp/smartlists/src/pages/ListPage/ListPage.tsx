@@ -2,17 +2,20 @@ import { useState } from "react";
 
 import { Button, List, ListLayout } from "@bsport/kaizen-primitive-core";
 import type {
+  CreateSmartlistParams,
   EditSmartlistParams,
   Smartlist,
 } from "@bsport/store-cdp-smartlist";
 
 import { useSmartlists } from "#src/api/use-smartlists";
+import { CreateSmartlistModal } from "#src/components/CreateSmartlistModal";
 import { DuplicateModal } from "#src/components/DuplicateModal";
 import { EditSmartlistModal } from "#src/components/EditSmartlistModal";
 import { Loading } from "#src/components/Loading";
 import { useTranslation } from "#src/utils/i18n";
 
 import { VISIBLE_ACTIONS_DISPLAY_LIMIT } from "./constants";
+import { useCreate } from "./use-create";
 import { useDuplicate } from "./use-duplicate";
 import { useEdit } from "./use-edit";
 import { useFilters } from "./use-filters";
@@ -41,7 +44,7 @@ const ListPage: React.FC = () => {
   const isEmptySearch = searchTerm.trim().length > 0 && hasNoSmartlists;
 
   const [currentInlineAction, setCurrentInlineAction] = useState<
-    "none" | "edit" | "duplicate" | "delete"
+    "none" | "edit" | "duplicate" | "delete" | "create"
   >("none");
   const [currentSmartlist, setCurrentSmartlist] = useState<Smartlist | null>(
     null,
@@ -52,6 +55,16 @@ const ListPage: React.FC = () => {
   };
 
   const { duplicateSmartlist } = useDuplicate({
+    onSuccess: () => {
+      resetCurrentSmartlist();
+      refetch();
+    },
+    onFailure: () => {
+      resetCurrentSmartlist();
+    },
+  });
+
+  const { createSmartlist, isCreating } = useCreate({
     onSuccess: () => {
       resetCurrentSmartlist();
       refetch();
@@ -91,6 +104,27 @@ const ListPage: React.FC = () => {
     editSmartlist(data, currentSmartlist);
   };
 
+  const onCreateSmartlist = (data: {
+    name: string;
+    description: string;
+    company?: number;
+  }) => {
+    if (!data.company) {
+      throw new Error("No company selected this should never happen");
+    }
+
+    const params: CreateSmartlistParams = {
+      name: data.name,
+      description: data.description,
+      company: data.company,
+    };
+    createSmartlist(params);
+  };
+
+  const handleCreateClick = () => {
+    setCurrentInlineAction("create");
+  };
+
   return (
     <ListLayout>
       <ListLayout.Header
@@ -102,6 +136,7 @@ const ListPage: React.FC = () => {
             intent="call-to-action"
             label={t("addSmartlist")}
             iconLeft="plus"
+            onClick={handleCreateClick}
           />
         }
         searchConfig={{
@@ -194,6 +229,7 @@ const ListPage: React.FC = () => {
                     color: "main",
                     size: "md",
                     intent: "call-to-action",
+                    onClick: handleCreateClick,
                   },
                   subtitle: t("emptyState.subtitle"),
                   title: t("emptyState.title"),
@@ -231,6 +267,14 @@ const ListPage: React.FC = () => {
             onEdit={onEditSmartlist}
             smartlist={currentSmartlist}
             isEditing={isEditing}
+          />
+        ) : null}
+        {currentInlineAction === "create" ? (
+          <CreateSmartlistModal
+            isOpen
+            onClose={resetCurrentSmartlist}
+            onCreate={onCreateSmartlist}
+            isCreating={isCreating}
           />
         ) : null}
       </ListLayout.Content>

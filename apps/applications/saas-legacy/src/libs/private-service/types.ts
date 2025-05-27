@@ -280,7 +280,7 @@ export type PrivateBooking<
   EstablishmentId = number,
   PrivateServiceId = number,
   MemberId = number,
-  RecurrenceRulePrivateBooking = number, // RecurrenceRulePrivateBooking already declared line 353
+  RecurrenceRulePrivateBookingId = number,
   StaffHistory = Array<
     StaffModificationHistory<PrivateBookingModificationActionIdentifier>
   >,
@@ -308,7 +308,7 @@ export type PrivateBooking<
   date_canceled: string;
   is_unpaid: boolean;
   is_at_home: boolean;
-  recurrence_rule_private_booking: RecurrenceRulePrivateBooking;
+  recurrence_rule_private_booking: RecurrenceRulePrivateBookingId;
   staff_history: StaffHistory;
   internal_note?: string;
 };

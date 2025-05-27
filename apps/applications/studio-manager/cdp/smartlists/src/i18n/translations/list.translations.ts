@@ -27,6 +27,7 @@ exports.default = {
       duplicated: "Your smartlist was duplicated",
       open: "Open",
       saved: "Your smartlist revisions have been saved",
+      created: "Your smartlist has been created",
       undo: "Undo",
       actionUndone: "Action undone",
     },
@@ -35,12 +36,23 @@ exports.default = {
         "Something went wrong while duplicating the smartlist. Please try again.",
       updateFailed:
         "Something went wrong while updating the smartlist. Please try again.",
+      createFailed:
+        "Something went wrong while creating the smartlist. Please try again.",
     },
   },
   inlineActions: {
     duplicate: "Duplicate smartlist",
     edit: "Change name or description",
     delete: "Delete smartlist",
+  },
+  createForm: {
+    title: "Create a smartlist",
+    subtitle:
+      "Smartlists help you organize member segments. Add a name and description so it’s easy to understand and reuse later.",
+    actions: {
+      create: "Save",
+      cancel: "Cancel",
+    },
   },
   editForm: {
     fields: {
@@ -59,6 +71,7 @@ exports.default = {
     actions: {
       save: "Save",
       cancel: "Cancel",
+      create: "Create",
     },
     title: {
       edit: "Edit smartlist",

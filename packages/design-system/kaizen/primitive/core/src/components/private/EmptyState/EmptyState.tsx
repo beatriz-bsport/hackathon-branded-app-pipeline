@@ -1,8 +1,9 @@
 import { type VariantProps, cva } from "class-variance-authority";
-import React, { Suspense, lazy, useMemo } from "react";
+import type { FC, HTMLAttributes } from "react";
 
 import Body from "#src/components/Body";
 import Button, { type ButtonProps } from "#src/components/Button";
+import { Illustration } from "#src/components/Illustration";
 import Title from "#src/components/Title";
 import { useKaizenI18nInstance, useTranslation } from "#src/i18n";
 
@@ -18,7 +19,7 @@ const defaultClasses = [
 
 const emptyState = cva(defaultClasses);
 
-export type EmptyStateProps = React.HTMLAttributes<HTMLDivElement> &
+export type EmptyStateProps = HTMLAttributes<HTMLDivElement> &
   VariantProps<typeof emptyState> & {
     children?: React.ReactNode;
     ctaButtonConfig?: Partial<ButtonProps>;
@@ -40,7 +41,7 @@ export type EmptyStateProps = React.HTMLAttributes<HTMLDivElement> &
  * @param props.variant Optional. Define the icon to display (`empty-state` or `no-results-found`).
  * @link  https://docs.infra.bsport.io/storybook/kaizen/dev/index.html?path=/docs/components-emptystate--docs
  */
-const EmptyState: React.FC<EmptyStateProps> = ({
+const EmptyState: FC<EmptyStateProps> = ({
   children,
   ctaButtonConfig,
   className,
@@ -52,12 +53,6 @@ const EmptyState: React.FC<EmptyStateProps> = ({
 }) => {
   const i18nInstance = useKaizenI18nInstance();
   const { t } = useTranslation("default", { i18n: i18nInstance });
-
-  const SVGEmptyImage = useMemo(() => {
-    const assetName =
-      variant === "no-results-found" ? "no-results-found" : "empty-state";
-    return lazy(async () => await import(`./assets/${assetName}.svg?react`));
-  }, [variant]);
 
   let defaultTitle = "";
   let defaultSecondaryButtonConfig = {};
@@ -77,9 +72,9 @@ const EmptyState: React.FC<EmptyStateProps> = ({
 
   return (
     <div className={emptyState({ className })} {...props}>
-      <Suspense fallback={null}>
-        <SVGEmptyImage />
-      </Suspense>
+      <Illustration
+        name={variant === "no-results-found" ? "no-search" : "empty"}
+      />
       {finalTitle && (
         <Title htmlVariant="h3" weight="stronger" color="weak">
           {finalTitle}

@@ -70,6 +70,11 @@ export {
   type IconProps,
 } from "./components/Icon";
 export {
+  default as Illustration,
+  type IllustrationProps,
+  type IllustrationName,
+} from "./components/Illustration";
+export {
   default as Indicator,
   type IndicatorProps,
 } from "./components/Indicator";

@@ -13,7 +13,8 @@
    }
    ```
 
-2. Import utilities from the package, and provide required information to init and get i18n tools to run with your application. Set this in `src/utils/i18n.ts`.
+2. Import utilities from the package, and provide required information to init and get i18n tools to run with your
+   application. Set this in `src/utils/i18n.ts`.
 
    ```tsx
    // src/utils/i18n.ts
@@ -40,7 +41,8 @@
    export { Trans, LANGUAGES, LOCALES, type Locale } from "@bsport/i18n";
    ```
 
-3. Configure your application translations: take a look at [@bsport/i18n-management](../../../tools/i18n-management/README.md).
+3. Configure your application translations: take a look
+   at [@bsport/i18n-management](../../../tools/i18n-management/README.md).
 
 4. Use i18n tools in components.
 
@@ -52,3 +54,8 @@
      return <div>{t("my.i18nKey")}</div>;
    };
    ```
+
+### Formatting
+
+Exposes `interpolation.format` to the i18n instance.  
+See: [i18next formatting API](https://www.i18next.com/overview/api#format)

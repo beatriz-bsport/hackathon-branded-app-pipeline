@@ -2343,6 +2343,12 @@ importers:
         specifier: workspace:*
         version: link:../../../tools/config/eslint-react
 
+  packages/utils/currency:
+    devDependencies:
+      '@bsport/config-eslint-react':
+        specifier: workspace:*
+        version: link:../../../tools/config/eslint-react
+
   packages/utils/datetime/format:
     dependencies:
       luxon:
@@ -2412,6 +2418,9 @@ importers:
       '@bsport/broadcast-channel-polyfill':
         specifier: workspace:*
         version: link:../broadcast-channel-polyfill
+      '@bsport/currency':
+        specifier: workspace:*
+        version: link:../currency
       i18next:
         specifier: ^24.2.1
         version: 24.2.1(typescript@5.8.2)
@@ -33044,9 +33053,7 @@ snapshots:
       pretty-format: 24.9.0
       throat: 4.1.0
     transitivePeerDependencies:
-      - bufferutil
       - supports-color
-      - utf-8-validate
 
   jest-junit@14.0.1:
     dependencies:

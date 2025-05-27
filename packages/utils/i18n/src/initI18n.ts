@@ -4,6 +4,8 @@ import httpBackend from "i18next-http-backend";
 import resourcesToBackend from "i18next-resources-to-backend";
 import { initReactI18next } from "react-i18next";
 
+import { getCurrencyDisplay } from "@bsport/currency";
+
 import {
   LANGUAGES,
   LANGUAGE_SWITCHER_ACTION,
@@ -11,6 +13,7 @@ import {
 } from "./constants";
 import type { InMemoryTranslationsLoader, InitConfig } from "./types";
 import {
+  format,
   getFallbackLanguage,
   getNamespacePrefixer,
   setLuxonLocale,
@@ -112,6 +115,11 @@ export function initI18n({
       // string or array of namespaces to load
       ns: (namespaces ?? []).map(namespacePrefixer),
       interpolation: {
+        // global variables to use in interpolation replacements
+        defaultVariables: {
+          currencyDisplay: getCurrencyDisplay(),
+          format,
+        },
         escapeValue: false, // react already safes from xss => https://www.i18next.com/translation-function/interpolation#unescape
       },
     });

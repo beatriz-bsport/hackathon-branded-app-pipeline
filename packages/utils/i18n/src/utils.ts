@@ -1,6 +1,7 @@
 import { Settings } from "luxon";
 
 import { applyBroadcastChannelPolyfill } from "@bsport/broadcast-channel-polyfill";
+import { formatPriceWithCurrency, getCurrencyDisplay } from "@bsport/currency";
 
 import {
   LANGUAGES,
@@ -84,3 +85,33 @@ export const switchLanguage = (languageId: Locale) => {
   });
   broadcast.close();
 };
+
+/**
+ * Formats a value for i18n interpolation based on the provided format type.
+ * Supports "uuid" (truncates UUIDs), "price" (formats as currency), and "lowercase".
+ *
+ * @param value - The value to format (string or number).
+ * @param format - The format type ("uuid", "price", "lowercase", etc.).
+ * @returns The formatted value.
+ */
+export function format(value: string | number, format: string) {
+  if (
+    format === "uuid" &&
+    typeof value === "string" &&
+    /^[\da-f-]{8,}$/.test(value)
+  ) {
+    return value.slice(0, 8);
+  }
+
+  if (format === "price") {
+    const price = typeof value === "string" ? parseFloat(value) : value;
+    if (isNaN(price)) return value;
+    return formatPriceWithCurrency(price, getCurrencyDisplay());
+  }
+
+  if (format === "lowercase" && typeof value === "string") {
+    return value.toLowerCase();
+  }
+
+  return value;
+}

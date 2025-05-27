@@ -1,10 +1,10 @@
 {
-  "name": "@bsport/i18n",
+  "name": "@bsport/currency",
   "version": "0.0.0",
   "private": true,
-  "description": "Package to easily setup i18n in a project",
+  "description": "Currency",
   "license": "UNLICENSED",
-  "author": "David Bretaud <david.bretaud@bsport.io>",
+  "author": "Charles Castelain <charles.castelain@bsport.io>",
   "type": "module",
   "exports": {
     ".": {
@@ -28,19 +28,9 @@
     "lint": "eslint .",
     "lint:fix": "eslint --fix ."
   },
-  "dependencies": {
-    "@bsport/broadcast-channel-polyfill": "workspace:*",
-    "@bsport/currency": "workspace:*",
-    "i18next": "^24.2.1",
-    "i18next-browser-languagedetector": "^8.0.2",
-    "i18next-http-backend": "^3.0.1",
-    "i18next-resources-to-backend": "^1.2.1",
-    "luxon": "^3.4.4",
-    "react-i18next": "^15.4.0"
-  },
+  "dependencies": {},
   "devDependencies": {
-    "@bsport/config-eslint-react": "workspace:*",
-    "@types/luxon": "^3.4.2"
+    "@bsport/config-eslint-react": "workspace:*"
   },
   "nx": {
     "tags": [

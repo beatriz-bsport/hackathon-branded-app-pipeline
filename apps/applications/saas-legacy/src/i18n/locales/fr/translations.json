@@ -1698,10 +1698,34 @@
             "smsCostReminderModal": {
                 "confirm": "Confirmer",
                 "cancel": "Annuler",
-                "content": "L'envoi de SMS à un grand nombre de membres peut être coûteux. Vous pouvez vérifier le prix par SMS dans votre contrat. Etes-vous sûr de vouloir envoyer cette communication ?",
+                "content": {
+                    "effect": "Vous pouvez consulter le prix par SMS dans votre contrat. Êtes-vous sûr de vouloir envoyer cette communication ?",
+                    "description": "L’envoi de SMS à un grand nombre de membres peut entraîner des frais importants."
+                },
                 "title": "Rappel des frais par SMS"
             },
-            "membersWontLoad": "Nous rencontrons actuellement un problème de chargement des membres de cette smartlist. Veuillez noter que vous ne pourrez pas prévisualiser le nombre de membres qui seront concernés par cette communication."
+            "membersWontLoad": "Nous rencontrons actuellement un problème de chargement des membres de cette smartlist. Veuillez noter que vous ne pourrez pas prévisualiser le nombre de membres qui seront concernés par cette communication.",
+            "smsCostWarning": {
+                "confirm": "Confirmer l’envoi",
+                "cancel": "Annuler",
+                "content": {
+                    "effect": "Consultez votre contrat pour connaître le coût d’un SMS.",
+                    "description": "Le SMS peut être plus coûteux que d’autres canaux de communication."
+                },
+                "title": "Envoyer un SMS à un grand nombre de destinataires ?"
+            },
+            "cannotReviewRecipients": {
+                "confirm": "Confirmer l’envoi",
+                "cancel": "Annuler",
+                "content": {
+                    "effect": "Le message sera envoyé à tous les membres correspondant aux filtres de votre Smartlist, même si la liste n’est pas encore chargée.",
+                    "description": "La liste complète des destinataires est encore en cours de chargement."
+                },
+                "title": "Souhaitez-vous envoyer sans consulter l’ensemble des destinataires ?"
+            },
+            "warningModalTitle": {
+                "title": "Quelques informations importantes avant d’envoyer votre communication"
+            }
         },
         "sentStatus": {
             "processing": "La communication est en cours d'envoi",

@@ -258,6 +258,7 @@ const PaymentStripeRevamped: React.FC<
               onSaveForLaterChange={handleSaveForLaterChange}
               onSuccess={onSuccess}
               paymentGroupId={paymentGroupId}
+              paymentGroupMethodIdentifier={paymentMethodSelected}
               saveForLater={saveForLater}
               setIsOnlinePaymentDisabled={setIsOnlinePaymentDisabled}
               setPaymentProcessing={setPaymentProcessing}

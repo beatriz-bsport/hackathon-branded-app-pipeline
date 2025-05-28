@@ -282,7 +282,7 @@ export const LOCALE_LIST: Array<Locale> = [
     showLang: true,
   },
   {
-    locale: 'cz_CZ',
+    locale: 'cs_CZ',
     icon: CZ_FLAG,
     currencyCode: 'czk',
     currencyDisplay: 'Kč',

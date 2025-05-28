@@ -65,6 +65,7 @@ const SlotCalendar: React.FC<Props> = ({
   onSessionMomentSelect,
   onDateChange,
 }) => {
+  /* eslint-disable-next-line */
   const selectPreviousDay = useCallback(() => {
     const date = DateTime.fromISO(selectedDate)
       .plus({ days: -numberOfDayToShow })
@@ -73,6 +74,7 @@ const SlotCalendar: React.FC<Props> = ({
     onDateChange(date);
   }, [selectedDate, numberOfDayToShow, onDateChange]);
 
+  /* eslint-disable-next-line */
   const selectNextDay = useCallback(() => {
     const date = DateTime.fromISO(selectedDate)
       .plus({ days: numberOfDayToShow })

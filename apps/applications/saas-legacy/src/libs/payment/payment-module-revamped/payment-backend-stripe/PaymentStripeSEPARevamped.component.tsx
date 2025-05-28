@@ -1,71 +1,178 @@
-import React, {
-  ChangeEvent,
-  forwardRef,
-  useCallback,
-  useContext,
-  useEffect,
-  useImperativeHandle,
-  useMemo,
-  useState,
-} from 'react';
-
+import React, { useImperativeHandle, forwardRef } from 'react';
 import clsx from 'clsx';
-import { useTranslation } from 'react-i18next';
-// eslint-disable-next-line bsport/no-redux-in-component
-import { useDispatch } from 'react-redux';
-
-import {
-  PaymentElement,
-  useElements,
-  useStripe,
-} from '@stripe/react-stripe-js';
-import { StripeError } from '@stripe/stripe-js';
-
 import { makeStyles, Theme } from '@material-ui/core/styles';
+import { useTranslation } from 'react-i18next';
 import AddIcon from '@material-ui/icons/Add';
-import Info from '@material-ui/icons/Info';
 import Button from '@material-ui/core/Button';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import Checkbox from '@material-ui/core/Checkbox';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import Info from '@material-ui/icons/Info';
+import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
-
-import Alert from '#Fabrique/Alert';
-import LinearProgress from '#Fabrique/LinearProgress';
-
+/**
+ * Use the CSS tab above to style your Element's container.
+ */
 import { PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA } from '@bsport/common/lib/master-data/payment-group.js';
-
-import { STRIPE_SEPA_ERROR_CODES } from '#src/libs/payment/constants';
+import { useStripe, useElements, IbanElement } from '@stripe/react-stripe-js';
+import { StripeError } from '@stripe/stripe-js';
 
 import {
-  blockPendingBasket as blockPendingBasketAPI,
   verifyPriceBasket as verifyPriceBasketAPI,
+  blockPendingBasket as blockPendingBasketAPI,
 } from '#src/libs/payment/api';
-import { confirmStripePayment as confirmStripePaymentAction } from '#src/libs/payment/payment-module-revamped/actions';
-
 import CheckoutContext from '#src/pages/checkout/basket/CheckoutContext';
 import PaymentMethodList from '#src/libs/payment/components/payment-method-list/PaymentMethodList.component';
 import PopOver from '#src/components/Popover';
+import StripeErrorCode from '#src/libs/payment/components/payment-backend-stripe/StripeErrorCode.component';
 import UseInternalAccountForm from '#src/libs/payment/components/UseInternalAccountForm.component';
 import { useMemberPaymentMethodListProvider } from '#src/libs/payment/payment-module-revamped/hooks/useMemberPaymentMethodListProvider';
+import { LinearProgress } from '#src/components/css-only/Fabrique/LinearProgress/LinearProgress.component';
+import Alert from '#src/components/css-only/Fabrique/Alert';
+
+// Custom styling can be passed as options when creating an Element.
+const IBAN_STYLE = {
+  base: {
+    color: '#32325d',
+    fontSize: '16px',
+    ':-webkit-autofill': {
+      color: '#32325d',
+    },
+  },
+  invalid: {
+    color: '#fa755a',
+    iconColor: '#fa755a',
+    ':-webkit-autofill': {
+      color: '#fa755a',
+    },
+  },
+};
+
+const IBAN_ELEMENT_OPTIONS = {
+  supportedCountries: ['SEPA'],
+  // Elements can use a placeholder as an example IBAN that reflects
+  // the IBAN format of your customer's country. If you know your
+  // customer's country, we recommend that you pass it to the Element as the
+  // placeholderCountry.
+  placeholderCountry: 'FR',
+  style: IBAN_STYLE,
+};
+
+interface BillingDetails {
+  name: string;
+  email: string;
+  address: { line1: string; country: string };
+}
+
+type PropsIban = {
+  withAddress: boolean | null;
+  disabled: boolean;
+  processing: boolean;
+  isActive: boolean;
+  error?: StripeError;
+  billingDetails: BillingDetails;
+  setBillingDetails: (billingdetails: BillingDetails) => void;
+};
+
+const IbanForm: React.FC<PropsIban> = ({
+  withAddress,
+  disabled,
+  processing,
+  isActive,
+  error,
+  billingDetails,
+  setBillingDetails,
+}) => {
+  const { t } = useTranslation(['invoice']);
+  const isCheckoutContext = React.useContext(CheckoutContext);
+  const classes = useStyles({ isCheckoutContext });
+
+  return (
+    <div>
+      <div className={classes.nameAndEmailContainer}>
+        <TextField
+          fullWidth
+          disabled={disabled}
+          onChange={(ev) => {
+            const { value } = ev.target;
+            setBillingDetails({
+              ...billingDetails,
+              name: value,
+            });
+          }}
+          placeholder={t('mandate.name')}
+          required={isActive}
+          value={billingDetails.name}
+          variant="outlined"
+        />
+        <TextField
+          fullWidth
+          disabled={disabled}
+          onChange={(ev) => {
+            const { value } = ev.target;
+            setBillingDetails({
+              ...billingDetails,
+              email: value,
+            });
+          }}
+          placeholder={t('mandate.email')}
+          required={isActive}
+          type="email"
+          value={billingDetails.email}
+          variant="outlined"
+        />
+        {withAddress && (
+          <TextField
+            fullWidth
+            required
+            onChange={(ev) => {
+              const { value } = ev.target;
+              setBillingDetails({
+                ...billingDetails,
+                address: {
+                  ...billingDetails.address,
+                  line1: value,
+                },
+              });
+            }}
+            placeholder={t('mandate.address_line_1')}
+            value={billingDetails.address.line1}
+            variant="outlined"
+          />
+        )}
+      </div>
+      <div style={processing ? { display: 'none' } : {}}>
+        <div className={classes.sensitiveDataContainer}>
+          <div className={classes.sensitiveData}>
+            <IbanElement options={IBAN_ELEMENT_OPTIONS} />
+            {!!error && (
+              <StripeErrorCode
+                declineCode={error.decline_code}
+                errorCode={error.code}
+              />
+            )}
+          </div>
+        </div>
+      </div>
+      <div className={classes.mandate}>
+        <Typography color="textSecondary">
+          {t('mandate.contentIban')}
+        </Typography>
+      </div>
+    </div>
+  );
+};
 
 type PaymentStripeSEPAProps = {
   AcceptTermsAndConditionsComponent?: React.Component;
   allowConsumerToUseInternalAccount?: boolean;
   applyBalanceLoading?: boolean;
-  applyBalanceToInvoice?: () => void;
   basketId?: string;
   basketTotalPriceCts?: number;
-  checkItemsBasket: (basketId: string) => Promise<boolean>;
   children?: React.ReactNode;
   clientSecret: string;
-  companyCountry?: string;
   creditAccountBalance?: number | null;
-  createPendingBookingsIfNecessary?: (data?: {
-    payment_group_method_identifier?: number;
-  }) => void;
   customClasses?: { [className: string]: string };
-  detachPaymentMethod: (paymentMetodId: string) => void;
   detachPaymentMethodLoading: boolean;
   forceButtonDisplay?: boolean;
   forceDisabled?: boolean;
@@ -73,22 +180,25 @@ type PaymentStripeSEPAProps = {
   forceSave?: boolean;
   hasAddPaymentMethodPermission?: boolean;
   hideSaveForLater?: boolean;
-  invalidatePendingBookingsIfNecessary?: () => void;
   isEstablishmentBillingGroupSelected?: boolean;
   loading?: boolean;
   memberId?: number;
-  onCancel: () => void;
-  onError?: () => void;
-  onSaveForLaterChange?: (event: ChangeEvent<HTMLInputElement>) => void;
-  onSuccess: (callback: () => void) => void;
-  paymentGroupId: number;
-  saveForLater?: boolean;
-  setIsOnlinePaymentDisabled?: (isLoading: boolean) => void;
-  setPaymentProcessing: (processing: boolean) => void;
   termsAndConditionsAccepted: boolean;
-  useInternalAccount?: (amount: number) => void;
   userDefaultEmail?: string;
   userDefaultName?: string;
+  applyBalanceToInvoice?: () => void;
+  checkItemsBasket: (basketId: string) => Promise<boolean>;
+  createPendingBookingsIfNecessary?: (data?: {
+    payment_group_method_identifier?: number;
+  }) => void;
+  detachPaymentMethod: (paymentMetodId: string) => void;
+  onCancel: () => void;
+  onError?: () => void;
+  onSuccess: (callback: () => void) => void;
+  setIsOnlinePaymentDisabled?: (isLoading: boolean) => void;
+  setPaymentProcessing: (processing: boolean) => void;
+  useInternalAccount?: (amount: number) => void;
+  invalidatePendingBookingsIfNecessary?: () => void;
 };
 
 export const PaymentStripeSEPARevamped = forwardRef(
@@ -97,17 +207,12 @@ export const PaymentStripeSEPARevamped = forwardRef(
       AcceptTermsAndConditionsComponent,
       allowConsumerToUseInternalAccount,
       applyBalanceLoading,
-      applyBalanceToInvoice,
       basketId,
       basketTotalPriceCts,
-      checkItemsBasket,
       children,
       clientSecret,
-      companyCountry,
-      createPendingBookingsIfNecessary,
       creditAccountBalance,
       customClasses,
-      detachPaymentMethod,
       detachPaymentMethodLoading,
       forceButtonDisplay,
       forceDisabled,
@@ -115,41 +220,42 @@ export const PaymentStripeSEPARevamped = forwardRef(
       forceSave,
       hasAddPaymentMethodPermission = true,
       hideSaveForLater,
-      invalidatePendingBookingsIfNecessary,
       isEstablishmentBillingGroupSelected,
       loading,
       memberId,
-      onCancel,
-      onError,
-      onSaveForLaterChange,
-      onSuccess,
-      paymentGroupId,
-      saveForLater,
-      setIsOnlinePaymentDisabled,
-      setPaymentProcessing,
       termsAndConditionsAccepted,
-      useInternalAccount,
       userDefaultEmail,
       userDefaultName,
+      applyBalanceToInvoice,
+      checkItemsBasket,
+      createPendingBookingsIfNecessary,
+      detachPaymentMethod,
+      onCancel,
+      onError,
+      onSuccess,
+      setIsOnlinePaymentDisabled,
+      setPaymentProcessing,
+      useInternalAccount,
+      invalidatePendingBookingsIfNecessary,
     }: PaymentStripeSEPAProps,
     ref,
   ) => {
-    const isCheckoutContext = useContext(CheckoutContext);
+    const isCheckoutContext = React.useContext(CheckoutContext);
     const classes = useStyles({ isCheckoutContext });
     const { t } = useTranslation(['invoice', 'payment']);
-    const dispatch = useDispatch();
 
     const stripe = useStripe();
     const elements = useElements();
 
-    const [processing, setProcessing] = useState(false);
-    const [error, setError] = useState<StripeError | undefined>(undefined);
-    const [paymentMethodSelected, setPaymentMethodSelected] = useState<
-      string | undefined
-    >(undefined);
-    const [isAddingPaymentMethod, setIsAddingPaymentMethod] = useState(true);
+    const [error, setError] = React.useState(null);
+    const [processing, setProcessing] = React.useState(false);
 
-    const setPaymentPageProcessing = useCallback(
+    const [saveForLater, setSaveForLater] = React.useState(false);
+    const [paymentMethodSelected, setPaymentMethodSelected] =
+      React.useState(null);
+    const [addPaymentMethod, setAddPaymentMethod] = React.useState(true);
+
+    const setPaymentPageProcessing = React.useCallback(
       (process) => {
         if (setPaymentProcessing) setPaymentProcessing(process);
         setProcessing(process);
@@ -167,7 +273,7 @@ export const PaymentStripeSEPARevamped = forwardRef(
       memberId,
     });
 
-    const paymentMethodList = useMemo(
+    const paymentMethodList = React.useMemo(
       () =>
         paymentMethodListAll.filter(
           (paymentMethod) => paymentMethod.type === 'sepa_debit',
@@ -175,23 +281,84 @@ export const PaymentStripeSEPARevamped = forwardRef(
       [paymentMethodListAll],
     );
 
-    useEffect(() => {
+    React.useEffect(() => {
       handleFetchMemberPaymentMethodList();
       return resetPaymentMethodList;
     }, [handleFetchMemberPaymentMethodList, resetPaymentMethodList]);
 
-    useEffect(() => {
-      setIsAddingPaymentMethod(!paymentMethodList.length);
+    React.useEffect(() => {
+      setAddPaymentMethod(!paymentMethodList.length);
       if (paymentMethodList.length) {
         setPaymentMethodSelected(paymentMethodList[0].id);
       }
     }, [paymentMethodList]);
 
-    useEffect(() => {
-      if (isAddingPaymentMethod) {
-        setPaymentMethodSelected(undefined);
+    React.useEffect(() => {
+      if (addPaymentMethod) {
+        setPaymentMethodSelected(null);
       }
-    }, [isAddingPaymentMethod]);
+    }, [addPaymentMethod]);
+
+    const [billingDetails, setBillingDetails] = React.useState({
+      name: userDefaultName || '',
+      email: userDefaultEmail || '',
+      address: {
+        line1: '',
+        country: '',
+      },
+    });
+
+    const [needBillingDetailAddress, setNeedBillingDetailAddress] =
+      React.useState(false);
+
+    const iban = elements?.getElement(IbanElement);
+    const ibanElementExists = !!iban;
+    React.useEffect(() => {
+      if (iban) {
+        iban.on('change', (data) => {
+          if (
+            [
+              'AD',
+              'PF',
+              'TF',
+              'GI',
+              'GB',
+              'GG',
+              'VA',
+              'IM',
+              'JE',
+              'MC',
+              'NC',
+              'BL',
+              'PM',
+              'SM',
+              'CH',
+              'WF',
+            ].includes(data?.country)
+          ) {
+            setNeedBillingDetailAddress(true);
+            setBillingDetails({
+              ...billingDetails,
+              address: {
+                line1: billingDetails.address.line1,
+                country: data?.country,
+              },
+            });
+          } else {
+            setNeedBillingDetailAddress(false);
+          }
+        });
+      }
+      return () => {
+        iban?.off('change');
+      };
+      // eslint-disable-next-line
+    }, [
+      ibanElementExists,
+      setNeedBillingDetailAddress,
+      setBillingDetails,
+      billingDetails,
+    ]);
 
     const isSubmitButtonDisabled =
       forceDisabled ||
@@ -202,26 +369,22 @@ export const PaymentStripeSEPARevamped = forwardRef(
 
     // This useEffect is required in the new checkout flow, in order to disable the 'Pay Now' button
     // if needed
-    useEffect(() => {
+    React.useEffect(() => {
       if (setIsOnlinePaymentDisabled)
         setIsOnlinePaymentDisabled(isSubmitButtonDisabled);
     }, [isSubmitButtonDisabled, setIsOnlinePaymentDisabled]);
 
-    const handleSubmit = useCallback(
+    const handleSubmit = React.useCallback(
       async (event: React.FormEvent<HTMLFormElement>) => {
-        setPaymentProcessing(true);
-        setError(undefined);
-        elements?.submit();
-
-        // We don't want to let default form submission happen here,
-        // which would refresh the page.
-        event.preventDefault();
-
         if (!stripe || !elements) {
           // Stripe has not yet loaded.
           // Make sure to disable form submission until Stripe has loaded.
           return;
         }
+        setPaymentPageProcessing(true);
+        // We don't want to let default form submission happen here,
+        // which would refresh the page.
+        event.preventDefault();
 
         if (basketId) {
           /**
@@ -254,83 +417,73 @@ export const PaymentStripeSEPARevamped = forwardRef(
           payment_group_method_identifier: PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA,
         });
 
-        dispatch(
-          confirmStripePaymentAction(
-            {
-              saveForLater: saveForLater || forceSave,
-              paymentGroupId,
-              stripe,
-              elements,
-              clientSecret,
-              shouldConfirmSepaDebitPayment:
-                !isAddingPaymentMethod && !!paymentMethodList.length,
-              paymentMethodSelected,
-              paymentMethodData: {
-                /* Stripe requires all billing details fields to be provided to prevent errors,
-                   even though we intentionally hide phone & address in the payment element UI.
+        const iban_ = elements.getElement(IbanElement);
 
-                   Important notes:
-                   - Empty strings will cause Stripe validation errors
-                   - Must use null instead of empty strings
-                   - name/email are redundant since they can be updated directly in payment element
-                   - These null values get overridden by any values entered in payment element
-                */
-                billing_details: {
-                  name: null,
-                  email: null,
-                  phone: null,
-                  address: {
-                    country: null,
-                    postal_code: null,
-                    state: null,
-                    city: null,
-                    line1: null,
-                    line2: null,
-                  },
-                },
-              },
+        const result = await stripe.confirmSepaDebitPayment(clientSecret, {
+          payment_method: paymentMethodSelected || {
+            sepa_debit: iban_,
+            billing_details: {
+              name: billingDetails.name,
+              email: billingDetails.email,
+              ...(needBillingDetailAddress
+                ? { address: billingDetails.address }
+                : {}),
             },
-            {
-              onPaymentError: (err) => {
-                setError(err);
-                setPaymentPageProcessing(false);
-                invalidatePendingBookingsIfNecessary?.();
-                onError?.();
-              },
-              onPaymentSuccess: async () => {
-                if (basketId) {
-                  try {
-                    await blockPendingBasketAPI(basketId);
-                  } catch (err) {
-                    console.error(err);
-                  }
-                }
+          },
+          ...(saveForLater || forceSave
+            ? { setup_future_usage: 'off_session' }
+            : {}),
+        });
 
-                onSuccess(() => setPaymentPageProcessing(false));
-              },
-            },
-          ),
-        );
+        if (result.error) {
+          // Show error to your customer.
+          setError(result.error);
+          setPaymentPageProcessing(false);
+          invalidatePendingBookingsIfNecessary?.();
+          if (onError) onError();
+        } else {
+          setError(null);
+
+          if (basketId) {
+            try {
+              /**
+               * This API call is intentionally not moved to a Redux action because:
+               * 1. It might be executed within the context of a checkout process, specifically inside the marketplace
+               * or in an iframe widget. Thus, we don't need to make authenticated call from the widget.
+               * 2. The data returned by this API call does not need to be stored or managed within the Redux store.
+               * Therefore, keeping the API call local to this context is more appropriate and efficient.
+               */
+              await blockPendingBasketAPI(basketId);
+            } catch (err) {
+              console.error(err);
+            }
+          }
+
+          onSuccess(() => setPaymentPageProcessing(false));
+          // Show a confirmation message to your customer.
+          // The PaymentIntent is in the 'processing' state.
+          // SEPA Direct Debit payments are asynchronous,
+          // so funds are not immediately available.
+        }
       },
       [
         basketId,
         basketTotalPriceCts,
+        billingDetails.address,
+        billingDetails.email,
+        billingDetails.name,
         checkItemsBasket,
         clientSecret,
         createPendingBookingsIfNecessary,
-        dispatch,
+        invalidatePendingBookingsIfNecessary,
         elements,
         forceSave,
-        invalidatePendingBookingsIfNecessary,
-        isAddingPaymentMethod,
+        needBillingDetailAddress,
         onError,
         onSuccess,
-        paymentGroupId,
-        paymentMethodList.length,
         paymentMethodSelected,
         saveForLater,
         setPaymentPageProcessing,
-        setPaymentProcessing,
         stripe,
         t,
       ],
@@ -378,11 +531,11 @@ export const PaymentStripeSEPARevamped = forwardRef(
             <Typography variant="h6">
               {t(
                 `payment:forms.savePaymentMethod.${
-                  isAddingPaymentMethod ? 'add' : 'select'
+                  addPaymentMethod ? 'add' : 'select'
                 }`,
               )}
             </Typography>
-            {isAddingPaymentMethod && (
+            {addPaymentMethod && (
               <>
                 {!hasAddPaymentMethodPermission ? (
                   <Typography>
@@ -392,38 +545,15 @@ export const PaymentStripeSEPARevamped = forwardRef(
                   </Typography>
                 ) : (
                   <div>
-                    <div style={processing ? { display: 'none' } : {}}>
-                      <div className={classes.sensitiveDataContainer}>
-                        <div className={classes.sensitiveData}>
-                          <PaymentElement
-                            options={{
-                              layout: 'tabs',
-                              defaultValues: {
-                                billingDetails: {
-                                  name: userDefaultName || '',
-                                  address: { country: companyCountry || '' },
-                                  email: userDefaultEmail || '',
-                                },
-                              },
-                              fields: {
-                                billingDetails: {
-                                  name: 'auto',
-                                  email: 'auto',
-                                  phone: 'never',
-                                  address: 'never',
-                                },
-                              },
-                            }}
-                          />
-                          {error &&
-                            STRIPE_SEPA_ERROR_CODES.includes(error.code!) && (
-                              <Typography color="error" variant="caption">
-                                {error.message}
-                              </Typography>
-                            )}
-                        </div>
-                      </div>
-                    </div>
+                    <IbanForm
+                      billingDetails={billingDetails}
+                      disabled={!stripe || !clientSecret}
+                      error={error}
+                      isActive={!paymentMethodSelected}
+                      processing={processing}
+                      setBillingDetails={setBillingDetails}
+                      withAddress={needBillingDetailAddress}
+                    />
                     <div
                       className={clsx(
                         classes.saveAndDisplay,
@@ -437,7 +567,9 @@ export const PaymentStripeSEPARevamped = forwardRef(
                               checked={saveForLater || forceSave}
                               color="primary"
                               disabled={!!forceSave}
-                              onChange={onSaveForLaterChange}
+                              onChange={(ev) =>
+                                setSaveForLater(ev.target.checked)
+                              }
                             />
                             <Typography
                               variant={isCheckoutContext ? 'body1' : 'caption'}
@@ -485,7 +617,7 @@ export const PaymentStripeSEPARevamped = forwardRef(
                             classes.displayButton,
                             customClasses?.displayButton,
                           )}
-                          onClick={() => setIsAddingPaymentMethod(false)}
+                          onClick={() => setAddPaymentMethod(false)}
                         >
                           <Typography
                             align="right"
@@ -504,7 +636,7 @@ export const PaymentStripeSEPARevamped = forwardRef(
               </>
             )}
 
-            {!isAddingPaymentMethod && !!paymentMethodList.length && (
+            {!addPaymentMethod && !!paymentMethodList.length && (
               <div>
                 <PaymentMethodList
                   detachPaymentMethod={detachPaymentMethod}
@@ -524,7 +656,7 @@ export const PaymentStripeSEPARevamped = forwardRef(
                       customClasses?.addButton,
                     )}
                     disabled={false}
-                    onClick={() => setIsAddingPaymentMethod(true)}
+                    onClick={() => setAddPaymentMethod(true)}
                   >
                     <AddIcon
                       className={clsx(

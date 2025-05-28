@@ -28,16 +28,12 @@ export type PaymentModuleState = {
       alternativePaymentMethod: string | null;
     } & ErrorAndLoading;
   };
-  updateIntentStatus: {
-    [paymentGroupId: number]: ErrorAndLoading;
-  };
 };
 
 export enum PaymentRequesterRole {
   MANAGER = 'manager',
   MEMBER = 'member',
 }
-
 export type PayerContext =
   | {
       asRole: PaymentRequesterRole.MEMBER;

@@ -10,7 +10,6 @@ import {
   requestInvoiceClientSecretActions,
   setBackendProcessingAfterPaymentActions,
   setPaymentStatusActions,
-  updateIntentToSavePaymentMethodActions,
 } from './actions';
 import { ErrorAndLoading } from '#src/libs/types';
 import { PaymentMethod } from '#src/libs/payment/types';
@@ -42,9 +41,6 @@ export type PaymentModuleState = {
       alternativePaymentMethod: string | null;
     } & ErrorAndLoading;
   };
-  updateIntentStatus: {
-    [paymentGroupId: number]: ErrorAndLoading;
-  };
 };
 
 const initialState: Immutable.Immutable<PaymentModuleState> =
@@ -56,7 +52,6 @@ const initialState: Immutable.Immutable<PaymentModuleState> =
     paymentGroupStatus: {},
     backendStatusAfterPayment: {},
     detachPaymentMethod: {},
-    updateIntentStatus: {},
   });
 
 export default handleActions<Immutable.Immutable<PaymentModuleState>, any>(
@@ -315,43 +310,6 @@ export default handleActions<Immutable.Immutable<PaymentModuleState>, any>(
         ['backendStatusAfterPayment', payload.paymentGroupId, 'processing'],
         payload.processing,
       );
-    },
-    [updateIntentToSavePaymentMethodActions.isLoading.toString()]: (
-      state,
-      { payload }: { payload: { paymentGroupId: number; loading: boolean } },
-    ) => {
-      return state.setIn(
-        ['updateIntentStatus', payload.paymentGroupId, 'loading'],
-        payload.loading,
-      );
-    },
-    [updateIntentToSavePaymentMethodActions.error.toString()]: (
-      state,
-      { payload }: { payload: { paymentGroupId: number; error: Error | null } },
-    ) => {
-      return state.setIn(
-        ['updateIntentStatus', payload.paymentGroupId, 'error'],
-        payload.error,
-      );
-    },
-    [updateIntentToSavePaymentMethodActions.success.toString()]: (
-      state,
-      { payload }: { payload: { paymentGroupId: number } }, // Only need paymentGroupId here
-    ) => {
-      // Clear error on success
-      return state.setIn(
-        ['updateIntentStatus', payload.paymentGroupId, 'error'],
-        null,
-      );
-    },
-    [updateIntentToSavePaymentMethodActions.initialize.toString()]: (
-      state,
-      { payload }: { payload: { paymentGroupId: number } },
-    ) => {
-      return state.setIn(['updateIntentStatus', payload.paymentGroupId], {
-        loading: false,
-        error: null,
-      });
     },
   },
   initialState,

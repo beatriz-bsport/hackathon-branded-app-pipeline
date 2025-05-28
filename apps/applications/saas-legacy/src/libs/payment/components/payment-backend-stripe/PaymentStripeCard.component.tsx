@@ -543,10 +543,6 @@ const PaymentStripeCard = forwardRef(
                       <PaymentElement
                         options={{
                           layout: 'tabs',
-                          wallets: {
-                            applePay: 'never',
-                            googlePay: 'never',
-                          },
                           defaultValues: {
                             billingDetails: {
                               name: userDefaultName,

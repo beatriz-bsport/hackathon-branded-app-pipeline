@@ -50,7 +50,6 @@ type UsePayment = {
     options?: OptionCallback<Member>,
   ) => void;
   paymentGroupId: number;
-  paymentGroupPriceCts: number;
   selectInstalmentPayment: (
     instalmentPayment: number | null,
     options?: OptionCallback<Basket>,
@@ -85,7 +84,6 @@ export const usePayment = (
     instalmentPaymentSelectedId,
     clientSecret,
     paymentGroupId,
-    paymentGroupPriceCts,
     isClientSecretLoading,
   } = useBasketPaymentStoreData(basketId, memberId);
 
@@ -262,7 +260,6 @@ export const usePayment = (
     handleSetPaymentProcessing,
     handleUpdateMemberBillingGroup,
     paymentGroupId,
-    paymentGroupPriceCts,
     selectInstalmentPayment,
     useInternalAccount,
   };

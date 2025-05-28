@@ -1,162 +1,128 @@
-import React, {
-  ChangeEvent,
-  forwardRef,
-  useCallback,
-  useContext,
-  useEffect,
-  useImperativeHandle,
-  useState,
-} from 'react';
-// eslint-disable-next-line bsport/no-redux-in-component
-import { useDispatch } from 'react-redux';
+import React, { useImperativeHandle, forwardRef } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import {
-  PAYMENT_GROUP_METHOD_IDENTIFIER_BANCONTACT,
-  PAYMENT_GROUP_METHOD_IDENTIFIER_IDEAL,
-} from '@bsport/common/lib/master-data/payment-group';
-
-import {
-  PaymentElement,
-  useElements,
-  useStripe,
-} from '@stripe/react-stripe-js';
-
-import {
-  Button,
-  Checkbox,
-  CircularProgress,
-  makeStyles,
-  Typography,
-} from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
+import Checkbox from '@material-ui/core/Checkbox';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import Info from '@material-ui/icons/Info';
+import TextInput from '@material-ui/core/TextField';
+import Typography from '@material-ui/core/Typography';
+
+import { useStripe, useElements } from '@stripe/react-stripe-js';
+import { PAYMENT_GROUP_METHOD_IDENTIFIER_SOFORT } from '@bsport/common/lib/master-data/payment-group.js';
+import { saveQueryParamInLocalStorage } from '#src/libs/utils';
+import {
+  USER_REGISTRATION_RESPONSE_QUERY_PARAM,
+  USER_REGISTRATION_RESPONSE_LOCAL_STORAGE_KEY,
+} from '#src/libs/payment/constants';
 
 import {
   blockPendingBasket as blockPendingBasketAPI,
   verifyPriceBasket as verifyPriceBasketAPI,
 } from '#src/libs/payment/api';
-import {
-  StripePaymentMethodNames,
-  USER_REGISTRATION_RESPONSE_LOCAL_STORAGE_KEY,
-  USER_REGISTRATION_RESPONSE_QUERY_PARAM,
-} from '#src/libs/payment/constants';
-import { confirmStripePayment as confirmStripePaymentAction } from '#src/libs/payment/payment-module-revamped/actions';
-import { saveQueryParamInLocalStorage } from '#src/libs/utils';
-
 import CheckoutContext from '#src/pages/checkout/basket/CheckoutContext';
+import CountrySelector from '#src/components/input/CountrySelector.component';
 import PopOver from '#src/components/Popover';
 
-type PaymentStripeGenericElementProps = {
+type PaymentStripeSofortProps = {
   AcceptTermsAndConditionsComponent: React.Component;
   basketId?: string;
   basketTotalPriceCts?: number;
-  checkItemsBasket: (basketId: string) => Promise<boolean>;
   children?: React.ReactNode;
-  clientSecret: string;
-  createPendingBookingsIfNecessary?: (data?: {
-    payment_group_method_identifier?: number;
-  }) => void;
+  clientSecret?: string;
   forceDisabled?: boolean;
   forceHideConfirmPaymentButton?: boolean;
   forceSave?: boolean;
   hasAddPaymentMethodPermission?: boolean;
-  invalidatePendingBookingsIfNecessary?: () => void;
   isEstablishmentBillingGroupSelected?: boolean;
   loading?: boolean;
-  onCancel: () => void;
-  onError?: () => void;
-  onSaveForLaterChange?: (event: ChangeEvent<HTMLInputElement>) => void;
-  paymentGroupId: number;
-  paymentGroupMethodIdentifier: number;
-  saveForLater?: boolean;
-  setIsOnlinePaymentDisabled?: (isLoading: boolean) => void;
-  setPaymentProcessing: (processing: boolean) => void;
   termsAndConditionsAccepted: boolean;
   userDefaultEmail?: string;
   userDefaultName?: string;
+  onCancel: () => void;
+  checkItemsBasket: (basketId: string) => boolean;
+  setPaymentProcessing: (processing: boolean) => void;
+  createPendingBookingsIfNecessary?: (data?: {
+    payment_group_method_identifier?: number;
+  }) => void;
+  setIsOnlinePaymentDisabled: (isLoading: boolean) => void;
+  invalidatePendingBookingsIfNecessary?: () => void;
 };
 
-export const PaymentStripeGenericElement = forwardRef(
+export const PaymentStripeSofort = forwardRef(
   (
     {
       AcceptTermsAndConditionsComponent,
       basketId,
       basketTotalPriceCts,
-      checkItemsBasket,
       children,
       clientSecret,
-      createPendingBookingsIfNecessary,
       forceDisabled,
       forceHideConfirmPaymentButton,
       forceSave,
       hasAddPaymentMethodPermission = true,
-      invalidatePendingBookingsIfNecessary,
       isEstablishmentBillingGroupSelected,
       loading,
-      onCancel,
-      onError,
-      onSaveForLaterChange,
-      paymentGroupId,
-      paymentGroupMethodIdentifier,
-      saveForLater,
-      setIsOnlinePaymentDisabled,
-      setPaymentProcessing,
       termsAndConditionsAccepted,
       userDefaultEmail,
       userDefaultName,
-    }: PaymentStripeGenericElementProps,
+      checkItemsBasket,
+      createPendingBookingsIfNecessary,
+      onCancel,
+      setIsOnlinePaymentDisabled,
+      setPaymentProcessing,
+      invalidatePendingBookingsIfNecessary,
+    }: PaymentStripeSofortProps,
     ref,
   ) => {
-    const isCheckoutContext = useContext(CheckoutContext);
-    const classes = useStyles();
-    const { t } = useTranslation('invoice');
-    const dispatch = useDispatch();
-
     const stripe = useStripe();
     const elements = useElements();
+    const [processing, setProcessing] = React.useState(false);
+    const [country, setCountry] = React.useState('DE');
+    const [name, setName] = React.useState(userDefaultName);
+    const [email, setEmail] = React.useState(userDefaultEmail);
+    const [errorMessage, setErrorMessage] = React.useState(null);
 
-    const [isProcessing, setIsProcessing] = useState(false);
-    const [errorMessage, setErrorMessage] = useState<string | undefined>();
+    const { t } = useTranslation(['invoice']);
+    const classes = useStyles();
+    const [saveForLater, setSaveForLater] = React.useState(false);
 
-    const setPaymentPageProcessing = useCallback(
+    const isCheckoutContext = React.useContext(CheckoutContext);
+
+    const setPaymentPageProcessing = React.useCallback(
       (process) => {
         if (setPaymentProcessing) setPaymentProcessing(process);
-        setIsProcessing(process);
+        setProcessing(process);
       },
-      [setIsProcessing, setPaymentProcessing],
+      [setPaymentProcessing],
     );
 
     const isSubmitButtonDisabled =
       loading ||
       forceDisabled ||
       !stripe ||
-      !elements ||
       !termsAndConditionsAccepted ||
-      !isEstablishmentBillingGroupSelected ||
-      !hasAddPaymentMethodPermission;
+      !isEstablishmentBillingGroupSelected;
 
     // This useEffect is required in the new checkout flow, in order to disable the 'Pay Now' button
     // if needed
-    useEffect(() => {
+    React.useEffect(() => {
       if (setIsOnlinePaymentDisabled)
         setIsOnlinePaymentDisabled(isSubmitButtonDisabled);
     }, [isSubmitButtonDisabled, setIsOnlinePaymentDisabled]);
 
-    const handleSubmit = useCallback(
+    const handleSubmit = React.useCallback(
       async (event: React.FormEvent<HTMLFormElement>) => {
-        setPaymentPageProcessing(true);
-        setErrorMessage(undefined);
-        elements?.submit();
-
-        // We don't want to let default form submission happen here,
-        // which would refresh the page.
         event.preventDefault();
 
         if (!stripe || !elements) {
           // Stripe has not yet loaded.
-          // Make sure to disable form submission until Stripe has loaded.
           return;
         }
+
+        setPaymentPageProcessing(true);
+        setErrorMessage(null);
 
         if (basketId) {
           /**
@@ -166,6 +132,7 @@ export const PaymentStripeGenericElement = forwardRef(
            * Therefore, keeping these API calls local to this context is more appropriate and efficient.
            */
           const { data } = await verifyPriceBasketAPI(basketId);
+
           const basketItemsChecked = await checkItemsBasket(basketId);
           if (!basketItemsChecked) {
             setPaymentPageProcessing(false);
@@ -177,6 +144,7 @@ export const PaymentStripeGenericElement = forwardRef(
             basketTotalPriceCts !== data
           ) {
             setPaymentPageProcessing(false);
+
             window.alert(t('paymentPanel.actions.basketInconsistent'));
             window.location.reload();
             return;
@@ -184,7 +152,8 @@ export const PaymentStripeGenericElement = forwardRef(
         }
 
         createPendingBookingsIfNecessary?.({
-          payment_group_method_identifier: paymentGroupMethodIdentifier,
+          payment_group_method_identifier:
+            PAYMENT_GROUP_METHOD_IDENTIFIER_SOFORT,
         });
 
         saveQueryParamInLocalStorage(
@@ -193,24 +162,10 @@ export const PaymentStripeGenericElement = forwardRef(
         );
 
         const url = new URL(window.location.toString());
-        let paymentMethodType: string | undefined;
-        switch (paymentGroupMethodIdentifier) {
-          case PAYMENT_GROUP_METHOD_IDENTIFIER_BANCONTACT:
-            paymentMethodType = StripePaymentMethodNames.BANCONTACT;
-            break;
-          case PAYMENT_GROUP_METHOD_IDENTIFIER_IDEAL:
-            paymentMethodType = StripePaymentMethodNames.IDEAL;
-            break;
-        }
-
         const params = url.searchParams;
-        params.delete('redirect_status');
         params.delete('user_registration_response');
         params.set('check_payment_intent', 'true');
         params.set('get_user_registration_from_storage', 'true');
-        if (paymentMethodType) {
-          params.set('payment_method_type', paymentMethodType);
-        }
 
         if (basketId) {
           // Include the current basket id in the return URL, so that the basket page keeps track
@@ -218,51 +173,50 @@ export const PaymentStripeGenericElement = forwardRef(
           params.set('basket_redirection', basketId);
         }
 
-        dispatch(
-          confirmStripePaymentAction(
-            {
-              saveForLater: saveForLater || forceSave,
-              paymentGroupId,
-              stripe,
-              elements,
-              clientSecret,
-              return_url: url.toString(),
+        const return_url = url.toString();
+
+        const { error } = await stripe.confirmSofortPayment(clientSecret, {
+          payment_method: {
+            sofort: {
+              country,
             },
-            {
-              onPaymentError: (err) => {
-                if (err.type !== 'validation_error') {
-                  setErrorMessage(err.message);
-                }
-                setPaymentPageProcessing(false);
-                invalidatePendingBookingsIfNecessary?.();
-                onError?.();
-              },
-              onPaymentSuccess: async () => {
-                if (basketId) {
-                  try {
-                    await blockPendingBasketAPI(basketId);
-                  } catch (err) {
-                    console.error(err);
-                  }
-                }
-              },
+            billing_details: {
+              name,
+              email,
             },
-          ),
-        );
+          },
+          ...(saveForLater || forceSave
+            ? { setup_future_usage: 'off_session' }
+            : {}),
+          return_url,
+        });
+
+        if (error) {
+          setErrorMessage(error.message);
+          setPaymentPageProcessing(false);
+          invalidatePendingBookingsIfNecessary?.();
+        } else {
+          if (basketId) {
+            try {
+              await blockPendingBasketAPI(basketId);
+            } catch (err) {
+              console.error(err);
+            }
+          }
+        }
       },
       [
         basketId,
         basketTotalPriceCts,
         checkItemsBasket,
         clientSecret,
+        country,
         createPendingBookingsIfNecessary,
-        dispatch,
-        elements,
-        forceSave,
         invalidatePendingBookingsIfNecessary,
-        onError,
-        paymentGroupId,
-        paymentGroupMethodIdentifier,
+        elements,
+        email,
+        forceSave,
+        name,
         saveForLater,
         setPaymentPageProcessing,
         stripe,
@@ -272,9 +226,15 @@ export const PaymentStripeGenericElement = forwardRef(
 
     // This hook is required in the new checkout flow, in order to call the submit callback defined
     // in the payment method component from the parent component.
-    useImperativeHandle(ref, () => ({ onPaymentConfirm: handleSubmit }), [
-      handleSubmit,
-    ]);
+    useImperativeHandle(
+      ref,
+      () => {
+        return {
+          onPaymentConfirm: handleSubmit,
+        };
+      },
+      [handleSubmit],
+    );
 
     return (
       <form onSubmit={handleSubmit}>
@@ -285,16 +245,32 @@ export const PaymentStripeGenericElement = forwardRef(
         ) : (
           <>
             <div className={classes.fieldContainer}>
-              <PaymentElement
-                options={{
-                  layout: 'tabs',
-                  defaultValues: {
-                    billingDetails: {
-                      name: userDefaultName,
-                      email: userDefaultEmail,
-                    },
-                  },
+              <CountrySelector
+                label={t('paymentPanel.fields.country.label')}
+                onChange={(
+                  ev: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>,
+                ) => {
+                  setCountry(ev.target.value);
                 }}
+                value={country}
+              />
+              <TextInput
+                required
+                className={classes.field}
+                label={t('paymentPanel.fields.accountHolderName.label')}
+                onChange={(ev) => setName(ev.target.value)}
+                placeholder={t(
+                  'paymentPanel.fields.accountHolderName.placeholder',
+                )}
+                value={name}
+              />
+              <TextInput
+                required
+                className={classes.field}
+                label={t('paymentPanel.fields.email.label')}
+                onChange={(ev) => setEmail(ev.target.value)}
+                placeholder={t('paymentPanel.fields.email.placeholder')}
+                value={email}
               />
               {errorMessage && (
                 <Typography color="error">{errorMessage}</Typography>
@@ -304,8 +280,8 @@ export const PaymentStripeGenericElement = forwardRef(
               <Checkbox
                 checked={saveForLater || forceSave}
                 color="primary"
-                disabled={!!forceSave || isProcessing || !stripe || !elements}
-                onChange={onSaveForLaterChange}
+                disabled={!!forceSave}
+                onChange={(ev) => setSaveForLater(ev.target.checked)}
               />
               <div className={classes.leftColumn}>
                 <Typography variant={isCheckoutContext ? 'body1' : 'caption'}>
@@ -338,19 +314,25 @@ export const PaymentStripeGenericElement = forwardRef(
               {AcceptTermsAndConditionsComponent}
             </div>
             <div className={classes.actionRow}>
-              {isProcessing ? (
+              {processing ? (
                 <CircularProgress />
               ) : (
                 <Button
                   color="primary"
-                  disabled={isSubmitButtonDisabled}
+                  disabled={
+                    loading ||
+                    forceDisabled ||
+                    !stripe ||
+                    !termsAndConditionsAccepted ||
+                    !hasAddPaymentMethodPermission
+                  }
                   type="submit"
                   variant="contained"
                 >
                   {t('paymentPanel.actions.confirmPayment')}
                 </Button>
               )}
-              <Button disabled={isProcessing} onClick={onCancel}>
+              <Button disabled={processing} onClick={onCancel}>
                 {t('paymentPanel.actions.cancel')}
               </Button>
             </div>
@@ -364,7 +346,6 @@ export const PaymentStripeGenericElement = forwardRef(
 const useStyles = makeStyles((theme) => ({
   field: {
     marginTop: theme.spacing(2),
-    marginBottom: theme.spacing(2),
   },
   fieldContainer: {
     display: 'flex',
@@ -382,16 +363,15 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
-    marginTop: theme.spacing(1),
+    justifyContent: 'flex-start',
     marginLeft: theme.spacing(1.5),
   },
   actionRow: {
     display: 'flex',
     flexDirection: 'row',
-    alignItems: 'center',
     justifyContent: 'space-between',
-    marginTop: theme.spacing(1),
+    alignItems: 'center',
+    marginTop: theme.spacing(2),
   },
   leftColumn: {
     display: 'flex',
@@ -419,5 +399,4 @@ const useStyles = makeStyles((theme) => ({
   },
   infoIcon: { color: theme.palette.grey[600] },
 }));
-
-export default PaymentStripeGenericElement;
+export default PaymentStripeSofort;

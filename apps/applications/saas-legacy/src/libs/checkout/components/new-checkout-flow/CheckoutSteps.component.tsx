@@ -56,7 +56,6 @@ type CheckoutStepsProps = {
   onPaymentSuccess: () => void;
   patchBasket: (basketAddress: BasketAddress, options: OptionCallback) => void;
   paymentGroupId: number;
-  paymentGroupPriceCts: number;
   paymentProcessing: boolean;
   paymentMethodChoices: any;
   ref: React.Ref<any>;
@@ -115,7 +114,6 @@ export const CheckoutSteps: React.FC<CheckoutStepsProps> = forwardRef(
       onPaymentSuccess,
       patchBasket,
       paymentGroupId,
-      paymentGroupPriceCts,
       paymentProcessing,
       paymentMethodChoices,
       refreshBasket,
@@ -233,7 +231,6 @@ export const CheckoutSteps: React.FC<CheckoutStepsProps> = forwardRef(
                 onSelectInstalmentPayment={onSelectInstalmentPayment}
                 paymentEngine={paymentEngine}
                 paymentGroupId={paymentGroupId}
-                paymentGroupPriceCts={paymentGroupPriceCts}
                 paymentMethodChoices={paymentMethodChoices}
                 paymentProcessing={paymentProcessing}
                 refreshBasket={refreshBasket}
@@ -296,7 +293,6 @@ export const CheckoutSteps: React.FC<CheckoutStepsProps> = forwardRef(
       onSelectInstalmentPayment,
       paymentEngine,
       paymentGroupId,
-      paymentGroupPriceCts,
       paymentMethodChoices,
       paymentProcessing,
       selectedEstablishmentBillingGroup,

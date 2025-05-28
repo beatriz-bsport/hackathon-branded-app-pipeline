@@ -148,7 +148,6 @@ type State = {
   clientSecret: string | null;
   selfProcessing: boolean;
   paymentGroupId: number;
-  paymentGroupPriceCts: number;
   isEstablishmentBillingGroupSelected: boolean;
   selectedEstablishmentBillingGroup: EstablishmentBillingGroup;
   hideEstablishmentBillingGroupSelector: boolean;
@@ -164,7 +163,6 @@ export class BasketPaymentIntent extends React.Component<Props, State> {
       clientSecret: null,
       selfProcessing: false,
       paymentGroupId: null,
-      paymentGroupPriceCts: null,
       isEstablishmentBillingGroupSelected: true,
       selectedEstablishmentBillingGroup: null,
       hideEstablishmentBillingGroupSelector: false,
@@ -307,7 +305,6 @@ export class BasketPaymentIntent extends React.Component<Props, State> {
           this.setState({
             clientSecret: r.data.client_secret,
             paymentGroupId: r.data.payment_group,
-            paymentGroupPriceCts: r.data.price_cts,
             clientSecretLoading: false,
           });
         }
@@ -646,7 +643,6 @@ export class BasketPaymentIntent extends React.Component<Props, State> {
             onSuccess={this.onSuccess}
             paymentEngine={this.state.paymentEngine}
             paymentGroupId={this.state.paymentGroupId}
-            paymentGroupPriceCts={this.state.paymentGroupPriceCts}
             paymentMethodChoices={
               this.state.theme.payment_method_available_basket || []
             }

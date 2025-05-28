@@ -35,7 +35,6 @@ type PaymentStepProps = {
   ) => void;
   onPaymentSuccess: (callback?: () => void) => void;
   paymentGroupId: number;
-  paymentGroupPriceCts: number;
   paymentMethodChoices: any;
   paymentProcessing: boolean;
   ref: React.Ref<any>;
@@ -90,7 +89,6 @@ export const PaymentStep: React.FC<PaymentStepProps> = forwardRef(
       onSelectInstalmentPayment,
       onPaymentSuccess,
       paymentGroupId,
-      paymentGroupPriceCts,
       paymentMethodChoices,
       paymentProcessing,
       sepaDefaultEmail,
@@ -225,7 +223,6 @@ export const PaymentStep: React.FC<PaymentStepProps> = forwardRef(
             onSuccess={onPaymentSuccess}
             paymentEngine={paymentEngine}
             paymentGroupId={paymentGroupId}
-            paymentGroupPriceCts={paymentGroupPriceCts}
             paymentMethodChoices={paymentMethodChoices}
             paymentProcessing={paymentProcessing}
             selectedEstablishmentBillingGroup={

@@ -107,7 +107,6 @@ type Props = {
   ) => void;
   patchBasket: (basketAddress: BasketAddress, options: OptionCallback) => void;
   paymentGroupId: number;
-  paymentGroupPriceCts: number;
   paymentMethodChoices: Array<number>;
   paymentProcessing?: boolean;
   removeItemFromBasket: (
@@ -174,7 +173,6 @@ export const NewCheckoutFlow: React.FC<Props> = ({
   patchBasket,
   paymentEngine,
   paymentGroupId,
-  paymentGroupPriceCts,
   paymentMethodChoices,
   paymentProcessing,
   removeItemFromBasket,
@@ -450,7 +448,6 @@ export const NewCheckoutFlow: React.FC<Props> = ({
               patchBasket={patchBasket}
               paymentEngine={paymentEngine}
               paymentGroupId={paymentGroupId}
-              paymentGroupPriceCts={paymentGroupPriceCts}
               paymentMethodChoices={paymentMethodChoices}
               paymentProcessing={paymentProcessing}
               refreshBasket={refreshBasket}

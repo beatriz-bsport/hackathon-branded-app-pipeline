@@ -212,8 +212,6 @@ export class BasketPage extends React.Component<Props> {
   state = {
     clientSecret: null,
     paymentGroupId: null,
-    paymentGroupPriceCts: null,
-    customerSessionClientSecret: null,
     clientSecretLoading: false,
     paymentEngine: PAYMENT_ENGINE_STRIPE,
     nextPaymentIntentStatusCheckSeconds: 1.5,
@@ -366,8 +364,6 @@ export class BasketPage extends React.Component<Props> {
           this.setState({
             clientSecret: r.data.client_secret,
             paymentGroupId: r.data.payment_group,
-            paymentGroupPriceCts: r.data.price_cts,
-            customerSessionClientSecret: r.data.customer_session_id,
             clientSecretLoading: false,
           });
         }
@@ -634,7 +630,6 @@ export class BasketPage extends React.Component<Props> {
                 patchBasket={this.props.patchCurrentBasket}
                 paymentEngine={this.state.paymentEngine}
                 paymentGroupId={this.state.paymentGroupId}
-                paymentGroupPriceCts={this.state.paymentGroupPriceCts}
                 paymentMethodChoices={
                   this.props.theme.payment_method_available_basket || []
                 }

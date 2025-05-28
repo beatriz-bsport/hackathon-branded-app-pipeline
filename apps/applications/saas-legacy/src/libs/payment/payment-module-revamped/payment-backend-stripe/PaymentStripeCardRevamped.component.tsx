@@ -1,29 +1,11 @@
-import React, {
-  ChangeEvent,
-  forwardRef,
-  useCallback,
-  useContext,
-  useEffect,
-  useImperativeHandle,
-  useMemo,
-  useState,
-} from 'react';
-
+import React, { useImperativeHandle, forwardRef } from 'react';
 import clsx from 'clsx';
 import Immutable from 'seamless-immutable';
 import { useTranslation } from 'react-i18next';
-// eslint-disable-next-line bsport/no-redux-in-component
-import { useDispatch } from 'react-redux';
-
-import {
-  PaymentElement,
-  useElements,
-  useStripe,
-} from '@stripe/react-stripe-js';
-
+import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import { PAYMENT_GROUP_METHOD_IDENTIFIER_CB } from '@bsport/common/lib/master-data/payment-group.js';
 
-import { IconButton, isWidthDown } from '@material-ui/core';
+import { isWidthDown, IconButton } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import Button from '@material-ui/core/Button';
 import ButtonBase from '@material-ui/core/ButtonBase';
@@ -35,54 +17,37 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import Typography from '@material-ui/core/Typography';
 
-import Alert from '#Fabrique/Alert';
-
-import type { BillingDetails } from '#src/libs/marketplace/types';
 import type { OptionCallback } from '#src/state/types';
+import type { BillingDetails } from '#src/libs/marketplace/types';
 
-import PopOver from '#src/components/Popover';
+import CheckoutContext from '#src/pages/checkout/basket/CheckoutContext';
 import { useWidth } from '#src/hooks/useWidth';
-
-import { STRIPE_CARD_ERROR_CODES } from '#src/libs/payment/constants';
-import StripeErrorCode from '#src/libs/payment/components/payment-backend-stripe/StripeErrorCode.component';
 import CardBillingDetailsForm from '#src/libs/payment/components/payment-backend-stripe/CardBillingDetailsForm';
-import UseInternalAccountForm from '#src/libs/payment/components/UseInternalAccountForm.component';
 import PaymentMethodList from '#src/libs/payment/components/payment-method-list/PaymentMethodList.component';
-
+import PopOver from '#src/components/Popover';
+import StripeErrorCode from '#src/libs/payment/components/payment-backend-stripe/StripeErrorCode.component';
+import UseInternalAccountForm from '#src/libs/payment/components/UseInternalAccountForm.component';
 import {
   blockPendingBasket as blockPendingBasketAPI,
   updatePaymentMethodBillingDetails as updatePaymentMethodBillingDetailsAPI,
   verifyPriceBasket as verifyPriceBasketAPI,
 } from '#src/libs/payment/api';
-import { confirmStripePayment as confirmStripePaymentAction } from '#src/libs/payment/payment-module-revamped/actions';
-
 import { useMemberPaymentMethodListProvider } from '#src/libs/payment/payment-module-revamped/hooks/useMemberPaymentMethodListProvider';
-
-import CheckoutContext from '#src/pages/checkout/basket/CheckoutContext';
-import { StripeError } from '@stripe/stripe-js';
+import Alert from '#Fabrique/Alert';
 
 type Props = {
   AcceptTermsAndConditionsComponent?: React.Component;
   allowConsumerToUseInternalAccount?: boolean;
   applyBalanceLoading?: boolean;
-  applyBalanceToInvoice?: () => void;
   basketId?: string;
   basketTotalPriceCts?: number;
   cardBillingDetailsMandatory: boolean;
-  checkItemsBasket: (basketId: string) => Promise<boolean>;
   children?: React.ReactNode;
   clientSecret: string;
   companyCountry?: string;
   companyId?: number;
-  createPendingBookingsIfNecessary?: (data?: {
-    payment_group_method_identifier?: number;
-  }) => void;
   creditAccountBalance?: number | null;
   customClasses?: { [className: string]: string };
-  detachPaymentMethod: (
-    paymentMethodId: string,
-    options?: OptionCallback<unknown, number>,
-  ) => void;
   detachPaymentMethodLoading: boolean;
   forceButtonDisplay?: boolean;
   forceDisabled?: boolean;
@@ -90,22 +55,64 @@ type Props = {
   forceSave?: boolean;
   hasAddPaymentMethodPermission?: boolean;
   hideSaveForLater?: boolean;
-  invalidatePendingBookingsIfNecessary?: () => void;
   isEstablishmentBillingGroupSelected?: boolean;
   loading?: boolean;
   memberId: number;
-  onCancel: () => void;
-  onError?: () => void;
-  onSaveForLaterChange?: (event: ChangeEvent<HTMLInputElement>) => void;
-  onSuccess: (callback: () => void) => void;
-  paymentGroupId: number;
-  saveForLater: boolean;
-  setIsOnlinePaymentDisabled?: (isLoading: boolean) => void;
-  setPaymentProcessing?: (processing: boolean) => void;
   termsAndConditionsAccepted: boolean;
-  useInternalAccount?: (amount: number) => void;
   userDefaultEmail?: string;
   userDefaultName?: string;
+  applyBalanceToInvoice?: () => void;
+  checkItemsBasket: (basketId: string) => Promise<boolean>;
+  createPendingBookingsIfNecessary?: (data?: {
+    payment_group_method_identifier?: number;
+  }) => void;
+  invalidatePendingBookingsIfNecessary?: () => void;
+  detachPaymentMethod: (
+    paymentMethodId: string,
+    options?: OptionCallback,
+  ) => void;
+  onCancel: () => void;
+  onError?: () => void;
+  onSuccess: (callback: () => void) => void;
+  setIsOnlinePaymentDisabled?: (isLoading: boolean) => void;
+  setPaymentProcessing?: (processing: boolean) => void;
+  useInternalAccount?: (amount: number) => void;
+};
+
+const CARD_ELEMENT_OPTIONS = {
+  hidePostalCode: true,
+  style: {
+    base: {
+      fontSmoothing: 'antialiased',
+      fontSize: '16px',
+      '::placeholder': {
+        color: '#888',
+      },
+    },
+    invalid: {
+      color: '#fa755a',
+      iconColor: '#fa755a',
+    },
+  },
+};
+
+const CardSection = (props: { error: any }) => {
+  const classes = useStyles();
+  return (
+    <React.Fragment>
+      <div className={classes.cardSectionContainer}>
+        <CardElement options={CARD_ELEMENT_OPTIONS} />
+      </div>
+      {!!props.error && (
+        <div style={{ margin: 8 }}>
+          <StripeErrorCode
+            declineCode={props.error.decline_code}
+            errorCode={props.error.error_code}
+          />
+        </div>
+      )}
+    </React.Fragment>
+  );
 };
 
 const PaymentStripeCardRevamped = forwardRef(
@@ -114,19 +121,15 @@ const PaymentStripeCardRevamped = forwardRef(
       AcceptTermsAndConditionsComponent,
       allowConsumerToUseInternalAccount,
       applyBalanceLoading,
-      applyBalanceToInvoice,
       basketId,
       basketTotalPriceCts,
       cardBillingDetailsMandatory,
-      checkItemsBasket,
       children,
       clientSecret,
       companyCountry,
       companyId,
       creditAccountBalance,
-      createPendingBookingsIfNecessary,
       customClasses,
-      detachPaymentMethod,
       detachPaymentMethodLoading,
       forceButtonDisplay,
       forceDisabled,
@@ -134,41 +137,40 @@ const PaymentStripeCardRevamped = forwardRef(
       forceSave,
       hasAddPaymentMethodPermission = true,
       hideSaveForLater,
-      invalidatePendingBookingsIfNecessary,
       isEstablishmentBillingGroupSelected,
       loading,
       memberId,
-      onCancel,
-      onError,
-      onSaveForLaterChange,
-      onSuccess,
-      paymentGroupId,
-      saveForLater,
-      setIsOnlinePaymentDisabled,
-      setPaymentProcessing,
       termsAndConditionsAccepted,
-      useInternalAccount,
       userDefaultEmail,
       userDefaultName,
+      applyBalanceToInvoice,
+      checkItemsBasket,
+      createPendingBookingsIfNecessary,
+      invalidatePendingBookingsIfNecessary,
+      detachPaymentMethod,
+      onCancel,
+      onError,
+      onSuccess,
+      setIsOnlinePaymentDisabled,
+      setPaymentProcessing,
+      useInternalAccount,
     }: Props,
     ref,
   ) => {
-    const isCheckoutContext = useContext(CheckoutContext);
     const classes = useStyles();
     const { t } = useTranslation(['invoice', 'payment']);
-    const dispatch = useDispatch();
 
     const stripe = useStripe();
     const elements = useElements();
 
-    const [processing, setProcessing] = useState(false);
-    const [error, setError] = useState<StripeError | undefined>(undefined);
-    const [paymentMethodSelected, setPaymentMethodSelected] = useState<
-      string | undefined
-    >(undefined);
-    const [isAddingPaymentMethod, setIsAddingPaymentMethod] = useState(false);
+    const [processing, setProcessing] = React.useState(false);
+    const [error, setError] = React.useState(null);
+    const [saveForLater, setSaveForLater] = React.useState(false);
+    const [paymentMethodSelected, setPaymentMethodSelected] =
+      React.useState<string>(null);
+    const [addPaymentMethod, setAddPaymentMethod] = React.useState(false);
     const [isPaymentSecurityInfoDisplayed, setIsPaymentSecurityInfoDisplayed] =
-      useState(false);
+      React.useState(false);
 
     const {
       isPaymentMethodListLoading,
@@ -181,7 +183,7 @@ const PaymentStripeCardRevamped = forwardRef(
       memberId,
     });
 
-    const paymentMethodList = useMemo(
+    const paymentMethodList = React.useMemo(
       () =>
         paymentMethodListAll.filter(
           (paymentMethod) => paymentMethod.type === 'card',
@@ -189,7 +191,7 @@ const PaymentStripeCardRevamped = forwardRef(
       [paymentMethodListAll],
     );
 
-    const defaultBillingDetailsValues = useMemo(() => {
+    const defaultBillingDetailsValues = React.useMemo(() => {
       return Immutable({
         name: userDefaultName || '',
         address: {
@@ -204,11 +206,13 @@ const PaymentStripeCardRevamped = forwardRef(
       });
     }, [userDefaultName, userDefaultEmail, companyCountry]);
 
-    const [billingDetails, setBillingDetails] = useState<BillingDetails>(
+    const [billingDetails, setBillingDetails] = React.useState<BillingDetails>(
       defaultBillingDetailsValues,
     );
 
-    const setPaymentPageProcessing = useCallback(
+    const isCheckoutContext = React.useContext(CheckoutContext);
+
+    const setPaymentPageProcessing = React.useCallback(
       (process) => {
         if (setPaymentProcessing) {
           setPaymentProcessing(process);
@@ -218,22 +222,38 @@ const PaymentStripeCardRevamped = forwardRef(
       [setPaymentProcessing, setProcessing],
     );
 
-    useEffect(() => {
+    React.useEffect(() => {
       handleFetchMemberPaymentMethodList();
       return resetPaymentMethodList;
     }, [handleFetchMemberPaymentMethodList, resetPaymentMethodList]);
 
-    const paymentMethodSelectedBillingDetails: BillingDetails = useMemo(() => {
-      if (paymentMethodSelected) {
-        return paymentMethodList.find(
-          (paymentMethod) => paymentMethod.id === paymentMethodSelected,
-        )?.billing_details as BillingDetails;
+    const paymentMethodSelectedBillingDetails: BillingDetails =
+      React.useMemo(() => {
+        if (paymentMethodSelected) {
+          return paymentMethodList.find(
+            (paymentMethod) => paymentMethod.id === paymentMethodSelected,
+          )?.billing_details;
+        }
+        return defaultBillingDetailsValues;
+      }, [
+        paymentMethodSelected,
+        paymentMethodList,
+        defaultBillingDetailsValues,
+      ]);
+
+    // Note that a client saving a payment method doesn't mean that they
+    // want this payment method to be used for off-session payments so we have to think
+    // about this. Setting off_session increases the number of 3DS required for card payments
+    // Issue: https://gitlab.com/bsport/bsport-saas/-/issues/2101
+    const setup_future_usage = React.useMemo(() => {
+      if (saveForLater || forceSave) {
+        return 'off_session';
       }
-      return defaultBillingDetailsValues;
-    }, [paymentMethodSelected, paymentMethodList, defaultBillingDetailsValues]);
+      return null;
+    }, [saveForLater, forceSave]);
 
     // Whenever the paymentMethod changes, we change the state of the billing details
-    useEffect(() => {
+    React.useEffect(() => {
       if (paymentMethodSelected) {
         setBillingDetails(paymentMethodSelectedBillingDetails);
       } else {
@@ -245,46 +265,46 @@ const PaymentStripeCardRevamped = forwardRef(
       paymentMethodSelectedBillingDetails,
     ]);
 
-    useEffect(() => {
+    React.useEffect(() => {
       if (
         paymentMethodList?.length &&
         !paymentMethodSelected &&
         hasFetchedPaymentMethodList &&
-        !isAddingPaymentMethod
+        !addPaymentMethod
       ) {
         setPaymentMethodSelected(paymentMethodList[0].id);
         setBillingDetails(paymentMethodSelectedBillingDetails);
       } else if (!paymentMethodList?.length && hasFetchedPaymentMethodList) {
         setBillingDetails(defaultBillingDetailsValues);
-        setIsAddingPaymentMethod(true);
+        setAddPaymentMethod(true);
       }
     }, [
-      defaultBillingDetailsValues,
-      hasFetchedPaymentMethodList,
-      isAddingPaymentMethod,
       paymentMethodList,
-      paymentMethodSelected,
+      hasFetchedPaymentMethodList,
       paymentMethodSelectedBillingDetails,
+      paymentMethodSelected,
+      addPaymentMethod,
+      defaultBillingDetailsValues,
     ]);
 
-    const handleDetachPaymentMethod = useCallback(
+    const handleDetachPaymentMethod = React.useCallback(
       (paymentMethod) => {
         detachPaymentMethod(paymentMethod, {
           onSuccess: () => {
-            setPaymentMethodSelected(undefined);
+            setPaymentMethodSelected(null);
           },
         });
       },
       [detachPaymentMethod],
     );
 
-    useEffect(() => {
-      if (isAddingPaymentMethod) {
-        setPaymentMethodSelected(undefined);
+    React.useEffect(() => {
+      if (addPaymentMethod) {
+        setPaymentMethodSelected(null);
       }
-    }, [isAddingPaymentMethod]);
+    }, [addPaymentMethod]);
 
-    const areSpecificBillingDetailsProvided = useCallback(
+    const areSpecificBillingDetailsProvided = React.useCallback(
       (specificBillingDetails: BillingDetails) => {
         return (
           !!specificBillingDetails?.name &&
@@ -319,16 +339,14 @@ const PaymentStripeCardRevamped = forwardRef(
 
     // This useEffect is required in the new checkout flow, in order to disable the 'Pay Now' button
     // if needed
-    useEffect(() => {
+    React.useEffect(() => {
       if (setIsOnlinePaymentDisabled)
         setIsOnlinePaymentDisabled(isSubmitButtonDisabled);
     }, [isSubmitButtonDisabled, setIsOnlinePaymentDisabled]);
 
-    const handleSubmit = useCallback(
+    const handleSubmit = React.useCallback(
       async (event: React.FormEvent<HTMLFormElement>) => {
         setPaymentPageProcessing(true);
-        setError(undefined);
-        elements?.submit();
 
         // We don't want to let default form submission happen here,
         // which would refresh the page.
@@ -387,84 +405,76 @@ const PaymentStripeCardRevamped = forwardRef(
             });
           }
 
-          const url = new URL(window.location.toString());
-          const params = url.searchParams;
-          params.delete('user_registration_response');
-          params.set('check_payment_intent', 'true');
-          params.set('get_user_registration_from_storage', 'true');
+          //@ts-expect-error
+          const result = await stripe.confirmCardPayment(clientSecret, {
+            payment_method: paymentMethodSelected || {
+              card: elements.getElement(CardElement),
+              ...(cardBillingDetailsMandatory
+                ? { billing_details: billingDetails }
+                : {}),
+            },
+            ...(setup_future_usage ? { setup_future_usage } : {}),
+          });
 
-          if (basketId) {
-            // Include the current basket id in the return URL, so that the basket page keeps track
-            // of it after the redirection
-            params.set('basket_redirection', basketId);
+          if (result.error) {
+            // Show error to your customer (e.g., insufficient funds)
+            setError(result.error);
+            setPaymentPageProcessing(false);
+            invalidatePendingBookingsIfNecessary?.();
+            if (onError) onError();
+          } else {
+            // The payment has been processed!
+            if (basketId) {
+              try {
+                /**
+                 * This API call is intentionally not moved to a Redux action because:
+                 * 1. It might be executed within the context of a checkout process, specifically inside the marketplace
+                 * or in an iframe widget. Thus, we don't need to make authenticated call from the widget.
+                 * 2. The data returned by this API call does not need to be stored or managed within the Redux store.
+                 * Therefore, keeping the API call local to this context is more appropriate and efficient.
+                 */
+                await blockPendingBasketAPI(basketId);
+              } catch (err) {
+                console.error(err);
+              }
+            }
+            setError(null);
+
+            if (result.paymentIntent.status === 'succeeded') {
+              // Show a success message to your customer
+              // There's a risk of the customer closing the window before callback
+              // execution. Set up a webhook or plugin to listen for the
+              // payment_intent.succeeded event that handles any business critical
+              // post-payment actions.
+              if (onSuccess) {
+                onSuccess(() => setPaymentPageProcessing(false));
+              }
+            }
           }
-
-          dispatch(
-            confirmStripePaymentAction(
-              {
-                saveForLater: saveForLater || forceSave,
-                paymentGroupId,
-                stripe,
-                elements,
-                clientSecret,
-                shouldConfirmCardPayment:
-                  !isAddingPaymentMethod && !!paymentMethodList?.length,
-                paymentMethodSelected,
-                billingDetails,
-                cardBillingDetailsMandatory,
-              },
-              {
-                onPaymentError: (err) => {
-                  setError(err);
-                  setPaymentPageProcessing(false);
-                  invalidatePendingBookingsIfNecessary?.();
-                  onError?.();
-                },
-                onPaymentSuccess: async (paymentIntent) => {
-                  if (basketId) {
-                    try {
-                      await blockPendingBasketAPI(basketId);
-                    } catch (err) {
-                      console.error(err);
-                    }
-                  }
-
-                  if (paymentIntent.status === 'succeeded' && onSuccess) {
-                    onSuccess(() => setPaymentPageProcessing(false));
-                  }
-                },
-              },
-            ),
-          );
         } catch (err) {
           console.error(err);
         }
       },
       [
-        areInitialBillingDetailsNecessary,
         basketId,
         basketTotalPriceCts,
         billingDetails,
-        cardBillingDetailsMandatory,
         checkItemsBasket,
         clientSecret,
         companyId,
         createPendingBookingsIfNecessary,
-        dispatch,
         elements,
-        forceSave,
-        invalidatePendingBookingsIfNecessary,
-        isAddingPaymentMethod,
-        memberId,
         onError,
         onSuccess,
-        paymentGroupId,
-        paymentMethodList?.length,
         paymentMethodSelected,
-        saveForLater,
         setPaymentPageProcessing,
+        invalidatePendingBookingsIfNecessary,
         stripe,
         t,
+        areInitialBillingDetailsNecessary,
+        memberId,
+        cardBillingDetailsMandatory,
+        setup_future_usage,
       ],
     );
 
@@ -480,7 +490,7 @@ const PaymentStripeCardRevamped = forwardRef(
       [handleSubmit],
     );
 
-    const defineSelectedPaymentMethod = useCallback(
+    const defineSelectedPaymentMethod = React.useCallback(
       (id: string) => {
         if (id !== paymentMethodSelected) {
           setPaymentMethodSelected(id);
@@ -489,22 +499,29 @@ const PaymentStripeCardRevamped = forwardRef(
       [paymentMethodSelected],
     );
 
-    const startAddingPaymentMethod = useCallback(
-      () => setIsAddingPaymentMethod(true),
+    const onSaveForLaterChange = React.useCallback(
+      (ev: React.ChangeEvent<HTMLInputElement>) => {
+        setSaveForLater(ev?.target?.checked ?? false);
+      },
       [],
     );
 
-    const stopAddingPaymentMethod = useCallback(
-      () => setIsAddingPaymentMethod(false),
+    const startAddingPaymentMethod = React.useCallback(
+      () => setAddPaymentMethod(true),
       [],
     );
 
-    const onPaymentMethodSelect = useCallback(
+    const stopAddingPaymentMethod = React.useCallback(
+      () => setAddPaymentMethod(false),
+      [],
+    );
+
+    const onPaymentMethodSelect = React.useCallback(
       (id: string) => defineSelectedPaymentMethod(id),
       [defineSelectedPaymentMethod],
     );
 
-    const OnInfoRequest = useCallback(
+    const OnInfoRequest = React.useCallback(
       () => setIsPaymentSecurityInfoDisplayed(!isPaymentSecurityInfoDisplayed),
       [isPaymentSecurityInfoDisplayed],
     );
@@ -533,18 +550,18 @@ const PaymentStripeCardRevamped = forwardRef(
             <Typography variant="h6">
               {t(
                 `payment:forms.savePaymentMethod.${
-                  isAddingPaymentMethod ? 'add' : 'select'
+                  addPaymentMethod ? 'add' : 'select'
                 }`,
               )}
             </Typography>
-            {isAddingPaymentMethod && cardBillingDetailsMandatory && (
+            {addPaymentMethod && cardBillingDetailsMandatory && (
               <CardBillingDetailsForm
                 billingDetails={billingDetails}
                 disabled={!stripe || !clientSecret || processing}
                 setBillingDetails={setBillingDetails}
               />
             )}
-            {isAddingPaymentMethod && (
+            {addPaymentMethod && (
               <>
                 {!hasAddPaymentMethodPermission ? (
                   <Typography>
@@ -554,24 +571,7 @@ const PaymentStripeCardRevamped = forwardRef(
                   </Typography>
                 ) : (
                   <div>
-                    <div className={classes.cardSectionContainer}>
-                      <PaymentElement
-                        options={{
-                          layout: 'tabs',
-                          defaultValues: { billingDetails },
-                        }}
-                      />
-                      {error &&
-                        error.code &&
-                        !STRIPE_CARD_ERROR_CODES.includes(error.code) &&
-                        !STRIPE_CARD_ERROR_CODES.includes(
-                          error.decline_code!,
-                        ) && (
-                          <Typography color="error" variant="caption">
-                            {error.message}
-                          </Typography>
-                        )}
-                    </div>
+                    <CardSection error={error} />
                     <div
                       className={clsx(
                         classes.saveAndDisplay,
@@ -661,18 +661,15 @@ const PaymentStripeCardRevamped = forwardRef(
                 )}
               </>
             )}
-            {!isAddingPaymentMethod &&
-              !!error &&
-              error.decline_code &&
-              error.code && (
-                <div style={{ margin: 8 }}>
-                  <StripeErrorCode
-                    declineCode={error.decline_code}
-                    errorCode={error.code}
-                  />
-                </div>
-              )}
-            {!isAddingPaymentMethod && !!paymentMethodList?.length && (
+            {!addPaymentMethod && !!error && (
+              <div style={{ margin: 8 }}>
+                <StripeErrorCode
+                  declineCode={error.decline_code}
+                  errorCode={error.error_code}
+                />
+              </div>
+            )}
+            {!addPaymentMethod && !!paymentMethodList?.length && (
               <div>
                 <PaymentMethodList
                   areInitialBillingDetailsNecessary={
@@ -778,7 +775,6 @@ const PaymentStripeCardRevamped = forwardRef(
     );
   },
 );
-
 const useStyles = makeStyles((theme) => ({
   cardSectionContainer: {
     marginTop: theme.spacing(2),

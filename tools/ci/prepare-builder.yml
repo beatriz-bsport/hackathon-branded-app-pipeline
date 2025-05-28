@@ -26,9 +26,21 @@ Prepare Builder:
     DOCKER_DRIVER: overlay2
     DOCKER_HOST: tcp://docker:2375
     TAG: "$CI_COMMIT_REF_SLUG"
+  before_script:
+    - | # Ensure Docker is ready before proceeding: https://gitlab.com/gitlab-org/gitlab/-/issues/24197
+      max_attempts=60
+      counter=0
+      while [ $counter -lt $max_attempts ]; do
+        echo "try run \"docker info\" (attempt $counter of $max_attempts)" && docker info && break
+        counter=$((counter + 1))
+        sleep 1
+      done
+
+      if [ $counter -eq $max_attempts ]; then
+        echo "Docker not ready after ${max_attempts} attempts. Exiting..."
+        exit 1
+      fi
   script:
-    # Wait for Docker service to be up and running
-    - sleep 10 # Mitigates race condition with Docker service initialization (cf issue 478)
     # Authenticate with AWS ECR
     - echo "Authenticating to AWS ECR..."
     - aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin $REGISTRY_ENDPOINT

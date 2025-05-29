@@ -22,7 +22,6 @@ import {
 const defaultClasses = [
   "fixed",
   "z-[999]",
-  "min-w-component-popover-min",
   "rounded-sm",
   "p-xs",
   "gap-xs",
@@ -114,14 +113,26 @@ const Anchor: React.FC<{
  * @param className Additional classes to apply to the Content.
  * @param children Node(s) to render inside the Content.
  * @param placement The position of the Popover relative to the Anchor.
+ * @param maxHeightPx The maximum height of the Popover content in pixels.
+ * @param focusedMenuItemIndex The index of the currently focused Menu Item when the Popover opens.
  */
 const Content: React.FC<{
   className?: string;
   children: (props: {
     setIsPopoverOpened: React.Dispatch<React.SetStateAction<boolean>>;
+    isPopoverOpened: boolean;
+    contentRef: React.RefObject<HTMLDivElement>;
   }) => ReactNode;
   placement?: (typeof Placements)[number];
-}> = ({ className, children, placement = "bottom-left" }) => {
+  maxHeightPx?: number;
+  focusedMenuItemIndex?: number;
+}> = ({
+  className,
+  children,
+  placement = "bottom-left",
+  maxHeightPx,
+  focusedMenuItemIndex,
+}) => {
   const { isPopoverOpened, setIsPopoverOpened, anchorRef } =
     useContext(PopoverContext);
 
@@ -143,7 +154,7 @@ const Content: React.FC<{
       setIsMounted(false);
       setIsPopoverOpened(false);
     }, 200);
-  }, []);
+  }, [setIsPopoverOpened]);
 
   useEffect(() => {
     if (isPopoverOpened) {
@@ -154,7 +165,7 @@ const Content: React.FC<{
     } else {
       handleClose();
     }
-  }, [isPopoverOpened, handleClose]);
+  }, [isPopoverOpened, handleClose, focusedMenuItemIndex]);
 
   // Handle Tab key press and close popover when tabbing out of the last option
   const handleKeyDown = useCallback(
@@ -193,7 +204,7 @@ const Content: React.FC<{
   // Use "dialog" role if content is interactive, "tooltip" otherwise.
   const content =
     typeof children === "function"
-      ? children({ setIsPopoverOpened })
+      ? children({ setIsPopoverOpened, isPopoverOpened, contentRef })
       : children;
   const hasInteractiveContent = (node: ReactNode): boolean => {
     if (isValidElement(node)) {
@@ -227,12 +238,16 @@ const Content: React.FC<{
       tabIndex={-1}
       className={classNames(defaultClasses, className, {
         "top-0 left-0 opacity-transparent": !isVisible,
+        "overflow-y-scroll": !!maxHeightPx,
       })}
       role={role}
       aria-hidden={!isMounted}
       onKeyDown={handleKeyDown}
       ref={contentRef}
-      style={placementStyles}
+      style={{
+        ...placementStyles,
+        ...(maxHeightPx ? { maxHeight: `${maxHeightPx}px` } : {}),
+      }}
       data-popover="true"
     >
       {content}

@@ -42,6 +42,7 @@ export const inputTypes = [
   "search",
   "tel",
   "text",
+  "time",
 ] as const;
 
 export type TextFieldPrefixSuffix =
@@ -252,16 +253,19 @@ const TextField: React.FC<TextFieldProps> = ({
               {...props}
               {...colorInputProps}
             />
-            {type !== "number" && type !== "color" && value && (
-              <Button
-                iconLeft="x-close"
-                size="sm"
-                intent="flat"
-                color="default"
-                onClick={onClear}
-                className="text-onsurface-weak"
-              />
-            )}
+            {type !== "number" &&
+              type !== "color" &&
+              type !== "time" &&
+              value && (
+                <Button
+                  iconLeft="x-close"
+                  size="sm"
+                  intent="flat"
+                  color="default"
+                  onClick={onClear}
+                  className="text-onsurface-weak"
+                />
+              )}
             {iconRight && (
               <div className="text-onsurface-weak">
                 <Icon icon={iconRight} size="sm" />

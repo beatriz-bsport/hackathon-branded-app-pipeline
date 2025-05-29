@@ -35,7 +35,7 @@ const variants = {
     positive: ["shadow-border-thin-positive"],
   },
   disabled: {
-    true: ["opacity-md", "pointer-events-none"],
+    true: ["opacity-sm", "pointer-events-none"],
     false: [],
   },
 } as const;
@@ -130,92 +130,96 @@ const Select: React.FC<SelectProps> = ({
   );
 
   return (
-    <Popover className="flex flex-col gap-2xs">
-      <Popover.Anchor>
-        {({ isPopoverOpened, setIsPopoverOpened }) => {
-          const handleButtonClick = () => setIsPopoverOpened((prev) => !prev);
+    <div className="flex flex-col gap-2xs">
+      <Popover>
+        <Popover.Anchor>
+          {({ isPopoverOpened, setIsPopoverOpened }) => {
+            const handleButtonClick = () => setIsPopoverOpened((prev) => !prev);
 
-          const handleKeyDown = (e: KeyboardEvent<HTMLButtonElement>) => {
-            if (["ArrowDown", "Enter", " "].includes(e.key)) {
-              e.preventDefault();
-              setIsPopoverOpened((prev) => !prev);
-            }
-          };
+            const handleKeyDown = (e: KeyboardEvent<HTMLButtonElement>) => {
+              if (["ArrowDown", "Enter", " "].includes(e.key)) {
+                e.preventDefault();
+                setIsPopoverOpened((prev) => !prev);
+              }
+            };
 
-          return (
-            <>
-              {/* Invisible input to support form submission */}
-              <input
-                type="hidden"
-                name={name || id}
-                value={selectedValue || undefined}
-              />
+            return (
+              <>
+                {/* Invisible input to support form submission */}
+                <input
+                  type="hidden"
+                  name={name || id}
+                  value={selectedValue || undefined}
+                />
 
-              <button
-                className={classNames(
-                  select({ className, size, status, disabled }),
-                  {
-                    "shadow-focused": isPopoverOpened,
-                    "shadow-action-default-rest hover:shadow-action-default-hovered":
-                      !isPopoverOpened,
-                  },
-                )}
-                onClick={handleButtonClick}
-                onKeyDown={handleKeyDown}
-                aria-haspopup="listbox"
-                aria-expanded={isPopoverOpened}
-                aria-controls={`${id}-listbox`}
-                id={id}
-                disabled={disabled}
-                {...props}
-              >
-                {iconLeft && <Icon icon={iconLeft} size="sm" />}
-                <span
-                  className={classNames("w-full text-left leading-xs", {
-                    "text-body-md": size === "sm",
-                    "text-body-lg": size === "md",
-                  })}
+                <button
+                  className={classNames(
+                    select({ className, size, status, disabled }),
+                    {
+                      "shadow-focused": isPopoverOpened,
+                      "shadow-action-default-rest hover:shadow-action-default-hovered":
+                        !isPopoverOpened,
+                    },
+                  )}
+                  onClick={handleButtonClick}
+                  onKeyDown={handleKeyDown}
+                  aria-haspopup="listbox"
+                  aria-expanded={isPopoverOpened}
+                  aria-controls={`${id}-listbox`}
+                  id={id}
+                  disabled={disabled}
+                  {...props}
                 >
-                  {selectedValue}
-                </span>
-                <Icon icon="chevron-down" size="sm" />
-              </button>
-            </>
-          );
-        }}
-      </Popover.Anchor>
-      <Popover.Content placement={popoverPlacement}>
-        {({ setIsPopoverOpened }) => (
-          <Menu
-            items={items}
-            disabled={disabled || false}
-            onSelectOption={(optionId) => {
-              handleSelect(optionId);
-              setIsPopoverOpened(false);
-            }}
-            aria-labelledby={id}
-          />
-        )}
-      </Popover.Content>
+                  {iconLeft && <Icon icon={iconLeft} size="sm" />}
+                  <span
+                    className={classNames("w-full text-left leading-xs", {
+                      "text-body-md": size === "sm",
+                      "text-body-lg": size === "md",
+                    })}
+                  >
+                    {selectedValue}
+                  </span>
+                  <Icon icon="chevron-down" size="sm" />
+                </button>
+              </>
+            );
+          }}
+        </Popover.Anchor>
+        <Popover.Content placement={popoverPlacement}>
+          {({ setIsPopoverOpened }) => (
+            <Menu
+              items={items}
+              disabled={disabled || false}
+              onSelectOption={(optionId) => {
+                handleSelect(optionId);
+                setIsPopoverOpened(false);
+              }}
+              aria-labelledby={id}
+            />
+          )}
+        </Popover.Content>
+      </Popover>
 
-      <div>
-        {helperText && (
-          <Body htmlVariant="p" size="sm" color="weak">
-            {helperText}
-          </Body>
-        )}
-        {errorText && (
-          <Body
-            htmlVariant="p"
-            size="sm"
-            color="inherit"
-            className="text-onsurface-status-critical-strong"
-          >
-            {errorText}
-          </Body>
-        )}
-      </div>
-    </Popover>
+      {(helperText || errorText) && (
+        <div>
+          {helperText && (
+            <Body htmlVariant="p" size="sm" color="weak">
+              {helperText}
+            </Body>
+          )}
+          {errorText && (
+            <Body
+              htmlVariant="p"
+              size="sm"
+              color="inherit"
+              className="text-onsurface-status-critical-strong"
+            >
+              {errorText}
+            </Body>
+          )}
+        </div>
+      )}
+    </div>
   );
 };
 

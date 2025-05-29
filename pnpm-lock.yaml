@@ -1312,6 +1312,9 @@ importers:
       '@bsport/sm-backbone':
         specifier: workspace:*
         version: link:../../../../../packages/utils/sm-backbone
+      '@bsport/store-cdp-sequential-marketing':
+        specifier: workspace:*
+        version: link:../../../../../packages/stores/cdp/sequential-marketing
       '@bsport/store-cdp-smartlist':
         specifier: workspace:*
         version: link:../../../../../packages/stores/cdp/smartlist

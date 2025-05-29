@@ -66,3 +66,9 @@ export const duplicateSmartlistAPI = (
     },
   ];
 };
+
+export const fetchCadencesInSmartlistAPI = (
+  params: GeneralSmartlistParams,
+): ApiConfig => {
+  return [`${API_URL}/group/${params.id}/cadences_in/`];
+};

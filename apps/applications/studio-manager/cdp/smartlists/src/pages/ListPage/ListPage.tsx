@@ -9,6 +9,7 @@ import type {
 
 import { useSmartlists } from "#src/api/use-smartlists";
 import { CreateSmartlistModal } from "#src/components/CreateSmartlistModal";
+import { DeleteModal } from "#src/components/DeleteModal";
 import { DuplicateModal } from "#src/components/DuplicateModal";
 import { EditSmartlistModal } from "#src/components/EditSmartlistModal";
 import { Loading } from "#src/components/Loading";
@@ -49,41 +50,41 @@ const ListPage: React.FC = () => {
   const [currentSmartlist, setCurrentSmartlist] = useState<Smartlist | null>(
     null,
   );
-  const resetCurrentSmartlist = () => {
+  const closeModal = () => {
     setCurrentSmartlist(null);
     setCurrentInlineAction("none");
   };
 
   const { duplicateSmartlist } = useDuplicate({
     onSuccess: () => {
-      resetCurrentSmartlist();
+      closeModal();
       refetch();
     },
     onFailure: () => {
-      resetCurrentSmartlist();
+      closeModal();
     },
   });
 
   const { createSmartlist, isCreating } = useCreate({
     onSuccess: () => {
-      resetCurrentSmartlist();
+      closeModal();
       refetch();
     },
     onFailure: () => {
-      resetCurrentSmartlist();
+      closeModal();
     },
   });
 
   const { editSmartlist, isEditing } = useEdit({
     onSuccess: () => {
-      resetCurrentSmartlist();
+      closeModal();
       refetch();
     },
     onFailure: () => {
-      resetCurrentSmartlist();
+      closeModal();
     },
     onUndo: () => {
-      resetCurrentSmartlist();
+      closeModal();
       refetch();
     },
   });
@@ -164,6 +165,11 @@ const ListPage: React.FC = () => {
                   setCurrentInlineAction("duplicate");
                 };
 
+                const handleDelete = () => {
+                  setCurrentSmartlist(smartlist);
+                  setCurrentInlineAction("delete");
+                };
+
                 return {
                   id: smartlist.id.toString(),
                   title: smartlist.name,
@@ -209,6 +215,7 @@ const ListPage: React.FC = () => {
                         label: t("inlineActions.delete"),
                         placement: "bottom-right",
                       },
+                      onClick: handleDelete,
                     },
                   ],
                 };
@@ -255,7 +262,7 @@ const ListPage: React.FC = () => {
         {currentSmartlist !== null && currentInlineAction === "duplicate" ? (
           <DuplicateModal
             isOpen
-            onClose={resetCurrentSmartlist}
+            onClose={closeModal}
             onDuplicate={onDuplicateSmartlist}
             smartlist={currentSmartlist}
           />
@@ -263,7 +270,7 @@ const ListPage: React.FC = () => {
         {currentSmartlist !== null && currentInlineAction === "edit" ? (
           <EditSmartlistModal
             isOpen
-            onClose={resetCurrentSmartlist}
+            onClose={closeModal}
             onEdit={onEditSmartlist}
             smartlist={currentSmartlist}
             isEditing={isEditing}
@@ -272,9 +279,17 @@ const ListPage: React.FC = () => {
         {currentInlineAction === "create" ? (
           <CreateSmartlistModal
             isOpen
-            onClose={resetCurrentSmartlist}
+            onClose={closeModal}
             onCreate={onCreateSmartlist}
             isCreating={isCreating}
+          />
+        ) : null}
+        {currentSmartlist !== null && currentInlineAction === "delete" ? (
+          <DeleteModal
+            isOpen
+            onClose={closeModal}
+            onDelete={refetch}
+            smartlist={currentSmartlist}
           />
         ) : null}
       </ListLayout.Content>

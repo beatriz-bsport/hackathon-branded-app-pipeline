@@ -7,6 +7,7 @@ import {
   deleteSmartlistAPI,
   duplicateSmartlistAPI,
   editSmartlistAPI,
+  fetchCadencesInSmartlistAPI,
   fetchSearchSmartlistsAPI,
   fetchSmartlistsAPI,
 } from "#src/api";
@@ -226,5 +227,28 @@ export const duplicateSmartlistAction: Action<
       return data;
     },
     (error) => new Error("Failed to duplicate smartlist", { cause: error }),
+  );
+};
+
+/**
+ * Fetches cadences in a smartlist
+ * @param fetch - Fetch function to use for the API call
+ * @param id - ID of the smartlist to fetch cadences for
+ * @returns A Result containing the fetched cadences or an error
+ */
+export const fetchCadencesInSmartlistAction: Action<
+  GeneralSmartlistParams,
+  number[]
+> = async (fetch, id) => {
+  const [uri, init] = fetchCadencesInSmartlistAPI(id);
+
+  return Result.try(
+    async () => {
+      const { data } = await fetch(uri, init);
+
+      return data;
+    },
+    (error) =>
+      new Error("Failed to fetch cadences in smartlist", { cause: error }),
   );
 };

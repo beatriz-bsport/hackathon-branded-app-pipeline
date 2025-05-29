@@ -644,19 +644,29 @@
         "editAfter": "You can edit the smartlist afterwards.",
         "buttons": { "duplicate": "Duplicate", "cancel": "Cancel" }
       },
+      "deleteModal": {
+        "title": "Delete Smartlist",
+        "description": "Do you want to delete <b>{{name}}</b>?",
+        "warning": "This will stop any upcoming actions, like scheduled messages or automatic tagging. Previously tagged members won't be affected.",
+        "audienceWarning": "This Smartlist is currently used in the following Audience workflows and can’t be deleted:",
+        "audienceWarningCallToAction": "To delete this Smartlist, remove it from the workflows above and try again.",
+        "buttons": { "delete": "Delete", "cancel": "Cancel" }
+      },
       "toasts": {
         "success": {
           "duplicated": "Your smartlist was duplicated",
           "open": "Open",
           "saved": "Your smartlist revisions have been saved",
           "created": "Your smartlist has been created",
+          "deleted": "Your smartlist was deleted",
           "undo": "Undo",
           "actionUndone": "Action undone"
         },
         "error": {
           "duplicateFailed": "Something went wrong while duplicating the smartlist. Please try again.",
           "updateFailed": "Something went wrong while updating the smartlist. Please try again.",
-          "createFailed": "Something went wrong while creating the smartlist. Please try again."
+          "createFailed": "Something went wrong while creating the smartlist. Please try again.",
+          "deleteFailed": "Something went wrong while deleting the smartlist. Please try again."
         }
       },
       "inlineActions": {

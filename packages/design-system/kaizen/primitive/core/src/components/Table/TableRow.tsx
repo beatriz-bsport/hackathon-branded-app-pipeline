@@ -1,6 +1,8 @@
 import classNames from "classnames";
 import React, { useCallback, useMemo } from "react";
 
+import { getCurrencyDisplayWithPrice } from "@bsport/currency";
+
 import Avatar from "#src/components/Avatar";
 import Body from "#src/components/Body";
 import Checkbox from "#src/components/Checkbox";
@@ -60,6 +62,12 @@ const TableRow = withLink(
               <Body htmlVariant="span" size="md">
                 {new Intl.NumberFormat().format(value as number)}
               </Body>
+            ) : col.type === "price" ? (
+              <Body htmlVariant="span" size="md">
+                {typeof value === "number" && !isNaN(value)
+                  ? getCurrencyDisplayWithPrice(value as number)
+                  : "-"}
+              </Body>
             ) : col.type === "date" ? (
               <Body htmlVariant="span" size="md">
                 {new Intl.DateTimeFormat("default", {
@@ -117,7 +125,7 @@ const TableRow = withLink(
             </TableCell>
           );
         }),
-      [columns, row, selected, rowHeight, withVerticalBorders],
+      [columns, row, rowHeight, selectable, withVerticalBorders],
     );
 
     return (

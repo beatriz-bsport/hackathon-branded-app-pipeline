@@ -81,7 +81,8 @@ const rows: DataRow[] = Array.from({ length: 100 }, (_, index) => ({
         index % 3 === 0 ? "positive" : index % 3 === 1 ? "warning" : "critical",
     },
   ],
-  amount: index * 100,
+  quantity: Math.floor(Math.random() * 20) - 10,
+  amount: Math.floor(Math.random() * 2001) - 1000,
   actions: ["Edit", "Delete"],
 }));
 
@@ -125,10 +126,17 @@ const columns: Column<DataRow>[] = [
     ),
   },
   {
+    id: "quantity",
+    keyPath: "quantity",
+    header: "Qty.",
+    type: "number",
+    align: "center",
+  },
+  {
     id: "amount",
     keyPath: "amount",
     header: "Amount",
-    type: "number",
+    type: "price",
     align: "center",
   },
   {

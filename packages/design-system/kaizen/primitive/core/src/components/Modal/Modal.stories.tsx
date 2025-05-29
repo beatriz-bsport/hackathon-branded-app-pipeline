@@ -7,13 +7,13 @@ import type { IconName } from "#src/components/Icon";
 import Select from "#src/components/Select";
 import Title from "#src/components/Title";
 import Toggle from "#src/components/Toggle";
+import type { DialogSize } from "#src/components/private/Dialog";
 
-import Modal, {
-  StepConfig,
-  confirmColors,
-  footerDirections,
-  sizes,
-} from "./Modal";
+import Modal, { ModalProps } from "./Modal";
+import { type StepConfig, confirmColors, footerDirections } from "./constants";
+
+// Define sizes for the storybook controls
+const sizeOptions: DialogSize[] = ["sm", "md", "lg"];
 
 /**
  * A dialog box that appears on top of the main content, requiring the user to
@@ -30,7 +30,7 @@ const meta: Meta<typeof Modal> = {
       type: { name: "boolean", required: true },
     },
     size: {
-      options: Object.keys(sizes),
+      options: sizeOptions,
       control: { type: "inline-radio" },
       type: { name: "string", required: true },
     },
@@ -109,18 +109,18 @@ export default meta;
 
 type Story = StoryObj<typeof Modal>;
 
-const args = {
+const args: ModalProps = {
   open: false,
-  size: "md" as keyof typeof sizes,
+  size: "md",
   title: "Modal title",
   description:
     "Ergonomic executive chair upholstered in bonded black leather and PVC padded seat and back for all-day comfort and support.",
-  footerDirection: "row" as const,
+  footerDirection: "row",
   onClose: () => console.log("modal closed"),
   onCrossButtonClick: () => console.log("cross button clicked"),
   onClickOutside: () => console.log("clicked outside"),
   confirmLabel: "Confirm",
-  confirmColor: "main" as const,
+  confirmColor: "main",
   onConfirmClick: () => console.log("confirm clicked"),
   cancelLabel: "Cancel",
   onCancelClick: () => console.log("cancel clicked"),

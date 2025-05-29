@@ -17750,7 +17750,7 @@
         "billingGroupRequired": "Rechnungsgruppe*",
         "billingGroup": "Rechnungsgruppe",
         "bookkeeping_account": {
-            "helperText": "Fügst du hier Bankkonten hinzu, werden Kontonummer und Mehrwertsteuersatz automatisch in Berichte eingefügt.",
+            "helperText": "Fügst du hier Buchhaltungskonten hinzu, werden Kontonummer und Mehrwertsteuersatz automatisch in Berichte eingefügt.",
             "form": {
                 "titleUpdate": "Konto bearbeiten",
                 "titleCreate": "Konto hinzufügen"
@@ -17764,7 +17764,7 @@
                     "title": "Löschung"
                 }
             },
-            "header": "Bankkonten",
+            "header": "Buchhaltungskonten",
             "add": "Bankkonto hinzufügen",
             "table": {
                 "actions": "Aktionen"

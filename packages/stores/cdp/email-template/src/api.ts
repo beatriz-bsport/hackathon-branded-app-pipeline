@@ -8,7 +8,9 @@ import type {
   FetchEmailTemplateCategoriesParams,
   FetchEmailTemplateSummaryParams,
   SearchEmailTemplateParams,
+  UpdateCategoryOrderingPayload,
   UpdateEmailTemplateCategoryPayload,
+  UpdateTemplateOrderingPayload,
 } from "./types";
 
 const API_URL = "customer-data-platform/v1/email_design";
@@ -33,6 +35,15 @@ export const searchEmailTemplatesAPI = (
   const { queryString, ...otherParams } = params;
   return [
     `${API_URL}/search/${buildUrlParams({ ...otherParams, q: queryString ?? "" })}`,
+  ];
+};
+
+export const updateEmailTemplateOrderingAPI = (
+  params: UpdateTemplateOrderingPayload,
+): ApiConfig => {
+  return [
+    `${API_URL}/set_multiple_order/`,
+    { method: "PATCH", body: JSON.stringify(params) },
   ];
 };
 
@@ -68,6 +79,15 @@ export const deleteEmailTemplateCategoryAPI = (
   return [
     `${API_URL}/email_design_category/${params.id}`,
     { method: "DELETE" },
+  ];
+};
+
+export const updateCategoryOrderingAPI = (
+  params: UpdateCategoryOrderingPayload,
+): ApiConfig => {
+  return [
+    `${API_URL}/email_design_category/set_order/`,
+    { method: "PATCH", body: JSON.stringify(params) },
   ];
 };
 

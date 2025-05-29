@@ -8,6 +8,9 @@ export const selectCategory = (state: EmailTemplateState, id: number) =>
 export const selectAllCategories = (state: EmailTemplateState) =>
   Object.values(state.categories.byId);
 
+export const selectCategoriesCount = (state: EmailTemplateState) =>
+  state.categories.count;
+
 // ----- Email Templates Summary Selector -----
 
 export const selectFlatEmailTemplateSummaries = (state: EmailTemplateState) => {

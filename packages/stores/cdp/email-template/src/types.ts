@@ -85,3 +85,19 @@ export type EditEmailTemplatePayload = {
 export type DeleteEmailTemplateItem = {
   id: number;
 };
+
+export type TemplateOrderingData = {
+  id: number;
+  ordering_in_category: number;
+};
+
+export type CategoryOrderingData = {
+  id: number;
+  category_ordering: number;
+};
+
+export type UpdateTemplateOrderingPayload = TemplateOrderingData[];
+
+export type UpdateCategoryOrderingPayload = CategoryOrderingData[];
+
+export const FUZZY_SEARCH_EMAIL_TEMPLATES_PAGE_SIZE = 20;

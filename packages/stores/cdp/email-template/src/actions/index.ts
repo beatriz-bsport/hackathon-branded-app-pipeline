@@ -1,6 +1,11 @@
 import { Result } from "typescript-result";
 
-import type { Action, PaginatedResponse } from "@bsport/store-base";
+import {
+  type Action,
+  type PaginatedResponse,
+  SearchResponse,
+  createErrorWithContext,
+} from "@bsport/store-base";
 
 import {
   createEmailTemplateAPI,
@@ -12,21 +17,26 @@ import {
   fetchEmailTemplateDetailAPI,
   fetchEmailTemplatesAPI,
   searchEmailTemplatesAPI,
+  updateCategoryOrderingAPI,
   updateEmailTemplateCategoryAPI,
+  updateEmailTemplateOrderingAPI,
 } from "#src/api";
-import type {
-  CompanyTemplateFilters,
-  CreateEmailTemplateCategoryPayload,
-  DeleteEmailTemplateItem,
-  EditEmailTemplatePayload,
-  EmailTemplateCategory,
-  EmailTemplateDetail,
-  EmailTemplateSummary,
-  FetchEmailTemplateCategoriesParams,
-  FetchEmailTemplateDetailParams,
-  FetchEmailTemplateSummaryParams,
-  SearchEmailTemplateParams,
-  UpdateEmailTemplateCategoryPayload,
+import {
+  type CompanyTemplateFilters,
+  type CreateEmailTemplateCategoryPayload,
+  type DeleteEmailTemplateItem,
+  type EditEmailTemplatePayload,
+  type EmailTemplateCategory,
+  type EmailTemplateDetail,
+  type EmailTemplateSummary,
+  FUZZY_SEARCH_EMAIL_TEMPLATES_PAGE_SIZE,
+  type FetchEmailTemplateCategoriesParams,
+  type FetchEmailTemplateDetailParams,
+  type FetchEmailTemplateSummaryParams,
+  type SearchEmailTemplateParams,
+  UpdateCategoryOrderingPayload,
+  type UpdateEmailTemplateCategoryPayload,
+  UpdateTemplateOrderingPayload,
 } from "#src/types";
 
 import {
@@ -65,8 +75,9 @@ export const fetchEmailTemplateSummariesAction: Action<
       return data;
     },
     (error) =>
-      new Error("Failed to fetch email templates summaries paginated", {
-        cause: error,
+      createErrorWithContext(error, {
+        message: "Failed to fetch email templates summaries paginated",
+        params,
       }),
   );
 };
@@ -94,8 +105,9 @@ export const fetchAllEmailTemplateSummariesAction: Action<
       return data;
     },
     (error) =>
-      new Error("Failed to fetch all email templates summaries", {
-        cause: error,
+      createErrorWithContext(error, {
+        message: "Failed to fetch all email templates summaries",
+        params,
       }),
   );
 };
@@ -111,7 +123,7 @@ export const fetchAllEmailTemplateSummariesAction: Action<
  */
 export const fuzzySearchEmailTemplateAction: Action<
   SearchEmailTemplateParams,
-  PaginatedResponse<EmailTemplateSummary>
+  SearchResponse<EmailTemplateSummary>
 > = async (fetch, params) => {
   const [uri, init] = searchEmailTemplatesAPI(params);
 
@@ -120,14 +132,16 @@ export const fuzzySearchEmailTemplateAction: Action<
       const { data } = await fetch(uri, init);
       setFuzzySearchEmailTemplateSummaries({
         emailTemplates: data.results,
+        count: Math.min(data.count, FUZZY_SEARCH_EMAIL_TEMPLATES_PAGE_SIZE),
+        page: 1,
       });
       return data;
     },
-    (error) => {
-      return new Error(`Failed to fuzzy search the email template`, {
-        cause: error,
-      });
-    },
+    (error) =>
+      createErrorWithContext(error, {
+        message: `Failed to fuzzy search the email template`,
+        params,
+      }),
   );
 };
 
@@ -157,7 +171,10 @@ export const fetchEmailTemplateCategoriesAction: Action<
       return data;
     },
     (error) =>
-      new Error("Failed to fetch email templates categories", { cause: error }),
+      createErrorWithContext(error, {
+        message: "Failed to fetch email templates categories",
+        params,
+      }),
   );
 };
 
@@ -177,11 +194,11 @@ export const createEmailTemplateCategoryAction: Action<
       const { data } = await fetch(uri, init);
       return data;
     },
-    (error) => {
-      return new Error(`Failed to create the email template category`, {
-        cause: error,
-      });
-    },
+    (error) =>
+      createErrorWithContext(error, {
+        message: `Failed to create the email template category`,
+        params,
+      }),
   );
 };
 
@@ -205,11 +222,11 @@ export const updateEmailTemplateCategoryAction: Action<
       const { data } = await fetch(uri, init);
       return data;
     },
-    (error) => {
-      return new Error(`Failed to update the email template category`, {
-        cause: error,
-      });
-    },
+    (error) =>
+      createErrorWithContext(error, {
+        message: `Failed to update the email template category`,
+        params,
+      }),
   );
 };
 
@@ -228,11 +245,11 @@ export const deleteEmailTemplateCategoryAction: Action<
     async () => {
       await fetch(uri, init);
     },
-    (error) => {
-      return new Error(`Failed to delete the email template category`, {
-        cause: error,
-      });
-    },
+    (error) =>
+      createErrorWithContext(error, {
+        message: `Failed to delete the email template category`,
+        params,
+      }),
   );
 };
 
@@ -260,8 +277,9 @@ export const fetchEmailTemplateDetailAction: Action<
       return data;
     },
     (error) =>
-      new Error("Failed to fetch email template detail", {
-        cause: error,
+      createErrorWithContext(error, {
+        message: "Failed to fetch email template detail",
+        params,
       }),
   );
 };
@@ -282,11 +300,11 @@ export const createEmailTemplateAction: Action<
       const { data } = await fetch(uri, init);
       return data;
     },
-    (error) => {
-      return new Error(`Failed to create the email template`, {
-        cause: error,
-      });
-    },
+    (error) =>
+      createErrorWithContext(error, {
+        message: `Failed to create the email template`,
+        params,
+      }),
   );
 };
 
@@ -305,10 +323,62 @@ export const deleteEmailTemplateAction: Action<
     async () => {
       await fetch(uri, init);
     },
-    (error) => {
-      return new Error(`Failed to delete the email template`, {
-        cause: error,
-      });
+    (error) =>
+      createErrorWithContext(error, {
+        message: `Failed to delete the email template`,
+        params,
+      }),
+  );
+};
+
+/**
+ * Update order of an email template list
+ * @param params.templateListToUpdate Required, Array of objects containing the id and
+ *  ordering_in_category of each email template to update ordering of
+ * @returns the updated list of all the update and ordered templates
+ */
+export const updateEmailTemplateOrderingAction: Action<
+  UpdateTemplateOrderingPayload,
+  UpdateTemplateOrderingPayload
+> = async (fetch, params) => {
+  const [uri, init] = updateEmailTemplateOrderingAPI(params);
+
+  console.log("params : ", params);
+
+  return Result.try(
+    async () => {
+      const { data } = await fetch(uri, init);
+      return data;
     },
+    (error) =>
+      createErrorWithContext(error, {
+        message: `Failed to update the ordering of the email templates`,
+        params,
+      }),
+  );
+};
+
+/**
+ * Update order of an email template category list
+ * @param params.categoryListToUpdate Required, Array of objects containing the id and
+ *  category_ordering of each email template category to update ordering of
+ * @returns the updated list of all the update and ordered template categories
+ */
+export const updateCategoryOrderingAction: Action<
+  UpdateCategoryOrderingPayload,
+  UpdateCategoryOrderingPayload
+> = async (fetch, params) => {
+  const [uri, init] = updateCategoryOrderingAPI(params);
+
+  return Result.try(
+    async () => {
+      const { data } = await fetch(uri, init);
+      return data;
+    },
+    (error) =>
+      createErrorWithContext(error, {
+        message: `Failed to update the ordering of the categories`,
+        params,
+      }),
   );
 };

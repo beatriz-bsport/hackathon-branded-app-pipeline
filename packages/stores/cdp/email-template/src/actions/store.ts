@@ -75,8 +75,12 @@ export const setEmailTemplateSummaries = ({
 
 export const setFuzzySearchEmailTemplateSummaries = ({
   emailTemplates,
+  count,
+  page,
 }: {
   emailTemplates: EmailTemplateSummary[];
+  count: number;
+  page: number;
 }) => {
   emailTemplateStore.setState((state) => {
     const byId = emailTemplates.reduce(
@@ -96,6 +100,8 @@ export const setFuzzySearchEmailTemplateSummaries = ({
         ...state.summaries,
         fuzzyIds: emailTemplatesIds,
         byId: byId,
+        count,
+        page,
       },
     };
   });

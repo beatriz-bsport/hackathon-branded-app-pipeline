@@ -9835,7 +9835,9 @@
                 "succeeded": "Paiement réussi",
                 "disputed": "Paiement contesté",
                 "processing": "Paiement en cours",
-                "failed": "Paiement échoué"
+                "failed": "Paiement échoué",
+                "cancelled_with_negative_invoice": "Facture annulée par une facture négative",
+                "cancelled_with_credit_note": "Facture annulée par note de crédit"
             }
         },
         "paymentMethod": {
@@ -15677,7 +15679,8 @@
                 "errors": {
                     "14100": "Impossible d'annuler une facture avec des paiements Interac.",
                     "14101": "Impossible de rembourser en avoir une facture d'ajustement de solde.",
-                    "14102": "Impossible de rembourser cette facture."
+                    "14102": "Impossible de rembourser cette facture.",
+                    "35024": "Vous ne pouvez pas rembourser cette facture car votre compte PayPal ne dispose pas de fonds suffisants."
                 }
             },
             "generateXml": {

@@ -40,7 +40,7 @@ export const CadencesModal: React.FC<CadencesModalProps> = ({
           weight="weak"
           className="mb-xs"
         >
-          {t("deleteModal.audienceWarning")}
+          {t("deleteModal.cannotBeDeleted")}
         </Body>
         <ul className="list-disc pl-lg mb-xl">
           {cadences.map((cadence) => (
@@ -57,7 +57,7 @@ export const CadencesModal: React.FC<CadencesModalProps> = ({
           ))}
         </ul>
         <Body htmlVariant="p" size="lg" color="default" weight="weak">
-          {t("deleteModal.audienceWarningCallToAction")}
+          {t("deleteModal.audienceCallToAction")}
         </Body>
       </div>
     </Modal>

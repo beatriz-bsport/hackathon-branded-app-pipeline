@@ -27,9 +27,10 @@ exports.default = {
     description: "Do you want to delete <b>{{name}}</b>?",
     warning:
       "This will stop any upcoming actions, like scheduled messages or automatic tagging. Previously tagged members won't be affected.",
-    audienceWarning:
+    audienceWarning: "Smartlists used in an Audience cannot be deleted.",
+    cannotBeDeleted:
       "This Smartlist is currently used in the following Audience workflows and can’t be deleted:",
-    audienceWarningCallToAction:
+    audienceCallToAction:
       "To delete this Smartlist, remove it from the workflows above and try again.",
     buttons: {
       delete: "Delete",

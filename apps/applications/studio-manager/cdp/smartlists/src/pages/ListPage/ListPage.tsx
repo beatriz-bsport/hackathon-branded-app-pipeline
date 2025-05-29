@@ -1,23 +1,16 @@
 import { useState } from "react";
 
 import { Button, List, ListLayout } from "@bsport/kaizen-primitive-core";
-import type {
-  CreateSmartlistParams,
-  EditSmartlistParams,
-  Smartlist,
-} from "@bsport/store-cdp-smartlist";
+import type { Smartlist } from "@bsport/store-cdp-smartlist";
 
 import { useSmartlists } from "#src/api/use-smartlists";
 import { CreateSmartlistModal } from "#src/components/CreateSmartlistModal";
-import { DeleteModal } from "#src/components/DeleteModal";
-import { DuplicateModal } from "#src/components/DuplicateModal";
+import { DeleteSmartlistModal } from "#src/components/DeleteSmartlistModal";
+import { DuplicateSmartlistModal } from "#src/components/DuplicateSmartlistModal";
 import { EditSmartlistModal } from "#src/components/EditSmartlistModal";
 import { useTranslation } from "#src/utils/i18n";
 
 import { VISIBLE_ACTIONS_DISPLAY_LIMIT } from "./constants";
-import { useCreate } from "./use-create";
-import { useDuplicate } from "./use-duplicate";
-import { useEdit } from "./use-edit";
 import { useFilters } from "./use-filters";
 
 const ListPage: React.FC = () => {
@@ -51,73 +44,6 @@ const ListPage: React.FC = () => {
   const closeModal = () => {
     setCurrentSmartlist(null);
     setCurrentInlineAction("none");
-  };
-
-  const { duplicateSmartlist } = useDuplicate({
-    onSuccess: () => {
-      closeModal();
-      refetch();
-    },
-    onFailure: () => {
-      closeModal();
-    },
-  });
-
-  const { createSmartlist, isCreating } = useCreate({
-    onSuccess: () => {
-      closeModal();
-      refetch();
-    },
-    onFailure: () => {
-      closeModal();
-    },
-  });
-
-  const { editSmartlist, isEditing } = useEdit({
-    onSuccess: () => {
-      closeModal();
-      refetch();
-    },
-    onFailure: () => {
-      closeModal();
-    },
-    onUndo: () => {
-      closeModal();
-      refetch();
-    },
-  });
-
-  const onDuplicateSmartlist = () => {
-    if (!currentSmartlist) {
-      throw new Error("No smartlist selected this should never happen");
-    }
-
-    duplicateSmartlist({ id: currentSmartlist.id });
-  };
-
-  const onEditSmartlist = (data: EditSmartlistParams) => {
-    if (!currentSmartlist) {
-      throw new Error("No smartlist selected this should never happen");
-    }
-
-    editSmartlist(data, currentSmartlist);
-  };
-
-  const onCreateSmartlist = (data: {
-    name: string;
-    description: string;
-    company?: number;
-  }) => {
-    if (!data.company) {
-      throw new Error("No company selected this should never happen");
-    }
-
-    const params: CreateSmartlistParams = {
-      name: data.name,
-      description: data.description,
-      company: data.company,
-    };
-    createSmartlist(params);
   };
 
   const handleCreateClick = () => {
@@ -258,10 +184,10 @@ const ListPage: React.FC = () => {
           />
         </div>
         {currentSmartlist !== null && currentInlineAction === "duplicate" ? (
-          <DuplicateModal
+          <DuplicateSmartlistModal
             isOpen
             onClose={closeModal}
-            onDuplicate={onDuplicateSmartlist}
+            onDuplicate={refetch}
             smartlist={currentSmartlist}
           />
         ) : null}
@@ -269,21 +195,20 @@ const ListPage: React.FC = () => {
           <EditSmartlistModal
             isOpen
             onClose={closeModal}
-            onEdit={onEditSmartlist}
+            onEdit={refetch}
+            onUndo={refetch}
             smartlist={currentSmartlist}
-            isEditing={isEditing}
           />
         ) : null}
         {currentInlineAction === "create" ? (
           <CreateSmartlistModal
             isOpen
             onClose={closeModal}
-            onCreate={onCreateSmartlist}
-            isCreating={isCreating}
+            onCreate={refetch}
           />
         ) : null}
         {currentSmartlist !== null && currentInlineAction === "delete" ? (
-          <DeleteModal
+          <DeleteSmartlistModal
             isOpen
             onClose={closeModal}
             onDelete={refetch}

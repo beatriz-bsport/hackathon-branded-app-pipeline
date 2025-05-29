@@ -8,19 +8,19 @@ import { Trans, useTranslation } from "#src/utils/i18n";
 import { CadencesModal } from "./CadencesModal";
 import { useDelete } from "./use-delete";
 
-type DeleteModalProps = {
+type DeleteSmartlistModalProps = {
   isOpen: boolean;
   onClose: () => void;
   onDelete: () => void;
   smartlist: Smartlist;
 };
 
-export const DeleteModal: React.FC<DeleteModalProps> = ({
+export const DeleteSmartlistModal: React.FC<DeleteSmartlistModalProps> = ({
   isOpen,
   onClose,
   onDelete,
   smartlist,
-}: DeleteModalProps) => {
+}: DeleteSmartlistModalProps) => {
   const { t } = useTranslation("list");
   const [currentCadences, setCurrentCadences] = useState<number[]>([]);
 

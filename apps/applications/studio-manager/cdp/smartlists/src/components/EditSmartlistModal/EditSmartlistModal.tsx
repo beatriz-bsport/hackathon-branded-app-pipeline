@@ -3,24 +3,25 @@ import React from "react";
 import { Modal } from "@bsport/kaizen-primitive-core";
 import type { Smartlist } from "@bsport/store-cdp-smartlist";
 
+import { SmartlistForm, useSmartlistForm } from "#src/components/SmartlistForm";
 import { useTranslation } from "#src/utils/i18n";
 
-import { EditForm, useSmartlistForm } from "./EditForm";
+import { useEdit } from "./use-edit";
 
 type EditSmartlistModalProps = {
   isOpen: boolean;
   onClose: () => void;
-  onEdit: (data: { id: number; name: string; description: string }) => void;
+  onEdit?: () => void;
+  onUndo?: () => void;
   smartlist: Smartlist;
-  isEditing?: boolean;
 };
 
 export const EditSmartlistModal: React.FC<EditSmartlistModalProps> = ({
   isOpen,
   onClose,
   onEdit,
+  onUndo,
   smartlist,
-  isEditing,
 }) => {
   const { t } = useTranslation("list");
   const {
@@ -37,7 +38,21 @@ export const EditSmartlistModal: React.FC<EditSmartlistModalProps> = ({
     },
   });
 
-  const handleSubmit = async () => {
+  const { editSmartlist, isEditing } = useEdit({
+    onSuccess: () => {
+      onClose();
+      onEdit?.();
+    },
+    onFailure: () => {
+      onClose();
+    },
+    onUndo: () => {
+      onClose();
+      onUndo?.();
+    },
+  });
+
+  const handleCreate = async () => {
     if (!validateForm()) {
       return;
     }
@@ -60,11 +75,14 @@ export const EditSmartlistModal: React.FC<EditSmartlistModalProps> = ({
       return;
     }
 
-    onEdit({
-      id: smartlist.id,
-      name: formData.name,
-      description: formData.description,
-    });
+    editSmartlist(
+      {
+        id: smartlist.id,
+        name: formData.name,
+        description: formData.description,
+      },
+      smartlist,
+    );
   };
 
   return (
@@ -76,11 +94,11 @@ export const EditSmartlistModal: React.FC<EditSmartlistModalProps> = ({
       size="md"
       confirmLabel={t("editForm.actions.save")}
       confirmColor="main"
-      onConfirmClick={handleSubmit}
+      onConfirmClick={handleCreate}
       cancelLabel={t("editForm.actions.cancel")}
       onCancelClick={onClose}
     >
-      <EditForm
+      <SmartlistForm
         data={formData}
         errors={errors}
         onChange={handleChange}

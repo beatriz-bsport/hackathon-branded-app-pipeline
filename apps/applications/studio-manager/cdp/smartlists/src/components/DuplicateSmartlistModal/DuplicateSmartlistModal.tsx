@@ -5,25 +5,43 @@ import type { Smartlist } from "@bsport/store-cdp-smartlist";
 
 import { Trans, useTranslation } from "#src/utils/i18n";
 
-type DuplicateModalProps = {
+import { useDuplicate } from "./use-duplicate";
+
+type DuplicateSmartlistModalProps = {
   isOpen: boolean;
   onClose: () => void;
-  onDuplicate: () => void;
   smartlist: Smartlist;
+  onDuplicate?: () => void;
 };
 
-export const DuplicateModal: React.FC<DuplicateModalProps> = ({
+export const DuplicateSmartlistModal: React.FC<
+  DuplicateSmartlistModalProps
+> = ({
   isOpen,
   onClose,
   onDuplicate,
   smartlist,
-}: DuplicateModalProps) => {
+}: DuplicateSmartlistModalProps) => {
   const { t } = useTranslation("list");
+
+  const { duplicateSmartlist } = useDuplicate({
+    onSuccess: () => {
+      onDuplicate?.();
+      onClose();
+    },
+    onFailure: () => {
+      onClose();
+    },
+  });
+
+  const handleDuplicate = () => {
+    duplicateSmartlist({ id: smartlist.id });
+  };
 
   return (
     <Modal
       open={isOpen}
-      onConfirmClick={onDuplicate}
+      onConfirmClick={handleDuplicate}
       onCancelClick={onClose}
       confirmColor="main"
       confirmLabel={t("duplicateModal.buttons.duplicate")}

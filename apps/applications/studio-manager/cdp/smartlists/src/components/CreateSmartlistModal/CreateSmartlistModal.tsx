@@ -3,26 +3,21 @@ import React from "react";
 import { Modal } from "@bsport/kaizen-primitive-core";
 import { dataAccessLayer } from "@bsport/sm-backbone";
 
+import { SmartlistForm, useSmartlistForm } from "#src/components/SmartlistForm";
 import { useTranslation } from "#src/utils/i18n";
 
-import { EditForm, useSmartlistForm } from "./EditForm";
+import { useCreate } from "./use-create";
 
 type CreateSmartlistModalProps = {
   isOpen: boolean;
   onClose: () => void;
-  onCreate: (data: {
-    name: string;
-    description: string;
-    company?: number;
-  }) => void;
-  isCreating?: boolean;
+  onCreate?: () => void;
 };
 
 export const CreateSmartlistModal: React.FC<CreateSmartlistModalProps> = ({
   isOpen,
   onClose,
   onCreate,
-  isCreating,
 }) => {
   const { t } = useTranslation("list");
   const companyTheme = dataAccessLayer.useCompanyTheme();
@@ -30,12 +25,22 @@ export const CreateSmartlistModal: React.FC<CreateSmartlistModalProps> = ({
   const { formData, errors, handleChange, handleBlur, validateForm } =
     useSmartlistForm();
 
-  const handleSubmit = async () => {
+  const { createSmartlist, isCreating } = useCreate({
+    onSuccess: () => {
+      onCreate?.();
+      onClose();
+    },
+    onFailure: () => {
+      onClose();
+    },
+  });
+
+  const handleCreate = () => {
     if (!validateForm() || !companyTheme?.id) {
       return;
     }
 
-    onCreate({
+    createSmartlist({
       name: formData.name,
       description: formData.description,
       company: companyTheme.id,
@@ -52,11 +57,11 @@ export const CreateSmartlistModal: React.FC<CreateSmartlistModalProps> = ({
       size="md"
       confirmLabel={t("createForm.actions.create")}
       confirmColor="main"
-      onConfirmClick={handleSubmit}
+      onConfirmClick={handleCreate}
       cancelLabel={t("createForm.actions.cancel")}
       onCancelClick={onClose}
     >
-      <EditForm
+      <SmartlistForm
         data={formData}
         errors={errors}
         onChange={handleChange}

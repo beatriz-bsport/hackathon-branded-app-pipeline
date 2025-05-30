@@ -58,10 +58,9 @@ const initialState: Immutable.Immutable<ReportingStateV2> =
       loading: false,
       error: null,
       result: [],
-      next_page: 1,
-      previous_page: null,
-      other_pages: [],
       total: 0,
+      next_cursor: null,
+      previous_cursor: null,
     },
     columnsMetadata: {
       loading: false,
@@ -335,9 +334,9 @@ export default handleActions<Immutable.Immutable<ReportingStateV2>, any>(
           loading: false,
           error: null,
           result: [],
-          next_page: 1,
-          previous_page: null,
-          other_pages: [],
+          total: 0,
+          next_cursor: null,
+          previous_cursor: null,
         });
     },
     [reportGetInvalidFiltersV2.success.toString()]: (

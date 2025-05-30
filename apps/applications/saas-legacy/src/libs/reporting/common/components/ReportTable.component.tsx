@@ -25,7 +25,6 @@ import {
 } from '#src/libs/reporting/common/utils';
 import { hasObjectLevelPermission } from '#src/libs/role/permission-utils/utils';
 import ReportTableRow from '#src/libs/reporting/common/components/ReportTableRow';
-import { CURSOR_PAGINATED_CATEGORIES } from '#src/libs/reporting/common/constants';
 
 import type {
   ObjectLevelPermissions,
@@ -43,19 +42,12 @@ type TableProps = {
   report: ReportConfiguration;
   result: SerializedRow[];
   metadata: ReportMetadata;
-  previousPage: number;
-  nextPage: number;
-  otherPages: Array<any>;
-  handleGeneratePreviousPage: (data: {
-    cursor?: string;
-    page?: number;
-  }) => void;
-  handleGenerateNextPage: (data: { cursor?: string; page?: number }) => void;
+  handleGeneratePreviousPage: (data: { cursor?: string }) => void;
+  handleGenerateNextPage: (data: { cursor?: string }) => void;
   userPermissions: RolePermission;
   objectLevelPermissions: ObjectLevelPermissions;
   v2?: boolean;
   hasReportBeenGenerated?: boolean;
-  totalElements: number;
   displayNewWebshop?: boolean;
   nextCursor: string;
   previousCursor: string;
@@ -63,42 +55,30 @@ type TableProps = {
 
 type PaginationProps = {
   reportStoreRowsLoading: boolean;
-  previousPage: number;
-  nextPage: number;
-  totalElements: number;
-  otherPages: Array<any>;
-  handleGeneratePreviousPage: (data: {
-    cursor?: string;
-    page?: number;
-  }) => void;
-  handleGenerateNextPage: (data: { cursor?: string; page?: number }) => void;
+  handleGeneratePreviousPage: (data: { cursor?: string }) => void;
+  handleGenerateNextPage: (data: { cursor?: string }) => void;
   columnSpan: number;
 };
 
 const SKELETON_NUMBERS = [1, 2, 3, 4, 5];
 
-const TablePaginationContent: React.FC<
-  Omit<PaginationProps, 'columnSpan'> & {
-    isHeader?: boolean;
-    v2?: boolean;
-    nextCursor?: string;
-    previousCursor?: string;
-    shouldUseCursorPagination: boolean;
-  }
-> = React.memo(
+const TablePaginationContent: React.FC<{
+  isHeader?: boolean;
+  v2?: boolean;
+  hasNext: boolean;
+  hasPrevious: boolean;
+  reportStoreRowsLoading: boolean;
+  onNext: () => void;
+  onPrevious: () => void;
+}> = React.memo(
   ({
-    handleGenerateNextPage,
-    handleGeneratePreviousPage,
+    onNext,
+    onPrevious,
     isHeader = false,
-    nextPage,
-    otherPages,
-    previousPage,
     reportStoreRowsLoading,
     v2,
-    totalElements,
-    nextCursor,
-    previousCursor,
-    shouldUseCursorPagination,
+    hasNext,
+    hasPrevious,
   }) => {
     const { t } = useTranslation('reporting');
     const classes = useTablePaginationActionsStyles({ isHeader });
@@ -106,30 +86,21 @@ const TablePaginationContent: React.FC<
     const handleNextClick = React.useCallback(
       (event: React.MouseEvent) => {
         event.preventDefault();
-        if (shouldUseCursorPagination && nextCursor) {
-          handleGenerateNextPage({ cursor: nextCursor });
-        } else if (!shouldUseCursorPagination && nextPage) {
-          handleGenerateNextPage({ page: nextPage });
+        if (hasNext) {
+          onNext();
         }
       },
-      [handleGenerateNextPage, nextPage, nextCursor, shouldUseCursorPagination],
+      [onNext, hasNext],
     );
 
     const handlePreviousClick = React.useCallback(
       (event: React.MouseEvent) => {
         event.preventDefault();
-        if (shouldUseCursorPagination && previousCursor) {
-          handleGeneratePreviousPage({ cursor: previousCursor });
-        } else if (!shouldUseCursorPagination && previousPage) {
-          handleGeneratePreviousPage({ page: previousPage });
+        if (hasPrevious) {
+          onPrevious();
         }
       },
-      [
-        handleGeneratePreviousPage,
-        previousPage,
-        previousCursor,
-        shouldUseCursorPagination,
-      ],
+      [onPrevious, hasPrevious],
     );
 
     return (
@@ -140,33 +111,17 @@ const TablePaginationContent: React.FC<
           </Typography>
         )}
         <div className={classes.tableHeaderInfos}>
-          {!shouldUseCursorPagination && (
-            <Typography variant="body2">
-              {t('reportDetailContent.tableTotalElements', {
-                total: totalElements,
-              })}
-            </Typography>
-          )}
           <div>
             <IconButton
               aria-label="previous page"
-              disabled={
-                (!previousPage && !previousCursor) || reportStoreRowsLoading
-              }
+              disabled={!hasPrevious || reportStoreRowsLoading}
               onClick={handlePreviousClick}
             >
               <KeyboardArrowLeft />
             </IconButton>
-            {!shouldUseCursorPagination && (
-              <Typography variant="caption">
-                {`Page ${nextPage ? nextPage - 1 : previousPage + 1}/${
-                  otherPages ? Math.max(otherPages.length, 1) : 1
-                }`}
-              </Typography>
-            )}
             <IconButton
               aria-label="next page"
-              disabled={(!nextPage && !nextCursor) || reportStoreRowsLoading}
+              disabled={!hasNext || reportStoreRowsLoading}
               onClick={handleNextClick}
             >
               <KeyboardArrowRight />
@@ -180,10 +135,6 @@ const TablePaginationContent: React.FC<
 
 const TablePaginationActions: React.FC<PaginationProps> = ({
   reportStoreRowsLoading,
-  previousPage,
-  nextPage,
-  totalElements,
-  otherPages,
   columnSpan,
   handleGeneratePreviousPage,
   handleGenerateNextPage,
@@ -192,16 +143,11 @@ const TablePaginationActions: React.FC<PaginationProps> = ({
     <TableRow>
       <TableCell colSpan={columnSpan}>
         <TablePaginationContent
-          handleGenerateNextPage={handleGenerateNextPage}
-          handleGeneratePreviousPage={handleGeneratePreviousPage}
-          nextCursor={undefined}
-          nextPage={nextPage}
-          otherPages={otherPages}
-          previousCursor={undefined}
-          previousPage={previousPage}
+          hasNext={false}
+          hasPrevious={false}
+          onNext={() => handleGenerateNextPage({ cursor: '' })}
+          onPrevious={() => handleGeneratePreviousPage({ cursor: '' })}
           reportStoreRowsLoading={reportStoreRowsLoading}
-          shouldUseCursorPagination={false}
-          totalElements={totalElements}
         />
       </TableCell>
     </TableRow>
@@ -214,16 +160,12 @@ const ReportTable: React.FC<TableProps> = ({
   report,
   result,
   metadata,
-  previousPage,
-  nextPage,
-  otherPages,
   handleGeneratePreviousPage,
   handleGenerateNextPage,
   userPermissions,
   objectLevelPermissions,
   v2,
   hasReportBeenGenerated,
-  totalElements,
   displayNewWebshop,
   nextCursor,
   previousCursor,
@@ -231,10 +173,6 @@ const ReportTable: React.FC<TableProps> = ({
   const classes = useStyles();
   const { t } = useTranslation('reporting');
   const { columns = [] } = report;
-
-  const shouldUseCursorPagination = CURSOR_PAGINATED_CATEGORIES.includes(
-    report.category as (typeof CURSOR_PAGINATED_CATEGORIES)[number],
-  );
 
   const columnsConfigs = React.useMemo(
     () =>
@@ -293,19 +231,15 @@ const ReportTable: React.FC<TableProps> = ({
 
   // Handler for next page arrow
   const handleNext = () => {
-    if (shouldUseCursorPagination && nextCursor) {
+    if (nextCursor) {
       handleGenerateNextPage({ cursor: nextCursor });
-    } else if (!shouldUseCursorPagination && nextPage) {
-      handleGenerateNextPage({ page: nextPage });
     }
   };
 
   // Handler for previous page arrow
   const handlePrevious = () => {
-    if (shouldUseCursorPagination && previousCursor) {
+    if (previousCursor) {
       handleGeneratePreviousPage({ cursor: previousCursor });
-    } else if (!shouldUseCursorPagination && previousPage) {
-      handleGeneratePreviousPage({ page: previousPage });
     }
   };
 
@@ -314,16 +248,11 @@ const ReportTable: React.FC<TableProps> = ({
       {v2 && (
         <TablePaginationContent
           isHeader
-          handleGenerateNextPage={handleNext}
-          handleGeneratePreviousPage={handlePrevious}
-          nextCursor={nextCursor}
-          nextPage={nextPage}
-          otherPages={otherPages}
-          previousCursor={previousCursor}
-          previousPage={previousPage}
+          hasNext={!!nextCursor}
+          hasPrevious={!!previousCursor}
+          onNext={handleNext}
+          onPrevious={handlePrevious}
           reportStoreRowsLoading={reportStoreRowsLoading}
-          shouldUseCursorPagination={shouldUseCursorPagination}
-          totalElements={totalElements}
           v2={v2}
         />
       )}
@@ -336,11 +265,7 @@ const ReportTable: React.FC<TableProps> = ({
                 columnSpan={columns.length}
                 handleGenerateNextPage={handleNext}
                 handleGeneratePreviousPage={handlePrevious}
-                nextPage={nextPage}
-                otherPages={otherPages}
-                previousPage={previousPage}
                 reportStoreRowsLoading={reportStoreRowsLoading}
-                totalElements={totalElements}
               />
             )}
             <TableRow>
@@ -396,11 +321,7 @@ const ReportTable: React.FC<TableProps> = ({
                 columnSpan={columns.length}
                 handleGenerateNextPage={handleNext}
                 handleGeneratePreviousPage={handlePrevious}
-                nextPage={nextPage}
-                otherPages={otherPages}
-                previousPage={previousPage}
                 reportStoreRowsLoading={reportStoreRowsLoading}
-                totalElements={totalElements}
               />
             </TableFooter>
           )}
@@ -428,33 +349,16 @@ const ReportTable: React.FC<TableProps> = ({
           {t('reportHasNotBeenGenerated')}
         </Typography>
       ) : null}
-      {hasReportBeenGenerated && v2 && result?.length ? (
+      {v2 && (
         <TablePaginationContent
-          handleGenerateNextPage={handleNext}
-          handleGeneratePreviousPage={handlePrevious}
-          nextCursor={nextCursor}
-          nextPage={nextPage}
-          otherPages={otherPages}
-          previousCursor={previousCursor}
-          previousPage={previousPage}
+          hasNext={!!nextCursor}
+          hasPrevious={!!previousCursor}
+          onNext={handleNext}
+          onPrevious={handlePrevious}
           reportStoreRowsLoading={reportStoreRowsLoading}
-          shouldUseCursorPagination={shouldUseCursorPagination}
-          totalElements={totalElements}
           v2={v2}
         />
-      ) : null}
-      {hasReportBeenGenerated &&
-        v2 &&
-        !result?.length &&
-        !reportStoreRowsLoading && (
-          <Typography
-            align="center"
-            className={classes.reportNotGenerated}
-            color="textSecondary"
-          >
-            {t('reportNoResults')}
-          </Typography>
-        )}
+      )}
     </div>
   );
 };

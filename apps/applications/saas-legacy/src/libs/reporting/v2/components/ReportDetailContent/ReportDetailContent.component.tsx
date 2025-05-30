@@ -10,7 +10,6 @@ import Alert from '@material-ui/lab/Alert';
 
 import { Button, MuiThemeProvider } from '@material-ui/core';
 import { cardHeaderStatsTheme } from '#src/libs/reporting/v2/mui-theme-providers';
-import { CURSOR_PAGINATED_CATEGORIES } from '#src/libs/reporting/common/constants';
 
 import ReportDetailContentHeader from './ReportDetailContentHeader.component';
 import ReportTableHeaders from '#src/libs/reporting/common/components/ReportTableHeaders.component';
@@ -103,32 +102,16 @@ const ReportDetailContent: React.FC<Props> = ({
   const handleGenerateNextPage = React.useCallback(() => {
     if (!report) return;
 
-    const shouldUseCursorPagination = CURSOR_PAGINATED_CATEGORIES.includes(
-      report.category as (typeof CURSOR_PAGINATED_CATEGORIES)[number],
-    );
-    if (shouldUseCursorPagination && reportGeneratedRows?.next_cursor) {
+    if (reportGeneratedRows?.next_cursor) {
       handleGeneration({ cursor: reportGeneratedRows.next_cursor }, false);
-    } else if (
-      !shouldUseCursorPagination &&
-      typeof reportGeneratedRows?.next_page === 'number'
-    ) {
-      handleGeneration({ page: reportGeneratedRows.next_page }, false);
     }
   }, [handleGeneration, report, reportGeneratedRows]);
 
   const handleGeneratePreviousPage = React.useCallback(() => {
     if (!report) return;
 
-    const shouldUseCursorPagination = CURSOR_PAGINATED_CATEGORIES.includes(
-      report.category as (typeof CURSOR_PAGINATED_CATEGORIES)[number],
-    );
-    if (shouldUseCursorPagination && reportGeneratedRows?.previous_cursor) {
+    if (reportGeneratedRows?.previous_cursor) {
       handleGeneration({ cursor: reportGeneratedRows.previous_cursor }, false);
-    } else if (
-      !shouldUseCursorPagination &&
-      typeof reportGeneratedRows?.previous_page === 'number'
-    ) {
-      handleGeneration({ page: reportGeneratedRows.previous_page }, false);
     }
   }, [handleGeneration, report, reportGeneratedRows]);
 
@@ -254,15 +237,11 @@ const ReportDetailContent: React.FC<Props> = ({
             hasReportBeenGenerated={hasReportBeenGenerated}
             metadata={reportCategoriesMetadata}
             nextCursor={reportGeneratedRows.next_cursor || ''}
-            nextPage={reportGeneratedRows.next_page ?? 0}
             objectLevelPermissions={objectLevelPermissions}
-            otherPages={reportGeneratedRows.other_pages}
             previousCursor={reportGeneratedRows.previous_cursor || ''}
-            previousPage={reportGeneratedRows.previous_page ?? 0}
             report={report}
             reportStoreRowsLoading={reportGeneratedRows.loading}
             result={reportGeneratedRows.result}
-            totalElements={reportGeneratedRows.total || 0}
             userPermissions={userPermissions}
           />
         </>

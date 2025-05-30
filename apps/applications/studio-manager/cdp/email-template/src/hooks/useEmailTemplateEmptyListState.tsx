@@ -2,9 +2,10 @@ import type { UseEmptyStateProps } from "@bsport/kaizen-primitive-core";
 
 import { useTranslation } from "#src/utils/i18n";
 
+import { useTemplateNavigation } from "./useTemplateNavigation";
+
 export type UseEmptyListHooksParams = {
   isEmptyList: boolean;
-  handleAddTemplate: () => void;
   handleAddCategory: () => void;
 };
 
@@ -12,11 +13,11 @@ export type UseEmptyListReturnType = {
   emptyStateConfig: UseEmptyStateProps;
 };
 
-const useEmailTemplateEmptyListState = ({
+export const useEmailTemplateEmptyListState = ({
   isEmptyList,
-  handleAddTemplate,
   handleAddCategory,
 }: UseEmptyListHooksParams): UseEmptyListReturnType => {
+  const { navigateToCreateTemplate } = useTemplateNavigation();
   const { t } = useTranslation("list");
   const baseEmptyState = {
     isEmpty: isEmptyList,
@@ -27,9 +28,7 @@ const useEmailTemplateEmptyListState = ({
       ctaButtonConfig: {
         iconLeft: "plus",
         label: t("activeList.actions.addTemplate"),
-        onClick: () => {
-          handleAddTemplate();
-        },
+        onClick: navigateToCreateTemplate,
       },
       secondaryButtonConfig: {
         iconLeft: "plus",
@@ -45,5 +44,3 @@ const useEmailTemplateEmptyListState = ({
     emptyStateConfig: baseEmptyState,
   };
 };
-
-export default useEmailTemplateEmptyListState;

@@ -22,6 +22,12 @@
     "@bsport/i18n": "workspace:*",
     "@bsport/kaizen-primitive-core": "workspace:*",
     "@bsport/sm-backbone": "workspace:*",
+    "@bsport/store-cdp-email-template": "workspace:*",
+    "@bsport/use-async": "workspace:*",
+    "@bsport/use-debounce": "workspace:*",
+    "@bsport/use-pagination-query-params": "workspace:*",
+    "clsx": "^2.1.1",
+    "dompurify": "^3.2.6",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-router": "^7.2.0"

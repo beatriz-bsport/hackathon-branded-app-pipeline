@@ -121,6 +121,7 @@ export {
 export { default as Select, type SelectProps } from "./components/Select";
 export {
   default as SortableList,
+  type Sortable,
   type SortableListProps,
 } from "./components/SortableList";
 export {

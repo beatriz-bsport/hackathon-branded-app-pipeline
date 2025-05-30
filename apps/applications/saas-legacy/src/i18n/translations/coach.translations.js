@@ -46,10 +46,10 @@ exports.default = {
       cancel: 'Cancel',
       submit: 'Confirm',
       title: "Teacher's email address",
-      emailLabel: 'Email',
+      emailLabel: 'Email address',
       explain:
-        "If this email already exists in our database, we'll automatically create the teacher's account.",
-      emailPlaceHolder: 'teacher@bsport.io',
+        "Please provide the email address for the teacher you want to add. If we already have their details, we'll create their account automatically.",
+      emailPlaceHolder: 'someone@email.com',
     },
     create: {
       success: 'Teacher added',
@@ -85,9 +85,9 @@ exports.default = {
       general: 'Profile',
     },
     coachSpaceInfo:
-      'Teachers will be able to see their payroll per session, view their schedule, and manage their availabilities in this area.',
+      "Once the 'Teacher View' is activated, teachers can see their payroll, view their schedule, and manage their availability.",
     coachSpace: 'Teacher View',
-    noPaymentRule: 'Warning, no payroll has been set for this teacher.',
+    noPaymentRule: 'Warning: no payroll has been set for this teacher. ',
   },
   noCoach: 'No teachers is registered yet',
   noCoachs:

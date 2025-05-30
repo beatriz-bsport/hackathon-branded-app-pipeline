@@ -45,6 +45,8 @@ import {
   BackgroundDialogDisplayMode,
 } from '#src/libs/background-dialog/types';
 import { REPORT_VIEWS_FETCHING_PAGINATION_SIZE } from '#src/libs/reporting/common/constants';
+import { RootState } from '#src/reducers';
+import { CURSOR_PAGINATED_CATEGORIES } from '#src/libs/reporting/common/constants';
 
 export const fetchPaginatedReportsV2ViewsActions = {
   success: createAction<PaginatedResponse<ReportConfiguration>>(
@@ -323,18 +325,39 @@ export function fetchSerializedReport(
   params: ReportSerializerParams,
   options?: OptionCallback<SerializedReport>,
 ) {
-  return async (dispatch: Dispatch) => {
+  return async (dispatch: Dispatch, getState: () => RootState) => {
     dispatch(reportGenerationDetailV2.isLoading(true));
     dispatch(reportGenerationDetailV2.error(null));
 
     try {
-      const response = await fetchSerializedReportV2API(reportId, params);
+      // Get the report configuration to check if it uses cursor pagination
+      const state = getState();
+      const report = state.reportsV2.reports.byId[reportId];
+      const shouldUseCursorPagination = CURSOR_PAGINATED_CATEGORIES.includes(
+        report?.category as (typeof CURSOR_PAGINATED_CATEGORIES)[number],
+      );
+
+      // Add use_cursor_pagination=true for cursor-paginated reports
+      const updatedParams = {
+        ...params,
+        use_cursor_pagination: shouldUseCursorPagination ? true : undefined,
+        cursor: shouldUseCursorPagination ? params.cursor : undefined,
+      };
+
+      // Temporary, to be removed once we have full cursor pagination
+      if (shouldUseCursorPagination) {
+        delete (updatedParams as any).page;
+      }
+
+      const response = await fetchSerializedReportV2API(
+        reportId,
+        updatedParams,
+      );
       dispatch(reportGenerationDetailV2.success(response.data));
       options?.onSuccess?.(response.data);
     } catch (err) {
-      console.error(err);
-      dispatch(reportGenerationDetailV2.error(err));
-      options?.onError?.(err);
+      dispatch(reportGenerationDetailV2.error(err as Error));
+      options?.onError?.(err as Error);
     }
     dispatch(reportGenerationDetailV2.isLoading(false));
   };
@@ -421,7 +444,6 @@ export function getInvalidFilters(
       dispatch(reportGetInvalidFiltersV2.success(response.data));
       options?.onSuccess?.(response.data);
     } catch (err) {
-      console.error(err);
       dispatch(reportGetInvalidFiltersV2.error(err));
       options?.onError?.(err);
     } finally {

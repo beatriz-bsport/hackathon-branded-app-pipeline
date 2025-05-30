@@ -25,6 +25,7 @@ import {
 } from '#src/libs/reporting/common/utils';
 import { hasObjectLevelPermission } from '#src/libs/role/permission-utils/utils';
 import ReportTableRow from '#src/libs/reporting/common/components/ReportTableRow';
+import { CURSOR_PAGINATED_CATEGORIES } from '#src/libs/reporting/common/constants';
 
 import type {
   ObjectLevelPermissions,
@@ -45,14 +46,19 @@ type TableProps = {
   previousPage: number;
   nextPage: number;
   otherPages: Array<any>;
-  handleGeneratePreviousPage: (data: any) => void;
-  handleGenerateNextPage: (data: any) => void;
+  handleGeneratePreviousPage: (data: {
+    cursor?: string;
+    page?: number;
+  }) => void;
+  handleGenerateNextPage: (data: { cursor?: string; page?: number }) => void;
   userPermissions: RolePermission;
   objectLevelPermissions: ObjectLevelPermissions;
   v2?: boolean;
   hasReportBeenGenerated?: boolean;
   totalElements: number;
   displayNewWebshop?: boolean;
+  nextCursor: string;
+  previousCursor: string;
 };
 
 type PaginationProps = {
@@ -61,29 +67,70 @@ type PaginationProps = {
   nextPage: number;
   totalElements: number;
   otherPages: Array<any>;
-  handleGeneratePreviousPage: (data: any) => void;
-  handleGenerateNextPage: (data: any) => void;
+  handleGeneratePreviousPage: (data: {
+    cursor?: string;
+    page?: number;
+  }) => void;
+  handleGenerateNextPage: (data: { cursor?: string; page?: number }) => void;
   columnSpan: number;
 };
 
 const SKELETON_NUMBERS = [1, 2, 3, 4, 5];
 
 const TablePaginationContent: React.FC<
-  Omit<PaginationProps, 'columnSpan'> & { isHeader?: boolean; v2?: boolean }
+  Omit<PaginationProps, 'columnSpan'> & {
+    isHeader?: boolean;
+    v2?: boolean;
+    nextCursor?: string;
+    previousCursor?: string;
+    shouldUseCursorPagination: boolean;
+  }
 > = React.memo(
   ({
     handleGenerateNextPage,
     handleGeneratePreviousPage,
-    isHeader,
+    isHeader = false,
     nextPage,
     otherPages,
     previousPage,
     reportStoreRowsLoading,
     v2,
     totalElements,
+    nextCursor,
+    previousCursor,
+    shouldUseCursorPagination,
   }) => {
     const { t } = useTranslation('reporting');
     const classes = useTablePaginationActionsStyles({ isHeader });
+
+    const handleNextClick = React.useCallback(
+      (event: React.MouseEvent) => {
+        event.preventDefault();
+        if (shouldUseCursorPagination && nextCursor) {
+          handleGenerateNextPage({ cursor: nextCursor });
+        } else if (!shouldUseCursorPagination && nextPage) {
+          handleGenerateNextPage({ page: nextPage });
+        }
+      },
+      [handleGenerateNextPage, nextPage, nextCursor, shouldUseCursorPagination],
+    );
+
+    const handlePreviousClick = React.useCallback(
+      (event: React.MouseEvent) => {
+        event.preventDefault();
+        if (shouldUseCursorPagination && previousCursor) {
+          handleGeneratePreviousPage({ cursor: previousCursor });
+        } else if (!shouldUseCursorPagination && previousPage) {
+          handleGeneratePreviousPage({ page: previousPage });
+        }
+      },
+      [
+        handleGeneratePreviousPage,
+        previousPage,
+        previousCursor,
+        shouldUseCursorPagination,
+      ],
+    );
 
     return (
       <div className={v2 ? classes.tableHeader : ''}>
@@ -93,28 +140,34 @@ const TablePaginationContent: React.FC<
           </Typography>
         )}
         <div className={classes.tableHeaderInfos}>
-          <Typography variant="body2">
-            {t('reportDetailContent.tableTotalElements', {
-              total: totalElements,
-            })}
-          </Typography>
+          {!shouldUseCursorPagination && (
+            <Typography variant="body2">
+              {t('reportDetailContent.tableTotalElements', {
+                total: totalElements,
+              })}
+            </Typography>
+          )}
           <div>
             <IconButton
               aria-label="previous page"
-              disabled={!previousPage || reportStoreRowsLoading}
-              onClick={handleGeneratePreviousPage}
+              disabled={
+                (!previousPage && !previousCursor) || reportStoreRowsLoading
+              }
+              onClick={handlePreviousClick}
             >
               <KeyboardArrowLeft />
             </IconButton>
-            <Typography variant="caption">
-              {`Page ${nextPage ? nextPage - 1 : previousPage + 1}/${
-                otherPages ? Math.max(otherPages.length, 1) : 1
-              }`}
-            </Typography>
+            {!shouldUseCursorPagination && (
+              <Typography variant="caption">
+                {`Page ${nextPage ? nextPage - 1 : previousPage + 1}/${
+                  otherPages ? Math.max(otherPages.length, 1) : 1
+                }`}
+              </Typography>
+            )}
             <IconButton
               aria-label="next page"
-              disabled={!nextPage || reportStoreRowsLoading}
-              onClick={handleGenerateNextPage}
+              disabled={(!nextPage && !nextCursor) || reportStoreRowsLoading}
+              onClick={handleNextClick}
             >
               <KeyboardArrowRight />
             </IconButton>
@@ -141,10 +194,13 @@ const TablePaginationActions: React.FC<PaginationProps> = ({
         <TablePaginationContent
           handleGenerateNextPage={handleGenerateNextPage}
           handleGeneratePreviousPage={handleGeneratePreviousPage}
+          nextCursor={undefined}
           nextPage={nextPage}
           otherPages={otherPages}
+          previousCursor={undefined}
           previousPage={previousPage}
           reportStoreRowsLoading={reportStoreRowsLoading}
+          shouldUseCursorPagination={false}
           totalElements={totalElements}
         />
       </TableCell>
@@ -169,19 +225,28 @@ const ReportTable: React.FC<TableProps> = ({
   hasReportBeenGenerated,
   totalElements,
   displayNewWebshop,
+  nextCursor,
+  previousCursor,
 }) => {
   const classes = useStyles();
   const { t } = useTranslation('reporting');
   const { columns = [] } = report;
 
+  const shouldUseCursorPagination = CURSOR_PAGINATED_CATEGORIES.includes(
+    report.category as (typeof CURSOR_PAGINATED_CATEGORIES)[number],
+  );
+
   const columnsConfigs = React.useMemo(
-    () => columns?.map((column) => getColumn(metadata, report, column)) ?? [],
+    () =>
+      columns.map((column) => {
+        const config = getColumn(metadata, report, column);
+        return config || { identifier: column, datatype: 'string' as const };
+      }),
     [columns, metadata, report],
   );
 
   const converters = React.useMemo(
-    () =>
-      columnsConfigs?.map((config) => getConverter(config, classes, t)) ?? [],
+    () => columnsConfigs.map((config) => getConverter(config, classes, t)),
     [classes, columnsConfigs, t],
   );
 
@@ -226,17 +291,38 @@ const ReportTable: React.FC<TableProps> = ({
     return result;
   }, [columns, report, objectLevelPermissions, result]);
 
+  // Handler for next page arrow
+  const handleNext = () => {
+    if (shouldUseCursorPagination && nextCursor) {
+      handleGenerateNextPage({ cursor: nextCursor });
+    } else if (!shouldUseCursorPagination && nextPage) {
+      handleGenerateNextPage({ page: nextPage });
+    }
+  };
+
+  // Handler for previous page arrow
+  const handlePrevious = () => {
+    if (shouldUseCursorPagination && previousCursor) {
+      handleGeneratePreviousPage({ cursor: previousCursor });
+    } else if (!shouldUseCursorPagination && previousPage) {
+      handleGeneratePreviousPage({ page: previousPage });
+    }
+  };
+
   return (
     <div className={className}>
       {v2 && (
         <TablePaginationContent
           isHeader
-          handleGenerateNextPage={handleGenerateNextPage}
-          handleGeneratePreviousPage={handleGeneratePreviousPage}
+          handleGenerateNextPage={handleNext}
+          handleGeneratePreviousPage={handlePrevious}
+          nextCursor={nextCursor}
           nextPage={nextPage}
           otherPages={otherPages}
+          previousCursor={previousCursor}
           previousPage={previousPage}
           reportStoreRowsLoading={reportStoreRowsLoading}
+          shouldUseCursorPagination={shouldUseCursorPagination}
           totalElements={totalElements}
           v2={v2}
         />
@@ -248,8 +334,8 @@ const ReportTable: React.FC<TableProps> = ({
             {!v2 && (
               <TablePaginationActions
                 columnSpan={columns.length}
-                handleGenerateNextPage={handleGenerateNextPage}
-                handleGeneratePreviousPage={handleGeneratePreviousPage}
+                handleGenerateNextPage={handleNext}
+                handleGeneratePreviousPage={handlePrevious}
                 nextPage={nextPage}
                 otherPages={otherPages}
                 previousPage={previousPage}
@@ -308,8 +394,8 @@ const ReportTable: React.FC<TableProps> = ({
             <TableFooter>
               <TablePaginationActions
                 columnSpan={columns.length}
-                handleGenerateNextPage={handleGenerateNextPage}
-                handleGeneratePreviousPage={handleGeneratePreviousPage}
+                handleGenerateNextPage={handleNext}
+                handleGeneratePreviousPage={handlePrevious}
                 nextPage={nextPage}
                 otherPages={otherPages}
                 previousPage={previousPage}
@@ -344,12 +430,15 @@ const ReportTable: React.FC<TableProps> = ({
       ) : null}
       {hasReportBeenGenerated && v2 && result?.length ? (
         <TablePaginationContent
-          handleGenerateNextPage={handleGenerateNextPage}
-          handleGeneratePreviousPage={handleGeneratePreviousPage}
+          handleGenerateNextPage={handleNext}
+          handleGeneratePreviousPage={handlePrevious}
+          nextCursor={nextCursor}
           nextPage={nextPage}
           otherPages={otherPages}
+          previousCursor={previousCursor}
           previousPage={previousPage}
           reportStoreRowsLoading={reportStoreRowsLoading}
+          shouldUseCursorPagination={shouldUseCursorPagination}
           totalElements={totalElements}
           v2={v2}
         />

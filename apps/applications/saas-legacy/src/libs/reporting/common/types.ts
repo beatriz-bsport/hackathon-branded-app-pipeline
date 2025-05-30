@@ -38,6 +38,8 @@ export type SerializedReport = {
   next_page: number;
   other_pages: number[];
   total: number;
+  next_cursor?: string | null;
+  previous_cursor?: string | null;
 };
 
 export type ReportingState = {
@@ -183,6 +185,7 @@ export type ReportSerializerParams = {
   report_filter_config_id?: number;
   time_window_start?: string;
   time_window_end?: string;
+  cursor?: string;
 };
 
 export type ReportObjectPermissions = {
@@ -210,6 +213,7 @@ export type ReportGenerationParams = {
   dateEnd?: string;
   page?: number;
   reportFilterConfigId?: number;
+  cursor?: string;
 };
 
 export type IsReportNameUsedParams = {

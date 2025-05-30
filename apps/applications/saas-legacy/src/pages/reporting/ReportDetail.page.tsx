@@ -201,6 +201,7 @@ const ReportingDetail: React.FC<Props> = ({
                 values.reportFilterConfigId || advancedReportFilterConfig.id,
             }
           : {}),
+        ...(values.cursor ? { cursor: values.cursor } : {}),
       };
 
       withReportHeadersFetch && fetchReportHeaders(reportId, sanitizedParams);

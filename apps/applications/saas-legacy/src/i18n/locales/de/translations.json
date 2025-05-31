@@ -12918,7 +12918,7 @@
             },
             "buttons": {
                 "selectRecipientsMobile": "Empfänger.",
-                "selectRecipients": "Wähle Empfänger",
+                "selectRecipients": "Empfänger wählen",
                 "send": "Senden",
                 "updateScheduled": "Aktualisieren",
                 "scheduleCommunication": "Planen"
@@ -16563,7 +16563,7 @@
             },
             "2": {
                 "label": "Alle Einrichtungen zusammenlegen",
-                "helperText": "Alle zusammengeführten EInrichtungen werden als ein einziger Standort erscheinen."
+                "helperText": "Alle zusammengeführten Einrichtungen werden als ein einziger Standort erscheinen."
             },
             "3": {
                 "label": "Fortgeschrittene",

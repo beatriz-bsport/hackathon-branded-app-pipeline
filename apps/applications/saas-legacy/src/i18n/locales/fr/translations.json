@@ -11860,7 +11860,13 @@
             "barcode": "Code barre",
             "supplier_name": "Fournisseur",
             "stock_keeping_unit": "SKU",
-            "voucher_reason": "Raison pour la réduction"
+            "voucher_reason": "Raison pour la réduction",
+            "nb_first_bookings": "Nombre de premières réservations",
+            "nb_universal_passes": "Nombre de cartes universelles",
+            "nb_expired_consumer_payment_packs": "Nombre de cartes de cours expirées",
+            "nb_consumer_payment_packs": "Nombre de cartes de cours",
+            "nb_first_attendances": "Nombre de premières présences",
+            "nb_payments": "Nombre de paiements"
         },
         "yes": "Oui",
         "no": "Non",

@@ -5543,7 +5543,13 @@
             "size": "Talla",
             "color": "Color",
             "subtitle": "Subtítulo",
-            "voucher_reason": "Motivo del descuento"
+            "voucher_reason": "Motivo del descuento",
+            "nb_first_bookings": "Número de primeras reservas",
+            "nb_universal_passes": "Número de pases universales",
+            "nb_expired_consumer_payment_packs": "Número de pases expirados",
+            "nb_consumer_payment_packs": "Número de pases",
+            "nb_first_attendances": "Número de primeras visitas",
+            "nb_payments": "Número de pagos"
         },
         "payment_method": {
             "cash": "Efectivo",
@@ -14416,7 +14422,8 @@
                 "errors": {
                     "14100": "No es posible anular una factura con los pagos de Interac.",
                     "14101": "No se puede reembolsar una factura de ajuste de saldo con una nota de abono.",
-                    "14102": "Es imposible reembolsar esta factura."
+                    "14102": "Es imposible reembolsar esta factura.",
+                    "35024": "No puede reembolsar esta factura porque su cuenta PayPal no tiene fondos suficientes."
                 }
             },
             "generateXml": {
@@ -19006,7 +19013,9 @@
                 "processing": "Pago en curso",
                 "disputed": "Pago impugnado",
                 "succeeded": "Pago satisfactorio",
-                "missing_charge": "No se ha intentado el pago"
+                "missing_charge": "No se ha intentado el pago",
+                "cancelled_with_negative_invoice": "Factura anulada por factura negativa",
+                "cancelled_with_credit_note": "Factura anulada por nota de crédito"
             },
             "bill": "Regularizar"
         },

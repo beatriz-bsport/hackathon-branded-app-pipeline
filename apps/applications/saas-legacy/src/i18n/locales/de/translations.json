@@ -6551,7 +6551,13 @@
             "size": "Größe",
             "color": "Farbe",
             "subtitle": "Untertitel",
-            "voucher_reason": "Rabattgrund"
+            "voucher_reason": "Rabattgrund",
+            "nb_first_bookings": "Anzahl der Erstbuchungen",
+            "nb_universal_passes": "Anzahl der universellen Kurspässe",
+            "nb_expired_consumer_payment_packs": "Anzahl der ausgelaufenen Kurspässe",
+            "nb_consumer_payment_packs": "Anzahl der Kurspässe",
+            "nb_first_attendances": "Anzahl der Erstbesuche",
+            "nb_payments": "Anzahl der Zahlungen"
         },
         "no": "Nein",
         "yes": "Ja",
@@ -7369,7 +7375,8 @@
                 "errors": {
                     "14100": "Es ist nicht möglich, eine Rechnung mit Interac-Zahlungen zu stornieren.",
                     "14101": "Sie können eine Restguthabenkorrektur nicht mit einer Gutschrift erstatten.",
-                    "14102": "Diese Rechnung kann nicht erstattet werden."
+                    "14102": "Diese Rechnung kann nicht erstattet werden.",
+                    "35024": "Du kannst diese Rechnung nicht erstatten, da auf deinem PayPal-Konto nicht genügend Guthaben vorhanden ist."
                 }
             },
             "generateXml": {
@@ -18285,7 +18292,9 @@
                 "processing": "Laufende Zahlungen",
                 "disputed": "Angefochtene Zahlung",
                 "succeeded": "Erfolgreiche Zahlung",
-                "missing_charge": "Keine Zahlung versucht"
+                "missing_charge": "Keine Zahlung versucht",
+                "cancelled_with_negative_invoice": "Rechnung durch Negativrechnung storniert",
+                "cancelled_with_credit_note": "Rechnung durch Gutschrift storniert"
             },
             "bill": "Zahlung vervollständigen"
         },

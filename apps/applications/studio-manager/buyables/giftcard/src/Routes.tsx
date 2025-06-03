@@ -1,7 +1,7 @@
 import { lazy } from "react";
 import { Route, Routes } from "react-router";
 
-import { ROUTES } from "#src/pages/routes";
+import { ROUTES } from "#src/urls";
 
 const GiftcardArchivedListPage = lazy(
   () => import("#src/pages/GiftcardArchivedList"),
@@ -11,7 +11,7 @@ const GiftcardListPage = lazy(() => import("#src/pages/GiftcardList"));
 export const AppRoutes = () => {
   return (
     <Routes>
-      <Route element={<GiftcardListPage />} path={ROUTES.ACTIVE} />
+      <Route element={<GiftcardListPage />} index />
       <Route element={<GiftcardArchivedListPage />} path={ROUTES.ARCHIVED} />
     </Routes>
   );

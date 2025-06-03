@@ -3,7 +3,7 @@ import { useNavigate } from "react-router";
 
 import { Button, ListLayout, Tooltip } from "@bsport/kaizen-primitive-core";
 
-import { ROUTES } from "#src/pages/routes";
+import { LEGACY_ROUTES, ROUTES } from "#src/urls";
 import { useTranslation } from "#src/utils/i18n";
 
 import { GiftcardImageUploadModal } from "./GiftcardImageUploadModal";
@@ -14,7 +14,8 @@ export const GiftcardListPage: React.FC = () => {
   const [openImageModal, setOpenImageModal] = useState<boolean>(false);
 
   const navigate = useNavigate();
-  const navigateToCreatePage = () => console.log("Create giftcard");
+  const navigateToCreatePage = () =>
+    (window.location.href = LEGACY_ROUTES.CREATE);
 
   const navigateToArchivePage = () => navigate(ROUTES.ARCHIVED);
 

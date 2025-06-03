@@ -1,6 +1,10 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 
-import { Modal, toast } from "@bsport/kaizen-primitive-core";
+import {
+  Modal,
+  type PaginationProps,
+  toast,
+} from "@bsport/kaizen-primitive-core";
 import { dataAccessLayer } from "@bsport/sm-backbone";
 import {
   archiveGiftcardImageAction,
@@ -40,6 +44,7 @@ export const GiftcardImageUploadModal: React.FC<UploadModalProps> = ({
   const [currentPage, setCurrentPage] = useState<number>(DEFAULT_PAGE);
 
   const companyTheme = dataAccessLayer.useCompanyTheme();
+  const companyId = companyTheme?.company;
 
   // Data from store
   const totalItems = useGiftcardStore(selectGiftcardImagesCount);
@@ -49,21 +54,26 @@ export const GiftcardImageUploadModal: React.FC<UploadModalProps> = ({
 
   const fetchGiftcardImages = useCallback(
     async ({ page }: { page: number }) => {
-      return fetchGiftcardImagesAction(fetch, {
-        page,
-        page_size: ROWS_PER_PAGE,
-        /** @todo Retrieve company id from Company store */
-        company: 2,
-      });
+      if (companyId) {
+        return fetchGiftcardImagesAction(fetch, {
+          page,
+          page_size: ROWS_PER_PAGE,
+          company: companyId,
+        });
+      }
     },
-    [],
+    [companyId],
   );
 
   const refreshGiftcardImages = useCallback(() => {
-    fetchGiftcardImages({ page: DEFAULT_PAGE });
-  }, [fetchGiftcardImages]);
+    if (currentPage === DEFAULT_PAGE) {
+      fetchGiftcardImages({ page: DEFAULT_PAGE });
+    } else {
+      // Changing the page will trigger an automatic fetch with the fetchGiftcardImagesPage callback
+      setCurrentPage(DEFAULT_PAGE);
+    }
+  }, [fetchGiftcardImages, currentPage]);
 
-  /** @todo Use when having true pagination */
   const fetchGiftcardImagesPage = useCallback(() => {
     fetchGiftcardImages({ page: currentPage });
   }, [currentPage, fetchGiftcardImages]);
@@ -101,21 +111,19 @@ export const GiftcardImageUploadModal: React.FC<UploadModalProps> = ({
     response.fold(onSuccess, onFailure);
   };
 
-  /** @todo Remove when having true pagination */
-  const paginatedList = useMemo(() => {
-    return giftcardImages.slice(
-      (currentPage - 1) * ROWS_PER_PAGE,
-      currentPage * ROWS_PER_PAGE,
-    );
-  }, [currentPage, giftcardImages]);
-
   // ----- Load data -----
 
   useEffect(() => {
-    refreshGiftcardImages();
-  }, [refreshGiftcardImages]);
+    fetchGiftcardImagesPage();
+  }, [fetchGiftcardImagesPage]);
 
-  const isEmpty = !totalItems;
+  const paginationParams: PaginationProps = {
+    rowsPerPage: ROWS_PER_PAGE,
+    currentPage,
+    totalItems,
+    showRowsPerPageSelector: false,
+    onPageChange: setCurrentPage,
+  };
 
   return (
     <Modal
@@ -136,15 +144,12 @@ export const GiftcardImageUploadModal: React.FC<UploadModalProps> = ({
           companyCover={companyTheme?.cover}
         />
         <GiftcardImageList
-          currentPage={currentPage}
-          itemList={paginatedList}
+          itemList={giftcardImages}
           onArchiveClick={handleArchive}
-          onItemClick={(src: string) => setSelectedImage(src)}
-          onPageChange={setCurrentPage}
-          totalItems={totalItems}
-          isEmpty={isEmpty}
+          onItemClick={setSelectedImage}
+          isEmpty={!totalItems}
+          paginationParams={paginationParams}
           refreshGiftcardImageList={refreshGiftcardImages}
-          rowsPerPage={ROWS_PER_PAGE}
         />
       </div>
     </Modal>

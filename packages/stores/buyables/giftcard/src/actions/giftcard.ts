@@ -1,6 +1,6 @@
 import { Result } from "typescript-result";
 
-import type { Action } from "@bsport/store-base";
+import type { Action, PaginatedResponse } from "@bsport/store-base";
 
 import {
   type FetchGiftcardsParams,
@@ -22,8 +22,7 @@ import { setGiftcards, updateGiftcard } from "./store";
  */
 export const fetchGiftcardsAction: Action<
   FetchGiftcardsParams,
-  /** @todo Replace when pagination is setup in the backend */
-  Giftcard[] // PaginatedResponse<Giftcard>
+  PaginatedResponse<Giftcard>
 > = async (fetch, params) => {
   const [uri, init] = fetchGiftcardsAPI(params);
 
@@ -31,16 +30,10 @@ export const fetchGiftcardsAction: Action<
     async () => {
       const { data } = await fetch(uri, init);
 
-      /** @todo Replace when pagination is setup in the backend */
-      // setGiftcards({
-      //   giftcards: data.results,
-      //   page: data.page,
-      //   count: data.count,
-      // });
       setGiftcards({
-        giftcards: data,
-        page: params.page,
-        count: data.length,
+        giftcards: data.results,
+        page: data.page,
+        count: data.count,
       });
 
       return data;

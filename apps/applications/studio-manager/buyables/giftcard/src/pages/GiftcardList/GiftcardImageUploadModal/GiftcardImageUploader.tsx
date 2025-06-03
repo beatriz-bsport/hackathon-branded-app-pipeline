@@ -10,13 +10,13 @@ import { uploadGiftcardImageAction } from "@bsport/store-buyables-giftcard";
 import { xhr } from "#src/utils/fetch";
 
 type GiftcardImageUploaderProps = {
-  fetchGiftcardImageList: () => void;
+  refreshGiftcardImageList: () => void;
   isEmpty?: boolean;
 };
 
 export const GiftcardImageUploader: React.FC<GiftcardImageUploaderProps> = ({
   isEmpty,
-  fetchGiftcardImageList,
+  refreshGiftcardImageList,
 }) => {
   const handleUploadFile = async (
     file: File,
@@ -32,7 +32,7 @@ export const GiftcardImageUploader: React.FC<GiftcardImageUploaderProps> = ({
     return response.fold(
       () => {
         // If upload succeded, refresh the list
-        fetchGiftcardImageList();
+        refreshGiftcardImageList();
         // Return a status "success" to update state of the progress bar
         return { status: FILE_UPLOAD_STATUSES.success };
       },

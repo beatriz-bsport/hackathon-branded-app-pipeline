@@ -1,6 +1,6 @@
 import { Result } from "typescript-result";
 
-import type { Action, XhrAction } from "@bsport/store-base";
+import type { Action, PaginatedResponse, XhrAction } from "@bsport/store-base";
 
 import {
   type FetchGiftcardImagesParams,
@@ -22,8 +22,7 @@ import { setGiftcardImages, updateGiftcardImage } from "./store";
  */
 export const fetchGiftcardImagesAction: Action<
   FetchGiftcardImagesParams,
-  /** @todo Replace when pagination is setup in the backend */
-  GiftcardImage[] // PaginatedResponse<GiftcardImage>
+  PaginatedResponse<GiftcardImage>
 > = async (fetch, params) => {
   const [uri, init] = fetchGiftcardImagesAPI(params);
 
@@ -31,16 +30,10 @@ export const fetchGiftcardImagesAction: Action<
     async () => {
       const { data } = await fetch(uri, init);
 
-      /** @todo Replace when pagination is setup in the backend */
-      // setGiftcardImages({
-      //   giftcardImages: data.results,
-      //   page: data.page,
-      //   count: data.count,
-      // });
       setGiftcardImages({
-        giftcardImages: data,
-        page: params.page,
-        count: data.length,
+        giftcardImages: data.results,
+        page: data.page,
+        count: data.count,
       });
 
       return data;

@@ -17,6 +17,7 @@ import { PreviewTemplateModal } from "#src/components/Common/Modals/PreviewTempl
 import { SearchedTemplateList } from "#src/components/Common/SearchedTemplateList";
 import { NestedSortableList } from "#src/components/CustomTemplate/NestedSortableList";
 import { NoCategoryList } from "#src/components/CustomTemplate/NoCategoryList";
+import { useEmailTemplateOrdering } from "#src/hooks/actions/useEmailTemplateOrdering";
 import { useFetchAllEmailTemplates } from "#src/hooks/fetch/useFetchAllTemplatesList";
 import { useListItemFactory } from "#src/hooks/layout/useListItemFactory";
 import { useSortableListFactory } from "#src/hooks/layout/useSortableListFactory";
@@ -53,6 +54,7 @@ export const PageListContent: React.FC<Props> = ({
     isLoading: isEmailTemplatesListLoading,
     fetchAllEmailTemplates,
   } = useFetchAllEmailTemplates();
+  const { reorderEmailTemplates } = useEmailTemplateOrdering();
   const { navigateToCreateTemplate } = useTemplateNavigation();
 
   const handlePreviewTemplate = (template: EmailTemplateSummary) => {
@@ -154,17 +156,19 @@ export const PageListContent: React.FC<Props> = ({
     );
   }
 
+  const sortableLists: SortableListProps[] = getFormattedSortableList();
+
   return (
     <>
       <div className="flex flex-col w-full">
         <NestedSortableList
           onSortChildren={(templateList: Sortable[]) => {
-            console.log("re ordered template list : ", templateList);
+            reorderEmailTemplates(templateList);
           }}
           onSortParents={(categoryList: SortableListProps[]) => {
             console.log("re ordered category list : ", categoryList);
           }}
-          sortableLists={getFormattedSortableList()}
+          sortableLists={sortableLists}
         />
         <NoCategoryList
           emailTemplateList={emailTemplateList}

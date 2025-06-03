@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import {
   DragAndDrop,
@@ -66,10 +66,6 @@ export const NestedSortableList: React.FC<Props> = ({
       return updatedLists;
     });
   };
-
-  useEffect(() => {
-    setSortableListData(sortableLists);
-  }, [sortableLists]);
 
   return (
     <DragAndDrop

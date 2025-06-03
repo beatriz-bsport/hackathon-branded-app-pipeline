@@ -4,6 +4,7 @@ import { LEGACY_URLS, ROUTES } from "#src/urls";
 
 export const useTemplateNavigation = () => {
   const navigate = useNavigate();
+
   const navigateToCreateTemplate = () => {
     window?.location?.assign(LEGACY_URLS.CREATE_EMAIL_TEMPLATE());
   };

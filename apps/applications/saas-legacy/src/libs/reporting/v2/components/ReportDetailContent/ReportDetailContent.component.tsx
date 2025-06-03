@@ -14,6 +14,7 @@ import { cardHeaderStatsTheme } from '#src/libs/reporting/v2/mui-theme-providers
 import ReportDetailContentHeader from './ReportDetailContentHeader.component';
 import ReportTableHeaders from '#src/libs/reporting/common/components/ReportTableHeaders.component';
 import ReportTable from '#src/libs/reporting/common/components/ReportTable.component';
+import { useCursorPagination } from '#src/libs/reporting/common/hooks/useCursorPagination';
 
 import { getReportObjectPermissionsBasedOnCategory } from '#src/libs/reporting/common/utils';
 
@@ -99,21 +100,20 @@ const ReportDetailContent: React.FC<Props> = ({
   const classes = useStyles();
   const { t } = useTranslation('reporting');
 
-  const handleGenerateNextPage = React.useCallback(() => {
-    if (!report) return;
-
-    if (reportGeneratedRows?.next_cursor) {
-      handleGeneration({ cursor: reportGeneratedRows.next_cursor }, false);
-    }
-  }, [handleGeneration, report, reportGeneratedRows]);
-
-  const handleGeneratePreviousPage = React.useCallback(() => {
-    if (!report) return;
-
-    if (reportGeneratedRows?.previous_cursor) {
-      handleGeneration({ cursor: reportGeneratedRows.previous_cursor }, false);
-    }
-  }, [handleGeneration, report, reportGeneratedRows]);
+  // Use the optimized cursor pagination hook instead of custom handlers
+  const {
+    handleNext: handleGenerateNextPage,
+    handlePrevious: handleGeneratePreviousPage,
+  } = useCursorPagination({
+    data: {
+      next_cursor: reportGeneratedRows?.next_cursor,
+      previous_cursor: reportGeneratedRows?.previous_cursor,
+    },
+    onNavigate: ({ cursor }) => {
+      if (!report) return;
+      handleGeneration({ cursor }, false);
+    },
+  });
 
   const hasReportBeenGenerated = React.useMemo(
     () => !!reportHeaders.results?.averageable,

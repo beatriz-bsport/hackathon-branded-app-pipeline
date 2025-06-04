@@ -3961,7 +3961,7 @@
                 "ledger": {
                     "_label": "Kassenbuch"
                 },
-                "_label": "Aktionen in der App",
+                "_label": "Aktionen in oberer Navigationsleiste",
                 "communicationAlerts": {
                     "_label": "Benachrichtigung"
                 }

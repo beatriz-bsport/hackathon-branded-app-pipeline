@@ -3,18 +3,14 @@ import type { TemplateOrderingData } from "@bsport/store-cdp-email-template";
 
 import { useOrderTemplate } from "#src/hooks/api/use-order-template";
 import { reorderEmailTemplateSortableArray } from "#src/utils/ordering";
-
-type OrderingHookParams<T> = {
-  onSuccess?: (result: T[]) => void;
-  onFailure?: () => void;
-};
+import type { OrderingHookParams } from "#src/utils/types";
 
 export const useEmailTemplateOrdering = (
-  props?: OrderingHookParams<TemplateOrderingData>,
+  params?: OrderingHookParams<TemplateOrderingData>,
 ) => {
   const { orderTemplate } = useOrderTemplate({
-    onSuccess: props?.onSuccess,
-    onFailure: props?.onFailure,
+    onSuccess: params?.onSuccess,
+    onFailure: params?.onFailure,
   });
 
   const reorderEmailTemplates = (newOrder: Sortable[]): void => {

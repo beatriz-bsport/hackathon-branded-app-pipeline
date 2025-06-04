@@ -17,6 +17,7 @@ import { PreviewTemplateModal } from "#src/components/Common/Modals/PreviewTempl
 import { SearchedTemplateList } from "#src/components/Common/SearchedTemplateList";
 import { NestedSortableList } from "#src/components/CustomTemplate/NestedSortableList";
 import { NoCategoryList } from "#src/components/CustomTemplate/NoCategoryList";
+import { useCategoryOrdering } from "#src/hooks/actions/useCategoryOrdering";
 import { useEmailTemplateOrdering } from "#src/hooks/actions/useEmailTemplateOrdering";
 import { useFetchAllEmailTemplates } from "#src/hooks/fetch/useFetchAllTemplatesList";
 import { useListItemFactory } from "#src/hooks/layout/useListItemFactory";
@@ -54,7 +55,10 @@ export const PageListContent: React.FC<Props> = ({
     isLoading: isEmailTemplatesListLoading,
     fetchAllEmailTemplates,
   } = useFetchAllEmailTemplates();
-  const { reorderEmailTemplates } = useEmailTemplateOrdering();
+  const { reorderCategories } = useCategoryOrdering();
+  const { reorderEmailTemplates } = useEmailTemplateOrdering({
+    onSuccess: () => console.log("Templates reordered successfully"),
+  });
   const { navigateToCreateTemplate } = useTemplateNavigation();
 
   const handlePreviewTemplate = (template: EmailTemplateSummary) => {
@@ -166,7 +170,7 @@ export const PageListContent: React.FC<Props> = ({
             reorderEmailTemplates(templateList);
           }}
           onSortParents={(categoryList: SortableListProps[]) => {
-            console.log("re ordered category list : ", categoryList);
+            reorderCategories(categoryList);
           }}
           sortableLists={sortableLists}
         />

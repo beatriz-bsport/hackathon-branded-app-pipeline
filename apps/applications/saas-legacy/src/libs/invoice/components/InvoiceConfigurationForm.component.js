@@ -405,7 +405,7 @@ export class InvoiceConfigurationForm extends React.Component<Props, State> {
                 <Button
                   color="primary"
                   disabled={this.props.processing}
-                  href="https://developer.fiskaly.com/assets/files/BSI-K-TR-0403-2021_TR-Konformitaetsbericht_fiskaly_TSE-1705c4b9bf53a5fa36f734dbf9b2e7c2.pdf"
+                  href="https://docs.ext.bsport.io/tse-procedural-documentation"
                   target="_blank"
                   variant="outlined"
                 >

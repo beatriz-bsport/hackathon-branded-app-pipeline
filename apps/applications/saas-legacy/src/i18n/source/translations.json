@@ -7618,6 +7618,7 @@
             "20": "Request for invoice download",
             "21": "New booking (for members)",
             "22": "Invoice confirmation",
+            "23": "Subscription paid with internal account balance",
             "24": "Purchased subscription (for members)",
             "25": "Payment method modified",
             "26": "Subscription paused",

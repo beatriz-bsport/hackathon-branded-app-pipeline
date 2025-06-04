@@ -2,6 +2,18 @@
  * A MetaActivity is a meta_activity in the backend.
  * It can be a group activity or a workshop, as it's the same object.
  */
+export type FetchGroupActivitiesParams = {
+  page: number;
+  pageSize: number;
+  customerEnabled: boolean; // if false, the endpoint should return the archived group activities
+  inCategoryIds?: string[]; // optional, used to filter by specific service categories
+  notInCategoryIds?: string[]; // optional, used to exclude specific service categories
+};
+
+export type SearchGroupActivitiesParams = FetchGroupActivitiesParams & {
+  searchQuery?: string;
+};
+
 export type MetaActivity<Tag = number> = {
   activities: number[];
   alt_cover_main: string;

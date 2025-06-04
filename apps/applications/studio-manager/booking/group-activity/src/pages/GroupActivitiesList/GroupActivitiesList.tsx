@@ -1,14 +1,10 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router";
 
-import {
-  Button,
-  ListLayout,
-  Loader,
-  Table,
-} from "@bsport/kaizen-primitive-core";
+import { Button, ListLayout, Table } from "@bsport/kaizen-primitive-core";
 import type { MetaActivity } from "@bsport/store-booking-group-activity";
 
+import { useCategoryFilter } from "#src/hooks/useCategoryFilter";
 import { useGroupActivityModals } from "#src/hooks/useGroupActivityModals";
 import { usePaginatedGroupActivities } from "#src/hooks/usePaginatedGroupActivities";
 import useTableColumns from "#src/hooks/useTableColumns";
@@ -20,19 +16,27 @@ type Row = MetaActivity & {
   color: string;
 };
 
+const DEBOUNCE_DELAY = 300;
+
 export const GroupActivitiesList: React.FC = () => {
-  const ref = useRef<{ resetFilters: () => void }>(null);
   const { t } = useTranslation("groupActivity");
+  const [searchQuery, setSearchQuery] = React.useState("");
   const columns = useTableColumns<Row>();
   const {
-    fetchGroupActivitiesPage,
+    searchGroupActivitiesPage,
     groupActivities,
     paginationProps,
     isLoading,
   } = usePaginatedGroupActivities(true);
+  const { activeCategoryFilters, resetFilters, categoryFiltersConfig } =
+    useCategoryFilter();
 
   const getGroupActivityDetailLink = (groupActivityId: string) =>
     `/activity/${groupActivityId}/general`;
+
+  const clearSearchQuery = () => {
+    setSearchQuery("");
+  };
 
   const renderedGroupActivities = groupActivities.map((item) => ({
     ...item,
@@ -41,11 +45,17 @@ export const GroupActivitiesList: React.FC = () => {
   }));
 
   const { archiveModal, duplicateModal, onClickArchive, onClickDuplicate } =
-    useGroupActivityModals({ fetchGroupActivitiesPage });
+    useGroupActivityModals({
+      fetchGroupActivitiesPage: searchGroupActivitiesPage,
+    });
 
   useEffect(() => {
-    fetchGroupActivitiesPage();
-  }, [fetchGroupActivitiesPage]);
+    searchGroupActivitiesPage({
+      inCategoryIds: activeCategoryFilters.is,
+      notInCategoryIds: activeCategoryFilters.isNot,
+      searchQuery,
+    });
+  }, [searchGroupActivitiesPage, activeCategoryFilters, searchQuery]);
 
   return (
     <ListLayout>
@@ -70,114 +80,79 @@ export const GroupActivitiesList: React.FC = () => {
           />
         }
         pageTitle={t("list.header.groupActivities")}
-        filterConfig={{
-          // No working at the moment, will be using SCTs in the coming days
-          ref,
-          fields: {
-            category: {
-              availableFilters: ["is", "is-not"],
-              id: "category",
-              label: t("list.enabled.filter.category"),
-              multiSelect: false,
-              values: [
-                {
-                  id: "yoga",
-                  label: "Yoga",
-                },
-                {
-                  id: "pilates",
-                  label: "Pilates",
-                },
-                {
-                  id: "zumba",
-                  label: "Zumba",
-                },
-              ],
-            },
-          },
-          filters: [
-            {
-              id: "is",
-              label: "is",
-            },
-            {
-              id: "is-not",
-              label: "is not",
-            },
-          ],
-          onFilterChange: function Ki() {},
-          selectFieldLabel: t("list.enabled.filter.title"),
-        }}
+        filterConfig={categoryFiltersConfig}
         searchConfig={{
-          // No working at the moment, will be implemented in the coming days
           id: "group-activity-expandable-search",
+          inputValue: searchQuery,
+          debounceValue: DEBOUNCE_DELAY,
+          onInputValueChange: setSearchQuery,
+          onClear: clearSearchQuery,
         }}
       />
-      {isLoading ? (
-        <Loader className="w-full h-full" size="xl" />
-      ) : (
-        <ListLayout.Content className="flex flex-col gap-sm">
-          <Table<Row>
-            id="enabled-group-activities-list"
-            columns={[
-              ...columns,
-              {
-                header: "",
-                id: "actions",
-                type: "custom",
-                render: (item) => {
-                  return (
-                    <div className="flex flex-row gap-sm">
-                      <Button
-                        iconLeft="copy-03"
-                        intent="default"
-                        color="main"
-                        aria-label={t("list.actions.duplicate")}
-                        size="md"
-                        onClick={(e) => {
-                          e.preventDefault();
-                          onClickDuplicate(item.id, item.name);
-                        }}
-                      />
-                      <Button
-                        iconLeft="archive"
-                        intent="default"
-                        color="main"
-                        aria-label={t("list.actions.archive")}
-                        size="md"
-                        onClick={(e) => {
-                          e.preventDefault();
-                          onClickArchive(item.id, item.name);
-                        }}
-                      />
-                    </div>
-                  );
-                },
+      <ListLayout.Content className="flex flex-col gap-sm">
+        <Table<Row>
+          id="enabled-group-activities-list"
+          loadingProps={{
+            isLoading,
+          }}
+          columns={[
+            ...columns,
+            {
+              header: "",
+              id: "actions",
+              type: "custom",
+              render: (item) => {
+                return (
+                  <div className="flex flex-row gap-sm">
+                    <Button
+                      iconLeft="copy-03"
+                      intent="default"
+                      color="main"
+                      aria-label={t("list.actions.duplicate")}
+                      size="md"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        onClickDuplicate(item.id, item.name);
+                      }}
+                    />
+                    <Button
+                      iconLeft="archive"
+                      intent="default"
+                      color="main"
+                      aria-label={t("list.actions.archive")}
+                      size="md"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        onClickArchive(item.id, item.name);
+                      }}
+                    />
+                  </div>
+                );
               },
-            ]}
-            emptyStateProps={{
-              isEmpty: !paginationProps.totalItems,
-              isEmptySearch: !paginationProps.totalItems,
-              emptyConfig: {
-                title: t("list.enabled.emptyState.title"),
+            },
+          ]}
+          emptyStateProps={{
+            isEmpty: !paginationProps.totalItems,
+            isEmptySearch: !paginationProps.totalItems,
+            emptyConfig: {
+              title: t("list.enabled.emptyState.title"),
+            },
+            emptySearchConfig: {
+              title: t("list.enabled.emptySearchState.title"),
+              subtitle: t("list.enabled.emptySearchState.subtitle"),
+              ctaButtonConfig: {
+                label: t("list.enabled.emptySearchState.action"),
+                iconLeft: "plus" as const,
+                onClick: resetFilters,
               },
-              emptySearchConfig: {
-                title: t("list.enabled.emptySearchState.title"),
-                subtitle: t("list.enabled.emptySearchState.subtitle"),
-                ctaButtonConfig: {
-                  label: t("list.enabled.emptySearchState.action"),
-                  iconLeft: "plus" as const,
-                  onClick: ref.current?.resetFilters,
-                },
-              },
-            }}
-            paginationProps={paginationProps}
-            rows={renderedGroupActivities}
-          />
-          {archiveModal}
-          {duplicateModal}
-        </ListLayout.Content>
-      )}
+            },
+          }}
+          paginationProps={paginationProps}
+          rows={renderedGroupActivities}
+        />
+        {archiveModal}
+        {duplicateModal}
+      </ListLayout.Content>
     </ListLayout>
   );
 };

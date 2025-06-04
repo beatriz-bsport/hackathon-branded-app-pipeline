@@ -5,7 +5,11 @@ import Button from "#src/components/Button";
 import Menu from "#src/components/Menu";
 import Popover from "#src/components/Popover";
 
-import { filterElementBtnClasses, filterElementClasses } from "./constants";
+import {
+  FILTER_MENU_MAX_HEIGHT,
+  filterElementBtnClasses,
+  filterElementClasses,
+} from "./constants";
 
 type FilterElementSelectFieldProps = {
   displayEntireFilter: boolean;
@@ -54,7 +58,10 @@ const FilterElementSelectField: React.FC<FilterElementSelectFieldProps> = ({
           />
         )}
       </Popover.Anchor>
-      <Popover.Content placement="bottom-left">
+      <Popover.Content
+        placement="bottom-left"
+        maxHeightPx={FILTER_MENU_MAX_HEIGHT}
+      >
         {({ setIsPopoverOpened }) => {
           const items = !selectedField
             ? Object.keys(fields).map((fieldId) => ({

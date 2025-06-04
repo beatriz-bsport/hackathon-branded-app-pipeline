@@ -1,11 +1,14 @@
 import classNames from "classnames";
 import React, { useCallback, useState } from "react";
+import { flushSync } from "react-dom";
 
 import Button from "#src/components/Button";
 import TextField from "#src/components/TextField";
+import useDebounce from "#src/hooks/debounce";
 
 const DEFAULT_EXPANDED_WIDTH = 200;
 const COLLAPSED_WIDTH = 32;
+const TRANSITION_DURATION = 300;
 
 export type ExpandableSearchInputProps =
   React.HTMLAttributes<HTMLDivElement> & {
@@ -17,6 +20,7 @@ export type ExpandableSearchInputProps =
     onInputValueChange?: (value: string) => void;
     onButtonClick?: () => void;
     onClear?: () => void;
+    debounceValue?: number;
   };
 
 /**
@@ -33,6 +37,7 @@ export type ExpandableSearchInputProps =
  * @param props.onInputValueChange Callback function to handle changes in the input field value.
  * @param props.onButtonClick Callback function to handle the click event on the search icon.
  * @param props.onClear Callback function to handle the click event on the clear icon.
+ * @param props.debounceValue Duration in milliseconds to debounce the input value change event. Defaults to 0ms.
  */
 const ExpandableSearchInput: React.FC<ExpandableSearchInputProps> = ({
   className,
@@ -44,43 +49,43 @@ const ExpandableSearchInput: React.FC<ExpandableSearchInputProps> = ({
   onInputValueChange,
   onButtonClick,
   onClear,
+  debounceValue = 0,
   ...props
 }) => {
-  const [isInputVisible, setIsInputVisible] = useState(false);
+  const [displayedAsInput, setDisplayedAsInput] = useState(false);
   const [value, setValue] = useState(inputValue || "");
   const [isOpened, setIsOpened] = useState(false);
 
   const handleButtonClick = useCallback(() => {
-    setIsInputVisible(true);
-    setTimeout(() => {
-      setIsOpened(true);
-    }, 20);
+    flushSync(() => {
+      setDisplayedAsInput(true);
+    });
+    setIsOpened(true);
     onButtonClick?.();
   }, [onButtonClick]);
 
   const handleClear = useCallback(() => {
+    setValue("");
     setIsOpened(false);
-    setTimeout(() => {
-      setValue("");
-      setIsInputVisible(false);
-    }, 300);
     onClear?.();
   }, [onClear]);
 
   const handleBlur = useCallback(() => {
     if (value === "") {
       setIsOpened(false);
-      setTimeout(() => {
-        setIsInputVisible(false);
-      }, 300);
     }
   }, [value]);
+
+  const debouncedInputValueChange = useDebounce(
+    (newValue) => onInputValueChange?.(newValue),
+    debounceValue,
+  );
 
   const handleInputChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       const newValue = e.target.value;
       setValue(newValue);
-      onInputValueChange?.(newValue);
+      debouncedInputValueChange(newValue);
     },
     [onInputValueChange],
   );
@@ -96,20 +101,14 @@ const ExpandableSearchInput: React.FC<ExpandableSearchInputProps> = ({
       )}
       {...props}
     >
-      {!isInputVisible && (
-        <Button
-          color="main"
-          intent="default"
-          size="md"
-          iconLeft="search-refraction"
-          onClick={handleButtonClick}
-        />
-      )}
-      {isInputVisible && (
+      {displayedAsInput ? (
         <TextField
-          style={{
-            width: isOpened ? `${maxWidth}px` : `${COLLAPSED_WIDTH}px`,
-            transition: "width 300ms ease-out",
+          containerProps={{
+            style: {
+              width: isOpened ? `${maxWidth}px` : `${COLLAPSED_WIDTH}px`,
+              transition: `width ${TRANSITION_DURATION}ms ease-out`,
+            },
+            onTransitionEnd: () => setDisplayedAsInput(isOpened),
           }}
           id={id}
           type="search"
@@ -120,6 +119,14 @@ const ExpandableSearchInput: React.FC<ExpandableSearchInputProps> = ({
           placeholder={placeholder}
           iconLeft="search-refraction"
           autoFocus
+        />
+      ) : (
+        <Button
+          color="main"
+          intent="default"
+          size="md"
+          iconLeft="search-refraction"
+          onClick={handleButtonClick}
         />
       )}
     </div>

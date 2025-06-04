@@ -3,14 +3,18 @@ import { Result } from "typescript-result";
 import type { Action, PaginatedResponse } from "@bsport/store-base";
 
 import {
-  type FetchGroupActivitiesParams,
   archiveGroupActivityAPI,
   checkCanArchiveGroupActivityAPI,
   duplicateGroupActivityAPI,
   fetchGroupActivitiesAPI,
+  searchGroupActivitiesAPI,
   unarchiveGroupActivityAPI,
 } from "#src/api";
-import type { MetaActivity } from "#src/types";
+import type {
+  FetchGroupActivitiesParams,
+  MetaActivity,
+  SearchGroupActivitiesParams,
+} from "#src/types";
 
 import {
   setGroupActivities,
@@ -37,6 +41,28 @@ export const fetchGroupActivitiesAction: Action<
       return data;
     },
     (error) => new Error("Failed to fetch group activities", { cause: error }),
+  );
+};
+
+export const searchGroupActivitiesAction: Action<
+  SearchGroupActivitiesParams,
+  PaginatedResponse<MetaActivity>
+> = async (fetch, params) => {
+  const [uri, init] = searchGroupActivitiesAPI(params);
+
+  return Result.try(
+    async () => {
+      const { data } = await fetch(uri, init);
+
+      setGroupActivities({
+        groupActivities: data.results,
+        count: data.count,
+        page: data.page,
+      });
+
+      return data;
+    },
+    (error) => new Error("Failed to search group activities", { cause: error }),
   );
 };
 

@@ -80,6 +80,7 @@ export type TextFieldProps = Omit<
   suffix?: TextFieldPrefixSuffix;
   fullWidth?: boolean;
   type?: (typeof inputTypes)[number];
+  containerProps?: React.HTMLAttributes<HTMLDivElement>;
 };
 
 /**
@@ -126,6 +127,7 @@ const TextField: React.FC<TextFieldProps> = ({
   onBlur,
   onFocus,
   fullWidth,
+  containerProps,
   ...props
 }) => {
   /* TODO: Check with design if the color picker needs all these props, and split it in a separate component (explained here: https://gitlab.com/bsport/ichizen/-/merge_requests/425#note_2402509306) */
@@ -162,12 +164,20 @@ const TextField: React.FC<TextFieldProps> = ({
       ? { type: "text", onChange: handleTextChange }
       : { type, onChange };
 
+  const { className: containerClassName, ...otherContainerProps } =
+    containerProps ?? {};
+
   return (
     <div
-      className={classNames("flex flex-col gap-2xs", {
-        "opacity-sm pointer-events-none": disabled,
-        "max-w-component-select": !fullWidth,
-      })}
+      className={classNames(
+        "flex flex-col gap-2xs",
+        {
+          "opacity-sm pointer-events-none": disabled,
+          "max-w-component-select": !fullWidth,
+        },
+        containerClassName ?? "",
+      )}
+      {...otherContainerProps}
     >
       {label && (
         <label

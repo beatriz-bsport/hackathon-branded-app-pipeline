@@ -1,11 +1,39 @@
 import { type ApiConfig, buildUrlParams } from "@bsport/store-base";
 
+import type {
+  FetchGroupActivitiesParams,
+  SearchGroupActivitiesParams,
+} from "./types";
+
 const API_URL = "book/v1/meta-activity";
 
-export type FetchGroupActivitiesParams = {
-  page: number;
-  pageSize: number;
-  customerEnabled: boolean; // if false, the endpoint should return the archived group activities
+const mapGroupActivitiesUrlParams = ({
+  customerEnabled,
+  page,
+  pageSize,
+  inCategoryIds,
+  notInCategoryIds,
+}: FetchGroupActivitiesParams) => ({
+  customer_enabled: customerEnabled,
+  page: page,
+  page_size: pageSize,
+  is_workshop: false,
+  ...(inCategoryIds ? { sct__in: inCategoryIds } : {}),
+  ...(notInCategoryIds ? { sct__not_in: notInCategoryIds } : {}),
+});
+
+/**
+ * Fetches a paginated list of group activities based on the provided parameters.
+ *
+ * @param params - The parameters for fetching group activities.
+ * @param params.customerEnabled - Whether customer-related activities should be included.
+ * @param params.page - The current page number (by default 1).
+ * @param params.pageSize - The number of items per page (by default 10).
+ */
+export const fetchGroupActivitiesAPI = (
+  params: FetchGroupActivitiesParams,
+): ApiConfig => {
+  return [`${API_URL}/${buildUrlParams(mapGroupActivitiesUrlParams(params))}`];
 };
 
 /**
@@ -16,18 +44,15 @@ export type FetchGroupActivitiesParams = {
  * @param params.page - The current page number (by default 1).
  * @param params.pageSize - The number of items per page (by default 10).
  */
-export const fetchGroupActivitiesAPI = ({
-  page,
-  pageSize,
-  customerEnabled,
-}: FetchGroupActivitiesParams): ApiConfig => {
-  const params = {
-    customer_enabled: customerEnabled,
-    page: page,
-    page_size: pageSize,
-    is_workshop: false,
-  };
-  return [`${API_URL}${buildUrlParams(params)}`];
+export const searchGroupActivitiesAPI = (
+  params: SearchGroupActivitiesParams,
+): ApiConfig => {
+  return [
+    `${API_URL}/search/${buildUrlParams({
+      ...mapGroupActivitiesUrlParams(params),
+      q: params.searchQuery ?? "",
+    })}`,
+  ];
 };
 
 /**

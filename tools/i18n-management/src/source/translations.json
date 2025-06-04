@@ -275,7 +275,12 @@
               "popoverLabel": "Live streaming available"
             }
           },
-          "filter": { "title": "Filter", "category": "Category" },
+          "filter": {
+            "title": "Filter",
+            "category": "Category",
+            "is": "Is",
+            "isNot": "Is not"
+          },
           "duplicate": {
             "title": "Duplicate activity",
             "modalContent": "Duplicate <strong>{{groupActivityName}}</strong>?<br/> You can edit the gift card details afterwards.",

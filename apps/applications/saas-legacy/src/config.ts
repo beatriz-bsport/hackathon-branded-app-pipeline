@@ -45,6 +45,7 @@ type ConfigType = {
   REACT_APP_MIXPANEL_TOKEN: string;
   REACT_APP_DIDOMI_API_KEY: string;
   REACT_APP_DIDOMI_NOTICE_ID: string;
+  REACT_APP_UNLAYER_PROJECT_ID: string;
 };
 
 const Config = {} as ConfigType;

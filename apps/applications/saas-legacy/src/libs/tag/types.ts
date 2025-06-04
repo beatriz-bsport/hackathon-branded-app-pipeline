@@ -84,3 +84,17 @@ export type TagOption = {
   value: number;
   tag: Tag<TagGroup> | Tag<TagGroupAPI>;
 };
+
+export type MergeTag = {
+  name: string;
+  value: string;
+};
+
+export type MergeTags = Record<string, MergeTag>;
+
+export type TagCategory = {
+  name: string;
+  mergeTags: MergeTags;
+};
+
+export type ResolvedTags = Record<string, TagCategory>;

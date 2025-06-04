@@ -35,17 +35,31 @@ export type EmailTemplateDetail = {
 };
 
 export type EmailTemplate = {
+  id: number;
   available: boolean;
-  category: number;
-  company_id?: number;
+  category: number | null;
   date_modified?: string;
   design: any;
-  franchise_id?: number;
   html: string;
-  id: number;
   ordering_in_category: number;
   subject: string;
   title: string;
+  available_for_companies: number[];
+  company_id: number | null;
+  franchise_id?: number;
+  is_default_bsport_template: boolean;
+};
+
+export type EmailEditAPIParams = {
+  title: string;
+  subject: string;
+  design: string;
+  html: string;
+  category: number | null;
+  date_modified?: string;
+  company_id?: number;
+  franchise_id?: number;
+  available_for_companies?: number[];
 };
 
 export type FranchiseEmailDesignState = {

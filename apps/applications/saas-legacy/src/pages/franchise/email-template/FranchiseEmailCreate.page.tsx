@@ -4,24 +4,25 @@ import { compose } from 'recompose';
 import { connect, ConnectedProps } from 'react-redux';
 import { push } from 'connected-react-router';
 
-import { DrawerContext, DrawerContextValue } from '../../../context';
-import { RootState } from '../../../reducers';
-import { snackbarError as snackbarErrorAction } from '../../../libs/snackbar/actions';
+import { DrawerContext, DrawerContextValue } from '#src/context';
+import { RootState } from '#src/reducers';
+import { snackbarError as snackbarErrorAction } from '#src/libs/snackbar/actions';
 import {
   emailDesignCreate as emailDesignCreateAction,
   setEmailEditorHasBeenLoaded as setEmailEditorHasBeenLoadedAction,
-} from '../../../libs/email-editor/actions';
-import EmailEditorPanel from '../../../libs/email-editor/components/EmailEditor.component';
-import { EmailTemplate } from '../../../libs/email-editor/types';
+} from '#src/libs/email-editor/actions';
+import EmailEditorPanel, {
+  SaveEmailsParameters,
+} from '#src/libs/email-editor/components/EmailEditor.component';
 
 import {
   getFranchiseCompanies,
   getFranchiseId,
-} from '../../../libs/franchise/selectors';
-import { fetchTagList as fetchTagListAction } from '../../../libs/notification-rule/actions';
-import { getTagCategories } from '../../../libs/notification-rule/selectors';
-import { FranchiseCompany } from '../../../libs/franchise/types';
-import { fetchFranchise as fetchFranchiseAction } from '../../../libs/franchise/actions';
+} from '#src/libs/franchise/selectors';
+import { fetchTagList as fetchTagListAction } from '#src/libs/notification-rule/actions';
+import { getTagCategories } from '#src/libs/notification-rule/selectors';
+import { FranchiseCompany } from '#src/libs/franchise/types';
+import { fetchFranchise as fetchFranchiseAction } from '#src/libs/franchise/actions';
 
 type OwnProps = {
   companies: FranchiseCompany[];
@@ -31,7 +32,9 @@ type Props = OwnProps & ConnectedProps<typeof connector>;
 
 const FranchiseEmailCreate = (props: Props) => {
   const {
-    franchise_id,
+    franchiseId,
+    franchiseEmail,
+    franchiseName,
     tagCategories,
     companies,
     snackbarError,
@@ -47,15 +50,15 @@ const FranchiseEmailCreate = (props: Props) => {
     fetchTagList();
   }, [fetchTagList, fetchFranchise]);
 
-  const onSave = (
-    id: number,
-    data: EmailTemplate,
-    availableCompanies: number[],
-  ) => {
+  const onSave = ({ data, availableCompanies }: SaveEmailsParameters) => {
+    if (!franchiseId) {
+      console.error('Franchise ID is not defined');
+      return;
+    }
     emailDesignCreate(
       {
         ...data,
-        franchise_id,
+        franchise_id: franchiseId,
         available_for_companies: availableCompanies,
       },
       {
@@ -68,24 +71,32 @@ const FranchiseEmailCreate = (props: Props) => {
 
   return (
     <DrawerContext.Consumer>
-      {(context: DrawerContextValue) => (
-        <EmailEditorPanel
-          companies={companies}
-          displayEmptyError={snackbarError}
-          goToList={goToList}
-          hideLeftMenuAction={context.hideLeftMenuAction}
-          saveEmail={onSave}
-          showLeftMenuAction={context.showLeftMenuAction}
-          tags={tagCategories}
-        />
-      )}
+      {(context: DrawerContextValue) => {
+        if (!franchiseId) return null;
+        return (
+          <EmailEditorPanel
+            companies={companies}
+            companyEmail={franchiseEmail}
+            companyName={franchiseName}
+            displayEmptyError={snackbarError}
+            franchiseId={franchiseId}
+            goToList={goToList}
+            hideLeftMenuAction={context.hideLeftMenuAction}
+            saveEmail={onSave}
+            showLeftMenuAction={context.showLeftMenuAction}
+            tags={tagCategories}
+          />
+        );
+      }}
     </DrawerContext.Consumer>
   );
 };
 
 const connector = connect(
   (state: RootState) => ({
-    franchise_id: getFranchiseId(state),
+    franchiseName: state.theme.theme.company_name,
+    franchiseEmail: state.auth.username,
+    franchiseId: getFranchiseId(state),
     hasBeenLoadedOnce: state.emailTemplate.hasBeenLoadedOnce,
     tagCategories: getTagCategories(state),
     companies: getFranchiseCompanies(state),

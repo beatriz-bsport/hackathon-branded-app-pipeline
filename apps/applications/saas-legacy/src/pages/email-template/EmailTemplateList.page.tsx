@@ -71,9 +71,9 @@ import ModalConfirm from '#src/components/ModalConfirm.component';
 import { rudderStackFormTrackingFunctionsRegistry } from '#src/components/analytics/rudderstack/utils';
 import { SegmentAnalyticsFormObjectIdentifier } from '#src/components/analytics/segment';
 
-import { RootState } from '../../reducers';
-import { MaterialStyleType } from '../../utils/types';
-import { OptionCallback } from '../../state/types';
+import { RootState } from '#src/reducers';
+import { MaterialStyleType } from '#src/utils/types';
+import { OptionCallback } from '#src/state/types';
 
 const { trackFormAdd, trackFormCancel, trackFormSuccess } =
   rudderStackFormTrackingFunctionsRegistry(

@@ -33,36 +33,6 @@ export const getAllEmailTemplatesSummaries = createSelector(
     IdList.map((id) => summaryDict[id]).filter((email) => email.available),
 );
 
-export const getEmailTemplateById = createSelector(
-  [getEmailTemplateSummary, getEmailTemplatesDetailById],
-  (templateSummary, templateDetails) => {
-    const {
-      id,
-      available,
-      category,
-      company_id,
-      date_modified,
-      ordering_in_category,
-      subject,
-      title,
-    } = templateSummary ?? {};
-    const { html, design } = templateDetails ?? {};
-    const template: EmailTemplate = {
-      id,
-      available,
-      category,
-      company_id,
-      date_modified,
-      ordering_in_category,
-      subject,
-      title,
-      html,
-      design,
-    };
-    return template;
-  },
-);
-
 export const getUnavailableEmailTemplatesSummaries = createSelector(
   [getAllEmailTemplatesSummariesDict, getAllEmailTemplatesId],
   (summaryDict, IdList) =>

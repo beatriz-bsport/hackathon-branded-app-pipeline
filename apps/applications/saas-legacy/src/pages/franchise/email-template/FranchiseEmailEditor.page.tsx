@@ -12,9 +12,10 @@ import {
   emailTemplateUpdate as emailTemplateUpdateAction,
   fetchCurrentTemplateMetadata as fetchCurrentTemplateMetadataAcion,
 } from '#src/libs/email-editor/actions';
-import EmailEditorPanel from '#src/libs/email-editor/components/EmailEditor.component';
+import EmailEditorPanel, {
+  SaveEmailsParameters,
+} from '#src/libs/email-editor/components/EmailEditor.component';
 
-import { EmailTemplate } from '#src/libs/email-editor/types';
 import {
   getFranchiseCompanies,
   getFranchiseId,
@@ -29,10 +30,9 @@ import { fetchTagList as fetchTagListAction } from '#src/libs/notification-rule/
 import { getTagCategories } from '#src/libs/notification-rule/selectors';
 import { fetchFranchise as fetchFranchiseAction } from '#src/libs/franchise/actions';
 import { FranchiseCompany } from '#src/libs/franchise/types';
-import { RootState } from '../../../reducers';
-import { DrawerContext, DrawerContextValue } from '../../../context';
-import LinearProgress from '../../../components/navigation/BackofficeLinearProgress.component';
-import type { OptionCallback } from '../../../state/types';
+import { RootState } from '#src/reducers';
+import { DrawerContext, DrawerContextValue } from '#src/context';
+import LinearProgress from '#src/components/navigation/BackofficeLinearProgress.component';
 
 type OwnProps = {
   id: number;
@@ -44,7 +44,9 @@ type Props = OwnProps & ConnectedProps<typeof connector>;
 const FranchiseEmailEditor = (props: Props) => {
   const {
     id,
-    franchise_id,
+    franchiseId,
+    franchiseName,
+    franchiseEmail,
     loading,
     emailTemplatesDetails,
     emailTemplatesSummaries,
@@ -76,17 +78,25 @@ const FranchiseEmailEditor = (props: Props) => {
   }, [fetchCurrentTemplateMetadata, id]);
 
   const onSave = useCallback(
-    (
-      emailId: number,
-      data: EmailTemplate,
-      availableCompanies: number[],
-      options?: OptionCallback,
-    ) => {
+    ({
+      id: emailId,
+      data,
+      availableCompanies,
+      options,
+    }: SaveEmailsParameters) => {
+      if (!franchiseId) {
+        console.error('No franchise found to attach the email.');
+        return;
+      }
+      if (!emailId || !data) {
+        snackbarError('No data to be saved found.');
+        return;
+      }
       emailTemplateUpdate(
         emailId,
         {
           ...data,
-          franchise_id,
+          franchise_id: franchiseId,
           available_for_companies: availableCompanies,
         },
         {
@@ -100,22 +110,24 @@ const FranchiseEmailEditor = (props: Props) => {
         },
       );
     },
-    [emailTemplateUpdate, goToListDetail, franchise_id],
+    [emailTemplateUpdate, goToListDetail, franchiseId, snackbarError],
   );
 
   const onAutoSave = useCallback(
-    (
-      emailId: number,
-      data: EmailTemplate,
-      availableCompanies?: number[],
-      // @ts-expect-error
-      options: OptionCallback,
-    ) => {
+    ({ id: emailId, data, options }: SaveEmailsParameters) => {
+      if (!franchiseId) {
+        console.error('No franchise found to attach the email.');
+        return;
+      }
+      if (!emailId || !data) {
+        snackbarError('No data to be saved found.');
+        return;
+      }
       emailTemplateUpdate(
         emailId,
         {
           ...data,
-          franchise_id,
+          franchise_id: franchiseId,
         },
         {
           // @ts-expect-error
@@ -124,7 +136,7 @@ const FranchiseEmailEditor = (props: Props) => {
         },
       );
     },
-    [emailTemplateUpdate, franchise_id],
+    [emailTemplateUpdate, snackbarError, franchiseId],
   );
 
   const emailToEdit = React.useMemo(
@@ -142,29 +154,37 @@ const FranchiseEmailEditor = (props: Props) => {
 
   return (
     <DrawerContext.Consumer>
-      {(context: DrawerContextValue) => (
-        <EmailEditorPanel
-          autoSaveEnabled
-          autoSaveEmail={onAutoSave}
-          companies={emailToEdit.company_id ? [] : companies}
-          displayEmptyError={snackbarError}
-          emailToEdit={emailToEdit}
-          goToList={goToList}
-          hideLeftMenuAction={context.hideLeftMenuAction}
-          relatedNotificationRuleEvents={relatedNotificationRuleEvents}
-          requiredTags={requiredTags}
-          saveEmail={onSave}
-          showLeftMenuAction={context.showLeftMenuAction}
-          tags={tagCategories}
-        />
-      )}
+      {(context: DrawerContextValue) => {
+        if (!franchiseId) return null;
+        return (
+          <EmailEditorPanel
+            autoSaveEnabled
+            autoSaveEmail={onAutoSave}
+            companies={emailToEdit.company_id ? [] : companies}
+            companyEmail={franchiseEmail}
+            companyName={franchiseName}
+            displayEmptyError={snackbarError}
+            emailToEdit={emailToEdit}
+            franchiseId={franchiseId}
+            goToList={goToList}
+            hideLeftMenuAction={context.hideLeftMenuAction}
+            relatedNotificationRuleEvents={relatedNotificationRuleEvents}
+            requiredTags={requiredTags}
+            saveEmail={onSave}
+            showLeftMenuAction={context.showLeftMenuAction}
+            tags={tagCategories}
+          />
+        );
+      }}
     </DrawerContext.Consumer>
   );
 };
 
 const connector = connect(
   (state: RootState) => ({
-    franchise_id: getFranchiseId(state),
+    franchiseName: state.theme.theme.company_name,
+    franchiseEmail: state.auth.username,
+    franchiseId: getFranchiseId(state),
     emailTemplatesDetails: getEmailTemplatesDetail(state),
     emailTemplatesSummaries: getAllEmailTemplatesDict(state),
     tagCategories: getTagCategories(state),

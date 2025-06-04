@@ -27,6 +27,7 @@ import {
 
 import { FRANCHISE_EMAIL_DESIGN_TEMPLATE_PAGINATION_SIZE } from '#src/libs/email-editor/constants';
 import type {
+  EmailTemplate,
   EmailTemplateState,
   EmailTemplateSummary,
 } from '#src/libs/email-editor/types';
@@ -208,15 +209,36 @@ export default handleActions<Immutable.Immutable<EmailTemplateState>, any>(
       return state.setIn(['detail', 'error'], payload);
     },
 
-    [createEmailDesignAction.success.toString()]: (state, { payload }) => {
-      // console.log(newList);
-      // console.log(newList);
+    [createEmailDesignAction.success.toString()]: (
+      state,
+      { payload }: { payload: EmailTemplate },
+    ) => {
+      const emailDesignDataTransformed = {
+        id: payload.id,
+        summary: {
+          [payload.id]: {
+            title: payload.title,
+            subject: payload.subject,
+            date_created: payload.date_modified,
+            id: payload.id,
+            category: payload.category,
+            ordering_in_category: payload.ordering_in_category,
+          },
+        },
+        detail: {
+          [payload.id]: {
+            id: payload.id,
+            html: payload.html,
+            design: payload.design ? JSON.parse(payload.design) : {},
+          },
+        },
+      };
       return state
         .merge(
           {
-            byId: payload.summary,
+            byId: emailDesignDataTransformed.summary,
 
-            detail: { byId: payload.detail },
+            detail: { byId: emailDesignDataTransformed.detail },
           },
           { deep: true },
         )
@@ -229,23 +251,61 @@ export default handleActions<Immutable.Immutable<EmailTemplateState>, any>(
           payload.id,
         );
     },
-    [createEmailDesignAction.loading.toString()]: (state, { payload }) => {
+    [createEmailDesignAction.loading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
       return state.setIn(['upsert', 'loading'], payload);
     },
-    [createEmailDesignAction.error.toString()]: (state, { payload }) => {
+    [createEmailDesignAction.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
       return state.setIn(['upsert', 'error'], payload);
     },
-    [updateEmailTemplateAction.success.toString()]: (state, { payload }) => {
+    [updateEmailTemplateAction.success.toString()]: (
+      state,
+      { payload }: { payload: EmailTemplate },
+    ) => {
+      const emailDesignDataTransformed = {
+        id: payload.id,
+        summary: {
+          [payload.id]: {
+            title: payload.title,
+            subject: payload.subject,
+            date_created: payload.date_modified,
+            id: payload.id,
+            category: payload.category,
+            ordering_in_category: payload.ordering_in_category,
+          },
+        },
+        detail: {
+          [payload.id]: {
+            id: payload.id,
+            html: payload.html,
+            design: payload.design ? JSON.parse(payload.design) : {},
+          },
+        },
+      };
       return state.merge(
-        { byId: payload.summary, detail: { byId: payload.detail } },
+        {
+          byId: emailDesignDataTransformed.summary,
+          detail: { byId: emailDesignDataTransformed.detail },
+        },
         { deep: true },
       );
     },
 
-    [updateEmailTemplateAction.loading.toString()]: (state, { payload }) => {
+    [updateEmailTemplateAction.loading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
       return state.set('loading', payload);
     },
-    [updateEmailTemplateAction.error.toString()]: (state, { payload }) => {
+    [updateEmailTemplateAction.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
       return state.set('error', payload);
     },
     [deleteEmailTemplateAction.loading.toString()]: (state, { payload }) => {

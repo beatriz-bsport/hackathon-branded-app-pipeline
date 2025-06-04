@@ -15,6 +15,8 @@ const listLayout = cva([
   "border-stroke-page-layout",
   "border-l-stroke-thin",
   "shadow-sm",
+  // This is required to align a potential table with the header layout.
+  "[&_.table-row>.table-cell:first-child]:pl-md",
 ]);
 
 /**
@@ -64,7 +66,9 @@ type ListLayoutContentProps = {
 
 /**
  * Wrapper for the content handling scrolling behavior
- * @param props.className Optional. Custom CSS classes for the container.
+ * @param children The content to be displayed inside the ListLayout.
+ * @param className Optional. Custom CSS classes for the container.
+ * @param showScrollbar Optional. If true, the scrollbar will be shown.
  */
 const ListLayoutContent: React.FC<ListLayoutContentProps> = ({
   children,

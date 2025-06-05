@@ -1829,11 +1829,17 @@
             "writeCommunication": "Send a message",
             "smsCostReminderModal": {
                 "title": "SMS cost reminder",
-                "content": "Sending SMS to a large group of members can be costly. You can check the price per SMS in your contract. Are you sure you want to send this communication?",
+                "content": {
+                    "effect": "You can check the price per SMS in your contract. Are you sure you want to send this communication?",
+                    "description": "Sending SMS to a large group of members can be costly."
+                },
                 "cancel": "Cancel",
                 "confirm": "Confirm"
             },
-            "membersWontLoad": "We are currently encountering a problem loading the members within this smartlist. Please note that you won't be able to preview the number of members that will be reached by this communication."
+            "membersWontLoad": "We are currently encountering a problem loading the members within this smartlist. Please note that you won't be able to preview the number of members that will be reached by this communication.",
+            "warningModalTitle": {
+                "title": "We want to inform you of a few things before you send communications"
+            }
         },
         "resendSection": {
             "dialogTitle": "Auto-resend unread email",

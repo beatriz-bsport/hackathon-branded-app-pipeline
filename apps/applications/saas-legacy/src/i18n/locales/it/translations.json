@@ -5939,7 +5939,8 @@
                 "errors": {
                     "14100": "Impossibile annullare una ricevuta con pagamenti Interac.",
                     "14101": "Non è possibile rimborsare una ricevuta riguardo la correzione del saldo con una nota di credito.",
-                    "14102": "È impossibile rimborsare questa ricevuta."
+                    "14102": "È impossibile rimborsare questa ricevuta.",
+                    "35024": "Non puoi rimborsare questa ricevuta perché il tuo conto PayPal non ha fondi sufficienti."
                 }
             },
             "generateXml": {
@@ -9159,7 +9160,13 @@
             "size": "Dimensione",
             "color": "Colore",
             "subtitle": "Sottotitolo",
-            "voucher_reason": "Motivo dello sconto"
+            "voucher_reason": "Motivo dello sconto",
+            "nb_first_bookings": "Numero di prime prenotazioni",
+            "nb_universal_passes": "Numero di pacchetti universali",
+            "nb_expired_consumer_payment_packs": "Numero di pacchetti scaduti",
+            "nb_consumer_payment_packs": "Numero di pacchetti",
+            "nb_first_attendances": "Numero di prime presenze",
+            "nb_payments": "Numero di pagamenti"
         },
         "payment_method": {
             "dispute": "Contenzioso",
@@ -18950,7 +18957,9 @@
                 "processing": "Pagamento in corso",
                 "disputed": "Pagamento contestato",
                 "succeeded": "Pagamento riuscito",
-                "missing_charge": "Nessun pagamento tentato"
+                "missing_charge": "Nessun pagamento tentato",
+                "cancelled_with_negative_invoice": "Annullamento effettuato tramite ricevuta negativa",
+                "cancelled_with_credit_note": "Ricevuta annullata con nota di accredito"
             },
             "bill": "Regolarizzare"
         },

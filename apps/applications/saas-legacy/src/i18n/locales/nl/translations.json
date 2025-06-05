@@ -183,7 +183,7 @@
                     "availability": {
                         "expiresToday": "Laatste dag",
                         "expiresIn": "{{ daysRemaining }} dag(en) over",
-                        "expiresIn_plural": "{{ daysRemaining }} dag(en) over",
+                        "expiresIn_plural": "{{ daysRemaining }} resterende dagen",
                         "future": "Startdatum: {{ startDate }}",
                         "expired": "Verlopen op: {{ expirationDate }}",
                         "active": "Verloopdatum: {{ expirationDate }}"
@@ -3771,7 +3771,13 @@
             "size": "Grootte",
             "color": "Kleur",
             "subtitle": "Ondertitel",
-            "voucher_reason": "Reden voor korting"
+            "voucher_reason": "Reden voor korting",
+            "nb_first_bookings": "Aantal eerste boekingen",
+            "nb_universal_passes": "Aantal universele passen",
+            "nb_expired_consumer_payment_packs": "Aantal verlopen passen",
+            "nb_consumer_payment_packs": "Aantal passen",
+            "nb_first_attendances": "Aantal eerste bezoeken",
+            "nb_payments": "Aantal betalingen"
         },
         "report": {
             "delete_message": "Weet je zeker dat je \"{{- name }}\" wilt verwijderen?"
@@ -5517,9 +5523,9 @@
             "errors": {
                 "hasUpcomingPrivateBookings": "Sommige komende afspraken vinden plaats in deze vestiging. Annuleer en verwijder ze voordat je deze vestiging verwijdert.",
                 "exclusivePaymentPacks": "De volgende pas {{- pass_name }} is alleen bruikbaar in deze vestiging. Werk de beperkingen bij voordat u de vestiging verwijdert.",
-                "exclusivePaymentPacks_plural": "De volgende passen {{- pass_name }} zijn alleen bruikbaar in deze vestiging. Pas hun beperkingen aan voordat u de vestiging verwijdert.",
+                "exclusivePaymentPacks_plural": "De volgende passen {{- pass_name }} zijn alleen geldig in deze vestiging. Update hun beperkingen eerst voordat je de vestiging verwijdert.",
                 "exclusiveEstablishmentGroups": "De locatie {{- establishment_group_name }} bevat alleen de vestiging die u wilt verwijderen. Werk deze locatie bij of verwijder deze.",
-                "exclusiveEstablishmentGroups_plural": "De locaties {{- establishment_group_name }} bevatten alleen de vestiging die u wilt verwijderen. Werk deze locaties bij of verwijder ze.",
+                "exclusiveEstablishmentGroups_plural": "De locaties {{- establishment_group_name }} bevatten alleen de vestiging die je wilt verwijderen, bewerk of verwijder deze locaties eerst.",
                 "hasExclusiveMarketplaceComponentConfigs": "Een of meerdere tabbladen op de marktplaats zijn ingesteld om alleen de agenda en workshops van deze vestiging weer te geven.",
                 "hasUpcomingOffers": "Sommige komende sessies vinden plaats in deze vestiging. Annuleer en verwijder ze voordat je deze vestiging verwijdert.",
                 "hasExclusiveBillingGroup": "Deze vestiging is de laatste van zijn factureringsgroep. Verwijder deze factureringsgroep of werk deze bij voordat u deze vestiging verwijdert.",
@@ -5528,9 +5534,9 @@
             "warnings": {
                 "hasBillingGroup": "Deze vestiging wordt ook verwijderd uit de factureringsgroep {{- establishment_billing_group_name }}.",
                 "exclusivePrivateServices": "De afspraak {{- private_service_name }} is geconfigureerd om alleen in deze vestiging plaats te vinden. Door deze vestiging te verwijderen, kan deze afspraak overal plaatsvinden.",
-                "exclusivePrivateServices_plural": "De afspraken {{- private_service_name }} zijn geconfigureerd om alleen in deze vestiging plaats te vinden. Door deze vestiging te verwijderen, kunnen deze afspraken overal plaatsvinden.",
+                "exclusivePrivateServices_plural": "De afspraken {{- private_service_name }} zijn alleen ingesteld om in deze vestiging plaats te vinden. Door deze instelling te verwijderen, kunnen deze afspraken overal plaatsvinden.",
                 "exclusiveCoachAvailabilitySlots": "De leraar {{- coach_name }} is aangegeven als beschikbaar voor deze vestiging voor slechts enkele tijdsloten. Door de vestiging te verwijderen, worden deze tijdslots verwijderd.",
-                "exclusiveCoachAvailabilitySlots_plural": "De docenten {{- coach_name }} zijn aangegeven als beschikbaar voor deze vestiging voor slechts enkele tijdslots. Door de vestiging te verwijderen, worden deze tijdslots verwijderd.",
+                "exclusiveCoachAvailabilitySlots_plural": "De instructeurs {{- coach_name }} zijn aangegeven als alleen beschikbaar voor deze vestiging in bepaalde tijdslots. Door de vestiging te verwijderen, worden deze tijdslots verwijderd.",
                 "exclusiveAssociatedCoaches_plural": "Je leraren {{- coach_name }} krijgt alleen bericht als er een vervangingsverzoek wordt gedaan voor een sessie in deze vestiging. Door de vestiging te verwijderen, ontvangen ze dus vervangingsverzoeken van elke vestiging.",
                 "exclusiveAssociatedCoaches": "Je leraar {{- coach_name }} krijgt alleen bericht als er een vervangingsverzoek wordt gedaan voor een sessie in deze vestiging. Door de vestiging te verwijderen, ontvangen ze dus vervangingsverzoeken van elke vestiging.",
                 "hasExclusiveStaffConfigurations": "Sommige medewerkers zijn geconfigureerd om de toegang van leden alleen voor deze vestiging te controleren. Door de vestiging te verwijderen zonder een nieuwe te selecteren, kunnen ze geen toegangscontrole meer uitvoeren.",
@@ -12763,7 +12769,8 @@
                 "errors": {
                     "14100": "Kan een factuur niet annuleren met Interac betalingen.",
                     "14101": "Onmogelijk om terug te betalen door een rekening voor balansaanpassing.",
-                    "14102": "Het is niet mogelijk om deze factuur terug te betalen."
+                    "14102": "Het is niet mogelijk om deze factuur terug te betalen.",
+                    "35024": "Je kunt deze factuur niet terugbetalen omdat je PayPal-rekening niet genoeg saldo heeft."
                 }
             },
             "generateXml": {
@@ -18971,7 +18978,9 @@
                 "processing": "Betaling: in behandeling",
                 "disputed": "Betaling: betwist",
                 "succeeded": "Betaling: succesvol",
-                "missing_charge": "Er zijn geen betalingspogingen om weer te geven."
+                "missing_charge": "Er zijn geen betalingspogingen om weer te geven.",
+                "cancelled_with_negative_invoice": "Factuur geannuleerd door negatieve factuur",
+                "cancelled_with_credit_note": "Factuur geannuleerd door creditnota"
             },
             "bill": "Vereffenen"
         },

@@ -3864,15 +3864,15 @@
                     }
                 },
                 "myClub": {
-                    "_label": "Mein Klub",
+                    "_label": "Mein Studio",
                     "appointments": {
-                        "_label": "Termin"
+                        "_label": "Termine"
                     },
                     "teachers": {
                         "_label": "Lehrkräfte"
                     },
                     "establishments": {
-                        "_label": "Einrichtung"
+                        "_label": "Einrichtungen"
                     },
                     "programs": {
                         "_label": "Programme"
@@ -3905,7 +3905,7 @@
                     "_label": "Tutorials"
                 },
                 "inbox": {
-                    "_label": "Posteingang"
+                    "_label": "Inbox"
                 },
                 "accessMonitoring": {
                     "perform": {
@@ -3961,7 +3961,7 @@
                 "ledger": {
                     "_label": "Kassenbuch"
                 },
-                "_label": "Appbar-Aktionen",
+                "_label": "Aktionen in der App",
                 "communicationAlerts": {
                     "_label": "Benachrichtigung"
                 }
@@ -6551,7 +6551,13 @@
             "size": "Größe",
             "color": "Farbe",
             "subtitle": "Untertitel",
-            "voucher_reason": "Rabattgrund"
+            "voucher_reason": "Rabattgrund",
+            "nb_first_bookings": "Anzahl der Erstbuchungen",
+            "nb_universal_passes": "Anzahl der universellen Kurspässe",
+            "nb_expired_consumer_payment_packs": "Anzahl der ausgelaufenen Kurspässe",
+            "nb_consumer_payment_packs": "Anzahl der Kurspässe",
+            "nb_first_attendances": "Anzahl der Erstbesuche",
+            "nb_payments": "Anzahl der Zahlungen"
         },
         "no": "Nein",
         "yes": "Ja",
@@ -7369,7 +7375,8 @@
                 "errors": {
                     "14100": "Es ist nicht möglich, eine Rechnung mit Interac-Zahlungen zu stornieren.",
                     "14101": "Sie können eine Restguthabenkorrektur nicht mit einer Gutschrift erstatten.",
-                    "14102": "Diese Rechnung kann nicht erstattet werden."
+                    "14102": "Diese Rechnung kann nicht erstattet werden.",
+                    "35024": "Du kannst diese Rechnung nicht erstatten, da auf deinem PayPal-Konto nicht genügend Guthaben vorhanden ist."
                 }
             },
             "generateXml": {
@@ -9387,8 +9394,8 @@
             "max_remuneration": "Maximum",
             "min_remuneration": "Minimum",
             "remunerationLimits": "Vergütungsgrenzen",
-            "differentRemunerationForCancellation": "Andere Beträge für Verspätungen und nicht fristgerechte Absagen vergüten ",
-            "addRemunerationOnCancellation": "Lehrkräfte bei Verspätungen oder nicht fristgerechten Absagen vergüten",
+            "differentRemunerationForCancellation": "Andere Beträge für Nicht-Erscheinen und nicht fristgerechte Absagen vergüten ",
+            "addRemunerationOnCancellation": "Lehrkräfte bei Nicht-Erscheinen oder nicht fristgerechten Absagen vergüten",
             "percentage_base": "Prozentsatz der Buchungsmarge hinzufügen",
             "base_remuneration_helper": "Die Lehrkräfte erhalten dies immer als Vergütung für ihre Unterrichtseinheit.",
             "base_remuneration": "Basis fixe",
@@ -12918,7 +12925,7 @@
             },
             "buttons": {
                 "selectRecipientsMobile": "Empfänger.",
-                "selectRecipients": "Wähle Empfänger",
+                "selectRecipients": "Empfänger wählen",
                 "send": "Senden",
                 "updateScheduled": "Aktualisieren",
                 "scheduleCommunication": "Planen"
@@ -16563,7 +16570,7 @@
             },
             "2": {
                 "label": "Alle Einrichtungen zusammenlegen",
-                "helperText": "Alle zusammengeführten EInrichtungen werden als ein einziger Standort erscheinen."
+                "helperText": "Alle zusammengeführten Einrichtungen werden als ein einziger Standort erscheinen."
             },
             "3": {
                 "label": "Fortgeschrittene",
@@ -17786,7 +17793,7 @@
             },
             "warnings": {
                 "exclusiveAssociatedCoaches": "Die Lehrkraft {{- coach_name }} wird nur über Vertretungsanfragen für Kurse in dieser Einrichtung benachrichtigt. Wenn du die Einrichtung löschst, erhält diese Lehrkraft Vertretungsanfragen von jeder Einrichtung.",
-                "exclusiveAssociatedCoaches_plural": "Dein(e) Lehrer {{- coach_name }} werden nur benachrichtigt, wenn eine Vertretungsanfrage für einen Kurs in dieser Einrichtung gemacht wird. Wenn du diese Einrichtung löschst, werden sie (deshalb) Vertretungsanfragen von jeder Einrichtung erhalten.",
+                "exclusiveAssociatedCoaches_plural": "Deine Lehrkräfte {{- coach_name }} erhalten nur eine Benachrichtigung, wenn eine Vertretungsanfrage für eine Sitzung an diesem Standort eingeht. Wird der Standort gelöscht, erhalten sie Vertretungsanfragen für alle Standorte.",
                 "hasBillingGroup": "Diese Einrichtung wird auch aus der Rechnungsgruppe {{- establishment_billing_group_name }} entfernt.",
                 "exclusivePrivateServices_plural": "Diese Termine {{- private_service_name }} sind so konfiguriert, dass sie nur in dieser Einrichtung stattfinden können. Wenn diese Einrichtung gelöscht wird, können diese Termine überall stattfinden.",
                 "exclusivePrivateServices": "Der Termin {{- private_service_name }} ist so konfiguriert, dass er nur in dieser Einrichtung stattfinden kann. Wenn diese Einrichtung gelöscht wird, kann dieser Termin überall stattfinden.",
@@ -18285,7 +18292,9 @@
                 "processing": "Laufende Zahlungen",
                 "disputed": "Angefochtene Zahlung",
                 "succeeded": "Erfolgreiche Zahlung",
-                "missing_charge": "Keine Zahlung versucht"
+                "missing_charge": "Keine Zahlung versucht",
+                "cancelled_with_negative_invoice": "Rechnung durch Negativrechnung storniert",
+                "cancelled_with_credit_note": "Rechnung durch Gutschrift storniert"
             },
             "bill": "Zahlung vervollständigen"
         },

@@ -32,6 +32,7 @@ export type Props = {
   currentTitle: string;
   emailDetailList: Record<number, EmailTemplateDetail>;
   selectedTemplate: number;
+  elementContext: 'dialog' | 'body';
   fetchEmailSummaryList: () => void;
   updateCurrentTitle: (title: string) => void;
   updateSelectedTemplate: (templateId: number) => void;
@@ -41,6 +42,7 @@ const CommunicationSelectTemplate: React.FC<Props> = ({
   currentTitle,
   emailDetailList,
   selectedTemplate,
+  elementContext,
   fetchEmailSummaryList,
   updateCurrentTitle,
   updateSelectedTemplate,
@@ -145,9 +147,9 @@ const CommunicationSelectTemplate: React.FC<Props> = ({
         <div className={classes.selectorContainer}>
           <div className={classes.emailSelectorContainer}>
             <EmailSelector
+              attachSelectorToBody={elementContext === 'body'}
               emails={templateSummaryList}
               helperText={t('mail.mailSelection')}
-              menuPosition="fixed"
               onChange={onSelectTemplate}
               value={selectedTemplate}
             />

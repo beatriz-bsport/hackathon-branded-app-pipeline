@@ -75,6 +75,7 @@ export const CommunicationTemplateModal: React.FC<Props> = ({
     >
       <CommunicationSelectTemplate
         currentTitle={currentTitle}
+        elementContext="dialog"
         emailDetailList={templateDetailList}
         fetchEmailSummaryList={fetchTemplateSummaries}
         selectedTemplate={selectedTemplateId}

@@ -4,10 +4,11 @@ import { useTranslation } from 'react-i18next';
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 import type { ConsumerInvoice } from '#src/libs/invoice/types';
 import {
-  ConsumerInvoicePaymentModal,
   ConsumerInvoicePaymentBottomDrawer,
+  ConsumerInvoicePaymentModal,
 } from '.';
-import { OptionCallback } from '#src/state/types';
+import type { OptionCallback } from '#src/state/types';
+import type { StripePaymentElementConfig } from '#src/libs/company/types';
 
 type Props = {
   companyId: number;
@@ -18,6 +19,7 @@ type Props = {
   onClose: () => void;
   onPaymentSuccess: (invoiceUuid: string) => void;
   applyBalanceToInvoiceCallbacks?: OptionCallback;
+  stripePaymentElementConfig: StripePaymentElementConfig;
 };
 
 const ConsumerInvoicePaymentPortal: React.FC<Props> = ({
@@ -29,6 +31,7 @@ const ConsumerInvoicePaymentPortal: React.FC<Props> = ({
   applyBalanceToInvoiceCallbacks,
   onClose,
   onPaymentSuccess,
+  stripePaymentElementConfig,
 }) => {
   const { t } = useTranslation('consumerSpace');
 
@@ -55,6 +58,7 @@ const ConsumerInvoicePaymentPortal: React.FC<Props> = ({
         isOpen={isOpen}
         memberId={memberId}
         onPaymentSuccess={handlePaymentSuccess}
+        stripePaymentElementConfig={stripePaymentElementConfig}
         title={title}
       />
     );
@@ -70,6 +74,7 @@ const ConsumerInvoicePaymentPortal: React.FC<Props> = ({
       isOpen={isOpen}
       memberId={memberId}
       onPaymentSuccess={handlePaymentSuccess}
+      stripePaymentElementConfig={stripePaymentElementConfig}
       title={title}
     />
   );

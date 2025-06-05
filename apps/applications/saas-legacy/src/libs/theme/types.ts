@@ -46,6 +46,7 @@ export type Theme = {
   payment_method_available_manager: number[];
   currency: string;
   currency_display: string;
+  is_default_for_region: boolean;
   stripe_pk_key: string;
   provincial_tax_name?: string;
   provincial_tax_value?: number;

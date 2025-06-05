@@ -1,33 +1,43 @@
-import React, { forwardRef } from 'react';
+import React, {
+  ChangeEvent,
+  forwardRef,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
+import i18n from 'i18next';
 
 import { Elements } from '@stripe/react-stripe-js';
-import { loadStripe } from '@stripe/stripe-js';
+import { loadStripe, StripeElementLocale } from '@stripe/stripe-js';
 
 import {
-  PAYMENT_GROUP_METHOD_IDENTIFIER_CB,
-  PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA,
   PAYMENT_GROUP_METHOD_IDENTIFIER_BANCONTACT,
-  PAYMENT_GROUP_METHOD_IDENTIFIER_SOFORT,
+  PAYMENT_GROUP_METHOD_IDENTIFIER_CB,
   PAYMENT_GROUP_METHOD_IDENTIFIER_IDEAL,
-  PAYMENT_GROUP_METHOD_IDENTIFIER_EPS,
-  PAYMENT_GROUP_METHOD_IDENTIFIER_GIROPAY,
+  PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA,
 } from '@bsport/common/lib/master-data/payment-group.js';
 
+import { StripePaymentMethodNames } from '#src/libs/payment/constants';
+import type { StripePaymentElementConfig } from '#src/libs/company/types';
 import {
-  TermsAndConditionType,
   type StripeInit,
+  TermsAndConditionType,
 } from '#src/libs/payment/types';
 
 import AcceptTermsAndConditions from '#src/libs/payment/components/AcceptTermsAndConditions.component';
 import ObjectLevelPermissionProvider from '#src/libs/role/permission-utils/ObjectLevelPermissionProvider.component';
-import { getStripePkKey, getCompanyCountry } from '#src/libs/theme/selectors';
-import PaymentStripeBancontact from '#src/libs/payment/components/payment-backend-stripe/PaymentStripeBancontact.component';
 import PaymentStripeCardRevamped from './PaymentStripeCardRevamped.component';
-import PaymentStripeEPS from '#src/libs/payment/components/payment-backend-stripe/PaymentStripeEPS.component';
-import PaymentStripeGiropay from '#src/libs/payment/components/payment-backend-stripe/PaymentStripeGiropay.component';
-import PaymentStripeIdeal from '#src/libs/payment/components/payment-backend-stripe/PaymentStripeIdeal.component';
+import PaymentStripeGenericElement from '#src/libs/payment/components/payment-backend-stripe/PaymentStripeGenericElement.component';
 import PaymentStripeSEPARevamped from './PaymentStripeSEPARevamped.component';
-import PaymentStripeSofort from '#src/libs/payment/components/payment-backend-stripe/PaymentStripeSofort.component';
+
+import {
+  getCompanyCountry,
+  getCurrencyCode,
+  getStripePkKey,
+} from '#src/libs/theme/selectors';
+import { getLocaleFromLanguage } from '#src/utils/language';
+import Config from '#src/config';
 
 const fallbackStripePromise = loadStripe(getStripePkKey());
 
@@ -39,7 +49,7 @@ type PaymentStripeProps = {
   basketTotalPriceCts?: number;
   cardBillingDetailsMandatory: boolean;
   children?: React.ReactNode;
-  checkItemsBasket?: (basketId: string) => boolean; // Only necessary if there is there is a basketId
+  checkItemsBasket?: (basketId: string) => boolean; // Only necessary if there is a basketId
   clientSecret: string;
   companyId: number;
   createPendingBookingsIfNecessary?: (data?: {
@@ -59,7 +69,7 @@ type PaymentStripeProps = {
   onError?: () => void;
   onSuccess: (callback?: () => void) => void;
   paymentGroupId: number;
-  paymentGroupPriceCts?: number;
+  paymentGroupPriceCts: number;
   paymentMethodSelected: number;
   ref?: React.Ref<any>;
   sepaDefaultEmail?: string;
@@ -67,28 +77,42 @@ type PaymentStripeProps = {
   setIsOnlinePaymentDisabled?: (isLoading: boolean) => void;
   setPaymentProcessing?: (process: boolean) => void;
   setTermsAndConditionsAccepted?: (termsAndConditionsAccepted: boolean) => void;
+  stripePaymentElementConfig: StripePaymentElementConfig;
   stripePromise?: StripeInit;
   termsAndConditions?: string;
   termsAndConditionsAccepted?: boolean;
   useInternalAccount?: (amount: number) => void;
 };
 
-type PaymentStripePropsNewCheckoutFlow = Omit<
-  PaymentStripeProps,
-  'onCancel' | 'paymentGroupPriceCts'
-> &
+type PaymentStripePropsNewCheckoutFlow = Omit<PaymentStripeProps, 'onCancel'> &
   Partial<PaymentStripeProps>;
 
-const STRIPE_PAYMENT_METHOD_FORM_COMPONENT: { [key: number]: any } = {
-  [PAYMENT_GROUP_METHOD_IDENTIFIER_CB]: PaymentStripeCardRevamped,
-  [PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA]: PaymentStripeSEPARevamped,
-  [PAYMENT_GROUP_METHOD_IDENTIFIER_BANCONTACT]: PaymentStripeBancontact,
-  [PAYMENT_GROUP_METHOD_IDENTIFIER_IDEAL]: PaymentStripeIdeal,
-  [PAYMENT_GROUP_METHOD_IDENTIFIER_SOFORT]: PaymentStripeSofort,
-  [PAYMENT_GROUP_METHOD_IDENTIFIER_EPS]: PaymentStripeEPS,
-  [PAYMENT_GROUP_METHOD_IDENTIFIER_GIROPAY]: PaymentStripeGiropay,
-  // [PAYMENT_GROUP_METHOD_IDENTIFIER_MOBILEPAY]: PaymentStripeMobilePay,
-  //  [PAYMENT_GROUP_METHOD_IDENTIFIER_BACS_DEBIT]: PaymentStripeBacsDebit,
+const STRIPE_PAYMENT_METHOD: {
+  [key: number]: {
+    component: React.ComponentType<any>;
+    name: StripePaymentMethodNames;
+  };
+} = {
+  [PAYMENT_GROUP_METHOD_IDENTIFIER_CB]: {
+    component: PaymentStripeCardRevamped,
+    name: StripePaymentMethodNames.CARD,
+  },
+  [PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA]: {
+    component: PaymentStripeSEPARevamped,
+    name: StripePaymentMethodNames.SEPA_DEBIT,
+  },
+  [PAYMENT_GROUP_METHOD_IDENTIFIER_BANCONTACT]: {
+    component: PaymentStripeGenericElement,
+    name: StripePaymentMethodNames.BANCONTACT,
+  },
+  [PAYMENT_GROUP_METHOD_IDENTIFIER_IDEAL]: {
+    component: PaymentStripeGenericElement,
+    name: StripePaymentMethodNames.IDEAL,
+  },
+  /*[PAYMENT_GROUP_METHOD_IDENTIFIER_TWINT]: {
+     component: PaymentStripeGeneric,
+     name: StripePaymentMethodNames.TWINT,
+  },*/
 };
 
 const PaymentStripeRevamped: React.FC<
@@ -121,12 +145,14 @@ const PaymentStripeRevamped: React.FC<
       onSuccess,
       onError,
       paymentGroupId,
+      paymentGroupPriceCts,
       paymentMethodSelected,
       sepaDefaultName,
       sepaDefaultEmail,
       setIsOnlinePaymentDisabled,
       setPaymentProcessing,
       setTermsAndConditionsAccepted,
+      stripePaymentElementConfig,
       stripePromise,
       termsAndConditions,
       termsAndConditionsAccepted,
@@ -135,17 +161,78 @@ const PaymentStripeRevamped: React.FC<
     ref,
   ) => {
     const companyCountry = getCompanyCountry();
+    const currency = getCurrencyCode();
+    const forceSaveForInstalments = !!instalmentPaymentSelectedId;
+
+    const { language } = i18n;
+    const elementLocale = getLocaleFromLanguage(language);
+
+    const [saveForLater, setSaveForLater] = useState(false);
+
+    const handleSaveForLaterChange = useCallback(
+      (ev: ChangeEvent<HTMLInputElement>) => {
+        setSaveForLater(ev?.target?.checked ?? false);
+      },
+      [],
+    );
+
+    useEffect(() => {
+      setSaveForLater(false);
+    }, [paymentMethodSelected]);
+
+    const companySetupIntentAlwaysOnSession = [
+      'local',
+      'dev',
+      'staging',
+    ].includes(Config.REACT_APP_SENTRY_ENVIRONMENT)
+      ? 72
+      : 1416;
+
+    const setupFutureUsage = useMemo(() => {
+      if (!saveForLater && !forceSaveForInstalments) return null;
+
+      return paymentMethodSelected === PAYMENT_GROUP_METHOD_IDENTIFIER_CB &&
+        companyId === companySetupIntentAlwaysOnSession
+        ? 'on_session'
+        : 'off_session';
+    }, [
+      companyId,
+      companySetupIntentAlwaysOnSession,
+      forceSaveForInstalments,
+      paymentMethodSelected,
+      saveForLater,
+    ]);
 
     const StripePaymentMethodForm =
-      STRIPE_PAYMENT_METHOD_FORM_COMPONENT[paymentMethodSelected];
+      STRIPE_PAYMENT_METHOD[paymentMethodSelected]?.component;
+
+    if (!StripePaymentMethodForm) {
+      console.warn('Invalid Stripe Payment Method');
+      return null;
+    }
 
     return (
-      <Elements stripe={stripePromise ?? fallbackStripePromise}>
+      <Elements
+        options={{
+          mode: 'payment',
+          amount: paymentGroupPriceCts,
+          paymentMethodTypes: [
+            STRIPE_PAYMENT_METHOD[paymentMethodSelected]?.name,
+          ],
+          currency,
+          ...(setupFutureUsage !== undefined ? { setupFutureUsage } : {}),
+          ...(!stripePaymentElementConfig.isDefaultForRegion
+            ? { onBehalfOf: stripePaymentElementConfig.stripeId }
+            : {}),
+          locale: (elementLocale?.replace('_', '-') ||
+            language) as StripeElementLocale,
+        }}
+        stripe={stripePromise ?? fallbackStripePromise}
+      >
         <ObjectLevelPermissionProvider requiredPermission="billing.allowed_actions.addPaymentMethod">
           {(hasAddPaymentMethodPermission: boolean) => (
             <StripePaymentMethodForm
               ref={ref}
-              paym
               AcceptTermsAndConditionsComponent={
                 termsAndConditions ? (
                   <AcceptTermsAndConditions
@@ -176,7 +263,7 @@ const PaymentStripeRevamped: React.FC<
               detachPaymentMethod={detachPaymentMethod}
               detachPaymentMethodLoading={detachPaymentMethodLoading}
               forceHideConfirmPaymentButton={forceHideConfirmPaymentButton}
-              forceSave={!!instalmentPaymentSelectedId}
+              forceSave={forceSaveForInstalments}
               fromApp={fromApp}
               hasAddPaymentMethodPermission={hasAddPaymentMethodPermission}
               invalidatePendingBookingsIfNecessary={
@@ -189,8 +276,11 @@ const PaymentStripeRevamped: React.FC<
               memberId={memberId}
               onCancel={onCancel}
               onError={onError}
+              onSaveForLaterChange={handleSaveForLaterChange}
               onSuccess={onSuccess}
               paymentGroupId={paymentGroupId}
+              paymentGroupMethodIdentifier={paymentMethodSelected}
+              saveForLater={saveForLater}
               setIsOnlinePaymentDisabled={setIsOnlinePaymentDisabled}
               setPaymentProcessing={setPaymentProcessing}
               termsAndConditionsAccepted={termsAndConditionsAccepted}

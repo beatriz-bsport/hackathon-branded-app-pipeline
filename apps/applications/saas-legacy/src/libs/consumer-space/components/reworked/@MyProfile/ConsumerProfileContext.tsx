@@ -12,6 +12,7 @@ import type {
   MarketingPreferenceData,
 } from '#src/libs/communication/types';
 
+import type { StripePaymentElementConfig } from '#src/libs/company/types';
 import type { PaymentGroupBillingEstablishmentPayload } from '#src/libs/payment/types';
 
 export const ConsumerProfileContext =
@@ -22,7 +23,7 @@ const ConsumerProfileContextProvider: React.FC<{
   creditAccountBalance: number;
   memberId: number;
   fetchMember: () => void;
-  stripeId: string;
+  stripePaymentElementConfig: StripePaymentElementConfig;
   availablePaymentMethodList: number[];
   cardBillingDetailsMandatory: boolean;
   companyId: number;
@@ -70,7 +71,7 @@ const ConsumerProfileContextProvider: React.FC<{
   creditAccountBalance,
   memberId,
   fetchMember,
-  stripeId,
+  stripePaymentElementConfig,
   availablePaymentMethodList,
   cardBillingDetailsMandatory,
   companyId,
@@ -218,7 +219,7 @@ const ConsumerProfileContextProvider: React.FC<{
         creditAccountBalance,
         memberId,
         handleConfirmRegularizeBalance,
-        stripeId,
+        stripePaymentElementConfig,
         availablePaymentMethodList,
         cardBillingDetailsMandatory,
         companyId,

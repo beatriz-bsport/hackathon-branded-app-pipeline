@@ -709,6 +709,10 @@ const OneClickBookingModule: React.FC<Props> = ({
                     termsAndConditionsAccepted:
                       lightSignupValues.acceptTermsAndConditions,
                   }}
+                  stripePaymentElementConfig={{
+                    isDefaultForRegion: theme.is_default_for_region,
+                    stripeId: theme.stripe_id,
+                  }}
                 />
               )}
               <div className="bs-oneclick-booking__already-member--desktop">

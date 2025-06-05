@@ -19,7 +19,8 @@ This is as simple as this:
           invoiceUuid={invoiceUuid}
           memberId={memberId}
           onConfirmPaymentSuccess={onPaymentSuccess}
-          
+          stripePaymentElementConfig={stripePaymentElementConfig}
+
 	        // optional, exposing onPaymentConfirm (if you need to handle the confirm button somewhere else)
           ref={ref}
           // optional, if you want to handle the confirm button by yourself

@@ -1,4 +1,4 @@
-import React, { useImperativeHandle, forwardRef } from 'react';
+import React, { forwardRef, useImperativeHandle } from 'react';
 import { ImmutableArray } from 'seamless-immutable';
 import { useTranslation } from 'react-i18next';
 
@@ -8,15 +8,16 @@ import StepLabel from '@material-ui/core/StepLabel';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 
 import type { OptionCallback } from 'src/state/types';
+import type { StripePaymentElementConfig } from '#src/libs/company/types';
 import type { EstablishmentBillingGroup } from '#src/libs/establishment/types';
 import type { InstalmentPaymentApiWithBasketId } from '#src/libs/instalment-payment-configuration/types';
 import { TermsAndConditionType } from '#src/libs/payment/types';
 import {
-  BasketAddress,
   Basket,
+  BasketAddress,
   PrepaidLine,
-  StepType,
   STEPS,
+  StepType,
 } from '#src/libs/checkout/types';
 
 import AcceptTermsAndConditions from '#src/libs/payment/components/AcceptTermsAndConditions.component';
@@ -56,6 +57,7 @@ type CheckoutStepsProps = {
   onPaymentSuccess: () => void;
   patchBasket: (basketAddress: BasketAddress, options: OptionCallback) => void;
   paymentGroupId: number;
+  paymentGroupPriceCts: number;
   paymentProcessing: boolean;
   paymentMethodChoices: any;
   ref: React.Ref<any>;
@@ -68,6 +70,7 @@ type CheckoutStepsProps = {
   setTermsAndConditionsAccepted: (termsAndConditionsAccepted: boolean) => void;
   snackbarErrorMsg: (msg: string) => void;
   steps: ImmutableArray<StepType>;
+  stripePaymentElementConfig: StripePaymentElementConfig;
   termsAndConditions: string;
   termsAndConditionsAccepted: boolean;
   useInternalAccount?: (amount: number) => void;
@@ -114,6 +117,7 @@ export const CheckoutSteps: React.FC<CheckoutStepsProps> = forwardRef(
       onPaymentSuccess,
       patchBasket,
       paymentGroupId,
+      paymentGroupPriceCts,
       paymentProcessing,
       paymentMethodChoices,
       refreshBasket,
@@ -124,6 +128,7 @@ export const CheckoutSteps: React.FC<CheckoutStepsProps> = forwardRef(
       setTermsAndConditionsAccepted,
       snackbarErrorMsg,
       steps,
+      stripePaymentElementConfig,
       termsAndConditions,
       setPaymentEngine,
       paymentEngine,
@@ -231,6 +236,7 @@ export const CheckoutSteps: React.FC<CheckoutStepsProps> = forwardRef(
                 onSelectInstalmentPayment={onSelectInstalmentPayment}
                 paymentEngine={paymentEngine}
                 paymentGroupId={paymentGroupId}
+                paymentGroupPriceCts={paymentGroupPriceCts}
                 paymentMethodChoices={paymentMethodChoices}
                 paymentProcessing={paymentProcessing}
                 refreshBasket={refreshBasket}
@@ -250,6 +256,7 @@ export const CheckoutSteps: React.FC<CheckoutStepsProps> = forwardRef(
                 }
                 setTermsAndConditionsAccepted={setTermsAndConditionsAccepted}
                 snackbarErrorMsg={snackbarErrorMsg}
+                stripePaymentElementConfig={stripePaymentElementConfig}
                 termsAndConditions={termsAndConditions}
                 termsAndConditionsAccepted={termsAndConditionsAccepted}
                 useInternalAccount={useInternalAccount}
@@ -293,6 +300,7 @@ export const CheckoutSteps: React.FC<CheckoutStepsProps> = forwardRef(
       onSelectInstalmentPayment,
       paymentEngine,
       paymentGroupId,
+      paymentGroupPriceCts,
       paymentMethodChoices,
       paymentProcessing,
       selectedEstablishmentBillingGroup,

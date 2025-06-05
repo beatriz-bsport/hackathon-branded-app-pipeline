@@ -12,6 +12,7 @@ import useViewport from '#Fabrique/hooks/useViewport';
 
 import ConsumerInvoiceModals from '#src/libs/consumer-space/components/reworked/@MyInvoices/ConsumerInvoiceModals';
 
+import type { StripePaymentElementConfig } from '#src/libs/company/types';
 import type { ConsumerInvoice, Invoice } from '#src/libs/invoice/types';
 import type { Membership } from '#src/libs/membership/types';
 
@@ -32,6 +33,7 @@ type Props = {
   getInvoice: (uuid: string) => Invoice;
   refreshConsumerInvoices: () => void;
   refreshMembership: () => void;
+  stripePaymentElementConfig: StripePaymentElementConfig;
 };
 
 const ConsumerInvoicePageReworked: React.FC<Props> = ({
@@ -49,6 +51,7 @@ const ConsumerInvoicePageReworked: React.FC<Props> = ({
   getInvoice,
   refreshConsumerInvoices,
   refreshMembership,
+  stripePaymentElementConfig,
 }) => {
   const { t } = useTranslation('consumerSpace');
   const { width } = useViewport();
@@ -241,6 +244,7 @@ const ConsumerInvoicePageReworked: React.FC<Props> = ({
           memberId={membership.id}
           onClose={closePaymentPortal}
           onPaymentSuccess={handleRefreshAfterPayment}
+          stripePaymentElementConfig={stripePaymentElementConfig}
         />
       )}
     </PageContentContainer>

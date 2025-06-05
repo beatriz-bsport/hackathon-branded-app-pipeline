@@ -34,7 +34,7 @@ const RegularizeDebtModal: React.FC<Props> = ({
     memberId,
     toggleRegularizeBalancePortal,
     handleConfirmRegularizeBalance,
-    stripeId,
+    stripePaymentElementConfig,
     availablePaymentMethodList,
     cardBillingDetailsMandatory,
     companyId,
@@ -148,7 +148,7 @@ const RegularizeDebtModal: React.FC<Props> = ({
       paymentGroupId={paymentGroupId}
       paymentGroupPriceCts={amountToPay}
       requestClientSecret={handleRequestClientSecret}
-      stripeId={stripeId}
+      stripePaymentElementConfig={stripePaymentElementConfig}
     />
   );
 };

@@ -462,7 +462,10 @@ export class CalendarEventDetail extends React.Component<Props, State> {
           setInvoiceToBill={this.props.setInvoiceToBill}
           setIsUpdateCoachFormOpen={this.props.setIsUpdateCoachFormOpen}
           snackbarSuccess={this.props.snackbarSuccess}
-          stripeId={this.props.theme?.stripe_id}
+          stripePaymentElementConfig={{
+            isDefaultForRegion: this.props.theme.is_default_for_region,
+            stripeId: this.props.theme.stripe_id,
+          }}
           unpaidInvoiceList={this.props.unpaidInvoiceList}
           updateMemberMetricValue={
             this.props.isCoach ? null : this.props.updateMemberMetricValue

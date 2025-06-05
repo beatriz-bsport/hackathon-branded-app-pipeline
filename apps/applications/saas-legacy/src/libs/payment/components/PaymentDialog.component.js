@@ -69,7 +69,7 @@ type Props = {
   creditAccountBalance?: number | null,
   applyBalanceLoading?: boolean,
   stripeReaders: StripeReader[],
-  stripeId: string | null,
+  stripePaymentElementConfig: StripePaymentElementConfig,
   cardBillingDetailsMandatory: boolean,
   companyId: number,
   invoiceUuid?: string,
@@ -334,7 +334,9 @@ export class PaymentDialog extends React.Component<Props, State> {
                       sepaDefaultName={this.props.defaultUserName}
                       snackbarErrorMsg={this.props.snackbarErrorMsg}
                       snackbarSuccessMsg={this.props.snackbarSuccessMsg}
-                      stripeId={this.props.stripeId}
+                      stripePaymentElementConfig={
+                        this.props.stripePaymentElementConfig
+                      }
                       termsAndConditionsAccepted={
                         this.props.termsAndConditionsAccepted
                       }

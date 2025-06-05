@@ -1298,7 +1298,11 @@ export class OfferManagement extends Component<Props, State> {
             refreshInvoice={this.props.fetchInvoice}
             revertQuickInvoice={this.props.revertQuickInvoiceAndRefreshOffer}
             snackbarSuccess={this.props.snackbarSuccess}
-            stripeId={this.props.company_theme.stripe_id}
+            stripePaymentElementConfig={{
+              isDefaultForRegion:
+                this.props.company_theme.is_default_for_region,
+              stripeId: this.props.company_theme.stripe_id,
+            }}
             stripeReaders={this.props.stripeReaders}
             submitInternalPaymentInBackground={
               this.props.submitInternalPaymentInBackground

@@ -1,9 +1,9 @@
 import React, { forwardRef, useCallback } from 'react';
 import {
+  PAYMENT_ENGINE_PAYPAL,
+  PAYMENT_ENGINE_STRIPE,
   PAYMENT_GROUP_METHOD_IDENTIFIER_CB,
   PAYMENT_GROUP_METHOD_IDENTIFIER_PAYPAL_WALLET,
-  PAYMENT_ENGINE_STRIPE,
-  PAYMENT_ENGINE_PAYPAL,
 } from '@bsport/common/lib/master-data/payment-group.js';
 import SaveIcon from '@material-ui/icons/Save';
 import IconButton from '@material-ui/core/IconButton';
@@ -17,10 +17,11 @@ import PriceInput from '#src/components/input/PriceInput.component';
 import PaymentPaypal from './paypal/PaymentPaypal.component';
 import PaymentStripe from './payment-backend-stripe/PaymentStripe.component';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
-import type { OptionCallback } from '../../../state/types';
+import type { OptionCallback } from '#src/state/types';
 import type { InstalmentPaymentApiWithBasketId } from '#src/libs/instalment-payment-configuration/types';
 import type { Basket } from '#src/libs/checkout/types';
-import { EstablishmentBillingGroup } from '#src/libs/establishment/types';
+import type { StripePaymentElementConfig } from '#src/libs/company/types';
+import type { EstablishmentBillingGroup } from '#src/libs/establishment/types';
 import CheckoutBillingGroupSelector from '#src/libs/marketplace/components/@Basket/CheckoutBillingGroupSelector.component';
 
 import { TermsAndConditionType } from '#src/libs/payment/types';
@@ -67,7 +68,7 @@ type Props = {
   onSuccess: (callback?: () => void) => void;
   paymentEngine?: number;
   paymentGroupId: number;
-  paymentGroupPriceCts?: number;
+  paymentGroupPriceCts: number;
   paymentMethodChoices: Array<number>;
   paymentProcessing?: boolean;
   ref?: React.Ref<any>;
@@ -85,6 +86,7 @@ type Props = {
   ) => void;
   setTermsAndConditionsAccepted?: (termsAndConditionsAccepted: boolean) => void;
   snackbarErrorMsg?: (message: string) => void;
+  stripePaymentElementConfig: StripePaymentElementConfig;
   termsAndConditions?: string;
   termsAndConditionsAccepted?: boolean;
   updateMemberBillingGroup?: (establishmentBillingGroupId: number) => void;
@@ -140,6 +142,7 @@ const OnlinePayment: React.FC<Props> = forwardRef(
       setSelectedEstablishmentBillingGroup,
       setTermsAndConditionsAccepted,
       snackbarErrorMsg,
+      stripePaymentElementConfig,
       termsAndConditions,
       termsAndConditionsAccepted,
       updateMemberBillingGroup,
@@ -198,13 +201,14 @@ const OnlinePayment: React.FC<Props> = forwardRef(
           }
           setPaymentProcessing(value);
         }
-      : null;
+      : undefined;
 
     return (
       <div className={classes.container}>
         {!!priceUpdaterOpen && (
           <div className={classes.priceContainer}>
             <PriceInput
+              inputStep={1}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                 setPriceUpdateAmount(parseInt(e.target.value, 10));
               }}
@@ -212,10 +216,10 @@ const OnlinePayment: React.FC<Props> = forwardRef(
             />
             <IconButton
               color="primary"
-              disabled={isOnlinePaymentLoading}
+              disabled={isOnlinePaymentLoading || !priceUpdateAmount}
               onClick={() =>
                 // @ts-expect-error
-                updatePriceCts(parseInt(priceUpdateAmount * 100, 10) || 0, {
+                updatePriceCts(parseInt(priceUpdateAmount * 100, 10) || 1, {
                   onSuccess: () => setPriceUpdaterOpen(false),
                 })
               }
@@ -316,6 +320,7 @@ const OnlinePayment: React.FC<Props> = forwardRef(
                 sepaDefaultName={sepaDefaultName}
                 setPaymentProcessing={enhancedSetPaymentProcessing}
                 setTermsAndConditionsAccepted={setTermsAndConditionsAccepted}
+                stripePaymentElementConfig={stripePaymentElementConfig}
                 termsAndConditions={termsAndConditions}
                 termsAndConditionsAccepted={termsAndConditionsAccepted}
                 useInternalAccount={useInternalAccount}

@@ -10,6 +10,7 @@ import './styles.css';
 import OnlinePaymentInvoice from '#src/libs/payment/payment-module-revamped/invoice-payment/OnlinePaymentInvoice.component';
 import { OptionCallback } from '#src/state/types';
 import { useInvoicePaymentStatusTracker } from '#src/libs/payment/payment-module-revamped/invoice-payment/hooks/useInvoicePaymentStatusTracker';
+import type { StripePaymentElementConfig } from '#src/libs/company/types';
 
 type Props = {
   companyId: number;
@@ -18,6 +19,7 @@ type Props = {
   ref: React.Ref<any>;
   applyBalanceToInvoiceCallbacks?: OptionCallback;
   onPaymentSuccess: (callback?: () => void) => void;
+  stripePaymentElementConfig: StripePaymentElementConfig;
 };
 
 const ConsumerInvoicePaymentContent: React.FC<Props> = React.forwardRef(
@@ -28,6 +30,7 @@ const ConsumerInvoicePaymentContent: React.FC<Props> = React.forwardRef(
       memberId,
       applyBalanceToInvoiceCallbacks,
       onPaymentSuccess,
+      stripePaymentElementConfig,
     },
     ref,
   ) => {
@@ -98,6 +101,7 @@ const ConsumerInvoicePaymentContent: React.FC<Props> = React.forwardRef(
           invoiceUuid={invoiceUuid}
           memberId={memberId}
           onConfirmPaymentSuccess={onPaymentSuccess}
+          stripePaymentElementConfig={stripePaymentElementConfig}
         />
         {isPaymentProcessing && (
           <div className="bs-consumer-invoice-page__payment-portal__processing">

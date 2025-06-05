@@ -8,7 +8,8 @@ import { ConsumerInvoicePaymentContent } from '.';
 
 import './styles.css';
 import { useInvoicePaymentStatusTracker } from '#src/libs/payment/payment-module-revamped/invoice-payment/hooks/useInvoicePaymentStatusTracker';
-import { OptionCallback } from '#src/state/types';
+import type { OptionCallback } from '#src/state/types';
+import type { StripePaymentElementConfig } from '#src/libs/company/types';
 
 type Props = {
   applyBalanceToInvoiceCallbacks: OptionCallback;
@@ -20,6 +21,7 @@ type Props = {
   title: string;
   handleClose: () => void;
   onPaymentSuccess: () => void;
+  stripePaymentElementConfig: StripePaymentElementConfig;
 };
 
 const ConsumerInvoicePaymentModal: React.FC<Props> = React.forwardRef(
@@ -33,6 +35,7 @@ const ConsumerInvoicePaymentModal: React.FC<Props> = React.forwardRef(
       title,
       handleClose,
       onPaymentSuccess,
+      stripePaymentElementConfig,
     },
     ref,
   ) => {
@@ -115,6 +118,7 @@ const ConsumerInvoicePaymentModal: React.FC<Props> = React.forwardRef(
               invoiceUuid={invoiceUuid}
               memberId={memberId}
               onPaymentSuccess={onPaymentSuccess}
+              stripePaymentElementConfig={stripePaymentElementConfig}
             />
           </ModalDialog>
         </Blanket>

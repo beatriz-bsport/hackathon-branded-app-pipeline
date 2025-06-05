@@ -443,7 +443,10 @@ const ConnectedBillingProblemCard: React.FC<Props> = React.memo(
           paperVariant="outlined"
           snackbarErrorMsg={snackbarErrorMsg}
           snackbarSuccessMsg={snackbarSuccessMsg}
-          stripeId={companyTheme.stripe_id}
+          stripePaymentElementConfig={{
+            isDefaultForRegion: companyTheme.is_default_for_region,
+            stripeId: companyTheme.stripe_id,
+          }}
           stripeReaders={stripeReaders || []}
           unpaidInvoiceList={unpaidInvoiceList}
         />

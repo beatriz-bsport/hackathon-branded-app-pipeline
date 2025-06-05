@@ -1,16 +1,17 @@
 import React, { forwardRef, useCallback } from 'react';
 import {
   PAYMENT_GROUP_METHOD_IDENTIFIER_CB,
-  PAYMENT_INTENT_STATUS_SUCCESS,
-  PAYMENT_INTENT_STATUS_DISPUTED,
   PAYMENT_INTENT_STATUS_CANCELED,
-  PAYMENT_INTENT_STATUS_PROCESSING,
+  PAYMENT_INTENT_STATUS_DISPUTED,
   PAYMENT_INTENT_STATUS_PLANNED,
+  PAYMENT_INTENT_STATUS_PROCESSING,
+  PAYMENT_INTENT_STATUS_SUCCESS,
 } from '@bsport/common/lib/master-data/payment-group.js';
 
 import { makeStyles } from '@material-ui/core/styles';
 import PaymentStripeRevamped from '#src/libs/payment/payment-module-revamped/payment-backend-stripe/PaymentStripeRevamped.component';
 import type { OptionCallback } from '#src/state/types';
+import type { StripePaymentElementConfig } from '#src/libs/company/types';
 import { PaymentMethodCardSelector } from '#src/libs/payment/components/PaymentMethodCardSelector.component';
 import { PaymentRequesterRole } from '#src/libs/payment/payment-module-revamped/types';
 import { useInvoicePaymentProvider } from '#src/libs/payment/payment-module-revamped/invoice-payment/hooks/useInvoicePaymentProvider';
@@ -25,12 +26,10 @@ type Props = {
   invoiceUuid: string;
   memberId: number;
   companyId: number;
-
   onConfirmPaymentError?: () => void;
-
   onCancelPaymentBeforeConfirming?: () => void;
-
   onConfirmPaymentSuccess: (callback?: () => void) => void;
+  stripePaymentElementConfig: StripePaymentElementConfig;
 
   // BAD: hiding confirmation button on New checkout flow and new member profile
   forceHideConfirmPaymentButton?: boolean;
@@ -78,6 +77,7 @@ const OnlinePaymentInvoice: React.FC<Props> = forwardRef(
       onConfirmPaymentSuccess,
       onCancelPaymentBeforeConfirming,
       onConfirmPaymentError,
+      stripePaymentElementConfig,
     },
     ref,
   ) => {
@@ -272,6 +272,7 @@ const OnlinePaymentInvoice: React.FC<Props> = forwardRef(
                 paymentProcessing,
               })
             }
+            stripePaymentElementConfig={stripePaymentElementConfig}
           />
         </div>
       </div>

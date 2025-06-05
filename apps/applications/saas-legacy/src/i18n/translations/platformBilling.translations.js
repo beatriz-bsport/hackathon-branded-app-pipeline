@@ -25,6 +25,8 @@ exports.default = {
       missing_charge: "There's no attempted payment to display.",
       cancelled_with_credit_note: 'Invoice cancelled by credit note',
       cancelled_with_negative_invoice: 'Invoice cancelled by negative invoice',
+      negative_invoice_cancelling_bad_debt_invoice:
+        'Cancelling a previous invoice',
     },
     bill: 'Complete payment',
   },

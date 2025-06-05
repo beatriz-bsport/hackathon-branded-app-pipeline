@@ -14,14 +14,14 @@ exports.default = {
     buttons: { add: 'Add a pack' },
   },
   form: {
-    title: '[Form] Pack',
+    title: 'Add a Pack',
     name: { label: 'Name' },
     description: { label: 'Description' },
     price: { label: 'Price' },
     tax: { label: 'VAT / Sales tax' },
-    manager_only: { label: 'Unavailable for purchase' },
+    manager_only: { label: 'Hidden on Marketplace' },
     actions: { submit: 'Save', cancel: 'Cancel' },
-    content: 'Content',
+    content: 'Contents',
     selectorPlaceholder: {
       privatePass: 'Appointment passes',
       paymentPack: 'Passes',
@@ -30,7 +30,7 @@ exports.default = {
     },
     available_payment_method_identifiers: {
       helperText:
-        'Select at least one payment method. If none is selected, online payments will be offered by default.',
+        'Choose at least one payment method. If none are selected, online payments will be chosen by default.',
       label: 'Accepted payment methods',
     },
     new_member_only: { label: 'Only available for new members' },
@@ -39,17 +39,17 @@ exports.default = {
       label: 'Maximum number of purchases per member',
     },
     usePaymentComboTaxOnItems: {
-      label: 'Apply a general VAT / Sales Tax rate on this pack',
+      label: 'Apply a general VAT/Sales Tax rate to this pack',
       helperText:
-        'By default, a unique VAT / Sales Tax rate will be applied per product. Activate this option to apply a general VAT / Sales Tax rate.',
+        'A unique VAT/Sales Tax rate will be applied per product by default. Tick this box to apply a general Sales Tax rate to this pack. ',
     },
     error: { atLeastOneThing: 'You must add at least one item to your pack' },
-    unusableByStaff: { label: 'Invisible for the staff' },
+    unusableByStaff: { label: 'Hidden to staff' },
     expiration_date: {
-      label: 'Date limit for purchase',
+      label: 'Duration of sale',
       helperText: 'Available until',
       tooltip:
-        'After chosen date, the pack will not be available for sale anymore, for the customers.',
+        'After the chosen date, the pack will be unavailable for purchase',
     },
     highlightedAsRecommended: {
       label: 'Mark as recommended',
@@ -59,9 +59,9 @@ exports.default = {
     advancedOptions: {
       header: 'Advanced',
       tag: {
-        tagsOnAcquisition: 'Tag after purchase',
+        tagsOnAcquisition: 'Apply tags after purchase',
         tagsOnAcquisitionHelper:
-          'Use tags to identify which member bought the pack.',
+          'Tag members who have bought this pack to quickly identify them in the future.',
         selectTags: 'Select tags',
         tagGroupDuplicated:
           'Please note that selected items contain tags of the same category.',

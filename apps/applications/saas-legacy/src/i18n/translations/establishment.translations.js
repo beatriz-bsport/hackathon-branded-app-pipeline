@@ -11,7 +11,7 @@ exports.default = {
   addButton: 'Add an establishment',
   update: {
     imageUploaderRequireEditMessage:
-      "Once you've added your establishment, you'll be able to add additional images.",
+      "You can upload more images once you've added your establishment.",
   },
   capacity: {
     label: 'Maximum capacity',
@@ -91,7 +91,7 @@ exports.default = {
       },
     },
     groupButton: 'Group establishments',
-    addLocalisation: 'Add a location',
+    addLocalisation: 'Add a room',
     actions: 'Action',
     form: {
       name: 'Name',
@@ -100,7 +100,7 @@ exports.default = {
     },
     table: {
       actions: 'Action',
-      establishment: 'Establishments',
+      establishment: 'Establishment',
       name: 'Name',
       address: 'Address',
       noAddress: 'No address is associated with this billing group',

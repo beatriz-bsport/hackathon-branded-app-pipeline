@@ -201,7 +201,7 @@ const getTranslations = async () => {
       paymentPack: {
         noNotificationsWarning:
           'You have no notifications set up yet. To create new notifications, please go to <strong>Marketing > Notifications.</strong>',
-        detailsAndRestrictions: 'Details and restrictions',
+        detailsAndRestrictions: 'Details and conditions',
         notification: 'Notifications',
         from: 'From ',
         until: 'Until ',
@@ -293,14 +293,14 @@ const getTranslations = async () => {
             "Attention! Deleting this pass will also make it unavailable for purchase for the packs it's used for.",
         },
         priceIncludingTax: {
-          label: 'Price (including VAT / Sales Tax)',
-          helperText: 'This is selling price.',
+          label: 'Price (including VAT/Sales Tax) * ',
+          helperText: 'The total selling price of the pass.',
         },
         startOnFirstUseHelper: 'Otherwise it starts on the billing date',
         notEditable:
           'This pass originates from a previously completed data migration. Some fields may not editable to preserve the data. Compatible activities/categories can still be modified.',
         maxPurchasePerMember: {
-          helperText: 'Leave this field empty to not set up any restrictions.',
+          helperText: 'Leave this field blank to not set any limits',
           label: 'Maximum purchase per member',
         },
         maxBookingPerDay: {
@@ -367,7 +367,7 @@ const getTranslations = async () => {
           cancellationsCheckbox: 'Too many late cancelations',
           titleCheckbox: 'Apply a penalty for',
           helperText:
-            'Apply penalties for too many no-shows or late cancelations',
+            'Apply a penalty to members with too many no-shows or late cancellations ',
           label: 'Apply a penalty',
         },
         only_vod_access: 'Only for Video On Demand',
@@ -382,25 +382,26 @@ const getTranslations = async () => {
         advancedOptions: {
           tag: {
             notAllowedFor: 'Refused for',
-            notAllowed: 'Refused',
+            notAllowed: 'Not available',
             allowedFor: 'Approved for',
-            allowed: 'Approved',
+            allowed: 'Available',
             header: 'Tags',
-            doNotSelectToAllowAllMembers: 'Leave empty to allow all members',
+            doNotSelectToAllowAllMembers:
+              'Leave this field empty to make it available to all members.',
             helperText:
-              'Use tags to make the pass only available to specific members in your MarketPlace, on your widgets, and on your mobile app. You can select to only display these passes to members with specific tags, or you can choose to not display the pass to specific tags at all. ',
+              'Use tags to make this pass available or not available for purchase to certain segments of your customer base.',
             selectTags: 'Select tags',
-            tagsOnAcquisition: 'Tag after purchase',
+            tagsOnAcquisition: 'Apply tags after purchase',
             tagsOnAcquisitionHelper:
-              'Use tags to identify which member bought the pass.',
+              'Tag members who have bought this pass to quickly identify them in the future.',
           },
           header: 'Advanced',
           appliesForPayroll: {
             header: 'Teacher payroll',
             helperText:
-              "By default, sessions are billed to the studio and included in the teacher's payroll and remuneration by the studio. By deactivating this setting, sessions associated with this pass will no longer appear in the teacher's payroll.",
+              "Classes are billed to the studio and included in the teacher's payroll by default. Deactivate this setting to ensure classes associated with this pass will no longer appear in teachers' payrolls.",
             label:
-              "Sessions taken into account in calculating the teacher's remuneration",
+              "Classes bought with this pass are included in teacher's payroll",
           },
         },
         universalPass: {
@@ -409,14 +410,14 @@ const getTranslations = async () => {
             'A universal pass may be used for group activities and appointments.',
           label: 'Universal pass',
           helperText:
-            'Universal passes may be used for group activities and appointments. Twin appointment passes are created for every universal pass to link the number of credits. Once one of these passes has been purchased, the other will be automatically added without any additional costs.',
+            "Universal passes can be used by members to book both group activities and appointments. Every time a universal pass is purchased, we'll automatically add a 'twin' appointment pass to share the credits between the two pass types.",
           warningIsUniversalPass:
             'Twin appointment passes are automatically created for a universal pass. All fields modified here will also be edited on the twin passes, except the categories. This also applies to notifications, validity extensions, and credit changes.',
         },
         highlightedAsRecommended: {
           label: 'Mark as recommended',
           helperText:
-            'Allows your customers to quickly see which passes are currently recommended.',
+            "Highlight this pass to your members by promoting it in the 'recommended' section of the booking flow.",
         },
       },
     },
@@ -596,7 +597,7 @@ const getTranslations = async () => {
           titleNew: 'New category',
           titleEdit: 'Category',
           helper:
-            'The categories will appear on the marketplace and the mobile application for cards available for sale.',
+            'Categories are a useful way to organize your passes. These names will appear to your members on the Marketplace and Mobile App. ',
           update: 'Rename',
           create: 'Add',
           cancel: 'Cancel',
@@ -673,12 +674,12 @@ const getTranslations = async () => {
     },
     selector: {
       noAvailable: 'There are no compatible passes to display.',
-      noManagerOnly: 'Available for purchase',
-      managerOnly: 'Invisible to customers',
-      filterManagerOnly: 'All availabilities',
+      noManagerOnly: 'Visible on Marketplace',
+      managerOnly: 'Hidden to members',
+      filterManagerOnly: 'Visible to all',
       filterCategory: 'All categories',
       titleSort: 'Sort',
-      titleManagerOnly: 'Available for purchase',
+      titleManagerOnly: 'Visibility',
       titleCategory: 'Categories',
       sorting: {
         descendingCredit: 'Credits: descending',
@@ -687,7 +688,7 @@ const getTranslations = async () => {
         ascendingPrice: 'Price: ascending',
         customSort: 'Additional orders (MarketPlace and App)',
       },
-      unusableByStaff: 'Invisible for the staff',
+      unusableByStaff: 'Hidden to staff',
     },
     noUnauthorizedTag: 'There are no refused tags to display.',
     noAuthorizedTag: 'There are no authorized tags to display.',
@@ -753,20 +754,20 @@ const getTranslations = async () => {
       vodAccessCard: 'Enable access to Video On Demand',
       vod: 'Video On Demand',
       compatibility:
-        'This pass will only be compatible with the selected sessions, activities, categories, and/or establishments.',
-      letBlank: 'Leave this field empty to implement no restrictions',
+        'This pass will only be compatible with the selected classes, activities, categories, or establishments.',
+      letBlank: 'Leave blank to not limit this pass',
       activities: 'Activities',
       room: 'Establishments',
       categories: 'Categories',
       inShopPayment: 'Enable on-site payments',
-      notForSell: 'Invisible to customers',
-      newClientOnly: 'Only available to new members',
+      notForSell: 'Hidden to members',
+      newClientOnly: 'Only visible to new members',
       maxUseMember: 'Maximum purchases per member',
       maxUseMonth: 'Maximum usage per month',
       maxUseWeek: 'Maximum usage per week',
-      maxUseHelper: 'Leave blank to not set a limit',
+      maxUseHelper: 'Leave blank to not set a usage limit',
       maxUseDay: 'Maximum usage per day',
-      restriction: 'Restrictions',
+      restriction: 'Conditions',
       penalityAccountHelper:
         "Members' account balance will be charged {{ currencyDisplay }}{{penalityBlockAccount}}.",
       penalityBlockDayHelper:
@@ -784,9 +785,8 @@ const getTranslations = async () => {
         'This is used to calculate the payroll of the teachers. Example: {{ currencyDisplay }}10 for 1 booking means that the teacher will be paid {{ currencyDisplay }}10.  When left empty, the marginal value will be calculated as PRICE / NUMBER OF BOOKINGS.',
       marginalContribution: 'Theoretical marginal value incl. VAT',
       expirationDateHelper:
-        "If the pass hasn't been used during this set number of days, it'll automatically expire.",
-      expirationDate:
-        'Amount of days in which the pass expires if no booking is made',
+        "If the pass hasn't been used during this period, it'll automatically expire.",
+      expirationDate: 'Number of days before the pass expires if unused *',
       beginningDate: 'Start date',
       attendance: 'Valid from the 1st attendance',
       firstBooking: 'Valid from the 1st booking',
@@ -807,15 +807,15 @@ const getTranslations = async () => {
       },
       yearValidityHelper: 'This will be added to the number of days and months',
       monthValidityHelper: 'This will be added to the number of days',
-      yearValidity: 'Validity (in years)',
-      monthValidity: 'Validity (in months)',
-      dayValidity: 'Validity (in days)',
+      yearValidity: 'Years',
+      monthValidity: 'Months',
+      dayValidity: 'Days',
       endBeforeStart: 'The end date must be greater than the start date',
       toDate: 'Until',
       fromDate: 'From',
-      availabilitySlot: 'Make this pass valid during a certain time period',
+      availabilitySlot: 'Make this pass valid between certain dates',
       availabilityGivenNumber:
-        'Make this pass valid for a set number of days after the purchase date',
+        'Make this pass valid for a certain number of days after purchase',
       penalityRule: 'This penalty can only be applied to unlimited passes',
       penality: 'Apply a penalty for too many late cancellations',
       packValidity: 'Validity',
@@ -840,7 +840,7 @@ const getTranslations = async () => {
         'This pass originates from a previously completed data migration. Some fields may not editable to preserve the data. Compatible activities/categories can still be modified.',
       franchise:
         "The pass is shared through the Master Account. Certain settings have been predefined by said Master Account and can't be modified.",
-      allowGuest: 'Compatible with the booking for a guest feature',
+      allowGuest: 'Compatible with guest bookings',
       penalityModeFranchisor: {
         buyer: {
           explain:
@@ -859,16 +859,16 @@ const getTranslations = async () => {
           label: 'Pro rata, per franchisee, of no shows',
         },
       },
-      unusableByStaff: 'Invisible for the staff',
+      unusableByStaff: 'Hidden to staff',
       expiration_date: {
-        label: 'Date limit for purchase',
+        label: 'Duration of sale',
         helperText: 'Available until',
         tooltip:
-          'After chosen date, the pack will not be available for sale anymore, for the customers.',
+          'After the chosen date, the pass will be unavailable for purchase',
       },
       description: 'Description',
       offPeak: {
-        label: 'Limit bookings to certain time slots',
+        label: 'Restrict bookings to certain times',
         addGroupTimeSlot: 'Add a group of time slots',
         addTimeSlot: 'Add a time slot',
         choice: { allDay: 'All day', timeSlot: 'Time slots' },

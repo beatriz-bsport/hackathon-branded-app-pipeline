@@ -88,7 +88,7 @@ const getTranslations = async () => {
       titleInterpolated:
         'The variables contained in the subject line and the body of the email are updated according to the recipient.',
       warningProvider:
-        "Please note that members' replies to this message will not appear on the platform but directly in your mailbox. In order for them all to appear here, change the communication setting in the Settings/Customization page.",
+        'Replies to this message will automatically be sent to your email inbox. Go to settings - Personalization - Chat settings to make all your communications appear here.',
     },
     recipients: 'Recipients',
     common: {
@@ -146,7 +146,7 @@ const getTranslations = async () => {
         },
         panel: {
           subtitle: { onLeft: 'Removal', onJoin: 'Entry' },
-          add: 'Add',
+          add: 'Add message',
           title: 'Automatic Messaging',
         },
         form: {
@@ -157,16 +157,16 @@ const getTranslations = async () => {
 
           maxCommunicationSentHelperText: {
             [SEND_COMMUNICATION_ON_JOIN]:
-              'By default, the message is sent each time a member enters the smartlist. If a member leaves and later re-enters, the message is sent again. Adjust the setting if you want to limit how many times the same member can receive the message: once, twice, or thrice.',
+              'This message will be sent every time a member enters the segment. If a member exits and then re-enters, the message will be resent. Set a limit on the number of times the same member can see this message.',
             [SEND_COMMUNICATION_ON_LEFT]:
               'By default, the message is sent each time a member exits the smartlist. If a member re-enters and later exits again, the message is sent again. Adjust the setting if you want to limit how many times the same member can receive the message: once, twice, or thrice.',
           },
           subtitles: {
             create: {
               leftSmartList:
-                'Add an automatic message for members that leave this Smartlist.',
+                'Create an automatic message for customers who exit this Smartlist.',
               joinSmartList:
-                'Add an automatic message for members that enter this Smartlist.',
+                'Create an automatic message for customers who enter this Smartlist.',
             },
             update: {
               leftSmartList:
@@ -352,7 +352,7 @@ const getTranslations = async () => {
         title: 'Title',
         content: 'Message',
       },
-      writeCommunication: 'Send a message',
+      writeCommunication: 'Create a message',
       warningModalTitle: {
         title:
           'We want to inform you of a few things before you send communications',
@@ -501,7 +501,8 @@ const getTranslations = async () => {
     },
     smartListPopup: {
       memberListTitle: 'Start-up pop-up',
-      noSmartListPopup: 'No startup pop-up',
+      noSmartListPopup:
+        "No pop-ups to show. Go back and click 'Send pop-up' to get started. ",
       seeRecipients: 'View recipients',
       see: 'See',
       recipient: 'recipient',
@@ -511,7 +512,7 @@ const getTranslations = async () => {
       previewTitle: 'Preview',
       preview: 'Preview',
       close: 'Close',
-      drawerTitle: 'History of startup pop-ups',
+      drawerTitle: 'All pop-ups',
     },
     createThread: {
       close: 'Close',
@@ -526,7 +527,7 @@ const getTranslations = async () => {
       emptyList: {
         becauseOfFilters: 'No results matching filters.',
         becauseNeverUsed:
-          'You have not yet sent any communication on this channel.',
+          'No messages to show. Click on the text box below to write your first message.',
       },
     },
     sendNowDialog: {

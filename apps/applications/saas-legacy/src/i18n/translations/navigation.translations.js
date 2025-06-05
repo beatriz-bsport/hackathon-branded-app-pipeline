@@ -188,7 +188,7 @@ exports.default = {
     },
     franchise: { staff: { role: 'Roles', staffAccount: 'Staff accounts' } },
     replacement: {
-      disciplineGroup: 'Discipline groups',
+      disciplineGroup: 'Activity types:',
       management: 'Management',
     },
     widget: {
@@ -235,8 +235,8 @@ exports.default = {
     clockIn: { history: 'History', realTime: 'Real time' },
     service: { calendar: 'Calendar', general: 'General' },
     establishment: {
-      location: 'Location',
-      room: 'Room',
+      location: 'Locations',
+      room: 'Rooms',
       calendar: 'Calendar',
       general: 'General',
     },

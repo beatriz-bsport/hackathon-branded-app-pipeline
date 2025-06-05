@@ -32,9 +32,10 @@ exports.default = {
   metaActivity: {
     metaActivityEditForm: '[Form] Group activity',
     metaActivityList: 'Activities',
-    metaActivityFormPage: '[Form] Group activity',
+    metaActivityFormPage: 'Add a group activity',
     metaActivityEditFormSubtitle: 'Edit a group activity',
-    metaActivityFormSubtitle: 'Add a group activity',
+    metaActivityFormSubtitle:
+      'Set up a group activity, define its duration, and add custom parameters',
   },
   coupon: {
     couponCreate: 'Create coupon',
@@ -43,7 +44,7 @@ exports.default = {
   },
   establishment: {
     establishmentList: 'Establishments',
-    establishmentFormPage: '[Form] Establishment',
+    establishmentFormPage: 'Add an establishment',
     establishmentGroupPage: 'Location',
   },
   marketplace: {

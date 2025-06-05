@@ -12,9 +12,9 @@ exports.default = {
           'No pass available for this activity, remind to create one',
       },
       steps: {
-        activity_form: 'Activity creation',
+        activity_form: 'Create an activity',
         pass_form: '(Optional) Add a pass',
-        pass_list: 'Finalization',
+        pass_list: 'Finish',
         offer_form: '(Optional) Add sessions',
         workshop_form: 'Add a workshop',
       },
@@ -94,7 +94,7 @@ exports.default = {
     addActivity: 'Add a group activity',
   },
   noActivities:
-    'This module allows you to add, manage, edit, or delete all your group activities.',
+    'Group activities are classes taught to a group. Here you can add, edit, and manage your group activities.',
   disabledMetaActivities: 'Archived group activities',
   workshop: 'Workshop',
   groupedOption: {

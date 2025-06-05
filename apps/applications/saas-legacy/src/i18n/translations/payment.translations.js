@@ -139,7 +139,7 @@ const getTranslations = async () => {
       [AMEX.id]: 'AMEX',
       [DISPUTE.id]: 'Litigation',
       [BANK_TRANSFER.id]: 'Bank transfer',
-      [CREDIT_ACCOUNT.id]: 'Internal account (credit)',
+      [CREDIT_ACCOUNT.id]: 'Pay on-site',
       [SUBSCRIPTION_CB.id]: 'Automatic payment',
       [OTHER.id]: 'Other',
       [SEPA.id]: 'SEPA',

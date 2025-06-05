@@ -65,10 +65,7 @@ import {
   emailTemplateDetail,
   emailTemplatesSummaries,
 } from '#src/libs/email-editor/actions';
-import {
-  CONTEXT_SMARTLIST,
-  MINUTE_LIMIT_TO_SCHEDULE_COMMUNICATION,
-} from '#src/libs/communication-v2/constants';
+import { CONTEXT_SMARTLIST } from '#src/libs/communication-v2/constants';
 
 import type { CampaignExportStartEndDates } from '#src/libs/communication/types';
 import type { CommunicationScheduled } from '#src/libs/communication-v2/types';
@@ -79,6 +76,11 @@ import Config from '../../config';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import { CommunicationDrawer } from '#src/libs/communication-v2/components/CommunicationDrawer.component';
 import ObjectLevelPermissionWrapper from '#src/libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
+
+import {
+  checkIsMessageDeletable,
+  checkIsMessageSchedulable,
+} from '#src/utils/communicationScheduledHelper';
 
 type OwnProps = {
   id: number;
@@ -181,12 +183,6 @@ export class SmartListCampaign extends React.Component<Props> {
     Config.REACT_APP_SENTRY_ENVIRONMENT === 'production' &&
     this.props.companyId !== 498;
 
-  checkIsMessageSchedulable = (
-    communicationScheduled: CommunicationScheduled,
-  ) =>
-    DateTime.fromISO(communicationScheduled.datetime_scheduled) >
-    DateTime.now().plus({ minutes: MINUTE_LIMIT_TO_SCHEDULE_COMMUNICATION });
-
   openTooLateToUpdateCommunicationScheduledDialog = () =>
     this.props.setIsTooLateToUpdateCommunicationScheduledDialogOpen(true);
 
@@ -208,7 +204,7 @@ export class SmartListCampaign extends React.Component<Props> {
   openCommunicationScheduledDeletionDrawer = (
     communicationScheduled: CommunicationScheduled,
   ) => {
-    if (this.checkIsMessageSchedulable(communicationScheduled)) {
+    if (checkIsMessageDeletable(communicationScheduled)) {
       this.props.setCommunicationScheduledSelected(communicationScheduled);
       this.openDeleteCommunicationScheduledDialog();
     } else {
@@ -218,11 +214,7 @@ export class SmartListCampaign extends React.Component<Props> {
 
   deleteCommunicationScheduled = () => {
     if (this.props.communicationScheduledSelected) {
-      if (
-        this.checkIsMessageSchedulable(
-          this.props.communicationScheduledSelected,
-        )
-      ) {
+      if (checkIsMessageDeletable(this.props.communicationScheduledSelected)) {
         this.props.deleteCommunicationScheduled(
           this.props.communicationScheduledSelected.id,
           {
@@ -244,7 +236,7 @@ export class SmartListCampaign extends React.Component<Props> {
   openCommunicationScheduledEditionDrawer = (
     communicationScheduled: CommunicationScheduled,
   ) => {
-    if (this.checkIsMessageSchedulable(communicationScheduled)) {
+    if (checkIsMessageSchedulable(communicationScheduled)) {
       this.props.setCommunicationScheduledSelected(communicationScheduled);
       this.props.setOpenEditCommunication(true);
     } else {
@@ -274,7 +266,7 @@ export class SmartListCampaign extends React.Component<Props> {
   openCommunicationScheduledSendNowDialog = (
     communicationScheduled: CommunicationScheduled,
   ) => {
-    if (this.checkIsMessageSchedulable(communicationScheduled)) {
+    if (checkIsMessageSchedulable(communicationScheduled)) {
       this.props.setCommunicationScheduledSelected(communicationScheduled);
       this.openSendNowCommunicationScheduledDialog();
     } else {

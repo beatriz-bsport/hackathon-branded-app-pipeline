@@ -14,6 +14,7 @@ import type {
   FranchisorSavedFilter,
   EmailTemplateSummary,
   EmailDesignQueryParamsPaginated,
+  EmailEditAPIParams,
 } from '#src/libs/email-editor/types';
 
 import type { PaginatedResponse } from '#src/state/types';
@@ -62,17 +63,15 @@ export const fetchEmailTemplate = async (id: number) => {
   return getAuth(`${MARKETING_EMAIL_URI}${id}/`);
 };
 
-export const createEmailTemplate = async (
-  data: Omit<EmailTemplate, 'id'> & { available_for_companies?: number[] },
-) => {
-  return postAuth(MARKETING_EMAIL_URI, data);
+export const createEmailTemplate = async (data: EmailEditAPIParams) => {
+  return postAuth<EmailTemplate>(MARKETING_EMAIL_URI, data);
 };
 
 export const updateEmailTemplate = (
   id: string | number,
-  data: EmailTemplate & { available_for_companies?: number[] },
+  data: EmailEditAPIParams,
 ) => {
-  return patchAuth(`${MARKETING_EMAIL_URI}${id}/`, data);
+  return patchAuth<EmailTemplate>(`${MARKETING_EMAIL_URI}${id}/`, data);
 };
 
 export const fetchFranchisePageFilter = (): Promise<

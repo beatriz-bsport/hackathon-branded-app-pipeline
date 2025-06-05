@@ -34,9 +34,6 @@ export type SerializedRow = {
 
 export type SerializedReport = {
   result: SerializedRow[];
-  previous_page: null | number;
-  next_page: number;
-  other_pages: number[];
   total: number;
   next_cursor?: string | null;
   previous_cursor?: string | null;
@@ -120,9 +117,9 @@ export type ReportHeaderQueryParams = {
   date_end?: string;
   report_filter_config_id?: number;
   page_size?: number;
-  page?: number;
   time_window_start?: string;
   time_window_end?: string;
+  cursor?: string;
 };
 
 export type ReportMetadataColumn = {
@@ -181,7 +178,6 @@ export type ReportSerializerParams = {
   date_start?: string;
   date_end?: string;
   page_size?: number;
-  page: number;
   report_filter_config_id?: number;
   time_window_start?: string;
   time_window_end?: string;
@@ -211,7 +207,6 @@ export type ReportGenerationParams = {
   timeEnd?: string;
   dateStart?: string;
   dateEnd?: string;
-  page?: number;
   reportFilterConfigId?: number;
   cursor?: string;
 };

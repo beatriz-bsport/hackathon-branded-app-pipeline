@@ -43,7 +43,7 @@ type Props = {
   className: {},
   establishmentBillingGroups: Array<EstablishmentBillingGroup>,
   snackbarSuccess: (string) => void,
-  stripeId: string | null,
+  stripePaymentElementConfig: StripePaymentElementConfig,
   companyId: number,
   memberDetails: { [id: number]: Member },
   consumerGiftcardList: Array<ConsumerGiftcard<Giftcard>>,
@@ -329,7 +329,9 @@ export class QuickInvoicePanel extends React.PureComponent<Props, State> {
                   paymentGroupId={this.state.paymentGroupId}
                   paymentGroupPriceCts={this.state.paymentGroupPriceCts}
                   requestClientSecret={this.requestClientSecret}
-                  stripeId={this.props.stripeId}
+                  stripePaymentElementConfig={
+                    this.props.stripePaymentElementConfig
+                  }
                   stripeReaders={this.props.stripeReaders}
                   submitInternalPaymentInBackground={
                     this.submitInternalPaymentInBackground

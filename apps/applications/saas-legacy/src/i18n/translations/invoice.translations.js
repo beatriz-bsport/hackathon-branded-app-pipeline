@@ -264,11 +264,11 @@ const getTranslations = async () => {
         addReader: 'Connect a terminal',
       },
       tse: {
-        title: 'Kassensicherungsverordnung (Deutschland)',
+        title: 'Kassensicherungsverordnung (Germany)',
         description:
           'It’s a regulation aimed at ensuring the security and integrity of electronic cash register systems. We use Fiskaly as a technical security device (TSE) to prevent manipulation and ensure that transaction data is stored securely and tamper-proof.',
-        version: 'Version of the TSE: 2.0',
-        manufacturer: 'Manufacturer: bsport',
+        version: 'Version of the TSE: v2',
+        manufacturer: 'Manufacturer: fiskaly GmbH',
         manufacturerLinkLabel: 'Certificate of the TSE manufacturer',
         documentationLabel: 'Procedural documentation',
       },
@@ -322,6 +322,9 @@ const getTranslations = async () => {
         noEstablishment: 'No establishment has been associated to this invoice',
         noBillingGroup: 'No billing group has been associated to this invoice',
       },
+      paymentFailed: 'Payment failed. Please try again.',
+      paymentFailedWithMethod:
+        'Payment failed with {{ paymentMethod }}. Please try again.',
       titleRevert: 'Credit {{ uuid }}',
       titleRevertPending: '[Pending] Credit {{ uuid }}',
       titleReceipt: 'Payment receipt {{ uuid }}',

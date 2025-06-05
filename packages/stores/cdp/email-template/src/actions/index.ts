@@ -24,7 +24,8 @@ import {
 import {
   type CompanyTemplateFilters,
   type CreateEmailTemplateCategoryPayload,
-  type DeleteEmailTemplateItem,
+  type DeleteEmailTemplateCategoryPayload,
+  type DeleteEmailTemplatePayload,
   type EditEmailTemplatePayload,
   type EmailTemplateCategory,
   type EmailTemplateDetail,
@@ -34,9 +35,9 @@ import {
   type FetchEmailTemplateDetailParams,
   type FetchEmailTemplateSummaryParams,
   type SearchEmailTemplateParams,
-  UpdateCategoryOrderingPayload,
+  type UpdateCategoryOrderingPayload,
   type UpdateEmailTemplateCategoryPayload,
-  UpdateTemplateOrderingPayload,
+  type UpdateTemplateOrderingPayload,
 } from "#src/types";
 
 import {
@@ -236,7 +237,7 @@ export const updateEmailTemplateCategoryAction: Action<
  * @returns the EmailTemplateDetail model of a newly created template or an error
  */
 export const deleteEmailTemplateCategoryAction: Action<
-  DeleteEmailTemplateItem,
+  DeleteEmailTemplateCategoryPayload,
   void
 > = async (fetch, params) => {
   const [uri, init] = deleteEmailTemplateCategoryAPI(params);
@@ -314,14 +315,16 @@ export const createEmailTemplateAction: Action<
  * @returns the EmailTemplateDetail model of a newly created template or an error
  */
 export const deleteEmailTemplateAction: Action<
-  DeleteEmailTemplateItem,
-  void
+  DeleteEmailTemplatePayload,
+  EmailTemplateDetail
 > = async (fetch, params) => {
   const [uri, init] = deleteEmailTemplateAPI(params);
 
   return Result.try(
     async () => {
       await fetch(uri, init);
+
+      return params as EmailTemplateDetail; // Return the params as a placeholder for the deleted template because the
     },
     (error) =>
       createErrorWithContext(error, {

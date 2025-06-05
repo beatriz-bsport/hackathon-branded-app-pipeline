@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 
 import type { OptionCallback } from '#src/state/types';
 import type { Basket, PrepaidLine } from '#src/libs/checkout/types';
+import type { StripePaymentElementConfig } from '#src/libs/company/types';
 import type { EstablishmentBillingGroup } from '#src/libs/establishment/types';
 import type { InstalmentPaymentApiWithBasketId } from '#src/libs/instalment-payment-configuration/types';
 
@@ -35,6 +36,7 @@ type PaymentStepProps = {
   ) => void;
   onPaymentSuccess: (callback?: () => void) => void;
   paymentGroupId: number;
+  paymentGroupPriceCts: number;
   paymentMethodChoices: any;
   paymentProcessing: boolean;
   ref: React.Ref<any>;
@@ -46,6 +48,7 @@ type PaymentStepProps = {
     areTermsAndConditionsAccepted: boolean,
   ) => void;
   snackbarErrorMsg: (msg: string) => void;
+  stripePaymentElementConfig: StripePaymentElementConfig;
   termsAndConditions: string;
   termsAndConditionsAccepted: boolean;
   useInternalAccount?: (amount: number) => void;
@@ -89,6 +92,7 @@ export const PaymentStep: React.FC<PaymentStepProps> = forwardRef(
       onSelectInstalmentPayment,
       onPaymentSuccess,
       paymentGroupId,
+      paymentGroupPriceCts,
       paymentMethodChoices,
       paymentProcessing,
       sepaDefaultEmail,
@@ -97,6 +101,7 @@ export const PaymentStep: React.FC<PaymentStepProps> = forwardRef(
       setPaymentProcessing,
       setTermsAndConditionsAccepted,
       snackbarErrorMsg,
+      stripePaymentElementConfig,
       termsAndConditions,
       termsAndConditionsAccepted,
       useInternalAccount,
@@ -223,6 +228,7 @@ export const PaymentStep: React.FC<PaymentStepProps> = forwardRef(
             onSuccess={onPaymentSuccess}
             paymentEngine={paymentEngine}
             paymentGroupId={paymentGroupId}
+            paymentGroupPriceCts={paymentGroupPriceCts}
             paymentMethodChoices={paymentMethodChoices}
             paymentProcessing={paymentProcessing}
             selectedEstablishmentBillingGroup={
@@ -241,6 +247,7 @@ export const PaymentStep: React.FC<PaymentStepProps> = forwardRef(
             }
             setTermsAndConditionsAccepted={setTermsAndConditionsAccepted}
             snackbarErrorMsg={snackbarErrorMsg}
+            stripePaymentElementConfig={stripePaymentElementConfig}
             termsAndConditions={termsAndConditions}
             termsAndConditionsAccepted={termsAndConditionsAccepted}
             useInternalAccount={useInternalAccount}

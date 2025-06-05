@@ -13,6 +13,7 @@ import type {
   MarketingPreferenceUpdatePayload,
   MarketingPreferenceData,
 } from '#src/libs/communication/types';
+import type { StripePaymentElementConfig } from '#src/libs/company/types';
 
 export type ConsumerSummaryCardProps = {
   acceptEmail: boolean;
@@ -94,7 +95,7 @@ export type ConsumerProfileContextType = {
   creditAccountBalance: number;
   memberId: number;
   handleConfirmRegularizeBalance: () => void;
-  stripeId: string;
+  stripePaymentElementConfig: StripePaymentElementConfig;
   availablePaymentMethodList: number[];
   cardBillingDetailsMandatory: boolean;
   companyId: number;

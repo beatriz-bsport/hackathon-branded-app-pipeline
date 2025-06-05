@@ -28,6 +28,7 @@ type UseBasketPaymentStoreData = {
   isBasketLoading: boolean;
   needAddress: boolean;
   paymentGroupId: number;
+  paymentGroupPriceCts: number;
 };
 
 /**
@@ -39,7 +40,7 @@ type UseBasketPaymentStoreData = {
  * @param {string} basketId - The ID of the basket for which data is being retrieved.
  * @param {number} memberId - The ID of the member associated with the basket.
  *
- * @returns {UseBasketStoreData} An object containing structured data related to the basket,
+ * @returns {UseBasketPaymentStoreData} An object containing structured data related to the basket,
  * including payment methods, billing details, loading states, and other configurations.
  *
  * @property {CheckoutItem[]} basketCheckoutItems - The items placed in the basket.
@@ -49,12 +50,14 @@ type UseBasketPaymentStoreData = {
  * @property {boolean} clientSecretLoading - Indicates if the client secret is currently loading.
  * @property {Error} clientSecretError - The error object related to client secret.
  * @property {number} creditAccountBalance - The balance of the usable credit account.
- * @property {boolean} currentBasketProcessing - Indicates if the current basket is being processed.
+ * @property {boolean} isCurrentBasketProcessing - Indicates if the current basket is being processed.
  * @property {boolean} detachPaymentMethodLoading - Indicates if the detach payment method is loading.
  * @property {Array} instalmentPaymentConfigurations - A list of instalment payment configurations for the basket.
  * @property {string|null} instalmentPaymentSelectedId - The selected instalment payment ID.
  * @property {boolean} isBasketLoading - Indicates if the basket is currently loading.
- * @property {string} paymentGroupId - The payment group ID associated with the basket.
+ * @property {number} paymentGroupId - The payment group ID associated with the basket.
+ * @property {number} paymentGroupPriceCts - Total amount (in cents) attached to the payment-group, used by the Stripe Payment Element.
+ *
  * @property {number[]} availablePaymentMethods - The payment payment methods a user can chose among.
  */
 
@@ -86,6 +89,7 @@ export const useBasketPaymentStoreData = (
 
   const {
     payment_group: paymentGroupId,
+    price_cts: paymentGroupPriceCts,
     client_secret: clientSecret,
     loading: isClientSecretLoading,
     error: clientSecretError,
@@ -119,5 +123,6 @@ export const useBasketPaymentStoreData = (
     isBasketLoading,
     needAddress,
     paymentGroupId,
+    paymentGroupPriceCts,
   };
 };

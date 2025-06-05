@@ -82,7 +82,11 @@ export type EditEmailTemplatePayload = {
   available_for_companies?: number[];
 };
 
-export type DeleteEmailTemplateItem = {
+export type DeleteEmailTemplatePayload = {
+  id: number;
+} & EditEmailTemplatePayload;
+
+export type DeleteEmailTemplateCategoryPayload = {
   id: number;
 };
 

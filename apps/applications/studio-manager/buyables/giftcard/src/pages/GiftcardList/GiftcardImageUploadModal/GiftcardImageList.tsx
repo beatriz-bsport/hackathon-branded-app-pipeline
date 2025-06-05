@@ -1,7 +1,11 @@
 import classNames from "classnames";
 import React from "react";
 
-import { List, type ListItemProps } from "@bsport/kaizen-primitive-core";
+import {
+  List,
+  type ListItemProps,
+  type PaginationProps,
+} from "@bsport/kaizen-primitive-core";
 import type { GiftcardImage } from "@bsport/store-buyables-giftcard";
 
 import { useTranslation } from "#src/utils/i18n";
@@ -9,24 +13,18 @@ import { useTranslation } from "#src/utils/i18n";
 import { GiftcardImageUploader } from "./GiftcardImageUploader";
 
 type GiftcardImageListProps = {
-  currentPage: number;
-  rowsPerPage: number;
   itemList: Array<GiftcardImage>;
   onArchiveClick: (id: number) => void;
   onItemClick: (src: string) => void;
-  onPageChange: (nextPage: number) => void;
-  totalItems: number;
   isEmpty: boolean;
+  paginationParams: PaginationProps;
   refreshGiftcardImageList: () => void;
 };
 
 export const GiftcardImageList: React.FC<GiftcardImageListProps> = ({
   onItemClick,
   onArchiveClick,
-  currentPage,
-  rowsPerPage,
-  totalItems,
-  onPageChange,
+  paginationParams,
   itemList,
   isEmpty,
   refreshGiftcardImageList,
@@ -60,11 +58,11 @@ export const GiftcardImageList: React.FC<GiftcardImageListProps> = ({
     <div className="w-1/2">
       {!isEmpty && (
         <GiftcardImageUploader
-          fetchGiftcardImageList={refreshGiftcardImageList}
+          refreshGiftcardImageList={refreshGiftcardImageList}
         />
       )}
       <div
-        className={classNames("flex flex-col items-center flex-1", {
+        className={classNames("flex flex-col items-stretch flex-1", {
           "mt-md justify-start w-full": !isEmpty,
           "justify-center h-full max-w-3/4 gap-md": isEmpty,
         })}
@@ -73,13 +71,7 @@ export const GiftcardImageList: React.FC<GiftcardImageListProps> = ({
           id="background-image-list"
           items={items}
           className="w-full"
-          paginationProps={{
-            rowsPerPage,
-            currentPage,
-            totalItems,
-            showRowsPerPageSelector: false,
-            onPageChange,
-          }}
+          paginationProps={paginationParams}
           emptyStateProps={{
             isEmpty: isEmpty,
             emptyConfig: {
@@ -89,7 +81,7 @@ export const GiftcardImageList: React.FC<GiftcardImageListProps> = ({
         />
         {isEmpty && (
           <GiftcardImageUploader
-            fetchGiftcardImageList={refreshGiftcardImageList}
+            refreshGiftcardImageList={refreshGiftcardImageList}
             isEmpty
           />
         )}

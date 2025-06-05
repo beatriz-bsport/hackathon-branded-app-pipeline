@@ -2,7 +2,7 @@ import React from 'react';
 import { Switch, Route } from 'react-router';
 
 // @ts-expect-error
-import asyncComponent from '../../../AsyncComponent';
+import asyncComponent from '#src/AsyncComponent';
 import { useTranslation } from 'react-i18next';
 import Helmet from 'react-helmet';
 

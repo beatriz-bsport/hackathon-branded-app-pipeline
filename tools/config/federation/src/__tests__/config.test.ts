@@ -327,6 +327,27 @@ describe("getConfig", () => {
     });
   });
 
+  it("configures server options correctly", () => {
+    const config = getConfig(createConfig());
+
+    // Verify server configuration has the correct port and strictPort settings
+    expect(config.server).toEqual({
+      port: 4000, // From mockPackageJson.federation.devPort
+      strictPort: true,
+    });
+
+    // Test with a different port (within valid range for hosts)
+    const configWithCustomPort = getConfig(
+      createConfig({
+        federationConfig: { devPort: 4049 },
+      }),
+    );
+    expect(configWithCustomPort.server).toEqual({
+      port: 4049,
+      strictPort: true,
+    });
+  });
+
   it("configures all required plugins correctly", async () => {
     const config = getConfig(createConfig());
 

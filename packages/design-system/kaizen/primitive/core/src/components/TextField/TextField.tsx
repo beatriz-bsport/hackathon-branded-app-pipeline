@@ -42,6 +42,7 @@ export const inputTypes = [
   "search",
   "tel",
   "text",
+  "time",
 ] as const;
 
 export type TextFieldPrefixSuffix =
@@ -79,6 +80,7 @@ export type TextFieldProps = Omit<
   suffix?: TextFieldPrefixSuffix;
   fullWidth?: boolean;
   type?: (typeof inputTypes)[number];
+  containerProps?: React.HTMLAttributes<HTMLDivElement>;
 };
 
 /**
@@ -125,6 +127,7 @@ const TextField: React.FC<TextFieldProps> = ({
   onBlur,
   onFocus,
   fullWidth,
+  containerProps,
   ...props
 }) => {
   /* TODO: Check with design if the color picker needs all these props, and split it in a separate component (explained here: https://gitlab.com/bsport/ichizen/-/merge_requests/425#note_2402509306) */
@@ -161,12 +164,20 @@ const TextField: React.FC<TextFieldProps> = ({
       ? { type: "text", onChange: handleTextChange }
       : { type, onChange };
 
+  const { className: containerClassName, ...otherContainerProps } =
+    containerProps ?? {};
+
   return (
     <div
-      className={classNames("flex flex-col gap-2xs", {
-        "opacity-sm pointer-events-none": disabled,
-        "max-w-component-select": !fullWidth,
-      })}
+      className={classNames(
+        "flex flex-col gap-2xs",
+        {
+          "opacity-sm pointer-events-none": disabled,
+          "max-w-component-select": !fullWidth,
+        },
+        containerClassName ?? "",
+      )}
+      {...otherContainerProps}
     >
       {label && (
         <label
@@ -252,16 +263,19 @@ const TextField: React.FC<TextFieldProps> = ({
               {...props}
               {...colorInputProps}
             />
-            {type !== "number" && type !== "color" && value && (
-              <Button
-                iconLeft="x-close"
-                size="sm"
-                intent="flat"
-                color="default"
-                onClick={onClear}
-                className="text-onsurface-weak"
-              />
-            )}
+            {type !== "number" &&
+              type !== "color" &&
+              type !== "time" &&
+              value && (
+                <Button
+                  iconLeft="x-close"
+                  size="sm"
+                  intent="flat"
+                  color="default"
+                  onClick={onClear}
+                  className="text-onsurface-weak"
+                />
+              )}
             {iconRight && (
               <div className="text-onsurface-weak">
                 <Icon icon={iconRight} size="sm" />

@@ -418,8 +418,8 @@ importers:
         specifier: '11'
         version: 11.7.1(react@16.10.2)
       react-email-editor:
-        specifier: 1.0.0
-        version: 1.0.0(prop-types@15.8.1)(react@16.10.2)
+        specifier: 1.7.11
+        version: 1.7.11(react@16.10.2)
       react-error-overlay:
         specifier: 6.0.9
         version: 6.0.9
@@ -1006,6 +1006,15 @@ importers:
       '@bsport/store-booking-group-activity':
         specifier: workspace:*
         version: link:../../../../../packages/stores/booking/group-activity
+      '@bsport/store-core-data-masterdata':
+        specifier: workspace:*
+        version: link:../../../../../packages/stores/core-data/master-data
+      '@bsport/use-async':
+        specifier: workspace:*
+        version: link:../../../../../packages/hooks/use-async
+      '@bsport/use-debounce':
+        specifier: workspace:*
+        version: link:../../../../../packages/hooks/use-debounce
       '@bsport/use-pagination-query-params':
         specifier: workspace:*
         version: link:../../../../../packages/utils/query-params/use-pagination
@@ -1269,6 +1278,24 @@ importers:
       '@bsport/sm-backbone':
         specifier: workspace:*
         version: link:../../../../../packages/utils/sm-backbone
+      '@bsport/store-cdp-email-template':
+        specifier: workspace:*
+        version: link:../../../../../packages/stores/cdp/email-template
+      '@bsport/use-async':
+        specifier: workspace:*
+        version: link:../../../../../packages/hooks/use-async
+      '@bsport/use-debounce':
+        specifier: workspace:*
+        version: link:../../../../../packages/hooks/use-debounce
+      '@bsport/use-pagination-query-params':
+        specifier: workspace:*
+        version: link:../../../../../packages/utils/query-params/use-pagination
+      clsx:
+        specifier: ^2.1.1
+        version: 2.1.1
+      dompurify:
+        specifier: ^3.2.6
+        version: 3.2.6
       react:
         specifier: ^19.0.0
         version: 19.0.0
@@ -1963,6 +1990,9 @@ importers:
 
   packages/design-system/kaizen/primitive/core:
     dependencies:
+      '@bsport/currency':
+        specifier: workspace:*
+        version: link:../../../../utils/currency
       '@bsport/datetime-manipulation':
         specifier: workspace:*
         version: link:../../../../utils/datetime/manipulation
@@ -2245,6 +2275,22 @@ importers:
         version: link:../../../../tools/config/eslint-react
 
   packages/stores/core-data/company-theme:
+    dependencies:
+      '@bsport/store-base':
+        specifier: workspace:*
+        version: link:../../base
+      typescript-result:
+        specifier: ^3.1.1
+        version: 3.1.1
+      zustand:
+        specifier: ^5.0.3
+        version: 5.0.3(@types/react@18.3.12)(immer@9.0.21)(react@19.0.0)(use-sync-external-store@1.4.0(react@19.0.0))
+    devDependencies:
+      '@bsport/config-eslint-react':
+        specifier: workspace:*
+        version: link:../../../../tools/config/eslint-react
+
+  packages/stores/core-data/master-data:
     dependencies:
       '@bsport/store-base':
         specifier: workspace:*
@@ -10142,6 +10188,9 @@ packages:
     resolution: {integrity: sha512-cgwlv/1iFQiFnU96XXgROh8xTeetsnJiDsTc7TYCLFd9+/WNkIqPTxiM/8pSd8VIrhXGTf1Ny1q1hquVqDJB5w==}
     engines: {node: '>= 4'}
 
+  dompurify@3.2.6:
+    resolution: {integrity: sha512-/2GogDQlohXPZe6D6NOgQvXLPSYBqIWMnZ8zzOhn09REE4eyAzb+Hed3jhoM9OkuaJ8P6ZGTTVWQKAi8ieIzfQ==}
+
   domutils@1.7.0:
     resolution: {integrity: sha512-Lgd2XcJ/NjEw+7tFvfKxOzCYKZsdct5lczQ2ZaQY8Djz7pfAD3Gbp8ySJWtreII/vDlMVmxwa6pHmdxIYgttDg==}
 
@@ -15757,10 +15806,11 @@ packages:
       react: ^0.14.8 || ^15.0.1 || ^16.0.0 || ^17.0.1
       react-dom: ^0.14.8 || ^15.0.1 || ^16.0.0 || ^17.0.1
 
-  react-email-editor@1.0.0:
-    resolution: {integrity: sha512-Q/AwzJqh4pxbXytjpiNe4yVSxb8QwJ+ksbvp/f+eKoYTQ1Qz09cElKTxiBSIC78DK2RfFblDft1sUXDq6utgtw==}
+  react-email-editor@1.7.11:
+    resolution: {integrity: sha512-AyoKKtMEPhKdqUxFX1hyJMvEO+E5fzk88uNVGHhK1ymhLpcghYLkz1+pXKLcByjR6LHkfEbrCmoYFG8zyripug==}
+    engines: {node: '>=10'}
     peerDependencies:
-      react: 15.x || 16.x
+      react: '>=15'
 
   react-error-overlay@6.0.11:
     resolution: {integrity: sha512-/6UZ2qgEyH2aqzYZgQPxEnz33NJ2gNsnHA2o5+o4wW9bLM/JYQitNP9xPhsXwC08hMMovfGe/8retsdDsczPRg==}
@@ -15881,13 +15931,6 @@ packages:
 
   react-linkify@1.0.0-alpha:
     resolution: {integrity: sha512-7gcIUvJkAXXttt1fmBK9cwn+1jTa4hbKLGCZ9J1U6EOkyb2/+LKL1Z28d9rtDLMnpvImlNlLPdTPooorl5cpmg==}
-
-  react-load-script@0.0.6:
-    resolution: {integrity: sha512-aRGxDGP9VoLxcsaYvKWIW+LRrMOzz2eEcubTS4NvQPPugjk2VvMhow0wWTkSl7RxookomD1MwcP4l5UStg5ShQ==}
-    deprecated: abandoned and unmaintained
-    peerDependencies:
-      prop-types: '>=15'
-      react: '>=0.14.9'
 
   react-markdown@8.0.7:
     resolution: {integrity: sha512-bvWbzG4MtOU62XqBx3Xx+zB2raaFFsq4mYiAzfjXJMEz2sixgeAfraA3tvzULF02ZdOMUOKTBFFaZJDDrq+BJQ==}
@@ -18187,6 +18230,9 @@ packages:
   universalify@2.0.1:
     resolution: {integrity: sha512-gptHNQghINnc/vTGIk0SOFGFNXw7JVrlRUtConJRlvaw6DuX0wO5Jeko9sWrMBhh+PsYAZ7oXAiOnf/UKogyiw==}
     engines: {node: '>= 10.0.0'}
+
+  unlayer-types@1.274.0:
+    resolution: {integrity: sha512-1gIo7ywQ2fdVMmIVxeTqjXpWyzBS3YmcmLc7aN+mPD3BdpAnpwnrT7DgPcB+bnQGj0u0O0qoN80e0uNSto1u2A==}
 
   unpipe@1.0.0:
     resolution: {integrity: sha512-pjy2bYhSsufwWlKwPc+l3cN7+wuJlK6uz0YdJEOlQDbl6jo/YlPi4mb8agUkVC8BF7V8NuzeyPNqRksA3hztKQ==}
@@ -21444,9 +21490,7 @@ snapshots:
       jest-runner: 24.9.0
       jest-runtime: 24.9.0
     transitivePeerDependencies:
-      - bufferutil
       - supports-color
-      - utf-8-validate
 
   '@jest/test-sequencer@28.1.3':
     dependencies:
@@ -29237,6 +29281,10 @@ snapshots:
     dependencies:
       domelementtype: 2.3.0
 
+  dompurify@3.2.6:
+    optionalDependencies:
+      '@types/trusted-types': 2.0.7
+
   domutils@1.7.0:
     dependencies:
       dom-serializer: 0.2.2
@@ -33073,7 +33121,9 @@ snapshots:
       pretty-format: 24.9.0
       throat: 4.1.0
     transitivePeerDependencies:
+      - bufferutil
       - supports-color
+      - utf-8-validate
 
   jest-junit@14.0.1:
     dependencies:
@@ -36966,12 +37016,10 @@ snapshots:
       react-dom: 16.10.2(react@16.10.2)
       react-is: 17.0.2
 
-  react-email-editor@1.0.0(prop-types@15.8.1)(react@16.10.2):
+  react-email-editor@1.7.11(react@16.10.2):
     dependencies:
       react: 16.10.2
-      react-load-script: 0.0.6(prop-types@15.8.1)(react@16.10.2)
-    transitivePeerDependencies:
-      - prop-types
+      unlayer-types: 1.274.0
 
   react-error-overlay@6.0.11: {}
 
@@ -37102,11 +37150,6 @@ snapshots:
     dependencies:
       linkify-it: 2.2.0
       tlds: 1.255.0
-
-  react-load-script@0.0.6(prop-types@15.8.1)(react@16.10.2):
-    dependencies:
-      prop-types: 15.8.1
-      react: 16.10.2
 
   react-markdown@8.0.7(@types/react@16.14.62)(react@16.10.2):
     dependencies:
@@ -39927,6 +39970,8 @@ snapshots:
   universalify@0.2.0: {}
 
   universalify@2.0.1: {}
+
+  unlayer-types@1.274.0: {}
 
   unpipe@1.0.0: {}
 

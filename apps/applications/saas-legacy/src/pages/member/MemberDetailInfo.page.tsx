@@ -505,7 +505,11 @@ export class MemberDetailPage extends React.PureComponent<Props> {
                 onlinePaymentEnabled={this.props.onlinePaymentEnabled}
                 snackbarErrorMsg={this.props.snackbarErrorMsg}
                 snackbarSuccessMsg={this.props.snackbarSuccessMsg}
-                stripeId={this.props.companyTheme.stripe_id}
+                stripePaymentElementConfig={{
+                  isDefaultForRegion:
+                    this.props.companyTheme.is_default_for_region,
+                  stripeId: this.props.companyTheme.stripe_id,
+                }}
                 stripeReaders={this.props.stripeReaders || []}
                 unpaidInvoiceList={this.props.unpaidInvoiceList}
               />

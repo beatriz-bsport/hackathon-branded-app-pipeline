@@ -1,24 +1,16 @@
 import { useState } from "react";
 
 import { Button, List, ListLayout } from "@bsport/kaizen-primitive-core";
-import type {
-  CreateSmartlistParams,
-  EditSmartlistParams,
-  Smartlist,
-} from "@bsport/store-cdp-smartlist";
+import type { Smartlist } from "@bsport/store-cdp-smartlist";
 
 import { useSmartlists } from "#src/api/use-smartlists";
 import { CreateSmartlistModal } from "#src/components/CreateSmartlistModal";
-import { DeleteModal } from "#src/components/DeleteModal";
-import { DuplicateModal } from "#src/components/DuplicateModal";
+import { DeleteSmartlistModal } from "#src/components/DeleteSmartlistModal";
+import { DuplicateSmartlistModal } from "#src/components/DuplicateSmartlistModal";
 import { EditSmartlistModal } from "#src/components/EditSmartlistModal";
-import { Loading } from "#src/components/Loading";
 import { useTranslation } from "#src/utils/i18n";
 
 import { VISIBLE_ACTIONS_DISPLAY_LIMIT } from "./constants";
-import { useCreate } from "./use-create";
-import { useDuplicate } from "./use-duplicate";
-import { useEdit } from "./use-edit";
 import { useFilters } from "./use-filters";
 
 const ListPage: React.FC = () => {
@@ -40,9 +32,8 @@ const ListPage: React.FC = () => {
     search: searchTerm,
   });
 
-  const hasNoSmartlists = smartlists.length === 0;
-  const isEmpty = hasNoSmartlists && searchTerm.trim().length === 0;
-  const isEmptySearch = searchTerm.trim().length > 0 && hasNoSmartlists;
+  const isEmpty = totalItems === 0 && searchTerm.trim().length === 0;
+  const isEmptySearch = searchTerm.trim().length > 0 && smartlists.length === 0;
 
   const [currentInlineAction, setCurrentInlineAction] = useState<
     "none" | "edit" | "duplicate" | "delete" | "create"
@@ -53,73 +44,6 @@ const ListPage: React.FC = () => {
   const closeModal = () => {
     setCurrentSmartlist(null);
     setCurrentInlineAction("none");
-  };
-
-  const { duplicateSmartlist } = useDuplicate({
-    onSuccess: () => {
-      closeModal();
-      refetch();
-    },
-    onFailure: () => {
-      closeModal();
-    },
-  });
-
-  const { createSmartlist, isCreating } = useCreate({
-    onSuccess: () => {
-      closeModal();
-      refetch();
-    },
-    onFailure: () => {
-      closeModal();
-    },
-  });
-
-  const { editSmartlist, isEditing } = useEdit({
-    onSuccess: () => {
-      closeModal();
-      refetch();
-    },
-    onFailure: () => {
-      closeModal();
-    },
-    onUndo: () => {
-      closeModal();
-      refetch();
-    },
-  });
-
-  const onDuplicateSmartlist = () => {
-    if (!currentSmartlist) {
-      throw new Error("No smartlist selected this should never happen");
-    }
-
-    duplicateSmartlist({ id: currentSmartlist.id });
-  };
-
-  const onEditSmartlist = (data: EditSmartlistParams) => {
-    if (!currentSmartlist) {
-      throw new Error("No smartlist selected this should never happen");
-    }
-
-    editSmartlist(data, currentSmartlist);
-  };
-
-  const onCreateSmartlist = (data: {
-    name: string;
-    description: string;
-    company?: number;
-  }) => {
-    if (!data.company) {
-      throw new Error("No company selected this should never happen");
-    }
-
-    const params: CreateSmartlistParams = {
-      name: data.name,
-      description: data.description,
-      company: data.company,
-    };
-    createSmartlist(params);
   };
 
   const handleCreateClick = () => {
@@ -147,123 +71,123 @@ const ListPage: React.FC = () => {
           onClear: onSearchClear,
         }}
       />
-      <ListLayout.Content showScrollbar={true}>
-        {isLoading ? (
-          <Loading />
-        ) : (
-          <div className="w-full">
-            <List
-              id="smartlists-list"
-              items={smartlists.map((smartlist: Smartlist) => {
-                const handleEdit = () => {
-                  setCurrentSmartlist(smartlist);
-                  setCurrentInlineAction("edit");
-                };
+      <ListLayout.Content>
+        <div className="w-full h-full">
+          <List
+            id="smartlists-list"
+            loadingProps={{
+              isLoading,
+              message: t("loading"),
+            }}
+            items={smartlists.map((smartlist: Smartlist) => {
+              const handleEdit = () => {
+                setCurrentSmartlist(smartlist);
+                setCurrentInlineAction("edit");
+              };
 
-                const handleDuplicate = () => {
-                  setCurrentSmartlist(smartlist);
-                  setCurrentInlineAction("duplicate");
-                };
+              const handleDuplicate = () => {
+                setCurrentSmartlist(smartlist);
+                setCurrentInlineAction("duplicate");
+              };
 
-                const handleDelete = () => {
-                  setCurrentSmartlist(smartlist);
-                  setCurrentInlineAction("delete");
-                };
+              const handleDelete = () => {
+                setCurrentSmartlist(smartlist);
+                setCurrentInlineAction("delete");
+              };
 
-                return {
-                  id: smartlist.id.toString(),
-                  title: smartlist.name,
-                  description: smartlist.description,
-                  dropdownConfig: {
-                    visibleActionsDisplayLimit: VISIBLE_ACTIONS_DISPLAY_LIMIT,
-                  },
-                  buttons: [
-                    {
-                      id: `smartlist-edit-action-${smartlist.id}`,
-                      color: "default",
-                      size: "md",
-                      intent: "flat",
-                      iconLeft: "edit-02",
-                      "aria-label": t("inlineActions.edit"),
-                      tooltipProps: {
-                        label: t("inlineActions.edit"),
-                        placement: "bottom",
-                      },
-                      onClick: handleEdit,
-                    },
-                    {
-                      id: `smartlist-copy-action-${smartlist.id}`,
-                      color: "default",
-                      size: "md",
-                      intent: "flat",
-                      iconLeft: "copy-03",
-                      "aria-label": t("inlineActions.duplicate"),
-                      onClick: handleDuplicate,
-                      tooltipProps: {
-                        label: t("inlineActions.duplicate"),
-                        placement: "bottom",
-                      },
-                    },
-                    {
-                      id: `smartlist-trash-action-${smartlist.id}`,
-                      color: "default",
-                      size: "md",
-                      intent: "flat",
-                      iconLeft: "trash-01",
-                      "aria-label": t("inlineActions.delete"),
-                      tooltipProps: {
-                        label: t("inlineActions.delete"),
-                        placement: "bottom-right",
-                      },
-                      onClick: handleDelete,
-                    },
-                  ],
-                };
-              })}
-              paginationProps={{
-                currentPage,
-                totalItems,
-                onPageChange,
-                onPageSettingsChange,
-                rowsPerPage: currentPageSize,
-                showRowsPerPageSelector: true,
-              }}
-              emptyStateProps={{
-                emptyConfig: {
-                  ctaButtonConfig: {
-                    iconLeft: "plus",
-                    label: t("addSmartlist"),
-                    color: "main",
-                    size: "md",
-                    intent: "call-to-action",
-                    onClick: handleCreateClick,
-                  },
-                  subtitle: t("emptyState.subtitle"),
-                  title: t("emptyState.title"),
+              return {
+                id: smartlist.id.toString(),
+                title: smartlist.name,
+                description: smartlist.description,
+                dropdownConfig: {
+                  visibleActionsDisplayLimit: VISIBLE_ACTIONS_DISPLAY_LIMIT,
                 },
-                emptySearchConfig: {
-                  secondaryButtonConfig: {
-                    iconLeft: "x",
-                    label: t("emptySearch.clearFilters"),
+                buttons: [
+                  {
+                    id: `smartlist-edit-action-${smartlist.id}`,
                     color: "default",
                     size: "md",
                     intent: "flat",
-                    onClick: onSearchClear,
+                    iconLeft: "edit-02",
+                    "aria-label": t("inlineActions.edit"),
+                    tooltipProps: {
+                      label: t("inlineActions.edit"),
+                      placement: "bottom",
+                    },
+                    onClick: handleEdit,
                   },
-                  subtitle: t("emptySearch.subtitle"),
-                  title: t("emptySearch.title"),
+                  {
+                    id: `smartlist-copy-action-${smartlist.id}`,
+                    color: "default",
+                    size: "md",
+                    intent: "flat",
+                    iconLeft: "copy-03",
+                    "aria-label": t("inlineActions.duplicate"),
+                    onClick: handleDuplicate,
+                    tooltipProps: {
+                      label: t("inlineActions.duplicate"),
+                      placement: "bottom",
+                    },
+                  },
+                  {
+                    id: `smartlist-trash-action-${smartlist.id}`,
+                    color: "default",
+                    size: "md",
+                    intent: "flat",
+                    iconLeft: "trash-01",
+                    "aria-label": t("inlineActions.delete"),
+                    tooltipProps: {
+                      label: t("inlineActions.delete"),
+                      placement: "bottom-right",
+                    },
+                    onClick: handleDelete,
+                  },
+                ],
+              };
+            })}
+            paginationProps={{
+              currentPage,
+              totalItems,
+              onPageChange,
+              onPageSettingsChange,
+              rowsPerPage: currentPageSize,
+              showRowsPerPageSelector: true,
+            }}
+            emptyStateProps={{
+              emptyConfig: {
+                ctaButtonConfig: {
+                  iconLeft: "plus",
+                  label: t("addSmartlist"),
+                  color: "main",
+                  size: "md",
+                  intent: "call-to-action",
+                  onClick: handleCreateClick,
                 },
-                isEmpty,
-                isEmptySearch,
-              }}
-            />
-          </div>
-        )}
+                subtitle: t("emptyState.subtitle"),
+                title: t("emptyState.title"),
+              },
+              emptySearchConfig: {
+                secondaryButtonConfig: {
+                  iconLeft: "x",
+                  label: t("emptySearch.clearFilters"),
+                  color: "default",
+                  size: "md",
+                  intent: "flat",
+                  onClick: onSearchClear,
+                },
+                subtitle: t("emptySearch.subtitle"),
+                title: t("emptySearch.title"),
+              },
+              isEmpty,
+              isEmptySearch,
+            }}
+          />
+        </div>
         {currentSmartlist !== null && currentInlineAction === "duplicate" ? (
-          <DuplicateModal
+          <DuplicateSmartlistModal
             isOpen
             onClose={closeModal}
-            onDuplicate={onDuplicateSmartlist}
+            onDuplicate={refetch}
             smartlist={currentSmartlist}
           />
         ) : null}
@@ -271,21 +195,20 @@ const ListPage: React.FC = () => {
           <EditSmartlistModal
             isOpen
             onClose={closeModal}
-            onEdit={onEditSmartlist}
+            onEdit={refetch}
+            onUndo={refetch}
             smartlist={currentSmartlist}
-            isEditing={isEditing}
           />
         ) : null}
         {currentInlineAction === "create" ? (
           <CreateSmartlistModal
             isOpen
             onClose={closeModal}
-            onCreate={onCreateSmartlist}
-            isCreating={isCreating}
+            onCreate={refetch}
           />
         ) : null}
         {currentSmartlist !== null && currentInlineAction === "delete" ? (
-          <DeleteModal
+          <DeleteSmartlistModal
             isOpen
             onClose={closeModal}
             onDelete={refetch}

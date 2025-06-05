@@ -73,7 +73,7 @@ type Props = {
   fetchInvoiceListUnpaid: (memberId: number) => void,
   unpaidInvoiceList: Array<Invoice>,
   companyId: number,
-  stripeId: string | null,
+  stripePaymentElementConfig: StripePaymentElementConfig,
   snackbarSuccess: (msg: string) => void,
   fetchMemberPaymentMethod: (memberId: number) => void,
   availablePaymentMethodList: Array<PaymentMethod>,
@@ -482,7 +482,7 @@ export const PrivateBookingCard = (props: Props) => {
           paymentGroupId={props.paymentGroupId}
           paymentGroupPriceCts={props.paymentGroupPriceCts}
           requestClientSecret={props.requestClientSecret}
-          stripeId={props.stripeId}
+          stripePaymentElementConfig={props.stripePaymentElementConfig}
         />
       )}
     </>

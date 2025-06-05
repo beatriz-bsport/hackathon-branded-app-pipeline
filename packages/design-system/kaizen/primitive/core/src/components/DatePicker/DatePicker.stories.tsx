@@ -8,7 +8,7 @@ import DatePicker from "./DatePicker";
 /**
  * A configurable date picker component supporting single date or date range selection.<br>
  * Can be displayed as a popover or modal with optional shortcut presets and localization support.<br>
- * <a href="https://www.figma.com/design/aQ73ihLayonUHVquF0QY2C/Kaizen-library?node-id=5920-373124&m=dev" target="_blank">Figma</a><br>
+ * <a href="https://www.figma.com/design/aQ73ihLayonUHVquF0QY2C/Kaizen-library?node-id=5920-373124" target="_blank">Figma</a><br>
  */
 const meta: Meta<typeof DatePicker> = {
   component: DatePicker,

@@ -3,7 +3,8 @@ import { type ApiConfig, buildUrlParams } from "@bsport/store-base";
 import type {
   CompanyTemplateFilters,
   CreateEmailTemplateCategoryPayload,
-  DeleteEmailTemplateItem,
+  DeleteEmailTemplateCategoryPayload,
+  DeleteEmailTemplatePayload,
   EditEmailTemplatePayload,
   FetchEmailTemplateCategoriesParams,
   FetchEmailTemplateSummaryParams,
@@ -74,7 +75,7 @@ export const updateEmailTemplateCategoryAPI = (
 };
 
 export const deleteEmailTemplateCategoryAPI = (
-  params: DeleteEmailTemplateItem,
+  params: DeleteEmailTemplateCategoryPayload,
 ): ApiConfig => {
   return [
     `${API_URL}/email_design_category/${params.id}`,
@@ -110,7 +111,7 @@ export const editEmailTemplateAPI = (
 };
 
 export const deleteEmailTemplateAPI = (
-  params: DeleteEmailTemplateItem,
+  params: DeleteEmailTemplatePayload,
 ): ApiConfig => {
   return [`${API_URL}/${params.id}`, { method: "DELETE" }];
 };

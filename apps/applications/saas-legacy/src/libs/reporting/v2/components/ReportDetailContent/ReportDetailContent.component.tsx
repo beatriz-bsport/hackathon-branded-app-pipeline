@@ -10,11 +10,11 @@ import Alert from '@material-ui/lab/Alert';
 
 import { Button, MuiThemeProvider } from '@material-ui/core';
 import { cardHeaderStatsTheme } from '#src/libs/reporting/v2/mui-theme-providers';
-import { CURSOR_PAGINATED_CATEGORIES } from '#src/libs/reporting/common/constants';
 
 import ReportDetailContentHeader from './ReportDetailContentHeader.component';
 import ReportTableHeaders from '#src/libs/reporting/common/components/ReportTableHeaders.component';
 import ReportTable from '#src/libs/reporting/common/components/ReportTable.component';
+import { useCursorPagination } from '#src/libs/reporting/common/hooks/useCursorPagination';
 
 import { getReportObjectPermissionsBasedOnCategory } from '#src/libs/reporting/common/utils';
 
@@ -100,37 +100,20 @@ const ReportDetailContent: React.FC<Props> = ({
   const classes = useStyles();
   const { t } = useTranslation('reporting');
 
-  const handleGenerateNextPage = React.useCallback(() => {
-    if (!report) return;
-
-    const shouldUseCursorPagination = CURSOR_PAGINATED_CATEGORIES.includes(
-      report.category as (typeof CURSOR_PAGINATED_CATEGORIES)[number],
-    );
-    if (shouldUseCursorPagination && reportGeneratedRows?.next_cursor) {
-      handleGeneration({ cursor: reportGeneratedRows.next_cursor }, false);
-    } else if (
-      !shouldUseCursorPagination &&
-      typeof reportGeneratedRows?.next_page === 'number'
-    ) {
-      handleGeneration({ page: reportGeneratedRows.next_page }, false);
-    }
-  }, [handleGeneration, report, reportGeneratedRows]);
-
-  const handleGeneratePreviousPage = React.useCallback(() => {
-    if (!report) return;
-
-    const shouldUseCursorPagination = CURSOR_PAGINATED_CATEGORIES.includes(
-      report.category as (typeof CURSOR_PAGINATED_CATEGORIES)[number],
-    );
-    if (shouldUseCursorPagination && reportGeneratedRows?.previous_cursor) {
-      handleGeneration({ cursor: reportGeneratedRows.previous_cursor }, false);
-    } else if (
-      !shouldUseCursorPagination &&
-      typeof reportGeneratedRows?.previous_page === 'number'
-    ) {
-      handleGeneration({ page: reportGeneratedRows.previous_page }, false);
-    }
-  }, [handleGeneration, report, reportGeneratedRows]);
+  // Use the optimized cursor pagination hook instead of custom handlers
+  const {
+    handleNext: handleGenerateNextPage,
+    handlePrevious: handleGeneratePreviousPage,
+  } = useCursorPagination({
+    data: {
+      next_cursor: reportGeneratedRows?.next_cursor,
+      previous_cursor: reportGeneratedRows?.previous_cursor,
+    },
+    onNavigate: ({ cursor }) => {
+      if (!report) return;
+      handleGeneration({ cursor }, false);
+    },
+  });
 
   const hasReportBeenGenerated = React.useMemo(
     () => !!reportHeaders.results?.averageable,
@@ -254,15 +237,11 @@ const ReportDetailContent: React.FC<Props> = ({
             hasReportBeenGenerated={hasReportBeenGenerated}
             metadata={reportCategoriesMetadata}
             nextCursor={reportGeneratedRows.next_cursor || ''}
-            nextPage={reportGeneratedRows.next_page ?? 0}
             objectLevelPermissions={objectLevelPermissions}
-            otherPages={reportGeneratedRows.other_pages}
             previousCursor={reportGeneratedRows.previous_cursor || ''}
-            previousPage={reportGeneratedRows.previous_page ?? 0}
             report={report}
             reportStoreRowsLoading={reportGeneratedRows.loading}
             result={reportGeneratedRows.result}
-            totalElements={reportGeneratedRows.total || 0}
             userPermissions={userPermissions}
           />
         </>

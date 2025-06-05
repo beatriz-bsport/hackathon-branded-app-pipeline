@@ -2,10 +2,10 @@ import React from "react";
 
 import Button from "#src/components/Button";
 import {
-  StepConfig,
+  type StepConfig,
   confirmColors,
   footerDirections,
-} from "#src/components/Modal/Modal";
+} from "#src/components/Modal/constants";
 import { useTranslation } from "#src/i18n";
 
 export type FooterProps = {

@@ -23,6 +23,7 @@ import { usePayment } from './hooks/usePayment';
 import { usePaymentMethod } from './hooks/usePaymentMethod';
 import { useMemberPaymentMethodListProvider } from '#src/libs/payment/payment-module-revamped/hooks/useMemberPaymentMethodListProvider';
 
+import type { StripePaymentElementConfig } from '#src/libs/company/types';
 import { TermsAndConditionType } from '#src/libs/payment/types';
 
 import {
@@ -46,6 +47,7 @@ type Props = {
     fromApp?: boolean;
     termsAndConditionsAccepted?: boolean;
   };
+  stripePaymentElementConfig: StripePaymentElementConfig;
   onCancelPaymentBeforeConfirming?: () => void;
   onConfirmPaymentError?: () => void;
   onConfirmPaymentSuccess: (callback?: () => void) => void;
@@ -59,6 +61,7 @@ export const OnlinePaymentBasket: React.FC<Props> = forwardRef(
       companyId,
       hideConfirmPaymentButton,
       payerContext: { memberId, fromApp, termsAndConditionsAccepted },
+      stripePaymentElementConfig,
       onCancelPaymentBeforeConfirming,
       onConfirmPaymentError,
       onConfirmPaymentSuccess,
@@ -103,6 +106,7 @@ export const OnlinePaymentBasket: React.FC<Props> = forwardRef(
       instalmentPaymentSelectedId,
       isClientSecretLoading,
       paymentGroupId,
+      paymentGroupPriceCts,
       selectInstalmentPayment,
       useInternalAccount,
       handleFetchInstalmentPaymentByBasket,
@@ -327,12 +331,14 @@ export const OnlinePaymentBasket: React.FC<Props> = forwardRef(
                 onError={onConfirmPaymentError}
                 onSuccess={onSuccessfulPayment}
                 paymentGroupId={paymentGroupId}
+                paymentGroupPriceCts={paymentGroupPriceCts}
                 paymentMethodSelected={paymentMethodSelected}
                 sepaDefaultEmail={sepaDefaultEmail}
                 sepaDefaultName={sepaDefaultName}
                 setIsOnlinePaymentDisabled={setIsOnlinePaymentDisabled}
                 setPaymentProcessing={handleSetPaymentProcessing}
                 setTermsAndConditionsAccepted={setAreTermsAndConditionsAccepted}
+                stripePaymentElementConfig={stripePaymentElementConfig}
                 termsAndConditions={generalTermsAndConditions}
                 termsAndConditionsAccepted={
                   hideConfirmPaymentButton

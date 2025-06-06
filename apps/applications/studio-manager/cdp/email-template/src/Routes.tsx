@@ -14,6 +14,10 @@ export const AppRoutes = () => {
       <Route element={<CustomListPage />} path={ROUTES.CUSTOM_TEMPLATES} />
       <Route element={<SharedListPage />} path={ROUTES.MASTER_TEMPLATES} />
       <Route element={<SharedListPage />} path={ROUTES.BSPORT_TEMPLATES} />
+      <Route
+        path="*"
+        element={<Navigate to={`../${ROUTES.CUSTOM_TEMPLATES}`} />}
+      />
     </Routes>
   );
 };

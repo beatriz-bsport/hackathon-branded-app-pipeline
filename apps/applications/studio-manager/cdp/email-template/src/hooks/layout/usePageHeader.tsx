@@ -5,6 +5,7 @@ import {
   Tabs,
   type TabsProps,
 } from "@bsport/kaizen-primitive-core";
+import { dataAccessLayer } from "@bsport/sm-backbone";
 
 import { ROUTES } from "#src/urls";
 import { useTranslation } from "#src/utils/i18n";
@@ -21,6 +22,8 @@ type HookReturn = {
 export const usePageHeader = (): HookReturn => {
   const { t } = useTranslation("list");
   const { searchInput, setSearchInput, clearSearchInput } = usePageFilter();
+  const companyTheme = dataAccessLayer.useCompanyTheme();
+  const isFranchisee = companyTheme && !!companyTheme.franchisor;
 
   const TABS_CONFIG = [
     {
@@ -28,20 +31,25 @@ export const usePageHeader = (): HookReturn => {
       href: ROUTES.CUSTOM_TEMPLATES,
       label: t("tabs.customTemplates"),
     },
-    {
-      id: "master",
-      href: ROUTES.MASTER_TEMPLATES,
-      label: t("tabs.masterTemplates"),
-    },
+    ...(isFranchisee
+      ? [
+          {
+            id: "master",
+            href: ROUTES.MASTER_TEMPLATES,
+            label: t("tabs.masterTemplates"),
+          },
+        ]
+      : []),
     {
       id: "bsport",
       href: ROUTES.BSPORT_TEMPLATES,
       label: t("tabs.bsportTemplates"),
     },
   ];
+
   const emailTemplateTabsConfig: TabsProps = {
     TabsItems: TABS_CONFIG.map((tab) => (
-      <NavLink to={`/email-template/${tab.href}`} id={tab.id} key={tab.id}>
+      <NavLink to={`../${tab.href}`} id={tab.id} key={tab.id}>
         {({ isActive }) => <Tabs.Item {...tab} isActive={isActive} />}
       </NavLink>
     )),

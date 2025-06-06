@@ -14,39 +14,51 @@ import { type TFunction, useTranslation } from "#src/utils/i18n";
 
 import type { MenuSet } from "./navigation-items";
 
+const MENU_OPTIONS = {
+  settings: "settings",
+  logout: "logout",
+  attendance: "attendance",
+  ledger: "ledger",
+  tutorials: "tutorials",
+  help: "help",
+  feedback: "feedback",
+} as const;
+
+export type MenuOption = keyof typeof MENU_OPTIONS;
+
 const getMenuOptions = (t: TFunction): DropdownMenuItems => [
   {
-    id: "settings",
+    id: MENU_OPTIONS.settings,
     label: t("menus.popover.settings"),
     iconLeft: "settings-03",
   },
   {
-    id: "attendance",
+    id: MENU_OPTIONS.attendance,
     label: t("menus.popover.attendance"),
     iconLeft: "clock",
   },
   {
-    id: "ledger",
+    id: MENU_OPTIONS.ledger,
     label: t("menus.popover.ledger"),
     iconLeft: "book-closed",
   },
   {
-    id: "tutorials",
+    id: MENU_OPTIONS.tutorials,
     label: t("menus.popover.tutorials"),
     iconLeft: "graduation-hat-02",
   },
   {
-    id: "help",
+    id: MENU_OPTIONS.help,
     label: t("menus.popover.help"),
     iconLeft: "help-circle",
   },
   {
-    id: "feedback",
+    id: MENU_OPTIONS.feedback,
     label: t("menus.popover.feedback"),
     iconLeft: "pin-02",
   },
   {
-    id: "logout",
+    id: MENU_OPTIONS.logout,
     label: t("menus.popover.logout"),
     iconLeft: "log-out-01",
   },
@@ -56,7 +68,7 @@ type NavigationSidebarHeaderProps = {
   label: string;
   avatarUrl?: string;
   menuSet: MenuSet;
-  onSelectItem?: (id: string) => void;
+  onSelectItem?: (id: MenuOption) => void;
   onBack?: () => void;
 };
 
@@ -92,7 +104,7 @@ const NavigationSidebarHeader = ({
         className="flex-1"
         items={getMenuOptions(t)}
         onSelectOption={({ id, setIsPopoverOpened }) => {
-          onSelectItem?.(id);
+          onSelectItem?.(id as MenuOption);
           setIsPopoverOpened(false);
         }}
         placement="bottom-left"

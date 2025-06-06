@@ -2,13 +2,16 @@ import { useState } from "react";
 import { NavLink } from "react-router";
 
 import { Button, Card, NavigationMenu } from "@bsport/kaizen-primitive-core";
+import { LOGIN_URL, logoutAction } from "@bsport/store-auth";
 
 import "#src/index.css";
 import { AppI18nextProvider, useTranslation } from "#src/utils/i18n";
 
 import FeedbackDialog, { useFeedbackDialog } from "./FeedbackDialog";
 import LanguageDropdown from "./LanguageDropdown";
-import NavigationSidebarHeader from "./NavigationSidebarHeader";
+import NavigationSidebarHeader, {
+  type MenuOption,
+} from "./NavigationSidebarHeader";
 import {
   type MenuSet,
   NavigationSidebarSubItem,
@@ -131,6 +134,9 @@ const NavigationSidebarContent = ({ navigate }: NavigationSidebarProps) => {
     );
   };
 
+  /** @todo Retrieve companyId from theme */
+  const companyId = undefined;
+
   return (
     <div
       className={
@@ -142,9 +148,20 @@ const NavigationSidebarContent = ({ navigate }: NavigationSidebarProps) => {
         // TODO: repalce with real data
         label="bsport studio"
         menuSet={menuSet}
-        onSelectItem={(id) => {
+        onSelectItem={(id: MenuOption) => {
           if (id === "settings") {
             setMenuSet(id);
+          }
+          if (id === "logout") {
+            const navigateToLoginPage = () => {
+              const loginUrl = `${LOGIN_URL}/signout${companyId ? `?membership=${companyId}` : ""}`;
+              if (isBridged) {
+                navigate(loginUrl);
+              } else {
+                window.location.href = loginUrl;
+              }
+            };
+            logoutAction(navigateToLoginPage);
           }
         }}
         onBack={() => setMenuSet("default")}

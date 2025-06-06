@@ -14,7 +14,7 @@ export const useTemplateNavigation = () => {
   };
 
   const navigateToCustomList = () => {
-    navigate(`/email-template/${ROUTES.CUSTOM_TEMPLATES}`);
+    navigate(`../${ROUTES.CUSTOM_TEMPLATES}`);
   };
   return {
     navigateToCreateTemplate,

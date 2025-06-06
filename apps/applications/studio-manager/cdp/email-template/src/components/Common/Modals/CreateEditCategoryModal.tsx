@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { Modal, TextField, toast } from "@bsport/kaizen-primitive-core";
 import type { EmailTemplateCategory } from "@bsport/store-cdp-email-template";
@@ -24,6 +24,7 @@ export const CreateEditCategoryModal: React.FC<Props> = ({
   onSuccess,
   onFailure,
 }: Props) => {
+  const textfieldInputRef = useRef<HTMLInputElement | null>(null);
   const [categoryName, setCategoryName] = useState(categoryDraft?.name || "");
   const [textFieldStatus, setTextFieldStatus] =
     useState<TextfieldStatuses>("default");
@@ -166,6 +167,12 @@ export const CreateEditCategoryModal: React.FC<Props> = ({
     setCategoryName("");
   };
 
+  useEffect(() => {
+    if (textfieldInputRef.current) {
+      textfieldInputRef.current.focus();
+    }
+  }, [isOpen]);
+
   return (
     <Modal
       open={isOpen}
@@ -178,6 +185,7 @@ export const CreateEditCategoryModal: React.FC<Props> = ({
       size="md"
     >
       <TextField
+        inputRef={textfieldInputRef}
         fullWidth
         id={translations.textInput.id}
         type="text"

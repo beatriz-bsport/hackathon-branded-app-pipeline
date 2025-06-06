@@ -9,10 +9,23 @@ import { AppI18nextProvider, useTranslation } from "#src/utils/i18n";
 import FeedbackDialog, { useFeedbackDialog } from "./FeedbackDialog";
 import LanguageDropdown from "./LanguageDropdown";
 import NavigationSidebarHeader from "./NavigationSidebarHeader";
-import { type MenuSet, useNavigationElements } from "./navigation-items";
+import {
+  type MenuSet,
+  NavigationSidebarSubItem,
+  isDividerElement,
+  isGroupElement,
+  isItemElement,
+  useNavigationElements,
+} from "./navigation-items";
 
-const NavigationSidebarContent = () => {
+type NavigationSidebarProps = {
+  navigate?: (to: string) => void;
+};
+
+const NavigationSidebarContent = ({ navigate }: NavigationSidebarProps) => {
   const { t } = useTranslation("default");
+
+  const isBridged = !!navigate;
 
   const [menuSet, setMenuSet] = useState<MenuSet>("default");
   const navigationElements = useNavigationElements({ menuSet });
@@ -25,9 +38,9 @@ const NavigationSidebarContent = () => {
         <>
           <NavigationMenu.Group label={t("menus.settings.title")} />
           {navigationElements.map((item) => {
-            if (item.type === "group") return null;
+            if (isGroupElement(item)) return null;
 
-            if ("id" in item && "label" in item) {
+            if (isItemElement(item)) {
               return (
                 <NavigationMenu.Item
                   key={item.id}
@@ -45,11 +58,11 @@ const NavigationSidebarContent = () => {
     return (
       <>
         {navigationElements.map((element, index) => {
-          if (element.type === "divider") {
+          if (isDividerElement(element)) {
             return <NavigationMenu.Divider key={`divider-${index}`} />;
           }
 
-          if (element.type === "group") {
+          if (isGroupElement(element)) {
             return (
               <NavigationMenu.Group
                 key={`group-${index}`}
@@ -66,8 +79,11 @@ const NavigationSidebarContent = () => {
               label={element.label}
               endSlot={element.endSlot}
               active={isActive}
+              {...(isBridged &&
+                navigate &&
+                element.href && { onClick: () => navigate(element.href!) })}
             >
-              {element.subItems?.map((subItem) => {
+              {element.subItems?.map((subItem: NavigationSidebarSubItem) => {
                 const subItemElement = ({
                   isActive,
                 }: { isActive?: boolean } = {}) => (
@@ -76,9 +92,19 @@ const NavigationSidebarContent = () => {
                     id={subItem.id}
                     label={subItem.label}
                     active={isActive}
+                    {...(isBridged &&
+                      navigate &&
+                      subItem.href && {
+                        onClick: () => navigate(subItem.href!),
+                      })}
                   />
                 );
-                return subItem.href ? (
+
+                if (!subItem.href) {
+                  return subItemElement();
+                }
+
+                return !isBridged ? (
                   <NavLink key={subItem.id} to={subItem.href}>
                     {subItemElement}
                   </NavLink>
@@ -89,7 +115,11 @@ const NavigationSidebarContent = () => {
             </NavigationMenu.Item>
           );
 
-          return element.href ? (
+          if (!element.href) {
+            return item();
+          }
+
+          return !isBridged ? (
             <NavLink key={element.id} to={element.href}>
               {item}
             </NavLink>
@@ -154,10 +184,10 @@ const NavigationSidebarContent = () => {
   );
 };
 
-const NavigationSidebar = () => {
+const NavigationSidebar = (props: NavigationSidebarProps) => {
   return (
     <AppI18nextProvider>
-      <NavigationSidebarContent />
+      <NavigationSidebarContent {...props} />
     </AppI18nextProvider>
   );
 };

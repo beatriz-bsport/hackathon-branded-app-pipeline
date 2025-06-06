@@ -13,7 +13,6 @@ import { compose } from 'recompose';
 
 import { push as pushRouter } from 'connected-react-router';
 
-import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
@@ -51,8 +50,6 @@ import InboxIcon from '@material-ui/icons/Inbox';
 import Tooltip from '@material-ui/core/Tooltip';
 import { getAllUnreadAnswersCount } from '#src/libs/communication-v2/selectors';
 import FeatureBaseBoardButton from '#src/components/feature-base/FeatureBase.component';
-// @ts-expect-error
-import TempPasswordDialog from '#src/libs/login/components/TempPasswordDialog.component';
 import CashBookForm from '#src/libs/cashbook/components/CashBookForm.component';
 import AlertButtonMenu from '#src/libs/alerting/components/AlertButtonMenu.component';
 import { DeleteAlert } from '#src/libs/alerting/types';
@@ -62,7 +59,6 @@ import type {
   Role,
   ObjectLevelPermissions,
 } from '#src/libs/role/types';
-import ClockInDialog from '#src/libs/clock-in/components/ClockInDialog.component';
 import type {
   LastClockIn,
   UserWithRealTimeAttendance,
@@ -72,11 +68,7 @@ import {
   UPSELL_IDENTIFIER_CLOCK_IN,
   UPSELL_IDENTIFIER_INBOX,
 } from '#src/libs/platform-billing/upsell-identifiers';
-import TutorialGenericDialog from '#src/libs/platform-tutorial/components/TutorialGenericDialog.component';
-import {
-  TUTORIAL_GENERIC_DIALOG_WELCOME,
-  TUTORIAL_WELCOME_DIALOG_OPEN_QUERY_PARAMS,
-} from '#src/libs/platform-tutorial/constant';
+import { TUTORIAL_WELCOME_DIALOG_OPEN_QUERY_PARAMS } from '#src/libs/platform-tutorial/constant';
 import { platformTutorialActivated } from '#src/libs/platform-tutorial/utils';
 import ProtectedRoutes from '#src/components/navigation/ProtectedRoutes.component';
 import type { Theme as CompanyTheme } from '#src/libs/theme/types';
@@ -95,7 +87,7 @@ import StripeOnboardingBanner from '#src/components/navigation/StripeOnboardingB
 import { RootState } from '#src/reducers';
 import type { OptionCallback, OptionPaginatedCallback } from '#src/state/types';
 import BillingBanner from '#src/components/navigation/BillingBanner.component';
-import ResponsiveDrawer from './ResponsiveDrawer.component';
+import BackofficeDrawerContent from './BackofficeDrawerContent';
 import { DEFAULT_ZINDEX, NAVIGATION_ZINDEX, BANNER_ZINDEX } from './const';
 import { setAuthToken } from '#src/http';
 import { STORAGE_KEY_BSPORT_IMPERSONATED_TOKEN } from '#src/actions/constants';
@@ -113,7 +105,7 @@ const usePrevious = (value: Location) => {
   return previousIconOnlyState.current;
 };
 
-type Props = {
+export type Props = {
   autoFocusMemberSearchBar?: boolean;
   theme: CompanyTheme;
   nbAlerting: number;
@@ -881,146 +873,45 @@ export const BackOfficeDrawer: React.FC<Props> = ({
           {displayLeftMenu
             ? renderAppBar(false, false)
             : renderAppBar(false, true)}
-          {displayLeftMenu ? (
-            <div>
-              <Hidden mdUp>
-                <Drawer
-                  // @ts-expect-error
-                  anchor={theme.direction === 'rtl' ? 'right' : 'left'}
-                  classes={{
-                    paper: classes.drawerPaper,
-                  }}
-                  elevation={drawerIconsOnly ? 20 : null}
-                  ModalProps={{
-                    keepMounted: true, // Better open performance on mobile.
-                  }}
-                  onClose={handleDrawerToggle}
-                  open={mobileOpen}
-                  variant="temporary"
-                >
-                  <ResponsiveDrawer
-                    userAcknowlegdePlatformTutorial
-                    companyId={companyId}
-                    companyTheme={theme}
-                    disconnect={disconnect}
-                    featureList={featureList}
-                    hasLimitedAccesToAudience={
-                      theme?.has_limited_access_to_sequential_marketing
-                    }
-                    iconsOnly={drawerIconsOnly}
-                    // @ts-expect-error
-                    location={location}
-                    logo={logo}
-                    objectLevelPermissions={objectLevelPermissions}
-                    onMenuItemClick={hideMobileDrawer}
-                    permissions={permissions}
-                  />
-                </Drawer>
-              </Hidden>
-              <Hidden smDown implementation="css">
-                <Drawer
-                  open
-                  anchor="left"
-                  classes={{
-                    paper: classes.drawerPaper,
-                  }}
-                  elevation={20}
-                  variant="permanent"
-                >
-                  <ResponsiveDrawer
-                    companyId={companyId}
-                    companyTheme={theme}
-                    disconnect={disconnect}
-                    featureList={featureList}
-                    handleUserSetDrawerIconsOnly={handleUserSetDrawerIconsOnly}
-                    hasLimitedAccesToAudience={
-                      theme?.has_limited_access_to_sequential_marketing
-                    }
-                    iconsOnly={drawerIconsOnly}
-                    // @ts-expect-error
-                    location={location}
-                    logo={logo}
-                    nbTutorialAlerting={nbTutorialAlerting}
-                    objectLevelPermissions={objectLevelPermissions}
-                    onMenuItemClick={() => {}}
-                    permissions={permissions}
-                    setDrawerIconsOnly={setDrawerIconsOnly}
-                    tutorialDialogOpen={openWelcometutorialDialog}
-                    updateUserAcknowlegdeTutorial={
-                      updateUserAcknowlegdeTutorial
-                    }
-                    userAcknowlegdePlatformTutorial={
-                      userAcknowlegdePlatformTutorial
-                    }
-                  />
-                </Drawer>
-              </Hidden>
-            </div>
-          ) : (
-            <Drawer
-              // @ts-expect-error
-              anchor={theme.direction === 'rtl' ? 'right' : 'left'}
-              classes={{
-                paper: classes.drawerPaper,
-              }}
-              ModalProps={{
-                keepMounted: true, // Better open performance on mobile.
-              }}
-              onClose={handleDrawerToggle}
-              open={mobileOpen}
-              variant="temporary"
-            >
-              <ResponsiveDrawer
-                companyId={companyId}
-                companyTheme={theme}
-                disconnect={disconnect}
-                featureList={featureList}
-                hasLimitedAccesToAudience={
-                  theme?.has_limited_access_to_sequential_marketing
-                }
-                iconsOnly={drawerIconsOnly}
-                // @ts-expect-error
-                location={location}
-                logo={logo}
-                nbTutorialAlerting={nbTutorialAlerting}
-                objectLevelPermissions={objectLevelPermissions}
-                onMenuItemClick={hideMobileDrawer}
-                permissions={permissions}
-              />
-            </Drawer>
-          )}
-          <TempPasswordDialog
+          <BackofficeDrawerContent
+            classes={classes}
+            clockIn={clockIn}
+            clockInDialogOpen={clockInDialogOpen}
+            clockOut={clockOut}
+            closeClockInDialog={closeClockInDialog}
+            closeTempPasswordDialog={closeTempPasswordDialog}
+            companyId={companyId}
+            disconnect={disconnect}
+            displayLeftMenu={displayLeftMenu}
+            drawerIconsOnly={drawerIconsOnly}
+            email={email}
+            featureList={featureList}
+            fetchCompanyUserRolesPaginated={fetchCompanyUserRolesPaginated}
+            fetchMyLastClockin={fetchMyLastClockin}
             generateTempPassword={generateTempPassword}
-            loading={tempPasswordState.loading}
-            onClose={closeTempPasswordDialog}
-            open={tempPasswordDialogOpen}
-            tempPassword={tempPasswordState.password}
-            tempPasswordExpirationDate={tempPasswordState.expiration_date}
+            getStaffsAttendanceRealTime={getStaffsAttendanceRealTime}
+            handleDrawerToggle={handleDrawerToggle}
+            handleGoToTutorial={handleGoToTutorial}
+            handleUserSetDrawerIconsOnly={handleUserSetDrawerIconsOnly}
+            hideMobileDrawer={hideMobileDrawer}
+            lastClockIn={lastClockIn}
+            location={location}
+            logo={logo}
+            mobileOpen={mobileOpen}
+            name={name}
+            nbTutorialAlerting={nbTutorialAlerting}
+            objectLevelPermissions={objectLevelPermissions}
+            openWelcometutorialDialog={openWelcometutorialDialog}
+            permissions={permissions}
+            setDrawerIconsOnly={setDrawerIconsOnly}
+            setOpenWelcometutorialDialog={setOpenWelcometutorialDialog}
+            tempPasswordDialogOpen={tempPasswordDialogOpen}
+            tempPasswordState={tempPasswordState}
+            theme={theme}
+            updateUserAcknowlegdeTutorial={updateUserAcknowlegdeTutorial}
+            userAcknowlegdePlatformTutorial={userAcknowlegdePlatformTutorial}
+            usersPaginatedWithRoles={usersPaginatedWithRoles}
           />
-          {clockInDialogOpen && (
-            <ClockInDialog
-              clockIn={clockIn}
-              clockOut={clockOut}
-              email={email}
-              fetchAttendance={getStaffsAttendanceRealTime}
-              fetchCompanyUserRolesPaginated={fetchCompanyUserRolesPaginated}
-              fetchMyLastClockin={fetchMyLastClockin}
-              lastClockIn={lastClockIn}
-              name={name}
-              onClose={closeClockInDialog}
-              open={clockInDialogOpen}
-              permissions={permissions}
-              value={usersPaginatedWithRoles}
-            />
-          )}
-          {!userAcknowlegdePlatformTutorial && (
-            <TutorialGenericDialog
-              identifier={TUTORIAL_GENERIC_DIALOG_WELCOME}
-              onCancel={() => setOpenWelcometutorialDialog(false)}
-              onClose={handleGoToTutorial}
-              open={openWelcometutorialDialog}
-            />
-          )}
           <main
             className={clsx({
               [classes.fullContent]:
@@ -1106,6 +997,9 @@ const useStyles = makeStyles<Theme, { drawerIconsOnly: boolean }>((theme) => ({
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
     }),
+  },
+  toTheLeft: {
+    left: 0,
   },
   unscrollableContent: {
     flex: '1 1 auto',

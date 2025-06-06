@@ -36,8 +36,16 @@ echo "export default '$VERSION';" > src/release.js
 echo "export default '$VERSION_SHA';" > src/release-sha.js
 
 # Build the application
+echo "*"
+echo "Update translations"
 pnpm run translation:update
+echo "*"
+echo "Build @bsport/sm-navigation-sidebar in compatibility mode"
+pnpm --filter @bsport/sm-navigation-sidebar run build:compat
+echo "*"
+echo "Build @bsport/saas-legacy"
 pnpm run build
+echo "*"
 
 # Replace the env file
 echo "Populate $BUILD_ENV_FILE with $ENV_TEMPLATE_FILE"

@@ -38,7 +38,7 @@ type TableDataRow = {
   uuid: string;
   date: string;
   member: string;
-  amount: string;
+  amount: number;
   type: string;
   status: Array<{
     label: string;
@@ -129,7 +129,7 @@ export const InvoiceListPage = () => {
         id: "amount",
         keyPath: "amount",
         header: t("tableColumnLabel.amount"),
-        type: "number",
+        type: "price",
         align: "end",
       },
       {
@@ -229,7 +229,7 @@ export const InvoiceListPage = () => {
         },
       },
     ],
-    [handleClickDownload, getReceiptUrlAction, t],
+    [handleClickDownload, t],
   );
 
   const rows: TableDataRow[] = useMemo(
@@ -240,7 +240,7 @@ export const InvoiceListPage = () => {
         uuid: invoice.uuid.slice(0, 8),
         date: invoice.date,
         member: invoice.memberName,
-        amount: invoice.amount_due_cts.toString(),
+        amount: invoice.amount_due_cts,
         type: t(`invoiceType.${getInvoiceType(invoice)}`),
         status: [{ label: t("invoiceStatus.open"), color: "default" }],
         downloadPdf: {
@@ -255,7 +255,8 @@ export const InvoiceListPage = () => {
   return (
     <ListLayout className="w-full">
       <ListLayout.Header
-        callToActionButton={
+        // TODO: Uncomment when backend work is done
+        /*callToActionButton={
           <Button
             iconLeft="bell-03"
             intent="call-to-action"
@@ -304,8 +305,8 @@ export const InvoiceListPage = () => {
           selectFieldLabel: "Filter",
           onFilterChange: (filters) =>
             console.log(`Filters changed: ${filters}`),
-        }}
-        pageTitle="Invoices"
+        }}*/
+        pageTitle={t("invoiceListTitle")}
       />
       <ListLayout.Content className="flex-col">
         <Table
@@ -327,9 +328,7 @@ export const InvoiceListPage = () => {
               className: "h-full justify-center",
             },
           }}
-          loadingProps={{
-            isLoading,
-          }}
+          loadingProps={{ isLoading }}
         />
       </ListLayout.Content>
     </ListLayout>

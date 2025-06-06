@@ -1,4 +1,5 @@
 exports.default = {
+  invoiceListTitle: "Invoices",
   invoiceType: {
     reversed: "Invoice (reverted)",
     return: "Refunded invoice",

@@ -31,7 +31,8 @@
         "invalidEndDate": "Invalid end date",
         "rangeLabel": "From {{ start }} to {{end}}"
       },
-      "modal": { "back": "Back", "next": "Next" }
+      "modal": { "back": "Back", "next": "Next" },
+      "pagination": { "rows": "Rows" }
     }
   },
   "@bsport/sm-custom-form": {
@@ -339,6 +340,7 @@
   },
   "@bsport/sm-invoice": {
     "invoice": {
+      "invoiceListTitle": "Invoices",
       "invoiceType": {
         "reversed": "Invoice (reverted)",
         "return": "Refunded invoice",

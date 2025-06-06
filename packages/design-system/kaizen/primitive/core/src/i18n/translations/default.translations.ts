@@ -36,4 +36,7 @@ exports.default = {
     back: "Back",
     next: "Next",
   },
+  pagination: {
+    rows: "Rows",
+  },
 };

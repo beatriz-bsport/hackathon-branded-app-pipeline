@@ -5,6 +5,7 @@ import React, { useCallback, useEffect, useMemo, useState } from "react";
 import Body from "#src/components/Body";
 import Button from "#src/components/Button";
 import Divider from "#src/components/Divider";
+import { useKaizenI18nInstance, useTranslation } from "#src/i18n";
 
 const defaultClasses = [
   "flex",
@@ -88,13 +89,15 @@ const Pagination: React.FC<PaginationProps> = ({
   onRowsPerPageChange,
   ...props
 }) => {
+  const i18nInstance = useKaizenI18nInstance();
+  const { t } = useTranslation("default", { i18n: i18nInstance });
   const [localRowsPerPage, setLocalRowsPerPage] = useState(rowsPerPage);
 
   useEffect(() => {
     if (rowsPerPage != localRowsPerPage) {
       setLocalRowsPerPage(rowsPerPage);
     }
-  }, [rowsPerPage]);
+  }, [localRowsPerPage, rowsPerPage]);
 
   const totalPages = useMemo(
     () => Math.ceil(totalItems / Math.max(localRowsPerPage, 1)),
@@ -122,7 +125,13 @@ const Pagination: React.FC<PaginationProps> = ({
       onPageChange?.(validPage);
       onPageSettingsChange?.(validPage, rowsPerPage);
     }
-  }, [currentPage, totalPages, onPageChange]);
+  }, [
+    currentPage,
+    onPageChange,
+    onPageSettingsChange,
+    rowsPerPage,
+    totalPages,
+  ]);
 
   const handlePageChange = useCallback(
     (page: number) => {
@@ -131,7 +140,7 @@ const Pagination: React.FC<PaginationProps> = ({
         onPageSettingsChange?.(page, rowsPerPage);
       }
     },
-    [onPageChange, totalPages],
+    [onPageChange, onPageSettingsChange, rowsPerPage, totalPages],
   );
 
   const handleRowsPerPageChange = (
@@ -168,7 +177,7 @@ const Pagination: React.FC<PaginationProps> = ({
     return ["1", "...", ...addRange(Math.max(1, totalPages - 6), totalPages)];
   }, [currentPage, totalPages]);
 
-  const pages = useMemo(getPages, [currentPage, totalPages]);
+  const pages = useMemo(getPages, [getPages]);
 
   const rowsPerPageOptions = useMemo(
     () =>
@@ -200,8 +209,7 @@ const Pagination: React.FC<PaginationProps> = ({
         {rowsPerPageOptions.length > 1 && showRowsPerPageSelector && (
           <>
             <Body htmlVariant="span" size="sm" color="weak" weight="weak">
-              {/* TODO: Translation */}
-              Rows
+              {t("pagination.rows")}
             </Body>
             {/* TODO: use <Select> component here instead */}
             <select

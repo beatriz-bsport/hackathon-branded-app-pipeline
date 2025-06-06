@@ -1,6 +1,7 @@
 const webpack = require('webpack');
 const { merge } = require('webpack-merge');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+
 const common = require('./webpack.common.js');
 const paths = require('./paths');
 const getClientEnvironment = require('./env');

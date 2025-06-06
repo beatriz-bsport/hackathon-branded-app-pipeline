@@ -198,6 +198,9 @@ importers:
       '@bsport/consent-management':
         specifier: workspace:*
         version: link:../../../packages/consent-management
+      '@bsport/sm-navigation-sidebar':
+        specifier: workspace:*
+        version: link:../studio-manager/navigation-sidebar
       '@date-io/luxon':
         specifier: ^1.3.13
         version: 1.3.13(luxon@3.5.0)
@@ -249,6 +252,12 @@ importers:
       '@material-ui/styles':
         specifier: ^4.9.13
         version: 4.11.5(@types/react@16.14.62)(react-dom@16.10.2(react@16.10.2))(react@16.10.2)
+      '@module-federation/bridge-react':
+        specifier: ^0.13.1
+        version: 0.13.1(react-dom@16.10.2(react@16.10.2))(react-router-dom@5.3.4(react@16.10.2))(react@16.10.2)
+      '@module-federation/runtime':
+        specifier: ^0.13.1
+        version: 0.13.1
       '@paypal/react-paypal-js':
         specifier: ^8.3.0
         version: 8.7.0(react-dom@16.10.2(react@16.10.2))(react@16.10.2)
@@ -835,6 +844,9 @@ importers:
       clean-webpack-plugin:
         specifier: ^4.0.0
         version: 4.0.0(webpack@5.93.0)
+      concurrently:
+        specifier: ^8.2.2
+        version: 8.2.2
       enzyme:
         specifier: ^3.11.0
         version: 3.11.0
@@ -1602,6 +1614,9 @@ importers:
       '@bsport/kaizen-primitive-core':
         specifier: workspace:*
         version: link:../../../../packages/design-system/kaizen/primitive/core
+      '@module-federation/bridge-react':
+        specifier: ^0.13.1
+        version: 0.13.1(react-dom@19.0.0(react@19.0.0))(react-router-dom@5.3.4(react@19.0.0))(react@19.0.0)
       react:
         specifier: ^19.0.0
         version: 19.0.0
@@ -4888,6 +4903,16 @@ packages:
   '@module-federation/bridge-react-webpack-plugin@0.7.6':
     resolution: {integrity: sha512-eD1JZDQ+h5WLdA58MmAE1DzLwvFaGJeeam3Tswc/sEUb4QGT86X4Fme+dMTBRYRoAq/tRYql3DlVTFhdmrUVzg==}
 
+  '@module-federation/bridge-react@0.13.1':
+    resolution: {integrity: sha512-jpqWYmXf75ewgyF4o9pWJoEH+jxbHR9/JEsDIRPo0oKbLRh61+AscjeP/eOQhZnorbnlMeGv0AiGAEbEw/Zbdw==}
+    peerDependencies:
+      react: '>=16.9.0'
+      react-dom: '>=16.9.0'
+      react-router-dom: ^4 || ^5 || ^6 || ^7
+
+  '@module-federation/bridge-shared@0.13.1':
+    resolution: {integrity: sha512-oxI1A3hDLexz5xiyykZd8jBtLHfnQeFetX6dPcf4j2eLEd26P/eUaRXPVUb9/6MH9g0EKKSve98tJQupd5L1CA==}
+
   '@module-federation/data-prefetch@0.7.6':
     resolution: {integrity: sha512-AMpfnuIAK/Y5M682BUsnc13ARCEKhEvb0tXF4S+l7jfL08oE9gyo+G/nk0LIzZBO2mLDz5g2AydAERanM6gswQ==}
     peerDependencies:
@@ -4916,6 +4941,9 @@ packages:
         optional: true
       webpack:
         optional: true
+
+  '@module-federation/error-codes@0.13.1':
+    resolution: {integrity: sha512-azgGDBnFRfqlivHOl96ZjlFUFlukESz2Rnnz/pINiSqoBBNjUE0fcAZP4X6jgrVITuEg90YkruZa7pW9I3m7Uw==}
 
   '@module-federation/error-codes@0.7.6':
     resolution: {integrity: sha512-XVzX/sRFj1h5JvOOVMoFppxq0t1t3o/AlEICHgWX+dybIwJgz9g4gihZOWVZfz5/xsKGcUwdH5X7Z2nkuYhJEw==}
@@ -4955,6 +4983,9 @@ packages:
       vue-tsc:
         optional: true
 
+  '@module-federation/runtime-core@0.13.1':
+    resolution: {integrity: sha512-TfyKfkSAentKeuvSsAItk8s5tqQSMfIRTPN2e1aoaq/kFhE+7blps719csyWSX5Lg5Es7WXKMsXHy40UgtBtuw==}
+
   '@module-federation/runtime-core@0.6.20':
     resolution: {integrity: sha512-rX7sd/i7tpkAbfMD4TtFt/57SWNC/iv7UYS8g+ad7mnCJggWE1YEKsKSFgcvp4zU3thwR+j2y+kOCwd1sQvxEA==}
 
@@ -4964,6 +4995,9 @@ packages:
   '@module-federation/runtime-tools@0.7.6':
     resolution: {integrity: sha512-SvokF6gn2sNrTEPG51H0LrowHnf3iNfznO2PzKpxAhZOBdb1pm0wJPwWSMHYrjMdDpjr7bzaqAywnkHdA6lqeQ==}
 
+  '@module-federation/runtime@0.13.1':
+    resolution: {integrity: sha512-ZHnYvBquDm49LiHfv6fgagMo/cVJneijNJzfPh6S0CJrPS2Tay1bnTXzy8VA5sdIrESagYPaskKMGIj7YfnPug==}
+
   '@module-federation/runtime@0.5.1':
     resolution: {integrity: sha512-xgiMUWwGLWDrvZc9JibuEbXIbhXg6z2oUkemogSvQ4LKvrl/n0kbqP1Blk669mXzyWbqtSp6PpvNdwaE1aN5xQ==}
 
@@ -4972,6 +5006,9 @@ packages:
 
   '@module-federation/runtime@0.8.12':
     resolution: {integrity: sha512-eYohRfambj/qzxz6tEakDn459ROcixWO4zL5gmTEOmwG+jCDnxGR14j1guopyrrpjb6EKFNrPVWtYZTPPfGdQQ==}
+
+  '@module-federation/sdk@0.13.1':
+    resolution: {integrity: sha512-bmf2FGQ0ymZuxYnw9bIUfhV3y6zDhaqgydEjbl4msObKMLGXZqhse2pTIIxBFpIxR1oONKX/y2FAolDCTlWKiw==}
 
   '@module-federation/sdk@0.5.1':
     resolution: {integrity: sha512-exvchtjNURJJkpqjQ3/opdbfeT2wPKvrbnGnyRkrwW5o3FH1LaST1tkiNviT6OXTexGaVc2DahbdniQHVtQ7pA==}
@@ -15812,6 +15849,11 @@ packages:
     peerDependencies:
       react: '>=15'
 
+  react-error-boundary@4.1.2:
+    resolution: {integrity: sha512-GQDxZ5Jd+Aq/qUxbCm1UtzmL/s++V7zKgE8yMktJiCQXCCFZnMZh9ng+6/Ne6PjNSXH0L9CjeOEREfRnq6Duag==}
+    peerDependencies:
+      react: '>=16.13.1'
+
   react-error-overlay@6.0.11:
     resolution: {integrity: sha512-/6UZ2qgEyH2aqzYZgQPxEnz33NJ2gNsnHA2o5+o4wW9bLM/JYQitNP9xPhsXwC08hMMovfGe/8retsdDsczPRg==}
 
@@ -21916,6 +21958,26 @@ snapshots:
       '@types/semver': 7.5.8
       semver: 7.6.3
 
+  '@module-federation/bridge-react@0.13.1(react-dom@16.10.2(react@16.10.2))(react-router-dom@5.3.4(react@16.10.2))(react@16.10.2)':
+    dependencies:
+      '@module-federation/bridge-shared': 0.13.1
+      '@module-federation/sdk': 0.13.1
+      react: 16.10.2
+      react-dom: 16.10.2(react@16.10.2)
+      react-error-boundary: 4.1.2(react@16.10.2)
+      react-router-dom: 5.3.4(react@16.10.2)
+
+  '@module-federation/bridge-react@0.13.1(react-dom@19.0.0(react@19.0.0))(react-router-dom@5.3.4(react@19.0.0))(react@19.0.0)':
+    dependencies:
+      '@module-federation/bridge-shared': 0.13.1
+      '@module-federation/sdk': 0.13.1
+      react: 19.0.0
+      react-dom: 19.0.0(react@19.0.0)
+      react-error-boundary: 4.1.2(react@19.0.0)
+      react-router-dom: 5.3.4(react@19.0.0)
+
+  '@module-federation/bridge-shared@0.13.1': {}
+
   '@module-federation/data-prefetch@0.7.6(react-dom@19.0.0(react@19.0.0))(react@19.0.0)':
     dependencies:
       '@module-federation/runtime': 0.7.6
@@ -21974,6 +22036,8 @@ snapshots:
       - react-dom
       - supports-color
       - utf-8-validate
+
+  '@module-federation/error-codes@0.13.1': {}
 
   '@module-federation/error-codes@0.7.6': {}
 
@@ -22038,6 +22102,11 @@ snapshots:
       - supports-color
       - utf-8-validate
 
+  '@module-federation/runtime-core@0.13.1':
+    dependencies:
+      '@module-federation/error-codes': 0.13.1
+      '@module-federation/sdk': 0.13.1
+
   '@module-federation/runtime-core@0.6.20':
     dependencies:
       '@module-federation/error-codes': 0.8.12
@@ -22053,6 +22122,12 @@ snapshots:
       '@module-federation/runtime': 0.7.6
       '@module-federation/webpack-bundler-runtime': 0.7.6
 
+  '@module-federation/runtime@0.13.1':
+    dependencies:
+      '@module-federation/error-codes': 0.13.1
+      '@module-federation/runtime-core': 0.13.1
+      '@module-federation/sdk': 0.13.1
+
   '@module-federation/runtime@0.5.1':
     dependencies:
       '@module-federation/sdk': 0.5.1
@@ -22067,6 +22142,8 @@ snapshots:
       '@module-federation/error-codes': 0.8.12
       '@module-federation/runtime-core': 0.6.20
       '@module-federation/sdk': 0.8.12
+
+  '@module-federation/sdk@0.13.1': {}
 
   '@module-federation/sdk@0.5.1': {}
 
@@ -37021,6 +37098,16 @@ snapshots:
       react: 16.10.2
       unlayer-types: 1.274.0
 
+  react-error-boundary@4.1.2(react@16.10.2):
+    dependencies:
+      '@babel/runtime': 7.25.0
+      react: 16.10.2
+
+  react-error-boundary@4.1.2(react@19.0.0):
+    dependencies:
+      '@babel/runtime': 7.25.0
+      react: 19.0.0
+
   react-error-overlay@6.0.11: {}
 
   react-error-overlay@6.0.9: {}
@@ -37228,6 +37315,17 @@ snapshots:
       tiny-invariant: 1.3.3
       tiny-warning: 1.0.3
 
+  react-router-dom@5.3.4(react@19.0.0):
+    dependencies:
+      '@babel/runtime': 7.25.0
+      history: 4.10.1
+      loose-envify: 1.4.0
+      prop-types: 15.8.1
+      react: 19.0.0
+      react-router: 5.3.4(react@19.0.0)
+      tiny-invariant: 1.3.3
+      tiny-warning: 1.0.3
+
   react-router@5.3.4(react@16.10.2):
     dependencies:
       '@babel/runtime': 7.25.0
@@ -37237,6 +37335,19 @@ snapshots:
       path-to-regexp: 1.9.0
       prop-types: 15.8.1
       react: 16.10.2
+      react-is: 16.13.1
+      tiny-invariant: 1.3.3
+      tiny-warning: 1.0.3
+
+  react-router@5.3.4(react@19.0.0):
+    dependencies:
+      '@babel/runtime': 7.25.0
+      history: 4.10.1
+      hoist-non-react-statics: 3.3.2
+      loose-envify: 1.4.0
+      path-to-regexp: 1.9.0
+      prop-types: 15.8.1
+      react: 19.0.0
       react-is: 16.13.1
       tiny-invariant: 1.3.3
       tiny-warning: 1.0.3

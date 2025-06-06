@@ -107,6 +107,8 @@ export {
   type NavigationMenuProps,
   type NavigationMenuElement,
   type NavigationMenuItem,
+  type NavigationMenuDivider,
+  type NavigationMenuGroup,
 } from "./components/NavigationMenu";
 export { default as Popover, type PopoverProps } from "./components/Popover";
 export { type PaginationProps } from "./components/private/Pagination";

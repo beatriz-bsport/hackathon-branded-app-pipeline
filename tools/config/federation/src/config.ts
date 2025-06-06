@@ -75,7 +75,7 @@ const ConfigSchema = z
           "Federation configuration in the custom 'federation' field in the package.json, refer to the README.md to know more",
       },
     ),
-    mode: z.enum(["development", "production", "preview"], {
+    mode: z.enum(["development", "production", "preview", "compat"], {
       description: "Build mode meant to be used with vite's mode",
     }),
     rootDir: z.string(),
@@ -167,7 +167,8 @@ export const getConfig = (config: {
 
   const { packageJson, mode, deploymentRelativeUrl } = result.data;
   const isHost = config.appType === "hosts";
-  const isLocal = mode === "preview" || mode === "development";
+  const isLocal =
+    mode === "preview" || mode === "development" || mode === "compat";
   const { devPort, name: federationName, exposes } = packageJson.federation;
 
   const base = getBase({

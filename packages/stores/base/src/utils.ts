@@ -63,6 +63,23 @@ export function createErrorWithContext(
   });
 }
 
+/**
+ * When the context to provide to createErrorWithContext,
+ * wrap it in this utility function to be sure it's not breaking the error flow
+ * @param data The data you want to serialize
+ * @return A Serializable content. If it fails to serialize, it will contain a fallback message
+ * "Unable to serialize data"
+ */
+export function serializeContext(data: unknown): Serializable {
+  let serializedContext: string = "";
+  try {
+    serializedContext = JSON.stringify(data);
+  } catch {
+    serializedContext = "Unable to serialize data";
+  }
+  return serializedContext;
+}
+
 export function buildById<Model extends { id: number | string }>({
   initial,
   newItems,

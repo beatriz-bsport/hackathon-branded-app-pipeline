@@ -7,16 +7,14 @@ import { useTranslation } from "#src/utils/i18n";
 
 import { DisableFormModal } from "./Modal/DisableFormModal";
 import { DuplicateFormModal } from "./Modal/DuplicateFormModal";
-import { type TableColumnsParams, useCustomFormTableColumns } from "./columns";
-
-type CustomFormRowData = {
-  id: number;
-  name: string;
-  answers: number;
-};
+import {
+  type CustomFormTableRowData,
+  type TableColumnsParams,
+  useCustomFormTableColumns,
+} from "./columns";
 
 type BaseCustomFormTableProps = {
-  customFormsItems: CustomFormRowData[];
+  customFormsItems: CustomFormTableRowData[];
   isEmpty: boolean;
   isEmptySearch: boolean;
   isLoading: boolean;

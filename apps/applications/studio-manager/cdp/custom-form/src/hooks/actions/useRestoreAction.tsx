@@ -37,7 +37,7 @@ export const useRestoreAction = ({
     onSuccess: (formId: number) => {
       onRestoreSuccess?.();
       toast({
-        status: "positive",
+        status: "default",
         icon: "unarchive",
         title: t("toasts.messageRestored.success"),
         buttonLabel: t("toasts.actions.undo"),

@@ -1,15 +1,15 @@
 exports.default = {
   pages: {
     active: "Forms",
-    archived: "Archived forms",
+    archived: "Archived Forms",
     loading: "Loading...",
   },
   activeList: {
     actions: {
-      addForm: "Add form",
+      addForm: "Add Form",
     },
     addFormModal: {
-      title: "Create new form",
+      title: "Create new Form",
       description: "Name your new form to get started!",
       input: {
         label: "Form name",
@@ -20,7 +20,11 @@ exports.default = {
         create: "Create",
       },
       errors: {
-        name: "The name is not valid",
+        nameTooLong:
+          "The name is not valid, the maximum length is {{ maximalLength }} characters.",
+        nameTooShort:
+          "The name is not valid, the minimal length is {{ minimalLength }} character.",
+        nameRequired: "The name is not valid, you cannot enter an empty name.",
       },
     },
     archiveModal: {
@@ -28,7 +32,7 @@ exports.default = {
         archive: "Archive",
         cancel: "Cancel",
       },
-      title: "Archive form",
+      title: "Archive Form",
       description: {
         verification: "Do you want to archive <b>{{ name }}</b> ?",
         effect:
@@ -40,7 +44,7 @@ exports.default = {
         duplicate: "Duplicate",
         cancel: "Cancel",
       },
-      title: "Duplicate form",
+      title: "Duplicate Form",
       description: {
         verification: "Duplicate <b>{{ name }}</b> ?",
         effect: "You can edit the form afterwards.",
@@ -49,19 +53,19 @@ exports.default = {
   },
   toasts: {
     messageCreated: {
-      success: "Your form was created",
+      success: "Form created",
       error: "Failed to create your form",
     },
     messageArchived: {
-      success: "Your form was archived",
+      success: "Form archived",
       error: "Failed to archive your form",
     },
     messageRestored: {
-      success: "Your form was restored",
+      success: "Form restored",
       error: "Failed to restore your form",
     },
     messageDuplicated: {
-      success: "Your form was duplicated",
+      success: "Form duplicated",
       error: "Failed to duplicate your form",
     },
     messageUndone: {
@@ -97,9 +101,9 @@ exports.default = {
       },
     },
     tooltips: {
-      archive: "Archive form",
-      restore: "Restore form",
-      duplicate: "Duplicate form",
+      archive: "Archive Form",
+      restore: "Restore Form",
+      duplicate: "Duplicate Form",
       search: "Search for a form",
       switchToArchived: "Archived forms",
     },

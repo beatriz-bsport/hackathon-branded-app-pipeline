@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { Body, Modal, TextField, toast } from "@bsport/kaizen-primitive-core";
 import type { CustomForm } from "@bsport/store-cdp-custom-form";
@@ -8,7 +8,7 @@ import { LEGACY_URLS } from "#src/urls";
 import { useTranslation } from "#src/utils/i18n";
 import type { ModalProps } from "#src/utils/types";
 
-const FORM_NAME_MIN_LENGTH = 0;
+const FORM_NAME_MIN_LENGTH = 1;
 const FORM_NAME_MAX_LENGTH = 100;
 
 type TextfieldStatuses = "default" | "positive" | "error" | undefined;
@@ -27,6 +27,7 @@ export const CreateFormModal: React.FC<Props> = ({
   const [formName, setFormName] = useState("");
   const [textFieldStatus, setTextFieldStatus] =
     useState<TextfieldStatuses>("default");
+  const inputRef = useRef<HTMLInputElement | null>(null);
   const { t } = useTranslation("common");
 
   const { createCustomForm } = useCreateCustomForm({
@@ -34,7 +35,7 @@ export const CreateFormModal: React.FC<Props> = ({
       onSuccess?.();
       handleClose();
       toast({
-        status: "positive",
+        status: "default",
         icon: "edit-02",
         title: t("toasts.messageCreated.success"),
         buttonLabel: t("toasts.actions.open"),
@@ -63,16 +64,25 @@ export const CreateFormModal: React.FC<Props> = ({
     onClose();
   };
 
-  const isFormNameValid = (() => {
-    return (
-      !!formName &&
-      formName.length > FORM_NAME_MIN_LENGTH &&
-      formName.length <= FORM_NAME_MAX_LENGTH
-    );
+  const formNameError = (() => {
+    if (formName.length < FORM_NAME_MIN_LENGTH) {
+      return t("activeList.addFormModal.errors.nameTooShort", {
+        minimalLength: FORM_NAME_MIN_LENGTH,
+      });
+    }
+    if (formName.length > FORM_NAME_MAX_LENGTH) {
+      return t("activeList.addFormModal.errors.nameTooLong", {
+        maximalLength: FORM_NAME_MAX_LENGTH,
+      });
+    }
+    if (formName.trim() === "") {
+      return t("activeList.addFormModal.errors.nameRequired");
+    }
+    return null;
   })();
 
   const handleSaveForm = () => {
-    if (isFormNameValid) {
+    if (!formNameError) {
       setTextFieldStatus("default");
       createCustomForm({ name: formName });
     } else {
@@ -80,7 +90,7 @@ export const CreateFormModal: React.FC<Props> = ({
       toast({
         status: "critical",
         icon: "x",
-        title: t("activeList.addFormModal.errors.name"),
+        title: formNameError,
       });
     }
   };
@@ -93,6 +103,12 @@ export const CreateFormModal: React.FC<Props> = ({
   const handleClearTextfield = () => {
     setFormName("");
   };
+
+  useEffect(() => {
+    if (isOpen && inputRef?.current) {
+      inputRef.current.focus();
+    }
+  }, [isOpen, inputRef]);
 
   return (
     <Modal
@@ -108,6 +124,7 @@ export const CreateFormModal: React.FC<Props> = ({
       <div className="flex flex-col gap-md">
         <Body htmlVariant="p">{t("activeList.addFormModal.description")}</Body>
         <TextField
+          inputRef={inputRef}
           fullWidth
           id="create-custom-form-name-input"
           type="text"

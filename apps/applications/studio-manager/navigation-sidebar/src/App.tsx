@@ -2,7 +2,7 @@ import { BrowserRouter, Route, Routes } from "react-router";
 
 import "@bsport/kaizen-primitive-core/styles";
 
-import NavigationSidebar from "#src/components/NavigationSidebar";
+import { NavigationSidebarWithData } from "#src/components/NavigationSidebarWithData";
 import { StandaloneHome } from "#src/components/StandaloneHome";
 
 import "./index.css";
@@ -12,7 +12,7 @@ const basename = __NAVIGATION_SIDEBAR__.__BASENAME__;
 const App = () => (
   <BrowserRouter basename={basename}>
     <div className="flex">
-      <NavigationSidebar />
+      <NavigationSidebarWithData />
       <div className="flex flex-col flex-grow p-4">
         <Routes>
           <Route path="/" element={<StandaloneHome />} />

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { NavLink } from "react-router";
 
 import { Button, Card, NavigationMenu } from "@bsport/kaizen-primitive-core";
+import { dataAccessLayer } from "@bsport/sm-backbone";
 import { LOGIN_URL, logoutAction } from "@bsport/store-auth";
 
 import "#src/index.css";
@@ -21,7 +22,7 @@ import {
   useNavigationElements,
 } from "./navigation-items";
 
-type NavigationSidebarProps = {
+export type NavigationSidebarProps = {
   navigate?: (to: string) => void;
 };
 
@@ -134,8 +135,12 @@ const NavigationSidebarContent = ({ navigate }: NavigationSidebarProps) => {
     );
   };
 
-  /** @todo Retrieve companyId from theme */
-  const companyId = undefined;
+  const companyTheme = dataAccessLayer.useCompanyTheme();
+  const {
+    company: companyId,
+    company_name: companyName,
+    cover: companyLogo,
+  } = companyTheme ?? {};
 
   return (
     <div
@@ -145,8 +150,8 @@ const NavigationSidebarContent = ({ navigate }: NavigationSidebarProps) => {
       }
     >
       <NavigationSidebarHeader
-        // TODO: repalce with real data
-        label="bsport studio"
+        avatarUrl={companyLogo}
+        label={companyName ?? ""}
         menuSet={menuSet}
         onSelectItem={(id: MenuOption) => {
           if (id === "settings") {

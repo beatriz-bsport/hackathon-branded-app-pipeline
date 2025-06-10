@@ -1,3 +1,5 @@
-import { getFetch } from "@bsport/fetch";
+import { type Fetch, getFetch } from "@bsport/fetch";
 
 export const fetch = getFetch();
+
+export { Fetch };

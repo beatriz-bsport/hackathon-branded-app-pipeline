@@ -2249,7 +2249,7 @@
                     "hasRelatedMarketplaceComponentConfigs": "Las pestañas de calendario y taller configuradas para su mercado ya no mostrarán este calendario de ubicación.",
                     "hasRelatedMarketingNotifications": "Las notificaciones vinculadas a esta ubicación se eliminarán.",
                     "exclusiveAssociatedCoaches": "Su profesor {{- coach_name }} sólo recibe una notificación cuando se realiza una solicitud de sustitución para una sesión en esta ubicación. Por lo tanto, al eliminar la ubicación, recibirán solicitudes de sustitución de todas las ubicaciones.",
-                    "exclusiveAssociatedCoaches_plural": "Sus profesores {{- coach_name }} sólo reciben una notificación cuando se realiza una solicitud de sustitución para una sesión en esta ubicación. Al eliminar la ubicación, recibirán por tanto solicitudes de sustitución de todas las ubicaciones.",
+                    "exclusiveAssociatedCoaches_plural": "Sus profesores {{- coach_name }} sólo reciben una notificación cuando se realiza una solicitud de sustitución para una sesión en esta ubicación. Por lo tanto, al eliminar la ubicación, recibirán solicitudes de sustitución de todas las ubicaciones.",
                     "hasRelatedAssociatedCoaches": "Algunos profesores reciben una notificación cuando se realiza una solicitud de sustitución para una sesión en esta ubicación. Al eliminar la ubicación, dejarán de recibir la notificación correspondiente.",
                     "hasRelatedStaffConfigurations": "Esta ubicación se utiliza para la supervisión de accesos por uno o varios miembros del personal. Al eliminar la ubicación sin seleccionar una nueva, ya no podrán realizar la supervisión de accesos."
                 },
@@ -2293,9 +2293,9 @@
                 "isIntegratedInPartnership": "Una o varias integraciones utilizan este establecimiento.",
                 "hasExclusiveMarketplaceComponentConfigs": "Una o varias pestañas del marketplace están configuradas para mostrar únicamente el calendario y los talleres de este establecimiento, actualízalas antes de eliminar el establecimiento.",
                 "exclusiveEstablishmentGroups": "La ubicación {{- establishment_group_name }} sólo contiene el establecimiento que desea eliminar, actualice o elimine esta ubicación.",
-                "exclusiveEstablishmentGroups_plural": "Las ubicaciones {{- nombre_grupo_establecimiento }} sólo contienen el establecimiento que desea eliminar, actualice o elimine estas ubicaciones.",
+                "exclusiveEstablishmentGroups_plural": "Las ubicaciones {{- establishment_group_name }} sólo contienen el establecimiento que desea eliminar, actualice o elimine estas ubicaciones.",
                 "exclusivePaymentPacks": "El siguiente pase {{- pass_name }} sólo se puede utilizar en este establecimiento. Actualiza sus restricciones antes de eliminar el establecimiento.",
-                "exclusivePaymentPacks_plural": "Los siguientes bonos {{- pass_name }} sólo se pueden utilizar en este establecimiento. Actualice sus restricciones antes de eliminar el establecimiento.",
+                "exclusivePaymentPacks_plural": "Los siguientes pases {{- pass_name }} sólo se pueden utilizar en este establecimiento. Actualice sus restricciones antes de eliminar el establecimiento.",
                 "hasExclusiveBillingGroup": "Este establecimiento es el último de su grupo de facturación. Por favor, elimine o actualice este grupo de facturación antes de eliminar este establecimiento.",
                 "hasUpcomingPrivateBookings": "Algunas citas próximas tienen lugar en este establecimiento. Por favor, cancélelas y elimínelas antes de borrar este establecimiento.",
                 "hasUpcomingOffers": "Algunas sesiones próximas tienen lugar en este establecimiento. Cancélalas y elimínalas antes de borrar este establecimiento."
@@ -5549,7 +5549,8 @@
             "nb_expired_consumer_payment_packs": "Número de pases expirados",
             "nb_consumer_payment_packs": "Número de pases",
             "nb_first_attendances": "Número de primeras visitas",
-            "nb_payments": "Número de pagos"
+            "nb_payments": "Número de pagos",
+            "total_rows": "Total de filas"
         },
         "payment_method": {
             "cash": "Efectivo",
@@ -8190,7 +8191,8 @@
             "1102": "Bonificación por referencia ( miembro referente)",
             "1200": "Primer recordatorio de vencimiento del método de pago para los pagos a plazos",
             "1201": "Segundo recordatorio de vencimiento del método de pago para los pagos a plazos",
-            "undefined": "Reserva para un invitado (para invitado)"
+            "undefined": "Reserva para un invitado (para invitado)",
+            "23": "Suscripción pagada con el saldo de la cuenta interna"
         },
         "tag": {
             "BookingOption": {

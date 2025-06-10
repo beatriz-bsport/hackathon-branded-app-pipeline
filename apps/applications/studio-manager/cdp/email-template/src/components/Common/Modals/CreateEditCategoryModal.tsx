@@ -1,12 +1,17 @@
 import { useEffect, useRef, useState } from "react";
 
-import { Modal, TextField, toast } from "@bsport/kaizen-primitive-core";
+import {
+  Modal,
+  TextField,
+  type TextFieldProps,
+  toast,
+} from "@bsport/kaizen-primitive-core";
 import type { EmailTemplateCategory } from "@bsport/store-cdp-email-template";
 
 import { useCreateCategory } from "#src/hooks/api/use-create-category";
 import { useUpdateCategory } from "#src/hooks/api/use-update-category";
 import { useTranslation } from "#src/utils/i18n";
-import type { ModalProps, TextfieldStatuses } from "#src/utils/types";
+import type { ModalProps } from "#src/utils/types";
 
 const CATEGORY_NAME_MIN_LENGTH = 0;
 const CATEGORY_NAME_MAX_LENGTH = 100;
@@ -27,7 +32,7 @@ export const CreateEditCategoryModal: React.FC<Props> = ({
   const textfieldInputRef = useRef<HTMLInputElement | null>(null);
   const [categoryName, setCategoryName] = useState(categoryDraft?.name || "");
   const [textFieldStatus, setTextFieldStatus] =
-    useState<TextfieldStatuses>("default");
+    useState<TextFieldProps["status"]>("default");
   const { t } = useTranslation("list");
 
   // Translation keys based on mode

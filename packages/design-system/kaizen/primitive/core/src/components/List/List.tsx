@@ -111,11 +111,22 @@ const List: React.FC<ListProps> = ({
       <CheckboxProvider valueIds={valueIds}>
         <div className={className} id={id}>
           {!!header && (
-            <Header
-              {...header}
-              collapsibleProps={collapsibleProps}
-              isSelectable={isSelectable}
-            />
+            <Collapse.Controller>
+              {({ isCollapseOpen, setIsCollapseOpen }) => {
+                const toggleOpen = () =>
+                  setIsCollapseOpen((prevState) => !prevState);
+
+                return (
+                  <Header
+                    {...header}
+                    collapsibleProps={collapsibleProps}
+                    isSelectable={isSelectable}
+                    onCollapse={toggleOpen}
+                    isCollapseOpen={isCollapseOpen}
+                  />
+                );
+              }}
+            </Collapse.Controller>
           )}
           {collapsibleProps ? (
             <Collapse.Content>

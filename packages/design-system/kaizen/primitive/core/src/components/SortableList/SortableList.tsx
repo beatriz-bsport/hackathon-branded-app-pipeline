@@ -10,8 +10,9 @@ import {
   UseLoadingStateProps,
   useLoadingState,
 } from "#src/hooks/use-loading-state";
+import { sortItemInList } from "#src/utils/sortable";
 
-import Header, { type ListHeaderProps } from "./Header";
+import Header, { type SortableListHeaderProps } from "./Header";
 import Item from "./Item";
 import type { Sortable } from "./types";
 
@@ -42,7 +43,12 @@ export const sortableListItem = cva(defaultClasses, { variants });
 
 export type SortableListProps = React.HTMLAttributes<HTMLDivElement> & {
   collapsibleProps?: Omit<CollapseProps, "children">;
-  header: Omit<ListHeaderProps, "isCollapseOpen" | "collapseController">;
+  header: Omit<
+    SortableListHeaderProps,
+    "isCollapseOpen" | "collapseController"
+  >;
+  hideListContent?: boolean;
+  isDraggable?: boolean;
   loadingProps?: UseLoadingStateProps;
 } & Omit<SortableListContentProps, "draggedItem" | "setDraggedItem">;
 
@@ -59,7 +65,9 @@ type SortableListContentProps = {
  * SortableList component allows for a list of items to be sorted via drag-and-drop interactions.
  * @param props - The properties for the SortableList component.
  * @param props.id - The unique identifier for the sortable list.
- * @param props.collapsibleProps - object to pass config of the Collapse component
+ * @param props.collapsibleProps - object to pass config of the Collapse component, will define if the list is collapsible or not.
+ * @param props.isDraggable - optional boolean to display the draggable icon on the header of the list.
+ * @param props.hideListContent - optional boolean to define if the list content should be shown or not.
  * @param props.onSortChange - Callback function to handle the change in item order.
  * It takes the list of sorted items in param
  * @param props.items - The list of sortable items.
@@ -82,6 +90,8 @@ const SortableList: React.FC<SortableListProps> = ({
   emptyStateProps,
   loadingProps,
   items,
+  hideListContent,
+  isDraggable,
   onSortChange,
   id,
   ...props
@@ -101,9 +111,10 @@ const SortableList: React.FC<SortableListProps> = ({
         },
         className,
       )}
+      draggable={isDraggable}
       {...props}
     >
-      <Collapse initiallyOpen={collapsibleProps?.initiallyOpen}>
+      <Collapse initiallyOpen={true}>
         <Collapse.Controller>
           {({ collapseProps, setIsCollapseOpen, isCollapseOpen }) => {
             const toggleOpen = () =>
@@ -115,20 +126,23 @@ const SortableList: React.FC<SortableListProps> = ({
                 collapseController={collapsibleProps ? toggleOpen : undefined}
                 isCollapseOpen={isCollapseOpen}
                 aria-expanded={isCollapseOpen}
+                isDraggable={isDraggable}
                 {...collapseProps}
               />
             );
           }}
         </Collapse.Controller>
         <Collapse.Content>
-          <SortableListContent
-            emptyStateProps={emptyStateProps}
-            id={id}
-            items={items}
-            draggedItem={draggedItem}
-            setDraggedItem={setDraggedItem}
-            onSortChange={onSortChange}
-          />
+          {hideListContent ? null : (
+            <SortableListContent
+              emptyStateProps={emptyStateProps}
+              id={id}
+              items={items}
+              draggedItem={draggedItem}
+              setDraggedItem={setDraggedItem}
+              onSortChange={onSortChange}
+            />
+          )}
         </Collapse.Content>
       </Collapse>
     </div>
@@ -168,28 +182,14 @@ const SortableListContent: React.FC<SortableListContentProps> = ({
    * Handles the drop event.
    *
    * @param draggedId - The ID of the item being dragged.
-   * @param dropTargetId - The ID of the drop target.
+   * @param dropTargetIndex - The ID of the drop target.
    */
-  const handleDrop = (draggedId: string, dropTargetId: string) => () => {
-    if (!draggedId || !dropTargetId) return;
-
-    const draggedIndex = items.findIndex((item) => item.id === draggedId);
-    /* The index of the targeted dropzone.
-     * If we are dragging downward, we need to reduce the index by one otherwise it will drop below the desired position
-     * To perform that we compare draggedIndex and the index of the target item.
-     * If draggedIndex (the current position) is lower than the index of the target, we need to reduce the index by one.
-     */
-    const targetIndex =
-      draggedIndex < Number(dropTargetId)
-        ? Number(dropTargetId) - 1
-        : Number(dropTargetId);
-
-    if (draggedIndex === -1 || targetIndex === -1) return;
-
-    const updatedItems = [...items];
-    const [movedItem] = updatedItems.splice(draggedIndex, 1); // Remove dragged item
-    updatedItems.splice(targetIndex, 0, movedItem); // Insert it at the new index
-
+  const handleDrop = (draggedId: string, dropTargetIndex: string) => () => {
+    const updatedItems = sortItemInList<Sortable>({
+      itemsList: items,
+      sourceId: draggedId,
+      targetIndex: dropTargetIndex,
+    });
     onSortChange?.(updatedItems);
   };
 

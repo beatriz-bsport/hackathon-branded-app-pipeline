@@ -17,6 +17,27 @@ export type CustomForm = {
   layout_configuration: Record<string, number>;
 };
 
+export type CustomFormStatistics = {
+  id: number;
+  name: string;
+  date_created: string;
+  disabled: boolean;
+  detail_by_member: Record<
+    number,
+    {
+      completed: boolean;
+      display_request: number[];
+    }
+  >;
+};
+
+export type CustomFormFieldTagRule = {
+  id: number;
+  custom_form_field_id: number;
+  tag_id: number;
+  answer_for_tag: string;
+};
+
 export type CustomFormField = {
   id: number;
   custom_form_id: number;
@@ -46,26 +67,6 @@ export type CustomFormFieldLayout = {
   static?: boolean;
 };
 
-export type CustomFormStatistics = {
-  id: number;
-  name: string;
-  date_created: string;
-  disabled: boolean;
-  detail_by_member: Record<
-    number,
-    {
-      completed: boolean;
-      display_request: number[];
-    }
-  >;
-};
-
-export type CustomFormFieldTagRule = {
-  id: number;
-  custom_form_field_id: number;
-  tag_id: number;
-  answer_for_tag: string;
-};
 // API Params
 type PaginationParams = {
   page?: number;

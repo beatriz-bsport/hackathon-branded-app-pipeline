@@ -36,8 +36,87 @@
     }
   },
   "@bsport/sm-custom-form": {
-    "namespaceAlpha": { "helloName": "Hello {{ name }} !" },
-    "namespaceBeta": {}
+    "common": {
+      "pages": {
+        "active": "Forms",
+        "archived": "Archived forms",
+        "loading": "Loading..."
+      },
+      "activeList": {
+        "actions": { "addForm": "Add form" },
+        "addFormModal": {
+          "title": "Create new form",
+          "description": "Name your new form to get started!",
+          "input": { "label": "Form name", "placeholder": "Add a form name..." },
+          "actions": { "cancel": "Cancel", "create": "Create" },
+          "errors": { "name": "The name is not valid" }
+        },
+        "archiveModal": {
+          "actions": { "archive": "Archive", "cancel": "Cancel" },
+          "title": "Archive form",
+          "description": {
+            "verification": "Do you want to archive <b>{{ name }}</b> ?",
+            "effect": "Archiving this form will move it to your archive. Members won't be able to access it anymore."
+          }
+        },
+        "duplicateModal": {
+          "actions": { "duplicate": "Duplicate", "cancel": "Cancel" },
+          "title": "Duplicate form",
+          "description": {
+            "verification": "Duplicate <b>{{ name }}</b> ?",
+            "effect": "You can edit the form afterwards."
+          }
+        }
+      },
+      "toasts": {
+        "messageCreated": {
+          "success": "Your form was created",
+          "error": "Failed to create your form"
+        },
+        "messageArchived": {
+          "success": "Your form was archived",
+          "error": "Failed to archive your form"
+        },
+        "messageRestored": {
+          "success": "Your form was restored",
+          "error": "Failed to restore your form"
+        },
+        "messageDuplicated": {
+          "success": "Your form was duplicated",
+          "error": "Failed to duplicate your form"
+        },
+        "messageUndone": { "success": "Action undone", "error": "Failed to undo action" },
+        "actions": { "undo": "Undo", "open": "Open" }
+      },
+      "table": {
+        "headers": { "name": "Name", "answers": "Responses" },
+        "loading": {
+          "activeList": "Loading forms...",
+          "archivedList": "Loading archived forms..."
+        },
+        "empty": {
+          "activeList": {
+            "title": "No forms yet",
+            "subtitle": "Create forms to easily get feedback from your members"
+          },
+          "archivedList": {
+            "title": "No archived forms yet",
+            "subtitle": "Any forms moved here can be restored"
+          },
+          "search": {
+            "title": "No forms found",
+            "subtitle": "Try with different keywords"
+          }
+        },
+        "tooltips": {
+          "archive": "Archive form",
+          "restore": "Restore form",
+          "duplicate": "Duplicate form",
+          "search": "Search for a form",
+          "switchToArchived": "Archived forms"
+        }
+      }
+    }
   },
   "@bsport/sm-email-template": {
     "list": {

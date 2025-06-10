@@ -3262,7 +3262,7 @@
                 "validate": "Convalidare",
                 "continue": "Sei sicuro di voler spostare questa appuntamento?",
                 "resource": "Si prega di notare che {{ resource }} non è disponibile in questo slot.\n",
-                "title": "Slot non disponibile",
+                "title": "Non c'è disponibilità per la presentazione. Fare clic sulle frecce per trovare un'altra fascia oraria.",
                 "loading": "Verifica della disponibilità dello slot"
             }
         },

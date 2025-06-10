@@ -2567,6 +2567,12 @@ importers:
         specifier: ^11.0.1
         version: 11.0.4
 
+  packages/utils/permissions:
+    devDependencies:
+      '@bsport/config-eslint-react':
+        specifier: workspace:*
+        version: link:../../../tools/config/eslint-react
+
   packages/utils/query-params/base:
     dependencies:
       react:
@@ -2651,6 +2657,9 @@ importers:
       '@bsport/store-core-data-company-theme':
         specifier: workspace:*
         version: link:../../stores/core-data/company-theme
+      '@bsport/store-staff-management-role':
+        specifier: workspace:*
+        version: link:../../stores/staff-management/role
       react-router:
         specifier: ^7.2.0
         version: 7.2.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0)

@@ -28,7 +28,7 @@ export const DisableFormModal: React.FC<Props> = ({
       onDisableSuccess?.();
       onClose();
       toast({
-        status: "positive",
+        status: "default",
         icon: "archive",
         title: t("toasts.messageArchived.success"),
         buttonLabel: t("toasts.actions.undo"),

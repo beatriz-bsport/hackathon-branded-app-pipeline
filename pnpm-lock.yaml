@@ -1247,6 +1247,18 @@ importers:
       '@bsport/sm-backbone':
         specifier: workspace:*
         version: link:../../../../../packages/utils/sm-backbone
+      '@bsport/store-cdp-custom-form':
+        specifier: workspace:*
+        version: link:../../../../../packages/stores/cdp/custom-form
+      '@bsport/use-async':
+        specifier: workspace:*
+        version: link:../../../../../packages/hooks/use-async
+      '@bsport/use-debounce':
+        specifier: workspace:*
+        version: link:../../../../../packages/hooks/use-debounce
+      '@bsport/use-pagination-query-params':
+        specifier: workspace:*
+        version: link:../../../../../packages/utils/query-params/use-pagination
       react:
         specifier: ^19.0.0
         version: 19.0.0
@@ -1266,18 +1278,6 @@ importers:
       '@bsport/store-base':
         specifier: workspace:*
         version: link:../../../../../packages/stores/base
-      '@bsport/store-cdp-custom-form':
-        specifier: workspace:*
-        version: link:../../../../../packages/stores/cdp/custom-form
-      '@bsport/use-async':
-        specifier: workspace:*
-        version: link:../../../../../packages/hooks/use-async
-      '@bsport/use-debounce':
-        specifier: workspace:*
-        version: link:../../../../../packages/hooks/use-debounce
-      '@bsport/use-pagination-query-params':
-        specifier: workspace:*
-        version: link:../../../../../packages/utils/query-params/use-pagination
       autoprefixer:
         specifier: ^10.4.20
         version: 10.4.20(postcss@8.4.49)

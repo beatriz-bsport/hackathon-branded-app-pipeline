@@ -27,7 +27,7 @@ export const DuplicateFormModal: React.FC<Props> = ({
       onSuccess?.();
       onClose();
       toast({
-        status: "positive",
+        status: "default",
         icon: "copy-03",
         title: t("toasts.messageDuplicated.success"),
         buttonLabel: t("toasts.actions.open"),

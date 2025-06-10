@@ -11,7 +11,7 @@ type UseCreateCustomFormParams = {
   onFailure?: (error: Error) => void;
 };
 
-export const createCustomForm = createCustomFormAction.bind(null, fetch);
+const createCustomForm = createCustomFormAction.bind(null, fetch);
 
 /**
  * Hook for creating a custom form

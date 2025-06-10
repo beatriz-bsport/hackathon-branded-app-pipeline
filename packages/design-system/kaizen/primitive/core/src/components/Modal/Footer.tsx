@@ -1,27 +1,16 @@
 import React from "react";
 
 import Button from "#src/components/Button";
-import {
-  type StepConfig,
-  confirmColors,
-  footerDirections,
-} from "#src/components/Modal/constants";
-import { useTranslation } from "#src/i18n";
+
+import { type ConfirmColor, type FooterDirection } from "./types";
 
 export type FooterProps = {
   cancelLabel?: string;
   confirmLabel?: string;
-  confirmColor: (typeof confirmColors)[number];
-  onConfirmClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
+  confirmColor?: ConfirmColor;
+  onConfirmClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
   onCancelClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
-  isStepper: boolean;
-  currentStep: number;
-  steps?: StepConfig[];
-  t: ReturnType<typeof useTranslation>["t"];
-  handleCancelClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
-  handleNextStep: (event: React.MouseEvent<HTMLButtonElement>) => void;
-  currentStepConfig?: StepConfig;
-  footerDirection: (typeof footerDirections)[number];
+  footerDirection: FooterDirection;
 };
 
 const Footer: React.FC<FooterProps> = ({
@@ -29,39 +18,10 @@ const Footer: React.FC<FooterProps> = ({
   confirmLabel,
   confirmColor,
   onConfirmClick,
-  isStepper,
-  currentStep,
-  steps,
-  t,
-  handleCancelClick,
-  handleNextStep,
-  currentStepConfig,
+  onCancelClick,
   footerDirection,
 }) => {
-  let secondaryButtonLabel: string | undefined;
-  let ctaButtonLabel: string | undefined;
-  let ctaButtonDisabled: boolean;
-  let ctaButtonOnClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
-
-  if (isStepper && steps) {
-    secondaryButtonLabel = currentStep > 0 ? t("modal.back") : cancelLabel;
-    ctaButtonLabel =
-      currentStep < steps.length - 1 ? t("modal.next") : confirmLabel;
-    ctaButtonDisabled = currentStepConfig?.validate
-      ? !currentStepConfig.validate()
-      : false;
-    ctaButtonOnClick = handleNextStep;
-  } else {
-    secondaryButtonLabel = cancelLabel;
-    ctaButtonLabel = confirmLabel;
-    ctaButtonDisabled = false;
-    ctaButtonOnClick = onConfirmClick;
-  }
-
-  const showSecondaryButton = !!secondaryButtonLabel;
-  const showCtaButton = !!ctaButtonLabel;
-
-  if (!showSecondaryButton && !showCtaButton) return null;
+  if (!cancelLabel && !confirmLabel) return null;
 
   return (
     <div
@@ -69,24 +29,23 @@ const Footer: React.FC<FooterProps> = ({
         footerDirection === "column" ? "flex-col-reverse" : "flex-row"
       }`}
     >
-      {showSecondaryButton && (
+      {cancelLabel && (
         <Button
           size="md"
           intent="flat"
           color="default"
-          label={secondaryButtonLabel}
-          onClick={handleCancelClick}
+          label={cancelLabel}
+          onClick={onCancelClick}
         />
       )}
 
-      {showCtaButton && (
+      {confirmLabel && (
         <Button
           size="md"
           intent="call-to-action"
-          color={confirmColor}
-          label={ctaButtonLabel}
-          onClick={ctaButtonOnClick}
-          disabled={ctaButtonDisabled}
+          color={confirmColor ?? "main"}
+          label={confirmLabel}
+          onClick={onConfirmClick}
         />
       )}
     </div>

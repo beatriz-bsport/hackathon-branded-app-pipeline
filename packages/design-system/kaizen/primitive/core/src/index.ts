@@ -97,11 +97,12 @@ export {
   default as MenuItem,
   type MenuItemProps,
 } from "./components/Menu/MenuItem";
+export { default as Modal, type ModalProps } from "./components/Modal";
 export {
-  default as Modal,
-  type ModalProps,
+  default as ModalStepper,
+  type ModalStepperProps,
   type StepConfig,
-} from "./components/Modal";
+} from "./components/ModalStepper";
 export {
   default as NavigationMenu,
   type NavigationMenuProps,

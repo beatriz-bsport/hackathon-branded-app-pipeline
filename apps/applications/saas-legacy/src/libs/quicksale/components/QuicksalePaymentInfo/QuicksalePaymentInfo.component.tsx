@@ -231,6 +231,8 @@ const QuicksalePaymentInfo: React.FC<Props> = ({
             memberId={memberId}
             onCancel={onCancel}
             onSuccess={onPaymentSuccess}
+            paymentGroupId={paymentGroup}
+            saveForLater={false}
             setPaymentProcessing={setIsProcessing}
           >
             {children}
@@ -257,6 +259,8 @@ const QuicksalePaymentInfo: React.FC<Props> = ({
             memberId={memberId}
             onCancel={onCancel}
             onSuccess={onPaymentSuccess}
+            paymentGroupId={paymentGroup}
+            saveForLater={false}
             setPaymentProcessing={setIsProcessing}
           >
             {children}

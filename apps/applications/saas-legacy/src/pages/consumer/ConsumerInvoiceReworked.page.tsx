@@ -197,6 +197,10 @@ class ConsumerInvoiceReworked extends React.Component<Props, State> {
           refreshMembership={this.refreshMembership}
           selectedFilter={this.state.selectedFilter}
           selectedInvoiceUuid={this.props.selectedInvoiceUuid}
+          stripePaymentElementConfig={{
+            isDefaultForRegion: this.props.theme.is_default_for_region,
+            stripeId: this.props.theme.stripe_id,
+          }}
           totalUnpaid={this.props.unpaidInvoicesCount}
         />
       </ConsumerInvoiceContextProvider>

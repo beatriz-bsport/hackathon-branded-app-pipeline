@@ -1,7 +1,11 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import classNames from "classnames";
 import React, { useState } from "react";
 
-import SortableList from "#src/components/SortableList";
+import SortableList, { Sortable } from "#src/components/SortableList";
+
+import DragAndDrop from "../DragAndDrop";
+import { ListHeaderProps } from "../List";
 
 /**
  * SortableList component allows for a list of items to be sorted via drag-and-drop interactions.<br>
@@ -214,6 +218,51 @@ const items = [
     title: "Item 7",
     rightTitle: "Right title",
     description: "Playing with fonts is fun",
+  },
+];
+
+const newItems = [
+  {
+    id: "new-item-1",
+    title: "Alpha",
+    rightTitle: "First title",
+    description: "Exploring new horizons",
+  },
+  {
+    id: "new-item-2",
+    title: "Bravo",
+    rightTitle: "Second title",
+    description: "Discovering hidden gems",
+  },
+  {
+    id: "new-item-3",
+    title: "Charlie",
+    rightTitle: "Third title",
+    description: "Unveiling mysteries",
+  },
+  {
+    id: "new-item-4",
+    title: "Delta",
+    rightTitle: "Fourth title",
+    description: "Innovating with creativity",
+  },
+  {
+    id: "new-item-5",
+    title: "Echo",
+    rightTitle: "Fifth title",
+    description: "Building the future",
+  },
+  {
+    id: "new-item-6",
+    title: "Foxtrot",
+    rightTitle: "Sixth title",
+    description: "Connecting the dots",
+  },
+  {
+    id: "new-item-7",
+    title: "Golf",
+    rightTitle: "Seventh title",
+    description: "Pioneering new paths",
   },
 ];
 
@@ -651,6 +700,186 @@ export const LoadingList: Story = {
         emptyStateProps={emptyStateProps}
         loadingProps={loadingProps}
       />
+    );
+  },
+};
+
+export const MultipleLists: Story = {
+  name: "Multiple Lists",
+  render: () => {
+    const [data, setData] = useState<{
+      sortableLists: {
+        id: string;
+        items: Sortable[];
+        header: ListHeaderProps;
+      }[];
+      draggedSortableList: {
+        id: string;
+        items: Sortable[];
+        header: ListHeaderProps;
+      } | null;
+      areSortableListsOpen: boolean;
+    }>({
+      sortableLists: [
+        {
+          id: "sortableList-items",
+          items: [...items],
+          header: {
+            id: "header",
+            title: "Sortable List",
+            description: "Have fun",
+          },
+        },
+        {
+          id: "sortableList-newItems",
+          items: [...newItems],
+          header: {
+            id: "another-header",
+            title: "Another Sortable List",
+            description: "Have fun",
+          },
+        },
+      ],
+      draggedSortableList: null,
+      areSortableListsOpen: true,
+    });
+
+    const handleSortChange = (listId: string) => (updatedItems: Sortable[]) => {
+      setData((prevData) => ({
+        ...prevData,
+        sortableLists: prevData.sortableLists.map((list) =>
+          list.id === listId ? { ...list, items: updatedItems } : list,
+        ),
+      }));
+    };
+
+    const handleDragStart = (dragId: string) => () => {
+      const draggedList = data.sortableLists.find(({ id }) => dragId === id);
+      if (draggedList) {
+        setData((prevData) => ({
+          ...prevData,
+          draggedSortableList: draggedList,
+          areSortableListsOpen: false,
+        }));
+      }
+    };
+
+    const handleDragEnd = () => () => {
+      setData((prevData) => ({
+        ...prevData,
+        draggedSortableList: null,
+        areSortableListsOpen: true,
+      }));
+    };
+
+    const handleDrop = (draggedId: string, dropTargetId: string) => () => {
+      if (!draggedId || !dropTargetId) return;
+
+      setData((prevData) => {
+        const draggedIndex = prevData.sortableLists.findIndex(
+          (list) => list.id === draggedId,
+        );
+        const targetIndex =
+          draggedIndex < Number(dropTargetId)
+            ? Number(dropTargetId) - 1
+            : Number(dropTargetId);
+
+        if (draggedIndex === -1 || targetIndex === -1) return prevData;
+
+        const updatedLists = [...prevData.sortableLists];
+        const [movedList] = updatedLists.splice(draggedIndex, 1);
+        updatedLists.splice(targetIndex, 0, movedList);
+
+        return {
+          ...prevData,
+          sortableLists: updatedLists,
+        };
+      });
+    };
+
+    return (
+      <DragAndDrop
+        onDrop={handleDrop}
+        onDragEnd={handleDragEnd}
+        onDragStart={handleDragStart}
+        className="relative flex flex-col"
+        isDnDActive
+        id="sortable-list-dnd"
+      >
+        {data.sortableLists.map((list, index) => (
+          <DragAndDrop.DropZone key={list.id} id={index.toString()}>
+            {({ activeDropTarget }) => (
+              <>
+                {data.draggedSortableList && (
+                  <SortableList
+                    header={data.draggedSortableList.header}
+                    id={data.draggedSortableList.id}
+                    items={data.draggedSortableList.items}
+                    onSortChange={handleSortChange(data.draggedSortableList.id)}
+                    collapsibleProps={{
+                      initiallyOpen: data.areSortableListsOpen,
+                    }}
+                    className={
+                      activeDropTarget === index.toString()
+                        ? "opacity-sm !border-b-stroke-regular !border-onsurface-main-strong bg-surface-default-weak "
+                        : "hidden"
+                    }
+                  />
+                )}
+                <DragAndDrop.Item id={list.id}>
+                  {({ isDragged }) => (
+                    <SortableList
+                      header={list.header}
+                      id={list.id}
+                      items={list.items}
+                      onSortChange={handleSortChange(list.id)}
+                      collapsibleProps={{
+                        initiallyOpen: data.areSortableListsOpen,
+                      }}
+                      className={classNames("translate-x-0", {
+                        hidden: isDragged,
+                      })}
+                      tabIndex={0}
+                    />
+                  )}
+                </DragAndDrop.Item>
+              </>
+            )}
+          </DragAndDrop.DropZone>
+        ))}
+        <DragAndDrop.DropZone id={data.sortableLists.length.toString()}>
+          {({ activeDropTarget }) =>
+            data.draggedSortableList && (
+              <div
+                className={classNames({
+                  "absolute left-0 right-0 bottom-0 h-xl": !(
+                    activeDropTarget === data.sortableLists.length.toString()
+                  ),
+                })}
+              >
+                <SortableList
+                  header={data.draggedSortableList.header}
+                  id={data.draggedSortableList.id}
+                  items={data.draggedSortableList.items}
+                  onSortChange={handleSortChange(data.draggedSortableList.id)}
+                  collapsibleProps={{
+                    initiallyOpen: data.areSortableListsOpen,
+                  }}
+                  className={classNames(
+                    "opacity-sm !border-b-stroke-regular !border-onsurface-main-strong bg-surface-default-weak",
+                    {
+                      hidden: !(
+                        activeDropTarget ===
+                        data.sortableLists.length.toString()
+                      ),
+                    },
+                  )}
+                />
+              </div>
+            )
+          }
+        </DragAndDrop.DropZone>
+      </DragAndDrop>
     );
   },
 };

@@ -1,54 +1,90 @@
-import React, { useImperativeHandle, forwardRef } from 'react';
+import React, {
+  ChangeEvent,
+  forwardRef,
+  useCallback,
+  useContext,
+  useEffect,
+  useImperativeHandle,
+  useMemo,
+  useState,
+} from 'react';
+
 import clsx from 'clsx';
 import Immutable from 'seamless-immutable';
+// eslint-disable-next-line bsport/no-redux-in-component
+import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
-import { PAYMENT_GROUP_METHOD_IDENTIFIER_CB } from '@bsport/common/lib/master-data/payment-group.js';
 
-import { isWidthDown, IconButton } from '@material-ui/core';
+import {
+  PaymentElement,
+  useElements,
+  useStripe,
+} from '@stripe/react-stripe-js';
+
+import { StripeError } from '@stripe/stripe-js';
+
+import {
+  Button,
+  ButtonBase,
+  Checkbox,
+  CircularProgress,
+  IconButton,
+  isWidthDown,
+  LinearProgress,
+  makeStyles,
+  Typography,
+} from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
-import Button from '@material-ui/core/Button';
-import ButtonBase from '@material-ui/core/ButtonBase';
-import Checkbox from '@material-ui/core/Checkbox';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import grey from '@material-ui/core/colors/grey';
 import Info from '@material-ui/icons/Info';
-import LinearProgress from '@material-ui/core/LinearProgress';
-import makeStyles from '@material-ui/core/styles/makeStyles';
-import Typography from '@material-ui/core/Typography';
+import grey from '@material-ui/core/colors/grey';
 
-import type { OptionCallback } from '#src/state/types';
-import type { BillingDetails } from '#src/libs/marketplace/types';
-import type { PaymentMethod } from '#src/libs/payment/types';
-
-import CheckoutContext from '#src/pages/checkout/basket/CheckoutContext';
-import { useWidth } from '#src/hooks/useWidth';
-import CardBillingDetailsForm from '#src/libs/payment/components/payment-backend-stripe/CardBillingDetailsForm';
-import PaymentMethodList from '#src/libs/payment/components/payment-method-list/PaymentMethodList.component';
 import PopOver from '#src/components/Popover';
+import { useWidth } from '#src/hooks/useWidth';
+
+import { STRIPE_CARD_ERROR_CODES } from '#src/libs/payment/constants';
+import CardBillingDetailsForm from '#src/libs/payment/components/payment-backend-stripe/CardBillingDetailsForm';
 import StripeErrorCode from '#src/libs/payment/components/payment-backend-stripe/StripeErrorCode.component';
 import UseInternalAccountForm from '#src/libs/payment/components/UseInternalAccountForm.component';
+import PaymentMethodList from '#src/libs/payment/components/payment-method-list/PaymentMethodList.component';
+
 import {
   blockPendingBasket as blockPendingBasketAPI,
   fetchPaymentMethodList as fetchPaymentMethodListAPI,
   updatePaymentMethodBillingDetails as updatePaymentMethodBillingDetailsAPI,
   verifyPriceBasket as verifyPriceBasketAPI,
 } from '#src/libs/payment/api';
-import Config from '../../../../config';
+import { confirmStripePayment as confirmStripePaymentAction } from '#src/libs/payment/payment-module-revamped/actions';
+
+import type { BillingDetails } from '#src/libs/marketplace/types';
+import type { PaymentMethod } from '#src/libs/payment/types';
+
+import CheckoutContext from '#src/pages/checkout/basket/CheckoutContext';
+
+import type { OptionCallback } from '#src/state/types';
+import { PAYMENT_GROUP_METHOD_IDENTIFIER_CB } from '@bsport/common/lib/master-data/payment-group';
 
 type Props = {
   AcceptTermsAndConditionsComponent?: React.Component;
   allowConsumerToUseInternalAccount?: boolean;
   applyBalanceLoading?: boolean;
+  applyBalanceToInvoice?: () => void;
   basketId?: string;
   basketTotalPriceCts?: number;
   cardBillingDetailsMandatory: boolean;
+  checkItemsBasket: (basketId: string) => Promise<boolean>;
   children?: React.ReactNode;
   clientSecret: string;
   companyCountry?: string;
   companyId?: number;
+  createPendingBookingsIfNecessary?: (data?: {
+    payment_group_method_identifier?: number;
+  }) => void;
   creditAccountBalance?: number | null;
   customClasses?: { [className: string]: string };
+  detachPaymentMethod: (
+    paymentMethodId: string,
+    options?: OptionCallback<unknown, number>,
+  ) => void;
   detachPaymentMethodLoading: boolean;
   forceButtonDisplay?: boolean;
   forceDisabled?: boolean;
@@ -56,64 +92,22 @@ type Props = {
   forceSave?: boolean;
   hasAddPaymentMethodPermission?: boolean;
   hideSaveForLater?: boolean;
+  invalidatePendingBookingsIfNecessary?: () => void;
   isEstablishmentBillingGroupSelected?: boolean;
   loading?: boolean;
   memberId: number;
-  termsAndConditionsAccepted: boolean;
-  userDefaultEmail?: string;
-  userDefaultName?: string;
-  applyBalanceToInvoice?: () => void;
-  checkItemsBasket: (basketId: string) => Promise<boolean>;
-  createPendingBookingsIfNecessary?: (data?: {
-    payment_group_method_identifier?: number;
-  }) => void;
-  invalidatePendingBookingsIfNecessary?: () => void;
-  detachPaymentMethod: (
-    paymentMethodId: string,
-    options?: OptionCallback<unknown, number>,
-  ) => void;
   onCancel: () => void;
   onError?: () => void;
+  onSaveForLaterChange?: (event: ChangeEvent<HTMLInputElement>) => void;
   onSuccess: (callback: () => void) => void;
+  paymentGroupId: number;
+  saveForLater: boolean;
   setIsOnlinePaymentDisabled?: (isLoading: boolean) => void;
   setPaymentProcessing?: (processing: boolean) => void;
+  termsAndConditionsAccepted: boolean;
   useInternalAccount?: (amount: number) => void;
-};
-
-const CARD_ELEMENT_OPTIONS = {
-  hidePostalCode: true,
-  style: {
-    base: {
-      fontSmoothing: 'antialiased',
-      fontSize: '16px',
-      '::placeholder': {
-        color: '#888',
-      },
-    },
-    invalid: {
-      color: '#fa755a',
-      iconColor: '#fa755a',
-    },
-  },
-};
-
-const CardSection = (props: { error: any }) => {
-  const classes = useStyles();
-  return (
-    <React.Fragment>
-      <div className={classes.cardSectionContainer}>
-        <CardElement options={CARD_ELEMENT_OPTIONS} />
-      </div>
-      {!!props.error && (
-        <div style={{ margin: 8 }}>
-          <StripeErrorCode
-            declineCode={props.error.decline_code}
-            errorCode={props.error.error_code}
-          />
-        </div>
-      )}
-    </React.Fragment>
-  );
+  userDefaultEmail?: string;
+  userDefaultName?: string;
 };
 
 const PaymentStripeCard = forwardRef(
@@ -122,15 +116,19 @@ const PaymentStripeCard = forwardRef(
       AcceptTermsAndConditionsComponent,
       allowConsumerToUseInternalAccount,
       applyBalanceLoading,
+      applyBalanceToInvoice,
       basketId,
       basketTotalPriceCts,
       cardBillingDetailsMandatory,
+      checkItemsBasket,
       children,
       clientSecret,
       companyCountry,
       companyId,
+      createPendingBookingsIfNecessary,
       creditAccountBalance,
       customClasses,
+      detachPaymentMethod,
       detachPaymentMethodLoading,
       forceButtonDisplay,
       forceDisabled,
@@ -138,46 +136,47 @@ const PaymentStripeCard = forwardRef(
       forceSave,
       hasAddPaymentMethodPermission = true,
       hideSaveForLater,
+      invalidatePendingBookingsIfNecessary,
       isEstablishmentBillingGroupSelected,
       loading,
       memberId,
-      termsAndConditionsAccepted,
-      userDefaultEmail,
-      userDefaultName,
-      applyBalanceToInvoice,
-      checkItemsBasket,
-      createPendingBookingsIfNecessary,
-      invalidatePendingBookingsIfNecessary,
-      detachPaymentMethod,
       onCancel,
       onError,
+      onSaveForLaterChange,
       onSuccess,
+      paymentGroupId,
+      saveForLater,
       setIsOnlinePaymentDisabled,
       setPaymentProcessing,
+      termsAndConditionsAccepted,
       useInternalAccount,
+      userDefaultEmail,
+      userDefaultName,
     }: Props,
     ref,
   ) => {
+    const isCheckoutContext = useContext(CheckoutContext);
     const classes = useStyles();
     const { t } = useTranslation(['invoice', 'payment']);
+    const dispatch = useDispatch();
 
     const stripe = useStripe();
     const elements = useElements();
 
-    const [processing, setProcessing] = React.useState(false);
-    const [error, setError] = React.useState(null);
-    const [saveForLater, setSaveForLater] = React.useState(false);
-    const [paymentMethodList, setPaymentMethodList] = React.useState<
-      PaymentMethod[]
-    >([]);
-    const [paymentMethodSelected, setPaymentMethodSelected] =
-      React.useState<string>(null);
-    const [hasDetached, setHasDetached] = React.useState(null);
-    const [addPaymentMethod, setAddPaymentMethod] = React.useState(false);
+    const [isProcessing, setIsProcessing] = useState(false);
+    const [error, setError] = useState<StripeError | undefined>(undefined);
+    const [paymentMethodList, setPaymentMethodList] = useState<PaymentMethod[]>(
+      [],
+    );
+    const [paymentMethodSelected, setPaymentMethodSelected] = useState<
+      string | undefined
+    >(undefined);
+    const [hasDetached, setHasDetached] = useState<string | null>(null);
+    const [isAddingPaymentMethod, setIsAddingPaymentMethod] = useState(false);
     const [isPaymentSecurityInfoDisplayed, setIsPaymentSecurityInfoDisplayed] =
-      React.useState(false);
+      useState(false);
 
-    const defaultBillingDetailsValues = React.useMemo(() => {
+    const defaultBillingDetailsValues = useMemo(() => {
       return Immutable({
         name: userDefaultName || '',
         address: {
@@ -192,25 +191,23 @@ const PaymentStripeCard = forwardRef(
       });
     }, [userDefaultName, userDefaultEmail, companyCountry]);
 
-    const [isFetchSuccessful, setIsFetchSuccessful] = React.useState(false);
-    const [isFetchFinished, setIsFetchFinished] = React.useState(false);
-    const [billingDetails, setBillingDetails] = React.useState<BillingDetails>(
+    const [isFetchSuccessful, setIsFetchSuccessful] = useState(false);
+    const [isFetchFinished, setIsFetchFinished] = useState(false);
+    const [billingDetails, setBillingDetails] = useState<BillingDetails>(
       defaultBillingDetailsValues,
     );
 
-    const isCheckoutContext = React.useContext(CheckoutContext);
-
-    const setPaymentPageProcessing = React.useCallback(
+    const setPaymentPageProcessing = useCallback(
       (process) => {
         if (setPaymentProcessing) {
           setPaymentProcessing(process);
         }
-        setProcessing(process);
+        setIsProcessing(process);
       },
-      [setPaymentProcessing, setProcessing],
+      [setIsProcessing, setPaymentProcessing],
     );
 
-    React.useEffect(() => {
+    useEffect(() => {
       fetchPaymentMethodListAPI({ member: memberId })
         .then((r) => {
           const filteredPaymentMethods = r.data.filter(
@@ -229,58 +226,17 @@ const PaymentStripeCard = forwardRef(
         });
     }, [memberId, clientSecret, hasDetached]);
 
-    const paymentMethodSelectedBillingDetails: BillingDetails =
-      React.useMemo(() => {
-        if (paymentMethodSelected) {
-          return paymentMethodList?.find(
-            (paymentMethod) => paymentMethod.id === paymentMethodSelected,
-          )?.billing_details;
-        }
-        return defaultBillingDetailsValues;
-      }, [
-        paymentMethodSelected,
-        paymentMethodList,
-        defaultBillingDetailsValues,
-      ]);
-
-    // This is a Hail Mary attempt of saving Jab Box (80k of monthly transactions)
-    // from churning back to Zingfit because they are upset by the many 3D Secure they
-    // are getting. Note that a client saving a payment method doesn't mean that they
-    // want this payment method to be used for off-session payments so we have to think
-    // about this any way.
-    // Issue: https://gitlab.com/bsport/bsport-saas/-/issues/2101
-
-    const company_setup_intent_always_on_session = [
-      'local',
-      'dev',
-      'staging',
-    ].includes(Config.REACT_APP_SENTRY_ENVIRONMENT)
-      ? 72
-      : 1416;
-
-    const setup_future_usage = React.useMemo(() => {
-      if (
-        (saveForLater || forceSave) &&
-        companyId !== company_setup_intent_always_on_session
-      ) {
-        return 'off_session';
+    const paymentMethodSelectedBillingDetails: BillingDetails = useMemo(() => {
+      if (paymentMethodSelected) {
+        return paymentMethodList?.find(
+          (paymentMethod) => paymentMethod.id === paymentMethodSelected,
+        )?.billing_details as BillingDetails;
       }
-      if (
-        (saveForLater || forceSave) &&
-        companyId === company_setup_intent_always_on_session
-      ) {
-        return 'on_session';
-      }
-      return null;
-    }, [
-      saveForLater,
-      forceSave,
-      companyId,
-      company_setup_intent_always_on_session,
-    ]);
+      return defaultBillingDetailsValues;
+    }, [paymentMethodSelected, paymentMethodList, defaultBillingDetailsValues]);
 
     // Whenever the paymentMethod changes, we change the state of the billing details
-    React.useEffect(() => {
+    useEffect(() => {
       if (paymentMethodSelected) {
         setBillingDetails(paymentMethodSelectedBillingDetails);
       } else {
@@ -292,41 +248,41 @@ const PaymentStripeCard = forwardRef(
       paymentMethodSelectedBillingDetails,
     ]);
 
-    React.useEffect(() => {
+    useEffect(() => {
       if (
         paymentMethodList.length &&
         !paymentMethodSelected &&
         isFetchSuccessful &&
-        !addPaymentMethod
+        !isAddingPaymentMethod
       ) {
         setPaymentMethodSelected(paymentMethodList[0].id);
         setBillingDetails(paymentMethodSelectedBillingDetails);
       } else if (!paymentMethodList.length && isFetchSuccessful) {
         setBillingDetails(defaultBillingDetailsValues);
-        setAddPaymentMethod(true);
+        setIsAddingPaymentMethod(true);
       }
     }, [
-      paymentMethodList,
-      isFetchSuccessful,
-      paymentMethodSelectedBillingDetails,
-      paymentMethodSelected,
-      addPaymentMethod,
       defaultBillingDetailsValues,
+      isAddingPaymentMethod,
+      isFetchSuccessful,
+      paymentMethodList,
+      paymentMethodSelected,
+      paymentMethodSelectedBillingDetails,
     ]);
 
-    React.useEffect(() => {
+    useEffect(() => {
       if (hasDetached && paymentMethodList.length) {
         setPaymentMethodSelected(paymentMethodList[0].id);
       }
     }, [hasDetached, setPaymentMethodSelected, paymentMethodList]);
 
-    React.useEffect(() => {
-      if (addPaymentMethod) {
-        setPaymentMethodSelected(null);
+    useEffect(() => {
+      if (isAddingPaymentMethod) {
+        setPaymentMethodSelected(undefined);
       }
-    }, [addPaymentMethod]);
+    }, [isAddingPaymentMethod]);
 
-    const areSpecificBillingDetailsProvided = React.useCallback(
+    const areSpecificBillingDetailsProvided = useCallback(
       (specificBillingDetails: BillingDetails) => {
         return (
           !!specificBillingDetails?.name &&
@@ -361,14 +317,16 @@ const PaymentStripeCard = forwardRef(
 
     // This useEffect is required in the new checkout flow, in order to disable the 'Pay Now' button
     // if needed
-    React.useEffect(() => {
+    useEffect(() => {
       if (setIsOnlinePaymentDisabled)
         setIsOnlinePaymentDisabled(isSubmitButtonDisabled);
     }, [isSubmitButtonDisabled, setIsOnlinePaymentDisabled]);
 
-    const handleSubmit = React.useCallback(
+    const handleSubmit = useCallback(
       async (event: React.FormEvent<HTMLFormElement>) => {
         setPaymentPageProcessing(true);
+        setError(undefined);
+        elements?.submit();
 
         // We don't want to let default form submission happen here,
         // which would refresh the page.
@@ -400,7 +358,6 @@ const PaymentStripeCard = forwardRef(
             basketTotalPriceCts !== data
           ) {
             setPaymentPageProcessing(false);
-
             window.alert(t('paymentPanel.actions.basketInconsistent'));
             window.location.reload();
             return;
@@ -427,68 +384,84 @@ const PaymentStripeCard = forwardRef(
             });
           }
 
-          const result = await stripe.confirmCardPayment(clientSecret, {
-            payment_method: paymentMethodSelected || {
-              card: elements.getElement(CardElement),
-              ...(cardBillingDetailsMandatory
-                ? { billing_details: billingDetails }
-                : {}),
-            },
-            ...(setup_future_usage ? { setup_future_usage } : {}),
-          });
+          const url = new URL(window.location.toString());
+          const params = url.searchParams;
+          params.delete('user_registration_response');
+          params.set('check_payment_intent', 'true');
+          params.set('get_user_registration_from_storage', 'true');
 
-          if (result.error) {
-            // Show error to your customer (e.g., insufficient funds)
-            setError(result.error);
-            setPaymentPageProcessing(false);
-            invalidatePendingBookingsIfNecessary?.();
-            if (onError) onError();
-          } else {
-            // The payment has been processed!
-            if (basketId) {
-              try {
-                await blockPendingBasketAPI(basketId);
-              } catch (err) {
-                console.error(err);
-              }
-            }
-            setError(null);
-
-            if (result.paymentIntent.status === 'succeeded') {
-              // Show a success message to your customer
-              // There's a risk of the customer closing the window before callback
-              // execution. Set up a webhook or plugin to listen for the
-              // payment_intent.succeeded event that handles any business critical
-              // post-payment actions.
-              if (onSuccess) {
-                onSuccess(() => setPaymentPageProcessing(false));
-              }
-            }
+          if (basketId) {
+            // Include the current basket id in the return URL, so that the basket page keeps track
+            // of it after the redirection
+            params.set('basket_redirection', basketId);
           }
+
+          dispatch(
+            confirmStripePaymentAction(
+              {
+                saveForLater: saveForLater || forceSave,
+                paymentGroupId,
+                stripe,
+                elements,
+                clientSecret,
+                shouldConfirmCardPayment:
+                  !isAddingPaymentMethod && !!paymentMethodList?.length,
+                paymentMethodSelected,
+                billingDetails,
+                cardBillingDetailsMandatory,
+              },
+              {
+                onPaymentError: (err) => {
+                  setError(err);
+                  setPaymentPageProcessing(false);
+                  invalidatePendingBookingsIfNecessary?.();
+                  onError?.();
+                },
+                onPaymentSuccess: async (paymentIntent) => {
+                  if (basketId) {
+                    try {
+                      await blockPendingBasketAPI(basketId);
+                    } catch (err) {
+                      console.error(err);
+                    }
+                  }
+
+                  if (paymentIntent.status === 'succeeded' && onSuccess) {
+                    onSuccess(() => setPaymentPageProcessing(false));
+                  }
+                },
+              },
+            ),
+          );
         } catch (err) {
           console.error(err);
         }
       },
       [
+        areInitialBillingDetailsNecessary,
         basketId,
         basketTotalPriceCts,
         billingDetails,
+        cardBillingDetailsMandatory,
         checkItemsBasket,
         clientSecret,
         companyId,
         createPendingBookingsIfNecessary,
-        invalidatePendingBookingsIfNecessary,
+        dispatch,
         elements,
+        forceSave,
+        invalidatePendingBookingsIfNecessary,
+        isAddingPaymentMethod,
+        memberId,
         onError,
         onSuccess,
+        paymentGroupId,
+        paymentMethodList?.length,
         paymentMethodSelected,
+        saveForLater,
         setPaymentPageProcessing,
         stripe,
         t,
-        areInitialBillingDetailsNecessary,
-        memberId,
-        cardBillingDetailsMandatory,
-        setup_future_usage,
       ],
     );
 
@@ -504,7 +477,7 @@ const PaymentStripeCard = forwardRef(
       [handleSubmit],
     );
 
-    const defineSelectedPaymentMethod = React.useCallback(
+    const defineSelectedPaymentMethod = useCallback(
       (id: string) => {
         if (id !== paymentMethodSelected) {
           setPaymentMethodSelected(id);
@@ -513,29 +486,22 @@ const PaymentStripeCard = forwardRef(
       [paymentMethodSelected],
     );
 
-    const onSaveForLaterChange = React.useCallback(
-      (ev: React.ChangeEvent<HTMLInputElement>) => {
-        setSaveForLater(ev?.target?.checked ?? false);
-      },
+    const startAddingPaymentMethod = useCallback(
+      () => setIsAddingPaymentMethod(true),
       [],
     );
 
-    const startAddingPaymentMethod = React.useCallback(
-      () => setAddPaymentMethod(true),
+    const stopAddingPaymentMethod = useCallback(
+      () => setIsAddingPaymentMethod(false),
       [],
     );
 
-    const stopAddingPaymentMethod = React.useCallback(
-      () => setAddPaymentMethod(false),
-      [],
-    );
-
-    const onPaymentMethodSelect = React.useCallback(
+    const onPaymentMethodSelect = useCallback(
       (id: string) => defineSelectedPaymentMethod(id),
       [defineSelectedPaymentMethod],
     );
 
-    const OnInfoRequest = React.useCallback(
+    const OnInfoRequest = useCallback(
       () => setIsPaymentSecurityInfoDisplayed(!isPaymentSecurityInfoDisplayed),
       [isPaymentSecurityInfoDisplayed],
     );
@@ -544,10 +510,7 @@ const PaymentStripeCard = forwardRef(
     const isMobile = isWidthDown('sm', width);
 
     return (
-      <form
-        className={clsx(classes.container, customClasses?.container)}
-        onSubmit={handleSubmit}
-      >
+      <form className={clsx(customClasses?.container)} onSubmit={handleSubmit}>
         {!isFetchFinished ? (
           <LinearProgress />
         ) : (
@@ -555,18 +518,18 @@ const PaymentStripeCard = forwardRef(
             <Typography variant="h6">
               {t(
                 `payment:forms.savePaymentMethod.${
-                  addPaymentMethod ? 'add' : 'select'
+                  isAddingPaymentMethod ? 'add' : 'select'
                 }`,
               )}
             </Typography>
-            {addPaymentMethod && cardBillingDetailsMandatory && (
+            {isAddingPaymentMethod && cardBillingDetailsMandatory && (
               <CardBillingDetailsForm
                 billingDetails={billingDetails}
-                disabled={!stripe || !clientSecret || processing}
+                disabled={!stripe || !clientSecret || isProcessing}
                 setBillingDetails={setBillingDetails}
               />
             )}
-            {addPaymentMethod && (
+            {isAddingPaymentMethod && (
               <>
                 {!hasAddPaymentMethodPermission ? (
                   <Typography>
@@ -576,7 +539,33 @@ const PaymentStripeCard = forwardRef(
                   </Typography>
                 ) : (
                   <div>
-                    <CardSection error={error} />
+                    <div className={classes.cardSectionContainer}>
+                      <PaymentElement
+                        options={{
+                          layout: 'tabs',
+                          wallets: {
+                            applePay: 'never',
+                            googlePay: 'never',
+                          },
+                          defaultValues: {
+                            billingDetails: {
+                              name: userDefaultName,
+                              email: userDefaultEmail,
+                            },
+                          },
+                        }}
+                      />
+                      {error &&
+                        error.code &&
+                        !STRIPE_CARD_ERROR_CODES.includes(error.code) &&
+                        !STRIPE_CARD_ERROR_CODES.includes(
+                          error.decline_code!,
+                        ) && (
+                          <Typography color="error" variant="caption">
+                            {error.message}
+                          </Typography>
+                        )}
+                    </div>
                     <div
                       className={clsx(
                         classes.saveAndDisplay,
@@ -666,15 +655,18 @@ const PaymentStripeCard = forwardRef(
                 )}
               </>
             )}
-            {!addPaymentMethod && !!error && (
-              <div style={{ margin: 8 }}>
-                <StripeErrorCode
-                  declineCode={error.decline_code}
-                  errorCode={error.error_code}
-                />
-              </div>
-            )}
-            {!addPaymentMethod && !!paymentMethodList.length && (
+            {!isAddingPaymentMethod &&
+              !!error &&
+              error.decline_code &&
+              error.code && (
+                <div style={{ margin: 8 }}>
+                  <StripeErrorCode
+                    declineCode={error.decline_code}
+                    errorCode={error.code}
+                  />
+                </div>
+              )}
+            {!isAddingPaymentMethod && !!paymentMethodList.length && (
               <div>
                 <PaymentMethodList
                   areInitialBillingDetailsNecessary={
@@ -725,7 +717,7 @@ const PaymentStripeCard = forwardRef(
                 <div className={classes.paddingTop1} />
                 <UseInternalAccountForm
                   creditAccountBalance={creditAccountBalance}
-                  loading={loading || processing || applyBalanceLoading}
+                  loading={loading || isProcessing || applyBalanceLoading}
                   onBasketSubmit={useInternalAccount}
                   onInvoiceSubmit={applyBalanceToInvoice}
                 />
@@ -751,7 +743,7 @@ const PaymentStripeCard = forwardRef(
                       customClasses?.actionRow,
                     )}
                   >
-                    {processing ? (
+                    {isProcessing ? (
                       <CircularProgress />
                     ) : (
                       <React.Fragment>
@@ -764,7 +756,7 @@ const PaymentStripeCard = forwardRef(
                           {t('paymentPanel.actions.confirmPayment')}
                         </Button>
                         {onCancel ? (
-                          <Button disabled={processing} onClick={onCancel}>
+                          <Button disabled={isProcessing} onClick={onCancel}>
                             {t('paymentPanel.actions.cancel')}
                           </Button>
                         ) : (
@@ -781,8 +773,8 @@ const PaymentStripeCard = forwardRef(
     );
   },
 );
+
 const useStyles = makeStyles((theme) => ({
-  container: {},
   cardSectionContainer: {
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(2),

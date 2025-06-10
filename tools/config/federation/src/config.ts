@@ -203,6 +203,7 @@ export const getConfig = (config: {
 
   const server: ServerOptions = {
     port: devPort,
+    strictPort: true,
   };
 
   const preview: PreviewOptions = {

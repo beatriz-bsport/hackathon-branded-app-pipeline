@@ -70,7 +70,7 @@ const DatePicker: React.FC<DatePickerProps> = ({
     } else if (mode === "range" && !Array.isArray(selectedDate)) {
       setSelectedDate([null, null]);
     }
-  }, [mode]);
+  }, [mode, selectedDate]);
 
   const getSanitizedDate = useCallback(
     (value: SelectedDate): SelectedDate => {

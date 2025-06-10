@@ -35,7 +35,8 @@ import type {
   Establishment,
   EstablishmentBillingGroup,
 } from '../../establishment/types';
-import type { OptionCallback } from '../../../state/types';
+import type { OptionCallback } from '#src/state/types';
+import type { StripePaymentElementConfig } from '#src/libs/company/types';
 
 type Props = {
   adjustCreditWithoutPaymentNote: (c: number) => void;
@@ -79,7 +80,7 @@ type Props = {
   showPositiveBalance?: boolean;
   snackbarErrorMsg: (msg: string) => void;
   snackbarSuccessMsg: (msg: string) => void;
-  stripeId: string | null;
+  stripePaymentElementConfig: StripePaymentElementConfig;
   stripeReaders: StripeReader[];
   unpaidInvoiceList: Array<Invoice>;
   bsportPaymentMethodsToDisable?: number[];
@@ -120,7 +121,7 @@ export const MemberBillingProblemCard: React.FC<Props> = ({
   showPositiveBalance,
   snackbarErrorMsg,
   snackbarSuccessMsg,
-  stripeId,
+  stripePaymentElementConfig,
   stripeReaders,
   unpaidInvoiceList,
   bsportPaymentMethodsToDisable,
@@ -544,7 +545,7 @@ export const MemberBillingProblemCard: React.FC<Props> = ({
                 requestClientSecret={requestClientSecret}
                 snackbarErrorMsg={snackbarErrorMsg}
                 snackbarSuccessMsg={snackbarSuccessMsg}
-                stripeId={stripeId}
+                stripePaymentElementConfig={stripePaymentElementConfig}
                 stripeReaders={stripeReaders}
               />
             )}

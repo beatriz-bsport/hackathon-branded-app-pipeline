@@ -26,6 +26,7 @@ type ColumnType =
   | "custom"
   | "string"
   | "number"
+  | "price"
   | "date"
   | "datetime"
   | "time"

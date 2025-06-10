@@ -23,19 +23,20 @@ import {
   fetchCurrentTemplateMetadata,
 } from '#src/libs/email-editor/actions';
 
-import EmailEditorPanel from '#src/libs/email-editor/components/EmailEditor.component';
+import EmailEditorPanel, {
+  SaveEmailsParameters,
+} from '#src/libs/email-editor/components/EmailEditor.component';
 import { fetchTagList } from '#src/libs/notification-rule/actions';
 import { getTagCategories } from '#src/libs/notification-rule/selectors';
 
 import { EmailTemplate } from '#src/libs/email-editor/types';
 import { rudderStackFormTrackingFunctionsRegistry } from '#src/components/analytics/rudderstack/utils';
 import { SegmentAnalyticsFormObjectIdentifier } from '#src/components/analytics/segment';
-import { RootState } from '../../reducers';
-import { DrawerContext, DrawerContextValue } from '../../context';
-import withTitle from '../../hocs/with-title.hoc';
-import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
-import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
-import { OptionCallback } from '../../state/types';
+import { RootState } from '#src/reducers';
+import { DrawerContext, DrawerContextValue } from '#src/context';
+import withTitle from '#src/hocs/with-title.hoc';
+import LinearProgress from '#src/components/navigation/BackofficeLinearProgress.component';
+import routerParamsToProps from '#src/hocs/router-params-to-props.hoc';
 
 const { trackFormAdd, trackFormSuccess } =
   rudderStackFormTrackingFunctionsRegistry(
@@ -70,17 +71,12 @@ export class MarketingEmail extends Component<Props> {
     this.props.fetchCurrentTemplateMetadata(this.props.id);
   }
 
-  onSave = (
-    id: number,
-    data: EmailTemplate,
-    availableCompanies?: number[],
-    options?: OptionCallback,
-  ) => {
+  onSave = ({ id, data, options }: SaveEmailsParameters) => {
     if (this.props.create === 1) {
       this.props.emailDesignCreate(
         {
           ...data,
-          company_id: this.props.company_id,
+          company_id: this.props.companyId,
         },
         {
           onSuccess: () => {
@@ -94,11 +90,15 @@ export class MarketingEmail extends Component<Props> {
       );
       this.props.goToList();
     } else {
+      if (!id || !data) {
+        this.props.snackbarError('No data found to save');
+        return;
+      }
       this.props.emailTemplateUpdate(
         id,
         {
           ...data,
-          company_id: this.props.company_id,
+          company_id: this.props.companyId,
         },
         {
           onSuccess: () => {
@@ -114,12 +114,12 @@ export class MarketingEmail extends Component<Props> {
     }
   };
 
-  onAutoSave = (
-    id: number,
-    data: any,
-    availableCompanies?: number[],
-    options?: OptionCallback,
-  ) => {
+  onAutoSave = ({ id, data, options }: SaveEmailsParameters) => {
+    if (!id || !data) {
+      this.props.snackbarError('No data found to save');
+      return;
+    }
+
     this.props.emailTemplateUpdate(id, data, {
       // @ts-expect-error
       onSuccess: options?.onSuccess,
@@ -131,19 +131,23 @@ export class MarketingEmail extends Component<Props> {
     if (this.props.loading || !this.props.email_templates_details) {
       return <LinearProgress />;
     }
+
+    const emailTemplateToEdit: EmailTemplate = {
+      ...this.props.email_templates_summaries[this.props.id],
+      ...this.props.email_templates_details[this.props.id],
+    };
     return (
       <DrawerContext.Consumer>
         {(context: DrawerContextValue) => (
           <EmailEditorPanel
             autoSaveEnabled
             autoSaveEmail={this.onAutoSave}
-            company_name={this.props.company_name}
+            companyEmail={this.props.companyEmail}
+            companyId={this.props.companyId}
+            companyName={this.props.companyName}
             displayEmptyError={this.props.snackbarError}
             emailTemplateCategories={this.props.emailTemplateCategories}
-            emailToEdit={{
-              ...this.props.email_templates_summaries[this.props.id],
-              ...this.props.email_templates_details[this.props.id],
-            }}
+            emailToEdit={emailTemplateToEdit}
             goToList={this.props.goToList}
             hideLeftMenuAction={context.hideLeftMenuAction}
             relatedNotificationRuleEvents={
@@ -164,8 +168,9 @@ const mapStateToProps = (state: RootState) => ({
   email_templates_details: getEmailTemplatesDetail(state),
   email_templates_summaries: getAllEmailTemplatesDict(state),
   loading: state.emailTemplate.detail.loading,
-  company_id: state.theme.theme.company,
-  company_name: state.theme.theme.company_name,
+  companyId: state.theme.theme.company,
+  companyName: state.theme.theme.company_name,
+  companyEmail: state.auth.username,
   tagCategories: getTagCategories(state),
   hasBeenLoadedOnce: state.emailTemplate.hasBeenLoadedOnce,
   emailTemplateCategories: getEmailTemplateCategories(state),

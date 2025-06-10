@@ -21,6 +21,8 @@ exports.default = {
       filter: {
         title: "Filter",
         category: "Category",
+        is: "Is",
+        isNot: "Is not",
       },
       duplicate: {
         title: "Duplicate activity",

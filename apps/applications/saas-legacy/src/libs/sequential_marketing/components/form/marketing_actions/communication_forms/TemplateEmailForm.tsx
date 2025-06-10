@@ -67,6 +67,7 @@ const TemplateEmailForm: React.FC<Props> = ({
   return (
     <CommunicationSelectTemplate
       currentTitle={actionSpec?.subject}
+      elementContext="body"
       emailDetailList={emailDetailList}
       fetchEmailSummaryList={fetchEmailSummaryList}
       selectedTemplate={actionSpec?.email_design}

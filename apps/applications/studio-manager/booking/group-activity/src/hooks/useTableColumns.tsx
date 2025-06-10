@@ -2,6 +2,7 @@ import capitalize from "lodash/capitalize";
 
 import {
   Avatar,
+  Body,
   Chip,
   GenericTableColumn,
 } from "@bsport/kaizen-primitive-core";
@@ -24,6 +25,7 @@ const useTableColumns = <
       keyPath: "name",
       type: "custom",
       render: (item: RowType) => {
+        const name = capitalize(item.name);
         return (
           <div className="flex flex-row items-center gap-sm">
             <Avatar
@@ -32,7 +34,13 @@ const useTableColumns = <
               size="md"
               src={item.cover_main}
             />
-            <div>{capitalize(item.name)}</div>
+            <Body
+              htmlVariant="p"
+              title={name}
+              className="max-w-[180px] truncate"
+            >
+              {name}
+            </Body>
           </div>
         );
       },

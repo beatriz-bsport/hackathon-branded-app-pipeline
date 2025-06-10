@@ -35,14 +35,17 @@
                 "addTemplate": "Create template",
                 "delete": "Delete",
                 "duplicate": "Duplicate",
-                "pinToTop": "Pin to top",
                 "preview": "Preview",
-                "rename": "Rename"
+                "rename": "Rename",
+                "undo": {
+                    "success": "Action undone",
+                    "error": "An error occurred while undoing the action"
+                }
             },
             "hover": {
-                "pin": "Pin this template to appear on the top of the list",
-                "unpin": "Unpin this template",
                 "preview": "Preview template",
+                "duplicate": "Duplicate template",
+                "delete": "Delete template",
                 "moreActions": "More actions"
             },
             "bsportTemplateInfo": {
@@ -65,12 +68,22 @@
                 "onSuccess": {
                     "title": "Your email template was created",
                     "action": "Open"
+                },
+                "onFailure": {
+                    "title": "An error occurred when creating your email template."
+                },
+                "errors": {
+                    "name": "Cannot create a template: template name not valid"
                 }
+            },
+            "previewEmailTemplateModal": {
+                "confirmButton": "Edit",
+                "cancelButton": "Close"
             },
             "duplicateTemplateModal": {
                 "title": "Duplicate email template",
                 "description": {
-                    "firstStep": "Duplicate",
+                    "firstStep": "Duplicate <b>{{emailTemplateTitle}}</b>?",
                     "secondStep": "You can edit the email template afterwards."
                 },
                 "confirmButton": "Duplicate",
@@ -78,12 +91,15 @@
                 "onSuccess": {
                     "title": "Your email template was duplicated",
                     "action": "Open"
+                },
+                "onFailure": {
+                    "title": "An error occurred when duplicating your email template."
                 }
             },
             "deleteTemplateModal": {
                 "title": "Delete email template",
                 "description": {
-                    "firstStep": "Do you want to delete",
+                    "firstStep": "Do you want to delete <b>{{emailTemplateTitle}}</b>?",
                     "secondStep": "Deleting this template will also remove it for any transactional email(s) that it has been linked to. Are you sure that you want to delete this email template?"
                 },
                 "confirmButton": "Delete",
@@ -91,6 +107,9 @@
                 "onSuccess": {
                     "title": "Your email template was deleted",
                     "action": "Undo"
+                },
+                "onFailure": {
+                    "title": "An error occurred when deleting your email template."
                 }
             },
             "createCategoryModal": {
@@ -102,7 +121,13 @@
                 "confirmButton": "Create",
                 "cancelButton": "Cancel",
                 "onSuccess": {
-                    "title": "{{categoryName}} successfully created"
+                    "title": "Your category was created"
+                },
+                "onFailure": {
+                    "title": "An error occurred when creating your category."
+                },
+                "errors": {
+                    "name": "Cannot create a category: category name not valid"
                 }
             },
             "renameCategoryModal": {
@@ -114,26 +139,33 @@
                 "confirmButton": "Rename",
                 "cancelButton": "Cancel",
                 "onSuccess": {
-                    "title": "Your category has been renamed : {{newCategoryName}}",
+                    "title": "Your category was renamed",
                     "action": "Undo"
+                },
+                "onFailure": {
+                    "title": "An error occurred when renaming your category."
                 }
             },
             "deleteCategoryModal": {
                 "title": "Delete category",
                 "description": {
-                    "firstStep": "Do you want to delete",
+                    "firstStep": "Do you want to delete <b>{{categoryName}}</b>?",
                     "secondStep": "All items under this category will be moved to the no category section"
                 },
                 "confirmButton": "Delete",
                 "cancelButton": "Cancel",
                 "onSuccess": {
-                    "title": "{{categoryName}} has been deleted",
+                    "title": "Your category was deleted",
                     "action": "Undo"
+                },
+                "onFailure": {
+                    "title": "An error occured when deleting your category."
                 }
             },
-            "emailPreviewModal": {
-                "confirmButton": "Edit",
-                "cancelButton": "Close"
+            "restoreEmailTemplateAction": {
+                "onFailure": {
+                    "title": "An error occured when restoring your email template."
+                }
             }
         }
     }

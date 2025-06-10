@@ -333,12 +333,3 @@ export const FILTERABLE_BILLING_PLAN_PRODUCT_TYPE_OPTIONS: {
     datatypeFiltering: 'payment_combo',
   },
 ];
-
-export const CURSOR_PAGINATED_CATEGORIES = [
-  ReportCategoryEnum.PAYMENTS,
-  ReportCategoryEnum.MEMBERSHIPS,
-  ReportCategoryEnum.UNIVERSAL_PASSES,
-  ReportCategoryEnum.EXPIRED_PASS,
-  ReportCategoryEnum.FIRST_ATTENDANCE,
-  ReportCategoryEnum.FIRST_BOOKING,
-] as const;

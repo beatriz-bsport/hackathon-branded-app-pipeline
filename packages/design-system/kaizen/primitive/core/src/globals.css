@@ -12,15 +12,22 @@
   }
 
   /* TODO: Find a firefox solution to hide the calendar icon */
-  input[type="date"] {
+  input[type="date"],
+  input[type="time"] {
     text-transform: uppercase;
+  }
 
-    &::-webkit-datetime-edit-fields-wrapper {
-      padding-right: var(--kz-sizing-xs);
-    }
+  input[type="date"]::-webkit-datetime-edit-fields-wrapper,
+  input[type="time"]::-webkit-datetime-edit-fields-wrapper {
+    padding: 0;
+  }
 
-    &::-webkit-calendar-picker-indicator {
-      display: none;
-    }
+  input[type="date"]::-webkit-calendar-picker-indicator,
+  input[type="time"]::-webkit-calendar-picker-indicator {
+    display: none;
+  }
+
+  input[type="time"]::-webkit-datetime-edit {
+    text-align: center;
   }
 }

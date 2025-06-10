@@ -23,3 +23,6 @@ export const filterElementBtnClasses = [
   "cursor-pointer",
   "border-stroke-thin border-[transparent]",
 ];
+
+// TODO: This has been fixed to 500px for now, but we should validate this with design.
+export const FILTER_MENU_MAX_HEIGHT = 500;

@@ -78,6 +78,11 @@ export type StripeAccountStatus = {
   date_account_blocked: string;
 };
 
+export type StripePaymentElementConfig = {
+  isDefaultForRegion: boolean;
+  stripeId: string | null;
+};
+
 export type PayPalCompany = {
   account_primary_email: string;
   account_legal_name: string;

@@ -1,14 +1,11 @@
 import { useCallback } from "react";
-import { useNavigate } from "react-router";
 
-import { ROUTES } from "#src/pages/routes";
+import { LEGACY_ROUTES } from "#src/urls";
 
 export const useGiftcardNavigation = () => {
-  const navigate = useNavigate();
-
   const navigateToGiftcardDetail = useCallback((giftcardId: number) => {
-    /** @todo Finalize routing when the routes have been fixed */
-    navigate(`${ROUTES.ACTIVE}/${giftcardId}`);
+    /** @todo When switching to revamped details page, use navigate from react-router */
+    window.location.href = LEGACY_ROUTES.DETAILS(giftcardId);
   }, []);
 
   return {

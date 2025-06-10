@@ -8,31 +8,31 @@ import Typography from '@material-ui/core/Typography';
 import CheckIcon from '@material-ui/icons/Check';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import type { Theme } from '@material-ui/core/styles';
-import { compose, withState, withProps, withHandlers } from 'recompose';
+import { compose, withHandlers, withProps, withState } from 'recompose';
 import { connect, ConnectedProps } from 'react-redux';
 import ALL_ERROR_CODES from '@bsport/common/lib/master-data/error-codes/buyable-item-can-not-be-bought.js';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import {
   PAYMENT_ENGINE_STRIPE,
-  PAYMENT_INTENT_TYPE_BASKET,
   PAYMENT_INTENT_STATUS_SUCCESS,
+  PAYMENT_INTENT_TYPE_BASKET,
 } from '@bsport/common/lib/master-data/payment-group.js';
 import {
   checkItemsBasket as checkItemsBasketAPI,
-  verifyPriceBasket as verifyPriceBasketAPI,
   createPendingBookings as createPendingBookingsAPI,
   invalidatePendingBookings as invalidatePendingBookingsAPI,
+  verifyPriceBasket as verifyPriceBasketAPI,
 } from '#src/libs/payment/api';
 import routerParamsToProps from '#src/hocs/router-params-to-props.hoc';
 import {
-  fetchBasket as fetchBasketAction,
+  assignInstalmentPayment as assignInstalmentPaymentAction,
   attachPaymentToBasketId as attachPaymentAction,
   createOrRefreshInternalAccountPrepaidLine as createOrRefreshInternalAccountPrepaidLineAction,
-  assignInstalmentPayment as assignInstalmentPaymentAction,
+  fetchBasket as fetchBasketAction,
 } from '#src/libs/checkout/actions';
 import {
-  fetchPaymentMethodList,
   fetchPaymentGroupStatus as fetchPaymentGroupStatusAction,
+  fetchPaymentMethodList,
 } from '#src/libs/payment/actions';
 import { fetchCompanyTheme } from '#src/libs/theme/actions';
 import { getSavedPaymentMethodList } from '#src/libs/payment/selectors';
@@ -66,9 +66,9 @@ import { validateUnpaid as validateUnpaidAPI } from '#src/libs/checkout/api';
 import { fetchInstalmentPaymentByBasket as fetchInstalmentPaymentByBasketAction } from '#src/libs/instalment-payment-configuration/actions';
 
 import {
-  snackbarWarning,
-  snackbarSuccess,
   snackbarError,
+  snackbarSuccess,
+  snackbarWarning,
 } from '#src/libs/snackbar/actions';
 import { getInstalmentForBasketList } from '#src/libs/instalment-payment-configuration/selectors';
 import { InstalmentPayment } from '#src/libs/instalment-payment-configuration/types';
@@ -94,13 +94,13 @@ import asyncComponent from '../../AsyncComponent';
 import withQueryParams from '../../hocs/with-query-params.hoc';
 import { MaterialStyleType } from '#src/utils/types';
 import {
-  USER_REGISTRATION_RESPONSE_QUERY_PARAM,
   USER_REGISTRATION_RESPONSE_LOCAL_STORAGE_KEY,
+  USER_REGISTRATION_RESPONSE_QUERY_PARAM,
 } from '#src/libs/payment/constants';
 import {
   BASKET_INCONSISTENT,
-  PAYMENT_PACK_CAN_NOT_BOOK_ALL_OFFERS,
   PAYMENT_COMBO_CAN_NOT_BOOK_ALL_OFFERS,
+  PAYMENT_PACK_CAN_NOT_BOOK_ALL_OFFERS,
 } from '#src/libs/checkout/constants';
 import Alert from '@material-ui/lab/Alert';
 
@@ -148,12 +148,14 @@ type State = {
   clientSecret: string | null;
   selfProcessing: boolean;
   paymentGroupId: number;
+  paymentGroupPriceCts: number;
   isEstablishmentBillingGroupSelected: boolean;
   selectedEstablishmentBillingGroup: EstablishmentBillingGroup;
   hideEstablishmentBillingGroupSelector: boolean;
   stripePromise: StripeInit | null;
   paymentEngine: number;
 };
+
 export class BasketPaymentIntent extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
@@ -163,6 +165,7 @@ export class BasketPaymentIntent extends React.Component<Props, State> {
       clientSecret: null,
       selfProcessing: false,
       paymentGroupId: null,
+      paymentGroupPriceCts: null,
       isEstablishmentBillingGroupSelected: true,
       selectedEstablishmentBillingGroup: null,
       hideEstablishmentBillingGroupSelector: false,
@@ -305,6 +308,7 @@ export class BasketPaymentIntent extends React.Component<Props, State> {
           this.setState({
             clientSecret: r.data.client_secret,
             paymentGroupId: r.data.payment_group,
+            paymentGroupPriceCts: r.data.price_cts,
             clientSecretLoading: false,
           });
         }
@@ -643,6 +647,7 @@ export class BasketPaymentIntent extends React.Component<Props, State> {
             onSuccess={this.onSuccess}
             paymentEngine={this.state.paymentEngine}
             paymentGroupId={this.state.paymentGroupId}
+            paymentGroupPriceCts={this.state.paymentGroupPriceCts}
             paymentMethodChoices={
               this.state.theme.payment_method_available_basket || []
             }
@@ -661,7 +666,10 @@ export class BasketPaymentIntent extends React.Component<Props, State> {
               this.setSelectedEstablishmentBillingGroup
             }
             snackbarErrorMsg={this.props.snackbarErrorMsg}
-            stripeId={this.state.theme.stripe_id}
+            stripePaymentElementConfig={{
+              isDefaultForRegion: this.state.theme.is_default_for_region,
+              stripeId: this.state.theme.stripe_id,
+            }}
             stripePromise={this.state.stripePromise}
             updateMemberBillingGroup={this.updateMemberBillingGroup}
             useInternalAccount={this.props.useInternalAccount}

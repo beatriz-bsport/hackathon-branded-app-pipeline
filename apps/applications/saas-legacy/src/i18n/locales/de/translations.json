@@ -3864,15 +3864,15 @@
                     }
                 },
                 "myClub": {
-                    "_label": "Mein Klub",
+                    "_label": "Mein Studio",
                     "appointments": {
-                        "_label": "Termin"
+                        "_label": "Termine"
                     },
                     "teachers": {
                         "_label": "Lehrkräfte"
                     },
                     "establishments": {
-                        "_label": "Einrichtung"
+                        "_label": "Einrichtungen"
                     },
                     "programs": {
                         "_label": "Programme"
@@ -3905,7 +3905,7 @@
                     "_label": "Tutorials"
                 },
                 "inbox": {
-                    "_label": "Posteingang"
+                    "_label": "Inbox"
                 },
                 "accessMonitoring": {
                     "perform": {
@@ -3961,7 +3961,7 @@
                 "ledger": {
                     "_label": "Kassenbuch"
                 },
-                "_label": "Appbar-Aktionen",
+                "_label": "Aktionen in oberer Navigationsleiste",
                 "communicationAlerts": {
                     "_label": "Benachrichtigung"
                 }
@@ -9394,8 +9394,8 @@
             "max_remuneration": "Maximum",
             "min_remuneration": "Minimum",
             "remunerationLimits": "Vergütungsgrenzen",
-            "differentRemunerationForCancellation": "Andere Beträge für Verspätungen und nicht fristgerechte Absagen vergüten ",
-            "addRemunerationOnCancellation": "Lehrkräfte bei Verspätungen oder nicht fristgerechten Absagen vergüten",
+            "differentRemunerationForCancellation": "Andere Beträge für Nicht-Erscheinen und nicht fristgerechte Absagen vergüten ",
+            "addRemunerationOnCancellation": "Lehrkräfte bei Nicht-Erscheinen oder nicht fristgerechten Absagen vergüten",
             "percentage_base": "Prozentsatz der Buchungsmarge hinzufügen",
             "base_remuneration_helper": "Die Lehrkräfte erhalten dies immer als Vergütung für ihre Unterrichtseinheit.",
             "base_remuneration": "Basis fixe",
@@ -21294,7 +21294,7 @@
             "taxes": "Steuern",
             "totalIncludingTax": "Gesamt",
             "payment": "Bezahlung",
-            "selectItemToStart": "Klicken Sie auf ein Objekt, um einen Warenkorb zu beginnen",
+            "selectItemToStart": "Klicke auf ein Objekt, um einen Warenkorb zu beginnen",
             "memberModal": {
                 "title": "Identifikation des Mitglieds",
                 "confirm": "Registrieren",

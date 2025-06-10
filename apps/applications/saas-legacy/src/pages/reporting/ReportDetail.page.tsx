@@ -194,7 +194,6 @@ const ReportingDetail: React.FC<Props> = ({
         reportCategoryMetadata?.time_window_filtering_enabled
           ? { time_window_end }
           : {}),
-        page: values.page || 1,
         ...(values.reportFilterConfigId || advancedReportFilterConfig
           ? {
               report_filter_config_id:

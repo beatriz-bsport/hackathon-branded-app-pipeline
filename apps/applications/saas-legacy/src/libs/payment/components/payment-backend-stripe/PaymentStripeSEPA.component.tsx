@@ -1,176 +1,72 @@
-import React, { useImperativeHandle, forwardRef } from 'react';
+import React, {
+  ChangeEvent,
+  forwardRef,
+  useCallback,
+  useContext,
+  useEffect,
+  useImperativeHandle,
+  useState,
+} from 'react';
+
 import clsx from 'clsx';
-import { makeStyles, Theme } from '@material-ui/core/styles';
+// eslint-disable-next-line bsport/no-redux-in-component
+import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import AddIcon from '@material-ui/icons/Add';
-import Button from '@material-ui/core/Button';
-import ButtonBase from '@material-ui/core/ButtonBase';
-import Checkbox from '@material-ui/core/Checkbox';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import Info from '@material-ui/icons/Info';
-import TextField from '@material-ui/core/TextField';
-import Typography from '@material-ui/core/Typography';
-/**
- * Use the CSS tab above to style your Element's container.
- */
-import { PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA } from '@bsport/common/lib/master-data/payment-group.js';
-import { useStripe, useElements, IbanElement } from '@stripe/react-stripe-js';
+
+import {
+  PaymentElement,
+  useElements,
+  useStripe,
+} from '@stripe/react-stripe-js';
 import { StripeError } from '@stripe/stripe-js';
 
 import {
+  Button,
+  ButtonBase,
+  Checkbox,
+  CircularProgress,
+  LinearProgress,
+  makeStyles,
+  Theme,
+  Typography,
+} from '@material-ui/core';
+import AddIcon from '@material-ui/icons/Add';
+import Info from '@material-ui/icons/Info';
+
+import { PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA } from '@bsport/common/lib/master-data/payment-group.js';
+
+import { STRIPE_SEPA_ERROR_CODES } from '#src/libs/payment/constants';
+import type { PaymentMethod } from '#src/libs/payment/types';
+
+import {
+  blockPendingBasket as blockPendingBasketAPI,
   fetchPaymentMethodList as fetchPaymentMethodListAPI,
   verifyPriceBasket as verifyPriceBasketAPI,
-  blockPendingBasket as blockPendingBasketAPI,
 } from '#src/libs/payment/api';
+import { confirmStripePayment as confirmStripePaymentAction } from '#src/libs/payment/payment-module-revamped/actions';
+
 import CheckoutContext from '#src/pages/checkout/basket/CheckoutContext';
 import PaymentMethodList from '#src/libs/payment/components/payment-method-list/PaymentMethodList.component';
 import PopOver from '#src/components/Popover';
-import StripeErrorCode from '#src/libs/payment/components/payment-backend-stripe/StripeErrorCode.component';
 import UseInternalAccountForm from '#src/libs/payment/components/UseInternalAccountForm.component';
-
-// Custom styling can be passed as options when creating an Element.
-const IBAN_STYLE = {
-  base: {
-    color: '#32325d',
-    fontSize: '16px',
-    ':-webkit-autofill': {
-      color: '#32325d',
-    },
-  },
-  invalid: {
-    color: '#fa755a',
-    iconColor: '#fa755a',
-    ':-webkit-autofill': {
-      color: '#fa755a',
-    },
-  },
-};
-
-const IBAN_ELEMENT_OPTIONS = {
-  supportedCountries: ['SEPA'],
-  // Elements can use a placeholder as an example IBAN that reflects
-  // the IBAN format of your customer's country. If you know your
-  // customer's country, we recommend that you pass it to the Element as the
-  // placeholderCountry.
-  placeholderCountry: 'FR',
-  style: IBAN_STYLE,
-};
-
-interface BillingDetails {
-  name: string;
-  email: string;
-  address: { line1: string; country: string };
-}
-
-type PropsIban = {
-  withAddress: boolean | null;
-  disabled: boolean;
-  processing: boolean;
-  isActive: boolean;
-  error?: StripeError;
-  billingDetails: BillingDetails;
-  setBillingDetails: (billingdetails: BillingDetails) => void;
-};
-
-const IbanForm: React.FC<PropsIban> = ({
-  withAddress,
-  disabled,
-  processing,
-  isActive,
-  error,
-  billingDetails,
-  setBillingDetails,
-}) => {
-  const { t } = useTranslation(['invoice']);
-  const isCheckoutContext = React.useContext(CheckoutContext);
-  const classes = useStyles({ isCheckoutContext });
-
-  return (
-    <div>
-      <div className={classes.nameAndEmailContainer}>
-        <TextField
-          fullWidth
-          disabled={disabled}
-          onChange={(ev) => {
-            const { value } = ev.target;
-            setBillingDetails({
-              ...billingDetails,
-              name: value,
-            });
-          }}
-          placeholder={t('mandate.name')}
-          required={isActive}
-          value={billingDetails.name}
-          variant="outlined"
-        />
-        <TextField
-          fullWidth
-          disabled={disabled}
-          onChange={(ev) => {
-            const { value } = ev.target;
-            setBillingDetails({
-              ...billingDetails,
-              email: value,
-            });
-          }}
-          placeholder={t('mandate.email')}
-          required={isActive}
-          type="email"
-          value={billingDetails.email}
-          variant="outlined"
-        />
-        {withAddress && (
-          <TextField
-            fullWidth
-            required
-            onChange={(ev) => {
-              const { value } = ev.target;
-              setBillingDetails({
-                ...billingDetails,
-                address: {
-                  ...billingDetails.address,
-                  line1: value,
-                },
-              });
-            }}
-            placeholder={t('mandate.address_line_1')}
-            value={billingDetails.address.line1}
-            variant="outlined"
-          />
-        )}
-      </div>
-      <div style={processing ? { display: 'none' } : {}}>
-        <div className={classes.sensitiveDataContainer}>
-          <div className={classes.sensitiveData}>
-            <IbanElement options={IBAN_ELEMENT_OPTIONS} />
-            {!!error && (
-              <StripeErrorCode
-                declineCode={error.decline_code}
-                errorCode={error.code}
-              />
-            )}
-          </div>
-        </div>
-      </div>
-      <div className={classes.mandate}>
-        <Typography color="textSecondary">
-          {t('mandate.contentIban')}
-        </Typography>
-      </div>
-    </div>
-  );
-};
 
 type PaymentStripeSEPAProps = {
   AcceptTermsAndConditionsComponent?: React.Component;
   allowConsumerToUseInternalAccount?: boolean;
   applyBalanceLoading?: boolean;
+  applyBalanceToInvoice?: () => void;
   basketId?: string;
   basketTotalPriceCts?: number;
+  checkItemsBasket: (basketId: string) => Promise<boolean>;
   children?: React.ReactNode;
   clientSecret: string;
+  companyCountry?: string;
   creditAccountBalance?: number | null;
+  createPendingBookingsIfNecessary?: (data?: {
+    payment_group_method_identifier?: number;
+  }) => void;
   customClasses?: { [className: string]: string };
+  detachPaymentMethod: (paymentMetodId: string) => void;
   detachPaymentMethodLoading: boolean;
   forceButtonDisplay?: boolean;
   forceDisabled?: boolean;
@@ -178,25 +74,22 @@ type PaymentStripeSEPAProps = {
   forceSave?: boolean;
   hasAddPaymentMethodPermission?: boolean;
   hideSaveForLater?: boolean;
+  invalidatePendingBookingsIfNecessary?: () => void;
   isEstablishmentBillingGroupSelected?: boolean;
   loading?: boolean;
   memberId?: number;
-  termsAndConditionsAccepted: boolean;
-  userDefaultEmail?: string;
-  userDefaultName?: string;
-  applyBalanceToInvoice?: () => void;
-  checkItemsBasket: (basketId: string) => Promise<boolean>;
-  createPendingBookingsIfNecessary?: (data?: {
-    payment_group_method_identifier?: number;
-  }) => void;
-  detachPaymentMethod: (paymentMetodId: string) => void;
   onCancel: () => void;
   onError?: () => void;
+  onSaveForLaterChange?: (event: ChangeEvent<HTMLInputElement>) => void;
   onSuccess: (callback: () => void) => void;
+  paymentGroupId: number;
+  saveForLater?: boolean;
   setIsOnlinePaymentDisabled?: (isLoading: boolean) => void;
   setPaymentProcessing: (processing: boolean) => void;
+  termsAndConditionsAccepted: boolean;
   useInternalAccount?: (amount: number) => void;
-  invalidatePendingBookingsIfNecessary?: () => void;
+  userDefaultEmail?: string;
+  userDefaultName?: string;
 };
 
 export const PaymentStripeSEPA = forwardRef(
@@ -205,12 +98,17 @@ export const PaymentStripeSEPA = forwardRef(
       AcceptTermsAndConditionsComponent,
       allowConsumerToUseInternalAccount,
       applyBalanceLoading,
+      applyBalanceToInvoice,
       basketId,
       basketTotalPriceCts,
+      checkItemsBasket,
       children,
       clientSecret,
+      companyCountry,
+      createPendingBookingsIfNecessary,
       creditAccountBalance,
       customClasses,
+      detachPaymentMethod,
       detachPaymentMethodLoading,
       forceButtonDisplay,
       forceDisabled,
@@ -218,130 +116,83 @@ export const PaymentStripeSEPA = forwardRef(
       forceSave,
       hasAddPaymentMethodPermission = true,
       hideSaveForLater,
+      invalidatePendingBookingsIfNecessary,
       isEstablishmentBillingGroupSelected,
       loading,
       memberId,
-      termsAndConditionsAccepted,
-      userDefaultEmail,
-      userDefaultName,
-      applyBalanceToInvoice,
-      checkItemsBasket,
-      createPendingBookingsIfNecessary,
-      detachPaymentMethod,
       onCancel,
       onError,
+      onSaveForLaterChange,
       onSuccess,
+      paymentGroupId,
+      saveForLater,
       setIsOnlinePaymentDisabled,
       setPaymentProcessing,
+      termsAndConditionsAccepted,
       useInternalAccount,
-      invalidatePendingBookingsIfNecessary,
+      userDefaultEmail,
+      userDefaultName,
     }: PaymentStripeSEPAProps,
     ref,
   ) => {
-    const isCheckoutContext = React.useContext(CheckoutContext);
+    const isCheckoutContext = useContext(CheckoutContext);
     const classes = useStyles({ isCheckoutContext });
     const { t } = useTranslation(['invoice', 'payment']);
+    const dispatch = useDispatch();
 
     const stripe = useStripe();
     const elements = useElements();
 
-    const [error, setError] = React.useState(null);
-    const [processing, setProcessing] = React.useState(false);
+    const [isProcessing, setIsProcessing] = useState(false);
+    const [error, setError] = useState<StripeError | undefined>(undefined);
+    const [paymentMethodList, setPaymentMethodList] = useState<PaymentMethod[]>(
+      [],
+    );
+    const [paymentMethodSelected, setPaymentMethodSelected] = useState<
+      string | undefined
+    >(undefined);
+    const [hasDetached, setHasDetached] = useState<string | null>(null);
+    const [isAddingPaymentMethod, setIsAddingPaymentMethod] = useState(false);
+    const [isFetchFinished, setIsFetchFinished] = useState(false);
 
-    const [saveForLater, setSaveForLater] = React.useState(false);
-    const [paymentMethodList, setPaymentMethodList] = React.useState([]);
-    const [paymentMethodSelected, setPaymentMethodSelected] =
-      React.useState(null);
-    const [hasDetached, setHasDetached] = React.useState(null);
-    const [addPaymentMethod, setAddPaymentMethod] = React.useState(true);
-
-    const setPaymentPageProcessing = React.useCallback(
+    const setPaymentPageProcessing = useCallback(
       (process) => {
         if (setPaymentProcessing) setPaymentProcessing(process);
-        setProcessing(process);
+        setIsProcessing(process);
       },
-      [setPaymentProcessing],
+      [setIsProcessing, setPaymentProcessing],
     );
 
-    React.useEffect(() => {
-      fetchPaymentMethodListAPI({ member: memberId }).then((r) =>
-        setPaymentMethodList(r.data.filter((pm) => pm.type === 'sepa_debit')),
-      );
-    }, [memberId, clientSecret, hasDetached]);
+    useEffect(() => {
+      const fetchPaymentMethods = async () => {
+        try {
+          const response = await fetchPaymentMethodListAPI({
+            member: memberId,
+          });
+          const sepaPaymentMethods = response.data.filter(
+            (pm) => pm.type === 'sepa_debit',
+          );
+          setPaymentMethodList(sepaPaymentMethods);
 
-    React.useEffect(() => {
-      setAddPaymentMethod(!paymentMethodList.length);
-      if (paymentMethodList.length) {
-        setPaymentMethodSelected(paymentMethodList[0].id);
-      }
-    }, [paymentMethodList]);
-
-    React.useEffect(() => {
-      if (addPaymentMethod) {
-        setPaymentMethodSelected(null);
-      }
-    }, [addPaymentMethod]);
-
-    const [billingDetails, setBillingDetails] = React.useState({
-      name: userDefaultName || '',
-      email: userDefaultEmail || '',
-      address: {
-        line1: '',
-        country: '',
-      },
-    });
-
-    const [needBillingDetailAddress, setNeedBillingDetailAddress] =
-      React.useState(false);
-
-    const iban = elements?.getElement(IbanElement);
-    const ibanElementExists = !!iban;
-    React.useEffect(() => {
-      if (iban) {
-        iban.on('change', (data) => {
-          if (
-            [
-              'AD',
-              'PF',
-              'TF',
-              'GI',
-              'GB',
-              'GG',
-              'VA',
-              'IM',
-              'JE',
-              'MC',
-              'NC',
-              'BL',
-              'PM',
-              'SM',
-              'CH',
-              'WF',
-            ].includes(data?.country)
-          ) {
-            setNeedBillingDetailAddress(true);
-            setBillingDetails({
-              ...billingDetails,
-              address: {
-                line1: billingDetails.address.line1,
-                country: data?.country,
-              },
-            });
+          if (sepaPaymentMethods.length > 0) {
+            setIsAddingPaymentMethod(false);
+            setPaymentMethodSelected(sepaPaymentMethods[0].id);
           } else {
-            setNeedBillingDetailAddress(false);
+            setIsAddingPaymentMethod(true);
+            setPaymentMethodSelected(undefined);
           }
-        });
-      }
-      return () => {
-        iban?.off('change');
+        } catch (fetchError) {
+          console.error('Failed to fetch payment methods:', fetchError);
+          setPaymentMethodList([]);
+          setIsAddingPaymentMethod(true);
+          setPaymentMethodSelected(undefined);
+        } finally {
+          setIsFetchFinished(true);
+        }
       };
-      // eslint-disable-next-line
-    }, [
-      ibanElementExists,
-      setNeedBillingDetailAddress,
-      setBillingDetails,
-      billingDetails,
-    ]);
+
+      fetchPaymentMethods();
+    }, [memberId, hasDetached]);
 
     const isSubmitButtonDisabled =
       forceDisabled ||
@@ -352,22 +203,26 @@ export const PaymentStripeSEPA = forwardRef(
 
     // This useEffect is required in the new checkout flow, in order to disable the 'Pay Now' button
     // if needed
-    React.useEffect(() => {
+    useEffect(() => {
       if (setIsOnlinePaymentDisabled)
         setIsOnlinePaymentDisabled(isSubmitButtonDisabled);
     }, [isSubmitButtonDisabled, setIsOnlinePaymentDisabled]);
 
-    const handleSubmit = React.useCallback(
+    const handleSubmit = useCallback(
       async (event: React.FormEvent<HTMLFormElement>) => {
+        setPaymentPageProcessing(true);
+        setError(undefined);
+        elements?.submit();
+
+        // We don't want to let default form submission happen here,
+        // which would refresh the page.
+        event.preventDefault();
+
         if (!stripe || !elements) {
           // Stripe has not yet loaded.
           // Make sure to disable form submission until Stripe has loaded.
           return;
         }
-        setPaymentPageProcessing(true);
-        // We don't want to let default form submission happen here,
-        // which would refresh the page.
-        event.preventDefault();
 
         if (basketId) {
           /**
@@ -400,63 +255,91 @@ export const PaymentStripeSEPA = forwardRef(
           payment_group_method_identifier: PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA,
         });
 
-        const iban_ = elements.getElement(IbanElement);
+        const url = new URL(window.location.toString());
+        const params = url.searchParams;
+        params.delete('user_registration_response');
+        params.set('check_payment_intent', 'true');
+        params.set('get_user_registration_from_storage', 'true');
 
-        const result = await stripe.confirmSepaDebitPayment(clientSecret, {
-          payment_method: paymentMethodSelected || {
-            sepa_debit: iban_,
-            billing_details: {
-              name: billingDetails.name,
-              email: billingDetails.email,
-              ...(needBillingDetailAddress
-                ? { address: billingDetails.address }
-                : {}),
-            },
-          },
-          ...(saveForLater || forceSave
-            ? { setup_future_usage: 'off_session' }
-            : {}),
-        });
-
-        if (result.error) {
-          // Show error to your customer.
-          setError(result.error);
-          setPaymentPageProcessing(false);
-          invalidatePendingBookingsIfNecessary?.();
-          if (onError) onError();
-        } else {
-          setError(null);
-
-          if (basketId) {
-            try {
-              await blockPendingBasketAPI(basketId);
-            } catch (err) {
-              console.error(err);
-            }
-          }
-
-          onSuccess(() => setPaymentPageProcessing(false));
-          // Show a confirmation message to your customer.
-          // The PaymentIntent is in the 'processing' state.
-          // SEPA Direct Debit payments are asynchronous,
-          // so funds are not immediately available.
+        if (basketId) {
+          // Include the current basket id in the return URL, so that the basket page keeps track
+          // of it after the redirection
+          params.set('basket_redirection', basketId);
         }
+
+        dispatch(
+          confirmStripePaymentAction(
+            {
+              saveForLater: saveForLater || forceSave,
+              paymentGroupId,
+              stripe,
+              elements,
+              clientSecret,
+              shouldConfirmSepaDebitPayment:
+                !isAddingPaymentMethod && !!paymentMethodList.length,
+              paymentMethodSelected,
+              paymentMethodData: {
+                /* Stripe requires all billing details fields to be provided to prevent errors,
+                   even though we intentionally hide phone & address in the payment element UI.
+
+                   Important notes:
+                   - Empty strings will cause Stripe validation errors
+                   - Must use null instead of empty strings
+                   - name/email are redundant since they can be updated directly in payment element
+                   - These null values get overridden by any values entered in payment element
+                */
+                billing_details: {
+                  name: null,
+                  email: null,
+                  phone: null,
+                  address: {
+                    country: null,
+                    postal_code: null,
+                    state: null,
+                    city: null,
+                    line1: null,
+                    line2: null,
+                  },
+                },
+              },
+            },
+            {
+              onPaymentError: (err) => {
+                setError(err);
+                setPaymentPageProcessing(false);
+                invalidatePendingBookingsIfNecessary?.();
+                onError?.();
+              },
+              onPaymentSuccess: async () => {
+                if (basketId) {
+                  try {
+                    await blockPendingBasketAPI(basketId);
+                  } catch (err) {
+                    console.error(err);
+                  }
+                }
+
+                onSuccess(() => setPaymentPageProcessing(false));
+              },
+            },
+          ),
+        );
       },
       [
         basketId,
         basketTotalPriceCts,
-        billingDetails.address,
-        billingDetails.email,
-        billingDetails.name,
         checkItemsBasket,
         clientSecret,
         createPendingBookingsIfNecessary,
-        invalidatePendingBookingsIfNecessary,
+        dispatch,
         elements,
         forceSave,
-        needBillingDetailAddress,
+        invalidatePendingBookingsIfNecessary,
+        isAddingPaymentMethod,
         onError,
         onSuccess,
+        paymentGroupId,
+        paymentMethodList.length,
         paymentMethodSelected,
         saveForLater,
         setPaymentPageProcessing,
@@ -464,7 +347,6 @@ export const PaymentStripeSEPA = forwardRef(
         t,
       ],
     );
-
     // This hook is required in the new checkout flow, in order to call the submit callback defined
     // in the payment method component from the parent component.
     useImperativeHandle(
@@ -488,187 +370,238 @@ export const PaymentStripeSEPA = forwardRef(
         onSubmit={handleSubmit}
         style={{ display: 'flex', flexDirection: 'column' }}
       >
-        <Typography variant="h6">
-          {t(
-            `payment:forms.savePaymentMethod.${
-              addPaymentMethod ? 'add' : 'select'
-            }`,
-          )}
-        </Typography>
-        {addPaymentMethod && (
+        {!isFetchFinished ? (
+          <LinearProgress />
+        ) : (
           <>
-            {!hasAddPaymentMethodPermission ? (
-              <Typography>
-                {t(
-                  'payment:forms.paymentMethod.actions.addPaymentMethodDenied',
-                )}
-              </Typography>
-            ) : (
-              <div>
-                <IbanForm
-                  billingDetails={billingDetails}
-                  disabled={!stripe || !clientSecret}
-                  error={error}
-                  isActive={!paymentMethodSelected}
-                  processing={processing}
-                  setBillingDetails={setBillingDetails}
-                  withAddress={needBillingDetailAddress}
-                />
-                <div
-                  className={clsx(
-                    classes.saveAndDisplay,
-                    customClasses?.saveAndDisplay,
-                  )}
-                >
-                  <div className={clsx(classes.row, customClasses?.row)}>
-                    {!hideSaveForLater && (
-                      <>
-                        <Checkbox
-                          checked={saveForLater || forceSave}
-                          color="primary"
-                          disabled={!!forceSave}
-                          onChange={(ev) => setSaveForLater(ev.target.checked)}
-                        />
-                        <Typography
-                          variant={isCheckoutContext ? 'body1' : 'caption'}
-                        >
-                          {t('paymentPanel.actions.saveForLater')}
-                        </Typography>
-                        <div
-                          className={clsx(
-                            classes.securityInformationContainer,
-                            customClasses?.securityInformationContainer,
-                          )}
-                        >
-                          <PopOver
-                            anchorOrigin={{
-                              vertical: 'bottom',
-                              horizontal: 'center',
+            <Typography variant="h6">
+              {t(
+                `payment:forms.savePaymentMethod.${
+                  isAddingPaymentMethod ? 'add' : 'select'
+                }`,
+              )}
+            </Typography>
+            {isAddingPaymentMethod && (
+              <>
+                {!hasAddPaymentMethodPermission ? (
+                  <Typography>
+                    {t(
+                      'payment:forms.paymentMethod.actions.addPaymentMethodDenied',
+                    )}
+                  </Typography>
+                ) : (
+                  <div>
+                    <div style={isProcessing ? { display: 'none' } : {}}>
+                      <div className={classes.sensitiveDataContainer}>
+                        <div className={classes.sensitiveData}>
+                          <PaymentElement
+                            options={{
+                              layout: 'tabs',
+                              wallets: {
+                                applePay: 'never',
+                                googlePay: 'never',
+                              },
+                              defaultValues: {
+                                billingDetails: {
+                                  name: userDefaultName || '',
+                                  address: { country: companyCountry || '' },
+                                  email: userDefaultEmail || '',
+                                },
+                              },
+                              fields: {
+                                billingDetails: {
+                                  name: 'auto',
+                                  email: 'auto',
+                                  phone: 'never',
+                                  address: 'never',
+                                },
+                              },
                             }}
-                            className={clsx(
-                              classes.securityInformationText,
-                              customClasses?.securityInformationText,
+                          />
+                          {error &&
+                            STRIPE_SEPA_ERROR_CODES.includes(error.code!) && (
+                              <Typography color="error" variant="caption">
+                                {error.message}
+                              </Typography>
                             )}
-                            title={t(
-                              'paymentPanel.actions.paymentSecurityInformation',
-                            )}
-                            transformOrigin={{
-                              vertical: 'top',
-                              horizontal: 'center',
-                            }}
-                          >
-                            <Info
-                              className={clsx(
-                                classes.infoIcon,
-                                customClasses?.infoIcon,
-                              )}
-                            />
-                          </PopOver>
                         </div>
-                      </>
+                      </div>
+                    </div>
+                    <div
+                      className={clsx(
+                        classes.saveAndDisplay,
+                        customClasses?.saveAndDisplay,
+                      )}
+                    >
+                      <div className={clsx(classes.row, customClasses?.row)}>
+                        {!hideSaveForLater && (
+                          <>
+                            <Checkbox
+                              checked={saveForLater || forceSave}
+                              color="primary"
+                              disabled={!!forceSave}
+                              onChange={onSaveForLaterChange}
+                            />
+                            <Typography
+                              variant={isCheckoutContext ? 'body1' : 'caption'}
+                            >
+                              {t('paymentPanel.actions.saveForLater')}
+                            </Typography>
+                            <div
+                              className={clsx(
+                                classes.securityInformationContainer,
+                                customClasses?.securityInformationContainer,
+                              )}
+                            >
+                              <PopOver
+                                anchorOrigin={{
+                                  vertical: 'bottom',
+                                  horizontal: 'center',
+                                }}
+                                className={clsx(
+                                  classes.securityInformationText,
+                                  customClasses?.securityInformationText,
+                                )}
+                                title={t(
+                                  'paymentPanel.actions.paymentSecurityInformation',
+                                )}
+                                transformOrigin={{
+                                  vertical: 'top',
+                                  horizontal: 'center',
+                                }}
+                              >
+                                <Info
+                                  className={clsx(
+                                    classes.infoIcon,
+                                    customClasses?.infoIcon,
+                                  )}
+                                />
+                              </PopOver>
+                            </div>
+                          </>
+                        )}
+                      </div>
+
+                      {!!paymentMethodList.length && (
+                        <ButtonBase
+                          className={clsx(
+                            classes.displayButton,
+                            customClasses?.displayButton,
+                          )}
+                          onClick={() => setIsAddingPaymentMethod(false)}
+                        >
+                          <Typography
+                            align="right"
+                            color="primary"
+                            variant="body1"
+                          >
+                            {t(
+                              'payment:forms.paymentMethod.actions.displayPaymentMethod',
+                            )}
+                          </Typography>
+                        </ButtonBase>
+                      )}
+                    </div>
+                  </div>
+                )}
+              </>
+            )}
+
+            {!isAddingPaymentMethod && !!paymentMethodList.length && (
+              <div>
+                <PaymentMethodList
+                  detachPaymentMethod={detachPaymentMethod}
+                  detachPaymentMethodLoading={detachPaymentMethodLoading}
+                  onSelect={(id: string) => defineSelectedPaymentMethod(id)}
+                  paymentMethodType="sepa_debit"
+                  savedPaymentMethodList={paymentMethodList}
+                  selectedSavedPaymentMethodId={paymentMethodSelected}
+                  sepaDefaultEmail={userDefaultEmail}
+                  sepaDefaultName={userDefaultName}
+                  setHasDetached={setHasDetached}
+                />
+
+                {hasAddPaymentMethodPermission && (
+                  <ButtonBase
+                    className={clsx(
+                      classes.addButton,
+                      customClasses?.addButton,
+                    )}
+                    disabled={false}
+                    onClick={() => setIsAddingPaymentMethod(true)}
+                  >
+                    <AddIcon
+                      className={clsx(
+                        classes.leftIcon,
+                        customClasses?.leftIcon,
+                      )}
+                      color="primary"
+                    />
+                    <Typography align="left" color="primary" variant="body1">
+                      {t(
+                        'payment:forms.paymentMethod.actions.addPaymentMethod',
+                      )}
+                    </Typography>
+                  </ButtonBase>
+                )}
+              </div>
+            )}
+            {allowConsumerToUseInternalAccount && !!creditAccountBalance && (
+              <>
+                <div className={classes.paddingTop1} />
+                <UseInternalAccountForm
+                  creditAccountBalance={creditAccountBalance}
+                  loading={loading || isProcessing || applyBalanceLoading}
+                  onBasketSubmit={useInternalAccount}
+                  onInvoiceSubmit={applyBalanceToInvoice}
+                />
+              </>
+            )}
+            {children ?? null}
+            {(!isCheckoutContext || forceButtonDisplay) &&
+              !forceHideConfirmPaymentButton && (
+                <>
+                  {AcceptTermsAndConditionsComponent && (
+                    <div
+                      className={clsx(
+                        classes.conditions,
+                        customClasses?.conditions,
+                      )}
+                    >
+                      {AcceptTermsAndConditionsComponent}
+                    </div>
+                  )}
+                  <div
+                    className={clsx(
+                      classes.actionRow,
+                      customClasses?.actionRow,
+                    )}
+                  >
+                    {isProcessing ? (
+                      <CircularProgress />
+                    ) : (
+                      <React.Fragment>
+                        <Button
+                          color="primary"
+                          disabled={isSubmitButtonDisabled}
+                          type="submit"
+                          variant="contained"
+                        >
+                          {t('invoice:paymentPanel.actions.confirmPayment')}
+                        </Button>
+                        <Button
+                          disabled={loading || isProcessing}
+                          onClick={onCancel}
+                        >
+                          {t('paymentPanel.actions.cancel')}
+                        </Button>
+                      </React.Fragment>
                     )}
                   </div>
-
-                  {!!paymentMethodList.length && (
-                    <ButtonBase
-                      className={clsx(
-                        classes.displayButton,
-                        customClasses?.displayButton,
-                      )}
-                      onClick={() => setAddPaymentMethod(false)}
-                    >
-                      <Typography align="right" color="primary" variant="body1">
-                        {t(
-                          'payment:forms.paymentMethod.actions.displayPaymentMethod',
-                        )}
-                      </Typography>
-                    </ButtonBase>
-                  )}
-                </div>
-              </div>
-            )}
-          </>
-        )}
-
-        {!addPaymentMethod && !!paymentMethodList.length && (
-          <div>
-            <PaymentMethodList
-              detachPaymentMethod={detachPaymentMethod}
-              detachPaymentMethodLoading={detachPaymentMethodLoading}
-              onSelect={(id: string) => defineSelectedPaymentMethod(id)}
-              paymentMethodType="sepa_debit"
-              savedPaymentMethodList={paymentMethodList}
-              selectedSavedPaymentMethodId={paymentMethodSelected}
-              sepaDefaultEmail={userDefaultEmail}
-              sepaDefaultName={userDefaultName}
-              setHasDetached={setHasDetached}
-            />
-
-            {hasAddPaymentMethodPermission && (
-              <ButtonBase
-                className={clsx(classes.addButton, customClasses?.addButton)}
-                disabled={false}
-                onClick={() => setAddPaymentMethod(true)}
-              >
-                <AddIcon
-                  className={clsx(classes.leftIcon, customClasses?.leftIcon)}
-                  color="primary"
-                />
-                <Typography align="left" color="primary" variant="body1">
-                  {t('payment:forms.paymentMethod.actions.addPaymentMethod')}
-                </Typography>
-              </ButtonBase>
-            )}
-          </div>
-        )}
-        {allowConsumerToUseInternalAccount && !!creditAccountBalance && (
-          <>
-            <div className={classes.paddingTop1} />
-            <UseInternalAccountForm
-              creditAccountBalance={creditAccountBalance}
-              loading={loading || applyBalanceLoading}
-              onBasketSubmit={useInternalAccount}
-              onInvoiceSubmit={applyBalanceToInvoice}
-            />
-          </>
-        )}
-        {children ?? null}
-        {(!isCheckoutContext || forceButtonDisplay) &&
-          !forceHideConfirmPaymentButton && (
-            <>
-              {AcceptTermsAndConditionsComponent && (
-                <div
-                  className={clsx(
-                    classes.conditions,
-                    customClasses?.conditions,
-                  )}
-                >
-                  {AcceptTermsAndConditionsComponent}
-                </div>
+                </>
               )}
-              <div
-                className={clsx(classes.actionRow, customClasses?.actionRow)}
-              >
-                {processing ? (
-                  <CircularProgress />
-                ) : (
-                  <React.Fragment>
-                    <Button
-                      color="primary"
-                      disabled={isSubmitButtonDisabled}
-                      type="submit"
-                      variant="contained"
-                    >
-                      {t('invoice:paymentPanel.actions.confirmPayment')}
-                    </Button>
-                    <Button disabled={loading || processing} onClick={onCancel}>
-                      {t('paymentPanel.actions.cancel')}
-                    </Button>
-                  </React.Fragment>
-                )}
-              </div>
-            </>
-          )}
+          </>
+        )}
       </form>
     );
   },
@@ -693,22 +626,6 @@ const useStyles = makeStyles<Theme, CheckoutContextThemeProps>((theme) => ({
     minWidth: '30vw',
     width: '100%',
     ...(isCheckoutContext ? {} : { maxWidth: '80vw' }),
-  }),
-  nameAndEmailContainer: (isCheckoutContext) => ({
-    flexDirection: 'column',
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    margin: `${theme.spacing(2)}px ${theme.spacing(2)}px ${theme.spacing(
-      2,
-    )}px ${isCheckoutContext ? 0 : theme.spacing(2)}px`,
-    gap: theme.spacing(2),
-  }),
-  mandate: (isCheckoutContext) => ({
-    padding: `${theme.spacing(2)}px ${theme.spacing(2)}px ${theme.spacing(
-      2,
-    )}px ${isCheckoutContext ? 0 : theme.spacing(2)}px`,
-    maxWidth: 700,
   }),
   conditions: {
     display: 'flex',

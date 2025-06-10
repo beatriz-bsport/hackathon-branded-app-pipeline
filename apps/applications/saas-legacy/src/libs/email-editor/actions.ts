@@ -37,6 +37,7 @@ import type {
   FranchisorSavedFilter,
   EmailTemplateSummary,
   EmailDesignQueryParamsPaginated,
+  EmailEditAPIParams,
 } from '#src/libs/email-editor/types';
 
 import {
@@ -461,13 +462,13 @@ export function emailTemplateDetail(
 }
 
 export const createEmailDesignAction = {
-  error: createAction('EMAIL/CREATE/ERROR'),
-  loading: createAction('EMAIL/CREATE/IS_LOADING'),
-  success: createAction('EMAIL/CREATE/SUCCESS'),
+  success: createAction<EmailTemplate>('EMAIL/CREATE/SUCCESS'),
+  loading: createAction<boolean>('EMAIL/CREATE/IS_LOADING'),
+  error: createAction<Error | null>('EMAIL/CREATE/ERROR'),
 };
 
 export function emailDesignCreate(
-  data: EmailTemplate & { available_for_companies?: number[] },
+  data: EmailEditAPIParams,
   options?: OptionCallback<number>,
 ): ThunkAction {
   return async (dispatch: Dispatch) => {
@@ -476,65 +477,28 @@ export function emailDesignCreate(
 
     try {
       const response = await createEmailTemplateAPI(data);
-      dispatch(
-        createEmailDesignAction.success({
-          // @ts-expect-error
-          id: response.data.id,
-          summary: {
-            // @ts-expect-error
-            [response.data.id]: {
-              // @ts-expect-error
-              title: response.data.title,
-              // @ts-expect-error
-              subject: response.data.subject,
-              // @ts-expect-error
-              date_created: response.data.date_created,
-              // @ts-expect-error
-              id: response.data.id,
-              // @ts-expect-error
-              category: response.data.category,
-              // @ts-expect-error
-              ordering_in_category: response.data.ordering_in_category,
-            },
-          },
-          detail: {
-            // @ts-expect-error
-            [response.data.id]: {
-              // @ts-expect-error
-              id: response.data.id,
-              // @ts-expect-error
-              html: response.data.html,
-              // @ts-expect-error
-              design: response.data.design
-                ? // @ts-expect-error
-                  JSON.parse(response.data.design)
-                : {},
-            },
-          },
-        }),
-      );
+      dispatch(createEmailDesignAction.success(response.data));
       dispatch(createEmailDesignAction.error(null));
       dispatch(snackbarSuccess('email.create.success'));
-      // @ts-expect-error
       if (options && options.onSuccess) options.onSuccess(response.data.id);
-    } catch (error) {
+    } catch (error: any) {
       dispatch(createEmailDesignAction.error(error));
       dispatch(snackbarError('email.create.error'));
-      if (options?.onError) options.onError(error);
+      options?.onError?.(error);
     }
     dispatch(createEmailDesignAction.loading(false));
   };
 }
 
 export const updateEmailTemplateAction = {
-  error: createAction('EMAIL/UPDATE/ERROR'),
-  loading: createAction('EMAIL/UPDATE/IS_LOADING'),
-  success: createAction('EMAIL/UPDATE/SUCCESS'),
+  success: createAction<EmailTemplate>('EMAIL/UPDATE/SUCCESS'),
+  loading: createAction<boolean>('EMAIL/UPDATE/IS_LOADING'),
+  error: createAction<Error | null>('EMAIL/UPDATE/ERROR'),
 };
 
 export function emailTemplateUpdate(
   id: number,
-  data: EmailTemplate & { available_for_companies?: number[] },
+  data: EmailEditAPIParams,
   options?: OptionCallback<number>,
 ): ThunkAction {
   return async (dispatch: Dispatch) => {
@@ -543,50 +507,15 @@ export function emailTemplateUpdate(
 
     try {
       const response = await updateEmailTemplateAPI(id, data);
-      dispatch(
-        updateEmailTemplateAction.success({
-          summary: {
-            // @ts-expect-error
-            [response.data.id]: {
-              // @ts-expect-error
-              name: response.data.name,
-              // @ts-expect-error
-              date_created: response.data.date_created,
-              // @ts-expect-error
-              id: response.data.id,
-              // @ts-expect-error
-              category: response.data.category,
-              // @ts-expect-error
-              ordering_in_category: response.data.ordering_in_category,
-            },
-          },
-          detail: {
-            // @ts-expect-error
-            [response.data.id]: {
-              // @ts-expect-error
-              id: response.data.id,
-              // @ts-expect-error
-              html: response.data.html,
-              // @ts-expect-error
-              design: response.data.design
-                ? // @ts-expect-error
-                  JSON.parse(response.data.design)
-                : {},
-            },
-          },
-        }),
-      );
+      dispatch(updateEmailTemplateAction.success(response.data));
       dispatch(updateEmailTemplateAction.error(null));
       dispatch(snackbarSuccess('email.update.success'));
 
-      if (typeof options?.onSuccess === 'function')
-        // @ts-expect-error
-        options?.onSuccess(response.data.id);
-    } catch (error) {
-      console.error(error);
+      options?.onSuccess?.(response.data.id);
+    } catch (error: any) {
       dispatch(updateEmailTemplateAction.error(error));
       dispatch(snackbarError('email.update.error'));
-      if (options?.onError) options.onError(error);
+      options?.onError?.(error);
     }
     dispatch(updateEmailTemplateAction.loading(false));
   };
@@ -604,6 +533,7 @@ export function restoreEmailTemplate(
       const response = await restoreEmailTemplateAPI(id);
       dispatch(
         updateEmailTemplateAction.success({
+          // @ts-expect-error
           summary: {
             // @ts-expect-error
             [response.data.id]: {
@@ -700,14 +630,12 @@ export function emailTemplateDuplicate(props: {
         // @ts-expect-error
         available_for_companies: response.data.available_for_companies,
       };
-      // @ts-expect-error
       const newTemplate = await createEmailTemplateAPI(data);
 
       dispatch(resetEmails());
       dispatch(emailTemplatesSummaries());
       dispatch(snackbarSuccess('email.duplicate.success'));
       if (typeof props.options?.onSuccess === 'function') {
-        // @ts-expect-error
         props.options?.onSuccess(newTemplate.data.id);
       }
     } catch (error) {

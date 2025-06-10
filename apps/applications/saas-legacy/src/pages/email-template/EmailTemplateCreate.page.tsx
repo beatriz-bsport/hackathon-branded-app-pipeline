@@ -11,18 +11,20 @@ import {
   fetchAllEmailTemplateCategory,
 } from '#src/libs/email-editor/actions';
 
-import EmailEditorPanel from '#src/libs/email-editor/components/EmailEditor.component';
+import EmailEditorPanel, {
+  SaveEmailsParameters,
+} from '#src/libs/email-editor/components/EmailEditor.component';
 import { snackbarError } from '#src/libs/snackbar/actions';
 
 import { fetchTagList } from '#src/libs/notification-rule/actions';
 import { getTagCategories } from '#src/libs/notification-rule/selectors';
-import { EmailTemplate } from '#src/libs/email-editor/types';
 import { getEmailTemplateCategories } from '#src/libs/email-editor/selectors';
 import { rudderStackFormTrackingFunctionsRegistry } from '#src/components/analytics/rudderstack/utils';
 import { SegmentAnalyticsFormObjectIdentifier } from '#src/components/analytics/segment';
-import { RootState } from '../../reducers';
-import withTitle from '../../hocs/with-title.hoc';
-import { DrawerContext, DrawerContextValue } from '../../context';
+import { RootState } from '#src/reducers';
+import withTitle from '#src/hocs/with-title.hoc';
+import { DrawerContext, DrawerContextValue } from '#src/context';
+import { OptionCallback } from '#src/state/types';
 
 const { trackFormAdd, trackFormSuccess } =
   rudderStackFormTrackingFunctionsRegistry(
@@ -49,18 +51,19 @@ export class EmailTemplateCreate extends Component<Props> {
     this.props.fetchAllEmailTemplateCategory();
   }
 
-  onSave = (id: number, data: EmailTemplate) => {
+  onSave = ({ data }: SaveEmailsParameters) => {
+    const options: OptionCallback<number> = {
+      onSuccess: (templateId: number) => {
+        this.props.goToListDetail(templateId);
+        trackFormSuccess();
+      },
+    };
     this.props.emailDesignCreate(
       {
         ...data,
-        company_id: this.props.company_id,
+        company_id: this.props.companyId,
       },
-      {
-        onSuccess: (templateId: number) => {
-          this.props.goToListDetail(templateId);
-          trackFormSuccess();
-        },
-      },
+      options,
     );
   };
 
@@ -69,6 +72,9 @@ export class EmailTemplateCreate extends Component<Props> {
       <DrawerContext.Consumer>
         {(context: DrawerContextValue) => (
           <EmailEditorPanel
+            companyEmail={this.props.companyEmail}
+            companyId={this.props.companyId}
+            companyName={this.props.companyName}
             displayEmptyError={this.props.snackbarError}
             emailTemplateCategories={this.props.emailTemplateCategories}
             goToList={this.props.goToList}
@@ -84,7 +90,9 @@ export class EmailTemplateCreate extends Component<Props> {
 }
 
 const mapStateToProps = (state: RootState) => ({
-  company_id: state.theme.theme.company,
+  companyId: state.theme.theme.company,
+  companyName: state.theme.theme.company_name,
+  companyEmail: state.auth.username,
   tagCategories: getTagCategories(state),
   hasBeenLoadedOnce: state.emailTemplate.hasBeenLoadedOnce,
   emailTemplateCategories: getEmailTemplateCategories(state),

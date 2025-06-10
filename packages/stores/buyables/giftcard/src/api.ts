@@ -70,12 +70,11 @@ export const restoreGiftcardImageAPI = ({ id }: { id: number }): ApiConfig => {
   ];
 };
 
-/** @note This endpoint does not exist yet */
 export const archiveGiftcardImageAPI = ({ id }: { id: number }): ApiConfig => {
   return [
-    `${API_URL}/giftcard_background_image/${id}`,
+    `${API_URL}/giftcard_background_image/${id}/archive/`,
     {
-      method: "DELETE",
+      method: "POST",
     },
   ];
 };

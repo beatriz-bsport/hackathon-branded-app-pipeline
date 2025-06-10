@@ -35,7 +35,8 @@
     "@bsport/store-auth": "workspace:*",
     "@bsport/store-base": "workspace:*",
     "@bsport/store-core-data-company": "workspace:*",
-    "@bsport/store-core-data-company-theme": "workspace:*"
+    "@bsport/store-core-data-company-theme": "workspace:*",
+    "@bsport/store-staff-management-role": "workspace:*"
   },
   "devDependencies": {
     "@bsport/config-eslint-react": "workspace:*",

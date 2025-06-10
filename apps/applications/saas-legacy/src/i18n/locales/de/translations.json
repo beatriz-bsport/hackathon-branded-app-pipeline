@@ -11991,7 +11991,7 @@
                 "showCalendar": "Kalender anzeigen",
                 "establishment": "Diese Einrichtung ist derzeit nicht verfügbar",
                 "coach": "Diese Lehrkraft ist zu diesem Zeitpunkt nicht verfügbar",
-                "title": "Zeitfenster nicht verfügbar",
+                "title": "Keine verfügbaren Slots. Nutze die Pfeiltasten um andere Verfügbarkeiten zu finden.",
                 "resource": "Achtung! {{ resource }} ist im Moment nicht verfügbar.\n",
                 "continue": "Sind Sie sicher, dass Sie den Termin verschieben möchten?",
                 "validate": "Bestätigen",

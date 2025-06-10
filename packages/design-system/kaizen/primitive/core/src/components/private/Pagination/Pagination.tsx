@@ -5,6 +5,7 @@ import React, { useCallback, useEffect, useMemo, useState } from "react";
 import Body from "#src/components/Body";
 import Button from "#src/components/Button";
 import Divider from "#src/components/Divider";
+import Select from "#src/components/Select";
 import { useKaizenI18nInstance, useTranslation } from "#src/i18n";
 
 const defaultClasses = [
@@ -143,12 +144,10 @@ const Pagination: React.FC<PaginationProps> = ({
     [onPageChange, onPageSettingsChange, rowsPerPage, totalPages],
   );
 
-  const handleRowsPerPageChange = (
-    event: React.ChangeEvent<HTMLSelectElement>,
-  ) => {
-    setLocalRowsPerPage(Number(event.target.value));
-    onRowsPerPageChange?.(Number(event.target.value));
-    onPageSettingsChange?.(1, Number(event.target.value));
+  const handleRowsPerPageChange = (option: string) => {
+    setLocalRowsPerPage(Number(option));
+    onRowsPerPageChange?.(Number(option));
+    onPageSettingsChange?.(1, Number(option));
   };
 
   const getPages = useCallback((): string[] => {
@@ -211,19 +210,17 @@ const Pagination: React.FC<PaginationProps> = ({
             <Body htmlVariant="span" size="sm" color="weak" weight="weak">
               {t("pagination.rows")}
             </Body>
-            {/* TODO: use <Select> component here instead */}
-            <select
-              value={currentItems}
-              onChange={handleRowsPerPageChange}
-              className="rounded-sm bg-surface-action-default-elevated-rest shadow-action-default-rest text-onsurface-action-weak-default text-body-md leading-xs"
+            <Select
+              id={props.id ? `${props.id}-select` : undefined}
+              size="sm"
+              value={currentItems.toString()}
+              onSelect={handleRowsPerPageChange}
               disabled={disabled}
-            >
-              {rowsPerPageOptions.map((option) => (
-                <option key={option} value={option}>
-                  {option}
-                </option>
-              ))}
-            </select>
+              items={rowsPerPageOptions.map((option) => ({
+                id: `pagination-option-${option}`,
+                label: option.toString(),
+              }))}
+            />
           </>
         )}
       </div>

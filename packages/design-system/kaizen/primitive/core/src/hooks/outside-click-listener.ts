@@ -18,7 +18,13 @@ const useOutsideClickListener = (
     if (!open) return;
 
     const handleOutsideClick = (event: MouseEvent) => {
-      if (isHandlingRef.current) return;
+      // Ignore clicks on the scrollbar or document body
+      if (
+        event.target === document.documentElement ||
+        event.target === document.body ||
+        isHandlingRef.current
+      )
+        return;
 
       isHandlingRef.current = true;
       setTimeout(() => {

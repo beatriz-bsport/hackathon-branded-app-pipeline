@@ -10388,7 +10388,7 @@
                 "validate": "Validar",
                 "continue": "¿Estás seguro de que quieres mover esta cita ?",
                 "resource": "Tenga en cuenta que {{ resource }} no está disponible en esta ranura.\n",
-                "title": "Ranura no disponible",
+                "title": "No hay disponibilidad para mostrar. Haga clic en las flechas para buscar otra franja horaria.",
                 "loading": "Comprobación de la disponibilidad de la ranura"
             }
         },

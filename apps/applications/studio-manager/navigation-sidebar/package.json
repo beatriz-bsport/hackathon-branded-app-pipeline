@@ -26,6 +26,7 @@
     "@bsport/fetch": "workspace:*",
     "@bsport/i18n": "workspace:*",
     "@bsport/kaizen-primitive-core": "workspace:*",
+    "@bsport/sm-backbone": "workspace:*",
     "@bsport/store-auth": "workspace:*",
     "@module-federation/bridge-react": "^0.13.1",
     "react": "^19.0.0",

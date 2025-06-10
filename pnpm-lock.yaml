@@ -1632,6 +1632,9 @@ importers:
       '@bsport/kaizen-primitive-core':
         specifier: workspace:*
         version: link:../../../../packages/design-system/kaizen/primitive/core
+      '@bsport/sm-backbone':
+        specifier: workspace:*
+        version: link:../../../../packages/utils/sm-backbone
       '@bsport/store-auth':
         specifier: workspace:*
         version: link:../../../../packages/stores/shared/auth

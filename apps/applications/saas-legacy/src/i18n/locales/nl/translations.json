@@ -11348,7 +11348,7 @@
                 "showCalendar": "Toon agenda",
                 "establishment": "Deze vestiging is niet beschikbaar op dit tijdstip.",
                 "coach": "Deze instructeur is niet beschikbaar op dit tijdstip.",
-                "title": "Er is geen beschikbaarheid om weer te geven.",
+                "title": "De komende dagen is er geen beschikbaarheid. Klik op de pijlen voor een beschikbaarheid verder in te toekomst.",
                 "loading": "Beschikbaarheid controleren",
                 "resource": "Waarschuwing! {{ resource }} is niet beschikbaar op dit moment.\n",
                 "continue": "Weet je zeker dat je deze afspraak wilt verplaatsen?",

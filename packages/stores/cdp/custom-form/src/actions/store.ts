@@ -22,12 +22,12 @@ export const setCustomForms = ({
       ...state.customForms.byId,
       ...newByIdEntries,
     };
-
-    const updatedIds = customForms.map((customForm) => customForm.id);
+    const ids = customForms.map((customForm) => customForm.id);
 
     return {
+      ...state,
       customForms: {
-        ids: updatedIds,
+        ids,
         byId: mergedById,
         count,
         page,
@@ -52,17 +52,15 @@ export const setCustomFormStatistics = ({
         acc[statistic.id] = statistic;
         return acc;
       }, {});
-
     const mergedById = {
       ...state.statistics.byId,
       ...newByIdEntries,
     };
-
-    const updatedIds = customFormStatistics.map((statistic) => statistic.id);
+    const ids = customFormStatistics.map((statistic) => statistic.id);
 
     return {
       statistics: {
-        ids: updatedIds,
+        ids,
         byId: mergedById,
         count,
         page,

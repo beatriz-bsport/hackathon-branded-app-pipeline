@@ -1263,6 +1263,21 @@ importers:
       '@bsport/config-federation':
         specifier: workspace:*
         version: link:../../../../../tools/config/federation
+      '@bsport/store-base':
+        specifier: workspace:*
+        version: link:../../../../../packages/stores/base
+      '@bsport/store-cdp-custom-form':
+        specifier: workspace:*
+        version: link:../../../../../packages/stores/cdp/custom-form
+      '@bsport/use-async':
+        specifier: workspace:*
+        version: link:../../../../../packages/hooks/use-async
+      '@bsport/use-debounce':
+        specifier: workspace:*
+        version: link:../../../../../packages/hooks/use-debounce
+      '@bsport/use-pagination-query-params':
+        specifier: workspace:*
+        version: link:../../../../../packages/utils/query-params/use-pagination
       autoprefixer:
         specifier: ^10.4.20
         version: 10.4.20(postcss@8.4.49)

@@ -10083,7 +10083,7 @@
         "resource": {
             "allocationWarning": {
                 "loading": "Vérification de la disponibilité du créneau",
-                "title": "Créneau non disponible",
+                "title": "Il n'y a pas de disponibilité. Cliquez sur les flèches pour trouver un autre créneau horaire.",
                 "resource": "Attention, {{ resource }} n'est pas disponible sur ce créneau.\n",
                 "continue": "Êtes-vous sûr de vouloir déplacer ce rendez-vous ?",
                 "coach": "Ce professeur n'est pas disponible sur cet horaire",

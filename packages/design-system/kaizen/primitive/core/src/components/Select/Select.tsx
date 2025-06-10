@@ -88,7 +88,7 @@ export type SelectProps = Omit<
  * @param props.errorText Text to display when the select is in error.
  * @param props.popoverPlacement Placement of the popover. Defaults to `"bottom-left"`. Can be any valid placement from the `Placements` type.
  * @param props.onSelect Function to call when an option is selected. Receives the selected option's label or id as an argument.
- * @param props.onSelect Optional Boolean to allow the Select component to take the whole available width of its parent.
+ * @param props.fullWidth Optional Boolean to allow the Select component to take the whole available width of its parent.
  * @link https://docs.infra.bsport.io/storybook/kaizen/main/index.html?path=/docs/components-select--docs
  */
 const Select: React.FC<SelectProps> = ({
@@ -134,7 +134,7 @@ const Select: React.FC<SelectProps> = ({
 
   return (
     <div className="flex flex-col gap-2xs">
-      <Popover className={classNames("", { "w-full": fullWidth })}>
+      <Popover className={classNames({ "w-full": fullWidth })}>
         <Popover.Anchor>
           {({ isPopoverOpened, setIsPopoverOpened }) => {
             const handleButtonClick = () => setIsPopoverOpened((prev) => !prev);

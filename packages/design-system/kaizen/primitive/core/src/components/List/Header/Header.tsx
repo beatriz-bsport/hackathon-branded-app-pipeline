@@ -4,7 +4,7 @@ import React, { useCallback } from "react";
 
 import Button from "#src/components/Button";
 import Checkbox from "#src/components/Checkbox";
-import Collapse, { CollapseProps } from "#src/components/Collapse/Collapse";
+import type { CollapseProps } from "#src/components/Collapse/Collapse";
 import DropdownMenu from "#src/components/DropdownMenu";
 import { listItem } from "#src/components/List";
 import { useCheckboxContext } from "#src/contexts/CheckboxContext";
@@ -23,9 +23,14 @@ type HeaderProps = React.HTMLAttributes<HTMLDivElement> &
     buttons?: ActionButton[];
     dropdownConfig?: ActionsDropdownConfig;
     collapsibleProps?: Omit<CollapseProps, "children">;
+    onCollapse?: () => void;
+    isCollapseOpen?: boolean;
   };
 
-export type ListHeaderProps = Omit<HeaderProps, "collapsibleProps">;
+export type ListHeaderProps = Omit<
+  HeaderProps,
+  "collapsibleProps" | "onCollapse" | "isCollapseOpen"
+>;
 
 /**
  * A header component for rendering the top section of a list.
@@ -50,6 +55,8 @@ const Header: React.FC<HeaderProps> = ({
   buttons,
   dropdownConfig,
   collapsibleProps,
+  onCollapse,
+  isCollapseOpen,
   ...props
 }) => {
   const { indeterminateState, selectAll } = useCheckboxContext();
@@ -98,33 +105,24 @@ const Header: React.FC<HeaderProps> = ({
       </div>
 
       <div className="flex items-center gap-sm">
-        {collapsibleProps && (
-          <Collapse.Controller>
-            {({ collapseProps, isCollapseOpen, setIsCollapseOpen }) => {
-              const toggleOpen = () =>
-                setIsCollapseOpen((prevState) => !prevState);
-              return (
-                <Button
-                  color="default"
-                  intent="flat"
-                  size="md"
-                  className={`w-fit transform transition-transform duration-300 ease-in-out ${
-                    isCollapseOpen ? "rotate-0" : "-rotate-90"
-                  }`}
-                  iconRight="chevron-down"
-                  onClick={toggleOpen}
-                  {...collapseProps}
-                />
-              );
-            }}
-          </Collapse.Controller>
-        )}
         {actions?.map((action) => (
           <Button key={action.id} {...action}>
             {action?.label}
           </Button>
         ))}
         {dropdownMenuProps && <DropdownMenu {...dropdownMenuProps} />}
+        {collapsibleProps && (
+          <Button
+            color="default"
+            intent="flat"
+            size="md"
+            className={`w-fit transform transition-transform duration-300 ease-in-out ${
+              isCollapseOpen ? "rotate-0" : "-rotate-90"
+            }`}
+            iconRight="chevron-down"
+            onClick={onCollapse}
+          />
+        )}
       </div>
     </div>
   );

@@ -3,14 +3,10 @@ import React, { useEffect, useState } from "react";
 
 import Body from "#src/components/Body";
 import Button from "#src/components/Button";
-import type { IconName } from "#src/components/Icon";
-import Select from "#src/components/Select";
-import Title from "#src/components/Title";
-import Toggle from "#src/components/Toggle";
 import type { DialogSize } from "#src/components/private/Dialog";
 
 import Modal, { ModalProps } from "./Modal";
-import { type StepConfig, confirmColors, footerDirections } from "./constants";
+import { confirmColors, footerDirections } from "./constants";
 
 // Define sizes for the storybook controls
 const sizeOptions: DialogSize[] = ["sm", "md", "lg"];
@@ -326,109 +322,6 @@ export const ModalOverflow: Story = {
             tristique magna lacinia felis aliquet ornare in et tellus.
           </Body>
         </Modal>
-      </>
-    );
-  },
-  args,
-};
-
-/**
- * Instead of children, you can render a step form thanks to the `steps` prop.<br>
- * There is a different content rendered for each step, and the initial step can be specified.
- */
-export const ModalStepForm: Story = {
-  name: "Modal step form",
-  render: (args) => {
-    const [isOpen, setIsOpen] = useState(false);
-    const [currentStep, setCurrentStep] = useState(0);
-    const [selectedOption, setSelectedOption] = useState("");
-    const [checked, setChecked] = useState(false);
-
-    const modalSteps: StepConfig[] = [
-      {
-        label: "Account Setup",
-        content: (
-          <div className="space-y-md">
-            <Title htmlVariant="h4">Step 1: Select your option</Title>
-            <Select
-              id="select-example"
-              size="md"
-              status="default"
-              defaultValue="Next step is blocked now!"
-              items={[{ id: "option-1", label: "Pass to next step" }]}
-              iconLeft="arrow-right"
-              onSelect={(opt) => setSelectedOption(opt)}
-            />
-          </div>
-        ),
-        validate: () => selectedOption.length > 0,
-        icon: (currentStep === 0 ? "circle" : "check-circle") as IconName,
-      },
-      {
-        label: "Confirmation",
-        content: (
-          <div className="space-y-md">
-            <Title htmlVariant="h4">Step 2: Review your info</Title>
-            <Toggle
-              id="toggle-example"
-              label="All good?"
-              checked={checked}
-              onChange={() => setChecked(!checked)}
-            />
-          </div>
-        ),
-        validate: () => checked,
-        icon: (currentStep <= 1 ? "circle" : "check-circle") as IconName,
-      },
-      {
-        label: "Finish the flow",
-        content: (
-          <div className="space-y-md">
-            <Title htmlVariant="h4">
-              Step 3: Just see the confirm label changing here
-            </Title>
-          </div>
-        ),
-        icon: "alert-triangle",
-      },
-    ];
-
-    const handleClose = () => {
-      setCurrentStep(0);
-      setSelectedOption("");
-      setChecked(false);
-      setIsOpen(false);
-    };
-    const handleNext = () => {
-      if (currentStep === modalSteps.length - 1) return;
-      setCurrentStep((prev) => prev + 1);
-    };
-    const handleBack = () => {
-      if (currentStep === 0) return;
-      setCurrentStep((prev) => prev - 1);
-      setSelectedOption("");
-      setChecked(false);
-    };
-
-    return (
-      <>
-        <Button
-          label="Open Modal"
-          size="md"
-          intent="default"
-          color="main"
-          onClick={() => setIsOpen(true)}
-        />
-        <Modal
-          {...args}
-          open={isOpen}
-          steps={modalSteps}
-          initialStep={0}
-          onClose={handleClose}
-          onCrossButtonClick={handleClose}
-          onConfirmClick={handleNext}
-          onCancelClick={handleBack}
-        />
       </>
     );
   },

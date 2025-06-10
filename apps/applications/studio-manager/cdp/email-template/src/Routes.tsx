@@ -7,6 +7,10 @@ const CustomListPage = lazy(() => import("#src/pages/CustomTemplate/ListPage"));
 
 const SharedListPage = lazy(() => import("#src/pages/SharedTemplate/ListPage"));
 
+const EmailTemplateEditor = lazy(
+  () => import("#src/pages/EmailTemplateDetail/EmailTemplateEditor"),
+);
+
 export const AppRoutes = () => {
   return (
     <Routes>
@@ -14,6 +18,14 @@ export const AppRoutes = () => {
       <Route element={<CustomListPage />} path={ROUTES.CUSTOM_TEMPLATES} />
       <Route element={<SharedListPage />} path={ROUTES.MASTER_TEMPLATES} />
       <Route element={<SharedListPage />} path={ROUTES.BSPORT_TEMPLATES} />
+      <Route
+        element={<EmailTemplateEditor />}
+        path={ROUTES.EMAIL_TEMPLATE_CREATE}
+      />
+      <Route
+        element={<EmailTemplateEditor />}
+        path={ROUTES.EMAIL_TEMPLATE_EDIT}
+      />
       <Route
         path="*"
         element={<Navigate to={`../${ROUTES.CUSTOM_TEMPLATES}`} />}

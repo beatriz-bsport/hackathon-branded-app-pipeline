@@ -11899,7 +11899,8 @@
             "nb_invoices": "Nombre total de lignes",
             "nb_consumer_giftcard": "Nombre total de lignes",
             "nb_credit": "Nombre total de lignes",
-            "nb_cashbook": "Nombre total de lignes"
+            "nb_cashbook": "Nombre total de lignes",
+            "total_rows": "Nombre total de lignes"
         },
         "yes": "Oui",
         "no": "Non",

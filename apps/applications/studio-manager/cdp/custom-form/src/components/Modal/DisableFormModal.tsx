@@ -87,10 +87,15 @@ export const DisableFormModal: React.FC<Props> = ({
       open={isOpen}
       onClose={onClose}
       title={t("activeList.archiveModal.title")}
-      confirmLabel={t("activeList.archiveModal.actions.archive")}
-      confirmColor="critical"
-      onConfirmClick={handleArchiveForm}
-      cancelLabel={t("activeList.archiveModal.actions.cancel")}
+      confirmButton={{
+        label: t("activeList.archiveModal.actions.archive"),
+        color: "critical",
+        onClick: handleArchiveForm,
+      }}
+      cancelButton={{
+        label: t("activeList.archiveModal.actions.cancel"),
+        onClick: onClose,
+      }}
       size="md"
     >
       <div className="flex flex-col gap-y-[16px]">

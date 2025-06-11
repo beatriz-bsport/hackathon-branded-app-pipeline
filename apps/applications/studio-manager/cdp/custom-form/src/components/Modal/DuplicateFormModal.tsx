@@ -66,10 +66,14 @@ export const DuplicateFormModal: React.FC<Props> = ({
       open={isOpen}
       onClose={onClose}
       title={t("activeList.duplicateModal.title")}
-      confirmLabel={t("activeList.duplicateModal.actions.duplicate")}
-      confirmColor="main"
-      onConfirmClick={handleDuplicateForm}
-      cancelLabel={t("activeList.duplicateModal.actions.cancel")}
+      confirmButton={{
+        label: t("activeList.duplicateModal.actions.duplicate"),
+        onClick: handleDuplicateForm,
+      }}
+      cancelButton={{
+        label: t("activeList.duplicateModal.actions.cancel"),
+        onClick: onClose,
+      }}
       size="md"
     >
       <div className="flex flex-col gap-y-[16px]">

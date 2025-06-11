@@ -78,8 +78,11 @@ const Dialog: React.FC<DialogProps> = ({
 
   const handleBackdropClick = (event: React.MouseEvent<HTMLDivElement>) => {
     if (event.target === event.currentTarget) {
-      onClickOutside?.(event);
-      handleClose();
+      if (onClickOutside) {
+        onClickOutside(event);
+      } else {
+        handleClose();
+      }
     }
   };
 

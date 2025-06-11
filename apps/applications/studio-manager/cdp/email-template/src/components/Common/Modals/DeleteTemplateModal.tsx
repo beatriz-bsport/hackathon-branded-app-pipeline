@@ -111,10 +111,15 @@ export const DeleteTemplateModal: React.FC<Props> = ({
       open={isOpen}
       onClose={onClose}
       title={t("activeList.deleteTemplateModal.title")}
-      confirmLabel={t("activeList.deleteTemplateModal.confirmButton")}
-      confirmColor="main"
-      onConfirmClick={handleDeleteTemplate}
-      cancelLabel={t("activeList.deleteTemplateModal.cancelButton")}
+      confirmButton={{
+        label: t("activeList.deleteTemplateModal.confirmButton"),
+        color: "critical",
+        onClick: handleDeleteTemplate,
+      }}
+      cancelButton={{
+        label: t("activeList.deleteTemplateModal.cancelButton"),
+        onClick: onClose,
+      }}
       size="md"
     >
       {isLoading || !emailTemplateDetail ? (

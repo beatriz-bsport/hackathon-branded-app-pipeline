@@ -92,11 +92,14 @@ export const EditSmartlistModal: React.FC<EditSmartlistModalProps> = ({
       onClickOutside={onClose}
       title={t("editForm.title.edit")}
       size="md"
-      confirmLabel={t("editForm.actions.save")}
-      confirmColor="main"
-      onConfirmClick={handleCreate}
-      cancelLabel={t("editForm.actions.cancel")}
-      onCancelClick={onClose}
+      confirmButton={{
+        label: t("editForm.actions.save"),
+        onClick: handleCreate,
+      }}
+      cancelButton={{
+        label: t("editForm.actions.cancel"),
+        onClick: onClose,
+      }}
     >
       <SmartlistForm
         data={formData}

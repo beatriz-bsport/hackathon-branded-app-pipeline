@@ -37,10 +37,14 @@ export const PreviewTemplateModal: React.FC<Props> = ({
       open={isOpen}
       onClose={onClose}
       title={emailTemplateDetail?.title}
-      confirmLabel={t("activeList.previewEmailTemplateModal.confirmButton")}
-      confirmColor="main"
-      onConfirmClick={handleNavigateTemplate}
-      cancelLabel={t("activeList.previewEmailTemplateModal.cancelButton")}
+      confirmButton={{
+        label: t("activeList.previewEmailTemplateModal.confirmButton"),
+        onClick: handleNavigateTemplate,
+      }}
+      cancelButton={{
+        label: t("activeList.previewEmailTemplateModal.cancelButton"),
+        onClick: onClose,
+      }}
       size="md"
     >
       {isLoading || !emailTemplateDetail ? (

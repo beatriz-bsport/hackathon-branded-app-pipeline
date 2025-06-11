@@ -96,12 +96,17 @@ export const PackDeleteModal: React.FC<PackDeleteModalProps> = ({
   return (
     <Modal
       open={isOpen}
-      onConfirmClick={isLoading ? () => {} : handleDelete}
-      onCancelClick={onClose}
-      onCrossButtonClick={onClose}
-      confirmColor="critical"
-      confirmLabel={t("deleteModal.actions.delete")}
-      cancelLabel={t("deleteModal.actions.cancel")}
+      confirmButton={{
+        label: t("deleteModal.actions.delete"),
+        color: "critical",
+        disabled: isLoading,
+        onClick: handleDelete,
+      }}
+      cancelButton={{
+        label: t("deleteModal.actions.cancel"),
+        onClick: onClose,
+      }}
+      onCloseButtonClick={onClose}
       title={t("deleteModal.title")}
       size="md"
       onClickOutside={onClose}

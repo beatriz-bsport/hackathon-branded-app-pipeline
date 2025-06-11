@@ -1,11 +1,18 @@
 import { buildById } from "@bsport/store-base";
 
-import { sctStore } from "#src/store";
-import type { sct } from "#src/types";
+import { sportCategoryStore } from "#src/store";
+import type { SportCategory } from "#src/types";
 
-export const setScts = ({ scts }: { scts: sct[] }) => {
-  sctStore.setState((state) => ({
-    ids: scts.map((sct) => sct.id),
-    byId: buildById<sct>({ initial: state.byId, newItems: scts }),
+export const setSportCategories = ({
+  sportCategories,
+}: {
+  sportCategories: SportCategory[];
+}) => {
+  sportCategoryStore.setState((state) => ({
+    ids: sportCategories.map((sportCategory) => sportCategory.id),
+    byId: buildById<SportCategory>({
+      initial: state.byId,
+      newItems: sportCategories,
+    }),
   }));
 };

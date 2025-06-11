@@ -1,12 +1,12 @@
-export type scs = {
+export type SportParentCategory = {
   id: number;
   name: string;
   slug: string;
 };
 
-export type sct = {
+export type SportCategory = {
   name: string;
   id: number;
-  scs: scs;
+  scs: SportParentCategory;
   language: string;
 };

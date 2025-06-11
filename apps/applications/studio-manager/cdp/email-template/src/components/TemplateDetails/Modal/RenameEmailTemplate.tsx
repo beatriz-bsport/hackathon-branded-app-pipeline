@@ -82,10 +82,14 @@ export const RenameEmailTemplateModal: React.FC<Props> = ({
       open={isOpen}
       onClose={handleClose}
       title={t("details.renameTemplateModal.title")}
-      confirmLabel={t("details.renameTemplateModal.confirmButton")}
-      confirmColor="main"
-      onConfirmClick={handleSaveCategory}
-      cancelLabel={t("details.renameTemplateModal.cancelButton")}
+      confirmButton={{
+        label: t("details.renameTemplateModal.confirmButton"),
+        onClick: handleSaveCategory,
+      }}
+      cancelButton={{
+        label: t("details.renameTemplateModal.cancelButton"),
+        onClick: handleClose,
+      }}
       size="md"
     >
       <TextField

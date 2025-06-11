@@ -78,11 +78,15 @@ const FeedbackDialog: React.FC<FeedbackDialogProps> = ({ open, onClose }) => {
       open={open}
       size="md"
       title={t("title")}
-      confirmLabel={t("confirm")}
-      confirmColor="critical"
-      onConfirmClick={handleConfirm}
-      cancelLabel={t("cancel")}
-      onCancelClick={onClose}
+      confirmButton={{
+        label: t("confirm"),
+        color: "critical",
+        onClick: handleConfirm,
+      }}
+      cancelButton={{
+        label: t("cancel"),
+        onClick: onClose,
+      }}
       onClose={onClose}
     >
       <div className="p-sm flex flex-col gap-xs">

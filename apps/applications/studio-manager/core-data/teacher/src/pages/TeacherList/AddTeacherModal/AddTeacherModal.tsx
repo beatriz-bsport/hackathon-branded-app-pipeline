@@ -41,13 +41,15 @@ export const AddTeacherModal: React.FC<AddTeacherModalProps> = ({
   return (
     <Modal
       open={!!open}
-      confirmColor="main"
-      confirmLabel={t("activeList.addTeacherModal.actions.create")}
-      cancelLabel={t("activeList.addTeacherModal.actions.cancel")}
-      onConfirmClick={handleConfirm}
-      onClose={onClose}
-      onCrossButtonClick={onClose}
-      onClickOutside={onClose}
+      confirmButton={{
+        label: t("activeList.addTeacherModal.actions.create"),
+        onClick: handleConfirm,
+      }}
+      cancelButton={{
+        label: t("activeList.addTeacherModal.actions.cancel"),
+        onClick: onClose,
+      }}
+      onCloseButtonClick={onClose}
       size="md"
       title={t("activeList.actions.addTeacher")}
     >

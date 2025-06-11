@@ -6,13 +6,16 @@ import { confirmColors, footerDirections } from "./constants";
 export type ConfirmColor = (typeof confirmColors)[number];
 export type FooterDirection = (typeof footerDirections)[number];
 
-type DefaultPropsWithConstraints = Omit<ButtonProps, "size" | "intent">;
+type DefaultPropsWithConstraints = Omit<
+  ButtonProps,
+  "size" | "intent" | "color"
+>;
 
 export type ConfirmButtonProps = DefaultPropsWithConstraints & {
-  color: ConfirmColor;
+  color?: ConfirmColor;
 };
 
-export type CancelButtonProps = Omit<DefaultPropsWithConstraints, "color">;
+export type CancelButtonProps = DefaultPropsWithConstraints;
 
 export type StepConfig = {
   label: string;

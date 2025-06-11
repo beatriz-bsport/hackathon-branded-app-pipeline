@@ -6,7 +6,7 @@ import Button from "#src/components/Button";
 import type { DialogSize } from "#src/components/private/Dialog";
 
 import Modal, { ModalProps } from "./Modal";
-import { confirmColors, footerDirections } from "./constants";
+import { footerDirections } from "./constants";
 
 // Define sizes for the storybook controls
 const sizeOptions: DialogSize[] = ["sm", "md", "lg"];
@@ -46,7 +46,7 @@ const meta: Meta<typeof Modal> = {
     onClose: {
       table: { type: { summary: "function", detail: "() => void" } },
     },
-    onCrossButtonClick: {
+    onCloseButtonClick: {
       table: {
         type: {
           summary: "function",
@@ -62,31 +62,11 @@ const meta: Meta<typeof Modal> = {
         },
       },
     },
-    confirmLabel: {
-      control: { type: "text" },
+    confirmButton: {
+      control: { type: "object" },
     },
-    confirmColor: {
-      options: confirmColors,
-      control: { type: "inline-radio" },
-    },
-    onConfirmClick: {
-      table: {
-        type: {
-          summary: "function",
-          detail: "(event: React.MouseEvent<HTMLButtonElement>) => void",
-        },
-      },
-    },
-    cancelLabel: {
-      control: { type: "text" },
-    },
-    onCancelClick: {
-      table: {
-        type: {
-          summary: "function",
-          detail: "(event: React.MouseEvent<HTMLButtonElement>) => void",
-        },
-      },
+    cancelButton: {
+      control: { type: "object" },
     },
     children: {
       table: { type: { summary: "ReactNode" } },
@@ -113,13 +93,17 @@ const args: ModalProps = {
     "Ergonomic executive chair upholstered in bonded black leather and PVC padded seat and back for all-day comfort and support.",
   footerDirection: "row",
   onClose: () => console.log("modal closed"),
-  onCrossButtonClick: () => console.log("cross button clicked"),
+  onCloseButtonClick: () => console.log("cross button clicked"),
   onClickOutside: () => console.log("clicked outside"),
-  confirmLabel: "Confirm",
-  confirmColor: "main",
-  onConfirmClick: () => console.log("confirm clicked"),
-  cancelLabel: "Cancel",
-  onCancelClick: () => console.log("cancel clicked"),
+  confirmButton: {
+    label: "Confirm",
+    color: "main",
+    onClick: () => console.log("confirm clicked"),
+  },
+  cancelButton: {
+    label: "Cancel",
+    onClick: () => console.log("cancel clicked"),
+  },
 };
 
 /**
@@ -227,10 +211,6 @@ export const ModalConfirmClosing: Story = {
     const [isOpen, setIsOpen] = useState(false);
     const handleOpen = () => setIsOpen(true);
     const handleClose = () => setIsOpen(false);
-    const handleConfirmClose = () => {
-      console.log("confirm clicked");
-      handleClose();
-    };
 
     useEffect(() => {
       setIsOpen(args.open);
@@ -245,12 +225,7 @@ export const ModalConfirmClosing: Story = {
           color="main"
           onClick={handleOpen}
         />
-        <Modal
-          {...args}
-          open={isOpen}
-          onClose={handleClose}
-          onConfirmClick={handleConfirmClose}
-        >
+        <Modal {...args} open={isOpen} onClose={handleClose}>
           <Body htmlVariant="p" size="sm" color="default">
             Lorem ipsum odor amet, consectetuer adipiscing elit. Iaculis tempus
             libero habitant ex potenti; aptent vel fringilla. Commodo himenaeos

@@ -132,12 +132,16 @@ export const MemberArchiveModal: React.FC<MemberArchiveModalProps> = ({
   return (
     <Modal
       open
-      onConfirmClick={handleArchive}
-      onCancelClick={onClose}
-      onCrossButtonClick={onClose}
-      confirmColor="critical"
-      confirmLabel={t("listPage.archiveModal.buttons.archive")}
-      cancelLabel={t("listPage.archiveModal.buttons.cancel")}
+      confirmButton={{
+        label: t("listPage.archiveModal.buttons.archive"),
+        color: "critical",
+        onClick: handleArchive,
+      }}
+      cancelButton={{
+        label: t("listPage.archiveModal.buttons.cancel"),
+        onClick: onClose,
+      }}
+      onCloseButtonClick={onClose}
       title={t("listPage.archiveModal.title")}
       size="md"
       onClickOutside={onClose}

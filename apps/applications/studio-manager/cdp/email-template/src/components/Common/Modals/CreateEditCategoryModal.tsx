@@ -183,10 +183,14 @@ export const CreateEditCategoryModal: React.FC<Props> = ({
       open={isOpen}
       onClose={handleClose}
       title={translations.modal.title}
-      confirmLabel={translations.modal.confirmButton}
-      confirmColor="main"
-      onConfirmClick={handleSaveCategory}
-      cancelLabel={translations.modal.cancelButton}
+      confirmButton={{
+        label: translations.modal.confirmButton,
+        onClick: handleSaveCategory,
+      }}
+      cancelButton={{
+        label: translations.modal.cancelButton,
+        onClick: handleClose,
+      }}
       size="md"
     >
       <TextField

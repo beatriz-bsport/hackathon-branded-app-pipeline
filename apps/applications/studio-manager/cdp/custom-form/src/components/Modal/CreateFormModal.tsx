@@ -115,10 +115,14 @@ export const CreateFormModal: React.FC<Props> = ({
       open={isOpen}
       onClose={onClose}
       title={t("activeList.addFormModal.title")}
-      confirmLabel={t("activeList.addFormModal.actions.create")}
-      confirmColor="main"
-      onConfirmClick={handleSaveForm}
-      cancelLabel={t("activeList.addFormModal.actions.cancel")}
+      confirmButton={{
+        label: t("activeList.addFormModal.actions.create"),
+        onClick: handleSaveForm,
+      }}
+      cancelButton={{
+        label: t("activeList.addFormModal.actions.cancel"),
+        onClick: onClose,
+      }}
       size="md"
     >
       <div className="flex flex-col gap-md">

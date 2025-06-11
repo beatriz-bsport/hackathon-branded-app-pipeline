@@ -2,11 +2,15 @@ import React, { useCallback } from "react";
 
 import Body from "#src/components/Body";
 import Button from "#src/components/Button";
+import type {
+  CancelButtonProps,
+  ConfirmButtonProps,
+} from "#src/components/ModalStepper/types";
 import Title from "#src/components/Title";
 import Dialog, { type DialogSize } from "#src/components/private/Dialog";
 
 import Footer from "./Footer";
-import type { ConfirmColor, FooterDirection } from "./types";
+import type { FooterDirection } from "./types";
 
 export type ModalProps = React.HTMLAttributes<HTMLDivElement> & {
   open: boolean;
@@ -15,13 +19,10 @@ export type ModalProps = React.HTMLAttributes<HTMLDivElement> & {
   description?: React.ReactNode;
   footerDirection?: FooterDirection;
   onClose?: () => void;
-  onCrossButtonClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
+  onCloseButtonClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
   onClickOutside?: (event: React.MouseEvent<HTMLDivElement>) => void;
-  confirmLabel?: string;
-  confirmColor?: ConfirmColor;
-  onConfirmClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
-  cancelLabel?: string;
-  onCancelClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
+  confirmButton?: ConfirmButtonProps;
+  cancelButton?: CancelButtonProps;
   children?: React.ReactNode;
 };
 
@@ -36,13 +37,10 @@ export type ModalProps = React.HTMLAttributes<HTMLDivElement> & {
  * @param props.description Description below the title. Can be a string or a ReactNode.
  * @param props.footerDirection Direction of the footer.
  * @param props.onClose Function to call when the modal is closed.
- * @param props.onCrossButtonClick Function to call when the cross button is clicked.
+ * @param props.onCloseButtonClick Function to call when the cross button is clicked.
  * @param props.onClickOutside Function to call when the modal is clicked outside.
- * @param props.confirmLabel Text label of the confirm button.
- * @param props.confirmColor Color of the confirm button.
- * @param props.onConfirmClick Function to call when the confirm button is clicked.
- * @param props.cancelLabel Text label of the cancel button.
- * @param props.onCancelClick Function to call when the cancel button is clicked.
+ * @param props.confirmButton Confirm button props.
+ * @param props.cancelButton Cancel button props.
  * @param props.children Content in the middle of the modal.
  * @link https://docs.infra.bsport.io/storybook/kaizen/main/index.html?path=/docs/components-modal--docs
  */
@@ -54,13 +52,10 @@ const Modal: React.FC<ModalProps> = ({
   description,
   footerDirection = "row",
   onClose,
-  onCrossButtonClick,
+  onCloseButtonClick,
   onClickOutside,
-  confirmLabel,
-  confirmColor = "main",
-  onConfirmClick,
-  cancelLabel,
-  onCancelClick,
+  confirmButton,
+  cancelButton,
   children,
   ...props
 }) => {
@@ -68,12 +63,12 @@ const Modal: React.FC<ModalProps> = ({
     onClose?.();
   }, [onClose]);
 
-  const handleCrossButtonClick = useCallback(
+  const handleCloseButtonClick = useCallback(
     (event: React.MouseEvent<HTMLButtonElement>) => {
-      onCrossButtonClick?.(event);
+      onCloseButtonClick?.(event);
       handleClose();
     },
-    [onCrossButtonClick, handleClose],
+    [onCloseButtonClick, handleClose],
   );
 
   return (
@@ -106,7 +101,7 @@ const Modal: React.FC<ModalProps> = ({
           color="default"
           iconRight="x"
           className="h-fit"
-          onClick={handleCrossButtonClick}
+          onClick={handleCloseButtonClick}
         />
       </div>
 
@@ -115,11 +110,8 @@ const Modal: React.FC<ModalProps> = ({
       )}
 
       <Footer
-        cancelLabel={cancelLabel}
-        confirmLabel={confirmLabel}
-        confirmColor={confirmColor}
-        onConfirmClick={onConfirmClick}
-        onCancelClick={onCancelClick}
+        confirmButton={confirmButton}
+        cancelButton={cancelButton}
         footerDirection={footerDirection}
       />
     </Dialog>

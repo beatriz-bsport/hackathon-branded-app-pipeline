@@ -322,7 +322,8 @@ const connectReaderFormSchema = Yup.object().shape({
     then: Yup.string().required(),
   }),
   state: Yup.string().when('country', {
-    is: (countryCode) => ['AU', 'CA', 'ES', 'US'].includes(countryCode),
+    is: (countryCode) =>
+      COUNTRIES_REQUIRING_LOCATION_ADDRESS_STATE.includes(countryCode),
     then: Yup.string().required(),
   }),
 });
@@ -355,7 +356,9 @@ export const ConnectReaderFormHOC = withFormik<Props, FormikValues>({
   handleSubmit: (values, { props, setSubmitting }) => {
     if (!props.selectedReaderToUpdate) {
       const data = { ...values };
-      if (!['AU', 'CA', 'ES', 'US'].includes(values.country)) {
+      if (
+        !COUNTRIES_REQUIRING_LOCATION_ADDRESS_STATE.includes(values.country)
+      ) {
         data.state = null;
       }
       props.setDisplayForm(false);

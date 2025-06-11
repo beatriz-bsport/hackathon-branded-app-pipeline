@@ -1,7 +1,8 @@
-import type { sctState } from "./store";
+import type { sportCategoryState } from "./store";
 
-export const selectScts = (state: sctState) => {
+export const selectSportCategories = (state: sportCategoryState) => {
   const { ids, byId } = state;
   return ids.map((id) => byId[id]);
 };
-export const selectSct = (state: sctState, id: number) => state.byId[id];
+export const selectSportCategory = (state: sportCategoryState, id: number) =>
+  state.byId[id];

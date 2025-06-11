@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 import type {
   FilterElementState,
@@ -6,9 +6,9 @@ import type {
 } from "@bsport/kaizen-primitive-core";
 import { dataAccessLayer } from "@bsport/sm-backbone";
 import {
-  fetchSctsAction,
-  selectScts,
-  useSctStore,
+  fetchSportCategoriesAction,
+  selectSportCategories,
+  useSportCategoryStore,
 } from "@bsport/store-core-data-masterdata";
 
 import { fetch } from "#src/utils/fetch";
@@ -58,16 +58,16 @@ export const useCategoryFilter = (): {
 
   const [activeCategoryFilters, setActiveCategoryFilters] =
     useState<ActiveCategoryFilters>(emptyFilters);
-  const categories = useSctStore(selectScts);
+  const categories = useSportCategoryStore(selectSportCategories);
 
   useEffect(() => {
-    if (companyId) fetchSctsAction(fetch, { companyId });
+    if (companyId) fetchSportCategoriesAction(fetch, { companyId });
   }, [companyId]);
 
-  const onFilterChange = (filters: FilterElementState[]) => {
+  const onFilterChange = useCallback((filters: FilterElementState[]) => {
     const newActiveFilters = toCategoryFilters(filters);
     setActiveCategoryFilters(newActiveFilters);
-  };
+  }, []);
 
   const categoryFiltersConfig: FilterProps = useMemo(
     () => ({

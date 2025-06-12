@@ -44,8 +44,6 @@ import {
   EMAIL_EDITOR_MIN_HEIGHT,
   EMAIL_SUBJECT_BACKEND_CHARACTER_LIMIT,
   EMAIL_TITLE_BACKEND_CHARACTER_LIMIT,
-  ENHANCED_EMAIL_EDITOR_BETA_TEST_COMPANY,
-  ENHANCED_EMAIL_EDITOR_BETA_TEST_FRANCHISOR,
 } from '#src/libs/email-editor/constants';
 import { EMAIL_TEMPLATE_MISSING_REQUIRED_TAGS } from '@bsport/common/lib/master-data/error-codes/notification-rule.js';
 
@@ -513,22 +511,13 @@ const EmailEditorPanel: React.FC<EmailEditorPanelProps> = ({
     }
   }, [requiredTags]);
 
-  const isCompanyInBetaTest =
-    Config.REACT_APP_SENTRY_ENVIRONMENT !== 'production' ||
-    (companyId &&
-      ENHANCED_EMAIL_EDITOR_BETA_TEST_COMPANY.includes(companyId)) ||
-    (franchiseId &&
-      ENHANCED_EMAIL_EDITOR_BETA_TEST_FRANCHISOR.includes(franchiseId));
-
   const mergeTags: ResolvedTags = getMergeTags || {};
 
   const currentLocale = i18n.language || 'en-US';
 
-  const unlayerProjectId = isCompanyInBetaTest
-    ? parseInt(Config.REACT_APP_UNLAYER_PROJECT_ID || '')
-    : undefined;
+  const unlayerProjectId = parseInt(Config.REACT_APP_UNLAYER_PROJECT_ID || '');
 
-  const unlayerUser = isCompanyInBetaTest ? getUnlayerUser() : undefined;
+  const unlayerUser = getUnlayerUser();
 
   return (
     <div className={classes.totalEditorContainer}>

@@ -10198,7 +10198,7 @@
                 "showCalendar": "See the calendar",
                 "establishment": "This establishment isn't available at this time slot.",
                 "coach": "This teacher isn't available at this time slot.",
-                "title": "There's no availability to display.",
+                "title": "No availability to show. Click the arrows to find another time slot.",
                 "loading": "Verifying availability",
                 "resource": "Attention! {{ resource }} isn't availably at this moment.\n",
                 "continue": "Are you sure that you want to move this appointment?",

@@ -13,6 +13,7 @@ import CheckIcon from '@material-ui/icons/Check';
 import RefreshIcon from '@material-ui/icons/Refresh';
 import Tooltip from '@material-ui/core/Tooltip';
 import ErrorIcon from '@material-ui/icons/Error';
+import KeyboardReturnIcon from '@material-ui/icons/KeyboardReturn';
 import CancelIcon from '@material-ui/icons/Cancel';
 
 import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
@@ -47,6 +48,8 @@ const StatusIcon = ({ status }: any) => {
     case 'cancelled_with_credit_note':
     case 'cancelled_with_negative_invoice':
       return <CancelIcon color="error" />;
+    case 'negative_invoice_cancelling_bad_debt_invoice':
+      return <KeyboardReturnIcon color="secondary" />;
     default:
       return null;
   }
@@ -78,6 +81,7 @@ export const PlatformInvoiceListItem = (props: Props) => {
             'succeeded',
             'cancelled_with_credit_note',
             'cancelled_with_negative_invoice',
+            'negative_invoice_cancelling_bad_debt_invoice',
           ].includes(status)
             ? 'inherit'
             : 'error'

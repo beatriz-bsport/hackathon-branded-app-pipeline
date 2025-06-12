@@ -808,7 +808,8 @@
             "1102": "Verwijzingsbeloning beschikbaar (verwijzend lid)",
             "1200": "Betalingsmethode vervaldatum eerste herinnering voor betalingen op afbetaling",
             "1201": "Betalingsmethode vervaldatum tweede herinnering voor betalingen op afbetaling",
-            "undefined": "Het systeem zal mislukte betalingen van abonnementen opnieuw proberen."
+            "undefined": "Het systeem zal mislukte betalingen van abonnementen opnieuw proberen.",
+            "23": "Abonnement betaald met intern rekeningsaldo"
         },
         "tag": {
             "BookingOption": {
@@ -3777,7 +3778,8 @@
             "nb_expired_consumer_payment_packs": "Aantal verlopen passen",
             "nb_consumer_payment_packs": "Aantal passen",
             "nb_first_attendances": "Aantal eerste bezoeken",
-            "nb_payments": "Aantal betalingen"
+            "nb_payments": "Aantal betalingen",
+            "total_rows": "Aantal rijen"
         },
         "report": {
             "delete_message": "Weet je zeker dat je \"{{- name }}\" wilt verwijderen?"
@@ -11346,7 +11348,7 @@
                 "showCalendar": "Toon agenda",
                 "establishment": "Deze vestiging is niet beschikbaar op dit tijdstip.",
                 "coach": "Deze instructeur is niet beschikbaar op dit tijdstip.",
-                "title": "Er is geen beschikbaarheid om weer te geven.",
+                "title": "De komende dagen is er geen beschikbaarheid. Klik op de pijlen voor een beschikbaarheid verder in te toekomst.",
                 "loading": "Beschikbaarheid controleren",
                 "resource": "Waarschuwing! {{ resource }} is niet beschikbaar op dit moment.\n",
                 "continue": "Weet je zeker dat je deze afspraak wilt verplaatsen?",
@@ -15730,10 +15732,10 @@
             "tse": {
                 "documentationLabel": "Procedurele documentatie",
                 "manufacturerLinkLabel": "Certificaat van de TSE-fabrikant",
-                "manufacturer": "Fabrikant: bsport",
+                "manufacturer": "Fabrikant: fiskaly GmbH",
                 "version": "Versie van de TSE: 2.0",
                 "description": "Het is een regelgeving die gericht is op het waarborgen van de veiligheid en integriteit van elektronische kassasystemen. We gebruiken Fiskaly als technisch beveiligingsmiddel (TSE) om manipulatie te voorkomen en ervoor te zorgen dat transactiegegevens veilig en fraudebestendig worden opgeslagen.",
-                "title": "Kassensicherungsverordnung (Duitsland)"
+                "title": "Verordening kaszekerheid (Duitsland)"
             },
             "refundsAndDiscount": {
                 "checkbox": {

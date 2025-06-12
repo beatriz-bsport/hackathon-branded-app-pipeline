@@ -3961,7 +3961,7 @@
                 "ledger": {
                     "_label": "Kassenbuch"
                 },
-                "_label": "Aktionen in der App",
+                "_label": "Aktionen in oberer Navigationsleiste",
                 "communicationAlerts": {
                     "_label": "Benachrichtigung"
                 }
@@ -6557,7 +6557,8 @@
             "nb_expired_consumer_payment_packs": "Anzahl der ausgelaufenen Kurspässe",
             "nb_consumer_payment_packs": "Anzahl der Kurspässe",
             "nb_first_attendances": "Anzahl der Erstbesuche",
-            "nb_payments": "Anzahl der Zahlungen"
+            "nb_payments": "Anzahl der Zahlungen",
+            "total_rows": "Zeilen insgesamt"
         },
         "no": "Nein",
         "yes": "Ja",
@@ -8490,7 +8491,7 @@
             "tse": {
                 "documentationLabel": "Verfahrensdokumentation",
                 "manufacturerLinkLabel": "Zertifikat des TSE Herstellers",
-                "manufacturer": "Hersteller: bsport",
+                "manufacturer": "Hersteller: fiskaly GmbH",
                 "version": "TSE Version: 2.0",
                 "description": "Ziel dieser Verordnung ist es, die Sicherheit und Integrität elektronischer Kassensystemen zu gewährleisten. \nWir nutzen Fiskaly als technische Sicherheitseinrichtung (TSE), um Manipulation zu verhindern und sicherzustellen, dass Transaktionsdaten sicher gespeichert werden.",
                 "title": "Kassensicherungsverordnung (Deutschland)"
@@ -11990,7 +11991,7 @@
                 "showCalendar": "Kalender anzeigen",
                 "establishment": "Diese Einrichtung ist derzeit nicht verfügbar",
                 "coach": "Diese Lehrkraft ist zu diesem Zeitpunkt nicht verfügbar",
-                "title": "Zeitfenster nicht verfügbar",
+                "title": "Keine verfügbaren Slots. Nutze die Pfeiltasten um andere Verfügbarkeiten zu finden.",
                 "resource": "Achtung! {{ resource }} ist im Moment nicht verfügbar.\n",
                 "continue": "Sind Sie sicher, dass Sie den Termin verschieben möchten?",
                 "validate": "Bestätigen",
@@ -13290,7 +13291,7 @@
                     "availability": {
                         "expiresToday": "Läuft heute ab",
                         "expiresIn": "{{ daysRemaining }} Tag noch",
-                        "expiresIn_plural": "{{ daysRemaining }} Tage übrig",
+                        "expiresIn_plural": "Noch {{ daysRemaining }} Tage übrig",
                         "future": "Startdatum: {{ startDate }}",
                         "expired": "Abgelaufen am: {{ expirationDate }}",
                         "active": "Ablaufdatum: {{ expirationDate }}"
@@ -14377,7 +14378,8 @@
             "1102": "Prämie für anwerbendes Mitglied verfügbar",
             "1200": "Erste Erinnerung zu ablaufenden Zahlungsmitteln (Kredit-/Debitkarten)",
             "1201": "Zweite Erinnerung zu ablaufenden Zahlungsmitteln (Kredit-/Debitkarten)",
-            "undefined": "Buchung für einen Gast (für Gast)"
+            "undefined": "Buchung für einen Gast (für Gast)",
+            "23": "Abonnement mit internem Guthaben beglichen"
         },
         "tag": {
             "BookingOption": {
@@ -17793,7 +17795,7 @@
             },
             "warnings": {
                 "exclusiveAssociatedCoaches": "Die Lehrkraft {{- coach_name }} wird nur über Vertretungsanfragen für Kurse in dieser Einrichtung benachrichtigt. Wenn du die Einrichtung löschst, erhält diese Lehrkraft Vertretungsanfragen von jeder Einrichtung.",
-                "exclusiveAssociatedCoaches_plural": "Deine Lehrkräfte {{- coach_name }} erhalten nur eine Benachrichtigung, wenn eine Vertretungsanfrage für eine Sitzung an diesem Standort eingeht. Wird der Standort gelöscht, erhalten sie Vertretungsanfragen für alle Standorte.",
+                "exclusiveAssociatedCoaches_plural": "Dein(e) Lehrer {{- coach_name }} werden nur benachrichtigt, wenn eine Vertretungsanfrage für einen Kurs in dieser Einrichtung gemacht wird. Wenn du diese Einrichtung löschst, werden sie (deshalb) Vertretungsanfragen von jeder Einrichtung erhalten.",
                 "hasBillingGroup": "Diese Einrichtung wird auch aus der Rechnungsgruppe {{- establishment_billing_group_name }} entfernt.",
                 "exclusivePrivateServices_plural": "Diese Termine {{- private_service_name }} sind so konfiguriert, dass sie nur in dieser Einrichtung stattfinden können. Wenn diese Einrichtung gelöscht wird, können diese Termine überall stattfinden.",
                 "exclusivePrivateServices": "Der Termin {{- private_service_name }} ist so konfiguriert, dass er nur in dieser Einrichtung stattfinden kann. Wenn diese Einrichtung gelöscht wird, kann dieser Termin überall stattfinden.",
@@ -21294,7 +21296,7 @@
             "taxes": "Steuern",
             "totalIncludingTax": "Gesamt",
             "payment": "Bezahlung",
-            "selectItemToStart": "Klicken Sie auf ein Objekt, um einen Warenkorb zu beginnen",
+            "selectItemToStart": "Klicke auf ein Objekt, um einen Warenkorb zu beginnen",
             "memberModal": {
                 "title": "Identifikation des Mitglieds",
                 "confirm": "Registrieren",

@@ -1473,7 +1473,8 @@
             "1101": "Contributo per il referral disponibile (membro riferito)",
             "1102": "Contributo per il referral disponibile (membro referente)",
             "1200": "Modalità di pagamento, primo sollecito per la scadenza dei pagamenti rateali",
-            "1201": "Modalità di pagamento, secondo sollecito per la scadenza dei pagamenti rateali"
+            "1201": "Modalità di pagamento, secondo sollecito per la scadenza dei pagamenti rateali",
+            "23": "Abbonamento ricorrente pagato con il saldo del conto interno"
         },
         "ruleGroup": {
             "private_booking": "Appuntamento",
@@ -3261,7 +3262,7 @@
                 "validate": "Convalidare",
                 "continue": "Sei sicuro di voler spostare questa appuntamento?",
                 "resource": "Si prega di notare che {{ resource }} non è disponibile in questo slot.\n",
-                "title": "Slot non disponibile",
+                "title": "Non c'è disponibilità per la presentazione. Fare clic sulle frecce per trovare un'altra fascia oraria.",
                 "loading": "Verifica della disponibilità dello slot"
             }
         },
@@ -7279,8 +7280,8 @@
                 "title": "Kassensicherungsverordnung (Germania)",
                 "documentationLabel": "Documentazione procedurale",
                 "manufacturerLinkLabel": "Certificato del produttore del TSE",
-                "manufacturer": "Produttore: bsport",
-                "version": "Versione del TSE: 2.0",
+                "manufacturer": "Produttore: fiskaly GmbH",
+                "version": "Versione del TSE: v2",
                 "description": "Si tratta di una normativa volta a garantire la sicurezza e l'integrità dei sistemi elettronici di cassa. Utilizziamo Fiskaly come dispositivo tecnico di sicurezza (TSE) per evitare manipolazioni e garantire che i dati delle transazioni siano memorizzati in modo sicuro e a prova di manomissione."
             },
             "refundsAndDiscount": {
@@ -9166,7 +9167,8 @@
             "nb_expired_consumer_payment_packs": "Numero di pacchetti scaduti",
             "nb_consumer_payment_packs": "Numero di pacchetti",
             "nb_first_attendances": "Numero di prime presenze",
-            "nb_payments": "Numero di pagamenti"
+            "nb_payments": "Numero di pagamenti",
+            "total_rows": "Righe totali"
         },
         "payment_method": {
             "dispute": "Contenzioso",

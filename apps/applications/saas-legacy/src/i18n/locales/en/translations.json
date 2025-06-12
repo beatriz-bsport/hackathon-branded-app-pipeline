@@ -17883,7 +17883,6 @@
                         "modification_not_apply_to_past": "You are about to change the billing day of your subscription. Only new subscriptions created will be affected. Existing subscriptions and subscriptions with renewals will not change (even after renewal)",
                         "end_of_month_explain": "If a month does not have a {{ month_billing_day }}, the invoice will be issued on the last day of the month.",
                         "recurrence_explain": {
-                            "month": "The subscription will be invoiced every {{ month_billing_day }} of the month for a total duration of {{ nb_interval }} months and will generate {{ nb_interval }} {{ invoice }}. The first payment is pro-rated if necessary."
                         }
                     },
                     "same_day_as_subscription": {
@@ -17907,8 +17906,6 @@
                 },
                 "unusableByStaff": {},
                 "month_billing_day": {
-                    "label2": "of the month.",
-                    "label1": "Invoice every"
                 },
                 "highlightedAsRecommended": {
                     "label": "Mark as recommended"

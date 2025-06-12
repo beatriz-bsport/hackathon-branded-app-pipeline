@@ -251,7 +251,7 @@ const getTranslations = async () => {
             year: 'year',
             year_plural: 'years',
           },
-          label: 'Invoice on the [1] of each month',
+          label: 'Repeat every',
         },
         recurrence: {
           explain:
@@ -276,7 +276,7 @@ const getTranslations = async () => {
               'If a month does not have a {{ month_billing_day }}, the invoice will be issued on the last day of the month.',
             recurrence_explain: {
               month:
-                'The subscription will be invoiced every {{ month_billing_day }} of the month for a total duration of {{ nb_interval }} months and will generate {{ nb_interval }} {{ invoice }}. The first payment is pro-rated if necessary.',
+                'Members will be invoiced on the {{ month_billing_day }} of each month for a total of {{ nb_interval }} months. The first payment will be pro-rated if necesssary.',
             },
           },
           same_day_as_subscription: {
@@ -285,9 +285,9 @@ const getTranslations = async () => {
               year_plural:
                 'The subscription will be invoiced every {{ recurrence_basis }} years for a total duration of {{ total_subscription_duration }} {{ time_unit }} and will generate {{ nb_interval }} {{ invoice }}. The customer will be able to choose the start date of the subscription.',
               month:
-                'Members will be invoiced on the [1] of each month for a total of {{ total_subscription_duration }} {{ time_unit }}. The first payment will be pro-rated if necessary.',
+                'The subscription will be invoiced every month for a total duration of {{ total_subscription_duration }} {{ time_unit }} and will generate {{ nb_interval }} {{ invoice }}. The customer will be able to choose the start date of the subscription.',
               month_plural:
-                'Members will be invoiced every {{ recurrence_basis }} months for a total of {{ total_subscription_duration }} {{ time_unit }} and will generate {{ nb_interval }} {{ invoice }}. The first payment will be pro-rated if necessary.',
+                'The subscription will be invoiced every {{ recurrence_basis }} months for a total duration of {{ total_subscription_duration }} {{ time_unit }} and will generate {{ nb_interval }} {{ invoice }}. The customer will be able to choose the start date of the subscription.',
               day: 'The subscription will be invoiced every day for a total duration of {{ total_subscription_duration }} {{ time_unit }} and will generate {{ nb_interval }} {{ invoice }}. The customer will be able to choose the start date of the subscription.',
               day_plural:
                 'The subscription will be invoiced every {{ recurrence_basis }} days for a total duration of {{ total_subscription_duration }} {{ time_unit }} and will generate {{ nb_interval }} {{ invoice }}. The customer will be able to choose the start date of their subscription.',
@@ -306,7 +306,10 @@ const getTranslations = async () => {
         price: { title: 'Price' },
         general_info: { title: 'General information' },
         unusableByStaff: { label: 'Hidden to staff' },
-        month_billing_day: { label2: 'of the month.', label1: 'Invoice every' },
+        month_billing_day: {
+          label2: 'of each month.',
+          label1: 'Invoice on the',
+        },
         highlightedAsRecommended: {
           label: 'Mark as recommended',
           helperText:

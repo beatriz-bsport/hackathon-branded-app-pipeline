@@ -7,8 +7,9 @@ import type {
   NavigationMenuItem,
 } from "@bsport/kaizen-primitive-core";
 
-import urls, { legacyUrls } from "#src/urls";
 import { useTranslation } from "#src/utils/i18n";
+
+import type { NavigationUrls } from "./navigation-urls";
 
 export type MenuSet = "default" | "settings";
 
@@ -26,8 +27,10 @@ type NavigationElement =
 
 export const useNavigationElements = ({
   menuSet = "default",
+  navigationUrls,
 }: {
   menuSet?: MenuSet;
+  navigationUrls: NavigationUrls;
 }) => {
   const { t } = useTranslation("default");
 
@@ -41,7 +44,7 @@ export const useNavigationElements = ({
           endSlot: (
             <Indicator color="default" position="top" size="sm" value={1} />
           ),
-          href: "/",
+          ...navigationUrls.inbox,
         },
         {
           icon: "bell-03",
@@ -58,16 +61,19 @@ export const useNavigationElements = ({
           icon: "calendar",
           id: "calendar",
           label: t("menus.calendar"),
+          ...navigationUrls.calendar,
         },
         {
           icon: "clock",
           id: "schedule",
           label: t("menus.schedule"),
+          ...navigationUrls.schedule,
         },
         {
           icon: "log-in-03",
           id: "access-control",
           label: t("menus.accessControl"),
+          ...navigationUrls.accessControl,
         },
         {
           type: "divider",
@@ -80,15 +86,18 @@ export const useNavigationElements = ({
             {
               id: "activities",
               label: t("menus.classes.activities"),
-              href: urls.activity,
-              revamped: true,
+              ...navigationUrls.activity,
             },
             {
               id: "workshops",
               label: t("menus.classes.workshops"),
-              href: legacyUrls.workshop,
+              ...navigationUrls.workshop,
             },
-            { id: "appointments", label: t("menus.classes.appointments") },
+            {
+              id: "appointments",
+              label: t("menus.classes.appointments"),
+              ...navigationUrls.appointment,
+            },
           ],
         },
         {
@@ -99,10 +108,15 @@ export const useNavigationElements = ({
           id: "memberships",
           label: t("menus.memberships.title"),
           subItems: [
-            { id: "passes", label: t("menus.memberships.passes") },
+            {
+              id: "passes",
+              label: t("menus.memberships.passes"),
+              ...navigationUrls.pass,
+            },
             {
               id: "subscriptions",
               label: t("menus.memberships.subscriptions"),
+              ...navigationUrls.subscription,
             },
           ],
         },
@@ -111,25 +125,30 @@ export const useNavigationElements = ({
           id: "products",
           label: t("menus.products.title"),
           subItems: [
-            { id: "webshop", label: t("menus.products.webshop") },
+            {
+              id: "webshop",
+              label: t("menus.products.webshop"),
+              ...navigationUrls.webshop,
+            },
             {
               id: "packs",
               label: t("menus.products.packs"),
-              href: urls.pack,
-              revamped: true,
+              ...navigationUrls.pack,
             },
             {
               id: "gift-cards",
               label: t("menus.products.giftcards"),
-              href: urls.giftcard,
-              revamped: true,
+              ...navigationUrls.giftcard,
             },
-            { id: "videos", label: t("menus.products.videosAndEbooks") },
+            {
+              id: "videos",
+              label: t("menus.products.videosAndEbooks"),
+              ...navigationUrls.video,
+            },
             {
               id: "orders",
               label: t("menus.products.orders"),
-              href: urls.order,
-              revamped: true,
+              ...navigationUrls.order,
             },
           ],
         },
@@ -144,27 +163,33 @@ export const useNavigationElements = ({
             {
               id: "member-notifications",
               label: t("menus.marketing.memberNotifications"),
+              ...navigationUrls.memberNotification,
             },
             {
               id: "email-template",
               label: t("menus.marketing.emailTemplates"),
-              href: urls.emailTemplate,
-              revamped: true,
+              ...navigationUrls.emailTemplate,
             },
             {
               id: "custom-forms",
               label: t("menus.marketing.customForms"),
-              href: urls.customForm,
-              revamped: true,
+              ...navigationUrls.customForm,
             },
             {
               id: "smartlists",
               label: t("menus.marketing.smartlists"),
-              href: urls.smartlist,
-              revamped: true,
+              ...navigationUrls.smartlist,
             },
-            { id: "audience", label: t("menus.marketing.audience") },
-            { id: "promotions", label: t("menus.marketing.promotions") },
+            {
+              id: "audience",
+              label: t("menus.marketing.audience"),
+              ...navigationUrls.audience,
+            },
+            {
+              id: "promotions",
+              label: t("menus.marketing.promotions"),
+              ...navigationUrls.promotion,
+            },
           ],
         },
         {
@@ -174,11 +199,13 @@ export const useNavigationElements = ({
           icon: "bar-line-chart",
           id: "dashboard",
           label: t("menus.dashboard"),
+          ...navigationUrls.dashboard,
         },
         {
           icon: "bar-chart-10",
           id: "reporting",
           label: t("menus.reporting"),
+          ...navigationUrls.reporting,
         },
         {
           type: "divider",
@@ -191,13 +218,24 @@ export const useNavigationElements = ({
             {
               id: "invoices",
               label: t("menus.finance.invoices"),
-              href: urls.invoice,
-              revamped: true,
+              ...navigationUrls.invoice,
             },
-            { id: "payouts", label: t("menus.finance.payouts") },
-            { id: "direct-debits", label: t("menus.finance.directDebits") },
-            { id: "expenses", label: t("menus.finance.expenses") },
-            { id: "payroll", label: t("menus.finance.payroll") },
+            // { id: "payouts", label: t("menus.finance.payouts"), ...navigationUrls.payout }, // --> Not published
+            {
+              id: "direct-debits",
+              label: t("menus.finance.directDebits"),
+              ...navigationUrls.directDebit,
+            },
+            {
+              id: "expenses",
+              label: t("menus.finance.expenses"),
+              ...navigationUrls.expense,
+            },
+            {
+              id: "payroll",
+              label: t("menus.finance.payroll"),
+              ...navigationUrls.payroll,
+            },
           ],
         },
         {
@@ -211,11 +249,18 @@ export const useNavigationElements = ({
             {
               id: "members",
               label: t("menus.membersHub.members"),
-              href: urls.member,
-              revamped: true,
+              ...navigationUrls.member,
             },
-            { id: "forms", label: t("menus.membersHub.forms") },
-            { id: "tags", label: t("menus.membersHub.tags") },
+            {
+              id: "forms",
+              label: t("menus.membersHub.forms"),
+              ...navigationUrls.customForm,
+            },
+            {
+              id: "tags",
+              label: t("menus.membersHub.tags"),
+              ...navigationUrls.tag,
+            },
           ],
         },
         {
@@ -226,10 +271,13 @@ export const useNavigationElements = ({
             {
               id: "teachers",
               label: t("menus.myStudio.teachers"),
-              href: urls.teacher,
-              revamped: true,
+              ...navigationUrls.teacher,
             },
-            { id: "establishments", label: t("menus.myStudio.establishments") },
+            {
+              id: "establishments",
+              label: t("menus.myStudio.establishments"),
+              ...navigationUrls.establishment,
+            },
           ],
         },
       ],
@@ -241,82 +289,102 @@ export const useNavigationElements = ({
         {
           id: "general",
           label: t("menus.settings.general"),
+          ...navigationUrls.settings_general,
         },
         {
           id: "marketplace",
           label: t("menus.settings.marketplace"),
+          ...navigationUrls.settings_marketplace,
         },
         {
           id: "widgets",
           label: t("menus.settings.widgets"),
+          ...navigationUrls.settings_widgets,
         },
         {
           id: "permissions",
           label: t("menus.settings.permissions"),
+          ...navigationUrls.settings_permission,
         },
         {
           id: "personalization",
           label: t("menus.settings.personalization"),
+          ...navigationUrls.settings_personalization,
         },
         {
           id: "teacherView",
           label: t("menus.settings.teacherView"),
+          ...navigationUrls.settings_teacherView,
         },
         {
           id: "memberForms",
           label: t("menus.settings.memberForms"),
+          ...navigationUrls.settings_memberForm,
         },
         {
           id: "livestreaming",
           label: t("menus.settings.livestreaming"),
+          ...navigationUrls.settings_livestreaming,
         },
         {
           id: "transactionalNotifications",
           label: t("menus.settings.transactionalNotifications"),
+          ...navigationUrls.settings_transactionalNotification,
         },
         {
           id: "payroll",
           label: t("menus.settings.payroll"),
+          ...navigationUrls.settings_payroll,
         },
         {
           id: "paymentMethods",
           label: t("menus.settings.paymentMethods"),
+          ...navigationUrls.settings_paymentMethod,
         },
         {
           id: "paymentFacilities",
           label: t("menus.settings.paymentFacilities"),
+          ...navigationUrls.settings_paymentFacility,
         },
         {
           id: "billing",
           label: t("menus.settings.billing"),
+          ...navigationUrls.settings_billing,
         },
         {
           id: "company",
           label: t("menus.settings.company"),
+          ...navigationUrls.settings_company,
         },
         {
           id: "waitlist",
           label: t("menus.settings.waitlist"),
+          ...navigationUrls.settings_waitlist,
         },
         {
           id: "webhook",
           label: t("menus.settings.webhook"),
+          ...navigationUrls.settings_webhook,
         },
         {
           id: "partnership",
           label: t("menus.settings.partnership"),
+          ...navigationUrls.settings_partnership,
         },
         {
           id: "activeCampaign",
           label: t("menus.settings.activeCampaign"),
+          ...navigationUrls.settings_activeCampaign,
         },
         {
           id: "referral",
           label: t("menus.settings.referral"),
+          ...navigationUrls.settings_referral,
         },
         {
           id: "bsportSubscription",
           label: t("menus.settings.bsportSubscription"),
+          ...navigationUrls.settings_bsportSubscription,
         },
         {
           id: "temporaryPass",
@@ -324,7 +392,7 @@ export const useNavigationElements = ({
         },
       ],
     };
-  }, []);
+  }, [navigationUrls, t]);
 
   return navigationItems[menuSet];
 };

@@ -1,4 +1,76 @@
-export default {
+import type { Urls } from "./types";
+
+const SETTINGS_URL = "/settings";
+
+export const HELP_CENTER = "https://intercom.help/bsport-helpcenter/en";
+
+export const LEGACY_URLS: Omit<Urls, "payout"> = {
+  accessControl: "/access-monitoring",
+  activity: "/activity",
+  appointment: "/private-service/service",
+  appointmentPass: "/private-service/pass",
+  attendance: "/clock-in",
+  audience: "/audience",
+  calendar: "/calendar",
+  customForm: "/custom-form",
+  dashboard: "/dashboard",
+  directDebit: "/subscription",
+  emailTemplate: "/email-template",
+  establishment: "/establishment/room",
+  expense: "/expense",
+  feedback: "/feature-base",
+  giftcard: "/giftcard",
+  inbox: "/inbox/thread",
+  invoice: "/invoice",
+  member: "/member",
+  memberNotification: "/marketing/notifications",
+  order: "/order",
+  pack: "/combo",
+  pass: "/payment-pack",
+  payroll: "/coach/performance",
+  performanceTracking: "/performance-tracking",
+  playlist: "/vod/playlist",
+  promotion: "/coupon",
+  reporting: "/reporting/categories",
+  schedule: "/schedule",
+  search: "/search/results",
+  settings_activeCampaign: `${SETTINGS_URL}/active-campaign`,
+  settings_billing: `${SETTINGS_URL}/invoice`,
+  settings_company: `${SETTINGS_URL}/company`,
+  settings_bsportSubscription: `${SETTINGS_URL}/platform-billing`,
+  settings_general: `${SETTINGS_URL}/general`,
+  settings_livestreaming: `${SETTINGS_URL}/broadcast`,
+  settings_marketplace: `${SETTINGS_URL}/marketplace-settings`,
+  settings_memberForm: `${SETTINGS_URL}/forms`,
+  settings_mobilePersonalization: `${SETTINGS_URL}/mobile-personalisation/links`,
+  settings_partnership: `${SETTINGS_URL}/partnership`,
+  settings_paymentFacility: "/instalment-payment",
+  settings_paymentMethod: `${SETTINGS_URL}/payment-methods`,
+  settings_payroll: `${SETTINGS_URL}/payment-rules`,
+  settings_quickbook: `${SETTINGS_URL}/quickbooks`,
+  settings_quicksale: `${SETTINGS_URL}/quicksale`,
+  settings_referral: `${SETTINGS_URL}/referral`,
+  settings_permission: `${SETTINGS_URL}/role`,
+  settings_teacherView: `${SETTINGS_URL}/coach-userspace`,
+  settings_personalization: `${SETTINGS_URL}/personalization`,
+  settings_transactionalNotification: `${SETTINGS_URL}/notification-rule`,
+  settings_waitlist: `${SETTINGS_URL}/waiting-list`,
+  settings_webhook: `${SETTINGS_URL}/webhook`,
+  settings_webshop: `${SETTINGS_URL}/shop`,
+  settings_widgets: `${SETTINGS_URL}/widget/create`,
+  smartlist: "/smart-list",
+  subscription: "/subscription/contract",
+  substitution: "/replacement/management",
+  tag: "/marketing/tags",
+  teacher: "/coach",
+  tutorial: "/tutorial",
+  video: "/vod/video",
+  webshop: "/shop/products",
+  webshopOld: "/shop",
+  workshop: "/workshop-activity/tabs/list",
+} as const;
+
+export const REVAMP_URLS: Partial<Urls> = {
   activity: "/activity",
   customForm: "/custom-form",
   emailTemplate: "/email-template",
@@ -9,9 +81,6 @@ export default {
   pack: "/pack",
   smartlist: "/smartlist",
   teacher: "/teacher",
-  emailTemplates: "/email-templates",
 } as const;
 
-export const legacyUrls = {
-  workshop: "/workshop-activity/tabs/list",
-} as const;
+export default REVAMP_URLS;

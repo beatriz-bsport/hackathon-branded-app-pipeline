@@ -8,16 +8,11 @@ exports.default = {
     regular: "Invoice",
   },
   invoiceStatus: {
+    draft: "Draft",
     open: "Open",
-    past_due: "Past due",
     paid: "Paid",
-    refunded: "Refunded",
     voided: "Voided",
-    regular: "Regular",
-    reversed: "Reversed",
-    migration: "Migration",
-    return: "Return",
-    credit_payment: "Credit Payment",
+    refunded: "Refunded",
   },
   tableColumnLabel: {
     number: "Number",
@@ -37,9 +32,9 @@ exports.default = {
       "Once you start making sales, your invoices will show up here.",
   },
   download: {
-    title: "Download as...",
-    pdf: "PDF",
-    receipt: "Receipt",
+    title: "Download...",
+    pdf: "Invoice (PDF)",
+    receipt: "Payment receipt (PDF)",
     explainPdfDraft: "The invoice is still a draft, pdf is not available.",
   },
 };

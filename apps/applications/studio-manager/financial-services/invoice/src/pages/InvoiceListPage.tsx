@@ -17,6 +17,7 @@ import {
 } from "@bsport/kaizen-primitive-core";
 import {
   type Invoice,
+  InvoiceStatusEnum,
   fetchInvoicesAction,
   finalizeInvoiceAction,
   getReceiptUrlAction,
@@ -232,6 +233,22 @@ export const InvoiceListPage = () => {
     [handleClickDownload, t],
   );
 
+  const getStatusColor = (
+    status: InvoiceStatusEnum,
+  ): "positive" | "critical" | "warning" | "default" => {
+    const statusColorMap: Record<
+      InvoiceStatusEnum,
+      "positive" | "critical" | "warning" | "default"
+    > = {
+      [InvoiceStatusEnum.PAID]: "positive",
+      [InvoiceStatusEnum.REFUNDED]: "critical",
+      [InvoiceStatusEnum.VOIDED]: "warning",
+      [InvoiceStatusEnum.OPEN]: "default",
+      [InvoiceStatusEnum.DRAFT]: "default",
+    };
+    return statusColorMap[status] ?? "default";
+  };
+
   const rows: TableDataRow[] = useMemo(
     () =>
       invoices.map((invoice) => ({
@@ -240,9 +257,14 @@ export const InvoiceListPage = () => {
         uuid: invoice.uuid.slice(0, 8),
         date: invoice.date,
         member: invoice.memberName,
-        amount: invoice.amount_due_cts,
+        amount: invoice.amount_due_cts / 100,
         type: t(`invoiceType.${getInvoiceType(invoice)}`),
-        status: [{ label: t("invoiceStatus.open"), color: "default" }],
+        status: [
+          {
+            label: t(`invoiceStatus.${invoice.status}`),
+            color: getStatusColor(invoice.status),
+          },
+        ],
         downloadPdf: {
           uuid: invoice.uuid,
           is_draft: invoice.is_draft,

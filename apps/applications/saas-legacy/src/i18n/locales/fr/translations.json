@@ -7543,7 +7543,8 @@
             "1101": "Offre de parrainage disponible (membre parrainé)",
             "1102": "Récompense de parrainage disponible (parrain)",
             "1200": "Premier rappel d'expiration du mode de paiement pour les paiements échelonnés",
-            "1201": "Second rappel d'expiration du mode de paiement pour les paiements échelonnés"
+            "1201": "Second rappel d'expiration du mode de paiement pour les paiements échelonnés",
+            "23": "Abonnement payé avec le solde du compte interne"
         },
         "franchise": {
             "emptySelect": "Sélectionner un email transactionnel pour voir sur quel franchisé il est partagé et utilisé.",

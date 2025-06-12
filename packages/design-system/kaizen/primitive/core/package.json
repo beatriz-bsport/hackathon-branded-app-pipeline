@@ -24,7 +24,7 @@
     "ci:compile": "tsc --noEmit",
     "ci:deploy": "./scripts/ci-deploy.sh $1",
     "component:add": "pnpm exec hygen component new",
-    "dev": "pnpm run storybook:dev",
+    "dev": "STORYBOOK_ENV=local STORYBOOK_COMMIT_SHORT_SHA=$(git rev-parse --short=8 HEAD) pnpm run storybook:dev",
     "format": "prettier --write '**/*.{ts,tsx,js,jsx,cjs,mjs,scss,css,json,md,mdx,html,svg}'",
     "format:check": "prettier --check '**/*.{ts,tsx,js,jsx,cjs,mjs}'",
     "icon:generate": "tsx ./scripts/generate-icons.ts",

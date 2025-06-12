@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { NavLink } from "react-router";
 
 import { Button, Card, NavigationMenu } from "@bsport/kaizen-primitive-core";
@@ -21,6 +21,7 @@ import {
   isItemElement,
   useNavigationElements,
 } from "./navigation-items";
+import { getNavigationUrls } from "./navigation-urls";
 
 export type NavigationSidebarProps = {
   navigate?: (to: string) => void;
@@ -32,7 +33,13 @@ const NavigationSidebarContent = ({ navigate }: NavigationSidebarProps) => {
   const isBridged = !!navigate;
 
   const [menuSet, setMenuSet] = useState<MenuSet>("default");
-  const navigationElements = useNavigationElements({ menuSet });
+
+  const navigationUrls = useMemo(
+    () => getNavigationUrls({ revampedBoEnabled: true }),
+    [],
+  );
+
+  const navigationElements = useNavigationElements({ menuSet, navigationUrls });
 
   const { open, openDialog, closeDialog } = useFeedbackDialog();
 

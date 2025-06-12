@@ -159,6 +159,11 @@ const getTranslations = async () => {
             'Upon registration, your members will receive an email to confirm their email address, their account will not be activated until this email has been confirmed',
           label: 'Confirmation email at registration',
           title: 'Registration',
+          emailConfirmationAtSignUp: {
+            label: 'Email confirmation at sign-up',
+            helperText:
+              "Customers will be sent an email when they sign up asking them to confirm their email address. Their member account won't be activated until they click the link in the email. ",
+          },
         },
         resetPassword: {
           title: 'Reset password',
@@ -295,6 +300,14 @@ const getTranslations = async () => {
             showMemberAccountBalance: 'Show member account balance',
             showBarcodeButton: 'Show barcode button',
             showMembershipNumber: 'Show membership number',
+          },
+        },
+        expressCheckout: {
+          title: 'Express Checkout',
+          oneClickBooking: {
+            label: 'One-Click Booking (beta)',
+            helperText:
+              "New customers can book activities without creating an account first. This feature is not compatible with appointments or with 'email confirmation at sign-up'. Only applies to activities which can be booked with a 'new member only' pass.",
           },
         },
       },

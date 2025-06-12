@@ -10,7 +10,7 @@ export const EMAIL_EDITOR_AUTO_SAVE_INTERVAL = 60 * 1000; // 1 minute
 
 export const ENHANCED_EMAIL_EDITOR_BETA_TEST_COMPANY = [
   // Line Sports Club
-  408,
+  498,
   // Urban Ride
   1518,
   // Belift

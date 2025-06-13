@@ -19294,7 +19294,8 @@
             "metaActivityList": "Activities",
             "metaActivityEditFormSubtitle": "Edit a group activity",
             "metaActivity": "Activities",
-            "metaActivityFormPage": "Add a Group Activity"
+            "metaActivityFormPage": "Add a Group Activity",
+            "metaActivityFormSubtitle": "Set up a group activity, define its duration, and add custom conditions"
         },
         "coupon": {
             "couponCreate": "Create coupon",
@@ -20533,7 +20534,8 @@
             },
             "back": "Previous",
             "next": "Next",
-            "personnalizedRestrictionsIndex": "Custom restriction: {{ count }}"
+            "personnalizedRestrictionsIndex": "Custom restriction: {{ count }}",
+            "personnalizedHeader": "Conditions"
         },
         "translation": {
             "merge": "Merge",

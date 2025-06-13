@@ -14,6 +14,10 @@ import NavigationSidebarHeader, {
   type MenuOption,
 } from "./NavigationSidebarHeader";
 import {
+  TemporaryPasswordDialog,
+  useTemporaryPasswordDialog,
+} from "./TemporaryPasswordDialog";
+import {
   type MenuSet,
   NavigationSidebarSubItem,
   isDividerElement,
@@ -39,9 +43,19 @@ const NavigationSidebarContent = ({ navigate }: NavigationSidebarProps) => {
     [],
   );
 
-  const navigationElements = useNavigationElements({ menuSet, navigationUrls });
-
   const { open, openDialog, closeDialog } = useFeedbackDialog();
+  const {
+    handleCloseTemporaryPasswordDialog,
+    handleOpenTemporaryPasswordDialog,
+    isTemporaryPasswordDialogOpen,
+    isLoadingTemporaryPassword,
+  } = useTemporaryPasswordDialog();
+
+  const navigationElements = useNavigationElements({
+    menuSet,
+    navigationUrls,
+    handleOpenTemporaryPasswordDialog,
+  });
 
   const renderNavigationItems = () => {
     if (menuSet === "settings") {
@@ -57,6 +71,7 @@ const NavigationSidebarContent = ({ navigate }: NavigationSidebarProps) => {
                   key={item.id}
                   id={item.id}
                   label={item.label}
+                  onClick={item?.onClick}
                 />
               );
             }
@@ -209,6 +224,11 @@ const NavigationSidebarContent = ({ navigate }: NavigationSidebarProps) => {
         />
       </Card>
       <FeedbackDialog open={open} onClose={closeDialog} />
+      <TemporaryPasswordDialog
+        isLoading={isLoadingTemporaryPassword}
+        isOpen={isTemporaryPasswordDialogOpen}
+        onClose={handleCloseTemporaryPasswordDialog}
+      />
     </div>
   );
 };

@@ -1638,6 +1638,9 @@ importers:
       '@bsport/store-auth':
         specifier: workspace:*
         version: link:../../../../packages/stores/shared/auth
+      '@bsport/use-async':
+        specifier: workspace:*
+        version: link:../../../../packages/hooks/use-async
       '@module-federation/bridge-react':
         specifier: ^0.13.1
         version: 0.13.1(react-dom@19.0.0(react@19.0.0))(react-router-dom@5.3.4(react@19.0.0))(react@19.0.0)

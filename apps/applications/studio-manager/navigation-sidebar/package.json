@@ -28,6 +28,7 @@
     "@bsport/kaizen-primitive-core": "workspace:*",
     "@bsport/sm-backbone": "workspace:*",
     "@bsport/store-auth": "workspace:*",
+    "@bsport/use-async": "workspace:*",
     "@module-federation/bridge-react": "^0.13.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",

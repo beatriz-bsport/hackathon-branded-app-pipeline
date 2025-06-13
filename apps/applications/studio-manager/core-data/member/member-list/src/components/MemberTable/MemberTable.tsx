@@ -52,7 +52,6 @@ export const MemberTable: React.FC<MemberTableProps> = ({
     email: member.email,
     initials:
       `${member.first_name?.[0] ?? ""}${member.last_name?.[0] ?? ""}`.toUpperCase(),
-    // TODO : format date join
     joinDate: member.date_joined,
     name: member.name,
     photo: member.photo,

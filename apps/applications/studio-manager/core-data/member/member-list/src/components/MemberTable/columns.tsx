@@ -94,7 +94,7 @@ export const getTableColumns = ({
     header: t("memberTable.headers.joinDate"),
     id: "column-join-date",
     keyPath: "joinDate",
-    type: "string",
+    type: "date",
     align: "center",
   };
 

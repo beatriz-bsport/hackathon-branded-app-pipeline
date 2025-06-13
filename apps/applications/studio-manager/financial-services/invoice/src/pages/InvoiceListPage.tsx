@@ -132,6 +132,9 @@ export const InvoiceListPage = () => {
         header: t("tableColumnLabel.amount"),
         type: "price",
         align: "end",
+        priceColoring: {
+          negative: "critical",
+        },
       },
       {
         id: "type",

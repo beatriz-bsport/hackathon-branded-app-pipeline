@@ -4,7 +4,7 @@ import React, { useCallback, useMemo } from "react";
 import { getCurrencyDisplayWithPrice } from "@bsport/currency";
 
 import Avatar from "#src/components/Avatar";
-import Body from "#src/components/Body";
+import Body, { BodyColor } from "#src/components/Body";
 import Checkbox from "#src/components/Checkbox";
 import ColorIndicator from "#src/components/ColorIndicator";
 import withLink from "#src/components/private/withLink";
@@ -45,6 +45,15 @@ const TableRow = withLink(
       handleCheckboxChange?.(rowId);
     }, [handleCheckboxChange, rowId]);
 
+    const getPriceColor = (
+      value: number,
+      priceColoring?: { positive?: BodyColor; negative?: BodyColor },
+    ) => {
+      if (!priceColoring) return undefined;
+      if (value > 0 && priceColoring.positive) return priceColoring.positive;
+      if (value < 0 && priceColoring.negative) return priceColoring.negative;
+    };
+
     const renderedCells = useMemo(
       () =>
         columns.map((col, index) => {
@@ -63,10 +72,14 @@ const TableRow = withLink(
                 {new Intl.NumberFormat().format(value as number)}
               </Body>
             ) : col.type === "price" ? (
-              <Body htmlVariant="span" size="md">
+              <Body
+                htmlVariant="span"
+                size="md"
+                color={getPriceColor(value as number, col.priceColoring)}
+              >
                 {typeof value === "number" && !isNaN(value)
                   ? getCurrencyDisplayWithPrice(value as number)
-                  : "-"}
+                  : typeof value}
               </Body>
             ) : col.type === "date" ? (
               <Body htmlVariant="span" size="md">

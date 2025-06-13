@@ -1622,7 +1622,6 @@
                         "1": "By default, the message is sent each time a member exits the smartlist. If a member re-enters and later exits again, the message is sent again. Adjust the setting if you want to limit how many times the same member can receive the message: once, twice, or thrice."
                     },
                     "subtitles": {
-                        "create": {},
                         "update": {
                             "leftSmartList": "Add an automatic message for members that leave this Smartlist.",
                             "joinSmartList": "Add an automatic message for members that enter this Smartlist."
@@ -2738,7 +2737,6 @@
             "amount_off": {
                 "label": "Amount"
             },
-            "is_active": {},
             "with_expiration_date": {
                 "label": "Add expiration date"
             },
@@ -2753,8 +2751,6 @@
             "usage_total": {
                 "label": "Code usage limit across all members"
             },
-            "only_on_first_checkout": {},
-            "combinable": {},
             "minimum_amount": {
                 "label": "Minimum value of customer basket"
             },
@@ -2852,12 +2848,10 @@
         "uniqueCodeCoupon": {
             "form": {
                 "alertWarning": "Does not apply to subscriptions",
-                "couponCostForCompany": {},
                 "usage_per_member": {
                     "label": "Limit the number of vouchers a member can purchase",
                     "helperText": "Maximum limit"
                 },
-                "only_on_first_checkout": {},
                 "fileUploader": {
                     "label": "Drag and drop or click to select file",
                     "sizeLimitHelper": "CSV file (1MB maximum)",
@@ -2935,7 +2929,7 @@
         },
         "fabLabels": {
             "discountCode": "Discount code",
-            "voucherCodes": "Vouchers"
+            "voucherCodes": "Add a Voucher"
         },
         "couponType": {
             "0": "Discount code",
@@ -3465,7 +3459,6 @@
         "pleaseFill": "Please enter an establishment",
         "noMoreOffers": "No more sessions planned",
         "addButton": "Add an establishment",
-        "update": {},
         "capacity": {
             "label": "Maximum capacity",
             "helperText": "This number will only be used to manage this establishment's availability for appointments.",
@@ -4048,9 +4041,6 @@
                 "price": {
                     "label": "Selling price"
                 },
-                "section": {
-                    "parameters": {}
-                },
                 "description": {
                     "label": "Description"
                 },
@@ -4070,7 +4060,8 @@
                     "tag": {
                         "selectTags": "Select tags"
                     }
-                }
+                },
+                "title": "Add a Gift Card"
             },
             "canNotUpdateBecauseShared": "This gift card is a shared card by the franchisor. It has been defined by the franchisor and cannot be modified."
         },
@@ -8810,7 +8801,6 @@
             "tax": {
                 "label": "VAT / Sales tax"
             },
-            "manager_only": {},
             "actions": {
                 "submit": "Save",
                 "cancel": "Cancel"
@@ -8831,11 +8821,9 @@
                 "helperText": "Leave this field blank to not impose any limits.",
                 "label": "Maximum number of purchases per member"
             },
-            "usePaymentComboTaxOnItems": {},
             "error": {
                 "atLeastOneThing": "You must add at least one item to your pack"
             },
-            "unusableByStaff": {},
             "expiration_date": {
                 "helperText": "Available until"
             },
@@ -9134,7 +9122,6 @@
                     },
                     "isUsedInCombo": "Attention! Deleting this pass will also make it unavailable for purchase for the packs it's used for."
                 },
-                "priceIncludingTax": {},
                 "startOnFirstUseHelper": "Otherwise it starts on the billing date",
                 "notEditable": "This pass originates from a previously completed data migration. Some fields may not editable to preserve the data. Compatible activities/categories can still be modified.",
                 "maxPurchasePerMember": {
@@ -9623,7 +9610,7 @@
             "namePaymentPack": "Name of the pass",
             "name": "Name",
             "generalInfo": "General",
-            "paymentPack": "Pass",
+            "paymentPack": "Add a Pass",
             "minusZero": "This field can't be 0",
             "requiredField": "This field is mandatory",
             "creditWarning": "Attention: all passes will be edited if the number of credits is changed.",
@@ -9947,7 +9934,7 @@
                 "description": "Description",
                 "name": "Name of the program",
                 "generalInfo": "General",
-                "create": "Add a program",
+                "create": "Add a Program",
                 "modify": "Edit program",
                 "delete": "Delete program",
                 "addProgram": "Add a program",
@@ -10356,7 +10343,6 @@
                 "submit": "Delete",
                 "confirm": "Delete"
             },
-            "padBeforeBooking": {},
             "ineligibleService": {
                 "title": "You cannot book this appointment",
                 "description": "This appointment is only for a specific group of members.",
@@ -10669,8 +10655,6 @@
                         "helperText_plural": "This pass will contain {{count}} credits."
                     }
                 },
-                "price": {},
-                "tax": {},
                 "actions": {
                     "submit": "Save",
                     "cancel": "Cancel",
@@ -10702,7 +10686,6 @@
                     "on_booking": "Valid from the 1st booking",
                     "on_purchase": "Valid from the billing date"
                 },
-                "new_member_only": {},
                 "start_date_method_detail": {
                     "on_purchase": " from the date of purchase",
                     "on_attendance": " from the 1st attendance",
@@ -10737,7 +10720,6 @@
                 "onBehalfOfTeacher": {
                     "label": "Full payment to the teacher"
                 },
-                "appliesForPayroll": {},
                 "expiration_date": {
                     "helperText": "Available until"
                 },
@@ -10750,7 +10732,8 @@
                         "selectTags": "Select tags"
                     }
                 },
-                "notEditable": "This appointment pass originates from a previously completed data migration. Some fields may not be editable to preserve the data."
+                "notEditable": "This appointment pass originates from a previously completed data migration. Some fields may not be editable to preserve the data.",
+                "title": "Add an Appointment Pass"
             },
             "validForDuration": {
                 "general": "This appointment pass is valid for {{ duration_days }} day(s), {{ duration_months }} month(s), and {{ duration_years }} year(s).",
@@ -10771,8 +10754,7 @@
             "ht": "Excl. VAT / Sales Tax",
             "actions": {
                 "forceRegularizeUnpaid": "Regularise all outstanding payments"
-            },
-            "listItem": {}
+            }
         },
         "service": {
             "selector": {
@@ -10847,8 +10829,7 @@
                     "alertText": "A teacher can manage 1, 2, 3, 4, 6 or 12 appointments simultaneously."
                 },
                 "color": "Colour code",
-                "use_full_establishment_capacity": {},
-                "title": "Appointments",
+                "title": "Add an Appointment",
                 "addCoach": "Add a teacher",
                 "addEstablishment": "Add an establishment",
                 "addSlot": "Add a session",
@@ -10857,7 +10838,6 @@
                     "helperText": "An address will be requested for every booking."
                 },
                 "is_without_coach": "Don't assign any teacher to this appointment",
-                "name": {},
                 "coach": {
                     "label": "Teacher",
                     "isEmpty": "There are no teachers to display."
@@ -10872,8 +10852,6 @@
                     "cancel": "Cancel",
                     "submit": "Save"
                 },
-                "last_discard_minutes": {},
-                "managerOnly": {},
                 "last_booking_minutes": {
                     "label": "Select until when members can book before the start of the appointment"
                 },
@@ -10890,7 +10868,6 @@
                         "header": "Tags"
                     }
                 },
-                "pad_before_booking": {},
                 "advancedOptions": {
                     "header": "Advanced",
                     "tag": {
@@ -15672,7 +15649,6 @@
                 "selector": "Select products",
                 "explanation": "Has bought A and B"
             },
-            "18": {},
             "19": {
                 "name": "Passes",
                 "first": "one of the following passes",
@@ -16166,7 +16142,6 @@
             "tag_on_join": "Tag if a member enters this Smartlist",
             "type_of_rule": "Type of rule",
             "activeSince": "Activated on: {{ since }}",
-            "asyncDialog": {},
             "tag": "Tag"
         },
         "memberBase": {
@@ -17300,7 +17275,6 @@
                 "error": "Impossible to save rules",
                 "success": "Rules saved"
             },
-            "assignDisciplineGroup": {},
             "disciplineGroup": {
                 "delete": {
                     "error": "Impossible to delete this discipline group",
@@ -17875,15 +17849,12 @@
                     "label": "BIlling",
                     "helperText": "How often will clients be charged?"
                 },
-                "settings": {},
                 "invoicing": {
                     "invoicing_type_readonly": "It is not possible to change the billing type",
                     "fixed_day": {
                         "label": "Invoice on a fixed day",
                         "modification_not_apply_to_past": "You are about to change the billing day of your subscription. Only new subscriptions created will be affected. Existing subscriptions and subscriptions with renewals will not change (even after renewal)",
-                        "end_of_month_explain": "If a month does not have a {{ month_billing_day }}, the invoice will be issued on the last day of the month.",
-                        "recurrence_explain": {
-                        }
+                        "end_of_month_explain": "If a month does not have a {{ month_billing_day }}, the invoice will be issued on the last day of the month."
                     },
                     "same_day_as_subscription": {
                         "recurrence_explain": {
@@ -17903,9 +17874,6 @@
                 },
                 "general_info": {
                     "title": "General information"
-                },
-                "unusableByStaff": {},
-                "month_billing_day": {
                 },
                 "highlightedAsRecommended": {
                     "label": "Mark as recommended"
@@ -17934,7 +17902,8 @@
                     "error": "The commitment period can't exceed 90.",
                     "helperText": "Remember to check your country's laws regarding the right of withdrawal for subscription and add the required information in your terms and conditions.",
                     "label": "Commitment period"
-                }
+                },
+                "title": "Add a Subscription"
             },
             "deleteForm": {
                 "actions": {
@@ -19324,7 +19293,8 @@
             "metaActivityEditForm": "[Form] Group activity",
             "metaActivityList": "Activities",
             "metaActivityEditFormSubtitle": "Edit a group activity",
-            "metaActivity": "Activities"
+            "metaActivity": "Activities",
+            "metaActivityFormPage": "Add a Group Activity"
         },
         "coupon": {
             "couponCreate": "Create coupon",
@@ -19334,7 +19304,8 @@
         },
         "establishment": {
             "establishmentList": "Establishments",
-            "establishmentGroupPage": "Location"
+            "establishmentGroupPage": "Location",
+            "establishmentFormPage": "Add an Establishment"
         },
         "marketplace": {
             "marketplaceShop": "Webshop",
@@ -19354,7 +19325,7 @@
         },
         "workshopActivity": {
             "workshopActivityList": "Workshops",
-            "workshopActivityFormPage": "[Form] Workshop",
+            "workshopActivityFormPage": "Add a Workshop",
             "workshopActivityCreate": "Create workshop",
             "workshopActivityEditFormSubtitle": "Edit a workshop",
             "workshopActivityFormSubtitle": "Create a workshop"

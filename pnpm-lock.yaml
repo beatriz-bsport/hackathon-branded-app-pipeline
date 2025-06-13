@@ -2498,6 +2498,18 @@ importers:
         specifier: ^3.4.2
         version: 3.4.2
 
+  packages/utils/envs:
+    devDependencies:
+      '@bsport/config-eslint-react':
+        specifier: workspace:*
+        version: link:../../../tools/config/eslint-react
+      '@vitest/coverage-v8':
+        specifier: ^3.1.1
+        version: 3.1.1(vitest@3.1.1)
+      vitest:
+        specifier: ^3.1.1
+        version: 3.1.1(@types/debug@4.1.12)(@types/node@22.13.15)(@vitest/ui@3.1.4)(jsdom@22.1.0)(less@4.1.3)(msw@2.7.6(@types/node@22.13.15)(typescript@5.8.2))(sass@1.77.8)(stylus@0.64.0)(terser@5.31.3)
+
   packages/utils/fetch:
     dependencies:
       '@bsport/http-exception':
@@ -2571,6 +2583,10 @@ importers:
         version: 11.0.4
 
   packages/utils/permissions:
+    dependencies:
+      '@bsport/envs':
+        specifier: workspace:*
+        version: link:../envs
     devDependencies:
       '@bsport/config-eslint-react':
         specifier: workspace:*
@@ -21572,9 +21588,7 @@ snapshots:
       jest-runner: 24.9.0
       jest-runtime: 24.9.0
     transitivePeerDependencies:
-      - bufferutil
       - supports-color
-      - utf-8-validate
 
   '@jest/test-sequencer@28.1.3':
     dependencies:
@@ -33231,7 +33245,9 @@ snapshots:
       pretty-format: 24.9.0
       throat: 4.1.0
     transitivePeerDependencies:
+      - bufferutil
       - supports-color
+      - utf-8-validate
 
   jest-junit@14.0.1:
     dependencies:

@@ -4132,7 +4132,7 @@
                 "success": "Profesor añadido con éxito",
                 "submit": "Validar",
                 "title": "Dirección de correo electrónico del profesor",
-                "emailLabel": "Dirección de correo electrónico",
+                "emailLabel": "Correo",
                 "explain": "Si este correo electrónico ya existe en nuestro sistema, crearemos la cuenta de profesor automáticamente.",
                 "emailPlaceHolder": "profesor@bsport.io"
             },

@@ -130,16 +130,19 @@ export const useGroupActivityModals = ({
 
   const archiveModal = (
     <Modal
-      confirmColor="critical"
-      confirmLabel={
-        canArchiveGroupActivity ? t("list.enabled.archive.confirm") : ""
-      }
-      onConfirmClick={handleArchiveGroupActivity}
+      confirmButton={{
+        label: canArchiveGroupActivity ? t("list.enabled.archive.confirm") : "",
+        color: "critical",
+        onClick: handleArchiveGroupActivity,
+      }}
+      cancelButton={{
+        label: t("list.enabled.archive.cancel"),
+        onClick: onCloseArchiveModal,
+      }}
       open={isArchiveModalOpen}
       size="md"
       title={t("list.enabled.archive.title")}
       onClose={onCloseArchiveModal}
-      cancelLabel={t("list.enabled.archive.cancel")}
     >
       <Trans
         i18nKey={
@@ -156,14 +159,19 @@ export const useGroupActivityModals = ({
 
   const duplicateModal = (
     <Modal
-      confirmColor="main"
-      confirmLabel={t("list.enabled.duplicate.confirm")}
-      onConfirmClick={handleDuplicateGroupActivity}
+      confirmButton={{
+        label: t("list.enabled.duplicate.confirm"),
+        color: "main",
+        onClick: handleDuplicateGroupActivity,
+      }}
+      cancelButton={{
+        label: t("list.enabled.duplicate.cancel"),
+        onClick: onCloseDuplicateModal,
+      }}
       open={isDuplicateModalOpen}
       size="md"
       title={t("list.enabled.duplicate.title")}
       onClose={onCloseDuplicateModal}
-      cancelLabel={t("list.enabled.duplicate.cancel")}
     >
       <Trans
         i18nKey="list.enabled.duplicate.modalContent"

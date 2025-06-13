@@ -59,10 +59,15 @@ export const DeleteCategoryModal: React.FC<Props> = ({
       open={isOpen}
       onClose={onClose}
       title={t("activeList.deleteCategoryModal.title")}
-      confirmLabel={t("activeList.deleteCategoryModal.confirmButton")}
-      confirmColor="main"
-      onConfirmClick={handleDeleteCategory}
-      cancelLabel={t("activeList.deleteCategoryModal.cancelButton")}
+      confirmButton={{
+        label: t("activeList.deleteCategoryModal.confirmButton"),
+        color: "critical",
+        onClick: handleDeleteCategory,
+      }}
+      cancelButton={{
+        label: t("activeList.deleteCategoryModal.cancelButton"),
+        onClick: onClose,
+      }}
       size="md"
     >
       <div className="flex flex-col gap-y-sm">

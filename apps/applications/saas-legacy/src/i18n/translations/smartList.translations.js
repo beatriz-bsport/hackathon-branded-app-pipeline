@@ -207,7 +207,7 @@ const getTranslations = async () => {
       [MEMBER_INFO]: 'Member information',
       [PAYMENT_PACK]: 'Passes',
       [BOOKING]: 'Bookings',
-      [BUY]: 'Purchases',
+      [BUY]: 'Payments',
     },
     filters: {
       [CREDIT_ACCOUNT_FILTER_IDENTIFIER]: {
@@ -217,57 +217,59 @@ const getTranslations = async () => {
         second: ' than   ',
         third: '{{ currencyDisplay }}',
         explanation:
-          'Display an overview of all members whose account balance is {{ currencyDisplay }}X',
+          'Segment members with a certain amount in their account balances',
         between: 'and',
       },
       [FILTER_BOOKING_LAST]: {
-        explanation: "Display an overview of members' last booking",
+        explanation:
+          'Segment customers according to when they last booked a class',
         second: 'day(s) ago and no upcoming bookings have been registered.',
         first: 'The last booking was more than',
         name: 'Last booking',
       },
       [MEMBER_DATE_JOINED_FILTER_IDENTIFIER]: {
-        name: 'Sign up date',
-        first: 'Enroled for your studio   ',
-        explanation: 'Display an overview of all members that enrolled on...',
+        name: 'Sign-up date',
+        first: 'Joined your studio on',
+        explanation:
+          'Segment members who joined on, after, before, or between certain dates',
       },
       [GENDER_FILTER_IDENTIFIER]: {
-        name: 'Sex',
-        first: 'Only display all',
+        name: 'Gender',
+        first: 'Segment only',
         men: 'males',
         women: 'females',
-        explanation: 'Display an overview of all men/women',
+        explanation:
+          'Segment members according to if they identify as male or female',
       },
       [FIRST_BOOKING_FILTER_IDENTIFIER]: {
         name: 'First booking',
         explanation: "Display an overview of all members' first booking",
       },
       [EXPENSES_COMPLETE_FILTER_IDENTIFIER]: {
-        name: 'Expenditure',
+        name: 'Purchase history',
         workshop: 'Passes for workshops',
         private_pass: 'Appointment pass',
         between: 'and',
         combo: 'Pack',
         pack: 'Pass',
         shop: 'Webshop',
-        explanation:
-          'Display an overview of members that bought products A and B',
+        explanation: 'Segment customers who have bought certain products',
         date: { first: 'completed purchases' },
         second: '{{ currencyDisplay }} for the products',
         first: 'Has spent',
       },
       [BASKET_ABANDONMENT_FILTER_IDENTIFIER]: {
-        name: 'Abandoned baskets',
+        name: 'Abandoned carts',
         first: 'The value of the abandoned basket is',
         second: 'to',
         third: '{{ currencyDisplay }}',
         date: { first: 'Abandoned basket', second: 'days' },
         explanation:
-          'Display an overview of members with pending baskets and that not complete the payment yet',
+          'Segment members who have products in their cart but have not completed their purchase',
         between: 'and',
       },
       [BOOKINGS_NUMBER_FILTER_IDENTIFIER]: {
-        name: 'Booking number',
+        name: 'Segment customers with a certain number of bookings',
         first: 'Members that booked ',
         first_v2: 'Members that booked their ',
         second_singular: 'session(s)',
@@ -282,7 +284,7 @@ const getTranslations = async () => {
           first: 'the beginning time of the session is between',
         },
         explanation:
-          'Display an overview of all members with X bookings of activity Y in establishment Z',
+          'Segment customers according to how many sessions they have booked, in which room, by which teacher, purchased by which pass',
         coach: { first: 'with the teachers' },
         payment_pack: { first: 'with the passes' },
         attendance: 'status:',
@@ -303,7 +305,7 @@ const getTranslations = async () => {
         },
         date: { first: 'occurring on' },
         explanation:
-          'Display an overview of members that booked X classes of activity A in establishment X with pass Z',
+          'Segment customers according to how many classes they have booked, in which room, by which teacher, purchased with which pass',
         between: 'and',
         attendance: 'with status',
         level: { first: 'level' },
@@ -326,7 +328,7 @@ const getTranslations = async () => {
         second: 'appointment(s)',
         first: 'Booked',
         explanation:
-          'Display an overview of members that booked X appointments with teacher A in establishment Y with pass Z',
+          'Segment customers according to how many appointments they have booked, in which room, by which teacher, purchased by which pass',
         name: 'Number of appointments',
         private_service: { first: 'for appointments' },
       },
@@ -350,7 +352,7 @@ const getTranslations = async () => {
         },
         infoIcon: "Filter on credit doesn't apply to unlimited passes",
         explanation:
-          'Display all members that bought pass X at date Y with Z remaining credits',
+          'Segment customers who have bought a pass on a certain date, with X number of remaining credits',
       },
       [PRIVATE_PASS_FILTER_IDENTIFIER]: {
         expiration: {
@@ -371,30 +373,31 @@ const getTranslations = async () => {
         first: 'one of the appointment passes',
         name: 'Appointment passes',
         explanation:
-          'Display all members that bought appointment pass X at date Y with Z remaining credits',
+          'Segment customers who have bought an appointment pass on a certain date, with X number of remaining credits',
       },
       [ACTIVE_PASSES_FILTER_IDENTIFIER]: {
         info: 'Blocked passes and blocked appointment passes are also taken into account',
-        fourth: '(combined)',
+        fourth: 'in total.',
         third: 'or',
-        second: 'valid passes or appointment passes today. Among',
+        second: 'valid passes. Including',
         between: 'and',
-        first: 'Has',
+        first: 'Members who have',
         name: 'Valid passes',
-        explanation: 'Has X number of valid passes or appointment passes',
+        explanation:
+          'Segment customers who have X number of valid passes or appointment passes',
       },
       [USER_HAS_PASSWORD_FILTER]: {
         explanation:
-          'Display all members that have registered a password with your BSPORT account',
+          'Segment members who have registered a password with your bsport account',
         name: 'Password',
         explain:
-          'Display all members that have registered a password with your BSPORT account',
+          'Segment members who have registered a password with your bsport account',
       },
       [WAIVER_FILTER_IDENTIFIER]: {
         explanation:
-          'Display all members that have accepted your liability waiver',
+          'Segment all members who have accepted your liability waiver',
         name: 'Liability waiver',
-        explain: 'Display all members that have accepted your liability waiver',
+        explain: 'Segment all members who have accepted your liability waiver',
       },
       [PAYMENT_METHOD_FILTER_IDENTIFIER]: {
         expiryDateLabel: 'with an expiration date',
@@ -403,8 +406,8 @@ const getTranslations = async () => {
         labelFirst: 'Only filter on members',
         title: 'Saved payment method',
         explanation:
-          "Display an overview of members' saved payment methods and their expiration dates",
-        name: 'Payment method',
+          'Segment members according to who has saved a payment method or not',
+        name: 'Payment methods',
       },
       [HAS_VALID_CONSUMER_PACK_FILTER_IDENTIFIER]: {
         name: 'Validity of the passes',
@@ -414,9 +417,8 @@ const getTranslations = async () => {
       },
       [TAG_FILTER_IDENTIFIER]: {
         name: 'Tags',
-        first: 'Filter on tags',
-        explanation:
-          'Display an overview of all members that are tagged A and B',
+        first: 'Segment by tags',
+        explanation: 'Segment members according to their tags',
       },
       [EXPENSES_FILTER_IDENTIFIER]: {
         shop: 'Webshop',
@@ -433,7 +435,7 @@ const getTranslations = async () => {
         explanation: 'Has bought A and B',
       },
       [AGE_FILTER_IDENTIFIER]: {
-        explanation: 'Is less/more/exactly...',
+        explanation: 'Segment members according to their age',
         second: 'years (included)',
         to: ' ',
         between: 'and',
@@ -443,7 +445,8 @@ const getTranslations = async () => {
       [CUSTOM_FORMS_FILTER_IDENTIFIER]: {
         hasCompletedNone: 'Has completed',
         date: { first: 'completed for the last time' },
-        explanation: 'Has completed X forms at A% on B date ',
+        explanation:
+          'Segment members by how many forms they have completed on certain dates',
         between: 'and',
         to: ' ',
         third: 'at a percentage',
@@ -457,7 +460,8 @@ const getTranslations = async () => {
         name: 'Forms',
       },
       [USER_MARKETING_NOTIFICATIONS_FILTER]: {
-        explanation: 'accept notifications by SMS/Email',
+        explanation:
+          'Segment members who have given consent for notifications by SMS or Email',
         email: 'to receive notifications by email',
         sms: 'to receive notifications by SMS',
         false: "Doesn't accept",
@@ -466,21 +470,21 @@ const getTranslations = async () => {
         or: 'Or',
         oneNeeded: 'At least one of the activated conditions must be filled',
         allNeeded: 'All activated conditions must be filled',
-        name: 'Notifications',
+        name: 'Consent for notifications',
       },
       [NOTES_FILTER_IDENTIFIER]: {
-        explanation: 'Has at least one medical note (or not)',
+        explanation: 'Segment members who have at least one note',
         date: { first: 'which was created' },
         info: 'The so-called medical notes correspond to those listed in the "Alerts" section on the member\'s form',
         nonMedical: 'non-medical',
         medical: 'medical',
         medicalOrNot: 'medical or not',
         first: 'Has at least one note',
-        name: 'Notes',
+        name: 'Informative notes',
       },
       [RELATIONS_FILTER_IDENTIFIER]: {
         explanation:
-          'Has X relationships and Y shared passes or appointment passes or bookings',
+          'Segment members who have relationships (such as dependents) or shared passes',
         acceptEmail: {
           second: 'emails',
           false: "doesn't accept",
@@ -518,17 +522,18 @@ const getTranslations = async () => {
         between: 'and',
         to: ' ',
         date: { first: 'the relationship has been established' },
-        name: 'Relationships',
+        name: 'Shared passes',
       },
       [USER_HAS_PHONE_FILTER_IDENTIFIER]: {
-        explanation: 'Has provided a phone number',
+        explanation: 'Segment members who have provided a phone number',
         first: 'a phone number',
         true: 'Filled in',
         false: "Didn't fill in",
-        name: 'Phone',
+        name: 'Phone number',
       },
       [TERMS_AND_CONDITIONS_FILTER_IDENTIFIER]: {
-        explanation: 'Has accepted the general conditions of use',
+        explanation:
+          'Segment members who have accepted the general conditions of use',
         first: 'your conditions of use',
         false: 'Did not accept',
         true: 'Has accepted',
@@ -536,7 +541,8 @@ const getTranslations = async () => {
       },
       [FIRST_PURCHASE_FILTER_IDENTIFIER]: {
         name: 'First purchase',
-        explanation: 'Filters the members with a first finalized/paid basket',
+        explanation:
+          'Segment members who have completed their first purchase between certain dates',
         booleanChoice: {
           before: 'The first purchase is',
           is: 'done',
@@ -554,8 +560,8 @@ const getTranslations = async () => {
         },
       },
       [REFERRER_FILTER_IDENTIFIER]: {
-        name: 'Referrer',
-        explanation: 'Filters the members who referred members',
+        name: 'Referrers',
+        explanation: 'Segment members who have referred other members',
         numbersComparator: {
           reward: {
             before: 'The member obtained',
@@ -577,8 +583,9 @@ const getTranslations = async () => {
         },
       },
       [REFERRED_MEMBERS_FILTER_IDENTIFIER]: {
-        name: 'Referred member',
-        explanation: ' Filters the members who used a referral link to sign up',
+        name: 'Referred members',
+        explanation:
+          'Segement members who have used a referral link to sign up',
         booleanChoice: {
           before: 'The member',
           is: 'is',
@@ -659,8 +666,8 @@ const getTranslations = async () => {
         dateTitle: 'Date',
       },
       booking_status: { canceled: 'canceled', booked: 'booked' },
-      active_filters: 'Active filters on this Smartlist',
-      add_filter: 'Add a filter',
+      active_filters: 'Parameters active in this Smartlist',
+      add_filter: 'Add parameters',
       add: 'Add',
       before: 'before',
       after: 'after',
@@ -672,7 +679,7 @@ const getTranslations = async () => {
       },
       all: 'All',
       isEmpty:
-        'This Smartlist displays your entire member database, as no filters have been added as of now.',
+        'This segment shows all of your members as no parameters have been set.',
       comparators: {
         [GTE_COMPARATOR]: 'more than (⩾)',
         [LTE_COMPARATOR]: 'less than (⩽)',
@@ -701,9 +708,8 @@ const getTranslations = async () => {
       type_of_rule: 'Type of rule',
       activeSince: 'Activated on: {{ since }}',
       asyncDialog: {
-        message:
-          'We\'ll update all members\' Tags of the "{{name}}" Smartlist.',
-        title: 'Update Tagging Rules ',
+        message: 'All tags for customers in this Smartlist will be updated.',
+        title: 'Update tagging rules',
       },
       tag: 'Tag',
     },
@@ -713,8 +719,7 @@ const getTranslations = async () => {
         1: 'Non-archived',
         2: 'Archived',
       },
-      helperText:
-        "Select which members you'd like to display in this Smartlist",
+      helperText: 'Choose which members you want to show in this Smartlist:',
     },
     popup: { sendPopup: 'Send a pop-up' },
     cadenceListDialog: { close: 'Close', title: 'List of the cadences' },

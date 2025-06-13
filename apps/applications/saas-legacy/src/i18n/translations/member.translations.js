@@ -160,7 +160,7 @@ const getTranslations = async () => {
       },
       title: '[Form] Sign up',
       newMemberOnlyHelperText:
-        'A member is considered "new" as long as they have not made a purchase greater than {{ currency }}0. Please note that any purchase of a paid item with a 100% reduction in price will result in the loss of the \'New Member\' status.',
+        "Members are considered 'new' as long as they haven't made a purchase greater than €0. Please note, if a member buys a product with 100% discount, this will count as a purchase.",
     },
     user: {
       existsWithEmail:

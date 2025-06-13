@@ -171,5 +171,21 @@ exports.default = {
         title: "An error occured when restoring your email template.",
       },
     },
+    renameTemplateModal: {
+      title: "Rename email template",
+      textInput: {
+        label: "Template title",
+        placeholder: "Template title here...",
+      },
+      confirmButton: "Rename",
+      cancelButton: "Cancel",
+      onSuccess: {
+        title: "Template renamed",
+        action: "Undo",
+      },
+      onFailure: {
+        title: "An error occurred when renaming your template.",
+      },
+    },
   },
 };

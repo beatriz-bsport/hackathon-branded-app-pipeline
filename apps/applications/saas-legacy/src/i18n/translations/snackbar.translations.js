@@ -330,7 +330,8 @@ const getTranslations = async () => {
         success: 'Smartlist duplicated',
       },
       tag_rules: {
-        limit_reached: 'Impossible: You have reached the creation limit (10)',
+        limit_reached:
+          "Error: it's not possible to create more than 10 rules. ",
         error: 'Unable to apply this rule',
         success: 'The automatic rule has been launched',
       },
@@ -1317,7 +1318,7 @@ const getTranslations = async () => {
         success: 'Rules saved',
       },
       assignDisciplineGroup: {
-        success: "The teacher's discipline group has been updated",
+        success: "Teacher's activity types updated ",
       },
       disciplineGroup: {
         delete: {

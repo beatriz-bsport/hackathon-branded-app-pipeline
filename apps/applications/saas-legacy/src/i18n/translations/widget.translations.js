@@ -20,7 +20,7 @@ exports.default = {
     linkToConfig: 'Link for this configuration',
     disconnectedStatusConfigTitle: 'Disconnected status configuration',
     creationPageInfo:
-      'Configure and personalize your widgets to your brand and to your liking. Afterwards, simply copy-paste the specific code on your website.',
+      'Set up and customize your widgets to match your brand. Then simply copy and paste the code onto your website.',
     dialogMode: {
       iframe: 'Popup on my website',
       popup: 'Open a new window',

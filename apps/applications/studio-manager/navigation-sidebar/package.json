@@ -5,8 +5,12 @@
   "description": "Navigation sidebar",
   "author": "David Bretaud <david.bretaud@bsport.io>",
   "type": "module",
+  "exports": {
+    "./styles": "./dist/assets/style.css"
+  },
   "scripts": {
     "build": "tsc && vite build",
+    "build:compat": "vite build --mode compat",
     "build:preview": "vite build --mode preview",
     "ci:compile": "tsc --noEmit",
     "dev": "vite",
@@ -15,11 +19,16 @@
     "format:check": "prettier --check '**/*.{ts,tsx,js,jsx,cjs,mjs}'",
     "lint": "eslint .",
     "preview": "vite preview --mode preview",
+    "preview:compat": "pnpm run build:compat && vite preview --mode compat",
     "translation:update": "pnpm run -w translation:update"
   },
   "dependencies": {
+    "@bsport/fetch": "workspace:*",
     "@bsport/i18n": "workspace:*",
     "@bsport/kaizen-primitive-core": "workspace:*",
+    "@bsport/sm-backbone": "workspace:*",
+    "@bsport/store-auth": "workspace:*",
+    "@module-federation/bridge-react": "^0.13.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-router": "^7.2.0"
@@ -36,7 +45,8 @@
     "devPort": 4050,
     "exposes": {
       "./NavigationSidebar": "./src/components/NavigationSidebar",
-      "./urls": "./src/urls"
+      "./urls": "./src/urls",
+      "./BridgedSidebar": "./src/components/BridgedSidebar"
     }
   }
 }

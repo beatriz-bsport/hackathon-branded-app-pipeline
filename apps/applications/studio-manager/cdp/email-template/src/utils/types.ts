@@ -12,5 +12,3 @@ export type OrderingHookParams<T> = {
   onSuccess?: (result: T[]) => void;
   onFailure?: () => void;
 };
-
-export type TextfieldStatuses = "default" | "positive" | "error" | undefined;

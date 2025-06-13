@@ -100,6 +100,7 @@ export const Primary: Story = {
     errorText: "",
     popoverPlacement: undefined,
     onSelect: (option) => console.log(`Selected option: ${option}`),
+    fullWidth: false,
   },
 };
 

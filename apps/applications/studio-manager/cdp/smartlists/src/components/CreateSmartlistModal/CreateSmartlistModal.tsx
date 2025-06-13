@@ -55,11 +55,14 @@ export const CreateSmartlistModal: React.FC<CreateSmartlistModalProps> = ({
       title={t("createForm.title")}
       description={t("createForm.subtitle")}
       size="md"
-      confirmLabel={t("createForm.actions.create")}
-      confirmColor="main"
-      onConfirmClick={handleCreate}
-      cancelLabel={t("createForm.actions.cancel")}
-      onCancelClick={onClose}
+      confirmButton={{
+        label: t("createForm.actions.create"),
+        onClick: handleCreate,
+      }}
+      cancelButton={{
+        label: t("createForm.actions.cancel"),
+        onClick: onClose,
+      }}
     >
       <SmartlistForm
         data={formData}

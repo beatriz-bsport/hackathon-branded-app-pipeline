@@ -34,6 +34,8 @@ export type Invoice<M = number, PI = number, II = number> = {
   revert_reason: string;
   reverted: boolean;
   source: number;
+  source_invoice: string | null;
+  status: InvoiceStatusEnum;
   staff_history: [];
   stripe_invoice_pdf: string | null;
   uuid: string;
@@ -51,6 +53,14 @@ enum ExportInvoiceErrorCode {
 enum ExportInvoiceStatus {
   SUCCESS = "SUCCESS",
   FAILURE = "FAILURE",
+}
+
+export enum InvoiceStatusEnum {
+  DRAFT = "draft",
+  OPEN = "open",
+  PAID = "paid",
+  VOIDED = "voided",
+  REFUNDED = "refunded",
 }
 
 enum InvoiceType {

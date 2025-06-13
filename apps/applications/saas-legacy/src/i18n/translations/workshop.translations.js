@@ -28,7 +28,7 @@ exports.default = {
     addWorkshopGroup: 'Add an event',
   },
   noWorkshops:
-    'Workshops are events which you can add, edit, delete, and manage in this tab.',
+    'Workshops are classes that happen as a one-time event. Use the form to add a new Workshop, then set conditions so you can manage how they will display and function to your members.',
   disabledWorkshops: 'Archived workshops',
   tabGroups: 'Grouped sessions',
   tabList: 'Workshops',

@@ -1,21 +1,45 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { NavLink } from "react-router";
 
 import { Button, Card, NavigationMenu } from "@bsport/kaizen-primitive-core";
+import { dataAccessLayer } from "@bsport/sm-backbone";
+import { LOGIN_URL, logoutAction } from "@bsport/store-auth";
 
 import "#src/index.css";
 import { AppI18nextProvider, useTranslation } from "#src/utils/i18n";
 
 import FeedbackDialog, { useFeedbackDialog } from "./FeedbackDialog";
 import LanguageDropdown from "./LanguageDropdown";
-import NavigationSidebarHeader from "./NavigationSidebarHeader";
-import { type MenuSet, useNavigationElements } from "./navigation-items";
+import NavigationSidebarHeader, {
+  type MenuOption,
+} from "./NavigationSidebarHeader";
+import {
+  type MenuSet,
+  NavigationSidebarSubItem,
+  isDividerElement,
+  isGroupElement,
+  isItemElement,
+  useNavigationElements,
+} from "./navigation-items";
+import { getNavigationUrls } from "./navigation-urls";
 
-const NavigationSidebarContent = () => {
+export type NavigationSidebarProps = {
+  navigate?: (to: string) => void;
+};
+
+const NavigationSidebarContent = ({ navigate }: NavigationSidebarProps) => {
   const { t } = useTranslation("default");
 
+  const isBridged = !!navigate;
+
   const [menuSet, setMenuSet] = useState<MenuSet>("default");
-  const navigationElements = useNavigationElements({ menuSet });
+
+  const navigationUrls = useMemo(
+    () => getNavigationUrls({ revampedBoEnabled: true }),
+    [],
+  );
+
+  const navigationElements = useNavigationElements({ menuSet, navigationUrls });
 
   const { open, openDialog, closeDialog } = useFeedbackDialog();
 
@@ -25,9 +49,9 @@ const NavigationSidebarContent = () => {
         <>
           <NavigationMenu.Group label={t("menus.settings.title")} />
           {navigationElements.map((item) => {
-            if (item.type === "group") return null;
+            if (isGroupElement(item)) return null;
 
-            if ("id" in item && "label" in item) {
+            if (isItemElement(item)) {
               return (
                 <NavigationMenu.Item
                   key={item.id}
@@ -45,11 +69,11 @@ const NavigationSidebarContent = () => {
     return (
       <>
         {navigationElements.map((element, index) => {
-          if (element.type === "divider") {
+          if (isDividerElement(element)) {
             return <NavigationMenu.Divider key={`divider-${index}`} />;
           }
 
-          if (element.type === "group") {
+          if (isGroupElement(element)) {
             return (
               <NavigationMenu.Group
                 key={`group-${index}`}
@@ -66,8 +90,11 @@ const NavigationSidebarContent = () => {
               label={element.label}
               endSlot={element.endSlot}
               active={isActive}
+              {...(isBridged &&
+                navigate &&
+                element.href && { onClick: () => navigate(element.href!) })}
             >
-              {element.subItems?.map((subItem) => {
+              {element.subItems?.map((subItem: NavigationSidebarSubItem) => {
                 const subItemElement = ({
                   isActive,
                 }: { isActive?: boolean } = {}) => (
@@ -76,9 +103,19 @@ const NavigationSidebarContent = () => {
                     id={subItem.id}
                     label={subItem.label}
                     active={isActive}
+                    {...(isBridged &&
+                      navigate &&
+                      subItem.href && {
+                        onClick: () => navigate(subItem.href!),
+                      })}
                   />
                 );
-                return subItem.href ? (
+
+                if (!subItem.href) {
+                  return subItemElement();
+                }
+
+                return !isBridged ? (
                   <NavLink key={subItem.id} to={subItem.href}>
                     {subItemElement}
                   </NavLink>
@@ -89,7 +126,11 @@ const NavigationSidebarContent = () => {
             </NavigationMenu.Item>
           );
 
-          return element.href ? (
+          if (!element.href) {
+            return item();
+          }
+
+          return !isBridged ? (
             <NavLink key={element.id} to={element.href}>
               {item}
             </NavLink>
@@ -101,6 +142,13 @@ const NavigationSidebarContent = () => {
     );
   };
 
+  const companyTheme = dataAccessLayer.useCompanyTheme();
+  const {
+    company: companyId,
+    company_name: companyName,
+    cover: companyLogo,
+  } = companyTheme ?? {};
+
   return (
     <div
       className={
@@ -109,12 +157,23 @@ const NavigationSidebarContent = () => {
       }
     >
       <NavigationSidebarHeader
-        // TODO: repalce with real data
-        label="bsport studio"
+        avatarUrl={companyLogo}
+        label={companyName ?? ""}
         menuSet={menuSet}
-        onSelectItem={(id) => {
+        onSelectItem={(id: MenuOption) => {
           if (id === "settings") {
             setMenuSet(id);
+          }
+          if (id === "logout") {
+            const navigateToLoginPage = () => {
+              const loginUrl = `${LOGIN_URL}/signout${companyId ? `?membership=${companyId}` : ""}`;
+              if (isBridged) {
+                navigate(loginUrl);
+              } else {
+                window.location.href = loginUrl;
+              }
+            };
+            logoutAction(navigateToLoginPage);
           }
         }}
         onBack={() => setMenuSet("default")}
@@ -154,10 +213,10 @@ const NavigationSidebarContent = () => {
   );
 };
 
-const NavigationSidebar = () => {
+const NavigationSidebar = (props: NavigationSidebarProps) => {
   return (
     <AppI18nextProvider>
-      <NavigationSidebarContent />
+      <NavigationSidebarContent {...props} />
     </AppI18nextProvider>
   );
 };

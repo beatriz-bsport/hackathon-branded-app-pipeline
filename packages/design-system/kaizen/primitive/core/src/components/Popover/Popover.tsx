@@ -30,6 +30,7 @@ const defaultClasses = [
   "border-stroke-default",
   "shadow-lg",
   "transition ease-out duration-default",
+  "will-change-[top,left]",
 ] as const;
 
 const popoverClasses = cva("relative w-fit h-fit");

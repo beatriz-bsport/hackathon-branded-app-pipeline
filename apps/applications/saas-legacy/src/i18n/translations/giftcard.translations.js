@@ -3,7 +3,7 @@ exports.default = {
   backgroundImage: {
     dialog: {
       explain:
-        'Add custom images to allow your members to make their gift cards more personal. During the creation of the gift card, members will be able to choose a background image.',
+        'Add custom images to enable your members to personalize their giftcards. Members will be able to choose from the custom images you upload here when they create their giftcards. ',
       actions: { close: 'Close' },
       title: 'Custom images',
     },
@@ -14,27 +14,27 @@ exports.default = {
       unlimited: { label: 'Unlimited' },
       expiration_days: {
         helperText:
-          'The validity of the gift card starts on the sending date of the invitation.',
+          "The giftcard will be valid for this period from the date it's activated.",
         label: 'Validity in days',
       },
       price: {
-        helperText: 'This will define the value of the gift card.',
+        helperText: 'The total value of the gift card.',
         label: 'Selling price',
       },
-      section: { parameters: { title: 'Settings' } },
+      section: { parameters: { title: 'Value & Validity' } },
       description: { label: 'Description' },
       available_payment_method_identifiers: {
         label: 'Available payment methods',
       },
       name: { label: 'Name' },
-      title: 'Gift card',
+      title: 'Add a gift card',
       actions: { submit: 'Confirm', cancel: 'Close' },
       advancedOptions: {
         header: 'Advanced',
         tag: {
-          tagsOnAcquisition: 'Tag after purchase',
+          tagsOnAcquisition: 'Apply tags after purchase',
           tagsOnAcquisitionHelper:
-            'Use tags to identify which member bought the giftcard',
+            'Tag members who have bought this gift card to quickly identify them in the future.',
           selectTags: 'Select tags',
         },
       },

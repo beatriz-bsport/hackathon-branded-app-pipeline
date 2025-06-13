@@ -620,7 +620,6 @@ export function updateMetaActivityCategoryOrder(
     try {
       const response = await editCategoryOrderAPI(data);
       dispatch(updateMetaActivityCategoryOrderActions.success(response.data));
-      // @ts-expect-error
       if (options && options.onSuccess) options.onSuccess(response.data);
     } catch (error) {
       dispatch(snackbarError(`paymentPack.category.update.error`));
@@ -653,7 +652,6 @@ export function upsertMetaActivityCategory(
         : await createMetaActivityCategoryAPI(category);
       dispatch(upsertMetaActivityCategoryActions.success(response.data));
       dispatch(snackbarSuccess(`paymentPack.category.${kind}.success`));
-      // @ts-expect-error
       if (options && options.onSuccess) options.onSuccess(response.data);
     } catch (error) {
       dispatch(snackbarError(`paymentPack.category.${kind}.error`));

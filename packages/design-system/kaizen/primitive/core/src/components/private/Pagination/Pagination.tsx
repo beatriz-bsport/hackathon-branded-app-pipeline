@@ -5,6 +5,8 @@ import React, { useCallback, useEffect, useMemo, useState } from "react";
 import Body from "#src/components/Body";
 import Button from "#src/components/Button";
 import Divider from "#src/components/Divider";
+import Select from "#src/components/Select";
+import { useKaizenI18nInstance, useTranslation } from "#src/i18n";
 
 const defaultClasses = [
   "flex",
@@ -88,13 +90,15 @@ const Pagination: React.FC<PaginationProps> = ({
   onRowsPerPageChange,
   ...props
 }) => {
+  const i18nInstance = useKaizenI18nInstance();
+  const { t } = useTranslation("default", { i18n: i18nInstance });
   const [localRowsPerPage, setLocalRowsPerPage] = useState(rowsPerPage);
 
   useEffect(() => {
     if (rowsPerPage != localRowsPerPage) {
       setLocalRowsPerPage(rowsPerPage);
     }
-  }, [rowsPerPage]);
+  }, [localRowsPerPage, rowsPerPage]);
 
   const totalPages = useMemo(
     () => Math.ceil(totalItems / Math.max(localRowsPerPage, 1)),
@@ -122,7 +126,13 @@ const Pagination: React.FC<PaginationProps> = ({
       onPageChange?.(validPage);
       onPageSettingsChange?.(validPage, rowsPerPage);
     }
-  }, [currentPage, totalPages, onPageChange]);
+  }, [
+    currentPage,
+    onPageChange,
+    onPageSettingsChange,
+    rowsPerPage,
+    totalPages,
+  ]);
 
   const handlePageChange = useCallback(
     (page: number) => {
@@ -131,15 +141,13 @@ const Pagination: React.FC<PaginationProps> = ({
         onPageSettingsChange?.(page, rowsPerPage);
       }
     },
-    [onPageChange, totalPages],
+    [onPageChange, onPageSettingsChange, rowsPerPage, totalPages],
   );
 
-  const handleRowsPerPageChange = (
-    event: React.ChangeEvent<HTMLSelectElement>,
-  ) => {
-    setLocalRowsPerPage(Number(event.target.value));
-    onRowsPerPageChange?.(Number(event.target.value));
-    onPageSettingsChange?.(1, Number(event.target.value));
+  const handleRowsPerPageChange = (option: string) => {
+    setLocalRowsPerPage(Number(option));
+    onRowsPerPageChange?.(Number(option));
+    onPageSettingsChange?.(1, Number(option));
   };
 
   const getPages = useCallback((): string[] => {
@@ -168,7 +176,7 @@ const Pagination: React.FC<PaginationProps> = ({
     return ["1", "...", ...addRange(Math.max(1, totalPages - 6), totalPages)];
   }, [currentPage, totalPages]);
 
-  const pages = useMemo(getPages, [currentPage, totalPages]);
+  const pages = useMemo(getPages, [getPages]);
 
   const rowsPerPageOptions = useMemo(
     () =>
@@ -200,22 +208,19 @@ const Pagination: React.FC<PaginationProps> = ({
         {rowsPerPageOptions.length > 1 && showRowsPerPageSelector && (
           <>
             <Body htmlVariant="span" size="sm" color="weak" weight="weak">
-              {/* TODO: Translation */}
-              Rows
+              {t("pagination.rows")}
             </Body>
-            {/* TODO: use <Select> component here instead */}
-            <select
-              value={currentItems}
-              onChange={handleRowsPerPageChange}
-              className="rounded-sm bg-surface-action-default-elevated-rest shadow-action-default-rest text-onsurface-action-weak-default text-body-md leading-xs"
+            <Select
+              id={props.id ? `${props.id}-select` : undefined}
+              size="sm"
+              value={currentItems.toString()}
+              onSelect={handleRowsPerPageChange}
               disabled={disabled}
-            >
-              {rowsPerPageOptions.map((option) => (
-                <option key={option} value={option}>
-                  {option}
-                </option>
-              ))}
-            </select>
+              items={rowsPerPageOptions.map((option) => ({
+                id: `pagination-option-${option}`,
+                label: option.toString(),
+              }))}
+            />
           </>
         )}
       </div>

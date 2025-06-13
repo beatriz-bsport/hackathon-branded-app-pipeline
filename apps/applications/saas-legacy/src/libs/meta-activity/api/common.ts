@@ -61,46 +61,37 @@ export const editOrderMetaActivity = (data: any) => {
   return patchAuth(`${API_V1_URI}/meta-activity/set_multiple_order/`, data);
 };
 
+// @deprecated: Those categories are not used anymore
 export async function fetchAllMetaActivityCategory({
-  companyId,
+  companyId: _companyId,
 }: {
   companyId?: number;
-}) {
-  return getAuth(
-    `${API_V1_URI}/meta-activity/meta_activity_category/${buildUrlParams({
-      companyId,
-    })}`,
-  );
-}
-export async function updateMetaActivityCategory(
-  category: MetaActivityCategory,
-) {
-  return putAuth(
-    `${API_V1_URI}/meta-activity/meta_activity_category/${category.id}/`,
-    category,
-  );
+}): Promise<any> {
+  return [];
 }
 
+// @deprecated: Those categories are not used anymore
+export async function updateMetaActivityCategory(
+  _category: MetaActivityCategory,
+): Promise<any> {
+  return;
+}
+
+// @deprecated: Those categories are not used anymore
 export async function createMetaActivityCategory(
-  category: MetaActivityCategory,
-) {
-  return postAuth(
-    `${API_V1_URI}/meta-activity/meta_activity_category/`,
-    category,
-  );
+  _category: MetaActivityCategory,
+): Promise<any> {
+  return;
 }
+// @deprecated: Those categories are not used anymore
 export async function deleteMetaActivityCategory(
-  category: MetaActivityCategory,
-) {
-  return deleteAuth(
-    `${API_V1_URI}/meta-activity/meta_activity_category/${category.id}/`,
-  );
+  _category: MetaActivityCategory,
+): Promise<any> {
+  return;
 }
-export async function editCategoryOrder(data: any) {
-  return patchAuth(
-    `${API_V1_URI}/meta-activity/meta_activity_category/set_order/`,
-    data,
-  );
+// @deprecated: Those categories are not used anymore
+export async function editCategoryOrder(_data: any): Promise<any> {
+  return;
 }
 
 export const fetchIsMetaActivityPublishedOnUSC = (metaActivityId: number) =>

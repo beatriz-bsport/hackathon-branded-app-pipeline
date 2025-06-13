@@ -80,10 +80,14 @@ export const DuplicateTemplateModal: React.FC<Props> = ({
       open={isOpen}
       onClose={onClose}
       title={t("activeList.duplicateTemplateModal.title")}
-      confirmLabel={t("activeList.duplicateTemplateModal.confirmButton")}
-      confirmColor="main"
-      onConfirmClick={handleDuplicateTemplate}
-      cancelLabel={t("activeList.duplicateTemplateModal.cancelButton")}
+      confirmButton={{
+        label: t("activeList.duplicateTemplateModal.confirmButton"),
+        onClick: handleDuplicateTemplate,
+      }}
+      cancelButton={{
+        label: t("activeList.duplicateTemplateModal.cancelButton"),
+        onClick: onClose,
+      }}
       size="md"
     >
       {isLoading || !emailTemplateDetail ? (

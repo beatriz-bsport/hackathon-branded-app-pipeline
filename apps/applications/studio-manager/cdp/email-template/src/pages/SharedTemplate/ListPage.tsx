@@ -1,17 +1,22 @@
 import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 
 import { ListLayout } from "@bsport/kaizen-primitive-core";
+import { dataAccessLayer } from "@bsport/sm-backbone";
 
 import { SearchedTemplateList } from "#src/components/Common/SearchedTemplateList";
 import { BsportTemplateInformation } from "#src/components/SharedTemplate/BsportTemplateInformation";
 import { SharedEmailTemplateList } from "#src/components/SharedTemplate/PageListContent";
 import { usePageHeader } from "#src/hooks/layout/usePageHeader";
+import { ROUTES } from "#src/urls";
 import { useTranslation } from "#src/utils/i18n";
 import type { PossibleSharedEmailTemplateType } from "#src/utils/types";
 
 const SharedListPage: React.FC = () => {
+  const companyTheme = dataAccessLayer.useCompanyTheme();
+  const isFranchisee = companyTheme && !!companyTheme.franchisor;
   const { pathname } = useLocation();
+  const navigate = useNavigate();
   const { searchConfig, searchInput, tabsConfig, clearSearchInput } =
     usePageHeader();
   const [activeTab, setActiveTab] = useState<PossibleSharedEmailTemplateType>(
@@ -23,6 +28,12 @@ const SharedListPage: React.FC = () => {
     activeTab === "bsport"
       ? [<BsportTemplateInformation key="bsport-information-popover" />]
       : [];
+
+  useEffect(() => {
+    if (!isFranchisee && activeTab !== "bsport") {
+      navigate(`../${ROUTES.BSPORT_TEMPLATES}`);
+    }
+  }, [companyTheme, isFranchisee, activeTab, navigate]);
 
   useEffect(() => {
     const tab = pathname.includes("bsport") ? "bsport" : "master";

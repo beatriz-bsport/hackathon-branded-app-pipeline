@@ -81,6 +81,7 @@ export type TextFieldProps = Omit<
   fullWidth?: boolean;
   type?: (typeof inputTypes)[number];
   containerProps?: React.HTMLAttributes<HTMLDivElement>;
+  inputRef?: React.Ref<HTMLInputElement>;
 };
 
 /**
@@ -105,6 +106,7 @@ export type TextFieldProps = Omit<
  * @param props.onBlur Callback function to call when the textfield loses focus.
  * @param props.onFocus Callback function to call when the textfield gains focus.
  * @param props.fullWidth Optionnal - boolean, make the component take the full available width of the parent.
+ * @param props.inputRef Optionnal - React ref to the input element, useful for focusing the input programmatically.
  */
 const TextField: React.FC<TextFieldProps> = ({
   className,
@@ -128,6 +130,7 @@ const TextField: React.FC<TextFieldProps> = ({
   onFocus,
   fullWidth,
   containerProps,
+  inputRef,
   ...props
 }) => {
   /* TODO: Check with design if the color picker needs all these props, and split it in a separate component (explained here: https://gitlab.com/bsport/ichizen/-/merge_requests/425#note_2402509306) */
@@ -242,6 +245,7 @@ const TextField: React.FC<TextFieldProps> = ({
               </div>
             )}
             <input
+              ref={inputRef}
               className={textField({ status })}
               id={id}
               name={id}

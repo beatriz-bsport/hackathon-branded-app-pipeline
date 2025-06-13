@@ -1254,9 +1254,9 @@
                 "cancel": "Cancel",
                 "submit": "Confirm",
                 "title": "Teacher's email address",
-                "emailLabel": "Email",
-                "explain": "If this email already exists in our database, we'll automatically create the teacher's account.",
-                "emailPlaceHolder": "teacher@bsport.io"
+                "emailLabel": "Email address",
+                "explain": "Please provide the email address for the teacher you want to add. If we already have their details, we'll create their account automatically.",
+                "emailPlaceHolder": "someone@email.com"
             },
             "create": {
                 "success": "Teacher added",
@@ -1288,9 +1288,9 @@
                 "calendar": "Schedule",
                 "general": "Profile"
             },
-            "coachSpaceInfo": "Teachers will be able to see their payroll per session, view their schedule, and manage their availabilities in this area.",
+            "coachSpaceInfo": "Once the 'Teacher View' is activated, teachers can see their payroll, view their schedule, and manage their availability.",
             "coachSpace": "Teacher View",
-            "noPaymentRule": "Warning, no payroll has been set for this teacher."
+            "noPaymentRule": "Warning: no payroll has been set for this teacher. "
         },
         "noCoach": "No teachers is registered yet",
         "noCoachs": "This module allows you to add, manage, edit, and delete instructors.",
@@ -1543,7 +1543,7 @@
             "warningConsent2": "It'd be illegal to not respect the decision of your member. The Service Provider cannot be held responsible in the event of abuse or misuse of any of the communication features.",
             "warningConsent1": "Warning! This member does not want to receive promotional messages. Direct emails or other channels are a quick and easy way to reach out to your members. They should not be used for advertising or promotional purposes.",
             "titleInterpolated": "The variables contained in the subject line and the body of the email are updated according to the recipient.",
-            "warningProvider": "Please note that members' replies to this message will not appear on the platform but directly in your mailbox. In order for them all to appear here, change the communication setting in the Settings/Customization page."
+            "warningProvider": "Replies to this message will automatically be sent to your email inbox. Go to settings - Personalization - Chat settings to make all your communications appear here."
         },
         "recipients": "Recipients",
         "common": {
@@ -1603,20 +1603,20 @@
                         "onLeft": "Removal",
                         "onJoin": "Entry"
                     },
-                    "add": "Add",
+                    "add": "Add message",
                     "title": "Automatic Messaging"
                 },
                 "form": {
                     "frequenceHelper": "This message will be sent upon {{ max }} {{ event_kind }} to each member in this Smartlist. After {{ max }} {{ event_kind }}, members will no longer receive the message. Use \"Advanced\" to edit these settings.",
                     "limitSection": "Limit",
                     "maxCommunicationSentHelperText": {
-                        "0": "By default, the message is sent each time a member enters the smartlist. If a member leaves and later re-enters, the message is sent again. Adjust the setting if you want to limit how many times the same member can receive the message: once, twice, or thrice.",
+                        "0": "This message will be sent every time a member enters the segment. If a member exits and then re-enters, the message will be resent. Set a limit on the number of times the same member can see this message.",
                         "1": "By default, the message is sent each time a member exits the smartlist. If a member re-enters and later exits again, the message is sent again. Adjust the setting if you want to limit how many times the same member can receive the message: once, twice, or thrice."
                     },
                     "subtitles": {
                         "create": {
-                            "leftSmartList": "Add an automatic message for members that leave this Smartlist.",
-                            "joinSmartList": "Add an automatic message for members that enter this Smartlist."
+                            "leftSmartList": "Create an automatic message for customers who exit this Smartlist.",
+                            "joinSmartList": "Create an automatic message for customers who enter this Smartlist."
                         },
                         "update": {
                             "leftSmartList": "Add an automatic message for members that leave this Smartlist.",
@@ -1803,7 +1803,7 @@
                 "title": "Title",
                 "content": "Message"
             },
-            "writeCommunication": "Send a message",
+            "writeCommunication": "Create a message",
             "warningModalTitle": {
                 "title": "We want to inform you of a few things before you send communications"
             },
@@ -1946,7 +1946,7 @@
         },
         "smartListPopup": {
             "memberListTitle": "Start-up pop-up",
-            "noSmartListPopup": "No startup pop-up",
+            "noSmartListPopup": "No pop-ups to show. Go back and click 'Send pop-up' to get started. ",
             "seeRecipients": "View recipients",
             "see": "See",
             "recipient": "recipient",
@@ -1956,7 +1956,7 @@
             "previewTitle": "Preview",
             "preview": "Preview",
             "close": "Close",
-            "drawerTitle": "History of startup pop-ups"
+            "drawerTitle": "All pop-ups"
         },
         "createThread": {
             "close": "Close",
@@ -1969,7 +1969,7 @@
             "filterOutCommunicationSent": "The communication you have just sent is hidden by the active filters.",
             "emptyList": {
                 "becauseOfFilters": "No results matching filters.",
-                "becauseNeverUsed": "You have not yet sent any communication on this channel."
+                "becauseNeverUsed": "No messages to show. Click on the text box below to write your first message."
             }
         },
         "sendNowDialog": {
@@ -2717,24 +2717,24 @@
                 "paymentCombo": "Select packs (valid on all products if none is selected)"
             },
             "section": {
-                "general": "General",
+                "general": "General information",
                 "availability": "Availability",
-                "usability": "Usability",
+                "usability": "Conditions",
                 "voucherConfig": "Discount",
-                "applies_to": "Settings",
+                "applies_to": "Buyables",
                 "advanced": "Advanced",
-                "subscription": "Subscriptions",
-                "blacklist_tags": "Not allowed",
-                "whitelist_tags": "Allowed",
+                "subscription": "Subscription invoicing",
+                "blacklist_tags": "Not available",
+                "whitelist_tags": "Available",
                 "tags": "Tags",
-                "tagInfo": "Use tags to make the promo code usable only by a selected group of members on the marketplace, widget and app. You can select tags to make the promo code usable only by members with one of the chosen tags. Or you can select tags to make the promo code unusable only by members with one of the selected tags. "
+                "tagInfo": "Use tags to make this discount code available or unavailable to certain segments of your member base."
             },
             "name": {
                 "label": "Name",
                 "helperText": "The name entered here will appear on invoices when the promo code is applied"
             },
             "code": {
-                "label": "Code",
+                "label": "Discount code *",
                 "helperText": "Your members will need to use this exact promotional code.",
                 "codeAlreadyInUse": "This code is already in use.",
                 "helperTextFranchise": "Your members will need to use this exact promotional code. Please revise if any of the studios have already applied this promotion."
@@ -2750,8 +2750,8 @@
                 "label": "Amount"
             },
             "is_active": {
-                "label": "Active",
-                "helperText": "Members can't use inactive codes."
+                "label": "Available to members",
+                "helperText": "Tick this box to make this code available to your members."
             },
             "with_expiration_date": {
                 "label": "Add expiration date"
@@ -2768,10 +2768,10 @@
                 "label": "Total number of members that can use the code"
             },
             "only_on_first_checkout": {
-                "label": "This promotional code can only be used for the 1st purchase"
+                "label": "Voucher can only be used for first purchase"
             },
             "combinable": {
-                "label": "Can be used in combination with other promotional codes"
+                "label": "Discount code can be used with other promotional codes"
             },
             "minimum_amount": {
                 "label": "Minimum value of customer basket"
@@ -2797,9 +2797,9 @@
                 "submit": "Apply"
             },
             "subscription_mode": {
-                "0": "Apply to all billings",
-                "1": "Only apply to the first billing",
-                "2": "Apply to all billings before the automatic renewal",
+                "0": "Apply to all invoices",
+                "1": "Only apply to the first invoice",
+                "2": "Apply to all invoices before the automatic renewal ",
                 "3": "Not applicable"
             },
             "tag": {
@@ -2812,8 +2812,8 @@
                 "tag": "Sub Tag",
                 "tag_group": "Master Tag"
             },
-            "title": "[Form] Promotion",
-            "alert": "A discount code can be used by a member to reduce the price of a basket. In this form, you can fully customize how the code is applied. You choose the code yourself and it's up to you to decide how to share it with your members."
+            "title": "Add a discount code",
+            "alert": "Discount codes can be used by members to reduce the price of their shopping cart. Use this form to customize how the code is applied and how it is shared with your members. "
         },
         "noDiscount": "This promotional code hasn't been used yet.",
         "createCoupon": "Add a promotion",
@@ -2874,21 +2874,21 @@
         },
         "uniqueCodeCoupon": {
             "form": {
-                "alertInfo": "Vouchers are unique codes that offer a 100% discount on a specific product for the member. These codes are not generated by the platform itself, but must be uploaded here as a CSV file. This feature is particularly useful if you've partnered with an external entity like Groupon to run a promotional campaign. In this case, Groupon (or a similar entity) generates and sells the vouchers on behalf of your studio.",
+                "alertInfo": "Voucher codes offer members a 100% discount on passes, webshop items and packs. These codes need to be uploaded as a CSV file at the bottom of this form. If you've partnered with Groupon (or a similar entity), they can generate and sell vouchers on behalf of your business.",
                 "alertWarning": "Does not apply to subscriptions",
                 "couponCostForCompany": {
-                    "label": "Price incl. VAT",
-                    "helperText": "The revenue you receive from the campaign partner for each voucher sold. They will be used to calculate the marginal value for teacher remuneration as well as for reports. For any calculation not taking marginal value into account, reports will ignore this given price and treat this promotion as a 100% discount."
+                    "label": "This name will show on invoices when the discount code is applied. ",
+                    "helperText": "Your members will need to copy this exact discount code."
                 },
                 "usage_per_member": {
                     "label": "Limit the number of vouchers a member can purchase",
                     "helperText": "Maximum limit"
                 },
                 "only_on_first_checkout": {
-                    "label": "Can only be used for the first purchase"
+                    "label": "Discount code only applies to members' first purchase"
                 },
                 "fileUploader": {
-                    "title": "Upload unique vouchers",
+                    "title": "Upload partner vouchers ",
                     "label": "Drag and drop or click to select file",
                     "sizeLimitHelper": "CSV file (1MB maximum)",
                     "helperText": "Please upload a CSV file with all voucher codes in the first column, one code per line, without header."
@@ -3457,7 +3457,7 @@
         "noMoreOffers": "No more sessions planned",
         "addButton": "Add an establishment",
         "update": {
-            "imageUploaderRequireEditMessage": "Once you've added your establishment, you'll be able to add additional images."
+            "imageUploaderRequireEditMessage": "You can upload more images once you've added your establishment."
         },
         "capacity": {
             "label": "Maximum capacity",
@@ -3548,7 +3548,7 @@
                 }
             },
             "groupButton": "Group establishments",
-            "addLocalisation": "Add a location",
+            "addLocalisation": "Add a room",
             "actions": "Action",
             "form": {
                 "name": "Name",
@@ -3561,7 +3561,7 @@
             },
             "table": {
                 "actions": "Action",
-                "establishment": "Establishments",
+                "establishment": "Establishment",
                 "name": "Name",
                 "address": "Address",
                 "noAddress": "No address is associated with this billing group"
@@ -4014,7 +4014,7 @@
         "downloadPDF": "Download PDF",
         "backgroundImage": {
             "dialog": {
-                "explain": "Add custom images to allow your members to make their gift cards more personal. During the creation of the gift card, members will be able to choose a background image.",
+                "explain": "Add custom images to enable your members to personalize their giftcards. Members will be able to choose from the custom images you upload here when they create their giftcards. ",
                 "actions": {
                     "close": "Close"
                 },
@@ -4030,16 +4030,16 @@
                     "label": "Unlimited"
                 },
                 "expiration_days": {
-                    "helperText": "The validity of the gift card starts on the sending date of the invitation.",
+                    "helperText": "The giftcard will be valid for this period from the date it's activated.",
                     "label": "Validity in days"
                 },
                 "price": {
-                    "helperText": "This will define the value of the gift card.",
+                    "helperText": "The total value of the gift card.",
                     "label": "Selling price"
                 },
                 "section": {
                     "parameters": {
-                        "title": "Settings"
+                        "title": "Value & Validity"
                     }
                 },
                 "description": {
@@ -4051,7 +4051,7 @@
                 "name": {
                     "label": "Name"
                 },
-                "title": "Gift card",
+                "title": "Add a gift card",
                 "actions": {
                     "submit": "Confirm",
                     "cancel": "Close"
@@ -4059,8 +4059,8 @@
                 "advancedOptions": {
                     "header": "Advanced",
                     "tag": {
-                        "tagsOnAcquisition": "Tag after purchase",
-                        "tagsOnAcquisitionHelper": "Use tags to identify which member bought the giftcard",
+                        "tagsOnAcquisition": "Apply tags after purchase",
+                        "tagsOnAcquisitionHelper": "Tag members who have bought this gift card to quickly identify them in the future.",
                         "selectTags": "Select tags"
                     }
                 }
@@ -6564,7 +6564,7 @@
                 "welcome": "Hello {{- firstname }}"
             },
             "title": "[Form] Sign up",
-            "newMemberOnlyHelperText": "A member is considered \"new\" as long as they have not made a purchase greater than {{ currency }}0. Please note that any purchase of a paid item with a 100% reduction in price will result in the loss of the 'New Member' status."
+            "newMemberOnlyHelperText": "Members are considered 'new' as long as they haven't made a purchase greater than €0. Please note, if a member buys a product with 100% discount, this will count as a purchase."
         },
         "user": {
             "existsWithEmail": "A user with the email address {{email}} already exists.",
@@ -6875,9 +6875,9 @@
                     "noCompatiblePass": "No pass available for this activity, remind to create one"
                 },
                 "steps": {
-                    "activity_form": "Activity creation",
+                    "activity_form": "Create an activity",
                     "pass_form": "(Optional) Add a pass",
-                    "pass_list": "Finalization",
+                    "pass_list": "Finish",
                     "offer_form": "(Optional) Add sessions",
                     "workshop_form": "Add a workshop"
                 }
@@ -6949,7 +6949,7 @@
             "search": "Search an activity",
             "addActivity": "Add a group activity"
         },
-        "noActivities": "This module allows you to add, manage, edit, or delete all your group activities.",
+        "noActivities": "Group activities are classes taught to a group. Here you can add, edit, and manage your group activities.",
         "disabledMetaActivities": "Archived group activities",
         "workshop": "Workshop",
         "groupedOption": {
@@ -7253,7 +7253,7 @@
                 }
             },
             "replacement": {
-                "disciplineGroup": "Discipline groups",
+                "disciplineGroup": "Activity types:",
                 "management": "Management"
             },
             "widget": {
@@ -7306,8 +7306,8 @@
                 "general": "General"
             },
             "establishment": {
-                "location": "Location",
-                "room": "Room",
+                "location": "Locations",
+                "room": "Rooms",
                 "calendar": "Calendar",
                 "general": "General"
             },
@@ -8506,7 +8506,7 @@
             "6": "AMEX",
             "7": "Bank transfer",
             "8": "EventBrite",
-            "9": "Internal account (credit)",
+            "9": "Pay on-site",
             "10": "Automatic payment",
             "11": "Other",
             "12": "Litigation",
@@ -8712,7 +8712,7 @@
             }
         },
         "form": {
-            "title": "[Form] Pack",
+            "title": "Add a Pack",
             "name": {
                 "label": "Name"
             },
@@ -8726,13 +8726,13 @@
                 "label": "VAT / Sales tax"
             },
             "manager_only": {
-                "label": "Unavailable for purchase"
+                "label": "Hidden on Marketplace"
             },
             "actions": {
                 "submit": "Save",
                 "cancel": "Cancel"
             },
-            "content": "Content",
+            "content": "Contents",
             "selectorPlaceholder": {
                 "privatePass": "Appointment passes",
                 "paymentPack": "Passes",
@@ -8740,7 +8740,7 @@
                 "shopItemExcludingvariant": "Webshop (products with variants excluded)"
             },
             "available_payment_method_identifiers": {
-                "helperText": "Select at least one payment method. If none is selected, online payments will be offered by default.",
+                "helperText": "Choose at least one payment method. If none are selected, online payments will be chosen by default.",
                 "label": "Accepted payment methods"
             },
             "new_member_only": {
@@ -8751,19 +8751,19 @@
                 "label": "Maximum number of purchases per member"
             },
             "usePaymentComboTaxOnItems": {
-                "label": "Apply a general VAT / Sales Tax rate on this pack",
-                "helperText": "By default, a unique VAT / Sales Tax rate will be applied per product. Activate this option to apply a general VAT / Sales Tax rate."
+                "label": "Apply a general VAT/Sales Tax rate to this pack",
+                "helperText": "A unique VAT/Sales Tax rate will be applied per product by default. Tick this box to apply a general Sales Tax rate to this pack. "
             },
             "error": {
                 "atLeastOneThing": "You must add at least one item to your pack"
             },
             "unusableByStaff": {
-                "label": "Invisible for the staff"
+                "label": "Hidden to staff"
             },
             "expiration_date": {
-                "label": "Date limit for purchase",
+                "label": "Duration of sale",
                 "helperText": "Available until",
-                "tooltip": "After chosen date, the pack will not be available for sale anymore, for the customers."
+                "tooltip": "After the chosen date, the pack will be unavailable for purchase"
             },
             "highlightedAsRecommended": {
                 "label": "Mark as recommended",
@@ -8772,8 +8772,8 @@
             "advancedOptions": {
                 "header": "Advanced",
                 "tag": {
-                    "tagsOnAcquisition": "Tag after purchase",
-                    "tagsOnAcquisitionHelper": "Use tags to identify which member bought the pack.",
+                    "tagsOnAcquisition": "Apply tags after purchase",
+                    "tagsOnAcquisitionHelper": "Tag members who have bought this pack to quickly identify them in the future.",
                     "selectTags": "Select tags",
                     "tagGroupDuplicated": "Please note that selected items contain tags of the same category."
                 }
@@ -8975,7 +8975,7 @@
         "form": {
             "paymentPack": {
                 "noNotificationsWarning": "You have no notifications set up yet. To create new notifications, please go to <strong>Marketing > Notifications.</strong>",
-                "detailsAndRestrictions": "Details and restrictions",
+                "detailsAndRestrictions": "Details and conditions",
                 "notification": "Notifications",
                 "from": "From ",
                 "until": "Until ",
@@ -9062,13 +9062,13 @@
                     "isUsedInCombo": "Attention! Deleting this pass will also make it unavailable for purchase for the packs it's used for."
                 },
                 "priceIncludingTax": {
-                    "label": "Price (including VAT / Sales Tax)",
-                    "helperText": "This is selling price."
+                    "label": "Price (including VAT/Sales Tax) * ",
+                    "helperText": "The total selling price of the pass."
                 },
                 "startOnFirstUseHelper": "Otherwise it starts on the billing date",
                 "notEditable": "This pass originates from a previously completed data migration. Some fields may not editable to preserve the data. Compatible activities/categories can still be modified.",
                 "maxPurchasePerMember": {
-                    "helperText": "Leave this field empty to not set up any restrictions.",
+                    "helperText": "Leave this field blank to not set any limits",
                     "label": "Maximum purchase per member"
                 },
                 "maxBookingPerDay": {
@@ -9124,7 +9124,7 @@
                     "noShowCheckbox": "Too many no shows",
                     "cancellationsCheckbox": "Too many late cancelations",
                     "titleCheckbox": "Apply a penalty for",
-                    "helperText": "Apply penalties for too many no-shows or late cancelations",
+                    "helperText": "Apply a penalty to members with too many no-shows or late cancellations ",
                     "label": "Apply a penalty"
                 },
                 "only_vod_access": "Only for Video On Demand",
@@ -9138,33 +9138,33 @@
                 "advancedOptions": {
                     "tag": {
                         "notAllowedFor": "Refused for",
-                        "notAllowed": "Refused",
+                        "notAllowed": "Not available",
                         "allowedFor": "Approved for",
-                        "allowed": "Approved",
+                        "allowed": "Available",
                         "header": "Tags",
-                        "doNotSelectToAllowAllMembers": "Leave empty to allow all members",
-                        "helperText": "Use tags to make the pass only available to specific members in your MarketPlace, on your widgets, and on your mobile app. You can select to only display these passes to members with specific tags, or you can choose to not display the pass to specific tags at all. ",
+                        "doNotSelectToAllowAllMembers": "Leave this field empty to make it available to all members.",
+                        "helperText": "Use tags to make this pass available or not available for purchase to certain segments of your customer base.",
                         "selectTags": "Select tags",
-                        "tagsOnAcquisition": "Tag after purchase",
-                        "tagsOnAcquisitionHelper": "Use tags to identify which member bought the pass."
+                        "tagsOnAcquisition": "Apply tags after purchase",
+                        "tagsOnAcquisitionHelper": "Tag members who have bought this pass to quickly identify them in the future."
                     },
                     "header": "Advanced",
                     "appliesForPayroll": {
                         "header": "Teacher payroll",
-                        "helperText": "By default, sessions are billed to the studio and included in the teacher's payroll and remuneration by the studio. By deactivating this setting, sessions associated with this pass will no longer appear in the teacher's payroll.",
-                        "label": "Sessions taken into account in calculating the teacher's remuneration"
+                        "helperText": "Classes are billed to the studio and included in the teacher's payroll by default. Deactivate this setting to ensure classes associated with this pass will no longer appear in teachers' payrolls.",
+                        "label": "Classes bought with this pass are included in teacher's payroll"
                     }
                 },
                 "universalPass": {
                     "deativatedTags": "Deactivated for universal passes",
                     "marketplaceLabel": "A universal pass may be used for group activities and appointments.",
                     "label": "Universal pass",
-                    "helperText": "Universal passes may be used for group activities and appointments. Twin appointment passes are created for every universal pass to link the number of credits. Once one of these passes has been purchased, the other will be automatically added without any additional costs.",
+                    "helperText": "Universal passes can be used by members to book both group activities and appointments. Every time a universal pass is purchased, we'll automatically add a 'twin' appointment pass to share the credits between the two pass types.",
                     "warningIsUniversalPass": "Twin appointment passes are automatically created for a universal pass. All fields modified here will also be edited on the twin passes, except the categories. This also applies to notifications, validity extensions, and credit changes."
                 },
                 "highlightedAsRecommended": {
                     "label": "Mark as recommended",
-                    "helperText": "Allows your customers to quickly see which passes are currently recommended."
+                    "helperText": "Highlight this pass to your members by promoting it in the 'recommended' section of the booking flow."
                 }
             }
         },
@@ -9349,7 +9349,7 @@
                     "name": "Name of the category",
                     "titleNew": "New category",
                     "titleEdit": "Category",
-                    "helper": "The categories will appear on the marketplace and the mobile application for cards available for sale.",
+                    "helper": "Categories are a useful way to organize your passes. These names will appear to your members on the Marketplace and Mobile App. ",
                     "update": "Rename",
                     "create": "Add",
                     "cancel": "Cancel"
@@ -9435,12 +9435,12 @@
         },
         "selector": {
             "noAvailable": "There are no compatible passes to display.",
-            "noManagerOnly": "Available for purchase",
-            "managerOnly": "Invisible to customers",
-            "filterManagerOnly": "All availabilities",
+            "noManagerOnly": "Visible on Marketplace",
+            "managerOnly": "Hidden to members",
+            "filterManagerOnly": "Visible to all",
             "filterCategory": "All categories",
             "titleSort": "Sort",
-            "titleManagerOnly": "Available for purchase",
+            "titleManagerOnly": "Visibility",
             "titleCategory": "Categories",
             "sorting": {
                 "descendingCredit": "Credits: descending",
@@ -9449,7 +9449,7 @@
                 "ascendingPrice": "Price: ascending",
                 "customSort": "Additional orders (MarketPlace and App)"
             },
-            "unusableByStaff": "Invisible for the staff"
+            "unusableByStaff": "Hidden to staff"
         },
         "noUnauthorizedTag": "There are no refused tags to display.",
         "noAuthorizedTag": "There are no authorized tags to display.",
@@ -9512,20 +9512,20 @@
             "only_vod_access": "Restrict usage to Video On Demand",
             "vodAccessCard": "Enable access to Video On Demand",
             "vod": "Video On Demand",
-            "compatibility": "This pass will only be compatible with the selected sessions, activities, categories, and/or establishments.",
-            "letBlank": "Leave this field empty to implement no restrictions",
+            "compatibility": "This pass will only be compatible with the selected classes, activities, categories, or establishments.",
+            "letBlank": "Leave blank to not limit this pass",
             "activities": "Activities",
             "room": "Establishments",
             "categories": "Categories",
             "inShopPayment": "Enable on-site payments",
-            "notForSell": "Invisible to customers",
-            "newClientOnly": "Only available to new members",
+            "notForSell": "Hidden to members",
+            "newClientOnly": "Only visible to new members",
             "maxUseMember": "Maximum purchases per member",
             "maxUseMonth": "Maximum usage per month",
             "maxUseWeek": "Maximum usage per week",
-            "maxUseHelper": "Leave blank to not set a limit",
+            "maxUseHelper": "Leave blank to not set a usage limit",
             "maxUseDay": "Maximum usage per day",
-            "restriction": "Restrictions",
+            "restriction": "Conditions",
             "penalityAccountHelper": "Members' account balance will be charged {{ currencyDisplay }}{{penalityBlockAccount}}.",
             "penalityBlockDayHelper": "Members' passes will be blocked for {{penalityBlockDay}} day(s).",
             "penalityAccountPrice": "Amount to charge",
@@ -9538,8 +9538,8 @@
             "penalityNumberCancel": "Number of cancellations",
             "marginalContributionHelperText": "This is used to calculate the payroll of the teachers. Example: {{ currencyDisplay }}10 for 1 booking means that the teacher will be paid {{ currencyDisplay }}10.  When left empty, the marginal value will be calculated as PRICE / NUMBER OF BOOKINGS.",
             "marginalContribution": "Theoretical marginal value incl. VAT",
-            "expirationDateHelper": "If the pass hasn't been used during this set number of days, it'll automatically expire.",
-            "expirationDate": "Amount of days in which the pass expires if no booking is made",
+            "expirationDateHelper": "If the pass hasn't been used during this period, it'll automatically expire.",
+            "expirationDate": "Number of days before the pass expires if unused *",
             "beginningDate": "Start date",
             "attendance": "Valid from the 1st attendance",
             "firstBooking": "Valid from the 1st booking",
@@ -9555,14 +9555,14 @@
             },
             "yearValidityHelper": "This will be added to the number of days and months",
             "monthValidityHelper": "This will be added to the number of days",
-            "yearValidity": "Validity (in years)",
-            "monthValidity": "Validity (in months)",
-            "dayValidity": "Validity (in days)",
+            "yearValidity": "Years",
+            "monthValidity": "Months",
+            "dayValidity": "Days",
             "endBeforeStart": "The end date must be greater than the start date",
             "toDate": "Until",
             "fromDate": "From",
-            "availabilitySlot": "Make this pass valid during a certain time period",
-            "availabilityGivenNumber": "Make this pass valid for a set number of days after the purchase date",
+            "availabilitySlot": "Make this pass valid between certain dates",
+            "availabilityGivenNumber": "Make this pass valid for a certain number of days after purchase",
             "penalityRule": "This penalty can only be applied to unlimited passes",
             "penality": "Apply a penalty for too many late cancellations",
             "packValidity": "Validity",
@@ -9584,7 +9584,7 @@
             "creditWarning": "Attention: all passes will be edited if the number of credits is changed.",
             "migration": "This pass originates from a previously completed data migration. Some fields may not editable to preserve the data. Compatible activities/categories can still be modified.",
             "franchise": "The pass is shared through the Master Account. Certain settings have been predefined by said Master Account and can't be modified.",
-            "allowGuest": "Compatible with the booking for a guest feature",
+            "allowGuest": "Compatible with guest bookings",
             "penalityModeFranchisor": {
                 "buyer": {
                     "explain": "The member account balance will be charged with {{ price }} only on the franchisee in which the pass has been purchased.",
@@ -9600,15 +9600,15 @@
                     "label": "Pro rata, per franchisee, of no shows"
                 }
             },
-            "unusableByStaff": "Invisible for the staff",
+            "unusableByStaff": "Hidden to staff",
             "expiration_date": {
-                "label": "Date limit for purchase",
+                "label": "Duration of sale",
                 "helperText": "Available until",
-                "tooltip": "After chosen date, the pack will not be available for sale anymore, for the customers."
+                "tooltip": "After the chosen date, the pass will be unavailable for purchase"
             },
             "description": "Description",
             "offPeak": {
-                "label": "Limit bookings to certain time slots",
+                "label": "Restrict bookings to certain times",
                 "addGroupTimeSlot": "Add a group of time slots",
                 "addTimeSlot": "Add a time slot",
                 "choice": {
@@ -9828,7 +9828,7 @@
                 "coaches": "Associated teachers",
                 "removed_coaches": "Removed teachers",
                 "specfic_private_slot": "Appointments",
-                "default": "Default"
+                "default": "Default payroll rules"
             },
             "workshop": "Workshops",
             "session": "Group activities",
@@ -10305,10 +10305,10 @@
                 "confirm": "Delete"
             },
             "padBeforeBooking": {
-                "explain2": "Example: the establishment is available from 10 AM to 11 AM and your appointment lasts 60 minutes, however, a 15 minute blocker is required beforehand and afterwards for cleaning or maintenance.",
-                "explain4": "NON-ACTIVE: the appointment will be possible and will block the room 15 min before and after the reservation. The next appointment will be possible from 11:30 am.",
-                "explain3": "ACTIVE: Appointment will not be possible. The room must be available from 9:45 to 11:15. The next appointment will not be possible until 11:30 am.",
-                "explain1": "If activated, bookings can only be made if the calendar is available including the booking"
+                "explain2": "For example, for an appointment that has been booked at 13:00 which lasts an hour, there will be a time buffer of 5 minutes both before and after the appointment.",
+                "explain4": "If left unactivated, the next appointment can be booked from 14:05 (5 minutes after the end of the previous appointment). In this case, time buffers can overlap.",
+                "explain3": "If activated, the following appointment can be booked from 14:10 (5 minutes after the end of the first appointment and 5 minutes before the start of the next one). Time buffers cannot overlap.",
+                "explain1": "Once activated, the time buffers between first and second appointments will not overlap. This means there will be a larger time gap between the two appointments as two time buffers are taken into account."
             },
             "ineligibleService": {
                 "title": "You cannot book this appointment",
@@ -10585,7 +10585,7 @@
                 "warning": "Attention! Deleting this appointment pass will also make it unavailable for purchase for the packs it's used for."
             },
             "list": {
-                "createButton": "Add an appointment pass",
+                "createButton": "Add appointment pass",
                 "isEmpty": "There are no appointment passes to display.",
                 "availableCustomer": "Available appointment passes",
                 "managerOnly": "Unavailable appointment passes"
@@ -10601,13 +10601,13 @@
             "compatibleServices": {
                 "title": "Compatible appointments",
                 "add": "Add",
-                "isEmpty": "This appointment pass can't be used for any appointment, because its compatibility hasn't been configured correctly.",
-                "unusable": "Unusable"
+                "isEmpty": "Key information missing",
+                "unusable": "This appointment pass is not currrently compatible for any appointment because some key information is missing. Fill in the required fields and try again.   "
             },
             "form": {
                 "detailsAndRestrictions": "Details and restrictions",
                 "notification": "Notifications",
-                "title": "[Form] Appointment pass",
+                "title": "Add an appointment pass",
                 "managerOnly": {
                     "label": "Unavailable for purchase"
                 },
@@ -10617,18 +10617,18 @@
                 },
                 "credits": {
                     "label": "Number of credits",
-                    "helperText": "Indicate the number of included credits.",
+                    "helperText": "Choose the number of credits included in this pass",
                     "decimalCredit": {
                         "helperText": "This pass will contain {{count}} credit.",
                         "helperText_plural": "This pass will contain {{count}} credits."
                     }
                 },
                 "price": {
-                    "label": "Price (incl. VAT / Sales Tax)",
-                    "helperText": "This is the selling price for members."
+                    "label": "Price (including VAT/Sales Tax) * ",
+                    "helperText": "The total selling price of the pass."
                 },
                 "tax": {
-                    "label": "VAT / Sales tax"
+                    "label": "VAT/Sales tax *"
                 },
                 "actions": {
                     "submit": "Save",
@@ -10637,20 +10637,20 @@
                     "next": "Next"
                 },
                 "available_payment_method_identifiers": {
-                    "helperText": "Select at least one payment method. If none is selected, online payments will be offered by default.",
+                    "helperText": "Choose at least one payment method. If none are selected, online payments will be chosen by default.",
                     "label": "Accepted payment methods",
                     "warning": "Accepted payment methods can be assigned, once the appointment pass has been made available to members."
                 },
                 "durationYears": {
                     "helperText": "Will be added to the number of days and months.",
-                    "label": "Validity (in years)"
+                    "label": "Years"
                 },
                 "durationMonths": {
                     "helperText": "Will be added to the number of days.",
-                    "label": "Validity (in months)"
+                    "label": "Months"
                 },
                 "durationDays": {
-                    "label": "Validity (in days)"
+                    "label": "Days"
                 },
                 "full_vod_access": {
                     "label": "Activate access to Video On Demand"
@@ -10665,7 +10665,7 @@
                     "on_purchase": "Valid from the billing date"
                 },
                 "new_member_only": {
-                    "label": "Only available for new members"
+                    "label": "Only visible to new members"
                 },
                 "start_date_method_detail": {
                     "on_purchase": " from the date of purchase",
@@ -10678,15 +10678,15 @@
                     "years": "{{ count }} year",
                     "years_plural": "{{ count }} years",
                     "months": "{{ count }} month(s)",
-                    "days": "{{ count }} day",
-                    "days_plural": "{{ count }} days",
+                    "days": "Day",
+                    "days_plural": "Days",
                     "valid": "Valid for ",
                     "fullText": "This appointment pass will be valid for "
                 },
                 "startDate": "Start date",
                 "category": "Category name",
                 "categoryTitle": {
-                    "compatibility": "Compatibility",
+                    "compatibility": "Compatible appointments",
                     "validity": "Validity",
                     "paymentMeans": "Payment method",
                     "info": "General",
@@ -10698,22 +10698,22 @@
                 "franchise": "The appointment pass is shared through the Master Account. Certain settings have been predefined by said Master Account and can't be modified.",
                 "universalPass": {
                     "deativatedTags": "Deactivate for universal passes",
-                    "helperText": "Universal passes may be used for group activities and appointments. Twin passes are created for every universal pass to link the number of credits. Once one of these passes has been purchased, the other will be automatically added without any additional costs.",
+                    "helperText": "Universal passes can be used by members to book both group activities and appointments. Every time a universal pass is purchased, we'll automatically add a 'twin' appointment pass to share the credits between the two pass types.",
                     "label": "Universal pass",
                     "warningIsUniversalPass": "Twin passes are automatically created for a universal pass. All fields modified here will also be edited on the twin passes, except the categories. This also applies to notifications, validity extensions, and credit changes."
                 },
                 "onBehalfOfTeacher": {
-                    "helperText": "This setting allows you to indicate that the income associated with appointments on this pass will be paid in full to the teacher. This information will be visible in your purchase reports (CA) in the 'Payment paid entirely to the teacher' column.",
+                    "helperText": "Select this setting to ensure that the income associated with appointments on this pass will be paid in full to the teacher. You can view this information in the 'Payment paid entirely to the teacher' column in your purchase reports. ",
                     "label": "Full payment to the teacher"
                 },
                 "appliesForPayroll": {
-                    "helperText": "By default, appointments are billed to the studio and included in the teacher's summary and payroll. If you deactivate this setting, the appointments associated with this pass will no longer appear in the teacher's summary.",
-                    "label": "Appointments taken into account when calculating the teacher's payroll"
+                    "helperText": "Classes are billed to the studio and included in the teacher's payroll by default. Deactivate this setting to ensure classes associated with this pass will no longer appear in teachers' payrolls.",
+                    "label": "Classes bought with this pass are included in teacher's payroll"
                 },
                 "expiration_date": {
                     "helperText": "Available until",
-                    "label": "Date limit for purchase",
-                    "tooltip": "After chosen date, the pack will not be available for sale anymore, for the customers."
+                    "label": "Duration of sale",
+                    "tooltip": "After the chosen date, the pass will be unavailable for purchase"
                 },
                 "description": {
                     "label": "Description"
@@ -10721,8 +10721,8 @@
                 "advancedOptions": {
                     "header": "Advanced",
                     "tag": {
-                        "tagsOnAcquisition": "Tag after purchase",
-                        "tagsOnAcquisitionHelper": "Use tags to identify which member bought the appointment pass.",
+                        "tagsOnAcquisition": "Apply tags after purchase",
+                        "tagsOnAcquisitionHelper": "Tag members who have bought this pass to quickly identify them in the future.",
                         "selectTags": "Select tags"
                     }
                 },
@@ -10749,7 +10749,7 @@
                 "forceRegularizeUnpaid": "Regularise all outstanding payments"
             },
             "listItem": {
-                "unusableByStaff": "Invisible for the staff"
+                "unusableByStaff": "Hidden to staff"
             }
         },
         "service": {
@@ -10797,29 +10797,29 @@
                 "establishmentResourceType": {
                     "isHomeService": {
                         "label": "At home",
-                        "helperText": "An address will be requested for every booking."
+                        "helperText": "We'll ask members for an address once the appointment is booked. "
                     },
                     "isWithoutEstablishment": {
-                        "label": "No predetermined establishment",
+                        "label": "Outside of establishment(s)",
                         "helperText": "For your outdoor activities, livestreams, etc."
                     },
                     "isWithEstablishment": {
                         "isEmpty": "No establishment has been configured.",
                         "label": "In one or more of your establishments",
-                        "helperText": "Bookings will only be possible is there are enough available slots."
+                        "helperText": "Booking will only be made if there are enough available slots. "
                     }
                 },
                 "resourceGroup": {
-                    "establishment": "Establishment",
+                    "establishment": "Location",
                     "coach": "Teacher"
                 },
                 "coach_consumer_attribution": {
                     "label": "Allow members to choose their teacher",
-                    "helperText": "Members will see and have the ability to choose the teacher during the booking process. If unchecked, you'll have to assign a teacher after each appointment has been booked."
+                    "helperText": "Members will be able to choose their teacher when they book. If left unchecked, you'll need to assign a teacher once the appointment has been booked."
                 },
                 "establishment_consumer_attribution": {
                     "label": "Allow members to choose the establishment",
-                    "helperText": "Members will see and can choose an establishment during the booking process. If unchecked, we'll automatically optimize the filling of the establishments."
+                    "helperText": "Members will be able to decide which establishment they want to book. Uncheck to automatically fill establishments."
                 },
                 "delete": {
                     "title": "Delete appointment",
@@ -10828,17 +10828,17 @@
                     "confirm": "Delete"
                 },
                 "coach_capacity_used": {
-                    "label": "This is the maximum number of appointments that a teacher can attend to simultaneously.",
-                    "helperText": "Example: a teacher can monitor two students separately on two machines",
+                    "label": "The maximum amount of appointments an teacher can attend simultaneously is:",
+                    "helperText": "For example, a teacher can monitor two students at the same time.",
                     "alertText": "A teacher can manage 1, 2, 3, 4, 6 or 12 appointments simultaneously."
                 },
                 "color": "Color code",
                 "use_full_establishment_capacity": {
-                    "label": "Requires the entire establishment",
-                    "helperText": "Uncheck to allow multiple activities/appointments in the same room simultaneously if the capacity allows it"
+                    "label": "Members can choose the establishment",
+                    "helperText": "The entire space is needed for the appointment. Uncheck to allow multiple appointments in the same establishment."
                 },
                 "title": "Appointments",
-                "createButton": "Add an appointment",
+                "createButton": "Add appointment",
                 "addCoach": "Add a teacher",
                 "addEstablishment": "Add an establishment",
                 "addSlot": "Add a session",
@@ -10848,8 +10848,8 @@
                 },
                 "is_without_coach": "Don't assign any teacher to this appointment",
                 "name": {
-                    "label": "Name of the service",
-                    "placeholder": "Massage"
+                    "label": "Appointment name",
+                    "placeholder": "e.g. massage"
                 },
                 "coach": {
                     "label": "Teacher",
@@ -10866,52 +10866,52 @@
                     "submit": "Save"
                 },
                 "last_discard_minutes": {
-                    "helperText": "Credits won't be refunded for late-cancellations.",
-                    "label": "Select until when members can cancel for free (late cancellations)"
+                    "helperText": "Credits won't be refunded for late cancellations.",
+                    "label": "Choose how long before the class the booking window opens. "
                 },
-                "coachSelectorTitle": "Select the teacher(s) for this appointment:",
-                "establishmentSelectorTitle": "Select the establishment(s) for this appointment:",
-                "settingsTitle": "Settings",
+                "coachSelectorTitle": "Choose the teacher(s) for this appointment.",
+                "establishmentSelectorTitle": "Choose the establishment(s) for this appointment:",
+                "settingsTitle": "Conditions",
                 "managerOnly": {
-                    "label": "Unavailable for purchase"
+                    "label": "Hidden on Marketplace"
                 },
                 "last_booking_minutes": {
                     "label": "Select until when members can book before the start of the appointment"
                 },
                 "paddingEnd": {
-                    "helperText0": "The teacher(s) and/or the establishment(s) will be shown as available after the end of the appointment.",
+                    "helperText0": "The amount of time until the teacher or establishment will be available after the appointment ends.",
                     "helperText": "The teacher(s) and/or the establishment(s) will be shown as unavailable for {{minutes}} after the end of the appointment.",
-                    "label": "Buffer (in minutes) after the end of the appointment"
+                    "label": "Time buffer (in minutes) after the end of the appointment."
                 },
                 "paddingStart": {
-                    "helperText0": "The teacher(s) and/or the establishment(s) will be shown as unavailable at the start of the appointment.",
+                    "helperText0": "The amount of time that the teacher or establishment will be unavailable before the appointment starts.",
                     "helperText": "The teacher(s) and/or the establishment(s) will be shown as unavailable {{minutes}} before the start of the appointment.",
-                    "label": "Buffer (in minutes) before the start of the appointment"
+                    "label": "Time buffer (in minutes) before the start of the appointment."
                 },
                 "paddingTitle": "Availability",
                 "unpaidBooking": {
                     "title": "Pay later",
                     "tag": {
-                        "helper": "Use Tag Management to make certain reservations only available to specific segments of your member data base. All members tagged as \"Approved\" may complete an unpaid booking, while those tagged as \"Refused\" won't be able to.",
+                        "helper": "Use Tags to make this appointment available only to certain segments of your member base. Members tagged as 'Authorized' are able to pay later, while those tagged as 'Unauthorized' won't be able to.",
                         "header": "Tags",
-                        "allowed": "Approved",
-                        "notAllowed": "Refused",
-                        "doNotSelectToAllowAllMembers": "Leave this field empty to make it available to all members."
+                        "allowed": "Authorized",
+                        "notAllowed": "Unauthorized",
+                        "doNotSelectToAllowAllMembers": "Leave this field empty to allow all members to 'pay later'."
                     },
-                    "label": "Accept unpaid bookings",
-                    "helperText": "Activate this feature to allow members to complete bookings without any direct payments. The used credit(s) will be automatically deducted from any future appointment pass bought by the members."
+                    "label": "Enable 'pay later' for members",
+                    "helperText": "Allow members to complete bookings without taking a payment right away. Credits will automatically be deducted from customers' future appointment passes."
                 },
                 "pad_before_booking": {
-                    "label": "Activate retroactively for this booking"
+                    "label": "Avoid overlapping time buffers between appointments"
                 },
                 "advancedOptions": {
                     "header": "Advanced",
                     "tag": {
                         "header": "Tags",
-                        "helperText": "Use tags to make the appointment bookable only to a desired group of members: you can select tags to make all the sessions of this appointment bookable only to members with one of the selected tags, or you can select tags to make the appointment’s sessions non-bookable only to members with one of the selected tags.",
-                        "allowed": "Allowed",
-                        "doNotSelectToAllowAllMembers": "Leave this field empty to allow all members",
-                        "notAllowed": "Not allowed"
+                        "helperText": "Use tags to make this appointment available only to certain segments of your customer base.",
+                        "allowed": "Authorized",
+                        "doNotSelectToAllowAllMembers": "Leave this field empty to authorize all members.",
+                        "notAllowed": "Unauthorized"
                     }
                 },
                 "tooltip": {
@@ -10982,7 +10982,7 @@
             }
         },
         "openCalendar": "Show the calendar",
-        "noPrivateService": "In this module, you can add, manage, edit, and remove all your appointments.",
+        "noPrivateService": "An appointment is a private lesson with a teacher. Add an appointment to set its duration, as well as other conditions for your members.",
         "noPrivatePass": "Members can use appointment passes to book in appointments (e.g. personal training, duos, room rental, massages, etc.). Reminder: don't forget to correctly set up the compatibility of all your appointment passes.",
         "customEvent": {
             "form": {
@@ -11830,12 +11830,12 @@
             "allWorkshops": "Teaches all workshops",
             "pickWorkshop": "Choose a workshop",
             "workshops": "Workshops",
-            "allActivities": "Teaches all activities",
-            "pickActivity": "Choose an activity",
-            "activities": "Activities",
+            "allActivities": "Teaches all group activities",
+            "pickActivity": "Choose a group activity",
+            "activities": "Group activities",
             "customRules": "Customize the rules",
-            "disciplineGroup": "Discipline groups",
-            "description": "Indicate which sessions are taught by your teacher. If a substitution request is made in one of these session, that teacher will be notified by email. If nothing is selected, this teacher will not be notified.",
+            "disciplineGroup": "Activity types:",
+            "description": "Choose the activity types taught by the teacher to automatically fill in the fields. If a substitute is needed for a class, we'll email the teacher in advance.",
             "title": "Substitution",
             "allEstablishments": "All establishments",
             "pickEstablishment": "Leave blank to select all",
@@ -11849,7 +11849,7 @@
             "nextSlot": "Next session on {{date}} - {{hour}}",
             "compatibleCoaches": "{{count}} compatible teacher",
             "compatibleCoaches_plural": "{{count}} compatible teachers",
-            "title": "Available teachers by discipline"
+            "title": "Compatible teachers by activity"
         },
         "disciplineGroup": {
             "form": {
@@ -11866,7 +11866,7 @@
                 "allActivities": "Teaches all activities",
                 "pickActivity": "Choose an activity",
                 "activities": "Activities",
-                "groupTypes": "Type of sessions / categories",
+                "groupTypes": "Classes and categories:",
                 "required": "This field is required",
                 "nameHelperText": "Name of the discipline group",
                 "name": "Name",
@@ -11887,7 +11887,7 @@
             "coaches_plural": "{{count}} Teachers",
             "categories": "Categories ({{number}})",
             "workshops": "Workshops ({{number}})",
-            "activities": "Activities ({{number}})",
+            "activities": "Group activities",
             "title": "Discipline groups",
             "add": "Add a group"
         },
@@ -11930,7 +11930,7 @@
             "areClosed": "Closed"
         },
         "lateStatus": {
-            "isNotLate": "In time",
+            "isNotLate": "On track",
             "isLate": "Late"
         },
         "delete": {
@@ -12007,10 +12007,10 @@
             "title": "My requests"
         },
         "requestsLinkedToCancelledOffers": {
-            "cancelledOffersModeTitle": "Cancelled sessions mode",
-            "filterHelper": "We advise deactivating the filters and widening the date range if this alert persists and no session appears in <strong>{{switchLabel}}</strong> mode.",
-            "description": "In order to see these sessions, please activate the filter <strong>{{switchLabel}}</strong> above",
-            "title": "Active substitution requests are linked to cancelled sessions.",
+            "cancelledOffersModeTitle": "Cancelled sessions",
+            "filterHelper": "If no session appears, try deactivating filters and widening the data range.",
+            "description": "Activate the 'Cancelled sessions' toggle to view substitution requests that are linked to cancelled sessions. ",
+            "title": "View active substitution requests",
             "buttonLabel": "Open",
             "offerHasActiveRequest": {
                 "helper": "Do you want to be redirected to the substitution requests page to cancel obsolete requests?",
@@ -15521,7 +15521,7 @@
             "1": "Member information",
             "2": "Passes",
             "3": "Bookings",
-            "4": "Purchases"
+            "4": "Payments"
         },
         "filters": {
             "1": {
@@ -15529,15 +15529,15 @@
                 "first": "The account balance of the member is (including unpaid invoices)",
                 "second": " than   ",
                 "third": "{{ currencyDisplay }}",
-                "explanation": "Display an overview of all members whose account balance is {{ currencyDisplay }}X",
+                "explanation": "Segment members with a certain amount in their account balances",
                 "between": "and"
             },
             "5": {
-                "name": "Sex",
-                "first": "Only display all",
+                "name": "Gender",
+                "first": "Segment only",
                 "men": "males",
                 "women": "females",
-                "explanation": "Display an overview of all men/women"
+                "explanation": "Segment members according to if they identify as male or female"
             },
             "8": {
                 "name": "Validity of the passes",
@@ -15547,8 +15547,8 @@
             },
             "11": {
                 "name": "Tags",
-                "first": "Filter on tags",
-                "explanation": "Display an overview of all members that are tagged A and B"
+                "first": "Segment by tags",
+                "explanation": "Segment members according to their tags"
             },
             "14": {
                 "shop": "Webshop",
@@ -15565,9 +15565,9 @@
                 "explanation": "Has bought A and B"
             },
             "18": {
-                "name": "Sign up date",
-                "first": "Enroled for your studio   ",
-                "explanation": "Display an overview of all members that enrolled on..."
+                "name": "Sign-up date",
+                "first": "Joined your studio on",
+                "explanation": "Segment members who joined on, after, before, or between certain dates"
             },
             "19": {
                 "name": "Passes",
@@ -15590,10 +15590,10 @@
                     "first_has_expire": "has expired"
                 },
                 "infoIcon": "Filter on credit doesn't apply to unlimited passes",
-                "explanation": "Display all members that bought pass X at date Y with Z remaining credits"
+                "explanation": "Segment customers who have bought a pass on a certain date, with X number of remaining credits"
             },
             "20": {
-                "name": "Abandoned baskets",
+                "name": "Abandoned carts",
                 "first": "The value of the abandoned basket is",
                 "second": "to",
                 "third": "{{ currencyDisplay }}",
@@ -15601,11 +15601,11 @@
                     "first": "Abandoned basket",
                     "second": "days"
                 },
-                "explanation": "Display an overview of members with pending baskets and that not complete the payment yet",
+                "explanation": "Segment members who have products in their cart but have not completed their purchase",
                 "between": "and"
             },
             "21": {
-                "name": "Booking number",
+                "name": "Segment customers with a certain number of bookings",
                 "first": "Members that booked ",
                 "first_v2": "Members that booked their ",
                 "second_singular": "session(s)",
@@ -15625,7 +15625,7 @@
                     "second": "hours and",
                     "first": "the beginning time of the session is between"
                 },
-                "explanation": "Display an overview of all members with X bookings of activity Y in establishment Z",
+                "explanation": "Segment customers according to how many sessions they have booked, in which room, by which teacher, purchased by which pass",
                 "coach": {
                     "first": "with the teachers"
                 },
@@ -15661,7 +15661,7 @@
                 "date": {
                     "first": "occurring on"
                 },
-                "explanation": "Display an overview of members that booked X classes of activity A in establishment X with pass Z",
+                "explanation": "Segment customers according to how many classes they have booked, in which room, by which teacher, purchased with which pass",
                 "between": "and",
                 "attendance": "with status",
                 "level": {
@@ -15673,14 +15673,14 @@
                 "explanation": "Display an overview of all members' first booking"
             },
             "24": {
-                "name": "Expenditure",
+                "name": "Purchase history",
                 "workshop": "Passes for workshops",
                 "private_pass": "Appointment pass",
                 "between": "and",
                 "combo": "Pack",
                 "pack": "Pass",
                 "shop": "Webshop",
-                "explanation": "Display an overview of members that bought products A and B",
+                "explanation": "Segment customers who have bought certain products",
                 "date": {
                     "first": "completed purchases"
                 },
@@ -15707,7 +15707,7 @@
                 "has": "Has",
                 "first": "one of the appointment passes",
                 "name": "Appointment passes",
-                "explanation": "Display all members that bought appointment pass X at date Y with Z remaining credits"
+                "explanation": "Segment customers who have bought an appointment pass on a certain date, with X number of remaining credits"
             },
             "26": {
                 "hour": {
@@ -15732,7 +15732,7 @@
                 "between": "and",
                 "second": "appointment(s)",
                 "first": "Booked",
-                "explanation": "Display an overview of members that booked X appointments with teacher A in establishment Y with pass Z",
+                "explanation": "Segment customers according to how many appointments they have booked, in which room, by which teacher, purchased by which pass",
                 "name": "Number of appointments",
                 "private_service": {
                     "first": "for appointments"
@@ -15740,17 +15740,17 @@
             },
             "27": {
                 "info": "Blocked passes and blocked appointment passes are also taken into account",
-                "fourth": "(combined)",
+                "fourth": "in total.",
                 "third": "or",
-                "second": "valid passes or appointment passes today. Among",
+                "second": "valid passes. Including",
                 "between": "and",
-                "first": "Has",
+                "first": "Members who have",
                 "name": "Valid passes",
-                "explanation": "Has X number of valid passes or appointment passes"
+                "explanation": "Segment customers who have X number of valid passes or appointment passes"
             },
             "28": {
                 "name": "First purchase",
-                "explanation": "Filters the members with a first finalized/paid basket",
+                "explanation": "Segment members who have completed their first purchase between certain dates",
                 "booleanChoice": {
                     "before": "The first purchase is",
                     "is": "done",
@@ -15768,8 +15768,8 @@
                 }
             },
             "29": {
-                "name": "Referrer",
-                "explanation": "Filters the members who referred members",
+                "name": "Referrers",
+                "explanation": "Segment members who have referred other members",
                 "numbersComparator": {
                     "reward": {
                         "before": "The member obtained",
@@ -15790,8 +15790,8 @@
                 }
             },
             "30": {
-                "name": "Referred member",
-                "explanation": " Filters the members who used a referral link to sign up",
+                "name": "Referred members",
+                "explanation": "Segement members who have used a referral link to sign up",
                 "booleanChoice": {
                     "before": "The member",
                     "is": "is",
@@ -15807,7 +15807,7 @@
                 }
             },
             "101": {
-                "explanation": "Is less/more/exactly...",
+                "explanation": "Segment members according to their age",
                 "second": "years (included)",
                 "to": " ",
                 "between": "and",
@@ -15819,7 +15819,7 @@
                 "date": {
                     "first": "completed for the last time"
                 },
-                "explanation": "Has completed X forms at A% on B date ",
+                "explanation": "Segment members by how many forms they have completed on certain dates",
                 "between": "and",
                 "to": " ",
                 "third": "at a percentage",
@@ -15833,7 +15833,7 @@
                 "name": "Forms"
             },
             "103": {
-                "explanation": "accept notifications by SMS/Email",
+                "explanation": "Segment members who have given consent for notifications by SMS or Email",
                 "email": "to receive notifications by email",
                 "sms": "to receive notifications by SMS",
                 "false": "Doesn't accept",
@@ -15842,10 +15842,10 @@
                 "or": "Or",
                 "oneNeeded": "At least one of the activated conditions must be filled",
                 "allNeeded": "All activated conditions must be filled",
-                "name": "Notifications"
+                "name": "Consent for notifications"
             },
             "104": {
-                "explanation": "Has at least one medical note (or not)",
+                "explanation": "Segment members who have at least one note",
                 "date": {
                     "first": "which was created"
                 },
@@ -15854,10 +15854,10 @@
                 "medical": "medical",
                 "medicalOrNot": "medical or not",
                 "first": "Has at least one note",
-                "name": "Notes"
+                "name": "Informative notes"
             },
             "105": {
-                "explanation": "Has X relationships and Y shared passes or appointment passes or bookings",
+                "explanation": "Segment members who have relationships (such as dependents) or shared passes",
                 "acceptEmail": {
                     "second": "emails",
                     "false": "doesn't accept",
@@ -15894,34 +15894,34 @@
                 "date": {
                     "first": "the relationship has been established"
                 },
-                "name": "Relationships"
+                "name": "Shared passes"
             },
             "106": {
-                "explanation": "Has provided a phone number",
+                "explanation": "Segment members who have provided a phone number",
                 "first": "a phone number",
                 "true": "Filled in",
                 "false": "Didn't fill in",
-                "name": "Phone"
+                "name": "Phone number"
             },
             "107": {
-                "explanation": "Has accepted the general conditions of use",
+                "explanation": "Segment members who have accepted the general conditions of use",
                 "first": "your conditions of use",
                 "false": "Did not accept",
                 "true": "Has accepted",
                 "name": "Conditions of use"
             },
             "400": {
-                "explanation": "Display all members that have registered a password with your BSPORT account",
+                "explanation": "Segment members who have registered a password with your bsport account",
                 "name": "Password",
-                "explain": "Display all members that have registered a password with your BSPORT account"
+                "explain": "Segment members who have registered a password with your bsport account"
             },
             "410": {
-                "explanation": "Display all members that have accepted your liability waiver",
+                "explanation": "Segment all members who have accepted your liability waiver",
                 "name": "Liability waiver",
-                "explain": "Display all members that have accepted your liability waiver"
+                "explain": "Segment all members who have accepted your liability waiver"
             },
             "501": {
-                "explanation": "Display an overview of members' last booking",
+                "explanation": "Segment customers according to when they last booked a class",
                 "second": "day(s) ago and no upcoming bookings have been registered.",
                 "first": "The last booking was more than",
                 "name": "Last booking"
@@ -15932,8 +15932,8 @@
                 "does_not_own": "There are no saved payment methods to display",
                 "labelFirst": "Only filter on members",
                 "title": "Saved payment method",
-                "explanation": "Display an overview of members' saved payment methods and their expiration dates",
-                "name": "Payment method"
+                "explanation": "Segment members according to who has saved a payment method or not",
+                "name": "Payment methods"
             },
             "calendarPicker": {
                 "text": {
@@ -16039,8 +16039,8 @@
                 "canceled": "canceled",
                 "booked": "booked"
             },
-            "active_filters": "Active filters on this Smartlist",
-            "add_filter": "Add a filter",
+            "active_filters": "Parameters active in this Smartlist",
+            "add_filter": "Add parameters",
             "add": "Add",
             "before": "before",
             "after": "after",
@@ -16051,7 +16051,7 @@
                 "6": "between two"
             },
             "all": "All",
-            "isEmpty": "This Smartlist displays your entire member database, as no filters have been added as of now.",
+            "isEmpty": "This segment shows all of your members as no parameters have been set.",
             "comparators": {
                 "1": "less than (⩽)",
                 "2": "more than (⩾)",
@@ -16078,8 +16078,8 @@
             "type_of_rule": "Type of rule",
             "activeSince": "Activated on: {{ since }}",
             "asyncDialog": {
-                "message": "We'll update all members' Tags of the \"{{name}}\" Smartlist.",
-                "title": "Update Tagging Rules "
+                "message": "All tags for customers in this Smartlist will be updated.",
+                "title": "Update tagging rules"
             },
             "tag": "Tag"
         },
@@ -16089,7 +16089,7 @@
                 "1": "Non-archived",
                 "2": "Archived"
             },
-            "helperText": "Select which members you'd like to display in this Smartlist"
+            "helperText": "Choose which members you want to show in this Smartlist:"
         },
         "popup": {
             "sendPopup": "Send a pop-up"
@@ -16268,7 +16268,7 @@
                 "success": "Smartlist duplicated"
             },
             "tag_rules": {
-                "limit_reached": "Impossible: You have reached the creation limit (10)",
+                "limit_reached": "Error: it's not possible to create more than 10 rules. ",
                 "error": "Unable to apply this rule",
                 "success": "The automatic rule has been launched"
             }
@@ -17212,7 +17212,7 @@
                 "success": "Rules saved"
             },
             "assignDisciplineGroup": {
-                "success": "The teacher's discipline group has been updated"
+                "success": "Teacher's activity types updated "
             },
             "disciplineGroup": {
                 "delete": {
@@ -17727,12 +17727,12 @@
                 "titleInactive": "Archived subscriptions"
             },
             "form": {
-                "title": "[Form] Subscription",
+                "title": "Add a subscription",
                 "name": {
                     "label": "Name"
                 },
                 "nb_interval": {
-                    "label": "Number of bills",
+                    "label": "Number of invoices:",
                     "error": "The number of billings should not exceed 90",
                     "errorForFixedBillingDay": "The number of billings should not exceed 12",
                     "restrictionForFixedBillingDay": "The number of billings must be between 2 and 12 for fixed-day billing"
@@ -17767,7 +17767,7 @@
                 "object_type": {
                     "paymentPack": "Passes",
                     "privatePass": "Appointment passes",
-                    "label": "Content",
+                    "label": "Included",
                     "paymentCombo": "Packs"
                 },
                 "error": {
@@ -17799,17 +17799,17 @@
                     "helperText": "How often will clients be charged?"
                 },
                 "settings": {
-                    "title": "Settings"
+                    "title": "Conditions"
                 },
                 "invoicing": {
                     "invoicing_type_readonly": "It is not possible to change the billing type",
                     "fixed_day": {
-                        "explain": "Each invoice will be invoiced on the chosen day. The first payment is pro-rated if necessary.",
+                        "explain": "Members will be invoiced on the chosen day. The first payment will be pro-rated if necessary.",
                         "label": "Invoice on a fixed day",
                         "modification_not_apply_to_past": "You are about to change the billing day of your subscription. Only new subscriptions created will be affected. Existing subscriptions and subscriptions with renewals will not change (even after renewal)",
                         "end_of_month_explain": "If a month does not have a {{ month_billing_day }}, the invoice will be issued on the last day of the month.",
                         "recurrence_explain": {
-                            "month": "The subscription will be invoiced every {{ month_billing_day }} of the month for a total duration of {{ nb_interval }} months and will generate {{ nb_interval }} {{ invoice }}. The first payment is pro-rated if necessary."
+                            "month": "Members will be invoiced on the {{ month_billing_day }} of each month for a total of {{ nb_interval }} months. The first payment will be pro-rated if necesssary."
                         }
                     },
                     "same_day_as_subscription": {
@@ -17823,12 +17823,12 @@
                             "week": "The subscription will be invoiced every week for a total duration of {{ total_subscription_duration }} {{ time_unit }} and will generate {{ nb_interval }} {{ invoice }}. The customer will be able to choose the start date of the subscription.",
                             "week_plural": "The subscription will be invoiced every {{ recurrence_basis }} weeks for a total duration of {{ total_subscription_duration }} {{ time_unit }} and will generate {{ nb_interval }} {{ invoice }}. The customer will be able to choose the start date of their subscription."
                         },
-                        "explain": "The billing day will depend on the day of purchase of the subscription.",
-                        "label": "Invoice on the same day as the purchase date of the subscription"
+                        "explain": "Members will be invoiced depending on the day of purchase.",
+                        "label": "Invoice on date of purchase"
                     },
                     "invoice": "bill",
                     "invoice_plural": "bills",
-                    "title": "Billing"
+                    "title": "Invoicing"
                 },
                 "price": {
                     "title": "Price"
@@ -17837,21 +17837,21 @@
                     "title": "General information"
                 },
                 "unusableByStaff": {
-                    "label": "Invisible for the staff"
+                    "label": "Hidden to staff"
                 },
                 "month_billing_day": {
-                    "label2": "of the month.",
-                    "label1": "Invoice every"
+                    "label2": "of each month.",
+                    "label1": "Invoice on the"
                 },
                 "highlightedAsRecommended": {
                     "label": "Mark as recommended",
-                    "helperText": "Allows your customers to quickly see which contracts are currently recommended."
+                    "helperText": "Highlight this subcription to your members by promoting it in the 'recommended' section of the booking flow."
                 },
                 "advancedOptions": {
                     "title": "Advanced",
                     "tag": {
-                        "tagsOnAcquisition": "Tag after purchase",
-                        "tagsOnAcquisitionHelper": "Use tags to identify which member has paid the first invoice",
+                        "tagsOnAcquisition": "Apply tags after purchase",
+                        "tagsOnAcquisitionHelper": "Tag members who have paid their first invoice to quickly identify them in the future.",
                         "selectTags": "Select tags",
                         "tagGroupDuplicated": "Please note that selected items contain tags of the same category."
                     },
@@ -18718,7 +18718,11 @@
                     "urlRedirection": "Redirection URL",
                     "helperText": "Upon registration, your members will receive an email to confirm their email address, their account will not be activated until this email has been confirmed",
                     "label": "Confirmation email at registration",
-                    "title": "Registration"
+                    "title": "Registration",
+                    "emailConfirmationAtSignUp": {
+                        "label": "Email confirmation at sign-up",
+                        "helperText": "Customers will be sent an email when they sign up asking them to confirm their email address. Their member account won't be activated until they click the link in the email. "
+                    }
                 },
                 "resetPassword": {
                     "title": "Reset password",
@@ -18828,6 +18832,13 @@
                         "showMemberAccountBalance": "Show member account balance",
                         "showBarcodeButton": "Show barcode button",
                         "showMembershipNumber": "Show membership number"
+                    }
+                },
+                "expressCheckout": {
+                    "title": "Express Checkout",
+                    "oneClickBooking": {
+                        "label": "One-Click Booking (beta)",
+                        "helperText": "New customers can book activities without creating an account first. This feature is not compatible with appointments or with 'email confirmation at sign-up'. Only applies to activities which can be booked with a 'new member only' pass."
                     }
                 }
             },
@@ -19099,9 +19110,9 @@
         "metaActivity": {
             "metaActivityEditForm": "[Form] Group activity",
             "metaActivityList": "Activities",
-            "metaActivityFormPage": "[Form] Group activity",
+            "metaActivityFormPage": "Add a group activity",
             "metaActivityEditFormSubtitle": "Edit a group activity",
-            "metaActivityFormSubtitle": "Add a group activity"
+            "metaActivityFormSubtitle": "Set up a group activity, define its duration, and add custom parameters"
         },
         "coupon": {
             "couponCreate": "Create coupon",
@@ -19110,7 +19121,7 @@
         },
         "establishment": {
             "establishmentList": "Establishments",
-            "establishmentFormPage": "[Form] Establishment",
+            "establishmentFormPage": "Add an establishment",
             "establishmentGroupPage": "Location"
         },
         "marketplace": {
@@ -19204,7 +19215,7 @@
                 "coachFormPage": "[Form] Teacher",
                 "coachPerformance": "Payroll",
                 "offerFormPage": "Add sessions",
-                "metaActivityFormPage": "[Form] Group activity",
+                "metaActivityFormPage": "Add a group activity",
                 "metaActivityList": "Group activities",
                 "metaActivityEditForm": "[Form] Group activity",
                 "WorkshopActivityFormPage": "[Form] Workshop",
@@ -19434,16 +19445,16 @@
             "name": "Title",
             "addActivity": "Add an activity",
             "addOffers": "Add sessions",
-            "lastDiscardBeforeMinutes": "Select until when members can cancel for free before the start of the session (late-cancellations)",
-            "lastBookingBeforeMinutes": "Select until when members can book before the start of the session",
+            "lastDiscardBeforeMinutes": "Decide how long before the activity members can cancel for free",
+            "lastBookingBeforeMinutes": "Choose how long before the session the booking window closes",
             "is_broadcast": "Livestream",
             "settings": "Settings",
             "nextSlotAt": "The first upcoming session is on: ",
             "explainImage": "Recommended: 1920 x 1090 JPGs (Full HD).",
-            "firstBookingMinutesUntil": "Future sessions can be booked if they start in less than ",
+            "firstBookingMinutesUntil": "Choose how long before the session the booking window opens",
             "altCoverMain": "Description of the image for the visually impaired",
             "autoDiscard": "Automatic cancellation",
-            "generalInfo": "General",
+            "generalInfo": "General information",
             "firstMinutesBookingUntilWarning": "A value of zero means that no limitations are set. Reservations will always be open for sessions of this activity."
         },
         "calendar": {
@@ -19939,18 +19950,18 @@
                     "unlimitedProvision": "No stock management",
                     "create": "Add an item",
                     "is_deliverable": "Add delivery fees",
-                    "featured": "Feature this product in the basket when members confirm a payment",
+                    "featured": "Feature this product in the basket",
                     "sell_only_on_provision": "Only sell if there's sufficient available stock",
-                    "onsite_payment_available": "Possibility to pay in studio",
+                    "onsite_payment_available": "Pay on-site",
                     "available_payment_method_identifiers": {
-                        "helperText": "Select at least one payment method. If none is selected, online payments will be offered by default.",
+                        "helperText": "Choose at least one payment method. If none are selected, online payments will be chosen by default.",
                         "label": "Accepted payment methods"
                     },
                     "advancedOptions": {
                         "header": "Advanced",
                         "tag": {
-                            "tagsOnAcquisition": "Tag after purchase",
-                            "tagsOnAcquisitionHelper": "Use tags to identify which member bought the item",
+                            "tagsOnAcquisition": "Apply tags after purchase",
+                            "tagsOnAcquisitionHelper": "Tag members who have bought this item to quickly identify them in the future.",
                             "selectTags": "Select tags"
                         }
                     }
@@ -20158,7 +20169,7 @@
             "buy": "Purchase",
             "uploadOneImage": {
                 "edit": "Click here to add an image.",
-                "new": "Click here to add an image."
+                "new": "Upload image"
             },
             "tax": "VAT / Sales tax",
             "generate": "Generate",
@@ -20247,9 +20258,9 @@
                 "autoDiscard": {
                     "hours_before_start": "Hour(s) before the start of the session:",
                     "min_bookings_nb": "Number of booking(s) :",
-                    "emailRecipients": "An email will be automatically sent to Owner and Admin accounts, as well as to the teacher (or substitute) of this session. You can also set up an email to send to students.",
-                    "explain": "Cancel sessions with ≤ {{bookings_nb}} booking(s) {{hours}} hours(s) before the start of the session. Members that had booked this session will be informed that the session has been cancelled.",
-                    "checkbox": "Automatically cancel underoccupied sessions"
+                    "emailRecipients": "If a class is automatically cancelled, an email will be sent to the Owner, Admin and teacher of the class, as well as to students.",
+                    "explain": "Classes with less than 1 booking(s) are cancelled 1 hour(s) before they start. Members will be notified that the class has been cancelled.",
+                    "checkbox": "Automatically cancel underbooked classes"
                 }
             }
         },
@@ -20320,13 +20331,13 @@
         "quickInvoiceVoucher": "Choose the discount that you wish to apply to the billing of the next pass",
         "metaActivityCategory": {
             "explain": "These categories are used to order and sort group activities to your preferred display on the Management View. Members won't be affected by your display decisions.",
-            "sctExplain": "These categories will appear on the MarketPlace and the Mobile App and represent the different types of activities."
+            "sctExplain": "Choose the category that this activity will be displayed under on the Marketplace and Mobile App."
         },
         "restrictions": {
-            "personnalizedHelper": "Apply tags to differentiate restrictions between segments to determine which rules will be applied to whom.",
+            "personnalizedHelper": "Set custom, tag-based rules to tailor settings for each segment.",
             "firstBookingMinutesUntil": "Opening of booking window",
-            "lastBookingBeforeMinutes": "Closing of booking window",
-            "lastDiscardBeforeMinutes": "Cancellation policy",
+            "lastBookingBeforeMinutes": "When the booking window closes",
+            "lastDiscardBeforeMinutes": "Late cancellation policy",
             "tags": {
                 "mandatory": "Select at least 1 tag",
                 "header": "Selected tags",
@@ -20335,9 +20346,9 @@
             "back": "Previous",
             "next": "Next",
             "personnalizedRestrictionsIndex": "Custom restriction: {{ count }}",
-            "add": "Add a rule ({{ count }}/{{ max }})",
-            "personnalizedHeader": "Custom restrictions",
-            "header": "Restrictions"
+            "add": "Create custom rule",
+            "personnalizedHeader": "Custom conditions",
+            "header": "Conditions"
         }
     },
     "video": {
@@ -20659,7 +20670,7 @@
             "codeInfo": "Integrate this code into your website",
             "linkToConfig": "Link for this configuration",
             "disconnectedStatusConfigTitle": "Disconnected status configuration",
-            "creationPageInfo": "Configure and personalize your widgets to your brand and to your liking. Afterwards, simply copy-paste the specific code on your website.",
+            "creationPageInfo": "Set up and customize your widgets to match your brand. Then simply copy and paste the code onto your website.",
             "dialogMode": {
                 "iframe": "Popup on my website",
                 "popup": "Open a new window",
@@ -21212,7 +21223,7 @@
             "addWorkshopActivity": "Add a workshop",
             "addWorkshopGroup": "Add an event"
         },
-        "noWorkshops": "Workshops are events which you can add, edit, delete, and manage in this tab.",
+        "noWorkshops": "Workshops are classes that happen as a one-time event. Use the form to add a new Workshop, then set conditions so you can manage how they will display and function to your members.",
         "disabledWorkshops": "Archived workshops",
         "tabGroups": "Grouped sessions",
         "tabList": "Workshops",

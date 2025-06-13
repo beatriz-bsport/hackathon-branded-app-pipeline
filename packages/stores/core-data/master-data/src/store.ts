@@ -2,16 +2,16 @@ import { createStore } from "zustand/vanilla";
 
 import { bindStore } from "@bsport/store-base";
 
-import type { sct } from "#src/types";
+import type { SportCategory } from "#src/types";
 
-export interface sctState {
-  byId: { [key: number]: sct };
+export interface sportCategoryState {
+  byId: { [key: number]: SportCategory };
   ids: number[];
 }
 
-export const sctStore = createStore<sctState>()(() => ({
+export const sportCategoryStore = createStore<sportCategoryState>()(() => ({
   byId: {},
   ids: [],
 }));
 
-export const useSctStore = bindStore(sctStore);
+export const useSportCategoryStore = bindStore(sportCategoryStore);

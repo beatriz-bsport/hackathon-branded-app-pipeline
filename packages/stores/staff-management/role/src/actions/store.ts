@@ -1,45 +1,72 @@
+import { buildById } from "@bsport/store-base";
+
 import { roleStore } from "#src/store";
-import type { Role } from "#src/types";
+import type { CompanyRole, Staff } from "#src/types";
 
-export const updateRole = (updatedRole: Role) => {
+export const updateCompanyRole = (updatedRole: CompanyRole) => {
   roleStore.setState((state) => {
-    if (!updatedRole) return state;
-
-    const id = updatedRole.id;
-
-    if (!id) return state;
-
-    /**
-     * @indication
-     * Zustand automatically merges the return state with the current state
-     * Meaning we don't have to provide ...state as long as we keep a flat store
-     */
+    if (!updatedRole?.id) return state;
     return {
-      byId: { ...state.byId, [id]: updatedRole },
+      companyRoles: {
+        ...state.companyRoles,
+        byId: { ...state.companyRoles.byId, [updatedRole.id]: updatedRole },
+      },
     };
   });
 };
 
-export const setRoles = ({
+export const setCompanyRoles = ({
   roles,
   count,
   page,
 }: {
-  roles: Role[];
+  roles: CompanyRole[];
   count: number;
   page: number;
 }) => {
   roleStore.setState((state) => {
-    const byId = roles.reduce((acc, role) => {
-      acc[role.id] = role;
-      return acc;
-    }, state.byId);
-
     return {
-      ids: roles.map((role) => role.id),
-      byId,
-      count,
-      page,
+      companyRoles: {
+        ...state.companyRoles,
+        ids: roles.map((role) => role.id),
+        byId: buildById({ initial: state.companyRoles.byId, newItems: roles }),
+        count,
+        page,
+      },
+    };
+  });
+};
+
+export const updateStaff = (updatedStaff: Staff) => {
+  roleStore.setState((state) => {
+    if (!updatedStaff?.id) return state;
+    return {
+      staff: {
+        ...state.staff,
+        byId: { ...state.staff.byId, [updatedStaff.id]: updatedStaff },
+      },
+    };
+  });
+};
+
+export const setStaff = ({
+  staffList,
+  count,
+  page,
+}: {
+  staffList: Staff[];
+  count: number;
+  page: number;
+}) => {
+  roleStore.setState((state) => {
+    return {
+      staff: {
+        ...state.staff,
+        ids: staffList.map((role) => role.id),
+        byId: buildById({ initial: state.staff.byId, newItems: staffList }),
+        count,
+        page,
+      },
     };
   });
 };

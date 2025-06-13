@@ -77,11 +77,15 @@ export const GiftcardDuplicateModal: React.FC<GiftcardDuplicateModalProps> = ({
   return (
     <Modal
       open={isOpen}
-      onConfirmClick={handleDuplicate}
-      onCancelClick={onClose}
-      confirmColor="main"
-      confirmLabel={t("listPage.duplicateModal.buttons.duplicate")}
-      cancelLabel={t("listPage.duplicateModal.buttons.cancel")}
+      confirmButton={{
+        label: t("listPage.duplicateModal.buttons.duplicate"),
+        onClick: handleDuplicate,
+      }}
+      cancelButton={{
+        label: t("listPage.duplicateModal.buttons.cancel"),
+        onClick: onClose,
+      }}
+      onCloseButtonClick={onClose}
       title={t("listPage.duplicateModal.title")}
       size="md"
       onClickOutside={onClose}

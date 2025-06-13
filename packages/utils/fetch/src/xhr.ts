@@ -79,7 +79,7 @@ export function getXhr() {
             const parsed =
               responseText.length > 0 ? JSON.parse(responseText) : {};
             const errorCodes = getCustomErrorCodes(
-              parsed?.error_code ?? parsed?.errors_arrays,
+              parsed?.error_code ?? parsed?.errors_arrays ?? parsed,
             );
             reject(
               new HTTPException({

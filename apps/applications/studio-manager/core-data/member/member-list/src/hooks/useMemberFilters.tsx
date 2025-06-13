@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 import type {
   FilterElementState,
@@ -40,8 +40,8 @@ const buildTagsSelector = ({
 
 // Related to MemberFilters in the backend
 export type FilterParams = {
-  tags_included?: string; // Union of selected tags
-  tags_excluded?: string; // Union of excluded tags
+  tags_included: string; // Union of selected tags
+  tags_excluded: string; // Union of excluded tags
 };
 
 export const useMemberFilters = () => {
@@ -51,17 +51,22 @@ export const useMemberFilters = () => {
     tags_excluded: "",
     tags_included: "",
   });
+  const ref = useRef<{ resetFilters: () => void }>(null);
 
   // ----- Filter configuration -----
-  const filters = [
-    { id: FILTER_IS, label: t("filters.operators.is") },
-    { id: FILTER_IS_NOT, label: t("filters.operators.isNot") },
-  ];
+  const filters = useMemo(
+    () => [
+      { id: FILTER_IS, label: t("filters.operators.is") },
+      { id: FILTER_IS_NOT, label: t("filters.operators.isNot") },
+    ],
+    [t],
+  );
 
   // ----- Handlers -----
 
   const handleClearFilters = useCallback(() => {
     setActiveFilters({ tags_excluded: "", tags_included: "" });
+    ref.current?.resetFilters?.();
   }, []);
 
   // Load tags to update tagFields
@@ -121,6 +126,7 @@ export const useMemberFilters = () => {
       });
     },
     selectFieldLabel: t("filters.label"),
+    ref: ref,
   };
 
   return {

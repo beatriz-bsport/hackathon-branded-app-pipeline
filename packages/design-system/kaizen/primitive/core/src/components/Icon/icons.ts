@@ -87,6 +87,12 @@ const icons = {
   "eye-off": React.lazy(async () => await import("./assets/eye-off.svg?react")),
   eye: React.lazy(async () => await import("./assets/eye.svg?react")),
   "file-06": React.lazy(async () => await import("./assets/file-06.svg?react")),
+  "file-check-02": React.lazy(
+    async () => await import("./assets/file-check-02.svg?react"),
+  ),
+  "file-x-02": React.lazy(
+    async () => await import("./assets/file-x-02.svg?react"),
+  ),
   "filter-lines": React.lazy(
     async () => await import("./assets/filter-lines.svg?react"),
   ),

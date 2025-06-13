@@ -79,7 +79,7 @@ export const MemberArchiveModal: React.FC<MemberArchiveModalProps> = ({
     };
 
     response.fold(onSuccess, onFailure);
-  }, [refreshPageList, memberId]);
+  }, [refreshPageList, memberId, t]);
 
   const handleArchive = useCallback(async () => {
     // Archive the Member
@@ -119,7 +119,7 @@ export const MemberArchiveModal: React.FC<MemberArchiveModalProps> = ({
     };
 
     response.fold(onSuccess, onFailure);
-  }, [refreshPageList, handleRestore, memberId]);
+  }, [refreshPageList, handleRestore, memberId, onClose, t]);
 
   // ----- Load data -----
 

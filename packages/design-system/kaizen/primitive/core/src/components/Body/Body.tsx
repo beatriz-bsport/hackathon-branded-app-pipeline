@@ -55,7 +55,7 @@ export type BodyColor = keyof typeof TYPOGRAPHY_COLORS;
 
 export type BodyProps = React.HTMLAttributes<HTMLDivElement> &
   VariantProps<typeof body> & {
-    htmlVariant: keyof typeof htmlVariants;
+    htmlVariant?: keyof typeof htmlVariants;
     color?: BodyColor;
   };
 
@@ -68,7 +68,7 @@ export type BodyProps = React.HTMLAttributes<HTMLDivElement> &
  */
 const Body: React.FC<BodyProps> = ({
   className,
-  htmlVariant,
+  htmlVariant = "p",
   size,
   color = "default",
   weight,

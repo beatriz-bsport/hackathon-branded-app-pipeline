@@ -5,6 +5,7 @@ exports.default = {
   },
   actions: {
     addMember: "Add member",
+    importLeads: "Import leads",
   },
   memberTable: {
     loading: "Loading members ...",
@@ -82,6 +83,55 @@ exports.default = {
     operators: {
       is: "is",
       isNot: "is not",
+    },
+  },
+  importLeadsModal: {
+    title: "Import your leads",
+    description:
+      "Upload your CSV file to export leads from Zoho CRM and import them into bsport.",
+    moreHelpSection: "Need more help ? <key>Visit our help center</key>",
+    uploadFile: {
+      extensionCSVOnly: "CSV only",
+      workInProgress: "Importing members ...",
+      wipDoNotRefresh: "Please do not refresh or leave this page",
+      errors: {
+        wrongNumberOfColumns: {
+          title: "This file does not have the required number of columns.",
+          formatIndication:
+            "Please follow <key>our format</key> for a successful import.",
+        },
+        invalidFileType: "Invalid file type. Please upload a CSV file.",
+        datasetTooLarge: "Dataset too large. Reduce to 100,000 rows.",
+        wrongEncoding:
+          "The encoding of your file is not correct. Please use UTF-8.",
+      },
+    },
+    importSuccess: {
+      title: "Your members were successfully imported!",
+      outputText: "Here is a CSV file of the successfully imported leads:",
+      outputFilename: "rows_success",
+      importedLeadsNumber_one: "{{ count }} lead was imported",
+      importedLeadsNumber_other: "{{ count }} leads were imported",
+    },
+    importPartialSuccess: {
+      title:
+        "Some rows in the file contained errors and could not be processed.",
+      outputText:
+        "And here is a CSV file of the leads that could not be imported due to incorrect rows.",
+      outputFilename: "rows_failure",
+    },
+    otherImportInProgress: {
+      title: "An import is already in progress",
+      subtitle: "Please wait for it to finish before making a new import",
+    },
+    importError: {
+      title: "Import failed",
+      unknownError: "An unknown error happened during the import.",
+    },
+    importTimeout: {
+      title: "Refresh timed out",
+      comeBackLater:
+        "The import task is taking longer than expected. Please come back later.",
     },
   },
 };

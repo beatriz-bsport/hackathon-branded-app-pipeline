@@ -13,6 +13,9 @@ import { usePaginationQueryParams } from "@bsport/use-pagination-query-params";
 import type { FilterParams } from "#src/hooks/useMemberFilters";
 import { fetch } from "#src/utils/fetch";
 
+const DEFAULT_PAGE = 1;
+const DEFAULT_PAGE_SIZE = 10;
+
 export const useFetchPaginatedList = ({
   archived,
   activeFilters,
@@ -24,29 +27,43 @@ export const useFetchPaginatedList = ({
   const { currentPage, currentPageSize, setPageSettings } =
     usePaginationQueryParams({
       shouldReplace: false,
-      defaultValues: { page: 1, page_size: 10 },
+      defaultValues: { page: DEFAULT_PAGE, page_size: DEFAULT_PAGE_SIZE },
     });
 
   // Retrieve pagination results from the store
   const memberList = useMemberStore(selectMembers);
   const totalItems = useMemberStore(selectCount);
 
-  const _fetchMemberPage = useCallback(async () => {
-    const filters = activeFilters ?? {};
-    return fetchMembersAction(fetch, {
-      page_size: currentPageSize,
-      page: currentPage,
-      /** @todo Update this field when true filtering exist */
-      exclude_archived: !archived,
-      ...filters,
-    });
-  }, [currentPage, currentPageSize, activeFilters, archived]);
+  // Handlers
+  const { tags_included, tags_excluded } = activeFilters ?? {};
+  const fetchMemberPageGeneric = useCallback(
+    async ({ page, pageSize }: { page?: number; pageSize?: number }) => {
+      return fetchMembersAction(fetch, {
+        page_size: pageSize ?? DEFAULT_PAGE_SIZE,
+        page: page ?? DEFAULT_PAGE,
+        archived: !!archived,
+        ...(tags_excluded ? { tags_excluded } : {}),
+        ...(tags_included ? { tags_included } : {}),
+      });
+    },
+    [tags_included, tags_excluded, archived],
+  );
 
-  const [{ isLoading }, fetchMemberPage] = useAsync<typeof _fetchMemberPage>({
-    asyncFn: _fetchMemberPage,
-    dependencies: [_fetchMemberPage],
+  const [{ isLoading }, fetchMemberPage] = useAsync<
+    typeof fetchMemberPageGeneric
+  >({
+    asyncFn: fetchMemberPageGeneric,
+    dependencies: [fetchMemberPageGeneric],
     onFailure: console.error,
   });
+
+  const fetchMemberCurrentPage = useCallback(async () => {
+    return fetchMemberPage({ page: currentPage, pageSize: currentPageSize });
+  }, [currentPage, currentPageSize, fetchMemberPage]);
+
+  const refreshMemberList = useCallback(async () => {
+    return fetchMemberPage({});
+  }, [fetchMemberPage]);
 
   const paginationParams: PaginationProps = {
     currentPage,
@@ -60,7 +77,8 @@ export const useFetchPaginatedList = ({
     paginationParams,
     memberList,
     totalItems,
-    fetchMemberPage,
+    fetchMemberPage: fetchMemberCurrentPage,
+    refreshMemberList,
     isLoading,
   };
 };

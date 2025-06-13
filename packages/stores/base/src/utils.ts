@@ -95,3 +95,5 @@ export function buildById<Model extends { id: number | string }>({
     { ...initial },
   );
 }
+
+export { HTTPException };

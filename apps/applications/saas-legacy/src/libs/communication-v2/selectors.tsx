@@ -71,9 +71,12 @@ export const getCommunicationMessageList = createSelector(
         const firstMembers = firstMemberIds.map(
           (member_id: number) => members[member_id],
         );
-        const channel = getChannelFromMetadata(sent.metadata);
         const answerSourceMember =
-          sent?.is_answer && firstMembers?.length ? firstMembers[0] : undefined;
+          sent?.is_answer && sent.sender_member_id
+            ? members[sent.sender_member_id]
+            : undefined;
+
+        const channel = getChannelFromMetadata(sent.metadata);
         return {
           communication: sent,
           photos: firstMembers.map((member: Member) => member?.photo),

@@ -300,7 +300,7 @@
                     "tag": {
                         "tagGroupDuplicated": "Bitte beachten Sie, dass ausgewählte Artikel Tags der gleichen Kategorie enthalten.",
                         "selectTags": "Tags auswählen",
-                        "tagsOnAcquisitionHelper": "Verwenden Sie Tags, um zu erkennen, welches Mitglied die erste Rechnung bezahlt hat",
+                        "tagsOnAcquisitionHelper": "Mit Tags kannst du Mitglieder markieren, die ihre erste Rechnung beglichen haben, um sie in Zukunft schnell wiederfinden zu können.",
                         "tagsOnAcquisition": "Tag nach dem Kauf"
                     },
                     "title": "Erweitert"
@@ -1228,7 +1228,7 @@
             "coach": "Lehrkraft",
             "uploadOneImage": {
                 "edit": "Um ein Bild zu wechseln, ziehe das neue Bild mit der Maus oder klicke hier",
-                "new": "Um Bilder einzufügen, ziehe das Bild mit der Maus und lege es hier ab oder klicke hier"
+                "new": "Bild hochladen"
             },
             "cancel": "Abbrechen",
             "create": "Erstellen",
@@ -1604,7 +1604,7 @@
                     "advancedOptions": {
                         "tag": {
                             "selectTags": "Tags auswählen",
-                            "tagsOnAcquisitionHelper": "Verwenden Sie Etiketten, um zu erkennen, welches Mitglied den Artikel gekauft hat",
+                            "tagsOnAcquisitionHelper": "Mit Tags kannst du Mitglieder markieren, die diesen Artikel gekauft haben, um sie in Zukunft schnell wiederfinden zu können.",
                             "tagsOnAcquisition": "Tag nach dem Kauf"
                         },
                         "header": "Erweitert"
@@ -2006,8 +2006,8 @@
                     "success": "Das Event wurde gespeichert"
                 }
             },
-            "lastDiscardBeforeMinutes": "Letzte mögliche Stornierung vor Beginn des Workshops",
-            "lastBookingBeforeMinutes": "Letzte mögliche Buchung vor Beginn des Workshops",
+            "lastDiscardBeforeMinutes": "Lege die kostenlose Stornierungsfrist fest",
+            "lastBookingBeforeMinutes": "Lege die Buchungsfrist fest",
             "imageUploaderRequireEditMessage": "Sobald ein Event erstellt ist, hast Du die Möglichkeit, zusätzliche Bilder hinzuzufügen.",
             "addWorkshopActivity": "Einen Workshop hinzufügen"
         },
@@ -2020,8 +2020,8 @@
             "grossVolume": "Umsatz",
             "name": "Titel",
             "addOffers": "Kurse hinzufügen",
-            "lastDiscardBeforeMinutes": "Letzte mögliche Stornierung vor Kursbeginn",
-            "lastBookingBeforeMinutes": "Letzte mögliche Reservierung vor Kursbeginn",
+            "lastDiscardBeforeMinutes": "Wähle die kostenlose Stornierungsfrist aus",
+            "lastBookingBeforeMinutes": "Letzte Buchungsmöglichkeit vor Kursbeginn wählen",
             "is_broadcast": "Live-Streaming-Kurs",
             "nextSlotAt": "Nächster Kurs am ",
             "addActivity": "Eine Aktivität hinzufügen",
@@ -2034,8 +2034,8 @@
             "explainImage": "Empfohlen : 1920x1080 jpeg (fullHD)",
             "packsAvailable": "Kompatible Kurspässe :",
             "fillrate": "Durchschnittliche Befüllung",
-            "firstBookingMinutesUntil": "Teilnehmer können zukünftige Kurse buchen, wenn diese in weniger als ",
-            "generalInfo": "Allgemeine Informationen",
+            "firstBookingMinutesUntil": "Lege den Buchungszeitraum fest",
+            "generalInfo": "Allgemeine Infos",
             "autoDiscard": "Automatische Stornierung",
             "altCoverMain": "Bildbeschreibung für Sehbehinderte",
             "firstMinutesBookingUntilWarning": "Ein Wert von Null bedeutet, dass keine Beschränkungen festgelegt sind. Buchungen sind für Kurse dieser Aktivität immer möglich."
@@ -2108,9 +2108,9 @@
                 "autoDiscard": {
                     "hours_before_start": "Stunde(n) vor der Session:",
                     "min_bookings_nb": "Anzahl der Buchung(en):",
-                    "emailRecipients": "Diese E-Mail wird an Mitarbeiter mit der Rolle \"Leiter\" oder \"Administrator\" sowie an die Lehrkraft (oder Vertretungslehrkraft) des betroffenen Kurses gesendet.",
-                    "checkbox": "Storniere den Kurs automatisch, wenn zu wenige Buchungen vorliegen",
-                    "explain": "Der Kurs wird storniert, wenn ≤ als{{bookings_nb}} Reservierung(en) {{hours}} Stunde(n) vor Beginn der Session vorliegen. Alle Mitglieder, die sich in diesen Kurs eingebucht haben, werden über die Absage des Kurses informiert."
+                    "emailRecipients": "Falls ein Kurs automatisch storniert wird, wird eine E-Mail an den Inhaber, den Admin, die Lehrkraft und die Mitglieder gesendet.",
+                    "checkbox": "Storniere einen Kurs automatisch, wenn es nicht genug Buchungen gibt",
+                    "explain": "Der Kurs wird eine Stunde(n) for Beginn storniert, wenn es weniger als eine Buchung(en) gibt. Alle Mitglieder, die einen Platz gebucht haben, werden über die Stornierung informiert."
                 }
             }
         },
@@ -2221,16 +2221,16 @@
         "quickInvoiceNoVoucher": "Lasse den Wert dieses Feldes auf 0, wenn Du keinen Rabatt anwenden möchtest",
         "metaActivityCategory": {
             "explain": "Diese Kategorien werden verwendet, um die Gruppenaktivitäten in der von Ihnen bevorzugten Darstellung in der Management-Ansicht zu ordnen und zu sortieren. Die Mitglieder werden durch Ihre Anzeigeentscheidungen nicht beeinträchtigt.",
-            "sctExplain": "Diese Kategorien geben die Art der Aktivität an. Sie werden auf dem Marketplace und in der App angezeigt."
+            "sctExplain": "Wähle eine Kategorie für diese Aktivität. Die Aktivität erscheint dann unter dieser Kategorie beim Marktplatz und in den Apps."
         },
         "restrictions": {
-            "personnalizedHelper": "Geben Sie mithilfe von Tags unterschiedliche Einschränkungen für bestimmte Mitglieder an. Mitglieder, die über eines der ausgewählten Tags verfügen, haben andere Einschränkungen als andere.",
-            "header": "Einschränkungen",
-            "lastBookingBeforeMinutes": "Letzte Buchung",
-            "lastDiscardBeforeMinutes": "Letzte Stornierung",
+            "personnalizedHelper": "Lege benutzerdefinierte Bedingungen für jedes Segment mithilfe von Tags fest.",
+            "header": "Buchungsbedingungen",
+            "lastBookingBeforeMinutes": "Buchungsfrist",
+            "lastDiscardBeforeMinutes": "Letzte Stornierungsmöglichkeit",
             "firstBookingMinutesUntil": "Öffnung des Buchungsfensters",
-            "personnalizedHeader": "Benutzerdefinierte Einschränkungen",
-            "add": "Regel hinzufügen ({{ count }}/{{ max }})",
+            "personnalizedHeader": "Benutzerdefinierte Bedingungen",
+            "add": "Bedingung hinzufügen",
             "personnalizedRestrictionsIndex": "Benutzerdefinierte Einschränkung: {{ count }}",
             "next": "Weiter",
             "back": "Zurück",
@@ -5378,8 +5378,8 @@
                     "label": "Mehrwertsteuer"
                 },
                 "priceIncludingTax": {
-                    "helperText": "Preis der Karte für den Kunden",
-                    "label": "Preis inkl. Mehrwertsteuer"
+                    "helperText": "Gesamtverkaufspreis des Passes.",
+                    "label": "Preis inkl. Mehrwertsteuer * "
                 },
                 "startOnFirstUseHelper": "Andernfalls beginnt die Abrechnung an dem Tag, an dem der Kurspass in Rechnung gestellt wurde",
                 "name": {
@@ -5458,7 +5458,7 @@
                     "explain": "Bei {{nb_cancellations}} verspäteten Stornierungen über einen Zeitraum von {{nb_days}} Tagen wird eine Strafe erhoben",
                     "checkbox": "Bei zu vielen verspäteten Strafen wird eine Sanktion verhängt",
                     "title": "Strafen",
-                    "helperText": "Verhängen Sie Strafen bei zu vielen Abwesenheiten oder nicht fristgerechten Stornierungen",
+                    "helperText": "Verhänge eine Strafe bei zu vielen Abwesenheiten oder nicht fristgerechten Stornierungen ",
                     "errorNoPenaltyRule": "Ihre Änderungen können nicht gespeichert werden, Sie müssen eine Strafe auswählen oder die Strafe deaktivieren, um fortfahren zu können",
                     "penaltyParamsText": "Wenden Sie die gleiche Abrechnung für nicht fristgerechte Stornierungen und Abwesenheiten (no show) an",
                     "noShowPenaltyInfo": "Eine Strafe wird verhängt, wenn {{penalityNumberNoShow}} innerhalb eines Zeitraums von {{penalityNumberDay}} Tag nicht erscheint",
@@ -5500,14 +5500,14 @@
                         "notAllowedFor": "Nicht erlaubt für",
                         "notAllowed": "Nicht erlaubt",
                         "allowedFor": "Zugelassen für",
-                        "allowed": "Autorisiert",
-                        "helperText": "Verwenden Sie Tags, um den Pass nur für eine bestimmte Gruppe von Mitgliedern auf dem Marketplace, im Widget und in der App sichtbar zu machen. Sie können Tags auswählen, um die Karte nur für Mitglieder mit einem ausgewählten Tag sichtbar zu machen. Oder Sie können Tags auswählen, um die Karte nur für Mitglieder mit einem der ausgewählten Tags unsichtbar zu machen. ",
+                        "allowed": "Erlaubt",
+                        "helperText": "Mit Tags kannst du bestimmte Kunden vom Kauf dieses Passes entweder ein- oder ausschließen.",
                         "header": "Tags",
-                        "tagsOnAcquisitionHelper": "Verwenden Sie Tags, um zu erkennen, welches Mitglied den Pass gekauft hat.",
-                        "tagsOnAcquisition": "Tag nach dem Kauf",
+                        "tagsOnAcquisitionHelper": "Mit Tags kannst du Mitglieder markieren, die diesen Pass gekauft haben, um sie in Zukunft schnell wiederfinden zu können.",
+                        "tagsOnAcquisition": "Tags nach dem Kauf anwenden",
                         "selectTags": "Tags auswählen"
                     },
-                    "header": "Fortgeschrittene",
+                    "header": "Erweiterte Optionen",
                     "appliesForPayroll": {
                         "label": "Kurse, die bei der Berechnung der Lohnabrechnung der Lehrkraft berücksichtigt werden",
                         "helperText": "Standardmäßig werden die Kurse dem Studio in Rechnung gestellt und in die Lohnabrechnung der Lehrkraft und die Vergütung durch das Studio aufgenommen. Wenn Sie diese Einstellung deaktivieren, erscheinen die mit diesem Pass verbundenen Kurse nicht mehr in der Lohnabrechnung der Lehrkraft.",
@@ -5515,7 +5515,7 @@
                     }
                 },
                 "universalPass": {
-                    "helperText": "Universalpässe können zur Buchung von Gruppenkursen UND Terminen verwendet werden. Sobald ein Pass erstellt wurde, wird ein Zwillingspass in den Terminpässen erstellt. Die Anzahl der Guthaben auf beiden Pässe wird verknüpft. Beim Kauf einer der beiden Pässe wird die andere automatisch dem Mitglied hinzugefügt (ohne zusätzliche Kosten).",
+                    "helperText": "Mit Universalpässen können Mitglieder sowohl Gruppenaktivitäten als auch Termine buchen. Bei jedem Kauf eines Universalpasses fügen wir automatisch einen Doppel-Terminpass hinzu, um die Credits auf beiden Passarten aufzuteilen.",
                     "marketplaceLabel": "Universell einsetzbarer Pass. Kann für Gruppenkurse und Termine verwendet werden.",
                     "deativatedTags": "Deaktiviert für Universalpässe",
                     "warningIsUniversalPass": "Dieser Pass ist ein Universalpass, ein Zwillingspass wurde in den RDV-Karten erstellt. Alle Felder, die auf diesem Pass geändert werden, werden auch auf dem Zwillingspass geändert (außer der Kategorie). Dasselbe gilt für Benachrichtigungen, Erweiterungen und Änderungen von Guthaben.",
@@ -5523,10 +5523,10 @@
                 },
                 "highlightedAsRecommended": {
                     "label": "Als empfohlen markieren",
-                    "helperText": "Ermöglicht es Ihren Kunden, auf einen Blick zu sehen, welche Kurspässe derzeit empfohlen werden."
+                    "helperText": "Du kannst deinen Mitgliedern auf diesen Pass aufmerksam machen, in dem du ihn während einer Buchung im Bereich \"Empfohlen\" bewirbst."
                 },
                 "notification": "Benachrichtigungen",
-                "detailsAndRestrictions": "Details und Einschränkungen",
+                "detailsAndRestrictions": "Details und Bedingungen",
                 "noNotificationsWarning": "Sie haben noch keine Benachrichtigungen eingerichtet. Um eine Benachrichtigung zu erstellen, gehen sie bitte zu <strong>Marketing > Benachrichtigungen</strong>"
             }
         },
@@ -5808,12 +5808,12 @@
         },
         "selector": {
             "noAvailable": "Kein Pass, der den gewählten Verfügbarkeiten entspricht",
-            "noManagerOnly": "Zum Verkauf verfügbar",
-            "managerOnly": "Unsichtbar für Kunden",
-            "filterManagerOnly": "Alle Verfügbarkeiten",
+            "noManagerOnly": "Im Marktplatz eingeblendet",
+            "managerOnly": "Für Mitglieder ausgeblendet",
+            "filterManagerOnly": "Für alle sichtbar",
             "filterCategory": "Alle Kategorien",
             "titleSort": "Sortieren",
-            "titleManagerOnly": "Verfügbarkeit für den Verkauf",
+            "titleManagerOnly": "Sichtbarkeit",
             "titleCategory": "Kategorien",
             "sorting": {
                 "descendingCredit": "Abnehmender credit",
@@ -5822,7 +5822,7 @@
                 "ascendingPrice": "Preis aufsteigend",
                 "customSort": "Kundenseitiger Auftrag (Marketplace und App)"
             },
-            "unusableByStaff": "Unsichtbar für Mitarbeiter"
+            "unusableByStaff": "Für Lehrkräfte ausgeblendet"
         },
         "cardDetails": {
             "packBlocking2": " nicht fristgerechte Stornierungen in einer Woche",
@@ -5854,20 +5854,20 @@
             "only_vod_access": "Die Nutzung des Passes ausschließlich auf VOD beschränken",
             "vodAccessCard": "Gibt Zugriff zur Mediathek (VOD)",
             "vod": "VOD",
-            "compatibility": "Ihr Pass ist nur mit Vorstellungen kompatibel, die einer der ausgewählten Kategorien UND einem der ausgewählten Räume UND einer der ausgewählten Aktivitäten entsprechen",
+            "compatibility": "Dieser Pass ist nur mit den ausgewählten Kursen, Aktivitäten, Kategorien oder Einrichtungen kompatibel.",
             "letBlank": "Leer lassen, um alles zu erlauben",
             "activities": "Aktivitäten",
             "room": "Einrichtungen",
             "categories": "Kategorien",
-            "inShopPayment": "Möglichkeit, vor Ort zu bezahlen",
-            "notForSell": "Unsichtbar für Kunden",
-            "newClientOnly": "Nur für neue Mitglieder",
+            "inShopPayment": "Zahlungen vor Ort erlauben",
+            "notForSell": "Für Kunden ausgeblendet",
+            "newClientOnly": "Nur neuen Mitgliedern einblenden",
             "maxUseMember": "Maximaler Einkauf pro Mitglied",
             "maxUseMonth": "Maximale Nutzungen pro Monat",
             "maxUseWeek": "Maximale Nutzungen pro Woche",
-            "maxUseHelper": "Leer lassen, um keine Grenzen zu setzen",
+            "maxUseHelper": "Leer lassen, um keine Nutzungsbedingungen festzulegen",
             "maxUseDay": "Maximale Nutzungen pro Tag",
-            "restriction": "Restriktionen",
+            "restriction": "Bedingungen",
             "penalityAccountHelper": "Der Kontostand der Mitglieder wird mit {{penalityBlockAccount}}{{ currencyDisplay }} belastet.",
             "penalityBlockDayHelper": "Der Pass des betroffenen Mitglieds wird für {{penalityBlockDay}} Tage gesperrt",
             "penalityAccountPrice": "Betrag der Anzahlung",
@@ -5880,8 +5880,8 @@
             "penalityNumberCancel": "Anzahl der Absagen",
             "marginalContributionHelperText": "Wird verwendet, um die Lohnabrechnung von Lehrkräften zu berechnen. 10{{ currencyDisplay }} bedeutet, dass eine mit diesem Pass vorgenommene Buchung mit 10{{ currencyDisplay }} vergütet wird. Wenn leer oder 0{{ currencyDisplay }}, wird die Einbringung einer Karte PREIS/NB_RESERVATION",
             "marginalContribution": "Theoretischer marginaler Wert TTC",
-            "expirationDateHelper": "Wenn der Kurspass innerhalb dieser Anzahl an Tagen nicht zum ersten Mal verbraucht wird, wird sie ungültig",
-            "expirationDate": "Verfall, wenn keine ursprüngliche Buchung",
+            "expirationDateHelper": "Wird der Pass innerhalb dieser Zeit nicht genutzt, verfällt er automatisch.",
+            "expirationDate": "Anzahl der Tage bis zum Ablauf des Passes bei Nichtnutzung *",
             "beginningDate": "Startdatum",
             "attendance": "Bei der ersten Anwesenheit",
             "firstBooking": "Bei der ersten Buchung",
@@ -5897,14 +5897,14 @@
             },
             "yearValidityHelper": "Kommt zur Anzahl der Tage hinzu",
             "monthValidityHelper": "Kommt zur Anzahl der Tage hinzu",
-            "yearValidity": "Gültigkeitsdauer in Jahren",
-            "monthValidity": "Gültigkeitsdauer in Monaten",
-            "dayValidity": "Gültigkeitsdauer in Tagen",
+            "yearValidity": "Jahre",
+            "monthValidity": "Monate",
+            "dayValidity": "Tage",
             "endBeforeStart": "Das Enddatum muss größer als das Startdatum sein",
             "toDate": "Bis zum",
             "fromDate": "Ab dem",
-            "availabilitySlot": "Den Pass nur in einem bestimmten Datumsfenster gültig machen",
-            "availabilityGivenNumber": "Den Pass nur eine bestimmte Anzahl von Tagen gültig machen (nach dem Kaufdatum)",
+            "availabilitySlot": "Der Pass ist nur in einem bestimmten Zeitraum gültig",
+            "availabilityGivenNumber": "Der Pass ist nur für eine bestimmte Anzahl von Tagen nach dem Kauf gültig",
             "penalityRule": "Sie können eine Strafe nur anwenden, wenn die Anzahl der Credits unbegrenzt ist",
             "penality": "Verhängung einer Strafe bei zu vielen nicht fristgerechten Stornierungen",
             "packValidity": "Gültigkeit des Passes",
@@ -5937,11 +5937,11 @@
                     "explain": "Die Anzahlung von {{ price }} wird anteilig auf die Abwesenheiten (no show) angewendet, die bei jedem Ihrer Franchisenehmer registriert sind. Ein Gesamtbetrag von {{ price }} wird auf Ihr Franchise berechnet."
                 }
             },
-            "unusableByStaff": "Unsichtbar für Mitarbeiter",
-            "allowGuest": "Kompatibel mit der Buchung für einen Gast",
+            "unusableByStaff": "Für Mitarbeiter ausgeblendet",
+            "allowGuest": "Kompatibel mit Gastbuchungen",
             "expiration_date": {
-                "tooltip": "Nach Ablauf des gewählten Datums wird die Karte nicht mehr zum Verkauf für Kunden angezeigt.",
-                "label": "Datumsgrenze für den Kauf",
+                "tooltip": "Nach dem gewählten Datum ist der Pass nicht mehr zum Kauf verfügbar",
+                "label": "Dauer des Verkaufs",
                 "helperText": "Verfügbar bis"
             },
             "description": "Beschreibung",
@@ -5952,7 +5952,7 @@
                     "allDay": "Den ganzen Tag",
                     "timeSlot": "Zeitfenster"
                 },
-                "label": "Buchungen für bestimmte Zeitfenster möglich"
+                "label": "Buchungen auf bestimmte Zeiten beschränken"
             },
             "atLeastOneDay": "Es muss mindestens ein Tag ausgewählt werden",
             "startAfterEnd": "Die Startzeit muss niedriger sein als die Endzeit",
@@ -8122,7 +8122,7 @@
                 }
             },
             "assignDisciplineGroup": {
-                "success": "Die Disziplingruppe der Lehrkraft wurde aktualisiert"
+                "success": "Die Aktivitäten der Lehrkraft wurden aktualisiert "
             },
             "updateCoachReplacementPreferences": {
                 "success": "Gespeicherte Regeln",
@@ -9429,7 +9429,7 @@
         "coach_payment_rule_groups": {
             "subtitle": {
                 "helper": "Sie können Ihre Vergütungsregeln für Tätigkeiten, Workshops und Termine zusammenfassen. Wenn Sie eine Lehrkraft zu einer Gruppe hinzufügen, werden alle Vergütungsregeln der Gruppe automatisch auf die Lehrkraft angewendet. Alle Änderungen an der Gruppe werden auch für alle Lehrkräfte der Gruppe übernommen.",
-                "default": "Standardvergütung",
+                "default": "Standard-Lohnabrechungsregeln",
                 "specfic_private_slot": "Besondere Vergütung für eine Ernennung",
                 "coaches": "Assoziierte Professoren",
                 "removed_coaches": "Entfernte Lehrer"
@@ -10672,7 +10672,7 @@
                 }
             },
             "title": "[Form] Anmeldung",
-            "newMemberOnlyHelperText": "Ein Mitglied gilt als \"neu\", solange es keinen Kauf von mehr als 0{{ currency }} getätigt hat. Bitte beachten Sie, dass jeder Kauf eines bezahlten Artikels mit einer Preisreduzierung von 100% zum Verlust des Status \"Neues Mitglied\" führt."
+            "newMemberOnlyHelperText": "Ein Mitglied gilt als \"neu\", solange es keinen Kauf von mehr als 0 € getätigt hat. Kauft ein Mitglied ein Produkt mit 100 % Rabatt, zählt dies als Kauf."
         },
         "showSubscriptions": "Abonnements ansehen",
         "showInvoices": "Rechnungen ansehen",
@@ -11460,7 +11460,7 @@
     "privateService": {
         "openCalendar": "Den Kalender ansehen",
         "bookerModule": {
-            "noPrivateServiceAvailable": "Kein Termin ist angeboten",
+            "noPrivateServiceAvailable": "Aktuell keine Termine",
             "error": "An diesem Datum ist eine Buchung nicht möglich",
             "title": "Terminbuchung",
             "cancel": "Abbrechen",
@@ -11657,20 +11657,20 @@
             "form": {
                 "establishmentResourceType": {
                     "isWithoutEstablishment": {
-                        "helperText": "Z.B : Videokonferenzkurse / Outdoor-Kurs / ...",
-                        "label": "Ohne festgelegten Standort"
+                        "helperText": "Z. B. Livestreams oder Outdoor-Kurse",
+                        "label": "Nicht bei der Einrichtung"
                     },
                     "isWithEstablishment": {
-                        "helperText": "Die Buchung ist nur dann möglich, wenn genügend freie Plätze im Raum vorhanden sind",
-                        "label": "In einer meiner Einrichtungen",
+                        "helperText": "Eine Buchung ist nur möglich, wenn es genug freie Plätze gibt. ",
+                        "label": "Bei einer meiner Einrichtungen",
                         "isEmpty": "Kein Raum eingerichtet !"
                     },
                     "isHomeService": {
-                        "helperText": "Für jede Buchung wird eine Adresse verlangt",
+                        "helperText": "Bei jeder Buchung bitten wir um eine Adresse. ",
                         "label": "Zu Hause"
                     }
                 },
-                "createButton": "Einen Termin hinzufügen",
+                "createButton": "Termin hinzufügen",
                 "delete": {
                     "content": "Bist Du Dir sicher, dass Du diese Terminkategorie löschen möchtest?",
                     "confirm": "Löschen",
@@ -11678,8 +11678,8 @@
                     "title": "Löschung des Termins"
                 },
                 "name": {
-                    "label": "Name der Dienstleistung",
-                    "placeholder": "Massage"
+                    "label": "Name des Termins",
+                    "placeholder": "z. B. Massage"
                 },
                 "is_without_coach": "Ohne Lehrkraft",
                 "is_home_service": {
@@ -11691,33 +11691,33 @@
                 "addCoach": "Eine Lehrkraft hinzufügen",
                 "title": "Termin",
                 "use_full_establishment_capacity": {
-                    "label": "Benötigt den ganzen Raum",
-                    "helperText": "Hake das Feld ab, um mehrere Aktivitäten/Termine im selben Raum zur gleichen Zeit zuzulassen, wenn die Raumkapazität dies zulässt"
+                    "label": "Mitglieder können eine Einrichtung auswählen",
+                    "helperText": "Der ganze Raum wird für den Termin benötigt. Wähle diese Option ab, um mehrere im selben Raum zur gleichen Zeit zuzulassen."
                 },
                 "color": "Farbcode",
                 "coach_capacity_used": {
-                    "helperText": "Beispiel: Eine Lehrkraft kann zwei Kunden getrennt auf zwei Rechnern überwachen",
-                    "label": "Maximale Anzahl von gleichzeitigen Terminen, die eine Lehrkraft leiten kann",
+                    "helperText": "Beispiel: Eine Lehrkraft kann zwei Mitglieder gleichzeitig auf zwei Rechnern betreuen.",
+                    "label": "Maximale Anzahl an Terminen, die eine Lehrkraft gleichzeitigen leiten kann",
                     "alertText": "Eine Lehrkraft kann 1, 2, 3, 4, 6, oder 12 Termine gleichzeitig verwalten."
                 },
                 "establishment_consumer_attribution": {
-                    "helperText": "Das Mitglied sieht und wählt den Standort vor der Buchung aus. Wenn diese Option nicht angekreuzt ist, wird bsport versuchen, die Räume optimal zu füllen",
-                    "label": "Die Auswahl des Standorts bei der Buchung ermöglichen"
+                    "helperText": "Mitglieder können eine Einrichtung während des Buchungsprozess auswählen. Wähle diese Option ab, um die Einrichtung automatisch auszufüllen.",
+                    "label": "Mitglieder können eine Einrichtung auswählen"
                 },
                 "coach_consumer_attribution": {
-                    "helperText": "Die Mitglieder sehen die Lehrkraft und können sie während des Buchungsvorgangs auswählen. Wenn diese Option nicht aktiviert ist, müssen Sie nach der Buchung jedes Termins eine Lehrkraft zuweisen.",
-                    "label": "Die Auswahl der Lehrkraft bei der Buchung ermöglichen"
+                    "helperText": "Mitglieder können während der Buchung eine Lehrkraft auswählen. Wähle diese Option ab, um eine Lehrkraft automatisch bei der Buchung zuzuweisen.",
+                    "label": "Mitglieder können während der Buchung eine Lehrkraft auswählen"
                 },
                 "resourceGroup": {
                     "coach": "Lehrkraft",
-                    "establishment": "Einrichtung"
+                    "establishment": "Standort"
                 },
                 "managerOnly": {
-                    "label": "Unsichtbar für die Kunden"
+                    "label": "Im Marktplatz ausgeblendet"
                 },
                 "last_discard_minutes": {
                     "helperText": "Wenn die Buchung zu spät storniert wurde, werden die verwendeten Credits nicht erstattet",
-                    "label": "Letzte erstattungsfähige Stornierung bis zu"
+                    "label": "Lege den Buchungszeitraum fest "
                 },
                 "actions": {
                     "submit": "Speichern",
@@ -11734,41 +11734,41 @@
                     "label": "Lehrkraft"
                 },
                 "last_booking_minutes": {
-                    "label": "Letzte mögliche Buchung vor Kursbeginn"
+                    "label": "Buchungsfrist für Mitglieder"
                 },
                 "paddingEnd": {
-                    "helperText0": "Im Kalender werden die Lehrkraft und / oder der Raum am Ende des Termins erneut als verfügbar markiert",
+                    "helperText0": "Die Zeitspanne bis zur Verfügbarkeit der Lehrkraft bzw. der Einrichtung nach Ende des Termins.",
                     "helperText": "Im Kalender werden die Lehrkraft und / oder der Raum {{minutes}} nach Ende des Termins erneut als verfügbar markiert",
-                    "label": "Anzahl der Minuten nach dem Ende des Termins"
+                    "label": "Zeitpuffer nach Ende des Termins"
                 },
                 "paddingStart": {
-                    "helperText0": "Im Kalender werden die Lehrkraft und / oder der Raum zum Startzeitpunkt des Termins als nicht verfügbar markiert",
+                    "helperText0": "Die Zeitspanne, in der die Lehrkraft oder die Einrichtung vor Terminbeginn nicht verfügbar ist.",
                     "helperText": "Im Kalender werden die Lehrkraft und / oder der Raum Minuten vor Beginn des Termins als nicht verfügbar {{minutes}} markiert",
-                    "label": "Anzahl der Minuten vor Beginn des Termins"
+                    "label": "Zeitpuffer vor Beginn des Termins"
                 },
-                "paddingTitle": "Verfügbarkeitsmanagement",
+                "paddingTitle": "Verfügbarkeit",
                 "unpaidBooking": {
-                    "label": "Buchung zulassen, ohne zu bezahlen",
+                    "label": "\"Später zahlen\" zulassen",
                     "tag": {
-                        "helper": "Verwenden Sie Tags, um die Buchung ohne zu bezahlen nur für bestimmte Mitglieder zugänglich zu machen.  Alle Mitglieder, die einen der Tags in \"Erlaubt\" haben, können ohne zu bezahlen buchen. Oder alle Mitglieder, die einen der Tags in \"Nicht erlaubt\" besitzen, können nicht ohne zu bezahlen buchen.",
+                        "helper": "Mit Tags kannst du diesen Termin nur bestimmten Mitgliedergruppen zugänglich machen. Mitglieder mit dem Tag \"Erlaubt\" können buchen und später zahlen. Mitglieder mit dem Tag \"Nicht erlaubt\" müssen während der Buchung bezahlen.",
                         "allowed": "Erlaubt",
                         "notAllowed": "Nicht autorisiert",
-                        "doNotSelectToAllowAllMembers": "Leer lassen, um allen Mitgliedern zu erlauben",
+                        "doNotSelectToAllowAllMembers": "Leer lassen, um allen Mitgliedern zu erlauben, später zu zahlen.",
                         "header": "Tags"
                     },
-                    "helperText": "Wenn Sie diese Funktion aktivieren, können Ihre Mitglieder diesen Termin buchen, ohne eine Karte kaufen/benutzen zu müssen. Die Anzahl der Credits des Termins wird automatisch von der nächsten gekauften kompatiblen Karte abgebucht.",
+                    "helperText": "Wenn diese Option aktiviert ist, können Mitglieder diesen Termin buchen, ohne sofort bezahlen zu müssen. Die Anzahl der Credits für den Termin wird automatisch vom nächsten Terminpass abgebucht.",
                     "title": "Später bezahlen"
                 },
                 "pad_before_booking": {
-                    "label": "Aktivieren, um Überschneidungen der Pufferzeiten von Sitzungen mit nahe beieinander liegenden Anfangs- und Endzeiten zu vermeiden"
+                    "label": "Überschneidungen der Zeitpuffern zwischen Terminen vermeiden"
                 },
                 "advancedOptions": {
                     "header": "Fortgeschritten",
                     "tag": {
                         "header": "Tags",
-                        "helperText": "Tags erlauben es, den Termin nur für eine gewünschte Gruppe von Mitgliedern buchbar zu machen: Mit ausgewählten Tags kann man einstellen, dass Mitglieder mit diesen Tags entweder an dem Termin teilnehmen können oder von diesem Termin ausgeschlossen werden.",
+                        "helperText": "Mit Tags kannst du diesen Termin nur bestimmten Kunden zugänglich machen.",
                         "allowed": "Erlaubt",
-                        "doNotSelectToAllowAllMembers": "Dieses Feld leer lassen, um alle Mitglieder zuzulassen",
+                        "doNotSelectToAllowAllMembers": "Leer lassen, um diese Option allen Mitgliedern zugänglich zu machen.",
                         "notAllowed": "Nicht erlaubt"
                     }
                 },
@@ -11795,9 +11795,9 @@
                     "oneBookingPerTeacher": "Es kann nur eine Buchung pro Lehrer hinzugefügt werden, während ClassPass-Buchungen erlaubt sind.",
                     "noTeacher": "Sie müssen einen Lehrer zuweisen, wenn ClassPass-Buchungen erlaubt sind."
                 },
-                "settingsTitle": "Einstellungen",
-                "establishmentSelectorTitle": "Wählen Sie die Einrichtung(en) für diesen Termin aus:",
-                "coachSelectorTitle": "Wählen Sie die Lehrkraft/Lehrkräfte für diesen Termin aus:"
+                "settingsTitle": "Bedingungen",
+                "establishmentSelectorTitle": "Lege die Einrichtung(en) für diesen Termin fest:",
+                "coachSelectorTitle": "Lege die Lehrkraft/Lehrkräfte für diesen Termin fest."
             },
             "parameters": {
                 "slots": {
@@ -12116,7 +12116,7 @@
                 "advancedOptions": {
                     "tag": {
                         "selectTags": "Tags auswählen",
-                        "tagsOnAcquisitionHelper": "Verwenden Sie Tags, um zu erkennen, welches Mitglied den Terminpass gekauft hat.",
+                        "tagsOnAcquisitionHelper": "Mit Tags kannst du Mitglieder markieren, die diesen Pass gekauft haben, um sie in Zukunft schnell wiederfinden zu können.",
                         "tagsOnAcquisition": "Tag nach dem Kauf"
                     },
                     "header": "Erweitert"
@@ -12325,10 +12325,10 @@
                 "explain": "Bist Du Dir sicher, dass Du diesen Termin löschen möchtest? Diese Änderung ist unwiderruflich. Bereits registrierte Buchungen werden nicht davon betroffen."
             },
             "padBeforeBooking": {
-                "explain4": "NICHT-AKTIV: Der nächste Termin kann ab 14:05 Uhr gebucht werden (die 5 Minuten nach dem Ende des vorherigen Termins sind die gleichen 5 Minuten, die vor dem Beginn des nächsten Termins benötigt werden). Die Pufferzeiten können sich in diesem Fall überschneiden",
-                "explain3": "WENN AKTIV: Der nächste Termin kann ab 14:10 Uhr gebucht werden (5 Minuten nach dem Ende des vorherigen Termins + 5 Minuten vor dem Beginn des nächsten Termins). Die Pufferzeiten der Termine dürfen sich nicht überschneiden",
-                "explain2": "Beispiel: Ein Termin ist für 13:00 Uhr gebucht, dauert 1 Stunde und Sie haben einen Verfügbarkeits-Puffer von 5 Minuten vor und nach dem Termin eingerichtet (z.B. für die Zimmerreinigung).",
-                "explain1": "Wenn diese Option aktiviert ist, überschneiden sich der Verfügbarkeitspuffer nach dem ersten Termin und der Verfügbarkeitspuffer vor dem zweiten Termin nicht (es entsteht eine größere Lücke zwischen zwei Terminen, da zwei Verfügbarkeitspuffer berücksichtigt werden). Wenn er nicht aktiviert ist, überschneiden sich der Verfügbarkeitspuffer nach dem ersten Termin und der Verfügbarkeitspuffer vor dem zweiten Termin."
+                "explain4": "Wenn diese Option nicht aktiviert ist, kann der nächste Termin ab 14:05 Uhr gebucht werden (5 Minuten nach Ende des vorherigen Termins). Die Zeitpuffer können sich in diesem Fall überschneiden.",
+                "explain3": "Wenn diese Option aktiviert ist, kann der nächste Termin ab 14:10 Uhr gebucht werden (5 Minuten nach Ende des vorherigen Termins und 5 Minuten vor Beginn des nächsten Termins). Die Zeitpuffer dürfen sich nicht überschneiden.",
+                "explain2": "Beispiel: Ein Termin ist für 13:00 Uhr gebucht, dauert 1 Stunde und hat einen Zeitpuffer von 5 Minuten sowohl vor als auch nach dem Termin.",
+                "explain1": "Wenn diese Option aktiviert ist, überschneiden sich die Zeitpuffer zwischen dem ersten und zweiten Termin nicht. Das bedeutet, dass zwischen den beiden Terminen ein größerer Zeitabstand besteht, da zwei Zeitpuffer berücksichtigt werden."
             },
             "ineligibleService": {
                 "title": "Dieser Termin kann nicht gebucht werden",
@@ -13897,9 +13897,9 @@
                 "steps": {
                     "workshop_form": "Workshop hinzufügen",
                     "offer_form": "Kurse hinzufügen (optional)",
-                    "pass_list": "Fertigstellung",
+                    "pass_list": "Zusammenfassung",
                     "pass_form": "Kurspass hinzufügen (optional)",
-                    "activity_form": "Erstellung der Aktivität"
+                    "activity_form": "Aktivität erstellen"
                 },
                 "compatible_packs": {
                     "goToActivity": "Zur Aktivität",
@@ -13927,7 +13927,7 @@
         "reviews": "Kundenbenachrichtigungen : ",
         "offersThisDay": "Heutige Kurse:",
         "packsAvailable": "Verfügbarer Kurspass für diese Aktivität :",
-        "noActivities": "Mit diesem Modul können Sie alle Ihre Gruppenaktivitäten hinzufügen, verwalten, bearbeiten oder löschen.",
+        "noActivities": "Gruppenaktivitäten sind Kurse, die man in einer Gruppe ausführt. Hier kannst du Gruppenaktivitäten hinzufügen, bearbeiten und verwalten.",
         "disabledMetaActivities": "Archivierte Gruppenaktivitäten",
         "workshop": "Workshop",
         "groupedOption": {
@@ -14194,7 +14194,7 @@
                 "tag": {
                     "tagGroupDuplicated": "Bitte beachten Sie, dass ausgewählte Artikel Tags der gleichen Kategorie enthalten.",
                     "selectTags": "Tags auswählen",
-                    "tagsOnAcquisitionHelper": "Verwenden Sie Tags, um zu erkennen, welches Mitglied die Packung gekauft hat.",
+                    "tagsOnAcquisitionHelper": "Mit Tags kannst du Mitglieder markieren, die dieses Paket gekauft haben, um sie in Zukunft schnell wiederfinden zu können.",
                     "tagsOnAcquisition": "Tag nach dem Kauf"
                 },
                 "header": "Erweitert"
@@ -14884,7 +14884,7 @@
             "marketplaceGiftcard": "Gutscheine"
         },
         "establishment": {
-            "establishmentFormPage": "Einrichtung-Formular",
+            "establishmentFormPage": "Einrichtung hinzufügen",
             "establishmentList": "Einrichtungen",
             "establishmentGroupPage": "Standorte"
         },
@@ -14909,10 +14909,10 @@
             "invoiceEdit": "Änderung der Rechnung"
         },
         "metaActivity": {
-            "metaActivityFormPage": "Aktivität-Formular",
+            "metaActivityFormPage": "Gruppenaktivität hinzufügen",
             "metaActivityEditForm": "Aktivität-Formular",
             "metaActivityList": "Aktivitäten",
-            "metaActivityFormSubtitle": "Gruppenaktivität hinzufügen",
+            "metaActivityFormSubtitle": "Erstelle einen Gruppenkurs mit Infos und Buchungsbedinungen.",
             "metaActivityEditFormSubtitle": "Gruppenaktivität bearbeiten"
         },
         "order": {
@@ -15709,8 +15709,8 @@
             "establishment": {
                 "general": "Allgemein",
                 "calendar": "Kalender",
-                "room": "Raum",
-                "location": "Standort"
+                "room": "Räume",
+                "location": "Standorte"
             },
             "service": {
                 "general": "Allgemein",
@@ -15727,7 +15727,7 @@
             },
             "replacement": {
                 "management": "Verwaltung",
-                "disciplineGroup": "Disziplinargruppen"
+                "disciplineGroup": "Aktivitäten:"
             },
             "franchise": {
                 "staff": {
@@ -15871,8 +15871,8 @@
             },
             "error_email_exists": "Es gibt bereits eine Lehrkraft mit dieser E-Mail-Adresse. Bitte erstelle eine neue Lehrkraft über das entsprechende Formular",
             "linkByEmail": {
-                "emailPlaceHolder": "lehrkraft@bsport.io",
-                "explain": "Wenn diese E-Mail bereits in unserer Datenbank existiert, werden wir die Lehrkraft automatisch für dich erstellen.",
+                "emailPlaceHolder": "beispiel@email.com",
+                "explain": "Gib hier die E-Mail-Adresse der Lehrkraft an, die du hinzufügen möchtest. Haben wir ihre Daten bereits, wird ein Konto automatisch für sie erstellt.",
                 "emailLabel": "E-Mail",
                 "title": "E-Mail-Adresse der Lehrkraft",
                 "submit": "Bestätigen",
@@ -15934,9 +15934,9 @@
                 "calendar": "Wochenplan",
                 "general": "Profil"
             },
-            "coachSpaceInfo": "Die Lehrkräfte können in diesem Bereich ihre Lohnabrechnung pro Kurs einsehen, ihren Wochenplan einsehen und ihre Verfügbarkeiten verwalten.",
+            "coachSpaceInfo": "Bei Aktivierung der Lehrkraftansicht können Lehrkräfte ihre Lohnabrechnung und Wochenplan einsehen und ihre Verfügbarkeiten verwalten.",
             "coachSpace": "Lehrkraftansicht",
-            "noPaymentRule": "Achtung, für diese Lehrkraft wurde keine Lohnabrechnung festgelegt."
+            "noPaymentRule": "Hinweis: Für diese Lehrkraft wurde keine Lohnabrechnung festgelegt. "
         },
         "showPerformance": "Lohnabrechnung anzeigen",
         "noCoach": "Zur Zeit gibt es keine registrierten Lehrkräfte",
@@ -17568,7 +17568,7 @@
             "addWorkshopGroup": "Event hinzufügen"
         },
         "search": "Workshop suchen",
-        "noWorkshops": "Verwalte Deine Workshops hier. Ein Workshop ist eine Veranstaltung, deren Datum im Voraus festgelegt wird.",
+        "noWorkshops": "Ein Workshop ist ein Kurs, der einmal stattfindet. Mit diesem Formular erstellst du einen neuen Workshop mit Bedingungen, z. B. wer den Workshop sehen kann und welche Funktionen angeboten werden.",
         "disabledWorkshops": "Archivierte Workshops",
         "group": {
             "emptySelect": "Workshop oder Event auswählen, um mehr Informationen anzuzeigen",
@@ -17619,7 +17619,7 @@
         "overrider": "Vertretung",
         "establishment_override": "Ersatzeinrichtung",
         "search": "Eine Einrichtung suchen",
-        "addButton": "Eine Einrichtung hinzufügen",
+        "addButton": "Einrichtung hinzufügen",
         "pleaseSelectOne": "Bitte wählen Sie ein Studio auf der Karte aus",
         "offers": "Kurskalender:",
         "noMoreOffers": "Kein anderer geplanter Kurs",
@@ -17639,7 +17639,7 @@
             "update": "Speichern"
         },
         "update": {
-            "imageUploaderRequireEditMessage": "Sobald die Einrichtung erstellt ist, haben Sie die Möglichkeit, zusätzliche Bilder hinzuzufügen."
+            "imageUploaderRequireEditMessage": "Nach Erstellung der Einrichtung kannst du weitere Bilder hinzufügen."
         },
         "cancel": "Abbrechen",
         "noEstablishement": "Verwalten Sie hier Ihre Einrichtungen, Ihren Standort, Ihre Auslastung und Ihren Kalender",
@@ -17673,7 +17673,7 @@
         "group": {
             "table": {
                 "name": "Name",
-                "establishment": "Einrichtungen",
+                "establishment": "Einrichtung",
                 "actions": "Aktion",
                 "noAddress": "Keine Adresse ist mit dieser Rechnungsgruppe verbunden",
                 "address": "Adresse"
@@ -17698,7 +17698,7 @@
             "noGroupHelper": "Standorte werden verwendet, um mehrere Adressen zu gruppieren. Wenn Sie mehrere Studios in verschiedenen Städten haben, können Sie Studios aus derselben Stadt an einem Ort gruppieren. Auf dem Marketplace, dem Widget und der personalisierten Anwendung können Ihre Mitglieder den Standort auswählen, der sie am meisten interessiert, um nur die Kurse in ihrer Nähe zu sehen.",
             "actions": "Aktion",
             "name": " Name",
-            "addLocalisation": "Ort hinzufügen",
+            "addLocalisation": "Raum hinzufügen",
             "groupButton": "Gruppeneinrichtungen"
         },
         "room": "Einrichtung",
@@ -20225,7 +20225,7 @@
                 "advancedOptions": {
                     "tag": {
                         "selectTags": "Tags auswählen",
-                        "tagsOnAcquisitionHelper": "Verwenden Sie Tags, um zu erkennen, welches Mitglied die Geschenkkarte gekauft hat.",
+                        "tagsOnAcquisitionHelper": "Mit Tags kannst du Mitglieder markieren, die diesen Geschenkgutschein gekauft haben, um sie in Zukunft schnell wiederfinden zu können.",
                         "tagsOnAcquisition": "Markierung nach dem Kauf"
                     },
                     "header": "Erweitert"
@@ -21019,7 +21019,7 @@
                 "name": "Name",
                 "nameHelperText": "Name der Disziplingruppe",
                 "required": "Dieses Feld ist erforderlich",
-                "groupTypes": "Kursart / Kategorien",
+                "groupTypes": "Kurse und Kategorien:",
                 "pickActivity": "Eine Aktivität wählen",
                 "allActivities": "Unterrichtet alle Aktivitäten",
                 "workshops": "Workshops",
@@ -21032,7 +21032,7 @@
             },
             "add": "Eine Gruppe hinzuzufügen",
             "title": "Disziplingruppen",
-            "activities": "Aktivitäten ({{number}})",
+            "activities": "Gruppenaktivitäten",
             "workshops": "Workshops ({{number}})",
             "categories": "Kategorien ({{number}})",
             "coaches": "{{count}} Lehrkraft",
@@ -21044,11 +21044,11 @@
                 "helper": "Möchten Sie auf die Seite mit den Vertretungsanfragen weitergeleitet werden, um veraltete Anfragen zu löschen?",
                 "title": "Ein aktiver Vertretungsantrag ist mit diesem Kurs verbunden"
             },
-            "description": "Um diesen Kurs zu sehen, aktivieren Sie bitte den oben genannten Filter <strong>{{switchLabel}}</strong>",
-            "cancelledOffersModeTitle": "Modus stornierte Kurse",
-            "filterHelper": "Wenn diese Warnung weiterhin besteht und keine Kurse im <strong>{{switchLabel}}</strong>-Modus angezeigt werden, empfehlen wir, die Filter zu deaktivieren und den Zeitraum zu erweitern.",
+            "description": "Aktiviere die Option „Stornierte Kurse“, um Vertretungsanfragen anzusehen, die mit stornierten Kursen verknüpft sind. ",
+            "cancelledOffersModeTitle": "Stornierte Kurse",
+            "filterHelper": "Falls kein Kurs hier erscheint, deaktiviere deine Filter, um die Auswahl zu erweitern.",
             "buttonLabel": "Öffnen",
-            "title": "Aktive Vertretungsanfragen beziehen sich auf abgesagte Kurse."
+            "title": "Aktive Vertretungsanfragen ansehen"
         },
         "coachAnswer": {
             "yes": "Ja",
@@ -21096,7 +21096,7 @@
             "offerCancelled": "Stornierte Kurse"
         },
         "compatibleCoaches": {
-            "title": "Verfügbare Lehrkräfte nach Fachrichtung",
+            "title": "Passende Lehrkräfte nach Aktivität",
             "compatibleCoaches": "{{count}} kompatible Lehrkraft",
             "compatibleCoaches_plural": "{{count}} kompatible Lehrkräfte",
             "nextSlot": "Nächster Kurs am {{date}} - {{hour}}",
@@ -21106,12 +21106,12 @@
         },
         "coachEdit": {
             "title": "Vertretung",
-            "description": "Geben Sie an, welche Kurse von Ihrer Lehrkraft unterrichtet werden. Wenn in einer dieser Kurse ein Vertretungsantrag gestellt wird, wird diese Lehrkraft per E-Mail benachrichtigt. Wenn nichts ausgewählt wird, wird diese Lehrkraft nicht benachrichtigt.",
-            "disciplineGroup": "Disziplingruppe",
+            "description": "Wähle die Aktivitäten aus, die die Lehrkraft anbietet, um die untenstehenden Felder automatisch auszufüllen. Im Vertretungsfall wird die Lehrkraft per E-Mail benachrichtigt.",
+            "disciplineGroup": "Aktivitäten:",
             "customRules": "Vorschriften individuell anpassen",
-            "activities": "Aktivitäten",
-            "pickActivity": "Eine Aktivität auswählen",
-            "allActivities": "Unterrichtet alle Aktivitäten",
+            "activities": "Gruppenaktivitäten",
+            "pickActivity": "Gruppenaktivität auswählen",
+            "allActivities": "Unterrichtet alle Gruppenaktivitäten",
             "workshops": "Workshops",
             "pickWorkshop": "Wählen Sie einen Workshop",
             "allWorkshops": "Unterrichtet alle Workshops",

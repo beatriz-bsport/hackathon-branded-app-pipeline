@@ -89,7 +89,7 @@
                 "cancel": "Annuler",
                 "reset": "OK",
                 "backToLogin": "Retour",
-                "confirm": "Confimer"
+                "confirm": "Confirmer"
             }
         }
     },
@@ -1018,12 +1018,12 @@
         "noCoachs": "Aucun professeur enregistré, gérez ici vos profs, intervenants, ainsi que leur rémunération.",
         "detail": {
             "coachSpace": "Espace professeur",
-            "coachSpaceInfo": "Sur cet espace votre professeur pourra avoir accès à son récapitulatif de paie par séance ainsi qu’à la vision de son emploi du temps. Il pourra aussi ajouter ses disponibilités.",
+            "coachSpaceInfo": "Une fois activé, dans' l'espace professeur les enseignants peuvent voir leur rémunération, consulter leur emploi du temps et gérer leur disponibilité.",
             "tab": {
                 "general": "Profil",
                 "calendar": "Calendrier"
             },
-            "noPaymentRule": "Attention, aucune règle de rémunération n'a été définie pour ce professeur."
+            "noPaymentRule": "Attention: aucune règle de rémunération n'a été définie pour ce professeur. "
         },
         "noCoach": "Il n'y a aucun professeur enregistré pour l'instant",
         "coach": "Professeur",
@@ -1066,11 +1066,11 @@
         "forms": {
             "linkByEmail": {
                 "cancel": "Annuler",
-                "submit": "Valider",
+                "submit": "Confirmer",
                 "title": "Adresse email du professeur",
                 "emailLabel": "Email",
-                "explain": "Si cet email existe déjà dans notre système, nous vous créerons le professeur automatiquement.",
-                "emailPlaceHolder": "professeur@bsport.io"
+                "explain": "Veuillez fournir l'adresse e-mail du professeur que vous souhaitez ajouter. Si nous avons déjà leurs coordonnées, nous créerons automatiquement leur compte.",
+                "emailPlaceHolder": "exemple@email.fr"
             },
             "error_email_exists": "Un professeur avec cet email existe déjà, utilisez le formulaire de création Professeur",
             "create": {
@@ -1347,7 +1347,7 @@
             "titleInterpolated": "Les variables contenues dans l'objet du mail et le corp du mail sont mises à jour en fonction du destinataire",
             "warningConsent1": "Attention ! Ce membre a désactivé la possibilité de lui envoyer des emails promotionnels. Les emails directs permettent de discuter avec vos membres de manière simple et rapide. Ils ne doivent pas servir à des fins publicitaires ou promotionnelles.",
             "warningConsent2": "Ne pas respecter cette décision de votre membre serait illégal. Bsport se détache de toutes responsabilités en cas d'utilisation abusive des emails directs.",
-            "warningProvider": "Attention, les réponses des membres à ce message n'apparaitront pas sur la plateforme mais directement dans votre boîte mail. Pour qu'ils apparaissent tous ici, modifiez le paramètre de communication dans la page Paramètres/Personnalisation."
+            "warningProvider": "Les réponses à ce message seront automatiquement envoyées dans votre boîte de réception. Accédez à Paramètres > Personnalisation > Paramètres du chat pour afficher toutes vos communications ici."
         },
         "recipients": "Destinataires",
         "common": {
@@ -1422,13 +1422,13 @@
                             "leftSmartList": "Modification d’une règle d’envoi automatique en sortie de la smartlist"
                         },
                         "create": {
-                            "joinSmartList": "Création d’une règle d’envoi automatique en entrée de la smartlist",
-                            "leftSmartList": "Création d’une règle d’envoi automatique en sortie de la smartlist"
+                            "joinSmartList": "Créer un message automatique pour les clients qui entrent dans cette smartlist.",
+                            "leftSmartList": "Créer un message automatique pour les clients qui quittent cette smartlist."
                         }
                     },
                     "frequenceHelper": "Cette communication sera envoyée pour {{ max }} {{ event_kind }} de la smartlist pour chaque membre. Après {{ max }} {{ event_kind }} de la smartlist pour un même membre, il ne recevra plus cette communication. Vous pouvez changer ce paramètre dans 'Avancé'.",
                     "maxCommunicationSentHelperText": {
-                        "0": "Par défaut, le message est envoyé chaque fois qu'un membre entre dans la smartlist. Si un membre quitte la smartlist et y revient plus tard, le message est envoyé à nouveau. Vous pouvez ajuster le paramètre pour limiter à une, deux ou trois le nombre de fois qu'un même membre peut recevoir le message.",
+                        "0": "Ce message sera envoyé chaque fois qu'un membre accède au segment. Si un membre quitte le segment et y revient plus tard, le message sera envoyé à nouveau. Vous pouvez limiter le nombre de fois qu'un même membre peut recevoir le message.",
                         "1": "Par défaut, le message est envoyé chaque fois qu'un membre quitte la smartlist. Si, à nouveau, un membre entre dans la smartlist et la quitte, le message est renvoyé. Vous pouvez ajuster le paramètre pour limiter à une, deux ou trois le nombre de fois qu'un même membre peut recevoir le message."
                     },
                     "limitSection": "Limite",
@@ -1436,7 +1436,7 @@
                 },
                 "panel": {
                     "title": "Règle d'envoi automatique",
-                    "add": "Ajouter",
+                    "add": "Ajouter un message",
                     "subtitle": {
                         "onJoin": "En entrée",
                         "onLeft": "En sortie"
@@ -1694,7 +1694,7 @@
                 "missingPhoneInDirectMember": "Cet utilisateur n'a pas de numéro de téléphone"
             },
             "refresh": "Pour voir apparaître la nouvelle version de votre template, merci de cliquer sur le bouton rafraîchir.",
-            "writeCommunication": "Envoyer un message",
+            "writeCommunication": "Écrire un message",
             "smsCostReminderModal": {
                 "confirm": "Confirmer",
                 "cancel": "Annuler",
@@ -1735,7 +1735,7 @@
             "filterOutCommunicationSent": "La communication que vous venez d'envoyer est cachée par les filtres actifs.",
             "emptyList": {
                 "becauseOfFilters": "Aucun résultat correspondant aux filtres.",
-                "becauseNeverUsed": "Vous n'avez pas encore envoyé de communication sur ce canal."
+                "becauseNeverUsed": "Aucun message à afficher. Cliquez sur la zone de texte ci-dessous pour écrire votre premier message."
             }
         },
         "generic": {
@@ -1751,7 +1751,7 @@
             }
         },
         "smartListPopup": {
-            "drawerTitle": "Historique des pop-ups de démarrage",
+            "drawerTitle": "Toutes les pop-ups",
             "close": "Fermer",
             "preview": "Prévisualiser",
             "previewTitle": "Aperçu",
@@ -1761,7 +1761,7 @@
             "recipient_plural": "destinataires",
             "see": "Voir",
             "seeRecipients": "Voir les destinataires",
-            "noSmartListPopup": "Aucune pop-up de démarrage",
+            "noSmartListPopup": "Aucune pop-up à afficher. Revenez en arrière et cliquez sur \"Envoyer une pop-up\". ",
             "memberListTitle": "Pop-up de démarrage"
         },
         "resendSection": {
@@ -2544,7 +2544,7 @@
             }
         },
         "form": {
-            "title": "Coupon",
+            "title": "Ajouter un code de réduction",
             "selectorPlaceholder": {
                 "privatePass": "Sélectionner des cartes de rendez-vous (valables sur toutes les cartes si aucune n'est sélectionnée)",
                 "paymentPack": "Sélectionner des cartes de cours (valable sur toutes les cartes de cours si aucune n'est sélectionnée)",
@@ -2552,24 +2552,24 @@
                 "paymentCombo": "Sélectionner des packs (valable sur tous les produits si aucun n'est sélectionné)"
             },
             "section": {
-                "subscription": "Souscription (contrat)",
-                "general": "Général",
+                "subscription": "Facturation des abonnements",
+                "general": "Informations générales",
                 "availability": "Disponibilité",
-                "usability": "Utilisation",
+                "usability": "Conditions",
                 "voucherConfig": "Réduction",
-                "applies_to": "Paramètres",
+                "applies_to": "Produits achetables",
                 "advanced": "Avancé",
                 "tags": "Tags",
-                "tagInfo": "Utilisez les tags pour rendre le coupon utilisable uniquement par un groupe de membre souhaité sur la marketplace, le widget et l’application. Vous pouvez sélectionner des tags pour rendre le coupon utilisable seulement par les membres possédants un des tags choisis. Ou bien vous pouvez sélectionner des tags pour rendre le coupon inutilisable seulement par les membres possédants un des tags sélectionnés. ",
-                "whitelist_tags": "Autorisé",
-                "blacklist_tags": "Non - Autorisé"
+                "tagInfo": "Utilisez des tags pour rendre ce code de réduction disponible ou non pour certains membres.",
+                "whitelist_tags": "Disponible",
+                "blacklist_tags": "Indisponible"
             },
             "name": {
                 "label": "Nom",
                 "helperText": "Le nom saisi ici apparaîtra sur les factures lorsque le code promo est appliqué"
             },
             "code": {
-                "label": "Code",
+                "label": "Code de réduction *",
                 "helperText": "Le code que vous transmettrez aux clients concernés",
                 "helperTextFranchise": "Le code que vous transmettrez aux clients concernés. Assurez-vous que le code n'existe pas déjà dans vos différents studios.",
                 "codeAlreadyInUse": "Ce code est déjà utilisé."
@@ -2579,9 +2579,9 @@
                 "amount": "En valeur"
             },
             "subscription_mode": {
-                "0": "Toutes les facturations",
-                "1": "Uniquement premier mois",
-                "2": "Uniquement premier cycle de facturation (avant renouvellement)",
+                "0": "Appliquer à toutes les factures",
+                "1": "Appliquer uniquement à la première facture",
+                "2": "Appliquer à toutes les factures avant le renouvellement automatique ",
                 "3": "Non utilisable"
             },
             "percent_off": {
@@ -2591,8 +2591,8 @@
                 "label": "Montant de la réduction"
             },
             "is_active": {
-                "label": "Actif",
-                "helperText": "Un code non-actif n'est pas utilisable par les clients"
+                "label": "Disponible pour les membres",
+                "helperText": "Selectionnez cette option pour rendre ce code disponible à vos membres."
             },
             "with_expiration_date": {
                 "label": "Avec date d'expiration"
@@ -2609,10 +2609,10 @@
                 "label": "Limite d'utilisation tous membres confondus"
             },
             "only_on_first_checkout": {
-                "label": "Premier achat seulement"
+                "label": "Le bon ne peut être utilisé que pour le premier achat"
             },
             "combinable": {
-                "label": "Utilisable avec d'autres codes"
+                "label": "Le code de réduction peut être utilisé avec d'autres codes promotionnels"
             },
             "minimum_amount": {
                 "label": "Montant minimum d'achat"
@@ -2647,7 +2647,7 @@
                     "error": "Un même tag ne peut pas être présent dans les deux listes"
                 }
             },
-            "alert": "Un code de réduction peut être utilisé par un membre pour réduire le prix d'un panier. Dans ce formulaire, vous pouvez entièrement personnaliser les modalités d'application du code. Vous choisissez vous-même le code et c'est à vous de décider comment le partager avec vos membres."
+            "alert": "Les membres peuvent utiliser des codes de réduction pour réduire le prix de leur panier. Utilisez ce formulaire pour personnaliser l'application du code et sa diffusion auprès de vos membres. "
         },
         "createCoupon": "Ajouter un code",
         "code": {
@@ -2703,18 +2703,18 @@
                     "shopItem": "Sélectionner un produit du magasin",
                     "paymentCombo": "Sélectionner un pack"
                 },
-                "alertInfo": "Les bons d'achat sont des codes uniques qui offrent une réduction de 100% sur un produit spécifique pour le membre. Ces codes ne sont pas générés par la plateforme elle-même, mais doivent être téléchargés ici sous forme de fichier CSV. Cette fonctionnalité est particulièrement utile si vous avez établi un partenariat avec une entité externe comme Groupon pour organiser une campagne promotionnelle. Dans ce cas, Groupon (ou une entité similaire) génère et vend les bons d'achat au nom de votre studio.",
+                "alertInfo": "Les bons d'achat sont des codes qui offrent une réduction de 100 % sur les cartes, les produits et les packs. Ces codes doivent être téléchargés au format CSV au bas de ce formulaire. Si vous êtes partenaire de Groupon (ou d'une entité similaire), votre partenaire peut générer et vendre des codes en votre nom.",
                 "alertWarning": "Non applicable aux souscriptions",
                 "couponCostForCompany": {
-                    "label": "Prix TTC",
-                    "helperText": "Les revenus que vous obtenez du partenaire de la campagne pour chaque bon d'achat vendu. Ils seront utilisés lors du calcul de la valeur marginale pour la rénumération des professeurs ainsi que dans les rapports. Pour tout calcul ne tenant pas compte de la valeur marginale, les rapports ignoreront ce prix donné et traiteront cette promotion comme une remise de 100%."
+                    "label": "Ce nom apparaîtra sur les factures lorsque le code de réduction sera appliqué. ",
+                    "helperText": "Vos membres devront copier ce code."
                 },
                 "usage_per_member": {
                     "label": "Limiter le nombre de bons d'achat qu'un membre peut acheter",
                     "helperText": "Limite maximale"
                 },
                 "only_on_first_checkout": {
-                    "label": "Ne peut être utilisé que pour le premier achat"
+                    "label": "Le code de réduction s'applique uniquement au premier achat des membres"
                 },
                 "fileUploader": {
                     "title": "Télécharger des bons d'achat uniques",
@@ -3309,7 +3309,7 @@
         "overrider": "Remplacement",
         "establishment_override": "Salle de remplacement",
         "search": "Rechercher une salle",
-        "addButton": "Ajouter une salle",
+        "addButton": "Ajouter un site",
         "pleaseSelectOne": "Veuillez sélectionner un club sur la carte",
         "noEstablishement": "Gérez ici vos salles, leur localisation, leur remplissage et consultez le calendrier",
         "offers": "Calendrier des séances :",
@@ -3329,7 +3329,7 @@
             "update": "Modifier"
         },
         "update": {
-            "imageUploaderRequireEditMessage": "Une fois votre salle créée, vous aurez la possibilité d'ajouter des images supplémentaires."
+            "imageUploaderRequireEditMessage": "Vous pouvez télécharger plus d'images une fois que vous avez ajouté votre site."
         },
         "forms": {
             "edit": "Modifier",
@@ -3375,7 +3375,7 @@
         },
         "group": {
             "groupButton": "Grouper les établissements",
-            "addLocalisation": "Ajouter une localisation",
+            "addLocalisation": "Ajouter une salle",
             "name": " Nom",
             "actions": "Actions",
             "noGroupHelper": "Les localisations permettent de regrouper plusieurs adresses entre elles. Si vous possèdez plusieurs studios dans différentes villes vous pouvez regrouper les studios de la même ville dans une localisation. Sur la marketplace, le widget et l’application personnalisée vos élèves pourront sélectionner la localisation qui les intéresse le plus pour ne voir que les cours proches de chez eux.",
@@ -3398,7 +3398,7 @@
             },
             "table": {
                 "actions": "Actions",
-                "establishment": "Etablissements",
+                "establishment": "Site",
                 "name": "Nom",
                 "noAddress": "Aucune adresse n'est associée à ce groupe de facturation",
                 "address": "Adresse"
@@ -3981,7 +3981,7 @@
                     "cancel": "Fermer",
                     "submit": "Valider"
                 },
-                "title": "Carte cadeau",
+                "title": "Ajouter une carte cadeau",
                 "name": {
                     "label": "Nom"
                 },
@@ -3994,16 +3994,16 @@
                 },
                 "section": {
                     "parameters": {
-                        "title": "Paramètres"
+                        "title": "Valeur et validité"
                     }
                 },
                 "price": {
                     "label": "Prix de vente",
-                    "helperText": "Définira la valeur de la carte offerte"
+                    "helperText": "La valeur totale de la carte-cadeau."
                 },
                 "expiration_days": {
                     "label": "Durée de validité en jours",
-                    "helperText": "La période de validité commence à la date d’activation de la carte cadeau"
+                    "helperText": "La période de validité commence à la date d’activation."
                 },
                 "unlimited": {
                     "label": "Illimité"
@@ -4013,9 +4013,9 @@
                 },
                 "advancedOptions": {
                     "tag": {
-                        "tagsOnAcquisitionHelper": "Utilisez des tags pour identifier les membres ayant acheté cette carte cadeau",
+                        "tagsOnAcquisitionHelper": "Appliquez des tags aux membres qui ont acheté cette carte cadeau pour les identifier rapidement à l'avenir.",
                         "selectTags": "Sélectionnez les tags",
-                        "tagsOnAcquisition": "Tag après achat"
+                        "tagsOnAcquisition": "Appliquez les tags après l'achat"
                     },
                     "header": "Avancé"
                 }
@@ -4028,7 +4028,7 @@
                 "actions": {
                     "close": "Fermer"
                 },
-                "explain": "Ajouter des images pour permettre à vos membres de personnaliser leur carte cadeau. Pendant la création de leur carte vos membres pourront choisir une image de fond sur la carte cadeau."
+                "explain": "Ajouter des images personnalisées pour permettre à vos membres de personnaliser leur carte cadeau. Lors la création vos membres pourront choisir parmi les images personnalisées que vous téléchargerez ici. "
             }
         },
         "search": "Rechercher une carte cadeau",
@@ -6423,7 +6423,7 @@
                 "title": "Edition des informations",
                 "success": "Membre modifié avec succès"
             },
-            "newMemberOnlyHelperText": "Un membre est considéré comme nouveau tant qu'il n'a pas fait d'achat supérieur à 0 {{ currency }} sur la plateforme. Attention, tout achat d'un objet payant avec une réduction de 100% sur son prix fera perdre le statut 'Nouveau membre'."
+            "newMemberOnlyHelperText": "Un membre est considéré comme \"nouveau\" tant qu'il n'a pas fait d'achat supérieur à 0 € sur la plateforme. Tout achat d'un produit bénéficiant d'une réduction de 100 % sera comptabilisé comme un achat."
         },
         "user": {
             "existsWithEmail": "Un utilisateur avec l'adresse email {{email}} existe déjà.",
@@ -6724,7 +6724,7 @@
         "metaActivity": "Activité",
         "workshop": "Atelier",
         "search": "Chercher une activité",
-        "noActivities": "Gérez ici vos activités, une activité permet de regrouper un ensemble de séances (généralement collectives) de la même pratique.",
+        "noActivities": "Les cours collectifs sont des cours dispensés à un groupe. Ici, vous pouvez ajouter, modifier et gérer vos cours collectifs.",
         "actions": {
             "addActivity": "Ajouter une activité",
             "search": "Rechercher une activité"
@@ -6742,9 +6742,9 @@
                     "noCompatiblePass": "Aucune carte de cours compatible avec cette activité, pensez à en créer un"
                 },
                 "steps": {
-                    "activity_form": "Création de l'activité",
+                    "activity_form": "Ajouter une activité",
                     "pass_form": "Création d'une carte de cours (optionnel)",
-                    "pass_list": "Finalisation",
+                    "pass_list": "Finaliser",
                     "offer_form": "Création des séances (optionnel)",
                     "workshop_form": "Création de l'atelier"
                 }
@@ -7103,8 +7103,8 @@
             "establishment": {
                 "general": "Général",
                 "calendar": "Calendrier",
-                "room": "Salle",
-                "location": "Localisation"
+                "room": "Salles",
+                "location": "Localisations"
             },
             "service": {
                 "general": "Général",
@@ -7157,7 +7157,7 @@
             },
             "replacement": {
                 "management": "Gestion",
-                "disciplineGroup": "Groupes de disciplines"
+                "disciplineGroup": "Activités :"
             },
             "franchise": {
                 "staff": {
@@ -8439,7 +8439,7 @@
             "6": "AMEX",
             "7": "Virement",
             "8": "EventBrite",
-            "9": "Compte interne (crédit)",
+            "9": "Payer sur place",
             "10": "Paiement automatique",
             "11": "Divers",
             "12": "Litige",
@@ -8601,7 +8601,7 @@
                 "label": "TVA"
             },
             "manager_only": {
-                "label": "Invisible pour les clients"
+                "label": "Invisible sur la marketplace"
             },
             "new_member_only": {
                 "label": "Uniquement pour les nouveaux clients"
@@ -8619,22 +8619,22 @@
             },
             "available_payment_method_identifiers": {
                 "label": "Moyens de paiement autorisés",
-                "helperText": "Sélectionnez au moins un moyen de paiement. Si le panier du membre contient des éléments dont les moyens de paiements sont incompatibles, le paiement en ligne sera proposé par défaut."
+                "helperText": "Choisissez au moins un mode de paiement. Si aucun n'est sélectionné, le paiement en ligne sera choisi par défaut."
             },
             "error": {
                 "atLeastOneThing": "Vous devez ajouter au moins un élément dans votre pack"
             },
             "usePaymentComboTaxOnItems": {
                 "label": "Appliquer une TVA générale à l'ensemble du pack",
-                "helperText": "Par défaut, la taxe appliquée à chaque objet est celle indiquée sur l'objet. En sélectionnant cette option, vous pourrez appliquer une taxe générale sur le pack."
+                "helperText": "Par défaut, un taux de TVA sera appliquée à chaque produit. Selectionnez cette option pour appliquer une taxe générale sur le pack. "
             },
             "unusableByStaff": {
-                "label": "Invisible pour le staff"
+                "label": "Invisible pour les professeurs"
             },
             "expiration_date": {
                 "label": "Date limite d'achat",
                 "helperText": "Disponible jusqu’au",
-                "tooltip": "Passée la date choisie, le pack n’apparaîtra plus à la vente pour les clients."
+                "tooltip": "Après la date choisie, le pack ne sera plus disponible à l'achat"
             },
             "highlightedAsRecommended": {
                 "label": "Marquer comme recommandé",
@@ -8642,10 +8642,10 @@
             },
             "advancedOptions": {
                 "tag": {
-                    "tagsOnAcquisitionHelper": "Utilisez des tags pour identifier les membres ayant acheté ce pack.",
+                    "tagsOnAcquisitionHelper": "Appliquez des tags aux membres qui ont acheté ce pack pour les identifier rapidement à l'avenir.",
                     "tagGroupDuplicated": "Veuillez noter que les articles sélectionnés contiennent des tags de la même catégorie qui ne peuvent pas être appliqués simultanément. Seul le premier de ces tags sera appliqué après achat.",
                     "selectTags": "Sélectionnez des tags",
-                    "tagsOnAcquisition": "Tags après achat"
+                    "tagsOnAcquisition": "Appliquez les tags après l'achat"
                 },
                 "header": "Avancé"
             }
@@ -8970,8 +8970,8 @@
                     "label": "TVA"
                 },
                 "priceIncludingTax": {
-                    "helperText": "Prix pour le client pour la carte",
-                    "label": "Prix TTC"
+                    "helperText": "Le prix de vente total pour la carte de cours.",
+                    "label": "Prix TTC * "
                 },
                 "unlimited": "Crédits illimités",
                 "theoricalMarginValue": {
@@ -9081,7 +9081,7 @@
                         "helperText": "Un accompte de {{value}} sera appliqué pour ce membre"
                     },
                     "label": "Appliquer une pénalité",
-                    "helperText": "Appliquer des pénalités en cas d'absence ou d'annulations hors délais trop nombreuses",
+                    "helperText": "Appliquez une pénalité aux membres ayant trop d'absences ou d'annulations tardives ",
                     "titleCheckbox": "Appliquer une pénalité pour",
                     "cancellationsCheckbox": "Les annulations hors délai trop nombreuses",
                     "noShowCheckbox": "Les absences (no show) trop nombreuses",
@@ -9119,19 +9119,19 @@
                     "header": "Avancé",
                     "tag": {
                         "header": "Tags",
-                        "helperText": "Utilisez les tags pour rendre la carte visible uniquement à un groupe de membre souhaité sur la marketplace, le widget et l’application. Vous pouvez sélectionner des tags pour rendre la carte visible seulement aux membres possédants un des tags choisis. Ou bien vous pouvez sélectionnez des tags pour rendre la carte invisible seulement aux membres possèdants un des tags sélectionnés. ",
-                        "allowed": "Autorisé",
+                        "helperText": "Utilisez les tags pour rendre cette disponible ou non à l'achat pour certains clients.",
+                        "allowed": "Disponible",
                         "allowedFor": "Autorisé pour",
-                        "notAllowed": "Non-Autorisé",
+                        "notAllowed": "Indisponible",
                         "notAllowedFor": "Non-autorisé pour",
-                        "doNotSelectToAllowAllMembers": "Laisser vide pour autoriser à tous les membres",
-                        "tagsOnAcquisitionHelper": "Utilisez des tags pour identifier les membres ayant acheté cette carte de cours.",
-                        "tagsOnAcquisition": "Tag après achat",
+                        "doNotSelectToAllowAllMembers": "Laissez vide pour le rendre disponible à tous les membres.",
+                        "tagsOnAcquisitionHelper": "Appliquez des tags aux membres qui ont acheté cette carte pour les identifier rapidement à l'avenir.",
+                        "tagsOnAcquisition": "Appliquer les tags après l'achat",
                         "selectTags": "Sélectionnez les tags"
                     },
                     "appliesForPayroll": {
-                        "label": "Sessions prises en compte dans le calcul de la rémunération du professeur",
-                        "helperText": "Par défaut, les sessions sont facturées au studio et comptabilisées dans le récapitulatif et la rémunération du professeur par le studio. En désactivant ce paramètre, les sessions associées à cette carte n'apparaîtront plus dans le récapitulatif du professeur.",
+                        "label": "Les cours achetés avec cette carte sont inclus dans la rémunération du professeur",
+                        "helperText": "Par defaut, les cours sont facturés au studio et inclus dans la rémunération du professeur. Désactivez ce paramètre pour que les cours associés à cette carte n'apparaissent plus dans la rémunération du professeur.",
                         "header": "Rémunération des professeurs"
                     }
                 },
@@ -9139,15 +9139,15 @@
                     "warningIsUniversalPass": "Cette carte est une carte universelle, une carte jumelle a été créée dans les cartes de RDV. Tous les champs modifiés sur cette carte seront aussi modifiés sur la carte jumelle (sauf la catégorie). Il en est de même pour les notifications, extensions et modifications des crédits.",
                     "label": "Carte universelle",
                     "marketplaceLabel": "Carte universelle. Utilisable pour les cours collectifs et rendez-vous.",
-                    "helperText": "Les cartes universelles peuvent être utilisées pour réserver des cours collectifs ET des rendez-vous. Une fois la carte créée, une carte jumelle sera créée dans les cartes de rendez-vous. Le nombre de crédit des deux cartes sera lié. A l’achat de l’une des deux cartes, l’autre sera automatiquement ajoutée au membre (sans frais supplémentaire).",
+                    "helperText": "Les cartes universelles peuvent être utilisées pour réserver des cours collectifs et des rendez-vous. A l’achat d’une carte universelle, nous ajoutons automatiquement une carte de RDV « jumeau » pour partager les crédits entre les deux types de cartes.",
                     "deativatedTags": "Désactivé pour les cartes universelles"
                 },
                 "highlightedAsRecommended": {
                     "label": "Marquer comme recommandé",
-                    "helperText": "Permet à vos clients de voir d'un coup d'oeil quelles cartes de cours sont actuellement recommandées."
+                    "helperText": "Mettez en avant cette carte de cours auprès de vos membres en la promouvant dans la section \"recommandé\" du flux de réservation."
                 },
                 "notification": "Notifications",
-                "detailsAndRestrictions": "Détails et restrictions",
+                "detailsAndRestrictions": "Détails et conditions",
                 "noNotificationsWarning": "Vous n'avez pas encore de notifications. Pour créer des nouvelles notification, allez dans <strong>Marketing > Notifications.</strong>"
             }
         },
@@ -9195,14 +9195,14 @@
             "packValidity": "Validité de la carte",
             "penality": "Appliquer une pénalite en cas d’annulations hors délai trop nombreuses",
             "penalityRule": "Vous pouvez appliquer une pénalité uniquement si le nombre de crédits est illimité",
-            "availabilityGivenNumber": "Rendre la carte valide uniquement un certain nombre de jours (après la date d’achat)",
-            "availabilitySlot": "Rendre la carte valide uniquement sur un créneau de dates",
+            "availabilityGivenNumber": "Rendre la carte valide uniquement un certain nombre de jours après l’achat",
+            "availabilitySlot": "Rendre la carte valide entre certaines dates",
             "fromDate": "À partir du",
             "toDate": "Jusqu’au",
             "endBeforeStart": "La date de fin ne peut être supérieur à la date de début",
-            "dayValidity": "Durée de validité en jours",
-            "monthValidity": "Durée de validité en mois",
-            "yearValidity": "Durée de validité en années",
+            "dayValidity": "Jours",
+            "monthValidity": "Mois",
+            "yearValidity": "Années",
             "monthValidityHelper": "S’ajoute au nombre de jours",
             "yearValidityHelper": "S’ajoute au nombre de jours et de mois",
             "validForDuration": {
@@ -9221,8 +9221,8 @@
             "firstBooking": "À la première réservation",
             "attendance": "À la première présence",
             "beginningDate": "Date de début",
-            "expirationDate": "Expiration si aucune réservation initiale",
-            "expirationDateHelper": "Si la carte de cours n'est pas consommée une première fois pendant ce nombre de jour, elle est rendue invalide",
+            "expirationDate": "Nombre de jours avant l'expiration de la carte si elle n'est pas utilisée *",
+            "expirationDateHelper": "Si la carte de cours n'est pas utilisée pendant cette période, elle est rendue invalide.",
             "marginalContribution": "Apport marginal théorique TTC",
             "marginalContributionHelperText": "Utilisé pour calculer la rémunération des professeurs. 10{{ currencyDisplay }} signifie qu’une réservation faite avec cette carte est rémunérée 10{{ currencyDisplay }}. Si vide ou 0{{ currencyDisplay }} l’apport d’une carte sera PRIX/NB_RESERVATION",
             "penalityNumberCancel": "Nombre d’annulations",
@@ -9235,20 +9235,20 @@
             "penalityAccountPrice": "Montant de l’acompte",
             "penalityBlockDayHelper": "La carte du membre concerné sera bloquée pendant {{penalityBlockDay}} jours",
             "penalityAccountHelper": "Un acompte de {{penalityBlockAccount}}{{ currencyDisplay }} sera appliqué pour ce membre",
-            "restriction": "Restrictions",
+            "restriction": "Conditions",
             "maxUseDay": "Utilisations maximum par jour",
-            "maxUseHelper": "Laisser vide pour ne pas imposer de limite",
+            "maxUseHelper": "Laissez vide pour ne pas imposer de limite d'utilisation",
             "maxUseWeek": "Utilisations maximum par semaine",
             "maxUseMonth": "Utilisations maximum par mois",
             "maxUseMember": "Achat maximum par membre",
-            "newClientOnly": "Uniquement pour les nouveaux clients",
-            "notForSell": "Invisible pour les clients",
+            "newClientOnly": "Uniquement visible par les nouveaux membres",
+            "notForSell": "Invisible pour les membres",
             "inShopPayment": "Possibilité de payer sur place",
             "categories": "Catégories",
             "room": "Salles",
             "activities": "Activités",
-            "letBlank": "Laisser vide pour tout autoriser",
-            "compatibility": "Votre carte sera compatible uniquement avec les séances correspondantes à l’une des catégories sélectionnées ET l’une des salles sélectionnées ET l’une des activités sélectionnées",
+            "letBlank": "Laissez vide pour ne pas limiter cette carte",
+            "compatibility": "Votre carte sera compatible uniquement avec les cours sélectionnés, les activités sélectionnées, les catégories sélectionnées ou les activités sélectionnées.",
             "vod": "VOD",
             "vodAccessCard": "Donne l’accès à la VOD",
             "only_vod_access": "Restreindre l’utilisation de la carte à de la VOD uniquement",
@@ -9271,12 +9271,12 @@
             "startAfterEnd": "L’heure de début doit être inférieure à l’heure de fin",
             "atLeastOneDay": "Au moins un jour doit être choisi",
             "description": "Description",
-            "unusableByStaff": "Invisible pour le staff",
+            "unusableByStaff": "Invisible pour les professeurs",
             "allowGuest": "Compatible avec la réservation pour un invité",
             "expiration_date": {
-                "label": "Date limite d'achat",
+                "label": "Durée de vente",
                 "helperText": "Disponible jusqu’au",
-                "tooltip": "Passée la date choisie, la carte n’apparaîtra plus à la vente pour les clients."
+                "tooltip": "Après la date choisie, la carte ne sera plus disponible à l'achat"
             },
             "offPeak": {
                 "label": "Réservations possibles sur certains créneaux horaires",
@@ -9419,14 +9419,14 @@
                 "descendingCredit": "Crédit décroissant"
             },
             "titleCategory": "Catégories",
-            "titleManagerOnly": "Disponibilité à la vente",
+            "titleManagerOnly": "Visibilité",
             "titleSort": "Trier",
             "filterCategory": "Toutes les catégories",
-            "filterManagerOnly": "Toutes les disponibilités",
-            "managerOnly": "Invisible pour les clients",
-            "noManagerOnly": "Disponible à la vente",
+            "filterManagerOnly": "Visible par tous",
+            "managerOnly": "Invisible pour les membres",
+            "noManagerOnly": "Visible sur le Marketplace",
             "noAvailable": "Aucune carte correspondant aux disponibilités choisies",
-            "unusableByStaff": "Invisible pour le staff"
+            "unusableByStaff": "Invisible pour les professeurs"
         },
         "category": {
             "category": "Catégories de cartes de cours",
@@ -10025,7 +10025,7 @@
         },
         "noPrivateConsumerPass": "Personne n'a cette carte de rendez-vous",
         "noPrivatePass": "Les cartes RDV permettent aux membres de prendre RDV, définissez ici vos tarifs et modalités.",
-        "noPrivateService": "Un rendez-vous est réservable sur le créneau que vous avez choisi, par le membre.",
+        "noPrivateService": "Un rendez-vous est un cours particulier avec un professeur. Ajoutez un rendez-vous pour fixer sa durée, ainsi que d'autres conditions pour vos membres.",
         "serviceGroup": {
             "delete": "Supprimer",
             "edit": "Modifier",
@@ -10257,10 +10257,10 @@
         },
         "privateService": {
             "padBeforeBooking": {
-                "explain1": "Si activé, le temps de tampon après le premier rendez-vous et celui avant le deuxième rendez-vous ne se chevaucheront pas (l'écart entre deux rendez-vous sera plus important car deux temps tampons sont pris en compte). Si non activé, le temps de tampon après le premier rendez-vous et celui avant le deuxième rendez-vous se chevaucheront",
-                "explain2": "Exemple : Un rendez-vous a été fixé à 13 heures, il dure une heure et il y a un temps de tampon de 5 minutes avant et après le rendez-vous (par exemple pour le nettoyage de la salle).",
-                "explain3": "SI ACTIVÉ : Le prochain rendez-vous pourra être réservé à partir de 14h10 (5 minutes après la fin du rendez-vous précédent + 5 minutes avant le début du rendez-vous suivant). Les temps tampons des rendez-vous ne peuvent pas se chevaucher.",
-                "explain4": "NON-ACTIVÉ : le prochain rendez-vous pourra être réservé à partir de 14h05 (les 5 minutes après la fin du rendez-vous précédent seront les mêmes 5 minutes nécessaires avant le début du rendez-vous suivant). Dans ce cas, les temps tampons peuvent se chevaucher."
+                "explain1": "Une fois activés, les tampons de temps entre le premier et le deuxième rendez-vous ne se chevaucheront pas. Cela signifie qu'il y aura un plus grand écart de temps entre les deux rendez-vous, car deux tampons de temps sont pris en compte.",
+                "explain2": "Exemple : Un rendez-vous a été fixé à 13 heures. Il dure une heure et il y a un temps de tampon de 5 minutes avant et après le rendez-vous.",
+                "explain3": "Si activé : Le prochain rendez-vous pourra être réservé à partir de 14h10 (5 minutes après la fin du rendez-vous précédent + 5 minutes avant le début du rendez-vous suivant). Les temps tampons peuvent pas se chevaucher.",
+                "explain4": "Si desactivé : le prochain rendez-vous pourra être réservé à partir de 14h05 (5 minutes après la fin du rendez-vous précédent). Dans ce cas, les temps tampons peuvent se chevaucher."
             },
             "delete": {
                 "title": "Suppression du rendez-vous",
@@ -10571,7 +10571,7 @@
                 "submit": "Confirmer"
             },
             "list": {
-                "createButton": "Créer une carte RDV",
+                "createButton": "Créer une carte de RDV",
                 "isEmpty": "Aucune carte RDV",
                 "availableCustomer": "Cartes disponibles à la vente",
                 "managerOnly": "Cartes non disponibles à la vente"
@@ -10587,8 +10587,8 @@
             "compatibleServices": {
                 "title": "RDV compatibles",
                 "add": "Ajouter",
-                "isEmpty": "Aucun rendez-vous compatible",
-                "unusable": "Inutilisable"
+                "isEmpty": "Il manque des informations importantes",
+                "unusable": "Cette carte de rendez-vous n'est actuellement compatible avec aucun rendez-vous, car il manque certaines informations importantes. Remplissez les champs obligatoires et réessayez.   "
             },
             "detailTitles": {
                 "credit_quantity": "Nombre de crédits",
@@ -10602,26 +10602,26 @@
                 "universalPass": {
                     "warningIsUniversalPass": "Cette carte est une carte universelle, une carte jumelle a été créée dans les cartes de cours. Tous les champs modifiés sur cette carte seront aussi modifiés sur la carte jumelle (sauf la catégorie). Il en est de même pour les notifications, extensions et modifications des crédits.",
                     "label": "Carte universelle",
-                    "helperText": "Les cartes universelles peuvent être utilisées pour réserver des cours collectifs ET des rendez-vous. Une fois la carte créée, une carte jumelle sera créée dans les cartes de cours. Le nombre de crédit des deux cartes sera lié. A l’achat de l’une des deux cartes, l’autre sera automatiquement ajoutée au membre (sans frais supplémentaire).",
+                    "helperText": "Les cartes universelles peuvent être utilisées pour réserver des cours collectifs et des rendez-vous. A l’achat d’une carte universelle, nous ajoutons automatiquement une carte de RDV « jumeau » pour partager les crédits entre les deux types de cartes.",
                     "deativatedTags": "Désactivé pour les cartes universelles"
                 },
-                "title": "Carte de rendez-vous",
+                "title": "Ajouter une carte de rendez-vous",
                 "franchise": "Cette carte est une carte partagée par le compte franchiseur. Certains éléments ont été définis par le compte franchiseur et ne sont pas modifiables",
                 "categoryTitle": {
                     "info": "Informations générales",
                     "paymentMeans": "Moyens de paiement",
                     "validity": "Validité de la carte",
-                    "compatibility": "Compatibilité",
+                    "compatibility": "Rendez-vous compatibles",
                     "compatibilityAppointment": "Compatibilité RDV"
                 },
                 "full_vod_access": {
                     "label": "Donne accès à la VOD"
                 },
                 "managerOnly": {
-                    "label": "Invisible pour les clients"
+                    "label": "Indisponible à l'achat"
                 },
                 "new_member_only": {
-                    "label": "Uniquement pour les nouveaux clients"
+                    "label": "Visible uniquement par les nouveaux membres"
                 },
                 "name": {
                     "label": "Nom",
@@ -10629,36 +10629,36 @@
                 },
                 "category": "Nom de la catégorie",
                 "credits": {
-                    "label": "Nombre de crédits inclus",
-                    "helperText": "Chaque séance coûte un certain nombre de crédits",
+                    "label": "Nombre de crédits",
+                    "helperText": "Choisissez le nombre de crédits inclus dans cette carte",
                     "decimalCredit": {
                         "helperText": "Cette carte de RDV possédera {{count}} crédit.",
                         "helperText_plural": "Cette carte de RDV possédera {{count}} crédits."
                     }
                 },
                 "price": {
-                    "label": "Prix TTC",
-                    "helperText": "Prix de la carte pour le client"
+                    "label": "Prix TTC * ",
+                    "helperText": "Le prix de vente total de la carte."
                 },
                 "tax": {
-                    "label": "TVA"
+                    "label": "TVA *"
                 },
                 "durationDays": {
-                    "label": "Durée de validité en jours"
+                    "label": "Jours"
                 },
                 "durationMonths": {
-                    "label": "Durée de validité en mois",
+                    "label": "Mois",
                     "helperText": "S'ajoute au nombre de jours"
                 },
                 "durationYears": {
-                    "label": "Durée de validité en années",
+                    "label": "Années",
                     "helperText": "S'ajoute au nombre de jours et de mois"
                 },
                 "duration": {
                     "fullText": "Cette carte sera valide pendant ",
                     "valid": "Valide ",
-                    "days": "{{ count }} jour",
-                    "days_plural": "{{ count }} jours",
+                    "days": "Jour",
+                    "days_plural": "Jours",
                     "months": "{{ count }} mois",
                     "daysMonths": "{{ duration_months }} mois et {{ duration_days }} jours",
                     "years": "{{ count }} an",
@@ -10667,7 +10667,7 @@
                 },
                 "available_payment_method_identifiers": {
                     "label": "Moyens de paiement autorisés",
-                    "helperText": "Sélectionnez au moins un moyen de paiement. Si le panier du membre contient des éléments dont les moyens de paiements sont incompatibles, le paiement en ligne sera proposé par défaut.",
+                    "helperText": "Choisissez au moins un mode de paiement. Si aucun n'est sélectionné, le paiement en ligne sera choisi par défaut.",
                     "warning": "Rendez votre carte visible pour les clients pour pouvoir sélectionner les moyens de paiement."
                 },
                 "startDate": "Date de début",
@@ -10695,26 +10695,26 @@
                     "privateService": "Ajouter un rendez-vous compatible"
                 },
                 "appliesForPayroll": {
-                    "label": "Rendez-vous pris en compte dans le calcul de la rémunération du professeur",
-                    "helperText": "Par défaut, les rendez-vous sont facturés au studio et comptabilisés dans le récapitulatif et la rémunération du professeur. En désactivant ce paramètre, les rendez-vous associés à cette carte n'apparaîtront plus dans le récapitulatif du professeur."
+                    "label": "Les cours achetés avec cette carte sont inclus dans la rémunération du professeur",
+                    "helperText": "Par défaut, les cours sont facturés au studio et inclus dans la rémunération du professeur. Désactivez ce paramètre pour que les cours associés à cette carte n'apparaissent plus dans la rémunération du professeur."
                 },
                 "onBehalfOfTeacher": {
                     "label": "Paiement entièrement reversé au professeur",
-                    "helperText": "Ce paramètre permet d'indiquer que les revenus associés aux rendez-vous de cette carte reviendront entièrement au professeur. Cette information sera visible dans vos rapports d'achat (CA) colonne 'Paiement entièrement reversé au professeur'."
+                    "helperText": "Sélectionnez ce paramètre pour garantir que les revenus associés aux rendez-vous de cette carte seront intégralement versés au professeur. Vous pouvez consulter cette information dans la colonne \"Paiement entièrement versé au professeur\" de vos rapports d'achat. "
                 },
                 "expiration_date": {
-                    "label": "Date limite d'achat",
+                    "label": "Durée de vente",
                     "helperText": "Disponible jusqu’au",
-                    "tooltip": "Passée la date choisie, la carte de rendez-vous n’apparaîtra plus à la vente pour les clients."
+                    "tooltip": "Après la date choisie, la carte de rendez-vous ne sera plus disponible à l'achat"
                 },
                 "description": {
                     "label": "Description"
                 },
                 "advancedOptions": {
                     "tag": {
-                        "tagsOnAcquisitionHelper": "Utilisez des tags pour identifier les membres ayant acheté cette carte de rendez-vous.",
+                        "tagsOnAcquisitionHelper": "Appliquez des tags aux membres qui ont acheté cette carte pour les identifier rapidement à l'avenir.",
                         "selectTags": "Sélectionnez les tags",
-                        "tagsOnAcquisition": "Tag après achat"
+                        "tagsOnAcquisition": "Appliquer les tags après l'achat"
                     },
                     "header": "Avancé"
                 },
@@ -10724,7 +10724,7 @@
             },
             "disabledTitle": "Cartes de RDV archivées",
             "listItem": {
-                "unusableByStaff": "Invisible pour le staff"
+                "unusableByStaff": "Invisible pour les professeurs"
             },
             "noNotificationsWarning": "Vous n'avez pas encore de notifications. Pour créer des nouvelles notification, allez dans <strong>Marketing > Notifications.</strong>"
         },
@@ -10768,55 +10768,55 @@
             },
             "form": {
                 "pad_before_booking": {
-                    "label": "Activer pour éviter le chevauchement des temps de tampons des séances dont les heures de fin et de début sont proches"
+                    "label": "Évitez les tampons de temps qui se chevauchent entre les rendez-vous"
                 },
                 "managerOnly": {
-                    "label": "Invisible pour les clients"
+                    "label": "Invisible sur le Marketplace"
                 },
                 "last_discard_minutes": {
                     "label": "Dernière annulation remboursable jusqu'à",
                     "helperText": "Si la réservation est annulée hors délai le crédit ne sera pas remboursé"
                 },
                 "last_booking_minutes": {
-                    "label": "Avant le début du rendez-vous, dernière réservation possible"
+                    "label": "Dernière réservation possible avant le début du rendez-vous"
                 },
                 "establishmentResourceType": {
                     "isHomeService": {
                         "label": "A domicile",
-                        "helperText": "Une adresse sera demandé à chaque réservation"
+                        "helperText": "Nous demanderons une adresse aux membres une fois le rendez-vous pris. "
                     },
                     "isWithoutEstablishment": {
-                        "label": "Sans lieu pré-déterminé",
-                        "helperText": "Ex : cours en visio / en extérieur / ..."
+                        "label": "Hors du site",
+                        "helperText": "Pour des cours en visio ou en extérieur"
                     },
                     "isWithEstablishment": {
                         "isEmpty": "Aucune salle configurée !",
-                        "label": "Dans l'une de vos salles",
-                        "helperText": "La réservation ne sera possible que si la salle dispose de suffisamment de places libres"
+                        "label": "Dans l'une de vos sites",
+                        "helperText": "La réservation ne sera effectuée que s'il y a suffisamment de créneaux disponibles. "
                     }
                 },
                 "paddingTitle": "Gestion des disponibilités",
                 "paddingStart": {
                     "label": "Nombre de minutes avant le début du RDV",
                     "helperText": "Sur le calendrier, le professeur et/ou la salle seront marqués comme non disponibles {{minutes}} minutes avant le début du RDV",
-                    "helperText0": "Sur le calendrier, le professeur et/ou la salle seront marqués comme non disponibles à l'heure de début du RDV"
+                    "helperText0": "La durée pendant laquelle le professeur ou le site sera indisponible avant le début du rendez-vous."
                 },
                 "paddingEnd": {
                     "label": "Nombre de minutes après la fin du RDV",
                     "helperText": "Sur le calendrier, le professeur et/ou la salle seront de nouveau marqués comme disponibles {{minutes}} minutes après la fin du RDV",
-                    "helperText0": "Sur le calendrier, le professeur et/ou la salle seront de nouveau marqués comme disponibles à l'heure de fin du RDV"
+                    "helperText0": "La durée jusqu'à ce que le professeur ou le site soit disponible après la fin du rendez-vous."
                 },
                 "resourceGroup": {
-                    "establishment": "Lieu",
+                    "establishment": "Localisation",
                     "coach": "Professeur"
                 },
                 "coach_consumer_attribution": {
                     "label": "Permettre le choix du professeur lors de la réservation",
-                    "helperText": "Le membre voit et choisit le professeur avant la réservation. Si décoché, vous devrez choisir le professeur après chaque prise de RDV"
+                    "helperText": "Les membres pourront choisir leur professeur lors de leur réservation. Si decoché, vous devrez désigner choisir le professeur une fois le rendez-vous pris."
                 },
                 "establishment_consumer_attribution": {
-                    "label": "Permettre le choix du lieu lors de la réservation",
-                    "helperText": "Le membre voit et choisit le lieu avant la réservation, si décoché bsport essaiera d'optimiser le remplissage des salles"
+                    "label": "Les membres peuvent choisir le site",
+                    "helperText": "Les membres pourront décider du site qu'ils souhaitent réserver. Décochez pour remplir automatiquement les sites."
                 },
                 "delete": {
                     "title": "Suppression du rendez-vous",
@@ -10825,17 +10825,17 @@
                     "confirm": "Supprimer"
                 },
                 "coach_capacity_used": {
-                    "label": "Nb maximum de RDV simultanés qu'un professeur peut gérer",
-                    "helperText": "Ex : un professeur peut surveiller deux élèves séparément sur deux machines",
+                    "label": "Le nombre maximum de rendez-vous auxquels un professeur peut assister simultanément est de :",
+                    "helperText": "Par exemple, un professeur peut surveiller deux élèves simultanément.",
                     "alertText": "Un professeur peut gérer simultanément 1, 2, 3, 4, 6 ou 12 rendez-vous."
                 },
                 "color": "Code couleur",
                 "use_full_establishment_capacity": {
-                    "label": "Nécessite toute la salle",
-                    "helperText": "Décochez pour autoriser simultanément plusieurs activités / rdv dans la même salle si la capacité le permet"
+                    "label": "Les membres peuvent choisir le site",
+                    "helperText": "Tout l'espace est nécessaire pour le rendez-vous. Décochez pour autoriser plusieurs rendez-vous dans le même site."
                 },
                 "title": "Rendez-vous",
-                "createButton": "Ajouter un type de Rendez-vous",
+                "createButton": "Ajouter un rendez-vous",
                 "addCoach": "Ajouter un professeur",
                 "addEstablishment": "Ajouter une salle",
                 "addSlot": "Ajouter un type séance",
@@ -10845,8 +10845,8 @@
                 },
                 "is_without_coach": "Sans professeur",
                 "name": {
-                    "label": "Nom du service",
-                    "placeholder": "Massage"
+                    "label": "Nom du rendez-vous",
+                    "placeholder": "par exemple massage"
                 },
                 "coach": {
                     "label": "Professeur",
@@ -10864,22 +10864,22 @@
                 },
                 "unpaidBooking": {
                     "title": "Payer plus tard",
-                    "label": "Autoriser la réservation sans payer",
-                    "helperText": "En activant cette fonctionnalité vos membres pourront réserver ce rendez-vous sans avoir à acheter/utiliser une carte. Le nombre de crédits du rendez-vous sera automatiquement débité de la prochaine carte compatible achetée.",
+                    "label": "Activer \"payer plus tard\" pour les membres",
+                    "helperText": "Permettez aux membres d'effectuer des réservations sans effectuer de paiement immédiatement. Les crédits seront automatiquement déduits des futurs cartes de RDV des clients.",
                     "tag": {
                         "header": "Tags",
-                        "helper": "Utilisez les tags pour rendre accessible la réservation sans payer seulement à certain membre. Tous les membres possèdant un des tags dans “Autorisé” pourront réserver sans payer. Ou bien tous les membres possèdant un des tags dans “Non-autorisé” ne pourront pas réserver sans payer.",
+                        "helper": "Utilisez les tags pour rendre accessible la réservation à certains membres. Tous les membres possèdant le tag “Autorisé” pourront réserver sans payer, tandis que les membres possèdant le tag “Non autorisés” ne pourrant pas réserver sans payer.",
                         "allowed": "Autorisé",
                         "notAllowed": "Non-autorisé",
-                        "doNotSelectToAllowAllMembers": "Laisser vide pour autoriser à tous les membres"
+                        "doNotSelectToAllowAllMembers": "Laisser vide pour autoriser à tous les membres."
                     }
                 },
                 "advancedOptions": {
                     "tag": {
-                        "helperText": "Utilisez les tags pour rendre le rendez-vous réservable uniquement par un groupe de membres souhaité : vous pouvez sélectionner des tags pour rendre toutes les séances de ce rendez-vous réservables uniquement par les membres possédant l'un des tags sélectionnés, ou vous pouvez sélectionner des tags pour rendre les séances du rendez-vous non réservables uniquement par les membres possédant l'un des tags sélectionnés.",
+                        "helperText": "Utilisez les tags pour rendre accessible le rendez-vous qu'à certains membres.",
                         "header": "Tags",
                         "allowed": "Autorisé",
-                        "doNotSelectToAllowAllMembers": "Laissez ce champ vide pour autoriser tous les membres",
+                        "doNotSelectToAllowAllMembers": "Laissez vide pour autoriser tous les membres.",
                         "notAllowed": "Non-Autorisé"
                     },
                     "header": "Avancé"
@@ -10900,9 +10900,9 @@
                     "oneBookingPerTeacher": "Une seule réservation par professeur est permise lorsque que les réservations ClassPass sont autorisées.",
                     "noTeacher": "Un professeur doit être désigné lorsque les réservations ClassPass sont autorisées."
                 },
-                "settingsTitle": "Paramètres",
-                "establishmentSelectorTitle": "Sélectionnez le(s) établissement(s) pour ce rendez-vous :",
-                "coachSelectorTitle": "Sélectionnez le(s) professeur(s) pour ce rendez-vous :",
+                "settingsTitle": "Conditions de réservation",
+                "establishmentSelectorTitle": "Choisissez le(s) site(s) pour ce rendez-vous :",
+                "coachSelectorTitle": "Choisissez le(s) professeur(s) pour ce rendez-vous.",
                 "editConfirmation": {
                     "confirm": "Confirmer",
                     "cancel": "Remettre à plus tard",
@@ -14990,7 +14990,7 @@
             "1": "Informations membre",
             "2": "Cartes",
             "3": "Réservations",
-            "4": "Achats"
+            "4": "Paiements"
         },
         "filters": {
             "1": {
@@ -14998,14 +14998,14 @@
                 "first": "Le solde du client, soustrait des factures impayées, est",
                 "second": " à   ",
                 "third": "{{ currencyDisplay }}",
-                "explanation": "A X {{ currencyDisplay }} sur son compte",
+                "explanation": "Segmenter les membres avec un certain montant sur le solde de leur compte",
                 "between": "et"
             },
             "5": {
                 "name": "Sexe",
-                "first": "Selectionner uniquement les",
+                "first": "Segment uniquement",
                 "men": "hommes",
-                "explanation": "Est une femme/un homme",
+                "explanation": "Segmenter les membres qui s'identifient comme hommes ou femmes",
                 "women": "femmes"
             },
             "8": {
@@ -15015,9 +15015,9 @@
                 "explanation": "Possède la carte de cours X utilisable"
             },
             "11": {
-                "explanation": "Possède les tags A et B",
+                "explanation": "Segmenter les membres en fonction de leurs tags",
                 "name": "Tags",
-                "first": "Filtrer sur les tags suivants"
+                "first": "Segmenter par tags"
             },
             "14": {
                 "explanation": "A acheté les produits A et B",
@@ -15035,11 +15035,11 @@
             },
             "18": {
                 "name": "Date d'inscription",
-                "first": "A rejoint le club   ",
-                "explanation": "A rejoint le club le..."
+                "first": "A rejoint votre studio le",
+                "explanation": "Segmenter les membres qui ont rejoint le, après, avant ou entre certaines dates"
             },
             "19": {
-                "explanation": "A acheté la carte de cours A à Y date, avec X credits",
+                "explanation": "Segmenter les clients qui ont acheté une carte de cours à une certaine date, avec X nombre de crédits restants",
                 "name": "Cartes de cours",
                 "first": "une des cartes de cours",
                 "has": "Possède",
@@ -15063,7 +15063,7 @@
             },
             "20": {
                 "name": "Paniers abandonnés",
-                "explanation": "A abandonné un panier d'un montant de...",
+                "explanation": "Segmenter les membres qui ont des produits dans leur panier mais n'ont pas finalisé leur achat",
                 "first": "La valeur totale des articles du panier est de",
                 "second": "à",
                 "third": "{{ currencyDisplay }}",
@@ -15074,8 +15074,8 @@
                 }
             },
             "21": {
-                "name": "Numéro de réservation",
-                "explanation": "A réservé sa X ème séance de l'activité A, dans la salle B...",
+                "name": "Segmenter les clients avec un certain nombre de réservations",
+                "explanation": "Segmenter les clients en fonction du nombre de séances qu'ils ont réservées, dans quelle salle, par quel professeur, achetées par quelle carte",
                 "first": "A réservé sa ",
                 "second_singular": "ère séance",
                 "second_plural": "ème séance",
@@ -15108,7 +15108,7 @@
             },
             "22": {
                 "name": "Nombre de réservations",
-                "explanation": "A réservé X séances de l'activité A, dans le lieu B, avec la carte de cours C...",
+                "explanation": "Segmenter les clients en fonction du nombre de cours qu'ils ont réservés, dans quelle salle, par quel professeur, achetés par quelle carte",
                 "first": "A réservé",
                 "second": "séances",
                 "between": "et",
@@ -15142,14 +15142,14 @@
                 "explanation": "A réservé sa première séance le..."
             },
             "24": {
-                "explanation": "A acheté les produits A et B",
+                "explanation": "Segmenter les clients qui ont acheté certains produits",
                 "shop": "Magasin",
                 "pack": "Carte de cours",
                 "combo": "Pack",
                 "between": "et",
                 "private_pass": "Cours particulier",
                 "workshop": "Carte de cours spécial atelier",
-                "name": "Dépenses",
+                "name": "Historique d'achats",
                 "first": "A dépensé",
                 "second": "{{ currencyDisplay }} pour les produits",
                 "date": {
@@ -15157,7 +15157,7 @@
                 }
             },
             "25": {
-                "explanation": "A acheté la carte RDV A à Y date, avec X credits",
+                "explanation": "Segmenter les clients qui ont acheté une carte de rendez-vous à une certaine date, avec X nombre de crédits restants",
                 "name": "Cartes RDV",
                 "first": "une des cartes de RDV",
                 "has": "Possède",
@@ -15180,7 +15180,7 @@
             },
             "26": {
                 "name": "Nombre de rendez-vous",
-                "explanation": "A réservé X rendez-vous avec le professeur A, dans le lieu B, avec la carte RDV C...",
+                "explanation": "Segmenter les clients en fonction du nombre de rendez-vous qu'ils ont réservés, dans quelle salle, par quel enseignant, achetés par quelle carte",
                 "first": "A réservé",
                 "second": "rendez-vous",
                 "between": "et",
@@ -15208,13 +15208,13 @@
                 }
             },
             "27": {
-                "explanation": "Possède X cartes de cours ou cartes de RDV valides",
+                "explanation": "Segmenter les clients qui ont X cartes de cours ou cartes de RDV valides",
                 "name": "Cartes valides",
-                "first": "Possède",
+                "first": "Membres avec",
                 "between": "et",
-                "second": "cartes de cours ou cartes de RDV valides aujourd'hui. Parmi",
+                "second": "cartes de cours, y compris",
                 "third": "ou",
-                "fourth": "(confondues)",
+                "fourth": "en tout.",
                 "info": "Les cartes de cours et cartes RDV bloquées sont aussi prises en comptes"
             },
             "28": {
@@ -15233,7 +15233,7 @@
                     "is": "réalisé",
                     "before": "Le premier achat est"
                 },
-                "explanation": "Filtre les membres ayant un premier panier finalisé/payé",
+                "explanation": "Segmenter les membres qui ont effectué leur premier achat entre certaines dates",
                 "name": "Premier achat"
             },
             "29": {
@@ -15255,7 +15255,7 @@
                         "before": "Le membre a obtenu"
                     }
                 },
-                "explanation": "Filtre les membres qui ont parrainé d'autres membres",
+                "explanation": "Segmenter les membres qui ont parrainé d'autres membres",
                 "name": "Parrainage"
             },
             "30": {
@@ -15272,8 +15272,8 @@
                     "is": "est",
                     "before": "Le membre"
                 },
-                "explanation": " Filtre les membres qui ont utilisé un lien de parrainage pour s'inscrire",
-                "name": "Membre parrainé"
+                "explanation": "Segmenter les membres qui ont utilisé un lien de parrainage pour s'inscrire",
+                "name": "Membres parrainés"
             },
             "101": {
                 "name": "Âge",
@@ -15281,7 +15281,7 @@
                 "between": "et",
                 "to": "à",
                 "second": "ans (inclus)",
-                "explanation": "Est âgé de moins/plus/exactement..."
+                "explanation": "Segmenter les membres en fonction de leur âge"
             },
             "102": {
                 "name": "Formulaires",
@@ -15295,26 +15295,26 @@
                 "third": "à un pourcentage",
                 "to": "à",
                 "between": "et",
-                "explanation": "A complété X formulaires à A% à la date B ",
+                "explanation": "Segmenter les membres en fonction du nombre de formulaires qu'ils ont remplis à certaines dates",
                 "date": {
                     "first": "complété pour la dernière fois"
                 },
                 "first": "A complété"
             },
             "103": {
-                "name": "Notifications",
+                "name": "Acceptance des notifications",
                 "allNeeded": "Toutes les conditions activées doivent être remplies",
                 "oneNeeded": "Au moins une des conditions activées doit être remplie",
                 "true": "Accepte",
                 "false": "N'accepte pas",
                 "sms": "de recevoir des notifications par SMS",
                 "email": "de recevoir des notifications par email",
-                "explanation": "Accepte les notifications par SMS/Email",
+                "explanation": "Segmenter les membres qui ont accepté les notifications par SMS ou email",
                 "or": "Ou",
                 "and": "Et"
             },
             "104": {
-                "name": "Notes",
+                "name": "Notes informatives",
                 "first": "Possède au moins une note",
                 "medicalOrNot": "médicale ou non",
                 "medical": "médicale",
@@ -15323,10 +15323,10 @@
                 "date": {
                     "first": "qui a été créée"
                 },
-                "explanation": "Possède au moins une note médicale (ou non)"
+                "explanation": "Segmenter les membres avec au moins une note"
             },
             "105": {
-                "name": "Relations",
+                "name": "Cartes de cours partagées",
                 "date": {
                     "first": "la relation a été établie"
                 },
@@ -15363,48 +15363,48 @@
                     "false": "n'accepte pas",
                     "second": "les emails"
                 },
-                "explanation": "Possède X relations et Y cartes de cours ou cartes de RDV ou réservations partagées"
+                "explanation": "Segmenter les membres qui ont des relations (comme des personnes à charge) ou des cartes de cours partagées"
             },
             "106": {
                 "name": "Téléphone",
                 "true": "A renseigné",
                 "false": "N'a pas renseigné",
                 "first": "un numéro de téléphone",
-                "explanation": "A renseigné un numéro de téléphone"
+                "explanation": "Segmenter les membres qui ont renseigné un numéro de téléphone"
             },
             "107": {
                 "name": "Conditions d'utilisation",
                 "true": "A accepté",
                 "false": "N'a pas accepté",
                 "first": "vos conditions générales d'utilisation",
-                "explanation": "A accepté les conditions générales d'utilisation"
+                "explanation": "Segmenter les membres qui ont accepté les conditions générales d'utilisation"
             },
             "400": {
                 "explain": "possède un mot de passe sur bsport",
                 "name": "Mot de passe",
-                "explanation": "Possède un mot de passe sur bsport"
+                "explanation": "Segmentez les membres qui ont enregistré un mot de passe avec votre compte bsport"
             },
             "410": {
                 "explain": "ayant accepté les décharges de responsabilité",
                 "name": "Décharge de responsabilité",
-                "explanation": "Ayant accepté les décharges de responsabilité"
+                "explanation": "Segmenter tous les membres qui ont accepté votre décharge de responsabilité"
             },
             "501": {
                 "name": "Date dernière séance réservée",
                 "first": "La dernière séance réservée a eu lieu il y a plus de",
                 "second": "jours, et n'a aucun réservation prévue dans le futur.",
-                "explanation": "A réservé sa dernière séance il y a..."
+                "explanation": "Segmenter les clients en fonction de la date de leur dernière réservation de cours"
             },
             "600": {
-                "name": "Moyen de paiement",
-                "explanation": "Filtrer par moyen de paiement sauvegardé et date d'expiration",
+                "name": "Modes de paiement",
+                "explanation": "Segmenter les membres en fonction de qui a enregistré un mode de paiement ou non",
                 "title": "Méthode de paiement sauvegardée",
                 "labelFirst": "Filtrer uniquement les membres",
                 "does_not_own": "Ne possédant pas de méthode de paiement sauvegardée",
                 "owns": "Possédant au moins une méthode de paiement sauvegardée",
                 "expiryDateLabel": "avec une date d'expiration"
             },
-            "isEmpty": "Aucun filtre n'est configuré, cette smartliste représente donc l'ensemble de la base membre",
+            "isEmpty": "Ce segment affiche tous vos membres car aucun paramètre n'a été défini.",
             "attendanceTrue": "présent",
             "attendanceFalse": "absent",
             "attendanceWarning": "Sélectionnez un statut",
@@ -15513,8 +15513,8 @@
                 "booked": "réservé"
             },
             "all": "Tous",
-            "active_filters": "Filtres actifs sur la smartlist",
-            "add_filter": "Ajouter un filtre",
+            "active_filters": "Paramètres actifs sur la smartlist",
+            "add_filter": "Ajouter un paramètre",
             "add": "Ajouter",
             "before": "avant",
             "after": "après",
@@ -15544,13 +15544,13 @@
             "tag_name": "Nom du Tag",
             "tag_group": "Nom du groupe",
             "asyncDialog": {
-                "title": "Mises à jour des règles de Tag ",
-                "message": "Suite à vos changements dans les règles de Tag de la smartlist {{ name }} les tags doivent être mis à jour. Cette synchronisation s'effectue toutes les deux heures."
+                "title": "Mettre à jour des règles de tag",
+                "message": "Toutes les tags des clients de cette smartlist seront mises à jour."
             },
             "tag": "Tag"
         },
         "memberBase": {
-            "helperText": "Cette smartlist s'applique à tous les membres",
+            "helperText": "Choisissez les membres que vous souhaitez afficher dans cette smartlist :",
             "options": {
                 "0": "Non archivés et archivés",
                 "1": "Non archivés",
@@ -16192,7 +16192,7 @@
             "tag_rules": {
                 "success": "La règle automatique a été lancée",
                 "error": "Impossible d'appliquer cette règle",
-                "limit_reached": "Impossible : Vous avez atteint la limite de création (10)"
+                "limit_reached": "Erreur : Vous avez atteint la limite de règles (10). "
             }
         },
         "subscription": {
@@ -16619,7 +16619,7 @@
                 }
             },
             "assignDisciplineGroup": {
-                "success": "Le groupe de disciplines du professeur a été mis à jour"
+                "success": "Activités du professeur one été mis à jour "
             },
             "updateCoachReplacementPreferences": {
                 "success": "Règles sauvegardées",
@@ -17270,7 +17270,7 @@
                 "week": "hebdomadaire"
             },
             "form": {
-                "title": "Formulaire contrat",
+                "title": "Ajouter un abonnement",
                 "name": {
                     "label": "Nom du contrat"
                 },
@@ -17349,8 +17349,8 @@
                     "invoice": "facture",
                     "invoice_plural": "factures",
                     "same_day_as_subscription": {
-                        "label": "Facturer le même jour que la date d'achat de la souscription",
-                        "explain": "Le jour de facturation dépendra du jour d'achat de l'abonnement.",
+                        "label": "Facturer à la date d'achat",
+                        "explain": "Les membres seront facturés en fonction du jour d'achat.",
                         "recurrence_explain": {
                             "day": "La souscription sera facturée tous les jours sur une durée totale de {{ total_subscription_duration }} {{ time_unit }} et génèrera {{ nb_interval }} {{ invoice }}. Le client pourra choisir la date de début de son abonnement.",
                             "day_plural": "La souscription sera facturée tous les {{ recurrence_basis }} jours sur une durée totale de {{ total_subscription_duration }} {{ time_unit }} et génèrera {{ nb_interval }} {{ invoice }}. Le client pourra choisir la date de début de son abonnement.",
@@ -17364,9 +17364,9 @@
                     },
                     "fixed_day": {
                         "label": "Facturer à un jour fixe",
-                        "explain": "Chaque facture sera facturée au jour choisi. Le premier paiement est calculé au prorata si besoin.",
+                        "explain": "Les membres seront facturés le jour choisi. Le premier paiement sera calculé au prorata si nécessaire.",
                         "recurrence_explain": {
-                            "month": "La souscription sera facturée tous les {{ month_billing_day }} du mois sur une durée totale de {{ nb_interval }} mois et génèrera {{ nb_interval }} {{ invoice }}. Le premier paiement est calculé au prorata si besoin."
+                            "month": "Les membres seront facturés le {{ month_billing_day }} du mois pour un total de {{ nb_interval }} mois. Le premier paiement sera calculé au prorata si nécessaire."
                         },
                         "end_of_month_explain": "Si un mois ne comporte pas de {{ month_billing_day }}, la facture sera éditée le dernier jour du mois.",
                         "modification_not_apply_to_past": "Vous êtes sur le point de modifier le jour de facturation de votre souscription. Seules les nouvelles souscriptions créées seront impactées. Les souscriptions en cours et les souscriptions avec renouvellement déjà existantes ne changeront pas (même après renouvellement)"
@@ -17378,21 +17378,21 @@
                     "label2": "du mois."
                 },
                 "settings": {
-                    "title": "Paramètres"
+                    "title": "Conditions"
                 },
                 "unusableByStaff": {
-                    "label": "Invisible pour le staff"
+                    "label": "Invisible pour les professeurs"
                 },
                 "highlightedAsRecommended": {
                     "label": "Marquer comme recommandé",
-                    "helperText": "Permet à vos clients de voir d'un coup d'oeil quels contrats sont actuellement recommandés."
+                    "helperText": "Mettez en avant cet abonnement auprès de vos membres en le promouvant dans la section \"recommandé\" du flux de réservation."
                 },
                 "advancedOptions": {
                     "tag": {
-                        "tagsOnAcquisitionHelper": "Utilisez des tags pour identifier les membres ayant payé la première facture",
+                        "tagsOnAcquisitionHelper": "Appliquez des tags aux membres qui ont payé la première facture pour les identifier rapidement à l'avenir.",
                         "tagGroupDuplicated": "Veuillez noter que les articles sélectionnés contiennent des tags de la même catégorie.",
                         "selectTags": "Sélectionnez les tags",
-                        "tagsOnAcquisition": "Tag après achat"
+                        "tagsOnAcquisition": "Appliquez les tags après l'achat"
                     },
                     "selectTags": "Sélectionnez les tags",
                     "title": "Avancé"
@@ -18627,8 +18627,8 @@
         "metaActivity": {
             "metaActivityList": "Activités",
             "metaActivityEditForm": "Formulaire Activité",
-            "metaActivityFormPage": "Formulaire Activité",
-            "metaActivityFormSubtitle": "Création d'un activité",
+            "metaActivityFormPage": "Ajouter un cours collectif",
+            "metaActivityFormSubtitle": "Configurer un cours collectif avec les infos et les conditions de réservation",
             "metaActivityEditFormSubtitle": "Modification d'une activité"
         },
         "invoice": {
@@ -18656,7 +18656,7 @@
         },
         "establishment": {
             "establishmentList": "Etablissements",
-            "establishmentFormPage": "Formulaire de salle",
+            "establishmentFormPage": "Ajouter un site",
             "establishmentGroupPage": "Localisations"
         },
         "marketplace": {
@@ -18729,9 +18729,9 @@
                     "error": "Erreur lors de l'enregistrement de l'activité"
                 },
                 "autoDiscard": {
-                    "checkbox": "Annuler les séances trop peu remplies",
-                    "explain": "Annuler la séance et envoyer une notification par mail aux élèves s'il y a {{bookings_nb}} réservation(s) ou moins {{hours}}h avant le début de la séance.",
-                    "emailRecipients": "Ce mail sera envoyé aux comptes ayant le rôle Owner ou Admin, ainsi qu'au professeur (ou professeur remplaçant) de la séance en question. Vous pouvez aussi configurer un mail à envoyer aux élèves.",
+                    "checkbox": "Annuler les cours sous-réservés",
+                    "explain": "Annuler les cours avec moins de 1 réservation(s) 1 heure(s) avant leur début. Les membres seront informés que le cours a été annulé.",
+                    "emailRecipients": "Si un cours est automatiquement annulé, un e-mail sera envoyé au Owner ou Admin, ainsi qu'au professeur et aux élèves.",
                     "min_bookings_nb": "Nombre de réservation(s) :",
                     "hours_before_start": "Heure(s) avant la séance :"
                 }
@@ -18807,7 +18807,7 @@
             "generate": "Générer",
             "tax": "TVA",
             "uploadOneImage": {
-                "new": "Glisser et déposer ou cliquer ici pour ajouter une image",
+                "new": "Télécharger une image",
                 "edit": "Glisser et déposer ou cliquer ici pour changer l'image"
             },
             "buy": "Acheter",
@@ -18986,11 +18986,11 @@
                 "item": {
                     "available_payment_method_identifiers": {
                         "label": "Moyens de paiement autorisés",
-                        "helperText": "Sélectionnez au moins un moyen de paiement. Si le panier du membre contient des éléments dont les moyens de paiements sont incompatibles, le paiement en ligne sera proposé par défaut."
+                        "helperText": "Choisissez au moins un mode de paiement. Si aucun n'est sélectionné, le paiement en ligne sera choisi par défaut."
                     },
-                    "onsite_payment_available": "Possibilité de payer sur place",
+                    "onsite_payment_available": "Payer sur place",
                     "sell_only_on_provision": "Proposer à la vente UNIQUEMENT si du stock est disponible",
-                    "featured": "Mettre en avant lors de la validation du panier",
+                    "featured": "Mettre en avant dans le panier",
                     "is_deliverable": "Impose les frais de livraison par défaut",
                     "create": "Ajouter un article",
                     "unlimitedProvision": "Pas de gestion du stock",
@@ -19022,9 +19022,9 @@
                     "tva": "TVA",
                     "advancedOptions": {
                         "tag": {
-                            "tagsOnAcquisitionHelper": "Utilisez des tags pour identifier les membres ayant acheté cet article",
+                            "tagsOnAcquisitionHelper": "Appliquez des tags aux membres qui ont acheté cet article pour les identifier rapidement à l'avenir.",
                             "selectTags": "Sélectionnez les tags",
-                            "tagsOnAcquisition": "Tag après achat"
+                            "tagsOnAcquisition": "Appliquez les tags après l'achat"
                         },
                         "header": "Avancé"
                     },
@@ -19531,16 +19531,16 @@
         },
         "metaActivityCategory": {
             "explain": "Ces catégories servent uniquement à ordonner les activités sur le backoffice à votre guise. Elles n'ont pas d'impact côté client",
-            "sctExplain": "Ces catégories indiquent le type d'activité. Elles apparaîtront sur la marketplace et l'application."
+            "sctExplain": "Choisissez la catégorie sous laquelle cette activité sera affichée sur le marketplace et l'application mobile."
         },
         "activity": {
             "explainImage": "Recommandé : 1920x1080 jpeg (fullHD)",
             "nextSlotAt": "Prochaine séance le ",
             "settings": "Paramètres",
             "is_broadcast": "Cours live streaming",
-            "lastBookingBeforeMinutes": "Avant le début du cours, dernière réservation possible",
-            "lastDiscardBeforeMinutes": "Avant le début du cours, dernière annulation possible",
-            "firstBookingMinutesUntil": "Les élèves peuvent réserver les séances futures si elles débutent dans moins de ",
+            "lastBookingBeforeMinutes": "Dernière réservation possible avant le début de la séance",
+            "lastDiscardBeforeMinutes": "Dernière annulation gratuite possible avant le début de la séance",
+            "firstBookingMinutesUntil": "Début de la période de réservation avant le début de la séance",
             "addOffers": "Ajouter des séances",
             "addActivity": "Ajouter une activité",
             "name": "Titre",
@@ -19860,13 +19860,13 @@
         "show_cancelled_offers": "Afficher les séances annulées",
         "metaActivityNotificationToolTip": "Des notifications sont définies pour les réservations concernant cet élément",
         "restrictions": {
-            "add": "Ajouter des règles différents ({{ count }}/{{ max }})",
-            "header": "Restrictions",
+            "add": "Créer une condition",
+            "header": "Conditions de réservation",
             "lastBookingBeforeMinutes": "Dernière réservation",
             "lastDiscardBeforeMinutes": "Dernière annulation",
             "firstBookingMinutesUntil": "Ouvrir les réservations",
-            "personnalizedHeader": "Restrictions personnalisées",
-            "personnalizedHelper": "Indiquer des restrictions différentes pour certains membres grâce aux tags. Les membres disposants de l’un des tags sélectionnés auront des restrictions différentes des autres.",
+            "personnalizedHeader": "Conditions personnalisées",
+            "personnalizedHelper": "Ajouter des conditions pour certains membres grâce aux tags.",
             "personnalizedRestrictionsIndex": "Restriction personnalisée n°{{ count }}",
             "next": "Suivant",
             "back": "Précédent",
@@ -20200,7 +20200,7 @@
             "codeSource": "Voir le code que vous devez copier sur votre propre site",
             "copyUrl": "Accéder au lien de votre calendrier",
             "ownStyle": "Mode de compatibilité (ignorer le thème du site)",
-            "creationPageInfo": "Personnalisez des widgets et intégrez les sur votre site",
+            "creationPageInfo": "Configurez et personnalisez des widgets pour qu'ils reflètent votre marque. Ensuite vous pouvez intégrer le code sur votre site web.",
             "codeInfo": "Le code à intégrer dans votre site",
             "linkToConfig": "Lien vers cette configuration",
             "dialogTitle": "Personnalisation du Widget",
@@ -20729,7 +20729,7 @@
             "search": "Rechercher un atelier",
             "addWorkshopGroup": "Ajouter un groupe de séance"
         },
-        "noWorkshops": "Gérez ici vos ateliers, un atelier est un évènement dont la date est fixée à l'avance.",
+        "noWorkshops": "Les ateliers sont des cours qui se déroulent en tant qu'événement unique. Utilisez le formulaire pour ajouter un nouvel atelier, puis définissez des conditions afin de pouvoir gérer l'affichage et le fonctionnement de ces ateliers pour vos membres.",
         "navigation": {
             "goToPaymentPack": "Cartes de cours"
         },
@@ -21286,7 +21286,7 @@
         },
         "lateStatus": {
             "isLate": "En retard",
-            "isNotLate": "Dans les temps"
+            "isNotLate": "À l'heure"
         },
         "registrationsStatus": {
             "areClosed": "Fermées",
@@ -21329,7 +21329,7 @@
         "disciplineGroup": {
             "add": "Ajouter un groupe",
             "title": "Groupes de disciplines",
-            "activities": "Activités ({{number}})",
+            "activities": "Cours collectifs",
             "workshops": "Ateliers ({{number}})",
             "categories": "Catégories ({{number}})",
             "coaches": "{{count}} Professeur",
@@ -21345,7 +21345,7 @@
                 "name": "Nom",
                 "nameHelperText": "Nom du groupe de discipline",
                 "required": "Ce champ est requis",
-                "groupTypes": "Type de cours / catégories",
+                "groupTypes": "Cours et catégories :",
                 "activities": "Activités",
                 "pickActivity": "Choisir une activité",
                 "allActivities": "Enseigne toutes les activités",
@@ -21355,7 +21355,7 @@
                 "categories": "Catégories",
                 "pickCategory": "Choisir une catégorie",
                 "allCategories": "Enseigne toutes les catégories",
-                "establishments": "Établissements",
+                "establishments": "Sites",
                 "locations": "Localisations",
                 "pickEstablishment": "Laissez vide pour tout sélectionner",
                 "allEstablishments": "Tous les établissements",
@@ -21367,7 +21367,7 @@
             }
         },
         "compatibleCoaches": {
-            "title": "Professeurs disponibles par discipline",
+            "title": "Professeurs compatibles par activité",
             "compatibleCoaches": "{{count}} professeur compatible",
             "compatibleCoaches_plural": "{{count}} professeurs compatibles",
             "nextSlot": "Prochaine séance le {{date}} - {{hour}}",
@@ -21377,12 +21377,12 @@
         },
         "coachEdit": {
             "title": "Remplacement",
-            "description": "Indiquez quels cours sont enseignés par votre professeur. Si une demande de remplacement est effectuée dans l'un de ces cours, ce professeur sera notifié par mail. Si rien n'est sélectionné, ce professeur ne sera pas notifié.",
-            "disciplineGroup": "Groupe de disciplines",
+            "description": "Choisissez les activités enseignées par le professeur pour remplir automatiquement les champs ci-dessous. Si un remplaçant est nécessaire pour un cours, nous en informerons le professeur.",
+            "disciplineGroup": "Activités :",
             "customRules": "Personnaliser les règles",
-            "activities": "Activités",
-            "pickActivity": "Choisir une activité",
-            "allActivities": "Enseigne toutes les activités",
+            "activities": "Cours collectifs",
+            "pickActivity": "Choisissez un cours collectif",
+            "allActivities": "Enseigne tous les cours collectifs",
             "workshops": "Ateliers",
             "pickWorkshop": "Choisir un atelier",
             "allWorkshops": "Enseigne tous les ateliers",
@@ -21404,10 +21404,10 @@
                 "helper": "Voulez vous être redirigé sur la page des demandes de remplacements afin d'annuler les demandes obsolètes ?"
             },
             "buttonLabel": "Ouvrir",
-            "title": "Des demandes de remplacement actives sont liées à des séances annulées.",
-            "description": "Afin de voir ces séances, veuillez activer le filtre <strong>{{switchLabel}}</strong> ci-dessus",
-            "filterHelper": "Si cette alerte persiste et qu'aucune séance n'apparait en mode <strong>{{switchLabel}}</strong>, nous conseillons de désactiver les filtres et d'élargir la plage de dates.",
-            "cancelledOffersModeTitle": "Mode séances annulées"
+            "title": "Afficher les demandes de remplacement actives",
+            "description": "Activez le bouton \"séances annulées\" pour afficher les demandes de remplacement liées aux séances annulées. ",
+            "filterHelper": "Si aucune séance n'apparaît, essayez de désactiver les filtres et d'élargir la plage de données.",
+            "cancelledOffersModeTitle": "Séances annulées"
         }
     },
     "tutorial": {

@@ -197,6 +197,7 @@ export const getConfig = (config: {
   const define: NonNullable<UserConfig["define"]> = {
     [`__${namespace}__`]: JSON.stringify({
       __I18N_NAMESPACE_PREFIX__: removeScope(packageJson.name),
+      __SENTRY_SCOPE_TAG__: removeScope(packageJson.name),
       __APPLICATION_BASE_URL__: appBaseUrl,
       __BASENAME__: isLocal ? "" : base,
     }),

@@ -231,6 +231,7 @@ describe("getConfig", () => {
     expect(variables["__I18N_NAMESPACE_PREFIX__"]).toBe(
       "sm-navigation-sidebar",
     );
+    expect(variables["__SENTRY_SCOPE_TAG__"]).toBe("sm-navigation-sidebar");
     expect(variables["__BASENAME__"]).toBe("");
 
     // Preview mode
@@ -247,6 +248,9 @@ describe("getConfig", () => {
       "http://localhost:4000",
     );
     expect(previewVariables["__I18N_NAMESPACE_PREFIX__"]).toBe(
+      "sm-navigation-sidebar",
+    );
+    expect(previewVariables["__SENTRY_SCOPE_TAG__"]).toBe(
       "sm-navigation-sidebar",
     );
     expect(previewVariables["__BASENAME__"]).toBe("");
@@ -266,6 +270,7 @@ describe("getConfig", () => {
     expect(prodVariables["__I18N_NAMESPACE_PREFIX__"]).toBe(
       "sm-navigation-sidebar",
     );
+    expect(prodVariables["__SENTRY_SCOPE_TAG__"]).toBe("sm-navigation-sidebar");
     expect(prodVariables["__BASENAME__"]).toBe("/studio/");
   });
 

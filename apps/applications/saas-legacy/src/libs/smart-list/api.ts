@@ -68,10 +68,8 @@ export const deleteMultiSmartListAutoTagRules = (
 };
 
 export const applySmartListAutoTagRules = async (id: number) => {
+  // DEPRECATED: doesn't perform any action
   return postAuth(`${SMART_LIST_URI}${id}/apply_smartlist_tag_rules/`);
-};
-export const applyAsyncSmartListAutoTagRules = async (id: number) => {
-  return getAuth(`${SMART_LIST_URI}${id}/async_apply_smartlist_tag_rules/`);
 };
 export const getMemberTable = async (id: number) => {
   return getAuth(`${SMART_LIST_URI}${id}/export_members/`);

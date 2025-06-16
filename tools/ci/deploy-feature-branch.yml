@@ -7,6 +7,8 @@
     - cluster:bsport-tooling
   extends:
     - .before-script-install-node-modules
+  variables:
+    VITE_RELEASE_SHA: $CI_COMMIT_SHORT_SHA
   script:
     - echo "Start deploying feature branch ..."
     - git fetch origin dev

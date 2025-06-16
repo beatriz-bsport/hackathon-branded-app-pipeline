@@ -1,3 +1,4 @@
 export { initSentry } from "./init";
-export { setTransactionId } from "./transaction";
-export { setSessionId } from "./session";
+export { ApplicationScopeProvider } from "./components/ApplicationScope";
+export { ErrorBoundary } from "./components/ErrorBoundary";
+export { getSessionId, getTransactionId } from "./session";

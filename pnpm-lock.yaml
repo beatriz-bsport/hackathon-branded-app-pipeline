@@ -2648,12 +2648,18 @@ importers:
 
   packages/utils/sentry:
     dependencies:
+      '@bsport/envs':
+        specifier: workspace:*
+        version: link:../envs
       '@bsport/random-utils':
         specifier: workspace:*
         version: link:../random
       '@sentry/react':
         specifier: ^7.26.0
         version: 7.120.2(react@19.0.0)
+      react:
+        specifier: ^19.0.0
+        version: 19.0.0
     devDependencies:
       '@bsport/config-eslint-react':
         specifier: workspace:*
@@ -2673,6 +2679,9 @@ importers:
       '@bsport/local-storage-auth-token':
         specifier: workspace:*
         version: link:../../local-storage/auth-token
+      '@bsport/sentry':
+        specifier: workspace:*
+        version: link:../sentry
       '@bsport/store-auth':
         specifier: workspace:*
         version: link:../../stores/shared/auth

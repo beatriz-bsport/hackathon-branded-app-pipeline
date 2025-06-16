@@ -9,6 +9,7 @@ import {
   i18nNamespaces,
   inMemoryTranslationsLoader,
 } from "@bsport/kaizen-primitive-core";
+import { initSentry } from "@bsport/sentry";
 
 import DevTools from "#src/dev-utils/DevTools";
 
@@ -25,6 +26,11 @@ const { i18nInstance: kaizenI18nInstance } = instanciateAppI18n({
   inMemoryTranslationsLoader: inMemoryTranslationsLoader,
   debug: process.env.NODE_ENV !== "production",
 });
+
+/**
+ * Initialize sentry
+ */
+initSentry();
 
 /**
  * A Wrapper to provide the features required to run an application.

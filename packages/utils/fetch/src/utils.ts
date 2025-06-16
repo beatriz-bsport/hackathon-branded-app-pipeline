@@ -1,5 +1,5 @@
 import { getAuthToken } from "@bsport/local-storage-auth-token";
-import { setSessionId, setTransactionId } from "@bsport/sentry";
+import { getSessionId, getTransactionId } from "@bsport/sentry";
 import { getTimezoneName } from "@bsport/timezone-utils";
 
 export type ResponseType<T> = {
@@ -18,11 +18,11 @@ export function getHeaders(customHeaders?: HeadersInit): HeadersInit {
   // missing getBsportRequestFromHeader() here
   return {
     Accept: "application/json",
-    "X-Session-ID": setSessionId(),
+    "X-Session-ID": getSessionId(),
     "X-Timezone-Name": getTimezoneName() || "unknown",
     "X-React-Referrer": window.location.href.slice(0, 250),
     "X-bsport-log-collection": "true",
-    "X-Transaction-ID": setTransactionId(),
+    "X-Transaction-ID": getTransactionId(),
     ...(token ? { Authorization: `Token ${token}` } : {}),
     ...customHeaders,
   };

@@ -11,17 +11,12 @@ export const filterElementClasses = cva([
 ]);
 
 export const filterElementBtnClasses = [
-  "flex",
   "w-full",
   "h-full",
-  "px-xs",
   "gap-xs",
-  "justify-center",
-  "items-center",
   "text-onsurface-action-main-rest text-body-md leading-xs",
   "bg-transparent",
-  "cursor-pointer",
-  "border-stroke-thin border-[transparent]",
+  "rounded-sm",
 ];
 
 // TODO: This has been fixed to 500px for now, but we should validate this with design.

@@ -239,7 +239,7 @@ const Content: React.FC<{
       tabIndex={-1}
       className={classNames(defaultClasses, className, {
         "top-0 left-0 opacity-transparent": !isVisible,
-        "overflow-y-scroll": !!maxHeightPx,
+        "overflow-y-auto": !!maxHeightPx,
       })}
       role={role}
       aria-hidden={!isMounted}

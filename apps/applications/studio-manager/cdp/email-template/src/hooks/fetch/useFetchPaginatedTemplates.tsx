@@ -16,6 +16,7 @@ import { usePaginationQueryParams } from "@bsport/use-pagination-query-params";
 import { fetch } from "#src/utils/fetch";
 import type { PossibleEmailTemplateType } from "#src/utils/types";
 
+const MAX_PAGE_SIZE_FUZZY_SEARCH = 20;
 const DEFAULT_PAGE_SIZE = 10;
 const DEFAULT_PAGE = 1;
 
@@ -70,10 +71,10 @@ export const useFetchPaginatedTemplateList = ({
   const _fuzzySearchEmailTemplate = useCallback(async () => {
     return fuzzySearchEmailTemplateAction(fetch, {
       queryString: searchInput ?? "",
-      page_size: currentPageSize,
-      page: currentPage,
+      page_size: MAX_PAGE_SIZE_FUZZY_SEARCH,
+      page: 1,
     });
-  }, [currentPage, currentPageSize, searchInput]);
+  }, [searchInput]);
 
   const [{ isLoading: isLoadingFuzzy }, fuzzySearchEmailTemplate] = useAsync<
     typeof _fuzzySearchEmailTemplate

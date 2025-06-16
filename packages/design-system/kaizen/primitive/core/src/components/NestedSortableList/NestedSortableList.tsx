@@ -6,8 +6,6 @@ import { sortItemInList } from "#src/utils/sortable";
 import DragAndDrop from "../DragAndDrop";
 import SortableList, { Sortable, SortableListProps } from "../SortableList";
 
-const LIST_HEADER_HEIGHT = 72; // px, height of the header of the list, because List header is set to 4.5rem which is equal to 72px.
-
 const DRAGGED_ITEM_CLASSNAME =
   "opacity-sm border-b-stroke-regular border-onsurface-main-strong bg-surface-default-weak";
 
@@ -46,7 +44,7 @@ const NestedSortableList: React.FC<NestedSortableListProps> = ({
     useState<SortableListProps[]>(sortableLists);
   const [draggedSortableList, setDraggedSortableList] =
     useState<SortableListProps | null>(null);
-  const inputRef = React.createRef<HTMLDivElement>();
+  const divRef = React.createRef<HTMLDivElement>();
 
   const handleSortChange = (listId: string) => (updatedItems: Sortable[]) => {
     onSortChildren({ reorderedChildren: updatedItems, parentListId: listId });
@@ -67,19 +65,10 @@ const NestedSortableList: React.FC<NestedSortableListProps> = ({
       // When dragging, all lists are collapsed, changing the vertical position of the dragged item (sortable list)
       // Because we need to scroll to this new position (which is the total number of viewable items in the window
       // added to the top position of the drop zone so that you can directly go to the top of the whole DragAndDrop list),
-      const { x } = inputRef.current?.getBoundingClientRect() || {
-        x: 0,
-      };
-      const windowHeight = window.innerHeight;
-      const numberOfHeadersCanFitInWindow =
-        (windowHeight - x) / LIST_HEADER_HEIGHT;
-      const topPosition =
-        x + (numberOfHeadersCanFitInWindow - 1) * LIST_HEADER_HEIGHT;
-      window.scrollTo({
-        top: topPosition,
+      const element = document.getElementById(id);
+      element?.scrollIntoView({
         behavior: "smooth",
       });
-
       // Find the dragged list by its ID and set it as the draggedSortableList
       const draggedList = sortableListData.find(({ id }) => dragId === id);
       if (draggedList) {
@@ -107,7 +96,7 @@ const NestedSortableList: React.FC<NestedSortableListProps> = ({
   };
 
   return (
-    <div ref={inputRef}>
+    <div ref={divRef}>
       <DragAndDrop
         id={id}
         onDrop={handleDrop}
@@ -131,6 +120,7 @@ const NestedSortableList: React.FC<NestedSortableListProps> = ({
                       items={draggedSortableList.items}
                       onSortChange={handleSortChange(draggedSortableList.id)}
                       hideListContent={!!draggedSortableList}
+                      emptyStateProps={draggedSortableList.emptyStateProps}
                       isDraggable={true}
                       collapsibleProps={
                         draggedSortableList.collapsibleProps ?? {
@@ -155,6 +145,7 @@ const NestedSortableList: React.FC<NestedSortableListProps> = ({
                           hidden: isDragged,
                         })}
                         hideListContent={!!draggedSortableList}
+                        emptyStateProps={list.emptyStateProps}
                         collapsibleProps={
                           list.collapsibleProps ?? {
                             initiallyOpen: true,
@@ -184,6 +175,7 @@ const NestedSortableList: React.FC<NestedSortableListProps> = ({
                   id={draggedSortableList.id}
                   items={draggedSortableList.items}
                   onSortChange={handleSortChange(draggedSortableList.id)}
+                  emptyStateProps={draggedSortableList.emptyStateProps}
                   hideListContent={draggedSortableList ? true : undefined}
                   className={cx(DRAGGED_ITEM_CLASSNAME, {
                     hidden: !(

@@ -189,6 +189,9 @@ const icons = {
   "upload-01": React.lazy(
     async () => await import("./assets/upload-01.svg?react"),
   ),
+  "upload-02": React.lazy(
+    async () => await import("./assets/upload-02.svg?react"),
+  ),
   "upload-cloud-02": React.lazy(
     async () => await import("./assets/upload-cloud-02.svg?react"),
   ),

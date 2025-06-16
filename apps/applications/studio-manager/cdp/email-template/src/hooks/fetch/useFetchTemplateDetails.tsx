@@ -18,11 +18,11 @@ export const useFetchTemplateDetail = ({
     selectEmailTemplateDetail(state, emailTemplateId),
   );
 
-  const _fetchEmailTemplateDetail = useCallback(async (templateId: number) => {
+  const _fetchEmailTemplateDetail = useCallback(async () => {
     return fetchEmailTemplateDetailAction(fetch, {
-      id: templateId,
+      id: emailTemplateId,
     });
-  }, []);
+  }, [emailTemplateId]);
 
   const [{ isLoading }, fetchEmailTemplateDetail] = useAsync<
     typeof _fetchEmailTemplateDetail

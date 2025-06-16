@@ -5,8 +5,8 @@ import {
 } from "@bsport/kaizen-primitive-core";
 import type { EmailTemplateSummary } from "@bsport/store-cdp-email-template";
 
+import { useEmailTemplateOrdering } from "#src/hooks/actions/useEmailTemplateOrdering";
 import { useListItemFactory } from "#src/hooks/layout/useListItemFactory";
-import { BASE_NUMBER_PRIMARY_ACTIONS_CATEGORY } from "#src/utils/constants";
 import { useTranslation } from "#src/utils/i18n";
 
 type Props = {
@@ -23,6 +23,7 @@ export const NoCategoryList: React.FC<Props> = ({
   handlePreviewTemplate,
 }: Props) => {
   const { t } = useTranslation("list");
+  const { reorderEmailTemplates } = useEmailTemplateOrdering();
   const { getFormattedListItems } = useListItemFactory({
     handlePreviewTemplate,
     handleDeleteTemplate,
@@ -38,18 +39,6 @@ export const NoCategoryList: React.FC<Props> = ({
     title: t("templateList.noCategory", {
       emailTemplateCount: noCategoryEmailTemplateList.length || 0,
     }),
-    dropdownConfig: {
-      visibleActionsDisplayLimit: BASE_NUMBER_PRIMARY_ACTIONS_CATEGORY,
-    },
-    buttons: [
-      {
-        id: "category-collapse-action-no-category",
-        intent: "flat",
-        color: "default",
-        size: "md",
-        iconLeft: "chevron-down",
-      },
-    ],
   };
 
   const noCategoryEmptyState = {
@@ -70,7 +59,7 @@ export const NoCategoryList: React.FC<Props> = ({
         items={noCategoryEmailTemplateList}
         emptyStateProps={noCategoryEmptyState}
         onSortChange={(reorderedTemplates: Sortable[]) =>
-          console.log(reorderedTemplates)
+          reorderEmailTemplates(reorderedTemplates)
         }
       />
     </div>

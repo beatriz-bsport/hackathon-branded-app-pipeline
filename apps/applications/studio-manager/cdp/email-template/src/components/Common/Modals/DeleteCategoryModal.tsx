@@ -25,8 +25,8 @@ export const DeleteCategoryModal: React.FC<Props> = ({
     onSuccess: () => {
       onSuccess?.();
       toast({
-        status: "positive",
-        icon: "edit-02",
+        status: "default",
+        icon: "trash-01",
         title: t("activeList.deleteCategoryModal.onSuccess.title"),
       });
       onClose();

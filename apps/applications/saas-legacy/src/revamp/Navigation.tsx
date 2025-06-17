@@ -1,9 +1,7 @@
-import React, { Suspense } from 'react';
+import React, { Suspense, useEffect } from 'react';
 import { createRemoteComponent } from '@module-federation/bridge-react';
 import { loadRemote, init } from '@module-federation/runtime';
 import { useHistory } from 'react-router-dom';
-
-import '@bsport/sm-navigation-sidebar/styles';
 
 const isDev = process.env.NODE_ENV === 'development';
 const entry = isDev
@@ -46,6 +44,11 @@ const NavigationSidebar = createRemoteComponent<
 
 export const Navigation: React.FC<{ className?: string }> = ({ className }) => {
   const navigate = useHistory().push;
+
+  useEffect(() => {
+    //@ts-expect-error
+    import('@bsport/sm-navigation-sidebar/styles');
+  }, []);
 
   return (
     <Suspense fallback={null}>

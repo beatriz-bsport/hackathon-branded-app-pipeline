@@ -50,7 +50,7 @@ export const RenameEmailTemplateModal: React.FC<Props> = ({
     );
   })();
 
-  const handleSaveCategory = () => {
+  const handleSaveTemplateTitle = () => {
     if (isTemplateTitleValid) {
       setTextFieldStatus("default");
       console.log("Saving template with title:", templateTitle);
@@ -84,7 +84,7 @@ export const RenameEmailTemplateModal: React.FC<Props> = ({
       title={t("details.renameTemplateModal.title")}
       confirmButton={{
         label: t("details.renameTemplateModal.confirmButton"),
-        onClick: handleSaveCategory,
+        onClick: handleSaveTemplateTitle,
       }}
       cancelButton={{
         label: t("details.renameTemplateModal.cancelButton"),

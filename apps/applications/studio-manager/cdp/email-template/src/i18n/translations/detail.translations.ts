@@ -15,7 +15,7 @@ exports.default = {
       discardChanges: "Discard",
     },
     hover: {
-      exportHtml: "Export template to HTMLh",
+      exportHtml: "Export template to HTML",
       renameTemplate: "Rename email template",
       moreActions: "More actions",
     },
@@ -60,7 +60,7 @@ exports.default = {
     },
   },
   leaveConfirmationModal: {
-    description: "re you sure you want to leave this page?",
+    description: "Are you sure you want to leave this page?",
     confirmButton: "OK",
     cancelButton: "Cancel",
   },

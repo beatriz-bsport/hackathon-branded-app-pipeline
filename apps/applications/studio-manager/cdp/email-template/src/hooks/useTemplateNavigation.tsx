@@ -1,16 +1,16 @@
 import { useNavigate } from "react-router";
 
-import { LEGACY_URLS, ROUTES } from "#src/urls";
+import { ROUTES } from "#src/urls";
 
 export const useTemplateNavigation = () => {
   const navigate = useNavigate();
 
   const navigateToCreateTemplate = () => {
-    window?.location?.assign(LEGACY_URLS.CREATE_EMAIL_TEMPLATE());
+    navigate(`../${ROUTES.EMAIL_TEMPLATE_CREATE}`);
   };
 
   const navigateToTemplateDetails = (templateId: number) => {
-    window?.location?.assign(LEGACY_URLS.EDIT_EMAIL_TEMPLATE(templateId));
+    navigate(`../${ROUTES.EMAIL_TEMPLATE_EDIT(templateId)}`);
   };
 
   const navigateToCustomList = () => {

@@ -1296,6 +1296,9 @@ importers:
 
   apps/applications/studio-manager/cdp/email-template:
     dependencies:
+      '@bsport/envs':
+        specifier: workspace:*
+        version: link:../../../../../packages/utils/envs
       '@bsport/fetch':
         specifier: workspace:*
         version: link:../../../../../packages/utils/fetch
@@ -1332,6 +1335,9 @@ importers:
       react-dom:
         specifier: ^19.0.0
         version: 19.0.0(react@19.0.0)
+      react-email-editor:
+        specifier: 1.7.11
+        version: 1.7.11(react@19.0.0)
       react-router:
         specifier: ^7.2.0
         version: 7.2.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
@@ -37183,6 +37189,11 @@ snapshots:
   react-email-editor@1.7.11(react@16.10.2):
     dependencies:
       react: 16.10.2
+      unlayer-types: 1.278.0
+
+  react-email-editor@1.7.11(react@19.0.0):
+    dependencies:
+      react: 19.0.0
       unlayer-types: 1.278.0
 
   react-error-boundary@4.1.2(react@16.10.2):

@@ -22,10 +22,7 @@ export const AppRoutes = () => {
         element={<EmailTemplateEditor />}
         path={ROUTES.EMAIL_TEMPLATE_CREATE}
       />
-      <Route
-        element={<EmailTemplateEditor />}
-        path={ROUTES.EMAIL_TEMPLATE_EDIT}
-      />
+      <Route element={<EmailTemplateEditor />} path=":id" />
       <Route
         path="*"
         element={<Navigate to={`../${ROUTES.CUSTOM_TEMPLATES}`} />}

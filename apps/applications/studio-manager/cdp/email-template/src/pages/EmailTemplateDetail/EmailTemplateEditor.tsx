@@ -1,4 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import EmailEditor, {
+  type Editor,
+  type EditorRef,
+  type EmailEditorProps,
+} from "react-email-editor";
 
 import {
   Body,
@@ -10,7 +15,9 @@ import {
 import { EmailTemplateCategory } from "@bsport/store-cdp-email-template";
 
 import { RenameEmailTemplateModal } from "#src/components/TemplateDetails/Modal/RenameEmailTemplate";
+import { useUnlayerInitialization } from "#src/hooks/actions/useUnlayerInitialization";
 import { useDetailPageHeader } from "#src/hooks/layout/useDetailPageHeader";
+import { UNLAYER_PROJECT_ID } from "#src/utils/constants";
 import { useTranslation } from "#src/utils/i18n";
 import {
   formatCategoriesForSelector,
@@ -64,12 +71,17 @@ const FAKE_CATEGORIES: EmailTemplateCategory[] = [
 
 const EmailTemplateEditor = () => {
   const { t } = useTranslation(["list", "detail"]);
+  const emailEditorRef = useRef<EditorRef>(null);
   const [openTitleRenameModal, setOpenTitleRenameModal] = useState(false);
   const [subject, setSubject] = useState("");
-  const [title, setTitle] = useState("Email template to edit");
+  const [title, setTitle] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<string>(
     t("templateCategory.noCategory"),
   );
+  const { toggleHasUnsavedChanges } = useDetailsLayout();
+
+  const { unlayerUserId, currentLocale, companyName } =
+    useUnlayerInitialization();
   const { breadcrumbsItems, endGroupActions } = useDetailPageHeader({
     onDeleteTemplate: () => alert("Delete template clicked"),
     onDuplicateTemplate: () => alert("Duplicate template clicked"),
@@ -84,7 +96,10 @@ const EmailTemplateEditor = () => {
       );
     },
   });
-  const { toggleHasUnsavedChanges } = useDetailsLayout();
+
+  const onReady: EmailEditorProps["onReady"] = (unlayer: Editor) => {
+    console.log("Email editor is ready", unlayer);
+  };
 
   const handleChangeTemplateTitle = () => {
     setOpenTitleRenameModal(true);
@@ -123,7 +138,7 @@ const EmailTemplateEditor = () => {
             required
           />
           <div id="category-selector-input">
-            <Body htmlVariant="p">Category</Body>
+            <Body htmlVariant="p">{t("templateCategory.label")}</Body>
             <Select
               fullWidth
               id="category-selector"
@@ -140,6 +155,21 @@ const EmailTemplateEditor = () => {
               }}
             />
           </div>
+          <EmailEditor
+            ref={emailEditorRef}
+            onReady={onReady}
+            options={{
+              features: {
+                preview: true,
+              },
+              designTags: {
+                business_name: companyName ?? "",
+              },
+              locale: currentLocale,
+              projectId: UNLAYER_PROJECT_ID,
+              user: unlayerUserId,
+            }}
+          />
         </div>
       </DetailsLayout.Content>
       {openTitleRenameModal ? (

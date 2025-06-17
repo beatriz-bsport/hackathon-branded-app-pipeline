@@ -254,7 +254,7 @@
         "state": { "loading": "Loading your template..." },
         "actions": { "saveChanges": "Save changes", "discardChanges": "Discard" },
         "hover": {
-          "exportHtml": "Export template to HTMLh",
+          "exportHtml": "Export template to HTML",
           "renameTemplate": "Rename email template",
           "moreActions": "More actions"
         },
@@ -285,7 +285,7 @@
         "error": { "cannotSaveTemplate": "There was a problem saving your changes" }
       },
       "leaveConfirmationModal": {
-        "description": "re you sure you want to leave this page?",
+        "description": "Are you sure you want to leave this page?",
         "confirmButton": "OK",
         "cancelButton": "Cancel"
       },

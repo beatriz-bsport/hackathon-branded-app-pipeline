@@ -9509,6 +9509,10 @@
         "validityTo": " until ",
         "unlimitedPlural": "Unlimited",
         "addPaymentPack": {
+            "doorAccess": "Door access",
+            "accessControlInfo": "Members with this pass can unlock studio doors. To control when doors can’t be accessed, set time rules on the Kisi platform.",
+            "accessControlBetaAlert": "During this beta, pass restrictions like tags, usage limits, locations, activities, categories, and time slots don’t apply to door access. “Restrict usage to Video on Demand” must be turned off for door access to work.",
+            "enableAccessControl": "Grant studio access",
             "sumNotZero": "The final number of days can't be 0",
             "only_vod_access": "Restrict usage to Video On Demand",
             "vodAccessCard": "Enable access to Video On Demand",

@@ -135,6 +135,7 @@ export type PaymentPack<LPP = number | null, PPCategories = Array<number>> = {
   off_peak_schedule: Record<string, string[][]>;
   highlighted_as_recommended: boolean;
   bookkeeping_account?: number;
+  grants_door_access?: boolean;
   expiration_date: string | null;
 };
 
@@ -371,6 +372,7 @@ export type PaymentPackFormValues<LPP = number> = {
   off_peak_schedule: OffPeakSchedule[];
   highlighted_as_recommended: boolean;
   bookkeeping_account?: number;
+  grants_door_access?: boolean;
 
   // Notifications
   addToNotifications: MarketingNotification[];

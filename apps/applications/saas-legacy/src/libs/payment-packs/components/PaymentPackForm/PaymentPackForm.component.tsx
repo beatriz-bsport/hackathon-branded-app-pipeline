@@ -125,6 +125,7 @@ const paymentPackFormFields = [
   'off_peak_schedule',
   'highlighted_as_recommended',
   'bookkeeping_account',
+  'grants_door_access',
 
   'addToNotifications',
   'removeFromNotifications',
@@ -417,6 +418,7 @@ export const PaymentPackForm: React.FC<Props> = ({
             expiration_date: initial.expiration_date
               ? DateTime.fromISO(initial.expiration_date)
               : null,
+            grants_door_access: !!initial?.grants_door_access,
           }
         : {
             id: null,
@@ -479,6 +481,7 @@ export const PaymentPackForm: React.FC<Props> = ({
             off_peak_schedule: offPeakGroupDefaultValue,
             off_peak_active: false,
             highlighted_as_recommended: false,
+            grants_door_access: false,
           },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [
@@ -534,6 +537,9 @@ export const PaymentPackForm: React.FC<Props> = ({
       }
       if (!values.full_vod_access) {
         sanitizedValues.only_vod_access = false;
+      }
+      if (values.only_vod_access) {
+        sanitizedValues.grants_door_access = false;
       }
       if (!values.apply_penalties) {
         sanitizedValues.penalty_active = false;
@@ -962,4 +968,5 @@ const paymentPackSchema = Yup.object().shape({
   highlighted_as_recommended: Yup.boolean(),
   bookkeeping_account: Yup.number().nullable(),
   notifications: Yup.array().of(Yup.object()).notRequired(),
+  grants_door_access: Yup.boolean(),
 });

@@ -3245,7 +3245,11 @@
                     "helperText": "Um ihr Konto zu aktivieren, müssen Mitglieder den Link in der Bestätigungs-E-Mail klicken.",
                     "urlHelperText": "Das Mitglied wird zu diesem Link weitergeleitet, nachdem es die E-Mail-Adresse bestätigt hat. Falls nicht angegeben, wird es zu dessen Profil auf dem Marketplace weitergeleitet.",
                     "label": "Bestätigungs-E-Mail nach Registrierung senden",
-                    "title": "Registrierungen"
+                    "title": "Registrierungen",
+                    "emailConfirmationAtSignUp": {
+                        "helperText": "Mitglieder erhalten nach der Anmeldung eine Email, in der sie gebeten werden, ihre Email-Adresse zu bestätigen. Der Account wird erst aktiviert, wenn sie auf den Link in der Email klicken. ",
+                        "label": "Email-Bestätigung bei Anmeldung"
+                    }
                 },
                 "hideSessionWithTagsNotEligible": "Kurse ausblenden, die dem Mitglied aufgrund der Tags nicht zur Verfügung stehen",
                 "errorURL": "Bitte geben Sie eine gültige URL an, bevor Sie das Formular speichern",
@@ -3309,7 +3313,14 @@
                     }
                 },
                 "displayActivityPrice": "Anzahl der erforderlichen Credits anzeigen",
-                "consumerRegularizeDebtHelper": "Du kannst diese Option im Marktplatz, im Easy Connect-Button und im Login Button-Widget einbinden, aber nicht im App- und Member Profile-Widget."
+                "consumerRegularizeDebtHelper": "Du kannst diese Option im Marktplatz, im Easy Connect-Button und im Login Button-Widget einbinden, aber nicht im App- und Member Profile-Widget.",
+                "expressCheckout": {
+                    "title": "Express-Checkout",
+                    "oneClickBooking": {
+                        "label": "One-Click Booking (beta)",
+                        "helperText": "Neue Mitglieder können Aktivitäten buchen, ohne zuvor einen Account anzulegen. Diese Funktion ist nicht mit Terminen oder \"Email-Bestätigung bei Anmeldung\" kompatibel. Es bezieht sich lediglich auf Aktivitäten, die mit einem \"nur neue Mitglieder\" Kurspass gebucht werden können."
+                    }
+                }
             },
             "submit": "Speichern",
             "instagramURL": {
@@ -18296,7 +18307,8 @@
                 "succeeded": "Erfolgreiche Zahlung",
                 "missing_charge": "Keine Zahlung versucht",
                 "cancelled_with_negative_invoice": "Rechnung durch Negativrechnung storniert",
-                "cancelled_with_credit_note": "Rechnung durch Gutschrift storniert"
+                "cancelled_with_credit_note": "Rechnung durch Gutschrift storniert",
+                "negative_invoice_cancelling_bad_debt_invoice": "Eine vorherige Rechnung stornieren"
             },
             "bill": "Zahlung vervollständigen"
         },

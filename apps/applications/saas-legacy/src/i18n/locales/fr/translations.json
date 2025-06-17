@@ -18261,7 +18261,11 @@
                     "helperText": "Lors de l'inscription, vos membres recevront un email pour confirmer leur adresse email, leur compte ne sera pas activé tant que cet email n'aura pas été confirmé",
                     "urlRedirection": "URL de redirection",
                     "urlError": "Veuillez rentrer un url valide",
-                    "urlHelperText": "Le membre sera redirigé vers ce lien après avoir confirmé son email. Si non renseigné, il sera redirigé vers son profil sur la marketplace."
+                    "urlHelperText": "Le membre sera redirigé vers ce lien après avoir confirmé son email. Si non renseigné, il sera redirigé vers son profil sur la marketplace.",
+                    "emailConfirmationAtSignUp": {
+                        "helperText": "Les clients recevront un e-mail lors de leur inscription leur demandant de confirmer leur adresse e-mail. Leur compte membre ne sera pas activé tant qu’ils n’auront pas cliqué sur le lien dans l’e-mail. ",
+                        "label": "Confirmation de l'email lors de l'inscription"
+                    }
                 },
                 "coachUserspace": {
                     "description": "Personnaliser l'espace professeur sur le web. Attention, les paramètres ici n'affectent pas l'espace professeur de l'application.",
@@ -18384,7 +18388,14 @@
                     }
                 },
                 "displayActivityPrice": "Afficher le nombre de crédits",
-                "consumerRegularizeDebtHelper": "Cette fonctionnalité est disponible pour la marketplace, le bouton de connexion facile et le widget du bouton de connexion. Elle n'est pas encore disponible sur l'application et le widget du profil des membres"
+                "consumerRegularizeDebtHelper": "Cette fonctionnalité est disponible pour la marketplace, le bouton de connexion facile et le widget du bouton de connexion. Elle n'est pas encore disponible sur l'application et le widget du profil des membres",
+                "expressCheckout": {
+                    "oneClickBooking": {
+                        "helperText": "Les nouveaux clients peuvent réserver des activités sans créer de compte au préalable. Cette fonctionnalité n’est pas compatible avec les rendez-vous ni avec la confirmation de l’adresse e-mail lors de l’inscription. Elle s’applique uniquement aux activités pouvant être réservées avec une carte de cours réservée aux nouveaux membres.",
+                        "label": "One-Click Booking (beta)"
+                    },
+                    "title": "Réservation rapide"
+                }
             },
             "cover": {
                 "label": "Logo",

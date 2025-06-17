@@ -9838,7 +9838,8 @@
                 "processing": "Paiement en cours",
                 "failed": "Paiement échoué",
                 "cancelled_with_negative_invoice": "Facture annulée par une facture négative",
-                "cancelled_with_credit_note": "Facture annulée par note de crédit"
+                "cancelled_with_credit_note": "Facture annulée par note de crédit",
+                "negative_invoice_cancelling_bad_debt_invoice": "Annulation d'une facture précédente"
             }
         },
         "paymentMethod": {

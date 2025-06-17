@@ -38,20 +38,20 @@ type Permissions = Omit<CompanyRolePermissions, "restrictedPaths">;
 
 export const useRolePermission = (path: DeepKeys<Permissions>) => {
   const userRole = dataAccessLayer.useUserRole();
-  return checkHasPermission<WithSignature<Permissions>>(
-    userRole.permissions,
+  return checkHasPermission<WithSignature<Permissions>>({
+    permissions: userRole.permissions,
     path,
-  );
+  });
 };
 
 export const useObjectLevelPermission = (
   path: DeepKeys<ObjectLevelPermissions>,
 ) => {
   const userRole = dataAccessLayer.useUserRole();
-  return checkHasPermission<WithSignature<ObjectLevelPermissions>>(
-    userRole.object_level_permissions,
+  return checkHasPermission<WithSignature<ObjectLevelPermissions>>({
+    permissions: userRole?.object_level_permissions,
     path,
-  );
+  });
 };
 ```
 
@@ -70,6 +70,6 @@ export const useFeaturePermission = (
   enableInEnvMode?: Array<Environment>,
 ) => {
   const features = dataAccessLayer.useCompanyFeatures();
-  return checkFeaturePermission(features, identifier, enableInEnvMode);
+  return checkFeaturePermission({ features, identifier, enableInEnvMode });
 };
 ```

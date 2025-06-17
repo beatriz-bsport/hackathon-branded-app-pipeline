@@ -2,6 +2,14 @@ import { type KnownEnvironment, getEnv, isFeatureBranch } from "@bsport/envs";
 
 export type Environment = KnownEnvironment | "featureBranch";
 
+export const DEFAULT_ENVS_MAP = {
+  production: false,
+  staging: false,
+  dev: false,
+  local: false,
+  featureBranch: false,
+};
+
 /**
  * Return, for each known environment, whether it is the current environment, based on the URL.
  */
@@ -19,12 +27,6 @@ export function getEnvironment(): Record<Environment, boolean> {
   } catch (error) {
     console.error(error);
 
-    return {
-      production: false,
-      staging: false,
-      dev: false,
-      local: false,
-      featureBranch: false,
-    };
+    return DEFAULT_ENVS_MAP;
   }
 }

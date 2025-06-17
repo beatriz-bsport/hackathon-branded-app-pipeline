@@ -18310,8 +18310,8 @@ packages:
     resolution: {integrity: sha512-gptHNQghINnc/vTGIk0SOFGFNXw7JVrlRUtConJRlvaw6DuX0wO5Jeko9sWrMBhh+PsYAZ7oXAiOnf/UKogyiw==}
     engines: {node: '>= 10.0.0'}
 
-  unlayer-types@1.275.0:
-    resolution: {integrity: sha512-nqG/IwbhYoHMKkT6I59Q9KSgwAZ42XrnlYe5vnnrCGC+Z/Dz5zAgOcpXHwhCgRTpDB3kFRhNN6YRrakyk579Xg==}
+  unlayer-types@1.278.0:
+    resolution: {integrity: sha512-5GpkhTsDyBBtjcGOFxTKHrIwdP2x/qrYC2iDC3z20hFI6KMlQLRryN/ch1EiHbSN3gfILEv3eb7fp4Ox4iTX0A==}
 
   unpipe@1.0.0:
     resolution: {integrity: sha512-pjy2bYhSsufwWlKwPc+l3cN7+wuJlK6uz0YdJEOlQDbl6jo/YlPi4mb8agUkVC8BF7V8NuzeyPNqRksA3hztKQ==}
@@ -21569,7 +21569,9 @@ snapshots:
       jest-runner: 24.9.0
       jest-runtime: 24.9.0
     transitivePeerDependencies:
+      - bufferutil
       - supports-color
+      - utf-8-validate
 
   '@jest/test-sequencer@28.1.3':
     dependencies:
@@ -33226,9 +33228,7 @@ snapshots:
       pretty-format: 24.9.0
       throat: 4.1.0
     transitivePeerDependencies:
-      - bufferutil
       - supports-color
-      - utf-8-validate
 
   jest-junit@14.0.1:
     dependencies:
@@ -37124,7 +37124,7 @@ snapshots:
   react-email-editor@1.7.11(react@16.10.2):
     dependencies:
       react: 16.10.2
-      unlayer-types: 1.275.0
+      unlayer-types: 1.278.0
 
   react-error-boundary@4.1.2(react@16.10.2):
     dependencies:
@@ -40110,7 +40110,7 @@ snapshots:
 
   universalify@2.0.1: {}
 
-  unlayer-types@1.275.0: {}
+  unlayer-types@1.278.0: {}
 
   unpipe@1.0.0: {}
 

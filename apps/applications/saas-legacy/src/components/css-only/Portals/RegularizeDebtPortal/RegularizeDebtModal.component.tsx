@@ -60,9 +60,7 @@ const RegularizeDebtModal: React.FC<Props> = ({
           {
             payment_engine_identifier: paymentEngine,
             payment_intent_type: PAYMENT_INTENT_TYPE_DEBT,
-            requested_price_cts:
-              -parseFloat(creditAccountBalance.toString()).toFixed(2) * 100,
-            invoice: null,
+            requested_price_cts: Math.round(creditAccountBalance * -100),
             member: memberId.toString(),
           },
           {
@@ -122,7 +120,7 @@ const RegularizeDebtModal: React.FC<Props> = ({
   }, [handleConfirmRegularizeBalance, listenPaymentGroupCompleted]);
 
   const amountToPay = creditAccountBalance
-    ? -parseFloat(creditAccountBalance?.toString()).toFixed(2) * 100
+    ? Math.round(creditAccountBalance * -100)
     : 0;
 
   const isOnlyInternal = amountToPay < 0;

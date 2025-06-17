@@ -5123,7 +5123,11 @@
                     "title": "Registrazione",
                     "label": "Email di conferma al momento della registrazione",
                     "urlError": "Per favore, inserisci un URL valido",
-                    "urlHelperText": "Il membro verrà reindirizzato a questo link dopo aver confermato la propria e-mail. In caso contrario, verranno reindirizzati al proprio profilo sul marketplace."
+                    "urlHelperText": "Il membro verrà reindirizzato a questo link dopo aver confermato la propria e-mail. In caso contrario, verranno reindirizzati al proprio profilo sul marketplace.",
+                    "emailConfirmationAtSignUp": {
+                        "label": "Conferma via e-mail al momento dell'iscrizione",
+                        "helperText": "Al momento dell'iscrizione, i clienti riceveranno un'e-mail con la richiesta di confermare il loro indirizzo e-mail. Il loro conto membro non sarà attivato finché non faranno clic sul link contenuto nell'e-mail. "
+                    }
                 },
                 "noShow": {
                     "sendMail": "Invia un'email <0/> <1/> dopo l'appello per avvisare il membro che sarà considerato come no show se indicato come assente.",
@@ -5197,7 +5201,14 @@
                     }
                 },
                 "displayActivityPrice": "Visualizza il numero di crediti",
-                "consumerRegularizeDebtHelper": "Questa funzione è disponibile sul Marketplace, sul pulsante Easy Connect e sul widget Pulsante di accesso. Non è ancora disponibile sull'App e sul widget Profilo del membro"
+                "consumerRegularizeDebtHelper": "Questa funzione è disponibile sul Marketplace, sul pulsante Easy Connect e sul widget Pulsante di accesso. Non è ancora disponibile sull'App e sul widget Profilo del membro",
+                "expressCheckout": {
+                    "oneClickBooking": {
+                        "label": "One-Click Booking (beta)",
+                        "helperText": "I nuovi clienti possono prenotare le attività senza creare prima un account. Questa funzione non è compatibile con gli appuntamenti o con la “conferma via e-mail all'iscrizione”. Si applica solo alle attività che possono essere prenotate con un pacchetto “solo per nuovi membri”."
+                    },
+                    "title": "Express Checkout"
+                }
             },
             "instagramURL": {
                 "label": "URL di Instagram",
@@ -18961,7 +18972,8 @@
                 "succeeded": "Pagamento riuscito",
                 "missing_charge": "Nessun pagamento tentato",
                 "cancelled_with_negative_invoice": "Annullamento effettuato tramite ricevuta negativa",
-                "cancelled_with_credit_note": "Ricevuta annullata con nota di accredito"
+                "cancelled_with_credit_note": "Ricevuta annullata con nota di accredito",
+                "negative_invoice_cancelling_bad_debt_invoice": "Annullamento di una precedente ricevuta"
             },
             "bill": "Regolarizzare"
         },

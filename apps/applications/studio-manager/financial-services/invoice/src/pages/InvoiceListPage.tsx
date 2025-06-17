@@ -17,6 +17,7 @@ import {
 } from "@bsport/kaizen-primitive-core";
 import {
   type Invoice,
+  InvoiceStatusEnum,
   fetchInvoicesAction,
   finalizeInvoiceAction,
   getReceiptUrlAction,
@@ -38,7 +39,7 @@ type TableDataRow = {
   uuid: string;
   date: string;
   member: string;
-  amount: string;
+  amount: number;
   type: string;
   status: Array<{
     label: string;
@@ -129,7 +130,7 @@ export const InvoiceListPage = () => {
         id: "amount",
         keyPath: "amount",
         header: t("tableColumnLabel.amount"),
-        type: "number",
+        type: "price",
         align: "end",
       },
       {
@@ -229,8 +230,24 @@ export const InvoiceListPage = () => {
         },
       },
     ],
-    [handleClickDownload, getReceiptUrlAction, t],
+    [handleClickDownload, t],
   );
+
+  const getStatusColor = (
+    status: InvoiceStatusEnum,
+  ): "positive" | "critical" | "warning" | "default" => {
+    const statusColorMap: Record<
+      InvoiceStatusEnum,
+      "positive" | "critical" | "warning" | "default"
+    > = {
+      [InvoiceStatusEnum.PAID]: "positive",
+      [InvoiceStatusEnum.REFUNDED]: "critical",
+      [InvoiceStatusEnum.VOIDED]: "warning",
+      [InvoiceStatusEnum.OPEN]: "default",
+      [InvoiceStatusEnum.DRAFT]: "default",
+    };
+    return statusColorMap[status] ?? "default";
+  };
 
   const rows: TableDataRow[] = useMemo(
     () =>
@@ -240,9 +257,14 @@ export const InvoiceListPage = () => {
         uuid: invoice.uuid.slice(0, 8),
         date: invoice.date,
         member: invoice.memberName,
-        amount: invoice.amount_due_cts.toString(),
+        amount: invoice.amount_due_cts / 100,
         type: t(`invoiceType.${getInvoiceType(invoice)}`),
-        status: [{ label: t("invoiceStatus.open"), color: "default" }],
+        status: [
+          {
+            label: t(`invoiceStatus.${invoice.status}`),
+            color: getStatusColor(invoice.status),
+          },
+        ],
         downloadPdf: {
           uuid: invoice.uuid,
           is_draft: invoice.is_draft,
@@ -255,7 +277,8 @@ export const InvoiceListPage = () => {
   return (
     <ListLayout className="w-full">
       <ListLayout.Header
-        callToActionButton={
+        // TODO: Uncomment when backend work is done
+        /*callToActionButton={
           <Button
             iconLeft="bell-03"
             intent="call-to-action"
@@ -304,8 +327,8 @@ export const InvoiceListPage = () => {
           selectFieldLabel: "Filter",
           onFilterChange: (filters) =>
             console.log(`Filters changed: ${filters}`),
-        }}
-        pageTitle="Invoices"
+        }}*/
+        pageTitle={t("invoiceListTitle")}
       />
       <ListLayout.Content className="flex-col">
         <Table
@@ -327,9 +350,7 @@ export const InvoiceListPage = () => {
               className: "h-full justify-center",
             },
           }}
-          loadingProps={{
-            isLoading,
-          }}
+          loadingProps={{ isLoading }}
         />
       </ListLayout.Content>
     </ListLayout>

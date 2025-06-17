@@ -24,7 +24,7 @@ exports.default = {
       coachFormPage: '[Form] Teacher',
       coachPerformance: 'Payroll',
       offerFormPage: 'Add sessions',
-      metaActivityFormPage: '[Form] Group activity',
+      metaActivityFormPage: 'Add a group activity',
       metaActivityList: 'Group activities',
       metaActivityEditForm: '[Form] Group activity',
       WorkshopActivityFormPage: '[Form] Workshop',
@@ -245,18 +245,18 @@ exports.default = {
     addActivity: 'Add an activity',
     addOffers: 'Add sessions',
     lastDiscardBeforeMinutes:
-      'Select until when members can cancel for free before the start of the session (late-cancellations)',
+      'Decide how long before the activity members can cancel for free',
     lastBookingBeforeMinutes:
-      'Select until when members can book before the start of the session',
+      'Choose how long before the session the booking window closes',
     is_broadcast: 'Livestream',
     settings: 'Settings',
     nextSlotAt: 'The first upcoming session is on: ',
     explainImage: 'Recommended: 1920 x 1090 JPGs (Full HD).',
     firstBookingMinutesUntil:
-      'Future sessions can be booked if they start in less than ',
+      'Choose how long before the session the booking window opens',
     altCoverMain: 'Description of the image for the visually impaired',
     autoDiscard: 'Automatic cancellation',
-    generalInfo: 'General',
+    generalInfo: 'General information',
     firstMinutesBookingUntilWarning:
       'A value of zero means that no limitations are set. Reservations will always be open for sessions of this activity.',
   },
@@ -774,22 +774,21 @@ exports.default = {
         unlimitedProvision: 'No stock management',
         create: 'Add an item',
         is_deliverable: 'Add delivery fees',
-        featured:
-          'Feature this product in the basket when members confirm a payment',
+        featured: 'Feature this product in the basket',
         sell_only_on_provision:
           "Only sell if there's sufficient available stock",
-        onsite_payment_available: 'Possibility to pay in studio',
+        onsite_payment_available: 'Pay on-site',
         available_payment_method_identifiers: {
           helperText:
-            'Select at least one payment method. If none is selected, online payments will be offered by default.',
+            'Choose at least one payment method. If none are selected, online payments will be chosen by default.',
           label: 'Accepted payment methods',
         },
         advancedOptions: {
           header: 'Advanced',
           tag: {
-            tagsOnAcquisition: 'Tag after purchase',
+            tagsOnAcquisition: 'Apply tags after purchase',
             tagsOnAcquisitionHelper:
-              'Use tags to identify which member bought the item',
+              'Tag members who have bought this item to quickly identify them in the future.',
             selectTags: 'Select tags',
           },
         },
@@ -1010,7 +1009,7 @@ exports.default = {
     buy: 'Purchase',
     uploadOneImage: {
       edit: 'Click here to add an image.',
-      new: 'Click here to add an image.',
+      new: 'Upload image',
     },
     tax: 'VAT / Sales tax',
     generate: 'Generate',
@@ -1089,10 +1088,10 @@ exports.default = {
         hours_before_start: 'Hour(s) before the start of the session:',
         min_bookings_nb: 'Number of booking(s) :',
         emailRecipients:
-          'An email will be automatically sent to Owner and Admin accounts, as well as to the teacher (or substitute) of this session. You can also set up an email to send to students.',
+          'If a class is automatically cancelled, an email will be sent to the Owner, Admin and teacher of the class, as well as to students.',
         explain:
-          'Cancel sessions with ≤ {{bookings_nb}} booking(s) {{hours}} hours(s) before the start of the session. Members that had booked this session will be informed that the session has been cancelled.',
-        checkbox: 'Automatically cancel underoccupied sessions',
+          'Classes with less than 1 booking(s) are cancelled 1 hour(s) before they start. Members will be notified that the class has been cancelled.',
+        checkbox: 'Automatically cancel underbooked classes',
       },
     },
   },
@@ -1164,14 +1163,14 @@ exports.default = {
     explain:
       "These categories are used to order and sort group activities to your preferred display on the Management View. Members won't be affected by your display decisions.",
     sctExplain:
-      'These categories will appear on the MarketPlace and the Mobile App and represent the different types of activities.',
+      'Choose the category that this activity will be displayed under on the Marketplace and Mobile App.',
   },
   restrictions: {
     personnalizedHelper:
-      'Apply tags to differentiate restrictions between segments to determine which rules will be applied to whom.',
+      'Set custom, tag-based rules to tailor settings for each segment.',
     firstBookingMinutesUntil: 'Opening of booking window',
-    lastBookingBeforeMinutes: 'Closing of booking window',
-    lastDiscardBeforeMinutes: 'Cancellation policy',
+    lastBookingBeforeMinutes: 'When the booking window closes',
+    lastDiscardBeforeMinutes: 'Late cancellation policy',
     tags: {
       mandatory: 'Select at least 1 tag',
       header: 'Selected tags',
@@ -1180,8 +1179,8 @@ exports.default = {
     back: 'Previous',
     next: 'Next',
     personnalizedRestrictionsIndex: 'Custom restriction: {{ count }}',
-    add: 'Add a rule ({{ count }}/{{ max }})',
-    personnalizedHeader: 'Custom restrictions',
-    header: 'Restrictions',
+    add: 'Create custom rule',
+    personnalizedHeader: 'Custom conditions',
+    header: 'Conditions',
   },
 };

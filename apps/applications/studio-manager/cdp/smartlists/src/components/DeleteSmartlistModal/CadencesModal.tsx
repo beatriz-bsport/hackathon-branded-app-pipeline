@@ -21,11 +21,6 @@ export const CadencesModal: React.FC<CadencesModalProps> = ({
   return (
     <Modal
       open={isOpen}
-      onConfirmClick={onClose}
-      onCancelClick={onClose}
-      confirmColor="critical"
-      confirmLabel=""
-      cancelLabel=""
       title={t("deleteModal.title")}
       size="md"
       onClickOutside={onClose}

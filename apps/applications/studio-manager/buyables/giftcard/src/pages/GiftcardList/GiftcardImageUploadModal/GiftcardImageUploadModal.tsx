@@ -127,15 +127,12 @@ export const GiftcardImageUploadModal: React.FC<UploadModalProps> = ({
 
   return (
     <Modal
-      onCrossButtonClick={onCloseModal}
+      onCloseButtonClick={onCloseModal}
       onClickOutside={onCloseModal}
       open={isOpen}
       size="lg"
       description={t("modal.description")}
       title={t("modal.title")}
-      confirmColor="main"
-      confirmLabel=""
-      onConfirmClick={() => {}}
     >
       <div className="flex flex-row items-stretch gap-md p-md justify-between">
         <GiftcardDisplay

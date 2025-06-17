@@ -1,6 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import React from "react";
 
+import Title from "#src/components/Title";
+
 import Icon, { type IconName, icons, sizes } from "./Icon";
 
 /**
@@ -21,6 +23,11 @@ const meta: Meta<typeof Icon> = {
       control: { type: "select" },
       type: { name: "string", required: true },
     },
+    color: {
+      control: { type: "color" },
+      description: "Setting to test different colors. This is not a props.",
+      type: { name: "string", required: false },
+    },
   },
 };
 
@@ -33,6 +40,9 @@ export const Primary: Story = {
   args: {
     icon: "arrow-right",
     size: "xl",
+  },
+  render: (args) => {
+    return <Icon {...args} style={{ color: args.color }} />;
   },
 };
 
@@ -64,7 +74,7 @@ export const AllIcons: Story = {
             hover:shadow-border-thin-default p-sm rounded-md"
             onClick={() => copyToClipboard(name)}
           >
-            <Icon size={args.size} icon={name} />
+            <Icon style={{ color: args.color }} size={args.size} icon={name} />
             <span className="text-xs text-center">{name}</span>
           </button>
         ))}
@@ -77,6 +87,8 @@ export const CustomColorIcons: Story = {
   name: "Custom color icons",
   args: {
     size: "lg",
+    color: "#000000",
+    icon: "image-03",
   },
   parameters: {
     docs: {
@@ -98,14 +110,23 @@ export const CustomColorIcons: Story = {
 
   render: (args) => {
     return (
-      <div className="flex flex-row items-start flex-wrap gap-md">
-        <Icon
-          size={args.size}
-          icon="image-03"
-          className="text-neptune-blue-400"
-        />
-        <div className="text-cupid-red-400">
-          <Icon size={args.size} icon="announcement-01" />
+      <div className="flex flex-col gap-sm items-start self-align align-center align-items flex-wrap gap-md">
+        <div>
+          <Title htmlVariant="h5">Adding style directly to the Icon</Title>
+          <Icon
+            size={args.size}
+            icon={args.icon}
+            style={{ color: args.color }}
+          />
+        </div>
+
+        <div
+          className={"p-y-[20px] flex flex-col items-start flex-wrap gap-md"}
+        >
+          <Title htmlVariant="h5">Adding style directly to the Icon</Title>
+          <div style={{ color: args.color }}>
+            <Icon size={args.size} icon={args.icon} />
+          </div>
         </div>
       </div>
     );

@@ -1,0 +1,1 @@
+export { withNavigationSwitcher } from './withNavigationSwitcher';

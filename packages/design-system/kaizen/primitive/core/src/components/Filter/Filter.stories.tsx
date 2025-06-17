@@ -3,7 +3,7 @@ import { useRef } from "react";
 
 import Button from "#src/components/Button";
 
-import Filter from "./Filter";
+import Filter, { FilterElementState } from "./Filter";
 
 /**
  * Rendering a customizable list of filter items within an ordered list.<br>
@@ -77,7 +77,9 @@ const args = {
     },
   },
   selectFieldLabel: "Select a field",
-  onFilterChange: () => {},
+  onFilterChange: (filters: FilterElementState[]) => {
+    console.log(filters);
+  },
   singleField: false,
 };
 

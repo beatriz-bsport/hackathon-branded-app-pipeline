@@ -64,3 +64,13 @@ vitest.config.*.timestamp*
 
 # Module Federation
 **/.__mf__temp
+
+# CLAUDE
+CLAUDE.md
+
+# Windsurf
+.windsurfrules
+
+# Cursor
+.cursorrules
+

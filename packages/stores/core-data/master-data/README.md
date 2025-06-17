@@ -48,19 +48,19 @@ Here's a basic example of how to use the store in your application:
 
 ```tsx
 import {
-  fetchSctsAction,
-  selectScts,
-  useSctStore,
+  fetchSportCategoriesAction,
+  selectSportCategories,
+  useSportCategoryStore,
 } from "@bsport/store-core-data-masterdata";
 import fetch from "#src/utils/fetch";
 
 const MyComponent = () => {
     // Retrieve data from the store
-    const scts = useSctStore(selectScts);
+    const sportCategories = useSportCategoryStore(selectSportCategories);
 
     // Inject fetch in the action
     const fetchCategories = useCallback(async () => {
-        return fetchSctsAction(fetch, { ...params});
+        return fetchSportCategoriesAction(fetch, { ...params});
     }, [... deps])
     ...
 };

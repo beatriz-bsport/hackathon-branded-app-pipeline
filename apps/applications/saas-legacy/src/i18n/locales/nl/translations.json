@@ -14978,7 +14978,11 @@
                     "urlRedirection": "Omleidings-URL",
                     "helperText": "Zodra nieuwe leden zich inschrijven aan de hand van een nieuw account zullen ze een e-mail ontvangen om het gebruikte e-mailadres te bevestigen. Nieuwe accounts zijn pas na activatie geactiveerd.",
                     "label": "Bevestigingsmails na nieuwe inschrijvingen sturen",
-                    "title": "Registratiebevestiging"
+                    "title": "Registratiebevestiging",
+                    "emailConfirmationAtSignUp": {
+                        "label": "Bevestiging per e-mail bij inschrijving",
+                        "helperText": "Klanten krijgen een e-mail als ze zich aanmelden en moeten hun e-mailadres bevestigen. Hun ledenaccount wordt pas geactiveerd als ze op de link in de e-mail klikken. "
+                    }
                 },
                 "coachUserspace": {
                     "errors": {
@@ -15103,7 +15107,14 @@
                     }
                 },
                 "displayActivityPrice": "Geef het aantal credits weer",
-                "consumerRegularizeDebtHelper": "Deze functie is beschikbaar op de marketplace, Easy Connect Button en Login Button Widget. Het is nog niet beschikbaar op de App en Leden Profiel widget.\""
+                "consumerRegularizeDebtHelper": "Deze functie is beschikbaar op de marketplace, Easy Connect Button en Login Button Widget. Het is nog niet beschikbaar op de App en Leden Profiel widget.\"",
+                "expressCheckout": {
+                    "oneClickBooking": {
+                        "label": "One-Click Booking (beta)",
+                        "helperText": "Nieuwe klanten kunnen activiteiten boeken zonder eerst een account aan te maken. Deze functie is niet compatibel met afspraken of met ‘bevestiging per e-mail bij aanmelding’. Geldt alleen voor activiteiten die geboekt kunnen worden met een ‘nieuwe ledenpas’."
+                    },
+                    "title": "Snel afrekenen"
+                }
             },
             "gtmId": {
                 "placeholder": "GTM-XXXXXX",
@@ -18982,7 +18993,8 @@
                 "succeeded": "Betaling: succesvol",
                 "missing_charge": "Er zijn geen betalingspogingen om weer te geven.",
                 "cancelled_with_negative_invoice": "Factuur geannuleerd door negatieve factuur",
-                "cancelled_with_credit_note": "Factuur geannuleerd door creditnota"
+                "cancelled_with_credit_note": "Factuur geannuleerd door creditnota",
+                "negative_invoice_cancelling_bad_debt_invoice": "Een vorige factuur annuleren"
             },
             "bill": "Vereffenen"
         },

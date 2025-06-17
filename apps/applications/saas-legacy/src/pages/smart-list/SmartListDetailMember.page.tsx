@@ -183,10 +183,7 @@ import { getAllCustomForm } from '#src/libs/custom-form/selectors';
 
 // COMMUNICATION CHAT
 import CommunicationDrawer from '#src/libs/communication-v2/components/CommunicationDrawer.component';
-import {
-  CONTEXT_SMARTLIST,
-  MINUTE_LIMIT_TO_SCHEDULE_COMMUNICATION,
-} from '#src/libs/communication-v2/constants';
+import { CONTEXT_SMARTLIST } from '#src/libs/communication-v2/constants';
 
 import GenericMuiDialog from '#src/components/genericDialog/GenericMuiDIalog';
 import GenericDeleteDialog from '#src/components/genericDialog/GenericDeleteDialog.component';
@@ -205,6 +202,11 @@ import Config from '../../config';
 import { snackbarError } from '../../actions/snackbar.actions';
 import type { RootState } from '../../reducers';
 import type { OptionCallback } from '../../state/types';
+
+import {
+  checkIsMessageDeletable,
+  checkIsMessageSchedulable,
+} from '#src/utils/communicationScheduledHelper';
 
 type OwnProps = {
   id: number;
@@ -472,16 +474,10 @@ export class SmartListDetailMember extends React.Component<Props, State> {
       isSendCommunicationDuringNighttimeDialogOpen: false,
     });
 
-  checkIsMessageSchedulable = (
-    communicationScheduled: CommunicationScheduled,
-  ) =>
-    DateTime.fromISO(communicationScheduled.datetime_scheduled) >
-    DateTime.now().plus({ minutes: MINUTE_LIMIT_TO_SCHEDULE_COMMUNICATION });
-
   openCommunicationScheduledEditionDialog = (
     communicationScheduled: CommunicationScheduled,
   ) => {
-    if (this.checkIsMessageSchedulable(communicationScheduled)) {
+    if (checkIsMessageSchedulable(communicationScheduled)) {
       this.setState(
         {
           communicationScheduledSelected: communicationScheduled,
@@ -498,7 +494,7 @@ export class SmartListDetailMember extends React.Component<Props, State> {
   openCommunicationScheduledDeletionDialog = (
     communicationScheduled: CommunicationScheduled,
   ) => {
-    if (this.checkIsMessageSchedulable(communicationScheduled)) {
+    if (checkIsMessageDeletable(communicationScheduled)) {
       this.setState({
         communicationScheduledSelected: communicationScheduled,
       });
@@ -511,9 +507,7 @@ export class SmartListDetailMember extends React.Component<Props, State> {
   handleCancelCommunicationScheduled = () => {
     if (this.state.communicationScheduledSelected) {
       if (
-        this.checkIsMessageSchedulable(
-          this.state.communicationScheduledSelected,
-        )
+        checkIsMessageSchedulable(this.state.communicationScheduledSelected)
       ) {
         this.props.cancelCommunicationScheduled(
           this.state.communicationScheduledSelected.id,
@@ -540,7 +534,7 @@ export class SmartListDetailMember extends React.Component<Props, State> {
   openCommunicationScheduledSendNowDialog = (
     communicationScheduled: CommunicationScheduled,
   ) => {
-    if (this.checkIsMessageSchedulable(communicationScheduled)) {
+    if (checkIsMessageSchedulable(communicationScheduled)) {
       this.setState({
         communicationScheduledSelected: communicationScheduled,
       });

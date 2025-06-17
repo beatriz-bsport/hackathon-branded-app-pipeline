@@ -188,10 +188,10 @@ const getTranslations = async () => {
         titleInactive: 'Archived subscriptions',
       },
       form: {
-        title: '[Form] Subscription',
+        title: 'Add a subscription',
         name: { label: 'Name' },
         nb_interval: {
-          label: 'Number of bills',
+          label: 'Number of invoices:',
           error: 'The number of billings should not exceed 90',
           errorForFixedBillingDay:
             'The number of billings should not exceed 12',
@@ -229,7 +229,7 @@ const getTranslations = async () => {
         object_type: {
           paymentPack: 'Passes',
           privatePass: 'Appointment passes',
-          label: 'Content',
+          label: 'Included',
           paymentCombo: 'Packs',
         },
         error: {
@@ -262,13 +262,13 @@ const getTranslations = async () => {
           label: 'BIlling',
           helperText: 'How often will clients be charged?',
         },
-        settings: { title: 'Settings' },
+        settings: { title: 'Conditions' },
         invoicing: {
           invoicing_type_readonly:
             'It is not possible to change the billing type',
           fixed_day: {
             explain:
-              'Each invoice will be invoiced on the chosen day. The first payment is pro-rated if necessary.',
+              'Members will be invoiced on the chosen day. The first payment will be pro-rated if necessary.',
             label: 'Invoice on a fixed day',
             modification_not_apply_to_past:
               'You are about to change the billing day of your subscription. Only new subscriptions created will be affected. Existing subscriptions and subscriptions with renewals will not change (even after renewal)',
@@ -276,7 +276,7 @@ const getTranslations = async () => {
               'If a month does not have a {{ month_billing_day }}, the invoice will be issued on the last day of the month.',
             recurrence_explain: {
               month:
-                'The subscription will be invoiced every {{ month_billing_day }} of the month for a total duration of {{ nb_interval }} months and will generate {{ nb_interval }} {{ invoice }}. The first payment is pro-rated if necessary.',
+                'Members will be invoiced on the {{ month_billing_day }} of each month for a total of {{ nb_interval }} months. The first payment will be pro-rated if necesssary.',
             },
           },
           same_day_as_subscription: {
@@ -296,29 +296,31 @@ const getTranslations = async () => {
                 'The subscription will be invoiced every {{ recurrence_basis }} weeks for a total duration of {{ total_subscription_duration }} {{ time_unit }} and will generate {{ nb_interval }} {{ invoice }}. The customer will be able to choose the start date of their subscription.',
             },
             explain:
-              'The billing day will depend on the day of purchase of the subscription.',
-            label:
-              'Invoice on the same day as the purchase date of the subscription',
+              'Members will be invoiced depending on the day of purchase.',
+            label: 'Invoice on date of purchase',
           },
           invoice: 'bill',
           invoice_plural: 'bills',
-          title: 'Billing',
+          title: 'Invoicing',
         },
         price: { title: 'Price' },
         general_info: { title: 'General information' },
-        unusableByStaff: { label: 'Invisible for the staff' },
-        month_billing_day: { label2: 'of the month.', label1: 'Invoice every' },
+        unusableByStaff: { label: 'Hidden to staff' },
+        month_billing_day: {
+          label2: 'of each month.',
+          label1: 'Invoice on the',
+        },
         highlightedAsRecommended: {
           label: 'Mark as recommended',
           helperText:
-            'Allows your customers to quickly see which contracts are currently recommended.',
+            "Highlight this subcription to your members by promoting it in the 'recommended' section of the booking flow.",
         },
         advancedOptions: {
           title: 'Advanced',
           tag: {
-            tagsOnAcquisition: 'Tag after purchase',
+            tagsOnAcquisition: 'Apply tags after purchase',
             tagsOnAcquisitionHelper:
-              'Use tags to identify which member has paid the first invoice',
+              'Tag members who have paid their first invoice to quickly identify them in the future.',
             selectTags: 'Select tags',
             tagGroupDuplicated:
               'Please note that selected items contain tags of the same category.',

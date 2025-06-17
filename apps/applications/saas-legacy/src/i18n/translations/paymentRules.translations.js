@@ -174,7 +174,7 @@ exports.default = {
       coaches: 'Associated teachers',
       removed_coaches: 'Removed teachers',
       specfic_private_slot: 'Appointments',
-      default: 'Default',
+      default: 'Default payroll rules',
     },
     workshop: 'Workshops',
     session: 'Group activities',

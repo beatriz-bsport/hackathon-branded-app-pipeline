@@ -69,11 +69,12 @@ const FilterElement: React.FC<FilterElementProps> = ({
   }, [selectedField, selectedFilter, selectedValues]);
 
   const handleSelectFieldSelectOption = useCallback(
-    (fieldId: string) => {
-      if (!selectedField) {
+    (fieldId: string, shouldDisplayEntireFilter: boolean) => {
+      if (!selectedField || !shouldDisplayEntireFilter) {
         setSelectedField(fieldId);
         setSelectedValues(null);
         setSelectedFilter(fields[fieldId].availableFilters[0]);
+        setDisplayEntireFilter(false);
         return;
       }
 
@@ -107,7 +108,6 @@ const FilterElement: React.FC<FilterElementProps> = ({
   return (
     <ol className="inline-flex">
       <FilterElementSelectField
-        displayEntireFilter={displayEntireFilter}
         fields={fields}
         label={selectFieldLabel}
         openedByDefault={openedByDefault}

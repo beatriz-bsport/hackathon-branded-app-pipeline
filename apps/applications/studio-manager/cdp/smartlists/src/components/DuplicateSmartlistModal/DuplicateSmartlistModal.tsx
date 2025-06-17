@@ -41,11 +41,14 @@ export const DuplicateSmartlistModal: React.FC<
   return (
     <Modal
       open={isOpen}
-      onConfirmClick={handleDuplicate}
-      onCancelClick={onClose}
-      confirmColor="main"
-      confirmLabel={t("duplicateModal.buttons.duplicate")}
-      cancelLabel={t("duplicateModal.buttons.cancel")}
+      confirmButton={{
+        label: t("duplicateModal.buttons.duplicate"),
+        onClick: handleDuplicate,
+      }}
+      cancelButton={{
+        label: t("duplicateModal.buttons.cancel"),
+        onClick: onClose,
+      }}
       title={t("duplicateModal.title")}
       size="md"
       onClickOutside={onClose}

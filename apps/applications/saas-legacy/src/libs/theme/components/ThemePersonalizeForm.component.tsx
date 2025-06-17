@@ -99,6 +99,7 @@ interface FormikValues {
   hide_book_button: boolean;
   show_past_sessions_calendar: boolean;
   display_credit_price_for_offer: boolean;
+  one_click_checkout_enabled: boolean;
 }
 type Props = {
   theme: CompanyTheme;
@@ -837,17 +838,72 @@ const ThemePersonalizeForm: React.FC<FormikProps<FormikValues>> = ({
               </Typography>
             </div>
           )}
+          <div className={classes.section} id="express-checkout">
+            <Typography className={classes.namesHeader}>
+              {t('forms.themePersonalization.expressCheckout.title')}
+            </Typography>
+            <FormControlLabel
+              control={
+                <Switch
+                  checked={values.one_click_checkout_enabled}
+                  onChange={(event) => {
+                    if (
+                      event.target.checked &&
+                      values.requires_email_confirmation_when_signing_up
+                    ) {
+                      setFieldValue(
+                        'requires_email_confirmation_when_signing_up',
+                        false,
+                      );
+                    }
+                    setFieldValue(
+                      'one_click_checkout_enabled',
+                      event.target.checked,
+                    );
+                  }}
+                />
+              }
+              label={t(
+                'forms.themePersonalization.expressCheckout.oneClickBooking.label',
+              )}
+            />
+            <Typography color="textSecondary" variant="caption">
+              {t(
+                'forms.themePersonalization.expressCheckout.oneClickBooking.helperText',
+              )}
+            </Typography>
+          </div>
           <div className={classes.section}>
             <Typography className={classes.namesHeader}>
               {t('forms.themePersonalization.signup.title')}
             </Typography>
             <div className={classes.fieldWithHelperText}>
-              <SwitchField
-                label={t('forms.themePersonalization.signup.label')}
-                name="requires_email_confirmation_when_signing_up"
+              <FormControlLabel
+                control={
+                  <Switch
+                    checked={values.requires_email_confirmation_when_signing_up}
+                    onChange={(event) => {
+                      if (
+                        event.target.checked &&
+                        values.one_click_checkout_enabled
+                      ) {
+                        setFieldValue('one_click_checkout_enabled', false);
+                      }
+                      setFieldValue(
+                        'requires_email_confirmation_when_signing_up',
+                        event.target.checked,
+                      );
+                    }}
+                  />
+                }
+                label={t(
+                  'forms.themePersonalization.signup.emailConfirmationAtSignUp.label',
+                )}
               />
               <Typography color="textSecondary" variant="caption">
-                {t('forms.themePersonalization.signup.helperText')}
+                {t(
+                  'forms.themePersonalization.signup.emailConfirmationAtSignUp.helperText',
+                )}
               </Typography>
             </div>
             {values.requires_email_confirmation_when_signing_up && (
@@ -1077,6 +1133,7 @@ const ThemePersonalizeFormSchema = Yup.object().shape({
     },
   ),
   requires_email_confirmation_when_signing_up: Yup.boolean().required(),
+  one_click_checkout_enabled: Yup.boolean().required(),
   confirm_email_url_redirection: Yup.string().test(
     'is-url-format',
     'forms.themePersonalization.signup.urlError',
@@ -1242,6 +1299,7 @@ const ThemePersonalizeFormFormikHOC = withFormik<Props, FormikValues>({
         // @ts-expect-error
         start_calendar_week_on_today: theme.start_calendar_week_on_today,
         display_credit_price_for_offer: theme.display_credit_price_for_offer,
+        one_click_checkout_enabled: theme.one_click_checkout_enabled,
       };
     }
     return {
@@ -1289,6 +1347,7 @@ const ThemePersonalizeFormFormikHOC = withFormik<Props, FormikValues>({
       show_past_sessions_calendar: true,
       start_calendar_week_on_today: false,
       display_credit_price_for_offer: false,
+      one_click_checkout_enabled: false,
     };
   },
   validationSchema: ThemePersonalizeFormSchema,
@@ -1339,6 +1398,7 @@ const ThemePersonalizeFormFormikHOC = withFormik<Props, FormikValues>({
       'show_past_sessions_calendar',
       // @ts-expect-error
       'start_calendar_week_on_today',
+      'one_click_checkout_enabled',
     ];
     keys.forEach((key) => {
       if (key === 'show_studio_on_general_app') {

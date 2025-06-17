@@ -242,7 +242,9 @@ export const WithPagination: StoryObj<typeof Table> = {
   },
   render: (args) => {
     const { paginationProps } = args;
-    const [tableRows, setTableRows] = useState(updateRows(1, 10));
+    const [tableRows, setTableRows] = useState(
+      updateRows(1, paginationProps?.rowsPerPage || 10),
+    );
 
     const handlePaginationSettingsChange = (page: number, rows: number) => {
       setTableRows(updateRows(page, rows));

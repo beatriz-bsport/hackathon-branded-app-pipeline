@@ -93,12 +93,16 @@ export const TeacherArchiveModal: React.FC<TeacherArchiveModalProps> = ({
   return (
     <Modal
       open={isOpen}
-      onConfirmClick={handleArchive}
-      onCancelClick={onClose}
-      onCrossButtonClick={onClose}
-      confirmColor="critical"
-      confirmLabel={t("activeList.archiveModal.buttons.archive")}
-      cancelLabel={t("activeList.archiveModal.buttons.cancel")}
+      confirmButton={{
+        label: t("activeList.archiveModal.buttons.archive"),
+        color: "critical",
+        onClick: handleArchive,
+      }}
+      cancelButton={{
+        label: t("activeList.archiveModal.buttons.cancel"),
+        onClick: onClose,
+      }}
+      onCloseButtonClick={onClose}
       title={t("activeList.archiveModal.title")}
       size="md"
       onClickOutside={onClose}

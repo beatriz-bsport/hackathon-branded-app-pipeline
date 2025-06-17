@@ -64,13 +64,13 @@ exports.default = {
     allWorkshops: 'Teaches all workshops',
     pickWorkshop: 'Choose a workshop',
     workshops: 'Workshops',
-    allActivities: 'Teaches all activities',
-    pickActivity: 'Choose an activity',
-    activities: 'Activities',
+    allActivities: 'Teaches all group activities',
+    pickActivity: 'Choose a group activity',
+    activities: 'Group activities',
     customRules: 'Customize the rules',
-    disciplineGroup: 'Discipline groups',
+    disciplineGroup: 'Activity types:',
     description:
-      'Indicate which sessions are taught by your teacher. If a substitution request is made in one of these session, that teacher will be notified by email. If nothing is selected, this teacher will not be notified.',
+      "Choose the activity types taught by the teacher to automatically fill in the fields. If a substitute is needed for a class, we'll email the teacher in advance.",
     title: 'Substitution',
     allEstablishments: 'All establishments',
     pickEstablishment: 'Leave blank to select all',
@@ -84,7 +84,7 @@ exports.default = {
     nextSlot: 'Next session on {{date}} - {{hour}}',
     compatibleCoaches: '{{count}} compatible teacher',
     compatibleCoaches_plural: '{{count}} compatible teachers',
-    title: 'Available teachers by discipline',
+    title: 'Compatible teachers by activity',
   },
   disciplineGroup: {
     form: {
@@ -101,7 +101,7 @@ exports.default = {
       allActivities: 'Teaches all activities',
       pickActivity: 'Choose an activity',
       activities: 'Activities',
-      groupTypes: 'Type of sessions / categories',
+      groupTypes: 'Classes and categories:',
       required: 'This field is required',
       nameHelperText: 'Name of the discipline group',
       name: 'Name',
@@ -124,7 +124,7 @@ exports.default = {
     coaches_plural: '{{count}} Teachers',
     categories: 'Categories ({{number}})',
     workshops: 'Workshops ({{number}})',
-    activities: 'Activities ({{number}})',
+    activities: 'Group activities',
     title: 'Discipline groups',
     add: 'Add a group',
   },
@@ -161,7 +161,7 @@ exports.default = {
     header: { action: 'Action', answer: 'Answer', teacher: 'Teacher' },
   },
   registrationsStatus: { areNotClosed: 'Open', areClosed: 'Closed' },
-  lateStatus: { isNotLate: 'In time', isLate: 'Late' },
+  lateStatus: { isNotLate: 'On track', isLate: 'Late' },
   delete: {
     confirm: 'Confirm',
     cancel: 'Cancel',
@@ -238,12 +238,12 @@ exports.default = {
     title: 'My requests',
   },
   requestsLinkedToCancelledOffers: {
-    cancelledOffersModeTitle: 'Cancelled sessions mode',
+    cancelledOffersModeTitle: 'Cancelled sessions',
     filterHelper:
-      'We advise deactivating the filters and widening the date range if this alert persists and no session appears in <strong>{{switchLabel}}</strong> mode.',
+      'If no session appears, try deactivating filters and widening the data range.',
     description:
-      'In order to see these sessions, please activate the filter <strong>{{switchLabel}}</strong> above',
-    title: 'Active substitution requests are linked to cancelled sessions.',
+      "Activate the 'Cancelled sessions' toggle to view substitution requests that are linked to cancelled sessions. ",
+    title: 'View active substitution requests',
     buttonLabel: 'Open',
     offerHasActiveRequest: {
       helper:

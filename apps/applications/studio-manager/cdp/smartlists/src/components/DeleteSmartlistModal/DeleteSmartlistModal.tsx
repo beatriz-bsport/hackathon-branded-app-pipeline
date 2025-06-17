@@ -50,11 +50,15 @@ export const DeleteSmartlistModal: React.FC<DeleteSmartlistModalProps> = ({
   return (
     <Modal
       open={isOpen}
-      onConfirmClick={handleDelete}
-      onCancelClick={onClose}
-      confirmColor="critical"
-      confirmLabel={t("deleteModal.buttons.delete")}
-      cancelLabel={t("deleteModal.buttons.cancel")}
+      confirmButton={{
+        label: t("deleteModal.buttons.delete"),
+        color: "critical",
+        onClick: handleDelete,
+      }}
+      cancelButton={{
+        label: t("deleteModal.buttons.cancel"),
+        onClick: onClose,
+      }}
       title={t("deleteModal.title")}
       size="md"
       onClickOutside={onClose}

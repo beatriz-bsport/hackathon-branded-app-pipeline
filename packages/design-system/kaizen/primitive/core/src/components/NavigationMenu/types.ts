@@ -15,11 +15,11 @@ export type NavigationMenuItem = BaseItem & {
   type?: "item";
 };
 
-type NavigationMenuDivider = {
+export type NavigationMenuDivider = {
   type: "divider";
 };
 
-type NavigationMenuGroup = {
+export type NavigationMenuGroup = {
   type: "group";
   label: string;
 };

@@ -2,27 +2,27 @@ import { Result } from "typescript-result";
 
 import type { Action } from "@bsport/store-base";
 
-import { FetchSctParams, fetchScts } from "#src/api";
-import type { sct } from "#src/types";
+import { FetchSportCategoryParams, fetchSportCategories } from "#src/api";
+import type { SportCategory } from "#src/types";
 
-import { setScts } from "./store";
+import { setSportCategories } from "./store";
 
-export const fetchSctsAction: Action<FetchSctParams, sct[]> = async (
-  fetch,
-  params,
-) => {
-  const [uri, init] = fetchScts(params);
+export const fetchSportCategoriesAction: Action<
+  FetchSportCategoryParams,
+  SportCategory[]
+> = async (fetch, params) => {
+  const [uri, init] = fetchSportCategories(params);
 
   return Result.try(
     async () => {
       const { data } = await fetch(uri, init);
 
-      setScts({
-        scts: data,
+      setSportCategories({
+        sportCategories: data,
       });
 
       return data;
     },
-    (error) => new Error("Failed to fetch SCTs", { cause: error }),
+    (error) => new Error("Failed to fetch sport categories", { cause: error }),
   );
 };

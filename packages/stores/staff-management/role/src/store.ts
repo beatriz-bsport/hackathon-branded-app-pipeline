@@ -1,21 +1,24 @@
 import { createStore } from "zustand/vanilla";
 
-import { bindStore } from "@bsport/store-base";
+import { type PaginatedState, bindStore } from "@bsport/store-base";
 
-import type { Role } from "#src/types";
+import type { CompanyRole, Staff } from "#src/types";
 
 export interface RoleState {
-  byId: { [key: number]: Role };
-  count: number;
-  ids: number[];
-  page: number;
+  companyRoles: PaginatedState<CompanyRole>;
+  staff: PaginatedState<Staff>;
 }
 
-export const roleStore = createStore<RoleState>()(() => ({
+const createDefaultPaginatedState = () => ({
   byId: {},
   count: 0,
   ids: [],
   page: 1,
+});
+
+export const roleStore = createStore<RoleState>()(() => ({
+  companyRoles: createDefaultPaginatedState(),
+  staff: createDefaultPaginatedState(),
 }));
 
 /**

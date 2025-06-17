@@ -1,4 +1,5 @@
 export * from "./bindStore";
 export * from "./types";
 export * from "./buildUrlParams";
-export { createErrorWithContext, buildById } from "./utils";
+export { createErrorWithContext, serializeContext, buildById } from "./utils";
+export * from "./constants";

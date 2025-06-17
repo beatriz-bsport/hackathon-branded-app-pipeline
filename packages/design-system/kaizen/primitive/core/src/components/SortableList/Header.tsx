@@ -8,7 +8,7 @@ import { sortableListItem } from "#src/components/SortableList/SortableList";
 import type { ActionButton, ActionsDropdownConfig } from "#src/hooks";
 import useSplitActionsByDisplayOrder from "#src/hooks/use-split-actions-by-display-order";
 
-export type ListHeaderProps = React.HTMLAttributes<HTMLDivElement> & {
+export type SortableListHeaderProps = React.HTMLAttributes<HTMLDivElement> & {
   collapseController?: () => void;
   isCollapseOpen: boolean;
 } & {
@@ -17,6 +17,7 @@ export type ListHeaderProps = React.HTMLAttributes<HTMLDivElement> & {
   description?: string;
   buttons?: ActionButton[];
   dropdownConfig?: ActionsDropdownConfig;
+  isDraggable?: boolean;
 };
 
 /**
@@ -30,9 +31,8 @@ export type ListHeaderProps = React.HTMLAttributes<HTMLDivElement> & {
  * @param props.dropdownConfig An optional object, dropdown config such as the max number of actions displayed inline or the dropdown component fields.
  * @param props.collapseController The callback responsible for opening and closing the collapse.
  * If it's defined, an Icon is displaid on the right of the component to trigger this function.
- * @param props.collapseController. A boolean set by collapseController
  */
-const Header: React.FC<ListHeaderProps> = ({
+const Header: React.FC<SortableListHeaderProps> = ({
   buttons,
   className,
   collapseController,
@@ -41,6 +41,7 @@ const Header: React.FC<ListHeaderProps> = ({
   isCollapseOpen,
   title,
   dropdownConfig,
+  isDraggable,
   ...props
 }) => {
   const { actions, dropdownMenuProps } = useSplitActionsByDisplayOrder({
@@ -59,6 +60,13 @@ const Header: React.FC<ListHeaderProps> = ({
       {...props}
     >
       <div className="flex items-center gap-xs text-onsurface-default">
+        {isDraggable && (
+          <Icon
+            icon="align-justify"
+            size="sm"
+            className="cursor-grab text-onsurface-weaker"
+          />
+        )}
         <div className="flex flex-col items-start gap-2xs max-w-[500px]">
           <span className="text-onsurface-default text-title-sm font-strong leading-md">
             {title}
@@ -72,23 +80,24 @@ const Header: React.FC<ListHeaderProps> = ({
       </div>
 
       <div className="flex items-center gap-sm">
-        {collapseController && (
-          <Icon
-            icon="chevron-down"
-            size="sm"
-            onClick={collapseController}
-            className={classNames(
-              "cursor-pointer transition-all ease-in-out duration-extra-long",
-              { "rotate-180": isCollapseOpen },
-            )}
-          />
-        )}
         {actions?.map((action) => (
           <Button key={action.id} {...action}>
             {action?.label}
           </Button>
         ))}
         {dropdownMenuProps && <DropdownMenu {...dropdownMenuProps} />}
+        {collapseController && (
+          <Button
+            color="default"
+            intent="flat"
+            size="md"
+            className={`w-fit transform transition-transform duration-300 ease-in-out ${
+              isCollapseOpen ? "rotate-0" : "-rotate-90"
+            }`}
+            iconRight="chevron-down"
+            onClick={collapseController}
+          />
+        )}{" "}
       </div>
     </div>
   );

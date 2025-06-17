@@ -3,7 +3,7 @@ import { Result } from "typescript-result";
 import {
   type Action,
   type PaginatedResponse,
-  SearchResponse,
+  type SearchResponse,
   createErrorWithContext,
 } from "@bsport/store-base";
 
@@ -85,12 +85,10 @@ export const fuzzySearchCustomFormsAction: Action<
     async () => {
       const { data } = await fetch(uri, init);
 
-      const currentPage = params?.page ?? 1;
-
       setCustomForms({
         customForms: data.results,
-        page: currentPage,
-        count: data.count,
+        page: 1,
+        count: Math.min(data.count, 20), // Design decision: Search results are limited to 20 items max
       });
 
       return data;
@@ -192,13 +190,14 @@ export const duplicateCustomFormAction: Action<
  */
 export const disableCustomFormAction: Action<
   DisableCustomFormParams,
-  void
+  number
 > = async (fetch, params) => {
   const [uri, init] = disableCustomFormAPI(params);
 
   return Result.try(
     async () => {
       await fetch(uri, init);
+      return params.id;
     },
     (error) =>
       createErrorWithContext(error, {
@@ -215,7 +214,7 @@ export const disableCustomFormAction: Action<
  */
 export const restoreCustomFormAction: Action<
   RestoreCustomFormParams,
-  boolean
+  number
 > = async (fetch, params) => {
   const [uri, init] = restoreCustomFormAPI(params);
 
@@ -223,7 +222,7 @@ export const restoreCustomFormAction: Action<
     async () => {
       await fetch(uri, init);
 
-      return true;
+      return params.id;
     },
     (error) =>
       createErrorWithContext(error, {

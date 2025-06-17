@@ -251,13 +251,13 @@ const getTranslations = async () => {
       },
       padBeforeBooking: {
         explain2:
-          'Example: the establishment is available from 10 AM to 11 AM and your appointment lasts 60 minutes, however, a 15 minute blocker is required beforehand and afterwards for cleaning or maintenance.',
+          'For example, for an appointment that has been booked at 13:00 which lasts an hour, there will be a time buffer of 5 minutes both before and after the appointment.',
         explain4:
-          'NON-ACTIVE: the appointment will be possible and will block the room 15 min before and after the reservation. The next appointment will be possible from 11:30 am.',
+          'If left unactivated, the next appointment can be booked from 14:05 (5 minutes after the end of the previous appointment). In this case, time buffers can overlap.',
         explain3:
-          'ACTIVE: Appointment will not be possible. The room must be available from 9:45 to 11:15. The next appointment will not be possible until 11:30 am.',
+          'If activated, the following appointment can be booked from 14:10 (5 minutes after the end of the first appointment and 5 minutes before the start of the next one). Time buffers cannot overlap.',
         explain1:
-          'If activated, bookings can only be made if the calendar is available including the booking',
+          'Once activated, the time buffers between first and second appointments will not overlap. This means there will be a larger time gap between the two appointments as two time buffers are taken into account.',
       },
       ineligibleService: {
         title: 'You cannot book this appointment',
@@ -506,7 +506,7 @@ const getTranslations = async () => {
           "Attention! Deleting this appointment pass will also make it unavailable for purchase for the packs it's used for.",
       },
       list: {
-        createButton: 'Add an appointment pass',
+        createButton: 'Add appointment pass',
         isEmpty: 'There are no appointment passes to display.',
         availableCustomer: 'Available appointment passes',
         managerOnly: 'Unavailable appointment passes',
@@ -522,29 +522,29 @@ const getTranslations = async () => {
       compatibleServices: {
         title: 'Compatible appointments',
         add: 'Add',
-        isEmpty:
-          "This appointment pass can't be used for any appointment, because its compatibility hasn't been configured correctly.",
-        unusable: 'Unusable',
+        isEmpty: 'Key information missing',
+        unusable:
+          'This appointment pass is not currrently compatible for any appointment because some key information is missing. Fill in the required fields and try again.   ',
       },
       form: {
         detailsAndRestrictions: 'Details and restrictions',
         notification: 'Notifications',
-        title: '[Form] Appointment pass',
+        title: 'Add an appointment pass',
         managerOnly: { label: 'Unavailable for purchase' },
         name: { label: 'Name', helperText: 'Name of the appointment pass' },
         credits: {
           label: 'Number of credits',
-          helperText: 'Indicate the number of included credits.',
+          helperText: 'Choose the number of credits included in this pass',
           decimalCredit: {
             helperText: 'This pass will contain {{count}} credit.',
             helperText_plural: 'This pass will contain {{count}} credits.',
           },
         },
         price: {
-          label: 'Price (incl. VAT / Sales Tax)',
-          helperText: 'This is the selling price for members.',
+          label: 'Price (including VAT/Sales Tax) * ',
+          helperText: 'The total selling price of the pass.',
         },
-        tax: { label: 'VAT / Sales tax' },
+        tax: { label: 'VAT/Sales tax *' },
         actions: {
           submit: 'Save',
           cancel: 'Cancel',
@@ -553,21 +553,21 @@ const getTranslations = async () => {
         },
         available_payment_method_identifiers: {
           helperText:
-            'Select at least one payment method. If none is selected, online payments will be offered by default.',
+            'Choose at least one payment method. If none are selected, online payments will be chosen by default.',
           label: 'Accepted payment methods',
           warning:
             'Accepted payment methods can be assigned, once the appointment pass has been made available to members.',
         },
         durationYears: {
           helperText: 'Will be added to the number of days and months.',
-          label: 'Validity (in years)',
+          label: 'Years',
         },
         durationMonths: {
           helperText: 'Will be added to the number of days.',
-          label: 'Validity (in months)',
+          label: 'Months',
         },
         durationDays: {
-          label: 'Validity (in days)',
+          label: 'Days',
         },
         full_vod_access: { label: 'Activate access to Video On Demand' },
         expirationDaysBeforeFirstUse: {
@@ -580,7 +580,7 @@ const getTranslations = async () => {
           on_booking: 'Valid from the 1st booking',
           on_purchase: 'Valid from the billing date',
         },
-        new_member_only: { label: 'Only available for new members' },
+        new_member_only: { label: 'Only visible to new members' },
         start_date_method_detail: {
           on_purchase: ' from the date of purchase',
           on_attendance: ' from the 1st attendance',
@@ -593,15 +593,15 @@ const getTranslations = async () => {
           years: '{{ count }} year',
           years_plural: '{{ count }} years',
           months: '{{ count }} month(s)',
-          days: '{{ count }} day',
-          days_plural: '{{ count }} days',
+          days: 'Day',
+          days_plural: 'Days',
           valid: 'Valid for ',
           fullText: 'This appointment pass will be valid for ',
         },
         startDate: 'Start date',
         category: 'Category name',
         categoryTitle: {
-          compatibility: 'Compatibility',
+          compatibility: 'Compatible appointments',
           validity: 'Validity',
           paymentMeans: 'Payment method',
           info: 'General',
@@ -613,35 +613,35 @@ const getTranslations = async () => {
         universalPass: {
           deativatedTags: 'Deactivate for universal passes',
           helperText:
-            'Universal passes may be used for group activities and appointments. Twin passes are created for every universal pass to link the number of credits. Once one of these passes has been purchased, the other will be automatically added without any additional costs.',
+            "Universal passes can be used by members to book both group activities and appointments. Every time a universal pass is purchased, we'll automatically add a 'twin' appointment pass to share the credits between the two pass types.",
           label: 'Universal pass',
           warningIsUniversalPass:
             'Twin passes are automatically created for a universal pass. All fields modified here will also be edited on the twin passes, except the categories. This also applies to notifications, validity extensions, and credit changes.',
         },
         onBehalfOfTeacher: {
           helperText:
-            "This setting allows you to indicate that the income associated with appointments on this pass will be paid in full to the teacher. This information will be visible in your purchase reports (CA) in the 'Payment paid entirely to the teacher' column.",
+            "Select this setting to ensure that the income associated with appointments on this pass will be paid in full to the teacher. You can view this information in the 'Payment paid entirely to the teacher' column in your purchase reports. ",
           label: 'Full payment to the teacher',
         },
         appliesForPayroll: {
           helperText:
-            "By default, appointments are billed to the studio and included in the teacher's summary and payroll. If you deactivate this setting, the appointments associated with this pass will no longer appear in the teacher's summary.",
+            "Classes are billed to the studio and included in the teacher's payroll by default. Deactivate this setting to ensure classes associated with this pass will no longer appear in teachers' payrolls.",
           label:
-            "Appointments taken into account when calculating the teacher's payroll",
+            "Classes bought with this pass are included in teacher's payroll",
         },
         expiration_date: {
           helperText: 'Available until',
-          label: 'Date limit for purchase',
+          label: 'Duration of sale',
           tooltip:
-            'After chosen date, the pack will not be available for sale anymore, for the customers.',
+            'After the chosen date, the pass will be unavailable for purchase',
         },
         description: { label: 'Description' },
         advancedOptions: {
           header: 'Advanced',
           tag: {
-            tagsOnAcquisition: 'Tag after purchase',
+            tagsOnAcquisition: 'Apply tags after purchase',
             tagsOnAcquisitionHelper:
-              'Use tags to identify which member bought the appointment pass.',
+              'Tag members who have bought this pass to quickly identify them in the future.',
             selectTags: 'Select tags',
           },
         },
@@ -667,7 +667,7 @@ const getTranslations = async () => {
       },
       ht: 'Excl. VAT / Sales Tax',
       actions: { forceRegularizeUnpaid: 'Regularise all outstanding payments' },
-      listItem: { unusableByStaff: 'Invisible for the staff' },
+      listItem: { unusableByStaff: 'Hidden to staff' },
     },
     service: {
       selector: {
@@ -713,29 +713,30 @@ const getTranslations = async () => {
         establishmentResourceType: {
           isHomeService: {
             label: 'At home',
-            helperText: 'An address will be requested for every booking.',
+            helperText:
+              "We'll ask members for an address once the appointment is booked. ",
           },
           isWithoutEstablishment: {
-            label: 'No predetermined establishment',
+            label: 'Outside of establishment(s)',
             helperText: 'For your outdoor activities, livestreams, etc.',
           },
           isWithEstablishment: {
             isEmpty: 'No establishment has been configured.',
             label: 'In one or more of your establishments',
             helperText:
-              'Bookings will only be possible is there are enough available slots.',
+              'Booking will only be made if there are enough available slots. ',
           },
         },
-        resourceGroup: { establishment: 'Establishment', coach: 'Teacher' },
+        resourceGroup: { establishment: 'Location', coach: 'Teacher' },
         coach_consumer_attribution: {
           label: 'Allow members to choose their teacher',
           helperText:
-            "Members will see and have the ability to choose the teacher during the booking process. If unchecked, you'll have to assign a teacher after each appointment has been booked.",
+            "Members will be able to choose their teacher when they book. If left unchecked, you'll need to assign a teacher once the appointment has been booked.",
         },
         establishment_consumer_attribution: {
           label: 'Allow members to choose the establishment',
           helperText:
-            "Members will see and can choose an establishment during the booking process. If unchecked, we'll automatically optimize the filling of the establishments.",
+            'Members will be able to decide which establishment they want to book. Uncheck to automatically fill establishments.',
         },
         delete: {
           title: 'Delete appointment',
@@ -746,20 +747,20 @@ const getTranslations = async () => {
         },
         coach_capacity_used: {
           label:
-            'This is the maximum number of appointments that a teacher can attend to simultaneously.',
+            'The maximum amount of appointments an teacher can attend simultaneously is:',
           helperText:
-            'Example: a teacher can monitor two students separately on two machines',
+            'For example, a teacher can monitor two students at the same time.',
           alertText:
             'A teacher can manage 1, 2, 3, 4, 6 or 12 appointments simultaneously.',
         },
         color: 'Color code',
         use_full_establishment_capacity: {
-          label: 'Requires the entire establishment',
+          label: 'Members can choose the establishment',
           helperText:
-            'Uncheck to allow multiple activities/appointments in the same room simultaneously if the capacity allows it',
+            'The entire space is needed for the appointment. Uncheck to allow multiple appointments in the same establishment.',
         },
         title: 'Appointments',
-        createButton: 'Add an appointment',
+        createButton: 'Add appointment',
         addCoach: 'Add a teacher',
         addEstablishment: 'Add an establishment',
         addSlot: 'Add a session',
@@ -768,7 +769,7 @@ const getTranslations = async () => {
           helperText: 'An address will be requested for every booking.',
         },
         is_without_coach: "Don't assign any teacher to this appointment",
-        name: { label: 'Name of the service', placeholder: 'Massage' },
+        name: { label: 'Appointment name', placeholder: 'e.g. massage' },
         coach: {
           label: 'Teacher',
           isEmpty: 'There are no teachers to display.',
@@ -777,62 +778,62 @@ const getTranslations = async () => {
         description: { label: 'Description' },
         actions: { cancel: 'Cancel', submit: 'Save' },
         last_discard_minutes: {
-          helperText: "Credits won't be refunded for late-cancellations.",
-          label:
-            'Select until when members can cancel for free (late cancellations)',
+          helperText: "Credits won't be refunded for late cancellations.",
+          label: 'Choose how long before the class the booking window opens. ',
         },
-        coachSelectorTitle: 'Select the teacher(s) for this appointment:',
+        coachSelectorTitle: 'Choose the teacher(s) for this appointment.',
         establishmentSelectorTitle:
-          'Select the establishment(s) for this appointment:',
-        settingsTitle: 'Settings',
-        managerOnly: { label: 'Unavailable for purchase' },
+          'Choose the establishment(s) for this appointment:',
+        settingsTitle: 'Conditions',
+        managerOnly: { label: 'Hidden on Marketplace' },
         last_booking_minutes: {
           label:
             'Select until when members can book before the start of the appointment',
         },
         paddingEnd: {
           helperText0:
-            'The teacher(s) and/or the establishment(s) will be shown as available after the end of the appointment.',
+            'The amount of time until the teacher or establishment will be available after the appointment ends.',
           helperText:
             'The teacher(s) and/or the establishment(s) will be shown as unavailable for {{minutes}} after the end of the appointment.',
-          label: 'Buffer (in minutes) after the end of the appointment',
+          label: 'Time buffer (in minutes) after the end of the appointment.',
         },
         paddingStart: {
           helperText0:
-            'The teacher(s) and/or the establishment(s) will be shown as unavailable at the start of the appointment.',
+            'The amount of time that the teacher or establishment will be unavailable before the appointment starts.',
           helperText:
             'The teacher(s) and/or the establishment(s) will be shown as unavailable {{minutes}} before the start of the appointment.',
-          label: 'Buffer (in minutes) before the start of the appointment',
+          label:
+            'Time buffer (in minutes) before the start of the appointment.',
         },
         paddingTitle: 'Availability',
         unpaidBooking: {
           title: 'Pay later',
           tag: {
             helper:
-              'Use Tag Management to make certain reservations only available to specific segments of your member data base. All members tagged as "Approved" may complete an unpaid booking, while those tagged as "Refused" won\'t be able to.',
+              "Use Tags to make this appointment available only to certain segments of your member base. Members tagged as 'Authorized' are able to pay later, while those tagged as 'Unauthorized' won't be able to.",
             header: 'Tags',
-            allowed: 'Approved',
-            notAllowed: 'Refused',
+            allowed: 'Authorized',
+            notAllowed: 'Unauthorized',
             doNotSelectToAllowAllMembers:
-              'Leave this field empty to make it available to all members.',
+              "Leave this field empty to allow all members to 'pay later'.",
           },
-          label: 'Accept unpaid bookings',
+          label: "Enable 'pay later' for members",
           helperText:
-            'Activate this feature to allow members to complete bookings without any direct payments. The used credit(s) will be automatically deducted from any future appointment pass bought by the members.',
+            "Allow members to complete bookings without taking a payment right away. Credits will automatically be deducted from customers' future appointment passes.",
         },
         pad_before_booking: {
-          label: 'Activate retroactively for this booking',
+          label: 'Avoid overlapping time buffers between appointments',
         },
         advancedOptions: {
           header: 'Advanced',
           tag: {
             header: 'Tags',
             helperText:
-              'Use tags to make the appointment bookable only to a desired group of members: you can select tags to make all the sessions of this appointment bookable only to members with one of the selected tags, or you can select tags to make the appointment’s sessions non-bookable only to members with one of the selected tags.',
-            allowed: 'Allowed',
+              'Use tags to make this appointment available only to certain segments of your customer base.',
+            allowed: 'Authorized',
             doNotSelectToAllowAllMembers:
-              'Leave this field empty to allow all members',
-            notAllowed: 'Not allowed',
+              'Leave this field empty to authorize all members.',
+            notAllowed: 'Unauthorized',
           },
         },
         tooltip: {
@@ -910,7 +911,7 @@ const getTranslations = async () => {
     },
     openCalendar: 'Show the calendar',
     noPrivateService:
-      'In this module, you can add, manage, edit, and remove all your appointments.',
+      'An appointment is a private lesson with a teacher. Add an appointment to set its duration, as well as other conditions for your members.',
     noPrivatePass:
       "Members can use appointment passes to book in appointments (e.g. personal training, duos, room rental, massages, etc.). Reminder: don't forget to correctly set up the compatibility of all your appointment passes.",
     customEvent: {

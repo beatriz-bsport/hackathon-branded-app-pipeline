@@ -192,10 +192,14 @@ const DatePicker: React.FC<DatePickerProps> = ({
       size={modalSize}
       title={t("datePicker.modalTitle")}
       footerDirection={modalSize === "sm" ? "column" : "row"}
-      confirmLabel="Confirm"
-      cancelLabel="Cancel"
-      confirmColor="main"
-      onConfirmClick={handleModalConfirm}
+      confirmButton={{
+        label: "Confirm",
+        onClick: handleModalConfirm,
+      }}
+      cancelButton={{
+        label: "Cancel",
+        onClick: onClose,
+      }}
       onClose={onClose}
     >
       <DatePickerContent

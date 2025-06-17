@@ -268,6 +268,12 @@ export const getConfig = (config: {
       "@bsport/sm-backbone": {
         singleton: true,
       },
+      "@bsport/envs": {
+        singleton: true,
+      },
+      "@bsport/sentry": {
+        singleton: true,
+      },
     },
     exposes,
     remotes,

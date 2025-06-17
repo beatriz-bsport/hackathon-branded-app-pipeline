@@ -142,6 +142,12 @@ describe("getConfig", () => {
         "@bsport/sm-backbone": {
           singleton: true,
         },
+        "@bsport/envs": {
+          singleton: true,
+        },
+        "@bsport/sentry": {
+          singleton: true,
+        },
       },
     });
   });

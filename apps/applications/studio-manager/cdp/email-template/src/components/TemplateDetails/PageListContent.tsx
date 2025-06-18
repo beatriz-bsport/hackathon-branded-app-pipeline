@@ -11,6 +11,7 @@ import type {
   EmailTemplateDetail,
 } from "@bsport/store-cdp-email-template";
 
+import { DuplicateTemplateModal } from "#src/components/Common/Modals/DuplicateTemplateModal";
 import { EmailEditorForm } from "#src/components/TemplateDetails/EmailEditorForm";
 import { RenameEmailTemplateModal } from "#src/components/TemplateDetails/Modal/RenameEmailTemplate";
 import { SaveEmailTemplateParams } from "#src/hooks/actions/useSaveTemplate";
@@ -42,8 +43,10 @@ export const PageListContent: React.FC<Props> = ({
   toggleHasUnsavedChanges,
   saveTemplate,
 }: Props) => {
+  const [currentInlineAction, setCurrentInlineAction] = useState<
+    "delete" | "duplicate" | "rename" | null
+  >(null);
   const [pageTitle, setPageTitle] = useState(emailTemplateDetail?.title || "");
-  const [openTitleRenameModal, setOpenTitleRenameModal] = useState(false);
   const { t } = useTranslation(["list", "detail"]);
   const emailEditorRef = useRef<EditorRef>(null);
   const { unlayerUser, currentLocale, companyName, companyId } =
@@ -106,9 +109,17 @@ export const PageListContent: React.FC<Props> = ({
   });
   const { breadcrumbsItems, endGroupActions } = useDetailPageHeader({
     onExportTemplate: handleExportClick,
-    onDeleteTemplate: () => toggleHasUnsavedChanges(true),
-    onDuplicateTemplate: () => toggleHasUnsavedChanges(false),
+    onDeleteTemplate: emailTemplateDetail
+      ? () => toggleHasUnsavedChanges(true)
+      : undefined,
+    onDuplicateTemplate: emailTemplateDetail
+      ? () => setCurrentInlineAction("duplicate")
+      : undefined,
   });
+
+  const handleCloseModals = () => {
+    setCurrentInlineAction(null);
+  };
 
   const handleCancelTitleRename = () => {
     setPageTitle(emailTemplateDetail?.title || "");
@@ -174,13 +185,13 @@ export const PageListContent: React.FC<Props> = ({
   };
 
   useEffect(() => {
-    if (!openTitleRenameModal && hasChanges(initialData)) {
+    if (!currentInlineAction && hasChanges(initialData)) {
       toggleHasUnsavedChanges(true);
     } else {
       toggleHasUnsavedChanges(false);
     }
   }, [
-    openTitleRenameModal,
+    currentInlineAction,
     initialData,
     hasChanges,
     toggleHasUnsavedChanges,
@@ -200,7 +211,7 @@ export const PageListContent: React.FC<Props> = ({
     <>
       <DetailsLayout.Header
         pageTitle={pageTitle}
-        onEditTitleClick={() => setOpenTitleRenameModal(true)}
+        onEditTitleClick={() => setCurrentInlineAction("rename")}
         breadcrumbsItems={breadcrumbsItems}
         endGroupActions={endGroupActions}
       />
@@ -235,16 +246,23 @@ export const PageListContent: React.FC<Props> = ({
           />
         </div>
       </DetailsLayout.Content>
-      {openTitleRenameModal ? (
+      {currentInlineAction === "rename" ? (
         <RenameEmailTemplateModal
           templateTitle={formData.title}
           error={errors?.title}
-          isOpen={openTitleRenameModal}
+          isOpen={true}
           onBlur={(value: string) => handleBlur("title", value)}
           onChange={(newTitle: string) => handleChange("title", newTitle)}
-          onClose={() => setOpenTitleRenameModal(false)}
+          onClose={handleCloseModals}
           onSave={(newTitle: string) => setPageTitle(newTitle)}
           onCancel={handleCancelTitleRename}
+        />
+      ) : null}
+      {emailTemplateDetail?.id && currentInlineAction === "duplicate" ? (
+        <DuplicateTemplateModal
+          templateId={emailTemplateDetail.id}
+          isOpen={true}
+          onClose={handleCloseModals}
         />
       ) : null}
     </>

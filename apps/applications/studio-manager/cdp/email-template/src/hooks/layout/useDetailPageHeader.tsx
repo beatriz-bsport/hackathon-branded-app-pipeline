@@ -1,11 +1,16 @@
-import { Button, DropdownMenu, Tooltip } from "@bsport/kaizen-primitive-core";
+import {
+  Button,
+  DropdownMenu,
+  type DropdownMenuItems,
+  Tooltip,
+} from "@bsport/kaizen-primitive-core";
 
 import { ROUTES } from "#src/urls";
 import { useTranslation } from "#src/utils/i18n";
 
 type UseDetailPageHeaderProps = {
-  onDeleteTemplate: () => void;
-  onDuplicateTemplate: () => void;
+  onDeleteTemplate?: () => void;
+  onDuplicateTemplate?: () => void;
   onExportTemplate: () => void;
 };
 
@@ -15,6 +20,33 @@ export const useDetailPageHeader = ({
   onDuplicateTemplate,
 }: UseDetailPageHeaderProps) => {
   const { t } = useTranslation(["list", "detail"]);
+
+  const getDuplicateTemplateActionConfig = () => {
+    return onDuplicateTemplate
+      ? {
+          id: "duplicate-template",
+          label: t("activeList.actions.duplicate"),
+          iconLeft: "edit-02",
+        }
+      : undefined;
+  };
+
+  const getDeleteTemplateActionConfig = () => {
+    return onDeleteTemplate
+      ? {
+          id: "delete-template",
+          label: t("activeList.actions.delete"),
+          iconLeft: "trash-01",
+        }
+      : undefined;
+  };
+
+  const getDropdownMenuAction = () => {
+    return [
+      getDuplicateTemplateActionConfig(),
+      getDeleteTemplateActionConfig(),
+    ].filter(Boolean) as DropdownMenuItems;
+  };
 
   const breadcrumbsItems = [
     {
@@ -28,6 +60,37 @@ export const useDetailPageHeader = ({
       href: `../${ROUTES.CUSTOM_TEMPLATES}`,
     },
   ];
+
+  const dropdownMenuConfig =
+    onDeleteTemplate || onDuplicateTemplate ? (
+      <Tooltip
+        key="more-actions-button"
+        placement="bottom-right"
+        label={t("details.hover.moreActions")}
+      >
+        <DropdownMenu
+          placement="bottom-right"
+          items={getDropdownMenuAction()}
+          onSelectOption={({ id }) => {
+            if (id === "duplicate-template") {
+              onDuplicateTemplate?.();
+            } else if (id === "delete-template") {
+              onDeleteTemplate?.();
+            }
+          }}
+          target={({ setIsPopoverOpened }) => (
+            <Button
+              key="chevron-right-button"
+              iconLeft="dots-vertical"
+              color="main"
+              intent="default"
+              size="md"
+              onClick={() => setIsPopoverOpened(true)}
+            />
+          )}
+        />
+      </Tooltip>
+    ) : undefined;
 
   const endGroupActions = [
     <Tooltip
@@ -43,44 +106,7 @@ export const useDetailPageHeader = ({
         onClick={onExportTemplate}
       />
     </Tooltip>,
-    <Tooltip
-      key="more-actions-button"
-      placement="bottom-right"
-      label={t("details.hover.moreActions")}
-    >
-      <DropdownMenu
-        placement="bottom-right"
-        items={[
-          {
-            id: "duplicate-template",
-            label: t("activeList.actions.duplicate"),
-            iconLeft: "edit-02",
-          },
-          {
-            id: "delete-template",
-            label: t("activeList.actions.delete"),
-            iconLeft: "trash-01",
-          },
-        ]}
-        onSelectOption={({ id }) => {
-          if (id === "duplicate-template") {
-            onDuplicateTemplate();
-          } else if (id === "delete-template") {
-            onDeleteTemplate();
-          }
-        }}
-        target={({ setIsPopoverOpened }) => (
-          <Button
-            key="chevron-right-button"
-            iconLeft="dots-vertical"
-            color="main"
-            intent="default"
-            size="md"
-            onClick={() => setIsPopoverOpened(true)}
-          />
-        )}
-      />
-    </Tooltip>,
+    dropdownMenuConfig,
   ];
 
   return {

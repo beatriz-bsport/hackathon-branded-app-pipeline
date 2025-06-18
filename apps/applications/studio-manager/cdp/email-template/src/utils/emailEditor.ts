@@ -37,13 +37,13 @@ export function getDevelopmentUnlayerUser({
   companyId: number;
   companyType: CompanyTypeEnum;
 }) {
-  const isStudioIdOdd = companyId % 2 === 0 ? "odd" : "even";
-  const testId = `${currentEnv}-${companyType}-test-${isStudioIdOdd}`;
+  const studiIdParity = companyId % 2 === 0 ? "even" : "odd";
+  const testId = `${currentEnv}-${companyType}-test-${studiIdParity}`;
 
   return {
     id: testId,
-    email: `${currentEnv}.${companyType}.${isStudioIdOdd}@bsport.io`,
-    name: `${currentEnv}-${companyType} ${isStudioIdOdd}`,
+    email: `${currentEnv}.${companyType}.${studiIdParity}@bsport.io`,
+    name: `${currentEnv}-${companyType} ${studiIdParity}`,
   };
 }
 

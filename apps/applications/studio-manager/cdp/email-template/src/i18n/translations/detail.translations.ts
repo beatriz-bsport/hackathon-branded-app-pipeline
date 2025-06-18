@@ -46,17 +46,18 @@ exports.default = {
       },
       errors: {
         notProvided: "This is required",
+        tooLong: "The title is too long",
       },
     },
   },
   saveTemplateAction: {
     description: "The page has unsaved changes.",
     success: {
-      title: "Your email template was saved",
-      action: "Open",
+      title: "Email template saved",
     },
     error: {
-      cannotSaveTemplate: "There was a problem saving your changes",
+      missingFields: "Some required fields are missing",
+      problemWhileSaving: "There was a problem saving your changes.",
     },
   },
   leaveConfirmationModal: {
@@ -69,6 +70,12 @@ exports.default = {
     placeholder: "Add an email subject...",
     error: {
       notProvided: "This is required",
+      tooLong: "The subject is too long",
+    },
+  },
+  templateDesign: {
+    error: {
+      notProvided: "No template design provided.",
     },
   },
   templateCategory: {

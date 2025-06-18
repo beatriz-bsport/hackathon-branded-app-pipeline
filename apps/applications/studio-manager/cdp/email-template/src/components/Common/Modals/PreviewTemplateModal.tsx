@@ -103,14 +103,16 @@ export const PreviewTemplateModal: React.FC<Props> = ({
       : null;
 
   useEffect(() => {
-    fetchEmailTemplateDetail();
-  }, [fetchEmailTemplateDetail, templateSummary.id]);
+    if (isOpen) {
+      fetchEmailTemplateDetail({ id: templateSummary.id });
+    }
+  }, [fetchEmailTemplateDetail, templateSummary, isOpen]);
 
   return (
     <Modal
       open={isOpen}
       onClose={onClose}
-      title={emailTemplateDetail?.title}
+      title={emailTemplateDetail?.title ?? ""}
       confirmButton={
         confirmButtonText
           ? {

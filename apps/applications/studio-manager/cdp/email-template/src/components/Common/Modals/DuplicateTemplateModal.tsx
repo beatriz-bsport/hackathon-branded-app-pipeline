@@ -74,7 +74,7 @@ export const DuplicateTemplateModal: React.FC<Props> = ({
   };
 
   useEffect(() => {
-    fetchEmailTemplateDetail();
+    fetchEmailTemplateDetail({ id: templateId });
   }, [fetchEmailTemplateDetail, templateId]);
 
   return (

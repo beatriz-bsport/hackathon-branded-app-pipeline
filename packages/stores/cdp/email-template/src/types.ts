@@ -4,7 +4,7 @@ export type EmailTemplateSummary = {
   available_for_companies: number[];
   category: number | null;
   company_id: number | null;
-  date_modified?: string;
+  date_modified: string;
   id: number;
   is_default_bsport_template: boolean;
   ordering_in_category: number;
@@ -71,16 +71,20 @@ export type UpdateEmailTemplateCategoryPayload = {
   items?: EmailTemplateSummary[];
 };
 
-export type EditEmailTemplatePayload = {
+export type CreateEmailTemplatePayload = {
   title: string;
   subject: string;
   html: string;
-  design?: string;
+  design: string;
   category: number | null;
-  company_id?: number | null;
-  date_modified?: string;
+  company_id: number | null;
+  date_modified: string;
   available_for_companies?: number[];
 };
+
+export type EditEmailTemplatePayload = {
+  id: number;
+} & CreateEmailTemplatePayload;
 
 export type DeleteEmailTemplatePayload = {
   id: number;

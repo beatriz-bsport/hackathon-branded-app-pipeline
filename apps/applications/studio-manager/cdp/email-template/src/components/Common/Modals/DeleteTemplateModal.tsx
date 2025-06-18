@@ -98,7 +98,7 @@ export const DeleteTemplateModal: React.FC<Props> = ({
   };
 
   useEffect(() => {
-    fetchEmailTemplateDetail();
+    fetchEmailTemplateDetail({ id: templateId });
   }, [fetchEmailTemplateDetail, templateId]);
 
   useEffect(() => {

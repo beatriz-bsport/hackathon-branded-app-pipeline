@@ -10,7 +10,7 @@ export const useTemplateNavigation = () => {
   };
 
   const navigateToTemplateDetails = (templateId: number) => {
-    navigate(`../${ROUTES.EMAIL_TEMPLATE_EDIT(templateId)}`);
+    navigate(`../${templateId}`);
   };
 
   const navigateToCustomList = () => {

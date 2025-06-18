@@ -6,13 +6,11 @@ import { useTranslation } from "#src/utils/i18n";
 type UseDetailPageHeaderProps = {
   onDeleteTemplate: () => void;
   onDuplicateTemplate: () => void;
-  onSaveTemplate: () => void;
 };
 
 export const useDetailPageHeader = ({
   onDeleteTemplate,
   onDuplicateTemplate,
-  onSaveTemplate,
 }: UseDetailPageHeaderProps) => {
   const { t } = useTranslation(["list", "detail"]);
 
@@ -61,18 +59,9 @@ export const useDetailPageHeader = ({
             label: t("activeList.actions.delete"),
             iconLeft: "trash-01",
           },
-          // TODO : DELETE THIS TEST BUTTON WHEN THE REAL ACTIONS ARE IMPLEMENTED
-          {
-            id: "show-save-action",
-            label: "DEBUG - SHOW SAVE ACTIONS",
-            iconLeft: "save",
-          },
         ]}
         onSelectOption={({ id }) => {
-          console.log("Selected action:", id);
-          if (id === "show-save-action") {
-            onSaveTemplate();
-          } else if (id === "duplicate-template") {
+          if (id === "duplicate-template") {
             onDuplicateTemplate();
           } else if (id === "delete-template") {
             onDeleteTemplate();

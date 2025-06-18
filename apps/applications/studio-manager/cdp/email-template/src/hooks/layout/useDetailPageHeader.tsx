@@ -6,9 +6,11 @@ import { useTranslation } from "#src/utils/i18n";
 type UseDetailPageHeaderProps = {
   onDeleteTemplate: () => void;
   onDuplicateTemplate: () => void;
+  onExportTemplate: () => void;
 };
 
 export const useDetailPageHeader = ({
+  onExportTemplate,
   onDeleteTemplate,
   onDuplicateTemplate,
 }: UseDetailPageHeaderProps) => {
@@ -38,7 +40,7 @@ export const useDetailPageHeader = ({
         color="main"
         intent="default"
         size="md"
-        onClick={() => alert("export HTML clicked")}
+        onClick={onExportTemplate}
       />
     </Tooltip>,
     <Tooltip

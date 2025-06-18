@@ -22,6 +22,7 @@ import {
   UNLAYER_EDITOR_MIN_HEIGHT,
   UNLAYER_PROJECT_ID,
 } from "#src/utils/constants";
+import { createDownloadableUrlObject } from "#src/utils/emailEditor";
 import { useTranslation } from "#src/utils/i18n";
 import {
   formatCategoriesForSelector,
@@ -57,10 +58,28 @@ export const PageListContent: React.FC<Props> = ({
       value: t("templateCategory.noCategory"),
     },
   ];
-  const { breadcrumbsItems, endGroupActions } = useDetailPageHeader({
-    onDeleteTemplate: () => toggleHasUnsavedChanges(true),
-    onDuplicateTemplate: () => toggleHasUnsavedChanges(false),
-  });
+
+  const handleExportClick = () => {
+    if (!emailEditorRef.current) return;
+    emailEditorRef.current?.editor?.exportHtml(({ html }) => {
+      const url = createDownloadableUrlObject(
+        new Blob([html], { type: "text/html;charset=utf-8" }),
+      );
+      if (!url) return;
+
+      const tempEl = document.createElement("a");
+      const safeTitle =
+        pageTitle.trim().replace(/[^\w\-.]+/g, "_") || "template";
+
+      tempEl.href = url;
+      tempEl.download = `${safeTitle}.html`;
+      tempEl.click();
+
+      setTimeout(() => {
+        (window.URL || window.webkitURL).revokeObjectURL(url);
+      }, 0);
+    });
+  };
 
   const initialData = useMemo(
     () => ({
@@ -84,6 +103,11 @@ export const PageListContent: React.FC<Props> = ({
     validateForm,
   } = useEmailTemplateForm({
     initialData,
+  });
+  const { breadcrumbsItems, endGroupActions } = useDetailPageHeader({
+    onExportTemplate: handleExportClick,
+    onDeleteTemplate: () => toggleHasUnsavedChanges(true),
+    onDuplicateTemplate: () => toggleHasUnsavedChanges(false),
   });
 
   const handleCancelTitleRename = () => {

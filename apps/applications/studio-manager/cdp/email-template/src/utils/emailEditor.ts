@@ -37,13 +37,13 @@ export function getDevelopmentUnlayerUser({
   companyId: number;
   companyType: CompanyTypeEnum;
 }) {
-  const studiIdParity = companyId % 2 === 0 ? "even" : "odd";
-  const testId = `${currentEnv}-${companyType}-test-${studiIdParity}`;
+  const isStudioIdOdd = companyId % 2 === 0 ? "odd" : "even";
+  const testId = `${currentEnv}-${companyType}-test-${isStudioIdOdd}`;
 
   return {
     id: testId,
-    email: `${currentEnv}.${companyType}.${studiIdParity}@bsport.io`,
-    name: `${currentEnv}-${companyType} ${studiIdParity}`,
+    email: `${currentEnv}.${companyType}.${isStudioIdOdd}@bsport.io`,
+    name: `${currentEnv}-${companyType} ${isStudioIdOdd}`,
   };
 }
 
@@ -96,4 +96,44 @@ export function getProductionUnlayerUser({
     email: companyEmail,
     name: companyName,
   };
+}
+
+// TODO : Export this function to a shared package if needed in other parts of the application (like sm-backbone maybe?).
+/**
+ * Creates a downloadable object URL for a given File or Blob.
+ *
+ * This function generates a temporary object URL using the browser's URL API,
+ * which can be used to trigger downloads or previews of files (such as exported HTML).
+ * If the input is null or an error occurs during URL creation, the function returns undefined.
+ *
+ * @param {File | Blob | null | undefined} file - The file or blob to generate a URL for.
+ * @returns {string | undefined} The generated object URL, or undefined if creation fails or input is null.
+ *
+ * @example
+ * const url = createUrl(blob);
+ * if (url) {
+ *   const link = document.createElement('a');
+ *   link.href = url;
+ *   link.download = 'export.html';
+ *   link.click();
+ * }
+ */
+export function createDownloadableUrlObject(
+  file: File | Blob | null | undefined,
+): string | undefined {
+  if (!file) {
+    console.warn("No file provided to create a downloadable URL.");
+    return undefined;
+  }
+
+  try {
+    const url = (window.URL || window.webkitURL).createObjectURL(file);
+    return url;
+  } catch (err) {
+    if (err instanceof TypeError) {
+      console.error("Failed to create object URL:", err);
+      return undefined;
+    }
+    throw err;
+  }
 }

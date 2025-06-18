@@ -1,0 +1,50 @@
+{
+  "name": "@bsport/form",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Form utilities for react-hook-form with Zod integration",
+  "license": "UNLICENSED",
+  "author": "Osmel Mora <osmel.mora@bsport.io>",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./build/lib.d.ts",
+      "import": "./build/lib.es.js",
+      "default": "./build/lib.es.js"
+    }
+  },
+  "main": "build/lib.es.js",
+  "module": "build/lib.es.js",
+  "types": "build/lib.d.ts",
+  "files": [
+    "build"
+  ],
+  "scripts": {
+    "build": "vite build",
+    "ci:compile": "tsc",
+    "dev": "vite build --watch",
+    "format": "prettier --write '**/*.{ts,tsx,js,jsx,cjs,mjs,scss,css,json,md,mdx,html,svg}'",
+    "format:check": "prettier --check '**/*.{ts,tsx,js,jsx,cjs,mjs}'",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix ."
+  },
+  "dependencies": {
+    "@hookform/resolvers": "^5.1.1",
+    "react-hook-form": "^7.58.0"
+  },
+  "devDependencies": {
+    "@bsport/config-eslint-react": "workspace:*",
+    "@types/react": "^18.3.17",
+    "zod": "^3.25.64"
+  },
+  "peerDependencies": {
+    "@bsport/kaizen-primitive-core": "workspace:*",
+    "react": "^19.0.0",
+    "zod": "^3.25.64"
+  },
+  "nx": {
+    "tags": [
+      "postinstall"
+    ]
+  }
+}

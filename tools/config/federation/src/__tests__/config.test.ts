@@ -133,6 +133,10 @@ describe("getConfig", () => {
           singleton: true,
           requiredVersion: "7.2.0",
         },
+        zod: {
+          singleton: true,
+          requiredVersion: "^3.0.0",
+        },
         "@bsport/i18n": {
           singleton: true,
         },
@@ -140,6 +144,9 @@ describe("getConfig", () => {
           singleton: true,
         },
         "@bsport/sm-backbone": {
+          singleton: true,
+        },
+        "@bsport/form": {
           singleton: true,
         },
         "@bsport/envs": {

@@ -259,6 +259,10 @@ export const getConfig = (config: {
         singleton: true,
         requiredVersion: packageJson.dependencies["react-router"] ?? "7.2.0",
       },
+      zod: {
+        singleton: true,
+        requiredVersion: packageJson.dependencies["zod"] ?? "^3.0.0",
+      },
       "@bsport/i18n": {
         singleton: true,
       },
@@ -266,6 +270,9 @@ export const getConfig = (config: {
         singleton: true,
       },
       "@bsport/sm-backbone": {
+        singleton: true,
+      },
+      "@bsport/form": {
         singleton: true,
       },
       "@bsport/envs": {

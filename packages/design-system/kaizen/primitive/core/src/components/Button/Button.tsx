@@ -166,6 +166,7 @@ const Button: React.FC<Props> = ({
             : (`default-${size}` as `default-${keyof typeof variants.size}`),
         widthMode: fullWidth ? "full-width" : "default",
       })}
+      type="button"
       {...props}
     >
       {renderedIconLeft}

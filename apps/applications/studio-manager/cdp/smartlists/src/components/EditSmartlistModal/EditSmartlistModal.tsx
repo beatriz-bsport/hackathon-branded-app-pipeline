@@ -1,11 +1,14 @@
-import React from "react";
+import { type FC, useId } from "react";
 
+import { useFormController } from "@bsport/form";
 import { Modal } from "@bsport/kaizen-primitive-core";
 import type { Smartlist } from "@bsport/store-cdp-smartlist";
 
-import { SmartlistForm, useSmartlistForm } from "#src/components/SmartlistForm";
+import { SmartlistForm } from "#src/components/SmartlistForm";
+import { SmartlistFormData } from "#src/components/SmartlistForm/shared-types";
 import { useTranslation } from "#src/utils/i18n";
 
+import { smartlistSchema } from "../SmartlistForm/schema";
 import { useEdit } from "./use-edit";
 
 type EditSmartlistModalProps = {
@@ -16,7 +19,7 @@ type EditSmartlistModalProps = {
   smartlist: Smartlist;
 };
 
-export const EditSmartlistModal: React.FC<EditSmartlistModalProps> = ({
+export const EditSmartlistModal: FC<EditSmartlistModalProps> = ({
   isOpen,
   onClose,
   onEdit,
@@ -24,21 +27,13 @@ export const EditSmartlistModal: React.FC<EditSmartlistModalProps> = ({
   smartlist,
 }) => {
   const { t } = useTranslation("list");
-  const {
-    formData,
-    errors,
-    handleChange,
-    handleBlur,
-    validateForm,
-    hasNoChanges,
-  } = useSmartlistForm({
-    initialData: {
-      name: smartlist?.name || "",
-      description: smartlist?.description || "",
-    },
-  });
 
-  const { editSmartlist, isEditing } = useEdit({
+  const defaultValues: SmartlistFormData = {
+    name: smartlist?.name || "",
+    description: smartlist?.description || "",
+  };
+
+  const { editSmartlist } = useEdit({
     onSuccess: () => {
       onClose();
       onEdit?.();
@@ -52,38 +47,24 @@ export const EditSmartlistModal: React.FC<EditSmartlistModalProps> = ({
     },
   });
 
-  const handleCreate = async () => {
-    if (!validateForm()) {
-      return;
-    }
+  const methods = useFormController({
+    mode: "onBlur",
+    schema: smartlistSchema,
+    defaultValues,
+  });
 
-    if (
-      hasNoChanges({
-        name: smartlist.name,
-        description: smartlist.description,
-      })
-    ) {
-      /**
-       * Why?
-       * Modal component doesn't support disabling the buttons
-       * and as the smartlists order is affected after saving
-       * for now we decided to close the modal when there are no changes
-       * and the user saves the form
-       * TODO: handling this case in a better way by disabling the buttons
-       */
-      onClose();
-      return;
-    }
-
+  const handleSubmit = (data: SmartlistFormData) => {
     editSmartlist(
       {
         id: smartlist.id,
-        name: formData.name,
-        description: formData.description,
+        name: data.name,
+        description: data.description,
       },
       smartlist,
     );
   };
+
+  const formId = useId();
 
   return (
     <Modal
@@ -94,20 +75,16 @@ export const EditSmartlistModal: React.FC<EditSmartlistModalProps> = ({
       size="md"
       confirmButton={{
         label: t("editForm.actions.save"),
-        onClick: handleCreate,
+        type: "submit",
+        form: formId,
+        disabled: !methods.formState.isDirty || methods.formState.isSubmitting,
       }}
       cancelButton={{
         label: t("editForm.actions.cancel"),
         onClick: onClose,
       }}
     >
-      <SmartlistForm
-        data={formData}
-        errors={errors}
-        onChange={handleChange}
-        onBlur={handleBlur}
-        isSubmitting={isEditing}
-      />
+      <SmartlistForm id={formId} onSubmit={handleSubmit} {...methods} />
     </Modal>
   );
 };

@@ -8,13 +8,14 @@ import {
   useMemberStore,
 } from "@bsport/store-core-data-member";
 import { useAsync } from "@bsport/use-async";
-import { usePaginationQueryParams } from "@bsport/use-pagination-query-params";
+import {
+  DEFAULT_PAGE,
+  DEFAULT_PAGE_SIZE,
+  usePaginationQueryParams,
+} from "@bsport/use-pagination-query-params";
 
 import type { FilterParams } from "#src/hooks/useMemberFilters";
 import { fetch } from "#src/utils/fetch";
-
-const DEFAULT_PAGE = 1;
-const DEFAULT_PAGE_SIZE = 10;
 
 export const useFetchPaginatedList = ({
   archived,
@@ -25,10 +26,7 @@ export const useFetchPaginatedList = ({
 }) => {
   // Retrieve pagination params from the URL
   const { currentPage, currentPageSize, setPageSettings } =
-    usePaginationQueryParams({
-      shouldReplace: false,
-      defaultValues: { page: DEFAULT_PAGE, page_size: DEFAULT_PAGE_SIZE },
-    });
+    usePaginationQueryParams();
 
   // Retrieve pagination results from the store
   const memberList = useMemberStore(selectMembers);

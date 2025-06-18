@@ -75,7 +75,7 @@ export const AppWrapper: React.FC<AppWrapperProps> = ({
     <BrowserRouter basename={basename}>
       <ThemeProvider>
         <KaizenI18nProvider kaizenI18nInstance={kaizenI18nInstance}>
-          <div className="bg-surface-page min-h-screen">
+          <div className="bg-surface-page text-onsurface-default min-h-screen">
             <DevTools i18nInstance={kaizenI18nInstance} />
             <RoutesWrapper
               LoginApp={LoginApp}

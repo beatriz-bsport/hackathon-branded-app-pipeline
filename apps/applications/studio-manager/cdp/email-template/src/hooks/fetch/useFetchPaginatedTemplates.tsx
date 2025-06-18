@@ -11,14 +11,15 @@ import {
   useEmailTemplateStore,
 } from "@bsport/store-cdp-email-template";
 import { useAsync } from "@bsport/use-async";
-import { usePaginationQueryParams } from "@bsport/use-pagination-query-params";
+import {
+  DEFAULT_PAGE,
+  usePaginationQueryParams,
+} from "@bsport/use-pagination-query-params";
 
 import { fetch } from "#src/utils/fetch";
 import type { PossibleEmailTemplateType } from "#src/utils/types";
 
 const MAX_PAGE_SIZE_FUZZY_SEARCH = 20;
-const DEFAULT_PAGE_SIZE = 10;
-const DEFAULT_PAGE = 1;
 
 export const useFetchPaginatedTemplateList = ({
   templatesToFetch,
@@ -28,10 +29,7 @@ export const useFetchPaginatedTemplateList = ({
   searchInput?: string;
 }) => {
   const { currentPage, currentPageSize, setPageSettings } =
-    usePaginationQueryParams({
-      shouldReplace: false,
-      defaultValues: { page_size: DEFAULT_PAGE_SIZE, page: DEFAULT_PAGE },
-    });
+    usePaginationQueryParams();
 
   const flatEmailTemplateList = useEmailTemplateStore(
     selectFlatEmailTemplateSummaries,
@@ -72,7 +70,7 @@ export const useFetchPaginatedTemplateList = ({
     return fuzzySearchEmailTemplateAction(fetch, {
       queryString: searchInput ?? "",
       page_size: MAX_PAGE_SIZE_FUZZY_SEARCH,
-      page: 1,
+      page: DEFAULT_PAGE,
     });
   }, [searchInput]);
 

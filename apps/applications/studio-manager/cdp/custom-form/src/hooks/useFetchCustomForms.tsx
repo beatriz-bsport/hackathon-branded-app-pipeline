@@ -13,9 +13,6 @@ import { useFetcherCustomForms } from "#src/hooks/api/use-fetcher-custom-form";
 import { useFetcherCustomFormStatistics } from "#src/hooks/api/use-fetcher-custom-form-statistics";
 import { useSearchCustomForms } from "#src/hooks/api/use-fuzzy-search-custom-forms";
 
-const DEFAULT_PAGE = 1;
-const DEFAULT_PAGE_SIZE = 10;
-
 type UseFetchCustomFormsParams = {
   searchInput: string;
   archived?: boolean;
@@ -28,10 +25,7 @@ export const useFetchCustomForms = ({
   archived,
 }: UseFetchCustomFormsParams) => {
   const { currentPage, currentPageSize, setPageSettings, setPage } =
-    usePaginationQueryParams({
-      shouldReplace: true,
-      defaultValues: { page: DEFAULT_PAGE, page_size: DEFAULT_PAGE_SIZE },
-    });
+    usePaginationQueryParams();
 
   // Selectors
 

@@ -25,6 +25,7 @@ import {
   updateFranchiseUserTags as updateFranchiseUserTagsAPI,
   fetchFranchiseUserBillingPlans as fetchFranchiseUserBillingPlansAPI,
   fetchFranchiseUserBillingPlanInvoices as fetchFranchiseUserBillingPlanInvoicesAPI,
+  retrieveFranchiseWithCache as retrieveFranchiseWithCacheAPI,
 } from '#src/libs/franchise/api';
 import type {
   CompanyGroup,
@@ -91,6 +92,28 @@ export function retrieveFranchise(
 
     try {
       const response = await retrieveFranchiseAPI(id);
+      dispatch(fetchFranchiseActions.success({ franchisor: response.data }));
+
+      options?.onSuccess?.();
+    } catch (error) {
+      dispatch(fetchFranchiseActions.error(error));
+      options?.onError?.(error);
+    }
+
+    dispatch(fetchFranchiseActions.isLoading(false));
+  };
+}
+
+export function retrieveFranchiseWithCache(
+  id: number,
+  options?: OptionCallback<FranchiseDetails>,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(fetchFranchiseActions.isLoading(true));
+    dispatch(fetchFranchiseActions.error(null));
+
+    try {
+      const response = await retrieveFranchiseWithCacheAPI(id);
       dispatch(fetchFranchiseActions.success({ franchisor: response.data }));
 
       options?.onSuccess?.();

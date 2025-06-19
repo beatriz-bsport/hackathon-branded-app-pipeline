@@ -9,20 +9,22 @@ import type {
 
 import { useTranslation } from "#src/utils/i18n";
 
-import type { NavigationUrls } from "./navigation-urls";
+import type { NavigationUrlItem, NavigationUrls } from "./navigation-urls";
 
 export type MenuSet = "default" | "settings";
 
-export type NavigationSidebarSubItem = Omit<NavigationMenuItem, "subItems"> & {
-  revamped?: boolean;
-  onClick?: () => void;
-};
-type NavigationSidebarItem = NavigationMenuItem & {
-  subItems?: NavigationSidebarSubItem[];
-  revamped?: boolean;
-  onClick?: () => void;
-};
-type NavigationElement =
+export type NavigationSidebarSubItem = Omit<NavigationMenuItem, "subItems"> &
+  NavigationUrlItem & {
+    onClick?: () => void;
+  };
+
+export type NavigationSidebarItem = NavigationMenuItem &
+  Partial<NavigationUrlItem> & {
+    subItems?: NavigationSidebarSubItem[];
+    onClick?: () => void;
+  };
+
+export type NavigationElement =
   | NavigationSidebarItem
   | NavigationMenuGroup
   | NavigationMenuDivider;
@@ -77,7 +79,7 @@ export const useNavigationElements = ({
           icon: "log-in-03",
           id: "access-control",
           label: t("menus.accessControl"),
-          ...navigationUrls.accessControl,
+          ...navigationUrls.accessMonitoring,
         },
         {
           type: "divider",

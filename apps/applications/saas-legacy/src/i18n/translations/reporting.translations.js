@@ -260,6 +260,7 @@ const getTranslations = async () => {
       views_unique: 'Unique views',
       views_total: 'Views',
       amount_unpaid_remaining_cts: 'Due',
+      amount_upcoming_cts: 'Amount upcoming',
       amount_paid_cts: 'Amount paid',
       amount_due_cts: 'Amount',
       author_name: 'Author',

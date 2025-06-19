@@ -6,8 +6,8 @@ import {
   updateSearchParams,
 } from "@bsport/base-query-params";
 
-const DEFAULT_PAGE = 1;
-const DEFAULT_PAGE_SIZE = 50;
+import { DEFAULT_PAGE, DEFAULT_PAGE_SIZE } from "./constants";
+
 const PARAMS_PAGE = "page";
 const PARAMS_PAGE_SIZE = "page_size";
 

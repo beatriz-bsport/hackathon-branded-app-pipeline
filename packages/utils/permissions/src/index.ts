@@ -4,4 +4,3 @@ export {
   type DeepKeys,
   type WithSignature,
 } from "./check-role-permissions";
-export { getEnvironment, type Environment } from "./get-environment";

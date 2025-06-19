@@ -197,6 +197,7 @@ export const getConfig = (config: {
   const define: NonNullable<UserConfig["define"]> = {
     [`__${namespace}__`]: JSON.stringify({
       __I18N_NAMESPACE_PREFIX__: removeScope(packageJson.name),
+      __SENTRY_SCOPE_TAG__: removeScope(packageJson.name),
       __APPLICATION_BASE_URL__: appBaseUrl,
       __BASENAME__: isLocal ? "" : base,
     }),
@@ -258,6 +259,10 @@ export const getConfig = (config: {
         singleton: true,
         requiredVersion: packageJson.dependencies["react-router"] ?? "7.2.0",
       },
+      zod: {
+        singleton: true,
+        requiredVersion: packageJson.dependencies["zod"] ?? "^3.0.0",
+      },
       "@bsport/i18n": {
         singleton: true,
       },
@@ -265,6 +270,15 @@ export const getConfig = (config: {
         singleton: true,
       },
       "@bsport/sm-backbone": {
+        singleton: true,
+      },
+      "@bsport/form": {
+        singleton: true,
+      },
+      "@bsport/envs": {
+        singleton: true,
+      },
+      "@bsport/sentry": {
         singleton: true,
       },
     },

@@ -15,10 +15,12 @@ export type MenuSet = "default" | "settings";
 
 export type NavigationSidebarSubItem = Omit<NavigationMenuItem, "subItems"> & {
   revamped?: boolean;
+  onClick?: () => void;
 };
 type NavigationSidebarItem = NavigationMenuItem & {
   subItems?: NavigationSidebarSubItem[];
   revamped?: boolean;
+  onClick?: () => void;
 };
 type NavigationElement =
   | NavigationSidebarItem
@@ -28,9 +30,11 @@ type NavigationElement =
 export const useNavigationElements = ({
   menuSet = "default",
   navigationUrls,
+  handleOpenTemporaryPasswordDialog,
 }: {
   menuSet?: MenuSet;
   navigationUrls: NavigationUrls;
+  handleOpenTemporaryPasswordDialog: () => void;
 }) => {
   const { t } = useTranslation("default");
 
@@ -388,11 +392,12 @@ export const useNavigationElements = ({
         },
         {
           id: "temporaryPass",
-          label: t("menus.settings.temporaryPass"),
+          label: t("menus.settings.temporaryPassword"),
+          onClick: handleOpenTemporaryPasswordDialog,
         },
       ],
     };
-  }, [navigationUrls, t]);
+  }, [handleOpenTemporaryPasswordDialog, navigationUrls, t]);
 
   return navigationItems[menuSet];
 };

@@ -1,5 +1,4 @@
 import { useMemo, useState } from "react";
-import { NavLink } from "react-router";
 
 import { Button, Card, NavigationMenu } from "@bsport/kaizen-primitive-core";
 import { dataAccessLayer } from "@bsport/sm-backbone";
@@ -10,12 +9,16 @@ import { AppI18nextProvider, useTranslation } from "#src/utils/i18n";
 
 import FeedbackDialog, { useFeedbackDialog } from "./FeedbackDialog";
 import LanguageDropdown from "./LanguageDropdown";
+import { NavigationMenuElement } from "./NavigationMenuElement";
 import NavigationSidebarHeader, {
   type MenuOption,
 } from "./NavigationSidebarHeader";
 import {
+  TemporaryPasswordDialog,
+  useTemporaryPasswordDialog,
+} from "./TemporaryPasswordDialog";
+import {
   type MenuSet,
-  NavigationSidebarSubItem,
   isDividerElement,
   isGroupElement,
   isItemElement,
@@ -39,9 +42,19 @@ const NavigationSidebarContent = ({ navigate }: NavigationSidebarProps) => {
     [],
   );
 
-  const navigationElements = useNavigationElements({ menuSet, navigationUrls });
-
   const { open, openDialog, closeDialog } = useFeedbackDialog();
+  const {
+    handleCloseTemporaryPasswordDialog,
+    handleOpenTemporaryPasswordDialog,
+    isTemporaryPasswordDialogOpen,
+    isLoadingTemporaryPassword,
+  } = useTemporaryPasswordDialog();
+
+  const navigationElements = useNavigationElements({
+    menuSet,
+    navigationUrls,
+    handleOpenTemporaryPasswordDialog,
+  });
 
   const renderNavigationItems = () => {
     if (menuSet === "settings") {
@@ -53,10 +66,11 @@ const NavigationSidebarContent = ({ navigate }: NavigationSidebarProps) => {
 
             if (isItemElement(item)) {
               return (
-                <NavigationMenu.Item
+                <NavigationMenuElement
                   key={item.id}
-                  id={item.id}
-                  label={item.label}
+                  kind="item"
+                  item={item}
+                  navigate={navigate}
                 />
               );
             }
@@ -82,60 +96,22 @@ const NavigationSidebarContent = ({ navigate }: NavigationSidebarProps) => {
             );
           }
 
-          const item = ({ isActive }: { isActive?: boolean } = {}) => (
-            <NavigationMenu.Item
+          return (
+            <NavigationMenuElement
               key={element.id}
-              id={element.id}
-              icon={element.icon}
-              label={element.label}
-              endSlot={element.endSlot}
-              active={isActive}
-              {...(isBridged &&
-                navigate &&
-                element.href && { onClick: () => navigate(element.href!) })}
+              kind="item"
+              navigate={navigate}
+              item={element}
             >
-              {element.subItems?.map((subItem: NavigationSidebarSubItem) => {
-                const subItemElement = ({
-                  isActive,
-                }: { isActive?: boolean } = {}) => (
-                  <NavigationMenu.SubItem
-                    key={subItem.id}
-                    id={subItem.id}
-                    label={subItem.label}
-                    active={isActive}
-                    {...(isBridged &&
-                      navigate &&
-                      subItem.href && {
-                        onClick: () => navigate(subItem.href!),
-                      })}
-                  />
-                );
-
-                if (!subItem.href) {
-                  return subItemElement();
-                }
-
-                return !isBridged ? (
-                  <NavLink key={subItem.id} to={subItem.href}>
-                    {subItemElement}
-                  </NavLink>
-                ) : (
-                  subItemElement()
-                );
-              })}
-            </NavigationMenu.Item>
-          );
-
-          if (!element.href) {
-            return item();
-          }
-
-          return !isBridged ? (
-            <NavLink key={element.id} to={element.href}>
-              {item}
-            </NavLink>
-          ) : (
-            item()
+              {element.subItems?.map((subItem) => (
+                <NavigationMenuElement
+                  key={subItem.id}
+                  kind="subitem"
+                  item={subItem}
+                  navigate={navigate}
+                />
+              ))}
+            </NavigationMenuElement>
           );
         })}
       </>
@@ -209,6 +185,11 @@ const NavigationSidebarContent = ({ navigate }: NavigationSidebarProps) => {
         />
       </Card>
       <FeedbackDialog open={open} onClose={closeDialog} />
+      <TemporaryPasswordDialog
+        isLoading={isLoadingTemporaryPassword}
+        isOpen={isTemporaryPasswordDialogOpen}
+        onClose={handleCloseTemporaryPasswordDialog}
+      />
     </div>
   );
 };

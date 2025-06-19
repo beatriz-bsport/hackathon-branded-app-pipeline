@@ -6,10 +6,16 @@ import {
 } from "@bsport/local-storage-auth-token";
 import { type Action, createErrorWithContext } from "@bsport/store-base";
 
-import { type LoginParams, fetchUserAccessAPI, loginAPI } from "#src/api";
-import { UserAccess } from "#src/types";
+import {
+  type LoginParams,
+  fetchTemporaryPasswordAPI,
+  fetchUserAccessAPI,
+  generateTemporaryPasswordAPI,
+  loginAPI,
+} from "#src/api";
+import type { TemporaryPassword, UserAccess } from "#src/types";
 
-import { updateUserAccess } from "./store";
+import { updateTemporaryPassword, updateUserAccess } from "./store";
 
 /**
  * Try to log in with the provided email and password.
@@ -67,5 +73,53 @@ export const fetchUserAccessAction: Action<void, UserAccess> = async (
     },
     (error) =>
       createErrorWithContext(error, { message: "Failed to fetch user access" }),
+  );
+};
+
+/**
+ * Try to retrieve an active temporary password
+ */
+export const fetchTemporaryPasswordAction: Action<
+  void,
+  TemporaryPassword
+> = async (fetch) => {
+  const [uri, init] = fetchTemporaryPasswordAPI();
+
+  return Result.try(
+    async () => {
+      const { data } = await fetch(uri, init);
+
+      updateTemporaryPassword(data);
+
+      return data;
+    },
+    (error) =>
+      createErrorWithContext(error, {
+        message: "Failed to fetch temporary password",
+      }),
+  );
+};
+
+/**
+ * Generate a temporary password for the current user
+ */
+export const generateTemporaryPasswordAction: Action<
+  void,
+  TemporaryPassword
+> = async (fetch) => {
+  const [uri, init] = generateTemporaryPasswordAPI();
+
+  return Result.try(
+    async () => {
+      const { data } = await fetch(uri, init);
+
+      updateTemporaryPassword(data);
+
+      return data;
+    },
+    (error) =>
+      createErrorWithContext(error, {
+        message: "Failed to generate temporary password",
+      }),
   );
 };

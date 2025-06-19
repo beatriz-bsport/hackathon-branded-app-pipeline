@@ -35,7 +35,6 @@ export const SearchedTemplateList: React.FC<Props> = ({
   const { t } = useTranslation("list");
   const {
     emailTemplateList,
-    paginationParams,
     fuzzySearchEmailTemplate,
     totalItems,
     isEmptySearch,
@@ -79,11 +78,6 @@ export const SearchedTemplateList: React.FC<Props> = ({
 
   const searchEmailTemplateList = getFormattedListItems({ emailTemplateList });
   const isEmptyList = totalItems === 0;
-  const paginationProps = {
-    ...paginationParams,
-    totalItems: totalItems,
-    showRowsPerPageSelector: true,
-  };
 
   const emptyListState = {
     isEmpty: isEmptyList,
@@ -111,7 +105,6 @@ export const SearchedTemplateList: React.FC<Props> = ({
           id={`search-bsport-email-template-list`}
           items={searchEmailTemplateList}
           emptyStateProps={emptyListState}
-          paginationProps={paginationProps}
         />
       </div>
       {currentInlineActions === "duplicate" && selectedTemplate ? (
@@ -133,8 +126,9 @@ export const SearchedTemplateList: React.FC<Props> = ({
       {currentInlineActions === "preview" && selectedTemplate ? (
         <PreviewTemplateModal
           isOpen
-          templateId={selectedTemplate.id}
+          templateSummary={selectedTemplate}
           onClose={handleResetActions}
+          onDuplicateSuccess={onActionSuccess}
         />
       ) : null}
     </>

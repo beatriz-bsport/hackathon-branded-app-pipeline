@@ -19,10 +19,7 @@ type ConfigurableSearchParams = Pick<
 
 export const usePaginatedGroupActivities = (customerEnabled: boolean) => {
   const { currentPage, currentPageSize, setPageSettings } =
-    usePaginationQueryParams({
-      shouldReplace: false,
-      defaultValues: { page_size: 10, page: 1 },
-    });
+    usePaginationQueryParams();
 
   const { count: totalItems, byId, ids } = useGroupActivityStore();
   const groupActivities = useMemo<MetaActivity[]>(

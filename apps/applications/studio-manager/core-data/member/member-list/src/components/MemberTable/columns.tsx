@@ -81,22 +81,12 @@ export const getTableColumns = ({
   const columnBalance: TableColumn = {
     header: t("memberTable.headers.balance"),
     id: "column-balance",
-    keyPath: "",
-    type: "custom",
+    keyPath: "balance",
+    type: "price",
     align: "end",
-    render: (row) => {
-      let balanceColor: "default" | "critical" | "positive" = "default";
-      if (row.balance < 0) balanceColor = "critical";
-      if (row.balance > 0) balanceColor = "positive";
-      // TODO : format with get currency with sign
-      return (
-        <Body
-          htmlVariant="p"
-          size="lg"
-          color={balanceColor}
-          weight="weak"
-        >{`$ ${row.balance.toFixed(2)}`}</Body>
-      );
+    priceColoring: {
+      positive: "positive",
+      negative: "critical",
     },
   };
 
@@ -104,7 +94,7 @@ export const getTableColumns = ({
     header: t("memberTable.headers.joinDate"),
     id: "column-join-date",
     keyPath: "joinDate",
-    type: "string",
+    type: "date",
     align: "center",
   };
 

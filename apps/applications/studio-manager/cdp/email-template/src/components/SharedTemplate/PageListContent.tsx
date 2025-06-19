@@ -63,7 +63,6 @@ export const SharedEmailTemplateList: React.FC<Props> = ({
   });
   const { emptyStateConfig } = useEmailTemplateEmptyListState({
     isEmptyList: isEmpty,
-    handleAddCategory: () => console.log("Add category action"),
   });
 
   useEffect(() => {
@@ -91,8 +90,9 @@ export const SharedEmailTemplateList: React.FC<Props> = ({
       {currentInlineActions === "preview" && selectedTemplate ? (
         <PreviewTemplateModal
           isOpen
-          templateId={selectedTemplate.id}
+          templateSummary={selectedTemplate}
           onClose={handleResetActions}
+          onDuplicateSuccess={onDuplicateSuccess}
         />
       ) : null}
     </>

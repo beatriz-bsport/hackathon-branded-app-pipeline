@@ -78,11 +78,6 @@ export const CreateEditCategoryModal: React.FC<Props> = ({
   const { createCategory } = useCreateCategory({
     onSuccess: () => {
       onSuccess?.();
-      toast({
-        status: "positive",
-        icon: "plus",
-        title: translations.toast.success.title,
-      });
       handleClose();
     },
     onFailure: () => {
@@ -115,6 +110,7 @@ export const CreateEditCategoryModal: React.FC<Props> = ({
         toast({
           status: "default",
           icon: "reverse-left",
+          buttonIcon: "x-close",
           title: t("activeList.actions.undo.success"),
         });
       }

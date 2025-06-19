@@ -2,7 +2,8 @@ import { cva } from "class-variance-authority";
 import React, { TableHTMLAttributes, useCallback } from "react";
 
 import { sizes as avatarSizes } from "#src/components/Avatar";
-import { type PaginationProps } from "#src/components/private/Pagination";
+import type { BodyColor } from "#src/components/Body";
+import type { PaginationProps } from "#src/components/private/Pagination";
 import {
   CheckboxProvider,
   useCheckboxContext,
@@ -61,7 +62,15 @@ export type Column<RowType extends BaseRow> = {
       size?: keyof typeof avatarSizes;
     }
   | {
-      type: Exclude<ColumnType, "custom" | "link" | "avatar">;
+      type: "price";
+      keyPath: string;
+      priceColoring?: {
+        positive?: BodyColor;
+        negative?: BodyColor;
+      };
+    }
+  | {
+      type: Exclude<ColumnType, "custom" | "link" | "avatar" | "price">;
       keyPath: string;
     }
 );

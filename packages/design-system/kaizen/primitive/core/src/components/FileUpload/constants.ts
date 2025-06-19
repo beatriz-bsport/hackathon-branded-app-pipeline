@@ -43,12 +43,15 @@ const VIDEO_EXTENSIONS = [
   "flv",
 ] as const;
 
-const MIME_CATEGORIES = ["image/*", "audio/*", "video/*"] as const;
+const TEXT_EXTENSIONS = ["css", "csv", "html"];
+
+const MIME_CATEGORIES = ["image/*", "audio/*", "video/*", "text/*"] as const;
 
 export const FILE_TYPES = [
   ...IMAGE_EXTENSIONS,
   ...AUDIO_EXTENSIONS,
   ...VIDEO_EXTENSIONS,
+  ...TEXT_EXTENSIONS,
   ...MIME_CATEGORIES,
 ] as const;
 
@@ -60,6 +63,7 @@ export const MIME_TYPE_MAP: Record<MimeCategory, readonly FileType[]> = {
   "image/*": IMAGE_EXTENSIONS,
   "audio/*": AUDIO_EXTENSIONS,
   "video/*": VIDEO_EXTENSIONS,
+  "text/*": TEXT_EXTENSIONS,
 };
 
 // ----- State of a file during the upload process -----

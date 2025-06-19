@@ -88,7 +88,7 @@ exports.default = {
       activeCampaign: "ActiveCampaign",
       referral: "Referral",
       bsportSubscription: "bsport subscription",
-      temporaryPass: "Temporary pass",
+      temporaryPassword: "Temporary password",
       changeLanguage: "Change language",
     },
   },

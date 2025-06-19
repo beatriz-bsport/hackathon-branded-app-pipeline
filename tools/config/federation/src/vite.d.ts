@@ -18,6 +18,12 @@ declare type FederationVariables = {
   __I18N_NAMESPACE_PREFIX__: string;
 
   /**
+   * The Sentry scope tag for error tracking
+   * matches the package name without the package scope
+   */
+  __SENTRY_SCOPE_TAG__: string;
+
+  /**
    * The base URL for the application, when in development
    * it uses a full URL with the port
    * when in production it uses a relative URL

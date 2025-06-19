@@ -1,10 +1,18 @@
 import { Result } from "typescript-result";
 
-import type { Action, PaginatedResponse } from "@bsport/store-base";
+import {
+  type Action,
+  HTTPException,
+  type PaginatedResponse,
+  type XhrAction,
+  createErrorWithContext,
+} from "@bsport/store-base";
 
 import {
+  type ImportLeadsParams,
   archiveMemberAPI,
   fetchMembersAPI,
+  importLeadsAPI,
   interrogateMemberRegularityAPI,
   restoreMemberAPI,
 } from "#src/api";
@@ -115,5 +123,31 @@ export const interrogateMemberRegularityAction: Action<
           cause: error,
         },
       ),
+  );
+};
+
+export const importLeadsAction: XhrAction<
+  ImportLeadsParams,
+  { backgroundTaskUuid: string },
+  HTTPException
+> = async (xhr, params) => {
+  const [uri, init] = importLeadsAPI(params);
+
+  return Result.try(
+    async () => {
+      const { backgroundTaskUuid } = await xhr(uri, init);
+      return { backgroundTaskUuid: backgroundTaskUuid ?? "" };
+    },
+    (error) => {
+      if (params.signal.aborted) {
+        return new HTTPException({
+          path: uri,
+          message: "Abort Import Leads",
+          context: "Upload has been aborted by the user",
+          statusCode: 200,
+        });
+      }
+      return createErrorWithContext(error, {});
+    },
   );
 };

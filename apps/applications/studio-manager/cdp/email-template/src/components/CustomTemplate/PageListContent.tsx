@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 import {
   List,
-  type Sortable,
+  NestedSortableList,
   type SortableListProps,
 } from "@bsport/kaizen-primitive-core";
 import type {
@@ -15,7 +15,6 @@ import { DeleteTemplateModal } from "#src/components/Common/Modals/DeleteTemplat
 import { DuplicateTemplateModal } from "#src/components/Common/Modals/DuplicateTemplateModal";
 import { PreviewTemplateModal } from "#src/components/Common/Modals/PreviewTemplateModal";
 import { SearchedTemplateList } from "#src/components/Common/SearchedTemplateList";
-import { NestedSortableList } from "#src/components/CustomTemplate/NestedSortableList";
 import { NoCategoryList } from "#src/components/CustomTemplate/NoCategoryList";
 import { useCategoryOrdering } from "#src/hooks/actions/useCategoryOrdering";
 import { useEmailTemplateOrdering } from "#src/hooks/actions/useEmailTemplateOrdering";
@@ -56,9 +55,7 @@ export const PageListContent: React.FC<Props> = ({
     fetchAllEmailTemplates,
   } = useFetchAllEmailTemplates();
   const { reorderCategories } = useCategoryOrdering();
-  const { reorderEmailTemplates } = useEmailTemplateOrdering({
-    onSuccess: () => console.log("Templates reordered successfully"),
-  });
+  const { reorderEmailTemplates } = useEmailTemplateOrdering();
   const { navigateToCreateTemplate } = useTemplateNavigation();
 
   const handlePreviewTemplate = (template: EmailTemplateSummary) => {
@@ -166,8 +163,9 @@ export const PageListContent: React.FC<Props> = ({
     <>
       <div className="flex flex-col w-full">
         <NestedSortableList
-          onSortChildren={(templateList: Sortable[]) => {
-            reorderEmailTemplates(templateList);
+          id="custom-email-template-nested-sortable-list"
+          onSortChildren={({ reorderedChildren }) => {
+            reorderEmailTemplates(reorderedChildren);
           }}
           onSortParents={(categoryList: SortableListProps[]) => {
             reorderCategories(categoryList);
@@ -200,8 +198,9 @@ export const PageListContent: React.FC<Props> = ({
       {currentInlineActions === "preview" && selectedTemplate ? (
         <PreviewTemplateModal
           isOpen
-          templateId={selectedTemplate.id}
+          templateSummary={selectedTemplate}
           onClose={handleResetActions}
+          onDuplicateSuccess={onActionSuccess}
         />
       ) : null}
     </>

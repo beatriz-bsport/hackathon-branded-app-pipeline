@@ -38,9 +38,10 @@ const textArea = cva(defaultClasses, { variants });
 
 export type TextAreaProps = React.HTMLAttributes<HTMLTextAreaElement> & {
   id: string;
-  status: keyof typeof statuses;
-  value: string;
-  onChange: (event: ChangeEvent<HTMLTextAreaElement>) => void;
+  status?: keyof typeof statuses;
+  value?: string;
+  defaultValue?: string;
+  onChange?: (event: ChangeEvent<HTMLTextAreaElement>) => void;
   label?: string;
   placeholder?: string;
   required?: boolean;
@@ -55,6 +56,7 @@ export type TextAreaProps = React.HTMLAttributes<HTMLTextAreaElement> & {
  * @param props.id Unique ID for the textarea element.
  * @param props.status The status of the textarea, which affects its styling.
  * @param props.value The current value of the textarea.
+ * @param props.defaultValue The default value of the textarea.
  * @param props.onChange Callback function to call when the value changes.
  * @param props.label The text for the label associated with the textarea.
  * @param props.placeholder Placeholder text to display when the textarea is empty.
@@ -67,7 +69,8 @@ export type TextAreaProps = React.HTMLAttributes<HTMLTextAreaElement> & {
 const TextArea: React.FC<TextAreaProps> = ({
   className,
   id,
-  status,
+  status = "default",
+  defaultValue,
   value,
   onChange,
   label,
@@ -112,6 +115,7 @@ const TextArea: React.FC<TextAreaProps> = ({
         id={id}
         name={id}
         value={value}
+        defaultValue={defaultValue}
         placeholder={placeholder}
         required={required}
         onChange={onChange}

@@ -36,6 +36,7 @@
     "extends": "react-app"
   },
   "dependencies": {
+    "@bsport/broadcast-channel-polyfill": "workspace:*",
     "@bsport/common": "workspace:*",
     "@bsport/consent-management": "workspace:*",
     "@bsport/sm-navigation-sidebar": "workspace:*",

@@ -29,7 +29,7 @@ interface NavigationMenu {
   reporting: boolean;
   schedule: boolean;
   search?: boolean;
-  settings: { [key: string]: boolean };
+  settings: Settings;
   tutorial: boolean;
 }
 
@@ -89,4 +89,30 @@ interface ProductsClass {
     products: boolean;
     settings: boolean;
   };
+}
+
+interface Settings {
+  staffs: boolean;
+  billing: boolean;
+  company: boolean;
+  webHook: boolean;
+  webShop: boolean;
+  widgets: boolean;
+  generals: boolean;
+  referral: boolean;
+  quicksale: boolean;
+  quickBooks: boolean;
+  marketplace: boolean;
+  memberForms: boolean;
+  partnership: boolean;
+  waitingList: boolean;
+  subscription: boolean;
+  liveStreaming: boolean;
+  activeCampaign: boolean;
+  coachUserspace: boolean;
+  paymentMethods: boolean;
+  personalization: boolean;
+  teacherPayrollRules: boolean;
+  transactionnalEmail: boolean;
+  mobilePersonalization: boolean;
 }

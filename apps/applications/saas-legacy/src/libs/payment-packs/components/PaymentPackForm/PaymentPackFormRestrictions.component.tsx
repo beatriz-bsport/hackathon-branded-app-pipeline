@@ -83,6 +83,11 @@ export const PaymentPackFormRestrictions = (props: Props) => {
 
   const isCreatingPass = !initial?.id;
 
+  const disableVodOnlyAccessCheckbox =
+    disabledUniversalPassFields ||
+    !!initial?.template_instance ||
+    !!values?.grants_door_access;
+
   return (
     <>
       <Grid container id="paymentpack-form-restrictions-section" spacing={2}>
@@ -414,9 +419,7 @@ export const PaymentPackFormRestrictions = (props: Props) => {
               />
               <Collapse in={values.full_vod_access}>
                 <CheckboxField
-                  disabled={
-                    disabledUniversalPassFields || !!initial?.template_instance
-                  }
+                  disabled={disableVodOnlyAccessCheckbox}
                   label={t('addPaymentPack.only_vod_access')}
                   name="only_vod_access"
                 />

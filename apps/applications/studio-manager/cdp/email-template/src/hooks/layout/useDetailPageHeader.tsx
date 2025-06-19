@@ -1,20 +1,52 @@
-import { Button, DropdownMenu, Tooltip } from "@bsport/kaizen-primitive-core";
+import {
+  Button,
+  DropdownMenu,
+  type DropdownMenuItems,
+  Tooltip,
+} from "@bsport/kaizen-primitive-core";
 
 import { ROUTES } from "#src/urls";
 import { useTranslation } from "#src/utils/i18n";
 
 type UseDetailPageHeaderProps = {
-  onDeleteTemplate: () => void;
-  onDuplicateTemplate: () => void;
-  onSaveTemplate: () => void;
+  onDeleteTemplate?: () => void;
+  onDuplicateTemplate?: () => void;
+  onExportTemplate: () => void;
 };
 
 export const useDetailPageHeader = ({
+  onExportTemplate,
   onDeleteTemplate,
   onDuplicateTemplate,
-  onSaveTemplate,
 }: UseDetailPageHeaderProps) => {
   const { t } = useTranslation(["list", "detail"]);
+
+  const getDuplicateTemplateActionConfig = () => {
+    return onDuplicateTemplate
+      ? {
+          id: "duplicate-template",
+          label: t("activeList.actions.duplicate"),
+          iconLeft: "edit-02",
+        }
+      : undefined;
+  };
+
+  const getDeleteTemplateActionConfig = () => {
+    return onDeleteTemplate
+      ? {
+          id: "delete-template",
+          label: t("activeList.actions.delete"),
+          iconLeft: "trash-01",
+        }
+      : undefined;
+  };
+
+  const getDropdownMenuAction = () => {
+    return [
+      getDuplicateTemplateActionConfig(),
+      getDeleteTemplateActionConfig(),
+    ].filter(Boolean) as DropdownMenuItems;
+  };
 
   const breadcrumbsItems = [
     {
@@ -29,6 +61,37 @@ export const useDetailPageHeader = ({
     },
   ];
 
+  const dropdownMenuConfig =
+    onDeleteTemplate || onDuplicateTemplate ? (
+      <Tooltip
+        key="more-actions-button"
+        placement="bottom-right"
+        label={t("details.hover.moreActions")}
+      >
+        <DropdownMenu
+          placement="bottom-right"
+          items={getDropdownMenuAction()}
+          onSelectOption={({ id }) => {
+            if (id === "duplicate-template") {
+              onDuplicateTemplate?.();
+            } else if (id === "delete-template") {
+              onDeleteTemplate?.();
+            }
+          }}
+          target={({ setIsPopoverOpened }) => (
+            <Button
+              key="chevron-right-button"
+              iconLeft="dots-vertical"
+              color="main"
+              intent="default"
+              size="md"
+              onClick={() => setIsPopoverOpened(true)}
+            />
+          )}
+        />
+      </Tooltip>
+    ) : undefined;
+
   const endGroupActions = [
     <Tooltip
       key="export-html-button"
@@ -40,56 +103,10 @@ export const useDetailPageHeader = ({
         color="main"
         intent="default"
         size="md"
-        onClick={() => alert("export HTML clicked")}
+        onClick={onExportTemplate}
       />
     </Tooltip>,
-    <Tooltip
-      key="more-actions-button"
-      placement="bottom-right"
-      label={t("details.hover.moreActions")}
-    >
-      <DropdownMenu
-        placement="bottom-right"
-        items={[
-          {
-            id: "duplicate-template",
-            label: t("activeList.actions.duplicate"),
-            iconLeft: "edit-02",
-          },
-          {
-            id: "delete-template",
-            label: t("activeList.actions.delete"),
-            iconLeft: "trash-01",
-          },
-          // TODO : DELETE THIS TEST BUTTON WHEN THE REAL ACTIONS ARE IMPLEMENTED
-          {
-            id: "show-save-action",
-            label: "DEBUG - SHOW SAVE ACTIONS",
-            iconLeft: "save",
-          },
-        ]}
-        onSelectOption={({ id }) => {
-          console.log("Selected action:", id);
-          if (id === "show-save-action") {
-            onSaveTemplate();
-          } else if (id === "duplicate-template") {
-            onDuplicateTemplate();
-          } else if (id === "delete-template") {
-            onDeleteTemplate();
-          }
-        }}
-        target={({ setIsPopoverOpened }) => (
-          <Button
-            key="chevron-right-button"
-            iconLeft="dots-vertical"
-            color="main"
-            intent="default"
-            size="md"
-            onClick={() => setIsPopoverOpened(true)}
-          />
-        )}
-      />
-    </Tooltip>,
+    dropdownMenuConfig,
   ];
 
   return {

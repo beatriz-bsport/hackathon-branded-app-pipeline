@@ -31,8 +31,9 @@ export const exceptionMessagesToIgnore = [
   /Maximum call stack size exceeded/,
 ];
 
-export const ENV = import.meta.env.VITE_ENV;
-
 export const ENV_DSN = import.meta.env.VITE_SENTRY_DSN;
 
-export const RELEASE_SHA = import.meta.env.RELEASE_SHA;
+export const RELEASE_SHA = import.meta.env.VITE_RELEASE_SHA;
+
+export const SEND_ERRORS_IN_LOCAL_DEVELOPMENT =
+  import.meta.env.VITE_SENTRY_SEND_ERRORS_IN_LOCAL_DEVELOPMENT === "true";

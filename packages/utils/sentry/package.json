@@ -20,6 +20,7 @@
   ],
   "scripts": {
     "build": "vite build",
+    "build:sentry": "VITE_SENTRY_SEND_ERRORS_IN_LOCAL_DEVELOPMENT=true pnpm run build",
     "clean": "rm -rf build",
     "dev": "vite build --watch",
     "format": "prettier --write '**/*.{ts,tsx,js,jsx,cjs,mjs,scss,css,json,md,mdx,html,svg}'",
@@ -28,11 +29,15 @@
     "lint:fix": "eslint --fix ."
   },
   "dependencies": {
+    "@bsport/envs": "workspace:*",
     "@bsport/random-utils": "workspace:*",
     "@sentry/react": "^7.26.0"
   },
   "devDependencies": {
     "@bsport/config-eslint-react": "workspace:*"
+  },
+  "peerDependencies": {
+    "react": "^19.0.0"
   },
   "nx": {
     "tags": [

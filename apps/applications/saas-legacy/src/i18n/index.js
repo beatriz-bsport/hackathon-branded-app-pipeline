@@ -16,6 +16,10 @@ import { getItemInStorage, setItemInStorage } from '../utils/storage';
 import config from '../config';
 import { LANGUAGES, AVAILABLE_LANGUAGES } from './languages';
 import { getCurrencyDisplay } from '../libs/theme/selectors';
+import {
+  LANGUAGE_SWITCHER_ACTION,
+  LANGUAGE_SWITCHER_CHANNEL,
+} from './utils/switch-language';
 
 const backendOptions = {};
 
@@ -133,6 +137,15 @@ const setLuxonLocale = (language: string) => {
   }
 };
 
+// Synchronize its language to broadcast event sent by the revamped Navigation Sidebar
+const broadcast = new BroadcastChannel(LANGUAGE_SWITCHER_CHANNEL);
+broadcast.addEventListener('message', (event) => {
+  const { action, payload } = event.data;
+  if (action === LANGUAGE_SWITCHER_ACTION) {
+    i18n.changeLanguage(payload);
+  }
+});
+
 i18n.on('languageChanged', (lng) => {
   setLuxonLocale(lng);
 });
@@ -169,6 +182,8 @@ export {
   getLanguage,
   setLuxonLocale,
 };
+
+export { switchLanguage } from './utils/switch-language';
 
 export const browserCountryCode = () => {
   if (navigator && navigator.language) {

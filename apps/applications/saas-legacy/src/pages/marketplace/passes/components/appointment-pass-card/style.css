@@ -3,8 +3,8 @@
   flex-direction: column;
   flex: 1;
   gap: var(--bs-space-size-4);
-  max-width: 500px;
-  min-width: 350px;
+  max-width: 400px;
+  min-width: 364px;
 }
 
 .bs-marketplace-appointment-pass-card__header {

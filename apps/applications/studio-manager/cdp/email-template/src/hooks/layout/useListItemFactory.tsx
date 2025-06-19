@@ -2,7 +2,7 @@ import type { ActionButton, Sortable } from "@bsport/kaizen-primitive-core";
 import type { EmailTemplateSummary } from "@bsport/store-cdp-email-template";
 
 import { useTranslation } from "#src/utils/i18n";
-import type { PossibleEmailTemplateType } from "#src/utils/types";
+import { getEmailTemplateType } from "#src/utils/templates";
 
 type UseListItemFactoryParams = {
   handlePreviewTemplate?: (template: EmailTemplateSummary) => void;
@@ -90,23 +90,6 @@ export const useListItemFactory = ({
       : null;
   };
 
-  const getEmailTemplateType = ({
-    emailTemplate,
-  }: {
-    emailTemplate: EmailTemplateSummary;
-  }): PossibleEmailTemplateType => {
-    if (emailTemplate.is_default_bsport_template) {
-      return "bsport";
-    }
-    if (
-      emailTemplate?.available_for_companies?.length > 0 &&
-      !emailTemplate.company_id
-    ) {
-      return "master";
-    }
-    return "custom";
-  };
-
   const getListItemActionByTemplateType = ({
     emailTemplate,
   }: {
@@ -139,21 +122,23 @@ export const useListItemFactory = ({
     emailTemplateList: EmailTemplateSummary[];
   }): Sortable[] => {
     const filteredEmailTemplateList = categoryId
-      ? emailTemplateList
-          .filter((_emailTemplate) => _emailTemplate.category === categoryId)
-          .sort((a, b) => a.ordering_in_category - b.ordering_in_category)
-      : emailTemplateList;
-    return filteredEmailTemplateList.map((emailTemplate) => ({
-      id: `email-template-${emailTemplate.id}`,
-      title: emailTemplate.title,
-      description: emailTemplate.subject ?? "",
-      dropdownConfig: {
-        visibleActionsDisplayLimit: 3,
-      },
-      buttons: getListItemActionByTemplateType({
-        emailTemplate,
-      }),
-    }));
+      ? emailTemplateList.filter(
+          (_emailTemplate) => _emailTemplate.category === categoryId,
+        )
+      : emailTemplateList.filter((_template) => !_template.category);
+    return filteredEmailTemplateList
+      .sort((a, b) => a.ordering_in_category - b.ordering_in_category)
+      .map((emailTemplate) => ({
+        id: `email-template-${emailTemplate.id}`,
+        title: emailTemplate.title,
+        description: emailTemplate.subject ?? "",
+        dropdownConfig: {
+          visibleActionsDisplayLimit: 3,
+        },
+        buttons: getListItemActionByTemplateType({
+          emailTemplate,
+        }),
+      }));
   };
 
   return { getFormattedListItems };

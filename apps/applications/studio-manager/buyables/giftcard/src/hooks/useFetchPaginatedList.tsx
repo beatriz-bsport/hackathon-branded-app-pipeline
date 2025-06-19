@@ -12,14 +12,9 @@ import { usePaginationQueryParams } from "@bsport/use-pagination-query-params";
 
 import { fetch } from "#src/utils/fetch";
 
-const DEFAULT_PAGE_SIZE = 10;
-const DEFAULT_PAGE = 1;
-
 export const useFetchPaginatedList = ({ archived }: { archived: boolean }) => {
   const { currentPage, currentPageSize, setPageSettings } =
-    usePaginationQueryParams({
-      defaultValues: { page_size: DEFAULT_PAGE_SIZE, page: DEFAULT_PAGE },
-    });
+    usePaginationQueryParams();
 
   const giftcardList = useGiftcardStore(selectGiftcards);
   const totalItems = useGiftcardStore(selectGiftcardsCount);

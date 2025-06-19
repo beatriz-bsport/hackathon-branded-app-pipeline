@@ -13,14 +13,9 @@ import { usePaginationQueryParams } from "@bsport/use-pagination-query-params";
 import { OrderStatus } from "#src/utils/constants";
 import { fetch } from "#src/utils/fetch";
 
-const DEFAULT_PAGE_SIZE = 10;
-const DEFAULT_PAGE = 1;
-
 export const useFetchOrders = ({ status }: { status?: OrderStatus }) => {
   const { currentPage, currentPageSize, setPageSettings } =
-    usePaginationQueryParams({
-      defaultValues: { page_size: DEFAULT_PAGE_SIZE, page: DEFAULT_PAGE },
-    });
+    usePaginationQueryParams();
 
   const orders = useOrderStore(selectOrders);
   const totalItems = useOrderStore(selectCount);

@@ -1,5 +1,5 @@
 type GenericPermissions = {
-  [key: string]: GenericPermissions | boolean;
+  [key: string]: GenericPermissions | boolean | undefined;
 };
 
 export type WithSignature<T> = {
@@ -14,6 +14,17 @@ export type DeepKeys<T> = T extends object
         : never;
     }[keyof T]
   : never;
+
+function checkHasChildrenPermission(
+  subPermissions: GenericPermissions,
+): boolean {
+  return Object.values(subPermissions).some((value) => {
+    if (!value) return false;
+    return typeof value === "boolean"
+      ? value
+      : checkHasChildrenPermission(value);
+  });
+}
 
 function checkDeeperPermission(
   subPermissions: GenericPermissions,
@@ -30,7 +41,13 @@ function checkDeeperPermission(
 
   const currentValue = subPermissions[currentKey];
   if (typeof currentValue === "object") {
-    return checkDeeperPermission(currentValue, nextPaths.join("."));
+    const nextPermissionPath = nextPaths.join(".");
+    if (nextPermissionPath) {
+      return checkDeeperPermission(currentValue, nextPermissionPath);
+    }
+    // The original path was targeting an object with several children
+    // If one of these children is true, then it should have access to the category
+    return checkHasChildrenPermission(currentValue);
   } else {
     return !!currentValue;
   }
@@ -57,30 +74,33 @@ function checkDeeperPermission(
  *
  * export const useRolePermission = (path: DeepKeys<Permissions>) => {
  *   const userRole = dataAccessLayer.useUserRole();
- *   return checkHasPermission<WithSignature<Permissions>>(
- *     userRole.permissions,
- *     path,
- *   );
+ *   return checkHasPermission<WithSignature<Permissions>>({
+ *      permissions: userRole?.permissions,
+ *      path,
+ *   });
  * };
  *
  * export const useObjectLevelPermission = (
  *   path: DeepKeys<ObjectLevelPermissions>,
  * ) => {
  *   const userRole = dataAccessLayer.useUserRole();
- *   return checkHasPermission<WithSignature<ObjectLevelPermissions>>(
- *     userRole.object_level_permissions,
- *     path,
- *   );
+ *   return checkHasPermission<WithSignature<ObjectLevelPermissions>>({
+ *      permissions: userRole?.object_level_permissions,
+ *      path
+ *   });
  * };
  * ```
  */
-export function checkHasPermission<T extends GenericPermissions>(
-  permissions: T,
-  permissionPath: DeepKeys<T>,
-) {
+export function checkHasPermission<T extends GenericPermissions>({
+  permissions,
+  path,
+}: {
+  permissions?: T;
+  path?: DeepKeys<T>;
+}) {
   try {
-    if (!permissions || !permissionPath) return false;
-    return checkDeeperPermission(permissions, permissionPath);
+    if (!permissions || !path) return false;
+    return checkDeeperPermission(permissions, path);
   } catch (error) {
     return false;
   }

@@ -83,19 +83,24 @@ const FileUploadInput: React.FC<FileUploadInputProps> = ({
       const newFileUploadTrackerItems = handleAddFiles(fileList);
       onFileDrop?.({ newItems: newFileUploadTrackerItems, fileList });
     };
-    const { uploadFileCTA, dragAndDropFileCTA, fileExtensionList } =
-      customTexts;
+    const {
+      uploadFileCTA,
+      dragAndDropFileCTA,
+      fileExtensionList: fileExtensionListText,
+    } = customTexts;
     return inline ? (
       <InlineVariant buttonTitle={uploadFileCTA} />
     ) : (
       <DefaultVariant
         dragAndDropFileCTAText={dragAndDropFileCTA}
-        fileExtensionListText={fileExtensionList}
+        fileExtensionListText={fileExtensionListText}
         handleDropFiles={handleAddFilesFromDropzone}
         uploadFileCTAText={uploadFileCTA}
       />
     );
-  }, [inline, customTexts, fileExtensionList, handleAddFiles, onFileDrop]);
+  }, [inline, customTexts, handleAddFiles, onFileDrop]);
+
+  const { fileExtensionList: fileExtensionListText } = customTexts;
 
   return (
     <label htmlFor={inputId} className={fileUploadInput({ className })}>
@@ -108,7 +113,7 @@ const FileUploadInput: React.FC<FileUploadInputProps> = ({
         onChange={handleAddFilesFromInput}
         multiple={multiple}
         accept={acceptedExtensions}
-        aria-describedby={customTexts.fileExtensionList}
+        aria-describedby={fileExtensionListText}
         name={inputName || inputId}
       />
       {fileUploadContent}

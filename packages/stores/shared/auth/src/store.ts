@@ -6,10 +6,17 @@ import type { UserAccess } from "#src/types";
 
 export interface AuthState {
   userAccess: UserAccess | undefined;
+  temporaryPassword:
+    | {
+        password: string;
+        expirationDate: string;
+      }
+    | undefined;
 }
 
 export const authStore = createStore<AuthState>()(() => ({
   userAccess: undefined,
+  temporaryPassword: undefined,
 }));
 
 /**

@@ -251,6 +251,7 @@
       "pages": { "detail": "Email templates" },
       "breadcrumbs": { "rootPage": "Email templates", "customPage": "Custom templates" },
       "details": {
+        "defaultTitle": "Untitled template",
         "state": { "loading": "Loading your template..." },
         "actions": { "saveChanges": "Save changes", "discardChanges": "Discard" },
         "hover": {

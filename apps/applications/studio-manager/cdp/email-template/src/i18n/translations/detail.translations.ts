@@ -7,6 +7,7 @@ exports.default = {
     customPage: "Custom templates",
   },
   details: {
+    defaultTitle: "Untitled template",
     state: {
       loading: "Loading your template...",
     },

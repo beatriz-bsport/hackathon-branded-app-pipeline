@@ -20,7 +20,7 @@ export const ErrorBoundary = ({
 
   return (
     <SentryErrorBoundary
-      fallback={fallback ?? <FallbackUI />}
+      fallback={fallback}
       {...props}
       beforeCapture={(scope, hint, options) => {
         scope.setTag("application", currentApp);
@@ -33,22 +33,3 @@ export const ErrorBoundary = ({
     </SentryErrorBoundary>
   );
 };
-
-/**
- * Fallback UI for error boundary
- * TODO: Add a proper fallback UI probably coming from kaizen
- * TODO: Add translations
- * Linear link: https://linear.app/bsport/issue/ICH-315/error-handling-improve-fallback-ui-of-the-error-boundary
- */
-const FallbackUI = () => (
-  <div
-    className="error-boundary-fallback"
-    style={{
-      margin: "2rem auto",
-    }}
-  >
-    <h2>Something went wrong</h2>
-    <p>We have been notified about this issue and are working to fix it.</p>
-    <button onClick={() => window.location.reload()}>Refresh Page</button>
-  </div>
-);

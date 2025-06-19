@@ -3,12 +3,16 @@ import { NavLink } from "react-router";
 
 import { NavigationMenu } from "@bsport/kaizen-primitive-core";
 
-import type { NavigationSidebarSubItem } from "./navigation-items";
+import type {
+  NavigationSidebarItem,
+  NavigationSidebarSubItem,
+} from "./navigation-items";
 
 type NavigationMenuItemProps = PropsWithChildren<{
   kind: "item" | "subitem";
-  item: NavigationSidebarSubItem;
+  item: NavigationSidebarSubItem | NavigationSidebarItem;
   navigate?: (href: string) => void;
+  hasPermission?: boolean;
 }>;
 
 /**
@@ -27,9 +31,15 @@ export const NavigationMenuElement: React.FC<NavigationMenuItemProps> = ({
   item,
   navigate,
   kind = "subitem",
+  hasPermission,
   children,
 }) => {
   const isBridged = !!navigate;
+
+  // Hide/Disable the item if it has a link (e.g. it's not a group)
+  // and the user does not have permission to access this link.
+  const disabled = !hasPermission && item.href;
+
   const itemElement = ({
     isActive,
     onClick,
@@ -39,7 +49,7 @@ export const NavigationMenuElement: React.FC<NavigationMenuItemProps> = ({
         <NavigationMenu.SubItem
           key={item.id}
           id={item.id}
-          label={item.label}
+          label={disabled ? `${item.label} 🔒` : item.label}
           active={isActive}
           onClick={item?.onClick ?? onClick}
         >
@@ -51,7 +61,7 @@ export const NavigationMenuElement: React.FC<NavigationMenuItemProps> = ({
       <NavigationMenu.Item
         key={item.id}
         id={item.id}
-        label={item.label}
+        label={disabled ? `${item.label} 🔒` : item.label}
         active={isActive}
         onClick={item?.onClick ?? onClick}
         endSlot={item.endSlot}
@@ -66,7 +76,7 @@ export const NavigationMenuElement: React.FC<NavigationMenuItemProps> = ({
 
   if (isBridged && item.revamped) {
     return (
-      <a key={item.id} href={`/studio/${item.href}`}>
+      <a key={item.id} href={`/studio${item.href}`}>
         {itemElement()}
       </a>
     );

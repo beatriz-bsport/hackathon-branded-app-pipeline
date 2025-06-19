@@ -4,6 +4,7 @@ import { Button, Card, NavigationMenu } from "@bsport/kaizen-primitive-core";
 import { dataAccessLayer } from "@bsport/sm-backbone";
 import { LOGIN_URL, logoutAction } from "@bsport/store-auth";
 
+import { useBatchRoutingPermissions } from "#src/features/permissions";
 import "#src/index.css";
 import { AppI18nextProvider, useTranslation } from "#src/utils/i18n";
 
@@ -24,6 +25,7 @@ import {
   isItemElement,
   useNavigationElements,
 } from "./navigation-items";
+import { useProtectedItems } from "./navigation-protected-items";
 import { getNavigationUrls } from "./navigation-urls";
 
 export type NavigationSidebarProps = {
@@ -56,6 +58,10 @@ const NavigationSidebarContent = ({ navigate }: NavigationSidebarProps) => {
     handleOpenTemporaryPasswordDialog,
   });
 
+  const protectedElements = useProtectedItems(navigationElements);
+
+  const elementsPermissions = useBatchRoutingPermissions(protectedElements);
+
   const renderNavigationItems = () => {
     if (menuSet === "settings") {
       return (
@@ -71,6 +77,7 @@ const NavigationSidebarContent = ({ navigate }: NavigationSidebarProps) => {
                   kind="item"
                   item={item}
                   navigate={navigate}
+                  hasPermission={!!elementsPermissions.get(item.id)}
                 />
               );
             }
@@ -84,6 +91,8 @@ const NavigationSidebarContent = ({ navigate }: NavigationSidebarProps) => {
       <>
         {navigationElements.map((element, index) => {
           if (isDividerElement(element)) {
+            /** @todo Do not render if the previous **rendered** element is also a Divider */
+            // This can happen when a group of items is hidden due to permissions
             return <NavigationMenu.Divider key={`divider-${index}`} />;
           }
 
@@ -96,12 +105,14 @@ const NavigationSidebarContent = ({ navigate }: NavigationSidebarProps) => {
             );
           }
 
+          /** @todo When all subitems of a group are disabled / hidden, hide the group (divider and element) */
           return (
             <NavigationMenuElement
               key={element.id}
               kind="item"
               navigate={navigate}
               item={element}
+              hasPermission={!!elementsPermissions.get(element.id)}
             >
               {element.subItems?.map((subItem) => (
                 <NavigationMenuElement
@@ -109,6 +120,7 @@ const NavigationSidebarContent = ({ navigate }: NavigationSidebarProps) => {
                   kind="subitem"
                   item={subItem}
                   navigate={navigate}
+                  hasPermission={!!elementsPermissions.get(subItem.id)}
                 />
               ))}
             </NavigationMenuElement>

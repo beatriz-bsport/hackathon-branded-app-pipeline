@@ -24,7 +24,7 @@ export const useEmailTemplateForm = ({
   const { t } = useTranslation(["detail", "list"]);
 
   const fallbackData: EmailTemplateFormData = {
-    title: "",
+    title: t("details.defaultTitle"),
     subject: "",
     category: t("templateCategory.noCategory"),
     stringifiedDesign: null,

@@ -11,6 +11,7 @@ import type {
   EmailTemplateDetail,
 } from "@bsport/store-cdp-email-template";
 
+import { DeleteTemplateModal } from "#src/components/Common/Modals/DeleteTemplateModal";
 import { DuplicateTemplateModal } from "#src/components/Common/Modals/DuplicateTemplateModal";
 import { EmailEditorForm } from "#src/components/TemplateDetails/EmailEditorForm";
 import { RenameEmailTemplateModal } from "#src/components/TemplateDetails/Modal/RenameEmailTemplate";
@@ -19,6 +20,7 @@ import { useUnlayerBuilder } from "#src/hooks/actions/useUnlayerBuilder";
 import { useUnlayerInitialization } from "#src/hooks/actions/useUnlayerInitialization";
 import { useEmailTemplateForm } from "#src/hooks/forms/use-email-template-form";
 import { useDetailPageHeader } from "#src/hooks/layout/useDetailPageHeader";
+import { useTemplateNavigation } from "#src/hooks/useTemplateNavigation";
 import {
   UNLAYER_EDITOR_MIN_HEIGHT,
   UNLAYER_PROJECT_ID,
@@ -43,16 +45,20 @@ export const PageListContent: React.FC<Props> = ({
   toggleHasUnsavedChanges,
   saveTemplate,
 }: Props) => {
+  const { t } = useTranslation("detail");
+  const emailEditorRef = useRef<EditorRef>(null);
   const [currentInlineAction, setCurrentInlineAction] = useState<
     "delete" | "duplicate" | "rename" | null
   >(null);
-  const [pageTitle, setPageTitle] = useState(emailTemplateDetail?.title || "");
-  const { t } = useTranslation(["list", "detail"]);
-  const emailEditorRef = useRef<EditorRef>(null);
+  const [pageTitle, setPageTitle] = useState(
+    emailTemplateDetail?.title || t("details.defaultTitle"),
+  );
   const { unlayerUser, currentLocale, companyName, companyId } =
     useUnlayerInitialization();
   const { exportEmailBuilderTemplate, initializeUnlayerBuilder } =
     useUnlayerBuilder();
+  const { navigateToCustomList } = useTemplateNavigation();
+
   const formattedCategories = [
     ...formatCategoriesForSelector(categoriesList),
     {
@@ -86,7 +92,7 @@ export const PageListContent: React.FC<Props> = ({
 
   const initialData = useMemo(
     () => ({
-      title: emailTemplateDetail?.title || "",
+      title: emailTemplateDetail?.title || t("details.defaultTitle"),
       subject: emailTemplateDetail?.subject || "",
       category:
         categoriesList.find(
@@ -110,7 +116,7 @@ export const PageListContent: React.FC<Props> = ({
   const { breadcrumbsItems, endGroupActions } = useDetailPageHeader({
     onExportTemplate: handleExportClick,
     onDeleteTemplate: emailTemplateDetail
-      ? () => toggleHasUnsavedChanges(true)
+      ? () => setCurrentInlineAction("delete")
       : undefined,
     onDuplicateTemplate: emailTemplateDetail
       ? () => setCurrentInlineAction("duplicate")
@@ -263,6 +269,14 @@ export const PageListContent: React.FC<Props> = ({
           templateId={emailTemplateDetail.id}
           isOpen={true}
           onClose={handleCloseModals}
+        />
+      ) : null}
+      {emailTemplateDetail?.id && currentInlineAction === "delete" ? (
+        <DeleteTemplateModal
+          templateId={emailTemplateDetail.id}
+          isOpen={true}
+          onClose={handleCloseModals}
+          onSuccess={() => navigateToCustomList()}
         />
       ) : null}
     </>

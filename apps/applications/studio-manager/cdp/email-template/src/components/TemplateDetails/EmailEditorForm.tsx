@@ -23,7 +23,7 @@ export const EmailEditorForm: React.FC<Props> = ({
   handleBlur,
   categoriesList,
 }: Props) => {
-  const { t } = useTranslation(["list", "detail"]);
+  const { t } = useTranslation("detail");
 
   const handleClearSubject = () => {
     handleChange("subject", "");
@@ -51,7 +51,6 @@ export const EmailEditorForm: React.FC<Props> = ({
           fullWidth
           id="category-selector"
           size="md"
-          label={t("activeList.createTemplateModal.textInput.label")}
           items={categoriesList}
           value={category as string}
           popoverPlacement="bottom-left"

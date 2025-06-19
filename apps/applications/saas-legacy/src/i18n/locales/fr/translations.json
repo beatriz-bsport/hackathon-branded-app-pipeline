@@ -6231,7 +6231,8 @@
                     "subtitles": {
                         "sessions": "Séances compatibles",
                         "timeSlots": "Créneaux horaires compatibles",
-                        "activity": "Activités compatibles"
+                        "activity": "Activités compatibles",
+                        "appointments": "Rendez-vous compatibles"
                     }
                 },
                 "description": {

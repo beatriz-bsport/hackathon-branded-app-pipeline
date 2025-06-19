@@ -44,7 +44,8 @@
             "next": "Next"
         },
         "pagination": {
-            "rows": "Rows"
+            "rows": "Rows",
+            "showingRange": "Showing {{currentItemsRendered}} of {{totalItems}}"
         }
     }
 }

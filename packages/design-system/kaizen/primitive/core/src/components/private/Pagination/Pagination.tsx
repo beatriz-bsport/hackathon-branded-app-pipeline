@@ -6,6 +6,7 @@ import Body from "#src/components/Body";
 import Button from "#src/components/Button";
 import Divider from "#src/components/Divider";
 import Select from "#src/components/Select";
+import Tooltip from "#src/components/Tooltip";
 import { useKaizenI18nInstance, useTranslation } from "#src/i18n";
 
 const defaultClasses = [
@@ -64,6 +65,16 @@ export type PaginationProps = React.HTMLAttributes<HTMLDivElement> &
     onRowsPerPageChange?: (rowsPerPage: number) => void;
   };
 
+// Helper to shorten page numbers > 999
+const shortenPage = (pageNum: number) => {
+  if (pageNum > 999) {
+    return `..${pageNum.toString().slice(-2)}`;
+  }
+  return pageNum.toString();
+};
+
+type PageButton = { label: string; value: number };
+
 /**
  * Pagination component for navigating through large sets of data, allowing navigation between pages
  * and the option to adjust the number of rows displayed per page. It includes support for boundary
@@ -118,11 +129,7 @@ const Pagination: React.FC<PaginationProps> = ({
 
   useEffect(() => {
     const validPage = Math.max(1, Math.min(currentPage, totalPages));
-
     if (currentPage !== validPage) {
-      console.warn(
-        `Current page ${currentPage} is out of range. Adjusting to valid range.`,
-      );
       onPageChange?.(validPage);
       onPageSettingsChange?.(validPage, rowsPerPage);
     }
@@ -150,30 +157,41 @@ const Pagination: React.FC<PaginationProps> = ({
     onPageSettingsChange?.(1, Number(option));
   };
 
-  const getPages = useCallback((): string[] => {
+  // Returns an array of { label, value } for each page button
+  const getPages = useCallback((): PageButton[] => {
     const addRange = (start: number, end: number) => {
       const rangeLength = end - start + 1;
-      return Array.from({ length: rangeLength }, (_, i) =>
-        (start + i).toString(),
-      );
+      return Array.from({ length: rangeLength }, (_, i) => {
+        const pageNum = start + i;
+        return { label: shortenPage(pageNum), value: pageNum };
+      });
     };
 
     if (currentPage <= 5) {
       return [
         ...addRange(1, Math.min(7, totalPages)),
-        ...(totalPages > 7 ? ["...", totalPages.toString()] : []),
+        ...(totalPages > 7
+          ? [
+              { label: "...", value: -1 },
+              { label: shortenPage(totalPages), value: totalPages },
+            ]
+          : []),
       ];
     }
     if (currentPage + 5 <= totalPages) {
       return [
-        "1",
-        "...",
+        { label: "1", value: 1 },
+        { label: "...", value: -1 },
         ...addRange(currentPage - 2, currentPage + 2),
-        "...",
-        totalPages.toString(),
+        { label: "...", value: -1 },
+        { label: shortenPage(totalPages), value: totalPages },
       ];
     }
-    return ["1", "...", ...addRange(Math.max(1, totalPages - 6), totalPages)];
+    return [
+      { label: "1", value: 1 },
+      { label: "...", value: -1 },
+      ...addRange(Math.max(1, totalPages - 6), totalPages),
+    ];
   }, [currentPage, totalPages]);
 
   const pages = useMemo(getPages, [getPages]);
@@ -228,8 +246,10 @@ const Pagination: React.FC<PaginationProps> = ({
         {showRowsPerPageSelector && (
           <>
             <Body htmlVariant="p" size="sm" color="weak" weight="weak">
-              {/* TODO: Translation */}
-              {`Showing ${currentItemsRendered} of ${totalItems}`}
+              {t("pagination.showingRange", {
+                currentItemsRendered,
+                totalItems,
+              })}
             </Body>
             {totalPages > 1 && <Divider orientation="vertical" weight="thin" />}
           </>
@@ -255,22 +275,44 @@ const Pagination: React.FC<PaginationProps> = ({
               disabled={currentPage === 1 || disabled}
             />
             <div className="flex gap-2xs">
-              {pages.map((page, index) => (
-                <button
-                  className={button({
-                    active: currentPage === parseInt(page),
-                    disabled,
-                  })}
-                  key={index}
-                  aria-label={`Page ${page}`}
-                  disabled={disabled}
-                  onClick={() => handlePageChange(parseInt(page))}
-                >
+              {pages.map(({ label, value }) => {
+                if (label === "...") {
+                  return (
+                    <span
+                      key={value}
+                      className="flex w-element-sm justify-center items-center shrink-0 text-onsurface-weak text-body-sm font-weak leading-xs"
+                    >
+                      ...
+                    </span>
+                  );
+                }
+                const isShortened = /^\.\.\d{2}$/.test(label);
+                const buttonContent = (
                   <span className="flex w-element-sm justify-center items-center shrink-0 text-onsurface-default text-body-sm font-weak leading-xs">
-                    {page}
+                    {label}
                   </span>
-                </button>
-              ))}
+                );
+                return (
+                  <button
+                    className={button({
+                      active: currentPage === value,
+                      disabled,
+                    })}
+                    key={value}
+                    aria-label={`Page ${value}`}
+                    disabled={disabled}
+                    onClick={() => handlePageChange(value)}
+                  >
+                    {isShortened ? (
+                      <Tooltip label={value.toString()}>
+                        {buttonContent}
+                      </Tooltip>
+                    ) : (
+                      buttonContent
+                    )}
+                  </button>
+                );
+              })}
             </div>
             <Button
               intent="flat"

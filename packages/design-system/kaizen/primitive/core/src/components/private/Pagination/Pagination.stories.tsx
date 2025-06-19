@@ -42,22 +42,72 @@ export const Primary: Story = {
   name: "Pagination",
   render: (args) => {
     const [page, setPage] = useState(args.currentPage);
+    const [rowsPerPage, setRowsPerPage] = useState(args.rowsPerPage);
 
-    useEffect(() => setPage(args.currentPage), [args.currentPage]);
+    useEffect(() => {
+      setPage(args.currentPage);
+      setRowsPerPage(args.rowsPerPage);
+    }, [args.currentPage, args.rowsPerPage]);
 
-    const onPageChange = (selectedPage: number) => {
-      setPage(selectedPage);
-      console.log("selectedPage:", selectedPage);
+    const handlePageSettingsChange = (page: number, rowsPerPage: number) => {
+      console.log("page:", page, "rowsPerPage:", rowsPerPage);
+      setPage(page);
+      setRowsPerPage(rowsPerPage);
     };
 
     return (
-      <Pagination {...args} currentPage={page} onPageChange={onPageChange} />
+      <Pagination
+        {...args}
+        currentPage={page}
+        rowsPerPage={rowsPerPage}
+        onPageSettingsChange={handlePageSettingsChange}
+      />
     );
   },
   args: {
     currentPage: 1,
     rowsPerPage: 40,
     totalItems: 1000,
+    showRowsPerPageSelector: true,
+    disabled: false,
+  },
+};
+
+/**
+ * This story demonstrates the Pagination component with more than 1000 items.
+ * It is used to verify the correct display and tooltip behavior for large page numbers,
+ * including the shortened label format (e.g., "..00" for 1000, "..09" for 1009, etc.).
+ */
+export const PaginationWithMoreThanAThousandItems: Story = {
+  name: "More than a thousand items",
+  render: (args) => {
+    const [page, setPage] = useState(args.currentPage);
+    const [rowsPerPage, setRowsPerPage] = useState(args.rowsPerPage);
+
+    useEffect(() => {
+      setPage(args.currentPage);
+      setRowsPerPage(args.rowsPerPage);
+    }, [args.currentPage, args.rowsPerPage]);
+
+    const handlePageSettingsChange = (page: number, rowsPerPage: number) => {
+      console.log("page:", page, "rowsPerPage:", rowsPerPage);
+      setPage(page);
+      setRowsPerPage(rowsPerPage);
+    };
+
+    return (
+      <Pagination
+        {...args}
+        currentPage={page}
+        rowsPerPage={rowsPerPage}
+        onPageSettingsChange={handlePageSettingsChange}
+      />
+    );
+  },
+  args: {
+    currentPage: 1,
+    rowsPerPage: 1,
+    totalItems: 1010,
     showRowsPerPageSelector: true,
     disabled: false,
   },

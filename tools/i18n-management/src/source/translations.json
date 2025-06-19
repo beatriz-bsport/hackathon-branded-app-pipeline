@@ -38,7 +38,10 @@
         "rangeLabel": "From {{ start }} to {{end}}"
       },
       "modal": { "back": "Back", "next": "Next" },
-      "pagination": { "rows": "Rows" }
+      "pagination": {
+        "rows": "Rows",
+        "showingRange": "Showing {{currentItemsRendered}} of {{totalItems}}"
+      }
     }
   },
   "@bsport/sm-custom-form": {

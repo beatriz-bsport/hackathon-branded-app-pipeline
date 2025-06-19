@@ -45,5 +45,6 @@ exports.default = {
   },
   pagination: {
     rows: "Rows",
+    showingRange: "Showing {{currentItemsRendered}} of {{totalItems}}",
   },
 };

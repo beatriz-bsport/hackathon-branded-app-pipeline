@@ -25,8 +25,8 @@ export function useRestoreCustomForm({
     typeof restoreCustomForm
   >({
     asyncFn: restoreCustomForm,
-    onSuccess,
-    onFailure,
+    onSuccess: ({ value }) => onSuccess?.(value),
+    onFailure: ({ error }) => onFailure?.(error),
   });
 
   return {

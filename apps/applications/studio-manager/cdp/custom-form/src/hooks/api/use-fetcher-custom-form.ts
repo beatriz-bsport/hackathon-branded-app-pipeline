@@ -27,8 +27,8 @@ export function useFetcherCustomForms({
 }: UseFetchCustomFormsParams = {}) {
   const [{ isLoading }, triggerFetchForms] = useAsync<typeof fetchForms>({
     asyncFn: fetchForms,
-    onSuccess,
-    onFailure,
+    onSuccess: ({ value }) => onSuccess?.(value),
+    onFailure: ({ error }) => onFailure?.(error),
   });
 
   return {

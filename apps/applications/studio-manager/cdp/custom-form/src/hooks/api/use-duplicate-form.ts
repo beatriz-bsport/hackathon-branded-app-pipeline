@@ -28,8 +28,8 @@ export function useDuplicateCustomForm({
     typeof duplicateCustomForm
   >({
     asyncFn: duplicateCustomForm,
-    onSuccess,
-    onFailure,
+    onSuccess: ({ value }) => onSuccess?.(value),
+    onFailure: ({ error }) => onFailure?.(error),
   });
 
   return {

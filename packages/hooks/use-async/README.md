@@ -1,76 +1,94 @@
 # `useAsync` hook
 
-Implement the loading and error state handlers.
+A generic React hook to encapsulate the loading, success, and error states around an asynchronous function that returns a [`Result`](https://www.npmjs.com/package/typescript-result).
 
-## Installation
+---
 
-1. Add `@bsport/use-async` to your project dependencies :
+## ✅ Features
 
-   ```json
-   {
-     "dependencies": {
-       "@bsport/use-async": "workspace:*"
-       // other dependencies...
-     }
-   }
-   ```
+- Manages `isLoading`, `error`, and `data` states.
+- Automatically handles `Result` objects (from `typescript-result`).
+- Strongly typed and works with async functions of any shape.
+- Supports optional `onSuccess` and `onFailure` callbacks, with access to original arguments and extra metadata.
 
-2. Import the hook, your action and the fetch instance of your application. You need to provide to the hook an async function and its type, to have right type inference.
+---
 
-   ```tsx
-   // Simple example : use the data output from the hook
-   import { useAsync } from "@bsport/use-async";
-   import { fetchSmth as fetchSmthAction } from "@bsport/store-something";
-   import { fetch } from "#src/utils/fetch";
+## 📦 Installation
 
-   const MyPage = () => {
+Add `@bsport/use-async` to your project dependencies:
 
-     // Define my async function by combining my action and my fetch instance
-     const fetchSmthBase = async (arg1: string, arg2: ...) => {
-       return fetchSmthAction(fetch, params);
-     }
+```json
+{
+  "dependencies": {
+    "@bsport/use-async": "workspace:*"
+  }
+}
+```
 
-     // Retrieve states and the memoized fn
-     const [{ isLoading, error, data }, fetchSmth] =
-       useAsync<typeof fetchSmthAction>({
-         asyncFn : fetchSmthAction,
-     });
+## 🔧 Usage
 
-     useEffect(() => {
-       fetchSmth("arg1", arg2value);
-     }, [fetchSmth]);
-     ...
-   };
-   ```
+### 1. Basic usage
 
-3. If your need to do some specific actions with the returned value (for instance, print a toast), you can provide onSuccess or onFailure callbacks.
+```tsx
+import { fetchSmthAction } from "@bsport/store-something";
+import { useAsync } from "@bsport/use-async";
 
-   ```tsx
-   import { useAsync } from "@bsport/use-async";
-   import { fetchSmth as fetchSmthAction } from "@bsport/store-something";
-   import { fetch } from "#src/utils/fetch";
+import { fetch } from "#src/utils/fetch";
 
-   const MyPage = () => {
+const MyPage = () => {
+  const fetchSmth = async (id: string) => {
+    return fetchSmthAction(fetch, id);
+  };
 
-     // Define my async function by combining my action and my fetch instance
-     const fetchPage = async (arg1: string, arg2: ...) => {
-       return fetchSmthAction(fetch, params);
-     }
+  const [{ isLoading, error, data }, runFetch] = useAsync({
+    asyncFn: fetchSmth,
+  });
 
-     // Retrieve states and the memoized fn
-     const [{ isLoading, error, data }, fetchSmth] =
-       useAsync<typeof fetchPage>({
-         asyncFn : fetchSmthAction,
-         onSuccess: ({ results, count }) => console.log(`Get ${count} total items.`),
-         onError: (error) => {
-          console.error(error);
-          toast(...);
-         },
-     });
+  useEffect(() => {
+    runFetch("user-id-123");
+  }, [runFetch]);
 
-     useEffect(() => {
-       fetchSmth();
-     }, [fetchSmth]);
-     ...
-   };
-   ```
+  return <>{isLoading ? "Loading..." : JSON.stringify(data)}</>;
+};
+```
+
+### 2. Using onSuccess and onFailure callbacks
+
+You can provide `onSuccess` and `onFailure` callbacks. These callbacks can use 2 different arguments :
+
+- the data returned by the `asyncFn`, encapsulated in the `value` variable
+- the args provided to the `asyncFn`, encapsulated in the `args` variable
+
+```tsx
+import { fetchSmth as fetchSmthAction } from "@bsport/store-something";
+import { useAsync } from "@bsport/use-async";
+
+import { fetch } from "#src/utils/fetch";
+import { toast } from "#src/utils/toast";
+
+const MyPage = () => {
+  const fetchPage = async (page: number, perPage: number) => {
+    return fetchSmthAction(fetch, { page, perPage });
+  };
+
+  const [{ isLoading, error, data }, fetchSmth] = useAsync<typeof fetchPage>({
+    asyncFn: fetchPage,
+    onSuccess: ({ value, args }) => {
+      const [page, perPage] = args;
+      console.log(`Fetched page ${page} :`, value);
+    },
+    onFailure: ({ error, args }) => {
+      toast(`Failed to fetch with args ${JSON.stringify(args)}.`, {
+        type: "error",
+      });
+      console.error("Fetch failed:", error);
+    },
+  });
+
+  useEffect(() => {
+    fetchSmth(1, 20);
+  }, [fetchSmth]);
+
+  return <>{isLoading ? "Loading..." : JSON.stringify(data)}</>;
+};
+```

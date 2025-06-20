@@ -25,8 +25,8 @@ export function useDisableCustomForm({
     typeof disableCustomForm
   >({
     asyncFn: disableCustomForm,
-    onSuccess,
-    onFailure,
+    onSuccess: ({ value }) => onSuccess?.(value),
+    onFailure: ({ error }) => onFailure?.(error),
   });
 
   return {

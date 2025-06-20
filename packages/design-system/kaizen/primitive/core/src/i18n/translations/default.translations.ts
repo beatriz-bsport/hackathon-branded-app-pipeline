@@ -47,4 +47,9 @@ exports.default = {
     rows: "Rows",
     showingRange: "Showing {{currentItemsRendered}} of {{totalItems}}",
   },
+  headerLayout: {
+    search: {
+      tooltip: "Search on this page",
+    },
+  },
 };

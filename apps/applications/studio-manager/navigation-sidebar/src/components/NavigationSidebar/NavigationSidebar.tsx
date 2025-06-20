@@ -8,16 +8,16 @@ import { useBatchRoutingPermissions } from "#src/features/permissions";
 import "#src/index.css";
 import { AppI18nextProvider, useTranslation } from "#src/utils/i18n";
 
+import {
+  TemporaryPasswordDialog,
+  useTemporaryPasswordDialog,
+} from "../TemporaryPasswordDialog";
 import FeedbackDialog, { useFeedbackDialog } from "./FeedbackDialog";
 import LanguageDropdown from "./LanguageDropdown";
 import { NavigationMenuElement } from "./NavigationMenuElement";
 import NavigationSidebarHeader, {
   type MenuOption,
 } from "./NavigationSidebarHeader";
-import {
-  TemporaryPasswordDialog,
-  useTemporaryPasswordDialog,
-} from "./TemporaryPasswordDialog";
 import {
   type MenuSet,
   isDividerElement,
@@ -27,6 +27,7 @@ import {
 } from "./navigation-items";
 import { useProtectedItems } from "./navigation-protected-items";
 import { getNavigationUrls } from "./navigation-urls";
+import { useFilteredNavigationElements } from "./useFilteredNavigationElements";
 
 export type NavigationSidebarProps = {
   navigate?: (to: string) => void;
@@ -62,12 +63,18 @@ const NavigationSidebarContent = ({ navigate }: NavigationSidebarProps) => {
 
   const elementsPermissions = useBatchRoutingPermissions(protectedElements);
 
+  const filteredNavigationElements = useFilteredNavigationElements(
+    navigationElements,
+    elementsPermissions,
+    menuSet,
+  );
+
   const renderNavigationItems = () => {
     if (menuSet === "settings") {
       return (
         <>
           <NavigationMenu.Group label={t("menus.settings.title")} />
-          {navigationElements.map((item) => {
+          {filteredNavigationElements.map((item) => {
             if (isGroupElement(item)) return null;
 
             if (isItemElement(item)) {
@@ -77,7 +84,6 @@ const NavigationSidebarContent = ({ navigate }: NavigationSidebarProps) => {
                   kind="item"
                   item={item}
                   navigate={navigate}
-                  hasPermission={!!elementsPermissions.get(item.id)}
                 />
               );
             }
@@ -89,10 +95,8 @@ const NavigationSidebarContent = ({ navigate }: NavigationSidebarProps) => {
 
     return (
       <>
-        {navigationElements.map((element, index) => {
+        {filteredNavigationElements.map((element, index) => {
           if (isDividerElement(element)) {
-            /** @todo Do not render if the previous **rendered** element is also a Divider */
-            // This can happen when a group of items is hidden due to permissions
             return <NavigationMenu.Divider key={`divider-${index}`} />;
           }
 
@@ -105,14 +109,12 @@ const NavigationSidebarContent = ({ navigate }: NavigationSidebarProps) => {
             );
           }
 
-          /** @todo When all subitems of a group are disabled / hidden, hide the group (divider and element) */
           return (
             <NavigationMenuElement
               key={element.id}
               kind="item"
               navigate={navigate}
               item={element}
-              hasPermission={!!elementsPermissions.get(element.id)}
             >
               {element.subItems?.map((subItem) => (
                 <NavigationMenuElement
@@ -120,7 +122,6 @@ const NavigationSidebarContent = ({ navigate }: NavigationSidebarProps) => {
                   kind="subitem"
                   item={subItem}
                   navigate={navigate}
-                  hasPermission={!!elementsPermissions.get(subItem.id)}
                 />
               ))}
             </NavigationMenuElement>

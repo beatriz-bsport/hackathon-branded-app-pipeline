@@ -12,7 +12,6 @@ type NavigationMenuItemProps = PropsWithChildren<{
   kind: "item" | "subitem";
   item: NavigationSidebarSubItem | NavigationSidebarItem;
   navigate?: (href: string) => void;
-  hasPermission?: boolean;
 }>;
 
 /**
@@ -31,14 +30,9 @@ export const NavigationMenuElement: React.FC<NavigationMenuItemProps> = ({
   item,
   navigate,
   kind = "subitem",
-  hasPermission,
   children,
 }) => {
   const isBridged = !!navigate;
-
-  // Hide/Disable the item if it has a link (e.g. it's not a group)
-  // and the user does not have permission to access this link.
-  const disabled = !hasPermission && item.href;
 
   const itemElement = ({
     isActive,
@@ -49,7 +43,7 @@ export const NavigationMenuElement: React.FC<NavigationMenuItemProps> = ({
         <NavigationMenu.SubItem
           key={item.id}
           id={item.id}
-          label={disabled ? `${item.label} 🔒` : item.label}
+          label={item.label}
           active={isActive}
           onClick={item?.onClick ?? onClick}
         >
@@ -61,7 +55,7 @@ export const NavigationMenuElement: React.FC<NavigationMenuItemProps> = ({
       <NavigationMenu.Item
         key={item.id}
         id={item.id}
-        label={disabled ? `${item.label} 🔒` : item.label}
+        label={item.label}
         active={isActive}
         onClick={item?.onClick ?? onClick}
         endSlot={item.endSlot}

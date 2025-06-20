@@ -28,8 +28,8 @@ export function useDuplicateSmartlist({
     typeof duplicateSmartlist
   >({
     asyncFn: duplicateSmartlist,
-    onSuccess,
-    onFailure,
+    onSuccess: ({ value }) => onSuccess?.(value),
+    onFailure: ({ error }) => onFailure?.(error),
   });
 
   return {

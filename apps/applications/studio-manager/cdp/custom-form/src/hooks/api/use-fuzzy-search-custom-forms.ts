@@ -27,8 +27,8 @@ export function useSearchCustomForms({
 }: UseSearchCustomFormsParams = {}) {
   const [{ isLoading }, triggerSearchForms] = useAsync<typeof searchForms>({
     asyncFn: searchForms,
-    onSuccess,
-    onFailure,
+    onSuccess: ({ value }) => onSuccess?.(value),
+    onFailure: ({ error }) => onFailure?.(error),
   });
 
   return {

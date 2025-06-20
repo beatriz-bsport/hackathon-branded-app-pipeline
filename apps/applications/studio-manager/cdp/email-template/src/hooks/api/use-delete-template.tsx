@@ -28,8 +28,8 @@ export function useDeleteTemplate({
     typeof deleteTemplate
   >({
     asyncFn: deleteTemplate,
-    onSuccess,
-    onFailure,
+    onSuccess: ({ value }) => onSuccess?.(value),
+    onFailure: ({ error }) => onFailure?.(error),
   });
 
   return {

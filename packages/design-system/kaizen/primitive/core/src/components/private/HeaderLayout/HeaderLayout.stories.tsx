@@ -360,3 +360,13 @@ export const ConfigWithPageActionsOnly: Story = {
     startGroupActions: ARGS.START_GROUP_ACTIONS,
   },
 };
+
+export const WithTooltipAroundSearch: Story = {
+  args: {
+    pageTitle: "Header with default tooltip around search",
+    searchConfig: {
+      tooltipConfig: {},
+      id: "search",
+    },
+  },
+};

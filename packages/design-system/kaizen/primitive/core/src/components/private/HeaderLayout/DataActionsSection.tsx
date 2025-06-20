@@ -5,27 +5,48 @@ import ExpandableSearchInput, {
   type ExpandableSearchInputProps,
 } from "#src/components/ExpandableSearchInput";
 import Filter, { type FilterProps } from "#src/components/Filter";
+import { type TooltipProps, withTooltip } from "#src/components/Tooltip";
+import { useKaizenI18nInstance, useTranslation } from "#src/i18n";
 
 export type DataActionsSectionProps = {
   filterConfig?: FilterProps;
   onDisplayClick?: () => void;
-  searchConfig?: ExpandableSearchInputProps;
+  searchConfig?: ExpandableSearchInputProps & {
+    tooltipConfig?: Partial<TooltipProps>;
+  };
 };
+
+const SearchWithTooltip = withTooltip(ExpandableSearchInput);
 
 const DataActionsSection: React.FC<DataActionsSectionProps> = ({
   filterConfig,
   onDisplayClick,
   searchConfig,
 }) => {
+  const i18nInstance = useKaizenI18nInstance();
+  const { t } = useTranslation("default", { i18n: i18nInstance });
+
   if (!filterConfig && !onDisplayClick && !searchConfig) {
     return null;
   }
+
+  const { tooltipConfig, ...searchProps } = searchConfig ?? {};
+  // Define tooltip props with default configuration only when tooltipConfig is defined (even empty)
+  const tooltipProps: TooltipProps | undefined = tooltipConfig
+    ? {
+        label: t("headerLayout.search.tooltip"),
+        placement: "bottom-right",
+        ...tooltipConfig,
+      }
+    : undefined;
 
   return (
     <div className="flex flex-row justify-between items-start px-md py-xs">
       {filterConfig ? <Filter {...filterConfig} /> : <div />}
       <div className="flex flex-row gap-xs items-stretch h-fit">
-        {searchConfig && <ExpandableSearchInput {...searchConfig} />}
+        {searchProps && "id" in searchProps && (
+          <SearchWithTooltip tooltipProps={tooltipProps} {...searchProps} />
+        )}
         {onDisplayClick && (
           <Button
             color="main"

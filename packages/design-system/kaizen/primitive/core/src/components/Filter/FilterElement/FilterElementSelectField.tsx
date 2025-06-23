@@ -60,18 +60,18 @@ const FilterElementSelectField: React.FC<FilterElementSelectFieldProps> = ({
     <li className={filterElementClasses()}>
       <Popover opened={openedByDefault}>
         <Popover.Anchor>
-          {({ setIsPopoverOpened }) => (
-            <Button
-              className={classNames(filterElementBtnClasses, {
-                "!rounded-r-[0]": selectedField,
-              })}
-              label={selectedField ? fields[selectedField].label : label}
-              color="default"
-              intent="flat"
-              size="md"
-              iconLeft="filter-lines"
-              onClick={() => {
-                setIsPopoverOpened((prev) => !prev);
+          {({ setIsPopoverOpened }) => {
+            const handleButtonClick = () => {
+              setIsPopoverOpened((prev: boolean) => !prev);
+              if (Object.keys(fields).length === 1) {
+                setMenu({
+                  type: "values",
+                  items: fields[Object.keys(fields)[0]].values.map((value) => ({
+                    id: value.id,
+                    label: value.label,
+                  })),
+                });
+              } else {
                 setMenu({
                   type: "filter",
                   items: Object.keys(fields).map((fieldId) => ({
@@ -79,9 +79,23 @@ const FilterElementSelectField: React.FC<FilterElementSelectFieldProps> = ({
                     label: fields[fieldId].label,
                   })),
                 });
-              }}
-            />
-          )}
+              }
+            };
+
+            return (
+              <Button
+                className={classNames(filterElementBtnClasses, {
+                  "!rounded-r-[0]": selectedField,
+                })}
+                label={selectedField ? fields[selectedField].label : label}
+                color="default"
+                intent="flat"
+                size="md"
+                iconLeft="filter-lines"
+                onClick={handleButtonClick}
+              />
+            );
+          }}
         </Popover.Anchor>
         <Popover.Content
           placement="bottom-left"
@@ -96,6 +110,16 @@ const FilterElementSelectField: React.FC<FilterElementSelectFieldProps> = ({
                 !fields[selectedField].multiSelect
               ) {
                 setIsPopoverOpened(false);
+              } else if (menu.type === "filter") {
+                setMenu({
+                  type: "filter",
+                  items: [
+                    ...Object.keys(fields).map((id) => ({
+                      id,
+                      label: fields[id].label,
+                    })),
+                  ],
+                });
               }
             };
 

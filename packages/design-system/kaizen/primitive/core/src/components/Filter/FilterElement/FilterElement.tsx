@@ -61,9 +61,15 @@ const FilterElement: React.FC<FilterElementProps> = ({
   onClear,
   ref,
 }) => {
+  const hasUniqueCategory = Object.keys(fields).length === 1;
+
   const [displayEntireFilter, setDisplayEntireFilter] = useState(false);
-  const [selectedField, setSelectedField] = useState<string | null>(null);
-  const [selectedFilter, setSelectedFilter] = useState("");
+  const [selectedField, setSelectedField] = useState(
+    hasUniqueCategory ? Object.keys(fields)[0] : null,
+  );
+  const [selectedFilter, setSelectedFilter] = useState(
+    hasUniqueCategory ? fields[Object.keys(fields)[0]].availableFilters[0] : "",
+  );
   const [selectedValues, setSelectedValues] = useState<string[] | null>(null);
 
   useEffect(() => {
@@ -87,7 +93,9 @@ const FilterElement: React.FC<FilterElementProps> = ({
     (fieldId: string, shouldDisplayEntireFilter: boolean) => {
       if (!selectedField || !shouldDisplayEntireFilter) {
         setSelectedField(fieldId);
-        setSelectedValues(null);
+        setSelectedValues(
+          selectedValues && selectedValues.length > 0 ? [] : null,
+        );
         setSelectedFilter(fields[fieldId].availableFilters[0]);
         setDisplayEntireFilter(false);
         return;
@@ -106,7 +114,7 @@ const FilterElement: React.FC<FilterElementProps> = ({
           : [...(prevState ?? []), fieldId],
       );
     },
-    [fields, selectedField],
+    [fields, selectedField, selectedValues],
   );
 
   const handleSelectValue = useCallback(
@@ -130,10 +138,11 @@ const FilterElement: React.FC<FilterElementProps> = ({
   );
 
   const handleClear = useCallback(() => {
-    setSelectedField(null);
+    setSelectedField(hasUniqueCategory ? Object.keys(fields)[0] : null);
     setDisplayEntireFilter(false);
+    setSelectedValues(null);
     onClear?.();
-  }, [onClear]);
+  }, [fields, hasUniqueCategory, onClear]);
 
   // Expose resetFilters method through ref
   useImperativeHandle(ref, () => ({ resetFilters: handleClear }), [

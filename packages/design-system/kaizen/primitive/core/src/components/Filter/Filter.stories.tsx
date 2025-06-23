@@ -122,3 +122,23 @@ export const FilterWithSingleChoice: Story = {
     singleField: true,
   },
 };
+
+export const FilterWithSingleCategory: Story = {
+  name: "Filter with single category",
+  args: {
+    ...args,
+    fields: {
+      fruit: {
+        id: "fruit",
+        label: "Fruit",
+        availableFilters: ["is", "is-not"],
+        values: [
+          { id: "apple", label: "Apple" },
+          { id: "banana", label: "Banana" },
+          { id: "cherry", label: "Cherry" },
+        ],
+        multiSelect: false,
+      },
+    },
+  },
+};

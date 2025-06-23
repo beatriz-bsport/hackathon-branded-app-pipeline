@@ -29,5 +29,5 @@ export type TableRowData = {
   memberName: string;
   orderStatus: OrderStatus;
   orderQuantity: number;
-  orderTotal: string;
+  orderTotal: number;
 };

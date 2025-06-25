@@ -9272,7 +9272,7 @@
             "startAfterEnd": "L’heure de début doit être inférieure à l’heure de fin",
             "atLeastOneDay": "Au moins un jour doit être choisi",
             "description": "Description",
-            "unusableByStaff": "Invisible pour les professeurs",
+            "unusableByStaff": "Caché au personnel",
             "allowGuest": "Compatible avec la réservation pour un invité",
             "expiration_date": {
                 "label": "Durée de vente",
@@ -10726,7 +10726,7 @@
             },
             "disabledTitle": "Cartes de RDV archivées",
             "listItem": {
-                "unusableByStaff": "Invisible pour les professeurs"
+                "unusableByStaff": "Caché au personnel"
             },
             "noNotificationsWarning": "Vous n'avez pas encore de notifications. Pour créer des nouvelles notification, allez dans <strong>Marketing > Notifications.</strong>"
         },
@@ -10788,12 +10788,12 @@
                         "helperText": "Nous demanderons une adresse aux membres une fois le rendez-vous pris. "
                     },
                     "isWithoutEstablishment": {
-                        "label": "Hors du site",
+                        "label": "Hors de l'établissement",
                         "helperText": "Pour des cours en visio ou en extérieur"
                     },
                     "isWithEstablishment": {
                         "isEmpty": "Aucune salle configurée !",
-                        "label": "Dans l'une de vos sites",
+                        "label": "Dans l'une de vos établissements",
                         "helperText": "La réservation ne sera effectuée que s'il y a suffisamment de créneaux disponibles. "
                     }
                 },
@@ -10817,8 +10817,8 @@
                     "helperText": "Les membres pourront choisir leur professeur lors de leur réservation. Si decoché, vous devrez désigner choisir le professeur une fois le rendez-vous pris."
                 },
                 "establishment_consumer_attribution": {
-                    "label": "Les membres peuvent choisir le site",
-                    "helperText": "Les membres pourront décider du site qu'ils souhaitent réserver. Décochez pour remplir automatiquement les sites."
+                    "label": "Les membres peuvent choisir le établissement",
+                    "helperText": "Les membres pourront décider du site qu'ils souhaitent réserver. Décochez pour remplir automatiquement les établissements."
                 },
                 "delete": {
                     "title": "Suppression du rendez-vous",
@@ -10833,8 +10833,8 @@
                 },
                 "color": "Code couleur",
                 "use_full_establishment_capacity": {
-                    "label": "Les membres peuvent choisir le site",
-                    "helperText": "Tout l'espace est nécessaire pour le rendez-vous. Décochez pour autoriser plusieurs rendez-vous dans le même site."
+                    "label": "Les membres peuvent choisir le établissement",
+                    "helperText": "Tout l'espace est nécessaire pour le rendez-vous. Décochez pour autoriser plusieurs rendez-vous dans le même établissement."
                 },
                 "title": "Rendez-vous",
                 "createButton": "Ajouter un rendez-vous",
@@ -15076,8 +15076,8 @@
                 }
             },
             "21": {
-                "name": "Segmenter les clients avec un certain nombre de réservations",
-                "explanation": "Segmenter les clients en fonction du nombre de séances qu'ils ont réservées, dans quelle salle, par quel professeur, achetées par quelle carte",
+                "name": "Numéro de réservation",
+                "explanation": "Segmenter les clients qui ont réservé un nombre spécifique de séances",
                 "first": "A réservé sa ",
                 "second_singular": "ère séance",
                 "second_plural": "ème séance",
@@ -15109,8 +15109,8 @@
                 "first_v2": "Membres ayant reservé leur "
             },
             "22": {
-                "name": "Nombre de réservations",
-                "explanation": "Segmenter les clients en fonction du nombre de cours qu'ils ont réservés, dans quelle salle, par quel professeur, achetés par quelle carte",
+                "name": "Nombre total de réservations",
+                "explanation": "Segmenter les clients en fonction du nombre total de séances qu'ils ont réservées, dans l'établissement A, avec le professeur B, achetées avec la carte de cours C",
                 "first": "A réservé",
                 "second": "séances",
                 "between": "et",
@@ -15182,7 +15182,7 @@
             },
             "26": {
                 "name": "Nombre de rendez-vous",
-                "explanation": "Segmenter les clients en fonction du nombre de rendez-vous qu'ils ont réservés, dans quelle salle, par quel enseignant, achetés par quelle carte",
+                "explanation": "Segmenter les clients en fonction du nombre total de rendez-vous qu'ils ont pris pour le professeur A, dans l'établissement B, achetés avec la carte RDV C",
                 "first": "A réservé",
                 "second": "rendez-vous",
                 "between": "et",
@@ -15304,7 +15304,7 @@
                 "first": "A complété"
             },
             "103": {
-                "name": "Acceptance des notifications",
+                "name": "Consentement aux notifications",
                 "allNeeded": "Toutes les conditions activées doivent être remplies",
                 "oneNeeded": "Au moins une des conditions activées doit être remplie",
                 "true": "Accepte",

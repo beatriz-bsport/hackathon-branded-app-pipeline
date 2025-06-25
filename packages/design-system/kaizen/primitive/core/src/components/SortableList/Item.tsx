@@ -30,6 +30,7 @@ const ButtonWithTooltip = withTooltip(Button);
  * @param props.buttons A list of buttons to display in the header, after 2 of them, the other actions will be pushed to a dropdown menu.
  * @param props.dropdownConfig An optional object, dropdown config such as the max number of actions displayed inline or the dropdown component fields.
  * @param props.id The id of the item.
+ * @param props.onItemClick Callback triggered when the user is clicking on the item.
  */
 const Item: React.FC<ListItemProps> = ({
   id,
@@ -43,6 +44,7 @@ const Item: React.FC<ListItemProps> = ({
   chipsDirection = "start",
   buttons,
   dropdownConfig,
+  onItemClick,
   ...props
 }) => {
   const { actions, dropdownMenuProps } = useSplitActionsByDisplayOrder({
@@ -66,6 +68,9 @@ const Item: React.FC<ListItemProps> = ({
     <li
       id={id}
       className={classNames(sortableListItem({ className }))}
+      onClick={() => {
+        onItemClick?.();
+      }}
       {...props}
     >
       <div className="flex items-center gap-sm text-onsurface-default">
@@ -99,7 +104,14 @@ const Item: React.FC<ListItemProps> = ({
         {actions?.length > 0 || dropdownMenuProps ? (
           <div className="flex items-center gap-sm">
             {actions.map((action) => (
-              <ButtonWithTooltip key={action.id} {...action} />
+              <ButtonWithTooltip
+                key={action.id}
+                {...action}
+                onClick={(event: React.MouseEvent<HTMLButtonElement>) => {
+                  event.stopPropagation();
+                  action.onClick?.();
+                }}
+              />
             ))}
             {dropdownMenuProps && <DropdownMenu {...dropdownMenuProps} />}
           </div>

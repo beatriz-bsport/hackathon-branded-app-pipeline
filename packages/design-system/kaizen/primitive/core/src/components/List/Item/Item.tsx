@@ -38,6 +38,7 @@ type Props = {
   dropdownConfig?: ActionsDropdownConfig;
   link?: string;
   className?: string;
+  onItemClick?: () => void;
 };
 
 export type ListItemProps = React.LiHTMLAttributes<HTMLLIElement> &
@@ -133,7 +134,8 @@ const BaseItem: React.FC<
                 <ButtonWithTooltip
                   key={action.id}
                   {...action}
-                  onClick={() => {
+                  onClick={(event: React.MouseEvent<HTMLButtonElement>) => {
+                    event.stopPropagation();
                     action.onClick?.();
                   }}
                   label={action?.label}
@@ -166,6 +168,7 @@ const BaseItem: React.FC<
  * @param props.link The URL to navigate to when the item is clicked.
  * If provided, the entire item may act as a clickable link.
  * @param props.id The id of the item.
+ * @param props.onItemClick Callback triggered when the user is clicking on the item.
  */
 const Item: React.FC<ListItemProps> = ({
   id,
@@ -183,6 +186,7 @@ const Item: React.FC<ListItemProps> = ({
   buttons,
   chips,
   dropdownConfig,
+  onItemClick,
   ...props
 }) => {
   const { toggleCheckbox, getCheckboxState } = useCheckboxContext();
@@ -206,6 +210,7 @@ const Item: React.FC<ListItemProps> = ({
           isLink: !!link,
         }),
       )}
+      onClick={onItemClick}
       tabIndex={0}
       {...props}
     >

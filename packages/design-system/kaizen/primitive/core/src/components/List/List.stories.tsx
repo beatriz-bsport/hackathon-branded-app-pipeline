@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { useState } from "react";
 
-import List from "#src/components/List";
+import List, { ListItemProps } from "#src/components/List";
 
 /**
  * A list component that can contain multiple `Item` components and one `Header` component.<br>
@@ -66,7 +66,8 @@ const meta: Meta<typeof List> = {
       dropdownConfig?: ActionsDropdownConfig;
       link?: string;
       onCheckboxChange?: (checked: boolean) => void;
-    }
+      onItemClick?: () => void;
+      }
           `.trim(),
         },
       },
@@ -121,11 +122,12 @@ export default meta;
 
 type Story = StoryObj<typeof List>;
 
-const items = Array.from({ length: 100 }, (_, index) => ({
+const items: ListItemProps[] = Array.from({ length: 100 }, (_, index) => ({
   id: `item${index}`,
   title: `Item ${index}`,
   rightTitle: "Right title",
   description: "Playing with fonts is fun",
+  onItemClick: () => console.log(`Item ${index} clicked`),
 }));
 
 const emptyConfig = {
@@ -209,6 +211,7 @@ export const Primary: Story = {
         rightTitle: "Right title",
         description: "Playing with fonts is fun",
         dropdownConfig: { visibleActionsDisplayLimit: 2 },
+        onItemClick: () => console.log("Item 1 clicked"),
         buttons: [
           {
             id: "list-header-button-2",
@@ -244,6 +247,8 @@ export const Primary: Story = {
         title: "Playing with fonts is fun",
         rightTitle: "Right title",
         description: "Playing with fonts is fun",
+        onItemClick: () => console.log("Item 2 clicked"),
+
         color: "#338c32",
       },
       {
@@ -251,6 +256,8 @@ export const Primary: Story = {
         title: "Playing with fonts is fun",
         rightTitle: "Right title",
         description: "Playing with fonts is fun",
+        onItemClick: () => console.log("Item 3 clicked"),
+
         color: "red",
       },
     ],

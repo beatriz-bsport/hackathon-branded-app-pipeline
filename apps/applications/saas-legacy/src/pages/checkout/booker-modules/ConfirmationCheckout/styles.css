@@ -55,6 +55,10 @@ h5 {
   display: none;
 }
 
+.bs-confirmation-checkout-booking-list__confirmed-bookings--hidden {
+  display: none;
+}
+
 .bs-confirmation-checkout-billing-plan__container--hidden {
   display: none;
 }

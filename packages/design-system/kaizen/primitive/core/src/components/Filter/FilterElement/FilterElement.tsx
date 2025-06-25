@@ -1,9 +1,4 @@
-import React, {
-  useCallback,
-  useEffect,
-  useImperativeHandle,
-  useState,
-} from "react";
+import React, { useCallback, useEffect, useState } from "react";
 
 import FilterElementClearButton from "./FilterElementClearButton";
 import FilterElementSelectField from "./FilterElementSelectField";
@@ -34,7 +29,6 @@ export type FilterElementProps = {
     valueIds: string[],
   ) => void;
   onClear: () => void;
-  ref?: React.Ref<{ resetFilters: () => void }>;
 };
 
 /**
@@ -59,7 +53,6 @@ const FilterElement: React.FC<FilterElementProps> = ({
   openedByDefault,
   onFilterElementChange,
   onClear,
-  ref,
 }) => {
   const hasUniqueCategory = Object.keys(fields).length === 1;
 
@@ -143,11 +136,6 @@ const FilterElement: React.FC<FilterElementProps> = ({
     setSelectedValues(null);
     onClear?.();
   }, [fields, hasUniqueCategory, onClear]);
-
-  // Expose resetFilters method through ref
-  useImperativeHandle(ref, () => ({ resetFilters: handleClear }), [
-    handleClear,
-  ]);
 
   return (
     <ol className="inline-flex">

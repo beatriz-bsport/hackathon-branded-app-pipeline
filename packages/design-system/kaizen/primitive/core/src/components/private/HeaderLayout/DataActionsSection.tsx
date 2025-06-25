@@ -10,6 +10,7 @@ import { useKaizenI18nInstance, useTranslation } from "#src/i18n";
 
 export type DataActionsSectionProps = {
   filterConfig?: FilterProps;
+  filterRef?: React.Ref<{ resetFilters: () => void }>;
   onDisplayClick?: () => void;
   searchConfig?: ExpandableSearchInputProps & {
     tooltipConfig?: Partial<TooltipProps>;
@@ -20,6 +21,7 @@ const SearchWithTooltip = withTooltip(ExpandableSearchInput);
 
 const DataActionsSection: React.FC<DataActionsSectionProps> = ({
   filterConfig,
+  filterRef,
   onDisplayClick,
   searchConfig,
 }) => {
@@ -42,7 +44,7 @@ const DataActionsSection: React.FC<DataActionsSectionProps> = ({
 
   return (
     <div className="flex flex-row justify-between items-start px-md py-xs">
-      {filterConfig ? <Filter {...filterConfig} /> : <div />}
+      {filterConfig ? <Filter {...filterConfig} ref={filterRef} /> : <div />}
       <div className="flex flex-row gap-xs items-stretch h-fit">
         {searchProps && "id" in searchProps && (
           <SearchWithTooltip tooltipProps={tooltipProps} {...searchProps} />

@@ -275,11 +275,11 @@ const Pagination: React.FC<PaginationProps> = ({
               disabled={currentPage === 1 || disabled}
             />
             <div className="flex gap-2xs">
-              {pages.map(({ label, value }) => {
+              {pages.map(({ label, value }, idx) => {
                 if (label === "...") {
                   return (
                     <span
-                      key={value}
+                      key={`ellipsis-${idx}`}
                       className="flex w-element-sm justify-center items-center shrink-0 text-onsurface-weak text-body-sm font-weak leading-xs"
                     >
                       ...

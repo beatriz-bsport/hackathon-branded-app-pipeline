@@ -27,8 +27,12 @@ export const GroupActivitiesList: React.FC = () => {
     paginationProps,
     isLoading,
   } = usePaginatedGroupActivities(true);
-  const { activeCategoryFilters, resetFilters, categoryFiltersConfig } =
-    useCategoryFilter();
+  const {
+    activeCategoryFilters,
+    resetFilters,
+    categoryFiltersConfig,
+    categoryFiltersRef,
+  } = useCategoryFilter();
 
   const getGroupActivityDetailLink = (groupActivityId: string) =>
     `/activity/${groupActivityId}/general`;
@@ -80,6 +84,7 @@ export const GroupActivitiesList: React.FC = () => {
         }
         pageTitle={t("list.header.groupActivities")}
         filterConfig={categoryFiltersConfig}
+        filterRef={categoryFiltersRef}
         searchConfig={{
           id: "group-activity-expandable-search",
           inputValue: searchQuery,

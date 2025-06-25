@@ -86,6 +86,7 @@ export const REVAMP_URLS: Partial<Urls> = {
   pack: "/pack",
   smartlist: "/smartlist",
   teacher: "/teacher",
+  settings_referral: `${SETTINGS_URL}/referral-program`,
 } as const;
 
 export default REVAMP_URLS;

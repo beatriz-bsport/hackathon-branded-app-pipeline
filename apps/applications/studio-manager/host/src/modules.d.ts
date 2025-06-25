@@ -21,6 +21,7 @@ declare module "sm-navigation-sidebar/urls" {
     pack: string;
     smartlist: string;
     teacher: string;
+    settings_referral: string;
   };
   export default urls;
 }
@@ -75,6 +76,11 @@ declare module "sm-smartlists/App" {
 }
 
 declare module "sm-custom-form/App" {
+  const App: BaseApp["App"];
+  export default App;
+}
+
+declare module "sm-referral-program/App" {
   const App: BaseApp["App"];
   export default App;
 }

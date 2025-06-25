@@ -10,7 +10,8 @@ import { useTranslation } from "#src/utils/i18n";
 const OrderListPage: React.FC = () => {
   const { t } = useTranslation("list");
 
-  const { filterConfig, activeFilters, handleClearFilters } = useFilterOrders();
+  const { filterConfig, filterRef, activeFilters, handleClearFilters } =
+    useFilterOrders();
 
   const {
     isLoading,
@@ -30,6 +31,7 @@ const OrderListPage: React.FC = () => {
       <ListLayout.Header
         pageTitle={t("pageTitle")}
         filterConfig={filterConfig}
+        filterRef={filterRef}
         // Search is not available on the backend for now
         // searchConfig={{
         //   id: "order-search-input",

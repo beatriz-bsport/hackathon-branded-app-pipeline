@@ -105,9 +105,7 @@ export const ResetFilters: Story = {
           color="critical"
           size="sm"
           label="Reset Filters"
-          onClick={() => {
-            ref.current?.resetFilters?.();
-          }}
+          onClick={() => ref.current?.resetFilters()}
           className="w-fit"
         />
       </div>

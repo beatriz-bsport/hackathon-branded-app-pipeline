@@ -1,4 +1,11 @@
-import React, { useCallback, useMemo, useState } from "react";
+import React, {
+  forwardRef,
+  useCallback,
+  useEffect,
+  useImperativeHandle,
+  useMemo,
+  useState,
+} from "react";
 
 import Button from "#src/components/Button";
 import FilterElement from "#src/components/Filter/FilterElement";
@@ -28,112 +35,115 @@ export type FilterProps = {
   };
   selectFieldLabel: string;
   onFilterChange: (filters: FilterElementState[]) => void;
-  ref?: React.Ref<{ resetFilters: () => void }>;
   singleField?: boolean;
 };
 
-const FILTER_ELEMENTS_DEFAULT = [
+const FILTER_ELEMENTS_DEFAULT: FilterElementState[] = [
   { id: 0, field: null, filter: null, valueIds: [] },
 ];
 
-/**
- * Rendering a customizable list of filter items within an ordered list.
- * Provides a flexible way to display filters with optional left and right icons, labels,
- * and dropdown menus for further filtering options.
- * The component maintains its visual state internally, while external state control
- * is facilitated through props callbacks. The number of filter elements is infinite.
- * @param props.filters An array of filter objects, each containing an id and label.
- * @param props.fields An object of field objects, each containing an id, label, available filters,
- * @param props.selectFieldLabel The label to display for the select field.
- * @param props.onFilterChange A function that is called when the filter elements are changed.
- * @param props.ref A ref object to access the resetFilters method.
- * @param props.singleField Whether only one field can be filtered at the time
- * @link https://docs.infra.bsport.io/storybook/kaizen/main/index.html?path=/docs/components-filter--docs
- */
-const Filter: React.FC<FilterProps> = ({
-  onFilterChange,
-  singleField,
-  ...props
-}) => {
-  const [elementId, setElementId] = useState(1);
-  const [filterElements, setFilterElements] = useState<FilterElementState[]>(
-    FILTER_ELEMENTS_DEFAULT,
-  );
+const Filter = forwardRef<{ resetFilters: () => void }, FilterProps>(
+  ({ onFilterChange, singleField, ...props }, ref) => {
+    const [elementId, setElementId] = useState(1);
+    const [filterElements, setFilterElements] = useState<FilterElementState[]>(
+      FILTER_ELEMENTS_DEFAULT,
+    );
 
-  const addFilter = useCallback(() => {
-    setFilterElements((prev) => [
-      ...prev,
-      { id: elementId, field: null, filter: null, valueIds: [] },
-    ]);
-    setElementId((prev) => prev + 1);
-  }, [elementId]);
+    /**
+     * The resetCounter is incremented each time resetFilters is called.
+     * Including resetCounter in the FilterElement key forces React to re-mount each FilterElement,
+     * ensuring all internal state in child components is fully reset when the parent resets filters.
+     */
+    const [resetCounter, setResetCounter] = useState(0);
 
-  const updateFilterElement = useCallback(
-    (id: number, field: string, filter: string, valueIds: string[]) => {
-      setFilterElements((prev) => {
-        const updatedFilters = prev.map((element) =>
-          element.id === id ? { ...element, field, filter, valueIds } : element,
+    useImperativeHandle(
+      ref,
+      () => ({
+        resetFilters: () => {
+          setElementId(1);
+          setFilterElements(FILTER_ELEMENTS_DEFAULT);
+          setResetCounter((c) => c + 1);
+          onFilterChange(FILTER_ELEMENTS_DEFAULT);
+        },
+      }),
+      [onFilterChange],
+    );
+
+    const addFilter = useCallback(() => {
+      setFilterElements((prev) => [
+        ...prev,
+        { id: elementId, field: null, filter: null, valueIds: [] },
+      ]);
+      setElementId((prev) => prev + 1);
+    }, [elementId]);
+
+    const updateFilterElement = useCallback(
+      (id: number, field: string, filter: string, valueIds: string[]) => {
+        setFilterElements((prev) =>
+          prev.map((element) =>
+            element.id === id
+              ? { ...element, field, filter, valueIds }
+              : element,
+          ),
         );
-        onFilterChange(updatedFilters);
-        return updatedFilters;
-      });
-    },
-    [onFilterChange],
-  );
+      },
+      [],
+    );
 
-  const removeFilterElement = useCallback(
-    (id: number) => {
+    const removeFilterElement = useCallback((id: number) => {
       setFilterElements((prev) => {
         const newFilterElements = prev.filter((element) => element.id !== id);
-
-        if (newFilterElements.length === 0) {
-          onFilterChange(FILTER_ELEMENTS_DEFAULT);
-          return FILTER_ELEMENTS_DEFAULT;
-        }
-
-        onFilterChange(newFilterElements);
-        return newFilterElements;
+        return newFilterElements.length === 0
+          ? FILTER_ELEMENTS_DEFAULT
+          : newFilterElements;
       });
-    },
-    [onFilterChange],
-  );
+    }, []);
 
-  const isEveryFilterComplete = useMemo(
-    () =>
-      filterElements.every(
-        (element) =>
-          element.field !== null &&
-          element.filter !== null &&
-          element.valueIds.length > 0,
-      ),
-    [filterElements],
-  );
+    useEffect(() => {
+      if (filterElements.length === 0) {
+        onFilterChange(FILTER_ELEMENTS_DEFAULT);
+      } else {
+        onFilterChange(filterElements);
+      }
+    }, [filterElements, onFilterChange]);
 
-  return (
-    <div className="flex flex-wrap gap-2xs">
-      {filterElements.map((element) => (
-        <FilterElement
-          key={element.id}
-          elementId={element.id}
-          openedByDefault={filterElements.length > 1}
-          onFilterElementChange={updateFilterElement}
-          onClear={() => removeFilterElement(element.id)}
-          {...props}
-        />
-      ))}
-      {isEveryFilterComplete && !singleField && (
-        <Button
-          color="default"
-          intent="flat"
-          size="md"
-          iconLeft="filter-lines"
-          aria-label="Add filter"
-          onClick={addFilter}
-        />
-      )}
-    </div>
-  );
-};
+    const isEveryFilterComplete = useMemo(
+      () =>
+        filterElements.every(
+          (element) =>
+            element.field !== null &&
+            element.filter !== null &&
+            element.valueIds.length > 0,
+        ),
+      [filterElements],
+    );
+
+    return (
+      <div className="flex flex-wrap gap-2xs">
+        {filterElements.map((element) => (
+          <FilterElement
+            key={`${element.id}-${resetCounter}`}
+            elementId={element.id}
+            openedByDefault={filterElements.length > 1}
+            onFilterElementChange={updateFilterElement}
+            onClear={() => removeFilterElement(element.id)}
+            {...props}
+          />
+        ))}
+        {isEveryFilterComplete && !singleField && (
+          <Button
+            color="default"
+            intent="flat"
+            size="md"
+            iconLeft="filter-lines"
+            aria-label="Add filter"
+            onClick={addFilter}
+          />
+        )}
+      </div>
+    );
+  },
+);
 
 Filter.displayName = "KaizenFilter";
 

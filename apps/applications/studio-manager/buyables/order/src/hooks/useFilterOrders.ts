@@ -60,7 +60,6 @@ export const useFilterOrders = () => {
             : undefined;
         setActiveFilters(nextStatus);
       },
-      ref,
       singleField: true, // If a field is already selected, then it's not possible to add another filter
     };
   }, [t]);
@@ -73,6 +72,7 @@ export const useFilterOrders = () => {
 
   return {
     filterConfig,
+    filterRef: ref,
     handleClearFilters,
     activeFilters,
   };

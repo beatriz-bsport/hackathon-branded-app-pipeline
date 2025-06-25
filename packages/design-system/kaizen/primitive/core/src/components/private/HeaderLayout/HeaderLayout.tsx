@@ -50,6 +50,7 @@ const LayoutHeader: React.FC<HeaderLayoutProps> = ({
   callToActionButton,
   endGroupActions,
   filterConfig,
+  filterRef,
   onDisplayClick,
   onEditTitleClick,
   pageStatusBadge,
@@ -88,6 +89,7 @@ const LayoutHeader: React.FC<HeaderLayoutProps> = ({
       />
       <DataActionsSection
         filterConfig={filterConfig}
+        filterRef={filterRef}
         onDisplayClick={onDisplayClick}
         searchConfig={searchConfig}
       />

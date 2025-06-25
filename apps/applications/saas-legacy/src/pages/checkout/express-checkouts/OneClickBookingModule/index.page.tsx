@@ -36,12 +36,15 @@ import { LinkExternal01 } from '#src/components/untitledui';
 import LightSignupForm, {
   LightSignupFormValues,
   lightSignupFormWrapper,
-} from './_components/LightSignupForm';
+} from '#src/pages/checkout/express-checkouts/components/LightSignupForm';
 import useFetchOfferInformation from './_hooks/useFetchOfferInformation';
 import useBookInOneClick from './_hooks/useBookInOneClick';
-import { ErrorCode, ErrorMessage } from './_components/ErrorMessage';
+import {
+  ErrorCode,
+  ErrorMessage,
+} from '#src/pages/checkout/express-checkouts/components/ErrorMessage';
 import useCheckBookableStatus from './_hooks/useCheckBookableStatus';
-import Loader from './_components/Loader';
+import Loader from '#src/pages/checkout/express-checkouts/components/Loader';
 import { consumerAppBarHOC } from '#src/hocs/consumer-app-bar.hoc';
 import {
   ButtonColor,
@@ -51,18 +54,18 @@ import {
 import { useFormikContext } from 'formik';
 import WidgetUtils from '#src/libs/widget/WidgetUtils';
 import { urlToMarketplace } from '#src/libs/marketplace/utils';
-import { OneClickCheckoutSkeleton } from '#src/pages/checkout/express-checkouts/OneClickBookingModule/_components/OneClickCheckoutSkeleton';
+import { OneClickCheckoutSkeleton } from '#src/pages/checkout/express-checkouts/components/OneClickCheckoutSkeleton';
 import useDebouncedCallback from '#src/hooks/useDebouncedCallBack';
-import { useLightSignUp } from './_hooks/useLightSignUp';
+import { useLightSignUp } from '#src/pages/checkout/express-checkouts/hooks/useLightSignUp';
 import { OnlinePaymentBasket } from '#src/libs/payment/payment-module-revamped/basket-payment/OnlinePaymentBasket';
 import { useHandleUserRegistration } from './_hooks/useHandleUserRegistration';
 import { getItemInStorage } from '#src/utils/storage';
 import { STORAGE_KEY_LIGHT_SIGNUP_MEMBER_ID } from '#src/actions/constants';
 import { getAuthToken } from '#src/http';
 import ALL_ERROR_CODES from '@bsport/common/lib/master-data/error-codes/buyable-item-can-not-be-bought';
-import { PaymentButtons } from './_components/PaymentButtons';
+import { PaymentButtons } from '#src/pages/checkout/express-checkouts/components/PaymentButtons';
 import { SUBMIT_BUTTONS } from '#src/libs/checkout/types';
-import { PHONE_NUMBER_IN_USE } from './constants';
+import { PHONE_NUMBER_IN_USE } from '#src/pages/checkout/express-checkouts/constants';
 import {
   COACH_EDIT_EMAIL_ADDRESS_IS_STAFF_USER,
   COACH_EMAIL_ADDRESS_EXISTS,

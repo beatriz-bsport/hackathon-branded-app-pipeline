@@ -51,7 +51,7 @@ import {
 import { useFormikContext } from 'formik';
 import WidgetUtils from '#src/libs/widget/WidgetUtils';
 import { urlToMarketplace } from '#src/libs/marketplace/utils';
-import { OneClickCheckoutSkeleton } from '#src/pages/checkout/booker-modules/OfferBooker/OneClickBookingModule/_components/OneClickCheckoutSkeleton';
+import { OneClickCheckoutSkeleton } from '#src/pages/checkout/express-checkouts/OneClickBookingModule/_components/OneClickCheckoutSkeleton';
 import useDebouncedCallback from '#src/hooks/useDebouncedCallBack';
 import { useLightSignUp } from './_hooks/useLightSignUp';
 import { OnlinePaymentBasket } from '#src/libs/payment/payment-module-revamped/basket-payment/OnlinePaymentBasket';

@@ -278,6 +278,7 @@ exports.default = {
           activity: 'Compatible activities',
           timeSlots: 'Compatible time slots',
           sessions: 'Compatible sessions',
+          appointments: 'Compatible appointments',
         },
         contents: {
           allActivities: 'Compatible with all activities of the studio',

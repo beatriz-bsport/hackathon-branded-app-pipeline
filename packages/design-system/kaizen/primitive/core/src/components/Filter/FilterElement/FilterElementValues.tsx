@@ -24,7 +24,7 @@ type FilterElementValuesProps = {
       multiSelect: boolean;
     };
   };
-  onSelectOption: (itemIds: string[]) => void;
+  onSelectOption: (itemId: string) => void;
 };
 
 const FilterElementValues: React.FC<FilterElementValuesProps> = ({
@@ -41,16 +41,10 @@ const FilterElementValues: React.FC<FilterElementValuesProps> = ({
     setIsPopoverOpened: (prev: boolean) => void,
   ) => {
     if (selectedField && !fields[selectedField].multiSelect) {
-      onSelectOption([itemId]);
+      onSelectOption(itemId);
       setIsPopoverOpened(false);
     } else {
-      const newValues = selectedValues ? [...selectedValues] : [];
-      if (newValues.includes(itemId)) {
-        newValues.splice(newValues.indexOf(itemId), 1);
-      } else {
-        newValues.push(itemId);
-      }
-      onSelectOption(newValues);
+      onSelectOption(itemId);
     }
   };
 

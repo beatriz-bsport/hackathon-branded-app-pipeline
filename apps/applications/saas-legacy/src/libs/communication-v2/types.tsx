@@ -131,6 +131,7 @@ export type Communication = {
   kind: number;
   metadata: CommunicationMetadata;
   recipient_member_id_list: number[];
+  sender_member_id?: number;
   is_answer?: boolean;
   status: number;
 };

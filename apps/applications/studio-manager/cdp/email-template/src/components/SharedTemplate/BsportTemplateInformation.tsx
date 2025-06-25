@@ -9,11 +9,12 @@ export const BsportTemplateInformation = () => {
       <Popover.Anchor>
         {({ setIsPopoverOpened }) => (
           <Button
-            intent="call-to-action"
+            intent="default"
             color="main"
             size="md"
-            iconLeft="message-question-square"
-            onClick={() => setIsPopoverOpened((prev) => !prev)}
+            iconLeft="alert-circle"
+            onMouseOver={() => setIsPopoverOpened(true)}
+            onMouseLeave={() => setIsPopoverOpened(false)}
           />
         )}
       </Popover.Anchor>

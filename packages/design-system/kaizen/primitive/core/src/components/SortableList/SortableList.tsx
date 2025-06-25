@@ -12,6 +12,7 @@ import {
 } from "#src/hooks/use-loading-state";
 import { sortItemInList } from "#src/utils/sortable";
 
+import Icon from "../Icon";
 import Header, { type SortableListHeaderProps } from "./Header";
 import Item from "./Item";
 import type { Sortable } from "./types";
@@ -165,10 +166,12 @@ const SortableListContent: React.FC<SortableListContentProps> = ({
    * @param dragId - The ID of the item being dragged.
    */
   const handleDragStart = (dragId: string) => () => {
-    const draggedItem = items.find(({ id }) => dragId === id);
-    if (draggedItem) {
-      setDraggedItem(draggedItem);
-    }
+    setTimeout(() => {
+      const draggedItem = items.find(({ id }) => dragId === id);
+      if (draggedItem) {
+        setDraggedItem(draggedItem);
+      }
+    }, 0);
   };
 
   /**
@@ -202,85 +205,86 @@ const SortableListContent: React.FC<SortableListContentProps> = ({
       onDrop={handleDrop}
       onDragEnd={handleDragEnd}
       onDragStart={handleDragStart}
-      className="relative flex flex-col"
       isDnDActive
       id={id}
     >
-      {items.map((item, index) => (
-        <DragAndDrop.DropZone key={item.id} id={index.toString()}>
-          {({ activeDropTarget }) => (
-            <>
-              {draggedItem && (
-                <Item
-                  id={draggedItem.id}
-                  title={draggedItem.title}
-                  description={draggedItem.description}
-                  rightTitle={draggedItem.rightTitle}
-                  className={
-                    activeDropTarget === index.toString()
-                      ? "opacity-sm !border-b-stroke-regular !border-onsurface-main-strong bg-surface-default-weak"
-                      : "hidden"
-                  }
-                  buttons={draggedItem.buttons}
-                  dropdownConfig={draggedItem.dropdownConfig}
-                />
-              )}
-              <DragAndDrop.Item id={item.id}>
-                {({ isDragged }) => (
+      <div className="relative flex flex-col">
+        {items.map((item, index) => (
+          <DragAndDrop.DropZone key={item.id} id={index.toString()}>
+            {({ activeDropTarget }) => (
+              <>
+                {draggedItem && (
+                  <div
+                    className={
+                      activeDropTarget === index.toString()
+                        ? "opacity-sm !border-b-stroke-regular !border-onsurface-main-strong bg-surface-default-weak"
+                        : "hidden"
+                    }
+                  >
+                    <Item
+                      id={draggedItem.id}
+                      title={draggedItem.title}
+                      description={draggedItem.description}
+                      rightTitle={draggedItem.rightTitle}
+                      buttons={draggedItem.buttons}
+                      dropdownConfig={draggedItem.dropdownConfig}
+                    />
+                  </div>
+                )}
+                <DragAndDrop.Item id={item.id}>
+                  {({ isDragged }) => (
+                    <div className={classNames({ hidden: isDragged })}>
+                      <Item
+                        id={item.id}
+                        title={item.title}
+                        description={item.description}
+                        rightTitle={item.rightTitle}
+                        aria-grabbed={isDragged}
+                        className={sortableListItem({
+                          isDragging: !!draggedItem,
+                          className: classNames("translate-x-0"),
+                        })}
+                        buttons={item.buttons}
+                        dropdownConfig={item.dropdownConfig}
+                        tabIndex={0} // Allow keyboard focus
+                      />
+                    </div>
+                  )}
+                </DragAndDrop.Item>
+              </>
+            )}
+          </DragAndDrop.DropZone>
+        ))}
+        <DragAndDrop.DropZone id={items.length.toString()}>
+          {({ activeDropTarget }) =>
+            draggedItem ? (
+              <>
+                {activeDropTarget === items.length.toString() && (
                   <Item
-                    id={item.id}
-                    title={item.title}
-                    description={item.description}
-                    rightTitle={item.rightTitle}
-                    aria-grabbed={isDragged}
-                    className={sortableListItem({
-                      isDragging: !!draggedItem,
-                      className: classNames("translate-x-0", {
-                        hidden: isDragged,
-                      }),
-                    })}
-                    buttons={item.buttons}
-                    dropdownConfig={item.dropdownConfig}
-                    tabIndex={0} // Allow keyboard focus
+                    id={items.length.toString()}
+                    title={draggedItem.title}
+                    className={
+                      "opacity-sm !border-b-stroke-regular !border-onsurface-main-strong bg-surface-default-weak"
+                    }
+                    description={draggedItem.description}
+                    rightTitle={draggedItem.rightTitle}
+                    buttons={draggedItem.buttons}
+                    dropdownConfig={draggedItem.dropdownConfig}
                   />
                 )}
-              </DragAndDrop.Item>
-            </>
-          )}
+                <div
+                  id={items.length.toString()}
+                  className={classNames(
+                    "py-[4px] opacity-xs bg-surface-default-weak justify-items-center content-center",
+                  )}
+                >
+                  <Icon icon="upload-02" size="sm" />
+                </div>
+              </>
+            ) : null
+          }
         </DragAndDrop.DropZone>
-      ))}
-      <DragAndDrop.DropZone id={items.length.toString()}>
-        {({ activeDropTarget }) =>
-          draggedItem && (
-            <div
-              className={classNames({
-                /* Height is set as h-xl which match half of the Item min-height.
-                 * Later we might need to compute this value to match half of the Item height.
-                 * For example when an Item height is greater than h-2xl (the default height).
-                 */
-                "absolute left-0 right-0 bottom-0 h-xl": !(
-                  activeDropTarget === items.length.toString()
-                ),
-              })}
-            >
-              <Item
-                id={draggedItem.id}
-                title={draggedItem.title}
-                description={draggedItem.description}
-                rightTitle={draggedItem.rightTitle}
-                className={classNames(
-                  "opacity-sm !border-b-stroke-regular !border-onsurface-main-strong bg-surface-default-weak",
-                  {
-                    hidden: !(activeDropTarget === items.length.toString()),
-                  },
-                )}
-                buttons={draggedItem.buttons}
-                dropdownConfig={draggedItem.dropdownConfig}
-              />
-            </div>
-          )
-        }
-      </DragAndDrop.DropZone>
+      </div>
     </DragAndDrop>
   );
 };

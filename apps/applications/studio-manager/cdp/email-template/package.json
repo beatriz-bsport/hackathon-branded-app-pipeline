@@ -18,6 +18,7 @@
     "translation:update": "pnpm run -w translation:update"
   },
   "dependencies": {
+    "@bsport/envs": "workspace:*",
     "@bsport/fetch": "workspace:*",
     "@bsport/i18n": "workspace:*",
     "@bsport/kaizen-primitive-core": "workspace:*",
@@ -30,6 +31,7 @@
     "dompurify": "^3.2.6",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "react-email-editor": "1.7.11",
     "react-router": "^7.2.0"
   },
   "devDependencies": {

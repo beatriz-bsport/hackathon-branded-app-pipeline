@@ -114,12 +114,11 @@ const Filter: React.FC<FilterProps> = ({
       {filterElements.map((element) => (
         <FilterElement
           key={element.id}
-          {...props}
+          elementId={element.id}
           openedByDefault={filterElements.length > 1}
-          onFilterElementChange={(field, filter, valueIds) =>
-            updateFilterElement(element.id, field, filter, valueIds)
-          }
+          onFilterElementChange={updateFilterElement}
           onClear={() => removeFilterElement(element.id)}
+          {...props}
         />
       ))}
       {isEveryFilterComplete && !singleField && (

@@ -1,8 +1,9 @@
 import { useState } from "react";
 
-import { usePaginationQueryParams } from "@bsport/use-pagination-query-params";
-
-import { DEFAULT_PAGE, DEFAULT_ROWS_PER_PAGE } from "./constants";
+import {
+  DEFAULT_PAGE,
+  usePaginationQueryParams,
+} from "@bsport/use-pagination-query-params";
 
 /**
  * Custom hook for managing list search and pagination state.
@@ -23,10 +24,7 @@ import { DEFAULT_PAGE, DEFAULT_ROWS_PER_PAGE } from "./constants";
  */
 export const useFilters = () => {
   const { currentPage, currentPageSize, setPageSettings } =
-    usePaginationQueryParams({
-      defaultValues: { page: DEFAULT_PAGE, page_size: DEFAULT_ROWS_PER_PAGE },
-      shouldReplace: false,
-    });
+    usePaginationQueryParams();
 
   const [searchTerm, setSearchTerm] = useState("");
 

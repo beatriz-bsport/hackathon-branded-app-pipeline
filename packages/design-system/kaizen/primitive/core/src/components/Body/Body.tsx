@@ -13,6 +13,7 @@ const variants = {
     sm: ["text-body-sm", "leading-xs", "space-y-xs"],
   },
   color: {
+    [TYPOGRAPHY_COLORS.main]: ["text-onsurface-main-weak"],
     [TYPOGRAPHY_COLORS.default]: ["text-onsurface-default"],
     [TYPOGRAPHY_COLORS.info]: ["text-onsurface-status-info-weak"],
     [TYPOGRAPHY_COLORS.positive]: ["text-onsurface-status-positive-weak"],
@@ -50,9 +51,12 @@ const body = cva(defaultClasses, {
   variants,
 });
 
+export type BodyColor = keyof typeof TYPOGRAPHY_COLORS;
+
 export type BodyProps = React.HTMLAttributes<HTMLDivElement> &
   VariantProps<typeof body> & {
-    htmlVariant: keyof typeof htmlVariants;
+    htmlVariant?: keyof typeof htmlVariants;
+    color?: BodyColor;
   };
 
 /**
@@ -64,7 +68,7 @@ export type BodyProps = React.HTMLAttributes<HTMLDivElement> &
  */
 const Body: React.FC<BodyProps> = ({
   className,
-  htmlVariant,
+  htmlVariant = "p",
   size,
   color = "default",
   weight,

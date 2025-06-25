@@ -10,12 +10,12 @@ import {
   useTeacherStore,
 } from "@bsport/store-core-data-teacher";
 import { useAsync } from "@bsport/use-async";
-import { usePaginationQueryParams } from "@bsport/use-pagination-query-params";
+import {
+  DEFAULT_PAGE,
+  usePaginationQueryParams,
+} from "@bsport/use-pagination-query-params";
 
 import { fetch } from "#src/utils/fetch";
-
-const DEFAULT_PAGE = 1;
-const DEFAULT_PAGE_SIZE = 10;
 
 export const useFetchTeachers = ({
   searchInput,
@@ -26,10 +26,7 @@ export const useFetchTeachers = ({
 }) => {
   // Retrieve pagination params from the URL
   const { currentPage, currentPageSize, setPageSettings } =
-    usePaginationQueryParams({
-      shouldReplace: false,
-      defaultValues: { page: DEFAULT_PAGE, page_size: DEFAULT_PAGE_SIZE },
-    });
+    usePaginationQueryParams();
 
   // Retrieve pagination results from the store
   const pageTeachers = useTeacherStore(selectTeachers);

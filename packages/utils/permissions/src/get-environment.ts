@@ -1,34 +1,32 @@
-const ENVIRONMENTS = {
-  production: "production",
-  staging: "staging",
-  featureBranch: "featureBranch",
-  dev: "dev",
-  local: "local",
-} as const;
+import { type KnownEnvironment, getEnv, isFeatureBranch } from "@bsport/envs";
 
-export type Environment = keyof typeof ENVIRONMENTS;
+export type Environment = KnownEnvironment | "featureBranch";
+
+export const DEFAULT_ENVS_MAP = {
+  production: false,
+  staging: false,
+  dev: false,
+  local: false,
+  featureBranch: false,
+};
 
 /**
  * Return, for each known environment, whether it is the current environment, based on the URL.
  */
 export function getEnvironment(): Record<Environment, boolean> {
   try {
-    const domain = window.location.host;
+    const currentEnv = getEnv();
+
     return {
-      [ENVIRONMENTS.production]: domain === "backoffice.bsport.io",
-      [ENVIRONMENTS.staging]: domain === "backoffice.staging.bsport.io",
-      [ENVIRONMENTS.featureBranch]: domain.includes("chaos.bsport.io"),
-      [ENVIRONMENTS.dev]: domain === "backoffice.dev.bsport.io",
-      [ENVIRONMENTS.local]: domain.includes("localhost"),
+      production: currentEnv === "production",
+      staging: currentEnv === "staging",
+      dev: currentEnv === "dev",
+      local: currentEnv === "local",
+      featureBranch: isFeatureBranch(),
     };
   } catch (error) {
     console.error(error);
-    return {
-      [ENVIRONMENTS.production]: false,
-      [ENVIRONMENTS.staging]: false,
-      [ENVIRONMENTS.featureBranch]: false,
-      [ENVIRONMENTS.dev]: false,
-      [ENVIRONMENTS.local]: false,
-    };
+
+    return DEFAULT_ENVS_MAP;
   }
 }

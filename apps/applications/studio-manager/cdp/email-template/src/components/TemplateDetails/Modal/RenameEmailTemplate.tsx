@@ -1,65 +1,48 @@
-import { useState } from "react";
+import { useCallback, useEffect, useRef } from "react";
 
-import {
-  Modal,
-  TextField,
-  type TextFieldProps,
-  toast,
-} from "@bsport/kaizen-primitive-core";
-import type { EmailTemplateDetail } from "@bsport/store-cdp-email-template";
+import { Modal, TextField, toast } from "@bsport/kaizen-primitive-core";
 
 import { useTranslation } from "#src/utils/i18n";
-import type { ModalProps } from "#src/utils/types";
-
-const EMAIL_TEMPLATE_TITLE_MIN_LENGTH = 1;
-const EMAIL_TEMPLATE_TITLE_MAX_LENGTH = 100;
 
 type Props = {
   isOpen: boolean;
+  templateTitle: string;
+  error?: string;
+  onBlur: (title: string) => void;
+  onChange: (title: string) => void;
   onClose: () => void;
-  templateDraft: EmailTemplateDetail | null;
-  refreshCategories?: () => void;
-  // Temporary props for testing purposes, will be removed later
-  setTitle: (title: string) => void;
-} & ModalProps;
+  onSave: (title: string) => void;
+  onCancel: () => void;
+};
 
 export const RenameEmailTemplateModal: React.FC<Props> = ({
   isOpen,
-  templateDraft,
+  templateTitle,
+  error,
   onClose,
-  setTitle,
+  onSave,
+  onBlur,
+  onChange,
+  onCancel,
 }: Props) => {
-  const [templateTitle, setTemplateTitle] = useState(
-    templateDraft?.title || "",
-  );
-  const [textFieldStatus, setTextFieldStatus] =
-    useState<TextFieldProps["status"]>("default");
+  const textfieldInputRef = useRef<HTMLInputElement | null>(null);
   const { t } = useTranslation("detail");
 
   const handleClose = () => {
-    setTemplateTitle("");
-    setTextFieldStatus("default");
+    onCancel();
     onClose();
   };
 
-  const isTemplateTitleValid = (() => {
-    return (
-      !!templateTitle &&
-      templateTitle.length > EMAIL_TEMPLATE_TITLE_MIN_LENGTH &&
-      templateTitle.length <= EMAIL_TEMPLATE_TITLE_MAX_LENGTH
-    );
-  })();
-
-  const handleSaveCategory = () => {
-    if (isTemplateTitleValid) {
-      setTextFieldStatus("default");
-      console.log("Saving template with title:", templateTitle);
+  const handleSaveTemplateTitle = () => {
+    onBlur(templateTitle);
+    if (!error) {
+      onSave(templateTitle);
+      onClose();
     } else {
-      setTextFieldStatus("error");
       toast({
         status: "critical",
         icon: "x",
-        title: t("details.renameTemplateModal.onFailure.title"),
+        title: error ?? t("details.renameTemplateModal.onFailure.title"),
       });
     }
   };
@@ -67,15 +50,35 @@ export const RenameEmailTemplateModal: React.FC<Props> = ({
   const handleChangeTemplateTitle = (
     event: React.ChangeEvent<HTMLInputElement>,
   ) => {
-    if (textFieldStatus !== "default") setTextFieldStatus("default");
-    setTemplateTitle(event.target.value);
-    setTitle(event.target.value); // Temporary prop for testing purposes
+    onChange(event.target.value);
   };
 
   const handleClearTextfield = () => {
-    setTemplateTitle("");
-    setTitle(""); // Temporary prop for testing purposes
+    onChange("");
   };
+
+  const handleBlurTextfield = useCallback(() => {
+    onBlur(templateTitle);
+  }, [onBlur, templateTitle]);
+
+  useEffect(() => {
+    const textfieldInputRefCurrent = textfieldInputRef.current;
+    if (textfieldInputRefCurrent) {
+      textfieldInputRefCurrent.focus();
+      textfieldInputRefCurrent.addEventListener(
+        "focusout",
+        handleBlurTextfield,
+      );
+    }
+    return () => {
+      if (textfieldInputRefCurrent) {
+        textfieldInputRefCurrent.removeEventListener(
+          "focusout",
+          handleBlurTextfield,
+        );
+      }
+    };
+  }, [isOpen, handleBlurTextfield]);
 
   return (
     <Modal
@@ -84,7 +87,7 @@ export const RenameEmailTemplateModal: React.FC<Props> = ({
       title={t("details.renameTemplateModal.title")}
       confirmButton={{
         label: t("details.renameTemplateModal.confirmButton"),
-        onClick: handleSaveCategory,
+        onClick: handleSaveTemplateTitle,
       }}
       cancelButton={{
         label: t("details.renameTemplateModal.cancelButton"),
@@ -94,14 +97,17 @@ export const RenameEmailTemplateModal: React.FC<Props> = ({
     >
       <TextField
         fullWidth
+        inputRef={textfieldInputRef}
         id="email-template-title-input"
         type="text"
-        status={textFieldStatus}
+        status={error ? "error" : "default"}
+        statusText={error}
         label={t("details.renameTemplateModal.textInput.label")}
         placeholder={t("details.renameTemplateModal.textInput.placeholder")}
         value={templateTitle}
         onChange={handleChangeTemplateTitle}
         onClear={handleClearTextfield}
+        // onBlur={() => handleBlurTextfield()}
         required
       />
     </Modal>

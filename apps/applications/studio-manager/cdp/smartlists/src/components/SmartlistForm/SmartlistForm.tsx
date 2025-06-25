@@ -1,90 +1,78 @@
 import React, { useId } from "react";
 
-import { TextArea, TextField } from "@bsport/kaizen-primitive-core";
+import {
+  ControlledForm,
+  type ControlledFormProps,
+  FormField,
+} from "@bsport/form";
+import {
+  TextArea,
+  type TextAreaProps,
+  TextField,
+} from "@bsport/kaizen-primitive-core";
 
 import { useTranslation } from "#src/utils/i18n";
 
 import { SmartlistFormData } from "./shared-types";
 
-type SmartlistFormProps = {
-  data: SmartlistFormData;
-  errors?: Partial<Record<keyof SmartlistFormData, string>>;
-  onChange: (field: keyof SmartlistFormData, value: string) => void;
-  onBlur?: (field: keyof SmartlistFormData, value: string) => void;
-  isSubmitting?: boolean;
-};
-
-const createChangeHandler = <T extends HTMLInputElement | HTMLTextAreaElement>(
-  field: keyof SmartlistFormData,
-  onChange: (field: keyof SmartlistFormData, value: string) => void,
-) => {
-  return (event: React.ChangeEvent<T>) => {
-    onChange(field, event.target.value);
-  };
-};
-
-const createBlurHandler = <T extends HTMLInputElement | HTMLTextAreaElement>(
-  field: keyof SmartlistFormData,
-  onBlur?: (field: keyof SmartlistFormData, value: string) => void,
-) => {
-  return (event: React.FocusEvent<T>) => {
-    onBlur?.(field, event.target.value);
-  };
-};
+type SmartlistFormProps = Omit<
+  ControlledFormProps<SmartlistFormData>,
+  "children"
+>;
 
 /**
- * Stateless EditForm component for creating or editing a smartlist
+ * Form component for creating or editing a smartlist using react-hook-form and zod validation
  *
- * @param data - Form data (name and description)
- * @param errors - Form validation errors
- * @param onChange - Function called when a field value changes
- * @param onBlur - Optional function called when a field loses focus (for validation)
+ * @param id - Optional form id for external submit buttons
+ * @param onSubmit - Function called when form is submitted with valid data
  * @param isSubmitting - Whether the form is currently submitting
  */
 export const SmartlistForm: React.FC<SmartlistFormProps> = ({
-  data,
-  errors = {},
-  onChange,
-  onBlur,
-  isSubmitting = false,
+  id,
+  onSubmit,
+  ...methods
 }) => {
   const { t } = useTranslation("list");
-  const formId = useId();
-
-  const handleClearName = () => {
-    onChange("name", "");
-    onBlur?.("name", "");
-  };
+  const fieldIdPrefix = useId();
 
   return (
-    <form className="flex flex-col gap-md">
-      <TextField
-        id={`${formId}-smartlist-name`}
-        label={t("editForm.fields.name.label")}
-        value={data.name}
-        onChange={createChangeHandler<HTMLInputElement>("name", onChange)}
-        onBlur={createBlurHandler<HTMLInputElement>("name", onBlur)}
-        onClear={handleClearName}
-        required
-        status={errors.name ? "error" : "default"}
-        statusText={errors.name}
-        placeholder={t("editForm.fields.name.placeholder")}
-        disabled={isSubmitting}
-      />
+    <ControlledForm
+      id={id}
+      onSubmit={onSubmit}
+      className="flex flex-col gap-md"
+      {...methods}
+    >
+      <FormField<SmartlistFormData, "name">
+        name="name"
+        mapProps={({ defaultProps, form, field }) => ({
+          ...defaultProps,
+          onClear: () => {
+            form.setValue("name", "", { shouldDirty: true });
+            // We trigger validation after clearing the value
+            field.onBlur();
+          },
+        })}
+      >
+        <TextField
+          id={`${fieldIdPrefix}-smartlist-name}`}
+          label={t("editForm.fields.name.label")}
+          placeholder={t("editForm.fields.name.placeholder")}
+          disabled={methods.formState.isSubmitting}
+        />
+      </FormField>
 
-      <TextArea
-        id={`${formId}-smartlist-description`}
-        label={t("editForm.fields.description.label")}
-        value={data.description}
-        onChange={createChangeHandler<HTMLTextAreaElement>(
-          "description",
-          onChange,
-        )}
-        onBlur={createBlurHandler<HTMLTextAreaElement>("description", onBlur)}
-        status="default"
-        placeholder={t("editForm.fields.description.placeholder")}
-        disabled={isSubmitting}
-      />
-    </form>
+      <FormField<
+        SmartlistFormData,
+        "description",
+        TextAreaProps
+      > name="description">
+        <TextArea
+          id={`${fieldIdPrefix}-smartlist-description`}
+          label={t("editForm.fields.description.label")}
+          placeholder={t("editForm.fields.description.placeholder")}
+          disabled={methods.formState.isSubmitting}
+        />
+      </FormField>
+    </ControlledForm>
   );
 };

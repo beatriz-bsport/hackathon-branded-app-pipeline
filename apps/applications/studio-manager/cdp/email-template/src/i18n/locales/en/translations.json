@@ -86,6 +86,7 @@
                     "firstStep": "Duplicate <b>{{emailTemplateTitle}}</b>?",
                     "secondStep": "You can edit the email template afterwards."
                 },
+                "duplicateEmailTitle": "{{emailTemplateTitle}} - Copy",
                 "confirmButton": "Duplicate",
                 "cancelButton": "Cancel",
                 "onSuccess": {
@@ -202,7 +203,7 @@
                 "discardChanges": "Discard"
             },
             "hover": {
-                "exportHtml": "Export template to HTMLh",
+                "exportHtml": "Export template to HTML",
                 "renameTemplate": "Rename email template",
                 "moreActions": "More actions"
             },
@@ -230,22 +231,23 @@
                     "title": "An error occurred when renaming your template."
                 },
                 "errors": {
-                    "notProvided": "This is required"
+                    "notProvided": "This is required",
+                    "tooLong": "The title is too long"
                 }
             }
         },
         "saveTemplateAction": {
             "description": "The page has unsaved changes.",
             "success": {
-                "title": "Your email template was saved",
-                "action": "Open"
+                "title": "Email template saved"
             },
             "error": {
-                "cannotSaveTemplate": "There was a problem saving your changes"
+                "missingFields": "Some required fields are missing",
+                "problemWhileSaving": "There was a problem saving your changes."
             }
         },
         "leaveConfirmationModal": {
-            "description": "re you sure you want to leave this page?",
+            "description": "Are you sure you want to leave this page?",
             "confirmButton": "OK",
             "cancelButton": "Cancel"
         },
@@ -253,7 +255,13 @@
             "label": "Email subject",
             "placeholder": "Add an email subject...",
             "error": {
-                "notProvided": "This is required"
+                "notProvided": "This is required",
+                "tooLong": "The subject is too long"
+            }
+        },
+        "templateDesign": {
+            "error": {
+                "notProvided": "No template design provided."
             }
         },
         "templateCategory": {

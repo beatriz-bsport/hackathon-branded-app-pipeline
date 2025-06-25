@@ -60,7 +60,7 @@ export const ArchivedMemberListContent: React.FC<
 
       response.fold(onSuccess, onFailure);
     },
-    [fetchMemberPage],
+    [fetchMemberPage, t],
   );
 
   const handleRestore = useCallback(
@@ -97,7 +97,7 @@ export const ArchivedMemberListContent: React.FC<
 
       response.fold(onSuccess, onFailure);
     },
-    [fetchMemberPage, handleArchive],
+    [fetchMemberPage, handleArchive, t],
   );
 
   // ----- Load on mount -----

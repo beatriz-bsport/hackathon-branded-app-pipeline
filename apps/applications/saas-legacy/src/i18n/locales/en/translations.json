@@ -2786,7 +2786,8 @@
                 },
                 "tag": "Sub Tag",
                 "tag_group": "Master Tag"
-            }
+            },
+            "title": "Add a Discount Code"
         },
         "noDiscount": "This promotional code hasn't been used yet.",
         "createCoupon": "Add a promotion",
@@ -9494,7 +9495,9 @@
                 "descendingPrice": "Price: descending",
                 "ascendingPrice": "Price: ascending",
                 "customSort": "Additional orders (MarketPlace and App)"
-            }
+            },
+            "managerOnly": "Hidden to customers",
+            "noManagerOnly": "Visible to customers"
         },
         "noUnauthorizedTag": "There are no refused tags to display.",
         "noAuthorizedTag": "There are no authorized tags to display.",
@@ -15865,7 +15868,8 @@
                         "between": "and",
                         "after": "{{currency}} as a referred member"
                     }
-                }
+                },
+                "explanation": "Segment members who have used a referral link to sign up"
             },
             "101": {
                 "second": "years (included)",

@@ -1,11 +1,14 @@
-import React from "react";
+import { type FC, useId } from "react";
 
+import { useFormController } from "@bsport/form";
 import { Modal } from "@bsport/kaizen-primitive-core";
 import { dataAccessLayer } from "@bsport/sm-backbone";
 
-import { SmartlistForm, useSmartlistForm } from "#src/components/SmartlistForm";
+import { SmartlistForm } from "#src/components/SmartlistForm";
+import { SmartlistFormData } from "#src/components/SmartlistForm/shared-types";
 import { useTranslation } from "#src/utils/i18n";
 
+import { smartlistSchema } from "../SmartlistForm/schema";
 import { useCreate } from "./use-create";
 
 type CreateSmartlistModalProps = {
@@ -14,7 +17,7 @@ type CreateSmartlistModalProps = {
   onCreate?: () => void;
 };
 
-export const CreateSmartlistModal: React.FC<CreateSmartlistModalProps> = ({
+export const CreateSmartlistModal: FC<CreateSmartlistModalProps> = ({
   isOpen,
   onClose,
   onCreate,
@@ -22,10 +25,12 @@ export const CreateSmartlistModal: React.FC<CreateSmartlistModalProps> = ({
   const { t } = useTranslation("list");
   const companyTheme = dataAccessLayer.useCompanyTheme();
 
-  const { formData, errors, handleChange, handleBlur, validateForm } =
-    useSmartlistForm();
+  const defaultValues: SmartlistFormData = {
+    name: "",
+    description: "",
+  };
 
-  const { createSmartlist, isCreating } = useCreate({
+  const { createSmartlist } = useCreate({
     onSuccess: () => {
       onCreate?.();
       onClose();
@@ -35,17 +40,25 @@ export const CreateSmartlistModal: React.FC<CreateSmartlistModalProps> = ({
     },
   });
 
-  const handleCreate = () => {
-    if (!validateForm() || !companyTheme?.id) {
+  const methods = useFormController({
+    mode: "onBlur",
+    schema: smartlistSchema,
+    defaultValues,
+  });
+
+  const handleSubmit = (data: SmartlistFormData) => {
+    if (!companyTheme?.id) {
       return;
     }
 
     createSmartlist({
-      name: formData.name,
-      description: formData.description,
+      name: data.name,
+      description: data.description,
       company: companyTheme.id,
     });
   };
+
+  const formId = useId();
 
   return (
     <Modal
@@ -57,20 +70,16 @@ export const CreateSmartlistModal: React.FC<CreateSmartlistModalProps> = ({
       size="md"
       confirmButton={{
         label: t("createForm.actions.create"),
-        onClick: handleCreate,
+        type: "submit",
+        form: formId,
+        disabled: !methods.formState.isDirty || methods.formState.isSubmitting,
       }}
       cancelButton={{
         label: t("createForm.actions.cancel"),
         onClick: onClose,
       }}
     >
-      <SmartlistForm
-        data={formData}
-        errors={errors}
-        onChange={handleChange}
-        onBlur={handleBlur}
-        isSubmitting={isCreating}
-      />
+      <SmartlistForm id={formId} onSubmit={handleSubmit} {...methods} />
     </Modal>
   );
 };

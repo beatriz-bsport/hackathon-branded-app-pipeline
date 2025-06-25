@@ -31,9 +31,6 @@ import { usePaginationQueryParams } from "@bsport/use-pagination-query-params";
 import { fetch } from "#src/utils/fetch";
 import { useTranslation } from "#src/utils/i18n";
 
-const DEFAULT_PAGE = 1;
-const DEFAULT_PAGE_SIZE = 10;
-
 type TableDataRow = {
   id: string;
   uuid: string;
@@ -54,10 +51,7 @@ type TableDataRow = {
 
 export const InvoiceListPage = () => {
   const { currentPage, currentPageSize, setPageSettings } =
-    usePaginationQueryParams({
-      shouldReplace: false,
-      defaultValues: { page_size: DEFAULT_PAGE_SIZE, page: DEFAULT_PAGE },
-    });
+    usePaginationQueryParams();
   const invoices = useInvoiceStore(selectInvoices);
   const count = useInvoiceStore(selectCount);
   const { t } = useTranslation("invoice");
@@ -132,6 +126,9 @@ export const InvoiceListPage = () => {
         header: t("tableColumnLabel.amount"),
         type: "price",
         align: "end",
+        priceColoring: {
+          negative: "critical",
+        },
       },
       {
         id: "type",

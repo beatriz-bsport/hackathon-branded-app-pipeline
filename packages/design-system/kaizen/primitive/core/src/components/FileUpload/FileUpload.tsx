@@ -272,7 +272,12 @@ const FileUpload: React.FC<FileUploadProps> = ({
         }),
       ).then(() => uploadCallback?.());
     }
-  }, [currentFileUploadTrackerList, autoUpload, uploadCallback]);
+  }, [
+    currentFileUploadTrackerList,
+    autoUpload,
+    uploadCallback,
+    makeFileUpload,
+  ]);
 
   return (
     <>

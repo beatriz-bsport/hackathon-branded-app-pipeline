@@ -33,7 +33,7 @@ export const DuplicateTemplateModal: React.FC<Props> = ({
     onSuccess: (duplicatedTemplate: EmailTemplateDetail) => {
       onSuccess?.();
       toast({
-        status: "positive",
+        status: "default",
         icon: "edit-02",
         title: t("activeList.duplicateTemplateModal.onSuccess.title", {
           emailTemplateTitle: emailTemplateDetail?.title,
@@ -59,7 +59,9 @@ export const DuplicateTemplateModal: React.FC<Props> = ({
   const handleDuplicateTemplate = () => {
     if (emailTemplateDetail) {
       duplicateTemplate({
-        title: `${emailTemplateDetail.title} - Copy`,
+        title: t("activeList.duplicateTemplateModal.duplicateEmailTitle", {
+          emailTemplateTitle: emailTemplateDetail.title,
+        }),
         subject: emailTemplateDetail.subject,
         html: emailTemplateDetail.html,
         design: emailTemplateDetail.design,
@@ -72,7 +74,7 @@ export const DuplicateTemplateModal: React.FC<Props> = ({
   };
 
   useEffect(() => {
-    fetchEmailTemplateDetail(templateId);
+    fetchEmailTemplateDetail({ id: templateId });
   }, [fetchEmailTemplateDetail, templateId]);
 
   return (

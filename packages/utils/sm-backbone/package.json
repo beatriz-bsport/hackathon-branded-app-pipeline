@@ -32,6 +32,7 @@
     "@bsport/i18n": "workspace:*",
     "@bsport/kaizen-primitive-core": "workspace:*",
     "@bsport/local-storage-auth-token": "workspace:*",
+    "@bsport/sentry": "workspace:*",
     "@bsport/store-auth": "workspace:*",
     "@bsport/store-base": "workspace:*",
     "@bsport/store-core-data-company": "workspace:*",

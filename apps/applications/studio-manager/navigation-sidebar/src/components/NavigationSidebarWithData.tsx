@@ -1,6 +1,9 @@
 import { useEffect } from "react";
 
-import { fetchSharedDataAction } from "@bsport/sm-backbone";
+import {
+  ErrorBoundaryWrapper,
+  fetchSharedDataAction,
+} from "@bsport/sm-backbone";
 
 import { fetch } from "#src/utils/fetch";
 
@@ -21,5 +24,9 @@ export const NavigationSidebarWithData: React.FC<NavigationSidebarProps> = (
     }
   }, []);
 
-  return <NavigationSidebar {...props} />;
+  return (
+    <ErrorBoundaryWrapper appName={__NAVIGATION_SIDEBAR__.__SENTRY_SCOPE_TAG__}>
+      <NavigationSidebar {...props} />
+    </ErrorBoundaryWrapper>
+  );
 };

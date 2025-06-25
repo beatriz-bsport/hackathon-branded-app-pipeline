@@ -45,6 +45,7 @@ export const DeleteTemplateModal: React.FC<Props> = ({
       toast({
         status: "default",
         icon: "reverse-left",
+        buttonIcon: "x-close",
         title: t("activeList.actions.undo.success"),
       });
     },
@@ -62,7 +63,7 @@ export const DeleteTemplateModal: React.FC<Props> = ({
   const { deleteTemplate } = useDeleteTemplate({
     onSuccess: (deletedTemplate: EmailTemplateDetail) => {
       toast({
-        status: "positive",
+        status: "default",
         icon: "trash-01",
         title: t("activeList.deleteTemplateModal.onSuccess.title"),
         buttonLabel: t("activeList.deleteTemplateModal.onSuccess.action"),
@@ -97,7 +98,7 @@ export const DeleteTemplateModal: React.FC<Props> = ({
   };
 
   useEffect(() => {
-    fetchEmailTemplateDetail(templateId);
+    fetchEmailTemplateDetail({ id: templateId });
   }, [fetchEmailTemplateDetail, templateId]);
 
   useEffect(() => {

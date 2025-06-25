@@ -18,12 +18,14 @@ import {
   fetchEmailTemplatesAPI,
   searchEmailTemplatesAPI,
   updateCategoryOrderingAPI,
+  updateEmailTemplateAPI,
   updateEmailTemplateCategoryAPI,
   updateEmailTemplateOrderingAPI,
 } from "#src/api";
 import {
   type CompanyTemplateFilters,
   type CreateEmailTemplateCategoryPayload,
+  CreateEmailTemplatePayload,
   type DeleteEmailTemplateCategoryPayload,
   type DeleteEmailTemplatePayload,
   type EditEmailTemplatePayload,
@@ -286,12 +288,20 @@ export const fetchEmailTemplateDetailAction: Action<
 };
 
 /**
- * Create a new email template
- * @param params.title Required string for the email template title
- * @returns the EmailTemplateDetail model of a newly created template or an error
+ * Payload for creating an email template.
+ *
+ * @typedef {Object} CreateEmailTemplatePayload
+ * @property {string} title - The title of the email template.
+ * @property {string} subject - The subject line of the email.
+ * @property {string} html - The HTML content of the email template.
+ * @property {string} [design] - JSON string representing the email design.
+ * @property {number|null} category - The category ID of the template, or null if uncategorized.
+ * @property {number|null} [company_id] - company ID associated with the template, or null.
+ * @property {string} [date_modified] - ISO date string of the last modification.
+ * @property {number[]} [available_for_companies] - Optional array of company IDs for which the template is available.
  */
 export const createEmailTemplateAction: Action<
-  EditEmailTemplatePayload,
+  CreateEmailTemplatePayload,
   EmailTemplateDetail
 > = async (fetch, params) => {
   const [uri, init] = createEmailTemplateAPI(params);
@@ -304,6 +314,39 @@ export const createEmailTemplateAction: Action<
     (error) =>
       createErrorWithContext(error, {
         message: `Failed to create the email template`,
+        params,
+      }),
+  );
+};
+
+/**
+ * Payload for creating an email template.
+ *
+ * @typedef {Object} EditEmailTemplatePayload
+ * @property {number} id - The id of the email template you want to update.
+ * @property {string} title - The title of the email template.
+ * @property {string} subject - The subject line of the email.
+ * @property {string} html - The HTML content of the email template.
+ * @property {string} [design] - JSON string representing the email design.
+ * @property {number|null} category - The category ID of the template, or null if uncategorized.
+ * @property {number|null} [company_id] - company ID associated with the template, or null.
+ * @property {string} [date_modified] - ISO date string of the last modification.
+ * @property {number[]} [available_for_companies] - Optional array of company IDs for which the template is available.
+ */
+export const updateEmailTemplateAction: Action<
+  EditEmailTemplatePayload,
+  EmailTemplateDetail
+> = async (fetch, params) => {
+  const [uri, init] = updateEmailTemplateAPI(params);
+
+  return Result.try(
+    async () => {
+      const { data } = await fetch(uri, init);
+      return data;
+    },
+    (error) =>
+      createErrorWithContext(error, {
+        message: `Failed to update the email template`,
         params,
       }),
   );
@@ -345,8 +388,6 @@ export const updateEmailTemplateOrderingAction: Action<
   UpdateTemplateOrderingPayload
 > = async (fetch, params) => {
   const [uri, init] = updateEmailTemplateOrderingAPI(params);
-
-  console.log("params : ", params);
 
   return Result.try(
     async () => {

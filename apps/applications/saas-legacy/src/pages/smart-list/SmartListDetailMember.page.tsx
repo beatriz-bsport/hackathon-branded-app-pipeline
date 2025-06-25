@@ -38,7 +38,6 @@ import {
   smartLitAutTagCreate,
   updateSmartListAutoTag,
   smartListAutoTagDelete,
-  applySmartListAutoTagRules,
   retrieveSmartListAutomatedCampaign,
   fetchSmartListAutomatedCampaign,
   createSmartListAutomatedCampaign,
@@ -1125,7 +1124,6 @@ const connector = connect(
     createAutoTagAction: smartLitAutTagCreate,
     updateAutoTagAction: updateSmartListAutoTag,
     deleteAutoTagAction: smartListAutoTagDelete,
-    applySmartListTagRules: applySmartListAutoTagRules,
     fetchTags,
 
     // AUTOMATED CAMPAIGN

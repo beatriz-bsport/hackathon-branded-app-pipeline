@@ -26,3 +26,5 @@ export const AVAILABLE_LANGUAGES = [
   LANGUAGES.CZECH,
   LANGUAGES.DEBUG,
 ] as const;
+
+export type Locale = (typeof AVAILABLE_LANGUAGES)[number];

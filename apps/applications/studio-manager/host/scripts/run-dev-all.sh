@@ -33,6 +33,8 @@ for APPLICATION in $APPLICATIONS; do
     NAME=$(echo "$APPLICATION" | sed 's/@bsport\///')
     CONCURRENTLY_NAMES="$CONCURRENTLY_NAMES $NAME,"
 
+    echo "Run app $NAME"
+
     # Display the running port only on debug or the host
     if [ "$DEBUG" = true ] || [ "$APPLICATION" = "@bsport/sm-host" ]; then
         CONCURRENTLY_COMMANDS="$CONCURRENTLY_COMMANDS \"$(command $APPLICATION)\""

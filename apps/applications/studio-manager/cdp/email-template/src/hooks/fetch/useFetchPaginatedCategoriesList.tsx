@@ -8,12 +8,14 @@ import {
   useEmailTemplateStore,
 } from "@bsport/store-cdp-email-template";
 import { useAsync } from "@bsport/use-async";
-import { usePaginationQueryParams } from "@bsport/use-pagination-query-params";
+import {
+  DEFAULT_PAGE,
+  usePaginationQueryParams,
+} from "@bsport/use-pagination-query-params";
 
 import { fetch } from "#src/utils/fetch";
 
 const DEFAULT_PAGE_SIZE = 300;
-const DEFAULT_PAGE = 1;
 
 export const useFetchCategoriesPaginatedList = () => {
   const { currentPage, currentPageSize, setPageSettings } =

@@ -30,13 +30,13 @@ const meta: Meta<typeof Filter> = {
       action: "onFilterChange",
     },
   },
-  parameters: {
-    docs: {
-      story: {
-        height: "30vh",
-      },
-    },
-  },
+  decorators: [
+    (Story) => (
+      <div className="p-2xs min-h-[30vh]">
+        <Story />
+      </div>
+    ),
+  ],
 };
 
 export default meta;

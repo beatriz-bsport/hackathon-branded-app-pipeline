@@ -9,14 +9,13 @@ import {
   useSmartlistStore,
 } from "@bsport/store-cdp-smartlist";
 import { useAsync } from "@bsport/use-async";
+import {
+  DEFAULT_PAGE,
+  DEFAULT_PAGE_SIZE,
+} from "@bsport/use-pagination-query-params";
 
 import { fetch } from "#src/utils/fetch";
 import { useDebouncedValue } from "#src/utils/use-debounced-value";
-
-import {
-  DEFAULT_PAGE,
-  DEFAULT_ROWS_PER_PAGE,
-} from "../pages/ListPage/constants";
 
 export type SmartlistsParams = Partial<FetchSmartlistsParams>;
 
@@ -32,7 +31,7 @@ export function useSmartlists(params: SmartlistsParams = {}) {
   const fetchSmartlists = async () => {
     return fetchSmartlistsAction(fetch, {
       page: params.page ?? DEFAULT_PAGE,
-      page_size: params.page_size ?? DEFAULT_ROWS_PER_PAGE,
+      page_size: params.page_size ?? DEFAULT_PAGE_SIZE,
       search: debouncedSearch.trim(),
     });
   };
@@ -50,7 +49,7 @@ export function useSmartlists(params: SmartlistsParams = {}) {
     if (refetchCount > 0) {
       fetchAllSmartlistsAction(fetch, {
         page: params.page ?? DEFAULT_PAGE,
-        page_size: params.page_size ?? DEFAULT_ROWS_PER_PAGE,
+        page_size: params.page_size ?? DEFAULT_PAGE_SIZE,
       });
     }
   }, [refetchCount]);

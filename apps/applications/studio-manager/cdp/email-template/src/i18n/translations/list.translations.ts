@@ -88,6 +88,7 @@ exports.default = {
         firstStep: "Duplicate <b>{{emailTemplateTitle}}</b>?",
         secondStep: "You can edit the email template afterwards.",
       },
+      duplicateEmailTitle: "{{emailTemplateTitle}} - Copy",
       confirmButton: "Duplicate",
       cancelButton: "Cancel",
       onSuccess: {

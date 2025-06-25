@@ -1,0 +1,56 @@
+.bs-marketplace-appointment-detail-modal {
+  min-width: 500px;
+}
+
+.bs-marketplace-appointment-detail__root {
+  display: flex;
+  flex-direction: column;
+  gap: var(--bs-space-size-4);
+}
+
+.bs-marketplace-appointment-detail__validity {
+  display: flex;
+  flex-direction: row;
+  gap: var(--bs-space-size-2);
+}
+
+.bs-marketplace-appointment-detail__validity__icon {
+  stroke: var(--bs-color-icon-weak);
+}
+
+.bs-marketplace-appointment-detail__chips {
+  display: flex;
+  flex-flow: row wrap;
+  gap: var(--bs-space-size-2);
+}
+
+.bs-marketplace-appointment-detail__description__show-more {
+  text-decoration: underline;
+  padding: 0;
+}
+
+.bs-marketplace-appointment-detail__description__show-more:hover,
+.bs-marketplace-appointment-detail__description__show-more:focus-visible,
+.bs-marketplace-appointment-detail__description__show-more:hover:active {
+  background-color: transparent;
+}
+
+.bs-marketplace-appointment-detail__compatibility__content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--bs-space-size-3);
+}
+
+.bs-marketplace-appointment-detail__compatibility__list-item,
+.bs-marketplace-appointment-detail__compatibility__appointments__list-item,
+.bs-marketplace-appointment-detail__restrictions__list-item {
+  padding: 0;
+}
+
+.bs-marketplace-appointment-detail__compatibility__appointments,
+.bs-marketplace-appointment-detail__compatibility__time-slots,
+.bs-marketplace-appointment-detail__compatibility__activities {
+  display: flex;
+  flex-direction: column;
+  gap: var(--bs-space-size-1);
+}

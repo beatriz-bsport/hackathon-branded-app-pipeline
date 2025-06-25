@@ -9,7 +9,11 @@ import { withTranslation, TFunction } from 'react-i18next';
 
 import useCurrentLanguageIsoCode from '../../hooks/useCurrentLanguageIsoCode';
 
-import i18n, { AVAILABLE_LANGUAGES, LANGUAGES } from '../../i18n';
+import i18n, {
+  AVAILABLE_LANGUAGES,
+  LANGUAGES,
+  switchLanguage,
+} from '../../i18n';
 
 import FR_FLAG from '../input/flags/FR.png';
 import ES_FLAG from '../input/flags/ES.png';
@@ -121,6 +125,7 @@ const UserLanguagePicker = (props: UserLanguagePickerProps) => {
 
   const handleChange = (event) => {
     i18n.changeLanguage(event.target.value);
+    switchLanguage(event.target.value);
     props.onLocaleChange?.();
   };
 

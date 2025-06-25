@@ -184,6 +184,7 @@
             "firstStep": "Duplicate <b>{{emailTemplateTitle}}</b>?",
             "secondStep": "You can edit the email template afterwards."
           },
+          "duplicateEmailTitle": "{{emailTemplateTitle}} - Copy",
           "confirmButton": "Duplicate",
           "cancelButton": "Cancel",
           "onSuccess": { "title": "Your email template was duplicated", "action": "Open" },
@@ -253,7 +254,7 @@
         "state": { "loading": "Loading your template..." },
         "actions": { "saveChanges": "Save changes", "discardChanges": "Discard" },
         "hover": {
-          "exportHtml": "Export template to HTMLh",
+          "exportHtml": "Export template to HTML",
           "renameTemplate": "Rename email template",
           "moreActions": "More actions"
         },
@@ -275,24 +276,34 @@
           "cancelButton": "Cancel",
           "onSuccess": { "title": "Template renamed", "action": "Undo" },
           "onFailure": { "title": "An error occurred when renaming your template." },
-          "errors": { "notProvided": "This is required" }
+          "errors": {
+            "notProvided": "This is required",
+            "tooLong": "The title is too long"
+          }
         }
       },
       "saveTemplateAction": {
         "description": "The page has unsaved changes.",
-        "success": { "title": "Your email template was saved", "action": "Open" },
-        "error": { "cannotSaveTemplate": "There was a problem saving your changes" }
+        "success": { "title": "Email template saved" },
+        "error": {
+          "missingFields": "Some required fields are missing",
+          "problemWhileSaving": "There was a problem saving your changes."
+        }
       },
       "leaveConfirmationModal": {
-        "description": "re you sure you want to leave this page?",
+        "description": "Are you sure you want to leave this page?",
         "confirmButton": "OK",
         "cancelButton": "Cancel"
       },
       "templateSubject": {
         "label": "Email subject",
         "placeholder": "Add an email subject...",
-        "error": { "notProvided": "This is required" }
+        "error": {
+          "notProvided": "This is required",
+          "tooLong": "The subject is too long"
+        }
       },
+      "templateDesign": { "error": { "notProvided": "No template design provided." } },
       "templateCategory": { "label": "Category", "noCategory": "No category" }
     }
   },
@@ -513,7 +524,7 @@
   "@bsport/sm-member-list": {
     "common": {
       "pages": { "memberList": "Members", "archivedMemberList": "Archived members" },
-      "actions": { "addMember": "Add member" },
+      "actions": { "addMember": "Add member", "importLeads": "Import leads" },
       "memberTable": {
         "loading": "Loading members ...",
         "emptySearch": {
@@ -568,7 +579,50 @@
           "error": "Failed to restore member"
         }
       },
-      "filters": { "label": "Filter", "operators": { "is": "is", "isNot": "is not" } }
+      "filters": { "label": "Filter", "operators": { "is": "is", "isNot": "is not" } },
+      "importLeadsModal": {
+        "title": "Import your leads",
+        "description": "Upload your CSV file to export leads from Zoho CRM and import them into bsport.",
+        "moreHelpSection": "Need more help ? <key>Visit our help center</key>",
+        "uploadFile": {
+          "extensionCSVOnly": "CSV only",
+          "workInProgress": "Importing members ...",
+          "wipDoNotRefresh": "Please do not refresh or leave this page",
+          "errors": {
+            "wrongNumberOfColumns": {
+              "title": "This file does not have the required number of columns.",
+              "formatIndication": "Please follow <key>our format</key> for a successful import."
+            },
+            "invalidFileType": "Invalid file type. Please upload a CSV file.",
+            "datasetTooLarge": "Dataset too large. Reduce to 100,000 rows.",
+            "wrongEncoding": "The encoding of your file is not correct. Please use UTF-8."
+          }
+        },
+        "importSuccess": {
+          "title": "Your members were successfully imported!",
+          "outputText": "Here is a CSV file of the successfully imported leads:",
+          "outputFilename": "rows_success",
+          "importedLeadsNumber_one": "{{ count }} lead was imported",
+          "importedLeadsNumber_other": "{{ count }} leads were imported"
+        },
+        "importPartialSuccess": {
+          "title": "Some rows in the file contained errors and could not be processed.",
+          "outputText": "And here is a CSV file of the leads that could not be imported due to incorrect rows.",
+          "outputFilename": "rows_failure"
+        },
+        "otherImportInProgress": {
+          "title": "An import is already in progress",
+          "subtitle": "Please wait for it to finish before making a new import"
+        },
+        "importError": {
+          "title": "Import failed",
+          "unknownError": "An unknown error happened during the import."
+        },
+        "importTimeout": {
+          "title": "Refresh timed out",
+          "comeBackLater": "The import task is taking longer than expected. Please come back later."
+        }
+      }
     }
   },
   "@bsport/sm-navigation-sidebar": {
@@ -660,7 +714,7 @@
           "activeCampaign": "ActiveCampaign",
           "referral": "Referral",
           "bsportSubscription": "bsport subscription",
-          "temporaryPass": "Temporary pass",
+          "temporaryPassword": "Temporary password",
           "changeLanguage": "Change language"
         }
       },
@@ -695,6 +749,18 @@
       },
       "additionalFeedbackQuestion": "Do you have additional feedback you'd like to share?",
       "additionalFeedbackPlaceholder": "Type your feedback here..."
+    },
+    "features": {
+      "temporaryPassword": {
+        "title": "Temporary password",
+        "description": "You may generate and request a temporary password which will be valid for up to 1 week to share it with our Support Team for assistance. Your main and usual password won't be affected.",
+        "buttons": { "close": "Close", "generate": "Generate" },
+        "generatedPassword": {
+          "copyToClipboard": "Copy the password to the clipboard",
+          "copiedToClipboard": "Password copied",
+          "validity": "This password is valid until {{- expirationDate }}. Your main password has not changed."
+        }
+      }
     }
   },
   "@bsport/sm-order": {

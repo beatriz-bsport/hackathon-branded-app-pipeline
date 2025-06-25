@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 
 import { MemberTable } from "#src/components/MemberTable";
 import { useFetchPaginatedList } from "#src/hooks/useFetchPaginatedList";
@@ -12,7 +12,7 @@ type MemberListContentProps = {
   onClearFiltersClick?: () => void;
 };
 
-export const MemberListContent: React.FC<MemberListContentProps> = ({
+const MemberListContentInternal: React.FC<MemberListContentProps> = ({
   activeFilters,
   onAddMemberClick,
   onClearFiltersClick,
@@ -63,3 +63,5 @@ export const MemberListContent: React.FC<MemberListContentProps> = ({
     </>
   );
 };
+
+export const MemberListContent = memo(MemberListContentInternal);

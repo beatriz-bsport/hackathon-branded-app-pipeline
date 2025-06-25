@@ -3,9 +3,6 @@ import { defineConfig } from "vite";
 import dts from "vite-plugin-dts";
 
 export default defineConfig({
-  define: {
-    "process.env": "import.meta.env",
-  },
   plugins: [
     dts({
       rollupTypes: true, // Don't emit extra .d.ts files

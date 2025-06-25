@@ -11,6 +11,7 @@ import FilterElementTypeSelector from "./FilterElementTypeSelector";
 import FilterElementValues from "./FilterElementValues";
 
 export type FilterElementProps = {
+  elementId: number;
   filters: {
     id: string;
     label: string;
@@ -27,6 +28,7 @@ export type FilterElementProps = {
   selectFieldLabel: string;
   openedByDefault: boolean;
   onFilterElementChange: (
+    id: number,
     field: string,
     filter: string,
     valueIds: string[],
@@ -40,6 +42,7 @@ export type FilterElementProps = {
  * It consists of a button that displays the currently selected filter, a dropdown menu that allows
  * the user to select a filter type, and a list of values that can be selected for the chosen filter type.
  * The component also renders a button to clear the filter element.
+ * @param elementId The unique identifier for the filter element.
  * @param filters An array of objects that represent the available filters.
  * @param fields An object that represents the available fields.
  * @param selectFieldLabel The label to display for the select field.
@@ -49,6 +52,7 @@ export type FilterElementProps = {
  * @param ref A ref object to access the resetFilters method.
  */
 const FilterElement: React.FC<FilterElementProps> = ({
+  elementId,
   filters,
   fields,
   selectFieldLabel,
@@ -64,9 +68,20 @@ const FilterElement: React.FC<FilterElementProps> = ({
 
   useEffect(() => {
     if (selectedField && selectedFilter && selectedValues) {
-      onFilterElementChange?.(selectedField, selectedFilter, selectedValues);
+      onFilterElementChange(
+        elementId,
+        selectedField,
+        selectedFilter,
+        selectedValues,
+      );
     }
-  }, [selectedField, selectedFilter, selectedValues]);
+  }, [
+    elementId,
+    onFilterElementChange,
+    selectedField,
+    selectedFilter,
+    selectedValues,
+  ]);
 
   const handleSelectFieldSelectOption = useCallback(
     (fieldId: string, shouldDisplayEntireFilter: boolean) => {
@@ -90,6 +105,26 @@ const FilterElement: React.FC<FilterElementProps> = ({
           ? prevState!.filter((selected) => selected !== fieldId)
           : [...(prevState ?? []), fieldId],
       );
+    },
+    [fields, selectedField],
+  );
+
+  const handleSelectValue = useCallback(
+    (itemId: string) => {
+      if (!selectedField) return;
+      const field = fields[selectedField];
+      if (!field) return;
+
+      if (!field.multiSelect) {
+        setSelectedValues([itemId]);
+      } else {
+        setSelectedValues((prev) => {
+          const prevArr = prev ?? [];
+          return prevArr.includes(itemId)
+            ? prevArr.filter((id) => id !== itemId)
+            : [...prevArr, itemId];
+        });
+      }
     },
     [fields, selectedField],
   );
@@ -130,7 +165,7 @@ const FilterElement: React.FC<FilterElementProps> = ({
         selectedField={selectedField}
         selectedValues={selectedValues}
         fields={fields}
-        onSelectOption={setSelectedValues}
+        onSelectOption={handleSelectValue}
       />
       {selectedField && <FilterElementClearButton onClear={handleClear} />}
     </ol>

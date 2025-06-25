@@ -1,12 +1,10 @@
 import { useEffect, useState } from "react";
 
-import { useDebounce } from "@bsport/use-debounce";
-
-const DEFAULT_DELAY = 350;
+import { DEFAULT_DEBOUNCE_DELAY, useDebounce } from "@bsport/use-debounce";
 
 export const useDebouncedValue = <T = string>(
   value: T,
-  delay: number = DEFAULT_DELAY,
+  delay: number = DEFAULT_DEBOUNCE_DELAY,
 ): T => {
   const [debouncedValue, setDebouncedValue] = useState<T>(value);
 

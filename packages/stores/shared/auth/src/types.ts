@@ -16,3 +16,8 @@ export interface UserAccess {
   id: number;
   email_confirmed: boolean;
 }
+
+export interface TemporaryPassword {
+  password: string;
+  expiration_date: string;
+}

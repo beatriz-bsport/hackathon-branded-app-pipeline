@@ -3,6 +3,7 @@ import { Link } from "react-router";
 
 import { Button, ListLayout, Table } from "@bsport/kaizen-primitive-core";
 import type { MetaActivity } from "@bsport/store-booking-group-activity";
+import { DEFAULT_DEBOUNCE_DELAY } from "@bsport/use-debounce";
 
 import { useCategoryFilter } from "#src/hooks/useCategoryFilter";
 import { useGroupActivityModals } from "#src/hooks/useGroupActivityModals";
@@ -15,8 +16,6 @@ type Row = MetaActivity & {
   link: string;
   color: string;
 };
-
-const DEBOUNCE_DELAY = 300;
 
 export const GroupActivitiesList: React.FC = () => {
   const { t } = useTranslation("groupActivity");
@@ -84,7 +83,7 @@ export const GroupActivitiesList: React.FC = () => {
         searchConfig={{
           id: "group-activity-expandable-search",
           inputValue: searchQuery,
-          debounceValue: DEBOUNCE_DELAY,
+          debounceValue: DEFAULT_DEBOUNCE_DELAY,
           onInputValueChange: setSearchQuery,
           onClear: clearSearchQuery,
         }}

@@ -850,6 +850,10 @@
       }
     }
   },
+  "@bsport/sm-referral-program": {
+    "namespaceAlpha": { "helloName": "Hello {{ name }} !" },
+    "namespaceBeta": {}
+  },
   "@bsport/sm-smartlists": {
     "list": {
       "title": "Smartlists",

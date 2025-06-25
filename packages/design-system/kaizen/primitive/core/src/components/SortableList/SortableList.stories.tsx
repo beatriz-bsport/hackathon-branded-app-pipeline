@@ -178,42 +178,49 @@ const items = [
     title: "Item 1",
     rightTitle: "Right title",
     description: "Playing with fonts is fun",
+    onItemClick: () => console.log("Item 1 clicked"),
   },
   {
     id: "list-item-2",
     title: "Item 2",
     rightTitle: "Right title",
     description: "Playing with fonts is fun",
+    onItemClick: () => console.log("Item 2 clicked"),
   },
   {
     id: "list-item-3",
     title: "Item 3",
     rightTitle: "Right title",
     description: "Playing with fonts is fun",
+    onItemClick: () => console.log("Item 3 clicked"),
   },
   {
     id: "list-item-4",
     title: "Item 4",
     rightTitle: "Right title",
     description: "Playing with fonts is fun",
+    onItemClick: () => console.log("Item 4 clicked"),
   },
   {
     id: "list-item-5",
     title: "Item 5",
     rightTitle: "Right title",
     description: "Playing with fonts is fun",
+    onItemClick: () => console.log("Item 5 clicked"),
   },
   {
     id: "list-item-6",
     title: "Item 6",
     rightTitle: "Right title",
     description: "Playing with fonts is fun",
+    onItemClick: () => console.log("Item 6 clicked"),
   },
   {
     id: "list-item-7",
     title: "Item 7",
     rightTitle: "Right title",
     description: "Playing with fonts is fun",
+    onItemClick: () => console.log("Item 7 clicked"),
   },
 ];
 
@@ -335,6 +342,7 @@ export const ListWithNoPrimaryButtons: Story = {
         title: "Playing with fonts is fun",
         rightTitle: "Right title",
         description: "Playing with fonts is fun",
+        onItemClick: () => console.log("Item 1 clicked"),
         buttons: [
           {
             id: "list-header-button-2",
@@ -369,6 +377,7 @@ export const ListWithNoPrimaryButtons: Story = {
         rightTitle: "Right title",
         description: "Playing with fonts is fun",
         dropdownConfig: { visibleActionsDisplayLimit: 1 },
+        onItemClick: () => console.log("Item 2 clicked"),
         buttons: [
           {
             id: "list-header-button-2",
@@ -403,6 +412,7 @@ export const ListWithNoPrimaryButtons: Story = {
         rightTitle: "Right title",
         description: "Playing with fonts is fun",
         dropdownConfig: { visibleActionsDisplayLimit: 0 },
+        onItemClick: () => console.log("Item 3 clicked"),
         buttons: [
           {
             id: "list-header-button-2",

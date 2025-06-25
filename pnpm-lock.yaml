@@ -976,6 +976,9 @@ importers:
       typescript-eslint:
         specifier: ^8.18.1
         version: 8.32.1(eslint@9.17.0(jiti@2.4.2))(typescript@5.6.3)
+      unlayer-types:
+        specifier: 1.278.0
+        version: 1.278.0
       url-loader:
         specifier: 0.6.2
         version: 0.6.2(file-loader@4.2.0(webpack@5.93.0))
@@ -1360,6 +1363,9 @@ importers:
       tailwindcss:
         specifier: ^3.4.14
         version: 3.4.14(ts-node@10.9.2(@swc/core@1.11.13(@swc/helpers@0.5.15))(@types/node@22.13.15)(typescript@5.8.2))
+      unlayer-types:
+        specifier: 1.278.0
+        version: 1.278.0
       vite:
         specifier: ^5.4.11
         version: 5.4.11(@types/node@22.13.15)(less@4.1.3)(sass@1.77.8)(stylus@0.64.0)(terser@5.31.3)
@@ -2354,6 +2360,22 @@ importers:
         version: link:../../../../tools/config/eslint-react
 
   packages/stores/cdp/notification-rule:
+    dependencies:
+      '@bsport/store-base':
+        specifier: workspace:*
+        version: link:../../base
+      typescript-result:
+        specifier: ^3.1.1
+        version: 3.1.1
+      zustand:
+        specifier: ^5.0.3
+        version: 5.0.3(@types/react@18.3.23)(immer@9.0.21)(react@19.0.0)(use-sync-external-store@1.4.0(react@19.0.0))
+    devDependencies:
+      '@bsport/config-eslint-react':
+        specifier: workspace:*
+        version: link:../../../../tools/config/eslint-react
+
+  packages/stores/cdp/referral:
     dependencies:
       '@bsport/store-base':
         specifier: workspace:*
@@ -18512,6 +18534,9 @@ packages:
   unlayer-types@1.278.0:
     resolution: {integrity: sha512-5GpkhTsDyBBtjcGOFxTKHrIwdP2x/qrYC2iDC3z20hFI6KMlQLRryN/ch1EiHbSN3gfILEv3eb7fp4Ox4iTX0A==}
 
+  unlayer-types@1.279.0:
+    resolution: {integrity: sha512-J8cYUsH2tdBtVoF+n9wIELToNle738hE+mJtGQiTo9G2LOSOt7P6OO4IKVZwx3x7Ir9sbBLOwy2ik9rMiKuvPw==}
+
   unpipe@1.0.0:
     resolution: {integrity: sha512-pjy2bYhSsufwWlKwPc+l3cN7+wuJlK6uz0YdJEOlQDbl6jo/YlPi4mb8agUkVC8BF7V8NuzeyPNqRksA3hztKQ==}
     engines: {node: '>= 0.8'}
@@ -21773,7 +21798,9 @@ snapshots:
       jest-runner: 24.9.0
       jest-runtime: 24.9.0
     transitivePeerDependencies:
+      - bufferutil
       - supports-color
+      - utf-8-validate
 
   '@jest/test-sequencer@28.1.3':
     dependencies:
@@ -33432,9 +33459,7 @@ snapshots:
       pretty-format: 24.9.0
       throat: 4.1.0
     transitivePeerDependencies:
-      - bufferutil
       - supports-color
-      - utf-8-validate
 
   jest-junit@14.0.1:
     dependencies:
@@ -37330,12 +37355,12 @@ snapshots:
   react-email-editor@1.7.11(react@16.10.2):
     dependencies:
       react: 16.10.2
-      unlayer-types: 1.278.0
+      unlayer-types: 1.279.0
 
   react-email-editor@1.7.11(react@19.0.0):
     dependencies:
       react: 19.0.0
-      unlayer-types: 1.278.0
+      unlayer-types: 1.279.0
 
   react-error-boundary@4.1.2(react@16.10.2):
     dependencies:
@@ -40326,6 +40351,8 @@ snapshots:
   universalify@2.0.1: {}
 
   unlayer-types@1.278.0: {}
+
+  unlayer-types@1.279.0: {}
 
   unpipe@1.0.0: {}
 

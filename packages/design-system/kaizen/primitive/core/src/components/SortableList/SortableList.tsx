@@ -246,6 +246,7 @@ const SortableListContent: React.FC<SortableListContentProps> = ({
                         })}
                         buttons={item.buttons}
                         dropdownConfig={item.dropdownConfig}
+                        onItemClick={item.onItemClick}
                         tabIndex={0} // Allow keyboard focus
                       />
                     </div>
@@ -270,6 +271,7 @@ const SortableListContent: React.FC<SortableListContentProps> = ({
                     rightTitle={draggedItem.rightTitle}
                     buttons={draggedItem.buttons}
                     dropdownConfig={draggedItem.dropdownConfig}
+                    onItemClick={draggedItem.onItemClick}
                   />
                 )}
                 <div

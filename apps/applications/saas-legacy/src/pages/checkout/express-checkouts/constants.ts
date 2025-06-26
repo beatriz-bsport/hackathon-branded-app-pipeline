@@ -3,3 +3,4 @@ export enum CheckPaymentIntent {
   TRUE = 'true',
   FALSE = 'false',
 }
+export const DEBOUNCE_CALLBACK_DELAY = 1000;

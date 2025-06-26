@@ -64,6 +64,7 @@ import { PaymentButtons } from '#src/pages/checkout/express-checkouts/components
 import { SUBMIT_BUTTONS } from '#src/libs/checkout/types';
 import {
   CheckPaymentIntent,
+  DEBOUNCE_CALLBACK_DELAY,
   PHONE_NUMBER_IN_USE,
 } from '#src/pages/checkout/express-checkouts/constants';
 import {
@@ -141,7 +142,6 @@ const OneClickBookingModule: React.FC<Props> = ({
 
   const paymentRef = useRef(null);
 
-  const DEBOUNCE_CALLBACK_DELAY = 1000;
   const {
     values: lightSignupValues,
     submitForm: submitLightSignupForm,

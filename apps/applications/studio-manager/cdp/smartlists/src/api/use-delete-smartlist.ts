@@ -26,7 +26,7 @@ export function useDeleteSmartlist({
   >({
     asyncFn: deleteSmartlist,
     onSuccess,
-    onFailure,
+    onFailure: ({ error }) => onFailure?.(error),
   });
 
   return {

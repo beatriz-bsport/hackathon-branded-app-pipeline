@@ -5,6 +5,7 @@ import {
   resetCssWidgetConfiguration as resetCssWidgetConfigurationAPI,
   fetchCompanyCssWidgetConfiguration as fetchCompanyCssWidgetConfigurationAPI,
   saveCssWidgetConfiguration as saveCssWidgetConfigurationAPI,
+  fetchCompanyCssWidgetConfigurationWithCache,
 } from './api';
 
 import { snackbarSuccess } from '../snackbar/actions';
@@ -59,6 +60,32 @@ export function retrieveCompanyCssConfiguration(
     dispatch(retrieveCompanyCssConfigurationActions.error(null));
     try {
       const response = await fetchCompanyCssWidgetConfigurationAPI(company);
+      dispatch(
+        retrieveCompanyCssConfigurationActions.success(response.data?.[0]),
+      );
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
+    } catch (err) {
+      console.error(err);
+      dispatch(retrieveCompanyCssConfigurationActions.error(err));
+      if (options && options.onError) options.onError();
+    }
+    dispatch(retrieveCompanyCssConfigurationActions.isLoading(false));
+  };
+}
+
+export function retrieveCompanyCssConfigurationWithCache(
+  company: number,
+  options?: OptionCallback<MarketplaceCSSConfiguration[]>,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(retrieveCompanyCssConfigurationActions.isLoading(true));
+    dispatch(retrieveCompanyCssConfigurationActions.error(null));
+    try {
+      const response = await fetchCompanyCssWidgetConfigurationWithCache(
+        company,
+      );
       dispatch(
         retrieveCompanyCssConfigurationActions.success(response.data?.[0]),
       );

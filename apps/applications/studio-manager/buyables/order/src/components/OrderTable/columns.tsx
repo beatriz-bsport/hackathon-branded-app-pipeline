@@ -85,7 +85,7 @@ export const useOrderTableColumns = () => {
   const columnTotal: TableColumn = {
     header: t("table.headers.total", { ns: "list" }),
     id: "column-total",
-    type: "string",
+    type: "price",
     align: "end",
     keyPath: "orderTotal",
   };

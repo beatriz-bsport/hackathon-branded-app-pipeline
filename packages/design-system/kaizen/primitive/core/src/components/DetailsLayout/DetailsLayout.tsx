@@ -88,6 +88,7 @@ function Main({ className, ...props }: DetailsLayoutProps) {
       className={detailsLayout({ className })}
       style={
         {
+          overflow: panelWidth ? "hidden" : "auto",
           "--aside-width": `${panelWidth}px`,
           "--confirm-height": confirmHeight,
           gridTemplateColumns: "1fr var(--aside-width)",

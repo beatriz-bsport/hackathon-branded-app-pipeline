@@ -4,13 +4,14 @@ import { ListLayout } from "@bsport/kaizen-primitive-core";
 
 import { OrderTable } from "#src/components/OrderTable";
 import { useFetchOrders } from "#src/hooks/useFetchOrders";
-import { useOrderFilters } from "#src/hooks/useOrderFilters";
+import { useFilterOrders } from "#src/hooks/useFilterOrders";
 import { useTranslation } from "#src/utils/i18n";
 
 const OrderListPage: React.FC = () => {
   const { t } = useTranslation("list");
 
-  const { filterConfig, activeFilters } = useOrderFilters();
+  const { filterConfig, filterRef, activeFilters, handleClearFilters } =
+    useFilterOrders();
 
   const {
     isLoading,
@@ -19,7 +20,7 @@ const OrderListPage: React.FC = () => {
     paginationParams,
     orders,
     fetchOrdersPage,
-  } = useFetchOrders({ status: activeFilters.status });
+  } = useFetchOrders({ status: activeFilters });
 
   useEffect(() => {
     fetchOrdersPage();
@@ -30,11 +31,12 @@ const OrderListPage: React.FC = () => {
       <ListLayout.Header
         pageTitle={t("pageTitle")}
         filterConfig={filterConfig}
-        searchConfig={{
-          id: "order-search-input",
-          /** @todo Set it as tooltip when the props is available on the component */
-          placeholder: t("header.searchTooltip"),
-        }}
+        filterRef={filterRef}
+        // Search is not available on the backend for now
+        // searchConfig={{
+        //   id: "order-search-input",
+        //   tooltipConfig: {}, // Enable default tooltip
+        // }}
       />
       <ListLayout.Content>
         <OrderTable
@@ -43,7 +45,8 @@ const OrderListPage: React.FC = () => {
           isLoading={isLoading}
           isEmpty={isEmpty}
           isEmptySearch={isEmptySearch}
-          filterStatus={activeFilters.status}
+          filterStatus={activeFilters}
+          handleClearFilters={handleClearFilters}
         />
       </ListLayout.Content>
     </ListLayout>

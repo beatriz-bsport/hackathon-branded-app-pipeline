@@ -4,7 +4,10 @@ export type Urls = {
   // Group 2
   calendar: string;
   schedule: string;
-  accessControl: string;
+  accessMonitoring: string; // Root path for the Access Monitoring Application
+  accessMonitoring_monitor: string;
+  accessMonitoring_perform: string;
+  accessMonitoring_settings: string;
   // Group 3
   // --- Classes ---
   activity: string;
@@ -15,7 +18,9 @@ export type Urls = {
   pass: string;
   subscription: string;
   // --- Products ---
-  webshop: string;
+  webshop: string; // Root path for the Webshop Application
+  webshop_products: string;
+  webshop_settings: string;
   webshopOld: string;
   pack: string;
   giftcard: string;

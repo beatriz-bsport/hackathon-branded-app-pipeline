@@ -108,6 +108,7 @@ const args: ModalProps = {
 
 /**
  * This is the default state of the Modal component.
+ * Content is automatically wrapped in a Body component with size "md" and weight "weak".
  */
 export const ModalShort: Story = {
   name: "Modal short",
@@ -130,12 +131,7 @@ export const ModalShort: Story = {
           onClick={handleOpen}
         />
         <Modal {...args} open={isOpen} onClose={handleClose}>
-          <Body htmlVariant="p" size="sm" color="default">
-            Lorem ipsum odor amet, consectetuer adipiscing elit. Iaculis tempus
-            libero habitant ex potenti; aptent vel fringilla. Commodo himenaeos
-            vitae ullamcorper commodo enim lacus leo finibus. Ultricies urna
-            litora suscipit curabitur viverra laoreet purus ante sit.
-          </Body>
+          Some text automatically wrapped in a Body component.
         </Modal>
       </>
     );

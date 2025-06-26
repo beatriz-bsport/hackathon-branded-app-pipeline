@@ -28,8 +28,8 @@ export function useUpdateCategory({
     typeof updateCategory
   >({
     asyncFn: updateCategory,
-    onSuccess,
-    onFailure,
+    onSuccess: ({ value }) => onSuccess?.(value),
+    onFailure: ({ error }) => onFailure?.(error),
   });
 
   return {

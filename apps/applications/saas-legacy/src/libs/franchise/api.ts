@@ -26,6 +26,8 @@ import type { PaginatedResponse } from '#src/state/types';
 import { cleanParams } from '#src/utils/createUrlHandlers';
 import type { Invoice } from '#src/libs/invoice/types';
 import Config from '../../config';
+import SharedDataCache from '#src/services/SharedDataCache';
+import { CacheKeys } from '#src/services/constants';
 
 const API_V1_URI_CORE = Config.REACT_APP_BASE_URI_CORE_V1;
 const API_V1_URI_BUYABLE = Config.REACT_APP_BASE_URI_BUYABLE_V1;
@@ -43,6 +45,14 @@ export const retrieveFranchise = async (id: number) => {
   return getAuth<FranchiseDetails>(
     `${API_V1_URI_CORE}/franchisor/franchisor/${id}/`,
   );
+};
+
+export const retrieveFranchiseWithCache = async (id: number) => {
+  const sharedCache = SharedDataCache.getInstance();
+  return sharedCache.fetchWithCache({
+    cacheKey: sharedCache.getCacheKey(CacheKeys.franchise, id),
+    fetchFn: () => retrieveFranchise(id),
+  });
 };
 
 export const fetchFranchiseUsers = async (params: {

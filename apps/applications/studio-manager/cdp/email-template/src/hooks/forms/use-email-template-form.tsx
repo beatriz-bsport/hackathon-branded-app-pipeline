@@ -21,10 +21,10 @@ export type UseEmailTemplateFormParams = {
 export const useEmailTemplateForm = ({
   initialData,
 }: UseEmailTemplateFormParams = {}) => {
-  const { t } = useTranslation(["detail", "list"]);
+  const { t } = useTranslation("detail");
 
   const fallbackData: EmailTemplateFormData = {
-    title: "",
+    title: t("details.defaultTitle"),
     subject: "",
     category: t("templateCategory.noCategory"),
     stringifiedDesign: null,

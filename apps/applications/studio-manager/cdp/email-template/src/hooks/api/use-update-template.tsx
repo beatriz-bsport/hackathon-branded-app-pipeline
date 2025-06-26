@@ -28,8 +28,8 @@ export function useUpdateTemplate({
     typeof updateTemplate
   >({
     asyncFn: updateTemplate,
-    onSuccess,
-    onFailure,
+    onSuccess: ({ value }) => onSuccess?.(value),
+    onFailure: ({ error }) => onFailure?.(error),
   });
 
   return {

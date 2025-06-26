@@ -48,6 +48,7 @@ const toCategoryFilters = (
 
 export const useCategoryFilter = (): {
   categoryFiltersConfig: FilterProps;
+  categoryFiltersRef: React.RefObject<{ resetFilters: () => void }>;
   activeCategoryFilters: ActiveCategoryFilters;
   resetFilters?: () => void;
 } => {
@@ -71,7 +72,6 @@ export const useCategoryFilter = (): {
 
   const categoryFiltersConfig: FilterProps = useMemo(
     () => ({
-      ref: filterRef,
       fields: {
         category: {
           availableFilters: Object.values(CategoryFilter),
@@ -98,12 +98,13 @@ export const useCategoryFilter = (): {
       onFilterChange,
       selectFieldLabel: t("list.enabled.filter.title"),
     }),
-    [filterRef, categories, t, onFilterChange],
+    [categories, t, onFilterChange],
   );
 
   return {
     activeCategoryFilters,
     resetFilters: filterRef?.current?.resetFilters,
     categoryFiltersConfig,
+    categoryFiltersRef: filterRef,
   };
 };

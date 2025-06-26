@@ -44,6 +44,11 @@ export {
 } from "./components/DropdownMenu";
 export { default as Divider, type DividerProps } from "./components/Divider";
 export {
+  default as ErrorFallback,
+  type ErrorFallbackProps,
+  type ErrorFallbackActionProps,
+} from "./components/ErrorFallback";
+export {
   default as ExpandableSearchInput,
   type ExpandableSearchInputProps,
 } from "./components/ExpandableSearchInput";

@@ -38,7 +38,7 @@ export type HeaderLayoutProps = React.HTMLAttributes<HTMLDivElement> &
  * @param props.pageStatusBadge Optional. Configuration for badge displayed new to the page title.
  * @param props.pageStatusChip Optional. Configuration for chip displayed new to the page title.
  * @param props.pageTabs Optional. Configuration for tabs displayed below the page title.
- * @param props.pageTitle Title of the page.
+ * @param props.pageTitle Title of the page and it also adds the html title.
  * @param props.searchConfig Optional. Configuration for search input.
  * @param props.startGroupActions Optional. Array of ReactNode to align with the CTA Button with a Divider separation.
  * @link https://docs.infra.bsport.io/storybook/kaizen/dev/index.html?path=/docs/components-private-headerlayout--docs
@@ -50,6 +50,7 @@ const LayoutHeader: React.FC<HeaderLayoutProps> = ({
   callToActionButton,
   endGroupActions,
   filterConfig,
+  filterRef,
   onDisplayClick,
   onEditTitleClick,
   pageStatusBadge,
@@ -73,6 +74,7 @@ const LayoutHeader: React.FC<HeaderLayoutProps> = ({
       })}
       {...props}
     >
+      <title>{pageTitle}</title>
       <PageActionsSection
         breadcrumbsItems={breadcrumbsItems}
         BreadcrumbsItems={BreadcrumbsItems}
@@ -87,6 +89,7 @@ const LayoutHeader: React.FC<HeaderLayoutProps> = ({
       />
       <DataActionsSection
         filterConfig={filterConfig}
+        filterRef={filterRef}
         onDisplayClick={onDisplayClick}
         searchConfig={searchConfig}
       />

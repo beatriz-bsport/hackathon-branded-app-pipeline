@@ -31,8 +31,8 @@ export function useFetcherEmailTemplateDetail({
     typeof fetchEmailTemplateDetailBinded
   >({
     asyncFn: fetchEmailTemplateDetailBinded,
-    onSuccess,
-    onFailure,
+    onSuccess: ({ value }) => onSuccess?.(value),
+    onFailure: ({ error }) => onFailure?.(error),
   });
 
   return {

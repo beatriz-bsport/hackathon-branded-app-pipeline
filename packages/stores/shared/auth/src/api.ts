@@ -1,5 +1,6 @@
 import type { ApiConfig } from "@bsport/store-base";
 
+const API_URL_V0 = "platform/v0";
 const API_URL = "platform/v1";
 
 export type LoginParams = {
@@ -21,7 +22,7 @@ export const loginAPI = ({ email, password }: LoginParams): ApiConfig => {
 };
 
 export const fetchUserAccessAPI = (): ApiConfig => {
-  return [`${API_URL}/saas/access_level`];
+  return [`${API_URL_V0}/saas/access_level`];
 };
 
 export const fetchTemporaryPasswordAPI = (): ApiConfig => {

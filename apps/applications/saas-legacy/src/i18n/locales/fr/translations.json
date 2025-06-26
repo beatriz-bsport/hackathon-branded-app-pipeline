@@ -18744,7 +18744,7 @@
                 },
                 "autoDiscard": {
                     "checkbox": "Annuler les cours sous-réservés",
-                    "explain": "Annuler les cours avec moins de 1 réservation(s) 1 heure(s) avant leur début. Les membres seront informés que le cours a été annulé.",
+                    "explain": "Annuler la séance et envoyer une notification par mail aux élèves s'il y a {{bookings_nb}} réservation(s) ou moins {{hours}}h avant le début de la séance.",
                     "emailRecipients": "Si un cours est automatiquement annulé, un e-mail sera envoyé au Owner ou Admin, ainsi qu'au professeur et aux élèves.",
                     "min_bookings_nb": "Nombre de réservation(s) :",
                     "hours_before_start": "Heure(s) avant la séance :"

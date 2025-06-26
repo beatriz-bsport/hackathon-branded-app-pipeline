@@ -3779,7 +3779,8 @@
             "nb_consumer_payment_packs": "Aantal passen",
             "nb_first_attendances": "Aantal eerste bezoeken",
             "nb_payments": "Aantal betalingen",
-            "total_rows": "Aantal rijen"
+            "total_rows": "Aantal rijen",
+            "amount_upcoming_cts": "Geplande betaling"
         },
         "report": {
             "delete_message": "Weet je zeker dat je \"{{- name }}\" wilt verwijderen?"

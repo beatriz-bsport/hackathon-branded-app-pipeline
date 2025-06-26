@@ -5,7 +5,6 @@ export type TableRowData = {
   hiddenForUsers: boolean;
   limitedTime: boolean;
   numberOfProducts: number;
-  price: string;
-  /** @todo Unlock when link clashes with actions is fixed */
-  // link: string;
+  price: number;
+  link: string;
 };

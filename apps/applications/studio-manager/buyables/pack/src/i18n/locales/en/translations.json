@@ -24,7 +24,7 @@
             }
         },
         "deleteModal": {
-            "title": "Delete Pack?",
+            "title": "Delete Pack ?",
             "description": {
                 "effect": "If you delete {{ name }}, current or previous purchases won't be affected.",
                 "canNotBeUndone": "This action cannot be undone."

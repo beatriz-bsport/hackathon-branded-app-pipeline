@@ -25,7 +25,7 @@ exports.default = {
     },
   },
   deleteModal: {
-    title: "Delete Pack?",
+    title: "Delete Pack ?",
     description: {
       effect:
         "If you delete {{ name }}, current or previous purchases won't be affected.",

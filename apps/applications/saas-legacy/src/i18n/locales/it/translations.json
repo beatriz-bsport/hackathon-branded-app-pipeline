@@ -9179,7 +9179,8 @@
             "nb_consumer_payment_packs": "Numero di pacchetti",
             "nb_first_attendances": "Numero di prime presenze",
             "nb_payments": "Numero di pagamenti",
-            "total_rows": "Righe totali"
+            "total_rows": "Righe totali",
+            "amount_upcoming_cts": "Prossimo importo"
         },
         "payment_method": {
             "dispute": "Contenzioso",

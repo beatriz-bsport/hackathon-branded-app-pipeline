@@ -21,7 +21,7 @@ export type UseEmailTemplateFormParams = {
 export const useEmailTemplateForm = ({
   initialData,
 }: UseEmailTemplateFormParams = {}) => {
-  const { t } = useTranslation(["detail", "list"]);
+  const { t } = useTranslation("detail");
 
   const fallbackData: EmailTemplateFormData = {
     title: t("details.defaultTitle"),

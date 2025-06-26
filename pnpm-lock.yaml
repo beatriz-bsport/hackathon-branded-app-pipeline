@@ -1320,6 +1320,9 @@ importers:
       '@bsport/store-cdp-email-template':
         specifier: workspace:*
         version: link:../../../../../packages/stores/cdp/email-template
+      '@bsport/store-cdp-notification-rule':
+        specifier: workspace:*
+        version: link:../../../../../packages/stores/cdp/notification-rule
       '@bsport/use-async':
         specifier: workspace:*
         version: link:../../../../../packages/hooks/use-async

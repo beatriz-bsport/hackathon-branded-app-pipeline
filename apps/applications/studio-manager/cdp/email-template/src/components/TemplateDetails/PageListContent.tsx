@@ -18,6 +18,7 @@ import { RenameEmailTemplateModal } from "#src/components/TemplateDetails/Modal/
 import { SaveEmailTemplateParams } from "#src/hooks/actions/useSaveTemplate";
 import { useUnlayerBuilder } from "#src/hooks/actions/useUnlayerBuilder";
 import { useUnlayerInitialization } from "#src/hooks/actions/useUnlayerInitialization";
+import { useFetchCommunicationVariables } from "#src/hooks/fetch/useFetchCommunicationVariables";
 import { useEmailTemplateForm } from "#src/hooks/forms/use-email-template-form";
 import { useDetailPageHeader } from "#src/hooks/layout/useDetailPageHeader";
 import { useTemplateNavigation } from "#src/hooks/useTemplateNavigation";
@@ -25,7 +26,10 @@ import {
   UNLAYER_EDITOR_MIN_HEIGHT,
   UNLAYER_PROJECT_ID,
 } from "#src/utils/constants";
-import { createDownloadableUrlObject } from "#src/utils/emailEditor";
+import {
+  createDownloadableUrlObject,
+  getMergeTags,
+} from "#src/utils/emailEditor";
 import { useTranslation } from "#src/utils/i18n";
 import {
   formatCategoriesForSelector,
@@ -53,6 +57,8 @@ export const PageListContent: React.FC<Props> = ({
   const [pageTitle, setPageTitle] = useState(
     emailTemplateDetail?.title || t("details.defaultTitle"),
   );
+  const { communicationVariables, fetchCommunicationVariables } =
+    useFetchCommunicationVariables();
   const { unlayerUser, currentLocale, companyName, companyId } =
     useUnlayerInitialization();
   const { exportEmailBuilderTemplate, initializeUnlayerBuilder } =
@@ -113,6 +119,7 @@ export const PageListContent: React.FC<Props> = ({
   } = useEmailTemplateForm({
     initialData,
   });
+
   const { breadcrumbsItems, endGroupActions } = useDetailPageHeader({
     onExportTemplate: handleExportClick,
     onDeleteTemplate: emailTemplateDetail
@@ -122,6 +129,11 @@ export const PageListContent: React.FC<Props> = ({
       ? () => setCurrentInlineAction("duplicate")
       : undefined,
   });
+
+  const mergedTags = useMemo(
+    () => getMergeTags({ communicationVariables }) ?? undefined,
+    [communicationVariables],
+  );
 
   const handleCloseModals = () => {
     setCurrentInlineAction(null);
@@ -213,6 +225,10 @@ export const PageListContent: React.FC<Props> = ({
     };
   }, [emailEditorRef]);
 
+  useEffect(() => {
+    fetchCommunicationVariables();
+  }, [fetchCommunicationVariables]);
+
   return (
     <>
       <DetailsLayout.Header
@@ -239,6 +255,7 @@ export const PageListContent: React.FC<Props> = ({
             minHeight={UNLAYER_EDITOR_MIN_HEIGHT}
             onReady={onReady}
             options={{
+              mergeTags: mergedTags,
               features: {
                 preview: true,
               },

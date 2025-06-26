@@ -65,17 +65,12 @@ import { SUBMIT_BUTTONS } from '#src/libs/checkout/types';
 import {
   CheckPaymentIntent,
   DEBOUNCE_CALLBACK_DELAY,
-  PHONE_NUMBER_IN_USE,
 } from '#src/pages/checkout/express-checkouts/constants';
-import {
-  COACH_EDIT_EMAIL_ADDRESS_IS_STAFF_USER,
-  COACH_EMAIL_ADDRESS_EXISTS,
-} from '@bsport/common/lib/master-data/error-codes/associated-coach';
-import { AxiosError } from 'axios';
 import { BASKET_INCONSISTENT } from '#src/libs/checkout/constants';
 import { useCheckPaymentStatusFail } from '#src/pages/checkout/express-checkouts/hooks/useCheckPaymentStatusFail';
 import { useNavigation } from '#src/pages/checkout/express-checkouts/hooks/useNavigation';
 import { getUserRegistrationResponse } from '#src/pages/checkout/express-checkouts/utils/userRegistration';
+import { useLightSignupFormUtils } from '#src/pages/checkout/express-checkouts/hooks/useLightSignupFormUtils';
 
 import './index.css';
 
@@ -102,32 +97,6 @@ type OwnProps = {
 
 type Props = OwnProps & ConnectedProps<typeof connector>;
 
-/**
- * Trims whitespace from all string fields in a LightSignupFormValues object.
- *
- * This function is necessary because the backend may return string values without
- * leading or trailing whitespace, while the frontend form values might contain
- * extraneous spaces. By trimming the form values before comparison, we ensure
- * consistency between the frontend and backend data. This consistency is crucial
- * for accurately determining whether an update is necessary, as it prevents
- * false positives caused by mere differences in whitespace.
- *
- * @param formValues - The LightSignupFormValues object containing form data.
- * @returns A new LightSignupFormValues object with all string fields trimmed of
- * leading and trailing whitespace.
- */
-function trimFormValues(
-  formValues: LightSignupFormValues,
-): LightSignupFormValues {
-  return {
-    ...formValues,
-    firstName: formValues.firstName.trim(),
-    lastName: formValues.lastName.trim(),
-    email: formValues.email.trim(),
-    phone: formValues.phone.trim(),
-  };
-}
-
 const OneClickBookingModule: React.FC<Props> = ({
   companyId,
   offerId,
@@ -149,12 +118,8 @@ const OneClickBookingModule: React.FC<Props> = ({
     isValid,
   } = useFormikContext<LightSignupFormValues>();
 
-  const { setFieldError } = useFormikContext();
-
-  const getIsFormInvalid = useCallback(async () => {
-    const formErrors = await validateLightSignupForm();
-    return !(Object.values(formErrors).length === 0);
-  }, [validateLightSignupForm]);
+  const { getIsFormInvalid, getLighSignUpCustomErrors, trimFormValues } =
+    useLightSignupFormUtils();
 
   const onCheckPaymentStatusFail = useCheckPaymentStatusFail(setQueryParams);
 
@@ -185,43 +150,8 @@ const OneClickBookingModule: React.FC<Props> = ({
     lightSignUpUpdate: [{ value: updatedMember }, lightSignUpUpdate],
   } = useLightSignUp();
 
-  const getLighSignUpCustomErrors = useCallback(
-    (errorCode?: number) => {
-      const customFieldErrors = {
-        [PHONE_NUMBER_IN_USE]: {
-          fieldName: 'phone',
-          message: t('booking:lightSignup.form.errors.phoneTaken'),
-        },
-        [COACH_EDIT_EMAIL_ADDRESS_IS_STAFF_USER]: {
-          fieldName: 'email',
-          message: t('booking:lightSignup.form.errors.emailTaken'),
-        },
-        [COACH_EMAIL_ADDRESS_EXISTS]: {
-          fieldName: 'email',
-          message: t('booking:lightSignup.form.errors.emailTaken'),
-        },
-      };
-
-      if (errorCode && errorCode in customFieldErrors) {
-        const error =
-          customFieldErrors[errorCode as keyof typeof customFieldErrors];
-        setFieldError(error.fieldName, error.message);
-      }
-    },
-    [setFieldError, t],
-  );
-
-  const isAxiosError = (error: unknown): error is AxiosError => {
-    return typeof error === 'object' && error !== null && 'response' in error;
-  };
-
   useEffect(
-    () =>
-      getLighSignUpCustomErrors(
-        isAxiosError(lightSignupCreateError)
-          ? lightSignupCreateError.response?.data?.error_code
-          : undefined,
-      ),
+    () => getLighSignUpCustomErrors(lightSignupCreateError),
     [lightSignupCreateError, getLighSignUpCustomErrors],
   );
 

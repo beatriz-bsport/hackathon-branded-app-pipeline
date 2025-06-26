@@ -20462,7 +20462,7 @@
                 "autoDiscard": {
                     "hours_before_start": "Hour(s) before the start of the session:",
                     "min_bookings_nb": "Number of booking(s) :",
-                    "explain": "Activities with less than {{bookings_nb}} booking(s) are cancelled {{hours}} hour(s) before they start. Members will be notified that the session has been cancelled."
+                    "explain": "Activities with {{bookings_nb}} booking(s) or less are cancelled {{hours}} hour(s) before they start. Members will be notified that the session has been cancelled."
                 }
             }
         },

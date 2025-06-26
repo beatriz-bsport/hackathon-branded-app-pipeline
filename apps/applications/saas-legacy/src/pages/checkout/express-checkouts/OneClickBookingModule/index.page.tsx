@@ -71,10 +71,10 @@ import {
   COACH_EMAIL_ADDRESS_EXISTS,
 } from '@bsport/common/lib/master-data/error-codes/associated-coach';
 import { AxiosError } from 'axios';
-import { USER_REGISTRATION_RESPONSE_LOCAL_STORAGE_KEY } from '#src/libs/payment/constants';
 import { BASKET_INCONSISTENT } from '#src/libs/checkout/constants';
 import { useCheckPaymentStatusFail } from '#src/pages/checkout/express-checkouts/hooks/useCheckPaymentStatusFail';
 import { useNavigation } from '#src/pages/checkout/express-checkouts/hooks/useNavigation';
+import { getUserRegistrationResponse } from '#src/pages/checkout/express-checkouts/utils/userRegistration';
 
 import './index.css';
 
@@ -397,23 +397,15 @@ const OneClickBookingModule: React.FC<Props> = ({
     const basketId = queryParams?.basket_redirection
       ? queryParams.basket_redirection
       : basket?.id;
-    const getUserRegistrationResponse = () => {
-      if (!queryParams?.get_user_registration_from_storage) {
-        return userRegistrationResponse;
-      }
-      const rawUserRegistrationResponse = getItemInStorage(
-        'local',
-        USER_REGISTRATION_RESPONSE_LOCAL_STORAGE_KEY,
-      );
-      return rawUserRegistrationResponse
-        ? JSON.parse(rawUserRegistrationResponse)
-        : null;
-    };
 
     redirectOnBookingSuccess({
       offer,
       basketId,
-      userRegistrationResponse: getUserRegistrationResponse(),
+      userRegistrationResponse: getUserRegistrationResponse({
+        getUserRegistrationFromStorage:
+          queryParams?.get_user_registration_from_storage,
+        userRegistrationResponse,
+      }),
     });
   }, [
     basket?.id,

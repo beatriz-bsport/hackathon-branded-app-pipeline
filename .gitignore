@@ -68,6 +68,7 @@ vitest.config.*.timestamp*
 
 # CLAUDE
 CLAUDE.md
+.claude
 
 # Windsurf
 .windsurfrules
@@ -75,3 +76,8 @@ CLAUDE.md
 # Cursor
 .cursorrules
 
+# GEMINI
+GEMINI.md
+
+# logs
+logs

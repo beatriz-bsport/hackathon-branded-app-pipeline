@@ -2110,7 +2110,7 @@
                     "min_bookings_nb": "Anzahl der Buchung(en):",
                     "emailRecipients": "Falls ein Kurs automatisch storniert wird, wird eine E-Mail an den Inhaber, den Admin, die Lehrkraft und die Mitglieder gesendet.",
                     "checkbox": "Storniere einen Kurs automatisch, wenn es nicht genug Buchungen gibt",
-                    "explain": "Der Kurs wird eine Stunde(n) for Beginn storniert, wenn es weniger als eine Buchung(en) gibt. Alle Mitglieder, die einen Platz gebucht haben, werden über die Stornierung informiert."
+                    "explain": "Der Kurs wird {{hours}} Stunde(n) vor Beginn storniert, wenn es {{bookings_nb}} oder weniger Buchung(en) gibt. Alle Mitglieder, die einen Platz gebucht haben, werden über die Stornierung informiert."
                 }
             }
         },

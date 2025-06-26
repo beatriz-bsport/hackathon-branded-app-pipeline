@@ -1,6 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import isEqual from 'lodash/isEqual';
-import { replace as replaceRouter } from 'connected-react-router';
 import { connect, ConnectedProps } from 'react-redux';
 import { compose } from 'recompose';
 import { useTranslation } from 'react-i18next';
@@ -52,8 +51,6 @@ import {
   ButtonVariant,
 } from '#src/components/css-only/Fabrique/ButtonV2/constants';
 import { useFormikContext } from 'formik';
-import WidgetUtils from '#src/libs/widget/WidgetUtils';
-import { urlToMarketplace } from '#src/libs/marketplace/utils';
 import { OneClickCheckoutSkeleton } from '#src/pages/checkout/express-checkouts/components/OneClickCheckoutSkeleton';
 import useDebouncedCallback from '#src/hooks/useDebouncedCallBack';
 import { useLightSignUp } from '#src/pages/checkout/express-checkouts/hooks/useLightSignUp';
@@ -77,6 +74,8 @@ import { AxiosError } from 'axios';
 import { USER_REGISTRATION_RESPONSE_LOCAL_STORAGE_KEY } from '#src/libs/payment/constants';
 import { BASKET_INCONSISTENT } from '#src/libs/checkout/constants';
 import { useCheckPaymentStatusFail } from '#src/pages/checkout/express-checkouts/hooks/useCheckPaymentStatusFail';
+import { useNavigation } from '#src/pages/checkout/express-checkouts/hooks/useNavigation';
+
 import './index.css';
 
 enum RedirectStatus {
@@ -134,7 +133,6 @@ const OneClickBookingModule: React.FC<Props> = ({
   authenticated,
   theme,
   retrieveCompanyCssConfiguration,
-  replace,
   snackbarError,
   queryParams,
   setQueryParams,
@@ -159,6 +157,8 @@ const OneClickBookingModule: React.FC<Props> = ({
   }, [validateLightSignupForm]);
 
   const onCheckPaymentStatusFail = useCheckPaymentStatusFail(setQueryParams);
+
+  const { goBackToCalendar } = useNavigation(companyId);
 
   const memberId =
     getItemInStorage('local', STORAGE_KEY_LIGHT_SIGNUP_MEMBER_ID) ?? '';
@@ -521,13 +521,6 @@ const OneClickBookingModule: React.FC<Props> = ({
     window.location.search,
   );
 
-  const goBackToCalendar = () => {
-    if (WidgetUtils.isWidget()) {
-      WidgetUtils.handleGoBackNavigation();
-    }
-    replace(urlToMarketplace(theme?.company_name, companyId.toString()));
-  };
-
   const selectPaymentPack = useCallback(
     (paymentPackId: number) => async () => {
       setSelectedPaymentPackId(paymentPackId);
@@ -773,7 +766,6 @@ const connector = connect(
   {
     snackbarError: snackbarErrorAction,
     retrieveCompanyCssConfiguration: retrieveCompanyCssConfigurationAction,
-    replace: replaceRouter,
   },
 );
 

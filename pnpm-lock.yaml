@@ -2840,6 +2840,9 @@ importers:
 
   packages/utils/sm-backbone:
     dependencies:
+      '@bsport/envs':
+        specifier: workspace:*
+        version: link:../envs
       '@bsport/fetch':
         specifier: workspace:*
         version: link:../fetch

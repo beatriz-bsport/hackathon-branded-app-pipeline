@@ -65,20 +65,19 @@ import { getAuthToken } from '#src/http';
 import ALL_ERROR_CODES from '@bsport/common/lib/master-data/error-codes/buyable-item-can-not-be-bought';
 import { PaymentButtons } from '#src/pages/checkout/express-checkouts/components/PaymentButtons';
 import { SUBMIT_BUTTONS } from '#src/libs/checkout/types';
-import { PHONE_NUMBER_IN_USE } from '#src/pages/checkout/express-checkouts/constants';
+import {
+  CheckPaymentIntent,
+  PHONE_NUMBER_IN_USE,
+} from '#src/pages/checkout/express-checkouts/constants';
 import {
   COACH_EDIT_EMAIL_ADDRESS_IS_STAFF_USER,
   COACH_EMAIL_ADDRESS_EXISTS,
 } from '@bsport/common/lib/master-data/error-codes/associated-coach';
 import { AxiosError } from 'axios';
-import './index.css';
 import { USER_REGISTRATION_RESPONSE_LOCAL_STORAGE_KEY } from '#src/libs/payment/constants';
 import { BASKET_INCONSISTENT } from '#src/libs/checkout/constants';
-
-enum CheckPaymentIntent {
-  TRUE = 'true',
-  FALSE = 'false',
-}
+import { useCheckPaymentStatusFail } from '#src/pages/checkout/express-checkouts/hooks/useCheckPaymentStatusFail';
+import './index.css';
 
 enum RedirectStatus {
   SUCCEEDED = 'succeeded',
@@ -158,6 +157,8 @@ const OneClickBookingModule: React.FC<Props> = ({
     const formErrors = await validateLightSignupForm();
     return !(Object.values(formErrors).length === 0);
   }, [validateLightSignupForm]);
+
+  const onCheckPaymentStatusFail = useCheckPaymentStatusFail(setQueryParams);
 
   const memberId =
     getItemInStorage('local', STORAGE_KEY_LIGHT_SIGNUP_MEMBER_ID) ?? '';
@@ -503,13 +504,6 @@ const OneClickBookingModule: React.FC<Props> = ({
     checkBookableStatus,
     offerId,
   ]);
-
-  const onCheckPaymentStatusFail = useCallback(() => {
-    setQueryParams('check_payment_intent')(CheckPaymentIntent.FALSE);
-    snackbarError(
-      t('checkout:validation.sections.confirmationStatusTitle.errors.generic'),
-    );
-  }, [snackbarError, t, setQueryParams]);
 
   const offerDate = useConsumerBookingDateTime({
     dateStart: offer?.date_start,

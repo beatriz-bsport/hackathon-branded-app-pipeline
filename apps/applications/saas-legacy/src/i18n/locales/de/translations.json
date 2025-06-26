@@ -6569,7 +6569,8 @@
             "nb_consumer_payment_packs": "Anzahl der Kurspässe",
             "nb_first_attendances": "Anzahl der Erstbesuche",
             "nb_payments": "Anzahl der Zahlungen",
-            "total_rows": "Zeilen insgesamt"
+            "total_rows": "Zeilen insgesamt",
+            "amount_upcoming_cts": "Anstehender Betrag"
         },
         "no": "Nein",
         "yes": "Ja",

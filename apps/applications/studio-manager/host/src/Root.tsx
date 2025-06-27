@@ -33,9 +33,17 @@ const NavigationSidebar = lazy(
 
 const basename = __HOST__.__BASENAME__;
 
+const loginUrl = import.meta.env.PROD
+  ? `${window.location.origin}/login`
+  : undefined;
+
 export function Root() {
   return (
-    <AppWrapper basename={basename} NavigationApp={NavigationSidebar}>
+    <AppWrapper
+      basename={basename}
+      NavigationApp={NavigationSidebar}
+      loginUrl={loginUrl}
+    >
       <Routes>
         <Route path="/" element={<h1>Hello world</h1>} />
 

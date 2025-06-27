@@ -8456,6 +8456,7 @@
                 "pay": "Pay"
             },
             "paymentMethod": {
+                "9": "Pay on-site",
                 "actions": {
                     "addPaymentMethod": "Add a payment method",
                     "addPaymentMethodDenied": "This member does not currently have any saved payment methods of this kind, and you do not have permission to add a new one.",

@@ -113,6 +113,7 @@ const getTranslations = async () => {
             'The direct debit mandate will be revalidated with the bank.',
           collect: 'Agree',
         },
+        [CREDIT_ACCOUNT.id]: 'Pay on-site',
       },
       savePaymentMethod: {
         select: 'Select a payment method',

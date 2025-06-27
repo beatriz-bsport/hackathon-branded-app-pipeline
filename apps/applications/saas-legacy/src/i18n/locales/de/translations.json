@@ -5819,7 +5819,7 @@
         },
         "selector": {
             "noAvailable": "Kein Pass, der den gewählten Verfügbarkeiten entspricht",
-            "noManagerOnly": "Im Marktplatz eingeblendet",
+            "noManagerOnly": "Sichtbar für Kunden",
             "managerOnly": "Für Mitglieder ausgeblendet",
             "filterManagerOnly": "Für alle sichtbar",
             "filterCategory": "Alle Kategorien",

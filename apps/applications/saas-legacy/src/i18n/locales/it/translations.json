@@ -20,9 +20,9 @@
                 "autoDiscard": {
                     "hours_before_start": "Ora(e) prima della sessione:",
                     "min_bookings_nb": "Numero di prenotazione(i):",
-                    "explain": "Annullare le sessioni con {{bookings_nb}} prenotazione(i) o meno, {{hours}} ore prima dell'inizio della sessione. I membri che avevano prenotato questa sessione saranno informati che la sessione è stata annullata.",
-                    "emailRecipients": "Questa email verrà inviata agli account con ruolo Proprietario o Amministratore, nonché all'insegnante (o insegnante supplente) della sessione in questione. Puoi anche configurare un'e-mail da inviare agli studenti.",
-                    "checkbox": "Annullare le sessioni con poche prenotazioni"
+                    "explain": "Le classi con meno di {{bookings_nb}} prenotazione/i vengono annullate {{hours}} ora/e prima dell'inizio. I membri riceveranno una notifica dell'annullamento del corso.",
+                    "emailRecipients": "Se una classe viene annullata in automatico, verrà inviata un'email al proprietario, all'amministratore e all'insegnante, oltre che agli studenti.",
+                    "checkbox": "Annulla automaticamente le lezioni con poche prenotazioni"
                 }
             },
             "update": {
@@ -785,7 +785,7 @@
             "packsAvailable": "Pacchetti compatibili:",
             "addOffers": "Aggiungi sessioni",
             "addActivity": "Aggiungi un'attività",
-            "firstBookingMinutesUntil": "Le sessioni future possono essere prenotate se iniziano in meno di ",
+            "firstBookingMinutesUntil": "Scegli quanto tempo prima della sessione si apre la finestra di prenotazione",
             "name": "Titolo",
             "color": "Codice colore",
             "noNextSlot": "Nessuna sessione programmata",
@@ -801,8 +801,8 @@
             "nextSlotAt": "Prossima sessione il ",
             "settings": "Impostazioni",
             "is_broadcast": "Corsi di streaming live",
-            "lastBookingBeforeMinutes": "Prima dell'inizio del corso, ultima prenotazione possibile",
-            "lastDiscardBeforeMinutes": "Prima dell'inizio del corso, ultima cancellazione possibile",
+            "lastBookingBeforeMinutes": "Scegli quanto tempo prima della sessione si chiude la finestra di prenotazione",
+            "lastDiscardBeforeMinutes": "Decidi fino a quando i membri possono cancellare gratuitamente prima dell'attività",
             "altCoverMain": "Descrizione dell'immagine per i non vedenti",
             "firstMinutesBookingUntilWarning": "Un valore pari a zero indica che non è impostata alcuna limitazione. Le prenotazioni saranno ancora aperte per le sessioni di questa attività.",
             "generalInfo": "Informazioni generali",
@@ -1149,16 +1149,16 @@
         "metaActivityNotificationToolTip": "Le notifiche sono impostate per le prenotazioni relative a questo elemento",
         "metaActivityCategory": {
             "explain": "Queste categorie vengono utilizzate per ordinare e classificare le attività del gruppo in base alla visualizzazione preferita nella Vista di gestione. I membri non saranno influenzati dalle vostre decisioni di visualizzazione.",
-            "sctExplain": "Queste categorie appariranno sul MarketPlace e sull'App mobile e rappresentano i diversi tipi di attività."
+            "sctExplain": "Scegli la categoria in cui verrà visualizzata questa attività nel Marketplace e nell'App."
         },
         "restrictions": {
-            "header": "Restrizioni",
-            "lastBookingBeforeMinutes": "Ultima prenotazione",
+            "header": "Condizioni",
+            "lastBookingBeforeMinutes": "Quando si chiude la finestra di prenotazione",
             "firstBookingMinutesUntil": "Finestra di prenotazione",
-            "personnalizedHelper": "Indica restrizioni diverse per determinati membri utilizzando i tag. I membri con uno dei tag selezionati avranno restrizioni diverse rispetto agli altri.",
-            "lastDiscardBeforeMinutes": "Ultima cancellazione",
-            "personnalizedHeader": "Restrizioni personalizzate",
-            "add": "Aggiungi regole diverse ({{ count }}/{{ max }})",
+            "personnalizedHelper": "Crea regole personalizzate con i tag per personalizzare le impostazioni per ogni gruppo.",
+            "lastDiscardBeforeMinutes": "Politica di cancellazione tardiva",
+            "personnalizedHeader": "Condizioni personalizzate",
+            "add": "Crea una regola personalizzata",
             "personnalizedRestrictionsIndex": "Restrizione personalizzata n°{{ count }}",
             "next": "Prossimo",
             "back": "Precedente",
@@ -10807,10 +10807,10 @@
             "create": {
                 "steps": {
                     "workshop_form": "Creazione di workshop",
-                    "activity_form": "Creazione di attività",
+                    "activity_form": "Crea un'attività",
                     "offer_form": "Creazione di sessioni (opzionale)",
                     "pass_form": "Creazione di un pacchetto (opzionale)",
-                    "pass_list": "Finalizzazione"
+                    "pass_list": "Termina"
                 },
                 "compatible_packs": {
                     "createPass": "Crea un pacchetto",
@@ -10852,7 +10852,7 @@
         "offersThisDay": "Sessioni oggi:",
         "packsAvailable": "Pacchetto disponibile per questa attività:",
         "reviews": "Opinione dei clienti: ",
-        "noActivities": "Gestisci le tue attività qui, un'attività ti consente di raggruppare una serie di sessioni (generalmente collettive) della stessa pratica.",
+        "noActivities": "Le attività di gruppo sono corsi collettivi. Da qui puoi aggiungere, modificare e gestire le tue attività di gruppo.",
         "disabledMetaActivities": "Attività archiviate",
         "workshop": "Workshop",
         "workshopSelect": "Trova uno studio",
@@ -15147,9 +15147,9 @@
     "titles": {
         "metaActivity": {
             "metaActivityEditForm": "Form attività",
-            "metaActivityFormPage": "Form attività",
+            "metaActivityFormPage": "Aggiungi un'attività di gruppo",
             "metaActivityList": "Attività",
-            "metaActivityFormSubtitle": "Creazione di un'attività di gruppo",
+            "metaActivityFormSubtitle": "Imposta un'attività di gruppo, definiscine la durata e aggiungi parametri personalizzati",
             "metaActivityEditFormSubtitle": "Modifica di un'attività di gruppo"
         },
         "member": {

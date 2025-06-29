@@ -3309,7 +3309,7 @@
         "overrider": "Remplacement",
         "establishment_override": "Salle de remplacement",
         "search": "Rechercher une salle",
-        "addButton": "Ajouter un site",
+        "addButton": "Ajouter un établissement",
         "pleaseSelectOne": "Veuillez sélectionner un club sur la carte",
         "noEstablishement": "Gérez ici vos salles, leur localisation, leur remplissage et consultez le calendrier",
         "offers": "Calendrier des séances :",
@@ -3329,7 +3329,7 @@
             "update": "Modifier"
         },
         "update": {
-            "imageUploaderRequireEditMessage": "Vous pouvez télécharger plus d'images une fois que vous avez ajouté votre site."
+            "imageUploaderRequireEditMessage": "Vous pouvez télécharger plus d'images une fois que vous avez ajouté votre établissement."
         },
         "forms": {
             "edit": "Modifier",
@@ -3398,7 +3398,7 @@
             },
             "table": {
                 "actions": "Actions",
-                "establishment": "Site",
+                "establishment": "Établissement",
                 "name": "Nom",
                 "noAddress": "Aucune adresse n'est associée à ce groupe de facturation",
                 "address": "Adresse"
@@ -10801,12 +10801,12 @@
                 "paddingStart": {
                     "label": "Nombre de minutes avant le début du RDV",
                     "helperText": "Sur le calendrier, le professeur et/ou la salle seront marqués comme non disponibles {{minutes}} minutes avant le début du RDV",
-                    "helperText0": "La durée pendant laquelle le professeur ou le site sera indisponible avant le début du rendez-vous."
+                    "helperText0": "La durée pendant laquelle le professeur ou l'établissement sera indisponible avant le début du rendez-vous."
                 },
                 "paddingEnd": {
                     "label": "Nombre de minutes après la fin du RDV",
                     "helperText": "Sur le calendrier, le professeur et/ou la salle seront de nouveau marqués comme disponibles {{minutes}} minutes après la fin du RDV",
-                    "helperText0": "La durée jusqu'à ce que le professeur ou le site soit disponible après la fin du rendez-vous."
+                    "helperText0": "La durée jusqu'à ce que le professeur ou l'établissement soit disponible après la fin du rendez-vous."
                 },
                 "resourceGroup": {
                     "establishment": "Localisation",
@@ -10817,8 +10817,8 @@
                     "helperText": "Les membres pourront choisir leur professeur lors de leur réservation. Si decoché, vous devrez désigner choisir le professeur une fois le rendez-vous pris."
                 },
                 "establishment_consumer_attribution": {
-                    "label": "Les membres peuvent choisir le établissement",
-                    "helperText": "Les membres pourront décider du site qu'ils souhaitent réserver. Décochez pour remplir automatiquement les établissements."
+                    "label": "Les membres peuvent choisir l'établissement",
+                    "helperText": "Les membres pourront décider de l'établissement qu'ils souhaitent réserver. Décochez pour remplir automatiquement les établissements."
                 },
                 "delete": {
                     "title": "Suppression du rendez-vous",
@@ -10903,7 +10903,7 @@
                     "noTeacher": "Un professeur doit être désigné lorsque les réservations ClassPass sont autorisées."
                 },
                 "settingsTitle": "Conditions de réservation",
-                "establishmentSelectorTitle": "Choisissez le(s) site(s) pour ce rendez-vous :",
+                "establishmentSelectorTitle": "Choisissez un ou plusieurs établissement(s) pour ce rendez-vous :",
                 "coachSelectorTitle": "Choisissez le(s) professeur(s) pour ce rendez-vous.",
                 "editConfirmation": {
                     "confirm": "Confirmer",
@@ -18670,7 +18670,7 @@
         },
         "establishment": {
             "establishmentList": "Etablissements",
-            "establishmentFormPage": "Ajouter un site",
+            "establishmentFormPage": "Ajouter un établissement",
             "establishmentGroupPage": "Localisations"
         },
         "marketplace": {
@@ -21369,7 +21369,7 @@
                 "categories": "Catégories",
                 "pickCategory": "Choisir une catégorie",
                 "allCategories": "Enseigne toutes les catégories",
-                "establishments": "Sites",
+                "establishments": "Établissements",
                 "locations": "Localisations",
                 "pickEstablishment": "Laissez vide pour tout sélectionner",
                 "allEstablishments": "Tous les établissements",

@@ -2,7 +2,7 @@ import { useState } from "react";
 
 import { useDebounce } from "@bsport/use-debounce";
 
-export const useTeacherFilters = () => {
+export const useFilterTeachers = () => {
   /** @todo Add filter management here as well */
 
   const [searchInput, setSearchInput] = useState<string>("");

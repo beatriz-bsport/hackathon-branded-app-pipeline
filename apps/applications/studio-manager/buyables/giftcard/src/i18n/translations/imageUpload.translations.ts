@@ -1,35 +1,16 @@
 exports.default = {
   giftcardPreview: {
     placeholders: {
-      amount: "[Amount of the gift card]",
+      amount: "[Amount of the Gift Card]",
       buyer: "[Buyer's name]",
       message: "[Custom message]",
-      name: "[Gift card name]",
+      name: "[Gift Card name]",
       recipient: "[Recipient's name]",
     },
     hints: {
       amount: "Value",
       buyer: "From",
       recipient: "For the attention of",
-    },
-  },
-  selectImage: "Select an image to preview gift card design",
-  emptyList: "No custom images yet",
-  modal: {
-    title: "Gift card image bank",
-    description:
-      "Add custom images to allow your members to make their " +
-      "gift cards more personal. During the creation of the gift card, members will " +
-      "be able to choose a background image.",
-  },
-  toasts: {
-    actions: {
-      undo: "Undo",
-      close: "Close",
-    },
-    archiveMessage: {
-      success: "Your image was deleted",
-      error: "Failed to delete your image",
     },
   },
 };

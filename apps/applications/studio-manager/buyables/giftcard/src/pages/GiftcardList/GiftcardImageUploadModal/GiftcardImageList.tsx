@@ -19,6 +19,7 @@ type GiftcardImageListProps = {
   isEmpty: boolean;
   paginationParams: PaginationProps;
   refreshGiftcardImageList: () => void;
+  isLoading?: boolean;
 };
 
 export const GiftcardImageList: React.FC<GiftcardImageListProps> = ({
@@ -27,9 +28,10 @@ export const GiftcardImageList: React.FC<GiftcardImageListProps> = ({
   paginationParams,
   itemList,
   isEmpty,
+  isLoading = false,
   refreshGiftcardImageList,
 }) => {
-  const { t } = useTranslation("imageUpload");
+  const { t } = useTranslation("common");
 
   const items: ListItemProps[] = itemList.map((item) => ({
     id: `list-item-${item.id}`,
@@ -47,7 +49,10 @@ export const GiftcardImageList: React.FC<GiftcardImageListProps> = ({
         intent: "flat",
         color: "default",
         iconLeft: "trash-01",
-        onClick: () => onArchiveClick(item.id),
+        onClick: () => {
+          onArchiveClick(item.id);
+        },
+        disabled: isLoading,
       },
     ],
     onClick: () => onItemClick(item.image),
@@ -75,7 +80,7 @@ export const GiftcardImageList: React.FC<GiftcardImageListProps> = ({
           emptyStateProps={{
             isEmpty: isEmpty,
             emptyConfig: {
-              title: t("emptyList"),
+              title: t("imageUploadModal.emptyList"),
             },
           }}
         />

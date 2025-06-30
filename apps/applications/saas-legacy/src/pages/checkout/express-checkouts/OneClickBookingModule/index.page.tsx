@@ -1,6 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import isEqual from 'lodash/isEqual';
-import { replace as replaceRouter } from 'connected-react-router';
 import { connect, ConnectedProps } from 'react-redux';
 import { compose } from 'recompose';
 import { useTranslation } from 'react-i18next';
@@ -52,8 +51,6 @@ import {
   ButtonVariant,
 } from '#src/components/css-only/Fabrique/ButtonV2/constants';
 import { useFormikContext } from 'formik';
-import WidgetUtils from '#src/libs/widget/WidgetUtils';
-import { urlToMarketplace } from '#src/libs/marketplace/utils';
 import { OneClickCheckoutSkeleton } from '#src/pages/checkout/express-checkouts/components/OneClickCheckoutSkeleton';
 import useDebouncedCallback from '#src/hooks/useDebouncedCallBack';
 import { useLightSignUp } from '#src/pages/checkout/express-checkouts/hooks/useLightSignUp';
@@ -65,20 +62,22 @@ import { getAuthToken } from '#src/http';
 import ALL_ERROR_CODES from '@bsport/common/lib/master-data/error-codes/buyable-item-can-not-be-bought';
 import { PaymentButtons } from '#src/pages/checkout/express-checkouts/components/PaymentButtons';
 import { SUBMIT_BUTTONS } from '#src/libs/checkout/types';
-import { PHONE_NUMBER_IN_USE } from '#src/pages/checkout/express-checkouts/constants';
+import {
+  CheckPaymentIntent,
+  DEBOUNCE_CALLBACK_DELAY,
+  PHONE_NUMBER_IN_USE,
+} from '#src/pages/checkout/express-checkouts/constants';
 import {
   COACH_EDIT_EMAIL_ADDRESS_IS_STAFF_USER,
   COACH_EMAIL_ADDRESS_EXISTS,
 } from '@bsport/common/lib/master-data/error-codes/associated-coach';
 import { AxiosError } from 'axios';
-import './index.css';
-import { USER_REGISTRATION_RESPONSE_LOCAL_STORAGE_KEY } from '#src/libs/payment/constants';
 import { BASKET_INCONSISTENT } from '#src/libs/checkout/constants';
+import { useCheckPaymentStatusFail } from '#src/pages/checkout/express-checkouts/hooks/useCheckPaymentStatusFail';
+import { useNavigation } from '#src/pages/checkout/express-checkouts/hooks/useNavigation';
+import { getUserRegistrationResponse } from '#src/pages/checkout/express-checkouts/utils/userRegistration';
 
-enum CheckPaymentIntent {
-  TRUE = 'true',
-  FALSE = 'false',
-}
+import './index.css';
 
 enum RedirectStatus {
   SUCCEEDED = 'succeeded',
@@ -135,7 +134,6 @@ const OneClickBookingModule: React.FC<Props> = ({
   authenticated,
   theme,
   retrieveCompanyCssConfiguration,
-  replace,
   snackbarError,
   queryParams,
   setQueryParams,
@@ -144,7 +142,6 @@ const OneClickBookingModule: React.FC<Props> = ({
 
   const paymentRef = useRef(null);
 
-  const DEBOUNCE_CALLBACK_DELAY = 1000;
   const {
     values: lightSignupValues,
     submitForm: submitLightSignupForm,
@@ -158,6 +155,10 @@ const OneClickBookingModule: React.FC<Props> = ({
     const formErrors = await validateLightSignupForm();
     return !(Object.values(formErrors).length === 0);
   }, [validateLightSignupForm]);
+
+  const onCheckPaymentStatusFail = useCheckPaymentStatusFail(setQueryParams);
+
+  const { goBackToCalendar } = useNavigation(companyId);
 
   const memberId =
     getItemInStorage('local', STORAGE_KEY_LIGHT_SIGNUP_MEMBER_ID) ?? '';
@@ -396,23 +397,15 @@ const OneClickBookingModule: React.FC<Props> = ({
     const basketId = queryParams?.basket_redirection
       ? queryParams.basket_redirection
       : basket?.id;
-    const getUserRegistrationResponse = () => {
-      if (!queryParams?.get_user_registration_from_storage) {
-        return userRegistrationResponse;
-      }
-      const rawUserRegistrationResponse = getItemInStorage(
-        'local',
-        USER_REGISTRATION_RESPONSE_LOCAL_STORAGE_KEY,
-      );
-      return rawUserRegistrationResponse
-        ? JSON.parse(rawUserRegistrationResponse)
-        : null;
-    };
 
     redirectOnBookingSuccess({
       offer,
       basketId,
-      userRegistrationResponse: getUserRegistrationResponse(),
+      userRegistrationResponse: getUserRegistrationResponse({
+        getUserRegistrationFromStorage:
+          queryParams?.get_user_registration_from_storage,
+        userRegistrationResponse,
+      }),
     });
   }, [
     basket?.id,
@@ -504,13 +497,6 @@ const OneClickBookingModule: React.FC<Props> = ({
     offerId,
   ]);
 
-  const onCheckPaymentStatusFail = useCallback(() => {
-    setQueryParams('check_payment_intent')(CheckPaymentIntent.FALSE);
-    snackbarError(
-      t('checkout:validation.sections.confirmationStatusTitle.errors.generic'),
-    );
-  }, [snackbarError, t, setQueryParams]);
-
   const offerDate = useConsumerBookingDateTime({
     dateStart: offer?.date_start,
     durationMinute: offer?.duration_minute,
@@ -526,13 +512,6 @@ const OneClickBookingModule: React.FC<Props> = ({
     offerBookerUrl,
     window.location.search,
   );
-
-  const goBackToCalendar = () => {
-    if (WidgetUtils.isWidget()) {
-      WidgetUtils.handleGoBackNavigation();
-    }
-    replace(urlToMarketplace(theme?.company_name, companyId.toString()));
-  };
 
   const selectPaymentPack = useCallback(
     (paymentPackId: number) => async () => {
@@ -779,7 +758,6 @@ const connector = connect(
   {
     snackbarError: snackbarErrorAction,
     retrieveCompanyCssConfiguration: retrieveCompanyCssConfigurationAction,
-    replace: replaceRouter,
   },
 );
 

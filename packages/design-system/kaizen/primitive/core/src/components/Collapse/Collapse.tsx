@@ -142,37 +142,39 @@ const Content: React.FC<{
     const container = childrenContainerRef.current;
     if (!container) return;
 
-    const resizeObserver = new ResizeObserver((entries) => {
-      entries.forEach(() => {
-        // Get the total height of all children
-        const childrenHeight = Array.from(container.children).reduce(
-          (total, child) => total + child.scrollHeight,
-          0,
-        );
+    if (isCollapseOpen) {
+      const resizeObserver = new ResizeObserver((entries) => {
+        entries.forEach(() => {
+          // Get the total height of all children
+          const childrenHeight = Array.from(container.children).reduce(
+            (total, child) => total + child.scrollHeight,
+            0,
+          );
 
-        // Set maxHeight based on children or viewport constraints
-        const viewportHeight = window.innerHeight;
-        const calculatedMaxHeight = Math.min(
-          childrenHeight,
-          viewportHeight * 0.8,
-        );
+          // Set maxHeight based on children or viewport constraints
+          const viewportHeight = window.innerHeight;
+          const calculatedMaxHeight = Math.min(
+            childrenHeight,
+            viewportHeight * 0.8,
+          );
 
-        setMaxHeight(calculatedMaxHeight);
+          setMaxHeight(calculatedMaxHeight);
+        });
       });
-    });
 
-    // Observe the container
-    resizeObserver.observe(container);
+      // Observe the container
+      resizeObserver.observe(container);
 
-    // Also observe each child for content changes
-    Array.from(container.children).forEach((child) => {
-      resizeObserver.observe(child);
-    });
+      // Also observe each child for content changes
+      Array.from(container.children).forEach((child) => {
+        resizeObserver.observe(child);
+      });
 
-    return () => {
-      resizeObserver.disconnect();
-    };
-  }, []);
+      return () => {
+        resizeObserver.disconnect();
+      };
+    }
+  }, [isCollapseOpen]);
 
   return (
     <div

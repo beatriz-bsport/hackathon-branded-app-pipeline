@@ -22,7 +22,7 @@ const PaymentMethodSelectorField = (props: Props) => {
         { id: CB.id, optionLabel: props.t('paymentMethod.onlinePayments') },
         {
           id: CREDIT_ACCOUNT.id,
-          optionLabel: props.t(`paymentMethod.${CREDIT_ACCOUNT.id}`),
+          optionLabel: props.t(`forms.paymentMethod.${CREDIT_ACCOUNT.id}`),
         },
       ]}
     />

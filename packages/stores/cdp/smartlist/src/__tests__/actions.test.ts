@@ -7,6 +7,11 @@ import {
   editSmartlistAction,
   fetchSmartlistsAction,
 } from "#src/actions";
+import {
+  SMARTLIST_DELETION_BLOCKED_BY_CADENCES,
+  SMARTLIST_DELETION_BLOCKED_BY_COMMUNICATION_GROUPS,
+  SMARTLIST_DELETION_FAILED,
+} from "#src/constants";
 import { selectCount, selectSmartlists } from "#src/selectors";
 import { smartlistStore } from "#src/store";
 import type { Smartlist, SmartlistSearchResult } from "#src/types";
@@ -335,7 +340,76 @@ describe("deleteSmartlistAction", () => {
         expect.fail("Expected an error but got success");
       },
       (error) => {
-        expect(error.message).toBe("Failed to delete smartlist");
+        expect(error.message).toContain(
+          "Error calling backend (path: api/v1/smartlist/group/123/) because: [UNKNOWN]",
+        );
+        expect(error.message).toContain("Smartlist not found");
+      },
+    );
+  });
+
+  it("should handle general deletion failure error code (101000)", async () => {
+    const params = {
+      id: 101,
+    };
+    const realFetch = createTestFetch<boolean>();
+
+    const result = await deleteSmartlistAction(realFetch, params);
+
+    return result.fold(
+      () => {
+        expect.fail("Expected an error but got success");
+      },
+      (error) => {
+        expect(error.customErrorCodes).toContain(SMARTLIST_DELETION_FAILED);
+        expect(error.statusCode).toBe(400);
+        expect(error.message).toContain("General deletion failed");
+      },
+    );
+  });
+
+  it("should handle deletion blocked by communication groups error code (101001)", async () => {
+    const params = {
+      id: 102,
+    };
+    const realFetch = createTestFetch<boolean>();
+
+    const result = await deleteSmartlistAction(realFetch, params);
+
+    return result.fold(
+      () => {
+        expect.fail("Expected an error but got success");
+      },
+      (error) => {
+        expect(error.customErrorCodes).toContain(
+          SMARTLIST_DELETION_BLOCKED_BY_COMMUNICATION_GROUPS,
+        );
+        expect(error.statusCode).toBe(400);
+        expect(error.message).toContain(
+          "Deletion blocked by communication groups",
+        );
+      },
+    );
+  });
+
+  it("should handle deletion blocked by cadences error code (101002)", async () => {
+    const params = {
+      id: 103,
+    };
+    const realFetch = createTestFetch<boolean>();
+
+    const result = await deleteSmartlistAction(realFetch, params);
+
+    return result.fold(
+      () => {
+        expect.fail("Expected an error but got success");
+      },
+      (error) => {
+        expect(error.customErrorCodes).toContain(
+          SMARTLIST_DELETION_BLOCKED_BY_CADENCES,
+        );
+        expect(error.statusCode).toBe(400);
+        expect(error.message).toContain("Deletion blocked by cadences");
       },
     );
   });

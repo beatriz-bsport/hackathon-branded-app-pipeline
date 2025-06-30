@@ -56,6 +56,13 @@ exports.default = {
         "Something went wrong while creating the smartlist. Please try again.",
       deleteFailed:
         "Something went wrong while deleting the smartlist. Please try again.",
+      deleteError: {
+        101000: "Smartlist deletion failed. Please try again.",
+        101001:
+          "This smartlist cannot be deleted because it's being used in active communication groups.",
+        101002:
+          "This smartlist cannot be deleted because it's being used in active cadences.",
+      },
     },
   },
   inlineActions: {

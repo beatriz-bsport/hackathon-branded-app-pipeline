@@ -2,8 +2,12 @@ import { type DependencyList, useCallback, useState } from "react";
 import { Result } from "typescript-result";
 
 // Extracts the success value from Result
-type ResultType<T extends Promise<Result<unknown, Error>>> =
-  T extends Promise<Result<infer U, Error>> ? U : unknown;
+type ResultType<T extends Promise<Result<unknown, unknown>>> =
+  T extends Promise<Result<infer U, unknown>> ? U : unknown;
+
+// Extracts the error type from Result
+type ErrorType<T extends Promise<Result<unknown, unknown>>> =
+  T extends Promise<Result<unknown, infer E>> ? E : Error;
 
 /**
  * Hook to manage async functions with loading, error, and data state.
@@ -17,7 +21,7 @@ type ResultType<T extends Promise<Result<unknown, Error>>> =
  * - the built and memoized function using asyncFn and callbacks
  */
 export function useAsync<
-  AsyncFn extends (...args: never[]) => Promise<Result<unknown, Error>>,
+  AsyncFn extends (...args: never[]) => Promise<Result<unknown, unknown>>,
   SuccessReturn = void | undefined,
   FailureReturn = void | undefined,
 >({
@@ -38,13 +42,15 @@ export function useAsync<
     error,
     args,
   }: {
-    error: Error;
+    error: ErrorType<ReturnType<AsyncFn>>;
     args: Parameters<AsyncFn>;
   }) => FailureReturn;
   dependencies?: DependencyList;
 }) {
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<Error | undefined>();
+  const [error, setError] = useState<
+    ErrorType<ReturnType<AsyncFn>> | undefined
+  >();
   const [data, setData] = useState<
     ResultType<ReturnType<AsyncFn>> | undefined
   >();
@@ -57,18 +63,20 @@ export function useAsync<
 
       try {
         const result = await asyncFn(...args);
+
         return result.fold(
           (value) => {
             setData(value as ResultType<ReturnType<AsyncFn>>);
+
             return onSuccess?.({
               value: value as ResultType<ReturnType<AsyncFn>>,
               args,
             }) as SuccessReturn;
           },
           (err) => {
-            setError(err);
+            setError(err as ErrorType<ReturnType<AsyncFn>>);
             return onFailure?.({
-              error: err,
+              error: err as ErrorType<ReturnType<AsyncFn>>,
               args,
             }) as FailureReturn;
           },

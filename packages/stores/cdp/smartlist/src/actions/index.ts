@@ -1,6 +1,7 @@
 import { Result } from "typescript-result";
 
 import type { Action, Fetch } from "@bsport/store-base";
+import { type HTTPException, createErrorWithContext } from "@bsport/store-base";
 
 import {
   createSmartlistAPI,
@@ -11,6 +12,7 @@ import {
   fetchSearchSmartlistsAPI,
   fetchSmartlistsAPI,
 } from "#src/api";
+import type { SmartlistDeletionErrorCode } from "#src/constants";
 import { selectCount, selectSmartlists } from "#src/selectors";
 import { smartlistStore } from "#src/store";
 import type {
@@ -189,11 +191,12 @@ export const editSmartlistAction: Action<
  * @param fetch - Fetch function to use for the API call
  * @param params - Parameters for deleting the smartlist
  * @param params.id - ID of the smartlist to delete
- * @returns A Result containing a success boolean or an error
+ * @returns A Result containing a success boolean or an HTTPException with error codes
  */
 export const deleteSmartlistAction: Action<
   GeneralSmartlistParams,
-  boolean
+  boolean,
+  HTTPException<SmartlistDeletionErrorCode>
 > = async (fetch, params) => {
   const [uri, init] = deleteSmartlistAPI(params);
 
@@ -203,7 +206,12 @@ export const deleteSmartlistAction: Action<
 
       return true;
     },
-    (error) => new Error("Failed to delete smartlist", { cause: error }),
+    (error) => {
+      return createErrorWithContext<SmartlistDeletionErrorCode>(error, {
+        message: `Failed to delete smartlist with ID ${params.id}`,
+        params,
+      });
+    },
   );
 };
 

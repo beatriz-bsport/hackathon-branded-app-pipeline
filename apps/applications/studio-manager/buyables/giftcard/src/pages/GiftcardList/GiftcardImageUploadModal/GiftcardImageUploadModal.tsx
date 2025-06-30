@@ -14,7 +14,9 @@ import {
   selectGiftcardImagesCount,
   useGiftcardStore,
 } from "@bsport/store-buyables-giftcard";
+import { useAsync } from "@bsport/use-async";
 
+import { useToasts } from "#src/hooks/useToasts";
 import { fetch } from "#src/utils/fetch";
 import { useTranslation } from "#src/utils/i18n";
 
@@ -33,7 +35,7 @@ export const GiftcardImageUploadModal: React.FC<UploadModalProps> = ({
   isOpen,
   onCloseModal,
 }) => {
-  const { t } = useTranslation("imageUpload");
+  const { t } = useTranslation("common");
 
   // Manage the image to render on the Giftcard preview
   const [selectedImage, setSelectedImage] = useState<string | undefined>(
@@ -50,7 +52,7 @@ export const GiftcardImageUploadModal: React.FC<UploadModalProps> = ({
   const totalItems = useGiftcardStore(selectGiftcardImagesCount);
   const giftcardImages = useGiftcardStore(selectGiftcardImages);
 
-  // ----- Handlers -----
+  // ----- Data fetchers -----
 
   const fetchGiftcardImages = useCallback(
     async ({ page }: { page: number }) => {
@@ -78,38 +80,38 @@ export const GiftcardImageUploadModal: React.FC<UploadModalProps> = ({
     fetchGiftcardImages({ page: currentPage });
   }, [currentPage, fetchGiftcardImages]);
 
-  const handleArchive = async (id: number) => {
-    const response = await archiveGiftcardImageAction(fetch, { id });
+  // ----- Handlers -----
 
-    const onSuccess = () => {
-      // Refresh the list
+  const { handleActionFailed, handleActionUndone } = useToasts();
+
+  const [{ isLoading: isLoadingUndo }, handleUndo] = useAsync({
+    asyncFn: async (id: number) => restoreGiftcardImageAction(fetch, { id }),
+    onSuccess: () => {
       fetchGiftcardImagesPage();
+      handleActionUndone();
+    },
+    onFailure: () => {
+      handleActionFailed(t("toasts.errorMessages.undoAction"));
+    },
+    dependencies: [handleActionFailed, handleActionUndone],
+  });
 
-      // Display a toast to "undo" the action
+  const [{ isLoading: isLoadingDelete }, handleDelete] = useAsync({
+    asyncFn: async (id: number) => archiveGiftcardImageAction(fetch, { id }),
+    onSuccess: ({ args: [id] }) => {
+      fetchGiftcardImagesPage();
       toast({
-        status: "critical",
+        status: "default",
         icon: "trash-01",
-        title: t("toasts.archiveMessage.success"),
+        title: t("toasts.successMessages.deleteGiftcardImage"),
         buttonLabel: t("toasts.actions.undo"),
-        onButtonClick: async () => {
-          await restoreGiftcardImageAction(fetch, { id });
-          await fetchGiftcardImagesPage();
-        },
+        onButtonClick: () => handleUndo(id),
       });
-    };
-
-    const onFailure = () => {
-      // Display a toast to inform about the failure
-      toast({
-        status: "critical",
-        icon: "x",
-        title: t("toasts.archiveMessage.error"),
-        buttonLabel: t("toasts.actions.close"),
-      });
-    };
-
-    response.fold(onSuccess, onFailure);
-  };
+    },
+    onFailure: () =>
+      handleActionFailed(t("toasts.errorMessages.deleteGiftcardImage")),
+    dependencies: [handleUndo, handleActionFailed],
+  });
 
   // ----- Load data -----
 
@@ -131,8 +133,8 @@ export const GiftcardImageUploadModal: React.FC<UploadModalProps> = ({
       onClickOutside={onCloseModal}
       open={isOpen}
       size="lg"
-      description={t("modal.description")}
-      title={t("modal.title")}
+      description={t("imageUploadModal.description")}
+      title={t("imageUploadModal.title")}
     >
       <div className="flex flex-row items-stretch gap-md p-md justify-between">
         <GiftcardDisplay
@@ -142,11 +144,12 @@ export const GiftcardImageUploadModal: React.FC<UploadModalProps> = ({
         />
         <GiftcardImageList
           itemList={giftcardImages}
-          onArchiveClick={handleArchive}
+          onArchiveClick={handleDelete}
           onItemClick={setSelectedImage}
           isEmpty={!totalItems}
           paginationParams={paginationParams}
           refreshGiftcardImageList={refreshGiftcardImages}
+          isLoading={isLoadingDelete ?? isLoadingUndo}
         />
       </div>
     </Modal>

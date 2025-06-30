@@ -1,9 +1,9 @@
 export type TableRowData = {
   id: number;
-  iconSrc: string;
+  iconSrc?: string;
   isShared: boolean;
   isUnavailable: boolean;
   name: string;
-  price: string;
+  price: number;
   validity: string;
 };

@@ -1,4 +1,6 @@
 import {
+  Avatar,
+  Body,
   Button,
   Chip,
   type GenericTableColumn,
@@ -39,19 +41,25 @@ export const useTableColumns = ({
 
   const columnAvatar: TableColumn = {
     header: t("giftcardTable.headers.name"),
-    id: "column-id",
-    keyPath: "iconSrc",
-    type: "avatar",
-    size: "lg",
-    align: "center",
-  };
-
-  const columnName: TableColumn = {
-    header: "",
     id: "column-name",
-    keyPath: "name",
-    type: "string",
+    type: "custom",
     align: "start",
+    render: (row) => {
+      return (
+        <div className="flex flex-row gap-sm items-center">
+          <Avatar
+            shape="squared"
+            src={row.iconSrc}
+            alt={row.name}
+            iconName="image-03" // Fallback value in case src is not defined
+            size="md"
+          />
+          <Body htmlVariant="p" size="md">
+            {row.name}
+          </Body>
+        </div>
+      );
+    },
   };
 
   const columnStatus: TableColumn = {
@@ -85,7 +93,7 @@ export const useTableColumns = ({
     header: t("giftcardTable.headers.price"),
     id: "column-price",
     keyPath: "price",
-    type: "string",
+    type: "price",
     align: "center",
   };
 
@@ -117,12 +125,14 @@ export const useTableColumns = ({
               color="default"
               intent="flat"
               size="md"
-              onClick={() =>
+              onClick={(event) => {
+                event.stopPropagation();
+                event.preventDefault();
                 handleRestore({
                   giftcardId: row.id,
                   giftcardName: row.name,
-                })
-              }
+                });
+              }}
               iconLeft="unarchive"
             />
           </Tooltip>
@@ -140,12 +150,14 @@ export const useTableColumns = ({
                 color="default"
                 intent="flat"
                 size="md"
-                onClick={() =>
+                onClick={(event) => {
+                  event.stopPropagation();
+                  event.preventDefault();
                   handleDuplicate({
                     giftcardId: row.id,
                     giftcardName: row.name,
-                  })
-                }
+                  });
+                }}
                 iconLeft="copy-03"
               />
             </Tooltip>
@@ -159,12 +171,14 @@ export const useTableColumns = ({
                 color="default"
                 intent="flat"
                 size="md"
-                onClick={() =>
+                onClick={(event) => {
+                  event.stopPropagation();
+                  event.preventDefault();
                   handleArchive({
                     giftcardId: row.id,
                     giftcardName: row.name,
-                  })
-                }
+                  });
+                }}
                 iconLeft="archive"
               />
             </Tooltip>
@@ -177,7 +191,6 @@ export const useTableColumns = ({
 
   return [
     columnAvatar,
-    columnName,
     columnStatus,
     columnPrice,
     columnValidity,

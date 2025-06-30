@@ -7,6 +7,7 @@
   flex-direction: row;
   max-width: 700px;
   width: 100%;
+  scale: 0.9;
 }
 
 .giftcard-preview__image {
@@ -37,27 +38,27 @@
 .giftcard-preview__hint {
   color: rgb(153, 153, 153, 1);
   font-weight: 300;
-  font-size: 0.875rem;
+  font-size: 0.75rem;
 }
 
 .giftcard-preview__data {
   color: black;
   font-weight: 400;
-  font-size: 1.25rem;
+  font-size: 1rem;
   margin-bottom: 0.75rem;
 }
 
 .giftcard-preview__data-weaker {
   color: black;
   font-weight: 400;
-  font-size: 1rem;
+  font-size: 0.875rem;
   margin-bottom: 1.25rem;
 }
 
 .giftcard-preview__data-stronger {
   color: rgba(39, 132, 47, 1);
   font-weight: 500;
-  font-size: 1.25rem;
+  font-size: 1rem;
 }
 
 .giftcard-preview__footer {

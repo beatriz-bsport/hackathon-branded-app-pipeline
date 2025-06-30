@@ -1,15 +1,14 @@
+import { Decimal } from "decimal.js";
 import React from "react";
 
 import { Table, type TableProps } from "@bsport/kaizen-primitive-core";
 import type { Giftcard } from "@bsport/store-buyables-giftcard";
 
+import { LEGACY_ROUTES } from "#src/urls";
 import { useTranslation } from "#src/utils/i18n";
 
+import { type GetTableColumnsParams, useTableColumns } from "./columns";
 import type { TableRowData } from "./constants";
-import {
-  type GetTableColumnsParams,
-  useTableColumns,
-} from "./giftcard-columns";
 
 type GiftcardTableProps = Omit<GetTableColumnsParams, "t"> & {
   giftcardList: Array<Giftcard>;
@@ -44,14 +43,15 @@ export const GiftcardTable: React.FC<GiftcardTableProps> = ({
     id: giftcard.id,
     iconSrc: giftcard.cover,
     isShared: giftcard.is_shared_giftcard,
-    isUnavailable: giftcard.manager_only, // TODO : What field corresponds to unavailable ?
+    isUnavailable: giftcard.manager_only,
     name: giftcard.name,
-    price: `$${giftcard.price}`, // TODO : use util to get right currency display
+    price: new Decimal(giftcard.price).toNumber(),
     validity: giftcard.expiration_days
       ? t("giftcardTable.values.expireInXDays", {
           expiration: giftcard.expiration_days,
         })
       : "Unlimited",
+    link: LEGACY_ROUTES.DETAILS(giftcard.id),
   }));
 
   // Configure empty state based on the mode
@@ -73,7 +73,7 @@ export const GiftcardTable: React.FC<GiftcardTableProps> = ({
   return (
     <Table
       columns={tableColumns}
-      rowHeight="sm"
+      rowHeight="lg"
       rows={tableRows}
       paginationProps={paginationProps}
       emptyStateProps={{

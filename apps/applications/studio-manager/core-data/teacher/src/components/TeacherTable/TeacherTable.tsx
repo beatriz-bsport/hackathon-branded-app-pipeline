@@ -3,13 +3,15 @@ import React from "react";
 import { type PaginationProps, Table } from "@bsport/kaizen-primitive-core";
 import type { Teacher } from "@bsport/store-core-data-teacher";
 
+import { LEGACY_URLS } from "#src/urls";
 import { useTranslation } from "#src/utils/i18n";
 
-import {
-  type TableColumnsParams,
-  type TableRowData,
-  useTeacherTableColumns,
-} from "./columns";
+import { useTeacherTableColumns } from "./columns";
+import type {
+  TableColumnsParams,
+  TableRequiredPermissions,
+  TableRowData,
+} from "./types";
 
 type TeacherTableProps = {
   isEmpty?: boolean;
@@ -18,6 +20,7 @@ type TeacherTableProps = {
   onAddTeacherClick?: () => void;
   paginationProps: PaginationProps;
   teachers: Array<Teacher>;
+  permissions: TableRequiredPermissions;
 } & TableColumnsParams;
 
 export const TeacherTable: React.FC<TeacherTableProps> = ({
@@ -29,6 +32,7 @@ export const TeacherTable: React.FC<TeacherTableProps> = ({
   mode,
   onAddTeacherClick,
   paginationProps,
+  permissions,
   teachers,
 }) => {
   const { t } = useTranslation("common");
@@ -37,6 +41,7 @@ export const TeacherTable: React.FC<TeacherTableProps> = ({
     handleArchive,
     handleRestore,
     mode,
+    permissions,
   });
 
   const tableRows: Array<TableRowData> = teachers.map((value) => {
@@ -48,6 +53,7 @@ export const TeacherTable: React.FC<TeacherTableProps> = ({
       iconSrc: value.photo ?? "",
       id: value.id,
       phone: value.phone ?? "",
+      link: permissions.edit ? LEGACY_URLS.DETAILS(value.id) : undefined,
     };
   });
 
@@ -60,11 +66,13 @@ export const TeacherTable: React.FC<TeacherTableProps> = ({
       : {
           title: t("table.empty.activeList.title"),
           subtitle: t("table.empty.activeList.subtitle"),
-          ctaButtonConfig: {
-            label: t("activeList.actions.addTeacher"),
-            iconLeft: "plus" as const,
-            onClick: onAddTeacherClick,
-          },
+          ctaButtonConfig: permissions.create
+            ? {
+                label: t("activeList.actions.addTeacher"),
+                iconLeft: "plus" as const,
+                onClick: onAddTeacherClick,
+              }
+            : undefined,
         };
 
   return (

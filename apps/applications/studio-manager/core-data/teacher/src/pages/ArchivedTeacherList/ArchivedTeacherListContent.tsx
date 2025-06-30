@@ -6,14 +6,19 @@ import {
   restoreTeacherAction,
 } from "@bsport/store-core-data-teacher";
 
-import { TeacherTable } from "#src/components/TeacherTable";
+import {
+  type TableRequiredPermissions,
+  TeacherTable,
+} from "#src/components/TeacherTable";
 import { useFetchTeachers } from "#src/hooks/useFetchTeachers";
+import { useGenericToasts } from "#src/hooks/useGenericToasts";
 import { fetch } from "#src/utils/fetch";
 import { useTranslation } from "#src/utils/i18n";
 
-export const ArchivedTeacherListContent: React.FC<{ searchInput: string }> = ({
-  searchInput,
-}) => {
+export const ArchivedTeacherListContent: React.FC<{
+  searchInput: string;
+  permissions: TableRequiredPermissions;
+}> = ({ searchInput, permissions }) => {
   const {
     paginationParams,
     teachers,
@@ -28,6 +33,8 @@ export const ArchivedTeacherListContent: React.FC<{ searchInput: string }> = ({
 
   // ----- Handlers -----
 
+  const { handleActionFailed, handleActionUndone } = useGenericToasts();
+
   const handleArchive = async ({ teacherId }: { teacherId: number }) => {
     const response = await archiveTeacherAction(fetch, {
       id: teacherId,
@@ -36,24 +43,13 @@ export const ArchivedTeacherListContent: React.FC<{ searchInput: string }> = ({
     const onSuccess = () => {
       // Refresh the list
       fetchTeacherPage();
-
       // Display a toast to inform about the success
-      toast({
-        status: "default",
-        icon: "reverse-left",
-        title: t("toasts.messageUndone.success"),
-        buttonIcon: "x-close",
-      });
+      handleActionUndone();
     };
 
     const onFailure = () => {
       // Display a toast to inform about the failure
-      toast({
-        status: "critical",
-        icon: "reverse-left",
-        title: t("toasts.messageUndone.error"),
-        buttonIcon: "x-close",
-      });
+      handleActionFailed(t("toasts.messageUndone.error"));
     };
 
     response.fold(onSuccess, onFailure);
@@ -80,12 +76,7 @@ export const ArchivedTeacherListContent: React.FC<{ searchInput: string }> = ({
 
     const onFailure = () => {
       // Display a toast to inform about the failure
-      toast({
-        status: "critical",
-        icon: "unarchive",
-        title: t("toasts.messageRestored.error"),
-        buttonIcon: "x-close",
-      });
+      handleActionFailed(t("toasts.messageRestored.error"));
     };
 
     response.fold(onSuccess, onFailure);
@@ -109,6 +100,7 @@ export const ArchivedTeacherListContent: React.FC<{ searchInput: string }> = ({
       paginationProps={paginationParams}
       teachers={teachers}
       handleRestore={handleRestore}
+      permissions={permissions}
     />
   );
 };

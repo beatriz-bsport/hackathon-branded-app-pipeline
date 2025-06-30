@@ -36,9 +36,11 @@ import GenericResponsiveDialog from '../../components/genericDialog/GenericRespo
 
 import type { OptionCallback } from '../../state/types';
 import type { RootState } from '../../reducers';
+import withQueryParamsToProps from '#src/hocs/query-params-to-props.hoc';
 
 type OwnProps = {
   coachId: number;
+  email?: string;
 };
 
 type Props = OwnProps &
@@ -75,7 +77,7 @@ export class CoachFormPage extends React.Component<Props, State> {
     this.state = {
       isUserAlreadyRegisteredDialogOpen: false,
       isEmailChecking: true,
-      initialEmail: null,
+      initialEmail: props.email ?? null,
     };
   }
 
@@ -143,7 +145,9 @@ export class CoachFormPage extends React.Component<Props, State> {
       <div className={classes.container}>
         <GenericResponsiveDialog
           maxWidth="sm"
-          open={!initial && this.state.isEmailChecking}
+          open={
+            !initial && !this.state.initialEmail && this.state.isEmailChecking
+          }
         >
           <CoachEmailCheckDialog
             onCancel={this.props.onCancel}
@@ -219,5 +223,6 @@ export default compose<OwnProps, Props>(
   mapRouterParamsToProps({ id: 'coachId:number' }),
   connector,
   withStyles(styles),
+  withQueryParamsToProps(['email']),
   withTitle(({ t }) => t('titles:coach.coachFormPage')),
 )(CoachFormPage);

@@ -7,6 +7,7 @@ import {
 } from "@bsport/store-core-data-teacher";
 import { useAsync } from "@bsport/use-async";
 
+import { useGenericToasts } from "#src/hooks/useGenericToasts";
 import { fetch } from "#src/utils/fetch";
 import { Trans, useTranslation } from "#src/utils/i18n";
 
@@ -27,6 +28,8 @@ export const TeacherArchiveModal: React.FC<TeacherArchiveModalProps> = ({
 }) => {
   const { t } = useTranslation("common");
 
+  const { handleActionFailed, handleActionUndone } = useGenericToasts();
+
   const [, handleRestore] = useAsync({
     asyncFn: async () => {
       return restoreTeacherAction(fetch, {
@@ -36,23 +39,18 @@ export const TeacherArchiveModal: React.FC<TeacherArchiveModalProps> = ({
     onSuccess: () => {
       refreshPageList();
       // Display a toast to inform about the success
-      toast({
-        status: "default",
-        icon: "reverse-left",
-        title: t("toasts.messageUndone.success"),
-        buttonIcon: "x-close",
-      });
+      handleActionUndone();
     },
     onFailure: () => {
       // Display a toast to inform about the failure
-      toast({
-        status: "critical",
-        icon: "reverse-left",
-        title: t("toasts.messageUndone.error"),
-        buttonIcon: "x-close",
-      });
+      handleActionFailed(t("toasts.messageUndone.error"));
     },
-    dependencies: [refreshPageList, teacherId],
+    dependencies: [
+      refreshPageList,
+      teacherId,
+      handleActionFailed,
+      handleActionUndone,
+    ],
   });
 
   const [, handleArchive] = useAsync({
@@ -77,13 +75,7 @@ export const TeacherArchiveModal: React.FC<TeacherArchiveModalProps> = ({
     },
     onFailure: () => {
       // Display a toast to inform about the failure
-      toast({
-        status: "critical",
-        icon: "archive",
-        title: t("toasts.messageArchived.error"),
-        buttonIcon: "x-close",
-      });
-
+      handleActionFailed(t("toasts.messageArchived.error"));
       // Close the modal
       onClose();
     },

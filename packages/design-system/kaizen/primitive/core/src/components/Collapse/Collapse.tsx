@@ -151,14 +151,7 @@ const Content: React.FC<{
             0,
           );
 
-          // Set maxHeight based on children or viewport constraints
-          const viewportHeight = window.innerHeight;
-          const calculatedMaxHeight = Math.min(
-            childrenHeight,
-            viewportHeight * 0.8,
-          );
-
-          setMaxHeight(calculatedMaxHeight);
+          setMaxHeight(childrenHeight);
         });
       });
 

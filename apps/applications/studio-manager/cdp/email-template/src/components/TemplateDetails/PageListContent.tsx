@@ -140,8 +140,11 @@ export const PageListContent: React.FC<Props> = ({
   };
 
   const handleCancelTitleRename = () => {
-    setPageTitle(emailTemplateDetail?.title || "");
-    handleChange("title", emailTemplateDetail?.title || "");
+    setPageTitle(emailTemplateDetail?.title || t("details.defaultTitle"));
+    handleChange(
+      "title",
+      emailTemplateDetail?.title || t("details.defaultTitle"),
+    );
   };
 
   const handleDesignUpdated = async () => {
@@ -170,7 +173,7 @@ export const PageListContent: React.FC<Props> = ({
     if (emailBuilderRef) {
       initializeUnlayerBuilder({ emailBuilderRef, initialDesign });
       resetForm();
-      setPageTitle(emailTemplateDetail?.title || "");
+      setPageTitle(emailTemplateDetail?.title || t("details.defaultTitle"));
     }
   };
 

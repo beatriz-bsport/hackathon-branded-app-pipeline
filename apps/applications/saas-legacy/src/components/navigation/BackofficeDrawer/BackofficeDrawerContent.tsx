@@ -70,7 +70,7 @@ export interface BackofficeDrawerContentProps {
   setOpenWelcometutorialDialog: (open: boolean) => void;
   handleGoToTutorial: () => void;
   // eslint-disable-next-line react/no-unused-prop-types
-  revampedBackofficeEnabled: boolean; // Used in withNavigationSwitcher
+  showRevampedSidebar: boolean; // Used in withNavigationSwitcher
   // eslint-disable-next-line react/no-unused-prop-types
   updateRevampedBackofficeEnabled: (nextValue: boolean) => void; // Used in withNavigationSwitcher
   enableRevampedBackoffice: () => void;

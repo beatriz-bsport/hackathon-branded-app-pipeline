@@ -8,11 +8,13 @@ import { type Fetch, fetch } from "#src/utils/fetch";
 /**
  * Action to fetch data with a provided instance of fetch
  */
-export const fetchSharedDataAction = (fetch: Fetch) => {
-  fetchFeaturesAction(fetch);
-  fetchCompanyThemeAction(fetch);
-  fetchUserAccessAction(fetch);
-  fetchCompanyRolesAction(fetch);
+export const fetchSharedDataAction = async (fetch: Fetch) => {
+  await Promise.allSettled([
+    fetchFeaturesAction(fetch),
+    fetchCompanyThemeAction(fetch),
+    fetchUserAccessAction(fetch),
+    fetchCompanyRolesAction(fetch),
+  ]);
 };
 
 /**

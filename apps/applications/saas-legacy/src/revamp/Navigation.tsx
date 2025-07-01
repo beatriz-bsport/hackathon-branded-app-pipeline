@@ -1,7 +1,10 @@
-import React, { Suspense, useEffect, useCallback } from 'react';
+import React, { Suspense, useEffect, useCallback, memo } from 'react';
 import { createRemoteComponent } from '@module-federation/bridge-react';
 import { loadRemote, init } from '@module-federation/runtime';
 import { useHistory } from 'react-router-dom';
+import { clsx } from 'clsx';
+
+import './compat-drawer.css';
 
 const isDev = process.env.NODE_ENV === 'development';
 const entry = isDev
@@ -25,6 +28,16 @@ type NavigationSidebarProps = {
   disableRevampOnLegacyStore?: () => void;
 };
 
+const NavigationSidebarFallback = () => (
+  <div
+    className={clsx(
+      'navigation-sidebar-container',
+      'backoffice-drawer-shared-container',
+      'navigation-sidebar-fallback',
+    )}
+  />
+);
+
 const NavigationSidebar = createRemoteComponent<
   React.ComponentType<NavigationSidebarProps>
 >({
@@ -40,13 +53,12 @@ const NavigationSidebar = createRemoteComponent<
     }
   },
   fallback: (): null => null,
-  loading: (): null => null,
+  loading: <NavigationSidebarFallback />,
 });
 
 export const Navigation: React.FC<{
-  className?: string;
   updateRevampedBackofficeEnabled: (nextValue: boolean) => void;
-}> = ({ className, updateRevampedBackofficeEnabled }) => {
+}> = ({ updateRevampedBackofficeEnabled }) => {
   const navigate = useHistory().push;
 
   useEffect(() => {
@@ -61,7 +73,10 @@ export const Navigation: React.FC<{
   return (
     <Suspense fallback={null}>
       <NavigationSidebar
-        className={className}
+        className={clsx(
+          'navigation-sidebar-container',
+          'backoffice-drawer-shared-container',
+        )}
         disableRevampOnLegacyStore={disableRevampOnLegacyStore}
         navigate={navigate}
       />
@@ -69,4 +84,4 @@ export const Navigation: React.FC<{
   );
 };
 
-export default Navigation;
+export default memo(Navigation);

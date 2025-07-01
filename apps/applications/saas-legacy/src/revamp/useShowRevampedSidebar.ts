@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import Config from '#src/config';
 
 type Listener = (value: boolean) => void;
 
@@ -33,7 +34,7 @@ if (!window.__REVAMPED__isObserved) {
   window.__REVAMPED__isObserved = true;
 }
 
-export const useShowRevampedSidebar = () => {
+export const useShowRevampedSidebarWithTrick = () => {
   const [showRevamped, setShowRevamped] = useState(false);
 
   useEffect(() => {
@@ -53,4 +54,23 @@ export const useShowRevampedSidebar = () => {
   }, []);
 
   return showRevamped;
+};
+
+/**
+ * Return whether the revamped navigation sidebar should be displayed, base on DB data or cheat code.
+ * @param enabledForUser Whether the revamp is enabled at the user level. Can be extracted from props.revampedBackofficeEnabled
+ * @param enabledInTheme Whether the revamp is enabled at the company theme level. Can be extracted from props.theme.revamped_backoffice_enabled
+ */
+export const useShowRevampedSidebar = ({
+  enabledForUser,
+  enabledInTheme,
+}: {
+  enabledForUser: boolean;
+  enabledInTheme: boolean;
+}) => {
+  const showRevampedCheatCode =
+    useShowRevampedSidebarWithTrick() &&
+    !['production', 'staging'].includes(Config.REACT_APP_SENTRY_ENVIRONMENT);
+
+  return (enabledForUser && enabledInTheme) || showRevampedCheatCode;
 };

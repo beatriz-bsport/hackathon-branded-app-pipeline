@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useSearchParams } from "react-router";
 
 import {
@@ -6,10 +7,14 @@ import {
   updateSearchParams,
 } from "@bsport/base-query-params";
 
-import { DEFAULT_PAGE, DEFAULT_PAGE_SIZE } from "./constants";
-
-const PARAMS_PAGE = "page";
-const PARAMS_PAGE_SIZE = "page_size";
+import {
+  DEFAULT_ALLOWED_PAGE_SIZES,
+  DEFAULT_PAGE,
+  DEFAULT_PAGE_SIZE,
+  PARAMS_PAGE,
+  PARAMS_PAGE_SIZE,
+} from "./constants";
+import { getValidPage, getValidPageSize } from "./utils";
 
 type PaginationQueryParams = {
   page: number;
@@ -39,17 +44,50 @@ export const usePaginationQueryParams = ({
     new URLSearchParams(stringifiedValues),
   );
 
-  // Retrieve pagination data from the searchParams
-  const currentPage = getNumberSearchParam({
-    searchParams,
-    key: PARAMS_PAGE,
-    defaultValue: DEFAULT_PAGE,
-  });
-  const currentPageSize = getNumberSearchParam({
+  const rawPage = searchParams.get(PARAMS_PAGE);
+  const rawPageSizeStr = searchParams.get(PARAMS_PAGE_SIZE);
+
+  const currentPage = getValidPage(
+    getNumberSearchParam({
+      searchParams,
+      key: PARAMS_PAGE,
+      defaultValue: DEFAULT_PAGE,
+    }),
+  );
+  const rawPageSize = getNumberSearchParam({
     searchParams,
     key: PARAMS_PAGE_SIZE,
     defaultValue: DEFAULT_PAGE_SIZE,
   });
+  const currentPageSize = getValidPageSize(rawPageSize);
+
+  // If currentPage is invalid (less than 1 or not a number), update the URL to fallback value
+  useEffect(() => {
+    const rawPageNum = rawPage ? Number(rawPage) : NaN;
+    if (!rawPage || Number.isNaN(rawPageNum) || rawPageNum < 1) {
+      updateSearchParams({
+        setter: setSearchParams,
+        updater: (prev) => {
+          prev.set(PARAMS_PAGE, DEFAULT_PAGE.toString());
+        },
+        shouldReplace,
+      });
+    }
+  }, [rawPage, currentPage, setSearchParams, shouldReplace]);
+
+  // If page_size is not allowed, update the URL to fallback value
+  useEffect(() => {
+    const rawPageSizeNum = rawPageSizeStr ? Number(rawPageSizeStr) : NaN;
+    if (String(rawPageSizeNum) !== String(currentPageSize)) {
+      updateSearchParams({
+        setter: setSearchParams,
+        updater: (prev) => {
+          prev.set(PARAMS_PAGE_SIZE, currentPageSize.toString());
+        },
+        shouldReplace,
+      });
+    }
+  }, [rawPageSizeStr, currentPageSize, setSearchParams, shouldReplace]);
 
   // Define a generic setter to be used in handler
   const updatePaginationSearchParams = (
@@ -57,21 +95,25 @@ export const usePaginationQueryParams = ({
   ) => updateSearchParams({ setter: setSearchParams, updater, shouldReplace });
 
   const setPage = (nextPage: number) => {
+    const validPage = getValidPage(nextPage);
     updatePaginationSearchParams((prev) =>
-      prev.set(PARAMS_PAGE, nextPage.toString()),
+      prev.set(PARAMS_PAGE, validPage.toString()),
     );
   };
 
   const setPageSize = (nextRowsPerPage: number) => {
+    const validSize = getValidPageSize(nextRowsPerPage);
     updatePaginationSearchParams((prev) =>
-      prev.set(PARAMS_PAGE_SIZE, nextRowsPerPage.toString()),
+      prev.set(PARAMS_PAGE_SIZE, validSize.toString()),
     );
   };
 
   const setPageSettings = (nextPage: number, nextRowsPerPage: number) => {
+    const validPage = getValidPage(nextPage);
+    const validSize = getValidPageSize(nextRowsPerPage);
     updatePaginationSearchParams((prev) => {
-      prev.set(PARAMS_PAGE, nextPage.toString());
-      prev.set(PARAMS_PAGE_SIZE, nextRowsPerPage.toString());
+      prev.set(PARAMS_PAGE, validPage.toString());
+      prev.set(PARAMS_PAGE_SIZE, validSize.toString());
     });
   };
 
@@ -81,5 +123,6 @@ export const usePaginationQueryParams = ({
     setPage,
     setPageSettings,
     setPageSize,
+    allowedPageSizes: DEFAULT_ALLOWED_PAGE_SIZES,
   };
 };

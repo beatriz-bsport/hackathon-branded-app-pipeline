@@ -3,6 +3,8 @@ import { getAuth, buildUrlParams, postAuth, patchAuth } from '../../http';
 
 import { MarketplaceCSSConfiguration } from './types';
 import Config from '../../config';
+import SharedDataCache from '#src/services/SharedDataCache';
+import { CacheKeys } from '#src/services/constants';
 
 const API_V1_URI = Config.REACT_APP_BASE_URI_CORE_V1;
 
@@ -18,6 +20,16 @@ export const fetchCompanyCssWidgetConfiguration = (
   return getAuth(
     `${API_V1_URI}/company/custom_css/${buildUrlParams({ company })}`,
   );
+};
+
+export const fetchCompanyCssWidgetConfigurationWithCache = (
+  company: number,
+): Promise<AxiosResponse<MarketplaceCSSConfiguration[]>> => {
+  const sharedCache = SharedDataCache.getInstance();
+  return sharedCache.fetchWithCache({
+    cacheKey: sharedCache.getCacheKey(CacheKeys.CompanyCss, company),
+    fetchFn: () => fetchCompanyCssWidgetConfiguration(company),
+  });
 };
 
 export const saveCssWidgetConfiguration = (

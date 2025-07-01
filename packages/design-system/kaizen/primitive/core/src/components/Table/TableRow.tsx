@@ -43,7 +43,7 @@ const TableRow = withLink(
     withVerticalBorders = false,
   }: TableRowProps<RowType>): React.ReactElement => {
     const i18nInstance = useKaizenI18nInstance();
-    const intlLocale = useMemo(() => i18nInstance?.language, [i18nInstance]);
+    const intlLocale = i18nInstance?.language;
 
     const handleChange = useCallback(() => {
       handleCheckboxChange?.(rowId);

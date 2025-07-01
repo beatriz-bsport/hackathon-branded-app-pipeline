@@ -1,6 +1,8 @@
-import { Environment } from "@bsport/envs";
+import type { Environment } from "@bsport/envs";
+import type { CommunicationVariable } from "@bsport/store-cdp-notification-rule";
 
 import { CompanyTypeEnum } from "./constants";
+import { i18nInstance } from "./i18n";
 
 /**
  * Generates an Unlayer user object for the development environment.
@@ -136,4 +138,86 @@ export function createDownloadableUrlObject(
     }
     throw err;
   }
+}
+
+type MergeTag = {
+  name: string;
+  value: string;
+};
+
+type MergeTagCategory = {
+  name: string;
+  mergeTags: Record<string, MergeTag>;
+};
+
+type MergeTagsResult = Record<string, MergeTagCategory>;
+/**
+ * Transforms communication variables into a structured format for merge tags with i18n support
+ *
+ * @example
+ * const variables = { user: ['firstName', 'email'], system: ['timestamp'] };
+ * getMergeTags({ communicationVariables: variables });
+ * // Returns:
+ * // {
+ * //   user: {
+ * //     name: 'Translated User Tags',
+ * //     mergeTags: {
+ * //       firstName: { name: 'First Name', value: '{firstName}' },
+ * //       email: { name: 'Email', value: '{email}' }
+ * //     }
+ * //   },
+ * //   system: {
+ * //     name: 'Translated System Tags',
+ * //     mergeTags: {
+ * //       timestamp: { name: 'Timestamp', value: '{timestamp}' }
+ * //     }
+ * //   }
+ * // }
+ *
+ * @param {Object} params - Input parameters
+ * @param {CommunicationVariable} params.communicationVariables - Raw communication variables structure
+ * @returns {MergeTagsResult | null} Structured merge tags or null for empty input
+ *
+ * @typedef {Object.<string, string[]>} CommunicationVariable
+ * @typedef {Object.<string, { name: string, mergeTags: Object.<string, { name: string, value: string }> }>} MergeTagsResult
+ */
+export function getMergeTags({
+  communicationVariables,
+}: {
+  communicationVariables: CommunicationVariable;
+}): MergeTagsResult | null {
+  if (
+    !communicationVariables ||
+    Object.keys(communicationVariables).length === 0
+  ) {
+    return null;
+  }
+
+  const mergedTags: MergeTagsResult = Object.entries(
+    communicationVariables,
+  ).reduce(
+    (acc, [tagCategory, tagList]) => ({
+      ...acc,
+      [tagCategory]: {
+        name: i18nInstance.t(`tag.${tagCategory}.name`, {
+          ns: "sm-email-template_notificationRule",
+        }),
+        mergeTags: tagList.reduce(
+          (tagListAcc, tag) => ({
+            ...tagListAcc,
+            [tag]: {
+              name: i18nInstance.t(`tag.${tagCategory}.tags.${tag}`, {
+                ns: "sm-email-template_notificationRule",
+              }),
+              value: `{${tag}}`,
+            },
+          }),
+          {},
+        ),
+      },
+    }),
+    {},
+  );
+
+  return mergedTags;
 }

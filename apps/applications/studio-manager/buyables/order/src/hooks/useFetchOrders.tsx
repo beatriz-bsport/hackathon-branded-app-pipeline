@@ -49,7 +49,7 @@ export const useFetchOrders = ({ status }: { status?: OrderStatus }) => {
     fetchOrdersPage,
     isEmpty,
     isEmptySearch,
-    isLoading,
+    isLoading: isLoading && orders.length === 0,
     orders,
     paginationParams,
     totalItems,

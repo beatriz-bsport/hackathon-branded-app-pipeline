@@ -26,8 +26,8 @@ export function useOrderTemplate({
 }: UseOrderTemplateParams = {}) {
   const [{ isLoading }, triggerOrderTemplate] = useAsync<typeof orderTemplate>({
     asyncFn: orderTemplate,
-    onSuccess,
-    onFailure,
+    onSuccess: ({ value }) => onSuccess?.(value),
+    onFailure: ({ error }) => onFailure?.(error),
   });
 
   return {

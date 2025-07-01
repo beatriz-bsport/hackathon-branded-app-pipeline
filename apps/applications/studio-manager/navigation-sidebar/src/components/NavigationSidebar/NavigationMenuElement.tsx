@@ -3,11 +3,14 @@ import { NavLink } from "react-router";
 
 import { NavigationMenu } from "@bsport/kaizen-primitive-core";
 
-import type { NavigationSidebarSubItem } from "./navigation-items";
+import type {
+  NavigationSidebarItem,
+  NavigationSidebarSubItem,
+} from "./navigation-items";
 
 type NavigationMenuItemProps = PropsWithChildren<{
   kind: "item" | "subitem";
-  item: NavigationSidebarSubItem;
+  item: NavigationSidebarSubItem | NavigationSidebarItem;
   navigate?: (href: string) => void;
 }>;
 
@@ -30,6 +33,7 @@ export const NavigationMenuElement: React.FC<NavigationMenuItemProps> = ({
   children,
 }) => {
   const isBridged = !!navigate;
+
   const itemElement = ({
     isActive,
     onClick,
@@ -66,7 +70,7 @@ export const NavigationMenuElement: React.FC<NavigationMenuItemProps> = ({
 
   if (isBridged && item.revamped) {
     return (
-      <a key={item.id} href={`/studio/${item.href}`}>
+      <a key={item.id} href={`/studio${item.href}`}>
         {itemElement()}
       </a>
     );

@@ -18,4 +18,5 @@ export type Sortable = {
   chipsDirection?: "start" | "end";
   dropdownConfig?: ActionsDropdownConfig;
   buttons?: WithTooltip<ActionButton[]>;
+  onItemClick?: () => void;
 };

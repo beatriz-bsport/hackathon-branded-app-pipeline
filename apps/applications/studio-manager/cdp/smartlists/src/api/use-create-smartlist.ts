@@ -28,8 +28,8 @@ export function useCreateSmartlist({
     typeof createSmartlist
   >({
     asyncFn: createSmartlist,
-    onSuccess,
-    onFailure,
+    onSuccess: ({ value }) => onSuccess?.(value),
+    onFailure: ({ error }) => onFailure?.(error),
   });
 
   return {

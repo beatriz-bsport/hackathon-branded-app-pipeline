@@ -26,7 +26,7 @@ export function useDeleteCategory({
   >({
     asyncFn: deleteCategory,
     onSuccess,
-    onFailure,
+    onFailure: ({ error }) => onFailure?.(error),
   });
 
   return {

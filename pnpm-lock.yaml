@@ -976,6 +976,9 @@ importers:
       typescript-eslint:
         specifier: ^8.18.1
         version: 8.32.1(eslint@9.17.0(jiti@2.4.2))(typescript@5.6.3)
+      unlayer-types:
+        specifier: 1.278.0
+        version: 1.278.0
       url-loader:
         specifier: 0.6.2
         version: 0.6.2(file-loader@4.2.0(webpack@5.93.0))
@@ -1149,6 +1152,9 @@ importers:
       '@bsport/use-pagination-query-params':
         specifier: workspace:*
         version: link:../../../../../packages/utils/query-params/use-pagination
+      decimal.js:
+        specifier: ^10.5.0
+        version: 10.5.0
       react:
         specifier: ^19.0.0
         version: 19.0.0
@@ -1314,6 +1320,9 @@ importers:
       '@bsport/store-cdp-email-template':
         specifier: workspace:*
         version: link:../../../../../packages/stores/cdp/email-template
+      '@bsport/store-cdp-notification-rule':
+        specifier: workspace:*
+        version: link:../../../../../packages/stores/cdp/notification-rule
       '@bsport/use-async':
         specifier: workspace:*
         version: link:../../../../../packages/hooks/use-async
@@ -1338,6 +1347,52 @@ importers:
       react-email-editor:
         specifier: 1.7.11
         version: 1.7.11(react@19.0.0)
+      react-router:
+        specifier: ^7.2.0
+        version: 7.2.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+    devDependencies:
+      '@bsport/config-eslint-react':
+        specifier: workspace:*
+        version: link:../../../../../tools/config/eslint-react
+      '@bsport/config-federation':
+        specifier: workspace:*
+        version: link:../../../../../tools/config/federation
+      autoprefixer:
+        specifier: ^10.4.20
+        version: 10.4.20(postcss@8.4.49)
+      postcss:
+        specifier: ^8.4.49
+        version: 8.4.49
+      tailwindcss:
+        specifier: ^3.4.14
+        version: 3.4.14(ts-node@10.9.2(@swc/core@1.11.13(@swc/helpers@0.5.15))(@types/node@22.13.15)(typescript@5.8.2))
+      unlayer-types:
+        specifier: 1.278.0
+        version: 1.278.0
+      vite:
+        specifier: ^5.4.11
+        version: 5.4.11(@types/node@22.13.15)(less@4.1.3)(sass@1.77.8)(stylus@0.64.0)(terser@5.31.3)
+
+  apps/applications/studio-manager/cdp/referral-program:
+    dependencies:
+      '@bsport/fetch':
+        specifier: workspace:*
+        version: link:../../../../../packages/utils/fetch
+      '@bsport/i18n':
+        specifier: workspace:*
+        version: link:../../../../../packages/utils/i18n
+      '@bsport/kaizen-primitive-core':
+        specifier: workspace:*
+        version: link:../../../../../packages/design-system/kaizen/primitive/core
+      '@bsport/sm-backbone':
+        specifier: workspace:*
+        version: link:../../../../../packages/utils/sm-backbone
+      react:
+        specifier: ^19.0.0
+        version: 19.0.0
+      react-dom:
+        specifier: ^19.0.0
+        version: 19.0.0(react@19.0.0)
       react-router:
         specifier: ^7.2.0
         version: 7.2.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
@@ -1659,12 +1714,18 @@ importers:
       '@bsport/kaizen-primitive-core':
         specifier: workspace:*
         version: link:../../../../packages/design-system/kaizen/primitive/core
+      '@bsport/permissions':
+        specifier: workspace:*
+        version: link:../../../../packages/utils/permissions
       '@bsport/sm-backbone':
         specifier: workspace:*
         version: link:../../../../packages/utils/sm-backbone
       '@bsport/store-auth':
         specifier: workspace:*
         version: link:../../../../packages/stores/shared/auth
+      '@bsport/store-staff-management-alerting':
+        specifier: workspace:*
+        version: link:../../../../packages/stores/staff-management/alerting
       '@bsport/use-async':
         specifier: workspace:*
         version: link:../../../../packages/hooks/use-async
@@ -2154,6 +2215,21 @@ importers:
       '@bsport/config-eslint-react':
         specifier: workspace:*
         version: link:../../../tools/config/eslint-react
+      '@testing-library/jest-dom':
+        specifier: ^6.6.3
+        version: 6.6.3
+      '@testing-library/react':
+        specifier: ^16.3.0
+        version: 16.3.0(@testing-library/dom@10.4.0)(@types/react-dom@18.3.1)(@types/react@18.3.23)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+      '@testing-library/user-event':
+        specifier: ^14.6.1
+        version: 14.6.1(@testing-library/dom@10.4.0)
+      '@vitest/coverage-v8':
+        specifier: ^3.1.1
+        version: 3.1.1(vitest@3.1.1)
+      vitest:
+        specifier: ^3.1.1
+        version: 3.1.1(@types/debug@4.1.12)(@types/node@22.13.15)(@vitest/ui@3.1.4)(jsdom@22.1.0)(less@4.1.3)(msw@2.7.6(@types/node@22.13.15)(typescript@5.8.2))(sass@1.77.8)(stylus@0.64.0)(terser@5.31.3)
 
   packages/hooks/use-debounce:
     dependencies:
@@ -2287,6 +2363,22 @@ importers:
         version: link:../../../../tools/config/eslint-react
 
   packages/stores/cdp/notification-rule:
+    dependencies:
+      '@bsport/store-base':
+        specifier: workspace:*
+        version: link:../../base
+      typescript-result:
+        specifier: ^3.1.1
+        version: 3.1.1
+      zustand:
+        specifier: ^5.0.3
+        version: 5.0.3(@types/react@18.3.23)(immer@9.0.21)(react@19.0.0)(use-sync-external-store@1.4.0(react@19.0.0))
+    devDependencies:
+      '@bsport/config-eslint-react':
+        specifier: workspace:*
+        version: link:../../../../tools/config/eslint-react
+
+  packages/stores/cdp/referral:
     dependencies:
       '@bsport/store-base':
         specifier: workspace:*
@@ -2459,6 +2551,22 @@ importers:
         version: link:../../../../tools/config/eslint-react
 
   packages/stores/shared/background-task:
+    dependencies:
+      '@bsport/store-base':
+        specifier: workspace:*
+        version: link:../../base
+      typescript-result:
+        specifier: ^3.1.1
+        version: 3.1.1
+      zustand:
+        specifier: ^5.0.3
+        version: 5.0.3(@types/react@18.3.23)(immer@9.0.21)(react@19.0.0)(use-sync-external-store@1.4.0(react@19.0.0))
+    devDependencies:
+      '@bsport/config-eslint-react':
+        specifier: workspace:*
+        version: link:../../../../tools/config/eslint-react
+
+  packages/stores/staff-management/alerting:
     dependencies:
       '@bsport/store-base':
         specifier: workspace:*
@@ -10039,8 +10147,8 @@ packages:
   decimal.js-light@2.5.1:
     resolution: {integrity: sha512-qIMFpTMZmny+MMIitAB6D7iVPEorVw6YQRWkvarTkT4tBeSLLiHzcwj6q0MmYSFCiVpiqPJTJEYIrpcPzVEIvg==}
 
-  decimal.js@10.4.3:
-    resolution: {integrity: sha512-VBBaLc1MgL5XpzgIP7ny5Z6Nx3UrRkIViUkPUdtl9aya5amy3De1gsUUSB1g3+3sExYNjCAsAznmukyxCb1GRA==}
+  decimal.js@10.5.0:
+    resolution: {integrity: sha512-8vDa8Qxvr/+d94hSh5P3IJwI5t8/c0KsMp+g8bNw9cY2icONa5aPfvKeieW1WlG0WQYwwhJ7mjui2xtiePQSXw==}
 
   decode-named-character-reference@1.0.2:
     resolution: {integrity: sha512-O8x12RzrUF8xyVcY0KJowWsmaJxQbmy0/EtnNtHRpsOcT7dFk5W598coHqBVpmWo1oQQfsCqfCmkZN5DJrZVdg==}
@@ -18428,6 +18536,9 @@ packages:
 
   unlayer-types@1.278.0:
     resolution: {integrity: sha512-5GpkhTsDyBBtjcGOFxTKHrIwdP2x/qrYC2iDC3z20hFI6KMlQLRryN/ch1EiHbSN3gfILEv3eb7fp4Ox4iTX0A==}
+
+  unlayer-types@1.279.0:
+    resolution: {integrity: sha512-J8cYUsH2tdBtVoF+n9wIELToNle738hE+mJtGQiTo9G2LOSOt7P6OO4IKVZwx3x7Ir9sbBLOwy2ik9rMiKuvPw==}
 
   unpipe@1.0.0:
     resolution: {integrity: sha512-pjy2bYhSsufwWlKwPc+l3cN7+wuJlK6uz0YdJEOlQDbl6jo/YlPi4mb8agUkVC8BF7V8NuzeyPNqRksA3hztKQ==}
@@ -29187,7 +29298,7 @@ snapshots:
 
   decimal.js-light@2.5.1: {}
 
-  decimal.js@10.4.3: {}
+  decimal.js@10.5.0: {}
 
   decode-named-character-reference@1.0.2:
     dependencies:
@@ -34192,7 +34303,7 @@ snapshots:
       cssom: 0.5.0
       cssstyle: 2.3.0
       data-urls: 3.0.2
-      decimal.js: 10.4.3
+      decimal.js: 10.5.0
       domexception: 4.0.0
       escodegen: 2.1.0
       form-data: 4.0.0
@@ -34224,7 +34335,7 @@ snapshots:
       abab: 2.0.6
       cssstyle: 3.0.0
       data-urls: 4.0.0
-      decimal.js: 10.4.3
+      decimal.js: 10.5.0
       domexception: 4.0.0
       form-data: 4.0.0
       html-encoding-sniffer: 3.0.0
@@ -37247,12 +37358,12 @@ snapshots:
   react-email-editor@1.7.11(react@16.10.2):
     dependencies:
       react: 16.10.2
-      unlayer-types: 1.278.0
+      unlayer-types: 1.279.0
 
   react-email-editor@1.7.11(react@19.0.0):
     dependencies:
       react: 19.0.0
-      unlayer-types: 1.278.0
+      unlayer-types: 1.279.0
 
   react-error-boundary@4.1.2(react@16.10.2):
     dependencies:
@@ -40243,6 +40354,8 @@ snapshots:
   universalify@2.0.1: {}
 
   unlayer-types@1.278.0: {}
+
+  unlayer-types@1.279.0: {}
 
   unpipe@1.0.0: {}
 

@@ -25,7 +25,7 @@ export const useDetailPageHeader = ({
     return onDuplicateTemplate
       ? {
           id: "duplicate-template",
-          label: t("activeList.actions.duplicate"),
+          label: t("activeList.actions.duplicate", { ns: "list" }),
           iconLeft: "edit-02",
         }
       : undefined;
@@ -35,7 +35,7 @@ export const useDetailPageHeader = ({
     return onDeleteTemplate
       ? {
           id: "delete-template",
-          label: t("activeList.actions.delete"),
+          label: t("activeList.actions.delete", { ns: "list" }),
           iconLeft: "trash-01",
         }
       : undefined;
@@ -51,12 +51,12 @@ export const useDetailPageHeader = ({
   const breadcrumbsItems = [
     {
       id: "breadcrumb-root-item",
-      text: t("breadcrumbs.rootPage"),
+      text: t("breadcrumbs.rootPage", { ns: "detail" }),
       href: `../${ROUTES.CUSTOM_TEMPLATES}`,
     },
     {
       id: "breadcrumb-first-child",
-      text: t("breadcrumbs.customPage"),
+      text: t("breadcrumbs.customPage", { ns: "detail" }),
       href: `../${ROUTES.CUSTOM_TEMPLATES}`,
     },
   ];
@@ -66,7 +66,7 @@ export const useDetailPageHeader = ({
       <Tooltip
         key="more-actions-button"
         placement="bottom-right"
-        label={t("details.hover.moreActions")}
+        label={t("details.hover.moreActions", { ns: "detail" })}
       >
         <DropdownMenu
           placement="bottom-right"
@@ -96,7 +96,7 @@ export const useDetailPageHeader = ({
     <Tooltip
       key="export-html-button"
       placement="bottom-right"
-      label={t("details.hover.exportHtml")}
+      label={t("details.hover.exportHtml", { ns: "detail" })}
     >
       <Button
         iconLeft="download-01"

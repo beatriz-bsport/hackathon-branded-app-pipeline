@@ -1,3 +1,4 @@
+import cx from "classnames";
 import React from "react";
 
 import Button from "#src/components/Button";
@@ -21,12 +22,25 @@ const Footer: React.FC<FooterProps> = ({
 }) => {
   if (!cancelButton && !confirmButton) return null;
 
+  const footerClassName = cx(
+    "flex",
+    "justify-end",
+    "p-md",
+    "gap-xs",
+    "border-t-stroke-divider",
+    "border-t-stroke-thin",
+    "border-opacity-md",
+    "bg-surface-default-weakest",
+    "rounded-b-lg",
+    "shadow-[0px_2px_8px_0px_var(--kz-color-shadow-weak)_inset]",
+    {
+      "flex-col-reverse": footerDirection === "column",
+      "flex-row": footerDirection !== "column",
+    },
+  );
+
   return (
-    <div
-      className={`flex justify-end p-md gap-xs border-t-stroke-divider border-t-stroke-thin border-opacity-md ${
-        footerDirection === "column" ? "flex-col-reverse" : "flex-row"
-      }`}
-    >
+    <div className={footerClassName}>
       {cancelButton && (
         <Button {...cancelButton} size="md" intent="flat" color="default" />
       )}

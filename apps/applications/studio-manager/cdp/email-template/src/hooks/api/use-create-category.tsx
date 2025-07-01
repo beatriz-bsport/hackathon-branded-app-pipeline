@@ -28,8 +28,8 @@ export function useCreateCategory({
     typeof createCategory
   >({
     asyncFn: createCategory,
-    onSuccess,
-    onFailure,
+    onSuccess: ({ value }) => onSuccess?.(value),
+    onFailure: ({ error }) => onFailure?.(error),
   });
 
   return {

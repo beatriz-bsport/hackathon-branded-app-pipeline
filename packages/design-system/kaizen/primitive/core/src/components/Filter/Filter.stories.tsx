@@ -105,9 +105,7 @@ export const ResetFilters: Story = {
           color="critical"
           size="sm"
           label="Reset Filters"
-          onClick={() => {
-            ref.current?.resetFilters?.();
-          }}
+          onClick={() => ref.current?.resetFilters()}
           className="w-fit"
         />
       </div>
@@ -120,5 +118,25 @@ export const FilterWithSingleChoice: Story = {
   args: {
     ...args,
     singleField: true,
+  },
+};
+
+export const FilterWithSingleCategory: Story = {
+  name: "Filter with single category",
+  args: {
+    ...args,
+    fields: {
+      fruit: {
+        id: "fruit",
+        label: "Fruit",
+        availableFilters: ["is", "is-not"],
+        values: [
+          { id: "apple", label: "Apple" },
+          { id: "banana", label: "Banana" },
+          { id: "cherry", label: "Cherry" },
+        ],
+        multiSelect: false,
+      },
+    },
   },
 };

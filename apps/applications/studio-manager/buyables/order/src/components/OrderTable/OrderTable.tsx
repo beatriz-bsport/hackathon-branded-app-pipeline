@@ -1,8 +1,10 @@
+import { Decimal } from "decimal.js";
 import React from "react";
 
 import { Table, type TableProps } from "@bsport/kaizen-primitive-core";
 import type { Order } from "@bsport/store-buyables-order";
 
+import { LEGACY_URLS } from "#src/urls";
 import {
   ORDER_STATUS_TO_I18N_KEY,
   type OrderStatus,
@@ -19,6 +21,7 @@ type OrderTableProps = {
   isEmpty?: boolean;
   isEmptySearch?: boolean;
   filterStatus?: OrderStatus | undefined;
+  handleClearFilters: () => void;
 };
 
 export const OrderTable: React.FC<OrderTableProps> = ({
@@ -28,6 +31,7 @@ export const OrderTable: React.FC<OrderTableProps> = ({
   isEmpty = false,
   isEmptySearch = false,
   filterStatus,
+  handleClearFilters,
 }) => {
   const { t } = useTranslation(["list", "common"]);
 
@@ -55,7 +59,8 @@ export const OrderTable: React.FC<OrderTableProps> = ({
       0,
     ),
     orderStatus: order.state as OrderStatus,
-    orderTotal: order.total_price,
+    orderTotal: new Decimal(order.total_price).toNumber(),
+    link: LEGACY_URLS.ORDER_DETAIL(order.id),
   }));
 
   // Configure empty state based on the mode
@@ -76,6 +81,9 @@ export const OrderTable: React.FC<OrderTableProps> = ({
             })
           : "",
       }),
+      secondaryButtonConfig: {
+        onClick: handleClearFilters,
+      },
     },
   };
 

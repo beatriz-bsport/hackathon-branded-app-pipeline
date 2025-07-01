@@ -15713,10 +15713,12 @@
                 "attendance": "status:",
                 "level": {
                     "first": "level "
-                }
+                },
+                "explanation": "Segment customers who have booked their Xth session of activity A, in establishment B, with teacher C",
+                "name": "Xth number of bookings"
             },
             "22": {
-                "name": "Number of bookings",
+                "name": "Total number of bookings",
                 "first": "Booked",
                 "second": "session(s)",
                 "activity": {
@@ -15743,7 +15745,8 @@
                 "attendance": "with status",
                 "level": {
                     "first": "level"
-                }
+                },
+                "explanation": "Segment customers by the total number of sessions they have booked for activity A, in establishment B, bought with pass C"
             },
             "23": {
                 "name": "First booking",
@@ -15809,7 +15812,8 @@
                 "name": "Number of appointments",
                 "private_service": {
                     "first": "for appointments"
-                }
+                },
+                "explanation": "Segment customers by how many appointments they have booked, in establishment A, with teacher B, bought with pass C"
             },
             "27": {
                 "info": "Blocked passes and blocked appointment passes are also taken into account",
@@ -20457,7 +20461,8 @@
                 },
                 "autoDiscard": {
                     "hours_before_start": "Hour(s) before the start of the session:",
-                    "min_bookings_nb": "Number of booking(s) :"
+                    "min_bookings_nb": "Number of booking(s) :",
+                    "explain": "Activities with {{bookings_nb}} booking(s) or less are cancelled {{hours}} hour(s) before they start. Members will be notified that the session has been cancelled."
                 }
             }
         },

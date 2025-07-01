@@ -2,7 +2,9 @@ import { createAction } from 'redux-actions';
 
 import { SPIVI_DOUBLE_BOOKING_ACTIVATION_EXCEPTION } from '@bsport/common/lib/master-data/error-codes/spivi.js';
 import { Settings } from 'luxon';
-import api from './api';
+import api, {
+  fetchCompanyThemeWithCache as fetchCompanyThemeWithCacheAPI,
+} from './api';
 import { Dispatch, OptionCallback } from '../../state/types';
 import { CompanyTheme } from './types';
 import { snackbarSuccess, snackbarError } from '../snackbar/actions';
@@ -28,6 +30,33 @@ export function fetchCompanyTheme(
 
     try {
       const response = await api.fetchCompanyTheme(companyId);
+      const theme = response.data;
+      Settings.defaultZone = theme.timezone_name;
+      dispatch(themeDetail.success(theme));
+      if (options && options.onSuccess) {
+        options.onSuccess(theme);
+      }
+    } catch (err) {
+      console.error(err);
+      dispatch(themeDetail.error(err));
+      if (options && options.onError) {
+        options.onError(err);
+      }
+    }
+    dispatch(themeDetail.isLoading(false));
+  };
+}
+
+export function fetchCompanyThemeWithCache(
+  companyId: number,
+  options?: OptionCallback<CompanyTheme>,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(themeDetail.isLoading(true));
+    dispatch(themeDetail.error(null));
+
+    try {
+      const response = await fetchCompanyThemeWithCacheAPI(companyId);
       const theme = response.data;
       Settings.defaultZone = theme.timezone_name;
       dispatch(themeDetail.success(theme));

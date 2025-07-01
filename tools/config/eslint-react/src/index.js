@@ -55,6 +55,7 @@ module.exports = [
       // Build package
       "build/*",
       "dist/*",
+      "coverage/*",
       // Storybook
       "storybook-static/*",
       // Hygen templates

@@ -28,8 +28,8 @@ export function useCreateCustomForm({
     typeof createCustomForm
   >({
     asyncFn: createCustomForm,
-    onSuccess,
-    onFailure,
+    onSuccess: ({ value }) => onSuccess?.(value),
+    onFailure: ({ error }) => onFailure?.(error),
   });
 
   return {

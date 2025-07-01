@@ -70,7 +70,7 @@ const renderRow = (recipient, t, setShowLinkOpened) => {
           recipient.last_read,
           'DDDD t',
           '',
-          typeof recipient === 'number',
+          typeof recipient.last_read === 'number',
         )
       : ' - ',
     links_opened_count: recipient.links_opened_count ? (

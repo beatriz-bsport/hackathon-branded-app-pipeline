@@ -18,7 +18,6 @@ import { SearchedTemplateList } from "#src/components/Common/SearchedTemplateLis
 import { NoCategoryList } from "#src/components/CustomTemplate/NoCategoryList";
 import { useCategoryOrdering } from "#src/hooks/actions/useCategoryOrdering";
 import { useEmailTemplateOrdering } from "#src/hooks/actions/useEmailTemplateOrdering";
-import { useFetchAllEmailTemplates } from "#src/hooks/fetch/useFetchAllTemplatesList";
 import { useListItemFactory } from "#src/hooks/layout/useListItemFactory";
 import { useSortableListFactory } from "#src/hooks/layout/useSortableListFactory";
 import { useTemplateNavigation } from "#src/hooks/useTemplateNavigation";
@@ -28,8 +27,11 @@ type Props = {
   searchInput: string;
   clearSearchInput: () => void;
   categoriesList: EmailTemplateCategory[];
+  emailTemplateList: EmailTemplateSummary[];
   isCategoryListLoading: boolean;
+  isEmailTemplateListLoading: boolean;
   fetchCategories: () => void;
+  fetchEmailTemplates: () => void;
   handleEditCategory: (category: EmailTemplateCategory) => void;
   handleDeleteCategory: (category: EmailTemplateCategory) => void;
 };
@@ -38,8 +40,11 @@ export const PageListContent: React.FC<Props> = ({
   searchInput,
   clearSearchInput,
   categoriesList,
+  emailTemplateList,
   isCategoryListLoading,
+  isEmailTemplateListLoading,
   fetchCategories,
+  fetchEmailTemplates,
   handleEditCategory,
   handleDeleteCategory,
 }: Props) => {
@@ -49,11 +54,6 @@ export const PageListContent: React.FC<Props> = ({
   const [selectedTemplate, setSelectedTemplate] =
     useState<EmailTemplateSummary | null>(null);
   const { t } = useTranslation("list");
-  const {
-    emailTemplateList,
-    isLoading: isEmailTemplatesListLoading,
-    fetchAllEmailTemplates,
-  } = useFetchAllEmailTemplates();
   const { reorderCategories } = useCategoryOrdering();
   const { reorderEmailTemplates } = useEmailTemplateOrdering();
   const { navigateToCreateTemplate } = useTemplateNavigation();
@@ -80,7 +80,7 @@ export const PageListContent: React.FC<Props> = ({
 
   const onActionSuccess = () => {
     handleResetActions();
-    fetchAllEmailTemplates();
+    fetchEmailTemplates();
   };
 
   const { getFormattedListItems } = useListItemFactory({
@@ -99,10 +99,12 @@ export const PageListContent: React.FC<Props> = ({
   }, [fetchCategories]);
 
   useEffect(() => {
-    fetchAllEmailTemplates();
-  }, [fetchAllEmailTemplates]);
+    if (!searchInput?.trim()) {
+      fetchEmailTemplates();
+    }
+  }, [searchInput, fetchEmailTemplates]);
 
-  if (isEmailTemplatesListLoading || isCategoryListLoading) {
+  if (isEmailTemplateListLoading || isCategoryListLoading) {
     return <AppLoader />;
   }
 
@@ -135,6 +137,15 @@ export const PageListContent: React.FC<Props> = ({
     );
   }
 
+  /*
+   * @debt(1,1,1): We do not have a proper sorting, ordering mechanism in place yet in the backend.
+   * This is a temporary solution to sort the email templates categories based on their category_ordering property.
+   * The sorting/ordering should always be handled by the backend. Please try to not reproduce this logic if possible.
+   * Debt ticket : https://linear.app/bsport/issue/CDP-641/debt-add-backend-orderingsorting-on-email-template-categories
+   *
+   * Also normally we should be implementing a pinning mechanism for categories that should solve that (as the ordering
+   * of the pinned items should also be done in the backend directly)
+   */
   const getFormattedSortableList = (): SortableListProps[] => {
     return [...categoriesList]
       .sort((a, b) => a.category_ordering - b.category_ordering)
@@ -146,13 +157,13 @@ export const PageListContent: React.FC<Props> = ({
       });
   };
 
-  if (searchInput) {
+  if (searchInput?.trim()) {
     return (
       <SearchedTemplateList
         searchInput={searchInput}
         modelToFetch="custom"
         resetSearch={clearSearchInput}
-        resetTemplateList={fetchAllEmailTemplates}
+        resetTemplateList={fetchEmailTemplates}
       />
     );
   }

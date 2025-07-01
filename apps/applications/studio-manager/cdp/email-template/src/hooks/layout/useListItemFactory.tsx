@@ -4,28 +4,22 @@ import type { EmailTemplateSummary } from "@bsport/store-cdp-email-template";
 import { useTranslation } from "#src/utils/i18n";
 import { getEmailTemplateType } from "#src/utils/templates";
 
+import { useTemplateNavigation } from "../useTemplateNavigation";
+
 type UseListItemFactoryParams = {
   handlePreviewTemplate?: (template: EmailTemplateSummary) => void;
   handleDuplicateTemplate?: (template: EmailTemplateSummary) => void;
   handleDeleteTemplate?: (template: EmailTemplateSummary) => void;
 };
 
-type UseListItemFactoryReturn = {
-  getFormattedListItems: ({
-    categoryId,
-    emailTemplateList,
-  }: {
-    categoryId?: number | null;
-    emailTemplateList: EmailTemplateSummary[];
-  }) => Sortable[];
-};
-
 export const useListItemFactory = ({
   handleDeleteTemplate,
   handleDuplicateTemplate,
   handlePreviewTemplate,
-}: UseListItemFactoryParams): UseListItemFactoryReturn => {
+}: UseListItemFactoryParams) => {
   const { t } = useTranslation("list");
+
+  const { navigateToTemplateDetails } = useTemplateNavigation();
 
   const getPreviewActionConfig = ({
     emailTemplate,
@@ -114,31 +108,84 @@ export const useListItemFactory = ({
     ].filter(Boolean) as ActionButton[];
   };
 
-  const getFormattedListItems = ({
+  const getFilteredEmailTemplateList = ({
     categoryId,
     emailTemplateList,
+    searchedList = false,
   }: {
     categoryId?: number | null;
     emailTemplateList: EmailTemplateSummary[];
+    searchedList?: boolean;
+  }): EmailTemplateSummary[] => {
+    if (!emailTemplateList || emailTemplateList.length === 0) return [];
+
+    if (searchedList) return emailTemplateList;
+
+    if (categoryId === undefined || categoryId === null) {
+      return emailTemplateList.filter((_template) => !_template.category);
+    }
+    return emailTemplateList.filter(
+      (_emailTemplate) => _emailTemplate.category === categoryId,
+    );
+  };
+
+  /*
+   * @debt(1,1,1): We do not have a proper sorting, ordering mechanism in place yet in the backend.
+   * This is a temporary solution to sort the email templates based on their ordering_in_category property.
+   * The sorting/ordering should always be handled by the backend. Please try to not reproduce this logic if possible.
+   * Debt ticket : https://linear.app/bsport/issue/CDP-640/debt-add-backend-orderingsorting-on-email-templates
+   *
+   * Also normally we should be implementing a pinning mechanism for templates that should solve that (as the ordering
+   * of the pinned items should also be done in the backend directly)
+   */
+  const getSortedEmailTemplateList = ({
+    emailTemplateList,
+    searchedList = false,
+  }: {
+    emailTemplateList: EmailTemplateSummary[];
+    searchedList?: boolean;
+  }): EmailTemplateSummary[] => {
+    if (!emailTemplateList || emailTemplateList.length === 0) return [];
+
+    if (searchedList) return emailTemplateList;
+
+    return emailTemplateList.sort(
+      (a, b) => a.ordering_in_category - b.ordering_in_category,
+    );
+  };
+
+  const getFormattedListItems = ({
+    categoryId,
+    emailTemplateList,
+    searchedList = false,
+  }: {
+    categoryId?: number | null;
+    emailTemplateList: EmailTemplateSummary[];
+    searchedList?: boolean;
   }): Sortable[] => {
-    const filteredEmailTemplateList = categoryId
-      ? emailTemplateList.filter(
-          (_emailTemplate) => _emailTemplate.category === categoryId,
-        )
-      : emailTemplateList.filter((_template) => !_template.category);
-    return filteredEmailTemplateList
-      .sort((a, b) => a.ordering_in_category - b.ordering_in_category)
-      .map((emailTemplate) => ({
-        id: `email-template-${emailTemplate.id}`,
-        title: emailTemplate.title,
-        description: emailTemplate.subject ?? "",
-        dropdownConfig: {
-          visibleActionsDisplayLimit: 3,
-        },
-        buttons: getListItemActionByTemplateType({
-          emailTemplate,
-        }),
-      }));
+    const filteredEmailTemplateList = getFilteredEmailTemplateList({
+      categoryId,
+      emailTemplateList,
+      searchedList,
+    });
+
+    const sortedEmailTemplateList = getSortedEmailTemplateList({
+      emailTemplateList: filteredEmailTemplateList,
+      searchedList,
+    });
+
+    return sortedEmailTemplateList.map((emailTemplate) => ({
+      id: `email-template-${emailTemplate.id}`,
+      title: emailTemplate.title,
+      description: emailTemplate.subject ?? "",
+      dropdownConfig: {
+        visibleActionsDisplayLimit: 3,
+      },
+      buttons: getListItemActionByTemplateType({
+        emailTemplate,
+      }),
+      onItemClick: () => navigateToTemplateDetails(emailTemplate.id),
+    }));
   };
 
   return { getFormattedListItems };

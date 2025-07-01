@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 import {
   type Sortable,
   SortableList,
@@ -22,8 +24,6 @@ export const NoCategoryList: React.FC<Props> = ({
   handleDeleteTemplate,
   handlePreviewTemplate,
 }: Props) => {
-  const { t } = useTranslation("list");
-  const { reorderEmailTemplates } = useEmailTemplateOrdering();
   const { getFormattedListItems } = useListItemFactory({
     handlePreviewTemplate,
     handleDeleteTemplate,
@@ -33,6 +33,11 @@ export const NoCategoryList: React.FC<Props> = ({
     categoryId: null,
     emailTemplateList,
   });
+  const [orderedEmailTemplateList, setOrderedEmailTemplateList] = useState<
+    Sortable[]
+  >(noCategoryEmailTemplateList ?? []);
+  const { t } = useTranslation("list");
+  const { reorderEmailTemplates } = useEmailTemplateOrdering();
 
   const noCategoryListHeader: SortableListProps["header"] = {
     id: "email-template-list-header-no-category",
@@ -53,14 +58,14 @@ export const NoCategoryList: React.FC<Props> = ({
   return (
     <div className="flex flex-col w-full self-center">
       <SortableList
-        id="custom-email-template-list-no-category"
+        id="custom-email-template-sortable-list-no-category"
         header={noCategoryListHeader}
-        collapsibleProps={{ initiallyOpen: true }}
-        items={noCategoryEmailTemplateList}
+        items={orderedEmailTemplateList}
         emptyStateProps={noCategoryEmptyState}
-        onSortChange={(reorderedTemplates: Sortable[]) =>
-          reorderEmailTemplates(reorderedTemplates)
-        }
+        onSortChange={(reorderedTemplates: Sortable[]) => {
+          setOrderedEmailTemplateList(reorderedTemplates);
+          reorderEmailTemplates(reorderedTemplates);
+        }}
       />
     </div>
   );

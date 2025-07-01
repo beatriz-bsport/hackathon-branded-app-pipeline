@@ -76,7 +76,11 @@ export const SearchedTemplateList: React.FC<Props> = ({
     handleDeleteTemplate,
   });
 
-  const searchEmailTemplateList = getFormattedListItems({ emailTemplateList });
+  const searchEmailTemplateList = getFormattedListItems({
+    emailTemplateList,
+    searchedList: true,
+  });
+
   const isEmptyList = totalItems === 0;
 
   const emptyListState = {

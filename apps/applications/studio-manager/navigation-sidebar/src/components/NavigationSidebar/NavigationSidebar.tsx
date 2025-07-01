@@ -15,6 +15,7 @@ import {
 import FeedbackDialog, { useFeedbackDialog } from "./FeedbackDialog";
 import LanguageDropdown from "./LanguageDropdown";
 import { NavigationMenuElement } from "./NavigationMenuElement";
+import { NavigationSidebarContainer } from "./NavigationSidebarContainer";
 import NavigationSidebarHeader, {
   type MenuOption,
 } from "./NavigationSidebarHeader";
@@ -32,6 +33,7 @@ import { useFilteredNavigationElements } from "./useFilteredNavigationElements";
 export type NavigationSidebarProps = {
   navigate?: (to: string) => void;
   disableRevampOnLegacyStore?: () => void;
+  isLoadingData?: boolean;
 };
 
 const NavigationSidebarContent = ({
@@ -143,12 +145,7 @@ const NavigationSidebarContent = ({
   } = companyTheme ?? {};
 
   return (
-    <div
-      className={
-        "h-screen w-[240px] py-md " +
-        "bg-surface-page-navigation shrink-0 flex flex-col"
-      }
-    >
+    <NavigationSidebarContainer>
       <NavigationSidebarHeader
         avatarUrl={companyLogo}
         label={companyName ?? ""}
@@ -211,11 +208,18 @@ const NavigationSidebarContent = ({
         isOpen={isTemporaryPasswordDialogOpen}
         onClose={handleCloseTemporaryPasswordDialog}
       />
-    </div>
+    </NavigationSidebarContainer>
   );
 };
 
 const NavigationSidebar = (props: NavigationSidebarProps) => {
+  if (props.isLoadingData) {
+    return (
+      <NavigationSidebarContainer className="navigation-sidebar-container-fallback">
+        <div className="h-screen" />
+      </NavigationSidebarContainer>
+    );
+  }
   return (
     <AppI18nextProvider>
       <NavigationSidebarContent {...props} />

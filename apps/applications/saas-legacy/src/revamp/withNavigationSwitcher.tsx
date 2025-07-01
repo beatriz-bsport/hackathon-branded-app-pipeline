@@ -1,12 +1,8 @@
 import React from 'react';
-import clsx from 'clsx';
-
-import { useShowRevampedSidebar } from './useShowRevampedSidebar';
 import { Navigation } from './Navigation';
 import type { BackofficeDrawerContentProps } from '#src/components/navigation/BackofficeDrawer/BackofficeDrawerContent';
 import Hidden from '@material-ui/core/Hidden';
 import Drawer from '@material-ui/core/Drawer';
-import Config from '#src/config';
 
 /**
  * This z-index guarantees that the overlay components from
@@ -16,7 +12,7 @@ const COMPATIBILITY_Z_INDEX = 990;
 
 /**
  * HOC that switches between the new NavigationSidebar layout and the legacy BackofficeDrawer
- * depending on the value of useShowRevampedSidebar().
+ * depending on the value of props.showRevampedSidebar.
  * IMPORTANT: This HOC should be used only for the BackofficeDrawer component.
  *
  * Usage:
@@ -26,27 +22,12 @@ export function withNavigationSwitcher(
   WrappedComponent: React.ComponentType<BackofficeDrawerContentProps>,
 ) {
   const SidebarSwitcher: React.FC<BackofficeDrawerContentProps> = (props) => {
-    const revampedEnabledAtCompanyLevel =
-      props.theme.revamped_backoffice_enabled;
-    const revampedEnabledAtUserLevel = props.revampedBackofficeEnabled;
-    const showRevampedCheatCode =
-      useShowRevampedSidebar() &&
-      !['production', 'staging'].includes(Config.REACT_APP_SENTRY_ENVIRONMENT);
-
-    const showRevamped =
-      (revampedEnabledAtCompanyLevel && revampedEnabledAtUserLevel) ||
-      showRevampedCheatCode;
-
-    if (showRevamped) {
+    if (props.showRevampedSidebar) {
       // Render new sidebar layout
       return (
         <>
           <Hidden smDown>
             <Navigation
-              className={clsx(
-                props.classes.drawerPaper,
-                props.classes.toTheLeft,
-              )}
               updateRevampedBackofficeEnabled={
                 props.updateRevampedBackofficeEnabled
               }

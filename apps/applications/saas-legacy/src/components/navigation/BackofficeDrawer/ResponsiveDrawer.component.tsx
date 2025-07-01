@@ -814,7 +814,12 @@ const ResponsiveDrawer: React.FC<Props> = ({
             style={{ paddingTop: 10 }}
           >
             <Hidden smDown>
-              <img alt="bsport logo" height={40} src={logo || LOGO_ASSET} />
+              <img
+                alt="bsport logo"
+                className="company-logo-drawer"
+                height={40}
+                src={logo || LOGO_ASSET}
+              />
             </Hidden>
           </Grid>
         </div>

@@ -118,6 +118,7 @@ exports.default = {
     replacement: 'Substitution',
     inbox: 'Inbox',
     feedbackBoard: 'Feedback board',
+    enableRevampedBackoffice: 'New UI',
   },
   deprecatedNavigator: {
     navigatorError:

@@ -7179,7 +7179,8 @@
             },
             "replacement": "Substitution",
             "inbox": "Inbox",
-            "feedbackBoard": "Feedback board"
+            "feedbackBoard": "Feedback board",
+            "enableRevampedBackoffice": "New UI"
         },
         "deprecatedNavigator": {
             "navigatorError": "It seems that your browser is too old to use our services. You may encounter errors, we recommend that you download a more recent version, in particular : ",

@@ -31,9 +31,13 @@ import { useFilteredNavigationElements } from "./useFilteredNavigationElements";
 
 export type NavigationSidebarProps = {
   navigate?: (to: string) => void;
+  disableRevampOnLegacyStore?: () => void;
 };
 
-const NavigationSidebarContent = ({ navigate }: NavigationSidebarProps) => {
+const NavigationSidebarContent = ({
+  navigate,
+  disableRevampOnLegacyStore,
+}: NavigationSidebarProps) => {
   const { t } = useTranslation("default");
 
   const isBridged = !!navigate;
@@ -197,7 +201,11 @@ const NavigationSidebarContent = ({ navigate }: NavigationSidebarProps) => {
           onClick={openDialog}
         />
       </Card>
-      <FeedbackDialog open={open} onClose={closeDialog} />
+      <FeedbackDialog
+        open={open}
+        onClose={closeDialog}
+        disableRevampOnLegacyStore={disableRevampOnLegacyStore}
+      />
       <TemporaryPasswordDialog
         isLoading={isLoadingTemporaryPassword}
         isOpen={isTemporaryPasswordDialogOpen}

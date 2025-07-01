@@ -92,6 +92,11 @@ import { DEFAULT_ZINDEX, NAVIGATION_ZINDEX, BANNER_ZINDEX } from './const';
 import { setAuthToken } from '#src/http';
 import { STORAGE_KEY_BSPORT_IMPERSONATED_TOKEN } from '#src/actions/constants';
 import { clearStorage, getItemInStorage } from '#src/utils/storage';
+import {
+  updateRevampedBackofficeEnabled as updateRevampedBackofficeEnabledAction,
+  enableRevampedBackoffice as enableRevampedBackofficeAction,
+  // @ts-expect-error Can not find js file
+} from '#src/actions/auth.actions';
 
 export const drawerWidth = 260;
 export const drawerIconsOnlyWith = 60;
@@ -174,6 +179,7 @@ export type Props = {
     options?: OptionCallback<void>,
   ) => Promise<void>;
   fetchMyLastClockin: () => Promise<void>;
+  revampedBackofficeEnabled: boolean;
 } & ConnectedProps<typeof connector>;
 
 export const BackOfficeDrawer: React.FC<Props> = ({
@@ -227,6 +233,9 @@ export const BackOfficeDrawer: React.FC<Props> = ({
   shrinkResponsiveDrawer,
   setShrinkResponsiveDrawer,
   inboxUnreadAnswersCount,
+  revampedBackofficeEnabled,
+  updateRevampedBackofficeEnabled,
+  enableRevampedBackoffice,
 }) => {
   const { t } = useTranslation('navigation');
 
@@ -885,6 +894,7 @@ export const BackOfficeDrawer: React.FC<Props> = ({
             displayLeftMenu={displayLeftMenu}
             drawerIconsOnly={drawerIconsOnly}
             email={email}
+            enableRevampedBackoffice={enableRevampedBackoffice}
             featureList={featureList}
             fetchCompanyUserRolesPaginated={fetchCompanyUserRolesPaginated}
             fetchMyLastClockin={fetchMyLastClockin}
@@ -903,11 +913,13 @@ export const BackOfficeDrawer: React.FC<Props> = ({
             objectLevelPermissions={objectLevelPermissions}
             openWelcometutorialDialog={openWelcometutorialDialog}
             permissions={permissions}
+            revampedBackofficeEnabled={revampedBackofficeEnabled}
             setDrawerIconsOnly={setDrawerIconsOnly}
             setOpenWelcometutorialDialog={setOpenWelcometutorialDialog}
             tempPasswordDialogOpen={tempPasswordDialogOpen}
             tempPasswordState={tempPasswordState}
             theme={theme}
+            updateRevampedBackofficeEnabled={updateRevampedBackofficeEnabled}
             updateUserAcknowlegdeTutorial={updateUserAcknowlegdeTutorial}
             userAcknowlegdePlatformTutorial={userAcknowlegdePlatformTutorial}
             usersPaginatedWithRoles={usersPaginatedWithRoles}
@@ -1126,8 +1138,11 @@ const connector = connect(
     handleGoToTutorial: () => pushRouter('/tutorial'),
     handleGoToInbox: () => pushRouter('/inbox/thread'),
     setShrinkResponsiveDrawer: setShrinkResponsiveDrawerAction,
+    updateRevampedBackofficeEnabled: updateRevampedBackofficeEnabledAction,
+    enableRevampedBackoffice: enableRevampedBackofficeAction,
   },
 );
+
 export default compose(
   React.memo,
   connector,

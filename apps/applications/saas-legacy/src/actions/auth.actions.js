@@ -16,6 +16,7 @@ import {
   sendEmailForConfirmation as sendEmailForConfirmationAPI,
   confirmEmail as confirmEmailAPI,
   getEmailValidationStatus,
+  toggleRevampedBackofficeAPI,
 } from '../libs/login/api';
 import types from './auth.types';
 import { Dispatch, ThunkAction, OptionCallback } from '../state/types';
@@ -99,6 +100,7 @@ export function fetchAccessLevel(
         username,
         has_completed_account_configuration_on_boarding,
         email_confirmed,
+        has_enabled_revamped_backoffice,
       } = response.data;
       if (!is_franchisor && !is_manager) {
         analyticsUtils.onSigninSuccess({ email: username });
@@ -124,6 +126,7 @@ export function fetchAccessLevel(
             name,
             has_completed_account_configuration_on_boarding,
             email_confirmed: email_confirmed !== false,
+            has_enabled_revamped_backoffice,
           },
           { accessLevel: true },
         ),
@@ -198,6 +201,7 @@ export function fetchAccessLevelWithoutConnect(
         allowed_franchisees,
         name,
         username,
+        has_enabled_revamped_backoffice,
       } = response.data;
 
       dispatch({
@@ -215,6 +219,7 @@ export function fetchAccessLevelWithoutConnect(
           allowed_franchisees,
           name,
           username,
+          has_enabled_revamped_backoffice,
         },
       });
 
@@ -389,6 +394,7 @@ function setLogin(
     name,
     has_completed_account_configuration_on_boarding,
     email_confirmed,
+    has_enabled_revamped_backoffice,
   }: {
     username: string,
     token: string,
@@ -405,6 +411,7 @@ function setLogin(
     name: string,
     has_completed_account_configuration_on_boarding: boolean,
     email_confirmed: boolean,
+    has_enabled_revamped_backoffice: boolean,
   },
   context?: { accessLevel?: boolean },
 ) {
@@ -426,6 +433,7 @@ function setLogin(
     has_completed_account_configuration_on_boarding,
     context,
     email_confirmed,
+    has_enabled_revamped_backoffice,
   };
 }
 
@@ -447,6 +455,29 @@ function emailConfirmationSent(payload) {
 
 function emailConfirmed(payload) {
   return { type: types.EMAIL_CONFIRMED, payload };
+}
+
+export function updateRevampedBackofficeEnabled(nextValue: boolean) {
+  return (dispatch: Dispatch) => {
+    dispatch({
+      type: types.UPDATE_HAS_ENABLED_REVAMPED_BACKOFFICE,
+      payload: nextValue,
+    });
+  };
+}
+
+export function enableRevampedBackoffice() {
+  return async (dispatch: Dispatch) => {
+    try {
+      const response = await toggleRevampedBackofficeAPI();
+      dispatch({
+        type: types.UPDATE_HAS_ENABLED_REVAMPED_BACKOFFICE,
+        payload: response.data.has_enabled_revamped_backoffice,
+      });
+    } catch (err) {
+      console.error(err);
+    }
+  };
 }
 
 export function resetPassword(

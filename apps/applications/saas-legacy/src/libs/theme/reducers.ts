@@ -23,6 +23,7 @@ export const initialState: Immutable.Immutable<ThemeState> =
       secondary_color: colors.secondary,
       cover: null,
       is_two_way_email_activated: true,
+      revamped_backoffice_enabled: false,
     },
 
     createOrUpdate: {

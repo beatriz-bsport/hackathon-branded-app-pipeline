@@ -6,6 +6,7 @@ import { Navigation } from './Navigation';
 import type { BackofficeDrawerContentProps } from '#src/components/navigation/BackofficeDrawer/BackofficeDrawerContent';
 import Hidden from '@material-ui/core/Hidden';
 import Drawer from '@material-ui/core/Drawer';
+import Config from '#src/config';
 
 /**
  * This z-index guarantees that the overlay components from
@@ -25,7 +26,16 @@ export function withNavigationSwitcher(
   WrappedComponent: React.ComponentType<BackofficeDrawerContentProps>,
 ) {
   const SidebarSwitcher: React.FC<BackofficeDrawerContentProps> = (props) => {
-    const showRevamped = useShowRevampedSidebar();
+    const revampedEnabledAtCompanyLevel =
+      props.theme.revamped_backoffice_enabled;
+    const revampedEnabledAtUserLevel = props.revampedBackofficeEnabled;
+    const showRevampedCheatCode =
+      useShowRevampedSidebar() &&
+      !['production', 'staging'].includes(Config.REACT_APP_SENTRY_ENVIRONMENT);
+
+    const showRevamped =
+      (revampedEnabledAtCompanyLevel && revampedEnabledAtUserLevel) ||
+      showRevampedCheatCode;
 
     if (showRevamped) {
       // Render new sidebar layout
@@ -37,6 +47,9 @@ export function withNavigationSwitcher(
                 props.classes.drawerPaper,
                 props.classes.toTheLeft,
               )}
+              updateRevampedBackofficeEnabled={
+                props.updateRevampedBackofficeEnabled
+              }
             />
           </Hidden>
           <Hidden mdUp>
@@ -50,7 +63,11 @@ export function withNavigationSwitcher(
               onClose={props.handleDrawerToggle}
               open={props.mobileOpen}
             >
-              <Navigation />
+              <Navigation
+                updateRevampedBackofficeEnabled={
+                  props.updateRevampedBackofficeEnabled
+                }
+              />
             </Drawer>
           </Hidden>
         </>

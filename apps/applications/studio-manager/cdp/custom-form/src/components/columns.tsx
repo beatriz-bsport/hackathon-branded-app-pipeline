@@ -21,7 +21,8 @@ type TableColumn = GenericTableColumn<CustomFormTableRowData>;
 export type CustomFormTableRowData = {
   id: number;
   name: string;
-  answers: number;
+  questions: number;
+  link: string;
 };
 
 export type TableColumnsParams = {
@@ -64,15 +65,15 @@ export const useCustomFormTableColumns = ({
     },
   };
 
-  const columnAnswers: TableColumn = {
-    header: t("table.headers.answers"),
-    id: "column-answers",
+  const columnQuestions: TableColumn = {
+    header: t("table.headers.questions"),
+    id: "column-questions",
     type: "custom",
     align: "center",
     render: (row) => {
       return (
         <Body htmlVariant="p" size="lg">
-          {row.answers}
+          {row.questions}
         </Body>
       );
     },
@@ -132,5 +133,5 @@ export const useCustomFormTableColumns = ({
     },
   };
 
-  return [columnName, columnAnswers, columnActions];
+  return [columnName, columnQuestions, columnActions];
 };

@@ -3,14 +3,12 @@ import { useCallback } from "react";
 import type { PaginationProps } from "@bsport/kaizen-primitive-core";
 import {
   selectCustomFormCount,
-  selectCustomFormStatistics,
   selectCustomForms,
   useCustomFormStore,
 } from "@bsport/store-cdp-custom-form";
 import { usePaginationQueryParams } from "@bsport/use-pagination-query-params";
 
 import { useFetcherCustomForms } from "#src/hooks/api/use-fetcher-custom-form";
-import { useFetcherCustomFormStatistics } from "#src/hooks/api/use-fetcher-custom-form-statistics";
 import { useSearchCustomForms } from "#src/hooks/api/use-fuzzy-search-custom-forms";
 
 type UseFetchCustomFormsParams = {
@@ -30,35 +28,14 @@ export const useFetchCustomForms = ({
   // Selectors
 
   const customForms = useCustomFormStore(selectCustomForms);
-  const customFormStatistics = useCustomFormStore(selectCustomFormStatistics);
   const count = useCustomFormStore(selectCustomFormCount);
 
   // Fetch Custom Forms Statistics
 
-  const { isLoading: formStatisticsLoading, fetchFormStatistics } =
-    useFetcherCustomFormStatistics();
-
   const { isLoading: formSearchingLoading, searchForms } =
     useSearchCustomForms();
 
-  const { isLoading: formsLoading, fetchForms } = useFetcherCustomForms({
-    onSuccess: (response) => {
-      const { results = [] } = response;
-      const idsList = results.map((customForm) => customForm.id);
-      fetchCustomFormStatistics({ customFormIds: idsList });
-    },
-  });
-
-  const fetchCustomFormStatistics = useCallback(
-    async ({ customFormIds }: { customFormIds: number[] }) => {
-      // TODO : When backend is ready, we can add the id__in filters required
-      return fetchFormStatistics({
-        page_size: customFormIds.length,
-        page: currentPage,
-      });
-    },
-    [fetchFormStatistics, currentPage],
-  );
+  const { isLoading: formsLoading, fetchForms } = useFetcherCustomForms();
 
   // Fetch Custom Forms Statistics
 
@@ -112,14 +89,13 @@ export const useFetchCustomForms = ({
   const isCustomFormsLoading = searchInput
     ? formSearchingLoading
     : formsLoading;
-  const isLoading = isCustomFormsLoading || formStatisticsLoading;
+  const isLoading = isCustomFormsLoading;
   const isEmpty = count === 0;
   const isEmptySearch = isEmpty && !!searchInput;
 
   return {
     paginationParams,
     customForms,
-    customFormStatistics,
     fetchCustomForms,
     resetCustomForms,
     refreshCustomForms,

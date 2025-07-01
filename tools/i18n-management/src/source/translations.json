@@ -94,7 +94,7 @@
         "actions": { "undo": "Undo", "open": "Open" }
       },
       "table": {
-        "headers": { "name": "Name", "answers": "Responses" },
+        "headers": { "name": "Name", "questions": "Questions" },
         "loading": {
           "activeList": "Loading forms...",
           "archivedList": "Loading archived forms..."

@@ -3,7 +3,10 @@ import React from "react";
 
 import { ChipProps } from "#src/components/Chip";
 import type { PaginationProps } from "#src/components/private/Pagination";
-import { CheckboxProvider } from "#src/contexts/CheckboxContext";
+import {
+  CheckboxProvider,
+  useCheckboxContext,
+} from "#src/contexts/CheckboxContext";
 import useEmptyState, {
   type UseEmptyStateProps,
 } from "#src/hooks/use-empty-state.hook";
@@ -53,22 +56,64 @@ export const listItem = cva(defaultClasses, {
 
 export type ListItemChipsProps = Omit<ChipProps, "dismissible" | "onClick">;
 
-export type ListContentProps = {
-  items?: ListItemProps[];
+// Common props for both List and ListContent
+type CommonListProps = {
   paginationProps?: PaginationProps;
   emptyStateProps?: UseEmptyStateProps;
   isSelectable?: boolean;
 };
 
-export type ListProps = {
-  className?: string;
-  id: string;
-  header?: ListHeaderProps;
-  loadingProps?: UseLoadingStateProps;
-  collapsibleProps?: Omit<CollapseProps, "children">;
-} & ListContentProps;
+// Discriminated union for the item/ListItem pair
+type ListVariantProps<T extends { id: string }> =
+  | {
+      items?: ListItemProps[];
+      ListItem?: undefined;
+    }
+  | {
+      items: T[];
+      /**
+       * A custom component to render for each item in the list.
+       * This component will receive all properties of the item object,
+       * plus `isSelectable`, `selected`, and `onSelect` props.
+       *
+       * @example
+       * ```tsx
+       * const CustomListItem = ({ name, role, isSelectable, selected, onSelect }) => (
+       *   <div>
+       *     {isSelectable && <input type="checkbox" checked={selected} onChange={onSelect} />}
+       *     <p>{name} - {role}</p>
+       *   </div>
+       * );
+       *
+       * <List items={customItems} ListItem={CustomListItem} />
+       * ```
+       */
+      ListItem: React.ComponentType<
+        T & {
+          isSelectable?: boolean;
+          selected?: boolean;
+          onSelect?: () => void;
+        }
+      >;
+    };
+
+// ListContentProps combines common props and the variant
+export type ListContentProps<T extends { id: string }> = CommonListProps &
+  ListVariantProps<T>;
+
+// ListProps has its own props, and also the common/variant props
+export type ListProps<T extends { id: string } = ListItemProps> =
+  CommonListProps &
+    ListVariantProps<T> & {
+      className?: string;
+      id: string;
+      header?: ListHeaderProps;
+      loadingProps?: UseLoadingStateProps;
+      collapsibleProps?: Omit<CollapseProps, "children">;
+    };
 /**
- * A list component that can contain multiple `Item` components and one `Header` component.
+ * A flexible list component that can render either default or custom list items.
+ * It supports selection, pagination, loading/empty states, and collapsible sections.
  * It manages the state of checked items and provides context for each `Item` regarding its checked state.
  * @param className Classname to add to the list container.
  * @param loadingProps [Optional] Dictionnary of props to manage the loading state rendering
@@ -82,24 +127,25 @@ export type ListProps = {
  * - isEmptySearch [Optional] Whether the filtering return an empty list;
  * @param id Optional ID for the list.
  * @param header Optional header component to display at the top of the list.
- * @param items An array of `Item` components to display in the list.
+ * @param items An array of objects to display in the list. Each object must have a unique `id`.
+ * These items will be rendered using either the default `Item` component or the custom `ListItem` if provided.
+ * @param ListItem [Optional] A custom React component to render each item. If not provided, a default `Item` component will be used.
  * @param paginationProps An object gathering all properties passed to Pagination component.
- * @param props.collapsibleProps Object allow the list to be transformed in a collapsible list and to hide its content.
+ * @param collapsibleProps Object allow the list to be transformed in a collapsible list and to hide its content.
  * If undefined, the Pagination will not be rendered and therefore the list will not be paginated.
  * @link https://docs.infra.bsport.io/storybook/kaizen/main/index.html?path=/docs/components-list--docs
  */
-const List: React.FC<ListProps> = ({
-  className,
-  id,
-  header,
-  items,
-  isSelectable = false,
-  collapsibleProps,
-  paginationProps,
-  emptyStateProps,
-  loadingProps,
-}: ListProps) => {
-  const valueIds = items?.map((item) => item.id) ?? [];
+const List = <T extends { id: string }>(props: ListProps<T>) => {
+  const {
+    className,
+    id,
+    header,
+    loadingProps,
+    collapsibleProps,
+    isSelectable = false,
+    ...listContentProps
+  } = props;
+  const valueIds = listContentProps.items?.map((item) => item.id) ?? [];
 
   const { shouldRenderLoadingState, LoadingState } =
     useLoadingState(loadingProps);
@@ -130,20 +176,13 @@ const List: React.FC<ListProps> = ({
           )}
           {collapsibleProps ? (
             <Collapse.Content>
-              <ListContent
+              <ListContent<T>
+                {...listContentProps}
                 isSelectable={isSelectable}
-                items={items}
-                emptyStateProps={emptyStateProps}
-                paginationProps={paginationProps}
               />
             </Collapse.Content>
           ) : (
-            <ListContent
-              isSelectable={isSelectable}
-              items={items}
-              emptyStateProps={emptyStateProps}
-              paginationProps={paginationProps}
-            />
+            <ListContent<T> {...listContentProps} isSelectable={isSelectable} />
           )}
         </div>
       </CheckboxProvider>
@@ -151,17 +190,36 @@ const List: React.FC<ListProps> = ({
   );
 };
 
-const ListContent: React.FC<ListContentProps> = ({
-  isSelectable,
-  emptyStateProps,
-  items,
-  paginationProps,
-}) => {
+const ListContent = <T extends { id: string }>(props: ListContentProps<T>) => {
+  const { isSelectable, emptyStateProps, paginationProps, ListItem, items } =
+    props;
   const pagination = usePagination(paginationProps);
-
   const { shouldRenderEmptyState, EmptyState } = useEmptyState(emptyStateProps);
+  const { getCheckboxState, toggleCheckbox } = useCheckboxContext();
 
   if (shouldRenderEmptyState) return <EmptyState />;
+
+  if (ListItem) {
+    return (
+      <>
+        {items.map((item) => {
+          const selected = getCheckboxState(item.id) === "checked";
+          const handleSelect = () => toggleCheckbox(item.id);
+
+          return (
+            <ListItem
+              {...item}
+              key={item.id}
+              isSelectable={isSelectable}
+              selected={selected}
+              onSelect={handleSelect}
+            />
+          );
+        })}
+        {pagination}
+      </>
+    );
+  }
 
   return (
     <>

@@ -196,6 +196,8 @@ const getTranslations = async () => {
     BASE_OR_VARIANT_SHOP_ITEMS_ARE_NOT_ALLOWED_IN_PAYMENT_COMBO,
   } = await import('@bsport/common/lib/master-data/error-codes/shop.js');
 
+  const COMMUNICATION_SCHEDULED_ALREADY_SENT = 133001;
+
   return {
     bookkeeping_account: {
       errors: {
@@ -1446,6 +1448,12 @@ const getTranslations = async () => {
     oneClickBooking: {
       genericError:
         "We couldn't complete your booking. Please review your details and try again.",
+    },
+    communicationScheduled: {
+      delete: {
+        [COMMUNICATION_SCHEDULED_ALREADY_SENT]:
+          'This scheduled campaign is being processed or has already been sent.',
+      },
     },
   };
 };

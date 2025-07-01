@@ -2,6 +2,7 @@ import { createAction } from 'redux-actions';
 import type { AxiosResponse } from 'axios';
 import uniq from 'lodash/uniq';
 
+import { CUSTOM_ERROR_CODE } from '#src/libs/constants';
 import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-inbox.js';
 import { monitorBackgroundTask } from '#src/libs/background-task/actions';
 import { snackbarSuccess, snackbarError } from '#src/libs/snackbar/actions';
@@ -852,6 +853,11 @@ export const deleteCommunicationScheduled = (
       dispatch(deleteCommunicationScheduledActions.success(id));
       options?.onSuccess?.(id);
     } catch (error) {
+      if (error?.response?.status === CUSTOM_ERROR_CODE) {
+        const errorCode = error.response.data?.error_code;
+        dispatch(snackbarError(`communicationScheduled.delete.${errorCode}`));
+      }
+
       dispatch(deleteCommunicationScheduledActions.error(error));
       options?.onError?.(error);
     } finally {

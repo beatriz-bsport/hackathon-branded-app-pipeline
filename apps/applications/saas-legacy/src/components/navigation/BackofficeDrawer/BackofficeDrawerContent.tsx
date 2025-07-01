@@ -12,10 +12,11 @@ import { TUTORIAL_GENERIC_DIALOG_WELCOME } from '#src/libs/platform-tutorial/con
 import type { Role } from '#src/libs/role/types';
 import type { ClockInQueryParams } from '#src/libs/clock-in/types';
 import type { TempPasswordState } from '#src/libs/login/types';
+import type { CompanyTheme } from '#src/libs/theme/types';
 
 export interface BackofficeDrawerContentProps {
   displayLeftMenu: boolean;
-  theme: any;
+  theme: CompanyTheme;
   classes: any;
   drawerIconsOnly: boolean;
   handleDrawerToggle: () => void;
@@ -68,6 +69,11 @@ export interface BackofficeDrawerContentProps {
   usersPaginatedWithRoles: any;
   setOpenWelcometutorialDialog: (open: boolean) => void;
   handleGoToTutorial: () => void;
+  // eslint-disable-next-line react/no-unused-prop-types
+  revampedBackofficeEnabled: boolean; // Used in withNavigationSwitcher
+  // eslint-disable-next-line react/no-unused-prop-types
+  updateRevampedBackofficeEnabled: (nextValue: boolean) => void; // Used in withNavigationSwitcher
+  enableRevampedBackoffice: () => void;
 }
 
 const BackofficeDrawerContent: React.FC<BackofficeDrawerContentProps> = ({
@@ -108,13 +114,14 @@ const BackofficeDrawerContent: React.FC<BackofficeDrawerContentProps> = ({
   usersPaginatedWithRoles,
   setOpenWelcometutorialDialog,
   handleGoToTutorial,
+  enableRevampedBackoffice,
 }) => (
   <>
     {displayLeftMenu ? (
       <div>
         <Hidden mdUp>
           <Drawer
-            anchor={theme.direction === 'rtl' ? 'right' : 'left'}
+            anchor="left"
             classes={{
               paper: classes.drawerPaper,
             }}
@@ -130,6 +137,7 @@ const BackofficeDrawerContent: React.FC<BackofficeDrawerContentProps> = ({
               companyId={companyId}
               companyTheme={theme}
               disconnect={disconnect}
+              enableRevampedBackoffice={enableRevampedBackoffice}
               featureList={featureList}
               hasLimitedAccesToAudience={
                 theme?.has_limited_access_to_sequential_marketing
@@ -159,6 +167,7 @@ const BackofficeDrawerContent: React.FC<BackofficeDrawerContentProps> = ({
               companyId={companyId}
               companyTheme={theme}
               disconnect={disconnect}
+              enableRevampedBackoffice={enableRevampedBackoffice}
               featureList={featureList}
               handleUserSetDrawerIconsOnly={handleUserSetDrawerIconsOnly}
               hasLimitedAccesToAudience={
@@ -181,7 +190,7 @@ const BackofficeDrawerContent: React.FC<BackofficeDrawerContentProps> = ({
       </div>
     ) : (
       <Drawer
-        anchor={theme.direction === 'rtl' ? 'right' : 'left'}
+        anchor="left"
         classes={{
           paper: classes.drawerPaper,
         }}
@@ -196,6 +205,7 @@ const BackofficeDrawerContent: React.FC<BackofficeDrawerContentProps> = ({
           companyId={companyId}
           companyTheme={theme}
           disconnect={disconnect}
+          enableRevampedBackoffice={enableRevampedBackoffice}
           featureList={featureList}
           hasLimitedAccesToAudience={
             theme?.has_limited_access_to_sequential_marketing

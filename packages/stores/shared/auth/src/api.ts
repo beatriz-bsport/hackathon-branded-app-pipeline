@@ -29,6 +29,15 @@ export const fetchTemporaryPasswordAPI = (): ApiConfig => {
   return [`${API_URL}/authentication/temp-password/`];
 };
 
+export const toggleRevampedBackofficeAPI = (): ApiConfig => {
+  return [
+    `${API_URL}/authentication/toggle_revamped_backoffice/`,
+    {
+      method: "POST",
+    },
+  ];
+};
+
 export const generateTemporaryPasswordAPI = (): ApiConfig => {
   return [
     `${API_URL}/authentication/temp-password/generate/`,

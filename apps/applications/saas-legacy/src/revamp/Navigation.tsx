@@ -1,4 +1,4 @@
-import React, { Suspense, useEffect } from 'react';
+import React, { Suspense, useEffect, useCallback } from 'react';
 import { createRemoteComponent } from '@module-federation/bridge-react';
 import { loadRemote, init } from '@module-federation/runtime';
 import { useHistory } from 'react-router-dom';
@@ -22,6 +22,7 @@ init({
 type NavigationSidebarProps = {
   className?: string;
   navigate: (path: string) => void;
+  disableRevampOnLegacyStore?: () => void;
 };
 
 const NavigationSidebar = createRemoteComponent<
@@ -42,7 +43,10 @@ const NavigationSidebar = createRemoteComponent<
   loading: (): null => null,
 });
 
-export const Navigation: React.FC<{ className?: string }> = ({ className }) => {
+export const Navigation: React.FC<{
+  className?: string;
+  updateRevampedBackofficeEnabled: (nextValue: boolean) => void;
+}> = ({ className, updateRevampedBackofficeEnabled }) => {
   const navigate = useHistory().push;
 
   useEffect(() => {
@@ -50,9 +54,17 @@ export const Navigation: React.FC<{ className?: string }> = ({ className }) => {
     import('@bsport/sm-navigation-sidebar/styles');
   }, []);
 
+  const disableRevampOnLegacyStore = useCallback(() => {
+    updateRevampedBackofficeEnabled(false);
+  }, [updateRevampedBackofficeEnabled]);
+
   return (
     <Suspense fallback={null}>
-      <NavigationSidebar className={className} navigate={navigate} />
+      <NavigationSidebar
+        className={className}
+        disableRevampOnLegacyStore={disableRevampOnLegacyStore}
+        navigate={navigate}
+      />
     </Suspense>
   );
 };

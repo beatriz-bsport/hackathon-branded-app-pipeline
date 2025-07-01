@@ -152,6 +152,7 @@ export type AuthState = {
   franchise_role_identifier: number;
   franchise_role: number;
   has_completed_account_configuration_on_boarding: boolean;
+  has_enabled_revamped_backoffice: boolean;
   initializating: boolean;
   invalidFields: { email?: string; password?: string } | null;
   is_coach: boolean;

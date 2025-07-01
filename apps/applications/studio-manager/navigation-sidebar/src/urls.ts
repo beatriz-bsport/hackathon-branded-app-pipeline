@@ -89,4 +89,17 @@ export const REVAMP_URLS: Partial<Urls> = {
   settings_referral: `${SETTINGS_URL}/referral-program`,
 } as const;
 
+export const MAP_REVAMP_TO_LEGACY_URLS = new Map();
+for (const [key, url] of Object.entries(REVAMP_URLS)) {
+  if (key === "payout") {
+    // Future-proofing: payout will be added to REVAMP_URLS later
+    MAP_REVAMP_TO_LEGACY_URLS.set(url, "/"); // Default location
+  } else {
+    MAP_REVAMP_TO_LEGACY_URLS.set(
+      url,
+      LEGACY_URLS[key as keyof Omit<Urls, "payout">],
+    );
+  }
+}
+
 export default REVAMP_URLS;

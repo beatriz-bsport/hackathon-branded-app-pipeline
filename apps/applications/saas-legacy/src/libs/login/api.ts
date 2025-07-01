@@ -116,3 +116,9 @@ export async function getRelationToken(params: {
     },
   );
 }
+
+export async function toggleRevampedBackofficeAPI() {
+  return postAuth(
+    `${API_V1_URI_CORE}/authentication/toggle_revamped_backoffice/`,
+  );
+}

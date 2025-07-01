@@ -26,7 +26,7 @@ const MarketplaceAsManager = asyncComponent(
 );
 
 const OneClickBookingModule = asyncComponent(
-  () => import('./booker-modules/OfferBooker/OneClickBookingModule/index.page'),
+  () => import('./express-checkouts/OneClickBookingModule/index.page'),
 );
 
 const BoutiqueBookerModule = asyncComponent(

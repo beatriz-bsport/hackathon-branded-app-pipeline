@@ -28,8 +28,8 @@ export function useCreateTemplate({
     typeof createTemplate
   >({
     asyncFn: createTemplate,
-    onSuccess,
-    onFailure,
+    onSuccess: ({ value }) => onSuccess?.(value),
+    onFailure: ({ error }) => onFailure?.(error),
   });
 
   return {

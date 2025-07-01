@@ -2203,16 +2203,16 @@
             "name": "Titel",
             "addActivity": "Een activiteit toevoegen",
             "addOffers": "Sessies toevoegen",
-            "lastDiscardBeforeMinutes": "Selecteer tot wanneer leden kosteloos kunnen annuleren voor het begin van een sessie (late-cancel)",
+            "lastDiscardBeforeMinutes": "Bepaal hoe lang voor de activiteit leden gratis kunnen annuleren",
             "lastBookingBeforeMinutes": "Selecteer tot wanneer leden zich kunnen inschrijven voor het begin van een sessie",
             "is_broadcast": "Dit is een livestream",
             "settings": "Instellingen",
             "nextSlotAt": "De eerstvolgende sessie is op: ",
             "explainImage": "Aanbevolen: 1920 x 1080 .JPG (Full HD)",
-            "firstBookingMinutesUntil": "Beperk reserveringen tot sessies die plaatsvinden over ",
+            "firstBookingMinutesUntil": "Kies hoe lang voor de sessie het boekingsvenster wordt geopend",
             "altCoverMain": "Afbeeldingsbeschrijving",
             "autoDiscard": "Automatische annulering",
-            "generalInfo": "Algemeen",
+            "generalInfo": "Algemene informatie",
             "firstMinutesBookingUntilWarning": "Een waarde van nul betekent dat er geen beperkingen zijn ingesteld. Voor sessies van deze activiteit staan altijd reserveringen open."
         },
         "calendar": {
@@ -2396,9 +2396,9 @@
                 },
                 "autoDiscard": {
                     "hours_before_start": "Aantal uur voor het begin van de sessie:",
-                    "explain": "Annuleer sessies met minder dan of gelijk {{bookings_nb}} reservering(en) {{hours}} uur voor het begin van de sessie. Ingeschreven leden ontvangen een melding van de annulering.",
-                    "checkbox": "Automatisch onderbezette sessies annuleren",
-                    "emailRecipients": "Een e-mail van de automatische annulering wordt verzonden naar accounts met de rol Eigenaar of Systeembeheerder, evenals naar de (plaatsvervangende) docent van de sessie in kwestie. Het is ook mogelijk om direct een bericht naar de ingeschreven leden te versturen.",
+                    "explain": "Lessen met minder dan 1 boeking worden 1 uur voor aanvang geannuleerd. Leden krijgen bericht dat de les is geannuleerd.",
+                    "checkbox": "Automatisch ondergeboekte lessen annuleren",
+                    "emailRecipients": "Als een klas automatisch geannuleerd wordt, wordt er een e-mail gestuurd naar de eigenaar, beheerder en leraar van de klas en naar de leerlingen.",
                     "min_bookings_nb": "Aantal reserveringen:"
                 }
             }
@@ -2470,12 +2470,12 @@
         "metaActivityNotificationToolTip": "Er zijn automatische meldingen ingesteld.",
         "metaActivityCategory": {
             "explain": "Deze categorieën worden alleen voor het sorteren van groepsactiviteiten aan de achterkant gebruikt om de Managerweergaven naar wens in te richten. Leden ondervinden geen impact van deze wijzigingen.",
-            "sctExplain": "Categorieën worden gebruikt om de verschillende activiteiten te beheren en worden ook getoond op de MarketPlace en de Mobiele App."
+            "sctExplain": "Kies de categorie waaronder deze activiteit wordt weergegeven op de Marktplaats en de Mobiele app."
         },
         "restrictions": {
             "firstBookingMinutesUntil": "Opening reserveringen",
-            "lastBookingBeforeMinutes": "Sluiting reserveringen",
-            "lastDiscardBeforeMinutes": "Annuleringsvoorwaarden",
+            "lastBookingBeforeMinutes": "Wanneer het boekingsvenster sluit",
+            "lastDiscardBeforeMinutes": "Voorwaarden voor late annulering",
             "tags": {
                 "mandatory": "Selecteer minstens één tag",
                 "header": "Geselecteerde tags",
@@ -2484,10 +2484,10 @@
             "back": "Terug",
             "next": "Volgende",
             "personnalizedRestrictionsIndex": "Gepersonaliseerde beperking: {{ count }}",
-            "add": "Een regel toevoegen ({{ count }}/{{ max }})",
-            "personnalizedHelper": "Gebruik tags om verschillende beperkingen op te leggen aan zelfbepaalde segmenten binnen het ledenbestand.",
-            "personnalizedHeader": "Gepersonaliseerde beperkingen",
-            "header": "Beperkingen"
+            "add": "Aangepaste regel maken",
+            "personnalizedHelper": "Stel aangepaste, tag-gebaseerde regels in om de instellingen voor elk segment aan te passen.",
+            "personnalizedHeader": "Gepersonaliseerde voorwaarden",
+            "header": "Voorwaarden"
         }
     },
     "communication": {
@@ -3779,7 +3779,8 @@
             "nb_consumer_payment_packs": "Aantal passen",
             "nb_first_attendances": "Aantal eerste bezoeken",
             "nb_payments": "Aantal betalingen",
-            "total_rows": "Aantal rijen"
+            "total_rows": "Aantal rijen",
+            "amount_upcoming_cts": "Geplande betaling"
         },
         "report": {
             "delete_message": "Weet je zeker dat je \"{{- name }}\" wilt verwijderen?"
@@ -6416,7 +6417,7 @@
                     "noCompatiblePass": "Maak minstens één compatibele leskaart aan zodat leden zich voor deze activiteit kunnen inschrijven."
                 },
                 "steps": {
-                    "activity_form": "Activiteit toevoegen",
+                    "activity_form": "Een activiteit toevoegen",
                     "pass_form": "(Optioneel) Een leskaart toevoegen",
                     "pass_list": "Afronden",
                     "offer_form": "(Optioneel) Sessies toevoegen",
@@ -6481,7 +6482,7 @@
             "search": "Zoek een activiteit",
             "addActivity": "Een groepsactiviteit toevoegen"
         },
-        "noActivities": "In dit onderdeel kun je al je groepsactiviteiten toevoegen, beheren, wijzigen en verwijderen.",
+        "noActivities": "Groepsactiviteiten zijn lessen die aan een groep worden gegeven. Hier kun je groepsactiviteiten toevoegen, bewerken en beheren.",
         "disabledMetaActivities": "Gearchiveerde groepsactiviteiten",
         "workshop": "Workshop",
         "groupedOption": {
@@ -8594,10 +8595,10 @@
         },
         "metaActivity": {
             "metaActivityEditForm": "[Formulier] Groepsactiviteiten",
-            "metaActivityFormPage": "[Formulier] Groepsactiviteiten",
+            "metaActivityFormPage": "Een groepsactiviteit toevoegen",
             "metaActivityList": "Groepsactiviteiten",
             "metaActivityEditFormSubtitle": "Een groepsactiviteit toevoegen of bewerken.",
-            "metaActivityFormSubtitle": "Een groepsactiviteit toevoegen"
+            "metaActivityFormSubtitle": "Een groepsactiviteit opzetten, de duur ervan bepalen en aangepaste parameters toevoegen"
         },
         "invoice": {
             "invoiceList": "Facturen",
@@ -13710,7 +13711,7 @@
                 "cancel": "Annuleren",
                 "submit": "Bevestigen",
                 "title": "E-mailadres van de instructeur",
-                "emailLabel": "E-mail",
+                "emailLabel": "E-mailadres",
                 "emailPlaceHolder": "instructeur@bsport.io",
                 "explain": "Als deze e-mail al in ons systeem bestaat, maken we automatisch het profiel van de instructeur aan."
             },

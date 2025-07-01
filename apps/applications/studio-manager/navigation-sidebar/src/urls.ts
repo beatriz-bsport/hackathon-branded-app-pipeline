@@ -5,7 +5,10 @@ const SETTINGS_URL = "/settings";
 export const HELP_CENTER = "https://intercom.help/bsport-helpcenter/en";
 
 export const LEGACY_URLS: Omit<Urls, "payout"> = {
-  accessControl: "/access-monitoring",
+  accessMonitoring: "/access-monitoring",
+  accessMonitoring_monitor: "/access-monitoring/monitor",
+  accessMonitoring_perform: "/access-monitoring/perform",
+  accessMonitoring_settings: "/access-monitoring/settings",
   activity: "/activity",
   appointment: "/private-service/service",
   appointmentPass: "/private-service/pass",
@@ -66,6 +69,8 @@ export const LEGACY_URLS: Omit<Urls, "payout"> = {
   tutorial: "/tutorial",
   video: "/vod/video",
   webshop: "/shop/products",
+  webshop_products: "/shop/products",
+  webshop_settings: "/shop/settings",
   webshopOld: "/shop",
   workshop: "/workshop-activity/tabs/list",
 } as const;
@@ -81,6 +86,7 @@ export const REVAMP_URLS: Partial<Urls> = {
   pack: "/pack",
   smartlist: "/smartlist",
   teacher: "/teacher",
+  settings_referral: `${SETTINGS_URL}/referral-program`,
 } as const;
 
 export default REVAMP_URLS;

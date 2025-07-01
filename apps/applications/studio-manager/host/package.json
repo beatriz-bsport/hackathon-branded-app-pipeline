@@ -83,6 +83,10 @@
       "sm-custom-form": {
         "devPort": 4302,
         "watchPath": "../cdp/custom-form/src/**/*"
+      },
+      "sm-referral-program": {
+        "devPort": 4303,
+        "watchPath": "../cdp/referral-program/src/**/*"
       }
     }
   }

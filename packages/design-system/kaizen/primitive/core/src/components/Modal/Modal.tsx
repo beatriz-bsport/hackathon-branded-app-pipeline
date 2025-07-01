@@ -23,7 +23,7 @@ export type ModalProps = React.HTMLAttributes<HTMLDivElement> & {
   onClickOutside?: (event: React.MouseEvent<HTMLDivElement>) => void;
   confirmButton?: ConfirmButtonProps;
   cancelButton?: CancelButtonProps;
-  children?: React.ReactNode;
+  children?: string | React.ReactNode;
 };
 
 /**
@@ -105,8 +105,16 @@ const Modal: React.FC<ModalProps> = ({
         />
       </div>
 
-      {children && (
-        <div className="p-md flex-grow overflow-y-auto">{children}</div>
+      {children !== undefined && (
+        <div className="p-md flex-grow overflow-y-auto">
+          {typeof children === "string" ? (
+            <Body htmlVariant="p" size="md" weight="weak">
+              {children}
+            </Body>
+          ) : (
+            children
+          )}
+        </div>
       )}
 
       <Footer

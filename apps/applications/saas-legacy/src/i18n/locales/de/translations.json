@@ -2006,8 +2006,8 @@
                     "success": "Das Event wurde gespeichert"
                 }
             },
-            "lastDiscardBeforeMinutes": "Lege die kostenlose Stornierungsfrist fest",
-            "lastBookingBeforeMinutes": "Lege die Buchungsfrist fest",
+            "lastDiscardBeforeMinutes": "Lege die Stornierungsfrist fest - Bis wann kann kostenlos storniert werden?",
+            "lastBookingBeforeMinutes": "Lege die Buchungsfrist fest - Bis wann kann gebucht werden?",
             "imageUploaderRequireEditMessage": "Sobald ein Event erstellt ist, hast Du die Möglichkeit, zusätzliche Bilder hinzuzufügen.",
             "addWorkshopActivity": "Einen Workshop hinzufügen"
         },
@@ -2034,7 +2034,7 @@
             "explainImage": "Empfohlen : 1920x1080 jpeg (fullHD)",
             "packsAvailable": "Kompatible Kurspässe :",
             "fillrate": "Durchschnittliche Befüllung",
-            "firstBookingMinutesUntil": "Lege den Buchungszeitraum fest",
+            "firstBookingMinutesUntil": "Lege den Buchungszeitraum fest - Ab wann kann gebucht werden?",
             "generalInfo": "Allgemeine Infos",
             "autoDiscard": "Automatische Stornierung",
             "altCoverMain": "Bildbeschreibung für Sehbehinderte",
@@ -2110,7 +2110,7 @@
                     "min_bookings_nb": "Anzahl der Buchung(en):",
                     "emailRecipients": "Falls ein Kurs automatisch storniert wird, wird eine E-Mail an den Inhaber, den Admin, die Lehrkraft und die Mitglieder gesendet.",
                     "checkbox": "Storniere einen Kurs automatisch, wenn es nicht genug Buchungen gibt",
-                    "explain": "Der Kurs wird eine Stunde(n) for Beginn storniert, wenn es weniger als eine Buchung(en) gibt. Alle Mitglieder, die einen Platz gebucht haben, werden über die Stornierung informiert."
+                    "explain": "Der Kurs wird {{hours}} Stunde(n) vor Beginn storniert, wenn es {{bookings_nb}} oder weniger Buchung(en) gibt. Alle Mitglieder, die einen Platz gebucht haben, werden über die Stornierung informiert."
                 }
             }
         },
@@ -2221,7 +2221,7 @@
         "quickInvoiceNoVoucher": "Lasse den Wert dieses Feldes auf 0, wenn Du keinen Rabatt anwenden möchtest",
         "metaActivityCategory": {
             "explain": "Diese Kategorien werden verwendet, um die Gruppenaktivitäten in der von Ihnen bevorzugten Darstellung in der Management-Ansicht zu ordnen und zu sortieren. Die Mitglieder werden durch Ihre Anzeigeentscheidungen nicht beeinträchtigt.",
-            "sctExplain": "Wähle eine Kategorie für diese Aktivität. Die Aktivität erscheint dann unter dieser Kategorie beim Marktplatz und in den Apps."
+            "sctExplain": "Wähle eine Kategorie, unter der die Aktivität im Marktplatz und in der App erscheint."
         },
         "restrictions": {
             "personnalizedHelper": "Lege benutzerdefinierte Bedingungen für jedes Segment mithilfe von Tags fest.",
@@ -2972,16 +2972,16 @@
         "delete": "Löschen",
         "edit": "Einrichten",
         "tag_rules": {
-            "cancel": "Stornieren",
+            "cancel": "Abbrechen",
             "associated_tag": "Zugehöriges Tag",
             "create": "Erstelle eine Regel",
-            "tag_on_join_and_untag_on_left": "Tag, falls in der Smartlist vorhanden",
+            "tag_on_join_and_untag_on_left": "Markieren, falls ein Mitglied der Smartlist angehört",
             "type_of_rule": "Regeltyp",
             "tag_group": "Haupttag",
             "tag_name": "Sub Tag",
             "display_tag_rules": "Markierungsregeln anzeigen",
             "tag_on_left": "Markieren, wenn von der Smartliste genommen wird",
-            "tag_on_join": "Markieren, wenn auf der Smartlist",
+            "tag_on_join": "Markieren, wenn zur Smartlist hinzugefügt wird",
             "activeSince": "Aktiv seit {{ since }}",
             "tag": "Tag",
             "asyncDialog": {
@@ -5819,7 +5819,7 @@
         },
         "selector": {
             "noAvailable": "Kein Pass, der den gewählten Verfügbarkeiten entspricht",
-            "noManagerOnly": "Im Marktplatz eingeblendet",
+            "noManagerOnly": "Sichtbar für Kunden",
             "managerOnly": "Für Mitglieder ausgeblendet",
             "filterManagerOnly": "Für alle sichtbar",
             "filterCategory": "Alle Kategorien",
@@ -6569,7 +6569,8 @@
             "nb_consumer_payment_packs": "Anzahl der Kurspässe",
             "nb_first_attendances": "Anzahl der Erstbesuche",
             "nb_payments": "Anzahl der Zahlungen",
-            "total_rows": "Zeilen insgesamt"
+            "total_rows": "Zeilen insgesamt",
+            "amount_upcoming_cts": "Anstehender Betrag"
         },
         "no": "Nein",
         "yes": "Ja",
@@ -13938,7 +13939,7 @@
         "reviews": "Kundenbenachrichtigungen : ",
         "offersThisDay": "Heutige Kurse:",
         "packsAvailable": "Verfügbarer Kurspass für diese Aktivität :",
-        "noActivities": "Gruppenaktivitäten sind Kurse, die man in einer Gruppe ausführt. Hier kannst du Gruppenaktivitäten hinzufügen, bearbeiten und verwalten.",
+        "noActivities": "Gruppenaktivitäten sind Kurse für Gruppen. Hier kannst du Gruppenaktivitäten hinzufügen, bearbeiten und verwalten.",
         "disabledMetaActivities": "Archivierte Gruppenaktivitäten",
         "workshop": "Workshop",
         "groupedOption": {
@@ -14923,7 +14924,7 @@
             "metaActivityFormPage": "Gruppenaktivität hinzufügen",
             "metaActivityEditForm": "Aktivität-Formular",
             "metaActivityList": "Aktivitäten",
-            "metaActivityFormSubtitle": "Erstelle einen Gruppenkurs mit Infos und Buchungsbedinungen.",
+            "metaActivityFormSubtitle": "Erstelle eine Gruppenaktivität mit Infos und Buchungsbedinungen.",
             "metaActivityEditFormSubtitle": "Gruppenaktivität bearbeiten"
         },
         "order": {

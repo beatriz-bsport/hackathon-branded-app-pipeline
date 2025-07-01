@@ -28,8 +28,8 @@ export function useDuplicateTemplate({
     typeof duplicateTemplate
   >({
     asyncFn: duplicateTemplate,
-    onSuccess,
-    onFailure,
+    onSuccess: ({ value }) => onSuccess?.(value),
+    onFailure: ({ error }) => onFailure?.(error),
   });
 
   return {

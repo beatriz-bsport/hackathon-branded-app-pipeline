@@ -29,8 +29,8 @@ export function useFetcherCustomFormStatistics({
     typeof fetchFormStatistics
   >({
     asyncFn: fetchFormStatistics,
-    onSuccess,
-    onFailure,
+    onSuccess: ({ value }) => onSuccess?.(value),
+    onFailure: ({ error }) => onFailure?.(error),
   });
 
   return {

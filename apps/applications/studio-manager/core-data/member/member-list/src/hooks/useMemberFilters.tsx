@@ -69,51 +69,8 @@ export const useMemberFilters = () => {
     ref.current?.resetFilters?.();
   }, []);
 
-  // Load tags to update tagFields
-  useEffect(() => {
-    const fetchAndSetTags = async () => {
-      // Retrieve tags and tag groups, and join them
-      const tagList = await fetchTagList();
-      const tagGroupList = await fetchTagGroupList();
-      const tagGroupListWithTags: TagGroup<Tag>[] = tagGroupList.map(
-        (tagGroup) => {
-          return {
-            ...tagGroup,
-            tags: [...tagList.filter((tag) => tagGroup.tags.includes(tag.id))],
-          };
-        },
-      );
-      // Compute filter fields where each tag group is a category
-      const tagFields = tagGroupListWithTags.reduce(
-        (acc: Record<string, FilterField>, tagGroup) => {
-          return {
-            ...acc,
-            [`tag-group-${tagGroup.id}`]: {
-              id: `tag-group-${tagGroup.id}`,
-              label: tagGroup.name,
-              availableFilters: filters.map((filter) => filter.id),
-              values: tagGroup.tags.map((tag) => {
-                return {
-                  id: `${tag.id}`,
-                  label: `${tag.name}`,
-                };
-              }),
-              multiSelect: true,
-            },
-          };
-        },
-        {},
-      );
-      setTagFields(tagFields);
-    };
-
-    fetchAndSetTags();
-  }, []);
-
-  const filterConfig: FilterProps = {
-    fields: tagFields,
-    filters: filters,
-    onFilterChange: (selectedFilters) => {
+  const onFilterChange = useCallback(
+    (selectedFilters: FilterElementState[]) => {
       setActiveFilters({
         tags_included: buildTagsSelector({
           selectedFilters,
@@ -125,9 +82,53 @@ export const useMemberFilters = () => {
         }),
       });
     },
-    selectFieldLabel: t("filters.label"),
-    ref: ref,
-  };
+    [],
+  );
+
+  // Load tags to update tagFields
+  useEffect(() => {
+    const fetchAndSetTags = async () => {
+      // Retrieve tags and tag groups, and join them
+      const tagList = await fetchTagList();
+      const tagGroupList = await fetchTagGroupList();
+      const tagGroupListWithTags: TagGroup<Tag>[] = tagGroupList.map(
+        (tagGroup) => ({
+          ...tagGroup,
+          tags: [...tagList.filter((tag) => tagGroup.tags.includes(tag.id))],
+        }),
+      );
+      // Compute filter fields where each tag group is a category
+      const tagFields = tagGroupListWithTags.reduce(
+        (acc: Record<string, FilterField>, tagGroup) => ({
+          ...acc,
+          [`tag-group-${tagGroup.id}`]: {
+            id: `tag-group-${tagGroup.id}`,
+            label: tagGroup.name,
+            availableFilters: filters.map((filter) => filter.id),
+            values: tagGroup.tags.map((tag) => ({
+              id: `${tag.id}`,
+              label: `${tag.name}`,
+            })),
+            multiSelect: true,
+          },
+        }),
+        {},
+      );
+      setTagFields(tagFields);
+    };
+
+    fetchAndSetTags();
+  }, [filters]);
+
+  const filterConfig: FilterProps = useMemo(
+    () => ({
+      fields: tagFields,
+      filters: filters,
+      onFilterChange,
+      selectFieldLabel: t("filters.label"),
+    }),
+    [tagFields, filters, onFilterChange, t],
+  );
 
   return {
     handleClearFilters,

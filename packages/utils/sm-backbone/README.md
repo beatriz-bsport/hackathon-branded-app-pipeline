@@ -154,3 +154,42 @@ Each hook provides access to specific data:
 - `useUserAccess()`: Returns the access rights for the current user
 - `useUserRole()`: Returns the role object for the current user
 - `useCompanyRoles()`: Returns all roles defined for the current company
+
+## Tailwind CSS Integration
+
+The SM Backbone package uses Tailwind CSS classes and provides a convenient way for consuming applications to include these classes in their build process.
+
+### Automatic Tailwind Content Paths
+
+To ensure that Tailwind classes used in SM Backbone components are properly included in your application's CSS build, import and use the provided content paths:
+
+```javascript
+// tailwind.config.js
+import { tailwindConfig } from "@bsport/kaizen-primitive-core";
+import { SM_BACKBONE_CONTENT_PATHS } from "@bsport/sm-backbone/tailwind-content";
+
+/** @type {import('tailwindcss').Config} */
+export default {
+  ...tailwindConfig,
+  content: [
+    "./index.html",
+    "./src/**/*.{js,ts,jsx,tsx}",
+    ...SM_BACKBONE_CONTENT_PATHS,
+  ],
+};
+```
+
+### How it works
+
+The `SM_BACKBONE_CONTENT_PATHS` export contains paths that point to SM Backbone's source files through pnpm's symlinked `node_modules`. This allows Tailwind to scan the original TypeScript/JSX files during build time and include any Tailwind classes used by SM Backbone components.
+
+This approach ensures that:
+
+- All Tailwind classes used in SM Backbone are automatically included in your build
+- No manual class discovery or CSS exports are needed
+- The solution works seamlessly with pnpm workspaces and Module Federation
+- Content paths are version-controlled and explicit
+
+### Usage in Applications
+
+Components from SM Backbone (like `AppWrapper`, `ErrorBoundaryWrapper`, etc.) will work correctly with their styling once you've added the content paths to your Tailwind configuration.

@@ -26,8 +26,8 @@ export function useEditSmartlist({
 }: UseEditSmartlistParams = {}) {
   const [{ isLoading }, triggerEditSmartlist] = useAsync<typeof editSmartlist>({
     asyncFn: editSmartlist,
-    onSuccess,
-    onFailure,
+    onSuccess: ({ value }) => onSuccess?.(value),
+    onFailure: ({ error }) => onFailure?.(error),
   });
 
   return {

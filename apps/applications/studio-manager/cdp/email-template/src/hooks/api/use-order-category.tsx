@@ -26,8 +26,8 @@ export function useOrderCategory({
 }: UseOrderCategoryParams = {}) {
   const [{ isLoading }, triggerOrderCategory] = useAsync<typeof orderCategory>({
     asyncFn: orderCategory,
-    onSuccess,
-    onFailure,
+    onSuccess: ({ value }) => onSuccess?.(value),
+    onFailure: ({ error }) => onFailure?.(error),
   });
 
   return {

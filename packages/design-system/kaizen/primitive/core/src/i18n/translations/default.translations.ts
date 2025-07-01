@@ -13,6 +13,13 @@ exports.default = {
       clearFilters: "Clear filters",
     },
   },
+  errorFallback: {
+    title: "We're sorry —",
+    description:
+      "We've logged the issue and our team is working hard to resolve it.\nIn the meantime, try refreshing the page.",
+    subtitle: "something went wrong on our side.",
+    actionLabel: "Try again",
+  },
   detailsLayout: {
     confirmation: {
       title: "The page has unsaved changes.",
@@ -38,5 +45,11 @@ exports.default = {
   },
   pagination: {
     rows: "Rows",
+    showingRange: "Showing {{currentItemsRendered}} of {{totalItems}}",
+  },
+  headerLayout: {
+    search: {
+      tooltip: "Search on this page",
+    },
   },
 };

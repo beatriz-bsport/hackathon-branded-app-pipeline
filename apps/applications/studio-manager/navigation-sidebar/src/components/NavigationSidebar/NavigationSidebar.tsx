@@ -4,9 +4,14 @@ import { Button, Card, NavigationMenu } from "@bsport/kaizen-primitive-core";
 import { dataAccessLayer } from "@bsport/sm-backbone";
 import { LOGIN_URL, logoutAction } from "@bsport/store-auth";
 
+import { useBatchRoutingPermissions } from "#src/features/permissions";
 import "#src/index.css";
 import { AppI18nextProvider, useTranslation } from "#src/utils/i18n";
 
+import {
+  TemporaryPasswordDialog,
+  useTemporaryPasswordDialog,
+} from "../TemporaryPasswordDialog";
 import FeedbackDialog, { useFeedbackDialog } from "./FeedbackDialog";
 import LanguageDropdown from "./LanguageDropdown";
 import { NavigationMenuElement } from "./NavigationMenuElement";
@@ -14,17 +19,15 @@ import NavigationSidebarHeader, {
   type MenuOption,
 } from "./NavigationSidebarHeader";
 import {
-  TemporaryPasswordDialog,
-  useTemporaryPasswordDialog,
-} from "./TemporaryPasswordDialog";
-import {
   type MenuSet,
   isDividerElement,
   isGroupElement,
   isItemElement,
   useNavigationElements,
 } from "./navigation-items";
+import { useProtectedItems } from "./navigation-protected-items";
 import { getNavigationUrls } from "./navigation-urls";
+import { useFilteredNavigationElements } from "./useFilteredNavigationElements";
 
 export type NavigationSidebarProps = {
   navigate?: (to: string) => void;
@@ -56,12 +59,22 @@ const NavigationSidebarContent = ({ navigate }: NavigationSidebarProps) => {
     handleOpenTemporaryPasswordDialog,
   });
 
+  const protectedElements = useProtectedItems(navigationElements);
+
+  const elementsPermissions = useBatchRoutingPermissions(protectedElements);
+
+  const filteredNavigationElements = useFilteredNavigationElements(
+    navigationElements,
+    elementsPermissions,
+    menuSet,
+  );
+
   const renderNavigationItems = () => {
     if (menuSet === "settings") {
       return (
         <>
           <NavigationMenu.Group label={t("menus.settings.title")} />
-          {navigationElements.map((item) => {
+          {filteredNavigationElements.map((item) => {
             if (isGroupElement(item)) return null;
 
             if (isItemElement(item)) {
@@ -82,7 +95,7 @@ const NavigationSidebarContent = ({ navigate }: NavigationSidebarProps) => {
 
     return (
       <>
-        {navigationElements.map((element, index) => {
+        {filteredNavigationElements.map((element, index) => {
           if (isDividerElement(element)) {
             return <NavigationMenu.Divider key={`divider-${index}`} />;
           }

@@ -1,5 +1,7 @@
+import { PERMISSIONS_PATHS } from "#src/features/permissions/permissions-paths";
 import type { Urls } from "#src/types";
 import { LEGACY_URLS, REVAMP_URLS } from "#src/urls";
+import type { RolePermissionPath } from "#src/utils/permissions";
 
 /**
  * Transform a URL dict in a list of entries, where an entry is :
@@ -19,20 +21,33 @@ function generateEntries({
   revamped: boolean;
 }) {
   return Object.entries(urls).map((entry) => {
+    if (!entry[1]) {
+      console.warn(`Missing URL for key ${entry[0]}`);
+    }
+
     return [
       entry[0] as keyof Urls,
       {
         href: entry[1],
         revamped,
+        urlKey: entry[0] as keyof Urls,
+        // Need in all cases the legacyUrl to check restricted paths
+        legacyUrl:
+          LEGACY_URLS[entry[0] as keyof Omit<Urls, "payout">] ?? undefined,
+        requiredPermissions: PERMISSIONS_PATHS[entry[0] as keyof Urls],
       },
     ];
   });
 }
 
-export type NavigationUrls = Record<
-  keyof Urls,
-  { href: string; revamped: boolean }
->;
+export type NavigationUrlItem = {
+  href: string;
+  revamped: boolean;
+  legacyUrl?: string;
+  requiredPermissions?: Array<RolePermissionPath>;
+};
+
+export type NavigationUrls = Record<keyof Urls, NavigationUrlItem>;
 
 /**
  * Generate a record mapping an url key to

@@ -9,6 +9,10 @@
       "types": "./build/lib.d.ts",
       "import": "./build/lib.es.js",
       "default": "./build/lib.es.js"
+    },
+    "./tailwind-content": {
+      "import": "./tailwind-content.mjs",
+      "default": "./tailwind-content.mjs"
     }
   },
   "main": "build/lib.es.js",

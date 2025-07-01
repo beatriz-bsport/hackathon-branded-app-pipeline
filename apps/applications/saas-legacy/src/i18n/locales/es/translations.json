@@ -5357,7 +5357,7 @@
             "views_unique": "Vistas únicas",
             "views_total": "Vistas",
             "amount_unpaid_remaining_cts": "Resto debido",
-            "amount_paid_cts": "Cantidad pagada",
+            "amount_paid_cts": "Importe pagado",
             "amount_due_cts": "El importe de la compra",
             "author_name": "Autor",
             "stripe_invoice_pdf": "PDF",
@@ -5550,7 +5550,8 @@
             "nb_consumer_payment_packs": "Número de pases",
             "nb_first_attendances": "Número de primeras visitas",
             "nb_payments": "Número de pagos",
-            "total_rows": "Total de filas"
+            "total_rows": "Total de filas",
+            "amount_upcoming_cts": "Importe pendiente"
         },
         "payment_method": {
             "cash": "Efectivo",

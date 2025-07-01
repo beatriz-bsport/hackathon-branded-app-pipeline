@@ -30,11 +30,11 @@ import {
 import WidgetTracker from '@bsport/saas-legacy/src/components/WidgetTracker.component';
 
 // eslint-disable-next-line
-import { fetchCompanyTheme } from '@bsport/saas-legacy/src/libs/theme/actions';
-import { fetchSCT } from '@bsport/saas-legacy/src/libs/category/actions';
-import { retrieveFranchise } from '@bsport/saas-legacy/src/libs/franchise/actions';
+import { fetchCompanyThemeWithCache } from '@bsport/saas-legacy/src/libs/theme/actions';
+import { fetchSCTWithCache } from '@bsport/saas-legacy/src/libs/category/actions';
+import { retrieveFranchiseWithCache } from '@bsport/saas-legacy/src/libs/franchise/actions';
 import { getFranchisor } from '@bsport/saas-legacy/src/libs/franchise/selectors';
-import { retrieveCompanyCssConfiguration as retrieveCompanyCssConfigurationAction } from '@bsport/saas-legacy/src/libs/exportable-components/actions';
+import { retrieveCompanyCssConfigurationWithCache as retrieveCompanyCssConfigurationAction } from '@bsport/saas-legacy/src/libs/exportable-components/actions';
 
 import {
   SnackbarDataProvider,
@@ -356,11 +356,11 @@ const mapStateToProps = (state: RootState) => ({
 });
 
 const mapDispatchToProps = {
-  fetchSCT,
-  fetchCompanyTheme,
+  fetchSCT: fetchSCTWithCache,
+  fetchCompanyTheme: fetchCompanyThemeWithCache,
   openUserInteractionPortal,
   closeUserInteractionPortal,
-  retrieveFranchise,
+  retrieveFranchise: retrieveFranchiseWithCache,
   retrieveCompanyCssConfiguration: retrieveCompanyCssConfigurationAction,
 };
 

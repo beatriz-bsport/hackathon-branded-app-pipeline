@@ -1,10 +1,7 @@
 import React from "react";
 
 import { Body, Modal, toast } from "@bsport/kaizen-primitive-core";
-import {
-  type Giftcard,
-  duplicateGiftcardAction,
-} from "@bsport/store-buyables-giftcard";
+import { duplicateGiftcardAction } from "@bsport/store-buyables-giftcard";
 import { useAsync } from "@bsport/use-async";
 
 import { useGiftcardNavigation } from "#src/hooks/useGiftcardNavigation";
@@ -33,7 +30,7 @@ export const GiftcardDuplicateModal: React.FC<GiftcardDuplicateModalProps> = ({
     asyncFn: async () => {
       return duplicateGiftcardAction(fetch, { id: giftcardId });
     },
-    onSuccess: (giftcardCopy: Giftcard) => {
+    onSuccess: ({ value: giftcardCopy }) => {
       // Refresh the list page once the request has finished
       refreshPageList();
 

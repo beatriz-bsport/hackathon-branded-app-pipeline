@@ -85,7 +85,10 @@ const useSplitActionsByDisplayOrder = ({
         },
         target: ({ setIsPopoverOpened }) => (
           <Button
-            onClick={() => setIsPopoverOpened(true)}
+            onClick={(event: React.MouseEvent<HTMLButtonElement>) => {
+              event.stopPropagation();
+              setIsPopoverOpened(true);
+            }}
             {...dropdownTargetProps}
           />
         ),

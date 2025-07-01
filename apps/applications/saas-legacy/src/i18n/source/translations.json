@@ -17332,6 +17332,11 @@
         },
         "oneClickBooking": {
             "genericError": "We couldn't complete your booking. Please review your details and try again."
+        },
+        "communicationScheduled": {
+            "delete": {
+                "133001": "This scheduled campaign is being processed or has already been sent."
+            }
         }
     },
     "spotScheduling": {

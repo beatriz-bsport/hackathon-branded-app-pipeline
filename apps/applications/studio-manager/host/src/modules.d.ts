@@ -10,7 +10,7 @@ declare module "sm-navigation-sidebar/NavigationSidebar" {
 }
 
 declare module "sm-navigation-sidebar/urls" {
-  const urls: {
+  export const REVAMP_URLS_DEVELOPMENT: {
     activity: string;
     customForm: string;
     emailTemplate: string;
@@ -23,7 +23,8 @@ declare module "sm-navigation-sidebar/urls" {
     teacher: string;
     settings_referral: string;
   };
-  export default urls;
+  export const REVAMP_URLS_PRODUCTION: Partial<typeof REVAMP_URLS_DEVELOPMENT>;
+  export default REVAMP_URLS_DEVELOPMENT;
 }
 
 // ----- Booking -----

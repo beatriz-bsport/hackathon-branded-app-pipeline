@@ -1671,6 +1671,9 @@ importers:
 
   apps/applications/studio-manager/host:
     dependencies:
+      '@bsport/envs':
+        specifier: workspace:*
+        version: link:../../../../packages/utils/envs
       '@bsport/fetch':
         specifier: workspace:*
         version: link:../../../../packages/utils/fetch

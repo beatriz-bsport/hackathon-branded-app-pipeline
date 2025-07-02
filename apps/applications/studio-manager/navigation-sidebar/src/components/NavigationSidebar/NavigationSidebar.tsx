@@ -9,6 +9,10 @@ import "#src/index.css";
 import { AppI18nextProvider, useTranslation } from "#src/utils/i18n";
 
 import {
+  NotificationsModal,
+  useNotificationsModal,
+} from "../NotificationsModal";
+import {
   TemporaryPasswordDialog,
   useTemporaryPasswordDialog,
 } from "../TemporaryPasswordDialog";
@@ -58,11 +62,17 @@ const NavigationSidebarContent = ({
     isTemporaryPasswordDialogOpen,
     isLoadingTemporaryPassword,
   } = useTemporaryPasswordDialog();
+  const {
+    isOpen: isNotificationsModalOpen,
+    openModal: openNotificationsModal,
+    closeModal: closeNotificationsModal,
+  } = useNotificationsModal();
 
   const navigationElements = useNavigationElements({
     menuSet,
     navigationUrls,
     handleOpenTemporaryPasswordDialog,
+    handleOpenNotificationsModal: openNotificationsModal,
   });
 
   const protectedElements = useProtectedItems(navigationElements);
@@ -207,6 +217,10 @@ const NavigationSidebarContent = ({
         isLoading={isLoadingTemporaryPassword}
         isOpen={isTemporaryPasswordDialogOpen}
         onClose={handleCloseTemporaryPasswordDialog}
+      />
+      <NotificationsModal
+        isOpen={isNotificationsModalOpen}
+        onClose={closeNotificationsModal}
       />
     </NavigationSidebarContainer>
   );

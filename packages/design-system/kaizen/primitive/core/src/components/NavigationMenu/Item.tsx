@@ -35,6 +35,7 @@ const navigationMenuItem = cva(defaultClasses);
 
 type BaseItemProps = Omit<NavigationMenuItem, "subItems"> & {
   onClick?: (e: MouseEvent) => void;
+  disableSelection?: boolean;
 };
 
 type SubItemsProps = BaseItemProps & {
@@ -65,6 +66,7 @@ export type ItemProps = SubItemsProps | ChildrenProps;
  * @param  props.target - The target attribute for the link.
  * @param  props.onClick - Callback function to be executed when the menu item is clicked.
  * @param  props.active - Whether the menu item is active.
+ * @param  props.disableSelection - Whether to disable automatic selection when the menu item is clicked.
  */
 const Item: React.FC<ItemProps> = (props) => {
   const {
@@ -78,6 +80,7 @@ const Item: React.FC<ItemProps> = (props) => {
     target,
     onClick,
     active,
+    disableSelection,
   } = props;
   const context = useNavigationMenuContext();
 
@@ -131,11 +134,20 @@ const Item: React.FC<ItemProps> = (props) => {
   }, [active, id, selectedItemId, setSelectedItemId]);
 
   const handleOnClick = useCallback(
-    (e: MouseEvent) => {
-      setOpenMenuId((prevState) => (prevState === id ? "" : id));
-      if (!subItems?.length && !children) setSelectedItemId(id);
-      if (onClick) onClick(e);
-      else if (onItemClick) onItemClick(props)(e);
+    (event: MouseEvent) => {
+      if (!disableSelection) {
+        setOpenMenuId((prevState) => (prevState === id ? "" : id));
+      }
+
+      if (!disableSelection && !subItems?.length && !children) {
+        setSelectedItemId(id);
+      }
+
+      if (onClick) {
+        onClick(event);
+      } else if (onItemClick) {
+        onItemClick(props)(event);
+      }
     },
     [
       setOpenMenuId,
@@ -146,6 +158,7 @@ const Item: React.FC<ItemProps> = (props) => {
       onClick,
       setSelectedItemId,
       subItems,
+      disableSelection,
     ],
   );
 

@@ -11,12 +11,15 @@ import Checkboxfield from '#src/components/css-only/Fabrique/Temporary/Checkboxf
 import AcceptTermsAndConditions from '#src/components/css-only/Fabrique/Temporary/AcceptTermsAndConditions';
 import { TermsAndConditionType } from '#src/libs/payment/types';
 import { useTheme } from '#src/pages/marketplace/passes/hooks/useTheme';
+import PasswordField from '#src/components/css-only/Fabrique/Temporary/PasswordField';
 
 export type LightSignupFormValues = {
   firstName: string;
   lastName: string;
   email: string;
   phone: string;
+  password: string;
+  passwordConfirm: string;
   acceptEmail: boolean;
   acceptSms: boolean;
   acceptTermsAndConditions: boolean;
@@ -74,6 +77,13 @@ const LightSignupForm = () => {
           type="tel"
         />
       </div>
+      <div className="bs-light-signup-form__password-section">
+        <PasswordField
+          id="light-signup-password"
+          label={t('lightSignup.form.password.label')}
+          name="password"
+        />
+      </div>
       <Checkboxfield
         id="light-signup-accept-email"
         label={t('lightSignup.form.acceptEmail.label')}
@@ -113,6 +123,18 @@ const lightSignupFormValidationSchema = Yup.object().shape({
       'booking:lightSignup.form.errors.phone',
       (value) => !value || isValidPhoneNumber(value),
     ),
+  password: Yup.string()
+    .required('booking:lightSignup.form.errors.requiredField')
+    .matches(
+      /^[^\s]{6,}$/,
+      'booking:lightSignup.form.errors.passwordMinimumRequirements',
+    ),
+  passwordConfirm: Yup.string()
+    .required('booking:lightSignup.form.errors.requiredField')
+    .oneOf(
+      [Yup.ref('password')],
+      'booking:lightSignup.form.errors.passwordConfirmation',
+    ),
   acceptEmail: Yup.boolean(),
   acceptSms: Yup.boolean(),
   acceptTermsAndConditions: Yup.boolean(),
@@ -140,6 +162,8 @@ export const lightSignupFormWrapper = withFormik<{}, LightSignupFormValues>({
           lastName: '',
           email: '',
           phone: '',
+          password: '',
+          passwordConfirm: '',
           acceptEmail: false,
           acceptSms: false,
           acceptTermsAndConditions: false,

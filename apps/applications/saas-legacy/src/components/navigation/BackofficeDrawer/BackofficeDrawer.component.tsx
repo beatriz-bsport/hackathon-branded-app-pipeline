@@ -92,6 +92,7 @@ import { DEFAULT_ZINDEX, NAVIGATION_ZINDEX, BANNER_ZINDEX } from './const';
 import { setAuthToken } from '#src/http';
 import { STORAGE_KEY_BSPORT_IMPERSONATED_TOKEN } from '#src/actions/constants';
 import { clearStorage, getItemInStorage } from '#src/utils/storage';
+import WidgetUtils from '#src/libs/widget/WidgetUtils';
 
 export const drawerWidth = 260;
 export const drawerIconsOnlyWith = 60;
@@ -811,11 +812,12 @@ export const BackOfficeDrawer: React.FC<Props> = ({
                         </Grid>
                       </ObjectLevelPermissionWrapper>
 
-                      {Config.REACT_APP_SENTRY_ENVIRONMENT === 'production' && (
-                        <Grid item>
-                          <FeatureBaseBoardButton />
-                        </Grid>
-                      )}
+                      {Config.REACT_APP_SENTRY_ENVIRONMENT === 'production' &&
+                        !WidgetUtils.isWidget() && (
+                          <Grid item>
+                            <FeatureBaseBoardButton />
+                          </Grid>
+                        )}
 
                       {renderAdditionalButtons()}
                     </Hidden>

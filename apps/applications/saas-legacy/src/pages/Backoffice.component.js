@@ -152,6 +152,8 @@ import { fetchPlatformCustomerEntity as fetchPlatformCustomerEntityAction } from
 import { RegularizingVatInformationDialog } from '#src/libs/platform-billing/components/RegularizingVatInformationDialog.component';
 
 import { retrieveCommunicationSMSProviderVerification } from '../libs/communication-v2/actions';
+import WidgetUtils from '#src/libs/widget/WidgetUtils';
+
 const CompanyDetailPage = asyncComponent(() =>
   import('./settings/CompanyDetailPage.page'),
 );
@@ -989,9 +991,8 @@ export class Backoffice extends Component<Props, State> {
             />
           </GenericResponsiveDialog>
         )}
-        {Config.REACT_APP_SENTRY_ENVIRONMENT === 'production' && (
-          <FeatureBaseSurvey />
-        )}
+        {Config.REACT_APP_SENTRY_ENVIRONMENT === 'production' &&
+          !WidgetUtils.isWidget() && <FeatureBaseSurvey />}
       </MuiThemeProvider>
     );
   }

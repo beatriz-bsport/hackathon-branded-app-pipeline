@@ -77,10 +77,7 @@ import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import { CommunicationDrawer } from '#src/libs/communication-v2/components/CommunicationDrawer.component';
 import ObjectLevelPermissionWrapper from '#src/libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
 
-import {
-  checkIsMessageDeletable,
-  checkIsMessageSchedulable,
-} from '#src/utils/communicationScheduledHelper';
+import { checkIsScheduledMessageEditable } from '#src/utils/communicationScheduledHelper';
 
 type OwnProps = {
   id: number;
@@ -204,7 +201,7 @@ export class SmartListCampaign extends React.Component<Props> {
   openCommunicationScheduledDeletionDrawer = (
     communicationScheduled: CommunicationScheduled,
   ) => {
-    if (checkIsMessageDeletable(communicationScheduled)) {
+    if (checkIsScheduledMessageEditable(communicationScheduled)) {
       this.props.setCommunicationScheduledSelected(communicationScheduled);
       this.openDeleteCommunicationScheduledDialog();
     } else {
@@ -214,7 +211,11 @@ export class SmartListCampaign extends React.Component<Props> {
 
   deleteCommunicationScheduled = () => {
     if (this.props.communicationScheduledSelected) {
-      if (checkIsMessageDeletable(this.props.communicationScheduledSelected)) {
+      if (
+        checkIsScheduledMessageEditable(
+          this.props.communicationScheduledSelected,
+        )
+      ) {
         this.props.deleteCommunicationScheduled(
           this.props.communicationScheduledSelected.id,
           {
@@ -236,7 +237,7 @@ export class SmartListCampaign extends React.Component<Props> {
   openCommunicationScheduledEditionDrawer = (
     communicationScheduled: CommunicationScheduled,
   ) => {
-    if (checkIsMessageSchedulable(communicationScheduled)) {
+    if (checkIsScheduledMessageEditable(communicationScheduled)) {
       this.props.setCommunicationScheduledSelected(communicationScheduled);
       this.props.setOpenEditCommunication(true);
     } else {
@@ -266,7 +267,7 @@ export class SmartListCampaign extends React.Component<Props> {
   openCommunicationScheduledSendNowDialog = (
     communicationScheduled: CommunicationScheduled,
   ) => {
-    if (checkIsMessageSchedulable(communicationScheduled)) {
+    if (checkIsScheduledMessageEditable(communicationScheduled)) {
       this.props.setCommunicationScheduledSelected(communicationScheduled);
       this.openSendNowCommunicationScheduledDialog();
     } else {

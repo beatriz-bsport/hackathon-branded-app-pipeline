@@ -202,10 +202,7 @@ import { snackbarError } from '../../actions/snackbar.actions';
 import type { RootState } from '../../reducers';
 import type { OptionCallback } from '../../state/types';
 
-import {
-  checkIsMessageDeletable,
-  checkIsMessageSchedulable,
-} from '#src/utils/communicationScheduledHelper';
+import { checkIsScheduledMessageEditable } from '#src/utils/communicationScheduledHelper';
 
 type OwnProps = {
   id: number;
@@ -476,7 +473,7 @@ export class SmartListDetailMember extends React.Component<Props, State> {
   openCommunicationScheduledEditionDialog = (
     communicationScheduled: CommunicationScheduled,
   ) => {
-    if (checkIsMessageSchedulable(communicationScheduled)) {
+    if (checkIsScheduledMessageEditable(communicationScheduled)) {
       this.setState(
         {
           communicationScheduledSelected: communicationScheduled,
@@ -493,7 +490,7 @@ export class SmartListDetailMember extends React.Component<Props, State> {
   openCommunicationScheduledDeletionDialog = (
     communicationScheduled: CommunicationScheduled,
   ) => {
-    if (checkIsMessageDeletable(communicationScheduled)) {
+    if (checkIsScheduledMessageEditable(communicationScheduled)) {
       this.setState({
         communicationScheduledSelected: communicationScheduled,
       });
@@ -506,7 +503,9 @@ export class SmartListDetailMember extends React.Component<Props, State> {
   handleCancelCommunicationScheduled = () => {
     if (this.state.communicationScheduledSelected) {
       if (
-        checkIsMessageSchedulable(this.state.communicationScheduledSelected)
+        checkIsScheduledMessageEditable(
+          this.state.communicationScheduledSelected,
+        )
       ) {
         this.props.cancelCommunicationScheduled(
           this.state.communicationScheduledSelected.id,
@@ -533,7 +532,7 @@ export class SmartListDetailMember extends React.Component<Props, State> {
   openCommunicationScheduledSendNowDialog = (
     communicationScheduled: CommunicationScheduled,
   ) => {
-    if (checkIsMessageSchedulable(communicationScheduled)) {
+    if (checkIsScheduledMessageEditable(communicationScheduled)) {
       this.setState({
         communicationScheduledSelected: communicationScheduled,
       });

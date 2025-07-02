@@ -75,7 +75,7 @@ export const LEGACY_URLS: Omit<Urls, "payout"> = {
   workshop: "/workshop-activity/tabs/list",
 } as const;
 
-export const REVAMP_URLS: Partial<Urls> = {
+export const REVAMP_URLS_DEVELOPMENT = {
   activity: "/activity",
   customForm: "/custom-form",
   emailTemplate: "/email-template",
@@ -87,19 +87,44 @@ export const REVAMP_URLS: Partial<Urls> = {
   smartlist: "/smartlist",
   teacher: "/teacher",
   settings_referral: `${SETTINGS_URL}/referral-program`,
-} as const;
+} as const satisfies Partial<Urls>;
 
-export const MAP_REVAMP_TO_LEGACY_URLS = new Map();
-for (const [key, url] of Object.entries(REVAMP_URLS)) {
+export const REVAMP_URLS_PRODUCTION = {
+  customForm: "/custom-form",
+  emailTemplate: "/email-template",
+  giftcard: "/giftcard",
+  invoice: "/invoice",
+  member: "/member",
+  order: "/order",
+  pack: "/pack",
+  smartlist: "/smartlist",
+  teacher: "/teacher",
+} satisfies Partial<typeof REVAMP_URLS_DEVELOPMENT>; // Ensure that it's a subset of REVAMP_URLS_DEVELOPMENT
+
+export const MAP_REVAMP_DEVELOPMENT_TO_LEGACY_URLS = new Map();
+for (const [key, url] of Object.entries(REVAMP_URLS_DEVELOPMENT)) {
   if (key === "payout") {
     // Future-proofing: payout will be added to REVAMP_URLS later
-    MAP_REVAMP_TO_LEGACY_URLS.set(url, "/"); // Default location
+    MAP_REVAMP_DEVELOPMENT_TO_LEGACY_URLS.set(url, "/"); // Default location
   } else {
-    MAP_REVAMP_TO_LEGACY_URLS.set(
+    MAP_REVAMP_DEVELOPMENT_TO_LEGACY_URLS.set(
       url,
       LEGACY_URLS[key as keyof Omit<Urls, "payout">],
     );
   }
 }
 
-export default REVAMP_URLS;
+export const MAP_REVAMP_PRODUCTION_TO_LEGACY_URLS = new Map();
+for (const [key, url] of Object.entries(REVAMP_URLS_PRODUCTION)) {
+  if (key === "payout") {
+    // Future-proofing: payout will be added to REVAMP_URLS later
+    MAP_REVAMP_PRODUCTION_TO_LEGACY_URLS.set(url, "/"); // Default location
+  } else {
+    MAP_REVAMP_PRODUCTION_TO_LEGACY_URLS.set(
+      url,
+      LEGACY_URLS[key as keyof Omit<Urls, "payout">],
+    );
+  }
+}
+
+export default REVAMP_URLS_DEVELOPMENT;

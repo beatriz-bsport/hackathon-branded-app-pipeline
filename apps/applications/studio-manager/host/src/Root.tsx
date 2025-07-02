@@ -1,8 +1,12 @@
-import { lazy } from "react";
+import { type ReactNode, lazy } from "react";
 import { Route, Routes } from "react-router";
 // Import urls from the navigation sidebar
-import urls from "sm-navigation-sidebar/urls";
+import {
+  REVAMP_URLS_DEVELOPMENT,
+  REVAMP_URLS_PRODUCTION,
+} from "sm-navigation-sidebar/urls";
 
+import { getEnv } from "@bsport/envs";
 import { AppWrapper } from "@bsport/sm-backbone";
 
 // ----- Booking -----
@@ -38,6 +42,36 @@ const loginUrl = import.meta.env.PROD
   : undefined;
 
 export function Root() {
+  const env = getEnv();
+
+  const urls =
+    env === "staging" || env === "production"
+      ? REVAMP_URLS_PRODUCTION
+      : REVAMP_URLS_DEVELOPMENT;
+
+  const routes_configs: Array<{ url?: string; element: ReactNode }> = [
+    /* ----- Booking ----- */
+    { url: urls.activity, element: <GroupActivities /> },
+
+    /* ----- Buyables ----- */
+    { url: urls.giftcard, element: <Giftcard /> },
+    { url: urls.order, element: <Order /> },
+    { url: urls.pack, element: <Pack /> },
+
+    /* ----- Core-data ----- */
+    { url: urls.member, element: <MemberList /> },
+    { url: urls.teacher, element: <Teacher /> },
+
+    /* ----- Financial Services ----- */
+    { url: urls.invoice, element: <Invoice /> },
+
+    /* ----- Customer Data Platform ----- */
+    { url: urls.customForm, element: <CustomForm /> },
+    { url: urls.emailTemplate, element: <EmailTemplate /> },
+    { url: urls.settings_referral, element: <ReferralProgram /> },
+    { url: urls.smartlist, element: <Smartlists /> },
+  ];
+
   return (
     <AppWrapper
       basename={basename}
@@ -47,29 +81,15 @@ export function Root() {
       <Routes>
         <Route path="/" element={<h1>Hello world</h1>} />
 
-        {/* ----- Booking ----- */}
-        <Route path={`${urls.activity}/*`} element={<GroupActivities />} />
-
-        {/* ----- Buyables ----- */}
-        <Route path={`${urls.giftcard}/*`} element={<Giftcard />} />
-        <Route path={`${urls.order}/*`} element={<Order />} />
-        <Route path={`${urls.pack}/*`} element={<Pack />} />
-
-        {/* ----- Core-data ----- */}
-        <Route path={`${urls.member}/*`} element={<MemberList />} />
-        <Route path={`${urls.teacher}/*`} element={<Teacher />} />
-
-        {/* ----- Financial Services ----- */}
-        <Route path={`${urls.invoice}/*`} element={<Invoice />} />
-
-        {/* ----- Customer Data Platform ----- */}
-        <Route path={`${urls.smartlist}/*`} element={<Smartlists />} />
-        <Route path={`${urls.emailTemplate}/*`} element={<EmailTemplate />} />
-        <Route path={`${urls.customForm}/*`} element={<CustomForm />} />
-        <Route
-          path={`${urls.settings_referral}/*`}
-          element={<ReferralProgram />}
-        />
+        {routes_configs
+          .filter((config) => !!config.url)
+          .map((config) => (
+            <Route
+              key={`route-${config.url}`}
+              path={`${config.url}/*`}
+              element={config.element}
+            />
+          ))}
       </Routes>
     </AppWrapper>
   );

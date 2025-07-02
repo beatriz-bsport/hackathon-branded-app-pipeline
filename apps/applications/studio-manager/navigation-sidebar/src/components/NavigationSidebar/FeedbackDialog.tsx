@@ -11,7 +11,10 @@ import { Body, Checkbox, Modal, TextArea } from "@bsport/kaizen-primitive-core";
 import { toggleRevampedBackofficeAction } from "@bsport/store-auth";
 import { useAsync } from "@bsport/use-async";
 
-import { MAP_REVAMP_TO_LEGACY_URLS } from "#src/urls";
+import {
+  MAP_REVAMP_DEVELOPMENT_TO_LEGACY_URLS,
+  MAP_REVAMP_PRODUCTION_TO_LEGACY_URLS,
+} from "#src/urls";
 import { fetch } from "#src/utils/fetch";
 import { useTranslation } from "#src/utils/i18n";
 
@@ -58,7 +61,11 @@ function handleRedirectionToLegacy(): {
   shouldRedirect: boolean;
   performRedirection: () => void;
 } {
-  const envs = getEnv();
+  const env = getEnv();
+  const mapRevampToLegacyUrls =
+    env === "production" || env === "staging"
+      ? MAP_REVAMP_PRODUCTION_TO_LEGACY_URLS
+      : MAP_REVAMP_DEVELOPMENT_TO_LEGACY_URLS;
 
   const getLegacyUrl = (currentUrl: string) => {
     if (!currentUrl || typeof currentUrl !== "string") {
@@ -66,22 +73,19 @@ function handleRedirectionToLegacy(): {
     }
 
     // Try first with the full URL, then with the first part of the path
-    if (MAP_REVAMP_TO_LEGACY_URLS.get(currentUrl)) {
-      return MAP_REVAMP_TO_LEGACY_URLS.get(currentUrl);
+    if (mapRevampToLegacyUrls.get(currentUrl)) {
+      return mapRevampToLegacyUrls.get(currentUrl);
     }
     // Try then with the first segment of the URL
     const pathSegments = currentUrl.split("/").filter(Boolean);
-    if (
-      pathSegments.length > 0 &&
-      MAP_REVAMP_TO_LEGACY_URLS.get(pathSegments[0])
-    ) {
-      return MAP_REVAMP_TO_LEGACY_URLS.get(pathSegments[0]);
+    if (pathSegments.length > 0 && mapRevampToLegacyUrls.get(pathSegments[0])) {
+      return mapRevampToLegacyUrls.get(pathSegments[0]);
     }
 
     return LEGACY_DEFAULT_PAGE;
   };
 
-  if (envs === "local") {
+  if (env === "local") {
     const currentPort = window.location.host.split(":")[1];
     return {
       shouldRedirect: currentPort !== "3000",

@@ -14,10 +14,10 @@ import {
   usePaginationQueryParams,
 } from "@bsport/use-pagination-query-params";
 
-import type { FilterParams } from "#src/hooks/useMemberFilters";
+import type { FilterParams } from "#src/hooks/useFilterMembers";
 import { fetch } from "#src/utils/fetch";
 
-export const useFetchPaginatedList = ({
+export const useFetchMembers = ({
   archived,
   activeFilters,
 }: {

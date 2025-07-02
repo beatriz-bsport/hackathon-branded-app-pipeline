@@ -3,13 +3,11 @@ import React, { useMemo } from "react";
 import { type PaginationProps, Table } from "@bsport/kaizen-primitive-core";
 import type { Member } from "@bsport/store-core-data-member";
 
+import { LEGACY_URLS } from "#src/urls";
 import { useTranslation } from "#src/utils/i18n";
 
-import {
-  type GetTableColumnsParams,
-  type TableRowData,
-  getTableColumns,
-} from "./columns";
+import { getTableColumns } from "./columns";
+import type { TableColumnsParams, TableRowData } from "./types";
 
 type MemberTableProps = {
   hasActiveFilters?: boolean;
@@ -18,7 +16,7 @@ type MemberTableProps = {
   onAddMemberClick?: () => void;
   onClearFilterClick?: () => void;
   paginationProps: PaginationProps;
-} & Omit<GetTableColumnsParams, "t">;
+} & TableColumnsParams;
 
 export const MemberTable: React.FC<MemberTableProps> = ({
   handleArchive,
@@ -30,6 +28,7 @@ export const MemberTable: React.FC<MemberTableProps> = ({
   onAddMemberClick,
   onClearFilterClick,
   paginationProps,
+  permissions,
 }) => {
   const { t } = useTranslation("common");
 
@@ -41,8 +40,9 @@ export const MemberTable: React.FC<MemberTableProps> = ({
         handleRestore,
         mode,
         t,
+        permissions,
       }),
-    [mode, handleArchive, handleRestore, t],
+    [mode, handleArchive, handleRestore, t, permissions],
   );
 
   const tableRows: TableRowData[] = memberList.map((member) => ({
@@ -55,6 +55,7 @@ export const MemberTable: React.FC<MemberTableProps> = ({
     joinDate: member.date_joined,
     name: member.name,
     photo: member.photo,
+    link: permissions.seeProfile ? LEGACY_URLS.DETAILS(member.id) : undefined,
   }));
 
   // ----- EMPTY TABLE CONFIGURATIONS -----
@@ -67,11 +68,13 @@ export const MemberTable: React.FC<MemberTableProps> = ({
       : {
           title: t("memberTable.emptyList.activeMode.title"),
           subtitle: t("memberTable.emptyList.activeMode.subtitle"),
-          ctaButtonConfig: {
-            label: t("actions.addMember"),
-            iconLeft: "plus" as const,
-            onClick: onAddMemberClick,
-          },
+          ctaButtonConfig: permissions.create
+            ? {
+                label: t("actions.addMember"),
+                iconLeft: "plus" as const,
+                onClick: onAddMemberClick,
+              }
+            : undefined,
         };
 
   // Filters are active only in the "active" mode

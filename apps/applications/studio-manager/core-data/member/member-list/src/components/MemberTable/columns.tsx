@@ -8,32 +8,10 @@ import {
 
 import type { TFunction } from "#src/utils/i18n";
 
-export type TableRowData = {
-  balance: number;
-  email: string;
-  id: number;
-  initials: string;
-  joinDate: string;
-  name: string;
-  photo?: string;
-};
+import { CopyToClipboardButton } from "./CopyToClipboardButton";
+import type { TableColumnsParams, TableRowData } from "./types";
 
 type TableColumn = GenericTableColumn<TableRowData>;
-
-type MemberHandler = ({
-  memberId,
-  memberName,
-}: {
-  memberId: number;
-  memberName: string;
-}) => void;
-
-export type GetTableColumnsParams = {
-  handleArchive?: MemberHandler;
-  handleRestore?: MemberHandler;
-  mode?: "archived" | "active";
-  t: TFunction;
-};
 
 /**
  * Return the colums configs for the Member table
@@ -43,7 +21,9 @@ export const getTableColumns = ({
   handleRestore,
   mode = "active",
   t,
-}: GetTableColumnsParams) => {
+  permissions,
+}: TableColumnsParams & { t: TFunction }): Array<TableColumn> => {
+  console.log("Recompute table columns");
   const columnName: TableColumn = {
     header: t("memberTable.headers.name"),
     id: "column-name",
@@ -73,9 +53,14 @@ export const getTableColumns = ({
   const columnEmail: TableColumn = {
     header: t("memberTable.headers.email"),
     id: "column-email",
-    keyPath: "email",
-    type: "string",
-    align: "start",
+    type: "custom",
+    render: (row) => (
+      <CopyToClipboardButton
+        data={row.email}
+        toastMessage={t("memberTable.actions.copiedToClipboard")}
+      />
+    ),
+    align: "center",
   };
 
   const columnBalance: TableColumn = {
@@ -98,6 +83,10 @@ export const getTableColumns = ({
     align: "center",
   };
 
+  const renderRestoreAction =
+    mode === "archived" && handleRestore && permissions.restore;
+  const renderArchiveAction =
+    mode === "active" && handleArchive && permissions.archive;
   const columnActions: TableColumn = {
     header: "",
     id: "column-actions",
@@ -105,7 +94,7 @@ export const getTableColumns = ({
     type: "custom",
     align: "center",
     render: (row) => {
-      if (mode === "archived" && handleRestore) {
+      if (renderRestoreAction) {
         return (
           <Tooltip
             label={t("memberTable.tooltips.restore")}
@@ -115,19 +104,21 @@ export const getTableColumns = ({
               color="default"
               intent="flat"
               size="md"
-              onClick={() =>
+              onClick={(event) => {
+                event.preventDefault();
+                event.stopPropagation();
                 handleRestore({
                   memberId: row.id,
                   memberName: row.name,
-                })
-              }
+                });
+              }}
               iconLeft="unarchive"
             />
           </Tooltip>
         );
       }
 
-      if (mode === "active" && handleArchive) {
+      if (renderArchiveAction) {
         return (
           <Tooltip
             label={t("memberTable.tooltips.archive")}
@@ -137,12 +128,14 @@ export const getTableColumns = ({
               color="default"
               intent="flat"
               size="md"
-              onClick={() =>
+              onClick={(event) => {
+                event.preventDefault();
+                event.stopPropagation();
                 handleArchive({
                   memberId: row.id,
                   memberName: row.name,
-                })
-              }
+                });
+              }}
               iconLeft="archive"
             />
           </Tooltip>
@@ -155,9 +148,9 @@ export const getTableColumns = ({
 
   return [
     columnName,
-    columnEmail,
-    columnBalance,
+    permissions.seePersonalData && columnEmail,
+    permissions.seeBalance && columnBalance,
     columnJoinDate,
-    columnActions,
-  ];
+    (renderArchiveAction || renderRestoreAction) && columnActions,
+  ].filter((item) => !!item);
 };

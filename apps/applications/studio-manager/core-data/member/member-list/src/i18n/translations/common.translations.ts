@@ -31,6 +31,10 @@ exports.default = {
     tooltips: {
       archive: "Archive member",
       restore: "Unarchive member",
+      clickToCopy: "Click to copy",
+    },
+    actions: {
+      copiedToClipboard: "Email copied to clipboard",
     },
   },
   listPage: {
@@ -67,14 +71,14 @@ exports.default = {
     },
     messageUndone: {
       success: "Action undone",
-      error: "Failed to undone the action",
+      error: "Failed to undo the action",
     },
     messageArchived: {
-      success: "Member has been archived",
+      success: "Member archived",
       error: "Failed to archive member",
     },
     messageRestored: {
-      success: "Member has been restored",
+      success: "Member restored",
       error: "Failed to restore member",
     },
   },

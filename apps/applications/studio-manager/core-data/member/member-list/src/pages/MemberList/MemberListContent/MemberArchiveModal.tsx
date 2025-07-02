@@ -1,18 +1,17 @@
-import React, { useCallback, useEffect } from "react";
+import React, { useEffect } from "react";
 
 import {
   MEMBER_STATUS,
   MemberStatuses,
 } from "@bsport/common/lib/master-data/member";
-import { Alert, Body, Modal, toast } from "@bsport/kaizen-primitive-core";
+import { Alert, Body, Modal } from "@bsport/kaizen-primitive-core";
 import {
-  archiveMemberAction,
   interrogateMemberRegularityAction,
-  restoreMemberAction,
   selectIrregularities,
   useMemberStore,
 } from "@bsport/store-core-data-member";
 
+import { useArchiveMember } from "#src/hooks/useArchiveMember";
 import { fetch } from "#src/utils/fetch";
 import { Trans, useTranslation } from "#src/utils/i18n";
 
@@ -48,78 +47,10 @@ export const MemberArchiveModal: React.FC<MemberArchiveModalProps> = ({
 
   // ----- Handlers -----
 
-  const handleRestore = useCallback(async () => {
-    // Restore the member
-    const response = await restoreMemberAction(fetch, { memberId });
-
-    const onSuccess = () => {
-      // Refresh the list
-      refreshPageList();
-
-      // Display a toast to inform about the success
-      toast({
-        status: "default",
-        icon: "reverse-left",
-        title: t("toasts.messageUndone.success"),
-        buttonIcon: "x-close",
-      });
-    };
-
-    const onFailure = (error: Error) => {
-      // Display a toast to inform about the failure
-      toast({
-        status: "critical",
-        icon: "reverse-left",
-        title: t("toasts.messageUndone.error"),
-        buttonIcon: "x-close",
-      });
-
-      // Debugging
-      console.error(error);
-    };
-
-    response.fold(onSuccess, onFailure);
-  }, [refreshPageList, memberId, t]);
-
-  const handleArchive = useCallback(async () => {
-    // Archive the Member
-    const response = await archiveMemberAction(fetch, { memberId });
-
-    const onSuccess = () => {
-      // Refresh the list page
-      refreshPageList();
-
-      // Display a toast to "undo" the action
-      toast({
-        status: "default",
-        icon: "archive",
-        title: t("toasts.messageArchived.success"),
-        buttonLabel: t("toasts.actions.undo"),
-        onButtonClick: handleRestore,
-      });
-
-      // Close the modal
-      onClose();
-    };
-
-    const onFailure = (error: Error) => {
-      // Display a toast to inform about the failure
-      toast({
-        status: "critical",
-        icon: "archive",
-        title: t("toasts.messageArchived.error"),
-        buttonIcon: "x-close",
-      });
-
-      // Debugging
-      console.error(error);
-
-      // Close the modal
-      onClose();
-    };
-
-    response.fold(onSuccess, onFailure);
-  }, [refreshPageList, handleRestore, memberId, onClose, t]);
+  const { isLoading, handleArchive } = useArchiveMember({
+    fetchMembers: refreshPageList,
+    handleCloseModal: onClose,
+  });
 
   // ----- Load data -----
 
@@ -135,11 +66,13 @@ export const MemberArchiveModal: React.FC<MemberArchiveModalProps> = ({
       confirmButton={{
         label: t("listPage.archiveModal.buttons.archive"),
         color: "critical",
-        onClick: handleArchive,
+        onClick: () => handleArchive({ memberId }),
+        disabled: isLoading,
       }}
       cancelButton={{
         label: t("listPage.archiveModal.buttons.cancel"),
         onClick: onClose,
+        disabled: isLoading,
       }}
       onCloseButtonClick={onClose}
       title={t("listPage.archiveModal.title")}
@@ -158,13 +91,13 @@ export const MemberArchiveModal: React.FC<MemberArchiveModalProps> = ({
           {t("listPage.archiveModal.description.effect")}
         </Body>
         {memberIrregularities.length > 0 && (
-          <Alert type="weak" status="warning">
+          <Alert type="weak" status="warning" className="mt-xs">
             <Body htmlVariant="p" color="warning" weight="weak">
               {t(
                 "listPage.archiveModal.alertIrregularity.adviseRegularization",
               )}
             </Body>
-            <ul className="list-disc pl-md">
+            <ul className="list-disc pl-md text-onsurface-status-warning-weak">
               {memberIrregularities.map((identifier) => (
                 <li key={`regularization-advice-${identifier}`}>
                   {t(

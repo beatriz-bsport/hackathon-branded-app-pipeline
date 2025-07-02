@@ -1097,8 +1097,100 @@
     }
   },
   "@bsport/sm-referral-program": {
-    "namespaceAlpha": { "helloName": "Hello {{ name }} !" },
-    "namespaceBeta": {}
+    "settings": {
+      "title": "Referrals",
+      "referralProgramHelper": {
+        "title": "Activate Referrals",
+        "description": "Set up a referral link for your members to invite others to your studio. Offer an incentive, set a time limit for the referral, and provide a reward for the referring member.",
+        "button": {
+          "activated": {
+            "label": "Deactivate",
+            "errors": { "couldNotToggle": "Failed to deactivate the referral program" }
+          },
+          "deactivated": {
+            "label": "Activate",
+            "errors": { "couldNotToggle": "Failed to activate the referral program" }
+          }
+        }
+      },
+      "inactive": { "header": { "chip": "Inactive" } },
+      "active": {
+        "header": { "chip": "Active" },
+        "form": {
+          "minimumBasketAmount": {
+            "label": "Minimum value of shopping cart",
+            "helper": "Amount to be eligible for the referral discount"
+          },
+          "referringReward": {
+            "title": "Reward for referring a member",
+            "amountOff": { "label": "How much you want to reward the member" },
+            "maxReferringNumber": {
+              "label": "Max. use per member",
+              "errors": { "notValid": "Please provide a valid number" }
+            }
+          },
+          "referralReward": {
+            "title": "Discount for new customer",
+            "discount": {
+              "label": "Discount total",
+              "percentage": "Percentage",
+              "amount": "Amount",
+              "errors": {
+                "percentageTooHigh": "The percentage cannot be greater than 100",
+                "amountNotValid": {
+                  "decimal": "The amount cannot have more than 2 decimal points"
+                }
+              },
+              "alerts": {
+                "equalToZero": "Choosing '0' will remove the discount for the person who is referred"
+              }
+            }
+          },
+          "timeLimitForUsage": {
+            "label": "Time limit for applying the discount after registration",
+            "choices": {
+              "day": "day",
+              "week": "week",
+              "month": "month",
+              "day_plural": "days",
+              "week_plural": "weeks",
+              "month_plural": "months"
+            },
+            "errors": {},
+            "equalToZero": "The time limit must be 1 {{timeUnit}} or longer"
+          },
+          "tagSelector": {
+            "label": "Add a tag for new members who used the referral link",
+            "placeholder": "Select a tag",
+            "helper": "Tip: Tag new customers to target them later.",
+            "errors": {
+              "notProvided": "Select a tag or deactivate this option to continue"
+            }
+          },
+          "redirectLink": {
+            "switch": {
+              "label": "Add a redirect link",
+              "helper": "After registering, the new member will be redirected to the page indicated by your URL. Otherwise, they will be taken to the Calendar page."
+            },
+            "textfield": { "label": "Redirect link", "placeholder": "Enter URL" },
+            "errors": {
+              "notProvided": "Add a URL or deactivate this option to continue"
+            }
+          },
+          "saveSettings": {
+            "buttonLabel": "Save",
+            "onSuccess": { "title": "Changes saved" },
+            "onFailure": { "title": "Could not save changes" }
+          }
+        },
+        "deactivateReferralModal": {
+          "title": "Deactivate referrals",
+          "description": "You'll need to set up referrals again once you turn off this feature.",
+          "cancelButton": { "label": "Cancel" },
+          "confirmButton": { "label": "Deactivate" }
+        }
+      }
+    }
   },
   "@bsport/sm-smartlists": {
     "list": {

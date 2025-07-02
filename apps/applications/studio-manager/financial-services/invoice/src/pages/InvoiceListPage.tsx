@@ -254,7 +254,11 @@ export const InvoiceListPage = () => {
         uuid: invoice.uuid.slice(0, 8),
         date: invoice.date,
         member: invoice.memberName,
-        amount: invoice.amount_due_cts / 100,
+        amount:
+          // Balance adjustment are not real invoices, so we use the paid amount instead of the total due amount
+          invoice.invoice_type !== INVOICE_TYPE_EMPTY_PAYMENT_CONTAINER
+            ? invoice.amount_due_cts / 100
+            : invoice.amount_paid_cts / 100,
         type: t(`invoiceType.${getInvoiceType(invoice)}`),
         status: [
           {

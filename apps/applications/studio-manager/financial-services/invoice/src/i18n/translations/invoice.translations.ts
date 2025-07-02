@@ -3,7 +3,7 @@ exports.default = {
   invoiceType: {
     reversed: "Invoice (reverted)",
     return: "Refunded invoice",
-    credit_payment: "Receipt (balance adjustment)",
+    credit_payment: "Balance adjustment",
     migration: "Migration",
     regular: "Invoice",
   },

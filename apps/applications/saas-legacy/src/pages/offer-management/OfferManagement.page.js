@@ -38,7 +38,6 @@ import {
 import { getStripeReaders } from '#src/libs/terminal/selectors';
 
 import routerParamsToProps from '#src/hocs/router-params-to-props.hoc';
-import { sendCommunication } from '#src/libs/communication/actions';
 import { fetchCompanyUserRoles } from '#src/libs/role/actions';
 import { fetchShopItemAsManager as fetchShopItems } from '#src/libs/shop/actions/shopitem';
 import themeSelectors from '#src/libs/theme/selectors';
@@ -66,8 +65,6 @@ import {
   fetchRoomBlueprintDetail as fetchRoomBlueprintDetailAction,
 } from '#src/libs/spot-scheduling/actions';
 import { fetchStripeReaders } from '#src/libs/terminal/actions';
-import { getResolvedGenericTags } from '#src/libs/notification-rule/selectors';
-import { fetchResolvedGenericTags as fetchResolvedGenericTagsAction } from '#src/libs/notification-rule/actions';
 
 import {
   getSpotTypesOfCompany,
@@ -253,7 +250,6 @@ export default compose(
       isRefundBookingLoading: getIsRefundBookingLoading(state),
 
       email_templates_details: getEmailTemplatesDetail(state),
-      resolvedGenericTags: getResolvedGenericTags(state),
 
       establishmentList: getAvailableEstablishmentList(state),
       offersWithCancelledBookings: withMetaActivity(
@@ -310,10 +306,6 @@ export default compose(
       fetchOffer: fetchOfferByIdAction,
       snackbarSuccess: snackbar.success,
 
-      fetchEmailTemplatesSummaries,
-      fetchEmailTemplateDetail: emailTemplateDetail,
-      fetchResolvedGenericTags: fetchResolvedGenericTagsAction,
-
       fetchEstablishmentList: fetchEstablishments,
 
       toggleWaitingListFreeze: toggleWaitingListFreezeAction,
@@ -362,8 +354,6 @@ export default compose(
       fetchFilteredMembers: fetchFilteredMembersAction,
       fetchMemberBulkById: fetchMemberBulkByIdAction,
       searchMembers: (txt) => searchMembersAction(txt, { hide_archived: true }),
-
-      sendCommunication,
 
       // invoice actions
       revertQuickInvoice: revertQuickInvoiceAction,
@@ -418,8 +408,6 @@ export default compose(
 
       fetchAllWaitingListPositions: fetchAllWaitingListPositionsAction,
 
-      // communication v2
-      getUnreadAnswersCountAction,
       // PaymentGroup
       submitInternalPaymentInBackground:
         submitInternalPaymentInBackgroundAction,
@@ -634,7 +622,6 @@ export default compose(
         fetchConsumerGiftcardList,
         fetchGroupOffer,
         fetchPaymentPackBulk,
-        fetchResolvedGenericTags,
         fetchAllWaitingListPositions,
       }) =>
       (ordering_field) => {
@@ -695,7 +682,6 @@ export default compose(
             },
           },
         );
-        fetchResolvedGenericTags();
       },
     switchWaitingListFreeze:
       ({

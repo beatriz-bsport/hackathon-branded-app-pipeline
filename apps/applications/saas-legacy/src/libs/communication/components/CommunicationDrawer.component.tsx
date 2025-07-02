@@ -55,7 +55,6 @@ import {
 } from '#src/libs/platform-billing/upsell-identifiers';
 import { isAmPmTimeFormat } from '#src/utils/datetime';
 import { hasUpsell } from '#src/libs/platform-billing/utils';
-import { MINUTE_LIMIT_TO_SCHEDULE_COMMUNICATION } from '#src/libs/communication-v2/constants';
 import CustomMuiThemeWrapper from '#src/components/wrappers/CustomMuiThemeWrapper.component';
 
 import type { MemberMailData } from '#src/libs/communication/types';
@@ -85,6 +84,7 @@ import ReceiversCollapseItem from './ReceiversCollapseItem.component';
 
 import AlertSmsProviderSmsNotVerified from '#src/libs/communication-v2/components/AlertSmsProviderNotVerified.component';
 import Config from '../../../config';
+import { checkOutsideLockedWindowFromTime } from '#src/utils/communicationScheduledHelper';
 import { openNewBackOfficeWindow } from '#src/utils/windows';
 import { getCommunicationSMSProviderVerificationState } from '../../communication-v2/selectors';
 
@@ -528,11 +528,10 @@ class CommunicationDrawer extends React.Component<Props, State> {
   };
 
   checkIsMessageSchedulable = () => {
-    if (!this.state.communicationScheduledDate) return true;
-    return (
-      this.state.communicationScheduledDate >
-      DateTime.now().plus({ minute: MINUTE_LIMIT_TO_SCHEDULE_COMMUNICATION })
-    );
+    const communicationScheduledTime = this.state.communicationScheduledDate;
+    if (!communicationScheduledTime) return true;
+
+    return checkOutsideLockedWindowFromTime(communicationScheduledTime);
   };
 
   checkIsMessageScheduledDuringDaytime = () => {

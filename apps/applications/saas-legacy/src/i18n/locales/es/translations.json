@@ -28,9 +28,9 @@
                 "autoDiscard": {
                     "hours_before_start": "Hora(s) antes de la sesión :",
                     "min_bookings_nb": "Número de reserva(s):",
-                    "emailRecipients": "Este correo se enviará a las cuentas con el papel de Propietario o Administrador, así como al profesor (o sustituto) de la sesión en cuestión. También puedes configurar un correo electrónico para enviarlo a los estudiantes.",
-                    "explain": "Cancele la sesión y envíe una notificación por correo a los estudiantes si hay ≤ {{bookings_nb}} reserva(s) o menos {{hours}}h antes del comienzo de la sesión.",
-                    "checkbox": "Cancelar sesiones con muy pocas reservas"
+                    "emailRecipients": "Si una clase se cancela automáticamente, se enviará un correo electrónico al Propietario, al Administrador y al profesor de la clase, así como a los alumnos.",
+                    "explain": "Las clases con {{bookings_nb}} reserva(s) o menos se cancelan {{hours}} hora(s) antes de su comienzo. Se notificará a los socios que se ha cancelado la clase.",
+                    "checkbox": "Cancelar automáticamente las clases no reservadas"
                 }
             },
             "update": {
@@ -892,18 +892,18 @@
             "reviews": "Opinión clientes: ",
             "explainImage": "Recomendado: 1920x1080 jpeg (fullHD)",
             "color": "Código de colores",
-            "firstBookingMinutesUntil": "Se pueden reservar sesiones futuras si empiezan en menos de ",
+            "firstBookingMinutesUntil": "Elija cuánto tiempo antes de la sesión se abre el plazo de reserva",
             "is_broadcast": "Curso streaming en vivo",
             "altCoverMain": "Descripción de la imagen para los discapacitados visuales",
             "autoDiscard": "Cancelación automática",
-            "generalInfo": "Informaciones generales",
+            "generalInfo": "Información general",
             "firstMinutesBookingUntilWarning": "Un valor de cero significa que no se establece ninguna limitación. Las reservas estarán siempre abiertas para las sesiones de esta actividad."
         },
         "workshopActivity": {
             "addWorkshopActivity": "Añadir un taller",
             "imageUploaderRequireEditMessage": "Una vez tu actividad creada, puedes añadir más fotografías.",
-            "lastBookingBeforeMinutes": "Antes del inicio de la actividad, última reserva posible",
-            "lastDiscardBeforeMinutes": "Antes del inicio de la actividad, última cancelación posible",
+            "lastBookingBeforeMinutes": "Elija cuánto tiempo antes de la sesión se cierra el plazo de reserva",
+            "lastDiscardBeforeMinutes": "Decide cuánto tiempo antes de la actividad los miembros pueden cancelar gratuitamente",
             "forms": {
                 "create": {
                     "success": "Taller guardado",
@@ -1203,7 +1203,7 @@
         "quickInvoiceNoVoucher": "Deja el valor de este campo en 0 si no deseas aplicar un descuento",
         "quickInvoiceVoucher": "Elige el descuento para aplicar al facturar el próximo pase",
         "metaActivityCategory": {
-            "sctExplain": "Estas categorías indican el tipo de actividad. Aparecerán en el marketplace y en la aplicación.",
+            "sctExplain": "Elija la categoría en la que se mostrará esta actividad en el marketplace y en la aplicación móvil.",
             "explain": "Estas categorías sólo sirven para ordenar las actividades en el back office como usted desee. No tienen impacto en el lado del cliente"
         },
         "restrictions": {
@@ -1215,13 +1215,13 @@
             "back": "Anterior",
             "next": "Siguiente",
             "personnalizedRestrictionsIndex": "Restricción personalizada n°{{ count }}",
-            "add": "Añadir diferentes reglas ({{ count }}/{{ max }})",
-            "personnalizedHelper": "Indicar diferentes restricciones para ciertos miembros utilizando etiquetas. Los miembros con una de las etiquetas seleccionadas tendrán diferentes restricciones que los demás.",
-            "personnalizedHeader": "Restricciones personalizadas",
+            "add": "Crear regla personalizada",
+            "personnalizedHelper": "Establezca reglas personalizadas basadas en etiquetas para adaptar la configuración a cada segmento.",
+            "personnalizedHeader": "Condiciones personalizadas",
             "firstBookingMinutesUntil": "Abrir las reservas",
-            "lastDiscardBeforeMinutes": "Última cancelación",
-            "lastBookingBeforeMinutes": "Última reserva",
-            "header": "Restricciones"
+            "lastDiscardBeforeMinutes": "Política de cancelación tardía",
+            "lastBookingBeforeMinutes": "Cuando se cierre el plazo de reserva",
+            "header": "Condiciones"
         }
     },
     "search": {
@@ -16650,9 +16650,9 @@
                 "steps": {
                     "workshop_form": "Creación del taller",
                     "offer_form": "Creación de sesiones (opcional)",
-                    "pass_list": "Finalización",
+                    "pass_list": "Terminar",
                     "pass_form": "Creación de bono (opcional)",
-                    "activity_form": "Creación de actividad"
+                    "activity_form": "Crear una actividad"
                 },
                 "compatible_packs": {
                     "noCompatiblePass": "Ningún bono compatible con esta actividad, considera crear uno",
@@ -16674,7 +16674,7 @@
             "search": "Buscar una actividad",
             "addActivity": "Añadir una actividad"
         },
-        "noActivities": "Administra tus actividades aquí, una actividad permite agrupar un conjunto de sesiones (generalmente colectivas) de la misma práctica.",
+        "noActivities": "Las actividades de grupo son clases impartidas a un grupo. Aquí puedes añadir, editar y gestionar tus actividades de grupo.",
         "search": "Buscar une actividad",
         "metaActivity": "Actividad",
         "disabledMetaActivities": "Actividades archivadas",
@@ -18341,11 +18341,11 @@
             "invoiceList": "Facturas"
         },
         "metaActivity": {
-            "metaActivityFormPage": "Formulario Actividad",
+            "metaActivityFormPage": "Añadir una actividad de grupo",
             "metaActivityEditForm": "Formulario Actividad",
             "metaActivityList": "Actividades",
             "metaActivityEditFormSubtitle": "Modificación de una actividad",
-            "metaActivityFormSubtitle": "Creación de una actividad"
+            "metaActivityFormSubtitle": "Configurar una actividad de grupo, definir su duración y añadir parámetros personalizados."
         },
         "order": {
             "orderDetail": "Detalles pedido",

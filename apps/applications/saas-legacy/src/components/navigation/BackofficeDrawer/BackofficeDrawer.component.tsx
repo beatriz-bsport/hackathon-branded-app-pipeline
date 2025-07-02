@@ -98,6 +98,7 @@ import {
   // @ts-expect-error Can not find js file
 } from '#src/actions/auth.actions';
 import { useShowRevampedSidebar, NAVIGATION_SIDEBAR_WIDTH } from '#src/revamp';
+import WidgetUtils from '#src/libs/widget/WidgetUtils';
 
 export const drawerWidth = 260;
 export const drawerIconsOnlyWith = 60;
@@ -829,11 +830,12 @@ export const BackOfficeDrawer: React.FC<Props> = ({
                         </Grid>
                       </ObjectLevelPermissionWrapper>
 
-                      {Config.REACT_APP_SENTRY_ENVIRONMENT === 'production' && (
-                        <Grid item>
-                          <FeatureBaseBoardButton />
-                        </Grid>
-                      )}
+                      {Config.REACT_APP_SENTRY_ENVIRONMENT === 'production' &&
+                        !WidgetUtils.isWidget() && (
+                          <Grid item>
+                            <FeatureBaseBoardButton />
+                          </Grid>
+                        )}
 
                       {renderAdditionalButtons()}
                     </Hidden>

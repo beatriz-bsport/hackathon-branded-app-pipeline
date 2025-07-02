@@ -153,6 +153,7 @@ import { RegularizingVatInformationDialog } from '#src/libs/platform-billing/com
 
 import { retrieveCommunicationSMSProviderVerification } from '../libs/communication-v2/actions';
 import { AuthState } from '#src/libs/types';
+import WidgetUtils from '#src/libs/widget/WidgetUtils';
 
 const CompanyDetailPage = asyncComponent(() =>
   import('./settings/CompanyDetailPage.page'),
@@ -994,9 +995,8 @@ export class Backoffice extends Component<Props, State> {
             />
           </GenericResponsiveDialog>
         )}
-        {Config.REACT_APP_SENTRY_ENVIRONMENT === 'production' && (
-          <FeatureBaseSurvey />
-        )}
+        {Config.REACT_APP_SENTRY_ENVIRONMENT === 'production' &&
+          !WidgetUtils.isWidget() && <FeatureBaseSurvey />}
       </MuiThemeProvider>
     );
   }

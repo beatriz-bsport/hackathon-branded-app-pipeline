@@ -17,7 +17,7 @@ type Props = {
 >;
 
 const Textfield: React.FC<Props> = (props: Props) => {
-  const { t } = useTranslation('marketing');
+  const { t } = useTranslation(['marketing', 'booking']);
   const [field, meta, form] = useField(props.name);
   const { setValue } = form;
 

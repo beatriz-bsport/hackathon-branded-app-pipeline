@@ -45,7 +45,7 @@ const PasswordField: React.FC<Props> = ({
   onBlur,
   id,
 }) => {
-  const { t } = useTranslation('marketing');
+  const { t } = useTranslation(['marketing', 'booking']);
 
   const [isPasswordVisible, setIsPasswordVisible] = React.useState(false);
   const [confirmPasswordVisibility, setConfirmPasswordVibility] =

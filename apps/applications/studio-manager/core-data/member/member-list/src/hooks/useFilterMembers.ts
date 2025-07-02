@@ -44,14 +44,14 @@ export type FilterParams = {
   tags_excluded: string; // Union of excluded tags
 };
 
-export const useMemberFilters = () => {
+export const useFilterMembers = () => {
   const { t } = useTranslation("common");
   const [tagFields, setTagFields] = useState<Record<string, FilterField>>({});
   const [activeFilters, setActiveFilters] = useState<FilterParams>({
     tags_excluded: "",
     tags_included: "",
   });
-  const ref = useRef<{ resetFilters: () => void }>(null);
+  const filterRef = useRef<{ resetFilters: () => void }>(null);
 
   // ----- Filter configuration -----
   const filters = useMemo(
@@ -66,7 +66,7 @@ export const useMemberFilters = () => {
 
   const handleClearFilters = useCallback(() => {
     setActiveFilters({ tags_excluded: "", tags_included: "" });
-    ref.current?.resetFilters?.();
+    filterRef.current?.resetFilters?.();
   }, []);
 
   const onFilterChange = useCallback(
@@ -109,7 +109,7 @@ export const useMemberFilters = () => {
               id: `${tag.id}`,
               label: `${tag.name}`,
             })),
-            multiSelect: true,
+            multiSelect: false,
           },
         }),
         {},
@@ -118,7 +118,8 @@ export const useMemberFilters = () => {
     };
 
     fetchAndSetTags();
-  }, [filters]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const filterConfig: FilterProps = useMemo(
     () => ({
@@ -134,5 +135,6 @@ export const useMemberFilters = () => {
     handleClearFilters,
     filterConfig,
     activeFilters,
+    filterRef,
   };
 };

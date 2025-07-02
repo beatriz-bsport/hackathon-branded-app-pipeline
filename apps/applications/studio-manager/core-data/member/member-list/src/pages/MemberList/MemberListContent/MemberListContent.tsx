@@ -1,8 +1,11 @@
 import React, { memo, useEffect, useState } from "react";
 
-import { MemberTable } from "#src/components/MemberTable";
-import { useFetchPaginatedList } from "#src/hooks/useFetchPaginatedList";
-import type { FilterParams } from "#src/hooks/useMemberFilters";
+import {
+  MemberTable,
+  type TableRequiredPermissions,
+} from "#src/components/MemberTable";
+import { useFetchMembers } from "#src/hooks/useFetchMembers";
+import type { FilterParams } from "#src/hooks/useFilterMembers";
 
 import { MemberArchiveModal } from "./MemberArchiveModal";
 
@@ -10,17 +13,19 @@ type MemberListContentProps = {
   activeFilters: FilterParams;
   onAddMemberClick?: () => void;
   onClearFiltersClick?: () => void;
+  permissions: TableRequiredPermissions;
 };
 
 const MemberListContentInternal: React.FC<MemberListContentProps> = ({
   activeFilters,
   onAddMemberClick,
   onClearFiltersClick,
+  permissions,
 }) => {
   // ----- Pagination settings -----
 
   const { fetchMemberPage, isLoading, memberList, paginationParams } =
-    useFetchPaginatedList({ archived: false, activeFilters });
+    useFetchMembers({ archived: false, activeFilters });
 
   // ----- State -----
 
@@ -51,8 +56,9 @@ const MemberListContentInternal: React.FC<MemberListContentProps> = ({
         hasActiveFilters={!!activeFilters}
         onAddMemberClick={onAddMemberClick}
         onClearFilterClick={onClearFiltersClick}
+        permissions={permissions}
       />
-      {!!memberToArchive && (
+      {!!memberToArchive && permissions.archive && (
         <MemberArchiveModal
           memberId={memberToArchive.memberId}
           memberName={memberToArchive.memberName}

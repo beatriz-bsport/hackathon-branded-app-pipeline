@@ -782,7 +782,12 @@
           "balance": "Balance",
           "joinDate": "Join Date"
         },
-        "tooltips": { "archive": "Archive member", "restore": "Unarchive member" }
+        "tooltips": {
+          "archive": "Archive member",
+          "restore": "Unarchive member",
+          "clickToCopy": "Click to copy"
+        },
+        "actions": { "copiedToClipboard": "Email copied to clipboard" }
       },
       "listPage": {
         "archiveModal": {
@@ -808,15 +813,9 @@
       },
       "toasts": {
         "actions": { "undo": "Undo" },
-        "messageUndone": { "success": "Action undone", "error": "Failed to undone the action" },
-        "messageArchived": {
-          "success": "Member has been archived",
-          "error": "Failed to archive member"
-        },
-        "messageRestored": {
-          "success": "Member has been restored",
-          "error": "Failed to restore member"
-        }
+        "messageUndone": { "success": "Action undone", "error": "Failed to undo the action" },
+        "messageArchived": { "success": "Member archived", "error": "Failed to archive member" },
+        "messageRestored": { "success": "Member restored", "error": "Failed to restore member" }
       },
       "filters": { "label": "Filter", "operators": { "is": "is", "isNot": "is not" } },
       "importLeadsModal": {

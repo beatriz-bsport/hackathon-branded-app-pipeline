@@ -33,10 +33,12 @@ export const useNavigationElements = ({
   menuSet = "default",
   navigationUrls,
   handleOpenTemporaryPasswordDialog,
+  handleOpenNotificationsModal,
 }: {
   menuSet?: MenuSet;
   navigationUrls: NavigationUrls;
   handleOpenTemporaryPasswordDialog: () => void;
+  handleOpenNotificationsModal: () => void;
 }) => {
   const { t } = useTranslation("default");
 
@@ -56,9 +58,7 @@ export const useNavigationElements = ({
           icon: "bell-03",
           id: "notifications",
           label: t("menus.notifications"),
-          endSlot: (
-            <Indicator color="default" position="top" size="sm" value={2} />
-          ),
+          onClick: handleOpenNotificationsModal,
         },
         {
           type: "divider",
@@ -399,7 +399,12 @@ export const useNavigationElements = ({
         },
       ],
     };
-  }, [handleOpenTemporaryPasswordDialog, navigationUrls, t]);
+  }, [
+    handleOpenTemporaryPasswordDialog,
+    handleOpenNotificationsModal,
+    navigationUrls,
+    t,
+  ]);
 
   return navigationItems[menuSet];
 };

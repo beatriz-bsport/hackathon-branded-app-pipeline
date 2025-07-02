@@ -107,4 +107,23 @@ exports.default = {
     portuguese: "Portuguese",
     czech: "Czech",
   },
+  notifications: {
+    title: "Notification center",
+    tabs: {
+      billing: "Billing",
+      orders: "Orders",
+      tasks: "Tasks",
+      unpaidAppointments: "Unpaid appointments",
+      tutorials: "Tutorials",
+    },
+    billing: {
+      loading: "Loading billing notifications...",
+      empty: {
+        title: "No billing notifications",
+        description: "All your billing notifications will appear here",
+      },
+      paid: "Paid:",
+      due: "Due:",
+    },
+  },
 };

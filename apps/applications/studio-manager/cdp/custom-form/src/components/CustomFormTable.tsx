@@ -18,7 +18,7 @@ type BaseCustomFormTableProps = {
   isEmpty: boolean;
   isEmptySearch: boolean;
   isLoading: boolean;
-  paginationProps: PaginationProps;
+  paginationProps?: PaginationProps;
   refreshCustomForms: () => void;
   resetCustomForms: () => void;
   onCreateForm?: () => void;

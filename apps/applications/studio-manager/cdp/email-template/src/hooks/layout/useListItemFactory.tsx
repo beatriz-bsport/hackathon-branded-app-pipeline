@@ -129,6 +129,18 @@ export const useListItemFactory = ({
     );
   };
 
+  const getItemOnClickFunction = ({
+    emailTemplate,
+  }: {
+    emailTemplate: EmailTemplateSummary;
+  }) => {
+    const templateType = getEmailTemplateType({ emailTemplate });
+
+    if (templateType === "custom")
+      return navigateToTemplateDetails(emailTemplate.id);
+    return handlePreviewTemplate?.(emailTemplate);
+  };
+
   /*
    * @debt(1,1,1): We do not have a proper sorting, ordering mechanism in place yet in the backend.
    * This is a temporary solution to sort the email templates based on their ordering_in_category property.
@@ -184,7 +196,7 @@ export const useListItemFactory = ({
       buttons: getListItemActionByTemplateType({
         emailTemplate,
       }),
-      onItemClick: () => navigateToTemplateDetails(emailTemplate.id),
+      onItemClick: () => getItemOnClickFunction({ emailTemplate }),
     }));
   };
 

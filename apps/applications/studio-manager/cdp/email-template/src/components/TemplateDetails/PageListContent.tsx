@@ -4,13 +4,8 @@ import EmailEditor, {
   type EditorRef,
   type EmailEditorProps,
 } from "react-email-editor";
-import { Link } from "react-router";
 
-import {
-  Breadcrumbs,
-  DetailsLayout,
-  toast,
-} from "@bsport/kaizen-primitive-core";
+import { DetailsLayout, toast } from "@bsport/kaizen-primitive-core";
 import type {
   EmailTemplateCategory,
   EmailTemplateDetail,
@@ -125,7 +120,7 @@ export const PageListContent: React.FC<Props> = ({
     initialData,
   });
 
-  const { breadcrumbsItems, endGroupActions } = useDetailPageHeader({
+  const { BreadcrumbsItems, endGroupActions } = useDetailPageHeader({
     onExportTemplate: handleExportClick,
     onDeleteTemplate: emailTemplateDetail
       ? () => setCurrentInlineAction("delete")
@@ -242,11 +237,7 @@ export const PageListContent: React.FC<Props> = ({
       <DetailsLayout.Header
         pageTitle={pageTitle}
         onEditTitleClick={() => setCurrentInlineAction("rename")}
-        BreadcrumbsItems={breadcrumbsItems.map((config) => (
-          <Link key={config.id} to={config.href}>
-            <Breadcrumbs.Item text={config.text} id={config.id} />
-          </Link>
-        ))}
+        BreadcrumbsItems={BreadcrumbsItems}
         endGroupActions={endGroupActions}
       />
       <DetailsLayout.Confirmation

@@ -49,14 +49,10 @@ export const useDetailPageHeader = ({
   };
 
   const breadcrumbsItems = [
+    /** @todo Be able to route to the right category based on the email category */
     {
       id: "breadcrumb-root-item",
       text: t("breadcrumbs.rootPage", { ns: "detail" }),
-      href: `../${ROUTES.CUSTOM_TEMPLATES}`,
-    },
-    {
-      id: "breadcrumb-first-child",
-      text: t("breadcrumbs.customPage", { ns: "detail" }),
       href: `../${ROUTES.CUSTOM_TEMPLATES}`,
     },
   ];

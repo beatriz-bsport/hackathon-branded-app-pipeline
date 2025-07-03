@@ -1,6 +1,5 @@
 import { useMemo } from "react";
 
-import { Indicator } from "@bsport/kaizen-primitive-core";
 import type {
   NavigationMenuDivider,
   NavigationMenuGroup,
@@ -49,9 +48,9 @@ export const useNavigationElements = ({
           icon: "message-square-02",
           id: "inbox",
           label: t("menus.inbox"),
-          endSlot: (
-            <Indicator color="default" position="top" size="sm" value={1} />
-          ),
+          // endSlot: (
+          //   <Indicator color="default" position="top" size="sm" value={1} />
+          // ),
           ...navigationUrls.inbox,
         },
         {
@@ -175,11 +174,6 @@ export const useNavigationElements = ({
               id: "email-template",
               label: t("menus.marketing.emailTemplates"),
               ...navigationUrls.emailTemplate,
-            },
-            {
-              id: "custom-forms",
-              label: t("menus.marketing.customForms"),
-              ...navigationUrls.customForm,
             },
             {
               id: "smartlists",

@@ -98,20 +98,20 @@ export const useTeacherTableColumns = ({
 
       if (!handler || !tooltip || !icon) return null;
 
-      const onClick = () => {
-        handler?.({
-          teacherId: row.id,
-          teacherName: row.name,
-        });
-      };
-
       return (
         <Tooltip label={tooltip} placement="bottom-right">
           <Button
             color="default"
             intent="flat"
             size="md"
-            onClick={onClick}
+            onClick={(event) => {
+              event.stopPropagation();
+              event.preventDefault();
+              handler?.({
+                teacherId: row.id,
+                teacherName: row.name,
+              });
+            }}
             iconLeft={icon}
           />
         </Tooltip>

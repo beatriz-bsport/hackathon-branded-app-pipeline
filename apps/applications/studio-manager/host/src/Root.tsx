@@ -7,6 +7,7 @@ import {
 } from "sm-navigation-sidebar/urls";
 
 import { getEnv } from "@bsport/envs";
+import { Title } from "@bsport/kaizen-primitive-core";
 import { AppWrapper } from "@bsport/sm-backbone";
 
 // ----- Booking -----
@@ -79,7 +80,21 @@ export function Root() {
       loginUrl={loginUrl}
     >
       <Routes>
-        <Route path="/" element={<h1>Hello world</h1>} />
+        <Route
+          path="/"
+          element={
+            <div className="flex flex-col justify-center h-screen items-center flex-1">
+              <Title
+                htmlVariant="h1"
+                color="positive"
+                weight="strong"
+                className="animate-bounce"
+              >
+                Welcome to our revamped backoffice !
+              </Title>
+            </div>
+          }
+        />
 
         {routes_configs
           .filter((config) => !!config.url)

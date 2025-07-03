@@ -23,7 +23,7 @@ export const useOrderTableColumns = () => {
     header: t("table.headers.lastDateUpdated", { ns: "list" }),
     id: "column-date-updated",
     type: "datetime",
-    align: "center",
+    align: "start",
     keyPath: "dateUpdated",
   };
 
@@ -40,11 +40,7 @@ export const useOrderTableColumns = () => {
           src={row.memberPhotoSrc}
           alt={row.memberName}
         />
-        <Body
-          htmlVariant="p"
-          weight="strong"
-          className="truncate max-w-[180px]"
-        >
+        <Body htmlVariant="p" className="truncate max-w-[180px]">
           {row.memberName}
         </Body>
       </div>

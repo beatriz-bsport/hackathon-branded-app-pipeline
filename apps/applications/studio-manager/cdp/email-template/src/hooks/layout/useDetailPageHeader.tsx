@@ -1,4 +1,7 @@
+import { Link } from "react-router";
+
 import {
+  Breadcrumbs,
   Button,
   DropdownMenu,
   type DropdownMenuItems,
@@ -48,13 +51,19 @@ export const useDetailPageHeader = ({
     ].filter(Boolean) as DropdownMenuItems;
   };
 
-  const breadcrumbsItems = [
-    /** @todo Be able to route to the right category based on the email category */
-    {
-      id: "breadcrumb-root-item",
-      text: t("breadcrumbs.rootPage", { ns: "detail" }),
-      href: `../${ROUTES.CUSTOM_TEMPLATES}`,
-    },
+  const BreadcrumbsItems = [
+    <Link key="to-base-email-template" to={`../${ROUTES.CUSTOM_TEMPLATES}`}>
+      <Breadcrumbs.Item
+        id="breadcrumb-active-email-template-list"
+        text={t("breadcrumbs.rootPage", { ns: "detail" })}
+      />
+    </Link>,
+    <Link key="to-custom-template" to={`../${ROUTES.CUSTOM_TEMPLATES}`}>
+      <Breadcrumbs.Item
+        id="breadcrumb-active-custom-template-list"
+        text={t("breadcrumbs.customPage", { ns: "detail" })}
+      />
+    </Link>,
   ];
 
   const dropdownMenuConfig =
@@ -106,7 +115,7 @@ export const useDetailPageHeader = ({
   ];
 
   return {
-    breadcrumbsItems,
+    BreadcrumbsItems,
     endGroupActions,
   };
 };

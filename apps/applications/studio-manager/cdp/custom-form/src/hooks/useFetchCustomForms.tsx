@@ -94,7 +94,7 @@ export const useFetchCustomForms = ({
   const isEmptySearch = isEmpty && !!searchInput;
 
   return {
-    paginationParams,
+    paginationParams: !searchInput?.trim() ? paginationParams : undefined,
     customForms,
     fetchCustomForms,
     resetCustomForms,

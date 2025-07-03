@@ -120,9 +120,11 @@ export const useCustomFormTableColumns = ({
                     color="default"
                     intent="flat"
                     size="md"
-                    onClick={() =>
-                      handler?.({ formId: row.id, formName: row.name })
-                    }
+                    onClick={(event: React.MouseEvent) => {
+                      event.stopPropagation();
+                      event.preventDefault();
+                      handler?.({ formId: row.id, formName: row.name });
+                    }}
                     iconLeft={icon}
                   />
                 </Tooltip>

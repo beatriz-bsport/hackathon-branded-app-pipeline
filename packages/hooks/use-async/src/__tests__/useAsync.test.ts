@@ -1,10 +1,18 @@
 import { act, renderHook } from "@testing-library/react";
 import { Result } from "typescript-result";
-import { describe, expect, it, vi } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 import { useAsync } from "#src/index";
 
 describe("useAsync hook", () => {
+  beforeEach(() => {
+    vi.useFakeTimers();
+  });
+
+  afterEach(() => {
+    vi.useRealTimers();
+    vi.restoreAllMocks();
+  });
   it("returns data when asyncFn succeeds", async () => {
     const value = { ok: true };
 
@@ -102,5 +110,111 @@ describe("useAsync hook", () => {
     const n = 10;
     const result = await act(() => hook.result.current[1](n));
     expect(result).toBe(onSuccess({ value: n * 2 }));
+  });
+
+  describe("refetchInterval", () => {
+    it("should not set interval when refetchInterval is not provided", () => {
+      const asyncFn = vi.fn(async () => Result.ok("test"));
+      const setIntervalSpy = vi.spyOn(global, "setInterval");
+
+      renderHook(() => useAsync({ asyncFn }));
+
+      expect(setIntervalSpy).not.toHaveBeenCalled();
+    });
+
+    it("should not set interval when refetchInterval is 0", () => {
+      const asyncFn = vi.fn(async () => Result.ok("test"));
+      const setIntervalSpy = vi.spyOn(global, "setInterval");
+
+      renderHook(() => useAsync({ asyncFn, refetchInterval: 0 }));
+
+      expect(setIntervalSpy).not.toHaveBeenCalled();
+    });
+
+    it("should set interval when refetchInterval is provided", () => {
+      const asyncFn = vi.fn(async () => Result.ok("test"));
+      const setIntervalSpy = vi.spyOn(global, "setInterval");
+
+      renderHook(() => useAsync({ asyncFn, refetchInterval: 1000 }));
+
+      expect(setIntervalSpy).toHaveBeenCalledWith(expect.any(Function), 1000);
+    });
+
+    it("should call asyncFn at specified intervals", async () => {
+      const asyncFn = vi.fn(async () => Result.ok("test"));
+
+      renderHook(() => useAsync({ asyncFn, refetchInterval: 1000 }));
+
+      expect(asyncFn).not.toHaveBeenCalled();
+
+      await act(async () => {
+        vi.advanceTimersByTime(1000);
+      });
+
+      expect(asyncFn).toHaveBeenCalledTimes(1);
+
+      await act(async () => {
+        vi.advanceTimersByTime(1000);
+      });
+
+      expect(asyncFn).toHaveBeenCalledTimes(2);
+    });
+
+    it("should clear interval on unmount", () => {
+      const asyncFn = vi.fn(async () => Result.ok("test"));
+      const clearIntervalSpy = vi.spyOn(global, "clearInterval");
+
+      const { unmount } = renderHook(() =>
+        useAsync({ asyncFn, refetchInterval: 1000 }),
+      );
+
+      expect(clearIntervalSpy).not.toHaveBeenCalled();
+
+      unmount();
+
+      expect(clearIntervalSpy).toHaveBeenCalled();
+    });
+
+    it("should clear and reset interval when refetchInterval changes", async () => {
+      const asyncFn = vi.fn(async () => Result.ok("test"));
+      const clearIntervalSpy = vi.spyOn(global, "clearInterval");
+      const setIntervalSpy = vi.spyOn(global, "setInterval");
+
+      const { rerender } = renderHook(
+        ({ interval }) => useAsync({ asyncFn, refetchInterval: interval }),
+        { initialProps: { interval: 1000 } },
+      );
+
+      expect(setIntervalSpy).toHaveBeenCalledWith(expect.any(Function), 1000);
+      expect(clearIntervalSpy).not.toHaveBeenCalled();
+
+      rerender({ interval: 2000 });
+
+      expect(clearIntervalSpy).toHaveBeenCalled();
+      expect(setIntervalSpy).toHaveBeenCalledWith(expect.any(Function), 2000);
+    });
+
+    it("should update data state when interval triggers", async () => {
+      let counter = 0;
+      const asyncFn = vi.fn(async () => Result.ok(`test-${++counter}`));
+
+      const { result } = renderHook(() =>
+        useAsync({ asyncFn, refetchInterval: 1000 }),
+      );
+
+      expect(result.current[0].data).toBeUndefined();
+
+      await act(async () => {
+        vi.advanceTimersByTime(1000);
+      });
+
+      expect(result.current[0].data).toBe("test-1");
+
+      await act(async () => {
+        vi.advanceTimersByTime(1000);
+      });
+
+      expect(result.current[0].data).toBe("test-2");
+    });
   });
 });

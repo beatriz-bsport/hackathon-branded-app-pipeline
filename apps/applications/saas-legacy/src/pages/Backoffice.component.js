@@ -1174,7 +1174,7 @@ export default compose(
               err.response.data &&
               !err.response.data.validated
             ) {
-              pushRouter('/login/company_onboarding/welcome');
+              pushRouter('/login/company_onboarding/confirmation');
             }
           },
         });

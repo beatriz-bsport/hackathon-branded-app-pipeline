@@ -108,6 +108,8 @@ exports.default = {
     },
     confirmation: {
       content: {
+        contactAccountManager:
+          "Account validation pending. If you're a Studio Manager, please reach out to your bsport contact to activate your backoffice.",
         core: "The new backoffice platform has been successfully created. However, before sending the client's access credentials, please ensure the following validation steps from the internal documentation are completed:",
         billing:
           'Platform Billing: Create the billing setup for the new backoffice.',

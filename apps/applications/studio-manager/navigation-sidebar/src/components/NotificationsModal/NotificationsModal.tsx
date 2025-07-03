@@ -7,6 +7,7 @@ import { useTranslation } from "#src/utils/i18n";
 import { BillingTab } from "./BillingTab";
 import { OrdersTab } from "./OrdersTab";
 import { TasksTab } from "./TasksTab";
+import { TutorialsTab } from "./TutorialsTab";
 import UnpaidAppointmentsTab from "./UnpaidAppointmentsTab";
 import type { NotificationTab, NotificationsModalProps } from "./types";
 
@@ -39,7 +40,7 @@ export const NotificationsModal: React.FC<NotificationsModalProps> = ({
       case "unpaid-appointments":
         return <UnpaidAppointmentsTab />;
       case "tutorials":
-        return <div className="p-8 text-center text-gray-500">Coming soon</div>;
+        return <TutorialsTab />;
       default:
         return null;
     }

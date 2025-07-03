@@ -153,5 +153,21 @@ exports.default = {
         description: "You don't have any unpaid appointments",
       },
     },
+    tutorials: {
+      loading: "Loading tutorials...",
+      empty: {
+        title: "No tutorials",
+        description: "All your tutorial notifications will appear here",
+      },
+      newSection: {
+        title: "New section",
+        description:
+          "The {{sectionName}} tutorial has been added, get trained right now.",
+      },
+      newLesson: {
+        title: "New lesson",
+        description: "Lesson {{lessonName}} added to {{sectionName}} section",
+      },
+    },
   },
 };

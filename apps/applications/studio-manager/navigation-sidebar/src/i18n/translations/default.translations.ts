@@ -45,7 +45,7 @@ exports.default = {
       promotions: "Promotions",
       customForms: "Custom forms",
     },
-    dashboard: "Dashboard / Overview",
+    dashboard: "Dashboard",
     reporting: "Reporting",
     finance: {
       title: "Finance",

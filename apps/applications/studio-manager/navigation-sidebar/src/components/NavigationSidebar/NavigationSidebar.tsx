@@ -189,7 +189,7 @@ const NavigationSidebarContent = ({
       </div>
       <Card elevated className="p-xs mx-xs flex flex-col gap-2xs mt-[auto]">
         <Button
-          className="justify-between"
+          className="!justify-between"
           label={t("revampCard.betaFeedbackLink")}
           intent="flat"
           size="md"
@@ -198,7 +198,7 @@ const NavigationSidebarContent = ({
           fullWidth
         />
         <Button
-          className="justify-between"
+          className="!justify-between"
           label={t("revampCard.goBackToOldUi")}
           intent="flat"
           size="md"

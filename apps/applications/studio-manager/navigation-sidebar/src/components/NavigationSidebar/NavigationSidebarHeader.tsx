@@ -116,13 +116,13 @@ const NavigationSidebarHeader = ({
           />
         )}
       />
-      <Button
+      {/* <Button
         className="shrink-0"
         intent="default"
         size="md"
         color="main"
         iconLeft="search-refraction"
-      />
+      /> */}
     </header>
   );
 };

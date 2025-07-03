@@ -5,6 +5,9 @@ import { Modal, Tabs } from "@bsport/kaizen-primitive-core";
 import { useTranslation } from "#src/utils/i18n";
 
 import { BillingTab } from "./BillingTab";
+import { OrdersTab } from "./OrdersTab";
+import { TasksTab } from "./TasksTab";
+import UnpaidAppointmentsTab from "./UnpaidAppointmentsTab";
 import type { NotificationTab, NotificationsModalProps } from "./types";
 
 export const NotificationsModal: React.FC<NotificationsModalProps> = ({
@@ -30,8 +33,11 @@ export const NotificationsModal: React.FC<NotificationsModalProps> = ({
       case "billing":
         return <BillingTab />;
       case "orders":
+        return <OrdersTab />;
       case "tasks":
+        return <TasksTab />;
       case "unpaid-appointments":
+        return <UnpaidAppointmentsTab />;
       case "tutorials":
         return <div className="p-8 text-center text-gray-500">Coming soon</div>;
       default:

@@ -1,4 +1,10 @@
-import { type DependencyList, useCallback, useState } from "react";
+import {
+  type DependencyList,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { Result } from "typescript-result";
 
 // Extracts the success value from Result
@@ -16,6 +22,7 @@ type ErrorType<T extends Promise<Result<unknown, unknown>>> =
  * @param onSuccess [Optional] Callback when the asyncFn succedded.
  * @param onFailure [Optional] Callback when the asyncFn failed.
  * @param dependencies [Optional] Provide memoized dependencies to memoize the build function
+ * @param refetchInterval [Optional] Interval in milliseconds to automatically refetch data
  * @returns Two list elements
  * - { isLoading, error, data } containing the 3 states
  * - the built and memoized function using asyncFn and callbacks
@@ -29,6 +36,7 @@ export function useAsync<
   onSuccess,
   onFailure,
   dependencies,
+  refetchInterval,
 }: {
   asyncFn: AsyncFn;
   onSuccess?: ({
@@ -46,6 +54,7 @@ export function useAsync<
     args: Parameters<AsyncFn>;
   }) => FailureReturn;
   dependencies?: DependencyList;
+  refetchInterval?: number;
 }) {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<
@@ -54,6 +63,8 @@ export function useAsync<
   const [data, setData] = useState<
     ResultType<ReturnType<AsyncFn>> | undefined
   >();
+
+  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   const callbackMemoized = useCallback(
     async (...args: Parameters<AsyncFn>) => {
@@ -88,6 +99,21 @@ export function useAsync<
     // eslint-disable-next-line react-hooks/exhaustive-deps
     dependencies ?? [],
   );
+
+  useEffect(() => {
+    if (refetchInterval && refetchInterval > 0) {
+      intervalRef.current = setInterval(() => {
+        callbackMemoized(...([] as Parameters<AsyncFn>));
+      }, refetchInterval);
+
+      return () => {
+        if (intervalRef.current) {
+          clearInterval(intervalRef.current);
+          intervalRef.current = null;
+        }
+      };
+    }
+  }, [callbackMemoized, refetchInterval]);
 
   return [{ isLoading, error, data }, callbackMemoized] as const;
 }

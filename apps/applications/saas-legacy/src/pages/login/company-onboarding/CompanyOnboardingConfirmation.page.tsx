@@ -10,6 +10,7 @@ import { disconnect as disconnectAction } from '#src/actions/auth.actions';
 import RedButton from '#src/components/button/RedButton.component';
 import Config from '#src/config';
 import { sleep } from '#src/utils/storybookHelper';
+import { Alert } from '@material-ui/lab';
 
 const CompanyOnboardingConfirmationPage: React.FC = () => {
   const classes = useStyles();
@@ -34,6 +35,9 @@ const CompanyOnboardingConfirmationPage: React.FC = () => {
     <div className={classes.container}>
       <div className={classes.inner}>
         <CheckIcon className={classes.icon} color="primary" fontSize="large" />
+        <Alert severity="warning">
+          {t('signupCompany.confirmation.content.contactAccountManager')}
+        </Alert>
         <Typography>{t('signupCompany.confirmation.content.core')}</Typography>
 
         <ul className={classes.list}>
@@ -77,12 +81,11 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
     alignItems: 'center',
     textAlign: 'justify',
-    gap: theme.spacing(4),
+    gap: theme.spacing(2),
   },
   icon: {
     height: 160,
     width: 160,
-    marginBottom: theme.spacing(3),
   },
   list: {
     display: 'flex',
@@ -101,7 +104,7 @@ const useStyles = makeStyles((theme) => ({
     height: '100%',
     flex: 1,
     '&>*': {
-      marginBottom: theme.spacing(10),
+      marginBottom: theme.spacing(5),
     },
   },
 }));

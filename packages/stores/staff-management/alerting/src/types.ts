@@ -1,3 +1,27 @@
+// Payment Engine Constants
+export const PAYMENT_ENGINE_BSPORT = 0;
+export const PAYMENT_ENGINE_STRIPE = 1;
+export const PAYMENT_ENGINE_PAYPAL = 2;
+
+// Company Onboarding Types
+export const COMPANY_ONBOARDING_TYPES = {
+  VERIFICATION: "verification",
+  CREATION: "creation",
+  PAYOUT: "payout",
+} as const;
+
+export const PAYPAL_PENDING_ACTION_TYPES = {
+  PRIMARY_EMAIL_CONFIRMATION: "primary_email_confirmation",
+  REQUIRES_MORE_INFORMATION: "requires_more_information",
+  ISSUE_CHECK_ACCOUNT: "issue_check_account",
+  ISSUE_REPEAT_ONBOARDING: "issue_repeat_onboarding",
+} as const;
+
+export type CompanyOnboardingType =
+  (typeof COMPANY_ONBOARDING_TYPES)[keyof typeof COMPANY_ONBOARDING_TYPES];
+export type PayPalPendingActionType =
+  (typeof PAYPAL_PENDING_ACTION_TYPES)[keyof typeof PAYPAL_PENDING_ACTION_TYPES];
+
 // Alert Kind Constants
 export const ALERT_KINDS = {
   UNEVEN_INVOICE: 1,
@@ -57,13 +81,22 @@ export interface PrivateBookingAlertData extends Record<string, unknown> {
   credits_due?: number; // Only for unpaid private bookings
 }
 
-export interface CompanyOnboardingAlertData extends Record<string, unknown> {
-  type: string;
-  level?: string;
-  date?: string;
-  count?: number;
-  payment_engine_identifier?: number;
-}
+// Company Onboarding Alert Data with discriminated unions
+export type CompanyOnboardingAlertData =
+  | {
+      type: CompanyOnboardingType;
+      level?: number;
+      date?: string;
+      count?: number;
+      payment_engine_identifier: typeof PAYMENT_ENGINE_STRIPE;
+    }
+  | {
+      type: PayPalPendingActionType;
+      level?: number;
+      date?: string;
+      count?: number;
+      payment_engine_identifier: typeof PAYMENT_ENGINE_PAYPAL;
+    };
 
 type LanguagesCodes = "en" | "es" | "fr" | "de" | "it" | "pt" | "nl" | "cs";
 export interface TutorialSectionOrLessonAlertData

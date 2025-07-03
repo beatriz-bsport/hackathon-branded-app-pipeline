@@ -40,6 +40,7 @@ export const LEGACY_URLS: Omit<Urls, "payout"> = {
   settings_activeCampaign: `${SETTINGS_URL}/active-campaign`,
   settings_billing: `${SETTINGS_URL}/invoice`,
   settings_company: `${SETTINGS_URL}/company`,
+  settings_companyOnboarding: `${SETTINGS_URL}/company_onboarding`,
   settings_bsportSubscription: `${SETTINGS_URL}/platform-billing`,
   settings_general: `${SETTINGS_URL}/general`,
   settings_livestreaming: `${SETTINGS_URL}/broadcast`,

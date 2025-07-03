@@ -3,7 +3,8 @@ export type NotificationTab =
   | "orders"
   | "tasks"
   | "unpaid-appointments"
-  | "tutorials";
+  | "tutorials"
+  | "company-onboarding";
 
 export interface NotificationsModalProps {
   isOpen: boolean;

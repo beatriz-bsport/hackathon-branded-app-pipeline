@@ -49,7 +49,7 @@ export interface ReminderTaskAlertData extends Record<string, unknown> {
 }
 
 export interface PrivateBookingAlertData extends Record<string, unknown> {
-  member_id: number | null;
+  member_id: number;
   name: string;
   user_name: string;
   date_start: string;
@@ -149,6 +149,19 @@ export type Alert =
   | TutorialSectionOrLessonAlert
   | ReplacementRequestLateAlert
   | UnreadCommunicationAlert;
+
+// Type mapping from AlertKind to the corresponding Alert type
+export type AlertTypeMap = {
+  [ALERT_KINDS.UNEVEN_INVOICE]: InvoiceAlert;
+  [ALERT_KINDS.NEW_ORDER]: NewOrderAlert;
+  [ALERT_KINDS.REMINDER_NOTE]: ReminderTaskAlert;
+  [ALERT_KINDS.PRIVATE_BOOKING_INCOMPLETE]: PrivateBookingIncompleteAlert;
+  [ALERT_KINDS.COMPANY_ONBOARDING]: CompanyOnboardingAlert;
+  [ALERT_KINDS.UNPAID_PRIVATE_BOOKING]: UnpaidPrivateBookingAlert;
+  [ALERT_KINDS.NEW_TUTORIAL_SECTION_OR_LESSON]: TutorialSectionOrLessonAlert;
+  [ALERT_KINDS.REPLACEMENT_REQUEST_LATE]: ReplacementRequestLateAlert;
+  [ALERT_KINDS.UNREAD_COMMUNICATION]: UnreadCommunicationAlert;
+};
 
 // Alert Kind Info
 export interface AlertKindInfo {

@@ -124,7 +124,35 @@
                     "description": "All your billing notifications will appear here"
                 },
                 "paid": "Paid:",
-                "due": "Due:"
+                "due": "Due:",
+                "itemTitle": "Unpaid invoice",
+                "itemDescription": "Invoice has not been finalized yet"
+            },
+            "orders": {
+                "loading": "Loading orders...",
+                "empty": {
+                    "title": "No orders",
+                    "description": "All your orders will appear here"
+                },
+                "itemTitle": "Pending order",
+                "paidByFormat": "Paid by <strong>{{name}}</strong> on the store"
+            },
+            "tasks": {
+                "loading": "Loading tasks...",
+                "empty": {
+                    "title": "No tasks",
+                    "description": "All your tasks will appear here"
+                }
+            },
+            "unpaidAppointments": {
+                "title": "Unpaid appointments",
+                "itemTitle": "Unpaid appointment",
+                "loading": "Loading unpaid appointments...",
+                "credits": "Unpaid credits",
+                "empty": {
+                    "title": "No unpaid appointments",
+                    "description": "You don't have any unpaid appointments"
+                }
             }
         }
     },

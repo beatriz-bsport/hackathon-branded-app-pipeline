@@ -71,6 +71,7 @@ export type Urls = {
   settings_paymentFacility: string;
   settings_billing: string;
   settings_company: string;
+  settings_companyOnboarding: string;
   settings_waitlist: string;
   settings_webhook: string;
   settings_partnership: string;

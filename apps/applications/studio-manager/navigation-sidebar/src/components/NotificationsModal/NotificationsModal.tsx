@@ -5,6 +5,7 @@ import { Modal, Tabs } from "@bsport/kaizen-primitive-core";
 import { useTranslation } from "#src/utils/i18n";
 
 import { BillingTab } from "./BillingTab";
+import { CompanyOnboardingTab } from "./CompanyOnboardingTab";
 import { OrdersTab } from "./OrdersTab";
 import { TasksTab } from "./TasksTab";
 import { TutorialsTab } from "./TutorialsTab";
@@ -23,6 +24,10 @@ export const NotificationsModal: React.FC<NotificationsModalProps> = ({
     { id: "orders", label: t("notifications.tabs.orders") },
     { id: "tasks", label: t("notifications.tabs.tasks") },
     {
+      id: "company-onboarding",
+      label: t("notifications.tabs.companyOnboarding"),
+    },
+    {
       id: "unpaid-appointments",
       label: t("notifications.tabs.unpaidAppointments"),
     },
@@ -37,6 +42,8 @@ export const NotificationsModal: React.FC<NotificationsModalProps> = ({
         return <OrdersTab />;
       case "tasks":
         return <TasksTab />;
+      case "company-onboarding":
+        return <CompanyOnboardingTab />;
       case "unpaid-appointments":
         return <UnpaidAppointmentsTab />;
       case "tutorials":

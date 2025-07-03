@@ -2578,7 +2578,7 @@
             "warningConsent2": "Non rispettare questa decisione del vostro membro sarebbe illegale. Bsport è sollevata da ogni responsabilità in caso di uso abusivo delle e-mail dirette.",
             "warningConsent1": "Attenzione! Questo membro ha disabilitato la capacità di inviare email promozionali. Le email dirette sono un modo semplice e veloce per parlare con i tuoi membri. Non devono essere usati per scopi pubblicitari o promozionali.",
             "titleInterpolated": "Le variabili contenute nell'oggetto e nel corpo dell'email sono aggiornate in base al destinatario",
-            "warningProvider": "Attenzione, le risposte dei membri a questo messaggio non appariranno sulla piattaforma ma direttamente nella tua casella di posta. Per visualizzarli tutti qui, modificare l'impostazione di comunicazione nella pagina Impostazioni/Personalizzazione."
+            "warningProvider": "Le risposte a questo messaggio verranno automaticamente inviate alla tua casella email. Vai su Impostazioni - Personalizzazione - Impostazioni chat per fare in modo che tutte le tue comunicazioni compaiano qui."
         },
         "campaign": {
             "list": {
@@ -2616,7 +2616,7 @@
                     "subtitles": {
                         "create": {
                             "joinSmartList": "Aggiungi un messaggio automatico per i membri che accedono a questa smartlist",
-                            "leftSmartList": "Aggiungi un messaggio automatico per i membri che lasciano questa smartlist"
+                            "leftSmartList": "Crea un messaggio automatico per i clienti che escono da questa Smartlist."
                         },
                         "update": {
                             "joinSmartList": "Modifica di una regola di invio automatico come input per la smartlist",
@@ -2629,7 +2629,7 @@
                     "submit": "Confermare",
                     "frequenceHelper": "Questo messaggio verrà inviato il {{ max }} {{ event_kind }} a ciascun membro di questa Smartlist. Dopo {{ max }} {{ event_kind }}, i membri non riceveranno più il messaggio. Usa \"Avanzate\" per modificare queste impostazioni.",
                     "maxCommunicationSentHelperText": {
-                        "0": "Per impostazione predefinita, il messaggio viene inviato ogni volta che un membro entra nella smartlist. Se un membro esce e successivamente rientra, il messaggio viene inviato di nuovo. Regolare l'impostazione se si desidera limitare il numero di volte in cui lo stesso utente può ricevere il messaggio: una, due o tre volte.",
+                        "0": "Questo messaggio verrà inviato ogni volta che un membro entra nel segmento. Se un membro esce e poi vi rientra, il messaggio verrà reinviato. Imposta un limite al numero di volte in cui lo stesso membro può visualizzare questo messaggio.",
                         "1": "Per impostazione predefinita, il messaggio viene inviato ogni volta che un membro esce dalla smartlist. Se un membro rientra e poi esce di nuovo, il messaggio viene inviato di nuovo. Regolare l'impostazione se si desidera limitare il numero di volte in cui lo stesso utente può ricevere il messaggio: una, due o tre volte."
                     },
                     "limitSection": "Limite",
@@ -2652,7 +2652,7 @@
                         "onLeft": "In uscita",
                         "onJoin": "In ingresso"
                     },
-                    "add": "Aggiungere",
+                    "add": "Aggiungi messaggio",
                     "title": "Regola di invio automatico"
                 }
             },
@@ -2821,7 +2821,7 @@
             "processing": "La comunicazione è in fase di invio"
         },
         "sendMessage": {
-            "writeCommunication": "Inviare un messaggio",
+            "writeCommunication": "Componi un messaggio",
             "refresh": "Per visualizzare la nuova versione del modello, fare clic sul pulsante Aggiorna.",
             "sendDisabled": {
                 "missingPhoneInDirectMember": "Questo utente non ha un numero di telefono",
@@ -2988,7 +2988,7 @@
         },
         "messageList": {
             "emptyList": {
-                "becauseNeverUsed": "Non avete ancora inviato una comunicazione su questo canale.",
+                "becauseNeverUsed": "Nessun messaggio da mostrare. Clicca sulla casella di testo qui sotto per scrivere il tuo primo messaggio.",
                 "becauseOfFilters": "Nessun risultato corrispondente ai filtri."
             },
             "filterOutCommunicationSent": "La comunicazione appena inviata è nascosta dai filtri."
@@ -5529,7 +5529,7 @@
                 "success": "Smartlist duplicata"
             },
             "tag_rules": {
-                "limit_reached": "Impossibile: hai raggiunto il limite di creazione (10)",
+                "limit_reached": "Errore: non è possibile creare più di 10 regole. ",
                 "error": "Impossibile applicare questa regola",
                 "success": "La regola automatica è stata avviata"
             }
@@ -12134,7 +12134,7 @@
                 "first": "Il saldo del conto del membro è (comprese le ricevute non pagate)",
                 "second": " a   ",
                 "third": "{{ currencyDisplay }}",
-                "explanation": "Ha X{{ currencyDisplay }} sul suo conto",
+                "explanation": "Raggruppa i membri con un determinato importo nei loro saldi conto.",
                 "between": "e"
             },
             "2": {
@@ -12144,10 +12144,10 @@
                 "first": "L'ultima sessione riservata ha avuto luogo più di"
             },
             "5": {
-                "name": "Sesso",
-                "first": "Seleziona solo",
+                "name": "Genere",
+                "first": "Raggruppa solamente",
                 "men": "uomini",
-                "explanation": "È una donna/un uomo",
+                "explanation": "Raggruppa i membri in base al genere dichiarato (uomo o donna)",
                 "women": "donna"
             },
             "8": {
@@ -12158,8 +12158,8 @@
             },
             "11": {
                 "name": "Tag",
-                "first": "Filtro sui seguenti tag",
-                "explanation": "Ha i tag A e B"
+                "first": "Raggruppa per tag",
+                "explanation": "Raggruppa i membri in base ai loro tag"
             },
             "14": {
                 "workshop": "Pacchetti per workshop",
@@ -12177,8 +12177,8 @@
             },
             "18": {
                 "name": "Data d'iscrizione",
-                "first": "Si è unito al club   ",
-                "explanation": "Si è unito al club il..."
+                "first": "Iscritto al tuo studio il",
+                "explanation": "Raggruppa i membri in base alla data di iscrizione: specifica, precedente, successiva o compresa tra due date"
             },
             "19": {
                 "expiration": {
@@ -12188,7 +12188,7 @@
                 "has_not": "Non possiede",
                 "second": "e",
                 "third": "di",
-                "explanation": "Visualizzare tutti i membri che hanno acquistato il pacchetto X alla data Y con Z crediti residui",
+                "explanation": "Raggruppa i clienti con un pacchetto acquistato in una certa data e con X crediti residui",
                 "credits": {
                     "first": "crediti:",
                     "second": "e",
@@ -12205,12 +12205,12 @@
             },
             "20": {
                 "first": "Il valore totale degli articoli nel cestino è",
-                "name": "Carrelli abbandonati",
+                "name": "Carrelli non finalizzati",
                 "date": {
                     "second": "giorni",
                     "first": "Il cestino è stato abbandonato"
                 },
-                "explanation": "Ha abbandonato un carrello nella quantità di ...",
+                "explanation": "Raggruppa i membri che hanno prodotti nel carrello ma non hanno completato l’acquisto",
                 "third": "{{ currencyDisplay }}",
                 "second": "di",
                 "between": "e"
@@ -12228,7 +12228,7 @@
                     "first": "la data dell'allenamento è"
                 },
                 "name": "X-esimo numero di prenotazione",
-                "explanation": "Visualizza una panoramica di tutti i membri con X prenotazioni dell'attività Y nello stabilimento Z",
+                "explanation": "Raggruppa i clienti in base a quante sessioni hanno prenotato, in quale sala, con quale insegnante, e con quale pacchetto acquistato",
                 "second_singular": "1a sessione",
                 "first": "Ha prenotato la sua ",
                 "second_plural": "allenamento",
@@ -12270,7 +12270,7 @@
                 "coach": {
                     "first": "con gli insegnanti"
                 },
-                "explanation": "Visualizzare una panoramica dei membri che hanno prenotato X classi di attività A nello stabilimento X con il pacchetto Z",
+                "explanation": "Raggruppa i clienti in base a quante lezioni hanno prenotato, in quale sala, con quale insegnante e con quale pacchetti",
                 "first": "Ha prenotato",
                 "second": "sessioni",
                 "between": "e",
@@ -12289,14 +12289,14 @@
                 },
                 "second": "{{ currencyDisplay }} per i prodotti",
                 "first": "Ha speso",
-                "name": "Spese",
+                "name": "Cronologia degli acquisti",
                 "workshop": "Pacchetti per workshop",
                 "private_pass": "Lezioni private",
                 "between": "e",
                 "combo": "Pacchetto combinato",
                 "pack": "Pacchetti",
                 "shop": "Shop",
-                "explanation": "Prodotti acquistati A e B"
+                "explanation": "Raggruppa i clienti che hanno acquistato determinati prodotti"
             },
             "25": {
                 "expiration": {
@@ -12318,7 +12318,7 @@
                 "has": "Hai",
                 "first": "uno dei pacchetti per appuntamenti",
                 "name": "Pacchetti (appuntamenti)",
-                "explanation": "Hai comprato un pacchetto per appuntamenti X alla data Y, con Z crediti rimasti"
+                "explanation": "Raggruppa i clienti che hanno acquistato un pacchetto per appuntamenti in una certa data, con X crediti rimanenti"
             },
             "26": {
                 "hour": {
@@ -12343,20 +12343,20 @@
                 "between": "e",
                 "second": "appuntamento",
                 "first": "Hai prenotato",
-                "explanation": "Visualizza una panoramica dei membri che hanno prenotato X appuntamenti con l'insegnante A nello stabilimento Y con il pacchetto Z",
+                "explanation": "Raggruppa i clienti in base a quanti appuntamenti hanno prenotato, in quale sala, con quale insegnante e con quale pacchetto",
                 "name": "Numero di appuntamenti",
                 "private_service": {
                     "first": "con gli appuntamenti"
                 }
             },
             "27": {
-                "explanation": "Ha X pacchetti o pacchetti per appuntamenti validi",
+                "explanation": "Raggruppa i clienti che hanno X pacchetti validi o pacchetti per appuntamenti",
                 "name": "Pacchetti validi",
-                "first": "Ha",
+                "first": "Membri che hanno",
                 "between": "e",
-                "second": "pacchetti lezione o pacchetti per appuntamenti valide oggi. Tra",
+                "second": "Pacchetti validi. nclusi",
                 "third": "o",
-                "fourth": "(combinato)",
+                "fourth": "in totale.",
                 "info": "Vengono prese in considerazione anche i pacchetti e i pacchetti per appuntamenti bloccati"
             },
             "28": {
@@ -12375,7 +12375,7 @@
                     "is": "fatto",
                     "before": "Il primo acquisto è"
                 },
-                "explanation": "Filtra i membri con un primo carrello finalizzato/pagato",
+                "explanation": "Raggruppa i membri che hanno completato il loro primo acquisto tra determinate date",
                 "name": "Primo acquisto"
             },
             "29": {
@@ -12398,7 +12398,7 @@
                     }
                 },
                 "explanation": "Filtra i membri che hanno fatto da referente",
-                "name": "Referente"
+                "name": "Referenti"
             },
             "30": {
                 "numbersComparator": {
@@ -12423,7 +12423,7 @@
                 "between": "e",
                 "to": "a",
                 "second": "anni (inclusi)",
-                "explanation": "È sotto/sopra/esattamente..."
+                "explanation": "Raggruppa i membri in base alla loro età"
             },
             "102": {
                 "name": "Form",
@@ -12433,7 +12433,7 @@
                 "all": "Tutti i form",
                 "hasCompletedNone": "Non completato",
                 "none": "Nessun form",
-                "explanation": "Moduli X completati in A% alla data B ",
+                "explanation": "Raggruppa i membri a seconda di quanti moduli hanno compilato in certe date",
                 "date": {
                     "first": "ultimo completato"
                 },
@@ -12444,20 +12444,20 @@
                 "first": "Ha completato"
             },
             "103": {
-                "name": "Notifiche",
+                "name": "Autorizzazione alle notifiche",
                 "allNeeded": "Tutte le condizioni abilitate devono essere soddisfatte",
                 "oneNeeded": "Almeno una delle condizioni abilitate deve essere soddisfatta",
                 "true": "Accettato",
                 "false": "Non accettato",
                 "sms": "per ricevere notifiche SMS",
                 "email": "per ricevere le notifiche via e-mail",
-                "explanation": "Accetta notifiche SMS/e-mail",
+                "explanation": "Raggruppa i membri che hanno dato il consenso a ricevere notifiche via SMS o Email",
                 "or": "O",
                 "and": "E"
             },
             "104": {
                 "info": "Le cosiddette note mediche corrispondono a quelle che figurano nella sezione \"Informazioni Essenziali\" del fascicolo di appartenenza",
-                "name": "Note",
+                "name": "Note informative",
                 "first": "Ha almeno una nota",
                 "medicalOrNot": "medico o meno",
                 "medical": "medico",
@@ -12473,7 +12473,7 @@
                     "consumerPaymentPacks": "\"valido\" significa che il pacchetto può essere utilizzato ora per prenotare una lezione di gruppo",
                     "consumerPrivatePasses": "\"valido\" significa che il pacchetto può essere utilizzato ora per prenotare un appuntamento"
                 },
-                "name": "Relazioni",
+                "name": "Pacchetti condivisi",
                 "date": {
                     "first": "La relazione è stata stabilita"
                 },
@@ -12505,14 +12505,14 @@
                     "false": "non accettato",
                     "second": "email"
                 },
-                "explanation": "Ha X relazioni e Y pacchetti o pacchetti per appuntamenti o prenotazioni condivisi"
+                "explanation": "Raggruppa i membri legati da relazioni o che condividono un pacchetto"
             },
             "106": {
-                "name": "Telefono",
+                "name": "Numero di telefono",
                 "true": "Ha informato",
                 "false": "Non compilato",
                 "first": "un numero di telefono",
-                "explanation": "Ha fornito un numero di telefono"
+                "explanation": "Raggruppa i membri che hanno fornito un numero di telefono"
             },
             "107": {
                 "false": "Non ha accettato",
@@ -12524,15 +12524,15 @@
             "400": {
                 "explain": "ha una password su bsport",
                 "name": "Password",
-                "explanation": "Ha una password su bsport"
+                "explanation": "Raggruppa i membri che hanno registrato una password con il loro account bsport"
             },
             "410": {
-                "explanation": "avendo accettato il rilascio di responsabilità",
+                "explanation": "Raggruppa i membri che hanno firmato la tua liberatoria di responsabilità",
                 "name": "Rilascio di responsabilità",
                 "explain": "avendo accettato il rilascio di responsabilità"
             },
             "501": {
-                "explanation": "Ha prenotato la sua ultima sessione...",
+                "explanation": "Raggruppa i clienti in base a quando hanno prenotato una lezione l’ultima volta",
                 "second": "giorni e non ha prenotazioni pianificate in futuro.",
                 "first": "L'ultima sessione prenotata ha avuto luogo più di",
                 "name": "Data dell'ultima sessione prenotata"
@@ -12543,14 +12543,14 @@
                 "does_not_own": "Non ha un metodo di pagamento salvato",
                 "labelFirst": "Filtra solo i membri",
                 "title": "Metodo di pagamento salvato",
-                "explanation": "Filtrare per metodo di pagamento salvato e data di scadenza",
-                "name": "Metodo di pagamento"
+                "explanation": "Raggruppa i membri in base al fatto che abbiano salvato un metodo di pagamento o meno",
+                "name": "Metodi di pagamento"
             },
             "booking_status": {
                 "booked": "prenotato",
                 "canceled": "annullato"
             },
-            "isEmpty": "Nessun filtro è configurato, questa smartlist rappresenta quindi l'intero database dei soci",
+            "isEmpty": "Questo segmento mostra tutti i tuoi membri, poiché non è stato impostato alcun parametro.",
             "calendarPicker": {
                 "text": {
                     "0": {
@@ -12673,8 +12673,8 @@
                 "fourth": "e possiede",
                 "fifth": "crediti sopra"
             },
-            "active_filters": "Filtri attivi sulla smartlist",
-            "add_filter": "Aggiungi un filtro",
+            "active_filters": "Parametri attivi in questa Smartlist",
+            "add_filter": "Aggiungi parametri",
             "after": "avanti",
             "classic_comparators": {
                 "1": "minore (⩽)",
@@ -12742,7 +12742,7 @@
             "1": "Informazioni sui soci",
             "2": "Pacchetti",
             "3": "Prenotazioni",
-            "4": "Acquisti"
+            "4": "Pagamenti"
         },
         "multiSelector": {
             "coaches": {
@@ -12849,7 +12849,7 @@
         "delete": "Rimuovi",
         "edit": "Configurazione",
         "tag_rules": {
-            "tag_on_left": "Aggiungere un Tag in uscita della smarlist",
+            "tag_on_left": "Tagga se un cliente esce da questa Smartlist",
             "tag_on_join_and_untag_on_left": "Aggiungere un Tag se presente nella smartlist",
             "tag_group": "Nome del gruppo",
             "type_of_rule": "Tipo di regola",
@@ -12862,7 +12862,7 @@
             "activeSince": "Attivo dal {{ since }}",
             "tag": "Tag",
             "asyncDialog": {
-                "message": "A seguito delle modifiche apportate alle regole dei tag della smartlist {{ name }}, i tag devono essere aggiornati. Questa sincronizzazione avviene ogni due ore.",
+                "message": "Tutti i tag dei clienti in questa Smartlist verranno aggiornati.",
                 "title": "Aggiornamenti alle regole dei tag "
             }
         },
@@ -12872,7 +12872,7 @@
                 "1": "Non archiviato",
                 "2": "Archiviato"
             },
-            "helperText": "Questa smartlist si applica a tutti i membri"
+            "helperText": "Scegli quali membri vuoi mostrare in questa Smartlist:"
         },
         "popup": {
             "sendPopup": "Invia un pop-up"

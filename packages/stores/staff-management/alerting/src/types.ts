@@ -65,11 +65,12 @@ export interface CompanyOnboardingAlertData extends Record<string, unknown> {
   payment_engine_identifier?: number;
 }
 
+type LanguagesCodes = "en" | "es" | "fr" | "de" | "it" | "pt" | "nl" | "cs";
 export interface TutorialSectionOrLessonAlertData
   extends Record<string, unknown> {
-  section_names: Record<string, string>;
-  names: Record<string, string>;
-  lesson_names: Record<string, string>;
+  section_names: Record<LanguagesCodes, string>;
+  names: Record<LanguagesCodes, string>;
+  lesson_names: Record<LanguagesCodes, string>;
   section_id: number;
   lesson_id: number;
   new_section: boolean;

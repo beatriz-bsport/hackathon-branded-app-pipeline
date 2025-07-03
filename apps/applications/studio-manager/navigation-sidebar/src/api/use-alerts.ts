@@ -11,8 +11,8 @@ import { useAsync } from "@bsport/use-async";
 
 import { fetch } from "#src/utils/fetch";
 
-interface UseFetchAlertsByKindParams {
-  alertKind: AlertKind;
+interface UseFetchAlertsByKindParams<T extends AlertKind> {
+  alertKind: T;
   page?: number;
   pageSize?: number;
 }
@@ -56,11 +56,11 @@ interface UseFetchAlertsByKindParams {
  * );
  * ```
  */
-export function useFetchAlertsByKind({
+export function useFetchAlertsByKind<T extends AlertKind>({
   alertKind,
   page,
   pageSize,
-}: UseFetchAlertsByKindParams) {
+}: UseFetchAlertsByKindParams<T>) {
   const alerts = useAlertingStore(selectAlertsByKind(alertKind));
   const count = useAlertingStore(selectAlertCountByKind(alertKind));
 

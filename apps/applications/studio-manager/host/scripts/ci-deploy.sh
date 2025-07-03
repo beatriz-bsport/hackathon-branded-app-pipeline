@@ -34,18 +34,22 @@ elif [ "$ENVIRONMENT" = "dev" ]; then
   CLOUDFRONT_ID="E250Q872DC5CN7"
   CLOUDFRONT_INVALIDATION_LAMBDA_URL="https://uc7e26gvpwrprl5hubmfe4zeou0zyqyu.lambda-url.eu-west-3.on.aws/"
 elif [ "$ENVIRONMENT" = "staging" ]; then
-  echo "⚠️  Not enabled yet (soon™)"
-  exit 0
+  S3_BUCKET="s3://backoffice-staging-sandbox"
+  FRONTEND_URL="backoffice.staging.bsport.io"
+  CLOUDFRONT_ID="EPNH7BAGZLI8K"
+  CLOUDFRONT_INVALIDATION_LAMBDA_URL="https://m4ptvmggmplbez5dwa7gkew4xa0bxjvd.lambda-url.eu-west-3.on.aws/"
 elif [ "$ENVIRONMENT" = "production" ]; then
-  echo "⚠️  Not enabled yet (soon™)"
-  exit 0
+  S3_BUCKET="s3://bsport-eu-backoffice-production"
+  FRONTEND_URL="backoffice.bsport.io"
+  CLOUDFRONT_ID="E321VOI5045USU"
+  CLOUDFRONT_INVALIDATION_LAMBDA_URL="https://6pmc3n3l2yo5krr4v3jq6qud6i0fwkqj.lambda-url.eu-west-3.on.aws/"
+  ACL_PARAM="--acl public-read"
 else
   echo "⚠️  Environment $ENVIRONMENT is not recognized ! Stop script ..."
   exit 0
 fi
 
 S3_BUCKET="$S3_BUCKET/studio"
-
 
 # Capture script directory before changing directory
 SCRIPT_DIR="$(pwd)/scripts"
@@ -67,10 +71,10 @@ for APPLICATION in $APPLICATIONS; do
     echo "Error: Failed to get project root for $APPLICATION (using devkit)"
     exit 0
   fi
-  
+
   # Debug output to see exact ASSET_PATH value
   echo "DEBUG: ASSET_PATH='$ASSET_PATH'"
-  
+
   # Skip deployment if the asset path doesn't include 'apps/applications'
   # Use grep to check if the path contains 'apps/applications'
   if ! echo "$ASSET_PATH" | grep -q "apps/applications"; then
@@ -81,7 +85,7 @@ for APPLICATION in $APPLICATIONS; do
   fi
 
   echo "Project root found: $ASSET_PATH"
-  
+
   cd "$ROOT_DIR/$ASSET_PATH"
 
   # set S3_URL

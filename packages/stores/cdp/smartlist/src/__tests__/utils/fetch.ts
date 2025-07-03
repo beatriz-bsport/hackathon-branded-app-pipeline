@@ -1,8 +1,20 @@
 import type { Fetch } from "@bsport/store-base";
+import { HTTPException } from "@bsport/store-base";
+
+/**
+ * Error response payload structure from the API
+ */
+interface ErrorPayload {
+  error?: string;
+  error_code?: number;
+  code?: string;
+  message?: string;
+}
 
 /**
  * Creates a fetch function that matches the @bsport/store-base Fetch type signature.
- * This function will make real network requests that will be intercepted by MSW.
+ * This function mimics the behavior of the real @bsport/fetch utility by creating
+ * HTTPException with custom error codes extracted from API responses.
  *
  * @template T The expected response data type
  * @returns A function that matches the Fetch type from @bsport/store-base
@@ -18,9 +30,39 @@ export function createTestFetch<T>(): Fetch<T> {
   }> => {
     const response = await fetch(`http://localhost/${uri}`, init);
 
-    // Throw an error for non-2xx status codes
+    let payload: ErrorPayload | T | null = null;
+    try {
+      payload = await response.json();
+    } catch {
+      payload = null;
+    }
+
     if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`);
+      // Extract custom error codes from the response (mimics real fetch behavior)
+      const customErrorCodes: number[] = [];
+      if (payload && typeof payload === "object" && "error_code" in payload) {
+        const errorCode = payload.error_code;
+        if (typeof errorCode === "number") {
+          customErrorCodes.push(errorCode);
+        }
+      }
+
+      // Extract error message
+      let message = "An error occured";
+      if (payload && typeof payload === "object" && "error" in payload) {
+        const error = payload.error;
+        if (typeof error === "string") {
+          message = error;
+        }
+      }
+
+      throw new HTTPException({
+        path: uri,
+        name: "UNKNOWN",
+        statusCode: response.status,
+        customErrorCodes,
+        message,
+      });
     }
 
     // For 204 No Content responses, return undefined as data
@@ -32,8 +74,11 @@ export function createTestFetch<T>(): Fetch<T> {
       };
     }
 
-    // For other responses, parse JSON
-    const data = (await response.json()) as T;
-    return { data, status: response.status, backgroundTaskUuid: "" };
+    // For other responses, return the parsed data
+    return {
+      data: payload as T,
+      status: response.status,
+      backgroundTaskUuid: "",
+    };
   };
 }

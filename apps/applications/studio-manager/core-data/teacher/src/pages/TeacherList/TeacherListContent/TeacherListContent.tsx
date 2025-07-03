@@ -1,6 +1,9 @@
 import React, { useCallback, useEffect, useState } from "react";
 
-import { TeacherTable } from "#src/components/TeacherTable";
+import {
+  type TableRequiredPermissions,
+  TeacherTable,
+} from "#src/components/TeacherTable";
 import { useFetchTeachers } from "#src/hooks/useFetchTeachers";
 
 import { TeacherArchiveModal } from "./TeacherArchiveModal";
@@ -8,7 +11,8 @@ import { TeacherArchiveModal } from "./TeacherArchiveModal";
 export const TeacherListContent: React.FC<{
   searchInput: string;
   onAddTeacherClick: () => void;
-}> = ({ searchInput, onAddTeacherClick }) => {
+  permissions: TableRequiredPermissions;
+}> = ({ searchInput, onAddTeacherClick, permissions }) => {
   const {
     paginationParams,
     teachers,
@@ -51,6 +55,7 @@ export const TeacherListContent: React.FC<{
         teachers={teachers}
         handleArchive={setTeacherToArchive}
         onAddTeacherClick={onAddTeacherClick}
+        permissions={permissions}
       />
       {teacherToArchive && (
         <TeacherArchiveModal

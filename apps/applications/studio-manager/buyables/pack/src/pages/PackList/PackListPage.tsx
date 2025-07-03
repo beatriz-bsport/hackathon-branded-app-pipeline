@@ -1,5 +1,4 @@
 import { useEffect, useId, useState } from "react";
-import { useNavigate } from "react-router";
 
 import { Button, ListLayout } from "@bsport/kaizen-primitive-core";
 
@@ -7,6 +6,7 @@ import { PackDeleteModal } from "#src/components/PackDeleteModal";
 import { PackTable } from "#src/components/PackTable";
 import { useFetchPacks } from "#src/hooks/useFetchPacks";
 import { useSearchPacks } from "#src/hooks/useSearchPacks";
+import { LEGACY_URLS } from "#src/urls";
 import { useTranslation } from "#src/utils/i18n";
 
 export const PackListPage: React.FC = () => {
@@ -15,9 +15,9 @@ export const PackListPage: React.FC = () => {
     { id: number; name: string } | undefined
   >(undefined);
 
-  const navigate = useNavigate();
   const onAddPackClick = () => {
-    navigate("/combo?create=true");
+    // Use window history to navigate to legacy backoffice
+    window.location.href = LEGACY_URLS.CREATE;
   };
 
   const { searchInput, setSearchInput, clearSearchInput } = useSearchPacks();

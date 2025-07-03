@@ -6,9 +6,22 @@ import React, {
   useState,
 } from "react";
 
+import { getEnv } from "@bsport/envs";
 import { Body, Checkbox, Modal, TextArea } from "@bsport/kaizen-primitive-core";
+import { toggleRevampedBackofficeAction } from "@bsport/store-auth";
+import { useAsync } from "@bsport/use-async";
 
+import {
+  MAP_REVAMP_DEVELOPMENT_TO_LEGACY_URLS,
+  MAP_REVAMP_PRODUCTION_TO_LEGACY_URLS,
+} from "#src/urls";
+import { fetch } from "#src/utils/fetch";
 import { useTranslation } from "#src/utils/i18n";
+
+const toggleRevampedBackoffice = toggleRevampedBackofficeAction.bind(
+  null,
+  fetch,
+);
 
 type FeedbackReason =
   | "slower"
@@ -28,12 +41,84 @@ const DEFAULT_SELECTED_REASONS: FeedbackReasonState = {
   other: "unchecked",
 };
 
+const LEGACY_DEFAULT_PAGE = "/";
 interface FeedbackDialogProps {
   open: boolean;
   onClose: () => void;
+  disableRevampOnLegacyStore?: () => void;
 }
 
-const FeedbackDialog: React.FC<FeedbackDialogProps> = ({ open, onClose }) => {
+/**
+ * Handle whether or not we need to redirect, and to which location
+ * If the current location is a revamped page, then we need to route to the corresponding
+ * legacy page. It will automatically reloads the updated status of "show revamped BO" from the backend.
+ *
+ * @returns A dict containing the following values
+ * - shouldRedirect : whether a redirection should be done (e.g. we are on a revamped page)
+ * - performRedirection: the function to perform the redirection
+ */
+function handleRedirectionToLegacy(): {
+  shouldRedirect: boolean;
+  performRedirection: () => void;
+} {
+  const env = getEnv();
+  const mapRevampToLegacyUrls =
+    env === "production" || env === "staging"
+      ? MAP_REVAMP_PRODUCTION_TO_LEGACY_URLS
+      : MAP_REVAMP_DEVELOPMENT_TO_LEGACY_URLS;
+
+  const getLegacyUrl = (currentUrl: string) => {
+    if (!currentUrl || typeof currentUrl !== "string") {
+      return LEGACY_DEFAULT_PAGE;
+    }
+
+    // Try first with the full URL, then with the first part of the path
+    if (mapRevampToLegacyUrls.get(currentUrl)) {
+      return mapRevampToLegacyUrls.get(currentUrl);
+    }
+    // Try then with the first segment of the URL
+    const pathSegments = currentUrl.split("/").filter(Boolean);
+    if (pathSegments.length > 0 && mapRevampToLegacyUrls.get(pathSegments[0])) {
+      return mapRevampToLegacyUrls.get(pathSegments[0]);
+    }
+
+    return LEGACY_DEFAULT_PAGE;
+  };
+
+  if (env === "local") {
+    const currentPort = window.location.host.split(":")[1];
+    return {
+      shouldRedirect: currentPort !== "3000",
+      performRedirection: () => {
+        // In local, it's unlikely we have both the host app and the saas-legacy running together
+        // Thus, let's just raise an alert to inform about the behavior
+        alert(
+          `In deployed env, you would have been redirected to : ${getLegacyUrl(window.location.pathname)}`,
+        );
+      },
+    };
+  }
+
+  return {
+    shouldRedirect: window.location.pathname.startsWith("/studio/"),
+    performRedirection: () => {
+      try {
+        const currentUrl = window.location.pathname.substring("/studio".length);
+        window.location.assign(getLegacyUrl(currentUrl));
+      } catch (error) {
+        console.error("Failed to redirect to legacy URL: ", error);
+        // Fallback to legacy home page
+        window.location.assign(LEGACY_DEFAULT_PAGE);
+      }
+    },
+  };
+}
+
+const FeedbackDialog: React.FC<FeedbackDialogProps> = ({
+  open,
+  onClose,
+  disableRevampOnLegacyStore,
+}) => {
   const { t } = useTranslation("feedbackDialog");
   const baseId = useId();
 
@@ -52,7 +137,26 @@ const FeedbackDialog: React.FC<FeedbackDialogProps> = ({ open, onClose }) => {
     setAdditionalFeedback(event.target.value);
   };
 
-  const handleConfirm = () => {
+  const [{ isLoading }, handleGoToLegacy] = useAsync<
+    typeof toggleRevampedBackoffice
+  >({
+    asyncFn: toggleRevampedBackoffice,
+    onSuccess: () => {
+      onClose();
+      const { shouldRedirect, performRedirection } =
+        handleRedirectionToLegacy();
+      if (shouldRedirect) {
+        performRedirection();
+      } else {
+        // Hide the NavigationSidebar by updating the Redux store of the Legacy BO
+        disableRevampOnLegacyStore?.();
+      }
+    },
+    onFailure: console.error,
+    dependencies: [onClose],
+  });
+
+  const handleConfirm = async () => {
     // TODO: Handle feedback submission
     const selectedReasonsArray = Object.entries(selectedReasons)
       .filter(([, value]) => value === "checked")
@@ -62,8 +166,8 @@ const FeedbackDialog: React.FC<FeedbackDialogProps> = ({ open, onClose }) => {
       selectedReasons: selectedReasonsArray,
       additionalFeedback,
     });
-    onClose();
-    // TODO: navigate to the old UI
+
+    handleGoToLegacy();
   };
 
   useEffect(() => {
@@ -82,10 +186,12 @@ const FeedbackDialog: React.FC<FeedbackDialogProps> = ({ open, onClose }) => {
         label: t("confirm"),
         color: "critical",
         onClick: handleConfirm,
+        disabled: isLoading,
       }}
       cancelButton={{
         label: t("cancel"),
         onClick: onClose,
+        disabled: isLoading,
       }}
       onClose={onClose}
     >

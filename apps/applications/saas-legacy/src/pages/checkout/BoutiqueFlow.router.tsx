@@ -2,22 +2,19 @@ import React, { useEffect } from 'react';
 
 import { compose } from 'recompose';
 import { connect, ConnectedProps } from 'react-redux';
-import { Redirect, Switch, Route } from 'react-router';
+import { Switch, Route } from 'react-router';
 import { fetchCompanyTheme } from '#src/libs/theme/actions';
 import routerParamsToProps from '#src/hocs/router-params-to-props.hoc';
 
 import themeSelectors from '#src/libs/theme/selectors';
-import {
-  getLoginUrl,
-  getOneClickBookingUrl,
-} from '#src/libs/marketplace/routing-utils';
+import { getOneClickBookingUrl } from '#src/libs/marketplace/routing-utils';
 
 import { fetchProfile as fetchProfileAction } from '#src/libs/consumer-space/actions';
 import withThemeProvider from '#src/hocs/company-themifier.hoc';
 // @ts-expect-error
 import asyncComponent from '../../AsyncComponent.js';
 import { RootState } from '../../reducers';
-import { match as MatchType, matchPath } from 'react-router-dom';
+import { AuthenticatedSwitch } from './components/AuthenticatedSwitch';
 
 const MarketplaceAsManager = asyncComponent(
   () =>
@@ -49,49 +46,6 @@ type Props = {
   location: { [key: string]: string };
   companyId: number;
 } & ConnectedProps<typeof connector>;
-
-const AuthenticatedSwitch: React.FC<{
-  isAuthenticated: boolean;
-  companyId: Props['companyId'];
-  location: Props['location'];
-  routes: {
-    component: React.ComponentType<any>;
-    path: string;
-    redirectTo?: <P extends { [key: string]: string }>(
-      match: MatchType<P>,
-    ) => string;
-  }[];
-}> = ({ isAuthenticated, companyId, location, routes }) => {
-  const matches = routes.map((route) => ({
-    route,
-    match: matchPath(location.pathname, { path: route.path, exact: true }),
-  }));
-  for (const { route, match } of matches) {
-    if (!isAuthenticated && !!match) {
-      return (
-        <Redirect
-          to={
-            route.redirectTo
-              ? route.redirectTo(match)
-              : getLoginUrl(
-                  companyId,
-                  location.pathname,
-                  window.location.search,
-                )
-          }
-        />
-      );
-    }
-  }
-
-  return (
-    <Switch>
-      {routes.map((route) => (
-        <Route key={route.path} {...route} />
-      ))}
-    </Switch>
-  );
-};
 
 export const NewBookingFlowRouter: React.FC<Props> = ({
   companyId,

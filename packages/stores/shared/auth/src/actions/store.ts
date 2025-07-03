@@ -7,6 +7,17 @@ export const updateUserAccess = (userAccess: UserAccess) => {
   });
 };
 
+export const updateRevampedBackofficeEnabled = (nextValue: boolean) => {
+  authStore.setState((state) => {
+    return {
+      userAccess: {
+        ...(state.userAccess as UserAccess),
+        has_enabled_revamped_backoffice: nextValue,
+      },
+    };
+  });
+};
+
 export const updateTemporaryPassword = (
   temporaryPassword: TemporaryPassword,
 ) => {

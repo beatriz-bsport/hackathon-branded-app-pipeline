@@ -52,7 +52,7 @@ export const GiftcardListContent: React.FC<GiftcardListProps> = ({
       <GiftcardTable
         mode="active"
         isEmpty={!totalItems}
-        isLoading={isLoading}
+        isLoading={!giftcardList?.length && isLoading}
         giftcardList={giftcardList}
         handleArchive={setGiftcardToArchive}
         handleDuplicate={setGiftcardToDuplicate}

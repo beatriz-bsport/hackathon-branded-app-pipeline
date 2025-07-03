@@ -39,13 +39,14 @@ function ensureError(value: unknown): Error {
  * )
  * ```
  */
-export function createErrorWithContext(
-  error: HTTPException | unknown,
+export function createErrorWithContext<CustomErrorCode extends number = number>(
+  error: HTTPException<CustomErrorCode> | unknown,
   context: Serializable,
-) {
+): HTTPException<CustomErrorCode> {
   if (error !== null && error instanceof Object && "statusCode" in error) {
-    const httpException = error as Partial<HTTPException>;
-    return new HTTPException({
+    const httpException = error as Partial<HTTPException<CustomErrorCode>>;
+
+    return new HTTPException<CustomErrorCode>({
       path: httpException.path ?? "Unexpected error",
       customErrorCodes: httpException.customErrorCodes,
       message: httpException.message,
@@ -56,7 +57,7 @@ export function createErrorWithContext(
     });
   }
   // Should not happen, but in case, there is a fallback
-  return new HTTPException({
+  return new HTTPException<CustomErrorCode>({
     path: "Unexpected error",
     cause: ensureError(error),
     context,

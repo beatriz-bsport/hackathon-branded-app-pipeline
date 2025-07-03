@@ -1,7 +1,10 @@
-import React, { Suspense, useEffect } from 'react';
+import React, { Suspense, useEffect, useCallback, memo } from 'react';
 import { createRemoteComponent } from '@module-federation/bridge-react';
 import { loadRemote, init } from '@module-federation/runtime';
 import { useHistory } from 'react-router-dom';
+import { clsx } from 'clsx';
+
+import './compat-drawer.css';
 
 const isDev = process.env.NODE_ENV === 'development';
 const entry = isDev
@@ -22,7 +25,18 @@ init({
 type NavigationSidebarProps = {
   className?: string;
   navigate: (path: string) => void;
+  disableRevampOnLegacyStore?: () => void;
 };
+
+const NavigationSidebarFallback = () => (
+  <div
+    className={clsx(
+      'navigation-sidebar-container',
+      'backoffice-drawer-shared-container',
+      'navigation-sidebar-fallback',
+    )}
+  />
+);
 
 const NavigationSidebar = createRemoteComponent<
   React.ComponentType<NavigationSidebarProps>
@@ -39,10 +53,12 @@ const NavigationSidebar = createRemoteComponent<
     }
   },
   fallback: (): null => null,
-  loading: (): null => null,
+  loading: <NavigationSidebarFallback />,
 });
 
-export const Navigation: React.FC<{ className?: string }> = ({ className }) => {
+export const Navigation: React.FC<{
+  updateRevampedBackofficeEnabled: (nextValue: boolean) => void;
+}> = ({ updateRevampedBackofficeEnabled }) => {
   const navigate = useHistory().push;
 
   useEffect(() => {
@@ -50,11 +66,22 @@ export const Navigation: React.FC<{ className?: string }> = ({ className }) => {
     import('@bsport/sm-navigation-sidebar/styles');
   }, []);
 
+  const disableRevampOnLegacyStore = useCallback(() => {
+    updateRevampedBackofficeEnabled(false);
+  }, [updateRevampedBackofficeEnabled]);
+
   return (
     <Suspense fallback={null}>
-      <NavigationSidebar className={className} navigate={navigate} />
+      <NavigationSidebar
+        className={clsx(
+          'navigation-sidebar-container',
+          'backoffice-drawer-shared-container',
+        )}
+        disableRevampOnLegacyStore={disableRevampOnLegacyStore}
+        navigate={navigate}
+      />
     </Suspense>
   );
 };
 
-export default Navigation;
+export default memo(Navigation);

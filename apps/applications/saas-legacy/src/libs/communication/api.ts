@@ -26,13 +26,6 @@ import Config from '../../config';
 const API_V1_URI = Config.REACT_APP_BASE_URI_COMMUNICATE_V1;
 const API_V1_URI_CDP = Config.REACT_APP_BASE_URI_CDP_V1;
 
-export const sendCommunication = (data: any) => {
-  return postAuth(
-    `${API_V1_URI}/communication/communication_sent/send_communication/`,
-    data,
-  );
-};
-
 export const fetchCampaignList = (params: CampaignListParams) => {
   return getAuth(
     `${API_V1_URI}/communication/communication_sent/${buildUrlParams(params)}`,

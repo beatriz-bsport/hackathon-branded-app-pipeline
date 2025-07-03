@@ -120,7 +120,7 @@ export const PageListContent: React.FC<Props> = ({
     initialData,
   });
 
-  const { breadcrumbsItems, endGroupActions } = useDetailPageHeader({
+  const { BreadcrumbsItems, endGroupActions } = useDetailPageHeader({
     onExportTemplate: handleExportClick,
     onDeleteTemplate: emailTemplateDetail
       ? () => setCurrentInlineAction("delete")
@@ -140,8 +140,11 @@ export const PageListContent: React.FC<Props> = ({
   };
 
   const handleCancelTitleRename = () => {
-    setPageTitle(emailTemplateDetail?.title || "");
-    handleChange("title", emailTemplateDetail?.title || "");
+    setPageTitle(emailTemplateDetail?.title || t("details.defaultTitle"));
+    handleChange(
+      "title",
+      emailTemplateDetail?.title || t("details.defaultTitle"),
+    );
   };
 
   const handleDesignUpdated = async () => {
@@ -170,7 +173,7 @@ export const PageListContent: React.FC<Props> = ({
     if (emailBuilderRef) {
       initializeUnlayerBuilder({ emailBuilderRef, initialDesign });
       resetForm();
-      setPageTitle(emailTemplateDetail?.title || "");
+      setPageTitle(emailTemplateDetail?.title || t("details.defaultTitle"));
     }
   };
 
@@ -234,7 +237,7 @@ export const PageListContent: React.FC<Props> = ({
       <DetailsLayout.Header
         pageTitle={pageTitle}
         onEditTitleClick={() => setCurrentInlineAction("rename")}
-        breadcrumbsItems={breadcrumbsItems}
+        BreadcrumbsItems={BreadcrumbsItems}
         endGroupActions={endGroupActions}
       />
       <DetailsLayout.Confirmation

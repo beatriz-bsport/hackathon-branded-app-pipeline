@@ -92,6 +92,12 @@ import { DEFAULT_ZINDEX, NAVIGATION_ZINDEX, BANNER_ZINDEX } from './const';
 import { setAuthToken } from '#src/http';
 import { STORAGE_KEY_BSPORT_IMPERSONATED_TOKEN } from '#src/actions/constants';
 import { clearStorage, getItemInStorage } from '#src/utils/storage';
+import {
+  updateRevampedBackofficeEnabled as updateRevampedBackofficeEnabledAction,
+  enableRevampedBackoffice as enableRevampedBackofficeAction,
+  // @ts-expect-error Can not find js file
+} from '#src/actions/auth.actions';
+import { useShowRevampedSidebar, NAVIGATION_SIDEBAR_WIDTH } from '#src/revamp';
 import WidgetUtils from '#src/libs/widget/WidgetUtils';
 
 export const drawerWidth = 260;
@@ -175,6 +181,7 @@ export type Props = {
     options?: OptionCallback<void>,
   ) => Promise<void>;
   fetchMyLastClockin: () => Promise<void>;
+  revampedBackofficeEnabled: boolean;
 } & ConnectedProps<typeof connector>;
 
 export const BackOfficeDrawer: React.FC<Props> = ({
@@ -228,6 +235,9 @@ export const BackOfficeDrawer: React.FC<Props> = ({
   shrinkResponsiveDrawer,
   setShrinkResponsiveDrawer,
   inboxUnreadAnswersCount,
+  revampedBackofficeEnabled,
+  updateRevampedBackofficeEnabled,
+  enableRevampedBackoffice,
 }) => {
   const { t } = useTranslation('navigation');
 
@@ -246,11 +256,6 @@ export const BackOfficeDrawer: React.FC<Props> = ({
   const [openWelcometutorialDialog, setOpenWelcometutorialDialog] =
     React.useState(false);
 
-  const handleUserSetDrawerIconsOnly = (shrink: boolean) => {
-    setDrawerIconsOnly(shrink);
-    setShrinkResponsiveDrawer(shrink);
-  };
-
   const { drawerIconsOnly, hideAppBar, setDrawerIconsOnly } =
     useFullScreenWithIconDrawer({
       fullPagePathRegExp: '^/audience.*',
@@ -259,7 +264,20 @@ export const BackOfficeDrawer: React.FC<Props> = ({
       initialDrawerIconsOnly: displayLeftMenu && shrinkResponsiveDrawer,
     });
 
-  const classes = useStyles({ drawerIconsOnly });
+  const handleUserSetDrawerIconsOnly = React.useCallback(
+    (shrink: boolean) => {
+      setDrawerIconsOnly(shrink);
+      setShrinkResponsiveDrawer(shrink);
+    },
+    [setDrawerIconsOnly, setShrinkResponsiveDrawer],
+  );
+
+  const showRevampedSidebar = useShowRevampedSidebar({
+    enabledForUser: revampedBackofficeEnabled,
+    enabledInTheme: theme.revamped_backoffice_enabled,
+  });
+
+  const classes = useStyles({ drawerIconsOnly, showRevampedSidebar });
   const location = useLocation();
   // @ts-expect-error
   const previousLocation = usePrevious(location);
@@ -887,6 +905,7 @@ export const BackOfficeDrawer: React.FC<Props> = ({
             displayLeftMenu={displayLeftMenu}
             drawerIconsOnly={drawerIconsOnly}
             email={email}
+            enableRevampedBackoffice={enableRevampedBackoffice}
             featureList={featureList}
             fetchCompanyUserRolesPaginated={fetchCompanyUserRolesPaginated}
             fetchMyLastClockin={fetchMyLastClockin}
@@ -907,9 +926,11 @@ export const BackOfficeDrawer: React.FC<Props> = ({
             permissions={permissions}
             setDrawerIconsOnly={setDrawerIconsOnly}
             setOpenWelcometutorialDialog={setOpenWelcometutorialDialog}
+            showRevampedSidebar={showRevampedSidebar}
             tempPasswordDialogOpen={tempPasswordDialogOpen}
             tempPasswordState={tempPasswordState}
             theme={theme}
+            updateRevampedBackofficeEnabled={updateRevampedBackofficeEnabled}
             updateUserAcknowlegdeTutorial={updateUserAcknowlegdeTutorial}
             userAcknowlegdePlatformTutorial={userAcknowlegdePlatformTutorial}
             usersPaginatedWithRoles={usersPaginatedWithRoles}
@@ -949,7 +970,21 @@ export const BackOfficeDrawer: React.FC<Props> = ({
   );
 };
 
-const useStyles = makeStyles<Theme, { drawerIconsOnly: boolean }>((theme) => ({
+const getNavigationWidth = ({
+  drawerIconsOnly,
+  showRevampedSidebar,
+}: {
+  drawerIconsOnly: boolean;
+  showRevampedSidebar: boolean;
+}) => {
+  if (showRevampedSidebar) return NAVIGATION_SIDEBAR_WIDTH;
+  return drawerIconsOnly ? drawerIconsOnlyWith : drawerWidth;
+};
+
+const useStyles = makeStyles<
+  Theme,
+  { drawerIconsOnly: boolean; showRevampedSidebar: boolean }
+>((theme) => ({
   root: {
     flexGrow: 1,
     zIndex: DEFAULT_ZINDEX,
@@ -960,8 +995,7 @@ const useStyles = makeStyles<Theme, { drawerIconsOnly: boolean }>((theme) => ({
     width: '100vw',
     height: '100vh',
     [theme.breakpoints.up('md')]: {
-      paddingLeft: ({ drawerIconsOnly }) =>
-        drawerIconsOnly ? drawerIconsOnlyWith : drawerWidth,
+      paddingLeft: getNavigationWidth,
     },
   },
   rootFullWidth: {
@@ -990,8 +1024,7 @@ const useStyles = makeStyles<Theme, { drawerIconsOnly: boolean }>((theme) => ({
     position: 'relative',
     display: 'inherit',
     zIndex: NAVIGATION_ZINDEX,
-    width: ({ drawerIconsOnly }) =>
-      drawerIconsOnly ? drawerIconsOnlyWith : drawerWidth,
+    width: getNavigationWidth,
     [theme.breakpoints.up('md')]: {
       position: 'fixed',
     },
@@ -999,9 +1032,6 @@ const useStyles = makeStyles<Theme, { drawerIconsOnly: boolean }>((theme) => ({
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
     }),
-  },
-  toTheLeft: {
-    left: 0,
   },
   unscrollableContent: {
     flex: '1 1 auto',
@@ -1128,8 +1158,11 @@ const connector = connect(
     handleGoToTutorial: () => pushRouter('/tutorial'),
     handleGoToInbox: () => pushRouter('/inbox/thread'),
     setShrinkResponsiveDrawer: setShrinkResponsiveDrawerAction,
+    updateRevampedBackofficeEnabled: updateRevampedBackofficeEnabledAction,
+    enableRevampedBackoffice: enableRevampedBackofficeAction,
   },
 );
+
 export default compose(
   React.memo,
   connector,

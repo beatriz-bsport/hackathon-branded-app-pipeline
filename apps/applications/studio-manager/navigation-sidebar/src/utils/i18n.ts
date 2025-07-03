@@ -15,3 +15,5 @@ export const { i18nInstance, useTranslation, AppI18nextProvider } =
   });
 
 export type TFunction = TFunctionGeneric<typeof translations>;
+
+export { Trans, LANGUAGES, LOCALES, type Locale } from "@bsport/i18n";

@@ -22,6 +22,7 @@
     "@bsport/fetch": "workspace:*",
     "@bsport/i18n": "workspace:*",
     "@bsport/kaizen-primitive-core": "workspace:*",
+    "@bsport/permissions": "workspace:*",
     "@bsport/sm-backbone": "workspace:*",
     "@bsport/store-core-data-member": "workspace:*",
     "@bsport/store-shared-background-task": "workspace:*",

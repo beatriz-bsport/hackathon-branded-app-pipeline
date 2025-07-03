@@ -155,6 +155,12 @@ Each hook provides access to specific data:
 - `useUserRole()`: Returns the role object for the current user
 - `useCompanyRoles()`: Returns all roles defined for the current company
 
+### DevTools
+
+The DevTools component is a small box on the top left of your screen that provides quick actions to support development : changing locale, changing theme, logout.
+
+This toolbox is hidden on staging and production, and visible on local and feature branch. Concerning the dev environment, it can be shown by clicking 5 times on the top left corner of the screen. There is a small hidden button.
+
 ## Tailwind CSS Integration
 
 The SM Backbone package uses Tailwind CSS classes and provides a convenient way for consuming applications to include these classes in their build process.

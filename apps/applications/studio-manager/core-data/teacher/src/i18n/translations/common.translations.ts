@@ -44,11 +44,11 @@ exports.default = {
   },
   toasts: {
     messageArchived: {
-      success: "Your teacher was archived",
+      success: "Teacher archived",
       error: "Failed to archive your teacher",
     },
     messageRestored: {
-      success: "Your teacher was restored",
+      success: "Teacher restored",
       error: "Failed to restore your teacher",
     },
     messageUndone: {
@@ -81,12 +81,12 @@ exports.default = {
     },
     tooltips: {
       archive: "Archive teacher",
-      restore: "Unarchive teacher",
+      restore: "Restore teacher",
       clickToCopy: "Click to copy",
     },
     actions: {
-      copyEmail: "Your email was copied to your clipboard",
-      copyPhone: "Your mobile number was been copied to your clipboard",
+      copyEmail: "Email copied to your clipboard",
+      copyPhone: "Mobile number copied to your clipboard",
     },
   },
 };

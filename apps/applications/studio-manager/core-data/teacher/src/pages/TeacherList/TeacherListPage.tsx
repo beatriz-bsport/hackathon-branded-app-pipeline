@@ -2,8 +2,9 @@ import { useNavigate } from "react-router";
 
 import { Button, ListLayout, Tooltip } from "@bsport/kaizen-primitive-core";
 
-import { useTeacherFilters } from "#src/hooks/useTeacherFilters";
-import { ROUTES } from "#src/urls";
+import { useFilterTeachers } from "#src/hooks/useFilterTeachers";
+import { useTeacherPermissions } from "#src/hooks/useTeacherPermissions";
+import { URLS } from "#src/urls";
 import { useTranslation } from "#src/utils/i18n";
 
 import { AddTeacherModal } from "./AddTeacherModal";
@@ -22,34 +23,38 @@ export const TeacherListPage: React.FC = () => {
     openAddTeacherModal,
   } = useAddTeacherModal();
 
-  const { searchInput, setSearchInput, clearSearchInput } = useTeacherFilters();
+  const { searchInput, setSearchInput, clearSearchInput } = useFilterTeachers();
+
+  const permissions = useTeacherPermissions();
 
   return (
     <ListLayout>
       <ListLayout.Header
         pageTitle={t("pages.active")}
         callToActionButton={
-          <Button
-            iconLeft="plus"
-            intent="call-to-action"
-            color="main"
-            size="md"
-            label={t("activeList.actions.addTeacher")}
-            onClick={onAddTeacherClick}
-          />
+          permissions.create ? (
+            <Button
+              iconLeft="plus"
+              intent="call-to-action"
+              color="main"
+              size="md"
+              label={t("activeList.actions.addTeacher")}
+              onClick={onAddTeacherClick}
+            />
+          ) : null
         }
         endGroupActions={[
           <Tooltip
             key="bt-navigate-to-archive-page"
             label={t("pages.archived")}
-            placement="bottom-left"
+            placement="bottom-right"
           >
             <Button
               iconLeft="box"
               intent="default"
               color="main"
               size="md"
-              onClick={() => navigate(ROUTES.ARCHIVED)}
+              onClick={() => navigate(URLS.ARCHIVED)}
             />
           </Tooltip>,
         ]}
@@ -64,12 +69,15 @@ export const TeacherListPage: React.FC = () => {
         <TeacherListContent
           searchInput={searchInput}
           onAddTeacherClick={clearSearchInput}
+          permissions={permissions}
         />
-        <AddTeacherModal
-          onClose={onModalClose}
-          onConfirmClick={onConfirmClick}
-          open={openAddTeacherModal}
-        />
+        {permissions.create && (
+          <AddTeacherModal
+            onClose={onModalClose}
+            onConfirmClick={onConfirmClick}
+            open={openAddTeacherModal}
+          />
+        )}
       </ListLayout.Content>
     </ListLayout>
   );

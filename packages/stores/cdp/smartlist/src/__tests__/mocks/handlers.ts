@@ -1,5 +1,10 @@
 import { HttpResponse, http } from "msw";
 
+import {
+  SMARTLIST_DELETION_BLOCKED_BY_CADENCES,
+  SMARTLIST_DELETION_BLOCKED_BY_COMMUNICATION_GROUPS,
+  SMARTLIST_DELETION_FAILED,
+} from "#src/constants";
 import type { Smartlist } from "#src/types";
 
 import mockSmartlists from "../fixtures/smartlists.json";
@@ -114,7 +119,41 @@ export const handlers = [
   http.delete("http://localhost/api/v1/smartlist/group/:id/", ({ params }) => {
     const id = Number(params.id);
 
-    // Find the smartlist to delete
+    // Simulate specific error scenarios based on ID (check these first)
+    if (id === 101) {
+      // Simulate general deletion failure
+      return HttpResponse.json(
+        {
+          error: "General deletion failed",
+          error_code: SMARTLIST_DELETION_FAILED,
+        },
+        { status: 400 },
+      );
+    }
+
+    if (id === 102) {
+      // Simulate deletion blocked by communication groups
+      return HttpResponse.json(
+        {
+          error: "Deletion blocked by communication groups",
+          error_code: SMARTLIST_DELETION_BLOCKED_BY_COMMUNICATION_GROUPS,
+        },
+        { status: 400 },
+      );
+    }
+
+    if (id === 103) {
+      // Simulate deletion blocked by cadences
+      return HttpResponse.json(
+        {
+          error: "Deletion blocked by cadences",
+          error_code: SMARTLIST_DELETION_BLOCKED_BY_CADENCES,
+        },
+        { status: 400 },
+      );
+    }
+
+    // Find the smartlist to delete (for normal cases)
     const smartlistIndex = mockSmartlists.findIndex((item) => item.id === id);
 
     if (smartlistIndex === -1) {
@@ -124,7 +163,7 @@ export const handlers = [
       );
     }
 
-    // Return a success response
+    // Return a success response for existing smartlists
     return new HttpResponse(null, { status: 204 });
   }),
 

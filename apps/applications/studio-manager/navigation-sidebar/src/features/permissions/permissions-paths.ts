@@ -44,6 +44,7 @@ export const PERMISSIONS_PATHS: Record<
   settings_activeCampaign: ["navigationMenu.settings.activeCampaign"],
   settings_billing: ["navigationMenu.settings.billing"],
   settings_company: ["navigationMenu.settings.company"],
+  settings_companyOnboarding: ["navigationMenu.settings.company"],
   settings_bsportSubscription: ["navigationMenu.settings.subscription"],
   settings_general: ["navigationMenu.settings.generals"],
   settings_livestreaming: ["navigationMenu.settings.liveStreaming"],

@@ -17,7 +17,8 @@ export const CopyToClipboardButton: React.FC<CopyToClipboardButtonProps> = ({
 
   if (!data) return null;
 
-  const copyToClipboard = () =>
+  const copyToClipboard = (event: React.MouseEvent) => {
+    event.preventDefault();
     navigator.clipboard.writeText(data).then(() => {
       toast({
         status: "default",
@@ -26,6 +27,7 @@ export const CopyToClipboardButton: React.FC<CopyToClipboardButtonProps> = ({
         buttonIcon: "x-close",
       });
     }, console.error);
+  };
 
   return (
     <Tooltip label={t("table.tooltips.clickToCopy")} placement="bottom">

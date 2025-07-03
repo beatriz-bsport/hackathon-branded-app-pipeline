@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import {
   type FetchSmartlistsParams,
   fetchAllSmartlistsAction,
+  fetchSearchSmartlistsAction,
   fetchSmartlistsAction,
   selectCount,
   selectSmartlists,
@@ -46,10 +47,20 @@ export function useSmartlists(params: SmartlistsParams = {}) {
   }, [fetchData]);
 
   useEffect(() => {
-    if (refetchCount > 0) {
+    if (refetchCount === 0) {
+      return;
+    }
+
+    if (!debouncedSearch?.trim()) {
       fetchAllSmartlistsAction(fetch, {
         page: params.page ?? DEFAULT_PAGE,
         page_size: params.page_size ?? DEFAULT_PAGE_SIZE,
+      });
+    } else {
+      fetchSearchSmartlistsAction(fetch, {
+        page: params.page ?? DEFAULT_PAGE,
+        page_size: params.page_size ?? DEFAULT_PAGE_SIZE,
+        search: debouncedSearch.trim() ?? "",
       });
     }
   }, [refetchCount]);

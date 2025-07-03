@@ -94,7 +94,7 @@
         "actions": { "undo": "Undo", "open": "Open" }
       },
       "table": {
-        "headers": { "name": "Name", "answers": "Responses" },
+        "headers": { "name": "Name", "questions": "Questions" },
         "loading": {
           "activeList": "Loading forms...",
           "archivedList": "Loading archived forms..."
@@ -554,46 +554,47 @@
   },
   "@bsport/sm-giftcard": {
     "common": {
-      "pages": { "list": "Gift cards", "archivedList": "Archived gift cards" },
+      "pages": { "list": "Gift Cards", "archivedList": "Archived Gift Cards" },
       "listPage": {
         "header": {
           "buttons": {
-            "addGiftcard": "Add gift card",
-            "openBankImage": "Gift card image bank"
+            "addGiftcard": "Add Gift Card",
+            "openBankImage": "Gift Card image bank"
           }
         },
         "empty": {
-          "title": "No gift cards yet",
-          "subtitle": "Create gift cards and let your members gift it to their loved ones"
+          "title": "No Gift Cards yet",
+          "subtitle": "Create Gift Cards and let your members gift it to their loved ones"
         },
         "archiveModal": {
-          "title": "Archive gift card",
+          "title": "Archive Gift Card ?",
           "description": {
-            "action": "Do you want to archive '{{ name }}' ?",
-            "effect": "Members that previously purchased it will still be able to use it. You can unarchive this gift card at any time."
+            "lineOne": "If you archive '{{ name }}', current or previous purchases won't be affected",
+            "lineTwo": "You can restore this Gift Card at any time."
           },
           "buttons": { "cancel": "Cancel", "archive": "Archive" }
         },
         "duplicateModal": {
-          "title": "Duplicate gift card",
-          "description": {
-            "action": "Do you want to duplicate '{{ name }}' ?",
-            "effect": "You can edit the gift card details afterwards."
-          },
+          "title": "Duplicate Gift Card ?",
+          "description": { "action": "You'll be able to edit '{{ name }}' afterwards." },
           "buttons": { "cancel": "Cancel", "duplicate": "Duplicate" }
         }
       },
-      "archivedListPage": { "empty": { "title": "No archived gift cards" } },
+      "archivedListPage": { "empty": { "title": "No archived Gift Cards" } },
       "toasts": {
         "successMessages": {
-          "unarchive": "'{{ name }}' has been unarchived",
-          "archive": "'{{ name }}' has been archived",
-          "duplicate": "'{{ name }}' has been duplicated"
+          "restoreGiftcard": "Gift Card restored",
+          "archiveGiftcard": "Gift Card archived",
+          "duplicateGiftcard": "Gift Card duplicated",
+          "deleteGiftcardImage": "Gift Card image deleted",
+          "undoAction": "Action undone"
         },
         "errorMessages": {
-          "unarchive": "Failed to unarchive '{{ name }}'",
-          "archive": "Failed to archive '{{ name }}'",
-          "duplicate": "Failed to duplicate '{{ name }}'"
+          "restoreGiftcard": "Failed to restore Gift Card",
+          "archiveGiftcard": "Failed to archive Gift Card",
+          "duplicateGiftcard": "Failed to duplicate Gift Card",
+          "undoAction": "Failed to undo action",
+          "deleteGiftcardImage": "Failed to delete Gift Card image"
         },
         "actions": { "undo": "Undo", "open": "Open", "close": "Close" }
       },
@@ -606,41 +607,34 @@
           "expireInXDays": "{{ expiration }} days"
         },
         "tooltips": {
-          "archive": "Archive gift card",
-          "duplicate": "Duplicate gift card",
-          "restore": "Unarchive gift card",
+          "archive": "Archive Gift Card",
+          "duplicate": "Duplicate Gift Card",
+          "restore": "Restore Gift Card",
           "shared": "Item created by master account",
           "unavailable": "Cannot be purchased on marketplace"
         },
-        "loading": "Loading giftcards"
+        "loading": "Loading Gift Cards"
+      },
+      "imageUploadModal": {
+        "title": "Gift Card image bank",
+        "description": "Add custom images to allow your members to make their Gift Cards more personal. During the creation of the Gift Card, members will be able to choose a background image.",
+        "selectImage": "Select an image to preview Gift Card design",
+        "emptyList": "No custom images yet"
       }
     },
     "imageUpload": {
       "giftcardPreview": {
         "placeholders": {
-          "amount": "[Amount of the gift card]",
+          "amount": "[Amount of the Gift Card]",
           "buyer": "[Buyer's name]",
           "message": "[Custom message]",
-          "name": "[Gift card name]",
+          "name": "[Gift Card name]",
           "recipient": "[Recipient's name]"
         },
         "hints": {
           "amount": "Value",
           "buyer": "From",
           "recipient": "For the attention of"
-        }
-      },
-      "selectImage": "Select an image to preview gift card design",
-      "emptyList": "No custom images yet",
-      "modal": {
-        "title": "Gift card image bank",
-        "description": "Add custom images to allow your members to make their gift cards more personal. During the creation of the gift card, members will be able to choose a background image."
-      },
-      "toasts": {
-        "actions": { "undo": "Undo", "close": "Close" },
-        "archiveMessage": {
-          "success": "Your image was deleted",
-          "error": "Failed to delete your image"
         }
       }
     }
@@ -734,7 +728,7 @@
       "invoiceType": {
         "reversed": "Invoice (reverted)",
         "return": "Refunded invoice",
-        "credit_payment": "Receipt (balance adjustment)",
+        "credit_payment": "Balance adjustment",
         "migration": "Migration",
         "regular": "Invoice"
       },
@@ -788,7 +782,12 @@
           "balance": "Balance",
           "joinDate": "Join Date"
         },
-        "tooltips": { "archive": "Archive member", "restore": "Unarchive member" }
+        "tooltips": {
+          "archive": "Archive member",
+          "restore": "Unarchive member",
+          "clickToCopy": "Click to copy"
+        },
+        "actions": { "copiedToClipboard": "Email copied to clipboard" }
       },
       "listPage": {
         "archiveModal": {
@@ -814,15 +813,9 @@
       },
       "toasts": {
         "actions": { "undo": "Undo" },
-        "messageUndone": { "success": "Action undone", "error": "Failed to undone the action" },
-        "messageArchived": {
-          "success": "Member has been archived",
-          "error": "Failed to archive member"
-        },
-        "messageRestored": {
-          "success": "Member has been restored",
-          "error": "Failed to restore member"
-        }
+        "messageUndone": { "success": "Action undone", "error": "Failed to undo the action" },
+        "messageArchived": { "success": "Member archived", "error": "Failed to archive member" },
+        "messageRestored": { "success": "Member restored", "error": "Failed to restore member" }
       },
       "filters": { "label": "Filter", "operators": { "is": "is", "isNot": "is not" } },
       "importLeadsModal": {
@@ -916,7 +909,7 @@
           "promotions": "Promotions",
           "customForms": "Custom forms"
         },
-        "dashboard": "Dashboard / Overview",
+        "dashboard": "Dashboard",
         "reporting": "Reporting",
         "finance": {
           "title": "Finance",
@@ -977,6 +970,100 @@
         "italian": "Italian",
         "portuguese": "Portuguese",
         "czech": "Czech"
+      },
+      "notifications": {
+        "title": "Notification center",
+        "tabs": {
+          "billing": "Billing",
+          "orders": "Orders",
+          "tasks": "Tasks",
+          "unpaidAppointments": "Unpaid appointments",
+          "tutorials": "Tutorials",
+          "companyOnboarding": "Legal information"
+        },
+        "billing": {
+          "loading": "Loading billing notifications...",
+          "empty": {
+            "title": "No billing notifications",
+            "description": "All your billing notifications will appear here"
+          },
+          "paid": "Paid:",
+          "due": "Due:",
+          "itemTitle": "Unpaid invoice",
+          "itemDescription": "Invoice has not been finalized yet"
+        },
+        "orders": {
+          "loading": "Loading orders...",
+          "empty": {
+            "title": "No orders",
+            "description": "All your orders will appear here"
+          },
+          "itemTitle": "Pending order",
+          "paidByFormat": "Paid by <strong>{{name}}</strong> on the store"
+        },
+        "tasks": {
+          "loading": "Loading tasks...",
+          "empty": {
+            "title": "No tasks",
+            "description": "All your tasks will appear here"
+          }
+        },
+        "unpaidAppointments": {
+          "title": "Unpaid appointments",
+          "itemTitle": "Unpaid appointment",
+          "loading": "Loading unpaid appointments...",
+          "credits": "Unpaid credits",
+          "empty": {
+            "title": "No unpaid appointments",
+            "description": "You don't have any unpaid appointments"
+          }
+        },
+        "tutorials": {
+          "loading": "Loading tutorials...",
+          "empty": {
+            "title": "No tutorials",
+            "description": "All your tutorial notifications will appear here"
+          },
+          "newSection": {
+            "title": "New section",
+            "description": "The {{sectionName}} tutorial has been added, get trained right now."
+          },
+          "newLesson": {
+            "title": "New lesson",
+            "description": "Lesson {{lessonName}} added to {{sectionName}} section"
+          }
+        },
+        "companyOnboarding": {
+          "loading": "Loading company onboarding notifications...",
+          "empty": {
+            "title": "No company onboarding notifications",
+            "description": "All your company onboarding notifications will appear here"
+          },
+          "creation": {
+            "title": "Online payments are currently disabled",
+            "content": "Please check your legal and banking information to be able to process online payments."
+          },
+          "payout": {
+            "title": "Incomplete banking details",
+            "content": "Payouts cannot be processed due to the fact that the account verification has not been completed or has been done so incorrectly."
+          },
+          "verification": {
+            "title": "Business management",
+            "content": "Several documents are pending validation to verify your account. The deadline is: {{date}}.",
+            "contentGeneric": "Several documents are pending validation to verify your account."
+          },
+          "paypal": {
+            "title": "PayPal payments are disabled",
+            "primaryEmailConfirmation": "The email for your PayPal account requires confirmation. Please check your PayPal account to resolve this issue.",
+            "requiresMoreInformation": "Your PayPal account requires additional information or validation from PayPal. Please check your PayPal account to resolve this issue.",
+            "issueCheckAccount": "There is an issue with your PayPal account. Please check your PayPal account to resolve this issue.",
+            "issueRepeatOnboarding": "There is an issue with your PayPal account. Please repeat the connection process using the same account to resolve this issue."
+          },
+          "generic": {
+            "title": "Company onboarding required",
+            "content": "Please complete your company onboarding process."
+          }
+        }
       }
     },
     "feedbackDialog": {
@@ -1070,7 +1157,7 @@
         }
       },
       "deleteModal": {
-        "title": "Delete Pack?",
+        "title": "Delete Pack ?",
         "description": {
           "effect": "If you delete {{ name }}, current or previous purchases won't be affected.",
           "canNotBeUndone": "This action cannot be undone."
@@ -1085,8 +1172,100 @@
     }
   },
   "@bsport/sm-referral-program": {
-    "namespaceAlpha": { "helloName": "Hello {{ name }} !" },
-    "namespaceBeta": {}
+    "settings": {
+      "title": "Referrals",
+      "referralProgramHelper": {
+        "title": "Activate Referrals",
+        "description": "Set up a referral link for your members to invite others to your studio. Offer an incentive, set a time limit for the referral, and provide a reward for the referring member.",
+        "button": {
+          "activated": {
+            "label": "Deactivate",
+            "errors": { "couldNotToggle": "Failed to deactivate the referral program" }
+          },
+          "deactivated": {
+            "label": "Activate",
+            "errors": { "couldNotToggle": "Failed to activate the referral program" }
+          }
+        }
+      },
+      "inactive": { "header": { "chip": "Inactive" } },
+      "active": {
+        "header": { "chip": "Active" },
+        "form": {
+          "minimumBasketAmount": {
+            "label": "Minimum value of shopping cart",
+            "helper": "Amount to be eligible for the referral discount"
+          },
+          "referringReward": {
+            "title": "Reward for referring a member",
+            "amountOff": { "label": "How much you want to reward the member" },
+            "maxReferringNumber": {
+              "label": "Max. use per member",
+              "errors": { "notValid": "Please provide a valid number" }
+            }
+          },
+          "referralReward": {
+            "title": "Discount for new customer",
+            "discount": {
+              "label": "Discount total",
+              "percentage": "Percentage",
+              "amount": "Amount",
+              "errors": {
+                "percentageTooHigh": "The percentage cannot be greater than 100",
+                "amountNotValid": {
+                  "decimal": "The amount cannot have more than 2 decimal points"
+                }
+              },
+              "alerts": {
+                "equalToZero": "Choosing '0' will remove the discount for the person who is referred"
+              }
+            }
+          },
+          "timeLimitForUsage": {
+            "label": "Time limit for applying the discount after registration",
+            "choices": {
+              "day": "day",
+              "week": "week",
+              "month": "month",
+              "day_plural": "days",
+              "week_plural": "weeks",
+              "month_plural": "months"
+            },
+            "errors": {},
+            "equalToZero": "The time limit must be 1 {{timeUnit}} or longer"
+          },
+          "tagSelector": {
+            "label": "Add a tag for new members who used the referral link",
+            "placeholder": "Select a tag",
+            "helper": "Tip: Tag new customers to target them later.",
+            "errors": {
+              "notProvided": "Select a tag or deactivate this option to continue"
+            }
+          },
+          "redirectLink": {
+            "switch": {
+              "label": "Add a redirect link",
+              "helper": "After registering, the new member will be redirected to the page indicated by your URL. Otherwise, they will be taken to the Calendar page."
+            },
+            "textfield": { "label": "Redirect link", "placeholder": "Enter URL" },
+            "errors": {
+              "notProvided": "Add a URL or deactivate this option to continue"
+            }
+          },
+          "saveSettings": {
+            "buttonLabel": "Save",
+            "onSuccess": { "title": "Changes saved" },
+            "onFailure": { "title": "Could not save changes" }
+          }
+        },
+        "deactivateReferralModal": {
+          "title": "Deactivate referrals",
+          "description": "You'll need to set up referrals again once you turn off this feature.",
+          "cancelButton": { "label": "Cancel" },
+          "confirmButton": { "label": "Deactivate" }
+        }
+      }
+    }
   },
   "@bsport/sm-smartlists": {
     "list": {
@@ -1131,7 +1310,12 @@
           "duplicateFailed": "Something went wrong while duplicating the smartlist. Please try again.",
           "updateFailed": "Something went wrong while updating the smartlist. Please try again.",
           "createFailed": "Something went wrong while creating the smartlist. Please try again.",
-          "deleteFailed": "Something went wrong while deleting the smartlist. Please try again."
+          "deleteFailed": "Something went wrong while deleting the smartlist. Please try again.",
+          "deleteError": {
+            "101000": "Smartlist deletion failed. Please try again.",
+            "101001": "This smartlist cannot be deleted because it's being used in active communication groups.",
+            "101002": "This smartlist cannot be deleted because it's being used in active cadences."
+          }
         }
       },
       "inlineActions": {
@@ -1190,11 +1374,11 @@
       },
       "toasts": {
         "messageArchived": {
-          "success": "Your teacher was archived",
+          "success": "Teacher archived",
           "error": "Failed to archive your teacher"
         },
         "messageRestored": {
-          "success": "Your teacher was restored",
+          "success": "Teacher restored",
           "error": "Failed to restore your teacher"
         },
         "messageUndone": { "success": "Action undone", "error": "Failed to undo action" },
@@ -1218,12 +1402,12 @@
         },
         "tooltips": {
           "archive": "Archive teacher",
-          "restore": "Unarchive teacher",
+          "restore": "Restore teacher",
           "clickToCopy": "Click to copy"
         },
         "actions": {
-          "copyEmail": "Your email was copied to your clipboard",
-          "copyPhone": "Your mobile number was been copied to your clipboard"
+          "copyEmail": "Email copied to your clipboard",
+          "copyPhone": "Mobile number copied to your clipboard"
         }
       }
     }

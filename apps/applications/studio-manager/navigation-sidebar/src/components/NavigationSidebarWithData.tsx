@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 import {
   ErrorBoundaryWrapper,
@@ -11,22 +11,29 @@ import NavigationSidebar, {
   type NavigationSidebarProps,
 } from "./NavigationSidebar";
 
-const fetchShareData = fetchSharedDataAction.bind(null, fetch);
+const fetchSharedData = fetchSharedDataAction.bind(null, fetch);
 
 export const NavigationSidebarWithData: React.FC<NavigationSidebarProps> = (
   props,
 ) => {
+  const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
-    try {
-      fetchShareData();
-    } catch (error) {
-      console.error("Failed to fetch shared data:", error);
-    }
+    const performFetch = async () => {
+      try {
+        await fetchSharedData();
+      } catch (error) {
+        console.error("Failed to fetch shared data:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    performFetch();
   }, []);
 
   return (
     <ErrorBoundaryWrapper appName={__NAVIGATION_SIDEBAR__.__SENTRY_SCOPE_TAG__}>
-      <NavigationSidebar {...props} />
+      <NavigationSidebar {...props} isLoadingData={isLoading} />
     </ErrorBoundaryWrapper>
   );
 };

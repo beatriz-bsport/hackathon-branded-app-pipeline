@@ -1,12 +1,10 @@
 import React from 'react';
 import Immutable from 'seamless-immutable';
-import { DateTime } from 'luxon';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import { compose, withHandlers, withStateHandlers } from 'recompose';
 import { connect, ConnectedProps } from 'react-redux';
 import { push } from 'connected-react-router';
 
-import Alert from '@material-ui/lab/Alert';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import Collapse from '@material-ui/core/Collapse';
 import Divider from '@material-ui/core/Divider';
@@ -18,7 +16,6 @@ import { withStyles, Theme } from '@material-ui/core/styles';
 import CampaignList from '#src/libs/communication/components/CampaignList.component';
 import CampaignsExportLimitDialog from '#src/libs/communication/components/CampaignsExportLimitDialog.component';
 import CampaignsExportSection from '#src/libs/communication/components/CampaignsExportSection.component';
-import CommunicationDrawerDEPRECATED from '#src/libs/communication/components/CommunicationDrawer.component';
 import GenericDeleteDialog from '#src/components/genericDialog/GenericDeleteDialog.component';
 import GenericMuiDialog from '#src/components/genericDialog/GenericMuiDIalog';
 import ObjectLevelPermissionProviderComponent from '#src/libs/role/permission-utils/ObjectLevelPermissionProvider.component';
@@ -42,7 +39,6 @@ import {
 } from '#src/libs/communication/actions';
 import { fetchSmartListAutomatedCampaign } from '#src/libs/smart-list/actions';
 import { fetchResolvedGenericTags as fetchResolvedGenericTagsAction } from '#src/libs/notification-rule/actions';
-import { getResolvedGenericTags } from '#src/libs/notification-rule/selectors';
 import { CommunicationScheduledList } from '#src/libs/smart-list/components/communication_scheduled/CommunicationScheduledList.component';
 import {
   getCommunicationScheduledForSmartlist,
@@ -53,34 +49,20 @@ import {
 import {
   fetchCommunicationScheduledListForSmartlist as fetchCommunicationScheduledListForSmartlistAction,
   deleteCommunicationScheduled as deleteCommunicationScheduledAction,
-  updateCommunicationScheduled as updateCommunicationScheduledAction,
-  sendNowCommunicationScheduled as sendNowCommunicationScheduledAction,
 } from '#src/libs/communication-v2/actions';
-import {
-  getAllEmailTemplatesSummaries,
-  getEmailTemplatesDetail,
-} from '#src/libs/email-editor/selectors';
 import { getPaginatedMembers } from '#src/libs/member/selectors';
-import {
-  emailTemplateDetail,
-  emailTemplatesSummaries,
-} from '#src/libs/email-editor/actions';
 import { CONTEXT_SMARTLIST } from '#src/libs/communication-v2/constants';
 
 import type { CampaignExportStartEndDates } from '#src/libs/communication/types';
 import type { CommunicationScheduled } from '#src/libs/communication-v2/types';
 import type { WithHandlerType, MaterialStyleType } from '#src/utils/types';
-import type { OptionCallback } from '../../state/types';
 import type { RootState } from '../../reducers';
-import Config from '../../config';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import { CommunicationDrawer } from '#src/libs/communication-v2/components/CommunicationDrawer.component';
 import ObjectLevelPermissionWrapper from '#src/libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
 
-import {
-  checkIsMessageDeletable,
-  checkIsMessageSchedulable,
-} from '#src/utils/communicationScheduledHelper';
+import { checkIsScheduledMessageEditable } from '#src/utils/communicationScheduledHelper';
+import { getResolvedGenericTags } from '#src/libs/notification-rule/selectors';
 
 type OwnProps = {
   id: number;
@@ -95,9 +77,8 @@ type State = {
   openCampaignsExportSection: boolean;
   openExportLimitDialog: boolean;
   openEditCommunication: boolean;
-  communicationScheduledSelected?: CommunicationScheduled;
+  communicationScheduledSelected: CommunicationScheduled | null;
   isDeleteCommunicationScheduledDialogOpen: boolean;
-  isSendNowCommunicationScheduledDialogOpen: boolean;
   isTooLateToUpdateCommunicationScheduledDialogOpen: boolean;
 };
 
@@ -179,10 +160,6 @@ export class SmartListCampaign extends React.Component<Props> {
       page,
     });
 
-  getHideAutoResend = () =>
-    Config.REACT_APP_SENTRY_ENVIRONMENT === 'production' &&
-    this.props.companyId !== 498;
-
   openTooLateToUpdateCommunicationScheduledDialog = () =>
     this.props.setIsTooLateToUpdateCommunicationScheduledDialogOpen(true);
 
@@ -195,16 +172,10 @@ export class SmartListCampaign extends React.Component<Props> {
   closeDeleteCommunicationScheduledDialog = () =>
     this.props.setIsDeleteCommunicationScheduledDialogOpen(false);
 
-  openSendNowCommunicationScheduledDialog = () =>
-    this.props.setIsSendNowCommunicationScheduledDialogOpen(true);
-
-  closeSendNowCommunicationScheduledDialog = () =>
-    this.props.setIsSendNowCommunicationScheduledDialogOpen(false);
-
   openCommunicationScheduledDeletionDrawer = (
     communicationScheduled: CommunicationScheduled,
   ) => {
-    if (checkIsMessageDeletable(communicationScheduled)) {
+    if (checkIsScheduledMessageEditable(communicationScheduled)) {
       this.props.setCommunicationScheduledSelected(communicationScheduled);
       this.openDeleteCommunicationScheduledDialog();
     } else {
@@ -214,7 +185,11 @@ export class SmartListCampaign extends React.Component<Props> {
 
   deleteCommunicationScheduled = () => {
     if (this.props.communicationScheduledSelected) {
-      if (checkIsMessageDeletable(this.props.communicationScheduledSelected)) {
+      if (
+        checkIsScheduledMessageEditable(
+          this.props.communicationScheduledSelected,
+        )
+      ) {
         this.props.deleteCommunicationScheduled(
           this.props.communicationScheduledSelected.id,
           {
@@ -236,7 +211,7 @@ export class SmartListCampaign extends React.Component<Props> {
   openCommunicationScheduledEditionDrawer = (
     communicationScheduled: CommunicationScheduled,
   ) => {
-    if (checkIsMessageSchedulable(communicationScheduled)) {
+    if (checkIsScheduledMessageEditable(communicationScheduled)) {
       this.props.setCommunicationScheduledSelected(communicationScheduled);
       this.props.setOpenEditCommunication(true);
     } else {
@@ -249,11 +224,6 @@ export class SmartListCampaign extends React.Component<Props> {
     this.props.setCommunicationScheduledSelected(null);
   };
 
-  handleIsTooLateToUpdateCommunicationScheduled = () => {
-    this.closeCommunicationScheduledEditionDrawer();
-    this.openTooLateToUpdateCommunicationScheduledDialog();
-  };
-
   getCampaignList = () =>
     Immutable(
       Array.isArray(this.props.automatedCampaignList)
@@ -262,48 +232,6 @@ export class SmartListCampaign extends React.Component<Props> {
             .map((campaign) => [campaign, null])
         : [[this.props.automatedCampaignList, null]],
     );
-
-  openCommunicationScheduledSendNowDialog = (
-    communicationScheduled: CommunicationScheduled,
-  ) => {
-    if (checkIsMessageSchedulable(communicationScheduled)) {
-      this.props.setCommunicationScheduledSelected(communicationScheduled);
-      this.openSendNowCommunicationScheduledDialog();
-    } else {
-      this.openTooLateToUpdateCommunicationScheduledDialog();
-    }
-  };
-
-  handleSendNowCommunicationScheduled = () => {
-    if (this.props.communicationScheduledSelected) {
-      this.props.sendCommunicationScheduled(
-        this.props.communicationScheduledSelected.id,
-      );
-    }
-    this.closeCommunicationScheduledEditionDrawer();
-    this.props.setCommunicationScheduledSelected(null);
-    this.closeSendNowCommunicationScheduledDialog();
-  };
-
-  isDuringNighttime = () => {
-    const {
-      earliestHourToSendCommunications,
-      latestHourToSendCommunications,
-      timezone,
-    } = this.props;
-
-    if (
-      !!earliestHourToSendCommunications &&
-      !!latestHourToSendCommunications
-    ) {
-      const now = DateTime.now().setZone(timezone);
-      return (
-        earliestHourToSendCommunications > now.hour ||
-        now.hour >= latestHourToSendCommunications
-      );
-    }
-    return false;
-  };
 
   render() {
     const {
@@ -465,43 +393,6 @@ export class SmartListCampaign extends React.Component<Props> {
             resolvedGenericTags={this.props?.resolvedGenericTags}
           />
         </Collapse>
-        {/* CDP-150 - To remove  */}
-        <CommunicationDrawerDEPRECATED
-          hideMemberList
-          closeDrawerForTooLateUpdate={
-            this.handleIsTooLateToUpdateCommunicationScheduled
-          }
-          communicationScheduledToEdit={
-            this.props.communicationScheduledSelected
-          }
-          companyId={this.props.companyId}
-          countTotal={this.props.members.countTotal}
-          countWithEmail={this.props.members.countWithEmail}
-          countWithPhone={this.props.members.countWithPhone}
-          deleteScheduledMessage={this.openCommunicationScheduledDeletionDrawer}
-          editScheduledMessage={this.props.editCommunicationScheduled}
-          emailDetailLoading={this.props.emailDetailLoading}
-          emailDetails={this.props.email_templates_details}
-          emailListLoading={this.props.emailListLoading}
-          emails={this.props.email_templates_list}
-          getEmailDetail={this.props.fetchEmailTemplateDetail}
-          getEmails={this.props.fetchEmailTemplatesSummaries}
-          hideAutoResend={this.getHideAutoResend()}
-          hoursToSend={{
-            min: this.props.earliestHourToSendCommunications,
-            max: this.props.latestHourToSendCommunications,
-          }}
-          membersAllLoading={this.props.members.loading}
-          membersByPageLoading={this.props.members.loading}
-          membersToDisplay={this.props.members.displayItems}
-          memberToDisplayError={this.props.members.error}
-          onCancel={this.closeCommunicationScheduledEditionDrawer}
-          open={false}
-          page={this.props.members.page}
-          resolvedGenericTags={this.props.resolvedGenericTags}
-          sendNow={this.openCommunicationScheduledSendNowDialog}
-          timezone={this.props.timezone}
-        />
         {!!this.props.openEditCommunication && (
           <ObjectLevelPermissionWrapper
             forcedBehavior="hidden"
@@ -544,23 +435,6 @@ export class SmartListCampaign extends React.Component<Props> {
             title={t('scheduled.tooLateToUpdateDialog.title')}
           />
         )}
-        {this.props.isSendNowCommunicationScheduledDialogOpen && (
-          <GenericMuiDialog
-            cancelText={t('scheduled.sendNowDialog.close')}
-            confirmText={t('scheduled.sendNowDialog.confirm')}
-            content={t('scheduled.sendNowDialog.content')}
-            onCancel={this.closeSendNowCommunicationScheduledDialog}
-            onConfirm={this.handleSendNowCommunicationScheduled}
-            open={this.props.isSendNowCommunicationScheduledDialogOpen}
-            title={t('scheduled.sendNowDialog.title')}
-          >
-            {this.isDuringNighttime() && (
-              <Alert severity="warning">
-                {this.props.t('scheduled.nighttimeLimit')}
-              </Alert>
-            )}
-          </GenericMuiDialog>
-        )}
       </div>
     );
   }
@@ -576,6 +450,7 @@ const connector = connect(
     automatedCampaignState: state.communication.automatedCampaign.bySmartlist,
     loading: state.communication.campaign.bySmartlist.loading,
     companyId: state.theme.theme.company,
+    resolvedGenericTags: getResolvedGenericTags(state),
     // EXPORT
     csvExportLink: getCsvExportAllCampaignsLink(state),
     csvExportDate: getCsvExportAllCampaignsDate(state),
@@ -593,20 +468,10 @@ const connector = connect(
       state,
       id,
     ),
-    timezone: state.theme.theme.timezone_name,
-    earliestHourToSendCommunications:
-      state.theme.theme.earliest_hour_to_send_communications,
-    latestHourToSendCommunications:
-      state.theme.theme.latest_hour_to_send_communications,
     communicationScheduledList: getCommunicationScheduledForSmartlist(
       state,
       id,
     ),
-    // EMAIL
-    email_templates_list: getAllEmailTemplatesSummaries(state),
-    email_templates_details: getEmailTemplatesDetail(state),
-    emailListLoading: state.emailTemplate.loading,
-    emailDetailLoading: state.emailTemplate.detail.loading,
     // MEMBERS
     members: {
       displayItems: getPaginatedMembers(state),
@@ -618,8 +483,6 @@ const connector = connect(
       loading: state.member.communication.loading,
       error: state.member.communication.error,
     },
-    // TAGS
-    resolvedGenericTags: getResolvedGenericTags(state),
   }),
   {
     fetchCampaignSmartlist,
@@ -627,16 +490,12 @@ const connector = connect(
     fetchRecipientsNumberAllCampaignsIncludedAction,
     fetchSmartListAutomatedCampaign,
     push,
-    // EMAIL
-    fetchEmailTemplatesSummaries: () => emailTemplatesSummaries(),
-    fetchEmailTemplateDetail: (id: number) => emailTemplateDetail(id),
+
     fetchResolvedGenericTags: fetchResolvedGenericTagsAction,
     // SCHEDULED
     fetchCommunicationScheduledListForSmartlist:
       fetchCommunicationScheduledListForSmartlistAction,
     deleteCommunicationScheduled: deleteCommunicationScheduledAction,
-    updateCommunicationScheduled: updateCommunicationScheduledAction,
-    sendNowCommunicationScheduled: sendNowCommunicationScheduledAction,
     // EXPORT
     exportSmartlistCampaignsBackgroundTaskAction,
     fetchLatestCampaignExportLinkAction,
@@ -689,29 +548,6 @@ const mapWithHandlers = {
         },
       );
     },
-  editCommunicationScheduled:
-    (props: OwnAndConnectedProps) =>
-    (
-      data: CommunicationScheduled,
-      options?: OptionCallback<CommunicationScheduled>,
-    ) => {
-      props.updateCommunicationScheduled(data.id, data, {
-        ...options,
-        onSuccess: (communicationScheduled) => {
-          props.fetchCommunicationScheduledListForSmartlist({
-            smartlistId: props.id,
-          });
-          options?.onSuccess?.(communicationScheduled);
-        },
-      });
-    },
-  sendCommunicationScheduled: (props: OwnAndConnectedProps) => (id: number) =>
-    props.sendNowCommunicationScheduled(id, {
-      onSuccess: () =>
-        props.fetchCommunicationScheduledListForSmartlist({
-          smartlistId: props.id,
-        }),
-    }),
 };
 
 const withStateHandlersInit: State = {
@@ -723,7 +559,6 @@ const withStateHandlersInit: State = {
   openEditCommunication: false,
   communicationScheduledSelected: null,
   isDeleteCommunicationScheduledDialogOpen: false,
-  isSendNowCommunicationScheduledDialogOpen: false,
   isTooLateToUpdateCommunicationScheduledDialogOpen: false,
 };
 
@@ -750,7 +585,7 @@ const withStateHandlersSetter = {
     return { openEditCommunication };
   },
   setCommunicationScheduledSelected:
-    () => (communicationScheduledSelected: CommunicationScheduled) => {
+    () => (communicationScheduledSelected: CommunicationScheduled | null) => {
       return { communicationScheduledSelected };
     },
   setIsTooLateToUpdateCommunicationScheduledDialogOpen:
@@ -763,12 +598,6 @@ const withStateHandlersSetter = {
     () => (isDeleteCommunicationScheduledDialogOpen: boolean) => {
       return {
         isDeleteCommunicationScheduledDialogOpen,
-      };
-    },
-  setIsSendNowCommunicationScheduledDialogOpen:
-    () => (isSendNowCommunicationScheduledDialogOpen: boolean) => {
-      return {
-        isSendNowCommunicationScheduledDialogOpen,
       };
     },
 };

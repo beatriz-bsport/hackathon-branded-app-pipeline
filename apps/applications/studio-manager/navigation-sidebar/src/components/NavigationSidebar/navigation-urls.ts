@@ -1,6 +1,12 @@
+import { getEnv } from "@bsport/envs";
+
 import { PERMISSIONS_PATHS } from "#src/features/permissions/permissions-paths";
 import type { Urls } from "#src/types";
-import { LEGACY_URLS, REVAMP_URLS } from "#src/urls";
+import {
+  LEGACY_URLS,
+  REVAMP_URLS_DEVELOPMENT,
+  REVAMP_URLS_PRODUCTION,
+} from "#src/urls";
 import type { RolePermissionPath } from "#src/utils/permissions";
 
 /**
@@ -66,7 +72,13 @@ export const getNavigationUrls = ({
     return Object.fromEntries(legacyEntries);
   }
 
-  const revampEntries = generateEntries({ urls: REVAMP_URLS, revamped: true });
+  const env = getEnv();
+  const revampUrls =
+    env === "staging" || env === "production"
+      ? REVAMP_URLS_PRODUCTION
+      : REVAMP_URLS_DEVELOPMENT;
+
+  const revampEntries = generateEntries({ urls: revampUrls, revamped: true });
   const revampEntriesKeys = revampEntries.map((entry) => entry[0]);
   // Select legacy entries that are not in revamp entries
   const finalEntries = [

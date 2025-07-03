@@ -12,10 +12,15 @@ import {
   fetchUserAccessAPI,
   generateTemporaryPasswordAPI,
   loginAPI,
+  toggleRevampedBackofficeAPI,
 } from "#src/api";
 import type { TemporaryPassword, UserAccess } from "#src/types";
 
-import { updateTemporaryPassword, updateUserAccess } from "./store";
+import {
+  updateRevampedBackofficeEnabled,
+  updateTemporaryPassword,
+  updateUserAccess,
+} from "./store";
 
 /**
  * Try to log in with the provided email and password.
@@ -96,6 +101,32 @@ export const fetchTemporaryPasswordAction: Action<
     (error) =>
       createErrorWithContext(error, {
         message: "Failed to fetch temporary password",
+      }),
+  );
+};
+
+/**
+ * Toggle (on/off) the revamped_backoffice_enabled field in the user
+ * Updating the has_enabled_revamped_backoffice field in access level.
+ * Returns the new field
+ */
+export const toggleRevampedBackofficeAction: Action<
+  void,
+  { has_enabled_revamped_backoffice: boolean }
+> = async (fetch) => {
+  const [uri, init] = toggleRevampedBackofficeAPI();
+
+  return Result.try(
+    async () => {
+      const { data } = await fetch(uri, init);
+
+      updateRevampedBackofficeEnabled(data.has_enabled_revamped_backoffice);
+
+      return data;
+    },
+    (error) =>
+      createErrorWithContext(error, {
+        message: "Failed to toggle revamped_backoffice_enabled",
       }),
   );
 };

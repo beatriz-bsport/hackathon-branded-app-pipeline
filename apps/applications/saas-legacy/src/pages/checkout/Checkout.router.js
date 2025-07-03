@@ -16,6 +16,7 @@ import { fetchCompanyTheme } from '../../libs/theme/actions';
 import namespaces from '../../i18n/namespaces.json';
 import { getTheme } from '../../theme';
 import { getLoginUrl as getLoginRedirectionUrl } from '../../libs/marketplace/routing-utils';
+import { AuthenticatedSwitch } from './components/AuthenticatedSwitch';
 
 const MarketplaceAsManager = asyncComponent(() =>
   import('../marketplace/MarketplaceAsManager.page'),
@@ -94,10 +95,7 @@ export class PaymentRouter extends React.Component<Props> {
   };
 
   render() {
-    const { authenticated } = this.props;
-    if (!authenticated) {
-      return <Redirect to={this.getLoginUrl()} />;
-    }
+    const { authenticated, companyId, location } = this.props;
     if (this.props.is_manager) {
       return <MarketplaceAsManager />;
     }
@@ -108,55 +106,60 @@ export class PaymentRouter extends React.Component<Props> {
        */
       <MuiThemeProvider theme={getTheme(this.props.theme)}>
         <Switch>
-          <Route
-            component={ValidationCheckout}
-            path="/(|customer/)checkout/:companyId/validation"
-          />
-          <Route
-            component={ContractCheckoutValidation}
-            path="/(|customer/)checkout/:companyId/subscription/:contractId/validation"
-          />
-          <Route
-            component={ContractCheckout}
-            path="/(|customer/)checkout/:companyId/subscription/:contractId"
-          />
-
-          <Route
-            component={PaymentPackPreCheckout}
-            path="/(|customer/)checkout/:companyId/pre-checkout/payment-pack/:id"
-          />
-          <Route
-            component={PaymentPackTemplatePreCheckout}
-            path="/(|customer/)checkout/:companyId/pre-checkout/payment-pack-template/:id/"
-          />
-
-          <Route
-            component={PaymentComboPreCheckoutPage}
-            path="/checkout/:companyId/pre-checkout/payment-combo/:id"
-          />
-          <Route
-            component={PrivatePassPreCheckout}
-            path="/(|customer/)checkout/:companyId/pre-checkout/private-pass/:id"
-          />
-          <Route
-            component={PrivateSlotPaymentPage}
-            path="/(|customer/)checkout/:companyId/private-slot-booker/:privateServiceId/private-slot/:privateSlotId/"
-          />
-          <Route
-            component={ShopItemPreCheckoutPage}
-            path="/(|customer/)checkout/:companyId/pre-checkout/shop-item/:id"
-          />
-          <Route
-            component={GiftcardActivationPage}
-            path="/(|customer/)checkout/:companyId/giftcard/activation/:activationCode"
-          />
-          <Route
-            component={GiftcardCheckoutPage}
-            path="/(|customer/)checkout/:companyId/giftcard/:id"
-          />
-          <Route
-            component={VideoCheckoutPage}
-            path="/(|customer/)checkout/:companyId/vod/:id/"
+          <AuthenticatedSwitch
+            companyId={companyId}
+            isAuthenticated={authenticated}
+            location={location}
+            routes={[
+              {
+                path: '/(|customer/)checkout/:companyId/validation',
+                component: ValidationCheckout,
+              },
+              {
+                path: '/(|customer/)checkout/:companyId/subscription/:contractId/validation',
+                component: ContractCheckoutValidation,
+              },
+              {
+                path: '/(|customer/)checkout/:companyId/subscription/:contractId',
+                component: ContractCheckout,
+              },
+              {
+                path: '/(|customer/)checkout/:companyId/pre-checkout/payment-pack/:id',
+                component: PaymentPackPreCheckout,
+              },
+              {
+                path: '/(|customer/)checkout/:companyId/pre-checkout/payment-pack-template/:id/',
+                component: PaymentPackTemplatePreCheckout,
+              },
+              {
+                path: '/checkout/:companyId/pre-checkout/payment-combo/:id',
+                component: PaymentComboPreCheckoutPage,
+              },
+              {
+                path: '/(|customer/)checkout/:companyId/pre-checkout/private-pass/:id',
+                component: PrivatePassPreCheckout,
+              },
+              {
+                path: '/(|customer/)checkout/:companyId/private-slot-booker/:privateServiceId/private-slot/:privateSlotId/',
+                component: PrivateSlotPaymentPage,
+              },
+              {
+                path: '/(|customer/)checkout/:companyId/pre-checkout/shop-item/:id',
+                component: ShopItemPreCheckoutPage,
+              },
+              {
+                path: '/(|customer/)checkout/:companyId/giftcard/activation/:activationCode',
+                component: GiftcardActivationPage,
+              },
+              {
+                path: '/(|customer/)checkout/:companyId/giftcard/:id',
+                component: GiftcardCheckoutPage,
+              },
+              {
+                path: '/(|customer/)checkout/:companyId/vod/:id/',
+                component: VideoCheckoutPage,
+              },
+            ]}
           />
         </Switch>
       </MuiThemeProvider>

@@ -8,6 +8,7 @@ import { CreateSmartlistModal } from "#src/components/CreateSmartlistModal";
 import { DeleteSmartlistModal } from "#src/components/DeleteSmartlistModal";
 import { DuplicateSmartlistModal } from "#src/components/DuplicateSmartlistModal";
 import { EditSmartlistModal } from "#src/components/EditSmartlistModal";
+import { LEGACY_URLS } from "#src/urls";
 import { useTranslation } from "#src/utils/i18n";
 
 import { VISIBLE_ACTIONS_DISPLAY_LIMIT } from "./constants";
@@ -101,6 +102,11 @@ const ListPage: React.FC = () => {
                 description: smartlist.description,
                 dropdownConfig: {
                   visibleActionsDisplayLimit: VISIBLE_ACTIONS_DISPLAY_LIMIT,
+                },
+                onClick: () => {
+                  window.location.assign(
+                    LEGACY_URLS.SMARTLIST_MEMBER(smartlist.id),
+                  );
                 },
                 buttons: [
                   {

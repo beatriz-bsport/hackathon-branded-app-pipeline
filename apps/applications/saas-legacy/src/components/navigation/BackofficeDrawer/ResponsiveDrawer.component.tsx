@@ -563,6 +563,11 @@ const ResponsiveDrawer: React.FC<Props> = ({
         icon: DescriptionIcon,
         text: t('backofficeMenu.reporting'),
       } as DrawerItemDefault,
+      {
+        to: '/analytics/overview',
+        icon: TrendingUp,
+        text: t('backofficeMenu.analytics'),
+      } as DrawerItemDefault,
       { type: 'divider' } as DrawerItemDivider,
       {
         icon: SettingsIcon,

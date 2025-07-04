@@ -7177,6 +7177,7 @@
             "dashboard": "Dashboard",
             "search": "Search",
             "reporting": "Reporting",
+            "analytics": "Analytics",
             "consumer": {
                 "order": "My orders",
                 "profile": "My account",
@@ -7416,6 +7417,9 @@
             "reporting": {
                 "categories": "Reports",
                 "views": "Your views"
+            },
+            "analytics": {
+                "overview": "Overview"
             }
         },
         "featureBaseButton": "Suggest a feature or improvement"
@@ -19382,6 +19386,7 @@
         "dashboard": {
             "marketingDashboard": "Marketing",
             "reportingDashboard": "Reporting",
+            "analytics": "Analytics",
             "dashboard": "Dashboard"
         },
         "subscription": {

@@ -2244,7 +2244,7 @@
     "smartList": {
         "filters": {
             "1": {
-                "explanation": "Anzeige einer Übersicht aller Mitglieder, deren Kontostand {{ currencyDisplay }}X beträgt",
+                "explanation": "Mitglieder mit einem bestimmten Guthaben auf ihrem Account segmentieren",
                 "third": "{{currencyDisplay}}",
                 "first": "Der Kontostand des Mitglieds beträgt (inklusive unbezahlte Rechnungen)",
                 "name": "Guthaben",
@@ -2259,9 +2259,9 @@
             },
             "5": {
                 "women": "Frauen",
-                "explanation": "Ist eine Frau/ein Mann",
+                "explanation": "Mitglieder nach ihrer Geschlechtsidentität (männlich/weiblich) segmentieren",
                 "men": "Männer",
-                "first": "Wähle nur die",
+                "first": "Nur Segment",
                 "name": "Geschlecht"
             },
             "8": {
@@ -2271,9 +2271,9 @@
                 "second": "verwendbar (mit Credits oder unbegrenzt und nicht abgelaufen)"
             },
             "11": {
-                "explanation": "Anzeige einer Übersicht über alle Mitglieder, die mit A und B gekennzeichnet sind",
+                "explanation": "Mitglieder anhand ihrer Tags segmentieren",
                 "name": "Markierungen",
-                "first": "Nach folgenden Markierungen sortieren"
+                "first": "Nach Tags segmentieren"
             },
             "14": {
                 "selector": "Produkte auswählen",
@@ -2290,8 +2290,8 @@
                 "explanation": "Hat die Produkte A und B gekauft"
             },
             "18": {
-                "explanation": "Eine Übersicht über alle Mitglieder anzeigen, die sich eingeschrieben haben am ...",
-                "first": "Ist dem Studio beigetreten   ",
+                "explanation": "Mitglieder nach Beitrittsdatum segmentieren (an, vor, nach oder zwischen bestimmten Daten)",
+                "first": "Beitrittsdatum zum Studio",
                 "name": "Anmeldedatum"
             },
             "19": {
@@ -2314,7 +2314,7 @@
                 "has": "Besitzt",
                 "first": "einer der Kurspässe",
                 "name": "Kurspässe",
-                "explanation": "Hat den Kurspass A gekauft an dem Datum Y mit X Credits",
+                "explanation": "Mitglieder, die an einem bestimmten Datum einen Kurspass gekauft haben und noch X verbleibende Credits haben, segmentieren",
                 "third": "um"
             },
             "20": {
@@ -2324,8 +2324,8 @@
                 },
                 "third": "{{ currencyDisplay }}",
                 "first": "Der Gesamtwert der Artikel im Warenkorb beträgt",
-                "explanation": "Anzeige einer Übersicht der Mitglieder mit offenen Warenkörben, die noch nicht bezahlt haben",
-                "name": "Aufgegebene Warenkörbe",
+                "explanation": "Mitglieder mit Produkten im Warenkorb, ohne abgeschlossene Bestellung segmentieren",
+                "name": "Abgebrochene Warenkörbe",
                 "second": "um",
                 "between": "und"
             },
@@ -2347,7 +2347,7 @@
                 "second_plural": "Kurs(e)",
                 "second_singular": "Kurs(e)",
                 "first": "Buchte seinen/ihren ",
-                "explanation": "Eine Übersicht über alle Mitglieder anzeigen, die ihre X-te Sitzung der Aktivität A in Raum B gebucht haben...",
+                "explanation": "Mitglieder segmentieren, je nach Anzahl an gebuchten Kursen, in welchen Räumen, bei welcher Lehrkraft und welchem Kurspass",
                 "name": "xte Anzahl der Buchungen",
                 "coach": {
                     "first": "mit den Lehrkräften"
@@ -2369,7 +2369,7 @@
                     "second": "Uhr und"
                 },
                 "first": "Buchte",
-                "explanation": "Anzeige einer Übersicht der Mitglieder, die X Klassen der Aktivität A in Betrieb X mit Ausweis Z gebucht haben",
+                "explanation": "Mitglieder segmentieren, je nach Anzahl an gebuchten Kursen, in welchen Räumen, bei welcher Lehrkraft und welchem Kurspass",
                 "name": "Anzahl der Buchungen",
                 "coach": {
                     "first": "mit den Lehrkräften"
@@ -2400,14 +2400,14 @@
             "24": {
                 "first": "Gab",
                 "second": "{{ currencyDisplay }} für die Produkte",
-                "name": "Ausgaben",
+                "name": "Kaufhistorie",
                 "workshop": "Kurspass für Workshops",
                 "private_pass": "Privatkurs",
                 "between": "und",
                 "combo": "Package",
                 "pack": "Kurspass",
                 "shop": "Webshop",
-                "explanation": "Eine Übersicht der Mitglieder, die die Produkte A und B gekauft haben",
+                "explanation": "Mitglieder nach Kauf bestimmter Produkte segmentieren",
                 "date": {
                     "first": "durchgeführte Käufe"
                 }
@@ -2432,7 +2432,7 @@
                 "second": "und",
                 "has_not": "Verfügt nicht über",
                 "has": "Verfügt über",
-                "explanation": "Hat den Terminpass A gekauft an dem Datum Y mit X Credits"
+                "explanation": "Mitglieder, die an einem bestimmten Datum einen Terminpass gekauft haben und X verbleibende Credits haben, segmentieren"
             },
             "26": {
                 "private_pass": {
@@ -2457,7 +2457,7 @@
                 },
                 "first": "gebucht",
                 "second": "Termin",
-                "explanation": "Übersicht der Mitglieder, die X Termine bei Lehrer A in Einrichtung Y mit Ausweis Z gebucht haben anzeigen",
+                "explanation": "Mitglieder segmentieren, je nach Anzahl an gebuchten Terminen, in welchen Räumen, bei welcher Lehrkraft und welchem Kurspass",
                 "name": "Anzahl der Termine",
                 "private_service": {
                     "first": "mit den Terminen"
@@ -2467,11 +2467,11 @@
                 "third": "oder",
                 "between": "und",
                 "name": "Gültige Pässe",
-                "first": "Verfügt über",
-                "explanation": "Besitzt X gültige Kurspässe oder Terminpässe",
-                "second": "heute gültige Kurs- oder Terminpässe. Unter",
+                "first": "Mitglieder mit",
+                "explanation": "Mitglieder mit X gültigen Kurs- oder Terminpässen segmentieren",
+                "second": "gültigen Kurspässen. Inklusive",
                 "info": "Blockierte Kurs- und Terminpässe werden ebenfalls berücksichtigt",
-                "fourth": "(zusammengefasst)"
+                "fourth": "insgesamt."
             },
             "28": {
                 "numbersComparator": {
@@ -2489,7 +2489,7 @@
                     "is": "abgeschlossen",
                     "before": "Der erste Kauf ist"
                 },
-                "explanation": "Filtert die Mitglieder mit einem ersten abgeschlossenen/bezahlten Warenkorb",
+                "explanation": "Mitglieder mit erstem Kauf zwischen bestimmten Daten segmentieren",
                 "name": "Erstmaliger Kauf"
             },
             "29": {
@@ -2511,7 +2511,7 @@
                         "before": "Das Mitglied bekam"
                     }
                 },
-                "name": "Empfehler",
+                "name": "Empfehlende",
                 "explanation": "Filtert die Mitglieder, die Mitglieder empfohlen haben"
             },
             "30": {
@@ -2536,7 +2536,7 @@
                 "first": "Ist",
                 "between": "und",
                 "second": "Jahre (einschließlich)",
-                "explanation": "Ist weniger/mehr/genau alt...",
+                "explanation": "Mitglieder nach Alter segmentieren",
                 "name": "Alter"
             },
             "102": {
@@ -2554,14 +2554,14 @@
                 "hasNotCompleted": "nicht abgeschlossen",
                 "between": "und",
                 "name": "Formulare",
-                "explanation": "Hat X Formulare zu A% am Tag B ausgefüllt ",
+                "explanation": "Mitglieder basierend auf der Anzahl ausgefüllter Formulare an bestimmten Daten segmentieren",
                 "first": "Hat beendet"
             },
             "103": {
-                "name": "Benachrichtigungen",
+                "name": "Einverständnis für Benachrichtigungen",
                 "oneNeeded": "Mindestens eine der aktivierten Bedingungen muss erfüllt sein",
                 "allNeeded": "Alle aktivierten Bedingungen müssen erfüllt sein",
-                "explanation": "Benachrichtigungen per SMS/E-Mail akzeptieren",
+                "explanation": "Mitglieder mit Einverständnis für SMS oder E-Mail Benachrichtigungen segmentieren",
                 "sms": "um Benachrichtigungen per SMS zu erhalten",
                 "true": "Akzeptieren",
                 "email": "um Benachrichtigungen per E-Mail zu erhalten",
@@ -2594,8 +2594,8 @@
                     "second": "E-Mails",
                     "first": "die Beziehung"
                 },
-                "explanation": "Besitzt X Beziehungen und Y gemeinsame Kurs- oder Terminpässe oder Buchungen",
-                "name": "Beziehungen",
+                "explanation": "Mitglieder mit Beziehungen (z. B. Angehörige) oder geteilten Kurspässen segmentieren",
+                "name": "Geteilte Kurspässe",
                 "acceptSms": {
                     "first": "die Beziehung",
                     "second": "SMS",
@@ -2625,8 +2625,8 @@
                 "true": "Ausgefüllt",
                 "first": "eine Telefonnummer",
                 "false": "nicht ausgefüllt",
-                "name": "Telefon",
-                "explanation": "Hat eine Telefonnummer angegeben"
+                "name": "Telefonnummer",
+                "explanation": "Mitglieder mit Angabe der Telefonnummer segmentieren"
             },
             "107": {
                 "name": "Nutzungsbedingungen",
@@ -2637,16 +2637,16 @@
             },
             "400": {
                 "name": "Passwort",
-                "explanation": "Alle Mitglieder anzeigen, die ein Passwort für Ihr bsport-Konto registriert haben",
+                "explanation": "Mitglieder segmentieren, die ein Passwort für ihr bsport Konto festgelegt haben",
                 "explain": "Alle Mitglieder anzeigen, die ein Passwort für Ihr bsport-Konto registriert haben"
             },
             "410": {
-                "explanation": "Nachdem Sie die Haftungsausschlüsse akzeptiert haben",
+                "explanation": "Alle Mitglieder segmentieren, die den Haftungsausschluss akzeptiert haben",
                 "name": "Haftungsfreistellung",
                 "explain": "nach Annahme der Haftungsfreistellung"
             },
             "501": {
-                "explanation": "Eine Übersicht über die letzte Buchung der Mitglieder anzeigen",
+                "explanation": "Mitglieder anhand ihrer letzten Buchung eines Kurses segmentieren",
                 "second": "Tagen statt, und keine andere Buchung ist in der Zukunft geplant.",
                 "first": "Der letzte gebucht Kurs fand vor mehr als",
                 "name": "Datum des letzten gebuchten Kurses"
@@ -2657,7 +2657,7 @@
                 "does_not_own": "Keine gesicherte Zahlungsmethode vorhanden",
                 "labelFirst": "Nur Teile filtern",
                 "title": "Verfahren zur gesicherten Bezahlung",
-                "explanation": "Übersicht über die gespeicherten Zahlungsmethoden der Mitglieder und deren Ablaufdatum anzeigen",
+                "explanation": "Mitglieder nach gespeicherter Zahlungsmethode segmentieren",
                 "name": "Zahlungsmittel"
             },
             "calendarPicker": {
@@ -2766,7 +2766,7 @@
                 "durationTitle": "Dauer",
                 "duration": "Tagen"
             },
-            "isEmpty": "Kein Filter wurde eingerichtet. Diese Smartlist enthält also die gesamte Mitgliederdatenbank",
+            "isEmpty": "Dieses Segment zeigt alle Mitglieder deines Studios, da keine Parameter ausgewählt wurden.",
             "undefined": {
                 "fifth": "Kreditpunkte",
                 "fourth": "und besitzt darauf",
@@ -2792,8 +2792,8 @@
             "before": "vor",
             "after": "nach",
             "add": "Hinzufügen",
-            "add_filter": "Einen Filter hinzufügen",
-            "active_filters": "Aktive Filter auf der Smartlist",
+            "add_filter": "Einen Parameter hinzufügen",
+            "active_filters": "aktive Parameter auf der Smartlist",
             "all": "Alle",
             "booking_status": {
                 "booked": "gebucht",
@@ -2813,7 +2813,7 @@
             "1": "Informationen über das Mitglied",
             "2": "Kurspässe",
             "3": "Buchungen",
-            "4": "Käufe"
+            "4": "Zahlungen"
         },
         "smart_list": {
             "createTitle": "Smartlist",
@@ -2980,12 +2980,12 @@
             "tag_group": "Haupttag",
             "tag_name": "Sub Tag",
             "display_tag_rules": "Markierungsregeln anzeigen",
-            "tag_on_left": "Markieren, wenn von der Smartliste genommen wird",
+            "tag_on_left": "Tag, wenn Mitglied die Smartlist verlässt",
             "tag_on_join": "Markieren, wenn zur Smartlist hinzugefügt wird",
             "activeSince": "Aktiv seit {{ since }}",
             "tag": "Tag",
             "asyncDialog": {
-                "message": "Aufgrund Ihrer Änderungen an den Tag-Regeln der Smartlist {{ name }} müssen die Tags aktualisiert werden. Diese Synchronisierung erfolgt alle zwei Stunden.",
+                "message": "Alle Tags für Kunden in dieser Smartlist werden aktualisiert.",
                 "title": "Aktualisierungen der Tag-Regeln "
             }
         },
@@ -2995,7 +2995,7 @@
                 "1": "Nicht archiviert",
                 "2": "Archiviert"
             },
-            "helperText": "Diese Smartlist gilt für alle Mitglieder"
+            "helperText": "Wähle, welche Mitglieder du auf dieser Smartlist anzeigen willst:"
         },
         "popup": {
             "sendPopup": "Pop-up senden"
@@ -7607,7 +7607,7 @@
                 "success": "Smartlist dupliziert"
             },
             "tag_rules": {
-                "limit_reached": "Unmöglich: Du hast das Erstellungslimit erreicht (10)",
+                "limit_reached": "Fehler: es ist nicht möglich, mehr als 10 Regeln zu erstellen. ",
                 "error": "Diese Regel kann nicht angewendet werden",
                 "success": "Die automatische Regel wurde gestartet"
             }
@@ -12714,7 +12714,7 @@
             "unavailableMail": "Vorschau nicht verfügbar",
             "automated": {
                 "panel": {
-                    "add": "Hinzufügen",
+                    "add": "Nachricht hinzufügen",
                     "title": "Automatische Sendungsregel",
                     "subtitle": {
                         "onLeft": "Im Ausgang",
@@ -12724,7 +12724,7 @@
                 "form": {
                     "subtitles": {
                         "create": {
-                            "leftSmartList": "Erstellen einer Regel für das automatische Senden beim Verlassen der Smartlist.",
+                            "leftSmartList": "Automatisierte Nachricht für Kunden erstellen, die diese Smartlist verlassen.",
                             "joinSmartList": "Automatische Nachricht für Mitglieder, die dieser Smartlist beitreten hinzufügen."
                         },
                         "update": {
@@ -12738,7 +12738,7 @@
                     "submit": "Bestätigen",
                     "frequenceHelper": "Diese Benachrichtigung wird für {{ max }} {{ event_kind }} an jedes Mitglied der Smartlist gesendet. Nach {{ max }} {{ event_kind }} werden die Mitglieder keine Nachricht mehr erhalten. Du kannst diese Einstellung unter 'Erweitert' ändern.",
                     "maxCommunicationSentHelperText": {
-                        "0": "Standardmäßig wird die Nachricht nur beim ersten Eintrag eines Mitglieds in die Smartlist gesendet. Wenn ein Mitglied die Smartliste verlässt oder erneut eingetragen wird, wird die Nachricht wieder verschickt. Passe die Einstellungen an, wenn du  begrenzen willst, wie oft das gleiche Mitglied die Nachricht erhalten kann: einmal, zweimal oder dreimal.",
+                        "0": "Diese Nachricht wird jedes Mal versendet, sobald ein Mitglied dem Segment beitritt. Wenn ein Mitglied das Segment verlässt und wieder beitritt, wird die Nachricht erneut versendet. Lege ein Limit fest, wie oft ein Mitglied dieselbe Nachricht sehen kann.",
                         "1": "Standardmäßig wird die Nachricht jedes mal wenn ein Mitglied die Smartlist verlässt gesendet. Wenn ein Mitglied wieder in die Smartlist eingetragen wird  oder erneut verlässt, wird die Nachricht wieder verschickt. Passe die Einstellungen an, wenn du begrenzen willst, wie oft das gleiche Mitglied die Nachricht erhalten kann: einmal, zweimal oder dreimal."
                     },
                     "limitSection": "Limit",
@@ -12799,7 +12799,7 @@
             "warningConsent2": "Diese Entscheidung deines Mitglieds zu missachten, wäre illegal. bsport distanziert sich von jeglicher Verantwortung für den Missbrauch von direkten E-Mails.",
             "warningConsent1": "Achtung! Dieses Mitglied hat die Option, ihm Werbe-E-Mails zu senden, deaktiviert. Direkte E-Mails ermöglichen es dir, mit deinen Mitgliedern auf einfache und schnelle Weise zu kommunizieren. Sie sollten nicht für Werbe- oder Promotionszwecke verwendet werden.",
             "titleInterpolated": "Die Variablen im Betreff und Inhalt der E-Mail werden entsprechend dem Empfänger aktualisiert.",
-            "warningProvider": "Bitte beachte, dass die Antworten der Mitglieder auf diese Nachricht nicht auf der Plattform, sondern direkt in deiner Mailbox erscheinen werden. Damit alle hier erscheinen, ändere die Kommunikationseinstellung auf der Seite Einstellungen/Anpassung."
+            "warningProvider": "Antworten auf diese Nachricht werden automatisch an dein Email Postfach gesendet. Gehe zu Einstellungen - Personalisierung - Chat-Einstellungen, um jede Kommunikation hier sichtbar zu machen."
         },
         "table": {
             "columns": {
@@ -12928,7 +12928,7 @@
             "processing": "Die Kommunikation wird gesendet"
         },
         "sendMessage": {
-            "writeCommunication": "Eine Nachricht senden",
+            "writeCommunication": "Mitteilung verfassen",
             "refresh": "Um die neue Version deines Templates zu sehen, klicke bitte auf die Schaltfläche Aktualisieren.",
             "sendDisabled": {
                 "missingPhoneInDirectMember": "Dieser Nutzer hat keine Telefonnummer",
@@ -13101,7 +13101,7 @@
             "filterOutCommunicationSent": "Die Kommunikation, die du gerade gesendet hast, wird von den aktiven Filtern verdeckt.",
             "emptyList": {
                 "becauseOfFilters": "Keine Ergebnisse, die mit den Filtern übereinstimmen.",
-                "becauseNeverUsed": "Du hast noch keine Kommunikation auf diesem Kanal gesendet."
+                "becauseNeverUsed": "Keine Nachrichten vorhanden. Klicke unten in das Textfeld, um deine erste Nachricht zu schreiben."
             }
         },
         "createThread": {
@@ -13150,7 +13150,7 @@
             "edit": "Bearbeiten",
             "clicked": "Geklickt",
             "opened": "Geöffnet",
-            "nextCommunicationScheduled": "Nächste geplante Nachricht",
+            "nextCommunicationScheduled": "Nächste Nachricht geplant",
             "scheduledFor": "Planen für",
             "numberOfRecipients": "Empfänger/in",
             "numberOfRecipients_plural": "Empfänger/innen",

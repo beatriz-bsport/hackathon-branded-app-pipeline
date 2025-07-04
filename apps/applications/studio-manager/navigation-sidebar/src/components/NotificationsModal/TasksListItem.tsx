@@ -3,7 +3,7 @@ import { type FC } from "react";
 import { Body } from "@bsport/kaizen-primitive-core";
 
 import { LEGACY_URLS } from "#src/urls";
-import { useTranslation } from "#src/utils/i18n";
+import { useDateFormatter } from "#src/utils/use-date-formatter";
 
 interface TasksListItemProps {
   id: string;
@@ -20,12 +20,7 @@ const TasksListItem: FC<TasksListItemProps> = ({
   memberName,
   dateDue,
 }) => {
-  const { i18n } = useTranslation("default");
-  const formattedDate = new Intl.DateTimeFormat(i18n.language, {
-    day: "numeric",
-    month: "long",
-    year: "numeric",
-  }).format(new Date(dateDue));
+  const { formatLong } = useDateFormatter();
 
   return (
     <a
@@ -58,7 +53,7 @@ const TasksListItem: FC<TasksListItemProps> = ({
         {/* Right column with date and member name */}
         <div className="flex flex-col items-end justify-center gap-2xs">
           <Body htmlVariant="span" size="sm" color="weak">
-            {formattedDate}
+            {formatLong(dateDue)}
           </Body>
           <Body htmlVariant="span" size="sm" color="weak">
             {memberName}

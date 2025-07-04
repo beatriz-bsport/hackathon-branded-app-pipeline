@@ -4,6 +4,7 @@ import { Body } from "@bsport/kaizen-primitive-core";
 
 import { LEGACY_URLS } from "#src/urls";
 import { useTranslation } from "#src/utils/i18n";
+import { useDateFormatter } from "#src/utils/use-date-formatter";
 
 export type UnpaidAppointmentsListItemProps = {
   id: string;
@@ -38,12 +39,8 @@ const UnpaidAppointmentsListItem: FC<UnpaidAppointmentsListItemProps> = ({
   dateStart,
   creditsDue,
 }) => {
-  const { t, i18n } = useTranslation("default");
-  const formattedDate = new Intl.DateTimeFormat(i18n.language, {
-    day: "numeric",
-    month: "long",
-    year: "numeric",
-  }).format(new Date(dateStart));
+  const { t } = useTranslation("default");
+  const { formatLong } = useDateFormatter();
 
   return (
     <a
@@ -90,7 +87,7 @@ const UnpaidAppointmentsListItem: FC<UnpaidAppointmentsListItemProps> = ({
             </Body>
           </div>
           <Body htmlVariant="span" size="sm" color="weak">
-            {formattedDate}
+            {formatLong(dateStart)}
           </Body>
         </div>
       </div>

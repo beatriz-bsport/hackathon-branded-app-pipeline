@@ -116,6 +116,7 @@ exports.default = {
       unpaidAppointments: "Unpaid appointments",
       tutorials: "Tutorials",
       companyOnboarding: "Legal information",
+      privateBookingIncomplete: "Appointments to complete",
     },
     billing: {
       loading: "Loading billing notifications...",
@@ -209,6 +210,15 @@ exports.default = {
         title: "Company onboarding required",
         content: "Please complete your company onboarding process.",
       },
+    },
+    privateBookingIncomplete: {
+      loading: "Loading appointments to complete...",
+      empty: {
+        title: "No appointments to complete",
+        description: "All your appointments have assigned coaches",
+      },
+      member: "Member: {{userName}}",
+      date: "Date: {{date}}",
     },
   },
 };

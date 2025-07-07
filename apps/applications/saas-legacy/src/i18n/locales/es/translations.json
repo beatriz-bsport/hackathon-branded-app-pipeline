@@ -11155,7 +11155,7 @@
                 "title": "Título",
                 "content": "Mensaje"
             },
-            "writeCommunication": "Enviar un mensaje",
+            "writeCommunication": "Crear un mensaje",
             "smsCostReminderModal": {
                 "confirm": "Confirmar",
                 "cancel": "Cancelar",

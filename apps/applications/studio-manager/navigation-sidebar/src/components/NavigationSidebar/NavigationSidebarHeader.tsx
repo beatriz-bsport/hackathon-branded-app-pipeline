@@ -70,12 +70,14 @@ type NavigationSidebarHeaderProps = {
   menuSet: MenuSet;
   onSelectItem?: (id: MenuOption) => void;
   onBack?: () => void;
+  onSearch: () => void;
 };
 
 const NavigationSidebarHeader = ({
   menuSet,
   onSelectItem,
   onBack,
+  onSearch,
   label,
   avatarUrl,
 }: NavigationSidebarHeaderProps) => {
@@ -116,13 +118,14 @@ const NavigationSidebarHeader = ({
           />
         )}
       />
-      {/* <Button
+      <Button
         className="shrink-0"
         intent="default"
         size="md"
         color="main"
         iconLeft="search-refraction"
-      /> */}
+        onClick={onSearch}
+      />
     </header>
   );
 };

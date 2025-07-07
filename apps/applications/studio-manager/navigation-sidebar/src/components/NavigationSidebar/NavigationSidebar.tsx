@@ -6,6 +6,7 @@ import { LOGIN_URL, logoutAction } from "@bsport/store-auth";
 
 import { useBatchRoutingPermissions } from "#src/features/permissions";
 import "#src/index.css";
+import { LEGACY_URLS } from "#src/urls";
 import { AppI18nextProvider, useTranslation } from "#src/utils/i18n";
 
 import {
@@ -154,6 +155,15 @@ const NavigationSidebarContent = ({
     cover: companyLogo,
   } = companyTheme ?? {};
 
+  const onSearchClick = () => {
+    const url = `${LEGACY_URLS.search}?q=`;
+    if (navigate) {
+      navigate(url);
+    } else {
+      window.location.assign(url);
+    }
+  };
+
   return (
     <NavigationSidebarContainer>
       <NavigationSidebarHeader
@@ -177,6 +187,7 @@ const NavigationSidebarContent = ({
           }
         }}
         onBack={() => setMenuSet("default")}
+        onSearch={onSearchClick}
       />
       <div
         role="presentation"

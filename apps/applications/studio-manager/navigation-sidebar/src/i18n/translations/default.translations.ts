@@ -26,6 +26,7 @@ exports.default = {
     memberships: {
       title: "Memberships",
       passes: "Passes",
+      appointmentPasses: "Appointment Passes",
       subscriptions: "Subscriptions",
     },
     products: {

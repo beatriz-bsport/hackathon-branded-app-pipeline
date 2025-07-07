@@ -10,7 +10,9 @@ import './styles.css';
 type ButtonProps = {
   isPasswordVisible: boolean;
   onClick: () => void;
-  onMouseDown: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+  onMouseDown: (
+    event?: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+  ) => void;
 };
 
 export type Props = {
@@ -18,7 +20,6 @@ export type Props = {
   id: string;
   isDisabled?: boolean;
   label?: string;
-  onBlur?: () => void;
 };
 
 const PasswordVisibilityButton: React.FC<ButtonProps> = ({
@@ -38,13 +39,7 @@ const PasswordVisibilityButton: React.FC<ButtonProps> = ({
   );
 };
 
-const PasswordField: React.FC<Props> = ({
-  isDisabled,
-  label,
-  name,
-  onBlur,
-  id,
-}) => {
+const PasswordField: React.FC<Props> = ({ isDisabled, label, name, id }) => {
   const { t } = useTranslation(['marketing', 'booking']);
 
   const [isPasswordVisible, setIsPasswordVisible] = React.useState(false);
@@ -52,8 +47,11 @@ const PasswordField: React.FC<Props> = ({
     React.useState(false);
 
   const handlePreventDefault = React.useCallback(
-    (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) =>
-      event.preventDefault(),
+    (event?: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+      if (event) {
+        event.preventDefault();
+      }
+    },
     [],
   );
 
@@ -75,7 +73,6 @@ const PasswordField: React.FC<Props> = ({
         isDisabled={isDisabled}
         label={label}
         name={name}
-        onBlur={onBlur}
         placeholder={t('customForm.field.password')}
         rightIcon={
           <PasswordVisibilityButton
@@ -93,7 +90,6 @@ const PasswordField: React.FC<Props> = ({
         isDisabled={isDisabled}
         label={t('customForm.field.repeatPassword')}
         name="passwordConfirm"
-        onBlur={onBlur}
         placeholder={t('customForm.field.repeatPassword')}
         rightIcon={
           <PasswordVisibilityButton

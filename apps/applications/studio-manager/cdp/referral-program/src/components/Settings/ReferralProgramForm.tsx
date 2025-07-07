@@ -1,9 +1,13 @@
 import { useId } from "react";
 
 import { Form, FormField } from "@bsport/form";
-import { TextField } from "@bsport/kaizen-primitive-core";
+import { TextField, Title } from "@bsport/kaizen-primitive-core";
 
-import { BASKET_MINIMAL_AMOUNT_DEFAULT } from "#src/utils/constants";
+import {
+  AMOUNT_REFERRING_REWARD_DEFAULT,
+  BASKET_MINIMAL_AMOUNT_DEFAULT,
+  MAX_REFERRING_USAGE_DEFAULT,
+} from "#src/utils/constants";
 import { useTranslation } from "#src/utils/i18n";
 import { referralProgramSchema } from "#src/utils/schema";
 import { ReferralProgramFormData } from "#src/utils/types";
@@ -23,7 +27,7 @@ export const ReferralProgramForm: React.FC<ReferralProgramFormProps> = ({
       id="referral-program-form"
       schema={referralProgramSchema}
       onSubmit={(data) => console.log(data)}
-      className="flex flex-col gap-md"
+      className="flex flex-col gap-lg"
       mode="onBlur"
     >
       <FormField<ReferralProgramFormData, "basketMinimalAmount">
@@ -31,7 +35,7 @@ export const ReferralProgramForm: React.FC<ReferralProgramFormProps> = ({
         mapProps={({ defaultProps, field }) => ({
           ...defaultProps,
           type: "number",
-          value: String(field.value ?? BASKET_MINIMAL_AMOUNT_DEFAULT), // Ensure value is a string
+          value: String(field.value ?? BASKET_MINIMAL_AMOUNT_DEFAULT),
         })}
       >
         <TextField
@@ -45,6 +49,47 @@ export const ReferralProgramForm: React.FC<ReferralProgramFormProps> = ({
           }}
         />
       </FormField>
+      <div className="flex flex-col gap-md">
+        <Title htmlVariant="h4" weight="strong">
+          {t("active.form.referringReward.title")}
+        </Title>
+        <div className="flex flex-row gap-xl">
+          <FormField<ReferralProgramFormData, "amountReferringReward">
+            name="amountReferringReward"
+            mapProps={({ defaultProps, field }) => ({
+              ...defaultProps,
+              type: "number",
+              value: String(field.value ?? AMOUNT_REFERRING_REWARD_DEFAULT),
+            })}
+          >
+            <TextField
+              type="number"
+              id={`${fieldIdPrefix}-referring-amount-reward`}
+              label={t("active.form.referringReward.amountOff.label")}
+              suffix={{
+                type: "text",
+                value: companyCurrency,
+              }}
+            />
+          </FormField>
+          <FormField<ReferralProgramFormData, "maxReferringUsage">
+            name="maxReferringUsage"
+            mapProps={({ defaultProps, field }) => ({
+              ...defaultProps,
+              type: "number",
+              value: String(field.value ?? MAX_REFERRING_USAGE_DEFAULT),
+            })}
+          >
+            <TextField
+              required
+              className="max-w-[60px]"
+              type="number"
+              id={`${fieldIdPrefix}-referring-max-number-usage`}
+              label={t("active.form.referringReward.maxReferringNumber.label")}
+            />
+          </FormField>
+        </div>
+      </div>
     </Form>
   );
 };

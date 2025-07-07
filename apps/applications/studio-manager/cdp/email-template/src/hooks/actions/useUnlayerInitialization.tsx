@@ -34,7 +34,7 @@ export const useUnlayerInitialization = () => {
   const authenticatedUser = dataAccessLayer.useUserAccess();
   const companyTheme = dataAccessLayer.useCompanyTheme();
   const companyName = companyTheme && companyTheme?.company_name;
-  const companyId = companyTheme && companyTheme?.id;
+  const companyId = companyTheme && companyTheme?.company;
   const companyEmail = authenticatedUser && authenticatedUser?.username;
   const currentEnv = getEnv();
   const currentLocale = i18nInstance.language ?? LANGUAGES.ENGLISH_US;

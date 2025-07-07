@@ -54,7 +54,7 @@ export const CreateSmartlistModal: FC<CreateSmartlistModalProps> = ({
     createSmartlist({
       name: data.name,
       description: data.description,
-      company: companyTheme.id,
+      company: companyTheme.company,
     });
   };
 

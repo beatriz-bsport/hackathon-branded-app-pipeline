@@ -47,9 +47,9 @@ import type { CustomForm } from '#src/libs/custom-form/types';
 import type { Franchise } from '#src/libs/franchise/types';
 import type { MemberMinimal } from '#src/libs/member/types';
 
-import { CUSTOM_FORM_CSS_VARIANT_ACTIVATED } from '#src/libs/custom-form/constants';
 import { STORAGE_KEY_BSPORT_RELATED_MEMBER_TOKEN } from '#src/actions/constants';
 
+import { useCssVariantActivated } from '#src/libs/custom-form/hooks/useCssVariantActivated';
 import './styles.css';
 
 type Props = {
@@ -127,6 +127,8 @@ const MarketplaceNavigation: React.FC<Props> = ({
   const { width } = useViewport();
   const classes = useStyles();
   const isMobile = width < CONSUMER_SPACE_MOBILE_BREAKPOINT;
+
+  const isCssVariantActivated = useCssVariantActivated();
 
   const isRelationshipAuth = !!getItemInStorage(
     'local',
@@ -320,11 +322,10 @@ const MarketplaceNavigation: React.FC<Props> = ({
             </DialogContent>
           </GenericResponsiveDialog>
 
-          {CUSTOM_FORM_CSS_VARIANT_ACTIVATED ? (
+          {isCssVariantActivated ? (
             <CustomFormPortal
               generalTermsAndConditions={companyTheme.general_terms_of_use}
               initial={signUpCustomForm}
-              isCssVariantActivated={CUSTOM_FORM_CSS_VARIANT_ACTIVATED}
               isOpen={
                 isSignUpDialogOpen && !isAuthenticated && !!signUpCustomForm
               }

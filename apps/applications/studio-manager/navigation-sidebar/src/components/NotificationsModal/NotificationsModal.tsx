@@ -5,12 +5,12 @@ import { Modal, Tabs } from "@bsport/kaizen-primitive-core";
 import { useTranslation } from "#src/utils/i18n";
 
 import { GenericNotificationTab } from "./GenericNotificationTab";
-import { tabConfigurations } from "./tabConfigurations";
 import type {
   NotificationTab,
   NotificationsModalProps,
   TabConfiguration,
 } from "./types";
+import { useTabConfigurations } from "./use-tab-configurations";
 
 export const NotificationsModal: React.FC<NotificationsModalProps> = ({
   isOpen,
@@ -18,6 +18,7 @@ export const NotificationsModal: React.FC<NotificationsModalProps> = ({
 }) => {
   const { t } = useTranslation("default");
   const [activeTab, setActiveTab] = useState<NotificationTab>("billing");
+  const tabConfigurations = useTabConfigurations();
 
   const tabs = Object.values(tabConfigurations).map((config) => ({
     id: config.id,

@@ -8,25 +8,24 @@ import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 import MoneyIcon from '@material-ui/icons/Money';
 import Typography from '@material-ui/core/Typography';
 import {
-  PAYMENT_GROUP_METHOD_IDENTIFIER_CB,
-  PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA,
-  PAYMENT_GROUP_METHOD_IDENTIFIER_BANCONTACT,
-  PAYMENT_GROUP_METHOD_IDENTIFIER_IDEAL,
-  PAYMENT_GROUP_METHOD_IDENTIFIER_SOFORT,
   PAYMENT_GROUP_METHOD_IDENTIFIER_BACS_DEBIT,
+  PAYMENT_GROUP_METHOD_IDENTIFIER_BANCONTACT,
+  PAYMENT_GROUP_METHOD_IDENTIFIER_CB,
+  PAYMENT_GROUP_METHOD_IDENTIFIER_IDEAL,
   PAYMENT_GROUP_METHOD_IDENTIFIER_PAYPAL_WALLET,
+  PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA,
+  PAYMENT_GROUP_METHOD_IDENTIFIER_TWINT,
 } from '@bsport/common/lib/master-data/payment-group.js';
 import { getCurrencyDisplay } from '../../theme/selectors';
 
-// import/no-unresolved
-import SEPA_LOGO from '../icons/sepa.svg';
-import BANCONTACT_LOGO from '../icons/bancontact.png';
-import SOFORT_LOGO from '../icons/sofort.png';
-import IDEAL_LOGO from '../icons/ideal.png';
-import BACS_DEBIT_LOGO from '../icons/bacs-direct-debit.png';
-import PAYPAL_LOGO from '../icons/paypal.png';
-import Stripe from '../icons/Stripe.icon';
-import { PAYMENT_STRIPE_TERMINAL_FAKE } from '../utils';
+import BACS_DEBIT_LOGO from '#src/libs/payment/icons/bacs-direct-debit.png';
+import BANCONTACT_LOGO from '#src/libs/payment/icons/bancontact.png';
+import IDEAL_LOGO from '#src/libs/payment/icons/ideal.png';
+import PAYPAL_LOGO from '#src/libs/payment/icons/paypal.png';
+import SEPA_LOGO from '#src/libs/payment/icons/sepa.svg';
+import TWINT_LOGO from '#src/libs/payment/icons/twint.svg';
+import Stripe from '#src/libs/payment/icons/Stripe.icon';
+import { PAYMENT_STRIPE_TERMINAL_FAKE } from '#src/libs/payment/utils';
 import { QuicksalePaymentMethod } from '#src/libs/quicksale/constants';
 
 const PaymentMethodIcon = (props: { paymentMethod: number }) => {
@@ -59,17 +58,17 @@ const PaymentMethodIcon = (props: { paymentMethod: number }) => {
       return (
         <img alt="bancontact" className={classes.icon} src={BANCONTACT_LOGO} />
       );
-    case PAYMENT_GROUP_METHOD_IDENTIFIER_SOFORT:
-      return (
-        <div className={classes.largeContainer}>
-          <img alt="sofort" className={classes.sepaIcon} src={SOFORT_LOGO} />
-        </div>
-      );
     case PAYMENT_GROUP_METHOD_IDENTIFIER_IDEAL:
       return <img alt="ideal" className={classes.icon} src={IDEAL_LOGO} />;
     case PAYMENT_GROUP_METHOD_IDENTIFIER_BACS_DEBIT:
       return (
         <img alt="bacs_debit" className={classes.icon} src={BACS_DEBIT_LOGO} />
+      );
+    case PAYMENT_GROUP_METHOD_IDENTIFIER_TWINT:
+      return (
+        <div className={classes.container}>
+          <img alt="twint" className={classes.icon} src={TWINT_LOGO} />
+        </div>
       );
     case PAYMENT_STRIPE_TERMINAL_FAKE:
       return <Stripe className={classes.stripeIcon} />;
@@ -89,6 +88,11 @@ const PaymentMethodIcon = (props: { paymentMethod: number }) => {
 };
 
 const useStyles = makeStyles((theme: Theme) => ({
+  container: {
+    height: 36,
+    paddingLeft: theme.spacing(1),
+    paddingRight: theme.spacing(1),
+  },
   largeContainer: {
     display: 'flex',
     height: 36,

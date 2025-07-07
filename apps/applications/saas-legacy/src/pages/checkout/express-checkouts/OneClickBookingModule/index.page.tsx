@@ -181,11 +181,38 @@ const OneClickBookingModule: React.FC<Props> = ({
   const canPerformLightSignUpCreate =
     !memberId && isTokenNull && !lightSignupCreateLoading;
 
-  const canPerformLightSignupUpdate =
-    !!memberId &&
-    !isTokenNull &&
-    !!lightSignupValues &&
-    !isEqual(updatedMember, trimFormValues(lightSignupValues));
+  /**
+   * Determines whether a light signup update should be performed.
+   *
+   * This function checks if the current user (identified by memberId and existing token)
+   * has made changes to their form data that warrant an update to their profile.
+   *
+   * Returns true when ALL of the following conditions are met:
+   * 1. User/Member exists (has a memberId from previous signup)
+   * 2. User is authenticated (has a valid token, not null)
+   * 3. Form has valid data (lightSignupValues exists)
+   * 4. Form data has actually changed (current form values differ from last saved member data)
+   *
+   * The function excludes 'passwordConfirm' from comparison since it's a UI-only field
+   * that doesn't exist in the backend member object.
+   *
+   * @returns {boolean} - true if update should be performed, false otherwise
+   */
+  const canPerformLightSignupUpdate = (() => {
+    if (!lightSignupValues) return false;
+    const lightSignupValuesWithoutPassword = Object.fromEntries(
+      Object.entries(lightSignupValues).filter(
+        ([key]) => key !== 'passwordConfirm',
+      ),
+    ) as LightSignupFormValues;
+
+    return (
+      !!memberId &&
+      !isTokenNull &&
+      !!lightSignupValuesWithoutPassword &&
+      !isEqual(updatedMember, trimFormValues(lightSignupValuesWithoutPassword))
+    );
+  })();
 
   useEffect(() => {
     if (queryParams?.redirect_status !== RedirectStatus.FAILED) {
@@ -264,6 +291,7 @@ const OneClickBookingModule: React.FC<Props> = ({
         const { email } =
           (await lightSignupCreate({
             companyId,
+            password: lightSignupValues.password,
             firstName: lightSignupValues.firstName,
             lastName: lightSignupValues.lastName,
             email: lightSignupValues.email,
@@ -288,6 +316,7 @@ const OneClickBookingModule: React.FC<Props> = ({
         await submitLightSignupForm();
         await lightSignUpUpdate({
           id: memberId,
+          password: lightSignupValues.password,
           first_name: lightSignupValues.firstName,
           last_name: lightSignupValues.lastName,
           email: lightSignupValues.email,
@@ -362,6 +391,7 @@ const OneClickBookingModule: React.FC<Props> = ({
       try {
         await lightSignupCreate({
           companyId,
+          password: lightSignupValues.password,
           firstName: lightSignupValues.firstName,
           lastName: lightSignupValues.lastName,
           email: lightSignupValues.email,
@@ -385,6 +415,7 @@ const OneClickBookingModule: React.FC<Props> = ({
     try {
       await lightSignUpUpdate({
         id: memberId,
+        password: lightSignupValues.password,
         first_name: lightSignupValues.firstName,
         last_name: lightSignupValues.lastName,
         email: lightSignupValues.email,

@@ -12270,7 +12270,7 @@
                 "coach": {
                     "first": "con gli insegnanti"
                 },
-                "explanation": "Raggruppa i clienti in base a quante lezioni hanno prenotato, in quale sala, con quale insegnante e con quale pacchetti",
+                "explanation": "Raggruppa i clienti in base al numero totale di sessioni prenotate per l'attività A, nello stabilimento B, acquistate con il pacchetto C",
                 "first": "Ha prenotato",
                 "second": "sessioni",
                 "between": "e",
@@ -12343,7 +12343,7 @@
                 "between": "e",
                 "second": "appuntamento",
                 "first": "Hai prenotato",
-                "explanation": "Raggruppa i clienti in base a quanti appuntamenti hanno prenotato, in quale sala, con quale insegnante e con quale pacchetto",
+                "explanation": "Raggruppa i clienti in base a quanti appuntamenti hanno prenotato nella stabilimento A, con l'insegnante B, acquistati con il pacchetto C",
                 "name": "Numero di appuntamenti",
                 "private_service": {
                     "first": "con gli appuntamenti"
@@ -12849,7 +12849,7 @@
         "delete": "Rimuovi",
         "edit": "Configurazione",
         "tag_rules": {
-            "tag_on_left": "Tagga se un cliente esce da questa Smartlist",
+            "tag_on_left": "Tagga se un membro esce da questa Smartlist",
             "tag_on_join_and_untag_on_left": "Aggiungere un Tag se presente nella smartlist",
             "tag_group": "Nome del gruppo",
             "type_of_rule": "Tipo di regola",
@@ -12862,7 +12862,7 @@
             "activeSince": "Attivo dal {{ since }}",
             "tag": "Tag",
             "asyncDialog": {
-                "message": "Tutti i tag dei clienti in questa Smartlist verranno aggiornati.",
+                "message": "Tutti i tag dei membri di questa Smartlist verranno aggiornati.",
                 "title": "Aggiornamenti alle regole dei tag "
             }
         },
@@ -14313,7 +14313,8 @@
                     "emailValidation": "Convalida dell'e-mail: Eseguire l'azione amministrativa per convalidare l'indirizzo e-mail del cliente.",
                     "upsell": "Upsells: Aggiungere alla piattaforma tutti gli upsell applicabili.",
                     "billing": "Fatturazione della piattaforma: Creare la configurazione di fatturazione per il nuovo backoffice.",
-                    "core": "La nuova piattaforma di backoffice è stata creata con successo. Tuttavia, prima di inviare le credenziali di accesso al cliente, assicuratevi di aver completato i seguenti passaggi di convalida della documentazione interna:"
+                    "core": "La nuova piattaforma di backoffice è stata creata con successo. Tuttavia, prima di inviare le credenziali di accesso al cliente, assicuratevi di aver completato i seguenti passaggi di convalida della documentazione interna:",
+                    "contactAccountManager": "Convalida dell'account in corso. Se sei un manager di studio, contatta il tuo contatto bsport per attivare il tuo Back Office."
                 }
             }
         },

@@ -46,7 +46,9 @@ exports.default = {
         maxReferringNumber: {
           label: "Max. use per member",
           errors: {
-            notValid: "Please provide a valid number",
+            tooSmall: "You must allow at least 1 referral",
+            tooBig: "You cannot give more than 5 referrals",
+            noFloat: "You can only use whole numbers",
           },
         },
       },

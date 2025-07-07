@@ -2,13 +2,13 @@ import {
   Avatar,
   Body,
   Button,
+  CopyToClipboard,
   type GenericTableColumn,
   Tooltip,
 } from "@bsport/kaizen-primitive-core";
 
 import type { TFunction } from "#src/utils/i18n";
 
-import { CopyToClipboardButton } from "./CopyToClipboardButton";
 import type { TableColumnsParams, TableRowData } from "./types";
 
 type TableColumn = GenericTableColumn<TableRowData>;
@@ -55,9 +55,13 @@ export const getTableColumns = ({
     id: "column-email",
     type: "custom",
     render: (row) => (
-      <CopyToClipboardButton
-        data={row.email}
+      <CopyToClipboard
+        value={row.email}
         toastMessage={t("memberTable.actions.copiedToClipboard")}
+        tooltip={t("memberTable.tooltips.clickToCopy")}
+        size="lg"
+        color="default"
+        intent="flat"
       />
     ),
     align: "center",

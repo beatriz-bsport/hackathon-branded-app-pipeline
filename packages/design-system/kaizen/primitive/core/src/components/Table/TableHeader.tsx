@@ -3,8 +3,8 @@ import React, { useMemo } from "react";
 import Body from "#src/components/Body";
 import Checkbox from "#src/components/Checkbox";
 
-import type { BaseRow, Column } from "./Table";
 import TableCell from "./TableCell";
+import type { BaseRow, Column } from "./types";
 
 type TableHeaderProps<RowType extends BaseRow> = {
   columns: Column<RowType>[];

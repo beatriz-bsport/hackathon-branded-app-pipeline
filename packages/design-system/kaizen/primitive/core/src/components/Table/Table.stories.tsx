@@ -5,8 +5,8 @@ import AvatarImage from "#src/components/Avatar/assets/avatar.jpeg";
 import Button from "#src/components/Button";
 import Chip from "#src/components/Chip";
 
-import type { BaseRow, Column } from "./Table";
 import Table from "./Table";
+import type { BaseRow, Column } from "./types";
 
 /**
  * The Table component is used to render a flexible, customizable data table that displays rows and columns of information.<br>
@@ -98,7 +98,9 @@ const columns: Column<DataRow>[] = [
     id: "name",
     keyPath: "name",
     header: "Name",
-    type: "string",
+    type: "copy",
+    tooltip: "Copy the name to clipboard",
+    toastMessage: "Name copied!",
   },
   {
     id: "registeredDate",

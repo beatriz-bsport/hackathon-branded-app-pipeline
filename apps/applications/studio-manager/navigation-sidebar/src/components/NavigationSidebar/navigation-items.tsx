@@ -63,6 +63,12 @@ export const useNavigationElements = ({
           type: "divider",
         },
         {
+          icon: "bar-line-chart",
+          id: "dashboard",
+          label: t("menus.dashboard"),
+          ...navigationUrls.dashboard,
+        },
+        {
           icon: "calendar",
           id: "calendar",
           label: t("menus.calendar"),
@@ -117,6 +123,11 @@ export const useNavigationElements = ({
               id: "passes",
               label: t("menus.memberships.passes"),
               ...navigationUrls.pass,
+            },
+            {
+              id: "appointment-passes",
+              label: t("menus.memberships.appointmentPasses"),
+              ...navigationUrls.appointmentPass,
             },
             {
               id: "subscriptions",
@@ -194,12 +205,6 @@ export const useNavigationElements = ({
         },
         {
           type: "divider",
-        },
-        {
-          icon: "bar-line-chart",
-          id: "dashboard",
-          label: t("menus.dashboard"),
-          ...navigationUrls.dashboard,
         },
         {
           icon: "bar-chart-10",

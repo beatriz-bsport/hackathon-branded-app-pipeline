@@ -1,0 +1,1 @@
+export const BASKET_MINIMAL_AMOUNT_DEFAULT = "0.00";

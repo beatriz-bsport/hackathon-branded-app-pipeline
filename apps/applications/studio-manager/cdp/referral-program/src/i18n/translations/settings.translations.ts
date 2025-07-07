@@ -29,9 +29,14 @@ exports.default = {
       chip: "Active",
     },
     form: {
-      minimumBasketAmount: {
+      basketMinimalAmount: {
         label: "Minimum value of shopping cart",
         helper: "Amount to be eligible for the referral discount",
+        errors: {
+          tooManyDecimalPoints:
+            "The amount cannot have more than 2 decimal points",
+          invalidFormat: "The amount format is not valid",
+        },
       },
       referringReward: {
         title: "Reward for referring a member",

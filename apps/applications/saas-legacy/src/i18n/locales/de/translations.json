@@ -2985,7 +2985,7 @@
             "activeSince": "Aktiv seit {{ since }}",
             "tag": "Tag",
             "asyncDialog": {
-                "message": "Alle Tags für Kunden in dieser Smartlist werden aktualisiert.",
+                "message": "Alle Tags für Mitglieder in dieser Smartlist werden aktualisiert.",
                 "title": "Aktualisierungen der Tag-Regeln "
             }
         },
@@ -12724,7 +12724,7 @@
                 "form": {
                     "subtitles": {
                         "create": {
-                            "leftSmartList": "Automatisierte Nachricht für Kunden erstellen, die diese Smartlist verlassen.",
+                            "leftSmartList": "Automatisierte Nachricht für Mitglieder erstellen, die diese Smartlist verlassen.",
                             "joinSmartList": "Automatische Nachricht für Mitglieder, die dieser Smartlist beitreten hinzufügen."
                         },
                         "update": {
@@ -16089,7 +16089,8 @@
                     "emailValidation": "Email-Validierung: Führe die administrative Maßnahme zur Bestätigung der Email-Adresse durch.",
                     "upsell": "Upsells: Füge alle entsprechenden Upsells zur Plattform hinzu.",
                     "billing": "Plattform-Abrechnung: Erstelle das Abrechnungs-Setup für das neue Backoffice.",
-                    "core": "Die neue Backoffice-Plattform wurde erfolgreich erstellt.\nBevor die Zugangsdaten an den Kunden gesendet werden, stelle bitte sicher, dass die folgenden Validierungsschritte gemäß der internen Dokumentation abgeschlossen sind:"
+                    "core": "Die neue Backoffice-Plattform wurde erfolgreich erstellt.\nBevor die Zugangsdaten an den Kunden gesendet werden, stelle bitte sicher, dass die folgenden Validierungsschritte gemäß der internen Dokumentation abgeschlossen sind:",
+                    "contactAccountManager": "Die Bestätigung des Accounts steht noch aus. Wenn du Studio-Manager bist, kontaktiere bitte deine bsport Kontaktperson, um dein Backoffice zu aktivieren."
                 }
             }
         },

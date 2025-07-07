@@ -3259,7 +3259,8 @@
                     "emailValidation": "E-mail validatie: Voer de administratieve actie uit om het e-mailadres van de klant te valideren.",
                     "upsell": "Upsells: Voeg eventuele upsells toe aan het platform.",
                     "billing": "Platform Facturering: Doe de factureringsinstellingen voor de nieuwe backoffice.",
-                    "core": "Het nieuwe backoffice-platform is met succes aangemaakt. Voordat je de toegangsgegevens van de klant verstuurt, moet je er voor zorgen dat de volgende validatiestappen uit de interne documentatie zijn voltooid:"
+                    "core": "Het nieuwe backoffice-platform is met succes aangemaakt. Voordat je de toegangsgegevens van de klant verstuurt, moet je er voor zorgen dat de volgende validatiestappen uit de interne documentatie zijn voltooid:",
+                    "contactAccountManager": "Accountvalidatie in behandeling. Als u een Studio Manager bent, neem dan contact op met uw bsport-contactpersoon om uw backoffice te activeren."
                 }
             }
         },
@@ -5861,7 +5862,7 @@
             },
             "22": {
                 "name": "Aantal reserveringen",
-                "explanation": "Klanten segmenteren op basis van hoeveel lessen ze hebben geboekt, in welke ruimte, bij welke docent, gekocht met welke pas",
+                "explanation": "Segmenteer leden op het totale aantal sessies dat ze hebben geboekt voor activiteit A, in vestiging B, gekocht met pas C",
                 "first": "Reserveerde",
                 "second": "sessies",
                 "activity": {
@@ -5954,7 +5955,7 @@
                 "between": "en",
                 "second": "afspraken gereserveerd",
                 "first": "Gereserveerd",
-                "explanation": "Segmenteer klanten op basis van hoeveel afspraken ze hebben geboekt, in welke ruimte, door welke docent, gekocht met welke pas",
+                "explanation": "Segmenteer leden op hoeveel afspraken ze hebben geboekt in vestiging A, bij leraar B, gekocht bij pas C",
                 "name": "Aantal afspraken",
                 "private_service": {
                     "first": "Afspraken:"

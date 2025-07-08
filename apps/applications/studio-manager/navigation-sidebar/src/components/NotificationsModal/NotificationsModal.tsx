@@ -1,6 +1,12 @@
 import React, { useState } from "react";
 
-import { Modal, Tabs } from "@bsport/kaizen-primitive-core";
+import {
+  Body,
+  Illustration,
+  Modal,
+  Tabs,
+  Title,
+} from "@bsport/kaizen-primitive-core";
 
 import { useTranslation } from "#src/utils/i18n";
 
@@ -10,20 +16,23 @@ import type {
   NotificationsModalProps,
   TabConfiguration,
 } from "./types";
-import { useTabConfigurations } from "./use-tab-configurations";
+import { useNotificationTabs } from "./use-notification-tabs";
 
 export const NotificationsModal: React.FC<NotificationsModalProps> = ({
   isOpen,
   onClose,
 }) => {
   const { t } = useTranslation("default");
-  const [activeTab, setActiveTab] = useState<NotificationTab>("billing");
-  const tabConfigurations = useTabConfigurations();
+  const { availableTabs: tabs, tabConfigurations } = useNotificationTabs();
 
-  const tabs = Object.values(tabConfigurations).map((config) => ({
-    id: config.id,
-    label: config.label,
-  }));
+  const defaultTab =
+    tabs.length > 0 ? (tabs[0].id as NotificationTab) : "billing";
+  const [activeTab, setActiveTab] = useState<NotificationTab>(defaultTab);
+
+  const onModalClose = () => {
+    onClose();
+    setActiveTab(defaultTab);
+  };
 
   const activeConfig = tabConfigurations[
     activeTab
@@ -33,18 +42,32 @@ export const NotificationsModal: React.FC<NotificationsModalProps> = ({
     <Modal
       title={t("notifications.title")}
       open={isOpen}
-      onClose={onClose}
+      onClose={onModalClose}
       size="lg"
     >
-      <Tabs
-        orientation="horizontal"
-        value={activeTab}
-        onValueChange={(value) => setActiveTab(value as NotificationTab)}
-        tabs={tabs}
-      />
-      <div className="mt-4 min-h-[480px]">
-        {activeConfig && <GenericNotificationTab config={activeConfig} />}
-      </div>
+      {tabs.length > 0 ? (
+        <>
+          <Tabs
+            orientation="horizontal"
+            value={activeTab}
+            onValueChange={(value) => setActiveTab(value as NotificationTab)}
+            tabs={tabs}
+          />
+          <div className="mt-4 min-h-[480px]">
+            <GenericNotificationTab config={activeConfig} />
+          </div>
+        </>
+      ) : (
+        <div className="mt-4 min-h-[480px] flex flex-col gap-4 items-center justify-center text-center p-8">
+          <Illustration name="empty" size="xl" />
+          <Title htmlVariant="h3" weight="stronger" color="weak">
+            {t("notifications.empty.title")}
+          </Title>
+          <Body variant="body-medium" color="weak" className=" max-w-sm">
+            {t("notifications.empty.description")}
+          </Body>
+        </div>
+      )}
     </Modal>
   );
 };

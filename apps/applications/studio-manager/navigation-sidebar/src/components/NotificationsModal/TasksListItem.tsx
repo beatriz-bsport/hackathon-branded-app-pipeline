@@ -5,13 +5,13 @@ import { Body } from "@bsport/kaizen-primitive-core";
 import { LEGACY_URLS } from "#src/urls";
 import { useDateFormatter } from "#src/utils/use-date-formatter";
 
-interface TasksListItemProps {
+export type TasksListItemProps = {
   id: string;
   title: string;
   description: string;
   memberName: string;
   dateDue: string;
-}
+};
 
 const TasksListItem: FC<TasksListItemProps> = ({
   id,

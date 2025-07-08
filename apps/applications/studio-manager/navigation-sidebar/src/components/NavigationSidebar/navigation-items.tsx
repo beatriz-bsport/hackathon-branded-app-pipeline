@@ -5,6 +5,11 @@ import type {
   NavigationMenuGroup,
   NavigationMenuItem,
 } from "@bsport/kaizen-primitive-core";
+import { Indicator } from "@bsport/kaizen-primitive-core";
+import {
+  selectAllAlertsCount,
+  useAlertingStore,
+} from "@bsport/store-staff-management-alerting";
 
 import { useTranslation } from "#src/utils/i18n";
 
@@ -41,6 +46,8 @@ export const useNavigationElements = ({
 }) => {
   const { t } = useTranslation("default");
 
+  const totalAlertsCount = useAlertingStore(selectAllAlertsCount);
+
   const navigationItems: Record<MenuSet, NavigationElement[]> = useMemo(() => {
     return {
       default: [
@@ -58,6 +65,15 @@ export const useNavigationElements = ({
           id: "notifications",
           label: t("menus.notifications"),
           onClick: handleOpenNotificationsModal,
+          endSlot:
+            totalAlertsCount > 0 ? (
+              <Indicator
+                color="critical"
+                position="top"
+                size="sm"
+                value={totalAlertsCount}
+              />
+            ) : undefined,
         },
         {
           type: "divider",
@@ -403,6 +419,7 @@ export const useNavigationElements = ({
     handleOpenNotificationsModal,
     navigationUrls,
     t,
+    totalAlertsCount,
   ]);
 
   return navigationItems[menuSet];

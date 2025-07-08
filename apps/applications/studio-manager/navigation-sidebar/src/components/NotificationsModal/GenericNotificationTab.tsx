@@ -1,11 +1,9 @@
 import { type FC } from "react";
 
 import { List } from "@bsport/kaizen-primitive-core";
-import { dataAccessLayer } from "@bsport/sm-backbone";
 
 import { useFetchAlertsByKind } from "#src/api/use-alerts";
 
-import { DEFAULT_CURRENCY_DISPLAY } from "./constants";
 import type { GenericNotificationTabProps } from "./types";
 import { usePagination } from "./use-pagination";
 
@@ -20,22 +18,7 @@ export const GenericNotificationTab: FC<GenericNotificationTabProps> = ({
     pageSize,
   });
 
-  const companyTheme = dataAccessLayer.useCompanyTheme();
-  const currencySymbol =
-    companyTheme?.currency_display || DEFAULT_CURRENCY_DISPLAY;
-
-  const listItems = alerts.map((alert, index) => {
-    const transformedItem = config.transformData(alert, index);
-
-    if (config.requiresCurrency && transformedItem) {
-      return {
-        ...transformedItem,
-        currencySymbol,
-      };
-    }
-
-    return transformedItem;
-  });
+  const listItems = alerts.map(config.transformData);
 
   return (
     <List

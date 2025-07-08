@@ -1,28 +1,20 @@
-import type {
-  CustomForm,
-  CustomFormStatistics,
-} from "@bsport/store-cdp-custom-form";
+import type { CustomForm } from "@bsport/store-cdp-custom-form";
 
 import type { CustomFormTableRowData } from "#src/components/columns";
+import { LEGACY_URLS } from "#src/urls";
 
 export const getCustomFormTableColumns = ({
   customForms,
-  statistics,
 }: {
   customForms: CustomForm[];
-  statistics: CustomFormStatistics[];
 }): CustomFormTableRowData[] => {
   if (customForms) {
     return customForms.filter(Boolean).map((form) => {
-      const statistic = statistics
-        .filter(Boolean)
-        .find((stat) => stat.id === form.id);
       return {
         id: form.id,
         name: form.name,
-        answers: statistic?.detail_by_member
-          ? Object.values(statistic.detail_by_member).length
-          : 0,
+        questions: form?.custom_form_field?.length ?? 0,
+        link: LEGACY_URLS.FORM_DETAILS(form.id),
       };
     });
   }

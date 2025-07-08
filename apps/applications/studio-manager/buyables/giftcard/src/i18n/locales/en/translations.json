@@ -1,25 +1,25 @@
 {
     "common": {
         "pages": {
-            "list": "Gift cards",
-            "archivedList": "Archived gift cards"
+            "list": "Gift Cards",
+            "archivedList": "Archived Gift Cards"
         },
         "listPage": {
             "header": {
                 "buttons": {
-                    "addGiftcard": "Add gift card",
-                    "openBankImage": "Gift card image bank"
+                    "addGiftcard": "Add Gift Card",
+                    "openBankImage": "Gift Card image bank"
                 }
             },
             "empty": {
-                "title": "No gift cards yet",
-                "subtitle": "Create gift cards and let your members gift it to their loved ones"
+                "title": "No Gift Cards yet",
+                "subtitle": "Create Gift Cards and let your members gift it to their loved ones"
             },
             "archiveModal": {
-                "title": "Archive gift card",
+                "title": "Archive Gift Card ?",
                 "description": {
-                    "action": "Do you want to archive '{{ name }}' ?",
-                    "effect": "Members that previously purchased it will still be able to use it. You can unarchive this gift card at any time."
+                    "lineOne": "If you archive '{{ name }}', current or previous purchases won't be affected",
+                    "lineTwo": "You can restore this Gift Card at any time."
                 },
                 "buttons": {
                     "cancel": "Cancel",
@@ -27,10 +27,9 @@
                 }
             },
             "duplicateModal": {
-                "title": "Duplicate gift card",
+                "title": "Duplicate Gift Card ?",
                 "description": {
-                    "action": "Do you want to duplicate '{{ name }}' ?",
-                    "effect": "You can edit the gift card details afterwards."
+                    "action": "You'll be able to edit '{{ name }}' afterwards."
                 },
                 "buttons": {
                     "cancel": "Cancel",
@@ -40,19 +39,23 @@
         },
         "archivedListPage": {
             "empty": {
-                "title": "No archived gift cards"
+                "title": "No archived Gift Cards"
             }
         },
         "toasts": {
             "successMessages": {
-                "unarchive": "'{{ name }}' has been unarchived",
-                "archive": "'{{ name }}' has been archived",
-                "duplicate": "'{{ name }}' has been duplicated"
+                "restoreGiftcard": "Gift Card restored",
+                "archiveGiftcard": "Gift Card archived",
+                "duplicateGiftcard": "Gift Card duplicated",
+                "deleteGiftcardImage": "Gift Card image deleted",
+                "undoAction": "Action undone"
             },
             "errorMessages": {
-                "unarchive": "Failed to unarchive '{{ name }}'",
-                "archive": "Failed to archive '{{ name }}'",
-                "duplicate": "Failed to duplicate '{{ name }}'"
+                "restoreGiftcard": "Failed to restore Gift Card",
+                "archiveGiftcard": "Failed to archive Gift Card",
+                "duplicateGiftcard": "Failed to duplicate Gift Card",
+                "undoAction": "Failed to undo action",
+                "deleteGiftcardImage": "Failed to delete Gift Card image"
             },
             "actions": {
                 "undo": "Undo",
@@ -73,44 +76,34 @@
                 "expireInXDays": "{{ expiration }} days"
             },
             "tooltips": {
-                "archive": "Archive gift card",
-                "duplicate": "Duplicate gift card",
-                "restore": "Unarchive gift card",
+                "archive": "Archive Gift Card",
+                "duplicate": "Duplicate Gift Card",
+                "restore": "Restore Gift Card",
                 "shared": "Item created by master account",
                 "unavailable": "Cannot be purchased on marketplace"
             },
-            "loading": "Loading giftcards"
+            "loading": "Loading Gift Cards"
+        },
+        "imageUploadModal": {
+            "title": "Gift Card image bank",
+            "description": "Add custom images to allow your members to make their Gift Cards more personal. During the creation of the Gift Card, members will be able to choose a background image.",
+            "selectImage": "Select an image to preview Gift Card design",
+            "emptyList": "No custom images yet"
         }
     },
     "imageUpload": {
         "giftcardPreview": {
             "placeholders": {
-                "amount": "[Amount of the gift card]",
+                "amount": "[Amount of the Gift Card]",
                 "buyer": "[Buyer's name]",
                 "message": "[Custom message]",
-                "name": "[Gift card name]",
+                "name": "[Gift Card name]",
                 "recipient": "[Recipient's name]"
             },
             "hints": {
                 "amount": "Value",
                 "buyer": "From",
                 "recipient": "For the attention of"
-            }
-        },
-        "selectImage": "Select an image to preview gift card design",
-        "emptyList": "No custom images yet",
-        "modal": {
-            "title": "Gift card image bank",
-            "description": "Add custom images to allow your members to make their gift cards more personal. During the creation of the gift card, members will be able to choose a background image."
-        },
-        "toasts": {
-            "actions": {
-                "undo": "Undo",
-                "close": "Close"
-            },
-            "archiveMessage": {
-                "success": "Your image was deleted",
-                "error": "Failed to delete your image"
             }
         }
     }

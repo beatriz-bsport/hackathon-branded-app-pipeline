@@ -1,7 +1,4 @@
 import React from 'react';
-import clsx from 'clsx';
-
-import { useShowRevampedSidebar } from './useShowRevampedSidebar';
 import { Navigation } from './Navigation';
 import type { BackofficeDrawerContentProps } from '#src/components/navigation/BackofficeDrawer/BackofficeDrawerContent';
 import Hidden from '@material-ui/core/Hidden';
@@ -15,7 +12,7 @@ const COMPATIBILITY_Z_INDEX = 990;
 
 /**
  * HOC that switches between the new NavigationSidebar layout and the legacy BackofficeDrawer
- * depending on the value of useShowRevampedSidebar().
+ * depending on the value of props.showRevampedSidebar.
  * IMPORTANT: This HOC should be used only for the BackofficeDrawer component.
  *
  * Usage:
@@ -25,18 +22,15 @@ export function withNavigationSwitcher(
   WrappedComponent: React.ComponentType<BackofficeDrawerContentProps>,
 ) {
   const SidebarSwitcher: React.FC<BackofficeDrawerContentProps> = (props) => {
-    const showRevamped = useShowRevampedSidebar();
-
-    if (showRevamped) {
+    if (props.showRevampedSidebar) {
       // Render new sidebar layout
       return (
         <>
           <Hidden smDown>
             <Navigation
-              className={clsx(
-                props.classes.drawerPaper,
-                props.classes.toTheLeft,
-              )}
+              updateRevampedBackofficeEnabled={
+                props.updateRevampedBackofficeEnabled
+              }
             />
           </Hidden>
           <Hidden mdUp>
@@ -50,7 +44,11 @@ export function withNavigationSwitcher(
               onClose={props.handleDrawerToggle}
               open={props.mobileOpen}
             >
-              <Navigation />
+              <Navigation
+                updateRevampedBackofficeEnabled={
+                  props.updateRevampedBackofficeEnabled
+                }
+              />
             </Drawer>
           </Hidden>
         </>

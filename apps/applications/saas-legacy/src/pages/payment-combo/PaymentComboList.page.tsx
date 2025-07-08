@@ -1,6 +1,6 @@
 import React from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
-import { compose, withState, withProps, withHandlers } from 'recompose';
+import { compose, withState, withHandlers } from 'recompose';
 import { connect, ConnectedProps } from 'react-redux';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import type { TFunction } from 'i18next';
@@ -38,7 +38,9 @@ import {
   WithObjectSearch,
 } from '#src/libs/fuzzy-search/components/ObjectSearch.hoc';
 import ModalConfirm from '#src/components/ModalConfirm.component';
-
+// @ts-expect-error Could not find JS file
+import withQueryParams from '#src/hocs/with-query-params.hoc';
+import type { WithHandlerType } from '#src/utils/types';
 // @ts-expect-error
 import PaymentComboFormDrawerContainer from './PaymentComboFormDrawer.container';
 import BottomActionButtons from '../../components/button/BottomActionsButton.component';
@@ -51,10 +53,9 @@ import themeSelectors from '../../libs/theme/selectors';
 
 type OwnProps = {
   t: TFunction;
-
-  openCreateOrUpdateForm: (arg?: PaymentCombo) => void;
-  openForm: boolean;
-  setOpenForm: (arg: boolean) => void;
+  queryParams?: {
+    openForm?: string;
+  };
   comboInitialData?: PaymentCombo;
   paymentComboIdToDelete: number | null;
   setPaymentComboIdToDelete: (arg: number | null) => void;
@@ -64,6 +65,7 @@ type Props = OwnProps &
   MaterialStyleType<ReturnType<typeof styles>> &
   WithTranslation &
   ConnectedProps<typeof connector> &
+  WithHandlerType<typeof mapWithHandlers> &
   WithObjectSearch;
 
 type PaymentComboOption = {
@@ -96,16 +98,23 @@ export class PaymentComboListPage extends React.Component<Props> {
 
   handleCancelDelete = () => this.props.setPaymentComboIdToDelete(null);
 
-  deletePaymentCombo = () =>
-    this.props.deletePaymentCombo(this.props.paymentComboIdToDelete, {
-      onSuccess: () => {
-        this.props.setPaymentComboIdToDelete(null);
-        this.props.refreshOptions(
-          'payment_combo',
-          this.searchBarAdditionalParams,
-        );
-      },
-    });
+  deletePaymentCombo = () => {
+    const paymentComboIdToDelete = this.props.paymentComboIdToDelete;
+    if (
+      paymentComboIdToDelete !== null &&
+      paymentComboIdToDelete !== undefined
+    ) {
+      this.props.deletePaymentCombo(paymentComboIdToDelete, {
+        onSuccess: () => {
+          this.props.setPaymentComboIdToDelete(null);
+          this.props.refreshOptions(
+            'payment_combo',
+            this.searchBarAdditionalParams,
+          );
+        },
+      });
+    }
+  };
 
   createOrUpdate = (values: any, options: OptionCallback) =>
     this.props.createOrUpdatePaymentCombo(values, {
@@ -115,7 +124,7 @@ export class PaymentComboListPage extends React.Component<Props> {
           'payment_combo',
           this.searchBarAdditionalParams,
         );
-        this.props.setOpenForm(false);
+        this.props.closeCreateOrUpdateForm();
         this.props.fetchPaymentComboList();
       },
       onError: (...args) => {
@@ -144,21 +153,27 @@ export class PaymentComboListPage extends React.Component<Props> {
       loading,
       paymentComboListAvailableOnline,
       paymentComboListUnavailableOnline,
+      queryParams,
       openCreateOrUpdateForm,
+      closeCreateOrUpdateForm,
+      goToPaymentCombo,
+      comboInitialData,
       bookkeepingAccountById,
       bookkeepingAccounts,
     } = this.props;
 
+    const openForm = !!queryParams?.openForm;
+
     return (
       <div className={classes.container}>
         {loading ? <LinearProgress /> : null}
-        {this.props.paymentComboListUnavailableOnline.length === 0 &&
-        this.props.paymentComboListAvailableOnline.length === 0 &&
+        {paymentComboListUnavailableOnline.length === 0 &&
+        paymentComboListAvailableOnline.length === 0 &&
         !loading ? (
           <IsEmptyList
-            button={this.props.t('list.buttons.add')}
-            onCreate={() => openCreateOrUpdateForm(null)}
-            text={this.props.t('list.explainIfEmpty')}
+            button={t('list.buttons.add')}
+            onCreate={() => openCreateOrUpdateForm(undefined)}
+            text={t('list.explainIfEmpty')}
           />
         ) : (
           <div className={classes.search}>
@@ -168,7 +183,7 @@ export class PaymentComboListPage extends React.Component<Props> {
                 Option,
               }}
               optionsFormatter={this.paymentCombosOptionsFormatter}
-              placeholder={this.props.t('search')}
+              placeholder={t('search')}
               searchedObjectType="payment_combo"
               variant="underlined"
             />
@@ -176,24 +191,24 @@ export class PaymentComboListPage extends React.Component<Props> {
         )}
         <PaymentComboList
           loading={loading}
-          onClickPaymentCombo={this.props.goToPaymentCombo}
+          onClickPaymentCombo={goToPaymentCombo}
           onDelete={this.handleOnDeletePaymentCombo}
           onEdit={openCreateOrUpdateForm}
           paymentComboListAvailableOnline={paymentComboListAvailableOnline}
           paymentComboListUnavailableOnline={paymentComboListUnavailableOnline}
         />
         <BottomActionButtons
-          onCreate={() => openCreateOrUpdateForm(null)}
+          onCreate={() => openCreateOrUpdateForm(undefined)}
           onCreateLabel={t('list.buttons.add')}
         />
-        {this.props.openForm ? (
+        {openForm ? (
           <PaymentComboFormDrawerContainer
             bookkeepingAccountById={bookkeepingAccountById}
             bookkeepingAccounts={bookkeepingAccounts}
-            handleClose={() => this.props.setOpenForm(false)}
-            initial={this.props.comboInitialData}
+            handleClose={closeCreateOrUpdateForm}
+            initial={comboInitialData}
             onSubmit={this.createOrUpdate}
-            open={this.props.openForm}
+            open={openForm}
             provincialTax={this.props.theme?.provincial_tax_value}
             tagList={this.props.allTagsWithTagGroup}
           />
@@ -270,25 +285,41 @@ const connector = connect(
   },
 );
 
+type SetQueryParams = (queryKey: 'openForm') => (nextValue: string) => void;
+
+const mapWithHandlers = {
+  fetchBookkeepingAccountList:
+    ({ fetchBookkeepingAccountList }: ConnectedProps<typeof connector>) =>
+    () =>
+      fetchBookkeepingAccountList({ is_active: true }),
+  openCreateOrUpdateForm:
+    ({
+      setComboInitialData,
+      setQueryParams,
+    }: {
+      setQueryParams: SetQueryParams;
+      setComboInitialData: (initialData?: PaymentCombo | null) => void;
+    }) =>
+    (paymentCombo?: PaymentCombo) => {
+      setComboInitialData(paymentCombo);
+      setQueryParams('openForm')('true');
+    },
+  closeCreateOrUpdateForm:
+    ({ setQueryParams }: { setQueryParams: SetQueryParams }) =>
+    () => {
+      setQueryParams('openForm')('');
+    },
+};
+
 export default compose<any, Props>(
   withTranslation(['paymentCombo']),
   // @ts-expect-error
   withStyles(styles),
   connector,
-  withHandlers({
-    fetchBookkeepingAccountList:
-      ({ fetchBookkeepingAccountList }) =>
-      () =>
-        fetchBookkeepingAccountList({ is_active: true }),
-  }),
-  withState('openForm', 'setOpenForm', false),
   withState('comboInitialData', 'setComboInitialData', null),
   withState('paymentComboIdToDelete', 'setPaymentComboIdToDelete', null),
+  withQueryParams([['openForm'], 'queryParams', 'setQueryParams']),
   withObjectSearch,
-  withProps(({ setComboInitialData, setOpenForm }) => ({
-    openCreateOrUpdateForm: (paymentCombo?: PaymentCombo) => {
-      setComboInitialData(paymentCombo);
-      setOpenForm(true);
-    },
-  })),
+  // @ts-expect-error Can not type withState and withQueryParams stuff
+  withHandlers(mapWithHandlers),
 )(PaymentComboListPage);

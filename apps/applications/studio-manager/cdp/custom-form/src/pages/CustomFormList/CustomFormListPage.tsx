@@ -18,7 +18,6 @@ const CustomFormListPage: React.FC = () => {
     useFilterCustomForms();
   const {
     customForms,
-    customFormStatistics,
     isLoading,
     isEmpty,
     isEmptySearch,
@@ -35,9 +34,8 @@ const CustomFormListPage: React.FC = () => {
     () =>
       getCustomFormTableColumns({
         customForms,
-        statistics: customFormStatistics,
       }),
-    [customForms, customFormStatistics],
+    [customForms],
   );
 
   const handleOpenCreateFormModal = () => {

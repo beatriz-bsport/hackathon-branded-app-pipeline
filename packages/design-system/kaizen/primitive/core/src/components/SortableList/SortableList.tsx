@@ -108,7 +108,7 @@ const SortableList: React.FC<SortableListProps> = ({
     <div
       className={classNames(
         {
-          "outline outline-2 outline-stroke-action-main-selected": draggedItem,
+          "border-stroke-regular border-onsurface-main-weak": draggedItem,
         },
         className,
       )}

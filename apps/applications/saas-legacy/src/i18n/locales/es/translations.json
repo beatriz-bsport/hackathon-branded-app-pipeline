@@ -28,9 +28,9 @@
                 "autoDiscard": {
                     "hours_before_start": "Hora(s) antes de la sesión :",
                     "min_bookings_nb": "Número de reserva(s):",
-                    "emailRecipients": "Este correo se enviará a las cuentas con el papel de Propietario o Administrador, así como al profesor (o sustituto) de la sesión en cuestión. También puedes configurar un correo electrónico para enviarlo a los estudiantes.",
-                    "explain": "Cancele la sesión y envíe una notificación por correo a los estudiantes si hay ≤ {{bookings_nb}} reserva(s) o menos {{hours}}h antes del comienzo de la sesión.",
-                    "checkbox": "Cancelar sesiones con muy pocas reservas"
+                    "emailRecipients": "Si una clase se cancela automáticamente, se enviará un correo electrónico al Propietario, al Administrador y al profesor de la clase, así como a los alumnos.",
+                    "explain": "Las clases con {{bookings_nb}} reserva(s) o menos se cancelan {{hours}} hora(s) antes de su comienzo. Se notificará a los socios que se ha cancelado la clase.",
+                    "checkbox": "Cancelar automáticamente las clases no reservadas"
                 }
             },
             "update": {
@@ -892,18 +892,18 @@
             "reviews": "Opinión clientes: ",
             "explainImage": "Recomendado: 1920x1080 jpeg (fullHD)",
             "color": "Código de colores",
-            "firstBookingMinutesUntil": "Se pueden reservar sesiones futuras si empiezan en menos de ",
+            "firstBookingMinutesUntil": "Elija cuánto tiempo antes de la sesión se abre el plazo de reserva",
             "is_broadcast": "Curso streaming en vivo",
             "altCoverMain": "Descripción de la imagen para los discapacitados visuales",
             "autoDiscard": "Cancelación automática",
-            "generalInfo": "Informaciones generales",
+            "generalInfo": "Información general",
             "firstMinutesBookingUntilWarning": "Un valor de cero significa que no se establece ninguna limitación. Las reservas estarán siempre abiertas para las sesiones de esta actividad."
         },
         "workshopActivity": {
             "addWorkshopActivity": "Añadir un taller",
             "imageUploaderRequireEditMessage": "Una vez tu actividad creada, puedes añadir más fotografías.",
-            "lastBookingBeforeMinutes": "Antes del inicio de la actividad, última reserva posible",
-            "lastDiscardBeforeMinutes": "Antes del inicio de la actividad, última cancelación posible",
+            "lastBookingBeforeMinutes": "Elija cuánto tiempo antes de la sesión se cierra el plazo de reserva",
+            "lastDiscardBeforeMinutes": "Decide cuánto tiempo antes de la actividad los miembros pueden cancelar gratuitamente",
             "forms": {
                 "create": {
                     "success": "Taller guardado",
@@ -1203,7 +1203,7 @@
         "quickInvoiceNoVoucher": "Deja el valor de este campo en 0 si no deseas aplicar un descuento",
         "quickInvoiceVoucher": "Elige el descuento para aplicar al facturar el próximo pase",
         "metaActivityCategory": {
-            "sctExplain": "Estas categorías indican el tipo de actividad. Aparecerán en el marketplace y en la aplicación.",
+            "sctExplain": "Elija la categoría en la que se mostrará esta actividad en el marketplace y en la aplicación móvil.",
             "explain": "Estas categorías sólo sirven para ordenar las actividades en el back office como usted desee. No tienen impacto en el lado del cliente"
         },
         "restrictions": {
@@ -1215,13 +1215,13 @@
             "back": "Anterior",
             "next": "Siguiente",
             "personnalizedRestrictionsIndex": "Restricción personalizada n°{{ count }}",
-            "add": "Añadir diferentes reglas ({{ count }}/{{ max }})",
-            "personnalizedHelper": "Indicar diferentes restricciones para ciertos miembros utilizando etiquetas. Los miembros con una de las etiquetas seleccionadas tendrán diferentes restricciones que los demás.",
-            "personnalizedHeader": "Restricciones personalizadas",
+            "add": "Crear regla personalizada",
+            "personnalizedHelper": "Establezca reglas personalizadas basadas en etiquetas para adaptar la configuración a cada segmento.",
+            "personnalizedHeader": "Condiciones personalizadas",
             "firstBookingMinutesUntil": "Abrir las reservas",
-            "lastDiscardBeforeMinutes": "Última cancelación",
-            "lastBookingBeforeMinutes": "Última reserva",
-            "header": "Restricciones"
+            "lastDiscardBeforeMinutes": "Política de cancelación tardía",
+            "lastBookingBeforeMinutes": "Cuando se cierre el plazo de reserva",
+            "header": "Condiciones"
         }
     },
     "search": {
@@ -1865,7 +1865,8 @@
                     "emailValidation": "Validación de email: Realiza la acción administrativa para validar la dirección de correo electrónico del cliente.",
                     "upsell": "Funcionalidades adicionales: Añade cualquier producto adicional a la plataforma.",
                     "billing": "Plataforma de facturación: Cree la configuración de facturación para el nuevo backoffice.",
-                    "core": "La nueva plataforma de backoffice se ha creado correctamente. Sin embargo, antes de enviar las credenciales de acceso del cliente, asegúrese de completar los siguientes pasos de validación de la documentación interna:"
+                    "core": "La nueva plataforma de backoffice se ha creado correctamente. Sin embargo, antes de enviar las credenciales de acceso del cliente, asegúrese de completar los siguientes pasos de validación de la documentación interna:",
+                    "contactAccountManager": "Validación de cuenta pendiente. Si eres gestor de un estudio, ponte en contacto con tu contacto de bsport para activar tu backoffice."
                 }
             }
         },
@@ -10921,14 +10922,14 @@
                         "onJoin": "Al entrar",
                         "onLeft": "Al salir"
                     },
-                    "add": "Añadir",
+                    "add": "Añadir un mensaje",
                     "title": "Regla de envío automático"
                 },
                 "form": {
                     "frequenceHelper": "Esta comunicación se enviará para {{ max }} {{ event_kind }} de la smartlist para cada miembro. Después de {{ max }} {{ event_kind }} de la smartlist para el mismo miembro, éste ya no recibirá esta comunicación. Puede cambiar esta configuración en \"Avanzado\".",
                     "subtitles": {
                         "create": {
-                            "leftSmartList": "Creación de una regla de envío automático a la salida de la smartlist",
+                            "leftSmartList": "Crear un mensaje automático para los miembros que salen de esta Smartlist.",
                             "joinSmartList": "Creación de una regla de envío automático a la entrada a la smartlist"
                         },
                         "update": {
@@ -10941,7 +10942,7 @@
                     "advancedSection": "Avanzado",
                     "submit": "Confirmar",
                     "maxCommunicationSentHelperText": {
-                        "0": "Por defecto, el mensaje se envía cada vez que un miembro entra en la smartlist. Si un miembro sale y vuelve a entrar más tarde, el mensaje se envía de nuevo. Ajuste la configuración si desea limitar el número de veces que el mismo miembro puede recibir el mensaje: una, dos o tres veces.",
+                        "0": "Este mensaje se enviará cada vez que un miembro entre en el segmento. Si un miembro sale y vuelve a entrar, el mensaje se volverá a enviar. Establezca un límite en el número de veces que un mismo miembro puede ver este mensaje.",
                         "1": "Por defecto, el mensaje se envía cada vez que un miembro sale de la smartlist. Si un miembro vuelve a entrar y más tarde sale de nuevo, el mensaje se envía de nuevo. Ajuste la configuración si desea limitar el número de veces que el mismo miembro puede recibir el mensaje: una, dos o tres veces."
                     },
                     "limitSection": "Límite",
@@ -11008,7 +11009,7 @@
             "warningConsent1": "Advertencia: este socio no quiere recibir correos electrónicos promocionales. Los correos electrónicos directos son una forma rápida y sencilla de contactar a tus miembros. No deben utilizarse con fines publicitarios o promocionales.",
             "warningConsent2": "No respetar esta decisión de su socio sería ilegal. Bsport no se hace responsable en caso de uso abusivo de los correos electrónicos directos.",
             "titleInterpolated": "Las variables contenidas en el título y el cuerpo del correo electrónico se actualizan en función del destinatario",
-            "warningProvider": "Tenga en cuenta que las respuestas de los miembros a este mensaje no aparecerán en la plataforma, sino directamente en su buzón. Para que aparezcan todas aquí, cambia la configuración de comunicación en la página Configuración/Personalización."
+            "warningProvider": "Las respuestas a este mensaje se enviarán automáticamente a tu buzón de correo electrónico. Ve a Ajustes - Personalización - Ajustes del chat para que todas tus comunicaciones aparezcan aquí."
         },
         "table": {
             "columns": {
@@ -11155,7 +11156,7 @@
                 "title": "Título",
                 "content": "Mensaje"
             },
-            "writeCommunication": "Enviar un mensaje",
+            "writeCommunication": "Crear un mensaje",
             "smsCostReminderModal": {
                 "confirm": "Confirmar",
                 "cancel": "Cancelar",
@@ -11307,7 +11308,7 @@
         "messageList": {
             "emptyList": {
                 "becauseOfFilters": "No hay resultados que coincidan con los filtros.",
-                "becauseNeverUsed": "Aún no ha enviado ninguna comunicación por este canal."
+                "becauseNeverUsed": "No hay mensajes que mostrar. Haga clic en el cuadro de texto de abajo para escribir su primer mensaje."
             },
             "filterOutCommunicationSent": "La comunicación que acaba de enviar queda oculta por los filtros activos."
         },
@@ -14635,7 +14636,7 @@
                 "success": "Duplicar la lista inteligente"
             },
             "tag_rules": {
-                "limit_reached": "Imposible: Has alcanzado el límite de creación (10)",
+                "limit_reached": "Error: no es posible crear más de 10 reglas. ",
                 "error": "No se puede aplicar esta regla",
                 "success": "Se ha puesto en marcha la regla automática"
             }
@@ -16650,9 +16651,9 @@
                 "steps": {
                     "workshop_form": "Creación del taller",
                     "offer_form": "Creación de sesiones (opcional)",
-                    "pass_list": "Finalización",
+                    "pass_list": "Terminar",
                     "pass_form": "Creación de bono (opcional)",
-                    "activity_form": "Creación de actividad"
+                    "activity_form": "Crear una actividad"
                 },
                 "compatible_packs": {
                     "noCompatiblePass": "Ningún bono compatible con esta actividad, considera crear uno",
@@ -16674,7 +16675,7 @@
             "search": "Buscar una actividad",
             "addActivity": "Añadir una actividad"
         },
-        "noActivities": "Administra tus actividades aquí, una actividad permite agrupar un conjunto de sesiones (generalmente colectivas) de la misma práctica.",
+        "noActivities": "Las actividades de grupo son clases impartidas a un grupo. Aquí puedes añadir, editar y gestionar tus actividades de grupo.",
         "search": "Buscar une actividad",
         "metaActivity": "Actividad",
         "disabledMetaActivities": "Actividades archivadas",
@@ -17357,7 +17358,7 @@
         "filters": {
             "1": {
                 "between": "y",
-                "explanation": "Tiene X {{currencyDisplay }} en su cuenta",
+                "explanation": "Agrupar a los miembros con un determinado importe en el saldo de sus cuentas",
                 "third": "{{currencyDisplay }}",
                 "second": " a   ",
                 "first": "El saldo del miembro es (factura no pagada no incluida)",
@@ -17365,10 +17366,10 @@
             },
             "5": {
                 "women": "mujeres",
-                "explanation": "Es una mujer/un hombre",
+                "explanation": "Agrupar a los miembros en función de si se identifican como hombres o mujeres.",
                 "men": "hombres",
-                "first": "Seleccionar solo los",
-                "name": "Sexo"
+                "first": "Agrupar sólo",
+                "name": "Género"
             },
             "8": {
                 "explanation": "Tiene el bono X utilizable",
@@ -17377,9 +17378,9 @@
                 "name": "Validez del bono"
             },
             "11": {
-                "first": "Filtrar en los siguientes tags",
+                "first": "Agrupar por etiquetas",
                 "name": "Tags",
-                "explanation": "Tiene las tags A y B"
+                "explanation": "Agrupar a los miembros según sus etiquetas"
             },
             "14": {
                 "third": "y el",
@@ -17396,8 +17397,8 @@
                 "explanation": "Ha comprado los productos A y B"
             },
             "18": {
-                "explanation": "Se unió al club el…",
-                "first": "Se unió al club   ",
+                "explanation": "Agrupar a los miembros que se unieron en, después, antes o entre ciertas fechas",
+                "first": "Se unió a su estudio en",
                 "name": "Fecha de registro"
             },
             "19": {
@@ -17421,10 +17422,10 @@
                 "has": "Posee",
                 "first": "uno de los bonos",
                 "name": "Bonos",
-                "explanation": "Ha comprado el bono A en la fecha Y, con X créditos"
+                "explanation": "Agrupar a los miembros que han comprado un pase en una fecha determinada, con X número de créditos restantes."
             },
             "20": {
-                "explanation": "Ha abandonado una cesta de cantidad…",
+                "explanation": "Agrupar a los miembros que tienen productos en su cesta pero no han completado la compra.",
                 "first": "El valor total de los artículos de la cesta es de",
                 "date": {
                     "second": "días",
@@ -17459,7 +17460,7 @@
                 "second_plural": "a sesión",
                 "second_singular": "ra sesión",
                 "first": "Ha reservado su ",
-                "explanation": "Ha reservado su X a sesión de actividad A, en el establecimiento B ...",
+                "explanation": "Agrupar a los miembros que han reservado su X sesión de la actividad A, en el establecimiento B, con el profesor C",
                 "name": "Número de reserva",
                 "attendance": "con estado",
                 "level": {
@@ -17492,7 +17493,7 @@
                 "between": "y",
                 "second": "sesiones",
                 "first": "Ha reservado",
-                "explanation": "Ha reservado X sesiones de actividad A, en el lugar B, con el bono C ...",
+                "explanation": "Agrupar a los miembros por el número total de sesiones que han reservado para la actividad A, en el establecimiento B, compradas con el pase C.",
                 "name": "Número de reservas",
                 "attendance": "con estado",
                 "level": {
@@ -17509,14 +17510,14 @@
                 },
                 "second": "{{currencyDisplay }} para los productos",
                 "first": "Ha gastado",
-                "name": "Gastos",
+                "name": "Historial de compras",
                 "workshop": "Bono especial taller",
                 "private_pass": "Curso particular",
                 "between": "y",
                 "combo": "Pack",
                 "pack": "Bono",
                 "shop": "Tienda",
-                "explanation": "Ha comprado los productos A y B"
+                "explanation": "Agrupar a los miembros que han comprado determinados productos"
             },
             "25": {
                 "expiration": {
@@ -17538,7 +17539,7 @@
                 "has": "Tiene",
                 "first": "Una de las tarjetas de cita",
                 "name": "Pase (citas)",
-                "explanation": "Ha comprado el pase de cita X en la fecha Y, con los créditos Z restantes"
+                "explanation": "Agrupar a los miembros que han comprado un pase de cita en una fecha determinada, con X número de créditos restantes."
             },
             "26": {
                 "hour": {
@@ -17563,7 +17564,7 @@
                 "between": "y",
                 "second": "cita",
                 "first": "Ha reservado",
-                "explanation": "A reservo X citas con el profesor A, en la ubicación B, con el pase C ...",
+                "explanation": "Agrupar a los miembros por el número de citas que han reservado en el establecimiento A, con el profesor B, compradas con el pase C",
                 "name": "Número de citas",
                 "private_service": {
                     "first": "con las citas"
@@ -17571,13 +17572,13 @@
             },
             "27": {
                 "info": "También se tienen en cuenta los bonos y las tarjetas de cita bloqueadas",
-                "fourth": "(combinado)",
+                "fourth": "en total.",
                 "third": "o",
-                "second": "bonos o tarjetas de cita válidas hoy. Entre",
+                "second": "pases válidos. Incluyendo",
                 "between": "y",
-                "first": "Tiene",
+                "first": "Miembros que tienen",
                 "name": "Tarjetas válidas",
-                "explanation": "Tiene X bonos o de tarjetas de cita válidas"
+                "explanation": "Agrupar a los miembros que tienen X número de pases válidos o pases de cita previa"
             },
             "28": {
                 "numbersComparator": {
@@ -17595,7 +17596,7 @@
                     "is": "hecho",
                     "before": "La primera compra es"
                 },
-                "explanation": "Filtra los miembros con una primera cesta finalizada/pagada",
+                "explanation": "Agrupar a los miembros que han realizado su primera compra entre determinadas fechas.",
                 "name": "Primera compra"
             },
             "29": {
@@ -17618,7 +17619,7 @@
                     }
                 },
                 "explanation": "Filtra a los miembros que han referido miembros",
-                "name": "Referente"
+                "name": "Referentes"
             },
             "30": {
                 "numbersComparator": {
@@ -17638,7 +17639,7 @@
                 "name": "Miembro referido"
             },
             "101": {
-                "explanation": "Es menos/más/exactamente...",
+                "explanation": "Agrupar a los miembros en función de su edad",
                 "second": "años (incluidos)",
                 "to": "a",
                 "between": "y",
@@ -17649,7 +17650,7 @@
                 "date": {
                     "first": "completado por la última vez"
                 },
-                "explanation": "Completó X formularios en A% en la fecha B ",
+                "explanation": "Agrupar a los miembros en función del número de formularios que han rellenado en determinadas fechas.",
                 "between": "y",
                 "to": "a",
                 "third": "en un porcentaje",
@@ -17664,14 +17665,14 @@
                 "first": "Ha completado"
             },
             "103": {
-                "explanation": "Acepta notificaciones por SMS/correo electrónico",
+                "explanation": "Agrupar a los miembros que han dado su consentimiento para recibir notificaciones por SMS o correo electrónico.",
                 "email": "recibir notificaciones por correo electrónico",
                 "sms": "recibir notificaciones por SMS",
                 "false": "No acepta",
                 "true": "Acepta",
                 "oneNeeded": "Debe llenar al menos una de las condiciones activadas",
                 "allNeeded": "Deben llenar todas las condiciones activadas",
-                "name": "Notificaciones",
+                "name": "Consentimiento para notificaciones",
                 "or": "O",
                 "and": "Y"
             },
@@ -17685,10 +17686,10 @@
                 "medical": "médico",
                 "medicalOrNot": "médico o no",
                 "first": "Tiene al menos una nota",
-                "name": "Notas"
+                "name": "Notas informativas"
             },
             "105": {
-                "explanation": "Tiene X relaciones y Y bonos o tarjetas de cita o reservas compartidas",
+                "explanation": "Agrupar a los miembros que tienen relación (por ejemplo, personas que están a su cargo) o pases compartidos.",
                 "acceptEmail": {
                     "second": "correos electrónicos",
                     "false": "no acepta",
@@ -17725,14 +17726,14 @@
                 "date": {
                     "first": "la relación se ha establecido"
                 },
-                "name": "Relaciones"
+                "name": "Pases compartidos"
             },
             "106": {
-                "explanation": "Informó un número de teléfono",
+                "explanation": "Agrupar a los miembros que han facilitado un número de teléfono",
                 "first": "un número de teléfono",
                 "false": "No informó",
                 "true": "Informó",
-                "name": "Teléfono"
+                "name": "Número de teléfono"
             },
             "107": {
                 "explanation": "Aceptó las condiciones generales de uso",
@@ -17742,17 +17743,17 @@
                 "name": "condiciones de uso"
             },
             "400": {
-                "explanation": "Posee una contraseña en bsport",
+                "explanation": "Agrupar a los miembros que han registrado una contraseña con su cuenta bsport",
                 "name": "Contraseña",
                 "explain": "posee una contraseña en bsport"
             },
             "410": {
-                "explanation": "Tras aceptar la exención de responsabilidad",
+                "explanation": "Agrupar a todos los miembros que han aceptado su exención de responsabilidad",
                 "name": "Exención de responsabilidad",
                 "explain": "habiendo aceptado la exención de responsabilidad"
             },
             "501": {
-                "explanation": "Ha reservado su última sesión hay ...",
+                "explanation": "Agrupar a los miembros en función de la fecha de su última reserva.",
                 "second": "días, y no tiene reservas planificadas en el futuro.",
                 "first": "La última sesión reservada tuvo lugar hace más de",
                 "name": "Fecha de la última sesión reservada"
@@ -17763,8 +17764,8 @@
                 "does_not_own": "Sin un método de pago guardado",
                 "labelFirst": "Filtrar solo los miembros",
                 "title": "Método de pago guardado",
-                "explanation": "Filtrar por medio de pago guardado y fecha de caducidad",
-                "name": "medio de pago"
+                "explanation": "Agrupar a los miembros según hayan guardado o no un método de pago",
+                "name": "Métodos de pago"
             },
             "durations_comparators": {
                 "1": "menos de (⩽)",
@@ -17781,8 +17782,8 @@
             "after": "después",
             "before": "antes de",
             "add": "Añadir",
-            "add_filter": "Añadir un filtro",
-            "active_filters": "Filtros activos en la smartlist",
+            "add_filter": "Añadir parámetros",
+            "active_filters": "Parámetros activos en esta Smartlist",
             "all": "Todos",
             "booking_status": {
                 "booked": "reservado",
@@ -17888,7 +17889,7 @@
                     "3": "El"
                 }
             },
-            "isEmpty": "Ningún filtro configurado, por lo tanto, esta smartlist representa la base de datos de miembros completa",
+            "isEmpty": "Este segmento muestra todos sus miembros, ya que no se han establecido parámetros.",
             "attendanceTrue": "presente",
             "attendanceFalse": "ausente",
             "attendanceWarning": "Seleccione un estado",
@@ -17907,7 +17908,7 @@
             "1": "Informaciones miembro",
             "2": "Bonos",
             "3": "Reservas",
-            "4": "Compras"
+            "4": "Pagos"
         },
         "smart_list": {
             "createTitle": "Smartlist",
@@ -18072,14 +18073,14 @@
             "display_tag_rules": "Mostrar las reglas de las tags",
             "associated_tag": "Tag asociada",
             "create": "Crear una regla",
-            "tag_on_left": "Tag si se sale de la smartlist",
+            "tag_on_left": "Etiquetar si un miembro sale de esta Smartlist.",
             "tag_on_join": "Tag si entra en la smartlist",
             "tag_on_join_and_untag_on_left": "Tag si está presente en la smartlist",
             "type_of_rule": "Tipo de regla",
             "activeSince": "Activo desde {{ since }}",
             "tag": "Etiqueta",
             "asyncDialog": {
-                "message": "A raíz de sus cambios en las reglas de las etiquetas de la smartlist {{ name }} las etiquetas deben ser actualizadas. Esta sincronización se realiza cada dos horas.",
+                "message": "Se actualizarán todas las etiquetas de los miembros de esta Smartlist.",
                 "title": "Actualización de las normas de la etiqueta "
             }
         },
@@ -18089,7 +18090,7 @@
                 "1": "No archivado",
                 "2": "Archivado"
             },
-            "helperText": "Esta lista inteligente se aplica a todos los miembros"
+            "helperText": "Elija qué miembros desea mostrar en esta Smartlist:"
         },
         "popup": {
             "sendPopup": "Enviar un mensaje emergente"
@@ -18341,11 +18342,11 @@
             "invoiceList": "Facturas"
         },
         "metaActivity": {
-            "metaActivityFormPage": "Formulario Actividad",
+            "metaActivityFormPage": "Añadir una actividad de grupo",
             "metaActivityEditForm": "Formulario Actividad",
             "metaActivityList": "Actividades",
             "metaActivityEditFormSubtitle": "Modificación de una actividad",
-            "metaActivityFormSubtitle": "Creación de una actividad"
+            "metaActivityFormSubtitle": "Configurar una actividad de grupo, definir su duración y añadir parámetros personalizados."
         },
         "order": {
             "orderDetail": "Detalles pedido",

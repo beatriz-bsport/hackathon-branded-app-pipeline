@@ -10,6 +10,7 @@ A generic React hook to encapsulate the loading, success, and error states aroun
 - Automatically handles `Result` objects (from `typescript-result`).
 - Strongly typed and works with async functions of any shape.
 - Supports optional `onSuccess` and `onFailure` callbacks, with access to original arguments and extra metadata.
+- Supports automatic data refetching at specified intervals.
 
 ---
 
@@ -92,3 +93,32 @@ const MyPage = () => {
   return <>{isLoading ? "Loading..." : JSON.stringify(data)}</>;
 };
 ```
+
+### 3. Using refetchInterval for automatic data refresh
+
+You can provide a `refetchInterval` (in milliseconds) to automatically refetch data at regular intervals:
+
+```tsx
+import { fetchUserData } from "@bsport/store-user";
+import { useAsync } from "@bsport/use-async";
+
+import { fetch } from "#src/utils/fetch";
+
+const UserProfile = ({ userId }: { userId: string }) => {
+  const [{ isLoading, error, data }, fetchUser] = useAsync({
+    asyncFn: (id: string) => fetchUserData(fetch, id),
+    refetchInterval: 30000, // Refetch every 30 seconds
+    onSuccess: ({ value }) => {
+      console.log("User data updated:", value);
+    },
+  });
+
+  useEffect(() => {
+    fetchUser(userId);
+  }, [fetchUser, userId]);
+
+  return <>{isLoading ? "Loading..." : JSON.stringify(data)}</>;
+};
+```
+
+**Note:** The interval automatically clears when the component unmounts or when `refetchInterval` changes. Set `refetchInterval` to `0` or `undefined` to disable automatic refetching.

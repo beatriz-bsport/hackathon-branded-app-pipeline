@@ -30,7 +30,18 @@ export const AuthWrapper: FC<AuthWrapperProps> = ({
 
   // Check authentication
   if (!token) {
-    return <Navigate to={loginUrl} state={{ from: location }} replace />;
+    // Check if loginUrl is absolute (contains protocol) or relative
+    const isAbsoluteUrl = /^https?:\/\//.test(loginUrl);
+
+    if (isAbsoluteUrl) {
+      // For absolute URLs, use window.location.replace for proper redirect
+      window.location.replace(loginUrl);
+      // Return null to prevent rendering while redirect happens
+      return null;
+    } else {
+      // For relative URLs, use React Router Navigate
+      return <Navigate to={loginUrl} state={{ from: location }} replace />;
+    }
   }
 
   return (

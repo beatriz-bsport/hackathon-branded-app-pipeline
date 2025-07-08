@@ -4,32 +4,21 @@ import { bindStore } from "@bsport/store-base";
 
 import type { Alert, AlertKind } from "#src/types";
 
-export interface AlertingState {
-  // Alerts organized by alert kind
-  alertsByKind: {
-    [K in AlertKind]?: {
-      data: Alert[];
-      count: number;
-      page: number;
-    };
-  };
-
-  // All alerts combined
-  allAlerts: {
-    data: Alert[];
-    count: number;
-    page: number;
-  };
+interface AlertData {
+  data: Alert[];
+  count: number;
+  page: number;
 }
 
-export const alertingStore = createStore<AlertingState>()(() => ({
+export interface AlertingState {
+  alertsByKind: Partial<Record<AlertKind, AlertData>>;
+}
+
+const initialState: AlertingState = {
   alertsByKind: {},
-  allAlerts: {
-    data: [],
-    count: 0,
-    page: 1,
-  },
-}));
+};
+
+export const alertingStore = createStore<AlertingState>()(() => initialState);
 
 /**
  * Store action to set alerts for a specific alert kind
@@ -54,28 +43,6 @@ export const setAlertsForKind = ({
         count,
         page,
       },
-    },
-  }));
-};
-
-/**
- * Store action to set all alerts (combined)
- */
-export const setAllAlerts = ({
-  alerts,
-  count,
-  page,
-}: {
-  alerts: Alert[];
-  count: number;
-  page: number;
-}) => {
-  alertingStore.setState((state) => ({
-    ...state,
-    allAlerts: {
-      data: alerts,
-      count,
-      page,
     },
   }));
 };

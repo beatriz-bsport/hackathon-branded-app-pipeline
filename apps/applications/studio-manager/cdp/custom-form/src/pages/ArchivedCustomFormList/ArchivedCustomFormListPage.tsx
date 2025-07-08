@@ -16,7 +16,6 @@ const ArchivedCustomFormListPage: React.FC = () => {
     useFilterCustomForms();
   const {
     customForms,
-    customFormStatistics,
     isLoading,
     isEmpty,
     isEmptySearch,
@@ -31,9 +30,8 @@ const ArchivedCustomFormListPage: React.FC = () => {
     () =>
       getCustomFormTableColumns({
         customForms,
-        statistics: customFormStatistics,
       }),
-    [customForms, customFormStatistics],
+    [customForms],
   );
 
   const handleRefreshCustomForms = () => {

@@ -80,7 +80,7 @@ exports.default = {
   table: {
     headers: {
       name: "Name",
-      answers: "Responses",
+      questions: "Questions",
     },
     loading: {
       activeList: "Loading forms...",

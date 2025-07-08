@@ -7,6 +7,7 @@ import {
 } from "@bsport/kaizen-primitive-core";
 import type { Pack } from "@bsport/store-buyables-pack";
 
+import { LEGACY_URLS } from "#src/urls";
 import { useTranslation } from "#src/utils/i18n";
 
 import { usePackTableColumns } from "./columns";
@@ -76,14 +77,12 @@ export const PackTable: React.FC<PackTableProps> = ({
       hiddenForStaff: !is_usable_by_staff,
       hiddenForUsers: !!manager_only,
       limitedTime: !!expiration_date,
-      /** @todo Use currency package to format with the adequate currency */
-      price: `$ ${price}`,
+      price: Number.isNaN(parseFloat(price)) ? 0 : parseFloat(price),
       numberOfProducts:
         aggregateQuantity(payment_packs) +
         aggregateQuantity(private_passes) +
         aggregateQuantity(shop_items),
-      /** @todo Unlock when link clashes with actions is fixed */
-      // link: `/combo/${id}`,
+      link: LEGACY_URLS.PACK_DETAILS(id),
     };
   });
 

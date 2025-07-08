@@ -54,7 +54,7 @@ export const restorePackAPI = ({ id }: { id: number }): ApiConfig => {
   return [
     `${API_URL}/${id}/restore/`,
     {
-      method: "POST",
+      method: "PATCH",
     },
   ];
 };

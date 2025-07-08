@@ -10,36 +10,15 @@ import {
 import { useTranslation } from "#src/utils/i18n";
 
 import { CopyToClipboardButton } from "./CopyToClipboardButton";
-
-type TeacherHandler = ({
-  teacherId,
-  teacherName,
-}: {
-  teacherId: number;
-  teacherName: string;
-}) => void;
+import type { TableColumnsParams, TableRowData, TeacherHandler } from "./types";
 
 type TableColumn = GenericTableColumn<TableRowData>;
-
-export type TableRowData = {
-  email: string;
-  id: number;
-  iconSrc?: string;
-  initials: string;
-  name: string;
-  phone: string;
-};
-
-export type TableColumnsParams = {
-  handleArchive?: TeacherHandler;
-  handleRestore?: TeacherHandler;
-  mode: "archived" | "active";
-};
 
 export const useTeacherTableColumns = ({
   handleArchive,
   handleRestore,
   mode,
+  permissions,
 }: TableColumnsParams) => {
   const { t } = useTranslation("common");
 
@@ -119,20 +98,20 @@ export const useTeacherTableColumns = ({
 
       if (!handler || !tooltip || !icon) return null;
 
-      const onClick = () => {
-        handler?.({
-          teacherId: row.id,
-          teacherName: row.name,
-        });
-      };
-
       return (
         <Tooltip label={tooltip} placement="bottom-right">
           <Button
             color="default"
             intent="flat"
             size="md"
-            onClick={onClick}
+            onClick={(event) => {
+              event.stopPropagation();
+              event.preventDefault();
+              handler?.({
+                teacherId: row.id,
+                teacherName: row.name,
+              });
+            }}
             iconLeft={icon}
           />
         </Tooltip>
@@ -140,5 +119,14 @@ export const useTeacherTableColumns = ({
     },
   };
 
-  return [columnName, columnEmail, columnPhone, columnActions];
+  const columns = [columnName, columnEmail, columnPhone];
+
+  // Add restricted actions
+  const canDelete = mode === "active" && permissions.delete;
+  const canRestore = mode === "archived" && permissions.edit;
+  if (canDelete || canRestore) {
+    columns.push(columnActions);
+  }
+
+  return columns;
 };

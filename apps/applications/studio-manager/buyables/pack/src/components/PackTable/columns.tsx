@@ -67,7 +67,7 @@ export const usePackTableColumns = ({
 
   const columnPrice: TableColumn = {
     id: "pack-column-price",
-    type: "string",
+    type: "price",
     align: "center",
     keyPath: "price",
     header: t("table.headers.price"),
@@ -87,12 +87,14 @@ export const usePackTableColumns = ({
             color="default"
             intent="flat"
             size="md"
-            onClick={() =>
+            onClick={(event) => {
+              event.stopPropagation();
+              event.preventDefault();
               handleArchive({
                 id: row.id,
                 name: row.name,
-              })
-            }
+              });
+            }}
             iconLeft="trash-01"
             id="pack-column-actions-archive-button"
           />

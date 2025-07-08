@@ -255,13 +255,13 @@ export const fetchCommunicationScheduledList = (
 
 export const retrieveCommunicationScheduled = (id: number) => {
   return getAuth<CommunicationScheduled>(
-    `${API_V1_URI}/communication/communication_scheduled/${id}`,
+    `${API_V1_URI}/communication/communication_scheduled/${id}/`,
   );
 };
 
 export const deleteCommunicationScheduled = (id: number) => {
   return deleteAuth<CommunicationScheduled>(
-    `${API_V1_URI}/communication/communication_scheduled/${id}`,
+    `${API_V1_URI}/communication/communication_scheduled/${id}/`,
   );
 };
 

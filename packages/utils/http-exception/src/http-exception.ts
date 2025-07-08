@@ -26,13 +26,15 @@ function getErrorName(name: string | Serializable): string {
   return JSON.stringify(name);
 }
 
-export class HTTPException extends Error {
+export class HTTPException<
+  CustomErrorCode extends number = number,
+> extends Error {
   readonly path: string;
   readonly name: string;
   readonly statusCode: number;
   readonly type: HTTPExceptionType;
   readonly context: Serializable;
-  readonly customErrorCodes: number[];
+  readonly customErrorCodes: CustomErrorCode[];
 
   constructor({
     path,
@@ -40,7 +42,7 @@ export class HTTPException extends Error {
     message = DEFAULT_MESSAGE,
     statusCode = DEFAULT_STATUS_CODE,
     context = "",
-    customErrorCodes = DEFAULT_CUSTOM_ERROR_CODES,
+    customErrorCodes = DEFAULT_CUSTOM_ERROR_CODES as CustomErrorCode[],
     cause,
   }: {
     path: string;
@@ -49,7 +51,7 @@ export class HTTPException extends Error {
     statusCode?: number;
     context?: Serializable;
     cause?: Error;
-    customErrorCodes?: number[];
+    customErrorCodes?: CustomErrorCode[];
   }) {
     super(
       `Error calling backend (path: ${path}) because: [${getErrorName(name)}] ${message}`,

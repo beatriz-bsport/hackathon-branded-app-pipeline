@@ -2,9 +2,7 @@ import { Result } from "typescript-result";
 
 import {
   type Action,
-  /** @todo Enable when paginated is implemented in the backend
-   * PaginatedResponse
-   */
+  type PaginatedResponse,
   type SearchResponse,
   createErrorWithContext,
 } from "@bsport/store-base";
@@ -31,9 +29,7 @@ import { setFuzzyPacks, setPacks, updatePack } from "./store";
  */
 export const fetchPacksAction: Action<
   FetchPacksParams,
-  /** @todo Enable when paginated is implemented in the backend */
-  // PaginatedResponse<Pack>
-  Array<Pack>
+  PaginatedResponse<Pack>
 > = async (fetch, params) => {
   const [uri, init] = fetchPacksAPI(params);
 
@@ -41,21 +37,10 @@ export const fetchPacksAction: Action<
     async () => {
       const { data } = await fetch(uri, init);
 
-      /** @todo Enable when paginated is implemented in the backend */
-      // setPacks({
-      //   packs: data.results,
-      //   page: data.page,
-      //   count: data.count,
-      // });
-      const currentPage = params.page;
-      const rowsPerPage = params.page_size;
       setPacks({
-        packs: data.slice(
-          (currentPage - 1) * rowsPerPage,
-          currentPage * rowsPerPage,
-        ),
-        page: currentPage,
-        count: data.length,
+        packs: data.results,
+        page: data.page,
+        count: data.count,
       });
 
       return data;

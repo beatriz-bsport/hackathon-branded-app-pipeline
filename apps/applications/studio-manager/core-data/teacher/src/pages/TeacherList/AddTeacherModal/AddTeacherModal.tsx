@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 import { Body, Modal, TextField } from "@bsport/kaizen-primitive-core";
 
@@ -19,6 +19,14 @@ export const AddTeacherModal: React.FC<AddTeacherModalProps> = ({
 
   const [value, setValue] = useState("");
   const [showError, setShowError] = useState(false);
+
+  const inputRef = useRef<HTMLInputElement | null>(null);
+
+  useEffect(() => {
+    if (open && inputRef?.current) {
+      inputRef.current?.focus?.();
+    }
+  }, [open]);
 
   const handleValueChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setShowError(false);
@@ -49,6 +57,7 @@ export const AddTeacherModal: React.FC<AddTeacherModalProps> = ({
         label: t("activeList.addTeacherModal.actions.cancel"),
         onClick: onClose,
       }}
+      onClose={onClose}
       onCloseButtonClick={onClose}
       size="md"
       title={t("activeList.actions.addTeacher")}
@@ -59,6 +68,7 @@ export const AddTeacherModal: React.FC<AddTeacherModalProps> = ({
         placeholder={t("activeList.addTeacherModal.input.placeholder")}
         required
         type="email"
+        inputRef={inputRef}
         onClear={handleClear}
         className="w-full"
         autoFocus

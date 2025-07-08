@@ -4,7 +4,6 @@ import {
   fetchCampaignReport,
   fetchCampaignSmartlist,
   fetchRecipientBulk,
-  sendCommunication,
   fetchMarketingNotificationCampaignSummary,
   fetchRecipientListExport,
   fetchRecipientListExportLink,
@@ -16,7 +15,6 @@ import {
   fetchRecipientByCampaign,
 
   //  Communication actions handler
-  membersMailAction,
   campaignBySmartlistActions,
   smartlistAutomatedCampaignListActions,
   campaignDetailActions,
@@ -74,7 +72,6 @@ export {
   fetchCampaignReport,
   fetchCampaignSmartlist,
   fetchRecipientBulk,
-  sendCommunication,
   fetchMarketingNotificationCampaignSummary,
   fetchRecipientListExport,
   fetchRecipientListExportLink,
@@ -86,7 +83,6 @@ export {
   fetchRecipientByCampaign,
 
   //  Communication actions handler
-  membersMailAction,
   campaignBySmartlistActions,
   smartlistAutomatedCampaignListActions,
   campaignDetailActions,

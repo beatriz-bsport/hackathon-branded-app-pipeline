@@ -5006,6 +5006,7 @@
             },
             "confirmation": {
                 "content": {
+                    "contactAccountManager": "Account validation pending. If you're a Studio Manager, please reach out to your bsport contact to activate your backoffice.",
                     "core": "The new backoffice platform has been successfully created. However, before sending the client's access credentials, please ensure the following validation steps from the internal documentation are completed:",
                     "billing": "Platform Billing: Create the billing setup for the new backoffice.",
                     "upsell": "Upsells: Add any applicable upsells to the platform.",
@@ -7179,7 +7180,8 @@
             },
             "replacement": "Substitution",
             "inbox": "Inbox",
-            "feedbackBoard": "Feedback board"
+            "feedbackBoard": "Feedback board",
+            "enableRevampedBackoffice": "New UI"
         },
         "deprecatedNavigator": {
             "navigatorError": "It seems that your browser is too old to use our services. You may encounter errors, we recommend that you download a more recent version, in particular : ",
@@ -17331,6 +17333,11 @@
         },
         "oneClickBooking": {
             "genericError": "We couldn't complete your booking. Please review your details and try again."
+        },
+        "communicationScheduled": {
+            "delete": {
+                "133001": "This scheduled campaign is being processed or has already been sent."
+            }
         }
     },
     "spotScheduling": {

@@ -152,6 +152,7 @@ import { fetchPlatformCustomerEntity as fetchPlatformCustomerEntityAction } from
 import { RegularizingVatInformationDialog } from '#src/libs/platform-billing/components/RegularizingVatInformationDialog.component';
 
 import { retrieveCommunicationSMSProviderVerification } from '../libs/communication-v2/actions';
+import { AuthState } from '#src/libs/types';
 import WidgetUtils from '#src/libs/widget/WidgetUtils';
 
 const CompanyDetailPage = asyncComponent(() =>
@@ -382,7 +383,7 @@ type Props = {
     params: { thread_ids: number[] },
     options?: OptionCallback,
   ) => void,
-  userAuthState: any,
+  userAuthState: AuthState,
   retrieveCommunicationSMSProviderVerification: () => void,
 };
 
@@ -867,6 +868,9 @@ export class Backoffice extends Component<Props, State> {
                 }
                 permissions={this.props.permissions}
                 push={this.props.pushRouter}
+                revampedBackofficeEnabled={
+                  !!this.props.userAuthState?.has_enabled_revamped_backoffice
+                }
                 stripeOnboardingPending={this.props.isStripeOnboardingPending}
                 tempPasswordState={this.props.tempPasswordState}
                 theme={this.props.theme}
@@ -1170,7 +1174,7 @@ export default compose(
               err.response.data &&
               !err.response.data.validated
             ) {
-              pushRouter('/login/company_onboarding/welcome');
+              pushRouter('/login/company_onboarding/confirmation');
             }
           },
         });

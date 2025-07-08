@@ -10,21 +10,19 @@ import {
   usePackStore,
 } from "@bsport/store-buyables-pack";
 import { useAsync } from "@bsport/use-async";
-import { usePaginationQueryParams } from "@bsport/use-pagination-query-params";
+import {
+  DEFAULT_PAGE,
+  usePaginationQueryParams,
+} from "@bsport/use-pagination-query-params";
 
 import { fetch } from "#src/utils/fetch";
 
-const DEFAULT_PAGE = 1;
-const DEFAULT_PAGE_SIZE = 10;
 const DEFAULT_SEARCH_SIZE = 20;
 
 export const useFetchPacks = ({ searchInput }: { searchInput: string }) => {
   // Retrieve pagination params from the URL
   const { currentPage, currentPageSize, setPageSettings } =
-    usePaginationQueryParams({
-      shouldReplace: false,
-      defaultValues: { page: DEFAULT_PAGE, page_size: DEFAULT_PAGE_SIZE },
-    });
+    usePaginationQueryParams();
 
   // Retrieve pagination and search results from the store
   const pagePacks = usePackStore(selectPacks);
@@ -70,7 +68,7 @@ export const useFetchPacks = ({ searchInput }: { searchInput: string }) => {
         currentPage: DEFAULT_PAGE,
         rowsPerPage: DEFAULT_SEARCH_SIZE,
         totalItems: fuzzyPacks.length,
-        showRowsPerPageSelector: false,
+        showRowsPerPageSelector: true,
       }
     : // Basic pagination parameters
       {

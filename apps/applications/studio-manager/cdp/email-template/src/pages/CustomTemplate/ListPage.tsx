@@ -6,6 +6,7 @@ import type { EmailTemplateCategory } from "@bsport/store-cdp-email-template";
 import { CreateEditCategoryModal } from "#src/components/Common/Modals/CreateEditCategoryModal";
 import { DeleteCategoryModal } from "#src/components/Common/Modals/DeleteCategoryModal";
 import { PageListContent } from "#src/components/CustomTemplate/PageListContent";
+import { useFetchAllEmailTemplates } from "#src/hooks/fetch/useFetchAllTemplatesList";
 import { useFetchCategoriesPaginatedList } from "#src/hooks/fetch/useFetchPaginatedCategoriesList";
 import { usePageHeader } from "#src/hooks/layout/usePageHeader";
 import { useTemplateNavigation } from "#src/hooks/useTemplateNavigation";
@@ -26,6 +27,11 @@ const CustomListPage: React.FC = () => {
     isLoading: isCategoryListLoading,
     fetchCategories,
   } = useFetchCategoriesPaginatedList();
+  const {
+    emailTemplateList,
+    isLoading: isEmailTemplatesListLoading,
+    fetchAllEmailTemplates,
+  } = useFetchAllEmailTemplates();
 
   const handleCreateCategory = () => {
     setCurrentInlineActions("create");
@@ -45,6 +51,12 @@ const CustomListPage: React.FC = () => {
   const handleCloseActions = () => {
     setCurrentInlineActions(null);
     setSelectedCategory(null);
+  };
+
+  const onActionSuccess = () => {
+    handleCloseActions();
+    fetchCategories();
+    fetchAllEmailTemplates();
   };
 
   return (
@@ -80,8 +92,11 @@ const CustomListPage: React.FC = () => {
             searchInput={searchInput}
             clearSearchInput={clearSearchInput}
             categoriesList={categoriesList}
+            emailTemplateList={emailTemplateList}
             isCategoryListLoading={isCategoryListLoading}
+            isEmailTemplateListLoading={isEmailTemplatesListLoading}
             fetchCategories={fetchCategories}
+            fetchEmailTemplates={fetchAllEmailTemplates}
             handleEditCategory={handleEditCategory}
             handleDeleteCategory={handleDeleteCategory}
           />
@@ -92,7 +107,7 @@ const CustomListPage: React.FC = () => {
           isOpen
           categoryDraft={selectedCategory}
           onClose={handleCloseActions}
-          onSuccess={fetchCategories}
+          onSuccess={onActionSuccess}
         />
       ) : null}
       {currentInlineActions === "delete" && selectedCategory ? (
@@ -101,7 +116,7 @@ const CustomListPage: React.FC = () => {
           categoryId={selectedCategory.id}
           categoryName={selectedCategory.name}
           onClose={handleCloseActions}
-          onSuccess={fetchCategories}
+          onSuccess={onActionSuccess}
         />
       ) : null}
     </>

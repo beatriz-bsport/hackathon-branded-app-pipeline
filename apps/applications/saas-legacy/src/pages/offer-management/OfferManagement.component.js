@@ -79,13 +79,11 @@ import CommunicationDrawer from '#src/libs/communication-v2/components/Communica
 import { CONTEXT_OFFER } from '#src/libs/communication-v2/constants';
 import { getOfferCategories } from '#src/libs/communication-v2/utils';
 import { DEFAULT_SPOT_TYPE } from '#src/libs/spot-scheduling/utils';
-import type { ResolvedGenericTags } from '#src/libs/email-editor/types';
 import type { StripeReader } from '#src/libs/terminal/types';
 import MemberProgramDetailDialog from '#src/libs/performance-tracking/components/member-program/MemberProgramDetail.dialog';
 import ConfirmationRollCallDialog from '#src/libs/offer/components/ConfirmationRollCallDialog.component';
 import ObjectLevelPermissionProvider from '#src/libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 import SessionNotePad from '#src/libs/offer/components/SessionNotePad';
-import Config from '../../config';
 import type { InternalPaymentPayload } from '../../libs/payment/types';
 import ObjectLevelPermissionWrapper from '../../libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
 import { getActivityWorkshopPermission } from '../../libs/role/permission-utils/utils';
@@ -98,7 +96,6 @@ import type { WaitingListConfiguration } from '#src/libs/waiting-list/types';
 import OfferBroadcastHelper from './OfferBroadcastHelper.component';
 import OfferNavigationHeader from './OfferNavigationHeader.component';
 import BookingManagement from './BookingManagement.component';
-import MailMembers from './MailMembers.component';
 import BookerModuleManager from './BookerModuleManager.component';
 import QuickInvoicePanel from './QuickInvoicePanel.component';
 import { mapFormData } from '../form.utils';
@@ -148,22 +145,13 @@ type Props = {
   fetchShopItems: () => void,
   fetchCompanyUserRoles: () => void,
 
-  communicationDialogIsOpen: boolean,
   communicationDrawerIsOpen: boolean,
-
-  fetchEmailTemplatesSummaries: () => void,
-  fetchEmailTemplateDetail: (id: number) => void,
-  emailListLoading: boolean,
-  emailDetailLoading: boolean,
-  email_templates_list: Array<any>,
-  email_templates_details: Array<any>,
 
   switchWaitingListFreeze: (offerId: number, newFreezeState: boolean) => void,
   fetchMember: (id: number) => void,
   registerToWaitingList: (offerId: number, memberId: number) => void,
   memberSearchLoading: boolean,
   searchMembers: (txt: string) => void,
-  sendCommunication: (any) => void,
 
   establishmentList: Array<Establishment>,
   fetchEstablishmentList: () => void,
@@ -236,8 +224,6 @@ type Props = {
   closeAddMemberModal: () => void,
   openAddMemberModal: () => void,
 
-  openCommunicationDialog: () => void,
-  closeCommunicationDialog: () => void,
   openCommunicationDrawer: () => void,
   closeCommunicationDrawer: () => void,
   createRecurrenceRuleBooking: () => void,
@@ -297,14 +283,12 @@ type Props = {
   fetchAssociatedCoachesList: (params: any) => void,
   fetchSpotForBlueprint: (company: number) => void,
   spotTypes: SpotType[],
-  resolvedGenericTags: ResolvedGenericTags,
   fetchStripeReaders: () => void,
   stripeReaders: StripeReader[],
   memberProgramIdsList: (memberId: number) => MemberProgram[],
   resetInvoiceList: () => void,
   postRollCall: (offerId: number, options?: OptionCallback) => void,
   rollCallLoading: boolean,
-  getUnreadAnswersCountAction: (params: CommunicationContext) => void,
   numberOfUnreadAnswers: number,
   fetchBookingsByOffer: (offerId: number) => void,
   fetchCompanyWaitlistConfiguration: (companyId: number) => void,
@@ -357,10 +341,6 @@ type Props = {
     options: OptionCallback<number>,
   ) => void,
   updateOffersToRetryLoading: boolean,
-  retrieveConsumerPackBulk: (
-    ids: Array<number>,
-    options: OptionCallback<ConsumerPaymentPack[]>,
-  ) => (dispatch: Dispatch) => Promise<void>,
   getBookingOffer?: (offerId: number) => Offer,
   isRefundBookingLoading: boolean,
   refundBookingAsManager: (
@@ -417,7 +397,6 @@ export class OfferManagement extends Component<Props, State> {
       company: this.props.company_theme.company,
     });
     this.props.fetchStripeReaders();
-    this.props.getUnreadAnswersCountAction(params);
     this.props.fetchCompanyWaitlistConfiguration(
       this.props.company_theme.company,
     );
@@ -1000,13 +979,11 @@ export class OfferManagement extends Component<Props, State> {
           onClose={this.onCloseAutoBookingDialogs}
           open={isAutoBookingFeedbackDialogOpened}
         />
-
         <WaitinglistAutoBookingWarningDialog
           onClose={this.onCloseAutoBookingDialogs}
           onConfirm={this.closeBookerModule}
           open={isAutoBookingWarningDialogOpened}
         />
-
         <ConfirmationRollCallDialog
           isLoading={this.props.rollCallLoading}
           nbRollCallsLeftToValidate={1}
@@ -1014,7 +991,6 @@ export class OfferManagement extends Component<Props, State> {
           onConfirm={this.postRollCall}
           open={this.state.openConfirmationRollCallDialog}
         />
-
         <ObjectLevelPermissionProvider
           requiredPermission={[
             'reservation.activity.allowed_actions.editPerformance',
@@ -1052,7 +1028,6 @@ export class OfferManagement extends Component<Props, State> {
             />
           )}
         </ObjectLevelPermissionProvider>
-
         {!!this.props.offer &&
           this.props.bookerInAvanceDialog &&
           !this.state.isOffersDialogOpen && (
@@ -1401,29 +1376,7 @@ export class OfferManagement extends Component<Props, State> {
             );
           }}
           open={!!this.props.optionToDiscardWithDialog}
-        />
-        {/** CDP-150 To Remove  */}
-        {!!this.props.communicationDialogIsOpen && (
-          <MailMembers
-            bookingOptionsPending={bookingOptionsPending}
-            bookings={bookings}
-            emailDetailLoading={this.props.emailDetailLoading}
-            emailDetails={this.props.email_templates_details}
-            emailListLoading={this.props.emailListLoading}
-            emails={this.props.email_templates_list}
-            fetchEmailTemplateDetail={this.props.fetchEmailTemplateDetail}
-            fetchEmailTemplatesSummaries={
-              this.props.fetchEmailTemplatesSummaries
-            }
-            fullscreen={fullScreen}
-            mailDefaultTitle={this.props.offer ? this.props.offer.name : ''}
-            members={members}
-            onClose={this.props.closeCommunicationDialog}
-            openMailChoiceDialog={this.props.communicationDialogIsOpen}
-            resolvedGenericTags={this.props.resolvedGenericTags}
-            sendCommunication={this.props.sendCommunication}
-          />
-        )}
+        />{' '}
         {!!this.props.offer.room_blueprint && (
           <AsyncSpotSelector
             assetsForBlueprintById={this.props.assetsForBlueprintById}
@@ -1513,7 +1466,6 @@ export default compose(
     {
       searchedText: '',
       addMemberModal: false,
-      communicationDialogIsOpen: false,
       communicationDrawerIsOpen: false,
       optionToDiscard: null,
       optionToDiscardWithDialog: null,
@@ -1521,12 +1473,6 @@ export default compose(
       autoBookingDialogOpened: '',
     },
     {
-      closeCommunicationDialog: () => () => ({
-        communicationDialogIsOpen: false,
-      }),
-      openCommunicationDialog: () => () => ({
-        communicationDialogIsOpen: true,
-      }),
       closeCommunicationDrawer: () => () => ({
         communicationDrawerIsOpen: false,
       }),

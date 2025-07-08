@@ -4,7 +4,6 @@ import {
   fetchCampaignReport as fetchCampaignReportAPI,
   fetchCampaignList as fetchCampaignListAPI,
   fetchRecipientList as fetchRecipientListAPI,
-  sendCommunication as sendCommunicationAPI,
   fetchCampaignSummary as fetchCampaignSummaryAPI,
   fetchRecipientListExport as fetchRecipientListExportAPI,
   fetchRecipientListExportLink as fetchRecipientListExportLinkAPI,
@@ -21,28 +20,8 @@ import type {
 } from '../../../state/types';
 import type { CampaignExportStartEndDates } from '../types';
 
-import { snackbarSuccess, snackbarError } from '../../snackbar/actions';
+import { snackbarError } from '../../snackbar/actions';
 import { monitorBackgroundTask } from '../../background-task/actions';
-
-export const membersMailAction = {
-  error: createAction('MEMBERS/SEND-MAIL/ERROR'),
-  isloading: createAction('MEMBERS/SEND-MAIL/IS_LOADING'),
-};
-
-export function sendCommunication(data: any): ThunkAction {
-  return async (dispatch: Dispatch) => {
-    dispatch(membersMailAction.isloading(true));
-    dispatch(membersMailAction.error(null));
-    try {
-      await sendCommunicationAPI(data);
-      dispatch(snackbarSuccess('communication:mail.success'));
-    } catch (error) {
-      dispatch(membersMailAction.error(error));
-      dispatch(snackbarError('communication:mail.error'));
-    }
-    dispatch(membersMailAction.isloading(false));
-  };
-}
 
 export const campaignBySmartlistActions = {
   error: createAction('CAMPAIGN/LIST/ERROR'),

@@ -43,7 +43,6 @@ import {
   UPSELL_IDENTIFIER_SMS,
 } from '#src/libs/platform-billing/upsell-identifiers';
 import { hasUpsell } from '#src/libs/platform-billing/utils';
-import CommunicationSMSCostReminderModal from '#src/libs/communication-v2/CommunicationSMSCostReminderModal.component';
 import ObjectLevelPermissionProvider from '#src/libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 import Config from '#src/config';
 import { useCommunicationContext } from '#src/libs/communication-v2/context/CommunicationDrawer.context';
@@ -51,6 +50,7 @@ import {
   useSMSVerification,
   useTheme,
 } from '#src/libs/communication-v2/hooks/useCommunicationsTools.hooks';
+import { CommunicationWarningModal } from '../WarningModal/CommunicationWarningModal.component';
 
 type Props = {
   actionType: number;
@@ -81,7 +81,7 @@ const AutomatedCampaignSetterBottomBar: React.FC<Props> = ({
   const [tagsMenuAnchorEl, setTagsMenuAnchorEl] = useState<Element | undefined>(
     undefined,
   );
-  const [isSmsCostReminderModalOpen, setIsSmsCostReminderModalOpen] =
+  const [shouldDisplaySmsWarningModal, setShouldDisplaySmsWarningModal] =
     useState(false);
   const { automatedCommunicationDraft, usedAutoCampaignCommMethods } =
     useCommunicationContext();
@@ -107,17 +107,17 @@ const AutomatedCampaignSetterBottomBar: React.FC<Props> = ({
   }, []);
 
   const handleCostReminderModalOnClose = useCallback(
-    () => setIsSmsCostReminderModalOpen(false),
+    () => setShouldDisplaySmsWarningModal(false),
     [],
   );
   const handleCostReminderModalOpen = useCallback(
-    () => setIsSmsCostReminderModalOpen(true),
+    () => setShouldDisplaySmsWarningModal(true),
     [],
   );
 
   const handleSendSmsOnClick = useCallback(() => {
     sendMessage();
-    setIsSmsCostReminderModalOpen(false);
+    setShouldDisplaySmsWarningModal(false);
   }, [sendMessage]);
 
   const setCommunicationTypeToMail = useCallback(() => {
@@ -204,11 +204,13 @@ const AutomatedCampaignSetterBottomBar: React.FC<Props> = ({
                       )}
                     </IconButton>
                   </Tooltip>
-                  <CommunicationSMSCostReminderModal
-                    handleClose={handleCostReminderModalOnClose}
-                    open={isSmsCostReminderModalOpen}
-                    sendMessageOnClick={handleSendSmsOnClick}
-                  />
+                  {shouldDisplaySmsWarningModal ? (
+                    <CommunicationWarningModal
+                      handleClose={handleCostReminderModalOnClose}
+                      sendMessageOnClick={handleSendSmsOnClick}
+                      smsWarning={shouldDisplaySmsWarningModal}
+                    />
+                  ) : null}
                 </>
               )}
             </FeatureListProvider>

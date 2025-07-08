@@ -3,7 +3,6 @@ import Immutable from 'seamless-immutable';
 import { handleActions } from 'redux-actions';
 
 import {
-  membersMailAction,
   campaignBySmartlistActions,
   smartlistAutomatedCampaignListActions,
   campaignDetailActions,
@@ -100,12 +99,6 @@ const initialState: MailState = Immutable({
 
 export default handleActions(
   {
-    [membersMailAction.isloading]: (state, { payload }) => {
-      return state.setIn(['mail', 'isloading'], payload);
-    },
-    [membersMailAction.error]: (state, { payload }) => {
-      return state.setIn(['mail', 'error'], payload);
-    },
     [campaignDetailActions.success]: (state, { payload }) => {
       return state.setIn(['campaign', 'byId', payload.uuid], payload);
     },

@@ -15,6 +15,7 @@ export interface UserAccess {
   has_completed_account_configuration_on_boarding: boolean;
   id: number;
   email_confirmed: boolean;
+  has_enabled_revamped_backoffice: boolean;
 }
 
 export interface TemporaryPassword {

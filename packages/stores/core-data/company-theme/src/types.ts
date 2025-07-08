@@ -134,6 +134,7 @@ export interface CompanyTheme {
   invoice_exporter_id: null;
   revamped_passes_page_enabled: boolean;
   display_stop_subscription_from_member_side: boolean;
+  revamped_backoffice_enabled: boolean;
 }
 
 export interface WidgetTheme {

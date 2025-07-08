@@ -38,6 +38,7 @@ const initialState = Immutable({
   lastPlatformSubscriptionWarningDate: null,
   lastPlatformSubscriptionDisputeWarningDate: null,
   lastStripeConfigurationWarningDate: null,
+  has_enabled_revamped_backoffice: false,
 
   emailExists: {
     loading: false,
@@ -130,6 +131,7 @@ export default function authReducers(state = initialState, action = {}) {
         has_completed_account_configuration_on_boarding,
         email_confirmed,
         context,
+        has_enabled_revamped_backoffice,
       } = action;
 
       setAuthToken(token);
@@ -165,6 +167,7 @@ export default function authReducers(state = initialState, action = {}) {
           'has_completed_account_configuration_on_boarding',
           has_completed_account_configuration_on_boarding,
         )
+        .set('has_enabled_revamped_backoffice', has_enabled_revamped_backoffice)
         .set('email_confirmed', email_confirmed);
     }
 
@@ -180,6 +183,7 @@ export default function authReducers(state = initialState, action = {}) {
         franchise_role,
         franchise_role_identifier,
         name,
+        has_enabled_revamped_backoffice,
       } = action.payload;
 
       return state.setIn(['doubleConnexion', storingKey], {
@@ -192,6 +196,7 @@ export default function authReducers(state = initialState, action = {}) {
         franchise_role,
         franchise_role_identifier,
         name,
+        has_enabled_revamped_backoffice,
       });
     }
 
@@ -230,6 +235,10 @@ export default function authReducers(state = initialState, action = {}) {
       );
     case actionTypes.IMPERSONATE_MANAGER_LOADING:
       return state.set(['loadingImpersonation'], action.loading);
+
+    case actionTypes.UPDATE_HAS_ENABLED_REVAMPED_BACKOFFICE:
+      return state.set(['has_enabled_revamped_backoffice'], action.payload);
+
     default:
       return state;
   }

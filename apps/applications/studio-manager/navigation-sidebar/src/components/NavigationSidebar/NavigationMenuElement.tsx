@@ -37,7 +37,12 @@ export const NavigationMenuElement: React.FC<NavigationMenuItemProps> = ({
   const itemElement = ({
     isActive,
     onClick,
-  }: { isActive?: boolean; onClick?: () => void } = {}) => {
+    disableSelection,
+  }: {
+    isActive?: boolean;
+    onClick?: () => void;
+    disableSelection?: boolean;
+  } = {}) => {
     if (kind === "subitem") {
       return (
         <NavigationMenu.SubItem
@@ -60,12 +65,23 @@ export const NavigationMenuElement: React.FC<NavigationMenuItemProps> = ({
         onClick={item?.onClick ?? onClick}
         endSlot={item.endSlot}
         icon={item.icon}
+        disableSelection={disableSelection}
       >
         {children}
       </NavigationMenu.Item>
     );
   };
 
+  // Handle action items (items with onClick but no href) - prevent navigation highlighting
+  if (!item.href && item.onClick) {
+    return itemElement({
+      isActive: false, // Action items are never active
+      onClick: item.onClick,
+      disableSelection: true, // Prevent NavigationMenu.Item from setting selection state
+    });
+  }
+
+  // Handle static items without href and without onClick
   if (!item.href) return itemElement();
 
   if (isBridged && item.revamped) {

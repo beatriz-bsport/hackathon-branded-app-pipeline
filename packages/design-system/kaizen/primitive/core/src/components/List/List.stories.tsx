@@ -1,7 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { useState } from "react";
 
-import List, { ListItemProps } from "#src/components/List";
+import Checkbox from "#src/components/Checkbox";
+import List, { type ListItemProps, type ListProps } from "#src/components/List";
 
 /**
  * A list component that can contain multiple `Item` components and one `Header` component.<br>
@@ -118,9 +119,74 @@ const meta: Meta<typeof List> = {
   },
 };
 
+type CustomItemProps = {
+  id: string;
+  name: string;
+  role: "Admin" | "User" | "Guest";
+  isSelectable?: boolean;
+  selected?: boolean;
+  onSelect?: () => void;
+};
+
+const CustomListItem = ({
+  id,
+  name,
+  role,
+  isSelectable,
+  selected,
+  onSelect,
+}: CustomItemProps) => (
+  <div
+    style={{
+      padding: "10px 16px",
+      borderBottom: "1px solid #eee",
+      display: "flex",
+      justifyContent: "space-between",
+      alignItems: "center",
+      gap: "10px",
+    }}
+  >
+    <div style={{ flexGrow: 1 }}>
+      <div style={{ fontWeight: "bold" }}>{name}</div>
+      <div style={{ fontSize: "0.9em", color: "#555" }}>Role: {role}</div>
+    </div>
+    <span style={{ color: "#777", fontSize: "0.8em" }}>ID: {id}</span>
+    <div className="w-4">
+      {isSelectable && (
+        <Checkbox
+          id={id}
+          value={selected ? "checked" : "unchecked"}
+          onChange={() => onSelect?.()}
+        />
+      )}
+    </div>
+  </div>
+);
+
+const customItems: CustomItemProps[] = [
+  { id: "user-1", name: "Jane Doe", role: "Admin" },
+  { id: "user-2", name: "John Smith", role: "User" },
+  { id: "user-3", name: "Guest User", role: "Guest" },
+];
+
+export const WithCustomComponent: Story<CustomItemProps> = {
+  name: "With Custom Component",
+  args: {
+    id: "custom-list",
+    header: {
+      id: "custom-list-header",
+      title: "User List",
+      description: "A list rendered with a custom component.",
+    },
+    items: customItems,
+    ListItem: CustomListItem,
+    isSelectable: true,
+  },
+};
+
 export default meta;
 
-type Story = StoryObj<typeof List>;
+type Story<T extends { id: string } = ListItemProps> = StoryObj<ListProps<T>>;
 
 const items: ListItemProps[] = Array.from({ length: 100 }, (_, index) => ({
   id: `item${index}`,
@@ -631,7 +697,7 @@ export const PaginatedList: Story = {
       showRowsPerPageSelector: true,
     },
   },
-  render: (args) => {
+  render: (args: ListProps<ListItemProps>) => {
     const [shownItems, setShownItems] = useState(updateRows(1, 10));
 
     const handlePaginationSettingsChange = (page: number, rows: number) => {

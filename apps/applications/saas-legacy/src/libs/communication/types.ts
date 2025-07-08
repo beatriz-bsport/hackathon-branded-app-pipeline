@@ -1,19 +1,6 @@
 import type { AutomatedCampaign } from '#src/libs/smart-list/types';
 import { ErrorAndLoading } from '../types';
 
-export type MemberMailData = {
-  members: Array<number>;
-  subject: string;
-  body: string;
-  email_resend_count?: number;
-  email_resend_delay?: number;
-  member_blacklist?: number[];
-  sms?: string;
-  email_template?: number;
-  notification_title?: string;
-  notification_content?: string;
-};
-
 export type MarketingNotificationMailStat = {
   id: string;
   total_recipients: number;
@@ -121,15 +108,6 @@ export type MailState = {
     exportLink?: string;
     exportDate?: string;
   } & ErrorAndLoading;
-};
-
-export type SendDirectCommunicationType = {
-  email_temaplte?: number | null;
-  body: string;
-  kind: string;
-  subject: string;
-  notification_title?: string;
-  members: Array<number>;
 };
 
 export type CommunicationSentGroupConfigFormValues = {

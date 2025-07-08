@@ -40,7 +40,10 @@ export function useCadences(params: CadencesParams) {
   });
 
   useEffect(() => {
-    fetchData();
+    // Only fetch if we have IDs to fetch
+    if ((params.ids ?? []).length > 0) {
+      fetchData();
+    }
   }, [fetchData]);
 
   return {

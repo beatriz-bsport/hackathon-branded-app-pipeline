@@ -1,0 +1,1 @@
+export const NAVIGATION_SIDEBAR_WIDTH = 240;

@@ -9,12 +9,17 @@ import "#src/index.css";
 import { AppI18nextProvider, useTranslation } from "#src/utils/i18n";
 
 import {
+  NotificationsModal,
+  useNotificationsModal,
+} from "../NotificationsModal";
+import {
   TemporaryPasswordDialog,
   useTemporaryPasswordDialog,
 } from "../TemporaryPasswordDialog";
 import FeedbackDialog, { useFeedbackDialog } from "./FeedbackDialog";
 import LanguageDropdown from "./LanguageDropdown";
 import { NavigationMenuElement } from "./NavigationMenuElement";
+import { NavigationSidebarContainer } from "./NavigationSidebarContainer";
 import NavigationSidebarHeader, {
   type MenuOption,
 } from "./NavigationSidebarHeader";
@@ -31,9 +36,14 @@ import { useFilteredNavigationElements } from "./useFilteredNavigationElements";
 
 export type NavigationSidebarProps = {
   navigate?: (to: string) => void;
+  disableRevampOnLegacyStore?: () => void;
+  isLoadingData?: boolean;
 };
 
-const NavigationSidebarContent = ({ navigate }: NavigationSidebarProps) => {
+const NavigationSidebarContent = ({
+  navigate,
+  disableRevampOnLegacyStore,
+}: NavigationSidebarProps) => {
   const { t } = useTranslation("default");
 
   const isBridged = !!navigate;
@@ -52,11 +62,17 @@ const NavigationSidebarContent = ({ navigate }: NavigationSidebarProps) => {
     isTemporaryPasswordDialogOpen,
     isLoadingTemporaryPassword,
   } = useTemporaryPasswordDialog();
+  const {
+    isOpen: isNotificationsModalOpen,
+    openModal: openNotificationsModal,
+    closeModal: closeNotificationsModal,
+  } = useNotificationsModal();
 
   const navigationElements = useNavigationElements({
     menuSet,
     navigationUrls,
     handleOpenTemporaryPasswordDialog,
+    handleOpenNotificationsModal: openNotificationsModal,
   });
 
   const protectedElements = useProtectedItems(navigationElements);
@@ -139,12 +155,7 @@ const NavigationSidebarContent = ({ navigate }: NavigationSidebarProps) => {
   } = companyTheme ?? {};
 
   return (
-    <div
-      className={
-        "h-screen w-[240px] py-md " +
-        "bg-surface-page-navigation shrink-0 flex flex-col"
-      }
-    >
+    <NavigationSidebarContainer>
       <NavigationSidebarHeader
         avatarUrl={companyLogo}
         label={companyName ?? ""}
@@ -178,7 +189,7 @@ const NavigationSidebarContent = ({ navigate }: NavigationSidebarProps) => {
       </div>
       <Card elevated className="p-xs mx-xs flex flex-col gap-2xs mt-[auto]">
         <Button
-          className="justify-between"
+          className="!justify-between"
           label={t("revampCard.betaFeedbackLink")}
           intent="flat"
           size="md"
@@ -187,7 +198,7 @@ const NavigationSidebarContent = ({ navigate }: NavigationSidebarProps) => {
           fullWidth
         />
         <Button
-          className="justify-between"
+          className="!justify-between"
           label={t("revampCard.goBackToOldUi")}
           intent="flat"
           size="md"
@@ -197,17 +208,32 @@ const NavigationSidebarContent = ({ navigate }: NavigationSidebarProps) => {
           onClick={openDialog}
         />
       </Card>
-      <FeedbackDialog open={open} onClose={closeDialog} />
+      <FeedbackDialog
+        open={open}
+        onClose={closeDialog}
+        disableRevampOnLegacyStore={disableRevampOnLegacyStore}
+      />
       <TemporaryPasswordDialog
         isLoading={isLoadingTemporaryPassword}
         isOpen={isTemporaryPasswordDialogOpen}
         onClose={handleCloseTemporaryPasswordDialog}
       />
-    </div>
+      <NotificationsModal
+        isOpen={isNotificationsModalOpen}
+        onClose={closeNotificationsModal}
+      />
+    </NavigationSidebarContainer>
   );
 };
 
 const NavigationSidebar = (props: NavigationSidebarProps) => {
+  if (props.isLoadingData) {
+    return (
+      <NavigationSidebarContainer className="navigation-sidebar-container-fallback">
+        <div className="h-screen" />
+      </NavigationSidebarContainer>
+    );
+  }
   return (
     <AppI18nextProvider>
       <NavigationSidebarContent {...props} />

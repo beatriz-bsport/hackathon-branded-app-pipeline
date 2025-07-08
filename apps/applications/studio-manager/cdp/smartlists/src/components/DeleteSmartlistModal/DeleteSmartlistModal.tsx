@@ -22,9 +22,9 @@ export const DeleteSmartlistModal: React.FC<DeleteSmartlistModalProps> = ({
   smartlist,
 }: DeleteSmartlistModalProps) => {
   const { t } = useTranslation("list");
-  const [currentCadences, setCurrentCadences] = useState<number[]>([]);
+  const [showCadencesModal, setShowCadencesModal] = useState(false);
 
-  const { deleteSmartlist } = useDelete({
+  const { deleteSmartlist, isDeleting } = useDelete({
     onSuccess: () => {
       onDelete?.();
       onClose();
@@ -32,8 +32,8 @@ export const DeleteSmartlistModal: React.FC<DeleteSmartlistModalProps> = ({
     onFailure: () => {
       onClose();
     },
-    onCadencesFound: (cadences) => {
-      setCurrentCadences(cadences);
+    onCadencesError: () => {
+      setShowCadencesModal(true);
     },
   });
 
@@ -41,9 +41,16 @@ export const DeleteSmartlistModal: React.FC<DeleteSmartlistModalProps> = ({
     deleteSmartlist({ id: smartlist.id });
   };
 
-  if (currentCadences.length > 0) {
+  if (showCadencesModal) {
     return (
-      <CadencesModal isOpen cadenceIds={currentCadences} onClose={onClose} />
+      <CadencesModal
+        isOpen
+        smartlistId={smartlist.id}
+        onClose={() => {
+          setShowCadencesModal(false);
+          onClose();
+        }}
+      />
     );
   }
 
@@ -54,6 +61,7 @@ export const DeleteSmartlistModal: React.FC<DeleteSmartlistModalProps> = ({
         label: t("deleteModal.buttons.delete"),
         color: "critical",
         onClick: handleDelete,
+        disabled: isDeleting,
       }}
       cancelButton={{
         label: t("deleteModal.buttons.cancel"),

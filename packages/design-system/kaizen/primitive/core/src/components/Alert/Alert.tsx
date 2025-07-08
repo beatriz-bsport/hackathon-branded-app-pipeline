@@ -136,7 +136,7 @@ const Alert: React.FC<AlertProps> = ({
             {title}
           </Title>
         )}
-        {children && (
+        {children && typeof children === "string" ? (
           <Body
             htmlVariant="p"
             size="md"
@@ -145,6 +145,8 @@ const Alert: React.FC<AlertProps> = ({
           >
             {children}
           </Body>
+        ) : (
+          <>{children}</>
         )}
       </div>
       {isDisplayingActions && (

@@ -2520,7 +2520,7 @@
             "warningConsent2": "Het niet respecteren van de wensen en beslissingen van leden is onwettig. De dienstverlener is ontheven van aansprakelijkheid indien deze functie misbruikt wordt.",
             "warningConsent1": "Belangrijk! Dit lid heeft aangegeven geen promotionele berichten te willen ontvangen. Directe berichten kun je snel en eenvoudig versturen om leden op de hoogte houden, zonder dat daar promotionele doeleinden aan verbonden zijn.",
             "titleInterpolated": "De gebruikte variabelen in dit bericht worden op individuele basis aangepast per ontvanger.",
-            "warningProvider": "De antwoorden van de leden op dit bericht verschijnen niet op het platform, maar rechtstreeks in je mailbox. Om ze allemaal hier te laten verschijnen, wijzigt u de communicatie-instelling in de pagina Instellingen/Aanpassing."
+            "warningProvider": "Antwoorden op dit bericht worden automatisch naar je inbox gestuurd. Ga naar instellingen - Personalisatie - Chatinstellingen om al je berichten hier te laten verschijnen."
         },
         "table": {
             "columns": {
@@ -2587,7 +2587,7 @@
                         "onLeft": "Afmelding",
                         "onJoin": "Aanmelding"
                     },
-                    "add": "Toevoegen",
+                    "add": "Bericht toevoegen",
                     "title": "Automatische berichtgeving"
                 },
                 "form": {
@@ -2598,7 +2598,7 @@
                             "joinSmartList": "Voeg automatische berichtgevingen toe zodra een lid in deze Smartlist wordt gezet."
                         },
                         "create": {
-                            "leftSmartList": "Voeg automatische berichtgevingen toe zodra een lid in deze Smartlist verlaat.",
+                            "leftSmartList": "Maak een automatisch bericht aan voor klanten die deze Smartlist verlaten.",
                             "joinSmartList": "Voeg automatische berichtgevingen toe zodra een lid in deze Smartlist wordt gezet."
                         }
                     },
@@ -2607,7 +2607,7 @@
                     "advancedSection": "Geavanceerd",
                     "submit": "Bevestigen",
                     "maxCommunicationSentHelperText": {
-                        "0": "Standaard wordt het bericht verzonden telkens wanneer een lid de smartlist betreedt. Als een lid de smartlist verlaat en later weer betreedt, dan wordt het bericht opnieuw verstuurd. Pas de instelling aan als u wilt beperken hoe vaak hetzelfde lid het bericht kan ontvangen: één, twee of drie keer.",
+                        "0": "Dit bericht wordt telkens verstuurd als een lid het segment binnenkomt. Als een lid het segment verlaat en opnieuw binnenkomt, wordt het bericht opnieuw verzonden. Stel een limiet in op het aantal keer dat hetzelfde lid dit bericht kan zien.",
                         "1": "Standaard wordt het bericht verzonden telkens als een lid de smartlist verlaat. Als een lid opnieuw de smartlist betreedt en deze later weer verlaat, dan wordt het bericht opnieuw verstuurd. Pas de instelling aan als u wilt beperken hoe vaak hetzelfde lid het bericht kan ontvangen: één, twee of drie keer."
                     },
                     "limitSection": "Limiet",
@@ -2795,7 +2795,7 @@
                 "automaticCommunicationLimit": "Stel een limiet in",
                 "messageScheduling": "Plan het bericht"
             },
-            "writeCommunication": "Een bericht versturen",
+            "writeCommunication": "Een bericht maken",
             "smsCostReminderModal": {
                 "confirm": "Bevestigen",
                 "cancel": "Annuleren",
@@ -2946,7 +2946,7 @@
         },
         "messageList": {
             "emptyList": {
-                "becauseNeverUsed": "Je hebt nog geen oproep verzonden op dit kanaal.",
+                "becauseNeverUsed": "Geen berichten om te tonen. Klik op het tekstvak hieronder om je eerste bericht te schrijven.",
                 "becauseOfFilters": "Geen resultaten die overeenkomen met filters."
             },
             "filterOutCommunicationSent": "De communicatie die je zojuist hebt verzonden, wordt verborgen door de actieve filters."
@@ -3259,7 +3259,8 @@
                     "emailValidation": "E-mail validatie: Voer de administratieve actie uit om het e-mailadres van de klant te valideren.",
                     "upsell": "Upsells: Voeg eventuele upsells toe aan het platform.",
                     "billing": "Platform Facturering: Doe de factureringsinstellingen voor de nieuwe backoffice.",
-                    "core": "Het nieuwe backoffice-platform is met succes aangemaakt. Voordat je de toegangsgegevens van de klant verstuurt, moet je er voor zorgen dat de volgende validatiestappen uit de interne documentatie zijn voltooid:"
+                    "core": "Het nieuwe backoffice-platform is met succes aangemaakt. Voordat je de toegangsgegevens van de klant verstuurt, moet je er voor zorgen dat de volgende validatiestappen uit de interne documentatie zijn voltooid:",
+                    "contactAccountManager": "Accountvalidatie in behandeling. Als u een Studio Manager bent, neem dan contact op met uw bsport-contactpersoon om uw backoffice te activeren."
                 }
             }
         },
@@ -5737,13 +5738,13 @@
             "1": "Ledeninformatie",
             "2": "Kaarten",
             "3": "Reserveringen",
-            "4": "Aankopen"
+            "4": "Betalingen"
         },
         "filters": {
             "1": {
                 "second": " -   ",
                 "third": "{{ currencyDisplay }}",
-                "explanation": "Toon alle leden met een interne rekening (Wallet) t.w.v. {{ currencyDisplay }}X",
+                "explanation": "Segmenteer leden met een bepaald bedrag op hun rekening",
                 "first": "Leden met een interne rekening (Wallet) t.w.v.",
                 "name": "Interne rekening (Wallet)",
                 "between": "en"
@@ -5756,9 +5757,9 @@
             },
             "5": {
                 "name": "Geslacht",
-                "first": "Toon alleen alle",
+                "first": "Segmenteer alleen",
                 "men": "mannen",
-                "explanation": "Toon een overzicht van alle mannen/vrouwen",
+                "explanation": "Segmenteer leden op basis van of ze zich als man of vrouw identificeren",
                 "women": "vrouwen"
             },
             "8": {
@@ -5768,9 +5769,9 @@
                 "name": "Geldigheid"
             },
             "11": {
-                "explanation": "Toon een overzicht van alle leden leden die als A en B getagt zijn",
+                "explanation": "Segmenteer leden volgens hun tags",
                 "name": "Tags",
-                "first": "Filter op de volgende tags:"
+                "first": "Segmenteren op tags"
             },
             "14": {
                 "explanation": "Heeft producten A en B gekocht",
@@ -5788,8 +5789,8 @@
             },
             "18": {
                 "name": "Inschrijfdatum",
-                "first": "Inschrijfdatum:   ",
-                "explanation": "Toon een overzicht van alle leden sinds een bepaalde periode staan ingeschreven"
+                "first": "Lid geworden van je studio op",
+                "explanation": "Segmenteer leden die lid zijn geworden op, na, voor of tussen bepaalde data"
             },
             "19": {
                 "name": "Leskaarten",
@@ -5809,13 +5810,13 @@
                     "first_has_expire": "Verliep op:"
                 },
                 "infoIcon": "Onbeperkte leskaarten zijn altijd inbegrepen",
-                "explanation": "Toon een overzicht van alle leden die leskaart X op Y gekocht hebben met Z overige credits",
+                "explanation": "Segmenteer klanten die op een bepaalde datum een leskaart hebben gekocht met X aantal resterende credits",
                 "date_bought": {
                     "first": "Aankoopdatum:"
                 }
             },
             "20": {
-                "explanation": "Toon een overzicht van alle leden die een openstaand winkelmandje hebben",
+                "explanation": "Segmenteer leden die producten in hun winkelwagen hebben maar hun aankoop niet hebben voltooid",
                 "first": "De waarde van de achtergelaten mand is",
                 "second": "in",
                 "third": "{{ currencyDisplay }}",
@@ -5842,7 +5843,7 @@
                     "second": "uur en",
                     "third": "Uur"
                 },
-                "explanation": "Toon een overzicht van alle leden die een X aantal reserveringen van activiteit Y in vestiging Z hebben gedaan",
+                "explanation": "Klanten segmenteren op basis van hoeveel sessies ze hebben geboekt, in welke ruimte, bij welke docent, gekocht met welke pas",
                 "first": "Heeft ",
                 "second_singular": "keer gereserveerd",
                 "second_plural": "keer gereserveerd",
@@ -5861,7 +5862,7 @@
             },
             "22": {
                 "name": "Aantal reserveringen",
-                "explanation": "Toon een overzicht van alle leden die een X aantal reserveringen van activiteit A in vestiging Y met kaart Z hebben gedaan",
+                "explanation": "Segmenteer leden op het totale aantal sessies dat ze hebben geboekt voor activiteit A, in vestiging B, gekocht met pas C",
                 "first": "Reserveerde",
                 "second": "sessies",
                 "activity": {
@@ -5900,14 +5901,14 @@
                 },
                 "second": "{{ currencyDisplay }} voor de producten",
                 "first": "Heeft",
-                "name": "Uitgaven",
+                "name": "Aankoopgeschiedenis",
                 "workshop": "Leskaarten voor workshops",
                 "private_pass": "Privéles",
                 "between": "en",
                 "combo": "Pakketten",
                 "pack": "Leskaarten",
                 "shop": "Webshop",
-                "explanation": "Toon een overzicht van alle leden die producten A en B hebben gekocht"
+                "explanation": "Klanten segmenteren die bepaalde producten hebben gekocht"
             },
             "25": {
                 "third": "om",
@@ -5929,7 +5930,7 @@
                 "has": "Bezit",
                 "first": "een van de afspraakkaarten",
                 "name": "Afspraakkaarten",
-                "explanation": "Toon een overzicht van alle leden die afspraakkaart X op Y hebben gekocht met Z resterende credits"
+                "explanation": "Segmenteer klanten die op een bepaalde datum een afspraakkaart hebben gekocht, met X aantal resterende credits"
             },
             "26": {
                 "hour": {
@@ -5954,7 +5955,7 @@
                 "between": "en",
                 "second": "afspraken gereserveerd",
                 "first": "Gereserveerd",
-                "explanation": "Toon een overzicht van alle leden die een X aantal afspraken met instructeur A in vestiging Y met afspraakkaart Z hebben gemaakt",
+                "explanation": "Segmenteer leden op hoeveel afspraken ze hebben geboekt in vestiging A, bij leraar B, gekocht bij pas C",
                 "name": "Aantal afspraken",
                 "private_service": {
                     "first": "Afspraken:"
@@ -5962,13 +5963,13 @@
             },
             "27": {
                 "info": "Er wordt ook rekening gehouden met geblokkeerde leskaarten en geblokkeerde afspraakkaarten",
-                "fourth": "(gecombineerd)",
+                "fourth": "in totaal.",
                 "third": "of",
-                "second": "geldige leskaarten of afspraakkaarten vandaag. Onder",
+                "second": "geldige leskaarten. Inclusief",
                 "between": "en",
-                "first": "Heeft",
+                "first": "Leden die x hebben",
                 "name": "Geldige leskaarten",
-                "explanation": "Heeft X aantal geldige leskaarten of afspraakkaarten"
+                "explanation": "Segmenteer klanten die X aantal geldige leskaarten of afspraakkaarten hebben"
             },
             "28": {
                 "numbersComparator": {
@@ -5986,7 +5987,7 @@
                     "is": "voltooid",
                     "before": "De eerste aankoop is"
                 },
-                "explanation": "Filter op leden die hun eerste aankoop hebben gedaan",
+                "explanation": "Segmenteer leden die hun eerste aankoop hebben gedaan tussen bepaalde data",
                 "name": "Eerste aankoop"
             },
             "29": {
@@ -6008,7 +6009,7 @@
                         "before": "Het lid kreeg"
                     }
                 },
-                "name": "Doorverwijzer",
+                "name": "Doorverwijzers",
                 "explanation": "Filtert de leden die leden hebben doorverwezen"
             },
             "30": {
@@ -6029,7 +6030,7 @@
                 "name": "Doorverwezen lid"
             },
             "101": {
-                "explanation": "Is minder/meer/precies...",
+                "explanation": "Segmenteer leden op basis van hun leeftijd",
                 "second": "jaren (inclusief)",
                 "to": " ",
                 "between": "en",
@@ -6040,7 +6041,7 @@
                 "date": {
                     "first": "voor het laatst voltooid"
                 },
-                "explanation": "Heeft X formulieren ingevuld bij A% op datum B ",
+                "explanation": "Segmenteer leden op hoeveel formulieren ze hebben ingevuld op bepaalde data",
                 "between": "en",
                 "to": " ",
                 "third": "met een percentage",
@@ -6055,14 +6056,14 @@
                 "first": "Heeft gecomplete"
             },
             "103": {
-                "explanation": "om meldingen per SMS/E-mail te ontvangen",
+                "explanation": "Segmenteer leden die toestemming hebben gegeven voor meldingen per sms of e-mail",
                 "email": "om meldingen per e-mail te ontvangen",
                 "sms": "om meldingen per SMS te ontvangen",
                 "false": "Accepteert niet",
                 "true": "Accepteer",
                 "oneNeeded": "Ten minste één van de geactiveerde voorwaarden moet ingevuld zijn",
                 "allNeeded": "Alle geactiveerde voorwaarden moeten ingevuld zijn",
-                "name": "Notificaties",
+                "name": "Toestemming voor meldingen",
                 "or": "Of",
                 "and": "En"
             },
@@ -6076,10 +6077,10 @@
                 "medical": "medisch",
                 "medicalOrNot": "medisch of niet",
                 "first": "Heeft ten minste één notitie",
-                "name": "Notities"
+                "name": "Informatieve notities"
             },
             "105": {
-                "explanation": "Heeft X relaties en Y leskaarten, afspraakkaarten of reserveringen",
+                "explanation": "Segmenteer leden met relaties (zoals afhankelijke personen) of gedeelde passen",
                 "acceptEmail": {
                     "false": "accepteert geen",
                     "second": "emails",
@@ -6116,14 +6117,14 @@
                 "date": {
                     "first": "de relatie is tot stand gebracht"
                 },
-                "name": "Relatie"
+                "name": "Gedeelde leskaarten"
             },
             "106": {
-                "explanation": "Een telefoonnummer opgegeven",
+                "explanation": "Segmenteer leden die een telefoonnummer hebben opgegeven",
                 "first": "een telefoonnummer",
                 "false": "Niet ingevuld",
                 "true": "Ingevuld",
-                "name": "Telefoon"
+                "name": "Telefoonnummer"
             },
             "107": {
                 "explanation": "De algemene gebruiksvoorwaarden heeft geaccepteerd",
@@ -6133,17 +6134,17 @@
                 "name": "Gebruiksvoorwaarden"
             },
             "400": {
-                "explanation": "Toon een overzicht van alle leden die een wachtwoord bij BSPORT hebben geregistreerd",
+                "explanation": "Segmenteer leden die een wachtwoord hebben geregistreerd bij je bsportaccount",
                 "name": "Wachtwoord",
                 "explain": "Toon een overzicht van alle leden die een wachtwoord bij BSPORT hebben geregistreerd"
             },
             "410": {
-                "explanation": "Toon een overzicht van alle leden die de Waiver / Vrijstelling hebben geaccepteerd",
+                "explanation": "Segmenteer alle leden die je waiver/vrijstelling hebben geaccepteerd",
                 "name": "Waiver / Vrijstelling",
                 "explain": "Toon een overzicht van alle leden Waiver / Vrijstelling hebben geaccepteerd"
             },
             "501": {
-                "explanation": "Toon een overzicht van leden die voor het laatst hebben gereserveerd op",
+                "explanation": "Klanten segmenteren op basis van wanneer ze voor het laatst een les hebben geboekt",
                 "second": "dag(en) geleden en er zijn nog geen toekomstige reserveringen ingepland.",
                 "first": "De laatst reservering was meer dan",
                 "name": "Laatste reservering"
@@ -6154,10 +6155,10 @@
                 "does_not_own": "Er zijn geen opgeslagen betaalmethoden om weer te geven",
                 "labelFirst": "Alleen op leden filteren",
                 "title": "Opgeslagen betaalmethoden",
-                "explanation": "Toon een overzicht van alle leden en de vervaldata van hun opgeslagen betaalmethoden",
-                "name": "Betaalmethode"
+                "explanation": "Segmenteer leden op basis van wie een betaalmethode heeft opgeslagen of niet",
+                "name": "Betaalmethoden"
             },
-            "isEmpty": "Deze Smartlist toont de volledige database, omdat er geen actieve filters zijn toegevoegd.",
+            "isEmpty": "Dit segment toont al je leden omdat er geen parameters zijn ingesteld.",
             "calendarPicker": {
                 "text": {
                     "0": {
@@ -6269,8 +6270,8 @@
                 "booked": "gereserveerd"
             },
             "all": "Alle",
-            "active_filters": "Actieve filters op deze Smartlist",
-            "add_filter": "Een filter toevoegen",
+            "active_filters": "Actieve parameters op deze Smartlist",
+            "add_filter": "Parameters toevoegen",
             "add": "Toevoegen",
             "before": "voor",
             "after": "na",
@@ -6337,7 +6338,7 @@
             "tag_on_join": "Tag als een lid in de Smartlist is gezet",
             "activeSince": "Actief sinds {{ since }}.",
             "asyncDialog": {
-                "message": "We updaten de tags van alle leden in de Smartlist genaamd \"{{name}}\".",
+                "message": "Alle tags voor klanten in deze Smartlist worden bijgewerkt.",
                 "title": "Tag-regels bijwerken "
             },
             "tag": "Tag"
@@ -6348,7 +6349,7 @@
                 "1": "Geldige leden",
                 "2": "Gearchiveerde leden"
             },
-            "helperText": "Selecteer voor welke leden deze Smartlist geldt."
+            "helperText": "Kies welke leden je in deze Smartlist wilt weergeven:"
         },
         "popup": {
             "sendPopup": "Stuur een pop-up"
@@ -13009,7 +13010,7 @@
                 "success": "Smartlist gedupliceerd"
             },
             "tag_rules": {
-                "limit_reached": "Er kunnen niet meer regels worden toegevoegd, omdat je het limiet (10 regels) al hebt bereikt",
+                "limit_reached": "Fout: het is niet mogelijk om meer dan 10 regels te maken. ",
                 "error": "Deze regel kan niet worden geactiveerd",
                 "success": "De automatische regel is geactiveerd"
             }
@@ -13713,7 +13714,7 @@
                 "title": "E-mailadres van de instructeur",
                 "emailLabel": "E-mailadres",
                 "emailPlaceHolder": "instructeur@bsport.io",
-                "explain": "Als deze e-mail al in ons systeem bestaat, maken we automatisch het profiel van de instructeur aan."
+                "explain": "Geef het e-mailadres op van de instructeur die je wilt toevoegen. Als we hun gegevens al hebben, maken we hun account automatisch aan."
             },
             "update": {
                 "success": "Instructeur bewerkt",

@@ -7,9 +7,10 @@ import {
   useImportLeadsModal,
 } from "#src/components/ImportLeadsModal";
 import { useAddMember } from "#src/hooks/useAddMember";
-import { useFetchPaginatedList } from "#src/hooks/useFetchPaginatedList";
-import { useMemberFilters } from "#src/hooks/useMemberFilters";
-import { ROUTES } from "#src/urls";
+import { useFetchMembers } from "#src/hooks/useFetchMembers";
+import { useFilterMembers } from "#src/hooks/useFilterMembers";
+import { useMemberPermissions } from "#src/hooks/useMemberPermissions";
+import { URLS } from "#src/urls";
 import { useTranslation } from "#src/utils/i18n";
 
 import { MemberListContent } from "./MemberListContent";
@@ -17,8 +18,8 @@ import { MemberListContent } from "./MemberListContent";
 export const MemberListPage: React.FC = () => {
   const { t } = useTranslation("common");
 
-  const { filterConfig, handleClearFilters, activeFilters } =
-    useMemberFilters();
+  const { filterConfig, handleClearFilters, activeFilters, filterRef } =
+    useFilterMembers();
 
   const { handleAddMember } = useAddMember();
 
@@ -30,25 +31,30 @@ export const MemberListPage: React.FC = () => {
     handleOpenImportLeads,
   } = useImportLeadsModal();
 
-  const { refreshMemberList } = useFetchPaginatedList({
+  const { refreshMemberList } = useFetchMembers({
     archived: false,
     activeFilters,
   });
+
+  const permissions = useMemberPermissions();
 
   return (
     <ListLayout>
       <ListLayout.Header
         pageTitle={t("pages.memberList")}
         filterConfig={filterConfig}
+        filterRef={filterRef}
         callToActionButton={
-          <Button
-            iconLeft="plus"
-            intent="call-to-action"
-            color="main"
-            size="md"
-            label={t("actions.addMember")}
-            onClick={handleAddMember}
-          />
+          permissions.create ? (
+            <Button
+              iconLeft="plus"
+              intent="call-to-action"
+              color="main"
+              size="md"
+              label={t("actions.addMember")}
+              onClick={handleAddMember}
+            />
+          ) : undefined
         }
         endGroupActions={[
           <Tooltip
@@ -61,18 +67,20 @@ export const MemberListPage: React.FC = () => {
               intent="default"
               color="main"
               size="md"
-              onClick={() => navigate(ROUTES.ARCHIVED)}
+              onClick={() => navigate(URLS.ARCHIVED)}
             />
           </Tooltip>,
-          <Button
-            key="button-import-leads"
-            iconLeft="upload-cloud-02"
-            intent="default"
-            color="main"
-            size="md"
-            label={t("actions.importLeads")}
-            onClick={handleOpenImportLeads}
-          />,
+          permissions.importLeads ? (
+            <Button
+              key="button-import-leads"
+              iconLeft="upload-cloud-02"
+              intent="default"
+              color="main"
+              size="md"
+              label={t("actions.importLeads")}
+              onClick={handleOpenImportLeads}
+            />
+          ) : undefined,
         ]}
       />
       <ListLayout.Content>
@@ -80,13 +88,16 @@ export const MemberListPage: React.FC = () => {
           onClearFiltersClick={handleClearFilters}
           activeFilters={activeFilters}
           onAddMemberClick={handleAddMember}
+          permissions={permissions}
         />
-        <ImportLeadsModal
-          open={openImportLeadsModal}
-          handleCloseModal={handleCloseImportLeads}
-          refreshMemberList={refreshMemberList}
-          handleOpenModal={handleOpenImportLeads}
-        />
+        {permissions.importLeads && (
+          <ImportLeadsModal
+            open={openImportLeadsModal}
+            handleCloseModal={handleCloseImportLeads}
+            refreshMemberList={refreshMemberList}
+            handleOpenModal={handleOpenImportLeads}
+          />
+        )}
       </ListLayout.Content>
     </ListLayout>
   );

@@ -1,5 +1,5 @@
 import { lazy } from "react";
-import { Route, Routes } from "react-router";
+import { Navigate, Route, Routes } from "react-router";
 
 import { ROUTES } from "#src/urls";
 
@@ -13,6 +13,7 @@ export const AppRoutes = () => {
     <Routes>
       <Route element={<GiftcardListPage />} index />
       <Route element={<GiftcardArchivedListPage />} path={ROUTES.ARCHIVED} />
+      <Route element={<Navigate to={ROUTES.ACTIVE} />} path="*" />
     </Routes>
   );
 };

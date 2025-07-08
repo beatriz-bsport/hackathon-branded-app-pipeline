@@ -15746,7 +15746,7 @@
                 "documentationLabel": "Procedurele documentatie",
                 "manufacturerLinkLabel": "Certificaat van de TSE-fabrikant",
                 "manufacturer": "Fabrikant: fiskaly GmbH",
-                "version": "Versie van de TSE: 2.0",
+                "version": "Versie van de TSE: v2",
                 "description": "Het is een regelgeving die gericht is op het waarborgen van de veiligheid en integriteit van elektronische kassasystemen. We gebruiken Fiskaly als technisch beveiligingsmiddel (TSE) om manipulatie te voorkomen en ervoor te zorgen dat transactiegegevens veilig en fraudebestendig worden opgeslagen.",
                 "title": "Verordening kaszekerheid (Duitsland)"
             },

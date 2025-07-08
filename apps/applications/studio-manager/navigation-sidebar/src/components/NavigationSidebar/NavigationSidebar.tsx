@@ -1,6 +1,14 @@
 import { useMemo, useState } from "react";
 
-import { Button, Card, NavigationMenu } from "@bsport/kaizen-primitive-core";
+import {
+  Button,
+  Card,
+  KaizenI18nProvider,
+  NavigationMenu,
+  i18nNamespacePrefix,
+  i18nNamespaces,
+  inMemoryTranslationsLoader,
+} from "@bsport/kaizen-primitive-core";
 import { dataAccessLayer } from "@bsport/sm-backbone";
 import { LOGIN_URL, logoutAction } from "@bsport/store-auth";
 
@@ -8,7 +16,11 @@ import { useAlerts } from "#src/api/use-alerts";
 import { useBatchRoutingPermissions } from "#src/features/permissions";
 import "#src/index.css";
 import { LEGACY_URLS } from "#src/urls";
-import { AppI18nextProvider, useTranslation } from "#src/utils/i18n";
+import {
+  AppI18nextProvider,
+  instanciateAppI18n,
+  useTranslation,
+} from "#src/utils/i18n";
 
 import {
   NotificationsModal,
@@ -240,6 +252,13 @@ const NavigationSidebarContent = ({
   );
 };
 
+const { i18nInstance: kaizenI18nInstance } = instanciateAppI18n({
+  applicationName: i18nNamespacePrefix,
+  namespaces: i18nNamespaces,
+  inMemoryTranslationsLoader: inMemoryTranslationsLoader,
+  debug: process.env.NODE_ENV !== "production",
+});
+
 const NavigationSidebar = (props: NavigationSidebarProps) => {
   if (props.isLoadingData) {
     return (
@@ -249,9 +268,11 @@ const NavigationSidebar = (props: NavigationSidebarProps) => {
     );
   }
   return (
-    <AppI18nextProvider>
-      <NavigationSidebarContent {...props} />
-    </AppI18nextProvider>
+    <KaizenI18nProvider kaizenI18nInstance={kaizenI18nInstance}>
+      <AppI18nextProvider>
+        <NavigationSidebarContent {...props} />
+      </AppI18nextProvider>
+    </KaizenI18nProvider>
   );
 };
 

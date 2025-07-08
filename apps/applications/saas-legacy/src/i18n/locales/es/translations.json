@@ -3609,7 +3609,7 @@
                 "documentationLabel": "Documentación procesal",
                 "manufacturerLinkLabel": "Certificado del fabricante del TSE",
                 "manufacturer": "Fabricante: bsport",
-                "version": "Versión del TSE: 2.0",
+                "version": "Versión del TSE: v2",
                 "description": "Es una normativa destinada a garantizar la seguridad e integridad de los sistemas de caja electrónica. Utilizamos Fiskaly como dispositivo técnico de seguridad (TSE) para evitar manipulaciones y garantizar que los datos de las transacciones se almacenan de forma segura y a prueba de manipulaciones."
             },
             "refundsAndDiscount": {

@@ -8504,7 +8504,7 @@
                 "documentationLabel": "Verfahrensdokumentation",
                 "manufacturerLinkLabel": "Zertifikat des TSE Herstellers",
                 "manufacturer": "Hersteller: fiskaly GmbH",
-                "version": "TSE Version: 2.0",
+                "version": "TSE Version: v2",
                 "description": "Ziel dieser Verordnung ist es, die Sicherheit und Integrität elektronischer Kassensystemen zu gewährleisten. \nWir nutzen Fiskaly als technische Sicherheitseinrichtung (TSE), um Manipulation zu verhindern und sicherzustellen, dass Transaktionsdaten sicher gespeichert werden.",
                 "title": "Kassensicherungsverordnung (Deutschland)"
             },

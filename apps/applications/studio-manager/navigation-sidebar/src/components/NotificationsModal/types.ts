@@ -35,16 +35,15 @@ export interface NotificationsModalProps {
   isOpen: boolean;
   onClose: () => void;
 }
-
 export interface TabConfiguration<
-  TListItem = { id: string },
-  TAlert extends Alert = Alert,
+  ListItemProps = { id: string },
+  AlertType = Alert,
 > {
   id: NotificationTab;
   label: string;
   alertKind: AlertKind;
-  ListItemComponent: ComponentType<TListItem>;
-  transformData: (alert: TAlert, index?: number) => TListItem;
+  ListItemComponent: ComponentType<ListItemProps>;
+  transformData: (alert: AlertType, index?: number) => ListItemProps;
   requiresCurrency?: boolean;
   translations: {
     loading: string;

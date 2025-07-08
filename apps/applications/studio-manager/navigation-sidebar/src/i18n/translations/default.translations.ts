@@ -110,6 +110,10 @@ exports.default = {
   },
   notifications: {
     title: "Notification center",
+    empty: {
+      title: "You're all caught up",
+      description: "No notifications right now",
+    },
     tabs: {
       billing: "Billing",
       orders: "Orders",

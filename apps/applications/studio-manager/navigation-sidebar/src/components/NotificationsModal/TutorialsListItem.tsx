@@ -6,14 +6,14 @@ import { Body } from "@bsport/kaizen-primitive-core";
 import { LEGACY_URLS } from "#src/urls";
 import { useTranslation } from "#src/utils/i18n";
 
-interface TutorialsListItemProps {
+export type TutorialsListItemProps = {
   id: string;
   sectionNames: Record<Locale, string>;
   lessonNames: Record<Locale, string>;
   isNewSection: boolean;
   sectionId: number;
   lessonId: number;
-}
+};
 
 const getLocalizedText = (
   translatedTextMap: Record<Locale, string>,

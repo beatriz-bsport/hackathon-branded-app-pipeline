@@ -4,6 +4,7 @@ import { Button, Card, NavigationMenu } from "@bsport/kaizen-primitive-core";
 import { dataAccessLayer } from "@bsport/sm-backbone";
 import { LOGIN_URL, logoutAction } from "@bsport/store-auth";
 
+import { useAlerts } from "#src/api/use-alerts";
 import { useBatchRoutingPermissions } from "#src/features/permissions";
 import "#src/index.css";
 import { LEGACY_URLS } from "#src/urls";
@@ -50,6 +51,8 @@ const NavigationSidebarContent = ({
   const isBridged = !!navigate;
 
   const [menuSet, setMenuSet] = useState<MenuSet>("default");
+
+  useAlerts();
 
   const navigationUrls = useMemo(
     () => getNavigationUrls({ revampedBoEnabled: true }),

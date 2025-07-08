@@ -31,8 +31,8 @@ import { CacheKeys } from '#src/services/constants';
 
 const API_V1_URI_CORE = Config.REACT_APP_BASE_URI_CORE_V1;
 const API_V1_URI_BUYABLE = Config.REACT_APP_BASE_URI_BUYABLE_V1;
+const API_V0_URI_CDP = Config.REACT_APP_BASE_URI_CDP_V0;
 
-const API_BASE_URI_CORE = Config.REACT_APP_BASE_URI_CORE_V0;
 const API_BASE_URI_BUYABLE = Config.REACT_APP_BASE_URI_BUYABLE_V0;
 
 export const fetchFranchise = async () => {
@@ -156,7 +156,7 @@ export const fetchFranchiseUserTags = (
   paginated_params: PaginationFilterParams,
 ) => {
   return getAuth<PaginatedResponse<FranchiseUserTag>>(
-    `${API_BASE_URI_CORE}/franchise_user_profile/${user_id}/member_tag/${buildUrlParams(
+    `${API_V0_URI_CDP}/franchise_user_profile/${user_id}/member_tag/${buildUrlParams(
       paginated_params,
     )}`,
   );
@@ -167,7 +167,7 @@ export const updateFranchiseUserTags = (
   data: { user_tag_ids: number[] },
 ) => {
   return postAuth<number[]>(
-    `${API_BASE_URI_CORE}/franchise_user_profile/${user_id}/member_tag/update_user_member_tags/`,
+    `${API_V0_URI_CDP}/franchise_user_profile/${user_id}/member_tag/update_user_member_tags/`,
     data,
   );
 };

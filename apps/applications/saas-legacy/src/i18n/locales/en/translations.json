@@ -4424,7 +4424,7 @@
                 "documentationLabel": "Procedural documentation",
                 "manufacturerLinkLabel": "Certificate of the TSE manufacturer",
                 "manufacturer": "Manufacturer: bsport",
-                "version": "Version of the TSE: 2.0",
+                "version": "Version of the TSE: v2",
                 "description": "This is a regulation aimed at ensuring the security and integrity of electronic cash register systems. We use Fiskaly as a technical security device (TSE) to prevent manipulation and ensure that transaction data is stored securely and tamper-proof."
             }
         },

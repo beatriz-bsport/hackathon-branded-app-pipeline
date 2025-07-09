@@ -130,7 +130,7 @@ const Alert: React.FC<AlertProps> = ({
           })}
         />
       </div>
-      <div className="flex-1 flex flex-col gap-2xs">
+      <div className="flex-1 flex flex-col gap-2xs self-center">
         {title && (
           <Title htmlVariant="h4" weight="stronger">
             {title}

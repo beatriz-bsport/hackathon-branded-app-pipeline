@@ -32,6 +32,7 @@ const meta: Meta<typeof RadioGroup> = {
     direction: {
       control: { type: "inline-radio" },
       table: { type: { summary: "string" } },
+      options: ["start", "end"],
     },
     onChangeValue: {
       table: { type: { summary: "function" } },

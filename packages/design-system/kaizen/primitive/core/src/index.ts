@@ -72,6 +72,10 @@ export {
   type FilterField,
   type FilterElementState,
 } from "./components/Filter";
+export {
+  default as FormRadioGroup,
+  type FormRadioGroupProps,
+} from "./components/FormRadioGroup";
 export { KaizenI18nProvider } from "./components/I18nProvider";
 export {
   default as Icon,

@@ -105,7 +105,7 @@ type QueryParams = {
   billingPlanId: string;
   dialogMode: string;
   onValidation: string;
-  one_click_checkout?: string;
+  express_checkout?: string;
   user_registration_response: string;
 };
 
@@ -435,7 +435,7 @@ export class ConfirmationCheckout extends React.PureComponent<Props, State> {
 
     const userRegistrationResponse = this.getParsedUserRegistrationResponse();
 
-    const isFromOneClickCheckout = !!this.props.queryParams?.one_click_checkout;
+    const isFromOneClickCheckout = !!this.props.queryParams?.express_checkout;
 
     const confirmationStatus = isFromOneClickCheckout
       ? getOneClickCheckoutConfirmationStatus(
@@ -766,11 +766,11 @@ const mapWithHandlers = {
     () => {
       if (WidgetUtils.isWidget()) {
         replace(buildUrlForWidget('bookings/', companyTheme));
-        if (!!queryParams?.one_click_checkout) disconnect();
+        if (!!queryParams?.express_checkout) disconnect();
         return;
       }
       replace(`/c/${companyId}/booking/`);
-      if (!!queryParams?.one_click_checkout) disconnect();
+      if (!!queryParams?.express_checkout) disconnect();
     },
   goToMarketplace:
     ({
@@ -792,13 +792,13 @@ const mapWithHandlers = {
         if (queryParams && queryParams.onValidation === 'close') {
           window.close();
         }
-        if (!!queryParams?.one_click_checkout) disconnect();
+        if (!!queryParams?.express_checkout) disconnect();
         return;
       }
       replace(
         urlToMarketplace(companyTheme.company_name, companyId.toString()),
       );
-      if (!!queryParams?.one_click_checkout) disconnect();
+      if (!!queryParams?.express_checkout) disconnect();
     },
   goToMemberPasses:
     ({
@@ -948,7 +948,7 @@ export default compose<any, ConfirmationCheckoutProps>(
       'dialogMode',
       'onValidation',
       'billingPlanId',
-      'one_click_checkout',
+      'express_checkout',
     ],
     'queryParams',
     'setQueryParams',

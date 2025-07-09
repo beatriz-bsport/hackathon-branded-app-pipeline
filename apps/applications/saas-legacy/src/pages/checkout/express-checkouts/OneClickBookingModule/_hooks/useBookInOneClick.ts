@@ -42,7 +42,7 @@ const redirectToConfirmationPage = (
   pushUrl(
     getCheckoutValidationUrl(offer.company, {
       basket: basketId,
-      one_click_checkout: 'true',
+      express_checkout: 'true',
       user_registration_response: encodeURIComponent(
         JSON.stringify(userRegistrationResponse),
       ),

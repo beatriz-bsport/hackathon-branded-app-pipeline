@@ -13,6 +13,7 @@ import WarningIcon from '@material-ui/icons/Warning';
 
 import GenericResponsiveDialog from '#src/components/genericDialog/GenericResponsiveDialog';
 import RedButton from '#src/components/button/RedButton.component';
+import { VALIDATION_DELAY } from '#src/libs/constants';
 
 type Props = {
   open: boolean;
@@ -66,7 +67,7 @@ export const ShopItemDeleteConfirmDialog: React.FC<Props> = ({
         <RedButton
           autoFocus
           color="primary"
-          delayBeforeActivation={3}
+          delayBeforeActivation={VALIDATION_DELAY}
           onClick={onSubmit}
         >
           {t('common:delete')}

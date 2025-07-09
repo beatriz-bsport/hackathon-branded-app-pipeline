@@ -153,6 +153,7 @@ const TextField: React.FC<TextFieldProps> = ({
   );
 
   const handleTextChange = (e: ChangeEvent<HTMLInputElement>) => {
+    e.stopPropagation();
     const val = e.target.value;
 
     if (/^#[\da-f]{0,6}$/i.test(val)) {
@@ -164,14 +165,20 @@ const TextField: React.FC<TextFieldProps> = ({
   };
 
   const handleColorInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    e.stopPropagation();
     setColorInputValue(e.target.value);
+    onChange?.(e);
+  };
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    e.stopPropagation();
     onChange?.(e);
   };
 
   const colorInputProps =
     type === "color"
       ? { type: "text", onChange: handleTextChange }
-      : { type, onChange };
+      : { type, onChange: handleChange };
 
   const { className: containerClassName, ...otherContainerProps } =
     containerProps ?? {};

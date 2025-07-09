@@ -30,7 +30,7 @@ export const referralProgramSchema = z.object({
     // 1. Check the general format: only digits, optional minus, optional decimal separator
     .refine((value) => /^-?\d+([.,]\d*)?$/.test(value), {
       message: i18nInstance.t(
-        "active.form.basketMinimalAmount.errors.invalidFormat",
+        "active.form.referringReward.errors.invalidFormat",
       ),
     })
     // 2. Check for at most two decimals (only if there's a decimal part)
@@ -42,12 +42,13 @@ export const referralProgramSchema = z.object({
       },
       {
         message: i18nInstance.t(
-          "active.form.basketMinimalAmount.errors.tooManyDecimalPoints",
+          "active.form.referringReward.errors.tooManyDecimalPoints",
         ),
       },
     ),
   maxReferringUsage: z.coerce
     .number()
+    .positive()
     .int({
       message: i18nInstance.t(
         "active.form.referringReward.maxReferringNumber.errors.noFloat",
@@ -63,6 +64,36 @@ export const referralProgramSchema = z.object({
         "active.form.referringReward.maxReferringNumber.errors.tooBig",
       ),
     }),
+  referringRewardAmount: z
+    .string()
+    // 1. Check the general format: only digits, optional minus, optional decimal separator
+    .refine((value) => /^-?\d+([.,]\d*)?$/.test(value), {
+      message: i18nInstance.t(
+        "active.form.referralReward.errors.invalidFormat",
+      ),
+    })
+    // 2. Check for at most two decimals (only if there's a decimal part)
+    .refine(
+      (value) => {
+        const match = /^-?\d+([.,](\d+))?$/.exec(value);
+        if (!match || !match[2]) return true; // No decimal part, or not matching
+        return match[2].length <= 2;
+      },
+      {
+        message: i18nInstance.t(
+          "active.form.referralReward.errors.tooManyDecimalPoints",
+        ),
+      },
+    ),
+  referringRewardPercentage: z.coerce
+    .number()
+    .nonnegative()
+    .max(100, {
+      message: i18nInstance.t(
+        "active.form.referralReward.errors.percentageTooHigh",
+      ),
+    }),
+  referringRewardType: z.string(),
 }) satisfies z.ZodType<ReferralProgramFormData>;
 
 export type ReferralProgramFormSchema = z.infer<typeof referralProgramSchema>;

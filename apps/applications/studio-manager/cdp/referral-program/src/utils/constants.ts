@@ -1,3 +1,10 @@
 export const BASKET_MINIMAL_AMOUNT_DEFAULT = "0.00";
 export const AMOUNT_REFERRING_REWARD_DEFAULT = "0.00";
 export const MAX_REFERRING_USAGE_DEFAULT = 1;
+export const REFERRING_REWARD_AMOUNT_DEFAULT = "0.00";
+export const REFERRING_REWARD_PERCENTAGE_DEFAULT = 0;
+
+export const ReferringRewardRadioOptions = {
+  Amount: "Amount",
+  Percentage: "Percentage",
+};

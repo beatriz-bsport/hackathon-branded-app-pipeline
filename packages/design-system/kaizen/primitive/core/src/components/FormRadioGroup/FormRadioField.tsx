@@ -273,7 +273,11 @@ const FormRadioField: React.FC<FormRadioFieldProps> = ({
           aria-invalid={!!errorText}
           aria-labelledby={id}
           tabIndex={0}
-          onChange={onChange}
+          onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+            event.preventDefault();
+            event.stopPropagation();
+            onChange?.(event);
+          }}
         />
         {checked && (
           <svg

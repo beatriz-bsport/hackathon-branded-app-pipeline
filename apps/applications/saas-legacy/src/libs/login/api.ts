@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { getAuth, postAuth, post, buildUrlParams } from '../../http';
+import { getAuth, postAuth, post, buildUrlParams, patchAuth } from '../../http';
 import Config from '../../config';
 
 const API_V1_URI = Config.REACT_APP_BASE_URI_PLATFORM_V1;
@@ -119,4 +119,10 @@ export async function getRelationToken(params: {
 
 export async function toggleRevampedBackofficeAPI() {
   return postAuth(`${API_V1_URI}/authentication/toggle_revamped_backoffice/`);
+}
+
+export async function updatePassword(password: string) {
+  return patchAuth(`${API_V1_URI}/authentication/update_password/`, {
+    password,
+  });
 }

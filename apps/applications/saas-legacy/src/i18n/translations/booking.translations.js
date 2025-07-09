@@ -678,6 +678,9 @@ const getTranslations = async () => {
         acceptTermsAndCondition: {
           label: 'I accept the General Terms of Use',
         },
+        password: {
+          label: 'Create password',
+        },
         button: { label: 'Sign up' },
         errors: {
           requiredField: 'This field is required',
@@ -687,6 +690,9 @@ const getTranslations = async () => {
           emailTaken:
             'Email already exits, you can try logging in with this email',
           phoneTaken: 'This phone number is already used by another member',
+          passwordMinimumRequirements:
+            'Your password must be at least 6 characters long and contain no spaces',
+          passwordConfirmation: 'Passwords must match',
         },
       },
     },

@@ -1,3 +1,5 @@
+import { buildById } from "@bsport/store-base";
+
 import { attendanceStore } from "#src/store";
 import type { Attendance } from "#src/types";
 
@@ -25,14 +27,12 @@ export const setAttendances = ({
   page: number;
 }) => {
   attendanceStore.setState((state) => {
-    const byId = attendances.reduce((acc, attendance) => {
-      acc[attendance.id] = attendance;
-      return acc;
-    }, state.byId);
-
     return {
       ids: attendances.map((attendance) => attendance.id),
-      byId,
+      byId: buildById<Attendance>({
+        initial: state.byId,
+        newItems: attendances,
+      }),
       count,
       page,
     };

@@ -1735,6 +1735,9 @@ importers:
       '@bsport/currency':
         specifier: workspace:*
         version: link:../../../../packages/utils/currency
+      '@bsport/datetime-manipulation':
+        specifier: workspace:*
+        version: link:../../../../packages/utils/datetime/manipulation
       '@bsport/envs':
         specifier: workspace:*
         version: link:../../../../packages/utils/envs
@@ -1759,6 +1762,9 @@ importers:
       '@bsport/store-staff-management-alerting':
         specifier: workspace:*
         version: link:../../../../packages/stores/staff-management/alerting
+      '@bsport/store-staff-management-attendance':
+        specifier: workspace:*
+        version: link:../../../../packages/stores/staff-management/attendance
       '@bsport/use-async':
         specifier: workspace:*
         version: link:../../../../packages/hooks/use-async

@@ -13,28 +13,31 @@ import { dataAccessLayer } from "@bsport/sm-backbone";
 import { LOGIN_URL, logoutAction } from "@bsport/store-auth";
 
 import { useAlerts } from "#src/api/use-alerts";
+import {
+  AttendanceModal,
+  useAttendanceModal,
+  useAttendancePermissions,
+} from "#src/components/AttendanceModal";
+import {
+  NotificationsModal,
+  useNotificationsModal,
+} from "#src/components/NotificationsModal";
+import {
+  SearchMemberModal,
+  useSearchMemberModal,
+} from "#src/components/SearchMemberModal";
+import {
+  TemporaryPasswordDialog,
+  useTemporaryPasswordDialog,
+} from "#src/components/TemporaryPasswordDialog";
 import { useBatchRoutingPermissions } from "#src/features/permissions";
 import "#src/index.css";
-import { LEGACY_URLS } from "#src/urls";
 import {
   AppI18nextProvider,
   instanciateAppI18n,
   useTranslation,
 } from "#src/utils/i18n";
 
-import {
-  AttendanceModal,
-  useAttendanceModal,
-  useAttendancePermissions,
-} from "../AttendanceModal";
-import {
-  NotificationsModal,
-  useNotificationsModal,
-} from "../NotificationsModal";
-import {
-  TemporaryPasswordDialog,
-  useTemporaryPasswordDialog,
-} from "../TemporaryPasswordDialog";
 import FeedbackDialog, { useFeedbackDialog } from "./FeedbackDialog";
 import LanguageDropdown from "./LanguageDropdown";
 import { NavigationMenuElement } from "./NavigationMenuElement";
@@ -94,6 +97,11 @@ const NavigationSidebarContent = ({
   } = useNotificationsModal();
   const { isAttendanceModalOpen, closeAttendanceModal, openAttendanceModal } =
     useAttendanceModal();
+  const {
+    isSearchMemberModalOpen,
+    closeSearchMemberModal,
+    openSearchMemberModal,
+  } = useSearchMemberModal();
 
   const navigationElements = useNavigationElements({
     menuSet,
@@ -182,15 +190,6 @@ const NavigationSidebarContent = ({
   } = companyTheme ?? {};
   const user = dataAccessLayer.useUserAccess();
 
-  const onSearchClick = () => {
-    const url = `${LEGACY_URLS.search}?q=`;
-    if (navigate) {
-      navigate(url);
-    } else {
-      window.location.assign(url);
-    }
-  };
-
   return (
     <NavigationSidebarContainer>
       <NavigationSidebarHeader
@@ -218,7 +217,7 @@ const NavigationSidebarContent = ({
           }
         }}
         onBack={() => setMenuSet("default")}
-        onSearch={onSearchClick}
+        onSearch={openSearchMemberModal}
       />
       <div
         role="presentation"
@@ -276,6 +275,11 @@ const NavigationSidebarContent = ({
             navigateInContext={navigateInContext}
           />
         )}
+      <SearchMemberModal
+        isOpen={isSearchMemberModalOpen}
+        onClose={closeSearchMemberModal}
+        navigate={navigate}
+      />
     </NavigationSidebarContainer>
   );
 };

@@ -1,0 +1,127 @@
+import React from "react";
+
+import {
+  Avatar,
+  Badge,
+  Body,
+  Button,
+  CopyToClipboard,
+  Popover,
+} from "@bsport/kaizen-primitive-core";
+
+import { NavigationLink } from "#src/components/NavigationLink";
+import { LEGACY_URLS } from "#src/urls";
+
+import type { ListItemProps } from "./constants";
+
+export const SearchMemberListItem: React.FC<ListItemProps> = ({
+  id,
+  avatar,
+  name,
+  navigate,
+  phone,
+  email,
+  tags,
+  tagsTooltip,
+  toastPhoneCopied,
+  toastEmailCopied,
+}) => {
+  const renderItem = () => (
+    <>
+      <div className="grid grid-cols-[minmax(0,7fr)_minmax(0,3fr)] w-full gap-xs items-center">
+        {/* Left column with title */}
+        <div className="flex items-center gap-sm">
+          <Avatar {...avatar} shape="round" size="md" />
+          <Body>{name}</Body>
+        </div>
+
+        {/* Right column with actions */}
+        <div className="flex justify-end gap-sm">
+          {phone ? (
+            <CopyToClipboard
+              size="md"
+              intent="flat"
+              color="default"
+              value={phone}
+              toastMessage={toastPhoneCopied}
+            />
+          ) : undefined}
+          {email ? (
+            <CopyToClipboard
+              size="md"
+              intent="flat"
+              color="default"
+              value={email}
+              toastMessage={toastEmailCopied}
+            />
+          ) : undefined}
+          <Popover>
+            <Popover.Anchor>
+              {({ setIsPopoverOpened }) => (
+                <Button
+                  iconLeft="info-circle"
+                  size="md"
+                  intent="flat"
+                  color="default"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setIsPopoverOpened((prev) => !prev);
+                  }}
+                />
+              )}
+            </Popover.Anchor>
+            <Popover.Content placement="bottom-left">
+              {({ setIsPopoverOpened }) => (
+                <div className="flex flex-col gap-sm p-sm max-w-[240px]">
+                  <div className="flex flex-row justify-between items-center">
+                    <Body htmlVariant="p" size="lg" color="default">
+                      {tagsTooltip}
+                    </Body>
+                    <Button
+                      iconLeft="x-close"
+                      size="md"
+                      intent="flat"
+                      color="default"
+                      onClick={() => setIsPopoverOpened(false)}
+                    />
+                  </div>
+                  <div className="flex flex-row gap-xs items-center wrap">
+                    {tags.map((tagId) => (
+                      /** @todo Connect to Tags API to get name of the tags */
+                      <Badge
+                        key={tagId}
+                        color="main"
+                        size="sm"
+                        text={String(tagId)}
+                      />
+                    ))}
+                  </div>
+                </div>
+              )}
+            </Popover.Content>
+          </Popover>
+        </div>
+      </div>
+    </>
+  );
+
+  return (
+    <NavigationLink
+      item={{ id: id, href: `${LEGACY_URLS.member}/${id}`, revamped: false }}
+      navigate={navigate}
+      renderElement={renderItem}
+      wrapperConfig={{
+        withOnClick: true,
+        tabIndex: 0,
+        className: [
+          "relative flex",
+          "min-h-2xl py-xs px-md gap-xs",
+          "border-b-stroke-thin border-b-stroke-divider",
+          "hover:bg-surface-action-default-weak-hovered",
+          "hover:cursor-pointer",
+          "active:bg-surface-action-default-weak-pressed",
+        ].join(" "),
+      }}
+    />
+  );
+};

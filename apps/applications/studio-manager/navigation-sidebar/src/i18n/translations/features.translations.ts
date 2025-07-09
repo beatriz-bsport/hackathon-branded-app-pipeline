@@ -1,4 +1,22 @@
 exports.default = {
+  searchMembers: {
+    title: "Search members",
+    addMember: "Add member",
+    loading: "Loading results...",
+    emptySearch: "Type above to start your search or add a new member",
+    tagsTooltip: "Tags:",
+    segments: {
+      active: "Active",
+      archived: "Archived",
+    },
+    copyToClipboard: {
+      action: "Click to copy",
+      toasts: {
+        phoneNumberCopied: "Member mobile number was copied to your clipboard",
+        emailCopied: "Member email was copied to your clipboard",
+      },
+    },
+  },
   temporaryPassword: {
     title: "Temporary password",
     description:

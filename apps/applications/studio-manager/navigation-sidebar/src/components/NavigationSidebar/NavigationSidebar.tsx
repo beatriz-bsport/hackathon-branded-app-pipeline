@@ -247,6 +247,7 @@ const NavigationSidebarContent = ({
       <NotificationsModal
         isOpen={isNotificationsModalOpen}
         onClose={closeNotificationsModal}
+        navigate={navigate}
       />
     </NavigationSidebarContainer>
   );

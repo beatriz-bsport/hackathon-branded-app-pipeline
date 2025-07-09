@@ -33,7 +33,7 @@ import type {
   UnpaidPrivateBookingAlert,
 } from "./types";
 
-export const useTabConfigurations = () => {
+export const useTabConfigurations = (navigate?: (to: string) => void) => {
   const { t, i18n } = useTranslation("default");
 
   const companyTheme = dataAccessLayer.useCompanyTheme();
@@ -61,6 +61,7 @@ export const useTabConfigurations = () => {
             paidAmount: alert.data.price_payed,
             dueAmount: alert.data.price_due,
             currencySymbol,
+            navigate: navigate,
           }),
         } satisfies TabConfiguration<BillingListItemProps, InvoiceAlert>,
         orders: {

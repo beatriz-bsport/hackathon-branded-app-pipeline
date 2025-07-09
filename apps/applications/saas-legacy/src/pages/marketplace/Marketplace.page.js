@@ -92,7 +92,6 @@ import {
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 import ApplyCustomTheme from '#src/libs/exportable-components/ApplyCustomTheme.component';
 
-import { CUSTOM_FORM_CSS_VARIANT_ACTIVATED } from '#src/libs/custom-form/constants';
 import type { RootState } from '../../reducers';
 import type { OptionCallback } from '../../state/types';
 import MemberShipValidationWrapper from '../consumer/MemberShipValidationWrapper.component';

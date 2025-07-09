@@ -26,6 +26,7 @@ import ConsumerFormFields, {
 } from './CustomForm.formik-hoc';
 import type { OptionCallback } from '../../../../state/types';
 import CustomFormButtonsCSS from '../CustomFormButtonsCSS';
+import { useCssVariantActivated } from '../../hooks/useCssVariantActivated';
 
 type Props = {
   asManager?: boolean;
@@ -45,7 +46,6 @@ type Props = {
   textButtonConfirm?: boolean;
   userStatus?: number;
   values?: CustomFormFilled;
-  isCssVariantActivated?: boolean;
   measureBeforeMount?: boolean;
   shouldWrapLayerInCssHoc?: boolean;
   waiver?: string;
@@ -73,11 +73,12 @@ const ConsumerFormView: React.FC<Props> = (props: Props) => {
     handleSubmit,
     onCancel,
     onSubmitDraft,
-    isCssVariantActivated,
   } = props;
 
   const { t } = useTranslation('marketing');
   const classes = useStyles({ simplifyUI });
+
+  const isCssVariantActivated = useCssVariantActivated();
 
   const handleCancel = useCallback(() => {
     onCancel(data);

@@ -19,8 +19,6 @@ type OwnProps = {
   initial: CustomForm;
   waiver?: string;
   general_terms_and_conditions?: string;
-  shouldWrapLayerInCssHoc?: boolean;
-  isCssVariantActivated?: boolean;
   saveLayouts: (layout: ResponsiveLayouts) => void;
   closeEditor: () => void;
 };
@@ -28,8 +26,7 @@ type Props = OwnProps &
   MaterialStyleType<ReturnType<typeof useStyles>> &
   WithTranslation;
 export const CustomFormLayoutEditor = (props: Props) => {
-  const { t, saveLayouts, shouldWrapLayerInCssHoc, isCssVariantActivated } =
-    props;
+  const { t, saveLayouts } = props;
   const [maxWidth, setMaxWidth] = React.useState<number>(385);
   const [layouts, setLayouts] = React.useState(
     Object.keys(props.initial?.layout || {})?.length !== 4
@@ -65,7 +62,6 @@ export const CustomFormLayoutEditor = (props: Props) => {
           editable
           general_terms_and_conditions={props.general_terms_and_conditions}
           initial={props.initial}
-          isCssVariantActivated={isCssVariantActivated}
           layouts={props.initial?.layout}
           maxHeight="65%"
           onLayoutChange={(allLayouts: ResponsiveLayouts) =>
@@ -73,7 +69,6 @@ export const CustomFormLayoutEditor = (props: Props) => {
           }
           saveLayouts={() => saveLayouts(layouts)}
           setOutterContainerWidth={handleWidthChange}
-          shouldWrapLayerInCssHoc={shouldWrapLayerInCssHoc}
           waiver={props.waiver}
         />
       </div>

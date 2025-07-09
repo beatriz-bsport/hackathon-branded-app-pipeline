@@ -157,6 +157,9 @@ const icons = {
     async () => await import("./assets/pin-01-solid.svg?react"),
   ),
   "pin-02": React.lazy(async () => await import("./assets/pin-02.svg?react")),
+  "play-circle-solid": React.lazy(
+    async () => await import("./assets/play-circle-solid.svg?react"),
+  ),
   plus: React.lazy(async () => await import("./assets/plus.svg?react")),
   "refresh-cw-01": React.lazy(
     async () => await import("./assets/refresh-cw-01.svg?react"),
@@ -174,8 +177,14 @@ const icons = {
   "settings-04": React.lazy(
     async () => await import("./assets/settings-04.svg?react"),
   ),
+  "share-03": React.lazy(
+    async () => await import("./assets/share-03.svg?react"),
+  ),
   "shopping-cart-03": React.lazy(
     async () => await import("./assets/shopping-cart-03.svg?react"),
+  ),
+  "stop-circle-solid": React.lazy(
+    async () => await import("./assets/stop-circle-solid.svg?react"),
   ),
   "ticket-01": React.lazy(
     async () => await import("./assets/ticket-01.svg?react"),

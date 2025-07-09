@@ -14,4 +14,33 @@ exports.default = {
         "This password is valid until {{- expirationDate }}. Your main password has not changed.",
     },
   },
+  attendance: {
+    title: "Time clock",
+    clockInForStaff: "Clock-in for another staff member",
+    buttons: {
+      close: "Close",
+      clockIn: "Clock-in",
+      clockOut: "Clock-out",
+    },
+    initial: {
+      welcome: "Hello {{ name }}!",
+      clockInCTA: "Please click 'Clock-in' to get started;",
+    },
+    clockedIn: {
+      successfulClockIn: "You've successfully clocked-in.",
+      failedClockIn: "You are already clocked-in.",
+      clockOutCTA: "You can click 'Clock-out' to wrap-up.",
+    },
+    clockedOut: {
+      successfulClockOut: "Your schedules have been saved:",
+      failedClockOut: "Failed to clock-out",
+      nextIterationCTA:
+        "You can start a new punch the next time you open this window.",
+    },
+    schedule: {
+      arrivalTime: "Arrival Time",
+      departureTime: "Departure Time",
+      hoursWorked: "Hours Worked",
+    },
+  },
 };

@@ -23,6 +23,11 @@ import {
 } from "#src/utils/i18n";
 
 import {
+  AttendanceModal,
+  useAttendanceModal,
+  useAttendancePermissions,
+} from "../AttendanceModal";
+import {
   NotificationsModal,
   useNotificationsModal,
 } from "../NotificationsModal";
@@ -37,6 +42,7 @@ import { NavigationSidebarContainer } from "./NavigationSidebarContainer";
 import NavigationSidebarHeader, {
   type MenuOption,
 } from "./NavigationSidebarHeader";
+import { useNavigateInContext } from "./navigate";
 import {
   type MenuSet,
   isDividerElement,
@@ -62,6 +68,8 @@ const NavigationSidebarContent = ({
 
   const isBridged = !!navigate;
 
+  const navigateInContext = useNavigateInContext(navigate);
+
   const [menuSet, setMenuSet] = useState<MenuSet>("default");
 
   useAlerts();
@@ -70,6 +78,7 @@ const NavigationSidebarContent = ({
     () => getNavigationUrls({ revampedBoEnabled: true }),
     [],
   );
+  const attendancePermissions = useAttendancePermissions();
 
   const { open, openDialog, closeDialog } = useFeedbackDialog();
   const {
@@ -83,6 +92,8 @@ const NavigationSidebarContent = ({
     openModal: openNotificationsModal,
     closeModal: closeNotificationsModal,
   } = useNotificationsModal();
+  const { isAttendanceModalOpen, closeAttendanceModal, openAttendanceModal } =
+    useAttendanceModal();
 
   const navigationElements = useNavigationElements({
     menuSet,
@@ -169,6 +180,7 @@ const NavigationSidebarContent = ({
     company_name: companyName,
     cover: companyLogo,
   } = companyTheme ?? {};
+  const user = dataAccessLayer.useUserAccess();
 
   const onSearchClick = () => {
     const url = `${LEGACY_URLS.search}?q=`;
@@ -185,6 +197,7 @@ const NavigationSidebarContent = ({
         avatarUrl={companyLogo}
         label={companyName ?? ""}
         menuSet={menuSet}
+        hiddenItems={{ attendance: !attendancePermissions.displayFeature }}
         onSelectItem={(id: MenuOption) => {
           if (id === "settings") {
             setMenuSet(id);
@@ -199,6 +212,9 @@ const NavigationSidebarContent = ({
               }
             };
             logoutAction(navigateToLoginPage);
+          }
+          if (id === "attendance") {
+            openAttendanceModal();
           }
         }}
         onBack={() => setMenuSet("default")}
@@ -249,6 +265,17 @@ const NavigationSidebarContent = ({
         onClose={closeNotificationsModal}
         navigate={navigate}
       />
+      {isAttendanceModalOpen &&
+        user &&
+        attendancePermissions.displayFeature && (
+          <AttendanceModal
+            onClose={closeAttendanceModal}
+            userId={user.id}
+            userName={user.name}
+            permissions={attendancePermissions}
+            navigateInContext={navigateInContext}
+          />
+        )}
     </NavigationSidebarContainer>
   );
 };

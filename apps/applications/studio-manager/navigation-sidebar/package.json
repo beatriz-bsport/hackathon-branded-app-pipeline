@@ -24,6 +24,7 @@
   },
   "dependencies": {
     "@bsport/currency": "workspace:*",
+    "@bsport/datetime-manipulation": "workspace:*",
     "@bsport/envs": "workspace:*",
     "@bsport/fetch": "workspace:*",
     "@bsport/i18n": "workspace:*",
@@ -32,6 +33,7 @@
     "@bsport/sm-backbone": "workspace:*",
     "@bsport/store-auth": "workspace:*",
     "@bsport/store-staff-management-alerting": "workspace:*",
+    "@bsport/store-staff-management-attendance": "workspace:*",
     "@bsport/use-async": "workspace:*",
     "@module-federation/bridge-react": "^0.13.1",
     "react": "^19.0.0",

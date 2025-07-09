@@ -95,6 +95,12 @@ import type { RootState } from '../../../../reducers';
 import { sortByDate } from '../../../../utils/datetime';
 import { buildUrlParams } from '../../../../http';
 
+import { getItemInStorage, removeItemInStorage } from '#src/utils/storage';
+import { STORAGE_KEY_LIGHT_SIGNUP_FORM_VALUES } from '#src/actions/constants';
+import type { LightSignupFormValues } from '#src/pages/checkout/express-checkouts/components/LightSignupForm';
+// @ts-expect-error
+import { requestLogin as requestLoginAction } from '#src/actions/auth.actions';
+
 import './styles.css';
 
 type QueryParams = {
@@ -157,6 +163,7 @@ export class ConfirmationCheckout extends React.PureComponent<Props, State> {
   }
 
   componentDidMount() {
+    this.handleExpressCheckoutLogin();
     if (
       this.props.offerBookedIdList?.[0] &&
       typeof this.props.offerBookedIdList?.[0] === 'number' // dont fetch if [undefined]
@@ -192,6 +199,40 @@ export class ConfirmationCheckout extends React.PureComponent<Props, State> {
       this.props.fetchBillinPlan(parsedBillingPlanId, {});
     }
   }
+
+  handleExpressCheckoutLogin = () => {
+    if (
+      !(this.props.queryParams?.express_checkout === 'true') ||
+      this.props.authenticated
+    ) {
+      return;
+    }
+    try {
+      const lightSignupFormValues = getItemInStorage(
+        'local',
+        STORAGE_KEY_LIGHT_SIGNUP_FORM_VALUES,
+      );
+
+      if (!lightSignupFormValues) return;
+
+      const { email, password }: LightSignupFormValues = JSON.parse(
+        lightSignupFormValues,
+      );
+
+      if (!email || !password) return;
+      this.props.requestLogin(email, password, {
+        onDone: () => {
+          removeItemInStorage('local', STORAGE_KEY_LIGHT_SIGNUP_FORM_VALUES);
+        },
+        onError: () => {
+          removeItemInStorage('local', STORAGE_KEY_LIGHT_SIGNUP_FORM_VALUES);
+        },
+      });
+    } catch (error) {
+      console.error('Error during express checkout login:', error);
+      removeItemInStorage('local', STORAGE_KEY_LIGHT_SIGNUP_FORM_VALUES);
+    }
+  };
 
   trackBookings = () => {
     // Add booking success analytics
@@ -886,6 +927,7 @@ const mapStateToProps = (
   getOfferStatusWaitingListPosition: (offerId: number) => {
     return getOfferStatusWaitingListPosition(state, offerId);
   },
+  authenticated: state.auth.authenticated,
 });
 
 const mapDispatchToProps = {
@@ -905,6 +947,7 @@ const mapDispatchToProps = {
   push: pushRouter,
   goBack,
   retrieveCompanyCssConfiguration: retrieveCompanyCssConfigurationAction,
+  requestLogin: requestLoginAction,
 };
 
 const connector = connect(mapStateToProps, mapDispatchToProps);

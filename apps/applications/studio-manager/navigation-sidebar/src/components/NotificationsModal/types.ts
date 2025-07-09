@@ -34,7 +34,9 @@ export type NotificationTab =
 export interface NotificationsModalProps {
   isOpen: boolean;
   onClose: () => void;
+  navigate?: (to: string) => void;
 }
+
 export interface TabConfiguration<
   ListItemProps = { id: string },
   AlertType = Alert,

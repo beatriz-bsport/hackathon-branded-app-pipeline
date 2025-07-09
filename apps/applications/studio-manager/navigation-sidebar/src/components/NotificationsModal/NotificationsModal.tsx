@@ -21,9 +21,11 @@ import { useNotificationTabs } from "./use-notification-tabs";
 export const NotificationsModal: React.FC<NotificationsModalProps> = ({
   isOpen,
   onClose,
+  navigate,
 }) => {
   const { t } = useTranslation("default");
-  const { availableTabs: tabs, tabConfigurations } = useNotificationTabs();
+  const { availableTabs: tabs, tabConfigurations } =
+    useNotificationTabs(navigate);
 
   const defaultTab =
     tabs.length > 0 ? (tabs[0].id as NotificationTab) : "billing";

@@ -9,8 +9,8 @@ import {
 
 import { useTabConfigurations } from "./use-tab-configurations";
 
-export const useNotificationTabs = () => {
-  const tabConfigurations = useTabConfigurations();
+export const useNotificationTabs = (navigate?: (to: string) => void) => {
+  const tabConfigurations = useTabConfigurations(navigate);
 
   const billingCount = useAlertingStore(
     selectAlertCountByKind(tabConfigurations.billing.alertKind),

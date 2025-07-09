@@ -95,9 +95,6 @@ import type { RootState } from '../../../../reducers';
 import { sortByDate } from '../../../../utils/datetime';
 import { buildUrlParams } from '../../../../http';
 
-// @ts-expect-error js file
-import { auth as authActions } from '#src/actions';
-
 import './styles.css';
 
 type QueryParams = {
@@ -752,35 +749,27 @@ const mapWithHandlers = {
   goToMemberBookings:
     ({
       replace,
-      disconnect,
       companyId,
-      queryParams,
       companyTheme,
     }: {
       replace: typeof replaceRouter;
-      disconnect: any;
       companyId: number;
-      queryParams: QueryParams;
       companyTheme: CompanyTheme;
     }) =>
     () => {
       if (WidgetUtils.isWidget()) {
         replace(buildUrlForWidget('bookings/', companyTheme));
-        if (!!queryParams?.express_checkout) disconnect();
         return;
       }
       replace(`/c/${companyId}/booking/`);
-      if (!!queryParams?.express_checkout) disconnect();
     },
   goToMarketplace:
     ({
-      disconnect,
       replace,
       companyId,
       queryParams,
       companyTheme,
     }: {
-      disconnect: any;
       replace: typeof replaceRouter;
       companyId: number;
       queryParams: QueryParams;
@@ -792,24 +781,14 @@ const mapWithHandlers = {
         if (queryParams && queryParams.onValidation === 'close') {
           window.close();
         }
-        if (!!queryParams?.express_checkout) disconnect();
         return;
       }
       replace(
         urlToMarketplace(companyTheme.company_name, companyId.toString()),
       );
-      if (!!queryParams?.express_checkout) disconnect();
     },
   goToMemberPasses:
-    ({
-      replace,
-      companyId,
-      queryParams,
-    }: {
-      replace: typeof replaceRouter;
-      companyId: number;
-      queryParams: QueryParams;
-    }) =>
+    ({ replace, companyId, queryParams }: RouterProps & Props) =>
     () => {
       if (WidgetUtils.isWidget()) {
         WidgetUtils.paymentSuccess();
@@ -821,15 +800,7 @@ const mapWithHandlers = {
       replace(`/c/${companyId}/pack/`);
     },
   goToMemberSubscriptions:
-    ({
-      replace,
-      companyId,
-      queryParams,
-    }: {
-      replace: typeof replaceRouter;
-      companyId: number;
-      queryParams: QueryParams;
-    }) =>
+    ({ replace, companyId, queryParams }: RouterProps & Props) =>
     () => {
       if (WidgetUtils.isWidget()) {
         WidgetUtils.paymentSuccess();
@@ -934,7 +905,6 @@ const mapDispatchToProps = {
   push: pushRouter,
   goBack,
   retrieveCompanyCssConfiguration: retrieveCompanyCssConfigurationAction,
-  disconnect: authActions.disconnect,
 };
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
@@ -1001,7 +971,7 @@ export default compose<any, ConfirmationCheckoutProps>(
     }),
   ),
   connector,
-  withHandlers(mapWithHandlers),
   WithCustomCssProvider,
+  withHandlers(mapWithHandlers),
   marketplaceCssHoc(),
 )(ConfirmationCheckout);

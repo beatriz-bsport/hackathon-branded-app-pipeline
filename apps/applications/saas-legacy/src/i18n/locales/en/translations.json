@@ -9427,11 +9427,11 @@
             },
             "deleteForm": {
                 "actions": {
-                    "submit": "Delete",
+                    "submit": "Archive",
                     "close": "Close"
                 },
                 "content": "Members will still be able to use the pass at the studio where they bought it. Any subscription linked to this pass will remain valid at that same studio.",
-                "title": "Delete shared pass"
+                "title": "Archive shared pass"
             },
             "form": {
                 "notEditable": "This pass originates from a previously completed data migration. Some fields may not be editable to preserve the data.",
@@ -11124,10 +11124,10 @@
             "deleteForm": {
                 "content": "If you stop sharing with this studio, appointment passes purchased at that studio will still be valid, but only within that specific studio. Appointment passes from other studios will no longer be valid there. This also applies to linked subscriptions.",
                 "actions": {
-                    "submit": "Stop sharing",
+                    "submit": "Archive",
                     "close": "Close"
                 },
-                "title": "Stop sharing with a studio"
+                "title": "Archive shared appointment pass"
             },
             "form": {
                 "explain2": "Members who have purchased this appointment pass or a linked subscription will be able to use it at any of the newly compatible studios.",
@@ -11155,7 +11155,7 @@
                     "close": "Close"
                 },
                 "content": "Members will still be able to use the appointment pass at the studio where they bought it. Any subscription linked to this appointment pass will also only work at that same studio.",
-                "title": "Delete shared appointment pass"
+                "title": "Archive shared appointment pass"
             },
             "form": {
                 "actions": {

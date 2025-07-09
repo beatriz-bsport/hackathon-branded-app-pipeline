@@ -13,6 +13,9 @@ import DateRangeIcon from '@material-ui/icons/DateRange';
 import DescriptionIcon from '@material-ui/icons/Description';
 import DoubleArrow from '@material-ui/icons/DoubleArrow';
 import Email from '@material-ui/icons/Email';
+import Store from '@material-ui/icons/Store';
+import Business from '@material-ui/icons/Business';
+import Dashboard from '@material-ui/icons/Dashboard';
 import EuroSymbolIcon from '@material-ui/icons/EuroSymbol';
 import FitnessCenter from '@material-ui/icons/FitnessCenter';
 import GroupWorkIcon from '@material-ui/icons/GroupWork';
@@ -564,10 +567,23 @@ const ResponsiveDrawer: React.FC<Props> = ({
         text: t('backofficeMenu.reporting'),
       } as DrawerItemDefault,
       {
-        to: '/analytics/overview',
-        icon: TrendingUp,
-        text: t('backofficeMenu.analytics'),
-      } as DrawerItemDefault,
+        icon: Dashboard,
+        text: t('backofficeMenu.insights.insights'),
+        type: 'nested',
+        nestedItems: [
+          { type: 'divider' } as DrawerItemDivider,
+          {
+            to: '/analytics/overview',
+            icon: Business,
+            text: t('backofficeMenu.insights.franchise'),
+          } as DrawerItemDefault,
+          {
+            to: '/insights-company/overview',
+            icon: Store,
+            text: t('backofficeMenu.insights.company'),
+          } as DrawerItemDefault,
+        ],
+      } as DrawerItemNested,
       { type: 'divider' } as DrawerItemDivider,
       {
         icon: SettingsIcon,

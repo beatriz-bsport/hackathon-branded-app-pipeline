@@ -19,5 +19,5 @@ const AnalyticsInnerRouter: React.FC<Props> = () => {
 
 export default compose(
   withTranslation(['analytics', 'titles']),
-  withTitle(({ t }) => t('titles:dashboard.analytics')),
+  withTitle(({ t }) => t('titles:dashboard.insightsFranchise')),
 )(AnalyticsInnerRouter);

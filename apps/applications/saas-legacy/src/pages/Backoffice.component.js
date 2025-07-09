@@ -186,6 +186,9 @@ const SearchResults = asyncComponent(() => import('./SearchResults.component'));
 const Shop = asyncComponent(() => import('./shop/Shop.router'));
 const Reporting = asyncComponent(() => import('./reporting/Reporting.router'));
 const Analytics = asyncComponent(() => import('./analytics/Analytics.router'));
+const InsightsCompany = asyncComponent(() =>
+  import('./insights-company/InsightsCompany.router'),
+);
 const PaymentCombo = asyncComponent(() =>
   import('./payment-combo/PaymentCombo.router'),
 );
@@ -453,6 +456,7 @@ const BackofficeRoute = withSentryErrorReporting((props) => {
       <Route component={Giftcard} path="/giftcard" />
       <Route component={Reporting} path="/reporting/" />
       <Route component={Analytics} path="/analytics/" />
+      <Route component={InsightsCompany} path="/insights-company/" />
       <Route component={PaymentCombo} path="/combo/" />
       <Route component={PrivateService} path="/private-service" />
       <Route component={Order} path="/order" />
@@ -919,6 +923,9 @@ export class Backoffice extends Component<Props, State> {
                       this.props.browserLocation.pathname.includes('/inbox/') ||
                       this.props.browserLocation.pathname.includes(
                         '/analytics/',
+                      ) ||
+                      this.props.browserLocation.pathname.includes(
+                        '/insights-company/',
                       ),
                   })}
                 >

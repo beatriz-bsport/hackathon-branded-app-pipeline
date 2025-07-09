@@ -7177,7 +7177,11 @@
             "dashboard": "Dashboard",
             "search": "Search",
             "reporting": "Reporting",
-            "analytics": "Analytics",
+            "insights": {
+                "insights": "Insights",
+                "franchise": "Franchise",
+                "company": "Company"
+            },
             "consumer": {
                 "order": "My orders",
                 "profile": "My account",
@@ -7418,8 +7422,9 @@
                 "categories": "Reports",
                 "views": "Your views"
             },
-            "analytics": {
-                "overview": "Overview"
+            "insights": {
+                "franchise": "Franchise",
+                "company": "Company"
             }
         },
         "featureBaseButton": "Suggest a feature or improvement"
@@ -19386,7 +19391,8 @@
         "dashboard": {
             "marketingDashboard": "Marketing",
             "reportingDashboard": "Reporting",
-            "analytics": "Analytics",
+            "insightsFranchise": "Insights - Franchise",
+            "insightsCompany": "Insights - Company",
             "dashboard": "Dashboard"
         },
         "subscription": {

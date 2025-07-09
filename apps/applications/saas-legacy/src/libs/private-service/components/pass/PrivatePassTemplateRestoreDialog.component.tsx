@@ -7,31 +7,31 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import RedButton from '#src/components/button/RedButton.component';
-import { VALIDATION_DELAY } from '#src/libs/constants';
 
 type Props = { open?: boolean; onClose: () => void; onSubmit: () => void };
 
-const PrivatePassTemplateDeleteDialog = (props: Props) => {
+const PrivatePassTemplateRestoreDialog: React.FC<Props> = ({
+  onClose,
+  onSubmit,
+  open,
+}) => {
   const { t } = useTranslation('privateService');
   return (
-    <Dialog open={!!props.open}>
-      <DialogTitle>{t('privatePassTemplate.deleteForm.title')}</DialogTitle>
+    <Dialog open={!!open}>
+      <DialogTitle>{t('privatePassTemplate.restoreForm.title')}</DialogTitle>
       <DialogContent>
-        {t('privatePassTemplate.deleteForm.content')}
+        {t('privatePassTemplate.restoreForm.content')}
       </DialogContent>
       <DialogActions>
-        <Button onClick={props.onClose}>
-          {t('privatePassTemplate.deleteForm.actions.close')}
+        <Button onClick={onClose}>
+          {t('privatePassTemplate.restoreForm.actions.close')}
         </Button>
-        <RedButton
-          delayBeforeActivation={VALIDATION_DELAY}
-          onClick={props.onSubmit}
-        >
-          {t('privatePassTemplate.deleteForm.actions.submit')}
+        <RedButton onClick={onSubmit}>
+          {t('privatePassTemplate.restoreForm.actions.submit')}
         </RedButton>
       </DialogActions>
     </Dialog>
   );
 };
 
-export default PrivatePassTemplateDeleteDialog;
+export default React.memo(PrivatePassTemplateRestoreDialog);

@@ -32,7 +32,9 @@ import {
   createOrUpdatePaymentPackTemplate as createOrUpdatePaymentPackTemplateAPI,
   createOrUpdateUniversalPaymentPackTemplate as createOrUpdateUniversalPaymentPackTemplateAPI,
   deletePaymentPackTemplate as deletePaymentPackTemplateAPI,
+  restorePaymentPackTemplate as restorePaymentPackTemplateAPI,
   deleteUniversalPaymentPackTemplate as deleteUniversalPaymentPackTemplateAPI,
+  restoreUniversalPaymentPackTemplate as restoreUniversalPaymentPackTemplateAPI,
   createPaymentPackTemplateInstance as createPaymentPackTemplateInstanceAPI,
   deletePaymentPackTemplateInstance as deletePaymentPackTemplateInstanceAPI,
   editCategoryOrder,
@@ -808,14 +810,25 @@ export const listPaymentPackTemplatePaginatedActions = {
   resetManagerOnly: createAction(
     'PAYMENT_PACK_TEMPLATE/MANAGER_ONLY/PAGINATED_LIST/RESET',
   ),
+  isLoadingArchived: createAction<boolean>(
+    'PAYMENT_PACK_TEMPLATE/ARCHIVED/PAGINATED_LIST/IS_LOADING',
+  ),
+  errorArchived: createAction<Error | null>(
+    'PAYMENT_PACK_TEMPLATE/ARCHIVED/PAGINATED_LIST/ERROR',
+  ),
+  successArchived: createAction<PaginatedResponse<PaymentPackTemplateAPI>>(
+    'PAYMENT_PACK_TEMPLATE/ARCHIVED/PAGINATED_LIST/SUCCESS',
+  ),
+  resetArchived: createAction(
+    'PAYMENT_PACK_TEMPLATE/ARCHIVED/PAGINATED_LIST/RESET',
+  ),
 };
 
 /**
  * @description This action fetches with pagination the PaymentPackTemplates of a master account being available for sale.
  * By forcing the available_for_sale parameter to true, only passes having manager_only=false AND is_usable_by_staff=true
  * will be send back via the API.
- * By forcing disabled parameter to false, we ensure that archived passes are not fetched keeping coherence
- * with the client side (pages do not use them anyway). This also prevent fetched execise data that is never use
+ * By forcing disabled parameter to false, we ensure that archived passes are not fetched
  */
 export function fetchPaymentPackTemplatePaginatedListAvailableForSale(
   params?: FranchiseProductTemplatePaginatedQueryParams,
@@ -886,8 +899,7 @@ export function fetchPaymentPackTemplateListManagerOnly(
  * @description This action fetches with pagination the PaymentPackTemplates of a master account being for manager only usage.
  * By forcing the available_for_sale parameter to false, only passes having either manager_only=true OR is_usable_by_staff=false
  * will be send back via the API
- * By forcing disabled parameter to false, we ensure that archived passes are not fetched keeping coherence
- * with the client side (pages do not use them anyway). This also prevent fetched execise data that is never used.
+ * By forcing disabled parameter to false, we ensure that archived passes are not fetched
  */
 export function fetchPaymentPackTemplatePaginatedListManagerOnly(
   params?: FranchiseProductTemplatePaginatedQueryParams,
@@ -929,6 +941,48 @@ export function fetchPaymentPackTemplatePaginatedListManagerOnly(
     );
   };
 }
+
+/**
+ * @description This action fetches with pagination the PaymentPackTemplates of a master account being archived.
+ * By forcing disabled parameter to true, we ensure that only archived passes are fetched
+ */
+export function fetchPaymentPackTemplatePaginatedListArchived(
+  params?: FranchiseProductTemplatePaginatedQueryParams,
+  options?: OptionCallback<PaginatedResponse<PaymentPackTemplateAPI>>,
+): ThunkAction {
+  return async (dispatch, getState: () => RootState) => {
+    dispatch(listPaymentPackTemplatePaginatedActions.errorArchived(null));
+    dispatch(listPaymentPackTemplatePaginatedActions.isLoadingArchived(true));
+
+    const currentState =
+      getState().paymentPackReworked.paymentPackTemplatePaginated
+        .archivedPasses;
+
+    const nextPage = params?.page ?? currentState.next_page ?? 1;
+
+    try {
+      const response = await fetchPaymentPackTemplateListPaginatedAPI({
+        ...params,
+        disabled: true,
+        page: nextPage,
+        page_size: FRANCHISE_PAYMENT_PACK_TEMPLATE_PAGINATION_SIZE,
+      });
+      dispatch(
+        listPaymentPackTemplatePaginatedActions.successArchived(response.data),
+      );
+
+      options?.onSuccess?.(response.data);
+    } catch (err) {
+      console.error(err);
+      dispatch(
+        listPaymentPackTemplatePaginatedActions.errorArchived(err as Error),
+      );
+      options?.onError?.(err as Error);
+    }
+    dispatch(listPaymentPackTemplatePaginatedActions.isLoadingArchived(false));
+  };
+}
+
 /**
  * Type guard to check if the given object is of type PaginatedResponse<PaymentPackTemplate>.
  *
@@ -982,6 +1036,18 @@ export const listUniversalPaymentPackTemplatePaginatedActions = {
   resetManagerOnly: createAction(
     'UNIVERSAL_PAYMENT_PACK_TEMPLATE/MANAGER_ONLY/PAGINATED_LIST/RESET',
   ),
+  isLoadingArchived: createAction<boolean>(
+    'UNIVERSAL_PAYMENT_PACK_TEMPLATE/ARCHIVED/PAGINATED_LIST/IS_LOADING',
+  ),
+  errorArchived: createAction<Error | null>(
+    'UNIVERSAL_PAYMENT_PACK_TEMPLATE/ARCHIVED/PAGINATED_LIST/ERROR',
+  ),
+  successArchived: createAction<PaginatedResponse<PaymentPackTemplateAPI>>(
+    'UNIVERSAL_PAYMENT_PACK_TEMPLATE/ARCHIVED/PAGINATED_LIST/SUCCESS',
+  ),
+  resetArchived: createAction(
+    'UNIVERSAL_PAYMENT_PACK_TEMPLATE/ARCHIVED/PAGINATED_LIST/RESET',
+  ),
 };
 
 /**
@@ -1023,8 +1089,7 @@ export function fetchUniversalPassTemplateList(
  * @description This action fetches with pagination the UniversalPaymentPackTemplates of a master account being available for sale.
  * By forcing the available_for_sale parameter to true, only passes having manager_only=false AND is_usable_by_staff=true
  * will be send back via the API.
- * By forcing disabled parameter to false, we ensure that archived passes are not fetched keeping coherence
- * with the client side (pages do not use them anyway). This also prevent fetched execise data that is never use
+ * By forcing disabled parameter to false, we ensure that archived passes are not fetched.
  */
 export function fetchUniversalPaymentPackTemplatePaginatedListAvailableForSale(
   params?: FranchiseProductTemplatePaginatedQueryParams,
@@ -1059,6 +1124,57 @@ export function fetchUniversalPaymentPackTemplatePaginatedListAvailableForSale(
       options?.onError?.(err);
     }
     dispatch(listUniversalPaymentPackTemplatePaginatedActions.isLoading(false));
+  };
+}
+
+/**
+ * @description This action fetches with pagination the UniversalPaymentPackTemplates of a master account being archived.
+ * By forcing disabled parameter to true, we ensure that only archived passes are fetched
+ */
+export function fetchUniversalPaymentPackTemplatePaginatedListArchived(
+  params?: FranchiseProductTemplatePaginatedQueryParams,
+  options?: OptionCallback<PaginatedResponse<PaymentPackTemplateAPI>>,
+): ThunkAction {
+  return async (dispatch, getState: () => RootState) => {
+    dispatch(
+      listUniversalPaymentPackTemplatePaginatedActions.errorArchived(null),
+    );
+    dispatch(
+      listUniversalPaymentPackTemplatePaginatedActions.isLoadingArchived(true),
+    );
+
+    const currentState =
+      getState().paymentPackReworked.universalPaymentPackTemplatePaginated
+        .archivedPasses;
+
+    const nextPage = params?.page ?? currentState.next_page ?? 1;
+
+    try {
+      const response = await fetchUniversalPaymentPackTemplatePaginatedListAPI({
+        ...params,
+        disabled: true,
+        page: nextPage,
+        page_size: FRANCHISE_PAYMENT_PACK_TEMPLATE_PAGINATION_SIZE,
+      });
+      dispatch(
+        listUniversalPaymentPackTemplatePaginatedActions.successArchived(
+          response.data,
+        ),
+      );
+
+      options?.onSuccess?.(response.data);
+    } catch (err) {
+      console.error(err);
+      dispatch(
+        listUniversalPaymentPackTemplatePaginatedActions.errorArchived(
+          err as Error,
+        ),
+      );
+      options?.onError?.(err as Error);
+    }
+    dispatch(
+      listUniversalPaymentPackTemplatePaginatedActions.isLoadingArchived(false),
+    );
   };
 }
 
@@ -1101,8 +1217,7 @@ export function fetchUniversalPassTemplateListManagerOnly(
  * @description This action fetches with pagination the UniversalPaymentPackTemplates of a master account being for manager only usage.
  * By forcing the available_for_sale parameter to false, only passes having either manager_only=true OR is_usable_by_staff=false
  * will be send back via the API
- * By forcing disabled parameter to false, we ensure that archived passes are not fetched keeping coherence
- * with the client side (pages do not use them anyway). This also prevent fetched execise data that is never used.
+ * By forcing disabled parameter to false, we ensure that archived passes are not fetched.
  */
 export function fetchUniversalPaymentPackTemplatePaginatedListManagerOnly(
   params?: FranchiseProductTemplatePaginatedQueryParams,
@@ -1307,14 +1422,52 @@ export function deletePaymentPackTemplate(
 
       if (options && options.onSuccess) {
         options.onSuccess(response.data);
-        dispatch(snackbarSuccess(`paymentPack.paymentPackDisabled.success`));
+        dispatch(
+          snackbarSuccess(`paymentPack.paymentPackTemplateArchived.success`),
+        );
       }
     } catch (err) {
       console.error(err);
+      dispatch(snackbarError(`paymentPack.paymentPackTemplateArchived.error`));
       dispatch(deletePaymentPackTemplateActions.error(err));
       if (options && options.onError) options.onError(err);
     }
     dispatch(deletePaymentPackTemplateActions.isLoading(false));
+  };
+}
+
+export const restorePaymentPackTemplateActions = {
+  isLoading: createAction<boolean>('PAYMENT_PACK_TEMPLATE/RESTORE/IS_LOADING'),
+  error: createAction<Error | null>('PAYMENT_PACK_TEMPLATE/RESTORE/ERROR'),
+  success: createAction<PaymentPackTemplateAPI>(
+    'PAYMENT_PACK_TEMPLATE/RESTORE/SUCCESS',
+  ),
+};
+
+export function restorePaymentPackTemplate(
+  id: number,
+  options?: OptionCallback<PaymentPackTemplateAPI>,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(restorePaymentPackTemplateActions.error(null));
+    dispatch(restorePaymentPackTemplateActions.isLoading(true));
+    try {
+      const response = await restorePaymentPackTemplateAPI(id);
+      dispatch(restorePaymentPackTemplateActions.success(response.data));
+
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+        dispatch(
+          snackbarSuccess(`paymentPack.paymentPackTemplateRestored.success`),
+        );
+      }
+    } catch (err) {
+      console.error(err);
+      dispatch(snackbarError(`paymentPack.paymentPackTemplateRestored.error`));
+      dispatch(restorePaymentPackTemplateActions.error(err as Error));
+      options?.onError?.(err as Error);
+    }
+    dispatch(restorePaymentPackTemplateActions.isLoading(false));
   };
 }
 
@@ -1337,16 +1490,69 @@ export function deleteUniversalPaymentPackTemplate(
 
       if (options && options.onSuccess) {
         options.onSuccess(response.data);
-        dispatch(snackbarSuccess(`paymentPack.paymentPackDisabled.success`));
+        dispatch(
+          snackbarSuccess(
+            `paymentPack.universalPaymentPackTemplateArchived.success`,
+          ),
+        );
       }
     } catch (err) {
       console.error(err);
+      dispatch(
+        snackbarError(`paymentPack.universalPaymentPackTemplateArchived.error`),
+      );
       dispatch(deleteUniversalPaymentPackTemplateActions.error(err));
       if (options && options.onError) options.onError(err);
     }
     dispatch(deleteUniversalPaymentPackTemplateActions.isLoading(false));
   };
 }
+
+export const restoreUniversalPaymentPackTemplateActions = {
+  isLoading: createAction<boolean>(
+    'UNIVERSAL_PAYMENT_PACK_TEMPLATE/RESTORE/IS_LOADING',
+  ),
+  error: createAction<Error | null>(
+    'UNIVERSAL_PAYMENT_PACK_TEMPLATE/RESTORE/ERROR',
+  ),
+  success: createAction<PaymentPackTemplateAPI>(
+    'UNIVERSAL_PAYMENT_PACK_TEMPLATE/RESTORE/SUCCESS',
+  ),
+};
+
+export function restoreUniversalPaymentPackTemplate(
+  id: number,
+  options?: OptionCallback<PaymentPackTemplateAPI>,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(restoreUniversalPaymentPackTemplateActions.error(null));
+    dispatch(restoreUniversalPaymentPackTemplateActions.isLoading(true));
+    try {
+      const response = await restoreUniversalPaymentPackTemplateAPI(id);
+      dispatch(
+        restoreUniversalPaymentPackTemplateActions.success(response.data),
+      );
+
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+        dispatch(
+          snackbarSuccess(
+            `paymentPack.universalPaymentPackTemplateRestored.success`,
+          ),
+        );
+      }
+    } catch (err) {
+      console.error(err);
+      dispatch(
+        snackbarError(`paymentPack.universalPaymentPackTemplateRestored.error`),
+      );
+      dispatch(restoreUniversalPaymentPackTemplateActions.error(err as Error));
+      options?.onError?.(err as Error);
+    }
+    dispatch(restoreUniversalPaymentPackTemplateActions.isLoading(false));
+  };
+}
+
 export const createPaymentPackTemplateInstanceActions = {
   isLoading: createAction('PAYMENT_PACK_TEMPLATE_INSTANCE/CREATE/IS_LOADING'),
   error: createAction('PAYMENT_PACK_TEMPLATE_INSTANCE/CREATE/ERROR'),

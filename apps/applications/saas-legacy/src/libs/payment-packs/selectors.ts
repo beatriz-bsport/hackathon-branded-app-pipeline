@@ -519,6 +519,40 @@ export const getUniversalPaymentPackTemplatePaginatedAvailableForSale =
     },
   );
 
+const getUniversalPaymentPackTemplateArchived = (state: RootState) =>
+  state.paymentPackReworked.universalPaymentPackTemplatePaginated
+    .archivedPasses;
+
+export const getUniversalPaymentPackTemplatePaginatedArchived = createSelector(
+  [
+    getUniversalPaymentPackTemplateArchived,
+    getAllowedFranchisees,
+    getFranchiseCompanyById,
+  ],
+  (paginatedState, allowed_franchisee_ids, companyById) => {
+    const { allIds, byId } = paginatedState;
+
+    return {
+      ...paginatedState,
+      passes: allIds
+        .map((id) => byId[id])
+        .map((paymentPackTemplate) => ({
+          ...paymentPackTemplate,
+          companies: withAllowedOnArray(
+            paymentPackTemplate.payment_pack_template_instances
+              .filter(
+                (ppti: PaymentPackTemplateInstance) =>
+                  !ppti.disabled && !!ppti.company,
+              )
+              .map((ppti: PaymentPackTemplateInstance) => ppti.company),
+            allowed_franchisee_ids,
+            companyById ?? {},
+          )?.filter((company) => !!company),
+        })),
+    };
+  },
+);
+
 /**
  *@deprecated
  * */
@@ -642,21 +676,51 @@ export const getPaymentPackTemplatePaginatedAvailableForSale = createSelector(
           ...paymentPackTemplate,
           companies: withAllowedOnArray(
             paymentPackTemplate.payment_pack_template_instances
-              .map(
-                (ppti: PaymentPackTemplateInstance) =>
-                  !ppti.disabled && ppti.company,
-              )
               .filter(
-                (payment_pack_template_intance_id) =>
-                  !!payment_pack_template_intance_id,
-              ),
+                (ppti: PaymentPackTemplateInstance) =>
+                  !ppti.disabled && !!ppti.company,
+              )
+              .map((ppti: PaymentPackTemplateInstance) => ppti.company),
             allowed_franchisee_ids,
-            companyById,
-          )?.filter((c) => !!c),
+            companyById ?? {},
+          )?.filter((company) => !!company),
         })),
     };
   },
 );
+
+const getPaymentPackTemplateArchivedPaginatedState = (state: RootState) =>
+  state.paymentPackReworked.paymentPackTemplatePaginated.archivedPasses;
+
+export const getPaymentPackTemplatePaginatedArchived = createSelector(
+  [
+    getPaymentPackTemplateArchivedPaginatedState,
+    getAllowedFranchisees,
+    getFranchiseCompanyById,
+  ],
+  (paginatedState, allowed_franchisee_ids, companyById) => {
+    const { allIds, byId } = paginatedState;
+    return {
+      ...paginatedState,
+      passes: allIds
+        .map((id) => byId[id])
+        .map((paymentPackTemplate) => ({
+          ...paymentPackTemplate,
+          companies: withAllowedOnArray(
+            paymentPackTemplate.payment_pack_template_instances
+              .filter(
+                (ppti: PaymentPackTemplateInstance) =>
+                  !ppti.disabled && !!ppti.company,
+              )
+              .map((ppti: PaymentPackTemplateInstance) => ppti.company),
+            allowed_franchisee_ids,
+            companyById ?? {},
+          )?.filter((company) => !!company),
+        })),
+    };
+  },
+);
+
 /**
  * @description Used in master account.
  * @deprecated Using an unpaginated reducer.

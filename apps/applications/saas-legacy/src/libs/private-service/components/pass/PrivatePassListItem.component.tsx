@@ -59,7 +59,9 @@ export const PrivatePassListItem: React.FC<Props> = ({
 }) => {
   const { t } = useTranslation('privateService');
 
-  const hideModificationButton = !asStandardPass && pass.template_instance;
+  const isSharedPass =
+    !asStandardPass &&
+    (pass.template_instance || pass.linked_payment_pack_template_instance);
 
   if (!pass) {
     return (
@@ -125,14 +127,14 @@ export const PrivatePassListItem: React.FC<Props> = ({
               onClick: onEdit,
             },
             onDelete &&
-              !hideModificationButton && {
+              !isSharedPass && {
                 icon: DeleteIcon,
                 label: t('privatePass.delete.delete'),
                 onClick: onDelete,
               },
             // @ts-expect-error
             onRestore &&
-              !hideModificationButton && {
+              !isSharedPass && {
                 icon: RestoreFromTrashIcon,
                 color: 'secondary',
                 onClick: onRestore,

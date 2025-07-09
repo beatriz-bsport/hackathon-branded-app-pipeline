@@ -22,6 +22,7 @@ import AnalyticsInfoModal from './AnalyticsInfoModal.component';
 import type { Theme } from '../types';
 import { MaterialStyleType } from '../../../utils/types';
 import { MAX_COLOR_BRIGHTNESS } from '../utils';
+import { VALIDATION_DELAY } from '#src/libs/constants';
 
 type OwnProps = {
   theme: Theme;
@@ -200,7 +201,7 @@ export class ThemeForm extends Component<Props, State> {
             </Button>
             <RedButton
               color="primary"
-              delayBeforeActivation={3}
+              delayBeforeActivation={VALIDATION_DELAY}
               onClick={this.confirmColorDialog}
               variant="contained"
             >

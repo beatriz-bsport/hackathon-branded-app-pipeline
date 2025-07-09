@@ -2,7 +2,7 @@ import { createSelector } from 'reselect';
 import memoize from 'memoize-one';
 import Immutable from 'seamless-immutable';
 import { getAllPaymentPacks } from '#src/libs/payment-packs/selectors';
-import { FranchiseCompany } from '#src/libs/franchise/types';
+import type { FranchiseCompany } from '#src/libs/franchise/types';
 import type {
   PrivatePass,
   PrivatePassTemplate,
@@ -14,7 +14,7 @@ import type {
 } from '../types';
 import { _getPrivateServiceDict } from './private-service';
 import { getAllPrivateSlotsDict } from './private-slot';
-import { RootState } from '../../../reducers';
+import type { RootState } from '#src/reducers';
 
 import {
   getAllowedFranchisees,
@@ -115,7 +115,12 @@ export const getAvailablePrivatePasses: (
 export const getUnavailablePrivatePasses: (
   State: RootState,
 ) => Array<PrivatePass> = createSelector(getPrivatePassListBase, (passList) =>
-  passList.filter((p) => !p.available),
+  passList.filter(
+    (pass) =>
+      !pass.available &&
+      !pass.template_instance &&
+      !pass.linked_payment_pack_template_instance,
+  ),
 );
 
 export const withServices = memoize((selector) =>
@@ -277,6 +282,24 @@ export const getPrivatePassTemplateById = (state: RootState, id: number) =>
 export const getPrivatePassTemplateIdList = (state: RootState) =>
   state.privateService.privatePassTemplate.allIds;
 
+const getPrivatePassTemplateWithCompanies = (
+  ppt: PrivatePassTemplateAPI,
+  allowed_franchisee_ids: number[],
+  companyById: Record<number, FranchiseCompany> | null,
+): PrivatePassTemplate => ({
+  ...ppt,
+  companies: withAllowed(
+    ppt.private_pass_template_instances
+      .filter(
+        (ppti: PrivatePassTemplateInstance) => !ppti.disabled && !!ppti.company,
+      )
+      .map((ppti: PrivatePassTemplateInstance) => ppti.company),
+    allowed_franchisee_ids,
+    companyById ?? {},
+    // @ts-expect-error
+  ).filter((company: FranchiseCompany) => !!company),
+});
+
 export const getPrivatePassTemplateList: (
   state: RootState,
 ) => Array<PrivatePassTemplate> = createSelector(
@@ -290,18 +313,35 @@ export const getPrivatePassTemplateList: (
     ids
       .map((id: number) => data[id])
       .filter((ppt: PrivatePassTemplateAPI) => !!ppt && !ppt.disabled)
-      .map((ppt: PrivatePassTemplateAPI) => ({
-        ...ppt,
-        companies: withAllowed(
-          ppt.private_pass_template_instances.map(
-            (ppti: PrivatePassTemplateInstance) =>
-              !ppti.disabled && ppti.company,
-          ),
+      .map((ppt: PrivatePassTemplateAPI) =>
+        getPrivatePassTemplateWithCompanies(
+          ppt,
           allowed_franchisee_ids,
           companyById,
-          // @ts-expect-error
-        ).filter((c: FranchiseCompany) => !!c),
-      })),
+        ),
+      ),
+);
+
+export const getDisabledPrivatePassTemplateList: (
+  state: RootState,
+) => Array<PrivatePassTemplate> = createSelector(
+  [
+    getPrivatePassTemplateData,
+    getPrivatePassTemplateIdList,
+    getAllowedFranchisees,
+    getFranchiseCompanyById,
+  ],
+  (data, ids, allowed_franchisee_ids, companyById) =>
+    ids
+      .map((id: number) => data[id])
+      .filter((ppt: PrivatePassTemplateAPI) => !!ppt && ppt.disabled)
+      .map((ppt: PrivatePassTemplateAPI) =>
+        getPrivatePassTemplateWithCompanies(
+          ppt,
+          allowed_franchisee_ids,
+          companyById,
+        ),
+      ),
 );
 
 const _getId = (state: RootState, id: number) => id;
@@ -322,9 +362,9 @@ export const getPrivatePassTemplate: (
     return {
       ...template,
       companies: withAllowed(
-        template.private_pass_template_instances?.map(
-          (ppti: PrivatePassTemplateInstance) => !ppti.disabled && ppti.company,
-        ),
+        template.private_pass_template_instances
+          ?.filter((ppti) => !ppti.disabled)
+          .map((ppti: PrivatePassTemplateInstance) => ppti.company),
         allowed_franchisee_ids,
         companyById,
         // @ts-expect-error
@@ -352,6 +392,15 @@ export const getPrivatePassTemplateListAvailable = createSelector(
         privatePassTemplate.is_usable_by_staff,
     ),
 );
+
+export const getPrivatePassTemplateListArchived = createSelector(
+  getDisabledPrivatePassTemplateList,
+  (privatePassTemplateList) =>
+    privatePassTemplateList.filter(
+      (privatePassTemplate) => privatePassTemplate.disabled,
+    ),
+);
+
 export const withLinkedPaymentPack = memoize((selector: PrivatePassSelector) =>
   createSelector([selector, getAllPaymentPacks], (passObject, paymentPacks) => {
     if (!passObject) return passObject;

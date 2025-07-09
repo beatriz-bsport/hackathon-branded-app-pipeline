@@ -6,7 +6,6 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import RedButton from '#src/components/button/RedButton.component';
-import { VALIDATION_DELAY } from '#src/libs/constants';
 
 type Props = {
   open?: boolean;
@@ -15,27 +14,34 @@ type Props = {
   isUniversal?: boolean;
 };
 
-const paymentPackTemplateTexts = {
-  title: 'paymentPackTemplate.deleteForm.title',
-  content: 'paymentPackTemplate.deleteForm.content',
-  close: 'paymentPackTemplate.deleteForm.actions.close',
-  submit: 'paymentPackTemplate.deleteForm.actions.submit',
-};
-const universalPaymentPackTemplateTexts = {
-  title: 'universalPaymentPackTemplate.deleteForm.title',
-  content: 'universalPaymentPackTemplate.deleteForm.content',
-  close: 'universalPaymentPackTemplate.deleteForm.actions.close',
-  submit: 'universalPaymentPackTemplate.deleteForm.actions.submit',
+type DialogText = {
+  title: string;
+  content: string;
+  close: string;
+  submit: string;
 };
 
-const getTexts = (isUniversal?: boolean) => {
+const paymentPackTemplateTexts = {
+  title: 'paymentPackTemplate.restoreForm.title',
+  content: 'paymentPackTemplate.restoreForm.content',
+  close: 'paymentPackTemplate.restoreForm.actions.close',
+  submit: 'paymentPackTemplate.restoreForm.actions.submit',
+};
+const universalPaymentPackTemplateTexts = {
+  title: 'universalPaymentPackTemplate.restoreForm.title',
+  content: 'universalPaymentPackTemplate.restoreForm.content',
+  close: 'universalPaymentPackTemplate.restoreForm.actions.close',
+  submit: 'universalPaymentPackTemplate.restoreForm.actions.submit',
+};
+
+const getTexts = (isUniversal?: boolean): DialogText => {
   if (isUniversal) {
     return universalPaymentPackTemplateTexts;
   }
   return paymentPackTemplateTexts;
 };
 
-const PaymentPackTemplateDeleteDialog: React.FC<Props> = ({
+const PaymentPackTemplateRestoreDialog: React.FC<Props> = ({
   onClose,
   onSubmit,
   isUniversal,
@@ -51,12 +57,10 @@ const PaymentPackTemplateDeleteDialog: React.FC<Props> = ({
       <DialogContent>{t(texts.content)}</DialogContent>
       <DialogActions>
         <Button onClick={onClose}>{t(texts.close)}</Button>
-        <RedButton delayBeforeActivation={VALIDATION_DELAY} onClick={onSubmit}>
-          {t(texts.submit)}
-        </RedButton>
+        <RedButton onClick={onSubmit}>{t(texts.submit)}</RedButton>
       </DialogActions>
     </Dialog>
   );
 };
 
-export default PaymentPackTemplateDeleteDialog;
+export default React.memo(PaymentPackTemplateRestoreDialog);

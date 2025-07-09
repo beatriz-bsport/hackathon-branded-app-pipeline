@@ -29,6 +29,7 @@ import { WithHandlerType } from '../../utils/types';
 import { withQueryParamsUndecoded } from '../../hocs/with-query-params.hoc';
 import { RootState } from '../../reducers';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
+import { VALIDATION_DELAY } from '#src/libs/constants';
 
 type RouterProps = {
   success: boolean;
@@ -84,7 +85,7 @@ export class ContractCheckoutValidation extends Component<Props> {
                 {next ? (
                   <TimeoutButton
                     color="primary"
-                    delayBeforeActivation={3}
+                    delayBeforeActivation={VALIDATION_DELAY}
                     onClick={success ? goToUserSpace : goToSubsciption}
                     variant="contained"
                   >

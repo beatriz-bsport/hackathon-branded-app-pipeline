@@ -1110,10 +1110,16 @@ const getTranslations = async () => {
     privatePassTemplate: {
       actions: { create: 'Add a shared pass' },
       deleteForm: {
-        actions: { submit: 'Delete', close: 'Close' },
+        actions: { submit: 'Archive', close: 'Close' },
         content:
-          'Members will still be able to use the appointment pass at the studio where they bought it. Any subscription linked to this appointment pass will also only work at that same studio.',
-        title: 'Delete shared appointment pass',
+          'Members will still be able to use the appointment pass at the studio where they bought it. Any subscription linked to this appointment pass will remain valid at that same studio.',
+        title: 'Archive shared appointment pass',
+      },
+      restoreForm: {
+        actions: { submit: 'Restore', close: 'Close' },
+        content:
+          'The shared appointment pass will be restored and shared again among the studios previously selected.',
+        title: 'Restore shared appointment pass',
       },
       form: {
         actions: { submit: 'Save', close: 'Close' },
@@ -1131,6 +1137,7 @@ const getTranslations = async () => {
       section: {
         titleManagerOnly: 'Not available for purchase',
         titleAvailable: 'Available for purchase',
+        titleArchived: 'Archived passes',
       },
       isEmptyExplain:
         'Members can purchase and use this pass at any of the associated studios.',

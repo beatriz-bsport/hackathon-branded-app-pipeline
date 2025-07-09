@@ -7,13 +7,14 @@ import {
   getCreditsDividedValue,
 } from '#src/libs/theme/utils';
 import type { ConsumerPaymentPack } from '#src/libs/consumer-payment-pack/types';
-import { PrivatePassFilters } from '#src/libs/private-service/types';
-import {
+import type { PrivatePassFilters } from '#src/libs/private-service/types';
+import type {
   OffPeakSchedule,
   PaymentPack,
   PaymentPackFilters,
   PaymentPackTemplate,
   PaymentPackTemplateAPI,
+  PaymentPackTemplatePaginatedBaseState,
 } from './types';
 
 export const getValidityInfo = (
@@ -282,6 +283,22 @@ export const getCreditInfo = (
     }
   }
   return creditInfo;
+};
+
+/**
+ *
+ * @param {PaymentPackTemplatePaginatedBaseState} paginatedList - The paginated list of payment pack templates from which an element will be removed.
+ * @returns {number} - The page number to refresh after removing an element from the paginated list:
+ *                      - If the list has more than one element, it returns the current page.
+ *                      - Otherwise, it returns the previous page or 1 if the current page is 1.
+ */
+export const getPaginatedPageToRefreshOnRemoval = (
+  paginatedList: PaymentPackTemplatePaginatedBaseState,
+) => {
+  if (paginatedList.allIds.length > 1) {
+    return paginatedList.page;
+  }
+  return Math.max(1, paginatedList.page - 1);
 };
 
 export const setGenericFilterValue = (

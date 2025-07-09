@@ -13,9 +13,9 @@ import {
   patchAuthDeprecated,
   postAuthDeprecated,
   putAuthDeprecated,
-} from '../../http';
+} from '#src/http';
 
-import type { PaginatedResponse } from '../../state/types';
+import type { PaginatedResponse } from '#src/state/types';
 
 import type {
   PaymentPack,
@@ -28,7 +28,7 @@ import type {
   PaymentPackTemplateAPI,
   PaymentPackTemplate,
 } from './types';
-import Config from '../../config';
+import Config from '#src/config';
 
 const API_V1_URI = Config.REACT_APP_BASE_URI_BUYABLE_V1;
 const API_URI = Config.REACT_APP_BASE_URI_BUYABLE_V0;
@@ -228,9 +228,21 @@ export async function deletePaymentPackTemplate(id: number) {
   return deleteAuth(`${API_V1_URI}/payment-pack/payment-pack-template/${id}/`);
 }
 
+export async function restorePaymentPackTemplate(id: number) {
+  return postAuth<PaymentPackTemplateAPI>(
+    `${API_V1_URI}/payment-pack/payment-pack-template/${id}/restore/`,
+  );
+}
+
 export function deleteUniversalPaymentPackTemplate(id: number) {
   return deleteAuth(
     `${API_V1_URI}/payment-pack/universal-pass-template/${id}/`,
+  );
+}
+
+export function restoreUniversalPaymentPackTemplate(id: number) {
+  return postAuth<PaymentPackTemplateAPI>(
+    `${API_V1_URI}/payment-pack/universal-pass-template/${id}/restore/`,
   );
 }
 

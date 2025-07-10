@@ -26,7 +26,7 @@ const MENU_OPTIONS = {
 
 export type MenuOption = keyof typeof MENU_OPTIONS;
 
-const getMenuOptions = (t: TFunction): DropdownMenuItems => [
+const getMenuOptions = (t: TFunction) => [
   {
     id: MENU_OPTIONS.settings,
     label: t("menus.popover.settings"),
@@ -70,14 +70,18 @@ type NavigationSidebarHeaderProps = {
   menuSet: MenuSet;
   onSelectItem?: (id: MenuOption) => void;
   onBack?: () => void;
+  onSearch: () => void;
+  hiddenItems: Partial<Record<MenuOption, boolean>>;
 };
 
 const NavigationSidebarHeader = ({
   menuSet,
   onSelectItem,
   onBack,
+  onSearch,
   label,
   avatarUrl,
+  hiddenItems,
 }: NavigationSidebarHeaderProps) => {
   const { t } = useTranslation("default");
 
@@ -102,7 +106,11 @@ const NavigationSidebarHeader = ({
     <header className="flex gap-2xs px-xs pb-xs">
       <DropdownMenu
         className="flex-1"
-        items={getMenuOptions(t)}
+        items={
+          getMenuOptions(t).filter(
+            (item) => !hiddenItems[item.id],
+          ) as DropdownMenuItems
+        }
         onSelectOption={({ id, setIsPopoverOpened }) => {
           onSelectItem?.(id as MenuOption);
           setIsPopoverOpened(false);
@@ -116,13 +124,14 @@ const NavigationSidebarHeader = ({
           />
         )}
       />
-      {/* <Button
+      <Button
         className="shrink-0"
         intent="default"
         size="md"
         color="main"
         iconLeft="search-refraction"
-      /> */}
+        onClick={onSearch}
+      />
     </header>
   );
 };

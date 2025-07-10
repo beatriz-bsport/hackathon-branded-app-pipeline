@@ -4,26 +4,38 @@ import Typography from '@material-ui/core/Typography';
 import { push as pushAction } from 'connected-react-router';
 import Divider from '@material-ui/core/Divider';
 
-import { WithStyles, makeStyles } from '@material-ui/core';
+import { Collapse, WithStyles, makeStyles } from '@material-ui/core';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import ExpandLessIcon from '@material-ui/icons/ExpandLess';
+import IconButton from '@material-ui/core/IconButton';
 
 import { useTranslation, WithTranslation } from 'react-i18next';
 
+import { WithObjectSearch } from '#src/libs/fuzzy-search/components/ObjectSearch.hoc';
+import { useObjectSearch } from '#src/libs/fuzzy-search/hooks/useObjectSearch';
+
+import LinearProgress from '#src/components/navigation/BackofficeLinearProgress.component';
 import PaymentPackTemplateFormDrawer from '#src/libs/payment-packs/components/PaymentPackTemplateForm/PaymentPackTemplateFormDrawer.component';
 import PaymentPackTemplateDeleteDialog from '#src/libs/payment-packs/components/PaymentPackTemplateDeleteDialog.component';
-import {
+import PaymentPackTemplateRestoreDialog from '#src/libs/payment-packs/components/PaymentPackTemplateRestoreDialog.component';
+import type {
   PaymentPackTemplateAPI,
   PaymentPackTemplate,
+  PaymentPackTemplatePaginatedBaseState,
 } from '#src/libs/payment-packs/types';
 import {
   fetchPaymentPackTemplatePaginatedListAvailableForSale as fetchPaymentPackTemplatePaginatedListAvailableForSaleAction,
   fetchPaymentPackTemplatePaginatedListManagerOnly as fetchPaymentPackTemplatePaginatedListManagerOnlyAction,
+  fetchPaymentPackTemplatePaginatedListArchived as fetchPaymentPackTemplatePaginatedListArchivedAction,
   createOrUpdatePaymentPackTemplate as createOrUpdatePaymentPackTemplateAction,
   deletePaymentPackTemplate as deletePaymentPackTemplateAction,
+  restorePaymentPackTemplate as restorePaymentPackTemplateAction,
 } from '#src/libs/payment-packs/actions';
 
 import {
   getPaymentPackTemplatePaginatedManagerOnly,
   getPaymentPackTemplatePaginatedAvailableForSale,
+  getPaymentPackTemplatePaginatedArchived,
 } from '#src/libs/payment-packs/selectors';
 
 import { OptionCallback } from '#src/state/types';
@@ -36,6 +48,11 @@ import PaymentPackTemplateListItem from '#src/libs/payment-packs/components/Paym
 import ObjectSearchComponent from '#src/libs/fuzzy-search/components/ObjectSearch.component';
 
 import PaymentPackTemplateSearchItem from '#src/libs/payment-packs/components/Search/PaymentPackTemplateSearchItem.component';
+import { getPaginatedPageToRefreshOnRemoval } from '#src/libs/payment-packs/utils';
+import {
+  ACTIVE_TEMPLATE_SEARCH_PARAMS,
+  FRANCHISE_PAYMENT_PACK_TEMPLATE_PAGINATION_SIZE,
+} from '#src/libs/payment-packs/constants';
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -51,9 +68,20 @@ const useStyles = makeStyles((theme) => ({
   searchComponent: {
     paddingBottom: theme.spacing(2),
   },
+  buttonTitle: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    width: '100%',
+    paddingBottom: theme.spacing(1),
+  },
 }));
 
-type Props = ConnectedProps<typeof connector> & WithStyles & WithTranslation;
+type Props = ConnectedProps<typeof connector> &
+  WithObjectSearch &
+  WithStyles &
+  WithTranslation;
 
 type deletePaymentPackTemplateState = {
   paymentPackTemplateId: number;
@@ -61,17 +89,38 @@ type deletePaymentPackTemplateState = {
   isManagerOnly: boolean;
 };
 
+type RestorePaymentPackTemplateState = {
+  paymentPackTemplateId: number;
+};
+
 const FranchisePaymentPackTemplateListPageReworked: React.FC<Props> = ({
   paymentPackTemplateListPaginatedAvailableForSale,
   paymentPackTemplateListPaginatedManagerOnly,
+  paymentPackTemplateListPaginatedArchived,
   fetchPaymentPackTemplatePaginatedListAvailableForSale,
   fetchPaymentPackTemplatePaginatedListManagerOnly,
+  fetchPaymentPackTemplatePaginatedListArchived,
   deletePaymentPackTemplate,
+  restorePaymentPackTemplate,
   goToTemplateDetail,
   createOrUpdatePaymentPackTemplate,
 }) => {
   const classes = useStyles();
   const { t } = useTranslation('paymentPack');
+  const { refreshOptions } = useObjectSearch();
+
+  const getPaginatedPageToRefreshOnListRemoval = React.useCallback(
+    (paginatedList: PaymentPackTemplatePaginatedBaseState) =>
+      getPaginatedPageToRefreshOnRemoval(paginatedList),
+    [],
+  );
+
+  const toggleIsArchiveSectionOpen = React.useCallback(() => {
+    setIsArchiveSectionOpen((prevState) => !prevState);
+  }, []);
+
+  const [isArchiveSectionOpen, setIsArchiveSectionOpen] =
+    React.useState<boolean>(false);
 
   const [paymentPackTemplateForEdit, setPaymentPackTemplateForEdit] =
     React.useState<PaymentPackTemplate | null>(null);
@@ -80,9 +129,12 @@ const FranchisePaymentPackTemplateListPageReworked: React.FC<Props> = ({
 
   const [paymentPackTemplateToDelete, setPaymentPackTemplateToDelete] =
     React.useState<deletePaymentPackTemplateState | null>(null);
+
+  const [paymentPackTemplateToRestore, setPaymentPackTemplateToRestore] =
+    React.useState<RestorePaymentPackTemplateState | null>(null);
   // CDM TODO : Investigate double initial fetch
   React.useEffect(() => {
-    // Fetching the first page for both available for purchase and manager only passes.
+    // Fetching the first page for available for purchase, manager only passes and archived passes.
     fetchPaymentPackTemplatePaginatedListAvailableForSale({ page: 1 });
     fetchPaymentPackTemplatePaginatedListManagerOnly({ page: 1 });
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -96,14 +148,25 @@ const FranchisePaymentPackTemplateListPageReworked: React.FC<Props> = ({
     () => setOpenCreationDialog(false),
     [],
   );
+
+  const refreshPaymentPackTemplateListArchived = React.useCallback(
+    (page: number) => {
+      if (isArchiveSectionOpen) {
+        fetchPaymentPackTemplatePaginatedListArchived({ page });
+      }
+    },
+    [isArchiveSectionOpen, fetchPaymentPackTemplatePaginatedListArchived],
+  );
+
   const handleSetPaymentPackTemplateForEdit = React.useCallback(
     (id: number) => {
       const paymentPackTemplate =
         paymentPackTemplateListPaginatedAvailableForSale.byId[id] ||
         paymentPackTemplateListPaginatedManagerOnly.byId[id];
       paymentPackTemplate &&
-        //@ts-expect-error : This is an mandatory spreading since specific package dealing badly with immutable could break
-        // on underlying components
+        // This is an mandatory spreading since specific package dealing badly with immutable could break
+        // on underlying components :
+        //@ts-expect-error
         setPaymentPackTemplateForEdit({ ...paymentPackTemplate });
     },
     [
@@ -121,7 +184,11 @@ const FranchisePaymentPackTemplateListPageReworked: React.FC<Props> = ({
     (data: any, options: OptionCallback<PaymentPackTemplateAPI>) => {
       createOrUpdatePaymentPackTemplate(data, {
         onError: options?.onError,
-        onSuccess: (template: PaymentPackTemplateAPI) => {
+        onSuccess: (template?: PaymentPackTemplateAPI) => {
+          if (!template) {
+            console.error('No template returned on success');
+            return;
+          }
           if (openCreationDrawer) {
             goToTemplateDetail(template.id, {
               openTemplateInstanceForm: true,
@@ -161,12 +228,25 @@ const FranchisePaymentPackTemplateListPageReworked: React.FC<Props> = ({
           onSuccess: () => {
             setPaymentPackTemplateToDelete(null);
             paymentPackTemplateToDelete.isManagerOnly &&
-              fetchPaymentPackTemplatePaginatedListManagerOnly({ page: 1 });
+              fetchPaymentPackTemplatePaginatedListManagerOnly({
+                page: getPaginatedPageToRefreshOnListRemoval(
+                  paymentPackTemplateListPaginatedManagerOnly,
+                ),
+              });
 
             !paymentPackTemplateToDelete.isManagerOnly &&
               fetchPaymentPackTemplatePaginatedListAvailableForSale({
-                page: 1,
+                page: getPaginatedPageToRefreshOnListRemoval(
+                  paymentPackTemplateListPaginatedAvailableForSale,
+                ),
               });
+            refreshOptions(
+              'payment_pack_template',
+              ACTIVE_TEMPLATE_SEARCH_PARAMS,
+            );
+            refreshPaymentPackTemplateListArchived(
+              paymentPackTemplateListPaginatedArchived.page,
+            );
           },
         },
       );
@@ -174,11 +254,68 @@ const FranchisePaymentPackTemplateListPageReworked: React.FC<Props> = ({
     paymentPackTemplateToDelete,
     deletePaymentPackTemplate,
     fetchPaymentPackTemplatePaginatedListManagerOnly,
+    getPaginatedPageToRefreshOnListRemoval,
+    paymentPackTemplateListPaginatedManagerOnly,
     fetchPaymentPackTemplatePaginatedListAvailableForSale,
+    paymentPackTemplateListPaginatedAvailableForSale,
+    refreshOptions,
+    refreshPaymentPackTemplateListArchived,
+    paymentPackTemplateListPaginatedArchived.page,
+  ]);
+
+  const handleSetPaymentPackTemplateForRestore = React.useCallback(
+    (paymentPackTemplateId: number) => {
+      setPaymentPackTemplateToRestore({ paymentPackTemplateId });
+    },
+    [],
+  );
+
+  const handleRestorePaymentPackTemplate = React.useCallback(() => {
+    if (!!paymentPackTemplateToRestore?.paymentPackTemplateId) {
+      restorePaymentPackTemplate(
+        paymentPackTemplateToRestore?.paymentPackTemplateId,
+        {
+          onSuccess: () => {
+            setPaymentPackTemplateToRestore(null);
+            refreshOptions(
+              'payment_pack_template',
+              ACTIVE_TEMPLATE_SEARCH_PARAMS,
+            );
+            fetchPaymentPackTemplatePaginatedListManagerOnly({
+              page: paymentPackTemplateListPaginatedManagerOnly.page,
+            });
+
+            fetchPaymentPackTemplatePaginatedListAvailableForSale({
+              page: paymentPackTemplateListPaginatedAvailableForSale.page,
+            });
+            refreshPaymentPackTemplateListArchived(
+              getPaginatedPageToRefreshOnListRemoval(
+                paymentPackTemplateListPaginatedArchived,
+              ),
+            );
+          },
+        },
+      );
+    }
+  }, [
+    paymentPackTemplateToRestore,
+    restorePaymentPackTemplate,
+    refreshOptions,
+    fetchPaymentPackTemplatePaginatedListManagerOnly,
+    paymentPackTemplateListPaginatedManagerOnly.page,
+    fetchPaymentPackTemplatePaginatedListAvailableForSale,
+    paymentPackTemplateListPaginatedAvailableForSale.page,
+    refreshPaymentPackTemplateListArchived,
+    getPaginatedPageToRefreshOnListRemoval,
+    paymentPackTemplateListPaginatedArchived,
   ]);
 
   const handleResetDeltionState = React.useCallback(() => {
     setPaymentPackTemplateToDelete(null);
+  }, []);
+
+  const handleResetRestoreState = React.useCallback(() => {
+    setPaymentPackTemplateToRestore(null);
   }, []);
 
   const handleGoToPaymentPackTemplateDetailPage = React.useCallback(
@@ -207,7 +344,7 @@ const FranchisePaymentPackTemplateListPageReworked: React.FC<Props> = ({
   return (
     <>
       <ObjectSearchComponent
-        additionalParams={{ disabled: false }}
+        additionalParams={ACTIVE_TEMPLATE_SEARCH_PARAMS}
         className={classes.searchComponent}
         components={{
           Option: PaymentPackTemplateSearchItem,
@@ -281,12 +418,53 @@ const FranchisePaymentPackTemplateListPageReworked: React.FC<Props> = ({
             />
           )}
         />
+
+        <div className={classes.container}>
+          <div className={classes.buttonTitle}>
+            <Typography className={classes.title} variant="h4">
+              {t('paymentPackTemplate.section.titleArchived')}
+            </Typography>
+
+            <IconButton onClick={toggleIsArchiveSectionOpen}>
+              {isArchiveSectionOpen ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+            </IconButton>
+          </div>
+          <Divider className={classes.divider} />
+          {paymentPackTemplateListPaginatedArchived.loading && (
+            <LinearProgress />
+          )}
+          <Collapse unmountOnExit in={isArchiveSectionOpen}>
+            <PaginatedListBaseReworked
+              itemPerPage={FRANCHISE_PAYMENT_PACK_TEMPLATE_PAGINATION_SIZE}
+              items={paymentPackTemplateListPaginatedArchived.passes}
+              loading={paymentPackTemplateListPaginatedArchived.loading}
+              nbItems={paymentPackTemplateListPaginatedArchived.count}
+              onPageRequested={fetchPaymentPackTemplatePaginatedListArchived}
+              page={paymentPackTemplateListPaginatedArchived.page}
+              renderItem={(paymentPackTemplate: PaymentPackTemplate) => (
+                <PaymentPackTemplateListItem
+                  key={paymentPackTemplate.id}
+                  onRestore={(id: number) =>
+                    handleSetPaymentPackTemplateForRestore(id)
+                  }
+                  paymentPackTemplate={paymentPackTemplate}
+                />
+              )}
+            />
+          </Collapse>
+        </div>
       </div>
 
       <PaymentPackTemplateDeleteDialog
         onClose={handleResetDeltionState}
         onSubmit={handleDeletePaymentPackTemplate}
         open={!!paymentPackTemplateToDelete}
+      />
+
+      <PaymentPackTemplateRestoreDialog
+        onClose={handleResetRestoreState}
+        onSubmit={handleRestorePaymentPackTemplate}
+        open={!!paymentPackTemplateToRestore}
       />
 
       {/* 
@@ -319,12 +497,16 @@ const connector = connect(
       getPaymentPackTemplatePaginatedManagerOnly(state),
     paymentPackTemplateListPaginatedAvailableForSale:
       getPaymentPackTemplatePaginatedAvailableForSale(state),
+    paymentPackTemplateListPaginatedArchived:
+      getPaymentPackTemplatePaginatedArchived(state),
   }),
   {
     fetchPaymentPackTemplatePaginatedListAvailableForSale:
       fetchPaymentPackTemplatePaginatedListAvailableForSaleAction,
     fetchPaymentPackTemplatePaginatedListManagerOnly:
       fetchPaymentPackTemplatePaginatedListManagerOnlyAction,
+    fetchPaymentPackTemplatePaginatedListArchived:
+      fetchPaymentPackTemplatePaginatedListArchivedAction,
     goToTemplateDetail: (
       id: number,
       urlParams: { openTemplateInstanceForm: boolean } | {} = {},
@@ -332,6 +514,7 @@ const connector = connect(
       pushAction(`/f/payment-pack-template/${id}/${buildUrlParams(urlParams)}`),
     createOrUpdatePaymentPackTemplate: createOrUpdatePaymentPackTemplateAction,
     deletePaymentPackTemplate: deletePaymentPackTemplateAction,
+    restorePaymentPackTemplate: restorePaymentPackTemplateAction,
   },
 );
 

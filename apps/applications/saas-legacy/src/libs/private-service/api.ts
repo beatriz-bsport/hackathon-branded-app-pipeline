@@ -9,7 +9,7 @@ import {
   deleteAuth,
   buildUrlParams,
   postBaseAuth,
-} from '../../http';
+} from '#src/http';
 import type {
   PrivateBooking,
   PrivatePassCategory,
@@ -25,9 +25,9 @@ import type {
   PrivatePassTemplateAPI,
   ResourceSlotsByDate,
 } from './types';
-import type { PaginatedResponse } from '../../state/types';
+import type { PaginatedResponse } from '#src/state/types';
 import type { AssociatedEstablishment } from '#src/libs/establishment/types';
-import Config from '../../config';
+import Config from '#src/config';
 
 const API_V1_URI = Config.REACT_APP_BASE_URI_BOOK_V1;
 
@@ -864,6 +864,12 @@ export async function deletePrivatePassTemplateInstance(id: number) {
 export async function deletePrivatePassTemplate(id: number) {
   return deleteAuth(
     `${API_V1_URI}/private_service/private-pass-template/${id}/`,
+  );
+}
+
+export async function restorePrivatePassTemplate(templateId: number) {
+  return postAuth<PrivatePassTemplateAPI>(
+    `${API_V1_URI}/private_service/private-pass-template/${templateId}/restore/`,
   );
 }
 

@@ -1,21 +1,44 @@
 import { useMemo, useState } from "react";
 
-import { Button, Card, NavigationMenu } from "@bsport/kaizen-primitive-core";
+import {
+  Button,
+  Card,
+  KaizenI18nProvider,
+  NavigationMenu,
+  i18nNamespacePrefix,
+  i18nNamespaces,
+  inMemoryTranslationsLoader,
+} from "@bsport/kaizen-primitive-core";
 import { dataAccessLayer } from "@bsport/sm-backbone";
 import { LOGIN_URL, logoutAction } from "@bsport/store-auth";
 
-import { useBatchRoutingPermissions } from "#src/features/permissions";
-import "#src/index.css";
-import { AppI18nextProvider, useTranslation } from "#src/utils/i18n";
-
+import { useAlerts } from "#src/api/use-alerts";
+import {
+  AttendanceModal,
+  useAttendanceModal,
+  useAttendancePermissions,
+} from "#src/components/AttendanceModal";
 import {
   NotificationsModal,
   useNotificationsModal,
-} from "../NotificationsModal";
+} from "#src/components/NotificationsModal";
+import {
+  SearchMemberModal,
+  useSearchMemberModal,
+} from "#src/components/SearchMemberModal";
 import {
   TemporaryPasswordDialog,
   useTemporaryPasswordDialog,
-} from "../TemporaryPasswordDialog";
+} from "#src/components/TemporaryPasswordDialog";
+import { useBatchRoutingPermissions } from "#src/features/permissions";
+import "#src/index.css";
+import { HELP_CENTER, LEGACY_URLS } from "#src/urls";
+import {
+  AppI18nextProvider,
+  instanciateAppI18n,
+  useTranslation,
+} from "#src/utils/i18n";
+
 import FeedbackDialog, { useFeedbackDialog } from "./FeedbackDialog";
 import LanguageDropdown from "./LanguageDropdown";
 import { NavigationMenuElement } from "./NavigationMenuElement";
@@ -23,6 +46,7 @@ import { NavigationSidebarContainer } from "./NavigationSidebarContainer";
 import NavigationSidebarHeader, {
   type MenuOption,
 } from "./NavigationSidebarHeader";
+import { useNavigateInContext } from "./navigate";
 import {
   type MenuSet,
   isDividerElement,
@@ -48,12 +72,17 @@ const NavigationSidebarContent = ({
 
   const isBridged = !!navigate;
 
+  const navigateInContext = useNavigateInContext(navigate);
+
   const [menuSet, setMenuSet] = useState<MenuSet>("default");
+
+  useAlerts();
 
   const navigationUrls = useMemo(
     () => getNavigationUrls({ revampedBoEnabled: true }),
     [],
   );
+  const attendancePermissions = useAttendancePermissions();
 
   const { open, openDialog, closeDialog } = useFeedbackDialog();
   const {
@@ -67,6 +96,13 @@ const NavigationSidebarContent = ({
     openModal: openNotificationsModal,
     closeModal: closeNotificationsModal,
   } = useNotificationsModal();
+  const { isAttendanceModalOpen, closeAttendanceModal, openAttendanceModal } =
+    useAttendanceModal();
+  const {
+    isSearchMemberModalOpen,
+    closeSearchMemberModal,
+    openSearchMemberModal,
+  } = useSearchMemberModal();
 
   const navigationElements = useNavigationElements({
     menuSet,
@@ -153,6 +189,7 @@ const NavigationSidebarContent = ({
     company_name: companyName,
     cover: companyLogo,
   } = companyTheme ?? {};
+  const user = dataAccessLayer.useUserAccess();
 
   return (
     <NavigationSidebarContainer>
@@ -160,9 +197,19 @@ const NavigationSidebarContent = ({
         avatarUrl={companyLogo}
         label={companyName ?? ""}
         menuSet={menuSet}
+        hiddenItems={{
+          attendance: !attendancePermissions.displayFeature,
+          ledger: true,
+        }}
         onSelectItem={(id: MenuOption) => {
           if (id === "settings") {
             setMenuSet(id);
+          }
+          if (id === "feedback" && process.env.NODE_ENV === "production") {
+            navigateInContext(LEGACY_URLS.feedback);
+          }
+          if (id === "tutorials") {
+            navigateInContext(LEGACY_URLS.tutorial);
           }
           if (id === "logout") {
             const navigateToLoginPage = () => {
@@ -175,8 +222,15 @@ const NavigationSidebarContent = ({
             };
             logoutAction(navigateToLoginPage);
           }
+          if (id === "attendance") {
+            openAttendanceModal();
+          }
+          if (id === "help") {
+            window.open(HELP_CENTER, "_blank");
+          }
         }}
         onBack={() => setMenuSet("default")}
+        onSearch={openSearchMemberModal}
       />
       <div
         role="presentation"
@@ -196,6 +250,7 @@ const NavigationSidebarContent = ({
           color="main"
           iconRight="link-external-02"
           fullWidth
+          onClick={() => navigateInContext(LEGACY_URLS.feedback)}
         />
         <Button
           className="!justify-between"
@@ -221,10 +276,35 @@ const NavigationSidebarContent = ({
       <NotificationsModal
         isOpen={isNotificationsModalOpen}
         onClose={closeNotificationsModal}
+        navigate={navigate}
+      />
+      {isAttendanceModalOpen &&
+        user &&
+        attendancePermissions.displayFeature && (
+          <AttendanceModal
+            onClose={closeAttendanceModal}
+            userId={user.id}
+            userName={user.name}
+            permissions={attendancePermissions}
+            navigateInContext={navigateInContext}
+          />
+        )}
+      <SearchMemberModal
+        isOpen={isSearchMemberModalOpen}
+        onClose={closeSearchMemberModal}
+        navigate={navigate}
+        navigateInContext={navigateInContext}
       />
     </NavigationSidebarContainer>
   );
 };
+
+const { i18nInstance: kaizenI18nInstance } = instanciateAppI18n({
+  applicationName: i18nNamespacePrefix,
+  namespaces: i18nNamespaces,
+  inMemoryTranslationsLoader: inMemoryTranslationsLoader,
+  debug: process.env.NODE_ENV !== "production",
+});
 
 const NavigationSidebar = (props: NavigationSidebarProps) => {
   if (props.isLoadingData) {
@@ -235,9 +315,11 @@ const NavigationSidebar = (props: NavigationSidebarProps) => {
     );
   }
   return (
-    <AppI18nextProvider>
-      <NavigationSidebarContent {...props} />
-    </AppI18nextProvider>
+    <KaizenI18nProvider kaizenI18nInstance={kaizenI18nInstance}>
+      <AppI18nextProvider>
+        <NavigationSidebarContent {...props} />
+      </AppI18nextProvider>
+    </KaizenI18nProvider>
   );
 };
 

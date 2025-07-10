@@ -46,7 +46,9 @@ const RadioButton: React.FC<RadioButtonProps> = ({
     <div
       className={classNames(
         "grid grid-cols-[auto,1fr] grid-rows-[auto,auto,auto,1fr]",
-        { "opacity-sm pointer-events-none": disabled },
+        {
+          "opacity-sm pointer-events-none": disabled,
+        },
       )}
       style={{
         gridTemplateAreas:

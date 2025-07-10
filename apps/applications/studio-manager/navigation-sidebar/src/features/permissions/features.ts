@@ -2,7 +2,7 @@ import { LEGACY_URLS } from "#src/urls";
 
 import { removeTrailingSlash } from "./utils";
 
-const FEATURE_IDENTIFIERS = {
+export const FEATURE_IDENTIFIERS = {
   CUSTOM_APP: 1,
   CLOCK_IN: 21,
   PERFORMANCE_TRACKING: 19,

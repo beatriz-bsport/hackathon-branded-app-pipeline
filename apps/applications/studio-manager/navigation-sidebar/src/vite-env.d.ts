@@ -3,3 +3,11 @@
 /// <reference types="@bsport/config-federation/vite" />
 
 declare const __NAVIGATION_SIDEBAR__: FederationVariables;
+
+interface ImportMetaEnv {
+  readonly VITE_RELEASE_NAME: string;
+}
+
+interface ImportMeta {
+  readonly env: ImportMetaEnv;
+}

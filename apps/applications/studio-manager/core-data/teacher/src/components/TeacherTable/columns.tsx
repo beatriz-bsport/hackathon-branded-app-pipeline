@@ -2,6 +2,7 @@ import {
   Avatar,
   Body,
   Button,
+  CopyToClipboard,
   type GenericTableColumn,
   type IconProps,
   Tooltip,
@@ -9,7 +10,6 @@ import {
 
 import { useTranslation } from "#src/utils/i18n";
 
-import { CopyToClipboardButton } from "./CopyToClipboardButton";
 import type { TableColumnsParams, TableRowData, TeacherHandler } from "./types";
 
 type TableColumn = GenericTableColumn<TableRowData>;
@@ -52,9 +52,12 @@ export const useTeacherTableColumns = ({
     align: "center",
     render: (row) => {
       return (
-        <CopyToClipboardButton
-          data={row.email}
+        <CopyToClipboard
+          value={row.email}
           toastMessage={t("table.actions.copyEmail")}
+          size="lg"
+          color="default"
+          intent="flat"
         />
       );
     },
@@ -67,9 +70,12 @@ export const useTeacherTableColumns = ({
     align: "center",
     render: (row) => {
       return (
-        <CopyToClipboardButton
-          data={row.phone}
+        <CopyToClipboard
+          value={row.phone}
           toastMessage={t("table.actions.copyPhone")}
+          size="lg"
+          color="default"
+          intent="flat"
         />
       );
     },

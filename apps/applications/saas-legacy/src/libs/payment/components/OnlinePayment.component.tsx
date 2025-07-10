@@ -4,6 +4,7 @@ import {
   PAYMENT_ENGINE_STRIPE,
   PAYMENT_GROUP_METHOD_IDENTIFIER_CB,
   PAYMENT_GROUP_METHOD_IDENTIFIER_PAYPAL_WALLET,
+  PAYMENT_GROUP_METHOD_IDENTIFIER_TWINT,
 } from '@bsport/common/lib/master-data/payment-group.js';
 import SaveIcon from '@material-ui/icons/Save';
 import IconButton from '@material-ui/core/IconButton';
@@ -258,7 +259,8 @@ const OnlinePayment: React.FC<Props> = forwardRef(
         />
         {instalmentPaymentConfigurationList?.length > 0 &&
           !!onSelectInstalmentPayment &&
-          paymentEngine !== PAYMENT_ENGINE_PAYPAL && (
+          paymentEngine !== PAYMENT_ENGINE_PAYPAL &&
+          paymentMethodSelected !== PAYMENT_GROUP_METHOD_IDENTIFIER_TWINT && (
             <InstalmentPaymentSelector
               basketPriceCts={
                 basketTotalPriceCts - (basketTotalPricePrepaidLines || 0)

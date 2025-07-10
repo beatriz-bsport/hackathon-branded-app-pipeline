@@ -31,6 +31,7 @@ import {
   PAYMENT_ENGINE_STRIPE,
   PAYMENT_GROUP_METHOD_IDENTIFIER_CB,
   PAYMENT_GROUP_METHOD_IDENTIFIER_PAYPAL_WALLET,
+  PAYMENT_GROUP_METHOD_IDENTIFIER_TWINT,
   PAYMENT_INTENT_STATUS_CANCELED,
   PAYMENT_INTENT_STATUS_DISPUTED,
   PAYMENT_INTENT_STATUS_PLANNED,
@@ -269,7 +270,8 @@ export const OnlinePaymentBasket: React.FC<Props> = forwardRef(
         />
         {!!instalmentPaymentConfigurations?.length &&
           !!selectInstalmentPayment &&
-          selectedPaymentEngine !== PAYMENT_ENGINE_PAYPAL && (
+          selectedPaymentEngine !== PAYMENT_ENGINE_PAYPAL &&
+          paymentMethodSelected !== PAYMENT_GROUP_METHOD_IDENTIFIER_TWINT && (
             <InstalmentPaymentSelector
               basketPriceCts={
                 basketTotalPriceCts - (basketTotalPricePrepaidLinesCts || 0)

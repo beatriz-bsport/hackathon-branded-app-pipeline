@@ -80,11 +80,51 @@ const menuItemsWithRightSlot: Item[] = [
 const meta: Meta<typeof DropdownMenu> = {
   component: DropdownMenu,
   argTypes: {
-    placement: {
-      table: { type: { summary: "string" } },
-      options: [undefined, ...Object.values(Placements)],
-      control: { type: "select" },
+    target: {
+      control: false,
+      description: "Callback for the popover anchor element",
+      table: { type: { summary: "ReactNode" } },
     },
+    placement: {
+      control: { type: "select" },
+      options: Object.values(Placements),
+      description: "Popover placement",
+      table: { type: { summary: "string" } },
+    },
+    items: {
+      control: false,
+      description: "Menu items",
+      table: { type: { summary: "Item[]" } },
+    },
+    onSelectOption: {
+      action: "onSelectOption",
+      control: false,
+      description: "Callback when an item is selected",
+      table: { type: { summary: "(params) => void" } },
+    },
+    selectedValues: {
+      control: { type: "object" },
+      description: "Selected item IDs",
+      table: { type: { summary: "string[]" } },
+    },
+    searchConfig: {
+      control: false,
+      description: "Search configuration object",
+      table: {
+        type: {
+          summary:
+            "{ placeholder?: string; value?: string; onChange?: (value: string) => void }",
+        },
+      },
+    },
+  },
+  args: {
+    target: () => <Button size="sm" intent="default" color="main" />,
+    placement: "bottom-left",
+    items: [],
+    onSelectOption: undefined,
+    selectedValues: [],
+    searchConfig: undefined,
   },
 };
 
@@ -261,6 +301,59 @@ export const WithRightSlots: Story = {
             <p>Selected option: {selectedOption}</p>
           </div>
         )}
+      </div>
+    );
+  },
+  args: {
+    placement: "bottom-left",
+  },
+};
+
+export const WithSearch: Story = {
+  name: "Dropdown Menu with Search (Quick Filter)",
+  render: () => {
+    const [selectedOption, setSelectedOption] = useState<string | null>(null);
+    const [searchValue, setSearchValue] = useState("");
+
+    const searchableMenuItems: Item[] = [
+      { type: "title", label: "Searchable Menu" },
+      { id: "apple", label: "Apple" },
+      { id: "banana", label: "Banana" },
+      { id: "orange", label: "Orange" },
+      { id: "grape", label: "Grape" },
+      { type: "divider" },
+      { id: "pear", label: "Pear" },
+    ];
+
+    return (
+      <div className="p-lg">
+        <DropdownMenu
+          items={searchableMenuItems}
+          onSelectOption={({ id, setIsPopoverOpened }) => {
+            setSelectedOption(id);
+            setIsPopoverOpened(false);
+          }}
+          placement="bottom-left"
+          target={({ setIsPopoverOpened }) => (
+            <Button
+              label="Open Searchable Menu"
+              intent="default"
+              color="main"
+              size="md"
+              onClick={() => setIsPopoverOpened(true)}
+            />
+          )}
+          selectedValues={selectedOption ? [selectedOption] : []}
+          searchConfig={{
+            placeholder: "Type to filter options...",
+            value: searchValue,
+            onChange: setSearchValue,
+          }}
+        />
+        <div className="mt-md">
+          <p>Selected option: {selectedOption ?? "None"}</p>
+          <p>Current search: {searchValue}</p>
+        </div>
       </div>
     );
   },

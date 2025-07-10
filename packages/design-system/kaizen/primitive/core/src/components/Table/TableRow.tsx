@@ -7,11 +7,12 @@ import Avatar from "#src/components/Avatar";
 import Body, { BodyColor } from "#src/components/Body";
 import Checkbox from "#src/components/Checkbox";
 import ColorIndicator from "#src/components/ColorIndicator";
+import CopyToClipboard from "#src/components/CopyToClipboard";
 import withLink from "#src/components/private/withLink";
 import { useKaizenI18nInstance } from "#src/i18n";
 
-import type { BaseRow, Column } from "./Table";
 import TableCell from "./TableCell";
+import { BaseRow, Column } from "./types";
 
 type TableRowProps<RowType extends BaseRow> = {
   row: RowType;
@@ -121,6 +122,13 @@ const TableRow = withLink(
                     : ""
                 }
                 size={col.size}
+              />
+            ) : col.type === "copy" ? (
+              <CopyToClipboard
+                value={typeof value === "string" ? value : String(value ?? "")}
+                color="default"
+                intent="flat"
+                size="md"
               />
             ) : null;
 

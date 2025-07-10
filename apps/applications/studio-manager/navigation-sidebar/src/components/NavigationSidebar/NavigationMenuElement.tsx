@@ -1,7 +1,8 @@
 import React, { PropsWithChildren } from "react";
-import { NavLink } from "react-router";
 
 import { NavigationMenu } from "@bsport/kaizen-primitive-core";
+
+import { NavigationLink } from "#src/components/NavigationLink";
 
 import type {
   NavigationSidebarItem,
@@ -32,8 +33,6 @@ export const NavigationMenuElement: React.FC<NavigationMenuItemProps> = ({
   kind = "subitem",
   children,
 }) => {
-  const isBridged = !!navigate;
-
   const itemElement = ({
     isActive,
     onClick,
@@ -72,41 +71,11 @@ export const NavigationMenuElement: React.FC<NavigationMenuItemProps> = ({
     );
   };
 
-  // Handle action items (items with onClick but no href) - prevent navigation highlighting
-  if (!item.href && item.onClick) {
-    return itemElement({
-      isActive: false, // Action items are never active
-      onClick: item.onClick,
-      disableSelection: true, // Prevent NavigationMenu.Item from setting selection state
-    });
-  }
-
-  // Handle static items without href and without onClick
-  if (!item.href) return itemElement();
-
-  if (isBridged && item.revamped) {
-    return (
-      <a key={item.id} href={`/studio${item.href}`}>
-        {itemElement()}
-      </a>
-    );
-  }
-
-  if (isBridged && !item.revamped) {
-    return itemElement({ onClick: () => navigate?.(item.href!) });
-  }
-
-  if (!isBridged && !item.revamped) {
-    return (
-      <a key={item.id} href={item.href}>
-        {itemElement()}
-      </a>
-    );
-  }
-
   return (
-    <NavLink key={item.id} to={item.href}>
-      {({ isActive }) => itemElement({ isActive })}
-    </NavLink>
+    <NavigationLink
+      item={item}
+      navigate={navigate}
+      renderElement={itemElement}
+    />
   );
 };

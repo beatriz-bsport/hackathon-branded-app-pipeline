@@ -32,6 +32,7 @@
     "@bsport/permissions": "workspace:*",
     "@bsport/sm-backbone": "workspace:*",
     "@bsport/store-auth": "workspace:*",
+    "@bsport/store-cdp-tag": "workspace:*",
     "@bsport/store-core-data-member": "workspace:*",
     "@bsport/store-staff-management-alerting": "workspace:*",
     "@bsport/store-staff-management-attendance": "workspace:*",

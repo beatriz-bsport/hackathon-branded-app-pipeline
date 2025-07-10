@@ -279,6 +279,7 @@ const NavigationSidebarContent = ({
         isOpen={isSearchMemberModalOpen}
         onClose={closeSearchMemberModal}
         navigate={navigate}
+        navigateInContext={navigateInContext}
       />
     </NavigationSidebarContainer>
   );

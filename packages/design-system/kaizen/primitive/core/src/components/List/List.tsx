@@ -121,9 +121,9 @@ export type ListProps<T extends { id: string } = ListItemProps> =
  * - className [Optional] string, tailwind css classes to add to the loading component;
  * - isLoading [Optional] Whether the fetch return a loading list;
  * @param emptyStateProps [Optional] Dictionnary of props to manage the empty state rendering
- * - emptyConfig Configuration to display the empty state UI when isEmpty is true;
+ * - emptyConfig [Optional] Configuration to display the empty state UI when isEmpty is true;
  * - emptySearchConfig [Optional] Configuration to display the empty search UI when isEmptySearch is true;
- * - isEmpty Whether the fetch return an empty list;
+ * - isEmpty [Optional] Whether the fetch return an empty list;
  * - isEmptySearch [Optional] Whether the filtering return an empty list;
  * @param id Optional ID for the list.
  * @param header Optional header component to display at the top of the list.

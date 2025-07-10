@@ -11,3 +11,7 @@ export const selectCount = (state: MemberState) => state.count;
 
 export const selectIrregularities = (state: MemberState) =>
   state.irregularities;
+
+export const selectSearchMembers = (state: MemberState, archived?: boolean) => {
+  return archived ? state.search.archived : state.search.active;
+};

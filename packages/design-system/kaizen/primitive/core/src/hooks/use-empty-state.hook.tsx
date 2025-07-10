@@ -3,8 +3,8 @@ import EmptyState, {
 } from "#src/components/private/EmptyState";
 
 export type UseEmptyStateProps = {
-  isEmpty: boolean;
-  emptyConfig: Omit<EmptyStateProps, "variant">;
+  isEmpty?: boolean;
+  emptyConfig?: Omit<EmptyStateProps, "variant">;
   isEmptySearch?: boolean;
   emptySearchConfig?: Omit<EmptyStateProps, "variant">;
 };

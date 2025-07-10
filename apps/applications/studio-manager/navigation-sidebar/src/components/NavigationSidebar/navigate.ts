@@ -26,24 +26,27 @@ export const useNavigateInContext = (navigate?: (to: string) => void) => {
    * @param isRevamped Whether the URL is a revamped link
    */
   const navigateInContext = (to: string, isRevamped?: boolean): void => {
-    if (navigate && !isRevamped) {
+    if (!!navigate && !isRevamped) {
       // In Legacy context, navigate to legacy link using navigate
       navigate(to);
+      return;
     }
-    if (navigate && isRevamped) {
+    if (!!navigate && isRevamped) {
       // In Legacy context, navigate to revamped link using redirection
       window.location.assign(`/studio${to}`);
+      return;
     }
     if (!navigate && !isRevamped) {
       // In Revamp context, navigate to legacy link using redirection
       window.location.assign(to);
+      return;
     }
     if (!navigate && revampNavigate && isRevamped) {
       // In Revamp context, navigate to revamp link using React router navigate
       revampNavigate(to);
+      return;
     }
     // Fallback
-    console.warn("No navigation method available for ", { to, isRevamped });
     window.location.assign(to);
   };
 

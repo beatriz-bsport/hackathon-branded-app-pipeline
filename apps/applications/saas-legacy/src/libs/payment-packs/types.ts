@@ -203,25 +203,25 @@ export type PaymentPackCategory = {
   category_ordering: number;
 };
 
+export type PaymentPackTemplatePaginatedBaseState = {
+  page: number;
+  next_page: number | null;
+  count: number;
+  allIds: number[];
+  byId: Record<number, PaymentPackTemplateAPI>;
+} & ErrorAndLoading;
+
+// debt(2,2,2) Those fields are never returned by the API.
+// Both types should be merged into one removing those fields
+export type PaymentPackTemplatePaginatedState = {
+  previous_page: number | null;
+  page_size: number;
+} & PaymentPackTemplatePaginatedBaseState;
+
 type PaymentPackTemptatePaginatedReducer = {
-  availablePasses: {
-    page: number;
-    next_page: number | null;
-    previous_page: number | null;
-    count: number;
-    page_size: number;
-    allIds: number[];
-    byId: Record<number, PaymentPackTemplateAPI>;
-  } & ErrorAndLoading;
-  managerOnlyPasses: {
-    page: number;
-    next_page: number | null;
-    previous_page: number | null;
-    count: number;
-    page_size: number;
-    allIds: number[];
-    byId: Record<number, PaymentPackTemplateAPI>;
-  } & ErrorAndLoading;
+  availablePasses: PaymentPackTemplatePaginatedState;
+  managerOnlyPasses: PaymentPackTemplatePaginatedState;
+  archivedPasses: PaymentPackTemplatePaginatedBaseState;
 };
 
 export type PaymentPackState = Immutable.Immutable<{

@@ -10,6 +10,7 @@ import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
+import RestoreFromTrashIcon from '@material-ui/icons/RestoreFromTrash';
 import ListItemResponsiveAction from '../../../../components/button/ListItemResponsiveAction.component';
 import FranchiseCompanyChipList from '../../../../components/franchise/FranchiseCompanyChipList.component';
 import { getCurrencyDisplayWithPrice } from '../../../theme/selectors';
@@ -53,31 +54,35 @@ const PrivatePassTemplateListItem = (props: Props) => {
           template.price,
         )}${` - ${dateInfo}`}`}
       />
-      {/* @ts-expect-error */}
-      <FranchiseCompanyChipList companies={template.companies} />
-      {!template.is_usable_by_staff && !template.disabled && (
-        <IconButton onClick={null}>
-          <Tooltip title={t('privatePass.listItem.unusableByStaff')}>
-            <RemoveShoppingCartIcon />
-          </Tooltip>
-        </IconButton>
+      {!template.disabled && (
+        <>
+          {/* @ts-expect-error */}
+          <FranchiseCompanyChipList companies={template.companies} />
+          {!template.is_usable_by_staff && (
+            <IconButton>
+              <Tooltip title={t('privatePass.listItem.unusableByStaff') ?? ''}>
+                <RemoveShoppingCartIcon />
+              </Tooltip>
+            </IconButton>
+          )}
+          {template.manager_only && (
+            <IconButton>
+              <Tooltip title={t('privatePass.parameters.managerOnly') ?? ''}>
+                <VisibilityOffIcon />
+              </Tooltip>
+            </IconButton>
+          )}
+        </>
       )}
-      {template.manager_only && !template.disabled && (
-        <IconButton onClick={null}>
-          <Tooltip title={t('privatePass.parameters.managerOnly')}>
-            <VisibilityOffIcon />
-          </Tooltip>
-        </IconButton>
-      )}
+
       <ListItemResponsiveAction
         // @ts-expect-error
         actions={
           template.disabled
             ? [
                 onRestore && {
-                  icon: EditIcon,
+                  icon: RestoreFromTrashIcon,
                   label: t('privatePass.actions.restore'),
-                  color: 'primary',
                   onClick: () => {
                     onRestore(template.id);
                   },

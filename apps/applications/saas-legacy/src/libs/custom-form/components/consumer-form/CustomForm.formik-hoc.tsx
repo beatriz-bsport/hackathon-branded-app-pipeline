@@ -29,6 +29,7 @@ import type {
 import GridLayoutWrapper from '../consumer-form-layout/GridLayoutWrapper.component';
 import WidgetUtils from '#src/libs/widget/WidgetUtils';
 import { convertBlobToBase64 } from '#src/libs/utils';
+import { useCssVariantActivated } from '#src/libs/custom-form/hooks/useCssVariantActivated';
 
 type OwnProps = {
   layouts?: ResponsiveLayouts;
@@ -37,7 +38,6 @@ type OwnProps = {
   customProviderWidth?: number;
   measureBeforeMount?: boolean;
   fieldsAreIndependent?: boolean; // if they are, FastField is used to avoid useless re-rendering
-  isCssVariantActivated?: boolean;
   shouldWrapLayerInCssHoc?: boolean;
   rowHeight?: number;
 };
@@ -58,12 +58,13 @@ export const ConsumerFormFields = (props: Props) => {
     // @ts-expect-error
     classes,
     fieldsAreIndependent,
-    isCssVariantActivated,
-    shouldWrapLayerInCssHoc,
     measureBeforeMount,
+    shouldWrapLayerInCssHoc,
     ...restProps
   } = props;
   /* eslint-disable */
+  const isCssVariantActivated = useCssVariantActivated();
+
   return (
     <FieldArray name="custom_form_field">
       {({
@@ -73,14 +74,14 @@ export const ConsumerFormFields = (props: Props) => {
       }) => (
         <>
           <GridLayoutWrapper
-            measureBeforeMount={measureBeforeMount}
-            onLayoutChange={props.onLayoutChange}
-            layouts={props.layouts}
-            isEditing={props.isEditing}
             customProviderWidth={props.customProviderWidth}
             isCssVariantActivated={isCssVariantActivated}
-            shouldWrapLayerInCssHoc={shouldWrapLayerInCssHoc}
+            isEditing={props.isEditing}
+            layouts={props.layouts}
+            measureBeforeMount={measureBeforeMount}
+            onLayoutChange={props.onLayoutChange}
             rowHeight={props.rowHeight}
+            shouldWrapLayerInCssHoc={shouldWrapLayerInCssHoc}
           >
             {fieldsAreIndependent
               ? custom_form_field?.map((field: CustomFormField, i: number) => (
@@ -104,8 +105,8 @@ export const ConsumerFormFields = (props: Props) => {
               : custom_form_field?.map((field: CustomFormField, i: number) => {
                   return (
                     <div
-                      className="bs-fabrique-checkbox__wrapper"
                       key={field?.id?.toString()}
+                      className="bs-fabrique-checkbox__wrapper"
                     >
                       {/* @ts-expect-error */}
                       <CustomFormConsumerInput

@@ -483,7 +483,7 @@ const getTranslations = async () => {
       copyLink: 'Copy the direct link to the payment page',
     },
     actions: {
-      delete: 'Delete',
+      delete: 'Archive',
       edit: 'Edit',
       scaleCredit: 'Mult / div credits',
       massExtension: 'Extend validity',
@@ -610,6 +610,20 @@ const getTranslations = async () => {
       name: 'No category',
       empty: 'There are no passes associated with this category to display.',
     },
+    universalPaymentPackTemplate: {
+      deleteForm: {
+        actions: { submit: 'Archive', close: 'Close' },
+        content:
+          'Members will still be able to use the universal pass at the studio where they bought it. Any subscription linked to this universal pass will remain valid at that same studio.',
+        title: 'Archive shared universal pass',
+      },
+      restoreForm: {
+        actions: { submit: 'Restore', close: 'Close' },
+        content:
+          'The shared universal pass will be restored and shared again among the studios previously selected.',
+        title: 'Restore shared universal pass',
+      },
+    },
     paymentPackTemplate: {
       specification: {
         companySharedWithTitle: 'Shared with the following studios:',
@@ -619,10 +633,16 @@ const getTranslations = async () => {
         createUniversalPass: 'Add a shared universal pass',
       },
       deleteForm: {
-        actions: { submit: 'Delete', close: 'Close' },
+        actions: { submit: 'Archive', close: 'Close' },
         content:
           'Members will still be able to use the pass at the studio where they bought it. Any subscription linked to this pass will remain valid at that same studio.',
-        title: 'Delete shared pass',
+        title: 'Archive shared pass',
+      },
+      restoreForm: {
+        actions: { submit: 'Restore', close: 'Close' },
+        content:
+          'The shared pass will be restored and shared again among the studios previously selected.',
+        title: 'Restore shared pass',
       },
       form: {
         notEditable:
@@ -645,6 +665,7 @@ const getTranslations = async () => {
       section: {
         titleManagerOnly: 'Not available for purchase',
         titleAvailable: 'Available for purchase',
+        titleArchived: 'Archived passes',
       },
       isEmptyExplain:
         'Members can purchase and use this pass at any of the associated studios.',

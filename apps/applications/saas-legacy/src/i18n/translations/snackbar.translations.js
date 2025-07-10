@@ -564,6 +564,22 @@ const getTranslations = async () => {
         error: 'Unable to restore the pass',
         success: 'Pass restored',
       },
+      paymentPackTemplateArchived: {
+        error: 'Impossible to archive shared pass',
+        success: 'Shared pass archived',
+      },
+      paymentPackTemplateRestored: {
+        error: 'Impossible to restore shared pass',
+        success: 'Shared pass restored',
+      },
+      universalPaymentPackTemplateArchived: {
+        error: 'Impossible to archive shared universal pass',
+        success: 'Shared universal pass archived',
+      },
+      universalPaymentPackTemplateRestored: {
+        error: 'Impossible to restore shared universal pass',
+        success: 'Shared universal pass restored',
+      },
       category: {
         update: {
           success: 'Category successfully modified',

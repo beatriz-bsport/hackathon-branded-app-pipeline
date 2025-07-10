@@ -37,7 +37,6 @@ import CustomFormTitleCSS from '#src/libs/custom-form/components/CustomFormTitle
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 import WithCustomCssProvider from '#src/hocs/company-custom-css.hoc';
 import { retrieveCompanyCssConfiguration as retrieveCompanyCssConfigurationAction } from '#src/libs/exportable-components/actions';
-import { isCustomFormCssVariantActivated } from '#src/libs/custom-form/utils';
 import { isBookingFlowNext } from '#src/libs/marketplace/routing-utils';
 
 import { COMPANY_IDS_TO_DISPLAY_REGISTER_BOOKING_TITLE } from '#src/libs/sign-up-form/utils';
@@ -136,12 +135,6 @@ export class SignupPage extends Component<Props> {
     this.props.goBackToLogin(this.props.membership);
   };
 
-  shoulDisplayCssVariant = () =>
-    isCustomFormCssVariantActivated(
-      !!this.props.signUpCustomForm?.layout_configuration
-        ?.use_custom_css_variant,
-    );
-
   getContainerClass = () => {
     if (
       WidgetUtils.isWidget() &&
@@ -194,26 +187,22 @@ export class SignupPage extends Component<Props> {
     return (
       <div ref={containerRef} className={this.getContainerClass()}>
         <div className="bs-signup-container--margin-top">
-          {this.shoulDisplayCssVariant() ? (
-            <CustomFormTitleCSS
-              isCompany={!!membership}
-              simplifyUI={simplifyUI}
-              title={signUpTitle}
-            />
-          ) : (
-            <CustomFormTitle
-              isCompany={!!membership}
-              simplifyUI={simplifyUI}
-              title={signUpTitle}
-            />
-          )}
+          <CustomFormTitleCSS
+            isCompany={!!membership}
+            simplifyUI={simplifyUI}
+            title={signUpTitle}
+          />
+          <CustomFormTitle
+            isCompany={!!membership}
+            simplifyUI={simplifyUI}
+            title={signUpTitle}
+          />
           {signUpCustomForm && signUpCustomForm.layout && (
             <div className="bs-signup-container__custom-form">
               <CustomFormView
                 fieldsAreIndependent={fieldsAreIndependent}
                 general_terms_and_conditions={theme.general_terms_of_use}
                 initial={signUpCustomForm}
-                isCssVariantActivated={this.shoulDisplayCssVariant()}
                 layouts={signUpCustomForm.layout}
                 onCancel={this.handleCancel}
                 // @ts-expect-error

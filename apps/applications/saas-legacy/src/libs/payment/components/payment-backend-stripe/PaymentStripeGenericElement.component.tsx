@@ -14,6 +14,7 @@ import { useTranslation } from 'react-i18next';
 import {
   PAYMENT_GROUP_METHOD_IDENTIFIER_BANCONTACT,
   PAYMENT_GROUP_METHOD_IDENTIFIER_IDEAL,
+  PAYMENT_GROUP_METHOD_IDENTIFIER_TWINT,
 } from '@bsport/common/lib/master-data/payment-group';
 
 import {
@@ -201,6 +202,9 @@ export const PaymentStripeGenericElement = forwardRef(
           case PAYMENT_GROUP_METHOD_IDENTIFIER_IDEAL:
             paymentMethodType = StripePaymentMethodNames.IDEAL;
             break;
+          case PAYMENT_GROUP_METHOD_IDENTIFIER_TWINT:
+            paymentMethodType = StripePaymentMethodNames.TWINT;
+            break;
         }
 
         const params = url.searchParams;
@@ -304,35 +308,39 @@ export const PaymentStripeGenericElement = forwardRef(
                 <Typography color="error">{errorMessage}</Typography>
               )}
             </div>
-            <div className={classes.row}>
-              <Checkbox
-                checked={saveForLater || forceSave}
-                color="primary"
-                disabled={!!forceSave || isProcessing || !stripe || !elements}
-                onChange={onSaveForLaterChange}
-              />
-              <div className={classes.leftColumn}>
-                <Typography variant={isCheckoutContext ? 'body1' : 'caption'}>
-                  {t('paymentPanel.actions.saveForLater')}
-                </Typography>
-                <Typography
-                  color="textSecondary"
-                  variant={isCheckoutContext ? 'body1' : 'caption'}
-                >
-                  {t('paymentPanel.actions.saveForLaterAsSEPA')}
-                </Typography>
+            {/* Twint is the only stripe payment method that does not support saving, so the checkbox does not appear in this case. No need for additional complexity */}
+            {paymentGroupMethodIdentifier !==
+              PAYMENT_GROUP_METHOD_IDENTIFIER_TWINT && (
+              <div className={classes.row}>
+                <Checkbox
+                  checked={saveForLater || forceSave}
+                  color="primary"
+                  disabled={!!forceSave || isProcessing || !stripe || !elements}
+                  onChange={onSaveForLaterChange}
+                />
+                <div className={classes.leftColumn}>
+                  <Typography variant={isCheckoutContext ? 'body1' : 'caption'}>
+                    {t('paymentPanel.actions.saveForLater')}
+                  </Typography>
+                  <Typography
+                    color="textSecondary"
+                    variant={isCheckoutContext ? 'body1' : 'caption'}
+                  >
+                    {t('paymentPanel.actions.saveForLaterAsSEPA')}
+                  </Typography>
+                </div>
+                <div className={classes.securityInformationContainer}>
+                  <PopOver
+                    anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+                    className={classes.securityInformationText}
+                    title={t('paymentPanel.actions.paymentSecurityInformation')}
+                    transformOrigin={{ vertical: 'top', horizontal: 'center' }}
+                  >
+                    <Info className={classes.infoIcon} />
+                  </PopOver>
+                </div>
               </div>
-              <div className={classes.securityInformationContainer}>
-                <PopOver
-                  anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-                  className={classes.securityInformationText}
-                  title={t('paymentPanel.actions.paymentSecurityInformation')}
-                  transformOrigin={{ vertical: 'top', horizontal: 'center' }}
-                >
-                  <Info className={classes.infoIcon} />
-                </PopOver>
-              </div>
-            </div>
+            )}
           </>
         )}
         {children}

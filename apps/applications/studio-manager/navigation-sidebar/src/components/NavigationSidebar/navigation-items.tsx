@@ -5,6 +5,11 @@ import type {
   NavigationMenuGroup,
   NavigationMenuItem,
 } from "@bsport/kaizen-primitive-core";
+import { Indicator } from "@bsport/kaizen-primitive-core";
+import {
+  selectAllAlertsCount,
+  useAlertingStore,
+} from "@bsport/store-staff-management-alerting";
 
 import { useTranslation } from "#src/utils/i18n";
 
@@ -41,6 +46,8 @@ export const useNavigationElements = ({
 }) => {
   const { t } = useTranslation("default");
 
+  const totalAlertsCount = useAlertingStore(selectAllAlertsCount);
+
   const navigationItems: Record<MenuSet, NavigationElement[]> = useMemo(() => {
     return {
       default: [
@@ -58,9 +65,24 @@ export const useNavigationElements = ({
           id: "notifications",
           label: t("menus.notifications"),
           onClick: handleOpenNotificationsModal,
+          endSlot:
+            totalAlertsCount > 0 ? (
+              <Indicator
+                color="critical"
+                position="top"
+                size="sm"
+                value={totalAlertsCount}
+              />
+            ) : undefined,
         },
         {
           type: "divider",
+        },
+        {
+          icon: "bar-line-chart",
+          id: "dashboard",
+          label: t("menus.dashboard"),
+          ...navigationUrls.dashboard,
         },
         {
           icon: "calendar",
@@ -78,7 +100,7 @@ export const useNavigationElements = ({
           icon: "log-in-03",
           id: "access-control",
           label: t("menus.accessControl"),
-          ...navigationUrls.accessMonitoring,
+          ...navigationUrls.accessMonitoring_monitor,
         },
         {
           type: "divider",
@@ -117,6 +139,11 @@ export const useNavigationElements = ({
               id: "passes",
               label: t("menus.memberships.passes"),
               ...navigationUrls.pass,
+            },
+            {
+              id: "appointment-passes",
+              label: t("menus.memberships.appointmentPasses"),
+              ...navigationUrls.appointmentPass,
             },
             {
               id: "subscriptions",
@@ -194,12 +221,6 @@ export const useNavigationElements = ({
         },
         {
           type: "divider",
-        },
-        {
-          icon: "bar-line-chart",
-          id: "dashboard",
-          label: t("menus.dashboard"),
-          ...navigationUrls.dashboard,
         },
         {
           icon: "bar-chart-10",
@@ -398,6 +419,7 @@ export const useNavigationElements = ({
     handleOpenNotificationsModal,
     navigationUrls,
     t,
+    totalAlertsCount,
   ]);
 
   return navigationItems[menuSet];

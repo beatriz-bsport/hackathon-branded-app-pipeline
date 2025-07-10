@@ -11,7 +11,6 @@ import ColorInput from "./ColorInput";
 
 const defaultClasses = [
   "w-full",
-  "font-body-lg",
   "leading-md",
   "outline-none",
   "border-none",
@@ -25,6 +24,10 @@ const variants = {
     default: [""],
     positive: [""],
     error: [""],
+  },
+  type: {
+    default: "text-body-lg",
+    search: "text-body-sm",
   },
 } as const;
 
@@ -57,6 +60,9 @@ export type TextFieldPrefixSuffix =
 
 const textField = cva(defaultClasses, {
   variants,
+  defaultVariants: {
+    type: "default",
+  },
 });
 
 export type TextFieldProps = Omit<
@@ -147,6 +153,7 @@ const TextField: React.FC<TextFieldProps> = ({
   );
 
   const handleTextChange = (e: ChangeEvent<HTMLInputElement>) => {
+    e.stopPropagation();
     const val = e.target.value;
 
     if (/^#[\da-f]{0,6}$/i.test(val)) {
@@ -158,14 +165,20 @@ const TextField: React.FC<TextFieldProps> = ({
   };
 
   const handleColorInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    e.stopPropagation();
     setColorInputValue(e.target.value);
+    onChange?.(e);
+  };
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    e.stopPropagation();
     onChange?.(e);
   };
 
   const colorInputProps =
     type === "color"
       ? { type: "text", onChange: handleTextChange }
-      : { type, onChange };
+      : { type, onChange: handleChange };
 
   const { className: containerClassName, ...otherContainerProps } =
     containerProps ?? {};
@@ -206,6 +219,7 @@ const TextField: React.FC<TextFieldProps> = ({
               "before:shadow-border-thin-critical": status === "error",
               "shadow-focused": isInputFocused && status === "default",
               "w-full": fullWidth,
+              "bg-surface-default-weaker": type === "search",
             },
           )}
         >
@@ -239,14 +253,21 @@ const TextField: React.FC<TextFieldProps> = ({
             </div>
           )}
           <div className="flex gap-xs items-center justify-between w-full px-xs py-2xs">
-            {iconLeft && (
-              <div className="text-onsurface-weak">
-                <Icon icon={iconLeft} size="sm" />
-              </div>
-            )}
+            {type === "search" ? (
+              <Icon
+                icon="search-refraction"
+                size="sm"
+                className="text-onsurface-weaker"
+              />
+            ) : iconLeft ? (
+              <Icon icon={iconLeft} size="sm" className="text-onsurface-weak" />
+            ) : null}
             <input
               ref={inputRef}
-              className={textField({ status })}
+              className={textField({
+                status,
+                type: type === "search" ? "search" : "default",
+              })}
               id={id}
               name={id}
               value={value}
@@ -267,10 +288,8 @@ const TextField: React.FC<TextFieldProps> = ({
               {...props}
               {...colorInputProps}
             />
-            {type !== "number" &&
-              type !== "color" &&
-              type !== "time" &&
-              value && (
+            <div className="flex items-center justify-center w-sm">
+              {!["number", "color", "time"].includes(type) && value ? (
                 <Button
                   iconLeft="x-close"
                   size="sm"
@@ -279,7 +298,19 @@ const TextField: React.FC<TextFieldProps> = ({
                   onClick={onClear}
                   className="text-onsurface-weak"
                 />
+              ) : (
+                <span style={{ visibility: "hidden" }}>
+                  <Button
+                    iconLeft="x-close"
+                    size="sm"
+                    intent="flat"
+                    color="default"
+                    tabIndex={-1}
+                    aria-hidden
+                  />
+                </span>
               )}
+            </div>
             {iconRight && (
               <div className="text-onsurface-weak">
                 <Icon icon={iconRight} size="sm" />

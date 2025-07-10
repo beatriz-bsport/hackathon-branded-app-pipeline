@@ -858,6 +858,9 @@
                 "acceptTermsAndCondition": {
                     "label": "I accept the General Terms of Use"
                 },
+                "password": {
+                    "label": "Create password"
+                },
                 "button": {
                     "label": "Sign up"
                 },
@@ -867,7 +870,9 @@
                     "phone": "Please enter a valid phone number",
                     "global": "An error occurred while signing up",
                     "emailTaken": "Email already exits, you can try logging in with this email",
-                    "phoneTaken": "This phone number is already used by another member"
+                    "phoneTaken": "This phone number is already used by another member",
+                    "passwordMinimumRequirements": "Your password must be at least 6 characters long and contain no spaces",
+                    "passwordConfirmation": "Passwords must match"
                 }
             }
         }
@@ -9233,7 +9238,7 @@
             "copyLink": "Copy the direct link to the payment page"
         },
         "actions": {
-            "delete": "Delete",
+            "delete": "Archive",
             "edit": "Edit",
             "scaleCredit": "Mult / div credits",
             "massExtension": "Extend validity",
@@ -9366,6 +9371,24 @@
             "name": "No category",
             "empty": "There are no passes associated with this category to display."
         },
+        "universalPaymentPackTemplate": {
+            "deleteForm": {
+                "actions": {
+                    "submit": "Archive",
+                    "close": "Close"
+                },
+                "content": "Members will still be able to use the universal pass at the studio where they bought it. Any subscription linked to this universal pass will remain valid at that same studio.",
+                "title": "Archive shared universal pass"
+            },
+            "restoreForm": {
+                "actions": {
+                    "submit": "Restore",
+                    "close": "Close"
+                },
+                "content": "The shared universal pass will be restored and shared again among the studios previously selected.",
+                "title": "Restore shared universal pass"
+            }
+        },
         "paymentPackTemplate": {
             "specification": {
                 "companySharedWithTitle": "Shared with the following studios:"
@@ -9376,11 +9399,19 @@
             },
             "deleteForm": {
                 "actions": {
-                    "submit": "Delete",
+                    "submit": "Archive",
                     "close": "Close"
                 },
                 "content": "Members will still be able to use the pass at the studio where they bought it. Any subscription linked to this pass will remain valid at that same studio.",
-                "title": "Delete shared pass"
+                "title": "Archive shared pass"
+            },
+            "restoreForm": {
+                "actions": {
+                    "submit": "Restore",
+                    "close": "Close"
+                },
+                "content": "The shared pass will be restored and shared again among the studios previously selected.",
+                "title": "Restore shared pass"
             },
             "form": {
                 "notEditable": "This pass originates from a previously completed data migration. Some fields may not be editable to preserve the data.",
@@ -9402,7 +9433,8 @@
             },
             "section": {
                 "titleManagerOnly": "Not available for purchase",
-                "titleAvailable": "Available for purchase"
+                "titleAvailable": "Available for purchase",
+                "titleArchived": "Archived passes"
             },
             "isEmptyExplain": "Members can purchase and use this pass at any of the associated studios.",
             "widget": {
@@ -11191,11 +11223,19 @@
             },
             "deleteForm": {
                 "actions": {
-                    "submit": "Delete",
+                    "submit": "Archive",
                     "close": "Close"
                 },
-                "content": "Members will still be able to use the appointment pass at the studio where they bought it. Any subscription linked to this appointment pass will also only work at that same studio.",
-                "title": "Delete shared appointment pass"
+                "content": "Members will still be able to use the appointment pass at the studio where they bought it. Any subscription linked to this appointment pass will remain valid at that same studio.",
+                "title": "Archive shared appointment pass"
+            },
+            "restoreForm": {
+                "actions": {
+                    "submit": "Restore",
+                    "close": "Close"
+                },
+                "content": "The shared appointment pass will be restored and shared again among the studios previously selected.",
+                "title": "Restore shared appointment pass"
             },
             "form": {
                 "actions": {
@@ -11214,7 +11254,8 @@
             },
             "section": {
                 "titleManagerOnly": "Not available for purchase",
-                "titleAvailable": "Available for purchase"
+                "titleAvailable": "Available for purchase",
+                "titleArchived": "Archived passes"
             },
             "isEmptyExplain": "Members can purchase and use this pass at any of the associated studios.",
             "specification": {
@@ -16529,6 +16570,22 @@
             "paymentPackEnabled": {
                 "error": "Unable to restore the pass",
                 "success": "Pass restored"
+            },
+            "paymentPackTemplateArchived": {
+                "error": "Impossible to archive shared pass",
+                "success": "Shared pass archived"
+            },
+            "paymentPackTemplateRestored": {
+                "error": "Impossible to restore shared pass",
+                "success": "Shared pass restored"
+            },
+            "universalPaymentPackTemplateArchived": {
+                "error": "Impossible to archive shared universal pass",
+                "success": "Shared universal pass archived"
+            },
+            "universalPaymentPackTemplateRestored": {
+                "error": "Impossible to restore shared universal pass",
+                "success": "Shared universal pass restored"
             },
             "category": {
                 "update": {

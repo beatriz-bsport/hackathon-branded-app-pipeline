@@ -40,6 +40,8 @@ import {
   createPaymentPackMassExtensionActions,
   deletePaymentPackMassExtensionActions,
   listUniversalPaymentPackTemplateActions,
+  restorePaymentPackTemplateActions,
+  restoreUniversalPaymentPackTemplateActions,
 } from './actions';
 
 //@ts-expect-error
@@ -485,6 +487,24 @@ export const newPaymentPackReducer = handleActions(
         true,
       );
     },
+    [restorePaymentPackTemplateActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(['paymentPackTemplate', 'upsert', 'loading'], payload);
+    },
+    [restorePaymentPackTemplateActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(['paymentPackTemplate', 'upsert', 'error'], payload);
+    },
+    [restorePaymentPackTemplateActions.success.toString()]: (
+      state,
+      { payload }: { payload: PaymentPackTemplateAPI },
+    ) => {
+      return state.setIn(['paymentPackTemplate', 'byId', payload.id], payload);
+    },
     [deleteUniversalPaymentPackTemplateActions.isLoading.toString()]: (
       state,
       { payload },
@@ -511,6 +531,34 @@ export const newPaymentPackReducer = handleActions(
         // @ts-expect-error
         ['universalPaymentPackTemplate', 'byId', payload, 'disabled'],
         true,
+      );
+    },
+
+    [restoreUniversalPaymentPackTemplateActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(
+        ['universalPaymentPackTemplate', 'upsert', 'loading'],
+        payload,
+      );
+    },
+    [restoreUniversalPaymentPackTemplateActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(
+        ['universalPaymentPackTemplate', 'upsert', 'error'],
+        payload,
+      );
+    },
+    [restoreUniversalPaymentPackTemplateActions.success.toString()]: (
+      state,
+      { payload }: { payload: PaymentPackTemplateAPI },
+    ) => {
+      return state.setIn(
+        ['universalPaymentPackTemplate', 'byId', payload.id],
+        payload,
       );
     },
 
@@ -1050,7 +1098,9 @@ export const newPaymentPackReducer = handleActions(
   initialState,
 );
 
-// @ts-expect-error
-export default (state = initialState, action = { type: null }) =>
+export default (
+  state = initialState,
+  action: { type: typeof actionTypes | null } = { type: null },
+) =>
   // @ts-expect-error
   newPaymentPackReducer(paymentPackReducer(state, action), action);

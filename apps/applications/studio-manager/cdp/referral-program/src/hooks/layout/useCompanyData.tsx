@@ -7,11 +7,12 @@ import { useTranslation } from "#src/utils/i18n";
 
 export const useCompanyData = () => {
   const { t } = useTranslation("settings");
+  const companyTheme = dataAccessLayer.useCompanyTheme();
   const [isReferralProgramActivated, setIsReferralProgramActivated] = useState<
     boolean | null
   >(null);
   const [companyId, setCompanyId] = useState<number | null>(null);
-  const companyTheme = dataAccessLayer.useCompanyTheme();
+  const [companyCurrency, setCompanyCurrency] = useState<string | null>(null);
 
   const headerBadgeConfiguration: BadgeProps = {
     text: isReferralProgramActivated
@@ -26,11 +27,13 @@ export const useCompanyData = () => {
       setIsReferralProgramActivated(
         companyTheme?.is_referral_program_activated ?? null,
       );
-      setCompanyId(companyTheme?.id ?? null);
+      setCompanyId(companyTheme?.company ?? null);
+      setCompanyCurrency(companyTheme?.currency?.toUpperCase() ?? null);
     }
   }, [companyTheme]);
 
   return {
+    companyCurrency,
     companyId,
     isReferralProgramActivated,
     headerBadgeConfiguration,

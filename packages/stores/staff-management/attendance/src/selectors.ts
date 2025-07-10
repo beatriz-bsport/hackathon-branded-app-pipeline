@@ -5,7 +5,8 @@ export const selectAttendances = (state: AttendanceState) => {
   return ids.map((id) => byId[id]);
 };
 
-export const selectAttendance = (state: AttendanceState, id: number) =>
-  state.byId[id];
+export const selectAttendance = (state: AttendanceState, id?: number) => {
+  if (id) return state.byId[id];
+};
 
 export const selectCount = (state: AttendanceState) => state.count;

@@ -16,7 +16,7 @@ import ChipsContainer, {
   type ChipData,
 } from '#src/pages/marketplace/passes/components/chips-container/ChipsContainer';
 import Chip from '#Fabrique/Chip';
-import Price from '#src/pages/marketplace/passes/components/price/Price';
+import Price from '#src/libs/marketplace/components/price/Price';
 import List from '#Fabrique/List';
 import ListItem from '#Fabrique/ListItem';
 import clsx from 'clsx';

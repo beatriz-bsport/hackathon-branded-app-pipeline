@@ -100,7 +100,7 @@ export const useNavigationElements = ({
           icon: "log-in-03",
           id: "access-control",
           label: t("menus.accessControl"),
-          ...navigationUrls.accessMonitoring,
+          ...navigationUrls.accessMonitoring_monitor,
         },
         {
           type: "divider",

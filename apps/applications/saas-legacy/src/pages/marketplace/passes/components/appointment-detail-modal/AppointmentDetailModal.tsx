@@ -5,7 +5,7 @@ import { CalendarDate, VideoRecorder } from '#src/components/untitledui';
 import Typography from '#Fabrique/Typography';
 import { ShowMore } from '#Fabrique/ShowMore/ShowMore.component';
 import Button from '#Fabrique/ButtonV2';
-import ExpandableContent from '#src/pages/marketplace/passes/components/expandable-content/ExpandableContent';
+import ExpandableContent from '#src/components/css-only/Fabrique/expandable-content/ExpandableContent';
 import Chip from '#Fabrique/Chip';
 import Price from '#src/libs/marketplace/components/price/Price';
 import List from '#Fabrique/List';

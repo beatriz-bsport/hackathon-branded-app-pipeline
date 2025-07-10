@@ -11,7 +11,7 @@ import {
 import Typography from '#Fabrique/Typography';
 import { ShowMore } from '#Fabrique/ShowMore/ShowMore.component';
 import Button from '#Fabrique/ButtonV2';
-import ExpandableContent from '#src/pages/marketplace/passes/components/expandable-content/ExpandableContent';
+import ExpandableContent from '#src/components/css-only/Fabrique/expandable-content/ExpandableContent';
 import ChipsContainer, {
   type ChipData,
 } from '#src/pages/marketplace/passes/components/chips-container/ChipsContainer';

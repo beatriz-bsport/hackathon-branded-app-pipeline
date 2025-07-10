@@ -7,17 +7,20 @@ import { LEGACY_URLS } from "#src/urls";
 import { useTranslation } from "#src/utils/i18n";
 
 import { SearchMemberList } from "./SearchMemberList";
+import { useFetchTags } from "./useFetchTags";
 
 type SearchMemberModalProps = {
   isOpen: boolean;
   onClose: () => void;
   navigate?: (to: string) => void;
+  navigateInContext: (to: string, isRevamped?: boolean) => void;
 };
 
 export const SearchMemberModal: React.FC<SearchMemberModalProps> = ({
   isOpen,
   onClose,
   navigate,
+  navigateInContext,
 }) => {
   const { t } = useTranslation("features");
 
@@ -32,14 +35,16 @@ export const SearchMemberModal: React.FC<SearchMemberModalProps> = ({
     debouncedSetValue(input.trim());
   }, [input, debouncedSetValue]);
 
-  // Handler to navigate to legacy create page
+  // ----- Handlers -----
+
+  const handleClose = () => {
+    setInput("");
+    onClose();
+  };
+
   const onAddMemberClick = () => {
-    const addMemberLocation = `${LEGACY_URLS.member}/add`;
-    if (navigate) {
-      navigate(addMemberLocation);
-    } else {
-      window.location.assign(addMemberLocation);
-    }
+    navigateInContext(`${LEGACY_URLS.member}/add`, false);
+    handleClose();
   };
 
   // Trigger focus on search bar when opening the modal
@@ -51,12 +56,14 @@ export const SearchMemberModal: React.FC<SearchMemberModalProps> = ({
     }
   }, [isOpen]);
 
+  const { tagsMap } = useFetchTags();
+
   return (
     <Modal
       size="lg"
       open={isOpen}
       title={t("searchMembers.title")}
-      onClose={onClose}
+      onClose={handleClose}
     >
       <>
         <div className="flex flex-row items-stretch gap-xs">
@@ -85,7 +92,18 @@ export const SearchMemberModal: React.FC<SearchMemberModalProps> = ({
             />
           )}
         </div>
-        <SearchMemberList searchInput={debouncedInput} navigate={navigate} />
+        <SearchMemberList
+          searchInput={debouncedInput}
+          navigate={
+            navigate
+              ? (to: string) => {
+                  handleClose();
+                  navigate?.(to);
+                }
+              : undefined
+          }
+          tagsMap={tagsMap}
+        />
       </>
     </Modal>
   );

@@ -12,7 +12,49 @@ import {
 import { NavigationLink } from "#src/components/NavigationLink";
 import { LEGACY_URLS } from "#src/urls";
 
-import type { ListItemProps } from "./constants";
+import type { ListItemProps, TagConfig } from "./constants";
+
+function formatTagName({
+  categoryName,
+  tagName,
+}: {
+  categoryName?: string;
+  tagName: string;
+}) {
+  if (!categoryName) return tagName;
+  return `${categoryName}: ${tagName}`;
+}
+
+const TagBadge: React.FC<{ tagId: number; tagInfo?: TagConfig }> = ({
+  tagId,
+  tagInfo,
+}) => {
+  return (
+    <Badge
+      key={tagId}
+      className="h-fit"
+      color="main"
+      size="lg"
+      text={
+        tagInfo
+          ? formatTagName({
+              categoryName: tagInfo.categoryName,
+              tagName: tagInfo.tagName,
+            })
+          : String(tagId)
+      }
+      style={
+        tagInfo?.color // Color, if defined, is shaped as `#XXYYZZ`
+          ? {
+              color: tagInfo.color,
+              borderColor: tagInfo.color,
+              backgroundColor: `${tagInfo.color}10`, // Reduce the opacity
+            }
+          : {}
+      }
+    />
+  );
+};
 
 export const SearchMemberListItem: React.FC<ListItemProps> = ({
   id,
@@ -25,6 +67,7 @@ export const SearchMemberListItem: React.FC<ListItemProps> = ({
   tagsTooltip,
   toastPhoneCopied,
   toastEmailCopied,
+  tagsMap,
 }) => {
   const renderItem = () => (
     <>
@@ -65,6 +108,7 @@ export const SearchMemberListItem: React.FC<ListItemProps> = ({
                   color="default"
                   onClick={(e) => {
                     e.preventDefault();
+                    e.stopPropagation();
                     setIsPopoverOpened((prev) => !prev);
                   }}
                 />
@@ -72,9 +116,9 @@ export const SearchMemberListItem: React.FC<ListItemProps> = ({
             </Popover.Anchor>
             <Popover.Content placement="bottom-left">
               {({ setIsPopoverOpened }) => (
-                <div className="flex flex-col gap-sm p-sm max-w-[240px]">
-                  <div className="flex flex-row justify-between items-center">
-                    <Body htmlVariant="p" size="lg" color="default">
+                <div className="flex flex-col gap-xs p-sm max-w-[240px]">
+                  <div className="flex flex-row justify-between items-center gap-lg">
+                    <Body htmlVariant="p" size="lg" color="weak" weight="weak">
                       {tagsTooltip}
                     </Body>
                     <Button
@@ -82,19 +126,22 @@ export const SearchMemberListItem: React.FC<ListItemProps> = ({
                       size="md"
                       intent="flat"
                       color="default"
-                      onClick={() => setIsPopoverOpened(false)}
+                      onClick={() => {
+                        setIsPopoverOpened(false);
+                      }}
                     />
                   </div>
-                  <div className="flex flex-row gap-xs items-center wrap">
-                    {tags.map((tagId) => (
-                      /** @todo Connect to Tags API to get name of the tags */
-                      <Badge
-                        key={tagId}
-                        color="main"
-                        size="sm"
-                        text={String(tagId)}
-                      />
-                    ))}
+                  <div className="flex flex-row gap-xs items-center flex-wrap">
+                    {tags.map((tagId) => {
+                      const tagInfo = tagsMap.get(tagId);
+                      return (
+                        <TagBadge
+                          key={`member-${id}-tag-${tagId}`}
+                          tagId={tagId}
+                          tagInfo={tagInfo}
+                        />
+                      );
+                    })}
                   </div>
                 </div>
               )}
@@ -107,7 +154,11 @@ export const SearchMemberListItem: React.FC<ListItemProps> = ({
 
   return (
     <NavigationLink
-      item={{ id: id, href: `${LEGACY_URLS.member}/${id}`, revamped: false }}
+      item={{
+        id: id,
+        href: `${LEGACY_URLS.member}/${id}/info`,
+        revamped: false,
+      }}
       navigate={navigate}
       renderElement={renderItem}
       wrapperConfig={{

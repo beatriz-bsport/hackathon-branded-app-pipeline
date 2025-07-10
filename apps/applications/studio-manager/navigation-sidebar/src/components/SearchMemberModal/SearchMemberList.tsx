@@ -5,29 +5,27 @@ import { List, Tabs } from "@bsport/kaizen-primitive-core";
 import { useTranslation } from "#src/utils/i18n";
 
 import { SearchMemberListItem } from "./SearchMemberListItem";
-import type { ListItemProps } from "./constants";
+import type { ListItemProps, TagsMap } from "./constants";
 import { useFormatMembers } from "./useFormatMembers";
 import { useSearchMembers } from "./useSearchMembers";
 
 type SearchMemberListProps = {
   searchInput: string;
   navigate?: (to: string) => void;
+  tagsMap: TagsMap;
 };
 
 export const SearchMemberList: React.FC<SearchMemberListProps> = ({
   searchInput,
   navigate,
+  tagsMap,
 }) => {
   const { t } = useTranslation("features");
   const [archivedSegment, setArchivedSegment] = useState(false);
 
-  const {
-    emptyStateParams,
-    loadingParams,
-    paginationParams,
-    members,
-    isShowingList,
-  } = useSearchMembers({ searchInput, searchArchived: archivedSegment });
+  const { isEmptySearch, isLoading, members, isShowingList } = useSearchMembers(
+    { searchInput, searchArchived: archivedSegment },
+  );
 
   const formattedMembers = useFormatMembers(members);
 
@@ -70,10 +68,21 @@ export const SearchMemberList: React.FC<SearchMemberListProps> = ({
           toastEmailCopied,
           toastPhoneCopied,
           tagsTooltip,
+          tagsMap,
         }))}
-        emptyStateProps={emptyStateParams}
-        loadingProps={loadingParams}
-        paginationProps={paginationParams}
+        emptyStateProps={{
+          // We want to show empty search state only
+          isEmptySearch: isEmptySearch,
+          emptySearchConfig: {
+            title: "", // Avoid default title
+            subtitle: t("searchMembers.emptySearch"),
+          },
+        }}
+        loadingProps={{
+          isLoading: isLoading,
+          message: t("searchMembers.loading"),
+          className: "self-center",
+        }}
       />
     </div>
   );

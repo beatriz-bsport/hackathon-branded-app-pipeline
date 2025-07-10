@@ -1,4 +1,3 @@
-import { random } from "lodash";
 import { useMemo } from "react";
 
 import { Member } from "@bsport/store-core-data-member";
@@ -11,11 +10,9 @@ import type { FormattedMember } from "./constants";
  * @returns The formatted data
  */
 const formatMember = (member: Partial<Member>): FormattedMember => {
-  /** @todo Remove the random when using real data */
-  const uniqueId = `member-${member.id}-${random(0, 1000000)}`;
   const name = member.name ?? `${member.first_name} ${member.last_name}`;
   return {
-    id: uniqueId,
+    id: String(member.id),
     avatar: {
       src: member.photo,
       alt: name,

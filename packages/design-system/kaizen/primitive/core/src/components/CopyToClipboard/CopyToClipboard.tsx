@@ -38,6 +38,7 @@ const CopyToClipboard: React.FC<CopyToClipboardProps> = ({
 
   const handleCopy = async (event: React.MouseEvent) => {
     event.preventDefault();
+    event.stopPropagation();
     if (props.disabled) return;
     try {
       if (navigator.clipboard?.writeText) {

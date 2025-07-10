@@ -32,6 +32,9 @@ export const getOpenBasketList = createSelector([getBasketList], (basketList) =>
 export const getCurrentBasket = (state: RootState) =>
   getCheckoutState(state).basket.current.data;
 
+export const getCurrentBasketLoadingStatus = (state: RootState) =>
+  getCheckoutState(state).basket.current.loading;
+
 export const getCurrentBasketItemRemovalStatusLoading = (state: RootState) =>
   state.checkout.basket.current.expiredItemRemovalStatusLoading;
 

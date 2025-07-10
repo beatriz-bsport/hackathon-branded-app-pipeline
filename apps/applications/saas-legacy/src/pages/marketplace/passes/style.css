@@ -1,0 +1,37 @@
+.bs-marketplace-passes-page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--bs-space-size-4);
+}
+
+.bs-marketplace-card-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+}
+
+.bs-marketplace-card-list__items {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(300px, 1fr));
+  gap: 16px;
+  width: 100%;
+}
+
+@container marketplace-layout (max-width: 1475px) {
+  .bs-marketplace-card-list__items {
+    grid-template-columns: repeat(3, minmax(300px, 1fr));
+  }
+}
+
+@container marketplace-layout (max-width: 1100px) {
+  .bs-marketplace-card-list__items {
+    grid-template-columns: repeat(2, minmax(300px, 1fr));
+  }
+}
+
+@container marketplace-layout (max-width: 750px) {
+  .bs-marketplace-card-list__items {
+    grid-template-columns: 1fr;
+  }
+}

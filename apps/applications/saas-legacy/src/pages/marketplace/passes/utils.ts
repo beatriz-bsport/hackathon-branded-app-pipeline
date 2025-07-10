@@ -2,7 +2,15 @@ import type {
   DailyTimeSlots,
   PassRestriction,
   PassRestrictionFrequency,
+  CardContent,
+  CardValidityInfo,
 } from '#src/pages/marketplace/passes/types';
+import type { PaymentPack } from '#src/libs/payment-packs/types';
+import type { PrivatePass } from '#src/libs/private-service/types';
+import {
+  BUYABLE_ITEM_PASS,
+  BUYABLE_ITEM_PRIVATE_PASS,
+} from '@bsport/common/lib/master-data/buyable-items';
 
 /**
  * Extracts and normalizes daily time slots from a payment pack's off-peak schedule.
@@ -74,4 +82,92 @@ export const getPackRestrictions = ({
   return entries
     .filter(([, amount]) => amount !== null)
     .map(([frequency, amount]) => ({ frequency, amount: amount! }));
+};
+
+/**
+ * Maps an array of PaymentPack objects to an array of CardContent
+ * for displaying Pass cards.
+ *
+ * @param props - An object containing the required properties.
+ * @param props.packs - An array of PaymentPack objects.
+ * @param props.handleDetailsClick - A factory function that takes a pack ID (number) and returns the onClickDetails handler function for that pack.
+ * @param props.handleAddToCart - A factory function that takes a pack ID (number) and returns the onAddToCart handler function for that pack.
+ * @returns An array of CardContent objects.
+ */
+
+export const createPassCardContent = ({
+  packs,
+  handleDetailsClick,
+  handleAddToCart,
+}: {
+  packs: PaymentPack[];
+  handleDetailsClick: (packId: number) => () => void;
+  handleAddToCart: (
+    packId: number,
+    buyableItemIdentifier: number,
+  ) => () => void;
+}): CardContent[] => {
+  return packs.map((pack): CardContent => {
+    const validityInfo: CardValidityInfo = {
+      dateRange: pack.validity_daterange,
+      durationYears: pack.duration_years ?? 0,
+      durationMonths: pack.duration_months ?? 0,
+      durationDays: pack.duration_days ?? 0,
+      startDateMethod: pack.start_date_method,
+    };
+
+    return {
+      id: pack.id,
+      title: pack.name,
+      validityInfo: validityInfo,
+      price: pack.price,
+      credits: pack.credits ?? 0,
+      tax: pack.tax,
+      onClickDetails: handleDetailsClick(pack.id),
+      onAddToCart: handleAddToCart(pack.id, BUYABLE_ITEM_PASS),
+    };
+  });
+};
+
+/**
+ * Maps an array of PrivatePass objects to an array of CardContent
+ * for displaying AppointmentPass cards.
+ *
+ * @param props - An object containing the required properties.
+ * @param props.passes - An array of PrivatePass objects.
+ * @param props.handleDetailsClick - A factory function that takes a pass ID (number) and returns the onClickDetails handler function for that pass.
+ * @param props.handleAddToCart - A factory function that takes a pass ID (number) and returns the onAddToCart handler function for that pass.
+ * @returns An array of CardContent objects.
+ */
+export const createAppointmentPassCardContent = ({
+  passes,
+  handleAppointmentDetailsClick,
+  handleAddToCart,
+}: {
+  passes: PrivatePass[];
+  handleAppointmentDetailsClick: (passId: number) => () => void;
+  handleAddToCart: (
+    passId: number,
+    buyableItemIdentifier: number,
+  ) => () => void;
+}): CardContent[] => {
+  return passes.map((pass): CardContent => {
+    const validityInfo: CardValidityInfo = {
+      durationYears: pass.duration_years ?? 0,
+      durationMonths: pass.duration_months ?? 0,
+      durationDays: pass.duration_days ?? 0,
+      startDateMethod: pass.start_date_method,
+    };
+
+    return {
+      id: pass.id,
+      title: pass.name,
+      validityInfo: validityInfo,
+      price: pass.price,
+      credits: pass.credits ?? 0,
+      tax: pass.tax,
+      onClickDetails: handleAppointmentDetailsClick(pass.id),
+      onAddToCart: handleAddToCart(pass.id, BUYABLE_ITEM_PRIVATE_PASS),
+    };
+  });
 };

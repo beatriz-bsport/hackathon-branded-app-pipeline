@@ -316,6 +316,7 @@ export type OfferFeature =
     };
 
 export enum PassesPageTabNames {
+  ALL = 'all',
   PASSES = 'passes',
   APPOINTMENT_PASSES = 'appointment-passes',
 }

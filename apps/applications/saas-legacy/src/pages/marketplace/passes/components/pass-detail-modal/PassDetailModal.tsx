@@ -1,6 +1,6 @@
 import React, { memo, useCallback, useMemo } from 'react';
 import { Trans, useTranslation } from 'react-i18next';
-import { usePaymentPackModalData } from '#src/pages/marketplace/passes/hooks/usePaymentPackModalData';
+import { usePaymentPackData } from '#src/libs/marketplace/hooks/usePaymentPackData';
 import {
   CalendarDate,
   CheckCircle,
@@ -69,7 +69,7 @@ const PassDetailModal: React.FC = () => {
     isCompatibleWithBookingForGuest,
     restrictions,
     getTimeSlotChipsLabels,
-  } = usePaymentPackModalData(selectedCardId);
+  } = usePaymentPackData(selectedCardId);
 
   const categoryChips: ChipData[] = useMemo(
     () => compatibleCategoryLabels.map((label) => ({ label })),

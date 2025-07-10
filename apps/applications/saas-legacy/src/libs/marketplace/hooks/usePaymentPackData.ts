@@ -10,7 +10,7 @@ import { getTheme } from '#src/libs/theme/selectors';
 import { getActivitiesByIdList } from '#src/libs/meta-activity/selectors';
 import { getAllEstablishments } from '#src/libs/establishment/selectors';
 import { getSCTs } from '#src/libs/category/selectors';
-import { useValidityInfoForPaymentPackCard } from '#src/pages/marketplace/passes/hooks/useValidityInfoForPaymentPackCard';
+import { useValidityInfoForPaymentPackCard } from '#src/libs/marketplace/hooks/useValidityInfoForPaymentPackCard';
 import type { DailyTimeSlots } from '#src/pages/marketplace/passes/types';
 import {
   getDailyTimeSlots,
@@ -22,7 +22,7 @@ import {
  * to display the detail modal for a specific payment pack.
  *
  */
-export const usePaymentPackModalData = (id: number | null) => {
+export const usePaymentPackData = (id: number | null) => {
   const { t } = useTranslation('marketplace');
   const companyTheme = useSelector(getTheme);
   const paymentPack: PaymentPack =

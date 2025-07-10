@@ -3,7 +3,7 @@ import Typography from '#src/components/css-only/Fabrique/Typography';
 import Button from '#src/components/css-only/Fabrique/ButtonV2';
 import Card from '#src/components/css-only/Fabrique/Card';
 import useViewport from '#src/components/css-only/Fabrique/hooks/useViewport';
-import { useValidityInfoForPaymentPackCard } from '#src/pages/marketplace/passes/hooks/useValidityInfoForPaymentPackCard';
+import { useValidityInfoForAppointmentPassCard } from '#src/libs/marketplace/hooks/useValidityInfoForAppointmentPassCard';
 import { useTranslation } from 'react-i18next';
 import Price from '#src/libs/marketplace/components/price/Price';
 import { MARKETPLACE_BREAKPOINT } from '#src/libs/marketplace/constants';
@@ -20,7 +20,7 @@ const AppointmentPassCard: React.FC<AppointmentPassCardProps> = ({
   const { t } = useTranslation('marketplace');
   const { title, price, tax, credits, onAddToCart, onClickDetails } = content;
   const { width } = useViewport();
-  const validity = useValidityInfoForPaymentPackCard(content.validityInfo);
+  const validity = useValidityInfoForAppointmentPassCard(content.validityInfo);
   const isMobile = width < MARKETPLACE_BREAKPOINT.XS;
 
   return (

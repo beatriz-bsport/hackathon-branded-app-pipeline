@@ -3,7 +3,7 @@ import Typography from '#src/components/css-only/Fabrique/Typography';
 import Button from '#src/components/css-only/Fabrique/ButtonV2';
 import Card from '#src/components/css-only/Fabrique/Card';
 import useViewport from '#src/components/css-only/Fabrique/hooks/useViewport';
-import { useValidityInfoForPaymentPackCard } from '#src/pages/marketplace/passes/hooks/useValidityInfoForPaymentPackCard';
+import { useValidityInfoForPaymentPackCard } from '#src/libs/marketplace/hooks/useValidityInfoForPaymentPackCard';
 import { useTranslation } from 'react-i18next';
 import Price from '#src/libs/marketplace/components/price/Price';
 import { MARKETPLACE_BREAKPOINT } from '#src/libs/marketplace/constants';

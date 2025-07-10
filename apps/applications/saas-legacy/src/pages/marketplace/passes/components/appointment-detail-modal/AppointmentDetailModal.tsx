@@ -1,6 +1,6 @@
 import React, { memo, useCallback } from 'react';
 import { Trans, useTranslation } from 'react-i18next';
-import { usePrivatePassModalData } from '#src/pages/marketplace/passes/hooks/usePrivatePassModalData';
+import { usePrivatePassData } from '#src/libs/marketplace/hooks/usePrivatePassData';
 import { CalendarDate, VideoRecorder } from '#src/components/untitledui';
 import Typography from '#Fabrique/Typography';
 import { ShowMore } from '#Fabrique/ShowMore/ShowMore.component';
@@ -49,7 +49,7 @@ const AppointmentDetailModal: React.FC = () => {
     isNewMemberOnly,
     hasNoCompatibleServices,
     compatibleServices,
-  } = usePrivatePassModalData(selectedAppointmentCardId);
+  } = usePrivatePassData(selectedAppointmentCardId);
 
   if (!selectedAppointmentCardId) return null;
 

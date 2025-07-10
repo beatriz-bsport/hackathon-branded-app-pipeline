@@ -1625,6 +1625,9 @@
                         "update": {
                             "leftSmartList": "Add an automatic message for members that leave this Smartlist.",
                             "joinSmartList": "Add an automatic message for members that enter this Smartlist."
+                        },
+                        "create": {
+                            "leftSmartList": "Create an automatic message for members who exit this Smartlist."
                         }
                     },
                     "unlimited": "No limit",
@@ -4421,7 +4424,7 @@
                 "documentationLabel": "Procedural documentation",
                 "manufacturerLinkLabel": "Certificate of the TSE manufacturer",
                 "manufacturer": "Manufacturer: bsport",
-                "version": "Version of the TSE: 2.0",
+                "version": "Version of the TSE: v2",
                 "description": "This is a regulation aimed at ensuring the security and integrity of electronic cash register systems. We use Fiskaly as a technical security device (TSE) to prevent manipulation and ensure that transaction data is stored securely and tamper-proof."
             }
         },
@@ -5022,7 +5025,8 @@
                     "emailValidation": "Email Validation: Perform the administrative action to validate the client's email address.",
                     "upsell": "Upsells: Add any applicable upsells to the platform.",
                     "billing": "Platform Billing: Create the billing setup for the new backoffice.",
-                    "core": "The new backoffice platform has been successfully created. However, before sending the client's access credentials, please ensure the following validation steps from the internal documentation are completed:"
+                    "core": "The new backoffice platform has been successfully created. However, before sending the client's access credentials, please ensure the following validation steps from the internal documentation are completed:",
+                    "contactAccountManager": "Account validation pending. If you're a studio manager, please reach out to your bsport contact to activate your Back Office."
                 }
             }
         },
@@ -9423,11 +9427,11 @@
             },
             "deleteForm": {
                 "actions": {
-                    "submit": "Delete",
+                    "submit": "Archive",
                     "close": "Close"
                 },
                 "content": "Members will still be able to use the pass at the studio where they bought it. Any subscription linked to this pass will remain valid at that same studio.",
-                "title": "Delete shared pass"
+                "title": "Archive shared pass"
             },
             "form": {
                 "notEditable": "This pass originates from a previously completed data migration. Some fields may not be editable to preserve the data.",
@@ -11120,10 +11124,10 @@
             "deleteForm": {
                 "content": "If you stop sharing with this studio, appointment passes purchased at that studio will still be valid, but only within that specific studio. Appointment passes from other studios will no longer be valid there. This also applies to linked subscriptions.",
                 "actions": {
-                    "submit": "Stop sharing",
+                    "submit": "Archive",
                     "close": "Close"
                 },
-                "title": "Stop sharing with a studio"
+                "title": "Archive shared appointment pass"
             },
             "form": {
                 "explain2": "Members who have purchased this appointment pass or a linked subscription will be able to use it at any of the newly compatible studios.",
@@ -11151,7 +11155,7 @@
                     "close": "Close"
                 },
                 "content": "Members will still be able to use the appointment pass at the studio where they bought it. Any subscription linked to this appointment pass will also only work at that same studio.",
-                "title": "Delete shared appointment pass"
+                "title": "Archive shared appointment pass"
             },
             "form": {
                 "actions": {
@@ -15682,7 +15686,8 @@
                     "first": "The basket was abandoned",
                     "second": "days"
                 },
-                "between": "and"
+                "between": "and",
+                "name": "Abandoned baskets"
             },
             "21": {
                 "first": "Members that booked ",
@@ -15813,7 +15818,7 @@
                 "private_service": {
                     "first": "for appointments"
                 },
-                "explanation": "Segment customers by how many appointments they have booked, in establishment A, with teacher B, bought with pass C"
+                "explanation": "Segment customers by how many appointments they have booked in establishment A, with teacher B, bought with pass C"
             },
             "27": {
                 "info": "Blocked passes and blocked appointment passes are also taken into account",
@@ -16150,7 +16155,10 @@
             "tag_on_join": "Tag if a member enters this Smartlist",
             "type_of_rule": "Type of rule",
             "activeSince": "Activated on: {{ since }}",
-            "tag": "Tag"
+            "tag": "Tag",
+            "asyncDialog": {
+                "message": "All tags for members in this Smartlist will be updated."
+            }
         },
         "memberBase": {
             "options": {

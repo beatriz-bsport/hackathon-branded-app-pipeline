@@ -4808,7 +4808,8 @@
                     "emailValidation": "Validation de l'adresse e-mail : Effectuer l'action admin pour valider l'adresse e-mail du client.",
                     "upsell": "Upsell : Ajoutez tous les upsell applicables à la plateforme.",
                     "billing": "Facturation de la plateforme : Créer la configuration de la facturation pour le nouveau backoffice.",
-                    "core": "La nouvelle plateforme de backoffice a été créée avec succès. Cependant, avant d'envoyer les identifiants d'accès du client, veuillez vous assurer que les étapes de validation suivantes de la documentation interne ont été effectuées :"
+                    "core": "La nouvelle plateforme de backoffice a été créée avec succès. Cependant, avant d'envoyer les identifiants d'accès du client, veuillez vous assurer que les étapes de validation suivantes de la documentation interne ont été effectuées :",
+                    "contactAccountManager": "Validation du compte en attente. Si vous êtes un Studio Manager, veuillez contacter votre contact bsport pour activer votre backoffice."
                 }
             }
         },
@@ -5337,7 +5338,7 @@
                     "requiredSignature": "Veuillez signer le formulaire.",
                     "requiredFile": "Veuillez joindre un fichier",
                     "passwordMinimumRequirementsError": "Le mot de passe doit contenir au moins 6 caratères",
-                    "passwordConfirmationError": "Les mots de passes ne sont pas indetiques",
+                    "passwordConfirmationError": "Les mots de passe ne sont pas identique",
                     "invalidEmail": "Email invalide",
                     "invalidOfficialDocumentId": "Ce champ ne peut contenir que des chiffres et des lettres",
                     "membershipIdMaximumLength": "L'identifiant d'un membre ne peut pas dépasser 24 caractères",
@@ -8584,7 +8585,7 @@
             }
         },
         "form": {
-            "title": "Formulaire pack",
+            "title": "Ajouter un Pack",
             "maxPurchasePerMember": {
                 "label": "Achat maximum par membre",
                 "helperText": "Laisser vide pour ne pas imposer de limite"
@@ -9437,7 +9438,7 @@
                     "name": "Nom de la catégorie",
                     "titleNew": "Nouvelle catégorie",
                     "titleEdit": "Catégorie",
-                    "helper": "Les catégories apparaitront sur la marketplace et l’application mobile pour les cartes disponibles à la vente.",
+                    "helper": "Les catégories sont un moyen utile d'organiser vos cartes de cours. Ces noms apparaîtront pour vos membres sur la Marketplace et l'application mobile. ",
                     "cancel": "Annuler",
                     "create": "Créer",
                     "update": "Renommer"
@@ -10793,7 +10794,7 @@
                     },
                     "isWithEstablishment": {
                         "isEmpty": "Aucune salle configurée !",
-                        "label": "Dans l'une de vos établissements",
+                        "label": "Dans l'un de vos établissements",
                         "helperText": "La réservation ne sera effectuée que s'il y a suffisamment de créneaux disponibles. "
                     }
                 },
@@ -10833,7 +10834,7 @@
                 },
                 "color": "Code couleur",
                 "use_full_establishment_capacity": {
-                    "label": "Les membres peuvent choisir le établissement",
+                    "label": "Toute la établissement est nécessaire pour ce rendez-vous",
                     "helperText": "Tout l'espace est nécessaire pour le rendez-vous. Décochez pour autoriser plusieurs rendez-vous dans le même établissement."
                 },
                 "title": "Rendez-vous",
@@ -15215,7 +15216,7 @@
                 "name": "Cartes valides",
                 "first": "Membres avec",
                 "between": "et",
-                "second": "cartes de cours, y compris",
+                "second": "cartes valides, y compris",
                 "third": "ou",
                 "fourth": "en tout.",
                 "info": "Les cartes de cours et cartes RDV bloquées sont aussi prises en comptes"

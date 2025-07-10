@@ -2,7 +2,7 @@ import type { Urls } from "./types";
 
 const SETTINGS_URL = "/settings";
 
-export const HELP_CENTER = "https://intercom.help/bsport-helpcenter/en";
+export const HELP_CENTER = "https://intercom.help/bsport-helpcenter/";
 
 export const LEGACY_URLS: Omit<Urls, "payout"> = {
   accessMonitoring: "/access-monitoring",

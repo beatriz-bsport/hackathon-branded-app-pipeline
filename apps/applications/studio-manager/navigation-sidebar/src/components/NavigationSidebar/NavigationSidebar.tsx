@@ -32,6 +32,7 @@ import {
 } from "#src/components/TemporaryPasswordDialog";
 import { useBatchRoutingPermissions } from "#src/features/permissions";
 import "#src/index.css";
+import { HELP_CENTER, LEGACY_URLS } from "#src/urls";
 import {
   AppI18nextProvider,
   instanciateAppI18n,
@@ -196,10 +197,19 @@ const NavigationSidebarContent = ({
         avatarUrl={companyLogo}
         label={companyName ?? ""}
         menuSet={menuSet}
-        hiddenItems={{ attendance: !attendancePermissions.displayFeature }}
+        hiddenItems={{
+          attendance: !attendancePermissions.displayFeature,
+          ledger: true,
+        }}
         onSelectItem={(id: MenuOption) => {
           if (id === "settings") {
             setMenuSet(id);
+          }
+          if (id === "feedback" && process.env.NODE_ENV === "production") {
+            navigateInContext(LEGACY_URLS.feedback);
+          }
+          if (id === "tutorials") {
+            navigateInContext(LEGACY_URLS.tutorial);
           }
           if (id === "logout") {
             const navigateToLoginPage = () => {
@@ -214,6 +224,9 @@ const NavigationSidebarContent = ({
           }
           if (id === "attendance") {
             openAttendanceModal();
+          }
+          if (id === "help") {
+            window.open(HELP_CENTER, "_blank");
           }
         }}
         onBack={() => setMenuSet("default")}
@@ -237,6 +250,7 @@ const NavigationSidebarContent = ({
           color="main"
           iconRight="link-external-02"
           fullWidth
+          onClick={() => navigateInContext(LEGACY_URLS.feedback)}
         />
         <Button
           className="!justify-between"

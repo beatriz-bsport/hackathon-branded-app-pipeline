@@ -1,5 +1,7 @@
 import type { ApiConfig } from "@bsport/store-base";
 
+import type { FeedbackData } from "./types";
+
 const API_URL_V0 = "platform/v0";
 const API_URL = "platform/v1";
 
@@ -29,11 +31,14 @@ export const fetchTemporaryPasswordAPI = (): ApiConfig => {
   return [`${API_URL}/authentication/temp-password/`];
 };
 
-export const toggleRevampedBackofficeAPI = (): ApiConfig => {
+export const toggleRevampedBackofficeAPI = (
+  params?: FeedbackData | void,
+): ApiConfig => {
   return [
     `${API_URL}/authentication/toggle_revamped_backoffice/`,
     {
       method: "POST",
+      body: JSON.stringify(params ?? {}),
     },
   ];
 };

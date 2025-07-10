@@ -1,4 +1,7 @@
-import { urlToMarketplace } from '#src/libs/marketplace/utils';
+import {
+  urlToMarketplace,
+  urlToMarketplaceTab,
+} from '#src/libs/marketplace/utils';
 import WidgetUtils from '#src/libs/widget/WidgetUtils';
 import { replace as replaceRouter } from 'connected-react-router';
 import themeSelectors from '#src/libs/theme/selectors';
@@ -23,5 +26,14 @@ export const useNavigation = (companyId: number) => {
     replace(urlToMarketplace(theme?.company_name, companyId?.toString()));
   };
 
-  return { goBackToCalendar };
+  const goToPassesPage = () => {
+    if (WidgetUtils.isWidget()) {
+      WidgetUtils.handleGoBackNavigation();
+    }
+    replace(
+      urlToMarketplaceTab(theme?.company_name, companyId?.toString(), 'pass'),
+    );
+  };
+
+  return { goBackToCalendar, goToPassesPage };
 };

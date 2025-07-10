@@ -278,6 +278,19 @@ export const getOfferBookerUrl = (
   return pricingPageUrl;
 };
 
+export const getPassExpressCheckoutUrl = (
+  companyId: number,
+  passId: number,
+  passType: string,
+  locationSearch?: string,
+) => {
+  const passCheckoutUrl = `/pass-express-checkout/${companyId}/${passId}/${passType}`;
+  if (locationSearch) {
+    return `${passCheckoutUrl}${locationSearch}`;
+  }
+  return passCheckoutUrl;
+};
+
 export const getCheckoutValidationUrl = (
   companyId: number,
   params?: { [key: string]: string | number },

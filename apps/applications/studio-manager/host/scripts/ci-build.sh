@@ -17,13 +17,16 @@ else
   APPLICATIONS=$(cat ./scripts/apps.txt)
 fi
 
+TODAY="$(date +%F)"
+RELEASE_NAME="release-${TODAY}-${CI_COMMIT_SHORT_SHA:-local}"
+
 echo "*"
-echo "⏳ Building Studio Manager applications"
+echo "⏳ Building Studio Manager applications ($RELEASE_NAME)"
 
 # pnpm exec nx run-many --projects="$APPLICATIONS" --target=build
 for APPLICATION in $APPLICATIONS; do
   echo "> Building $APPLICATION"
-  pnpm --filter=$APPLICATION... build
+  VITE_RELEASE_NAME=$RELEASE_NAME pnpm --filter=$APPLICATION... build
 done
 
 echo "✅ Success"

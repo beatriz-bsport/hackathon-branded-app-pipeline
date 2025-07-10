@@ -22,3 +22,13 @@ export interface TemporaryPassword {
   password: string;
   expiration_date: string;
 }
+
+export type FeedbackData = {
+  data: {
+    selectedReasons: Array<string>;
+    additionalFeedback: string;
+    sourceUrl: string;
+  };
+  version: string;
+  locale?: string;
+};

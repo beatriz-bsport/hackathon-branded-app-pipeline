@@ -23,6 +23,12 @@ const toggleRevampedBackoffice = toggleRevampedBackofficeAction.bind(
   fetch,
 );
 
+/** @todo Enable the dynamic versioning (as commented below) when Data team can manage it */
+const REVAMPED_BACKOFFICE_VERSION = "alpha";
+// ENV variable defined in CI
+// const REVAMPED_BACKOFFICE_VERSION =
+//   import.meta.env.VITE_RELEASE_NAME ?? "alpha";
+
 type FeedbackReason =
   | "slower"
   | "missingFeatures"
@@ -119,7 +125,7 @@ const FeedbackDialog: React.FC<FeedbackDialogProps> = ({
   onClose,
   disableRevampOnLegacyStore,
 }) => {
-  const { t } = useTranslation("feedbackDialog");
+  const { t, i18n } = useTranslation("feedbackDialog");
   const baseId = useId();
 
   const [selectedReasons, setSelectedReasons] = useState<FeedbackReasonState>(
@@ -157,17 +163,19 @@ const FeedbackDialog: React.FC<FeedbackDialogProps> = ({
   });
 
   const handleConfirm = async () => {
-    // TODO: Handle feedback submission
     const selectedReasonsArray = Object.entries(selectedReasons)
       .filter(([, value]) => value === "checked")
       .map(([reason]) => reason as FeedbackReason);
 
-    console.log("Feedback submitted:", {
-      selectedReasons: selectedReasonsArray,
-      additionalFeedback,
+    handleGoToLegacy({
+      data: {
+        selectedReasons: selectedReasonsArray,
+        additionalFeedback,
+        sourceUrl: window.location.pathname,
+      },
+      locale: i18n.resolvedLanguage,
+      version: REVAMPED_BACKOFFICE_VERSION,
     });
-
-    handleGoToLegacy();
   };
 
   useEffect(() => {

@@ -14,7 +14,7 @@ import {
   loginAPI,
   toggleRevampedBackofficeAPI,
 } from "#src/api";
-import type { TemporaryPassword, UserAccess } from "#src/types";
+import type { FeedbackData, TemporaryPassword, UserAccess } from "#src/types";
 
 import {
   updateRevampedBackofficeEnabled,
@@ -106,15 +106,20 @@ export const fetchTemporaryPasswordAction: Action<
 };
 
 /**
- * Toggle (on/off) the revamped_backoffice_enabled field in the user
- * Updating the has_enabled_revamped_backoffice field in access level.
- * Returns the new field
+ * Toggle (on/off) the revamped_backoffice_enabled field in the user metadata.
+ * If provided, push revamped feedback to the backend to store them.
+ * @param data.additionalFeedback Text to provide more insights
+ * @param data.selectedReasons List of selected reasons
+ * @param data.sourceUrl URL location from which the endpoint has been called
+ * @param version Current version of the frontend from which the request has been made
+ * @param locale Current locale used by the user that calls the endpoint
+ * @returns The new value of the field
  */
 export const toggleRevampedBackofficeAction: Action<
-  void,
+  FeedbackData | void,
   { has_enabled_revamped_backoffice: boolean }
-> = async (fetch) => {
-  const [uri, init] = toggleRevampedBackofficeAPI();
+> = async (fetch, data) => {
+  const [uri, init] = toggleRevampedBackofficeAPI(data);
 
   return Result.try(
     async () => {

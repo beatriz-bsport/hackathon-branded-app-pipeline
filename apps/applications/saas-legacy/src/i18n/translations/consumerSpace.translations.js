@@ -187,6 +187,7 @@ exports.default = {
           title: 'Cancelled',
           cancelledFromMember: 'Cancelled by you',
           cancelledFromManager: 'Cancelled by studio manager',
+          cancelledFromOffer: 'Cancelled by studio',
           creditsToRefund: '{{count}} credit will be refunded',
           creditsToRefund_plural: '{{count}} credits will be refunded',
           refundWarning: 'No credit refunds for late cancellations',

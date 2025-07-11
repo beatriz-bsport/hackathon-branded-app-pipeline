@@ -7,6 +7,7 @@ import { getCreditsDividedDisplay } from '#src/libs/theme/utils';
 
 type Props = {
   isCancelledFromManager?: boolean;
+  isCancelledFromOffer?: boolean;
   isLateCancellation?: boolean;
   creditsToRefund?: number;
   cancellationDate?: string;
@@ -14,6 +15,7 @@ type Props = {
 
 const ConsumerBookingDetailsCardCancelledSection: React.FC<Props> = ({
   isCancelledFromManager,
+  isCancelledFromOffer,
   isLateCancellation,
   creditsToRefund,
   cancellationDate,
@@ -32,6 +34,10 @@ const ConsumerBookingDetailsCardCancelledSection: React.FC<Props> = ({
         {isCancelledFromManager
           ? t(
               'consumerSpace:reworked.myBookings.detailsCard.cancelled.cancelledFromManager',
+            )
+          : isCancelledFromOffer
+          ? t(
+              'consumerSpace:reworked.myBookings.detailsCard.cancelled.cancelledFromOffer',
             )
           : t(
               'consumerSpace:reworked.myBookings.detailsCard.cancelled.cancelledFromMember',

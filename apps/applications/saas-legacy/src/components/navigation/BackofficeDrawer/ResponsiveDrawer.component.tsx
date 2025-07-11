@@ -582,6 +582,11 @@ const ResponsiveDrawer: React.FC<Props> = ({
             icon: Store,
             text: t('backofficeMenu.insights.company'),
           } as DrawerItemDefault,
+          {
+            to: '/subscription-events/overview',
+            icon: Business,
+            text: t('backofficeMenu.insights.subscriptionEvents'),
+          } as DrawerItemDefault,
         ],
       } as DrawerItemNested,
       { type: 'divider' } as DrawerItemDivider,

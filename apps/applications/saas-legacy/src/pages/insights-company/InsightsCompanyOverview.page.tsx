@@ -49,7 +49,7 @@ const InsightsCompanyOverview: React.FC<Props> = ({ t: _t }) => {
     const fetchInsightsCompanyUrl = async () => {
       try {
         const response = await getAuth<InsightsCompanyResponse>(
-          `${API_V1_URI}/embedded_analytics/presigned_url?company_level=true`,
+          `${API_V1_URI}/embedded_analytics/presigned_url/?dashboard_type=trial_analysis_company`,
         );
         setIframeUrl(response.data.presigned_url);
       } catch (error) {

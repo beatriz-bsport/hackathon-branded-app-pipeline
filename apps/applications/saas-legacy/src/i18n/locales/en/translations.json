@@ -7180,7 +7180,8 @@
             "insights": {
                 "insights": "Insights",
                 "franchise": "Franchise",
-                "company": "Company"
+                "company": "Company",
+                "subscriptionEvents": "Subscription Events - Omni"
             },
             "consumer": {
                 "order": "My orders",
@@ -19393,6 +19394,7 @@
             "reportingDashboard": "Reporting",
             "insightsFranchise": "Insights - Franchise",
             "insightsCompany": "Insights - Company",
+            "subscriptionEvents": "Subscription Events - Omni",
             "dashboard": "Dashboard"
         },
         "subscription": {

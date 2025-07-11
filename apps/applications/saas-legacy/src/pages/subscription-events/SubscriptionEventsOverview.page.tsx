@@ -34,34 +34,34 @@ const useStyles = makeStyles((theme) => ({
 
 const API_V1_URI = Config.REACT_APP_BASE_URI_BUSINESS_INSIGHTS_V1;
 
-interface AnalyticsResponse {
+interface SubscriptionEventsResponse {
   presigned_url: string;
 }
 
 interface Props extends WithTranslation {}
 
-const AnalyticsOverview: React.FC<Props> = ({ t }) => {
+const SubscriptionEventsOverview: React.FC<Props> = ({ t }) => {
   const classes = useStyles();
   const [iframeUrl, setIframeUrl] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    const fetchAnalyticsUrl = async () => {
-      console.log('fetching analytics url');
+    const fetchSubscriptionEventsUrl = async () => {
+      console.log('fetching subscription events url');
       try {
-        const response = await getAuth<AnalyticsResponse>(
-          `${API_V1_URI}/embedded_analytics/presigned_url/?dashboard_type=trial_analysis_franchise`,
+        const response = await getAuth<SubscriptionEventsResponse>(
+          `${API_V1_URI}/embedded_analytics/presigned_url/?dashboard_type=subscription_events`,
         );
         console.log('data', response.data);
         setIframeUrl(response.data.presigned_url);
       } catch (error) {
-        console.error('Failed to fetch analytics URL:', error);
+        console.error('Failed to fetch subscription events URL:', error);
       } finally {
         setLoading(false);
       }
     };
 
-    fetchAnalyticsUrl();
+    fetchSubscriptionEventsUrl();
   }, []);
 
   return (
@@ -75,7 +75,7 @@ const AnalyticsOverview: React.FC<Props> = ({ t }) => {
           <iframe
             className={classes.iframe}
             src={iframeUrl}
-            title="Analytics Dashboard"
+            title="Subscription Events - Omni Dashboard"
             allowFullScreen
             loading="lazy"
           />
@@ -85,4 +85,6 @@ const AnalyticsOverview: React.FC<Props> = ({ t }) => {
   );
 };
 
-export default withTranslation(['analytics'])(AnalyticsOverview);
+export default withTranslation(['subscription-events'])(
+  SubscriptionEventsOverview,
+);

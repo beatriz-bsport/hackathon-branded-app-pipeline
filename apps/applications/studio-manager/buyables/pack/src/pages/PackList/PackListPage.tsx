@@ -17,7 +17,7 @@ export const PackListPage: React.FC = () => {
 
   const onAddPackClick = () => {
     // Use window history to navigate to legacy backoffice
-    window.location.href = LEGACY_URLS.CREATE;
+    window.location.assign(LEGACY_URLS.CREATE);
   };
 
   const { searchInput, setSearchInput, clearSearchInput } = useSearchPacks();
@@ -61,6 +61,7 @@ export const PackListPage: React.FC = () => {
           inputValue: searchInput,
           onInputValueChange: setSearchInput,
           onClear: clearSearchInput,
+          tooltipConfig: {},
         }}
       />
       <ListLayout.Content>

@@ -93,13 +93,27 @@ export const GiftcardImageUploadModal: React.FC<UploadModalProps> = ({
     onFailure: () => {
       handleActionFailed(t("toasts.errorMessages.undoAction"));
     },
-    dependencies: [handleActionFailed, handleActionUndone],
+    dependencies: [
+      handleActionFailed,
+      handleActionUndone,
+      fetchGiftcardImagesPage,
+    ],
   });
 
   const [{ isLoading: isLoadingDelete }, handleDelete] = useAsync({
     asyncFn: async (id: number) => archiveGiftcardImageAction(fetch, { id }),
     onSuccess: ({ args: [id] }) => {
-      fetchGiftcardImagesPage();
+      // Predict max page with totalItems minus 1 to avoid fetching unexisting page
+      // As the react state has not been updated yet
+      const maxPage = Math.max(
+        Math.min(currentPage, Math.ceil((totalItems - 1) / ROWS_PER_PAGE)),
+        1,
+      );
+      if (maxPage < currentPage) {
+        setCurrentPage(maxPage);
+      } else {
+        fetchGiftcardImagesPage();
+      }
       toast({
         status: "default",
         icon: "trash-01",
@@ -110,7 +124,13 @@ export const GiftcardImageUploadModal: React.FC<UploadModalProps> = ({
     },
     onFailure: () =>
       handleActionFailed(t("toasts.errorMessages.deleteGiftcardImage")),
-    dependencies: [handleUndo, handleActionFailed],
+    dependencies: [
+      handleUndo,
+      handleActionFailed,
+      fetchGiftcardImagesPage,
+      totalItems,
+      currentPage,
+    ],
   });
 
   // ----- Load data -----

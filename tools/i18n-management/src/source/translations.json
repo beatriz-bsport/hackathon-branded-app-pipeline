@@ -574,7 +574,7 @@
         "archiveModal": {
           "title": "Archive Gift Card ?",
           "description": {
-            "lineOne": "If you archive '{{ name }}', current or previous purchases won't be affected",
+            "lineOne": "If you archive '{{ name }}', current or previous purchases won't be affected.",
             "lineTwo": "You can restore this Gift Card at any time."
           },
           "buttons": { "cancel": "Cancel", "archive": "Archive" }
@@ -787,12 +787,7 @@
           "balance": "Balance",
           "joinDate": "Join Date"
         },
-        "tooltips": {
-          "archive": "Archive member",
-          "restore": "Unarchive member",
-          "clickToCopy": "Click to copy"
-        },
-        "actions": { "copiedToClipboard": "Email copied to clipboard" }
+        "tooltips": { "archive": "Archive member", "restore": "Unarchive member" }
       },
       "listPage": {
         "archiveModal": {
@@ -1475,15 +1470,7 @@
             "subtitle": "Any teachers moved here can be restored"
           }
         },
-        "tooltips": {
-          "archive": "Archive teacher",
-          "restore": "Restore teacher",
-          "clickToCopy": "Click to copy"
-        },
-        "actions": {
-          "copyEmail": "Email copied to your clipboard",
-          "copyPhone": "Mobile number copied to your clipboard"
-        }
+        "tooltips": { "archive": "Archive teacher", "restore": "Restore teacher" }
       }
     }
   },

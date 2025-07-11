@@ -19,7 +19,7 @@ exports.default = {
       title: "Archive Gift Card ?",
       description: {
         lineOne:
-          "If you archive '{{ name }}', current or previous purchases won't be affected",
+          "If you archive '{{ name }}', current or previous purchases won't be affected.",
         lineTwo: "You can restore this Gift Card at any time.",
       },
       buttons: {

@@ -67,6 +67,7 @@ export const AddTeacherModal: React.FC<AddTeacherModalProps> = ({
         id="input-teacher-email"
         placeholder={t("activeList.addTeacherModal.input.placeholder")}
         required
+        fullWidth
         type="email"
         inputRef={inputRef}
         onClear={handleClear}

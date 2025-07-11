@@ -126,7 +126,9 @@ export const SearchMemberListItem: React.FC<ListItemProps> = ({
                       size="md"
                       intent="flat"
                       color="default"
-                      onClick={() => {
+                      onClick={(event) => {
+                        event.preventDefault();
+                        event.stopPropagation();
                         setIsPopoverOpened(false);
                       }}
                     />

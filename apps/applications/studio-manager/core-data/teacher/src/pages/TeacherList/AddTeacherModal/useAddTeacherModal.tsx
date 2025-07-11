@@ -1,7 +1,10 @@
 import { useCallback, useState } from "react";
 
 import { toast } from "@bsport/kaizen-primitive-core";
-import { linkByEmailAction } from "@bsport/store-core-data-teacher";
+import {
+  type Teacher,
+  linkByEmailAction,
+} from "@bsport/store-core-data-teacher";
 
 import { useFetchTeachers } from "#src/hooks/useFetchTeachers";
 import { LEGACY_URLS } from "#src/urls";
@@ -33,7 +36,7 @@ export const useAddTeacherModal = () => {
     async (input: string, callback: () => void) => {
       const response = await linkByEmailAction(fetch, { email: input });
 
-      const onSuccess = () => {
+      const onSuccess = (value: Teacher) => {
         // Refresh the page to display the new coach if it has been linked
         fetchTeacherPage();
 
@@ -42,13 +45,10 @@ export const useAddTeacherModal = () => {
           title: t("activeList.addTeacherModal.linkedTeacher"),
           status: "default",
           icon: "user-plus-01",
-          buttonIcon: "x-close",
-          // Hide this feature because the backend does not send the ID yet
-          // buttonLabel: t("activeList.addTeacherModal.actions.open"),
-          // onButtonClick: () => {
-          //   /** @todo When teacher details page is ready, use useNavigate from react router*/
-          //   window.location.href = LEGACY_URLS.DETAILS(value.id);
-          // },
+          buttonLabel: t("activeList.addTeacherModal.actions.open"),
+          onButtonClick: () => {
+            window.location.assign(LEGACY_URLS.DETAILS(value.id));
+          },
         });
 
         // Close the modal after cleaning the input
@@ -86,7 +86,7 @@ export const useAddTeacherModal = () => {
         } else {
           // Navigate to the create page with the email preinput
           /** @todo Edit when we'll have the revamp one -> here it navigates to the old BO */
-          window.location.href = LEGACY_URLS.CREATE(input);
+          window.location.assign(LEGACY_URLS.CREATE(input));
         }
       });
     },

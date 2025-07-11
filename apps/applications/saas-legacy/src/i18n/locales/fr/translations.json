@@ -811,9 +811,9 @@
             },
             "newCheckout": {
                 "isEmpty": "Votre panier est vide !",
-                "isEmptyDescription": "Poursuivez votre exploration de la marketplace !"
+                "isEmptyDescription": "Poursuivez votre exploration du Portail des membres !"
             },
-            "goToMarketplace": "Voir la marketplace",
+            "goToMarketplace": "Voir le portail des membres",
             "referral": {
                 "hasReachedMaxUses": "Le nombre maximum d'utilisations du lien de parrainage a été atteint.",
                 "missingAmountBeforeApplication": "Le montant minimum d'achat n'a pas été atteint. Vous risquez de perdre votre lien de parrainage. Il suffit de {{ missingAmount }} de plus pour pouvoir bénéficier de la réduction !"
@@ -2861,7 +2861,7 @@
                 "0": "Application",
                 "1": "Web",
                 "2": "Backoffice bsport",
-                "3": "Marketplaces",
+                "3": "Portail des membres",
                 "4": "Migration de données"
             }
         },
@@ -3378,7 +3378,7 @@
             "addLocalisation": "Ajouter une salle",
             "name": " Nom",
             "actions": "Actions",
-            "noGroupHelper": "Les localisations permettent de regrouper plusieurs adresses entre elles. Si vous possèdez plusieurs studios dans différentes villes vous pouvez regrouper les studios de la même ville dans une localisation. Sur la marketplace, le widget et l’application personnalisée vos élèves pourront sélectionner la localisation qui les intéresse le plus pour ne voir que les cours proches de chez eux.",
+            "noGroupHelper": "Les localisations permettent de regrouper plusieurs adresses entre elles. Si vous possèdez plusieurs studios dans différentes villes vous pouvez regrouper les studios de la même ville dans une localisation. Sur le Portail des Membres, le widget et l’application personnalisée vos élèves pourront sélectionner la localisation qui les intéresse le plus pour ne voir que les cours proches de chez eux.",
             "form": {
                 "name": "Nom",
                 "associated_localizations": "Salles associées",
@@ -3391,7 +3391,7 @@
             "modal": {
                 "delete": {
                     "title": "Supprimer une localisation",
-                    "content": "Cette localisation n'appraitra plus dans les filtres disponibles sur la marketplace, le widget et l'application personnalisée.",
+                    "content": "Cette localisation n'appraitra plus dans les filtres disponibles sur le Portail des Membres, le widget et l'application personnalisée.",
                     "cancel": "Annuler",
                     "confirm": "Supprimer"
                 }

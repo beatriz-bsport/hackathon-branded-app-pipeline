@@ -8,9 +8,12 @@ import {
   Title,
 } from "@bsport/kaizen-primitive-core";
 
-import { ReferringRewardRadioOptions } from "#src/utils/constants";
 import { useTranslation } from "#src/utils/i18n";
-import type { ReferralProgramFormData } from "#src/utils/types";
+import {
+  type ReferralProgramFormData,
+  type ReferrinRewardOptionType,
+  referringRewardTypeValues,
+} from "#src/utils/types";
 
 type Props = Omit<
   ControlledFormProps<ReferralProgramFormData>,
@@ -24,7 +27,6 @@ export const ReferredRewardField: FC<Props> = ({
   ...methods
 }: Props) => {
   const { t } = useTranslation("settings");
-  const { setValue, watch } = methods;
   const alertRewardEqualToZeroConfig: AlertConfig = {
     alert: {
       status: "warning",
@@ -32,6 +34,14 @@ export const ReferredRewardField: FC<Props> = ({
     },
     position: "bottom",
   };
+  const percentageOptionLabel = t("active.form.referralReward.percentage");
+  const amountOptionLabel = t("active.form.referralReward.amount");
+  const radioOptionMap: Record<ReferrinRewardOptionType, string> = {
+    "amount-off": amountOptionLabel,
+    "percent-off": percentageOptionLabel,
+  };
+
+  const { setValue, watch } = methods;
 
   const [
     referringRewardType,
@@ -48,15 +58,17 @@ export const ReferredRewardField: FC<Props> = ({
       <Title htmlVariant="h4" weight="strong">
         {t("active.form.referringReward.title")}
       </Title>
-
       <div className="flex flex-row gap-xl">
         <FormField<ReferralProgramFormData, "referringRewardType">
           name="referringRewardType"
           mapProps={({ defaultProps, field }) => ({
             ...defaultProps,
-            value: String(field.value),
+            value: radioOptionMap[field.value as ReferrinRewardOptionType],
             onChangeValue: (event: React.ChangeEvent<HTMLInputElement>) => {
-              field.onChange(event.target.value);
+              setValue(
+                "referringRewardType",
+                event.target.id as ReferrinRewardOptionType,
+              );
             },
           })}
         >
@@ -69,10 +81,10 @@ export const ReferredRewardField: FC<Props> = ({
             options={[
               {
                 id: "percent-off",
-                value: ReferringRewardRadioOptions.Percentage,
+                value: radioOptionMap[referringRewardTypeValues.percentage],
                 alertConfig:
                   referringRewardType ===
-                    ReferringRewardRadioOptions.Percentage &&
+                    referringRewardTypeValues.percentage &&
                   referringRewardPercentage === 0
                     ? alertRewardEqualToZeroConfig
                     : undefined,
@@ -87,7 +99,7 @@ export const ReferredRewardField: FC<Props> = ({
                       value: String(field.value),
                       disabled:
                         referringRewardType !==
-                        ReferringRewardRadioOptions.Percentage,
+                        referringRewardTypeValues.percentage,
                     })}
                   >
                     <TextField
@@ -112,9 +124,9 @@ export const ReferredRewardField: FC<Props> = ({
               },
               {
                 id: "amount-off",
-                value: ReferringRewardRadioOptions.Amount,
+                value: radioOptionMap[referringRewardTypeValues.amount],
                 alertConfig:
-                  referringRewardType === ReferringRewardRadioOptions.Amount &&
+                  referringRewardType === referringRewardTypeValues.amount &&
                   (parseFloat(referringRewardAmount) || 0) === 0
                     ? alertRewardEqualToZeroConfig
                     : undefined,
@@ -127,7 +139,7 @@ export const ReferredRewardField: FC<Props> = ({
                       value: String(field.value),
                       disabled:
                         referringRewardType !==
-                        ReferringRewardRadioOptions.Amount,
+                        referringRewardTypeValues.amount,
                     })}
                   >
                     <TextField

@@ -13824,7 +13824,7 @@
         },
         "shortMinuteIdentifier": "min",
         "shortHourIdentifier": "h",
-        "shortDayIdentifier": "giorno/i",
+        "shortDayIdentifier": "giorno(i)",
         "never": "Mai",
         "longHourIdentifier": "ore",
         "longMinuteIdentifier": "minuti",
@@ -15372,7 +15372,7 @@
                 "0": "Applicazione",
                 "1": "Web",
                 "2": "Backoffice bsport",
-                "3": "Marketplace",
+                "3": "Portale dei membri",
                 "4": "Trasferimento dati"
             }
         },
@@ -15603,9 +15603,9 @@
             "acceptTermsAndFinalize": "Si prega di accettare le condizioni generali e di finalizzare la prenotazione",
             "checkAndFinalize": "Controlla il carrello e completa la prenotazione",
             "almostDone": "Quasi finito",
-            "goToMarketplace": "Vai al marketplace",
+            "goToMarketplace": "Vai al Portale dei membri",
             "newCheckout": {
-                "isEmptyDescription": "Continua a esplorare il marketplace!",
+                "isEmptyDescription": "Continua a esplorare il Portale dei Membri!",
                 "isEmpty": "Il carrello è vuoto!"
             },
             "noBooking": {

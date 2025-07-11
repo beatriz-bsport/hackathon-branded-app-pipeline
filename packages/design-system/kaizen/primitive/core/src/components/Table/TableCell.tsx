@@ -8,6 +8,7 @@ export type TableCellProps = {
   withVerticalBorders?: boolean;
   isHeader?: boolean;
   align?: "start" | "center" | "end";
+  className?: string;
 };
 
 const tableCell = cva(
@@ -40,15 +41,20 @@ const TableCell: React.FC<TableCellProps> = ({
   withVerticalBorders = false,
   isHeader = false,
   align = "start",
+  className,
 }) => {
   return (
     <div className={tableCell({ rowHeight, withVerticalBorders, isHeader })}>
       <div
-        className={classNames("flex", {
-          "justify-start": align === "start",
-          "justify-center": align === "center",
-          "justify-end": align === "end",
-        })}
+        className={classNames(
+          "flex",
+          {
+            "justify-start": align === "start",
+            "justify-center": align === "center",
+            "justify-end": align === "end",
+          },
+          className ?? "",
+        )}
       >
         {children}
       </div>

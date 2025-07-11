@@ -54,16 +54,18 @@ const FilterElement: React.FC<FilterElementProps> = ({
   onFilterElementChange,
   onClear,
 }) => {
-  const hasUniqueCategory = Object.keys(fields).length === 1;
-
   const [displayEntireFilter, setDisplayEntireFilter] = useState(false);
-  const [selectedField, setSelectedField] = useState(
-    hasUniqueCategory ? Object.keys(fields)[0] : null,
-  );
-  const [selectedFilter, setSelectedFilter] = useState(
-    hasUniqueCategory ? fields[Object.keys(fields)[0]].availableFilters[0] : "",
-  );
+  const [selectedField, setSelectedField] = useState<string | null>(null);
+  const [selectedFilter, setSelectedFilter] = useState("");
   const [selectedValues, setSelectedValues] = useState<string[] | null>(null);
+
+  useEffect(() => {
+    const hasUniqueCategory = Object.keys(fields).length === 1;
+    if (hasUniqueCategory) {
+      setSelectedField(Object.keys(fields)[0]);
+      setSelectedFilter(fields[Object.keys(fields)[0]].availableFilters[0]);
+    }
+  }, [fields]);
 
   useEffect(() => {
     if (selectedField && selectedFilter && selectedValues) {
@@ -131,11 +133,12 @@ const FilterElement: React.FC<FilterElementProps> = ({
   );
 
   const handleClear = useCallback(() => {
+    const hasUniqueCategory = Object.keys(fields).length === 1;
     setSelectedField(hasUniqueCategory ? Object.keys(fields)[0] : null);
     setDisplayEntireFilter(false);
     setSelectedValues(null);
     onClear?.();
-  }, [fields, hasUniqueCategory, onClear]);
+  }, [fields, onClear]);
 
   return (
     <ol className="inline-flex">

@@ -30,11 +30,7 @@
             },
             "tooltips": {
                 "archive": "Archive member",
-                "restore": "Unarchive member",
-                "clickToCopy": "Click to copy"
-            },
-            "actions": {
-                "copiedToClipboard": "Email copied to clipboard"
+                "restore": "Unarchive member"
             }
         },
         "listPage": {

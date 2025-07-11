@@ -314,11 +314,11 @@ export const sortIntervalList = (intervals: Interval[]) => {
  *   DateTime.fromISO("2023-10-03T00:00:00")
  * );
  * const intervals = [interval1, interval2];
- * const result = mergeAdjacentIntervals(intervals);
+ * const result = mergeOverlappingIntervals(intervals);
  * // result contains one merged interval from 2023-10-01T00:00:00 to 2023-10-03T00:00:00
  */
 
-export const mergeAdjacentIntervals = (intervals: Interval[]) => {
+export const mergeOverlappingIntervals = (intervals: Interval[]) => {
   if (!intervals) return [];
   if (intervals.length < 2) {
     return intervals;
@@ -329,7 +329,11 @@ export const mergeAdjacentIntervals = (intervals: Interval[]) => {
   return sortedIntervalList.reduce<Interval[]>(
     (mergedIntervals, currentInterval) => {
       const lastMergedInterval = mergedIntervals[mergedIntervals.length - 1];
-      if (lastMergedInterval && currentInterval.abutsEnd(lastMergedInterval)) {
+      const shouldMerge =
+        lastMergedInterval &&
+        (currentInterval.abutsEnd(lastMergedInterval) ||
+          currentInterval.intersection(lastMergedInterval) !== null);
+      if (shouldMerge) {
         // Merge with the last interval if they are adjacent
         mergedIntervals[mergedIntervals.length - 1] =
           lastMergedInterval.union(currentInterval);
@@ -363,7 +367,7 @@ export const chunkIntervalsByDuration = (
   intervalMinutes: number = 15,
 ) => {
   if (!intervals || !duration) return [];
-  const mergedIntervals = mergeAdjacentIntervals(intervals);
+  const mergedIntervals = mergeOverlappingIntervals(intervals);
   return mergedIntervals.flatMap((interval) =>
     chunkByDurationAndInterval(interval, duration, intervalMinutes),
   );

@@ -70,17 +70,24 @@
                     }
                 },
                 "timeLimitForUsage": {
-                    "label": "Time limit for applying the discount after registration",
-                    "choices": {
-                        "day": "day",
-                        "week": "week",
-                        "month": "month",
-                        "day_plural": "days",
-                        "week_plural": "weeks",
-                        "month_plural": "months"
+                    "unit": {
+                        "label": "Select interval of time limit",
+                        "choices": {
+                            "day_one": "Day",
+                            "week_one": "Week",
+                            "month_one": "Month",
+                            "day_other": "Days",
+                            "week_other": "Weeks",
+                            "month_other": "Months"
+                        },
+                        "errors": {}
                     },
-                    "errors": {},
-                    "equalToZero": "The time limit must be 1 {{timeUnit}} or longer"
+                    "interval": {
+                        "label": "Time limit for applying the discount after registration",
+                        "errors": {
+                            "lowerThanOne": "The time limit must be 1 {{ timeUnit }} or longer"
+                        }
+                    }
                 },
                 "tagSelector": {
                     "label": "Add a tag for new members who used the referral link",

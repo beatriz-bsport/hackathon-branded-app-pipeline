@@ -15142,7 +15142,7 @@
                 "0": "App",
                 "1": "Webseite",
                 "2": "bsport Backoffice",
-                "3": "Marketplaces",
+                "3": "Mitgliederportal",
                 "4": "Datenmigration"
             }
         },
@@ -17695,7 +17695,7 @@
                 "delete": {
                     "confirm": "Löschen",
                     "cancel": "Abbrechen",
-                    "content": "Diese Einrichtung wird nicht mehr in den verfügbaren Filtern auf dem Marketplace, im Widget und in der mobilen Marken-App erscheinen.",
+                    "content": "Diese Einrichtung wird nicht mehr in den verfügbaren Filtern auf das Mitgliederportal, im Widget und in der mobilen Marken-App erscheinen.",
                     "title": "Einen Standort löschen"
                 }
             },
@@ -17708,7 +17708,7 @@
                 "associated_localizations": "Verbundene Einrichtungen",
                 "name": "Name"
             },
-            "noGroupHelper": "Standorte werden verwendet, um mehrere Adressen zu gruppieren. Wenn Sie mehrere Studios in verschiedenen Städten haben, können Sie Studios aus derselben Stadt an einem Ort gruppieren. Auf dem Marketplace, dem Widget und der personalisierten Anwendung können Ihre Mitglieder den Standort auswählen, der sie am meisten interessiert, um nur die Kurse in ihrer Nähe zu sehen.",
+            "noGroupHelper": "Standorte werden verwendet, um mehrere Adressen zu gruppieren. Wenn Sie mehrere Studios in verschiedenen Städten haben, können Sie Studios aus derselben Stadt an einem Ort gruppieren. Auf das Mitgliederportal, dem Widget und der personalisierten Anwendung können Ihre Mitglieder den Standort auswählen, der sie am meisten interessiert, um nur die Kurse in ihrer Nähe zu sehen.",
             "actions": "Aktion",
             "name": " Name",
             "addLocalisation": "Raum hinzufügen",
@@ -17833,7 +17833,7 @@
                 "exclusivePaymentPacks": "Der Pass {{- pass_name }} kann nur in dieser Einrichtung verwendet werden. Bitte bearbeite die Einschränkungen des Passes, bevor du die Einrichtung löschst.",
                 "exclusiveEstablishmentGroups_plural": "Die Standorte {{- establishment_group_name }} enthalten nur die Einrichtung, die du löschen möchtest. Bitte bearbeite oder lösche erst diese Standorte.",
                 "exclusiveEstablishmentGroups": "Der Standort {{- establishment_group_name }} enthält nur die Einrichtung, die du löschen möchtest. Bitte bearbeite oder lösche erst diesen Standort.",
-                "hasExclusiveMarketplaceComponentConfigs": "Eine oder mehrere Registerkarten auf dem Marktplatz zeigen nur den Kalender und die Workshops dieser Einrichtung an. Bitte bearbeite die Einstellungen der Registerkarten, bevor du die Einrichtung löschst.",
+                "hasExclusiveMarketplaceComponentConfigs": "Eine oder mehrere Registerkarten auf das Mitgliederportal zeigen nur den Kalender und die Workshops dieser Einrichtung an. Bitte bearbeite die Einstellungen der Registerkarten, bevor du die Einrichtung löschst.",
                 "isIntegratedInPartnership": "Eine oder mehrere Integrationen nutzen diese Einrichtung."
             },
             "infos": {
@@ -17897,13 +17897,13 @@
             "almostDone": "Fast geschafft",
             "newCheckout": {
                 "isEmpty": "Ihr Warenkorb ist leer!",
-                "isEmptyDescription": "Erkunde den Marketplace weiter!"
+                "isEmptyDescription": "Erkunde das Mitgliederportal weiter!"
             },
             "noBooking": {
                 "acceptTermsAndFinalize": "Bitte akzeptiere die Allgemeinen Geschäftsbedingungen und schließe deinen Warenkorb ab",
                 "checkAndFinalize": "Bitte überprüfe deinen Warenkorb"
             },
-            "goToMarketplace": "Marketplace ansehen",
+            "goToMarketplace": "Mitgliederportal ansehen",
             "referral": {
                 "hasReachedMaxUses": "Die maximale Anzahl an Verwendungen für den Empfehlungslink wurde erreicht.",
                 "missingAmountBeforeApplication": "Der Mindestkaufbetrag wurde nicht erreicht. Du riskierst, deinen Empfehlungslink zu verlieren. Nur noch {{ missingAmount }}, um vom Rabatt zu profitieren!"

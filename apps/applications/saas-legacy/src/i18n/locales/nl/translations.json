@@ -5418,7 +5418,7 @@
                     "confirm": "Verwijder",
                     "cancel": "Annuleer",
                     "title": "Een vestiging verwijderen",
-                    "content": "Deze vestiging wordt niet langer weergegeven in de filters van de widgets, marketplace en de mobiele app."
+                    "content": "Deze vestiging wordt niet langer weergegeven in de filters van de widgets, Ledenportaal en de mobiele app."
                 }
             },
             "form": {
@@ -5434,7 +5434,7 @@
             "name": " Naam",
             "addLocalisation": "Een vestiging toevoegen",
             "groupButton": "Groepeer vestigingen",
-            "noGroupHelper": "Hier kun je meerdere vestigingen op verschillende adressen groeperen. Zo kun je meerdere studio's in verschillende steden hebt, kun je studio's uit dezelfde stad op één locatie groeperen. Je leden kunnen vervolgens op je widgets, app, of marketplace een locatie selecteren om alle lessen bij hun in de buurt te bekijken."
+            "noGroupHelper": "Hier kun je meerdere vestigingen op verschillende adressen groeperen. Zo kun je meerdere studio's in verschillende steden hebt, kun je studio's uit dezelfde stad op één locatie groeperen. Je leden kunnen vervolgens op je widgets, app, op het Ledenportaal een locatie selecteren om alle lessen bij hun in de buurt te bekijken."
         },
         "room": "Vestiging",
         "localisation": "Locatie",
@@ -5530,7 +5530,7 @@
                 "exclusivePaymentPacks_plural": "De volgende passen {{- pass_name }} zijn alleen geldig in deze vestiging. Update hun beperkingen eerst voordat je de vestiging verwijdert.",
                 "exclusiveEstablishmentGroups": "De locatie {{- establishment_group_name }} bevat alleen de vestiging die u wilt verwijderen. Werk deze locatie bij of verwijder deze.",
                 "exclusiveEstablishmentGroups_plural": "De locaties {{- establishment_group_name }} bevatten alleen de vestiging die je wilt verwijderen, bewerk of verwijder deze locaties eerst.",
-                "hasExclusiveMarketplaceComponentConfigs": "Een of meerdere tabbladen op de marktplaats zijn ingesteld om alleen de agenda en workshops van deze vestiging weer te geven.",
+                "hasExclusiveMarketplaceComponentConfigs": "Een of meerdere tabbladen op het ledenportaal zijn ingesteld om alleen de agenda en workshops van deze vestiging weer te geven.",
                 "hasUpcomingOffers": "Sommige komende sessies vinden plaats in deze vestiging. Annuleer en verwijder ze voordat je deze vestiging verwijdert.",
                 "hasExclusiveBillingGroup": "Deze vestiging is de laatste van zijn factureringsgroep. Verwijder deze factureringsgroep of werk deze bij voordat u deze vestiging verwijdert.",
                 "isIntegratedInPartnership": "Een of meerdere integraties gebruiken deze vestiging."
@@ -14325,7 +14325,7 @@
                 "0": "App",
                 "1": "Web",
                 "2": "[BSPORT] Back Office",
-                "3": "Andere",
+                "3": "Ledenportaal",
                 "4": "Gegevensoverdracht"
             }
         },
@@ -15403,9 +15403,9 @@
             "acceptTermsAndFinalize": "Accepteer de voorwaarden om je reservering te voltooien",
             "checkAndFinalize": "Controleer je winkelmandje en voltooi je betaling",
             "almostDone": "Laatste stap",
-            "goToMarketplace": "Op de markt",
+            "goToMarketplace": "Op de Ledenportaal",
             "newCheckout": {
-                "isEmptyDescription": "Ga door met het verkennen van de markt!",
+                "isEmptyDescription": "Ga door met het verkennen van de Ledenportaal!",
                 "isEmpty": "Je mandje is leeg!"
             },
             "noBooking": {

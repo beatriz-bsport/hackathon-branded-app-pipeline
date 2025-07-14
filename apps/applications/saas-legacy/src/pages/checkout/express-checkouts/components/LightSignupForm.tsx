@@ -83,6 +83,7 @@ const LightSignupForm = () => {
           id="light-signup-password"
           label={t('lightSignup.form.password.label')}
           name="password"
+          size="lg"
         />
       </div>
       <Checkboxfield

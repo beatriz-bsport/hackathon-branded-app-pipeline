@@ -9283,7 +9283,7 @@
             "copyLink": "Copy the direct link to the payment page"
         },
         "actions": {
-            "delete": "Delete",
+            "delete": "Archive",
             "edit": "Edit",
             "scaleCredit": "Mult / div credits",
             "massExtension": "Extend validity",

@@ -4441,7 +4441,7 @@
     "paymentPack": {
         "actions": {
             "edit": "Bewerken",
-            "delete": "Verwijderen",
+            "delete": "Archiveren",
             "scaleCredit": "credits vermenigvuldigen / delen",
             "massExtension": "Geldigheid verlengen",
             "close": "Sluiten"
@@ -5055,11 +5055,11 @@
             },
             "deleteForm": {
                 "actions": {
-                    "submit": "Verwijder",
+                    "submit": "Archiveren",
                     "close": "Sluiten"
                 },
                 "content": "Leden kunnen de pas nog steeds gebruiken in de studio waar ze hem gekocht hebben. Abonnementen die aan deze pas zijn gekoppeld, blijven geldig in dezelfde studio.",
-                "title": "Gedeelde pas verwijderen"
+                "title": "Gedeelde pas archiveren"
             },
             "form": {
                 "actions": {
@@ -5081,7 +5081,8 @@
             },
             "section": {
                 "titleManagerOnly": "Niet beschikbaar voor verkoop",
-                "titleAvailable": "Beschikbare leskaarten"
+                "titleAvailable": "Beschikbare leskaarten",
+                "titleArchived": "Gearchiveerde leskaarten"
             },
             "isEmptyExplain": "Leden kunnen deze kaarten bij alle gekoppelde studio aanschaffen en gebruiken.",
             "specification": {
@@ -5090,7 +5091,15 @@
             "widget": {
                 "choose": "Filter op leskaarten"
             },
-            "pass": "Leskaarten"
+            "pass": "Leskaarten",
+            "restoreForm": {
+                "title": "Gedeelde leskaart herstellen",
+                "content": "De gedeelde universele leskaart wordt hersteld en opnieuw gedeeld tussen de eerder geselecteerde studio's.",
+                "actions": {
+                    "close": "Sluiten",
+                    "submit": "Herstellen"
+                }
+            }
         },
         "unlimitedAndCalculatedMargin": " De theoretische marginale waarde wordt berekend op basis van PRIJS / AANTAL RESERVERINGEN ",
         "unlimitedAndMargin": " De theoretische marginale waarde per reservering is: ",
@@ -5314,6 +5323,24 @@
         "orderingAlert": {
             "button": "Personalisering",
             "text": "Het wijzigen van de volgorde van de \"Categorieën\" is alleen te zien om het tabblad \"Leskaarten\" op de marketplace en op de mobiele app. Deze update zal geen enkel ander onderdeel wijzigen."
+        },
+        "universalPaymentPackTemplate": {
+            "restoreForm": {
+                "title": "Herstel gedeelde universele leskaart",
+                "content": "De gedeelde universele leskaart wordt hersteld en opnieuw gedeeld tussen de eerder geselecteerde studio's.",
+                "actions": {
+                    "close": "Sluiten",
+                    "submit": "Herstellen"
+                }
+            },
+            "deleteForm": {
+                "title": "Archiveer gedeelde universele leskaart",
+                "content": "Leden kunnen de universele leskaart nog steeds gebruiken in de studio waar ze hem gekocht hebben. Abonnementen die aan deze universele pas leskaart gekoppeld, blijven geldig in dezelfde studio.",
+                "actions": {
+                    "close": "Sluiten",
+                    "submit": "Archiveren"
+                }
+            }
         }
     },
     "establishment": {
@@ -11572,11 +11599,11 @@
             },
             "deleteForm": {
                 "actions": {
-                    "submit": "Verwijder",
+                    "submit": "Archiveren",
                     "close": "Sluiten"
                 },
                 "content": "Leden kunnen de afsprakenpas nog steeds gebruiken in de studio waar ze hem gekocht hebben. Abonnementen die aan deze pas zijn gekoppeld, werken ook alleen in diezelfde studio.",
-                "title": "Gedeelde afsprakenpas verwijderen"
+                "title": "Gedeelde afsprakenkaart archiveren"
             },
             "form": {
                 "actions": {
@@ -11595,11 +11622,20 @@
             },
             "section": {
                 "titleManagerOnly": "Niet beschikbaar voor verkoop",
-                "titleAvailable": "Beschikbare afspraakkaarten"
+                "titleAvailable": "Beschikbare afspraakkaarten",
+                "titleArchived": "Gearchiveerde leskaarten"
             },
             "isEmptyExplain": "Leden kunnen deze kaarten bij iedere gekoppelde studio aanschaffen en gebruiken.",
             "specification": {
                 "companySharedWithTitle": "Beschikbaar bij de volgende studio's:"
+            },
+            "restoreForm": {
+                "title": "Gedeelde afsprakenkaart herstellen",
+                "content": "De gedeelde universele leskaart wordt hersteld en opnieuw gedeeld tussen de eerder geselecteerde studio's.",
+                "actions": {
+                    "close": "Sluiten",
+                    "submit": "Herstellen"
+                }
             }
         },
         "privatePassTemplateInstance": {
@@ -12598,6 +12634,22 @@
             },
             "compatibilitiesUpdate": {
                 "fail": "Fout bij het bijwerken van pascompatibiliteiten"
+            },
+            "universalPaymentPackTemplateRestored": {
+                "success": "Gedeelde universele kaart hersteld",
+                "error": "Niet mogelijk om gedeelde universele kaart te herstellen"
+            },
+            "universalPaymentPackTemplateArchived": {
+                "success": "Gedeelde universele kaart gearchiveerd",
+                "error": "Niet mogelijk om gedeelde kaart te archiveren"
+            },
+            "paymentPackTemplateRestored": {
+                "success": "Gedeelde kaart hersteld",
+                "error": "Niet mogelijk om gedeelde kaart te herstellen"
+            },
+            "paymentPackTemplateArchived": {
+                "success": "Gedeelde kaart gearchiveerd",
+                "error": "Niet mogelijk om gedeelde kaart te archiveren"
             }
         },
         "coupon": {

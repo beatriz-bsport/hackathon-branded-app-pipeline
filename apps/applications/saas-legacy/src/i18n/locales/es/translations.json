@@ -1324,7 +1324,7 @@
                 "0": "Aplicación",
                 "1": "Web",
                 "2": "Backoffice bsport",
-                "3": "Marketplaces",
+                "3": "Portal de miembros",
                 "4": "Migración de datos"
             }
         },
@@ -2127,7 +2127,7 @@
             "addLocalisation": "Añadir una ubicación",
             "name": " Nombre",
             "actions": "Acciones",
-            "noGroupHelper": "Las ubicaciones permiten agrupar varias direcciones. Si tiene varios estudios en diferentes ciudades, puede agrupar los estudios de la misma ciudad en un solo lugar. En el mercado, el widget y la aplicación personalizada, sus estudiantes podrán seleccionar la ubicación que más les interese para ver sólo los cursos que estén cerca de ellos.",
+            "noGroupHelper": "Las ubicaciones permiten agrupar varias direcciones. Si tiene varios estudios en diferentes ciudades, puede agrupar los estudios de la misma ciudad en un solo lugar. En el Portal de Miembros, el widget y la aplicación personalizada, sus estudiantes podrán seleccionar la ubicación que más les interese para ver sólo los cursos que estén cerca de ellos.",
             "form": {
                 "name": "Nombre",
                 "associated_localizations": "Establecimientos asociados",
@@ -2139,7 +2139,7 @@
             },
             "modal": {
                 "delete": {
-                    "content": "Esta ubicación ya no aparecerá en los filtros disponibles en el mercado, el widget y la aplicación personalizada.",
+                    "content": "Esta ubicación ya no aparecerá en los filtros disponibles en el Portal de Miembros, el widget y la aplicación personalizada.",
                     "cancel": "Cancelar",
                     "confirm": "Borrar",
                     "title": "Borrar un establecimiento"
@@ -13912,9 +13912,9 @@
             "acceptTermsAndFinalize": "Por favor, acepte las condiciones generales y finalice su reserva",
             "checkAndFinalize": "Compruebe su cesta y finalice su reserva",
             "almostDone": "Última etapa",
-            "goToMarketplace": "Ver el marketplace",
+            "goToMarketplace": "Portal de miembros",
             "newCheckout": {
-                "isEmptyDescription": "¡Continúe explorando el marketplace!",
+                "isEmptyDescription": "¡Continúe explorando el Portal de miembros!",
                 "isEmpty": "¡Tu cesta está vacía!"
             },
             "noBooking": {

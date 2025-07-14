@@ -983,9 +983,9 @@
             "checkAndFinalize": "Please check your basket and finalize your booking",
             "acceptTermsAndFinalize": "Please accept the general terms and conditions and finalize your booking",
             "almostDone": "Almost done",
-            "goToMarketplace": "See the marketplace",
+            "goToMarketplace": "See the Member Portal",
             "newCheckout": {
-                "isEmptyDescription": "Continue your exploration of the marketplace!",
+                "isEmptyDescription": "Continue your exploration of the Member Portal!",
                 "isEmpty": "Your basket is empty!"
             },
             "noBooking": {
@@ -3038,7 +3038,7 @@
                 "0": "App",
                 "1": "Web",
                 "2": "BSPORT Back Office",
-                "3": "Marketplaces",
+                "3": "Member Portal",
                 "4": "Data migration"
             }
         },
@@ -3550,10 +3550,10 @@
         "billingGroupRequired": "Billing group *",
         "group": {
             "name": " Name",
-            "noGroupHelper": "Locations allow you to group several addresses together. If you have several studios in different cities, you can group the studios in the same city into one location. On the marketplace, the widget and the personalized application your students will be able to select the location they are most interested in to see only the classes near their home.",
+            "noGroupHelper": "Locations allow you to group several addresses together. If you have several studios in different cities, you can group the studios in the same city into one location. On the Member Portal, the widget and the personalized application your students will be able to select the location they are most interested in to see only the classes near their home.",
             "modal": {
                 "delete": {
-                    "content": "This establishment will no longer appear in the available filters on the marketplace, the widget, and the branded mobile app.",
+                    "content": "This establishment will no longer appear in the available filters on the Member Portal, the widget, and the branded mobile app.",
                     "cancel": "Cancel",
                     "title": "Delete a location",
                     "confirm": "Delete"
@@ -3673,7 +3673,7 @@
                 "exclusivePaymentPacks": "The following pass {{- pass_name }} is only usable in this establishment. Please update its restrictions before deleting the establishment.",
                 "exclusiveEstablishmentGroups_plural": "The locations {{- establishment_group_name }} only contain the establishment that you want to delete, please update or delete these locations.",
                 "exclusiveEstablishmentGroups": "The location {{- establishment_group_name }} only contains the establishment that you want to delete, please update or delete this location.",
-                "hasExclusiveMarketplaceComponentConfigs": "One or several tabs in the marketplace are set to only display this establishment's calendar and workshops, please update them before deleting the establishment.",
+                "hasExclusiveMarketplaceComponentConfigs": "One or several tabs in the Member Portal are set to only display this establishment's calendar and workshops, please update them before deleting the establishment.",
                 "isIntegratedInPartnership": "One or several integrations are using this establishment."
             },
             "infos": {

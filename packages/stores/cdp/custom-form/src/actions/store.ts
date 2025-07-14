@@ -11,18 +11,22 @@ export const setCustomForms = ({
   page: number;
 }) => {
   customFormStore.setState((state) => {
-    const newByIdEntries = customForms
-      .filter((_form) => _form?.id)
-      .reduce((acc: Record<number, CustomForm>, customForm) => {
+    const filteredCustomForms = customForms.filter(
+      (customForm) => customForm?.id && customForm?.name,
+    );
+    const newByIdEntries = filteredCustomForms.reduce(
+      (acc: Record<number, CustomForm>, customForm) => {
         acc[customForm.id] = customForm;
         return acc;
-      }, {});
+      },
+      {},
+    );
 
     const mergedById = {
       ...state.customForms.byId,
       ...newByIdEntries,
     };
-    const ids = customForms.map((customForm) => customForm.id);
+    const ids = filteredCustomForms.map((customForm) => customForm.id);
 
     return {
       ...state,

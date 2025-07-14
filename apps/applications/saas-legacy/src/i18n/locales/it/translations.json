@@ -4871,7 +4871,7 @@
                 "products": "Prodotti"
             },
             "reporting": {
-                "views": "Le tue opinioni",
+                "views": "Visualizzazioni salvate",
                 "categories": "Report"
             }
         },
@@ -13561,7 +13561,7 @@
             "addLocalisation": "Aggiungi una sede",
             "name": " Nome",
             "actions": "Azioni",
-            "noGroupHelper": "Le sedi permettono di raggruppare diversi indirizzi. Se hai diversi studi in diverse città, puoi raggruppare gli studi della stessa città in un'unica posizione. Sul marketplace, il widget e l'applicazione personalizzata i tuoi studenti saranno in grado di selezionare la sede a cui sono più interessati per vedere solo i corsi vicino a loro.",
+            "noGroupHelper": "Le sedi permettono di raggruppare diversi indirizzi. Se hai diversi studi in diverse città, puoi raggruppare gli studi della stessa città in un'unica posizione. Sul Portale dei Membri, il widget e l'applicazione personalizzata i tuoi studenti saranno in grado di selezionare la sede a cui sono più interessati per vedere solo i corsi vicino a loro.",
             "form": {
                 "name": "Nome",
                 "associated_localizations": "Stabilimenti associati",
@@ -13574,7 +13574,7 @@
             "modal": {
                 "delete": {
                     "title": "Elimina una sede",
-                    "content": "Questo stabilimento non apparirà più nei filtri disponibili nel marketplace, nel widget e nell'applicazione personalizzata.",
+                    "content": "Questo stabilimento non apparirà più nei filtri disponibili nel Portale dei Membri, nel widget e nell'applicazione personalizzata.",
                     "cancel": "Cancella",
                     "confirm": "Eliminare"
                 }
@@ -13824,7 +13824,7 @@
         },
         "shortMinuteIdentifier": "min",
         "shortHourIdentifier": "h",
-        "shortDayIdentifier": "giorno/i",
+        "shortDayIdentifier": "giorno(i)",
         "never": "Mai",
         "longHourIdentifier": "ore",
         "longMinuteIdentifier": "minuti",
@@ -15372,7 +15372,7 @@
                 "0": "Applicazione",
                 "1": "Web",
                 "2": "Backoffice bsport",
-                "3": "Marketplace",
+                "3": "Portale dei membri",
                 "4": "Trasferimento dati"
             }
         },
@@ -15603,9 +15603,9 @@
             "acceptTermsAndFinalize": "Si prega di accettare le condizioni generali e di finalizzare la prenotazione",
             "checkAndFinalize": "Controlla il carrello e completa la prenotazione",
             "almostDone": "Quasi finito",
-            "goToMarketplace": "Vai al marketplace",
+            "goToMarketplace": "Vai al Portale dei membri",
             "newCheckout": {
-                "isEmptyDescription": "Continua a esplorare il marketplace!",
+                "isEmptyDescription": "Continua a esplorare il Portale dei Membri!",
                 "isEmpty": "Il carrello è vuoto!"
             },
             "noBooking": {

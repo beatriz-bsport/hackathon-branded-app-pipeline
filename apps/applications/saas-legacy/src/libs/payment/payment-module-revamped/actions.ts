@@ -584,10 +584,10 @@ export function confirmStripePayment(
 ): ThunkAction {
   return async (dispatch: Dispatch) => {
     try {
-      if (args.saveForLater && args.paymentGroupId) {
+      if (args.paymentGroupId) {
         await dispatch(
           updateIntentToSavePaymentMethod({
-            save_for_later: args.saveForLater,
+            save_for_later: !!args.saveForLater,
             payment_group_id: args.paymentGroupId,
           }),
         );

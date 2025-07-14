@@ -14314,7 +14314,7 @@
                     "upsell": "Upsells: Aggiungere alla piattaforma tutti gli upsell applicabili.",
                     "billing": "Fatturazione della piattaforma: Creare la configurazione di fatturazione per il nuovo backoffice.",
                     "core": "La nuova piattaforma di backoffice è stata creata con successo. Tuttavia, prima di inviare le credenziali di accesso al cliente, assicuratevi di aver completato i seguenti passaggi di convalida della documentazione interna:",
-                    "contactAccountManager": "Convalida dell'account in corso. Se sei un manager di studio, contatta il tuo contatto bsport per attivare il tuo Back Office."
+                    "contactAccountManager": "Account in attesa di validazione. Se sei uno Studio Manager, rivolgiti al tuo contatto bsport per attivare il backoffice."
                 }
             }
         },

@@ -4134,7 +4134,7 @@
                 "submit": "Validar",
                 "title": "Dirección de correo electrónico del profesor",
                 "emailLabel": "Correo",
-                "explain": "Si este correo electrónico ya existe en nuestro sistema, crearemos la cuenta de profesor automáticamente.",
+                "explain": "Escriba el correo del profesor que quieres agregar. Si ya tenemos sus datos, crearemos su cuenta automáticamente.",
                 "emailPlaceHolder": "profesor@bsport.io"
             },
             "error": "No es possible guardar el profesor",
@@ -7716,7 +7716,9 @@
                     "email": "Introduzca una dirección de email válida",
                     "requiredField": "Este campo es obligatorio",
                     "phoneTaken": "Este número de teléfono ya está siendo utilizado por otro miembro",
-                    "emailTaken": "El correo electrónico ya existe, puede intentar iniciar sesión con este correo electrónico"
+                    "emailTaken": "El correo electrónico ya existe, puede intentar iniciar sesión con este correo electrónico",
+                    "passwordConfirmation": "Las contraseñas deben coincidir",
+                    "passwordMinimumRequirements": "Tu contraseña debe tener 6 caracteres como mínimo y no puede llevar espacios"
                 },
                 "button": {
                     "label": "Inscríbete"
@@ -7742,6 +7744,9 @@
                 },
                 "acceptEmail": {
                     "label": "Acepto recibir correos electrónicos promocionales, incluyendo ofertas especiales y descuentos"
+                },
+                "password": {
+                    "label": "Crear contraseña"
                 }
             }
         }

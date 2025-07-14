@@ -51,8 +51,8 @@ export const fetchCustomFormsAction: Action<
 
       setCustomForms({
         customForms: data.results,
-        page: data.page,
         count: data.count,
+        page: data.page,
       });
 
       return data;
@@ -87,8 +87,8 @@ export const fuzzySearchCustomFormsAction: Action<
 
       setCustomForms({
         customForms: data.results,
-        page: 1,
         count: Math.min(data.count, 20), // Design decision: Search results are limited to 20 items max
+        page: 1,
       });
 
       return data;

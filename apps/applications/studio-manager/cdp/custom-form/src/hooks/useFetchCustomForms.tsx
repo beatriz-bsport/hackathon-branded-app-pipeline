@@ -45,6 +45,8 @@ export const useFetchCustomForms = ({
         page_size: pagination?.page_size ?? currentPageSize,
         page: pagination?.page ?? currentPage,
         disabled: !!archived, // when true, fetch archived (disabled) forms
+        is_member_form: false, // not used in this context
+        is_signup: false, // not used in this context
       });
     },
     [fetchForms, currentPage, currentPageSize, archived],
@@ -54,6 +56,8 @@ export const useFetchCustomForms = ({
   const fuzzySearchCustomForms = useCallback(async () => {
     return searchForms({
       disabled: !!archived,
+      is_member_form: false, // not used in this context
+      is_signup: false, // not used in this context
       queryString: searchInput,
       page_size: MAXIMUM_SEARCH_RESULTS,
       page: 1,

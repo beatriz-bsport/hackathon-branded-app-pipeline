@@ -126,6 +126,8 @@ const getTranslations = async () => {
             'The bookings have been made. You will soon receive a confirmation e-mail with all the details.',
           offersPartiallyConfirmed:
             'Some sessions could not be booked, possibly because they filled up or were canceled during checkout. You will receive a confirmation email shortly with details of the successful bookings.',
+          expressCheckoutPassPurchaseSuccess:
+            "Now that you have your pass, it's time to book your class and enjoy all the benefits.",
         },
         confirmationStatusTitle: {
           success: {
@@ -133,6 +135,8 @@ const getTranslations = async () => {
             paymentSuccess: 'Payment confirmed!',
             offerOnlySuccess: 'Enjoy the session!',
             offerOnlyGuestSuccess: 'Enjoy the session with your guest!',
+            expressCheckoutPassPurchaseSuccess:
+              'Congratulations! You just bought a pass!',
           },
           errors: {
             genericOfferError: 'Oops! The booking failed.',
@@ -160,6 +164,8 @@ const getTranslations = async () => {
         myBookings: 'My bookings',
         goToCalendar: 'Back to calendar',
         backToMyProfile: 'Back to my profile',
+        bookAClass: 'Book a class',
+        seeAllPasses: 'See all passes',
       },
       bookingItem: {
         bookingItemStatus: { unpaid: 'Unpaid', waitingList: 'Waiting list' },

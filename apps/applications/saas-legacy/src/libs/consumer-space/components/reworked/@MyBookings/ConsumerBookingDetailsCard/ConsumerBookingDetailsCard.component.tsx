@@ -76,6 +76,8 @@ export type Props = CollpsableSectionProps & {
   cancellationDate?: string;
   /** Whether the booking has been cancelled by the manager or not */
   isCancelledFromManager?: boolean;
+  /** Whether the booking has been cancelled automatically by the studio or not */
+  isCancelledFromOffer?: boolean;
   /** Whether the booking has been cancelled lately and is not eligible for a refund */
   isLateCancellation?: boolean;
   /** Name of the pass the member booked with */
@@ -172,6 +174,7 @@ const ConsumerBookingDetailsCard: React.FC<Props> = (props) => {
     creditsToRefund,
     cancellationDate,
     isCancelledFromManager,
+    isCancelledFromOffer,
     isLateCancellation,
     paymentPackName,
     isConsumerPaymentPackDisabled,
@@ -217,6 +220,7 @@ const ConsumerBookingDetailsCard: React.FC<Props> = (props) => {
           cancellationDate={cancellationDate}
           creditsToRefund={creditsToRefund}
           isCancelledFromManager={isCancelledFromManager}
+          isCancelledFromOffer={isCancelledFromOffer}
           isLateCancellation={isLateCancellation}
         />
       )}

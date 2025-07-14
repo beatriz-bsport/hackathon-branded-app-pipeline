@@ -1,7 +1,10 @@
 import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { BOOKING_STATUS_CANCELLED_BY_MANAGER } from '@bsport/common/lib/master-data/booking_status_code.js';
+import {
+  BOOKING_STATUS_CANCELLED_BY_MANAGER,
+  BOOKING_STATUS_CANCELLED_BY_OFFER,
+} from '@bsport/common/lib/master-data/booking_status_code.js';
 import {
   MarketPlaceCoachDisplay,
   MarketPlaceSessionTimeDisplay,
@@ -429,6 +432,10 @@ export const ConsumerBookingListContainer: React.FC<Props> = ({
           isCancelledFromManager={
             (selectedBooking || selectedPrivateBooking)?.booking_status_code ===
             BOOKING_STATUS_CANCELLED_BY_MANAGER.id
+          }
+          isCancelledFromOffer={
+            (selectedBooking || selectedPrivateBooking)?.booking_status_code ===
+            BOOKING_STATUS_CANCELLED_BY_OFFER.id
           }
           isConsumerPaymentPackDisabled={
             selectedBooking?.consumer_payment_pack?.disabled ||

@@ -320,3 +320,8 @@ export enum PassesPageTabNames {
   PASSES = 'passes',
   APPOINTMENT_PASSES = 'appointment-passes',
 }
+
+export enum PassTypes {
+  PAYMENTPACK = 'paymentPack',
+  PRIVATEPASS = 'privatePass',
+}

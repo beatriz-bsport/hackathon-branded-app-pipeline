@@ -187,10 +187,11 @@ const QuicksaleCheckout: React.FC<Props> = ({
                 : paymentGroupPriceCts / 100
             }
             partialPayment={alreadyPaidAmount}
-            preventPriceModification={
-              member.is_pos || !!basket.instalment_payment
-            }
             setModifiedPrice={editPaymentGroupPrice}
+            // (Quicksale MVP): Hide price modification
+            /*preventPriceModification={
+              member.is_pos || !!basket.instalment_payment
+            }*/
           />
 
           {basket.need_address && (

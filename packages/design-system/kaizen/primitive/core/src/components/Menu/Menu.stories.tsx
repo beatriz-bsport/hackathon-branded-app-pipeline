@@ -134,6 +134,53 @@ const menuOptionsWithRightSlot: Item[] = [
   { type: "divider" },
 ];
 
+const singleMenuWithSubCategories: Item[] = [
+  { type: "title", label: "Tag Group 1" },
+  {
+    id: "1",
+    label: "Sub tag alpha",
+    rightSlot: (
+      <div className="w-[14px] h-[14px] rounded-[4px] bg-[#50d71e]"></div>
+    ),
+  },
+  {
+    id: "2",
+    label: "Sub tag beta",
+    rightSlot: (
+      <div className="w-[14px] h-[14px] rounded-[4px] bg-[#50d71e]"></div>
+    ),
+  },
+  {
+    id: "3",
+    label: "Sub tag omega",
+    rightSlot: (
+      <div className="w-[14px] h-[14px] rounded-[4px] bg-[#50d71e]"></div>
+    ),
+  },
+  { type: "title", label: "Tag Group 2" },
+  {
+    id: "4",
+    label: "Sub tag charizard",
+    rightSlot: (
+      <div className="w-[14px] h-[14px] rounded-[4px] bg-[#50d71e]"></div>
+    ),
+  },
+  {
+    id: "5",
+    label: "Sub tag pikachu",
+    rightSlot: (
+      <div className="w-[14px] h-[14px] rounded-[4px] bg-[#50d71e]"></div>
+    ),
+  },
+  {
+    id: "6",
+    label: "Sub tag gengar",
+    rightSlot: (
+      <div className="w-[14px] h-[14px] rounded-[4px] bg-[#50d71e]"></div>
+    ),
+  },
+];
+
 /**
  * React component for a standalone menu element. <br>
  * The `Menu` is a versatile component designed to render a list of menu items without a popover wrapper. <br>
@@ -280,6 +327,42 @@ export const MenuWithRightSlots: Story = {
   args: {
     items: menuOptionsWithRightSlot,
     multiSelect: false,
+  },
+  render: (args) => {
+    const [selectedValues, setSelectedValues] = useState<string[]>([]);
+
+    const handleSelect = (itemId: string) => {
+      if (args.multiSelect) {
+        setSelectedValues((prevState) => {
+          const isSelected = prevState.includes(itemId);
+          return isSelected
+            ? prevState.filter((selected) => selected !== itemId)
+            : [...prevState, itemId];
+        });
+      } else {
+        setSelectedValues([itemId]);
+      }
+    };
+
+    useEffect(() => {
+      setSelectedValues([]);
+    }, [args.multiSelect]);
+
+    return (
+      <Menu
+        {...args}
+        onSelectOption={handleSelect}
+        selectedValues={selectedValues}
+      />
+    );
+  },
+};
+
+export const SingleMenuWithSubCategories: Story = {
+  name: "Single Menu with sub categories",
+  args: {
+    items: singleMenuWithSubCategories,
+    multiSelect: true,
   },
   render: (args) => {
     const [selectedValues, setSelectedValues] = useState<string[]>([]);

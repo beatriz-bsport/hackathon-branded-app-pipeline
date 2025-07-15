@@ -1396,6 +1396,9 @@ importers:
       '@bsport/sm-backbone':
         specifier: workspace:*
         version: link:../../../../../packages/utils/sm-backbone
+      '@bsport/store-cdp-tag':
+        specifier: workspace:*
+        version: link:../../../../../packages/stores/cdp/tag
       '@bsport/store-core-data-company-theme':
         specifier: workspace:*
         version: link:../../../../../packages/stores/core-data/company-theme

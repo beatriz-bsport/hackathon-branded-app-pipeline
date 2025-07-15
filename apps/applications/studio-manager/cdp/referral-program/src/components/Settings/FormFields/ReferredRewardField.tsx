@@ -1,9 +1,9 @@
-import React, { FC } from "react";
+import React, { type FC } from "react";
 
 import { type ControlledFormProps, FormField } from "@bsport/form";
 import {
   FormRadioGroup,
-  FormRadioGroupProps,
+  type FormRadioGroupProps,
   TextField,
   Title,
 } from "@bsport/kaizen-primitive-core";
@@ -11,9 +11,19 @@ import {
 import { useTranslation } from "#src/utils/i18n";
 import {
   type ReferralProgramFormData,
-  type ReferrinRewardOptionType,
+  type ReferringRewardOptionType,
   referringRewardTypeValues,
 } from "#src/utils/types";
+
+function isReferringRewardOptionType(
+  value: string,
+): value is ReferringRewardOptionType {
+  console.log(value);
+  return (
+    value === referringRewardTypeValues.amount ||
+    value === referringRewardTypeValues.percentage
+  );
+}
 
 type Props = Omit<
   ControlledFormProps<ReferralProgramFormData>,
@@ -36,9 +46,9 @@ export const ReferredRewardField: FC<Props> = ({
   };
   const percentageOptionLabel = t("active.form.referralReward.percentage");
   const amountOptionLabel = t("active.form.referralReward.amount");
-  const radioOptionMap: Record<ReferrinRewardOptionType, string> = {
-    "amount-off": amountOptionLabel,
-    "percent-off": percentageOptionLabel,
+  const radioOptionMap: Record<ReferringRewardOptionType, string> = {
+    amount_off: amountOptionLabel,
+    percent_off: percentageOptionLabel,
   };
 
   const { setValue, watch } = methods;
@@ -59,16 +69,20 @@ export const ReferredRewardField: FC<Props> = ({
         {t("active.form.referringReward.title")}
       </Title>
       <div className="flex flex-row gap-xl">
-        <FormField<ReferralProgramFormData, "referringRewardType">
+        <FormField<
+          ReferralProgramFormData,
+          "referringRewardType",
+          FormRadioGroupProps
+        >
           name="referringRewardType"
           mapProps={({ defaultProps, field }) => ({
             ...defaultProps,
-            value: radioOptionMap[field.value as ReferrinRewardOptionType],
+            value: radioOptionMap[field.value],
             onChangeValue: (event: React.ChangeEvent<HTMLInputElement>) => {
-              setValue(
-                "referringRewardType",
-                event.target.id as ReferrinRewardOptionType,
-              );
+              if (!isReferringRewardOptionType(event.target.id)) {
+                return;
+              }
+              setValue("referringRewardType", event.target.id);
             },
           })}
         >
@@ -80,7 +94,7 @@ export const ReferredRewardField: FC<Props> = ({
             direction="start"
             options={[
               {
-                id: "percent-off",
+                id: "percent_off",
                 value: radioOptionMap[referringRewardTypeValues.percentage],
                 alertConfig:
                   referringRewardType ===
@@ -123,7 +137,7 @@ export const ReferredRewardField: FC<Props> = ({
                 ),
               },
               {
-                id: "amount-off",
+                id: "amount_off",
                 value: radioOptionMap[referringRewardTypeValues.amount],
                 alertConfig:
                   referringRewardType === referringRewardTypeValues.amount &&

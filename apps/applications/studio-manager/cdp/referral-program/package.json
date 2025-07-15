@@ -23,6 +23,7 @@
     "@bsport/i18n": "workspace:*",
     "@bsport/kaizen-primitive-core": "workspace:*",
     "@bsport/sm-backbone": "workspace:*",
+    "@bsport/store-cdp-tag": "workspace:*",
     "@bsport/store-core-data-company-theme": "workspace:*",
     "@bsport/use-async": "workspace:*",
     "react": "^19.0.0",

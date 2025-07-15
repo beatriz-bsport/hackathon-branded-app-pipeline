@@ -119,24 +119,10 @@ export const TagSelector = ({
 
   const handleSelectTag = (tagId: string) => {
     const tag = getTagById({ tagId: tagId, tags });
-    if (searchInputRef?.current) {
-      searchInputRef.current.value = tag?.name || "";
-    }
     if (!tag) return;
     onSelectTag?.(tag);
     setSelectedTag(tag);
   };
-
-  useEffect(() => {
-    const searchInputCurrentRef = searchInputRef.current;
-    const handleSearchBlur = () => {
-      onSearchBlur?.();
-    };
-    searchInputCurrentRef?.addEventListener("blur", handleSearchBlur);
-    return () => {
-      searchInputCurrentRef?.removeEventListener("blur", handleSearchBlur);
-    };
-  }, [searchInputRef, onSearchBlur]);
 
   useEffect(() => {
     setTagItems(formatTagsIntoMenuOptions());
@@ -170,6 +156,7 @@ export const TagSelector = ({
             iconRight: "chevron-down",
             ...searchInputProps,
             inputRef: searchInputRef,
+            onBlur: onSearchBlur,
           }}
           onValueChange={handleSearchTag}
           onSelect={handleSelectTag}

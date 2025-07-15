@@ -132,6 +132,7 @@ export const AutocompleteCustomOnChange: Story = {
       label: "Custom Autocomplete that filters options only",
       placeholder: "Choose a language",
       status: "default",
+      iconRight: "chevron-down",
     },
     items,
     fullWidth: true,

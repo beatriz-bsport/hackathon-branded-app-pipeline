@@ -9,26 +9,32 @@ import {
 const httpUrlRegex =
   /^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_+.~#?&/=]*)$/;
 
-const positivePriceRegex = /^\d+(\.\d+)?$/;
+const positivePriceRegex = /^\d{1,6}([.,]\d+)?$/;
 
-const onlyTwoDecimalsMaxRegex = /^\d+(\.\d+)?$/;
+const onlyTwoDecimalsMaxRegex = /^\d{1,6}([.,]\d{1,2})?$/;
 
 export const referralProgramSchema = z
   .object({
     basketMinimalAmount: z
       .string()
       // 1. Check the general format: only digits, optional minus, optional decimal separator
-      .refine((value) => positivePriceRegex.test(value), {
-        message: i18nInstance.t(
-          "active.form.basketMinimalAmount.errors.invalidFormat",
-        ),
-      })
+      .refine(
+        (value) => {
+          const match = positivePriceRegex.test(value);
+          console.log(match);
+          return match;
+        },
+        {
+          message: i18nInstance.t(
+            "active.form.basketMinimalAmount.errors.invalidFormat",
+          ),
+        },
+      )
       // 2. Check for at most two decimals (only if there's a decimal part)
       .refine(
         (value) => {
-          const match = onlyTwoDecimalsMaxRegex.exec(value);
-          if (!match || !match[2]) return true; // No decimal part, or not matching
-          return match[2].length <= 2;
+          const match = onlyTwoDecimalsMaxRegex.test(value);
+          return match;
         },
         {
           message: i18nInstance.t(
@@ -47,9 +53,8 @@ export const referralProgramSchema = z
       // 2. Check for at most two decimals (only if there's a decimal part)
       .refine(
         (value) => {
-          const match = onlyTwoDecimalsMaxRegex.exec(value);
-          if (!match || !match[2]) return true; // No decimal part, or not matching
-          return match[2].length <= 2;
+          const match = onlyTwoDecimalsMaxRegex.test(value);
+          return match;
         },
         {
           message: i18nInstance.t(
@@ -59,7 +64,6 @@ export const referralProgramSchema = z
       ),
     maxReferringUsage: z.coerce
       .number()
-      .positive()
       .int({
         message: i18nInstance.t(
           "active.form.referringReward.maxReferringNumber.errors.noFloat",
@@ -86,9 +90,8 @@ export const referralProgramSchema = z
       // 2. Check for at most two decimals (only if there's a decimal part)
       .refine(
         (value) => {
-          const match = onlyTwoDecimalsMaxRegex.exec(value);
-          if (!match || !match[2]) return true; // No decimal part, or not matching
-          return match[2].length <= 2;
+          const match = onlyTwoDecimalsMaxRegex.test(value);
+          return match;
         },
         {
           message: i18nInstance.t(

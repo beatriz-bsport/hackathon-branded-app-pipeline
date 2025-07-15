@@ -23,7 +23,7 @@ export const ReferralRewardField: FC<Props> = ({
 
   return (
     <div className="flex flex-col gap-md">
-      <Title htmlVariant="h4" weight="strong">
+      <Title htmlVariant="h3" weight="strong">
         {t("active.form.referringReward.title")}
       </Title>
       <div className="flex flex-col gap-xs">
@@ -53,12 +53,13 @@ export const ReferralRewardField: FC<Props> = ({
               ...defaultProps,
               type: "number",
               value: String(field.value),
-              min: 0,
+              min: 1,
+              max: 5,
             })}
           >
             <TextField
               required
-              className="max-w-[60px]"
+              className="w-[60px]"
               type="number"
               id="referring-max-number-usage"
               label={t("active.form.referringReward.maxReferringNumber.label")}

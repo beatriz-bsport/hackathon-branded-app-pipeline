@@ -74,8 +74,8 @@ export const ReferredRewardField: FC<Props> = ({
 
   return (
     <div className="flex flex-col gap-md">
-      <Title htmlVariant="h4" weight="strong">
-        {t("active.form.referringReward.title")}
+      <Title htmlVariant="h3" weight="strong">
+        {t("active.form.referralReward.title")}
       </Title>
       <div className="flex flex-row gap-xl">
         <FormField<
@@ -84,7 +84,7 @@ export const ReferredRewardField: FC<Props> = ({
           FormRadioGroupProps
         >
           name="referringRewardType"
-          mapProps={({ defaultProps, field }) => ({
+          mapProps={({ defaultProps, field, form }) => ({
             ...defaultProps,
             value: radioOptionMap[field.value],
             onChangeValue: (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -92,6 +92,22 @@ export const ReferredRewardField: FC<Props> = ({
                 return;
               }
               setValue("referringRewardType", event.target.id);
+              // Product requirement: if the user changes the reward type while having an error in the previously set field
+              // We reset the value of the field that is in error to 0 so that it does not block the form submission
+              if (
+                event.target.id === "percent_off" &&
+                form.formState.errors.referringRewardAmount?.message
+              ) {
+                setValue("referringRewardAmount", "0");
+                form.trigger("referringRewardAmount");
+              }
+              if (
+                event.target.id === "amount_off" &&
+                form.formState.errors.referringRewardPercentage?.message
+              ) {
+                setValue("referringRewardPercentage", 0);
+                form.trigger("referringRewardPercentage");
+              }
             },
           })}
         >
@@ -125,7 +141,7 @@ export const ReferredRewardField: FC<Props> = ({
                     })}
                   >
                     <TextField
-                      className="max-w-[160px] max-h-[32px]"
+                      className="max-w-[200px] max-h-[32px]"
                       type="number"
                       id="referring-reward-percentage-off"
                       onChange={(
@@ -164,7 +180,7 @@ export const ReferredRewardField: FC<Props> = ({
                     })}
                   >
                     <TextField
-                      className="max-w-[160px] max-h-[32px]"
+                      className="max-w-[200px] max-h-[32px]"
                       type="number"
                       id="referring-reward-amount-off"
                       onChange={(

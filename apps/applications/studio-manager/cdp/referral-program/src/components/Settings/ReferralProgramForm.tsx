@@ -1,7 +1,12 @@
-import { useEffect, useId, useMemo } from "react";
+import { useEffect, useMemo } from "react";
 
 import { ControlledForm, FormField, useFormController } from "@bsport/form";
-import { Button, TextField, Toggle } from "@bsport/kaizen-primitive-core";
+import {
+  Button,
+  TextField,
+  Toggle,
+  ToggleProps,
+} from "@bsport/kaizen-primitive-core";
 import type { ReferralSettings } from "@bsport/store-cdp-referral";
 import type { Tag } from "@bsport/store-cdp-tag";
 
@@ -21,7 +26,6 @@ import {
 } from "#src/utils/constants";
 import { useTranslation } from "#src/utils/i18n";
 import { referralProgramSchema } from "#src/utils/schema";
-import { getTagByApiId } from "#src/utils/tagSelector";
 import { referringRewardTypeValues } from "#src/utils/types";
 import { ReferralProgramFormData } from "#src/utils/types";
 
@@ -36,9 +40,9 @@ export const ReferralProgramForm: React.FC<ReferralProgramFormProps> = ({
   referralProgram,
   onSaveProgram,
 }: ReferralProgramFormProps) => {
-  const fieldIdPrefix = useId();
   const { t } = useTranslation("settings");
-  const { tags, tagGroups, fetchTags, fetchTagGroups } = useFetchTag();
+  const { tags, tagGroups, tagsMappedByTagId, fetchTags, fetchTagGroups } =
+    useFetchTag();
 
   const defaultValues: ReferralProgramFormData = useMemo(
     () => ({
@@ -83,10 +87,8 @@ export const ReferralProgramForm: React.FC<ReferralProgramFormProps> = ({
   const watchedToggleLinkRedirection = watch("toggleLinkRedirection");
   useEffect(() => {
     if (referralProgram?.tag_referred_member && tags?.length > 0) {
-      const tag = getTagByApiId({
-        tagId: referralProgram.tag_referred_member,
-        tags,
-      });
+      const tag =
+        tagsMappedByTagId[referralProgram.tag_referred_member] ?? null;
       if (tag) {
         methods.setValue("toggleTagReferredMember", true);
         methods.setValue("tagReferredMember", tag.id);
@@ -95,7 +97,7 @@ export const ReferralProgramForm: React.FC<ReferralProgramFormProps> = ({
         methods.setValue("tagReferredMember", null);
       }
     }
-  }, [referralProgram, tags, methods]);
+  }, [referralProgram, tags, tagsMappedByTagId, methods]);
 
   useEffect(() => {
     if (watchedToggleLinkRedirection && referralProgram?.redirect_link) {
@@ -127,7 +129,7 @@ export const ReferralProgramForm: React.FC<ReferralProgramFormProps> = ({
       >
         <TextField
           type="number"
-          id={`${fieldIdPrefix}-referral-program-basket-minimal-amount`}
+          id="referral-program-basket-minimal-amount"
           label={t("active.form.basketMinimalAmount.label")}
           helperText={t("active.form.basketMinimalAmount.helper")}
           suffix={{
@@ -138,21 +140,25 @@ export const ReferralProgramForm: React.FC<ReferralProgramFormProps> = ({
       </FormField>
       <ReferralRewardField companyCurrency={companyCurrency} {...methods} />
       <ReferredRewardField companyCurrency={companyCurrency} {...methods} />
-      <RewardExpirationTimeField fieldIdPrefix={fieldIdPrefix} {...methods} />
+      <RewardExpirationTimeField {...methods} />
       <div className="flex flex-col gap-xs">
         <div
           id="referral-program-tag-toggle-container"
           className="flex flex-col gap-sm"
         >
-          <FormField<ReferralProgramFormData, "toggleTagReferredMember">
+          <FormField<
+            ReferralProgramFormData,
+            "toggleTagReferredMember",
+            ToggleProps
+          >
             name="toggleTagReferredMember"
             mapProps={({ defaultProps, field }) => ({
               ...defaultProps,
               value: String(field.value),
-              onChange: (checked: React.ChangeEvent<HTMLInputElement>) => {
-                const isChecked = !!checked;
-                methods.setValue("toggleTagReferredMember", isChecked);
-                if (!isChecked) {
+              onChange: () => {
+                const checked = !field.value;
+                methods.setValue("toggleTagReferredMember", checked);
+                if (!checked) {
                   methods.setValue("tagReferredMember", null);
                 }
               },
@@ -180,16 +186,13 @@ export const ReferralProgramForm: React.FC<ReferralProgramFormProps> = ({
               <TagSelector
                 initialTag={
                   referralProgram?.tag_referred_member
-                    ? getTagByApiId({
-                        tagId: referralProgram.tag_referred_member,
-                        tags,
-                      })
+                    ? tagsMappedByTagId[referralProgram.tag_referred_member]
                     : null
                 }
                 tagGroups={tagGroups}
                 tags={tags}
                 searchInputProps={{
-                  id: `${fieldIdPrefix}-referral-program-tag-selector-input`,
+                  id: "referral-program-tag-selector-input",
                   placeholder: t("active.form.tagSelector.placeholder"),
                   iconRight: "chevron-down",
                   statusText:
@@ -217,15 +220,19 @@ export const ReferralProgramForm: React.FC<ReferralProgramFormProps> = ({
           id="referral-program-redirect-link-toggle-container"
           className="flex flex-col gap-sm"
         >
-          <FormField<ReferralProgramFormData, "toggleLinkRedirection">
+          <FormField<
+            ReferralProgramFormData,
+            "toggleLinkRedirection",
+            ToggleProps
+          >
             name="toggleLinkRedirection"
             mapProps={({ defaultProps, field }) => ({
               ...defaultProps,
               value: String(field.value),
-              onChange: (checked: React.ChangeEvent<HTMLInputElement>) => {
-                const isChecked = !!checked;
-                methods.setValue("toggleLinkRedirection", isChecked);
-                if (!isChecked) {
+              onChange: () => {
+                const checked = !field.value;
+                methods.setValue("toggleLinkRedirection", checked);
+                if (!checked) {
                   methods.setValue("redirectLink", null);
                 }
               },
@@ -254,7 +261,7 @@ export const ReferralProgramForm: React.FC<ReferralProgramFormProps> = ({
               >
                 <TextField
                   className="min-w-[490px]"
-                  id={`${fieldIdPrefix}-referral-program-redirect-link`}
+                  id="referral-program-redirect-link"
                   label={t("active.form.redirectLink.textfield.label")}
                   placeholder={t(
                     "active.form.redirectLink.textfield.placeholder",
@@ -268,7 +275,7 @@ export const ReferralProgramForm: React.FC<ReferralProgramFormProps> = ({
 
       <Button
         id="referral-program-form-submit-button"
-        className="max-w-[50px]"
+        className="w-fit"
         type="submit"
         size="md"
         color="main"

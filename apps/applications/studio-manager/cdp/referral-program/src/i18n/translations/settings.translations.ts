@@ -113,6 +113,7 @@ exports.default = {
         },
         errors: {
           notProvided: "Add a URL or deactivate this option to continue",
+          invalidFormat: "The URL format is not valid",
         },
       },
       saveSettings: {

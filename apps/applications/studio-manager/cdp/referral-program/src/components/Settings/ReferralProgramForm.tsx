@@ -47,6 +47,8 @@ export const ReferralProgramForm: React.FC<ReferralProgramFormProps> = ({
     applicationTimeLimitUnit: APPLICATION_TIME_LIMIT_UNIT_DEFAULT,
     toggleTagReferredMember: false,
     tagReferredMember: null,
+    toggleLinkRedirection: false,
+    redirectLink: null,
   };
   const methods = useFormController({
     mode: "onBlur",
@@ -56,6 +58,7 @@ export const ReferralProgramForm: React.FC<ReferralProgramFormProps> = ({
   const { watch } = methods;
 
   const watchedToggleTagReferredMember = watch("toggleTagReferredMember");
+  const watchedToggleLinkRedirection = watch("toggleLinkRedirection");
 
   useEffect(() => {
     fetchTags();
@@ -147,6 +150,51 @@ export const ReferralProgramForm: React.FC<ReferralProgramFormProps> = ({
             />
           ) : null}
         </div>
+      </div>
+      <div
+        id="referral-program-redirect-link-toggle-container"
+        className="flex flex-col gap-sm"
+      >
+        <FormField<
+          ReferralProgramFormData,
+          "toggleLinkRedirection"
+        > name="toggleLinkRedirection">
+          <Toggle
+            id="referral-program-redirect-link-toggle"
+            label={t("active.form.redirectLink.switch.label")}
+            checked={watchedToggleLinkRedirection}
+            helperText={t("active.form.redirectLink.switch.helper")}
+            onChange={(checked) => {
+              if (typeof checked !== "boolean") return;
+              methods.setValue("toggleLinkRedirection", checked);
+            }}
+          />
+        </FormField>
+        {watchedToggleLinkRedirection ? (
+          <div className="flex flex-row">
+            <Toggle className="invisible" checked={false} label="" id="" />
+            <FormField<ReferralProgramFormData, "redirectLink">
+              name="redirectLink"
+              mapProps={({ defaultProps, field }) => ({
+                ...defaultProps,
+                value: field.value ?? "",
+                onClear: () => {
+                  methods.setValue("redirectLink", null);
+                  methods.trigger("redirectLink");
+                },
+              })}
+            >
+              <TextField
+                className="min-w-[490px]"
+                id={`${fieldIdPrefix}-referral-program-redirect-link`}
+                label={t("active.form.redirectLink.textfield.label")}
+                placeholder={t(
+                  "active.form.redirectLink.textfield.placeholder",
+                )}
+              />
+            </FormField>
+          </div>
+        ) : null}
       </div>
     </ControlledForm>
   );

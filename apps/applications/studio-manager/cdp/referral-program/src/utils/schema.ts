@@ -6,6 +6,9 @@ import {
   ReferringRewardOptionType,
 } from "#src/utils/types";
 
+const httpUrlRegex =
+  /^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_+.~#?&/=]*)$/;
+
 export const referralProgramSchema = z
   .object({
     basketMinimalAmount: z
@@ -102,6 +105,21 @@ export const referralProgramSchema = z
     applicationTimeLimitUnit: z.string(),
     toggleTagReferredMember: z.boolean(),
     tagReferredMember: z.number().nullable(),
+    toggleLinkRedirection: z.boolean(),
+    redirectLink: z
+      .string()
+      .nullable()
+      .refine(
+        (value) => {
+          if (!value) return true; // If the field is not toggled, no need to validate
+          return httpUrlRegex.test(value);
+        },
+        {
+          message: i18nInstance.t(
+            "active.form.redirectLink.errors.invalidFormat",
+          ),
+        },
+      ),
   })
   .superRefine((data, ctx) => {
     if (data.applicationTimeLimitInterval < 1) {
@@ -119,6 +137,13 @@ export const referralProgramSchema = z
         code: z.ZodIssueCode.custom,
         message: i18nInstance.t("active.form.tagSelector.errors.notProvided"),
         path: ["tagReferredMember"],
+      });
+    }
+    if (data.toggleLinkRedirection && !data.redirectLink) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: i18nInstance.t("active.form.redirectLink.errors.notProvided"),
+        path: ["redirectLink"],
       });
     }
   }) satisfies z.ZodType<ReferralProgramFormData>;

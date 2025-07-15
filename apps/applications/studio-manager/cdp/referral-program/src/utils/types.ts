@@ -9,6 +9,8 @@ export type ReferralProgramFormData = {
   applicationTimeLimitUnit: string;
   toggleTagReferredMember: boolean;
   tagReferredMember: number | null;
+  toggleLinkRedirection: boolean;
+  redirectLink: string | null;
 };
 
 // Map first letter of units to full unit string to allow reverse search (translations -> unit)

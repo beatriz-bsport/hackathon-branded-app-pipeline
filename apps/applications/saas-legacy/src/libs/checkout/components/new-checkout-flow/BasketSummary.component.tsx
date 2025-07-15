@@ -1,5 +1,4 @@
-import React from 'react';
-
+import React, { Fragment, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import { Divider } from '@material-ui/core';
@@ -30,19 +29,19 @@ export const BasketSummary: React.FC<BasketSummaryProps> = ({
   isItemEditionDisabled,
   onAddCheckoutItem,
   onRemoveCheckoutItem,
-  displayBasketTitle,
+  displayBasketTitle = false,
   noPriceBackground,
 }) => {
   const classes = useStyles({ displayBasketTitle });
   const { t } = useTranslation('checkout');
 
-  const onAddOneItem = React.useCallback(
+  const onAddOneItem = useCallback(
     (checkoutItem: CheckoutItem) => {
       onAddCheckoutItem({
         quantity: 1,
         buyable_item_identifier: checkoutItem.buyable_item_identifier,
         buyable_item_id: checkoutItem.buyable_item_id,
-        extra_data: null,
+        extra_data: {},
         name: checkoutItem.name,
         price: Number(checkoutItem.unit_price),
       });
@@ -60,10 +59,9 @@ export const BasketSummary: React.FC<BasketSummaryProps> = ({
 
       {!!basketSummaryCheckoutItems.length && (
         <div className={classes.basketContainer}>
-          {basketSummaryCheckoutItems?.map((checkoutItem, index) => (
-            <>
+          {basketSummaryCheckoutItems.map((checkoutItem, index) => (
+            <Fragment key={`checkout-item-${checkoutItem.id}`}>
               <NewCheckoutItemListItem
-                key={`checkout-item-${checkoutItem.id}`}
                 checkoutItem={checkoutItem}
                 checkoutItemPrice={getCurrencyDisplayWithPrice(
                   checkoutItem.unit_price * checkoutItem.quantity,
@@ -82,7 +80,7 @@ export const BasketSummary: React.FC<BasketSummaryProps> = ({
                   variant="middle"
                 />
               )}
-            </>
+            </Fragment>
           ))}
         </div>
       )}
@@ -109,7 +107,7 @@ const useStyles = makeStyles<Theme, { displayBasketTitle: boolean }>(
       borderStyle: 'solid',
       borderWidth: '1px',
       borderColor: theme.palette.grey[100],
-      ...(displayBasketTitle ? { borderTop: null } : {}),
+      ...(displayBasketTitle ? { borderTop: undefined } : {}),
     }),
     divider: {
       borderColor: theme.palette.grey[100],

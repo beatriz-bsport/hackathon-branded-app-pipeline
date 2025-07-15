@@ -46,7 +46,7 @@ exports.default = {
         maxReferringNumber: {
           label: "Max. use per member",
           errors: {
-            tooSmall: "You must allow at least 1 referral",
+            tooSmall: "The number of uses must be between 1 and 5",
             tooBig: "You cannot give more than 5 referrals",
             noFloat: "You can only use whole numbers",
           },
@@ -130,12 +130,16 @@ exports.default = {
         onFailure: {
           title: "Could not save changes",
         },
+        errors: {
+          invalidVoucherType: "The voucher type is not valid",
+          invalidTimeUnit: "The time unit is not valid",
+        },
       },
     },
     deactivateReferralModal: {
-      title: "Deactivate referrals",
+      title: "Deactivate referrals?",
       description:
-        "You'll need to set up referrals again once you turn off this feature.",
+        "We'll save your setup so that you can easily reactivate referrals in the future.",
       cancelButton: {
         label: "Cancel",
       },

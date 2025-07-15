@@ -299,3 +299,42 @@ export const TextFieldWithBiggerParent: Story = {
     fullWidth: true,
   },
 };
+
+export const TextfieldWithIcon: Story = {
+  name: "Text Field with icon",
+  render: (args) => {
+    const [value, setValue] = useState(args.value);
+    useEffect(() => {
+      setValue(args.value);
+    }, [args.value]);
+
+    return (
+      <TextField
+        {...args}
+        value={value}
+        onChange={(e: ChangeEvent<HTMLInputElement>) =>
+          setValue(e.target.value)
+        }
+        onClear={() => setValue("")}
+      />
+    );
+  },
+  args: {
+    id: "textfield",
+    type: "text",
+    status: "default",
+    value: "",
+    onChange: () => {},
+    onClear: () => {},
+    label: "Label",
+    placeholder: "Placeholder",
+    required: true,
+    disabled: false,
+    helperText: "I am helping you here!",
+    statusText: "Status is either good or bad.",
+    prefix: { type: "color", value: "#32a69e" },
+    suffix: { type: "icon", value: "arrow-right" },
+    fullWidth: true,
+    iconRight: "chevron-down",
+  },
+};

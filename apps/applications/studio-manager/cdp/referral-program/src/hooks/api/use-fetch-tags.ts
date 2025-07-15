@@ -4,6 +4,7 @@ import {
   fetchTagGroupsAction,
   fetchTagsAction,
   selectTagGroups,
+  selectTagMappedByTagId,
   selectTags,
   useTagStore,
 } from "@bsport/store-cdp-tag";
@@ -52,6 +53,10 @@ export function useFetchTag({
 
   const tags = useTagStore((state) => selectTags(state));
 
+  const tagsMappedByTagId = useTagStore((state) =>
+    selectTagMappedByTagId(state),
+  );
+
   const tagGroups = useTagStore((state) => selectTagGroups(state));
 
   return {
@@ -61,5 +66,6 @@ export function useFetchTag({
     fetchTagGroups: triggerFetchTagGroups,
     tags,
     tagGroups,
+    tagsMappedByTagId,
   };
 }

@@ -30,7 +30,7 @@ export const ReferralProgramHelper: React.FC<Props> = ({
     <>
       <div className="flex flex-row gap-lg justify-between">
         <div className="flex flex-col">
-          <Title htmlVariant="h3" weight="strong">
+          <Title htmlVariant="h2" weight="strong">
             {t("referralProgramHelper.title")}
           </Title>
           <Body

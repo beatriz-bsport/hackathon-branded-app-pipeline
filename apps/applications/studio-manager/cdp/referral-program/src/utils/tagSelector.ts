@@ -94,22 +94,3 @@ export function formatGroupedTagToMenuOptions(
     })
     .flat() as MenuOption[];
 }
-
-/**
- * Finds and returns a Tag object from a list of tags, given a real number tag id.
- * The tagId is expected to a real number (e.g., 123).
- *
- * @param {Object} params - The parameters object.
- * @param {number} params.tagId - The real id from the tag.
- * @param {Tag[]} params.tags - The array of Tag objects to search within.
- * @returns {Tag | null} The matching Tag object if found, otherwise null.
- */
-export function getTagByApiId({
-  tagId,
-  tags,
-}: {
-  tagId: number;
-  tags: Tag[];
-}): Tag | null {
-  return tags.find((tag) => tag.id === tagId) || null;
-}

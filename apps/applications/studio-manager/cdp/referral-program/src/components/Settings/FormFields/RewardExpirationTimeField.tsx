@@ -18,14 +18,9 @@ import {
 type Props = Omit<
   ControlledFormProps<ReferralProgramFormData>,
   "children" | "onSubmit"
-> & {
-  fieldIdPrefix?: string;
-};
+>;
 
-export const RewardExpirationTimeField: FC<Props> = ({
-  fieldIdPrefix,
-  ...methods
-}: Props) => {
+export const RewardExpirationTimeField: FC<Props> = ({ ...methods }: Props) => {
   const [timeLimitIntervalCounter, setTimeLimitIntervalCounter] = useState(
     methods.getValues().applicationTimeLimitInterval ??
       APPLICATION_TIME_LIMIT_INTERVAL_DEFAULT,
@@ -73,19 +68,20 @@ export const RewardExpirationTimeField: FC<Props> = ({
         SelectProps
       >
         name="applicationTimeLimitUnit"
-        mapProps={({ defaultProps, field }) => ({
+        mapProps={({ defaultProps, field, form }) => ({
           ...defaultProps,
           value: timeUnitDisplayedValue,
           onSelect: (option: string) => {
             const selectedUnit = labelToId[option] || "day";
             field.onChange(selectedUnit);
+            form.trigger("applicationTimeLimitInterval");
           },
         })}
       >
         <Select
           required
           className="min-w-[190px]"
-          id={`${fieldIdPrefix}-application-time-limit-unit`}
+          id="application-time-limit-unit"
           label={t("active.form.timeLimitForUsage.unit.label")}
           items={items as SelectProps["items"]}
         />
@@ -96,10 +92,9 @@ export const RewardExpirationTimeField: FC<Props> = ({
           ...defaultProps,
           type: "number",
           value: String(field.value),
-          min: 0,
+          min: 1,
           onChange: (event: React.ChangeEvent<HTMLInputElement>) => {
             const newInterval = Number(event.target.value);
-
             // Update form field and local state
             field.onChange(event.target.value);
             setTimeLimitIntervalCounter(newInterval);
@@ -129,7 +124,7 @@ export const RewardExpirationTimeField: FC<Props> = ({
           fullWidth
           type="number"
           label={t("active.form.timeLimitForUsage.interval.label")}
-          id={`${fieldIdPrefix}-application-time-limit-interval`}
+          id="application-time-limit-interval"
           suffix={{
             type: "text",
             value: timeUnitDisplayedValue,

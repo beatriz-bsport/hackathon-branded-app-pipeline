@@ -63,6 +63,15 @@ export const ReferredRewardField: FC<Props> = ({
     "referringRewardPercentage",
   ]);
 
+  const getAlertToDisplay = (
+    rewardType: ReferringRewardOptionType,
+    rewardValue: string | number,
+  ) => {
+    const isZero = parseFloat(String(rewardValue)) === 0;
+    const isSameField = rewardType === referringRewardType;
+    return isSameField && isZero ? alertRewardEqualToZeroConfig : undefined;
+  };
+
   return (
     <div className="flex flex-col gap-md">
       <Title htmlVariant="h4" weight="strong">
@@ -96,12 +105,10 @@ export const ReferredRewardField: FC<Props> = ({
               {
                 id: "percent_off",
                 value: radioOptionMap[referringRewardTypeValues.percentage],
-                alertConfig:
-                  referringRewardType ===
-                    referringRewardTypeValues.percentage &&
-                  referringRewardPercentage === 0
-                    ? alertRewardEqualToZeroConfig
-                    : undefined,
+                alertConfig: getAlertToDisplay(
+                  referringRewardTypeValues.percentage,
+                  referringRewardPercentage,
+                ),
                 element: (
                   <FormField<
                     ReferralProgramFormData,
@@ -114,6 +121,7 @@ export const ReferredRewardField: FC<Props> = ({
                       disabled:
                         referringRewardType !==
                         referringRewardTypeValues.percentage,
+                      min: 0,
                     })}
                   >
                     <TextField
@@ -139,12 +147,10 @@ export const ReferredRewardField: FC<Props> = ({
               {
                 id: "amount_off",
                 value: radioOptionMap[referringRewardTypeValues.amount],
-                alertConfig:
-                  referringRewardType === referringRewardTypeValues.amount &&
-                  (parseFloat(referringRewardAmount) || 0) === 0
-                    ? alertRewardEqualToZeroConfig
-                    : undefined,
-
+                alertConfig: getAlertToDisplay(
+                  referringRewardTypeValues.amount,
+                  referringRewardAmount,
+                ),
                 element: (
                   <FormField<ReferralProgramFormData, "referringRewardAmount">
                     name="referringRewardAmount"
@@ -154,6 +160,7 @@ export const ReferredRewardField: FC<Props> = ({
                       disabled:
                         referringRewardType !==
                         referringRewardTypeValues.amount,
+                      min: 0,
                     })}
                   >
                     <TextField

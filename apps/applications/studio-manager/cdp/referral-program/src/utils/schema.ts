@@ -9,12 +9,16 @@ import {
 const httpUrlRegex =
   /^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_+.~#?&/=]*)$/;
 
+const positivePriceRegex = /^\d+(\.\d+)?$/;
+
+const onlyTwoDecimalsMaxRegex = /^\d+(\.\d+)?$/;
+
 export const referralProgramSchema = z
   .object({
     basketMinimalAmount: z
       .string()
       // 1. Check the general format: only digits, optional minus, optional decimal separator
-      .refine((value) => /^-?\d+([.,]\d*)?$/.test(value), {
+      .refine((value) => positivePriceRegex.test(value), {
         message: i18nInstance.t(
           "active.form.basketMinimalAmount.errors.invalidFormat",
         ),
@@ -22,7 +26,7 @@ export const referralProgramSchema = z
       // 2. Check for at most two decimals (only if there's a decimal part)
       .refine(
         (value) => {
-          const match = /^-?\d+([.,](\d+))?$/.exec(value);
+          const match = onlyTwoDecimalsMaxRegex.exec(value);
           if (!match || !match[2]) return true; // No decimal part, or not matching
           return match[2].length <= 2;
         },
@@ -35,7 +39,7 @@ export const referralProgramSchema = z
     amountReferringReward: z
       .string()
       // 1. Check the general format: only digits, optional minus, optional decimal separator
-      .refine((value) => /^-?\d+([.,]\d*)?$/.test(value), {
+      .refine((value) => positivePriceRegex.test(value), {
         message: i18nInstance.t(
           "active.form.referringReward.errors.invalidFormat",
         ),
@@ -43,7 +47,7 @@ export const referralProgramSchema = z
       // 2. Check for at most two decimals (only if there's a decimal part)
       .refine(
         (value) => {
-          const match = /^-?\d+([.,](\d+))?$/.exec(value);
+          const match = onlyTwoDecimalsMaxRegex.exec(value);
           if (!match || !match[2]) return true; // No decimal part, or not matching
           return match[2].length <= 2;
         },
@@ -74,7 +78,7 @@ export const referralProgramSchema = z
     referringRewardAmount: z
       .string()
       // 1. Check the general format: only digits, optional minus, optional decimal separator
-      .refine((value) => /^-?\d+([.,]\d*)?$/.test(value), {
+      .refine((value) => positivePriceRegex.test(value), {
         message: i18nInstance.t(
           "active.form.referralReward.errors.invalidFormat",
         ),
@@ -82,7 +86,7 @@ export const referralProgramSchema = z
       // 2. Check for at most two decimals (only if there's a decimal part)
       .refine(
         (value) => {
-          const match = /^-?\d+([.,](\d+))?$/.exec(value);
+          const match = onlyTwoDecimalsMaxRegex.exec(value);
           if (!match || !match[2]) return true; // No decimal part, or not matching
           return match[2].length <= 2;
         },
@@ -99,7 +103,21 @@ export const referralProgramSchema = z
         message: i18nInstance.t(
           "active.form.referralReward.errors.percentageTooHigh",
         ),
-      }),
+      })
+      .refine(
+        (value) => {
+          return Number.isInteger(value);
+        },
+        (value) => ({
+          message: i18nInstance.t(
+            "active.form.referralReward.errors.onlyWholePercentage",
+            {
+              wholeNumberUnder: Math.floor(value),
+              wholeNumberAbove: Math.floor(value) + 1,
+            },
+          ),
+        }),
+      ),
     referringRewardType: z.custom<ReferringRewardOptionType>(),
     applicationTimeLimitInterval: z.coerce.number(),
     applicationTimeLimitUnit: z.string(),

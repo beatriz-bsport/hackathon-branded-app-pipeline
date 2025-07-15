@@ -31,7 +31,7 @@ export const useToggleReferralProgram = ({
       onFailure?.();
       toast({
         icon: "alert-circle",
-        label: isProgramActivated
+        title: isProgramActivated
           ? t("referralProgramHelper.button.deactivated.errors.couldNotToggle")
           : t("referralProgramHelper.button.activated.errors.couldNotToggle"),
         status: "critical",

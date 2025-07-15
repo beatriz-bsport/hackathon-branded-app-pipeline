@@ -1417,6 +1417,9 @@ importers:
       '@bsport/sm-backbone':
         specifier: workspace:*
         version: link:../../../../../packages/utils/sm-backbone
+      '@bsport/store-cdp-referral':
+        specifier: workspace:*
+        version: link:../../../../../packages/stores/cdp/referral
       '@bsport/store-cdp-tag':
         specifier: workspace:*
         version: link:../../../../../packages/stores/cdp/tag

@@ -1,11 +1,19 @@
 import { type FC, useState } from "react";
 
-import { ControlledFormProps, FormField } from "@bsport/form";
-import { Select, SelectProps, TextField } from "@bsport/kaizen-primitive-core";
+import { type ControlledFormProps, FormField } from "@bsport/form";
+import {
+  Select,
+  type SelectProps,
+  TextField,
+} from "@bsport/kaizen-primitive-core";
 
 import { APPLICATION_TIME_LIMIT_INTERVAL_DEFAULT } from "#src/utils/constants";
 import { useTranslation } from "#src/utils/i18n";
-import { ReferralProgramFormData, timeUnits, unitMap } from "#src/utils/types";
+import {
+  type ReferralProgramFormData,
+  timeUnits,
+  unitMap,
+} from "#src/utils/types";
 
 type Props = Omit<
   ControlledFormProps<ReferralProgramFormData>,
@@ -88,6 +96,7 @@ export const RewardExpirationTimeField: FC<Props> = ({
           ...defaultProps,
           type: "number",
           value: String(field.value),
+          min: 0,
           onChange: (event: React.ChangeEvent<HTMLInputElement>) => {
             const newInterval = Number(event.target.value);
 

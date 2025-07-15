@@ -51,6 +51,10 @@ exports.default = {
             noFloat: "You can only use whole numbers",
           },
         },
+        alerts: {
+          equalToZero:
+            "By choosing this value, no discount will be applied to the purchase of the referred member",
+        },
         errors: {
           tooManyDecimalPoints:
             "The amount cannot have more than 2 decimal points",
@@ -63,6 +67,8 @@ exports.default = {
         percentage: "Percentage",
         amount: "Amount",
         errors: {
+          onlyWholePercentage:
+            "The percentage should be a whole number, the nearest integer are {{ wholeNumberUnder }} or {{ wholeNumberAbove }}",
           percentageTooHigh: "The percentage cannot be greater than 100",
           invalidFormat: "The amount format is not valid",
           tooManyDecimalPoints:
@@ -94,7 +100,7 @@ exports.default = {
         },
       },
       tagSelector: {
-        label: "Add a tag for new members who used the referral link",
+        label: "Apply a tag when new customers use the referral link",
         placeholder: "Select a tag",
         helper: "Tip: Tag new customers to target them later.",
         errors: {
@@ -105,7 +111,7 @@ exports.default = {
         switch: {
           label: "Add a redirect link",
           helper:
-            "After registering, the new member will be redirected to the page indicated by your URL. Otherwise, they will be taken to the Calendar page.",
+            "Add a link to redirect new customers to a custom URL after registering. If left blank, they'll be taken to the Calendar page.",
         },
         textfield: {
           label: "Redirect link",

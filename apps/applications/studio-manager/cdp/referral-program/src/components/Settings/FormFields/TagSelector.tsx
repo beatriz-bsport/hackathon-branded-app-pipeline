@@ -20,6 +20,7 @@ import {
 const TAG_SELECTOR_DEBOUNCE_VALUE = 300;
 
 export type TagSelectorProps = {
+  initialTag?: Tag | null;
   tags: Tag[];
   tagGroups: TagGroup[];
   searchInputProps?: TextFieldProps;
@@ -29,6 +30,7 @@ export type TagSelectorProps = {
 };
 
 export const TagSelector = ({
+  initialTag,
   tags,
   tagGroups,
   searchInputProps,
@@ -37,7 +39,9 @@ export const TagSelector = ({
   onSearchBlur,
 }: TagSelectorProps) => {
   const searchInputRef = useRef<HTMLInputElement | null>(null);
-  const [selectedTag, setSelectedTag] = useState<Tag | null>(null);
+  const [selectedTag, setSelectedTag] = useState<Tag | null>(
+    initialTag ?? null,
+  );
   const [tagItems, setTagItems] = useState<MenuOption[]>([]);
   const [filteredItems, setFilteredItems] = useState<MenuOption[]>([]);
   const { t } = useTranslation("settings");
@@ -137,6 +141,13 @@ export const TagSelector = ({
   useEffect(() => {
     setTagItems(formatTagsIntoMenuOptions());
   }, [formatTagsIntoMenuOptions]);
+
+  useEffect(() => {
+    if (initialTag) {
+      setSelectedTag(initialTag);
+      onSelectTag?.(initialTag);
+    }
+  }, [initialTag]);
 
   return (
     <div id="tag-selector-container" className="flex flex-row">

@@ -1,6 +1,4 @@
 import React from 'react';
-import { Elements } from '@stripe/react-stripe-js';
-import { loadStripe } from '@stripe/stripe-js';
 import { useTranslation } from 'react-i18next';
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -22,84 +20,78 @@ import PaymentMethodCardSelector from '#src/libs/payment/components/PaymentMetho
 import type { StripeReader } from '#src/libs/terminal/types';
 import PaymentStripeTerminal from '#src/libs/terminal/components/PaymentStripeTerminal.component';
 import PaymentBsportInternal from '#src/libs/payment/components/payment-backend-internal/PaymentBsportInternal.component';
-import PaymentStripeCard from '#src/libs/payment/components/payment-backend-stripe/PaymentStripeCard.component';
-import { getStripePkKey } from '#src/libs/theme/selectors';
-import PaymentStripeSEPA from '#src/libs/payment/components/payment-backend-stripe/PaymentStripeSEPA.component';
 import InstalmentPaymentSelector from '#src/libs/instalment-payment-configuration/components/InstalmentPaymentSelector.component';
+
 import type { InstalmentPaymentApiWithBasketId } from '#src/libs/instalment-payment-configuration/types';
 import type { Basket } from '#src/libs/checkout/types';
-import type { OptionCallback } from '../../../../state/types';
+import type { OptionCallback } from '#src/state/types';
 
 type Props = {
-  basket?: Basket;
   availablePaymentMethods?: QuicksalePaymentMethod[];
-  selectedPaymentMethod: QuicksalePaymentMethod;
-  setSelectedPaymentMethod: (paymentMethod: QuicksalePaymentMethod) => void;
-  loading?: boolean;
-  setLoading?: (loading: boolean) => void;
-  stripeReaders?: StripeReader[];
+  basket?: Basket;
   clientSecret?: string;
-  paymentGroupPriceCts?: number;
-  paymentGroup?: number;
-  setIsProcessing?: (isProcessing: boolean) => void;
-  onPaymentSuccess: (callabck?: () => void) => void;
-  onCancel?: () => void;
-  children?: React.ReactNode;
-  memberId?: number;
-  detachPaymentMethodLoading?: boolean;
-  removePaymentMethod: (
-    paymentMethodId: string,
-    options?: OptionCallback<unknown, number>,
-  ) => void;
-  checkItemsBasket: (basketId: string) => Promise<boolean>;
-  basketId?: string;
-  isMemberPOS?: boolean;
+  hasPaymentGroupPriceBeenModified?: boolean;
   instalmentPaymentConfigurationList?: InstalmentPaymentApiWithBasketId[];
+  instalmentPaymentSelectedId?: number;
+  isMemberPOS?: boolean;
+  loading?: boolean;
+  onCancel?: () => void;
+  onPaymentSuccess: (callabck?: () => void) => void;
   onSelectInstalmentPayment: (
     instalment_payment: number,
     options?: OptionCallback<Basket>,
   ) => void;
-  instalmentPaymentSelectedId?: number;
   openMemberAuthenticationModale?: () => void;
-  hasPaymentGroupPriceBeenModified?: boolean;
+  paymentGroup?: number;
+  paymentGroupPriceCts?: number;
   resetPaymentGroupPrice?: () => void;
+  selectedPaymentMethod: QuicksalePaymentMethod;
+  setIsProcessing?: (isProcessing: boolean) => void;
+  setLoading?: (loading: boolean) => void;
+  setSelectedPaymentMethod: (paymentMethod: QuicksalePaymentMethod) => void;
+  stripeReaders?: StripeReader[];
+  children?: React.ReactNode;
+  // (Quicksale MVP): Unused props for payment methods
+  /* basketId?: string;
   cardBillingDetailsMandatory: boolean;
+  checkItemsBasket: (basketId: string) => Promise<boolean>;
+  detachPaymentMethodLoading?: boolean;
+  memberId?: number;
+  removePaymentMethod: (
+    paymentMethodId: string,
+    options?: OptionCallback<unknown, number>,
+  ) => void; */
 };
 
 const QuicksalePaymentInfo: React.FC<Props> = ({
-  basket,
   availablePaymentMethods,
-  selectedPaymentMethod,
-  setSelectedPaymentMethod,
-  loading,
-  setLoading,
-  stripeReaders,
-  clientSecret,
-  paymentGroupPriceCts,
-  paymentGroup,
-  setIsProcessing,
-  onPaymentSuccess,
-  onCancel,
+  basket,
   children,
-  memberId,
-  detachPaymentMethodLoading,
-  removePaymentMethod,
-  checkItemsBasket,
-  basketId,
-  isMemberPOS,
-  instalmentPaymentConfigurationList,
-  onSelectInstalmentPayment,
-  instalmentPaymentSelectedId,
-  openMemberAuthenticationModale,
+  clientSecret,
   hasPaymentGroupPriceBeenModified,
+  instalmentPaymentConfigurationList,
+  instalmentPaymentSelectedId,
+  isMemberPOS,
+  loading,
+  onCancel,
+  onPaymentSuccess,
+  onSelectInstalmentPayment,
+  openMemberAuthenticationModale,
+  paymentGroup,
+  paymentGroupPriceCts,
   resetPaymentGroupPrice,
-  cardBillingDetailsMandatory,
+  selectedPaymentMethod,
+  setIsProcessing,
+  setLoading,
+  setSelectedPaymentMethod,
+  stripeReaders,
 }) => {
   const classes = useStyles();
 
   const { t } = useTranslation('quicksale');
 
-  const stripePromise = loadStripe(getStripePkKey());
+  // (Quicksale MVP): Unused credit card and SEPA payment methods
+  // const stripePromise = loadStripe(getStripePkKey());
 
   return (
     <div className={classes.container}>
@@ -211,6 +203,8 @@ const QuicksalePaymentInfo: React.FC<Props> = ({
         </>
       )}
 
+      {/* (Quicksale MVP): CreditCard payment method disabled */}
+      {/*
       {selectedPaymentMethod === QuicksalePaymentMethod.CreditCard && (
         <Elements stripe={stripePromise}>
           <PaymentStripeCard
@@ -239,7 +233,10 @@ const QuicksalePaymentInfo: React.FC<Props> = ({
           </PaymentStripeCard>
         </Elements>
       )}
+      */}
 
+      {/* (Quicksale MVP): Sepa payment method disabled */}
+      {/*
       {selectedPaymentMethod === QuicksalePaymentMethod.Sepa && (
         <Elements stripe={stripePromise}>
           <PaymentStripeSEPA
@@ -267,6 +264,7 @@ const QuicksalePaymentInfo: React.FC<Props> = ({
           </PaymentStripeSEPA>
         </Elements>
       )}
+      */}
     </div>
   );
 };

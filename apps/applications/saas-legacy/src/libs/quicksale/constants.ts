@@ -1,7 +1,3 @@
-import {
-  PAYMENT_GROUP_METHOD_IDENTIFIER_CB,
-  PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA,
-} from '@bsport/common/lib/master-data/payment-group.js';
 import { QuicksaleBasketItem } from '@bsport/common/lib/master-data/buyable-items.js';
 
 import { PAYMENT_STRIPE_TERMINAL_FAKE } from '#src/libs/payment/utils';
@@ -70,11 +66,12 @@ export enum QuicksaleDeliveryType {
   HomeDelivery = 'home_delivery',
 }
 
+// (Quicksale MVP): CreditCard and Sepa payment methods disabled
 export enum QuicksalePaymentMethod {
   StripeTerminal = PAYMENT_STRIPE_TERMINAL_FAKE,
   Manual = -1,
-  CreditCard = PAYMENT_GROUP_METHOD_IDENTIFIER_CB,
-  Sepa = PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA,
+  /*CreditCard = PAYMENT_GROUP_METHOD_IDENTIFIER_CB,
+  Sepa = PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA,*/
 }
 
 export const WARNING_FONT_COLOR = '#663D00';
@@ -91,7 +88,9 @@ export const QUICKSALE_ITEMS_REQUIRING_AUTHENTICATION = [
   QuicksaleBasketItem.PaymentComboIdentifier,
 ];
 
-export const PAYMENT_METHODS_COMPATIBLE_WITH_INSTALMENT_PAYMENT = [
-  QuicksalePaymentMethod.CreditCard,
-  QuicksalePaymentMethod.Sepa,
-];
+// (Quicksale MVP): CreditCard and Sepa payment methods disabled
+export const PAYMENT_METHODS_COMPATIBLE_WITH_INSTALMENT_PAYMENT: QuicksalePaymentMethod[] =
+  [
+    /*QuicksalePaymentMethod.CreditCard,
+  QuicksalePaymentMethod.Sepa,*/
+  ];

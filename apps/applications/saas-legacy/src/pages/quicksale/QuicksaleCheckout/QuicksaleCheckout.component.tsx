@@ -3,116 +3,114 @@ import { useTranslation } from 'react-i18next';
 import { DateTime } from 'luxon';
 
 import { makeStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
 import ArrowBack from '@material-ui/icons/ArrowBack';
+import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
 import Alert from '@material-ui/lab/Alert';
 
 import QuicksaleAppBar from '#src/libs/quicksale/components/QuicksaleAppBar';
-
-import type { Theme } from '#src/libs/theme/types';
 import QuicksaleBasketSummary from '#src/libs/quicksale/components/QuicksaleBasketSummary';
 import QuicksaleBasketPriceRecap from '#src/libs/quicksale/components/QuicksaleBasketPriceRecap';
-import type { Basket, BasketAddress } from '#src/libs/checkout/types';
-import type { Member } from '#src/libs/member/types';
-import type { PaymentGroup } from '#src/libs/payment/types';
+import QuicksaleDeliveryForm from '#src/libs/quicksale/components/QuicksaleDeliveryForm/QuicksaleDeliveryForm.component';
+import QuicksalePaymentInfo from '#src/libs/quicksale/components/QuicksalePaymentInfo';
+import UseInternalAccountForm from '#src/libs/payment/components/UseInternalAccountForm.component';
 
 import {
   QuicksaleDeliveryType,
   QuicksalePaymentMethod,
 } from '#src/libs/quicksale/constants';
-import QuicksaleDeliveryForm from '#src/libs/quicksale/components/QuicksaleDeliveryForm/QuicksaleDeliveryForm.component';
-import QuicksalePaymentInfo from '#src/libs/quicksale/components/QuicksalePaymentInfo';
-import type { StripeReader } from '#src/libs/terminal/types';
+
+import type { Basket, BasketAddress } from '#src/libs/checkout/types';
 import type { InstalmentPaymentApiWithBasketId } from '#src/libs/instalment-payment-configuration/types';
-import UseInternalAccountForm from '#src/libs/payment/components/UseInternalAccountForm.component';
-import type { OptionCallback } from '../../../state/types';
+import type { Member } from '#src/libs/member/types';
+import type { OptionCallback } from '#src/state/types';
+import type { PaymentGroup } from '#src/libs/payment/types';
+import type { StripeReader } from '#src/libs/terminal/types';
+import type { Theme } from '#src/libs/theme/types';
 
 type Props = {
-  theme: Theme;
-  quicksaleStaffFullName?: string;
-  onSignOut?: () => void;
-  goBack: () => void;
+  alreadyPaidAmount?: number;
+  attachCoupon: (code: string, options?: OptionCallback<Basket>) => void;
+  availablePaymentMethods?: QuicksalePaymentMethod[];
   basket?: Basket;
-  member: Member;
-  openMemberAuthenticationModal: () => void;
+  basketAddress: BasketAddress | null;
+  clientSecret?: string;
+  deliveryType: QuicksaleDeliveryType;
   editPaymentGroupPrice?: (
     price: number,
     options?: OptionCallback<PaymentGroup>,
   ) => void;
-  paymentGroup?: number;
-  paymentGroupPriceCts?: number;
-  alreadyPaidAmount?: number;
-  loading?: boolean;
-  setLoading?: (loading: boolean) => void;
-  isProcessing?: boolean;
-  setIsProcessing?: (isProcessing: boolean) => void;
-  removeCoupon: (data: { checkout_item: string; quantity: number }) => void;
-  attachCoupon: (code: string, options?: OptionCallback<Basket>) => void;
-  basketAddress: BasketAddress | null;
-  setBasketAddress: (basketAddress: BasketAddress | null) => void;
-  deliveryType: QuicksaleDeliveryType;
-  setDeliveryType: (deliveryType: QuicksaleDeliveryType) => void;
-  availablePaymentMethods?: QuicksalePaymentMethod[];
-  selectedPaymentMethod: QuicksalePaymentMethod;
-  setSelectedPaymentMethod: (paymentMethod: QuicksalePaymentMethod) => void;
-  stripeReaders?: StripeReader[];
-  clientSecret?: string;
-  onPaymentSuccess: (callback?: () => void) => void;
-  detachPaymentMethodLoading?: boolean;
-  removePaymentMethod: (
-    paymentMethodId: string,
-    options?: OptionCallback<unknown, number>,
-  ) => void;
-  checkItemsBasket: (basketId: string) => Promise<boolean>;
+  goBack: () => void;
   instalmentPaymentConfigurationList?: InstalmentPaymentApiWithBasketId[];
+  isProcessing?: boolean;
+  loading?: boolean;
+  member: Member;
+  onPaymentSuccess: (callback?: () => void) => void;
   onSelectInstalmentPayment: (
     instalment_payment: number,
     options?: OptionCallback<Basket>,
   ) => void;
+  onSignOut?: () => void;
+  openMemberAuthenticationModal: () => void;
+  paymentGroup?: number;
+  paymentGroupPriceCts?: number;
+  quicksaleStaffFullName?: string;
+  removeCoupon: (data: { checkout_item: string; quantity: number }) => void;
+  removeInternalAccountPrepaidLine: (options?: OptionCallback<Basket>) => void;
+  selectedPaymentMethod: QuicksalePaymentMethod;
+  setBasketAddress: (basketAddress: BasketAddress | null) => void;
+  setDeliveryType: (deliveryType: QuicksaleDeliveryType) => void;
+  setIsProcessing?: (isProcessing: boolean) => void;
+  setLoading?: (loading: boolean) => void;
+  setSelectedPaymentMethod: (paymentMethod: QuicksalePaymentMethod) => void;
+  stripeReaders?: StripeReader[];
+  theme: Theme;
   useInternalAccount: (
     amount: number,
     options?: OptionCallback<Basket>,
   ) => void;
-  removeInternalAccountPrepaidLine: (options?: OptionCallback<Basket>) => void;
+  // (Quicksale MVP): CreditCard and Sepa payment methods disabled
+  /*checkItemsBasket?: (options?: OptionCallback<Basket>) => void;
+  detachPaymentMethodLoading?: boolean;
+  removePaymentMethod?: (
+    paymentMethodId: string,
+    options?: OptionCallback<Basket>,
+  ) => void;*/
 };
 
 const QuicksaleCheckout: React.FC<Props> = ({
-  theme,
-  quicksaleStaffFullName,
-  onSignOut,
-  goBack,
+  alreadyPaidAmount,
+  attachCoupon,
+  availablePaymentMethods,
   basket,
-  member,
-  openMemberAuthenticationModal,
+  basketAddress,
+  clientSecret,
+  deliveryType,
   editPaymentGroupPrice,
+  goBack,
+  instalmentPaymentConfigurationList,
+  isProcessing,
+  loading,
+  member,
+  onPaymentSuccess,
+  onSelectInstalmentPayment,
+  onSignOut,
+  openMemberAuthenticationModal,
   paymentGroup,
   paymentGroupPriceCts,
-  alreadyPaidAmount,
-  loading,
-  setLoading,
-  isProcessing,
-  setIsProcessing,
+  quicksaleStaffFullName,
   removeCoupon,
-  attachCoupon,
-  basketAddress,
-  setBasketAddress,
-  deliveryType,
-  setDeliveryType,
-  availablePaymentMethods,
+  removeInternalAccountPrepaidLine,
   selectedPaymentMethod,
+  setBasketAddress,
+  setDeliveryType,
+  setIsProcessing,
+  setLoading,
   setSelectedPaymentMethod,
   stripeReaders,
-  clientSecret,
-  onPaymentSuccess,
-  detachPaymentMethodLoading,
-  removePaymentMethod,
-  checkItemsBasket,
-  instalmentPaymentConfigurationList,
-  onSelectInstalmentPayment,
+  theme,
   useInternalAccount,
-  removeInternalAccountPrepaidLine,
 }) => {
   const { t } = useTranslation('quicksale');
 
@@ -206,11 +204,7 @@ const QuicksaleCheckout: React.FC<Props> = ({
           <QuicksalePaymentInfo
             availablePaymentMethods={availablePaymentMethods}
             basket={basket}
-            basketId={basket.id}
-            cardBillingDetailsMandatory={theme.force_billing_details_on_cards}
-            checkItemsBasket={checkItemsBasket}
             clientSecret={clientSecret}
-            detachPaymentMethodLoading={detachPaymentMethodLoading}
             hasPaymentGroupPriceBeenModified={
               !basket.instalment_payment &&
               paymentGroupPriceCts !==
@@ -224,20 +218,24 @@ const QuicksaleCheckout: React.FC<Props> = ({
             instalmentPaymentSelectedId={basket.instalment_payment}
             isMemberPOS={member.is_pos}
             loading={loading}
-            memberId={basket.member}
             onCancel={goBack}
             onPaymentSuccess={onPaymentSuccess}
             onSelectInstalmentPayment={onSelectInstalmentPayment}
             openMemberAuthenticationModale={openMemberAuthenticationModal}
             paymentGroup={paymentGroup}
             paymentGroupPriceCts={paymentGroupPriceCts}
-            removePaymentMethod={removePaymentMethod}
             resetPaymentGroupPrice={resetPaymentGroupPrice}
             selectedPaymentMethod={selectedPaymentMethod}
             setIsProcessing={setIsProcessing}
             setLoading={setLoading}
             setSelectedPaymentMethod={setSelectedPaymentMethod}
             stripeReaders={stripeReaders}
+            // basketId={basket.id}
+            // cardBillingDetailsMandatory={theme.force_billing_details_on_cards}
+            // checkItemsBasket={checkItemsBasket}
+            // detachPaymentMethodLoading={detachPaymentMethodLoading}
+            // memberId={basket.member}
+            // removePaymentMethod={removePaymentMethod}
           >
             {member.credit_account_balance ? (
               <div className={classes.clientDebt}>

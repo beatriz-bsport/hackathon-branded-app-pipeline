@@ -121,6 +121,7 @@ export const useLightSignupFormUtils = () => {
         lastName: formValues.lastName.trim(),
         email: formValues.email.trim(),
         phone: formValues.phone.trim(),
+        password: formValues.password.trim(),
       };
     },
     [],

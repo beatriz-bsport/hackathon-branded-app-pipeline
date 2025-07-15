@@ -158,6 +158,10 @@
   background-color: var(--bs-color-border-weak);
 }
 
+.bs-light-signup-form__password-section > .bs-fabrique-password-field__wrapper {
+  flex-direction: column;
+}
+
 /* Responsive Styles */
 @container bsOneClickBooking (width > 950px) {
   /* Container Adjustments */
@@ -256,5 +260,10 @@
   .bs-oneclick-booking__skeleton--thin {
     height: 30px;
     width: 70%;
+  }
+
+  .bs-light-signup-form__password-section
+    > .bs-fabrique-password-field__wrapper {
+    flex-direction: row;
   }
 }

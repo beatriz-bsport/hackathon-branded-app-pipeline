@@ -4224,7 +4224,8 @@
             },
             "section": {
                 "titleAvailable": "Disponibile per la vendita",
-                "titleManagerOnly": "Non disponibile per la vendita"
+                "titleManagerOnly": "Non disponibile per la vendita",
+                "titleArchived": "Pacchetti archiviati"
             },
             "form": {
                 "title": "[Form] Pacchetto per appuntamenti condiviso",
@@ -4242,15 +4243,23 @@
                 }
             },
             "deleteForm": {
-                "title": "Elimina il pacchetto per appuntamenti condiviso",
-                "content": "I membri potranno comunque utilizzare il pacchetto per appuntamenti presso lo studio in cui lo hanno acquistato. Qualsiasi abbonamento collegato a questo pacchetto per appuntamenti funzionerà solo presso lo stesso studio.",
+                "title": "Archivia il pacchetto per appuntamenti condiviso",
+                "content": "I membri potranno comunque utilizzare il pacchetto appuntamenti presso lo studio dove lo hanno acquistato. Qualsiasi abbonamento collegato a questo pacchetto appuntamenti rimarrà valido presso lo stesso studio.",
                 "actions": {
                     "close": "Chiudere",
-                    "submit": "Elimina"
+                    "submit": "Archivia"
                 }
             },
             "actions": {
                 "create": "Aggiungi un pacchetto condiviso"
+            },
+            "restoreForm": {
+                "title": "Ripristina pacchetto appuntamenti condiviso",
+                "content": "Il pacchetto appuntamenti condiviso verrà ripristinato e nuovamente condiviso tra gli studi precedentemente selezionati.",
+                "actions": {
+                    "close": "Chiudi",
+                    "submit": "Ripristina"
+                }
             }
         },
         "seeAll": "Vedi tutti",
@@ -4871,7 +4880,7 @@
                 "products": "Prodotti"
             },
             "reporting": {
-                "views": "Le tue opinioni",
+                "views": "Visualizzazioni salvate",
                 "categories": "Report"
             }
         },
@@ -5784,6 +5793,22 @@
             },
             "compatibilitiesUpdate": {
                 "fail": "Errore durante l'aggiornamento delle compatibilità dei pacchetti"
+            },
+            "universalPaymentPackTemplateRestored": {
+                "success": "Pacchetto universale condiviso ripristinato",
+                "error": "Impossibile ripristinare il pacchetto universale condiviso"
+            },
+            "universalPaymentPackTemplateArchived": {
+                "success": "Pacchetto universale condiviso archiviato",
+                "error": "Impossibile archiviare il pacchetto universale condiviso"
+            },
+            "paymentPackTemplateRestored": {
+                "success": "Pacchetto condiviso ripristinato",
+                "error": "Impossibile ripristinare il pacchetto condiviso"
+            },
+            "paymentPackTemplateArchived": {
+                "success": "Pacchetto condiviso archiviato",
+                "error": "Impossibile archiviare il pacchetto condiviso"
             }
         },
         "coupon": {
@@ -10061,7 +10086,7 @@
         },
         "actions": {
             "edit": "Modifica",
-            "delete": "Rimuovi",
+            "delete": "Archivia",
             "scaleCredit": "Crediti mult/div",
             "massExtension": "Aggiungere un'estensione",
             "close": "Chiudere"
@@ -10646,11 +10671,11 @@
             },
             "deleteForm": {
                 "actions": {
-                    "submit": "Elimina",
+                    "submit": "Archivia",
                     "close": "Chiudi"
                 },
                 "content": "I membri potranno comunque utilizzare il pacchetto presso lo studio in cui lo hanno acquistato. Qualsiasi abbonamento collegato a questo pacchetto rimarrà valido presso lo stesso studio.",
-                "title": "Elimina il pacchetto condiviso"
+                "title": "Archivia il pacchetto condiviso"
             },
             "form": {
                 "actions": {
@@ -10672,7 +10697,8 @@
             },
             "section": {
                 "titleManagerOnly": "Non disponibile per la vendita",
-                "titleAvailable": "Disponibile per la vendita"
+                "titleAvailable": "Disponibile per la vendita",
+                "titleArchived": "Pacchetti archiviati"
             },
             "isEmptyExplain": "I pacchetti per le lezioni condivise sono disponibili negli studi di vostra scelta e permettono ai vostri membri di usare i loro crediti in qualsiasi studio voi scegliate.",
             "specification": {
@@ -10681,6 +10707,14 @@
             "pass": "Pacchetti",
             "widget": {
                 "choose": "Scelta dei pacchetti condivisi"
+            },
+            "restoreForm": {
+                "title": "Ripristina pacchetto condiviso",
+                "content": "Il pacchetto condiviso verrà ripristinato e nuovamente condiviso tra gli studi selezionati in precedenza.",
+                "actions": {
+                    "close": "Chiudi",
+                    "submit": "Ripristina"
+                }
             }
         },
         "paymentPackTemplateInstance": {
@@ -10763,6 +10797,24 @@
         "orderingAlert": {
             "button": "Pagina di personalizzazione",
             "text": "Qualsiasi modifica riguardo le \"Categorie\" avrà effetto solo sulla visualizzazione della pagina \"Pacchetti\" del marketplace e dell'applicazione. Questo aggiornamento non influirà su nessun'altra sezione o categoria."
+        },
+        "universalPaymentPackTemplate": {
+            "restoreForm": {
+                "title": "Ripristina Pacchetto Universale condiviso",
+                "content": "Il pacchetto universale condiviso verrà ripristinato e nuovamente condiviso tra gli studi precedentemente selezionati.",
+                "actions": {
+                    "close": "Chiudi",
+                    "submit": "Ripristina"
+                }
+            },
+            "deleteForm": {
+                "title": "Archivia Pacchetto Universale condiviso",
+                "content": "I membri potranno comunque utilizzare il pacchetto universale presso lo studio dove lo hanno acquistato. Qualsiasi abbonamento collegato a questo pacchetto universale rimarrà valido presso lo stesso studio.",
+                "actions": {
+                    "close": "Chiudi",
+                    "submit": "Archivia"
+                }
+            }
         }
     },
     "metaActivity": {
@@ -13824,7 +13876,7 @@
         },
         "shortMinuteIdentifier": "min",
         "shortHourIdentifier": "h",
-        "shortDayIdentifier": "giorno/i",
+        "shortDayIdentifier": "giorno(i)",
         "never": "Mai",
         "longHourIdentifier": "ore",
         "longMinuteIdentifier": "minuti",
@@ -14314,7 +14366,7 @@
                     "upsell": "Upsells: Aggiungere alla piattaforma tutti gli upsell applicabili.",
                     "billing": "Fatturazione della piattaforma: Creare la configurazione di fatturazione per il nuovo backoffice.",
                     "core": "La nuova piattaforma di backoffice è stata creata con successo. Tuttavia, prima di inviare le credenziali di accesso al cliente, assicuratevi di aver completato i seguenti passaggi di convalida della documentazione interna:",
-                    "contactAccountManager": "Convalida dell'account in corso. Se sei un manager di studio, contatta il tuo contatto bsport per attivare il tuo Back Office."
+                    "contactAccountManager": "Account in attesa di validazione. Se sei uno Studio Manager, rivolgiti al tuo contatto bsport per attivare il backoffice."
                 }
             }
         },
@@ -15603,9 +15655,9 @@
             "acceptTermsAndFinalize": "Si prega di accettare le condizioni generali e di finalizzare la prenotazione",
             "checkAndFinalize": "Controlla il carrello e completa la prenotazione",
             "almostDone": "Quasi finito",
-            "goToMarketplace": "Vai al marketplace",
+            "goToMarketplace": "Vai al Marketplace",
             "newCheckout": {
-                "isEmptyDescription": "Continua a esplorare il marketplace!",
+                "isEmptyDescription": "Continua a esplorare il Marketplace!",
                 "isEmpty": "Il carrello è vuoto!"
             },
             "noBooking": {
@@ -19388,7 +19440,7 @@
                         "cancel": "Cancella",
                         "create": "Aggiungi",
                         "helperTextNewMembers": "Il form apparirà come un pop-up sul marketplace e sul widget dopo il form di registrazione.",
-                        "helperTextRegisteredMembers": "Il form apparirà come un pop-up sul marketplace e sul widget di tutti i membri interessati.",
+                        "helperTextRegisteredMembers": "Il form apparirà come un pop-up sul Portail des Membres e sul widget di tutti i membri interessati.",
                         "subTitle": "A quali membri volete rivolgervi?",
                         "title": "Regole di visualizzazione"
                     }

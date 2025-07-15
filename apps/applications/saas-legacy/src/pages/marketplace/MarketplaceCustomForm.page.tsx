@@ -13,7 +13,6 @@ import Button from '@material-ui/core/Button';
 import { createStyles, Theme } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 
-import { CUSTOM_FORM_CSS_VARIANT_ACTIVATED } from '#src/libs/custom-form/constants';
 import { marketplaceCssHoc } from '#src/hocs/marketplace-css.hoc';
 import {
   getLoginUrl as getLoginRedirectionUrl,
@@ -168,7 +167,6 @@ export class MarketplaceCustomForm extends React.Component<Props, State> {
                       }
                       // @ts-expect-error
                       initial={this.props.customFormWithEnabledField}
-                      isCssVariantActivated={CUSTOM_FORM_CSS_VARIANT_ACTIVATED}
                       // @ts-expect-error
                       layouts={this.props.customFormWithEnabledField?.layout}
                       onSubmit={this.props.submitCustomForm}

@@ -116,8 +116,12 @@ const ReportDetailContent: React.FC<Props> = ({
   });
 
   const hasReportBeenGenerated = React.useMemo(
-    () => !!reportHeaders.results?.averageable,
-    [reportHeaders],
+    () =>
+      !!reportHeaders.results &&
+      (!!reportHeaders.results.averageable ||
+        !!reportHeaders.results.summable || // Backend always adds total_rows to summable
+        reportGeneratedRows.result?.length > 0), // Fallback for edge cases
+    [reportHeaders, reportGeneratedRows.result],
   );
 
   const reportWithoutResults = React.useMemo(

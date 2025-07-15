@@ -6,6 +6,7 @@ import HelpIcon from '@material-ui/icons/Help';
 import { makeStyles } from '@material-ui/core';
 import chroma from 'chroma-js';
 import { openIntercomHelp } from '../../../intercom';
+import { useCssVariantActivated } from '../hooks/useCssVariantActivated';
 
 type Props = {
   title: string;
@@ -19,6 +20,10 @@ export const CustomFormTitle: React.FC<Props> = ({
   simplifyUI,
 }) => {
   const classes = useStyles();
+
+  const isCssVariantActivated = useCssVariantActivated();
+
+  if (isCssVariantActivated) return null;
 
   return (
     <div className={classes.signupTitle}>

@@ -12,6 +12,7 @@ import Typography from '@material-ui/core/Typography';
 import WarningIcon from '@material-ui/icons/Warning';
 import RedButton from '#src/components/button/RedButton.component';
 import type { PrivatePass } from '../../types';
+import { VALIDATION_DELAY } from '#src/libs/constants';
 
 type Props = {
   open: boolean;
@@ -54,7 +55,10 @@ export const PrivatePassDeleteDialog = (props: Props) => {
         <Button onClick={() => props.onCancel()}>
           {t('privatePass.delete.cancel')}
         </Button>
-        <RedButton delayBeforeActivation={3} onClick={() => props.onConfirm()}>
+        <RedButton
+          delayBeforeActivation={VALIDATION_DELAY}
+          onClick={() => props.onConfirm()}
+        >
           {t('privatePass.delete.submit')}
         </RedButton>
       </DialogActions>

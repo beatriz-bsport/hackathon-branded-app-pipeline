@@ -14,6 +14,7 @@ import WarningIcon from '@material-ui/icons/Warning';
 import { makeStyles } from '@material-ui/core';
 import RedButton from '../../../components/button/RedButton.component';
 import type { PaymentPack } from '../types';
+import { VALIDATION_DELAY } from '#src/libs/constants';
 
 type Props = {
   fullScreen: boolean;
@@ -95,7 +96,7 @@ export function PaymentPackDeleteDialog(props: Props) {
           {t('form.paymentPack.delete.actions.cancel')}
         </Button>
         <RedButton
-          delayBeforeActivation={3}
+          delayBeforeActivation={VALIDATION_DELAY}
           onClick={props.onDelete}
           variant="contained"
         >

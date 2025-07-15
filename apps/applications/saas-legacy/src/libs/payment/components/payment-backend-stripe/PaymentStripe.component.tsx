@@ -16,6 +16,7 @@ import {
   PAYMENT_GROUP_METHOD_IDENTIFIER_CB,
   PAYMENT_GROUP_METHOD_IDENTIFIER_IDEAL,
   PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA,
+  PAYMENT_GROUP_METHOD_IDENTIFIER_TWINT,
 } from '@bsport/common/lib/master-data/payment-group.js';
 
 import Config from '#src/config';
@@ -109,10 +110,10 @@ const STRIPE_PAYMENT_METHOD: {
     component: PaymentStripeGenericElement,
     name: StripePaymentMethodNames.IDEAL,
   },
-  /*[PAYMENT_GROUP_METHOD_IDENTIFIER_TWINT]: {
-     component: PaymentStripeGeneric,
-     name: StripePaymentMethodNames.TWINT,
-  },*/
+  [PAYMENT_GROUP_METHOD_IDENTIFIER_TWINT]: {
+    component: PaymentStripeGenericElement,
+    name: StripePaymentMethodNames.TWINT,
+  },
 };
 
 const PaymentStripe: React.FC<

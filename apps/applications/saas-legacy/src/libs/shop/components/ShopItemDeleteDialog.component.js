@@ -15,6 +15,7 @@ import { compose } from 'recompose';
 import withStyles from '@material-ui/core/styles/withStyles';
 import type { ShopItem } from '../types';
 import RedButton from '../../../components/button/RedButton.component';
+import { VALIDATION_DELAY } from '#src/libs/constants';
 
 type Props = {
   onSubmit: () => void,
@@ -54,7 +55,7 @@ export function ShopItemDeleteDialog(props: Props) {
         <RedButton
           autoFocus
           color="primary"
-          delayBeforeActivation={3}
+          delayBeforeActivation={VALIDATION_DELAY}
           onClick={onSubmit}
         >
           {t('dialog.delete.confirm')}

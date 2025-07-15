@@ -50,3 +50,46 @@ export const Primary: Story = {
       "Lorem ipsum dolor sit amet consectetur. Elementum mauris eget donec adipiscing morbi orci. In cursus urna morbi platea ullamcorper hendrerit. Adipiscing dolor tincidunt purus velit mattis. Vulputate risus massa nascetur at id est vitae feugiat.",
   },
 };
+
+export const NoTitleShortChildren: Story = {
+  name: "Alert without title and short children",
+  args: {
+    status: "warning",
+    type: "weak",
+    children:
+      "Lorem mattis. Vulputate risus massa nascetur at id est vitae feugiat.",
+  },
+};
+
+export const NoTitleShortChildrenWithButtons: Story = {
+  name: "Alert without title and short children and with buttons",
+  args: {
+    status: "default",
+    type: "weak",
+    children:
+      "Lorem mattis. Vulputate risus massa nascetur at id est vitae feugiat.",
+    buttonLabel: "Click me",
+    onClearClick: () => console.log("Click close"),
+    onButtonClick: () => console.log("Click button"),
+  },
+};
+
+export const NoTitleLongChildren: Story = {
+  name: "Alert without title and long children",
+  args: {
+    status: "critical",
+    type: "weak",
+    children:
+      "Lorem ipsum dolor sit amet consectetur. Elementum mauris eget donec adipiscing morbi orci. In cursus urna morbi platea ullamcorper hendrerit. Adipiscing dolor tincidunt purus velit mattis. Vulputate risus massa nascetur at id est vitae feugiat",
+  },
+};
+
+export const TitleNoChildren: Story = {
+  name: "Alert with only a title",
+  args: {
+    status: "positive",
+    type: "weak",
+    title:
+      "Lorem mattis. Vulputate risus massa nascetur at id est vitae feugiat.",
+  },
+};

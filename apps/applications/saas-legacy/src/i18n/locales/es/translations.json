@@ -2127,7 +2127,7 @@
             "addLocalisation": "Añadir una ubicación",
             "name": " Nombre",
             "actions": "Acciones",
-            "noGroupHelper": "Las ubicaciones permiten agrupar varias direcciones. Si tiene varios estudios en diferentes ciudades, puede agrupar los estudios de la misma ciudad en un solo lugar. En el mercado, el widget y la aplicación personalizada, sus estudiantes podrán seleccionar la ubicación que más les interese para ver sólo los cursos que estén cerca de ellos.",
+            "noGroupHelper": "Las ubicaciones permiten agrupar varias direcciones. Si tiene varios estudios en diferentes ciudades, puede agrupar los estudios de la misma ciudad en un solo lugar. En el Marketplace, el widget y la aplicación personalizada, sus estudiantes podrán seleccionar la ubicación que más les interese para ver sólo los cursos que estén cerca de ellos.",
             "form": {
                 "name": "Nombre",
                 "associated_localizations": "Establecimientos asociados",
@@ -3609,7 +3609,7 @@
                 "documentationLabel": "Documentación procesal",
                 "manufacturerLinkLabel": "Certificado del fabricante del TSE",
                 "manufacturer": "Fabricante: bsport",
-                "version": "Versión del TSE: 2.0",
+                "version": "Versión del TSE: v2",
                 "description": "Es una normativa destinada a garantizar la seguridad e integridad de los sistemas de caja electrónica. Utilizamos Fiskaly como dispositivo técnico de seguridad (TSE) para evitar manipulaciones y garantizar que los datos de las transacciones se almacenan de forma segura y a prueba de manipulaciones."
             },
             "refundsAndDiscount": {
@@ -4134,7 +4134,7 @@
                 "submit": "Validar",
                 "title": "Dirección de correo electrónico del profesor",
                 "emailLabel": "Correo",
-                "explain": "Si este correo electrónico ya existe en nuestro sistema, crearemos la cuenta de profesor automáticamente.",
+                "explain": "Escriba el correo del profesor que quieres agregar. Si ya tenemos sus datos, crearemos su cuenta automáticamente.",
                 "emailPlaceHolder": "profesor@bsport.io"
             },
             "error": "No es possible guardar el profesor",
@@ -7716,7 +7716,9 @@
                     "email": "Introduzca una dirección de email válida",
                     "requiredField": "Este campo es obligatorio",
                     "phoneTaken": "Este número de teléfono ya está siendo utilizado por otro miembro",
-                    "emailTaken": "El correo electrónico ya existe, puede intentar iniciar sesión con este correo electrónico"
+                    "emailTaken": "El correo electrónico ya existe, puede intentar iniciar sesión con este correo electrónico",
+                    "passwordConfirmation": "Las contraseñas deben coincidir",
+                    "passwordMinimumRequirements": "Tu contraseña debe tener 6 caracteres como mínimo y no puede llevar espacios"
                 },
                 "button": {
                     "label": "Inscríbete"
@@ -7742,6 +7744,9 @@
                 },
                 "acceptEmail": {
                     "label": "Acepto recibir correos electrónicos promocionales, incluyendo ofertas especiales y descuentos"
+                },
+                "password": {
+                    "label": "Crear contraseña"
                 }
             }
         }
@@ -13912,9 +13917,9 @@
             "acceptTermsAndFinalize": "Por favor, acepte las condiciones generales y finalice su reserva",
             "checkAndFinalize": "Compruebe su cesta y finalice su reserva",
             "almostDone": "Última etapa",
-            "goToMarketplace": "Ver el marketplace",
+            "goToMarketplace": "Ver el Marketplace",
             "newCheckout": {
-                "isEmptyDescription": "¡Continúe explorando el marketplace!",
+                "isEmptyDescription": "¡Continúe explorando el Marketplace!",
                 "isEmpty": "¡Tu cesta está vacía!"
             },
             "noBooking": {

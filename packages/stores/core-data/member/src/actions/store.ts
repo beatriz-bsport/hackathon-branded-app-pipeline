@@ -42,3 +42,21 @@ export const updateIrregularities = (irregularities: number[]) => {
     irregularities,
   }));
 };
+
+export const setSearchMembers = ({
+  members,
+  archived,
+}: {
+  members: Member[];
+  archived: boolean;
+}) => {
+  memberStore.setState((state) => {
+    const nextList = archived ? { archived: members } : { active: members };
+    return {
+      search: {
+        ...state.search,
+        ...nextList,
+      },
+    };
+  });
+};

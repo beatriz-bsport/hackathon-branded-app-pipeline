@@ -36,6 +36,15 @@ const initialState: Immutable.Immutable<PaymentPackStateReworked> =
         loading: false,
         error: null,
       },
+      archivedPasses: {
+        page: 1,
+        next_page: null,
+        count: 0,
+        allIds: [],
+        byId: {},
+        loading: false,
+        error: undefined,
+      },
     },
     universalPaymentPackTemplatePaginated: {
       availablePasses: {
@@ -59,6 +68,15 @@ const initialState: Immutable.Immutable<PaymentPackStateReworked> =
         byId: {},
         loading: false,
         error: null,
+      },
+      archivedPasses: {
+        page: 1,
+        next_page: null,
+        count: 0,
+        allIds: [],
+        byId: {},
+        loading: false,
+        error: undefined,
       },
     },
   });
@@ -170,6 +188,58 @@ export default handleActions<
           {
             paymentPackTemplatePaginated: {
               managerOnlyPasses: {
+                byId: (results ?? []).reduce(
+                  (acc, v) => ({ ...acc, [v.id]: v }),
+                  {},
+                ),
+              },
+            },
+          },
+          { deep: true },
+        );
+    },
+    // ARCHIVED PASSES
+    [listPaymentPackTemplatePaginatedActions.isLoadingArchived.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(
+        ['paymentPackTemplatePaginated', 'archivedPasses', 'loading'],
+        payload,
+      );
+    },
+    [listPaymentPackTemplatePaginatedActions.errorArchived.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(
+        ['paymentPackTemplatePaginated', 'archivedPasses', 'error'],
+        payload,
+      );
+    },
+    [listPaymentPackTemplatePaginatedActions.successArchived.toString()]: (
+      state,
+      { payload }: { payload: PaginatedResponse<PaymentPackTemplateAPI> },
+    ) => {
+      const { next_page, results, count, page } = payload;
+      return state
+        .setIn(['paymentPackTemplatePaginated', 'archivedPasses', 'page'], page)
+        .setIn(
+          ['paymentPackTemplatePaginated', 'archivedPasses', 'next_page'],
+          next_page,
+        )
+        .setIn(
+          ['paymentPackTemplatePaginated', 'archivedPasses', 'count'],
+          count,
+        )
+        .setIn(
+          ['paymentPackTemplatePaginated', 'archivedPasses', 'allIds'],
+          (results ?? []).map((template) => template.id),
+        )
+        .merge(
+          {
+            paymentPackTemplatePaginated: {
+              archivedPasses: {
                 byId: (results ?? []).reduce(
                   (acc, v) => ({ ...acc, [v.id]: v }),
                   {},
@@ -312,6 +382,74 @@ export default handleActions<
             {
               universalPaymentPackTemplatePaginated: {
                 managerOnlyPasses: {
+                  byId: (results ?? []).reduce(
+                    (acc, v) => ({ ...acc, [v.id]: v }),
+                    {},
+                  ),
+                },
+              },
+            },
+            { deep: true },
+          );
+      },
+    // Archived PASSES
+    [listUniversalPaymentPackTemplatePaginatedActions.isLoadingArchived.toString()]:
+      (state, { payload }: { payload: boolean }) => {
+        return state.setIn(
+          [
+            'universalPaymentPackTemplatePaginated',
+            'archivedPasses',
+            'loading',
+          ],
+          payload,
+        );
+      },
+    [listUniversalPaymentPackTemplatePaginatedActions.errorArchived.toString()]:
+      (state, { payload }: { payload: Error | null }) => {
+        return state.setIn(
+          ['universalPaymentPackTemplatePaginated', 'archivedPasses', 'error'],
+          payload,
+        );
+      },
+    [listUniversalPaymentPackTemplatePaginatedActions.successArchived.toString()]:
+      (
+        state,
+        { payload }: { payload: PaginatedResponse<PaymentPackTemplateAPI> },
+      ) => {
+        const { next_page, results, count, page } = payload;
+        return state
+          .setIn(
+            ['universalPaymentPackTemplatePaginated', 'archivedPasses', 'page'],
+            page,
+          )
+          .setIn(
+            [
+              'universalPaymentPackTemplatePaginated',
+              'archivedPasses',
+              'next_page',
+            ],
+            next_page,
+          )
+          .setIn(
+            [
+              'universalPaymentPackTemplatePaginated',
+              'archivedPasses',
+              'count',
+            ],
+            count,
+          )
+          .setIn(
+            [
+              'universalPaymentPackTemplatePaginated',
+              'archivedPasses',
+              'allIds',
+            ],
+            (results ?? []).map((template) => template.id),
+          )
+          .merge(
+            {
+              universalPaymentPackTemplatePaginated: {
+                archivedPasses: {
                   byId: (results ?? []).reduce(
                     (acc, v) => ({ ...acc, [v.id]: v }),
                     {},

@@ -983,9 +983,9 @@
             "checkAndFinalize": "Please check your basket and finalize your booking",
             "acceptTermsAndFinalize": "Please accept the general terms and conditions and finalize your booking",
             "almostDone": "Almost done",
-            "goToMarketplace": "See the marketplace",
+            "goToMarketplace": "See the Marketplace",
             "newCheckout": {
-                "isEmptyDescription": "Continue your exploration of the marketplace!",
+                "isEmptyDescription": "Continue your exploration of the Marketplace!",
                 "isEmpty": "Your basket is empty!"
             },
             "noBooking": {
@@ -4424,7 +4424,7 @@
                 "documentationLabel": "Procedural documentation",
                 "manufacturerLinkLabel": "Certificate of the TSE manufacturer",
                 "manufacturer": "Manufacturer: bsport",
-                "version": "Version of the TSE: 2.0",
+                "version": "Version of the TSE: v2",
                 "description": "This is a regulation aimed at ensuring the security and integrity of electronic cash register systems. We use Fiskaly as a technical security device (TSE) to prevent manipulation and ensure that transaction data is stored securely and tamper-proof."
             }
         },
@@ -9283,7 +9283,7 @@
             "copyLink": "Copy the direct link to the payment page"
         },
         "actions": {
-            "delete": "Delete",
+            "delete": "Archive",
             "edit": "Edit",
             "scaleCredit": "Mult / div credits",
             "massExtension": "Extend validity",
@@ -9427,11 +9427,11 @@
             },
             "deleteForm": {
                 "actions": {
-                    "submit": "Delete",
+                    "submit": "Archive",
                     "close": "Close"
                 },
                 "content": "Members will still be able to use the pass at the studio where they bought it. Any subscription linked to this pass will remain valid at that same studio.",
-                "title": "Delete shared pass"
+                "title": "Archive shared pass"
             },
             "form": {
                 "notEditable": "This pass originates from a previously completed data migration. Some fields may not be editable to preserve the data.",
@@ -10860,7 +10860,7 @@
                     "submit": "Save"
                 },
                 "last_booking_minutes": {
-                    "label": "Select until when members can book before the start of the appointment"
+                    "label": "Choose how long before the class the booking window closes."
                 },
                 "paddingEnd": {
                     "helperText": "The teacher(s) and/or the establishment(s) will be shown as unavailable for {{minutes}} after the end of the appointment."
@@ -10896,6 +10896,12 @@
                     "alert": "To display this booking correctly on ClassPass, some settings need to be configured. We have automatically updated some fields. Please review and fill in the required details below.",
                     "buffersAlert": "To add buffers to this appointment, disallow ClassPass bookings.",
                     "tagsAlert": "Not applicable for ClassPass bookings."
+                },
+                "use_full_establishment_capacity": {
+                    "label": "Requires the entire establishment"
+                },
+                "last_discard_minutes": {
+                    "label": "Decide how long before the appointment members can cancel for free. "
                 }
             },
             "parameters": {
@@ -11124,10 +11130,10 @@
             "deleteForm": {
                 "content": "If you stop sharing with this studio, appointment passes purchased at that studio will still be valid, but only within that specific studio. Appointment passes from other studios will no longer be valid there. This also applies to linked subscriptions.",
                 "actions": {
-                    "submit": "Stop sharing",
+                    "submit": "Archive",
                     "close": "Close"
                 },
-                "title": "Stop sharing with a studio"
+                "title": "Archive shared appointment pass"
             },
             "form": {
                 "explain2": "Members who have purchased this appointment pass or a linked subscription will be able to use it at any of the newly compatible studios.",
@@ -11155,7 +11161,7 @@
                     "close": "Close"
                 },
                 "content": "Members will still be able to use the appointment pass at the studio where they bought it. Any subscription linked to this appointment pass will also only work at that same studio.",
-                "title": "Delete shared appointment pass"
+                "title": "Archive shared appointment pass"
             },
             "form": {
                 "actions": {

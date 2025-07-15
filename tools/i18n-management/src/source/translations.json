@@ -42,7 +42,12 @@
         "rows": "Rows",
         "showingRange": "Showing {{currentItemsRendered}} of {{totalItems}}"
       },
-      "headerLayout": { "search": { "tooltip": "Search on this page" } }
+      "headerLayout": { "search": { "tooltip": "Search on this page" } },
+      "copyToClipboard": {
+        "copied": "Copied to clipboard",
+        "failed": "Failed to copy to clipboard",
+        "tooltip": "Click to copy"
+      }
     }
   },
   "@bsport/sm-custom-form": {
@@ -890,6 +895,7 @@
         "memberships": {
           "title": "Memberships",
           "passes": "Passes",
+          "appointmentPasses": "Appointment Passes",
           "subscriptions": "Subscriptions"
         },
         "products": {
@@ -973,13 +979,18 @@
       },
       "notifications": {
         "title": "Notification center",
+        "empty": {
+          "title": "You're all caught up",
+          "description": "No notifications right now"
+        },
         "tabs": {
           "billing": "Billing",
           "orders": "Orders",
           "tasks": "Tasks",
           "unpaidAppointments": "Unpaid appointments",
           "tutorials": "Tutorials",
-          "companyOnboarding": "Legal information"
+          "companyOnboarding": "Legal information",
+          "privateBookingIncomplete": "Appointments to complete"
         },
         "billing": {
           "loading": "Loading billing notifications...",
@@ -1063,6 +1074,15 @@
             "title": "Company onboarding required",
             "content": "Please complete your company onboarding process."
           }
+        },
+        "privateBookingIncomplete": {
+          "loading": "Loading appointments to complete...",
+          "empty": {
+            "title": "No appointments to complete",
+            "description": "All your appointments have assigned coaches"
+          },
+          "member": "Member: {{userName}}",
+          "date": "Date: {{date}}"
         }
       }
     },
@@ -1083,6 +1103,21 @@
       "additionalFeedbackPlaceholder": "Type your feedback here..."
     },
     "features": {
+      "searchMembers": {
+        "title": "Search members",
+        "addMember": "Add member",
+        "loading": "Loading results...",
+        "emptySearch": "Type above to start your search or add a new member",
+        "tagsTooltip": "Tags:",
+        "segments": { "active": "Active", "archived": "Archived" },
+        "copyToClipboard": {
+          "action": "Click to copy",
+          "toasts": {
+            "phoneNumberCopied": "Member mobile number was copied to your clipboard",
+            "emailCopied": "Member email was copied to your clipboard"
+          }
+        }
+      },
       "temporaryPassword": {
         "title": "Temporary password",
         "description": "You may generate and request a temporary password which will be valid for up to 1 week to share it with our Support Team for assistance. Your main and usual password won't be affected.",
@@ -1091,6 +1126,30 @@
           "copyToClipboard": "Copy the password to the clipboard",
           "copiedToClipboard": "Password copied",
           "validity": "This password is valid until {{- expirationDate }}. Your main password has not changed."
+        }
+      },
+      "attendance": {
+        "title": "Time clock",
+        "clockInForStaff": "Clock-in for another staff member",
+        "buttons": { "close": "Close", "clockIn": "Clock-in", "clockOut": "Clock-out" },
+        "initial": {
+          "welcome": "Hello {{ name }}!",
+          "clockInCTA": "Please click 'Clock-in' to get started;"
+        },
+        "clockedIn": {
+          "successfulClockIn": "You've successfully clocked-in.",
+          "failedClockIn": "You are already clocked-in.",
+          "clockOutCTA": "You can click 'Clock-out' to wrap-up."
+        },
+        "clockedOut": {
+          "successfulClockOut": "Your schedules have been saved:",
+          "failedClockOut": "Failed to clock-out",
+          "nextIterationCTA": "You can start a new punch the next time you open this window."
+        },
+        "schedule": {
+          "arrivalTime": "Arrival Time",
+          "departureTime": "Departure Time",
+          "hoursWorked": "Hours Worked"
         }
       }
     }
@@ -1192,33 +1251,42 @@
       "active": {
         "header": { "chip": "Active" },
         "form": {
-          "minimumBasketAmount": {
+          "basketMinimalAmount": {
             "label": "Minimum value of shopping cart",
-            "helper": "Amount to be eligible for the referral discount"
+            "helper": "Amount to be eligible for the referral discount",
+            "errors": {
+              "tooManyDecimalPoints": "The amount cannot have more than 2 decimal points",
+              "invalidFormat": "The amount format is not valid"
+            }
           },
           "referringReward": {
             "title": "Reward for referring a member",
             "amountOff": { "label": "How much you want to reward the member" },
             "maxReferringNumber": {
               "label": "Max. use per member",
-              "errors": { "notValid": "Please provide a valid number" }
+              "errors": {
+                "tooSmall": "You must allow at least 1 referral",
+                "tooBig": "You cannot give more than 5 referrals",
+                "noFloat": "You can only use whole numbers"
+              }
+            },
+            "errors": {
+              "tooManyDecimalPoints": "The amount cannot have more than 2 decimal points",
+              "invalidFormat": "The amount format is not valid"
             }
           },
           "referralReward": {
             "title": "Discount for new customer",
-            "discount": {
-              "label": "Discount total",
-              "percentage": "Percentage",
-              "amount": "Amount",
-              "errors": {
-                "percentageTooHigh": "The percentage cannot be greater than 100",
-                "amountNotValid": {
-                  "decimal": "The amount cannot have more than 2 decimal points"
-                }
-              },
-              "alerts": {
-                "equalToZero": "Choosing '0' will remove the discount for the person who is referred"
-              }
+            "label": "Discount total",
+            "percentage": "Percentage",
+            "amount": "Amount",
+            "errors": {
+              "percentageTooHigh": "The percentage cannot be greater than 100",
+              "invalidFormat": "The amount format is not valid",
+              "tooManyDecimalPoints": "The amount cannot have more than 2 decimal points"
+            },
+            "alerts": {
+              "equalToZero": "Choosing '0' will remove the discount for the person who is referred"
             }
           },
           "timeLimitForUsage": {

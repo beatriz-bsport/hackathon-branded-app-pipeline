@@ -10,6 +10,10 @@ export interface MemberState {
   ids: number[];
   page: number;
   irregularities: number[];
+  search: {
+    active: Array<Member>;
+    archived: Array<Member>;
+  };
 }
 
 export const memberStore = createStore<MemberState>()(() => ({
@@ -18,6 +22,10 @@ export const memberStore = createStore<MemberState>()(() => ({
   ids: [],
   page: 1,
   irregularities: [],
+  search: {
+    active: [],
+    archived: [],
+  },
 }));
 
 /**

@@ -8,6 +8,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
+import RestoreFromTrashIcon from '@material-ui/icons/RestoreFromTrash';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import ListItemResponsiveAction from '../../../components/button/ListItemResponsiveAction.component';
 import FranchiseCompanyChipList from '../../../components/franchise/FranchiseCompanyChipList.component';
@@ -80,7 +81,7 @@ const PaymentPackTemplateListItem = React.memo((props: Props) => {
           template.disabled
             ? [
                 onRestore && {
-                  icon: EditIcon,
+                  icon: RestoreFromTrashIcon,
                   label: t('actions.restore'),
                   color: 'primary',
                   onClick: () => {

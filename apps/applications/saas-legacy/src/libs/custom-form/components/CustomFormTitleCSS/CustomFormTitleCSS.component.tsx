@@ -6,6 +6,7 @@ import IconButton from '#Fabrique/IconButton';
 import { HelpCircle } from '#src/components/untitledui';
 import { openIntercomHelp } from '../../../../intercom';
 import './styles.css';
+import { useCssVariantActivated } from '../../hooks/useCssVariantActivated';
 
 export type Props = {
   title: string;
@@ -21,6 +22,10 @@ const CustomFormTitleCSS: React.FC<Props> = ({
   const handleOpenIntercomHelp = useCallback(() => {
     openIntercomHelp('login');
   }, []);
+
+  const isCssVariantActivated = useCssVariantActivated();
+
+  if (!isCssVariantActivated) return null;
 
   return (
     <div className="bs-custom-form-title__root">

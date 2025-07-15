@@ -52,4 +52,9 @@ exports.default = {
       tooltip: "Search on this page",
     },
   },
+  copyToClipboard: {
+    copied: "Copied to clipboard",
+    failed: "Failed to copy to clipboard",
+    tooltip: "Click to copy",
+  },
 };

@@ -1,72 +1,75 @@
 import React, { useState } from "react";
 
-import { Modal, Tabs } from "@bsport/kaizen-primitive-core";
+import {
+  Body,
+  Illustration,
+  Modal,
+  Tabs,
+  Title,
+} from "@bsport/kaizen-primitive-core";
 
 import { useTranslation } from "#src/utils/i18n";
 
-import { BillingTab } from "./BillingTab";
-import { CompanyOnboardingTab } from "./CompanyOnboardingTab";
-import { OrdersTab } from "./OrdersTab";
-import { TasksTab } from "./TasksTab";
-import { TutorialsTab } from "./TutorialsTab";
-import UnpaidAppointmentsTab from "./UnpaidAppointmentsTab";
-import type { NotificationTab, NotificationsModalProps } from "./types";
+import { GenericNotificationTab } from "./GenericNotificationTab";
+import type {
+  NotificationTab,
+  NotificationsModalProps,
+  TabConfiguration,
+} from "./types";
+import { useNotificationTabs } from "./use-notification-tabs";
 
 export const NotificationsModal: React.FC<NotificationsModalProps> = ({
   isOpen,
   onClose,
+  navigate,
 }) => {
   const { t } = useTranslation("default");
-  const [activeTab, setActiveTab] = useState<NotificationTab>("billing");
+  const { availableTabs: tabs, tabConfigurations } =
+    useNotificationTabs(navigate);
 
-  const tabs = [
-    { id: "billing", label: t("notifications.tabs.billing") },
-    { id: "orders", label: t("notifications.tabs.orders") },
-    { id: "tasks", label: t("notifications.tabs.tasks") },
-    {
-      id: "company-onboarding",
-      label: t("notifications.tabs.companyOnboarding"),
-    },
-    {
-      id: "unpaid-appointments",
-      label: t("notifications.tabs.unpaidAppointments"),
-    },
-    { id: "tutorials", label: t("notifications.tabs.tutorials") },
-  ];
+  const defaultTab =
+    tabs.length > 0 ? (tabs[0].id as NotificationTab) : "billing";
+  const [activeTab, setActiveTab] = useState<NotificationTab>(defaultTab);
 
-  const renderTabContent = () => {
-    switch (activeTab) {
-      case "billing":
-        return <BillingTab />;
-      case "orders":
-        return <OrdersTab />;
-      case "tasks":
-        return <TasksTab />;
-      case "company-onboarding":
-        return <CompanyOnboardingTab />;
-      case "unpaid-appointments":
-        return <UnpaidAppointmentsTab />;
-      case "tutorials":
-        return <TutorialsTab />;
-      default:
-        return null;
-    }
+  const onModalClose = () => {
+    onClose();
+    setActiveTab(defaultTab);
   };
+
+  const activeConfig = tabConfigurations[
+    activeTab
+  ] as unknown as TabConfiguration;
 
   return (
     <Modal
       title={t("notifications.title")}
       open={isOpen}
-      onClose={onClose}
+      onClose={onModalClose}
       size="lg"
     >
-      <Tabs
-        orientation="horizontal"
-        value={activeTab}
-        onValueChange={(value) => setActiveTab(value as NotificationTab)}
-        tabs={tabs}
-      />
-      <div className="mt-4 min-h-[480px]">{renderTabContent()}</div>
+      {tabs.length > 0 ? (
+        <>
+          <Tabs
+            orientation="horizontal"
+            value={activeTab}
+            onValueChange={(value) => setActiveTab(value as NotificationTab)}
+            tabs={tabs}
+          />
+          <div className="mt-4 min-h-[480px]">
+            <GenericNotificationTab config={activeConfig} />
+          </div>
+        </>
+      ) : (
+        <div className="mt-4 min-h-[480px] flex flex-col gap-4 items-center justify-center text-center p-8">
+          <Illustration name="empty" size="xl" />
+          <Title htmlVariant="h3" weight="stronger" color="weak">
+            {t("notifications.empty.title")}
+          </Title>
+          <Body variant="body-medium" color="weak" className=" max-w-sm">
+            {t("notifications.empty.description")}
+          </Body>
+        </div>
+      )}
     </Modal>
   );
 };

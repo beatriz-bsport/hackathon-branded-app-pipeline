@@ -29,9 +29,13 @@
                 "chip": "Active"
             },
             "form": {
-                "minimumBasketAmount": {
+                "basketMinimalAmount": {
                     "label": "Minimum value of shopping cart",
-                    "helper": "Amount to be eligible for the referral discount"
+                    "helper": "Amount to be eligible for the referral discount",
+                    "errors": {
+                        "tooManyDecimalPoints": "The amount cannot have more than 2 decimal points",
+                        "invalidFormat": "The amount format is not valid"
+                    }
                 },
                 "referringReward": {
                     "title": "Reward for referring a member",
@@ -41,25 +45,28 @@
                     "maxReferringNumber": {
                         "label": "Max. use per member",
                         "errors": {
-                            "notValid": "Please provide a valid number"
+                            "tooSmall": "You must allow at least 1 referral",
+                            "tooBig": "You cannot give more than 5 referrals",
+                            "noFloat": "You can only use whole numbers"
                         }
+                    },
+                    "errors": {
+                        "tooManyDecimalPoints": "The amount cannot have more than 2 decimal points",
+                        "invalidFormat": "The amount format is not valid"
                     }
                 },
                 "referralReward": {
                     "title": "Discount for new customer",
-                    "discount": {
-                        "label": "Discount total",
-                        "percentage": "Percentage",
-                        "amount": "Amount",
-                        "errors": {
-                            "percentageTooHigh": "The percentage cannot be greater than 100",
-                            "amountNotValid": {
-                                "decimal": "The amount cannot have more than 2 decimal points"
-                            }
-                        },
-                        "alerts": {
-                            "equalToZero": "Choosing '0' will remove the discount for the person who is referred"
-                        }
+                    "label": "Discount total",
+                    "percentage": "Percentage",
+                    "amount": "Amount",
+                    "errors": {
+                        "percentageTooHigh": "The percentage cannot be greater than 100",
+                        "invalidFormat": "The amount format is not valid",
+                        "tooManyDecimalPoints": "The amount cannot have more than 2 decimal points"
+                    },
+                    "alerts": {
+                        "equalToZero": "Choosing '0' will remove the discount for the person who is referred"
                     }
                 },
                 "timeLimitForUsage": {

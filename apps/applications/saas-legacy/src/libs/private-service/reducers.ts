@@ -4,7 +4,7 @@ import { handleActions } from 'redux-actions';
 import omit from 'lodash/omit';
 import uniq from 'lodash/uniq';
 
-import type { PaginatedResponse } from '../../state/types';
+import type { PaginatedResponse } from '#src/state/types';
 import {
   availabilitySlotExistsActions,
   availabilitySlotListActions,
@@ -75,6 +75,7 @@ import {
   updatePrivatePassCategoryOrderActions,
   updateResourceConfigurationActions,
   upsertPrivatePassCategoryActions,
+  restorePrivatePassTemplateActions,
 } from './actions';
 
 import { getResourceSlotsExistState } from './selectors/availability-slot';
@@ -85,6 +86,7 @@ import type {
   ServiceCompatibilityPass,
   PrivatePassTemplateAPI,
   ResourceSlotsByDate,
+  PrivatePassTemplate,
 } from './types';
 
 const initialState: Seamless.Immutable<PrivateServiceState> =
@@ -1942,6 +1944,24 @@ export default handleActions<Seamless.Immutable<PrivateServiceState>, any>(
         ['privatePassTemplate', 'byId', payload, 'disabled'],
         true,
       );
+    },
+    [restorePrivatePassTemplateActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(['privatePassTemplate', 'upsert', 'loading'], payload);
+    },
+    [restorePrivatePassTemplateActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(['privatePassTemplate', 'upsert', 'error'], payload);
+    },
+    [restorePrivatePassTemplateActions.success.toString()]: (
+      state,
+      { payload }: { payload: PrivatePassTemplate },
+    ) => {
+      return state.setIn(['privatePassTemplate', 'byId', payload.id], payload);
     },
     [retrievePrivatePassTemplateActions.isLoading.toString()]: (
       state,

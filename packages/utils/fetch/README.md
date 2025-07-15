@@ -28,7 +28,7 @@ Wrapper around JavaScript standard [`fetch`](https://developer.mozilla.org/en-US
 
 ## Specific use case : track request onProgress
 
-`fetch` can not use onprogress on formData (Readable Stream not compliant). The package provides an alternative solution : XMLHttpRequest. This is the library `axios` relies on.
+`fetch` can not use onProgress on formData (Readable Stream not compliant). The package provides an alternative solution : XMLHttpRequest. This is the library `axios` relies on.
 
 1. Import `getXhr` from the package.
 

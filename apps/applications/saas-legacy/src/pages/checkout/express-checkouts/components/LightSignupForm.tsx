@@ -68,6 +68,7 @@ const LightSignupForm = () => {
         />
         <TextField
           isFullWidth
+          isRequired
           id="light-signup-phone"
           inputId="light-signup-last-name-input"
           label={t('lightSignup.form.phone.label')}
@@ -117,7 +118,7 @@ const lightSignupFormValidationSchema = Yup.object().shape({
     .matches(emailValidationRegExp, 'booking:lightSignup.form.errors.email')
     .required('booking:lightSignup.form.errors.requiredField'),
   phone: Yup.string()
-    .nullable()
+    .required('booking:lightSignup.form.errors.requiredField')
     .test(
       'is-phone',
       'booking:lightSignup.form.errors.phone',

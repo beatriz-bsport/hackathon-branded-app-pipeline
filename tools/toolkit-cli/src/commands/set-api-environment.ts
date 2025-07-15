@@ -29,7 +29,7 @@ const ENV_API_BASE_URLS: {
   [ENVS.DEV]: "https://api.dev.bsport.io",
   [ENVS.LOCAL]: "http://localhost:8000",
   [ENVS.STAGING]: "https://api.staging.bsport.io",
-  [ENVS.PRODUCTION]: "https://api.bsport.io",
+  [ENVS.PRODUCTION]: "https://api.production.bsport.io",
   [ENVS.FEATURE_BRANCH]:
     "https://api-FEATURE-BRANCH-IDENTIFIER.chaos.bsport.io",
 };

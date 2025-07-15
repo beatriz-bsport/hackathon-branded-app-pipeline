@@ -98,21 +98,6 @@ export const useValidityInfoForPaymentPackCard = (
   }
 
   if (
-    !packValidityInfo?.durationYears &&
-    packValidityInfo?.durationMonths &&
-    packValidityInfo?.durationDays
-  ) {
-    return t('genericCard.validForDuration.validAnd', {
-      first: t('genericCard.validity.month', {
-        count: packValidityInfo.durationMonths,
-      }),
-      second: t('genericCard.validity.day', {
-        count: packValidityInfo.durationDays,
-      }),
-    });
-  }
-
-  if (
     packValidityInfo?.durationYears &&
     packValidityInfo?.durationMonths &&
     packValidityInfo?.durationDays

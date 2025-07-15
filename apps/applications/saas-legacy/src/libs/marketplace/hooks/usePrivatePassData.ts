@@ -6,7 +6,7 @@ import type { RootState } from '#src/reducers';
 import type { PrivatePass } from '#src/libs/private-service/types';
 import { getPrivatePass } from '#src/libs/private-service/selectors/private-pass';
 import type { DailyTimeSlots } from '#src/pages/marketplace/passes/types';
-import { useValidityInfoForAppointmentPassCard } from '#src/pages/marketplace/passes/hooks/useValidityInfoForAppointmentPassCard';
+import { useValidityInfoForAppointmentPassCard } from '#src/libs/marketplace/hooks/useValidityInfoForAppointmentPassCard';
 import { getAllPrivateSlotsDict } from '#src/libs/private-service/selectors/private-slot';
 import { _getPrivateServicesById } from '#src/libs/private-service/selectors/private-service';
 
@@ -15,7 +15,7 @@ import { _getPrivateServicesById } from '#src/libs/private-service/selectors/pri
  * to display the appointment detail modal for a specific private pass.
  *
  */
-export const usePrivatePassModalData = (id: number | null) => {
+export const usePrivatePassData = (id: number | null) => {
   const { t } = useTranslation('marketplace');
   const privatePass: PrivatePass | null = useSelector((state: RootState) =>
     id ? getPrivatePass(state, id) : null,

@@ -1,4 +1,4 @@
-import React, { memo, useCallback, useMemo } from 'react';
+import React, { memo } from 'react';
 import { Trans, useTranslation } from 'react-i18next';
 import { usePaymentPackData } from '#src/libs/marketplace/hooks/usePaymentPackData';
 import {
@@ -9,12 +9,8 @@ import {
   VideoRecorder,
 } from '#src/components/untitledui';
 import Typography from '#Fabrique/Typography';
-import { ShowMore } from '#Fabrique/ShowMore/ShowMore.component';
-import Button from '#Fabrique/ButtonV2';
-import ExpandableContent from '#src/components/css-only/Fabrique/expandable-content/ExpandableContent';
-import ChipsContainer, {
-  type ChipData,
-} from '#src/pages/marketplace/passes/components/chips-container/ChipsContainer';
+import ExpandableContent from '#Fabrique/expandable-content/ExpandableContent';
+import ChipsContainer from '#src/pages/marketplace/passes/components/chips-container/ChipsContainer';
 import Chip from '#Fabrique/Chip';
 import Price from '#src/libs/marketplace/components/price/Price';
 import List from '#Fabrique/List';
@@ -22,100 +18,71 @@ import ListItem from '#Fabrique/ListItem';
 import clsx from 'clsx';
 import Title from '#Fabrique/Title';
 import Avatar from '#Fabrique/Temporary/Avatar';
-import DetailModalContainer from '#src/pages/marketplace/passes/components/detail-modal-container/DetailModalContainer';
-import { usePassesActions } from '#src/pages/marketplace/passes/hooks/usePassesActions';
-import { usePassesContext } from '#src/pages/marketplace/passes/PassesContext';
-import { BUYABLE_ITEM_PASS } from '@bsport/common/lib/master-data/buyable-items';
+import Card from '#src/components/css-only/Fabrique/Card';
+
+import { useFetchPaymentPackData } from '#src/pages/checkout/express-checkouts/pass/hooks/useFetchPaymentPackData';
+
 import './style.css';
 
-const COLLAPSED_HEIGHT = 40;
-const MAX_DESCRIPTION_LENGTH = 200;
+export const PaymentPackCard: React.FC<{ paymentPackId: number }> = memo(
+  ({ paymentPackId }) => {
+    const { t } = useTranslation('marketplace');
 
-const PassDetailModal: React.FC = () => {
-  const { t } = useTranslation('marketplace');
-  const [isDescriptionExpanded, setIsDescriptionExpanded] =
-    React.useState(false);
-  const toggleShowMoreDescription = useCallback(
-    () =>
-      setIsDescriptionExpanded(
-        (previousIsDescriptionExpanded) => !previousIsDescriptionExpanded,
-      ),
-    [setIsDescriptionExpanded],
-  );
+    useFetchPaymentPackData(paymentPackId);
 
-  const { selectedCardId } = usePassesContext();
-  const { handleClosePassModal, handleAddToCart, basketLoadingStatus } =
-    usePassesActions();
+    const {
+      title,
+      description,
+      validity,
+      price,
+      tax,
+      credits,
+      isOnsitePaymentAvailable,
+      isCompatibleWithAllActivities,
+      isCompatibleWithAllRooms,
+      isCompatibleWithAllCategories,
+      compatibleEstablishments,
+      compatibleRoomLabels,
+      compatibleMetaActivityLabels,
+      compatibleCategoryLabels,
+      timeSlots,
+      isCompatibleWithVod,
+      isOnlyCompatibleWithVod,
+      isUniversal,
+      isNewMemberOnly,
+      isCompatibleWithBookingForGuest,
+      restrictions,
+      categoryChipsData,
+      metaActivityChipsData,
+      roomChipsData,
+      timeSlotsWithChipsData,
+    } = usePaymentPackData(paymentPackId);
 
-  const {
-    title,
-    description,
-    validity,
-    price,
-    credits,
-    isOnsitePaymentAvailable,
-    isCompatibleWithAllActivities,
-    isCompatibleWithAllRooms,
-    isCompatibleWithAllCategories,
-    compatibleEstablishments,
-    compatibleRoomLabels,
-    compatibleMetaActivityLabels,
-    compatibleCategoryLabels,
-    timeSlots,
-    isCompatibleWithVod,
-    isOnlyCompatibleWithVod,
-    isUniversal,
-    isNewMemberOnly,
-    isCompatibleWithBookingForGuest,
-    restrictions,
-    getTimeSlotChipsLabels,
-  } = usePaymentPackData(selectedCardId);
+    if (!paymentPackId) return null;
 
-  const categoryChips: ChipData[] = useMemo(
-    () => compatibleCategoryLabels.map((label) => ({ label })),
-    [compatibleCategoryLabels],
-  );
-
-  const metaActivityChips: ChipData[] = useMemo(
-    () => compatibleMetaActivityLabels.map((label) => ({ label })),
-    [compatibleMetaActivityLabels],
-  );
-
-  const roomChips: ChipData[] = useMemo(
-    () => compatibleRoomLabels.map((label) => ({ label })),
-    [compatibleRoomLabels],
-  );
-
-  const timeSlotsWithChips = useMemo(() => {
-    return timeSlots.map((timeSlot) => ({
-      ...timeSlot,
-      chips: getTimeSlotChipsLabels(timeSlot).map((label) => ({ label })),
-    }));
-  }, [timeSlots, getTimeSlotChipsLabels]);
-
-  if (!selectedCardId) return null;
-
-  return (
-    <DetailModalContainer
-      closeModal={handleClosePassModal}
-      isModalOpen={!!selectedCardId}
-      isSubmitLoading={basketLoadingStatus}
-      onConfirm={handleAddToCart(selectedCardId, BUYABLE_ITEM_PASS)}
-      title={title}
-    >
-      <div className="bs-marketplace-pass-detail__root">
-        <div className="bs-marketplace-pass-detail__validity">
+    return (
+      <Card className="bs-express-checkout-pass-detail__root">
+        <div className="bs-express-checkout-pass-detail__header">
+          <Typography
+            className="bs-express-checkout-pass-detail__header__title"
+            variant="title-sm"
+          >
+            {title}
+          </Typography>
+          <Price price={price} tax={tax} />
+        </div>
+        <div className="bs-express-checkout-pass-detail__validity">
           <CalendarDate
-            className="bs-marketplace-pass-detail__validity__icon"
+            className="bs-express-checkout-pass-detail__validity__icon"
             stroke="currentColor"
           />
-          <Typography className="bs-marketplace-pass-detail__validity__label">
+          <Typography className="bs-express-checkout-pass-detail__validity__label">
             {validity}
           </Typography>
         </div>
-        <div className="bs-marketplace-pass-detail__chips">
+        <div className="bs-express-checkout-pass-detail__chips">
           <Chip
-            className="bs-marketplace-pass-detail__chips__credits"
+            className="bs-express-checkout-pass-detail__chips__credits"
             color="grey"
             variant="weak"
           >
@@ -123,7 +90,7 @@ const PassDetailModal: React.FC = () => {
           </Chip>
           {isOnsitePaymentAvailable && (
             <Chip
-              className="bs-marketplace-pass-detail__chips__onsite"
+              className="bs-express-checkout-pass-detail__chips__onsite"
               color="success"
               variant="weak"
             >
@@ -132,7 +99,7 @@ const PassDetailModal: React.FC = () => {
           )}
           {isUniversal && (
             <Chip
-              className="bs-marketplace-pass-detail__chips__universal"
+              className="bs-express-checkout-pass-detail__chips__universal"
               color="success"
               variant="weak"
             >
@@ -141,7 +108,7 @@ const PassDetailModal: React.FC = () => {
           )}
           {isOnlyCompatibleWithVod && (
             <Chip
-              className="bs-marketplace-pass-detail__chips__only-vod"
+              className="bs-express-checkout-pass-detail__chips__only-vod"
               color="warning"
               variant="weak"
             >
@@ -150,7 +117,7 @@ const PassDetailModal: React.FC = () => {
           )}
           {isNewMemberOnly && (
             <Chip
-              className="bs-marketplace-pass-detail__chips__new-member"
+              className="bs-express-checkout-pass-detail__chips__new-member"
               color="info"
               variant="weak"
             >
@@ -158,42 +125,32 @@ const PassDetailModal: React.FC = () => {
             </Chip>
           )}
         </div>
-        <div className="bs-marketplace-pass-detail__description">
-          <ShowMore
-            collapsedHeight={COLLAPSED_HEIGHT}
-            isExpanded={isDescriptionExpanded}
+        {description?.length && (
+          <ExpandableContent
+            className="bs-express-checkout-pass-detail__description-section"
+            id="description"
+            title={t('passes.detail.description.label')}
           >
-            {description}
-          </ShowMore>
-          {description?.length &&
-            description.length > MAX_DESCRIPTION_LENGTH && (
-              <Button
-                className="bs-marketplace-pass-detail__description__show-more"
-                color="grey"
-                onClick={toggleShowMoreDescription}
-                size="sm"
-                variant="text"
-              >
-                {isDescriptionExpanded
-                  ? t('passes.detail.description.showLess')
-                  : t('passes.detail.description.showMore')}
-              </Button>
-            )}
-        </div>
-        <div className="bs-marketplace-pass-detail__price">
-          <Price price={price} />
-        </div>
+            <Typography
+              className="bs-express-checkout-pass-detail__description"
+              variant="body-md"
+            >
+              {description}
+            </Typography>
+          </ExpandableContent>
+        )}
+
         <ExpandableContent
-          className="bs-marketplace-pass-detail__compatibility"
+          className="bs-express-checkout-pass-detail__compatibility"
           id="compatibility"
           title={t('passes.detail.compatibility.titles.main')}
         >
-          <div className="bs-marketplace-pass-detail__compatibility__content">
-            <List className="bs-marketplace-pass-detail__compatibility__list">
+          <div className="bs-express-checkout-pass-detail__compatibility__content">
+            <List className="bs-express-checkout-pass-detail__compatibility__list">
               {isCompatibleWithAllActivities && (
                 <ListItem
                   className={clsx(
-                    'bs-marketplace-pass-detail__compatibility__list-item',
+                    'bs-express-checkout-pass-detail__compatibility__list-item',
                   )}
                   icon={<CheckCircle stroke="currentColor" />}
                   label={t(
@@ -205,7 +162,7 @@ const PassDetailModal: React.FC = () => {
               {isCompatibleWithAllRooms && (
                 <ListItem
                   className={clsx(
-                    'bs-marketplace-pass-detail__compatibility__list-item',
+                    'bs-express-checkout-pass-detail__compatibility__list-item',
                   )}
                   icon={<CheckCircle stroke="currentColor" />}
                   label={t('passes.detail.compatibility.contents.allRooms')}
@@ -215,7 +172,7 @@ const PassDetailModal: React.FC = () => {
               {isCompatibleWithAllCategories && (
                 <ListItem
                   className={clsx(
-                    'bs-marketplace-pass-detail__compatibility__list-item',
+                    'bs-express-checkout-pass-detail__compatibility__list-item',
                   )}
                   icon={<CheckCircle stroke="currentColor" />}
                   label={t(
@@ -228,7 +185,7 @@ const PassDetailModal: React.FC = () => {
               {!timeSlots?.length && (
                 <ListItem
                   className={clsx(
-                    'bs-marketplace-pass-detail__compatibility__list-item',
+                    'bs-express-checkout-pass-detail__compatibility__list-item',
                   )}
                   icon={<ClockCheck stroke="currentColor" />}
                   label={t('passes.detail.compatibility.contents.allTimeSlots')}
@@ -238,7 +195,7 @@ const PassDetailModal: React.FC = () => {
               {isCompatibleWithVod && (
                 <ListItem
                   className={clsx(
-                    'bs-marketplace-pass-detail__compatibility__list-item',
+                    'bs-express-checkout-pass-detail__compatibility__list-item',
                   )}
                   icon={<VideoRecorder stroke="currentColor" />}
                   label={
@@ -253,7 +210,7 @@ const PassDetailModal: React.FC = () => {
               {isCompatibleWithBookingForGuest && (
                 <ListItem
                   className={clsx(
-                    'bs-marketplace-pass-detail__compatibility__list-item',
+                    'bs-express-checkout-pass-detail__compatibility__list-item',
                   )}
                   icon={<UsersPlus stroke="currentColor" />}
                   label={
@@ -267,17 +224,17 @@ const PassDetailModal: React.FC = () => {
               )}
             </List>
             {!isCompatibleWithAllRooms && (
-              <div className="bs-marketplace-pass-detail__compatibility__studios">
+              <div className="bs-express-checkout-pass-detail__compatibility__establishments">
                 <Title
-                  className="bs-marketplace-pass-detail__compatibility__studios__title"
+                  className="bs-express-checkout-pass-detail__compatibility__establishments__title"
                   title={t('passes.detail.compatibility.titles.studios')}
                   variant="xs"
                 />
-                <List className="bs-marketplace-pass-detail__compatibility__studios__list">
+                <List className="bs-express-checkout-pass-detail__compatibility__establishments__list">
                   {compatibleEstablishments.map((establishment) => (
                     <ListItem
                       key={establishment.id}
-                      className="bs-marketplace-pass-detail__compatibility__studios__list-item"
+                      className="bs-express-checkout-pass-detail__compatibility__establishments__list-item"
                       icon={
                         <Avatar
                           picture={establishment.cover}
@@ -292,19 +249,19 @@ const PassDetailModal: React.FC = () => {
                 </List>
               </div>
             )}
-            {timeSlotsWithChips.length > 0 && (
-              <div className="bs-marketplace-pass-detail__compatibility__time-slots">
+            {timeSlotsWithChipsData.length > 0 && (
+              <div className="bs-express-checkout-pass-detail__compatibility__time-slots">
                 <Title
-                  className="bs-marketplace-pass-detail__compatibility__time-slots__title"
+                  className="bs-express-checkout-pass-detail__compatibility__time-slots__title"
                   title={t('passes.detail.compatibility.subtitles.timeSlots')}
                   variant="xs"
                 />
-                {timeSlotsWithChips.map((timeSlot) => {
+                {timeSlotsWithChipsData.map((timeSlot) => {
                   return (
                     <ChipsContainer
                       key={timeSlot.dayOfWeek}
                       chips={timeSlot.chips}
-                      classname="bs-marketplace-pass-detail__compatibility__time-slots__content"
+                      classname="bs-express-checkout-pass-detail__compatibility__time-slots__content"
                       title={t(
                         `datetime:time.weekdayNumber.${timeSlot.dayOfWeek}`,
                       )}
@@ -316,25 +273,25 @@ const PassDetailModal: React.FC = () => {
             {(compatibleCategoryLabels.length > 0 ||
               compatibleMetaActivityLabels.length > 0 ||
               compatibleRoomLabels.length > 0) && (
-              <div className="bs-marketplace-pass-detail__compatibility__activities">
+              <div className="bs-express-checkout-pass-detail__compatibility__activities">
                 <Title
-                  className="bs-marketplace-pass-detail__compatibility__activities__title"
+                  className="bs-express-checkout-pass-detail__compatibility__activities__title"
                   title={t('passes.detail.compatibility.subtitles.activity')}
                   variant="xs"
                 />
                 <ChipsContainer
-                  chips={categoryChips}
-                  classname="bs-marketplace-pass-detail__compatibility__category"
+                  chips={categoryChipsData}
+                  classname="bs-express-checkout-pass-detail__compatibility__category"
                   title={t('passes.detail.compatibility.labels.category')}
                 />
                 <ChipsContainer
-                  chips={metaActivityChips}
-                  classname="bs-marketplace-pass-detail__compatibility__activity"
+                  chips={metaActivityChipsData}
+                  classname="bs-express-checkout-pass-detail__compatibility__activity"
                   title={t('passes.detail.compatibility.labels.activity')}
                 />
                 <ChipsContainer
-                  chips={roomChips}
-                  classname="bs-marketplace-pass-detail__compatibility__rooms"
+                  chips={roomChipsData}
+                  classname="bs-express-checkout-pass-detail__compatibility__rooms"
                   title={t('passes.detail.compatibility.labels.room')}
                 />
               </div>
@@ -343,15 +300,15 @@ const PassDetailModal: React.FC = () => {
         </ExpandableContent>
         {restrictions.length > 0 && (
           <ExpandableContent
-            className="bs-marketplace-pass-detail__restrictions"
+            className="bs-express-checkout-pass-detail__restrictions"
             id="restrictions"
             title={t('passes.detail.restriction.title')}
           >
-            <List className="bs-marketplace-pass-detail__restrictions__list">
+            <List className="bs-express-checkout-pass-detail__restrictions__list">
               {restrictions.map((restriction) => (
                 <ListItem
                   key={restriction.frequency}
-                  className="bs-marketplace-pass-detail__restrictions__list-item"
+                  className="bs-express-checkout-pass-detail__restrictions__list-item"
                   label={t(
                     `passes.detail.restriction.${restriction.frequency}`,
                     {
@@ -364,9 +321,7 @@ const PassDetailModal: React.FC = () => {
             </List>
           </ExpandableContent>
         )}
-      </div>
-    </DetailModalContainer>
-  );
-};
-
-export default memo(PassDetailModal);
+      </Card>
+    );
+  },
+);

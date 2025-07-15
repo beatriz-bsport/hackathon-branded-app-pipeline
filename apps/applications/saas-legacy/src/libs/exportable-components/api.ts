@@ -8,6 +8,8 @@ import { CacheKeys } from '#src/services/constants';
 
 const API_V1_URI = Config.REACT_APP_BASE_URI_CORE_V1;
 
+const CSS_TTL_MS = 15 * 1000; // TTL 15 seconds
+
 export const fetchManagerCssWidgetConfiguration = (): Promise<
   AxiosResponse<MarketplaceCSSConfiguration>
 > => {
@@ -29,6 +31,7 @@ export const fetchCompanyCssWidgetConfigurationWithCache = (
   return sharedCache.fetchWithCache({
     cacheKey: sharedCache.getCacheKey(CacheKeys.CompanyCss, company),
     fetchFn: () => fetchCompanyCssWidgetConfiguration(company),
+    ttl: CSS_TTL_MS,
   });
 };
 

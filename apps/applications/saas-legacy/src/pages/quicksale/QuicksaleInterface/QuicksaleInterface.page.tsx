@@ -31,7 +31,10 @@ import { fetchPaymentMethodList as fetchPaymentMethodListAction } from '#src/lib
 
 import { retrievePOSMember } from '#src/libs/company/actions';
 
-import { getLoading, getSectionList } from '#src/libs/quicksale/selectors';
+import {
+  getLoading,
+  getActiveSectionList,
+} from '#src/libs/quicksale/selectors';
 import { fetchQuicksaleConfiguration as fetchQuicksaleConfigurationAction } from '#src/libs/quicksale/actions';
 import { getQuicksaleCardInfoFromQuicksaleItem } from '#src/libs/quicksale/utils';
 import MemberSearchDialog from '#src/libs/member/components/MemberSearchDialog';
@@ -553,7 +556,7 @@ const connector = connect(
     memberById: getMemberListData(state),
     quicksaleStaffFullName: state.auth.name,
     baskets: getOpenBasketList(state),
-    sectionList: getSectionList(state),
+    sectionList: getActiveSectionList(state),
     loading:
       getLoading(state) ||
       state.paymentPack.loading ||

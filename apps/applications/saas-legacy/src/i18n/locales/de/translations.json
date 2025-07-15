@@ -5237,7 +5237,7 @@
             }
         },
         "actions": {
-            "delete": "Löschen",
+            "delete": "Archivieren",
             "edit": "Ändern",
             "scaleCredit": "Credits multiplizieren oder dividieren",
             "massExtension": "Eine Verlängerung hinzufügen",
@@ -5979,11 +5979,11 @@
             },
             "deleteForm": {
                 "actions": {
-                    "submit": "Löschen",
+                    "submit": "Archivieren",
                     "close": "Schließen"
                 },
                 "content": "Die Mitglieder können den Pass weiterhin in dem Studio nutzen, in dem sie ihn gekauft haben. Jedes Abonnement, das mit diesem Pass verbunden ist, bleibt in demselben Studio gültig.",
-                "title": "Gemeinsamen Pass löschen"
+                "title": "Geteilten Kurspass archivieren"
             },
             "form": {
                 "actions": {
@@ -6005,7 +6005,8 @@
             },
             "section": {
                 "titleManagerOnly": "Nicht zum Verkauf verfügbar",
-                "titleAvailable": "Zum Verkauf verfügbar"
+                "titleAvailable": "Zum Verkauf verfügbar",
+                "titleArchived": "Archivierte Kurspässe"
             },
             "isEmptyExplain": "Sie ermöglichen es Ihren Mitgliedern, ihr Guthaben in den von Ihnen gewählten Studios zu nutzen.",
             "specification": {
@@ -6014,6 +6015,14 @@
             "pass": "Pässe für Gruppenkurse",
             "widget": {
                 "choose": "Wählen Sie die gewünschten Pässe für die Freigabe aus"
+            },
+            "restoreForm": {
+                "content": "Der geteilte Kurspass wird wiederhergestellt und mit den zuvor ausgewählten Studios geteilt.",
+                "title": "Geteilten Kurspass wiederherstellen",
+                "actions": {
+                    "close": "Schließen",
+                    "submit": "Wiederherstellen"
+                }
             }
         },
         "paymentPackTemplateInstance": {
@@ -6096,6 +6105,24 @@
         "orderingAlert": {
             "button": "Seite zur Personalisierung",
             "text": "Jede Änderung der Reihenfolge der \"Kategorien\" wirkt sich nur auf die Anzeige der Seite \"Kurspässe\" im Marketplace und in der Anwendung aus. Diese Aktualisierung wird keine anderen Abschnitte oder Kategorien beeinflussen."
+        },
+        "universalPaymentPackTemplate": {
+            "restoreForm": {
+                "title": "Geteilten Universalpass wiederherstellen",
+                "content": "Der geteilte Universalpass wird wiederhergestellt und mit den zuvor ausgewählten Studios geteilt.",
+                "actions": {
+                    "close": "Schließen",
+                    "submit": "Wiederherstellen"
+                }
+            },
+            "deleteForm": {
+                "title": "Geteilten Universalpass archivieren",
+                "content": "Mitglieder werden den Universalpass weiterhin in dem Studio nutzen können, in dem sie ihn erworben haben. Abonnements, die mit dem Universalpass verknüpft sind, bleiben bei diesem selben Studio gültig.",
+                "actions": {
+                    "close": "Schließen",
+                    "submit": "Archivieren"
+                }
+            }
         }
     },
     "alerting": {
@@ -7225,6 +7252,22 @@
             },
             "compatibilitiesUpdate": {
                 "fail": "Fehler beim Aktualisieren der Passkompatibilitäten"
+            },
+            "universalPaymentPackTemplateRestored": {
+                "success": "Geteilter Universalpass wiederhergestellt",
+                "error": "Geteilter Universalpass kann nicht wiederhergestellt werden"
+            },
+            "universalPaymentPackTemplateArchived": {
+                "success": "Geteilter Universalpass wurde archiviert",
+                "error": "Geteilter Universalpass kann nicht archiviert werden"
+            },
+            "paymentPackTemplateRestored": {
+                "success": "Geteilter Kurspass wiederhergestellt",
+                "error": "Geteilter Kurspass kann nicht wiederhergestellt werden"
+            },
+            "paymentPackTemplateArchived": {
+                "success": "Geteilter Kurspass wurde archiviert",
+                "error": "Der geteilte Kurspass kann nicht archiviert werden"
             }
         },
         "paymentRules": {
@@ -12592,7 +12635,8 @@
             "isEmptyExplain": "Sie ermöglichen es Ihren Mitgliedern, ihr Guthaben in den von Ihnen gewählten Studios zu nutzen.",
             "section": {
                 "titleAvailable": "Zum Verkauf verfügbar",
-                "titleManagerOnly": "Nicht zum Verkauf verfügbar"
+                "titleManagerOnly": "Nicht zum Verkauf verfügbar",
+                "titleArchived": "Archivierte Kurspässe"
             },
             "form": {
                 "title": "Geteilter Terminpass",
@@ -12610,15 +12654,23 @@
                 }
             },
             "deleteForm": {
-                "title": "Gemeinsamen Terminpass löschen",
+                "title": "Gemeinsamen Terminpass archivieren",
                 "actions": {
                     "close": "Schließen",
-                    "submit": "Löschen"
+                    "submit": "Archivieren"
                 },
-                "content": "Die Mitglieder können den Terminpass weiterhin in dem Studio nutzen, in dem sie ihn gekauft haben. Jedes Abonnement, das mit diesem Terminpass verbunden ist, funktioniert ebenfalls nur in diesem Studio."
+                "content": "Die Mitglieder können den Terminpass weiterhin in dem Studio nutzen, in dem sie ihn gekauft haben. Jedes Abonnement, das mit diesem Terminpass verbunden ist, bleibt in diesem Studio gültig."
             },
             "actions": {
                 "create": "Erstellen eines geteilten Passes"
+            },
+            "restoreForm": {
+                "title": "Geteilten Terminpass wiederherstellen",
+                "content": "Dieser geteilte Terminpass wird wiederhergestellt und mit den zuvor ausgewählten Studios geteilt.",
+                "actions": {
+                    "close": "Schließen",
+                    "submit": "Wiederherstellen"
+                }
             }
         },
         "specificAvailabilitiesCalendar": {

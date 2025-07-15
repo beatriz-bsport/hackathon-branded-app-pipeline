@@ -26,6 +26,10 @@ const OneClickBookingModule = asyncComponent(
   () => import('./express-checkouts/OneClickBookingModule/index.page'),
 );
 
+const ExpressPassCheckout = asyncComponent(
+  () => import('./express-checkouts/pass/ExpressPassCheckout.page'),
+);
+
 const BoutiqueBookerModule = asyncComponent(
   () => import('./booker-modules/OfferBooker/BoutiqueBookerModule.page'),
 );
@@ -78,6 +82,10 @@ export const NewBookingFlowRouter: React.FC<Props> = ({
       <Route
         component={OneClickBookingModule}
         path="/one-click-booking/:companyId/:offerId"
+      />
+      <Route
+        component={ExpressPassCheckout}
+        path="/pass-express-checkout/:companyId/:passId/:passType"
       />
       <Route
         component={ConfirmationCheckout}

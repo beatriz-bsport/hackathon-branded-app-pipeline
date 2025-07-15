@@ -268,6 +268,15 @@ export class Root extends Component<Props> {
               component={BoutiqueFlowRouter}
               path="/one-click-booking/:companyId/:offerId"
             />
+            {!['staging', 'production'].includes(
+              Config.REACT_APP_SENTRY_ENVIRONMENT,
+            ) && (
+              <Route
+                component={BoutiqueFlowRouter}
+                path="/pass-express-checkout/:companyId/:passId/:passType"
+              />
+            )}
+
             <Route
               component={BoutiqueFlowRouter}
               path="/booker-module-s/:companyId/:offerId"

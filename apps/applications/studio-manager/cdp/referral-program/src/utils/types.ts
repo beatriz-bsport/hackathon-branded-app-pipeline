@@ -2,11 +2,13 @@ export type ReferralProgramFormData = {
   basketMinimalAmount: string;
   amountReferringReward: string;
   maxReferringUsage: number;
-  referringRewardType: string;
+  referringRewardType: ReferringRewardOptionType;
   referringRewardPercentage: number;
   referringRewardAmount: string;
   applicationTimeLimitInterval: number;
   applicationTimeLimitUnit: string;
+  toggleTagReferredMember: boolean;
+  tagReferredMember: number | null;
 };
 
 // Map first letter of units to full unit string to allow reverse search (translations -> unit)
@@ -20,13 +22,13 @@ export const timeUnits = ["day", "week", "month"] as const;
 export type TimeUnit = (typeof timeUnits)[number];
 
 export const referringRewardTypeValues = {
-  amount: "amount-off",
-  percentage: "percent-off",
+  amount: "amount_off",
+  percentage: "percent_off",
 } as const;
 
-export const referrinRewardOptionTypeMap = [
+export const referringRewardOptionTypeMap = [
   referringRewardTypeValues.amount,
   referringRewardTypeValues.percentage,
 ] as const;
-export type ReferrinRewardOptionType =
-  (typeof referrinRewardOptionTypeMap)[number];
+export type ReferringRewardOptionType =
+  (typeof referringRewardOptionTypeMap)[number];

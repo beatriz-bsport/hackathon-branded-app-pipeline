@@ -105,7 +105,15 @@ export {
 } from "./components/ListLayout";
 export { default as Loader, type LoaderProps } from "./components/Loader";
 export { default as Media, type MediaProps } from "./components/Media";
-export { default as Menu, type MenuProps } from "./components/Menu";
+export {
+  default as Menu,
+  type MenuProps,
+  type Item,
+  type MenuOption,
+  type TitleItem,
+  type DividerItem,
+  type TextItem,
+} from "./components/Menu";
 export {
   default as MenuItem,
   type MenuItemProps,

@@ -1,7 +1,10 @@
 import { z } from "zod";
 
 import { i18nInstance } from "#src/utils/i18n";
-import type { ReferralProgramFormData } from "#src/utils/types";
+import {
+  type ReferralProgramFormData,
+  ReferringRewardOptionType,
+} from "#src/utils/types";
 
 export const referralProgramSchema = z
   .object({
@@ -94,9 +97,11 @@ export const referralProgramSchema = z
           "active.form.referralReward.errors.percentageTooHigh",
         ),
       }),
-    referringRewardType: z.string(),
+    referringRewardType: z.custom<ReferringRewardOptionType>(),
     applicationTimeLimitInterval: z.coerce.number(),
     applicationTimeLimitUnit: z.string(),
+    toggleTagReferredMember: z.boolean(),
+    tagReferredMember: z.number().nullable(),
   })
   .superRefine((data, ctx) => {
     if (data.applicationTimeLimitInterval < 1) {
@@ -107,6 +112,13 @@ export const referralProgramSchema = z
           { timeUnit: data.applicationTimeLimitUnit },
         ),
         path: ["applicationTimeLimitInterval"],
+      });
+    }
+    if (data.toggleTagReferredMember && !data.tagReferredMember) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: i18nInstance.t("active.form.tagSelector.errors.notProvided"),
+        path: ["tagReferredMember"],
       });
     }
   }) satisfies z.ZodType<ReferralProgramFormData>;

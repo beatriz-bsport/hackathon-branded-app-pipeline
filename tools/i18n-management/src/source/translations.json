@@ -1422,6 +1422,7 @@
       }
     }
   },
+  "@bsport/sm-tag": { "tags": { "helloName": "Hello {{ name }} !" } },
   "@bsport/sm-teacher": {
     "common": {
       "pages": { "active": "Teachers", "archived": "Archived teachers" },

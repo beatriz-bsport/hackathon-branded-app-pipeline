@@ -189,6 +189,9 @@ const Analytics = asyncComponent(() => import('./analytics/Analytics.router'));
 const SubscriptionEvents = asyncComponent(() =>
   import('./subscription-events/SubscriptionEvents.router'),
 );
+const TrialAnalysis = asyncComponent(() =>
+  import('./trial-analysis/TrialAnalysis.router'),
+);
 const InsightsCompany = asyncComponent(() =>
   import('./insights-company/InsightsCompany.router'),
 );
@@ -460,6 +463,7 @@ const BackofficeRoute = withSentryErrorReporting((props) => {
       <Route component={Reporting} path="/reporting/" />
       <Route component={Analytics} path="/analytics/" />
       <Route component={SubscriptionEvents} path="/subscription-events/" />
+      <Route component={TrialAnalysis} path="/trial-analysis/" />
       <Route component={InsightsCompany} path="/insights-company/" />
       <Route component={PaymentCombo} path="/combo/" />
       <Route component={PrivateService} path="/private-service" />
@@ -930,6 +934,9 @@ export class Backoffice extends Component<Props, State> {
                       ) ||
                       this.props.browserLocation.pathname.includes(
                         '/subscription-events/',
+                      ) ||
+                      this.props.browserLocation.pathname.includes(
+                        '/trial-analysis/',
                       ) ||
                       this.props.browserLocation.pathname.includes(
                         '/insights-company/',

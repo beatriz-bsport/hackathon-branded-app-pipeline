@@ -34,33 +34,57 @@ const useStyles = makeStyles((_theme) => ({
 
 const API_V1_URI = Config.REACT_APP_BASE_URI_BUSINESS_INSIGHTS_V1;
 
-interface AnalyticsResponse {
-  embed_url: string;
+interface TrialAnalysisResponse {
+  presigned_url?: string;
+  embed_url?: string;
 }
 
-interface Props extends WithTranslation {}
+interface Props extends WithTranslation {
+  biTool: 'omni' | 'sigma';
+  level: 'franchise' | 'company';
+}
 
-const AnalyticsOverview: React.FC<Props> = ({ t: _t }) => {
+const TrialAnalysis: React.FC<Props> = ({ t: _t, biTool, level }) => {
   const classes = useStyles();
   const [iframeUrl, setIframeUrl] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    const fetchAnalyticsUrl = async () => {
+    const fetchTrialAnalysisUrl = async () => {
       try {
-        const response = await getAuth<AnalyticsResponse>(
-          `${API_V1_URI}/dashboard?provider=sigma&dashboard_type=franchise`,
-        );
-        setIframeUrl(response.data.embed_url);
+        let response;
+        let data: TrialAnalysisResponse;
+
+        if (biTool === 'omni') {
+          response = await getAuth<TrialAnalysisResponse>(
+            `${API_V1_URI}/embedded_analytics/presigned_url/?dashboard_type=trial_analysis_${level}`,
+          );
+          data = response.data as TrialAnalysisResponse;
+          if (data.presigned_url) {
+            setIframeUrl(data.presigned_url);
+          }
+        } else {
+          response = await getAuth<TrialAnalysisResponse>(
+            `${API_V1_URI}/embedded_analytics/presigned_url/?provider=sigma&dashboard_type=trial_analysis_franchise&company_level=${level}`,
+          );
+          data = response.data as TrialAnalysisResponse;
+          if (data.embed_url) {
+            setIframeUrl(data.embed_url);
+          }
+        }
       } catch (error) {
-        console.error('Failed to fetch analytics URL:', error);
+        console.error('Error fetching trial analysis dashboard:', error);
       } finally {
         setLoading(false);
       }
     };
 
-    fetchAnalyticsUrl();
-  }, []);
+    fetchTrialAnalysisUrl();
+  }, [biTool, level]);
+
+  const title = `Trial Analysis - ${
+    level.charAt(0).toUpperCase() + level.slice(1)
+  } (${biTool.toUpperCase()})`;
 
   return (
     <Box className={classes.root}>
@@ -75,7 +99,7 @@ const AnalyticsOverview: React.FC<Props> = ({ t: _t }) => {
             className={classes.iframe}
             loading="lazy"
             src={iframeUrl}
-            title="Analytics Dashboard - Sigma"
+            title={title}
           />
         )}
       </Box>
@@ -83,4 +107,4 @@ const AnalyticsOverview: React.FC<Props> = ({ t: _t }) => {
   );
 };
 
-export default withTranslation(['analytics'])(AnalyticsOverview);
+export default withTranslation(['trial-analysis'])(TrialAnalysis);

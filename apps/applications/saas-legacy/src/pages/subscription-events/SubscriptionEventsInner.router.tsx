@@ -4,7 +4,7 @@ import { compose } from 'recompose';
 import { Redirect, Route, Switch } from 'react-router';
 
 import withTitle from '#src/hocs/with-title.hoc';
-import SubscriptionEventsOverview from '#src/pages/subscription-events/SubscriptionEventsOverview.page';
+import SubscriptionEvents from '#src/pages/subscription-events/SubscriptionEvents.page';
 
 type Props = {};
 
@@ -13,10 +13,15 @@ const SubscriptionEventsInnerRouter: React.FC<Props> = () => {
     <Switch>
       <Route
         exact
-        component={SubscriptionEventsOverview}
-        path="/subscription-events/overview"
+        path="/subscription-events/omni"
+        render={() => <SubscriptionEvents biTool="omni" />}
       />
-      <Redirect to="/subscription-events/overview" />
+      <Route
+        exact
+        path="/subscription-events/sigma"
+        render={() => <SubscriptionEvents biTool="sigma" />}
+      />
+      <Redirect to="/subscription-events/omni" />
     </Switch>
   );
 };

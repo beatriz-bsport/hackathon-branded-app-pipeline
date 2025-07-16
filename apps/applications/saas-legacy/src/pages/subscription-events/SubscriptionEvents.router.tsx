@@ -8,11 +8,10 @@ export default function SubscriptionEvents() {
   return (
     <Switch>
       <Route
-        exact
         component={SubscriptionEventsInnerRouter}
-        path="/subscription-events/:tab"
+        path="/subscription-events"
       />
-      <Redirect to="/subscription-events/overview" />
+      <Redirect to="/subscription-events/omni" />
     </Switch>
   );
 }

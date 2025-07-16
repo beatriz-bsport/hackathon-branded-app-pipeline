@@ -5,7 +5,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { getAuth } from '../../http';
 import Config from '../../config';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((_theme) => ({
   root: {
     height: '100%',
     width: '100%',
@@ -35,25 +35,42 @@ const useStyles = makeStyles((theme) => ({
 const API_V1_URI = Config.REACT_APP_BASE_URI_BUSINESS_INSIGHTS_V1;
 
 interface SubscriptionEventsResponse {
-  presigned_url: string;
+  presigned_url?: string;
+  embed_url?: string;
 }
 
-interface Props extends WithTranslation {}
+interface Props extends WithTranslation {
+  biTool: 'omni' | 'sigma';
+}
 
-const SubscriptionEventsOverview: React.FC<Props> = ({ t }) => {
+const SubscriptionEvents: React.FC<Props> = ({ t: _t, biTool }) => {
   const classes = useStyles();
   const [iframeUrl, setIframeUrl] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const fetchSubscriptionEventsUrl = async () => {
-      console.log('fetching subscription events url');
       try {
-        const response = await getAuth<SubscriptionEventsResponse>(
-          `${API_V1_URI}/embedded_analytics/presigned_url/?dashboard_type=subscription_events`,
-        );
-        console.log('data', response.data);
-        setIframeUrl(response.data.presigned_url);
+        let response;
+        let data: SubscriptionEventsResponse;
+
+        if (biTool === 'omni') {
+          response = await getAuth<SubscriptionEventsResponse>(
+            `${API_V1_URI}/embedded_analytics/presigned_url/?dashboard_type=subscription_events`,
+          );
+          data = response.data as SubscriptionEventsResponse;
+          if (data.presigned_url) {
+            setIframeUrl(data.presigned_url);
+          }
+        } else {
+          response = await getAuth<SubscriptionEventsResponse>(
+            `${API_V1_URI}/embedded_analytics/presigned_url?provider=sigma&dashboard_type=subscription_events`,
+          );
+          data = response.data as SubscriptionEventsResponse;
+          if (data.embed_url) {
+            setIframeUrl(data.embed_url);
+          }
+        }
       } catch (error) {
         console.error('Failed to fetch subscription events URL:', error);
       } finally {
@@ -62,7 +79,9 @@ const SubscriptionEventsOverview: React.FC<Props> = ({ t }) => {
     };
 
     fetchSubscriptionEventsUrl();
-  }, []);
+  }, [biTool]);
+
+  const title = `Subscription Events (${biTool.toUpperCase()})`;
 
   return (
     <Box className={classes.root}>
@@ -73,11 +92,11 @@ const SubscriptionEventsOverview: React.FC<Props> = ({ t }) => {
           </Box>
         ) : (
           <iframe
-            className={classes.iframe}
-            src={iframeUrl}
-            title="Subscription Events - Omni Dashboard"
             allowFullScreen
+            className={classes.iframe}
             loading="lazy"
+            src={iframeUrl}
+            title={title}
           />
         )}
       </Box>
@@ -85,6 +104,4 @@ const SubscriptionEventsOverview: React.FC<Props> = ({ t }) => {
   );
 };
 
-export default withTranslation(['subscription-events'])(
-  SubscriptionEventsOverview,
-);
+export default withTranslation(['subscription-events'])(SubscriptionEvents);

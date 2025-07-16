@@ -7178,10 +7178,13 @@
             "search": "Search",
             "reporting": "Reporting",
             "insights": {
-                "insights": "Insights",
+                "omni": "Insights - Omni",
+                "sigma": "Insights - Sigma",
                 "franchise": "Franchise",
                 "company": "Company",
-                "subscriptionEvents": "Subscription Events - Omni"
+                "subscriptionEvents": "Subscription Events",
+                "trialAnalysisFranchise": "Trial Analysis - Franchise",
+                "trialAnalysisCompany": "Trial Analysis - Company"
             },
             "consumer": {
                 "order": "My orders",
@@ -19392,9 +19395,9 @@
         "dashboard": {
             "marketingDashboard": "Marketing",
             "reportingDashboard": "Reporting",
-            "insightsFranchise": "Insights - Franchise",
             "insightsCompany": "Insights - Company",
-            "subscriptionEvents": "Subscription Events - Omni",
+            "subscriptionEvents": "Subscription Events",
+            "trialAnalysis": "Trial Analysis",
             "dashboard": "Dashboard"
         },
         "subscription": {

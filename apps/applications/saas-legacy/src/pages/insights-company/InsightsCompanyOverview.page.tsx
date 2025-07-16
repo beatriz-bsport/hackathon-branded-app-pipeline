@@ -35,7 +35,7 @@ const useStyles = makeStyles((_theme) => ({
 const API_V1_URI = Config.REACT_APP_BASE_URI_BUSINESS_INSIGHTS_V1;
 
 interface InsightsCompanyResponse {
-  presigned_url: string;
+  embed_url: string;
 }
 
 interface Props extends WithTranslation {}
@@ -49,9 +49,9 @@ const InsightsCompanyOverview: React.FC<Props> = ({ t: _t }) => {
     const fetchInsightsCompanyUrl = async () => {
       try {
         const response = await getAuth<InsightsCompanyResponse>(
-          `${API_V1_URI}/embedded_analytics/presigned_url/?dashboard_type=trial_analysis_company`,
+          `${API_V1_URI}/embedded_analytics/presigned_url?provider=sigma&dashboard_type=company`,
         );
-        setIframeUrl(response.data.presigned_url);
+        setIframeUrl(response.data.embed_url);
       } catch (error) {
         console.error('Failed to fetch insights company URL:', error);
       } finally {
@@ -75,7 +75,7 @@ const InsightsCompanyOverview: React.FC<Props> = ({ t: _t }) => {
             className={classes.iframe}
             loading="lazy"
             src={iframeUrl}
-            title="Insights - Company level Dashboard"
+            title="Insights - Company level Dashboard - Sigma"
           />
         )}
       </Box>

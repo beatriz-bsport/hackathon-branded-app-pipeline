@@ -30,6 +30,7 @@ const EmailTemplate = lazy(() => import("sm-email-template/App"));
 const Smartlists = lazy(() => import("sm-smartlists/App"));
 const CustomForm = lazy(() => import("sm-custom-form/App"));
 const ReferralProgram = lazy(() => import("sm-referral-program/App"));
+const Tag = lazy(() => import("sm-tag/App"));
 
 // ----- Common -----
 const NavigationSidebar = lazy(
@@ -71,6 +72,7 @@ export function Root() {
     { url: urls.emailTemplate, element: <EmailTemplate /> },
     { url: urls.settings_referral, element: <ReferralProgram /> },
     { url: urls.smartlist, element: <Smartlists /> },
+    { url: urls.tag, element: <Tag /> },
   ];
 
   return (

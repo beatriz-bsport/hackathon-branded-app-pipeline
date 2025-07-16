@@ -600,6 +600,12 @@ const ResponsiveDrawer: React.FC<Props> = ({
             icon: Business,
             text: t('backofficeMenu.insights.trialAnalysisFranchise'),
           } as DrawerItemDefault,
+
+          {
+            to: '/trial-analysis/company/sigma',
+            icon: Store,
+            text: t('backofficeMenu.insights.trialAnalysisCompany'),
+          } as DrawerItemDefault,
           {
             to: '/subscription-events/sigma',
             icon: AssignmentIcon,

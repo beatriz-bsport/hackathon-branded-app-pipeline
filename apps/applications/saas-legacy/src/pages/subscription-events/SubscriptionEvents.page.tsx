@@ -53,23 +53,12 @@ const SubscriptionEvents: React.FC<Props> = ({ t: _t, biTool }) => {
       try {
         let response;
         let data: SubscriptionEventsResponse;
-
-        if (biTool === 'omni') {
-          response = await getAuth<SubscriptionEventsResponse>(
-            `${API_V1_URI}/embedded_analytics/presigned_url/?dashboard_type=subscription_events`,
-          );
-          data = response.data as SubscriptionEventsResponse;
-          if (data.presigned_url) {
-            setIframeUrl(data.presigned_url);
-          }
-        } else {
-          response = await getAuth<SubscriptionEventsResponse>(
-            `${API_V1_URI}/embedded_analytics/presigned_url?provider=sigma&dashboard_type=subscription_events`,
-          );
-          data = response.data as SubscriptionEventsResponse;
-          if (data.embed_url) {
-            setIframeUrl(data.embed_url);
-          }
+        response = await getAuth<SubscriptionEventsResponse>(
+          `${API_V1_URI}/embedded_analytics/presigned_url/?dashboard_type=subscription_events&provider=${biTool}`,
+        );
+        data = response.data as SubscriptionEventsResponse;
+        if (data.presigned_url) {
+          setIframeUrl(data.presigned_url);
         }
       } catch (error) {
         console.error('Failed to fetch subscription events URL:', error);

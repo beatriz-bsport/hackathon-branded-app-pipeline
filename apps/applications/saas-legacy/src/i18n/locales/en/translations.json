@@ -19395,7 +19395,6 @@
         "dashboard": {
             "marketingDashboard": "Marketing",
             "reportingDashboard": "Reporting",
-            "insightsCompany": "Insights - Company",
             "subscriptionEvents": "Subscription Events",
             "trialAnalysis": "Trial Analysis",
             "dashboard": "Dashboard"

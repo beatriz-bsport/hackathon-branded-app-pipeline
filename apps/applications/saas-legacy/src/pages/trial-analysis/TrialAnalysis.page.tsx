@@ -54,23 +54,14 @@ const TrialAnalysis: React.FC<Props> = ({ t: _t, biTool, level }) => {
       try {
         let response;
         let data: TrialAnalysisResponse;
-
-        if (biTool === 'omni') {
-          response = await getAuth<TrialAnalysisResponse>(
-            `${API_V1_URI}/embedded_analytics/presigned_url/?dashboard_type=trial_analysis_${level}`,
-          );
-          data = response.data as TrialAnalysisResponse;
-          if (data.presigned_url) {
-            setIframeUrl(data.presigned_url);
-          }
-        } else {
-          response = await getAuth<TrialAnalysisResponse>(
-            `${API_V1_URI}/embedded_analytics/presigned_url/?provider=sigma&dashboard_type=trial_analysis_franchise&company_level=${level}`,
-          );
-          data = response.data as TrialAnalysisResponse;
-          if (data.embed_url) {
-            setIframeUrl(data.embed_url);
-          }
+        response = await getAuth<TrialAnalysisResponse>(
+          `${API_V1_URI}/embedded_analytics/presigned_url/?provider=${biTool}&dashboard_type=trial_analysis_${level}&company_level=${
+            level === 'company'
+          }`,
+        );
+        data = response.data as TrialAnalysisResponse;
+        if (data.presigned_url) {
+          setIframeUrl(data.presigned_url);
         }
       } catch (error) {
         console.error('Error fetching trial analysis dashboard:', error);

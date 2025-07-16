@@ -26,6 +26,11 @@ const TrialAnalysisInnerRouter: React.FC<Props> = () => {
         path="/trial-analysis/franchise/sigma"
         render={() => <TrialAnalysis biTool="sigma" level="franchise" />}
       />
+      <Route
+        exact
+        path="/trial-analysis/company/sigma"
+        render={() => <TrialAnalysis biTool="sigma" level="company" />}
+      />
       <Redirect to="/trial-analysis/franchise/omni" />
     </Switch>
   );

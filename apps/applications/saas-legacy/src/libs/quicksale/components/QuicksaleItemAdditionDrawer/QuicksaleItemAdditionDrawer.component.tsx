@@ -109,17 +109,16 @@ const QuicksaleItemAdditionDrawer: React.FC<Props> = ({
   }, [onClose]);
 
   const searchItems = React.useMemo(
-    // retrieving all the QuicksaleCardInfo items in a list
-    () =>
-      Object.values(availableItems)
-        .map(
-          (itemsByBuyableItemIdentifier) =>
-            itemsByBuyableItemIdentifier.itemsByCategory,
-        )
-        .flat()
+    // (Quicksale MVP): Only include webshop items in the selectable list
+    () => {
+      const shopItemKey = QuicksaleBasketItem.ShopItemIdentifier;
+      const shopItemsByCategory =
+        availableItems[shopItemKey]?.itemsByCategory ?? [];
+      return shopItemsByCategory
         .map((itemCategory) => itemCategory.items)
         .flat()
-        .filter((item) => !selectedItems.includes(item)),
+        .filter((item) => !selectedItems.includes(item));
+    },
     [availableItems, selectedItems],
   );
 

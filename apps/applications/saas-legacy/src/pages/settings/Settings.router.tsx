@@ -154,10 +154,7 @@ export const Settings: React.FC<SettingsRouterConnectedProps> = () => {
         component={CoachPlaceSettingsPage}
         path="/settings/coach-userspace"
       />
-      <Route
-        component={Quicksale}
-        path={['/settings/quicksale/:tab', '/settings/quicksale']}
-      />
+      <Route component={Quicksale} path="/settings/quicksale" />
       <Route
         component={() => <Redirect to="/settings/general" />}
         path="/settings"

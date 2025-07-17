@@ -14,39 +14,39 @@ import type { EventListParams } from '#src/libs/event/types';
 import { isErrorWithCustomCode } from '#src/libs/utils';
 import {
   addItemToBasket as addItemToBasketAPI,
-  fetchCurrentBasket as fetchCurrentBasketAPI,
-  removeItemFromBasket as removeItemFromBasketAPI,
-  patchBasket as patchBasketAPI,
+  assignInstalmentPayment as assignInstalmentPaymentAPI,
+  attachCoupon as attachCouponAPI,
   attachPayment as attachPaymentAPI,
   attachPaymentUnauthenticated as attachPaymentUnauthenticatedAPI,
-  attachCoupon as attachCouponAPI,
-  fetchBasketGeneratedObjects as fetchBasketGeneratedObjectsAPI,
-  fetchBasket as fetchBasketAPI,
-  fetchBasketHistoryList as fetchBasketHistoryListAPI,
   createOrRefreshInternalAccountPrepaidLine as createOrRefreshInternalAccountPrepaidLineAPI,
-  assignInstalmentPayment as assignInstalmentPaymentAPI,
-  fetchOpenQuicksaleBaskets as fetchOpenQuicksaleBasketsAPI,
   createQuicksaleBasket as createQuicksaleBasketAPI,
-  updateQuicksaleBasketMember as updateQuicksaleBasketMemberAPI,
   dropQuicksaleBasket as dropQuicksaleBasketAPI,
+  fetchBasket as fetchBasketAPI,
+  fetchBasketGeneratedObjects as fetchBasketGeneratedObjectsAPI,
+  fetchBasketHistoryList as fetchBasketHistoryListAPI,
+  fetchCurrentBasket as fetchCurrentBasketAPI,
+  fetchOpenQuicksaleBaskets as fetchOpenQuicksaleBasketsAPI,
   getExpiredItemRemovalStatus as getExpiredItemRemovalStatusAPI,
+  patchBasket as patchBasketAPI,
+  removeItemFromBasket as removeItemFromBasketAPI,
+  updateQuicksaleBasketMember as updateQuicksaleBasketMemberAPI,
 } from './api';
 import { getCurrentBasket } from './selectors';
 
 import type {
+  APIPollOptionCallback,
   Dispatch,
   GetState,
-  ThunkAction,
   OptionCallback,
   OptionCallBackWithKeyedCallbacks,
-  APIPollOptionCallback,
-} from '../../state/types';
-import type { RootState } from '../../reducers';
+  ThunkAction,
+} from '#src/state/types';
+import type { RootState } from '#src/reducers';
 import type {
   AddItemToBasketParams,
-  CheckoutItemData,
   Basket,
   BasketAddress,
+  CheckoutItemData,
   GeneratedObject,
   QuicksaleMemberUpdateResponse,
   QuicksaleMemberUpdateSuccess,
@@ -93,6 +93,7 @@ export const createOrRefreshInternalAccountPrepaidLineActions = {
   ),
   success: createAction<Basket>('CHECKOUT_BASKET/CREATE_PREPAID_LINE/SUCCESS'),
 };
+
 export function createOrRefreshInternalAccountPrepaidLine(
   basket_uuid: string,
   amount: number,
@@ -250,7 +251,7 @@ export function addItemToBasket(
         } else if (ALL_ERROR_CODES.includes(error_code)) {
           dispatch(snackbarError(`canNotBuyErrorCode.${error_code}`));
         } else {
-          dispatch(snackbarError('canNotBuyErrorCode.generic'));
+          dispatch(snackbarError('canNotBuyErrorCode.addToBasketError'));
         }
       }
       if (options && options.onError) options.onError();
@@ -445,6 +446,7 @@ export function fetchBasketHistoryList(
     dispatch(basketHistoryActions.isLoading(false));
   };
 }
+
 export const assignInstalmentPaymentActions = {
   error: createAction<Error>('CHECKOUT_BASKET/ASSIGN_INSTALMENT/ERROR'),
   isLoading: createAction<boolean>(

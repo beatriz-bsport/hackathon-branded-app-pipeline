@@ -17072,6 +17072,7 @@
             "45005": "The giftcard is not available for purchase anymore.",
             "85000": "A booking is already in progress, please wait a few moments",
             "85101": "Impossible to book. This spot is being booked by another member. Please try again by choosing another spot.",
+            "addToBasketError": "Unable to add to basket",
             "generic": "Error while booking"
         },
         "customForm": {

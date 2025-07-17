@@ -199,6 +199,7 @@ export type Props = {
   customClasses?: {
     [className: string]: string;
   };
+  loading?: boolean;
 };
 
 export const PaymentStripeTerminal: React.FC<Props> = ({
@@ -215,6 +216,7 @@ export const PaymentStripeTerminal: React.FC<Props> = ({
   paymentGroupId,
   onSuccess,
   onlySavePaymentMethod,
+  loading,
 }) => {
   const classes = useStyles();
   const { t } = useTranslation('invoice');
@@ -551,7 +553,7 @@ export const PaymentStripeTerminal: React.FC<Props> = ({
           <div className={clsx(classes.actionRow, customClasses?.actionRow)}>
             <Button
               color="primary"
-              disabled={!clientSecret || !selectedReader}
+              disabled={!clientSecret || !selectedReader || loading}
               onClick={onConnectHandler}
               variant="contained"
             >

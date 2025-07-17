@@ -234,7 +234,7 @@ const QuicksaleSectionList: React.FC<Props> = ({
 
   const onSectionClick = React.useCallback(
     (sectionId: string) => {
-      pushRouter(`/settings/quicksale/configuration/${sectionId}`);
+      pushRouter(`/settings/quicksale/${sectionId}`);
     },
     [pushRouter],
   );

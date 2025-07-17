@@ -2,15 +2,11 @@ import { createSelector } from 'reselect';
 import memoize from 'memoize-one';
 import Immutable from 'seamless-immutable';
 import { RoleState } from './types';
-import { RootState } from '../../reducers';
+import { RootState } from '#src/reducers';
 // @ts-expect-error
 import { OWNER_ROLE } from './role-types';
 
-export const getRoleStateAllIds = (state: RootState) => state.role.allIds;
-
 export const getRoleStateById = (state: RootState) => state.role.byId;
-
-export const getRoleStateLoading = (state: RootState) => state.role.loading;
 
 const getRoleState = (state: RootState): RoleState => state.role;
 

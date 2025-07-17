@@ -5,8 +5,6 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     background: 'white',
-    marginLeft: theme.spacing(3),
-    marginRight: theme.spacing(3),
     padding: theme.spacing(2),
   },
   pageHeader: {

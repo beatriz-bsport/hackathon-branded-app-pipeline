@@ -1,9 +1,9 @@
-import { Theme, makeStyles } from '@material-ui/core';
+import { makeStyles, Theme } from '@material-ui/core';
 import type { Basket } from '#src/libs/checkout/types';
 
 const useStyles = makeStyles<
   Theme,
-  { canChangeMember?: boolean; basket?: Basket }
+  { isInteractive?: boolean; basket?: Basket }
 >((theme) => ({
   container: ({ basket }) => ({
     background: 'white',
@@ -33,7 +33,7 @@ const useStyles = makeStyles<
     justifyContent: 'space-between',
     gap: theme.spacing(2),
   },
-  basketName: ({ canChangeMember }) => ({
+  basketName: ({ isInteractive }) => ({
     display: 'flex',
     alignItems: 'center',
     gap: theme.spacing(2),
@@ -41,15 +41,13 @@ const useStyles = makeStyles<
     overflow: 'hidden',
     borderRadius: theme.spacing(1.5),
     width: 'fit-content',
-    ...(canChangeMember
+    ...(isInteractive
       ? {
           background: theme.palette.grey[200],
-          '&:hover': {
-            background: theme.palette.grey[300],
-          },
           cursor: 'pointer',
+          '&:hover': { background: theme.palette.grey[300] },
         }
-      : {}),
+      : { '&:hover': { background: 'inherit' } }),
   }),
   avatar: {
     height: 32,

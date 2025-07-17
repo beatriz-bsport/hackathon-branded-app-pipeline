@@ -1,14 +1,11 @@
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import Typography from '@material-ui/core/Typography';
-import Create from '@material-ui/icons/Create';
 import Input from '@material-ui/core/Input';
 import Save from '@material-ui/icons/Save';
 import Close from '@material-ui/icons/Close';
 import InputAdornment from '@material-ui/core/InputAdornment';
-import IconButton from '@material-ui/core/IconButton';
-import CircularProgress from '@material-ui/core/CircularProgress';
 
 import {
   getCurrencyDisplay,
@@ -17,63 +14,66 @@ import {
 import CouponCodeForm from '#src/libs/coupon/components/CouponCodeForm.component';
 import type { PaymentGroup } from '#src/libs/payment/types';
 import type { Basket } from '#src/libs/checkout/types';
+import type { OptionCallback } from '#src/state/types';
 
-import type { OptionCallback } from '../../../../state/types';
 import useStyles from './styles';
 
 type Props = {
+  attachCoupon: (code: string, options?: OptionCallback<Basket>) => void;
   basketTotalPrice?: number;
+  disableCoupon?: boolean;
+  internalAccount?: number;
+  loading?: boolean;
   modifiedPrice?: number;
+  partialPayment?: number;
   setModifiedPrice?: (
     price: number,
     options?: OptionCallback<PaymentGroup>,
   ) => void;
-  partialPayment?: number;
-  loading?: boolean;
-  attachCoupon: (code: string, options?: OptionCallback<Basket>) => void;
-  preventPriceModification?: boolean;
-  internalAccount?: number;
-  disableCoupon?: boolean;
+  // (Quicksale MVP): Hide price modification
+  // preventPriceModification?: boolean;
 };
 
 const QuicksaleBasketPriceRecap: React.FC<Props> = ({
-  basketTotalPrice,
-  modifiedPrice,
-  setModifiedPrice,
-  partialPayment,
-  loading,
   attachCoupon,
-  preventPriceModification,
-  internalAccount,
+  basketTotalPrice,
   disableCoupon,
+  internalAccount,
+  loading,
+  modifiedPrice,
+  partialPayment,
+  setModifiedPrice,
 }) => {
   const { t } = useTranslation('quicksale');
 
   const classes = useStyles();
 
   const basketPriceLeftToPay =
-    basketTotalPrice - (partialPayment ?? 0) - (internalAccount ?? 0);
+    (basketTotalPrice ?? 0) - (partialPayment ?? 0) - (internalAccount ?? 0);
 
-  const [isEditingPrice, setIsEditingPrice] = React.useState(false);
+  const [isEditingPrice, setIsEditingPrice] = useState(false);
 
-  const startEditingPrice = React.useCallback(() => {
+  // (Quicksale MVP) Hide edit price button, keep for future use
+  /*const startEditingPrice = useCallback(() => {
     setIsEditingPrice(true);
-  }, []);
+  }, []);*/
 
-  const [newPrice, setNewPrice] = React.useState(0);
+  const [newPrice, setNewPrice] = useState(0);
 
-  const onPriceChange = React.useCallback(
+  const onPriceChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       setNewPrice(Number(e.target.value));
     },
     [setNewPrice],
   );
 
-  const saveNewPrice = React.useCallback(() => {
+  const saveNewPrice = useCallback(() => {
+    if (basketTotalPrice == null || !setModifiedPrice) return;
+
     const priceToSet = Number(newPrice.toFixed(2));
     if (
       priceToSet <= 0 ||
-      priceToSet > basketTotalPrice - (partialPayment ?? 0)
+      priceToSet > (basketTotalPrice ?? 0) - (partialPayment ?? 0)
     ) {
       if (modifiedPrice !== basketPriceLeftToPay)
         setModifiedPrice(basketPriceLeftToPay);
@@ -81,26 +81,30 @@ const QuicksaleBasketPriceRecap: React.FC<Props> = ({
     setIsEditingPrice(false);
     setNewPrice(0);
   }, [
-    newPrice,
-    basketTotalPrice,
-    partialPayment,
-    modifiedPrice,
-    setModifiedPrice,
     basketPriceLeftToPay,
+    basketTotalPrice,
+    modifiedPrice,
+    newPrice,
+    partialPayment,
+    setModifiedPrice,
   ]);
 
-  const cancelNewPrice = React.useCallback(() => {
+  const cancelNewPrice = useCallback(() => {
     setNewPrice(0);
-    if (modifiedPrice !== basketPriceLeftToPay)
+    if (setModifiedPrice && modifiedPrice !== basketPriceLeftToPay)
       setModifiedPrice(basketPriceLeftToPay);
     setIsEditingPrice(false);
   }, [basketPriceLeftToPay, modifiedPrice, setModifiedPrice]);
 
-  const addCoupon = React.useCallback(
+  const addCoupon = useCallback(
     (code: string, options?: OptionCallback) => {
       attachCoupon(code, {
         onSuccess: (newBasket) => {
-          if (modifiedPrice !== basketPriceLeftToPay)
+          if (
+            setModifiedPrice &&
+            newBasket &&
+            modifiedPrice !== basketPriceLeftToPay
+          )
             setModifiedPrice(
               newBasket.total_price_cts / 100 - (partialPayment ?? 0),
             );
@@ -177,8 +181,15 @@ const QuicksaleBasketPriceRecap: React.FC<Props> = ({
         ) : (
           <div className={classes.price}>
             <Typography variant="h6">
-              {getCurrencyDisplayWithPrice(modifiedPrice)}
+              {getCurrencyDisplayWithPrice(
+                modifiedPrice ?? basketPriceLeftToPay,
+              )}
             </Typography>
+            {/*
+              (Quicksale MVP): Hide the edit price button to avoid edge cases with partial payments and price editing.
+              The code is left in place for future use, but the button is not rendered.
+              To re-enable, restore the IconButton below.
+            
             {loading ? (
               <CircularProgress size={24} />
             ) : (
@@ -196,13 +207,14 @@ const QuicksaleBasketPriceRecap: React.FC<Props> = ({
                 />
               </IconButton>
             )}
+            */}
           </div>
         )}
 
         {!loading && modifiedPrice !== basketPriceLeftToPay && (
           <Typography variant="caption">
             {`${t('checkout.leftDue')} ${getCurrencyDisplayWithPrice(
-              basketPriceLeftToPay - modifiedPrice,
+              basketPriceLeftToPay - (modifiedPrice ?? 0),
             )}`}
           </Typography>
         )}

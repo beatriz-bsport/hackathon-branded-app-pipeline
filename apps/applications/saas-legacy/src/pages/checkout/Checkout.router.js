@@ -15,8 +15,13 @@ import { fetchProfile } from '../../libs/consumer-space/actions';
 import { fetchCompanyTheme } from '../../libs/theme/actions';
 import namespaces from '../../i18n/namespaces.json';
 import { getTheme } from '../../theme';
-import { getLoginUrl as getLoginRedirectionUrl } from '../../libs/marketplace/routing-utils';
+import {
+  getLoginUrl as getLoginRedirectionUrl,
+  getPassExpressCheckoutUrl,
+} from '#src/libs/marketplace/routing-utils';
 import { AuthenticatedSwitch } from './components/AuthenticatedSwitch';
+import Config from '#src/config';
+import { PassTypes } from '#src/libs/marketplace/types';
 
 const MarketplaceAsManager = asyncComponent(() =>
   import('../marketplace/MarketplaceAsManager.page'),
@@ -79,6 +84,25 @@ export class PaymentRouter extends React.Component<Props> {
     this.props.fetchCompanyTheme(this.props.companyId);
   }
 
+  getExpressCheckoutRedirect = (passType) => {
+    const shouldRedirect =
+      !['staging', 'production'].includes(
+        Config.REACT_APP_SENTRY_ENVIRONMENT,
+      ) &&
+      this.props.theme.one_click_checkout_enabled &&
+      !this.props.theme.requires_email_confirmation_when_signing_up;
+
+    return shouldRedirect
+      ? ({ params }) =>
+          getPassExpressCheckoutUrl(
+            Number(params.companyId),
+            Number(params.id),
+            passType,
+            window.location.search,
+          )
+      : undefined;
+  };
+
   componentDidUpdate(prevProps: Props) {
     if (!prevProps.authenticated && this.props.authenticated) {
       this.props.fetchProfile();
@@ -99,6 +123,7 @@ export class PaymentRouter extends React.Component<Props> {
     if (this.props.is_manager) {
       return <MarketplaceAsManager />;
     }
+
     return (
       /* NOTE: The marketplaceCssHoc will look at its parents to search for a Themeprovider. 
       Some pages (like the contract checkout) are wraped into the marketplaceCssHoc but don't have parent 
@@ -126,6 +151,9 @@ export class PaymentRouter extends React.Component<Props> {
               {
                 path: '/(|customer/)checkout/:companyId/pre-checkout/payment-pack/:id',
                 component: PaymentPackPreCheckout,
+                redirectTo: this.getExpressCheckoutRedirect(
+                  PassTypes.PAYMENTPACK,
+                ),
               },
               {
                 path: '/(|customer/)checkout/:companyId/pre-checkout/payment-pack-template/:id/',
@@ -138,6 +166,9 @@ export class PaymentRouter extends React.Component<Props> {
               {
                 path: '/(|customer/)checkout/:companyId/pre-checkout/private-pass/:id',
                 component: PrivatePassPreCheckout,
+                redirectTo: this.getExpressCheckoutRedirect(
+                  PassTypes.PRIVATEPASS,
+                ),
               },
               {
                 path: '/(|customer/)checkout/:companyId/private-slot-booker/:privateServiceId/private-slot/:privateSlotId/',

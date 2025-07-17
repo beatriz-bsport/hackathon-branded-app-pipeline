@@ -1,6 +1,6 @@
 import React, { memo, useCallback, useMemo } from 'react';
 import { Trans, useTranslation } from 'react-i18next';
-import { usePaymentPackModalData } from '#src/pages/marketplace/passes/hooks/usePaymentPackModalData';
+import { usePaymentPackData } from '#src/libs/marketplace/hooks/usePaymentPackData';
 import {
   CalendarDate,
   CheckCircle,
@@ -11,36 +11,27 @@ import {
 import Typography from '#Fabrique/Typography';
 import { ShowMore } from '#Fabrique/ShowMore/ShowMore.component';
 import Button from '#Fabrique/ButtonV2';
-import ExpandableContent from '#src/pages/marketplace/passes/components/expandable-content/ExpandableContent';
+import ExpandableContent from '#src/components/css-only/Fabrique/expandable-content/ExpandableContent';
 import ChipsContainer, {
   type ChipData,
 } from '#src/pages/marketplace/passes/components/chips-container/ChipsContainer';
 import Chip from '#Fabrique/Chip';
-import Price from '#src/pages/marketplace/passes/components/price/Price';
+import Price from '#src/libs/marketplace/components/price/Price';
 import List from '#Fabrique/List';
 import ListItem from '#Fabrique/ListItem';
 import clsx from 'clsx';
 import Title from '#Fabrique/Title';
 import Avatar from '#Fabrique/Temporary/Avatar';
 import DetailModalContainer from '#src/pages/marketplace/passes/components/detail-modal-container/DetailModalContainer';
+import { usePassesActions } from '#src/pages/marketplace/passes/hooks/usePassesActions';
+import { usePassesContext } from '#src/pages/marketplace/passes/PassesContext';
+import { BUYABLE_ITEM_PASS } from '@bsport/common/lib/master-data/buyable-items';
 import './style.css';
 
 const COLLAPSED_HEIGHT = 40;
 const MAX_DESCRIPTION_LENGTH = 200;
 
-type PassDetailModalProps = {
-  cardDetailId: number;
-  closeModal: () => void;
-  onConfirm: () => void;
-  isSubmitLoading: boolean;
-};
-
-const PassDetailModal: React.FC<PassDetailModalProps> = ({
-  cardDetailId,
-  closeModal,
-  onConfirm,
-  isSubmitLoading,
-}) => {
+const PassDetailModal: React.FC = () => {
   const { t } = useTranslation('marketplace');
   const [isDescriptionExpanded, setIsDescriptionExpanded] =
     React.useState(false);
@@ -51,6 +42,11 @@ const PassDetailModal: React.FC<PassDetailModalProps> = ({
       ),
     [setIsDescriptionExpanded],
   );
+
+  const { selectedCardId } = usePassesContext();
+  const { handleClosePassModal, handleAddToCart, basketLoadingStatus } =
+    usePassesActions();
+
   const {
     title,
     description,
@@ -73,7 +69,7 @@ const PassDetailModal: React.FC<PassDetailModalProps> = ({
     isCompatibleWithBookingForGuest,
     restrictions,
     getTimeSlotChipsLabels,
-  } = usePaymentPackModalData(cardDetailId);
+  } = usePaymentPackData(selectedCardId);
 
   const categoryChips: ChipData[] = useMemo(
     () => compatibleCategoryLabels.map((label) => ({ label })),
@@ -97,12 +93,14 @@ const PassDetailModal: React.FC<PassDetailModalProps> = ({
     }));
   }, [timeSlots, getTimeSlotChipsLabels]);
 
+  if (!selectedCardId) return null;
+
   return (
     <DetailModalContainer
-      closeModal={closeModal}
-      isModalOpen={!!cardDetailId}
-      isSubmitLoading={isSubmitLoading}
-      onConfirm={onConfirm}
+      closeModal={handleClosePassModal}
+      isModalOpen={!!selectedCardId}
+      isSubmitLoading={basketLoadingStatus}
+      onConfirm={handleAddToCart(selectedCardId, BUYABLE_ITEM_PASS)}
       title={title}
     >
       <div className="bs-marketplace-pass-detail__root">

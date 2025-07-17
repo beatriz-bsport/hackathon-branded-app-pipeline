@@ -36,6 +36,10 @@
     "sync:list": "pnpm exec syncpack list",
     "sync:mismatch:fix": "pnpm exec syncpack fix-mismatches",
     "sync:mismatch:list": "pnpm exec syncpack list-mismatches",
+    "test": "vitest run",
+    "test:coverage": "vitest run --coverage",
+    "test:ui": "vitest --ui",
+    "test:watch": "vitest",
     "translation:migrate": "pnpm exec nx translation:migrate @bsport/i18n-management",
     "translation:update": "pnpm exec nx translation:update @bsport/i18n-management",
     "utils": "ts-node tools/toolkit-cli/src/index.ts"
@@ -78,12 +82,16 @@
     "@swc-node/register": "^1.10.9",
     "@swc/core": "^1.9.2",
     "@swc/helpers": "^0.5.15",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.3.0",
+    "@testing-library/user-event": "^14.6.1",
     "@trivago/prettier-plugin-sort-imports": "^5.2.2",
     "@types/lodash": "^4.17.14",
     "@types/node": "^22.13.15",
     "@types/react": "^18.3.17",
     "@types/react-dom": "^18.3.1",
     "@vitejs/plugin-react-swc": "^3.7.2",
+    "@vitest/coverage-v8": "^3.2.4",
     "commitizen": "^4.3.1",
     "concurrently": "^8.2.2",
     "core-js": "^3.39.0",
@@ -91,7 +99,9 @@
     "eslint": "^9.17.0",
     "husky": "^9.1.6",
     "hygen": "^6.2.11",
+    "jsdom": "~22.1.0",
     "lint-staged": "^15.4.3",
+    "msw": "^2.7.6",
     "nx": "20.3.0",
     "prettier": "^3.3.3",
     "prettier-plugin-packagejson": "^2.5.10",
@@ -107,7 +117,8 @@
     "vite-plugin-dts": "^4.5.3",
     "vite-plugin-restart": "^0.4.2",
     "vite-plugin-svgr": "^4.3.0",
-    "vite-plugin-top-level-await": "^1.5.0"
+    "vite-plugin-top-level-await": "^1.5.0",
+    "vitest": "^3.2.4"
   },
   "engines": {
     "pnpm": "10.11.0"

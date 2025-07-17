@@ -1,16 +1,29 @@
-import React, { FC } from "react";
+import React, { type FC } from "react";
 
 import { type ControlledFormProps, FormField } from "@bsport/form";
 import {
   FormRadioGroup,
-  FormRadioGroupProps,
+  type FormRadioGroupProps,
   TextField,
   Title,
 } from "@bsport/kaizen-primitive-core";
 
-import { ReferringRewardRadioOptions } from "#src/utils/constants";
 import { useTranslation } from "#src/utils/i18n";
-import type { ReferralProgramFormData } from "#src/utils/types";
+import {
+  type ReferralProgramFormData,
+  type ReferringRewardOptionType,
+  referringRewardTypeValues,
+} from "#src/utils/types";
+
+function isReferringRewardOptionType(
+  value: string,
+): value is ReferringRewardOptionType {
+  console.log(value);
+  return (
+    value === referringRewardTypeValues.amount ||
+    value === referringRewardTypeValues.percentage
+  );
+}
 
 type Props = Omit<
   ControlledFormProps<ReferralProgramFormData>,
@@ -24,7 +37,6 @@ export const ReferredRewardField: FC<Props> = ({
   ...methods
 }: Props) => {
   const { t } = useTranslation("settings");
-  const { setValue, watch } = methods;
   const alertRewardEqualToZeroConfig: AlertConfig = {
     alert: {
       status: "warning",
@@ -32,6 +44,14 @@ export const ReferredRewardField: FC<Props> = ({
     },
     position: "bottom",
   };
+  const percentageOptionLabel = t("active.form.referralReward.percentage");
+  const amountOptionLabel = t("active.form.referralReward.amount");
+  const radioOptionMap: Record<ReferringRewardOptionType, string> = {
+    amount_off: amountOptionLabel,
+    percent_off: percentageOptionLabel,
+  };
+
+  const { setValue, watch } = methods;
 
   const [
     referringRewardType,
@@ -43,20 +63,51 @@ export const ReferredRewardField: FC<Props> = ({
     "referringRewardPercentage",
   ]);
 
+  const getAlertToDisplay = (
+    rewardType: ReferringRewardOptionType,
+    rewardValue: string | number,
+  ) => {
+    const isZero = parseFloat(String(rewardValue)) === 0;
+    const isSameField = rewardType === referringRewardType;
+    return isSameField && isZero ? alertRewardEqualToZeroConfig : undefined;
+  };
+
   return (
     <div className="flex flex-col gap-md">
-      <Title htmlVariant="h4" weight="strong">
-        {t("active.form.referringReward.title")}
+      <Title htmlVariant="h3" weight="strong">
+        {t("active.form.referralReward.title")}
       </Title>
-
       <div className="flex flex-row gap-xl">
-        <FormField<ReferralProgramFormData, "referringRewardType">
+        <FormField<
+          ReferralProgramFormData,
+          "referringRewardType",
+          FormRadioGroupProps
+        >
           name="referringRewardType"
-          mapProps={({ defaultProps, field }) => ({
+          mapProps={({ defaultProps, field, form }) => ({
             ...defaultProps,
-            value: String(field.value),
+            value: radioOptionMap[field.value],
             onChangeValue: (event: React.ChangeEvent<HTMLInputElement>) => {
-              field.onChange(event.target.value);
+              if (!isReferringRewardOptionType(event.target.id)) {
+                return;
+              }
+              setValue("referringRewardType", event.target.id);
+              // Product requirement: if the user changes the reward type while having an error in the previously set field
+              // We reset the value of the field that is in error to 0 so that it does not block the form submission
+              if (
+                event.target.id === "percent_off" &&
+                form.formState.errors.referringRewardAmount?.message
+              ) {
+                setValue("referringRewardAmount", "0");
+                form.trigger("referringRewardAmount");
+              }
+              if (
+                event.target.id === "amount_off" &&
+                form.formState.errors.referringRewardPercentage?.message
+              ) {
+                setValue("referringRewardPercentage", 0);
+                form.trigger("referringRewardPercentage");
+              }
             },
           })}
         >
@@ -68,14 +119,12 @@ export const ReferredRewardField: FC<Props> = ({
             direction="start"
             options={[
               {
-                id: "percent-off",
-                value: ReferringRewardRadioOptions.Percentage,
-                alertConfig:
-                  referringRewardType ===
-                    ReferringRewardRadioOptions.Percentage &&
-                  referringRewardPercentage === 0
-                    ? alertRewardEqualToZeroConfig
-                    : undefined,
+                id: "percent_off",
+                value: radioOptionMap[referringRewardTypeValues.percentage],
+                alertConfig: getAlertToDisplay(
+                  referringRewardTypeValues.percentage,
+                  referringRewardPercentage,
+                ),
                 element: (
                   <FormField<
                     ReferralProgramFormData,
@@ -87,11 +136,12 @@ export const ReferredRewardField: FC<Props> = ({
                       value: String(field.value),
                       disabled:
                         referringRewardType !==
-                        ReferringRewardRadioOptions.Percentage,
+                        referringRewardTypeValues.percentage,
+                      min: 0,
                     })}
                   >
                     <TextField
-                      className="max-w-[160px] max-h-[32px]"
+                      className="max-w-[200px] max-h-[32px]"
                       type="number"
                       id="referring-reward-percentage-off"
                       onChange={(
@@ -111,14 +161,12 @@ export const ReferredRewardField: FC<Props> = ({
                 ),
               },
               {
-                id: "amount-off",
-                value: ReferringRewardRadioOptions.Amount,
-                alertConfig:
-                  referringRewardType === ReferringRewardRadioOptions.Amount &&
-                  (parseFloat(referringRewardAmount) || 0) === 0
-                    ? alertRewardEqualToZeroConfig
-                    : undefined,
-
+                id: "amount_off",
+                value: radioOptionMap[referringRewardTypeValues.amount],
+                alertConfig: getAlertToDisplay(
+                  referringRewardTypeValues.amount,
+                  referringRewardAmount,
+                ),
                 element: (
                   <FormField<ReferralProgramFormData, "referringRewardAmount">
                     name="referringRewardAmount"
@@ -127,11 +175,12 @@ export const ReferredRewardField: FC<Props> = ({
                       value: String(field.value),
                       disabled:
                         referringRewardType !==
-                        ReferringRewardRadioOptions.Amount,
+                        referringRewardTypeValues.amount,
+                      min: 0,
                     })}
                   >
                     <TextField
-                      className="max-w-[160px] max-h-[32px]"
+                      className="max-w-[200px] max-h-[32px]"
                       type="number"
                       id="referring-reward-amount-off"
                       onChange={(

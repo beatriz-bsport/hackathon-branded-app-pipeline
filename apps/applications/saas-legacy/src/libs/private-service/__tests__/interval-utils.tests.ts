@@ -8,7 +8,7 @@ import {
   findIntervalsIntersections,
   getIntersectingSlots,
   getDayTimeIntervals,
-  mergeAdjacentIntervals,
+  mergeOverlappingIntervals,
 } from '#src/libs/private-service/interval-utils';
 
 import { DayTimeIntervals } from '#src/libs/private-service/constants';
@@ -608,7 +608,7 @@ describe('findIntervalsIntersections', () => {
 
 describe('mergeAdjacentIntervals', () => {
   it('should return an empty array for no intervals', () => {
-    const result = mergeAdjacentIntervals([]);
+    const result = mergeOverlappingIntervals([]);
     expect(result).toEqual([]);
   });
   it('should return the same interval if there is only one', () => {
@@ -618,7 +618,7 @@ describe('mergeAdjacentIntervals', () => {
         DateTime.fromISO('2023-10-02T00:00:00'),
       ),
     ];
-    const result = mergeAdjacentIntervals(interval);
+    const result = mergeOverlappingIntervals(interval);
     expect(result).toEqual(interval);
   });
   it('should merge two adjacent intervals', () => {
@@ -632,7 +632,7 @@ describe('mergeAdjacentIntervals', () => {
         DateTime.fromISO('2023-10-03T00:00:00'),
       ),
     ];
-    const result = mergeAdjacentIntervals(intervals);
+    const result = mergeOverlappingIntervals(intervals);
     const expected = Interval.fromDateTimes(
       DateTime.fromISO('2023-10-01T00:00:00'),
       DateTime.fromISO('2023-10-03T00:00:00'),
@@ -650,7 +650,7 @@ describe('mergeAdjacentIntervals', () => {
         DateTime.fromISO('2023-10-04T00:00:00'),
       ),
     ];
-    const result = mergeAdjacentIntervals(intervals);
+    const result = mergeOverlappingIntervals(intervals);
     expect(result).toEqual(intervals);
   });
   it('should merge multiple adjacent intervals', () => {
@@ -668,7 +668,7 @@ describe('mergeAdjacentIntervals', () => {
         DateTime.fromISO('2023-10-04T00:00:00'),
       ),
     ];
-    const result = mergeAdjacentIntervals(intervals);
+    const result = mergeOverlappingIntervals(intervals);
     const expected = [
       Interval.fromDateTimes(
         DateTime.fromISO('2023-10-01T00:00:00'),
@@ -688,7 +688,7 @@ describe('mergeAdjacentIntervals', () => {
         DateTime.fromISO('2023-10-02T00:00:00'),
       ),
     ];
-    const result = mergeAdjacentIntervals(intervals);
+    const result = mergeOverlappingIntervals(intervals);
     const expected = [
       Interval.fromDateTimes(
         DateTime.fromISO('2023-10-01T00:00:00'),
@@ -697,7 +697,7 @@ describe('mergeAdjacentIntervals', () => {
     ];
     expect(result).toEqual(expected);
   });
-  it('should not merge intervals that overlap', () => {
+  it('should merge intervals that overlaps', () => {
     const intervals = [
       Interval.fromDateTimes(
         DateTime.fromISO('2023-10-01T00:00:00'),
@@ -708,8 +708,14 @@ describe('mergeAdjacentIntervals', () => {
         DateTime.fromISO('2023-10-04T00:00:00'),
       ),
     ];
-    const result = mergeAdjacentIntervals(intervals);
-    expect(result).toEqual(intervals);
+    const result = mergeOverlappingIntervals(intervals);
+    const expected = [
+      Interval.fromDateTimes(
+        DateTime.fromISO('2023-10-01T00:00:00'),
+        DateTime.fromISO('2023-10-04T00:00:00'),
+      ),
+    ];
+    expect(result).toEqual(expected);
   });
 });
 

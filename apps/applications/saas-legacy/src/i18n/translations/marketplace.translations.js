@@ -264,6 +264,7 @@ exports.default = {
         validUntil: 'Valid until {{ expirationDate }}',
       },
       description: {
+        label: 'Description',
         showMore: 'Show more',
         showLess: 'Show less',
       },

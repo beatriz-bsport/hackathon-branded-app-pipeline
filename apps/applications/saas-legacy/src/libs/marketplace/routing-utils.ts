@@ -12,6 +12,7 @@ import {
   MARKETPLACE_PATH_TAB_GIFTCARD,
 } from './constants';
 import { getUTMParamsFromURL } from '#src/utils/urlUtils';
+import { PassTypes } from './types';
 
 export const getMarketplaceRoute = (
   companyName: string,
@@ -281,7 +282,7 @@ export const getOfferBookerUrl = (
 export const getPassExpressCheckoutUrl = (
   companyId: number,
   passId: number,
-  passType: string,
+  passType: PassTypes,
   locationSearch?: string,
 ) => {
   const passCheckoutUrl = `/pass-express-checkout/${companyId}/${passId}/${passType}`;

@@ -14,7 +14,7 @@ const defaultClasses = [
   "leading-md",
   "outline-none",
   "border-none",
-  "text-onsurface-weak placeholder:text-onsurface-weaker",
+  "text-onsurface-weak placeholder:text-onsurface-weak",
   "text-ellipsis",
   "bg-[transparent]",
 ] as const;
@@ -175,6 +175,14 @@ const TextField: React.FC<TextFieldProps> = ({
     onChange?.(e);
   };
 
+  const handleIconClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    const inputElement = document.getElementById(id);
+    if (inputElement) {
+      inputElement.focus();
+    }
+  };
+
   const colorInputProps =
     type === "color"
       ? { type: "text", onChange: handleTextChange }
@@ -219,7 +227,7 @@ const TextField: React.FC<TextFieldProps> = ({
               "before:shadow-border-thin-critical": status === "error",
               "shadow-focused": isInputFocused && status === "default",
               "w-full": fullWidth,
-              "bg-surface-default-weaker": type === "search",
+              "bg-surface-default-weak": type === "search",
             },
           )}
         >
@@ -238,7 +246,7 @@ const TextField: React.FC<TextFieldProps> = ({
           )}
           {/* TODO: type country */}
           {prefix && Object.keys(prefix).length > 0 && (
-            <div className="flex px-md items-center gap-xs border-r-stroke-thin border-r-stroke-default bg-surface-default-weak text-onsurface-weaker">
+            <div className="flex px-md items-center gap-xs border-r-stroke-thin border-r-stroke-default bg-surface-default-weak text-onsurface-weak">
               {prefix.type === "text" ? (
                 <span>{prefix.value}</span>
               ) : prefix.type === "icon" ? (
@@ -252,7 +260,10 @@ const TextField: React.FC<TextFieldProps> = ({
               ) : null}
             </div>
           )}
-          <div className="flex gap-xs items-center justify-between w-full px-xs py-2xs">
+          <div
+            className="flex gap-xs items-center justify-between w-full px-xs py-2xs"
+            onClick={handleIconClick}
+          >
             {type === "search" ? (
               <Icon
                 icon="search-refraction"
@@ -288,8 +299,8 @@ const TextField: React.FC<TextFieldProps> = ({
               {...props}
               {...colorInputProps}
             />
-            <div className="flex items-center justify-center w-sm">
-              {!["number", "color", "time"].includes(type) && value ? (
+            {!["number", "color", "time"].includes(type) && value ? (
+              <div className="flex items-center justify-center w-sm">
                 <Button
                   iconLeft="x-close"
                   size="sm"
@@ -298,28 +309,17 @@ const TextField: React.FC<TextFieldProps> = ({
                   onClick={onClear}
                   className="text-onsurface-weak"
                 />
-              ) : (
-                <span style={{ visibility: "hidden" }}>
-                  <Button
-                    iconLeft="x-close"
-                    size="sm"
-                    intent="flat"
-                    color="default"
-                    tabIndex={-1}
-                    aria-hidden
-                  />
-                </span>
-              )}
-            </div>
+              </div>
+            ) : null}
             {iconRight && (
-              <div className="text-onsurface-weak">
+              <div className="text-onsurface-weak" onClick={handleIconClick}>
                 <Icon icon={iconRight} size="sm" />
               </div>
             )}
           </div>
           {/* TODO: type country */}
           {suffix && Object.keys(suffix).length > 0 && (
-            <div className="flex px-md justify-center items-center gap-xs border-l-stroke-thin border-l-stroke-default bg-surface-default-weak text-onsurface-weaker">
+            <div className="flex px-md justify-center items-center gap-xs border-l-stroke-thin border-l-stroke-default bg-surface-default-weak text-onsurface-weak">
               {suffix?.type === "text" ? (
                 <span>{suffix.value}</span>
               ) : suffix?.type === "icon" ? (

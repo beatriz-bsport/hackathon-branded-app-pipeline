@@ -14,7 +14,7 @@ import Selector from '#src/components/Selector/MaterialUISelector.component';
 import {
   QuicksaleCardInfo,
   QuicksaleItemsByItemIdentifierByCategory,
-} from '../../../types';
+} from '#src/libs/quicksale/types';
 import ListItem, { SimpleItemListAction } from '../AdditionDrawerListItem';
 import useParentDrawerStyle from '../styles';
 import useStyle from './styles';
@@ -69,21 +69,22 @@ const QuicksaleItemAdditionDrawer: React.FC<Props> = ({
   );
 
   // ========== Handling of the item type ========== //
+  // (Quicksale MVP): Only allow 'Product' (webshop items) as the selectable type
   const availableItemTypes = React.useMemo(
     () => [
-      {
+      /*{
         label: t('objectCard.subtitle.paymentPack'),
         value: QuicksaleBasketItem.PaymentPackIdentifier,
       },
       {
         label: t('objectCard.subtitle.privatePass'),
         value: QuicksaleBasketItem.PrivatePassIdentifier,
-      },
+      },*/
       {
         label: t('objectCard.subtitle.shopProduct'),
         value: QuicksaleBasketItem.ShopItemIdentifier,
       },
-      {
+      /*{
         label: t('objectCard.subtitle.paymentCombo'),
         value: QuicksaleBasketItem.PaymentComboIdentifier,
       },
@@ -94,23 +95,25 @@ const QuicksaleItemAdditionDrawer: React.FC<Props> = ({
       {
         label: t('objectCard.subtitle.giftcard'),
         value: QuicksaleBasketItem.GiftcardIdentifier,
-      },
+      },*/
     ],
     [t],
   );
 
+  // (Quicksale MVP): Always select the only available type (webshop items)
   const [selectedItemType, setSelectedItemType] = React.useState<{
     label: string;
     value: QuicksaleBasketItem;
-  }>(null);
+  }>(availableItemTypes[0]);
 
-  const onItemTypeChange = React.useCallback(
+  // (Quicksale MVP): Item type selector is disabled
+  /*const onItemTypeChange = React.useCallback(
     (itemType: { label: string; value: QuicksaleBasketItem }) => {
       setSelectedItemType(itemType);
       setSelectedCategory(null);
     },
     [],
-  );
+  );*/
 
   // ========== Handling of the category selector ========== //
   const availableCategories = React.useMemo(
@@ -131,7 +134,7 @@ const QuicksaleItemAdditionDrawer: React.FC<Props> = ({
   const [selectedCategory, setSelectedCategory] = React.useState<{
     label: string;
     value: number;
-  }>(null);
+  } | null>(null);
 
   const onCategoryChange = React.useCallback(
     (category: { label: string; value: number }) => {
@@ -170,11 +173,11 @@ const QuicksaleItemAdditionDrawer: React.FC<Props> = ({
 
   // ========== Handling reset on close ========== //
   const resetAndClose = React.useCallback(() => {
-    setSelectedItemType(null);
+    setSelectedItemType(availableItemTypes[0]);
     setSelectedCategory(null);
     unselectAll();
     onClose();
-  }, [onClose, unselectAll]);
+  }, [availableItemTypes, onClose, unselectAll]);
 
   // ========== Handling of the submit button ========== //
   const addSelectedItemsToItemsToAdd = React.useCallback(
@@ -213,8 +216,10 @@ const QuicksaleItemAdditionDrawer: React.FC<Props> = ({
         >
           <div className={classes.selectorsContainer}>
             <Selector
+              isDisabled
               isSearchable={false}
-              onChange={onItemTypeChange}
+              // (Quicksale MVP) This selector is disabled because we only allow one item type
+              /*onChange={onItemTypeChange}*/
               options={availableItemTypes}
               placeholder={t('itemList.additionDrawer.objectType')}
               value={selectedItemType}

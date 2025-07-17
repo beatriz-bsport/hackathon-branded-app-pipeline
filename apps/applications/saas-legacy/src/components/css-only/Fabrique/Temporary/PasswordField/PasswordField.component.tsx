@@ -5,6 +5,7 @@ import Textfield from '#Fabrique/Temporary/Textfield';
 import IconButton from '#Fabrique/IconButton';
 import { Eye, EyeOff } from '#src/components/untitledui';
 
+import type { TextFieldSize } from '#Fabrique/TextFieldV2/types';
 import './styles.css';
 
 type ButtonProps = {
@@ -13,6 +14,7 @@ type ButtonProps = {
   onMouseDown: (
     event?: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) => void;
+  size?: 'sm' | 'md';
 };
 
 export type Props = {
@@ -20,18 +22,20 @@ export type Props = {
   id: string;
   isDisabled?: boolean;
   label?: string;
+  size?: TextFieldSize;
 };
 
 const PasswordVisibilityButton: React.FC<ButtonProps> = ({
   isPasswordVisible,
   onClick,
   onMouseDown,
+  size = 'sm',
 }) => {
   return (
     <IconButton
       onClick={onClick}
       onMouseDown={onMouseDown}
-      size="sm"
+      size={size}
       variant="text"
     >
       {isPasswordVisible ? <Eye /> : <EyeOff />}
@@ -39,7 +43,13 @@ const PasswordVisibilityButton: React.FC<ButtonProps> = ({
   );
 };
 
-const PasswordField: React.FC<Props> = ({ isDisabled, label, name, id }) => {
+const PasswordField: React.FC<Props> = ({
+  isDisabled,
+  label,
+  name,
+  id,
+  size = 'sm',
+}) => {
   const { t } = useTranslation(['marketing', 'booking']);
 
   const [isPasswordVisible, setIsPasswordVisible] = React.useState(false);
@@ -79,9 +89,10 @@ const PasswordField: React.FC<Props> = ({ isDisabled, label, name, id }) => {
             isPasswordVisible={isPasswordVisible}
             onClick={togglePasswordVisibility}
             onMouseDown={handlePreventDefault}
+            size={size === 'sm' ? 'sm' : 'md'}
           />
         }
-        size="sm"
+        size={size}
         type={isPasswordVisible ? 'text' : 'password'}
       />
       <Textfield
@@ -96,9 +107,10 @@ const PasswordField: React.FC<Props> = ({ isDisabled, label, name, id }) => {
             isPasswordVisible={confirmPasswordVisibility}
             onClick={toggleConfirmPasswordVisibility}
             onMouseDown={handlePreventDefault}
+            size={size === 'sm' ? 'sm' : 'md'}
           />
         }
-        size="sm"
+        size={size}
         type={confirmPasswordVisibility ? 'text' : 'password'}
       />
     </div>

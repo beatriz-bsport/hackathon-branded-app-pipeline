@@ -68,7 +68,7 @@ export const TeacherListPage: React.FC = () => {
       <ListLayout.Content>
         <TeacherListContent
           searchInput={searchInput}
-          onAddTeacherClick={clearSearchInput}
+          onAddTeacherClick={onAddTeacherClick}
           permissions={permissions}
         />
         {permissions.create && (

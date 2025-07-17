@@ -14,10 +14,7 @@ import { push } from 'connected-react-router';
 import useAsyncFn from '#src/hooks/useAsyncFn';
 import { Basket } from '#src/libs/checkout/types';
 import { removeItemInStorage, getItemInStorage } from '#src/utils/storage';
-import {
-  STORAGE_KEY_LIGHT_SIGNUP_FORM_VALUES,
-  STORAGE_KEY_LIGHT_SIGNUP_MEMBER_ID,
-} from '#src/actions/constants';
+import { STORAGE_KEY_LIGHT_SIGNUP_MEMBER_ID } from '#src/actions/constants';
 import { finalizeLightSignup } from '#src/libs/member/api';
 import { handleUserRegistration } from './useHandleUserRegistration';
 import { USER_REGISTRATION_RESPONSE_LOCAL_STORAGE_KEY } from '#src/libs/payment/constants';
@@ -42,7 +39,7 @@ const redirectToConfirmationPage = (
   pushUrl(
     getCheckoutValidationUrl(offer.company, {
       basket: basketId,
-      one_click_checkout: 'true',
+      express_checkout: 'true',
       user_registration_response: encodeURIComponent(
         JSON.stringify(userRegistrationResponse),
       ),
@@ -102,8 +99,6 @@ const useBookInOneClick = () => {
 
     if (offer && basketId && userRegistrationResponse && memberId) {
       await finalizeLightSignup(parseInt(memberId));
-
-      removeItemInStorage('local', STORAGE_KEY_LIGHT_SIGNUP_FORM_VALUES);
 
       removeItemInStorage('local', STORAGE_KEY_LIGHT_SIGNUP_MEMBER_ID);
 

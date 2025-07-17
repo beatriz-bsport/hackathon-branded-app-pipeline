@@ -10,14 +10,12 @@ export type CardValidityInfo = {
 };
 
 export type CardContent = {
-  id: string;
+  id: number;
   title: string;
   validityInfo: CardValidityInfo;
   price: number;
   credits: number;
-  isUnlimited: boolean;
   tax?: number;
-  isUniversal: boolean;
   onClickDetails: () => void;
   onAddToCart: () => void;
 };

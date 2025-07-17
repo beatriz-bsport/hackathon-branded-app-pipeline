@@ -82,11 +82,6 @@ exports.default = {
     tooltips: {
       archive: "Archive teacher",
       restore: "Restore teacher",
-      clickToCopy: "Click to copy",
-    },
-    actions: {
-      copyEmail: "Email copied to your clipboard",
-      copyPhone: "Mobile number copied to your clipboard",
     },
   },
 };

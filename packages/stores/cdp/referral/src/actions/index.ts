@@ -78,7 +78,7 @@ export const updateReferralProgramSettingsAction: Action<
   UpdateReferralProgramSettingsPayload,
   ReferralSettings
 > = async (fetch, params) => {
-  const [uri, init] = updateReferralProgramSettingsAPI({ data: params });
+  const [uri, init] = updateReferralProgramSettingsAPI(params);
 
   return Result.try(
     async () => {

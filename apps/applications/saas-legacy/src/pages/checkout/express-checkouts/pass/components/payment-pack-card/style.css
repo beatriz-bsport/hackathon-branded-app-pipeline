@@ -1,0 +1,134 @@
+.bs-express-checkout-pass-detail__root {
+  display: flex;
+  flex-direction: column;
+  gap: var(--bs-space-size-4);
+  width: 100%;
+  box-shadow: var(--bs-border-shadow) var(--bs-border-width-regular)
+    var(--bs-color-border-brand-main);
+  align-items: stretch;
+}
+
+.bs-express-checkout-pass-detail-modal {
+  min-width: 500px;
+}
+
+.bs-express-checkout-pass-detail__header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.bs-express-checkout-pass-detail__header__price {
+}
+
+.bs-express-checkout-pass-detail__header__header {
+}
+
+.bs-express-checkout-pass-detail__validity {
+  display: flex;
+  flex-direction: row;
+  gap: var(--bs-space-size-2);
+}
+
+.bs-express-checkout-pass-detail__validity__icon {
+  stroke: var(--bs-color-icon-weak);
+}
+
+.bs-express-checkout-pass-detail__validity {
+}
+
+.bs-express-checkout-pass-detail__chips {
+  display: flex;
+  flex-flow: row wrap;
+  gap: var(--bs-space-size-2);
+}
+
+.bs-express-checkout-pass-detail__chips__credits {
+}
+
+.bs-express-checkout-pass-detail__chips__onsite {
+}
+
+.bs-express-checkout-pass-detail__chips__universal {
+}
+
+.bs-express-checkout-pass-detail__chips__only-vod {
+}
+
+.bs-express-checkout-pass-detail__chips__new-member {
+}
+
+.bs-express-checkout-pass-detail__description-section {
+}
+
+.bs-express-checkout-pass-detail__description {
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.bs-express-checkout-pass-detail__compatibility {
+}
+
+.bs-express-checkout-pass-detail__compatibility__content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--bs-space-size-3);
+}
+
+.bs-express-checkout-pass-detail__compatibility__list {
+}
+
+.bs-express-checkout-pass-detail__compatibility__list-item,
+.bs-express-checkout-pass-detail__restrictions__list-item {
+  padding: 0;
+}
+
+.bs-express-checkout-pass-detail__compatibility__time-slots,
+.bs-express-checkout-pass-detail__compatibility__activities {
+  display: flex;
+  flex-direction: column;
+  gap: var(--bs-space-size-1);
+}
+
+.bs-express-checkout-pass-detail__compatibility__establishment {
+}
+
+.bs-express-checkout-pass-detail__compatibility__establishments__title {
+}
+
+.bs-express-checkout-pass-detail__compatibility__establishments__list {
+}
+
+.bs-express-checkout-pass-detail__compatibility__establishments__list-item {
+}
+
+.bs-express-checkout-pass-detail__compatibility__time-slots__title {
+}
+
+.bs-express-checkout-pass-detail__compatibility__time-slots__content {
+}
+
+.bs-express-checkout-pass-detail__compatibility__activities {
+}
+
+.bs-express-checkout-pass-detail__compatibility__activities__title {
+}
+
+.bs-express-checkout-pass-detail__compatibility__category {
+}
+
+.bs-express-checkout-pass-detail__compatibility__activity {
+}
+
+.bs-express-checkout-pass-detail__compatibility__rooms {
+}
+
+.bs-express-checkout-pass-detail__restrictions {
+}
+
+.bs-express-checkout-pass-detail__restrictions__list {
+}
+
+.bs-express-checkout-pass-detail__restrictions__list-item {
+}

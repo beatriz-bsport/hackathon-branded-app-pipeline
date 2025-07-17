@@ -88,6 +88,7 @@ export const REVAMP_URLS_DEVELOPMENT = {
   smartlist: "/smartlist",
   teacher: "/teacher",
   settings_referral: `${SETTINGS_URL}/referral-program`,
+  tag: "/tag",
 } as const satisfies Partial<Urls>;
 
 export const REVAMP_URLS_PRODUCTION = {

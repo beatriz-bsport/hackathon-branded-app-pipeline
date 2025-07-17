@@ -57,6 +57,7 @@ const TableHeader = <RowType extends BaseRow>({
             withVerticalBorders={withVerticalBorders}
             rowHeight="sm"
             align={col.align}
+            className={col.type === "copy" ? "px-md" : ""}
           >
             <Body htmlVariant="span">{col.header}</Body>
           </TableCell>

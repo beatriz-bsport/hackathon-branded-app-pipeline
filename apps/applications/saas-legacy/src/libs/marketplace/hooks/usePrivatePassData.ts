@@ -6,19 +6,20 @@ import type { RootState } from '#src/reducers';
 import type { PrivatePass } from '#src/libs/private-service/types';
 import { getPrivatePass } from '#src/libs/private-service/selectors/private-pass';
 import type { DailyTimeSlots } from '#src/pages/marketplace/passes/types';
-import { useValidityInfoForAppointmentPassCard } from '#src/pages/marketplace/passes/hooks/useValidityInfoForAppointmentPassCard';
+import { useValidityInfoForAppointmentPassCard } from '#src/libs/marketplace/hooks/useValidityInfoForAppointmentPassCard';
 import { getAllPrivateSlotsDict } from '#src/libs/private-service/selectors/private-slot';
 import { _getPrivateServicesById } from '#src/libs/private-service/selectors/private-service';
+import { getCreditsDividedValue } from '#src/libs/theme/utils';
 
 /**
  * A custom hook that retrieves and formats all relevant data required
  * to display the appointment detail modal for a specific private pass.
  *
  */
-export const usePrivatePassModalData = (id: number | null) => {
+export const usePrivatePassData = (id: number | null) => {
   const { t } = useTranslation('marketplace');
-  const privatePass: PrivatePass | null = useSelector((state: RootState) =>
-    id ? getPrivatePass(state, id) : null,
+  const privatePass: PrivatePass = useSelector((state: RootState) =>
+    id ? getPrivatePass(state, id) : ({} as PrivatePass),
   );
 
   const validity = useValidityInfoForAppointmentPassCard({
@@ -80,8 +81,9 @@ export const usePrivatePassModalData = (id: number | null) => {
     title: privatePass?.name,
     description: privatePass?.description,
     validity: validity,
-    price: privatePass?.price,
-    credits: privatePass?.credits ?? 0,
+    price: privatePass?.price ?? 0,
+    tax: privatePass?.tax ?? 0,
+    credits: getCreditsDividedValue(privatePass?.credits ?? 0),
     isCompatibleWithVod: privatePass?.full_vod_access,
     isNewMemberOnly: privatePass?.new_member_only,
     isUniversalPass: !!privatePass?.linked_payment_pack,

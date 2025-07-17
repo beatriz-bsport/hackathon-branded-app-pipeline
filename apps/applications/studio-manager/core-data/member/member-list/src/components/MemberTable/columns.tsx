@@ -2,7 +2,6 @@ import {
   Avatar,
   Body,
   Button,
-  CopyToClipboard,
   type GenericTableColumn,
   Tooltip,
 } from "@bsport/kaizen-primitive-core";
@@ -23,7 +22,6 @@ export const getTableColumns = ({
   t,
   permissions,
 }: TableColumnsParams & { t: TFunction }): Array<TableColumn> => {
-  console.log("Recompute table columns");
   const columnName: TableColumn = {
     header: t("memberTable.headers.name"),
     id: "column-name",
@@ -53,18 +51,9 @@ export const getTableColumns = ({
   const columnEmail: TableColumn = {
     header: t("memberTable.headers.email"),
     id: "column-email",
-    type: "custom",
-    render: (row) => (
-      <CopyToClipboard
-        value={row.email}
-        toastMessage={t("memberTable.actions.copiedToClipboard")}
-        tooltip={t("memberTable.tooltips.clickToCopy")}
-        size="lg"
-        color="default"
-        intent="flat"
-      />
-    ),
-    align: "center",
+    type: "copy",
+    keyPath: "email",
+    align: "start",
   };
 
   const columnBalance: TableColumn = {

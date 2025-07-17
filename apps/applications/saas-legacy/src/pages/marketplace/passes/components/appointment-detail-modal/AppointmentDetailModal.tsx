@@ -1,36 +1,26 @@
 import React, { memo, useCallback } from 'react';
 import { Trans, useTranslation } from 'react-i18next';
-import { usePrivatePassModalData } from '#src/pages/marketplace/passes/hooks/usePrivatePassModalData';
+import { usePrivatePassData } from '#src/libs/marketplace/hooks/usePrivatePassData';
 import { CalendarDate, VideoRecorder } from '#src/components/untitledui';
 import Typography from '#Fabrique/Typography';
 import { ShowMore } from '#Fabrique/ShowMore/ShowMore.component';
 import Button from '#Fabrique/ButtonV2';
-import ExpandableContent from '#src/pages/marketplace/passes/components/expandable-content/ExpandableContent';
+import ExpandableContent from '#src/components/css-only/Fabrique/expandable-content/ExpandableContent';
 import Chip from '#Fabrique/Chip';
-import Price from '#src/pages/marketplace/passes/components/price/Price';
+import Price from '#src/libs/marketplace/components/price/Price';
 import List from '#Fabrique/List';
 import ListItem from '#Fabrique/ListItem';
 import Title from '#Fabrique/Title';
 import DetailModalContainer from '#src/pages/marketplace/passes/components/detail-modal-container/DetailModalContainer';
+import { usePassesActions } from '#src/pages/marketplace/passes/hooks/usePassesActions';
+import { usePassesContext } from '#src/pages/marketplace/passes/PassesContext';
 import { BUYABLE_ITEM_PRIVATE_PASS } from '@bsport/common/lib/master-data/buyable-items';
 import './style.css';
 
 const COLLAPSED_HEIGHT = 40;
 const MAX_DESCRIPTION_LENGTH = 200;
 
-type AppointmentDetailModalProps = {
-  appointmentPassId: number;
-  closeModal: () => void;
-  onConfirm: (id: number, type: number) => () => void;
-  isSubmitLoading: boolean;
-};
-
-const AppointmentDetailModal: React.FC<AppointmentDetailModalProps> = ({
-  appointmentPassId,
-  closeModal,
-  onConfirm,
-  isSubmitLoading,
-}) => {
+const AppointmentDetailModal: React.FC = () => {
   const { t } = useTranslation('marketplace');
   const [isDescriptionExpanded, setIsDescriptionExpanded] =
     React.useState(false);
@@ -42,6 +32,13 @@ const AppointmentDetailModal: React.FC<AppointmentDetailModalProps> = ({
     [setIsDescriptionExpanded],
   );
 
+  const { selectedAppointmentCardId } = usePassesContext();
+  const {
+    handleCloseAppointmentPassModal,
+    handleAddToCart,
+    basketLoadingStatus,
+  } = usePassesActions();
+
   const {
     title,
     description,
@@ -52,17 +49,20 @@ const AppointmentDetailModal: React.FC<AppointmentDetailModalProps> = ({
     isNewMemberOnly,
     hasNoCompatibleServices,
     compatibleServices,
-  } = usePrivatePassModalData(appointmentPassId);
+  } = usePrivatePassData(selectedAppointmentCardId);
 
-  if (!appointmentPassId) return null;
+  if (!selectedAppointmentCardId) return null;
 
   return (
     <DetailModalContainer
-      closeModal={closeModal}
-      isModalOpen={!!appointmentPassId}
-      isSubmitLoading={isSubmitLoading}
-      onConfirm={onConfirm(appointmentPassId, BUYABLE_ITEM_PRIVATE_PASS)}
-      title={title || ''}
+      closeModal={handleCloseAppointmentPassModal}
+      isModalOpen={!!selectedAppointmentCardId}
+      isSubmitLoading={basketLoadingStatus}
+      onConfirm={handleAddToCart(
+        selectedAppointmentCardId,
+        BUYABLE_ITEM_PRIVATE_PASS,
+      )}
+      title={title ?? ''}
     >
       <div className="bs-marketplace-appointment-detail__root">
         <div className="bs-marketplace-appointment-detail__validity">

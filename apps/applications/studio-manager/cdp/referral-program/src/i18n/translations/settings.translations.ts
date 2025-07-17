@@ -46,10 +46,14 @@ exports.default = {
         maxReferringNumber: {
           label: "Max. use per member",
           errors: {
-            tooSmall: "You must allow at least 1 referral",
+            tooSmall: "The number of uses must be between 1 and 5",
             tooBig: "You cannot give more than 5 referrals",
             noFloat: "You can only use whole numbers",
           },
+        },
+        alerts: {
+          equalToZero:
+            "By choosing this value, no discount will be applied to the purchase of the referred member",
         },
         errors: {
           tooManyDecimalPoints:
@@ -63,6 +67,8 @@ exports.default = {
         percentage: "Percentage",
         amount: "Amount",
         errors: {
+          onlyWholePercentage:
+            "The percentage should be a whole number, the nearest integer are {{ wholeNumberUnder }} or {{ wholeNumberAbove }}",
           percentageTooHigh: "The percentage cannot be greater than 100",
           invalidFormat: "The amount format is not valid",
           tooManyDecimalPoints:
@@ -74,20 +80,27 @@ exports.default = {
         },
       },
       timeLimitForUsage: {
-        label: "Time limit for applying the discount after registration",
-        choices: {
-          day: "day",
-          week: "week",
-          month: "month",
-          day_plural: "days",
-          week_plural: "weeks",
-          month_plural: "months",
+        unit: {
+          label: "Select interval of time limit",
+          choices: {
+            day_one: "Day",
+            week_one: "Week",
+            month_one: "Month",
+            day_other: "Days",
+            week_other: "Weeks",
+            month_other: "Months",
+          },
+          errors: {},
         },
-        errors: {},
-        equalToZero: "The time limit must be 1 {{timeUnit}} or longer",
+        interval: {
+          label: "Time limit for applying the discount after registration",
+          errors: {
+            lowerThanOne: "The time limit must be 1 {{ timeUnit }} or longer",
+          },
+        },
       },
       tagSelector: {
-        label: "Add a tag for new members who used the referral link",
+        label: "Apply a tag when new customers use the referral link",
         placeholder: "Select a tag",
         helper: "Tip: Tag new customers to target them later.",
         errors: {
@@ -98,7 +111,7 @@ exports.default = {
         switch: {
           label: "Add a redirect link",
           helper:
-            "After registering, the new member will be redirected to the page indicated by your URL. Otherwise, they will be taken to the Calendar page.",
+            "Add a link to redirect new customers to a custom URL after registering. If left blank, they'll be taken to the Calendar page.",
         },
         textfield: {
           label: "Redirect link",
@@ -106,6 +119,7 @@ exports.default = {
         },
         errors: {
           notProvided: "Add a URL or deactivate this option to continue",
+          invalidFormat: "The URL format is not valid",
         },
       },
       saveSettings: {
@@ -116,12 +130,16 @@ exports.default = {
         onFailure: {
           title: "Could not save changes",
         },
+        errors: {
+          invalidVoucherType: "The voucher type is not valid",
+          invalidTimeUnit: "The time unit is not valid",
+        },
       },
     },
     deactivateReferralModal: {
-      title: "Deactivate referrals",
+      title: "Deactivate referrals?",
       description:
-        "You'll need to set up referrals again once you turn off this feature.",
+        "We'll save your setup so that you can easily reactivate referrals in the future.",
       cancelButton: {
         label: "Cancel",
       },

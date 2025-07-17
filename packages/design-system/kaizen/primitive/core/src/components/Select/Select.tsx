@@ -65,6 +65,8 @@ export type SelectProps = Omit<
     popoverPlacement?: (typeof Placements)[number];
     onSelect?: (option: string) => void;
     fullWidth?: boolean;
+    label?: string;
+    required?: boolean;
   };
 
 /**
@@ -89,6 +91,8 @@ export type SelectProps = Omit<
  * @param props.popoverPlacement Placement of the popover. Defaults to `"bottom-left"`. Can be any valid placement from the `Placements` type.
  * @param props.onSelect Function to call when an option is selected. Receives the selected option's label or id as an argument.
  * @param props.fullWidth Optional Boolean to allow the Select component to take the whole available width of its parent.
+ * @param props.label Optional String - gives a label title to the select field.
+ * @param props.required Optional Boolean - Display a custom element next to the label if the select result is required.
  * @link https://docs.infra.bsport.io/storybook/kaizen/main/index.html?path=/docs/components-select--docs
  */
 const Select: React.FC<SelectProps> = ({
@@ -107,6 +111,8 @@ const Select: React.FC<SelectProps> = ({
   popoverPlacement = "bottom-left",
   onSelect,
   fullWidth,
+  label,
+  required,
   ...props
 }) => {
   const isControlled = value !== undefined;
@@ -134,6 +140,19 @@ const Select: React.FC<SelectProps> = ({
 
   return (
     <div className="flex flex-col gap-2xs">
+      {label && (
+        <label
+          htmlFor={id}
+          className="flex gap-2xs text-onsurface-default text-body-md leading-sm"
+        >
+          <span>{label}</span>
+          {required && (
+            <span className="text-onsurface-status-critical-strong text-body-sm leading-xs">
+              *
+            </span>
+          )}
+        </label>
+      )}
       <Popover className={classNames({ "w-full": fullWidth })}>
         <Popover.Anchor>
           {({ isPopoverOpened, setIsPopoverOpened }) => {
@@ -170,6 +189,7 @@ const Select: React.FC<SelectProps> = ({
                   aria-expanded={isPopoverOpened}
                   aria-controls={`${id}-listbox`}
                   id={id}
+                  type="button"
                   disabled={disabled}
                   {...props}
                 >

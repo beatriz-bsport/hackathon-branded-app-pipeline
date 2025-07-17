@@ -95,8 +95,11 @@ import type { RootState } from '../../../../reducers';
 import { sortByDate } from '../../../../utils/datetime';
 import { buildUrlParams } from '../../../../http';
 
-// @ts-expect-error js file
-import { auth as authActions } from '#src/actions';
+import { getItemInStorage, removeItemInStorage } from '#src/utils/storage';
+import { STORAGE_KEY_LIGHT_SIGNUP_FORM_VALUES } from '#src/actions/constants';
+import type { LightSignupFormValues } from '#src/pages/checkout/express-checkouts/components/LightSignupForm';
+// @ts-expect-error
+import { requestLogin as requestLoginAction } from '#src/actions/auth.actions';
 
 import './styles.css';
 
@@ -105,7 +108,7 @@ type QueryParams = {
   billingPlanId: string;
   dialogMode: string;
   onValidation: string;
-  one_click_checkout?: string;
+  express_checkout?: string;
   user_registration_response: string;
 };
 
@@ -160,6 +163,7 @@ export class ConfirmationCheckout extends React.PureComponent<Props, State> {
   }
 
   componentDidMount() {
+    this.handleExpressCheckoutLogin();
     if (
       this.props.offerBookedIdList?.[0] &&
       typeof this.props.offerBookedIdList?.[0] === 'number' // dont fetch if [undefined]
@@ -195,6 +199,40 @@ export class ConfirmationCheckout extends React.PureComponent<Props, State> {
       this.props.fetchBillinPlan(parsedBillingPlanId, {});
     }
   }
+
+  handleExpressCheckoutLogin = () => {
+    if (
+      !(this.props.queryParams?.express_checkout === 'true') ||
+      this.props.authenticated
+    ) {
+      return;
+    }
+    try {
+      const lightSignupFormValues = getItemInStorage(
+        'local',
+        STORAGE_KEY_LIGHT_SIGNUP_FORM_VALUES,
+      );
+
+      if (!lightSignupFormValues) return;
+
+      const { email, password }: LightSignupFormValues = JSON.parse(
+        lightSignupFormValues,
+      );
+
+      if (!email || !password) return;
+      this.props.requestLogin(email, password, {
+        onDone: () => {
+          removeItemInStorage('local', STORAGE_KEY_LIGHT_SIGNUP_FORM_VALUES);
+        },
+        onError: () => {
+          removeItemInStorage('local', STORAGE_KEY_LIGHT_SIGNUP_FORM_VALUES);
+        },
+      });
+    } catch (error) {
+      console.error('Error during express checkout login:', error);
+      removeItemInStorage('local', STORAGE_KEY_LIGHT_SIGNUP_FORM_VALUES);
+    }
+  };
 
   trackBookings = () => {
     // Add booking success analytics
@@ -435,7 +473,7 @@ export class ConfirmationCheckout extends React.PureComponent<Props, State> {
 
     const userRegistrationResponse = this.getParsedUserRegistrationResponse();
 
-    const isFromOneClickCheckout = !!this.props.queryParams?.one_click_checkout;
+    const isFromOneClickCheckout = !!this.props.queryParams?.express_checkout;
 
     const confirmationStatus = isFromOneClickCheckout
       ? getOneClickCheckoutConfirmationStatus(
@@ -752,35 +790,27 @@ const mapWithHandlers = {
   goToMemberBookings:
     ({
       replace,
-      disconnect,
       companyId,
-      queryParams,
       companyTheme,
     }: {
       replace: typeof replaceRouter;
-      disconnect: any;
       companyId: number;
-      queryParams: QueryParams;
       companyTheme: CompanyTheme;
     }) =>
     () => {
       if (WidgetUtils.isWidget()) {
         replace(buildUrlForWidget('bookings/', companyTheme));
-        if (!!queryParams?.one_click_checkout) disconnect();
         return;
       }
       replace(`/c/${companyId}/booking/`);
-      if (!!queryParams?.one_click_checkout) disconnect();
     },
   goToMarketplace:
     ({
-      disconnect,
       replace,
       companyId,
       queryParams,
       companyTheme,
     }: {
-      disconnect: any;
       replace: typeof replaceRouter;
       companyId: number;
       queryParams: QueryParams;
@@ -792,24 +822,14 @@ const mapWithHandlers = {
         if (queryParams && queryParams.onValidation === 'close') {
           window.close();
         }
-        if (!!queryParams?.one_click_checkout) disconnect();
         return;
       }
       replace(
         urlToMarketplace(companyTheme.company_name, companyId.toString()),
       );
-      if (!!queryParams?.one_click_checkout) disconnect();
     },
   goToMemberPasses:
-    ({
-      replace,
-      companyId,
-      queryParams,
-    }: {
-      replace: typeof replaceRouter;
-      companyId: number;
-      queryParams: QueryParams;
-    }) =>
+    ({ replace, companyId, queryParams }: RouterProps & Props) =>
     () => {
       if (WidgetUtils.isWidget()) {
         WidgetUtils.paymentSuccess();
@@ -821,15 +841,7 @@ const mapWithHandlers = {
       replace(`/c/${companyId}/pack/`);
     },
   goToMemberSubscriptions:
-    ({
-      replace,
-      companyId,
-      queryParams,
-    }: {
-      replace: typeof replaceRouter;
-      companyId: number;
-      queryParams: QueryParams;
-    }) =>
+    ({ replace, companyId, queryParams }: RouterProps & Props) =>
     () => {
       if (WidgetUtils.isWidget()) {
         WidgetUtils.paymentSuccess();
@@ -915,6 +927,7 @@ const mapStateToProps = (
   getOfferStatusWaitingListPosition: (offerId: number) => {
     return getOfferStatusWaitingListPosition(state, offerId);
   },
+  authenticated: state.auth.authenticated,
 });
 
 const mapDispatchToProps = {
@@ -934,7 +947,7 @@ const mapDispatchToProps = {
   push: pushRouter,
   goBack,
   retrieveCompanyCssConfiguration: retrieveCompanyCssConfigurationAction,
-  disconnect: authActions.disconnect,
+  requestLogin: requestLoginAction,
 };
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
@@ -948,7 +961,7 @@ export default compose<any, ConfirmationCheckoutProps>(
       'dialogMode',
       'onValidation',
       'billingPlanId',
-      'one_click_checkout',
+      'express_checkout',
     ],
     'queryParams',
     'setQueryParams',
@@ -1001,7 +1014,7 @@ export default compose<any, ConfirmationCheckoutProps>(
     }),
   ),
   connector,
-  withHandlers(mapWithHandlers),
   WithCustomCssProvider,
+  withHandlers(mapWithHandlers),
   marketplaceCssHoc(),
 )(ConfirmationCheckout);

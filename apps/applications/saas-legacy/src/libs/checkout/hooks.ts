@@ -463,20 +463,24 @@ export const useConfirmationMessageData = (
       },
       [ConfirmationStatus.PURCHASE_WITH_PASSES_ONE_CLICK_SUCCESS]: {
         actions: {
-          cancel: {
-            label: t('validation.actions.goToCalendar'),
+          confirm: {
+            label: t('validation.actions.bookAClass'),
             onClick: goToCalendar,
+          },
+          cancel: {
+            label: t('validation.actions.seeAllPasses'),
+            onClick: goToMemberPasses,
           },
         },
         icon: React.createElement(ConfirmationMessageIcon, { isError: false }),
         message: t(
-          'validation.sections.confirmationStatusMessage.paymentSuccess',
+          'validation.sections.confirmationStatusMessage.expressCheckoutPassPurchaseSuccess',
           {
             count: checkoutItems?.length,
           },
         ),
         title: t(
-          'validation.sections.confirmationStatusTitle.success.paymentSuccess',
+          'validation.sections.confirmationStatusTitle.success.expressCheckoutPassPurchaseSuccess',
         ),
         withAlert: null,
         withSubScriptionActions: null,

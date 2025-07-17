@@ -27,6 +27,7 @@
     "format:check": "prettier --check '**/*.{ts,tsx,js,jsx,cjs,mjs}'",
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
+    "test": "vitest run",
     "test:coverage": "vitest run --coverage",
     "test:watch": "vitest"
   },
@@ -34,9 +35,7 @@
     "@bsport/envs": "workspace:*"
   },
   "devDependencies": {
-    "@bsport/config-eslint-react": "workspace:*",
-    "@vitest/coverage-v8": "^3.1.1",
-    "vitest": "^3.1.1"
+    "@bsport/config-eslint-react": "workspace:*"
   },
   "nx": {
     "tags": [

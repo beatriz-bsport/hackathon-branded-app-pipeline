@@ -88,6 +88,10 @@
       "sm-referral-program": {
         "devPort": 4303,
         "watchPath": "../cdp/referral-program/src/**/*"
+      },
+      "sm-tag": {
+        "devPort": 4304,
+        "watchPath": "../cdp/tag/src/**/*"
       }
     }
   }

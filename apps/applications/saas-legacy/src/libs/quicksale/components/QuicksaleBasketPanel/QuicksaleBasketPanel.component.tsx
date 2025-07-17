@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import Avatar from '@material-ui/core/Avatar';
@@ -21,10 +21,7 @@ import type {
   OnRemoveCheckoutItemData,
 } from '#src/libs/checkout/types';
 import type { Member } from '#src/libs/member/types';
-import {
-  formatAsDate,
-  formatISOStringAsTime,
-} from '../../../../utils/datetime';
+import { formatAsDate, formatISOStringAsTime } from '#src/utils/datetime';
 
 import useStyles from './styles';
 
@@ -39,31 +36,38 @@ export const BasketName: React.FC<BasketNameProps> = ({
   canChangeMember,
   openChangeMemberModal,
 }) => {
-  const classes = useStyles({ canChangeMember });
-
   const { t } = useTranslation('quicksale');
+  const isAnonymous = member?.is_pos;
+  const isInteractive = canChangeMember && isAnonymous;
+  const classes = useStyles({ isInteractive });
 
-  const stopPropagation = React.useCallback((e: React.KeyboardEvent) => {
-    e.stopPropagation();
-  }, []);
+  const handleClick = useCallback(() => {
+    if (isInteractive && openChangeMemberModal) {
+      openChangeMemberModal();
+    }
+  }, [isInteractive, openChangeMemberModal]);
 
   return (
     <div
       className={classes.basketName}
-      onClick={canChangeMember ? openChangeMemberModal : undefined}
-      onKeyDown={stopPropagation}
-      role="button"
-      tabIndex={0}
+      onClick={isInteractive ? handleClick : undefined}
+      role={isInteractive ? 'button' : undefined}
+      tabIndex={isInteractive ? 0 : undefined}
     >
-      {!member?.is_pos && (
+      {!isAnonymous && (
         <Avatar className={classes.avatar}>
           <img alt="member" height={32} src={member?.photo ?? ''} />
         </Avatar>
       )}
       <Typography className={classes.basketNameTypography} variant="h6">
-        {!member?.is_pos ? member?.name || '' : t('interface.anonymousSale')}
+        {isAnonymous ? t('interface.anonymousSale') : member?.name || ''}
       </Typography>
-      <Cached className={classes.nameIcon} />
+      {isInteractive && (
+        <Cached
+          className={classes.nameIcon}
+          style={{ color: QuicksaleInterfaceModalColors.Error }}
+        />
+      )}
     </div>
   );
 };
@@ -92,14 +96,14 @@ const QuicksaleBasketPanel: React.FC<Props> = ({
   const { t } = useTranslation('quicksale');
 
   const canChangeMember = basket && !basket.invoice;
-  const basketPriceExcludingTax = React.useMemo(() => {
+  const basketPriceExcludingTax = useMemo(() => {
     if (basket) {
       return getSubTotal(basket, true);
     }
     return '0';
   }, [basket]);
 
-  const deliveryFee = React.useMemo(
+  const deliveryFee = useMemo(
     () =>
       (basket?.checkout_items ?? []).find(
         (checkoutItem) =>
@@ -108,7 +112,7 @@ const QuicksaleBasketPanel: React.FC<Props> = ({
     [basket?.checkout_items],
   );
 
-  const taxPrice = React.useMemo(() => {
+  const taxPrice = useMemo(() => {
     if (basket) {
       return (
         parseFloat(basket.total_price) -
@@ -119,13 +123,15 @@ const QuicksaleBasketPanel: React.FC<Props> = ({
     return '0';
   }, [basket, basketPriceExcludingTax, deliveryFee?.unit_price]);
 
-  const classes = useStyles({ canChangeMember, basket });
+  const classes = useStyles({ basket });
 
-  const closeCurrentBasket = React.useCallback(() => {
-    closeBasket(basket);
+  const closeCurrentBasket = useCallback(() => {
+    if (basket) {
+      closeBasket(basket);
+    }
   }, [closeBasket, basket]);
 
-  const checkoutItemsWithouDeliveryFee = React.useMemo(
+  const checkoutItemsWithouDeliveryFee = useMemo(
     () =>
       (basket?.checkout_items ?? []).filter(
         (checkoutItem) =>

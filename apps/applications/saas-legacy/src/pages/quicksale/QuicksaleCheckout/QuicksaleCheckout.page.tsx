@@ -6,8 +6,11 @@ import {
   replace as replaceAction,
 } from 'connected-react-router';
 
+import { PAYMENT_INTENT_STATUS_SUCCESS } from '@bsport/common/lib/master-data/payment-group.js';
+
 import routerParamsToProps from '#src/hocs/router-params-to-props.hoc';
 
+import { getPaymentGroupStatus as getPaymentGroupStatusAPI } from '#src/libs/payment/api';
 import {
   assignInstalmentPayment as assignInstalmentPaymentAction,
   attachCoupon as attachCouponAction,
@@ -60,6 +63,8 @@ import type { MemberFormData } from '#src/libs/member/types';
 import type { PaymentGroup } from '#src/libs/payment/types';
 import type { RootState } from '#src/reducers';
 import type { OptionCallback } from '#src/state/types';
+
+const NEXT_PAYMENT_INTENT_STATUS_CHECK_SECONDS = 1.5;
 
 type Props = {
   basketId: string;
@@ -259,19 +264,33 @@ const QuicksalePayment: React.FC<Props> = ({
 
   const onPaymentSuccess = React.useCallback(
     (callback?: () => void) => {
-      callback?.();
-      if (member?.is_pos) setShowAnonymousPaymentSuccessModal(true);
-      else if (
-        basket &&
-        paymentGroupPriceCts / 100 !==
-          basket.total_price_cts / 100 - alreadyPaidAmount
-      )
-        setShowPartialPaymentSuccesModal(true);
-      else setShowPaymentSuccessModal(true);
+      getPaymentGroupStatusAPI(paymentGroupId)
+        .then((body) => {
+          if (body.data >= PAYMENT_INTENT_STATUS_SUCCESS) {
+            setTimeout(() => {
+              callback?.();
+              if (member?.is_pos) setShowAnonymousPaymentSuccessModal(true);
+              else if (
+                basket &&
+                paymentGroupPriceCts / 100 !==
+                  basket.total_price_cts / 100 - alreadyPaidAmount
+              )
+                setShowPartialPaymentSuccesModal(true);
+              else setShowPaymentSuccessModal(true);
+            }, 2000);
+          } else {
+            setTimeout(
+              onPaymentSuccess,
+              NEXT_PAYMENT_INTENT_STATUS_CHECK_SECONDS * 1000,
+            );
+          }
+        })
+        .catch(console.error);
     },
     [
       alreadyPaidAmount,
       basket,
+      paymentGroupId,
       member?.is_pos,
       paymentGroupPriceCts,
       setShowAnonymousPaymentSuccessModal,

@@ -31,7 +31,8 @@ import type { Theme } from '#src/libs/theme/types';
 
 type Props = {
   alreadyPaidAmount?: number;
-  attachCoupon: (code: string, options?: OptionCallback<Basket>) => void;
+  // (Quicksale MVP): Hide Coupon
+  // attachCoupon: (code: string, options?: OptionCallback<Basket>) => void;
   availablePaymentMethods?: QuicksalePaymentMethod[];
   basket?: Basket;
   basketAddress: BasketAddress | null;
@@ -81,7 +82,8 @@ type Props = {
 
 const QuicksaleCheckout: React.FC<Props> = ({
   alreadyPaidAmount,
-  attachCoupon,
+  // (Quicksale MVP): Hide Coupon
+  // attachCoupon,
   availablePaymentMethods,
   basket,
   basketAddress,
@@ -173,9 +175,11 @@ const QuicksaleCheckout: React.FC<Props> = ({
 
         <Grid item className={classes.rightContainer} sm={8} xs={12}>
           <QuicksaleBasketPriceRecap
-            attachCoupon={attachCoupon}
+            // (Quicksale MVP): Hide Coupon
+            // attachCoupon={attachCoupon}
             basketTotalPrice={basket?.total_price_cts / 100}
-            disableCoupon={member.is_pos}
+            // (Quicksale MVP): Hide Coupon
+            // disableCoupon={member.is_pos}
             internalAccount={basket.total_price_prepaid_lines_cts / 100}
             loading={loading || isProcessing}
             modifiedPrice={

@@ -7,6 +7,8 @@ import { NavigationLink } from "#src/components/NavigationLink";
 import { LEGACY_URLS } from "#src/urls";
 import { useTranslation } from "#src/utils/i18n";
 
+import { useNotificationsNavigation } from "./NotificationsNavigationContext";
+
 export type BillingListItemProps = {
   id: string;
   title: string;
@@ -32,18 +34,16 @@ export type BillingListItemProps = {
  *
  * @returns {JSX.Element} A styled list item component for billing notifications
  */
-const BillingListItem: FC<
-  BillingListItemProps & { navigate?: (to: string) => void }
-> = ({
+const BillingListItem: FC<BillingListItemProps> = ({
   id,
   title,
   description,
   paidAmount,
   dueAmount,
   currencySymbol,
-  navigate,
 }) => {
   const { t } = useTranslation("default");
+  const { navigateAndClose } = useNotificationsNavigation();
 
   const formatCurrencyValue = (amount: number) => {
     return formatPriceWithCurrency(amount, currencySymbol);
@@ -98,7 +98,7 @@ const BillingListItem: FC<
     <NavigationLink
       item={{ id, href: `${LEGACY_URLS.invoice}/${id}`, revamped: false }}
       renderElement={renderItem}
-      navigate={navigate}
+      navigate={navigateAndClose}
       wrapperConfig={{
         withOnClick: true,
         className: [

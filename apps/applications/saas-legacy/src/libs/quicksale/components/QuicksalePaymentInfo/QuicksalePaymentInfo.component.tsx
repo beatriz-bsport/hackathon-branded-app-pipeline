@@ -116,6 +116,7 @@ const QuicksalePaymentInfo: React.FC<Props> = ({
             stripeTerminalContainer: classes.stripeTerminalContainer,
             actionRow: classes.stripeTerminalActions,
           }}
+          hideSaveForLater={isMemberPOS}
           loading={loading}
           onCancel={onCancel}
           onSuccess={onPaymentSuccess}

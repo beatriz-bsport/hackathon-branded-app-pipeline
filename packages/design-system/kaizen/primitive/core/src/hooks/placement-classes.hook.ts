@@ -25,14 +25,57 @@ const placementClasses = {
 };
 
 const placementsPriority: Record<Placement, Placement[]> = {
-  top: ["top", "bottom", "right", "left"],
-  bottom: ["bottom", "top", "right", "left"],
-  left: ["left", "right", "top", "bottom"],
-  right: ["right", "left", "top", "bottom"],
-  "top-left": ["top-left", "bottom-left", "top-right", "bottom-right"],
-  "top-right": ["top-right", "bottom-right", "top-left", "bottom-left"],
-  "bottom-left": ["bottom-left", "top-left", "bottom-right", "top-right"],
-  "bottom-right": ["bottom-right", "top-right", "bottom-left", "top-left"],
+  top: ["top", "bottom"],
+  bottom: ["bottom", "top"],
+  left: ["left", "right"],
+  right: ["right", "left"],
+  "top-left": ["top-left", "bottom-left"],
+  "top-right": ["top-right", "bottom-right"],
+  "bottom-left": ["bottom-left", "top-left"],
+  "bottom-right": ["bottom-right", "top-right"],
+};
+
+/**
+ * Calculates the top position for an element based on its placement and anchor rectangle.
+ *
+ * @param placement - The placement string indicating the position (e.g., "top", "bottom").
+ * @param anchorRect - The DOMRect of the anchor element to position relative to.
+ * @returns The calculated top position in pixels, or `null` if the placement is not supported.
+ *
+ * - For "top" placements, returns the anchor's top minus 15px for padding or margin.
+ * - For "bottom" placements, returns the distance from the bottom of the anchor to the window's bottom minus 15px.
+ */
+const calculateTopPosition = (
+  placement: Placement,
+  anchorRect: DOMRect,
+): number | null => {
+  if (placement.startsWith("top")) {
+    return anchorRect.top - 15; // 15px for padding or margin
+  } else if (placement.startsWith("bottom")) {
+    return window.innerHeight - anchorRect.bottom - 15; // 15px for padding or margin
+  }
+  return null;
+};
+
+/**
+ * Determines the placement (either "top" or "bottom") with the most available free space
+ * relative to the anchor element's position in the viewport.
+ *
+ * If the anchor element is positioned in the lower half of the viewport, the function
+ * suggests placing the element above ("top") the anchor. Otherwise, it suggests placing
+ * it below ("bottom").
+ *
+ * @param placementToCheck - The current placement value to check ("top" or "bottom").
+ * @param anchorRect - The bounding rectangle of the anchor element.
+ * @returns The placement ("top" or "bottom") with the most free space.
+ */
+const getPlacementWithMostFreeSpace = (
+  placementToCheck: Placement,
+  anchorRect: DOMRect,
+): Placement => {
+  return window.innerHeight / 2 < anchorRect.top + anchorRect.height / 2
+    ? (placementToCheck.replace("bottom", "top") as Placement)
+    : (placementToCheck.replace("top", "bottom") as Placement);
 };
 
 /**
@@ -49,8 +92,12 @@ const getAbsoluteStyles = (
   placement: Placement,
   anchorRect: DOMRect,
   contentRect?: DOMRect,
-) => {
-  const contentHeight = contentRect?.height || 0;
+): React.CSSProperties => {
+  const topPosition = calculateTopPosition(placement, anchorRect) ?? 0;
+  const contentRectHeight = contentRect?.height || 0;
+
+  const contentHeight =
+    contentRectHeight < window.innerHeight ? contentRectHeight : topPosition;
   const contentWidth = contentRect?.width || 0;
 
   switch (placement) {
@@ -173,7 +220,7 @@ const useAbsolutePlacementStyles = (
   contentRef: React.RefObject<HTMLElement> | null,
   isVisible: boolean,
 ) => {
-  const [styles, setStyles] = useState({});
+  const [styles, setStyles] = useState<React.CSSProperties>({});
   const [currentPlacement, setCurrentPlacement] =
     useState<Placement>(placement);
 
@@ -212,27 +259,58 @@ const useAbsolutePlacementStyles = (
       let style = getAbsoluteStyles(nextPlacement, anchorRect, contentRect);
       const contentBox = getBox(nextPlacement, anchorRect, contentRect);
 
+      // We check if the content is out of viewport
+      // If it is, we try to find an alternative placement
       if (isOutOfViewport(contentBox, window)) {
+        // Based on the current placement, we try to find an alternative placement
+        // We find it based on a map of placementsPriority, if you are on top then we try to place you on bottom
         const altPlacement =
           priorities.find((p) => p !== currentPlacement && p !== placement) ||
           priorities[1] ||
           placement;
         const altBox = getBox(altPlacement, anchorRect, contentRect);
+        // We check if the alternative placement is not out of viewport
+        // If it is not, we use it as the next placement
         if (!isOutOfViewport(altBox, window)) {
           nextPlacement = altPlacement;
           style = getAbsoluteStyles(nextPlacement, anchorRect, contentRect);
           setCurrentPlacement(nextPlacement);
+        } else {
+          // If we get here, it means both placements are out of viewport.
+          // We will try to find the placement with the most free space.
+          // This is a fallback to ensure the content is still visible.
+          const placementWithMostFreeSpace = getPlacementWithMostFreeSpace(
+            altPlacement,
+            anchorRect,
+          );
+          nextPlacement = placementWithMostFreeSpace;
+
+          // Try to calculate the max height based on the placement with most free space
+          // This is a fallback to ensure the content is still visible.
+          const maxHeightPx = calculateTopPosition(
+            placementWithMostFreeSpace,
+            anchorRect,
+          );
+
+          // This will ensure that the content is positioned correctly
+          // That we can use the max height to limit the content height
+          // That we can use the overflow to scroll the content
+          style = {
+            ...getAbsoluteStyles(nextPlacement, anchorRect, contentRect),
+            maxHeight: `${maxHeightPx}px`,
+            overflowY: "auto",
+          };
         }
+        setStyles(style);
       } else if (currentPlacement !== placement) {
         const origBox = getBox(placement, anchorRect, contentRect);
         if (!isOutOfViewport(origBox, window)) {
           nextPlacement = placement;
           style = getAbsoluteStyles(nextPlacement, anchorRect, contentRect);
           setCurrentPlacement(nextPlacement);
+          setStyles(style);
         }
       }
-
-      setStyles(style);
     };
 
     const updateStylesRaf = () => {

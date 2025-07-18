@@ -13,7 +13,8 @@ import routerParamsToProps from '#src/hocs/router-params-to-props.hoc';
 import { getPaymentGroupStatus as getPaymentGroupStatusAPI } from '#src/libs/payment/api';
 import {
   assignInstalmentPayment as assignInstalmentPaymentAction,
-  attachCoupon as attachCouponAction,
+  // (Quicksale MVP): Hide Coupon
+  // attachCoupon as attachCouponAction,
   createOrRefreshInternalAccountPrepaidLine as createOrRefreshInternalAccountPrepaidLineAction,
   fetchBasket as fetchBasketAction,
   patchCurrentBasket as patchCurrentBasketAction,
@@ -88,7 +89,8 @@ const QuicksalePayment: React.FC<Props> = ({
   updateQuicksaleBasketMember,
   updatePaymentGroupPrice,
   fetchPaymentList,
-  attachCoupon,
+  // (Quicksale MVP): Hide Coupon
+  // attachCoupon,
   removeItemFromBasket,
   getFeatureList,
   fetchStripeReaders,
@@ -324,13 +326,14 @@ const QuicksalePayment: React.FC<Props> = ({
     [basketId, removeItemFromBasket],
   );
 
-  const addCoupon = React.useCallback(
+  // (Quicksale MVP): Hide Coupon
+  /*const addCoupon = React.useCallback(
     (code: string, options?: OptionCallback<Basket>) => {
       setLoading(true);
       attachCoupon(basketId, code, options);
     },
     [attachCoupon, basketId],
-  );
+  );*/
 
   /*const removePaymentMethod = React.useCallback(
     (paymentMethodId: string, options: OptionCallback<unknown, number>) => {
@@ -408,7 +411,8 @@ const QuicksalePayment: React.FC<Props> = ({
     <>
       <QuicksaleCheckout
         alreadyPaidAmount={alreadyPaidAmount}
-        attachCoupon={addCoupon}
+        // (Quicksale MVP): Hide Coupon
+        // attachCoupon={addCoupon}
         availablePaymentMethods={availablePaymentMethods}
         basket={basket}
         basketAddress={basketAddress}
@@ -496,7 +500,8 @@ const connector = connect(
     updateQuicksaleBasketMember: updateQuicksaleBasketMemberAction,
     updatePaymentGroupPrice: updatePaymentGroupPriceCts,
     fetchPaymentList: fetchPaymentListAction,
-    attachCoupon: attachCouponAction,
+    // (Quicksale MVP): Hide Coupon
+    // attachCoupon: attachCouponAction,
     removeItemFromBasket: removeItemFromBasketAction,
     patchCurrentBasket: patchCurrentBasketAction,
     getFeatureList: getFeatureListAction,

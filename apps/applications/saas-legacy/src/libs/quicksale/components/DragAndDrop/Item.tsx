@@ -55,6 +55,7 @@ const Item: React.FC<
       onDrag={handleDrag}
       onDragEnd={handleDragEnd}
       onDragStart={handleDragStart}
+      style={{ opacity: 0.999 }}
       {...props}
     >
       {children({ isDragged })}

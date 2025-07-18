@@ -46,7 +46,6 @@ import PromptOnPageLeave from '#src/components/Prompt';
 import { Dispatch } from '../../../state/types';
 import { RootState } from '../../../reducers';
 import useStyles from './cardListHook';
-import { sortItemInList } from '#src/libs/quicksale/sortable';
 
 enum ReducerActionType {
   SET_SECTIONS = 'SET_SECTIONS',
@@ -174,18 +173,17 @@ const QuicksaleSectionList: React.FC<Props> = ({
           const enabledSections = state.filter((section) => !section.disabled);
           const disabledSections = state.filter((section) => section.disabled);
 
-          const sortedEnabledSections = sortItemInList<QuicksaleSection>({
-            itemsList: enabledSections,
-            draggedItemIndex,
-            dropzoneIndex,
-          });
+          // Simple array reordering logic
+          const newEnabledSections = [...enabledSections];
+          const [movedItem] = newEnabledSections.splice(draggedItemIndex, 1);
+          newEnabledSections.splice(dropzoneIndex, 0, movedItem);
 
           let enabledIdx = 0,
             disabledIdx = 0;
           return state.map((section) =>
             section.disabled
               ? disabledSections[disabledIdx++]
-              : sortedEnabledSections[enabledIdx++],
+              : newEnabledSections[enabledIdx++],
           );
         }
         default:

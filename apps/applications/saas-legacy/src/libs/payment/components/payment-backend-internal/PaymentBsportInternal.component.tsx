@@ -39,6 +39,7 @@ type Props = {
       { paymentGroupId: number; invoiceUuid: string }
     >,
   ) => void;
+  loading?: boolean;
 };
 
 export const PaymentBsportInternal: React.FC<Props> = ({
@@ -52,6 +53,7 @@ export const PaymentBsportInternal: React.FC<Props> = ({
   customClasses,
   children,
   submitInternalPaymentInBackground,
+  loading,
 }) => {
   const classes = useStyles();
   const { t } = useTranslation(['invoice']);
@@ -157,7 +159,7 @@ export const PaymentBsportInternal: React.FC<Props> = ({
           )}
         >
           <PriceInput
-            disabled={processing || !clientSecret}
+            disabled={processing || !clientSecret || loading}
             label={t('paymentPanel.amount.label')}
             onChange={onPriceChange}
             value={modifiedAmountToPay}
@@ -225,7 +227,7 @@ export const PaymentBsportInternal: React.FC<Props> = ({
           ) : (
             <Button
               color="primary"
-              disabled={processing || !clientSecret}
+              disabled={processing || !clientSecret || loading}
               type="submit"
               variant="contained"
             >

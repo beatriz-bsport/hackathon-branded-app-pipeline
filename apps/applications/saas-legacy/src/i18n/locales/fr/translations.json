@@ -695,7 +695,9 @@
                     "requiredField": "Ce champ est obligatoire",
                     "phone": "Veuillez saisir un numéro de téléphone valide",
                     "phoneTaken": "Ce numéro de téléphone est déjà utilisé par un autre membre.",
-                    "emailTaken": "Cet e-mail existe déjà. Vous pouvez essayer de vous connecter avec cette adresse."
+                    "emailTaken": "Cet e-mail existe déjà. Vous pouvez essayer de vous connecter avec cette adresse.",
+                    "passwordConfirmation": "Les mots de passe doivent correspondre",
+                    "passwordMinimumRequirements": "Votre mot de passe doit comporter au moins 6 caractères et ne contenir aucun espace"
                 },
                 "email": {
                     "label": "Email"
@@ -717,6 +719,9 @@
                 },
                 "acceptEmail": {
                     "label": "J'accepte de recevoir des courriels promotionnels, y compris des offres spéciales et des réductions"
+                },
+                "password": {
+                    "label": "Je crée mon mot de passe"
                 }
             }
         }
@@ -853,7 +858,9 @@
                 "myProducts": "Mes achats",
                 "myGiftcards": "Mes cartes cadeaux",
                 "myPasses": "Mes cartes de cours",
-                "backToMyProfile": "Retour à mon profil"
+                "backToMyProfile": "Retour à mon profil",
+                "seeAllPasses": "Voir toutes les cartes de cours",
+                "bookAClass": "Réserver un cours"
             },
             "sections": {
                 "explain": "Votre opération a bien été prise en compte. Nous vous enverrons un mail de confirmation.",
@@ -886,7 +893,8 @@
                         "offerOnlySuccess": "Bonne séance !",
                         "paymentSuccess": "Paiement confirmé !",
                         "waitingList": "Vous vous êtes inscrit sur la liste d'attente",
-                        "offerOnlyGuestSuccess": "Profitez de la séance avec votre invité(e) !"
+                        "offerOnlyGuestSuccess": "Profitez de la séance avec votre invité(e) !",
+                        "expressCheckoutPassPurchaseSuccess": "Félicitations ! Vous venez d'acheter un pass !"
                     },
                     "warning": {
                         "offersPartiallyConfirmed": "Votre réservation est partiellement confirmée"
@@ -899,7 +907,8 @@
                     "paymentSuccess_plural": "Félicitations ! Vos achats sont confirmés !",
                     "offerAndPurchaseSuccess": "Félicitations ! Vos achats et réservations sont confirmés. Vous recevrez sous peu un e-mail de confirmation contenant tous les détails.",
                     "offerOnlyGuestSuccess": "La réservation a été effectuée. Votre invité(e) et vous allez recevoir sous peu un e-mail de confirmation contenant tous les détails.",
-                    "offersPartiallyConfirmed": "Certaines séances n'ont pas pu être réservées, potentiellement car elles étaient complètes ou qu'elles ont été annulées pendant votre réservation. Vous recevrez sous peu un email de confirmation contenant les détails des réservations réussies."
+                    "offersPartiallyConfirmed": "Certaines séances n'ont pas pu être réservées, potentiellement car elles étaient complètes ou qu'elles ont été annulées pendant votre réservation. Vous recevrez sous peu un email de confirmation contenant les détails des réservations réussies.",
+                    "expressCheckoutPassPurchaseSuccess": "Maintenant que vous avez votre pass, il est temps de réserver votre cours et de profiter de tous les avantages."
                 },
                 "alert": "Oups ! La réservation a échoué.\n Nous avons rencontré un problème lors du traitement de votre réservation de séance. Veuillez réessayer ultérieurement ou réserver une séance différente.",
                 "myPass": "Ma carte de cours",
@@ -2109,7 +2118,8 @@
                         "creditsToRefund_plural": "{{count}} crédits seront remboursés",
                         "cancelledFromManager": "Annulé par le responsable du studio",
                         "cancelledFromMember": "Annulation de votre part",
-                        "title": "Annulé"
+                        "title": "Annulé",
+                        "cancelledFromOffer": "Annulation manager"
                     },
                     "drawerTitle": "Activité"
                 },

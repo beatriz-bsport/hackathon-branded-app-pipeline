@@ -3385,7 +3385,7 @@
         },
         "group": {
             "groupButton": "Grouper les établissements",
-            "addLocalisation": "Ajouter une salle",
+            "addLocalisation": "Ajouter une localisation",
             "name": " Nom",
             "actions": "Actions",
             "noGroupHelper": "Les localisations permettent de regrouper plusieurs adresses entre elles. Si vous possèdez plusieurs studios dans différentes villes vous pouvez regrouper les studios de la même ville dans une localisation. Sur la marketplace, le widget et l’application personnalisée vos élèves pourront sélectionner la localisation qui les intéresse le plus pour ne voir que les cours proches de chez eux.",
@@ -7169,7 +7169,7 @@
             },
             "replacement": {
                 "management": "Gestion",
-                "disciplineGroup": "Activités :"
+                "disciplineGroup": "Groupes de disciplines"
             },
             "franchise": {
                 "staff": {
@@ -9889,7 +9889,7 @@
                 "createCard": "Ajouter une carte"
             },
             "info": {
-                "content": "Votre abonnement Bsport sera débité sur le moyen de paiement indiqué ci dessous. Pour configurer le compte sur lequel les paiements en ligne via Bsport seront crédités, cliquez",
+                "content": "Votre abonnement bsport sera débité sur le moyen de paiement indiqué ci dessous. Pour configurer le compte sur lequel les paiements en ligne via bsport seront crédités, cliquez",
                 "link": "ici"
             }
         },
@@ -21423,7 +21423,7 @@
                 "name": "Nom",
                 "nameHelperText": "Nom du groupe de discipline",
                 "required": "Ce champ est requis",
-                "groupTypes": "Cours et catégories :",
+                "groupTypes": "Cours et catégories",
                 "activities": "Activités",
                 "pickActivity": "Choisir une activité",
                 "allActivities": "Enseigne toutes les activités",
@@ -21445,7 +21445,7 @@
             }
         },
         "compatibleCoaches": {
-            "title": "Professeurs compatibles par activité",
+            "title": "Professeurs compatibles par discipline",
             "compatibleCoaches": "{{count}} professeur compatible",
             "compatibleCoaches_plural": "{{count}} professeurs compatibles",
             "nextSlot": "Prochaine séance le {{date}} - {{hour}}",

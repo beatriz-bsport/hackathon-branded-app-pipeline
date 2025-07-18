@@ -35,7 +35,8 @@
     "@bsport/envs": "workspace:*"
   },
   "devDependencies": {
-    "@bsport/config-eslint-react": "workspace:*"
+    "@bsport/config-eslint-react": "workspace:*",
+    "@bsport/config-vitest": "workspace:*"
   },
   "nx": {
     "tags": [

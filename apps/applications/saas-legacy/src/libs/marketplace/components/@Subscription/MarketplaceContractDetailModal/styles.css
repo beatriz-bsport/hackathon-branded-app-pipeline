@@ -120,7 +120,7 @@
 
 .bs-contract-details-dialog__body {
   overflow-y: auto;
-  max-height: 500px;
+  max-height: calc(70vh - 200px);
 }
 
 .bs-contract-details-dialog__body__text {
@@ -208,10 +208,6 @@
 }
 
 @media screen and (max-width: 570px) {
-  .bs-contract-details-dialog__body {
-    max-height: calc(100vh - 300px);
-  }
-
   .bs-contract-dialog__header__price-container--desktop {
     display: none;
   }
@@ -234,10 +230,6 @@
     flex-direction: row;
     align-items: baseline;
     margin-top: var(--spacing-1);
-  }
-
-  .bs-contract-details-dialog__container {
-    max-height: none;
   }
 
   .bs-contract-details-dialog__header__price-container {

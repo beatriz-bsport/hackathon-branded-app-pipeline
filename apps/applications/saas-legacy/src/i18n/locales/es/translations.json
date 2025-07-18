@@ -86,7 +86,7 @@
             "generate": "Generar",
             "tax": "IVA",
             "uploadOneImage": {
-                "new": "Arrastrar y soltar o hacer clic aquí para añadir una imagen",
+                "new": "Cargar imagen",
                 "edit": "Arrastrar y soltar o hacer clic aquí para añadir una imagen"
             },
             "buy": "Comprar",
@@ -19021,7 +19021,7 @@
             "sectionTitle": "Método de pago",
             "info": {
                 "link": "aquí",
-                "content": "Tu suscripción Bsport se cargará a la forma de pago indicada a abajo. Para configurar la cuenta en la que se acreditarán los pagos en línea a través de Bsport, haga clic"
+                "content": "Tu suscripción bsport se cargará a la forma de pago indicada a abajo. Para configurar la cuenta en la que se acreditarán los pagos en línea a través de bsport, haga clic"
             }
         },
         "platformInvoice": {

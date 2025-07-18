@@ -8795,7 +8795,7 @@
                     "availability": {
                         "expiresToday": "Último día",
                         "expiresIn": "{{ daysRemaining }} día restante",
-                        "expiresIn_plural": "{{ daysRemaining }} días restantes",
+                        "expiresIn_plural": "días restantes",
                         "future": "Inicio: {{ startDate }}",
                         "expired": "Caducado: {{ expirationDate }}",
                         "active": "Caduca: {{ expirationDate }}"
@@ -8948,7 +8948,8 @@
                         "creditsToRefund_plural": "Se reembolsarán {{count}} créditos",
                         "cancelledFromManager": "Cancelado por el manager del estudio",
                         "cancelledFromMember": "Cancelado por usted",
-                        "title": "Cancelado"
+                        "title": "Cancelado",
+                        "cancelledFromOffer": "Cancelado por el estudio"
                     },
                     "drawerTitle": "Actividad"
                 },
@@ -14000,14 +14001,16 @@
                     "offerOnlySuccess": "La reserva se ha efectuada. En breve recibirá un correo electrónico de confirmación con todos los detalles.",
                     "offerOnlySuccess_plural": "Las reservas se han efectuado. En breve recibirá un correo electrónico de confirmación con todos los detalles.",
                     "offerOnlyGuestSuccess": "La reserva ha sido efectuada. Usted y su invitado recibirán en breve un correo electrónico de confirmación con todos los detalles.",
-                    "offersPartiallyConfirmed": "Algunas sesiones no pudieron reservarse, posiblemente porque se llenaron o se cancelaron durante el proceso de pago. En breve recibirá un correo electrónico de confirmación con los detalles de las reservas realizadas."
+                    "offersPartiallyConfirmed": "Algunas sesiones no pudieron reservarse, posiblemente porque se llenaron o se cancelaron durante el proceso de pago. En breve recibirá un correo electrónico de confirmación con los detalles de las reservas realizadas.",
+                    "expressCheckoutPassPurchaseSuccess": "Ahora que ya tienes tu bono, es hora de reservar tu clase y disfrutar de todos los beneficios."
                 },
                 "confirmationStatusTitle": {
                     "success": {
                         "waitingList": "Se ha registrado en la lista de espera",
                         "paymentSuccess": "¡Pago confirmado!",
                         "offerOnlySuccess": "¡Disfrute de la sesión!",
-                        "offerOnlyGuestSuccess": "¡Disfrute de la sesión con su invitado!"
+                        "offerOnlyGuestSuccess": "¡Disfrute de la sesión con su invitado!",
+                        "expressCheckoutPassPurchaseSuccess": "¡Felicidades, acabas de comprar un bono!"
                     },
                     "errors": {
                         "genericOfferError": "¡Ups! La reserva ha fallado.",
@@ -14038,7 +14041,9 @@
                 "retry": "Vuelva a intentarlo",
                 "myBookings": "Mis reservas",
                 "goToCalendar": "Volver al calendario",
-                "backToMyProfile": "Volver a mi perfil"
+                "backToMyProfile": "Volver a mi perfil",
+                "seeAllPasses": "Ver todo los bonos",
+                "bookAClass": "Reserva una clase"
             },
             "bookingItem": {
                 "bookingItemStatus": {
@@ -17037,7 +17042,7 @@
             },
             "establishment": {
                 "location": "Ubicación",
-                "room": "Sala",
+                "room": "Salas",
                 "calendar": "Calendario",
                 "general": "General"
             },
@@ -18407,7 +18412,7 @@
             "dialogTitle": "Personalización del widget",
             "linkToConfig": "Enlace para esta configuración",
             "codeInfo": "Integre este código en su sitio web",
-            "creationPageInfo": "Personalice los widgets e intégrelos en su sitio web",
+            "creationPageInfo": "Personaliza los widgets e intégrelos en tu sitio web",
             "dialogMode": {
                 "tab": "Nueva pestaña",
                 "popup": "Nueva ventana",
@@ -21230,7 +21235,7 @@
                 "allActivities": "Enseña todas las actividades",
                 "pickActivity": "Eligir una actividad",
                 "activities": "Actividades",
-                "groupTypes": "Tipo de clases / categorías",
+                "groupTypes": "Clases y categorías:",
                 "required": "Este campo es obligatorio",
                 "nameHelperText": "Nombre del grupo de disciplina",
                 "name": "Nombre",
@@ -21330,11 +21335,11 @@
             "pickWorkshop": "Eligir un taller",
             "workshops": "Talleres",
             "allActivities": "Enseña todas las actividades",
-            "pickActivity": "Eligir una actividad",
+            "pickActivity": "Elegir una session de grupo",
             "activities": "Actividades",
             "customRules": "Personalizar las reglas",
             "disciplineGroup": "Grupo de disciplina",
-            "description": "Indica qué clases enseña tu profesor. Si se solicita una sustitución en una de esas clases, se notificará a ese profesor por correo electrónico. Si no se selecciona nada, este profesor no será notificado.",
+            "description": "Elige los tipos de actividad que enseña el profesor para completar los campos automáticamente. Si se necesita un sustituto para una clase, le enviaremos un correo al profesor con anticipación.",
             "title": "Sustitución",
             "allEstablishments": "Todos los establecimientos",
             "pickEstablishment": "Dejar en blanco para seleccionar todo",

@@ -53,7 +53,7 @@
             "generate": "Creare",
             "tax": "I.V.A.",
             "uploadOneImage": {
-                "new": "Trascina e rilascia o fai clic qui per aggiungere un'immagine",
+                "new": "Carica immagine",
                 "edit": "Trascina e rilascia o fai clic qui per cambiare l'immagine"
             },
             "buy": "Comprare",
@@ -4840,8 +4840,8 @@
             "establishment": {
                 "general": "Generale",
                 "calendar": "Calendario",
-                "room": "Stabilimento",
-                "location": "Sede"
+                "room": "Stabilimenti",
+                "location": "Sedi"
             },
             "service": {
                 "general": "Generale",
@@ -7846,8 +7846,8 @@
                 "title": "Indirizzo email dell'insegnante",
                 "cancel": "Annulla",
                 "emailLabel": "Email",
-                "explain": "Se questa email esiste già nel nostro sistema, il profilo dell'insegnante verrà creato automaticamente.",
-                "emailPlaceHolder": "insegnante@bsport.io",
+                "explain": "Fornisci l'indirizzo email dell'insegnante che desideri aggiungere. Se abbiamo già i loro dati, creeremo automaticamente il loro account.",
+                "emailPlaceHolder": "qualcuno@email.com",
                 "submit": "Conferma"
             },
             "update": {
@@ -7880,7 +7880,7 @@
                 "general": "Profilo",
                 "calendar": "Calendario"
             },
-            "coachSpaceInfo": "In questo spazio, il tuo insegnante sarà in grado di accedere al suo riepilogo di stipendio per sessione e di visualizzare il suo orario. Possono anche aggiungere la loro disponibilità.",
+            "coachSpaceInfo": "Con l'attivazione della 'Vista Insegnante', gli insegnanti possono vedere la propria busta paga, il loro orario e gestire la propria disponibilità.",
             "coachSpace": "Area insegnanti",
             "noPaymentRule": "Attenzione, non è stata definita alcuna regola di retribuzione per questo insegnante."
         },
@@ -12140,7 +12140,9 @@
                     "email": "Inserire un indirizzo e-mail valido",
                     "requiredField": "Questo campo è obbligatorio",
                     "phoneTaken": "Questo numero di telefono è già utilizzato da un altro utente",
-                    "emailTaken": "L'email esiste già, puoi provare ad accedere con questa email"
+                    "emailTaken": "L'email esiste già, puoi provare ad accedere con questa email",
+                    "passwordConfirmation": "Le password devono coincidere",
+                    "passwordMinimumRequirements": "La tua password deve essere lunga almeno 6 caratteri e non deve contenere spazi"
                 },
                 "button": {
                     "label": "Iscriviti"
@@ -12166,6 +12168,9 @@
                 },
                 "acceptEmail": {
                     "label": "Accetto di ricevere email promozionali, incluse offerte speciali e sconti"
+                },
+                "password": {
+                    "label": "Crea una password"
                 }
             }
         }
@@ -13572,7 +13577,7 @@
         "goBackToList": "Ritorna alle strutture",
         "pleaseFill": "Inserire uno stabilimento",
         "update": {
-            "imageUploaderRequireEditMessage": "Una volta creato il tuo stabilimento, sarai in grado di aggiungere altre immagini."
+            "imageUploaderRequireEditMessage": "Puoi caricare altre immagini dopo aver aggiunto la tua attività."
         },
         "pleaseSelectOne": "Seleziona un club sulla mappa",
         "offers": "Calendario delle sessioni:",
@@ -13633,7 +13638,7 @@
             },
             "table": {
                 "actions": "Azioni",
-                "establishment": "Stabilimenti",
+                "establishment": "Stabilimento",
                 "name": "Nome",
                 "noAddress": "Nessun indirizzo è associato a questo gruppo di contabilizzazione",
                 "address": "Indirizzo"
@@ -15072,7 +15077,7 @@
             "subtitle": {
                 "coaches": "Insegnanti associati",
                 "specfic_private_slot": "Retribuzione specifica per un appuntamento",
-                "default": "Retribuzioni predefinite",
+                "default": "Regole predefinite per la busta paga",
                 "helper": "Puoi raggruppare le tue regole di retribuzione per attività, workshop e appuntamenti. Aggiungendo un insegnante a un gruppo, tutte le regole di retribuzione del gruppo sono automaticamente applicate all'insegnante. Qualsiasi modifica al gruppo sarà applicata anche a tutti gli insegnanti del gruppo.",
                 "removed_coaches": "Insegnanti rimossi"
             },
@@ -15287,7 +15292,7 @@
         },
         "establishment": {
             "establishmentList": "Stabilimenti",
-            "establishmentFormPage": "Form di stabilimento",
+            "establishmentFormPage": "Aggiungi uno stabilimento",
             "establishmentGroupPage": "Sedi"
         },
         "planning": "Calendario",
@@ -15738,7 +15743,8 @@
                     "offerOnlySuccess": "La prenotazione è stata effettuata. Riceverai presto un'e-mail di conferma con tutti i dettagli.",
                     "offerOnlySuccess_plural": "Le prenotazioni sono state effettuate. Riceverai presto un'e-mail di conferma con tutti i dettagli.",
                     "offerOnlyGuestSuccess": "La prenotazione è stata effettuata. Tu e il tuo ospite riceverete a breve una email di conferma con tutti i dettagli.",
-                    "offersPartiallyConfirmed": "Alcune sessioni non sono state prenotate, probabilmente perché erano al completo o cancellate durante il checkout. Riceverai a breve un'email di conferma con i dettagli delle prenotazioni riuscite."
+                    "offersPartiallyConfirmed": "Alcune sessioni non sono state prenotate, probabilmente perché erano al completo o cancellate durante il checkout. Riceverai a breve un'email di conferma con i dettagli delle prenotazioni riuscite.",
+                    "expressCheckoutPassPurchaseSuccess": "Ora che hai il tuo pacchetto, è il momento di prenotare la tua lezione e godere di tutti i vantaggi."
                 },
                 "confirmationStatusTitle": {
                     "success": {
@@ -15776,7 +15782,9 @@
                 "retry": "RIprova",
                 "myBookings": "Le mie prenotazioni",
                 "goToCalendar": "Ritorna al calendario",
-                "backToMyProfile": "Torna al mio profilo"
+                "backToMyProfile": "Torna al mio profilo",
+                "seeAllPasses": "Vedi tutti i pacchetti",
+                "bookAClass": "Prenota una classe"
             },
             "bookingItem": {
                 "bookingItemStatus": {
@@ -18389,7 +18397,7 @@
             "responsiveDisplay": "Display reattivo",
             "calendarDisplay": "Vista settimanale con schede (calendario)",
             "listDisplay": "Vista settimanale (lista)",
-            "creationPageInfo": "Personalizzare i widget e integrarli nel tuo sito",
+            "creationPageInfo": "Configura e personalizza i tuoi widget per abbinarli al tuo brand. Dopodiché, ti basterà copiare e incollare il codice sul tuo sito web.",
             "codeInfo": "Il codice da integrare nel tuo sito",
             "dialogTitle": "Personalizzazione dei widget",
             "widgetPreviewError": "Per favore, finisci la tua configurazione",
@@ -21064,7 +21072,7 @@
                 "name": "Nome",
                 "nameHelperText": "Nome del gruppo disciplinare",
                 "required": "Questo campo è obbligatorio",
-                "groupTypes": "Tipo di corso / categorie",
+                "groupTypes": "Classi e categorie:",
                 "activities": "Attività",
                 "pickActivity": "Scegli un'attività",
                 "allWorkshops": "Insegna tutti i Workshops",
@@ -21083,7 +21091,7 @@
             },
             "add": "Aggiungi un gruppo",
             "title": "Gruppi disciplinari",
-            "activities": "Attività {{number}}",
+            "activities": "Attività",
             "workshops": "Workshops ({{number}})",
             "categories": "Categorie {{number}}",
             "coaches": "{{count}} Insegnante",
@@ -21130,10 +21138,10 @@
                 "title": "A questa sessione è collegata una richiesta di sostituzione attiva",
                 "helper": "Vuoi essere reindirizzato alla pagina delle richieste di sostituzione per cancellare le richieste obsolete?"
             },
-            "title": "Le richieste di sostituzione attive sono collegate alle sessioni annullate.",
-            "description": "Per vedere queste sessioni, attiva il filtro <strong>{{switchLabel}}</strong> qui sopra",
-            "filterHelper": "Se questo avviso persiste e non viene visualizzata alcuna sessione in modalità <strong>{{switchLabel}}</strong>, ti consigliamo di disabilitare i filtri e ampliare l'intervallo di date.",
-            "cancelledOffersModeTitle": "Modalità sessione annullata"
+            "title": "Visualizza richieste di sostituzione attive",
+            "description": "Attiva il selettore \"Sessioni annullate\" per visualizzare le richieste di sostituzione associate a sessioni annullate. ",
+            "filterHelper": "Se non appare nessuna sessione, prova a disattivare i filtri e ad ampliare l'intervallo di date.",
+            "cancelledOffersModeTitle": "Sessioni cancellate"
         },
         "calendar": {
             "title": "Il mio calendario",
@@ -21252,7 +21260,7 @@
         },
         "lateStatus": {
             "isLate": "In ritardo",
-            "isNotLate": "In orario"
+            "isNotLate": "Nei tempi previsti"
         },
         "registrationsStatus": {
             "areClosed": "Chiudi",
@@ -21265,7 +21273,7 @@
             "offerCancelled": "Sessione annullata"
         },
         "compatibleCoaches": {
-            "title": "Docenti disponibili per disciplina",
+            "title": "Insegnanti compatibili per attività",
             "compatibleCoaches": "{{count}} insegnante compatibile",
             "compatibleCoaches_plural": "{{count}} insegnanti compatibili",
             "nextSlot": "Prossima sessione il {{date}} - {{hour}}",
@@ -21275,12 +21283,12 @@
         },
         "coachEdit": {
             "title": "Sostituzione",
-            "description": "Indica quali corsi sono tenuti dal tuo insegnante. Se viene effettuata una richiesta di sostituzione in uno di questi corsi, questo insegnante verrà avvisato via e-mail. Se non viene selezionato nulla, questo insegnante non verrà avvisato.",
+            "description": "Scegli i tipi di attività svolti dall'insegnante per compilare automaticamente i campi. Se è necessario un sostituto per una lezione, avviseremo l'insegnante via email in anticipo.",
             "disciplineGroup": "Gruppo di disciplina",
             "customRules": "Personalizza le regole",
             "activities": "Attività",
             "pickActivity": "Seleziona un'attività",
-            "allActivities": "Insegna tutte le attività",
+            "allActivities": "Insegna in tutte le attività",
             "workshops": "Workshops",
             "pickWorkshop": "Scegli un workshops",
             "allWorkshops": "Insegna tutti i workshops",

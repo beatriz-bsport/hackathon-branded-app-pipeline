@@ -15791,7 +15791,7 @@
             },
             "replacement": {
                 "management": "Verwaltung",
-                "disciplineGroup": "Aktivitäten:"
+                "disciplineGroup": "Disziplinargruppen"
             },
             "franchise": {
                 "staff": {
@@ -21085,7 +21085,7 @@
                 "name": "Name",
                 "nameHelperText": "Name der Disziplingruppe",
                 "required": "Dieses Feld ist erforderlich",
-                "groupTypes": "Kurse und Kategorien:",
+                "groupTypes": "Kurse und Kategorien",
                 "pickActivity": "Eine Aktivität wählen",
                 "allActivities": "Unterrichtet alle Aktivitäten",
                 "workshops": "Workshops",
@@ -21162,7 +21162,7 @@
             "offerCancelled": "Stornierte Kurse"
         },
         "compatibleCoaches": {
-            "title": "Passende Lehrkräfte nach Aktivität",
+            "title": "Verfügbare Lehrkräfte nach Fachrichtung",
             "compatibleCoaches": "{{count}} kompatible Lehrkraft",
             "compatibleCoaches_plural": "{{count}} kompatible Lehrkräfte",
             "nextSlot": "Nächster Kurs am {{date}} - {{hour}}",

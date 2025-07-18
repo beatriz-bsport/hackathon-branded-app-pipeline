@@ -13,6 +13,7 @@ import { CustomMuiIcon } from '#src/components/icons/CustomMuiIcon.component';
 type Props = {
   smsWarning?: boolean;
   recipientsPreviewWarning?: boolean;
+  isEditingScheduledCommunication?: boolean;
   handleClose: () => void;
   sendMessageOnClick: (
     event?: React.MouseEvent<HTMLButtonElement, MouseEvent>,
@@ -22,6 +23,7 @@ type Props = {
 export const CommunicationWarningModal: React.FC<Props> = ({
   smsWarning,
   recipientsPreviewWarning,
+  isEditingScheduledCommunication,
   handleClose,
   sendMessageOnClick,
 }) => {
@@ -33,6 +35,17 @@ export const CommunicationWarningModal: React.FC<Props> = ({
     }
     return t('sendMessage.cannotReviewRecipients.title');
   };
+
+  const getConfirmButtonText = () => {
+    if (isEditingScheduledCommunication) {
+      return t('sendMessage.buttons.updateScheduled');
+    }
+    if (smsWarning && !recipientsPreviewWarning) {
+      return t('sendMessage.smsCostWarning.confirm');
+    }
+    return t('sendMessage.cannotReviewRecipients.confirm');
+  };
+
   return (
     <Dialog onClose={handleClose} open={true}>
       <CustomMuiIcon
@@ -73,9 +86,7 @@ export const CommunicationWarningModal: React.FC<Props> = ({
             : t('sendMessage.smsCostWarning.cancel')}
         </Button>
         <Button color="primary" onClick={sendMessageOnClick} variant="text">
-          {recipientsPreviewWarning
-            ? t('sendMessage.cannotReviewRecipients.confirm')
-            : t('sendMessage.smsCostWarning.confirm')}
+          {getConfirmButtonText()}
         </Button>
       </DialogActions>
     </Dialog>

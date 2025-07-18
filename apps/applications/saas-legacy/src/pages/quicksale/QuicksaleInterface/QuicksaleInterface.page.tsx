@@ -27,7 +27,7 @@ import {
 import type { Member } from '#src/libs/member/types';
 
 import { getSavedPaymentMethodList } from '#src/libs/payment/selectors';
-import { fetchPaymentMethodList as fetchPaymentMethodListAction } from '#src/libs/payment/actions';
+// import { fetchPaymentMethodList as fetchPaymentMethodListAction } from '#src/libs/payment/actions';
 
 import { retrievePOSMember } from '#src/libs/company/actions';
 
@@ -46,7 +46,7 @@ import { getPaymentPackById } from '#src/libs/payment-packs/selectors';
 import { _getPrivatePassData } from '#src/libs/private-service/selectors/private-pass';
 
 import { getPaymentComboDataDict } from '#src/libs/payment-combo/selectors';
-import { fetchPaymentComboList as fetchPaymentComboListAction } from '#src/libs/payment-combo/actions';
+// import { fetchPaymentComboList as fetchPaymentComboListAction } from '#src/libs/payment-combo/actions';
 
 import { getAllShopItemData } from '#src/libs/shop/selectors';
 import { fetchShopItemAsManager } from '#src/libs/shop/actions/shopitem';
@@ -55,26 +55,26 @@ import {
   getGiftcardBackgroundImageList,
   getGiftcardData,
 } from '#src/libs/giftcard/selectors';
-import { fetchGiftcardBackgroundImageList as fetchGiftcardBackgroundImageListAction } from '#src/libs/giftcard/actions';
+// import { fetchGiftcardBackgroundImageList as fetchGiftcardBackgroundImageListAction } from '#src/libs/giftcard/actions';
 
 import { getContractsById } from '#src/libs/subscription/selectors';
-import {
-  fetchContractList as fetchSubscriptionListAction,
-  registerContractBackground as registerContractBackgroundAction,
-} from '#src/libs/subscription/actions';
-import SubscriptionContractRegister from '#src/libs/subscription/components/SubscriptionContractRegister.component';
+// import {
+//   fetchContractList as fetchSubscriptionListAction,
+//   registerContractBackground as registerContractBackgroundAction,
+// } from '#src/libs/subscription/actions';
+// import SubscriptionContractRegister from '#src/libs/subscription/components/SubscriptionContractRegister.component';
 import type { Contract } from '#src/libs/subscription/types';
 
 import withDatatypeDynamicData from '#src/libs/datatype-filtering/dynamic-data-hoc';
 import type { DynamicFilterDataType } from '#src/libs/datatype-filtering/types';
 
-import { getCompanyCountry, getStripeRegion } from '#src/libs/theme/selectors';
+import { getCompanyCountry } from '#src/libs/theme/selectors';
 
 import { getEnabledEstablishmentBillingGroups } from '#src/libs/establishment/selectors';
 import { fetchAllEstablishmentBillingGroup as fetchAllEstablishmentBillingGroupAction } from '#src/libs/establishment/actions';
 
 import { getStripeReaders } from '#src/libs/terminal/selectors';
-import { fetchStripeReaders as fetchStripeReadersAction } from '#src/libs/terminal/actions';
+// import { fetchStripeReaders as fetchStripeReadersAction } from '#src/libs/terminal/actions';
 
 import {
   displayBackgroundDialog as displayBackgroundDialogAction,
@@ -88,7 +88,7 @@ import type { RootState } from '../../../reducers';
 import QuicksaleInterfaceComponent from './QuicksaleInterface.component';
 import useMemberAuthentication from './hooks/useMemberAuthentication';
 import useAdditionToBasket from './hooks/useAdditionToBasket';
-import useSubscriptionHandler from './hooks/useSubscriptionHandler';
+// import useSubscriptionHandler from './hooks/useSubscriptionHandler';
 
 type Props = {
   sectionId: string;
@@ -110,10 +110,10 @@ const QuicksaleInterface: React.FC<Props> = ({
   shopItemById,
   giftcardById,
   contractById,
-  savedPaymentMethodList,
-  establishmentBillingGroups,
-  stripeReaders,
-  giftcardBackgroundImageList,
+  // savedPaymentMethodList,
+  // establishmentBillingGroups,
+  // stripeReaders,
+  // giftcardBackgroundImageList,
   tagsById,
   push,
   fetchOpenQuicksaleBaskets,
@@ -121,21 +121,21 @@ const QuicksaleInterface: React.FC<Props> = ({
   fetchMembers,
   fetchPOSMember,
   fetchQuicksaleConfiguration,
-  fetchPaymentComboList,
+  // fetchPaymentComboList,
   fetchShopItemList,
-  fetchSubscriptionList,
+  // fetchSubscriptionList,
   addItemToBasket,
   removeItemFromBasket,
   dropQuicksaleBasket,
   updateQuicksaleBasketMember,
   searchMembers,
   createMemberAction,
-  fetchPaymentMethodList,
-  displayBackgroundDialog,
-  deletebackgroundDialog,
-  registerContractBackground,
-  fetchStripeReaders,
-  fetchGiftcardBackgroundImageList,
+  // fetchPaymentMethodList,
+  // displayBackgroundDialog,
+  // deletebackgroundDialog,
+  // registerContractBackground,
+  // fetchStripeReaders,
+  // fetchGiftcardBackgroundImageList,
   fetchAllTags,
   fetchAllEstablishmentBillingGroup,
 }) => {
@@ -149,7 +149,7 @@ const QuicksaleInterface: React.FC<Props> = ({
     React.useState<QuicksaleCardInfo | null>(null);
 
   // used to store a member for a subscription even when there is no current basket
-  const [memberToSubscribe, setMemberToSubscribe] =
+  const [_memberToSubscribe, setMemberToSubscribe] =
     React.useState<Member | null>(null);
 
   const [contractToSubscribe, setContractToSubscribe] =
@@ -162,7 +162,7 @@ const QuicksaleInterface: React.FC<Props> = ({
   const [showWarningRemovedItemsModal, setShowWarningRemovedItemsModal] =
     React.useState(false);
 
-  const [showSubscriptionContractModal, setShowSubscriptionContractModal] =
+  const [_showSubscriptionContractModal, setShowSubscriptionContractModal] =
     React.useState(false);
 
   const [showGiftcardFormModal, setShowGiftcardFormModal] =
@@ -196,10 +196,10 @@ const QuicksaleInterface: React.FC<Props> = ({
     setShowWarningRemovedItemsModal(false);
   }, []);
 
-  const closeSubscriptionContractModal = React.useCallback(() => {
-    setShowSubscriptionContractModal(false);
-    setContractToSubscribe(null);
-  }, []);
+  // const closeSubscriptionContractModal = React.useCallback(() => {
+  //   setShowSubscriptionContractModal(false);
+  //   setContractToSubscribe(null);
+  // }, []);
 
   const closeGiftcardFormModal = React.useCallback(() => {
     setShowGiftcardFormModal(false);
@@ -284,7 +284,7 @@ const QuicksaleInterface: React.FC<Props> = ({
     handleGetDynamicDataForFilters('payment_pack_category');
     handleGetDynamicDataForFilters('private_pass');
     handleGetDynamicDataForFilters('private_pass_category');
-    fetchPaymentComboList();
+    // fetchPaymentComboList();
     fetchShopItemList();
     handleGetDynamicDataForFilters('subshop');
     handleGetDynamicDataForFilters('giftcard');
@@ -299,7 +299,7 @@ const QuicksaleInterface: React.FC<Props> = ({
     theme,
     fetchQuicksaleConfiguration,
     handleGetDynamicDataForFilters,
-    fetchPaymentComboList,
+    // fetchPaymentComboList,
     fetchShopItemList,
     fetchAllTags,
     fetchAllEstablishmentBillingGroup,
@@ -377,7 +377,7 @@ const QuicksaleInterface: React.FC<Props> = ({
     useAdditionToBasket(
       setCurrentBasket,
       setPendingItemToAdd,
-      setShowGiftcardFormModal,
+      // setShowGiftcardFormModal,
       setShowAuthenticatedMemberRestrictionModal,
       setShowUnauthenticatedMemberRestrictionModal,
       setMemberRestrictionSubTexts,
@@ -424,28 +424,28 @@ const QuicksaleInterface: React.FC<Props> = ({
 
   // ========== Handlers for contract's subscription ==========
 
-  const stripeRegion = getStripeRegion();
+  // const stripeRegion = getStripeRegion();
 
   const companyCountry = getCompanyCountry();
 
-  const {
-    enabledPaymentMethods,
-    requestSetupIntentSecret,
-    refreshSavedPaymentMethodList,
-    registerContract,
-  } = useSubscriptionHandler(
-    theme.currency,
-    companyCountry,
-    stripeRegion,
-    fetchPaymentMethodList,
-    registerContractBackground,
-    closeSubscriptionContractModal,
-    displayBackgroundDialog,
-    deletebackgroundDialog,
-    fetchSubscriptionList,
-    fetchStripeReaders,
-    memberToSubscribe,
-  );
+  // const {
+  //   enabledPaymentMethods,
+  //   requestSetupIntentSecret,
+  //   refreshSavedPaymentMethodList,
+  //   registerContract,
+  // } = useSubscriptionHandler(
+  //   theme.currency,
+  //   companyCountry,
+  //   stripeRegion,
+  //   fetchPaymentMethodList,
+  //   registerContractBackground,
+  //   closeSubscriptionContractModal,
+  //   displayBackgroundDialog,
+  //   deletebackgroundDialog,
+  //   fetchSubscriptionList,
+  //   fetchStripeReaders,
+  //   memberToSubscribe,
+  // );
 
   // ========================================================
 
@@ -465,9 +465,9 @@ const QuicksaleInterface: React.FC<Props> = ({
         currentBasket={currentBasket}
         currentSection={currentSection}
         dropQuicksaleBasket={dropQuicksaleBasket}
-        fetchGiftcardBackgroundImageList={fetchGiftcardBackgroundImageList}
-        giftcardBackgroundImageList={giftcardBackgroundImageList}
-        giftcardById={giftcardById}
+        // fetchGiftcardBackgroundImageList={fetchGiftcardBackgroundImageList}
+        // giftcardBackgroundImageList={giftcardBackgroundImageList}
+        // giftcardById={giftcardById}
         goBackToSectionList={goBackToSectionList}
         goToPaymentPage={goToPaymentPage}
         itemCardInfoList={itemCardInfoList}
@@ -501,7 +501,7 @@ const QuicksaleInterface: React.FC<Props> = ({
         searchMembers={searchMembers}
       />
 
-      {!!stripeRegion && !!companyCountry ? (
+      {/* {!!stripeRegion && !!companyCountry ? (
         <SubscriptionContractRegister
           withContractTermsCheckbox
           cardBillingDetailsMandatory={theme.force_billing_details_on_cards}
@@ -523,7 +523,7 @@ const QuicksaleInterface: React.FC<Props> = ({
           stripeReaders={stripeReaders ?? []}
           waiver={theme.waiver}
         />
-      ) : null}
+      ) : null} */}
 
       <QuicksaleDialogs
         addItemAnyway={addOutOfStockShopItemAnyway}
@@ -559,12 +559,12 @@ const connector = connect(
     sectionList: getActiveSectionList(state),
     loading:
       getLoading(state) ||
-      state.paymentPack.loading ||
-      state.privateService.privatePass.loading ||
-      state.paymentCombo.loading ||
-      state.shop.shopItem.bulk.loading ||
-      state.giftcard.giftcard.loading ||
-      state.subscription.contract.loading,
+      // state.paymentPack.loading ||
+      // state.privateService.privatePass.loading ||
+      // state.paymentCombo.loading ||
+      state.shop.shopItem.bulk.loading,
+    // state.giftcard.giftcard.loading ||
+    // state.subscription.contract.loading,
     paymentPackById: getPaymentPackById(state),
     privatePassById: _getPrivatePassData(state),
     paymentComboById: getPaymentComboDataDict(state),
@@ -586,22 +586,22 @@ const connector = connect(
     push: pushAction,
     fetchPOSMember: retrievePOSMember,
     fetchQuicksaleConfiguration: fetchQuicksaleConfigurationAction,
-    fetchPaymentComboList: fetchPaymentComboListAction,
+    // fetchPaymentComboList: fetchPaymentComboListAction,
     fetchShopItemList: fetchShopItemAsManager,
-    fetchSubscriptionList: fetchSubscriptionListAction,
+    // fetchSubscriptionList: fetchSubscriptionListAction,
     addItemToBasket: addItemToBasketAction,
     removeItemFromBasket: removeItemFromBasketAction,
     dropQuicksaleBasket: dropQuicksaleBasketAction,
     updateQuicksaleBasketMember: updateQuicksaleBasketMemberAction,
     searchMembers: search,
     createMemberAction: createOrUpdateMember,
-    fetchPaymentMethodList: fetchPaymentMethodListAction,
+    // fetchPaymentMethodList: fetchPaymentMethodListAction,
     displayBackgroundDialog: displayBackgroundDialogAction,
     deletebackgroundDialog: deletebackgroundDialogAction,
-    registerContractBackground: registerContractBackgroundAction,
-    fetchStripeReaders: fetchStripeReadersAction,
+    // registerContractBackground: registerContractBackgroundAction,
+    // fetchStripeReaders: fetchStripeReadersAction,
     fetchAllEstablishmentBillingGroup: fetchAllEstablishmentBillingGroupAction,
-    fetchGiftcardBackgroundImageList: fetchGiftcardBackgroundImageListAction,
+    // fetchGiftcardBackgroundImageList: fetchGiftcardBackgroundImageListAction,
     fetchAllTags: fetchAllTagsAction,
   },
 );

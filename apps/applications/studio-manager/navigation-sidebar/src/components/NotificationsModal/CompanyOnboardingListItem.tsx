@@ -10,8 +10,11 @@ import {
   type PayPalPendingActionType,
 } from "@bsport/store-staff-management-alerting";
 
+import { NavigationLink } from "#src/components/NavigationLink";
 import { LEGACY_URLS } from "#src/urls";
 import { useTranslation } from "#src/utils/i18n";
+
+import { useNotificationsNavigation } from "./NotificationsNavigationContext";
 
 export type CompanyOnboardingListItemProps = {
   id: string;
@@ -45,6 +48,8 @@ const CompanyOnboardingListItem: FC<CompanyOnboardingListItemProps> = ({
   paymentEngineIdentifier,
 }) => {
   const { t } = useTranslation("default");
+
+  const { navigateAndClose } = useNotificationsNavigation();
 
   // Determine title and description based on alert type
   const getContentData = () => {
@@ -110,35 +115,48 @@ const CompanyOnboardingListItem: FC<CompanyOnboardingListItemProps> = ({
 
   const { title, description, url } = getContentData();
 
-  return (
-    <a
-      id={id}
-      href={url}
-      className="relative flex min-h-2xl py-xs px-md gap-xs border-b-stroke-thin border-b-stroke-divider hover:bg-surface-action-default-weak-hovered active:bg-surface-action-default-weak-pressed"
-      tabIndex={0}
-    >
-      <div className="grid grid-cols-[minmax(0,7fr)_minmax(0,3fr)] w-full gap-xs items-center">
-        <div className="flex items-center gap-xs">
-          <div className="flex-1 min-w-0">
-            <Body
-              htmlVariant="span"
-              size="lg"
-              className="block truncate break-word"
-            >
-              {title}
-            </Body>
-            <Body
-              htmlVariant="span"
-              size="md"
-              color="weak"
-              className="block truncate break-word"
-            >
-              {description}
-            </Body>
-          </div>
+  const renderItem = () => (
+    <div className="grid grid-cols-[minmax(0,7fr)_minmax(0,3fr)] w-full gap-xs items-center">
+      <div className="flex items-center gap-xs">
+        <div className="flex-1 min-w-0">
+          <Body
+            htmlVariant="span"
+            size="lg"
+            className="block truncate break-word"
+          >
+            {title}
+          </Body>
+          <Body
+            htmlVariant="span"
+            size="md"
+            color="weak"
+            className="block truncate break-word"
+          >
+            {description}
+          </Body>
         </div>
       </div>
-    </a>
+    </div>
+  );
+
+  return (
+    <NavigationLink
+      item={{ id, href: url, revamped: false }}
+      renderElement={renderItem}
+      navigate={navigateAndClose}
+      wrapperConfig={{
+        withOnClick: true,
+        className: [
+          "relative flex",
+          "min-h-2xl py-xs px-md gap-xs",
+          "border-b-stroke-thin border-b-stroke-divider",
+          "hover:bg-surface-action-default-weak-hovered",
+          "hover:cursor-pointer",
+          "active:bg-surface-action-default-weak-pressed",
+        ].join(" "),
+        tabIndex: 0,
+      }}
+    />
   );
 };
 

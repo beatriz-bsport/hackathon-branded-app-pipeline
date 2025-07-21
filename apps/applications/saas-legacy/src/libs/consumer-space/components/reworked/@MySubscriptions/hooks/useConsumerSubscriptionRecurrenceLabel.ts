@@ -38,7 +38,7 @@ const useConsumerSubscriptionRecurrenceLabel = (
               `subscription:contract.form.recurrence_basis.intervalName.${subscriptionInterval}`,
               { count: recurrenceBasis },
             ),
-            recurrenceBasis,
+            recurrence: recurrenceBasis,
           },
         ),
       };

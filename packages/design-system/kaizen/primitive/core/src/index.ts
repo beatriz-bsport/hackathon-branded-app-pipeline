@@ -37,6 +37,10 @@ export {
   type DatePickerProps,
 } from "./components/DatePicker";
 export {
+  default as DetailDrawer,
+  type DetailDrawerProps,
+} from "./components/DetailDrawer";
+export {
   default as DetailsLayout,
   useDetailsLayout,
   type DetailsLayoutProps,

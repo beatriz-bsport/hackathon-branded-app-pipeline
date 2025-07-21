@@ -229,9 +229,11 @@ export function addItemToBasket(
     dispatch(currentBasket.error(null));
 
     try {
-      const response = await addItemToBasketAPI(basketId, data, params);
+      const { hideSnackbarSuccess, ...apiParams } = params || {};
+      const response = await addItemToBasketAPI(basketId, data, apiParams);
       dispatch(currentBasket.success(response.data));
-      dispatch(snackbarSuccess('modifyBasket.addItemSuccess'));
+      if (!hideSnackbarSuccess)
+        dispatch(snackbarSuccess('modifyBasket.addItemSuccess'));
       if (options && options.onSuccess) options.onSuccess(response.data);
     } catch (error) {
       dispatch(currentBasket.error(error));

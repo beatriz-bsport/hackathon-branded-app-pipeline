@@ -13,6 +13,7 @@ import { AdditionalGuest } from '#src/libs/booker-module/types';
 
 export type AddItemToBasketParams = {
   check_offer_unicity?: boolean;
+  hideSnackbarSuccess?: boolean;
 };
 
 export type Basket<C = number, PPL = number> = {

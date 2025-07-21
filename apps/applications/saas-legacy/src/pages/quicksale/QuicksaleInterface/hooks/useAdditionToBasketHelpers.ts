@@ -29,7 +29,7 @@ import type { OptionCallback } from '../../../../state/types';
 const useAdditionToBasketHelpers = (
   setCurrentBasket: (basket: Basket | null) => void,
   setPendingItemToAdd: (item: QuicksaleCardInfo | null) => void,
-  setShowGiftcardFormModal: (show: boolean) => void,
+  // setShowGiftcardFormModal: (show: boolean) => void,
   setShowAuthenticatedMemberRestrictionModal: (show: boolean) => void,
   setShowUnauthenticatedMemberRestrictionModal: (show: boolean) => void,
   setMemberRestrictionSubTexts: (subTexts: TranslationProps[][]) => void,
@@ -61,6 +61,7 @@ const useAdditionToBasketHelpers = (
     [key: string]: Tag<number>;
   },
 ) => {
+  // (Quicksale MVP): Following block is not working as Giftcard have been removed from the MVP
   // The giftcard form is not handled in onItemClick like the subscriptions
   // since we still want the form to be opened when clicking on the "+" button
   // in the basket panel (and the "+" button triggers addToBasket directly)
@@ -82,7 +83,7 @@ const useAdditionToBasketHelpers = (
           ),
           sectionId: '',
         });
-        setShowGiftcardFormModal(true);
+        // setShowGiftcardFormModal(true);
       } else {
         addItemToBasket(
           basket.id,
@@ -99,7 +100,7 @@ const useAdditionToBasketHelpers = (
       currentBasket,
       setCurrentBasket,
       setPendingItemToAdd,
-      setShowGiftcardFormModal,
+      // setShowGiftcardFormModal,
     ],
   );
 

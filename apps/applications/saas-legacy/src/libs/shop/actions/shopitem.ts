@@ -55,6 +55,7 @@ export function fetchShopItemAsConsumer(
         options.onError(e);
       }
     }
+    dispatch(shopItemAsConsumerActions.isLoading(false));
   };
 }
 
@@ -95,6 +96,7 @@ export function fetchShopItemFeatured(
         options.onError(e);
       }
     }
+    dispatch(shopItemFeaturedActions.isLoading(false));
   };
 }
 
@@ -209,7 +211,7 @@ export function fetchShopItem(
       dispatch(shopItemRetrieveActions.error(e));
       console.error(e);
     }
-    dispatch(shopItemRetrieveActions.isLoading(true));
+    dispatch(shopItemRetrieveActions.isLoading(false));
   };
 }
 

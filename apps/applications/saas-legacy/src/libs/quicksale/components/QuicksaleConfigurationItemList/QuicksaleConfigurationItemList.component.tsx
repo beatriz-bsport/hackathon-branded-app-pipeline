@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { useMediaQuery, Theme } from '@material-ui/core';
+import { Theme } from '@material-ui/core/styles';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 import Grid from '@material-ui/core/Grid';
 import AddCircle from '@material-ui/icons/AddCircle';
 import AutoSizer from 'react-virtualized-auto-sizer';
@@ -57,13 +58,11 @@ const QuicksaleConfigurationItemList: React.FC<Props> = (props) => {
             }}
           >
             {loading ? (
-              <>
-                {[...Array(16).keys()].map((index) => (
-                  <Grid key={index} item lg={3} md={4} sm={6} xs={12}>
-                    <QuicksaleItemCardSkeleton />
-                  </Grid>
-                ))}
-              </>
+              [...Array(16).keys()].map((index) => (
+                <Grid key={index} item lg={3} md={4} sm={6} xs={12}>
+                  <QuicksaleItemCardSkeleton />
+                </Grid>
+              ))
             ) : (
               <>
                 {(itemList ?? []).map((item) => (

@@ -453,8 +453,10 @@ export class PrivateBookingBooker extends React.Component<Props, State> {
           {this.props.recurrenceRule && (
             <fieldset className={this.props.classes.fieldset}>
               <legend>{t('bookerModule.step.rule')}</legend>
+              {/* TODO: Check why validation is not performed */}
               <RecurrenceRulePrivateBookingFields
                 privateSlotSet
+                companyId={this.props.theme.company}
                 onTimeSettingChange={this.handleTimeSettingChange}
               />
               <FormControlLabel
@@ -568,7 +570,6 @@ const mapStateToProps = (
   state: RootState,
   { requestedPrivateSlot }: { requestedPrivateSlot: number },
 ) => ({
-  // eslint-disable-next-line react/no-unused-prop-types
   theme: state.theme.theme,
   coachesSelectedInRole: getCoachesSelectedInRole(state),
   private_services: getAvailablePrivateServices(state),

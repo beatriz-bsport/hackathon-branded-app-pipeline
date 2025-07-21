@@ -92,6 +92,9 @@ const useAdditionToBasketHelpers = (
             extra_data: { ...checkoutItem.extra_data, force: true },
           },
           options,
+          {
+            hideSnackbarSuccess: true,
+          },
         );
       }
     },

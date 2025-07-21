@@ -1033,6 +1033,7 @@ export class OfferManagement extends Component<Props, State> {
           !this.state.isOffersDialogOpen && (
             <RecurrenceRuleBookingFormDialog
               offerSet
+              companyId={this.props.company_theme.company}
               establishmentList={this.props.establishmentList}
               fetchGroupsOfferList={this.props.fetchGroupsOfferList}
               hasActivityGroups={this.props.activityGroups > 0}

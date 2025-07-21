@@ -17,6 +17,13 @@ import MetaActivitySelectorField from '../../meta-activity/components/MetaActivi
 import EstablishmentSelectorField from '../../establishment/components/EstablishmentSelectorField.component';
 
 import { IntegerField, SelectField } from '../../../components/forms';
+import Config from '#src/config';
+
+import {
+  RECURRENCE_RULE_BOOKING_52_WEEKS_ALLOWLIST_BY_ENV,
+  RECURRENT_BOOKING_MAX_DELAY_52_WEEKS,
+  RECURRENT_BOOKING_MAX_DELAY_8_WEEKS,
+} from '#src/libs/booking/components/constants';
 
 type Props = {
   values: {
@@ -208,15 +215,29 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const RecurrenceRuleBookingSchema = Yup.object().shape({
-  day_of_week: Yup.number().min(0).max(6).required(),
-  minute: Yup.number().min(0).max(59).required(),
-  hour: Yup.number().min(0).max(23).required(),
-  delay_week: Yup.number().min(1).max(8).required(),
-  meta_activity: Yup.number().required(),
-  establishment: Yup.number().nullable(),
-  notify_if_booked: Yup.boolean(),
-});
+const getMaxDelayWeek = (companyId: number) => {
+  const environment = Config.REACT_APP_SENTRY_ENVIRONMENT || 'production';
+  const allowlistedCompanies =
+    RECURRENCE_RULE_BOOKING_52_WEEKS_ALLOWLIST_BY_ENV[environment] || [];
+  return allowlistedCompanies.includes(companyId)
+    ? RECURRENT_BOOKING_MAX_DELAY_52_WEEKS
+    : RECURRENT_BOOKING_MAX_DELAY_8_WEEKS;
+};
+
+const recurrenceRuleBookingSchema = (props: Props) => {
+  return Yup.object().shape({
+    day_of_week: Yup.number().min(0).max(6).required(),
+    minute: Yup.number().min(0).max(59).required(),
+    hour: Yup.number().min(0).max(23).required(),
+    delay_week: Yup.number()
+      .min(1)
+      .max(getMaxDelayWeek(props.companyId))
+      .required(),
+    meta_activity: Yup.number().required(),
+    establishment: Yup.number().nullable(),
+    notify_if_booked: Yup.boolean(),
+  });
+};
 
 export const RecurrenceRuleBookingFormikHOC = withFormik({
   mapPropsToValues: ({ initial }) =>
@@ -240,7 +261,7 @@ export const RecurrenceRuleBookingFormikHOC = withFormik({
           meta_activity: null,
           notify_if_booked: false,
         },
-  validationSchema: RecurrenceRuleBookingSchema,
+  validationSchema: recurrenceRuleBookingSchema,
   handleSubmit: (values, { props: { onSubmit }, setSubmitting }) => {
     onSubmit(values, {
       onSuccess: () => {

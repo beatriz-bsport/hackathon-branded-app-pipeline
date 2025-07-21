@@ -84,6 +84,7 @@ type Props = {
   t: TFunction,
   classes: Object,
   id: number,
+  companyId: number,
 
   resetPrivateBookingList: () => void,
   privateBookingCurrentPage: number,
@@ -347,6 +348,7 @@ export class MemberDetailPrivateBooking extends Component<Props> {
         )}
         {this.props.bookerInAdvanceDialog && (
           <RecurrenceRulePrivateBooker
+            companyId={this.props.companyId}
             initial={this.props.selectedRecurrentRule}
             memberId={this.props.id}
             onChange={() => {
@@ -406,6 +408,7 @@ export default compose(
       bookingCount: state.privateService.privateBooking.count,
       privateBookingsLoading: state.privateService.privateBooking.loading,
       availableCoaches: getCoaches(state),
+      companyId: state.theme.theme.company,
       recurrenceRulePrivateBooking: getRecurrenceRulePrivateBookingList(state),
       recurrentPrivateBookingLoading:
         state.privateService.recurrenceRule.loading,

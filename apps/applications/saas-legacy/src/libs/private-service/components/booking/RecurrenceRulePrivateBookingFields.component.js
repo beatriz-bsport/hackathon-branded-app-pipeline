@@ -11,6 +11,14 @@ import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import DateInput from '../../../../components/input/DateInput.component';
 
+import Config from '#src/config';
+
+import {
+  RECURRENCE_RULE_BOOKING_52_WEEKS_ALLOWLIST_BY_ENV,
+  RECURRENT_BOOKING_MAX_DELAY_52_WEEKS,
+  RECURRENT_BOOKING_MAX_DELAY_8_WEEKS,
+} from '#src/libs/booking/components/constants';
+
 type Props = {
   privateSlotSet?: boolean,
   onTimeSettingChange: ({
@@ -20,9 +28,10 @@ type Props = {
     minute: number,
   }) => void,
   selectedSetting?: any,
+  companyId: number,
 };
 
-export default function RecurrenceRuleTimeSettingFields(props: Props) {
+export default function RecurrenceRulePrivateBookingFields(props: Props) {
   const { t } = useTranslation(['booking', 'datetime']);
   const classes = useStyles();
   const weekdayNumber = [0, 1, 2, 3, 4, 5, 6];
@@ -36,11 +45,20 @@ export default function RecurrenceRuleTimeSettingFields(props: Props) {
       [name]: value,
     });
   };
-  const fuckThisCode = (date: DateTime) => {
+  const onDateChange = (date: DateTime) => {
     props.onTimeSettingChange({
       ...props.selectedSetting,
       start_from_date: date.toISODate(),
     });
+  };
+
+  const getMaxDelayWeek = (companyId: number) => {
+    const environment = Config.REACT_APP_SENTRY_ENVIRONMENT || 'production';
+    const allowlistedCompanies =
+      RECURRENCE_RULE_BOOKING_52_WEEKS_ALLOWLIST_BY_ENV[environment] || [];
+    return allowlistedCompanies.includes(companyId)
+      ? RECURRENT_BOOKING_MAX_DELAY_52_WEEKS
+      : RECURRENT_BOOKING_MAX_DELAY_8_WEEKS;
   };
   return (
     <div>
@@ -106,7 +124,7 @@ export default function RecurrenceRuleTimeSettingFields(props: Props) {
           <DateInput
             label={t('booking:recurrenceRule.form.startFromDate.label')}
             minDate={DateTime.now()}
-            onChange={fuckThisCode}
+            onChange={onDateChange}
             value={
               props.selectedSetting && props.selectedSetting.start_from_date
                 ? DateTime.fromISO(props.selectedSetting.start_from_date)
@@ -120,7 +138,7 @@ export default function RecurrenceRuleTimeSettingFields(props: Props) {
         helperText={t('booking:recurrenceRule.form.delayWeek.helperText')}
         InputProps={{
           inputProps: {
-            max: 8,
+            max: getMaxDelayWeek(props.companyId),
             min: 1,
           },
         }}

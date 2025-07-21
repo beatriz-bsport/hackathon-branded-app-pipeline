@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { compose } from 'recompose';
-import { ConnectedProps, connect } from 'react-redux';
+import { connect, ConnectedProps } from 'react-redux';
 import { v4 as uuid } from 'uuid';
 import clsx from 'clsx';
 import isEqual from 'lodash/isEqual';
@@ -52,6 +52,7 @@ enum ReducerActionType {
   ADD_SECTION = 'ADD_SECTION',
   EDIT_SECTION = 'EDIT_SECTION',
   TOGGLE_DISABLE_SECTION = 'TOGGLE_DISABLE_SECTION',
+  REORDER_SECTIONS = 'REORDER_SECTIONS',
 }
 
 type ReducerAction =
@@ -68,6 +69,10 @@ type ReducerAction =
   | {
       type: ReducerActionType.TOGGLE_DISABLE_SECTION;
       payload: { sectionId: string; disabled: boolean };
+    }
+  | {
+      type: ReducerActionType.REORDER_SECTIONS;
+      payload: { draggedItemIndex: number; dropzoneIndex: number };
     };
 
 type OwnProps = {
@@ -162,6 +167,25 @@ const QuicksaleSectionList: React.FC<Props> = ({
               };
             return section;
           });
+        case ReducerActionType.REORDER_SECTIONS: {
+          const { draggedItemIndex, dropzoneIndex } = action.payload;
+
+          const enabledSections = state.filter((section) => !section.disabled);
+          const disabledSections = state.filter((section) => section.disabled);
+
+          // Simple array reordering logic
+          const newEnabledSections = [...enabledSections];
+          const [movedItem] = newEnabledSections.splice(draggedItemIndex, 1);
+          newEnabledSections.splice(dropzoneIndex, 0, movedItem);
+
+          let enabledIdx = 0,
+            disabledIdx = 0;
+          return state.map((section) =>
+            section.disabled
+              ? disabledSections[disabledIdx++]
+              : newEnabledSections[enabledIdx++],
+          );
+        }
         default:
           return state;
       }
@@ -226,6 +250,16 @@ const QuicksaleSectionList: React.FC<Props> = ({
       payload: { sectionId, disabled: false },
     });
   }, []);
+
+  const onSectionReorder = React.useCallback(
+    (draggedItemIndex: number, dropzoneIndex: number) => () => {
+      dispatch({
+        type: ReducerActionType.REORDER_SECTIONS,
+        payload: { draggedItemIndex, dropzoneIndex },
+      });
+    },
+    [],
+  );
 
   const addSection = React.useCallback(() => {
     newSectionsCount.current += 1;
@@ -347,6 +381,7 @@ const QuicksaleSectionList: React.FC<Props> = ({
             loading={loading}
             onSectionClick={onSectionClick}
             onSectionEdit={onSectionEdit}
+            onSectionReorder={onSectionReorder}
             openColorModal={openColorModal}
             sectionList={unsavedEnabledSectionList}
           />

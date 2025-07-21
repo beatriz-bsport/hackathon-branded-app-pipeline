@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import AutoSizer from 'react-virtualized-auto-sizer';
 
@@ -9,7 +9,6 @@ import Paper from '@material-ui/core/Paper';
 import AddCircle from '@material-ui/icons/AddCircle';
 import Popover from '@material-ui/core/Popover';
 import ButtonBase from '@material-ui/core/ButtonBase';
-
 import FuzzySearchIcon from '#src/components/search/FuzzySearchIcon.component';
 import MuiIcon from '#src/components/MuiIcon.component';
 import muiIconNames from '#src/components/input/muiIcon/muiIconNames';
@@ -18,6 +17,7 @@ import useStyle from './styles';
 import QuicksaleSectionCard from '../QuicksaleSectionCard';
 import QuicksaleSectionCardSkeleton from './QuicksaleSectionCardSkeleton';
 import type { QuicksaleSection } from '../../types';
+import DragAndDrop from '../DragAndDrop';
 
 const stopPropagation = (e: React.KeyboardEvent) => e.stopPropagation();
 
@@ -34,6 +34,10 @@ type Props = {
   openColorModal?: (sectionId: string) => void;
   addSection?: () => void;
   isQuicksaleInterfaceView?: boolean;
+  onSectionReorder: (
+    draggedItemIndex: number,
+    dropzoneIndex: number,
+  ) => (event?: React.DragEvent) => void;
 };
 
 const QuicksaleConfigurationSectionList: React.FC<Props> = (props) => {
@@ -46,20 +50,21 @@ const QuicksaleConfigurationSectionList: React.FC<Props> = (props) => {
     openColorModal,
     addSection,
     isQuicksaleInterfaceView,
+    onSectionReorder,
   } = props;
   const { t } = useTranslation(['quicksale']);
 
-  const [editedSectionId, setEditedSectionId] = React.useState('');
-  const iconSelectorRef = React.useRef(null);
+  const [editedSectionId, setEditedSectionId] = useState('');
+  const iconSelectorRef = useRef<Map<string, HTMLButtonElement> | null>(null);
 
-  const getRefMap = React.useCallback((): Map<string, HTMLButtonElement> => {
+  const getRefMap = useCallback((): Map<string, HTMLButtonElement> => {
     if (!iconSelectorRef.current) iconSelectorRef.current = new Map();
     return iconSelectorRef.current;
   }, []);
 
-  const closeIconSelector = React.useCallback(() => setEditedSectionId(''), []);
+  const closeIconSelector = useCallback(() => setEditedSectionId(''), []);
 
-  const sectionToEdit = React.useMemo(() => {
+  const sectionToEdit = useMemo(() => {
     const refMap = getRefMap();
     return refMap.get(editedSectionId) || null;
   }, [editedSectionId, getRefMap]);
@@ -69,7 +74,7 @@ const QuicksaleConfigurationSectionList: React.FC<Props> = (props) => {
     theme.breakpoints.down('xs'),
   );
 
-  const iconSelectorItemRenderer = React.useCallback(
+  const iconSelectorItemRenderer = useCallback(
     (data: { icon: string }) => {
       if (!onSectionEdit) return <></>;
 
@@ -102,7 +107,7 @@ const QuicksaleConfigurationSectionList: React.FC<Props> = (props) => {
     ],
   );
 
-  const iconList = React.useMemo(
+  const iconList = useMemo(
     () =>
       Object.keys(muiIconNames).map((icon) => ({
         icon,
@@ -111,6 +116,53 @@ const QuicksaleConfigurationSectionList: React.FC<Props> = (props) => {
     [],
   );
 
+  const [draggedItemIndex, setDraggedItemIndex] = useState<number | null>(null);
+
+  const onDragStart = (id: string) => () => {
+    setTimeout(() => {
+      setDraggedItemIndex(Number(id));
+    }, 0);
+  };
+
+  const onDragEnd = () => () => {
+    setDraggedItemIndex(null);
+  };
+
+  const handleDrop = useCallback(
+    (draggedId: string, dropTargetId: string) => () => {
+      if (!onSectionReorder || !sectionList) return;
+
+      const fromIndex = parseInt(draggedId, 10);
+      let insertionIndex: number;
+
+      if (dropTargetId.startsWith('before-')) {
+        insertionIndex = parseInt(dropTargetId.replace('before-', ''), 10);
+      } else if (dropTargetId.startsWith('after-')) {
+        insertionIndex = parseInt(dropTargetId.replace('after-', ''), 10) + 1;
+      } else if (dropTargetId === 'end') {
+        insertionIndex = sectionList.length;
+      } else {
+        // Fallback
+        insertionIndex = parseInt(dropTargetId, 10);
+      }
+
+      // Calculate the final position considering the item removal
+      let finalIndex = insertionIndex;
+      if (fromIndex < insertionIndex) {
+        finalIndex = insertionIndex - 1;
+      }
+
+      // Ensure we don't go out of bounds
+      finalIndex = Math.max(0, Math.min(finalIndex, sectionList.length - 1));
+
+      onSectionReorder(fromIndex, finalIndex)();
+      setDraggedItemIndex(null);
+    },
+    [onSectionReorder, sectionList],
+  );
+
+  const spacing = isMobile ? 2 : 3;
+
   return (
     <div
       className={classes.sectionListContainer}
@@ -118,61 +170,141 @@ const QuicksaleConfigurationSectionList: React.FC<Props> = (props) => {
     >
       <AutoSizer>
         {(autoSizerProps: { height: number; width: number }) => (
-          <Grid
-            container
-            className={classes.sectionContainer}
-            spacing={isMobile ? 2 : 3}
-            style={{
-              maxHeight: autoSizerProps.height,
-              width: autoSizerProps.width,
-            }}
-          >
+          <>
             {loading ? (
-              [...Array(12).keys()].map((index) => (
-                <Grid key={index} item lg={4} sm={6} xs={12}>
-                  <QuicksaleSectionCardSkeleton />
-                </Grid>
-              ))
-            ) : (
-              <>
-                {(sectionList ?? []).map((section) => (
-                  <Grid
-                    key={section.section_id}
-                    item
-                    className={classes.sectionItem}
-                    sm={6}
-                    xs={12}
-                    {...(isQuicksaleInterfaceView ? { md: 4 } : { lg: 4 })}
-                  >
-                    <QuicksaleSectionCard
-                      adminView={!isQuicksaleInterfaceView}
-                      archiveSection={archiveSection}
-                      getMapRefInAdminView={getRefMap}
-                      isIconBeingEdited={editedSectionId === section.section_id}
-                      onSectionEdit={onSectionEdit}
-                      openColorModal={openColorModal}
-                      openIconSelector={setEditedSectionId}
-                      openSection={onSectionClick}
-                      section={section}
-                    />
+              <Grid
+                container
+                className={classes.sectionContainer}
+                spacing={spacing}
+                style={{
+                  maxHeight: autoSizerProps.height,
+                  width: autoSizerProps.width,
+                }}
+              >
+                {[...Array(12).keys()].map((index) => (
+                  <Grid key={index} item lg={4} sm={6} xs={12}>
+                    <QuicksaleSectionCardSkeleton />
                   </Grid>
                 ))}
-                {!isQuicksaleInterfaceView && (
-                  <Grid item lg={4} sm={6} xs={12}>
-                    <div
-                      className={classes.addSectionIconButton}
-                      onClick={addSection}
-                      onKeyDown={stopPropagation}
-                      role="button"
-                      tabIndex={0}
+              </Grid>
+            ) : (
+              <DragAndDrop
+                onDragEnd={onDragEnd}
+                onDragStart={onDragStart}
+                onDrop={handleDrop}
+              >
+                <Grid
+                  container
+                  className={classes.sectionContainer}
+                  spacing={spacing}
+                  style={{
+                    maxHeight: autoSizerProps.height,
+                    width: autoSizerProps.width,
+                  }}
+                >
+                  {(sectionList ?? []).map((section, index) => (
+                    <Grid
+                      key={section.section_id}
+                      item
+                      className={classes.sectionItem}
+                      lg={4}
+                      sm={6}
+                      style={{ position: 'relative' }}
+                      xs={12}
                     >
-                      <AddCircle className={classes.addSectionIcon} />
-                    </div>
-                  </Grid>
-                )}
-              </>
+                      {/* Left drop zone (before) */}
+                      {draggedItemIndex !== null &&
+                        draggedItemIndex !== index && (
+                          <DragAndDrop.DropZone
+                            id={`before-${index}`}
+                            style={{
+                              position: 'absolute',
+                              left: '-2px',
+                              top: spacing * 2,
+                              width: '50%',
+                              height: `calc(100% - ${spacing * 4}px)`,
+                              zIndex: 10,
+                              backgroundColor: 'transparent',
+                            }}
+                          >
+                            {({ activeDropTarget }) => (
+                              <>
+                                {activeDropTarget === `before-${index}` && (
+                                  <div className={classes.leftDropIndicator}>
+                                    <div className={classes.verticalDropLine} />
+                                  </div>
+                                )}
+                              </>
+                            )}
+                          </DragAndDrop.DropZone>
+                        )}
+
+                      {/* Right drop zone (after) */}
+                      {draggedItemIndex !== null &&
+                        draggedItemIndex !== index && (
+                          <DragAndDrop.DropZone
+                            id={`after-${index}`}
+                            style={{
+                              position: 'absolute',
+                              right: '-2px',
+                              top: spacing * 2,
+                              width: '50%',
+                              height: `calc(100% - ${spacing * 4}px)`,
+                              zIndex: 10,
+                              backgroundColor: 'transparent',
+                            }}
+                          >
+                            {({ activeDropTarget }) => (
+                              <>
+                                {activeDropTarget === `after-${index}` && (
+                                  <div className={classes.rightDropIndicator}>
+                                    <div className={classes.verticalDropLine} />
+                                  </div>
+                                )}
+                              </>
+                            )}
+                          </DragAndDrop.DropZone>
+                        )}
+
+                      {/* The actual draggable section card */}
+                      <DragAndDrop.Item id={index.toString()}>
+                        {({ isDragged }) =>
+                          !isDragged && (
+                            <QuicksaleSectionCard
+                              adminView={!isQuicksaleInterfaceView}
+                              archiveSection={archiveSection}
+                              getMapRefInAdminView={getRefMap}
+                              isIconBeingEdited={
+                                editedSectionId === section.section_id
+                              }
+                              onSectionEdit={onSectionEdit}
+                              openColorModal={openColorModal}
+                              openIconSelector={setEditedSectionId}
+                              openSection={onSectionClick}
+                              section={section}
+                            />
+                          )
+                        }
+                      </DragAndDrop.Item>
+                    </Grid>
+                  ))}
+                  {!isQuicksaleInterfaceView && (
+                    <Grid item lg={4} sm={6} xs={12}>
+                      <div
+                        className={classes.addSectionIconButton}
+                        onClick={addSection}
+                        onKeyDown={stopPropagation}
+                        role="button"
+                        tabIndex={0}
+                      >
+                        <AddCircle className={classes.addSectionIcon} />
+                      </div>
+                    </Grid>
+                  )}
+                </Grid>
+              </DragAndDrop>
             )}
-          </Grid>
+          </>
         )}
       </AutoSizer>
       <Popover

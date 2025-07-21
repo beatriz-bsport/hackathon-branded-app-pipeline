@@ -74,6 +74,10 @@ type ReducerAction =
   | {
       type: 'DELETE_ITEM';
       payload: { itemId: string };
+    }
+  | {
+      type: 'REORDER_ITEMS';
+      payload: { draggedItemIndex: number; dropzoneIndex: number };
     };
 
 type OwnProps = {
@@ -146,6 +150,17 @@ const QuicksaleItemList: React.FC<Props> = (props) => {
           });
         case 'DELETE_ITEM':
           return state.filter((item) => item.id !== action.payload.itemId);
+        case 'REORDER_ITEMS': {
+          const { draggedItemIndex, dropzoneIndex } = action.payload;
+
+          // Simple array reordering logic
+          const newItemList = [...state];
+          const [movedItem] = newItemList.splice(draggedItemIndex, 1);
+          newItemList.splice(dropzoneIndex, 0, movedItem);
+
+          return newItemList;
+        }
+
         default:
           return state;
       }
@@ -245,6 +260,16 @@ const QuicksaleItemList: React.FC<Props> = (props) => {
       payload: { itemId },
     });
   }, []);
+
+  const onItemReorder = React.useCallback(
+    (draggedItemIndex: number, dropzoneIndex: number) => () => {
+      dispatch({
+        type: 'REORDER_ITEMS',
+        payload: { draggedItemIndex, dropzoneIndex },
+      });
+    },
+    [],
+  );
 
   // ==================== Item addition management ====================
   const [showItemAdditionDrawer, setShowItemAdditionDrawer] =
@@ -497,6 +522,7 @@ const QuicksaleItemList: React.FC<Props> = (props) => {
               deleteItem={onItemDelete}
               itemList={unsavedItemList}
               loading={loading}
+              onItemReorder={onItemReorder}
               openAddItemDrawer={openItemAdditionDrawer}
               openColorModal={openColorModal}
             />

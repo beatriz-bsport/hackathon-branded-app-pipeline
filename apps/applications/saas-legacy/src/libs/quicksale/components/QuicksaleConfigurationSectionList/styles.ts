@@ -75,6 +75,48 @@ const useStyle = makeStyles<Theme, { isQuicksaleInterfaceView?: boolean }>(
       height: '40px',
       width: '40px',
     },
+    leftDropIndicator: {
+      position: 'absolute',
+      top: '0',
+      bottom: '0',
+      width: '4px',
+      backgroundColor: '#1976d2',
+      borderRadius: '2px',
+      boxShadow: '0 0 8px rgba(25, 118, 210, 0.5)',
+      zIndex: 1000,
+    },
+    rightDropIndicator: {
+      position: 'absolute',
+      right: '0',
+      top: '0',
+      bottom: '0',
+      width: '4px',
+      backgroundColor: '#1976d2',
+      borderRadius: '2px',
+      boxShadow: '0 0 8px rgba(25, 118, 210, 0.5)',
+      zIndex: 1000,
+    },
+    verticalDropLine: {
+      width: '100%',
+      height: '100%',
+      backgroundColor: 'inherit',
+      borderRadius: 'inherit',
+    },
+    endDropIndicator: {
+      width: '100%',
+      height: '200px', // Match your card height
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      border: '2px dashed #1976d2',
+      borderRadius: '8px',
+      backgroundColor: 'rgba(25, 118, 210, 0.1)',
+    },
+    dropPlaceholder: {
+      color: '#1976d2',
+      fontSize: '16px',
+      fontWeight: 500,
+    },
   }),
 );
 

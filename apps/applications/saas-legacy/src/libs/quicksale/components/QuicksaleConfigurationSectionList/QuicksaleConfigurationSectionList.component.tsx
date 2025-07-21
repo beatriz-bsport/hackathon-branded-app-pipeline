@@ -2,7 +2,8 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import AutoSizer from 'react-virtualized-auto-sizer';
 
-import { useMediaQuery, Theme } from '@material-ui/core';
+import { Theme } from '@material-ui/core/styles';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import AddCircle from '@material-ui/icons/AddCircle';
@@ -71,28 +72,25 @@ const QuicksaleConfigurationSectionList: React.FC<Props> = (props) => {
   const iconSelectorItemRenderer = React.useCallback(
     (data: { icon: string }) => {
       if (!onSectionEdit) return <></>;
-      return (
-        <>
-          {data?.icon ? (
-            <ButtonBase
-              className={classes.iconButton}
-              onClick={() => {
-                onSectionEdit(
-                  editedSectionId,
-                  EditableQuicksaleSectionKey.icon,
-                  data?.icon,
-                );
-                closeIconSelector();
-              }}
-            >
-              <div>
-                <MuiIcon className={classes.icon} icon={data?.icon} />
-              </div>
-            </ButtonBase>
-          ) : (
-            <div />
-          )}
-        </>
+
+      return data?.icon ? (
+        <ButtonBase
+          className={classes.iconButton}
+          onClick={() => {
+            onSectionEdit(
+              editedSectionId,
+              EditableQuicksaleSectionKey.icon,
+              data?.icon,
+            );
+            closeIconSelector();
+          }}
+        >
+          <div>
+            <MuiIcon className={classes.icon} icon={data?.icon} />
+          </div>
+        </ButtonBase>
+      ) : (
+        <div />
       );
     },
     [
@@ -116,7 +114,7 @@ const QuicksaleConfigurationSectionList: React.FC<Props> = (props) => {
   return (
     <div
       className={classes.sectionListContainer}
-      data-testid="quicksale-section-list"
+      data-testid="quicksale-configuration-section-list"
     >
       <AutoSizer>
         {(autoSizerProps: { height: number; width: number }) => (
@@ -130,13 +128,11 @@ const QuicksaleConfigurationSectionList: React.FC<Props> = (props) => {
             }}
           >
             {loading ? (
-              <>
-                {[...Array(12).keys()].map((index) => (
-                  <Grid key={index} item lg={4} sm={6} xs={12}>
-                    <QuicksaleSectionCardSkeleton />
-                  </Grid>
-                ))}
-              </>
+              [...Array(12).keys()].map((index) => (
+                <Grid key={index} item lg={4} sm={6} xs={12}>
+                  <QuicksaleSectionCardSkeleton />
+                </Grid>
+              ))
             ) : (
               <>
                 {(sectionList ?? []).map((section) => (

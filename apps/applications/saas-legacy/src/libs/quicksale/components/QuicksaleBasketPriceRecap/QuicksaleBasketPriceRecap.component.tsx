@@ -135,7 +135,8 @@ const QuicksaleBasketPriceRecap: React.FC<Props> = ({
         {t('checkout.priceRecap')}
       </Typography>
 
-      {!loading && basketPriceLeftToPay !== modifiedPrice && (
+      {/* (Quicksale MVP): Hide the recap line for now, we deprecated the partial payment feature. */}
+      {/*{!loading && basketPriceLeftToPay !== modifiedPrice && (
         <div className={classes.recapLine}>
           <Typography variant="caption">{t('checkout.amountDue')}</Typography>
           <div className={classes.line} />
@@ -165,7 +166,7 @@ const QuicksaleBasketPriceRecap: React.FC<Props> = ({
             </Typography>
           </div>
         </>
-      )}
+      )}*/}
 
       <div className={classes.priceFrame}>
         {isEditingPrice ? (

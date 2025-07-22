@@ -13,8 +13,6 @@ import routerParamsToProps from '#src/hocs/router-params-to-props.hoc';
 import { getPaymentGroupStatus as getPaymentGroupStatusAPI } from '#src/libs/payment/api';
 import {
   assignInstalmentPayment as assignInstalmentPaymentAction,
-  // (Quicksale MVP): Hide Coupon
-  // attachCoupon as attachCouponAction,
   createOrRefreshInternalAccountPrepaidLine as createOrRefreshInternalAccountPrepaidLineAction,
   fetchBasket as fetchBasketAction,
   patchCurrentBasket as patchCurrentBasketAction,
@@ -156,16 +154,30 @@ const QuicksalePayment: React.FC<Props> = ({
   React.useEffect(() => {
     fetchBasket(basketId, {
       onSuccess: (fetchedBasket) => {
+        if (!fetchedBasket) return;
+
         fetchMembers({ id__in: [fetchedBasket.member] });
-        if (fetchedBasket.invoice)
+
+        if (fetchedBasket.invoice) {
           fetchPaymentList({
             invoice__uuid: fetchedBasket.invoice,
             page: 1,
             page_size: 100,
           });
+        }
+
+        if (fetchedBasket.is_finalized) {
+          setShowPaymentSuccessModal(true);
+        }
       },
     });
-  }, [basketId, fetchBasket, fetchMembers, fetchPaymentList]);
+  }, [
+    basketId,
+    fetchBasket,
+    fetchMembers,
+    fetchPaymentList,
+    setShowPaymentSuccessModal,
+  ]);
 
   React.useEffect(() => {
     fetchInstalmentPaymentByBasket(basketId);

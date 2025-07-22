@@ -171,7 +171,7 @@
                 },
                 "delayWeek": {
                     "label": "Número de semanas",
-                    "helperText": "Indicar com quantas semanas de antecedência o membro será inscrito (máximo de 8 semanas)"
+                    "helperText": "Indicar com quantas semanas de antecedência o membro será inscrito (máximo de {{delayWeek}} semanas)"
                 },
                 "title": "Reservar uma periodicidade",
                 "groupWarning": "Tenha em atenção que não é possível adicionar marcações recorrentes para eventos.",

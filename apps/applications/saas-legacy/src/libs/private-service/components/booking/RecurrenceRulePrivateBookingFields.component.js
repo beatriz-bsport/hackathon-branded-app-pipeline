@@ -135,7 +135,9 @@ export default function RecurrenceRulePrivateBookingFields(props: Props) {
       )}
       <TextField
         required
-        helperText={t('booking:recurrenceRule.form.delayWeek.helperText')}
+        helperText={t('booking:recurrenceRule.form.delayWeek.helperText', {
+          delayWeek: getMaxDelayWeek(props.companyId),
+        })}
         InputProps={{
           inputProps: {
             max: getMaxDelayWeek(props.companyId),

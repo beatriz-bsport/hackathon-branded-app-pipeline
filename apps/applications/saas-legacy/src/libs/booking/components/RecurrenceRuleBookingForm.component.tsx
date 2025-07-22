@@ -65,7 +65,7 @@ type Props = {
     page: number;
     page_size: number;
   }) => void;
-  // eslint-disable-next-line react/no-unused-prop-types
+
   companyId: number;
   // eslint-disable-next-line react/no-unused-prop-types
   onSubmit: (
@@ -88,6 +88,7 @@ const RecurrenceRuleBookingForm: React.FC<Props> = ({
   hasActivityGroups = false,
   setFieldValue,
   showCreateBookingWarning,
+  companyId,
 }) => {
   const { t } = useTranslation(['booking', 'datetime']);
   const classes = useStyles();
@@ -191,7 +192,9 @@ const RecurrenceRuleBookingForm: React.FC<Props> = ({
       <div className={classes.field}>
         <IntegerField
           required
-          helperText={t('booking:recurrenceRule.form.delayWeek.helperText')}
+          helperText={t('booking:recurrenceRule.form.delayWeek.helperText', {
+            delayWeek: getMaxDelayWeek(companyId),
+          })}
           id="delay_week"
           label={t('booking:recurrenceRule.form.delayWeek.label')}
           name="delay_week"

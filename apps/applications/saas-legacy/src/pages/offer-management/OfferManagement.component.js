@@ -1097,8 +1097,8 @@ export class OfferManagement extends Component<Props, State> {
                         );
                         options?.onSuccess?.();
                       },
-                      onError: () => {
-                        options?.onError?.();
+                      onError: (e) => {
+                        options?.onError?.(e);
                       },
                     },
                   );

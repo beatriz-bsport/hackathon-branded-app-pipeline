@@ -1365,8 +1365,8 @@ export default compose(
                 );
                 options?.onSuccess?.();
               },
-              onError: () => {
-                options?.onError?.();
+              onError: (e) => {
+                options?.onError?.(e);
               },
             },
           );
@@ -1394,8 +1394,8 @@ export default compose(
                 );
                 options?.onSuccess?.();
               },
-              onError: () => {
-                options?.onError?.();
+              onError: (e) => {
+                options?.onError?.(e);
               },
             },
           );

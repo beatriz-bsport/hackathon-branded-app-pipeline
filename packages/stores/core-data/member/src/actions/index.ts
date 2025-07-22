@@ -18,14 +18,24 @@ import {
   interrogateMemberRegularityAPI,
   restoreMemberAPI,
   searchMembersAPI,
+  tagAllMembersAPI,
+  tagMemberAPI,
+  untagAllMembersAPI,
+  untagMemberAPI,
 } from "#src/api";
-import type { Member } from "#src/types";
+import type {
+  Member,
+  MemberDetails,
+  UpdateAllMembersTagParams,
+  UpdateMemberTagParams,
+} from "#src/types";
 
 import {
   setMembers,
   setSearchMembers,
   updateIrregularities,
   updateMember,
+  updateMemberTag,
 } from "./store";
 
 /**
@@ -189,5 +199,121 @@ export const importLeadsAction: XhrAction<
       }
       return createErrorWithContext(error, {});
     },
+  );
+};
+
+/**
+ * Action to Tag a member with a specific marketing tag Id
+ * @param memberId Id of the member to apply the tag
+ * @param tagId Id of the tag to apply to the member
+ * @returns detaiiled information of the member after the tag has been applied
+ */
+export const tagMemberAction: Action<
+  UpdateMemberTagParams,
+  MemberDetails
+> = async (fetch, params) => {
+  const [uri, init] = tagMemberAPI(params);
+
+  return Result.try(
+    async () => {
+      const { data } = await fetch(uri, init);
+
+      // Here we cannot update the member in the store as the issue is that in the response of type MemberDetails
+      // the field has_bought_pack is missing, so we would lose this information, but what we can do is to update only
+      // the member tag
+      updateMemberTag({
+        memberId: params.memberId,
+        tagId: params.tagId,
+      });
+
+      return data;
+    },
+    (error) =>
+      new Error(
+        `Failed to apply the tag n°${params.tagId} to the member n°${params.memberId}`,
+        {
+          cause: error,
+        },
+      ),
+  );
+};
+
+/**
+ * Action to remove the Tag from a member with a specific marketing tag Id
+ * @param memberId Id of the member to remove the tag from
+ * @param tagId Id of the tag to remove from the member
+ * @returns detaiiled information of the member after the tag has been removed
+ */
+export const untagMemberAction: Action<
+  UpdateMemberTagParams,
+  MemberDetails
+> = async (fetch, params) => {
+  const [uri, init] = untagMemberAPI(params);
+
+  return Result.try(
+    async () => {
+      const { data } = await fetch(uri, init);
+
+      // Here we cannot update the member in the store as the issue is that in the response of type MemberDetails
+      // the field has_bought_pack is missing, so we would lose this information, but what we can do is to update only
+      // the member tag
+      updateMemberTag({
+        memberId: params.memberId,
+        tagId: params.tagId,
+      });
+
+      return data;
+    },
+    (error) =>
+      new Error(
+        `Failed to remove the tag n°${params.tagId} from the member n°${params.memberId}`,
+        {
+          cause: error,
+        },
+      ),
+  );
+};
+
+/**
+ * Action to Tag all the members of a studio with a specific marketing tag Id
+ * @param tagId Id of the tag to apply to the all the members
+ * @returns nothing, it is a background task
+ */
+export const tagAllMembersAction: Action<
+  UpdateAllMembersTagParams,
+  void
+> = async (fetch, params) => {
+  const [uri, init] = tagAllMembersAPI(params);
+
+  return Result.try(
+    async () => {
+      await fetch(uri, init);
+    },
+    (error) =>
+      new Error(`Failed to apply the tag n°${params.tagId} to the members`, {
+        cause: error,
+      }),
+  );
+};
+
+/**
+ * Action to remove a specific Tag from all members of a studio
+ * @param tagId Id of the tag to remove from all the members
+ * @returns nothing, it is a background task
+ */
+export const untagAllMembersAction: Action<
+  UpdateAllMembersTagParams,
+  void
+> = async (fetch, params) => {
+  const [uri, init] = untagAllMembersAPI(params);
+
+  return Result.try(
+    async () => {
+      await fetch(uri, init);
+    },
+    (error) =>
+      new Error(`Failed to remove the tag n°${params.tagId} from the members`, {
+        cause: error,
+      }),
   );
 };

@@ -4,11 +4,17 @@ import {
   buildUrlParams,
 } from "@bsport/store-base";
 
+import type { UpdateAllMembersTagParams, UpdateMemberTagParams } from "./types";
+
 const API_URL = "core-data/v1/member";
 
 export type FetchMembersParams = {
   page: number;
   page_size: number;
+  tags_included?: string; // Union of selected tags, ids of tags separated by commas
+  tags_excluded?: string; // Union of selected tags, ids of tags separated by commas
+  exclude_archived?: boolean;
+  email_confirmed?: boolean;
 } & Record<string, string | boolean | number>;
 
 export const fetchMembersAPI = (params: FetchMembersParams): ApiConfig => {
@@ -78,6 +84,54 @@ export const importLeadsAPI = ({
       formData,
       onUploadProgress,
       signal,
+    },
+  ];
+};
+
+export const tagMemberAPI = (params: UpdateMemberTagParams): ApiConfig => {
+  const payloadData = { tag: params.tagId };
+  return [
+    `${API_URL}/${params.memberId}/tag/`,
+    {
+      method: "POST",
+      body: JSON.stringify(payloadData),
+    },
+  ];
+};
+
+export const untagMemberAPI = (params: UpdateMemberTagParams): ApiConfig => {
+  const payloadData = { tag: params.tagId };
+  return [
+    `${API_URL}/${params.memberId}/tag/`,
+    {
+      method: "DELETE",
+      body: JSON.stringify(payloadData),
+    },
+  ];
+};
+
+export const tagAllMembersAPI = (
+  params: UpdateAllMembersTagParams,
+): ApiConfig => {
+  const payloadData = { tag: params.tagId };
+  return [
+    `${API_URL}/tag_all/`,
+    {
+      method: "POST",
+      body: JSON.stringify(payloadData),
+    },
+  ];
+};
+
+export const untagAllMembersAPI = (
+  params: UpdateAllMembersTagParams,
+): ApiConfig => {
+  const payloadData = { tag: params.tagId };
+  return [
+    `${API_URL}/tag_all/`,
+    {
+      method: "DELETE",
+      body: JSON.stringify(payloadData),
     },
   ];
 };

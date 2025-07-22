@@ -60,3 +60,27 @@ export const setSearchMembers = ({
     };
   });
 };
+
+export const updateMemberTag = ({
+  memberId,
+  tagId,
+}: {
+  memberId: number;
+  tagId: number;
+}) => {
+  memberStore.setState((state) => {
+    const member = state.byId[memberId];
+    if (!member) return state;
+
+    const currentTags = member.tags || [];
+    const tags = currentTags.includes(tagId)
+      ? currentTags.filter((id) => id !== tagId) // Remove tag if exists
+      : [...currentTags, tagId]; // Add tag if not exists
+    return {
+      byId: {
+        ...state.byId,
+        [memberId]: { ...member, tags },
+      },
+    };
+  });
+};

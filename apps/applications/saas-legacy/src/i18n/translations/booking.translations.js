@@ -324,7 +324,7 @@ const getTranslations = async () => {
       form: {
         delayWeek: {
           helperText:
-            'Indicate how many weeks in advance the member will be enrolled (8 weeks maximum)',
+            'Indicate how many weeks in advance the member will be enrolled ({{delayWeek}} weeks maximum)',
           label: 'Number of weeks',
         },
         metaActivity: { helperText: 'Activity', label: 'Activity' },

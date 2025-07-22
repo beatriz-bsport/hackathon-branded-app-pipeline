@@ -50,13 +50,22 @@ const LoaderActionButton = ({
   // Completed and error state
   if (progressBarStatus === "critical") {
     return (
-      <Button
-        onClick={onRetryUploadClick}
-        color="default"
-        intent="flat"
-        iconLeft="refresh-cw-01"
-        size="sm"
-      />
+      <div className="flex flex-row items-center gap-sm">
+        <Button
+          onClick={onRetryUploadClick}
+          color="default"
+          intent="flat"
+          iconLeft="refresh-cw-01"
+          size="sm"
+        />
+        <Button
+          onClick={onDeleteUploadedFileClick}
+          color="default"
+          intent="flat"
+          iconLeft="x-close"
+          size="sm"
+        />
+      </div>
     );
   }
   return null;

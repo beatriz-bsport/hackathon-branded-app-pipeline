@@ -1,31 +1,28 @@
 import React from 'react';
-import { ConnectedProps, connect } from 'react-redux';
+import { connect, ConnectedProps } from 'react-redux';
 import { compose } from 'recompose';
 import {
   push as pushAction,
   replace as replaceAction,
 } from 'connected-react-router';
 
-import ALL_ERROR_CODES from '@bsport/common/lib/master-data/error-codes/buyable-item-can-not-be-bought.js';
-
 import routerParamsToProps from '#src/hocs/router-params-to-props.hoc';
 
 import {
-  fetchBasket as fetchBasketAction,
-  updateQuicksaleBasketMember as updateQuicksaleBasketMemberAction,
-  attachCoupon as attachCouponAction,
-  removeItemFromBasket as removeItemFromBasketAction,
-  patchCurrentBasket as patchCurrentBasketAction,
   assignInstalmentPayment as assignInstalmentPaymentAction,
+  attachCoupon as attachCouponAction,
   createOrRefreshInternalAccountPrepaidLine as createOrRefreshInternalAccountPrepaidLineAction,
+  fetchBasket as fetchBasketAction,
+  patchCurrentBasket as patchCurrentBasketAction,
+  removeItemFromBasket as removeItemFromBasketAction,
+  updateQuicksaleBasketMember as updateQuicksaleBasketMemberAction,
 } from '#src/libs/checkout/actions';
 import { getBasket } from '#src/libs/checkout/selectors';
 
 import {
-  updatePaymentGroupPriceCts,
   detachPaymentMethod as detachPaymentMethodAction,
+  updatePaymentGroupPriceCts,
 } from '#src/libs/payment/actions';
-import { checkItemsBasket as checkItemsBasketAPI } from '#src/libs/payment/api';
 
 import { fetchPaymentList as fetchPaymentListAction } from '#src/libs/invoice/actions';
 import { getPaymentList } from '#src/libs/invoice/selectors';
@@ -47,22 +44,22 @@ import QuicksaleDialogs from '#src/libs/quicksale/components/QuicksaleDialogs.co
 
 import { getCompanyCountry } from '#src/libs/theme/selectors';
 
-import type { PaymentGroup } from '#src/libs/payment/types';
-import type { Basket, BasketAddress } from '#src/libs/checkout/types';
-import { QuicksaleDeliveryType } from '#src/libs/quicksale/constants';
 import { getFeatureList as getFeatureListAction } from '#src/libs/company/actions';
 import { fetchStripeReaders as fetchStripeReadersAction } from '#src/libs/terminal/actions';
 import { getStripeReaders } from '#src/libs/terminal/selectors';
 import { getInstalmentForBasketList } from '#src/libs/instalment-payment-configuration/selectors';
-import { MemberFormData } from '#src/libs/member/types';
 
-import { isErrorWithCustomCode } from '#src/libs/utils';
-import { useQuicksalePayments, useModals } from './hooks';
-import QuicksaleCheckout from './QuicksaleCheckout.component';
 // @ts-expect-error
-import { mapFormData } from '../../form.utils';
-import type { OptionCallback } from '../../../state/types';
-import { RootState } from '../../../reducers';
+import { mapFormData } from '#src/pages/form.utils';
+import QuicksaleCheckout from './QuicksaleCheckout.component';
+import { useModals, useQuicksalePayments } from './hooks';
+
+import { QuicksaleDeliveryType } from '#src/libs/quicksale/constants';
+import type { Basket, BasketAddress } from '#src/libs/checkout/types';
+import type { MemberFormData } from '#src/libs/member/types';
+import type { PaymentGroup } from '#src/libs/payment/types';
+import type { RootState } from '#src/reducers';
+import type { OptionCallback } from '#src/state/types';
 
 type Props = {
   basketId: string;
@@ -76,7 +73,6 @@ const QuicksalePayment: React.FC<Props> = ({
   quicksaleStaffFullName,
   paymentList,
   stripeReaders,
-  detachPaymentMethodLoading,
   instalmentPaymentConfigurationList,
   fetchBasket,
   fetchMembers,
@@ -91,11 +87,12 @@ const QuicksalePayment: React.FC<Props> = ({
   removeItemFromBasket,
   getFeatureList,
   fetchStripeReaders,
-  detachPaymentMethod,
-  snackbarErrorMsg,
   fetchInstalmentPaymentByBasket,
   assignInstalmentPayment,
   createOrRefreshInternalAccountPrepaidLine,
+  // detachPaymentMethod,
+  // detachPaymentMethodLoading,
+  // snackbarErrorMsg,
 }) => {
   const goBack = React.useCallback(() => {
     push('/quicksale/');
@@ -113,7 +110,7 @@ const QuicksalePayment: React.FC<Props> = ({
     paymentMethod,
     availablePaymentMethods,
     setPaymentMethod,
-  } = useQuicksalePayments({ basketId, setLoading, theme });
+  } = useQuicksalePayments({ basketId, setLoading });
 
   const member = memberById[basket?.member];
 
@@ -316,7 +313,7 @@ const QuicksalePayment: React.FC<Props> = ({
     [attachCoupon, basketId],
   );
 
-  const removePaymentMethod = React.useCallback(
+  /*const removePaymentMethod = React.useCallback(
     (paymentMethodId: string, options: OptionCallback<unknown, number>) => {
       detachPaymentMethod(
         {
@@ -350,7 +347,7 @@ const QuicksalePayment: React.FC<Props> = ({
       return true;
     },
     [basketId, fetchBasket, snackbarErrorMsg],
-  );
+  );*/
 
   const companyCountry = getCompanyCountry();
 
@@ -396,10 +393,8 @@ const QuicksalePayment: React.FC<Props> = ({
         availablePaymentMethods={availablePaymentMethods}
         basket={basket}
         basketAddress={basketAddress}
-        checkItemsBasket={checkItemsBasket}
         clientSecret={clientSecret}
         deliveryType={deliveryType}
-        detachPaymentMethodLoading={detachPaymentMethodLoading}
         editPaymentGroupPrice={editPaymentGroupPrice}
         goBack={goBack}
         instalmentPaymentConfigurationList={
@@ -417,7 +412,6 @@ const QuicksalePayment: React.FC<Props> = ({
         quicksaleStaffFullName={quicksaleStaffFullName}
         removeCoupon={removeCoupon}
         removeInternalAccountPrepaidLine={removeInternalAccountPrepaidLine}
-        removePaymentMethod={removePaymentMethod}
         selectedPaymentMethod={paymentMethod}
         setBasketAddress={setBasketAddress}
         setDeliveryType={setDeliveryType}
@@ -427,6 +421,10 @@ const QuicksalePayment: React.FC<Props> = ({
         stripeReaders={stripeReaders}
         theme={theme}
         useInternalAccount={useInternalAccount}
+        // (Quicksale MVP): CreditCard and Sepa payment methods disabled
+        /* checkItemsBasket={checkItemsBasket}
+        detachPaymentMethodLoading={detachPaymentMethodLoading}
+        removePaymentMethod={removePaymentMethod} */
       />
 
       <QuicksaleDialogs

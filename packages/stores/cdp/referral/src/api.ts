@@ -8,9 +8,9 @@ export const fetchReferralProgramSettingsAPI = (): ApiConfig => {
   return [`${API_URL}/referral/referral-program/me/`];
 };
 
-export const updateReferralProgramSettingsAPI = (params: {
-  data: UpdateReferralProgramSettingsPayload;
-}): ApiConfig => {
+export const updateReferralProgramSettingsAPI = (
+  params: UpdateReferralProgramSettingsPayload,
+): ApiConfig => {
   return [
     `${API_URL}/referral/referral-program/me/`,
     {

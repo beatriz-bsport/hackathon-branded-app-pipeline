@@ -2,7 +2,6 @@ import {
   Avatar,
   Body,
   Button,
-  CopyToClipboard,
   type GenericTableColumn,
   type IconProps,
   Tooltip,
@@ -48,37 +47,17 @@ export const useTeacherTableColumns = ({
   const columnEmail: TableColumn = {
     header: t("table.headers.email"),
     id: "column-email",
-    type: "custom",
-    align: "center",
-    render: (row) => {
-      return (
-        <CopyToClipboard
-          value={row.email}
-          toastMessage={t("table.actions.copyEmail")}
-          size="lg"
-          color="default"
-          intent="flat"
-        />
-      );
-    },
+    type: "copy",
+    align: "start",
+    keyPath: "email",
   };
 
   const columnPhone: TableColumn = {
     header: t("table.headers.phone"),
     id: "column-phone",
-    type: "custom",
-    align: "center",
-    render: (row) => {
-      return (
-        <CopyToClipboard
-          value={row.phone}
-          toastMessage={t("table.actions.copyPhone")}
-          size="lg"
-          color="default"
-          intent="flat"
-        />
-      );
-    },
+    keyPath: "phone",
+    type: "copy",
+    align: "start",
   };
 
   const columnActions: TableColumn = {

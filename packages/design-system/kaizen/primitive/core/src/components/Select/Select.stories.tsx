@@ -21,6 +21,7 @@ const meta: Meta<typeof Select> = {
   argTypes: {
     id: { control: { type: "text" } },
     name: { control: { type: "text" } },
+    label: { control: { type: "text" } },
     size: {
       options: Object.keys(sizes),
       control: { type: "inline-radio" },
@@ -48,6 +49,12 @@ const meta: Meta<typeof Select> = {
       },
     },
     disabled: {
+      control: { type: "boolean" },
+    },
+    required: {
+      control: { type: "boolean" },
+    },
+    fullWidth: {
       control: { type: "boolean" },
     },
     helperText: {
@@ -101,6 +108,8 @@ export const Primary: Story = {
     popoverPlacement: undefined,
     onSelect: (option) => console.log(`Selected option: ${option}`),
     fullWidth: false,
+    label: "Select an option",
+    required: false,
   },
 };
 
@@ -135,5 +144,7 @@ export const ControlledValue: Story = {
     errorText: "",
     popoverPlacement: undefined,
     onSelect: (option) => console.log(`Selected option: ${option}`),
+    label: "Select an option",
+    required: true,
   },
 };

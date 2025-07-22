@@ -53,7 +53,9 @@ const MemberListContentInternal: React.FC<MemberListContentProps> = ({
         paginationProps={paginationParams}
         mode="active"
         handleArchive={setMemberToArchive}
-        hasActiveFilters={!!activeFilters}
+        hasActiveFilters={
+          !!activeFilters.tags_excluded || !!activeFilters.tags_included
+        }
         onAddMemberClick={onAddMemberClick}
         onClearFilterClick={onClearFiltersClick}
         permissions={permissions}

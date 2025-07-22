@@ -7981,7 +7981,8 @@
             "85000": "Eine Buchung ist bereits im Gange, bitte haben Sie einen Moment Geduld",
             "85101": "Eine Buchung ist nicht möglich. Dieser Spot wurde bereits von einem anderen Mitglied gebucht. Bitte versuche es erneut, indem du einen anderen Spot auswählst.",
             "undefined": "Sie versuchen, mehr zukünftige Sitzungen zu buchen, als Ihr Club erlaubt",
-            "generic": "Kann nicht gebucht werden"
+            "generic": "Kann nicht gebucht werden",
+            "addToBasketError": "Kann dem Warenkorb nicht hinzugefügt werden"
         },
         "signup": {
             "emailAlreadyExists": "Diese E-Mail ist bereits in Gebrauch",
@@ -10641,7 +10642,9 @@
                     "email": "Bitte gib eine gültige E-Mail-Adresse ein",
                     "requiredField": "Dieses Feld ist erforderlich",
                     "phoneTaken": "Diese Telefonnummer wird bereits von einem anderen Mitglied verwendet",
-                    "emailTaken": "Diese E-mail-Adresse existiert bereits. Du kannst versuchen, dich mit dieser Adresse anzumelden"
+                    "emailTaken": "Diese E-mail-Adresse existiert bereits. Du kannst versuchen, dich mit dieser Adresse anzumelden",
+                    "passwordConfirmation": "Passwörter müssen übereinstimmen",
+                    "passwordMinimumRequirements": "Dein Passwort muss aus mindestens 6 Zeichen bestehen, keine Leerzeichen"
                 },
                 "button": {
                     "label": "Anmelden"
@@ -10667,6 +10670,9 @@
                 },
                 "acceptEmail": {
                     "label": "Ich bin damit einverstanden, E-Mails mit Marketinginhalten, inklusive Sonderangeboten und Rabatten zu erhalten"
+                },
+                "password": {
+                    "label": "Passwort anlegen"
                 }
             }
         }
@@ -13355,7 +13361,7 @@
                     "availability": {
                         "expiresToday": "Läuft heute ab",
                         "expiresIn": "{{ daysRemaining }} Tag noch",
-                        "expiresIn_plural": "Noch {{ daysRemaining }} Tage übrig",
+                        "expiresIn_plural": "{{ daysRemaining }} Tage übrig",
                         "future": "Startdatum: {{ startDate }}",
                         "expired": "Abgelaufen am: {{ expirationDate }}",
                         "active": "Ablaufdatum: {{ expirationDate }}"
@@ -15791,7 +15797,7 @@
             },
             "replacement": {
                 "management": "Verwaltung",
-                "disciplineGroup": "Aktivitäten:"
+                "disciplineGroup": "Disziplinargruppen"
             },
             "franchise": {
                 "staff": {
@@ -15936,7 +15942,7 @@
             "error_email_exists": "Es gibt bereits eine Lehrkraft mit dieser E-Mail-Adresse. Bitte erstelle eine neue Lehrkraft über das entsprechende Formular",
             "linkByEmail": {
                 "emailPlaceHolder": "beispiel@email.com",
-                "explain": "Gib hier die E-Mail-Adresse der Lehrkraft an, die du hinzufügen möchtest. Haben wir ihre Daten bereits, wird ein Konto automatisch für sie erstellt.",
+                "explain": "Gib hier die E-Mail-Adresse der Lehrkraft an, die du hinzufügen möchtest. Haben wir ihre Daten bereits, wird automatisch ein Konto für sie erstellt.",
                 "emailLabel": "E-Mail",
                 "title": "E-Mail-Adresse der Lehrkraft",
                 "submit": "Bestätigen",
@@ -15998,7 +16004,7 @@
                 "calendar": "Wochenplan",
                 "general": "Profil"
             },
-            "coachSpaceInfo": "Bei Aktivierung der Lehrkraftansicht können Lehrkräfte ihre Lohnabrechnung und Wochenplan einsehen und ihre Verfügbarkeiten verwalten.",
+            "coachSpaceInfo": "Bei Aktivierung der Lehrkraftansicht können Lehrkräfte ihre Lohnabrechnung, ihren Wochenplan einsehen und ihre Verfügbarkeiten verwalten.",
             "coachSpace": "Lehrkraftansicht",
             "noPaymentRule": "Hinweis: Für diese Lehrkraft wurde keine Lohnabrechnung festgelegt. "
         },
@@ -18030,7 +18036,8 @@
                     "offerOnlySuccess": "Die Buchung wurde erfolgreich abgeschlossen. Du erhältst in Kürze eine Bestätigungs-E-Mail mit allen Details.",
                     "offerOnlySuccess_plural": "Die Buchungen wurden erfolgreich abgeschlossen. Du erhältst in Kürze eine Bestätigungs-E-Mail mit allen Details.",
                     "offerOnlyGuestSuccess": "Die Buchung wurde abgeschlossen. Du und dein Gast werden in Kürze eine Bestätigungsmail mit allen Details erhalten.",
-                    "offersPartiallyConfirmed": "Einige Sitzungen konnten nicht gebucht werden, möglicherweise weil sie ausgebucht wurden oder beim Auschecken abgesagt wurden. Du erhältst in Kürze eine Bestätigungs-E-Mail mit Einzelheiten zu den erfolgreichen Buchungen."
+                    "offersPartiallyConfirmed": "Einige Sitzungen konnten nicht gebucht werden, möglicherweise weil sie ausgebucht wurden oder beim Auschecken abgesagt wurden. Du erhältst in Kürze eine Bestätigungs-E-Mail mit Einzelheiten zu den erfolgreichen Buchungen.",
+                    "expressCheckoutPassPurchaseSuccess": "Jetzt, wo du deinen Kurspass hast, ist es Zeit deinen Kurs zu buchen und alle Vorteile zu nutzen."
                 },
                 "confirmationStatusTitle": {
                     "success": {
@@ -18068,7 +18075,9 @@
                 "retry": "Erneut versuchen",
                 "myBookings": "Meine Buchungen",
                 "goToCalendar": "Zum Kalender zurückkehren",
-                "backToMyProfile": "Zurück zu meinem Profil"
+                "backToMyProfile": "Zurück zu meinem Profil",
+                "seeAllPasses": "Alle Kurspässe ansehen",
+                "bookAClass": "Einen Kurs buchen"
             },
             "bookingItem": {
                 "bookingItemStatus": {
@@ -18412,7 +18421,7 @@
             "dialogTitle": "Widget-Anpassung",
             "linkToConfig": "Link zu dieser Konfiguration",
             "codeInfo": "Code zur Integration in deine Website",
-            "creationPageInfo": "Richte dein Widget ein und füge den Code deiner Website hinzu.",
+            "creationPageInfo": "Richte dein Widget passend zu deiner Marke ein und füge den Code deiner Website hinzu.",
             "dialogMode": {
                 "iframe": "Auf der Seite bleiben",
                 "popup": "Neues Fenster öffnen",
@@ -21085,7 +21094,7 @@
                 "name": "Name",
                 "nameHelperText": "Name der Disziplingruppe",
                 "required": "Dieses Feld ist erforderlich",
-                "groupTypes": "Kurse und Kategorien:",
+                "groupTypes": "Kurse und Kategorien",
                 "pickActivity": "Eine Aktivität wählen",
                 "allActivities": "Unterrichtet alle Aktivitäten",
                 "workshops": "Workshops",
@@ -21162,7 +21171,7 @@
             "offerCancelled": "Stornierte Kurse"
         },
         "compatibleCoaches": {
-            "title": "Passende Lehrkräfte nach Aktivität",
+            "title": "Verfügbare Lehrkräfte nach Aktivität / Fachrichtung",
             "compatibleCoaches": "{{count}} kompatible Lehrkraft",
             "compatibleCoaches_plural": "{{count}} kompatible Lehrkräfte",
             "nextSlot": "Nächster Kurs am {{date}} - {{hour}}",

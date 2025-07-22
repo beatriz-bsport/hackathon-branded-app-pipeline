@@ -33,6 +33,12 @@ export const getSectionList = createSelector(
   [_getSectionIds, getSectionsById],
   (ids, data) => ids.map((id) => data[id]),
 );
+
+export const getActiveSectionList = createSelector(
+  [getSectionList],
+  (sections) => sections.filter((section) => !section.disabled),
+);
+
 const _getId = (state: RootState, sectionId: string) => sectionId;
 
 export const getSection = createSelector(

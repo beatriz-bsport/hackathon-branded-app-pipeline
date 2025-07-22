@@ -138,14 +138,24 @@ export const InvoiceReverterDialog = ({
     [allowedReverseMethods],
   );
 
+  const pricePaidAndProcessing = React.useMemo(
+    () =>
+      payments.reduce((sum, payment) => {
+        if (payment.payment_received != false)
+          return sum + parseInt(payment.price, 10);
+        return sum;
+      }, 0),
+    [payments],
+  );
+
   React.useEffect(() => {
     // If the invoice has a price_payed of 0, we won't show the dialog to choose
     // the payment method to revert the invoice on. Though, we might have non null payments on invoice
     // We need to refund on same payment method for PayPal refunds proceeded from PayPal platform.
-    if (parseInt(invoice.price_payed) === 0 && reverseOnPaymentMethodAllowed) {
+    if (pricePaidAndProcessing === 0 && reverseOnPaymentMethodAllowed) {
       handleChangeReverseMethod(REVERSE_ON_PAYMENT_METHOD);
     }
-  }, [reverseOnPaymentMethodAllowed, invoice.price_payed]);
+  }, [reverseOnPaymentMethodAllowed, pricePaidAndProcessing]);
 
   const reverseOnDebtAllowed = React.useMemo(
     () => allowedReverseMethods[REVERSE_ON_DEBT]?.allowed,
@@ -243,7 +253,7 @@ export const InvoiceReverterDialog = ({
     if (
       reverseMethod === REVERSE_ON_PAYMENT_METHOD &&
       hasAtLeastOneSEPAPayment &&
-      parseInt(invoice.price_payed) > 0
+      pricePaidAndProcessing > 0
     ) {
       onClose();
       setIsSEPARefundModalOpened(true);
@@ -257,7 +267,7 @@ export const InvoiceReverterDialog = ({
     reverseMethod,
     isReachingRefundLimit,
     hasAtLeastOneSEPAPayment,
-    invoice.price_payed,
+    pricePaidAndProcessing,
     submitReverseInvoice,
     onClose,
     isAutoDebitActivated,
@@ -301,7 +311,7 @@ export const InvoiceReverterDialog = ({
 
   // The invoice can have non null Payments but a price_payed of 0 if for instance
   // a full refund has been made on PayPal platform. In this case, we can't refund the invoice again.
-  if (parseInt(invoice.price_payed) === 0) {
+  if (pricePaidAndProcessing === 0) {
     return (
       <Dialog open={!!open}>
         <DialogTitle>{t('revert.dialog.title')}</DialogTitle>

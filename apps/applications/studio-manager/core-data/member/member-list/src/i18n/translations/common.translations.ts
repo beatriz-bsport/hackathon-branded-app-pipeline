@@ -31,10 +31,6 @@ exports.default = {
     tooltips: {
       archive: "Archive member",
       restore: "Unarchive member",
-      clickToCopy: "Click to copy",
-    },
-    actions: {
-      copiedToClipboard: "Email copied to clipboard",
     },
   },
   listPage: {

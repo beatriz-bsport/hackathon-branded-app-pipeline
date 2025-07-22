@@ -121,15 +121,17 @@ export const useFilterMembers = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const filterConfig: FilterProps = useMemo(
-    () => ({
+  const filterConfig: FilterProps = useMemo(() => {
+    return {
       fields: tagFields,
       filters: filters,
       onFilterChange,
-      selectFieldLabel: t("filters.label"),
-    }),
-    [tagFields, filters, onFilterChange, t],
-  );
+      selectFieldLabel:
+        Object.keys(tagFields).length === 1
+          ? tagFields[Object.keys(tagFields)[0]].label
+          : t("filters.label"),
+    };
+  }, [tagFields, filters, onFilterChange, t]);
 
   return {
     handleClearFilters,

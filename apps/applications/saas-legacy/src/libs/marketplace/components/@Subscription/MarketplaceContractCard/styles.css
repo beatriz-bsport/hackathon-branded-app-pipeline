@@ -72,6 +72,7 @@
   /* autoprefixer: off */
   -webkit-box-orient: vertical;
   white-space: pre-wrap;
+  word-break: break-word;
 }
 
 .bs-contract-card .bs-generic-card__content {

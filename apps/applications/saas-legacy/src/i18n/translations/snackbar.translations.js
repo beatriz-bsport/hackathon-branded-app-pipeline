@@ -1103,7 +1103,7 @@ const getTranslations = async () => {
         'There is no pass available to be able to register to the waiting-list',
       [OFFER_WAITING_LIST_CAN_NOT_BOOK_TOO_MANY_FUTURE]:
         'You have reached the maximum of future bookings / waiting-list, you can not register more',
-
+      addToBasketError: 'Unable to add to basket',
       generic: 'Error while booking',
     },
     customForm: {

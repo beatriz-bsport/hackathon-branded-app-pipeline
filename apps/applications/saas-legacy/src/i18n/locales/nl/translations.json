@@ -183,7 +183,7 @@
                     "availability": {
                         "expiresToday": "Laatste dag",
                         "expiresIn": "{{ daysRemaining }} dag(en) over",
-                        "expiresIn_plural": "{{ daysRemaining }} resterende dagen",
+                        "expiresIn_plural": "{{ daysRemaining }} dag(en) over",
                         "future": "Startdatum: {{ startDate }}",
                         "expired": "Verlopen op: {{ expirationDate }}",
                         "active": "Verloopdatum: {{ expirationDate }}"
@@ -2307,7 +2307,7 @@
             "buy": "Aanschaffen",
             "uploadOneImage": {
                 "edit": "Klik hier om de afbeelding(en) wijzigen",
-                "new": "Klik hier om een afbeelding toe te voegen"
+                "new": "Afbeelding toevoegen"
             },
             "tax": "Btw",
             "generate": "Aanmaken",
@@ -5353,7 +5353,7 @@
         },
         "goBackToList": "Keer terug naar vestigingen",
         "update": {
-            "imageUploaderRequireEditMessage": "Na het toevoegen van een vestiging heb je de mogelijkheid om extra afbeeldingen toe te voegen."
+            "imageUploaderRequireEditMessage": "Je kunt meer afbeeldingen uploaden zodra je je vestiging hebt toegevoegd."
         },
         "forms": {
             "delete": {
@@ -5435,7 +5435,7 @@
         "group": {
             "table": {
                 "name": "Naam",
-                "establishment": "Vestigingen",
+                "establishment": "Vestiging",
                 "actions": "Acties",
                 "address": "Adres",
                 "noAddress": "Er is geen adres gekoppeld aan deze factureringsgroep"
@@ -8151,7 +8151,9 @@
                     "email": "Vul een geldig e-mailadres in",
                     "requiredField": "Dit veld is verplicht",
                     "phoneTaken": "Dit telefoonnummer wordt al gebruikt door een ander lid",
-                    "emailTaken": "Het email adres is al in gebruik, u kunt inloggen met dit email adres"
+                    "emailTaken": "Het email adres is al in gebruik, u kunt inloggen met dit email adres",
+                    "passwordConfirmation": "Wachtwoorden moeten overeenkomen",
+                    "passwordMinimumRequirements": "Je wachtwoord moet minstens 6 tekens lang zijn en mag geen spaties bevatten"
                 },
                 "button": {
                     "label": "Inschrijven"
@@ -8177,6 +8179,9 @@
                 },
                 "acceptEmail": {
                     "label": "Ik ga akkoord met het ontvangen van promotionele e-mails, inclusief speciale aanbiedingen en kortingen"
+                },
+                "password": {
+                    "label": "Mijn wachtwoord aanmaken"
                 }
             }
         }
@@ -8647,7 +8652,7 @@
         },
         "establishment": {
             "establishmentList": "Vestigingen",
-            "establishmentFormPage": "[Formulier] Vestiging",
+            "establishmentFormPage": "Een zaal of vestiging toevoegen",
             "establishmentGroupPage": "Locatie"
         },
         "marketplace": {
@@ -12202,7 +12207,7 @@
             "subtitle": {
                 "coaches": "Gekoppelde instructeur(s)",
                 "specfic_private_slot": "Afspraken",
-                "default": "Standaard",
+                "default": "Standaard payroll-regels",
                 "helper": "Je kunt meerdere payroll-regels aan een groep toevoegen voor je groepsactiviteiten, workshops en afspraken. Zodra je instructeurs toevoegt, zullen alle payroll-regels van deze groep op de geselecteerde instructeurs van toepassing zijn. Elke verandering geldt ook voor iedereen die in de groep zit.",
                 "removed_coaches": "Verwijderde leraren"
             },
@@ -13348,7 +13353,8 @@
             "85000": "Er is al een boeking in behandeling, even geduld a.u.b",
             "85101": "Onmogelijk om te boeken. Deze plek is gereserveerd door een ander lid. Probeer het opnieuw door een andere plek te kiezen.",
             "generic": "Fout bij het reserveren",
-            "undefined": "Het is niet toegestaan om het maximaal aantal toekomstige reserveringen te overschrijden"
+            "undefined": "Het is niet toegestaan om het maximaal aantal toekomstige reserveringen te overschrijden",
+            "addToBasketError": "Kan niet aan winkelmand worden toegevoegd"
         },
         "signup": {
             "failedCreation": "Het is momenteel niet mogelijk om je account aan te maken, probeer het later opnieuw",
@@ -13765,7 +13771,7 @@
                 "submit": "Bevestigen",
                 "title": "E-mailadres van de instructeur",
                 "emailLabel": "E-mailadres",
-                "emailPlaceHolder": "instructeur@bsport.io",
+                "emailPlaceHolder": "iemand@email.com",
                 "explain": "Geef het e-mailadres op van de instructeur die je wilt toevoegen. Als we hun gegevens al hebben, maken we hun account automatisch aan."
             },
             "update": {
@@ -13788,7 +13794,7 @@
                 "calendar": "Agenda",
                 "general": "Profiel"
             },
-            "coachSpaceInfo": "In deze ruimte kunnen instructeurs hun payroll per sessie bekijken, hun rooster inzien en hun beschikbaarheid beheren.",
+            "coachSpaceInfo": "Zodra de 'Docentenweergave' is geactiveerd, kunnen docenten hun loonlijst bekijken, hun rooster bekijken en hun beschikbaarheid beheren.",
             "coachSpace": "Instructeursweergave",
             "noPaymentRule": "Er zijn geen payroll-regels aan deze instructeur toegewezen."
         },
@@ -15518,7 +15524,8 @@
                     "offerOnlySuccess": "Je reservering is bevestigd. Binnenkort ontvang je een bevestigingsmail met alle details.",
                     "offerOnlySuccess_plural": "Je reserveringen zijn bevestigd. Binnenkort ontvang je een bevestigingsmail met alle details.",
                     "offerOnlyGuestSuccess": "De reservering is gemaakt. Jij en je gast ontvangen binnenkort een bevestigingsmail met alle details.",
-                    "offersPartiallyConfirmed": "Sommige sessies konden niet worden geboekt, mogelijk omdat ze vol waren of werden geannuleerd tijdens het afrekenen. U ontvangt binnenkort een bevestigingsmail met details over de succesvolle boekingen."
+                    "offersPartiallyConfirmed": "Sommige sessies konden niet worden geboekt, mogelijk omdat ze vol waren of werden geannuleerd tijdens het afrekenen. U ontvangt binnenkort een bevestigingsmail met details over de succesvolle boekingen.",
+                    "expressCheckoutPassPurchaseSuccess": "Nu je je pas hebt, is het tijd om je les te boeken en te profiteren van alle voordelen."
                 },
                 "confirmationStatusTitle": {
                     "success": {
@@ -15556,7 +15563,9 @@
                 "retry": "Probeer het opnieuw",
                 "myBookings": "Mijn reserveringen",
                 "goToCalendar": "Terug naar de kalender",
-                "backToMyProfile": "Terug naar profiel"
+                "backToMyProfile": "Terug naar profiel",
+                "seeAllPasses": "Toon alle kaarten",
+                "bookAClass": "Een les boeken"
             },
             "bookingItem": {
                 "bookingItemStatus": {
@@ -18350,8 +18359,8 @@
                 "general": "Algemeen"
             },
             "establishment": {
-                "location": "Locatie",
-                "room": "Vestiging",
+                "location": "Locaties",
+                "room": "Vestigingen",
                 "calendar": "Agenda",
                 "general": "Algemeen"
             },
@@ -18419,7 +18428,7 @@
             "widgetPreviewError": "Voltooi je configuratie",
             "dialogTitle": "[Formulier] Widget",
             "codeInfo": "De code van deze widget voor op je website",
-            "creationPageInfo": "In dit onderdeel kunnen alle widgets geconfigureerd worden voor de website-integratie.",
+            "creationPageInfo": "Stel je widgets in en pas ze aan zodat ze bij je merk passen. Kopieer en plak de code vervolgens op je website.",
             "dialogMode": {
                 "iframe": "Op mijn website blijven",
                 "popup": "Nieuw venster openen",
@@ -19032,7 +19041,7 @@
             },
             "sectionTitle": "Mijn betaalmethoden",
             "info": {
-                "content": "BSPORT gebruikt de volgende betaalmethode voor het incasseren van je abonnement. Klik hier om rekening van de uitbetalingen te configureren",
+                "content": "bsport gebruikt de volgende betaalmethode voor het incasseren van je abonnement. Klik hier om rekening van de uitbetalingen te configureren",
                 "link": "Hier"
             }
         },
@@ -21144,12 +21153,12 @@
             "allWorkshops": "Beschikbaar voor alle workshops",
             "pickWorkshop": "Kies een workshop",
             "workshops": "Workshops",
-            "allActivities": "Beschikbaar voor alle activiteiten",
-            "pickActivity": "Kies een activiteit",
-            "activities": "Activiteiten",
+            "allActivities": "Beschikbaar voor alle groepsactiviteiten",
+            "pickActivity": "Kies een groepsactiviteit",
+            "activities": "Groepsactiviteiten",
             "customRules": "Regels personaliseren",
             "disciplineGroup": "Discipline groepen",
-            "description": "Geef aan welke sessies door jouw instructeurs worden gegeven. Als een vervangingsverzoek wordt gedaan in een van deze sessies, wordt die instructeur per e-mail op de hoogte gebracht. Als er niets is geselecteerd, wordt deze instructeur niet op de hoogte gebracht.",
+            "description": "Kies de activiteitstypes die door de leerkracht worden onderwezen om de velden automatisch in te vullen. Als er een vervanger nodig is voor een klas, sturen we de leerkracht van tevoren een e-mail.",
             "title": "Vervanging",
             "allEstablishments": "Alle instellingen",
             "pickEstablishment": "Laat leeg om alles te selecteren",
@@ -21163,7 +21172,7 @@
             "nextSlot": "Eerst volgende sessie op {{date}} - {{hour}}",
             "compatibleCoaches": "{{count}} compatibele instructeur",
             "compatibleCoaches_plural": "{{count}} compatibele instructeurs",
-            "title": "Beschikbare instructeurs per discipline"
+            "title": "Compatibele instructeurs per activiteit"
         },
         "disciplineGroup": {
             "form": {
@@ -21180,7 +21189,7 @@
                 "allActivities": "Beschikbaar voor alle groepsactiviteiten",
                 "pickActivity": "Een activiteit kiezen",
                 "activities": "Activiteiten",
-                "groupTypes": "Soort sessies / categorieën",
+                "groupTypes": "Lessen en categorieën",
                 "required": "Dit veld is verplicht",
                 "nameHelperText": "Naam van de disciplinegroep",
                 "name": "Naam",
@@ -21201,7 +21210,7 @@
             "coaches_plural": "{{count}} Instructeurs",
             "categories": "Categorieën ({{number}})",
             "workshops": "Workshops ({{number}})",
-            "activities": "Activiteiten ({{number}})",
+            "activities": "Groepsactiviteiten",
             "title": "Discipline groepen",
             "add": "Een groep toevoegen"
         },
@@ -21244,7 +21253,7 @@
             "areClosed": "Gesloten"
         },
         "lateStatus": {
-            "isNotLate": "Op tijd",
+            "isNotLate": "Op schema",
             "isLate": "Laat"
         },
         "delete": {
@@ -21363,10 +21372,10 @@
             "title": "Mijn rooster"
         },
         "requestsLinkedToCancelledOffers": {
-            "cancelledOffersModeTitle": "Geannuleerde sessies modus",
-            "filterHelper": "Als deze waarschuwing blijft bestaan en er geen sessies verschijnen in de <strong>{{switchLabel}}</strong> modus, raden wij aan de filters uit te schakelen en het datumbereik uit te breiden.",
-            "description": "Om deze sessies te zien, schakelt u de <strong>{{switchLabel}}</strong> filter hierboven in",
-            "title": "Actieve vervangingsverzoeken zijn gekoppeld aan geannuleerde sessies.",
+            "cancelledOffersModeTitle": "Geannuleerde sessies",
+            "filterHelper": "Als er geen sessie verschijnt, probeer dan filters uit te schakelen en het gegevensbereik te vergroten.",
+            "description": "Activeer de knop ‘Geannuleerde sessies’ om vervangingsverzoeken te bekijken die gekoppeld zijn aan geannuleerde sessies. ",
+            "title": "Actieve vervangingsverzoeken tonen",
             "buttonLabel": "Open",
             "offerHasActiveRequest": {
                 "helper": "Wil je worden doorverwezen naar de pagina om oude vervangingsverzoeken te annuleren?",

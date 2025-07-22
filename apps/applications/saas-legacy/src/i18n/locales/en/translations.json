@@ -3575,7 +3575,8 @@
                 "name": "Name",
                 "address": "Address",
                 "noAddress": "No address is associated with this billing group"
-            }
+            },
+            "addLocalisation": "Add a location"
         },
         "billing_group": {
             "table": {
@@ -7324,7 +7325,8 @@
                 }
             },
             "replacement": {
-                "management": "Management"
+                "management": "Management",
+                "disciplineGroup": "Discipline groups"
             },
             "widget": {
                 "customize": "Customisation",
@@ -10013,7 +10015,7 @@
             "sectionTitle": "Payment method",
             "info": {
                 "link": "here",
-                "content": "Your Bsport subscription will be charged to the payment method indicated below. To configure the account on which the online payments via Bsport will be credited, click"
+                "content": "Your bsport subscription will be charged to the payment method indicated below. To configure the account on which the online payments via bsport will be credited, click"
             }
         },
         "platformInvoice": {
@@ -11842,7 +11844,8 @@
             "activities": "Activities",
             "nextSlot": "Next session on {{date}} - {{hour}}",
             "compatibleCoaches": "{{count}} compatible teacher",
-            "compatibleCoaches_plural": "{{count}} compatible teachers"
+            "compatibleCoaches_plural": "{{count}} compatible teachers",
+            "title": "Available teachers by discipline"
         },
         "disciplineGroup": {
             "form": {
@@ -11866,7 +11869,8 @@
                 "locations": "Locations",
                 "establishmentSelectorError": "You cannot specify establishments and locations at the same time",
                 "allEstablishments": "All establishments",
-                "pickEstablishment": "Leave blank to select all"
+                "pickEstablishment": "Leave blank to select all",
+                "groupTypes": "Classes and categories"
             },
             "all": "All",
             "delete": {
@@ -11957,7 +11961,7 @@
         },
         "noListItem": {
             "calendar": "No sessions are scheduled on these dates",
-            "replacementRequest": "No element"
+            "replacementRequest": "No substitutions to show"
         },
         "coachAnswer": {
             "no": "No",

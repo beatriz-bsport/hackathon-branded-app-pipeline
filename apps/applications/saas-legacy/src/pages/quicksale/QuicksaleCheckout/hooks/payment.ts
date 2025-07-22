@@ -1,4 +1,4 @@
-import React from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import {
   PAYMENT_ENGINE_BSPORT,
   PAYMENT_ENGINE_STRIPE,
@@ -6,75 +6,57 @@ import {
 } from '@bsport/common/lib/master-data/payment-group.js';
 
 import { QuicksalePaymentMethod } from '#src/libs/quicksale/constants';
-
 import useFeaturesProvider from '#src/libs/company/hooks/feature-list-provider.hook';
-
 import { requestClientSecret as requestClientSecretAPI } from '#src/libs/invoice/api';
-import type { Theme } from '#src/libs/theme/types';
-import type { Basket } from '#src/libs/checkout/types';
+
+type UseQuicksalePaymentsProps = {
+  basketId: string;
+  setLoading: (loading: boolean) => void;
+};
 
 const useQuicksalePayments = ({
   basketId,
   setLoading,
-  theme,
-  basket,
-}: {
-  basketId: string;
-  setLoading: (loading: boolean) => void;
-  theme?: Theme;
-  basket?: Basket;
-}) => {
-  // ========== Client secret and payment info ==========
-  const [clientSecret, setClientSecret] = React.useState<string | null>(null);
-
-  const [isProcessing, setIsProcessing] = React.useState(false);
-
-  const [paymentGroupId, setPaymentGroupId] = React.useState<number | null>(
-    null,
-  );
-
-  const [paymentGroupPriceCts, setPaymentGroupPriceCts] = React.useState<
+}: UseQuicksalePaymentsProps) => {
+  const [clientSecret, setClientSecret] = useState<string | null>(null);
+  const [isProcessing, setIsProcessing] = useState(false);
+  const [paymentGroupId, setPaymentGroupId] = useState<number | null>(null);
+  const [paymentGroupPriceCts, setPaymentGroupPriceCts] = useState<
     number | null
   >(null);
 
   const { stripeTerminalEnabled } = useFeaturesProvider();
 
-  const [[paymentEngine, paymentMethod], setPaymentInfo] = React.useState<
+  const [[paymentEngine, paymentMethod], setPaymentInfo] = useState<
     [
       typeof PAYMENT_ENGINE_BSPORT | typeof PAYMENT_ENGINE_STRIPE | null,
       QuicksalePaymentMethod | null,
     ]
   >([null, null]);
 
-  const setPaymentMethod = React.useCallback(
+  const setPaymentMethod = useCallback(
     (newPaymentMethod: QuicksalePaymentMethod) => {
-      if (newPaymentMethod === QuicksalePaymentMethod.Manual)
+      if (newPaymentMethod === QuicksalePaymentMethod.Manual) {
         setPaymentInfo([PAYMENT_ENGINE_BSPORT, newPaymentMethod]);
-      else setPaymentInfo([PAYMENT_ENGINE_STRIPE, newPaymentMethod]);
+      } else {
+        setPaymentInfo([PAYMENT_ENGINE_STRIPE, newPaymentMethod]);
+      }
     },
     [],
   );
 
-  const availablePaymentMethods: QuicksalePaymentMethod[] = React.useMemo(
+  // ========== Available Payment Methods ==========
+  // (Quicksale MVP): Only StripeTerminal and Manual payment methods are available
+  const availablePaymentMethods: QuicksalePaymentMethod[] = useMemo(
     () => [
       ...(stripeTerminalEnabled ? [QuicksalePaymentMethod.StripeTerminal] : []),
       QuicksalePaymentMethod.Manual,
-      QuicksalePaymentMethod.CreditCard,
-      ...((theme?.payment_method_available_manager ?? []).includes(
-        QuicksalePaymentMethod.Sepa,
-      )
-        ? [QuicksalePaymentMethod.Sepa]
-        : []),
     ],
-    [stripeTerminalEnabled, theme.payment_method_available_manager],
+    [stripeTerminalEnabled],
   );
 
-  React.useEffect(() => {
-    setPaymentMethod(availablePaymentMethods[0]);
-  }, [availablePaymentMethods, setPaymentMethod]);
-
-  // Fetch client secret and payment group id
-  const fetchOrRefreshPaymentGroup = React.useCallback(() => {
+  // ========== Fetch/Refresh Payment Group ==========
+  const fetchOrRefreshPaymentGroup = useCallback(() => {
     if (paymentEngine !== null) {
       setLoading(true);
       requestClientSecretAPI(paymentEngine, PAYMENT_INTENT_TYPE_BASKET, {
@@ -95,16 +77,15 @@ const useQuicksalePayments = ({
     }
   }, [basketId, paymentEngine, paymentMethod, setLoading]);
 
-  React.useEffect(() => {
+  useEffect(() => {
+    if (availablePaymentMethods.length > 0) {
+      setPaymentMethod(availablePaymentMethods[0]);
+    }
+  }, [availablePaymentMethods, setPaymentMethod]);
+
+  useEffect(() => {
     fetchOrRefreshPaymentGroup();
-  }, [
-    fetchOrRefreshPaymentGroup,
-    basket?.total_price,
-    basket?.member,
-    basket?.total_price_prepaid_lines_cts,
-    basketId,
-    basket?.instalment_payment,
-  ]);
+  }, [basketId, fetchOrRefreshPaymentGroup]);
 
   return {
     clientSecret,

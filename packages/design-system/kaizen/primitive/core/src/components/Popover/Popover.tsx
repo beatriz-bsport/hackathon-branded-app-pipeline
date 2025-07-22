@@ -141,6 +141,7 @@ const Content: React.FC<{
 
   const [isMounted, setIsMounted] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
+  const [contentHeight, setContentHeight] = useState<number | null>(null);
 
   const placementStyles = useAbsolutePlacementStyles(
     placement,
@@ -232,14 +233,31 @@ const Content: React.FC<{
   // Close the popover when clicking outside of it
   useOutsideClickListener(contentRef, handleClose, isPopoverOpened);
 
+  useEffect(() => {
+    const contentElement = contentRef.current;
+    if (!contentElement) return;
+    const contentRect = contentElement.getBoundingClientRect();
+    if (placement.startsWith("top")) {
+      const newHeight = contentRect.top - 15;
+      setContentHeight(newHeight);
+    } else if (placement.startsWith("bottom")) {
+      const newHeight = window.innerHeight - contentRect.top - 15;
+      setContentHeight(newHeight);
+    } else {
+      setContentHeight(null);
+    }
+  }, [isVisible, content, placement]);
+
   if (!isMounted) return null;
+
+  const maxHeightStyle = maxHeightPx ?? contentHeight ?? null;
 
   return ReactDOM.createPortal(
     <div
       tabIndex={-1}
       className={classNames(defaultClasses, className, {
         "top-0 left-0 opacity-transparent": !isVisible,
-        "overflow-y-auto": !!maxHeightPx,
+        "overflow-y-auto": !!maxHeightStyle,
       })}
       role={role}
       aria-hidden={!isMounted}
@@ -247,7 +265,7 @@ const Content: React.FC<{
       ref={contentRef}
       style={{
         ...placementStyles,
-        ...(maxHeightPx ? { maxHeight: `${maxHeightPx}px` } : {}),
+        ...(maxHeightStyle ? { maxHeight: `${maxHeightStyle}px` } : {}),
       }}
       data-popover="true"
     >

@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux';
-import { useCallback } from 'react';
+import { useCallback, useMemo } from 'react';
 import { DateTime } from 'luxon';
 import { uniq } from 'lodash';
 import { useTranslation } from 'react-i18next';
@@ -10,23 +10,27 @@ import { getTheme } from '#src/libs/theme/selectors';
 import { getActivitiesByIdList } from '#src/libs/meta-activity/selectors';
 import { getAllEstablishments } from '#src/libs/establishment/selectors';
 import { getSCTs } from '#src/libs/category/selectors';
-import { useValidityInfoForPaymentPackCard } from '#src/pages/marketplace/passes/hooks/useValidityInfoForPaymentPackCard';
+import { useValidityInfoForPaymentPackCard } from '#src/libs/marketplace/hooks/useValidityInfoForPaymentPackCard';
 import type { DailyTimeSlots } from '#src/pages/marketplace/passes/types';
 import {
   getDailyTimeSlots,
   getPackRestrictions,
 } from '#src/pages/marketplace/passes/utils';
+import type { ChipData } from '#src/pages/marketplace/passes/components/chips-container/ChipsContainer';
+import { getCreditsDividedValue } from '#src/libs/theme/utils';
 
 /**
  * A custom hook that retrieves and formats all relevant data required
  * to display the detail modal for a specific payment pack.
  *
  */
-export const usePaymentPackModalData = (id: number) => {
+export const usePaymentPackData = (id: number | null) => {
   const { t } = useTranslation('marketplace');
   const companyTheme = useSelector(getTheme);
   const paymentPack: PaymentPack =
-    useSelector((state: RootState) => getPaymentPack(state, id)) ?? {};
+    useSelector((state: RootState) =>
+      id ? getPaymentPack(state, id) : null,
+    ) ?? {};
 
   const validity = useValidityInfoForPaymentPackCard({
     dateRange: paymentPack.validity_daterange,
@@ -85,13 +89,41 @@ export const usePaymentPackModalData = (id: number) => {
     [t],
   );
 
+  const timeSlots = useMemo(
+    () => getDailyTimeSlots(paymentPack.off_peak_schedule) ?? [],
+    [paymentPack.off_peak_schedule],
+  );
+
+  const categoryChipsData: ChipData[] = useMemo(
+    () => compatibleCategoryLabels.map((label) => ({ label })),
+    [compatibleCategoryLabels],
+  );
+
+  const metaActivityChipsData: ChipData[] = useMemo(
+    () => compatibleMetaActivityLabels.map((label) => ({ label })),
+    [compatibleMetaActivityLabels],
+  );
+
+  const roomChipsData: ChipData[] = useMemo(
+    () => compatibleRoomLabels.map((label) => ({ label })),
+    [compatibleRoomLabels],
+  );
+
+  const timeSlotsWithChipsData = useMemo(() => {
+    return timeSlots.map((timeSlot) => ({
+      ...timeSlot,
+      chips: getTimeSlotChipsLabels(timeSlot).map((label) => ({ label })),
+    }));
+  }, [timeSlots, getTimeSlotChipsLabels]);
+
   return {
     id: paymentPack.id,
     title: paymentPack.name,
     description: paymentPack.description,
     validity: validity,
     price: paymentPack.price,
-    credits: paymentPack.credits ?? 0,
+    tax: paymentPack.tax,
+    credits: getCreditsDividedValue(paymentPack.credits ?? 0),
     isOnsitePaymentAvailable: paymentPack.onsite_payment_available,
     isCompatibleWithVod: paymentPack?.full_vod_access,
     isOnlyCompatibleWithVod: paymentPack?.only_vod_access,
@@ -104,7 +136,7 @@ export const usePaymentPackModalData = (id: number) => {
     compatibleMetaActivityLabels: compatibleMetaActivityLabels,
     compatibleRoomLabels: compatibleRoomLabels,
     compatibleCategoryLabels: compatibleCategoryLabels,
-    timeSlots: getDailyTimeSlots(paymentPack.off_peak_schedule),
+    timeSlots,
     restrictions: getPackRestrictions({
       maxBookingPerDay: paymentPack.max_bookings_per_day,
       maxBookingPerWeek: paymentPack.max_bookings_per_week,
@@ -116,5 +148,9 @@ export const usePaymentPackModalData = (id: number) => {
       paymentPack?.allow_guest_pass
     ),
     getTimeSlotChipsLabels: getTimeSlotChipsLabels,
+    categoryChipsData,
+    metaActivityChipsData,
+    roomChipsData,
+    timeSlotsWithChipsData,
   };
 };

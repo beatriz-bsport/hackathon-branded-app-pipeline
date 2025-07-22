@@ -51,7 +51,7 @@ export const GiftcardTable: React.FC<GiftcardTableProps> = ({
           expiration: giftcard.expiration_days,
         })
       : "Unlimited",
-    link: LEGACY_ROUTES.DETAILS(giftcard.id),
+    link: mode === "active" ? LEGACY_ROUTES.DETAILS(giftcard.id) : undefined, // Navigation blocked for archived items
   }));
 
   // Configure empty state based on the mode

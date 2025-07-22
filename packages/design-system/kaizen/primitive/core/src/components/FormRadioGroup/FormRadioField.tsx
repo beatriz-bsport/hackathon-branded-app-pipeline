@@ -222,7 +222,7 @@ const FormRadioField: React.FC<FormRadioFieldProps> = ({
   return (
     <div
       className={classNames(
-        "grid grid-cols-[auto,auto,1fr] grid-rows-[auto,auto,auto,auto,1fr] items-center gap-y-xs",
+        "grid grid-cols-[auto,auto,1fr] grid-rows-[auto, auto, auto, 1fr] items-center gap-y-xs",
         {
           "opacity-sm pointer-events-none": disabled,
         },
@@ -274,7 +274,6 @@ const FormRadioField: React.FC<FormRadioFieldProps> = ({
           aria-labelledby={id}
           tabIndex={0}
           onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-            event.preventDefault();
             event.stopPropagation();
             onChange?.(event);
           }}

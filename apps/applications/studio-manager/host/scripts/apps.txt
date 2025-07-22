@@ -10,3 +10,4 @@
 @bsport/sm-smartlists
 @bsport/sm-teacher
 @bsport/sm-referral-program
+@bsport/sm-tag

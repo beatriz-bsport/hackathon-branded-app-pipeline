@@ -1,6 +1,6 @@
-import { Theme, makeStyles } from '@material-ui/core';
-import { determinePropertyFromBrightness } from '../../utils';
-import { QuicksaleSectionCardStyle } from '../../constants';
+import { makeStyles, Theme } from '@material-ui/core/styles';
+import { determinePropertyFromBrightness } from '#src/libs/quicksale/utils';
+import { QuicksaleSectionCardStyle } from '#src/libs/quicksale/constants';
 
 const useStyle = makeStyles<
   Theme,
@@ -15,9 +15,6 @@ const useStyle = makeStyles<
   },
   cardHeader: {
     display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    minWidth: '100%',
   },
   dragIconButton: ({ color }) => ({
     padding: 0,

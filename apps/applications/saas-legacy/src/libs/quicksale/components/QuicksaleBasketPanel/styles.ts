@@ -1,11 +1,7 @@
-import { makeStyles, Theme } from '@material-ui/core';
-import type { Basket } from '#src/libs/checkout/types';
+import { makeStyles, Theme } from '@material-ui/core/styles';
 
-const useStyles = makeStyles<
-  Theme,
-  { isInteractive?: boolean; basket?: Basket }
->((theme) => ({
-  container: ({ basket }) => ({
+const useStyles = makeStyles<Theme, { isInteractive?: boolean }>((theme) => ({
+  container: () => ({
     background: 'white',
     display: 'flex',
     height: '100%',
@@ -13,9 +9,6 @@ const useStyles = makeStyles<
     justifyContent: 'space-between',
     borderRadius: theme.spacing(1.5),
     border: `1px solid ${theme.palette.grey[300]}`,
-    ...(!basket
-      ? { padding: theme.spacing(3.75), justifyContent: 'center' }
-      : {}),
   }),
   headerAndBody: {
     display: 'flex',
@@ -37,7 +30,6 @@ const useStyles = makeStyles<
     display: 'flex',
     alignItems: 'center',
     gap: theme.spacing(2),
-    padding: `${theme.spacing(0.5)}px ${theme.spacing(1)}px`,
     overflow: 'hidden',
     borderRadius: theme.spacing(1.5),
     width: 'fit-content',
@@ -46,6 +38,7 @@ const useStyles = makeStyles<
           background: theme.palette.grey[200],
           cursor: 'pointer',
           '&:hover': { background: theme.palette.grey[300] },
+          padding: `${theme.spacing(0.5)}px ${theme.spacing(1)}px`,
         }
       : { '&:hover': { background: 'inherit' } }),
   }),
@@ -57,6 +50,7 @@ const useStyles = makeStyles<
     fill: theme.palette.action.active,
   },
   basketNameTypography: {
+    fontSize: '1rem',
     fontWeight: 500,
     overflow: 'hidden',
     textOverflow: 'ellipsis',

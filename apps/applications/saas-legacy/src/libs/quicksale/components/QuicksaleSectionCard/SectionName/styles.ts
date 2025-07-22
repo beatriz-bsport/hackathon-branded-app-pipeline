@@ -1,9 +1,9 @@
-import { Theme, makeStyles } from '@material-ui/core';
+import { makeStyles, Theme } from '@material-ui/core/styles';
 import {
   QuicksaleSectionCardStyle,
   QuicksaleSectionColor,
-} from '../../../constants';
-import { determinePropertyFromBrightness } from '../../../utils';
+} from '#src/libs/quicksale/constants';
+import { determinePropertyFromBrightness } from '#src/libs/quicksale/utils';
 
 const useStyle = makeStyles<
   Theme,
@@ -30,8 +30,11 @@ const useStyle = makeStyles<
   cardTitle: ({ admin }) => ({
     overflow: 'hidden',
     textOverflow: 'ellipsis',
-    whiteSpace: 'nowrap',
-    ...(!admin ? { marginLeft: theme.spacing(1) } : {}),
+    display: '-webkit-box',
+    WebkitLineClamp: 2,
+    WebkitBoxOrient: 'vertical',
+    lineHeight: '1.2em',
+    ...(!admin ? { marginLeft: theme.spacing(1) } : { whiteSpace: 'nowrap' }),
   }),
   nameInput: ({ color }) => ({
     color: determinePropertyFromBrightness(color, 'black', 'white'),

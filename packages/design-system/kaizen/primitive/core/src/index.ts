@@ -152,6 +152,10 @@ export {
 } from "./components/RadioGroup";
 export { default as Select, type SelectProps } from "./components/Select";
 export {
+  default as SegmentedControl,
+  type SegmentedControlProps,
+} from "./components/SegmentedControl";
+export {
   default as SortableList,
   type SortableListHeaderProps,
   type Sortable,

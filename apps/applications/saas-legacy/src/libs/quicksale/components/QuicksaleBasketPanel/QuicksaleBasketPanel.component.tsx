@@ -1,7 +1,6 @@
 import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import Avatar from '@material-ui/core/Avatar';
 import Cached from '@material-ui/icons/Cached';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
@@ -54,11 +53,6 @@ export const BasketName: React.FC<BasketNameProps> = ({
       role={isInteractive ? 'button' : undefined}
       tabIndex={isInteractive ? 0 : undefined}
     >
-      {!isAnonymous && (
-        <Avatar className={classes.avatar}>
-          <img alt="member" height={32} src={member?.photo ?? ''} />
-        </Avatar>
-      )}
       <Typography className={classes.basketNameTypography} variant="h6">
         {isAnonymous ? t('interface.anonymousSale') : member?.name || ''}
       </Typography>
@@ -123,7 +117,7 @@ const QuicksaleBasketPanel: React.FC<Props> = ({
     return '0';
   }, [basket, basketPriceExcludingTax, deliveryFee?.unit_price]);
 
-  const classes = useStyles({ basket });
+  const classes = useStyles({});
 
   const closeCurrentBasket = useCallback(() => {
     if (basket) {

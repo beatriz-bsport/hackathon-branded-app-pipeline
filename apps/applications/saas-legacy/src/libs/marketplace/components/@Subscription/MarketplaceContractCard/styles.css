@@ -53,6 +53,10 @@
   letter-spacing: var(--body1-letterSpacing);
   line-height: var(--body1-lineHeight);
   color: var(--color-grey-main);
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
 }
 
 .bs-contract-card__description {

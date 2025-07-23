@@ -695,7 +695,9 @@
                     "requiredField": "Ce champ est obligatoire",
                     "phone": "Veuillez saisir un numéro de téléphone valide",
                     "phoneTaken": "Ce numéro de téléphone est déjà utilisé par un autre membre.",
-                    "emailTaken": "Cet e-mail existe déjà. Vous pouvez essayer de vous connecter avec cette adresse."
+                    "emailTaken": "Cet e-mail existe déjà. Vous pouvez essayer de vous connecter avec cette adresse.",
+                    "passwordConfirmation": "Les mots de passe doivent correspondre",
+                    "passwordMinimumRequirements": "Votre mot de passe doit comporter au moins 6 caractères et ne contenir aucun espace"
                 },
                 "email": {
                     "label": "Email"
@@ -717,6 +719,9 @@
                 },
                 "acceptEmail": {
                     "label": "J'accepte de recevoir des courriels promotionnels, y compris des offres spéciales et des réductions"
+                },
+                "password": {
+                    "label": "Je crée mon mot de passe"
                 }
             }
         }
@@ -811,9 +816,9 @@
             },
             "newCheckout": {
                 "isEmpty": "Votre panier est vide !",
-                "isEmptyDescription": "Poursuivez votre exploration du Portail des membres !"
+                "isEmptyDescription": "Poursuivez votre exploration de la marketplace !"
             },
-            "goToMarketplace": "Voir le portail des membres",
+            "goToMarketplace": "Voir le marketplace",
             "referral": {
                 "hasReachedMaxUses": "Le nombre maximum d'utilisations du lien de parrainage a été atteint.",
                 "missingAmountBeforeApplication": "Le montant minimum d'achat n'a pas été atteint. Vous risquez de perdre votre lien de parrainage. Il suffit de {{ missingAmount }} de plus pour pouvoir bénéficier de la réduction !"
@@ -853,7 +858,9 @@
                 "myProducts": "Mes achats",
                 "myGiftcards": "Mes cartes cadeaux",
                 "myPasses": "Mes cartes de cours",
-                "backToMyProfile": "Retour à mon profil"
+                "backToMyProfile": "Retour à mon profil",
+                "seeAllPasses": "Voir toutes les cartes de cours",
+                "bookAClass": "Réserver un cours"
             },
             "sections": {
                 "explain": "Votre opération a bien été prise en compte. Nous vous enverrons un mail de confirmation.",
@@ -886,7 +893,8 @@
                         "offerOnlySuccess": "Bonne séance !",
                         "paymentSuccess": "Paiement confirmé !",
                         "waitingList": "Vous vous êtes inscrit sur la liste d'attente",
-                        "offerOnlyGuestSuccess": "Profitez de la séance avec votre invité(e) !"
+                        "offerOnlyGuestSuccess": "Profitez de la séance avec votre invité(e) !",
+                        "expressCheckoutPassPurchaseSuccess": "Félicitations ! Vous venez d'acheter un pass !"
                     },
                     "warning": {
                         "offersPartiallyConfirmed": "Votre réservation est partiellement confirmée"
@@ -899,7 +907,8 @@
                     "paymentSuccess_plural": "Félicitations ! Vos achats sont confirmés !",
                     "offerAndPurchaseSuccess": "Félicitations ! Vos achats et réservations sont confirmés. Vous recevrez sous peu un e-mail de confirmation contenant tous les détails.",
                     "offerOnlyGuestSuccess": "La réservation a été effectuée. Votre invité(e) et vous allez recevoir sous peu un e-mail de confirmation contenant tous les détails.",
-                    "offersPartiallyConfirmed": "Certaines séances n'ont pas pu être réservées, potentiellement car elles étaient complètes ou qu'elles ont été annulées pendant votre réservation. Vous recevrez sous peu un email de confirmation contenant les détails des réservations réussies."
+                    "offersPartiallyConfirmed": "Certaines séances n'ont pas pu être réservées, potentiellement car elles étaient complètes ou qu'elles ont été annulées pendant votre réservation. Vous recevrez sous peu un email de confirmation contenant les détails des réservations réussies.",
+                    "expressCheckoutPassPurchaseSuccess": "Maintenant que vous avez votre pass, il est temps de réserver votre cours et de profiter de tous les avantages."
                 },
                 "alert": "Oups ! La réservation a échoué.\n Nous avons rencontré un problème lors du traitement de votre réservation de séance. Veuillez réessayer ultérieurement ou réserver une séance différente.",
                 "myPass": "Ma carte de cours",
@@ -2109,7 +2118,8 @@
                         "creditsToRefund_plural": "{{count}} crédits seront remboursés",
                         "cancelledFromManager": "Annulé par le responsable du studio",
                         "cancelledFromMember": "Annulation de votre part",
-                        "title": "Annulé"
+                        "title": "Annulé",
+                        "cancelledFromOffer": "Annulation manager"
                     },
                     "drawerTitle": "Activité"
                 },
@@ -2717,7 +2727,7 @@
                     "label": "Le code de réduction s'applique uniquement au premier achat des membres"
                 },
                 "fileUploader": {
-                    "title": "Télécharger des bons d'achat uniques",
+                    "title": "Télécharger des bons d'achat uniques ",
                     "label": "Glisser/Déposer ou cliquer pour sélectionner le fichier",
                     "sizeLimitHelper": "Fichier CSV (1Mo maximum)",
                     "helperText": "Veuillez télécharger un fichier CSV avec tous les codes de bons d'achat dans la première colonne, un code par ligne, sans en-tête."
@@ -2861,7 +2871,7 @@
                 "0": "Application",
                 "1": "Web",
                 "2": "Backoffice bsport",
-                "3": "Portail des membres",
+                "3": "Marketplaces",
                 "4": "Migration de données"
             }
         },
@@ -3375,10 +3385,10 @@
         },
         "group": {
             "groupButton": "Grouper les établissements",
-            "addLocalisation": "Ajouter une salle",
+            "addLocalisation": "Ajouter une localisation",
             "name": " Nom",
             "actions": "Actions",
-            "noGroupHelper": "Les localisations permettent de regrouper plusieurs adresses entre elles. Si vous possèdez plusieurs studios dans différentes villes vous pouvez regrouper les studios de la même ville dans une localisation. Sur le Portail des Membres, le widget et l’application personnalisée vos élèves pourront sélectionner la localisation qui les intéresse le plus pour ne voir que les cours proches de chez eux.",
+            "noGroupHelper": "Les localisations permettent de regrouper plusieurs adresses entre elles. Si vous possèdez plusieurs studios dans différentes villes vous pouvez regrouper les studios de la même ville dans une localisation. Sur la marketplace, le widget et l’application personnalisée vos élèves pourront sélectionner la localisation qui les intéresse le plus pour ne voir que les cours proches de chez eux.",
             "form": {
                 "name": "Nom",
                 "associated_localizations": "Salles associées",
@@ -3391,7 +3401,7 @@
             "modal": {
                 "delete": {
                     "title": "Supprimer une localisation",
-                    "content": "Cette localisation n'appraitra plus dans les filtres disponibles sur le Portail des Membres, le widget et l'application personnalisée.",
+                    "content": "Cette localisation n'appraitra plus dans les filtres disponibles sur la marketplace, le widget et l'application personnalisée.",
                     "cancel": "Annuler",
                     "confirm": "Supprimer"
                 }
@@ -7159,7 +7169,7 @@
             },
             "replacement": {
                 "management": "Gestion",
-                "disciplineGroup": "Activités :"
+                "disciplineGroup": "Groupes de disciplines"
             },
             "franchise": {
                 "staff": {
@@ -8420,7 +8430,8 @@
                     "success": "Le mandat a bien été renouvelé, les prochains prélèvements seront effectués avec succès.",
                     "error": "Impossible de renouveler le mandat de prélèvement, veuillez contacter votre banque.",
                     "retry": "Réessayer"
-                }
+                },
+                "9": "Payer sur place"
             }
         },
         "generalTermsAndConditions": {
@@ -8711,7 +8722,8 @@
             "isEmptyExplain": "Les cartes de cours partagées sont disponibles dans les studios de votre choix, et permettent à vos membres d'utiliser indifféremment leurs crédits dans les studios que vous aurez choisi.",
             "section": {
                 "titleAvailable": "Disponible à la vente",
-                "titleManagerOnly": "Indisponible à la vente"
+                "titleManagerOnly": "Indisponible à la vente",
+                "titleArchived": "Carte archivées"
             },
             "form": {
                 "title": "Carte de cours partagée",
@@ -8732,16 +8744,24 @@
                 "notEditable": "Cette carte de cours provient d'une migration de données précédemment effectuée. Certains champs peuvent ne pas être modifiables afin de préserver les données."
             },
             "deleteForm": {
-                "title": "Supprimer la carte partagée",
+                "title": "Archiver la carte partagée",
                 "content": "Les membres pourront toujours utiliser la carte dans le studio où ils l'ont achetée. Tout abonnement lié à cette carte restera valable dans ce même studio.",
                 "actions": {
                     "close": "Fermer",
-                    "submit": "Supprimer"
+                    "submit": "Archiver"
                 }
             },
             "actions": {
                 "create": "Créer une carte partagée",
                 "createUniversalPass": "Ajouter une carte universelle partagée"
+            },
+            "restoreForm": {
+                "title": "Restaurer la carte partagée",
+                "content": "La carte partagée sera restaurée et partagée à nouveau entre les studios précédemment sélectionnés.",
+                "actions": {
+                    "close": "Fermer",
+                    "submit": "Restaurer"
+                }
             }
         },
         "filters": {
@@ -8767,7 +8787,7 @@
         "actions": {
             "massExtension": "Ajouter une extension",
             "edit": "Modifier",
-            "delete": "Supprimer",
+            "delete": "Archiver",
             "scaleCredit": "Mult/div les crédits",
             "close": "Fermer"
         },
@@ -9544,6 +9564,24 @@
         "orderingAlert": {
             "text": "Toute modification de l'ordre des \"Catégories\" affectera seulement l'affichage de la page \"Cartes de cours\" de la marketplace et de l'application. Cette mise à jour n'affectera aucune autre section ou catégorie.",
             "button": "Page de personnalisation"
+        },
+        "universalPaymentPackTemplate": {
+            "restoreForm": {
+                "title": "Restaurer la carte universelle partagée",
+                "content": "La carte universelle partagée sera restaurée et partagée à nouveau entre les studios précédemment sélectionnés.",
+                "actions": {
+                    "close": "Fermer",
+                    "submit": "Restaurer"
+                }
+            },
+            "deleteForm": {
+                "title": "Archiver la carte universelle partagée",
+                "content": "Les membres pourront toujours utiliser la carte universelle dans le studio où ils l'ont achetée. Tout abonnement lié à cette carte universelle restera valable dans ce même studio.",
+                "actions": {
+                    "close": "Fermer",
+                    "submit": "Archiver"
+                }
+            }
         }
     },
     "paymentRules": {
@@ -9851,7 +9889,7 @@
                 "createCard": "Ajouter une carte"
             },
             "info": {
-                "content": "Votre abonnement Bsport sera débité sur le moyen de paiement indiqué ci dessous. Pour configurer le compte sur lequel les paiements en ligne via Bsport seront crédités, cliquez",
+                "content": "Votre abonnement bsport sera débité sur le moyen de paiement indiqué ci dessous. Pour configurer le compte sur lequel les paiements en ligne via bsport seront crédités, cliquez",
                 "link": "ici"
             }
         },
@@ -9972,7 +10010,8 @@
             "isEmptyExplain": "Les cartes de cours partagées sont disponibles dans les studios de votre choix, et permettent à vos membres d'utiliser indifféremment leurs crédits dans les studios que vous aurez choisi.",
             "section": {
                 "titleAvailable": "Disponible à la vente",
-                "titleManagerOnly": "Indisponible à la vente"
+                "titleManagerOnly": "Indisponible à la vente",
+                "titleArchived": "Cartes archivées"
             },
             "form": {
                 "title": "Carte de cours partagée",
@@ -9990,15 +10029,23 @@
                 }
             },
             "deleteForm": {
-                "title": "Supprimer la carte de RDV partagée",
+                "title": "Archiver la carte de RDV partagée",
                 "content": "Les membres pourront toujours utiliser la carte de RDV dans le studio où ils l'ont achetée. Tout abonnement lié à cette carte de RDV ne fonctionnera également que dans ce même studio.",
                 "actions": {
                     "close": "Fermer",
-                    "submit": "Supprimer"
+                    "submit": "Archiver"
                 }
             },
             "actions": {
                 "create": "Créer une carte partagée"
+            },
+            "restoreForm": {
+                "title": "Restaurer la carte de rendez-vous partagés",
+                "content": "La carte de rendez-vous partagée sera restaurée et partagée à nouveau entre les studios précédemment sélectionnés.",
+                "actions": {
+                    "close": "Fermer",
+                    "submit": "Restaurer"
+                }
             }
         },
         "search": "Rechercher un rendez-vous",
@@ -15905,6 +15952,22 @@
             },
             "compatibilitiesUpdate": {
                 "fail": "Erreur lors de la mise à jour des compatibilités des cartes de cours"
+            },
+            "universalPaymentPackTemplateRestored": {
+                "success": "Carte universelle partagée restaurée",
+                "error": "Impossible de rétablir la carte universelle partagée"
+            },
+            "universalPaymentPackTemplateArchived": {
+                "success": "La carte universelle partagée est archivée",
+                "error": "Impossible d'archiver la carte universelle partagée"
+            },
+            "paymentPackTemplateRestored": {
+                "success": "Carte partagée restaurée",
+                "error": "Impossible de restaurer la carte partagée"
+            },
+            "paymentPackTemplateArchived": {
+                "success": "Carte archivée",
+                "error": "Impossible d'archiver la carte partagée"
             }
         },
         "paymentMethod": {
@@ -21360,7 +21423,7 @@
                 "name": "Nom",
                 "nameHelperText": "Nom du groupe de discipline",
                 "required": "Ce champ est requis",
-                "groupTypes": "Cours et catégories :",
+                "groupTypes": "Cours et catégories",
                 "activities": "Activités",
                 "pickActivity": "Choisir une activité",
                 "allActivities": "Enseigne toutes les activités",
@@ -21382,7 +21445,7 @@
             }
         },
         "compatibleCoaches": {
-            "title": "Professeurs compatibles par activité",
+            "title": "Professeurs compatibles par discipline",
             "compatibleCoaches": "{{count}} professeur compatible",
             "compatibleCoaches_plural": "{{count}} professeurs compatibles",
             "nextSlot": "Prochaine séance le {{date}} - {{hour}}",

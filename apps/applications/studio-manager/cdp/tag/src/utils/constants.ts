@@ -1,0 +1,3 @@
+export const TAG_GROUP_NAME_ALREADY_EXIST_ERROR_CODE = "124004";
+
+export const BASE_TAG_GROUP_KIND = 0;

@@ -204,6 +204,7 @@ export const UserWithRoleList: React.FC<Props> = ({
         coachList={coachList}
         coachListLoading={coachListLoading}
         customRole={roles?.find((role_) => role_.id === selectedUserRole?.role)}
+        establishmentBillingGroups={establishmentBillingGroups}
         // @ts-expect-error
         establishmentGroupList={establishmentGroupList}
         establishmentGroupListLoading={establishmentGroupListLoading}

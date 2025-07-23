@@ -22,6 +22,7 @@ export type UserRoleData = {
   last_name: string;
   coaches_in_role_ids: number[];
   establishments_in_role_ids: number[];
+  staff_establishment_billing_group?: number | null;
 };
 
 export type FranchiseUserRoleData = {
@@ -421,6 +422,7 @@ export type UserRole<R = number, FR = number> = {
   allowed_franchisees?: number[];
   commission: number;
   franchise_user: number | null;
+  staff_establishment_billing_group?: number | null;
 };
 
 export type RoleState = ErrorAndLoading & {

@@ -9,6 +9,8 @@ import MaterialUISelector from '#src/components/Selector/MaterialUISelector.comp
 import InformationIcon from '#src/components/InformationIcon';
 
 import type { Role, SelectFieldItem } from '../types';
+import type { EstablishmentBillingGroup } from '#src/libs/establishment/types';
+import { RoleType } from '@bsport/common/lib/master-data/user-role';
 
 type Props = {
   coachListLoading: boolean;
@@ -27,6 +29,10 @@ type Props = {
   selectedSite: SelectFieldItem;
   sitesOptions: SelectFieldItem[];
   withTitle?: boolean;
+  establishmentBillingGroups: EstablishmentBillingGroup[];
+  selectedEstablishmentBillingGroup: SelectFieldItem | null;
+  establishmentBillingGroupOptions: SelectFieldItem[];
+  handleSelectEstablishmentBillingGroup: (value: SelectFieldItem) => void;
 };
 
 const Section: React.FC<{ title: string; helpText?: string }> = ({
@@ -71,6 +77,10 @@ const AdvancedRoleSettingsForm: React.FC<Props> = ({
   selectedSite,
   sitesOptions,
   withTitle,
+  establishmentBillingGroups,
+  selectedEstablishmentBillingGroup,
+  establishmentBillingGroupOptions,
+  handleSelectEstablishmentBillingGroup,
 }) => {
   const { t } = useTranslation('role');
   const classes = useStyles();
@@ -212,6 +222,28 @@ const AdvancedRoleSettingsForm: React.FC<Props> = ({
                   'forms.user.advancedSettingsModal.accessMonitoring.establishment.search',
                 )}
                 value={selectedEstablishments}
+              />
+            </div>
+          </Section>
+        )}
+      {customRole?.id === RoleType.USER_ROLE_QUICKSALE &&
+        !!establishmentBillingGroups?.length && (
+          <Section
+            helpText={t(
+              'forms.user.advancedSettingsModal.establishmentBillingGroup.helpText',
+            )}
+            title={t(
+              'forms.user.advancedSettingsModal.establishmentBillingGroup.title',
+            )}
+          >
+            <div className={classes.selectorField}>
+              <MaterialUISelector
+                withoutPortal
+                menuPlacement="bottom"
+                name="establishmentBillingGroup"
+                onChange={handleSelectEstablishmentBillingGroup}
+                options={establishmentBillingGroupOptions}
+                value={selectedEstablishmentBillingGroup}
               />
             </div>
           </Section>

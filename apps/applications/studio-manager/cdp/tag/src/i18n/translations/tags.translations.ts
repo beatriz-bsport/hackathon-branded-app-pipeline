@@ -1,3 +1,168 @@
 exports.default = {
-  helloName: "Hello {{ name }} !",
+  page: {
+    title: "Tags",
+    actions: {
+      createTagGroup: {
+        label: "Add main tag",
+      },
+      createTag: {
+        label: "Add sub tag",
+      },
+    },
+    emptyPageState: {
+      title: "No tags yet",
+      description: "Create tags to manage your members",
+    },
+    emptyMainTagState: {
+      description: "You haven’t created any sub tags in this main tag yet",
+    },
+  },
+  tagGroupList: {
+    actions: {
+      addSubTag: "Add a sub tag",
+      rename: "Rename",
+      delete: "Delete",
+    },
+    items: {
+      tooltip: {
+        delete: "Delete",
+      },
+    },
+  },
+  tagGroupModal: {
+    title: {
+      create: "Create a main tag",
+      edit: "Edit main tag",
+    },
+    helper:
+      'Example: add a Main Tag named "VIP", add the Sub Tags "Yes" and "No", and you\'ll have an overview of all your current VIPs.',
+    formField: {
+      tagGroupName: {
+        label: "Main tag name",
+        placeholder: "Add a main tag name...",
+        errors: {
+          required: "Enter a sub tag name",
+          alreadyInUse:
+            "This name is already in use. Please choose a different main tag name.",
+          tooLong:
+            "The main tag name is too long, it should be less than {{ max }} characters",
+          tooShort:
+            "The main tag name is too short, it should be at least {{ min}} characters",
+        },
+      },
+    },
+    actions: {
+      create: "Create",
+      update: "Save",
+      cancel: "Cancel",
+    },
+    result: {
+      updateSuccess: {
+        title: "Your main tag revisions were saved",
+      },
+    },
+  },
+  tagModal: {
+    title: {
+      create: "Create a sub tag",
+      update: "Edit sub tag",
+    },
+    formField: {
+      mainTagAssociated: {
+        label: "Select a main tag",
+        placeholder: "No main tag selected",
+        errors: {
+          required: "Select a main tag",
+        },
+      },
+      tagName: {
+        label: "Sub tag name",
+        placeholder: "Add a sub tag name...",
+        errors: {
+          required: "Enter a sub tag name",
+          alreadyInUse:
+            "This name is already in use. Please choose a different sub tag name.",
+          tooLong:
+            "The sub tag name is too long, it should be less than {{ max }} characters",
+          tooShort:
+            "The sub tag name is too short, it should be at least {{ min}} characters",
+        },
+      },
+      tagColor: {
+        label: "Colour",
+        placeholder: "#FFFFFF",
+      },
+    },
+    actions: {
+      confirm: "Create",
+      cancel: "Cancel",
+    },
+    result: {
+      updateSuccess: {
+        title: "Your sub tag revisions were saved",
+      },
+    },
+  },
+  deleteMainTagModal: {
+    title: "Delete main tag?",
+    description: {
+      action: "Do you want to delete {item-name}? ",
+      effect:
+        "All associated sub tags and their tag rules will also be deleted.",
+    },
+    alerts: {
+      tagInUse: {
+        description:
+          "Deleting it will remove the tag from {number} members and may affect automations that rely on it.",
+        confirmCheckbox: {
+          label: "Tick the box to confirm the following: ",
+          description:
+            "I understand that deleting this tag will remove it from all members and cannot be undone.",
+          confirmButtonTooltip:
+            "Please confirm the impact before deleting this main tag",
+        },
+      },
+    },
+    actions: {
+      confirm: "Delete",
+      cancel: "Cancel",
+    },
+    result: {
+      success: {
+        title: "Your main tag was deleted",
+      },
+    },
+  },
+  deleteSubTagModal: {
+    title: "Delete sub tag?",
+    description: {
+      action: "Do you want to delete {item-name}? ",
+      effect: {
+        notUsed: "All associated tag rules will also be deleted.",
+        used: "This tag is currently assigned to members. Deleting it will remove this tag from all tagged members and delete any associated rules.",
+      },
+    },
+    alerts: {
+      tagInUse: {
+        description:
+          "Deleting it will remove the tag from {number} members and may affect automations that rely on it.",
+        confirmCheckbox: {
+          label: "Tick the box to confirm the following: ",
+          description:
+            "I understand that deleting this tag will remove it from all members and cannot be undone.",
+          confirmButtonTooltip:
+            "Please confirm the impact before deleting this main tag",
+        },
+      },
+    },
+    actions: {
+      confirm: "Delete",
+      cancel: "Cancel",
+    },
+    result: {
+      success: {
+        title: "Your sub tag was deleted",
+      },
+    },
+  },
 };

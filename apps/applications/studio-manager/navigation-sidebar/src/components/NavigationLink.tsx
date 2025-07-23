@@ -28,8 +28,7 @@ export const NavigationLink: React.FC<NavigationLinkProps> = ({
   const isBridged = !!navigate;
   const { withOnClick, ...otherWrapperConfig } = wrapperConfig;
 
-  /**@todo Define a way to get in legacy context whether an item is active */
-  const isLegacyItemActive = false;
+  const isLegacyItemActive = item.href === window.location.pathname;
 
   // Handle action items (items with onClick but no href) - prevent navigation highlighting
   if (!item.href && item.onClick) {
@@ -80,7 +79,9 @@ export const NavigationLink: React.FC<NavigationLinkProps> = ({
   // In Revamp Context, with a revamp link, we can use React Router Context
   return (
     <NavLink key={item.id} to={item.href}>
-      {({ isActive }) => renderElement({ isActive })}
+      {({ isActive }) => {
+        return renderElement({ isActive });
+      }}
     </NavLink>
   );
 };

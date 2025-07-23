@@ -104,6 +104,7 @@
     "prismjs": "^1.29.0",
     "promise": "8.0.1",
     "prop-types": "^15.6.2",
+    "qrcode.react": "^4.2.0",
     "quagga": "^0.12.1",
     "raf": "3.4.0",
     "re-reselect": "^2.2.0",

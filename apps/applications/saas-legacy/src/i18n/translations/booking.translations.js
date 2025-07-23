@@ -324,7 +324,7 @@ const getTranslations = async () => {
       form: {
         delayWeek: {
           helperText:
-            'Indicate how many weeks in advance the member will be enrolled (8 weeks maximum)',
+            'Indicate how many weeks in advance the member will be enrolled ({{delayWeek}} weeks maximum)',
           label: 'Number of weeks',
         },
         metaActivity: { helperText: 'Activity', label: 'Activity' },
@@ -339,6 +339,9 @@ const getTranslations = async () => {
           "Please note that it's not possible to add recurrent bookings for events.",
         permissionWarning:
           'You do not have the permission to create bookings for this activity',
+        duplicateError:
+          'A recurring booking with the same parameters already exists. Please modify your rule or check the existing rules before saving.',
+        globalError: 'An error occurred while saving the recurring booking.',
       },
       offerForm: {
         helperText:

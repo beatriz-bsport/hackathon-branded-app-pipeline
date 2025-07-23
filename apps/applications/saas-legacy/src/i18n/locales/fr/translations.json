@@ -151,7 +151,7 @@
                 },
                 "delayWeek": {
                     "label": "Nombre de semaines",
-                    "helperText": "Indique combien de semaine en avance le membre sera inscrit ( 8 semaines maximum)"
+                    "helperText": "Indique combien de semaines en avance le membre sera inscrit ( {{delayWeek}} semaines maximum)"
                 },
                 "groupWarning": "Attention il n’est pas possible de créer une récurrence de réservation sur des groupes de séances",
                 "permissionWarning": "Vous n'avez pas l'autorisation de créer des réservations pour cette activité"

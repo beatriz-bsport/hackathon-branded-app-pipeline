@@ -37,6 +37,7 @@ type Props = {
   open: boolean,
   setOpen: (boolean) => void,
   memberId: number,
+  companyId: number,
   onChange: () => void,
   initial?: RecurrenceRulePrivateBooking,
 
@@ -290,6 +291,7 @@ export class RecurrenceRulePrivateBooker extends React.Component<Props, State> {
               <fieldset style={{ marginTop: 24, marginBottom: 24 }}>
                 <legend>{t('recurrenceRule.form.timeGroup')}</legend>
                 <RecurrenceRulePrivateBookingFields
+                  companyId={this.props.companyId}
                   onTimeSettingChange={this.handleTimeSettingChange}
                   privateSlotSet={false}
                   selectedSetting={this.state.time_setting}

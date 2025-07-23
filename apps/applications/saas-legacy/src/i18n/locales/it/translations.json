@@ -11805,7 +11805,7 @@
             },
             "form": {
                 "delayWeek": {
-                    "helperText": "indica con quante settimane di anticipo si intende iscrivere il membro (massimo 8 settimane)",
+                    "helperText": "indica con quante settimane di anticipo si intende iscrivere il membro (massimo {{delayWeek}} settimane)",
                     "label": "Numero delle settimane"
                 },
                 "metaActivity": {

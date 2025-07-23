@@ -117,7 +117,7 @@ const QuicksaleBasketPanel: React.FC<Props> = ({
     return '0';
   }, [basket, basketPriceExcludingTax, deliveryFee?.unit_price]);
 
-  const classes = useStyles({});
+  const classes = useStyles({ basket });
 
   const closeCurrentBasket = useCallback(() => {
     if (basket) {

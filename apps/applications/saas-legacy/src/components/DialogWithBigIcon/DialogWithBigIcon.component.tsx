@@ -2,6 +2,7 @@ import React, { SVGProps } from 'react';
 import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 import chroma from 'chroma-js';
+import { QRCodeSVG } from 'qrcode.react';
 
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import Dialog, { DialogProps } from '@material-ui/core/Dialog';
@@ -14,6 +15,8 @@ import IconButton from '@material-ui/core/IconButton';
 import MUIButton from '@material-ui/core/Button';
 import type { ButtonTypeMap } from '@material-ui/core';
 import Checkbox from '@material-ui/core/Checkbox';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import Divider from '@material-ui/core/Divider';
 import type { Breakpoint } from '@material-ui/core/styles/createBreakpoints';
 
 import MuiIconComponent from '#src/components/MuiIcon.component';
@@ -187,6 +190,7 @@ type Props = {
   dialogContainer?: HTMLElement;
   BackdropProps?: DialogProps['BackdropProps'];
   PaperProps?: DialogProps['PaperProps'];
+  QrCodeProps?: { value: string; title?: string };
 } & BottomActionsProps;
 
 const DialogWithBigIcon: React.FC<Props> = ({
@@ -212,6 +216,7 @@ const DialogWithBigIcon: React.FC<Props> = ({
   dialogContainer,
   BackdropProps,
   PaperProps,
+  QrCodeProps,
 }) => {
   const { t } = useTranslation(namespaces);
 
@@ -305,6 +310,26 @@ const DialogWithBigIcon: React.FC<Props> = ({
         ))}
       </DialogContent>
 
+      {QrCodeProps && (
+        <>
+          <Divider className={classes.qrDivider} />
+          <div className={classes.qrSection}>
+            {QrCodeProps?.value ? (
+              <>
+                {QrCodeProps.title && (
+                  <Typography className={classes.qrTitle} variant="subtitle1">
+                    {t(QrCodeProps.title)}
+                  </Typography>
+                )}
+                <QRCodeSVG size={180} value={QrCodeProps.value} />
+              </>
+            ) : (
+              <CircularProgress />
+            )}
+          </div>
+        </>
+      )}
+
       <BottomActions
         buttons={buttons}
         checkBoxLabel={checkBoxLabel}
@@ -324,7 +349,7 @@ const useStyles = makeStyles<
     padding: theme.spacing(2),
     paddingRight: theme.spacing(3),
     paddingLeft: theme.spacing(3),
-    gap: theme.spacing(2),
+    gap: theme.spacing(4),
   },
   dialogTitle: {
     display: 'flex',
@@ -402,6 +427,21 @@ const useStyles = makeStyles<
     display: 'flex',
     gap: theme.spacing(2),
     justifyContent: 'space-between',
+  },
+  qrDivider: {
+    width: '100%',
+    margin: theme.spacing(2, 0),
+  },
+  qrSection: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    gap: theme.spacing(1.5),
+    marginBottom: theme.spacing(2),
+  },
+  qrTitle: {
+    fontWeight: 500,
+    marginBottom: theme.spacing(1),
   },
 }));
 

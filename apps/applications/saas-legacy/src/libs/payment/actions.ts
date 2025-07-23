@@ -4,52 +4,53 @@ import { CUSTOM_ERROR_CODE } from '#src/libs/constants';
 import { AxiosResponse } from 'axios';
 import type {
   Dispatch,
-  ThunkAction,
-  OptionCallback,
   OptionBackgroundCallback,
-} from '../../state/types';
-import type { RootState } from '../../reducers';
+  OptionCallback,
+  ThunkAction,
+} from '#src/state/types';
+import type { RootState } from '#src/reducers';
 import type { ReportConfiguration } from '#src/libs/reporting/common/types';
-import { snackbarSuccess, snackbarError } from '../snackbar/actions';
+import { snackbarError, snackbarSuccess } from '../snackbar/actions';
 import { monitorBackgroundTask } from '../background-task/actions';
 import {
-  fetchPaymentMethodList as fetchPaymentMethodListAPI,
-  fetchOnSpotPaymentReport as fetchOnSpotPaymentReportAPI,
-  fetchPaymentGroupList as fetchPaymentGroupListAPI,
-  fetchPayoutList as fetchPayoutListAPI,
-  fetchStripeBalance as fetchStripeBalanceAPI,
-  updatePaymentGroupPriceCts as updatePaymentGroupPriceCtsAPI,
-  detachPaymentMethod as detachPaymentMethodAPI,
-  setPaymentMethodAsDefault as setPaymentMethodAsDefaultAPI,
-  submitInternalPaymentInBackground as submitInternalPaymentInBackgroundAPI,
-  fetchStripePayoutList as fetchStripePayoutListAPI,
-  fetchBookkeepingAccountList as fetchBookkeepingAccountListAPI,
   createBookkeepingAccount as createBookkeepingAccountAPI,
-  updateBookkeepingAccount as updateBookkeepingAccountAPI,
-  deleteBookkeepingAccount as deleteBookkeepingAccountAPI,
-  getPaymentGroupStatus as getPaymentGroupStatusAPI,
-  getLinkedProductNames as getLinkedProductNamesAPI,
   createPaymentAttempt as createPaymentAttemptAPI,
   createPaymentAttemptWebview as createPaymentAttemptWebviewAPI,
+  deleteBookkeepingAccount as deleteBookkeepingAccountAPI,
+  detachPaymentMethod as detachPaymentMethodAPI,
   executePaymentAttempt as executePaymentAttemptAPI,
   executePaymentAttemptWebview as executePaymentAttemptWebviewAPI,
+  fetchBookkeepingAccountList as fetchBookkeepingAccountListAPI,
+  fetchOnSpotPaymentReport as fetchOnSpotPaymentReportAPI,
+  fetchPaymentGroupList as fetchPaymentGroupListAPI,
+  fetchPaymentMethodList as fetchPaymentMethodListAPI,
+  fetchPayoutList as fetchPayoutListAPI,
+  fetchStripeBalance as fetchStripeBalanceAPI,
+  fetchStripePayoutList as fetchStripePayoutListAPI,
+  getLinkedProductNames as getLinkedProductNamesAPI,
+  getPaymentGroup as getPaymentGroupAPI,
+  getPaymentGroupStatus as getPaymentGroupStatusAPI,
   requestSetupIntentSecret as requestSetupIntentSecretAPI,
   setBillingEstablishmentOnCompletedPaymentGroupStatus as setBillingEstablishmentOnCompletedPaymentGroupStatusAPI,
+  setPaymentMethodAsDefault as setPaymentMethodAsDefaultAPI,
+  submitInternalPaymentInBackground as submitInternalPaymentInBackgroundAPI,
+  updateBookkeepingAccount as updateBookkeepingAccountAPI,
+  updatePaymentGroupPriceCts as updatePaymentGroupPriceCtsAPI,
 } from './api';
 import { requestClientSecret as requestClientSecretAPI } from '#src/libs/invoice/api';
 import type {
-  PaymentGroup,
-  PaymentMethod,
-  Payout,
-  InternalPaymentPayload,
-  StripePayout,
-  StripeBalance,
   BookkeepingAccount,
   BookkeepingAccountSubmitParams,
-  fetchBookkeepingAccountListFilter,
   DetachPaymentMethodPayload,
   DetachPaymentMethodResponse,
+  fetchBookkeepingAccountListFilter,
+  InternalPaymentPayload,
+  PaymentGroup,
   PaymentGroupBillingEstablishmentPayload,
+  PaymentMethod,
+  Payout,
+  StripeBalance,
+  StripePayout,
 } from './types';
 import { RequestClientSecretPayload } from '../invoice/types';
 
@@ -87,6 +88,7 @@ export const detachPaymentMethodActions = {
     'PATMENT_METHOD/DETACH/SUCCESS',
   ),
 };
+
 export function detachPaymentMethod(
   payload: DetachPaymentMethodPayload,
   options?: OptionCallback<unknown, number>,
@@ -119,6 +121,7 @@ export const setPaymentMethodAsDefaultActions = {
   error: createAction('PAYMENT_METHOD/SET_DEFAULT/ERROR'),
   success: createAction('PATMENT_METHOD/SET_DEFAULT/SUCCESS'),
 };
+
 export function setPaymentMethodAsDefault(
   params: any,
   options?: OptionCallback,
@@ -206,6 +209,31 @@ export function fetchPaymentGroupList(
   };
 }
 
+export const fetchPaymentGroupActions = {
+  isLoading: createAction<boolean>('PAYMENT_GROUP/FETCH/LOADING'),
+  error: createAction<Error | null>('PAYMENT_GROUP/FETCH/ERROR'),
+  success: createAction<PaymentGroup>('PAYMENT_GROUP/FETCH/SUCCESS'),
+};
+
+export function fetchPaymentGroup(
+  params: { id: number },
+  options?: OptionCallback<PaymentGroup>,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(fetchPaymentGroupActions.isLoading(true));
+    dispatch(fetchPaymentGroupActions.error(null));
+    try {
+      const response = await getPaymentGroupAPI(params.id);
+      dispatch(fetchPaymentGroupActions.success(response.data));
+      options?.onSuccess?.(response.data);
+    } catch (err) {
+      dispatch(fetchPaymentGroupActions.error(err));
+      options?.onError?.(err);
+    }
+    dispatch(fetchPaymentGroupActions.isLoading(false));
+  };
+}
+
 export const incrementalListPayoutActions = {
   isLoading: createAction('PAYOUT/INCREMENTAL_LIST/LOADING'),
   error: createAction('PAYOUT/INCREMENTAL_LIST/ERROR'),
@@ -276,6 +304,7 @@ export function fetchPayoutList(
     dispatch(listPayoutActions.isLoading(false));
   };
 }
+
 export const fetchPaymentGroupStatusActions = {
   isLoading: createAction('PAYMENT_GROUP/STATUS/LOADING'),
   error: createAction('PAYMENT_GROUP/STATUS/ERROR'),

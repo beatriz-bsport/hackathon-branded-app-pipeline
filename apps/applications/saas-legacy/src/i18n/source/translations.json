@@ -11508,10 +11508,10 @@
             "validate": "Validate",
             "paymentSuccess": {
                 "title": "Payment accepted",
-                "subTextAnonymous": "The payment has been processed.",
-                "subText": "The payment has been processed. The invoice was sent by e-mail.",
+                "description": "The payment has been successfully processed.",
                 "subTextPartialPayment": "The payment has been processed. The invoice was sent by e-mail. The rest of the payment has been postponed: it can be made from the Backoffice or the customer profile.",
                 "printTicket": "Print ticket",
+                "qrCodeTitle": "Download your receipt",
                 "sendByEmail": "Email the invoice"
             },
             "emailSent": {
@@ -16790,6 +16790,9 @@
                     "14102": "It is impossible to reimburse this invoice.",
                     "35024": "You cannot refund this invoice because your PayPal account does not have enough funds."
                 }
+            },
+            "receipt": {
+                "genericError": "An error occurred while generating the receipt"
             }
         },
         "privateConsumerPass": {

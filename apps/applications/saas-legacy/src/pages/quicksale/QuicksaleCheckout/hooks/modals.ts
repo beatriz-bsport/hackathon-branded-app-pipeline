@@ -29,11 +29,6 @@ const useModals = ({
   const [showPaymentSuccessModal, setShowPaymentSuccessModal] =
     React.useState(false);
 
-  const [
-    showAnonymousPaymentSuccessModal,
-    setShowAnonymousPaymentSuccessModal,
-  ] = React.useState(false);
-
   const [showPartialPaymentSuccesModal, setShowPartialPaymentSuccesModal] =
     React.useState(false);
 
@@ -60,11 +55,6 @@ const useModals = ({
     setShowWarningRemovedItemsModal(false);
   }, []);
 
-  const closeAnonymousPaymentSuccessModal = React.useCallback(() => {
-    setShowAnonymousPaymentSuccessModal(false);
-    goBack();
-  }, [goBack]);
-
   React.useEffect(() => {
     if (
       basket &&
@@ -90,16 +80,13 @@ const useModals = ({
     setShowWarningRemovedItemsModal,
     showPaymentSuccessModal,
     setShowPaymentSuccessModal,
-    showAnonymousPaymentSuccessModal,
     showPartialPaymentSuccesModal,
-    setShowAnonymousPaymentSuccessModal,
+    setShowPartialPaymentSuccesModal,
     openCannotSignOutModal,
     closeCannotSignOutModal,
     openMemberModal,
     closeMemberModal,
     closeWarningRemovedItemsModal,
-    closeAnonymousPaymentSuccessModal,
-    setShowPartialPaymentSuccesModal,
     someObjectsRequireAuthentication,
     setSomeObjectsRequireAuthentication,
   };

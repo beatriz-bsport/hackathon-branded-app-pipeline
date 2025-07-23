@@ -1,7 +1,11 @@
 import { makeStyles, Theme } from '@material-ui/core/styles';
+import type { Basket } from '#src/libs/checkout/types';
 
-const useStyles = makeStyles<Theme, { isInteractive?: boolean }>((theme) => ({
-  container: () => ({
+const useStyles = makeStyles<
+  Theme,
+  { isInteractive?: boolean; basket?: Basket }
+>((theme) => ({
+  container: ({ basket }) => ({
     background: 'white',
     display: 'flex',
     height: '100%',
@@ -9,6 +13,9 @@ const useStyles = makeStyles<Theme, { isInteractive?: boolean }>((theme) => ({
     justifyContent: 'space-between',
     borderRadius: theme.spacing(1.5),
     border: `1px solid ${theme.palette.grey[300]}`,
+    ...(!basket
+      ? { padding: theme.spacing(3.75), justifyContent: 'center' }
+      : {}),
   }),
   headerAndBody: {
     display: 'flex',

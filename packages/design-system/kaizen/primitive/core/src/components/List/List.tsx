@@ -153,7 +153,10 @@ const List = <T extends { id: string }>(props: ListProps<T>) => {
   if (shouldRenderLoadingState) return <LoadingState />;
 
   return (
-    <Collapse {...collapsibleProps}>
+    <Collapse
+      className={collapsibleProps ? "" : "h-full"}
+      {...collapsibleProps}
+    >
       <CheckboxProvider valueIds={valueIds}>
         <div className={className} id={id}>
           {!!header && (

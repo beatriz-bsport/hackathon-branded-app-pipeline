@@ -60,5 +60,5 @@ export const deleteTagAPI = (params: DeleteTagParams): ApiConfig => {
 };
 
 export const fetchTagUsagesAPI = (): ApiConfig => {
-  return [`${API_URL}/tagging/tag-usage/`];
+  return [`${API_URL}/tagging/tag/usage/`];
 };

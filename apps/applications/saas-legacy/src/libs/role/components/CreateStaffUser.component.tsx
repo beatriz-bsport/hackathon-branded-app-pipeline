@@ -26,6 +26,7 @@ import COMMON_ROLES, { OWNER_ROLE } from '../role-types';
 import { getRoleName } from '../utils';
 import { useAdvancedRoleSettings } from '../hooks/advancedRoleSettings';
 import AdvancedRoleSettingsForm from './AdvancedRoleSettingsForm.component';
+import { EstablishmentBillingGroup } from '#src/libs/establishment/types';
 
 type OwnProps = {
   // eslint-disable-next-line react/no-unused-prop-types
@@ -41,6 +42,7 @@ type OwnProps = {
   ) => void;
   open: boolean;
   roles: Role[];
+  establishmentBillingGroups: EstablishmentBillingGroup[];
 };
 
 type Props = OwnProps &

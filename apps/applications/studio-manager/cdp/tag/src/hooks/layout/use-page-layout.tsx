@@ -3,13 +3,13 @@ import { Button } from "@bsport/kaizen-primitive-core";
 import { useTranslation } from "#src/utils/i18n";
 
 type UsePageLayoutProps = {
-  onCtaButtonClick: () => void;
-  onSecondaryButtonClick: () => void;
+  handleCreateTagGroup?: () => void;
+  handleCreateTag?: (associatedGroupId?: number) => void;
 };
 
 export const usePageLayout = ({
-  onCtaButtonClick,
-  onSecondaryButtonClick,
+  handleCreateTagGroup,
+  handleCreateTag,
 }: UsePageLayoutProps) => {
   const { t } = useTranslation("tags");
 
@@ -21,22 +21,21 @@ export const usePageLayout = ({
       id: "create-tag-group-empty-button",
       label: t("page.actions.createTagGroup.label"),
       iconLeft: "plus",
-    },
-    secondaryButtonConfig: {
-      id: "create-tag-empty-button",
-      label: t("page.actions.createTag.label"),
-      iconLeft: "plus",
+      onClick: handleCreateTagGroup,
     },
   };
 
-  const emptyListState = {
-    className: "h-full",
-    subtitle: t("page.emptyMainTagState.description"),
-    secondaryButtonConfig: {
-      id: "create-tag-empty-button",
-      label: t("page.actions.createTag.label"),
-      iconLeft: "plus",
-    },
+  const getEmptyListState = (emptyListGroupId?: number) => {
+    return {
+      className: "h-full",
+      subtitle: t("page.emptyMainTagState.description"),
+      secondaryButtonConfig: {
+        id: "create-tag-empty-button",
+        label: t("page.actions.createTag.label"),
+        iconLeft: "plus",
+        onClick: () => handleCreateTag?.(emptyListGroupId),
+      },
+    };
   };
 
   const pageActions = [
@@ -48,7 +47,7 @@ export const usePageLayout = ({
       color="main"
       size="md"
       iconLeft="plus"
-      onClick={onSecondaryButtonClick}
+      onClick={() => handleCreateTag?.()}
     />,
     <Button
       key="create-tag-group-header-button"
@@ -58,13 +57,13 @@ export const usePageLayout = ({
       color="main"
       size="md"
       iconLeft="plus"
-      onClick={onCtaButtonClick}
+      onClick={handleCreateTagGroup}
     />,
   ];
 
   return {
     emptyPageState,
-    emptyListState,
     pageActions,
+    getEmptyListState,
   };
 };

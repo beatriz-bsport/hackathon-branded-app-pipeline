@@ -3,7 +3,21 @@ import { Tag, TagGroup, TagUsage } from "@bsport/store-cdp-tag";
 
 import { useTranslation } from "#src/utils/i18n";
 
-export const useTagListFactory = () => {
+type Props = {
+  handleEditTagGroup?: (tagGroup: TagGroup) => void;
+  handleDeleteTagGroup?: (tagGroup: TagGroup) => void;
+  handleCreateTag?: (associatedGroupId?: number) => void;
+  handleDeleteTag?: (tag: Tag) => void;
+  handleEditTag?: (tag: Tag) => void;
+};
+
+export const useTagListFactory = ({
+  handleCreateTag,
+  handleDeleteTag,
+  handleDeleteTagGroup,
+  handleEditTagGroup,
+  handleEditTag,
+}: Props) => {
   const { t } = useTranslation("tags");
 
   const formatTagGroupInListHeader = ({ group }: { group: TagGroup }) => {
@@ -19,6 +33,9 @@ export const useTagListFactory = () => {
           intent: "flat",
           size: "md",
           color: "default",
+          onClick: () => {
+            handleCreateTag?.(group.id);
+          },
         },
         {
           id: `list-header-tag-group-${group.id}-rename-main-tag-button`,
@@ -27,6 +44,9 @@ export const useTagListFactory = () => {
           intent: "flat",
           size: "md",
           color: "default",
+          onClick: () => {
+            handleEditTagGroup?.(group);
+          },
         },
         {
           id: `list-header-tag-group-${group.id}-delete-main-tag-button`,
@@ -35,6 +55,9 @@ export const useTagListFactory = () => {
           intent: "flat",
           size: "md",
           color: "default",
+          onClick: () => {
+            handleDeleteTagGroup?.(group);
+          },
         },
       ],
     };
@@ -50,7 +73,9 @@ export const useTagListFactory = () => {
     tagUsagesMap: Record<number, TagUsage>;
     groupTags: number[];
   }) => {
-    const tagList = groupTags.map((_tagId) => tagsMapByGroupId[_tagId]);
+    const tagList = groupTags
+      .map((_tagId) => tagsMapByGroupId[_tagId])
+      .filter(Boolean);
     const listItems = tagList.map((tag) => {
       const tagUsageData = tagUsagesMap[tag.id];
       const formattedItem: ListItemProps = {
@@ -77,8 +102,14 @@ export const useTagListFactory = () => {
               label: t("tagGroupList.items.tooltip.delete"),
               placement: "bottom",
             },
+            onClick: () => {
+              handleDeleteTag?.(tag);
+            },
           },
         ],
+        onItemClick: () => {
+          handleEditTag?.(tag);
+        },
       };
       return formattedItem;
     });

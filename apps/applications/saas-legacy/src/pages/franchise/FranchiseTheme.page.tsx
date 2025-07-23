@@ -6,7 +6,7 @@ import {
   CircularProgress,
   createStyles,
   Paper,
-  Theme,
+  type Theme,
   WithStyles,
   withStyles,
 } from '@material-ui/core';
@@ -52,20 +52,39 @@ const FranchiseTheme = (props: Props) => {
     franchisor?.marketing_email ?? '',
   );
 
+  const [
+    displayStopSubscriptionOnMemberSide,
+    setDisplayStopSubscriptionOnMemberSide,
+  ] = useState(
+    franchisor?.display_stop_subscription_from_member_side_for_franchisees ??
+      false,
+  );
+
   if (!franchiseId) return <CircularProgress />;
 
   const checkSubmitDisabled = () => {
-    return (
-      (cover === franchisor.cover &&
-        primaryColor === RGBtoHex(franchisor.primaryRGB) &&
-        secondaryColor === RGBtoHex(franchisor.secondaryRGB) &&
-        marketingEmail === franchisor.marketing_email) ||
-      (marketingEmail !== '' && !emailRegexp.test(marketingEmail))
-    );
+    const areFormFieldsUnmodified =
+      cover === franchisor.cover &&
+      primaryColor === RGBtoHex(franchisor.primaryRGB) &&
+      secondaryColor === RGBtoHex(franchisor.secondaryRGB) &&
+      marketingEmail === franchisor.marketing_email &&
+      displayStopSubscriptionOnMemberSide ===
+        franchisor.display_stop_subscription_from_member_side_for_franchisees;
+
+    const hasInvalidEmail =
+      marketingEmail !== '' && !emailRegexp.test(marketingEmail);
+
+    return areFormFieldsUnmodified || hasInvalidEmail;
   };
 
   const handleChange =
-    (key: 'primaryColor' | 'secondaryColor' | 'marketingEmail') =>
+    (
+      key:
+        | 'primaryColor'
+        | 'secondaryColor'
+        | 'marketingEmail'
+        | 'displayStopSubscriptionOnMemberSide',
+    ) =>
     (value: string) => {
       switch (key) {
         case 'primaryColor':
@@ -76,6 +95,9 @@ const FranchiseTheme = (props: Props) => {
           break;
         case 'marketingEmail':
           setMarketingEmail(value);
+          break;
+        case 'displayStopSubscriptionOnMemberSide':
+          setDisplayStopSubscriptionOnMemberSide(value === 'true');
           break;
         default:
           break;
@@ -91,6 +113,10 @@ const FranchiseTheme = (props: Props) => {
     data.append('primary_color', primaryColor);
     data.append('secondary_color', secondaryColor);
     data.append('marketing_email', marketingEmail?.toLowerCase());
+    data.append(
+      'display_stop_subscription_from_member_side_for_franchisees',
+      displayStopSubscriptionOnMemberSide ? 'true' : 'false',
+    );
 
     if (cover && typeof cover !== 'string') {
       data.append('cover', cover);
@@ -105,6 +131,9 @@ const FranchiseTheme = (props: Props) => {
         <FranchiseThemeForm
           // @ts-expect-error
           cover={cover}
+          displayStopSubscriptionOnMemberSide={
+            displayStopSubscriptionOnMemberSide
+          }
           handleChange={handleChange}
           handleCoverChange={handleCoverChange}
           id={franchiseId}

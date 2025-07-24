@@ -1,6 +1,9 @@
 import React from "react";
 import { NavLink } from "react-router";
 
+import { useCurrentPathname } from "#src/hooks/use-current-pathname";
+import { LEGACY_URLS } from "#src/urls";
+
 type NavigationLinkProps = {
   renderElement: (params: {
     isActive?: boolean;
@@ -28,7 +31,14 @@ export const NavigationLink: React.FC<NavigationLinkProps> = ({
   const isBridged = !!navigate;
   const { withOnClick, ...otherWrapperConfig } = wrapperConfig;
 
-  const isLegacyItemActive = item.href === window.location.pathname;
+  const currentPathname = useCurrentPathname();
+  // Special case for calendar: Legacy SaaS redirects /calendar to /calendar/YYYY/MM/DD/
+  // so we need to match calendar navigation item when on any calendar date URL
+  const isCalendarLink = item.href === LEGACY_URLS.calendar;
+  const isLegacyItemActive =
+    isCalendarLink && currentPathname.startsWith(`${LEGACY_URLS.calendar}/`)
+      ? true
+      : item.href === currentPathname;
 
   // Handle action items (items with onClick but no href) - prevent navigation highlighting
   if (!item.href && item.onClick) {
@@ -62,7 +72,13 @@ export const NavigationLink: React.FC<NavigationLinkProps> = ({
 
   // In Legacy context, with a legacy link, we rely on navigate (history.push)
   if (isBridged && !item.revamped) {
-    const onClick = () => navigate?.(item.href!);
+    const onClick = () => {
+      navigate?.(item.href!);
+      // Dispatch custom event to help with reactive pathname detection
+      window.dispatchEvent(
+        new CustomEvent("navigation", { detail: { href: item.href } }),
+      );
+    };
 
     if (withOnClick) {
       // The element does not have native onClick, it needs a wrapper

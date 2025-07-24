@@ -518,7 +518,7 @@
             },
             "form": {
                 "delayWeek": {
-                    "helperText": "Indicate how many weeks in advance the member will be enrolled (8 weeks maximum)",
+                    "helperText": "Indicate how many weeks in advance the member will be enrolled ({{delayWeek}} weeks maximum)",
                     "label": "Number of weeks"
                 },
                 "metaActivity": {

@@ -154,7 +154,9 @@
                     "helperText": "Indique combien de semaines en avance le membre sera inscrit ( {{delayWeek}} semaines maximum)"
                 },
                 "groupWarning": "Attention il n’est pas possible de créer une récurrence de réservation sur des groupes de séances",
-                "permissionWarning": "Vous n'avez pas l'autorisation de créer des réservations pour cette activité"
+                "permissionWarning": "Vous n'avez pas l'autorisation de créer des réservations pour cette activité",
+                "globalError": "Nous n'avons pas pu enregistrer votre réservation récurrente, veuillez réessayer plus tard.",
+                "duplicateError": "Cette règle est déjà utilisée par une réservation récurrente. Pour enregistrer, veuillez changer les règles existantes ou ajuster les paramètres."
             },
             "actions": {
                 "close": "Fermer",

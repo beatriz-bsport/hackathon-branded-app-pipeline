@@ -1,17 +1,11 @@
 import { cva, cx } from "class-variance-authority";
-import React, {
-  MouseEvent,
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import React, { MouseEvent, useCallback, useEffect, useState } from "react";
 
 import Collapse from "#src/components/Collapse";
 import Icon from "#src/components/Icon";
+import type { IconName } from "#src/components/Icon";
 import { useNavigationMenuContext } from "#src/components/NavigationMenu/Context";
 import { ItemProvider } from "#src/components/NavigationMenu/ItemContext";
-import SubItem from "#src/components/NavigationMenu/SubItem";
 import type { NavigationMenuItem } from "#src/components/NavigationMenu/types";
 
 const defaultClasses = [
@@ -33,22 +27,11 @@ const defaultClasses = [
 
 const navigationMenuItem = cva(defaultClasses);
 
-type BaseItemProps = Omit<NavigationMenuItem, "subItems"> & {
+export type ItemProps = NavigationMenuItem & {
   onClick?: (e: MouseEvent) => void;
   disableSelection?: boolean;
-};
-
-type SubItemsProps = BaseItemProps & {
-  subItems: NavigationMenuItem["subItems"];
-  children?: never;
-};
-
-type ChildrenProps = BaseItemProps & {
-  subItems?: never;
   children?: React.ReactNode;
 };
-
-export type ItemProps = SubItemsProps | ChildrenProps;
 
 /**
  * Item
@@ -60,7 +43,6 @@ export type ItemProps = SubItemsProps | ChildrenProps;
  * @param  props.label - The text label displayed for the menu item.
  * @param  props.icon - The icon displayed for the menu item.
  * @param  props.endSlot - Additional content to be displayed at the end of the menu item.
- * @param  props.subItems - An array of sub-items for the menu item.
  * @param  props.children - Child elements to be displayed within the menu item.
  * @param  props.href - The URL to navigate to when the menu item is clicked.
  * @param  props.target - The target attribute for the link.
@@ -74,7 +56,6 @@ const Item: React.FC<ItemProps> = (props) => {
     icon,
     label,
     endSlot,
-    subItems,
     children,
     href,
     target,
@@ -94,16 +75,10 @@ const Item: React.FC<ItemProps> = (props) => {
     onItemClick,
     setSelectedItemId = () => {},
   } = context || {};
-  const subItemsRef = useRef<HTMLDivElement | null>(null);
   const isOpen = openMenuId === id;
 
   const isActive = React.useMemo(() => {
     if (id === selectedItemId) return true;
-
-    // when a subitem is selected and it is collapsed we set the parent as active
-    if (subItems?.some((subItem) => subItem.id === selectedItemId)) {
-      return !isOpen;
-    }
 
     // when a child is selected and it is collapsed we set the parent as active
     if (children) {
@@ -112,20 +87,9 @@ const Item: React.FC<ItemProps> = (props) => {
     }
 
     return false;
-  }, [id, activeSubItemId, selectedItemId, isOpen, subItems, children]);
+  }, [id, activeSubItemId, selectedItemId, isOpen, children]);
 
-  const hasSubitems = !!subItems?.length || !!children;
-
-  useEffect(() => {
-    if (!isOpen) {
-      setTimeout(() => {
-        subItemsRef.current?.classList.add("hidden");
-      }, 500);
-    }
-    if (isOpen && subItemsRef.current?.classList.contains("hidden")) {
-      subItemsRef.current?.classList.remove("hidden");
-    }
-  }, [isOpen]);
+  const hasSubitems = !!children;
 
   useEffect(() => {
     if (id !== selectedItemId && active) {
@@ -133,13 +97,20 @@ const Item: React.FC<ItemProps> = (props) => {
     }
   }, [active, id, selectedItemId, setSelectedItemId]);
 
+  // Auto-open parent group when it contains an active subitem
+  useEffect(() => {
+    if (activeSubItemId && activeSubItemId === selectedItemId && children) {
+      setOpenMenuId(id);
+    }
+  }, [activeSubItemId]);
+
   const handleOnClick = useCallback(
     (event: MouseEvent) => {
       if (!disableSelection) {
         setOpenMenuId((prevState) => (prevState === id ? "" : id));
       }
 
-      if (!disableSelection && !subItems?.length && !children) {
+      if (!disableSelection && !children) {
         setSelectedItemId(id);
       }
 
@@ -157,7 +128,6 @@ const Item: React.FC<ItemProps> = (props) => {
       children,
       onClick,
       setSelectedItemId,
-      subItems,
       disableSelection,
     ],
   );
@@ -169,88 +139,25 @@ const Item: React.FC<ItemProps> = (props) => {
     >
       <Collapse id={id} className="mb-2xs last:mb-[0px]">
         <Collapse.Controller>
-          {({ collapseProps, setIsCollapseOpen, isCollapseOpen }) => {
-            const Content = () => (
-              <>
-                <div
-                  className={cx(
-                    "flex transition-all duration-normal items-center gap-xs overflow-hidden",
-                    {
-                      "text-onsurface-main-weak": isActive,
-                      "text-onsurface-default": !isActive,
-                      "font-stronger":
-                        isActive &&
-                        (!hasSubitems || (hasSubitems && !isCollapseOpen)),
-                    },
-                  )}
-                >
-                  {!!icon && <Icon icon={icon} size="sm" />}
-                  {!!label && (
-                    <span
-                      className={cx("font-size-body-md truncate w-full", {
-                        "pl-xs": !icon,
-                      })}
-                    >
-                      {label}
-                    </span>
-                  )}
-                </div>
-                <div className="flex items-center gap-xs">
-                  {!!endSlot && <div className="flex">{endSlot}</div>}
-                  {hasSubitems && (
-                    <Icon
-                      className={cx(
-                        "transform transition-transform duration-long text-onsurface-default",
-                        isCollapseOpen ? "rotate-[-90deg]" : "rotate-90",
-                      )}
-                      icon="chevron-right"
-                      size="sm"
-                    />
-                  )}
-                </div>
-              </>
-            );
-
-            // eslint-disable-next-line react-hooks/rules-of-hooks
-            useEffect(() => {
-              setIsCollapseOpen(openMenuId === id);
-            }, [openMenuId, setIsCollapseOpen]);
-
-            return href ? (
-              <a
-                role="link"
-                tabIndex={0}
-                href={href}
-                target={target}
-                className={navigationMenuItem()}
-                onClick={handleOnClick}
-                {...collapseProps}
-              >
-                <Content />
-              </a>
-            ) : (
-              <button
-                role="button"
-                tabIndex={0}
-                className={navigationMenuItem()}
-                onClick={handleOnClick}
-                {...collapseProps}
-              >
-                <Content />
-              </button>
-            );
-          }}
+          {({ collapseProps, setIsCollapseOpen, isCollapseOpen }) => (
+            <CollapseContent
+              openMenuId={openMenuId}
+              id={id}
+              href={href}
+              target={target}
+              handleOnClick={handleOnClick}
+              isActive={isActive}
+              hasSubitems={hasSubitems}
+              icon={icon}
+              label={label}
+              endSlot={endSlot}
+              collapseProps={collapseProps}
+              setIsCollapseOpen={setIsCollapseOpen}
+              isCollapseOpen={isCollapseOpen}
+            />
+          )}
         </Collapse.Controller>
-        {(hasSubitems || children) && (
-          <Collapse.Content>
-            <div ref={subItemsRef}>
-              {subItems?.map(({ id, label }) => (
-                <SubItem id={id} label={label} key={id} />
-              ))}
-              {children}
-            </div>
-          </Collapse.Content>
-        )}
+        {children && <Collapse.Content>{children}</Collapse.Content>}
       </Collapse>
     </ItemProvider>
   );
@@ -259,3 +166,106 @@ const Item: React.FC<ItemProps> = (props) => {
 Item.displayName = "KaizenNavigationMenuItem";
 
 export default Item;
+
+type CollapseContentProps = {
+  openMenuId: string;
+  id: string;
+  href?: React.AnchorHTMLAttributes<HTMLAnchorElement>["href"];
+  target?: React.AnchorHTMLAttributes<HTMLAnchorElement>["target"];
+  handleOnClick: (event: MouseEvent) => void;
+  isActive: boolean;
+  hasSubitems: boolean;
+  icon?: IconName;
+  label: string;
+  endSlot?: React.ReactNode;
+  collapseProps: {
+    "data-collapse-target": string;
+    "aria-controls": string;
+  };
+  setIsCollapseOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  isCollapseOpen: boolean;
+};
+
+const CollapseContent: React.FC<CollapseContentProps> = ({
+  openMenuId,
+  id,
+  href,
+  target,
+  handleOnClick,
+  isActive,
+  hasSubitems,
+  icon,
+  label,
+  endSlot,
+  collapseProps,
+  setIsCollapseOpen,
+  isCollapseOpen,
+}) => {
+  useEffect(() => {
+    setIsCollapseOpen(openMenuId === id);
+  }, [openMenuId, setIsCollapseOpen, id]);
+
+  const Content = () => (
+    <>
+      <div
+        className={cx(
+          "flex transition-all duration-normal items-center gap-xs overflow-hidden",
+          {
+            "text-onsurface-main-weak": isActive,
+            "text-onsurface-default": !isActive,
+            "font-stronger":
+              isActive && (!hasSubitems || (hasSubitems && !isCollapseOpen)),
+          },
+        )}
+      >
+        {!!icon && <Icon icon={icon} size="sm" />}
+        {!!label && (
+          <span
+            className={cx("font-size-body-md truncate w-full", {
+              "pl-xs": !icon,
+            })}
+          >
+            {label}
+          </span>
+        )}
+      </div>
+      <div className="flex items-center gap-xs">
+        {!!endSlot && <div className="flex">{endSlot}</div>}
+        {hasSubitems && (
+          <Icon
+            className={cx(
+              "transform transition-transform duration-long text-onsurface-default",
+              isCollapseOpen ? "rotate-[-90deg]" : "rotate-90",
+            )}
+            icon="chevron-right"
+            size="sm"
+          />
+        )}
+      </div>
+    </>
+  );
+
+  return href ? (
+    <a
+      role="link"
+      tabIndex={0}
+      href={href}
+      target={target}
+      className={navigationMenuItem()}
+      onClick={handleOnClick}
+      {...collapseProps}
+    >
+      <Content />
+    </a>
+  ) : (
+    <button
+      role="button"
+      tabIndex={0}
+      className={navigationMenuItem()}
+      onClick={handleOnClick}
+      {...collapseProps}
+    >
+      <Content />
+    </button>
+  );
+};

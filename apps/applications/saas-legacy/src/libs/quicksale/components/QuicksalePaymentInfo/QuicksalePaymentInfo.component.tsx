@@ -2,7 +2,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { makeStyles } from '@material-ui/core/styles';
-import Event from '@material-ui/icons/Event';
+// import Event from '@material-ui/icons/Event';
 import Alert from '@material-ui/lab/Alert';
 import Button from '@material-ui/core/Button';
 
@@ -137,9 +137,9 @@ const QuicksalePaymentInfo: React.FC<Props> = ({
           customClasses={{
             actionRow: classes.manualPaymentActionRow,
           }}
-          dateFieldEndAdornment={
-            <Event className={classes.manualPaymentDateFieldIcon} />
-          }
+          // dateFieldEndAdornment={
+          //   <Event className={classes.manualPaymentDateFieldIcon} />
+          // }
           loading={loading || basket?.is_finalized}
           onCancel={onCancel}
           onSuccess={onPaymentSuccess}

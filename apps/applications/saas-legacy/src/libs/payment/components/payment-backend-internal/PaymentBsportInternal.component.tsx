@@ -27,6 +27,7 @@ type Props = {
   amountToPay: string;
   clientSecret: string;
   onCancel: () => void;
+  onProcessing?: (processing: boolean) => void;
   onSuccess: (callback?: () => void) => void;
   hideAmountToPay?: boolean;
   // dateFieldEndAdornment?: JSX.Element;
@@ -47,6 +48,7 @@ export const PaymentBsportInternal: React.FC<Props> = ({
   amountToPay,
   clientSecret,
   onCancel,
+  onProcessing,
   onSuccess,
   hideAmountToPay,
   // dateFieldEndAdornment,
@@ -91,6 +93,7 @@ export const PaymentBsportInternal: React.FC<Props> = ({
     (ev: React.FormEvent) => {
       ev.preventDefault();
       setProcessing(true);
+      onProcessing?.(true);
       if (submitInternalPaymentInBackground) {
         submitInternalPaymentInBackground(
           {
@@ -104,9 +107,11 @@ export const PaymentBsportInternal: React.FC<Props> = ({
           {
             onSuccess: () => {
               setProcessing(false);
+              onProcessing?.(false);
             },
             onError: () => {
               setProcessing(false);
+              onProcessing?.(false);
             },
           },
         );
@@ -121,6 +126,7 @@ export const PaymentBsportInternal: React.FC<Props> = ({
         })
           .then(() => {
             onSuccess(() => setProcessing(false));
+            onProcessing?.(false);
           })
           .catch((err) => console.error(err));
       }
@@ -129,6 +135,7 @@ export const PaymentBsportInternal: React.FC<Props> = ({
       clientSecret,
       date,
       modifiedAmountToPay,
+      onProcessing,
       onSuccess,
       paymentMethodSelected,
       payment_note,

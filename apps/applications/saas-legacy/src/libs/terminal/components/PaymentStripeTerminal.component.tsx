@@ -359,13 +359,13 @@ export const PaymentStripeTerminal: React.FC<Props> = ({
     redirectToStep(TerminalPaymentSteps.PROCESSING);
 
     try {
+      setProcessing && setProcessing(true);
       await (isSetupIntent
         ? processSetupIntentPI(selectedReader, { setup_intent_id: intentId })
         : processPaymentIntentAPI(selectedReader, {
             payment_intent_id: intentId,
             save_for_later: saveForLater,
           }));
-      setProcessing && setProcessing(true);
       recursivePoll(
         selectedReader,
         0,

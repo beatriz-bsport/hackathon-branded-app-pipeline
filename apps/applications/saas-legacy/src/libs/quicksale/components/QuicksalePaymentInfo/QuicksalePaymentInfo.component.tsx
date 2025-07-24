@@ -9,6 +9,7 @@ import Button from '@material-ui/core/Button';
 import {
   PAYMENT_ENGINE_BSPORT,
   PAYMENT_GROUP_METHOD_BY_ENGINE,
+  PAYMENT_GROUP_METHOD_IDENTIFIER_DEBT,
 } from '@bsport/common/lib/master-data/payment-group.js';
 
 import {
@@ -143,9 +144,12 @@ const QuicksalePaymentInfo: React.FC<Props> = ({
           loading={loading || basket?.is_finalized}
           onCancel={onCancel}
           onSuccess={onPaymentSuccess}
-          paymentMethodChoices={
-            PAYMENT_GROUP_METHOD_BY_ENGINE[PAYMENT_ENGINE_BSPORT]
-          }
+          paymentMethodChoices={PAYMENT_GROUP_METHOD_BY_ENGINE[
+            PAYMENT_ENGINE_BSPORT
+          ].filter(
+            (paymentGroupMethod) =>
+              paymentGroupMethod !== PAYMENT_GROUP_METHOD_IDENTIFIER_DEBT,
+          )}
         >
           {children}
         </PaymentBsportInternal>

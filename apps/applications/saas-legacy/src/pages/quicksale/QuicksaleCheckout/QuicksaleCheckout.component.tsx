@@ -7,14 +7,14 @@ import ArrowBack from '@material-ui/icons/ArrowBack';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import Alert from '@material-ui/lab/Alert';
+// import Alert from '@material-ui/lab/Alert';
 
 import QuicksaleAppBar from '#src/libs/quicksale/components/QuicksaleAppBar';
 import QuicksaleBasketSummary from '#src/libs/quicksale/components/QuicksaleBasketSummary';
 import QuicksaleBasketPriceRecap from '#src/libs/quicksale/components/QuicksaleBasketPriceRecap';
 import QuicksaleDeliveryForm from '#src/libs/quicksale/components/QuicksaleDeliveryForm/QuicksaleDeliveryForm.component';
 import QuicksalePaymentInfo from '#src/libs/quicksale/components/QuicksalePaymentInfo';
-import UseInternalAccountForm from '#src/libs/payment/components/UseInternalAccountForm.component';
+// import UseInternalAccountForm from '#src/libs/payment/components/UseInternalAccountForm.component';
 
 import {
   QuicksaleDeliveryType,
@@ -67,10 +67,10 @@ type Props = {
   setSelectedPaymentMethod: (paymentMethod: QuicksalePaymentMethod) => void;
   stripeReaders?: StripeReader[];
   theme: Theme;
-  useInternalAccount: (
-    amount: number,
-    options?: OptionCallback<Basket>,
-  ) => void;
+  // useInternalAccount: (
+  //   amount: number,
+  //   options?: OptionCallback<Basket>,
+  // ) => void;
   // (Quicksale MVP): CreditCard and Sepa payment methods disabled
   /*checkItemsBasket?: (options?: OptionCallback<Basket>) => void;
   detachPaymentMethodLoading?: boolean;
@@ -112,7 +112,7 @@ const QuicksaleCheckout: React.FC<Props> = ({
   setSelectedPaymentMethod,
   stripeReaders,
   theme,
-  useInternalAccount,
+  // useInternalAccount,
 }) => {
   const { t } = useTranslation('quicksale');
 
@@ -241,7 +241,7 @@ const QuicksaleCheckout: React.FC<Props> = ({
             // memberId={basket.member}
             // removePaymentMethod={removePaymentMethod}
           >
-            {member.credit_account_balance ? (
+            {/* {member.credit_account_balance ? (
               <div className={classes.clientDebt}>
                 <Typography variant="h6">{t('checkout.clientDebt')}</Typography>
                 {member.is_pos ? (
@@ -260,7 +260,7 @@ const QuicksaleCheckout: React.FC<Props> = ({
                   />
                 )}
               </div>
-            ) : null}
+            ) : null} */}
           </QuicksalePaymentInfo>
         </Grid>
       </Grid>

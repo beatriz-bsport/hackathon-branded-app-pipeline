@@ -3320,6 +3320,24 @@
                         "label": "One-Click Booking (beta)",
                         "helperText": "Neue Mitglieder können Aktivitäten buchen, ohne zuvor einen Account anzulegen. Diese Funktion ist nicht mit Terminen oder \"Email-Bestätigung bei Anmeldung\" kompatibel. Es bezieht sich lediglich auf Aktivitäten, die mit einem \"nur neue Mitglieder\" Kurspass gebucht werden können."
                     }
+                },
+                "subscriptionPersonalizationTitle": "Abonnement",
+                "displayStopSubscriptionFromMemberSide": {
+                    "modal": {
+                        "cancel": "Abbrechen",
+                        "confirm": "Jetzt aktivieren",
+                        "linkButton": "Lesen Sie den Leitfaden durch",
+                        "linkText": "Bevor Sie die Funktion aktivieren, empfehlen wir Ihnen, sich mit ihrer Funktionsweise und den zu erwartenden Ergebnissen vertraut zu machen:",
+                        "content": "In vielen Ländern sind Studios gesetzlich verpflichtet, Mitgliedern die Möglichkeit zu geben, ihre Abonnements selbst zu kündigen. Durch die Aktivierung dieser Funktion stellen Sie sicher, dass Sie die lokalen Gesetze einhalten und Ihr Studio vor rechtlichen Risiken schützen.",
+                        "title": "Abonnementkündigung für Mitglieder aktivieren?"
+                    },
+                    "helperText": {
+                        "franchisor": "Diese Änderung gilt für alle Ihre Franchisenehmer.",
+                        "disabled": "Um diese Funktion für alle Franchisenehmer zu aktivieren, aktivieren Sie sie über das Hauptkonto.",
+                        "lawCompliance": "Wenn Sie diese Funktion nicht aktivieren, können Mitglieder ihre Abonnements nicht selbst kündigen, und Ihr Studio riskiert möglicherweise, gegen die Gesetze Ihres Landes zu verstoßen.",
+                        "simple": "Aktivieren Sie diese Option, damit Mitglieder ihr Abonnement selbst kündigen können. Sie haben zwar keine Kontrolle über die Kündigungsfrist für Abonnements, aber es ist wahrscheinlicher, dass Sie die gesetzlichen Bestimmungen des Landes, in dem Ihr Studio ansässig ist, einhalten. Bitte überprüfen Sie, in welchen Ländern dies gilt."
+                    },
+                    "label": "Mitgliedern die Möglichkeit geben, ihre Abonnements zu kündigen"
                 }
             },
             "submit": "Speichern",
@@ -10338,7 +10356,9 @@
                     "label": "Beginn der Wiederholung am "
                 },
                 "groupWarning": "Achtung es ist nicht möglich, wiederkehrende Buchungen für Gruppen von Kursen zu erstellen",
-                "permissionWarning": "Du hast keine Erlaubnis Buchungen für diese Aktivität abzuschließen"
+                "permissionWarning": "Du hast keine Erlaubnis Buchungen für diese Aktivität abzuschließen",
+                "globalError": "Wir konnten Ihre wiederkehrende Buchung derzeit nicht speichern. Bitte versuchen Sie es später erneut.",
+                "duplicateError": "Diese Regel wird bereits auf eine wiederkehrende Buchung angewendet. Um zu speichern, ändern Sie die bestehenden Buchungsregeln oder passen Sie die Parameter an."
             },
             "recurrentRuleBooking": "Wiederkehrende Buchung",
             "item": {
@@ -21462,7 +21482,9 @@
                 "subTextPartialPayment": "Die Zahlung wurde erfolgreich berücksichtigt. Die Rechnung wurde per E-Mail versendet. Der Rest der Zahlung wurde zurückgestellt: Sie kann über das Backoffice oder das Kundenprofil erfolgen.",
                 "title": "Bezahlung akzeptiert",
                 "printTicket": "Ticket drucken",
-                "sendByEmail": "Rechnung per E-Mail senden"
+                "sendByEmail": "Rechnung per E-Mail senden",
+                "qrCodeTitle": "Laden Sie Ihre Quittung herunter",
+                "description": "Die Zahlung wurde erfolgreich verarbeitet."
             },
             "emailSent": {
                 "printTicket": "Ticket drucken",

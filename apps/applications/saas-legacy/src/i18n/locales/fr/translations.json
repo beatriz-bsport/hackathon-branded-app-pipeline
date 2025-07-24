@@ -15696,7 +15696,8 @@
             "45005": "La carte cadeau n'est plus disponible à la vente.",
             "85000": "Une réservation est déjà en cours, veuillez patienter quelques instants",
             "85101": "Impossible de réserver. Ce spot est en cours de réservation par un autre membre. Veuillez réessayer en choisissant un autre spot.",
-            "generic": "Impossible de réserver"
+            "generic": "Impossible de réserver",
+            "addToBasketError": "Impossible d'ajouter au panier"
         },
         "offer": {
             "restore": {
@@ -15787,6 +15788,9 @@
                     "default": "Une erreur s'est produite lors de la génération de la facture XML"
                 },
                 "success": "Facture XML générée avec succès"
+            },
+            "receipt": {
+                "genericError": "Une erreur s'est produite lors de la génération du reçu"
             }
         },
         "zoom": {
@@ -21242,7 +21246,9 @@
                 "subTextAnonymous": "Le paiement a bien été pris en compte.",
                 "subTextPartialPayment": "Le paiement a bien été pris en compte. La facture a été envoyée par mail. Le reste du paiement a été remis à plus tard : il pourra être effectué depuis le Backoffice ou sur le profil client.",
                 "printTicket": "Imprimer le ticket",
-                "sendByEmail": "Envoyer la facture par mail"
+                "sendByEmail": "Envoyer la facture par mail",
+                "description": "Le paiement a été effectué avec succès.",
+                "qrCodeTitle": "Téléchargez votre reçu"
             },
             "emailSent": {
                 "title": "Email envoyé",

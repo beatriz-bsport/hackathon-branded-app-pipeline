@@ -1,30 +1,33 @@
 import { STORAGE_KEY_BSPORT_I18NEXTLNG } from './actions/constants';
 import { getItemInStorage } from './utils/storage';
 
-const language = (
-  getItemInStorage('local', STORAGE_KEY_BSPORT_I18NEXTLNG) || ''
-).slice(0, 2);
+/// Returns the current language for Intercom based on the stored language.
+const getCurrentIntercomLanguage = () =>
+  (getItemInStorage('local', STORAGE_KEY_BSPORT_I18NEXTLNG) || 'en').slice(
+    0,
+    2,
+  );
 
-export const openIntercomHelp = (pageName?: string) => {
+type IntercomPageName =
+  | 'login'
+  | 'paymentLink'
+  | 'stopSubscriptionOnMemberSide'
+  | 'default';
+
+export const getIntercomLink = (pageName?: IntercomPageName): string => {
+  const baseIntercomUrl = `https://intercom.help/bsport-helpcenter/${getCurrentIntercomLanguage()}`;
   switch (pageName) {
     case 'login':
-      window.open(
-        `https://intercom.help/bsport-helpcenter/${
-          language || 'fr'
-        }/collections/2348822`,
-      );
-      break;
+      return `${baseIntercomUrl}/collections/2348822`;
     case 'paymentLink':
-      window.open(
-        `https://intercom.help/bsport-helpcenter/${
-          language !== 'fr' ? 'en' : 'fr'
-        }/articles/5621567`,
-      );
-      break;
+      return `${baseIntercomUrl}/articles/5621567`;
+    case 'stopSubscriptionOnMemberSide':
+      return `${baseIntercomUrl}/articles/10730208-how-can-your-members-cancel-their-subscription`;
     default:
-      window.open(
-        `https://intercom.help/bsport-helpcenter/${language || 'fr'}`,
-      );
-      break;
+      return `${baseIntercomUrl}`;
   }
+};
+
+export const openIntercomHelp = (pageName?: IntercomPageName) => {
+  window.open(getIntercomLink(pageName));
 };

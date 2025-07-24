@@ -1,0 +1,26 @@
+# This file is symlinked in all projects as otherwise Prettier ignores it.
+# https://github.com/prettier/prettier/issues/4081
+#
+# Please be mindful when modifying this file.
+
+**/.git
+**/node_modules
+
+# Build artifacts
+**/build
+**/coverage
+**/dist
+**/storybook-static
+
+# Ignore generated locales
+**/locales/**/*
+**/source/translations.json
+
+# Ignore supernova exports
+**/supernova/**/*
+
+# Built lockfiles
+pnpm-lock.yaml
+
+# Ignore module federation temporal files
+.__mf__temp/**

@@ -220,12 +220,11 @@ exports.default = {
     validate: 'Validate',
     paymentSuccess: {
       title: 'Payment accepted',
-      subTextAnonymous: 'The payment has been processed.',
-      subText:
-        'The payment has been processed. The invoice was sent by e-mail.',
+      description: 'The payment has been successfully processed.',
       subTextPartialPayment:
         'The payment has been processed. The invoice was sent by e-mail. The rest of the payment has been postponed: it can be made from the Backoffice or the customer profile.',
       printTicket: 'Print ticket',
+      qrCodeTitle: 'Download your receipt',
       sendByEmail: 'Email the invoice',
     },
     emailSent: {

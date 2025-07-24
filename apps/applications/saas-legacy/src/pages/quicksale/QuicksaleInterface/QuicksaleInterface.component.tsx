@@ -18,7 +18,7 @@ import QuicksaleBasketListBar from '#src/libs/quicksale/components/QuicksaleBask
 import { QuicksaleItemListHeader } from '#src/libs/quicksale/components/QuicksaleConfigurationItemList';
 import QuicksaleInterfaceSearchBar from '#src/libs/quicksale/components/QuicksaleInterfaceSearchBar';
 import {
-  getIdsFromQuicksaleCardInfoId,
+  // getIdsFromQuicksaleCardInfoId,
   isNotQuicksaleCardInfoList,
 } from '#src/libs/quicksale/utils';
 import QuicksaleBasketPanel from '#src/libs/quicksale/components/QuicksaleBasketPanel';
@@ -38,15 +38,15 @@ import type { Member } from '#src/libs/member/types';
 
 import GenericResponsiveDialog from '#src/components/genericDialog/GenericResponsiveDialog';
 
-import type {
-  Giftcard,
-  GiftcardBackgroundImage,
-} from '#src/libs/giftcard/types';
+// import type {
+//   Giftcard,
+//   GiftcardBackgroundImage,
+// } from '#src/libs/giftcard/types';
 import type { OptionCallback } from '../../../state/types';
 
 import useStyles from './hooks/styles';
 import QuicksaleTileList from './QuicksaleTileList.component';
-import GiftcardForm from './GiftcardForm.component';
+// import GiftcardForm from './GiftcardForm.component';
 
 type Props = {
   theme: Theme;
@@ -82,17 +82,17 @@ type Props = {
     options?: OptionCallback<{ dropped: boolean }>,
   ) => void;
   openMemberAuthenticationModal: () => void;
-  giftcardById: { [key: number]: Giftcard };
-  giftcardBackgroundImageList: GiftcardBackgroundImage[];
+  // giftcardById: { [key: number]: Giftcard };
+  // giftcardBackgroundImageList: GiftcardBackgroundImage[];
   pendingItemToAdd: QuicksaleCardInfo | null;
   onItemClick: (item: QuicksaleCardInfo) => void;
   showGiftcardFormModal: boolean;
   closeGiftcardFormModal: () => void;
   addToBasket: (checkoutItemData: CheckoutItemData) => void;
-  fetchGiftcardBackgroundImageList: (
-    companyId: number,
-    options?: OptionCallback<GiftcardBackgroundImage>,
-  ) => void;
+  // fetchGiftcardBackgroundImageList: (
+  //   companyId: number,
+  //   options?: OptionCallback<GiftcardBackgroundImage>,
+  // ) => void;
   goToPaymentPage: () => void;
 };
 
@@ -112,18 +112,18 @@ const QuicksaleInterface: React.FC<Props> = ({
   itemCardInfoList,
   availableSearchItemsInWholeConfig,
   goBackToSectionList,
-  addItemToBasket,
+  // addItemToBasket,
   removeItemFromBasket,
   dropQuicksaleBasket,
   openMemberAuthenticationModal,
-  giftcardById,
-  giftcardBackgroundImageList,
-  pendingItemToAdd,
+  // giftcardById,
+  // giftcardBackgroundImageList,
+  // pendingItemToAdd,
   onItemClick,
   showGiftcardFormModal,
   closeGiftcardFormModal,
   addToBasket,
-  fetchGiftcardBackgroundImageList,
+  // fetchGiftcardBackgroundImageList,
   goToPaymentPage,
 }) => {
   const { t } = useTranslation('quicksale');
@@ -351,7 +351,7 @@ const QuicksaleInterface: React.FC<Props> = ({
           </IconButton>
         </DialogTitle>
 
-        <GiftcardForm
+        {/*  <GiftcardForm
           addItemToBasket={addItemToBasket}
           closeGiftcardFormModal={closeGiftcardFormModal}
           company={theme.company}
@@ -367,7 +367,7 @@ const QuicksaleInterface: React.FC<Props> = ({
           pendingItemToAdd={pendingItemToAdd}
           setCurrentBasket={setCurrentBasket}
           showGiftcardFormModal={showGiftcardFormModal}
-        />
+        />  */}
       </GenericResponsiveDialog>
     </Grid>
   );

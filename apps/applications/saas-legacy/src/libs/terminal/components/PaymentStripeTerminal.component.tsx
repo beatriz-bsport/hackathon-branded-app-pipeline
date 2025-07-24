@@ -195,10 +195,12 @@ export type Props = {
   isSetupIntent?: boolean;
   onlySavePaymentMethod?: boolean;
   hideAmountToPay?: boolean;
+  hideSaveForLater?: boolean;
   children?: React.ReactNode;
   customClasses?: {
     [className: string]: string;
   };
+  loading?: boolean;
 };
 
 export const PaymentStripeTerminal: React.FC<Props> = ({
@@ -210,11 +212,13 @@ export const PaymentStripeTerminal: React.FC<Props> = ({
   children,
   onCancel,
   hideAmountToPay,
+  hideSaveForLater,
   paymentGroupPriceCts,
   updatePriceCts,
   paymentGroupId,
   onSuccess,
   onlySavePaymentMethod,
+  loading,
 }) => {
   const classes = useStyles();
   const { t } = useTranslation('invoice');
@@ -533,17 +537,21 @@ export const PaymentStripeTerminal: React.FC<Props> = ({
                 </React.Fragment>
               ))}
             </div>
-            <div className={classes.row}>
-              <Checkbox
-                checked={saveForLater}
-                color="primary"
-                disabled={!!isSetupIntent}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                  setSaveForLater(e.target.checked)
-                }
-              />
-              <Typography>{t('paymentPanel.actions.saveForLater')}</Typography>
-            </div>
+            {!hideSaveForLater && (
+              <div className={classes.row}>
+                <Checkbox
+                  checked={saveForLater}
+                  color="primary"
+                  disabled={!!isSetupIntent}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                    setSaveForLater(e.target.checked)
+                  }
+                />
+                <Typography>
+                  {t('paymentPanel.actions.saveForLater')}
+                </Typography>
+              </div>
+            )}
           </>
 
           {children || null}
@@ -551,7 +559,7 @@ export const PaymentStripeTerminal: React.FC<Props> = ({
           <div className={clsx(classes.actionRow, customClasses?.actionRow)}>
             <Button
               color="primary"
-              disabled={!clientSecret || !selectedReader}
+              disabled={!clientSecret || !selectedReader || loading}
               onClick={onConnectHandler}
               variant="contained"
             >

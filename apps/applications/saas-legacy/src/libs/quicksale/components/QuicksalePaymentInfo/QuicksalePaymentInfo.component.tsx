@@ -116,6 +116,8 @@ const QuicksalePaymentInfo: React.FC<Props> = ({
             stripeTerminalContainer: classes.stripeTerminalContainer,
             actionRow: classes.stripeTerminalActions,
           }}
+          hideSaveForLater={isMemberPOS}
+          loading={loading || basket?.is_finalized}
           onCancel={onCancel}
           onSuccess={onPaymentSuccess}
           paymentGroupId={paymentGroup}
@@ -138,6 +140,7 @@ const QuicksalePaymentInfo: React.FC<Props> = ({
           dateFieldEndAdornment={
             <Event className={classes.manualPaymentDateFieldIcon} />
           }
+          loading={loading || basket?.is_finalized}
           onCancel={onCancel}
           onSuccess={onPaymentSuccess}
           paymentMethodChoices={

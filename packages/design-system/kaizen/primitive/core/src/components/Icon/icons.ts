@@ -21,6 +21,7 @@ const icons = {
   "arrow-right": React.lazy(
     async () => await import("./assets/arrow-right.svg?react"),
   ),
+  "atom-02": React.lazy(async () => await import("./assets/atom-02.svg?react")),
   "award-03": React.lazy(
     async () => await import("./assets/award-03.svg?react"),
   ),
@@ -48,6 +49,9 @@ const icons = {
   "check-circle": React.lazy(
     async () => await import("./assets/check-circle.svg?react"),
   ),
+  "chevron-down-double": React.lazy(
+    async () => await import("./assets/chevron-down-double.svg?react"),
+  ),
   "chevron-down": React.lazy(
     async () => await import("./assets/chevron-down.svg?react"),
   ),
@@ -65,6 +69,9 @@ const icons = {
   ),
   "chevron-selector-vertical": React.lazy(
     async () => await import("./assets/chevron-selector-vertical.svg?react"),
+  ),
+  "chevron-up": React.lazy(
+    async () => await import("./assets/chevron-up.svg?react"),
   ),
   circle: React.lazy(async () => await import("./assets/circle.svg?react")),
   "clock-stopwatch": React.lazy(

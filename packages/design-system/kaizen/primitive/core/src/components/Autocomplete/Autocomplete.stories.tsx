@@ -45,6 +45,38 @@ const items = [
       { id: "japanese", label: "Japanese" },
       { id: "korean", label: "Korean" },
       { id: "chinese", label: "Chinese" },
+      { id: "hindi", label: "Hindi" },
+      { id: "thai", label: "Thai" },
+    ],
+  },
+  {
+    title: "Africa",
+    options: [
+      { id: "swahili", label: "Swahili" },
+      { id: "arabic", label: "Arabic" },
+      { id: "yoruba", label: "Yoruba" },
+      { id: "zulu", label: "Zulu" },
+      { id: "amharic", label: "Amharic" },
+    ],
+  },
+  {
+    title: "Americas",
+    options: [
+      { id: "spanish-americas", label: "Spanish" },
+      { id: "english-americas", label: "English" },
+      { id: "portuguese-brazil", label: "Portuguese (Brazil)" },
+      { id: "guarani", label: "Guarani" },
+      { id: "quechua", label: "Quechua" },
+    ],
+  },
+  {
+    title: "Oceania",
+    options: [
+      { id: "english-oceania", label: "English" },
+      { id: "maori", label: "Maori" },
+      { id: "samoan", label: "Samoan" },
+      { id: "tongan", label: "Tongan" },
+      { id: "fijian", label: "Fijian" },
     ],
   },
 ];
@@ -119,11 +151,14 @@ export const AutocompleteCustomOnChange: Story = {
     };
 
     return (
-      <Autocomplete
-        {...args}
-        items={filteredItems}
-        onValueChange={handleChange}
-      />
+      <div className="flex flex-col gap-md">
+        <div className="h-[700px] bg-[#777]"></div>
+        <Autocomplete
+          {...args}
+          items={filteredItems}
+          onValueChange={handleChange}
+        />
+      </div>
     );
   },
   args: {

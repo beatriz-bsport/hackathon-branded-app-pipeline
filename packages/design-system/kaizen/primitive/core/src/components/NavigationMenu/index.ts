@@ -1,8 +1,8 @@
 export type { NavigationMenuProps } from "./NavigationMenu";
 export type {
-  NavigationMenuElement,
   NavigationMenuItem,
   NavigationMenuDivider,
   NavigationMenuGroup,
+  NavigationMenuElement,
 } from "./types";
 export { default } from "./NavigationMenu";

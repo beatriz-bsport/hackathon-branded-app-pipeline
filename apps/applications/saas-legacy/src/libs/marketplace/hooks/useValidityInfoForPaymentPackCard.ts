@@ -15,11 +15,18 @@ export const useValidityInfoForPaymentPackCard = (
   const { t } = useTranslation('marketplace');
 
   if (packValidityInfo?.dateRange) {
-    return t('genericCard.validForDuration.validFromTo', {
-      duration_date_start: formatAsDate(packValidityInfo?.dateRange.lower),
-      duration_date_end: formatAsDate(packValidityInfo?.dateRange.upper),
-      interpolation: { escapeValue: false },
-    });
+    try {
+      // @ts-expect-error One of these days, we will have a type for this
+      const validityDateRange = JSON.parse(packValidityInfo.dateRange);
+      return t('genericCard.validForDuration.validFromTo', {
+        duration_date_start: formatAsDate(validityDateRange.lower),
+        duration_date_end: formatAsDate(validityDateRange.upper),
+        interpolation: { escapeValue: false },
+      });
+    } catch (error) {
+      console.error('Failed to parse dateRange:', error);
+      return null;
+    }
   }
 
   if (
@@ -115,14 +122,18 @@ export const useValidityInfoForPaymentPackCard = (
     });
   }
 
-  if (!packValidityInfo?.dateRange && packValidityInfo?.startDateMethod) {
-    if (packValidityInfo?.startDateMethod === START_ON_FIRST_BOOKING) {
+  if (
+    !packValidityInfo?.dateRange &&
+    packValidityInfo?.startDateMethod !== undefined &&
+    packValidityInfo?.startDateMethod !== null
+  ) {
+    if (packValidityInfo.startDateMethod === START_ON_FIRST_BOOKING) {
       return t('genericCard.validForDuration.booking');
     }
-    if (packValidityInfo?.startDateMethod === START_ON_FIRST_ATTENDANCE) {
+    if (packValidityInfo.startDateMethod === START_ON_FIRST_ATTENDANCE) {
       return t('genericCard.validForDuration.attendance');
     }
-    if (packValidityInfo?.startDateMethod === START_ON_PURCHASE) {
+    if (packValidityInfo.startDateMethod === START_ON_PURCHASE) {
       return t('genericCard.validForDuration.purchase');
     }
   }

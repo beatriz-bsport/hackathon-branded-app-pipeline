@@ -10,7 +10,6 @@ import customWithProvider from './customwidthProvider';
 
 const ResponsiveGridLayout = customWithProvider(Responsive);
 const ROW_HEIGHT_FOR_CSS_ONLY_FIELD = 85;
-const ROW_HEIGHT_FOR_MUI_FIELD = 50;
 
 type Props = {
   children: React.ReactNode;
@@ -19,7 +18,6 @@ type Props = {
   onLayoutChange?: (l: Array<Layout>, allLayouts: ResponsiveLayouts) => void;
   customProviderWidth?: number;
   measureBeforeMount?: boolean;
-  isCssVariantActivated?: boolean;
   rowHeight?: number;
 };
 
@@ -32,7 +30,6 @@ const ResponsiveGridLayoutWrapper: React.FC<Props> = ({
   onLayoutChange,
   customProviderWidth,
   measureBeforeMount,
-  isCssVariantActivated,
   rowHeight,
 }) => {
   const theme = useTheme();
@@ -51,11 +48,8 @@ const ResponsiveGridLayoutWrapper: React.FC<Props> = ({
   );
 
   const layoutRowHeight = React.useMemo(() => {
-    if (!isCssVariantActivated) {
-      return ROW_HEIGHT_FOR_MUI_FIELD;
-    }
     return rowHeight ?? ROW_HEIGHT_FOR_CSS_ONLY_FIELD;
-  }, [rowHeight, isCssVariantActivated]);
+  }, [rowHeight]);
   // We need to check both that the layout exists and if there are at least 4 breakpoints defined (otherwise
   // things are not going to work properly)
   if (!layouts || Object.keys(layouts)?.length !== 4) {

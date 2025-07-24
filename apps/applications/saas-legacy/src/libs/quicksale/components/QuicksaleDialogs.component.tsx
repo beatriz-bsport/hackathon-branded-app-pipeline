@@ -53,11 +53,7 @@ type Props = {
   // Modal to confirm the payment has been accepted
   showPaymentSuccessModal?: boolean;
   closePaymentSuccessModal?: () => void;
-
-  // Modal to confirm the payment has been accepted for
-  // the POS member
-  showAnonymousPaymentSuccessModal?: boolean;
-  closeAnonymousPaymentSuccessModal?: () => void;
+  qrCodeValue?: string;
 
   // Modal to confirm the invoice has been sent by email
   showInvoiceSentModal?: boolean;
@@ -99,8 +95,7 @@ const QuicksaleDialogs: React.FC<Props> = ({
   closeAddItemConfirmationModal,
   showPaymentSuccessModal,
   closePaymentSuccessModal,
-  showAnonymousPaymentSuccessModal,
-  closeAnonymousPaymentSuccessModal,
+  qrCodeValue,
   showInvoiceSentModal,
   closeInvoiceSentModal,
   showPaymentSetForLaterModal,
@@ -266,22 +261,11 @@ const QuicksaleDialogs: React.FC<Props> = ({
           namespaces="quicksale"
           onClose={closePaymentSuccessModal}
           open={showPaymentSuccessModal}
-          subTexts={[['quicksale:checkout.paymentSuccess.subText']]}
-          title="quicksale:checkout.paymentSuccess.title"
-        />
-      )}
-
-      {showAnonymousPaymentSuccessModal !== undefined && (
-        <DialogWithBigIcon
-          withCross
-          withoutBackground
-          CustomIcon={ValidationIcon}
-          customIconFillOpacity={0.08}
-          iconColor={QuicksaleInterfaceModalColors.Success}
-          namespaces="quicksale"
-          onClose={closeAnonymousPaymentSuccessModal}
-          open={showAnonymousPaymentSuccessModal}
-          subTexts={[['quicksale:checkout.paymentSuccess.subTextAnonymous']]}
+          QrCodeProps={{
+            value: qrCodeValue || '',
+            title: 'quicksale:checkout.paymentSuccess.qrCodeTitle',
+          }}
+          subTexts={[['quicksale:checkout.paymentSuccess.description']]}
           title="quicksale:checkout.paymentSuccess.title"
         />
       )}

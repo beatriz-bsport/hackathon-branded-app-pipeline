@@ -9,13 +9,15 @@ import { QuicksalePaymentMethod } from '#src/libs/quicksale/constants';
 import useFeaturesProvider from '#src/libs/company/hooks/feature-list-provider.hook';
 import { requestClientSecret as requestClientSecretAPI } from '#src/libs/invoice/api';
 
+import type { Basket } from '#src/libs/checkout/types';
+
 type UseQuicksalePaymentsProps = {
-  basketId: string;
+  basket: Basket;
   setLoading: (loading: boolean) => void;
 };
 
 const useQuicksalePayments = ({
-  basketId,
+  basket,
   setLoading,
 }: UseQuicksalePaymentsProps) => {
   const [clientSecret, setClientSecret] = useState<string | null>(null);
@@ -57,10 +59,10 @@ const useQuicksalePayments = ({
 
   // ========== Fetch/Refresh Payment Group ==========
   const fetchOrRefreshPaymentGroup = useCallback(() => {
-    if (paymentEngine !== null) {
+    if (paymentEngine !== null && basket) {
       setLoading(true);
       requestClientSecretAPI(paymentEngine, PAYMENT_INTENT_TYPE_BASKET, {
-        basket: basketId,
+        basket: basket.id,
         is_physical_payment_intent:
           paymentMethod === QuicksalePaymentMethod.StripeTerminal,
       })
@@ -75,7 +77,7 @@ const useQuicksalePayments = ({
           setLoading(false);
         });
     }
-  }, [basketId, paymentEngine, paymentMethod, setLoading]);
+  }, [basket, paymentEngine, paymentMethod, setLoading]);
 
   useEffect(() => {
     if (availablePaymentMethods.length > 0) {
@@ -85,7 +87,7 @@ const useQuicksalePayments = ({
 
   useEffect(() => {
     fetchOrRefreshPaymentGroup();
-  }, [basketId, fetchOrRefreshPaymentGroup]);
+  }, [basket?.id, fetchOrRefreshPaymentGroup]);
 
   return {
     clientSecret,

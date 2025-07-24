@@ -161,7 +161,9 @@ const BottomBarIcons: React.FC<Props> = ({
     const shouldShowSmsWarning =
       communicationIdentifier !== CONTEXT_MEMBER && actionType === WRITE_SMS;
     const shouldShowRecipientsWarning =
-      communicationIdentifier === CONTEXT_SMARTLIST && !hasRecipientsListLoaded;
+      communicationIdentifier === CONTEXT_SMARTLIST &&
+      !hasRecipientsListLoaded &&
+      !scheduledCommunicationDraft;
     if (!shouldShowSmsWarning && !shouldShowRecipientsWarning) {
       sendMessage();
     }
@@ -178,6 +180,7 @@ const BottomBarIcons: React.FC<Props> = ({
     communicationIdentifier,
     handleDisplaySmsWarning,
     handleDisplayRecipientsWarning,
+    scheduledCommunicationDraft,
   ]);
 
   const handleCloseCommunicationWarningModal = useCallback(() => {
@@ -269,6 +272,9 @@ const BottomBarIcons: React.FC<Props> = ({
                   shouldDisplayRecipientsWarning ? (
                     <CommunicationWarningModal
                       handleClose={handleCloseCommunicationWarningModal}
+                      isEditingScheduledCommunication={
+                        !!scheduledCommunicationDraft && isMessageSchedulingOpen
+                      }
                       recipientsPreviewWarning={shouldDisplayRecipientsWarning}
                       sendMessageOnClick={handleValidateSendCommunication}
                       smsWarning={shouldDisplaySmsCostWarning}

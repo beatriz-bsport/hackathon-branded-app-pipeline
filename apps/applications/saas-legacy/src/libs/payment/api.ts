@@ -1,26 +1,26 @@
 import type { AxiosResponse } from 'axios';
 import type {
+  BookkeepingAccount,
   CreatePaymentAttemptResponsePayload,
   DetachPaymentMethodPayload,
   DetachPaymentMethodResponse,
+  fetchBookkeepingAccountListFilter,
   InternalPaymentPayload,
   PaymentGroup,
   PaymentMethod,
   StripeBalance,
-  BookkeepingAccount,
-  fetchBookkeepingAccountListFilter,
   StripePayout,
 } from '#src/libs/payment/types';
 import type { BillingDetails } from '#src/libs/marketplace/types';
 import {
-  getAuth,
-  post,
-  postAuth,
   buildUrlParams,
   deleteAuth,
+  getAuth,
   patchAuth,
-} from '../../http';
-import Config from '../../config';
+  post,
+  postAuth,
+} from '#src/http';
+import Config from '#src/config';
 
 const API_V1_URI = Config.REACT_APP_BASE_URI_FINANCIAL_SERVICES_V1;
 const API_URI_BUSINESS_INSIGHTS =
@@ -111,6 +111,10 @@ export const submitInternalPaymentInBackground = (
     `${API_V1_URI}/payment/payment_group/${id}/handle_internal_payment_in_background_task/`,
     data,
   );
+};
+
+export const getPaymentGroup = async (id: number) => {
+  return getAuth<PaymentGroup>(`${API_V1_URI}/payment/payment_group/${id}/`);
 };
 
 export const getPaymentGroupStatus = async (id: number) => {

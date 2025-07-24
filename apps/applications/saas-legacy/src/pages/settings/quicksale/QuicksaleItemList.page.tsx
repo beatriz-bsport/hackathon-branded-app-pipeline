@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { compose } from 'recompose';
-import { ConnectedProps, connect } from 'react-redux';
+import { connect, ConnectedProps } from 'react-redux';
 import isEqual from 'lodash/isEqual';
 import { push } from 'connected-react-router';
 
@@ -13,14 +13,14 @@ import DialogContent from '@material-ui/core/DialogContent';
 import IconButton from '@material-ui/core/IconButton';
 import Close from '@material-ui/icons/Close';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import { Theme, makeStyles, useMediaQuery } from '@material-ui/core';
+import { makeStyles, Theme, useMediaQuery } from '@material-ui/core';
 
 import { QuicksaleBasketItem } from '@bsport/common/lib/master-data/buyable-items.js';
 import {
   QuicksaleCardInfo,
   QuicksaleItem,
-  QuicksaleSection,
   QuicksaleItemsByItemIdentifierByCategory,
+  QuicksaleSection,
 } from '#src/libs/quicksale/types';
 import { QuicksaleItemColor } from '#src/libs/quicksale/constants';
 import {
@@ -60,7 +60,7 @@ import QuicksaleItemAdditionDrawer from '#src/libs/quicksale/components/Quicksal
 import withDatatypeDynamicData from '#src/libs/datatype-filtering/dynamic-data-hoc';
 import { DynamicFilterDataType } from '#src/libs/datatype-filtering/types';
 import useGlobalStyles from './cardListHook';
-import { RootState } from '../../../reducers';
+import { RootState } from '#src/reducers';
 
 type ReducerAction =
   | { type: 'SET_ITEMS' | 'ADD_MANY_ITEMS'; payload: Array<QuicksaleCardInfo> }
@@ -74,6 +74,10 @@ type ReducerAction =
   | {
       type: 'DELETE_ITEM';
       payload: { itemId: string };
+    }
+  | {
+      type: 'REORDER_ITEMS';
+      payload: { draggedItemIndex: number; dropzoneIndex: number };
     };
 
 type OwnProps = {
@@ -146,6 +150,17 @@ const QuicksaleItemList: React.FC<Props> = (props) => {
           });
         case 'DELETE_ITEM':
           return state.filter((item) => item.id !== action.payload.itemId);
+        case 'REORDER_ITEMS': {
+          const { draggedItemIndex, dropzoneIndex } = action.payload;
+
+          // Simple array reordering logic
+          const newItemList = [...state];
+          const [movedItem] = newItemList.splice(draggedItemIndex, 1);
+          newItemList.splice(dropzoneIndex, 0, movedItem);
+
+          return newItemList;
+        }
+
         default:
           return state;
       }
@@ -245,6 +260,16 @@ const QuicksaleItemList: React.FC<Props> = (props) => {
       payload: { itemId },
     });
   }, []);
+
+  const onItemReorder = React.useCallback(
+    (draggedItemIndex: number, dropzoneIndex: number) => () => {
+      dispatch({
+        type: 'REORDER_ITEMS',
+        payload: { draggedItemIndex, dropzoneIndex },
+      });
+    },
+    [],
+  );
 
   // ==================== Item addition management ====================
   const [showItemAdditionDrawer, setShowItemAdditionDrawer] =
@@ -379,7 +404,7 @@ const QuicksaleItemList: React.FC<Props> = (props) => {
   // Redirect to configuration main page if section not found
   React.useEffect(() => {
     if (!loading && sectionList?.length > 0 && currentSection === undefined)
-      pushRouter('/settings/quicksale/configuration');
+      pushRouter('/settings/quicksale');
   }, [currentSection, loading, pushRouter, sectionList]);
 
   // Fetch configuration and objects
@@ -434,7 +459,7 @@ const QuicksaleItemList: React.FC<Props> = (props) => {
   }, [saveConfiguration, sectionId, sectionList, unsavedItemList]);
 
   const onGoBackClick = React.useCallback(() => {
-    pushRouter('/settings/quicksale/configuration');
+    pushRouter('/settings/quicksale');
   }, [pushRouter]);
 
   return (
@@ -497,6 +522,7 @@ const QuicksaleItemList: React.FC<Props> = (props) => {
               deleteItem={onItemDelete}
               itemList={unsavedItemList}
               loading={loading}
+              onItemReorder={onItemReorder}
               openAddItemDrawer={openItemAdditionDrawer}
               openColorModal={openColorModal}
             />

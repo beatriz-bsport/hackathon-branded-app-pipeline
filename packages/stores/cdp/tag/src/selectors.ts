@@ -37,3 +37,16 @@ export const selectTagMappedByTagId = (state: TagState) => {
     {} as Record<number, (typeof tags)[number]>,
   );
 };
+
+export const selectTagById = (state: TagState, tagId: number) => {
+  const { tags } = state;
+  return tags.find((tag) => tag.id === tagId) || null;
+};
+
+export const selectTagUsageMap = (state: TagState) => {
+  return state.tagUsageById;
+};
+
+export const selectTagUsageById = (state: TagState, tagId: number) => {
+  return state.tagUsageById[tagId];
+};

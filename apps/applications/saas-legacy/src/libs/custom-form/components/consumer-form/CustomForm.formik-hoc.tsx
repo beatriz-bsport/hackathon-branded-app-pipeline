@@ -29,7 +29,6 @@ import type {
 import GridLayoutWrapper from '../consumer-form-layout/GridLayoutWrapper.component';
 import WidgetUtils from '#src/libs/widget/WidgetUtils';
 import { convertBlobToBase64 } from '#src/libs/utils';
-import { useCssVariantActivated } from '#src/libs/custom-form/hooks/useCssVariantActivated';
 
 type OwnProps = {
   layouts?: ResponsiveLayouts;
@@ -63,7 +62,6 @@ export const ConsumerFormFields = (props: Props) => {
     ...restProps
   } = props;
   /* eslint-disable */
-  const isCssVariantActivated = useCssVariantActivated();
 
   return (
     <FieldArray name="custom_form_field">
@@ -75,7 +73,6 @@ export const ConsumerFormFields = (props: Props) => {
         <>
           <GridLayoutWrapper
             customProviderWidth={props.customProviderWidth}
-            isCssVariantActivated={isCssVariantActivated}
             isEditing={props.isEditing}
             layouts={props.layouts}
             measureBeforeMount={measureBeforeMount}
@@ -96,7 +93,6 @@ export const ConsumerFormFields = (props: Props) => {
                           {...restProps}
                           field={field}
                           index={i}
-                          isCssVariantActivated={isCssVariantActivated}
                         />
                       )}
                     </FastField>
@@ -113,7 +109,6 @@ export const ConsumerFormFields = (props: Props) => {
                         {...restProps}
                         field={field}
                         index={i}
-                        isCssVariantActivated={isCssVariantActivated}
                       />
                     </div>
                   );

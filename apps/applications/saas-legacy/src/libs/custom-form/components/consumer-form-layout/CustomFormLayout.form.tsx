@@ -22,7 +22,6 @@ import {
 import { Layout, CustomForm, ResponsiveLayouts } from '../../types';
 import { layoutsBuilder } from '../../utils';
 import CustomFormSkeleton from '../CustomFormSkeleton.component';
-import { useCssVariantActivated } from '../../hooks/useCssVariantActivated';
 
 type OwnProps = {
   asManager: Boolean;
@@ -151,7 +150,6 @@ export const CustomFormLayoutView = (props: Props) => {
     return marks.findIndex((mark) => mark.value === value) + 1;
   };
 
-  const isCssVarientActivated = useCssVariantActivated();
   return (
     <div>
       {initial?.custom_form_field ? (
@@ -254,6 +252,7 @@ export const CustomFormLayoutView = (props: Props) => {
                   ) : (
                     <ConsumerFormFields
                       {...props}
+                      shouldWrapLayerInCssHoc
                       customProviderWidth={containerWidth}
                       isEditing={isEditing}
                       layouts={layouts}
@@ -263,7 +262,6 @@ export const CustomFormLayoutView = (props: Props) => {
                           ? initial?.layout_configuration?.row_height
                           : null
                       }
-                      shouldWrapLayerInCssHoc={isCssVarientActivated}
                     />
                   )}
                 </div>

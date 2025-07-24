@@ -35,6 +35,7 @@ type Props = {
   instalmentPaymentConfigurationList?: InstalmentPaymentApiWithBasketId[];
   instalmentPaymentSelectedId?: number;
   isMemberPOS?: boolean;
+  isProcessing?: boolean;
   loading?: boolean;
   onCancel?: () => void;
   onPaymentSuccess: (callabck?: () => void) => void;
@@ -73,6 +74,7 @@ const QuicksalePaymentInfo: React.FC<Props> = ({
   instalmentPaymentConfigurationList,
   instalmentPaymentSelectedId,
   isMemberPOS,
+  isProcessing,
   loading,
   onCancel,
   onPaymentSuccess,
@@ -105,7 +107,7 @@ const QuicksalePaymentInfo: React.FC<Props> = ({
         }}
         paymentMethodChoices={availablePaymentMethods ?? []}
         paymentMethodSelected={selectedPaymentMethod}
-        paymentProcessing={loading}
+        paymentProcessing={loading || isProcessing}
         selectPaymentMethod={setSelectedPaymentMethod}
       />
 
@@ -118,7 +120,7 @@ const QuicksalePaymentInfo: React.FC<Props> = ({
             actionRow: classes.stripeTerminalActions,
           }}
           hideSaveForLater={isMemberPOS}
-          loading={loading || basket?.is_finalized}
+          loading={loading || basket?.is_finalized || isProcessing}
           onCancel={onCancel}
           onSuccess={onPaymentSuccess}
           paymentGroupId={paymentGroup}
@@ -141,8 +143,9 @@ const QuicksalePaymentInfo: React.FC<Props> = ({
           // dateFieldEndAdornment={
           //   <Event className={classes.manualPaymentDateFieldIcon} />
           // }
-          loading={loading || basket?.is_finalized}
+          loading={loading || basket?.is_finalized || isProcessing}
           onCancel={onCancel}
+          onProcessing={setIsProcessing}
           onSuccess={onPaymentSuccess}
           paymentMethodChoices={PAYMENT_GROUP_METHOD_BY_ENGINE[
             PAYMENT_ENGINE_BSPORT

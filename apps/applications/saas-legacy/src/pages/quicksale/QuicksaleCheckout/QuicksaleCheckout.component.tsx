@@ -150,6 +150,7 @@ const QuicksaleCheckout: React.FC<Props> = ({
       <Button
         className={classes.goBackButton}
         color="default"
+        disabled={loading || isProcessing}
         onClick={goBack}
         startIcon={<ArrowBack />}
         variant="outlined"
@@ -164,6 +165,7 @@ const QuicksaleCheckout: React.FC<Props> = ({
             date={date}
             invoiceFootNote={invoiceFootNote}
             isExcludingTax={theme.is_tax_excluded_in_marketplace}
+            isProcessing={isProcessing}
             member={member}
             onCouponRemove={removeCoupon}
             openMemberAuthenticationModal={openMemberAuthenticationModal}
@@ -221,6 +223,7 @@ const QuicksaleCheckout: React.FC<Props> = ({
             }
             instalmentPaymentSelectedId={basket.instalment_payment}
             isMemberPOS={member.is_pos}
+            isProcessing={isProcessing}
             loading={loading}
             onCancel={goBack}
             onPaymentSuccess={onPaymentSuccess}

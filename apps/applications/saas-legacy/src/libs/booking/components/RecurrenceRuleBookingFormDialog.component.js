@@ -22,6 +22,7 @@ type Props = {
   isSubmitting: boolean,
   metaActivityList: MetaActivity[],
   offersWithCancelledBookingsLoading: boolean,
+  companyId?: number,
 };
 
 export const RecurrenceRuleBookingFormDialog = (props: Props) => {

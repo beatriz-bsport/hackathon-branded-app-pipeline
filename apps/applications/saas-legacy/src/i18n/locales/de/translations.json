@@ -10315,7 +10315,7 @@
             },
             "form": {
                 "delayWeek": {
-                    "helperText": "Gibt an, wie viele Wochen im Voraus das Mitglied registriert wird (maximal 8 Wochen)",
+                    "helperText": "Gibt an, wie viele Wochen im Voraus das Mitglied registriert wird (maximal {{delayWeek}} Wochen)",
                     "label": "Anzahl der Wochen"
                 },
                 "metaActivity": {

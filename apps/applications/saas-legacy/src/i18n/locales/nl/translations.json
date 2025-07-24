@@ -7813,7 +7813,7 @@
             "form": {
                 "title": "[Formulier] Periodieke reservering",
                 "delayWeek": {
-                    "helperText": "Een lid kan tot maximaal 8 weken in de toekomst worden ingeboekt (maximaal 8 weken)",
+                    "helperText": "Een lid kan tot maximaal {{delayWeek}} weken in de toekomst worden ingeboekt (maximaal {{delayWeek}} weken)",
                     "label": "Aantal weken"
                 },
                 "metaActivity": {

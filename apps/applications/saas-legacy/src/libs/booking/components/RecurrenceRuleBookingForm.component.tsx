@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import * as Yup from 'yup';
-import { withFormik } from 'formik';
+import { useFormikContext, withFormik } from 'formik';
 import { useTranslation } from 'react-i18next';
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -13,29 +13,68 @@ import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { Alert } from '@material-ui/lab';
 
-import MetaActivitySelectorField from '../../meta-activity/components/MetaActivitySelectorField.component';
+// @ts-expect-error
+import MetaActivitySelectorField from '#src/libs/meta-activity/components/MetaActivitySelectorField.component';
+// @ts-expect-error
 import EstablishmentSelectorField from '../../establishment/components/EstablishmentSelectorField.component';
 
+// @ts-expect-error
 import { IntegerField, SelectField } from '../../../components/forms';
+import Config from '#src/config';
+
+import {
+  RECURRENCE_RULE_BOOKING_52_WEEKS_ALLOWLIST_BY_ENV,
+  RECURRENT_BOOKING_MAX_DELAY_52_WEEKS,
+  RECURRENT_BOOKING_MAX_DELAY_8_WEEKS,
+} from '#src/libs/booking/components/constants';
+import { MetaActivity } from '#src/libs/meta-activity/types';
+import { Establishment } from '#src/api/types';
+
+type InitialRecurrenceRuleBooking = {
+  day_of_week: number;
+  minute: number;
+  hour: number;
+  delay_week: number;
+  meta_activity: MetaActivity | null;
+  establishment: Establishment | null;
+  notify_if_booked: boolean;
+};
+
+type RecurrenceRuleBooking = {
+  day_of_week: number;
+  minute: number;
+  hour: number;
+  delay_week: number;
+  meta_activity: number | null;
+  establishment: number | null;
+  notify_if_booked: boolean;
+};
 
 type Props = {
-  values: {
-    day_of_week: number,
-    minute: number,
-    hour: number,
-    delay_week: number,
-    meta_activity: number,
-    establishment: number,
-    notify_if_booked: boolean,
-  },
-  offerSet: boolean,
-  memberSet: boolean,
-  metaActivityList: Array,
-  setFieldValue: () => void,
-  initial: Object,
-  establishmentList: Array<Establishment>,
-  hasActivityGroups: boolean,
-  showCreateBookingWarning: boolean,
+  values: RecurrenceRuleBooking;
+  offerSet: boolean;
+  memberSet: boolean;
+  metaActivityList: Array<MetaActivity>;
+  setFieldValue: <T>(field: string, value: T) => void;
+  initial?: InitialRecurrenceRuleBooking;
+  establishmentList: Array<Establishment>;
+  hasActivityGroups: boolean;
+  showCreateBookingWarning: boolean;
+  fetchGroupsOfferList?: (params: {
+    meta_activity__in: number[];
+    page: number;
+    page_size: number;
+  }) => void;
+
+  companyId: number;
+  // eslint-disable-next-line react/no-unused-prop-types
+  onSubmit: (
+    values: RecurrenceRuleBooking,
+    options: {
+      onSuccess: () => void;
+      onError: (error: any) => void;
+    },
+  ) => void;
 };
 
 const RecurrenceRuleBookingForm: React.FC<Props> = ({
@@ -49,25 +88,42 @@ const RecurrenceRuleBookingForm: React.FC<Props> = ({
   hasActivityGroups = false,
   setFieldValue,
   showCreateBookingWarning,
+  companyId,
 }) => {
   const { t } = useTranslation(['booking', 'datetime']);
   const classes = useStyles();
   const [checked, setChecked] = useState(
     initial ? initial.notify_if_booked : false,
   );
+  const { errors } = useFormikContext();
 
   const handleChangeChecked = (event: React.ChangeEvent<HTMLInputElement>) => {
     setChecked(event.target.checked);
     setFieldValue('notify_if_booked', event.target.checked);
   };
 
+  const processError = (error: any) => {
+    if (!error) return null;
+    if (
+      error?.response?.data?.non_field_errors?.[0]?.includes(
+        'must make a unique set',
+      )
+    ) {
+      return 'booking:recurrenceRule.form.duplicateError';
+    }
+    return 'booking:recurrenceRule.form.globalError';
+  };
+
   useEffect(() => {
     fetchGroupsOfferList?.({
-      meta_activity__in: [values.meta_activity],
+      meta_activity__in: values.meta_activity ? [values.meta_activity] : [],
       page: 1,
       page_size: 1,
     });
   }, [values.meta_activity, fetchGroupsOfferList]);
+
+  // @ts-expect-error
+  const errorLabel = processError(errors?.global);
 
   return (
     <div>
@@ -78,7 +134,7 @@ const RecurrenceRuleBookingForm: React.FC<Props> = ({
             <SelectField
               choices={[0, 1, 2, 3, 4, 5, 6]}
               disabled={offerSet}
-              itemRenderer={(c) => (
+              itemRenderer={(c: number) => (
                 <MenuItem key={c} value={c}>
                   {t(`datetime:time.weekdayNumber.${c}`)}
                 </MenuItem>
@@ -123,20 +179,22 @@ const RecurrenceRuleBookingForm: React.FC<Props> = ({
           noMulti
           required
           disabled={offerSet || memberSet}
-          helperText={(days) =>
+          helperText={(days: number) =>
             t('booking:recurrenceRule.blockedBookings', { days })
           }
           id="meta_activity"
           label={t('booking:recurrenceRule.form.metaActivity.label')}
           metaActivityList={metaActivityList}
           name="meta_activity"
-          showHelperText={(days) => days > values.delay_week * 7}
+          showHelperText={(days: number) => days > values.delay_week * 7}
         />
       </div>
       <div className={classes.field}>
         <IntegerField
           required
-          helperText={t('booking:recurrenceRule.form.delayWeek.helperText')}
+          helperText={t('booking:recurrenceRule.form.delayWeek.helperText', {
+            delayWeek: getMaxDelayWeek(companyId),
+          })}
           id="delay_week"
           label={t('booking:recurrenceRule.form.delayWeek.label')}
           name="delay_week"
@@ -179,6 +237,7 @@ const RecurrenceRuleBookingForm: React.FC<Props> = ({
           {t('booking:recurrenceRule.form.permissionWarning')}
         </Alert>
       )}
+      {errorLabel && <Alert severity="error">{t(errorLabel)}</Alert>}
     </div>
   );
 };
@@ -208,18 +267,34 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const RecurrenceRuleBookingSchema = Yup.object().shape({
-  day_of_week: Yup.number().min(0).max(6).required(),
-  minute: Yup.number().min(0).max(59).required(),
-  hour: Yup.number().min(0).max(23).required(),
-  delay_week: Yup.number().min(1).max(8).required(),
-  meta_activity: Yup.number().required(),
-  establishment: Yup.number().nullable(),
-  notify_if_booked: Yup.boolean(),
-});
+const getMaxDelayWeek = (companyId: number) => {
+  type EnvKey = 'local' | 'dev' | 'staging' | 'production';
+  const environment: EnvKey =
+    (Config.REACT_APP_SENTRY_ENVIRONMENT as EnvKey) || 'production';
+  const allowlistedCompanies =
+    RECURRENCE_RULE_BOOKING_52_WEEKS_ALLOWLIST_BY_ENV[environment] || [];
+  return allowlistedCompanies.includes(companyId)
+    ? RECURRENT_BOOKING_MAX_DELAY_52_WEEKS
+    : RECURRENT_BOOKING_MAX_DELAY_8_WEEKS;
+};
+
+const recurrenceRuleBookingSchema = (props: Props) => {
+  return Yup.object().shape({
+    day_of_week: Yup.number().min(0).max(6).required(),
+    minute: Yup.number().min(0).max(59).required(),
+    hour: Yup.number().min(0).max(23).required(),
+    delay_week: Yup.number()
+      .min(1)
+      .max(getMaxDelayWeek(props.companyId))
+      .required(),
+    meta_activity: Yup.number().required(),
+    establishment: Yup.number().nullable(),
+    notify_if_booked: Yup.boolean(),
+  });
+};
 
 export const RecurrenceRuleBookingFormikHOC = withFormik({
-  mapPropsToValues: ({ initial }) =>
+  mapPropsToValues: ({ initial }: Props): RecurrenceRuleBooking =>
     initial
       ? {
           ...initial,
@@ -240,13 +315,15 @@ export const RecurrenceRuleBookingFormikHOC = withFormik({
           meta_activity: null,
           notify_if_booked: false,
         },
-  validationSchema: RecurrenceRuleBookingSchema,
-  handleSubmit: (values, { props: { onSubmit }, setSubmitting }) => {
+  validationSchema: recurrenceRuleBookingSchema,
+  handleSubmit: (values, { props: { onSubmit }, setSubmitting, setErrors }) => {
     onSubmit(values, {
       onSuccess: () => {
         setSubmitting(false);
       },
-      onError: () => {
+      onError: (e) => {
+        // @ts-expect-error
+        setErrors({ global: e });
         setSubmitting(false);
       },
     });

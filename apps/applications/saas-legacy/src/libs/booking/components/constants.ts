@@ -1,2 +1,17 @@
 export const BOOKING_CREATED_BY_STAFF = 10;
 export const BOOKING_CANCELLED_BY_STAFF = 11;
+
+// TODO: Remove this when the feature is fully released
+export const RECURRENT_BOOKING_MAX_DELAY_52_WEEKS = 52;
+export const RECURRENT_BOOKING_MAX_DELAY_8_WEEKS = 8;
+
+const DEV_MAIN_COMPANY_ID = 2;
+const STAGING_YOGA_COMPANY_ID = 6;
+const PROD_BSPORT_COMPANY_ID = 72;
+
+export const RECURRENCE_RULE_BOOKING_52_WEEKS_ALLOWLIST_BY_ENV = {
+  local: [DEV_MAIN_COMPANY_ID],
+  dev: [DEV_MAIN_COMPANY_ID],
+  staging: [STAGING_YOGA_COMPANY_ID],
+  production: [PROD_BSPORT_COMPANY_ID],
+};

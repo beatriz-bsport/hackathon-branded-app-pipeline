@@ -30521,7 +30521,8 @@ snapshots:
 
   fflate@0.4.8: {}
 
-  fflate@0.8.2: {}
+  fflate@0.8.2:
+    optional: true
 
   figgy-pudding@3.5.2: {}
 
@@ -38149,6 +38150,7 @@ snapshots:
       '@polka/url': 1.0.0-next.28
       mrmime: 2.0.0
       totalist: 3.0.1
+    optional: true
 
   sisteransi@1.0.5: {}
 

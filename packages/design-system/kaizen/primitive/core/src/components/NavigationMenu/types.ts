@@ -10,9 +10,7 @@ export type BaseItem = {
 
 export type NavigationMenuItem = BaseItem & {
   icon?: IconName;
-  subItems?: BaseItem[];
   endSlot?: React.ReactNode;
-  type?: "item";
 };
 
 export type NavigationMenuDivider = {
@@ -25,6 +23,6 @@ export type NavigationMenuGroup = {
 };
 
 export type NavigationMenuElement =
-  | NavigationMenuDivider
   | NavigationMenuItem
+  | NavigationMenuDivider
   | NavigationMenuGroup;

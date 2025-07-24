@@ -131,10 +131,10 @@ export {
 export {
   default as NavigationMenu,
   type NavigationMenuProps,
-  type NavigationMenuElement,
   type NavigationMenuItem,
   type NavigationMenuDivider,
   type NavigationMenuGroup,
+  type NavigationMenuElement,
 } from "./components/NavigationMenu";
 export {
   default as NestedSortableList,

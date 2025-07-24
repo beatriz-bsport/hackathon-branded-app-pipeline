@@ -1,4 +1,3 @@
-import keyBy from "lodash/keyBy";
 import React, {
   Dispatch,
   MouseEvent,
@@ -9,10 +8,9 @@ import React, {
   useState,
 } from "react";
 
-import type { BaseItem, NavigationMenuItem } from "./types";
+import type { BaseItem } from "./types";
 
 const Context = createContext<{
-  itemsById: { [id: string]: NavigationMenuItem };
   onItemClick?: (item: BaseItem) => (e: MouseEvent) => void;
   openMenuId: string;
   setSelectedItemId: Dispatch<SetStateAction<string>>;
@@ -24,7 +22,6 @@ const Context = createContext<{
   selectedItemId: "",
   setOpenMenuId: () => {},
   setSelectedItemId: () => {},
-  itemsById: {},
 });
 
 export const useNavigationMenuContext = () => {
@@ -34,7 +31,6 @@ export const useNavigationMenuContext = () => {
     selectedItemId,
     setOpenMenuId,
     setSelectedItemId,
-    itemsById,
   } = useContext(Context);
   return {
     onItemClick,
@@ -42,21 +38,18 @@ export const useNavigationMenuContext = () => {
     selectedItemId,
     setOpenMenuId,
     setSelectedItemId,
-    itemsById,
   };
 };
 
 export type NavigationMenuProviderProps = {
   onItemClick?: (item: BaseItem) => (e: MouseEvent) => void;
-  items: NavigationMenuItem[];
 };
 
 export const NavigationMenuProvider: React.FC<
   {
     children?: ReactNode | undefined;
   } & NavigationMenuProviderProps
-> = ({ children, onItemClick, items }) => {
-  const itemsById = keyBy(items, "id");
+> = ({ children, onItemClick }) => {
   /** @todo Init value based on url pattern */
   const [selectedItemId, setSelectedItemId] = useState("");
   const [openMenuId, setOpenMenuId] = useState("");
@@ -69,7 +62,6 @@ export const NavigationMenuProvider: React.FC<
         openMenuId,
         setOpenMenuId,
         onItemClick,
-        itemsById,
       }}
     >
       {children}

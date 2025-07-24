@@ -658,192 +658,198 @@ export const BackOfficeDrawer: React.FC<Props> = ({
                   </Grid>
                 </Grid>
                 <Grid item>
-                  <Grid
-                    container
-                    alignItems="center"
-                    direction="row"
-                    wrap="nowrap"
-                  >
-                    {permissions?.appbarButtons?.communicationAlerts &&
-                      !!countAlertingCommunication && (
-                        <Grow in>
-                          <Grid item>
-                            <AlertButtonMenu
-                              withCommunicationAlerts
-                              deleteAlert={deleteAlert}
-                              // @ts-expect-error
-                              dialogOpen={messageDialogOpen}
-                              nbAlerting={countAlertingCommunication}
-                              overrideIcon={MessageIcon}
-                              // @ts-expect-error
-                              setDialogOpen={handleMessageNotificationButton}
-                              showMore={fetchMoreAlertingKind}
-                            />
-                          </Grid>
-                        </Grow>
-                      )}
-                    <Hidden xsDown>
-                      <Grid item>
-                        <IconButton onClick={handleGoToInbox}>
-                          <Tooltip title={t('navigation:backofficeMenu.inbox')}>
-                            <Badge
-                              badgeContent={
-                                hasUpsellIdentifier(UPSELL_IDENTIFIER_INBOX)
-                                  ? inboxUnreadAnswersCount
-                                  : 0
-                              }
-                              color="error"
-                              max={99}
+                  {!showRevampedSidebar && (
+                    <Grid
+                      container
+                      alignItems="center"
+                      direction="row"
+                      wrap="nowrap"
+                    >
+                      {permissions?.appbarButtons?.communicationAlerts &&
+                        !!countAlertingCommunication && (
+                          <Grow in>
+                            <Grid item>
+                              <AlertButtonMenu
+                                withCommunicationAlerts
+                                deleteAlert={deleteAlert}
+                                // @ts-expect-error
+                                dialogOpen={messageDialogOpen}
+                                nbAlerting={countAlertingCommunication}
+                                overrideIcon={MessageIcon}
+                                // @ts-expect-error
+                                setDialogOpen={handleMessageNotificationButton}
+                                showMore={fetchMoreAlertingKind}
+                              />
+                            </Grid>
+                          </Grow>
+                        )}
+                      <Hidden xsDown>
+                        <Grid item>
+                          <IconButton onClick={handleGoToInbox}>
+                            <Tooltip
+                              title={t('navigation:backofficeMenu.inbox')}
                             >
-                              <InboxIcon />
-                            </Badge>
-                          </Tooltip>
-                        </IconButton>
-                      </Grid>
-                      {hasUpsellIdentifier(UPSELL_IDENTIFIER_CLOCK_IN) &&
-                        (permissions?.navigationMenu?.payments?.clockIn
-                          ?.selfClockIn ||
-                          permissions?.navigationMenu?.payments?.clockIn
-                            ?.clockInForOther) && (
-                          <Grid item>
-                            <IconButton onClick={openClockInDialog}>
-                              <Tooltip
-                                title={t('navigation:backofficeMenu.clockIn')}
+                              <Badge
+                                badgeContent={
+                                  hasUpsellIdentifier(UPSELL_IDENTIFIER_INBOX)
+                                    ? inboxUnreadAnswersCount
+                                    : 0
+                                }
+                                color="error"
+                                max={99}
                               >
-                                <Badge
-                                  badgeContent={
-                                    isClockIn ? (
-                                      <HourglassEmptyIcon
-                                        className={classes.badgesIcon}
-                                      />
-                                    ) : (
-                                      <PowerSettingsNewIcon
-                                        className={classes.badgesIcon}
-                                      />
-                                    )
-                                  }
-                                  classes={{
-                                    badge: isClockIn ? classes.badgesGreen : '',
-                                  }}
-                                  color={isClockIn ? 'primary' : 'error'}
+                                <InboxIcon />
+                              </Badge>
+                            </Tooltip>
+                          </IconButton>
+                        </Grid>
+                        {hasUpsellIdentifier(UPSELL_IDENTIFIER_CLOCK_IN) &&
+                          (permissions?.navigationMenu?.payments?.clockIn
+                            ?.selfClockIn ||
+                            permissions?.navigationMenu?.payments?.clockIn
+                              ?.clockInForOther) && (
+                            <Grid item>
+                              <IconButton onClick={openClockInDialog}>
+                                <Tooltip
+                                  title={t('navigation:backofficeMenu.clockIn')}
                                 >
-                                  <TimerIcon />
-                                </Badge>
+                                  <Badge
+                                    badgeContent={
+                                      isClockIn ? (
+                                        <HourglassEmptyIcon
+                                          className={classes.badgesIcon}
+                                        />
+                                      ) : (
+                                        <PowerSettingsNewIcon
+                                          className={classes.badgesIcon}
+                                        />
+                                      )
+                                    }
+                                    classes={{
+                                      badge: isClockIn
+                                        ? classes.badgesGreen
+                                        : '',
+                                    }}
+                                    color={isClockIn ? 'primary' : 'error'}
+                                  >
+                                    <TimerIcon />
+                                  </Badge>
+                                </Tooltip>
+                              </IconButton>
+                            </Grid>
+                          )}
+                        {forced_hide && (
+                          <React.Fragment>
+                            <Hidden mdUp>
+                              <Grid item>
+                                <ObjectLevelPermissionWrapper
+                                  forcedBehavior="hidden"
+                                  requiredPermission="member.allowed_actions.search"
+                                >
+                                  <Link to="/search/results">
+                                    <IconButton>
+                                      <Search />
+                                    </IconButton>
+                                  </Link>
+                                </ObjectLevelPermissionWrapper>
+                              </Grid>
+                            </Hidden>
+                            <Grid item>
+                              <IconButton onClick={openCalendar}>
+                                <TodayIcon />
+                              </IconButton>
+                            </Grid>
+                          </React.Fragment>
+                        )}
+                        {permissions?.appbarButtons?.ledger && (
+                          <Grid item>
+                            <IconButton
+                              onClick={() => {
+                                // @ts-expect-error
+                                fetchOnSpotPaymentReport({
+                                  name: t(
+                                    'reporting:categories.on_spot_payments',
+                                  ),
+                                });
+                                setOpenCash(true);
+                                fetchCashBook(theme.company);
+                              }}
+                            >
+                              <Tooltip
+                                title={t(
+                                  'navigation:backofficeMenu.cashBookTooltip',
+                                )}
+                              >
+                                <BusinessCenterIcon />
                               </Tooltip>
                             </IconButton>
                           </Grid>
                         )}
-                      {forced_hide && (
-                        <React.Fragment>
-                          <Hidden mdUp>
-                            <Grid item>
-                              <ObjectLevelPermissionWrapper
-                                forcedBehavior="hidden"
-                                requiredPermission="member.allowed_actions.search"
-                              >
-                                <Link to="/search/results">
-                                  <IconButton>
-                                    <Search />
-                                  </IconButton>
-                                </Link>
-                              </ObjectLevelPermissionWrapper>
-                            </Grid>
-                          </Hidden>
+                        <ObjectLevelPermissionWrapper
+                          forcedBehavior="hidden"
+                          requiredPermission="member.allowed_actions.create"
+                        >
                           <Grid item>
-                            <IconButton onClick={openCalendar}>
-                              <TodayIcon />
+                            <IconButton onClick={openCreateMember}>
+                              <Tooltip
+                                title={t(
+                                  'navigation:backofficeMenu.addMemberTooltip',
+                                )}
+                              >
+                                <PersonAddIcon />
+                              </Tooltip>
                             </IconButton>
                           </Grid>
-                        </React.Fragment>
-                      )}
-                      {permissions?.appbarButtons?.ledger && (
+                        </ObjectLevelPermissionWrapper>
+                      </Hidden>
+                      {permissions?.appbarButtons?.notificationCenter && (
                         <Grid item>
-                          <IconButton
-                            onClick={() => {
-                              // @ts-expect-error
-                              fetchOnSpotPaymentReport({
-                                name: t(
-                                  'reporting:categories.on_spot_payments',
-                                ),
-                              });
-                              setOpenCash(true);
-                              fetchCashBook(theme.company);
-                            }}
-                          >
-                            <Tooltip
-                              title={t(
-                                'navigation:backofficeMenu.cashBookTooltip',
-                              )}
-                            >
-                              <BusinessCenterIcon />
-                            </Tooltip>
-                          </IconButton>
-                        </Grid>
-                      )}
-                      <ObjectLevelPermissionWrapper
-                        forcedBehavior="hidden"
-                        requiredPermission="member.allowed_actions.create"
-                      >
-                        <Grid item>
-                          <IconButton onClick={openCreateMember}>
-                            <Tooltip
-                              title={t(
-                                'navigation:backofficeMenu.addMemberTooltip',
-                              )}
-                            >
-                              <PersonAddIcon />
-                            </Tooltip>
-                          </IconButton>
-                        </Grid>
-                      </ObjectLevelPermissionWrapper>
-                    </Hidden>
-                    {permissions?.appbarButtons?.notificationCenter && (
-                      <Grid item>
-                        <AlertButtonMenu
-                          deleteAlert={deleteAlert}
-                          // @ts-expect-error
-                          dialogOpen={dialogOpen}
-                          nbAlerting={nbAlerting}
-                          // @ts-expect-error
-                          setDialogOpen={handleNotificationButton}
-                          showMore={fetchMoreAlertingKind}
-                        />
-                      </Grid>
-                    )}
-                    <Hidden xsDown>
-                      <Grid item>
-                        {/* @ts-expect-error */}
-                        <IconButton onClick={openIntercomHelp}>
-                          <HelpIcon />
-                        </IconButton>
-                      </Grid>
-                      <ObjectLevelPermissionWrapper
-                        forcedBehavior="hidden"
-                        requiredPermission="member.allowed_actions.search"
-                      >
-                        <Grid item className={classes.searchBar}>
-                          <SearchBar
+                          <AlertButtonMenu
+                            deleteAlert={deleteAlert}
                             // @ts-expect-error
-                            changeLocation
-                            autoFocus={autoFocusMemberSearchBar}
+                            dialogOpen={dialogOpen}
+                            nbAlerting={nbAlerting}
+                            // @ts-expect-error
+                            setDialogOpen={handleNotificationButton}
+                            showMore={fetchMoreAlertingKind}
                           />
                         </Grid>
-                      </ObjectLevelPermissionWrapper>
-
-                      {Config.REACT_APP_SENTRY_ENVIRONMENT === 'production' &&
-                        !WidgetUtils.isWidget() && (
-                          <Grid item>
-                            <FeatureBaseBoardButton />
+                      )}
+                      <Hidden xsDown>
+                        <Grid item>
+                          {/* @ts-expect-error */}
+                          <IconButton onClick={openIntercomHelp}>
+                            <HelpIcon />
+                          </IconButton>
+                        </Grid>
+                        <ObjectLevelPermissionWrapper
+                          forcedBehavior="hidden"
+                          requiredPermission="member.allowed_actions.search"
+                        >
+                          <Grid item className={classes.searchBar}>
+                            <SearchBar
+                              // @ts-expect-error
+                              changeLocation
+                              autoFocus={autoFocusMemberSearchBar}
+                            />
                           </Grid>
-                        )}
+                        </ObjectLevelPermissionWrapper>
 
-                      {renderAdditionalButtons()}
-                    </Hidden>
+                        {Config.REACT_APP_SENTRY_ENVIRONMENT === 'production' &&
+                          !WidgetUtils.isWidget() && (
+                            <Grid item>
+                              <FeatureBaseBoardButton />
+                            </Grid>
+                          )}
 
-                    <Hidden smUp>
-                      <Grid item>{renderContractedMenu(forced_hide)}</Grid>
-                    </Hidden>
-                  </Grid>
+                        {renderAdditionalButtons()}
+                      </Hidden>
+
+                      <Hidden smUp>
+                        <Grid item>{renderContractedMenu(forced_hide)}</Grid>
+                      </Hidden>
+                    </Grid>
+                  )}
                 </Grid>
               </Grid>
             </Toolbar>

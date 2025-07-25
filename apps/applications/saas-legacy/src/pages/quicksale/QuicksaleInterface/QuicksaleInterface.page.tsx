@@ -1,5 +1,5 @@
 import React from 'react';
-import { ConnectedProps, connect } from 'react-redux';
+import { connect, ConnectedProps } from 'react-redux';
 import { compose } from 'recompose';
 import { push as pushAction } from 'connected-react-router';
 import { useTranslation } from 'react-i18next';
@@ -8,11 +8,11 @@ import routerParamsToProps from '#src/hocs/router-params-to-props.hoc';
 import { TranslationProps } from '#src/components/DialogWithBigIcon/DialogWithBigIcon.component';
 
 import {
-  fetchOpenQuicksaleBaskets as fetchOpenQuicksaleBasketsAction,
-  createQuicksaleBasket as createQuicksaleBasketAction,
   addItemToBasket as addItemToBasketAction,
-  removeItemFromBasket as removeItemFromBasketAction,
+  createQuicksaleBasket as createQuicksaleBasketAction,
   dropQuicksaleBasket as dropQuicksaleBasketAction,
+  fetchOpenQuicksaleBaskets as fetchOpenQuicksaleBasketsAction,
+  removeItemFromBasket as removeItemFromBasketAction,
   updateQuicksaleBasketMember as updateQuicksaleBasketMemberAction,
 } from '#src/libs/checkout/actions';
 import { getOpenBasketList } from '#src/libs/checkout/selectors';
@@ -20,20 +20,19 @@ import type { Basket } from '#src/libs/checkout/types';
 
 import { getMemberListData } from '#src/libs/member/selectors';
 import {
+  createOrUpdateMember,
   fetchMemberBulk,
   search,
-  createOrUpdateMember,
 } from '#src/libs/member/actions';
 import type { Member } from '#src/libs/member/types';
 
 import { getSavedPaymentMethodList } from '#src/libs/payment/selectors';
 // import { fetchPaymentMethodList as fetchPaymentMethodListAction } from '#src/libs/payment/actions';
-
 import { retrievePOSMember } from '#src/libs/company/actions';
 
 import {
-  getLoading,
   getActiveSectionList,
+  getLoading,
 } from '#src/libs/quicksale/selectors';
 import { fetchQuicksaleConfiguration as fetchQuicksaleConfigurationAction } from '#src/libs/quicksale/actions';
 import { getQuicksaleCardInfoFromQuicksaleItem } from '#src/libs/quicksale/utils';
@@ -47,16 +46,17 @@ import { _getPrivatePassData } from '#src/libs/private-service/selectors/private
 
 import { getPaymentComboDataDict } from '#src/libs/payment-combo/selectors';
 // import { fetchPaymentComboList as fetchPaymentComboListAction } from '#src/libs/payment-combo/actions';
-
-import { getAllShopItemData } from '#src/libs/shop/selectors';
-import { fetchShopItemAsManager } from '#src/libs/shop/actions/shopitem';
+import { getStandaloneAndBaseShopItemById } from '#src/libs/shop/selectors';
+import {
+  fetchShopItemBaseList as fetchShopItemBaseListAction,
+  fetchShopItemStandaloneList as fetchShopItemStandaloneListAction,
+} from '#src/libs/shop/actions/shopItemReworked';
 
 import {
   getGiftcardBackgroundImageList,
   getGiftcardData,
 } from '#src/libs/giftcard/selectors';
 // import { fetchGiftcardBackgroundImageList as fetchGiftcardBackgroundImageListAction } from '#src/libs/giftcard/actions';
-
 import { getContractsById } from '#src/libs/subscription/selectors';
 // import {
 //   fetchContractList as fetchSubscriptionListAction,
@@ -75,16 +75,15 @@ import { fetchAllEstablishmentBillingGroup as fetchAllEstablishmentBillingGroupA
 
 import { getStripeReaders } from '#src/libs/terminal/selectors';
 // import { fetchStripeReaders as fetchStripeReadersAction } from '#src/libs/terminal/actions';
-
 import {
-  displayBackgroundDialog as displayBackgroundDialogAction,
   deletebackgroundDialog as deletebackgroundDialogAction,
+  displayBackgroundDialog as displayBackgroundDialogAction,
 } from '#src/libs/background-dialog/actions';
 
 import { fetchAllTags as fetchAllTagsAction } from '#src/libs/tag/actions';
 import { getTagsDict } from '#src/libs/tag/selectors';
 
-import type { RootState } from '../../../reducers';
+import type { RootState } from '#src/reducers';
 import QuicksaleInterfaceComponent from './QuicksaleInterface.component';
 import useMemberAuthentication from './hooks/useMemberAuthentication';
 import useAdditionToBasket from './hooks/useAdditionToBasket';
@@ -122,7 +121,8 @@ const QuicksaleInterface: React.FC<Props> = ({
   fetchPOSMember,
   fetchQuicksaleConfiguration,
   // fetchPaymentComboList,
-  fetchShopItemList,
+  fetchShopItemBaseList,
+  fetchShopItemStandaloneList,
   // fetchSubscriptionList,
   addItemToBasket,
   removeItemFromBasket,
@@ -280,12 +280,13 @@ const QuicksaleInterface: React.FC<Props> = ({
       },
     });
     fetchQuicksaleConfiguration();
+    fetchShopItemBaseList();
+    fetchShopItemStandaloneList();
+    // fetchPaymentComboList();
     handleGetDynamicDataForFilters('payment_pack');
     handleGetDynamicDataForFilters('payment_pack_category');
     handleGetDynamicDataForFilters('private_pass');
     handleGetDynamicDataForFilters('private_pass_category');
-    // fetchPaymentComboList();
-    fetchShopItemList();
     handleGetDynamicDataForFilters('subshop');
     handleGetDynamicDataForFilters('giftcard');
     fetchAllTags();
@@ -293,16 +294,17 @@ const QuicksaleInterface: React.FC<Props> = ({
       fetchAllEstablishmentBillingGroup({ params: { company: theme.company } });
     }
   }, [
-    fetchOpenQuicksaleBaskets,
-    fetchMembers,
-    fetchPOSMember,
-    theme,
-    fetchQuicksaleConfiguration,
-    handleGetDynamicDataForFilters,
-    // fetchPaymentComboList,
-    fetchShopItemList,
-    fetchAllTags,
     fetchAllEstablishmentBillingGroup,
+    fetchAllTags,
+    fetchMembers,
+    fetchOpenQuicksaleBaskets,
+    fetchPOSMember,
+    fetchQuicksaleConfiguration,
+    fetchShopItemBaseList,
+    fetchShopItemStandaloneList,
+    handleGetDynamicDataForFilters,
+    theme.company,
+    theme.enable_multi_localization,
   ]);
   // =====================================
 
@@ -568,8 +570,7 @@ const connector = connect(
     paymentPackById: getPaymentPackById(state),
     privatePassById: _getPrivatePassData(state),
     paymentComboById: getPaymentComboDataDict(state),
-    // @ts-expect-error
-    shopItemById: getAllShopItemData(state),
+    shopItemById: getStandaloneAndBaseShopItemById(state),
     giftcardById: getGiftcardData(state),
     // @ts-expect-error
     contractById: getContractsById(state),
@@ -587,8 +588,9 @@ const connector = connect(
     fetchPOSMember: retrievePOSMember,
     fetchQuicksaleConfiguration: fetchQuicksaleConfigurationAction,
     // fetchPaymentComboList: fetchPaymentComboListAction,
-    fetchShopItemList: fetchShopItemAsManager,
     // fetchSubscriptionList: fetchSubscriptionListAction,
+    fetchShopItemBaseList: fetchShopItemBaseListAction,
+    fetchShopItemStandaloneList: fetchShopItemStandaloneListAction,
     addItemToBasket: addItemToBasketAction,
     removeItemFromBasket: removeItemFromBasketAction,
     dropQuicksaleBasket: dropQuicksaleBasketAction,

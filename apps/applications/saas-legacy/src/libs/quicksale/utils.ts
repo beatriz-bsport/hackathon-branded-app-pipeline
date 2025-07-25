@@ -201,6 +201,7 @@ export const getCardInfoFromBuyableItem = (
         outOfStock,
         restricted,
         tax: buyableItem.tva.toString(),
+        // TODO: variant_ids: buyableItem.variant_ids,
       };
     case QuicksaleBasketItem.SubscriptionIdentifier:
       return {

@@ -394,6 +394,30 @@ export const getSubshopList = createSelector(
   },
 );
 
+/**
+ * Retrieves the combined list of all standalone and base shop items for the current company.
+ * Returns an array of shop item objects.
+ */
+export const getStandaloneAndBaseShopItemList = createSelector(
+  [getShopItemStandaloneList, getShopItemBaseList],
+  (shopItemStandaloneList, shopItemBaseList) => {
+    return [...shopItemStandaloneList, ...shopItemBaseList];
+  },
+);
+
+/**
+ * Retrieves a mapping of all standalone and base shop items by their ID.
+ * Returns an object where keys are shop item IDs and values are shop item objects.
+ */
+export const getStandaloneAndBaseShopItemById = createSelector(
+  [getStandaloneAndBaseShopItemList],
+  (shopItemList: ShopItem[]) =>
+    shopItemList.reduce((acc, shopItem) => {
+      acc[shopItem.id] = shopItem;
+      return acc;
+    }, {} as Record<number, ShopItem>),
+);
+
 /** Retrieves the state of subshop template for MA listing */
 export const getSubshopTemplateState = (state: RootState) =>
   state.shopReworked.shopTemplates.subshopTemplate;

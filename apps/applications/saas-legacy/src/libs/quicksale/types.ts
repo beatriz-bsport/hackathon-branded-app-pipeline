@@ -34,6 +34,9 @@ export type QuicksaleCardInfo = {
   outOfStock?: boolean;
   restricted?: boolean;
   tax?: string;
+  lowestVariantPrice?: number | null;
+  numberOfVariants?: number;
+  allVariantsFollowBasePrice?: boolean | null;
 };
 
 type QuicksaleItemsByCategory = {

@@ -1,3 +1,4 @@
+const { title } = require('process');
 const {
   OWNER_ROLE,
   STAFF_ROLE,
@@ -64,6 +65,11 @@ const getTranslations = async () => {
             placeholder: 'Select teachers',
             allOptionsPlaceholder: 'All teachers',
             ifEmptySelectAll: 'Leave empty to select all',
+          },
+          establishmentBillingGroup: {
+            title: 'Associated billing group *',
+            helpText:
+              'A billing group is a way to group multiple locations under a single legal entity for invoicing and billing purposes.',
           },
           accessMonitoring: {
             title: 'Access monitoring',

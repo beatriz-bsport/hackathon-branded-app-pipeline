@@ -34,10 +34,12 @@ import BottomActionsButtonCustom from '#src/components/button/BottomActionsButto
 import {
   fetchAllEstablishmentGroup as fetchAllEstablishmentGroupAction,
   fetchEstablishments as fetchEstablishmentsAction,
+  fetchAllEstablishmentBillingGroup as fetchAllEstablishmentBillingGroupAction,
 } from '#src/libs/establishment/actions';
 import {
   getAvailableEstablishmentList,
   getAssociatedEstablishmentGroup,
+  getEnabledEstablishmentBillingGroups,
 } from '#src/libs/establishment/selectors';
 import { getTheme } from '#src/libs/theme/selectors';
 import { hasUpsell } from '#src/libs/platform-billing/utils';
@@ -79,13 +81,18 @@ export class RoleConfiguration extends React.Component<ConnectedProps, State> {
   componentDidMount() {
     this.props.fetchCompanyUserRoles();
     this.props.fetchAssociatedCoachesList();
+    if (this.props.theme?.enable_multi_localization) {
+      this.props.fetchEstablishmentGroups();
+      this.props.fetchEstablishmentBillingGroups({
+        ...(this.props.theme?.company && {
+          params: { company: this.props.theme.company },
+        }),
+      });
+    }
     if (
       hasUpsell(this.props.featureList, UPSELL_IDENTIFIER_ACCESS_MONITORING)
     ) {
       this.props.fetchEstablishments();
-      if (this.props.theme?.enable_multi_localization) {
-        this.props.fetchEstablishmentGroups();
-      }
     }
   }
 
@@ -94,7 +101,14 @@ export class RoleConfiguration extends React.Component<ConnectedProps, State> {
       return <LinearProgress />;
     }
 
-    const { t, users, roles, classes, hasOwnerPermission } = this.props;
+    const {
+      t,
+      users,
+      roles,
+      classes,
+      hasOwnerPermission,
+      establishmentBillingGroups,
+    } = this.props;
 
     return (
       <div className={classes.container}>
@@ -117,6 +131,7 @@ export class RoleConfiguration extends React.Component<ConnectedProps, State> {
             coachListLoading={this.props.coachListLoading}
             createUserRole={this.props.createStaffUser}
             deleteUserRole={this.props.deleteStaffUser}
+            establishmentBillingGroups={establishmentBillingGroups}
             // @ts-expect-error
             establishmentGroupList={this.props.establishmentGroupList}
             establishmentGroupListLoading={
@@ -239,6 +254,7 @@ const mapStateToProps = (state: RootState) => ({
   establishmentList: getAvailableEstablishmentList(state),
   establishmentGroupListLoading: state.establishment.establishmentGroup.loading,
   establishmentGroupList: getAssociatedEstablishmentGroup(state),
+  establishmentBillingGroups: getEnabledEstablishmentBillingGroups(state),
 });
 
 const mapDispatchToProps = {
@@ -252,6 +268,7 @@ const mapDispatchToProps = {
   fetchAssociatedCoachesList,
   fetchEstablishments: fetchEstablishmentsAction,
   fetchEstablishmentGroups: fetchAllEstablishmentGroupAction,
+  fetchEstablishmentBillingGroups: fetchAllEstablishmentBillingGroupAction,
   updateUserCommission,
 };
 

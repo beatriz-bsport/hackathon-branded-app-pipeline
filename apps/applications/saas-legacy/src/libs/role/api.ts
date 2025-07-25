@@ -35,16 +35,26 @@ export const fetchCompanyUserRoles = async (params?: {
 
 export const updateUserRole = async (
   userId: number,
-  params: { roleId?: number; coaches?: number[]; establishments?: number[] },
+  params: {
+    roleId?: number;
+    coaches?: number[];
+    establishments?: number[];
+    staff_establishment_billing_group?: number | null;
+  },
 ) => {
   if (params.roleId) {
     return patchAuth(`${API_V1_URI}/role/user/${userId}/`, {
       role: params.roleId,
     });
   }
+
   return patchAuth(`${API_V1_URI}/role/user/${userId}/`, {
     coaches_in_role_ids: params.coaches,
     establishments_in_role_ids: params.establishments,
+    ...(!!params.staff_establishment_billing_group && {
+      staff_establishment_billing_group:
+        params.staff_establishment_billing_group,
+    }),
   });
 };
 

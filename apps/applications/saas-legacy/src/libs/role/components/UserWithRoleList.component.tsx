@@ -11,6 +11,7 @@ import { Company } from '#src/libs/company/types';
 import FranchiseCreateStaffUser from '#src/libs/franchise/components/FranchiseCreateStaffUser.component';
 import {
   Establishment,
+  EstablishmentBillingGroup,
   EstablishmentGroup,
 } from '#src/libs/establishment/types';
 import UserWithRoleItem from '#src/libs/role/components/UserWithRoleItem.component';
@@ -50,6 +51,7 @@ type OwnProps = {
     params: { roleId?: number; coaches?: number[]; franchisees?: number[] },
   ) => void;
   users: Array<UserRole<number, FranchiseRole>>;
+  establishmentBillingGroups: EstablishmentBillingGroup[];
 };
 
 type Props = OwnProps &
@@ -79,6 +81,7 @@ export const UserWithRoleList: React.FC<Props> = ({
   updateCommission,
   updateUserRole,
   users,
+  establishmentBillingGroups,
 }) => {
   const [selectedUserRole, setSelectedUserRole] = React.useState<UserRole<
     number,
@@ -182,6 +185,7 @@ export const UserWithRoleList: React.FC<Props> = ({
         <CreateStaffUser
           coachList={coachList}
           coachListLoading={coachListLoading}
+          establishmentBillingGroups={establishmentBillingGroups}
           establishmentGroupList={establishmentGroupList}
           establishmentGroupListLoading={establishmentGroupListLoading}
           establishmentList={establishmentList}
@@ -200,6 +204,7 @@ export const UserWithRoleList: React.FC<Props> = ({
         coachList={coachList}
         coachListLoading={coachListLoading}
         customRole={roles?.find((role_) => role_.id === selectedUserRole?.role)}
+        establishmentBillingGroups={establishmentBillingGroups}
         // @ts-expect-error
         establishmentGroupList={establishmentGroupList}
         establishmentGroupListLoading={establishmentGroupListLoading}

@@ -2,12 +2,15 @@ import { createSelector } from 'reselect';
 import Immutable from 'seamless-immutable';
 import { QuicksaleBasketItem } from '@bsport/common/lib/master-data/buyable-items.js';
 import { getBuyableItem } from '#src/libs/invoice/selectors';
-import shopSelectors, { getAllShopItemData } from '#src/libs/shop/selectors';
+import {
+  getAllShopItemData,
+  getStandaloneAndBaseShopItemList,
+} from '#src/libs/shop/selectors';
 import { getAvailableContractList } from '#src/libs/subscription/selectors';
 import type { Contract } from '#src/libs/subscription/types';
 import {
-  groupByCategory,
   getPaymentPackById,
+  groupByCategory,
 } from '#src/libs/payment-packs/selectors';
 import { getPrivatePassByCategoryWithPasses } from '#src/libs/private-service/selectors/private-pass-category';
 import { getPrivatePassById } from '#src/libs/private-service/selectors/private-pass';
@@ -17,7 +20,7 @@ import {
   QuicksaleObjectsByItemIdentifierByCategory,
   QuicksaleObjectsByItemIdentifierById,
 } from './types';
-import { RootState } from '../../reducers';
+import { RootState } from '#src/reducers';
 
 export const getLoading = (state: RootState) => state.quicksale.loading;
 
@@ -166,7 +169,7 @@ export const getAvailableItemsByItemIdentifierByCategory = createSelector(
         getBuyableItem(state)[QuicksaleBasketItem.PrivatePassIdentifier],
     ),
     getBuyableItem,
-    shopSelectors.getSubShops,
+    getStandaloneAndBaseShopItemList,
     // @ts-expect-error
     getAvailableContractList as () => Contract[],
   ],
@@ -174,7 +177,7 @@ export const getAvailableItemsByItemIdentifierByCategory = createSelector(
     paymentPacksByCategory,
     privatePassByCategory,
     buyableItems,
-    subShops,
+    shopItems,
     contractList,
   ): QuicksaleObjectsByItemIdentifierByCategory => ({
     [QuicksaleBasketItem.PaymentPackIdentifier]: {
@@ -209,11 +212,13 @@ export const getAvailableItemsByItemIdentifierByCategory = createSelector(
     },
     [QuicksaleBasketItem.ShopItemIdentifier]: {
       hasCategories: true,
-      itemsByCategory: Immutable.asMutable(subShops).map((subShop) => ({
-        id: subShop.id,
-        name: subShop.name,
-        items: subShop.shopItems,
-      })),
+      itemsByCategory: [
+        {
+          id: null,
+          name: '',
+          items: shopItems,
+        },
+      ],
     },
     [QuicksaleBasketItem.SubscriptionIdentifier]: {
       hasCategories: false,

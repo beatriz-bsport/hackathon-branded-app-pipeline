@@ -45,8 +45,11 @@ import { getPaymentPackById } from '#src/libs/payment-packs/selectors';
 import { _getPrivatePassData } from '#src/libs/private-service/selectors/private-pass';
 import { getPaymentComboDataDict } from '#src/libs/payment-combo/selectors';
 import { fetchPaymentComboList as fetchPaymentComboListAction } from '#src/libs/payment-combo/actions';
-import { getAllShopItemData } from '#src/libs/shop/selectors';
-import { fetchShopItemAsManager } from '#src/libs/shop/actions/shopitem';
+import { getStandaloneAndBaseShopItemById } from '#src/libs/shop/selectors';
+import {
+  fetchShopItemBaseList as fetchShopItemBaseListAction,
+  fetchShopItemStandaloneList as fetchShopItemStandaloneListAction,
+} from '#src/libs/shop/actions/shopItemReworked';
 import { getGiftcardData } from '#src/libs/giftcard/selectors';
 import { getContractsById } from '#src/libs/subscription/selectors';
 import { fetchContractList as fetchSubscriptionListAction } from '#src/libs/subscription/actions';
@@ -103,7 +106,8 @@ const QuicksaleItemList: React.FC<Props> = (props) => {
     pushRouter,
     handleGetDynamicDataForFilters,
     fetchPaymentComboList,
-    fetchShopItemList,
+    fetchShopItemBaseList,
+    fetchShopItemStandaloneList,
     fetchSubscriptionList,
     loading,
     updateLoading,
@@ -183,7 +187,7 @@ const QuicksaleItemList: React.FC<Props> = (props) => {
 
     const itemListToQuicksaleCardInfoList = (
       currentSection?.items ?? []
-    ).reduce((accumulator, item) => {
+    ).reduce((accumulator: QuicksaleCardInfo[], item) => {
       const buyableItem = getBuyableItemFromIdentifierAndId(
         item.buyable_item_identifier,
         item.object_id,
@@ -416,14 +420,16 @@ const QuicksaleItemList: React.FC<Props> = (props) => {
     handleGetDynamicDataForFilters('private_pass');
     handleGetDynamicDataForFilters('private_pass_category');
     fetchPaymentComboList();
-    fetchShopItemList();
     handleGetDynamicDataForFilters('subshop');
     handleGetDynamicDataForFilters('giftcard');
     fetchSubscriptionList();
+    fetchShopItemBaseList();
+    fetchShopItemStandaloneList();
   }, [
     fetchPaymentComboList,
     fetchQuicksaleConfiguration,
-    fetchShopItemList,
+    fetchShopItemBaseList,
+    fetchShopItemStandaloneList,
     fetchSubscriptionList,
     handleGetDynamicDataForFilters,
   ]);
@@ -440,7 +446,8 @@ const QuicksaleItemList: React.FC<Props> = (props) => {
             buyableItemIdentifier,
           ) as QuicksaleBasketItem,
           object_id: Number(objectId),
-          color: item.color,
+          color: item.color as QuicksaleItemColor,
+          // TODO: variant_ids: item.variant_ids || null,
         };
       },
     );
@@ -643,8 +650,7 @@ const connector = connect(
     paymentPackById: getPaymentPackById(state),
     privatePassById: _getPrivatePassData(state),
     paymentComboById: getPaymentComboDataDict(state),
-    // @ts-expect-error
-    shopItemById: getAllShopItemData(state),
+    shopItemById: getStandaloneAndBaseShopItemById(state),
     giftcardById: getGiftcardData(state),
     // @ts-expect-error
     subscriptionById: getContractsById(state),
@@ -657,8 +663,9 @@ const connector = connect(
     saveConfiguration: updateQuicksaleConfiguration,
     pushRouter: push,
     fetchPaymentComboList: fetchPaymentComboListAction,
-    fetchShopItemList: fetchShopItemAsManager,
     fetchSubscriptionList: fetchSubscriptionListAction,
+    fetchShopItemBaseList: fetchShopItemBaseListAction,
+    fetchShopItemStandaloneList: fetchShopItemStandaloneListAction,
   },
 );
 

@@ -44,6 +44,7 @@ exports.default = {
       credit_plural: 'credits',
       unlimited: 'Unlimited',
     },
+    startingPrice: 'From {{ price }}',
   },
   rolePage: {
     noResult: 'No access created',

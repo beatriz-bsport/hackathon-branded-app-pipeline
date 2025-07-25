@@ -12,6 +12,7 @@ import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
 import useGlobalStyle from '../../globalStyleHook';
 import type { QuicksaleCardInfo } from '../../types';
 import useStyle from './styles';
+import { useTranslation } from 'react-i18next';
 
 const stopPropagation = (e: React.KeyboardEvent) => e.stopPropagation();
 
@@ -37,6 +38,8 @@ const QuicksaleItemCard: React.FC<Props> = (props) => {
     adminView,
     isExcludingTax,
   } = props;
+
+  const { t } = useTranslation('quicksale');
 
   const isMobile = useMediaQuery((theme: Theme) =>
     theme.breakpoints.down('sm'),
@@ -72,6 +75,26 @@ const QuicksaleItemCard: React.FC<Props> = (props) => {
     [item, addToBasket],
   );
 
+  const itemPrice = (() => {
+    const lowestVariantPrice = !!item?.lowestVariantPrice
+      ? item?.lowestVariantPrice?.toFixed(2)
+      : null;
+    const allVariantsHaveSamePrice = item?.allVariantsFollowBasePrice !== false;
+
+    const price = item?.price;
+
+    if (allVariantsHaveSamePrice) {
+      return getCurrencyDisplayWithPrice(
+        price,
+        isExcludingTax,
+        item.tax ?? '0',
+      );
+    }
+    return t('objectCard.startingPrice', {
+      price: getCurrencyDisplayWithPrice(lowestVariantPrice),
+    });
+  })();
+
   return (
     <div
       className={clsx(globalClasses.quicksaleCardContainer, classes.container)}
@@ -92,20 +115,18 @@ const QuicksaleItemCard: React.FC<Props> = (props) => {
             {item.title ?? ''}
           </Typography>
 
-          <Typography className={classes.cardSubtitle} variant="caption">
-            {item.subtitle ?? ''}
-          </Typography>
+          {!!item.numberOfVariants && (
+            <Typography className={classes.cardSubtitle} variant="caption">
+              {item.numberOfVariants}
+            </Typography>
+          )}
         </div>
       </div>
 
       <div className={classes.cardFooter}>
         <div className={classes.priceAndRecurrence}>
           <Typography className={classes.cardPrice} variant="subtitle2">
-            {getCurrencyDisplayWithPrice(
-              (item.price ?? 0).toFixed(2),
-              isExcludingTax,
-              item.tax ?? '0',
-            )}
+            {itemPrice}
           </Typography>
 
           {item.recurrence && (

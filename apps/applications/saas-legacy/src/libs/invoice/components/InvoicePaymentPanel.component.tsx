@@ -130,9 +130,7 @@ const PaymentActions: FC<{
   }
 
   const shouldPaymentPanelActionsBeDisplayed =
-    !props.is_reverse &&
-    !props.invoice.reverse_invoices?.length &&
-    !props.invoice.is_member_pos;
+    !props.is_reverse && !props.invoice.reverse_invoices?.length;
 
   return (
     <React.Fragment>

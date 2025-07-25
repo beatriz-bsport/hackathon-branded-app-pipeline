@@ -74,7 +74,12 @@ export const useTableColumns = ({
             label={t("giftcardTable.tooltips.shared")}
             placement="bottom"
           >
-            <Chip label="Shared" size="lg" type="weak" color="default" />
+            <Chip
+              label={t("giftcardTable.values.shared")}
+              size="lg"
+              type="weak"
+              color="default"
+            />
           </Tooltip>
         )}
         {row.isUnavailable && (
@@ -82,7 +87,12 @@ export const useTableColumns = ({
             label={t("giftcardTable.tooltips.unavailable")}
             placement="bottom"
           >
-            <Chip label="Unavailable" size="lg" type="weak" color="default" />
+            <Chip
+              label={t("giftcardTable.values.unavailable")}
+              size="lg"
+              type="weak"
+              color="default"
+            />
           </Tooltip>
         )}
       </div>

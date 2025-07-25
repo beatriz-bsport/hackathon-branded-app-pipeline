@@ -10,6 +10,7 @@ import { uploadGiftcardImageAction } from "@bsport/store-buyables-giftcard";
 import { useAsync } from "@bsport/use-async";
 
 import { xhr } from "#src/utils/fetch";
+import { useTranslation } from "#src/utils/i18n";
 
 type GiftcardImageUploaderProps = {
   refreshGiftcardImageList: () => void;
@@ -20,6 +21,8 @@ export const GiftcardImageUploader: React.FC<GiftcardImageUploaderProps> = ({
   isEmpty,
   refreshGiftcardImageList,
 }) => {
+  const { t } = useTranslation("common");
+
   const uploadGiftcardImage = async (
     file: File,
     signal: AbortSignal,
@@ -53,6 +56,9 @@ export const GiftcardImageUploader: React.FC<GiftcardImageUploaderProps> = ({
 
   return (
     <FileUpload
+      customTexts={{
+        uploadFileCTA: t("imageUploadModal.uploadButton"),
+      }}
       autoUpload
       inputId={`giftcard-image-uploader-${isEmpty ? "empty-list" : "list"}`}
       inline

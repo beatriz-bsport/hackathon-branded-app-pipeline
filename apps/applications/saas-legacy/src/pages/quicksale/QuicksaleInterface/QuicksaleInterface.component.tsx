@@ -22,6 +22,7 @@ import {
   isNotQuicksaleCardInfoList,
 } from '#src/libs/quicksale/utils';
 import QuicksaleBasketPanel from '#src/libs/quicksale/components/QuicksaleBasketPanel';
+import QuicksaleBreadcrumbs from '#src/libs/quicksale/components/QuicksaleBreadcrumbs';
 import QuicksaleDialogs from '#src/libs/quicksale/components/QuicksaleDialogs.component';
 import type {
   QuicksaleCardInfo,
@@ -301,6 +302,14 @@ const QuicksaleInterface: React.FC<Props> = ({
             />
           </div>
         </div>
+
+        {currentSection && (
+          <QuicksaleBreadcrumbs
+            categoryLabel={currentSection.section_name}
+            homeLabel={t('interface.home')}
+            onHomeClick={goBackToSectionList}
+          />
+        )}
 
         <QuicksaleTileList
           currentSection={currentSection}

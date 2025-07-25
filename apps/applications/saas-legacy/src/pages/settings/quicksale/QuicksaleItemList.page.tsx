@@ -53,6 +53,7 @@ import { fetchContractList as fetchSubscriptionListAction } from '#src/libs/subs
 
 import routerParamsToProps from '#src/hocs/router-params-to-props.hoc';
 import PromptOnPageLeave from '#src/components/Prompt';
+import QuicksaleBreadcrumbs from '#src/libs/quicksale/components/QuicksaleBreadcrumbs';
 import QuicksaleConfigurationItemList, {
   QuicksaleItemListHeader,
 } from '#src/libs/quicksale/components/QuicksaleConfigurationItemList';
@@ -518,6 +519,15 @@ const QuicksaleItemList: React.FC<Props> = (props) => {
               sectionIcon={currentSection?.section_icon ?? ''}
               sectionName={currentSection?.section_name ?? ''}
             />
+            {currentSection && (
+              <div className={localClasses.breadcrumbsContainer}>
+                <QuicksaleBreadcrumbs
+                  categoryLabel={currentSection.section_name}
+                  homeLabel={t('interface.home')}
+                  onHomeClick={onGoBackClick}
+                />
+              </div>
+            )}
             <QuicksaleConfigurationItemList
               deleteItem={onItemDelete}
               itemList={unsavedItemList}
@@ -611,6 +621,10 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     flex: 1,
+    gap: theme.spacing(2),
+  },
+  breadcrumbsContainer: {
+    paddingLeft: theme.spacing(1.5),
   },
 }));
 

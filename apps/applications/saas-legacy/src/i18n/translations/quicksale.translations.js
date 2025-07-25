@@ -102,6 +102,7 @@ exports.default = {
     noResult: 'No result',
     resultsForString: '{{ count }} result for {{ searchText }}',
     resultsForString_plural: '{{ count }} results for {{ searchText }}',
+    home: 'Home',
     goBack: 'Back',
     taxes: 'Taxes',
     totalIncludingTax: 'Total',

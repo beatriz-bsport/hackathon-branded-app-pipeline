@@ -39,6 +39,7 @@ type Props = {
   link?: string;
   className?: string;
   onItemClick?: () => void;
+  compactMode?: boolean;
 };
 
 export type ListItemProps = React.LiHTMLAttributes<HTMLLIElement> &
@@ -187,6 +188,7 @@ const Item: React.FC<ListItemProps> = ({
   chips,
   dropdownConfig,
   onItemClick,
+  compactMode = false,
   ...props
 }) => {
   const { toggleCheckbox, getCheckboxState } = useCheckboxContext();
@@ -208,6 +210,7 @@ const Item: React.FC<ListItemProps> = ({
           className,
           selected: checkboxState === "checked",
           isLink: !!link,
+          compactMode,
         }),
       )}
       onClick={onItemClick}

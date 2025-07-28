@@ -6008,6 +6008,9 @@
                     "default": "Si è verificato un errore durante la generazione della fattura XML"
                 },
                 "success": "Fattura XML generata con successo"
+            },
+            "receipt": {
+                "genericError": "Si è verificato un errore durante la generazione della ricevuta"
             }
         },
         "establishment": {
@@ -6372,7 +6375,8 @@
             "85000": "Una prenotazione è già in corso, attendi qualche istante",
             "85101": "Impossibile prenotare. Questo posto è stato prenotato da un altro membro. Si prega di riprovare scegliendo un altro punto.",
             "generic": "Impossibile di prenotare",
-            "undefined": "La tessera non ti permette più di prenotare quest'anno"
+            "undefined": "La tessera non ti permette più di prenotare quest'anno",
+            "addToBasketError": "Impossibile aggiungere al carrello"
         },
         "establishmentGroup": {
             "create": {
@@ -21580,7 +21584,9 @@
                 "subText": "Il pagamento è stato elaborato. La ricevuta è stata inviata per email.",
                 "sendByEmail": "Invia la ricevuta per email",
                 "subTextPartialPayment": "Il pagamento è stato elaborato e la ricevuta inviata per email. Il resto del pagamento è stato posticipato: può essere effettuato dal Back Office o dal profilo del membro.",
-                "title": "Pagamento accettato"
+                "title": "Pagamento accettato",
+                "description": "Il pagamento è stato elaborato con successo.",
+                "qrCodeTitle": "Scarica la ricevuta"
             },
             "emailSent": {
                 "title": "Email inviata",

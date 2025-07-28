@@ -558,6 +558,7 @@ const connector = connect(
     memberById: getMemberListData(state),
     quicksaleStaffFullName: state.auth.name,
     baskets: getOpenBasketList(state),
+    // @ts-expect-error
     sectionList: getActiveSectionList(state),
     loading:
       getLoading(state) ||

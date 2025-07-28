@@ -470,6 +470,7 @@ const QuicksaleSectionList: React.FC<Props> = ({
 
 const connector = connect(
   (state: RootState) => ({
+    // @ts-expect-error
     sectionList: getSectionList(state),
     loading: getLoading(state),
     updateLoading: getUpdateLoading(state),

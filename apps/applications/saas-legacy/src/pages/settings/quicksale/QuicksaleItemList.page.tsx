@@ -637,6 +637,7 @@ const useStyles = makeStyles((theme) => ({
 
 const connector = connect(
   (state: RootState) => ({
+    // @ts-expect-error
     sectionList: getSectionList(state),
     loading:
       getLoading(state) ||

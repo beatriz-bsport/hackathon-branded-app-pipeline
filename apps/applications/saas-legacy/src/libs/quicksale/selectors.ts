@@ -32,9 +32,16 @@ const _getSectionIds = (state: RootState) => state.quicksale.sections.allIds;
 export const getSectionsById = (state: RootState) =>
   state.quicksale.sections.byId;
 
+// Returns sections list without disabled shop items
 export const getSectionList = createSelector(
-  [_getSectionIds, getSectionsById],
-  (ids, data) => ids.map((id) => data[id]),
+  [_getSectionIds, getSectionsById, getAllShopItemData],
+  (ids, sectionsData, shopItemList) =>
+    ids.map((id) => ({
+      ...sectionsData[id],
+      items: sectionsData[id].items.filter(
+        (item) => item.object_id in shopItemList,
+      ),
+    })),
 );
 
 export const getActiveSectionList = createSelector(

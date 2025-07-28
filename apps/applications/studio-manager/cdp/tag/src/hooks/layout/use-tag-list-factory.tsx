@@ -8,7 +8,7 @@ type Props = {
   handleDeleteTagGroup?: (tagGroup: TagGroup) => void;
   handleCreateTag?: (associatedGroupId?: number) => void;
   handleDeleteTag?: (tag: Tag) => void;
-  handleEditTag?: (tag: Tag) => void;
+  handleClickTag?: (tag: Tag) => void;
 };
 
 export const useTagListFactory = ({
@@ -16,7 +16,7 @@ export const useTagListFactory = ({
   handleDeleteTag,
   handleDeleteTagGroup,
   handleEditTagGroup,
-  handleEditTag,
+  handleClickTag,
 }: Props) => {
   const { t } = useTranslation("tags");
 
@@ -108,7 +108,7 @@ export const useTagListFactory = ({
           },
         ],
         onItemClick: () => {
-          handleEditTag?.(tag);
+          handleClickTag?.(tag);
         },
       };
       return formattedItem;

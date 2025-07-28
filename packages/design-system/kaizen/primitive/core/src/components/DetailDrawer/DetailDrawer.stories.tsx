@@ -73,8 +73,7 @@ import DetailDrawer from "./DetailDrawer";
  * @param {boolean} isOpen - Controls whether the drawer is visible
  * @param {() => void} onClose - Function called when drawer should close
  * @param {ReactNode} [children] - Custom content to render within the drawer
- * @param {() => void} [onPrevious] - Optional function for previous navigation
- * @param {() => void} [onNext] - Optional function for next navigation
+ * @param {[WithTooltip<ButtonProps>, WithTooltip<ButtonProps>]} [actionsConfig] - Custom tupple of 2 actions to add at the end of the Detail Drawer component
  * @param {string} [className] - Additional CSS classes for customization
  *
  * @remarks
@@ -129,8 +128,27 @@ return (
   id="product-drawer"
   isOpen={isDrawerOpen}
   onClose={() => setIsDrawerOpen(false)}
-  onPrevious={() => selectPreviousProduct()}
-  onNext={() => selectNextProduct()}
+  actionsConfig={[{
+    id: "previous-button",
+    label: "Previous",
+    onClick: () => selectPreviousProduct(),
+    iconLeft: "chevron-left",
+    intent: "default"
+    tooltipProps: {
+      label: "Previous Product",
+      placement: "bottom-left",
+    },
+  }, {
+    id: "next-button",
+    label: "Next",
+    onClick: () => selectNextProduct(),
+    iconLeft: "chevron-right",
+    intent: "default"
+    tooltipProps: {
+      label: "Previous Product",
+      placement: "bottom-left",
+    },
+  }]}
 >
   <ProductDetails product={selectedProduct} />
 </DetailDrawer>
@@ -170,8 +188,7 @@ return (
 - **isOpen**: Controls whether the drawer is visible (required)
 - **onClose**: Function called when drawer should close (required)
 - **children**: Custom content to render within the drawer
-- **onPrevious**: Function for previous navigation
-- **onNext**: Function for next navigation
+- **actionsConfig**: Array of action button configurations
 - **className**: Additional CSS classes for customization
 
 ---
@@ -232,19 +249,12 @@ return (
         defaultValue: { summary: "undefined" },
       },
     },
-    onPrevious: {
-      action: "previous",
-      description: "Function called when clicking the previous button",
+    actionsConfig: {
+      description: "Tupple of 2 actions buttons configurations",
       table: {
-        type: { summary: "() => void" },
-        defaultValue: { summary: "undefined" },
-      },
-    },
-    onNext: {
-      action: "next",
-      description: "Function called when clicking the next button",
-      table: {
-        type: { summary: "() => void" },
+        type: {
+          summary: "[WithTooltip<ButtonProps>, WithTooltip<ButtonProps>]",
+        },
         defaultValue: { summary: "undefined" },
       },
     },
@@ -447,8 +457,32 @@ export const WithListIntegration: Story = {
           id="user-detail-drawer"
           isOpen={isDrawerOpen}
           onClose={handleDrawerClose}
-          onPrevious={handleSelectPreviousUser}
-          onNext={handleSelectNextUser}
+          actionsConfig={[
+            {
+              id: "previous-user",
+              onClick: handleSelectPreviousUser,
+              iconLeft: "chevron-left",
+              intent: "default",
+              size: "sm",
+              color: "main",
+              tooltipProps: {
+                label: "Previous User",
+                placement: "bottom-left",
+              },
+            },
+            {
+              id: "next-user",
+              onClick: handleSelectNextUser,
+              iconLeft: "chevron-right",
+              intent: "default",
+              size: "sm",
+              color: "main",
+              tooltipProps: {
+                label: "Next User",
+                placement: "bottom-right",
+              },
+            },
+          ]}
         >
           <h2 className="text-lg font-semibold">
             {selectedUser?.name || "User Details"}

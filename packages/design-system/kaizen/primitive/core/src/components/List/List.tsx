@@ -23,7 +23,6 @@ import Item, { type ListItemProps } from "./Item";
 const defaultClasses = [
   "relative",
   "flex",
-  "min-h-2xl",
   "py-xs",
   "px-md",
   "gap-xs",
@@ -47,11 +46,15 @@ const variants = {
     true: "",
     false: "flex w-full justify-between items-center gap-xs self-stretch",
   },
+  compactMode: {
+    true: ["h-fit"],
+    false: ["min-h-2xl"],
+  },
 } as const;
 
 export const listItem = cva(defaultClasses, {
   variants,
-  defaultVariants: { selected: false },
+  defaultVariants: { selected: false, compactMode: false },
 });
 
 export type ListItemChipsProps = Omit<ChipProps, "dismissible" | "onClick">;
@@ -93,13 +96,16 @@ type ListVariantProps<T extends { id: string }> =
           isSelectable?: boolean;
           selected?: boolean;
           onSelect?: () => void;
+          isCompact?: boolean;
         }
       >;
     };
 
 // ListContentProps combines common props and the variant
 export type ListContentProps<T extends { id: string }> = CommonListProps &
-  ListVariantProps<T>;
+  ListVariantProps<T> & {
+    isCompact?: boolean;
+  };
 
 // ListProps has its own props, and also the common/variant props
 export type ListProps<T extends { id: string } = ListItemProps> =
@@ -110,6 +116,7 @@ export type ListProps<T extends { id: string } = ListItemProps> =
       header?: ListHeaderProps;
       loadingProps?: UseLoadingStateProps;
       collapsibleProps?: Omit<CollapseProps, "children">;
+      isCompact?: boolean;
     };
 /**
  * A flexible list component that can render either default or custom list items.
@@ -196,8 +203,14 @@ const List = <T extends { id: string }>(props: ListProps<T>) => {
 };
 
 const ListContent = <T extends { id: string }>(props: ListContentProps<T>) => {
-  const { isSelectable, emptyStateProps, paginationProps, ListItem, items } =
-    props;
+  const {
+    isSelectable,
+    emptyStateProps,
+    paginationProps,
+    ListItem,
+    items,
+    isCompact,
+  } = props;
   const pagination = usePagination(paginationProps);
   const { shouldRenderEmptyState, EmptyState } = useEmptyState(emptyStateProps);
   const { getCheckboxState, toggleCheckbox } = useCheckboxContext();
@@ -229,7 +242,12 @@ const ListContent = <T extends { id: string }>(props: ListContentProps<T>) => {
   return (
     <>
       {items?.map((item) => (
-        <Item {...item} key={item.id} isSelectable={isSelectable} />
+        <Item
+          {...item}
+          key={item.id}
+          isSelectable={isSelectable}
+          compactMode={isCompact}
+        />
       ))}
       {pagination}
     </>

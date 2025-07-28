@@ -421,6 +421,7 @@ export const ListWithNoPrimaryButtons: Story = {
     collapsibleProps: {
       initiallyOpen: true,
     },
+    isCompact: true,
     header: {
       title: "List with buttons in header title",
       description: "Helpful description",
@@ -902,5 +903,72 @@ export const ListWithButtonDropdownInItems: Story = {
       isEmpty: false,
       emptyConfig: emptyConfig,
     },
+  },
+};
+
+export const CompactListOfAvatar: Story = {
+  name: "Compact List Of Avatar",
+  args: {
+    id: "compact-list-avatar",
+    isCompact: true,
+    items: [
+      {
+        id: "list-item-1",
+        avatar: {
+          alt: "Avatar 1",
+          initials: "A1",
+          shape: "round",
+          size: "sm",
+        },
+        title: "Emma Johnson",
+        buttons: [
+          {
+            id: "plus-compact-1",
+            size: "sm",
+            intent: "flat",
+            color: "default",
+            iconLeft: "plus",
+          },
+        ],
+      },
+      {
+        id: "list-item-1",
+        avatar: {
+          alt: "Avatar 1",
+          initials: "A1",
+          shape: "round",
+          size: "sm",
+        },
+        title: "Lucas Jackson",
+        buttons: [
+          {
+            id: "plus-compact-1",
+            size: "sm",
+            intent: "flat",
+            color: "default",
+            iconLeft: "plus",
+          },
+        ],
+      },
+      {
+        id: "list-item-1",
+        avatar: {
+          alt: "Avatar 1",
+          initials: "A1",
+          shape: "round",
+          size: "sm",
+        },
+        title: "Sophie Miller",
+        buttons: [
+          {
+            id: "plus-compact-1",
+            size: "sm",
+            intent: "flat",
+            color: "default",
+            iconLeft: "plus",
+          },
+        ],
+      },
+    ],
   },
 };

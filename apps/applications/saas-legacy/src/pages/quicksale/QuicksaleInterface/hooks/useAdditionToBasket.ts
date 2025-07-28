@@ -76,6 +76,7 @@ const useAdditionToBasket = (
     setShowUnauthenticatedMemberRestrictionModal,
     setMemberRestrictionSubTexts,
     addItemToBasket,
+    setShowOutOfStockModal,
     currentBasket,
     paymentPackById,
     privatePassById,
@@ -85,6 +86,7 @@ const useAdditionToBasket = (
     giftcardById,
     memberById,
     tagsById,
+    pendingItemToAdd,
   );
 
   const onItemClick = React.useCallback(

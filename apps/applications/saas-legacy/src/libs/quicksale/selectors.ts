@@ -5,6 +5,7 @@ import { getBuyableItem } from '#src/libs/invoice/selectors';
 import {
   getAllShopItemData,
   getStandaloneAndBaseShopItemList,
+  getStandaloneAndBaseShopItemById,
 } from '#src/libs/shop/selectors';
 import { getAvailableContractList } from '#src/libs/subscription/selectors';
 import type { Contract } from '#src/libs/subscription/types';
@@ -34,12 +35,12 @@ export const getSectionsById = (state: RootState) =>
 
 // Returns sections list without disabled shop items
 export const getSectionList = createSelector(
-  [_getSectionIds, getSectionsById, getAllShopItemData],
-  (ids, sectionsData, shopItemList) =>
+  [_getSectionIds, getSectionsById, getStandaloneAndBaseShopItemById],
+  (ids, sectionsData, shopItemsById) =>
     ids.map((id) => ({
       ...sectionsData[id],
       items: sectionsData[id].items.filter(
-        (item) => item.object_id in shopItemList,
+        (item) => item.object_id.toString() in shopItemsById,
       ),
     })),
 );

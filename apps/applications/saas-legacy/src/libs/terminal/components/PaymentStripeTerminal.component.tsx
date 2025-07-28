@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
 import ButtonBase from '@material-ui/core/ButtonBase';
 import Button from '@material-ui/core/Button';
@@ -16,10 +16,10 @@ import StripeTerminalPaymentSuccess from '#src/libs/terminal/components/StripeTe
 import PriceInput from '#src/components/input/PriceInput.component';
 
 import {
+  cancelReaderAction as cancelReaderActionAPI,
   processPaymentIntent as processPaymentIntentAPI,
   processSetupIntent as processSetupIntentPI,
   retrieveReaderActionSumup as retrieveReaderActionSumupAPI,
-  cancelReaderAction as cancelReaderActionAPI,
 } from '#src/libs/terminal/api';
 import type { StripeAPIException } from '#src/libs/payment/types';
 import { parseIntentIdFromClientSecret } from '#src/libs/terminal/utils';
@@ -27,11 +27,10 @@ import { updateIntentToSavePaymentMethod } from '#src/libs/payment/api';
 
 import { STRIPE_ERROR_CODE } from '#src/libs/constants';
 import type {
-  StripeReader,
   CancelReaderActionErrorMessage,
   ReaderActionSumup,
-} from '#src/libs/terminal/types';
-// eslint-disable-next-line no-duplicate-imports
+  StripeReader,
+} from '#src/libs/terminal/types'; // eslint-disable-next-line no-duplicate-imports
 import { TerminalPaymentSteps } from '#src/libs/terminal/types';
 import type { OptionCallback } from '../../../state/types';
 import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
@@ -223,12 +222,9 @@ export const PaymentStripeTerminal: React.FC<Props> = ({
   const classes = useStyles();
   const { t } = useTranslation('invoice');
 
-  const [selectedReader, setSelectedReader] = useState<string | null>(() => {
-    if (stripeReaders && stripeReaders.length === 1) {
-      return stripeReaders[0].id;
-    }
-    return null;
-  });
+  const [selectedReader, setSelectedReader] = useState<string | null>(
+    () => stripeReaders?.[0]?.id ?? null,
+  );
 
   const [clientSecretOverride, setClientSecretOverride] = useState<
     string | null
@@ -262,6 +258,13 @@ export const PaymentStripeTerminal: React.FC<Props> = ({
   useEffect(() => {
     return () => clearTimeout(pollingTimeoutId);
   }, [pollingTimeoutId]);
+
+  // Always auto-select the first reader when returning to SETTINGS step
+  useEffect(() => {
+    if (step !== TerminalPaymentSteps.SETTINGS || selectedReader !== null)
+      return;
+    setSelectedReader(stripeReaders?.[0]?.id);
+  }, [step, stripeReaders, selectedReader]);
 
   const togglePriceUpdaterOpenHandler = useCallback(() => {
     setPriceUpdaterOpen((previousValue) => !previousValue);

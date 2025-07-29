@@ -16385,7 +16385,8 @@
                 "error": {
                     "11000": "Cannot create variant(s) on a product used in a pack",
                     "11001": "Cannot create a pack with variant products"
-                }
+                },
+                "fetchError": "Error while fetching variants"
             }
         },
         "role": {

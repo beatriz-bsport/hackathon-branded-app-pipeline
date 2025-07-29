@@ -383,6 +383,7 @@ const getTranslations = async () => {
           [BASE_OR_VARIANT_SHOP_ITEMS_ARE_NOT_ALLOWED_IN_PAYMENT_COMBO]:
             'Cannot create a pack with variant products',
         },
+        fetchError: 'Error while fetching variants',
       },
     },
     role: {

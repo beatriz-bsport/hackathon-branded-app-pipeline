@@ -56,7 +56,8 @@ const QuicksaleVariantList: React.FC<Props> = ({
         t,
         variant.color,
         currentSectionId,
-        false,
+        (buyableItem.current_stock ?? 0) <= 0 &&
+          (buyableItem.number_of_variants ?? 0) === 0,
         false,
         undefined,
         `${buyableItem.color ?? ''}${

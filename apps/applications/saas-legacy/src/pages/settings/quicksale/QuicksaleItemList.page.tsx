@@ -820,7 +820,9 @@ const useStyles = makeStyles((theme) => ({
 const connector = connect(
   (state: RootState, { variantItemId }: { variantItemId: string }) => ({
     sectionList: getSectionList(state),
-    currentVariantItem: getShopItemBase(state, parseInt(variantItemId, 10)),
+    currentVariantItem: variantItemId
+      ? getShopItemBase(state, parseInt(variantItemId, 10))
+      : null,
     loading:
       getLoading(state) ||
       state.paymentPack.loading ||

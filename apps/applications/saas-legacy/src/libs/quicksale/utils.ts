@@ -127,6 +127,7 @@ export const getCardInfoFromBuyableItem = (
     variant_id: number;
     color: QuicksaleItemColor;
   }>,
+  title?: string,
 ): QuicksaleCardInfo => {
   const id = `${buyableItemIdentifier} ${buyableItem.id}`;
   const itemColor = (color ?? QuicksaleItemColor.Gray) as QuicksaleItemColor;
@@ -197,7 +198,7 @@ export const getCardInfoFromBuyableItem = (
     case QuicksaleBasketItem.ShopItemIdentifier:
       return {
         id,
-        title: buyableItem.name,
+        title: title ?? buyableItem.name,
         subtitle: t('objectCard.subtitle.shopProduct'),
         price: Number(buyableItem.price),
         color: itemColor,

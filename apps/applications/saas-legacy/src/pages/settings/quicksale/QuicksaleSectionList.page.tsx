@@ -330,10 +330,9 @@ const QuicksaleSectionList: React.FC<Props> = ({
   ]);
 
   // ==================== Save configuration ====================
-  const saveQuicksaleConfiguration = React.useCallback(
-    () => saveConfiguration(unsavedSectionList),
-    [saveConfiguration, unsavedSectionList],
-  );
+  const saveQuicksaleConfiguration = React.useCallback(async () => {
+    await saveConfiguration(unsavedSectionList);
+  }, [saveConfiguration, unsavedSectionList]);
 
   return (
     <>

@@ -17,7 +17,7 @@ type Props = {
   leaveWithoutSavingText: string;
   leaveWithSavingText: string;
   onLeaveWithoutSaving?: () => void;
-  onLeaveWithSaving?: () => void;
+  onLeaveWithSaving?: () => Promise<void> | void;
   onCancel?: () => void;
   noFullScreen?: boolean;
   // facultative property, meant to display the modal on page leave, if the data of a given input is 'dirty' (i.e. unsaved).
@@ -64,11 +64,11 @@ const PromptOnPageLeave: React.FC<Props> = ({
     };
   }, [history, openPromptOnPageLeave, isDataClean]);
 
-  const handleSaveAndLeave = React.useCallback(() => {
-    onLeaveWithSaving?.();
+  const handleSaveAndLeave = React.useCallback(async () => {
+    await onLeaveWithSaving?.();
     history.block(() => {});
     history.push(currentPath);
-    forceCloseOnLeave && setShowPrompt(false);
+    if (forceCloseOnLeave) setShowPrompt(false);
   }, [currentPath, forceCloseOnLeave, history, onLeaveWithSaving]);
 
   const handleLeaveWithoutSaving = React.useCallback(() => {

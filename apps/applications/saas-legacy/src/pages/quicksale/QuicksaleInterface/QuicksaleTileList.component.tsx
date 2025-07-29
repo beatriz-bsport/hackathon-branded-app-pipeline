@@ -16,6 +16,8 @@ import type { ShopItem } from '#src/libs/shop/types';
 import MuiIcon from '#src/components/MuiIcon.component';
 
 import useStyles from './hooks/styles';
+import QuicksaleVariantList from '#src/libs/quicksale/components/QuicksaleVariantList/QuicksaleVariantList';
+import { QuicksaleBasketItem } from '@bsport/common/lib/master-data/buyable-items';
 
 type Props = {
   currentSection?: QuicksaleSection;
@@ -48,6 +50,16 @@ const QuicksaleTileList: React.FC<Props> = ({
 }) => {
   const classes = useStyles();
   const { t } = useTranslation('quicksale');
+
+  const currentItemVariantList = React.useMemo(
+    () =>
+      itemCardInfoList?.find(
+        (item) =>
+          item.id ===
+          `${QuicksaleBasketItem.ShopItemIdentifier} ${currentVariantItem?.id}`,
+      )?.variants ?? [],
+    [currentVariantItem?.id, itemCardInfoList],
+  );
 
   if (showResults) {
     return (
@@ -106,9 +118,16 @@ const QuicksaleTileList: React.FC<Props> = ({
     );
   }
 
-  // TODO POS: Implement the variant item view
   if (currentVariantItem) {
-    return <></>;
+    return (
+      <QuicksaleVariantList
+        currentSectionId={currentSection?.section_id ?? ''}
+        currentVariantItemId={currentVariantItem.id}
+        isExcludingTax={isExcludingTax}
+        onItemClick={onItemClick}
+        variantList={currentItemVariantList}
+      />
+    );
   }
 
   if (currentSection) {

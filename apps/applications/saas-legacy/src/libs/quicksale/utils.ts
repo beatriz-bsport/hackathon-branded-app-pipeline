@@ -202,6 +202,9 @@ export const getCardInfoFromBuyableItem = (
         restricted,
         tax: buyableItem.tva.toString(),
         // TODO: variant_ids: buyableItem.variant_ids,
+        lowestVariantPrice: buyableItem?.lowest_variant_price,
+        numberOfVariants: buyableItem?.number_of_variants,
+        allVariantsFollowBasePrice: buyableItem?.all_variants_follow_base_price,
       };
     case QuicksaleBasketItem.SubscriptionIdentifier:
       return {

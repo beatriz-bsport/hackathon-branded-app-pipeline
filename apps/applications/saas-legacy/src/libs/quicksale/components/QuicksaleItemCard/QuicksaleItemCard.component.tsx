@@ -24,9 +24,10 @@ type Props = {
   isExcludingTax: boolean;
   item: QuicksaleCardInfo;
   onVariantItemClick?: (itemId: string) => void;
-  openColorModal?: (itemId: string) => void;
+  openColorModal?: (itemId: string, variantIndex?: number) => void;
   outOfStock: boolean;
   restrictedPurchase: boolean;
+  variantIndex?: number;
 };
 
 const QuicksaleItemCard: React.FC<Props> = ({
@@ -39,6 +40,7 @@ const QuicksaleItemCard: React.FC<Props> = ({
   openColorModal,
   outOfStock,
   restrictedPurchase,
+  variantIndex,
 }) => {
   const { t } = useTranslation('quicksale');
 
@@ -58,9 +60,9 @@ const QuicksaleItemCard: React.FC<Props> = ({
   const openColorModalForCurrentItem = React.useCallback(
     (e: React.MouseEvent) => {
       e.stopPropagation();
-      openColorModal?.(item.id);
+      openColorModal?.(item.id, variantIndex);
     },
-    [item.id, openColorModal],
+    [item.id, openColorModal, variantIndex],
   );
 
   const deleteCurrentItem = React.useCallback(
@@ -160,13 +162,15 @@ const QuicksaleItemCard: React.FC<Props> = ({
         >
           <div className={globalClasses.quicksaleCardColorPickerButton} />
         </IconButton>
-        <IconButton
-          disableRipple
-          className={globalClasses.quicksaleCardAction}
-          onClick={deleteCurrentItem}
-        >
-          <DeleteIcon className={globalClasses.quicksaleCardDeleteIcon} />
-        </IconButton>
+        {!!deleteItem && (
+          <IconButton
+            disableRipple
+            className={globalClasses.quicksaleCardAction}
+            onClick={deleteCurrentItem}
+          >
+            <DeleteIcon className={globalClasses.quicksaleCardDeleteIcon} />
+          </IconButton>
+        )}
       </div>
     </div>
   );

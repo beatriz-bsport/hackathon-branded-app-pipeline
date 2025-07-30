@@ -127,7 +127,9 @@ const QuicksaleItemCard: React.FC<Props> = ({
 
           {!!item.numberOfVariants && (
             <Typography className={classes.cardSubtitle} variant="caption">
-              {item.numberOfVariants}
+              {t('objectCard.numberOfVariants', {
+                count: item.numberOfVariants,
+              })}
             </Typography>
           )}
         </div>

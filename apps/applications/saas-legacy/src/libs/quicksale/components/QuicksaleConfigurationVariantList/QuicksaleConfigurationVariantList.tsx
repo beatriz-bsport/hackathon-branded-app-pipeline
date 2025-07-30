@@ -165,7 +165,6 @@ const QuicksaleConfigurationVariantList: React.FC<Props> = (props) => {
                 style={{
                   maxHeight: autoSizerProps.height,
                   width: autoSizerProps.width,
-                  overflow: 'auto',
                 }}
               >
                 {[...Array(16).keys()].map((index) => (
@@ -187,7 +186,6 @@ const QuicksaleConfigurationVariantList: React.FC<Props> = (props) => {
                   style={{
                     maxHeight: autoSizerProps.height,
                     width: autoSizerProps.width,
-                    overflow: 'auto',
                   }}
                 >
                   {(variantCardsInfo ?? []).map((item, index) => (

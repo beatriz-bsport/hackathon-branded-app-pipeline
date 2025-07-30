@@ -5,71 +5,78 @@ import { connect, ConnectedProps } from 'react-redux';
 import isEqual from 'lodash/isEqual';
 import { push } from 'connected-react-router';
 
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
 import Alert from '@material-ui/lab/Alert';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import DialogContent from '@material-ui/core/DialogContent';
-import IconButton from '@material-ui/core/IconButton';
-import Close from '@material-ui/icons/Close';
+import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import { makeStyles, Theme, useMediaQuery } from '@material-ui/core';
+import Close from '@material-ui/icons/Close';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import IconButton from '@material-ui/core/IconButton';
+import Typography from '@material-ui/core/Typography';
+import { makeStyles, Theme } from '@material-ui/core/styles';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 import { QuicksaleBasketItem } from '@bsport/common/lib/master-data/buyable-items.js';
-import {
-  QuicksaleCardInfo,
-  QuicksaleItem,
-  QuicksaleItemsByItemIdentifierByCategory,
-  QuicksaleSection,
-} from '#src/libs/quicksale/types';
+
+import GenericResponsiveDialog from '#src/components/genericDialog/GenericResponsiveDialog';
+import PromptOnPageLeave from '#src/components/Prompt';
+import withDatatypeDynamicData from '#src/libs/datatype-filtering/dynamic-data-hoc';
+import { DynamicFilterDataType } from '#src/libs/datatype-filtering/types';
+import QuicksaleBreadcrumbs from '#src/libs/quicksale/components/QuicksaleBreadcrumbs';
+import ColorPicker from '#src/libs/quicksale/components/ColorPicker';
+import QuicksaleConfigurationItemList, {
+  QuicksaleItemListHeader,
+} from '#src/libs/quicksale/components/QuicksaleConfigurationItemList';
+import QuicksaleConfigurationVariantList from '#src/libs/quicksale/components/QuicksaleConfigurationVariantList/QuicksaleConfigurationVariantList';
+import QuicksaleItemAdditionDrawer from '#src/libs/quicksale/components/QuicksaleItemAdditionDrawer';
 import { QuicksaleItemColor } from '#src/libs/quicksale/constants';
+import {
+  fetchQuicksaleConfiguration as fetchQuicksaleConfigurationAction,
+  updateQuicksaleConfiguration,
+} from '#src/libs/quicksale/actions';
 import {
   getAvailableItemsByItemIdentifierByCategory,
   getLoading,
   getSectionList,
   getUpdateLoading,
 } from '#src/libs/quicksale/selectors';
-import ColorPicker from '#src/libs/quicksale/components/ColorPicker';
-import {
-  fetchQuicksaleConfiguration as fetchQuicksaleConfigurationAction,
-  updateQuicksaleConfiguration,
-} from '#src/libs/quicksale/actions';
-import GenericResponsiveDialog from '#src/components/genericDialog/GenericResponsiveDialog';
-
 import {
   BuyableItemAndIdentifier,
   getBuyableItemFromIdentifierAndId,
   getCardInfoFromBuyableItem,
 } from '#src/libs/quicksale/utils';
-import { getPaymentPackById } from '#src/libs/payment-packs/selectors';
-import { _getPrivatePassData } from '#src/libs/private-service/selectors/private-pass';
+import {
+  QuicksaleCardInfo,
+  QuicksaleItem,
+  QuicksaleItemsByItemIdentifierByCategory,
+  QuicksaleSection,
+} from '#src/libs/quicksale/types';
+import { getGiftcardData } from '#src/libs/giftcard/selectors';
 import { getPaymentComboDataDict } from '#src/libs/payment-combo/selectors';
 import { fetchPaymentComboList as fetchPaymentComboListAction } from '#src/libs/payment-combo/actions';
-import type { ShopItem } from '#src/libs/shop/types';
-import {
-  getShopItemBase,
-  getStandaloneAndBaseShopItemById,
-} from '#src/libs/shop/selectors';
+import { getPaymentPackById } from '#src/libs/payment-packs/selectors';
+import { fetchContractList as fetchSubscriptionListAction } from '#src/libs/subscription/actions';
+import { getContractsById } from '#src/libs/subscription/selectors';
+import { _getPrivatePassData } from '#src/libs/private-service/selectors/private-pass';
+import { RootState } from '#src/reducers';
 import {
   fetchShopItemBaseList as fetchShopItemBaseListAction,
   fetchShopItemStandaloneList as fetchShopItemStandaloneListAction,
 } from '#src/libs/shop/actions/shopItemReworked';
-import { getGiftcardData } from '#src/libs/giftcard/selectors';
-import { getContractsById } from '#src/libs/subscription/selectors';
-import { fetchContractList as fetchSubscriptionListAction } from '#src/libs/subscription/actions';
-
-import routerParamsToProps from '#src/hocs/router-params-to-props.hoc';
-import PromptOnPageLeave from '#src/components/Prompt';
-import QuicksaleBreadcrumbs from '#src/libs/quicksale/components/QuicksaleBreadcrumbs';
-import QuicksaleConfigurationItemList, {
-  QuicksaleItemListHeader,
-} from '#src/libs/quicksale/components/QuicksaleConfigurationItemList';
-import QuicksaleItemAdditionDrawer from '#src/libs/quicksale/components/QuicksaleItemAdditionDrawer';
-import withDatatypeDynamicData from '#src/libs/datatype-filtering/dynamic-data-hoc';
-import { DynamicFilterDataType } from '#src/libs/datatype-filtering/types';
+import {
+  getShopItemBase,
+  getStandaloneAndBaseShopItemById,
+} from '#src/libs/shop/selectors';
 import useGlobalStyles from './cardListHook';
-import { RootState } from '#src/reducers';
-import QuicksaleConfigurationVariantList from '#src/libs/quicksale/components/QuicksaleConfigurationVariantList/QuicksaleConfigurationVariantList';
+import routerParamsToProps from '#src/hocs/router-params-to-props.hoc';
+
+import type { Contract } from '#src/libs/subscription/types';
+import type { Giftcard } from '#src/libs/giftcard/types';
+import type { PaymentCombo } from '#src/libs/payment-combo/types';
+import type { PaymentPack } from '#src/libs/payment-packs/types';
+import type { PrivatePass } from '#src/libs/private-service/types';
+import type { ShopItem } from '#src/libs/shop/types';
+import type { TFunction } from 'i18next';
 
 type ReducerAction =
   | { type: 'SET_ITEMS' | 'ADD_MANY_ITEMS'; payload: Array<QuicksaleCardInfo> }
@@ -115,6 +122,48 @@ type OwnProps = {
 type Props = OwnProps & ConnectedProps<typeof connector>;
 
 const QuicksaleItemList: React.FC<Props> = (props) => {
+  // TODO: Refactor architecture and move this function into a proper utils file
+  function convertQuicksaleItemsToCardInfoList(
+    items: QuicksaleItem[],
+    paymentPackById: { [key: number]: PaymentPack },
+    privatePassById: { [key: number]: PrivatePass },
+    paymentComboById: { [key: number]: PaymentCombo },
+    shopItemById: { [key: number]: ShopItem },
+    subscriptionById: { [key: number]: Contract },
+    giftcardById: { [key: number]: Giftcard },
+    t: TFunction,
+    sectionId: string,
+  ): QuicksaleCardInfo[] {
+    return items.reduce((accumulator: QuicksaleCardInfo[], item) => {
+      const buyableItem = getBuyableItemFromIdentifierAndId(
+        item.buyable_item_identifier,
+        item.object_id,
+        paymentPackById,
+        privatePassById,
+        paymentComboById,
+        shopItemById,
+        subscriptionById,
+        giftcardById,
+      );
+      if (!buyableItem) return accumulator;
+      return [
+        ...accumulator,
+        getCardInfoFromBuyableItem(
+          {
+            buyableItemIdentifier: item.buyable_item_identifier,
+            buyableItem,
+          } as BuyableItemAndIdentifier,
+          t,
+          item.color,
+          sectionId,
+          false,
+          false,
+          item.variants,
+        ),
+      ];
+    }, []);
+  }
+
   const { t } = useTranslation(['quicksale']);
 
   const classes = useGlobalStyles();
@@ -164,7 +213,9 @@ const QuicksaleItemList: React.FC<Props> = (props) => {
     ): Array<QuicksaleCardInfo> => {
       switch (action.type) {
         case 'SET_ITEMS':
-          return isSaveNeeded ? state : action.payload;
+          if (state.length === 0) return action.payload;
+          if (isSaveNeeded) return state;
+          return action.payload;
         case 'ADD_MANY_ITEMS':
           return Array.from(new Set([...state, ...action.payload]));
         case 'EDIT_ITEM_COLOR':
@@ -258,38 +309,20 @@ const QuicksaleItemList: React.FC<Props> = (props) => {
   React.useEffect(() => {
     availableItemsFromBackendConfig.current = [];
 
-    const itemListToQuicksaleCardInfoList = (
-      currentSection?.items ?? []
-    ).reduce((accumulator: QuicksaleCardInfo[], item) => {
-      const buyableItem = getBuyableItemFromIdentifierAndId(
-        item.buyable_item_identifier,
-        item.object_id,
-        props.paymentPackById,
-        props.privatePassById,
-        props.paymentComboById,
-        props.shopItemById,
-        props.subscriptionById,
-        props.giftcardById,
-      );
-      if (buyableItem === undefined) return accumulator;
+    const items = currentSection?.items ?? [];
+    availableItemsFromBackendConfig.current = items;
 
-      availableItemsFromBackendConfig.current.push(item);
-      return [
-        ...accumulator,
-        getCardInfoFromBuyableItem(
-          {
-            buyableItemIdentifier: item.buyable_item_identifier,
-            buyableItem,
-          } as BuyableItemAndIdentifier,
-          t,
-          item.color,
-          currentSection?.section_id ?? '',
-          false,
-          false,
-          item.variants,
-        ),
-      ];
-    }, []);
+    const itemListToQuicksaleCardInfoList = convertQuicksaleItemsToCardInfoList(
+      items,
+      props.paymentPackById,
+      props.privatePassById,
+      props.paymentComboById,
+      props.shopItemById,
+      props.subscriptionById,
+      props.giftcardById,
+      t,
+      currentSection?.section_id ?? '',
+    );
     dispatch({ type: 'SET_ITEMS', payload: itemListToQuicksaleCardInfoList });
   }, [
     currentSection?.items,
@@ -758,9 +791,25 @@ const QuicksaleItemList: React.FC<Props> = (props) => {
       </GenericResponsiveDialog>
 
       <PromptOnPageLeave
+        forceCloseOnLeave
         description={t('pageLeavePrompt.description')}
         leaveWithoutSavingText={t('pageLeavePrompt.discard')}
         leaveWithSavingText={t('pageLeavePrompt.save')}
+        onLeaveWithoutSaving={() => {
+          const resetList = convertQuicksaleItemsToCardInfoList(
+            availableItemsFromBackendConfig.current ?? [],
+            props.paymentPackById,
+            props.privatePassById,
+            props.paymentComboById,
+            props.shopItemById,
+            props.subscriptionById,
+            props.giftcardById,
+            t,
+            currentSection?.section_id ?? '',
+          );
+          dispatch({ type: 'SET_ITEMS', payload: resetList });
+          setIsSaveNeeded(false);
+        }}
         onLeaveWithSaving={saveQuicksaleConfiguration}
         openPromptOnPageLeave={isSaveNeeded}
         title={t('pageLeavePrompt.title')}

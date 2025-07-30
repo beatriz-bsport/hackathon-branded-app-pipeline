@@ -306,28 +306,27 @@ const QuicksaleItemList: React.FC<Props> = (props) => {
   // Set isSaveNeeded when unsavedItemList changes
   React.useEffect(() => {
     setIsSaveNeeded(
-      unsavedItemList.length > 0 &&
-        !isEqual(
-          // unsavedItemList is a list of QuicksaleCardInfo and need to be
-          // reconverted to a list of QuicksaleItem
-          unsavedItemList.map((item) => {
-            const [buyableItemIdentifier, objectId] = item.id.split(' ');
-            return {
-              buyable_item_identifier: Number(buyableItemIdentifier),
-              object_id: Number(objectId),
-              color: item.color,
-              ...(item.variants?.length
-                ? {
-                    variants: item.variants.map((variant) => ({
-                      variant_id: variant.variant_id,
-                      color: variant.color,
-                    })),
-                  }
-                : {}),
-            };
-          }),
-          availableItemsFromBackendConfig.current ?? [],
-        ),
+      !isEqual(
+        // unsavedItemList is a list of QuicksaleCardInfo and need to be
+        // reconverted to a list of QuicksaleItem
+        unsavedItemList.map((item) => {
+          const [buyableItemIdentifier, objectId] = item.id.split(' ');
+          return {
+            buyable_item_identifier: Number(buyableItemIdentifier),
+            object_id: Number(objectId),
+            color: item.color,
+            ...(item.variants?.length
+              ? {
+                  variants: item.variants.map((variant) => ({
+                    variant_id: variant.variant_id,
+                    color: variant.color,
+                  })),
+                }
+              : {}),
+          };
+        }),
+        availableItemsFromBackendConfig.current ?? [],
+      ),
     );
   }, [unsavedItemList]);
 

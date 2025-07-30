@@ -369,7 +369,8 @@ const getTranslations = async () => {
         'The member will always be registered {{ delayWeek }} weeks in advance of class on {{ dayOfWeek}} at {{hour}}:{{minute}}. They will only be registered if they possess a valid pass.',
       editModal: { success: 'The recurrent booking has been modified' },
       createModal: {
-        success: 'The recurrent booking has been created.',
+        success:
+          'The recurrent booking has been created. Bookings are being created.',
         info: 'Cannot recreate a recurrent booking that already exists',
         create: 'Add a recurrent booking',
       },

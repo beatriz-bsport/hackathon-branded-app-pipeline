@@ -276,8 +276,8 @@
                     "invoice_plural": "Rechnungen"
                 },
                 "month_billing_day": {
-                    "label1": "Rechnung alle",
-                    "label2": "Monate."
+                    "label1": "Rechnungsdatum am",
+                    "label2": "des Monats."
                 },
                 "general_info": {
                     "title": "Allgemeine Informationen"
@@ -9286,16 +9286,16 @@
                 },
                 "anchor_date": {
                     "helperText": "Die Zahlung wird während des Vormittags eingesammelt",
-                    "label": "Erste Sammlung"
+                    "label": "Erste Zahlung der Rate"
                 },
                 "nb_interval": {
                     "label": "Anzahl der Rechnungen"
                 },
                 "actions": {
-                    "close": "Schließen Sie",
-                    "previous": "Vorherige",
+                    "close": "Abbrechen",
+                    "previous": "Zurück",
                     "next": "Weiter",
-                    "submit": "Bestätigen Sie"
+                    "submit": "Bestätigen"
                 },
                 "title": {
                     "payment": "Zahlungsmittel",
@@ -15677,7 +15677,7 @@
             "giftcard": "Gutscheine",
             "programs": "Programme",
             "expenses": "Ausgaben",
-            "instalmentPayment": "Zahlungsmöglichkeiten",
+            "instalmentPayment": "Zahlung in Raten",
             "coachPayroll": "Lohnabrechnung",
             "clockIn": "Stundenstempel",
             "toggle": {
@@ -20798,7 +20798,7 @@
             "fee": "Feste Kosten",
             "feeHelperText": "Gebühren, die vom Mitglied zu zahlen sind, wenn es die Ratenzahlung nutzt, sie werden automatisch zur ersten Zahlung hinzugefügt.",
             "recurrency": {
-                "title": "Rekursion",
+                "title": "Intervall",
                 "week": "Woche",
                 "week_plural": "Wochen",
                 "month": "Monat",

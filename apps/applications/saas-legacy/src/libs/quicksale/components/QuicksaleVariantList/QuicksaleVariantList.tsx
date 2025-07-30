@@ -82,7 +82,6 @@ const QuicksaleVariantList: React.FC<Props> = ({
             style={{
               maxHeight: autoSizerProps.height,
               width: autoSizerProps.width,
-              overflow: 'auto',
             }}
           >
             {loading

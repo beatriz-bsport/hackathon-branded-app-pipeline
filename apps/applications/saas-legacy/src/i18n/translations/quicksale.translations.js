@@ -45,6 +45,8 @@ exports.default = {
       unlimited: 'Unlimited',
     },
     startingPrice: 'From {{ price }}',
+    numberOfVariants: '{{ count }} variant',
+    numberOfVariants_plural: '{{ count }} variants',
   },
   rolePage: {
     noResult: 'No access created',

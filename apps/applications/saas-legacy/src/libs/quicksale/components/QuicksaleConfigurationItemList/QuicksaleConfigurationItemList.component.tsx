@@ -111,7 +111,6 @@ const QuicksaleConfigurationItemList: React.FC<Props> = (props) => {
                 style={{
                   maxHeight: autoSizerProps.height,
                   width: autoSizerProps.width,
-                  overflow: 'auto',
                 }}
               >
                 {[...Array(16).keys()].map((index) => (
@@ -133,7 +132,6 @@ const QuicksaleConfigurationItemList: React.FC<Props> = (props) => {
                   style={{
                     maxHeight: autoSizerProps.height,
                     width: autoSizerProps.width,
-                    overflow: 'auto',
                   }}
                 >
                   {(itemList ?? []).map((item, index) => (

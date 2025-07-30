@@ -65,7 +65,6 @@ type Props = {
     page: number;
     page_size: number;
   }) => void;
-
   companyId: number;
   // eslint-disable-next-line react/no-unused-prop-types
   onSubmit: (

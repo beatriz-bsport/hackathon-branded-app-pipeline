@@ -47,6 +47,7 @@ import type { OptionCallback } from '../../../state/types';
 
 import useStyles from './hooks/styles';
 import QuicksaleTileList from './QuicksaleTileList.component';
+import type { ShopItem } from '#src/libs/shop/types';
 // import GiftcardForm from './GiftcardForm.component';
 
 type Props = {
@@ -61,7 +62,10 @@ type Props = {
   sectionList?: QuicksaleSection[];
   loading?: boolean;
   currentSection?: QuicksaleSection;
-  onSectionClick?: (sectionId: string) => void;
+  currentVariantItem: ShopItem | null;
+  onItemClick: (item: QuicksaleCardInfo) => void;
+  onSectionClick: (sectionId: string) => void;
+  onVariantItemClick: (itemId: string) => void;
   itemCardInfoList?: QuicksaleCardInfo[];
   availableSearchItemsInWholeConfig?: QuicksaleCardInfo[];
   goBackToSectionList?: () => void;
@@ -86,7 +90,6 @@ type Props = {
   // giftcardById: { [key: number]: Giftcard };
   // giftcardBackgroundImageList: GiftcardBackgroundImage[];
   pendingItemToAdd: QuicksaleCardInfo | null;
-  onItemClick: (item: QuicksaleCardInfo) => void;
   showGiftcardFormModal: boolean;
   closeGiftcardFormModal: () => void;
   addToBasket: (checkoutItemData: CheckoutItemData) => void;
@@ -109,7 +112,10 @@ const QuicksaleInterface: React.FC<Props> = ({
   sectionList,
   loading,
   currentSection,
+  currentVariantItem,
+  onItemClick,
   onSectionClick,
+  onVariantItemClick,
   itemCardInfoList,
   availableSearchItemsInWholeConfig,
   goBackToSectionList,
@@ -120,7 +126,6 @@ const QuicksaleInterface: React.FC<Props> = ({
   // giftcardById,
   // giftcardBackgroundImageList,
   // pendingItemToAdd,
-  onItemClick,
   showGiftcardFormModal,
   closeGiftcardFormModal,
   addToBasket,
@@ -305,19 +310,27 @@ const QuicksaleInterface: React.FC<Props> = ({
 
         {currentSection && (
           <QuicksaleBreadcrumbs
-            categoryLabel={currentSection.section_name}
             homeLabel={t('interface.home')}
             onHomeClick={goBackToSectionList}
+            onSectionClick={
+              currentVariantItem
+                ? () => onSectionClick(currentSection.section_id)
+                : undefined
+            }
+            section={currentSection}
+            variantItemLabel={currentVariantItem?.name}
           />
         )}
 
         <QuicksaleTileList
           currentSection={currentSection}
+          currentVariantItem={currentVariantItem}
           isExcludingTax={theme.is_tax_excluded_in_marketplace}
           itemCardInfoList={itemCardInfoList}
           loading={loading}
           onItemClick={onItemClick}
           onSectionClick={onSectionClick}
+          onVariantItemClick={onVariantItemClick}
           searchResults={searchResults}
           searchText={searchText}
           sectionList={sectionList}

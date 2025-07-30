@@ -353,6 +353,15 @@ export const getShopItemBaseAndStandaloneById = createSelector(
   },
 );
 
+/** Retrieves a shop item base by its id */
+export const getShopItemBase = createSelector(
+  [getShopItemBaseById, (_: RootState, id: number) => id],
+  (shopItemBaseById, id) => {
+    if (!id) return null;
+    return shopItemBaseById[id];
+  },
+);
+
 export const getShopItemBaseAndStandaloneList = createSelector(
   [getShopItemBaseAndStandaloneAllIds, getShopItemBaseAndStandaloneById],
   (shopItemBaseAndStandaloneAllIds, shopItemBaseAndStandaloneById) => {

@@ -2,20 +2,23 @@ import React from 'react';
 import Breadcrumbs from '@material-ui/core/Breadcrumbs';
 import Link from '@material-ui/core/Link';
 import Typography from '@material-ui/core/Typography';
+import type { QuicksaleSection } from '#src/libs/quicksale/types';
 import useStyles from './styles';
 
 type Props = {
-  categoryLabel: string;
-  categoryHref?: string;
   homeLabel: string;
   onHomeClick?: () => void;
+  onSectionClick?: (sectionId: string) => void;
+  section: QuicksaleSection;
+  variantItemLabel?: string;
 };
 
 const QuicksaleBreadcrumbs: React.FC<Props> = ({
-  categoryLabel,
-  categoryHref,
   homeLabel,
   onHomeClick,
+  onSectionClick,
+  section,
+  variantItemLabel,
 }) => {
   const classes = useStyles();
 
@@ -24,15 +27,28 @@ const QuicksaleBreadcrumbs: React.FC<Props> = ({
       <Link className={classes.link} color="inherit" onClick={onHomeClick}>
         {homeLabel}
       </Link>
-      {categoryHref ? (
-        <Link className={classes.link} color="inherit" href={categoryHref}>
-          {categoryLabel}
+      {onSectionClick ? (
+        <Link
+          className={classes.link}
+          color="inherit"
+          onClick={
+            onSectionClick
+              ? () => onSectionClick(section.section_id)
+              : undefined
+          }
+        >
+          {section.section_name}
         </Link>
       ) : (
-        <Typography className={classes.categoryLabel} component="span">
-          {categoryLabel}
+        <Typography className={classes.label} component="span">
+          {section.section_name}
         </Typography>
       )}
+      {variantItemLabel ? (
+        <Typography className={classes.label} component="span">
+          {variantItemLabel}
+        </Typography>
+      ) : null}
     </Breadcrumbs>
   );
 };

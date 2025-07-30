@@ -14,6 +14,7 @@ import type {
   ShopSupplier,
   SubShop,
   ShopItemBarcodeUnicity,
+  ShopItemFilterParams,
 } from '#src/libs/shop/types';
 import type { ShopListSubshopFormValues } from '#src/libs/shop/components/ShopListSubshopForm/types';
 import type { BookkeepingAccount } from '#src/libs/payment/types';
@@ -57,7 +58,10 @@ type Props = {
   tagList: Tag<TagGroupAPI>[];
   retrieveShopItemUsedInCombo: (id: number) => void;
   getIsShopItemUsedInCombo: (id: number) => boolean;
-  goToShopItem: (id: number) => void;
+  goToShopItem: (
+    id: number,
+    params: Pick<ShopItemFilterParams, 'establishment_billing_group'>,
+  ) => void;
   createShopItem: (
     values: ShopItemCreate,
     subshopId: number,
@@ -82,6 +86,7 @@ type Props = {
     options?: OptionCallback<ShopItemBarcodeUnicity>,
   ) => void;
   getShopItemBarcodeUnicity: (barcode: string) => boolean;
+  establishmentBillingGroup: number | null;
 };
 
 type ShopItemOption = {
@@ -115,6 +120,7 @@ const ShopReworkedProductList: React.FC<Props> = ({
   bookkeepingAccountById,
   checkBarcodeUnicity,
   getShopItemBarcodeUnicity,
+  establishmentBillingGroup,
 }) => {
   const { t } = useTranslation(['shop', 'translation', 'common']);
 
@@ -169,9 +175,14 @@ const ShopReworkedProductList: React.FC<Props> = ({
 
   const handleGoToShopItem = useCallback(
     (shopItemId: number) => () => {
-      goToShopItem(shopItemId);
+      const params = {
+        ...(establishmentBillingGroup
+          ? { establishment_billing_group: establishmentBillingGroup }
+          : {}),
+      };
+      goToShopItem(shopItemId, params);
     },
-    [goToShopItem],
+    [goToShopItem, establishmentBillingGroup],
   );
 
   const handleOpenShopItemCreationDrawer = useCallback(

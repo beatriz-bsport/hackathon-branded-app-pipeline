@@ -20,6 +20,7 @@ import type {
 } from '#src/libs/shop/types';
 import { ShopItemDetailInventoryFormType } from '#src/libs/shop/constants';
 import type { OptionCallback } from '../../../../state/types';
+import { SelectOption } from '#src/libs/types';
 
 type Props = {
   formType: `${ShopItemDetailInventoryFormType}`;
@@ -30,6 +31,9 @@ type Props = {
     data: ProvisionCreate,
     options?: OptionCallback<Provision>,
   ) => void;
+  changeEstablishmentBillingGroupFilter: (options: SelectOption) => void;
+  establishmentBillingGroupFilterOptionList: SelectOption[];
+  variantEstablishmentBillingGroupFilterOptionValue: SelectOption;
 };
 
 const ShopItemDetailInventoryListMobile: React.FC<Props> = ({
@@ -38,6 +42,9 @@ const ShopItemDetailInventoryListMobile: React.FC<Props> = ({
   shopItemVariantList,
   isUpdatingVariant,
   createShopItemProvision,
+  changeEstablishmentBillingGroupFilter,
+  establishmentBillingGroupFilterOptionList,
+  variantEstablishmentBillingGroupFilterOptionValue,
 }) => {
   const { t } = useTranslation('shop');
 
@@ -53,6 +60,9 @@ const ShopItemDetailInventoryListMobile: React.FC<Props> = ({
     filteredVariantList,
     handleFilterValueChange,
   } = useShopItemDetailInventoryFilters(shopItemVariantList);
+
+  const shouldDisplayEstablishmentBillingGroupFilter =
+    establishmentBillingGroupFilterOptionList.length > 0;
 
   const getListItemTitle = useCallback(
     (color: string, size: string) =>
@@ -77,13 +87,26 @@ const ShopItemDetailInventoryListMobile: React.FC<Props> = ({
     (values: { quantity: number }) => {
       createShopItemProvision(
         {
-          qty: values.quantity,
           shop_item: selectedVariant,
+          qty: values.quantity,
+          ...(shouldDisplayEstablishmentBillingGroupFilter
+            ? {
+                establishment_billing_group: Number(
+                  variantEstablishmentBillingGroupFilterOptionValue.value,
+                ),
+              }
+            : {}),
         },
         { onSuccess: handleCloseProvisionDialog },
       );
     },
-    [createShopItemProvision, handleCloseProvisionDialog, selectedVariant],
+    [
+      createShopItemProvision,
+      handleCloseProvisionDialog,
+      selectedVariant,
+      shouldDisplayEstablishmentBillingGroupFilter,
+      variantEstablishmentBillingGroupFilterOptionValue.value,
+    ],
   );
 
   return (
@@ -96,7 +119,23 @@ const ShopItemDetailInventoryListMobile: React.FC<Props> = ({
             classes.flexGap,
           )}
         >
-          <div className={classes.flexGap}>
+          <div
+            className={clsx(classes.flexGap, {
+              [classes.flexColumn]:
+                shouldDisplayEstablishmentBillingGroupFilter,
+            })}
+          >
+            {shouldDisplayEstablishmentBillingGroupFilter && (
+              <Select
+                className={classes.flexGrow}
+                onChange={changeEstablishmentBillingGroupFilter}
+                options={establishmentBillingGroupFilterOptionList}
+                placeholder={t(
+                  'shopItemDetail.table.inventory.filterPlaceholder.establishmentBillingGroup',
+                )}
+                value={variantEstablishmentBillingGroupFilterOptionValue}
+              />
+            )}
             <Select
               isClearable
               className={classes.flexGrow}
@@ -153,29 +192,42 @@ const ShopItemDetailInventoryListMobile: React.FC<Props> = ({
       )}
 
       {formType === ShopItemDetailInventoryFormType.STANDALONE && (
-        <List className={classes.listContainer}>
-          <ListItem
-            className={clsx(classes.listItemContainer, classes.flexColumn)}
-          >
-            <div className={classes.listItemDetails}>
-              <Typography>{`${t(
-                'shopItemDetail.table.inventory.currentStock',
-              )}: ${shopItem.current_stock}`}</Typography>
-              <Typography>{`${t(
-                'shopItemDetail.table.inventory.totalSales',
-              )}: ${shopItem.total_sales}`}</Typography>
-            </div>
-
-            <Button
-              fullWidth
-              color="primary"
-              onClick={handleOpenProvisionDialog(shopItem.id)}
-              variant="outlined"
+        <>
+          {shouldDisplayEstablishmentBillingGroupFilter && (
+            <Select
+              className={classes.flexGrow}
+              onChange={changeEstablishmentBillingGroupFilter}
+              options={establishmentBillingGroupFilterOptionList}
+              placeholder={t(
+                'shopItemDetail.table.inventory.filterPlaceholder.establishmentBillingGroup',
+              )}
+              value={variantEstablishmentBillingGroupFilterOptionValue}
+            />
+          )}
+          <List className={classes.listContainer}>
+            <ListItem
+              className={clsx(classes.listItemContainer, classes.flexColumn)}
             >
-              {t('shopItemDetail.table.inventory.stockAdjustment')}
-            </Button>
-          </ListItem>
-        </List>
+              <div className={classes.listItemDetails}>
+                <Typography>{`${t(
+                  'shopItemDetail.table.inventory.currentStock',
+                )}: ${shopItem.current_stock}`}</Typography>
+                <Typography>{`${t(
+                  'shopItemDetail.table.inventory.totalSales',
+                )}: ${shopItem.total_sales}`}</Typography>
+              </div>
+
+              <Button
+                fullWidth
+                color="primary"
+                onClick={handleOpenProvisionDialog(shopItem.id)}
+                variant="outlined"
+              >
+                {t('shopItemDetail.table.inventory.stockAdjustment')}
+              </Button>
+            </ListItem>
+          </List>
+        </>
       )}
 
       <ShopItemUpdateProvisionDialog

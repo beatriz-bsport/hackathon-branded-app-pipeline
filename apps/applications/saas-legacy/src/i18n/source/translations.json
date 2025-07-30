@@ -15367,7 +15367,8 @@
                     "filterPlaceholder": {
                         "company": "Select studio",
                         "size": "Select size",
-                        "color": "Select color"
+                        "color": "Select color",
+                        "establishmentBillingGroup": "Select a billing group"
                     },
                     "unsavedChangesModal": {
                         "title": "Unsaved changes",

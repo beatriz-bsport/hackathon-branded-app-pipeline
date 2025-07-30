@@ -188,9 +188,11 @@ export const retrieveShopItemDetailsActions = {
 /**
  * Retrieves a base/standalone item.
  * @param id The ID of the shop item
+ * @param establishment_billing_group Optional establishment billing group to filter variants
  */
 export const retrieveShopItemDetails = (
   id: number,
+  establishment_billing_group?: number | null,
   options?: OptionCallback<ShopItem>,
 ) => {
   return async (dispatch: Dispatch) => {
@@ -198,7 +200,11 @@ export const retrieveShopItemDetails = (
       dispatch(retrieveShopItemDetailsActions.isLoading(true));
       dispatch(retrieveShopItemDetailsActions.error(null));
 
-      const result = await retrieveShopItemDetailsAPI(id);
+      const result = await retrieveShopItemDetailsAPI(id, {
+        ...(!!establishment_billing_group
+          ? { establishment_billing_group }
+          : {}),
+      });
 
       dispatch(retrieveShopItemDetailsActions.success(result.data));
       options?.onSuccess?.(result.data);
@@ -266,6 +272,7 @@ export const fetchShopItemVariantListActions = {
  * @param sizes An optional array of string for filtering
  * @param id__in An optional array of IDs to filter the results
  * @param is_variant An optional boolean to filter only variants
+ * @param establishment_billing_group Optional establishment billing group to filter variants
  * @param options An optional object containing callbacks for success and error handling
  */
 export const fetchShopItemVariantList = ({
@@ -276,6 +283,7 @@ export const fetchShopItemVariantList = ({
   sizes,
   id__in,
   is_variant,
+  establishment_billing_group,
   options,
 }: ShopItemFilterParams & {
   id?: number;
@@ -300,6 +308,9 @@ export const fetchShopItemVariantList = ({
         ...(is_variant ? { is_variant } : {}),
         ...colorFilter,
         ...sizeFilter,
+        ...(!!establishment_billing_group
+          ? { establishment_billing_group }
+          : {}),
       });
 
       dispatch(

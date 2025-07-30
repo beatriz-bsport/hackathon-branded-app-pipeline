@@ -173,6 +173,7 @@ exports.default = {
           company: 'Select studio',
           size: 'Select size',
           color: 'Select color',
+          establishmentBillingGroup: 'Select a billing group',
         },
         unsavedChangesModal: {
           title: 'Unsaved changes',

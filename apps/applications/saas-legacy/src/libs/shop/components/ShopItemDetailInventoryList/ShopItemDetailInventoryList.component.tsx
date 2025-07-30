@@ -28,6 +28,8 @@ type Props = {
   variantSizeFilterOptionValueList: SelectOption[];
   variantColorFilterOptionList: SelectOption[];
   variantColorFilterOptionValueList: SelectOption[];
+  establishmentBillingGroupFilterOptionList: SelectOption[];
+  variantEstablishmentBillingGroupFilterOptionValue: SelectOption;
   handleSubmit: (
     values: ShopItemInventoryBulkUpdateFormValues | ShopItemInventoryFormValues,
     {
@@ -39,6 +41,7 @@ type Props = {
   changeInventoryVariantFilter: (
     type: 'colors' | 'sizes',
   ) => (options: SelectOption[]) => void;
+  changeEstablishmentBillingGroupFilter: (options: SelectOption) => void;
 };
 
 const ShopItemDetailInventoryList: React.FC<Props> = ({
@@ -50,8 +53,11 @@ const ShopItemDetailInventoryList: React.FC<Props> = ({
   variantSizeFilterOptionValueList,
   variantColorFilterOptionList,
   variantColorFilterOptionValueList,
+  establishmentBillingGroupFilterOptionList,
+  variantEstablishmentBillingGroupFilterOptionValue,
   handleSubmit,
   changeInventoryVariantFilter,
+  changeEstablishmentBillingGroupFilter,
 }) => {
   const { t } = useTranslation('shop');
   const classes = useStyles();
@@ -94,11 +100,31 @@ const ShopItemDetailInventoryList: React.FC<Props> = ({
     >
       <>
         {formType === ShopItemDetailInventoryFormType.STANDALONE && (
-          <ShopItemInventoryUpdateForm />
+          <>
+            <Select
+              className={clsx(classes.filterContainer, classes.filterBox)}
+              onChange={changeEstablishmentBillingGroupFilter}
+              options={establishmentBillingGroupFilterOptionList}
+              placeholder={t(
+                'shopItemDetail.table.inventory.filterPlaceholder.establishmentBillingGroup',
+              )}
+              value={variantEstablishmentBillingGroupFilterOptionValue}
+            />
+            <ShopItemInventoryUpdateForm />
+          </>
         )}
         {formType === ShopItemDetailInventoryFormType.VARIANTS && (
           <>
             <div className={clsx(classes.flexGap, classes.filterContainer)}>
+              <Select
+                className={classes.flexGrow}
+                onChange={changeEstablishmentBillingGroupFilter}
+                options={establishmentBillingGroupFilterOptionList}
+                placeholder={t(
+                  'shopItemDetail.table.inventory.filterPlaceholder.establishmentBillingGroup',
+                )}
+                value={variantEstablishmentBillingGroupFilterOptionValue}
+              />
               <Select
                 isClearable
                 isMulti
@@ -143,6 +169,9 @@ const useStyles = makeStyles((theme) => ({
   },
   flexGrow: {
     flex: 1,
+  },
+  filterBox: {
+    width: '50%',
   },
 }));
 

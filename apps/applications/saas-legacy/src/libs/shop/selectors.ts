@@ -6,6 +6,7 @@ import type { SelectOption } from '#src/libs/types';
 import type { State } from '../../state/types';
 import type { RootState } from '../../reducers';
 import type { ShopItem, SubShop } from './types';
+import { getEnabledEstablishmentBillingGroups } from '#src/libs/establishment/selectors';
 
 const _getSubShops = (state: State) => state.shop.subShops;
 
@@ -561,6 +562,20 @@ export const getShopItemVariantFilterOptionList = createSelector(
       colors: uniqBy(colorList, 'value'),
       sizes: uniqBy(sizeList, 'value'),
     };
+  },
+);
+
+export const getEstablishmentBillingGroupFilterOptionList = createSelector(
+  [getEnabledEstablishmentBillingGroups],
+  (establishmentBillingGroups) => {
+    return Immutable.asMutable(
+      (establishmentBillingGroups ?? [])
+        .map((establishmentBillingGroup) => ({
+          label: establishmentBillingGroup?.name,
+          value: establishmentBillingGroup?.id.toString(),
+        }))
+        .filter((option) => !!option.value),
+    );
   },
 );
 

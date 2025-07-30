@@ -261,18 +261,24 @@ export const fetchShopItemVariantListActions = {
  * If there are no variants API will return an empty list
  * @param id The ID of the base item
  * @param page The page to fetch
+ * @param page_size The number of items per page, default is 15
  * @param colors An optional array of string for filtering
  * @param sizes An optional array of string for filtering
+ * @param id__in An optional array of IDs to filter the results
+ * @param is_variant An optional boolean to filter only variants
+ * @param options An optional object containing callbacks for success and error handling
  */
 export const fetchShopItemVariantList = ({
   id,
   page,
+  page_size = SHOP_ITEM_VARIANTS_PAGE_SIZE,
   colors,
   sizes,
+  id__in,
   is_variant,
   options,
 }: ShopItemFilterParams & {
-  id: number;
+  id?: number;
   colors?: string[];
   sizes?: string[];
   options?: OptionCallback<PaginatedResponse<ShopItem>>;
@@ -287,9 +293,10 @@ export const fetchShopItemVariantList = ({
       const sizeFilter = sizes?.length ? { size: sizes.join(',') } : {};
 
       const result = await fetchShopItemListAPI({
-        base_item: id,
-        page_size: SHOP_ITEM_VARIANTS_PAGE_SIZE,
         page,
+        page_size,
+        ...((id && { base_item: id }) || {}),
+        ...((id__in && { id__in }) || {}),
         ...(is_variant ? { is_variant } : {}),
         ...colorFilter,
         ...sizeFilter,

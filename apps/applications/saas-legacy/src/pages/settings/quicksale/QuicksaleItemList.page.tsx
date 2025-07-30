@@ -45,7 +45,11 @@ import { getPaymentPackById } from '#src/libs/payment-packs/selectors';
 import { _getPrivatePassData } from '#src/libs/private-service/selectors/private-pass';
 import { getPaymentComboDataDict } from '#src/libs/payment-combo/selectors';
 import { fetchPaymentComboList as fetchPaymentComboListAction } from '#src/libs/payment-combo/actions';
-import { getStandaloneAndBaseShopItemById } from '#src/libs/shop/selectors';
+import type { ShopItem } from '#src/libs/shop/types';
+import {
+  getShopItemBase,
+  getStandaloneAndBaseShopItemById,
+} from '#src/libs/shop/selectors';
 import {
   fetchShopItemBaseList as fetchShopItemBaseListAction,
   fetchShopItemStandaloneList as fetchShopItemStandaloneListAction,
@@ -85,6 +89,7 @@ type ReducerAction =
     };
 
 type OwnProps = {
+  currentVariantItem?: ShopItem;
   sectionList: Array<QuicksaleSection>;
   sectionId: string;
   handleGetDynamicDataForFilters: (datatype: DynamicFilterDataType) => any[];
@@ -99,6 +104,7 @@ const QuicksaleItemList: React.FC<Props> = (props) => {
   const localClasses = useStyles();
 
   const {
+    currentVariantItem,
     sectionList,
     sectionId,
     fetchQuicksaleConfiguration,
@@ -211,6 +217,9 @@ const QuicksaleItemList: React.FC<Props> = (props) => {
           t,
           item.color,
           currentSection?.section_id ?? '',
+          false,
+          false,
+          item.variants,
         ),
       ];
     }, []);
@@ -240,6 +249,14 @@ const QuicksaleItemList: React.FC<Props> = (props) => {
               buyable_item_identifier: Number(buyableItemIdentifier),
               object_id: Number(objectId),
               color: item.color,
+              ...(item.variants?.length
+                ? {
+                    variants: item.variants.map((variant) => ({
+                      variant_id: variant.variant_id,
+                      color: variant.color,
+                    })),
+                  }
+                : {}),
             };
           }),
           availableItemsFromBackendConfig.current ?? [],
@@ -274,6 +291,12 @@ const QuicksaleItemList: React.FC<Props> = (props) => {
       });
     },
     [],
+  );
+
+  const onVariantItemClick = React.useCallback(
+    (itemId: string) =>
+      pushRouter(`/settings/quicksale/${sectionId}/${itemId}/`),
+    [pushRouter, sectionId],
   );
 
   // ==================== Item addition management ====================
@@ -447,7 +470,12 @@ const QuicksaleItemList: React.FC<Props> = (props) => {
           ) as QuicksaleBasketItem,
           object_id: Number(objectId),
           color: item.color as QuicksaleItemColor,
-          // TODO: variant_ids: item.variant_ids || null,
+          variants: item.variants?.length
+            ? item.variants.map((variant) => ({
+                variant_id: variant.variant_id,
+                color: variant.color,
+              }))
+            : undefined,
         };
       },
     );
@@ -469,6 +497,10 @@ const QuicksaleItemList: React.FC<Props> = (props) => {
   const onGoBackClick = React.useCallback(() => {
     pushRouter('/settings/quicksale');
   }, [pushRouter]);
+  const onSectionClick = React.useCallback(
+    (_sectionId: string) => pushRouter(`/settings/quicksale/${_sectionId}`),
+    [pushRouter],
+  );
 
   return (
     <>
@@ -529,20 +561,32 @@ const QuicksaleItemList: React.FC<Props> = (props) => {
             {currentSection && (
               <div className={localClasses.breadcrumbsContainer}>
                 <QuicksaleBreadcrumbs
-                  categoryLabel={currentSection.section_name}
                   homeLabel={t('interface.home')}
                   onHomeClick={onGoBackClick}
+                  onSectionClick={
+                    currentVariantItem
+                      ? () => onSectionClick(currentSection.section_id)
+                      : undefined
+                  }
+                  section={currentSection}
+                  variantItemLabel={currentVariantItem?.name}
                 />
               </div>
             )}
-            <QuicksaleConfigurationItemList
-              deleteItem={onItemDelete}
-              itemList={unsavedItemList}
-              loading={loading}
-              onItemReorder={onItemReorder}
-              openAddItemDrawer={openItemAdditionDrawer}
-              openColorModal={openColorModal}
-            />
+            {currentVariantItem ? (
+              // TODO POS: Implement the variant item view
+              <></>
+            ) : (
+              <QuicksaleConfigurationItemList
+                deleteItem={onItemDelete}
+                itemList={unsavedItemList}
+                loading={loading}
+                onItemReorder={onItemReorder}
+                onVariantItemClick={onVariantItemClick}
+                openAddItemDrawer={openItemAdditionDrawer}
+                openColorModal={openColorModal}
+              />
+            )}
           </div>
         </div>
       </div>
@@ -636,8 +680,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const connector = connect(
-  (state: RootState) => ({
+  (state: RootState, { variantItemId }: { variantItemId: string }) => ({
     sectionList: getSectionList(state),
+    currentVariantItem: getShopItemBase(state, parseInt(variantItemId, 10)),
     loading:
       getLoading(state) ||
       state.paymentPack.loading ||
@@ -670,7 +715,10 @@ const connector = connect(
 );
 
 export default compose(
-  routerParamsToProps({ sectionId: 'sectionId:string' }),
+  routerParamsToProps({
+    sectionId: 'sectionId:string',
+    variantItemId: 'variantItemId:string',
+  }),
   connector,
   withDatatypeDynamicData,
   React.memo,

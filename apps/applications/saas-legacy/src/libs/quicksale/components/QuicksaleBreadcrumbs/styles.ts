@@ -6,7 +6,7 @@ const useStyles = makeStyles(() => ({
     cursor: 'pointer',
     textDecoration: 'underline',
   },
-  categoryLabel: {
+  label: {
     fontWeight: 'bold',
     color: '#202020',
   },

@@ -12,6 +12,10 @@ export type QuicksaleItem = {
   object_id: number;
   buyable_item_identifier: QuicksaleBasketItem;
   color: QuicksaleItemColor;
+  variants?: Array<{
+    variant_id: number;
+    color: QuicksaleItemColor;
+  }>;
 };
 
 export type QuicksaleSection = {
@@ -37,6 +41,10 @@ export type QuicksaleCardInfo = {
   lowestVariantPrice?: number | null;
   numberOfVariants?: number;
   allVariantsFollowBasePrice?: boolean | null;
+  variants?: Array<{
+    variant_id: number;
+    color: QuicksaleItemColor;
+  }>;
 };
 
 type QuicksaleItemsByCategory = {

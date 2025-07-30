@@ -123,6 +123,10 @@ export const getCardInfoFromBuyableItem = (
   sectionId?: string,
   outOfStock?: boolean,
   restricted?: boolean,
+  variants?: Array<{
+    variant_id: number;
+    color: QuicksaleItemColor;
+  }>,
 ): QuicksaleCardInfo => {
   const id = `${buyableItemIdentifier} ${buyableItem.id}`;
   const itemColor = (color ?? QuicksaleItemColor.Gray) as QuicksaleItemColor;
@@ -201,10 +205,15 @@ export const getCardInfoFromBuyableItem = (
         outOfStock,
         restricted,
         tax: buyableItem.tva.toString(),
-        // TODO: variant_ids: buyableItem.variant_ids,
         lowestVariantPrice: buyableItem?.lowest_variant_price,
         numberOfVariants: buyableItem?.number_of_variants,
         allVariantsFollowBasePrice: buyableItem?.all_variants_follow_base_price,
+        variants: variants?.length
+          ? variants
+          : buyableItem.variant_ids?.map((variantId) => ({
+              variant_id: variantId,
+              color: QuicksaleItemColor.Gray, // Default color, can be customized later
+            })),
       };
     case QuicksaleBasketItem.SubscriptionIdentifier:
       return {
@@ -318,7 +327,8 @@ export const getQuicksaleCardInfoFromQuicksaleItem = (
     item.color,
     section?.section_id ?? '',
     item.buyable_item_identifier === QuicksaleBasketItem.ShopItemIdentifier &&
-      (buyableItem as ShopItem).current_stock <= 0,
+      (buyableItem as ShopItem).current_stock <= 0 &&
+      (buyableItem as ShopItem).number_of_variants === 0,
     (isConcernedByNewMemberRestriction &&
       (unauthenticated || authenticatedMemberIsNotNew)) ||
       (isConcernedByTagsRestriction &&

@@ -9,36 +9,37 @@ import Block from '@material-ui/icons/Block';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import { getCurrencyDisplayWithPrice } from '#src/libs/theme/selectors';
-import useGlobalStyle from '../../globalStyleHook';
-import type { QuicksaleCardInfo } from '../../types';
+import useGlobalStyle from '#src/libs/quicksale/globalStyleHook';
+import type { QuicksaleCardInfo } from '#src/libs/quicksale/types';
+import { QuicksaleItemColor } from '#src/libs/quicksale/constants';
 import useStyle from './styles';
 import { useTranslation } from 'react-i18next';
 
 const stopPropagation = (e: React.KeyboardEvent) => e.stopPropagation();
 
 type Props = {
-  item: QuicksaleCardInfo;
-  openColorModal?: (itemId: string) => void;
-  deleteItem?: (itemId: string) => void;
   addToBasket?: (item: QuicksaleCardInfo) => void;
-  outOfStock?: boolean;
-  restrictedPurchase?: boolean;
   adminView?: boolean;
-  isExcludingTax?: boolean;
+  deleteItem?: (itemId: string) => void;
+  isExcludingTax: boolean;
+  item: QuicksaleCardInfo;
+  onVariantItemClick?: (itemId: string) => void;
+  openColorModal?: (itemId: string) => void;
+  outOfStock: boolean;
+  restrictedPurchase: boolean;
 };
 
-const QuicksaleItemCard: React.FC<Props> = (props) => {
-  const {
-    openColorModal,
-    deleteItem,
-    addToBasket,
-    item,
-    outOfStock,
-    restrictedPurchase,
-    adminView,
-    isExcludingTax,
-  } = props;
-
+const QuicksaleItemCard: React.FC<Props> = ({
+  addToBasket,
+  adminView,
+  deleteItem,
+  isExcludingTax,
+  item,
+  onVariantItemClick,
+  openColorModal,
+  outOfStock,
+  restrictedPurchase,
+}) => {
   const { t } = useTranslation('quicksale');
 
   const isMobile = useMediaQuery((theme: Theme) =>
@@ -46,11 +47,11 @@ const QuicksaleItemCard: React.FC<Props> = (props) => {
   );
 
   const classes = useStyle({
-    color: item.color,
-    admin: adminView,
+    color: item.color || QuicksaleItemColor.Gray,
+    isClickable: !adminView || !!item.variants?.length,
   });
   const globalClasses = useGlobalStyle(isMobile)({
-    color: item.color,
+    color: item.color || QuicksaleItemColor.Gray,
     admin: adminView,
   });
 
@@ -70,10 +71,17 @@ const QuicksaleItemCard: React.FC<Props> = (props) => {
     [item.id, deleteItem],
   );
 
-  const addItemToBasket = React.useCallback(
-    () => addToBasket?.(item),
-    [item, addToBasket],
-  );
+  const onItemCardClick = React.useCallback(() => {
+    if (item.variants?.length) {
+      const idParts = item.id.split(' ');
+      const targetId = idParts.length > 1 ? idParts[1] : idParts[0];
+      if (targetId) {
+        onVariantItemClick?.(`${targetId}`);
+      }
+    } else {
+      addToBasket?.(item);
+    }
+  }, [addToBasket, item, onVariantItemClick]);
 
   const itemPrice = (() => {
     const lowestVariantPrice = !!item?.lowestVariantPrice
@@ -98,7 +106,7 @@ const QuicksaleItemCard: React.FC<Props> = (props) => {
   return (
     <div
       className={clsx(globalClasses.quicksaleCardContainer, classes.container)}
-      onClick={addItemToBasket}
+      onClick={onItemCardClick}
       onKeyDown={stopPropagation}
       role="button"
       tabIndex={0}

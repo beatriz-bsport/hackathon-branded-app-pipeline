@@ -225,6 +225,11 @@ export default handleActions<Immutable.Immutable<ShopStateReworked>, any>(
                 byId: payload.reduce<PayloadReduceType<ShopItem>>(
                   (acc, shopItemBase) => {
                     acc[shopItemBase.id] = shopItemBase;
+                    acc[shopItemBase.id] = {
+                      ...acc[shopItemBase.id],
+                      // TODO POS: Update when backend ready
+                      variant_ids: [1767, 1769, 1766],
+                    };
                     return acc;
                   },
                   {},

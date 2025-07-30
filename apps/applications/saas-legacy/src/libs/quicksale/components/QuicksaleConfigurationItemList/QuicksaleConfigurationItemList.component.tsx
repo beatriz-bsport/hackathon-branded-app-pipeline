@@ -23,6 +23,7 @@ type Props = {
   loading?: boolean;
   isQuicksaleInterfaceView?: boolean;
   onItemClick?: (item: QuicksaleCardInfo) => void;
+  onVariantItemClick: (itemId: string) => void;
   isExcludingTax?: boolean;
   onItemReorder?: (
     draggedItemIndex: number,
@@ -39,6 +40,7 @@ const QuicksaleConfigurationItemList: React.FC<Props> = (props) => {
     loading,
     isQuicksaleInterfaceView,
     onItemClick,
+    onVariantItemClick,
     isExcludingTax,
     onItemReorder,
   } = props;
@@ -207,6 +209,7 @@ const QuicksaleConfigurationItemList: React.FC<Props> = (props) => {
                               deleteItem={deleteItem}
                               isExcludingTax={isExcludingTax}
                               item={item}
+                              onVariantItemClick={onVariantItemClick}
                               openColorModal={openColorModal}
                               outOfStock={item.outOfStock}
                               restrictedPurchase={item.restricted}

@@ -310,6 +310,8 @@ export const fetchShopItemVariantList = ({
       );
       options?.onSuccess?.(result.data);
     } catch (error) {
+      dispatch(snackbarError(`shop.variant.error.fetchError`));
+
       dispatch(fetchShopItemVariantListActions.error(error));
       console.error(error);
       options?.onError?.();

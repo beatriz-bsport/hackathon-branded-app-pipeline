@@ -69,6 +69,7 @@ import withDatatypeDynamicData from '#src/libs/datatype-filtering/dynamic-data-h
 import { DynamicFilterDataType } from '#src/libs/datatype-filtering/types';
 import useGlobalStyles from './cardListHook';
 import { RootState } from '#src/reducers';
+import QuicksaleConfigurationVariantList from '#src/libs/quicksale/components/QuicksaleConfigurationVariantList/QuicksaleConfigurationVariantList';
 
 type ReducerAction =
   | { type: 'SET_ITEMS' | 'ADD_MANY_ITEMS'; payload: Array<QuicksaleCardInfo> }
@@ -86,6 +87,22 @@ type ReducerAction =
   | {
       type: 'REORDER_ITEMS';
       payload: { draggedItemIndex: number; dropzoneIndex: number };
+    }
+  | {
+      type: 'EDIT_VARIANT_COLOR';
+      payload: {
+        itemId: string;
+        variantIndex: number;
+        color: QuicksaleItemColor;
+      };
+    }
+  | {
+      type: 'REORDER_VARIANTS';
+      payload: {
+        itemId: string;
+        draggedVariantIndex: number;
+        dropzoneIndex: number;
+      };
     };
 
 type OwnProps = {
@@ -163,7 +180,6 @@ const QuicksaleItemList: React.FC<Props> = (props) => {
           return state.filter((item) => item.id !== action.payload.itemId);
         case 'REORDER_ITEMS': {
           const { draggedItemIndex, dropzoneIndex } = action.payload;
-
           // Simple array reordering logic
           const newItemList = [...state];
           const [movedItem] = newItemList.splice(draggedItemIndex, 1);
@@ -171,6 +187,47 @@ const QuicksaleItemList: React.FC<Props> = (props) => {
 
           return newItemList;
         }
+        case 'EDIT_VARIANT_COLOR':
+          return state.map((item) => {
+            if (
+              item.id ===
+                `${QuicksaleBasketItem.ShopItemIdentifier} ${action.payload.itemId}` &&
+              item.variants
+            ) {
+              const updatedVariants = [...item.variants];
+              updatedVariants[action.payload.variantIndex] = {
+                ...updatedVariants[action.payload.variantIndex],
+                color: action.payload.color,
+              };
+              return {
+                ...item,
+                variants: updatedVariants,
+              };
+            }
+            return item;
+          });
+        case 'REORDER_VARIANTS':
+          return state.map((item) => {
+            if (
+              item.id ===
+                `${QuicksaleBasketItem.ShopItemIdentifier} ${action.payload.itemId}` &&
+              item.variants
+            ) {
+              const { draggedVariantIndex, dropzoneIndex } = action.payload;
+              const newVariantList = [...item.variants];
+              const [movedVariant] = newVariantList.splice(
+                draggedVariantIndex,
+                1,
+              );
+              newVariantList.splice(dropzoneIndex, 0, movedVariant);
+
+              return {
+                ...item,
+                variants: newVariantList,
+              };
+            }
+            return item;
+          });
 
         default:
           return state;
@@ -180,6 +237,16 @@ const QuicksaleItemList: React.FC<Props> = (props) => {
   );
 
   const [unsavedItemList, dispatch] = React.useReducer(reducer, []);
+
+  const currentItemVariantList = React.useMemo(
+    () =>
+      unsavedItemList.find(
+        (item) =>
+          item.id ===
+          `${QuicksaleBasketItem.ShopItemIdentifier} ${currentVariantItem?.id}`,
+      )?.variants ?? [],
+    [currentVariantItem?.id, unsavedItemList],
+  );
 
   const availableItemsFromBackendConfig = React.useRef<Array<QuicksaleItem>>(
     [],
@@ -299,6 +366,29 @@ const QuicksaleItemList: React.FC<Props> = (props) => {
     [pushRouter, sectionId],
   );
 
+  // ==================== Variant management ====================
+  const onVariantColorChange = React.useCallback(
+    (itemId: string, variantIndex: number, color: QuicksaleItemColor) => {
+      dispatch({
+        type: 'EDIT_VARIANT_COLOR',
+        payload: { itemId, variantIndex, color },
+      });
+    },
+    [],
+  );
+
+  const onVariantReorder = React.useCallback(
+    (itemId: string, draggedVariantIndex: number, dropzoneIndex: number) => {
+      return () => {
+        dispatch({
+          type: 'REORDER_VARIANTS',
+          payload: { itemId, draggedVariantIndex, dropzoneIndex },
+        });
+      };
+    },
+    [],
+  );
+
   // ==================== Item addition management ====================
   const [showItemAdditionDrawer, setShowItemAdditionDrawer] =
     React.useState(false);
@@ -400,27 +490,65 @@ const QuicksaleItemList: React.FC<Props> = (props) => {
   const [itemWhoseColorIsEdited, setItemWhoseColorIsEdited] =
     React.useState('');
 
+  const [variantColorEditInfo, setVariantColorEditInfo] = React.useState<{
+    itemId: string;
+    variantIndex: number;
+  } | null>(null);
+
   const relatedItem = React.useMemo(
     () => unsavedItemList.find((item) => item.id === itemWhoseColorIsEdited),
     [itemWhoseColorIsEdited, unsavedItemList],
   );
+
+  const relatedVariant = React.useMemo(() => {
+    if (!variantColorEditInfo) return null;
+    const targetItem = unsavedItemList.find(
+      (item) =>
+        item.id ===
+        `${QuicksaleBasketItem.ShopItemIdentifier} ${variantColorEditInfo.itemId}`,
+    );
+    return targetItem?.variants?.[variantColorEditInfo.variantIndex] || null;
+  }, [variantColorEditInfo, unsavedItemList]);
 
   const openColorModal = React.useCallback(
     (itemId: string) => setItemWhoseColorIsEdited(itemId),
     [],
   );
 
-  const closeColorModal = React.useCallback(
-    () => setItemWhoseColorIsEdited(''),
+  const openVariantColorModal = React.useCallback(
+    (itemId: string, variantIndex: number) => {
+      setVariantColorEditInfo({ itemId, variantIndex });
+    },
     [],
   );
 
+  const closeColorModal = React.useCallback(() => {
+    setItemWhoseColorIsEdited('');
+    setVariantColorEditInfo(null);
+  }, []);
+
   const onColorSelect = React.useCallback(
     (color: string) => {
-      onItemColorChange(itemWhoseColorIsEdited, color);
+      if (variantColorEditInfo) {
+        // Handle variant color change
+        onVariantColorChange(
+          variantColorEditInfo.itemId,
+          variantColorEditInfo.variantIndex,
+          color as QuicksaleItemColor,
+        );
+      } else {
+        // Handle main item color change
+        onItemColorChange(itemWhoseColorIsEdited, color);
+      }
       closeColorModal();
     },
-    [closeColorModal, itemWhoseColorIsEdited, onItemColorChange],
+    [
+      closeColorModal,
+      itemWhoseColorIsEdited,
+      onItemColorChange,
+      onVariantColorChange,
+      variantColorEditInfo,
+    ],
   );
 
   const availableColors = React.useMemo(
@@ -574,8 +702,14 @@ const QuicksaleItemList: React.FC<Props> = (props) => {
               </div>
             )}
             {currentVariantItem ? (
-              // TODO POS: Implement the variant item view
-              <></>
+              <QuicksaleConfigurationVariantList
+                currentSectionId={currentSection?.section_id ?? ''}
+                currentVariantItemId={currentVariantItem.id}
+                onVariantReorder={onVariantReorder}
+                openColorModal={openColorModal}
+                openVariantColorModal={openVariantColorModal}
+                variantList={currentItemVariantList}
+              />
             ) : (
               <QuicksaleConfigurationItemList
                 deleteItem={onItemDelete}
@@ -594,7 +728,7 @@ const QuicksaleItemList: React.FC<Props> = (props) => {
       <GenericResponsiveDialog
         maxWidth="sm"
         onClose={closeColorModal}
-        open={itemWhoseColorIsEdited !== ''}
+        open={itemWhoseColorIsEdited !== '' || variantColorEditInfo !== null}
       >
         <DialogTitle disableTypography className={classes.colorModalTitle}>
           <Typography variant="h6">
@@ -615,7 +749,11 @@ const QuicksaleItemList: React.FC<Props> = (props) => {
             className={classes.colorPicker}
             colorChoices={availableColors}
             onColorChange={onColorSelect}
-            selectedColor={relatedItem?.color ?? ''}
+            selectedColor={
+              variantColorEditInfo
+                ? relatedVariant?.color ?? ''
+                : relatedItem?.color ?? ''
+            }
           />
         </DialogContent>
       </GenericResponsiveDialog>
@@ -682,7 +820,9 @@ const useStyles = makeStyles((theme) => ({
 const connector = connect(
   (state: RootState, { variantItemId }: { variantItemId: string }) => ({
     sectionList: getSectionList(state),
-    currentVariantItem: getShopItemBase(state, parseInt(variantItemId, 10)),
+    currentVariantItem: variantItemId
+      ? getShopItemBase(state, parseInt(variantItemId, 10))
+      : null,
     loading:
       getLoading(state) ||
       state.paymentPack.loading ||

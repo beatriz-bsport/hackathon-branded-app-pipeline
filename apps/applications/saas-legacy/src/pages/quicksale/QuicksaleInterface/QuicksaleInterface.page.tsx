@@ -584,7 +584,9 @@ const connector = connect(
     quicksaleStaffFullName: state.auth.name,
     baskets: getOpenBasketList(state),
     sectionList: getActiveSectionList(state),
-    currentVariantItem: getShopItemBase(state, parseInt(variantItemId, 10)),
+    currentVariantItem: variantItemId
+      ? getShopItemBase(state, parseInt(variantItemId, 10))
+      : null,
     loading:
       getLoading(state) ||
       // state.paymentPack.loading ||

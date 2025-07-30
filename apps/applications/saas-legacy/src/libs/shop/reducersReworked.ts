@@ -392,6 +392,19 @@ export default handleActions<Immutable.Immutable<ShopStateReworked>, any>(
       },
     ) => {
       const { next_page, count, page, results } = payload.data;
+      // IMPORTANT : Related to quicksale only. We don't perform a paginated call and therefore the payload doesn't include next_page, count, page, results
+      if (!next_page && !count && !page && !results) {
+        return state.setIn(
+          [
+            'shopItemReworked',
+            'itemVariant',
+            'byBaseItemId',
+            `${payload.baseItemId}`,
+            'variants',
+          ],
+          payload.data,
+        );
+      }
       return state
         .setIn(
           [

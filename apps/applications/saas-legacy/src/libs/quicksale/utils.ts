@@ -127,6 +127,7 @@ export const getCardInfoFromBuyableItem = (
     variant_id: number;
     color: QuicksaleItemColor;
   }>,
+  title?: string,
 ): QuicksaleCardInfo => {
   const id = `${buyableItemIdentifier} ${buyableItem.id}`;
   const itemColor = (color ?? QuicksaleItemColor.Gray) as QuicksaleItemColor;
@@ -197,7 +198,7 @@ export const getCardInfoFromBuyableItem = (
     case QuicksaleBasketItem.ShopItemIdentifier:
       return {
         id,
-        title: buyableItem.name,
+        title: title ?? buyableItem.name,
         subtitle: t('objectCard.subtitle.shopProduct'),
         price: Number(buyableItem.price),
         color: itemColor,
@@ -318,6 +319,22 @@ export const getQuicksaleCardInfoFromQuicksaleItem = (
     (buyableItem as PaymentPack).blacklist_tags?.includes(tagId),
   );
 
+  const shopItemVariants =
+    item.buyable_item_identifier === QuicksaleBasketItem.ShopItemIdentifier &&
+    Array.isArray(item.variants) &&
+    Array.isArray((buyableItem as ShopItem).variant_ids)
+      ? (buyableItem as ShopItem).variant_ids?.map((variant_id) => {
+          const matched = item.variants?.find(
+            (v) => v.variant_id === variant_id,
+          );
+          return {
+            variant_id,
+            color:
+              (matched?.color as QuicksaleItemColor) ?? QuicksaleItemColor.Gray,
+          };
+        })
+      : undefined;
+
   return getCardInfoFromBuyableItem(
     {
       buyableItemIdentifier: item.buyable_item_identifier,
@@ -327,7 +344,7 @@ export const getQuicksaleCardInfoFromQuicksaleItem = (
     item.color,
     section?.section_id ?? '',
     item.buyable_item_identifier === QuicksaleBasketItem.ShopItemIdentifier &&
-      (buyableItem as ShopItem).current_stock <= 0 &&
+      ((buyableItem as ShopItem).current_stock ?? 0) <= 0 &&
       (buyableItem as ShopItem).number_of_variants === 0,
     (isConcernedByNewMemberRestriction &&
       (unauthenticated || authenticatedMemberIsNotNew)) ||
@@ -335,6 +352,7 @@ export const getQuicksaleCardInfoFromQuicksaleItem = (
         (unauthenticated ||
           authenticatedMemberIsMissingRequiredTag ||
           authenticatedMemberHasForbiddenTag)),
+    shopItemVariants,
   );
 };
 

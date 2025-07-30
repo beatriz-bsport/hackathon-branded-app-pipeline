@@ -565,7 +565,7 @@
                 "success": "The recurrent booking has been modified"
             },
             "createModal": {
-                "success": "The recurrent booking has been created.",
+                "success": "The recurrent booking has been created. Bookings are being created.",
                 "info": "Cannot recreate a recurrent booking that already exists",
                 "create": "Add a recurrent booking"
             },

@@ -1,13 +1,27 @@
 import React, { useEffect, useId, useRef, useState } from "react";
 
-import { Button, Modal, TextField } from "@bsport/kaizen-primitive-core";
+import {
+  Button,
+  List,
+  Modal,
+  Popover,
+  TextField,
+} from "@bsport/kaizen-primitive-core";
+import {
+  selectSearchedMembers,
+  useMemberStore,
+} from "@bsport/store-core-data-member";
 import { useDebounce } from "@bsport/use-debounce";
 
 import { LEGACY_URLS } from "#src/urls";
 import { useTranslation } from "#src/utils/i18n";
 
 import { SearchMemberList } from "./SearchMemberList";
+import { SearchMemberListItem } from "./SearchMemberListItem";
+import type { ListItemProps } from "./constants";
 import { useFetchTags } from "./useFetchTags";
+import { useFormatMembers } from "./useFormatMembers";
+import { useListItemTranslations } from "./useListItemTranslations";
 
 type SearchMemberModalProps = {
   isOpen: boolean;
@@ -58,6 +72,22 @@ export const SearchMemberModal: React.FC<SearchMemberModalProps> = ({
 
   const { tagsMap } = useFetchTags();
 
+  const searchedMembers = useMemberStore(selectSearchedMembers);
+  const formattedSearchedMembers = useFormatMembers({
+    members: searchedMembers,
+    reverse: true,
+  });
+  const listItemTranslations = useListItemTranslations();
+
+  const textFieldId = useId();
+
+  const navigateInLegacy = navigate
+    ? (to: string) => {
+        handleClose();
+        navigate?.(to);
+      }
+    : undefined;
+
   return (
     <Modal
       size="lg"
@@ -67,20 +97,52 @@ export const SearchMemberModal: React.FC<SearchMemberModalProps> = ({
     >
       <>
         <div className="flex flex-row items-stretch gap-xs">
-          <TextField
-            id={useId()}
-            type="search"
-            iconLeft="search-refraction"
-            autoFocus
-            fullWidth
-            value={input}
-            inputRef={inputRef}
-            onChange={(e) => setInput(e.target.value)}
-            onClear={() => setInput("")}
-            containerProps={{
-              className: "flex-1",
-            }}
-          />
+          <Popover className="flex-1">
+            <Popover.Anchor>
+              {({ setIsPopoverOpened }) => (
+                <TextField
+                  id={textFieldId}
+                  type="search"
+                  iconLeft="search-refraction"
+                  autoFocus
+                  fullWidth
+                  value={input}
+                  inputRef={inputRef}
+                  onChange={(e) => {
+                    setIsPopoverOpened(false); // Hide the history to not clutter the search
+                    setInput(e.target.value);
+                  }}
+                  onClear={() => setInput("")}
+                  containerProps={{
+                    className: "flex-1",
+                  }}
+                  onClick={() => {
+                    if (searchedMembers.length > 0) {
+                      setIsPopoverOpened(true);
+                    }
+                  }}
+                />
+              )}
+            </Popover.Anchor>
+            <Popover.Content
+              placement="bottom-left"
+              className="w-[968px] max-h-[380px] overflow-y-scroll"
+            >
+              {() => (
+                <List<ListItemProps>
+                  id="searched-members-history-list"
+                  ListItem={SearchMemberListItem}
+                  items={formattedSearchedMembers.map((member) => ({
+                    ...member,
+                    navigate: navigateInLegacy,
+                    ...listItemTranslations,
+                    tagsMap,
+                  }))}
+                  isCompact
+                />
+              )}
+            </Popover.Content>
+          </Popover>
           {input.length === 0 && (
             <Button
               iconLeft="plus"
@@ -94,14 +156,7 @@ export const SearchMemberModal: React.FC<SearchMemberModalProps> = ({
         </div>
         <SearchMemberList
           searchInput={debouncedInput}
-          navigate={
-            navigate
-              ? (to: string) => {
-                  handleClose();
-                  navigate?.(to);
-                }
-              : undefined
-          }
+          navigate={navigateInLegacy}
           tagsMap={tagsMap}
         />
       </>

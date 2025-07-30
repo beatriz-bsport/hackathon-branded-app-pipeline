@@ -61,6 +61,24 @@ export const setSearchMembers = ({
   });
 };
 
+export const setSearchHistory = (searchedMember: Member) => {
+  memberStore.setState((state) => {
+    if (
+      state.search.history
+        .map((member) => member.id)
+        .includes(searchedMember.id)
+    ) {
+      return state;
+    }
+    return {
+      search: {
+        ...state.search,
+        history: [...state.search.history, searchedMember],
+      },
+    };
+  });
+};
+
 export const updateMemberTag = ({
   memberId,
   tagId,

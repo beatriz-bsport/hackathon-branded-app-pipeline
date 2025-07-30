@@ -1,6 +1,9 @@
 import { useMemo } from "react";
 
-import { Member } from "@bsport/store-core-data-member";
+import {
+  type Member,
+  addMemberToSearchHistoryAction,
+} from "@bsport/store-core-data-member";
 
 import type { FormattedMember } from "./constants";
 
@@ -9,7 +12,7 @@ import type { FormattedMember } from "./constants";
  * @param member Source member to extract data from
  * @returns The formatted data
  */
-const formatMember = (member: Partial<Member>): FormattedMember => {
+const formatMember = (member: Member): FormattedMember => {
   const name = member.name ?? `${member.first_name} ${member.last_name}`;
   return {
     id: String(member.id),
@@ -23,11 +26,19 @@ const formatMember = (member: Partial<Member>): FormattedMember => {
     email: member.email,
     phone: member.phone,
     tags: member.tags ?? [],
+    onClick: () => addMemberToSearchHistoryAction(member),
   };
 };
 
-export const useFormatMembers = (members: Member[]) => {
+export const useFormatMembers = ({
+  members,
+  reverse = false,
+}: {
+  members: Member[];
+  reverse?: boolean;
+}) => {
   return useMemo(() => {
-    return members.map(formatMember);
-  }, [members]);
+    const formattedList = members.map(formatMember);
+    return reverse ? formattedList.reverse() : formattedList;
+  }, [members, reverse]);
 };
